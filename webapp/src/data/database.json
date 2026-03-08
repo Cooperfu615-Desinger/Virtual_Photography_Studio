@@ -1,0 +1,1371 @@
+{
+  "Regional": {
+    "區域攝影風格": [
+      {
+        "zh": "Taiwan (台灣)",
+        "en": "**Taiwan style",
+        "desc": "暖色調基底、稍微降低飽和度的綠色、底片顆粒感、懷舊風"
+      },
+      {
+        "zh": "Japan (日本)",
+        "en": "**Japan style",
+        "desc": "低對比度、陰影處帶有青色/藍色調、明亮的高光、空氣感 (透明感)"
+      },
+      {
+        "zh": "Korea (韓國)",
+        "en": "**Korea style",
+        "desc": "高對比但控制良好的飽和度、蜜桃色或冷白皮的膚色、乾淨的白色"
+      },
+      {
+        "zh": "UK (英國)",
+        "en": "**UK style",
+        "desc": "莫蘭迪色調 (Muted tones)、深邃的陰影、較高對比、電影感、稍微偏冷或粗糙感"
+      },
+      {
+        "zh": "Hong Kong (香港)",
+        "en": "**Hong Kong style",
+        "desc": "賽博龐克感、青橙色調 (Teal and Orange)、深沉豐富的電影色調、高飽和的紅與綠"
+      },
+      {
+        "zh": "France (法國)",
+        "en": "**France style",
+        "desc": "溫暖的底片色調、微偏黃或紅、低飽和度的優雅色彩"
+      },
+      {
+        "zh": "USA (美國)",
+        "en": "**USA style",
+        "desc": "高對比度、鮮豔飽和、陽光金黃色調 (Golden Hour) 或冷峻的城市灰"
+      },
+      {
+        "zh": "Germany (德國)",
+        "en": "**Germany style",
+        "desc": "偏冷色調、低飽和、高清晰度與銳利度、時常以黑白呈現"
+      },
+      {
+        "zh": "Australia (澳洲)",
+        "en": "**Australia style",
+        "desc": "暖橘色調、高飽和度的藍天與膚色、陽光感極強"
+      },
+      {
+        "zh": "China (中國)",
+        "en": "**China style",
+        "desc": "白皙透亮的膚色、低對比度、高飽和度 (紅/綠對比，國風) 或網感冷白皮"
+      },
+      {
+        "zh": "Italy (義大利)",
+        "en": "**Italy style",
+        "desc": "高飽和度、古典油畫色調 (偏暖紅/暖黃)、強烈的色彩對比"
+      }
+    ]
+  },
+  "Wardrobe": {
+    "風格基調 (Vibe)": [
+      {
+        "zh": "賽博龐克 (Cyberpunk)",
+        "en": "cyberpunk aesthetic, high-tech dystopian, neon lit fashion, futuristic streetwear",
+        "desc": "充滿未來感、高科技與反烏托邦色彩，通常伴隨反光材質與霓虹燈效。"
+      },
+      {
+        "zh": "千禧復古 (Y2K)",
+        "en": "Y2K fashion, early 2000s aesthetic, retro-futurism, low-rise, baby tees",
+        "desc": "千禧年初期風格，色彩鮮豔、帶點塑膠感、金屬光澤，懷舊又叛逆。"
+      },
+      {
+        "zh": "機能風 (Techwear)",
+        "en": "techwear fashion, utilitarian clothing, tactical aesthetic, functional gear, urban ninja",
+        "desc": "重視機能性與多重口袋、扣環設計，防潑水材質，都市忍者般的戰術感。"
+      },
+      {
+        "zh": "極簡高級 (Minimalist Luxury)",
+        "en": "quiet luxury, minimalist fashion, clean lines, monochromatic, tailored fit",
+        "desc": "無明顯 Logo，剪裁俐落乾淨，注重面料本身的垂墜與高質感，單色系為主。"
+      },
+      {
+        "zh": "法式慵懶 (Parisian Chic)",
+        "en": "effortless Parisian chic, relaxed elegance, unpretentious fashion, natural charm",
+        "desc": "看似隨性但不隨便的優雅，強調舒適感與不刻意的時尚感。"
+      },
+      {
+        "zh": "復古龐克 (Retro Punk)",
+        "en": "retro punk fashion, rebellious aesthetic, DIY aesthetic, edgy, distressed",
+        "desc": "帶有破壞感、鉚釘、皮革、格紋等元素，散發叛逆與次文化氣息。"
+      },
+      {
+        "zh": "日系街頭 (Japanese Streetwear)",
+        "en": "Japanese streetwear, oversized silhouette, layered clothing, Harajuku fashion",
+        "desc": "擅長多層次穿搭 (Layering)、Oversize 廓形，混合工裝與日常單品。"
+      },
+      {
+        "zh": "民俗風 (Bohemian/Ethnic)",
+        "en": "bohemian fashion, ethnic style, folk aesthetic, heavily embroidered, earth tones",
+        "desc": "大量刺繡、流蘇、圖騰印花與大地色系，充滿異國情調與自由奔放感。"
+      },
+      {
+        "zh": "BDSM (拘束/束縛)",
+        "en": "BDSM fashion, bondage aesthetic, fetish wear, heavy latex, tight leather harnesses",
+        "desc": "強烈的束縛感與支配性，使用大量皮革、乳膠、綁帶、金屬環等元素。"
+      },
+      {
+        "zh": "巴洛克 (Baroque)",
+        "en": "Baroque fashion, opulent aesthetic, ornate gold embroidery, luxurious fabrics, decadent",
+        "desc": "極致奢華與繁複，大量的金色刺繡、天鵝絨、絲綢與戲劇化的剪裁。"
+      },
+      {
+        "zh": "維多利亞 (Victorian)",
+        "en": "Victorian aesthetic, gothic Victorian, high neck lace, corsets, romantic mourning dress",
+        "desc": "帶有禁慾與浪漫氣息，高領蕾絲、緊身馬甲、繁複的褶皺，常帶有哥德感。"
+      },
+      {
+        "zh": "蘿莉塔 (Lolita)",
+        "en": "Lolita fashion, sweet/gothic lolita, bell-shaped skirt, frills, rococo inspired",
+        "desc": "源自日本的洛可可風格，標誌性的鐘形裙襬、大量的荷葉邊、蕾絲與蝴蝶結。"
+      },
+      {
+        "zh": "女高中生 (JK/Schoolgirl)",
+        "en": "JK uniform, Japanese schoolgirl aesthetic, sailor suit, pleated skirt, preppy",
+        "desc": "經典的日本女子高校生制服，包含水手服、百褶裙、西裝外套與針織衫。"
+      },
+      {
+        "zh": "內衣 (Lingerie)",
+        "en": "lingerie aesthetic, boudoir fashion, sheer intimates, lace bodysuit, provocateur",
+        "desc": "展現身體曲線，以透膚蕾絲、絲綢為主的私密穿搭，具備誘惑與性感。"
+      },
+      {
+        "zh": "泳裝 (Swimwear)",
+        "en": "swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear",
+        "desc": "海灘或度假風格，包含比基尼、連身泳衣，通常布料極少且貼身。"
+      },
+      {
+        "zh": "軍裝 (Military)",
+        "en": "military fashion, tactical combat wear, camouflage, olive drab, epaulets, uniform",
+        "desc": "仿效軍隊制服，迷彩圖案、橄欖綠，帶有肩章、金屬扣與硬挺的肩部線條。"
+      },
+      {
+        "zh": "工業風 (Industrial)",
+        "en": "industrial fashion, dark industrial aesthetic, rugged materials, dystopian mechanic",
+        "desc": "粗獷、硬核，常見於廢墟或工廠背景，重磅帆布、沾附機油的做舊感。"
+      }
+    ],
+    "上身 (Tops)": [
+      {
+        "zh": "半透明絲綢襯衫",
+        "en": "translucent silk blouse, sheer organza shirt, delicate drape",
+        "desc": "輕盈透膚的絲綢或歐根紗，帶有柔和的光澤感，飄逸且優雅。"
+      },
+      {
+        "zh": "粗針織寬鬆毛衣",
+        "en": "chunky knit oversized sweater, cable knit, heavy yarn texture",
+        "desc": "有分量的粗毛線編織，立體紋理清晰，帶來溫暖與慵懶的居家感。"
+      },
+      {
+        "zh": "短版緊身吊帶背心",
+        "en": "cropped tight camisole, ribbed cotton tank top, form-fitting",
+        "desc": "羅紋棉質，緊貼身形，露出腰線，常作為 Y2K 或街頭風格的內搭。"
+      },
+      {
+        "zh": "解構主義不對稱上衣",
+        "en": "deconstructed asymmetric top, avant-garde cut, uneven hem",
+        "desc": "剪裁不對稱，可能拼接不同材質，呈現前衛的實驗性與藝術感。"
+      },
+      {
+        "zh": "機能戰術背心",
+        "en": "tactical utility vest, multiple pockets, nylon straps, webbing",
+        "desc": "多口袋設計，帶有尼龍織帶與插扣，增添硬派的機能戰鬥感。"
+      },
+      {
+        "zh": "復古印花天鵝絨高領",
+        "en": "vintage floral velvet turtleneck, rich crushed velvet texture",
+        "desc": "觸感柔軟且帶有奢華反光的天鵝絨，配上復古印花，適合秋冬氣息。"
+      },
+      {
+        "zh": "金屬光澤緊身褡 (馬甲)",
+        "en": "metallic corset top, structured bodice, iridescent finish",
+        "desc": "具有立體骨架支撐，表面帶有金屬反光或雷射光澤的馬甲。"
+      },
+      {
+        "zh": "民俗風刺繡罩衫",
+        "en": "bohemian embroidered off-shoulder peasant blouse, flowy cotton, ethnic patterns",
+        "desc": "寬鬆棉質，帶有大量異國圖騰刺繡的露肩或燈籠袖罩衫。"
+      },
+      {
+        "zh": "皮革束縛胸衣",
+        "en": "BDSM leather harness top, tightly bound, metal O-rings, thick leather straps",
+        "desc": "由皮革綁帶與金屬圓環構成，緊縛胸部的束帶型上衣。"
+      },
+      {
+        "zh": "維多利亞高領蕾絲襯衫",
+        "en": "Victorian high-neck lace blouse, ruffled collar, intricate lace detailing",
+        "desc": "領口有繁複百褶蕾絲的高領長袖襯衫，禁慾且浪漫。"
+      },
+      {
+        "zh": "水手服上衣 (JK)",
+        "en": "Japanese sailor suit top, navy blue collar, white stripes, red necktie",
+        "desc": "經典的海軍藍白條紋水手領，胸前通常配有紅色領結或領帶。"
+      },
+      {
+        "zh": "透膚蕾絲馬甲連身衣",
+        "en": "sheer lace lingerie bodysuit, underwire cups, floral lace",
+        "desc": "帶有鋼圈支撐，大面積透膚碎花蕾絲的連身性感內衣。"
+      }
+    ],
+    "下身 (Bottoms)": [
+      {
+        "zh": "寬版垂墜西裝褲",
+        "en": "wide-leg tailored trousers, flowy suiting fabric, high-waisted",
+        "desc": "剪裁寬鬆的高腰西裝褲，布料垂墜感極佳，走動時線條流暢。"
+      },
+      {
+        "zh": "破壞抽鬚牛仔寬褲",
+        "en": "distressed baggy denim jeans, frayed edges, heavy wash denim",
+        "desc": "重度水洗、有破洞或褲腳抽鬚的寬鬆牛仔褲，帶出隨性與街頭感。"
+      },
+      {
+        "zh": "亮面漆皮迷你裙",
+        "en": "glossy patent leather mini skirt, high shine texture, a-line",
+        "desc": "表面光滑反光性強的漆皮材質，A 字剪裁，視覺強烈且俐落。"
+      },
+      {
+        "zh": "不對稱層次百褶裙",
+        "en": "asymmetric layered pleated skirt, schoolgirl aesthetic, punk details",
+        "desc": "由長短不一的百褶組合，可能帶有金屬扣環，融合學院與龐克風。"
+      },
+      {
+        "zh": "機能多口袋工裝褲",
+        "en": "tactical cargo pants, ripstop fabric, utilitarian pockets, straps",
+        "desc": "使用防撕裂尼龍材質，大腿與小腿處配置立體口袋的工裝長褲。"
+      },
+      {
+        "zh": "絲絨喇叭褲",
+        "en": "velvet flared pants, 70s retro style, soft plush texture",
+        "desc": "具備 70 年代復古風情的喇叭褲，絲絨材質增添華麗的觸覺體驗。"
+      },
+      {
+        "zh": "龐克格紋百褶裙",
+        "en": "punk tartan pleated skirt, red and black plaid, safety pins",
+        "desc": "紅白或黑紅相間的蘇格蘭格紋，裝飾有安全別針，帶有叛逆的搖滾感。"
+      },
+      {
+        "zh": "蘿莉塔鐘形澎裙",
+        "en": "Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath",
+        "desc": "裡面穿著裙撐，呈現完美鐘形的層層荷葉邊半身裙。"
+      },
+      {
+        "zh": "丁字褲/高衩三角褲",
+        "en": "high-cut thong lingerie, thin straps, revealing silhouettte",
+        "desc": "極度展現臀部與腿部線條的性感內褲剪裁。"
+      },
+      {
+        "zh": "工業風重磅帆布褲",
+        "en": "heavy canvas mechanic pants, oil-stained, rugged industrial durability",
+        "desc": "使用極耐磨的重磅厚帆布，可能帶有仿舊的油漬或髒污感。"
+      }
+    ],
+    "外套 (Outerwear)": [
+      {
+        "zh": "復古做舊皮革騎士夾克",
+        "en": "distressed vintage leather biker jacket, worn textures, silver zippers",
+        "desc": "表面有歲月痕跡的重磅皮革夾克，配有多個銀色拉鍊，硬派且經典。"
+      },
+      {
+        "zh": "寬肩廓形混紡大衣",
+        "en": "oversized structured wool coat, padded shoulders, strict tailored",
+        "desc": "肩膀有墊肩的誇張 Oversize 羊毛大衣，線條硬挺，帶有強勢氣場。"
+      },
+      {
+        "zh": "賽博反光科技風衣",
+        "en": "iridescent reflective tech-wear trench coat, waterproof shell",
+        "desc": "在光線下會折射不同色彩的科技防水面料，呈現未來科幻感。"
+      },
+      {
+        "zh": "柔軟毛絨泰迪熊外套",
+        "en": "fluffy teddy bear fleece jacket, soft plush texture, bulky",
+        "desc": "質感如泰迪熊娃娃般蓬鬆柔軟的人造毛皮外套，視覺上保暖且可愛。"
+      },
+      {
+        "zh": "丹寧拼接解構外套",
+        "en": "deconstructed patchwork denim jacket, raw edges, mismatched wash",
+        "desc": "將不同水洗顏色的牛仔布料拆解重組，布邊不修邊幅，充滿手工感。"
+      },
+      {
+        "zh": "巴洛克金色刺繡斗篷",
+        "en": "Baroque velvet cape, heavy gold metallic embroidery, extravagant",
+        "desc": "奢華的天鵝絨斗篷，佈滿繁複的金色立體編織刺繡。"
+      },
+      {
+        "zh": "羊毛雙排扣軍裝大衣",
+        "en": "military double-breasted woolen overcoat, brass buttons, epaulets, strict silhouette",
+        "desc": "硬挺合身的長版大衣，配有黃銅鈕扣與肩章，充滿威嚴感。"
+      }
+    ],
+    "鞋款 (Shoes)": [
+      {
+        "zh": "厚底綁帶軍靴",
+        "en": "chunky platform combat boots, thick lug sole, heavy leather",
+        "desc": "大底極厚、帶有深刻齒紋的綁帶軍靴，增添下半身的重量感與龐克氣息。"
+      },
+      {
+        "zh": "復古方頭粗跟鞋",
+        "en": "retro square-toe block heels, smooth leather finish, 90s aesthetic",
+        "desc": "90年代流行的方頭設計，搭配穩定的粗跟，簡約且雅致。"
+      },
+      {
+        "zh": "機能老爹鞋 (運動鞋)",
+        "en": "chunky tech sneakers, intricate sole design, mesh and rubber paneling",
+        "desc": "鞋底厚重且線條複雜，由網眼與橡膠拼接而成的機能運動老爹鞋。"
+      },
+      {
+        "zh": "金屬光澤尖頭高跟鞋",
+        "en": "metallic pointed-toe stiletto heels, chromecore, sharp silhouette",
+        "desc": "鞋頭極尖，鞋身呈現液態金屬或亮面質感的細跟高跟鞋，具備攻擊性美感。"
+      },
+      {
+        "zh": "高筒帆布帆船鞋",
+        "en": "high-top canvas sneakers, distressed canvas, classic street style",
+        "desc": "經典的高筒帆布鞋款式，帆布表面可能有輕微磨損痕跡。"
+      },
+      {
+        "zh": "蘿莉塔瑪莉珍鞋",
+        "en": "Lolita Mary Jane shoes, chunky heel, round toe, bow decorations",
+        "desc": "圓頭、粗跟，腳背有綁帶，並裝飾有蝴蝶結的可愛鞋款。"
+      },
+      {
+        "zh": "漆皮過膝長靴",
+        "en": "patent leather thigh-high boots, extreme high stiletto, fetish footwear",
+        "desc": "緊貼腿部線條，高度超過膝蓋的亮面漆皮尖頭細高跟靴。"
+      }
+    ],
+    "配件 (Accessories)": [
+      {
+        "zh": "粗獷金屬古巴鍊",
+        "en": "chunky silver cuban link chain necklace, heavy metal texture",
+        "desc": "存在感強烈的粗金屬項鍊，常為銀色，增添街頭與龐克氛圍。"
+      },
+      {
+        "zh": "彩色半透明護目鏡/墨鏡",
+        "en": "translucent colorful visor sunglasses, Y2K aesthetic, wrap-around",
+        "desc": "鏡片呈鮮豔半透明色（如粉紅、藍），包覆式設計，復古千禧感。"
+      },
+      {
+        "zh": "皮革鉚釘頸圈 (Choker)",
+        "en": "studded leather choker necklace, punk rock accessory, metal spikes",
+        "desc": "黑色皮革環繞頸部，鑲有金屬鉚釘或尖刺，展現反叛精神。"
+      },
+      {
+        "zh": "迷你結構感手提肩背包",
+        "en": "micro structured top-handle bag, stiff leather, minimalist geometry",
+        "desc": "體積極小巧，皮質硬挺、幾何形狀明確的手提/腋下包。"
+      },
+      {
+        "zh": "機能快扣斜背胸包",
+        "en": "tactical crossbody chest rig bag, matte black nylon, quick-release plastic buckles",
+        "desc": "黑色霧面尼龍材質，配有塑膠快開插扣，緊貼胸前，強調戰術機能。"
+      },
+      {
+        "zh": "珍珠與金屬拼接項鍊",
+        "en": "pearl and chain mixed necklace, elegant yet edgy contrast",
+        "desc": "柔美的珍珠與硬朗的金屬鏈條一半一半拼湊，呈現衝突美學。"
+      },
+      {
+        "zh": "蕾絲吊襪帶與大腿環",
+        "en": "lace garter belt and thigh-high stockings, erotic lingerie accessories",
+        "desc": "固定絲襪用的蕾絲腰帶以及裝飾在大腿上的彈性蕾絲環。"
+      },
+      {
+        "zh": "復古懷錶與禮帽",
+        "en": "vintage brass pocket watch, formal top hat, Victorian accessories",
+        "desc": "帶有時代感的黃銅色金屬懷錶與正式的紳士高筒禮帽。"
+      },
+      {
+        "zh": "鋼防毒面具 (道具)",
+        "en": "industrial gas mask, heavy rubber, metal filters, post-apocalyptic",
+        "desc": "橡膠與金屬濾毒罐組成，帶有末日與工業核戰後的氛圍。"
+      }
+    ],
+    "材質與細節 (Textures & Details)": [
+      {
+        "zh": "液態金屬感布料",
+        "en": "liquid metal fabric, fluid metallic shine, reflective draping",
+        "desc": "看起來像流動水銀的布料，反光強烈且服貼身形。"
+      },
+      {
+        "zh": "霧水洗重磅純棉",
+        "en": "garment dyed heavy distressed cotton, matte finish, soft faded look",
+        "desc": "經過成衣水洗處理，顏色有自然的褪色感，手感厚實且表面無光澤。"
+      },
+      {
+        "zh": "粗糙毛呢/花呢 (Tweed)",
+        "en": "rough tweed fabric, tactile woolen woven texture, classic elegant",
+        "desc": "由多種顏色毛線交織而成，表面有凸起紋理，營造經典的小香風優雅。"
+      },
+      {
+        "zh": "鏤空漁網編織",
+        "en": "distressed fishnet knit, open loosely woven texture, skin showing",
+        "desc": "網洞大小不一的編織細節，透出內部肌膚，帶有 grunge（油漬搖滾）感。"
+      },
+      {
+        "zh": "幾何立體壓紋皮革",
+        "en": "geometric embossed leather, 3D textured surface, rigid material",
+        "desc": "皮革表面被熱壓出立體的幾何圖紋，視覺上非常有層次與高級感。"
+      },
+      {
+        "zh": "亮面緊身乳膠",
+        "en": "tight glossy latex material, ultra-shiny rubber, skin-tight fetish wear",
+        "desc": "極度貼合身形，表面呈現強烈塑膠/橡膠反光的材質。"
+      },
+      {
+        "zh": "繁複刺繡錦緞",
+        "en": "opulent embroidered brocade, intricate floral silk weaving, stiff texture",
+        "desc": "使用有光澤的絲線織出立體花紋，布料本身較為硬挺華麗。"
+      },
+      {
+        "zh": "半透明濕身白襯衫",
+        "en": "wet look sheer white cotton shirt, clinging to skin, translucent",
+        "desc": "彷彿被水打濕後，緊貼在皮膚上微微透出肉色的純棉材質。"
+      }
+    ]
+  },
+  "CameraLighting": {
+    "景別構圖 (Framing)": [
+      {
+        "zh": "極度特寫 (Extreme Close-Up)",
+        "en": "extreme close-up shot, macro photography, eye level, intense detail",
+        "desc": "畫面僅填滿五官局部（如眼睛或嘴唇），極強的情感壓縮感，適合展現微小紋理或極端情緒。"
+      },
+      {
+        "zh": "特寫鏡頭 (Close-Up)",
+        "en": "close-up shot, head and shoulders, detailed facial features, portrait photography",
+        "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典人像構圖。"
+      },
+      {
+        "zh": "中景鏡頭 (Medium Shot)",
+        "en": "medium shot, waist up, candid portrait, showing some background",
+        "desc": "構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。"
+      },
+      {
+        "zh": "牛仔中景 (Cowboy Shot)",
+        "en": "cowboy shot, american shot, knee up framing, dynamic pose",
+        "desc": "從膝蓋上方截斷，源於西部片用來展示槍套。適合展現強勢氣場與全身大部分服裝。"
+      },
+      {
+        "zh": "全身鏡頭 (Full Body Shot)",
+        "en": "full body shot, full length portrait, wide framing, environmental scale",
+        "desc": "完整拍攝人物從頭到腳，強調整體穿搭比例與人物在廣大環境中的位置。"
+      },
+      {
+        "zh": "廣角環境人像 (Environmental Portrait)",
+        "en": "environmental portrait, wide shot, vast landscape with a small figure",
+        "desc": "人物在畫面中佔比極小，用來強調周遭的壯麗風景或工業場景，帶來空間震撼感。"
+      }
+    ],
+    "相機視角 (Angle)": [
+      {
+        "zh": "平視角 (Eye-Level Angle)",
+        "en": "eye-level angle, objective view, direct eye contact, neutral perspective",
+        "desc": "最自然客觀的視角，觀眾與拍攝對象處於平等地位，容易建立情感連結。"
+      },
+      {
+        "zh": "仰角 (Low Angle)",
+        "en": "low angle, looking up from below, heroic, powerful silhouette, dominance",
+        "desc": "由下往上拍。能拉長人物比例（特別是腿部），賦予主體強勢、英雄般或具壓迫感的氣場。"
+      },
+      {
+        "zh": "俯角 (High Angle)",
+        "en": "high angle, looking down from above, vulnerable, cute, foreshortening",
+        "desc": "由上往下拍。使人物顯得較小、脆弱或無辜，伴隨明顯的透視縮短效益。"
+      },
+      {
+        "zh": "荷蘭角/傾斜 (Dutch Angle)",
+        "en": "dutch angle, tilted camera, crooked horizon, unsettling, cinematic tension",
+        "desc": "相機刻意傾斜，地平線不平。營造不安、混亂、速度感或極度戲劇化的電影張力。"
+      },
+      {
+        "zh": "鳥瞰/上帝視角 (Bird's-Eye View)",
+        "en": "bird's-eye view, top-down perspective, zenith angle, architectural scale",
+        "desc": "從極高處垂直向下俯視，使人物扁平化，適合展現地衣紋理或奇特的幾何排列。"
+      }
+    ],
+    "鏡頭焦段 (Focal Length)": [
+      {
+        "zh": "24mm 超廣角 (Ultra Wide)",
+        "en": "shot on 24mm lens, deep depth of field, wide perspective, slight distortion",
+        "desc": "收納極多環境細節，邊緣會產生些微透視變形（拉長效果），適合狹窄空間或大景。"
+      },
+      {
+        "zh": "35mm 廣角 (人文視角)",
+        "en": "shot on 35mm lens, documentary style, slight background blur, natural field of view",
+        "desc": "經典的人文與街拍焦段，視角適中不過度變形，能自然融合人物與環境背景。"
+      },
+      {
+        "zh": "50mm 標準鏡頭 (Standard)",
+        "en": "shot on 50mm lens, human eye perspective, classic portraiture, zero distortion",
+        "desc": "最接近人類單眼視覺的透視感，不變形，背景虛化自然，適用於絕大多數日常與棚拍。"
+      },
+      {
+        "zh": "85mm 中長焦 (人像鏡皇)",
+        "en": "shot on 85mm lens, shallow depth of field, creamy bokeh, precise facial rendering",
+        "desc": "完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。"
+      },
+      {
+        "zh": "135mm / 200mm 長焦 (望遠壓縮)",
+        "en": "shot on 135mm lens, telephoto compression, extremely blurred background, flat perspective",
+        "desc": "極強的空間壓縮感，能將遙遠的背景（如巨大的月亮或山脈）拉近並極度虛化，夢幻感強。"
+      }
+    ],
+    "光線類型 (Lighting Type)": [
+      {
+        "zh": "黃金時刻 (Golden Hour)",
+        "en": "golden hour lighting, warm sunlight, long shadows, magic hour, sunset flare",
+        "desc": "日出或日落前後，陽光傾斜且呈現溫暖的金黃色調，帶來浪漫且柔和的戲劇感。"
+      },
+      {
+        "zh": "藍色時刻 (Blue Hour)",
+        "en": "blue hour lighting, twilight, cold deep blue ambient light, melancholic vibe",
+        "desc": "太陽剛落下或升起前，天空呈現深邃均勻的冷藍色光線，營造靜謐、憂鬱或神秘氛圍。"
+      },
+      {
+        "zh": "陰天漫射柔光 (Overcast Soft Light)",
+        "en": "overcast soft light, cloudy day, even diffused lighting, no harsh shadows",
+        "desc": "雲層像巨大的柔光罩，光線極度均勻，沒有強烈陰影，適合展現最真實的膚色與服裝細節。"
+      },
+      {
+        "zh": "直射硬光/烈日 (Harsh Sunlight)",
+        "en": "harsh direct sunlight, midday sun, deep black shadows, high contrast, stark",
+        "desc": "正午或無雲的強烈直射光，產生濃黑銳利的邊緣陰影，帶有強烈對比與夏日炎熱感。"
+      },
+      {
+        "zh": "電影霓虹混光 (Neon Mixed Lighting)",
+        "en": "neon mixed lighting, cyberpunk city lights, teal and orange, bi-color illumination",
+        "desc": "利用城市霓虹燈或雙色補光燈，通常為紅藍或青橙對比，營造賽博龐克與王家衛浪漫感。"
+      },
+      {
+        "zh": "棚內商業平光 (High Key Studio)",
+        "en": "high key studio lighting, bright softbox, white infinity cove, perfectly exposed",
+        "desc": "攝影棚內極度明亮、幾乎無陰影的佈光。畫面乾淨無瑕，常用於時尚、化妝品或型錄攝影。"
+      },
+      {
+        "zh": "暗調戲劇光 (Low Key Chiaroscuro)",
+        "en": "low key lighting, chiaroscuro, cinematic shadows, mostly dark background, mysterious",
+        "desc": "畫面大部分區域為暗部交響，僅有少量光線勾勒主體立體感。充滿戲劇張力與古典油畫感。"
+      },
+      {
+        "zh": "環形閃光燈 (Ring Flash)",
+        "en": "ring flash lighting, distinct catchlight in eyes, flat fashion lighting, edgy shadow",
+        "desc": "套在鏡頭前的環形光源，會在瞳孔產生圓形眼神光，並在背景投下明顯的邊緣環狀陰影，前衛且時尚。"
+      }
+    ],
+    "光線方向與質感 (Light Direction & Quality)": [
+      {
+        "zh": "倫勃朗光/三角光 (Rembrandt Lighting)",
+        "en": "Rembrandt lighting, dramatic side light, illuminated triangle under eye, moody",
+        "desc": "經典人像打光法。光源從大約45度角往下打，在人物臉頰背光處形成一個倒三角形光斑。極具古典立體感。"
+      },
+      {
+        "zh": "蝴蝶光/派拉蒙光 (Butterfly Lighting)",
+        "en": "butterfly lighting, paramount lighting, shadow under nose, beauty light, glamorous",
+        "desc": "光源從鏡頭正上方往下打，在鼻子下方形成蝴蝶形陰影。能突顯顴骨，是好萊塢女星常用的唯美高光打法。"
+      },
+      {
+        "zh": "輪廓光/背光 (Rim Light / Backlight)",
+        "en": "strong rim light, backlit, glowing edges, separated from background, halo effect",
+        "desc": "光源從主體正後方照射，在頭髮與肩膀邊緣勾勒出一道高光輪廓，能讓人物從深色背景中脫穎而出。"
+      },
+      {
+        "zh": "側光/陰陽光 (Split Lighting)",
+        "en": "split lighting, half face in shadow, half in light, extreme contrast, dramatic profile",
+        "desc": "光源剛好落在人物側邊的 90 度，使臉部一半全亮、一半隱藏在黑暗中，展現強烈雙面性與戲劇衝突。"
+      },
+      {
+        "zh": "窗縫光/百葉窗光 (Window / Blind Slits Light)",
+        "en": "venetian blind shadows, soft window light slits, dappled light across face, noir aesthetic",
+        "desc": "光線透過百葉窗或是樹葉縫隙，在主體身上留下有條理或斑駁的幾何陰影，充滿復古黑色電影 (Film Noir) 氛圍。"
+      },
+      {
+        "zh": "頂光 (Top Lighting)",
+        "en": "harsh overhead top lighting, deep eye socket shadows, moody, interrogate room",
+        "desc": "正前上方的強硬光源。會在眼窩、鼻子下方產生極深的陰影，營造疲憊、險惡或審訊室般的壓迫感。"
+      }
+    ],
+    "底片與相機模擬 (Camera & Film Simulation)": [
+      {
+        "zh": "拍立得效果 (Polaroid Style)",
+        "en": "polaroid sx-70 style, instant film look, faded pastel colors, soft white border, lo-fi",
+        "desc": "帶有濃烈懷舊感，邊緣失焦、色彩偏淡偏粉（如褪色般），對比低且具有明顯的化學顯影特性。"
+      },
+      {
+        "zh": "柯達 Portra 400 底片",
+        "en": "Kodak Portra 400 film simulation, warm skin tones, fine film grain, analog aesthetic",
+        "desc": "業界公認最完美的膚色底片。擁有溫暖的橙橘色調、細膩的顆粒感與優秀的寬容度，呈現高品質的文青底片感。"
+      },
+      {
+        "zh": "富士 Superia 400 底片",
+        "en": "Fujifilm Superia 400 simulation, slightly green shadows, high contrast, everyday analog",
+        "desc": "偏冷色調，特別是在陰影處容易帶有微微的日系青綠色，綠色跟紅色的表現非常搶眼，適合日本街頭紀實。"
+      },
+      {
+        "zh": "依爾福黑白底片 (Ilford HP5)",
+        "en": "Ilford HP5 Plus 400 black and white film, high contrast monochrome, rich gray tones, gritty grain",
+        "desc": "經典且強烈的黑白底片。沒有色彩干擾，強大的灰階過渡與粗獷的顆粒感，將注意力完全集中在光影與情緒。"
+      },
+      {
+        "zh": "中片幅數位單眼 (Medium Format DSLR)",
+        "en": "Hasselblad medium format photography, extreme ultra-high resolution, medium format organic depth",
+        "desc": "哈蘇或飛思等數位後背相機。擁有令人髮指的細節解析度（看清每一根睫毛），以及有別於全片幅的特殊立體過渡與景深空間感。"
+      },
+      {
+        "zh": "VHS 錄影帶低畫質",
+        "en": "VHS camcorder glitch effect, heavily degraded image, chromatic aberration, scanlines, analog horror",
+        "desc": "模仿 90 年代的老舊家用錄影帶。畫面充滿雪花雜訊、橫向掃描線、色彩偏移（紅藍分離），帶有復古恐怖或故障藝術 (Glitch) 氛圍。"
+      }
+    ],
+    "特殊效果 (Special Effects)": [
+      {
+        "zh": "慢快門/動態模糊 (Motion Blur)",
+        "en": "slow shutter speed, intentional camera movement, light trails, blurry ghosting effect",
+        "desc": "利用慢速快門。讓移動的主體（或背景）產生充滿速度感的拖影或光軌，呈現夢幻、混亂或時間流逝的感覺。"
+      },
+      {
+        "zh": "漏光效果 (Light Leaks)",
+        "en": "vintage film light leaks, red and orange light burns, lens flare, serendipitous analog flaw",
+        "desc": "模擬舊底片相機機身漏光。畫面邊緣出現隨機、不規則的紅色或橙橘色光暈過曝，增添了真實且隨機的復古韻味。"
+      },
+      {
+        "zh": "鏡頭光斑 (Lens Flare)",
+        "en": "anamorphic lens flare, horizontal blue streaks, blooming highlights, cinematic light artifacts",
+        "desc": "尤其是模仿變形鏡頭 (Anamorphic) 產生的水平藍色拉絲光斑。是科幻電影或公路大片標誌性的光源特效。"
+      },
+      {
+        "zh": "雙重曝光 (Double Exposure)",
+        "en": "double exposure photography, overlapping subjects, surreal silhouette blend, dreamlike",
+        "desc": "將兩張影像（通常是一個人物輪廓加上風景或紋理）疊加在一起，創造出超現實、充滿哲學意境與夢幻感的視覺魔法。"
+      },
+      {
+        "zh": "散景/光斑大虛化 (Heavy Bokeh)",
+        "en": "out of focus foreground bokeh, hexagonal light orbs, dreamy shallow depth, optical blur",
+        "desc": "不僅背景虛化，更在鏡頭近處加入了被過度虛化的前景色塊或閃亮的光斑圓圈，營造出窺視與極端夢幻的感覺。"
+      }
+    ]
+  },
+  "Locations": {
+    "實景棚內 (Studio Sets)": [
+      {
+        "zh": "歐式復古客廳",
+        "en": "vintage european living room set, ornate wallpaper, antique furniture, dark wood, daylight through window",
+        "desc": "充滿古典氣息，背景有華麗壁紙或古董沙發，光源通常設定為透過窗戶灑入的自然光。"
+      },
+      {
+        "zh": "極簡清水模空間",
+        "en": "minimalist brutalist studio, exposed concrete walls, empty space, stark shadows",
+        "desc": "乾淨、冷酷的幾何空間，以大面積的灰色水泥牆為主，適合高冷或現代時尚攝影。"
+      },
+      {
+        "zh": "美式摩鐵 (Motel) 房間",
+        "en": "retro american motel room, cheap wood paneling, neon sign outside window, messy bed",
+        "desc": "帶有公路電影感的頹廢空間，木紋牆面，窗外透入霓虹招牌顏色的光暈。"
+      },
+      {
+        "zh": "無塵純白太空艙",
+        "en": "futuristic white clean room, rounded corners, sci-fi interior, bright LED panels",
+        "desc": "具有未來科幻感的純白無菌空間，邊角圓滑，光源來自牆上發光的 LED 面板。"
+      },
+      {
+        "zh": "復古照相館 (中式/日式)",
+        "en": "old fashioned photography studio, vintage wooden camera, velvet drapes, classic backdrop",
+        "desc": "傳統的百年老照相館，有紅絲絨布簾與老舊的木製相機，充滿時光停滯的懷舊感。"
+      }
+    ],
+    "無縫背景紙/純色 (Seamless Backdrops)": [
+      {
+        "zh": "純潔白幕 (Infinity White)",
+        "en": "infinite white background, seamless paper roll, isolated subject, commercial white",
+        "desc": "商業感極強。沒有邊緣、沒有牆角，人物彷彿漂浮在純白無垠的空間中。"
+      },
+      {
+        "zh": "深邃黑幕 (Vantablack)",
+        "en": "pitch black background, pure dark void, zero ambient light, dramatic isolation",
+        "desc": "絕對的黑暗。將所有的注意力完全集中在被光線照射到的主體上，戲劇張力強大。"
+      },
+      {
+        "zh": "莫蘭迪灰 (Muted Grey)",
+        "en": "medium grey seamless backdrop, neutral tone, subtle texture, studio portraiture",
+        "desc": "最不會干擾膚色的中性灰，帶有高級感，是許多時尚雜誌封面的首選背景。"
+      },
+      {
+        "zh": "鮮豔撞色 (Pop Color)",
+        "en": "vibrant solid color backdrop, [red/yellow/blue/pink], bold contrast, pop art",
+        "desc": "使用高飽和度的單一純色背景紙（如亮黃、桃紅），製造強烈的視覺衝擊與普普藝術感。"
+      },
+      {
+        "zh": "漸層打光 (Gradient Halo)",
+        "en": "gradient spotlight on background, subtle halo effect behind subject, seamless paper",
+        "desc": "背景紙本身是灰色，但利用燈光在人物正後方打出一個漸層暈開的光斑圈，增加立體感。"
+      }
+    ],
+    "都市街景 (Urban & Streets)": [
+      {
+        "zh": "澀谷街頭/十字路口",
+        "en": "Tokyo Shibuya crossing at night, crowded street, rain puddles reflecting neon, umbrellas",
+        "desc": "經典日系繁華夜景。雨後濕滑的地板反射著五顏六色的霓虹燈，背景充滿模糊的人流與招牌。"
+      },
+      {
+        "zh": "洛杉磯威尼斯海灘",
+        "en": "Venice beach boardwalk, Los Angeles, palm trees, golden hour, skate park, sunny lifestyle",
+        "desc": "充滿陽光與活力的加州風情，背景有高聳的棕櫚樹、沙灘與滑板場，色調金黃。"
+      },
+      {
+        "zh": "香港廟街夜市",
+        "en": "Hong Kong Temple Street, chaotic market, dense neon signs, narrow alley, cyberpunk feeling",
+        "desc": "擁擠、吵雜且充滿張力。狹窄的街道兩旁擠滿攤販與頭頂上錯綜複雜的霓虹燈牌。"
+      },
+      {
+        "zh": "歐洲卵石小巷 (巴黎/羅馬)",
+        "en": "European cobblestone alleyway, old brick walls, street lamps, quaint cafes, romantic atmosphere",
+        "desc": "歷史悠久的石板路、老舊磚牆與昏黃的路燈，偶爾穿插幾間露天咖啡座，充滿浪漫與詩意。"
+      },
+      {
+        "zh": "紐約地鐵月台",
+        "en": "New York subway platform, tiled walls, metal pillars, dim fluorescent light, gritty train station",
+        "desc": "美式粗獷風格。老舊的磁磚牆面、金屬柱子與冷色調的日光燈，帶有危險與城市的邊緣感。"
+      }
+    ],
+    "室內空間 (Indoor Spaces)": [
+      {
+        "zh": "復古美式 Diner (餐廳)",
+        "en": "retro American diner interior, red leather booths, checkered floor, jukebox, 50s aesthetic",
+        "desc": "50 年代復古風。黑白棋盤格地板、紅色的皮沙發卡座與點唱機，色彩鮮豔對比強烈。"
+      },
+      {
+        "zh": "百年木造圖書館",
+        "en": "ancient wooden library, towering bookshelves, dusty sunbeams, quiet academic atmosphere",
+        "desc": "古老而龐大的圖書館，背景是直達天花板的木製書架，陽光穿透灰塵灑落，具有神秘學術氛圍。"
+      },
+      {
+        "zh": "凌晨 24 小時洗衣店",
+        "en": "neon lit laundromat at 2am, rows of washing machines, florescent buzz, solitary feeling",
+        "desc": "排列整齊的洗衣機反光，冷白或粉色的日光燈，適合表現都會人的孤獨感與 Y2K 街頭攝影。"
+      },
+      {
+        "zh": "宮廷音樂廳/歌劇院",
+        "en": "opulent opera house interior, grand chandelier, red velvet seats, baroque architecture",
+        "desc": "極度奢華龐大的空間，巨大的水晶吊燈與紅絲絨座椅，適合搭配巴洛克或古典造型。"
+      },
+      {
+        "zh": "廉價膠囊旅館/網咖",
+        "en": "cramped Japanese capsule hotel, small enclosed space, single monitor glow, claustrophobic",
+        "desc": "極度狹小的空間，只有螢幕微微發光。視覺上具有幽閉恐懼與賽博龐克的社會底層感。"
+      }
+    ],
+    "自然與戶外 (Nature & Outdoors)": [
+      {
+        "zh": "起伏的沙漠沙丘",
+        "en": "rolling sand dunes, Sahara desert, minimal landscape, harsh sun, wind blown sand",
+        "desc": "極簡的大自然幾何線條，只有無盡的橘黃色沙丘與強烈的陽光陰影，純粹且孤寂。"
+      },
+      {
+        "zh": "霧氣瀰漫的冷杉森林",
+        "en": "foggy pine forest, Pacific Northwest, dense trees, mysterious, muted greens and blues",
+        "desc": "充滿神祕與未知的氛圍。高聳的冷杉林被濃霧包圍，色調偏冷（藍綠色），適合哥德或奇幻風格。"
+      },
+      {
+        "zh": "陽光普照的向日葵田",
+        "en": "vast sunflower field in full bloom, bright summer day, colorful nature, vibrant",
+        "desc": "充滿活力與夏日氣息，背景是一望無際的黃色向日葵，飽和度高，非常適合日系或陽光寫真。"
+      },
+      {
+        "zh": "陡峭的冰川雪山",
+        "en": "snowy mountain peaks, sharp glacier, extreme cold, blinding white snow, vast epic scale",
+        "desc": "宏偉且險惡的自然環境。刺眼的白雪與冷冽的藍天對比，適合表現機能服飾或孤傲氣質。"
+      },
+      {
+        "zh": "寧靜湖泊與倒影",
+        "en": "still lake surface reflecting mountains, twilight, peaceful nature, mirror effect",
+        "desc": "水面如鏡子般平靜，完美反射背後的山景或天空，視覺上極度安靜且對稱。"
+      }
+    ],
+    "前衛/科幻場景 (Sci-Fi & Cyberpunk)": [
+      {
+        "zh": "漂浮在空中的無重力密室",
+        "en": "zero gravity chamber, objects floating, futuristic geometry, disorienting space",
+        "desc": "超現實空間，失去重力，背景可能有漂浮的碎石或發光物體，顛覆物理常識的構圖。"
+      },
+      {
+        "zh": "巨大的巨型電腦主機房",
+        "en": "massive server room, glowing wires, endless rows of supercomputers, matrix aesthetic",
+        "desc": "駭客任務風格，四周全是閃著紅綠燈號的伺服器與錯綜複雜的發光線路，冰冷且科技感。"
+      },
+      {
+        "zh": "生物機械融合培養槽",
+        "en": "biomechanical laboratory, giant glass specimen tubes, glowing green liquid, HR Giger style",
+        "desc": "結合血肉與機械的詭異場景，背景有充滿螢光綠液體的巨大培養槽，帶有異形風格的恐怖科技感。"
+      },
+      {
+        "zh": "環形太空站舷窗",
+        "en": "space station observation deck, giant circular window, view of Earth from space, starry void",
+        "desc": "背景是一個巨大的圓形窗戶，外面可以看見壯麗的地球邊緣與深邃的宇宙星空，史詩感強烈。"
+      },
+      {
+        "zh": "超空間量子隧道",
+        "en": "entering hyperspace, abstract quantum tunnel, swirling colorful light trails, infinite speed",
+        "desc": "沒有實體建築，只有無數扭曲、旋轉的多彩光束與隧道，表現超越光速的極端動態感。"
+      }
+    ],
+    "廢墟與地下空間 (Abandoned & Underground)": [
+      {
+        "zh": "廢棄水泥工廠/排洪道",
+        "en": "abandoned concrete factory, brutalist underground bunker, water on floor, echoing space",
+        "desc": "巨大的地下水道或工廠，牆面斑駁，地上有積水，空間深邃且帶有回音感，適合龐克與機能風。"
+      },
+      {
+        "zh": "雜草叢生的廢棄遊樂園",
+        "en": "abandoned amusement park overtaken by nature, rusty ferris wheel, creepy, post-apocalyptic",
+        "desc": "被大自然重新吞噬的文明遺跡，生鏽的摩天輪被藤蔓纏繞，帶有末日生存與詭異的美感。"
+      },
+      {
+        "zh": "地下狂歡俱樂部/金庫",
+        "en": "underground techno club, rave party bunker, lasers cutting through thick smoke, bass heavy",
+        "desc": "身處地牢般的俱樂部，空氣中充滿濃煙，被強烈的雷射切割，視覺上極度迷幻且具有重低音的震動感。"
+      },
+      {
+        "zh": "遭洗劫的維多利亞大宅",
+        "en": "ruined Victorian mansion interior, torn wallpaper, smashed chandeliers, haunted decay",
+        "desc": "曾經輝煌但現已殘破不堪的古堡或大宅，壁紙剝落，傢俱毀損，充滿哥德式的衰敗美學。"
+      },
+      {
+        "zh": "滿佈塗鴉的火車調車場",
+        "en": "graffiti covered train yard, rusty train cars, urban decay, rebel territory",
+        "desc": "美式街頭文化的核心。一整排生鏽且畫滿強烈塗鴉的火車車廂，代表反叛與次文化的集散地。"
+      },
+      {
+        "zh": "乾涸的巨大蓄水池/神殿",
+        "en": "massive dry underground reservoir, pillars like a temple, dramatic light shafts entering from top",
+        "desc": "像地下神殿般的蓄水池（好比日本首都圈外郭放水路），光線由頂部極小的洞口射入，呈現神聖與渺小的對比。"
+      }
+    ]
+  },
+  "Character": {
+    "臉型輪廓 (Face Shape)": [
+      {
+        "zh": "柔和橢圓臉",
+        "en": "soft oval face shape, gentle cheekbones, balanced proportions, classic beauty",
+        "desc": "最易搭配多數風格的面型，輪廓柔和均勻，無明顯稜角，給人溫柔且易親近的感覺。"
+      },
+      {
+        "zh": "精緻小V臉",
+        "en": "sharp V-shape jawline, defined chin, petite facial structure, Korean idol facial",
+        "desc": "下顎線條清晰俐落、收窄至尖下巴，常見於韓系偶像與精緻網感攝影。"
+      },
+      {
+        "zh": "肥圓臉",
+        "en": "full cheeks, adorable chubby face, youthful and cute",
+        "desc": "臉頰飽滿圓潤，帶有天生的少女感與可愛氣息，適合 Lolita 或日系療癒系風格。"
+      }
+    ],
+    "五官特徵 (Facial Features)": [
+      {
+        "zh": "韓系 K-POP 偶像臉",
+        "en": "Korean idol face, V-shape jawline, double eyelids, bright clear eyes, small cute nose, glass skin",
+        "desc": "精緻網感、韓系偶像風，高顏值的標準範本。"
+      },
+      {
+        "zh": "日系清純女演員臉",
+        "en": "Japanese actress face, natural soft features, gentle eyes, pale smooth skin, innocent beauty",
+        "desc": "清新脫俗、日劇感強，帶有無害的清純氣質。"
+      },
+      {
+        "zh": "歐美白人性感模特臉",
+        "en": "Western model face, strong bone structure, deep-set eyes, full lips, defined jawline, Hollywood glamour",
+        "desc": "歐美高冷大片感，骨相立體且充滿張力。"
+      },
+      {
+        "zh": "法式慵懶知識分子臉",
+        "en": "French girl face, understated beauty, slightly asymmetric features, natural lips, effortless chic",
+        "desc": "法式隨性文藝風，不刻意的美麗。"
+      },
+      {
+        "zh": "混血拉丁熱情臉",
+        "en": "Latin mixed facial features, expressive dark eyes, full lips, warm caramel skin tone, passionate beauty",
+        "desc": "混血性感熱情，適合熱帶異國主題。"
+      },
+      {
+        "zh": "Y2K 千禧少女臉",
+        "en": "Y2K girl face, glossy lips, sparkly eyes, playful and fresh features, bubbly girl-next-door charm",
+        "desc": "千禧年復古少女感，充滿活力與玩心。"
+      },
+      {
+        "zh": "中國古典東方臉",
+        "en": "classical East Asian face, almond eyes, high cheekbones, delicate features, timeless oriental beauty",
+        "desc": "古裝或東方氣韻風，傳統美人的輪廓。"
+      },
+      {
+        "zh": "北歐斯堪地那維亞臉",
+        "en": "Scandinavian face, pale skin, sharp Nordic features, light eyes, minimalist cold beauty",
+        "desc": "北歐極簡高冷感，骨相乾淨且輪廓分明。"
+      },
+      {
+        "zh": "日系小惡魔少女臉",
+        "en": "Japanese mischievous girl face, big doe eyes, pouty lips, baby face with sharp gaze, devilish charm",
+        "desc": "軟妹叛逆感，甜美外表下藏著小鬼頭個性。"
+      },
+      {
+        "zh": "美式復古甜心臉",
+        "en": "American vintage girl face, rosy cheeks, wholesome girl-next-door beauty, 1950s charm",
+        "desc": "復古美式甜心，溫暖討喜的青春感。"
+      }
+    ],
+    "膚色與膚質 (Skin Tone & Texture)": [
+      {
+        "zh": "幾近透明的冷白皮",
+        "en": "pale porcelain skin, translucent cold-white complexion, ethereal ghost-like skin",
+        "desc": "冷調、近乎透明的白皙膚色，皮膚下的靜脈隱約可見，散發空靈與脆弱感。"
+      },
+      {
+        "zh": "蜜桃粉嫩暖白皮",
+        "en": "peachy warm white skin, rosy flush on cheeks, healthy pink glow, soft and warm",
+        "desc": "底色帶有暖粉紅光澤的白皙膚色，臉頰自然泛紅，充滿青春感與生命力。"
+      },
+      {
+        "zh": "自然小麥色古銅皮",
+        "en": "sun-kissed tan skin, warm olive-brown complexion, healthy caramel skin, glowing",
+        "desc": "戶外陽光曬出的健康古銅色，皮膚自帶一種溫暖的光澤，適合澳洲海灘或夏日主題。"
+      },
+      {
+        "zh": "玻璃光澤水光肌",
+        "en": "glass skin, dewy skin texture, high sheen luminous complexion, reflective glow",
+        "desc": "皮膚表面如玻璃般光滑，帶有高度光澤感，彷彿剛敷完面膜，是韓系棚拍的標配。"
+      },
+      {
+        "zh": "自然雀斑/痣點皮",
+        "en": "natural freckles sprinkled across nose, sun-kissed summer freckles, raw authenticity",
+        "desc": "鼻梁與臉頰上有自然的雀斑分布，增加真實感與個人特色，適合法式自然紀實風格。"
+      }
+    ],
+    "髮型 (Hairstyle)": [
+      {
+        "zh": "1. 俐落直短髮 (一刀切)",
+        "en": "boxy blunt-cut bob, straight hair",
+        "desc": "齊平且乾淨的線條，具備現代高級感。"
+      },
+      {
+        "zh": "2. 中分長直髮",
+        "en": "long straight hair, center part, sleek",
+        "desc": "經典女神風，光澤感十足。"
+      },
+      {
+        "zh": "3. 法式大波浪",
+        "en": "loose voluminous waves, french style",
+        "desc": "蓬鬆且浪漫，帶有一點不經意的慵懶感。"
+      },
+      {
+        "zh": "4. 高位雙馬尾",
+        "en": "high double pigtails, youthful",
+        "desc": "活潑俏皮，適合 Y2K 或 JK 風格。"
+      },
+      {
+        "zh": "5. 韓系低包頭",
+        "en": "low messy bun, wispy bangs",
+        "desc": "優雅隨興，臉側帶有修飾性的碎髮。"
+      },
+      {
+        "zh": "6. 拳擊編髮",
+        "en": "boxer braids, tight cornrows",
+        "desc": "硬派、動感且層次分明的編髮。"
+      },
+      {
+        "zh": "7. 狼尾剪",
+        "en": "shaggy wolf-cut hair, layered",
+        "desc": "頂部蓬鬆、後頸留長的高層次剪裁。"
+      },
+      {
+        "zh": "8. 極短寸頭",
+        "en": "buzz cut, very short cropped hair",
+        "desc": "極簡主義，展現強大臉部輪廓。"
+      },
+      {
+        "zh": "9. 濕髮感（微濕）",
+        "en": "wet-look hair, slicked back, gelled",
+        "desc": "像是剛出水或用了大量髮膠的時尚感。"
+      },
+      {
+        "zh": "10. 巴洛克高聳盤髮",
+        "en": "ornate baroque updo, vintage curls",
+        "desc": "複雜、高聳且充滿宮廷感的造型。"
+      },
+      {
+        "zh": "11. 復古指推波紋",
+        "en": "finger waves, 1920s vintage style",
+        "desc": "貼合頭部的規律曲線，充滿爵士時代味道。"
+      },
+      {
+        "zh": "12. 凌亂床頭感",
+        "en": "bedhead hair, messy and tousled",
+        "desc": "極度自然、剛睡醒般的狂野感。"
+      },
+      {
+        "zh": "13. 超長雙編髮",
+        "en": "ultra-long twin braids, knee length",
+        "desc": "超出常理的長度，具備視覺衝擊力。"
+      },
+      {
+        "zh": "14. 遮眼瀏海",
+        "en": "long bangs covering eyes, emo style",
+        "desc": "神秘、帶有孤立感的頹廢美。"
+      },
+      {
+        "zh": "15. 高馬尾",
+        "en": "sleek high ponytail, tight pull",
+        "desc": "銳利、專業且充滿視覺力量。"
+      },
+      {
+        "zh": "16. 及肩內彎鮑伯",
+        "en": "shoulder-length bob, curled ends",
+        "desc": "溫婉的中長度，帶有微微的內彎弧度。"
+      },
+      {
+        "zh": "17. 側分深大波浪",
+        "en": "deep side part, glamour waves",
+        "desc": "展現成熟與優雅，適合商業攝影。"
+      },
+      {
+        "zh": "18. 蓬鬆隨性馬尾",
+        "en": "undone ponytail, high placement, flyaways",
+        "desc": "帶有細微碎髮的隨意感，自然生活氣息。"
+      },
+      {
+        "zh": "19. 層次碎剪長髮",
+        "en": "shaggy long layers, choppy hair ends",
+        "desc": "強調頭髮的動律與空氣感。"
+      },
+      {
+        "zh": "20. 韓系空氣瀏海直髮",
+        "en": "see-through bangs, long straight hair",
+        "desc": "輕盈的瀏海配上筆直長髮，清純風格。"
+      }
+    ],
+    "髮色 (Hair Color)": [
+      {
+        "zh": "1. 曜石黑",
+        "en": "obsidian black, high gloss shine",
+        "desc": "極深的黑色，帶有強烈的高光反射。"
+      },
+      {
+        "zh": "2. 摩卡棕",
+        "en": "mocha brown, warm chocolate tone",
+        "desc": "溫潤日常，適合柔和的光感。"
+      },
+      {
+        "zh": "3. 焦糖栗色",
+        "en": "caramel auburn, warm reddish-brown",
+        "desc": "暖色調，陽光下呈現微紅光澤。"
+      },
+      {
+        "zh": "4. 奶白栗金",
+        "en": "platinum blonde, bleached hair",
+        "desc": "極冷調的白金，時尚工業感。"
+      },
+      {
+        "zh": "5. 玫瑰金",
+        "en": "rose gold, soft pastel pink-blonde",
+        "desc": "帶粉調的金色，夢幻且襯膚色。"
+      },
+      {
+        "zh": "6. 薰衣草灰",
+        "en": "lavender ash, smokey purple-grey",
+        "desc": "冷調霧面紫灰色，具備朦朧美感。"
+      },
+      {
+        "zh": "7. 螢光霓虹藍",
+        "en": "neon cyan highlights, indigo base",
+        "desc": "強烈科技感，適合賽博主題。"
+      },
+      {
+        "zh": "8. 漸層薄荷綠",
+        "en": "mint green ombré, gradient hair",
+        "desc": "頂部深色、髮尾轉向清涼色。"
+      },
+      {
+        "zh": "9. 鮮豔火紅",
+        "en": "vibrant fire engine red, ruby tone",
+        "desc": "強烈視覺侵略性，熱情報感。"
+      },
+      {
+        "zh": "10. 半黑半白",
+        "en": "split dyed hair, half black half white",
+        "desc": "從中線完全對開的極致對比。"
+      },
+      {
+        "zh": "11. 七彩極光色",
+        "en": "iridescent holographic hair, opal colors",
+        "desc": "隨角度反射彩虹光芒。"
+      },
+      {
+        "zh": "12. 髒粉色",
+        "en": "dusty rose, muted pink, vintage look",
+        "desc": "帶點灰調的粉色，高級慵懶感。"
+      },
+      {
+        "zh": "13. 橄欖綠",
+        "en": "ashy olive green, matte texture",
+        "desc": "霧面質感，低調且獨特的時尚冷色。"
+      },
+      {
+        "zh": "14. 檸檬亮黃",
+        "en": "electric yellow, acid yellow shock",
+        "desc": "跳脫框架，充滿街頭感。"
+      },
+      {
+        "zh": "15. 菸草銀灰",
+        "en": "silver grey, metallic gunmetal ash",
+        "desc": "沉穩質感，帶有一點中性的帥氣。"
+      },
+      {
+        "zh": "16. 亞麻冷棕",
+        "en": "cool ash brown, matte finish",
+        "desc": "最顯白的冷調棕色，營造高級感。"
+      },
+      {
+        "zh": "17. 蜂蜜茶色",
+        "en": "honey tea brown, golden undertone",
+        "desc": "帶有暖金色調的茶褐色，溫潤感。"
+      },
+      {
+        "zh": "18. 深栗子色",
+        "en": "rich chestnut brown, mahogany gloss",
+        "desc": "經典傳統深棕，高度真實感。"
+      },
+      {
+        "zh": "19. 深巧克力色",
+        "en": "deep chocolate brown, subtle highlights",
+        "desc": "沉穩大氣，模擬最基礎的高級黑髮。"
+      },
+      {
+        "zh": "20. 歐系陽光金",
+        "en": "sandy blonde, natural roots, sun-kissed",
+        "desc": "模擬歐美自然生成的沙色或髒金色。"
+      }
+    ],
+    "神情與眼神 (Expression & Gaze)": [
+      {
+        "zh": "直視鏡頭/直面挑戰",
+        "en": "intense direct gaze into camera, challenging stare, powerful eye contact, unwavering",
+        "desc": "眼神直接強硬，帶有挑釁與自信感。"
+      },
+      {
+        "zh": "半閉眼慵懶挑逗",
+        "en": "sleepy seductive half-lidded eyes, languid drowsy expression, bedroom eyes",
+        "desc": "慵懶且帶有挑逗意味，時尚感強烈。"
+      },
+      {
+        "zh": "回眸側望 (偷瞄)",
+        "en": "looking back over shoulder, glancing sidelong, fleeting gaze, mysterious and inviting",
+        "desc": "神秘且轉瞬即逝的邂逅感。"
+      },
+      {
+        "zh": "淡漠高冷",
+        "en": "cold distant expression, emotionless gaze, icy stare, untouchable aura",
+        "desc": "毫無情緒的冷漠感，高不可攀的氣場。"
+      },
+      {
+        "zh": "嘴角微揚神秘微笑",
+        "en": "slight mysterious smile, knowing smirk, enigmatic half-smile",
+        "desc": "若有所思的神秘微笑，讓人捉摸不定。"
+      },
+      {
+        "zh": "望向遠方/若有所思",
+        "en": "gazing into distance, thoughtful contemplation, wistful expression, dreaming look",
+        "desc": "眼神飄向遠方，沉浸在自己的世界裡。"
+      },
+      {
+        "zh": "大笑/自然喜悅",
+        "en": "genuine laughing expression, natural teeth smile, candid joy, uninhibited happiness",
+        "desc": "自然、無防備的開心大笑，充滿生命力。"
+      },
+      {
+        "zh": "驚恐/暗中窺視",
+        "en": "wide startled eyes, caught off guard expression, paranoid sidelong glance, tense alertness",
+        "desc": "受到驚嚇或暗中警戒的緊張神情。"
+      },
+      {
+        "zh": "慵懶出神/唇微開",
+        "en": "lips slightly parted, dreamy unfocused gaze, lost in thought, languid and dazed",
+        "desc": "嘴唇微開、眼神渙散，彷彿沉浸在白日夢中。"
+      },
+      {
+        "zh": "驕傲俯視 (輕蔑)",
+        "en": "looking down slightly, proud and dismissive gaze, slight sneer, queen-like superiority",
+        "desc": "帶有輕微俯視角度的高傲神情，女王氣場全開。"
+      }
+    ],
+    "姿勢與肢體語言 (Pose & Body Language)": [
+      {
+        "zh": "雙手插口袋 (率性)",
+        "en": "hands in pockets, casual confident stance, slouched cool posture, street style",
+        "desc": "率性的街頭自信感，肩膀微微放鬆。"
+      },
+      {
+        "zh": "靠牆慵懶倚靠",
+        "en": "leaning against wall, one shoulder against wall, effortless cool",
+        "desc": "漫不經心的率性感，輕靠牆面或柱子。"
+      },
+      {
+        "zh": "坐姿/蜷縮 (脆弱感)",
+        "en": "curled up sitting pose, knees drawn to chest, vulnerable and introspective",
+        "desc": "抱膝蜷縮，傳遞內斂或自我保護的心理狀態。"
+      },
+      {
+        "zh": "動態走路/動作殘影",
+        "en": "mid-stride walking, dynamic movement, hair flying, candid action shot",
+        "desc": "捕捉行走瞬間，充滿動態感與生命力。"
+      },
+      {
+        "zh": "高挑站姿 (權力姿態)",
+        "en": "upright commanding posture, confident power pose, dominant stance, shoulders back",
+        "desc": "挺胸站立，充滿支配感與自信。"
+      },
+      {
+        "zh": "仰臥/俯拍躺姿",
+        "en": "lying down on back, top-down aerial view, arms stretched out, dreamy resting pose",
+        "desc": "從正上方俯拍的躺姿，帶有夢幻輕盈的感覺。"
+      },
+      {
+        "zh": "撥髮遮面 (半遮臉)",
+        "en": "hand brushing hair across face, half-face hidden by hair, windswept and candid",
+        "desc": "用手撥髮、半遮臉的自然瞬間，兼具神秘與率真感。"
+      },
+      {
+        "zh": "雙臂展開 (解放感)",
+        "en": "arms spread wide, head tilted back, liberating pose, full-body freedom expression",
+        "desc": "雙臂張開、頭向後仰，充滿解放感與生命能量。"
+      },
+      {
+        "zh": "蹲坐地上 (親近感)",
+        "en": "crouching down on ground, elbows on knees, casual squat pose, street level angle",
+        "desc": "蹲坐在地，低角度街拍感，帶有親近感。"
+      },
+      {
+        "zh": "側躺沙發/床緣",
+        "en": "lying sideways on sofa edge, chin resting on hand, languid reclined pose, editorial mood",
+        "desc": "側躺倚著家具，下巴托在手上，充滿雜誌大片的氛圍。"
+      }
+    ],
+    "年齡氣質 (Age & Aura)": [
+      {
+        "zh": "少女感 (18-22歲)",
+        "en": "youthful teenage vibe, fresh face, natural innocence, school-age beauty",
+        "desc": "清新自然、未施粉黛的青春感，肌膚細緻且帶有年輕的純真神韻。"
+      },
+      {
+        "zh": "熟女氣場 (25-30歲)",
+        "en": "mature sophisticated woman, commanding aura, experienced beauty, elegant self-assurance",
+        "desc": "歲月沉澱出的自信與從容，有清晰的眼神與優雅的氣場，是高端商業攝影的黃金年齡段。"
+      }
+    ]
+  },
+  "Negative": {
+    "通用人體防護": [
+      {
+        "zh": "基礎肢體崩壞防護",
+        "en": "deformed, bad anatomy, disfigured, poorly drawn face, mutation, mutated, ugly, disgusting",
+        "desc": "最基礎且必備的防護牆。防止 AI 隨機生成嚴重扭曲的人體結構或面部器官。"
+      },
+      {
+        "zh": "手部與手指變異防護",
+        "en": "bad hands, missing fingers, extra digit, fewer digits, poorly drawn hands, twisted fingers, fused fingers",
+        "desc": "針對 AI 最弱的「手部細節」加強防護，避免出現六根手指、手指融合或不合邏輯的折疊。"
+      },
+      {
+        "zh": "腿部與關節防護",
+        "en": "missing legs, extra legs, bad feet, twisted legs, broken bone, unnatural posture, disconnected limbs",
+        "desc": "避免站姿或坐姿時，腿部憑空消失、多出一條腿，或是關節朝反方向彎折。"
+      },
+      {
+        "zh": "頸部與頭部防護",
+        "en": "long neck, detached head, weird jaw, out of frame head, multiple heads, elongated face",
+        "desc": "避免頭部與身體脫節、脖子異常拉長如蛇，或是同一個畫面上出現多顆頭顱。"
+      },
+      {
+        "zh": "五官細節防護",
+        "en": "cross-eyed, asymmetric eyes, weird eyes, missing nose, bad teeth, malformed lips, unrealistic facial proportions",
+        "desc": "強制五官對稱，避免鬥雞眼、大小眼，或是張嘴時出現恐怖的牙齒結構。"
+      }
+    ],
+    "畫質與渲染防護": [
+      {
+        "zh": "低畫質與模糊防護",
+        "en": "worst quality, low quality, normal quality, lowres, blurry, out of focus, jpeg artifacts, pixelated",
+        "desc": "強制模型提升輸出解析度與清晰度，避免出現像素化、邊緣模糊或壓縮產生的鋸齒亮斑。"
+      },
+      {
+        "zh": "浮水印與文字防護",
+        "en": "watermark, text, signature, logo, username, typography, letters, stamped",
+        "desc": "避免 AI 模仿圖庫網站（如 Getty Images）而在畫面中隨機生成無意義的浮水印、簽名或亂碼文字。"
+      },
+      {
+        "zh": "邊框與裁切防護",
+        "en": "cropped, out of frame, cut off, border, frame, white margins",
+        "desc": "確保人物或主體不會被不自然的裁切在畫布邊緣，同時避免生成相框狀的邊框（除非刻意要求拍立得）。"
+      }
+    ],
+    "風格與寫實度防護": [
+      {
+        "zh": "3D / CG 渲染防護",
+        "en": "3D render, CGI, octane render, unreal engine, plastic skin, smooth skin, doll, toy, artificial",
+        "desc": "為了維持「寫實攝影」的質感，必須剔除任何帶有塑膠感、假人感或 3D 動畫引擎渲染效果的特徵。"
+      },
+      {
+        "zh": "2D / 插畫風格防護",
+        "en": "illustration, painting, drawing, sketch, anime, cartoon, monochrome painting, vector art, flat color",
+        "desc": "防止生圖變成二次元動漫、手繪素描或油畫，維護真實物理世界的光影與三維立體感。"
+      },
+      {
+        "zh": "過度修圖防護",
+        "en": "oversaturated, overly bright, bleached, artificial lighting, overly smooth face, heavy makeup filter",
+        "desc": "避免畫面呈現出如「美圖秀秀」般極端不自然的美顏濾鏡感、死白膚色或刺眼的過高飽和度。"
+      }
+    ],
+    "場景與物理防護": [
+      {
+        "zh": "漂浮與反重力防護",
+        "en": "floating objects, defying gravity, floating limbs, flying, unconnected items, messy physics",
+        "desc": "確保畫面中（特別是室內場景）的物件符合重力邏輯，避免杯子、椅子等物品懸浮在半空中。"
+      },
+      {
+        "zh": "背景干擾物防護",
+        "en": "messy background, cluttered space, distracting background elements, messy room, trash",
+        "desc": "適用於需要凸顯人物的棚拍或商業攝影，強制清除背景中多餘的雜物與干擾視線的髒亂。"
+      },
+      {
+        "zh": "錯誤透視防護",
+        "en": "bad perspective, warped architecture, distorted buildings, twisted walls, physically impossible architecture",
+        "desc": "特別針對都市街景或室內空間，防止建築物、牆壁與背景街道出現扭曲變形，如全面啟動般的空間坍塌。"
+      }
+    ],
+    "服裝與材質防護": [
+      {
+        "zh": "服裝穿模防護",
+        "en": "clothing clipping through skin, missing clothes, floating clothes, inconsistent fashion, merging fabrics",
+        "desc": "避免皮膚與衣物邊緣融合、衣服懸空，或是上衣跟下裝的材質不可理喻地縫合在一起。"
+      }
+    ],
+    "特定主題防護 (依需求加入)": [
+      {
+        "zh": "自然派防護 (剔除不自然元素)",
+        "en": "artificial light, studio light, flash, posed, fake, unnatural colors, synthetic nature",
+        "desc": "當「AI 攝影師」選擇了自然或戶外主題時加入。避免自然環境中出現明顯的棚內反光板或人造光的斧鑿痕跡。"
+      },
+      {
+        "zh": "黑暗恐怖防護 (維持唯美)",
+        "en": "horror, scary, gore, blood, creepy, zombie, grotesque, macabre, disturbing",
+        "desc": "除非主題為 BDSM 或廢墟，否則即使在暗調光影下，也必須加入此組以防止畫面過度恐怖或出現血腥驚悚元素。"
+      },
+      {
+        "zh": "過度暴露防護 (維持時尚)",
+        "en": "nsfw, explicit, nude, naked, highly revealing, pornographic, lewd",
+        "desc": "確保大尺度內衣或泳裝攝影僅停留在「性感與時尚」的邊界，防止生成被審查的成人限制級畫面。"
+      },
+      {
+        "zh": "現代物品防護 (針對復古主題)",
+        "en": "modern technology, smartphone, modern cars, led lights, contemporary clothing, digital screen",
+        "desc": "拍攝維多利亞、巴洛克或古典主題時必加。防止畫面上出現手機、現代汽車或電子螢幕這類破壞時代感的物品。"
+      }
+    ]
+  }
+}
