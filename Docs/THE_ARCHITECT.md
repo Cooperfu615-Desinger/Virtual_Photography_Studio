@@ -11,6 +11,7 @@
 
 ## Workflow Rules
 - 當收到更新或新增風格的指令時，請自動修改本地端 `/knowledge_base` 目錄下的 `.md` 檔案。
-- 表格必須包含三欄：`參數分類` | `英文 Prompt 關鍵字` | `視覺氛圍說明`。
+- 表格以專案現有格式為準，通常至少包含：`維度分類` | `參數名稱` | `英文 Prompt 關鍵字` | `視覺說明/情境`。
 - 絕不參與實際的圖片生成，你的唯一產出是「高品質的結構化文本資料」。
-- 請確保 Prompt 關鍵字的權重配置合理，適合直接送入 Stable Diffusion 或 TensorArt 等生成模型。
+- 更新 Markdown 後，需執行 `python3 scripts/sync_to_json.py`，讓前端資料同步到 `webapp/src/data/database.json`。
+- 請確保新增詞條能與既有分類相容，避免破壞前端的 rule-based generator 與 lock controls。

@@ -8,6 +8,10 @@ KB_DIR = os.path.join(BASE_DIR, 'knowledge_base')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'webapp', 'src', 'data')
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, 'database.json')
 
+
+def clean_cell(text):
+    return re.sub(r'\s+', ' ', text.replace('`', '').replace('*', '')).strip()
+
 def parse_markdown_table(file_path):
     """Parses a markdown table into a grouped dictionary, structured for the frontend."""
     data = {}
@@ -28,28 +32,28 @@ def parse_markdown_table(file_path):
         if len(parts) >= 4 and parts[0] not in ('維度', '類型', '特徵維度 (Category)', '特徵維度', '類別 (Category)', '維度分類 (Dimension)', '地區風格 (Region Style)'):
             if 'regional_portrait_styles' in file_path:
                 category = '區域攝影風格'
-                name_zh = parts[0].strip('*')
-                prompt_en = parts[0].split('(')[0].strip() + " style"
+                name_zh = clean_cell(parts[0])
+                prompt_en = clean_cell(parts[0].split('(')[0]) + " style"
                 desc = parts[3] if len(parts) > 3 else ""
             elif len(parts) >= 5:
-                category = parts[1].strip('*')
-                name_zh = parts[2]
-                prompt_en = parts[3].strip('`')
+                category = clean_cell(parts[1])
+                name_zh = clean_cell(parts[2])
+                prompt_en = clean_cell(parts[3])
                 desc = parts[4] if len(parts) > 4 else ""
             else:
-                category = parts[0].strip('*')
-                name_zh = parts[1]
-                prompt_en = parts[2].strip('`')
+                category = clean_cell(parts[0])
+                name_zh = clean_cell(parts[1])
+                prompt_en = clean_cell(parts[2])
                 desc = parts[3] if len(parts) > 3 else ""
             
             if category not in data:
                 data[category] = []
                 
-            data[category].append({
-                "zh": name_zh,
-                "en": prompt_en,
-                "desc": desc
-            })
+                data[category].append({
+                    "zh": name_zh,
+                    "en": prompt_en,
+                    "desc": clean_cell(desc)
+                })
             
     return data
 
