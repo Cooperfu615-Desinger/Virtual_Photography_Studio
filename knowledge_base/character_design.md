@@ -86,3 +86,15 @@
 | **姿勢與肢體語言 (Pose & Body Language)** | 雙臂展開 (解放感) | `arms spread wide, head tilted back, liberating pose, full-body freedom expression` | 雙臂張開、頭向後仰，充滿解放感與生命能量。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 蹲坐地上 (親近感) | `crouching down on ground, elbows on knees, casual squat pose, street level angle` | 蹲坐在地，低角度街拍感，帶有親近感。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 側躺沙發/床緣 | `lying sideways on sofa edge, chin resting on hand, languid reclined pose, editorial mood` | 側躺倚著家具，下巴托在手上，充滿雜誌大片的氛圍。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 雜誌封面站姿 | `editorial cover pose, shoulders open, body slightly turned, direct confident stance` | 像時尚雜誌封面主視覺的站姿，穩定、自信，適合主畫面構圖。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 手插腰胯時裝姿勢 | `hand on hip fashion pose, weight on one leg, confident runway-inspired stance` | 一手插腰、身體重心放單側，能強調服裝輪廓與比例。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿交叉腿大片感 | `crossed-leg seated editorial pose, poised posture, magazine spread mood` | 坐姿帶有成熟時裝大片感，適合椅子、沙發或場景道具。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 轉身回望編輯感 | `turning away then looking back at camera, editorial over-shoulder pose` | 身體先轉開、頭部再回望鏡頭，常見於雜誌跨頁與時裝拍攝。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 抬手整理頭髮 | `hand lifting hair, adjusting hair near ear, candid beauty pose` | 抬手撥髮或整理耳側頭髮，帶有自然動態與生活感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 托腮近距離寫真姿勢 | `chin resting on hand, close-range photobook pose, intimate framing` | 臉部靠近鏡頭、輕托下巴，適合寫真集與近距離人像。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 靠窗坐拍寫真感 | `sitting by window, relaxed photobook pose, soft natural posture` | 坐在窗邊、身體自然放鬆，帶有日系寫真常見的安靜氛圍。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 床邊半坐半躺寫真姿勢 | `half-seated half-reclined on bed edge, soft gravure-inspired pose` | 半坐半躺在床邊，適合寫真集與帶些親密感的室內場景。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 街頭低頭看手機隨拍感 | `looking down at phone while standing, candid street snapshot pose` | 像街頭被捕捉到的日常片段，現代感強，也很適合生活系畫面。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 電梯鏡自拍姿勢 | `mirror selfie pose, holding phone in elevator mirror, body slightly turned` | 手持手機對鏡自拍，帶有社群媒體與現代隨拍感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 沙發慵懶伸展姿勢 | `lounging on sofa, stretched relaxed pose, lifestyle editorial mood` | 靠坐或半躺在沙發上自然伸展，適合 lifestyle 與時尚內頁。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 盤腿坐地寫真姿勢 | `cross-legged sitting on floor, relaxed photobook pose, casual intimate mood` | 坐在地面或床上盤腿，氣氛輕鬆，適合寫真集與私服企劃。 |

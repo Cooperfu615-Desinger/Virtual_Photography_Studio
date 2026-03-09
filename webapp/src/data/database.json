@@ -1264,6 +1264,66 @@
         "zh": "側躺沙發/床緣",
         "en": "lying sideways on sofa edge, chin resting on hand, languid reclined pose, editorial mood",
         "desc": "側躺倚著家具，下巴托在手上，充滿雜誌大片的氛圍。"
+      },
+      {
+        "zh": "雜誌封面站姿",
+        "en": "editorial cover pose, shoulders open, body slightly turned, direct confident stance",
+        "desc": "像時尚雜誌封面主視覺的站姿，穩定、自信，適合主畫面構圖。"
+      },
+      {
+        "zh": "手插腰胯時裝姿勢",
+        "en": "hand on hip fashion pose, weight on one leg, confident runway-inspired stance",
+        "desc": "一手插腰、身體重心放單側，能強調服裝輪廓與比例。"
+      },
+      {
+        "zh": "坐姿交叉腿大片感",
+        "en": "crossed-leg seated editorial pose, poised posture, magazine spread mood",
+        "desc": "坐姿帶有成熟時裝大片感，適合椅子、沙發或場景道具。"
+      },
+      {
+        "zh": "轉身回望編輯感",
+        "en": "turning away then looking back at camera, editorial over-shoulder pose",
+        "desc": "身體先轉開、頭部再回望鏡頭，常見於雜誌跨頁與時裝拍攝。"
+      },
+      {
+        "zh": "抬手整理頭髮",
+        "en": "hand lifting hair, adjusting hair near ear, candid beauty pose",
+        "desc": "抬手撥髮或整理耳側頭髮，帶有自然動態與生活感。"
+      },
+      {
+        "zh": "托腮近距離寫真姿勢",
+        "en": "chin resting on hand, close-range photobook pose, intimate framing",
+        "desc": "臉部靠近鏡頭、輕托下巴，適合寫真集與近距離人像。"
+      },
+      {
+        "zh": "靠窗坐拍寫真感",
+        "en": "sitting by window, relaxed photobook pose, soft natural posture",
+        "desc": "坐在窗邊、身體自然放鬆，帶有日系寫真常見的安靜氛圍。"
+      },
+      {
+        "zh": "床邊半坐半躺寫真姿勢",
+        "en": "half-seated half-reclined on bed edge, soft gravure-inspired pose",
+        "desc": "半坐半躺在床邊，適合寫真集與帶些親密感的室內場景。"
+      },
+      {
+        "zh": "街頭低頭看手機隨拍感",
+        "en": "looking down at phone while standing, candid street snapshot pose",
+        "desc": "像街頭被捕捉到的日常片段，現代感強，也很適合生活系畫面。"
+      },
+      {
+        "zh": "電梯鏡自拍姿勢",
+        "en": "mirror selfie pose, holding phone in elevator mirror, body slightly turned",
+        "desc": "手持手機對鏡自拍，帶有社群媒體與現代隨拍感。"
+      },
+      {
+        "zh": "沙發慵懶伸展姿勢",
+        "en": "lounging on sofa, stretched relaxed pose, lifestyle editorial mood",
+        "desc": "靠坐或半躺在沙發上自然伸展，適合 lifestyle 與時尚內頁。"
+      },
+      {
+        "zh": "盤腿坐地寫真姿勢",
+        "en": "cross-legged sitting on floor, relaxed photobook pose, casual intimate mood",
+        "desc": "坐在地面或床上盤腿，氣氛輕鬆，適合寫真集與私服企劃。"
       }
     ]
   },
