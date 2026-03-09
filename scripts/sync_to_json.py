@@ -29,12 +29,24 @@ def parse_markdown_table(file_path):
             continue
         
         parts = [p.strip() for p in line.split('|')[1:-1]]
-        if len(parts) >= 4 and parts[0] not in ('維度', '類型', '特徵維度 (Category)', '特徵維度', '類別 (Category)', '維度分類 (Dimension)', '地區風格 (Region Style)'):
+        if len(parts) >= 4 and parts[0] not in (
+            '維度',
+            '類型',
+            '特徵維度 (Category)',
+            '特徵維度',
+            '類別 (Category)',
+            '維度分類 (Dimension)',
+            '地區風格 (Region Style)',
+            '攝影風格 (Photography Style)',
+        ):
             if 'regional_portrait_styles' in file_path:
-                category = '區域攝影風格'
+                category = '攝影風格'
                 name_zh = clean_cell(parts[0])
-                prompt_en = clean_cell(parts[0].split('(')[0]) + " style"
-                desc = parts[3] if len(parts) > 3 else ""
+                inspiration = clean_cell(parts[1]) if len(parts) > 1 else ""
+                prompt_en = clean_cell(parts[2]) if len(parts) > 2 else ""
+                desc = clean_cell(parts[3]) if len(parts) > 3 else ""
+                if inspiration and inspiration not in ('—', '-'):
+                    desc = f"{inspiration} | {desc}" if desc else inspiration
             elif len(parts) >= 5:
                 category = clean_cell(parts[1])
                 name_zh = clean_cell(parts[2])

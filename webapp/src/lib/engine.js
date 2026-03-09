@@ -27,7 +27,7 @@ const ASPECT_RATIO_OPTIONS = [
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: '4:5' },
-  { key: 'styleId', label: 'Regional Style', category: '區域攝影風格' },
+  { key: 'styleId', label: 'Photography Style', category: '攝影風格' },
   { key: 'locationId', label: 'Location', category: null },
   { key: 'framingId', label: 'Framing', category: '景別構圖 (Framing)' },
   { key: 'lightingId', label: 'Lighting', category: '光線類型 (Lighting Type)' },
@@ -45,7 +45,7 @@ const PARTIAL_REROLL_OPTIONS = [
 ];
 
 const CUSTOM_GROUP_OPTIONS = [
-  { value: 'Regional', label: 'Regional Style' },
+  { value: 'Regional', label: 'Photography Style' },
   { value: 'Locations', label: 'Location' },
   { value: 'Wardrobe', label: 'Wardrobe' },
   { value: 'Character', label: 'Character' },
@@ -116,16 +116,12 @@ function inferStyleMeta(_category, item) {
   const haystack = toHaystack(item.zh, item.en, item.desc);
   const tags = [];
 
-  if (hasAny(haystack, ['taiwan'])) tags.push('nostalgic', 'warm_grade', 'film');
-  if (hasAny(haystack, ['japan'])) tags.push('soft_grade', 'cool_grade', 'urban');
-  if (hasAny(haystack, ['korea'])) tags.push('clean_grade', 'beauty');
-  if (hasAny(haystack, ['hong kong'])) tags.push('neon', 'urban', 'artificial_light');
-  if (hasAny(haystack, ['australia'])) tags.push('sunny', 'outdoor_bias', 'warm_grade');
-  if (hasAny(haystack, ['usa'])) tags.push('high_contrast', 'sunny');
-  if (hasAny(haystack, ['germany'])) tags.push('cool_grade', 'minimal');
-  if (hasAny(haystack, ['france'])) tags.push('warm_grade', 'film', 'elegant');
-  if (hasAny(haystack, ['italy'])) tags.push('warm_grade', 'high_saturation', 'dramatic');
-  if (hasAny(haystack, ['china'])) tags.push('beauty', 'high_saturation');
+  if (hasAny(haystack, ['airy', 'translucent', 'gentle mood', '清透寫真'])) tags.push('soft_grade', 'natural_light_bias', 'indoor_bias');
+  if (hasAny(haystack, ['clean studio', 'beauty lighting', '棚拍'])) tags.push('clean_grade', 'beauty', 'studio_bias', 'controlled');
+  if (hasAny(haystack, ['neon cinematic', 'urban night', '霓虹電影'])) tags.push('neon', 'urban_bias', 'artificial_light', 'night_bias');
+  if (hasAny(haystack, ['forest-like shadows', 'low-key', '靜謐森林'])) tags.push('moody', 'cool_grade', 'dramatic', 'natural_bias', 'low_key_bias');
+  if (hasAny(haystack, ['hyper-saturated', 'floral', '花卉夢境'])) tags.push('high_saturation', 'dreamlike', 'set_bias', 'studio_bias');
+  if (hasAny(haystack, ['symmetrical', 'negative space', '留白疏離'])) tags.push('minimal', 'structured', 'conceptual', 'indoor_bias');
 
   return { tags: withTags(tags) };
 }
@@ -486,8 +482,10 @@ function styleFitsLocation(style, location) {
   const styleTags = new Set(style.meta.tags);
   const locationTags = new Set(location.meta.tags);
 
-  if (styleTags.has('outdoor_bias') && (locationTags.has('underground') || locationTags.has('club') || locationTags.has('studio'))) return false;
-  if (styleTags.has('outdoor_bias') && !locationTags.has('outdoor') && !locationTags.has('sunlight')) return false;
+  if ((styleTags.has('studio_bias') || styleTags.has('set_bias')) && (locationTags.has('outdoor') || locationTags.has('natural') || locationTags.has('ruin'))) return false;
+  if (styleTags.has('urban_bias') && !locationTags.has('urban') && !locationTags.has('night') && !locationTags.has('underground')) return false;
+  if (styleTags.has('natural_bias') && !locationTags.has('outdoor') && !locationTags.has('natural') && !locationTags.has('window_light')) return false;
+  if (styleTags.has('night_bias') && !locationTags.has('night') && !locationTags.has('underground') && !locationTags.has('club')) return false;
   if (styleTags.has('neon') && locationTags.has('natural') && !locationTags.has('night')) return false;
 
   return true;

@@ -21,17 +21,17 @@ def load_dictionary(filename):
         for line in f:
             line = line.strip()
             # Match markdown table rows starting with |
-            if line.startswith('|') and not line.startswith('| :---') and not line.startswith('| 維度分類') and not line.startswith('| 地區風格'):
+            if line.startswith('|') and not line.startswith('| :---') and not line.startswith('| 維度分類') and not line.startswith('| 地區風格') and not line.startswith('| 攝影風格'):
                 parts = [p.strip() for p in line.split('|') if p.strip()]
                 if len(parts) >= 3:
                     # Clean the dimension name, remove english parentheticals and markdown bold
                     dimension = re.sub(r'\(.*?\)', '', parts[0]).replace('*', '').strip()
                     
-                    # Special parsing for regional styles where column 1 is Region Style and column 4 has prompts
-                    if filename == 'regional_portrait_styles.md' and len(parts) >= 5:
-                         prompt_keywords = parts[4].replace('`', '').strip()
+                    # Special parsing for photography styles where column 1 is style name and column 3 has prompts
+                    if filename == 'regional_portrait_styles.md' and len(parts) >= 4:
+                         prompt_keywords = parts[2].replace('`', '').strip()
                          zh_name = parts[0].replace('`', '').strip()
-                         data['Region'].append({"en": prompt_keywords, "zh": zh_name})
+                         data['攝影風格'].append({"en": prompt_keywords, "zh": zh_name})
                     else:
                         zh_name = parts[1].replace('`', '').strip()
                         prompt_keywords = parts[2].replace('`', '').strip()
@@ -137,7 +137,7 @@ def build_prompt():
     extract_weighted(camera_data, '相機視角', structured["Framing"], [1,2,3], natural_weight=0.9)
 
     # Camera & Film
-    extract_cat(styles_data, 'Region', structured["Camera & Film"])
+    extract_cat(styles_data, '攝影風格', structured["Camera & Film"])
     extract_cat(camera_data, '鏡頭焦段', structured["Camera & Film"])
     extract_weighted(camera_data, '底片與相機模擬', structured["Camera & Film"], [1,2,3,4,5], natural_weight=0.9)
     extract_cat(camera_data, '特殊效果', structured["Camera & Film"], prob=0.4)
