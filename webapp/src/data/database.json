@@ -118,7 +118,7 @@
       {
         "zh": "千禧復古 (Y2K)",
         "en": "Y2K fashion, early 2000s aesthetic, retro-futurism, low-rise, baby tees",
-        "desc": "千禧年初期風格，色彩鮮豔、帶點塑膠感、金屬光澤，懷舊又叛逆。"
+        "desc": "千禧年初期風格，色彩鮮豔、帶點塑膠感與金屬光澤，懷舊又叛逆。"
       },
       {
         "zh": "機能風 (Techwear)",
@@ -128,7 +128,7 @@
       {
         "zh": "極簡高級 (Minimalist Luxury)",
         "en": "quiet luxury, minimalist fashion, clean lines, monochromatic, tailored fit",
-        "desc": "無明顯 Logo，剪裁俐落乾淨，注重面料本身的垂墜與高質感，單色系為主。"
+        "desc": "無明顯 logo，剪裁俐落乾淨，注重面料垂墜與高質感。"
       },
       {
         "zh": "法式慵懶 (Parisian Chic)",
@@ -143,334 +143,371 @@
       {
         "zh": "日系街頭 (Japanese Streetwear)",
         "en": "Japanese streetwear, oversized silhouette, layered clothing, Harajuku fashion",
-        "desc": "擅長多層次穿搭 (Layering)、Oversize 廓形，混合工裝與日常單品。"
+        "desc": "擅長多層次穿搭與 oversized 廓形，混合工裝與日常單品。"
       },
       {
         "zh": "民俗風 (Bohemian/Ethnic)",
-        "en": "bohemian fashion, ethnic style, folk aesthetic, heavily embroidered, earth tones",
-        "desc": "大量刺繡、流蘇、圖騰印花與大地色系，充滿異國情調與自由奔放感。"
+        "en": "bohemian fashion, ethnic style, folk aesthetic, embroidered pieces, earth tones",
+        "desc": "刺繡、流蘇、圖騰印花與大地色系，充滿異國情調與自由奔放感。"
       },
       {
         "zh": "BDSM (拘束/束縛)",
-        "en": "BDSM fashion, bondage aesthetic, fetish wear, heavy latex, tight leather harnesses",
-        "desc": "強烈的束縛感與支配性，使用大量皮革、乳膠、綁帶、金屬環等元素。"
+        "en": "BDSM fashion, bondage aesthetic, fetish wear, leather harnesses, latex accents",
+        "desc": "強烈的束縛感與支配性，使用皮革、乳膠、綁帶與金屬環等元素。"
       },
       {
         "zh": "巴洛克 (Baroque)",
         "en": "Baroque fashion, opulent aesthetic, ornate gold embroidery, luxurious fabrics, decadent",
-        "desc": "極致奢華與繁複，大量的金色刺繡、天鵝絨、絲綢與戲劇化的剪裁。"
+        "desc": "極致奢華與繁複，大量金色刺繡、天鵝絨、絲綢與戲劇化剪裁。"
       },
       {
         "zh": "維多利亞 (Victorian)",
         "en": "Victorian aesthetic, gothic Victorian, high neck lace, corsets, romantic mourning dress",
-        "desc": "帶有禁慾與浪漫氣息，高領蕾絲、緊身馬甲、繁複的褶皺，常帶有哥德感。"
+        "desc": "帶有禁慾與浪漫氣息，高領蕾絲、緊身馬甲與繁複皺褶。"
       },
       {
         "zh": "蘿莉塔 (Lolita)",
         "en": "Lolita fashion, sweet/gothic lolita, bell-shaped skirt, frills, rococo inspired",
-        "desc": "源自日本的洛可可風格，標誌性的鐘形裙襬、大量的荷葉邊、蕾絲與蝴蝶結。"
+        "desc": "源自日本的洛可可風格，標誌性的鐘形裙襬、大量荷葉邊與蝴蝶結。"
       },
       {
         "zh": "女高中生 (JK/Schoolgirl)",
-        "en": "JK uniform, Japanese schoolgirl aesthetic, sailor suit, pleated skirt, preppy",
-        "desc": "經典的日本女子高校生制服，包含水手服、百褶裙、西裝外套與針織衫。"
+        "en": "JK uniform, Japanese school uniform aesthetic, sailor suit, pleated skirt, preppy",
+        "desc": "經典日本女子高校制服，包含水手服、百褶裙、西裝外套與針織衫。"
       },
       {
         "zh": "內衣 (Lingerie)",
         "en": "lingerie aesthetic, boudoir fashion, sheer intimates, lace bodysuit, provocateur",
-        "desc": "展現身體曲線，以透膚蕾絲、絲綢為主的私密穿搭，具備誘惑與性感。"
+        "desc": "展現身體曲線，以透膚蕾絲、絲綢為主的私密性感穿搭。"
       },
       {
         "zh": "泳裝 (Swimwear)",
         "en": "swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear",
-        "desc": "海灘或度假風格，包含比基尼、連身泳衣，通常布料極少且貼身。"
+        "desc": "海灘或度假風格，包含比基尼、連身泳衣與度假罩衫。"
       },
       {
         "zh": "軍裝 (Military)",
         "en": "military fashion, tactical combat wear, camouflage, olive drab, epaulets, uniform",
-        "desc": "仿效軍隊制服，迷彩圖案、橄欖綠，帶有肩章、金屬扣與硬挺的肩部線條。"
+        "desc": "仿效軍隊制服，迷彩圖案、橄欖綠與硬挺肩線。"
       },
       {
         "zh": "工業風 (Industrial)",
         "en": "industrial fashion, dark industrial aesthetic, rugged materials, dystopian mechanic",
-        "desc": "粗獷、硬核，常見於廢墟或工廠背景，重磅帆布、沾附機油的做舊感。"
+        "desc": "粗獷、硬核，常見於廢墟或工廠背景，重磅帆布與做舊髒污感。"
       }
     ],
     "上身 (Tops)": [
       {
+        "zh": "合身白襯衫",
+        "en": "fitted white shirt, crisp cotton poplin, clean silhouette",
+        "desc": "乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。"
+      },
+      {
+        "zh": "削肩針織上衣",
+        "en": "ribbed sleeveless knit top, fitted silhouette, soft stretch texture",
+        "desc": "乾淨貼身的針織質地，能自然勾勒肩頸與上半身線條。"
+      },
+      {
+        "zh": "絲質細肩帶上衣",
+        "en": "silk camisole top, delicate straps, fluid sheen",
+        "desc": "輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。"
+      },
+      {
+        "zh": "合身高領針織",
+        "en": "fitted turtleneck knit top, fine gauge knit, sleek silhouette",
+        "desc": "貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。"
+      },
+      {
+        "zh": "寬鬆落肩 T 恤",
+        "en": "oversized dropped-shoulder t-shirt, washed cotton jersey, relaxed fit",
+        "desc": "生活感很強的基本款，適合街頭、居家與青春隨拍風格。"
+      },
+      {
+        "zh": "平口短版上衣",
+        "en": "strapless cropped tube top, close-fitting stretch fabric, clean line",
+        "desc": "露出肩頸與腰線，適合 Y2K、夏日、派對與寫真主題。"
+      },
+      {
         "zh": "半透明絲綢襯衫",
         "en": "translucent silk blouse, sheer organza shirt, delicate drape",
-        "desc": "輕盈透膚的絲綢或歐根紗，帶有柔和的光澤感，飄逸且優雅。"
+        "desc": "輕盈透膚的絲綢或歐根紗，柔和光澤感明顯。"
       },
       {
         "zh": "粗針織寬鬆毛衣",
         "en": "chunky knit oversized sweater, cable knit, heavy yarn texture",
-        "desc": "有分量的粗毛線編織，立體紋理清晰，帶來溫暖與慵懶的居家感。"
+        "desc": "帶有份量感的粗毛線編織，溫暖且有慵懶居家氛圍。"
       },
       {
         "zh": "短版緊身吊帶背心",
         "en": "cropped tight camisole, ribbed cotton tank top, form-fitting",
-        "desc": "羅紋棉質，緊貼身形，露出腰線，常作為 Y2K 或街頭風格的內搭。"
+        "desc": "貼身露腰、偏 Y2K 與街頭感。"
       },
       {
         "zh": "解構主義不對稱上衣",
         "en": "deconstructed asymmetric top, avant-garde cut, uneven hem",
-        "desc": "剪裁不對稱，可能拼接不同材質，呈現前衛的實驗性與藝術感。"
+        "desc": "剪裁不對稱、偏前衛藝術感。"
       },
       {
         "zh": "機能戰術背心",
         "en": "tactical utility vest, multiple pockets, nylon straps, webbing",
-        "desc": "多口袋設計，帶有尼龍織帶與插扣，增添硬派的機能戰鬥感。"
+        "desc": "多口袋、織帶與插扣，強化機能戰鬥感。"
       },
       {
-        "zh": "復古印花天鵝絨高領",
-        "en": "vintage floral velvet turtleneck, rich crushed velvet texture",
-        "desc": "觸感柔軟且帶有奢華反光的天鵝絨，配上復古印花，適合秋冬氣息。"
-      },
-      {
-        "zh": "金屬光澤緊身褡 (馬甲)",
+        "zh": "金屬光澤馬甲上衣",
         "en": "metallic corset top, structured bodice, iridescent finish",
-        "desc": "具有立體骨架支撐，表面帶有金屬反光或雷射光澤的馬甲。"
-      },
-      {
-        "zh": "民俗風刺繡罩衫",
-        "en": "bohemian embroidered off-shoulder peasant blouse, flowy cotton, ethnic patterns",
-        "desc": "寬鬆棉質，帶有大量異國圖騰刺繡的露肩或燈籠袖罩衫。"
-      },
-      {
-        "zh": "皮革束縛胸衣",
-        "en": "BDSM leather harness top, tightly bound, metal O-rings, thick leather straps",
-        "desc": "由皮革綁帶與金屬圓環構成，緊縛胸部的束帶型上衣。"
+        "desc": "帶立體支撐與金屬反光感，適合強風格時裝畫面。"
       },
       {
         "zh": "維多利亞高領蕾絲襯衫",
         "en": "Victorian high-neck lace blouse, ruffled collar, intricate lace detailing",
-        "desc": "領口有繁複百褶蕾絲的高領長袖襯衫，禁慾且浪漫。"
+        "desc": "領口繁複、禁慾而浪漫。"
       },
       {
-        "zh": "水手服上衣 (JK)",
-        "en": "Japanese sailor suit top, navy blue collar, white stripes, red necktie",
-        "desc": "經典的海軍藍白條紋水手領，胸前通常配有紅色領結或領帶。"
-      },
-      {
-        "zh": "透膚蕾絲馬甲連身衣",
-        "en": "sheer lace lingerie bodysuit, underwire cups, floral lace",
-        "desc": "帶有鋼圈支撐，大面積透膚碎花蕾絲的連身性感內衣。"
+        "zh": "透膚蕾絲連身上衣",
+        "en": "sheer lace bodysuit top, floral lace texture, fitted silhouette",
+        "desc": "連身式透膚蕾絲上衣，偏內衣與寫真主題。"
       }
     ],
-    "下身 (Bottoms)": [
+    "褲裝 (Pants)": [
+      {
+        "zh": "高腰直筒牛仔褲",
+        "en": "high-waisted straight-leg jeans, clean denim texture, everyday staple",
+        "desc": "最穩定的日常下身單品，適合城市、街拍與生活感畫面。"
+      },
       {
         "zh": "寬版垂墜西裝褲",
         "en": "wide-leg tailored trousers, flowy suiting fabric, high-waisted",
-        "desc": "剪裁寬鬆的高腰西裝褲，布料垂墜感極佳，走動時線條流暢。"
+        "desc": "剪裁寬鬆、布料垂墜，適合極簡高級與商業棚拍。"
       },
       {
         "zh": "破壞抽鬚牛仔寬褲",
         "en": "distressed baggy denim jeans, frayed edges, heavy wash denim",
-        "desc": "重度水洗、有破洞或褲腳抽鬚的寬鬆牛仔褲，帶出隨性與街頭感。"
-      },
-      {
-        "zh": "亮面漆皮迷你裙",
-        "en": "glossy patent leather mini skirt, high shine texture, a-line",
-        "desc": "表面光滑反光性強的漆皮材質，A 字剪裁，視覺強烈且俐落。"
-      },
-      {
-        "zh": "不對稱層次百褶裙",
-        "en": "asymmetric layered pleated skirt, schoolgirl aesthetic, punk details",
-        "desc": "由長短不一的百褶組合，可能帶有金屬扣環，融合學院與龐克風。"
+        "desc": "重度水洗、寬鬆廓形，帶隨性街頭感。"
       },
       {
         "zh": "機能多口袋工裝褲",
         "en": "tactical cargo pants, ripstop fabric, utilitarian pockets, straps",
-        "desc": "使用防撕裂尼龍材質，大腿與小腿處配置立體口袋的工裝長褲。"
+        "desc": "防撕裂材質與立體口袋，適合機能與工業風格。"
       },
       {
         "zh": "絲絨喇叭褲",
         "en": "velvet flared pants, 70s retro style, soft plush texture",
-        "desc": "具備 70 年代復古風情的喇叭褲，絲絨材質增添華麗的觸覺體驗。"
+        "desc": "帶有復古戲劇感與柔軟光澤。"
+      },
+      {
+        "zh": "西裝短褲",
+        "en": "tailored shorts, structured suiting fabric, clean hemline",
+        "desc": "俐落正式但保留輕盈感，適合夏季時裝與城市造型。"
+      },
+      {
+        "zh": "工業風重磅帆布褲",
+        "en": "heavy canvas mechanic pants, rugged workwear texture, industrial durability",
+        "desc": "厚重耐磨且偏做舊，適合廢墟與工業場景。"
+      },
+      {
+        "zh": "亮面貼身皮褲",
+        "en": "sleek fitted leather pants, glossy finish, sharp silhouette",
+        "desc": "緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。"
+      }
+    ],
+    "裙裝 (Skirts)": [
+      {
+        "zh": "合身迷你裙",
+        "en": "fitted mini skirt, clean tailored finish, sleek silhouette",
+        "desc": "高頻實用短裙，適合城市、寫真與時裝風格。"
+      },
+      {
+        "zh": "絲質長裙",
+        "en": "silk maxi skirt, fluid drape, soft reflective sheen",
+        "desc": "垂墜感強、適合法式慵懶與高級飯店場景。"
+      },
+      {
+        "zh": "百褶短裙",
+        "en": "classic pleated mini skirt, crisp folds, youthful styling",
+        "desc": "學院感強，適合 JK、街頭與 Y2K 主題。"
+      },
+      {
+        "zh": "不對稱層次百褶裙",
+        "en": "asymmetric layered pleated skirt, punk details, uneven hem",
+        "desc": "層次鮮明，適合龐克與前衛造型。"
       },
       {
         "zh": "龐克格紋百褶裙",
-        "en": "punk tartan pleated skirt, red and black plaid, safety pins",
-        "desc": "紅白或黑紅相間的蘇格蘭格紋，裝飾有安全別針，帶有叛逆的搖滾感。"
+        "en": "punk tartan pleated skirt, red and black plaid, safety pin accents",
+        "desc": "經典格紋、叛逆氣息強。"
+      },
+      {
+        "zh": "亮面漆皮迷你裙",
+        "en": "glossy patent leather mini skirt, high shine texture, a-line",
+        "desc": "反光感強烈，適合夜景與 fetish 邊緣風格。"
       },
       {
         "zh": "蘿莉塔鐘形澎裙",
         "en": "Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath",
-        "desc": "裡面穿著裙撐，呈現完美鐘形的層層荷葉邊半身裙。"
+        "desc": "由裙撐撐起的鐘形裙襬，風格非常鮮明。"
       },
       {
-        "zh": "丁字褲/高衩三角褲",
-        "en": "high-cut thong lingerie, thin straps, revealing silhouettte",
-        "desc": "極度展現臀部與腿部線條的性感內褲剪裁。"
+        "zh": "高腰 pencil skirt",
+        "en": "high-waisted pencil skirt, body-skimming fit, elegant office silhouette",
+        "desc": "合身但不誇張，適合極簡、商業與成熟女性主題。"
+      }
+    ],
+    "襪類 (Legwear)": [
+      {
+        "zh": "透膚黑絲襪",
+        "en": "sheer black pantyhose, delicate translucent legwear, smooth finish",
+        "desc": "高頻實用，能與短裙、短褲與高跟鞋自然搭配。"
       },
       {
-        "zh": "工業風重磅帆布褲",
-        "en": "heavy canvas mechanic pants, oil-stained, rugged industrial durability",
-        "desc": "使用極耐磨的重磅厚帆布，可能帶有仿舊的油漬或髒污感。"
+        "zh": "蕾絲大腿絲襪",
+        "en": "lace-top thigh-high stockings, sensual legwear, fitted silhouette",
+        "desc": "帶寫真與性感氛圍，適合內衣或飯店場景。"
+      },
+      {
+        "zh": "漁網絲襪",
+        "en": "fishnet tights, open net texture, edgy styling",
+        "desc": "強化龐克、地下與夜晚街頭氣質。"
+      },
+      {
+        "zh": "白色膝上襪",
+        "en": "white over-knee socks, soft knit legwear, youthful styling",
+        "desc": "適合 JK、Lolita 與輕甜系搭配。"
+      },
+      {
+        "zh": "羅紋短襪",
+        "en": "ribbed ankle socks, casual everyday styling, soft cotton texture",
+        "desc": "偏日常、可愛、生活感強。"
+      },
+      {
+        "zh": "絲襪全無",
+        "en": "bare legs, no stockings, clean leg styling",
+        "desc": "不加絲襪或襪類，讓整體造型更乾淨直接。"
       }
     ],
     "外套 (Outerwear)": [
       {
-        "zh": "復古做舊皮革騎士夾克",
-        "en": "distressed vintage leather biker jacket, worn textures, silver zippers",
-        "desc": "表面有歲月痕跡的重磅皮革夾克，配有多個銀色拉鍊，硬派且經典。"
+        "zh": "合身西裝外套",
+        "en": "tailored blazer, sharp lapels, structured silhouette",
+        "desc": "最實用的時裝外套，能穩定提升正式感與商業感。"
       },
       {
-        "zh": "寬肩廓形混紡大衣",
-        "en": "oversized structured wool coat, padded shoulders, strict tailored",
-        "desc": "肩膀有墊肩的誇張 Oversize 羊毛大衣，線條硬挺，帶有強勢氣場。"
+        "zh": "長版 trench coat",
+        "en": "long trench coat, flowing hem, classic structured outerwear",
+        "desc": "經典城市時裝外套，適合街頭、旅館與電梯場景。"
+      },
+      {
+        "zh": "復古做舊皮革騎士夾克",
+        "en": "distressed vintage leather biker jacket, worn textures, silver zippers",
+        "desc": "硬派經典、適合街頭與龐克主題。"
       },
       {
         "zh": "賽博反光科技風衣",
-        "en": "iridescent reflective tech-wear trench coat, waterproof shell",
-        "desc": "在光線下會折射不同色彩的科技防水面料，呈現未來科幻感。"
+        "en": "iridescent reflective techwear trench coat, waterproof shell",
+        "desc": "在光線下折射不同色彩，未來感很強。"
       },
       {
         "zh": "柔軟毛絨泰迪熊外套",
-        "en": "fluffy teddy bear fleece jacket, soft plush texture, bulky",
-        "desc": "質感如泰迪熊娃娃般蓬鬆柔軟的人造毛皮外套，視覺上保暖且可愛。"
+        "en": "fluffy teddy bear fleece jacket, soft plush texture, bulky shape",
+        "desc": "視覺柔軟保暖，適合冬季居家與街頭。"
       },
       {
         "zh": "丹寧拼接解構外套",
         "en": "deconstructed patchwork denim jacket, raw edges, mismatched wash",
-        "desc": "將不同水洗顏色的牛仔布料拆解重組，布邊不修邊幅，充滿手工感。"
+        "desc": "布邊外露、手工感強。"
+      },
+      {
+        "zh": "羊毛雙排扣軍裝大衣",
+        "en": "military double-breasted wool overcoat, brass buttons, epaulets",
+        "desc": "長版、硬挺且帶權威感。"
       },
       {
         "zh": "巴洛克金色刺繡斗篷",
         "en": "Baroque velvet cape, heavy gold metallic embroidery, extravagant",
-        "desc": "奢華的天鵝絨斗篷，佈滿繁複的金色立體編織刺繡。"
-      },
-      {
-        "zh": "羊毛雙排扣軍裝大衣",
-        "en": "military double-breasted woolen overcoat, brass buttons, epaulets, strict silhouette",
-        "desc": "硬挺合身的長版大衣，配有黃銅鈕扣與肩章，充滿威嚴感。"
+        "desc": "奢華、戲劇化、典禮感很強。"
       }
     ],
     "鞋款 (Shoes)": [
       {
+        "zh": "白色低筒球鞋",
+        "en": "white low-top sneakers, clean leather finish, versatile everyday style",
+        "desc": "最穩定的日常鞋款，適合街拍與生活感畫面。"
+      },
+      {
+        "zh": "樂福鞋",
+        "en": "classic loafers, polished leather, understated elegance",
+        "desc": "都市、學院、極簡與法式風格都能搭。"
+      },
+      {
+        "zh": "芭蕾平底鞋",
+        "en": "ballet flats, soft leather finish, delicate feminine styling",
+        "desc": "輕盈優雅，適合法式、寫真與室內主題。"
+      },
+      {
+        "zh": "細帶高跟涼鞋",
+        "en": "strappy heeled sandals, delicate straps, elegant leg line",
+        "desc": "適合飯店、晚間時裝與成熟優雅風格。"
+      },
+      {
+        "zh": "尖頭短靴",
+        "en": "pointed ankle boots, sleek leather finish, sharp silhouette",
+        "desc": "帶有都會感與俐落感，適合秋冬與夜景。"
+      },
+      {
         "zh": "厚底綁帶軍靴",
         "en": "chunky platform combat boots, thick lug sole, heavy leather",
-        "desc": "大底極厚、帶有深刻齒紋的綁帶軍靴，增添下半身的重量感與龐克氣息。"
+        "desc": "增添下半身重量感與龐克氣息。"
+      },
+      {
+        "zh": "機能老爹鞋",
+        "en": "chunky tech sneakers, intricate sole design, mesh and rubber paneling",
+        "desc": "鞋底厚重、科技感強。"
       },
       {
         "zh": "復古方頭粗跟鞋",
         "en": "retro square-toe block heels, smooth leather finish, 90s aesthetic",
-        "desc": "90年代流行的方頭設計，搭配穩定的粗跟，簡約且雅致。"
-      },
-      {
-        "zh": "機能老爹鞋 (運動鞋)",
-        "en": "chunky tech sneakers, intricate sole design, mesh and rubber paneling",
-        "desc": "鞋底厚重且線條複雜，由網眼與橡膠拼接而成的機能運動老爹鞋。"
+        "desc": "90 年代感的穩定鞋型，簡約耐用。"
       },
       {
         "zh": "金屬光澤尖頭高跟鞋",
-        "en": "metallic pointed-toe stiletto heels, chromecore, sharp silhouette",
-        "desc": "鞋頭極尖，鞋身呈現液態金屬或亮面質感的細跟高跟鞋，具備攻擊性美感。"
-      },
-      {
-        "zh": "高筒帆布帆船鞋",
-        "en": "high-top canvas sneakers, distressed canvas, classic street style",
-        "desc": "經典的高筒帆布鞋款式，帆布表面可能有輕微磨損痕跡。"
-      },
-      {
-        "zh": "蘿莉塔瑪莉珍鞋",
-        "en": "Lolita Mary Jane shoes, chunky heel, round toe, bow decorations",
-        "desc": "圓頭、粗跟，腳背有綁帶，並裝飾有蝴蝶結的可愛鞋款。"
+        "en": "metallic pointed-toe stilettos, glossy reflective finish, sharp silhouette",
+        "desc": "攻擊性與戲劇感較強，適合夜晚與強風格時裝。"
       },
       {
         "zh": "漆皮過膝長靴",
-        "en": "patent leather thigh-high boots, extreme high stiletto, fetish footwear",
-        "desc": "緊貼腿部線條，高度超過膝蓋的亮面漆皮尖頭細高跟靴。"
+        "en": "patent leather thigh-high boots, sleek fetish-inspired silhouette",
+        "desc": "緊貼腿部線條，適合夜景、飯店與 fetish 邊緣主題。"
       }
     ],
-    "配件 (Accessories)": [
+    "飾品點綴 (Jewelry & Piercings)": [
       {
-        "zh": "粗獷金屬古巴鍊",
-        "en": "chunky silver cuban link chain necklace, heavy metal texture",
-        "desc": "存在感強烈的粗金屬項鍊，常為銀色，增添街頭與龐克氛圍。"
+        "zh": "全無",
+        "en": "no jewelry, clean styling, bare accessories",
+        "desc": "不加飾品，讓造型維持乾淨俐落。"
       },
       {
-        "zh": "彩色半透明護目鏡/墨鏡",
-        "en": "translucent colorful visor sunglasses, Y2K aesthetic, wrap-around",
-        "desc": "鏡片呈鮮豔半透明色（如粉紅、藍），包覆式設計，復古千禧感。"
+        "zh": "小型金屬耳環",
+        "en": "small metallic earrings, subtle jewelry accent, polished detail",
+        "desc": "最穩定的點綴型飾品，適合大多數風格。"
       },
       {
-        "zh": "皮革鉚釘頸圈 (Choker)",
-        "en": "studded leather choker necklace, punk rock accessory, metal spikes",
-        "desc": "黑色皮革環繞頸部，鑲有金屬鉚釘或尖刺，展現反叛精神。"
+        "zh": "細戒指",
+        "en": "slim rings, delicate finger jewelry, understated accent",
+        "desc": "低存在感但能增加精緻度。"
       },
       {
-        "zh": "迷你結構感手提肩背包",
-        "en": "micro structured top-handle bag, stiff leather, minimalist geometry",
-        "desc": "體積極小巧，皮質硬挺、幾何形狀明確的手提/腋下包。"
+        "zh": "鼻環",
+        "en": "nose ring, subtle facial piercing, edgy accent",
+        "desc": "適合龐克、街頭、工業與 Y2K 方向。"
       },
       {
-        "zh": "機能快扣斜背胸包",
-        "en": "tactical crossbody chest rig bag, matte black nylon, quick-release plastic buckles",
-        "desc": "黑色霧面尼龍材質，配有塑膠快開插扣，緊貼胸前，強調戰術機能。"
+        "zh": "唇環",
+        "en": "lip ring, facial piercing detail, rebellious styling",
+        "desc": "風格強度較高，適合地下、龐克與強勢造型。"
       },
       {
-        "zh": "珍珠與金屬拼接項鍊",
-        "en": "pearl and chain mixed necklace, elegant yet edgy contrast",
-        "desc": "柔美的珍珠與硬朗的金屬鏈條一半一半拼湊，呈現衝突美學。"
-      },
-      {
-        "zh": "蕾絲吊襪帶與大腿環",
-        "en": "lace garter belt and thigh-high stockings, erotic lingerie accessories",
-        "desc": "固定絲襪用的蕾絲腰帶以及裝飾在大腿上的彈性蕾絲環。"
-      },
-      {
-        "zh": "復古懷錶與禮帽",
-        "en": "vintage brass pocket watch, formal top hat, Victorian accessories",
-        "desc": "帶有時代感的黃銅色金屬懷錶與正式的紳士高筒禮帽。"
-      },
-      {
-        "zh": "鋼防毒面具 (道具)",
-        "en": "industrial gas mask, heavy rubber, metal filters, post-apocalyptic",
-        "desc": "橡膠與金屬濾毒罐組成，帶有末日與工業核戰後的氛圍。"
-      }
-    ],
-    "材質與細節 (Textures & Details)": [
-      {
-        "zh": "液態金屬感布料",
-        "en": "liquid metal fabric, fluid metallic shine, reflective draping",
-        "desc": "看起來像流動水銀的布料，反光強烈且服貼身形。"
-      },
-      {
-        "zh": "霧水洗重磅純棉",
-        "en": "garment dyed heavy distressed cotton, matte finish, soft faded look",
-        "desc": "經過成衣水洗處理，顏色有自然的褪色感，手感厚實且表面無光澤。"
-      },
-      {
-        "zh": "粗糙毛呢/花呢 (Tweed)",
-        "en": "rough tweed fabric, tactile woolen woven texture, classic elegant",
-        "desc": "由多種顏色毛線交織而成，表面有凸起紋理，營造經典的小香風優雅。"
-      },
-      {
-        "zh": "鏤空漁網編織",
-        "en": "distressed fishnet knit, open loosely woven texture, skin showing",
-        "desc": "網洞大小不一的編織細節，透出內部肌膚，帶有 grunge（油漬搖滾）感。"
-      },
-      {
-        "zh": "幾何立體壓紋皮革",
-        "en": "geometric embossed leather, 3D textured surface, rigid material",
-        "desc": "皮革表面被熱壓出立體的幾何圖紋，視覺上非常有層次與高級感。"
-      },
-      {
-        "zh": "亮面緊身乳膠",
-        "en": "tight glossy latex material, ultra-shiny rubber, skin-tight fetish wear",
-        "desc": "極度貼合身形，表面呈現強烈塑膠/橡膠反光的材質。"
-      },
-      {
-        "zh": "繁複刺繡錦緞",
-        "en": "opulent embroidered brocade, intricate floral silk weaving, stiff texture",
-        "desc": "使用有光澤的絲線織出立體花紋，布料本身較為硬挺華麗。"
-      },
-      {
-        "zh": "半透明濕身白襯衫",
-        "en": "wet look sheer white cotton shirt, clinging to skin, translucent",
-        "desc": "彷彿被水打濕後，緊貼在皮膚上微微透出肉色的純棉材質。"
+        "zh": "金屬頸鍊",
+        "en": "metal choker necklace, close-fitting neck accessory, edgy fashion accent",
+        "desc": "適合夜景、龐克、寫真與強風格時裝。"
       }
     ]
   },

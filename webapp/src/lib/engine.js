@@ -260,6 +260,19 @@ function inferWardrobeMeta(category, item) {
   if (hasAny(haystack, ['lace', 'corset', 'victorian'])) tags.push('ornate');
   if (hasAny(haystack, ['oversized', 'streetwear'])) tags.push('streetwear');
   if (hasAny(haystack, ['swimwear', 'beach'])) tags.push('outdoor_bias');
+  if (category.includes('褲裝') || category.includes('Pants')) tags.push('pants');
+  if (category.includes('裙裝') || category.includes('Skirts')) tags.push('skirt');
+  if (category.includes('襪類') || category.includes('Legwear')) tags.push('legwear');
+  if (category.includes('飾品點綴') || category.includes('Jewelry')) tags.push('accessory_small');
+  if (hasAny(haystack, ['no jewelry', '全無'])) tags.push('no_accessory');
+  if (hasAny(haystack, ['nose ring', 'lip ring', 'choker', '鼻環', '唇環', '頸鍊'])) tags.push('edgy_accessory');
+  if (hasAny(haystack, ['tailored', 'blazer', 'loafers', 'pencil skirt', 'silk maxi skirt', '細帶高跟', '西裝'])) tags.push('elegant');
+  if (hasAny(haystack, ['pleated', 'sailor', 'over-knee socks', 'jk', 'mary jane', '百褶', '膝上襪'])) tags.push('uniform');
+  if (hasAny(haystack, ['lolita', 'ruffled', 'lace', 'bell-shaped', '鐘形'])) tags.push('romantic');
+  if (hasAny(haystack, ['combat boots', 'cargo', 'biker', 'punk', 'fishnet', '軍靴', '工裝'])) tags.push('edgy');
+  if (hasAny(haystack, ['sneakers', 't-shirt', 'jeans', 'ankle socks', '球鞋', '牛仔', '短襪'])) tags.push('casual');
+  if (hasAny(haystack, ['metallic', 'techwear', 'reflective', 'cyber', '金屬', '反光'])) tags.push('futuristic');
+  if (hasAny(haystack, ['victorian', 'baroque', 'cape', 'brocade', '花呢', '蕾絲'])) tags.push('heritage');
 
   return { family, tags: withTags(tags) };
 }
@@ -469,12 +482,16 @@ function locationSupportsLighting(location, lighting) {
 
   if (locTags.has('outdoor')) {
     if (lightTags.has('studio_light') && !lightTags.has('flash')) return false;
+    if (lightTags.has('dark') && !locTags.has('night') && !locTags.has('underground')) return false;
   }
 
   if (locTags.has('night') && lightTags.has('sunlight')) return false;
   if (locTags.has('day') && lightTags.has('dusk')) return false;
+  if (locTags.has('day') && lightTags.has('dark')) return false;
   if (locTags.has('scifi') && lightTags.has('sunlight')) return false;
   if ((locTags.has('heritage') || locTags.has('urban') || locTags.has('natural')) && lightTags.has('studio_light')) return false;
+  if (locTags.has('ruin') && lightTags.has('studio_light')) return false;
+  if ((locTags.has('natural') || locTags.has('outdoor')) && lightTags.has('artificial_light') && !locTags.has('night') && !locTags.has('club')) return false;
 
   return true;
 }
@@ -486,9 +503,13 @@ function lightDirectionSupportsScene(lightDirection, framing, location, lighting
 
   if (directionTags.has('portrait_light') && !visibilityAtLeast(framing.meta.visibility, 'medium')) return false;
   if (directionTags.has('window_light') && !locationTags.has('window_light') && !locationTags.has('indoor')) return false;
-  if (directionTags.has('portrait_light') && lightingTags.has('outdoor') && !visibilityAtLeast(framing.meta.visibility, 'portrait')) return false;
+  if (directionTags.has('portrait_light') && lightingTags.has('outdoor')) return false;
   if (locationTags.has('outdoor') && (directionTags.has('window_light') || directionTags.has('overhead'))) return false;
   if (lightingTags.has('outdoor') && directionTags.has('artificial_light')) return false;
+  if (locationTags.has('urban') && directionTags.has('window_light')) return false;
+  if (locationTags.has('natural') && directionTags.has('window_light')) return false;
+  if (lightingTags.has('dark') && directionTags.has('window_light')) return false;
+  if (locationTags.has('ruin') && directionTags.has('window_light')) return false;
 
   return true;
 }
@@ -497,11 +518,16 @@ function styleFitsLocation(style, location) {
   const styleTags = new Set(style.meta.tags);
   const locationTags = new Set(location.meta.tags);
 
-  if ((styleTags.has('studio_bias') || styleTags.has('set_bias')) && (locationTags.has('outdoor') || locationTags.has('natural') || locationTags.has('ruin'))) return false;
+  if (styleTags.has('studio_bias') && !locationTags.has('studio') && !locationTags.has('set') && !locationTags.has('controlled')) return false;
+  if (styleTags.has('set_bias') && !locationTags.has('studio') && !locationTags.has('set') && !locationTags.has('controlled')) return false;
+  if ((styleTags.has('studio_bias') || styleTags.has('set_bias')) && (locationTags.has('outdoor') || locationTags.has('natural') || locationTags.has('ruin') || locationTags.has('urban'))) return false;
+  if ((styleTags.has('minimal') || styleTags.has('clean_grade')) && locationTags.has('heritage')) return false;
+  if (styleTags.has('indoor_bias') && !locationTags.has('indoor') && !locationTags.has('studio') && !locationTags.has('set') && !locationTags.has('controlled')) return false;
   if (styleTags.has('urban_bias') && !locationTags.has('urban') && !locationTags.has('night') && !locationTags.has('underground')) return false;
   if (styleTags.has('natural_bias') && !locationTags.has('outdoor') && !locationTags.has('natural') && !locationTags.has('window_light')) return false;
   if (styleTags.has('night_bias') && !locationTags.has('night') && !locationTags.has('underground') && !locationTags.has('club')) return false;
   if (styleTags.has('heritage_bias') && !locationTags.has('heritage') && !locationTags.has('natural')) return false;
+  if (styleTags.has('outdoor_bias') && !locationTags.has('outdoor') && !locationTags.has('urban') && !locationTags.has('natural')) return false;
   if (styleTags.has('neon') && locationTags.has('natural') && !locationTags.has('night')) return false;
 
   return true;
@@ -518,6 +544,102 @@ function wardrobeFitsLocation(item, location) {
   if (family === 'bohemian') return locationTags.has('outdoor') || locationTags.has('natural');
 
   return true;
+}
+
+function styleFitsWardrobeVibe(style, vibe) {
+  const styleTags = new Set(style.meta.tags);
+  const family = vibe.meta.family;
+
+  if (styleTags.has('studio_bias') || styleTags.has('soft_grade')) {
+    if (['industrial', 'military', 'cyberpunk', 'bdsm'].includes(family)) return false;
+  }
+
+  if (styleTags.has('neon') || styleTags.has('urban_bias') || styleTags.has('night_bias')) {
+    if (['lolita', 'victorian', 'baroque', 'schoolgirl'].includes(family)) return false;
+  }
+
+  if (styleTags.has('heritage_bias')) {
+    if (!['victorian', 'baroque', 'minimal', 'parisian'].includes(family)) return false;
+  }
+
+  if (styleTags.has('high_saturation') || styleTags.has('dreamlike')) {
+    if (['military', 'industrial'].includes(family)) return false;
+  }
+
+  if (styleTags.has('documentary') || styleTags.has('natural_bias') || styleTags.has('outdoor_bias')) {
+    if (['baroque', 'victorian', 'lolita', 'bdsm'].includes(family)) return false;
+  }
+
+  if (styleTags.has('minimal')) {
+    if (['bdsm', 'cyberpunk', 'industrial', 'lolita'].includes(family)) return false;
+  }
+
+  return true;
+}
+
+function wardrobePieceFitsFamily(item, family, categoryKey, location) {
+  const tags = new Set(item.meta.tags);
+  const locationTags = new Set(location.meta.tags);
+
+  if (family === 'swimwear') {
+    if (!(locationTags.has('outdoor') || item.en.includes('bare legs'))) return false;
+    if (categoryKey === '外套 (Outerwear)' || categoryKey === '襪類 (Legwear)') return item.en.includes('bare legs');
+    if (categoryKey === '褲裝 (Pants)') return false;
+    if (categoryKey === '裙裝 (Skirts)' && !item.en.includes('bare')) return false;
+  }
+
+  if (family === 'lingerie') {
+    if (categoryKey === '上身 (Tops)' && !(item.meta.tags.includes('revealing') || item.meta.tags.includes('elegant'))) return false;
+    if (categoryKey === '褲裝 (Pants)' && !tags.has('elegant')) return false;
+    if (categoryKey === '外套 (Outerwear)' && !(tags.has('elegant') || item.en.includes('blazer'))) return false;
+    if (categoryKey === '鞋款 (Shoes)' && !(tags.has('elegant') || item.en.includes('stilettos') || item.en.includes('heels') || item.en.includes('boots'))) return false;
+  }
+
+  if (family === 'lolita') {
+    if (categoryKey === '上身 (Tops)' && !(tags.has('romantic') || tags.has('uniform') || tags.has('ornate'))) return false;
+    if (categoryKey === '褲裝 (Pants)') return false;
+    if (categoryKey === '裙裝 (Skirts)' && !tags.has('romantic')) return false;
+    if (categoryKey === '鞋款 (Shoes)' && !item.en.includes('Mary Jane') && !item.zh.includes('瑪莉珍')) return false;
+    if (categoryKey === '外套 (Outerwear)' && !tags.has('heritage')) return false;
+  }
+
+  if (family === 'schoolgirl') {
+    if (categoryKey === '上身 (Tops)' && !(tags.has('uniform') || tags.has('casual'))) return false;
+    if (categoryKey === '褲裝 (Pants)') return false;
+    if (categoryKey === '裙裝 (Skirts)' && !tags.has('uniform')) return false;
+    if (categoryKey === '襪類 (Legwear)' && !(tags.has('uniform') || item.en.includes('bare legs'))) return false;
+    if (categoryKey === '鞋款 (Shoes)' && !(tags.has('uniform') || tags.has('casual') || item.zh.includes('樂福'))) return false;
+  }
+
+  if (['techwear', 'industrial', 'military'].includes(family)) {
+    if (categoryKey === '上身 (Tops)' && !(tags.has('utilitarian') || tags.has('casual') || tags.has('futuristic') || tags.has('edgy'))) return false;
+    if (categoryKey === '裙裝 (Skirts)' && !item.en.includes('bare')) return false;
+    if (categoryKey === '鞋款 (Shoes)' && !(tags.has('edgy') || tags.has('futuristic') || item.zh.includes('老爹鞋'))) return false;
+  }
+
+  if (['baroque', 'victorian'].includes(family)) {
+    if (categoryKey === '上身 (Tops)' && !(tags.has('heritage') || tags.has('ornate') || tags.has('romantic'))) return false;
+    if (categoryKey === '褲裝 (Pants)' && !tags.has('elegant')) return false;
+    if (categoryKey === '裙裝 (Skirts)' && !(tags.has('heritage') || tags.has('romantic') || tags.has('elegant'))) return false;
+    if (categoryKey === '外套 (Outerwear)' && !tags.has('heritage')) return false;
+  }
+
+  if (family === 'minimal' || family === 'parisian') {
+    if (categoryKey === '上身 (Tops)' && (tags.has('futuristic') || tags.has('edgy') || tags.has('uniform'))) return false;
+    if (categoryKey === '外套 (Outerwear)' && tags.has('heritage')) return false;
+    if (categoryKey === '飾品點綴 (Jewelry & Piercings)' && tags.has('edgy_accessory')) return false;
+  }
+
+  if (family === 'cyberpunk') {
+    if (categoryKey === '上身 (Tops)' && !(tags.has('futuristic') || tags.has('edgy') || tags.has('utilitarian'))) return false;
+    if (categoryKey === '鞋款 (Shoes)' && !(tags.has('futuristic') || tags.has('edgy'))) return false;
+  }
+
+  return true;
+}
+
+function shouldPreferSkirt(family) {
+  return ['lolita', 'schoolgirl', 'lingerie', 'victorian', 'baroque'].includes(family);
 }
 
 function framingSupportsAngle(framing, angle) {
@@ -647,7 +769,11 @@ function buildCharacter(context, catalog) {
 }
 
 function buildWardrobe(context, locks, catalog) {
-  const vibe = pickWithLock(catalog.flatCatalog.wardrobeVibe, locks.wardrobeVibeId, (item) => wardrobeFitsLocation(item, context.location));
+  const vibe = pickWithLock(
+    catalog.flatCatalog.wardrobeVibe,
+    locks.wardrobeVibeId,
+    (item) => wardrobeFitsLocation(item, context.location) && styleFitsWardrobeVibe(context.style, item)
+  );
   const family = vibe.meta.family;
   const pieces = [vibe];
   const visibility = context.framing.meta.visibility;
@@ -655,7 +781,11 @@ function buildWardrobe(context, locks, catalog) {
   const maybePick = (categoryKey, probability = 1, extraPredicate = () => true) => {
     if (Math.random() > probability) return null;
     const candidates = getByKey(catalog.catalog.wardrobe, categoryKey).filter(
-      (item) => familyCompatible(family, item.meta.family) && wardrobeFitsLocation(item, context.location) && extraPredicate(item)
+      (item) =>
+        familyCompatible(family, item.meta.family) &&
+        wardrobeFitsLocation(item, context.location) &&
+        wardrobePieceFitsFamily(item, family, categoryKey, context.location) &&
+        extraPredicate(item)
     );
     if (candidates.length === 0) return null;
     const picked = sample(candidates);
@@ -666,18 +796,28 @@ function buildWardrobe(context, locks, catalog) {
   maybePick('上身 (Tops)');
 
   if (frameShowsAtLeast(visibility, 'medium')) {
-    maybePick('下身 (Bottoms)');
-    maybePick('外套 (Outerwear)', context.location.meta.tags.includes('outdoor') ? 0.6 : 0.35);
+    if (shouldPreferSkirt(family)) {
+      maybePick('裙裝 (Skirts)');
+    } else if (Math.random() < 0.5) {
+      maybePick('褲裝 (Pants)');
+    } else {
+      maybePick('裙裝 (Skirts)');
+    }
+    maybePick('襪類 (Legwear)', 0.45, (item) => {
+      if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
+      if (family === 'swimwear') return item.en.includes('bare legs');
+      if (pieces.some((piece) => piece.meta.tags.includes('pants'))) return item.en.includes('bare legs');
+      return true;
+    });
+    maybePick('外套 (Outerwear)', family === 'swimwear' ? 0.1 : context.location.meta.tags.includes('outdoor') ? 0.6 : 0.35);
   }
 
   if (frameShowsAtLeast(visibility, 'full')) {
     maybePick('鞋款 (Shoes)');
   }
 
-  maybePick('配件 (Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.55 : 0.7);
-  maybePick('材質與細節 (Textures & Details)', 0.45, (item) => {
-    if (family !== 'bdsm' && item.meta.family === 'bdsm') return false;
-    if (context.location.meta.tags.includes('outdoor') && item.meta.tags.includes('revealing') && !context.location.meta.tags.includes('beach')) return false;
+  maybePick('飾品點綴 (Jewelry & Piercings)', visibilityAtLeast(visibility, 'portrait') ? 0.65 : 0.45, (item) => {
+    if (item.meta.tags.includes('edgy_accessory') && !['punk', 'y2k', 'streetwear', 'industrial', 'cyberpunk'].includes(family)) return false;
     return true;
   });
 
