@@ -4,16 +4,20 @@
 
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺氛圍與空間感 (Visual & Spatial Context) |
 | :--- | :--- | :--- | :--- |
-| **實景棚內 (Studio Sets)** | 歐式復古客廳 | `vintage european living room set, ornate wallpaper, antique furniture, dark wood, daylight through window` | 充滿古典氣息，背景有華麗壁紙或古董沙發，光源通常設定為透過窗戶灑入的自然光。 |
-| **實景棚內 (Studio Sets)** | 極簡清水模空間 | `minimalist brutalist studio, exposed concrete walls, empty space, stark shadows` | 乾淨、冷酷的幾何空間，以大面積的灰色水泥牆為主，適合高冷或現代時尚攝影。 |
-| **實景棚內 (Studio Sets)** | 美式摩鐵 (Motel) 房間 | `retro american motel room, cheap wood paneling, neon sign outside window, messy bed` | 帶有公路電影感的頹廢空間，木紋牆面，窗外透入霓虹招牌顏色的光暈。 |
-| **實景棚內 (Studio Sets)** | 無塵純白太空艙 | `futuristic white clean room, rounded corners, sci-fi interior, bright LED panels` | 具有未來科幻感的純白無菌空間，邊角圓滑，光源來自牆上發光的 LED 面板。 |
-| **實景棚內 (Studio Sets)** | 復古照相館 (中式/日式) | `old fashioned photography studio, vintage wooden camera, velvet drapes, classic backdrop` | 傳統的百年老照相館，有紅絲絨布簾與老舊的木製相機，充滿時光停滯的懷舊感。 |
-| **無縫背景紙/純色 (Seamless Backdrops)** | 純潔白幕 (Infinity White) | `infinite white background, seamless paper roll, isolated subject, commercial white` | 商業感極強。沒有邊緣、沒有牆角，人物彷彿漂浮在純白無垠的空間中。 |
-| **無縫背景紙/純色 (Seamless Backdrops)** | 深邃黑幕 (Vantablack) | `pitch black background, pure dark void, zero ambient light, dramatic isolation` | 絕對的黑暗。將所有的注意力完全集中在被光線照射到的主體上，戲劇張力強大。 |
-| **無縫背景紙/純色 (Seamless Backdrops)** | 莫蘭迪灰 (Muted Grey) | `medium grey seamless backdrop, neutral tone, subtle texture, studio portraiture` | 最不會干擾膚色的中性灰，帶有高級感，是許多時尚雜誌封面的首選背景。 |
-| **無縫背景紙/純色 (Seamless Backdrops)** | 鮮豔撞色 (Pop Color) | `vibrant solid color backdrop, [red/yellow/blue/pink], bold contrast, pop art` | 使用高飽和度的單一純色背景紙（如亮黃、桃紅），製造強烈的視覺衝擊與普普藝術感。 |
-| **無縫背景紙/純色 (Seamless Backdrops)** | 漸層打光 (Gradient Halo) | `gradient spotlight on background, subtle halo effect behind subject, seamless paper` | 背景紙本身是灰色，但利用燈光在人物正後方打出一個漸層暈開的光斑圈，增加立體感。 |
+| **攝影棚與背景 (Studio Sets)** | 現代高級時裝攝影棚 | `luxury fashion studio, polished set walls, clean editorial space, soft controlled lighting` | 乾淨俐落的高級時裝棚，適合封面、型錄與精品感畫面。 |
+| **攝影棚與背景 (Studio Sets)** | 極簡清水模空間 | `minimalist brutalist studio, exposed concrete walls, empty space, stark shadows` | 乾淨、冷酷的幾何空間，以大面積灰色水泥牆為主，適合高冷或現代時尚攝影。 |
+| **攝影棚與背景 (Studio Sets)** | 柔霧米白背景棚 | `soft ivory studio backdrop, creamy neutral tone, gentle seamless background, refined portrait set` | 比純白更柔和的米白背景，適合乾淨人像、寫真與 beauty 拍攝。 |
+| **攝影棚與背景 (Studio Sets)** | 鏡面地板攝影棚 | `mirror floor studio, glossy reflective ground, clean set geometry, futuristic editorial mood` | 地面具有鏡面反射，能增加造型與燈光的延伸感，適合時裝大片。 |
+| **攝影棚與背景 (Studio Sets)** | 攝影棚沙發場景 | `editorial sofa set in studio, styled furniture, controlled backdrop, magazine photoshoot atmosphere` | 棚拍中加入沙發或座椅道具，適合雜誌內頁、寫真與時尚人像。 |
+| **攝影棚與背景 (Studio Sets)** | 歐式復古客廳 | `vintage european living room set, ornate wallpaper, antique furniture, dark wood, daylight through window` | 充滿古典氣息，背景有華麗壁紙或古董沙發，光源通常設定為透過窗戶灑入的自然光。 |
+| **攝影棚與背景 (Studio Sets)** | 美式摩鐵房間 | `retro American motel room, cheap wood paneling, neon sign outside window, messy bed, cinematic mood` | 帶有公路電影感的頹廢空間，木紋牆面與窗外霓虹很適合寫真與敘事感拍攝。 |
+| **攝影棚與背景 (Studio Sets)** | 未來感白色攝影棚 | `futuristic white studio interior, rounded corners, glowing light panels, clean sci-fi set` | 保留未來感，但比太空艙更像可拍攝的人像空間，穩定度更高。 |
+| **攝影棚與背景 (Studio Sets)** | 復古照相館 | `old fashioned photography studio, vintage wooden camera, velvet drapes, classic backdrop` | 傳統老照相館，有絨布簾與老式相機，適合懷舊肖像與敘事人像。 |
+| **攝影棚與背景 (Studio Sets)** | 純潔白幕 | `infinite white background, seamless paper roll, isolated subject, commercial white` | 商業感極強，人物彷彿漂浮在純白無垠空間中。 |
+| **攝影棚與背景 (Studio Sets)** | 深邃黑幕 | `pitch black background, pure dark void, zero ambient light, dramatic isolation` | 絕對黑暗，能將所有注意力集中在被光照到的主體上。 |
+| **攝影棚與背景 (Studio Sets)** | 莫蘭迪灰背景 | `medium grey seamless backdrop, neutral tone, subtle texture, studio portraiture` | 最不會干擾膚色的中性灰背景，穩定且高級。 |
+| **攝影棚與背景 (Studio Sets)** | 鮮豔撞色背景 | `vibrant solid color backdrop, bold contrast, pop art studio setup` | 高飽和單色背景，適合社群感、Y2K、普普與流行企劃。 |
+| **攝影棚與背景 (Studio Sets)** | 漸層打光背景 | `gradient spotlight on background, subtle halo effect behind subject, seamless paper studio` | 利用燈光打出背景漸層光斑，能提升人物立體感與封面感。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 東京澀谷十字路口 | `Tokyo Shibuya crossing at night, crowded crosswalk, rain puddles reflecting neon, umbrellas, restless city energy` | 經典東京夜街感。濕滑地面反射霓虹，人流密集，適合街拍、社群感與都會夜景人像。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 東京新宿歌舞伎町街頭 | `Tokyo Shinjuku Kabukicho nightlife, dense neon signs, narrow streets, glossy reflections, nightlife crowd` | 新宿歌舞伎町的招牌密度與霓虹氛圍非常強，適合做高張力夜拍與都會性感主題。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 香港九龍霓虹街區 | `Hong Kong Kowloon neon street, stacked signboards, humid night air, dense urban texture, chaotic energy` | 擁擠高密度的九龍街區，招牌層層疊疊，空氣濕熱，帶有強烈的城市壓迫感與霓虹魅力。 |
@@ -28,11 +32,17 @@
 | **城市與社群感 (Urban & Social Snapshots)** | 台北西門町街頭 | `Taipei Ximending street at night, bright signage, dense crowd, humid urban glow, youth culture` | 西門町兼具流行文化與台式霓虹街景，適合社群感、隨拍與街頭穿搭。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 洛杉磯日落大道街景 | `Los Angeles Sunset Boulevard, palm trees, glowing billboards, warm dusk light, cinematic city mood` | 棕櫚樹、夕陽與大型看板構成經典 LA 都市畫面，適合 lifestyle 與電影感街景。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 羅馬老城石板巷弄 | `Rome old town alley, cobblestone street, warm stone walls, cafe lights, romantic evening atmosphere` | 老城石板路與暖色牆面很適合做歐洲浪漫街拍與時裝敘事。 |
-| **室內空間 (Indoor Spaces)** | 復古美式 Diner (餐廳) | `retro American diner interior, red leather booths, checkered floor, jukebox, 50s aesthetic` | 50 年代復古風。黑白棋盤格地板、紅色的皮沙發卡座與點唱機，色彩鮮豔對比強烈。 |
-| **室內空間 (Indoor Spaces)** | 百年木造圖書館 | `ancient wooden library, towering bookshelves, dusty sunbeams, quiet academic atmosphere` | 古老而龐大的圖書館，背景是直達天花板的木製書架，陽光穿透灰塵灑落，具有神秘學術氛圍。 |
-| **室內空間 (Indoor Spaces)** | 凌晨 24 小時洗衣店 | `neon lit laundromat at 2am, rows of washing machines, florescent buzz, solitary feeling` | 排列整齊的洗衣機反光，冷白或粉色的日光燈，適合表現都會人的孤獨感與 Y2K 街頭攝影。 |
-| **室內空間 (Indoor Spaces)** | 宮廷音樂廳/歌劇院 | `opulent opera house interior, grand chandelier, red velvet seats, baroque architecture` | 極度奢華龐大的空間，巨大的水晶吊燈與紅絲絨座椅，適合搭配巴洛克或古典造型。 |
-| **室內空間 (Indoor Spaces)** | 廉價膠囊旅館/網咖 | `cramped Japanese capsule hotel, small enclosed space, single monitor glow, claustrophobic` | 極度狹小的空間，只有螢幕微微發光。視覺上具有幽閉恐懼與賽博龐克的社會底層感。 |
+| **生活感室內 (Indoor & Lifestyle)** | 精品飯店房間 | `boutique hotel room, warm ambient lamps, crisp sheets, elegant interior, editorial travel mood` | 高級但不過度奢華的飯店房間，適合寫真、時裝與成熟人像。 |
+| **生活感室內 (Indoor & Lifestyle)** | 現代高樓公寓客廳 | `modern high-rise apartment living room, floor-to-ceiling windows, city view, clean designer furniture` | 現代都會感強，適合 lifestyle 與社群感拍攝。 |
+| **生活感室內 (Indoor & Lifestyle)** | 臥室窗邊 | `bedroom by the window, soft daylight, linen textures, intimate photobook atmosphere` | 臨窗空間帶有柔和自然光，很適合寫真集與生活感人像。 |
+| **生活感室內 (Indoor & Lifestyle)** | 浴室鏡前 / 洗手台 | `bathroom mirror scene, sink counter, soft reflective light, modern lifestyle snapshot` | 具有很強的手機隨拍與社群感，也適合妝髮與穿搭展示。 |
+| **生活感室內 (Indoor & Lifestyle)** | 更衣室 / 試衣間 | `changing room interior, fitting mirror, curtains, fashion try-on atmosphere` | 很適合時裝、穿搭與社群企劃，鏡面與布簾能增加生活感。 |
+| **生活感室內 (Indoor & Lifestyle)** | 電梯內 | `elevator interior, reflective metal walls, mirror selfie atmosphere, urban social snapshot` | 現代社群感強，適合自拍、時裝隨拍與都會情境。 |
+| **生活感室內 (Indoor & Lifestyle)** | 復古美式 Diner | `retro American diner interior, red leather booths, checkered floor, jukebox, 50s aesthetic` | 50 年代復古風，色彩鮮豔、辨識度高，適合社群與時裝拍攝。 |
+| **生活感室內 (Indoor & Lifestyle)** | 百年木造圖書館 | `ancient wooden library, towering bookshelves, dusty sunbeams, quiet academic atmosphere` | 古老書架與灰塵光束讓空間有沉靜與學術感，適合敘事型人像。 |
+| **生活感室內 (Indoor & Lifestyle)** | 凌晨 24 小時洗衣店 | `neon lit laundromat at 2am, rows of washing machines, fluorescent buzz, solitary feeling` | 排列整齊的洗衣機與冷色燈光很適合 Y2K、社群與都會孤獨感。 |
+| **生活感室內 (Indoor & Lifestyle)** | 宮廷音樂廳 / 歌劇院 | `opulent opera house interior, grand chandelier, red velvet seats, baroque architecture` | 奢華大型室內空間，適合正式服裝與古典敘事。 |
+| **生活感室內 (Indoor & Lifestyle)** | 狹小都會旅館房間 | `small urban hotel room, compact bed, dim practical lights, enclosed intimate atmosphere` | 保留侷促與親密感，但比膠囊旅館更適合人像與寫真構圖。 |
 | **自然與戶外 (Nature & Outdoors)** | 起伏的沙漠沙丘 | `rolling sand dunes, Sahara desert, minimal landscape, harsh sun, wind blown sand` | 極簡的大自然幾何線條，只有無盡的橘黃色沙丘與強烈的陽光陰影，純粹且孤寂。 |
 | **自然與戶外 (Nature & Outdoors)** | 霧氣瀰漫的冷杉森林 | `foggy pine forest, Pacific Northwest, dense trees, mysterious, muted greens and blues` | 充滿神祕與未知的氛圍。高聳的冷杉林被濃霧包圍，色調偏冷（藍綠色），適合哥德或奇幻風格。 |
 | **自然與戶外 (Nature & Outdoors)** | 陽光普照的向日葵田 | `vast sunflower field in full bloom, bright summer day, colorful nature, vibrant` | 充滿活力與夏日氣息，背景是一望無際的黃色向日葵，飽和度高，非常適合日系或陽光寫真。 |
