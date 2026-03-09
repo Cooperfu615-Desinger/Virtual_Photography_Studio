@@ -13,8 +13,8 @@ import {
   Search,
   SlidersHorizontal,
   Sparkles,
-  Trash2,
 } from 'lucide-react';
+import CustomLibraryModal from './components/CustomLibraryModal';
 import PromptCard from './components/PromptCard';
 import {
   buildLocksFromPrompt,
@@ -111,7 +111,7 @@ function normalizeImportedPresets(data) {
     }));
 }
 
-function App() {
+export default function App() {
   const customLibraryInputRef = useRef(null);
   const presetInputRef = useRef(null);
 
@@ -125,6 +125,7 @@ function App() {
   const [presetName, setPresetName] = useState('');
   const [rerollKeep, setRerollKeep] = useState(() => loadJsonStorage(REROLL_KEEP_KEY, REROLL_KEEP_DEFAULT));
   const [searchQuery, setSearchQuery] = useState(() => loadStringStorage(SEARCH_QUERY_KEY, ''));
+  const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [customForm, setCustomForm] = useState({
     group: 'Locations',
     category: '',
@@ -184,13 +185,15 @@ function App() {
     return baseList.filter((prompt) => {
       const haystack = [
         prompt.summary,
-        prompt.midjourneyPrompt,
-        prompt.grokPrompt,
-        prompt.negativePrompt,
+        prompt.summaryFields?.style,
+        prompt.summaryFields?.character,
+        prompt.summaryFields?.wardrobe,
+        prompt.summaryFields?.location,
+        prompt.summaryFields?.camera,
+        prompt.summaryFields?.lighting,
       ]
         .join(' ')
         .toLowerCase();
-
       return haystack.includes(normalizedSearch);
     });
   }, [favorites, normalizedSearch, prompts, viewMode]);
@@ -218,57 +221,25 @@ function App() {
 
   const handleDownloadAll = () => {
     if (displayPrompts.length === 0) return;
-
     const zip = new JSZip();
     displayPrompts.forEach((data) => {
       zip.file(`prompt_${data.id}.md`, buildMarkdownExport(data));
     });
-
     zip.generateAsync({ type: 'blob' }).then((content) => {
       saveAs(content, `virtual_photography_prompts_${Date.now()}.zip`);
     });
   };
 
-  const exportWorkspace = () => {
-    const blob = new Blob(
-      [
-        JSON.stringify(
-          {
-            prompts,
-            favorites: Array.from(favorites),
-            locks,
-            genCount,
-            viewMode,
-            rerollKeep,
-            presets,
-            customLibrary,
-          },
-          null,
-          2
-        ),
-      ],
-      { type: 'application/json' }
-    );
-    saveAs(blob, `vps_workspace_${Date.now()}.json`);
-  };
-
   const handleSavePreset = () => {
     const name = presetName.trim();
     if (!name) return;
-
-    const snapshot = {
-      id: `preset-${Date.now()}`,
-      name,
-      locks,
-    };
-
+    const snapshot = { id: `preset-${Date.now()}`, name, locks };
     setPresets((prev) => [snapshot, ...prev.filter((item) => item.name !== name)].slice(0, 24));
     setPresetName('');
   };
 
   const handleAddCustomEntry = () => {
     if (!customForm.category || !customForm.zh.trim() || !customForm.en.trim()) return;
-
     const entry = {
       id: `custom-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
       group: customForm.group,
@@ -277,14 +248,8 @@ function App() {
       en: customForm.en.trim(),
       desc: customForm.desc.trim(),
     };
-
     setCustomLibrary((prev) => [entry, ...prev]);
-    setCustomForm((prev) => ({
-      ...prev,
-      zh: '',
-      en: '',
-      desc: '',
-    }));
+    setCustomForm((prev) => ({ ...prev, zh: '', en: '', desc: '' }));
   };
 
   const exportCustomLibrary = () => {
@@ -297,21 +262,14 @@ function App() {
     saveAs(blob, `vps_presets_${Date.now()}.json`);
   };
 
-  const readJsonFile = async (file) => {
-    const text = await file.text();
-    return JSON.parse(text);
-  };
+  const readJsonFile = async (file) => JSON.parse(await file.text());
 
   const handleImportCustomLibrary = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
-
     try {
-      const data = await readJsonFile(file);
-      const imported = normalizeImportedEntries(data);
-      if (imported.length > 0) {
-        setCustomLibrary((prev) => [...imported, ...prev].slice(0, 400));
-      }
+      const imported = normalizeImportedEntries(await readJsonFile(file));
+      if (imported.length > 0) setCustomLibrary((prev) => [...imported, ...prev].slice(0, 400));
     } catch {
       window.alert('Custom library import failed. Please use a valid JSON export.');
     } finally {
@@ -322,13 +280,9 @@ function App() {
   const handleImportPresets = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
-
     try {
-      const data = await readJsonFile(file);
-      const imported = normalizeImportedPresets(data);
-      if (imported.length > 0) {
-        setPresets((prev) => [...imported, ...prev].slice(0, 24));
-      }
+      const imported = normalizeImportedPresets(await readJsonFile(file));
+      if (imported.length > 0) setPresets((prev) => [...imported, ...prev].slice(0, 24));
     } catch {
       window.alert('Preset import failed. Please use a valid JSON export.');
     } finally {
@@ -350,236 +304,135 @@ function App() {
 
   return (
     <div className="container">
-      <input ref={customLibraryInputRef} className="hidden-input" type="file" accept="application/json" onChange={handleImportCustomLibrary} />
       <input ref={presetInputRef} className="hidden-input" type="file" accept="application/json" onChange={handleImportPresets} />
 
       <header className="page-header">
         <div>
           <p className="eyebrow">Virtual Photography Studio</p>
-          <h1>Personal Prompt Operations Deck</h1>
-          <p className="subtitle">
-            第三階段補上工作區持久化、匯入匯出與搜尋篩選。現在關掉頁面再回來，工具會保留你的生成紀錄、收藏、preset 與自訂詞庫。
-          </p>
-        </div>
-
-        <div className="controls">
-          <select value={genCount} onChange={(event) => setGenCount(Number(event.target.value))}>
-            <option value={1}>Generate 1</option>
-            <option value={3}>Generate 3</option>
-            <option value={6}>Generate 6</option>
-            <option value={10}>Generate 10</option>
-          </select>
-          <button onClick={handleGenerate}>
-            <Sparkles size={18} />
-            Generate Batch
-          </button>
+          <h1>Prompt Control Deck</h1>
+          <p className="subtitle">把生成條件集中在一個主控制台，結果卡則改成大摘要與明確複製操作，讓你先挑方向，再決定要不要看細節。</p>
         </div>
       </header>
 
-      <section className="workspace-grid">
-        <div className="left-column">
-          <section className="lock-panel">
-            <div className="lock-panel-header">
-              <div>
-                <div className="lock-title">
-                  <SlidersHorizontal size={18} />
-                  Locked Inputs
-                </div>
-                <p className="lock-subtitle">目前鎖定 {activeLockCount} 個條件，未鎖定欄位會交給規則引擎補齊。</p>
+      <section className="control-shell">
+        <div className="lock-panel control-panel">
+          <div className="lock-panel-header">
+            <div>
+              <div className="lock-title">
+                <SlidersHorizontal size={18} />
+                Locked Inputs
               </div>
-              <button className="secondary" onClick={() => setLocks(createEmptyLocks())}>
-                <RotateCcw size={16} />
-                Reset Locks
-              </button>
+              <p className="lock-subtitle">目前鎖定 {activeLockCount} 個條件。這裡就是整個生成前控制台。</p>
             </div>
+          </div>
 
-            <div className="lock-grid">
-              {lockControls.map((control) => (
-                <label key={control.key} className="field">
-                  <span>{control.label}</span>
-                  <select
-                    value={locks[control.key]}
-                    onChange={(event) =>
-                      setLocks((prev) => ({
-                        ...prev,
-                        [control.key]: event.target.value,
-                      }))
-                    }
-                  >
-                    <option value="">Random</option>
-                    {control.options.map((option) => (
-                      <option key={option.id} value={option.id}>
-                        {option.zh}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+          <div className="lock-grid">
+            {lockControls.map((control) => (
+              <label key={control.key} className="field">
+                <span>{control.label}</span>
+                <select
+                  value={locks[control.key]}
+                  onChange={(event) =>
+                    setLocks((prev) => ({
+                      ...prev,
+                      [control.key]: event.target.value,
+                    }))
+                  }
+                >
+                  <option value="">Random</option>
+                  {control.options.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.zh}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ))}
+          </div>
+
+          <div className="preset-row">
+            <input className="text-input" value={presetName} onChange={(event) => setPresetName(event.target.value)} placeholder="Preset name" />
+            <button className="secondary" onClick={handleSavePreset}>
+              <Save size={16} />
+              Save Preset
+            </button>
+            <button className="secondary" onClick={() => presetInputRef.current?.click()}>
+              <FolderUp size={16} />
+              Import Presets
+            </button>
+            <button className="secondary" onClick={exportPresets} disabled={presets.length === 0}>
+              <Download size={16} />
+              Export Presets
+            </button>
+          </div>
+
+          {presets.length > 0 ? (
+            <div className="chip-list">
+              {presets.map((preset) => (
+                <button key={preset.id} className="chip" onClick={() => setLocks(preset.locks)}>
+                  {preset.name}
+                </button>
               ))}
             </div>
+          ) : null}
 
-            <div className="preset-row">
-              <input className="text-input" value={presetName} onChange={(event) => setPresetName(event.target.value)} placeholder="Preset name" />
-              <button className="secondary" onClick={handleSavePreset}>
-                <Save size={16} />
-                Save Preset
-              </button>
-            </div>
-
-            <div className="inline-actions">
-              <button className="secondary" onClick={() => presetInputRef.current?.click()}>
-                <FolderUp size={16} />
-                Import Presets
-              </button>
-              <button className="secondary" onClick={exportPresets} disabled={presets.length === 0}>
-                <Download size={16} />
-                Export Presets
-              </button>
-            </div>
-
-            {presets.length > 0 ? (
-              <div className="chip-list">
-                {presets.map((preset) => (
-                  <button key={preset.id} className="chip" onClick={() => setLocks(preset.locks)}>
-                    {preset.name}
-                  </button>
-                ))}
-              </div>
-            ) : null}
-          </section>
-
-          <section className="lock-panel">
-            <div className="lock-panel-header">
-              <div>
-                <div className="lock-title">
-                  <RefreshCcw size={18} />
-                  Partial Reroll
-                </div>
-                <p className="lock-subtitle">每張卡片點 Remix 時，會保留下面勾選的欄位，其餘重新生成。</p>
-              </div>
-            </div>
-
-            <div className="chip-list">
-              {rerollOptions.map((option) => {
-                const active = rerollKeep.includes(option.key);
-                return (
-                  <button
-                    key={option.key}
-                    className={`chip ${active ? 'chip-active' : ''}`}
-                    onClick={() =>
-                      setRerollKeep((prev) =>
-                        prev.includes(option.key) ? prev.filter((item) => item !== option.key) : [...prev, option.key]
-                      )
-                    }
-                  >
-                    {option.label}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="inline-actions">
-              <button className="secondary" onClick={exportWorkspace} disabled={prompts.length === 0 && customLibrary.length === 0 && presets.length === 0}>
-                <Download size={16} />
-                Export Workspace
-              </button>
-            </div>
-          </section>
-        </div>
-
-        <div className="right-column">
-          <section className="lock-panel">
-            <div className="lock-panel-header">
-              <div>
-                <div className="lock-title">
-                  <BookPlus size={18} />
-                  Custom Library
-                </div>
-                <p className="lock-subtitle">新增你自己的場景、風格、服裝或負面詞，系統會把它們納入後續抽樣。</p>
-              </div>
-            </div>
-
-            <div className="inline-actions">
-              <button className="secondary" onClick={() => customLibraryInputRef.current?.click()}>
-                <FolderUp size={16} />
-                Import JSON
-              </button>
-              <button className="secondary" onClick={exportCustomLibrary} disabled={customLibrary.length === 0}>
-                <Download size={16} />
-                Export JSON
-              </button>
-            </div>
-
-            <div className="lock-grid">
-              <label className="field">
-                <span>Group</span>
-                <select value={customForm.group} onChange={(event) => updateCustomGroup(event.target.value)}>
-                  {knowledgeBaseOptions.map((group) => (
-                    <option key={group.value} value={group.value}>
-                      {group.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="field">
-                <span>Category</span>
-                <select value={customForm.category} onChange={(event) => setCustomForm((prev) => ({ ...prev, category: event.target.value }))}>
-                  {selectedCategories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="field">
-                <span>中文名稱</span>
-                <input className="text-input" value={customForm.zh} onChange={(event) => setCustomForm((prev) => ({ ...prev, zh: event.target.value }))} />
-              </label>
-
-              <label className="field">
-                <span>English Prompt</span>
-                <input className="text-input" value={customForm.en} onChange={(event) => setCustomForm((prev) => ({ ...prev, en: event.target.value }))} />
-              </label>
-            </div>
-
-            <label className="field">
-              <span>Description / Notes</span>
-              <textarea className="text-area" rows={3} value={customForm.desc} onChange={(event) => setCustomForm((prev) => ({ ...prev, desc: event.target.value }))} />
+          <div className="control-actions">
+            <label className="field compact-field">
+              <span>Batch Size</span>
+              <select value={genCount} onChange={(event) => setGenCount(Number(event.target.value))}>
+                <option value={1}>1</option>
+                <option value={3}>3</option>
+                <option value={6}>6</option>
+                <option value={10}>10</option>
+              </select>
             </label>
 
-            <div className="tab-row">
-              <button onClick={handleAddCustomEntry}>
-                <BookPlus size={16} />
-                Add to Library
-              </button>
-            </div>
+            <button className="primary-cta" onClick={handleGenerate}>
+              <Sparkles size={18} />
+              Generate Batch
+            </button>
+            <button className="secondary" onClick={() => setLocks(createEmptyLocks())}>
+              <RotateCcw size={16} />
+              Reset
+            </button>
+            <button className="secondary" onClick={() => setIsLibraryOpen(true)}>
+              <BookPlus size={16} />
+              Custom Library
+            </button>
+          </div>
+        </div>
 
-            <div className="custom-list">
-              {customLibrary.length === 0 ? (
-                <div className="empty-inline">還沒有自訂詞條。新增後會自動進入後續生成邏輯。</div>
-              ) : (
-                customLibrary.slice(0, 12).map((entry) => (
-                  <div key={entry.id} className="custom-item">
-                    <div>
-                      <strong>{entry.zh}</strong>
-                      <p>
-                        {entry.group} / {entry.category}
-                      </p>
-                      <code>{entry.en}</code>
-                    </div>
-                    <button className="icon-btn" onClick={() => setCustomLibrary((prev) => prev.filter((item) => item.id !== entry.id))} title="Delete custom entry">
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                ))
-              )}
+        <div className="lock-panel reroll-panel">
+          <div className="lock-panel-header">
+            <div>
+              <div className="lock-title">
+                <RefreshCcw size={18} />
+                Partial Reroll
+              </div>
+              <p className="lock-subtitle">Remix 會保留下面勾選的欄位，其他內容重新生成。</p>
             </div>
-          </section>
+          </div>
+
+          <div className="chip-list">
+            {rerollOptions.map((option) => {
+              const active = rerollKeep.includes(option.key);
+              return (
+                <button
+                  key={option.key}
+                  className={`chip ${active ? 'chip-active' : ''}`}
+                  onClick={() =>
+                    setRerollKeep((prev) => (prev.includes(option.key) ? prev.filter((item) => item !== option.key) : [...prev, option.key]))
+                  }
+                >
+                  {option.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      <section className="toolbar toolbar-stack">
+      <section className="toolbar toolbar-streamlined">
         <div className="tab-row">
           <button className={viewMode === 'feed' ? '' : 'secondary'} onClick={() => setViewMode('feed')}>
             Feed ({prompts.length})
@@ -593,7 +446,7 @@ function App() {
         <div className="filter-bar">
           <div className="search-shell">
             <Search size={16} />
-            <input className="text-input search-input" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search prompt history, summary, scene, style..." />
+            <input className="text-input search-input" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search by style, scene, wardrobe, character..." />
           </div>
           <div className="results-meta">
             <Filter size={15} />
@@ -604,9 +457,9 @@ function App() {
         <div className="tab-row">
           <button className="secondary" onClick={handleDownloadAll} disabled={displayPrompts.length === 0}>
             <Download size={18} />
-            {viewMode === 'favorites' ? 'Download Favorites' : 'Download Feed'}
+            Download Feed
           </button>
-          {viewMode === 'feed' && prompts.length > 0 ? (
+          {prompts.length > 0 ? (
             <button className="secondary danger" onClick={() => setPrompts([])}>
               Clear Feed
             </button>
@@ -616,15 +469,29 @@ function App() {
 
       <div className="feed">
         {displayPrompts.length === 0 ? (
-          <div className="empty-state">{searchQuery ? '沒有符合搜尋條件的 prompt。' : '先鎖定幾個條件，或新增幾筆自訂詞條，然後開始批次生成。'}</div>
+          <div className="empty-state">{searchQuery ? '沒有符合搜尋條件的 prompt。' : '先設定條件，再開始批次生成。'}</div>
         ) : (
           displayPrompts.map((prompt) => (
             <PromptCard key={prompt.id} data={prompt} isFavorite={favorites.has(prompt.id)} onFavorite={toggleFavorite} onRemix={handleRemixPrompt} />
           ))
         )}
       </div>
+
+      <CustomLibraryModal
+        isOpen={isLibraryOpen}
+        onClose={() => setIsLibraryOpen(false)}
+        customLibraryInputRef={customLibraryInputRef}
+        onImportClick={handleImportCustomLibrary}
+        onExport={exportCustomLibrary}
+        knowledgeBaseOptions={knowledgeBaseOptions}
+        customForm={customForm}
+        updateCustomGroup={updateCustomGroup}
+        setCustomForm={setCustomForm}
+        selectedCategories={selectedCategories}
+        onAddCustomEntry={handleAddCustomEntry}
+        customLibrary={customLibrary}
+        onDeleteEntry={(id) => setCustomLibrary((prev) => prev.filter((item) => item.id !== id))}
+      />
     </div>
   );
 }
-
-export default App;

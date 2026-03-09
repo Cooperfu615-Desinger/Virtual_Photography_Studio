@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Download, Heart, RefreshCcw } from 'lucide-react';
+import { Download, Heart, RefreshCcw } from 'lucide-react';
 
 function buildMarkdownExport(data) {
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
@@ -32,8 +32,18 @@ ${Object.entries(data.structured)
 `;
 }
 
+const SUMMARY_LABELS = [
+  ['style', '風格'],
+  ['character', '人物'],
+  ['wardrobe', '服裝'],
+  ['location', '場景'],
+  ['camera', '鏡頭'],
+  ['lighting', '光影'],
+];
+
 export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
   const [copiedLabel, setCopiedLabel] = useState('');
+  const [expanded, setExpanded] = useState(false);
 
   const handleCopy = async (label, text) => {
     try {
@@ -66,9 +76,12 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
     .join('\n');
 
   return (
-    <article className="prompt-card">
-      <div className="card-header">
-        <div className="summary-badge">{data.summary}</div>
+    <article className="prompt-card prompt-card-summary">
+      <div className="card-header card-header-compact">
+        <div className="card-meta">
+          <span className="card-time">{new Date(data.date).toLocaleString()}</span>
+          <span className="card-id">Prompt Card</span>
+        </div>
         <div className="card-actions">
           <button className="icon-btn" onClick={() => onRemix(data)} title="Remix with current reroll settings">
             <RefreshCcw size={18} />
@@ -82,53 +95,72 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
         </div>
       </div>
 
-      <section className="prompt-section">
-        <div className="prompt-label">
-          <span>Midjourney Prompt</span>
-          <button className="icon-btn" onClick={() => handleCopy('Midjourney copied', data.midjourneyPrompt)} title="Copy Midjourney Prompt">
-            <Copy size={14} />
-          </button>
-        </div>
-        <div className="prompt-box">
-          <div className="prompt-text prompt-text-full">{data.midjourneyPrompt}</div>
-        </div>
-      </section>
-
-      <section className="prompt-section">
-        <div className="prompt-label">
-          <span>Grok Imagine Prompt</span>
-          <button className="icon-btn" onClick={() => handleCopy('Grok copied', data.grokPrompt)} title="Copy Grok Prompt">
-            <Copy size={14} />
-          </button>
-        </div>
-        <div className="prompt-box">
-          <div className="prompt-text prompt-text-full">{data.grokPrompt}</div>
+      <section className="summary-panel">
+        <div className="summary-panel-header">摘要</div>
+        <div className="summary-grid">
+          {SUMMARY_LABELS.map(([key, label]) => (
+            <div key={key} className="summary-row">
+              <div className="summary-row-label">{label}</div>
+              <div className="summary-row-value">{data.summaryFields?.[key] || '-'}</div>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="prompt-section">
-        <div className="prompt-label">
-          <span>Structured Scheme</span>
-          <button className="icon-btn" onClick={() => handleCopy('Scheme copied', structuredText)} title="Copy Structured Scheme">
-            <Copy size={14} />
-          </button>
-        </div>
-        <div className="prompt-box">
-          <div className="prompt-text structured-text">{structuredText}</div>
-        </div>
+      <section className="primary-action-row">
+        <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopy('Midjourney copied', data.midjourneyPrompt)}>
+          Midjourney
+        </button>
+        <button className="primary-copy-btn primary-copy-grok" onClick={() => handleCopy('Grok copied', data.grokPrompt)}>
+          Grok
+        </button>
+        <button className="primary-copy-btn primary-copy-negative" onClick={() => handleCopy('Negative copied', data.negativePrompt)}>
+          Negative
+        </button>
+        <button className="secondary primary-copy-btn" onClick={() => setExpanded((prev) => !prev)}>
+          {expanded ? 'Collapse' : 'Expand'}
+        </button>
       </section>
 
-      <section className="prompt-section">
-        <div className="prompt-label">
-          <span>Negative Prompt</span>
-          <button className="icon-btn" onClick={() => handleCopy('Negative copied', data.negativePrompt)} title="Copy Negative Prompt">
-            <Copy size={14} />
-          </button>
+      {expanded ? (
+        <div className="card-details">
+          <section className="prompt-section">
+            <div className="prompt-label">
+              <span>Midjourney Prompt</span>
+            </div>
+            <div className="prompt-box">
+              <div className="prompt-text prompt-text-full">{data.midjourneyPrompt}</div>
+            </div>
+          </section>
+
+          <section className="prompt-section">
+            <div className="prompt-label">
+              <span>Grok Imagine Prompt</span>
+            </div>
+            <div className="prompt-box">
+              <div className="prompt-text prompt-text-full">{data.grokPrompt}</div>
+            </div>
+          </section>
+
+          <section className="prompt-section">
+            <div className="prompt-label">
+              <span>Negative Prompt</span>
+            </div>
+            <div className="prompt-box">
+              <div className="prompt-text prompt-text-full">{data.negativePrompt}</div>
+            </div>
+          </section>
+
+          <section className="prompt-section">
+            <div className="prompt-label">
+              <span>Structured Scheme</span>
+            </div>
+            <div className="prompt-box">
+              <div className="prompt-text structured-text">{structuredText}</div>
+            </div>
+          </section>
         </div>
-        <div className="prompt-box">
-          <div className="prompt-text prompt-text-full">{data.negativePrompt}</div>
-        </div>
-      </section>
+      ) : null}
 
       {copiedLabel ? <div className="toast">{copiedLabel}</div> : null}
     </article>

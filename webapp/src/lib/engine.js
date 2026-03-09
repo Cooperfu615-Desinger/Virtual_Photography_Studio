@@ -605,16 +605,27 @@ function buildNegativePrompt(context, positiveTags, catalog) {
   return segments.join(', ');
 }
 
-function buildSummary(context, wardrobe, character) {
+function buildSummaryFields(context, wardrobe, character) {
   const characterBits = character.slice(1).filter((item) => item && item.zh).slice(0, 2).map((item) => item.zh);
 
+  return {
+    style: context.style.zh || '-',
+    character: characterBits.length > 0 ? `一名女性, ${characterBits.join(', ')}` : '一名女性',
+    wardrobe: wardrobe[0]?.zh || '-',
+    location: context.location.zh || '-',
+    camera: `${context.framing.zh || '-'} / ${context.angle.zh || '-'}`,
+    lighting: context.lighting.zh || '-',
+  };
+}
+
+function buildSummary(summaryFields) {
   return [
-    `風格：${context.style.zh || '-'}`,
-    `人物：${characterBits.length > 0 ? `一名女性, ${characterBits.join(', ')}` : '一名女性'}`,
-    `服裝：${wardrobe[0]?.zh || '-'}`,
-    `場景：${context.location.zh || '-'}`,
-    `鏡頭：${context.framing.zh || '-'} / ${context.angle.zh || '-'}`,
-    `光影：${context.lighting.zh || '-'}`,
+    `風格：${summaryFields.style}`,
+    `人物：${summaryFields.character}`,
+    `服裝：${summaryFields.wardrobe}`,
+    `場景：${summaryFields.location}`,
+    `鏡頭：${summaryFields.camera}`,
+    `光影：${summaryFields.lighting}`,
   ].join(' | ');
 }
 
@@ -707,11 +718,13 @@ function generateSinglePrompt(index, locks, customLibrary) {
   const positiveTags = collectPositiveTags(style, location, framing, angle, lighting, lightDirection, film, effect, wardrobe, character);
   const negativePrompt = buildNegativePrompt(context, positiveTags, runtime);
   const { midjourneyPrompt, grokPrompt } = buildPrompts(context, character, wardrobe, lightDirection, film, effect);
+  const summaryFields = buildSummaryFields(context, wardrobe, character);
 
   return {
     id: `${Date.now()}-${index}-${Math.random().toString(36).slice(2, 8)}`,
     date: new Date().toISOString(),
-    summary: buildSummary(context, wardrobe, character),
+    summary: buildSummary(summaryFields),
+    summaryFields,
     midjourneyPrompt,
     grokPrompt,
     negativePrompt,
