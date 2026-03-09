@@ -48,7 +48,7 @@ function buildMarkdownExport(data) {
 ${data.midjourneyPrompt}
 \`\`\`
 
-## Grok Imagine Prompt
+## Grok Structured Prompt
 \`\`\`text
 ${data.grokPrompt}
 \`\`\`

@@ -10,7 +10,7 @@ function buildMarkdownExport(data) {
 ${data.midjourneyPrompt}
 \`\`\`
 
-## Grok Imagine Prompt
+## Grok Structured Prompt
 \`\`\`text
 ${data.grokPrompt}
 \`\`\`
@@ -135,7 +135,7 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
 
           <section className="prompt-section">
             <div className="prompt-label">
-              <span>Grok Imagine Prompt</span>
+              <span>Grok Structured Prompt</span>
             </div>
             <div className="prompt-box">
               <div className="prompt-text prompt-text-full">{data.grokPrompt}</div>

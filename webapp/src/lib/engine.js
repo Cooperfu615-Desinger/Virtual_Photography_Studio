@@ -885,11 +885,93 @@ function joinLimited(items, limit) {
   return joinEn(items.slice(0, limit));
 }
 
+const STYLE_PROMPT_INTROS = {
+  清透寫真感: 'airy photobook portrait mood',
+  精緻棚拍感: 'polished studio beauty editorial mood',
+  霓虹電影感: 'neon cinematic portrait mood',
+  靜謐森林低調電影感: 'Yoshihiko Ueda-inspired quiet natural portrait language',
+  高飽和花卉夢境感: 'Mika Ninagawa-inspired vivid color and floral theatricality',
+  對稱留白疏離感: 'Osamu Yokonami-inspired symmetrical distance and negative-space composition',
+  日常微光詩意感: 'Rinko Kawauchi-inspired lyrical everyday lightness',
+  柔霧古典夢境感: 'Paolo Roversi-inspired soft haze and timeless dreamlike elegance',
+  極簡雕塑棚拍感: 'Irving Penn-inspired minimal sculptural studio portraiture',
+  冷冽權力性感: 'Helmut Newton-inspired cold glamorous authority and sensual power',
+  俏皮性感雜誌感: 'Ellen von Unwerth-inspired playful sensual magazine energy',
+  私密生活紀錄感: 'Nan Goldin-inspired intimate lived-in documentary emotion',
+  粗糙直閃時尚感: 'Juergen Teller-inspired raw direct-flash fashion immediacy',
+  黑白真實超模感: 'Peter Lindbergh-inspired monochrome supermodel realism',
+  純背景凝視肖像感: 'Richard Avedon-inspired clean backdrop and commanding gaze',
+  空曠美式紀實感: 'Alec Soth-inspired spacious American documentary stillness',
+  古典濕版記憶感: 'Sally Mann-inspired antique wet-plate memory atmosphere',
+  青春日常隨拍感: 'Wolfgang Tillmans-inspired casual youthful snapshot realism',
+  高反差黑白街頭感: 'Daido Moriyama-inspired gritty high-contrast street tension',
+  危險敘事時尚感: 'Guy Bourdin-inspired provocative narrative fashion drama',
+  濃彩復古電影棚拍感: 'Miles Aldridge-inspired saturated retro-cinematic studio glamour',
+};
+
+function extractCharacterSlots(character) {
+  const findSlot = (token) => character.find((item) => item.id?.includes(token));
+  return {
+    facialFeatures: findSlot('character:五官特徵-facial-features:'),
+    skinTone: findSlot('character:膚色-skin-tone:'),
+    skinDetails: findSlot('character:膚質特徵-skin-details:'),
+    hairstyle: findSlot('character:髮型-hairstyle:'),
+    hairColor: findSlot('character:髮色-hair-color:'),
+    expression: findSlot('character:神情與眼神-expression-gaze:'),
+    pose: findSlot('character:姿勢與肢體語言-pose-body-language:'),
+  };
+}
+
+function extractWardrobeSlots(wardrobe) {
+  const findSlot = (token) => wardrobe.find((item) => item.id?.includes(token));
+  return {
+    wardrobeCore: wardrobe[0] || null,
+    top: findSlot('wardrobe:上身-tops:'),
+    pants: findSlot('wardrobe:褲裝-pants:'),
+    skirt: findSlot('wardrobe:裙裝-skirts:'),
+    legwear: findSlot('wardrobe:襪類-legwear:'),
+    outerwear: findSlot('wardrobe:外套-outerwear:'),
+    shoes: findSlot('wardrobe:鞋款-shoes:'),
+    jewelry: findSlot('wardrobe:飾品點綴-jewelry-piercings:'),
+  };
+}
+
+function buildStructuredGrokPrompt(context, character, wardrobe, lightDirection, film) {
+  const styleIntro = STYLE_PROMPT_INTROS[context.style.zh] || 'editorial photography mood';
+  const characterSlots = extractCharacterSlots(character);
+  const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const expressionAndPose = [characterSlots.expression?.en, characterSlots.pose?.en].filter(Boolean).join(', ');
+  const line = (label, value) => `${label}: ${value || 'none'}`;
+
+  return [
+    line('Subject Count', context.subject.en),
+    line('Aspect Ratio', context.aspectRatio.en),
+    line('Photography Style', `${styleIntro}. ${context.style.en}`),
+    line('Location', context.location.en),
+    line('Wardrobe Core', wardrobeSlots.wardrobeCore?.en),
+    line('Framing', context.framing.en),
+    line('Angle', context.angle.en),
+    line('Lighting', context.lighting.en),
+    line('Light Direction', lightDirection.en),
+    line('Film', film.en),
+    line('Facial Features', characterSlots.facialFeatures?.en),
+    line('Skin Tone', characterSlots.skinTone?.en),
+    line('Skin Details', characterSlots.skinDetails?.en),
+    line('Hairstyle', characterSlots.hairstyle?.en),
+    line('Hair Color', characterSlots.hairColor?.en),
+    line('Expression and Pose', expressionAndPose),
+    line('Top', wardrobeSlots.top?.en),
+    line('Bottom', wardrobeSlots.pants?.en || wardrobeSlots.skirt?.en),
+    line('Legwear', wardrobeSlots.legwear?.en),
+    line('Outerwear', wardrobeSlots.outerwear?.en),
+    line('Shoes', wardrobeSlots.shoes?.en),
+    line('Jewelry and Piercings', wardrobeSlots.jewelry?.en),
+  ].join('\n');
+}
+
 function buildPrompts(context, character, wardrobe, lightDirection, film, effect) {
   const styleMood = context.style.en;
   const locationText = context.location.en;
-  const characterText = joinEn(character);
-  const wardrobeText = joinEn(wardrobe);
   const conciseCharacter = joinLimited(character, 5);
   const conciseWardrobe = joinLimited(wardrobe, 4);
   const compositionHint = buildCompositionHint(context.subject, context.aspectRatio, context.framing);
@@ -917,18 +999,7 @@ function buildPrompts(context, character, wardrobe, lightDirection, film, effect
   }
   midjourneyPrompt = `${midjourneyPrompt} --ar ${context.aspectRatio.en}`;
 
-  const grokPrompt = [
-    `Create a realistic editorial photograph of ${characterText}.`,
-    wardrobeText ? `The subject is wearing ${wardrobeText}.` : '',
-    context.subject.count === 2 ? `Place them in ${locationText}.` : `Place her in ${locationText}.`,
-    `Use ${context.framing.en} with ${context.angle.en}.`,
-    `Compose the frame as a ${context.aspectRatio.en} image with ${compositionHint}.`,
-    `Light the scene with ${context.lighting.en} and ${lightDirection.en}.`,
-    `Finish with ${film.en}${effect ? ` and ${effect.en}` : ''}.`,
-    `Overall visual direction: ${styleMood}.`,
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, lightDirection, film);
 
   return { midjourneyPrompt, grokPrompt };
 }
