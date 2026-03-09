@@ -167,6 +167,8 @@ def build_prompt():
 
     def allow_item(item, slot):
         text = f"{item['zh']} {item['en']}".lower()
+        if item['zh'] == '全無':
+            return True
         if wardrobe_family == 'swimwear':
             if slot == '上身':
                 return any(keyword in text for keyword in ['camisole', 'tube top', 'swim', 'bare'])
@@ -229,13 +231,16 @@ def build_prompt():
         extract_filtered(wardrobe_data, '褲裝', structured["Wardrobe"], lambda item: allow_item(item, '褲裝'))
     else:
         extract_filtered(wardrobe_data, '裙裝', structured["Wardrobe"], lambda item: allow_item(item, '裙裝'))
-    if not any('褲裝' in item['zh'] or '裙' in item['zh'] or '褲' in item['zh'] for item in structured["Wardrobe"]):
+    if not any(
+        ('裙' in item['zh'] or '褲' in item['zh'] or item['zh'] == '全無')
+        for item in structured["Wardrobe"]
+    ):
         extract_filtered(wardrobe_data, '褲裝', structured["Wardrobe"], lambda item: allow_item(item, '褲裝'))
 
     if any('裙' in item['zh'] for item in structured["Wardrobe"]) or random.random() < 0.2:
         extract_filtered(wardrobe_data, '襪類', structured["Wardrobe"], lambda item: allow_item(item, '襪類'), prob=0.45)
     else:
-        extract_filtered(wardrobe_data, '襪類', structured["Wardrobe"], lambda item: '全無' in item['zh'], prob=0.25)
+        extract_filtered(wardrobe_data, '襪類', structured["Wardrobe"], lambda item: item['zh'] == '全無', prob=0.25)
 
     extract_filtered(wardrobe_data, '外套', structured["Wardrobe"], lambda item: allow_item(item, '外套'), prob=0.35 if wardrobe_family != 'swimwear' else 0.05)
     extract_filtered(wardrobe_data, '鞋款', structured["Wardrobe"], lambda item: allow_item(item, '鞋款'))

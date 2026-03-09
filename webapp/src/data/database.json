@@ -203,6 +203,11 @@
         "desc": "乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。"
       },
       {
+        "zh": "全無",
+        "en": "no top layering, uncluttered upper-body styling",
+        "desc": "不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。"
+      },
+      {
         "zh": "削肩針織上衣",
         "en": "ribbed sleeveless knit top, fitted silhouette, soft stretch texture",
         "desc": "乾淨貼身的針織質地，能自然勾勒肩頸與上半身線條。"
@@ -275,6 +280,11 @@
         "desc": "最穩定的日常下身單品，適合城市、街拍與生活感畫面。"
       },
       {
+        "zh": "全無",
+        "en": "no pants, lower-body styling omitted",
+        "desc": "不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。"
+      },
+      {
         "zh": "寬版垂墜西裝褲",
         "en": "wide-leg tailored trousers, flowy suiting fabric, high-waisted",
         "desc": "剪裁寬鬆、布料垂墜，適合極簡高級與商業棚拍。"
@@ -315,6 +325,11 @@
         "zh": "合身迷你裙",
         "en": "fitted mini skirt, clean tailored finish, sleek silhouette",
         "desc": "高頻實用短裙，適合城市、寫真與時裝風格。"
+      },
+      {
+        "zh": "全無",
+        "en": "no skirt, skirt styling omitted",
+        "desc": "不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。"
       },
       {
         "zh": "絲質長裙",
@@ -359,6 +374,11 @@
         "desc": "高頻實用，能與短裙、短褲與高跟鞋自然搭配。"
       },
       {
+        "zh": "全無",
+        "en": "no legwear, bare legs, clean leg styling",
+        "desc": "不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。"
+      },
+      {
         "zh": "蕾絲大腿絲襪",
         "en": "lace-top thigh-high stockings, sensual legwear, fitted silhouette",
         "desc": "帶寫真與性感氛圍，適合內衣或飯店場景。"
@@ -377,11 +397,6 @@
         "zh": "羅紋短襪",
         "en": "ribbed ankle socks, casual everyday styling, soft cotton texture",
         "desc": "偏日常、可愛、生活感強。"
-      },
-      {
-        "zh": "絲襪全無",
-        "en": "bare legs, no stockings, clean leg styling",
-        "desc": "不加絲襪或襪類，讓整體造型更乾淨直接。"
       }
     ],
     "外套 (Outerwear)": [
@@ -389,6 +404,11 @@
         "zh": "合身西裝外套",
         "en": "tailored blazer, sharp lapels, structured silhouette",
         "desc": "最實用的時裝外套，能穩定提升正式感與商業感。"
+      },
+      {
+        "zh": "全無",
+        "en": "no outerwear, uncluttered silhouette",
+        "desc": "不加外套，保留上身與下身單品的主要輪廓。"
       },
       {
         "zh": "長版 trench coat",
@@ -431,6 +451,11 @@
         "zh": "白色低筒球鞋",
         "en": "white low-top sneakers, clean leather finish, versatile everyday style",
         "desc": "最穩定的日常鞋款，適合街拍與生活感畫面。"
+      },
+      {
+        "zh": "全無",
+        "en": "barefoot styling, no shoes visible",
+        "desc": "不特別強調鞋款，適合床景、室內寫真或鏡頭不會拍到腳部的情境。"
       },
       {
         "zh": "樂福鞋",

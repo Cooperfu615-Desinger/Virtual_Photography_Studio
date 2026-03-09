@@ -22,6 +22,7 @@
 | **風格基調 (Vibe)** | 軍裝 (Military) | `military fashion, tactical combat wear, camouflage, olive drab, epaulets, uniform` | 仿效軍隊制服，迷彩圖案、橄欖綠與硬挺肩線。 |
 | **風格基調 (Vibe)** | 工業風 (Industrial) | `industrial fashion, dark industrial aesthetic, rugged materials, dystopian mechanic` | 粗獷、硬核，常見於廢墟或工廠背景，重磅帆布與做舊髒污感。 |
 | **上身 (Tops)** | 合身白襯衫 | `fitted white shirt, crisp cotton poplin, clean silhouette` | 乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。 |
+| **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 削肩針織上衣 | `ribbed sleeveless knit top, fitted silhouette, soft stretch texture` | 乾淨貼身的針織質地，能自然勾勒肩頸與上半身線條。 |
 | **上身 (Tops)** | 絲質細肩帶上衣 | `silk camisole top, delicate straps, fluid sheen` | 輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。 |
 | **上身 (Tops)** | 合身高領針織 | `fitted turtleneck knit top, fine gauge knit, sleek silhouette` | 貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。 |
@@ -36,6 +37,7 @@
 | **上身 (Tops)** | 維多利亞高領蕾絲襯衫 | `Victorian high-neck lace blouse, ruffled collar, intricate lace detailing` | 領口繁複、禁慾而浪漫。 |
 | **上身 (Tops)** | 透膚蕾絲連身上衣 | `sheer lace bodysuit top, floral lace texture, fitted silhouette` | 連身式透膚蕾絲上衣，偏內衣與寫真主題。 |
 | **褲裝 (Pants)** | 高腰直筒牛仔褲 | `high-waisted straight-leg jeans, clean denim texture, everyday staple` | 最穩定的日常下身單品，適合城市、街拍與生活感畫面。 |
+| **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
 | **褲裝 (Pants)** | 寬版垂墜西裝褲 | `wide-leg tailored trousers, flowy suiting fabric, high-waisted` | 剪裁寬鬆、布料垂墜，適合極簡高級與商業棚拍。 |
 | **褲裝 (Pants)** | 破壞抽鬚牛仔寬褲 | `distressed baggy denim jeans, frayed edges, heavy wash denim` | 重度水洗、寬鬆廓形，帶隨性街頭感。 |
 | **褲裝 (Pants)** | 機能多口袋工裝褲 | `tactical cargo pants, ripstop fabric, utilitarian pockets, straps` | 防撕裂材質與立體口袋，適合機能與工業風格。 |
@@ -44,6 +46,7 @@
 | **褲裝 (Pants)** | 工業風重磅帆布褲 | `heavy canvas mechanic pants, rugged workwear texture, industrial durability` | 厚重耐磨且偏做舊，適合廢墟與工業場景。 |
 | **褲裝 (Pants)** | 亮面貼身皮褲 | `sleek fitted leather pants, glossy finish, sharp silhouette` | 緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。 |
 | **裙裝 (Skirts)** | 合身迷你裙 | `fitted mini skirt, clean tailored finish, sleek silhouette` | 高頻實用短裙，適合城市、寫真與時裝風格。 |
+| **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
 | **裙裝 (Skirts)** | 絲質長裙 | `silk maxi skirt, fluid drape, soft reflective sheen` | 垂墜感強、適合法式慵懶與高級飯店場景。 |
 | **裙裝 (Skirts)** | 百褶短裙 | `classic pleated mini skirt, crisp folds, youthful styling` | 學院感強，適合 JK、街頭與 Y2K 主題。 |
 | **裙裝 (Skirts)** | 不對稱層次百褶裙 | `asymmetric layered pleated skirt, punk details, uneven hem` | 層次鮮明，適合龐克與前衛造型。 |
@@ -52,12 +55,13 @@
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
 | **裙裝 (Skirts)** | 高腰 pencil skirt | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
 | **襪類 (Legwear)** | 透膚黑絲襪 | `sheer black pantyhose, delicate translucent legwear, smooth finish` | 高頻實用，能與短裙、短褲與高跟鞋自然搭配。 |
+| **襪類 (Legwear)** | 全無 | `no legwear, bare legs, clean leg styling` | 不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。 |
 | **襪類 (Legwear)** | 蕾絲大腿絲襪 | `lace-top thigh-high stockings, sensual legwear, fitted silhouette` | 帶寫真與性感氛圍，適合內衣或飯店場景。 |
 | **襪類 (Legwear)** | 漁網絲襪 | `fishnet tights, open net texture, edgy styling` | 強化龐克、地下與夜晚街頭氣質。 |
 | **襪類 (Legwear)** | 白色膝上襪 | `white over-knee socks, soft knit legwear, youthful styling` | 適合 JK、Lolita 與輕甜系搭配。 |
 | **襪類 (Legwear)** | 羅紋短襪 | `ribbed ankle socks, casual everyday styling, soft cotton texture` | 偏日常、可愛、生活感強。 |
-| **襪類 (Legwear)** | 絲襪全無 | `bare legs, no stockings, clean leg styling` | 不加絲襪或襪類，讓整體造型更乾淨直接。 |
 | **外套 (Outerwear)** | 合身西裝外套 | `tailored blazer, sharp lapels, structured silhouette` | 最實用的時裝外套，能穩定提升正式感與商業感。 |
+| **外套 (Outerwear)** | 全無 | `no outerwear, uncluttered silhouette` | 不加外套，保留上身與下身單品的主要輪廓。 |
 | **外套 (Outerwear)** | 長版 trench coat | `long trench coat, flowing hem, classic structured outerwear` | 經典城市時裝外套，適合街頭、旅館與電梯場景。 |
 | **外套 (Outerwear)** | 復古做舊皮革騎士夾克 | `distressed vintage leather biker jacket, worn textures, silver zippers` | 硬派經典、適合街頭與龐克主題。 |
 | **外套 (Outerwear)** | 賽博反光科技風衣 | `iridescent reflective techwear trench coat, waterproof shell` | 在光線下折射不同色彩，未來感很強。 |
@@ -66,6 +70,7 @@
 | **外套 (Outerwear)** | 羊毛雙排扣軍裝大衣 | `military double-breasted wool overcoat, brass buttons, epaulets` | 長版、硬挺且帶權威感。 |
 | **外套 (Outerwear)** | 巴洛克金色刺繡斗篷 | `Baroque velvet cape, heavy gold metallic embroidery, extravagant` | 奢華、戲劇化、典禮感很強。 |
 | **鞋款 (Shoes)** | 白色低筒球鞋 | `white low-top sneakers, clean leather finish, versatile everyday style` | 最穩定的日常鞋款，適合街拍與生活感畫面。 |
+| **鞋款 (Shoes)** | 全無 | `barefoot styling, no shoes visible` | 不特別強調鞋款，適合床景、室內寫真或鏡頭不會拍到腳部的情境。 |
 | **鞋款 (Shoes)** | 樂福鞋 | `classic loafers, polished leather, understated elegance` | 都市、學院、極簡與法式風格都能搭。 |
 | **鞋款 (Shoes)** | 芭蕾平底鞋 | `ballet flats, soft leather finish, delicate feminine styling` | 輕盈優雅，適合法式、寫真與室內主題。 |
 | **鞋款 (Shoes)** | 細帶高跟涼鞋 | `strappy heeled sandals, delicate straps, elegant leg line` | 適合飯店、晚間時裝與成熟優雅風格。 |
