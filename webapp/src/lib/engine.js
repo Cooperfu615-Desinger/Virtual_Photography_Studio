@@ -10,13 +10,31 @@ const SOURCE_GROUPS = {
   wardrobeVibeId: 'Wardrobe',
 };
 
+const SUBJECT_COUNT_OPTIONS = [
+  { id: '1', zh: '1 位', en: 'a seductive stunning East Asian woman', count: 1 },
+  { id: '2', zh: '2 位', en: 'two seductive stunning East Asian women', count: 2 },
+];
+
+const ASPECT_RATIO_OPTIONS = [
+  { id: '1:1', zh: '1:1', en: '1:1' },
+  { id: '3:4', zh: '3:4', en: '3:4' },
+  { id: '4:5', zh: '4:5', en: '4:5' },
+  { id: '2:3', zh: '2:3', en: '2:3' },
+  { id: '9:16', zh: '9:16', en: '9:16' },
+  { id: '16:9', zh: '16:9', en: '16:9' },
+];
+
 const LOCK_DEFINITIONS = [
+  { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1' },
+  { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: '4:5' },
   { key: 'styleId', label: 'Regional Style', category: '區域攝影風格' },
   { key: 'locationId', label: 'Location', category: null },
   { key: 'framingId', label: 'Framing', category: '景別構圖 (Framing)' },
   { key: 'lightingId', label: 'Lighting', category: '光線類型 (Lighting Type)' },
   { key: 'wardrobeVibeId', label: 'Wardrobe Core', category: '風格基調 (Vibe)' },
 ];
+
+const REQUIRED_LOCK_KEYS = LOCK_DEFINITIONS.filter((definition) => definition.required).map((definition) => definition.key);
 
 const PARTIAL_REROLL_OPTIONS = [
   { key: 'styleId', label: 'Style' },
@@ -362,20 +380,29 @@ export function getKnowledgeBaseOptions(customLibrary = []) {
 }
 
 export function createEmptyLocks() {
-  return Object.fromEntries(LOCK_DEFINITIONS.map((definition) => [definition.key, '']));
+  return Object.fromEntries(LOCK_DEFINITIONS.map((definition) => [definition.key, definition.defaultValue || '']));
+}
+
+export function normalizeLocks(rawLocks = {}) {
+  return {
+    ...createEmptyLocks(),
+    ...(rawLocks || {}),
+  };
 }
 
 export function getLockControls(customLibrary = []) {
   const { flatCatalog } = buildCatalog(customLibrary);
 
   return LOCK_DEFINITIONS.map((definition) => {
-    let options = [];
+    let options = definition.options || [];
 
-    if (definition.key === 'styleId') options = flatCatalog.regional;
-    if (definition.key === 'locationId') options = flatCatalog.locations;
-    if (definition.key === 'framingId') options = flatCatalog.framing;
-    if (definition.key === 'lightingId') options = flatCatalog.lighting;
-    if (definition.key === 'wardrobeVibeId') options = flatCatalog.wardrobeVibe;
+    if (!definition.options) {
+      if (definition.key === 'styleId') options = flatCatalog.regional;
+      if (definition.key === 'locationId') options = flatCatalog.locations;
+      if (definition.key === 'framingId') options = flatCatalog.framing;
+      if (definition.key === 'lightingId') options = flatCatalog.lighting;
+      if (definition.key === 'wardrobeVibeId') options = flatCatalog.wardrobeVibe;
+    }
 
     return { ...definition, options };
   });
@@ -480,11 +507,55 @@ function expressionSupportsComposition(item, context) {
   if (!visibilityAtLeast(context.framing.meta.visibility, item.meta.minVisibility)) return false;
   if (item.meta.tags.includes('direct_gaze') && context.angle.meta.tags.includes('aerial')) return false;
   if (item.meta.tags.includes('requires_aerial') && !context.angle.meta.tags.includes('aerial')) return false;
+  if (context.subject.count > 1 && (item.meta.tags.includes('direct_gaze') || item.meta.tags.includes('fine_detail'))) return false;
   return true;
 }
 
 function detailAllowed(item, framing) {
   return visibilityAtLeast(framing.meta.visibility, item.meta.minVisibility);
+}
+
+function getSubjectOption(id) {
+  return SUBJECT_COUNT_OPTIONS.find((option) => option.id === id) || SUBJECT_COUNT_OPTIONS[0];
+}
+
+function getAspectRatioOption(id) {
+  return ASPECT_RATIO_OPTIONS.find((option) => option.id === id) || ASPECT_RATIO_OPTIONS[2];
+}
+
+function framingSupportsSubject(framing, subject, aspectRatio) {
+  const visibility = framing.meta.visibility;
+
+  if (subject.count > 1) {
+    if (visibility === 'close' || visibility === 'portrait') return false;
+    if (aspectRatio.id === '9:16' && visibility === 'wide') return false;
+  }
+
+  if (subject.count === 1 && aspectRatio.id === '16:9' && visibility === 'close') return false;
+
+  return true;
+}
+
+function buildSubjectBase(subject) {
+  return {
+    zh: subject.count === 2 ? '兩位性感驚豔的東亞女性' : '一位性感驚豔的東亞女性',
+    en: subject.en,
+    id: `base-character-${subject.id}`,
+    meta: { tags: ['female', subject.count === 2 ? 'duo' : 'solo'] },
+  };
+}
+
+function buildCompositionHint(subject, aspectRatio, framing) {
+  if (subject.count === 2) {
+    const duoHint = aspectRatio.id === '16:9' ? 'balanced duo composition with clear spacing between both women' : 'balanced two-subject portrait composition';
+    if (framing.meta.visibility === 'wide') return `${duoHint}, both women fully readable in frame`;
+    if (framing.meta.visibility === 'full') return `${duoHint}, both women standing naturally in frame`;
+    return `${duoHint}, both women clearly visible`;
+  }
+
+  if (aspectRatio.id === '9:16') return 'single-subject vertical composition';
+  if (aspectRatio.id === '16:9') return 'single-subject cinematic wide composition';
+  return 'single-subject portrait composition';
 }
 
 function pickWithLock(list, lockedId, predicate = () => true) {
@@ -502,7 +573,7 @@ function collectPositiveTags(...items) {
 }
 
 function buildCharacter(context, catalog) {
-  const character = [{ zh: '一名女性', en: '1girl', id: 'base-character', meta: { tags: ['female'] } }];
+  const character = [buildSubjectBase(context.subject)];
   const visibility = context.framing.meta.visibility;
   let lockedArchetype = null;
 
@@ -517,7 +588,7 @@ function buildCharacter(context, catalog) {
 
   if (visibilityAtLeast(visibility, 'medium')) pickCategory('臉型輪廓 (Face Shape)');
 
-  if (visibilityAtLeast(visibility, 'portrait')) {
+  if (context.subject.count === 1 && visibilityAtLeast(visibility, 'portrait')) {
     pickCategory('五官特徵 (Facial Features)', (item) => !lockedArchetype || !item.meta.archetype || item.meta.archetype === lockedArchetype);
     pickCategory('膚色與膚質 (Skin Tone & Texture)');
   }
@@ -529,6 +600,8 @@ function buildCharacter(context, catalog) {
   }
 
   const expression = pickCategory('神情與眼神 (Expression & Gaze)', (item) => expressionSupportsComposition(item, context));
+
+  if (context.subject.count > 1) return character;
 
   if (visibilityAtLeast(visibility, 'full')) {
     pickCategory('姿勢與肢體語言 (Pose & Body Language)');
@@ -607,13 +680,14 @@ function buildNegativePrompt(context, positiveTags, catalog) {
 
 function buildSummaryFields(context, wardrobe, character) {
   const characterBits = character.slice(1).filter((item) => item && item.zh).slice(0, 2).map((item) => item.zh);
+  const subjectLabel = context.subject.count === 2 ? '兩位性感驚豔的東亞女性' : '一位性感驚豔的東亞女性';
 
   return {
     style: context.style.zh || '-',
-    character: characterBits.length > 0 ? `一名女性, ${characterBits.join(', ')}` : '一名女性',
+    character: characterBits.length > 0 ? `${subjectLabel}, ${characterBits.join(', ')}` : subjectLabel,
     wardrobe: wardrobe[0]?.zh || '-',
     location: context.location.zh || '-',
-    camera: `${context.framing.zh || '-'} / ${context.angle.zh || '-'}`,
+    camera: `${context.framing.zh || '-'} / ${context.angle.zh || '-'} / ${context.aspectRatio.zh || '-'}`,
     lighting: context.lighting.zh || '-',
   };
 }
@@ -644,12 +718,14 @@ function buildPrompts(context, character, wardrobe, lightDirection, film, effect
   const wardrobeText = joinEn(wardrobe);
   const conciseCharacter = joinLimited(character, 5);
   const conciseWardrobe = joinLimited(wardrobe, 4);
+  const compositionHint = buildCompositionHint(context.subject, context.aspectRatio, context.framing);
 
   const midjourneySegments = [
     BASE_QUALITY,
     styleMood,
     context.framing.en,
     context.angle.en,
+    compositionHint,
     conciseCharacter,
     `wearing ${conciseWardrobe}`,
     `in ${locationText}`,
@@ -665,12 +741,14 @@ function buildPrompts(context, character, wardrobe, lightDirection, film, effect
     if (next.length > 900) break;
     midjourneyPrompt = next;
   }
+  midjourneyPrompt = `${midjourneyPrompt} --ar ${context.aspectRatio.en}`;
 
   const grokPrompt = [
     `Create a realistic editorial photograph of ${characterText}.`,
     wardrobeText ? `The subject is wearing ${wardrobeText}.` : '',
-    `Place her in ${locationText}.`,
+    context.subject.count === 2 ? `Place them in ${locationText}.` : `Place her in ${locationText}.`,
     `Use ${context.framing.en} with ${context.angle.en}.`,
+    `Compose the frame as a ${context.aspectRatio.en} image with ${compositionHint}.`,
     `Light the scene with ${context.lighting.en} and ${lightDirection.en}.`,
     `Finish with ${film.en}${effect ? ` and ${effect.en}` : ''}.`,
     `Overall visual direction: ${styleMood}.`,
@@ -683,6 +761,8 @@ function buildPrompts(context, character, wardrobe, lightDirection, film, effect
 
 function buildSelectionSnapshot(context, wardrobe) {
   return {
+    subjectCount: context.subject.id,
+    aspectRatio: context.aspectRatio.id,
     styleId: context.style.id,
     locationId: context.location.id,
     framingId: context.framing.id,
@@ -693,6 +773,9 @@ function buildSelectionSnapshot(context, wardrobe) {
 
 export function buildLocksFromPrompt(prompt, keepKeys = []) {
   const base = createEmptyLocks();
+  REQUIRED_LOCK_KEYS.forEach((key) => {
+    base[key] = prompt.selection?.[key] || base[key];
+  });
   keepKeys.forEach((key) => {
     base[key] = prompt.selection?.[key] || '';
   });
@@ -701,16 +784,22 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
 
 function generateSinglePrompt(index, locks, customLibrary) {
   const runtime = buildCatalog(customLibrary);
+  const subject = getSubjectOption(locks.subjectCount);
+  const aspectRatio = getAspectRatioOption(locks.aspectRatio);
   const location = pickWithLock(runtime.flatCatalog.locations, locks.locationId);
   const style = pickWithLock(runtime.flatCatalog.regional, locks.styleId, (item) => styleFitsLocation(item, location));
-  const framing = pickWithLock(runtime.flatCatalog.framing, locks.framingId, (item) => !(location.meta.tags.includes('club') && item.meta.visibility === 'close'));
+  const framing = pickWithLock(
+    runtime.flatCatalog.framing,
+    locks.framingId,
+    (item) => !(location.meta.tags.includes('club') && item.meta.visibility === 'close') && framingSupportsSubject(item, subject, aspectRatio)
+  );
   const angle = pickWithLock(runtime.flatCatalog.angle, locks.angleId, (item) => framingSupportsAngle(framing, item));
   const lighting = pickWithLock(runtime.flatCatalog.lighting, locks.lightingId, (item) => locationSupportsLighting(location, item));
   const lightDirection = pickWithLock(runtime.flatCatalog.lightDirection, locks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
   const film = pickWithLock(runtime.flatCatalog.film, locks.filmId);
   const effect = Math.random() > 0.65 ? sample(runtime.flatCatalog.effects) : null;
 
-  const context = { style, location, framing, angle, lighting };
+  const context = { subject, aspectRatio, style, location, framing, angle, lighting };
   const character = buildCharacter(context, runtime.catalog);
   const wardrobe = buildWardrobe({ ...context }, locks, runtime);
   context.wardrobe = wardrobe;

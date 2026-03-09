@@ -4,6 +4,7 @@ import random
 from collections import defaultdict
 
 KNOWLEDGE_BASE_DIR = os.path.join(os.path.dirname(__file__), '..', 'knowledge_base')
+BASE_CHARACTER = {"en": "a seductive stunning East Asian woman", "zh": "一位性感驚豔的東亞女性"}
 
 def load_dictionary(filename):
     """
@@ -98,7 +99,7 @@ def build_prompt():
 
     # --- Structured Assembly ---
     # Character & Pose
-    structured["Character"].append({"en": "1girl", "zh": "一名女性"})
+    structured["Character"].append(BASE_CHARACTER)
     extract_cat(character_data, '臉型輪廓', structured["Character"])
     extract_cat(character_data, '五官特徵', structured["Character"])
     extract_cat(character_data, '膚色與膚質', structured["Character"])
@@ -247,4 +248,3 @@ if __name__ == "__main__":
     print("\n[SUCCESS] Generated new prompt!")
     print(f"Saved to: {saved_path}\n")
     print("=" * 70)
-

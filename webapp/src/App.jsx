@@ -23,6 +23,7 @@ import {
   getKnowledgeBaseOptions,
   getLockControls,
   getPartialRerollOptions,
+  normalizeLocks,
 } from './lib/engine';
 import './index.css';
 
@@ -107,7 +108,7 @@ function normalizeImportedPresets(data) {
     .map((entry, index) => ({
       id: entry.id || `preset-import-${Date.now()}-${index}`,
       name: entry.name,
-      locks: entry.locks,
+      locks: normalizeLocks(entry.locks),
     }));
 }
 
@@ -119,7 +120,7 @@ export default function App() {
   const [favorites, setFavorites] = useState(() => new Set(loadJsonStorage(FAVORITES_KEY, [])));
   const [genCount, setGenCount] = useState(() => loadJsonStorage(GEN_COUNT_KEY, 3));
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
-  const [locks, setLocks] = useState(() => loadJsonStorage(LOCKS_KEY, createEmptyLocks()));
+  const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
   const [customLibrary, setCustomLibrary] = useState(() => loadJsonStorage(CUSTOM_LIBRARY_KEY, []));
   const [presets, setPresets] = useState(() => loadJsonStorage(PRESETS_KEY, []));
   const [presetName, setPresetName] = useState('');
@@ -174,7 +175,7 @@ export default function App() {
   const lockControls = useMemo(() => getLockControls(customLibrary), [customLibrary]);
   const rerollOptions = useMemo(() => getPartialRerollOptions(), []);
 
-  const activeLockCount = Object.values(locks).filter(Boolean).length;
+  const activeLockCount = Object.entries(locks).filter(([key, value]) => !['subjectCount', 'aspectRatio'].includes(key) && Boolean(value)).length;
   const normalizedSearch = searchQuery.trim().toLowerCase();
 
   const displayPrompts = useMemo(() => {
@@ -233,7 +234,7 @@ export default function App() {
   const handleSavePreset = () => {
     const name = presetName.trim();
     if (!name) return;
-    const snapshot = { id: `preset-${Date.now()}`, name, locks };
+    const snapshot = { id: `preset-${Date.now()}`, name, locks: normalizeLocks(locks) };
     setPresets((prev) => [snapshot, ...prev.filter((item) => item.name !== name)].slice(0, 24));
     setPresetName('');
   };
@@ -339,7 +340,7 @@ export default function App() {
                     }))
                   }
                 >
-                  <option value="">Random</option>
+                  {!control.required ? <option value="">Random</option> : null}
                   {control.options.map((option) => (
                     <option key={option.id} value={option.id}>
                       {option.zh}
