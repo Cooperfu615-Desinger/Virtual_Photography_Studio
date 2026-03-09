@@ -134,22 +134,22 @@ function inferLocationMeta(category, item) {
   const haystack = toHaystack(category, item.zh, item.en, item.desc);
   const tags = [];
 
-  if (category.includes('Studio Sets')) tags.push('indoor', 'set', 'controlled', 'studio');
-  if (category.includes('Seamless')) tags.push('studio', 'controlled', 'minimal', 'indoor');
-  if (category.includes('Urban')) tags.push('urban');
-  if (category.includes('Indoor')) tags.push('indoor');
-  if (category.includes('Nature')) tags.push('outdoor', 'natural');
-  if (category.includes('Sci-Fi')) tags.push('scifi', 'artificial_light');
-  if (category.includes('Underground')) tags.push('underground', 'dark', 'artificial_light');
+  if (hasAny(haystack, ['studio sets', '攝影棚與背景'])) tags.push('indoor', 'set', 'controlled', 'studio');
+  if (hasAny(haystack, ['urban & social snapshots', '城市與社群感'])) tags.push('urban');
+  if (hasAny(haystack, ['indoor & lifestyle', '生活感室內'])) tags.push('indoor');
+  if (hasAny(haystack, ['nature & outdoors', '自然與戶外'])) tags.push('outdoor', 'natural');
+  if (hasAny(haystack, ['abandoned & underground', '地下與廢墟風格'])) tags.push('underground', 'dark', 'artificial_light');
 
   if (hasAny(haystack, ['night', 'neon', '霓虹', '夜市', 'rave', 'club', '2am'])) tags.push('night');
   if (hasAny(haystack, ['golden hour', 'sunny', 'sunflower', 'desert', 'beach'])) tags.push('day', 'sunlight');
   if (hasAny(haystack, ['fog', '霧', 'twilight'])) tags.push('foggy');
   if (hasAny(haystack, ['window', 'sunbeams', 'daylight'])) tags.push('window_light');
-  if (hasAny(haystack, ['laser', 'led', 'server room', 'monitor glow', 'space station'])) tags.push('artificial_light');
+  if (hasAny(haystack, ['laser', 'led', 'mirror selfie', 'shopping mall', 'elevator'])) tags.push('artificial_light');
   if (hasAny(haystack, ['club', 'laser', 'smoke'])) tags.push('club', 'smoke');
-  if (hasAny(haystack, ['mansion', 'victorian', 'opera house', 'library'])) tags.push('heritage');
+  if (hasAny(haystack, ['mansion', 'victorian', 'opera house', 'library', 'old town', '照相館'])) tags.push('heritage');
   if (hasAny(haystack, ['white background', 'grey seamless', 'paper roll', 'backdrop'])) tags.push('studio');
+  if (hasAny(haystack, ['beach', 'coastline', 'shoreline', 'sand dunes', 'lakeside'])) tags.push('outdoor');
+  if (hasAny(haystack, ['abandoned', 'ruin', 'derelict', '廢棄', '破敗'])) tags.push('ruin');
 
   return { tags: withTags(tags) };
 }

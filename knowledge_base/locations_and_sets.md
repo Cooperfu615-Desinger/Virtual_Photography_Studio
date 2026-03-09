@@ -43,19 +43,20 @@
 | **生活感室內 (Indoor & Lifestyle)** | 凌晨 24 小時洗衣店 | `neon lit laundromat at 2am, rows of washing machines, fluorescent buzz, solitary feeling` | 排列整齊的洗衣機與冷色燈光很適合 Y2K、社群與都會孤獨感。 |
 | **生活感室內 (Indoor & Lifestyle)** | 宮廷音樂廳 / 歌劇院 | `opulent opera house interior, grand chandelier, red velvet seats, baroque architecture` | 奢華大型室內空間，適合正式服裝與古典敘事。 |
 | **生活感室內 (Indoor & Lifestyle)** | 狹小都會旅館房間 | `small urban hotel room, compact bed, dim practical lights, enclosed intimate atmosphere` | 保留侷促與親密感，但比膠囊旅館更適合人像與寫真構圖。 |
-| **自然與戶外 (Nature & Outdoors)** | 起伏的沙漠沙丘 | `rolling sand dunes, Sahara desert, minimal landscape, harsh sun, wind blown sand` | 極簡的大自然幾何線條，只有無盡的橘黃色沙丘與強烈的陽光陰影，純粹且孤寂。 |
-| **自然與戶外 (Nature & Outdoors)** | 霧氣瀰漫的冷杉森林 | `foggy pine forest, Pacific Northwest, dense trees, mysterious, muted greens and blues` | 充滿神祕與未知的氛圍。高聳的冷杉林被濃霧包圍，色調偏冷（藍綠色），適合哥德或奇幻風格。 |
-| **自然與戶外 (Nature & Outdoors)** | 陽光普照的向日葵田 | `vast sunflower field in full bloom, bright summer day, colorful nature, vibrant` | 充滿活力與夏日氣息，背景是一望無際的黃色向日葵，飽和度高，非常適合日系或陽光寫真。 |
-| **自然與戶外 (Nature & Outdoors)** | 陡峭的冰川雪山 | `snowy mountain peaks, sharp glacier, extreme cold, blinding white snow, vast epic scale` | 宏偉且險惡的自然環境。刺眼的白雪與冷冽的藍天對比，適合表現機能服飾或孤傲氣質。 |
-| **自然與戶外 (Nature & Outdoors)** | 寧靜湖泊與倒影 | `still lake surface reflecting mountains, twilight, peaceful nature, mirror effect` | 水面如鏡子般平靜，完美反射背後的山景或天空，視覺上極度安靜且對稱。 |
-| **前衛/科幻場景 (Sci-Fi & Cyberpunk)** | 漂浮在空中的無重力密室 | `zero gravity chamber, objects floating, futuristic geometry, disorienting space` | 超現實空間，失去重力，背景可能有漂浮的碎石或發光物體，顛覆物理常識的構圖。 |
-| **前衛/科幻場景 (Sci-Fi & Cyberpunk)** | 巨大的巨型電腦主機房 | `massive server room, glowing wires, endless rows of supercomputers, matrix aesthetic` | 駭客任務風格，四周全是閃著紅綠燈號的伺服器與錯綜複雜的發光線路，冰冷且科技感。 |
-| **前衛/科幻場景 (Sci-Fi & Cyberpunk)** | 生物機械融合培養槽 | `biomechanical laboratory, giant glass specimen tubes, glowing green liquid, HR Giger style` | 結合血肉與機械的詭異場景，背景有充滿螢光綠液體的巨大培養槽，帶有異形風格的恐怖科技感。 |
-| **前衛/科幻場景 (Sci-Fi & Cyberpunk)** | 環形太空站舷窗 | `space station observation deck, giant circular window, view of Earth from space, starry void` | 背景是一個巨大的圓形窗戶，外面可以看見壯麗的地球邊緣與深邃的宇宙星空，史詩感強烈。 |
-| **前衛/科幻場景 (Sci-Fi & Cyberpunk)** | 超空間量子隧道 | `entering hyperspace, abstract quantum tunnel, swirling colorful light trails, infinite speed` | 沒有實體建築，只有無數扭曲、旋轉的多彩光束與隧道，表現超越光速的極端動態感。 |
-| **廢墟與地下空間 (Abandoned & Underground)** | 廢棄水泥工廠/排洪道 | `abandoned concrete factory, brutalist underground bunker, water on floor, echoing space` | 巨大的地下水道或工廠，牆面斑駁，地上有積水，空間深邃且帶有回音感，適合龐克與機能風。 |
-| **廢墟與地下空間 (Abandoned & Underground)** | 雜草叢生的廢棄遊樂園 | `abandoned amusement park overtaken by nature, rusty ferris wheel, creepy, post-apocalyptic` | 被大自然重新吞噬的文明遺跡，生鏽的摩天輪被藤蔓纏繞，帶有末日生存與詭異的美感。 |
-| **廢墟與地下空間 (Abandoned & Underground)** | 地下狂歡俱樂部/金庫 | `underground techno club, rave party bunker, lasers cutting through thick smoke, bass heavy` | 身處地牢般的俱樂部，空氣中充滿濃煙，被強烈的雷射切割，視覺上極度迷幻且具有重低音的震動感。 |
-| **廢墟與地下空間 (Abandoned & Underground)** | 遭洗劫的維多利亞大宅 | `ruined Victorian mansion interior, torn wallpaper, smashed chandeliers, haunted decay` | 曾經輝煌但現已殘破不堪的古堡或大宅，壁紙剝落，傢俱毀損，充滿哥德式的衰敗美學。 |
-| **廢墟與地下空間 (Abandoned & Underground)** | 滿佈塗鴉的火車調車場 | `graffiti covered train yard, rusty train cars, urban decay, rebel territory` | 美式街頭文化的核心。一整排生鏽且畫滿強烈塗鴉的火車車廂，代表反叛與次文化的集散地。 |
-| **廢墟與地下空間 (Abandoned & Underground)** | 乾涸的巨大蓄水池/神殿 | `massive dry underground reservoir, pillars like a temple, dramatic light shafts entering from top` | 像地下神殿般的蓄水池（好比日本首都圈外郭放水路），光線由頂部極小的洞口射入，呈現神聖與渺小的對比。 |
+| **自然與戶外 (Nature & Outdoors)** | 金色海灘與浪線 | `golden sandy beach, soft ocean waves, open coastline, bright summer light, airy seaside mood` | 高頻好用的海邊場景，畫面乾淨開闊，適合寫真、泳裝與陽光人像。 |
+| **自然與戶外 (Nature & Outdoors)** | 陽光草地與樹影 | `sunlit grassy field, scattered tree shadows, warm daylight, breezy natural portrait setting` | 比純自然景觀更貼近人像拍攝，容易形成乾淨生活感與輕寫真氛圍。 |
+| **自然與戶外 (Nature & Outdoors)** | 向日葵花田 | `vast sunflower field in full bloom, bright summer day, vivid yellow petals, cheerful countryside mood` | 高飽和又有夏日辨識度，適合明亮寫真與日系自然風。 |
+| **自然與戶外 (Nature & Outdoors)** | 霧感森林步道 | `foggy forest trail, tall trees, soft mist, muted green tones, quiet mysterious atmosphere` | 將森林收斂成更可拍的人像步道空間，避免過於奇幻但保留神祕感。 |
+| **自然與戶外 (Nature & Outdoors)** | 湖邊木棧道 | `lakeside boardwalk, calm water, soft twilight reflections, open natural scenery` | 湖面與木棧道讓畫面更具構圖感，適合文藝與安靜寫真。 |
+| **自然與戶外 (Nature & Outdoors)** | 夕陽海邊岩岸 | `rocky shoreline at sunset, warm glow, textured coast, cinematic outdoor portrait` | 比平坦沙灘更多層次，適合成熟、電影感與時裝自然場景。 |
+| **自然與戶外 (Nature & Outdoors)** | 沙丘與風痕地景 | `rolling sand dunes, wind-shaped textures, minimal desert landscape, harsh sunlight` | 保留極簡沙丘場景，但聚焦在人像可用的線條與光影。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄水泥工廠 | `abandoned concrete factory, broken beams, damp floor, industrial ruin, echoing space` | 巨大的水泥結構與斑駁牆面很適合工業風、機能風與地下感人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄地下排洪道 | `brutalist flood tunnel, wet concrete floor, repeating pillars, underground echo, dim light shafts` | 長向深透視非常強，能形成具有壓迫感的地下空間構圖。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 雜草叢生的廢棄公園 | `abandoned overgrown park, cracked pavement, rusted playground structures, quiet urban decay` | 比遊樂園更貼近日常遺跡感，荒廢與雜草交錯，適合孤獨與末日感主題。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄醫院走廊 | `abandoned hospital corridor, peeling paint, flickering fluorescent lights, eerie institutional decay` | 走廊線性強，空間壓迫感明顯，很適合冷調與不安氛圍的人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄教室與校舍 | `abandoned school classroom, dusty desks, broken windows, faded walls, melancholic ruin` | 帶有青春殘影與空間敘事感，適合懷舊與衰敗美學。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 地下狂歡俱樂部 / 金庫 | `underground techno club, rave bunker, lasers through thick smoke, bass-heavy atmosphere` | 地牢般俱樂部空間依舊保留，適合強烈夜拍、霓虹與迷幻主題。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 遭洗劫的維多利亞大宅 | `ruined Victorian mansion interior, torn wallpaper, smashed chandeliers, haunted decay` | 曾經華麗但現已破敗不堪，適合哥德衰敗與古典殘骸場景。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 滿佈塗鴉的火車調車場 | `graffiti covered train yard, rusty train cars, urban decay, rebellious street territory` | 生鏽車廂與強烈塗鴉形成明顯次文化氛圍，適合街頭與叛逆主題。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄商場中庭 | `abandoned shopping mall atrium, dead escalators, broken skylight, eerie empty retail space` | 帶有現代文明停擺感的室內廢墟，空間尺度大且很有故事性。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 半拆除高樓建築骨架 | `half-demolished high-rise structure, exposed concrete skeleton, open floors, urban ruin panorama` | 建築骨架能形成強烈的層次和空洞感，適合工業與末世都會主題。 |
