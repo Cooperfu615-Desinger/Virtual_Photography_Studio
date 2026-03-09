@@ -173,7 +173,7 @@ function inferAngleMeta(_category, item) {
   if (hasAny(haystack, ['bird', 'top-down', 'zenith'])) return { tags: ['aerial', 'no_eye_contact'] };
   if (hasAny(haystack, ['high angle'])) return { tags: ['high_angle'] };
   if (hasAny(haystack, ['low angle'])) return { tags: ['low_angle'] };
-  if (hasAny(haystack, ['dutch angle'])) return { tags: ['dynamic'] };
+  if (hasAny(haystack, ['dutch angle'])) return { tags: ['dynamic', 'low_frequency_angle'] };
 
   return { tags: ['eye_contact_ok'] };
 }
@@ -182,8 +182,9 @@ function inferLightingMeta(category, item) {
   const haystack = toHaystack(category, item.zh, item.en, item.desc);
   const tags = [];
 
-  if (hasAny(haystack, ['golden hour', 'warm sunlight'])) tags.push('natural_light', 'sunlight', 'outdoor', 'warm');
-  if (hasAny(haystack, ['blue hour', 'twilight'])) tags.push('natural_light', 'outdoor', 'dusk', 'cool');
+  if (hasAny(haystack, ['warm sunset', 'golden evening', 'warm sunlight'])) tags.push('natural_light', 'sunlight', 'outdoor', 'warm');
+  if (hasAny(haystack, ['blue twilight', 'twilight'])) tags.push('natural_light', 'outdoor', 'dusk', 'cool');
+  if (hasAny(haystack, ['blue sky daylight', 'white clouds'])) tags.push('natural_light', 'sunlight', 'outdoor', 'day', 'clean_sky');
   if (hasAny(haystack, ['overcast', 'cloudy'])) tags.push('natural_light', 'outdoor', 'diffused');
   if (hasAny(haystack, ['harsh direct sunlight', 'midday sun'])) tags.push('natural_light', 'sunlight', 'outdoor', 'harsh');
   if (hasAny(haystack, ['neon', 'cyberpunk', 'bi-color'])) tags.push('artificial_light', 'neon', 'night');
@@ -260,6 +261,7 @@ function inferFilmMeta(_category, item) {
   if (hasAny(haystack, ['kodak', 'portra', 'superia'])) tags.push('film');
   if (hasAny(haystack, ['black and white', 'ilford'])) tags.push('monochrome');
   if (hasAny(haystack, ['medium format'])) tags.push('detail_heavy');
+  if (hasAny(haystack, ['vhs'])) tags.push('low_frequency_film');
 
   return { tags: withTags(tags) };
 }
@@ -567,14 +569,14 @@ function buildCompositionHint(subject, aspectRatio, framing) {
   return 'single-subject portrait composition';
 }
 
-function pickWithLock(list, lockedId, predicate = () => true) {
+function pickWithLock(list, lockedId, predicate = () => true, picker = sample) {
   if (lockedId) {
     const locked = findById(list, lockedId);
     if (locked && predicate(locked)) return locked;
   }
 
   const matches = list.filter(predicate);
-  return matches.length > 0 ? sample(matches) : sample(list);
+  return matches.length > 0 ? picker(matches) : picker(list);
 }
 
 function collectPositiveTags(...items) {
@@ -804,6 +806,16 @@ function generateSinglePrompt(index, locks, customLibrary) {
   const runtime = buildCatalog(customLibrary);
   const subject = getSubjectOption(locks.subjectCount);
   const aspectRatio = getAspectRatioOption(locks.aspectRatio);
+  const lowFrequencyPicker = (tag) => (candidates) => {
+    const regular = candidates.filter((item) => !item.meta.tags?.includes(tag));
+    const lowFrequency = candidates.filter((item) => item.meta.tags?.includes(tag));
+
+    if (regular.length > 0 && (lowFrequency.length === 0 || Math.random() < 0.88)) {
+      return sample(regular);
+    }
+
+    return sample(lowFrequency.length > 0 ? lowFrequency : candidates);
+  };
   const location = pickWithLock(runtime.flatCatalog.locations, locks.locationId);
   const style = pickWithLock(runtime.flatCatalog.regional, locks.styleId, (item) => styleFitsLocation(item, location));
   const framing = pickWithLock(
@@ -811,10 +823,10 @@ function generateSinglePrompt(index, locks, customLibrary) {
     locks.framingId,
     (item) => !(location.meta.tags.includes('club') && item.meta.visibility === 'close') && framingSupportsSubject(item, subject, aspectRatio)
   );
-  const angle = pickWithLock(runtime.flatCatalog.angle, locks.angleId, (item) => framingSupportsAngle(framing, item));
+  const angle = pickWithLock(runtime.flatCatalog.angle, locks.angleId, (item) => framingSupportsAngle(framing, item), lowFrequencyPicker('low_frequency_angle'));
   const lighting = pickWithLock(runtime.flatCatalog.lighting, locks.lightingId, (item) => locationSupportsLighting(location, item));
   const lightDirection = pickWithLock(runtime.flatCatalog.lightDirection, locks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
-  const film = pickWithLock(runtime.flatCatalog.film, locks.filmId);
+  const film = pickWithLock(runtime.flatCatalog.film, locks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
   const effect = Math.random() > 0.65 ? sample(runtime.flatCatalog.effects) : null;
 
   const context = { subject, aspectRatio, style, location, framing, angle, lighting };

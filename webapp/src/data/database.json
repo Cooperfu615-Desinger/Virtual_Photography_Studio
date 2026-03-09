@@ -477,11 +477,6 @@
         "zh": "荷蘭角/傾斜 (Dutch Angle)",
         "en": "dutch angle, tilted camera, crooked horizon, unsettling, cinematic tension",
         "desc": "相機刻意傾斜，地平線不平。營造不安、混亂、速度感或極度戲劇化的電影張力。"
-      },
-      {
-        "zh": "鳥瞰/上帝視角 (Bird's-Eye View)",
-        "en": "bird's-eye view, top-down perspective, zenith angle, architectural scale",
-        "desc": "從極高處垂直向下俯視，使人物扁平化，適合展現地衣紋理或奇特的幾何排列。"
       }
     ],
     "鏡頭焦段 (Focal Length)": [
@@ -513,14 +508,19 @@
     ],
     "光線類型 (Lighting Type)": [
       {
-        "zh": "黃金時刻 (Golden Hour)",
-        "en": "golden hour lighting, warm sunlight, long shadows, magic hour, sunset flare",
-        "desc": "日出或日落前後，陽光傾斜且呈現溫暖的金黃色調，帶來浪漫且柔和的戲劇感。"
+        "zh": "夕陽暖光 (Warm Sunset Light)",
+        "en": "warm sunset light, golden evening glow, long shadows, soft orange sunlight",
+        "desc": "夕陽前後的暖色光線，氛圍浪漫柔和，最適合戶外人像與寫真。"
       },
       {
-        "zh": "藍色時刻 (Blue Hour)",
-        "en": "blue hour lighting, twilight, cold deep blue ambient light, melancholic vibe",
-        "desc": "太陽剛落下或升起前，天空呈現深邃均勻的冷藍色光線，營造靜謐、憂鬱或神秘氛圍。"
+        "zh": "夜幕藍調 (Blue Twilight Light)",
+        "en": "blue twilight light, deep evening blue ambience, cool dusk atmosphere, melancholic mood",
+        "desc": "太陽剛落下後的深藍光線，畫面冷靜、安靜，和白天藍天完全不同。"
+      },
+      {
+        "zh": "藍天白雲日光 (Blue Sky Daylight)",
+        "en": "clear blue sky daylight, crisp white clouds, bright clean sunlight, open airy atmosphere",
+        "desc": "非黃昏也非陰天，而是藍天很藍、白雲很白的乾淨日光感，適合明亮外景。"
       },
       {
         "zh": "陰天漫射柔光 (Overcast Soft Light)",
@@ -546,11 +546,6 @@
         "zh": "暗調戲劇光 (Low Key Chiaroscuro)",
         "en": "low key lighting, chiaroscuro, cinematic shadows, mostly dark background, mysterious",
         "desc": "畫面大部分區域為暗部交響，僅有少量光線勾勒主體立體感。充滿戲劇張力與古典油畫感。"
-      },
-      {
-        "zh": "環形閃光燈 (Ring Flash)",
-        "en": "ring flash lighting, distinct catchlight in eyes, flat fashion lighting, edgy shadow",
-        "desc": "套在鏡頭前的環形光源，會在瞳孔產生圓形眼神光，並在背景投下明顯的邊緣環狀陰影，前衛且時尚。"
       }
     ],
     "光線方向與質感 (Light Direction & Quality)": [
@@ -614,15 +609,10 @@
       {
         "zh": "VHS 錄影帶低畫質",
         "en": "VHS camcorder glitch effect, heavily degraded image, chromatic aberration, scanlines, analog horror",
-        "desc": "模仿 90 年代的老舊家用錄影帶。畫面充滿雪花雜訊、橫向掃描線、色彩偏移（紅藍分離），帶有復古恐怖或故障藝術 (Glitch) 氛圍。"
+        "desc": "模仿 90 年代老舊錄影帶的畫面質感，保留做低頻特殊風格用途。"
       }
     ],
     "特殊效果 (Special Effects)": [
-      {
-        "zh": "慢快門/動態模糊 (Motion Blur)",
-        "en": "slow shutter speed, intentional camera movement, light trails, blurry ghosting effect",
-        "desc": "利用慢速快門。讓移動的主體（或背景）產生充滿速度感的拖影或光軌，呈現夢幻、混亂或時間流逝的感覺。"
-      },
       {
         "zh": "漏光效果 (Light Leaks)",
         "en": "vintage film light leaks, red and orange light burns, lens flare, serendipitous analog flaw",
@@ -632,11 +622,6 @@
         "zh": "鏡頭光斑 (Lens Flare)",
         "en": "anamorphic lens flare, horizontal blue streaks, blooming highlights, cinematic light artifacts",
         "desc": "尤其是模仿變形鏡頭 (Anamorphic) 產生的水平藍色拉絲光斑。是科幻電影或公路大片標誌性的光源特效。"
-      },
-      {
-        "zh": "雙重曝光 (Double Exposure)",
-        "en": "double exposure photography, overlapping subjects, surreal silhouette blend, dreamlike",
-        "desc": "將兩張影像（通常是一個人物輪廓加上風景或紋理）疊加在一起，創造出超現實、充滿哲學意境與夢幻感的視覺魔法。"
       },
       {
         "zh": "散景/光斑大虛化 (Heavy Bokeh)",

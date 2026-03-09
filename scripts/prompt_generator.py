@@ -134,12 +134,12 @@ def build_prompt():
 
     # Framing
     extract_cat(camera_data, '景別構圖', structured["Framing"])
-    extract_cat(camera_data, '相機視角', structured["Framing"])
+    extract_weighted(camera_data, '相機視角', structured["Framing"], [1,2,3], natural_weight=0.9)
 
     # Camera & Film
     extract_cat(styles_data, 'Region', structured["Camera & Film"])
     extract_cat(camera_data, '鏡頭焦段', structured["Camera & Film"])
-    extract_cat(camera_data, '底片與相機模擬', structured["Camera & Film"])
+    extract_weighted(camera_data, '底片與相機模擬', structured["Camera & Film"], [1,2,3,4,5], natural_weight=0.9)
     extract_cat(camera_data, '特殊效果', structured["Camera & Film"], prob=0.4)
 
     # Negative
