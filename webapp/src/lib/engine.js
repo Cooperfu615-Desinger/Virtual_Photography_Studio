@@ -204,19 +204,20 @@ function inferCharacterMeta(category, item) {
   const tags = [];
   let archetype = null;
 
-  if (category.includes('Face Shape')) minVisibility = 'medium';
   if (category.includes('Facial Features')) minVisibility = 'portrait';
   if (category.includes('Skin Tone')) minVisibility = 'portrait';
+  if (category.includes('Skin Details')) minVisibility = 'portrait';
   if (category.includes('Hairstyle')) minVisibility = 'medium';
   if (category.includes('Hair Color')) minVisibility = 'medium';
   if (category.includes('Expression')) minVisibility = 'medium';
   if (category.includes('Pose')) minVisibility = 'full';
-  if (category.includes('Age')) minVisibility = 'medium';
 
   if (hasAny(haystack, ['freckles', '雀斑', 'eyelashes', 'lip', 'nose', '瞳', 'gaze', 'eye contact'])) {
     minVisibility = 'portrait';
     tags.push('fine_detail');
   }
+
+  if (category.includes('Skin Details')) tags.push('skin_detail');
 
   if (category.includes('Hair Color')) {
     if (hasAny(haystack, ['內層染', '挑染', '分色', '漸層', '耳圈染', 'highlights', 'split dye', 'gradient', 'inner layer', 'face-framing'])) {
@@ -607,13 +608,13 @@ function buildCharacter(context, catalog) {
 
   if (context.subject.count === 1 && visibilityAtLeast(visibility, 'portrait')) {
     pickCategory('五官特徵 (Facial Features)', (item) => !lockedArchetype || !item.meta.archetype || item.meta.archetype === lockedArchetype);
-    pickCategory('膚色與膚質 (Skin Tone & Texture)');
+    pickCategory('膚色 (Skin Tone)');
+    if (Math.random() < 0.55) pickCategory('膚質特徵 (Skin Details)');
   }
 
   if (visibilityAtLeast(visibility, 'medium')) {
     pickCategory('髮型 (Hairstyle)');
     pickCategory('髮色 (Hair Color)', () => true, pickHairColor);
-    pickCategory('年齡氣質 (Age & Aura)');
   }
 
   const expression = pickCategory('神情與眼神 (Expression & Gaze)', (item) => expressionSupportsComposition(item, context));

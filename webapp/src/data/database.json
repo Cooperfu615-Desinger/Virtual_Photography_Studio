@@ -894,31 +894,68 @@
         "desc": "走日本御姐系性感路線，成熟柔媚、穩定自信，帶有明顯的掌控感與女人味。"
       }
     ],
-    "膚色與膚質 (Skin Tone & Texture)": [
+    "膚色 (Skin Tone)": [
       {
-        "zh": "幾近透明的冷白皮",
-        "en": "pale porcelain skin, translucent cold-white complexion, ethereal ghost-like skin",
-        "desc": "冷調、近乎透明的白皙膚色，皮膚下的靜脈隱約可見，散發空靈與脆弱感。"
+        "zh": "清透白皙膚",
+        "en": "clear fair skin, luminous even complexion, fresh bright skin tone",
+        "desc": "明亮乾淨的白皙膚色，透感自然，不會過度死白。"
       },
       {
-        "zh": "蜜桃粉嫩暖白皮",
-        "en": "peachy warm white skin, rosy flush on cheeks, healthy pink glow, soft and warm",
-        "desc": "底色帶有暖粉紅光澤的白皙膚色，臉頰自然泛紅，充滿青春感與生命力。"
+        "zh": "透亮白皙膚",
+        "en": "radiant fair skin, softly glowing ivory complexion, healthy bright skin",
+        "desc": "帶有微微透亮感的白皙膚色，適合清新與時裝人像。"
       },
       {
-        "zh": "自然小麥色古銅皮",
-        "en": "sun-kissed tan skin, warm olive-brown complexion, healthy caramel skin, glowing",
-        "desc": "戶外陽光曬出的健康古銅色，皮膚自帶一種溫暖的光澤，適合澳洲海灘或夏日主題。"
+        "zh": "柔霧白皙膚",
+        "en": "soft matte fair skin, velvety pale complexion, refined smooth skin",
+        "desc": "偏柔霧感的白皙膚質，細緻乾淨，帶有高級妝感。"
       },
       {
-        "zh": "玻璃光澤水光肌",
-        "en": "glass skin, dewy skin texture, high sheen luminous complexion, reflective glow",
-        "desc": "皮膚表面如玻璃般光滑，帶有高度光澤感，彷彿剛敷完面膜，是韓系棚拍的標配。"
+        "zh": "暖調白皙膚",
+        "en": "warm fair skin, soft peach undertone, healthy light complexion",
+        "desc": "帶有暖桃色底調的白皙膚色，看起來更有氣色與親和力。"
       },
       {
-        "zh": "自然雀斑/痣點皮",
-        "en": "natural freckles sprinkled across nose, sun-kissed summer freckles, raw authenticity",
-        "desc": "鼻梁與臉頰上有自然的雀斑分布，增加真實感與個人特色，適合法式自然紀實風格。"
+        "zh": "自然白皙膚",
+        "en": "natural fair skin, balanced neutral undertone, clean realistic complexion",
+        "desc": "介於冷暖之間的自然白皙膚色，最穩定也最百搭。"
+      },
+      {
+        "zh": "健康小麥膚",
+        "en": "healthy wheat-toned skin, warm beige complexion, naturally sun-kissed look",
+        "desc": "帶有陽光感的小麥膚色，真實自然，適合戶外與生活感主題。"
+      },
+      {
+        "zh": "健康古銅膚",
+        "en": "healthy bronze skin, warm sun-tanned complexion, rich golden-brown tone",
+        "desc": "更深一階的古銅膚色，帶有成熟、性感與陽光感。"
+      }
+    ],
+    "膚質特徵 (Skin Details)": [
+      {
+        "zh": "玻璃水光肌",
+        "en": "glass skin, dewy luminous skin texture, hydrated reflective complexion",
+        "desc": "光澤明顯、飽水感高，適合韓系棚拍與近距離人像。"
+      },
+      {
+        "zh": "柔霧細緻肌",
+        "en": "soft matte skin texture, refined pores, velvety smooth finish",
+        "desc": "細膩柔霧、不強調油光，適合高級時裝與乾淨妝面。"
+      },
+      {
+        "zh": "自然雀斑",
+        "en": "natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail",
+        "desc": "鼻樑與臉頰帶有自然雀斑，能增加真實感與辨識度。"
+      },
+      {
+        "zh": "淚痣／唇邊痣",
+        "en": "small beauty mark under eye or near lips, delicate facial mole detail",
+        "desc": "臉上有細小痣點，位置通常在眼下或唇邊，能增加個性與記憶點。"
+      },
+      {
+        "zh": "微曬陽光感膚質",
+        "en": "slightly sun-kissed skin texture, subtle warm flush, healthy outdoor glow",
+        "desc": "像曬過太陽後留下的自然暖感，帶有生活感與戶外氣息。"
       }
     ],
     "髮型 (Hairstyle)": [
@@ -1227,18 +1264,6 @@
         "zh": "側躺沙發/床緣",
         "en": "lying sideways on sofa edge, chin resting on hand, languid reclined pose, editorial mood",
         "desc": "側躺倚著家具，下巴托在手上，充滿雜誌大片的氛圍。"
-      }
-    ],
-    "年齡氣質 (Age & Aura)": [
-      {
-        "zh": "少女感 (18-22歲)",
-        "en": "youthful teenage vibe, fresh face, natural innocence, school-age beauty",
-        "desc": "清新自然、未施粉黛的青春感，肌膚細緻且帶有年輕的純真神韻。"
-      },
-      {
-        "zh": "熟女氣場 (25-30歲)",
-        "en": "mature sophisticated woman, commanding aura, experienced beauty, elegant self-assurance",
-        "desc": "歲月沉澱出的自信與從容，有清晰的眼神與優雅的氣場，是高端商業攝影的黃金年齡段。"
       }
     ]
   },

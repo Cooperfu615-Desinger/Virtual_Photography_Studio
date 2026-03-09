@@ -14,11 +14,18 @@
 | **五官特徵 (Facial Features)** | 清冷空靈仙氣臉 | `ethereal cold beauty face, pale refined features, distant gaze, delicate bone structure, airy elegance` | 清冷、空靈、疏離，像帶著霧感與仙氣的高級冷白美人。 |
 | **五官特徵 (Facial Features)** | 歐美混血時尚臉 | `mixed-race editorial beauty face, deep-set features, defined nose bridge, full lips, striking fashion presence` | 五官立體、視覺張力強，帶有時裝攝影常見的混血感與艷麗存在感。 |
 | **五官特徵 (Facial Features)** | 日系性感大姐臉 | `Japanese mature glamour face, sultry eyes, full lips, elegant confidence, seductive older-sister aura` | 走日本御姐系性感路線，成熟柔媚、穩定自信，帶有明顯的掌控感與女人味。 |
-| **膚色與膚質 (Skin Tone & Texture)** | 幾近透明的冷白皮 | `pale porcelain skin, translucent cold-white complexion, ethereal ghost-like skin` | 冷調、近乎透明的白皙膚色，皮膚下的靜脈隱約可見，散發空靈與脆弱感。 |
-| **膚色與膚質 (Skin Tone & Texture)** | 蜜桃粉嫩暖白皮 | `peachy warm white skin, rosy flush on cheeks, healthy pink glow, soft and warm` | 底色帶有暖粉紅光澤的白皙膚色，臉頰自然泛紅，充滿青春感與生命力。 |
-| **膚色與膚質 (Skin Tone & Texture)** | 自然小麥色古銅皮 | `sun-kissed tan skin, warm olive-brown complexion, healthy caramel skin, glowing` | 戶外陽光曬出的健康古銅色，皮膚自帶一種溫暖的光澤，適合澳洲海灘或夏日主題。 |
-| **膚色與膚質 (Skin Tone & Texture)** | 玻璃光澤水光肌 | `glass skin, dewy skin texture, high sheen luminous complexion, reflective glow` | 皮膚表面如玻璃般光滑，帶有高度光澤感，彷彿剛敷完面膜，是韓系棚拍的標配。 |
-| **膚色與膚質 (Skin Tone & Texture)** | 自然雀斑/痣點皮 | `natural freckles sprinkled across nose, sun-kissed summer freckles, raw authenticity` | 鼻梁與臉頰上有自然的雀斑分布，增加真實感與個人特色，適合法式自然紀實風格。 |
+| **膚色 (Skin Tone)** | 清透白皙膚 | `clear fair skin, luminous even complexion, fresh bright skin tone` | 明亮乾淨的白皙膚色，透感自然，不會過度死白。 |
+| **膚色 (Skin Tone)** | 透亮白皙膚 | `radiant fair skin, softly glowing ivory complexion, healthy bright skin` | 帶有微微透亮感的白皙膚色，適合清新與時裝人像。 |
+| **膚色 (Skin Tone)** | 柔霧白皙膚 | `soft matte fair skin, velvety pale complexion, refined smooth skin` | 偏柔霧感的白皙膚質，細緻乾淨，帶有高級妝感。 |
+| **膚色 (Skin Tone)** | 暖調白皙膚 | `warm fair skin, soft peach undertone, healthy light complexion` | 帶有暖桃色底調的白皙膚色，看起來更有氣色與親和力。 |
+| **膚色 (Skin Tone)** | 自然白皙膚 | `natural fair skin, balanced neutral undertone, clean realistic complexion` | 介於冷暖之間的自然白皙膚色，最穩定也最百搭。 |
+| **膚色 (Skin Tone)** | 健康小麥膚 | `healthy wheat-toned skin, warm beige complexion, naturally sun-kissed look` | 帶有陽光感的小麥膚色，真實自然，適合戶外與生活感主題。 |
+| **膚色 (Skin Tone)** | 健康古銅膚 | `healthy bronze skin, warm sun-tanned complexion, rich golden-brown tone` | 更深一階的古銅膚色，帶有成熟、性感與陽光感。 |
+| **膚質特徵 (Skin Details)** | 玻璃水光肌 | `glass skin, dewy luminous skin texture, hydrated reflective complexion` | 光澤明顯、飽水感高，適合韓系棚拍與近距離人像。 |
+| **膚質特徵 (Skin Details)** | 柔霧細緻肌 | `soft matte skin texture, refined pores, velvety smooth finish` | 細膩柔霧、不強調油光，適合高級時裝與乾淨妝面。 |
+| **膚質特徵 (Skin Details)** | 自然雀斑 | `natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail` | 鼻樑與臉頰帶有自然雀斑，能增加真實感與辨識度。 |
+| **膚質特徵 (Skin Details)** | 淚痣／唇邊痣 | `small beauty mark under eye or near lips, delicate facial mole detail` | 臉上有細小痣點，位置通常在眼下或唇邊，能增加個性與記憶點。 |
+| **膚質特徵 (Skin Details)** | 微曬陽光感膚質 | `slightly sun-kissed skin texture, subtle warm flush, healthy outdoor glow` | 像曬過太陽後留下的自然暖感，帶有生活感與戶外氣息。 |
 | **髮型 (Hairstyle)** | 1. 俐落直短髮 (一刀切) | `boxy blunt-cut bob, straight hair` | 齊平且乾淨的線條，具備現代高級感。 |
 | **髮型 (Hairstyle)** | 2. 中分長直髮 | `long straight hair, center part, sleek` | 經典女神風，光澤感十足。 |
 | **髮型 (Hairstyle)** | 3. 法式大波浪 | `loose voluminous waves, french style` | 蓬鬆且浪漫，帶有一點不經意的慵懶感。 |
@@ -79,5 +86,3 @@
 | **姿勢與肢體語言 (Pose & Body Language)** | 雙臂展開 (解放感) | `arms spread wide, head tilted back, liberating pose, full-body freedom expression` | 雙臂張開、頭向後仰，充滿解放感與生命能量。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 蹲坐地上 (親近感) | `crouching down on ground, elbows on knees, casual squat pose, street level angle` | 蹲坐在地，低角度街拍感，帶有親近感。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 側躺沙發/床緣 | `lying sideways on sofa edge, chin resting on hand, languid reclined pose, editorial mood` | 側躺倚著家具，下巴托在手上，充滿雜誌大片的氛圍。 |
-| **年齡氣質 (Age & Aura)** | 少女感 (18-22歲) | `youthful teenage vibe, fresh face, natural innocence, school-age beauty` | 清新自然、未施粉黛的青春感，肌膚細緻且帶有年輕的純真神韻。 |
-| **年齡氣質 (Age & Aura)** | 熟女氣場 (25-30歲) | `mature sophisticated woman, commanding aura, experienced beauty, elegant self-assurance` | 歲月沉澱出的自信與從容，有清晰的眼神與優雅的氣場，是高端商業攝影的黃金年齡段。 |
