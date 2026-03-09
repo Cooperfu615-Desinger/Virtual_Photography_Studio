@@ -310,7 +310,7 @@ export default function App() {
         <div>
           <p className="eyebrow">Virtual Photography Studio</p>
           <h1>Prompt Control Deck</h1>
-          <p className="subtitle">把生成條件集中在一個主控制台，結果卡則改成大摘要與明確複製操作，讓你先挑方向，再決定要不要看細節。</p>
+          <p className="subtitle">一個為個人創作流程設計的虛擬攝影 Prompt 生成工具，支援快速組合、批次生成與風格探索。</p>
         </div>
       </header>
 
@@ -320,9 +320,9 @@ export default function App() {
             <div>
               <div className="lock-title">
                 <SlidersHorizontal size={18} />
-                Locked Inputs
+                主控台
               </div>
-              <p className="lock-subtitle">目前鎖定 {activeLockCount} 個條件。這裡就是整個生成前控制台。</p>
+              <p className="lock-subtitle">目前鎖定 {activeLockCount} 個條件。</p>
             </div>
           </div>
 
@@ -354,15 +354,15 @@ export default function App() {
             <input className="text-input" value={presetName} onChange={(event) => setPresetName(event.target.value)} placeholder="Preset name" />
             <button className="secondary" onClick={handleSavePreset}>
               <Save size={16} />
-              Save Preset
+              Save
             </button>
             <button className="secondary" onClick={() => presetInputRef.current?.click()}>
               <FolderUp size={16} />
-              Import Presets
+              Import
             </button>
             <button className="secondary" onClick={exportPresets} disabled={presets.length === 0}>
               <Download size={16} />
-              Export Presets
+              Export
             </button>
           </div>
 
@@ -377,57 +377,30 @@ export default function App() {
           ) : null}
 
           <div className="control-actions">
-            <label className="field compact-field">
-              <span>Batch Size</span>
-              <select value={genCount} onChange={(event) => setGenCount(Number(event.target.value))}>
-                <option value={1}>1</option>
-                <option value={3}>3</option>
-                <option value={6}>6</option>
-                <option value={10}>10</option>
-              </select>
-            </label>
+            <div className="control-actions-main">
+              <label className="field compact-field">
+                <span>卡片張數</span>
+                <select value={genCount} onChange={(event) => setGenCount(Number(event.target.value))}>
+                  <option value={1}>1</option>
+                  <option value={3}>3</option>
+                  <option value={6}>6</option>
+                  <option value={10}>10</option>
+                </select>
+              </label>
 
-            <button className="primary-cta" onClick={handleGenerate}>
-              <Sparkles size={18} />
-              Generate Batch
-            </button>
-            <button className="secondary" onClick={() => setLocks(createEmptyLocks())}>
-              <RotateCcw size={16} />
-              Reset
-            </button>
-            <button className="secondary" onClick={() => setIsLibraryOpen(true)}>
+              <button className="primary-cta" onClick={handleGenerate}>
+                <Sparkles size={18} />
+                Generate
+              </button>
+              <button className="secondary" onClick={() => setLocks(createEmptyLocks())}>
+                <RotateCcw size={16} />
+                Reset
+              </button>
+            </div>
+            <button className="library-cta" onClick={() => setIsLibraryOpen(true)}>
               <BookPlus size={16} />
               Custom Library
             </button>
-          </div>
-        </div>
-
-        <div className="lock-panel reroll-panel">
-          <div className="lock-panel-header">
-            <div>
-              <div className="lock-title">
-                <RefreshCcw size={18} />
-                Partial Reroll
-              </div>
-              <p className="lock-subtitle">Remix 會保留下面勾選的欄位，其他內容重新生成。</p>
-            </div>
-          </div>
-
-          <div className="chip-list">
-            {rerollOptions.map((option) => {
-              const active = rerollKeep.includes(option.key);
-              return (
-                <button
-                  key={option.key}
-                  className={`chip ${active ? 'chip-active' : ''}`}
-                  onClick={() =>
-                    setRerollKeep((prev) => (prev.includes(option.key) ? prev.filter((item) => item !== option.key) : [...prev, option.key]))
-                  }
-                >
-                  {option.label}
-                </button>
-              );
-            })}
           </div>
         </div>
       </section>
@@ -464,6 +437,35 @@ export default function App() {
               Clear Feed
             </button>
           ) : null}
+        </div>
+      </section>
+
+      <section className="lock-panel reroll-panel reroll-panel-inline">
+        <div className="lock-panel-header">
+          <div className="reroll-heading-inline">
+            <div className="lock-title">
+              <RefreshCcw size={18} />
+              Partial Reroll
+            </div>
+            <p className="lock-subtitle">Remix 會保留下方勾選的欄位，其他內容重新生成。</p>
+          </div>
+        </div>
+
+        <div className="chip-list">
+          {rerollOptions.map((option) => {
+            const active = rerollKeep.includes(option.key);
+            return (
+              <button
+                key={option.key}
+                className={`chip ${active ? 'chip-active' : ''}`}
+                onClick={() =>
+                  setRerollKeep((prev) => (prev.includes(option.key) ? prev.filter((item) => item !== option.key) : [...prev, option.key]))
+                }
+              >
+                {option.label}
+              </button>
+            );
+          })}
         </div>
       </section>
 
