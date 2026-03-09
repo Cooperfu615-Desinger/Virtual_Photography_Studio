@@ -700,31 +700,76 @@
         "desc": "背景紙本身是灰色，但利用燈光在人物正後方打出一個漸層暈開的光斑圈，增加立體感。"
       }
     ],
-    "都市街景 (Urban & Streets)": [
+    "城市與社群感 (Urban & Social Snapshots)": [
       {
-        "zh": "澀谷街頭/十字路口",
-        "en": "Tokyo Shibuya crossing at night, crowded street, rain puddles reflecting neon, umbrellas",
-        "desc": "經典日系繁華夜景。雨後濕滑的地板反射著五顏六色的霓虹燈，背景充滿模糊的人流與招牌。"
+        "zh": "東京澀谷十字路口",
+        "en": "Tokyo Shibuya crossing at night, crowded crosswalk, rain puddles reflecting neon, umbrellas, restless city energy",
+        "desc": "經典東京夜街感。濕滑地面反射霓虹，人流密集，適合街拍、社群感與都會夜景人像。"
       },
       {
-        "zh": "洛杉磯威尼斯海灘",
-        "en": "Venice beach boardwalk, Los Angeles, palm trees, golden hour, skate park, sunny lifestyle",
-        "desc": "充滿陽光與活力的加州風情，背景有高聳的棕櫚樹、沙灘與滑板場，色調金黃。"
+        "zh": "東京新宿歌舞伎町街頭",
+        "en": "Tokyo Shinjuku Kabukicho nightlife, dense neon signs, narrow streets, glossy reflections, nightlife crowd",
+        "desc": "新宿歌舞伎町的招牌密度與霓虹氛圍非常強，適合做高張力夜拍與都會性感主題。"
+      },
+      {
+        "zh": "香港九龍霓虹街區",
+        "en": "Hong Kong Kowloon neon street, stacked signboards, humid night air, dense urban texture, chaotic energy",
+        "desc": "擁擠高密度的九龍街區，招牌層層疊疊，空氣濕熱，帶有強烈的城市壓迫感與霓虹魅力。"
       },
       {
         "zh": "香港廟街夜市",
-        "en": "Hong Kong Temple Street, chaotic market, dense neon signs, narrow alley, cyberpunk feeling",
-        "desc": "擁擠、吵雜且充滿張力。狹窄的街道兩旁擠滿攤販與頭頂上錯綜複雜的霓虹燈牌。"
+        "en": "Hong Kong Temple Street night market, chaotic stalls, dense neon signs, narrow alley, lively street tension",
+        "desc": "廟街的攤販、燈牌與狹窄動線構成高辨識度夜市空間，適合人像與紀實街拍混合感。"
       },
       {
-        "zh": "歐洲卵石小巷 (巴黎/羅馬)",
-        "en": "European cobblestone alleyway, old brick walls, street lamps, quaint cafes, romantic atmosphere",
-        "desc": "歷史悠久的石板路、老舊磚牆與昏黃的路燈，偶爾穿插幾間露天咖啡座，充滿浪漫與詩意。"
+        "zh": "英國倫敦蘇荷區夜晚街景",
+        "en": "London Soho at night, narrow streets, glowing storefront lights, stylish nightlife atmosphere, wet pavement",
+        "desc": "蘇荷區帶有英倫夜生活氣質，店面燈光溫暖，適合時裝街拍與都會隨拍感。"
+      },
+      {
+        "zh": "巴黎瑪黑區街頭",
+        "en": "Paris Le Marais street, boutique storefronts, stone facades, fashionable pedestrians, chic urban mood",
+        "desc": "帶有法式時髦感的街區空氣，精品店與舊建築並存，適合輕奢與時裝企劃。"
+      },
+      {
+        "zh": "紐約曼哈頓街角",
+        "en": "Manhattan street corner, steam rising from pavement, yellow cabs, tall buildings, fast-paced city mood",
+        "desc": "紐約街角的速度感很強，蒸氣、計程車與高樓形成典型的美式城市節奏。"
       },
       {
         "zh": "紐約地鐵月台",
-        "en": "New York subway platform, tiled walls, metal pillars, dim fluorescent light, gritty train station",
-        "desc": "美式粗獷風格。老舊的磁磚牆面、金屬柱子與冷色調的日光燈，帶有危險與城市的邊緣感。"
+        "en": "New York subway platform, tiled walls, metal pillars, dim fluorescent light, gritty urban realism",
+        "desc": "老舊磁磚、金屬柱子與冷色燈光構成紐約地下交通的粗獷質感，適合 edgy editorial。"
+      },
+      {
+        "zh": "首爾聖水洞街區",
+        "en": "Seoul Seongsu-dong street, industrial cafes, muted concrete buildings, trendy Korean urban vibe",
+        "desc": "聖水洞結合工業感與潮流店家，適合韓系時裝、生活感與現代城市人像。"
+      },
+      {
+        "zh": "首爾弘大夜街",
+        "en": "Seoul Hongdae nightlife street, colorful shop signs, youthful crowd, lively urban snapshot mood",
+        "desc": "弘大街頭更偏年輕、熱鬧與社群感，適合隨拍、街頭風格與流行穿搭。"
+      },
+      {
+        "zh": "上海法租界街道",
+        "en": "Shanghai French Concession street, tree-lined road, historic facades, moody cosmopolitan atmosphere",
+        "desc": "法租界街道兼具歷史感與現代都會氣息，適合文藝、時裝與成熟寫真主題。"
+      },
+      {
+        "zh": "台北西門町街頭",
+        "en": "Taipei Ximending street at night, bright signage, dense crowd, humid urban glow, youth culture",
+        "desc": "西門町兼具流行文化與台式霓虹街景，適合社群感、隨拍與街頭穿搭。"
+      },
+      {
+        "zh": "洛杉磯日落大道街景",
+        "en": "Los Angeles Sunset Boulevard, palm trees, glowing billboards, warm dusk light, cinematic city mood",
+        "desc": "棕櫚樹、夕陽與大型看板構成經典 LA 都市畫面，適合 lifestyle 與電影感街景。"
+      },
+      {
+        "zh": "羅馬老城石板巷弄",
+        "en": "Rome old town alley, cobblestone street, warm stone walls, cafe lights, romantic evening atmosphere",
+        "desc": "老城石板路與暖色牆面很適合做歐洲浪漫街拍與時裝敘事。"
       }
     ],
     "室內空間 (Indoor Spaces)": [

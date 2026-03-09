@@ -14,11 +14,20 @@
 | **無縫背景紙/純色 (Seamless Backdrops)** | 莫蘭迪灰 (Muted Grey) | `medium grey seamless backdrop, neutral tone, subtle texture, studio portraiture` | 最不會干擾膚色的中性灰，帶有高級感，是許多時尚雜誌封面的首選背景。 |
 | **無縫背景紙/純色 (Seamless Backdrops)** | 鮮豔撞色 (Pop Color) | `vibrant solid color backdrop, [red/yellow/blue/pink], bold contrast, pop art` | 使用高飽和度的單一純色背景紙（如亮黃、桃紅），製造強烈的視覺衝擊與普普藝術感。 |
 | **無縫背景紙/純色 (Seamless Backdrops)** | 漸層打光 (Gradient Halo) | `gradient spotlight on background, subtle halo effect behind subject, seamless paper` | 背景紙本身是灰色，但利用燈光在人物正後方打出一個漸層暈開的光斑圈，增加立體感。 |
-| **都市街景 (Urban & Streets)** | 澀谷街頭/十字路口 | `Tokyo Shibuya crossing at night, crowded street, rain puddles reflecting neon, umbrellas` | 經典日系繁華夜景。雨後濕滑的地板反射著五顏六色的霓虹燈，背景充滿模糊的人流與招牌。 |
-| **都市街景 (Urban & Streets)** | 洛杉磯威尼斯海灘 | `Venice beach boardwalk, Los Angeles, palm trees, golden hour, skate park, sunny lifestyle` | 充滿陽光與活力的加州風情，背景有高聳的棕櫚樹、沙灘與滑板場，色調金黃。 |
-| **都市街景 (Urban & Streets)** | 香港廟街夜市 | `Hong Kong Temple Street, chaotic market, dense neon signs, narrow alley, cyberpunk feeling` | 擁擠、吵雜且充滿張力。狹窄的街道兩旁擠滿攤販與頭頂上錯綜複雜的霓虹燈牌。 |
-| **都市街景 (Urban & Streets)** | 歐洲卵石小巷 (巴黎/羅馬) | `European cobblestone alleyway, old brick walls, street lamps, quaint cafes, romantic atmosphere` | 歷史悠久的石板路、老舊磚牆與昏黃的路燈，偶爾穿插幾間露天咖啡座，充滿浪漫與詩意。 |
-| **都市街景 (Urban & Streets)** | 紐約地鐵月台 | `New York subway platform, tiled walls, metal pillars, dim fluorescent light, gritty train station` | 美式粗獷風格。老舊的磁磚牆面、金屬柱子與冷色調的日光燈，帶有危險與城市的邊緣感。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 東京澀谷十字路口 | `Tokyo Shibuya crossing at night, crowded crosswalk, rain puddles reflecting neon, umbrellas, restless city energy` | 經典東京夜街感。濕滑地面反射霓虹，人流密集，適合街拍、社群感與都會夜景人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 東京新宿歌舞伎町街頭 | `Tokyo Shinjuku Kabukicho nightlife, dense neon signs, narrow streets, glossy reflections, nightlife crowd` | 新宿歌舞伎町的招牌密度與霓虹氛圍非常強，適合做高張力夜拍與都會性感主題。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 香港九龍霓虹街區 | `Hong Kong Kowloon neon street, stacked signboards, humid night air, dense urban texture, chaotic energy` | 擁擠高密度的九龍街區，招牌層層疊疊，空氣濕熱，帶有強烈的城市壓迫感與霓虹魅力。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 香港廟街夜市 | `Hong Kong Temple Street night market, chaotic stalls, dense neon signs, narrow alley, lively street tension` | 廟街的攤販、燈牌與狹窄動線構成高辨識度夜市空間，適合人像與紀實街拍混合感。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 英國倫敦蘇荷區夜晚街景 | `London Soho at night, narrow streets, glowing storefront lights, stylish nightlife atmosphere, wet pavement` | 蘇荷區帶有英倫夜生活氣質，店面燈光溫暖，適合時裝街拍與都會隨拍感。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 巴黎瑪黑區街頭 | `Paris Le Marais street, boutique storefronts, stone facades, fashionable pedestrians, chic urban mood` | 帶有法式時髦感的街區空氣，精品店與舊建築並存，適合輕奢與時裝企劃。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 紐約曼哈頓街角 | `Manhattan street corner, steam rising from pavement, yellow cabs, tall buildings, fast-paced city mood` | 紐約街角的速度感很強，蒸氣、計程車與高樓形成典型的美式城市節奏。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 紐約地鐵月台 | `New York subway platform, tiled walls, metal pillars, dim fluorescent light, gritty urban realism` | 老舊磁磚、金屬柱子與冷色燈光構成紐約地下交通的粗獷質感，適合 edgy editorial。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 首爾聖水洞街區 | `Seoul Seongsu-dong street, industrial cafes, muted concrete buildings, trendy Korean urban vibe` | 聖水洞結合工業感與潮流店家，適合韓系時裝、生活感與現代城市人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 首爾弘大夜街 | `Seoul Hongdae nightlife street, colorful shop signs, youthful crowd, lively urban snapshot mood` | 弘大街頭更偏年輕、熱鬧與社群感，適合隨拍、街頭風格與流行穿搭。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 上海法租界街道 | `Shanghai French Concession street, tree-lined road, historic facades, moody cosmopolitan atmosphere` | 法租界街道兼具歷史感與現代都會氣息，適合文藝、時裝與成熟寫真主題。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 台北西門町街頭 | `Taipei Ximending street at night, bright signage, dense crowd, humid urban glow, youth culture` | 西門町兼具流行文化與台式霓虹街景，適合社群感、隨拍與街頭穿搭。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 洛杉磯日落大道街景 | `Los Angeles Sunset Boulevard, palm trees, glowing billboards, warm dusk light, cinematic city mood` | 棕櫚樹、夕陽與大型看板構成經典 LA 都市畫面，適合 lifestyle 與電影感街景。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 羅馬老城石板巷弄 | `Rome old town alley, cobblestone street, warm stone walls, cafe lights, romantic evening atmosphere` | 老城石板路與暖色牆面很適合做歐洲浪漫街拍與時裝敘事。 |
 | **室內空間 (Indoor Spaces)** | 復古美式 Diner (餐廳) | `retro American diner interior, red leather booths, checkered floor, jukebox, 50s aesthetic` | 50 年代復古風。黑白棋盤格地板、紅色的皮沙發卡座與點唱機，色彩鮮豔對比強烈。 |
 | **室內空間 (Indoor Spaces)** | 百年木造圖書館 | `ancient wooden library, towering bookshelves, dusty sunbeams, quiet academic atmosphere` | 古老而龐大的圖書館，背景是直達天花板的木製書架，陽光穿透灰塵灑落，具有神秘學術氛圍。 |
 | **室內空間 (Indoor Spaces)** | 凌晨 24 小時洗衣店 | `neon lit laundromat at 2am, rows of washing machines, florescent buzz, solitary feeling` | 排列整齊的洗衣機反光，冷白或粉色的日光燈，適合表現都會人的孤獨感與 Y2K 街頭攝影。 |
