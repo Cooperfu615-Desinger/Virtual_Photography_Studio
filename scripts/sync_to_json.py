@@ -48,14 +48,18 @@ def parse_markdown_table(file_path):
             
             if category not in data:
                 data[category] = []
-                
-                data[category].append({
-                    "zh": name_zh,
-                    "en": prompt_en,
-                    "desc": clean_cell(desc)
-                })
+
+            data[category].append({
+                "zh": name_zh,
+                "en": prompt_en,
+                "desc": clean_cell(desc)
+            })
             
     return data
+
+
+def count_entries(grouped_data):
+    return sum(len(items) for items in grouped_data.values())
 
 def main():
     print("Starting sync from MD to JSON...")
@@ -79,11 +83,16 @@ def main():
         file_path = os.path.join(KB_DIR, filename)
         print(f"Parsing {filename}...")
         parsed_data = parse_markdown_table(file_path)
+        print(f"  Categories: {len(parsed_data)} | Entries: {count_entries(parsed_data)}")
         database[db_key] = parsed_data
         
     # Validation
     if not database.get('Character'):
         print("Warning: Database might be empty or parsing failed.")
+    else:
+        character_total = count_entries(database['Character'])
+        if character_total < 10:
+            print(f"Warning: Character database looks too small ({character_total} entries).")
         
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(database, f, ensure_ascii=False, indent=2)
