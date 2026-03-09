@@ -4,19 +4,16 @@
 
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺說明 (Visual Description) |
 | :--- | :--- | :--- | :--- |
-| **臉型輪廓 (Face Shape)** | 柔和橢圓臉 | `soft oval face shape, gentle cheekbones, balanced proportions, classic beauty` | 最易搭配多數風格的面型，輪廓柔和均勻，無明顯稜角，給人溫柔且易親近的感覺。 |
-| **臉型輪廓 (Face Shape)** | 精緻小V臉 | `sharp V-shape jawline, defined chin, petite facial structure, Korean idol facial` | 下顎線條清晰俐落、收窄至尖下巴，常見於韓系偶像與精緻網感攝影。 |
-| **臉型輪廓 (Face Shape)** | 肥圓臉 | `full cheeks, adorable chubby face, youthful and cute` | 臉頰飽滿圓潤，帶有天生的少女感與可愛氣息，適合 Lolita 或日系療癒系風格。 |
-| **五官特徵 (Facial Features)** | 韓系 K-POP 偶像臉 | `Korean idol face, V-shape jawline, double eyelids, bright clear eyes, small cute nose, glass skin` | 精緻網感、韓系偶像風，高顏值的標準範本。 |
-| **五官特徵 (Facial Features)** | 日系清純女演員臉 | `Japanese actress face, natural soft features, gentle eyes, pale smooth skin, innocent beauty` | 清新脫俗、日劇感強，帶有無害的清純氣質。 |
-| **五官特徵 (Facial Features)** | 歐美白人性感模特臉 | `Western model face, strong bone structure, deep-set eyes, full lips, defined jawline, Hollywood glamour` | 歐美高冷大片感，骨相立體且充滿張力。 |
-| **五官特徵 (Facial Features)** | 法式慵懶知識分子臉 | `French girl face, understated beauty, slightly asymmetric features, natural lips, effortless chic` | 法式隨性文藝風，不刻意的美麗。 |
-| **五官特徵 (Facial Features)** | 混血拉丁熱情臉 | `Latin mixed facial features, expressive dark eyes, full lips, warm caramel skin tone, passionate beauty` | 混血性感熱情，適合熱帶異國主題。 |
-| **五官特徵 (Facial Features)** | Y2K 千禧少女臉 | `Y2K girl face, glossy lips, sparkly eyes, playful and fresh features, bubbly girl-next-door charm` | 千禧年復古少女感，充滿活力與玩心。 |
-| **五官特徵 (Facial Features)** | 中國古典東方臉 | `classical East Asian face, almond eyes, high cheekbones, delicate features, timeless oriental beauty` | 古裝或東方氣韻風，傳統美人的輪廓。 |
-| **五官特徵 (Facial Features)** | 北歐斯堪地那維亞臉 | `Scandinavian face, pale skin, sharp Nordic features, light eyes, minimalist cold beauty` | 北歐極簡高冷感，骨相乾淨且輪廓分明。 |
-| **五官特徵 (Facial Features)** | 日系小惡魔少女臉 | `Japanese mischievous girl face, big doe eyes, pouty lips, baby face with sharp gaze, devilish charm` | 軟妹叛逆感，甜美外表下藏著小鬼頭個性。 |
-| **五官特徵 (Facial Features)** | 美式復古甜心臉 | `American vintage girl face, rosy cheeks, wholesome girl-next-door beauty, 1950s charm` | 復古美式甜心，溫暖討喜的青春感。 |
+| **五官特徵 (Facial Features)** | 韓系 K-POP 偶像臉 | `Korean idol face, refined small face, sharp jawline, double eyelids, bright clear eyes, glossy glass skin` | 精緻網感、輪廓俐落、眼神乾淨明亮，是韓系偶像攝影最典型的高顏值範本。 |
+| **五官特徵 (Facial Features)** | 日系清純女演員臉 | `Japanese actress face, natural soft features, gentle eyes, clean delicate facial balance, translucent beauty` | 柔和耐看、乾淨清透，帶有日劇女主角般的自然氣質與親和感。 |
+| **五官特徵 (Facial Features)** | 日系小惡魔少女臉 | `Japanese mischievous beauty face, big expressive eyes, pouty lips, playful seductive charm, sweet but dangerous aura` | 甜美中帶點壞壞挑逗感，像是帶著惡作劇氣息的日系魅惑女孩。 |
+| **五官特徵 (Facial Features)** | 甜美圓潤甜姐臉 | `sweet rounded beauty face, full cheeks, soft eyes, balanced nose and lips, charming youthful glamour` | 臉部線條柔和圓潤、討喜耐看，帶有甜姐系的明亮魅力與親近感。 |
+| **五官特徵 (Facial Features)** | 冷豔高級時裝臉 | `cold editorial beauty face, defined bone structure, sharp contour, aloof expression, luxury fashion aura` | 骨相乾淨、輪廓俐落，帶有時裝大片裡常見的冷感與高級距離感。 |
+| **五官特徵 (Facial Features)** | 東方古典美人臉 | `classical East Asian beauty face, almond eyes, delicate nose and lips, elegant symmetry, timeless oriental beauty` | 五官細緻端正，帶有古典東方美人的含蓄與優雅氣韻。 |
+| **五官特徵 (Facial Features)** | 成熟性感御姐臉 | `mature seductive beauty face, sculpted features, confident eyes, full lips, dominant feminine aura` | 成熟而有掌控感，眼神與唇形都帶著明確的性感張力與自信氣場。 |
+| **五官特徵 (Facial Features)** | 清冷空靈仙氣臉 | `ethereal cold beauty face, pale refined features, distant gaze, delicate bone structure, airy elegance` | 清冷、空靈、疏離，像帶著霧感與仙氣的高級冷白美人。 |
+| **五官特徵 (Facial Features)** | 歐美混血時尚臉 | `mixed-race editorial beauty face, deep-set features, defined nose bridge, full lips, striking fashion presence` | 五官立體、視覺張力強，帶有時裝攝影常見的混血感與艷麗存在感。 |
+| **五官特徵 (Facial Features)** | 日系性感大姐臉 | `Japanese mature glamour face, sultry eyes, full lips, elegant confidence, seductive older-sister aura` | 走日本御姐系性感路線，成熟柔媚、穩定自信，帶有明顯的掌控感與女人味。 |
 | **膚色與膚質 (Skin Tone & Texture)** | 幾近透明的冷白皮 | `pale porcelain skin, translucent cold-white complexion, ethereal ghost-like skin` | 冷調、近乎透明的白皙膚色，皮膚下的靜脈隱約可見，散發空靈與脆弱感。 |
 | **膚色與膚質 (Skin Tone & Texture)** | 蜜桃粉嫩暖白皮 | `peachy warm white skin, rosy flush on cheeks, healthy pink glow, soft and warm` | 底色帶有暖粉紅光澤的白皙膚色，臉頰自然泛紅，充滿青春感與生命力。 |
 | **膚色與膚質 (Skin Tone & Texture)** | 自然小麥色古銅皮 | `sun-kissed tan skin, warm olive-brown complexion, healthy caramel skin, glowing` | 戶外陽光曬出的健康古銅色，皮膚自帶一種溫暖的光澤，適合澳洲海灘或夏日主題。 |
@@ -27,41 +24,41 @@
 | **髮型 (Hairstyle)** | 3. 法式大波浪 | `loose voluminous waves, french style` | 蓬鬆且浪漫，帶有一點不經意的慵懶感。 |
 | **髮型 (Hairstyle)** | 4. 高位雙馬尾 | `high double pigtails, youthful` | 活潑俏皮，適合 Y2K 或 JK 風格。 |
 | **髮型 (Hairstyle)** | 5. 韓系低包頭 | `low messy bun, wispy bangs` | 優雅隨興，臉側帶有修飾性的碎髮。 |
-| **髮型 (Hairstyle)** | 6. 拳擊編髮 | `boxer braids, tight cornrows` | 硬派、動感且層次分明的編髮。 |
-| **髮型 (Hairstyle)** | 7. 狼尾剪 | `shaggy wolf-cut hair, layered` | 頂部蓬鬆、後頸留長的高層次剪裁。 |
+| **髮型 (Hairstyle)** | 6. 韓系層次中長髮 | `Korean layered medium-long hair, airy texture, soft face framing layers` | 現代韓系常見的中長層次髮，線條輕盈，修飾臉型效果好。 |
+| **髮型 (Hairstyle)** | 7. 高級感低盤髮 | `sleek low chignon, polished updo, elegant clean finish` | 低位盤髮乾淨俐落，適合精品時裝、晚宴與高級商攝。 |
 | **髮型 (Hairstyle)** | 8. 極短寸頭 | `buzz cut, very short cropped hair` | 極簡主義，展現強大臉部輪廓。 |
 | **髮型 (Hairstyle)** | 9. 濕髮感（微濕） | `wet-look hair, slicked back, gelled` | 像是剛出水或用了大量髮膠的時尚感。 |
-| **髮型 (Hairstyle)** | 10. 巴洛克高聳盤髮 | `ornate baroque updo, vintage curls` | 複雜、高聳且充滿宮廷感的造型。 |
-| **髮型 (Hairstyle)** | 11. 復古指推波紋 | `finger waves, 1920s vintage style` | 貼合頭部的規律曲線，充滿爵士時代味道。 |
-| **髮型 (Hairstyle)** | 12. 凌亂床頭感 | `bedhead hair, messy and tousled` | 極度自然、剛睡醒般的狂野感。 |
-| **髮型 (Hairstyle)** | 13. 超長雙編髮 | `ultra-long twin braids, knee length` | 超出常理的長度，具備視覺衝擊力。 |
+| **髮型 (Hairstyle)** | 10. 復古指推波紋 | `finger waves, 1920s vintage style` | 貼合頭部的規律曲線，帶有 1920 年代經典復古女星氣質。 |
+| **髮型 (Hairstyle)** | 11. 韓系空氣瀏海直髮 | `see-through bangs, long straight hair, airy Korean styling` | 輕盈空氣瀏海配上筆直長髮，是最常見也最穩定的韓系清透髮型。 |
+| **髮型 (Hairstyle)** | 12. 自然蓬鬆鎖骨髮 | `soft collarbone-length hair, airy volume, naturally tousled blowout` | 長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。 |
+| **髮型 (Hairstyle)** | 13. 雙編髮 | `twin braids, neat braided hairstyle, soft face-framing strands` | 經典雙編髮更日常也更好駕馭，帶有清新與俏皮感。 |
 | **髮型 (Hairstyle)** | 14. 遮眼瀏海 | `long bangs covering eyes, emo style` | 神秘、帶有孤立感的頹廢美。 |
 | **髮型 (Hairstyle)** | 15. 高馬尾 | `sleek high ponytail, tight pull` | 銳利、專業且充滿視覺力量。 |
 | **髮型 (Hairstyle)** | 16. 及肩內彎鮑伯 | `shoulder-length bob, curled ends` | 溫婉的中長度，帶有微微的內彎弧度。 |
 | **髮型 (Hairstyle)** | 17. 側分深大波浪 | `deep side part, glamour waves` | 展現成熟與優雅，適合商業攝影。 |
 | **髮型 (Hairstyle)** | 18. 蓬鬆隨性馬尾 | `undone ponytail, high placement, flyaways` | 帶有細微碎髮的隨意感，自然生活氣息。 |
 | **髮型 (Hairstyle)** | 19. 層次碎剪長髮 | `shaggy long layers, choppy hair ends` | 強調頭髮的動律與空氣感。 |
-| **髮型 (Hairstyle)** | 20. 韓系空氣瀏海直髮 | `see-through bangs, long straight hair` | 輕盈的瀏海配上筆直長髮，清純風格。 |
-| 髮色 (Hair Color) | 1. 曜石黑 | `obsidian black, high gloss shine` | 極深的黑色，帶有強烈的高光反射。 |
-| 髮色 (Hair Color) | 2. 摩卡棕 | `mocha brown, warm chocolate tone` | 溫潤日常，適合柔和的光感。 |
-| 髮色 (Hair Color) | 3. 焦糖栗色 | `caramel auburn, warm reddish-brown` | 暖色調，陽光下呈現微紅光澤。 |
-| 髮色 (Hair Color) | 4. 奶白栗金 | `platinum blonde, bleached hair` | 極冷調的白金，時尚工業感。 |
-| 髮色 (Hair Color) | 5. 玫瑰金 | `rose gold, soft pastel pink-blonde` | 帶粉調的金色，夢幻且襯膚色。 |
-| 髮色 (Hair Color) | 6. 薰衣草灰 | `lavender ash, smokey purple-grey` | 冷調霧面紫灰色，具備朦朧美感。 |
-| 髮色 (Hair Color) | 7. 螢光霓虹藍 | `neon cyan highlights, indigo base` | 強烈科技感，適合賽博主題。 |
-| 髮色 (Hair Color) | 8. 漸層薄荷綠 | `mint green ombré, gradient hair` | 頂部深色、髮尾轉向清涼色。 |
-| 髮色 (Hair Color) | 9. 鮮豔火紅 | `vibrant fire engine red, ruby tone` | 強烈視覺侵略性，熱情報感。 |
-| 髮色 (Hair Color) | 10. 半黑半白 | `split dyed hair, half black half white` | 從中線完全對開的極致對比。 |
-| 髮色 (Hair Color) | 11. 七彩極光色 | `iridescent holographic hair, opal colors` | 隨角度反射彩虹光芒。 |
-| 髮色 (Hair Color) | 12. 髒粉色 | `dusty rose, muted pink, vintage look` | 帶點灰調的粉色，高級慵懶感。 |
-| 髮色 (Hair Color) | 13. 橄欖綠 | `ashy olive green, matte texture` | 霧面質感，低調且獨特的時尚冷色。 |
-| 髮色 (Hair Color) | 14. 檸檬亮黃 | `electric yellow, acid yellow shock` | 跳脫框架，充滿街頭感。 |
-| 髮色 (Hair Color) | 15. 菸草銀灰 | `silver grey, metallic gunmetal ash` | 沉穩質感，帶有一點中性的帥氣。 |
-| 髮色 (Hair Color) | 16. 亞麻冷棕 | `cool ash brown, matte finish` | 最顯白的冷調棕色，營造高級感。 |
-| 髮色 (Hair Color) | 17. 蜂蜜茶色 | `honey tea brown, golden undertone` | 帶有暖金色調的茶褐色，溫潤感。 |
-| 髮色 (Hair Color) | 18. 深栗子色 | `rich chestnut brown, mahogany gloss` | 經典傳統深棕，高度真實感。 |
-| 髮色 (Hair Color) | 19. 深巧克力色 | `deep chocolate brown, subtle highlights` | 沉穩大氣，模擬最基礎的高級黑髮。 |
-| 髮色 (Hair Color) | 20. 歐系陽光金 | `sandy blonde, natural roots, sun-kissed` | 模擬歐美自然生成的沙色或髒金色。 |
+| **髮型 (Hairstyle)** | 20. 法式低麻花辮 | `low french braid, softly woven braid, romantic loose texture` | 低位麻花辮帶有法式鬆弛感，兼具優雅與現代感。 |
+| 髮色 (Hair Color) | 1. 自然黑髮 | `glossy natural black hair` | 最穩定也最百搭的自然黑髮，適合大多數日常與商業風格。 |
+| 髮色 (Hair Color) | 2. 柔霧黑茶髮 | `soft black tea brown hair, muted sheen` | 黑中帶一點茶棕感，低調柔和，常見於亞洲系寫真。 |
+| 髮色 (Hair Color) | 3. 深咖啡棕髮 | `deep coffee brown hair, rich brunette tone` | 穩定成熟的深棕色，帶有自然高級感。 |
+| 髮色 (Hair Color) | 4. 栗子棕髮 | `chestnut brown hair, warm natural gloss` | 溫暖日常的栗棕色，適合多數膚色與造型。 |
+| 髮色 (Hair Color) | 5. 奶茶棕髮 | `milk tea brown hair, soft beige-brown tone` | 帶有柔霧感的淺棕色，是近年非常常見的主流染髮。 |
+| 髮色 (Hair Color) | 6. 蜂蜜茶棕髮 | `honey tea brown hair, golden warm undertone` | 帶一點暖金調的茶棕色，顯得柔和明亮。 |
+| 髮色 (Hair Color) | 7. 亞麻冷棕髮 | `cool ash brown hair, matte smoky finish` | 冷調棕色乾淨耐看，能帶出高級與清透感。 |
+| 髮色 (Hair Color) | 8. 焦糖棕髮 | `caramel brown hair, warm glossy brown tone` | 比一般棕色更有暖度與光澤，適合時裝與生活感主題。 |
+| 髮色 (Hair Color) | 9. 霧感巧克力棕髮 | `muted chocolate brown hair, soft depth and shine` | 深巧克力棕帶些霧感，沉穩但不厚重。 |
+| 髮色 (Hair Color) | 10. 深酒紅棕髮 | `deep burgundy brown hair, subtle wine-red undertone` | 帶有低調紅調的深棕髮色，成熟且有女人味。 |
+| 髮色 (Hair Color) | 11. 菸草銀灰髮 | `smoky silver grey hair, muted metallic tone` | 偏冷感的銀灰色，仍維持在相對可控的時尚範圍內。 |
+| 髮色 (Hair Color) | 12. 砂金亞麻髮 | `sandy beige blonde hair, soft natural blonde tone` | 比白金更自然柔和的淺金色，適合現代時裝感。 |
+| 髮色 (Hair Color) | 13. 黑髮＋白金內層染 | `black hair with platinum inner layer dye` | 外層自然黑、內層白金，低調中帶有強烈層次感。 |
+| 髮色 (Hair Color) | 14. 深棕髮＋灰霧挑染 | `deep brown hair with smoky ash highlights` | 在深棕基底上加入灰霧挑染，時髦但不會過於誇張。 |
+| 髮色 (Hair Color) | 15. 黑髮＋單側銀白分色 | `black hair with one-side silver white split dye` | 一側保留深色、一側做銀白分色，視覺辨識度強。 |
+| 髮色 (Hair Color) | 16. 深髮根＋蜂蜜棕漸層 | `dark roots with honey brown gradient hair` | 從深髮根自然過渡到蜂蜜棕，層次感明顯且容易搭配。 |
+| 髮色 (Hair Color) | 17. 黑髮＋酒紅耳圈染 | `black hair with burgundy face-framing highlights` | 臉側耳圈區加入酒紅色，能提亮臉部輪廓。 |
+| 髮色 (Hair Color) | 18. 冷棕髮＋奶灰髮尾染 | `cool brown hair with milky ash dyed ends` | 整體仍偏主流冷棕，但髮尾多了柔和灰感變化。 |
+| 髮色 (Hair Color) | 19. 黑髮＋藍黑局部挑染 | `black hair with blue-black accent highlights` | 在黑髮中加入低調藍黑挑染，適合夜景或冷調主題。 |
+| 髮色 (Hair Color) | 20. 深棕髮＋玫瑰粉細挑染 | `deep brown hair with subtle rose pink highlights` | 以深棕為主體，只在局部加入玫瑰粉細挑染，甜感但不浮誇。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭/直面挑戰 | `intense direct gaze into camera, challenging stare, powerful eye contact, unwavering` | 眼神直接強硬，帶有挑釁與自信感。 |
 | **神情與眼神 (Expression & Gaze)** | 半閉眼慵懶挑逗 | `sleepy seductive half-lidded eyes, languid drowsy expression, bedroom eyes` | 慵懶且帶有挑逗意味，時尚感強烈。 |
 | **神情與眼神 (Expression & Gaze)** | 回眸側望 (偷瞄) | `looking back over shoulder, glancing sidelong, fleeting gaze, mysterious and inviting` | 神秘且轉瞬即逝的邂逅感。 |

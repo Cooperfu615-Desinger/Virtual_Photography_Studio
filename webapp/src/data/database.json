@@ -842,73 +842,56 @@
     ]
   },
   "Character": {
-    "臉型輪廓 (Face Shape)": [
-      {
-        "zh": "柔和橢圓臉",
-        "en": "soft oval face shape, gentle cheekbones, balanced proportions, classic beauty",
-        "desc": "最易搭配多數風格的面型，輪廓柔和均勻，無明顯稜角，給人溫柔且易親近的感覺。"
-      },
-      {
-        "zh": "精緻小V臉",
-        "en": "sharp V-shape jawline, defined chin, petite facial structure, Korean idol facial",
-        "desc": "下顎線條清晰俐落、收窄至尖下巴，常見於韓系偶像與精緻網感攝影。"
-      },
-      {
-        "zh": "肥圓臉",
-        "en": "full cheeks, adorable chubby face, youthful and cute",
-        "desc": "臉頰飽滿圓潤，帶有天生的少女感與可愛氣息，適合 Lolita 或日系療癒系風格。"
-      }
-    ],
     "五官特徵 (Facial Features)": [
       {
         "zh": "韓系 K-POP 偶像臉",
-        "en": "Korean idol face, V-shape jawline, double eyelids, bright clear eyes, small cute nose, glass skin",
-        "desc": "精緻網感、韓系偶像風，高顏值的標準範本。"
+        "en": "Korean idol face, refined small face, sharp jawline, double eyelids, bright clear eyes, glossy glass skin",
+        "desc": "精緻網感、輪廓俐落、眼神乾淨明亮，是韓系偶像攝影最典型的高顏值範本。"
       },
       {
         "zh": "日系清純女演員臉",
-        "en": "Japanese actress face, natural soft features, gentle eyes, pale smooth skin, innocent beauty",
-        "desc": "清新脫俗、日劇感強，帶有無害的清純氣質。"
-      },
-      {
-        "zh": "歐美白人性感模特臉",
-        "en": "Western model face, strong bone structure, deep-set eyes, full lips, defined jawline, Hollywood glamour",
-        "desc": "歐美高冷大片感，骨相立體且充滿張力。"
-      },
-      {
-        "zh": "法式慵懶知識分子臉",
-        "en": "French girl face, understated beauty, slightly asymmetric features, natural lips, effortless chic",
-        "desc": "法式隨性文藝風，不刻意的美麗。"
-      },
-      {
-        "zh": "混血拉丁熱情臉",
-        "en": "Latin mixed facial features, expressive dark eyes, full lips, warm caramel skin tone, passionate beauty",
-        "desc": "混血性感熱情，適合熱帶異國主題。"
-      },
-      {
-        "zh": "Y2K 千禧少女臉",
-        "en": "Y2K girl face, glossy lips, sparkly eyes, playful and fresh features, bubbly girl-next-door charm",
-        "desc": "千禧年復古少女感，充滿活力與玩心。"
-      },
-      {
-        "zh": "中國古典東方臉",
-        "en": "classical East Asian face, almond eyes, high cheekbones, delicate features, timeless oriental beauty",
-        "desc": "古裝或東方氣韻風，傳統美人的輪廓。"
-      },
-      {
-        "zh": "北歐斯堪地那維亞臉",
-        "en": "Scandinavian face, pale skin, sharp Nordic features, light eyes, minimalist cold beauty",
-        "desc": "北歐極簡高冷感，骨相乾淨且輪廓分明。"
+        "en": "Japanese actress face, natural soft features, gentle eyes, clean delicate facial balance, translucent beauty",
+        "desc": "柔和耐看、乾淨清透，帶有日劇女主角般的自然氣質與親和感。"
       },
       {
         "zh": "日系小惡魔少女臉",
-        "en": "Japanese mischievous girl face, big doe eyes, pouty lips, baby face with sharp gaze, devilish charm",
-        "desc": "軟妹叛逆感，甜美外表下藏著小鬼頭個性。"
+        "en": "Japanese mischievous beauty face, big expressive eyes, pouty lips, playful seductive charm, sweet but dangerous aura",
+        "desc": "甜美中帶點壞壞挑逗感，像是帶著惡作劇氣息的日系魅惑女孩。"
       },
       {
-        "zh": "美式復古甜心臉",
-        "en": "American vintage girl face, rosy cheeks, wholesome girl-next-door beauty, 1950s charm",
-        "desc": "復古美式甜心，溫暖討喜的青春感。"
+        "zh": "甜美圓潤甜姐臉",
+        "en": "sweet rounded beauty face, full cheeks, soft eyes, balanced nose and lips, charming youthful glamour",
+        "desc": "臉部線條柔和圓潤、討喜耐看，帶有甜姐系的明亮魅力與親近感。"
+      },
+      {
+        "zh": "冷豔高級時裝臉",
+        "en": "cold editorial beauty face, defined bone structure, sharp contour, aloof expression, luxury fashion aura",
+        "desc": "骨相乾淨、輪廓俐落，帶有時裝大片裡常見的冷感與高級距離感。"
+      },
+      {
+        "zh": "東方古典美人臉",
+        "en": "classical East Asian beauty face, almond eyes, delicate nose and lips, elegant symmetry, timeless oriental beauty",
+        "desc": "五官細緻端正，帶有古典東方美人的含蓄與優雅氣韻。"
+      },
+      {
+        "zh": "成熟性感御姐臉",
+        "en": "mature seductive beauty face, sculpted features, confident eyes, full lips, dominant feminine aura",
+        "desc": "成熟而有掌控感，眼神與唇形都帶著明確的性感張力與自信氣場。"
+      },
+      {
+        "zh": "清冷空靈仙氣臉",
+        "en": "ethereal cold beauty face, pale refined features, distant gaze, delicate bone structure, airy elegance",
+        "desc": "清冷、空靈、疏離，像帶著霧感與仙氣的高級冷白美人。"
+      },
+      {
+        "zh": "歐美混血時尚臉",
+        "en": "mixed-race editorial beauty face, deep-set features, defined nose bridge, full lips, striking fashion presence",
+        "desc": "五官立體、視覺張力強，帶有時裝攝影常見的混血感與艷麗存在感。"
+      },
+      {
+        "zh": "日系性感大姐臉",
+        "en": "Japanese mature glamour face, sultry eyes, full lips, elegant confidence, seductive older-sister aura",
+        "desc": "走日本御姐系性感路線，成熟柔媚、穩定自信，帶有明顯的掌控感與女人味。"
       }
     ],
     "膚色與膚質 (Skin Tone & Texture)": [
@@ -965,14 +948,14 @@
         "desc": "優雅隨興，臉側帶有修飾性的碎髮。"
       },
       {
-        "zh": "6. 拳擊編髮",
-        "en": "boxer braids, tight cornrows",
-        "desc": "硬派、動感且層次分明的編髮。"
+        "zh": "6. 韓系層次中長髮",
+        "en": "Korean layered medium-long hair, airy texture, soft face framing layers",
+        "desc": "現代韓系常見的中長層次髮，線條輕盈，修飾臉型效果好。"
       },
       {
-        "zh": "7. 狼尾剪",
-        "en": "shaggy wolf-cut hair, layered",
-        "desc": "頂部蓬鬆、後頸留長的高層次剪裁。"
+        "zh": "7. 高級感低盤髮",
+        "en": "sleek low chignon, polished updo, elegant clean finish",
+        "desc": "低位盤髮乾淨俐落，適合精品時裝、晚宴與高級商攝。"
       },
       {
         "zh": "8. 極短寸頭",
@@ -985,24 +968,24 @@
         "desc": "像是剛出水或用了大量髮膠的時尚感。"
       },
       {
-        "zh": "10. 巴洛克高聳盤髮",
-        "en": "ornate baroque updo, vintage curls",
-        "desc": "複雜、高聳且充滿宮廷感的造型。"
-      },
-      {
-        "zh": "11. 復古指推波紋",
+        "zh": "10. 復古指推波紋",
         "en": "finger waves, 1920s vintage style",
-        "desc": "貼合頭部的規律曲線，充滿爵士時代味道。"
+        "desc": "貼合頭部的規律曲線，帶有 1920 年代經典復古女星氣質。"
       },
       {
-        "zh": "12. 凌亂床頭感",
-        "en": "bedhead hair, messy and tousled",
-        "desc": "極度自然、剛睡醒般的狂野感。"
+        "zh": "11. 韓系空氣瀏海直髮",
+        "en": "see-through bangs, long straight hair, airy Korean styling",
+        "desc": "輕盈空氣瀏海配上筆直長髮，是最常見也最穩定的韓系清透髮型。"
       },
       {
-        "zh": "13. 超長雙編髮",
-        "en": "ultra-long twin braids, knee length",
-        "desc": "超出常理的長度，具備視覺衝擊力。"
+        "zh": "12. 自然蓬鬆鎖骨髮",
+        "en": "soft collarbone-length hair, airy volume, naturally tousled blowout",
+        "desc": "長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。"
+      },
+      {
+        "zh": "13. 雙編髮",
+        "en": "twin braids, neat braided hairstyle, soft face-framing strands",
+        "desc": "經典雙編髮更日常也更好駕馭，帶有清新與俏皮感。"
       },
       {
         "zh": "14. 遮眼瀏海",
@@ -1035,111 +1018,111 @@
         "desc": "強調頭髮的動律與空氣感。"
       },
       {
-        "zh": "20. 韓系空氣瀏海直髮",
-        "en": "see-through bangs, long straight hair",
-        "desc": "輕盈的瀏海配上筆直長髮，清純風格。"
+        "zh": "20. 法式低麻花辮",
+        "en": "low french braid, softly woven braid, romantic loose texture",
+        "desc": "低位麻花辮帶有法式鬆弛感，兼具優雅與現代感。"
       }
     ],
     "髮色 (Hair Color)": [
       {
-        "zh": "1. 曜石黑",
-        "en": "obsidian black, high gloss shine",
-        "desc": "極深的黑色，帶有強烈的高光反射。"
+        "zh": "1. 自然黑髮",
+        "en": "glossy natural black hair",
+        "desc": "最穩定也最百搭的自然黑髮，適合大多數日常與商業風格。"
       },
       {
-        "zh": "2. 摩卡棕",
-        "en": "mocha brown, warm chocolate tone",
-        "desc": "溫潤日常，適合柔和的光感。"
+        "zh": "2. 柔霧黑茶髮",
+        "en": "soft black tea brown hair, muted sheen",
+        "desc": "黑中帶一點茶棕感，低調柔和，常見於亞洲系寫真。"
       },
       {
-        "zh": "3. 焦糖栗色",
-        "en": "caramel auburn, warm reddish-brown",
-        "desc": "暖色調，陽光下呈現微紅光澤。"
+        "zh": "3. 深咖啡棕髮",
+        "en": "deep coffee brown hair, rich brunette tone",
+        "desc": "穩定成熟的深棕色，帶有自然高級感。"
       },
       {
-        "zh": "4. 奶白栗金",
-        "en": "platinum blonde, bleached hair",
-        "desc": "極冷調的白金，時尚工業感。"
+        "zh": "4. 栗子棕髮",
+        "en": "chestnut brown hair, warm natural gloss",
+        "desc": "溫暖日常的栗棕色，適合多數膚色與造型。"
       },
       {
-        "zh": "5. 玫瑰金",
-        "en": "rose gold, soft pastel pink-blonde",
-        "desc": "帶粉調的金色，夢幻且襯膚色。"
+        "zh": "5. 奶茶棕髮",
+        "en": "milk tea brown hair, soft beige-brown tone",
+        "desc": "帶有柔霧感的淺棕色，是近年非常常見的主流染髮。"
       },
       {
-        "zh": "6. 薰衣草灰",
-        "en": "lavender ash, smokey purple-grey",
-        "desc": "冷調霧面紫灰色，具備朦朧美感。"
+        "zh": "6. 蜂蜜茶棕髮",
+        "en": "honey tea brown hair, golden warm undertone",
+        "desc": "帶一點暖金調的茶棕色，顯得柔和明亮。"
       },
       {
-        "zh": "7. 螢光霓虹藍",
-        "en": "neon cyan highlights, indigo base",
-        "desc": "強烈科技感，適合賽博主題。"
+        "zh": "7. 亞麻冷棕髮",
+        "en": "cool ash brown hair, matte smoky finish",
+        "desc": "冷調棕色乾淨耐看，能帶出高級與清透感。"
       },
       {
-        "zh": "8. 漸層薄荷綠",
-        "en": "mint green ombré, gradient hair",
-        "desc": "頂部深色、髮尾轉向清涼色。"
+        "zh": "8. 焦糖棕髮",
+        "en": "caramel brown hair, warm glossy brown tone",
+        "desc": "比一般棕色更有暖度與光澤，適合時裝與生活感主題。"
       },
       {
-        "zh": "9. 鮮豔火紅",
-        "en": "vibrant fire engine red, ruby tone",
-        "desc": "強烈視覺侵略性，熱情報感。"
+        "zh": "9. 霧感巧克力棕髮",
+        "en": "muted chocolate brown hair, soft depth and shine",
+        "desc": "深巧克力棕帶些霧感，沉穩但不厚重。"
       },
       {
-        "zh": "10. 半黑半白",
-        "en": "split dyed hair, half black half white",
-        "desc": "從中線完全對開的極致對比。"
+        "zh": "10. 深酒紅棕髮",
+        "en": "deep burgundy brown hair, subtle wine-red undertone",
+        "desc": "帶有低調紅調的深棕髮色，成熟且有女人味。"
       },
       {
-        "zh": "11. 七彩極光色",
-        "en": "iridescent holographic hair, opal colors",
-        "desc": "隨角度反射彩虹光芒。"
+        "zh": "11. 菸草銀灰髮",
+        "en": "smoky silver grey hair, muted metallic tone",
+        "desc": "偏冷感的銀灰色，仍維持在相對可控的時尚範圍內。"
       },
       {
-        "zh": "12. 髒粉色",
-        "en": "dusty rose, muted pink, vintage look",
-        "desc": "帶點灰調的粉色，高級慵懶感。"
+        "zh": "12. 砂金亞麻髮",
+        "en": "sandy beige blonde hair, soft natural blonde tone",
+        "desc": "比白金更自然柔和的淺金色，適合現代時裝感。"
       },
       {
-        "zh": "13. 橄欖綠",
-        "en": "ashy olive green, matte texture",
-        "desc": "霧面質感，低調且獨特的時尚冷色。"
+        "zh": "13. 黑髮＋白金內層染",
+        "en": "black hair with platinum inner layer dye",
+        "desc": "外層自然黑、內層白金，低調中帶有強烈層次感。"
       },
       {
-        "zh": "14. 檸檬亮黃",
-        "en": "electric yellow, acid yellow shock",
-        "desc": "跳脫框架，充滿街頭感。"
+        "zh": "14. 深棕髮＋灰霧挑染",
+        "en": "deep brown hair with smoky ash highlights",
+        "desc": "在深棕基底上加入灰霧挑染，時髦但不會過於誇張。"
       },
       {
-        "zh": "15. 菸草銀灰",
-        "en": "silver grey, metallic gunmetal ash",
-        "desc": "沉穩質感，帶有一點中性的帥氣。"
+        "zh": "15. 黑髮＋單側銀白分色",
+        "en": "black hair with one-side silver white split dye",
+        "desc": "一側保留深色、一側做銀白分色，視覺辨識度強。"
       },
       {
-        "zh": "16. 亞麻冷棕",
-        "en": "cool ash brown, matte finish",
-        "desc": "最顯白的冷調棕色，營造高級感。"
+        "zh": "16. 深髮根＋蜂蜜棕漸層",
+        "en": "dark roots with honey brown gradient hair",
+        "desc": "從深髮根自然過渡到蜂蜜棕，層次感明顯且容易搭配。"
       },
       {
-        "zh": "17. 蜂蜜茶色",
-        "en": "honey tea brown, golden undertone",
-        "desc": "帶有暖金色調的茶褐色，溫潤感。"
+        "zh": "17. 黑髮＋酒紅耳圈染",
+        "en": "black hair with burgundy face-framing highlights",
+        "desc": "臉側耳圈區加入酒紅色，能提亮臉部輪廓。"
       },
       {
-        "zh": "18. 深栗子色",
-        "en": "rich chestnut brown, mahogany gloss",
-        "desc": "經典傳統深棕，高度真實感。"
+        "zh": "18. 冷棕髮＋奶灰髮尾染",
+        "en": "cool brown hair with milky ash dyed ends",
+        "desc": "整體仍偏主流冷棕，但髮尾多了柔和灰感變化。"
       },
       {
-        "zh": "19. 深巧克力色",
-        "en": "deep chocolate brown, subtle highlights",
-        "desc": "沉穩大氣，模擬最基礎的高級黑髮。"
+        "zh": "19. 黑髮＋藍黑局部挑染",
+        "en": "black hair with blue-black accent highlights",
+        "desc": "在黑髮中加入低調藍黑挑染，適合夜景或冷調主題。"
       },
       {
-        "zh": "20. 歐系陽光金",
-        "en": "sandy blonde, natural roots, sun-kissed",
-        "desc": "模擬歐美自然生成的沙色或髒金色。"
+        "zh": "20. 深棕髮＋玫瑰粉細挑染",
+        "en": "deep brown hair with subtle rose pink highlights",
+        "desc": "以深棕為主體，只在局部加入玫瑰粉細挑染，甜感但不浮誇。"
       }
     ],
     "神情與眼神 (Expression & Gaze)": [

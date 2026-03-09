@@ -218,6 +218,14 @@ function inferCharacterMeta(category, item) {
     tags.push('fine_detail');
   }
 
+  if (category.includes('Hair Color')) {
+    if (hasAny(haystack, ['內層染', '挑染', '分色', '漸層', '耳圈染', 'highlights', 'split dye', 'gradient', 'inner layer', 'face-framing'])) {
+      tags.push('special_hair_color');
+    } else {
+      tags.push('mainstream_hair_color');
+    }
+  }
+
   if (hasAny(haystack, ['direct gaze', '直視', 'eye contact'])) tags.push('direct_gaze');
   if (hasAny(haystack, ['top-down', 'aerial view', '俯拍'])) tags.push('requires_aerial');
   if (hasAny(haystack, ['korean', 'idol'])) archetype = 'korean';
@@ -577,16 +585,25 @@ function buildCharacter(context, catalog) {
   const visibility = context.framing.meta.visibility;
   let lockedArchetype = null;
 
-  const pickCategory = (categoryKey, customPredicate = () => true) => {
+  const pickCategory = (categoryKey, customPredicate = () => true, picker = sample) => {
     const candidates = getByKey(catalog.character, categoryKey).filter((item) => detailAllowed(item, context.framing) && customPredicate(item));
     if (candidates.length === 0) return null;
-    const picked = sample(candidates);
+    const picked = picker(candidates);
     if (picked.meta.archetype && !lockedArchetype) lockedArchetype = picked.meta.archetype;
     character.push(picked);
     return picked;
   };
 
-  if (visibilityAtLeast(visibility, 'medium')) pickCategory('臉型輪廓 (Face Shape)');
+  const pickHairColor = (candidates) => {
+    const mainstream = candidates.filter((item) => item.meta.tags.includes('mainstream_hair_color'));
+    const special = candidates.filter((item) => item.meta.tags.includes('special_hair_color'));
+
+    if (mainstream.length > 0 && (special.length === 0 || Math.random() < 0.88)) {
+      return sample(mainstream);
+    }
+
+    return sample(special.length > 0 ? special : candidates);
+  };
 
   if (context.subject.count === 1 && visibilityAtLeast(visibility, 'portrait')) {
     pickCategory('五官特徵 (Facial Features)', (item) => !lockedArchetype || !item.meta.archetype || item.meta.archetype === lockedArchetype);
@@ -595,7 +612,7 @@ function buildCharacter(context, catalog) {
 
   if (visibilityAtLeast(visibility, 'medium')) {
     pickCategory('髮型 (Hairstyle)');
-    pickCategory('髮色 (Hair Color)');
+    pickCategory('髮色 (Hair Color)', () => true, pickHairColor);
     pickCategory('年齡氣質 (Age & Aura)');
   }
 

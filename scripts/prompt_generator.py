@@ -100,15 +100,14 @@ def build_prompt():
     # --- Structured Assembly ---
     # Character & Pose
     structured["Character"].append(BASE_CHARACTER)
-    extract_cat(character_data, '臉型輪廓', structured["Character"])
     extract_cat(character_data, '五官特徵', structured["Character"])
     extract_cat(character_data, '膚色與膚質', structured["Character"])
     
     # Natural Hairstyles: 1,2,3,5,15,16,17,18,19,20
     extract_weighted(character_data, '髮型', structured["Character"], [1,2,3,5,15,16,17,18,19,20], natural_weight=0.85)
     
-    # Natural Hair Colors: 1,2,3,12,13,15,16,17,18,19,20
-    extract_weighted(character_data, '髮色', structured["Character"], [1,2,3,12,13,15,16,17,18,19,20], natural_weight=0.9)
+    # Mainstream Hair Colors: 1-12
+    extract_weighted(character_data, '髮色', structured["Character"], list(range(1, 13)), natural_weight=0.9)
     
     extract_cat(character_data, '年齡氣質', structured["Character"])
     
