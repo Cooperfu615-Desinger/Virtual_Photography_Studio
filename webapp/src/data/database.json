@@ -452,11 +452,6 @@
         "zh": "全身鏡頭 (Full Body Shot)",
         "en": "full body shot, full length portrait, wide framing, environmental scale",
         "desc": "完整拍攝人物從頭到腳，強調整體穿搭比例與人物在廣大環境中的位置。"
-      },
-      {
-        "zh": "廣角環境人像 (Environmental Portrait)",
-        "en": "environmental portrait, wide shot, vast landscape with a small figure",
-        "desc": "人物在畫面中佔比極小，用來強調周遭的壯麗風景或工業場景，帶來空間震撼感。"
       }
     ],
     "相機視角 (Angle)": [
@@ -483,11 +478,6 @@
     ],
     "鏡頭焦段 (Focal Length)": [
       {
-        "zh": "24mm 超廣角 (Ultra Wide)",
-        "en": "shot on 24mm lens, deep depth of field, wide perspective, slight distortion",
-        "desc": "收納極多環境細節，邊緣會產生些微透視變形（拉長效果），適合狹窄空間或大景。"
-      },
-      {
         "zh": "35mm 廣角 (人文視角)",
         "en": "shot on 35mm lens, documentary style, slight background blur, natural field of view",
         "desc": "經典的人文與街拍焦段，視角適中不過度變形，能自然融合人物與環境背景。"
@@ -501,11 +491,6 @@
         "zh": "85mm 中長焦 (人像鏡皇)",
         "en": "shot on 85mm lens, shallow depth of field, creamy bokeh, precise facial rendering",
         "desc": "完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。"
-      },
-      {
-        "zh": "135mm / 200mm 長焦 (望遠壓縮)",
-        "en": "shot on 135mm lens, telephoto compression, extremely blurred background, flat perspective",
-        "desc": "極強的空間壓縮感，能將遙遠的背景（如巨大的月亮或山脈）拉近並極度虛化，夢幻感強。"
       }
     ],
     "光線類型 (Lighting Type)": [

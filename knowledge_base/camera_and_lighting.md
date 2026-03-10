@@ -9,16 +9,13 @@
 | **景別構圖 (Framing)** | 中景鏡頭 (Medium Shot) | `medium shot, waist up, candid portrait, showing some background` | 構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。 |
 | **景別構圖 (Framing)** | 牛仔中景 (Cowboy Shot) | `cowboy shot, american shot, knee up framing, dynamic pose` | 從膝蓋上方截斷，源於西部片用來展示槍套。適合展現強勢氣場與全身大部分服裝。 |
 | **景別構圖 (Framing)** | 全身鏡頭 (Full Body Shot) | `full body shot, full length portrait, wide framing, environmental scale` | 完整拍攝人物從頭到腳，強調整體穿搭比例與人物在廣大環境中的位置。 |
-| **景別構圖 (Framing)** | 廣角環境人像 (Environmental Portrait) | `environmental portrait, wide shot, vast landscape with a small figure` | 人物在畫面中佔比極小，用來強調周遭的壯麗風景或工業場景，帶來空間震撼感。 |
 | **相機視角 (Angle)** | 平視角 (Eye-Level Angle) | `eye-level angle, objective view, direct eye contact, neutral perspective` | 最自然客觀的視角，觀眾與拍攝對象處於平等地位，容易建立情感連結。 |
 | **相機視角 (Angle)** | 仰角 (Low Angle) | `low angle, looking up from below, heroic, powerful silhouette, dominance` | 由下往上拍。能拉長人物比例（特別是腿部），賦予主體強勢、英雄般或具壓迫感的氣場。 |
 | **相機視角 (Angle)** | 俯角 (High Angle) | `high angle, looking down from above, vulnerable, cute, foreshortening` | 由上往下拍。使人物顯得較小、脆弱或無辜，伴隨明顯的透視縮短效益。 |
 | **相機視角 (Angle)** | 荷蘭角/傾斜 (Dutch Angle) | `dutch angle, tilted camera, crooked horizon, unsettling, cinematic tension` | 相機刻意傾斜，地平線不平。營造不安、混亂、速度感或極度戲劇化的電影張力。 |
-| **鏡頭焦段 (Focal Length)** | 24mm 超廣角 (Ultra Wide) | `shot on 24mm lens, deep depth of field, wide perspective, slight distortion` | 收納極多環境細節，邊緣會產生些微透視變形（拉長效果），適合狹窄空間或大景。 |
 | **鏡頭焦段 (Focal Length)** | 35mm 廣角 (人文視角) | `shot on 35mm lens, documentary style, slight background blur, natural field of view` | 經典的人文與街拍焦段，視角適中不過度變形，能自然融合人物與環境背景。 |
 | **鏡頭焦段 (Focal Length)** | 50mm 標準鏡頭 (Standard) | `shot on 50mm lens, human eye perspective, classic portraiture, zero distortion` | 最接近人類單眼視覺的透視感，不變形，背景虛化自然，適用於絕大多數日常與棚拍。 |
 | **鏡頭焦段 (Focal Length)** | 85mm 中長焦 (人像鏡皇) | `shot on 85mm lens, shallow depth of field, creamy bokeh, precise facial rendering` | 完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。 |
-| **鏡頭焦段 (Focal Length)** | 135mm / 200mm 長焦 (望遠壓縮) | `shot on 135mm lens, telephoto compression, extremely blurred background, flat perspective` | 極強的空間壓縮感，能將遙遠的背景（如巨大的月亮或山脈）拉近並極度虛化，夢幻感強。 |
 | **光線類型 (Lighting Type)** | 夕陽暖光 (Warm Sunset Light) | `warm sunset light, golden evening glow, long shadows, soft orange sunlight` | 夕陽前後的暖色光線，氛圍浪漫柔和，最適合戶外人像與寫真。 |
 | **光線類型 (Lighting Type)** | 夜幕藍調 (Blue Twilight Light) | `blue twilight light, deep evening blue ambience, cool dusk atmosphere, melancholic mood` | 太陽剛落下後的深藍光線，畫面冷靜、安靜，和白天藍天完全不同。 |
 | **光線類型 (Lighting Type)** | 藍天白雲日光 (Blue Sky Daylight) | `clear blue sky daylight, crisp white clouds, bright clean sunlight, open airy atmosphere` | 非黃昏也非陰天，而是藍天很藍、白雲很白的乾淨日光感，適合明亮外景。 |
