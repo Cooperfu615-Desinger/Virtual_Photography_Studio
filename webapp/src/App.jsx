@@ -174,6 +174,9 @@ export default function App() {
   const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(customLibrary), [customLibrary]);
   const lockControls = useMemo(() => getLockControls(customLibrary), [customLibrary]);
   const rerollOptions = useMemo(() => getPartialRerollOptions(), []);
+  const coreLockControls = useMemo(() => lockControls.filter((control) => control.section === 'core'), [lockControls]);
+  const characterLockControls = useMemo(() => lockControls.filter((control) => control.section === 'character'), [lockControls]);
+  const wardrobeLockControls = useMemo(() => lockControls.filter((control) => control.section === 'wardrobe'), [lockControls]);
 
   const activeLockCount = Object.entries(locks).filter(([key, value]) => !['subjectCount', 'aspectRatio'].includes(key) && Boolean(value)).length;
   const normalizedSearch = searchQuery.trim().toLowerCase();
@@ -327,28 +330,94 @@ export default function App() {
             </div>
           </div>
 
-          <div className="lock-grid">
-            {lockControls.map((control) => (
-              <label key={control.key} className="field">
-                <span>{control.label}</span>
-                <select
-                  value={locks[control.key]}
-                  onChange={(event) =>
-                    setLocks((prev) => ({
-                      ...prev,
-                      [control.key]: event.target.value,
-                    }))
-                  }
-                >
-                  {!control.required ? <option value="">Random</option> : null}
-                  {control.options.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.zh}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            ))}
+          <div className="control-section">
+            <div className="control-section-header">
+              <div className="control-section-title">Core Controls</div>
+              <p className="control-section-copy">對齊 Grok 高階欄位，先決定主題骨架與攝影條件。</p>
+            </div>
+            <div className="lock-grid">
+              {coreLockControls.map((control) => (
+                <label key={control.key} className="field">
+                  <span>{control.label}</span>
+                  <select
+                    value={locks[control.key]}
+                    onChange={(event) =>
+                      setLocks((prev) => ({
+                        ...prev,
+                        [control.key]: event.target.value,
+                      }))
+                    }
+                  >
+                    {!control.required ? <option value="">Random</option> : null}
+                    {control.options.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.zh}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="control-section control-section-secondary">
+            <div className="control-section-header">
+              <div className="control-section-title">Character Details</div>
+              <p className="control-section-copy">第二層控制人物細節，需要時可單獨鎖定五官、髮型與姿勢。</p>
+            </div>
+            <div className="lock-grid detail-lock-grid">
+              {characterLockControls.map((control) => (
+                <label key={control.key} className="field">
+                  <span>{control.label}</span>
+                  <select
+                    value={locks[control.key]}
+                    onChange={(event) =>
+                      setLocks((prev) => ({
+                        ...prev,
+                        [control.key]: event.target.value,
+                      }))
+                    }
+                  >
+                    <option value="">Random</option>
+                    {control.options.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.zh}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="control-section control-section-secondary">
+            <div className="control-section-header">
+              <div className="control-section-title">Wardrobe Details</div>
+              <p className="control-section-copy">直接鎖定服裝細項。若同時指定褲裝與裙裝，系統會照單全收，不再代你修正搭配。</p>
+            </div>
+            <div className="lock-grid detail-lock-grid">
+              {wardrobeLockControls.map((control) => (
+                <label key={control.key} className="field">
+                  <span>{control.label}</span>
+                  <select
+                    value={locks[control.key]}
+                    onChange={(event) =>
+                      setLocks((prev) => ({
+                        ...prev,
+                        [control.key]: event.target.value,
+                      }))
+                    }
+                  >
+                    <option value="">Random</option>
+                    {control.options.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.zh}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              ))}
+            </div>
           </div>
 
           <div className="preset-row">

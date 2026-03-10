@@ -133,6 +133,42 @@ h1 {
   gap: 14px;
 }
 
+.detail-lock-grid {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.control-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.control-section + .control-section {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.control-section-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.control-section-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
+.control-section-copy {
+  margin: 0;
+  max-width: 430px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-align: right;
+}
+
 .field {
   display: flex;
   flex-direction: column;
