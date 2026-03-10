@@ -28,6 +28,7 @@ const LOCK_DEFINITIONS = [
   { key: 'lightingId', label: 'Lighting', category: '光線類型 (Lighting Type)', section: 'core' },
   { key: 'lightDirectionId', label: 'Light Direction', category: '光線方向與質感 (Light Direction & Quality)', section: 'core' },
   { key: 'filmId', label: 'Film', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
+  { key: 'bodyTypeId', label: 'Body Type', category: '體態 (Body Type)', section: 'character' },
   { key: 'facialFeaturesId', label: 'Facial Features', category: '五官特徵 (Facial Features)', section: 'character' },
   { key: 'skinDetailsId', label: 'Skin Details', category: '膚質特徵 (Skin Details)', section: 'character' },
   { key: 'hairstyleId', label: 'Hairstyle', category: '髮型 (Hairstyle)', section: 'character' },
@@ -55,6 +56,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'lightDirectionId', label: 'Light Direction' },
   { key: 'filmId', label: 'Film' },
   { key: 'wardrobeVibeId', label: 'Wardrobe' },
+  { key: 'bodyTypeId', label: 'Body Type' },
   { key: 'facialFeaturesId', label: 'Face' },
   { key: 'skinDetailsId', label: 'Skin' },
   { key: 'hairstyleId', label: 'Hair Style' },
@@ -254,6 +256,7 @@ function inferCharacterMeta(category, item) {
   const tags = [];
   let archetype = null;
 
+  if (category.includes('Body Type')) minVisibility = 'full';
   if (category.includes('Facial Features')) minVisibility = 'portrait';
   if (category.includes('Skin Details')) minVisibility = 'portrait';
   if (category.includes('Hairstyle')) minVisibility = 'medium';
@@ -480,6 +483,7 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'lightDirectionId') options = flatCatalog.lightDirection;
       if (definition.key === 'filmId') options = flatCatalog.film;
       if (definition.key === 'wardrobeVibeId') options = flatCatalog.wardrobeVibe;
+      if (definition.key === 'bodyTypeId') options = getByKey(catalog.character, '體態 (Body Type)');
       if (definition.key === 'facialFeaturesId') options = getByKey(catalog.character, '五官特徵 (Facial Features)');
       if (definition.key === 'skinDetailsId') options = getByKey(catalog.character, '膚質特徵 (Skin Details)');
       if (definition.key === 'hairstyleId') options = getByKey(catalog.character, '髮型 (Hairstyle)');
@@ -782,6 +786,7 @@ function buildCharacter(context, catalog) {
   let lockedArchetype = null;
 
   const lockKeyByCategory = {
+    '體態 (Body Type)': 'bodyTypeId',
     '五官特徵 (Facial Features)': 'facialFeaturesId',
     '膚質特徵 (Skin Details)': 'skinDetailsId',
     '髮型 (Hairstyle)': 'hairstyleId',
@@ -790,8 +795,10 @@ function buildCharacter(context, catalog) {
     '姿勢與肢體語言 (Pose & Body Language)': 'poseId',
   };
 
-  const pickCategory = (categoryKey, locks, customPredicate = () => true, picker = sample) => {
-    const candidates = getByKey(catalog.character, categoryKey).filter((item) => detailAllowed(item, context.framing) && customPredicate(item));
+  const pickCategory = (categoryKey, locks, customPredicate = () => true, picker = sample, respectVisibility = true) => {
+    const candidates = getByKey(catalog.character, categoryKey).filter(
+      (item) => (!respectVisibility || detailAllowed(item, context.framing)) && customPredicate(item)
+    );
     if (candidates.length === 0) return null;
     const lockedId = locks?.[lockKeyByCategory[categoryKey]];
     const picked = lockedId ? findById(candidates, lockedId) || picker(candidates) : picker(candidates);
@@ -810,6 +817,8 @@ function buildCharacter(context, catalog) {
 
     return sample(special.length > 0 ? special : candidates);
   };
+
+  pickCategory('體態 (Body Type)', context.locks, () => true, sample, false);
 
   if (context.subject.count === 1 && visibilityAtLeast(visibility, 'portrait')) {
     pickCategory('五官特徵 (Facial Features)', context.locks, (item) => !lockedArchetype || !item.meta.archetype || item.meta.archetype === lockedArchetype);
@@ -944,7 +953,7 @@ function buildNegativePrompt(context, positiveTags, catalog) {
 }
 
 function buildSummaryFields(context, wardrobe, character) {
-  const characterBits = character.slice(1).filter((item) => item && item.zh).slice(0, 2).map((item) => item.zh);
+  const characterBits = character.slice(1).filter((item) => item && item.zh).slice(0, 3).map((item) => item.zh);
   const subjectLabel = context.subject.count === 2 ? '兩位性感驚豔的東亞女性' : '一位性感驚豔的東亞女性';
 
   return {
@@ -1025,6 +1034,7 @@ const STYLE_PROMPT_INTROS = {
 function extractCharacterSlots(character) {
   const findSlot = (token) => character.find((item) => item.id?.includes(token));
   return {
+    bodyType: findSlot('character:體態-body-type:'),
     facialFeatures: findSlot('character:五官特徵-facial-features:'),
     skinDetails: findSlot('character:膚質特徵-skin-details:'),
     hairstyle: findSlot('character:髮型-hairstyle:'),
@@ -1079,6 +1089,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, lightDirection,
   addLine('Lighting', context.lighting.en);
   addLine('Light Direction', lightDirection.en);
   addLine('Film', film.en);
+  addItemLine('Body Type', characterSlots.bodyType);
   addItemLine('Facial Features', characterSlots.facialFeatures);
   addItemLine('Skin Details', characterSlots.skinDetails);
   addItemLine('Hairstyle', characterSlots.hairstyle);
@@ -1146,6 +1157,7 @@ function buildSelectionSnapshot(context, wardrobe, character, lightDirection, fi
     lightDirectionId: lightDirection.id,
     filmId: film.id,
     wardrobeVibeId: wardrobe[0]?.id || '',
+    bodyTypeId: characterSlots.bodyType?.id || '',
     facialFeaturesId: characterSlots.facialFeatures?.id || '',
     skinDetailsId: characterSlots.skinDetails?.id || '',
     hairstyleId: characterSlots.hairstyle?.id || '',

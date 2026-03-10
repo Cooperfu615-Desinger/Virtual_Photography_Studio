@@ -16,6 +16,10 @@
 | **膚質特徵 (Skin Details)** | 自然雀斑 | `natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail` | 鼻樑與臉頰帶有自然雀斑，能增加真實感與辨識度。 |
 | **膚質特徵 (Skin Details)** | 淚痣／唇邊痣 | `small beauty mark under eye or near lips, delicate facial mole detail` | 臉上有細小痣點，位置通常在眼下或唇邊，能增加個性與記憶點。 |
 | **膚質特徵 (Skin Details)** | 微曬陽光感膚質 | `slightly sun-kissed skin texture, subtle warm flush, healthy outdoor glow` | 像曬過太陽後留下的自然暖感，帶有生活感與戶外氣息。 |
+| **體態 (Body Type)** | 正常人 | `average youthful body type, balanced proportions, natural everyday build, modest curves` | 普通自然的基本體型，不高不胖，像年輕女生常見的日常身形。 |
+| **體態 (Body Type)** | 模特兒 | `tall slim model body, elongated legs, lean silhouette, long-limbed fashion proportions` | 瘦高修長、腿長線條明顯，整體比例偏時裝模特兒體態。 |
+| **體態 (Body Type)** | 性感 | `curvy sexy body, fuller bust, narrow waist, rounded hips and thighs, hot feminine silhouette` | 胸腰臀線條鮮明，腿部與臀部更圓潤，整體是明顯火辣性感的曲線。 |
+| **體態 (Body Type)** | 豐腴 | `voluptuous body, large bust, slim waist, full hips, thicker thighs, soft sensual curves` | 大胸、細腰、大臀，腿部更有肉感，比性感體態再多一點豐潤感，但不是肥胖。 |
 | **髮型 (Hairstyle)** | 中分長直髮 | `long straight hair, center part, sleek` | 經典女神風，光澤感十足。 |
 | **髮型 (Hairstyle)** | 日系厚劉海長直髮 | `long straight hair with heavy Japanese bangs, smooth sleek silhouette` | 厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。 |
 | **髮型 (Hairstyle)** | 高位雙馬尾 | `high double pigtails, youthful` | 活潑俏皮，適合 Y2K 或 JK 風格。 |
