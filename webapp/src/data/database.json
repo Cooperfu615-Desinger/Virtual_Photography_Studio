@@ -429,11 +429,6 @@
   "CameraLighting": {
     "景別構圖 (Framing)": [
       {
-        "zh": "極度特寫 (Extreme Close-Up)",
-        "en": "extreme close-up shot, macro photography, eye level, intense detail",
-        "desc": "畫面僅填滿五官局部（如眼睛或嘴唇），極強的情感壓縮感，適合展現微小紋理或極端情緒。"
-      },
-      {
         "zh": "特寫鏡頭 (Close-Up)",
         "en": "close-up shot, head and shoulders, detailed facial features, portrait photography",
         "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典人像構圖。"
@@ -897,24 +892,9 @@
         "desc": "骨相乾淨、輪廓俐落，帶有時裝大片裡常見的冷感與高級距離感。"
       },
       {
-        "zh": "東方古典美人臉",
-        "en": "classical East Asian beauty face, almond eyes, delicate nose and lips, elegant symmetry, timeless oriental beauty",
-        "desc": "五官細緻端正，帶有古典東方美人的含蓄與優雅氣韻。"
-      },
-      {
-        "zh": "成熟性感御姐臉",
-        "en": "mature seductive beauty face, sculpted features, confident eyes, full lips, dominant feminine aura",
-        "desc": "成熟而有掌控感，眼神與唇形都帶著明確的性感張力與自信氣場。"
-      },
-      {
         "zh": "清冷空靈仙氣臉",
         "en": "ethereal cold beauty face, pale refined features, distant gaze, delicate bone structure, airy elegance",
         "desc": "清冷、空靈、疏離，像帶著霧感與仙氣的高級冷白美人。"
-      },
-      {
-        "zh": "歐美混血時尚臉",
-        "en": "mixed-race editorial beauty face, deep-set features, defined nose bridge, full lips, striking fashion presence",
-        "desc": "五官立體、視覺張力強，帶有時裝攝影常見的混血感與艷麗存在感。"
       },
       {
         "zh": "日系性感大姐臉",
@@ -923,11 +903,6 @@
       }
     ],
     "膚色 (Skin Tone)": [
-      {
-        "zh": "清透白皙膚",
-        "en": "clear fair skin, luminous even complexion, fresh bright skin tone",
-        "desc": "明亮乾淨的白皙膚色，透感自然，不會過度死白。"
-      },
       {
         "zh": "透亮白皙膚",
         "en": "radiant fair skin, softly glowing ivory complexion, healthy bright skin",
@@ -981,11 +956,6 @@
         "zh": "中分長直髮",
         "en": "long straight hair, center part, sleek",
         "desc": "經典女神風，光澤感十足。"
-      },
-      {
-        "zh": "法式大波浪",
-        "en": "loose voluminous waves, french style",
-        "desc": "蓬鬆且浪漫，帶有一點不經意的慵懶感。"
       },
       {
         "zh": "高位雙馬尾",
@@ -1065,16 +1035,6 @@
         "desc": "帶有柔霧感的淺棕色，是近年非常常見的主流染髮。"
       },
       {
-        "zh": "蜂蜜茶棕",
-        "en": "honey tea brown hair, golden warm undertone",
-        "desc": "帶一點暖金調的茶棕色，顯得柔和明亮。"
-      },
-      {
-        "zh": "亞麻冷棕",
-        "en": "cool ash brown hair, matte smoky finish",
-        "desc": "冷調棕色乾淨耐看，能帶出高級與清透感。"
-      },
-      {
         "zh": "黑＋白金內層染",
         "en": "black hair with platinum inner layer dye",
         "desc": "外層自然黑、內層白金，低調中帶有強烈層次感。"
@@ -1090,19 +1050,9 @@
         "desc": "一側保留深色、一側做銀白分色，視覺辨識度強。"
       },
       {
-        "zh": "深髮根＋蜂蜜棕漸層",
-        "en": "dark roots with honey brown gradient hair",
-        "desc": "從深髮根自然過渡到蜂蜜棕，層次感明顯且容易搭配。"
-      },
-      {
         "zh": "黑＋酒紅耳圈染",
         "en": "black hair with burgundy face-framing highlights",
         "desc": "臉側耳圈區加入酒紅色，能提亮臉部輪廓。"
-      },
-      {
-        "zh": "冷棕＋奶灰髮尾染",
-        "en": "cool brown hair with milky ash dyed ends",
-        "desc": "整體仍偏主流冷棕，但髮尾多了柔和灰感變化。"
       },
       {
         "zh": "黑＋藍黑局部挑染",
@@ -1154,11 +1104,6 @@
     ],
     "姿勢與肢體語言 (Pose & Body Language)": [
       {
-        "zh": "雙手插口袋 (率性)",
-        "en": "hands in pockets, casual confident stance, slouched cool posture, street style",
-        "desc": "率性的街頭自信感，肩膀微微放鬆。"
-      },
-      {
         "zh": "靠牆慵懶倚靠",
         "en": "leaning against wall, one shoulder against wall, effortless cool",
         "desc": "漫不經心的率性感，輕靠牆面或柱子。"
@@ -1177,11 +1122,6 @@
         "zh": "高挑站姿 (權力姿態)",
         "en": "upright commanding posture, confident power pose, dominant stance, shoulders back",
         "desc": "挺胸站立，充滿支配感與自信。"
-      },
-      {
-        "zh": "仰臥/俯拍躺姿",
-        "en": "lying down on back, top-down aerial view, arms stretched out, dreamy resting pose",
-        "desc": "從正上方俯拍的躺姿，帶有夢幻輕盈的感覺。"
       },
       {
         "zh": "蹲坐地上 (親近感)",
@@ -1217,16 +1157,6 @@
         "zh": "街頭低頭看手機隨拍感",
         "en": "looking down at phone while standing, candid street snapshot pose",
         "desc": "像街頭被捕捉到的日常片段，現代感強，也很適合生活系畫面。"
-      },
-      {
-        "zh": "沙發慵懶伸展姿勢",
-        "en": "lounging on sofa, stretched relaxed pose, lifestyle editorial mood",
-        "desc": "靠坐或半躺在沙發上自然伸展，適合 lifestyle 與時尚內頁。"
-      },
-      {
-        "zh": "盤腿坐地寫真姿勢",
-        "en": "cross-legged sitting on floor, relaxed photobook pose, casual intimate mood",
-        "desc": "坐在地面或床上盤腿，氣氛輕鬆，適合寫真集與私服企劃。"
       }
     ]
   },

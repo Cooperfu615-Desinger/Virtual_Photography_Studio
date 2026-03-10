@@ -4,7 +4,6 @@
 
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺效果與適用情境 (Visual Effect & Context) |
 | :--- | :--- | :--- | :--- |
-| **景別構圖 (Framing)** | 極度特寫 (Extreme Close-Up) | `extreme close-up shot, macro photography, eye level, intense detail` | 畫面僅填滿五官局部（如眼睛或嘴唇），極強的情感壓縮感，適合展現微小紋理或極端情緒。 |
 | **景別構圖 (Framing)** | 特寫鏡頭 (Close-Up) | `close-up shot, head and shoulders, detailed facial features, portrait photography` | 構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典人像構圖。 |
 | **景別構圖 (Framing)** | 中景鏡頭 (Medium Shot) | `medium shot, waist up, candid portrait, showing some background` | 構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。 |
 | **景別構圖 (Framing)** | 牛仔中景 (Cowboy Shot) | `cowboy shot, american shot, knee up framing, dynamic pose` | 從膝蓋上方截斷，源於西部片用來展示槍套。適合展現強勢氣場與全身大部分服裝。 |
