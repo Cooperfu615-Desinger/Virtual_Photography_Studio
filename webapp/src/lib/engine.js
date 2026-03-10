@@ -132,9 +132,9 @@ function inferStyleMeta(_category, item) {
   if (hasAny(haystack, ['black and white supermodel', '黑白真實超模'])) tags.push('monochrome', 'dramatic', 'outdoor_bias', 'editorial');
   if (hasAny(haystack, ['clean backdrop portrait', '純背景凝視'])) tags.push('studio_bias', 'minimal', 'controlled', 'editorial');
   if (hasAny(haystack, ['quiet documentary portrait', 'american road atmosphere', '空曠美式'])) tags.push('natural_bias', 'outdoor_bias', 'documentary', 'soft_grade');
-  if (hasAny(haystack, ['wet plate inspired', '古典濕版'])) tags.push('monochrome', 'moody', 'natural_bias', 'heritage_bias');
+  if (hasAny(haystack, ['wet plate inspired', '古典濕版'])) tags.push('monochrome', 'moody', 'natural_bias', 'heritage_bias', 'low_frequency_style');
   if (hasAny(haystack, ['casual youthful portrait', '青春日常隨拍'])) tags.push('natural_light_bias', 'urban_bias', 'lively', 'indoor_bias');
-  if (hasAny(haystack, ['high contrast black and white', '高反差黑白街頭'])) tags.push('monochrome', 'urban_bias', 'night_bias', 'raw');
+  if (hasAny(haystack, ['high contrast black and white', '高反差黑白街頭'])) tags.push('monochrome', 'urban_bias', 'night_bias', 'raw', 'low_frequency_style');
   if (hasAny(haystack, ['bold narrative fashion', '危險敘事'])) tags.push('dramatic', 'set_bias', 'studio_bias', 'high_saturation');
   if (hasAny(haystack, ['hyper-stylized fashion portrait', '濃彩復古電影棚拍'])) tags.push('studio_bias', 'set_bias', 'high_saturation', 'artificial_light');
 
@@ -903,7 +903,6 @@ const STYLE_PROMPT_INTROS = {
   俏皮性感雜誌感: 'Ellen von Unwerth-inspired playful sensual magazine energy',
   私密生活紀錄感: 'Nan Goldin-inspired intimate lived-in documentary emotion',
   粗糙直閃時尚感: 'Juergen Teller-inspired raw direct-flash fashion immediacy',
-  黑白真實超模感: 'Peter Lindbergh-inspired monochrome supermodel realism',
   純背景凝視肖像感: 'Richard Avedon-inspired clean backdrop and commanding gaze',
   空曠美式紀實感: 'Alec Soth-inspired spacious American documentary stillness',
   古典濕版記憶感: 'Sally Mann-inspired antique wet-plate memory atmosphere',

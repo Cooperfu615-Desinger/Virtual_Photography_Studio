@@ -32,7 +32,6 @@
 | **底片與相機模擬 (Camera & Film Simulation)** | 拍立得效果 (Polaroid Style) | `polaroid sx-70 style, instant film look, faded pastel colors, soft white border, lo-fi` | 帶有濃烈懷舊感，邊緣失焦、色彩偏淡偏粉（如褪色般），對比低且具有明顯的化學顯影特性。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 柯達 Portra 400 底片 | `Kodak Portra 400 film simulation, warm skin tones, fine film grain, analog aesthetic` | 業界公認最完美的膚色底片。擁有溫暖的橙橘色調、細膩的顆粒感與優秀的寬容度，呈現高品質的文青底片感。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 富士 Superia 400 底片 | `Fujifilm Superia 400 simulation, slightly green shadows, high contrast, everyday analog` | 偏冷色調，特別是在陰影處容易帶有微微的日系青綠色，綠色跟紅色的表現非常搶眼，適合日本街頭紀實。 |
-| **底片與相機模擬 (Camera & Film Simulation)** | 依爾福黑白底片 (Ilford HP5) | `Ilford HP5 Plus 400 black and white film, high contrast monochrome, rich gray tones, gritty grain` | 經典且強烈的黑白底片。沒有色彩干擾，強大的灰階過渡與粗獷的顆粒感，將注意力完全集中在光影與情緒。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 中片幅數位單眼 (Medium Format DSLR) | `Hasselblad medium format photography, extreme ultra-high resolution, medium format organic depth` | 哈蘇或飛思等數位後背相機。擁有令人髮指的細節解析度（看清每一根睫毛），以及有別於全片幅的特殊立體過渡與景深空間感。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | VHS 錄影帶低畫質 | `VHS camcorder glitch effect, heavily degraded image, chromatic aberration, scanlines, analog horror` | 模仿 90 年代老舊錄影帶的畫面質感，保留做低頻特殊風格用途。 |
 | **特殊效果 (Special Effects)** | 漏光效果 (Light Leaks) | `vintage film light leaks, red and orange light burns, lens flare, serendipitous analog flaw` | 模擬舊底片相機機身漏光。畫面邊緣出現隨機、不規則的紅色或橙橘色光暈過曝，增添了真實且隨機的復古韻味。 |
