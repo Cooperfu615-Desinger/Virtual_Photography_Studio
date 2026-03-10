@@ -18,22 +18,22 @@
       },
       {
         "zh": "上田義彥",
-        "en": "deep forest-like shadows, low-key lighting with dramatic chiaroscuro, muted cool color palette, side lighting carving delicate facial features, serene stoic expression, large format 8x10 film aesthetic, deep blacks, grainy texture, cinematic silence",
+        "en": "Deep, moody Chiaroscuro with heavy, velvety shadows. Masterful control of low-key lighting that carves out subjects from darkness. Cool, desaturated tones—deep greens and charcoals—with a rich, painterly texture. Evokes a silent, meditative stillness and timeless elegance, mimicking 8x10 large format film with profound depth and sharp, tactile detail.",
         "desc": "參考 Yoshihiko Ueda（上田義彥）類型的靜默自然人像語言 | 深色陰影、低調光、冷淡色盤與靜默情緒，適合森林、窗邊、低光室內等安靜場景。"
       },
       {
         "zh": "蜷川實花",
-        "en": "hyper-saturated portrait photography, vivid floral surroundings, intense reds and pinks, luminous skin, dreamy theatrical color, glamorous feminine styling, glossy highlights, surreal romantic atmosphere, vibrant cinematic beauty",
+        "en": "Explosive, hyper-saturated colors with a dominant palette of vivid reds, pinks, and cyans. High-contrast, psychedelic floral patterns and layered textures. Intense, direct lighting creates a surreal, dreamlike world of \"artificial nature.\" Shimmering, maximalist compositions filled with a sense of dizzying ecstasy and ephemeral beauty.",
         "desc": "參考 Mika Ninagawa（蜷川實花）類型的濃烈色彩與花卉戲劇感 | 強烈飽和、鮮花、彩色光與夢境般張力，適合棚拍、花牆、彩色佈景與戲劇化寫真。"
       },
       {
         "zh": "橫浪修",
-        "en": "symmetrical portrait composition, quiet emotional distance, minimal gestures, spacious negative space, restrained color palette, still atmosphere, orderly visual rhythm, subtle documentary feeling, calm conceptual photography",
+        "en": "the visual language is defined by a high-key, airy, and minimalist Japanese aesthetic. It features a palette of soft pastel tones, muted desaturated colors, and clean, luminous whites. the lighting is incredibly soft and flat, mimicking an overcast natural daylight that eliminates all harsh shadows, creating a gentle and calm atmosphere. the image has a low-contrast. There is an emphasis on vast negative space and a sense of quiet. The overall mood is one of pure innocence.",
         "desc": "參考 Osamu Yokonami（橫浪修）類型的群像秩序與安靜疏離感 | 強調排列、留白、安靜與輕微距離感，適合雙人構圖、空曠室內、校舍與極簡空間。"
       },
       {
         "zh": "川內倫子",
-        "en": "poetic everyday portrait, soft ambient daylight, light-filled atmosphere, delicate highlights, airy stillness, intimate daily moments, pastel softness, subtle emotional warmth, lyrical realism",
+        "en": "Airy, high-key aesthetic with a pale, luminous glow. Soft, overexposed natural light creates a dreamlike \"shining\" quality. Low contrast with a cool-toned, pastel palette. Shot on 6x6 square format film, emphasizing shimmering everyday details, delicate textures, and a fragile, poetic sense of ephemeral life.",
         "desc": "參考 Rinko Kawauchi（川內倫子）類型的輕盈日常與微光語言 | 輕盈、柔光、日常碎片與微過曝感，適合窗邊、居家、草地與安靜生活場景。"
       },
       {
@@ -42,17 +42,7 @@
         "desc": "參考 Paolo Roversi（保羅・羅韋爾西）類型的柔霧高級時裝語言 | 柔霧、低速感、暗色調與古典脆弱感，適合棚拍、復古室內與高級時裝人像。"
       },
       {
-        "zh": "極簡雕塑棚拍感",
-        "en": "minimal studio portrait, sculptural pose, clean backdrop, precise composition, crisp tonal contrast, elegant restraint, timeless fashion image, sharp structure, refined stillness",
-        "desc": "參考 Irving Penn（歐文・佩恩）類型的極簡背景與雕塑式姿態 | 乾淨背景、雕塑感姿態與精準構圖，適合純背景棚拍、時裝封面與肖像企劃。"
-      },
-      {
-        "zh": "冷冽權力性感",
-        "en": "cold glamorous fashion portrait, assertive pose, luxury urban mood, sharp contrast, powerful feminine presence, sleek styling, sensual authority, bold editorial energy, cinematic tension",
-        "desc": "參考 Helmut Newton（赫爾穆特・牛頓）類型的冷感奢華與強勢姿態 | 冷感、權力關係、都市奢華與強勢性感，適合飯店、電梯、夜晚室內與高級時裝主題。"
-      },
-      {
-        "zh": "俏皮性感雜誌感",
+        "zh": "俏皮性感雜誌",
         "en": "playful sensual editorial portrait, spontaneous energy, feminine confidence, lively magazine photography, candid movement, flirtatious mood, flash-assisted fashion image, spirited glamour, cheeky allure",
         "desc": "參考 Ellen von Unwerth（艾倫・馮・昂沃斯）類型的 playful 性感與抓拍雜誌語言 | 俏皮、性感、抓拍感強，介於雜誌與寫真之間，適合床景、沙發、街頭與隨拍主題。"
       },
@@ -87,7 +77,7 @@
         "desc": "參考 Wolfgang Tillmans（沃夫岡・提爾曼斯）類型的生活切片與非正式肖像語言 | 生活切片、輕鬆隨拍與非正式構圖，適合公寓、咖啡店、街頭與朋友感主題。"
       },
       {
-        "zh": "高反差黑白街頭感",
+        "zh": "森山大道",
         "en": "high contrast black and white street portrait, gritty grain, rough focus, urban night tension, raw snapshot energy, noisy texture, restless city mood, stark shadows, rebellious documentary feeling",
         "desc": "參考 Daido Moriyama（森山大道）類型的噪訊街頭與焦躁城市語言 | 高反差黑白、粗粒子、夜晚城市與焦躁感，適合巷口、地鐵、街邊與地下感場景。"
       },
@@ -107,75 +97,70 @@
     "風格基調 (Vibe)": [
       {
         "zh": "千禧復古 (Y2K)",
-        "en": "Y2K fashion, early 2000s aesthetic, retro-futurism, low-rise, baby tees",
-        "desc": "千禧年初期風格，色彩鮮豔、帶點塑膠感與金屬光澤，懷舊又叛逆。"
+        "en": "Clothing with a retro aesthetic style from the Y2K era",
+        "desc": "千禧年初期風格，色彩鮮豔，懷舊又叛逆。"
       },
       {
         "zh": "極簡高級 (Minimalist Luxury)",
-        "en": "quiet luxury, minimalist fashion, clean lines, monochromatic, tailored fit",
+        "en": "Clothing featuring minimalist style, clean lines, monochromatic colors, and fitted or oversized cuts",
         "desc": "無明顯 logo，剪裁俐落乾淨，注重面料垂墜與高質感。"
       },
       {
-        "zh": "法式慵懶 (Parisian Chic)",
-        "en": "effortless Parisian chic, relaxed elegance, unpretentious fashion, natural charm",
-        "desc": "看似隨性但不隨便的優雅，強調舒適感與不刻意的時尚感。"
-      },
-      {
         "zh": "復古龐克 (Retro Punk)",
-        "en": "retro punk fashion, rebellious aesthetic, DIY aesthetic, edgy, distressed",
+        "en": "Clothing with retro punk, British punk, and Japanese punk fashion aesthetics",
         "desc": "帶有破壞感、鉚釘、皮革、格紋等元素，散發叛逆與次文化氣息。"
       },
       {
         "zh": "日系街頭 (Japanese Streetwear)",
-        "en": "Japanese streetwear, oversized silhouette, layered clothing, Harajuku fashion",
+        "en": "Clothing with Japanese streetwear, oversized silhouette, layered clothing, Harajuku fashion",
         "desc": "擅長多層次穿搭與 oversized 廓形，混合工裝與日常單品。"
       },
       {
         "zh": "BDSM (拘束/束縛)",
-        "en": "BDSM fashion, bondage aesthetic, fetish wear, leather harnesses, latex accents",
+        "en": "Clothing with Featuring BDSM bondage aesthetics, leather, bondage straps, buckles, chains, and latex embellishments.",
         "desc": "強烈的束縛感與支配性，使用皮革、乳膠、綁帶與金屬環等元素。"
       },
       {
         "zh": "巴洛克 (Baroque)",
-        "en": "Baroque fashion, opulent aesthetic, ornate gold embroidery, luxurious fabrics, decadent",
+        "en": "Clothing with Baroque fashion, opulent aesthetic, ornate gold embroidery, luxurious fabrics, decadent",
         "desc": "極致奢華與繁複，大量金色刺繡、天鵝絨、絲綢與戲劇化剪裁。"
       },
       {
         "zh": "維多利亞 (Victorian)",
-        "en": "Victorian aesthetic, gothic Victorian, high neck lace, corsets, romantic mourning dress",
+        "en": "Clothing with Victorian, gothic Victorian, high neck lace, corsets, romantic mourning dress",
         "desc": "帶有禁慾與浪漫氣息，高領蕾絲、緊身馬甲與繁複皺褶。"
       },
       {
         "zh": "蘿莉塔 (Lolita)",
-        "en": "Lolita fashion, sweet/gothic lolita, bell-shaped skirt, frills, rococo inspired",
+        "en": "Clothing with Lolita fashion, sweet/gothic lolita, bell-shaped skirt, frills, rococo inspired",
         "desc": "源自日本的洛可可風格，標誌性的鐘形裙襬、大量荷葉邊與蝴蝶結。"
       },
       {
         "zh": "女高中生 (JK/Schoolgirl)",
-        "en": "JK uniform, Japanese school uniform aesthetic, sailor suit, pleated skirt, preppy",
+        "en": "Clothing withJK uniform, Japanese school uniform aesthetic, sailor suit, pleated skirt, preppy",
         "desc": "經典日本女子高校制服，包含水手服、百褶裙、西裝外套與針織衫。"
       },
       {
         "zh": "內衣 (Lingerie)",
-        "en": "lingerie aesthetic, boudoir fashion, sheer intimates, lace bodysuit, provocateur",
+        "en": "Clothing with lingerie aesthetic, boudoir fashion, sheer intimates, lace bodysuit, provocateur",
         "desc": "展現身體曲線，以透膚蕾絲、絲綢為主的私密性感穿搭。"
       },
       {
         "zh": "泳裝 (Swimwear)",
-        "en": "swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear",
+        "en": "Clothing with swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear",
         "desc": "海灘或度假風格，包含比基尼、連身泳衣與度假罩衫。"
       }
     ],
     "上身 (Tops)": [
       {
-        "zh": "合身襯衫",
-        "en": "fitted shirt, crisp cotton poplin, clean silhouette",
-        "desc": "乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。"
-      },
-      {
         "zh": "全無",
         "en": "no top layering, uncluttered upper-body styling",
         "desc": "不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。"
+      },
+      {
+        "zh": "合身襯衫",
+        "en": "fitted shirt, crisp cotton poplin, clean silhouette",
+        "desc": "乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。"
       },
       {
         "zh": "削肩針織上衣",
@@ -260,14 +245,14 @@
     ],
     "褲裝 (Pants)": [
       {
-        "zh": "高腰直筒牛仔褲",
-        "en": "high-waisted straight-leg jeans, clean denim texture, everyday staple",
-        "desc": "最穩定的日常下身單品，適合城市、街拍與生活感畫面。"
-      },
-      {
         "zh": "全無",
         "en": "no pants, lower-body styling omitted",
         "desc": "不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。"
+      },
+      {
+        "zh": "高腰直筒牛仔褲",
+        "en": "high-waisted straight-leg jeans, clean denim texture, everyday staple",
+        "desc": "最穩定的日常下身單品，適合城市、街拍與生活感畫面。"
       },
       {
         "zh": "低腰牛仔褲",
@@ -317,14 +302,14 @@
     ],
     "裙裝 (Skirts)": [
       {
-        "zh": "合身迷你裙",
-        "en": "fitted mini skirt, clean tailored finish, sleek silhouette",
-        "desc": "高頻實用短裙，適合城市、寫真與時裝風格。"
-      },
-      {
         "zh": "全無",
         "en": "no skirt, skirt styling omitted",
         "desc": "不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。"
+      },
+      {
+        "zh": "合身迷你裙",
+        "en": "fitted mini skirt, clean tailored finish, sleek silhouette",
+        "desc": "高頻實用短裙，適合城市、寫真與時裝風格。"
       },
       {
         "zh": "A 字裙",
@@ -369,14 +354,14 @@
     ],
     "襪類 (Legwear)": [
       {
-        "zh": "透膚絲襪",
-        "en": "sheer pantyhose, delicate translucent legwear, smooth finish",
-        "desc": "高頻實用，能與短裙、短褲與高跟鞋自然搭配。"
-      },
-      {
         "zh": "全無",
         "en": "no legwear, bare legs, clean leg styling",
         "desc": "不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。"
+      },
+      {
+        "zh": "透膚絲襪",
+        "en": "sheer pantyhose, delicate translucent legwear, smooth finish",
+        "desc": "高頻實用，能與短裙、短褲與高跟鞋自然搭配。"
       },
       {
         "zh": "蕾絲大腿絲襪",
@@ -433,14 +418,14 @@
     ],
     "鞋款 (Shoes)": [
       {
-        "zh": "低筒球鞋",
-        "en": "low-top sneakers, clean everyday finish, versatile casual style",
-        "desc": "最穩定的日常鞋款，適合街拍與生活感畫面。"
-      },
-      {
         "zh": "全無",
         "en": "barefoot styling, no shoes visible",
         "desc": "不特別強調鞋款，適合床景、室內寫真或鏡頭不會拍到腳部的情境。"
+      },
+      {
+        "zh": "低筒球鞋",
+        "en": "low-top sneakers, clean everyday finish, versatile casual style",
+        "desc": "最穩定的日常鞋款，適合街拍與生活感畫面。"
       },
       {
         "zh": "馬丁短靴",
@@ -1180,58 +1165,23 @@
         "zh": "奶茶棕",
         "en": "milk tea brown hair, soft beige-brown tone",
         "desc": "帶有柔霧感的淺棕色，是近年非常常見的主流染髮。"
-      },
-      {
-        "zh": "黑＋白金內層染",
-        "en": "black hair with platinum inner layer dye",
-        "desc": "外層自然黑、內層白金，低調中帶有強烈層次感。"
-      },
-      {
-        "zh": "深棕＋灰霧挑染",
-        "en": "deep brown hair with smoky ash highlights",
-        "desc": "在深棕基底上加入灰霧挑染，時髦但不會過於誇張。"
-      },
-      {
-        "zh": "黑＋單側銀白分色",
-        "en": "black hair with one-side silver white split dye",
-        "desc": "一側保留深色、一側做銀白分色，視覺辨識度強。"
-      },
-      {
-        "zh": "黑＋酒紅耳圈染",
-        "en": "black hair with burgundy face-framing highlights",
-        "desc": "臉側耳圈區加入酒紅色，能提亮臉部輪廓。"
-      },
-      {
-        "zh": "黑＋藍黑局部挑染",
-        "en": "black hair with blue-black accent highlights",
-        "desc": "在黑髮中加入低調藍黑挑染，適合夜景或冷調主題。"
-      },
-      {
-        "zh": "深棕＋玫瑰粉細挑染",
-        "en": "deep brown hair with subtle rose pink highlights",
-        "desc": "以深棕為主體，只在局部加入玫瑰粉細挑染，甜感但不浮誇。"
       }
     ],
     "神情與眼神 (Expression & Gaze)": [
       {
-        "zh": "直視鏡頭/直面挑戰",
-        "en": "intense direct gaze into camera, challenging stare, powerful eye contact, unwavering",
+        "zh": "直視鏡頭微笑",
+        "en": "Deep gaze looking directly at the camera, a gentle, toothless smile.",
         "desc": "眼神直接強硬，帶有挑釁與自信感。"
       },
       {
-        "zh": "半閉眼慵懶挑逗",
-        "en": "sleepy seductive half-lidded eyes, languid drowsy expression, bedroom eyes",
+        "zh": "慵懶挑逗眼神",
+        "en": "seductive half-lidded eyes, languid drowsy expression, bedroom eyes",
         "desc": "慵懶且帶有挑逗意味，時尚感強烈。"
       },
       {
         "zh": "淡漠高冷",
         "en": "cold distant expression, emotionless gaze, icy stare, untouchable aura",
         "desc": "毫無情緒的冷漠感，高不可攀的氣場。"
-      },
-      {
-        "zh": "嘴角微揚神秘微笑",
-        "en": "slight mysterious smile, knowing smirk, enigmatic half-smile",
-        "desc": "若有所思的神秘微笑，讓人捉摸不定。"
       },
       {
         "zh": "望向遠方/若有所思",
@@ -1266,19 +1216,19 @@
         "desc": "捕捉行走瞬間，充滿動態感與生命力。"
       },
       {
-        "zh": "高挑站姿 (權力姿態)",
-        "en": "upright commanding posture, confident power pose, dominant stance, shoulders back",
-        "desc": "挺胸站立，充滿支配感與自信。"
+        "zh": "高挑站姿",
+        "en": "upright confident pose, shoulders back",
+        "desc": "挺胸站立，充滿自信。"
       },
       {
         "zh": "蹲姿前傾 (親近感)",
         "en": "casual crouching pose, elbows resting on knees, forward-leaning posture, approachable body language",
-        "desc": "身體下蹲並自然前傾，手肘靠近膝部，帶有親近、放鬆的互動感。"
+        "desc": "身體下蹲並自然前傾，手肘靠近膝部。"
       },
       {
-        "zh": "打開肩線站姿",
+        "zh": "打開肩線微轉站姿",
         "en": "shoulders open, body slightly turned, direct confident stance, balanced standing pose",
-        "desc": "雙肩打開、身體微轉，站姿穩定自信，強調人物本身的存在感。"
+        "desc": "雙肩打開、身體微轉，站姿穩定自信。"
       },
       {
         "zh": "坐姿交叉腿",
@@ -1303,7 +1253,7 @@
       {
         "zh": "低頭垂視隨拍感",
         "en": "looking downward while standing, candid off-guard posture, natural snapshot body language",
-        "desc": "站立時自然低頭垂視，像被瞬間捕捉到的放鬆狀態，不綁定任何道具或場景。"
+        "desc": "站立時自然低頭垂視，像被瞬間捕捉到的放鬆狀態。"
       }
     ]
   },

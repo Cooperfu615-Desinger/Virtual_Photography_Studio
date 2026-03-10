@@ -3,8 +3,8 @@ import database from '../data/database.json' with { type: 'json' };
 const BASE_QUALITY = '(masterpiece, best quality, ultra-detailed:1.2), highres, raw photo';
 
 const SUBJECT_COUNT_OPTIONS = [
-  { id: '1', zh: '1 位', en: 'a seductive stunning East Asian woman', count: 1 },
-  { id: '2', zh: '2 位', en: 'two seductive stunning East Asian women', count: 2 },
+  { id: '1', zh: '1 位', en: 'a seductive stunning Japanese or Korean woman', count: 1 },
+  { id: '2', zh: '2 位', en: 'two seductive stunning Japanese or Korean women', count: 2 },
 ];
 
 const ASPECT_RATIO_OPTIONS = [
@@ -954,7 +954,7 @@ function buildNegativePrompt(context, positiveTags, catalog) {
 
 function buildSummaryFields(context, wardrobe, character) {
   const characterBits = character.slice(1).filter((item) => item && item.zh).slice(0, 3).map((item) => item.zh);
-  const subjectLabel = context.subject.count === 2 ? '兩位性感驚豔的東亞女性' : '一位性感驚豔的東亞女性';
+  const subjectLabel = context.subject.count === 2 ? '兩位性感驚豔的日系或韓系女性' : '一位性感驚豔的日系或韓系女性';
 
   return {
     style: context.style.zh || '-',

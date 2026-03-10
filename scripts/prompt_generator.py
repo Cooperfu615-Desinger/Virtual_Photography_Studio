@@ -4,7 +4,7 @@ import random
 from collections import defaultdict
 
 KNOWLEDGE_BASE_DIR = os.path.join(os.path.dirname(__file__), '..', 'knowledge_base')
-BASE_CHARACTER = {"en": "a seductive stunning East Asian woman", "zh": "一位性感驚豔的東亞女性"}
+BASE_CHARACTER = {"en": "a seductive stunning Japanese or Korean woman", "zh": "一位性感驚豔的日系或韓系女性"}
 
 def infer_wardrobe_family(text):
     haystack = text.lower()

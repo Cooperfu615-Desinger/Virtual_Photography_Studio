@@ -4,20 +4,19 @@
 
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺與材質說明 (Visual & Texture) |
 | :--- | :--- | :--- | :--- |
-| **風格基調 (Vibe)** | 千禧復古 (Y2K) | `Y2K fashion, early 2000s aesthetic, retro-futurism, low-rise, baby tees` | 千禧年初期風格，色彩鮮豔、帶點塑膠感與金屬光澤，懷舊又叛逆。 |
-| **風格基調 (Vibe)** | 極簡高級 (Minimalist Luxury) | `quiet luxury, minimalist fashion, clean lines, monochromatic, tailored fit` | 無明顯 logo，剪裁俐落乾淨，注重面料垂墜與高質感。 |
-| **風格基調 (Vibe)** | 法式慵懶 (Parisian Chic) | `effortless Parisian chic, relaxed elegance, unpretentious fashion, natural charm` | 看似隨性但不隨便的優雅，強調舒適感與不刻意的時尚感。 |
-| **風格基調 (Vibe)** | 復古龐克 (Retro Punk) | `retro punk fashion, rebellious aesthetic, DIY aesthetic, edgy, distressed` | 帶有破壞感、鉚釘、皮革、格紋等元素，散發叛逆與次文化氣息。 |
-| **風格基調 (Vibe)** | 日系街頭 (Japanese Streetwear) | `Japanese streetwear, oversized silhouette, layered clothing, Harajuku fashion` | 擅長多層次穿搭與 oversized 廓形，混合工裝與日常單品。 |
-| **風格基調 (Vibe)** | BDSM (拘束/束縛) | `BDSM fashion, bondage aesthetic, fetish wear, leather harnesses, latex accents` | 強烈的束縛感與支配性，使用皮革、乳膠、綁帶與金屬環等元素。 |
-| **風格基調 (Vibe)** | 巴洛克 (Baroque) | `Baroque fashion, opulent aesthetic, ornate gold embroidery, luxurious fabrics, decadent` | 極致奢華與繁複，大量金色刺繡、天鵝絨、絲綢與戲劇化剪裁。 |
-| **風格基調 (Vibe)** | 維多利亞 (Victorian) | `Victorian aesthetic, gothic Victorian, high neck lace, corsets, romantic mourning dress` | 帶有禁慾與浪漫氣息，高領蕾絲、緊身馬甲與繁複皺褶。 |
-| **風格基調 (Vibe)** | 蘿莉塔 (Lolita) | `Lolita fashion, sweet/gothic lolita, bell-shaped skirt, frills, rococo inspired` | 源自日本的洛可可風格，標誌性的鐘形裙襬、大量荷葉邊與蝴蝶結。 |
-| **風格基調 (Vibe)** | 女高中生 (JK/Schoolgirl) | `JK uniform, Japanese school uniform aesthetic, sailor suit, pleated skirt, preppy` | 經典日本女子高校制服，包含水手服、百褶裙、西裝外套與針織衫。 |
-| **風格基調 (Vibe)** | 內衣 (Lingerie) | `lingerie aesthetic, boudoir fashion, sheer intimates, lace bodysuit, provocateur` | 展現身體曲線，以透膚蕾絲、絲綢為主的私密性感穿搭。 |
-| **風格基調 (Vibe)** | 泳裝 (Swimwear) | `swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear` | 海灘或度假風格，包含比基尼、連身泳衣與度假罩衫。 |
-| **上身 (Tops)** | 合身襯衫 | `fitted shirt, crisp cotton poplin, clean silhouette` | 乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。 |
+| **風格基調 (Vibe)** | 千禧復古 (Y2K) | `Clothing with a retro aesthetic style from the Y2K era` | 千禧年初期風格，色彩鮮豔，懷舊又叛逆。 |
+| **風格基調 (Vibe)** | 極簡高級 (Minimalist Luxury) | `Clothing featuring minimalist style, clean lines, monochromatic colors, and fitted or oversized cuts` | 無明顯 logo，剪裁俐落乾淨，注重面料垂墜與高質感。 |
+| **風格基調 (Vibe)** | 復古龐克 (Retro Punk) | `Clothing with retro punk, British punk, and Japanese punk fashion aesthetics` | 帶有破壞感、鉚釘、皮革、格紋等元素，散發叛逆與次文化氣息。 |
+| **風格基調 (Vibe)** | 日系街頭 (Japanese Streetwear) | `Clothing with Japanese streetwear, oversized silhouette, layered clothing, Harajuku fashion` | 擅長多層次穿搭與 oversized 廓形，混合工裝與日常單品。 |
+| **風格基調 (Vibe)** | BDSM (拘束/束縛) | `Clothing with Featuring BDSM bondage aesthetics, leather, bondage straps, buckles, chains, and latex embellishments.` | 強烈的束縛感與支配性，使用皮革、乳膠、綁帶與金屬環等元素。 |
+| **風格基調 (Vibe)** | 巴洛克 (Baroque) | `Clothing with Baroque fashion, opulent aesthetic, ornate gold embroidery, luxurious fabrics, decadent` | 極致奢華與繁複，大量金色刺繡、天鵝絨、絲綢與戲劇化剪裁。 |
+| **風格基調 (Vibe)** | 維多利亞 (Victorian) | `Clothing with Victorian, gothic Victorian, high neck lace, corsets, romantic mourning dress` | 帶有禁慾與浪漫氣息，高領蕾絲、緊身馬甲與繁複皺褶。 |
+| **風格基調 (Vibe)** | 蘿莉塔 (Lolita) | `Clothing with Lolita fashion, sweet/gothic lolita, bell-shaped skirt, frills, rococo inspired` | 源自日本的洛可可風格，標誌性的鐘形裙襬、大量荷葉邊與蝴蝶結。 |
+| **風格基調 (Vibe)** | 女高中生 (JK/Schoolgirl) | `Clothing withJK uniform, Japanese school uniform aesthetic, sailor suit, pleated skirt, preppy` | 經典日本女子高校制服，包含水手服、百褶裙、西裝外套與針織衫。 |
+| **風格基調 (Vibe)** | 內衣 (Lingerie) | `Clothing with lingerie aesthetic, boudoir fashion, sheer intimates, lace bodysuit, provocateur` | 展現身體曲線，以透膚蕾絲、絲綢為主的私密性感穿搭。 |
+| **風格基調 (Vibe)** | 泳裝 (Swimwear) | `Clothing with swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear` | 海灘或度假風格，包含比基尼、連身泳衣與度假罩衫。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
+| **上身 (Tops)** | 合身襯衫 | `fitted shirt, crisp cotton poplin, clean silhouette` | 乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。 |
 | **上身 (Tops)** | 削肩針織上衣 | `ribbed sleeveless knit top, fitted silhouette, soft stretch texture` | 乾淨貼身的針織質地，能自然勾勒肩頸與上半身線條。 |
 | **上身 (Tops)** | 絲質細肩帶上衣 | `silk camisole top, delicate straps, fluid sheen` | 輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。 |
 | **上身 (Tops)** | 細肩帶上衣 | `camisole top, delicate shoulder straps, fitted silhouette` | 直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。 |
@@ -34,8 +33,8 @@
 | **上身 (Tops)** | 運動型內衣 | `sports bra, athletic support top, streamlined active silhouette` | 緊貼身體、運動感明確，適合活力、街頭與健身風格。 |
 | **上身 (Tops)** | 蕾絲緊身睡衣 | `fitted lace nightdress, body-skimming sleepwear, delicate texture` | 貼身的睡衣輪廓，兼具柔軟與親密感。 |
 | **上身 (Tops)** | 蕾絲寬鬆睡衣 | `loose lace sleepwear, relaxed nightdress silhouette, soft drape` | 較鬆身的睡衣輪廓，氣質更慵懶也更生活化。 |
-| **褲裝 (Pants)** | 高腰直筒牛仔褲 | `high-waisted straight-leg jeans, clean denim texture, everyday staple` | 最穩定的日常下身單品，適合城市、街拍與生活感畫面。 |
 | **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
+| **褲裝 (Pants)** | 高腰直筒牛仔褲 | `high-waisted straight-leg jeans, clean denim texture, everyday staple` | 最穩定的日常下身單品，適合城市、街拍與生活感畫面。 |
 | **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
 | **褲裝 (Pants)** | 牛仔熱褲 | `denim hot pants, short fitted shorts, casual summer styling` | 短版且貼腿，偏夏日、街頭與 Y2K 方向。 |
 | **褲裝 (Pants)** | 真理褲 | `micro athletic shorts, ultra-short sporty bottoms, casual fitted silhouette` | 超短運動感褲型，重點在腿部線條與青春活力。 |
@@ -45,8 +44,8 @@
 | **褲裝 (Pants)** | 破壞抽鬚牛仔寬褲 | `distressed baggy denim jeans, frayed edges, heavy wash denim` | 重度水洗、寬鬆廓形，帶隨性街頭感。 |
 | **褲裝 (Pants)** | 絲絨喇叭褲 | `velvet flared pants, 70s retro style, soft plush texture` | 帶有復古戲劇感與柔軟光澤。 |
 | **褲裝 (Pants)** | 亮面貼身皮褲 | `sleek fitted leather pants, glossy finish, sharp silhouette` | 緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。 |
-| **裙裝 (Skirts)** | 合身迷你裙 | `fitted mini skirt, clean tailored finish, sleek silhouette` | 高頻實用短裙，適合城市、寫真與時裝風格。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
+| **裙裝 (Skirts)** | 合身迷你裙 | `fitted mini skirt, clean tailored finish, sleek silhouette` | 高頻實用短裙，適合城市、寫真與時裝風格。 |
 | **裙裝 (Skirts)** | A 字裙 | `a-line skirt, structured flare, balanced feminine silhouette` | 腰部收合、裙擺自然展開，實用且好搭配。 |
 | **裙裝 (Skirts)** | 絲質長裙 | `silk maxi skirt, fluid drape, soft reflective sheen` | 垂墜感強、適合法式慵懶與高級飯店場景。 |
 | **裙裝 (Skirts)** | 百褶短裙 | `classic pleated mini skirt, crisp folds, youthful styling` | 學院感強，適合 JK、街頭與 Y2K 主題。 |
@@ -55,8 +54,8 @@
 | **裙裝 (Skirts)** | 緊身亮面皮裙 | `glossy fitted leather skirt, high-shine texture, body-hugging silhouette` | 反光感強烈，適合夜景與邊緣時裝主題。 |
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
 | **裙裝 (Skirts)** | 高腰 pencil skirt | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
-| **襪類 (Legwear)** | 透膚絲襪 | `sheer pantyhose, delicate translucent legwear, smooth finish` | 高頻實用，能與短裙、短褲與高跟鞋自然搭配。 |
 | **襪類 (Legwear)** | 全無 | `no legwear, bare legs, clean leg styling` | 不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。 |
+| **襪類 (Legwear)** | 透膚絲襪 | `sheer pantyhose, delicate translucent legwear, smooth finish` | 高頻實用，能與短裙、短褲與高跟鞋自然搭配。 |
 | **襪類 (Legwear)** | 蕾絲大腿絲襪 | `lace-top thigh-high stockings, sensual legwear, fitted silhouette` | 帶寫真與性感氛圍，適合內衣或飯店場景。 |
 | **襪類 (Legwear)** | 漁網絲襪 | `fishnet tights, open net texture, edgy styling` | 強化龐克、地下與夜晚街頭氣質。 |
 | **襪類 (Legwear)** | 膝上襪 | `over-knee socks, soft knit legwear, youthful styling` | 適合 JK、Lolita 與輕甜系搭配。 |
@@ -67,8 +66,8 @@
 | **外套 (Outerwear)** | 龐克皮衣 | `punk leather jacket, rebellious outerwear, edgy structured silhouette` | 皮革與強烈輪廓感明確，適合龐克、地下與夜景風格。 |
 | **外套 (Outerwear)** | 賽博反光科技風衣 | `iridescent reflective techwear trench coat, waterproof shell` | 在光線下折射不同色彩，未來感很強。 |
 | **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `fluffy teddy bear fleece jacket, soft plush texture, bulky shape` | 視覺柔軟保暖，適合冬季居家與街頭。 |
-| **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday finish, versatile casual style` | 最穩定的日常鞋款，適合街拍與生活感畫面。 |
 | **鞋款 (Shoes)** | 全無 | `barefoot styling, no shoes visible` | 不特別強調鞋款，適合床景、室內寫真或鏡頭不會拍到腳部的情境。 |
+| **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday finish, versatile casual style` | 最穩定的日常鞋款，適合街拍與生活感畫面。 |
 | **鞋款 (Shoes)** | 馬丁短靴 | `combat ankle boots, sturdy lace-up silhouette, rugged everyday edge` | 短版軍靴感鞋型，適合龐克、街頭與中性造型。 |
 | **鞋款 (Shoes)** | 馬丁長靴 | `tall combat boots, lace-up knee-high silhouette, strong structured presence` | 比短靴更強勢，適合地下、龐克與機能風格。 |
 | **鞋款 (Shoes)** | 籃球鞋 | `basketball sneakers, padded sporty silhouette, athletic streetwear energy` | 鞋型厚實、偏運動街頭感，適合休閒與 Y2K。 |
