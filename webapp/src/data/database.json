@@ -568,8 +568,8 @@
       },
       {
         "zh": "側光/陰陽光 (Split Lighting)",
-        "en": "split lighting, half face in shadow, half in light, extreme contrast, dramatic profile",
-        "desc": "光源剛好落在人物側邊的 90 度，使臉部一半全亮、一半隱藏在黑暗中，展現強烈雙面性與戲劇衝突。"
+        "en": "split lighting, strong side light, one side of the face softly shadowed, clean facial contrast, cinematic portrait lighting",
+        "desc": "光源從人物側邊照射，讓臉部明暗對比清楚，但仍保留自然膚色與真實五官，不會像舞台彩妝或半臉塗色。"
       },
       {
         "zh": "窗縫光/百葉窗光 (Window / Blind Slits Light)",

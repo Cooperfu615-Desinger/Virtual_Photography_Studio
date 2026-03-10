@@ -30,7 +30,7 @@
 | **光線方向與質感 (Light Direction & Quality)** | 倫勃朗光/三角光 (Rembrandt Lighting) | `Rembrandt lighting, dramatic side light, illuminated triangle under eye, moody` | 經典人像打光法。光源從大約45度角往下打，在人物臉頰背光處形成一個倒三角形光斑。極具古典立體感。 |
 | **光線方向與質感 (Light Direction & Quality)** | 蝴蝶光/派拉蒙光 (Butterfly Lighting) | `butterfly lighting, paramount lighting, shadow under nose, beauty light, glamorous` | 光源從鏡頭正上方往下打，在鼻子下方形成蝴蝶形陰影。能突顯顴骨，是好萊塢女星常用的唯美高光打法。 |
 | **光線方向與質感 (Light Direction & Quality)** | 輪廓光/背光 (Rim Light / Backlight) | `strong rim light, backlit, glowing edges, separated from background, halo effect` | 光源從主體正後方照射，在頭髮與肩膀邊緣勾勒出一道高光輪廓，能讓人物從深色背景中脫穎而出。 |
-| **光線方向與質感 (Light Direction & Quality)** | 側光/陰陽光 (Split Lighting) | `split lighting, half face in shadow, half in light, extreme contrast, dramatic profile` | 光源剛好落在人物側邊的 90 度，使臉部一半全亮、一半隱藏在黑暗中，展現強烈雙面性與戲劇衝突。 |
+| **光線方向與質感 (Light Direction & Quality)** | 側光/陰陽光 (Split Lighting) | `split lighting, strong side light, one side of the face softly shadowed, clean facial contrast, cinematic portrait lighting` | 光源從人物側邊照射，讓臉部明暗對比清楚，但仍保留自然膚色與真實五官，不會像舞台彩妝或半臉塗色。 |
 | **光線方向與質感 (Light Direction & Quality)** | 窗縫光/百葉窗光 (Window / Blind Slits Light) | `venetian blind shadows, soft window light slits, dappled light across face, noir aesthetic` | 光線透過百葉窗或是樹葉縫隙，在主體身上留下有條理或斑駁的幾何陰影，充滿復古黑色電影 (Film Noir) 氛圍。 |
 | **光線方向與質感 (Light Direction & Quality)** | 頂光 (Top Lighting) | `harsh overhead top lighting, deep eye socket shadows, moody, interrogate room` | 正前上方的強硬光源。會在眼窩、鼻子下方產生極深的陰影，營造疲憊、險惡或審訊室般的壓迫感。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 拍立得效果 (Polaroid Style) | `polaroid sx-70 style, instant film look, faded pastel colors, soft white border, lo-fi` | 帶有濃烈懷舊感，邊緣失焦、色彩偏淡偏粉（如褪色般），對比低且具有明顯的化學顯影特性。 |
