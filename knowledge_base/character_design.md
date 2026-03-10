@@ -11,10 +11,6 @@
 | **五官特徵 (Facial Features)** | 冷豔高級時裝臉 | `cold editorial beauty face, defined bone structure, sharp contour, aloof expression, luxury fashion aura` | 骨相乾淨、輪廓俐落，帶有時裝大片裡常見的冷感與高級距離感。 |
 | **五官特徵 (Facial Features)** | 清冷空靈仙氣臉 | `ethereal cold beauty face, pale refined features, distant gaze, delicate bone structure, airy elegance` | 清冷、空靈、疏離，像帶著霧感與仙氣的高級冷白美人。 |
 | **五官特徵 (Facial Features)** | 日系性感大姐臉 | `Japanese mature glamour face, sultry eyes, full lips, elegant confidence, seductive older-sister aura` | 走日本御姐系性感路線，成熟柔媚、穩定自信，帶有明顯的掌控感與女人味。 |
-| **膚色 (Skin Tone)** | 透亮白皙膚 | `radiant fair skin, softly glowing ivory complexion, healthy bright skin` | 帶有微微透亮感的白皙膚色，適合清新與時裝人像。 |
-| **膚色 (Skin Tone)** | 柔霧白皙膚 | `soft matte fair skin, velvety pale complexion, refined smooth skin` | 偏柔霧感的白皙膚質，細緻乾淨，帶有高級妝感。 |
-| **膚色 (Skin Tone)** | 暖調白皙膚 | `warm fair skin, soft peach undertone, healthy light complexion` | 帶有暖桃色底調的白皙膚色，看起來更有氣色與親和力。 |
-| **膚色 (Skin Tone)** | 自然白皙膚 | `natural fair skin, balanced neutral undertone, clean realistic complexion` | 介於冷暖之間的自然白皙膚色，最穩定也最百搭。 |
 | **膚質特徵 (Skin Details)** | 玻璃水光肌 | `glass skin, dewy luminous skin texture, hydrated reflective complexion` | 光澤明顯、飽水感高，適合韓系棚拍與近距離人像。 |
 | **膚質特徵 (Skin Details)** | 柔霧細緻肌 | `soft matte skin texture, refined pores, velvety smooth finish` | 細膩柔霧、不強調油光，適合高級時裝與乾淨妝面。 |
 | **膚質特徵 (Skin Details)** | 自然雀斑 | `natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail` | 鼻樑與臉頰帶有自然雀斑，能增加真實感與辨識度。 |

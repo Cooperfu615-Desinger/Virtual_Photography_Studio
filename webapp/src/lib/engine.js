@@ -217,7 +217,6 @@ function inferCharacterMeta(category, item) {
   let archetype = null;
 
   if (category.includes('Facial Features')) minVisibility = 'portrait';
-  if (category.includes('Skin Tone')) minVisibility = 'portrait';
   if (category.includes('Skin Details')) minVisibility = 'portrait';
   if (category.includes('Hairstyle')) minVisibility = 'medium';
   if (category.includes('Hair Color')) minVisibility = 'medium';
@@ -746,7 +745,6 @@ function buildCharacter(context, catalog) {
 
   if (context.subject.count === 1 && visibilityAtLeast(visibility, 'portrait')) {
     pickCategory('五官特徵 (Facial Features)', (item) => !lockedArchetype || !item.meta.archetype || item.meta.archetype === lockedArchetype);
-    pickCategory('膚色 (Skin Tone)');
     if (Math.random() < 0.55) pickCategory('膚質特徵 (Skin Details)');
   }
 
@@ -916,7 +914,6 @@ function extractCharacterSlots(character) {
   const findSlot = (token) => character.find((item) => item.id?.includes(token));
   return {
     facialFeatures: findSlot('character:五官特徵-facial-features:'),
-    skinTone: findSlot('character:膚色-skin-tone:'),
     skinDetails: findSlot('character:膚質特徵-skin-details:'),
     hairstyle: findSlot('character:髮型-hairstyle:'),
     hairColor: findSlot('character:髮色-hair-color:'),
@@ -958,7 +955,6 @@ function buildStructuredGrokPrompt(context, character, wardrobe, lightDirection,
     line('Light Direction', lightDirection.en),
     line('Film', film.en),
     line('Facial Features', characterSlots.facialFeatures?.en),
-    line('Skin Tone', characterSlots.skinTone?.en),
     line('Skin Details', characterSlots.skinDetails?.en),
     line('Hairstyle', characterSlots.hairstyle?.en),
     line('Hair Color', characterSlots.hairColor?.en),

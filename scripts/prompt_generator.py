@@ -139,7 +139,6 @@ def build_prompt():
     # Character & Pose
     structured["Character"].append(BASE_CHARACTER)
     extract_cat(character_data, '五官特徵', structured["Character"])
-    extract_cat(character_data, '膚色', structured["Character"])
     extract_cat(character_data, '膚質特徵', structured["Character"], prob=0.55)
     
     # Natural Hairstyles: 1,2,3,5,15,16,17,18,19,20
