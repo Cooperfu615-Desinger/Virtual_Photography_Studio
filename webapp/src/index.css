@@ -260,6 +260,7 @@ button:disabled {
 
 .preset-row {
   margin-top: 16px;
+  align-items: center;
 }
 
 .control-actions {
@@ -277,6 +278,10 @@ button:disabled {
 
 .primary-cta {
   min-width: 220px;
+}
+
+.subtle-action {
+  margin-left: auto;
 }
 
 .library-cta {

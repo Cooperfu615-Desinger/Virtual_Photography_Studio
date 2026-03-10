@@ -455,6 +455,10 @@ export default function App() {
               <Download size={16} />
               Export
             </button>
+            <button className="secondary subtle-action" onClick={() => setLocks(createEmptyLocks())}>
+              <RotateCcw size={16} />
+              Reset Controls
+            </button>
           </div>
 
           {presets.length > 0 ? (
@@ -483,9 +487,8 @@ export default function App() {
                 <Sparkles size={18} />
                 Generate
               </button>
-              <button className="secondary" onClick={() => setLocks(createEmptyLocks())}>
-                <RotateCcw size={16} />
-                Reset
+              <button className="secondary danger" onClick={() => setPrompts([])} disabled={prompts.length === 0}>
+                Clear Feed {prompts.length > 0 ? `(${prompts.length})` : ''}
               </button>
             </div>
             <button className="library-cta" onClick={() => setIsLibraryOpen(true)}>
@@ -523,11 +526,6 @@ export default function App() {
             <Download size={18} />
             Download Feed
           </button>
-          {prompts.length > 0 ? (
-            <button className="secondary danger" onClick={() => setPrompts([])}>
-              Clear Feed
-            </button>
-          ) : null}
         </div>
       </section>
 
