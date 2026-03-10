@@ -968,12 +968,31 @@ function buildSummary(summaryFields) {
   ].join(' | ');
 }
 
+function isNoneLikeItem(item) {
+  if (!item) return true;
+  const zh = stripMarkdown(item.zh || '');
+  const en = stripMarkdown(item.en || '').toLowerCase();
+
+  return (
+    zh === '全無' ||
+    en.startsWith('no ') ||
+    en.includes(' no ') ||
+    en.includes('bare legs') ||
+    en.includes('barefoot styling') ||
+    en === 'none'
+  );
+}
+
 function joinEn(items) {
-  return items.filter(Boolean).map((item) => item.en).filter(Boolean).join(', ');
+  return items
+    .filter((item) => item && !isNoneLikeItem(item))
+    .map((item) => item.en)
+    .filter(Boolean)
+    .join(', ');
 }
 
 function joinLimited(items, limit) {
-  return joinEn(items.slice(0, limit));
+  return joinEn(items.filter((item) => item && !isNoneLikeItem(item)).slice(0, limit));
 }
 
 const STYLE_PROMPT_INTROS = {
@@ -1029,38 +1048,51 @@ function extractWardrobeSlots(wardrobe) {
   };
 }
 
+function buildWardrobeCorePrompt(item) {
+  if (!item || isNoneLikeItem(item)) return '';
+  return `The outfit is dominated by ${item.en}. The overall outfit follows this fashion language from head to toe.`;
+}
+
 function buildStructuredGrokPrompt(context, character, wardrobe, lightDirection, film) {
   const styleIntro = STYLE_PROMPT_INTROS[context.style.zh] || 'editorial photography mood';
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const expressionAndPose = [characterSlots.expression?.en, characterSlots.pose?.en].filter(Boolean).join(', ');
-  const line = (label, value) => `${label}: ${value || 'none'}`;
+  const lines = [];
+  const addLine = (label, value) => {
+    if (!value) return;
+    lines.push(`${label}: ${value}`);
+  };
+  const addItemLine = (label, item) => {
+    if (!item || isNoneLikeItem(item)) return;
+    addLine(label, item.en);
+  };
 
-  return [
-    line('Subject Count', context.subject.en),
-    line('Aspect Ratio', context.aspectRatio.en),
-    line('Photography Style', `${styleIntro}. ${context.style.en}`),
-    line('Location', context.location.en),
-    line('Wardrobe Core', wardrobeSlots.wardrobeCore?.en),
-    line('Framing', context.framing.en),
-    line('Angle', context.angle.en),
-    line('Orbit Angle', context.orbit.en),
-    line('Lighting', context.lighting.en),
-    line('Light Direction', lightDirection.en),
-    line('Film', film.en),
-    line('Facial Features', characterSlots.facialFeatures?.en),
-    line('Skin Details', characterSlots.skinDetails?.en),
-    line('Hairstyle', characterSlots.hairstyle?.en),
-    line('Hair Color', characterSlots.hairColor?.en),
-    line('Expression and Pose', expressionAndPose),
-    line('Top', wardrobeSlots.top?.en),
-    line('Pants', wardrobeSlots.pants?.en),
-    line('Skirt', wardrobeSlots.skirt?.en),
-    line('Legwear', wardrobeSlots.legwear?.en),
-    line('Outerwear', wardrobeSlots.outerwear?.en),
-    line('Shoes', wardrobeSlots.shoes?.en),
-    line('Jewelry and Piercings', wardrobeSlots.jewelry?.en),
-  ].join('\n');
+  addLine('Subject Count', context.subject.en);
+  addLine('Aspect Ratio', context.aspectRatio.en);
+  addLine('Photography Style', `${styleIntro}. ${context.style.en}`);
+  addLine('Location', context.location.en);
+  addLine('Wardrobe Core', buildWardrobeCorePrompt(wardrobeSlots.wardrobeCore));
+  addLine('Framing', context.framing.en);
+  addLine('Angle', context.angle.en);
+  addLine('Orbit Angle', context.orbit.en);
+  addLine('Lighting', context.lighting.en);
+  addLine('Light Direction', lightDirection.en);
+  addLine('Film', film.en);
+  addItemLine('Facial Features', characterSlots.facialFeatures);
+  addItemLine('Skin Details', characterSlots.skinDetails);
+  addItemLine('Hairstyle', characterSlots.hairstyle);
+  addItemLine('Hair Color', characterSlots.hairColor);
+  addLine('Expression and Pose', expressionAndPose);
+  addItemLine('Top', wardrobeSlots.top);
+  addItemLine('Pants', wardrobeSlots.pants);
+  addItemLine('Skirt', wardrobeSlots.skirt);
+  addItemLine('Legwear', wardrobeSlots.legwear);
+  addItemLine('Outerwear', wardrobeSlots.outerwear);
+  addItemLine('Shoes', wardrobeSlots.shoes);
+  addItemLine('Jewelry and Piercings', wardrobeSlots.jewelry);
+
+  return lines.join('\n');
 }
 
 function buildPrompts(context, character, wardrobe, lightDirection, film, effect) {
