@@ -38,6 +38,14 @@ const REROLL_KEEP_KEY = 'vps.rerollKeep';
 const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const REROLL_KEEP_DEFAULT = ['styleId', 'locationId'];
 const MAX_STORED_PROMPTS = 120;
+const CHARACTER_CONTROL_ORDER = ['subjectCount', 'facialFeaturesId', 'hairstyleId', 'hairColorId', 'skinDetailsId', 'expressionId', 'poseId'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['styleId', 'wardrobeVibeId', 'topId', 'pantsId', 'skirtId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryId'];
+const SCENE_CAMERA_CONTROL_ORDER = ['aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
+
+function sortControls(controls, order) {
+  const orderMap = new Map(order.map((key, index) => [key, index]));
+  return [...controls].sort((a, b) => (orderMap.get(a.key) ?? 999) - (orderMap.get(b.key) ?? 999));
+}
 
 function buildMarkdownExport(data) {
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
@@ -174,9 +182,22 @@ export default function App() {
   const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(customLibrary), [customLibrary]);
   const lockControls = useMemo(() => getLockControls(customLibrary), [customLibrary]);
   const rerollOptions = useMemo(() => getPartialRerollOptions(), []);
-  const coreLockControls = useMemo(() => lockControls.filter((control) => control.section === 'core'), [lockControls]);
-  const characterLockControls = useMemo(() => lockControls.filter((control) => control.section === 'character'), [lockControls]);
-  const wardrobeLockControls = useMemo(() => lockControls.filter((control) => control.section === 'wardrobe'), [lockControls]);
+  const coreLockControls = useMemo(
+    () =>
+      sortControls(
+        lockControls.filter((control) => ['aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'].includes(control.key)),
+        SCENE_CAMERA_CONTROL_ORDER
+      ),
+    [lockControls]
+  );
+  const characterLockControls = useMemo(
+    () => sortControls(lockControls.filter((control) => control.section === 'character' || control.key === 'subjectCount'), CHARACTER_CONTROL_ORDER),
+    [lockControls]
+  );
+  const wardrobeLockControls = useMemo(
+    () => sortControls(lockControls.filter((control) => control.section === 'wardrobe' || control.key === 'styleId' || control.key === 'wardrobeVibeId'), STYLE_WARDROBE_CONTROL_ORDER),
+    [lockControls]
+  );
 
   const activeLockCount = Object.entries(locks).filter(([key, value]) => !['subjectCount', 'aspectRatio'].includes(key) && Boolean(value)).length;
   const normalizedSearch = searchQuery.trim().toLowerCase();
@@ -332,11 +353,11 @@ export default function App() {
 
           <div className="control-section">
             <div className="control-section-header">
-              <div className="control-section-title">Core Controls</div>
-              <p className="control-section-copy">對齊 Grok 高階欄位，先決定主題骨架與攝影條件。</p>
+              <div className="control-section-title">Character Setup</div>
+              <p className="control-section-copy">先決定人物數量、臉型、髮型、神情與姿勢，讓角色本身先成立。</p>
             </div>
             <div className="lock-grid">
-              {coreLockControls.map((control) => (
+              {characterLockControls.map((control) => (
                 <label key={control.key} className="field">
                   <span>{control.label}</span>
                   <select
@@ -362,11 +383,11 @@ export default function App() {
 
           <div className="control-section control-section-secondary">
             <div className="control-section-header">
-              <div className="control-section-title">Character Details</div>
-              <p className="control-section-copy">第二層控制人物細節，需要時可單獨鎖定五官、髮型與姿勢。</p>
+              <div className="control-section-title">Style & Wardrobe</div>
+              <p className="control-section-copy">第二步決定基調與服裝。`Wardrobe Core` 仍作為內部 family 依據，並會顯示在生成結果裡。</p>
             </div>
             <div className="lock-grid detail-lock-grid">
-              {characterLockControls.map((control) => (
+              {wardrobeLockControls.map((control) => (
                 <label key={control.key} className="field">
                   <span>{control.label}</span>
                   <select
@@ -392,11 +413,11 @@ export default function App() {
 
           <div className="control-section control-section-secondary">
             <div className="control-section-header">
-              <div className="control-section-title">Wardrobe Details</div>
-              <p className="control-section-copy">直接鎖定服裝細項。若同時指定褲裝與裙裝，系統會照單全收，不再代你修正搭配。</p>
+              <div className="control-section-title">Scene & Camera Language</div>
+              <p className="control-section-copy">最後決定比例、地點、構圖、光線與成像語言，完成畫面的拍攝條件。</p>
             </div>
             <div className="lock-grid detail-lock-grid">
-              {wardrobeLockControls.map((control) => (
+              {coreLockControls.map((control) => (
                 <label key={control.key} className="field">
                   <span>{control.label}</span>
                   <select

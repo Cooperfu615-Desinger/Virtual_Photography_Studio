@@ -17,6 +17,7 @@
 | **膚質特徵 (Skin Details)** | 淚痣／唇邊痣 | `small beauty mark under eye or near lips, delicate facial mole detail` | 臉上有細小痣點，位置通常在眼下或唇邊，能增加個性與記憶點。 |
 | **膚質特徵 (Skin Details)** | 微曬陽光感膚質 | `slightly sun-kissed skin texture, subtle warm flush, healthy outdoor glow` | 像曬過太陽後留下的自然暖感，帶有生活感與戶外氣息。 |
 | **髮型 (Hairstyle)** | 中分長直髮 | `long straight hair, center part, sleek` | 經典女神風，光澤感十足。 |
+| **髮型 (Hairstyle)** | 日系厚劉海長直髮 | `long straight hair with heavy Japanese bangs, smooth sleek silhouette` | 厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。 |
 | **髮型 (Hairstyle)** | 高位雙馬尾 | `high double pigtails, youthful` | 活潑俏皮，適合 Y2K 或 JK 風格。 |
 | **髮型 (Hairstyle)** | 韓系低包頭 | `low messy bun, wispy bangs` | 優雅隨興，臉側帶有修飾性的碎髮。 |
 | **髮型 (Hairstyle)** | 韓系層次中長髮 | `Korean layered medium-long hair, airy texture, soft face framing layers` | 現代韓系常見的中長層次髮，線條輕盈，修飾臉型效果好。 |

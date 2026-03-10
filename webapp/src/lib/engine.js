@@ -24,6 +24,7 @@ const LOCK_DEFINITIONS = [
   { key: 'wardrobeVibeId', label: 'Wardrobe Core', category: '風格基調 (Vibe)', section: 'core' },
   { key: 'framingId', label: 'Framing', category: '景別構圖 (Framing)', section: 'core' },
   { key: 'angleId', label: 'Angle', category: '相機視角 (Angle)', section: 'core' },
+  { key: 'orbitId', label: 'Orbit Angle', category: '拍攝方位 (Orbit Angle)', section: 'core' },
   { key: 'lightingId', label: 'Lighting', category: '光線類型 (Lighting Type)', section: 'core' },
   { key: 'lightDirectionId', label: 'Light Direction', category: '光線方向與質感 (Light Direction & Quality)', section: 'core' },
   { key: 'filmId', label: 'Film', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
@@ -49,6 +50,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'locationId', label: 'Location' },
   { key: 'framingId', label: 'Framing' },
   { key: 'angleId', label: 'Angle' },
+  { key: 'orbitId', label: 'Orbit' },
   { key: 'lightingId', label: 'Lighting' },
   { key: 'lightDirectionId', label: 'Light Direction' },
   { key: 'filmId', label: 'Film' },
@@ -213,6 +215,18 @@ function inferAngleMeta(_category, item) {
   return { tags: ['eye_contact_ok'] };
 }
 
+function inferOrbitMeta(_category, item) {
+  const haystack = toHaystack(item.zh, item.en, item.desc);
+  const tags = [];
+
+  if (hasAny(haystack, ['front-facing', 'straight-on', '正面'])) tags.push('front_view', 'eye_contact_ok');
+  if (hasAny(haystack, ['three-quarter', '45-degree', '315', '135', '225'])) tags.push('three_quarter');
+  if (hasAny(haystack, ['profile', '90-degree', '270'])) tags.push('profile_view');
+  if (hasAny(haystack, ['back view', 'facing away', 'rear'])) tags.push('back_view', 'no_eye_contact');
+
+  return { tags: withTags(tags) };
+}
+
 function inferLightingMeta(category, item) {
   const haystack = toHaystack(category, item.zh, item.en, item.desc);
   const tags = [];
@@ -343,6 +357,7 @@ function inferNegativeMeta(_category, item) {
 function inferCameraMeta(category, item) {
   if (category === '景別構圖 (Framing)') return inferFramingMeta(category, item);
   if (category === '相機視角 (Angle)') return inferAngleMeta(category, item);
+  if (category === '拍攝方位 (Orbit Angle)') return inferOrbitMeta(category, item);
   if (category === '光線類型 (Lighting Type)' || category === '光線方向與質感 (Light Direction & Quality)') {
     return inferLightingMeta(category, item);
   }
@@ -418,6 +433,7 @@ function buildCatalog(customLibrary = []) {
       locations: flatten(catalog.locations),
       framing: getByKey(catalog.camera, '景別構圖 (Framing)'),
       angle: getByKey(catalog.camera, '相機視角 (Angle)'),
+      orbit: getByKey(catalog.camera, '拍攝方位 (Orbit Angle)'),
       lighting: getByKey(catalog.camera, '光線類型 (Lighting Type)'),
       lightDirection: getByKey(catalog.camera, '光線方向與質感 (Light Direction & Quality)'),
       film: getByKey(catalog.camera, '底片與相機模擬 (Camera & Film Simulation)'),
@@ -459,6 +475,7 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'locationId') options = flatCatalog.locations;
       if (definition.key === 'framingId') options = flatCatalog.framing;
       if (definition.key === 'angleId') options = flatCatalog.angle;
+      if (definition.key === 'orbitId') options = flatCatalog.orbit;
       if (definition.key === 'lightingId') options = flatCatalog.lighting;
       if (definition.key === 'lightDirectionId') options = flatCatalog.lightDirection;
       if (definition.key === 'filmId') options = flatCatalog.film;
@@ -693,6 +710,7 @@ function expressionSupportsComposition(item, context) {
   if (!visibilityAtLeast(context.framing.meta.visibility, item.meta.minVisibility)) return false;
   if (item.meta.tags.includes('direct_gaze') && context.angle.meta.tags.includes('aerial')) return false;
   if (item.meta.tags.includes('requires_aerial') && !context.angle.meta.tags.includes('aerial')) return false;
+  if (item.meta.tags.includes('direct_gaze') && context.orbit?.meta.tags.includes('back_view')) return false;
   if (context.subject.count > 1 && (item.meta.tags.includes('direct_gaze') || item.meta.tags.includes('fine_detail'))) return false;
   return true;
 }
@@ -934,7 +952,7 @@ function buildSummaryFields(context, wardrobe, character) {
     character: characterBits.length > 0 ? `${subjectLabel}, ${characterBits.join(', ')}` : subjectLabel,
     wardrobe: wardrobe[0]?.zh || '-',
     location: context.location.zh || '-',
-    camera: `${context.framing.zh || '-'} / ${context.angle.zh || '-'} / ${context.aspectRatio.zh || '-'}`,
+    camera: `${context.framing.zh || '-'} / ${context.angle.zh || '-'} / ${context.orbit.zh || '-'} / ${context.aspectRatio.zh || '-'}`,
     lighting: context.lighting.zh || '-',
   };
 }
@@ -1026,6 +1044,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, lightDirection,
     line('Wardrobe Core', wardrobeSlots.wardrobeCore?.en),
     line('Framing', context.framing.en),
     line('Angle', context.angle.en),
+    line('Orbit Angle', context.orbit.en),
     line('Lighting', context.lighting.en),
     line('Light Direction', lightDirection.en),
     line('Film', film.en),
@@ -1056,6 +1075,7 @@ function buildPrompts(context, character, wardrobe, lightDirection, film, effect
     styleMood,
     context.framing.en,
     context.angle.en,
+    context.orbit.en,
     compositionHint,
     conciseCharacter,
     `wearing ${conciseWardrobe}`,
@@ -1089,6 +1109,7 @@ function buildSelectionSnapshot(context, wardrobe, character, lightDirection, fi
     locationId: context.location.id,
     framingId: context.framing.id,
     angleId: context.angle.id,
+    orbitId: context.orbit.id,
     lightingId: context.lighting.id,
     lightDirectionId: lightDirection.id,
     filmId: film.id,
@@ -1142,12 +1163,13 @@ function generateSinglePrompt(index, locks, customLibrary) {
     (item) => !(location.meta.tags.includes('club') && item.meta.visibility === 'close') && framingSupportsSubject(item, subject, aspectRatio)
   );
   const angle = pickWithLock(runtime.flatCatalog.angle, locks.angleId, (item) => framingSupportsAngle(framing, item), lowFrequencyPicker('low_frequency_angle'));
+  const orbit = pickWithLock(runtime.flatCatalog.orbit, locks.orbitId);
   const lighting = pickWithLock(runtime.flatCatalog.lighting, locks.lightingId, (item) => locationSupportsLighting(location, item));
   const lightDirection = pickWithLock(runtime.flatCatalog.lightDirection, locks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
   const film = pickWithLock(runtime.flatCatalog.film, locks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
   const effect = Math.random() > 0.65 ? sample(runtime.flatCatalog.effects) : null;
 
-  const context = { subject, aspectRatio, style, location, framing, angle, lighting, locks };
+  const context = { subject, aspectRatio, style, location, framing, angle, orbit, lighting, locks };
   const character = buildCharacter(context, runtime.catalog);
   const wardrobe = buildWardrobe({ ...context }, locks, runtime);
   context.wardrobe = wardrobe;
@@ -1171,7 +1193,7 @@ function generateSinglePrompt(index, locks, customLibrary) {
       Character: character,
       Wardrobe: wardrobe,
       Location: [location],
-      Framing: [framing, angle],
+      Framing: [framing, angle, orbit],
       Lighting: [lighting, lightDirection],
       'Camera & Film': [film, effect].filter(Boolean),
     },

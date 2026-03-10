@@ -168,8 +168,8 @@
     ],
     "上身 (Tops)": [
       {
-        "zh": "合身白襯衫",
-        "en": "fitted white shirt, crisp cotton poplin, clean silhouette",
+        "zh": "合身襯衫",
+        "en": "fitted shirt, crisp cotton poplin, clean silhouette",
         "desc": "乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。"
       },
       {
@@ -188,6 +188,11 @@
         "desc": "輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。"
       },
       {
+        "zh": "細肩帶上衣",
+        "en": "camisole top, delicate shoulder straps, fitted silhouette",
+        "desc": "直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。"
+      },
+      {
         "zh": "合身高領針織",
         "en": "fitted turtleneck knit top, fine gauge knit, sleek silhouette",
         "desc": "貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。"
@@ -196,6 +201,11 @@
         "zh": "寬鬆落肩 T 恤",
         "en": "oversized dropped-shoulder t-shirt, washed cotton jersey, relaxed fit",
         "desc": "生活感很強的基本款，適合街頭、居家與青春隨拍風格。"
+      },
+      {
+        "zh": "短版露臍 T-shirt",
+        "en": "cropped t-shirt, exposed waistline, casual fitted silhouette",
+        "desc": "最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。"
       },
       {
         "zh": "平口短版上衣",
@@ -221,6 +231,31 @@
         "zh": "透膚蕾絲連身上衣",
         "en": "sheer lace bodysuit top, floral lace texture, fitted silhouette",
         "desc": "連身式透膚蕾絲上衣，偏內衣與寫真主題。"
+      },
+      {
+        "zh": "比基尼",
+        "en": "bikini top, swimwear styling, minimal coverage silhouette",
+        "desc": "直接作為泳裝上身使用，適合海邊、泳池與度假感畫面。"
+      },
+      {
+        "zh": "蕾絲胸罩",
+        "en": "lace bra, lingerie styling, delicate fitted support",
+        "desc": "蕾絲質地明顯，偏內衣與私密寫真風格。"
+      },
+      {
+        "zh": "運動型內衣",
+        "en": "sports bra, athletic support top, streamlined active silhouette",
+        "desc": "緊貼身體、運動感明確，適合活力、街頭與健身風格。"
+      },
+      {
+        "zh": "蕾絲緊身睡衣",
+        "en": "fitted lace nightdress, body-skimming sleepwear, delicate texture",
+        "desc": "貼身的睡衣輪廓，兼具柔軟與親密感。"
+      },
+      {
+        "zh": "蕾絲寬鬆睡衣",
+        "en": "loose lace sleepwear, relaxed nightdress silhouette, soft drape",
+        "desc": "較鬆身的睡衣輪廓，氣質更慵懶也更生活化。"
       }
     ],
     "褲裝 (Pants)": [
@@ -233,6 +268,36 @@
         "zh": "全無",
         "en": "no pants, lower-body styling omitted",
         "desc": "不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。"
+      },
+      {
+        "zh": "低腰牛仔褲",
+        "en": "low-rise jeans, casual denim silhouette, exposed waist styling",
+        "desc": "千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。"
+      },
+      {
+        "zh": "牛仔熱褲",
+        "en": "denim hot pants, short fitted shorts, casual summer styling",
+        "desc": "短版且貼腿，偏夏日、街頭與 Y2K 方向。"
+      },
+      {
+        "zh": "真理褲",
+        "en": "micro athletic shorts, ultra-short sporty bottoms, casual fitted silhouette",
+        "desc": "超短運動感褲型，重點在腿部線條與青春活力。"
+      },
+      {
+        "zh": "蕾絲內褲",
+        "en": "lace panties, lingerie bottoms, delicate intimate styling",
+        "desc": "偏內衣與私密寫真風格，強調蕾絲質地與貼身感。"
+      },
+      {
+        "zh": "蕾絲丁字褲",
+        "en": "lace thong bottoms, minimal lingerie styling, intimate silhouette",
+        "desc": "覆蓋面積更少，風格明顯偏私密與寫真導向。"
+      },
+      {
+        "zh": "亮面緊身皮短褲",
+        "en": "glossy fitted leather shorts, sleek tight silhouette, fetish edge",
+        "desc": "帶有高反光與強勢感，適合夜景與邊緣時裝主題。"
       },
       {
         "zh": "破壞抽鬚牛仔寬褲",
@@ -262,6 +327,11 @@
         "desc": "不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。"
       },
       {
+        "zh": "A 字裙",
+        "en": "a-line skirt, structured flare, balanced feminine silhouette",
+        "desc": "腰部收合、裙擺自然展開，實用且好搭配。"
+      },
+      {
         "zh": "絲質長裙",
         "en": "silk maxi skirt, fluid drape, soft reflective sheen",
         "desc": "垂墜感強、適合法式慵懶與高級飯店場景。"
@@ -278,13 +348,13 @@
       },
       {
         "zh": "龐克格紋百褶裙",
-        "en": "punk tartan pleated skirt, red and black plaid, safety pin accents",
+        "en": "punk tartan pleated skirt, plaid pattern, safety pin accents",
         "desc": "經典格紋、叛逆氣息強。"
       },
       {
-        "zh": "亮面漆皮迷你裙",
-        "en": "glossy patent leather mini skirt, high shine texture, a-line",
-        "desc": "反光感強烈，適合夜景與 fetish 邊緣風格。"
+        "zh": "緊身亮面皮裙",
+        "en": "glossy fitted leather skirt, high-shine texture, body-hugging silhouette",
+        "desc": "反光感強烈，適合夜景與邊緣時裝主題。"
       },
       {
         "zh": "蘿莉塔鐘形澎裙",
@@ -299,8 +369,8 @@
     ],
     "襪類 (Legwear)": [
       {
-        "zh": "透膚黑絲襪",
-        "en": "sheer black pantyhose, delicate translucent legwear, smooth finish",
+        "zh": "透膚絲襪",
+        "en": "sheer pantyhose, delicate translucent legwear, smooth finish",
         "desc": "高頻實用，能與短裙、短褲與高跟鞋自然搭配。"
       },
       {
@@ -319,8 +389,8 @@
         "desc": "強化龐克、地下與夜晚街頭氣質。"
       },
       {
-        "zh": "白色膝上襪",
-        "en": "white over-knee socks, soft knit legwear, youthful styling",
+        "zh": "膝上襪",
+        "en": "over-knee socks, soft knit legwear, youthful styling",
         "desc": "適合 JK、Lolita 與輕甜系搭配。"
       },
       {
@@ -336,6 +406,21 @@
         "desc": "不加外套，保留上身與下身單品的主要輪廓。"
       },
       {
+        "zh": "西裝外套（不扣扣子）",
+        "en": "open blazer, unbuttoned tailored jacket, relaxed structured layering",
+        "desc": "維持西裝輪廓但不扣上釦子，適合時裝、辦公室與飯店場景。"
+      },
+      {
+        "zh": "運動連帽外套",
+        "en": "zip-up hoodie, sporty hooded jacket, casual athletic layering",
+        "desc": "偏日常與運動風，適合街頭與生活感畫面。"
+      },
+      {
+        "zh": "龐克皮衣",
+        "en": "punk leather jacket, rebellious outerwear, edgy structured silhouette",
+        "desc": "皮革與強烈輪廓感明確，適合龐克、地下與夜景風格。"
+      },
+      {
         "zh": "賽博反光科技風衣",
         "en": "iridescent reflective techwear trench coat, waterproof shell",
         "desc": "在光線下折射不同色彩，未來感很強。"
@@ -348,14 +433,39 @@
     ],
     "鞋款 (Shoes)": [
       {
-        "zh": "白色低筒球鞋",
-        "en": "white low-top sneakers, clean leather finish, versatile everyday style",
+        "zh": "低筒球鞋",
+        "en": "low-top sneakers, clean everyday finish, versatile casual style",
         "desc": "最穩定的日常鞋款，適合街拍與生活感畫面。"
       },
       {
         "zh": "全無",
         "en": "barefoot styling, no shoes visible",
         "desc": "不特別強調鞋款，適合床景、室內寫真或鏡頭不會拍到腳部的情境。"
+      },
+      {
+        "zh": "馬丁短靴",
+        "en": "combat ankle boots, sturdy lace-up silhouette, rugged everyday edge",
+        "desc": "短版軍靴感鞋型，適合龐克、街頭與中性造型。"
+      },
+      {
+        "zh": "馬丁長靴",
+        "en": "tall combat boots, lace-up knee-high silhouette, strong structured presence",
+        "desc": "比短靴更強勢，適合地下、龐克與機能風格。"
+      },
+      {
+        "zh": "籃球鞋",
+        "en": "basketball sneakers, padded sporty silhouette, athletic streetwear energy",
+        "desc": "鞋型厚實、偏運動街頭感，適合休閒與 Y2K。"
+      },
+      {
+        "zh": "慢跑鞋",
+        "en": "running shoes, lightweight athletic silhouette, casual movement-ready styling",
+        "desc": "更偏生活與運動機能感，適合日常與街拍。"
+      },
+      {
+        "zh": "高跟鞋",
+        "en": "high heels, elongated leg line, elegant elevated silhouette",
+        "desc": "最直接的成熟與性感鞋型，適合寫真、時裝與飯店場景。"
       },
       {
         "zh": "樂福鞋",
@@ -466,6 +576,48 @@
         "desc": "相機刻意傾斜，地平線不平。營造不安、混亂、速度感或極度戲劇化的電影張力。"
       }
     ],
+    "拍攝方位 (Orbit Angle)": [
+      {
+        "zh": "正面 (Front View)",
+        "en": "front-facing camera position, straight-on portrait view, symmetrical subject orientation",
+        "desc": "鏡頭正對人物正面，臉部與身體主要朝向鏡頭，資訊最完整。"
+      },
+      {
+        "zh": "正面 45 度 (Front Three-Quarter Left)",
+        "en": "front three-quarter angle, 45-degree turn, slightly angled toward camera, dimensional portrait view",
+        "desc": "人物相對鏡頭略微轉開，保留完整臉部資訊，同時更有立體感。"
+      },
+      {
+        "zh": "側面 90 度 (Left Profile)",
+        "en": "side profile view, 90-degree subject angle, clean facial profile, lateral composition",
+        "desc": "以側臉或側身輪廓為主，適合強調鼻樑、下顎線與輪廓。"
+      },
+      {
+        "zh": "背側 135 度 (Rear Three-Quarter Left)",
+        "en": "rear three-quarter angle, over-shoulder body orientation, partially turned away from camera",
+        "desc": "身體大幅轉離鏡頭，只保留部分側臉或回望可能性，適合帶出神秘感。"
+      },
+      {
+        "zh": "背面 180 度 (Back View)",
+        "en": "back view, subject facing away from camera, rear body orientation, turned back silhouette",
+        "desc": "以背影為主，臉部資訊大幅減少，重點轉向髮型、服裝線條與姿態。"
+      },
+      {
+        "zh": "背側 225 度 (Rear Three-Quarter Right)",
+        "en": "rear three-quarter angle from opposite side, body turned away, partial shoulder reveal",
+        "desc": "從另一側拍攝背側角度，保留肩線與背部輪廓，仍偏向背影導向。"
+      },
+      {
+        "zh": "側面 270 度 (Right Profile)",
+        "en": "right-side profile view, side-facing portrait angle, crisp lateral silhouette",
+        "desc": "與另一個側面角度相對，重點同樣在側臉與輪廓線條。"
+      },
+      {
+        "zh": "正面 315 度 (Front Three-Quarter Right)",
+        "en": "front three-quarter angle from opposite side, softly turned toward camera, dimensional portrait composition",
+        "desc": "從另一側的正面 45 度視角拍攝，保留臉部辨識度，也有自然轉身感。"
+      }
+    ],
     "鏡頭焦段 (Focal Length)": [
       {
         "zh": "35mm 廣角 (人文視角)",
@@ -528,13 +680,13 @@
     "光線方向與質感 (Light Direction & Quality)": [
       {
         "zh": "倫勃朗光/三角光 (Rembrandt Lighting)",
-        "en": "Rembrandt lighting, dramatic side light, illuminated triangle under eye, moody",
-        "desc": "經典人像打光法。光源從大約45度角往下打，在人物臉頰背光處形成一個倒三角形光斑。極具古典立體感。"
+        "en": "Rembrandt lighting, soft directional side light, sculpted cheek shadow, painterly portrait contrast, moody elegance",
+        "desc": "經典人像打光法。以柔和側光塑造臉部立體感與古典明暗層次，但不強調任何幾何形狀或圖案。"
       },
       {
         "zh": "蝴蝶光/派拉蒙光 (Butterfly Lighting)",
-        "en": "butterfly lighting, paramount lighting, shadow under nose, beauty light, glamorous",
-        "desc": "光源從鏡頭正上方往下打，在鼻子下方形成蝴蝶形陰影。能突顯顴骨，是好萊塢女星常用的唯美高光打法。"
+        "en": "butterfly lighting, centered beauty light, softly sculpted cheekbones, glamorous portrait lighting, clean facial highlights",
+        "desc": "光源從鏡頭前上方照射，重點是讓顴骨、鼻樑與臉部中央更乾淨立體，適合 beauty 與時裝人像。"
       },
       {
         "zh": "輪廓光/背光 (Rim Light / Backlight)",
@@ -548,13 +700,13 @@
       },
       {
         "zh": "窗縫光/百葉窗光 (Window / Blind Slits Light)",
-        "en": "venetian blind shadows, soft window light slits, dappled light across face, noir aesthetic",
-        "desc": "光線透過百葉窗或是樹葉縫隙，在主體身上留下有條理或斑駁的幾何陰影，充滿復古黑色電影 (Film Noir) 氛圍。"
+        "en": "directional window light, soft shadow bands, subtle noir mood, cinematic indoor contrast",
+        "desc": "偏向從窗邊進來的方向性光線，帶有輕微的層次陰影與室內電影感，但不追求臉上出現誇張條紋或幾何圖案。"
       },
       {
         "zh": "頂光 (Top Lighting)",
-        "en": "harsh overhead top lighting, deep eye socket shadows, moody, interrogate room",
-        "desc": "正前上方的強硬光源。會在眼窩、鼻子下方產生極深的陰影，營造疲憊、險惡或審訊室般的壓迫感。"
+        "en": "overhead top lighting, deep-set facial shadows, moody portrait contrast, tense cinematic atmosphere",
+        "desc": "光源從上方向下壓，讓眼窩與臉部下緣出現較深陰影，營造緊張、壓迫、帶點危險感的電影氣氛。"
       }
     ],
     "底片與相機模擬 (Camera & Film Simulation)": [
@@ -924,6 +1076,11 @@
         "zh": "中分長直髮",
         "en": "long straight hair, center part, sleek",
         "desc": "經典女神風，光澤感十足。"
+      },
+      {
+        "zh": "日系厚劉海長直髮",
+        "en": "long straight hair with heavy Japanese bangs, smooth sleek silhouette",
+        "desc": "厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。"
       },
       {
         "zh": "高位雙馬尾",

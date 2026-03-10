@@ -12,6 +12,14 @@
 | **相機視角 (Angle)** | 仰角 (Low Angle) | `low angle, looking up from below, heroic, powerful silhouette, dominance` | 由下往上拍。能拉長人物比例（特別是腿部），賦予主體強勢、英雄般或具壓迫感的氣場。 |
 | **相機視角 (Angle)** | 俯角 (High Angle) | `high angle, looking down from above, vulnerable, cute, foreshortening` | 由上往下拍。使人物顯得較小、脆弱或無辜，伴隨明顯的透視縮短效益。 |
 | **相機視角 (Angle)** | 荷蘭角/傾斜 (Dutch Angle) | `dutch angle, tilted camera, crooked horizon, unsettling, cinematic tension` | 相機刻意傾斜，地平線不平。營造不安、混亂、速度感或極度戲劇化的電影張力。 |
+| **拍攝方位 (Orbit Angle)** | 正面 (Front View) | `front-facing camera position, straight-on portrait view, symmetrical subject orientation` | 鏡頭正對人物正面，臉部與身體主要朝向鏡頭，資訊最完整。 |
+| **拍攝方位 (Orbit Angle)** | 正面 45 度 (Front Three-Quarter Left) | `front three-quarter angle, 45-degree turn, slightly angled toward camera, dimensional portrait view` | 人物相對鏡頭略微轉開，保留完整臉部資訊，同時更有立體感。 |
+| **拍攝方位 (Orbit Angle)** | 側面 90 度 (Left Profile) | `side profile view, 90-degree subject angle, clean facial profile, lateral composition` | 以側臉或側身輪廓為主，適合強調鼻樑、下顎線與輪廓。 |
+| **拍攝方位 (Orbit Angle)** | 背側 135 度 (Rear Three-Quarter Left) | `rear three-quarter angle, over-shoulder body orientation, partially turned away from camera` | 身體大幅轉離鏡頭，只保留部分側臉或回望可能性，適合帶出神秘感。 |
+| **拍攝方位 (Orbit Angle)** | 背面 180 度 (Back View) | `back view, subject facing away from camera, rear body orientation, turned back silhouette` | 以背影為主，臉部資訊大幅減少，重點轉向髮型、服裝線條與姿態。 |
+| **拍攝方位 (Orbit Angle)** | 背側 225 度 (Rear Three-Quarter Right) | `rear three-quarter angle from opposite side, body turned away, partial shoulder reveal` | 從另一側拍攝背側角度，保留肩線與背部輪廓，仍偏向背影導向。 |
+| **拍攝方位 (Orbit Angle)** | 側面 270 度 (Right Profile) | `right-side profile view, side-facing portrait angle, crisp lateral silhouette` | 與另一個側面角度相對，重點同樣在側臉與輪廓線條。 |
+| **拍攝方位 (Orbit Angle)** | 正面 315 度 (Front Three-Quarter Right) | `front three-quarter angle from opposite side, softly turned toward camera, dimensional portrait composition` | 從另一側的正面 45 度視角拍攝，保留臉部辨識度，也有自然轉身感。 |
 | **鏡頭焦段 (Focal Length)** | 35mm 廣角 (人文視角) | `shot on 35mm lens, documentary style, slight background blur, natural field of view` | 經典的人文與街拍焦段，視角適中不過度變形，能自然融合人物與環境背景。 |
 | **鏡頭焦段 (Focal Length)** | 50mm 標準鏡頭 (Standard) | `shot on 50mm lens, human eye perspective, classic portraiture, zero distortion` | 最接近人類單眼視覺的透視感，不變形，背景虛化自然，適用於絕大多數日常與棚拍。 |
 | **鏡頭焦段 (Focal Length)** | 85mm 中長焦 (人像鏡皇) | `shot on 85mm lens, shallow depth of field, creamy bokeh, precise facial rendering` | 完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。 |
@@ -23,12 +31,12 @@
 | **光線類型 (Lighting Type)** | 電影霓虹混光 (Neon Mixed Lighting) | `neon mixed lighting, cyberpunk city lights, teal and orange, bi-color illumination` | 利用城市霓虹燈或雙色補光燈，通常為紅藍或青橙對比，營造賽博龐克與王家衛浪漫感。 |
 | **光線類型 (Lighting Type)** | 棚內商業平光 (High Key Studio) | `high key studio lighting, bright softbox, white infinity cove, perfectly exposed` | 攝影棚內極度明亮、幾乎無陰影的佈光。畫面乾淨無瑕，常用於時尚、化妝品或型錄攝影。 |
 | **光線類型 (Lighting Type)** | 暗調戲劇光 (Low Key Chiaroscuro) | `low key lighting, chiaroscuro, cinematic shadows, mostly dark background, mysterious` | 畫面大部分區域為暗部交響，僅有少量光線勾勒主體立體感。充滿戲劇張力與古典油畫感。 |
-| **光線方向與質感 (Light Direction & Quality)** | 倫勃朗光/三角光 (Rembrandt Lighting) | `Rembrandt lighting, dramatic side light, illuminated triangle under eye, moody` | 經典人像打光法。光源從大約45度角往下打，在人物臉頰背光處形成一個倒三角形光斑。極具古典立體感。 |
-| **光線方向與質感 (Light Direction & Quality)** | 蝴蝶光/派拉蒙光 (Butterfly Lighting) | `butterfly lighting, paramount lighting, shadow under nose, beauty light, glamorous` | 光源從鏡頭正上方往下打，在鼻子下方形成蝴蝶形陰影。能突顯顴骨，是好萊塢女星常用的唯美高光打法。 |
+| **光線方向與質感 (Light Direction & Quality)** | 倫勃朗光/三角光 (Rembrandt Lighting) | `Rembrandt lighting, soft directional side light, sculpted cheek shadow, painterly portrait contrast, moody elegance` | 經典人像打光法。以柔和側光塑造臉部立體感與古典明暗層次，但不強調任何幾何形狀或圖案。 |
+| **光線方向與質感 (Light Direction & Quality)** | 蝴蝶光/派拉蒙光 (Butterfly Lighting) | `butterfly lighting, centered beauty light, softly sculpted cheekbones, glamorous portrait lighting, clean facial highlights` | 光源從鏡頭前上方照射，重點是讓顴骨、鼻樑與臉部中央更乾淨立體，適合 beauty 與時裝人像。 |
 | **光線方向與質感 (Light Direction & Quality)** | 輪廓光/背光 (Rim Light / Backlight) | `strong rim light, backlit, glowing edges, separated from background, halo effect` | 光源從主體正後方照射，在頭髮與肩膀邊緣勾勒出一道高光輪廓，能讓人物從深色背景中脫穎而出。 |
 | **光線方向與質感 (Light Direction & Quality)** | 側光/陰陽光 (Split Lighting) | `split lighting, strong side light, one side of the face softly shadowed, clean facial contrast, cinematic portrait lighting` | 光源從人物側邊照射，讓臉部明暗對比清楚，但仍保留自然膚色與真實五官，不會像舞台彩妝或半臉塗色。 |
-| **光線方向與質感 (Light Direction & Quality)** | 窗縫光/百葉窗光 (Window / Blind Slits Light) | `venetian blind shadows, soft window light slits, dappled light across face, noir aesthetic` | 光線透過百葉窗或是樹葉縫隙，在主體身上留下有條理或斑駁的幾何陰影，充滿復古黑色電影 (Film Noir) 氛圍。 |
-| **光線方向與質感 (Light Direction & Quality)** | 頂光 (Top Lighting) | `harsh overhead top lighting, deep eye socket shadows, moody, interrogate room` | 正前上方的強硬光源。會在眼窩、鼻子下方產生極深的陰影，營造疲憊、險惡或審訊室般的壓迫感。 |
+| **光線方向與質感 (Light Direction & Quality)** | 窗縫光/百葉窗光 (Window / Blind Slits Light) | `directional window light, soft shadow bands, subtle noir mood, cinematic indoor contrast` | 偏向從窗邊進來的方向性光線，帶有輕微的層次陰影與室內電影感，但不追求臉上出現誇張條紋或幾何圖案。 |
+| **光線方向與質感 (Light Direction & Quality)** | 頂光 (Top Lighting) | `overhead top lighting, deep-set facial shadows, moody portrait contrast, tense cinematic atmosphere` | 光源從上方向下壓，讓眼窩與臉部下緣出現較深陰影，營造緊張、壓迫、帶點危險感的電影氣氛。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 拍立得效果 (Polaroid Style) | `polaroid sx-70 style, instant film look, faded pastel colors, soft white border, lo-fi` | 帶有濃烈懷舊感，邊緣失焦、色彩偏淡偏粉（如褪色般），對比低且具有明顯的化學顯影特性。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 柯達 Portra 400 底片 | `Kodak Portra 400 film simulation, warm skin tones, fine film grain, analog aesthetic` | 業界公認最完美的膚色底片。擁有溫暖的橙橘色調、細膩的顆粒感與優秀的寬容度，呈現高品質的文青底片感。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 富士 Superia 400 底片 | `Fujifilm Superia 400 simulation, slightly green shadows, high contrast, everyday analog` | 偏冷色調，特別是在陰影處容易帶有微微的日系青綠色，綠色跟紅色的表現非常搶眼，適合日本街頭紀實。 |
