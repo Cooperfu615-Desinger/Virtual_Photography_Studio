@@ -17,22 +17,22 @@
         "desc": "夜晚都市、霓虹、人工混光與戲劇陰影，適合街頭、九龍、新宿、地下俱樂部等場景。"
       },
       {
-        "zh": "靜謐森林低調電影感",
+        "zh": "上田義彥",
         "en": "deep forest-like shadows, low-key lighting with dramatic chiaroscuro, muted cool color palette, side lighting carving delicate facial features, serene stoic expression, large format 8x10 film aesthetic, deep blacks, grainy texture, cinematic silence",
         "desc": "參考 Yoshihiko Ueda（上田義彥）類型的靜默自然人像語言 | 深色陰影、低調光、冷淡色盤與靜默情緒，適合森林、窗邊、低光室內等安靜場景。"
       },
       {
-        "zh": "高飽和花卉夢境感",
+        "zh": "蜷川實花",
         "en": "hyper-saturated portrait photography, vivid floral surroundings, intense reds and pinks, luminous skin, dreamy theatrical color, glamorous feminine styling, glossy highlights, surreal romantic atmosphere, vibrant cinematic beauty",
         "desc": "參考 Mika Ninagawa（蜷川實花）類型的濃烈色彩與花卉戲劇感 | 強烈飽和、鮮花、彩色光與夢境般張力，適合棚拍、花牆、彩色佈景與戲劇化寫真。"
       },
       {
-        "zh": "對稱留白疏離感",
+        "zh": "橫浪修",
         "en": "symmetrical portrait composition, quiet emotional distance, minimal gestures, spacious negative space, restrained color palette, still atmosphere, orderly visual rhythm, subtle documentary feeling, calm conceptual photography",
         "desc": "參考 Osamu Yokonami（橫浪修）類型的群像秩序與安靜疏離感 | 強調排列、留白、安靜與輕微距離感，適合雙人構圖、空曠室內、校舍與極簡空間。"
       },
       {
-        "zh": "日常微光詩意感",
+        "zh": "川內倫子",
         "en": "poetic everyday portrait, soft ambient daylight, light-filled atmosphere, delicate highlights, airy stillness, intimate daily moments, pastel softness, subtle emotional warmth, lyrical realism",
         "desc": "參考 Rinko Kawauchi（川內倫子）類型的輕盈日常與微光語言 | 輕盈、柔光、日常碎片與微過曝感，適合窗邊、居家、草地與安靜生活場景。"
       },
@@ -111,19 +111,9 @@
   "Wardrobe": {
     "風格基調 (Vibe)": [
       {
-        "zh": "賽博龐克 (Cyberpunk)",
-        "en": "cyberpunk aesthetic, high-tech dystopian, neon lit fashion, futuristic streetwear",
-        "desc": "充滿未來感、高科技與反烏托邦色彩，通常伴隨反光材質與霓虹燈效。"
-      },
-      {
         "zh": "千禧復古 (Y2K)",
         "en": "Y2K fashion, early 2000s aesthetic, retro-futurism, low-rise, baby tees",
         "desc": "千禧年初期風格，色彩鮮豔、帶點塑膠感與金屬光澤，懷舊又叛逆。"
-      },
-      {
-        "zh": "機能風 (Techwear)",
-        "en": "techwear fashion, utilitarian clothing, tactical aesthetic, functional gear, urban ninja",
-        "desc": "重視機能性與多重口袋、扣環設計，防潑水材質，都市忍者般的戰術感。"
       },
       {
         "zh": "極簡高級 (Minimalist Luxury)",
@@ -144,11 +134,6 @@
         "zh": "日系街頭 (Japanese Streetwear)",
         "en": "Japanese streetwear, oversized silhouette, layered clothing, Harajuku fashion",
         "desc": "擅長多層次穿搭與 oversized 廓形，混合工裝與日常單品。"
-      },
-      {
-        "zh": "民俗風 (Bohemian/Ethnic)",
-        "en": "bohemian fashion, ethnic style, folk aesthetic, embroidered pieces, earth tones",
-        "desc": "刺繡、流蘇、圖騰印花與大地色系，充滿異國情調與自由奔放感。"
       },
       {
         "zh": "BDSM (拘束/束縛)",
@@ -184,16 +169,6 @@
         "zh": "泳裝 (Swimwear)",
         "en": "swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear",
         "desc": "海灘或度假風格，包含比基尼、連身泳衣與度假罩衫。"
-      },
-      {
-        "zh": "軍裝 (Military)",
-        "en": "military fashion, tactical combat wear, camouflage, olive drab, epaulets, uniform",
-        "desc": "仿效軍隊制服，迷彩圖案、橄欖綠與硬挺肩線。"
-      },
-      {
-        "zh": "工業風 (Industrial)",
-        "en": "industrial fashion, dark industrial aesthetic, rugged materials, dystopian mechanic",
-        "desc": "粗獷、硬核，常見於廢墟或工廠背景，重磅帆布與做舊髒污感。"
       }
     ],
     "上身 (Tops)": [
@@ -238,29 +213,9 @@
         "desc": "輕盈透膚的絲綢或歐根紗，柔和光澤感明顯。"
       },
       {
-        "zh": "粗針織寬鬆毛衣",
-        "en": "chunky knit oversized sweater, cable knit, heavy yarn texture",
-        "desc": "帶有份量感的粗毛線編織，溫暖且有慵懶居家氛圍。"
-      },
-      {
         "zh": "短版緊身吊帶背心",
         "en": "cropped tight camisole, ribbed cotton tank top, form-fitting",
         "desc": "貼身露腰、偏 Y2K 與街頭感。"
-      },
-      {
-        "zh": "解構主義不對稱上衣",
-        "en": "deconstructed asymmetric top, avant-garde cut, uneven hem",
-        "desc": "剪裁不對稱、偏前衛藝術感。"
-      },
-      {
-        "zh": "機能戰術背心",
-        "en": "tactical utility vest, multiple pockets, nylon straps, webbing",
-        "desc": "多口袋、織帶與插扣，強化機能戰鬥感。"
-      },
-      {
-        "zh": "金屬光澤馬甲上衣",
-        "en": "metallic corset top, structured bodice, iridescent finish",
-        "desc": "帶立體支撐與金屬反光感，適合強風格時裝畫面。"
       },
       {
         "zh": "維多利亞高領蕾絲襯衫",
@@ -285,34 +240,14 @@
         "desc": "不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。"
       },
       {
-        "zh": "寬版垂墜西裝褲",
-        "en": "wide-leg tailored trousers, flowy suiting fabric, high-waisted",
-        "desc": "剪裁寬鬆、布料垂墜，適合極簡高級與商業棚拍。"
-      },
-      {
         "zh": "破壞抽鬚牛仔寬褲",
         "en": "distressed baggy denim jeans, frayed edges, heavy wash denim",
         "desc": "重度水洗、寬鬆廓形，帶隨性街頭感。"
       },
       {
-        "zh": "機能多口袋工裝褲",
-        "en": "tactical cargo pants, ripstop fabric, utilitarian pockets, straps",
-        "desc": "防撕裂材質與立體口袋，適合機能與工業風格。"
-      },
-      {
         "zh": "絲絨喇叭褲",
         "en": "velvet flared pants, 70s retro style, soft plush texture",
         "desc": "帶有復古戲劇感與柔軟光澤。"
-      },
-      {
-        "zh": "西裝短褲",
-        "en": "tailored shorts, structured suiting fabric, clean hemline",
-        "desc": "俐落正式但保留輕盈感，適合夏季時裝與城市造型。"
-      },
-      {
-        "zh": "工業風重磅帆布褲",
-        "en": "heavy canvas mechanic pants, rugged workwear texture, industrial durability",
-        "desc": "厚重耐磨且偏做舊，適合廢墟與工業場景。"
       },
       {
         "zh": "亮面貼身皮褲",
@@ -401,24 +336,9 @@
     ],
     "外套 (Outerwear)": [
       {
-        "zh": "合身西裝外套",
-        "en": "tailored blazer, sharp lapels, structured silhouette",
-        "desc": "最實用的時裝外套，能穩定提升正式感與商業感。"
-      },
-      {
         "zh": "全無",
         "en": "no outerwear, uncluttered silhouette",
         "desc": "不加外套，保留上身與下身單品的主要輪廓。"
-      },
-      {
-        "zh": "長版 trench coat",
-        "en": "long trench coat, flowing hem, classic structured outerwear",
-        "desc": "經典城市時裝外套，適合街頭、旅館與電梯場景。"
-      },
-      {
-        "zh": "復古做舊皮革騎士夾克",
-        "en": "distressed vintage leather biker jacket, worn textures, silver zippers",
-        "desc": "硬派經典、適合街頭與龐克主題。"
       },
       {
         "zh": "賽博反光科技風衣",
@@ -429,21 +349,6 @@
         "zh": "柔軟毛絨泰迪熊外套",
         "en": "fluffy teddy bear fleece jacket, soft plush texture, bulky shape",
         "desc": "視覺柔軟保暖，適合冬季居家與街頭。"
-      },
-      {
-        "zh": "丹寧拼接解構外套",
-        "en": "deconstructed patchwork denim jacket, raw edges, mismatched wash",
-        "desc": "布邊外露、手工感強。"
-      },
-      {
-        "zh": "羊毛雙排扣軍裝大衣",
-        "en": "military double-breasted wool overcoat, brass buttons, epaulets",
-        "desc": "長版、硬挺且帶權威感。"
-      },
-      {
-        "zh": "巴洛克金色刺繡斗篷",
-        "en": "Baroque velvet cape, heavy gold metallic embroidery, extravagant",
-        "desc": "奢華、戲劇化、典禮感很強。"
       }
     ],
     "鞋款 (Shoes)": [
@@ -463,11 +368,6 @@
         "desc": "都市、學院、極簡與法式風格都能搭。"
       },
       {
-        "zh": "芭蕾平底鞋",
-        "en": "ballet flats, soft leather finish, delicate feminine styling",
-        "desc": "輕盈優雅，適合法式、寫真與室內主題。"
-      },
-      {
         "zh": "細帶高跟涼鞋",
         "en": "strappy heeled sandals, delicate straps, elegant leg line",
         "desc": "適合飯店、晚間時裝與成熟優雅風格。"
@@ -476,11 +376,6 @@
         "zh": "尖頭短靴",
         "en": "pointed ankle boots, sleek leather finish, sharp silhouette",
         "desc": "帶有都會感與俐落感，適合秋冬與夜景。"
-      },
-      {
-        "zh": "厚底綁帶軍靴",
-        "en": "chunky platform combat boots, thick lug sole, heavy leather",
-        "desc": "增添下半身重量感與龐克氣息。"
       },
       {
         "zh": "機能老爹鞋",
@@ -493,14 +388,9 @@
         "desc": "90 年代感的穩定鞋型，簡約耐用。"
       },
       {
-        "zh": "金屬光澤尖頭高跟鞋",
-        "en": "metallic pointed-toe stilettos, glossy reflective finish, sharp silhouette",
-        "desc": "攻擊性與戲劇感較強，適合夜晚與強風格時裝。"
-      },
-      {
         "zh": "漆皮過膝長靴",
         "en": "patent leather thigh-high boots, sleek fetish-inspired silhouette",
-        "desc": "緊貼腿部線條，適合夜景、飯店與 fetish 邊緣主題。"
+        "desc": "緊貼腿部線條，適合夜景、飯店與 fetish。"
       }
     ],
     "飾品點綴 (Jewelry & Piercings)": [
@@ -745,49 +635,9 @@
   "Locations": {
     "攝影棚與背景 (Studio Sets)": [
       {
-        "zh": "現代高級時裝攝影棚",
-        "en": "luxury fashion studio, polished set walls, clean editorial space, soft controlled lighting",
-        "desc": "乾淨俐落的高級時裝棚，適合封面、型錄與精品感畫面。"
-      },
-      {
-        "zh": "極簡清水模空間",
-        "en": "minimalist brutalist studio, exposed concrete walls, empty space, stark shadows",
-        "desc": "乾淨、冷酷的幾何空間，以大面積灰色水泥牆為主，適合高冷或現代時尚攝影。"
-      },
-      {
-        "zh": "柔霧米白背景棚",
-        "en": "soft ivory studio backdrop, creamy neutral tone, gentle seamless background, refined portrait set",
-        "desc": "比純白更柔和的米白背景，適合乾淨人像、寫真與 beauty 拍攝。"
-      },
-      {
         "zh": "鏡面地板攝影棚",
         "en": "mirror floor studio, glossy reflective ground, clean set geometry, futuristic editorial mood",
         "desc": "地面具有鏡面反射，能增加造型與燈光的延伸感，適合時裝大片。"
-      },
-      {
-        "zh": "攝影棚沙發場景",
-        "en": "editorial sofa set in studio, styled furniture, controlled backdrop, magazine photoshoot atmosphere",
-        "desc": "棚拍中加入沙發或座椅道具，適合雜誌內頁、寫真與時尚人像。"
-      },
-      {
-        "zh": "歐式復古客廳",
-        "en": "vintage european living room set, ornate wallpaper, antique furniture, dark wood, daylight through window",
-        "desc": "充滿古典氣息，背景有華麗壁紙或古董沙發，光源通常設定為透過窗戶灑入的自然光。"
-      },
-      {
-        "zh": "美式摩鐵房間",
-        "en": "retro American motel room, cheap wood paneling, neon sign outside window, messy bed, cinematic mood",
-        "desc": "帶有公路電影感的頹廢空間，木紋牆面與窗外霓虹很適合寫真與敘事感拍攝。"
-      },
-      {
-        "zh": "未來感白色攝影棚",
-        "en": "futuristic white studio interior, rounded corners, glowing light panels, clean sci-fi set",
-        "desc": "保留未來感，但比太空艙更像可拍攝的人像空間，穩定度更高。"
-      },
-      {
-        "zh": "復古照相館",
-        "en": "old fashioned photography studio, vintage wooden camera, velvet drapes, classic backdrop",
-        "desc": "傳統老照相館，有絨布簾與老式相機，適合懷舊肖像與敘事人像。"
       },
       {
         "zh": "純潔白幕",
@@ -1112,16 +962,6 @@
         "zh": "自然白皙膚",
         "en": "natural fair skin, balanced neutral undertone, clean realistic complexion",
         "desc": "介於冷暖之間的自然白皙膚色，最穩定也最百搭。"
-      },
-      {
-        "zh": "健康小麥膚",
-        "en": "healthy wheat-toned skin, warm beige complexion, naturally sun-kissed look",
-        "desc": "帶有陽光感的小麥膚色，真實自然，適合戶外與生活感主題。"
-      },
-      {
-        "zh": "健康古銅膚",
-        "en": "healthy bronze skin, warm sun-tanned complexion, rich golden-brown tone",
-        "desc": "更深一階的古銅膚色，帶有成熟、性感與陽光感。"
       }
     ],
     "膚質特徵 (Skin Details)": [
@@ -1153,204 +993,139 @@
     ],
     "髮型 (Hairstyle)": [
       {
-        "zh": "1. 俐落直短髮 (一刀切)",
-        "en": "boxy blunt-cut bob, straight hair",
-        "desc": "齊平且乾淨的線條，具備現代高級感。"
-      },
-      {
-        "zh": "2. 中分長直髮",
+        "zh": "中分長直髮",
         "en": "long straight hair, center part, sleek",
         "desc": "經典女神風，光澤感十足。"
       },
       {
-        "zh": "3. 法式大波浪",
+        "zh": "法式大波浪",
         "en": "loose voluminous waves, french style",
         "desc": "蓬鬆且浪漫，帶有一點不經意的慵懶感。"
       },
       {
-        "zh": "4. 高位雙馬尾",
+        "zh": "高位雙馬尾",
         "en": "high double pigtails, youthful",
         "desc": "活潑俏皮，適合 Y2K 或 JK 風格。"
       },
       {
-        "zh": "5. 韓系低包頭",
+        "zh": "韓系低包頭",
         "en": "low messy bun, wispy bangs",
         "desc": "優雅隨興，臉側帶有修飾性的碎髮。"
       },
       {
-        "zh": "6. 韓系層次中長髮",
+        "zh": "韓系層次中長髮",
         "en": "Korean layered medium-long hair, airy texture, soft face framing layers",
         "desc": "現代韓系常見的中長層次髮，線條輕盈，修飾臉型效果好。"
       },
       {
-        "zh": "7. 高級感低盤髮",
+        "zh": "高級感低盤髮",
         "en": "sleek low chignon, polished updo, elegant clean finish",
         "desc": "低位盤髮乾淨俐落，適合精品時裝、晚宴與高級商攝。"
       },
       {
-        "zh": "8. 極短寸頭",
-        "en": "buzz cut, very short cropped hair",
-        "desc": "極簡主義，展現強大臉部輪廓。"
-      },
-      {
-        "zh": "9. 濕髮感（微濕）",
-        "en": "wet-look hair, slicked back, gelled",
-        "desc": "像是剛出水或用了大量髮膠的時尚感。"
-      },
-      {
-        "zh": "10. 復古指推波紋",
-        "en": "finger waves, 1920s vintage style",
-        "desc": "貼合頭部的規律曲線，帶有 1920 年代經典復古女星氣質。"
-      },
-      {
-        "zh": "11. 韓系空氣瀏海直髮",
+        "zh": "韓系空氣瀏海直髮",
         "en": "see-through bangs, long straight hair, airy Korean styling",
         "desc": "輕盈空氣瀏海配上筆直長髮，是最常見也最穩定的韓系清透髮型。"
       },
       {
-        "zh": "12. 自然蓬鬆鎖骨髮",
+        "zh": "自然蓬鬆鎖骨髮",
         "en": "soft collarbone-length hair, airy volume, naturally tousled blowout",
         "desc": "長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。"
       },
       {
-        "zh": "13. 雙編髮",
+        "zh": "雙編髮",
         "en": "twin braids, neat braided hairstyle, soft face-framing strands",
         "desc": "經典雙編髮更日常也更好駕馭，帶有清新與俏皮感。"
       },
       {
-        "zh": "14. 遮眼瀏海",
-        "en": "long bangs covering eyes, emo style",
-        "desc": "神秘、帶有孤立感的頹廢美。"
-      },
-      {
-        "zh": "15. 高馬尾",
-        "en": "sleek high ponytail, tight pull",
-        "desc": "銳利、專業且充滿視覺力量。"
-      },
-      {
-        "zh": "16. 及肩內彎鮑伯",
+        "zh": "及肩內彎鮑伯",
         "en": "shoulder-length bob, curled ends",
         "desc": "溫婉的中長度，帶有微微的內彎弧度。"
       },
       {
-        "zh": "17. 側分深大波浪",
+        "zh": "側分深大波浪",
         "en": "deep side part, glamour waves",
         "desc": "展現成熟與優雅，適合商業攝影。"
       },
       {
-        "zh": "18. 蓬鬆隨性馬尾",
+        "zh": "蓬鬆隨性馬尾",
         "en": "undone ponytail, high placement, flyaways",
         "desc": "帶有細微碎髮的隨意感，自然生活氣息。"
-      },
-      {
-        "zh": "19. 層次碎剪長髮",
-        "en": "shaggy long layers, choppy hair ends",
-        "desc": "強調頭髮的動律與空氣感。"
-      },
-      {
-        "zh": "20. 法式低麻花辮",
-        "en": "low french braid, softly woven braid, romantic loose texture",
-        "desc": "低位麻花辮帶有法式鬆弛感，兼具優雅與現代感。"
       }
     ],
     "髮色 (Hair Color)": [
       {
-        "zh": "1. 自然黑髮",
+        "zh": "自然黑",
         "en": "glossy natural black hair",
         "desc": "最穩定也最百搭的自然黑髮，適合大多數日常與商業風格。"
       },
       {
-        "zh": "2. 柔霧黑茶髮",
+        "zh": "柔霧黑茶",
         "en": "soft black tea brown hair, muted sheen",
         "desc": "黑中帶一點茶棕感，低調柔和，常見於亞洲系寫真。"
       },
       {
-        "zh": "3. 深咖啡棕髮",
+        "zh": "深咖啡棕",
         "en": "deep coffee brown hair, rich brunette tone",
         "desc": "穩定成熟的深棕色，帶有自然高級感。"
       },
       {
-        "zh": "4. 栗子棕髮",
+        "zh": "栗子棕",
         "en": "chestnut brown hair, warm natural gloss",
         "desc": "溫暖日常的栗棕色，適合多數膚色與造型。"
       },
       {
-        "zh": "5. 奶茶棕髮",
+        "zh": "奶茶棕",
         "en": "milk tea brown hair, soft beige-brown tone",
         "desc": "帶有柔霧感的淺棕色，是近年非常常見的主流染髮。"
       },
       {
-        "zh": "6. 蜂蜜茶棕髮",
+        "zh": "蜂蜜茶棕",
         "en": "honey tea brown hair, golden warm undertone",
         "desc": "帶一點暖金調的茶棕色，顯得柔和明亮。"
       },
       {
-        "zh": "7. 亞麻冷棕髮",
+        "zh": "亞麻冷棕",
         "en": "cool ash brown hair, matte smoky finish",
         "desc": "冷調棕色乾淨耐看，能帶出高級與清透感。"
       },
       {
-        "zh": "8. 焦糖棕髮",
-        "en": "caramel brown hair, warm glossy brown tone",
-        "desc": "比一般棕色更有暖度與光澤，適合時裝與生活感主題。"
-      },
-      {
-        "zh": "9. 霧感巧克力棕髮",
-        "en": "muted chocolate brown hair, soft depth and shine",
-        "desc": "深巧克力棕帶些霧感，沉穩但不厚重。"
-      },
-      {
-        "zh": "10. 深酒紅棕髮",
-        "en": "deep burgundy brown hair, subtle wine-red undertone",
-        "desc": "帶有低調紅調的深棕髮色，成熟且有女人味。"
-      },
-      {
-        "zh": "11. 菸草銀灰髮",
-        "en": "smoky silver grey hair, muted metallic tone",
-        "desc": "偏冷感的銀灰色，仍維持在相對可控的時尚範圍內。"
-      },
-      {
-        "zh": "12. 砂金亞麻髮",
-        "en": "sandy beige blonde hair, soft natural blonde tone",
-        "desc": "比白金更自然柔和的淺金色，適合現代時裝感。"
-      },
-      {
-        "zh": "13. 黑髮＋白金內層染",
+        "zh": "黑＋白金內層染",
         "en": "black hair with platinum inner layer dye",
         "desc": "外層自然黑、內層白金，低調中帶有強烈層次感。"
       },
       {
-        "zh": "14. 深棕髮＋灰霧挑染",
+        "zh": "深棕＋灰霧挑染",
         "en": "deep brown hair with smoky ash highlights",
         "desc": "在深棕基底上加入灰霧挑染，時髦但不會過於誇張。"
       },
       {
-        "zh": "15. 黑髮＋單側銀白分色",
+        "zh": "黑＋單側銀白分色",
         "en": "black hair with one-side silver white split dye",
         "desc": "一側保留深色、一側做銀白分色，視覺辨識度強。"
       },
       {
-        "zh": "16. 深髮根＋蜂蜜棕漸層",
+        "zh": "深髮根＋蜂蜜棕漸層",
         "en": "dark roots with honey brown gradient hair",
         "desc": "從深髮根自然過渡到蜂蜜棕，層次感明顯且容易搭配。"
       },
       {
-        "zh": "17. 黑髮＋酒紅耳圈染",
+        "zh": "黑＋酒紅耳圈染",
         "en": "black hair with burgundy face-framing highlights",
         "desc": "臉側耳圈區加入酒紅色，能提亮臉部輪廓。"
       },
       {
-        "zh": "18. 冷棕髮＋奶灰髮尾染",
+        "zh": "冷棕＋奶灰髮尾染",
         "en": "cool brown hair with milky ash dyed ends",
         "desc": "整體仍偏主流冷棕，但髮尾多了柔和灰感變化。"
       },
       {
-        "zh": "19. 黑髮＋藍黑局部挑染",
+        "zh": "黑＋藍黑局部挑染",
         "en": "black hair with blue-black accent highlights",
         "desc": "在黑髮中加入低調藍黑挑染，適合夜景或冷調主題。"
       },
       {
-        "zh": "20. 深棕髮＋玫瑰粉細挑染",
+        "zh": "深棕＋玫瑰粉細挑染",
         "en": "deep brown hair with subtle rose pink highlights",
         "desc": "以深棕為主體，只在局部加入玫瑰粉細挑染，甜感但不浮誇。"
       }
@@ -1365,11 +1140,6 @@
         "zh": "半閉眼慵懶挑逗",
         "en": "sleepy seductive half-lidded eyes, languid drowsy expression, bedroom eyes",
         "desc": "慵懶且帶有挑逗意味，時尚感強烈。"
-      },
-      {
-        "zh": "回眸側望 (偷瞄)",
-        "en": "looking back over shoulder, glancing sidelong, fleeting gaze, mysterious and inviting",
-        "desc": "神秘且轉瞬即逝的邂逅感。"
       },
       {
         "zh": "淡漠高冷",
@@ -1392,19 +1162,9 @@
         "desc": "自然、無防備的開心大笑，充滿生命力。"
       },
       {
-        "zh": "驚恐/暗中窺視",
-        "en": "wide startled eyes, caught off guard expression, paranoid sidelong glance, tense alertness",
-        "desc": "受到驚嚇或暗中警戒的緊張神情。"
-      },
-      {
         "zh": "慵懶出神/唇微開",
         "en": "lips slightly parted, dreamy unfocused gaze, lost in thought, languid and dazed",
         "desc": "嘴唇微開、眼神渙散，彷彿沉浸在白日夢中。"
-      },
-      {
-        "zh": "驕傲俯視 (輕蔑)",
-        "en": "looking down slightly, proud and dismissive gaze, slight sneer, queen-like superiority",
-        "desc": "帶有輕微俯視角度的高傲神情，女王氣場全開。"
       }
     ],
     "姿勢與肢體語言 (Pose & Body Language)": [
@@ -1439,24 +1199,9 @@
         "desc": "從正上方俯拍的躺姿，帶有夢幻輕盈的感覺。"
       },
       {
-        "zh": "撥髮遮面 (半遮臉)",
-        "en": "hand brushing hair across face, half-face hidden by hair, windswept and candid",
-        "desc": "用手撥髮、半遮臉的自然瞬間，兼具神秘與率真感。"
-      },
-      {
-        "zh": "雙臂展開 (解放感)",
-        "en": "arms spread wide, head tilted back, liberating pose, full-body freedom expression",
-        "desc": "雙臂張開、頭向後仰，充滿解放感與生命能量。"
-      },
-      {
         "zh": "蹲坐地上 (親近感)",
         "en": "crouching down on ground, elbows on knees, casual squat pose, street level angle",
         "desc": "蹲坐在地，低角度街拍感，帶有親近感。"
-      },
-      {
-        "zh": "側躺沙發/床緣",
-        "en": "lying sideways on sofa edge, chin resting on hand, languid reclined pose, editorial mood",
-        "desc": "側躺倚著家具，下巴托在手上，充滿雜誌大片的氛圍。"
       },
       {
         "zh": "雜誌封面站姿",
@@ -1464,19 +1209,9 @@
         "desc": "像時尚雜誌封面主視覺的站姿，穩定、自信，適合主畫面構圖。"
       },
       {
-        "zh": "手插腰胯時裝姿勢",
-        "en": "hand on hip fashion pose, weight on one leg, confident runway-inspired stance",
-        "desc": "一手插腰、身體重心放單側，能強調服裝輪廓與比例。"
-      },
-      {
         "zh": "坐姿交叉腿大片感",
         "en": "crossed-leg seated editorial pose, poised posture, magazine spread mood",
         "desc": "坐姿帶有成熟時裝大片感，適合椅子、沙發或場景道具。"
-      },
-      {
-        "zh": "轉身回望編輯感",
-        "en": "turning away then looking back at camera, editorial over-shoulder pose",
-        "desc": "身體先轉開、頭部再回望鏡頭，常見於雜誌跨頁與時裝拍攝。"
       },
       {
         "zh": "抬手整理頭髮",
@@ -1494,19 +1229,9 @@
         "desc": "坐在窗邊、身體自然放鬆，帶有日系寫真常見的安靜氛圍。"
       },
       {
-        "zh": "床邊半坐半躺寫真姿勢",
-        "en": "half-seated half-reclined on bed edge, soft gravure-inspired pose",
-        "desc": "半坐半躺在床邊，適合寫真集與帶些親密感的室內場景。"
-      },
-      {
         "zh": "街頭低頭看手機隨拍感",
         "en": "looking down at phone while standing, candid street snapshot pose",
         "desc": "像街頭被捕捉到的日常片段，現代感強，也很適合生活系畫面。"
-      },
-      {
-        "zh": "電梯鏡自拍姿勢",
-        "en": "mirror selfie pose, holding phone in elevator mirror, body slightly turned",
-        "desc": "手持手機對鏡自拍，帶有社群媒體與現代隨拍感。"
       },
       {
         "zh": "沙發慵懶伸展姿勢",

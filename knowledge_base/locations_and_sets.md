@@ -4,15 +4,7 @@
 
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺氛圍與空間感 (Visual & Spatial Context) |
 | :--- | :--- | :--- | :--- |
-| **攝影棚與背景 (Studio Sets)** | 現代高級時裝攝影棚 | `luxury fashion studio, polished set walls, clean editorial space, soft controlled lighting` | 乾淨俐落的高級時裝棚，適合封面、型錄與精品感畫面。 |
-| **攝影棚與背景 (Studio Sets)** | 極簡清水模空間 | `minimalist brutalist studio, exposed concrete walls, empty space, stark shadows` | 乾淨、冷酷的幾何空間，以大面積灰色水泥牆為主，適合高冷或現代時尚攝影。 |
-| **攝影棚與背景 (Studio Sets)** | 柔霧米白背景棚 | `soft ivory studio backdrop, creamy neutral tone, gentle seamless background, refined portrait set` | 比純白更柔和的米白背景，適合乾淨人像、寫真與 beauty 拍攝。 |
 | **攝影棚與背景 (Studio Sets)** | 鏡面地板攝影棚 | `mirror floor studio, glossy reflective ground, clean set geometry, futuristic editorial mood` | 地面具有鏡面反射，能增加造型與燈光的延伸感，適合時裝大片。 |
-| **攝影棚與背景 (Studio Sets)** | 攝影棚沙發場景 | `editorial sofa set in studio, styled furniture, controlled backdrop, magazine photoshoot atmosphere` | 棚拍中加入沙發或座椅道具，適合雜誌內頁、寫真與時尚人像。 |
-| **攝影棚與背景 (Studio Sets)** | 歐式復古客廳 | `vintage european living room set, ornate wallpaper, antique furniture, dark wood, daylight through window` | 充滿古典氣息，背景有華麗壁紙或古董沙發，光源通常設定為透過窗戶灑入的自然光。 |
-| **攝影棚與背景 (Studio Sets)** | 美式摩鐵房間 | `retro American motel room, cheap wood paneling, neon sign outside window, messy bed, cinematic mood` | 帶有公路電影感的頹廢空間，木紋牆面與窗外霓虹很適合寫真與敘事感拍攝。 |
-| **攝影棚與背景 (Studio Sets)** | 未來感白色攝影棚 | `futuristic white studio interior, rounded corners, glowing light panels, clean sci-fi set` | 保留未來感，但比太空艙更像可拍攝的人像空間，穩定度更高。 |
-| **攝影棚與背景 (Studio Sets)** | 復古照相館 | `old fashioned photography studio, vintage wooden camera, velvet drapes, classic backdrop` | 傳統老照相館，有絨布簾與老式相機，適合懷舊肖像與敘事人像。 |
 | **攝影棚與背景 (Studio Sets)** | 純潔白幕 | `infinite white background, seamless paper roll, isolated subject, commercial white` | 商業感極強，人物彷彿漂浮在純白無垠空間中。 |
 | **攝影棚與背景 (Studio Sets)** | 深邃黑幕 | `pitch black background, pure dark void, zero ambient light, dramatic isolation` | 絕對黑暗，能將所有注意力集中在被光照到的主體上。 |
 | **攝影棚與背景 (Studio Sets)** | 莫蘭迪灰背景 | `medium grey seamless backdrop, neutral tone, subtle texture, studio portraiture` | 最不會干擾膚色的中性灰背景，穩定且高級。 |
