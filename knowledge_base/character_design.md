@@ -45,14 +45,14 @@
 | **神情與眼神 (Expression & Gaze)** | 望向遠方/若有所思 | `gazing into distance, thoughtful contemplation, wistful expression, dreaming look` | 眼神飄向遠方，沉浸在自己的世界裡。 |
 | **神情與眼神 (Expression & Gaze)** | 大笑/自然喜悅 | `genuine laughing expression, natural teeth smile, candid joy, uninhibited happiness` | 自然、無防備的開心大笑，充滿生命力。 |
 | **神情與眼神 (Expression & Gaze)** | 慵懶出神/唇微開 | `lips slightly parted, dreamy unfocused gaze, lost in thought, languid and dazed` | 嘴唇微開、眼神渙散，彷彿沉浸在白日夢中。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 靠牆慵懶倚靠 | `leaning against wall, one shoulder against wall, effortless cool` | 漫不經心的率性感，輕靠牆面或柱子。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 側身慵懶倚靠 | `relaxed leaning posture, body weight shifted to one side, effortless cool` | 身體重心偏向單側，呈現漫不經心的率性感，但不指定任何背景物件。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 坐姿/蜷縮 (脆弱感) | `curled up sitting pose, knees drawn to chest, vulnerable and introspective` | 抱膝蜷縮，傳遞內斂或自我保護的心理狀態。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 動態走路/動作殘影 | `mid-stride walking, dynamic movement, hair flying, candid action shot` | 捕捉行走瞬間，充滿動態感與生命力。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 高挑站姿 (權力姿態) | `upright commanding posture, confident power pose, dominant stance, shoulders back` | 挺胸站立，充滿支配感與自信。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 蹲坐地上 (親近感) | `crouching down on ground, elbows on knees, casual squat pose, street level angle` | 蹲坐在地，低角度街拍感，帶有親近感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 雜誌封面站姿 | `editorial cover pose, shoulders open, body slightly turned, direct confident stance` | 像時尚雜誌封面主視覺的站姿，穩定、自信，適合主畫面構圖。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿交叉腿大片感 | `crossed-leg seated editorial pose, poised posture, magazine spread mood` | 坐姿帶有成熟時裝大片感，適合椅子、沙發或場景道具。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿前傾 (親近感) | `casual crouching pose, elbows resting on knees, forward-leaning posture, approachable body language` | 身體下蹲並自然前傾，手肘靠近膝部，帶有親近、放鬆的互動感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 打開肩線站姿 | `shoulders open, body slightly turned, direct confident stance, balanced standing pose` | 雙肩打開、身體微轉，站姿穩定自信，強調人物本身的存在感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿交叉腿 | `crossed-leg seated pose, poised posture, composed body line` | 雙腿交叉的坐姿，線條成熟穩定，帶有整理過的身體節奏。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 抬手整理頭髮 | `hand lifting hair, adjusting hair near ear, candid beauty pose` | 抬手撥髮或整理耳側頭髮，帶有自然動態與生活感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 托腮近距離寫真姿勢 | `chin resting on hand, close-range photobook pose, intimate framing` | 臉部靠近鏡頭、輕托下巴，適合寫真集與近距離人像。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 靠窗坐拍寫真感 | `sitting by window, relaxed photobook pose, soft natural posture` | 坐在窗邊、身體自然放鬆，帶有日系寫真常見的安靜氛圍。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 街頭低頭看手機隨拍感 | `looking down at phone while standing, candid street snapshot pose` | 像街頭被捕捉到的日常片段，現代感強，也很適合生活系畫面。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 托腮近距離姿勢 | `chin resting on hand, face slightly closer to camera, intimate relaxed pose` | 以手輕托下巴，臉部自然靠前，呈現親密而放鬆的近距離姿態。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 放鬆坐姿 | `relaxed seated pose, soft natural posture, calm body language` | 坐姿自然鬆弛，肩膀與四肢不刻意用力，適合安靜柔和的人像氣質。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 低頭垂視隨拍感 | `looking downward while standing, candid off-guard posture, natural snapshot body language` | 站立時自然低頭垂視，像被瞬間捕捉到的放鬆狀態，不綁定任何道具或場景。 |

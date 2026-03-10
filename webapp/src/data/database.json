@@ -1072,9 +1072,9 @@
     ],
     "姿勢與肢體語言 (Pose & Body Language)": [
       {
-        "zh": "靠牆慵懶倚靠",
-        "en": "leaning against wall, one shoulder against wall, effortless cool",
-        "desc": "漫不經心的率性感，輕靠牆面或柱子。"
+        "zh": "側身慵懶倚靠",
+        "en": "relaxed leaning posture, body weight shifted to one side, effortless cool",
+        "desc": "身體重心偏向單側，呈現漫不經心的率性感，但不指定任何背景物件。"
       },
       {
         "zh": "坐姿/蜷縮 (脆弱感)",
@@ -1092,19 +1092,19 @@
         "desc": "挺胸站立，充滿支配感與自信。"
       },
       {
-        "zh": "蹲坐地上 (親近感)",
-        "en": "crouching down on ground, elbows on knees, casual squat pose, street level angle",
-        "desc": "蹲坐在地，低角度街拍感，帶有親近感。"
+        "zh": "蹲姿前傾 (親近感)",
+        "en": "casual crouching pose, elbows resting on knees, forward-leaning posture, approachable body language",
+        "desc": "身體下蹲並自然前傾，手肘靠近膝部，帶有親近、放鬆的互動感。"
       },
       {
-        "zh": "雜誌封面站姿",
-        "en": "editorial cover pose, shoulders open, body slightly turned, direct confident stance",
-        "desc": "像時尚雜誌封面主視覺的站姿，穩定、自信，適合主畫面構圖。"
+        "zh": "打開肩線站姿",
+        "en": "shoulders open, body slightly turned, direct confident stance, balanced standing pose",
+        "desc": "雙肩打開、身體微轉，站姿穩定自信，強調人物本身的存在感。"
       },
       {
-        "zh": "坐姿交叉腿大片感",
-        "en": "crossed-leg seated editorial pose, poised posture, magazine spread mood",
-        "desc": "坐姿帶有成熟時裝大片感，適合椅子、沙發或場景道具。"
+        "zh": "坐姿交叉腿",
+        "en": "crossed-leg seated pose, poised posture, composed body line",
+        "desc": "雙腿交叉的坐姿，線條成熟穩定，帶有整理過的身體節奏。"
       },
       {
         "zh": "抬手整理頭髮",
@@ -1112,19 +1112,19 @@
         "desc": "抬手撥髮或整理耳側頭髮，帶有自然動態與生活感。"
       },
       {
-        "zh": "托腮近距離寫真姿勢",
-        "en": "chin resting on hand, close-range photobook pose, intimate framing",
-        "desc": "臉部靠近鏡頭、輕托下巴，適合寫真集與近距離人像。"
+        "zh": "托腮近距離姿勢",
+        "en": "chin resting on hand, face slightly closer to camera, intimate relaxed pose",
+        "desc": "以手輕托下巴，臉部自然靠前，呈現親密而放鬆的近距離姿態。"
       },
       {
-        "zh": "靠窗坐拍寫真感",
-        "en": "sitting by window, relaxed photobook pose, soft natural posture",
-        "desc": "坐在窗邊、身體自然放鬆，帶有日系寫真常見的安靜氛圍。"
+        "zh": "放鬆坐姿",
+        "en": "relaxed seated pose, soft natural posture, calm body language",
+        "desc": "坐姿自然鬆弛，肩膀與四肢不刻意用力，適合安靜柔和的人像氣質。"
       },
       {
-        "zh": "街頭低頭看手機隨拍感",
-        "en": "looking down at phone while standing, candid street snapshot pose",
-        "desc": "像街頭被捕捉到的日常片段，現代感強，也很適合生活系畫面。"
+        "zh": "低頭垂視隨拍感",
+        "en": "looking downward while standing, candid off-guard posture, natural snapshot body language",
+        "desc": "站立時自然低頭垂視，像被瞬間捕捉到的放鬆狀態，不綁定任何道具或場景。"
       }
     ]
   },
