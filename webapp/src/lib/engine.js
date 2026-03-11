@@ -1,7 +1,5 @@
 import database from '../data/database.json' with { type: 'json' };
 
-const BASE_QUALITY = '(masterpiece, best quality, ultra-detailed:1.2), highres, raw photo';
-
 const SUBJECT_COUNT_OPTIONS = [
   { id: '1', zh: '1 位', en: 'a seductive stunning Japanese or Korean woman', count: 1 },
   { id: '2', zh: '2 位', en: 'two seductive stunning Japanese or Korean women', count: 2 },
@@ -992,18 +990,6 @@ function isNoneLikeItem(item) {
   );
 }
 
-function joinEn(items) {
-  return items
-    .filter((item) => item && !isNoneLikeItem(item))
-    .map((item) => item.en)
-    .filter(Boolean)
-    .join(', ');
-}
-
-function joinLimited(items, limit) {
-  return joinEn(items.filter((item) => item && !isNoneLikeItem(item)).slice(0, limit));
-}
-
 const STYLE_PROMPT_INTROS = {
   清透寫真感: 'airy photobook portrait mood',
   精緻棚拍感: 'polished studio beauty editorial mood',
@@ -1063,6 +1049,93 @@ function buildWardrobeCorePrompt(item) {
   return `The outfit is dominated by ${item.en}. The overall outfit follows this fashion language from head to toe.`;
 }
 
+function compactClause(text, maxParts = 2) {
+  if (!text) return '';
+  return text
+    .split(',')
+    .map((part) => stripMarkdown(part))
+    .filter(Boolean)
+    .slice(0, maxParts)
+    .join(', ');
+}
+
+function normalizeMidjourneyWardrobeVibe(text) {
+  if (!text) return '';
+  return stripMarkdown(text)
+    .replace(/^clothing with\s+/i, '')
+    .replace(/^clothing featuring\s+/i, '')
+    .replace(/^featuring\s+/i, '')
+    .replace(/\.$/, '')
+    .trim();
+}
+
+function pushUniqueSegment(segments, value) {
+  const cleaned = stripMarkdown(value);
+  if (!cleaned) return;
+
+  const normalized = cleaned.toLowerCase();
+  if (segments.some((existing) => existing.toLowerCase() === normalized)) return;
+  segments.push(cleaned);
+}
+
+function buildMidjourneyCharacterSegments(context, characterSlots) {
+  const segments = [context.subject.en];
+
+  if (characterSlots.bodyType?.en) pushUniqueSegment(segments, compactClause(characterSlots.bodyType.en, 2));
+  if (characterSlots.facialFeatures?.en) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 2));
+  if (characterSlots.hairstyle?.en) pushUniqueSegment(segments, compactClause(characterSlots.hairstyle.en, 1));
+  if (characterSlots.hairColor?.en) pushUniqueSegment(segments, compactClause(characterSlots.hairColor.en, 1));
+
+  if (context.framing.meta.visibility !== 'full' && characterSlots.expression?.en) {
+    pushUniqueSegment(segments, compactClause(characterSlots.expression.en, 1));
+  }
+
+  if (characterSlots.pose?.en && context.framing.meta.visibility !== 'portrait') {
+    pushUniqueSegment(segments, compactClause(characterSlots.pose.en, 1));
+  }
+
+  return segments;
+}
+
+function buildMidjourneyCameraSegments(context, lightDirection, film) {
+  const segments = [];
+
+  pushUniqueSegment(segments, compactClause(STYLE_PROMPT_INTROS[context.style.zh] || context.style.en, 1));
+  pushUniqueSegment(segments, compactClause(context.location.en, 2));
+  pushUniqueSegment(segments, compactClause(context.framing.en, 1));
+
+  const angleText = compactClause(context.angle.en, 1);
+  const orbitText = compactClause(context.orbit.en, 1);
+  if (orbitText && !orbitText.toLowerCase().includes('front-facing')) {
+    pushUniqueSegment(segments, orbitText);
+  }
+  if (angleText && !(orbitText && orbitText.toLowerCase().includes('back view') && angleText.toLowerCase().includes('direct eye contact'))) {
+    pushUniqueSegment(segments, angleText);
+  }
+
+  if (context.subject.count > 1) {
+    pushUniqueSegment(segments, compactClause(buildCompositionHint(context.subject, context.aspectRatio, context.framing), 1));
+  }
+
+  pushUniqueSegment(segments, compactClause(context.lighting.en, 2));
+  pushUniqueSegment(segments, compactClause(lightDirection.en, 2));
+  pushUniqueSegment(segments, compactClause(film.en, 1));
+
+  return segments;
+}
+
+function buildMidjourneyWardrobeSegments(wardrobe) {
+  const filtered = wardrobe.filter((item) => item && !isNoneLikeItem(item));
+  const vibe = filtered[0];
+  const pieces = filtered.slice(1, 5);
+  const segments = [];
+
+  if (vibe?.en) pushUniqueSegment(segments, compactClause(normalizeMidjourneyWardrobeVibe(vibe.en), 2));
+  pieces.forEach((item) => pushUniqueSegment(segments, compactClause(item.en, 1)));
+
+  return segments;
+}
+
 function buildStructuredGrokPrompt(context, character, wardrobe, lightDirection, film) {
   const styleIntro = STYLE_PROMPT_INTROS[context.style.zh] || 'editorial photography mood';
   const characterSlots = extractCharacterSlots(character);
@@ -1107,32 +1180,18 @@ function buildStructuredGrokPrompt(context, character, wardrobe, lightDirection,
 }
 
 function buildPrompts(context, character, wardrobe, lightDirection, film, effect) {
-  const styleMood = context.style.en;
-  const locationText = context.location.en;
-  const conciseCharacter = joinLimited(character, 5);
-  const conciseWardrobe = joinLimited(wardrobe, 4);
-  const compositionHint = buildCompositionHint(context.subject, context.aspectRatio, context.framing);
+  const characterSlots = extractCharacterSlots(character);
+  const midjourneySegments = [];
 
-  const midjourneySegments = [
-    BASE_QUALITY,
-    styleMood,
-    context.framing.en,
-    context.angle.en,
-    context.orbit.en,
-    compositionHint,
-    conciseCharacter,
-    `wearing ${conciseWardrobe}`,
-    `in ${locationText}`,
-    context.lighting.en,
-    lightDirection.en,
-    film.en,
-    effect?.en,
-  ].filter(Boolean);
+  buildMidjourneyCameraSegments(context, lightDirection, film).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+  buildMidjourneyCharacterSegments(context, characterSlots).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+  buildMidjourneyWardrobeSegments(wardrobe).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+  if (effect?.en) pushUniqueSegment(midjourneySegments, compactClause(effect.en, 1));
 
   let midjourneyPrompt = '';
   for (const segment of midjourneySegments) {
     const next = midjourneyPrompt ? `${midjourneyPrompt}, ${segment}` : segment;
-    if (next.length > 900) break;
+    if (next.length > 650) break;
     midjourneyPrompt = next;
   }
   midjourneyPrompt = `${midjourneyPrompt} --ar ${context.aspectRatio.en}`;
