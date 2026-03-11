@@ -743,7 +743,7 @@
     "攝影棚與背景 (Studio Sets)": [
       {
         "zh": "鏡面地板攝影棚",
-        "en": "mirror floor studio, glossy reflective ground, clean set geometry, futuristic editorial mood",
+        "en": "mirror floor studio, glossy reflective surface, controlled studio reflections, futuristic editorial mood",
         "desc": "地面具有鏡面反射，能增加造型與燈光的延伸感，適合時裝大片。"
       },
       {
@@ -763,230 +763,230 @@
       },
       {
         "zh": "鮮豔撞色背景",
-        "en": "vibrant solid color backdrop, bold contrast, pop art studio setup",
+        "en": "vibrant solid color backdrop, bold color contrast, pop-art studio mood, clean isolated subject",
         "desc": "高飽和單色背景，適合社群感、Y2K、普普與流行企劃。"
       },
       {
         "zh": "漸層打光背景",
-        "en": "gradient spotlight on background, subtle halo effect behind subject, seamless paper studio",
+        "en": "gradient-lit backdrop, subtle halo glow behind the subject, soft studio falloff, cover-shoot atmosphere",
         "desc": "利用燈光打出背景漸層光斑，能提升人物立體感與封面感。"
       }
     ],
     "城市與社群感 (Urban & Social Snapshots)": [
       {
         "zh": "東京澀谷十字路口",
-        "en": "Tokyo Shibuya crossing at night, crowded crosswalk, rain puddles reflecting neon, umbrellas, restless city energy",
+        "en": "Tokyo Shibuya nightlife, umbrella reflections, wet asphalt glow, crowded urban texture, restless city energy",
         "desc": "經典東京夜街感。濕滑地面反射霓虹，人流密集，適合街拍、社群感與都會夜景人像。"
       },
       {
         "zh": "東京新宿歌舞伎町街頭",
-        "en": "Tokyo Shinjuku Kabukicho nightlife, dense neon signs, narrow streets, glossy reflections, nightlife crowd",
+        "en": "Tokyo Shinjuku nightlife, dense neon signs, layered facades, glossy reflections, crowded urban tension",
         "desc": "新宿歌舞伎町的招牌密度與霓虹氛圍非常強，適合做高張力夜拍與都會性感主題。"
       },
       {
         "zh": "香港九龍霓虹街區",
-        "en": "Hong Kong Kowloon neon street, stacked signboards, humid night air, dense urban texture, chaotic energy",
+        "en": "Hong Kong Kowloon neon district, stacked signboards, humid night glow, compressed urban texture, chaotic energy",
         "desc": "擁擠高密度的九龍街區，招牌層層疊疊，空氣濕熱，帶有強烈的城市壓迫感與霓虹魅力。"
       },
       {
         "zh": "香港廟街夜市",
-        "en": "Hong Kong Temple Street night market, chaotic stalls, dense neon signs, narrow alley, lively street tension",
+        "en": "Hong Kong Temple Street night market, chaotic stalls, hanging signboards, humid night air, lively street tension",
         "desc": "廟街的攤販、燈牌與狹窄動線構成高辨識度夜市空間，適合人像與紀實街拍混合感。"
       },
       {
         "zh": "英國倫敦蘇荷區夜晚街景",
-        "en": "London Soho at night, narrow streets, glowing storefront lights, stylish nightlife atmosphere, wet pavement",
+        "en": "London Soho nightlife, warm pub lights, layered storefront glow, wet pavement reflections, stylish urban night energy",
         "desc": "蘇荷區帶有英倫夜生活氣質，店面燈光溫暖，適合時裝街拍與都會隨拍感。"
       },
       {
         "zh": "巴黎瑪黑區街頭",
-        "en": "Paris Le Marais street, boutique storefronts, stone facades, fashionable pedestrians, chic urban mood",
+        "en": "Paris Le Marais boutique frontage, stone facades, window displays, fashionable pedestrians, chic urban mood",
         "desc": "帶有法式時髦感的街區空氣，精品店與舊建築並存，適合輕奢與時裝企劃。"
       },
       {
         "zh": "紐約曼哈頓街角",
-        "en": "Manhattan street corner, steam rising from pavement, yellow cabs, tall buildings, fast-paced city mood",
+        "en": "Manhattan street corner, steam drifting upward, taxi lights, glass reflections, fast-paced city mood",
         "desc": "紐約街角的速度感很強，蒸氣、計程車與高樓形成典型的美式城市節奏。"
       },
       {
         "zh": "紐約地鐵月台",
-        "en": "New York subway platform, tiled walls, metal pillars, dim fluorescent light, gritty urban realism",
+        "en": "New York subway platform interior, tiled wall textures, metal surfaces, dim fluorescent light, gritty urban realism",
         "desc": "老舊磁磚、金屬柱子與冷色燈光構成紐約地下交通的粗獷質感，適合 edgy editorial。"
       },
       {
         "zh": "首爾聖水洞街區",
-        "en": "Seoul Seongsu-dong street, industrial cafes, muted concrete buildings, trendy Korean urban vibe",
+        "en": "Seoul Seongsu-dong urban corner, industrial café frontage, muted concrete textures, trendy contemporary city mood",
         "desc": "聖水洞結合工業感與潮流店家，適合韓系時裝、生活感與現代城市人像。"
       },
       {
         "zh": "首爾弘大夜街",
-        "en": "Seoul Hongdae nightlife street, colorful shop signs, youthful crowd, lively urban snapshot mood",
+        "en": "Seoul Hongdae nightlife, colorful sign glow, youth-culture energy, layered shopfronts, lively snapshot mood",
         "desc": "弘大街頭更偏年輕、熱鬧與社群感，適合隨拍、街頭風格與流行穿搭。"
       },
       {
         "zh": "上海法租界街道",
-        "en": "Shanghai French Concession street, tree-lined road, historic facades, moody cosmopolitan atmosphere",
+        "en": "Shanghai French Concession corner, plane tree shadows, historic facades, café windows, moody cosmopolitan atmosphere",
         "desc": "法租界街道兼具歷史感與現代都會氣息，適合文藝、時裝與成熟寫真主題。"
       },
       {
         "zh": "台北西門町街頭",
-        "en": "Taipei Ximending street at night, bright signage, dense crowd, humid urban glow, youth culture",
+        "en": "Taipei Ximending nightlife, bright sign glow, humid urban reflections, dense youth-culture texture, energetic city mood",
         "desc": "西門町兼具流行文化與台式霓虹街景，適合社群感、隨拍與街頭穿搭。"
       },
       {
         "zh": "洛杉磯日落大道街景",
-        "en": "Los Angeles Sunset Boulevard, palm trees, glowing billboards, warm dusk light, cinematic city mood",
+        "en": "Los Angeles Sunset Boulevard atmosphere, palm silhouettes, billboard glow, warm dusk haze, cinematic city mood",
         "desc": "棕櫚樹、夕陽與大型看板構成經典 LA 都市畫面，適合 lifestyle 與電影感街景。"
       },
       {
         "zh": "羅馬老城石板巷弄",
-        "en": "Rome old town alley, cobblestone street, warm stone walls, cafe lights, romantic evening atmosphere",
+        "en": "Rome old town stone corner, warm textured walls, cobblestone ground, café lights, romantic evening atmosphere",
         "desc": "老城石板路與暖色牆面很適合做歐洲浪漫街拍與時裝敘事。"
       }
     ],
     "生活感室內 (Indoor & Lifestyle)": [
       {
         "zh": "精品飯店房間",
-        "en": "boutique hotel room, warm ambient lamps, crisp sheets, elegant interior, editorial travel mood",
+        "en": "boutique hotel room, warm bedside lamps, crisp bedding, elegant interior details, editorial travel mood",
         "desc": "高級但不過度奢華的飯店房間，適合寫真、時裝與成熟人像。"
       },
       {
         "zh": "現代高樓公寓客廳",
-        "en": "modern high-rise apartment living room, floor-to-ceiling windows, city view, clean designer furniture",
+        "en": "modern high-rise apartment interior, window glow, clean designer furniture, soft city backdrop, contemporary lifestyle mood",
         "desc": "現代都會感強，適合 lifestyle 與社群感拍攝。"
       },
       {
         "zh": "臥室窗邊",
-        "en": "bedroom by the window, soft daylight, linen textures, intimate photobook atmosphere",
+        "en": "bedroom window area, soft daylight spill, linen textures, intimate photobook atmosphere, quiet interior",
         "desc": "臨窗空間帶有柔和自然光，很適合寫真集與生活感人像。"
       },
       {
         "zh": "浴室鏡前 / 洗手台",
-        "en": "bathroom mirror scene, sink counter, soft reflective light, modern lifestyle snapshot",
+        "en": "bathroom vanity scene, sink counter details, reflective surfaces, soft indoor glow, modern lifestyle snapshot",
         "desc": "具有很強的手機隨拍與社群感，也適合妝髮與穿搭展示。"
       },
       {
         "zh": "更衣室 / 試衣間",
-        "en": "changing room interior, fitting mirror, curtains, fashion try-on atmosphere",
+        "en": "fitting room interior, mirror edge, curtain textures, fashion try-on atmosphere, intimate retail lighting",
         "desc": "很適合時裝、穿搭與社群企劃，鏡面與布簾能增加生活感。"
       },
       {
         "zh": "電梯內",
-        "en": "elevator interior, reflective metal walls, mirror selfie atmosphere, urban social snapshot",
+        "en": "elevator interior, reflective metal panels, button lights, mirror-selfie atmosphere, urban social snapshot",
         "desc": "現代社群感強，適合自拍、時裝隨拍與都會情境。"
       },
       {
         "zh": "復古美式 Diner",
-        "en": "retro American diner interior, red leather booths, checkered floor, jukebox, 50s aesthetic",
+        "en": "retro American diner booth, red leather seating, chrome details, jukebox glow, 1950s atmosphere",
         "desc": "50 年代復古風，色彩鮮豔、辨識度高，適合社群與時裝拍攝。"
       },
       {
         "zh": "百年木造圖書館",
-        "en": "ancient wooden library, towering bookshelves, dusty sunbeams, quiet academic atmosphere",
+        "en": "historic wooden library interior, aged wood texture, reading table, dusty sunbeams, quiet academic atmosphere",
         "desc": "古老書架與灰塵光束讓空間有沉靜與學術感，適合敘事型人像。"
       },
       {
         "zh": "凌晨 24 小時洗衣店",
-        "en": "neon lit laundromat at 2am, rows of washing machines, fluorescent buzz, solitary feeling",
+        "en": "24-hour laundromat at night, chrome washer doors, fluorescent reflections, detergent shelves, intimate urban solitude",
         "desc": "排列整齊的洗衣機與冷色燈光很適合 Y2K、社群與都會孤獨感。"
       },
       {
         "zh": "宮廷音樂廳 / 歌劇院",
-        "en": "opulent opera house interior, grand chandelier, red velvet seats, baroque architecture",
+        "en": "opulent opera house interior, chandelier glow, velvet textures, ornate balconies, grand classical atmosphere",
         "desc": "奢華大型室內空間，適合正式服裝與古典敘事。"
       },
       {
         "zh": "狹小都會旅館房間",
-        "en": "small urban hotel room, compact bed, dim practical lights, enclosed intimate atmosphere",
+        "en": "small urban hotel room, compact bedding, dim practical lights, close interior details, enclosed intimate atmosphere",
         "desc": "保留侷促與親密感，但比膠囊旅館更適合人像與寫真構圖。"
       }
     ],
     "自然與戶外 (Nature & Outdoors)": [
       {
         "zh": "金色海灘與浪線",
-        "en": "golden sandy beach, soft ocean waves, open coastline, bright summer light, airy seaside mood",
+        "en": "golden beach edge, foamy shoreline, sunlit sand texture, bright summer air, open seaside mood",
         "desc": "高頻好用的海邊場景，畫面乾淨開闊，適合寫真、泳裝與陽光人像。"
       },
       {
         "zh": "陽光草地與樹影",
-        "en": "sunlit grassy field, scattered tree shadows, warm daylight, breezy natural portrait setting",
+        "en": "sunlit grassy patch, scattered tree shadows, warm daylight, breezy natural portrait mood, gentle outdoor texture",
         "desc": "比純自然景觀更貼近人像拍攝，容易形成乾淨生活感與輕寫真氛圍。"
       },
       {
         "zh": "向日葵花田",
-        "en": "vast sunflower field in full bloom, bright summer day, vivid yellow petals, cheerful countryside mood",
+        "en": "sunflower bloom cluster, bright summer light, vivid yellow petals, cheerful countryside mood, natural color burst",
         "desc": "高飽和又有夏日辨識度，適合明亮寫真與日系自然風。"
       },
       {
         "zh": "霧感森林步道",
-        "en": "foggy forest trail, tall trees, soft mist, muted green tones, quiet mysterious atmosphere",
+        "en": "foggy forest clearing, soft mist, dark tree textures, muted green tones, quiet mysterious atmosphere",
         "desc": "將森林收斂成更可拍的人像步道空間，避免過於奇幻但保留神祕感。"
       },
       {
         "zh": "湖邊木棧道",
-        "en": "lakeside boardwalk, calm water, soft twilight reflections, open natural scenery",
+        "en": "lakeside wooden deck, calm water reflections, soft twilight glow, open natural stillness, quiet outdoor mood",
         "desc": "湖面與木棧道讓畫面更具構圖感，適合文藝與安靜寫真。"
       },
       {
         "zh": "夕陽海邊岩岸",
-        "en": "rocky shoreline at sunset, warm glow, textured coast, cinematic outdoor portrait",
+        "en": "rocky shoreline at sunset, warm coastal glow, textured stone surfaces, cinematic outdoor portrait mood",
         "desc": "比平坦沙灘更多層次，適合成熟、電影感與時裝自然場景。"
       },
       {
         "zh": "沙丘與風痕地景",
-        "en": "rolling sand dunes, wind-shaped textures, minimal desert landscape, harsh sunlight",
+        "en": "sand dune textures, wind-shaped patterns, minimal desert mood, harsh sunlight, sculptural landscape detail",
         "desc": "保留極簡沙丘場景，但聚焦在人像可用的線條與光影。"
       }
     ],
     "地下與廢墟風格 (Abandoned & Underground)": [
       {
         "zh": "廢棄水泥工廠",
-        "en": "abandoned concrete factory, broken beams, damp floor, industrial ruin, echoing space",
+        "en": "abandoned concrete factory interior, broken beams, damp floor reflections, industrial decay, heavy ruin atmosphere",
         "desc": "巨大的水泥結構與斑駁牆面很適合工業風、機能風與地下感人像。"
       },
       {
         "zh": "廢棄地下排洪道",
-        "en": "brutalist flood tunnel, wet concrete floor, repeating pillars, underground echo, dim light shafts",
+        "en": "brutalist underground drainage structure, wet concrete surfaces, damp reflections, dim shafts of light, oppressive subterranean atmosphere",
         "desc": "長向深透視非常強，能形成具有壓迫感的地下空間構圖。"
       },
       {
         "zh": "雜草叢生的廢棄公園",
-        "en": "abandoned overgrown park, cracked pavement, rusted playground structures, quiet urban decay",
+        "en": "abandoned overgrown park, cracked pavement textures, rusted play structures, quiet urban decay, neglected outdoor mood",
         "desc": "比遊樂園更貼近日常遺跡感，荒廢與雜草交錯，適合孤獨與末日感主題。"
       },
       {
         "zh": "廢棄醫院走廊",
-        "en": "abandoned hospital corridor, peeling paint, flickering fluorescent lights, eerie institutional decay",
+        "en": "abandoned hospital interior, peeling paint, broken doors, flickering fluorescent light, eerie institutional decay",
         "desc": "走廊線性強，空間壓迫感明顯，很適合冷調與不安氛圍的人像。"
       },
       {
         "zh": "廢棄教室與校舍",
-        "en": "abandoned school classroom, dusty desks, broken windows, faded walls, melancholic ruin",
+        "en": "abandoned school interior, dusty desks, broken windows, faded walls, melancholic ruin atmosphere",
         "desc": "帶有青春殘影與空間敘事感，適合懷舊與衰敗美學。"
       },
       {
         "zh": "地下狂歡俱樂部 / 金庫",
-        "en": "underground techno club, rave bunker, lasers through thick smoke, bass-heavy atmosphere",
+        "en": "underground rave bunker, lasers through smoke, metallic surfaces, bass-heavy atmosphere, dark club energy",
         "desc": "地牢般俱樂部空間依舊保留，適合強烈夜拍、霓虹與迷幻主題。"
       },
       {
         "zh": "遭洗劫的維多利亞大宅",
-        "en": "ruined Victorian mansion interior, torn wallpaper, smashed chandeliers, haunted decay",
+        "en": "ruined Victorian mansion interior, torn wallpaper, broken chandelier glow, haunted decay, aristocratic ruin mood",
         "desc": "曾經華麗但現已破敗不堪，適合哥德衰敗與古典殘骸場景。"
       },
       {
         "zh": "滿佈塗鴉的火車調車場",
-        "en": "graffiti covered train yard, rusty train cars, urban decay, rebellious street territory",
+        "en": "graffiti-covered train yard, rusty metal textures, spray-painted surfaces, rebellious urban decay, street subculture mood",
         "desc": "生鏽車廂與強烈塗鴉形成明顯次文化氛圍，適合街頭與叛逆主題。"
       },
       {
         "zh": "廢棄商場中庭",
-        "en": "abandoned shopping mall atrium, dead escalators, broken skylight, eerie empty retail space",
+        "en": "abandoned mall interior, dead escalator details, broken skylight glow, empty retail decay, eerie modern ruin",
         "desc": "帶有現代文明停擺感的室內廢墟，空間尺度大且很有故事性。"
       },
       {
         "zh": "半拆除高樓建築骨架",
-        "en": "half-demolished high-rise structure, exposed concrete skeleton, open floors, urban ruin panorama",
+        "en": "half-demolished high-rise structure, exposed concrete textures, open construction voids, urban ruin atmosphere, skeletal architecture",
         "desc": "建築骨架能形成強烈的層次和空洞感，適合工業與末世都會主題。"
       }
     ]
