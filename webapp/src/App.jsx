@@ -93,6 +93,25 @@ function loadStringStorage(key, fallback) {
   return window.localStorage.getItem(key) ?? fallback;
 }
 
+function loadFavoritePrompts() {
+  if (typeof window === 'undefined') return [];
+
+  const rawFavorites = loadJsonStorage(FAVORITES_KEY, []);
+  if (!Array.isArray(rawFavorites) || rawFavorites.length === 0) return [];
+
+  // New format: store full prompt objects directly.
+  if (typeof rawFavorites[0] === 'object' && rawFavorites[0] !== null) {
+    return rawFavorites.filter((item) => item?.id);
+  }
+
+  // Legacy format: store only ids, recover from prompt cache if possible.
+  const promptCache = loadJsonStorage(PROMPTS_KEY, []);
+  if (!Array.isArray(promptCache)) return [];
+
+  const idSet = new Set(rawFavorites.filter(Boolean));
+  return promptCache.filter((item) => item?.id && idSet.has(item.id));
+}
+
 function normalizeImportedEntries(data) {
   if (!Array.isArray(data)) return [];
 
@@ -125,7 +144,7 @@ export default function App() {
   const presetInputRef = useRef(null);
 
   const [prompts, setPrompts] = useState(() => loadJsonStorage(PROMPTS_KEY, []));
-  const [favorites, setFavorites] = useState(() => new Set(loadJsonStorage(FAVORITES_KEY, [])));
+  const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
   const [genCount, setGenCount] = useState(() => loadJsonStorage(GEN_COUNT_KEY, 3));
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
@@ -156,8 +175,8 @@ export default function App() {
   }, [prompts]);
 
   useEffect(() => {
-    window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(Array.from(favorites)));
-  }, [favorites]);
+    window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoritePrompts));
+  }, [favoritePrompts]);
 
   useEffect(() => {
     window.localStorage.setItem(LOCKS_KEY, JSON.stringify(locks));
@@ -178,6 +197,8 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
   }, [searchQuery]);
+
+  const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
 
   const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(customLibrary), [customLibrary]);
   const lockControls = useMemo(() => getLockControls(customLibrary), [customLibrary]);
@@ -203,7 +224,7 @@ export default function App() {
   const normalizedSearch = searchQuery.trim().toLowerCase();
 
   const displayPrompts = useMemo(() => {
-    const baseList = viewMode === 'favorites' ? prompts.filter((prompt) => favorites.has(prompt.id)) : prompts;
+    const baseList = viewMode === 'favorites' ? favoritePrompts : prompts;
 
     if (!normalizedSearch) return baseList;
 
@@ -221,7 +242,7 @@ export default function App() {
         .toLowerCase();
       return haystack.includes(normalizedSearch);
     });
-  }, [favorites, normalizedSearch, prompts, viewMode]);
+  }, [favoritePrompts, normalizedSearch, prompts, viewMode]);
 
   const handleGenerate = () => {
     const newPrompts = generatePrompts(genCount, locks, customLibrary);
@@ -233,14 +254,15 @@ export default function App() {
     const remixLocks = buildLocksFromPrompt(prompt, rerollKeep);
     const [nextPrompt] = generatePrompts(1, remixLocks, customLibrary);
     setPrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
+    setFavoritePrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
   };
 
-  const toggleFavorite = (id) => {
-    setFavorites((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
+  const toggleFavorite = (prompt) => {
+    setFavoritePrompts((prev) => {
+      if (prev.some((item) => item.id === prompt.id)) {
+        return prev.filter((item) => item.id !== prompt.id);
+      }
+      return [prompt, ...prev].slice(0, MAX_STORED_PROMPTS);
     });
   };
 
@@ -506,7 +528,7 @@ export default function App() {
           </button>
           <button className={viewMode === 'favorites' ? '' : 'secondary'} onClick={() => setViewMode('favorites')}>
             <Heart size={16} fill={viewMode === 'favorites' ? 'currentColor' : 'none'} />
-            Favorites ({favorites.size})
+            Favorites ({favoritePrompts.length})
           </button>
         </div>
 
@@ -563,7 +585,7 @@ export default function App() {
           <div className="empty-state">{searchQuery ? '沒有符合搜尋條件的 prompt。' : '先設定條件，再開始批次生成。'}</div>
         ) : (
           displayPrompts.map((prompt) => (
-            <PromptCard key={prompt.id} data={prompt} isFavorite={favorites.has(prompt.id)} onFavorite={toggleFavorite} onRemix={handleRemixPrompt} />
+            <PromptCard key={prompt.id} data={prompt} isFavorite={favoriteIds.has(prompt.id)} onFavorite={toggleFavorite} onRemix={handleRemixPrompt} />
           ))
         )}
       </div>

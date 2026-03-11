@@ -86,7 +86,7 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
           <button className="icon-btn" onClick={() => onRemix(data)} title="Remix with current reroll settings">
             <RefreshCcw size={18} />
           </button>
-          <button className={`icon-btn ${isFavorite ? 'active' : ''}`} onClick={() => onFavorite(data.id)} title="Favorite">
+          <button className={`icon-btn ${isFavorite ? 'active' : ''}`} onClick={() => onFavorite(data)} title="Favorite">
             <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
           </button>
           <button className="icon-btn" onClick={handleDownload} title="Download Markdown">
