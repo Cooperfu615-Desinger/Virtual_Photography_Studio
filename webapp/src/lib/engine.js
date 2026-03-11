@@ -14,6 +14,30 @@ const ASPECT_RATIO_OPTIONS = [
   { id: '16:9', zh: '16:9', en: '16:9' },
 ];
 
+const GARMENT_COLOR_OPTIONS = [
+  { id: 'black', zh: '黑色', en: 'black' },
+  { id: 'white', zh: '白色', en: 'white' },
+  { id: 'dark-grey', zh: '深灰色', en: 'dark grey' },
+  { id: 'light-grey', zh: '淺灰色', en: 'light grey' },
+  { id: 'off-white', zh: '米白色', en: 'off-white' },
+  { id: 'dark-brown', zh: '深棕色', en: 'dark brown' },
+  { id: 'light-brown', zh: '淺棕色', en: 'light brown' },
+  { id: 'red', zh: '紅色', en: 'red' },
+  { id: 'bright-red', zh: '亮紅色', en: 'bright red' },
+  { id: 'pink', zh: '粉紅色', en: 'pink' },
+  { id: 'light-blue', zh: '淡藍色', en: 'light blue' },
+  { id: 'dark-blue', zh: '深藍色', en: 'dark blue' },
+  { id: 'royal-blue', zh: '寶藍色', en: 'royal blue' },
+  { id: 'light-green', zh: '淺綠色', en: 'light green' },
+  { id: 'dark-green', zh: '深綠色', en: 'dark green' },
+  { id: 'olive-green', zh: '軍綠色', en: 'olive green' },
+  { id: 'neon-green', zh: '螢光綠色', en: 'neon green' },
+  { id: 'goose-yellow', zh: '鵝黃色', en: 'soft yellow' },
+  { id: 'neon-yellow', zh: '螢光黃色', en: 'neon yellow' },
+  { id: 'silver', zh: '銀色', en: 'silver' },
+  { id: 'gold', zh: '金色', en: 'gold' },
+];
+
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: '4:5', section: 'core' },
@@ -34,8 +58,10 @@ const LOCK_DEFINITIONS = [
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'topId', label: '上身', category: '上身 (Tops)', section: 'wardrobe' },
+  { key: 'topColorId', label: '上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'pantsId', label: '褲裝', category: '褲裝 (Pants)', section: 'wardrobe' },
   { key: 'skirtId', label: '裙裝', category: '裙裝 (Skirts)', section: 'wardrobe' },
+  { key: 'bottomColorId', label: '下身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'legwearId', label: '襪類', category: '襪類 (Legwear)', section: 'wardrobe' },
   { key: 'outerwearId', label: '外套', category: '外套 (Outerwear)', section: 'wardrobe' },
   { key: 'shoesId', label: '鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
@@ -62,8 +88,10 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'expressionId', label: 'Expression' },
   { key: 'poseId', label: 'Pose' },
   { key: 'topId', label: 'Top' },
+  { key: 'topColorId', label: 'Top Color' },
   { key: 'pantsId', label: 'Pants' },
   { key: 'skirtId', label: 'Skirt' },
+  { key: 'bottomColorId', label: 'Bottom Color' },
   { key: 'legwearId', label: 'Legwear' },
   { key: 'outerwearId', label: 'Outerwear' },
   { key: 'shoesId', label: 'Shoes' },
@@ -225,6 +253,10 @@ function inferOrbitMeta(_category, item) {
   if (hasAny(haystack, ['back view', 'facing away', 'rear'])) tags.push('back_view', 'no_eye_contact');
 
   return { tags: withTags(tags) };
+}
+
+function getGarmentColorOption(id) {
+  return GARMENT_COLOR_OPTIONS.find((option) => option.id === id) || null;
 }
 
 function inferLightingMeta(category, item) {
@@ -1044,6 +1076,13 @@ function extractWardrobeSlots(wardrobe) {
   };
 }
 
+function buildWardrobeColors(wardrobeSlots, locks) {
+  const topColor = wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top) ? getGarmentColorOption(locks?.topColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
+  const hasBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants)) || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt));
+  const bottomColor = hasBottom ? getGarmentColorOption(locks?.bottomColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
+  return { topColor, bottomColor };
+}
+
 function buildWardrobeCorePrompt(item) {
   if (!item || isNoneLikeItem(item)) return '';
   return `The outfit is dominated by ${item.en}. The overall outfit follows this fashion language from head to toe.`;
@@ -1124,19 +1163,29 @@ function buildMidjourneyCameraSegments(context, lightDirection, film) {
   return segments;
 }
 
-function buildMidjourneyWardrobeSegments(wardrobe) {
+function applyColorToGarment(item, color) {
+  if (!item?.en) return '';
+  const garment = compactClause(item.en, 1);
+  if (!garment) return '';
+  return color?.en ? `${color.en} ${garment}` : garment;
+}
+
+function buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors) {
   const filtered = wardrobe.filter((item) => item && !isNoneLikeItem(item));
   const vibe = filtered[0];
-  const pieces = filtered.slice(1, 5);
+  const slots = extractWardrobeSlots(wardrobe);
   const segments = [];
 
   if (vibe?.en) pushUniqueSegment(segments, compactClause(normalizeMidjourneyWardrobeVibe(vibe.en), 2));
-  pieces.forEach((item) => pushUniqueSegment(segments, compactClause(item.en, 1)));
+  pushUniqueSegment(segments, applyColorToGarment(slots.top, wardrobeColors.topColor));
+  pushUniqueSegment(segments, applyColorToGarment(slots.pants, wardrobeColors.bottomColor));
+  pushUniqueSegment(segments, applyColorToGarment(slots.skirt, wardrobeColors.bottomColor));
+  [slots.legwear, slots.outerwear, slots.shoes, slots.jewelry].forEach((item) => pushUniqueSegment(segments, compactClause(item?.en, 1)));
 
   return segments;
 }
 
-function buildStructuredGrokPrompt(context, character, wardrobe, lightDirection, film) {
+function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film) {
   const styleIntro = STYLE_PROMPT_INTROS[context.style.zh] || 'editorial photography mood';
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
@@ -1169,8 +1218,10 @@ function buildStructuredGrokPrompt(context, character, wardrobe, lightDirection,
   addItemLine('Hair Color', characterSlots.hairColor);
   addLine('Expression and Pose', expressionAndPose);
   addItemLine('Top', wardrobeSlots.top);
+  addLine('Top Color', wardrobeColors.topColor?.en);
   addItemLine('Pants', wardrobeSlots.pants);
   addItemLine('Skirt', wardrobeSlots.skirt);
+  addLine('Bottom Color', wardrobeColors.bottomColor?.en);
   addItemLine('Legwear', wardrobeSlots.legwear);
   addItemLine('Outerwear', wardrobeSlots.outerwear);
   addItemLine('Shoes', wardrobeSlots.shoes);
@@ -1179,13 +1230,13 @@ function buildStructuredGrokPrompt(context, character, wardrobe, lightDirection,
   return lines.join('\n');
 }
 
-function buildPrompts(context, character, wardrobe, lightDirection, film, effect) {
+function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, effect) {
   const characterSlots = extractCharacterSlots(character);
   const midjourneySegments = [];
 
   buildMidjourneyCameraSegments(context, lightDirection, film).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   buildMidjourneyCharacterSegments(context, characterSlots).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
-  buildMidjourneyWardrobeSegments(wardrobe).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+  buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   if (effect?.en) pushUniqueSegment(midjourneySegments, compactClause(effect.en, 1));
 
   let midjourneyPrompt = '';
@@ -1196,12 +1247,12 @@ function buildPrompts(context, character, wardrobe, lightDirection, film, effect
   }
   midjourneyPrompt = `${midjourneyPrompt} --ar ${context.aspectRatio.en}`;
 
-  const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, lightDirection, film);
+  const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film);
 
   return { midjourneyPrompt, grokPrompt };
 }
 
-function buildSelectionSnapshot(context, wardrobe, character, lightDirection, film) {
+function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   return {
@@ -1224,8 +1275,10 @@ function buildSelectionSnapshot(context, wardrobe, character, lightDirection, fi
     expressionId: characterSlots.expression?.id || '',
     poseId: characterSlots.pose?.id || '',
     topId: wardrobeSlots.top?.id || '',
+    topColorId: wardrobeColors.topColor?.id || '',
     pantsId: wardrobeSlots.pants?.id || '',
     skirtId: wardrobeSlots.skirt?.id || '',
+    bottomColorId: wardrobeColors.bottomColor?.id || '',
     legwearId: wardrobeSlots.legwear?.id || '',
     outerwearId: wardrobeSlots.outerwear?.id || '',
     shoesId: wardrobeSlots.shoes?.id || '',
@@ -1276,10 +1329,11 @@ function generateSinglePrompt(index, locks, customLibrary) {
   const character = buildCharacter(context, runtime.catalog);
   const wardrobe = buildWardrobe({ ...context }, locks, runtime);
   context.wardrobe = wardrobe;
+  const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), locks);
 
   const positiveTags = collectPositiveTags(style, location, framing, angle, lighting, lightDirection, film, effect, wardrobe, character);
   const negativePrompt = buildNegativePrompt(context, positiveTags, runtime);
-  const { midjourneyPrompt, grokPrompt } = buildPrompts(context, character, wardrobe, lightDirection, film, effect);
+  const { midjourneyPrompt, grokPrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, effect);
   const summaryFields = buildSummaryFields(context, wardrobe, character);
 
   return {
@@ -1290,7 +1344,7 @@ function generateSinglePrompt(index, locks, customLibrary) {
     midjourneyPrompt,
     grokPrompt,
     negativePrompt,
-    selection: buildSelectionSnapshot(context, wardrobe, character, lightDirection, film),
+    selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film),
     structured: {
       Style: [style],
       Character: character,

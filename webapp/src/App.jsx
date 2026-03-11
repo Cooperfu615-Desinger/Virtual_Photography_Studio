@@ -39,7 +39,7 @@ const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const REROLL_KEEP_DEFAULT = ['styleId', 'locationId'];
 const MAX_STORED_PROMPTS = 120;
 const CHARACTER_CONTROL_ORDER = ['subjectCount', 'bodyTypeId', 'facialFeaturesId', 'hairstyleId', 'hairColorId', 'skinDetailsId', 'expressionId', 'poseId'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['styleId', 'wardrobeVibeId', 'topId', 'pantsId', 'skirtId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryId'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['styleId', 'wardrobeVibeId', 'topId', 'topColorId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryId'];
 const SCENE_CAMERA_CONTROL_ORDER = ['aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
 
 function sortControls(controls, order) {
