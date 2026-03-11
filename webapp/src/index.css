@@ -4,11 +4,12 @@
   --card-bg: #1f1f1f;
   --text-primary: #f5f2ea;
   --text-secondary: #bbb4a8;
-  --text-label: #968c7e;
-  --accent: #c96c32;
-  --accent-hover: #dd7b3e;
+  --text-label: #3A3228;
+  --accent: #E88C4F;
+  --accent-hover: #f09a62;
   --border: #322b26;
   --danger: #ff8d7a;
+  --text-muted-choice: #404040;
 }
 
 * {
@@ -19,7 +20,7 @@ body {
   margin: 0;
   font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
   background:
-    radial-gradient(circle at top, rgba(201, 108, 50, 0.18), transparent 30%),
+    radial-gradient(circle at top, rgba(232, 140, 79, 0.18), transparent 30%),
     linear-gradient(180deg, #120f0d 0%, #0d0d0d 100%);
   color: var(--text-primary);
   line-height: 1.5;
@@ -125,7 +126,7 @@ h1 {
 
 .lock-subtitle {
   margin: 6px 0 0;
-  color: var(--text-secondary);
+  color: var(--accent);
 }
 
 .lock-grid {
@@ -160,13 +161,15 @@ h1 {
 .control-section-title {
   font-size: 0.96rem;
   font-weight: 700;
-  color: var(--text-label);
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .control-section-copy {
   margin: 0;
   max-width: 430px;
-  color: var(--text-secondary);
+  color: var(--text-label);
   font-size: 0.9rem;
   text-align: right;
 }
@@ -205,11 +208,11 @@ select {
 }
 
 select.select-muted {
-  color: var(--text-label);
+  color: var(--text-muted-choice);
 }
 
 select option[value=""] {
-  color: var(--text-label);
+  color: var(--text-muted-choice);
 }
 
 .text-input,
@@ -347,9 +350,9 @@ button:disabled {
 }
 
 .chip-active {
-  background: rgba(201, 108, 50, 0.18);
+  background: rgba(232, 140, 79, 0.18);
   color: var(--text-primary);
-  border-color: rgba(201, 108, 50, 0.45);
+  border-color: rgba(232, 140, 79, 0.45);
 }
 
 .toolbar {
@@ -677,7 +680,7 @@ button:disabled {
   padding: 10px 16px;
   border-radius: 999px;
   font-weight: 700;
-  box-shadow: 0 10px 24px rgba(201, 108, 50, 0.35);
+  box-shadow: 0 10px 24px rgba(232, 140, 79, 0.35);
   z-index: 1200;
 }
 
