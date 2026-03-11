@@ -17,15 +17,27 @@
 | **風格基調 (Vibe)** | 泳裝 (Swimwear) | `Clothing with swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear` | 海灘或度假風格，包含比基尼、連身泳衣與度假罩衫。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 合身襯衫 | `fitted shirt, crisp cotton poplin, clean silhouette` | 乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。 |
+| **上身 (Tops)** | 合身棉質背心 | `fitted cotton tank top, close body fit, soft ribbed fabric` | 最基礎也最常用的貼身背心，適合日常、街頭與寫真風格。 |
 | **上身 (Tops)** | 削肩針織上衣 | `ribbed sleeveless knit top, fitted silhouette, soft stretch texture` | 乾淨貼身的針織質地，能自然勾勒肩頸與上半身線條。 |
+| **上身 (Tops)** | 長袖貼身上衣 | `fitted long-sleeve top, body-hugging silhouette, smooth stretch fabric` | 貼身長袖能強調上半身線條，適合秋冬、寫真與極簡時裝。 |
 | **上身 (Tops)** | 絲質細肩帶上衣 | `silk camisole top, delicate straps, fluid sheen` | 輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。 |
 | **上身 (Tops)** | 細肩帶上衣 | `camisole top, delicate shoulder straps, fitted silhouette` | 直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。 |
 | **上身 (Tops)** | 合身高領針織 | `fitted turtleneck knit top, fine gauge knit, sleek silhouette` | 貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。 |
+| **上身 (Tops)** | 寬鬆襯衫 | `oversized shirt, loose drape, relaxed tailoring` | 輪廓寬鬆、生活感強，適合街頭、飯店與慵懶穿搭。 |
+| **上身 (Tops)** | 緊身襯衫＋領帶 | `fitted shirt with tie, sharp collar, slim tailored silhouette` | 帶有制服感與整理過的正式氣質，適合制服、辦公室與 fetish 邊緣造型。 |
 | **上身 (Tops)** | 寬鬆落肩 T 恤 | `oversized dropped-shoulder t-shirt, washed cotton jersey, relaxed fit` | 生活感很強的基本款，適合街頭、居家與青春隨拍風格。 |
 | **上身 (Tops)** | 短版露臍 T-shirt | `cropped t-shirt, exposed waistline, casual fitted silhouette` | 最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。 |
+| **上身 (Tops)** | 短版針織外穿小可愛 | `cropped knit cami, fitted knit texture, layered casual silhouette` | 帶有針織紋理的小可愛，介於日常與輕性感之間，適合外穿疊搭。 |
+| **上身 (Tops)** | 短版蕾絲小可愛 | `cropped lace cami, delicate lace texture, fitted soft silhouette` | 蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。 |
 | **上身 (Tops)** | 平口短版上衣 | `strapless cropped tube top, close-fitting stretch fabric, clean line` | 露出肩頸與腰線，適合 Y2K、夏日、派對與寫真主題。 |
+| **上身 (Tops)** | 一字領上衣 | `off-shoulder top, exposed collarbones, soft neckline silhouette` | 露出鎖骨與肩線，氣質成熟，適合寫真與女性化風格。 |
+| **上身 (Tops)** | 削肩平口連身上衣 | `halter bandeau bodysuit, shoulder-baring fitted one-piece, sleek stretch silhouette` | 結合削肩與平口輪廓，身體線條更完整，適合時裝與寫真。 |
 | **上身 (Tops)** | 半透明絲綢襯衫 | `translucent silk blouse, sheer organza shirt, delicate drape` | 輕盈透膚的絲綢或歐根紗，柔和光澤感明顯。 |
+| **上身 (Tops)** | 網紗透視上衣 | `mesh see-through top, sheer net texture, body-hugging silhouette` | 網紗質地讓肌膚若隱若現，適合夜景、時裝與較強風格主題。 |
 | **上身 (Tops)** | 短版緊身吊帶背心 | `cropped tight camisole, ribbed cotton tank top, form-fitting` | 貼身露腰、偏 Y2K 與街頭感。 |
+| **上身 (Tops)** | 短版帽T | `cropped hoodie, casual streetwear silhouette, sporty relaxed shape` | 帶有街頭與運動感，適合 Y2K、隨拍與日常造型。 |
+| **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 偏街頭與運動風，適合社群感、青春感與休閒主題。 |
+| **上身 (Tops)** | 坦克背心 | `tank top, sleeveless casual fit, clean sporty line` | 最簡單直接的無袖上身，適合日常、運動與寫真人像。 |
 | **上身 (Tops)** | 維多利亞高領蕾絲襯衫 | `Victorian high-neck lace blouse, ruffled collar, intricate lace detailing` | 領口繁複、禁慾而浪漫。 |
 | **上身 (Tops)** | 透膚蕾絲連身上衣 | `sheer lace bodysuit top, floral lace texture, fitted silhouette` | 連身式透膚蕾絲上衣，偏內衣與寫真主題。 |
 | **上身 (Tops)** | 比基尼 | `bikini top, swimwear styling, minimal coverage silhouette` | 直接作為泳裝上身使用，適合海邊、泳池與度假感畫面。 |
@@ -33,6 +45,7 @@
 | **上身 (Tops)** | 運動型內衣 | `sports bra, athletic support top, streamlined active silhouette` | 緊貼身體、運動感明確，適合活力、街頭與健身風格。 |
 | **上身 (Tops)** | 蕾絲緊身睡衣 | `fitted lace nightdress, body-skimming sleepwear, delicate texture` | 貼身的睡衣輪廓，兼具柔軟與親密感。 |
 | **上身 (Tops)** | 蕾絲寬鬆睡衣 | `loose lace sleepwear, relaxed nightdress silhouette, soft drape` | 較鬆身的睡衣輪廓，氣質更慵懶也更生活化。 |
+| **上身 (Tops)** | 波西米亞風上衣 | `bohemian blouse, loose drape, soft flowing silhouette, artisanal detail` | 帶有波西米亞與民俗感的寬鬆上衣，適合自然、旅拍與復古主題。 |
 | **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
 | **褲裝 (Pants)** | 高腰直筒牛仔褲 | `high-waisted straight-leg jeans, clean denim texture, everyday staple` | 最穩定的日常下身單品，適合城市、街拍與生活感畫面。 |
 | **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
@@ -41,6 +54,13 @@
 | **褲裝 (Pants)** | 蕾絲內褲 | `lace panties, lingerie bottoms, delicate intimate styling` | 偏內衣與私密寫真風格，強調蕾絲質地與貼身感。 |
 | **褲裝 (Pants)** | 蕾絲丁字褲 | `lace thong bottoms, minimal lingerie styling, intimate silhouette` | 覆蓋面積更少，風格明顯偏私密與寫真導向。 |
 | **褲裝 (Pants)** | 亮面緊身皮短褲 | `glossy fitted leather shorts, sleek tight silhouette, fetish edge` | 帶有高反光與強勢感，適合夜景與邊緣時裝主題。 |
+| **褲裝 (Pants)** | 工裝長褲 | `cargo pants, structured utility silhouette, practical pocket detailing` | 工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。 |
+| **褲裝 (Pants)** | 西裝長褲 | `tailored trousers, sharp clean lines, polished formal drape` | 都會、正式與俐落感很強，適合極簡與成熟造型。 |
+| **褲裝 (Pants)** | 貼身瑜珈褲 / leggings | `fitted leggings, body-contouring stretch fabric, sleek athletic silhouette` | 緊貼腿部線條，偏運動、貼身與流線感。 |
+| **褲裝 (Pants)** | 寬鬆運動棉褲 | `loose sweatpants, soft casual drape, relaxed sporty volume` | 休閒、街頭與居家感強，畫面更放鬆。 |
+| **褲裝 (Pants)** | 超低腰短褲 | `ultra low-rise shorts, exposed hip line, y2k summer styling` | 強烈 Y2K 感與露腰比例，適合街頭、夏日與性感主題。 |
+| **褲裝 (Pants)** | 皮革長褲 | `leather trousers, sleek fitted structure, cool fashion attitude` | 比短褲更完整且更冷調，適合夜景、時裝與強勢造型。 |
+| **褲裝 (Pants)** | 寬鬆尼龍工裝褲 | `oversized nylon cargo pants, lightweight utility volume, technical streetwear feel` | 機能、街頭與輕量工裝感明顯，適合運動與 techwear。 |
 | **褲裝 (Pants)** | 破壞抽鬚牛仔寬褲 | `distressed baggy denim jeans, frayed edges, heavy wash denim` | 重度水洗、寬鬆廓形，帶隨性街頭感。 |
 | **褲裝 (Pants)** | 絲絨喇叭褲 | `velvet flared pants, 70s retro style, soft plush texture` | 帶有復古戲劇感與柔軟光澤。 |
 | **褲裝 (Pants)** | 亮面貼身皮褲 | `sleek fitted leather pants, glossy finish, sharp silhouette` | 緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。 |
@@ -52,14 +72,26 @@
 | **裙裝 (Skirts)** | 不對稱層次百褶裙 | `asymmetric layered pleated skirt, punk details, uneven hem` | 層次鮮明，適合龐克與前衛造型。 |
 | **裙裝 (Skirts)** | 龐克格紋百褶裙 | `punk tartan pleated skirt, plaid pattern, safety pin accents` | 經典格紋、叛逆氣息強。 |
 | **裙裝 (Skirts)** | 緊身亮面皮裙 | `glossy fitted leather skirt, high-shine texture, body-hugging silhouette` | 反光感強烈，適合夜景與邊緣時裝主題。 |
+| **裙裝 (Skirts)** | 包臀短裙 | `bodycon mini skirt, figure-hugging silhouette, sleek fitted finish` | 最直接強調曲線的短裙，適合寫真、時裝與成熟感造型。 |
+| **裙裝 (Skirts)** | 荷葉短裙 | `ruffled mini skirt, playful layered hem, lively feminine movement` | 裙擺更有律動與甜感，適合活潑、甜系與年輕造型。 |
+| **裙裝 (Skirts)** | 牛仔短裙 | `denim mini skirt, structured casual texture, youthful street styling` | 經典高頻單品，適合街頭、日常與夏日畫面。 |
+| **裙裝 (Skirts)** | 網紗長裙 | `mesh maxi skirt, sheer layered flow, dreamy airy texture` | 夢幻、時裝與飄逸感明顯，適合自然風與視覺層次。 |
+| **裙裝 (Skirts)** | 低腰長裙 | `low-rise maxi skirt, elongated hip line, urban y2k silhouette` | 強調臀線與腰線比例，適合都會、Y2K 與性感主題。 |
+| **裙裝 (Skirts)** | 緞面短裙 | `satin mini skirt, soft sheen, sleek sensual finish` | 低調光澤感明顯，適合飯店、寫真與成熟感風格。 |
+| **裙裝 (Skirts)** | 開衩長裙 | `slit maxi skirt, leg-revealing elegant cut, fluid elongated silhouette` | 成熟、性感且有流動感，適合時裝、晚間與高級場景。 |
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
 | **裙裝 (Skirts)** | 高腰 pencil skirt | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
 | **襪類 (Legwear)** | 全無 | `no legwear, bare legs, clean leg styling` | 不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。 |
 | **襪類 (Legwear)** | 透膚絲襪 | `sheer pantyhose, delicate translucent legwear, smooth finish` | 高頻實用，能與短裙、短褲與高跟鞋自然搭配。 |
+| **襪類 (Legwear)** | 半透明黑絲襪 | `semi-sheer black pantyhose, dark translucent legwear, sleek finish` | 比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。 |
 | **襪類 (Legwear)** | 蕾絲大腿絲襪 | `lace-top thigh-high stockings, sensual legwear, fitted silhouette` | 帶寫真與性感氛圍，適合內衣或飯店場景。 |
 | **襪類 (Legwear)** | 漁網絲襪 | `fishnet tights, open net texture, edgy styling` | 強化龐克、地下與夜晚街頭氣質。 |
 | **襪類 (Legwear)** | 膝上襪 | `over-knee socks, soft knit legwear, youthful styling` | 適合 JK、Lolita 與輕甜系搭配。 |
+| **襪類 (Legwear)** | 過膝白絲襪 | `white over-knee stockings, smooth fitted legwear, soft youthful styling` | 白色過膝絲襪帶有明顯甜感，適合 JK、Lolita 與寫真風格。 |
+| **襪類 (Legwear)** | 過膝黑絲襪 | `black over-knee stockings, fitted legwear, sleek dramatic styling` | 黑色過膝絲襪更成熟或更強風格，適合夜拍、時裝與制服變體。 |
 | **襪類 (Legwear)** | 羅紋短襪 | `ribbed ankle socks, casual everyday styling, soft cotton texture` | 偏日常、可愛、生活感強。 |
+| **襪類 (Legwear)** | 白色短襪 | `white ankle socks, clean casual styling, youthful everyday accent` | 白色短襪更偏日系日常與青春感，適合球鞋、樂福鞋與生活感穿搭。 |
+| **襪類 (Legwear)** | 彩色長筒襪 | `colorful knee-high socks, playful legwear accent, vivid casual styling` | 具存在感的彩色長筒襪，適合 Y2K、街頭與較活潑的社群感造型。 |
 | **外套 (Outerwear)** | 全無 | `no outerwear, uncluttered silhouette` | 不加外套，保留上身與下身單品的主要輪廓。 |
 | **外套 (Outerwear)** | 西裝外套（不扣扣子） | `open blazer, unbuttoned tailored jacket, relaxed structured layering` | 維持西裝輪廓但不扣上釦子，適合時裝、辦公室與飯店場景。 |
 | **外套 (Outerwear)** | 運動連帽外套 | `zip-up hoodie, sporty hooded jacket, casual athletic layering` | 偏日常與運動風，適合街頭與生活感畫面。 |

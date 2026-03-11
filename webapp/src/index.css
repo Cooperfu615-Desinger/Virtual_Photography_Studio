@@ -178,6 +178,10 @@ h1 {
   gap: 8px;
 }
 
+.field-full {
+  grid-column: 1 / -1;
+}
+
 .field span {
   color: var(--text-label);
   font-size: 0.86rem;
@@ -336,6 +340,10 @@ button:disabled {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 14px;
+}
+
+.chip-list-inline {
+  margin-top: 0;
 }
 
 .chip {

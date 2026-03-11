@@ -39,7 +39,7 @@ const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const REROLL_KEEP_DEFAULT = ['styleId', 'locationId'];
 const MAX_STORED_PROMPTS = 120;
 const CHARACTER_CONTROL_ORDER = ['subjectCount', 'bodyTypeId', 'facialFeaturesId', 'hairstyleId', 'hairColorId', 'skinDetailsId', 'expressionId', 'poseId'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['styleId', 'wardrobeVibeId', 'topId', 'topColorId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryId'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['styleId', 'wardrobeVibeId', 'topId', 'topColorId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
 const SCENE_CAMERA_CONTROL_ORDER = ['aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
 
 function sortControls(controls, order) {
@@ -48,9 +48,14 @@ function sortControls(controls, order) {
 }
 
 function isMutedSelectValue(control, value) {
+  if (Array.isArray(value)) return value.length === 0;
   if (!value) return true;
   const selected = control.options.find((option) => option.id === value);
   return selected?.zh === '全無';
+}
+
+function isNoneOption(option) {
+  return option?.zh === '全無';
 }
 
 function buildMarkdownExport(data) {
@@ -226,7 +231,7 @@ export default function App() {
     [lockControls]
   );
 
-  const activeLockCount = Object.entries(locks).filter(([key, value]) => !['subjectCount', 'aspectRatio'].includes(key) && Boolean(value)).length;
+  const activeLockCount = Object.entries(locks).filter(([key, value]) => !['subjectCount', 'aspectRatio'].includes(key) && (Array.isArray(value) ? value.length > 0 : Boolean(value))).length;
   const normalizedSearch = searchQuery.trim().toLowerCase();
 
   const displayPrompts = useMemo(() => {
@@ -346,6 +351,30 @@ export default function App() {
   const selectedGroup = knowledgeBaseOptions.find((group) => group.value === customForm.group);
   const selectedCategories = selectedGroup?.categories || [];
 
+  const toggleJewelrySelection = (option) => {
+    setLocks((prev) => {
+      const current = Array.isArray(prev.jewelryIds) ? prev.jewelryIds : [];
+      const alreadySelected = current.includes(option.id);
+
+      if (isNoneOption(option)) {
+        return { ...prev, jewelryIds: alreadySelected ? [] : [option.id] };
+      }
+
+      const noneOption = wardrobeLockControls
+        .find((control) => control.key === 'jewelryIds')
+        ?.options.find((item) => isNoneOption(item));
+      const next = current.filter((id) => id !== noneOption?.id);
+
+      if (alreadySelected) {
+        return { ...prev, jewelryIds: next.filter((id) => id !== option.id) };
+      }
+
+      if (next.length >= 3) return prev;
+
+      return { ...prev, jewelryIds: [...next, option.id] };
+    });
+  };
+
   const updateCustomGroup = (group) => {
     const nextGroup = knowledgeBaseOptions.find((item) => item.value === group);
     setCustomForm((prev) => ({
@@ -416,28 +445,49 @@ export default function App() {
               <p className="control-section-copy">第二步決定基調與服裝。`Wardrobe Core` 仍作為內部 family 依據，並會顯示在生成結果裡。</p>
             </div>
             <div className="lock-grid detail-lock-grid">
-              {wardrobeLockControls.map((control) => (
-                <label key={control.key} className="field">
-                  <span>{control.label}</span>
-                  <select
-                    className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
-                    value={locks[control.key]}
-                    onChange={(event) =>
-                      setLocks((prev) => ({
-                        ...prev,
-                        [control.key]: event.target.value,
-                      }))
-                    }
-                  >
-                    <option value="">Random</option>
-                    {control.options.map((option) => (
-                      <option key={option.id} value={option.id}>
-                        {option.zh}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              ))}
+              {wardrobeLockControls.map((control) =>
+                control.key === 'jewelryIds' ? (
+                  <div key={control.key} className="field field-full">
+                    <span>{control.label}</span>
+                    <div className="chip-list chip-list-inline">
+                      {control.options.map((option) => {
+                        const active = Array.isArray(locks.jewelryIds) && locks.jewelryIds.includes(option.id);
+                        return (
+                          <button
+                            key={option.id}
+                            type="button"
+                            className={`chip ${active ? 'chip-active' : ''}`}
+                            onClick={() => toggleJewelrySelection(option)}
+                          >
+                            {option.zh}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  <label key={control.key} className="field">
+                    <span>{control.label}</span>
+                    <select
+                      className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
+                      value={locks[control.key]}
+                      onChange={(event) =>
+                        setLocks((prev) => ({
+                          ...prev,
+                          [control.key]: event.target.value,
+                        }))
+                      }
+                    >
+                      <option value="">Random</option>
+                      {control.options.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option.zh}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                )
+              )}
             </div>
           </div>
 

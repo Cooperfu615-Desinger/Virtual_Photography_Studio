@@ -65,7 +65,7 @@ const LOCK_DEFINITIONS = [
   { key: 'legwearId', label: '襪類', category: '襪類 (Legwear)', section: 'wardrobe' },
   { key: 'outerwearId', label: '外套', category: '外套 (Outerwear)', section: 'wardrobe' },
   { key: 'shoesId', label: '鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
-  { key: 'jewelryId', label: '飾品點綴', category: '飾品點綴 (Jewelry & Piercings)', section: 'wardrobe' },
+  { key: 'jewelryIds', label: '飾品點綴', category: '飾品點綴 (Jewelry & Piercings)', section: 'wardrobe', multi: true, defaultValue: [] },
 ];
 
 const REQUIRED_LOCK_KEYS = LOCK_DEFINITIONS.filter((definition) => definition.required).map((definition) => definition.key);
@@ -95,7 +95,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'legwearId', label: 'Legwear' },
   { key: 'outerwearId', label: 'Outerwear' },
   { key: 'shoesId', label: 'Shoes' },
-  { key: 'jewelryId', label: 'Jewelry' },
+  { key: 'jewelryIds', label: 'Jewelry' },
 ];
 
 const CUSTOM_GROUP_OPTIONS = [
@@ -487,14 +487,27 @@ export function getKnowledgeBaseOptions(customLibrary = []) {
 }
 
 export function createEmptyLocks() {
-  return Object.fromEntries(LOCK_DEFINITIONS.map((definition) => [definition.key, definition.defaultValue || '']));
+  return Object.fromEntries(
+    LOCK_DEFINITIONS.map((definition) => [definition.key, definition.defaultValue ?? (definition.multi ? [] : '')])
+  );
 }
 
 export function normalizeLocks(rawLocks = {}) {
-  return {
+  const normalized = {
     ...createEmptyLocks(),
     ...(rawLocks || {}),
   };
+
+  const legacyJewelry = rawLocks?.jewelryId;
+  if (Array.isArray(rawLocks?.jewelryIds)) {
+    normalized.jewelryIds = rawLocks.jewelryIds.filter(Boolean);
+  } else if (legacyJewelry) {
+    normalized.jewelryIds = [legacyJewelry];
+  } else {
+    normalized.jewelryIds = [];
+  }
+
+  return normalized;
 }
 
 export function getLockControls(customLibrary = []) {
@@ -526,7 +539,7 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'legwearId') options = getByKey(catalog.wardrobe, '襪類 (Legwear)');
       if (definition.key === 'outerwearId') options = getByKey(catalog.wardrobe, '外套 (Outerwear)');
       if (definition.key === 'shoesId') options = getByKey(catalog.wardrobe, '鞋款 (Shoes)');
-      if (definition.key === 'jewelryId') options = getByKey(catalog.wardrobe, '飾品點綴 (Jewelry & Piercings)');
+      if (definition.key === 'jewelryIds') options = getByKey(catalog.wardrobe, '飾品點綴 (Jewelry & Piercings)');
     }
 
     return { ...definition, options };
@@ -889,17 +902,34 @@ function buildWardrobe(context, locks, catalog) {
     '襪類 (Legwear)': 'legwearId',
     '外套 (Outerwear)': 'outerwearId',
     '鞋款 (Shoes)': 'shoesId',
-    '飾品點綴 (Jewelry & Piercings)': 'jewelryId',
+    '飾品點綴 (Jewelry & Piercings)': 'jewelryIds',
+  };
+
+  const addPiece = (item) => {
+    if (!item || pieces.some((piece) => piece.id === item.id)) return;
+    pieces.push(item);
   };
 
   const maybePick = (categoryKey, probability = 1, extraPredicate = () => true) => {
     const lockKey = categoryLockMap[categoryKey];
     const categoryItems = getByKey(catalog.catalog.wardrobe, categoryKey);
-    const lockedId = locks?.[lockKey];
-    const lockedItem = lockedId ? findById(categoryItems, lockedId) : null;
+    const lockedValue = locks?.[lockKey];
+
+    if (Array.isArray(lockedValue) && lockedValue.length > 0) {
+      const lockedItems = lockedValue.map((id) => findById(categoryItems, id)).filter(Boolean);
+      const noneItem = lockedItems.find((item) => isNoneLikeItem(item));
+      if (noneItem) {
+        addPiece(noneItem);
+        return [noneItem];
+      }
+      lockedItems.forEach(addPiece);
+      return lockedItems;
+    }
+
+    const lockedItem = lockedValue ? findById(categoryItems, lockedValue) : null;
 
     if (lockedItem) {
-      if (!pieces.some((piece) => piece.id === lockedItem.id)) pieces.push(lockedItem);
+      addPiece(lockedItem);
       return lockedItem;
     }
 
@@ -914,7 +944,7 @@ function buildWardrobe(context, locks, catalog) {
     );
     if (candidates.length === 0) return null;
     const picked = sample(candidates);
-    pieces.push(picked);
+    addPiece(picked);
     return picked;
   };
 
@@ -1064,6 +1094,7 @@ function extractCharacterSlots(character) {
 
 function extractWardrobeSlots(wardrobe) {
   const findSlot = (token) => wardrobe.find((item) => item.id?.includes(token));
+  const findSlots = (token) => wardrobe.filter((item) => item.id?.includes(token));
   return {
     wardrobeCore: wardrobe[0] || null,
     top: findSlot('wardrobe:上身-tops:'),
@@ -1072,7 +1103,7 @@ function extractWardrobeSlots(wardrobe) {
     legwear: findSlot('wardrobe:襪類-legwear:'),
     outerwear: findSlot('wardrobe:外套-outerwear:'),
     shoes: findSlot('wardrobe:鞋款-shoes:'),
-    jewelry: findSlot('wardrobe:飾品點綴-jewelry-piercings:'),
+    jewelry: findSlots('wardrobe:飾品點綴-jewelry-piercings:'),
   };
 }
 
@@ -1180,7 +1211,8 @@ function buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors) {
   pushUniqueSegment(segments, applyColorToGarment(slots.top, wardrobeColors.topColor));
   pushUniqueSegment(segments, applyColorToGarment(slots.pants, wardrobeColors.bottomColor));
   pushUniqueSegment(segments, applyColorToGarment(slots.skirt, wardrobeColors.bottomColor));
-  [slots.legwear, slots.outerwear, slots.shoes, slots.jewelry].forEach((item) => pushUniqueSegment(segments, compactClause(item?.en, 1)));
+  [slots.legwear, slots.outerwear, slots.shoes].forEach((item) => pushUniqueSegment(segments, compactClause(item?.en, 1)));
+  slots.jewelry.filter((item) => !isNoneLikeItem(item)).forEach((item) => pushUniqueSegment(segments, compactClause(item?.en, 1)));
 
   return segments;
 }
@@ -1225,7 +1257,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addItemLine('Legwear', wardrobeSlots.legwear);
   addItemLine('Outerwear', wardrobeSlots.outerwear);
   addItemLine('Shoes', wardrobeSlots.shoes);
-  addItemLine('Jewelry and Piercings', wardrobeSlots.jewelry);
+  addLine(
+    'Jewelry and Piercings',
+    wardrobeSlots.jewelry.filter((item) => !isNoneLikeItem(item)).length > 0
+      ? wardrobeSlots.jewelry.filter((item) => !isNoneLikeItem(item)).map((item) => item.en).join(', ')
+      : ''
+  );
 
   return lines.join('\n');
 }
@@ -1282,7 +1319,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     legwearId: wardrobeSlots.legwear?.id || '',
     outerwearId: wardrobeSlots.outerwear?.id || '',
     shoesId: wardrobeSlots.shoes?.id || '',
-    jewelryId: wardrobeSlots.jewelry?.id || '',
+    jewelryIds: wardrobeSlots.jewelry.map((item) => item.id),
   };
 }
 
@@ -1292,7 +1329,11 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
     base[key] = prompt.selection?.[key] || base[key];
   });
   keepKeys.forEach((key) => {
-    base[key] = prompt.selection?.[key] || '';
+    if (key === 'jewelryIds') {
+      base[key] = Array.isArray(prompt.selection?.[key]) ? prompt.selection[key] : [];
+    } else {
+      base[key] = prompt.selection?.[key] || '';
+    }
   });
   return base;
 }

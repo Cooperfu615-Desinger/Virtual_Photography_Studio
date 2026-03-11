@@ -163,9 +163,19 @@
         "desc": "乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。"
       },
       {
+        "zh": "合身棉質背心",
+        "en": "fitted cotton tank top, close body fit, soft ribbed fabric",
+        "desc": "最基礎也最常用的貼身背心，適合日常、街頭與寫真風格。"
+      },
+      {
         "zh": "削肩針織上衣",
         "en": "ribbed sleeveless knit top, fitted silhouette, soft stretch texture",
         "desc": "乾淨貼身的針織質地，能自然勾勒肩頸與上半身線條。"
+      },
+      {
+        "zh": "長袖貼身上衣",
+        "en": "fitted long-sleeve top, body-hugging silhouette, smooth stretch fabric",
+        "desc": "貼身長袖能強調上半身線條，適合秋冬、寫真與極簡時裝。"
       },
       {
         "zh": "絲質細肩帶上衣",
@@ -183,6 +193,16 @@
         "desc": "貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。"
       },
       {
+        "zh": "寬鬆襯衫",
+        "en": "oversized shirt, loose drape, relaxed tailoring",
+        "desc": "輪廓寬鬆、生活感強，適合街頭、飯店與慵懶穿搭。"
+      },
+      {
+        "zh": "緊身襯衫＋領帶",
+        "en": "fitted shirt with tie, sharp collar, slim tailored silhouette",
+        "desc": "帶有制服感與整理過的正式氣質，適合制服、辦公室與 fetish 邊緣造型。"
+      },
+      {
         "zh": "寬鬆落肩 T 恤",
         "en": "oversized dropped-shoulder t-shirt, washed cotton jersey, relaxed fit",
         "desc": "生活感很強的基本款，適合街頭、居家與青春隨拍風格。"
@@ -193,9 +213,29 @@
         "desc": "最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。"
       },
       {
+        "zh": "短版針織外穿小可愛",
+        "en": "cropped knit cami, fitted knit texture, layered casual silhouette",
+        "desc": "帶有針織紋理的小可愛，介於日常與輕性感之間，適合外穿疊搭。"
+      },
+      {
+        "zh": "短版蕾絲小可愛",
+        "en": "cropped lace cami, delicate lace texture, fitted soft silhouette",
+        "desc": "蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。"
+      },
+      {
         "zh": "平口短版上衣",
         "en": "strapless cropped tube top, close-fitting stretch fabric, clean line",
         "desc": "露出肩頸與腰線，適合 Y2K、夏日、派對與寫真主題。"
+      },
+      {
+        "zh": "一字領上衣",
+        "en": "off-shoulder top, exposed collarbones, soft neckline silhouette",
+        "desc": "露出鎖骨與肩線，氣質成熟，適合寫真與女性化風格。"
+      },
+      {
+        "zh": "削肩平口連身上衣",
+        "en": "halter bandeau bodysuit, shoulder-baring fitted one-piece, sleek stretch silhouette",
+        "desc": "結合削肩與平口輪廓，身體線條更完整，適合時裝與寫真。"
       },
       {
         "zh": "半透明絲綢襯衫",
@@ -203,9 +243,29 @@
         "desc": "輕盈透膚的絲綢或歐根紗，柔和光澤感明顯。"
       },
       {
+        "zh": "網紗透視上衣",
+        "en": "mesh see-through top, sheer net texture, body-hugging silhouette",
+        "desc": "網紗質地讓肌膚若隱若現，適合夜景、時裝與較強風格主題。"
+      },
+      {
         "zh": "短版緊身吊帶背心",
         "en": "cropped tight camisole, ribbed cotton tank top, form-fitting",
         "desc": "貼身露腰、偏 Y2K 與街頭感。"
+      },
+      {
+        "zh": "短版帽T",
+        "en": "cropped hoodie, casual streetwear silhouette, sporty relaxed shape",
+        "desc": "帶有街頭與運動感，適合 Y2K、隨拍與日常造型。"
+      },
+      {
+        "zh": "球衣 / 運動 jersey",
+        "en": "sports jersey top, athletic uniform feel, relaxed sporty silhouette",
+        "desc": "偏街頭與運動風，適合社群感、青春感與休閒主題。"
+      },
+      {
+        "zh": "坦克背心",
+        "en": "tank top, sleeveless casual fit, clean sporty line",
+        "desc": "最簡單直接的無袖上身，適合日常、運動與寫真人像。"
       },
       {
         "zh": "維多利亞高領蕾絲襯衫",
@@ -241,6 +301,11 @@
         "zh": "蕾絲寬鬆睡衣",
         "en": "loose lace sleepwear, relaxed nightdress silhouette, soft drape",
         "desc": "較鬆身的睡衣輪廓，氣質更慵懶也更生活化。"
+      },
+      {
+        "zh": "波西米亞風上衣",
+        "en": "bohemian blouse, loose drape, soft flowing silhouette, artisanal detail",
+        "desc": "帶有波西米亞與民俗感的寬鬆上衣，適合自然、旅拍與復古主題。"
       }
     ],
     "褲裝 (Pants)": [
@@ -283,6 +348,41 @@
         "zh": "亮面緊身皮短褲",
         "en": "glossy fitted leather shorts, sleek tight silhouette, fetish edge",
         "desc": "帶有高反光與強勢感，適合夜景與邊緣時裝主題。"
+      },
+      {
+        "zh": "工裝長褲",
+        "en": "cargo pants, structured utility silhouette, practical pocket detailing",
+        "desc": "工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。"
+      },
+      {
+        "zh": "西裝長褲",
+        "en": "tailored trousers, sharp clean lines, polished formal drape",
+        "desc": "都會、正式與俐落感很強，適合極簡與成熟造型。"
+      },
+      {
+        "zh": "貼身瑜珈褲 / leggings",
+        "en": "fitted leggings, body-contouring stretch fabric, sleek athletic silhouette",
+        "desc": "緊貼腿部線條，偏運動、貼身與流線感。"
+      },
+      {
+        "zh": "寬鬆運動棉褲",
+        "en": "loose sweatpants, soft casual drape, relaxed sporty volume",
+        "desc": "休閒、街頭與居家感強，畫面更放鬆。"
+      },
+      {
+        "zh": "超低腰短褲",
+        "en": "ultra low-rise shorts, exposed hip line, y2k summer styling",
+        "desc": "強烈 Y2K 感與露腰比例，適合街頭、夏日與性感主題。"
+      },
+      {
+        "zh": "皮革長褲",
+        "en": "leather trousers, sleek fitted structure, cool fashion attitude",
+        "desc": "比短褲更完整且更冷調，適合夜景、時裝與強勢造型。"
+      },
+      {
+        "zh": "寬鬆尼龍工裝褲",
+        "en": "oversized nylon cargo pants, lightweight utility volume, technical streetwear feel",
+        "desc": "機能、街頭與輕量工裝感明顯，適合運動與 techwear。"
       },
       {
         "zh": "破壞抽鬚牛仔寬褲",
@@ -342,6 +442,41 @@
         "desc": "反光感強烈，適合夜景與邊緣時裝主題。"
       },
       {
+        "zh": "包臀短裙",
+        "en": "bodycon mini skirt, figure-hugging silhouette, sleek fitted finish",
+        "desc": "最直接強調曲線的短裙，適合寫真、時裝與成熟感造型。"
+      },
+      {
+        "zh": "荷葉短裙",
+        "en": "ruffled mini skirt, playful layered hem, lively feminine movement",
+        "desc": "裙擺更有律動與甜感，適合活潑、甜系與年輕造型。"
+      },
+      {
+        "zh": "牛仔短裙",
+        "en": "denim mini skirt, structured casual texture, youthful street styling",
+        "desc": "經典高頻單品，適合街頭、日常與夏日畫面。"
+      },
+      {
+        "zh": "網紗長裙",
+        "en": "mesh maxi skirt, sheer layered flow, dreamy airy texture",
+        "desc": "夢幻、時裝與飄逸感明顯，適合自然風與視覺層次。"
+      },
+      {
+        "zh": "低腰長裙",
+        "en": "low-rise maxi skirt, elongated hip line, urban y2k silhouette",
+        "desc": "強調臀線與腰線比例，適合都會、Y2K 與性感主題。"
+      },
+      {
+        "zh": "緞面短裙",
+        "en": "satin mini skirt, soft sheen, sleek sensual finish",
+        "desc": "低調光澤感明顯，適合飯店、寫真與成熟感風格。"
+      },
+      {
+        "zh": "開衩長裙",
+        "en": "slit maxi skirt, leg-revealing elegant cut, fluid elongated silhouette",
+        "desc": "成熟、性感且有流動感，適合時裝、晚間與高級場景。"
+      },
+      {
         "zh": "蘿莉塔鐘形澎裙",
         "en": "Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath",
         "desc": "由裙撐撐起的鐘形裙襬，風格非常鮮明。"
@@ -364,6 +499,11 @@
         "desc": "高頻實用，能與短裙、短褲與高跟鞋自然搭配。"
       },
       {
+        "zh": "半透明黑絲襪",
+        "en": "semi-sheer black pantyhose, dark translucent legwear, sleek finish",
+        "desc": "比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。"
+      },
+      {
         "zh": "蕾絲大腿絲襪",
         "en": "lace-top thigh-high stockings, sensual legwear, fitted silhouette",
         "desc": "帶寫真與性感氛圍，適合內衣或飯店場景。"
@@ -379,9 +519,29 @@
         "desc": "適合 JK、Lolita 與輕甜系搭配。"
       },
       {
+        "zh": "過膝白絲襪",
+        "en": "white over-knee stockings, smooth fitted legwear, soft youthful styling",
+        "desc": "白色過膝絲襪帶有明顯甜感，適合 JK、Lolita 與寫真風格。"
+      },
+      {
+        "zh": "過膝黑絲襪",
+        "en": "black over-knee stockings, fitted legwear, sleek dramatic styling",
+        "desc": "黑色過膝絲襪更成熟或更強風格，適合夜拍、時裝與制服變體。"
+      },
+      {
         "zh": "羅紋短襪",
         "en": "ribbed ankle socks, casual everyday styling, soft cotton texture",
         "desc": "偏日常、可愛、生活感強。"
+      },
+      {
+        "zh": "白色短襪",
+        "en": "white ankle socks, clean casual styling, youthful everyday accent",
+        "desc": "白色短襪更偏日系日常與青春感，適合球鞋、樂福鞋與生活感穿搭。"
+      },
+      {
+        "zh": "彩色長筒襪",
+        "en": "colorful knee-high socks, playful legwear accent, vivid casual styling",
+        "desc": "具存在感的彩色長筒襪，適合 Y2K、街頭與較活潑的社群感造型。"
       }
     ],
     "外套 (Outerwear)": [
