@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #111111;
+  --bg-color: #000000;
   --bg-panel: #171717;
   --card-bg: #1f1f1f;
   --text-primary: #f5f2ea;
@@ -7,7 +7,7 @@
   --text-label: #3A3228;
   --accent: #E88C4F;
   --accent-hover: #f09a62;
-  --border: #322b26;
+  --border: #ffffff;
   --danger: #ff8d7a;
   --text-muted-choice: #404040;
 }
@@ -19,9 +19,7 @@
 body {
   margin: 0;
   font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
-  background:
-    radial-gradient(circle at top, rgba(232, 140, 79, 0.18), transparent 30%),
-    linear-gradient(180deg, #120f0d 0%, #0d0d0d 100%);
+  background: var(--bg-color);
   color: var(--text-primary);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
