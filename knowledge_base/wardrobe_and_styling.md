@@ -8,6 +8,14 @@
 | **風格基調 (Vibe)** | 極簡高級 (Minimalist Luxury) | `Clothing featuring minimalist style, clean lines, monochromatic colors, and fitted or oversized cuts` | 無明顯 logo，剪裁俐落乾淨，注重面料垂墜與高質感。 |
 | **風格基調 (Vibe)** | 復古龐克 (Retro Punk) | `Clothing with retro punk, British punk, and Japanese punk fashion aesthetics` | 帶有破壞感、鉚釘、皮革、格紋等元素，散發叛逆與次文化氣息。 |
 | **風格基調 (Vibe)** | 日系街頭 (Japanese Streetwear) | `Clothing with Japanese streetwear, oversized silhouette, layered clothing, Harajuku fashion` | 擅長多層次穿搭與 oversized 廓形，混合工裝與日常單品。 |
+| **風格基調 (Vibe)** | 日常鬆弛感 | `Clothing with relaxed everyday styling, effortless casual layering, natural lived-in comfort` | 像真實生活中的輕鬆穿搭，不刻意用力，適合日常、街拍與隨拍。 |
+| **風格基調 (Vibe)** | 居家慵懶感 | `Clothing with cozy homewear styling, soft relaxed layering, intimate off-duty mood` | 放鬆、柔軟、帶一點親密感，像房間裡的自然生活片段。 |
+| **風格基調 (Vibe)** | 文青生活感 | `Clothing with understated artistic casualwear, soft textures, quiet lifestyle mood` | 安靜、輕鬆、帶閱讀感與咖啡館氣質，適合生活感與文藝感畫面。 |
+| **風格基調 (Vibe)** | 清爽運動感 | `Clothing with sporty clean styling, active casualwear, lightweight athletic mood` | 乾淨、有活力，像日常運動或休閒街頭的自然穿搭。 |
+| **風格基調 (Vibe)** | 甜辣街頭感 | `Clothing with sweet and spicy streetwear, youthful fitted silhouettes, playful urban attitude` | 青春、帶點性感與社群感，適合 Y2K、街頭與活潑寫真。 |
+| **風格基調 (Vibe)** | 都會通勤感 | `Clothing with modern city workwear, polished everyday tailoring, refined commuter elegance` | 成熟俐落、帶有都會女性的現代感，適合辦公室、飯店與城市背景。 |
+| **風格基調 (Vibe)** | 旅行度假感 | `Clothing with resort casual styling, breezy vacation layering, sunlit getaway mood` | 輕鬆、清爽、帶風感與日照感，適合旅拍、海邊與度假情境。 |
+| **風格基調 (Vibe)** | 夜生活辣妹感 | `Clothing with nightlife glamour, body-conscious styling, bold feminine party energy` | 夜拍、派對與存在感強的女性化造型，適合夜景、酒吧與強風格人像。 |
 | **風格基調 (Vibe)** | BDSM (拘束/束縛) | `Clothing with Featuring BDSM bondage aesthetics, leather, bondage straps, buckles, chains, and latex embellishments.` | 強烈的束縛感與支配性，使用皮革、乳膠、綁帶與金屬環等元素。 |
 | **風格基調 (Vibe)** | 巴洛克 (Baroque) | `Clothing with Baroque fashion, opulent aesthetic, ornate gold embroidery, luxurious fabrics, decadent` | 極致奢華與繁複，大量金色刺繡、天鵝絨、絲綢與戲劇化剪裁。 |
 | **風格基調 (Vibe)** | 維多利亞 (Victorian) | `Clothing with Victorian, gothic Victorian, high neck lace, corsets, romantic mourning dress` | 帶有禁慾與浪漫氣息，高領蕾絲、緊身馬甲與繁複皺褶。 |
