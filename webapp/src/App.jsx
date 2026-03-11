@@ -47,6 +47,12 @@ function sortControls(controls, order) {
   return [...controls].sort((a, b) => (orderMap.get(a.key) ?? 999) - (orderMap.get(b.key) ?? 999));
 }
 
+function isMutedSelectValue(control, value) {
+  if (!value) return true;
+  const selected = control.options.find((option) => option.id === value);
+  return selected?.zh === '全無';
+}
+
 function buildMarkdownExport(data) {
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
 **Summary:** ${data.summary}
@@ -383,6 +389,7 @@ export default function App() {
                 <label key={control.key} className="field">
                   <span>{control.label}</span>
                   <select
+                    className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
                     value={locks[control.key]}
                     onChange={(event) =>
                       setLocks((prev) => ({
@@ -413,6 +420,7 @@ export default function App() {
                 <label key={control.key} className="field">
                   <span>{control.label}</span>
                   <select
+                    className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
                     value={locks[control.key]}
                     onChange={(event) =>
                       setLocks((prev) => ({
@@ -443,6 +451,7 @@ export default function App() {
                 <label key={control.key} className="field">
                   <span>{control.label}</span>
                   <select
+                    className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
                     value={locks[control.key]}
                     onChange={(event) =>
                       setLocks((prev) => ({
