@@ -16,6 +16,12 @@
 | **風格基調 (Vibe)** | 都會通勤感 | `Clothing with modern city workwear, polished everyday tailoring, refined commuter elegance` | 成熟俐落、帶有都會女性的現代感，適合辦公室、飯店與城市背景。 |
 | **風格基調 (Vibe)** | 旅行度假感 | `Clothing with resort casual styling, breezy vacation layering, sunlit getaway mood` | 輕鬆、清爽、帶風感與日照感，適合旅拍、海邊與度假情境。 |
 | **風格基調 (Vibe)** | 夜生活辣妹感 | `Clothing with nightlife glamour, body-conscious styling, bold feminine party energy` | 夜拍、派對與存在感強的女性化造型，適合夜景、酒吧與強風格人像。 |
+| **風格基調 (Vibe)** | 柔霧日常寫真感 | `Clothing with soft airy photobook styling, gentle layering, lyrical everyday femininity` | 柔光、安靜、像生活裡的高質感隨手拍，適合自然寫真與日常感人像。 |
+| **風格基調 (Vibe)** | 直閃隨拍感 | `Clothing with direct-flash snapshot styling, casual fashion spontaneity, raw magazine energy` | 直接、粗糙、像社群快拍或雜誌側拍，適合夜拍與時裝抓拍感。 |
+| **風格基調 (Vibe)** | 私密生活紀錄感 | `Clothing with intimate lived-in styling, private room realism, emotionally close atmosphere` | 像房間裡的私人相簿，帶凌亂感、親近感與真實生活氣息。 |
+| **風格基調 (Vibe)** | 雜誌抓拍感 | `Clothing with candid editorial styling, off-guard fashion energy, spontaneous magazine mood` | 有時裝感但不太正式，像 editorial 幕後抓拍或臨場隨拍。 |
+| **風格基調 (Vibe)** | 高飽和戲劇感 | `Clothing with vivid theatrical styling, saturated color drama, glamorous visual impact` | 顏色濃、女性張力高、視覺飽滿，適合戲劇化時裝與高彩度場景。 |
+| **風格基調 (Vibe)** | 冷調高級感 | `Clothing with cool-toned refined styling, restrained luxury, elegant fashion severity` | 克制、成熟、冷感，像精品廣告與高級時裝片的穿搭語氣。 |
 | **風格基調 (Vibe)** | BDSM (拘束/束縛) | `Clothing with Featuring BDSM bondage aesthetics, leather, bondage straps, buckles, chains, and latex embellishments.` | 強烈的束縛感與支配性，使用皮革、乳膠、綁帶與金屬環等元素。 |
 | **風格基調 (Vibe)** | 巴洛克 (Baroque) | `Clothing with Baroque fashion, opulent aesthetic, ornate gold embroidery, luxurious fabrics, decadent` | 極致奢華與繁複，大量金色刺繡、天鵝絨、絲綢與戲劇化剪裁。 |
 | **風格基調 (Vibe)** | 維多利亞 (Victorian) | `Clothing with Victorian, gothic Victorian, high neck lace, corsets, romantic mourning dress` | 帶有禁慾與浪漫氣息，高領蕾絲、緊身馬甲與繁複皺褶。 |
