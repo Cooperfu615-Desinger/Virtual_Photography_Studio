@@ -1079,6 +1079,66 @@ const STYLE_PROMPT_INTROS = {
   濃彩復古電影棚拍感: 'Miles Aldridge-inspired saturated retro-cinematic studio glamour',
 };
 
+const DUO_PROMPT_OVERRIDES = {
+  framing: {
+    '特寫鏡頭 (Close-Up)': 'tight duo portrait, both women clearly visible, shoulder-up framing, intimate two-subject composition',
+    '中景鏡頭 (Medium Shot)': 'medium shot, waist-up duo portrait, both women clearly visible, balanced two-subject composition',
+    '牛仔中景 (Cowboy Shot)': 'cowboy shot, knee-up duo portrait, balanced spacing between both women, both subjects clearly visible',
+    '全身鏡頭 (Full Body Shot)': 'full body shot, full-length duo portrait, both women fully visible, balanced side-by-side composition',
+  },
+  angle: {
+    '平視角 (Eye-Level Angle)': 'eye-level angle, neutral two-subject perspective, both women equally readable',
+    '仰角 (Low Angle)': 'low angle, looking slightly up at both women, shared dominant presence, elongated duo silhouette',
+    '俯角 (High Angle)': 'high angle, looking down on both women, balanced two-subject framing, gentle foreshortening',
+    '荷蘭角/傾斜 (Dutch Angle)': 'dutch angle, tilted two-subject framing, dynamic cinematic tension, both women held in frame',
+  },
+  orbit: {
+    '正面 (Front View)': 'front-facing duo view, both women facing camera, balanced front composition',
+    '正面 45 度 (Front Three-Quarter Left)': 'front three-quarter duo view, both women slightly angled toward camera, dimensional shared composition',
+    '側面 90 度 (Left Profile)': 'side-by-side lateral duo view, both women readable in profile, balanced side composition',
+    '背側 135 度 (Rear Three-Quarter Left)': 'rear three-quarter duo view, both women turned partly away, shared shoulder-line composition',
+    '背面 180 度 (Back View)': 'back-facing duo view, both women turned away, shared silhouette composition from behind',
+    '背側 225 度 (Rear Three-Quarter Right)': 'rear three-quarter duo view from the opposite side, both women partly turned away, balanced shared framing',
+    '側面 270 度 (Right Profile)': 'side-by-side lateral duo view from the opposite side, both women readable in profile',
+    '正面 315 度 (Front Three-Quarter Right)': 'front three-quarter duo view from the opposite side, both women slightly angled toward camera, balanced dimensional composition',
+  },
+  lightDirection: {
+    '倫勃朗光/三角光 (Rembrandt Lighting)': 'soft directional light across both women, gentle sculpted contrast, balanced duo portrait lighting',
+    '蝴蝶光/派拉蒙光 (Butterfly Lighting)': 'soft frontal beauty lighting across both women, even luminous facial highlights, balanced duo portrait light',
+    '輪廓光/背光 (Rim Light / Backlight)': 'backlit duo portrait, glowing edge light on both silhouettes, gentle separation from the background',
+    '側光/陰陽光 (Split Lighting)': 'soft side light across both women, clean facial contrast, balanced duo portrait lighting',
+    '窗縫光/百葉窗光 (Window / Blind Slits Light)': 'directional window light across both women, gentle layered indoor contrast, cinematic two-subject atmosphere',
+    '頂光 (Top Lighting)': 'overhead top light across both women, moody duo portrait contrast, tense cinematic atmosphere',
+  },
+  expression: {
+    '直視鏡頭微笑': 'both women looking toward the camera, subtle shared smile, calm confident duo presence',
+    '慵懶挑逗眼神': 'both women with relaxed seductive expressions, languid gaze, shared editorial chemistry',
+    '淡漠高冷': 'both women with distant cool expressions, restrained emotion, composed duo presence',
+    '望向遠方/若有所思': 'both women gazing away or slightly off-camera, thoughtful mood, quiet shared atmosphere',
+    '大笑/自然喜悅': 'both women laughing naturally, candid joyful chemistry, lively duo energy',
+    '慵懶出神/唇微開': 'both women with dreamy relaxed expressions, lips slightly parted, soft editorial mood',
+  },
+  pose: {
+    '側身慵懶倚靠': 'two women leaning with relaxed asymmetry, effortless cool, natural shared balance',
+    '坐姿/蜷縮 (脆弱感)': 'two women seated closely, curled relaxed posture, intimate introspective duo mood',
+    '動態走路/動作殘影': 'two women walking together, dynamic movement, candid action shot',
+    '高挑站姿': 'two women standing upright, confident posture, strong shared presence',
+    '蹲姿前傾 (親近感)': 'two women crouching in a relaxed forward-leaning pose, approachable duo body language',
+    '打開肩線微轉站姿': 'two women with open shoulders and slight body turns, balanced confident standing pose',
+    '坐姿交叉腿': 'two women seated with composed crossed-leg posture, elegant shared body line',
+    '抬手整理頭髮': 'two women adjusting their hair naturally, candid beauty gesture, soft shared movement',
+    '托腮近距離姿勢': 'two women resting their faces lightly on their hands, intimate close duo pose',
+    '放鬆坐姿': 'two women in a relaxed seated pose, soft natural posture, calm shared body language',
+    '低頭垂視隨拍感': 'two women glancing downward in a candid off-guard posture, natural snapshot duo mood',
+  },
+};
+
+function resolvePromptVariant(item, kind, subjectCount) {
+  if (!item) return '';
+  if (subjectCount !== 2) return item.en;
+  return DUO_PROMPT_OVERRIDES[kind]?.[item.zh] || item.en;
+}
+
 function extractCharacterSlots(character) {
   const findSlot = (token) => character.find((item) => item.id?.includes(token));
   return {
@@ -1157,11 +1217,11 @@ function buildMidjourneyCharacterSegments(context, characterSlots) {
   if (characterSlots.hairColor?.en) pushUniqueSegment(segments, compactClause(characterSlots.hairColor.en, 1));
 
   if (context.framing.meta.visibility !== 'full' && characterSlots.expression?.en) {
-    pushUniqueSegment(segments, compactClause(characterSlots.expression.en, 1));
+    pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count), 1));
   }
 
   if (characterSlots.pose?.en && context.framing.meta.visibility !== 'portrait') {
-    pushUniqueSegment(segments, compactClause(characterSlots.pose.en, 1));
+    pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count), 1));
   }
 
   return segments;
@@ -1172,10 +1232,10 @@ function buildMidjourneyCameraSegments(context, lightDirection, film) {
 
   pushUniqueSegment(segments, compactClause(STYLE_PROMPT_INTROS[context.style.zh] || context.style.en, 1));
   pushUniqueSegment(segments, compactClause(context.location.en, 2));
-  pushUniqueSegment(segments, compactClause(context.framing.en, 1));
+  pushUniqueSegment(segments, compactClause(resolvePromptVariant(context.framing, 'framing', context.subject.count), 1));
 
-  const angleText = compactClause(context.angle.en, 1);
-  const orbitText = compactClause(context.orbit.en, 1);
+  const angleText = compactClause(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1);
+  const orbitText = compactClause(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1);
   if (orbitText && !orbitText.toLowerCase().includes('front-facing')) {
     pushUniqueSegment(segments, orbitText);
   }
@@ -1188,7 +1248,7 @@ function buildMidjourneyCameraSegments(context, lightDirection, film) {
   }
 
   pushUniqueSegment(segments, compactClause(context.lighting.en, 2));
-  pushUniqueSegment(segments, compactClause(lightDirection.en, 2));
+  pushUniqueSegment(segments, compactClause(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count), 2));
   pushUniqueSegment(segments, compactClause(film.en, 1));
 
   return segments;
@@ -1221,7 +1281,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const styleIntro = STYLE_PROMPT_INTROS[context.style.zh] || 'editorial photography mood';
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
-  const expressionAndPose = [characterSlots.expression?.en, characterSlots.pose?.en].filter(Boolean).join(', ');
+  const expressionAndPose = [
+    characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
+    characterSlots.pose ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
+  ]
+    .filter(Boolean)
+    .join(', ');
   const lines = [];
   const addLine = (label, value) => {
     if (!value) return;
@@ -1237,11 +1302,11 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addLine('Photography Style', `${styleIntro}. ${context.style.en}`);
   addLine('Location', context.location.en);
   addLine('Wardrobe Core', buildWardrobeCorePrompt(wardrobeSlots.wardrobeCore));
-  addLine('Framing', context.framing.en);
-  addLine('Angle', context.angle.en);
-  addLine('Orbit Angle', context.orbit.en);
+  addLine('Framing', resolvePromptVariant(context.framing, 'framing', context.subject.count));
+  addLine('Angle', resolvePromptVariant(context.angle, 'angle', context.subject.count));
+  addLine('Orbit Angle', resolvePromptVariant(context.orbit, 'orbit', context.subject.count));
   addLine('Lighting', context.lighting.en);
-  addLine('Light Direction', lightDirection.en);
+  addLine('Light Direction', resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count));
   addLine('Film', film.en);
   addItemLine('Body Type', characterSlots.bodyType);
   addItemLine('Facial Features', characterSlots.facialFeatures);
