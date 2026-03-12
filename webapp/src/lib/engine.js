@@ -243,13 +243,13 @@ function inferStyleMeta(_category, item) {
   if (hasAny(haystack, ['intimate documentary', 'private room ambience', '私密生活'])) tags.push('film', 'indoor_bias', 'warm_grade');
   if (hasAny(haystack, ['direct flash fashion', 'flat flash lighting', '直閃時尚'])) tags.push('artificial_light', 'urban_bias', 'flash_bias', 'raw');
   if (hasAny(haystack, ['black and white supermodel', '黑白真實超模'])) tags.push('monochrome', 'dramatic', 'outdoor_bias', 'editorial');
-  if (hasAny(haystack, ['clean backdrop portrait', '純背景凝視'])) tags.push('studio_bias', 'minimal', 'controlled', 'editorial');
-  if (hasAny(haystack, ['quiet documentary portrait', 'american road atmosphere', '空曠美式'])) tags.push('natural_bias', 'outdoor_bias', 'documentary', 'soft_grade');
+  if (hasAny(haystack, ['clean backdrop image', '純背景凝視'])) tags.push('studio_bias', 'minimal', 'controlled', 'editorial');
+  if (hasAny(haystack, ['quiet documentary image', 'american road atmosphere', '空曠美式'])) tags.push('natural_bias', 'outdoor_bias', 'documentary', 'soft_grade');
   if (hasAny(haystack, ['wet plate inspired', '古典濕版'])) tags.push('monochrome', 'moody', 'natural_bias', 'heritage_bias', 'low_frequency_style');
-  if (hasAny(haystack, ['casual youthful portrait', '青春日常隨拍'])) tags.push('natural_light_bias', 'urban_bias', 'lively', 'indoor_bias');
+  if (hasAny(haystack, ['casual youthful image', '青春日常隨拍'])) tags.push('natural_light_bias', 'urban_bias', 'lively', 'indoor_bias');
   if (hasAny(haystack, ['high contrast black and white', '高反差黑白街頭'])) tags.push('monochrome', 'urban_bias', 'night_bias', 'raw', 'low_frequency_style');
   if (hasAny(haystack, ['bold narrative fashion', '危險敘事'])) tags.push('dramatic', 'set_bias', 'studio_bias', 'high_saturation');
-  if (hasAny(haystack, ['hyper-stylized fashion portrait', '濃彩復古電影棚拍'])) tags.push('studio_bias', 'set_bias', 'high_saturation', 'artificial_light');
+  if (hasAny(haystack, ['hyper-stylized fashion image', '濃彩復古電影棚拍'])) tags.push('studio_bias', 'set_bias', 'high_saturation', 'artificial_light');
 
   return { tags: withTags(tags) };
 }
@@ -875,7 +875,7 @@ function buildSubjectBase(subject) {
 
 function buildCompositionHint(subject, aspectRatio, framing) {
   if (subject.count === 2) {
-    const duoHint = aspectRatio.id === '16:9' ? 'balanced duo composition with clear spacing between both women' : 'balanced two-subject portrait composition';
+    const duoHint = aspectRatio.id === '16:9' ? 'balanced duo composition with clear spacing between both women' : 'balanced two-subject composition';
     if (framing.meta.visibility === 'wide') return `${duoHint}, both women fully readable in frame`;
     if (framing.meta.visibility === 'full') return `${duoHint}, both women standing naturally in frame`;
     return `${duoHint}, both women clearly visible`;
@@ -883,7 +883,7 @@ function buildCompositionHint(subject, aspectRatio, framing) {
 
   if (aspectRatio.id === '9:16') return 'single-subject vertical composition';
   if (aspectRatio.id === '16:9') return 'single-subject cinematic wide composition';
-  return 'single-subject portrait composition';
+  return 'single-subject composition';
 }
 
 function pickWithLock(list, lockedId, predicate = () => true, picker = sample) {
@@ -1204,11 +1204,11 @@ function isNoneLikeItem(item) {
 }
 
 const STYLE_PROMPT_INTROS = {
-  清透寫真感: 'airy photobook portrait mood',
+  清透寫真感: 'airy photobook mood',
   精緻棚拍感: 'polished studio beauty editorial mood',
-  霓虹電影感: 'neon cinematic portrait mood',
-  上田義彥: 'Yoshihiko Ueda-inspired quiet natural portrait language',
-  靜謐森林低調電影感: 'Yoshihiko Ueda-inspired quiet natural portrait language',
+  霓虹電影感: 'neon cinematic mood',
+  上田義彥: 'Yoshihiko Ueda-inspired quiet natural image language',
+  靜謐森林低調電影感: 'Yoshihiko Ueda-inspired quiet natural image language',
   蜷川實花: 'Mika Ninagawa-inspired vivid color and floral theatricality',
   高飽和花卉夢境感: 'Mika Ninagawa-inspired vivid color and floral theatricality',
   橫浪修: 'Osamu Yokonami-inspired symmetrical distance and negative-space composition',
@@ -1216,7 +1216,7 @@ const STYLE_PROMPT_INTROS = {
   川內倫子: 'Rinko Kawauchi-inspired lyrical everyday lightness',
   日常微光詩意感: 'Rinko Kawauchi-inspired lyrical everyday lightness',
   柔霧古典夢境感: 'Paolo Roversi-inspired soft haze and timeless dreamlike elegance',
-  極簡雕塑棚拍感: 'Irving Penn-inspired minimal sculptural studio portraiture',
+  極簡雕塑棚拍感: 'Irving Penn-inspired minimal sculptural studio imagery',
   冷冽權力性感: 'Helmut Newton-inspired cold glamorous authority and sensual power',
   俏皮性感雜誌感: 'Ellen von Unwerth-inspired playful sensual magazine energy',
   私密生活紀錄感: 'Nan Goldin-inspired intimate lived-in documentary emotion',
@@ -1232,10 +1232,10 @@ const STYLE_PROMPT_INTROS = {
 
 const DUO_PROMPT_OVERRIDES = {
   framing: {
-    '特寫鏡頭 (Close-Up)': 'tight duo portrait, both women clearly visible, shoulder-up framing, intimate two-subject composition',
-    '中景鏡頭 (Medium Shot)': 'medium shot, waist-up duo portrait, both women clearly visible, balanced two-subject composition',
-    '牛仔中景 (Cowboy Shot)': 'cowboy shot, knee-up duo portrait, balanced spacing between both women, both subjects clearly visible',
-    '全身鏡頭 (Full Body Shot)': 'full body shot, full-length duo portrait, both women fully visible, balanced side-by-side composition',
+    '特寫鏡頭 (Close-Up)': 'tight two-subject framing, both women clearly visible, shoulder-up composition, intimate close composition',
+    '中景鏡頭 (Medium Shot)': 'medium shot, waist-up two-subject framing, both women clearly visible, balanced composition',
+    '牛仔中景 (Cowboy Shot)': 'cowboy shot, knee-up two-subject framing, balanced spacing between both women, both subjects clearly visible',
+    '全身鏡頭 (Full Body Shot)': 'full body shot, full-length two-subject framing, both women fully visible, balanced side-by-side composition',
   },
   angle: {
     '平視角 (Eye-Level Angle)': 'eye-level angle, neutral two-subject perspective, both women equally readable',
@@ -1254,12 +1254,12 @@ const DUO_PROMPT_OVERRIDES = {
     '正面 315 度 (Front Three-Quarter Right)': 'front three-quarter duo view from the opposite side, both women slightly angled toward camera, balanced dimensional composition',
   },
   lightDirection: {
-    '倫勃朗光/三角光 (Rembrandt Lighting)': 'soft directional light across both women, gentle sculpted contrast, balanced duo portrait lighting',
-    '蝴蝶光/派拉蒙光 (Butterfly Lighting)': 'soft frontal beauty lighting across both women, even luminous facial highlights, balanced duo portrait light',
-    '輪廓光/背光 (Rim Light / Backlight)': 'backlit duo portrait, glowing edge light on both silhouettes, gentle separation from the background',
-    '側光/陰陽光 (Split Lighting)': 'soft side light across both women, clean facial contrast, balanced duo portrait lighting',
+    '倫勃朗光/三角光 (Rembrandt Lighting)': 'soft directional light across both women, gentle sculpted contrast, balanced duo editorial lighting',
+    '蝴蝶光/派拉蒙光 (Butterfly Lighting)': 'soft frontal beauty lighting across both women, even luminous facial highlights, balanced duo light',
+    '輪廓光/背光 (Rim Light / Backlight)': 'backlit two-subject image, glowing edge light on both silhouettes, gentle separation from the background',
+    '側光/陰陽光 (Split Lighting)': 'soft side light across both women, clean facial contrast, balanced duo editorial lighting',
     '窗縫光/百葉窗光 (Window / Blind Slits Light)': 'directional window light across both women, gentle layered indoor contrast, cinematic two-subject atmosphere',
-    '頂光 (Top Lighting)': 'overhead top light across both women, moody duo portrait contrast, tense cinematic atmosphere',
+    '頂光 (Top Lighting)': 'overhead top light across both women, moody duo cinematic contrast, tense cinematic atmosphere',
   },
   expression: {
     '直視鏡頭微笑': 'both women looking toward the camera, subtle shared smile, calm confident duo presence',

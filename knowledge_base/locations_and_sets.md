@@ -7,7 +7,7 @@
 | **攝影棚與背景 (Studio Sets)** | 鏡面地板攝影棚 | `mirror floor studio, glossy reflective surface, controlled studio reflections, futuristic editorial mood` | 地面具有鏡面反射，能增加造型與燈光的延伸感，適合時裝大片。 |
 | **攝影棚與背景 (Studio Sets)** | 純潔白幕 | `infinite white background, seamless paper roll, isolated subject, commercial white` | 商業感極強，人物彷彿漂浮在純白無垠空間中。 |
 | **攝影棚與背景 (Studio Sets)** | 深邃黑幕 | `pitch black background, pure dark void, zero ambient light, dramatic isolation` | 絕對黑暗，能將所有注意力集中在被光照到的主體上。 |
-| **攝影棚與背景 (Studio Sets)** | 莫蘭迪灰背景 | `medium grey seamless backdrop, neutral tone, subtle texture, studio portraiture` | 最不會干擾膚色的中性灰背景，穩定且高級。 |
+| **攝影棚與背景 (Studio Sets)** | 莫蘭迪灰背景 | `medium grey seamless backdrop, neutral tone, subtle texture, clean studio setting` | 最不會干擾膚色的中性灰背景，穩定且高級。 |
 | **攝影棚與背景 (Studio Sets)** | 鮮豔撞色背景 | `vibrant solid color backdrop, bold color contrast, pop-art studio mood, clean isolated subject` | 高飽和單色背景，適合社群感、Y2K、普普與流行企劃。 |
 | **攝影棚與背景 (Studio Sets)** | 漸層打光背景 | `gradient-lit backdrop, subtle halo glow behind the subject, soft studio falloff, cover-shoot atmosphere` | 利用燈光打出背景漸層光斑，能提升人物立體感與封面感。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 東京澀谷十字路口 | `Tokyo Shibuya nightlife, umbrella reflections, wet asphalt glow, crowded urban texture, restless city energy` | 經典東京夜街感。濕滑地面反射霓虹，人流密集，適合街拍、社群感與都會夜景人像。 |

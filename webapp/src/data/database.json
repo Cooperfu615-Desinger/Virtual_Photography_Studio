@@ -3,17 +3,17 @@
     "攝影風格": [
       {
         "zh": "清透寫真感",
-        "en": "airy portrait photography, soft natural daylight, translucent skin tones, bright highlights, clean white atmosphere, gentle mood, soft focus background, realistic photography, delicate feminine presence",
+        "en": "airy photobook image, soft natural daylight, translucent skin tones, bright highlights, clean white atmosphere, gentle mood, soft focus background, realistic photography, delicate feminine presence",
         "desc": "自然乾淨的日常人像，偏柔和亮調、空氣感與透明感，適合窗邊、臥室、白床景等明亮場景。"
       },
       {
         "zh": "精緻棚拍感",
-        "en": "clean studio portrait, polished beauty lighting, flawless skin rendering, glossy highlights, controlled shadows, luxury editorial atmosphere, professional fashion photography, refined feminine styling",
+        "en": "clean studio image, polished beauty lighting, flawless skin rendering, glossy highlights, controlled shadows, luxury editorial atmosphere, professional fashion photography, refined feminine styling",
         "desc": "乾淨俐落的棚拍成片語言，重視皮膚質感、精緻光線與商業感，適合時裝與美妝方向。"
       },
       {
         "zh": "霓虹電影感",
-        "en": "neon cinematic portrait, mixed artificial lighting, deep shadows, vivid red and blue highlights, wet street reflections, urban night mood, dramatic contrast, moody atmosphere, cinematic photography",
+        "en": "neon cinematic image, mixed artificial lighting, deep shadows, vivid red and blue highlights, wet street reflections, urban night mood, dramatic contrast, moody atmosphere, cinematic photography",
         "desc": "夜晚都市、霓虹、人工混光與戲劇陰影，適合街頭、九龍、新宿、地下俱樂部等場景。"
       },
       {
@@ -38,57 +38,57 @@
       },
       {
         "zh": "柔霧古典夢境感",
-        "en": "soft haze fashion portrait, dim romantic lighting, velvety shadows, painterly softness, muted elegant tones, fragile beauty, dreamy editorial atmosphere, timeless femininity, poetic studio image",
+        "en": "soft haze fashion image, dim romantic lighting, velvety shadows, painterly softness, muted elegant tones, fragile beauty, dreamy editorial atmosphere, timeless femininity, poetic studio image",
         "desc": "參考 Paolo Roversi（保羅・羅韋爾西）類型的柔霧高級時裝語言 | 柔霧、低速感、暗色調與古典脆弱感，適合棚拍、復古室內與高級時裝人像。"
       },
       {
         "zh": "俏皮性感雜誌",
-        "en": "playful sensual editorial portrait, spontaneous energy, feminine confidence, lively magazine photography, candid movement, flirtatious mood, flash-assisted fashion image, spirited glamour, cheeky allure",
+        "en": "playful sensual editorial image, spontaneous energy, feminine confidence, lively magazine photography, candid movement, flirtatious mood, flash-assisted fashion image, spirited glamour, cheeky allure",
         "desc": "參考 Ellen von Unwerth（艾倫・馮・昂沃斯）類型的 playful 性感與抓拍雜誌語言 | 俏皮、性感、抓拍感強，介於雜誌與寫真之間，適合床景、沙發、街頭與隨拍主題。"
       },
       {
         "zh": "私密生活紀錄感",
-        "en": "intimate documentary portrait, warm indoor light, raw emotional atmosphere, grainy texture, personal snapshot feeling, imperfect realism, private room ambience, lived-in details, emotional closeness",
+        "en": "intimate documentary image, warm indoor light, raw emotional atmosphere, grainy texture, personal snapshot feeling, imperfect realism, private room ambience, lived-in details, emotional closeness",
         "desc": "參考 Nan Goldin（南・戈爾丁）類型的私人相簿與粗粒子室內語言 | 私密、粗粒子、暖光與生活混亂感，適合臥室、旅館、洗手台鏡前等私人空間。"
       },
       {
         "zh": "粗糙直閃時尚感",
-        "en": "direct flash fashion portrait, deliberately raw styling, anti-polished editorial mood, flat flash lighting, awkward realism, unretouched skin texture, immediate camera presence, casual luxury tension",
+        "en": "direct flash fashion image, deliberately raw styling, anti-polished editorial mood, flat flash lighting, awkward realism, unretouched skin texture, immediate camera presence, casual luxury tension",
         "desc": "參考 Juergen Teller（尤爾根・特勒）類型的直閃粗糙與反精緻時裝語言 | 直打閃光、不完美與反精緻時尚感，適合白牆、電梯、街頭、試衣間與社群式大片。"
       },
       {
         "zh": "純背景凝視肖像感",
-        "en": "clean backdrop portrait, direct eye contact, sharp emotional presence, minimal studio setting, crisp tonal contrast, iconic fashion portraiture, stripped-down composition, commanding gaze, timeless intensity",
+        "en": "clean backdrop image, direct eye contact, sharp emotional presence, minimal studio setting, crisp tonal contrast, iconic fashion image, stripped-down composition, commanding gaze, timeless intensity",
         "desc": "參考 Richard Avedon（理察・阿維頓）類型的純背景與直接凝視語言 | 純背景、直接凝視與人物存在感極強，適合棚拍、封面感肖像與高辨識度人物企劃。"
       },
       {
         "zh": "空曠美式紀實感",
-        "en": "quiet documentary portrait, spacious composition, subtle melancholy, everyday realism, soft natural light, open landscape feeling, calm emotional distance, understated storytelling, American road atmosphere",
+        "en": "quiet documentary image, spacious composition, subtle melancholy, everyday realism, soft natural light, open landscape feeling, calm emotional distance, understated storytelling, American road atmosphere",
         "desc": "參考 Alec Soth（亞歷克・索斯）類型的寬鬆構圖與平靜敘事語言 | 構圖留白較多、氣氛平靜、帶有孤獨與旅行感，適合郊區、公路、旅館與空曠戶外場景。"
       },
       {
         "zh": "古典濕版記憶感",
-        "en": "wet plate inspired portrait, antique tonal range, soft blur, ghostly texture, timeworn atmosphere, poetic decay, delicate monochrome mood, nostalgic stillness, memory-like image",
+        "en": "wet plate inspired image, antique tonal range, soft blur, ghostly texture, timeworn atmosphere, poetic decay, delicate monochrome mood, nostalgic stillness, memory-like image",
         "desc": "參考 Sally Mann（莎莉・曼）類型的古典濕版與記憶感影像語言 | 古典、朦朧、帶有時間感與衰敗氣息，適合森林、老屋、復古室內與黑白低調人像。"
       },
       {
         "zh": "青春日常隨拍感",
-        "en": "casual youthful portrait, everyday snapshot energy, unforced pose, natural light realism, spontaneous composition, contemporary lifestyle mood, intimate yet relaxed atmosphere, subtle art-documentary tone",
+        "en": "casual youthful image, everyday snapshot energy, unforced pose, natural light realism, spontaneous composition, contemporary lifestyle mood, intimate yet relaxed atmosphere, subtle art-documentary tone",
         "desc": "參考 Wolfgang Tillmans（沃夫岡・提爾曼斯）類型的生活切片與非正式肖像語言 | 生活切片、輕鬆隨拍與非正式構圖，適合公寓、咖啡店、街頭與朋友感主題。"
       },
       {
         "zh": "森山大道",
-        "en": "high contrast black and white street portrait, gritty grain, rough focus, urban night tension, raw snapshot energy, noisy texture, restless city mood, stark shadows, rebellious documentary feeling",
+        "en": "high contrast black and white street image, gritty grain, rough focus, urban night tension, raw snapshot energy, noisy texture, restless city mood, stark shadows, rebellious documentary feeling",
         "desc": "參考 Daido Moriyama（森山大道）類型的噪訊街頭與焦躁城市語言 | 高反差黑白、粗粒子、夜晚城市與焦躁感，適合巷口、地鐵、街邊與地下感場景。"
       },
       {
         "zh": "危險敘事時尚感",
-        "en": "bold narrative fashion portrait, vivid color blocking, provocative composition, surreal tension, luxurious styling, cinematic fashion drama, sharp graphic contrast, enigmatic glamour, editorial suspense",
+        "en": "bold narrative fashion image, vivid color blocking, provocative composition, surreal tension, luxurious styling, cinematic fashion drama, sharp graphic contrast, enigmatic glamour, editorial suspense",
         "desc": "參考 Guy Bourdin（蓋・布爾丁）類型的鮮豔色塊與危險敘事時裝語言 | 鮮豔色塊、強敘事張力與危險感，適合飯店、泳池、復古室內與概念時裝企劃。"
       },
       {
         "zh": "濃彩復古電影棚拍感",
-        "en": "hyper-stylized fashion portrait, saturated retro color palette, elaborate set design, glossy cinematic lighting, theatrical femininity, surreal domestic glamour, polished magazine image, vivid artificial tones",
+        "en": "hyper-stylized fashion image, saturated retro color palette, elaborate set design, glossy cinematic lighting, theatrical femininity, surreal domestic glamour, polished magazine image, vivid artificial tones",
         "desc": "參考 Miles Aldridge（邁爾斯・奧爾德里奇）類型的濃烈色彩與復古電影棚拍語言 | 人工色彩很強、佈景精緻、帶復古未來感，適合棚拍、廚房、沙發、旅館與概念場景。"
       }
     ]
@@ -772,12 +772,12 @@
     "景別構圖 (Framing)": [
       {
         "zh": "特寫鏡頭 (Close-Up)",
-        "en": "close-up shot, head and shoulders, detailed facial features, portrait photography",
-        "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典人像構圖。"
+        "en": "close-up shot, head and shoulders framing, detailed facial features, tight subject crop",
+        "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。"
       },
       {
         "zh": "中景鏡頭 (Medium Shot)",
-        "en": "medium shot, waist up, candid portrait, showing some background",
+        "en": "medium shot, waist up framing, natural subject presence, showing some background",
         "desc": "構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。"
       },
       {
@@ -787,15 +787,15 @@
       },
       {
         "zh": "全身鏡頭 (Full Body Shot)",
-        "en": "full body shot, full length portrait, wide framing, environmental scale",
+        "en": "full body shot, full-length figure framing, wide framing, environmental scale",
         "desc": "完整拍攝人物從頭到腳，強調整體穿搭比例與人物在廣大環境中的位置。"
       }
     ],
     "相機視角 (Angle)": [
       {
         "zh": "平視角 (Eye-Level Angle)",
-        "en": "eye-level angle, objective view, direct eye contact, neutral perspective",
-        "desc": "最自然客觀的視角，觀眾與拍攝對象處於平等地位，容易建立情感連結。"
+        "en": "eye-level angle, objective view, neutral perspective, natural camera height",
+        "desc": "最自然客觀的視角，觀眾與拍攝對象處於平等地位，適合大多數日常與時裝構圖。"
       },
       {
         "zh": "仰角 (Low Angle)",
@@ -816,12 +816,12 @@
     "拍攝方位 (Orbit Angle)": [
       {
         "zh": "正面 (Front View)",
-        "en": "front-facing camera position, straight-on portrait view, symmetrical subject orientation",
+        "en": "front-facing camera position, straight-on subject view, symmetrical subject orientation",
         "desc": "鏡頭正對人物正面，臉部與身體主要朝向鏡頭，資訊最完整。"
       },
       {
         "zh": "正面 45 度 (Front Three-Quarter Left)",
-        "en": "front three-quarter angle, 45-degree turn, slightly angled toward camera, dimensional portrait view",
+        "en": "front three-quarter angle, 45-degree turn, slightly angled toward camera, dimensional subject view",
         "desc": "人物相對鏡頭略微轉開，保留完整臉部資訊，同時更有立體感。"
       },
       {
@@ -846,12 +846,12 @@
       },
       {
         "zh": "側面 270 度 (Right Profile)",
-        "en": "right-side profile view, side-facing portrait angle, crisp lateral silhouette",
+        "en": "right-side profile view, side-facing camera angle, crisp lateral silhouette",
         "desc": "與另一個側面角度相對，重點同樣在側臉與輪廓線條。"
       },
       {
         "zh": "正面 315 度 (Front Three-Quarter Right)",
-        "en": "front three-quarter angle from opposite side, softly turned toward camera, dimensional portrait composition",
+        "en": "front three-quarter angle from opposite side, softly turned toward camera, dimensional subject composition",
         "desc": "從另一側的正面 45 度視角拍攝，保留臉部辨識度，也有自然轉身感。"
       }
     ],
@@ -863,7 +863,7 @@
       },
       {
         "zh": "50mm 標準鏡頭 (Standard)",
-        "en": "shot on 50mm lens, human eye perspective, classic portraiture, zero distortion",
+        "en": "shot on 50mm lens, human eye perspective, natural figure rendering, zero distortion",
         "desc": "最接近人類單眼視覺的透視感，不變形，背景虛化自然，適用於絕大多數日常與棚拍。"
       },
       {
@@ -900,7 +900,7 @@
       },
       {
         "zh": "正光的高曝光柔光",
-        "en": "soft frontal light, bright high-key exposure, even facial illumination, clean luminous portrait look",
+        "en": "soft frontal light, bright high-key exposure, even facial illumination, clean luminous image quality",
         "desc": "正面柔光均勻照亮五官，陰影很少，畫面乾淨明亮，適合清透寫真與 beauty 感人像。"
       },
       {
@@ -932,12 +932,12 @@
     "光線方向與質感 (Light Direction & Quality)": [
       {
         "zh": "倫勃朗光/三角光 (Rembrandt Lighting)",
-        "en": "Rembrandt lighting, soft directional side light, sculpted cheek shadow, painterly portrait contrast, moody elegance",
+        "en": "Rembrandt lighting, soft directional side light, sculpted cheek shadow, painterly cinematic contrast, moody elegance",
         "desc": "經典人像打光法。以柔和側光塑造臉部立體感與古典明暗層次，但不強調任何幾何形狀或圖案。"
       },
       {
         "zh": "蝴蝶光/派拉蒙光 (Butterfly Lighting)",
-        "en": "butterfly lighting, centered beauty light, softly sculpted cheekbones, glamorous portrait lighting, clean facial highlights",
+        "en": "butterfly lighting, centered beauty light, softly sculpted cheekbones, glamorous beauty lighting, clean facial highlights",
         "desc": "光源從鏡頭前上方照射，重點是讓顴骨、鼻樑與臉部中央更乾淨立體，適合 beauty 與時裝人像。"
       },
       {
@@ -947,7 +947,7 @@
       },
       {
         "zh": "側光/陰陽光 (Split Lighting)",
-        "en": "split lighting, strong side light, one side of the face softly shadowed, clean facial contrast, cinematic portrait lighting",
+        "en": "split lighting, strong side light, one side of the face softly shadowed, clean facial contrast, cinematic lighting",
         "desc": "光源從人物側邊照射，讓臉部明暗對比清楚，但仍保留自然膚色與真實五官，不會像舞台彩妝或半臉塗色。"
       },
       {
@@ -957,7 +957,7 @@
       },
       {
         "zh": "頂光 (Top Lighting)",
-        "en": "overhead top lighting, deep-set facial shadows, moody portrait contrast, tense cinematic atmosphere",
+        "en": "overhead top lighting, deep-set facial shadows, moody cinematic contrast, tense cinematic atmosphere",
         "desc": "光源從上方向下壓，讓眼窩與臉部下緣出現較深陰影，營造緊張、壓迫、帶點危險感的電影氣氛。"
       }
     ],
@@ -979,7 +979,7 @@
       },
       {
         "zh": "中片幅數位單眼 (Medium Format DSLR)",
-        "en": "Hasselblad medium format photography, extreme ultra-high resolution, medium format organic depth",
+        "en": "Hasselblad medium format image, extreme ultra-high resolution, medium format organic depth",
         "desc": "哈蘇或飛思等數位後背相機。擁有令人髮指的細節解析度（看清每一根睫毛），以及有別於全片幅的特殊立體過渡與景深空間感。"
       },
       {
@@ -1025,7 +1025,7 @@
       },
       {
         "zh": "莫蘭迪灰背景",
-        "en": "medium grey seamless backdrop, neutral tone, subtle texture, studio portraiture",
+        "en": "medium grey seamless backdrop, neutral tone, subtle texture, clean studio setting",
         "desc": "最不會干擾膚色的中性灰背景，穩定且高級。"
       },
       {
