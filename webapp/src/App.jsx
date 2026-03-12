@@ -430,7 +430,6 @@ export default function App() {
           <div className="control-section">
             <div className="control-section-header">
               <div className="control-section-title">Character Setup</div>
-              <p className="control-section-copy">先決定人物數量、臉型、髮型、神情與姿勢，讓角色本身先成立。</p>
             </div>
             <div className="lock-grid">
               {characterLockControls.map((control) => (
@@ -461,7 +460,6 @@ export default function App() {
           <div className="control-section control-section-secondary">
             <div className="control-section-header">
               <div className="control-section-title">Scene & Camera Language</div>
-              <p className="control-section-copy">第二步決定攝影風格、場景、比例、構圖、光線與成像語言，完成畫面的拍攝條件。</p>
             </div>
             <div className="lock-grid detail-lock-grid">
               {coreLockControls.map((control) => (
@@ -492,7 +490,6 @@ export default function App() {
           <div className="control-section control-section-secondary">
             <div className="control-section-header">
               <div className="control-section-title">Style & Wardrobe</div>
-              <p className="control-section-copy">第三步決定服裝基調與單品細節。`Wardrobe Core` 仍作為內部 family 依據，並會顯示在生成結果裡。</p>
             </div>
             <div className="lock-grid detail-lock-grid">
               {wardrobeLockControls.map((control) =>
@@ -519,11 +516,19 @@ export default function App() {
                 ) : (
                   <label
                     key={control.key}
-                    className={`field ${isOutfitPresetActive && control.key !== 'outfitPresetId' ? 'field-disabled' : ''}`}
+                    className={`field ${
+                      isOutfitPresetActive &&
+                      !['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId'].includes(control.key)
+                        ? 'field-disabled'
+                        : ''
+                    }`}
                   >
                     <span>{control.label}</span>
                     <select
-                      disabled={isOutfitPresetActive && control.key !== 'outfitPresetId'}
+                      disabled={
+                        isOutfitPresetActive &&
+                        !['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId'].includes(control.key)
+                      }
                       className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
                       value={locks[control.key]}
                       onChange={(event) =>
