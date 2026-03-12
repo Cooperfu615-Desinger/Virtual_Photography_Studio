@@ -867,6 +867,21 @@
         "desc": "非黃昏也非陰天，而是藍天很藍、白雲很白的乾淨日光感，適合明亮外景。"
       },
       {
+        "zh": "逆光的高曝光柔光",
+        "en": "bright airy backlight, soft high-key exposure, gentle facial fill light, luminous rim light",
+        "desc": "逆光下整體曝光偏亮，髮絲邊緣有發光感，同時臉部仍保有柔和細節與空氣感。"
+      },
+      {
+        "zh": "側光的高曝光柔光",
+        "en": "soft side light, bright high-key exposure, gentle facial contour, airy luminous skin tones",
+        "desc": "由側邊柔和照亮人物，帶一點立體感，但整體仍是透亮、乾淨、偏高曝光的人像光感。"
+      },
+      {
+        "zh": "正光的高曝光柔光",
+        "en": "soft frontal light, bright high-key exposure, even facial illumination, clean luminous portrait look",
+        "desc": "正面柔光均勻照亮五官，陰影很少，畫面乾淨明亮，適合清透寫真與 beauty 感人像。"
+      },
+      {
         "zh": "陰天漫射柔光 (Overcast Soft Light)",
         "en": "overcast soft light, cloudy day, even diffused lighting, no harsh shadows",
         "desc": "雲層像巨大的柔光罩，光線極度均勻，沒有強烈陰影，適合展現最真實的膚色與服裝細節。"

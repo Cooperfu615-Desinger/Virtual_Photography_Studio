@@ -26,6 +26,9 @@
 | **光線類型 (Lighting Type)** | 夕陽暖光 (Warm Sunset Light) | `warm sunset light, golden evening glow, long shadows, soft orange sunlight` | 夕陽前後的暖色光線，氛圍浪漫柔和，最適合戶外人像與寫真。 |
 | **光線類型 (Lighting Type)** | 夜幕藍調 (Blue Twilight Light) | `blue twilight light, deep evening blue ambience, cool dusk atmosphere, melancholic mood` | 太陽剛落下後的深藍光線，畫面冷靜、安靜，和白天藍天完全不同。 |
 | **光線類型 (Lighting Type)** | 藍天白雲日光 (Blue Sky Daylight) | `clear blue sky daylight, crisp white clouds, bright clean sunlight, open airy atmosphere` | 非黃昏也非陰天，而是藍天很藍、白雲很白的乾淨日光感，適合明亮外景。 |
+| **光線類型 (Lighting Type)** | 逆光的高曝光柔光 | `bright airy backlight, soft high-key exposure, gentle facial fill light, luminous rim light` | 逆光下整體曝光偏亮，髮絲邊緣有發光感，同時臉部仍保有柔和細節與空氣感。 |
+| **光線類型 (Lighting Type)** | 側光的高曝光柔光 | `soft side light, bright high-key exposure, gentle facial contour, airy luminous skin tones` | 由側邊柔和照亮人物，帶一點立體感，但整體仍是透亮、乾淨、偏高曝光的人像光感。 |
+| **光線類型 (Lighting Type)** | 正光的高曝光柔光 | `soft frontal light, bright high-key exposure, even facial illumination, clean luminous portrait look` | 正面柔光均勻照亮五官，陰影很少，畫面乾淨明亮，適合清透寫真與 beauty 感人像。 |
 | **光線類型 (Lighting Type)** | 陰天漫射柔光 (Overcast Soft Light) | `overcast soft light, cloudy day, even diffused lighting, no harsh shadows` | 雲層像巨大的柔光罩，光線極度均勻，沒有強烈陰影，適合展現最真實的膚色與服裝細節。 |
 | **光線類型 (Lighting Type)** | 直射硬光/烈日 (Harsh Sunlight) | `harsh direct sunlight, midday sun, deep black shadows, high contrast, stark` | 正午或無雲的強烈直射光，產生濃黑銳利的邊緣陰影，帶有強烈對比與夏日炎熱感。 |
 | **光線類型 (Lighting Type)** | 電影霓虹混光 (Neon Mixed Lighting) | `neon mixed lighting, cyberpunk city lights, teal and orange, bi-color illumination` | 利用城市霓虹燈或雙色補光燈，通常為紅藍或青橙對比，營造賽博龐克與王家衛浪漫感。 |
