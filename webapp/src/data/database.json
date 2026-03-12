@@ -245,19 +245,19 @@
         "desc": "乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。"
       },
       {
-        "zh": "合身棉質背心",
-        "en": "fitted cotton tank top, close body fit, soft ribbed fabric",
-        "desc": "最基礎也最常用的貼身背心，適合日常、街頭與寫真風格。"
+        "zh": "短版棉質露臍小可愛",
+        "en": "cropped cotton cami, soft ribbed fabric, close body fit",
+        "desc": "棉質與貼身露腰輪廓很直接，適合日常、街頭與夏日寫真風格。"
       },
       {
-        "zh": "削肩針織上衣",
-        "en": "ribbed sleeveless knit top, fitted silhouette, soft stretch texture",
-        "desc": "乾淨貼身的針織質地，能自然勾勒肩頸與上半身線條。"
+        "zh": "合身削肩針織上衣",
+        "en": "fitted sleeveless knit top, ribbed texture, shoulder-baring silhouette",
+        "desc": "乾淨貼身的削肩針織輪廓，能自然勾勒肩頸與上半身線條。"
       },
       {
-        "zh": "長袖貼身上衣",
-        "en": "fitted long-sleeve top, body-hugging silhouette, smooth stretch fabric",
-        "desc": "貼身長袖能強調上半身線條，適合秋冬、寫真與極簡時裝。"
+        "zh": "短袖貼身上衣",
+        "en": "fitted short-sleeve top, body-hugging silhouette, smooth stretch fabric",
+        "desc": "貼身短袖能自然強調上半身線條，適合日常、寫真與極簡時裝。"
       },
       {
         "zh": "絲質細肩帶上衣",
@@ -270,7 +270,7 @@
         "desc": "直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。"
       },
       {
-        "zh": "合身高領針織",
+        "zh": "合身高領針織上衣",
         "en": "fitted turtleneck knit top, fine gauge knit, sleek silhouette",
         "desc": "貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。"
       },
@@ -290,18 +290,18 @@
         "desc": "生活感很強的基本款，適合街頭、居家與青春隨拍風格。"
       },
       {
-        "zh": "短版露臍 T-shirt",
-        "en": "cropped t-shirt, exposed waistline, casual fitted silhouette",
+        "zh": "短版緊身露臍 T 恤",
+        "en": "cropped fitted t-shirt, exposed waistline, close casual silhouette",
         "desc": "最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。"
       },
       {
-        "zh": "短版針織外穿小可愛",
-        "en": "cropped knit cami, fitted knit texture, layered casual silhouette",
-        "desc": "帶有針織紋理的小可愛，介於日常與輕性感之間，適合外穿疊搭。"
+        "zh": "短版針織露臍小可愛",
+        "en": "cropped knit cami, fitted knit texture, exposed waist styling",
+        "desc": "帶有針織紋理與露腰輪廓，介於日常與輕性感之間，適合外穿疊搭。"
       },
       {
-        "zh": "短版蕾絲小可愛",
-        "en": "cropped lace cami, delicate lace texture, fitted soft silhouette",
+        "zh": "短版蕾絲露臍小可愛",
+        "en": "cropped lace cami, delicate lace texture, exposed waist styling",
         "desc": "蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。"
       },
       {
@@ -320,9 +320,9 @@
         "desc": "結合削肩與平口輪廓，身體線條更完整，適合時裝與寫真。"
       },
       {
-        "zh": "半透明絲綢襯衫",
-        "en": "translucent silk blouse, sheer organza shirt, delicate drape",
-        "desc": "輕盈透膚的絲綢或歐根紗，柔和光澤感明顯。"
+        "zh": "絲綢緞面襯衫",
+        "en": "silk satin blouse, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details",
+        "desc": "女式襯衫，柔軟飄逸的長袖，寬大的袖口飾有精緻的白色蕾絲花邊和柔和的荷葉邊。"
       },
       {
         "zh": "網紗透視上衣",
@@ -331,7 +331,7 @@
       },
       {
         "zh": "短版緊身吊帶背心",
-        "en": "cropped tight camisole, ribbed cotton tank top, form-fitting",
+        "en": "cropped tight camisole, close body fit, streamlined silhouette",
         "desc": "貼身露腰、偏 Y2K 與街頭感。"
       },
       {
@@ -515,8 +515,8 @@
       },
       {
         "zh": "龐克格紋百褶裙",
-        "en": "punk tartan pleated skirt, plaid pattern, safety pin accents",
-        "desc": "經典格紋、叛逆氣息強。"
+        "en": "punk tartan pleated skirt, plaid pattern, silver buckle belt, safety pin and chain details",
+        "desc": "格紋圖案明確，搭配銀扣皮帶、別針與鏈條點綴，龐克辨識度更高。"
       },
       {
         "zh": "緊身亮面皮裙",

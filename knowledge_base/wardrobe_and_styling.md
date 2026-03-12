@@ -35,24 +35,24 @@
 | **套裝 (Outfit Presets)** | 象牙白春日巴黎套裝 | `wearing an ivory silk camisole layered under an oversized white linen shirt left open with high-waisted light grey wide-leg trousers, silky sheen, airy linen layers, effortless Parisian spring styling` | 象牙白絲質細肩帶搭配寬鬆白色亞麻襯衫與高腰淺灰寬褲，走輕盈鬆弛的巴黎春日穿搭語氣。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 合身襯衫 | `fitted shirt, crisp cotton poplin, clean silhouette` | 乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。 |
-| **上身 (Tops)** | 合身棉質背心 | `fitted cotton tank top, close body fit, soft ribbed fabric` | 最基礎也最常用的貼身背心，適合日常、街頭與寫真風格。 |
-| **上身 (Tops)** | 削肩針織上衣 | `ribbed sleeveless knit top, fitted silhouette, soft stretch texture` | 乾淨貼身的針織質地，能自然勾勒肩頸與上半身線條。 |
-| **上身 (Tops)** | 長袖貼身上衣 | `fitted long-sleeve top, body-hugging silhouette, smooth stretch fabric` | 貼身長袖能強調上半身線條，適合秋冬、寫真與極簡時裝。 |
+| **上身 (Tops)** | 短版棉質露臍小可愛 | `cropped cotton cami, soft ribbed fabric, close body fit` | 棉質與貼身露腰輪廓很直接，適合日常、街頭與夏日寫真風格。 |
+| **上身 (Tops)** | 合身削肩針織上衣 | `fitted sleeveless knit top, ribbed texture, shoulder-baring silhouette` | 乾淨貼身的削肩針織輪廓，能自然勾勒肩頸與上半身線條。 |
+| **上身 (Tops)** | 短袖貼身上衣 | `fitted short-sleeve top, body-hugging silhouette, smooth stretch fabric` | 貼身短袖能自然強調上半身線條，適合日常、寫真與極簡時裝。 |
 | **上身 (Tops)** | 絲質細肩帶上衣 | `silk camisole top, delicate straps, fluid sheen` | 輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。 |
 | **上身 (Tops)** | 細肩帶上衣 | `camisole top, delicate shoulder straps, fitted silhouette` | 直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。 |
-| **上身 (Tops)** | 合身高領針織 | `fitted turtleneck knit top, fine gauge knit, sleek silhouette` | 貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。 |
+| **上身 (Tops)** | 合身高領針織上衣 | `fitted turtleneck knit top, fine gauge knit, sleek silhouette` | 貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。 |
 | **上身 (Tops)** | 寬鬆襯衫 | `oversized shirt, loose drape, relaxed tailoring` | 輪廓寬鬆、生活感強，適合街頭、飯店與慵懶穿搭。 |
 | **上身 (Tops)** | 緊身襯衫＋領帶 | `fitted shirt with tie, sharp collar, slim tailored silhouette` | 帶有制服感與整理過的正式氣質，適合制服、辦公室與 fetish 邊緣造型。 |
 | **上身 (Tops)** | 寬鬆落肩 T 恤 | `oversized dropped-shoulder t-shirt, washed cotton jersey, relaxed fit` | 生活感很強的基本款，適合街頭、居家與青春隨拍風格。 |
-| **上身 (Tops)** | 短版露臍 T-shirt | `cropped t-shirt, exposed waistline, casual fitted silhouette` | 最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。 |
-| **上身 (Tops)** | 短版針織外穿小可愛 | `cropped knit cami, fitted knit texture, layered casual silhouette` | 帶有針織紋理的小可愛，介於日常與輕性感之間，適合外穿疊搭。 |
-| **上身 (Tops)** | 短版蕾絲小可愛 | `cropped lace cami, delicate lace texture, fitted soft silhouette` | 蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。 |
+| **上身 (Tops)** | 短版緊身露臍 T 恤 | `cropped fitted t-shirt, exposed waistline, close casual silhouette` | 最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。 |
+| **上身 (Tops)** | 短版針織露臍小可愛 | `cropped knit cami, fitted knit texture, exposed waist styling` | 帶有針織紋理與露腰輪廓，介於日常與輕性感之間，適合外穿疊搭。 |
+| **上身 (Tops)** | 短版蕾絲露臍小可愛 | `cropped lace cami, delicate lace texture, exposed waist styling` | 蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。 |
 | **上身 (Tops)** | 平口短版上衣 | `strapless cropped tube top, close-fitting stretch fabric, clean line` | 露出肩頸與腰線，適合 Y2K、夏日、派對與寫真主題。 |
 | **上身 (Tops)** | 一字領上衣 | `off-shoulder top, exposed collarbones, soft neckline silhouette` | 露出鎖骨與肩線，氣質成熟，適合寫真與女性化風格。 |
 | **上身 (Tops)** | 削肩平口連身上衣 | `halter bandeau bodysuit, shoulder-baring fitted one-piece, sleek stretch silhouette` | 結合削肩與平口輪廓，身體線條更完整，適合時裝與寫真。 |
-| **上身 (Tops)** | 半透明絲綢襯衫 | `translucent silk blouse, sheer organza shirt, delicate drape` | 輕盈透膚的絲綢或歐根紗，柔和光澤感明顯。 |
+| **上身 (Tops)** | 絲綢緞面襯衫 | `silk satin blouse, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details` | 女式襯衫，柔軟飄逸的長袖，寬大的袖口飾有精緻的白色蕾絲花邊和柔和的荷葉邊。 |
 | **上身 (Tops)** | 網紗透視上衣 | `mesh see-through top, sheer net texture, body-hugging silhouette` | 網紗質地讓肌膚若隱若現，適合夜景、時裝與較強風格主題。 |
-| **上身 (Tops)** | 短版緊身吊帶背心 | `cropped tight camisole, ribbed cotton tank top, form-fitting` | 貼身露腰、偏 Y2K 與街頭感。 |
+| **上身 (Tops)** | 短版緊身吊帶背心 | `cropped tight camisole, close body fit, streamlined silhouette` | 貼身露腰、偏 Y2K 與街頭感。 |
 | **上身 (Tops)** | 短版帽T | `cropped hoodie, casual streetwear silhouette, sporty relaxed shape` | 帶有街頭與運動感，適合 Y2K、隨拍與日常造型。 |
 | **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 偏街頭與運動風，適合社群感、青春感與休閒主題。 |
 | **上身 (Tops)** | 坦克背心 | `tank top, sleeveless casual fit, clean sporty line` | 最簡單直接的無袖上身，適合日常、運動與寫真人像。 |
@@ -88,7 +88,7 @@
 | **裙裝 (Skirts)** | 絲質長裙 | `silk maxi skirt, fluid drape, soft reflective sheen` | 垂墜感強、適合法式慵懶與高級飯店場景。 |
 | **裙裝 (Skirts)** | 百褶短裙 | `classic pleated mini skirt, crisp folds, youthful styling` | 學院感強，適合 JK、街頭與 Y2K 主題。 |
 | **裙裝 (Skirts)** | 不對稱層次百褶裙 | `asymmetric layered pleated skirt, punk details, uneven hem` | 層次鮮明，適合龐克與前衛造型。 |
-| **裙裝 (Skirts)** | 龐克格紋百褶裙 | `punk tartan pleated skirt, plaid pattern, safety pin accents` | 經典格紋、叛逆氣息強。 |
+| **裙裝 (Skirts)** | 龐克格紋百褶裙 | `punk tartan pleated skirt, plaid pattern, silver buckle belt, safety pin and chain details` | 格紋圖案明確，搭配銀扣皮帶、別針與鏈條點綴，龐克辨識度更高。 |
 | **裙裝 (Skirts)** | 緊身亮面皮裙 | `glossy fitted leather skirt, high-shine texture, body-hugging silhouette` | 反光感強烈，適合夜景與邊緣時裝主題。 |
 | **裙裝 (Skirts)** | 包臀短裙 | `bodycon mini skirt, figure-hugging silhouette, sleek fitted finish` | 最直接強調曲線的短裙，適合寫真、時裝與成熟感造型。 |
 | **裙裝 (Skirts)** | 荷葉短裙 | `ruffled mini skirt, playful layered hem, lively feminine movement` | 裙擺更有律動與甜感，適合活潑、甜系與年輕造型。 |
