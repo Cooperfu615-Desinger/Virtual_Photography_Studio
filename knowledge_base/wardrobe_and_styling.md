@@ -4,6 +4,7 @@
 
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺與材質說明 (Visual & Texture) |
 | :--- | :--- | :--- | :--- |
+| **風格基調 (Vibe)** | 全無 | `none` | 不指定服裝基調，讓模型自行決定整體穿搭語氣。 |
 | **風格基調 (Vibe)** | 千禧復古 (Y2K) | `Clothing with a retro aesthetic style from the Y2K era` | 千禧年初期風格，色彩鮮豔，懷舊又叛逆。 |
 | **風格基調 (Vibe)** | 極簡高級 (Minimalist Luxury) | `Clothing featuring minimalist style, clean lines, monochromatic colors, and fitted or oversized cuts` | 無明顯 logo，剪裁俐落乾淨，注重面料垂墜與高質感。 |
 | **風格基調 (Vibe)** | 復古龐克 (Retro Punk) | `Clothing with retro punk, British punk, and Japanese punk fashion aesthetics` | 帶有破壞感、鉚釘、皮革、格紋等元素，散發叛逆與次文化氣息。 |

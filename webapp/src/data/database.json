@@ -86,6 +86,11 @@
   "Wardrobe": {
     "風格基調 (Vibe)": [
       {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定服裝基調，讓模型自行決定整體穿搭語氣。"
+      },
+      {
         "zh": "千禧復古 (Y2K)",
         "en": "Clothing with a retro aesthetic style from the Y2K era",
         "desc": "千禧年初期風格，色彩鮮豔，懷舊又叛逆。"
@@ -766,6 +771,11 @@
   "CameraLighting": {
     "景別構圖 (Framing)": [
       {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定景別構圖，讓模型自行決定畫面距離與主體範圍。"
+      },
+      {
         "zh": "特寫鏡頭 (Close-Up)",
         "en": "close-up shot, head and shoulders framing, detailed facial features, tight subject crop",
         "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。"
@@ -788,6 +798,11 @@
     ],
     "相機視角 (Angle)": [
       {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定俯仰角度，讓模型自行決定相機高低視角。"
+      },
+      {
         "zh": "平視角 (Eye-Level Angle)",
         "en": "eye-level angle, objective view, neutral perspective, natural camera height",
         "desc": "最自然客觀的視角，觀眾與拍攝對象處於平等地位，適合大多數日常與時裝構圖。"
@@ -809,6 +824,11 @@
       }
     ],
     "拍攝方位 (Orbit Angle)": [
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定環繞角度，讓模型自行決定人物相對鏡頭的朝向。"
+      },
       {
         "zh": "正面 (Front View)",
         "en": "front-facing camera position, straight-on subject view, symmetrical subject orientation",
@@ -869,6 +889,11 @@
     ],
     "光線類型 (Lighting Type)": [
       {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定光線類型，讓模型自行決定主要光感與氛圍。"
+      },
+      {
         "zh": "夕陽暖光 (Warm Sunset Light)",
         "en": "warm sunset light, golden evening glow, long shadows, soft orange sunlight",
         "desc": "夕陽前後的暖色光線，氛圍浪漫柔和，最適合戶外人像與寫真。"
@@ -926,6 +951,11 @@
     ],
     "光線方向與質感 (Light Direction & Quality)": [
       {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定光線方向，讓模型自行決定光從哪個方向進入畫面。"
+      },
+      {
         "zh": "倫勃朗光/三角光 (Rembrandt Lighting)",
         "en": "Rembrandt lighting, soft directional side light, sculpted cheek shadow, painterly cinematic contrast, moody elegance",
         "desc": "經典人像打光法。以柔和側光塑造臉部立體感與古典明暗層次，但不強調任何幾何形狀或圖案。"
@@ -957,6 +987,11 @@
       }
     ],
     "底片與相機模擬 (Camera & Film Simulation)": [
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定成像風格，讓模型自行決定畫面質感與成像方式。"
+      },
       {
         "zh": "拍立得效果 (Polaroid Style)",
         "en": "polaroid sx-70 style, instant film look, faded pastel colors, soft white border, lo-fi",
@@ -1003,6 +1038,11 @@
   },
   "Locations": {
     "攝影棚與背景 (Studio Sets)": [
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定場景，讓模型自行決定背景環境與空間佈局。"
+      },
       {
         "zh": "鏡面地板攝影棚",
         "en": "mirror floor studio, glossy reflective surface, controlled studio reflections, futuristic editorial mood",
@@ -1431,6 +1471,11 @@
   "Character": {
     "五官特徵 (Facial Features)": [
       {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定五官特徵，讓模型自行決定臉部輪廓與辨識度。"
+      },
+      {
         "zh": "韓系 K-POP 偶像臉",
         "en": "Korean idol face, refined small face, sharp jawline, double eyelids, bright clear eyes, glossy glass skin",
         "desc": "精緻網感、輪廓俐落、眼神乾淨明亮，是韓系偶像攝影最典型的高顏值範本。"
@@ -1467,6 +1512,11 @@
       }
     ],
     "膚質特徵 (Skin Details)": [
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定膚質特徵，讓模型自行決定肌膚表面細節。"
+      },
       {
         "zh": "玻璃水光肌",
         "en": "glass skin, dewy luminous skin texture, hydrated reflective complexion",
@@ -1511,6 +1561,11 @@
       }
     ],
     "髮型 (Hairstyle)": [
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定髮型，讓模型自行決定頭髮長度與輪廓。"
+      },
       {
         "zh": "中分長直髮",
         "en": "long straight hair, center part, sleek",
@@ -1634,6 +1689,11 @@
     ],
     "髮色 (Hair Color)": [
       {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定髮色，讓模型自行決定髮色深淺與色調。"
+      },
+      {
         "zh": "自然黑",
         "en": "glossy natural black hair",
         "desc": "最穩定也最百搭的自然黑髮，適合大多數日常與商業風格。"
@@ -1660,6 +1720,11 @@
       }
     ],
     "神情與眼神 (Expression & Gaze)": [
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定神情與眼神，讓模型自行決定表情與視線。"
+      },
       {
         "zh": "直視鏡頭微笑",
         "en": "Deep gaze looking directly at the camera, a gentle, toothless smile.",
@@ -1692,6 +1757,11 @@
       }
     ],
     "姿勢與肢體語言 (Pose & Body Language)": [
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定姿勢動作，讓模型自行決定人物肢體語言。"
+      },
       {
         "zh": "側身慵懶倚靠",
         "en": "relaxed leaning posture, body weight shifted to one side, effortless cool",

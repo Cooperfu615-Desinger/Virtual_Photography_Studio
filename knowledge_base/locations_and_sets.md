@@ -4,6 +4,7 @@
 
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺氛圍與空間感 (Visual & Spatial Context) |
 | :--- | :--- | :--- | :--- |
+| **攝影棚與背景 (Studio Sets)** | 全無 | `none` | 不指定場景，讓模型自行決定背景環境與空間佈局。 |
 | **攝影棚與背景 (Studio Sets)** | 鏡面地板攝影棚 | `mirror floor studio, glossy reflective surface, controlled studio reflections, futuristic editorial mood` | 地面具有鏡面反射，能增加造型與燈光的延伸感，適合時裝大片。 |
 | **攝影棚與背景 (Studio Sets)** | 純潔白幕 | `infinite white background, seamless paper roll, isolated subject, commercial white` | 商業感極強，人物彷彿漂浮在純白無垠空間中。 |
 | **攝影棚與背景 (Studio Sets)** | 深邃黑幕 | `pitch black background, pure dark void, zero ambient light, dramatic isolation` | 絕對黑暗，能將所有注意力集中在被光照到的主體上。 |
