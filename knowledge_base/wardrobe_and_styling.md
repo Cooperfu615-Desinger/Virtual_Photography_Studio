@@ -30,6 +30,9 @@
 | **風格基調 (Vibe)** | 內衣 (Lingerie) | `Clothing with lingerie aesthetic, boudoir fashion, sheer intimates, lace bodysuit, provocateur` | 展現身體曲線，以透膚蕾絲、絲綢為主的私密性感穿搭。 |
 | **風格基調 (Vibe)** | 泳裝 (Swimwear) | `Clothing with swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear` | 海灘或度假風格，包含比基尼、連身泳衣與度假罩衫。 |
 | **套裝 (Outfit Presets)** | 黑紅束帶亮面乳膠連身套裝 | `wearing an ultra-shiny liquid latex full catsuit in jet black with crimson red strap harness detailing across chest and hips, hyper-detailed latex sheen, tight second-skin texture, niche latex fetish fashion` | 以全身亮面乳膠連身衣與紅色束帶為核心的強烈完整造型，適合直接作為整套 look 使用。 |
+| **套裝 (Outfit Presets)** | 酒紅皮革馬甲束腰套裝 | `wearing an extreme cinched burgundy leather corset with black lace overlay and attached garter straps over sheer black stockings and a matching high-waisted pencil skirt, ultra-detailed leather texture, corset lacing, niche corset fetish fashion` | 酒紅皮革馬甲與黑蕾絲疊層構成的束腰造型，搭配吊襪帶、絲襪與高腰 pencil skirt，強調腰線與 fetish fashion 氣質。 |
+| **套裝 (Outfit Presets)** | 玫瑰粉乳膠迷你洋裝套裝 | `wearing a dusty rose latex mini dress with matching thigh-high stockings and extreme ballet-style pointed heels, ultra-detailed latex sheen, sculptural heel structure, niche heel fetish fashion` | 玫瑰粉乳膠迷你洋裝搭配同色系過膝襪與芭蕾尖頭高跟，帶有夢幻又強烈的 heel fetish fashion 風格。 |
+| **套裝 (Outfit Presets)** | 象牙白春日巴黎套裝 | `wearing an ivory silk camisole layered under an oversized white linen shirt left open with high-waisted light grey wide-leg trousers, silky sheen, airy linen layers, effortless Parisian spring styling` | 象牙白絲質細肩帶搭配寬鬆白色亞麻襯衫與高腰淺灰寬褲，走輕盈鬆弛的巴黎春日穿搭語氣。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 合身襯衫 | `fitted shirt, crisp cotton poplin, clean silhouette` | 乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。 |
 | **上身 (Tops)** | 合身棉質背心 | `fitted cotton tank top, close body fit, soft ribbed fabric` | 最基礎也最常用的貼身背心，適合日常、街頭與寫真風格。 |
