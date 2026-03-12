@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Download, Heart, RefreshCcw } from 'lucide-react';
 
 function buildMarkdownExport(data) {
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
@@ -79,22 +80,23 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
     })
     .join('\n');
 
+  const shortId = `#${String(data.id).slice(-6).toUpperCase()}`;
+
   return (
     <article className="prompt-card prompt-card-summary">
       <div className="card-header card-header-compact">
         <div className="card-meta">
-          <span className="card-time">{new Date(data.date).toLocaleString()}</span>
-          <span className="card-id">Prompt Card</span>
+          <span className="card-id">{shortId}</span>
         </div>
         <div className="card-actions">
-          <button className="card-action-btn secondary" onClick={() => onRemix(data, lockedSummaryKeys)} title="Random with selected summary locks">
-            Random
+          <button className="icon-btn" onClick={() => onRemix(data, lockedSummaryKeys)} title="Random with selected summary locks">
+            <RefreshCcw size={18} />
           </button>
-          <button className={`card-action-btn secondary ${isFavorite ? 'active' : ''}`} onClick={() => onFavorite(data)} title="Favorite">
-            Favorite
+          <button className={`icon-btn ${isFavorite ? 'active' : ''}`} onClick={() => onFavorite(data)} title="Favorite">
+            <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
           </button>
-          <button className="card-action-btn secondary" onClick={handleDownload} title="Download Markdown">
-            Download
+          <button className="icon-btn" onClick={handleDownload} title="Download Markdown">
+            <Download size={18} />
           </button>
         </div>
       </div>
