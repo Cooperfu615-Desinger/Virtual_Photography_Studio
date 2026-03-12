@@ -503,8 +503,30 @@ button:disabled {
 }
 
 .summary-row-label {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-align: left;
   color: var(--text-secondary);
   font-size: var(--card-label-size);
+}
+
+.summary-lock-btn {
+  cursor: pointer;
+  width: fit-content;
+  border-radius: 999px;
+  transition: color 140ms ease, background 140ms ease, padding 140ms ease;
+}
+
+.summary-lock-btn:hover {
+  color: var(--text-primary);
+}
+
+.summary-lock-active {
+  color: var(--accent);
+  background: rgba(232, 140, 79, 0.12);
+  padding: 4px 8px;
 }
 
 .summary-row-value {

@@ -44,6 +44,7 @@ const SUMMARY_LABELS = [
 export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
   const [copiedLabel, setCopiedLabel] = useState('');
   const [expanded, setExpanded] = useState(false);
+  const [lockedSummaryKeys, setLockedSummaryKeys] = useState([]);
 
   const handleCopy = async (label, text) => {
     try {
@@ -68,6 +69,10 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
     URL.revokeObjectURL(url);
   };
 
+  const toggleSummaryLock = (key) => {
+    setLockedSummaryKeys((prev) => (prev.includes(key) ? prev.filter((item) => item !== key) : [...prev, key]));
+  };
+
   const structuredText = Object.entries(data.structured)
     .map(([key, items]) => {
       const text = items.map((item) => `${item.en} (${item.zh})`).join(', ');
@@ -83,7 +88,7 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
           <span className="card-id">Prompt Card</span>
         </div>
         <div className="card-actions">
-          <button className="icon-btn" onClick={() => onRemix(data)} title="Remix with current reroll settings">
+          <button className="icon-btn" onClick={() => onRemix(data, lockedSummaryKeys)} title="Random with selected summary locks">
             <RefreshCcw size={18} />
           </button>
           <button className={`icon-btn ${isFavorite ? 'active' : ''}`} onClick={() => onFavorite(data)} title="Favorite">
@@ -100,7 +105,14 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
         <div className="summary-grid">
           {SUMMARY_LABELS.map(([key, label]) => (
             <div key={key} className="summary-row">
-              <div className="summary-row-label">{label}</div>
+              <button
+                type="button"
+                className={`summary-row-label summary-lock-btn ${lockedSummaryKeys.includes(key) ? 'summary-lock-active' : ''}`}
+                onClick={() => toggleSummaryLock(key)}
+                title="Click to lock this section during random remix"
+              >
+                {label}
+              </button>
               <div className="summary-row-value">{data.summaryFields?.[key] || '-'}</div>
             </div>
           ))}

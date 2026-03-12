@@ -7,7 +7,6 @@ import {
   Filter,
   FolderUp,
   Heart,
-  RefreshCcw,
   RotateCcw,
   Save,
   Search,
@@ -22,7 +21,6 @@ import {
   generatePrompts,
   getKnowledgeBaseOptions,
   getLockControls,
-  getPartialRerollOptions,
   normalizeLocks,
 } from './lib/engine';
 import './index.css';
@@ -34,9 +32,7 @@ const FAVORITES_KEY = 'vps.favorites';
 const LOCKS_KEY = 'vps.locks';
 const GEN_COUNT_KEY = 'vps.genCount';
 const VIEW_MODE_KEY = 'vps.viewMode';
-const REROLL_KEEP_KEY = 'vps.rerollKeep';
 const SEARCH_QUERY_KEY = 'vps.searchQuery';
-const REROLL_KEEP_DEFAULT = ['styleId', 'locationId'];
 const MAX_STORED_PROMPTS = 120;
 const CHARACTER_CONTROL_ORDER = [
   'subjectCount',
@@ -178,7 +174,6 @@ export default function App() {
   const [customLibrary, setCustomLibrary] = useState(() => loadJsonStorage(CUSTOM_LIBRARY_KEY, []));
   const [presets, setPresets] = useState(() => loadJsonStorage(PRESETS_KEY, []));
   const [presetName, setPresetName] = useState('');
-  const [rerollKeep, setRerollKeep] = useState(() => loadJsonStorage(REROLL_KEEP_KEY, REROLL_KEEP_DEFAULT));
   const [searchQuery, setSearchQuery] = useState(() => loadStringStorage(SEARCH_QUERY_KEY, ''));
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [customForm, setCustomForm] = useState({
@@ -218,10 +213,6 @@ export default function App() {
   }, [viewMode]);
 
   useEffect(() => {
-    window.localStorage.setItem(REROLL_KEEP_KEY, JSON.stringify(rerollKeep));
-  }, [rerollKeep]);
-
-  useEffect(() => {
     window.localStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
   }, [searchQuery]);
 
@@ -229,7 +220,6 @@ export default function App() {
 
   const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(customLibrary), [customLibrary]);
   const lockControls = useMemo(() => getLockControls(customLibrary), [customLibrary]);
-  const rerollOptions = useMemo(() => getPartialRerollOptions(), []);
   const coreLockControls = useMemo(
     () =>
       sortControls(
@@ -298,8 +288,9 @@ export default function App() {
     setViewMode('feed');
   };
 
-  const handleRemixPrompt = (prompt) => {
-    const remixLocks = buildLocksFromPrompt(prompt, rerollKeep);
+  const handleRemixPrompt = (prompt, summaryKeys = []) => {
+    const keepKeys = Array.from(new Set(summaryKeys.flatMap((key) => SUMMARY_REROLL_MAP[key] || [])));
+    const remixLocks = buildLocksFromPrompt(prompt, keepKeys);
     const [nextPrompt] = generatePrompts(1, remixLocks, customLibrary);
     setPrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
     setFavoritePrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
@@ -657,35 +648,6 @@ export default function App() {
         </div>
       </section>
 
-      <section className="lock-panel reroll-panel reroll-panel-inline">
-        <div className="lock-panel-header">
-          <div className="reroll-heading-inline">
-            <div className="lock-title">
-              <RefreshCcw size={18} />
-              Partial Reroll
-            </div>
-            <p className="lock-subtitle">Remix 會保留下方勾選的欄位，其他內容重新生成。</p>
-          </div>
-        </div>
-
-        <div className="chip-list">
-          {rerollOptions.map((option) => {
-            const active = rerollKeep.includes(option.key);
-            return (
-              <button
-                key={option.key}
-                className={`chip ${active ? 'chip-active' : ''}`}
-                onClick={() =>
-                  setRerollKeep((prev) => (prev.includes(option.key) ? prev.filter((item) => item !== option.key) : [...prev, option.key]))
-                }
-              >
-                {option.label}
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
       <div className="feed">
         {displayPrompts.length === 0 ? (
           <div className="empty-state">{searchQuery ? '沒有符合搜尋條件的 prompt。' : '先設定條件，再開始批次生成。'}</div>
@@ -714,3 +676,42 @@ export default function App() {
     </div>
   );
 }
+const SUMMARY_REROLL_MAP = {
+  style: ['styleId'],
+  character: [
+    'subjectCount',
+    'bodyTypeId',
+    'facialFeaturesId',
+    'facialFeaturesAId',
+    'facialFeaturesBId',
+    'skinDetailsId',
+    'hairstyleId',
+    'hairstyleAId',
+    'hairstyleBId',
+    'hairColorId',
+    'hairColorAId',
+    'hairColorBId',
+    'duoInteractionId',
+    'expressionId',
+    'poseId',
+  ],
+  wardrobe: [
+    'outfitPresetId',
+    'outfitPresetAId',
+    'outfitPresetBId',
+    'wardrobeVibeId',
+    'topId',
+    'topColorId',
+    'duoStylingId',
+    'pantsId',
+    'skirtId',
+    'bottomColorId',
+    'legwearId',
+    'outerwearId',
+    'shoesId',
+    'jewelryIds',
+  ],
+  location: ['locationId'],
+  camera: ['aspectRatio', 'framingId', 'angleId', 'orbitId', 'filmId'],
+  lighting: ['lightingId', 'lightDirectionId'],
+};
