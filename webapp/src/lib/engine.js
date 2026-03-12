@@ -14,6 +14,24 @@ const ASPECT_RATIO_OPTIONS = [
   { id: '16:9', zh: '16:9', en: '16:9' },
 ];
 
+const DUO_INTERACTION_OPTIONS = [
+  {
+    id: 'natural',
+    zh: '互動自然',
+    en: 'natural interaction, relaxed shared presence, candid chemistry, effortless duo connection',
+  },
+  {
+    id: 'intimate',
+    zh: '互動親密',
+    en: 'intimate interaction, close body language, emotional closeness, warm romantic chemistry',
+  },
+  {
+    id: 'independent',
+    zh: '各自為立',
+    en: 'independent presence, minimal interaction, distinct personal space, separate confident attitudes',
+  },
+];
+
 const GARMENT_COLOR_OPTIONS = [
   { id: 'black', zh: '黑色', en: 'black' },
   { id: 'white', zh: '白色', en: 'white' },
@@ -55,6 +73,7 @@ const LOCK_DEFINITIONS = [
   { key: 'skinDetailsId', label: '膚質特徵', category: '膚質特徵 (Skin Details)', section: 'character' },
   { key: 'hairstyleId', label: '髮型', category: '髮型 (Hairstyle)', section: 'character' },
   { key: 'hairColorId', label: '髮色', category: '髮色 (Hair Color)', section: 'character' },
+  { key: 'duoInteractionId', label: '雙人互動', options: DUO_INTERACTION_OPTIONS, section: 'character' },
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'topId', label: '上身', category: '上身 (Tops)', section: 'wardrobe' },
@@ -85,6 +104,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'skinDetailsId', label: 'Skin' },
   { key: 'hairstyleId', label: 'Hair Style' },
   { key: 'hairColorId', label: 'Hair Color' },
+  { key: 'duoInteractionId', label: 'Duo Interaction' },
   { key: 'expressionId', label: 'Expression' },
   { key: 'poseId', label: 'Pose' },
   { key: 'topId', label: 'Top' },
@@ -774,6 +794,10 @@ function getAspectRatioOption(id) {
   return ASPECT_RATIO_OPTIONS.find((option) => option.id === id) || ASPECT_RATIO_OPTIONS[2];
 }
 
+function getDuoInteractionOption(id) {
+  return DUO_INTERACTION_OPTIONS.find((option) => option.id === id) || null;
+}
+
 function framingSupportsSubject(framing, subject, aspectRatio) {
   const visibility = framing.meta.visibility;
 
@@ -1208,7 +1232,7 @@ function pushUniqueSegment(segments, value) {
   segments.push(cleaned);
 }
 
-function buildMidjourneyCharacterSegments(context, characterSlots) {
+function buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction) {
   const segments = [context.subject.en];
 
   if (characterSlots.bodyType?.en) pushUniqueSegment(segments, compactClause(characterSlots.bodyType.en, 2));
@@ -1222,6 +1246,10 @@ function buildMidjourneyCharacterSegments(context, characterSlots) {
 
   if (characterSlots.pose?.en && context.framing.meta.visibility !== 'portrait') {
     pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count), 1));
+  }
+
+  if (context.subject.count === 2 && duoInteraction?.en) {
+    pushUniqueSegment(segments, compactClause(duoInteraction.en, 1));
   }
 
   return segments;
@@ -1277,7 +1305,7 @@ function buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors) {
   return segments;
 }
 
-function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film) {
+function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction) {
   const styleIntro = STYLE_PROMPT_INTROS[context.style.zh] || 'editorial photography mood';
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
@@ -1313,6 +1341,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addItemLine('Skin Details', characterSlots.skinDetails);
   addItemLine('Hairstyle', characterSlots.hairstyle);
   addItemLine('Hair Color', characterSlots.hairColor);
+  if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
   addLine('Expression and Pose', expressionAndPose);
   addItemLine('Top', wardrobeSlots.top);
   addLine('Top Color', wardrobeColors.topColor?.en);
@@ -1332,12 +1361,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   return lines.join('\n');
 }
 
-function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, effect) {
+function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, effect, duoInteraction) {
   const characterSlots = extractCharacterSlots(character);
   const midjourneySegments = [];
 
   buildMidjourneyCameraSegments(context, lightDirection, film).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
-  buildMidjourneyCharacterSegments(context, characterSlots).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+  buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   if (effect?.en) pushUniqueSegment(midjourneySegments, compactClause(effect.en, 1));
 
@@ -1349,12 +1378,12 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   }
   midjourneyPrompt = `${midjourneyPrompt} --ar ${context.aspectRatio.en}`;
 
-  const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film);
+  const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction);
 
   return { midjourneyPrompt, grokPrompt };
 }
 
-function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film) {
+function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film, duoInteraction) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   return {
@@ -1374,6 +1403,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     skinDetailsId: characterSlots.skinDetails?.id || '',
     hairstyleId: characterSlots.hairstyle?.id || '',
     hairColorId: characterSlots.hairColor?.id || '',
+    duoInteractionId: duoInteraction?.id || '',
     expressionId: characterSlots.expression?.id || '',
     poseId: characterSlots.pose?.id || '',
     topId: wardrobeSlots.top?.id || '',
@@ -1430,6 +1460,7 @@ function generateSinglePrompt(index, locks, customLibrary) {
   const lightDirection = pickWithLock(runtime.flatCatalog.lightDirection, locks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
   const film = pickWithLock(runtime.flatCatalog.film, locks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
   const effect = Math.random() > 0.65 ? sample(runtime.flatCatalog.effects) : null;
+  const duoInteraction = subject.count === 2 ? getDuoInteractionOption(locks.duoInteractionId) || sample(DUO_INTERACTION_OPTIONS) : null;
 
   const context = { subject, aspectRatio, style, location, framing, angle, orbit, lighting, locks };
   const character = buildCharacter(context, runtime.catalog);
@@ -1439,7 +1470,7 @@ function generateSinglePrompt(index, locks, customLibrary) {
 
   const positiveTags = collectPositiveTags(style, location, framing, angle, lighting, lightDirection, film, effect, wardrobe, character);
   const negativePrompt = buildNegativePrompt(context, positiveTags, runtime);
-  const { midjourneyPrompt, grokPrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, effect);
+  const { midjourneyPrompt, grokPrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, effect, duoInteraction);
   const summaryFields = buildSummaryFields(context, wardrobe, character);
 
   return {
@@ -1450,7 +1481,7 @@ function generateSinglePrompt(index, locks, customLibrary) {
     midjourneyPrompt,
     grokPrompt,
     negativePrompt,
-    selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film),
+    selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film, duoInteraction),
     structured: {
       Style: [style],
       Character: character,

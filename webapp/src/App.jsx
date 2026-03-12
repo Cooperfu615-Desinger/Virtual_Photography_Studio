@@ -38,7 +38,7 @@ const REROLL_KEEP_KEY = 'vps.rerollKeep';
 const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const REROLL_KEEP_DEFAULT = ['styleId', 'locationId'];
 const MAX_STORED_PROMPTS = 120;
-const CHARACTER_CONTROL_ORDER = ['subjectCount', 'bodyTypeId', 'facialFeaturesId', 'hairstyleId', 'hairColorId', 'skinDetailsId', 'expressionId', 'poseId'];
+const CHARACTER_CONTROL_ORDER = ['subjectCount', 'bodyTypeId', 'facialFeaturesId', 'hairstyleId', 'hairColorId', 'skinDetailsId', 'duoInteractionId', 'expressionId', 'poseId'];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
 const STYLE_WARDROBE_CONTROL_ORDER = ['wardrobeVibeId', 'topId', 'topColorId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
 
@@ -223,8 +223,16 @@ export default function App() {
     [lockControls]
   );
   const characterLockControls = useMemo(
-    () => sortControls(lockControls.filter((control) => control.section === 'character' || control.key === 'subjectCount'), CHARACTER_CONTROL_ORDER),
-    [lockControls]
+    () =>
+      sortControls(
+        lockControls.filter((control) => {
+          if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
+          if (control.key === 'duoInteractionId' && locks.subjectCount !== '2') return false;
+          return true;
+        }),
+        CHARACTER_CONTROL_ORDER
+      ),
+    [lockControls, locks.subjectCount]
   );
   const wardrobeLockControls = useMemo(
     () => sortControls(lockControls.filter((control) => control.section === 'wardrobe' || control.key === 'wardrobeVibeId'), STYLE_WARDROBE_CONTROL_ORDER),
