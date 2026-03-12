@@ -88,9 +88,15 @@ const LOCK_DEFINITIONS = [
   { key: 'filmId', label: '成像風格', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
   { key: 'bodyTypeId', label: '體態', category: '體態 (Body Type)', section: 'character' },
   { key: 'facialFeaturesId', label: '五官特徵', category: '五官特徵 (Facial Features)', section: 'character' },
+  { key: 'facialFeaturesAId', label: '人物 A 五官', category: '五官特徵 (Facial Features)', section: 'character' },
+  { key: 'facialFeaturesBId', label: '人物 B 五官', category: '五官特徵 (Facial Features)', section: 'character' },
   { key: 'skinDetailsId', label: '膚質特徵', category: '膚質特徵 (Skin Details)', section: 'character' },
   { key: 'hairstyleId', label: '髮型', category: '髮型 (Hairstyle)', section: 'character' },
+  { key: 'hairstyleAId', label: '人物 A 髮型', category: '髮型 (Hairstyle)', section: 'character' },
+  { key: 'hairstyleBId', label: '人物 B 髮型', category: '髮型 (Hairstyle)', section: 'character' },
   { key: 'hairColorId', label: '髮色', category: '髮色 (Hair Color)', section: 'character' },
+  { key: 'hairColorAId', label: '人物 A 髮色', category: '髮色 (Hair Color)', section: 'character' },
+  { key: 'hairColorBId', label: '人物 B 髮色', category: '髮色 (Hair Color)', section: 'character' },
   { key: 'duoInteractionId', label: '雙人互動', options: DUO_INTERACTION_OPTIONS, section: 'character' },
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
@@ -124,9 +130,15 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'wardrobeVibeId', label: 'Wardrobe' },
   { key: 'bodyTypeId', label: 'Body Type' },
   { key: 'facialFeaturesId', label: 'Face' },
+  { key: 'facialFeaturesAId', label: 'Face A' },
+  { key: 'facialFeaturesBId', label: 'Face B' },
   { key: 'skinDetailsId', label: 'Skin' },
   { key: 'hairstyleId', label: 'Hair Style' },
+  { key: 'hairstyleAId', label: 'Hair Style A' },
+  { key: 'hairstyleBId', label: 'Hair Style B' },
   { key: 'hairColorId', label: 'Hair Color' },
+  { key: 'hairColorAId', label: 'Hair Color A' },
+  { key: 'hairColorBId', label: 'Hair Color B' },
   { key: 'duoInteractionId', label: 'Duo Interaction' },
   { key: 'expressionId', label: 'Expression' },
   { key: 'poseId', label: 'Pose' },
@@ -579,9 +591,15 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'wardrobeVibeId') options = flatCatalog.wardrobeVibe;
       if (definition.key === 'bodyTypeId') options = getByKey(catalog.character, '體態 (Body Type)');
       if (definition.key === 'facialFeaturesId') options = getByKey(catalog.character, '五官特徵 (Facial Features)');
+      if (definition.key === 'facialFeaturesAId') options = getByKey(catalog.character, '五官特徵 (Facial Features)');
+      if (definition.key === 'facialFeaturesBId') options = getByKey(catalog.character, '五官特徵 (Facial Features)');
       if (definition.key === 'skinDetailsId') options = getByKey(catalog.character, '膚質特徵 (Skin Details)');
       if (definition.key === 'hairstyleId') options = getByKey(catalog.character, '髮型 (Hairstyle)');
+      if (definition.key === 'hairstyleAId') options = getByKey(catalog.character, '髮型 (Hairstyle)');
+      if (definition.key === 'hairstyleBId') options = getByKey(catalog.character, '髮型 (Hairstyle)');
       if (definition.key === 'hairColorId') options = getByKey(catalog.character, '髮色 (Hair Color)');
+      if (definition.key === 'hairColorAId') options = getByKey(catalog.character, '髮色 (Hair Color)');
+      if (definition.key === 'hairColorBId') options = getByKey(catalog.character, '髮色 (Hair Color)');
       if (definition.key === 'expressionId') options = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
       if (definition.key === 'poseId') options = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
       if (definition.key === 'topId') options = getByKey(catalog.wardrobe, '上身 (Tops)');
@@ -920,6 +938,27 @@ function buildCharacter(context, catalog) {
     return sample(special.length > 0 ? special : candidates);
   };
 
+  const cloneCharacterRole = (item, role) => ({
+    ...item,
+    id: `${item.id}:${role}`,
+    meta: { ...(item.meta || {}), characterRole: role },
+  });
+
+  const pickDistinctForRole = (categoryKey, role, lockedId, currentItems = [], picker = sample, predicate = () => true) => {
+    const candidates = getByKey(catalog.character, categoryKey).filter(
+      (item) => detailAllowed(item, context.framing) && predicate(item)
+    );
+    if (candidates.length === 0) return null;
+
+    const locked = lockedId ? findById(candidates, lockedId) : null;
+      if (locked) return cloneCharacterRole(locked, role);
+
+    const usedIds = new Set(currentItems.map((item) => item?.id?.split(':')[0]).filter(Boolean));
+    const distinct = candidates.filter((item) => !usedIds.has(item.id));
+    const picked = picker(distinct.length > 0 ? distinct : candidates);
+    return picked ? cloneCharacterRole(picked, role) : null;
+  };
+
   pickCategory('體態 (Body Type)', context.locks, () => true, sample, false);
 
   if (context.subject.count === 1 && visibilityAtLeast(visibility, 'portrait')) {
@@ -927,9 +966,32 @@ function buildCharacter(context, catalog) {
     if (context.locks?.skinDetailsId || Math.random() < 0.55) pickCategory('膚質特徵 (Skin Details)', context.locks);
   }
 
-  if (visibilityAtLeast(visibility, 'medium')) {
+  if (context.subject.count === 2 && visibilityAtLeast(visibility, 'portrait')) {
+    const faceA = pickDistinctForRole('五官特徵 (Facial Features)', 'a', context.locks?.facialFeaturesAId, [], sample);
+    const faceB = pickDistinctForRole('五官特徵 (Facial Features)', 'b', context.locks?.facialFeaturesBId, [faceA], sample);
+    if (faceA) character.push(faceA);
+    if (faceB) character.push(faceB);
+  }
+
+  if (context.subject.count === 2 && visibilityAtLeast(visibility, 'portrait') && (context.locks?.skinDetailsId || Math.random() < 0.45)) {
+    pickCategory('膚質特徵 (Skin Details)', context.locks);
+  }
+
+  if (visibilityAtLeast(visibility, 'medium') && context.subject.count === 1) {
     pickCategory('髮型 (Hairstyle)', context.locks);
     pickCategory('髮色 (Hair Color)', context.locks, () => true, pickHairColor);
+  }
+
+  if (visibilityAtLeast(visibility, 'medium') && context.subject.count === 2) {
+    const hairA = pickDistinctForRole('髮型 (Hairstyle)', 'a', context.locks?.hairstyleAId, [], sample);
+    const hairB = pickDistinctForRole('髮型 (Hairstyle)', 'b', context.locks?.hairstyleBId, [hairA], sample);
+    if (hairA) character.push(hairA);
+    if (hairB) character.push(hairB);
+
+    const hairColorA = pickDistinctForRole('髮色 (Hair Color)', 'a', context.locks?.hairColorAId, [], pickHairColor);
+    const hairColorB = pickDistinctForRole('髮色 (Hair Color)', 'b', context.locks?.hairColorBId, [hairColorA], pickHairColor);
+    if (hairColorA) character.push(hairColorA);
+    if (hairColorB) character.push(hairColorB);
   }
 
   const expression = pickCategory('神情與眼神 (Expression & Gaze)', context.locks, (item) => expressionSupportsComposition(item, context));
@@ -1230,12 +1292,19 @@ function resolvePromptVariant(item, kind, subjectCount) {
 
 function extractCharacterSlots(character) {
   const findSlot = (token) => character.find((item) => item.id?.includes(token));
+  const findRoleSlot = (token, role) => character.find((item) => item.id?.includes(token) && item.meta?.characterRole === role);
   return {
     bodyType: findSlot('character:體態-body-type:'),
     facialFeatures: findSlot('character:五官特徵-facial-features:'),
+    facialFeaturesA: findRoleSlot('character:五官特徵-facial-features:', 'a'),
+    facialFeaturesB: findRoleSlot('character:五官特徵-facial-features:', 'b'),
     skinDetails: findSlot('character:膚質特徵-skin-details:'),
     hairstyle: findSlot('character:髮型-hairstyle:'),
+    hairstyleA: findRoleSlot('character:髮型-hairstyle:', 'a'),
+    hairstyleB: findRoleSlot('character:髮型-hairstyle:', 'b'),
     hairColor: findSlot('character:髮色-hair-color:'),
+    hairColorA: findRoleSlot('character:髮色-hair-color:', 'a'),
+    hairColorB: findRoleSlot('character:髮色-hair-color:', 'b'),
     expression: findSlot('character:神情與眼神-expression-gaze:'),
     pose: findSlot('character:姿勢與肢體語言-pose-body-language:'),
   };
@@ -1313,9 +1382,28 @@ function buildMidjourneyCharacterSegments(context, characterSlots, duoInteractio
   const segments = [context.subject.en];
 
   if (characterSlots.bodyType?.en) pushUniqueSegment(segments, compactClause(characterSlots.bodyType.en, 2));
-  if (characterSlots.facialFeatures?.en) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 2));
-  if (characterSlots.hairstyle?.en) pushUniqueSegment(segments, compactClause(characterSlots.hairstyle.en, 1));
-  if (characterSlots.hairColor?.en) pushUniqueSegment(segments, compactClause(characterSlots.hairColor.en, 1));
+  if (context.subject.count === 2) {
+    const womanA = [
+      characterSlots.facialFeaturesA?.en ? compactClause(characterSlots.facialFeaturesA.en, 1) : '',
+      characterSlots.hairstyleA?.en ? compactClause(characterSlots.hairstyleA.en, 1) : '',
+      characterSlots.hairColorA?.en ? compactClause(characterSlots.hairColorA.en, 1) : '',
+    ]
+      .filter(Boolean)
+      .join(', ');
+    const womanB = [
+      characterSlots.facialFeaturesB?.en ? compactClause(characterSlots.facialFeaturesB.en, 1) : '',
+      characterSlots.hairstyleB?.en ? compactClause(characterSlots.hairstyleB.en, 1) : '',
+      characterSlots.hairColorB?.en ? compactClause(characterSlots.hairColorB.en, 1) : '',
+    ]
+      .filter(Boolean)
+      .join(', ');
+    if (womanA) pushUniqueSegment(segments, `woman A, ${womanA}`);
+    if (womanB) pushUniqueSegment(segments, `woman B, ${womanB}`);
+  } else {
+    if (characterSlots.facialFeatures?.en) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 2));
+    if (characterSlots.hairstyle?.en) pushUniqueSegment(segments, compactClause(characterSlots.hairstyle.en, 1));
+    if (characterSlots.hairColor?.en) pushUniqueSegment(segments, compactClause(characterSlots.hairColor.en, 1));
+  }
 
   if (context.framing.meta.visibility !== 'full' && characterSlots.expression?.en) {
     pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count), 1));
@@ -1438,10 +1526,22 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addLine('Light Direction', resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count));
   addLine('Film', film.en);
   addItemLine('Body Type', characterSlots.bodyType);
-  addItemLine('Facial Features', characterSlots.facialFeatures);
+  if (context.subject.count === 2) {
+    addItemLine('Facial Features A', characterSlots.facialFeaturesA);
+    addItemLine('Facial Features B', characterSlots.facialFeaturesB);
+  } else {
+    addItemLine('Facial Features', characterSlots.facialFeatures);
+  }
   addItemLine('Skin Details', characterSlots.skinDetails);
-  addItemLine('Hairstyle', characterSlots.hairstyle);
-  addItemLine('Hair Color', characterSlots.hairColor);
+  if (context.subject.count === 2) {
+    addItemLine('Hairstyle A', characterSlots.hairstyleA);
+    addItemLine('Hairstyle B', characterSlots.hairstyleB);
+    addItemLine('Hair Color A', characterSlots.hairColorA);
+    addItemLine('Hair Color B', characterSlots.hairColorB);
+  } else {
+    addItemLine('Hairstyle', characterSlots.hairstyle);
+    addItemLine('Hair Color', characterSlots.hairColor);
+  }
   if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
   addLine('Expression and Pose', expressionAndPose);
   if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB) {
@@ -1516,9 +1616,15 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     wardrobeVibeId: wardrobeSlots.wardrobeCore?.id || '',
     bodyTypeId: characterSlots.bodyType?.id || '',
     facialFeaturesId: characterSlots.facialFeatures?.id || '',
+    facialFeaturesAId: characterSlots.facialFeaturesA?.id?.replace(/:a$/, '') || '',
+    facialFeaturesBId: characterSlots.facialFeaturesB?.id?.replace(/:b$/, '') || '',
     skinDetailsId: characterSlots.skinDetails?.id || '',
     hairstyleId: characterSlots.hairstyle?.id || '',
+    hairstyleAId: characterSlots.hairstyleA?.id?.replace(/:a$/, '') || '',
+    hairstyleBId: characterSlots.hairstyleB?.id?.replace(/:b$/, '') || '',
     hairColorId: characterSlots.hairColor?.id || '',
+    hairColorAId: characterSlots.hairColorA?.id?.replace(/:a$/, '') || '',
+    hairColorBId: characterSlots.hairColorB?.id?.replace(/:b$/, '') || '',
     duoInteractionId: duoInteraction?.id || '',
     expressionId: characterSlots.expression?.id || '',
     poseId: characterSlots.pose?.id || '',

@@ -38,7 +38,23 @@ const REROLL_KEEP_KEY = 'vps.rerollKeep';
 const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const REROLL_KEEP_DEFAULT = ['styleId', 'locationId'];
 const MAX_STORED_PROMPTS = 120;
-const CHARACTER_CONTROL_ORDER = ['subjectCount', 'bodyTypeId', 'facialFeaturesId', 'hairstyleId', 'hairColorId', 'skinDetailsId', 'duoInteractionId', 'expressionId', 'poseId'];
+const CHARACTER_CONTROL_ORDER = [
+  'subjectCount',
+  'bodyTypeId',
+  'facialFeaturesId',
+  'facialFeaturesAId',
+  'facialFeaturesBId',
+  'hairstyleId',
+  'hairstyleAId',
+  'hairstyleBId',
+  'hairColorId',
+  'hairColorAId',
+  'hairColorBId',
+  'skinDetailsId',
+  'duoInteractionId',
+  'expressionId',
+  'poseId',
+];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
 const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId', 'wardrobeVibeId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
 
@@ -228,6 +244,8 @@ export default function App() {
         lockControls.filter((control) => {
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
           if (control.key === 'duoInteractionId' && locks.subjectCount !== '2') return false;
+          if (['facialFeaturesId', 'hairstyleId', 'hairColorId'].includes(control.key) && locks.subjectCount === '2') return false;
+          if (['facialFeaturesAId', 'facialFeaturesBId', 'hairstyleAId', 'hairstyleBId', 'hairColorAId', 'hairColorBId'].includes(control.key) && locks.subjectCount !== '2') return false;
           return true;
         }),
         CHARACTER_CONTROL_ORDER
