@@ -31,6 +31,15 @@
 | **髮型 (Hairstyle)** | 及肩內彎鮑伯 | `shoulder-length bob, curled ends` | 溫婉的中長度，帶有微微的內彎弧度。 |
 | **髮型 (Hairstyle)** | 側分深大波浪 | `deep side part, glamour waves` | 展現成熟與優雅，適合商業攝影。 |
 | **髮型 (Hairstyle)** | 蓬鬆隨性馬尾 | `undone ponytail, high placement, flyaways` | 帶有細微碎髮的隨意感，自然生活氣息。 |
+| **髮型 (Hairstyle)** | 碎瀏海高盤髮 | `wispy bangs, elegant high updo, loose face-framing tendrils` | 高位盤起的髮型搭配碎瀏海與臉側細捲鬚，帶有日系暗黑與精緻感。 |
+| **髮型 (Hairstyle)** | 半綁公主頭長髮 | `half-up long hair, soft crown lift, loose face-framing strands` | 上半部輕輕束起、下半部自然垂落，清純又帶一點柔和公主感。 |
+| **髮型 (Hairstyle)** | 慵懶高丸子頭 | `messy high bun, loose wispy strands, airy casual updo` | 高位丸子頭帶有鬆散碎髮，適合自然光、隨拍與生活感人像。 |
+| **髮型 (Hairstyle)** | 中分柔波長髮 | `long softly wavy hair, center part, natural flowing texture` | 中分長髮帶有柔和波浪與飄動感，適合高曝光柔光與清透寫真風格。 |
+| **髮型 (Hairstyle)** | 濕潤感長波浪 | `wet-look long wavy hair, damp separated strands, moody texture` | 帶有濕潤分束感的長波浪髮，適合冷調、私密與邊緣感寫真。 |
+| **髮型 (Hairstyle)** | 空氣瀏海層次長髮 | `airy see-through bangs, long layered hair, soft feathered ends` | 輕透碎瀏海搭配層次長髮與羽毛感髮尾，韓系感更明顯。 |
+| **髮型 (Hairstyle)** | 側分柔波鮑伯 | `side-parted wavy bob, soft volume, airy curled ends` | 側分的柔和波浪鮑伯，髮尾自然外彎，帶輕盈時裝感。 |
+| **髮型 (Hairstyle)** | 側分鎖骨波浪髮 | `side-parted collarbone-length waves, soft flowing texture` | 長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。 |
+| **髮型 (Hairstyle)** | 中短層次鮑伯 | `layered short bob, airy texture, softly tousled ends` | 層次明顯的中短鮑伯，髮尾蓬鬆，適合挑染與時尚感造型。 |
 | **髮色 (Hair Color)** | 自然黑 | `glossy natural black hair` | 最穩定也最百搭的自然黑髮，適合大多數日常與商業風格。 |
 | **髮色 (Hair Color)** | 柔霧黑茶 | `soft black tea brown hair, muted sheen` | 黑中帶一點茶棕感，低調柔和，常見於亞洲系寫真。 |
 | **髮色 (Hair Color)** | 深咖啡棕 | `deep coffee brown hair, rich brunette tone` | 穩定成熟的深棕色，帶有自然高級感。 |
