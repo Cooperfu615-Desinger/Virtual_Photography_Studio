@@ -94,7 +94,7 @@
 | **裙裝 (Skirts)** | 荷葉短裙 | `ruffled mini skirt, playful layered hem, lively feminine movement` | 裙擺更有律動與甜感，適合活潑、甜系與年輕造型。 |
 | **裙裝 (Skirts)** | 牛仔短裙 | `denim mini skirt, structured casual texture, youthful street styling` | 經典高頻單品，適合街頭、日常與夏日畫面。 |
 | **裙裝 (Skirts)** | 網紗長裙 | `mesh maxi skirt, sheer layered flow, dreamy airy texture` | 夢幻、時裝與飄逸感明顯，適合自然風與視覺層次。 |
-| **裙裝 (Skirts)** | 低腰長裙 | `low-rise maxi skirt, elongated hip line, urban y2k silhouette` | 強調臀線與腰線比例，適合都會、Y2K 與性感主題。 |
+| **裙裝 (Skirts)** | 低腰長裙 | `low-rise maxi skirt, elongated hip line, belt detail, urban y2k silhouette` | 低腰線搭配腰帶細節，更強調臀線與腰線比例，適合都會、Y2K 與性感主題。 |
 | **裙裝 (Skirts)** | 緞面短裙 | `satin mini skirt, soft sheen, sleek sensual finish` | 低調光澤感明顯，適合飯店、寫真與成熟感風格。 |
 | **裙裝 (Skirts)** | 開衩長裙 | `slit maxi skirt, leg-revealing elegant cut, fluid elongated silhouette` | 成熟、性感且有流動感，適合時裝、晚間與高級場景。 |
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
@@ -104,7 +104,7 @@
 | **襪類 (Legwear)** | 半透明黑絲襪 | `semi-sheer black pantyhose, dark translucent legwear, sleek finish` | 比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。 |
 | **襪類 (Legwear)** | 蕾絲大腿絲襪 | `lace-top thigh-high stockings, sensual legwear, fitted silhouette` | 帶寫真與性感氛圍，適合內衣或飯店場景。 |
 | **襪類 (Legwear)** | 漁網絲襪 | `fishnet tights, open net texture, edgy styling` | 強化龐克、地下與夜晚街頭氣質。 |
-| **襪類 (Legwear)** | 膝上襪 | `over-knee socks, soft knit legwear, youthful styling` | 適合 JK、Lolita 與輕甜系搭配。 |
+| **襪類 (Legwear)** | 膝上黑蕾絲吊帶襪 | `black lace garter stockings, over-knee fitted legwear, sensual suspended styling` | 黑色蕾絲吊帶襪帶有強烈寫真與性感氣質，適合內衣、飯店與成熟時裝主題。 |
 | **襪類 (Legwear)** | 過膝白絲襪 | `white over-knee stockings, smooth fitted legwear, soft youthful styling` | 白色過膝絲襪帶有明顯甜感，適合 JK、Lolita 與寫真風格。 |
 | **襪類 (Legwear)** | 過膝黑絲襪 | `black over-knee stockings, fitted legwear, sleek dramatic styling` | 黑色過膝絲襪更成熟或更強風格，適合夜拍、時裝與制服變體。 |
 | **襪類 (Legwear)** | 羅紋短襪 | `ribbed ankle socks, casual everyday styling, soft cotton texture` | 偏日常、可愛、生活感強。 |
@@ -132,6 +132,7 @@
 | **飾品點綴 (Jewelry & Piercings)** | 全無 | `no jewelry, clean styling, bare accessories` | 不加飾品，讓造型維持乾淨俐落。 |
 | **飾品點綴 (Jewelry & Piercings)** | 小型金屬耳環 | `small metallic earrings, subtle jewelry accent, polished detail` | 最穩定的點綴型飾品，適合大多數風格。 |
 | **飾品點綴 (Jewelry & Piercings)** | 細戒指 | `slim rings, delicate finger jewelry, understated accent` | 低存在感但能增加精緻度。 |
+| **飾品點綴 (Jewelry & Piercings)** | 黑框眼鏡 | `black-rimmed glasses, bold eyewear frame, intellectual styling accent` | 黑色鏡框辨識度高，能明顯改變角色氣質，適合文青、學生感、冷感與時裝造型。 |
 | **飾品點綴 (Jewelry & Piercings)** | 鼻環 | `nose ring, subtle facial piercing, edgy accent` | 適合龐克、街頭、工業與 Y2K 方向。 |
 | **飾品點綴 (Jewelry & Piercings)** | 唇環 | `lip ring, facial piercing detail, rebellious styling` | 風格強度較高，適合地下、龐克與強勢造型。 |
 | **飾品點綴 (Jewelry & Piercings)** | 金屬頸鍊 | `metal choker necklace, close-fitting neck accessory, edgy fashion accent` | 適合夜景、龐克、寫真與強風格時裝。 |

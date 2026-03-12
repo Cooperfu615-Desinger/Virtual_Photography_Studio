@@ -545,8 +545,8 @@
       },
       {
         "zh": "低腰長裙",
-        "en": "low-rise maxi skirt, elongated hip line, urban y2k silhouette",
-        "desc": "強調臀線與腰線比例，適合都會、Y2K 與性感主題。"
+        "en": "low-rise maxi skirt, elongated hip line, belt detail, urban y2k silhouette",
+        "desc": "低腰線搭配腰帶細節，更強調臀線與腰線比例，適合都會、Y2K 與性感主題。"
       },
       {
         "zh": "緞面短裙",
@@ -596,9 +596,9 @@
         "desc": "強化龐克、地下與夜晚街頭氣質。"
       },
       {
-        "zh": "膝上襪",
-        "en": "over-knee socks, soft knit legwear, youthful styling",
-        "desc": "適合 JK、Lolita 與輕甜系搭配。"
+        "zh": "膝上黑蕾絲吊帶襪",
+        "en": "black lace garter stockings, over-knee fitted legwear, sensual suspended styling",
+        "desc": "黑色蕾絲吊帶襪帶有強烈寫真與性感氣質，適合內衣、飯店與成熟時裝主題。"
       },
       {
         "zh": "過膝白絲襪",
@@ -740,6 +740,11 @@
         "zh": "細戒指",
         "en": "slim rings, delicate finger jewelry, understated accent",
         "desc": "低存在感但能增加精緻度。"
+      },
+      {
+        "zh": "黑框眼鏡",
+        "en": "black-rimmed glasses, bold eyewear frame, intellectual styling accent",
+        "desc": "黑色鏡框辨識度高，能明顯改變角色氣質，適合文青、學生感、冷感與時裝造型。"
       },
       {
         "zh": "鼻環",
@@ -1610,6 +1615,21 @@
         "zh": "中短層次鮑伯",
         "en": "layered short bob, airy texture, softly tousled ends",
         "desc": "層次明顯的中短鮑伯，髮尾蓬鬆，適合挑染與時尚感造型。"
+      },
+      {
+        "zh": "蓬鬆短波浪鮑伯",
+        "en": "voluminous wavy bob, softly tousled texture, airy rounded silhouette",
+        "desc": "長度落在下巴到肩上之間，整體更蓬鬆，帶有成熟柔和的短髮時裝感。"
+      },
+      {
+        "zh": "齊瀏海圓弧鮑伯",
+        "en": "blunt bob with full bangs, rounded silhouette, smooth curved ends",
+        "desc": "齊瀏海搭配圓弧感鮑伯，帶有強烈辨識度與日系娃娃感。"
+      },
+      {
+        "zh": "不對稱濕感短鮑伯",
+        "en": "asymmetrical wet bob, one-side-over-eye styling, damp separated strands",
+        "desc": "一側髮絲覆蓋眼周，帶有濕潤分束感與更強的時裝、私密與危險氣質。"
       }
     ],
     "髮色 (Hair Color)": [

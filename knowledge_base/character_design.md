@@ -40,6 +40,9 @@
 | **髮型 (Hairstyle)** | 側分柔波鮑伯 | `side-parted wavy bob, soft volume, airy curled ends` | 側分的柔和波浪鮑伯，髮尾自然外彎，帶輕盈時裝感。 |
 | **髮型 (Hairstyle)** | 側分鎖骨波浪髮 | `side-parted collarbone-length waves, soft flowing texture` | 長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。 |
 | **髮型 (Hairstyle)** | 中短層次鮑伯 | `layered short bob, airy texture, softly tousled ends` | 層次明顯的中短鮑伯，髮尾蓬鬆，適合挑染與時尚感造型。 |
+| **髮型 (Hairstyle)** | 蓬鬆短波浪鮑伯 | `voluminous wavy bob, softly tousled texture, airy rounded silhouette` | 長度落在下巴到肩上之間，整體更蓬鬆，帶有成熟柔和的短髮時裝感。 |
+| **髮型 (Hairstyle)** | 齊瀏海圓弧鮑伯 | `blunt bob with full bangs, rounded silhouette, smooth curved ends` | 齊瀏海搭配圓弧感鮑伯，帶有強烈辨識度與日系娃娃感。 |
+| **髮型 (Hairstyle)** | 不對稱濕感短鮑伯 | `asymmetrical wet bob, one-side-over-eye styling, damp separated strands` | 一側髮絲覆蓋眼周，帶有濕潤分束感與更強的時裝、私密與危險氣質。 |
 | **髮色 (Hair Color)** | 自然黑 | `glossy natural black hair` | 最穩定也最百搭的自然黑髮，適合大多數日常與商業風格。 |
 | **髮色 (Hair Color)** | 柔霧黑茶 | `soft black tea brown hair, muted sheen` | 黑中帶一點茶棕感，低調柔和，常見於亞洲系寫真。 |
 | **髮色 (Hair Color)** | 深咖啡棕 | `deep coffee brown hair, rich brunette tone` | 穩定成熟的深棕色，帶有自然高級感。 |
