@@ -40,7 +40,7 @@ const REROLL_KEEP_DEFAULT = ['styleId', 'locationId'];
 const MAX_STORED_PROMPTS = 120;
 const CHARACTER_CONTROL_ORDER = ['subjectCount', 'bodyTypeId', 'facialFeaturesId', 'hairstyleId', 'hairColorId', 'skinDetailsId', 'duoInteractionId', 'expressionId', 'poseId'];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['wardrobeVibeId', 'topId', 'topColorId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['wardrobeVibeId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
@@ -235,8 +235,16 @@ export default function App() {
     [lockControls, locks.subjectCount]
   );
   const wardrobeLockControls = useMemo(
-    () => sortControls(lockControls.filter((control) => control.section === 'wardrobe' || control.key === 'wardrobeVibeId'), STYLE_WARDROBE_CONTROL_ORDER),
-    [lockControls]
+    () =>
+      sortControls(
+        lockControls.filter((control) => {
+          if (!(control.section === 'wardrobe' || control.key === 'wardrobeVibeId')) return false;
+          if (control.key === 'duoStylingId' && locks.subjectCount !== '2') return false;
+          return true;
+        }),
+        STYLE_WARDROBE_CONTROL_ORDER
+      ),
+    [lockControls, locks.subjectCount]
   );
 
   const activeLockCount = Object.entries(locks).filter(([key, value]) => !['subjectCount', 'aspectRatio'].includes(key) && (Array.isArray(value) ? value.length > 0 : Boolean(value))).length;
