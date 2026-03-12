@@ -40,7 +40,7 @@ const REROLL_KEEP_DEFAULT = ['styleId', 'locationId'];
 const MAX_STORED_PROMPTS = 120;
 const CHARACTER_CONTROL_ORDER = ['subjectCount', 'bodyTypeId', 'facialFeaturesId', 'hairstyleId', 'hairColorId', 'skinDetailsId', 'duoInteractionId', 'expressionId', 'poseId'];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['wardrobeVibeId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'wardrobeVibeId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
@@ -249,6 +249,7 @@ export default function App() {
 
   const activeLockCount = Object.entries(locks).filter(([key, value]) => !['subjectCount', 'aspectRatio'].includes(key) && (Array.isArray(value) ? value.length > 0 : Boolean(value))).length;
   const normalizedSearch = searchQuery.trim().toLowerCase();
+  const isOutfitPresetActive = Boolean(locks.outfitPresetId);
 
   const displayPrompts = useMemo(() => {
     const baseList = viewMode === 'favorites' ? favoritePrompts : prompts;
@@ -494,7 +495,7 @@ export default function App() {
             <div className="lock-grid detail-lock-grid">
               {wardrobeLockControls.map((control) =>
                 control.key === 'jewelryIds' ? (
-                  <div key={control.key} className="field field-full">
+                  <div key={control.key} className={`field field-full ${isOutfitPresetActive ? 'field-disabled' : ''}`}>
                     <span>{control.label}</span>
                     <div className="chip-list chip-list-inline">
                       {control.options.map((option) => {
@@ -504,6 +505,7 @@ export default function App() {
                             key={option.id}
                             type="button"
                             className={`chip ${active ? 'chip-active' : ''}`}
+                            disabled={isOutfitPresetActive}
                             onClick={() => toggleJewelrySelection(option)}
                           >
                             {option.zh}
@@ -513,9 +515,13 @@ export default function App() {
                     </div>
                   </div>
                 ) : (
-                  <label key={control.key} className="field">
+                  <label
+                    key={control.key}
+                    className={`field ${isOutfitPresetActive && control.key !== 'outfitPresetId' ? 'field-disabled' : ''}`}
+                  >
                     <span>{control.label}</span>
                     <select
+                      disabled={isOutfitPresetActive && control.key !== 'outfitPresetId'}
                       className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
                       value={locks[control.key]}
                       onChange={(event) =>

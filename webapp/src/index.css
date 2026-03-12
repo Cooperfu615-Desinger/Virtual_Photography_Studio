@@ -178,6 +178,10 @@ h1 {
   gap: 8px;
 }
 
+.field-disabled {
+  opacity: 0.62;
+}
+
 .field-full {
   grid-column: 1 / -1;
 }

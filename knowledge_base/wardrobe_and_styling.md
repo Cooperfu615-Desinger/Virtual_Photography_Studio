@@ -29,6 +29,7 @@
 | **風格基調 (Vibe)** | 女高中生 (JK/Schoolgirl) | `Clothing withJK uniform, Japanese school uniform aesthetic, sailor suit, pleated skirt, preppy` | 經典日本女子高校制服，包含水手服、百褶裙、西裝外套與針織衫。 |
 | **風格基調 (Vibe)** | 內衣 (Lingerie) | `Clothing with lingerie aesthetic, boudoir fashion, sheer intimates, lace bodysuit, provocateur` | 展現身體曲線，以透膚蕾絲、絲綢為主的私密性感穿搭。 |
 | **風格基調 (Vibe)** | 泳裝 (Swimwear) | `Clothing with swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear` | 海灘或度假風格，包含比基尼、連身泳衣與度假罩衫。 |
+| **套裝 (Outfit Presets)** | 黑紅束帶亮面乳膠連身套裝 | `wearing an ultra-shiny liquid latex full catsuit in jet black with crimson red strap harness detailing across chest and hips, hyper-detailed latex sheen, tight second-skin texture, niche latex fetish fashion` | 以全身亮面乳膠連身衣與紅色束帶為核心的強烈完整造型，適合直接作為整套 look 使用。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 合身襯衫 | `fitted shirt, crisp cotton poplin, clean silhouette` | 乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。 |
 | **上身 (Tops)** | 合身棉質背心 | `fitted cotton tank top, close body fit, soft ribbed fabric` | 最基礎也最常用的貼身背心，適合日常、街頭與寫真風格。 |
