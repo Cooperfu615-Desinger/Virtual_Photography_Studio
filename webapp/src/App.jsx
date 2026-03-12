@@ -291,7 +291,8 @@ export default function App() {
   const handleRemixPrompt = (prompt, summaryKeys = []) => {
     const keepKeys = Array.from(new Set(summaryKeys.flatMap((key) => SUMMARY_REROLL_MAP[key] || [])));
     const remixLocks = buildLocksFromPrompt(prompt, keepKeys);
-    const [nextPrompt] = generatePrompts(1, remixLocks, customLibrary);
+    const [generatedPrompt] = generatePrompts(1, remixLocks, customLibrary);
+    const nextPrompt = { ...generatedPrompt, id: prompt.id };
     setPrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
     setFavoritePrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
   };

@@ -504,19 +504,23 @@ button:disabled {
 
 .summary-row-label {
   appearance: none;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  text-align: left;
-  color: var(--text-secondary);
+  background: #f1e8d9;
+  border: 1px solid rgba(111, 87, 60, 0.18);
+  padding: 6px 10px;
+  text-align: center;
+  color: #86745f;
   font-size: var(--card-label-size);
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .summary-lock-btn {
   cursor: pointer;
-  width: fit-content;
+  width: 100%;
   border-radius: 999px;
-  transition: color 140ms ease, background 140ms ease, padding 140ms ease;
+  transition: color 140ms ease, background 140ms ease, border-color 140ms ease;
 }
 
 .summary-lock-btn:hover {
@@ -525,8 +529,8 @@ button:disabled {
 
 .summary-lock-active {
   color: var(--accent);
-  background: rgba(232, 140, 79, 0.12);
-  padding: 4px 8px;
+  background: rgba(232, 140, 79, 0.16);
+  border-color: rgba(232, 140, 79, 0.38);
 }
 
 .summary-row-value {
@@ -551,27 +555,30 @@ button:disabled {
 }
 
 .primary-copy-midjourney {
-  background: #6f7d91;
+  background: #95a2b2;
+  color: #f8f4ed;
 }
 
 .primary-copy-midjourney:hover {
-  background: #7c8ba0;
+  background: #a1adbc;
 }
 
 .primary-copy-grok {
-  background: #6f8a71;
+  background: #95ab92;
+  color: #f8f4ed;
 }
 
 .primary-copy-grok:hover {
-  background: #7d9880;
+  background: #a4b89f;
 }
 
 .primary-copy-negative {
-  background: #8d6c47;
+  background: #b29573;
+  color: #fbf7f0;
 }
 
 .primary-copy-negative:hover {
-  background: #9c7a53;
+  background: #bea181;
 }
 
 .card-details {
