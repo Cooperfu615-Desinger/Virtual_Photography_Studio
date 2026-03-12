@@ -39,8 +39,8 @@ const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const REROLL_KEEP_DEFAULT = ['styleId', 'locationId'];
 const MAX_STORED_PROMPTS = 120;
 const CHARACTER_CONTROL_ORDER = ['subjectCount', 'bodyTypeId', 'facialFeaturesId', 'hairstyleId', 'hairColorId', 'skinDetailsId', 'expressionId', 'poseId'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['styleId', 'wardrobeVibeId', 'topId', 'topColorId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
-const SCENE_CAMERA_CONTROL_ORDER = ['aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
+const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['wardrobeVibeId', 'topId', 'topColorId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
@@ -217,7 +217,7 @@ export default function App() {
   const coreLockControls = useMemo(
     () =>
       sortControls(
-        lockControls.filter((control) => ['aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'].includes(control.key)),
+        lockControls.filter((control) => ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'].includes(control.key)),
         SCENE_CAMERA_CONTROL_ORDER
       ),
     [lockControls]
@@ -227,7 +227,7 @@ export default function App() {
     [lockControls]
   );
   const wardrobeLockControls = useMemo(
-    () => sortControls(lockControls.filter((control) => control.section === 'wardrobe' || control.key === 'styleId' || control.key === 'wardrobeVibeId'), STYLE_WARDROBE_CONTROL_ORDER),
+    () => sortControls(lockControls.filter((control) => control.section === 'wardrobe' || control.key === 'wardrobeVibeId'), STYLE_WARDROBE_CONTROL_ORDER),
     [lockControls]
   );
 
@@ -441,8 +441,39 @@ export default function App() {
 
           <div className="control-section control-section-secondary">
             <div className="control-section-header">
+              <div className="control-section-title">Scene & Camera Language</div>
+              <p className="control-section-copy">第二步決定攝影風格、場景、比例、構圖、光線與成像語言，完成畫面的拍攝條件。</p>
+            </div>
+            <div className="lock-grid detail-lock-grid">
+              {coreLockControls.map((control) => (
+                <label key={control.key} className="field">
+                  <span>{control.label}</span>
+                  <select
+                    className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
+                    value={locks[control.key]}
+                    onChange={(event) =>
+                      setLocks((prev) => ({
+                        ...prev,
+                        [control.key]: event.target.value,
+                      }))
+                    }
+                  >
+                    <option value="">Random</option>
+                    {control.options.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.zh}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="control-section control-section-secondary">
+            <div className="control-section-header">
               <div className="control-section-title">Style & Wardrobe</div>
-              <p className="control-section-copy">第二步決定基調與服裝。`Wardrobe Core` 仍作為內部 family 依據，並會顯示在生成結果裡。</p>
+              <p className="control-section-copy">第三步決定服裝基調與單品細節。`Wardrobe Core` 仍作為內部 family 依據，並會顯示在生成結果裡。</p>
             </div>
             <div className="lock-grid detail-lock-grid">
               {wardrobeLockControls.map((control) =>
@@ -488,37 +519,6 @@ export default function App() {
                   </label>
                 )
               )}
-            </div>
-          </div>
-
-          <div className="control-section control-section-secondary">
-            <div className="control-section-header">
-              <div className="control-section-title">Scene & Camera Language</div>
-              <p className="control-section-copy">最後決定比例、地點、構圖、光線與成像語言，完成畫面的拍攝條件。</p>
-            </div>
-            <div className="lock-grid detail-lock-grid">
-              {coreLockControls.map((control) => (
-                <label key={control.key} className="field">
-                  <span>{control.label}</span>
-                  <select
-                    className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
-                    value={locks[control.key]}
-                    onChange={(event) =>
-                      setLocks((prev) => ({
-                        ...prev,
-                        [control.key]: event.target.value,
-                      }))
-                    }
-                  >
-                    <option value="">Random</option>
-                    {control.options.map((option) => (
-                      <option key={option.id} value={option.id}>
-                        {option.zh}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              ))}
             </div>
           </div>
 
