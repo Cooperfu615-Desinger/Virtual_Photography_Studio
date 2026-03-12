@@ -40,7 +40,7 @@ const REROLL_KEEP_DEFAULT = ['styleId', 'locationId'];
 const MAX_STORED_PROMPTS = 120;
 const CHARACTER_CONTROL_ORDER = ['subjectCount', 'bodyTypeId', 'facialFeaturesId', 'hairstyleId', 'hairColorId', 'skinDetailsId', 'duoInteractionId', 'expressionId', 'poseId'];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'wardrobeVibeId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId', 'wardrobeVibeId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
@@ -239,6 +239,8 @@ export default function App() {
       sortControls(
         lockControls.filter((control) => {
           if (!(control.section === 'wardrobe' || control.key === 'wardrobeVibeId')) return false;
+          if (control.key === 'outfitPresetId' && locks.subjectCount === '2') return false;
+          if ((control.key === 'outfitPresetAId' || control.key === 'outfitPresetBId') && locks.subjectCount !== '2') return false;
           if (control.key === 'duoStylingId' && locks.subjectCount !== '2') return false;
           return true;
         }),
@@ -249,7 +251,7 @@ export default function App() {
 
   const activeLockCount = Object.entries(locks).filter(([key, value]) => !['subjectCount', 'aspectRatio'].includes(key) && (Array.isArray(value) ? value.length > 0 : Boolean(value))).length;
   const normalizedSearch = searchQuery.trim().toLowerCase();
-  const isOutfitPresetActive = Boolean(locks.outfitPresetId);
+  const isOutfitPresetActive = locks.subjectCount === '2' ? Boolean(locks.outfitPresetAId || locks.outfitPresetBId) : Boolean(locks.outfitPresetId);
 
   const displayPrompts = useMemo(() => {
     const baseList = viewMode === 'favorites' ? favoritePrompts : prompts;

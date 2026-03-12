@@ -95,6 +95,8 @@ const LOCK_DEFINITIONS = [
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'outfitPresetId', label: '套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
+  { key: 'outfitPresetAId', label: '人物 A 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
+  { key: 'outfitPresetBId', label: '人物 B 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
   { key: 'topId', label: '上身', category: '上身 (Tops)', section: 'wardrobe' },
   { key: 'topColorId', label: '上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'duoStylingId', label: '雙人穿搭', options: DUO_STYLING_OPTIONS, section: 'wardrobe' },
@@ -129,6 +131,8 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'expressionId', label: 'Expression' },
   { key: 'poseId', label: 'Pose' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
+  { key: 'outfitPresetAId', label: 'Outfit Preset A' },
+  { key: 'outfitPresetBId', label: 'Outfit Preset B' },
   { key: 'topId', label: 'Top' },
   { key: 'topColorId', label: 'Top Color' },
   { key: 'duoStylingId', label: 'Duo Styling' },
@@ -570,6 +574,8 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'lightDirectionId') options = flatCatalog.lightDirection;
       if (definition.key === 'filmId') options = flatCatalog.film;
       if (definition.key === 'outfitPresetId') options = flatCatalog.outfitPresets;
+      if (definition.key === 'outfitPresetAId') options = flatCatalog.outfitPresets;
+      if (definition.key === 'outfitPresetBId') options = flatCatalog.outfitPresets;
       if (definition.key === 'wardrobeVibeId') options = flatCatalog.wardrobeVibe;
       if (definition.key === 'bodyTypeId') options = getByKey(catalog.character, '體態 (Body Type)');
       if (definition.key === 'facialFeaturesId') options = getByKey(catalog.character, '五官特徵 (Facial Features)');
@@ -940,6 +946,28 @@ function buildCharacter(context, catalog) {
 }
 
 function buildWardrobe(context, locks, catalog) {
+  const clonePresetForRole = (item, role) => ({
+    ...item,
+    id: `${item.id}:${role}`,
+    meta: { ...(item.meta || {}), outfitRole: role },
+  });
+
+  if (context.subject.count === 2 && (locks.outfitPresetAId || locks.outfitPresetBId)) {
+    const presets = catalog.flatCatalog.outfitPresets;
+    const presetA = locks.outfitPresetAId ? findById(presets, locks.outfitPresetAId) : null;
+    const presetB = locks.outfitPresetBId ? findById(presets, locks.outfitPresetBId) : null;
+
+    const randomDistinctPreset = (excludeId) => {
+      const candidates = presets.filter((item) => item.id !== excludeId);
+      return sample(candidates.length > 0 ? candidates : presets);
+    };
+
+    const resolvedA = presetA || (presetB ? randomDistinctPreset(presetB.id) : null);
+    const resolvedB = presetB || (resolvedA ? randomDistinctPreset(resolvedA.id) : null);
+
+    return [resolvedA ? clonePresetForRole(resolvedA, 'a') : null, resolvedB ? clonePresetForRole(resolvedB, 'b') : null].filter(Boolean);
+  }
+
   const outfitPreset = locks.outfitPresetId ? findById(catalog.flatCatalog.outfitPresets, locks.outfitPresetId) : null;
   if (outfitPreset) {
     return [outfitPreset];
@@ -1078,7 +1106,9 @@ function buildSummaryFields(context, wardrobe, character) {
   return {
     style: context.style.zh || '-',
     character: characterBits.length > 0 ? `${subjectLabel}, ${characterBits.join(', ')}` : subjectLabel,
-    wardrobe: wardrobeSlots.outfitPreset?.zh || wardrobe[0]?.zh || '-',
+    wardrobe: wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB
+      ? [wardrobeSlots.outfitPresetA?.zh, wardrobeSlots.outfitPresetB?.zh].filter(Boolean).join(' / ')
+      : wardrobeSlots.outfitPreset?.zh || wardrobe[0]?.zh || '-',
     location: context.location.zh || '-',
     camera: `${context.framing.zh || '-'} / ${context.angle.zh || '-'} / ${context.orbit.zh || '-'} / ${context.aspectRatio.zh || '-'}`,
     lighting: context.lighting.zh || '-',
@@ -1214,8 +1244,11 @@ function extractCharacterSlots(character) {
 function extractWardrobeSlots(wardrobe) {
   const findSlot = (token) => wardrobe.find((item) => item.id?.includes(token));
   const findSlots = (token) => wardrobe.filter((item) => item.id?.includes(token));
+  const outfitPresets = findSlots('wardrobe:套裝-outfit-presets:');
   return {
-    outfitPreset: findSlot('wardrobe:套裝-outfit-presets:'),
+    outfitPreset: outfitPresets.find((item) => !item.meta?.outfitRole) || null,
+    outfitPresetA: outfitPresets.find((item) => item.meta?.outfitRole === 'a') || null,
+    outfitPresetB: outfitPresets.find((item) => item.meta?.outfitRole === 'b') || null,
     wardrobeCore: wardrobe.find((item) => item.id?.includes('wardrobe:風格基調-vibe:')) || wardrobe[0] || null,
     top: findSlot('wardrobe:上身-tops:'),
     pants: findSlot('wardrobe:褲裝-pants:'),
@@ -1228,6 +1261,9 @@ function extractWardrobeSlots(wardrobe) {
 }
 
 function buildWardrobeColors(wardrobeSlots, locks) {
+  if (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
+    return { topColor: null, bottomColor: null };
+  }
   const topColor = wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top) ? getGarmentColorOption(locks?.topColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
   const hasBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants)) || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt));
   const bottomColor = hasBottom ? getGarmentColorOption(locks?.bottomColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
@@ -1341,8 +1377,14 @@ function buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors) {
   const slots = extractWardrobeSlots(wardrobe);
   const segments = [];
 
+  if (slots.outfitPresetA?.en || slots.outfitPresetB?.en) {
+    if (slots.outfitPresetA?.en) pushUniqueSegment(segments, `woman A ${compactClause(slots.outfitPresetA.en, 1)}`);
+    if (slots.outfitPresetB?.en) pushUniqueSegment(segments, `woman B ${compactClause(slots.outfitPresetB.en, 1)}`);
+    return segments;
+  }
+
   if (slots.outfitPreset?.en) {
-    pushUniqueSegment(segments, compactClause(slots.outfitPreset.en, 2));
+    pushUniqueSegment(segments, compactClause(slots.outfitPreset.en, 1));
     return segments;
   }
 
@@ -1380,7 +1422,10 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addLine('Aspect Ratio', context.aspectRatio.en);
   addLine('Photography Style', `${styleIntro}. ${context.style.en}`);
   addLine('Location', context.location.en);
-  if (wardrobeSlots.outfitPreset) {
+  if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
+    addLine('Outfit Preset A', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA));
+    addLine('Outfit Preset B', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB));
+  } else if (wardrobeSlots.outfitPreset) {
     addLine('Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPreset));
   } else {
     addLine('Wardrobe Core', buildWardrobeCorePrompt(wardrobeSlots.wardrobeCore));
@@ -1399,7 +1444,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addItemLine('Hair Color', characterSlots.hairColor);
   if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
   addLine('Expression and Pose', expressionAndPose);
-  if (!wardrobeSlots.outfitPreset) {
+  if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB) {
     addItemLine('Top', wardrobeSlots.top);
     addLine('Top Color', wardrobeColors.topColor?.en);
     addItemLine('Pants', wardrobeSlots.pants);
@@ -1421,11 +1466,21 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, effect, duoInteraction, duoStyling) {
   const characterSlots = extractCharacterSlots(character);
+  const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const midjourneySegments = [];
+  const hasOutfitPreset = Boolean(wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB);
+  const cameraSegments = buildMidjourneyCameraSegments(context, lightDirection, film);
 
-  buildMidjourneyCameraSegments(context, lightDirection, film).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
-  buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
-  buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+  if (hasOutfitPreset) {
+    cameraSegments.slice(0, 3).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    cameraSegments.slice(3).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+  } else {
+    cameraSegments.forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+  }
   if (effect?.en) pushUniqueSegment(midjourneySegments, compactClause(effect.en, 1));
 
   let midjourneyPrompt = '';
@@ -1456,6 +1511,8 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     lightDirectionId: lightDirection.id,
     filmId: film.id,
     outfitPresetId: wardrobeSlots.outfitPreset?.id || '',
+    outfitPresetAId: wardrobeSlots.outfitPresetA?.id?.replace(/:a$/, '') || '',
+    outfitPresetBId: wardrobeSlots.outfitPresetB?.id?.replace(/:b$/, '') || '',
     wardrobeVibeId: wardrobeSlots.wardrobeCore?.id || '',
     bodyTypeId: characterSlots.bodyType?.id || '',
     facialFeaturesId: characterSlots.facialFeatures?.id || '',
