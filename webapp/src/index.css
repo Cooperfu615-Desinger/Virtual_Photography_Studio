@@ -381,6 +381,12 @@ button:disabled {
 }
 
 .tab-primary-active {
+  background: var(--accent);
+  color: #fffdf8;
+}
+
+.tab-primary-active:hover {
+  background: var(--accent-hover);
   color: #fffdf8;
 }
 
@@ -427,6 +433,27 @@ button:disabled {
 
 .prompt-card {
   padding: 18px;
+}
+
+.icon-btn {
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  width: auto;
+  height: auto;
+  border-radius: 0;
+}
+
+.icon-btn:hover {
+  background: transparent;
+  color: var(--accent);
+  transform: none;
+}
+
+.icon-btn.active {
+  color: var(--accent);
 }
 
 .prompt-card-summary {

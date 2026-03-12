@@ -605,7 +605,7 @@ export default function App() {
           <button className={viewMode === 'feed' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('feed')}>
             Feed ({prompts.length})
           </button>
-          <button className="secondary" onClick={() => setViewMode('favorites')}>
+          <button className={viewMode === 'favorites' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('favorites')}>
             Favorites ({favoritePrompts.length})
           </button>
         </div>
