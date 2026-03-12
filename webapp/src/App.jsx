@@ -40,6 +40,7 @@ const CHARACTER_CONTROL_ORDER = [
   'poseId',
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
+const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId'];
 const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId', 'wardrobeVibeId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
 
 function sortControls(controls, order) {
@@ -205,16 +206,19 @@ export default function App() {
   }, [searchQuery]);
 
   const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
+  const isPhotographyStyleLocked = Boolean(locks.styleId);
 
   const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(customLibrary), [customLibrary]);
   const lockControls = useMemo(() => getLockControls(customLibrary), [customLibrary]);
   const coreLockControls = useMemo(
     () =>
       sortControls(
-        lockControls.filter((control) => ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'].includes(control.key)),
-        SCENE_CAMERA_CONTROL_ORDER
+        lockControls.filter((control) =>
+          (isPhotographyStyleLocked ? SCENE_CAMERA_SIMPLIFIED_ORDER : SCENE_CAMERA_CONTROL_ORDER).includes(control.key)
+        ),
+        isPhotographyStyleLocked ? SCENE_CAMERA_SIMPLIFIED_ORDER : SCENE_CAMERA_CONTROL_ORDER
       ),
-    [lockControls]
+    [isPhotographyStyleLocked, lockControls]
   );
   const characterLockControls = useMemo(
     () =>
@@ -245,7 +249,11 @@ export default function App() {
     [lockControls, locks.subjectCount]
   );
 
-  const activeLockCount = Object.entries(locks).filter(([key, value]) => !['subjectCount', 'aspectRatio'].includes(key) && (Array.isArray(value) ? value.length > 0 : Boolean(value))).length;
+  const activeLockCount = Object.entries(locks).filter(([key, value]) => {
+    if (['subjectCount', 'aspectRatio'].includes(key)) return false;
+    if (isPhotographyStyleLocked && ['lightingId', 'lightDirectionId', 'filmId'].includes(key)) return false;
+    return Array.isArray(value) ? value.length > 0 : Boolean(value);
+  }).length;
   const normalizedSearch = searchQuery.trim().toLowerCase();
   const isOutfitPresetActive = locks.subjectCount === '2' ? Boolean(locks.outfitPresetAId || locks.outfitPresetBId) : Boolean(locks.outfitPresetId);
 
@@ -426,36 +434,6 @@ export default function App() {
 
           <div className="control-section">
             <div className="control-section-header">
-              <div className="control-section-title">Character Setup</div>
-            </div>
-            <div className="lock-grid">
-              {characterLockControls.map((control) => (
-                <label key={control.key} className="field">
-                  <span>{control.label}</span>
-                  <select
-                    className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
-                    value={locks[control.key]}
-                    onChange={(event) =>
-                      setLocks((prev) => ({
-                        ...prev,
-                        [control.key]: event.target.value,
-                      }))
-                    }
-                  >
-                    {!control.required ? <option value="">Random</option> : null}
-                    {control.options.map((option) => (
-                      <option key={option.id} value={option.id}>
-                        {option.zh}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div className="control-section control-section-secondary">
-            <div className="control-section-header">
               <div className="control-section-title">Scene & Camera Language</div>
             </div>
             <div className="lock-grid detail-lock-grid">
@@ -473,6 +451,36 @@ export default function App() {
                     }
                   >
                     <option value="">Random</option>
+                    {control.options.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.zh}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="control-section control-section-secondary">
+            <div className="control-section-header">
+              <div className="control-section-title">Character Setup</div>
+            </div>
+            <div className="lock-grid">
+              {characterLockControls.map((control) => (
+                <label key={control.key} className="field">
+                  <span>{control.label}</span>
+                  <select
+                    className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
+                    value={locks[control.key]}
+                    onChange={(event) =>
+                      setLocks((prev) => ({
+                        ...prev,
+                        [control.key]: event.target.value,
+                      }))
+                    }
+                  >
+                    {!control.required ? <option value="">Random</option> : null}
                     {control.options.map((option) => (
                       <option key={option.id} value={option.id}>
                         {option.zh}

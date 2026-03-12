@@ -1173,7 +1173,7 @@ function buildSummaryFields(context, wardrobe, character) {
       : wardrobeSlots.outfitPreset?.zh || wardrobe[0]?.zh || '-',
     location: context.location.zh || '-',
     camera: `${context.framing.zh || '-'} / ${context.angle.zh || '-'} / ${context.orbit.zh || '-'} / ${context.aspectRatio.zh || '-'}`,
-    lighting: context.lighting.zh || '-',
+    lighting: context.styleDrivenCamera ? '由攝影風格決定' : context.lighting?.zh || '-',
   };
 }
 
@@ -1445,9 +1445,15 @@ function buildMidjourneyCameraSegments(context, lightDirection, film) {
     pushUniqueSegment(segments, compactClause(buildCompositionHint(context.subject, context.aspectRatio, context.framing), 1));
   }
 
-  pushUniqueSegment(segments, compactClause(context.lighting.en, 2));
-  pushUniqueSegment(segments, compactClause(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count), 2));
-  pushUniqueSegment(segments, compactClause(film.en, 1));
+  if (!context.styleDrivenCamera && context.lighting?.en) {
+    pushUniqueSegment(segments, compactClause(context.lighting.en, 2));
+  }
+  if (!context.styleDrivenCamera && lightDirection?.en) {
+    pushUniqueSegment(segments, compactClause(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count), 2));
+  }
+  if (!context.styleDrivenCamera && film?.en) {
+    pushUniqueSegment(segments, compactClause(film.en, 1));
+  }
 
   return segments;
 }
@@ -1522,9 +1528,11 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addLine('Framing', resolvePromptVariant(context.framing, 'framing', context.subject.count));
   addLine('Angle', resolvePromptVariant(context.angle, 'angle', context.subject.count));
   addLine('Orbit Angle', resolvePromptVariant(context.orbit, 'orbit', context.subject.count));
-  addLine('Lighting', context.lighting.en);
-  addLine('Light Direction', resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count));
-  addLine('Film', film.en);
+  if (!context.styleDrivenCamera) {
+    addLine('Lighting', context.lighting?.en);
+    addLine('Light Direction', lightDirection ? resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count) : '');
+    addLine('Film', film?.en);
+  }
   addItemLine('Body Type', characterSlots.bodyType);
   if (context.subject.count === 2) {
     addItemLine('Facial Features A', characterSlots.facialFeaturesA);
@@ -1607,9 +1615,9 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     framingId: context.framing.id,
     angleId: context.angle.id,
     orbitId: context.orbit.id,
-    lightingId: context.lighting.id,
-    lightDirectionId: lightDirection.id,
-    filmId: film.id,
+    lightingId: context.styleDrivenCamera ? '' : context.lighting?.id || '',
+    lightDirectionId: context.styleDrivenCamera ? '' : lightDirection?.id || '',
+    filmId: context.styleDrivenCamera ? '' : film?.id || '',
     outfitPresetId: wardrobeSlots.outfitPreset?.id || '',
     outfitPresetAId: wardrobeSlots.outfitPresetA?.id?.replace(/:a$/, '') || '',
     outfitPresetBId: wardrobeSlots.outfitPresetB?.id?.replace(/:b$/, '') || '',
@@ -1658,8 +1666,17 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
 
 function generateSinglePrompt(index, locks, customLibrary) {
   const runtime = buildCatalog(customLibrary);
-  const subject = getSubjectOption(locks.subjectCount);
-  const aspectRatio = getAspectRatioOption(locks.aspectRatio);
+  const styleDrivenCamera = Boolean(locks.styleId);
+  const effectiveLocks = styleDrivenCamera
+    ? {
+        ...locks,
+        lightingId: '',
+        lightDirectionId: '',
+        filmId: '',
+      }
+    : locks;
+  const subject = getSubjectOption(effectiveLocks.subjectCount);
+  const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio);
   const lowFrequencyPicker = (tag) => (candidates) => {
     const regular = candidates.filter((item) => !item.meta.tags?.includes(tag));
     const lowFrequency = candidates.filter((item) => item.meta.tags?.includes(tag));
@@ -1670,27 +1687,31 @@ function generateSinglePrompt(index, locks, customLibrary) {
 
     return sample(lowFrequency.length > 0 ? lowFrequency : candidates);
   };
-  const location = pickWithLock(runtime.flatCatalog.locations, locks.locationId);
-  const style = pickWithLock(runtime.flatCatalog.regional, locks.styleId, (item) => styleFitsLocation(item, location));
+  const location = pickWithLock(runtime.flatCatalog.locations, effectiveLocks.locationId);
+  const style = pickWithLock(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
   const framing = pickWithLock(
     runtime.flatCatalog.framing,
-    locks.framingId,
+    effectiveLocks.framingId,
     (item) => !(location.meta.tags.includes('club') && item.meta.visibility === 'close') && framingSupportsSubject(item, subject, aspectRatio)
   );
-  const angle = pickWithLock(runtime.flatCatalog.angle, locks.angleId, (item) => framingSupportsAngle(framing, item), lowFrequencyPicker('low_frequency_angle'));
-  const orbit = pickWithLock(runtime.flatCatalog.orbit, locks.orbitId);
-  const lighting = pickWithLock(runtime.flatCatalog.lighting, locks.lightingId, (item) => locationSupportsLighting(location, item));
-  const lightDirection = pickWithLock(runtime.flatCatalog.lightDirection, locks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
-  const film = pickWithLock(runtime.flatCatalog.film, locks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
+  const angle = pickWithLock(runtime.flatCatalog.angle, effectiveLocks.angleId, (item) => framingSupportsAngle(framing, item), lowFrequencyPicker('low_frequency_angle'));
+  const orbit = pickWithLock(runtime.flatCatalog.orbit, effectiveLocks.orbitId);
+  const lighting = styleDrivenCamera
+    ? null
+    : pickWithLock(runtime.flatCatalog.lighting, effectiveLocks.lightingId, (item) => locationSupportsLighting(location, item));
+  const lightDirection = styleDrivenCamera || !lighting
+    ? null
+    : pickWithLock(runtime.flatCatalog.lightDirection, effectiveLocks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
+  const film = styleDrivenCamera ? null : pickWithLock(runtime.flatCatalog.film, effectiveLocks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
   const effect = Math.random() > 0.65 ? sample(runtime.flatCatalog.effects) : null;
-  const duoInteraction = subject.count === 2 ? getDuoInteractionOption(locks.duoInteractionId) || sample(DUO_INTERACTION_OPTIONS) : null;
-  const duoStyling = subject.count === 2 ? getDuoStylingOption(locks.duoStylingId) || sample(DUO_STYLING_OPTIONS) : null;
+  const duoInteraction = subject.count === 2 ? getDuoInteractionOption(effectiveLocks.duoInteractionId) || sample(DUO_INTERACTION_OPTIONS) : null;
+  const duoStyling = subject.count === 2 ? getDuoStylingOption(effectiveLocks.duoStylingId) || sample(DUO_STYLING_OPTIONS) : null;
 
-  const context = { subject, aspectRatio, style, location, framing, angle, orbit, lighting, locks };
+  const context = { subject, aspectRatio, style, location, framing, angle, orbit, lighting, locks: effectiveLocks, styleDrivenCamera };
   const character = buildCharacter(context, runtime.catalog);
-  const wardrobe = buildWardrobe({ ...context }, locks, runtime);
+  const wardrobe = buildWardrobe({ ...context }, effectiveLocks, runtime);
   context.wardrobe = wardrobe;
-  const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), locks);
+  const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks);
 
   const positiveTags = collectPositiveTags(style, location, framing, angle, lighting, lightDirection, film, effect, wardrobe, character);
   const negativePrompt = buildNegativePrompt(context, positiveTags, runtime);
@@ -1712,7 +1733,7 @@ function generateSinglePrompt(index, locks, customLibrary) {
       Wardrobe: wardrobe,
       Location: [location],
       Framing: [framing, angle, orbit],
-      Lighting: [lighting, lightDirection],
+      Lighting: [lighting, lightDirection].filter(Boolean),
       'Camera & Film': [film, effect].filter(Boolean),
     },
   };
