@@ -247,13 +247,14 @@ button:hover {
 
 button.secondary,
 .primary-copy-btn.secondary {
-  background: var(--bg-panel);
+  background: #efe5d4;
   border-color: var(--border);
+  color: #5e4a34;
 }
 
 button.secondary:hover,
 .primary-copy-btn.secondary:hover {
-  background: #f4ebdc;
+  background: #e7dbc8;
 }
 
 button.danger {
@@ -302,6 +303,7 @@ button:disabled {
 
 .primary-cta {
   min-width: 220px;
+  color: #fffdf8;
 }
 
 .subtle-action {
@@ -312,6 +314,7 @@ button:disabled {
   margin-left: auto;
   min-width: 170px;
   background: var(--accent);
+  color: #fffdf8;
 }
 
 .library-cta:hover {
@@ -375,6 +378,10 @@ button:disabled {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 16px;
+}
+
+.tab-primary-active {
+  color: #fffdf8;
 }
 
 .filter-bar {
@@ -455,22 +462,15 @@ button:disabled {
   background: #f4eadb;
 }
 
-.icon-btn {
-  min-height: 0;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  background: transparent;
-  color: var(--text-secondary);
-  border-color: transparent;
+.card-action-btn {
+  min-height: 36px;
+  padding: 8px 12px;
+  white-space: nowrap;
 }
 
-.icon-btn:hover {
-  background: #f1e5d3;
-  color: var(--text-primary);
-}
-
-.icon-btn.active {
+.card-action-btn.active {
+  background: rgba(232, 140, 79, 0.16);
+  border-color: rgba(232, 140, 79, 0.35);
   color: var(--accent);
 }
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Download, Heart, RefreshCcw } from 'lucide-react';
 
 function buildMarkdownExport(data) {
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
@@ -88,14 +87,14 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
           <span className="card-id">Prompt Card</span>
         </div>
         <div className="card-actions">
-          <button className="icon-btn" onClick={() => onRemix(data, lockedSummaryKeys)} title="Random with selected summary locks">
-            <RefreshCcw size={18} />
+          <button className="card-action-btn secondary" onClick={() => onRemix(data, lockedSummaryKeys)} title="Random with selected summary locks">
+            Random
           </button>
-          <button className={`icon-btn ${isFavorite ? 'active' : ''}`} onClick={() => onFavorite(data)} title="Favorite">
-            <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
+          <button className={`card-action-btn secondary ${isFavorite ? 'active' : ''}`} onClick={() => onFavorite(data)} title="Favorite">
+            Favorite
           </button>
-          <button className="icon-btn" onClick={handleDownload} title="Download Markdown">
-            <Download size={18} />
+          <button className="card-action-btn secondary" onClick={handleDownload} title="Download Markdown">
+            Download
           </button>
         </div>
       </div>

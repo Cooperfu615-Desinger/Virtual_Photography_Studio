@@ -1,18 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-import {
-  BookPlus,
-  Download,
-  Filter,
-  FolderUp,
-  Heart,
-  RotateCcw,
-  Save,
-  Search,
-  SlidersHorizontal,
-  Sparkles,
-} from 'lucide-react';
 import CustomLibraryModal from './components/CustomLibraryModal';
 import PromptCard from './components/PromptCard';
 import {
@@ -430,7 +418,6 @@ export default function App() {
           <div className="lock-panel-header">
             <div>
               <div className="lock-title">
-                <SlidersHorizontal size={18} />
                 主控台
               </div>
               <p className="lock-subtitle">目前鎖定 {activeLockCount} 個條件。</p>
@@ -564,19 +551,15 @@ export default function App() {
           <div className="preset-row">
             <input className="text-input" value={presetName} onChange={(event) => setPresetName(event.target.value)} placeholder="Preset name" />
             <button className="secondary" onClick={handleSavePreset}>
-              <Save size={16} />
               Save
             </button>
             <button className="secondary" onClick={() => presetInputRef.current?.click()}>
-              <FolderUp size={16} />
               Import
             </button>
             <button className="secondary" onClick={exportPresets} disabled={presets.length === 0}>
-              <Download size={16} />
               Export
             </button>
             <button className="secondary subtle-action" onClick={() => setLocks(createEmptyLocks())}>
-              <RotateCcw size={16} />
               Reset Controls
             </button>
           </div>
@@ -604,7 +587,6 @@ export default function App() {
               </label>
 
               <button className="primary-cta" onClick={handleGenerate}>
-                <Sparkles size={18} />
                 Generate
               </button>
               <button className="secondary danger" onClick={() => setPrompts([])} disabled={prompts.length === 0}>
@@ -612,7 +594,6 @@ export default function App() {
               </button>
             </div>
             <button className="library-cta" onClick={() => setIsLibraryOpen(true)}>
-              <BookPlus size={16} />
               Custom Library
             </button>
           </div>
@@ -621,29 +602,23 @@ export default function App() {
 
       <section className="toolbar toolbar-streamlined">
         <div className="tab-row">
-          <button className={viewMode === 'feed' ? '' : 'secondary'} onClick={() => setViewMode('feed')}>
+          <button className={viewMode === 'feed' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('feed')}>
             Feed ({prompts.length})
           </button>
-          <button className={viewMode === 'favorites' ? '' : 'secondary'} onClick={() => setViewMode('favorites')}>
-            <Heart size={16} fill={viewMode === 'favorites' ? 'currentColor' : 'none'} />
+          <button className="secondary" onClick={() => setViewMode('favorites')}>
             Favorites ({favoritePrompts.length})
           </button>
         </div>
 
         <div className="filter-bar">
           <div className="search-shell">
-            <Search size={16} />
             <input className="text-input search-input" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search by style, scene, wardrobe, character..." />
           </div>
-          <div className="results-meta">
-            <Filter size={15} />
-            {displayPrompts.length} results
-          </div>
+          <div className="results-meta">{displayPrompts.length} results</div>
         </div>
 
         <div className="tab-row">
           <button className="secondary" onClick={handleDownloadAll} disabled={displayPrompts.length === 0}>
-            <Download size={18} />
             Download Feed
           </button>
         </div>
