@@ -485,6 +485,11 @@
         "zh": "亮面貼身皮褲",
         "en": "sleek fitted leather pants, glossy finish, sharp silhouette",
         "desc": "緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。"
+      },
+      {
+        "zh": "波西米亞風長褲",
+        "en": "bohemian wide-leg trousers, flowing fabric, artisanal relaxed silhouette",
+        "desc": "布料柔軟飄逸，輪廓寬鬆自然，帶有旅行感與民俗風的輕鬆氣質。"
       }
     ],
     "裙裝 (Skirts)": [
@@ -550,8 +555,8 @@
       },
       {
         "zh": "低腰長裙",
-        "en": "low-rise maxi skirt, elongated hip line, belt detail, urban y2k silhouette",
-        "desc": "低腰線搭配腰帶細節，更強調臀線與腰線比例，適合都會、Y2K 與性感主題。"
+        "en": "low-rise maxi skirt, elongated hip line, belt detail, side zipper detail, urban y2k silhouette",
+        "desc": "低腰線搭配腰帶與側邊拉鏈細節，更強調臀線與腰線比例，適合都會、Y2K 與性感主題。"
       },
       {
         "zh": "緞面短裙",
@@ -569,9 +574,14 @@
         "desc": "由裙撐撐起的鐘形裙襬，風格非常鮮明。"
       },
       {
-        "zh": "高腰 pencil skirt",
+        "zh": "高腰窄裙",
         "en": "high-waisted pencil skirt, body-skimming fit, elegant office silhouette",
         "desc": "合身但不誇張，適合極簡、商業與成熟女性主題。"
+      },
+      {
+        "zh": "波西米亞風長裙",
+        "en": "bohemian maxi skirt, flowing layered fabric, artisanal relaxed movement",
+        "desc": "長裙輪廓柔和飄逸，帶有民俗與旅拍氣質，適合自然、度假與文藝風格。"
       }
     ],
     "襪類 (Legwear)": [
@@ -752,6 +762,16 @@
         "desc": "黑色鏡框辨識度高，能明顯改變角色氣質，適合文青、學生感、冷感與時裝造型。"
       },
       {
+        "zh": "細框眼鏡",
+        "en": "thin-rimmed glasses, delicate eyewear frame, refined intellectual accent",
+        "desc": "比黑框更輕巧、存在感更低，適合文青、知性與乾淨生活感造型。"
+      },
+      {
+        "zh": "太陽眼鏡",
+        "en": "sunglasses, tinted lenses, stylish eyewear accent, fashion attitude",
+        "desc": "直接帶出街拍、都會或度假感，也能讓角色更有明星與時裝氣場。"
+      },
+      {
         "zh": "鼻環",
         "en": "nose ring, subtle facial piercing, edgy accent",
         "desc": "適合龐克、街頭、工業與 Y2K 方向。"
@@ -765,6 +785,61 @@
         "zh": "金屬頸鍊",
         "en": "metal choker necklace, close-fitting neck accessory, edgy fashion accent",
         "desc": "適合夜景、龐克、寫真與強風格時裝。"
+      },
+      {
+        "zh": "打孔腰帶",
+        "en": "punched leather belt, metal eyelets, waist-defining accessory, edgy detail",
+        "desc": "帶有金屬孔眼與皮革質感，能強化腰線並增加龐克或街頭味道。"
+      },
+      {
+        "zh": "多條層疊的金項鏈",
+        "en": "layered gold necklaces, stacked chain lengths, warm metallic shine",
+        "desc": "多層金色項鍊能增加成熟與時裝感，適合低領口與度假、夜拍造型。"
+      },
+      {
+        "zh": "多條層疊的水晶頸鏈與項鍊",
+        "en": "layered crystal chokers and necklaces, sparkling gemstone details, ornate neck styling",
+        "desc": "水晶頸圈與項鍊疊加後更有華麗感，適合戲劇化、夜拍與高飽和造型。"
+      },
+      {
+        "zh": "胸下式短款精緻束腰帶",
+        "en": "underbust waist cincher belt, short structured waist accessory, refined corset-inspired detail",
+        "desc": "強調胸下與腰部比例的短款束腰帶，適合哥德、維多利亞與時裝造型。"
+      },
+      {
+        "zh": "皮質扣環頸鏈",
+        "en": "leather buckle choker, strap-and-buckle neck accessory, edgy statement detail",
+        "desc": "皮革與扣環組成的頸鏈更有支配感與地下風格，適合龐克與 fetish 邊緣造型。"
+      },
+      {
+        "zh": "緞帶頸圈",
+        "en": "ribbon choker, soft neck ribbon, delicate feminine accent",
+        "desc": "緞帶材質讓頸圈更柔和，適合甜系、少女感與輕復古造型。"
+      },
+      {
+        "zh": "蕾絲緞帶頸圈",
+        "en": "lace ribbon choker, delicate lace trim, romantic neck accessory",
+        "desc": "在緞帶基礎上加入蕾絲花邊，更偏維多利亞、Lolita 與浪漫風格。"
+      },
+      {
+        "zh": "鎖骨細金屬鏈",
+        "en": "delicate collarbone chain, fine metallic necklace, subtle reflective accent",
+        "desc": "細緻的金屬鏈條剛好落在鎖骨位置，存在感低但能提升精緻度。"
+      },
+      {
+        "zh": "刺繡絲巾",
+        "en": "embroidered silk scarf, ornate fabric accessory, soft draped neck styling",
+        "desc": "刺繡與絲質結合後更有文藝與復古感，適合法式、古典與旅行造型。"
+      },
+      {
+        "zh": "薄長圍巾",
+        "en": "thin long scarf, lightweight draped accessory, flowing neck detail",
+        "desc": "輕薄長圍巾適合層次穿搭與動態畫面，能增加都市與文藝氣質。"
+      },
+      {
+        "zh": "厚長圍巾",
+        "en": "thick long scarf, cozy wrapped accessory, soft winter layering",
+        "desc": "厚實長圍巾更偏秋冬、居家與街頭保暖造型，存在感也更強。"
       }
     ]
   },

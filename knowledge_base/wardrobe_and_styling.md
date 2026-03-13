@@ -83,6 +83,7 @@
 | **褲裝 (Pants)** | 破壞抽鬚牛仔寬褲 | `distressed baggy denim jeans, frayed edges, heavy wash denim` | 重度水洗、寬鬆廓形，帶隨性街頭感。 |
 | **褲裝 (Pants)** | 絲絨喇叭褲 | `velvet flared pants, 70s retro style, soft plush texture` | 帶有復古戲劇感與柔軟光澤。 |
 | **褲裝 (Pants)** | 亮面貼身皮褲 | `sleek fitted leather pants, glossy finish, sharp silhouette` | 緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。 |
+| **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian wide-leg trousers, flowing fabric, artisanal relaxed silhouette` | 布料柔軟飄逸，輪廓寬鬆自然，帶有旅行感與民俗風的輕鬆氣質。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
 | **裙裝 (Skirts)** | 合身迷你裙 | `fitted mini skirt, clean tailored finish, sleek silhouette` | 高頻實用短裙，適合城市、寫真與時裝風格。 |
 | **裙裝 (Skirts)** | A 字裙 | `a-line skirt, structured flare, balanced feminine silhouette` | 腰部收合、裙擺自然展開，實用且好搭配。 |
@@ -95,11 +96,12 @@
 | **裙裝 (Skirts)** | 荷葉短裙 | `ruffled mini skirt, playful layered hem, lively feminine movement` | 裙擺更有律動與甜感，適合活潑、甜系與年輕造型。 |
 | **裙裝 (Skirts)** | 牛仔短裙 | `denim mini skirt, structured casual texture, youthful street styling` | 經典高頻單品，適合街頭、日常與夏日畫面。 |
 | **裙裝 (Skirts)** | 網紗長裙 | `mesh maxi skirt, sheer layered flow, dreamy airy texture` | 夢幻、時裝與飄逸感明顯，適合自然風與視覺層次。 |
-| **裙裝 (Skirts)** | 低腰長裙 | `low-rise maxi skirt, elongated hip line, belt detail, urban y2k silhouette` | 低腰線搭配腰帶細節，更強調臀線與腰線比例，適合都會、Y2K 與性感主題。 |
+| **裙裝 (Skirts)** | 低腰長裙 | `low-rise maxi skirt, elongated hip line, belt detail, side zipper detail, urban y2k silhouette` | 低腰線搭配腰帶與側邊拉鏈細節，更強調臀線與腰線比例，適合都會、Y2K 與性感主題。 |
 | **裙裝 (Skirts)** | 緞面短裙 | `satin mini skirt, soft sheen, sleek sensual finish` | 低調光澤感明顯，適合飯店、寫真與成熟感風格。 |
 | **裙裝 (Skirts)** | 開衩長裙 | `slit maxi skirt, leg-revealing elegant cut, fluid elongated silhouette` | 成熟、性感且有流動感，適合時裝、晚間與高級場景。 |
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
-| **裙裝 (Skirts)** | 高腰 pencil skirt | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
+| **裙裝 (Skirts)** | 高腰窄裙 | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
+| **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian maxi skirt, flowing layered fabric, artisanal relaxed movement` | 長裙輪廓柔和飄逸，帶有民俗與旅拍氣質，適合自然、度假與文藝風格。 |
 | **襪類 (Legwear)** | 全無 | `no legwear, bare legs, clean leg styling` | 不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。 |
 | **襪類 (Legwear)** | 透膚絲襪 | `sheer pantyhose, delicate translucent legwear, smooth finish` | 高頻實用，能與短裙、短褲與高跟鞋自然搭配。 |
 | **襪類 (Legwear)** | 半透明黑絲襪 | `semi-sheer black pantyhose, dark translucent legwear, sleek finish` | 比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。 |
@@ -134,6 +136,19 @@
 | **飾品點綴 (Jewelry & Piercings)** | 小型金屬耳環 | `small metallic earrings, subtle jewelry accent, polished detail` | 最穩定的點綴型飾品，適合大多數風格。 |
 | **飾品點綴 (Jewelry & Piercings)** | 細戒指 | `slim rings, delicate finger jewelry, understated accent` | 低存在感但能增加精緻度。 |
 | **飾品點綴 (Jewelry & Piercings)** | 黑框眼鏡 | `black-rimmed glasses, bold eyewear frame, intellectual styling accent` | 黑色鏡框辨識度高，能明顯改變角色氣質，適合文青、學生感、冷感與時裝造型。 |
+| **飾品點綴 (Jewelry & Piercings)** | 細框眼鏡 | `thin-rimmed glasses, delicate eyewear frame, refined intellectual accent` | 比黑框更輕巧、存在感更低，適合文青、知性與乾淨生活感造型。 |
+| **飾品點綴 (Jewelry & Piercings)** | 太陽眼鏡 | `sunglasses, tinted lenses, stylish eyewear accent, fashion attitude` | 直接帶出街拍、都會或度假感，也能讓角色更有明星與時裝氣場。 |
 | **飾品點綴 (Jewelry & Piercings)** | 鼻環 | `nose ring, subtle facial piercing, edgy accent` | 適合龐克、街頭、工業與 Y2K 方向。 |
 | **飾品點綴 (Jewelry & Piercings)** | 唇環 | `lip ring, facial piercing detail, rebellious styling` | 風格強度較高，適合地下、龐克與強勢造型。 |
 | **飾品點綴 (Jewelry & Piercings)** | 金屬頸鍊 | `metal choker necklace, close-fitting neck accessory, edgy fashion accent` | 適合夜景、龐克、寫真與強風格時裝。 |
+| **飾品點綴 (Jewelry & Piercings)** | 打孔腰帶 | `punched leather belt, metal eyelets, waist-defining accessory, edgy detail` | 帶有金屬孔眼與皮革質感，能強化腰線並增加龐克或街頭味道。 |
+| **飾品點綴 (Jewelry & Piercings)** | 多條層疊的金項鏈 | `layered gold necklaces, stacked chain lengths, warm metallic shine` | 多層金色項鍊能增加成熟與時裝感，適合低領口與度假、夜拍造型。 |
+| **飾品點綴 (Jewelry & Piercings)** | 多條層疊的水晶頸鏈與項鍊 | `layered crystal chokers and necklaces, sparkling gemstone details, ornate neck styling` | 水晶頸圈與項鍊疊加後更有華麗感，適合戲劇化、夜拍與高飽和造型。 |
+| **飾品點綴 (Jewelry & Piercings)** | 胸下式短款精緻束腰帶 | `underbust waist cincher belt, short structured waist accessory, refined corset-inspired detail` | 強調胸下與腰部比例的短款束腰帶，適合哥德、維多利亞與時裝造型。 |
+| **飾品點綴 (Jewelry & Piercings)** | 皮質扣環頸鏈 | `leather buckle choker, strap-and-buckle neck accessory, edgy statement detail` | 皮革與扣環組成的頸鏈更有支配感與地下風格，適合龐克與 fetish 邊緣造型。 |
+| **飾品點綴 (Jewelry & Piercings)** | 緞帶頸圈 | `ribbon choker, soft neck ribbon, delicate feminine accent` | 緞帶材質讓頸圈更柔和，適合甜系、少女感與輕復古造型。 |
+| **飾品點綴 (Jewelry & Piercings)** | 蕾絲緞帶頸圈 | `lace ribbon choker, delicate lace trim, romantic neck accessory` | 在緞帶基礎上加入蕾絲花邊，更偏維多利亞、Lolita 與浪漫風格。 |
+| **飾品點綴 (Jewelry & Piercings)** | 鎖骨細金屬鏈 | `delicate collarbone chain, fine metallic necklace, subtle reflective accent` | 細緻的金屬鏈條剛好落在鎖骨位置，存在感低但能提升精緻度。 |
+| **飾品點綴 (Jewelry & Piercings)** | 刺繡絲巾 | `embroidered silk scarf, ornate fabric accessory, soft draped neck styling` | 刺繡與絲質結合後更有文藝與復古感，適合法式、古典與旅行造型。 |
+| **飾品點綴 (Jewelry & Piercings)** | 薄長圍巾 | `thin long scarf, lightweight draped accessory, flowing neck detail` | 輕薄長圍巾適合層次穿搭與動態畫面，能增加都市與文藝氣質。 |
+| **飾品點綴 (Jewelry & Piercings)** | 厚長圍巾 | `thick long scarf, cozy wrapped accessory, soft winter layering` | 厚實長圍巾更偏秋冬、居家與街頭保暖造型，存在感也更強。 |
