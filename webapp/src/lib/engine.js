@@ -1161,19 +1161,26 @@ function buildNegativePrompt(context, positiveTags, catalog) {
 }
 
 function buildSummaryFields(context, wardrobe, character) {
-  const characterBits = character.slice(1).filter((item) => item && item.zh).slice(0, 3).map((item) => item.zh);
+  const characterBits = character.slice(1).filter((item) => item && item.zh && !isNoneLikeItem(item)).slice(0, 3).map((item) => item.zh);
   const subjectLabel = context.subject.count === 2 ? '兩位性感驚豔的日系或韓系女性' : '一位性感驚豔的日系或韓系女性';
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const styleLabel = context.style && !isNoneLikeItem(context.style) ? context.style.zh : '-';
+  const locationLabel = context.location && !isNoneLikeItem(context.location) ? context.location.zh : '-';
+  const framingLabel = context.framing && !isNoneLikeItem(context.framing) ? context.framing.zh : '-';
+  const angleLabel = context.angle && !isNoneLikeItem(context.angle) ? context.angle.zh : '-';
+  const orbitLabel = context.orbit && !isNoneLikeItem(context.orbit) ? context.orbit.zh : '-';
+  const aspectRatioLabel = context.aspectRatio?.zh || '-';
+  const lightingLabel = !context.styleDrivenCamera && context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.zh : '-';
 
   return {
-    style: context.style.zh || '-',
+    style: styleLabel,
     character: characterBits.length > 0 ? `${subjectLabel}, ${characterBits.join(', ')}` : subjectLabel,
     wardrobe: wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB
       ? [wardrobeSlots.outfitPresetA?.zh, wardrobeSlots.outfitPresetB?.zh].filter(Boolean).join(' / ')
       : wardrobeSlots.outfitPreset?.zh || wardrobe[0]?.zh || '-',
-    location: context.location.zh || '-',
-    camera: `${context.framing.zh || '-'} / ${context.angle.zh || '-'} / ${context.orbit.zh || '-'} / ${context.aspectRatio.zh || '-'}`,
-    lighting: context.styleDrivenCamera ? '由攝影風格決定' : context.lighting?.zh || '-',
+    location: locationLabel,
+    camera: `${framingLabel} / ${angleLabel} / ${orbitLabel} / ${aspectRatioLabel}`,
+    lighting: context.styleDrivenCamera ? '由攝影風格決定' : lightingLabel,
   };
 }
 
@@ -1373,35 +1380,35 @@ function pushUniqueSegment(segments, value) {
 function buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling) {
   const segments = [context.subject.en];
 
-  if (characterSlots.bodyType?.en) pushUniqueSegment(segments, compactClause(characterSlots.bodyType.en, 2));
+  if (characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType)) pushUniqueSegment(segments, compactClause(characterSlots.bodyType.en, 2));
   if (context.subject.count === 2) {
     const womanA = [
-      characterSlots.facialFeaturesA?.en ? compactClause(characterSlots.facialFeaturesA.en, 1) : '',
-      characterSlots.hairstyleA?.en ? compactClause(characterSlots.hairstyleA.en, 1) : '',
-      characterSlots.hairColorA?.en ? compactClause(characterSlots.hairColorA.en, 1) : '',
+      characterSlots.facialFeaturesA?.en && !isNoneLikeItem(characterSlots.facialFeaturesA) ? compactClause(characterSlots.facialFeaturesA.en, 1) : '',
+      characterSlots.hairstyleA?.en && !isNoneLikeItem(characterSlots.hairstyleA) ? compactClause(characterSlots.hairstyleA.en, 1) : '',
+      characterSlots.hairColorA?.en && !isNoneLikeItem(characterSlots.hairColorA) ? compactClause(characterSlots.hairColorA.en, 1) : '',
     ]
       .filter(Boolean)
       .join(', ');
     const womanB = [
-      characterSlots.facialFeaturesB?.en ? compactClause(characterSlots.facialFeaturesB.en, 1) : '',
-      characterSlots.hairstyleB?.en ? compactClause(characterSlots.hairstyleB.en, 1) : '',
-      characterSlots.hairColorB?.en ? compactClause(characterSlots.hairColorB.en, 1) : '',
+      characterSlots.facialFeaturesB?.en && !isNoneLikeItem(characterSlots.facialFeaturesB) ? compactClause(characterSlots.facialFeaturesB.en, 1) : '',
+      characterSlots.hairstyleB?.en && !isNoneLikeItem(characterSlots.hairstyleB) ? compactClause(characterSlots.hairstyleB.en, 1) : '',
+      characterSlots.hairColorB?.en && !isNoneLikeItem(characterSlots.hairColorB) ? compactClause(characterSlots.hairColorB.en, 1) : '',
     ]
       .filter(Boolean)
       .join(', ');
     if (womanA) pushUniqueSegment(segments, `woman A, ${womanA}`);
     if (womanB) pushUniqueSegment(segments, `woman B, ${womanB}`);
   } else {
-    if (characterSlots.facialFeatures?.en) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 2));
-    if (characterSlots.hairstyle?.en) pushUniqueSegment(segments, compactClause(characterSlots.hairstyle.en, 1));
-    if (characterSlots.hairColor?.en) pushUniqueSegment(segments, compactClause(characterSlots.hairColor.en, 1));
+    if (characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures)) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 2));
+    if (characterSlots.hairstyle?.en && !isNoneLikeItem(characterSlots.hairstyle)) pushUniqueSegment(segments, compactClause(characterSlots.hairstyle.en, 1));
+    if (characterSlots.hairColor?.en && !isNoneLikeItem(characterSlots.hairColor)) pushUniqueSegment(segments, compactClause(characterSlots.hairColor.en, 1));
   }
 
-  if (context.framing.meta.visibility !== 'full' && characterSlots.expression?.en) {
+  if (context.framing.meta.visibility !== 'full' && characterSlots.expression?.en && !isNoneLikeItem(characterSlots.expression)) {
     pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count), 1));
   }
 
-  if (characterSlots.pose?.en && context.framing.meta.visibility !== 'portrait') {
+  if (characterSlots.pose?.en && !isNoneLikeItem(characterSlots.pose) && context.framing.meta.visibility !== 'portrait') {
     pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count), 1));
   }
 
@@ -1420,12 +1427,18 @@ function buildMidjourneyCharacterSegments(context, characterSlots, duoInteractio
 function buildMidjourneyCameraSegments(context, lightDirection, film) {
   const segments = [];
 
-  pushUniqueSegment(segments, compactClause(STYLE_PROMPT_INTROS[context.style.zh] || context.style.en, 1));
-  pushUniqueSegment(segments, compactClause(context.location.en, 2));
-  pushUniqueSegment(segments, compactClause(resolvePromptVariant(context.framing, 'framing', context.subject.count), 1));
+  if (context.style && !isNoneLikeItem(context.style)) {
+    pushUniqueSegment(segments, compactClause(STYLE_PROMPT_INTROS[context.style.zh] || context.style.en, 1));
+  }
+  if (context.location && !isNoneLikeItem(context.location)) {
+    pushUniqueSegment(segments, compactClause(context.location.en, 2));
+  }
+  if (context.framing && !isNoneLikeItem(context.framing)) {
+    pushUniqueSegment(segments, compactClause(resolvePromptVariant(context.framing, 'framing', context.subject.count), 1));
+  }
 
-  const angleText = compactClause(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1);
-  const orbitText = compactClause(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1);
+  const angleText = context.angle && !isNoneLikeItem(context.angle) ? compactClause(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1) : '';
+  const orbitText = context.orbit && !isNoneLikeItem(context.orbit) ? compactClause(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1) : '';
   if (orbitText && !orbitText.toLowerCase().includes('front-facing')) {
     pushUniqueSegment(segments, orbitText);
   }
@@ -1437,13 +1450,13 @@ function buildMidjourneyCameraSegments(context, lightDirection, film) {
     pushUniqueSegment(segments, compactClause(buildCompositionHint(context.subject, context.aspectRatio, context.framing), 1));
   }
 
-  if (!context.styleDrivenCamera && context.lighting?.en) {
+  if (!context.styleDrivenCamera && context.lighting?.en && !isNoneLikeItem(context.lighting)) {
     pushUniqueSegment(segments, compactClause(context.lighting.en, 2));
   }
-  if (!context.styleDrivenCamera && lightDirection?.en) {
+  if (!context.styleDrivenCamera && lightDirection?.en && !isNoneLikeItem(lightDirection)) {
     pushUniqueSegment(segments, compactClause(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count), 2));
   }
-  if (!context.styleDrivenCamera && film?.en) {
+  if (!context.styleDrivenCamera && film?.en && !isNoneLikeItem(film)) {
     pushUniqueSegment(segments, compactClause(film.en, 1));
   }
 
@@ -1503,11 +1516,17 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     if (!item || isNoneLikeItem(item)) return;
     addLine(label, item.en);
   };
+  const addContextLine = (label, item, formatter = (entry) => entry.en) => {
+    if (!item || isNoneLikeItem(item)) return;
+    addLine(label, formatter(item));
+  };
 
   addLine('Subject Count', context.subject.en);
   addLine('Aspect Ratio', context.aspectRatio.en);
-  addLine('Photography Style', `${styleIntro}. ${context.style.en}`);
-  addLine('Location', context.location.en);
+  if (context.style && !isNoneLikeItem(context.style)) {
+    addLine('Photography Style', `${styleIntro}. ${context.style.en}`);
+  }
+  addContextLine('Location', context.location);
   if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
     addLine('Outfit Preset A', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA));
     addLine('Outfit Preset B', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB));
@@ -1517,13 +1536,13 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Wardrobe Core', buildWardrobeCorePrompt(wardrobeSlots.wardrobeCore));
   }
   if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
-  addLine('Framing', resolvePromptVariant(context.framing, 'framing', context.subject.count));
-  addLine('Angle', resolvePromptVariant(context.angle, 'angle', context.subject.count));
-  addLine('Orbit Angle', resolvePromptVariant(context.orbit, 'orbit', context.subject.count));
+  addContextLine('Framing', context.framing, (item) => resolvePromptVariant(item, 'framing', context.subject.count));
+  addContextLine('Angle', context.angle, (item) => resolvePromptVariant(item, 'angle', context.subject.count));
+  addContextLine('Orbit Angle', context.orbit, (item) => resolvePromptVariant(item, 'orbit', context.subject.count));
   if (!context.styleDrivenCamera) {
-    addLine('Lighting', context.lighting?.en);
-    addLine('Light Direction', lightDirection ? resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count) : '');
-    addLine('Film', film?.en);
+    addContextLine('Lighting', context.lighting);
+    addContextLine('Light Direction', lightDirection, (item) => resolvePromptVariant(item, 'lightDirection', context.subject.count));
+    addContextLine('Film', film);
   }
   addItemLine('Body Type', characterSlots.bodyType);
   if (context.subject.count === 2) {
@@ -1658,7 +1677,8 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
 
 function generateSinglePrompt(index, locks, customLibrary) {
   const runtime = buildCatalog(customLibrary);
-  const styleDrivenCamera = Boolean(locks.styleId);
+  const lockedStyle = locks.styleId ? findById(runtime.flatCatalog.regional, locks.styleId) : null;
+  const styleDrivenCamera = Boolean(lockedStyle && !isNoneLikeItem(lockedStyle));
   const effectiveLocks = styleDrivenCamera
     ? {
         ...locks,

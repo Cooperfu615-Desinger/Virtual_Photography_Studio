@@ -4,36 +4,24 @@
 
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺與材質說明 (Visual & Texture) |
 | :--- | :--- | :--- | :--- |
-| **風格基調 (Vibe)** | 全無 | `none` | 不指定服裝基調，讓模型自行決定整體穿搭語氣。 |
-| **風格基調 (Vibe)** | 千禧復古 (Y2K) | `Clothing with a retro aesthetic style from the Y2K era` | 千禧年初期風格，色彩鮮豔，懷舊又叛逆。 |
-| **風格基調 (Vibe)** | 極簡高級 (Minimalist Luxury) | `Clothing featuring minimalist style, clean lines, monochromatic colors, and fitted or oversized cuts` | 無明顯 logo，剪裁俐落乾淨，注重面料垂墜與高質感。 |
-| **風格基調 (Vibe)** | 復古龐克 (Retro Punk) | `Clothing with retro punk, British punk, and Japanese punk fashion aesthetics` | 帶有破壞感、鉚釘、皮革、格紋等元素，散發叛逆與次文化氣息。 |
-| **風格基調 (Vibe)** | 日系街頭 (Japanese Streetwear) | `Clothing with Japanese streetwear, oversized silhouette, layered clothing, Harajuku fashion` | 擅長多層次穿搭與 oversized 廓形，混合工裝與日常單品。 |
-| **風格基調 (Vibe)** | 日常鬆弛感 | `Clothing with relaxed everyday styling, effortless casual layering, natural lived-in comfort` | 像真實生活中的輕鬆穿搭，不刻意用力，適合日常、街拍與隨拍。 |
-| **風格基調 (Vibe)** | 居家慵懶感 | `Clothing with cozy homewear styling, soft relaxed layering, intimate off-duty mood` | 放鬆、柔軟、帶一點親密感，像房間裡的自然生活片段。 |
-| **風格基調 (Vibe)** | 文青生活感 | `Clothing with understated artistic casualwear, soft textures, quiet lifestyle mood` | 安靜、輕鬆、帶閱讀感與咖啡館氣質，適合生活感與文藝感畫面。 |
-| **風格基調 (Vibe)** | 清爽運動感 | `Clothing with sporty clean styling, active casualwear, lightweight athletic mood` | 乾淨、有活力，像日常運動或休閒街頭的自然穿搭。 |
-| **風格基調 (Vibe)** | 甜辣街頭感 | `Clothing with sweet and spicy streetwear, youthful fitted silhouettes, playful urban attitude` | 青春、帶點性感與社群感，適合 Y2K、街頭與活潑寫真。 |
-| **風格基調 (Vibe)** | 都會通勤感 | `Clothing with modern city workwear, polished everyday tailoring, refined commuter elegance` | 成熟俐落、帶有都會女性的現代感，適合辦公室、飯店與城市背景。 |
-| **風格基調 (Vibe)** | 旅行度假感 | `Clothing with resort casual styling, breezy vacation layering, sunlit getaway mood` | 輕鬆、清爽、帶風感與日照感，適合旅拍、海邊與度假情境。 |
-| **風格基調 (Vibe)** | 夜生活辣妹感 | `Clothing with nightlife glamour, body-conscious styling, bold feminine party energy` | 夜拍、派對與存在感強的女性化造型，適合夜景、酒吧與強風格人像。 |
-| **風格基調 (Vibe)** | 柔霧日常寫真感 | `Clothing with soft airy photobook styling, gentle layering, lyrical everyday femininity` | 柔光、安靜、像生活裡的高質感隨手拍，適合自然寫真與日常感人像。 |
-| **風格基調 (Vibe)** | 直閃隨拍感 | `Clothing with direct-flash snapshot styling, casual fashion spontaneity, raw magazine energy` | 直接、粗糙、像社群快拍或雜誌側拍，適合夜拍與時裝抓拍感。 |
-| **風格基調 (Vibe)** | 私密生活紀錄感 | `Clothing with intimate lived-in styling, private room realism, emotionally close atmosphere` | 像房間裡的私人相簿，帶凌亂感、親近感與真實生活氣息。 |
-| **風格基調 (Vibe)** | 雜誌抓拍感 | `Clothing with candid editorial styling, off-guard fashion energy, spontaneous magazine mood` | 有時裝感但不太正式，像 editorial 幕後抓拍或臨場隨拍。 |
-| **風格基調 (Vibe)** | 高飽和戲劇感 | `Clothing with vivid theatrical styling, saturated color drama, glamorous visual impact` | 顏色濃、女性張力高、視覺飽滿，適合戲劇化時裝與高彩度場景。 |
-| **風格基調 (Vibe)** | 冷調高級感 | `Clothing with cool-toned refined styling, restrained luxury, elegant fashion severity` | 克制、成熟、冷感，像精品廣告與高級時裝片的穿搭語氣。 |
-| **風格基調 (Vibe)** | BDSM (拘束/束縛) | `Clothing with Featuring BDSM bondage aesthetics, leather, bondage straps, buckles, chains, and latex embellishments.` | 強烈的束縛感與支配性，使用皮革、乳膠、綁帶與金屬環等元素。 |
-| **風格基調 (Vibe)** | 巴洛克 (Baroque) | `Clothing with Baroque fashion, opulent aesthetic, ornate gold embroidery, luxurious fabrics, decadent` | 極致奢華與繁複，大量金色刺繡、天鵝絨、絲綢與戲劇化剪裁。 |
-| **風格基調 (Vibe)** | 維多利亞 (Victorian) | `Clothing with Victorian, gothic Victorian, high neck lace, corsets, romantic mourning dress` | 帶有禁慾與浪漫氣息，高領蕾絲、緊身馬甲與繁複皺褶。 |
-| **風格基調 (Vibe)** | 蘿莉塔 (Lolita) | `Clothing with Lolita fashion, sweet/gothic lolita, bell-shaped skirt, frills, rococo inspired` | 源自日本的洛可可風格，標誌性的鐘形裙襬、大量荷葉邊與蝴蝶結。 |
-| **風格基調 (Vibe)** | 女高中生 (JK/Schoolgirl) | `Clothing withJK uniform, Japanese school uniform aesthetic, sailor suit, pleated skirt, preppy` | 經典日本女子高校制服，包含水手服、百褶裙、西裝外套與針織衫。 |
-| **風格基調 (Vibe)** | 內衣 (Lingerie) | `Clothing with lingerie aesthetic, boudoir fashion, sheer intimates, lace bodysuit, provocateur` | 展現身體曲線，以透膚蕾絲、絲綢為主的私密性感穿搭。 |
-| **風格基調 (Vibe)** | 泳裝 (Swimwear) | `Clothing with swimwear fashion, bikini top, one-piece swimsuit, beach aesthetic, resort wear` | 海灘或度假風格，包含比基尼、連身泳衣與度假罩衫。 |
 | **套裝 (Outfit Presets)** | 黑紅束帶亮面乳膠連身套裝 | `wearing an ultra-shiny liquid latex full catsuit in jet black with crimson red strap harness detailing across chest and hips, hyper-detailed latex sheen, tight second-skin texture, niche latex fetish fashion` | 以全身亮面乳膠連身衣與紅色束帶為核心的強烈完整造型，適合直接作為整套 look 使用。 |
 | **套裝 (Outfit Presets)** | 酒紅皮革馬甲束腰套裝 | `wearing an extreme cinched burgundy leather corset with black lace overlay and attached garter straps over sheer black stockings and a matching high-waisted pencil skirt, ultra-detailed leather texture, corset lacing, niche corset fetish fashion` | 酒紅皮革馬甲與黑蕾絲疊層構成的束腰造型，搭配吊襪帶、絲襪與高腰 pencil skirt，強調腰線與 fetish fashion 氣質。 |
 | **套裝 (Outfit Presets)** | 玫瑰粉乳膠迷你洋裝套裝 | `wearing a dusty rose latex mini dress with matching thigh-high stockings and extreme ballet-style pointed heels, ultra-detailed latex sheen, sculptural heel structure, niche heel fetish fashion` | 玫瑰粉乳膠迷你洋裝搭配同色系過膝襪與芭蕾尖頭高跟，帶有夢幻又強烈的 heel fetish fashion 風格。 |
 | **套裝 (Outfit Presets)** | 象牙白春日巴黎套裝 | `wearing an ivory silk camisole layered under an oversized white linen shirt left open with high-waisted light grey wide-leg trousers, silky sheen, airy linen layers, effortless Parisian spring styling` | 象牙白絲質細肩帶搭配寬鬆白色亞麻襯衫與高腰淺灰寬褲，走輕盈鬆弛的巴黎春日穿搭語氣。 |
+| **套裝 (Outfit Presets)** | 極簡高級套裝 | `wearing a minimalist luxury outfit with clean lines, monochromatic palette, refined tailoring, premium fabric drape, understated elegant styling` | 乾淨剪裁、單色系與高級布料垂墜感為核心的極簡時裝造型。 |
+| **套裝 (Outfit Presets)** | 日系街頭套裝 | `wearing a Japanese streetwear outfit with oversized silhouette, layered casual pieces, Harajuku-inspired styling, urban fashion attitude` | 以 oversized、多層次與日本街頭感為主的都會造型。 |
+| **套裝 (Outfit Presets)** | 居家慵懶套裝 | `wearing a cozy homewear outfit with soft relaxed layers, intimate off-duty mood, comfortable drape, quiet indoor styling` | 放鬆柔軟、像房間裡自然生活片段的親密穿搭。 |
+| **套裝 (Outfit Presets)** | 文青生活套裝 | `wearing an understated artistic casual outfit with quiet lifestyle mood, soft textures, literary simplicity, refined everyday styling` | 帶閱讀感、咖啡館氣質與安靜生活感的文藝穿搭。 |
+| **套裝 (Outfit Presets)** | 清爽運動套裝 | `wearing a sporty clean outfit with active casualwear, lightweight athletic mood, fresh movement-ready styling` | 乾淨、有活力，像日常運動與休閒街頭的清爽造型。 |
+| **套裝 (Outfit Presets)** | 甜辣街頭套裝 | `wearing a sweet-and-spicy streetwear outfit with fitted youthful silhouette, playful urban attitude, trendy social-media styling` | 青春、帶點性感與社群感的甜辣街頭造型。 |
+| **套裝 (Outfit Presets)** | 都會通勤套裝 | `wearing a polished commuter outfit with refined city tailoring, modern office elegance, structured everyday sophistication` | 成熟俐落、現代城市女性感強的通勤穿搭。 |
+| **套裝 (Outfit Presets)** | 旅行度假套裝 | `wearing a resort casual outfit with breezy layers, sunlit getaway mood, relaxed vacation styling, airy summer elegance` | 輕鬆、清爽、帶風感與日照感的度假造型。 |
+| **套裝 (Outfit Presets)** | 夜生活辣妹套裝 | `wearing a nightlife glamour outfit with body-conscious silhouette, bold feminine styling, party-ready confidence, after-dark allure` | 夜拍、派對與存在感強的女性化夜生活造型。 |
+| **套裝 (Outfit Presets)** | BDSM 束縛套裝 | `wearing a bdsm-inspired outfit with leather, bondage straps, buckles, chains, latex accents, dominant fetish styling` | 皮革、束帶、金屬環與乳膠點綴構成的束縛風造型。 |
+| **套裝 (Outfit Presets)** | 維多利亞古典套裝 | `wearing a Victorian-inspired outfit with high-neck lace, corset structure, romantic mourning elegance, intricate historical detail` | 高領蕾絲、馬甲與皺褶層次構成的古典禁慾浪漫造型。 |
+| **套裝 (Outfit Presets)** | 蘿莉塔套裝 | `wearing a Lolita-inspired outfit with bell-shaped skirt, layered frills, bows, rococo-influenced sweetness, ornate doll-like styling` | 鐘形裙襬、荷葉邊與蝴蝶結構成的甜美或哥德蘿莉塔造型。 |
+| **套裝 (Outfit Presets)** | 內衣寫真套裝 | `wearing a lingerie-inspired outfit with lace, sheer panels, boudoir styling, intimate body-conscious silhouette` | 透膚、蕾絲與私密感強的內衣寫真造型。 |
+| **套裝 (Outfit Presets)** | 泳裝度假套裝 | `wearing a swimwear-inspired outfit with bikini or one-piece styling, resort mood, sunlit vacation elegance` | 比基尼或連身泳裝為核心的海邊與度假造型。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 合身襯衫 | `fitted shirt, crisp cotton poplin, clean silhouette` | 乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。 |
 | **上身 (Tops)** | 短版棉質露臍小可愛 | `cropped cotton cami, soft ribbed fabric, close body fit` | 棉質與貼身露腰輪廓很直接，適合日常、街頭與夏日寫真風格。 |
