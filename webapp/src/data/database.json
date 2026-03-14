@@ -932,6 +932,11 @@
         "desc": "夕陽前後的暖色光線，氛圍浪漫柔和，最適合戶外人像與寫真。"
       },
       {
+        "zh": "清晨薄霧光",
+        "en": "early morning light, soft mist in the air, pale ambient glow, gentle low-contrast atmosphere",
+        "desc": "清晨空氣中帶有薄霧感，整體光線柔和偏冷，適合安靜、清新與帶一點潮濕感的戶外場景。"
+      },
+      {
         "zh": "夜幕藍調 (Blue Twilight Light)",
         "en": "blue twilight light, deep evening blue ambience, cool dusk atmosphere, melancholic mood",
         "desc": "太陽剛落下後的深藍光線，畫面冷靜、安靜，和白天藍天完全不同。"
@@ -940,6 +945,16 @@
         "zh": "藍天白雲日光 (Blue Sky Daylight)",
         "en": "clear blue sky daylight, crisp white clouds, bright clean sunlight, open airy atmosphere",
         "desc": "非黃昏也非陰天，而是藍天很藍、白雲很白的乾淨日光感，適合明亮外景。"
+      },
+      {
+        "zh": "小雨濕潤天光",
+        "en": "light rain, fine drizzle in the air, damp surfaces, soft wet atmosphere, muted ambient light",
+        "desc": "飄著細小雨絲，地面與物件表面帶濕氣，整體光感柔和收斂，適合城市、街拍與敘事型場景。"
+      },
+      {
+        "zh": "大雨壓迫天光",
+        "en": "heavy rain, dense rainfall, soaked surfaces, stormy ambient light, dramatic wet atmosphere",
+        "desc": "明顯的大雨持續落下，環境濕透且空氣厚重，適合強烈情緒、壓迫感與戲劇化外景。"
       },
       {
         "zh": "逆光的高曝光柔光",
@@ -970,6 +985,11 @@
         "zh": "電影霓虹混光 (Neon Mixed Lighting)",
         "en": "neon mixed lighting, cyberpunk city lights, teal and orange, bi-color illumination",
         "desc": "利用城市霓虹燈或雙色補光燈，通常為紅藍或青橙對比，營造賽博龐克與王家衛浪漫感。"
+      },
+      {
+        "zh": "深夜微弱環境光",
+        "en": "deep night ambient light, no strong key light, faint streetlight spill, weak building glow, dim urban atmosphere",
+        "desc": "沒有明確主光源，只有路燈、建築物與環境殘留的微弱光線，適合深夜街頭、空曠都市與低能見度場景。"
       },
       {
         "zh": "棚內商業平光 (High Key Studio)",

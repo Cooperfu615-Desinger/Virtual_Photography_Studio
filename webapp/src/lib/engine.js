@@ -351,11 +351,20 @@ function inferLightingMeta(category, item) {
   if (hasAny(haystack, ['warm sunset', 'golden evening', 'warm sunlight'])) {
     tags.push('natural_light', 'sunlight', 'warm', 'supports_outdoor', 'supports_urban', 'supports_natural');
   }
+  if (hasAny(haystack, ['early morning light', 'soft mist', '清晨', '薄霧'])) {
+    tags.push('natural_light', 'diffused', 'mist', 'cool', 'supports_outdoor', 'supports_urban', 'supports_natural');
+  }
   if (hasAny(haystack, ['blue twilight', 'twilight'])) {
     tags.push('natural_light', 'dusk', 'cool', 'supports_outdoor', 'supports_urban', 'supports_natural');
   }
   if (hasAny(haystack, ['blue sky daylight', 'white clouds'])) {
     tags.push('natural_light', 'sunlight', 'day', 'clean_sky', 'supports_outdoor', 'supports_urban', 'supports_natural');
+  }
+  if (hasAny(haystack, ['light rain', 'fine drizzle', '小雨', 'drizzle'])) {
+    tags.push('natural_light', 'rain', 'diffused', 'supports_outdoor', 'supports_urban', 'supports_natural');
+  }
+  if (hasAny(haystack, ['heavy rain', 'dense rainfall', '大雨', 'stormy'])) {
+    tags.push('natural_light', 'rain', 'dark', 'dramatic', 'supports_outdoor', 'supports_urban', 'supports_natural');
   }
   if (hasAny(haystack, ['overcast', 'cloudy'])) {
     tags.push('natural_light', 'diffused', 'supports_outdoor', 'supports_urban', 'supports_natural');
@@ -365,6 +374,9 @@ function inferLightingMeta(category, item) {
   }
   if (hasAny(haystack, ['neon', 'cyberpunk', 'bi-color'])) {
     tags.push('artificial_light', 'neon', 'supports_urban', 'supports_commercial', 'supports_subterranean');
+  }
+  if (hasAny(haystack, ['deep night ambient light', 'faint streetlight spill', '深夜', 'streetlight'])) {
+    tags.push('artificial_light', 'dark', 'night_ambient', 'supports_urban', 'supports_commercial', 'supports_subterranean', 'supports_outdoor');
   }
   if (hasAny(haystack, ['high key studio', 'softbox'])) {
     tags.push('studio_light', 'artificial_light', 'controlled', 'supports_studio', 'supports_indoor');

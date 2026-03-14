@@ -28,14 +28,18 @@
 | **鏡頭焦段 (Focal Length)** | 85mm 中長焦 (人像鏡皇) | `shot on 85mm lens, shallow depth of field, creamy bokeh, precise facial rendering` | 完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。 |
 | **光線類型 (Lighting Type)** | 全無 | `none` | 不指定光線類型，讓模型自行決定主要光感與氛圍。 |
 | **光線類型 (Lighting Type)** | 夕陽暖光 (Warm Sunset Light) | `warm sunset light, golden evening glow, long shadows, soft orange sunlight` | 夕陽前後的暖色光線，氛圍浪漫柔和，最適合戶外人像與寫真。 |
+| **光線類型 (Lighting Type)** | 清晨薄霧光 | `early morning light, soft mist in the air, pale ambient glow, gentle low-contrast atmosphere` | 清晨空氣中帶有薄霧感，整體光線柔和偏冷，適合安靜、清新與帶一點潮濕感的戶外場景。 |
 | **光線類型 (Lighting Type)** | 夜幕藍調 (Blue Twilight Light) | `blue twilight light, deep evening blue ambience, cool dusk atmosphere, melancholic mood` | 太陽剛落下後的深藍光線，畫面冷靜、安靜，和白天藍天完全不同。 |
 | **光線類型 (Lighting Type)** | 藍天白雲日光 (Blue Sky Daylight) | `clear blue sky daylight, crisp white clouds, bright clean sunlight, open airy atmosphere` | 非黃昏也非陰天，而是藍天很藍、白雲很白的乾淨日光感，適合明亮外景。 |
+| **光線類型 (Lighting Type)** | 小雨濕潤天光 | `light rain, fine drizzle in the air, damp surfaces, soft wet atmosphere, muted ambient light` | 飄著細小雨絲，地面與物件表面帶濕氣，整體光感柔和收斂，適合城市、街拍與敘事型場景。 |
+| **光線類型 (Lighting Type)** | 大雨壓迫天光 | `heavy rain, dense rainfall, soaked surfaces, stormy ambient light, dramatic wet atmosphere` | 明顯的大雨持續落下，環境濕透且空氣厚重，適合強烈情緒、壓迫感與戲劇化外景。 |
 | **光線類型 (Lighting Type)** | 逆光的高曝光柔光 | `bright airy backlight, soft high-key exposure, gentle facial fill light, luminous rim light` | 逆光下整體曝光偏亮，髮絲邊緣有發光感，同時臉部仍保有柔和細節與空氣感。 |
 | **光線類型 (Lighting Type)** | 側光的高曝光柔光 | `soft side light, bright high-key exposure, gentle facial contour, airy luminous skin tones` | 由側邊柔和照亮人物，帶一點立體感，但整體仍是透亮、乾淨、偏高曝光的人像光感。 |
 | **光線類型 (Lighting Type)** | 正光的高曝光柔光 | `soft frontal light, bright high-key exposure, even facial illumination, clean luminous image quality` | 正面柔光均勻照亮五官，陰影很少，畫面乾淨明亮，適合清透寫真與 beauty 感人像。 |
 | **光線類型 (Lighting Type)** | 陰天漫射柔光 (Overcast Soft Light) | `overcast soft light, cloudy day, even diffused lighting, no harsh shadows` | 雲層像巨大的柔光罩，光線極度均勻，沒有強烈陰影，適合展現最真實的膚色與服裝細節。 |
 | **光線類型 (Lighting Type)** | 直射硬光/烈日 (Harsh Sunlight) | `harsh direct sunlight, midday sun, deep black shadows, high contrast, stark` | 正午或無雲的強烈直射光，產生濃黑銳利的邊緣陰影，帶有強烈對比與夏日炎熱感。 |
 | **光線類型 (Lighting Type)** | 電影霓虹混光 (Neon Mixed Lighting) | `neon mixed lighting, cyberpunk city lights, teal and orange, bi-color illumination` | 利用城市霓虹燈或雙色補光燈，通常為紅藍或青橙對比，營造賽博龐克與王家衛浪漫感。 |
+| **光線類型 (Lighting Type)** | 深夜微弱環境光 | `deep night ambient light, no strong key light, faint streetlight spill, weak building glow, dim urban atmosphere` | 沒有明確主光源，只有路燈、建築物與環境殘留的微弱光線，適合深夜街頭、空曠都市與低能見度場景。 |
 | **光線類型 (Lighting Type)** | 棚內商業平光 (High Key Studio) | `high key studio lighting, bright softbox, white infinity cove, perfectly exposed` | 攝影棚內極度明亮、幾乎無陰影的佈光。畫面乾淨無瑕，常用於時尚、化妝品或型錄攝影。 |
 | **光線類型 (Lighting Type)** | 暗調戲劇光 (Low Key Chiaroscuro) | `low key lighting, chiaroscuro, cinematic shadows, mostly dark background, mysterious` | 畫面大部分區域為暗部交響，僅有少量光線勾勒主體立體感。充滿戲劇張力與古典油畫感。 |
 | **光線方向與質感 (Light Direction & Quality)** | 全無 | `none` | 不指定光線方向，讓模型自行決定光從哪個方向進入畫面。 |

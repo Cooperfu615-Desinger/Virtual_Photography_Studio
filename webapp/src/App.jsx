@@ -213,10 +213,10 @@ export default function App() {
   }, [searchQuery]);
 
   const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
-  const isPhotographyStyleLocked = Boolean(locks.styleId);
 
   const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(customLibrary), [customLibrary]);
   const lockControls = useMemo(() => getLockControls(customLibrary), [customLibrary]);
+  const isPhotographyStyleLocked = Boolean(locks.styleId) && !isNoneSelected('styleId', locks.styleId, lockControls);
   const coreLockControls = useMemo(
     () =>
       sortControls(
