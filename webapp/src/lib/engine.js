@@ -277,18 +277,29 @@ function inferLocationMeta(category, item) {
   if (hasAny(haystack, ['urban & social snapshots', '城市與社群感'])) tags.push('urban');
   if (hasAny(haystack, ['indoor & lifestyle', '生活感室內'])) tags.push('indoor');
   if (hasAny(haystack, ['nature & outdoors', '自然與戶外'])) tags.push('outdoor', 'natural');
-  if (hasAny(haystack, ['abandoned & underground', '地下與廢墟風格'])) tags.push('underground', 'dark', 'artificial_light');
+  if (hasAny(haystack, ['abandoned & underground', '地下與廢墟風格'])) tags.push('underground', 'ruin');
 
-  if (hasAny(haystack, ['night', 'neon', '霓虹', '夜市', 'rave', 'club', '2am'])) tags.push('night');
-  if (hasAny(haystack, ['golden hour', 'sunny', 'sunflower', 'desert', 'beach'])) tags.push('day', 'sunlight');
-  if (hasAny(haystack, ['fog', '霧', 'twilight'])) tags.push('foggy');
-  if (hasAny(haystack, ['window', 'sunbeams', 'daylight'])) tags.push('window_light');
-  if (hasAny(haystack, ['laser', 'led', 'mirror selfie', 'shopping mall', 'elevator'])) tags.push('artificial_light');
-  if (hasAny(haystack, ['club', 'laser', 'smoke'])) tags.push('club', 'smoke');
-  if (hasAny(haystack, ['mansion', 'victorian', 'opera house', 'library', 'old town', '照相館'])) tags.push('heritage');
-  if (hasAny(haystack, ['white background', 'grey seamless', 'paper roll', 'backdrop'])) tags.push('studio');
-  if (hasAny(haystack, ['beach', 'coastline', 'shoreline', 'sand dunes', 'lakeside'])) tags.push('outdoor');
-  if (hasAny(haystack, ['abandoned', 'ruin', 'derelict', '廢棄', '破敗'])) tags.push('ruin');
+  if (hasAny(haystack, ['hotel', 'boutique hotel', '旅館', '飯店'])) tags.push('hospitality', 'indoor');
+  if (hasAny(haystack, ['apartment', 'bedroom', 'living room', '臥室', '公寓', '客廳'])) tags.push('residential', 'indoor');
+  if (hasAny(haystack, ['café', 'bar entrance', 'storefront', 'shopfront', 'night market', 'mall', 'laundromat', '咖啡', '夜市', '商場'])) {
+    tags.push('commercial');
+  }
+  if (hasAny(haystack, ['subway', 'platform', 'station', '地鐵', '月台'])) tags.push('transit', 'urban');
+  if (hasAny(haystack, ['factory', 'control room', 'train yard', 'scaffolding', 'construction', '工廠', '工地', '機房'])) tags.push('industrial');
+  if (hasAny(haystack, ['hospital', 'operating room', 'ward', 'classroom', 'music room', 'school', '病房', '診療室', '教室'])) {
+    tags.push('institutional', 'indoor');
+  }
+  if (hasAny(haystack, ['opera house', 'mansion', 'library', 'old town', 'townhouse', '洋房', '歌劇院', '大宅', '老城'])) {
+    tags.push('heritage');
+  }
+  if (hasAny(haystack, ['beach', 'shoreline', 'coastline', 'lake', 'lakeside', 'sand dune', '沙丘', '海灘', '湖邊', '岩岸'])) {
+    tags.push('waterfront', 'outdoor', 'natural');
+  }
+  if (hasAny(haystack, ['forest', 'grass', 'sunflower', 'park', '樹影', '森林', '草地', '花田', '公園'])) {
+    tags.push('green_space');
+  }
+  if (hasAny(haystack, ['bunker', 'drainage', 'tunnel', '地下', '排洪道'])) tags.push('subterranean');
+  if (hasAny(haystack, ['white background', 'grey seamless', 'paper roll', 'backdrop', '白幕', '黑幕', '背景'])) tags.push('studio');
 
   return { tags: withTags(tags) };
 }
@@ -337,16 +348,39 @@ function inferLightingMeta(category, item) {
   const haystack = toHaystack(category, item.zh, item.en, item.desc);
   const tags = [];
 
-  if (hasAny(haystack, ['warm sunset', 'golden evening', 'warm sunlight'])) tags.push('natural_light', 'sunlight', 'outdoor', 'warm');
-  if (hasAny(haystack, ['blue twilight', 'twilight'])) tags.push('natural_light', 'outdoor', 'dusk', 'cool');
-  if (hasAny(haystack, ['blue sky daylight', 'white clouds'])) tags.push('natural_light', 'sunlight', 'outdoor', 'day', 'clean_sky');
-  if (hasAny(haystack, ['overcast', 'cloudy'])) tags.push('natural_light', 'outdoor', 'diffused');
-  if (hasAny(haystack, ['harsh direct sunlight', 'midday sun'])) tags.push('natural_light', 'sunlight', 'outdoor', 'harsh');
-  if (hasAny(haystack, ['neon', 'cyberpunk', 'bi-color'])) tags.push('artificial_light', 'neon', 'night');
-  if (hasAny(haystack, ['high key studio', 'softbox'])) tags.push('studio_light', 'artificial_light', 'controlled');
-  if (hasAny(haystack, ['low key', 'chiaroscuro'])) tags.push('artificial_light', 'dark', 'dramatic');
-  if (hasAny(haystack, ['ring flash'])) tags.push('studio_light', 'artificial_light', 'flash');
-  if (hasAny(haystack, ['window', 'venetian'])) tags.push('window_light', 'natural_light', 'indoor');
+  if (hasAny(haystack, ['warm sunset', 'golden evening', 'warm sunlight'])) {
+    tags.push('natural_light', 'sunlight', 'warm', 'supports_outdoor', 'supports_urban', 'supports_natural');
+  }
+  if (hasAny(haystack, ['blue twilight', 'twilight'])) {
+    tags.push('natural_light', 'dusk', 'cool', 'supports_outdoor', 'supports_urban', 'supports_natural');
+  }
+  if (hasAny(haystack, ['blue sky daylight', 'white clouds'])) {
+    tags.push('natural_light', 'sunlight', 'day', 'clean_sky', 'supports_outdoor', 'supports_urban', 'supports_natural');
+  }
+  if (hasAny(haystack, ['overcast', 'cloudy'])) {
+    tags.push('natural_light', 'diffused', 'supports_outdoor', 'supports_urban', 'supports_natural');
+  }
+  if (hasAny(haystack, ['harsh direct sunlight', 'midday sun'])) {
+    tags.push('natural_light', 'sunlight', 'harsh', 'supports_outdoor', 'supports_urban', 'supports_natural');
+  }
+  if (hasAny(haystack, ['neon', 'cyberpunk', 'bi-color'])) {
+    tags.push('artificial_light', 'neon', 'supports_urban', 'supports_commercial', 'supports_subterranean');
+  }
+  if (hasAny(haystack, ['high key studio', 'softbox'])) {
+    tags.push('studio_light', 'artificial_light', 'controlled', 'supports_studio', 'supports_indoor');
+  }
+  if (hasAny(haystack, ['low key', 'chiaroscuro'])) {
+    tags.push('artificial_light', 'dark', 'dramatic', 'supports_studio', 'supports_indoor', 'supports_heritage');
+  }
+  if (hasAny(haystack, ['ring flash'])) {
+    tags.push('studio_light', 'artificial_light', 'flash', 'supports_studio', 'supports_indoor', 'supports_urban');
+  }
+  if (hasAny(haystack, ['window', 'venetian'])) {
+    tags.push('window_light', 'natural_light', 'indoor', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+  }
+  if (hasAny(haystack, ['bright airy backlight', 'soft side light', 'soft frontal light'])) {
+    tags.push('soft_light', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
+  }
   if (hasAny(haystack, ['rim light', 'backlit'])) tags.push('backlight');
   if (hasAny(haystack, ['butterfly', 'rembrandt', 'split lighting'])) tags.push('portrait_light', 'artificial_light');
   if (hasAny(haystack, ['top lighting'])) tags.push('overhead', 'artificial_light');
@@ -650,30 +684,26 @@ function locationSupportsLighting(location, lighting) {
   const locTags = new Set(location.meta.tags);
   const lightTags = new Set(lighting.meta.tags);
 
-  if (locTags.has('controlled') || locTags.has('set') || locTags.has('studio')) {
-    if (lightTags.has('outdoor') || lightTags.has('sunlight') || lightTags.has('dusk')) return false;
-  }
+  const sceneSupportChecks = [
+    ['studio', 'supports_studio'],
+    ['indoor', 'supports_indoor'],
+    ['outdoor', 'supports_outdoor'],
+    ['urban', 'supports_urban'],
+    ['natural', 'supports_natural'],
+    ['heritage', 'supports_heritage'],
+    ['hospitality', 'supports_hospitality'],
+    ['residential', 'supports_residential'],
+    ['commercial', 'supports_commercial'],
+    ['subterranean', 'supports_subterranean'],
+  ];
 
-  if (locTags.has('underground') || locTags.has('club')) {
-    if (lightTags.has('sunlight') || lightTags.has('outdoor')) return false;
-  }
+  const supportedByScene = sceneSupportChecks.some(([sceneTag, supportTag]) => locTags.has(sceneTag) && lightTags.has(supportTag));
+  if (supportedByScene) return true;
 
-  if (locTags.has('indoor') && !locTags.has('window_light')) {
-    if (lightTags.has('sunlight') && !lightTags.has('studio_light')) return false;
-  }
-
-  if (locTags.has('outdoor')) {
-    if (lightTags.has('studio_light') && !lightTags.has('flash')) return false;
-    if (lightTags.has('dark') && !locTags.has('night') && !locTags.has('underground')) return false;
-  }
-
-  if (locTags.has('night') && lightTags.has('sunlight')) return false;
-  if (locTags.has('day') && lightTags.has('dusk')) return false;
-  if (locTags.has('day') && lightTags.has('dark')) return false;
-  if (locTags.has('scifi') && lightTags.has('sunlight')) return false;
-  if ((locTags.has('heritage') || locTags.has('urban') || locTags.has('natural')) && lightTags.has('studio_light')) return false;
-  if (locTags.has('ruin') && lightTags.has('studio_light')) return false;
-  if ((locTags.has('natural') || locTags.has('outdoor')) && lightTags.has('artificial_light') && !locTags.has('night') && !locTags.has('club')) return false;
+  if (locTags.has('studio')) return lightTags.has('studio_light') || lightTags.has('flash') || lightTags.has('soft_light');
+  if (locTags.has('subterranean') || locTags.has('underground')) return lightTags.has('artificial_light') || lightTags.has('window_light');
+  if (locTags.has('indoor')) return !lightTags.has('sunlight') || lightTags.has('window_light') || lightTags.has('soft_light');
+  if (locTags.has('outdoor') || locTags.has('natural')) return !lightTags.has('studio_light') || lightTags.has('flash') || lightTags.has('soft_light');
 
   return true;
 }
@@ -684,14 +714,12 @@ function lightDirectionSupportsScene(lightDirection, framing, location, lighting
   const lightingTags = new Set(lighting.meta.tags);
 
   if (directionTags.has('portrait_light') && !visibilityAtLeast(framing.meta.visibility, 'medium')) return false;
-  if (directionTags.has('window_light') && !locationTags.has('window_light') && !locationTags.has('indoor')) return false;
-  if (directionTags.has('portrait_light') && lightingTags.has('outdoor')) return false;
-  if (locationTags.has('outdoor') && (directionTags.has('window_light') || directionTags.has('overhead'))) return false;
-  if (lightingTags.has('outdoor') && directionTags.has('artificial_light')) return false;
-  if (locationTags.has('urban') && directionTags.has('window_light')) return false;
-  if (locationTags.has('natural') && directionTags.has('window_light')) return false;
+  if (directionTags.has('window_light') && !(locationTags.has('indoor') || locationTags.has('residential') || locationTags.has('hospitality') || locationTags.has('heritage'))) return false;
+  if (directionTags.has('portrait_light') && lightingTags.has('natural_light') && !lightingTags.has('window_light') && !lightingTags.has('soft_light')) return false;
+  if ((locationTags.has('outdoor') || locationTags.has('natural')) && (directionTags.has('window_light') || directionTags.has('overhead'))) return false;
+  if (lightingTags.has('sunlight') && directionTags.has('artificial_light')) return false;
   if (lightingTags.has('dark') && directionTags.has('window_light')) return false;
-  if (locationTags.has('ruin') && directionTags.has('window_light')) return false;
+  if (locationTags.has('subterranean') && directionTags.has('window_light')) return false;
 
   return true;
 }
