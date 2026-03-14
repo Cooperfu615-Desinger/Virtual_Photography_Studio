@@ -74,6 +74,14 @@ const GARMENT_COLOR_OPTIONS = [
   { id: 'gold', zh: '金色', en: 'gold' },
 ];
 
+const OUTFIT_PRESET_NONE_OPTION = {
+  id: 'outfit-preset-none',
+  zh: '全無',
+  en: 'none',
+  desc: 'Explicitly disable outfit presets so granular wardrobe selections remain active.',
+  meta: { tags: ['none', 'no_outfit_preset'] },
+};
+
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: '4:5', section: 'core' },
@@ -529,7 +537,7 @@ function buildCatalog(customLibrary = []) {
       lightDirection: getByKey(catalog.camera, '光線方向與質感 (Light Direction & Quality)'),
       film: getByKey(catalog.camera, '底片與相機模擬 (Camera & Film Simulation)'),
       effects: getByKey(catalog.camera, '特殊效果 (Special Effects)'),
-      outfitPresets: getByKey(catalog.wardrobe, '套裝 (Outfit Presets)'),
+      outfitPresets: [OUTFIT_PRESET_NONE_OPTION, ...getByKey(catalog.wardrobe, '套裝 (Outfit Presets)')],
     },
     mergedDatabase,
   };
@@ -916,20 +924,22 @@ function buildWardrobe(context, locks, catalog) {
     const presets = catalog.flatCatalog.outfitPresets;
     const presetA = locks.outfitPresetAId ? findById(presets, locks.outfitPresetAId) : null;
     const presetB = locks.outfitPresetBId ? findById(presets, locks.outfitPresetBId) : null;
+    const presetAIsNone = isNoneLikeItem(presetA);
+    const presetBIsNone = isNoneLikeItem(presetB);
 
     const randomDistinctPreset = (excludeId) => {
-      const candidates = presets.filter((item) => item.id !== excludeId);
+      const candidates = presets.filter((item) => !isNoneLikeItem(item) && item.id !== excludeId);
       return sample(candidates.length > 0 ? candidates : presets);
     };
 
-    const resolvedA = presetA || (presetB ? randomDistinctPreset(presetB.id) : null);
-    const resolvedB = presetB || (resolvedA ? randomDistinctPreset(resolvedA.id) : null);
+    const resolvedA = presetAIsNone ? null : presetA || (!locks.outfitPresetAId && presetB && !presetBIsNone ? randomDistinctPreset(presetB.id) : null);
+    const resolvedB = presetBIsNone ? null : presetB || (!locks.outfitPresetBId && resolvedA ? randomDistinctPreset(resolvedA.id) : null);
 
     return [resolvedA ? clonePresetForRole(resolvedA, 'a') : null, resolvedB ? clonePresetForRole(resolvedB, 'b') : null].filter(Boolean);
   }
 
   const outfitPreset = locks.outfitPresetId ? findById(catalog.flatCatalog.outfitPresets, locks.outfitPresetId) : null;
-  if (outfitPreset) {
+  if (outfitPreset && !isNoneLikeItem(outfitPreset)) {
     return [outfitPreset];
   }
 
@@ -988,11 +998,17 @@ function buildWardrobe(context, locks, catalog) {
 
   maybePick('上身 (Tops)');
 
-  const hasLockedBottom = Boolean(locks?.pantsId || locks?.skirtId);
+  const hasLockedPants = Boolean(locks?.pantsId);
+  const hasLockedSkirt = Boolean(locks?.skirtId);
+  const hasLockedBottom = hasLockedPants || hasLockedSkirt;
 
   if (frameShowsAtLeast(visibility, 'medium') || hasLockedBottom) {
-    if (hasLockedBottom) {
+    if (hasLockedPants && hasLockedSkirt) {
       maybePick('褲裝 (Pants)');
+      maybePick('裙裝 (Skirts)');
+    } else if (hasLockedPants) {
+      maybePick('褲裝 (Pants)');
+    } else if (hasLockedSkirt) {
       maybePick('裙裝 (Skirts)');
     } else if (Math.random() < 0.5) {
       maybePick('褲裝 (Pants)');

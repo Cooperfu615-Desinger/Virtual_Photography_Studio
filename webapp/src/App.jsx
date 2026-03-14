@@ -59,6 +59,13 @@ function isNoneOption(option) {
   return option?.zh === '全無';
 }
 
+function isNoneSelected(controlKey, value, controls) {
+  if (!value) return false;
+  const control = controls.find((item) => item.key === controlKey);
+  const selected = control?.options.find((option) => option.id === value);
+  return isNoneOption(selected);
+}
+
 function buildMarkdownExport(data) {
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
 **Summary:** ${data.summary}
@@ -255,7 +262,12 @@ export default function App() {
     return Array.isArray(value) ? value.length > 0 : Boolean(value);
   }).length;
   const normalizedSearch = searchQuery.trim().toLowerCase();
-  const isOutfitPresetActive = locks.subjectCount === '2' ? Boolean(locks.outfitPresetAId || locks.outfitPresetBId) : Boolean(locks.outfitPresetId);
+  const isOutfitPresetActive = locks.subjectCount === '2'
+    ? (
+        (Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls)) ||
+        (Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls))
+      )
+    : Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
 
   const displayPrompts = useMemo(() => {
     const baseList = viewMode === 'favorites' ? favoritePrompts : prompts;
