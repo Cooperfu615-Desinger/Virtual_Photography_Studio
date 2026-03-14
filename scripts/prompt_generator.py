@@ -6,44 +6,6 @@ from collections import defaultdict
 KNOWLEDGE_BASE_DIR = os.path.join(os.path.dirname(__file__), '..', 'knowledge_base')
 BASE_CHARACTER = {"en": "a seductive stunning Japanese or Korean woman", "zh": "一位性感驚豔的日系或韓系女性"}
 
-def infer_wardrobe_family(text):
-    haystack = text.lower()
-    if any(keyword in haystack for keyword in ['cyberpunk', '賽博']):
-        return 'cyberpunk'
-    if any(keyword in haystack for keyword in ['techwear', '機能']):
-        return 'techwear'
-    if any(keyword in haystack for keyword in ['streetwear', 'harajuku', '日系街頭']):
-        return 'streetwear'
-    if any(keyword in haystack for keyword in ['y2k', '千禧']):
-        return 'y2k'
-    if any(keyword in haystack for keyword in ['minimalist', 'quiet luxury', '極簡高級']):
-        return 'minimal'
-    if any(keyword in haystack for keyword in ['parisian', '法式']):
-        return 'parisian'
-    if any(keyword in haystack for keyword in ['punk', '龐克']):
-        return 'punk'
-    if any(keyword in haystack for keyword in ['bohemian', '民俗', 'ethnic']):
-        return 'bohemian'
-    if any(keyword in haystack for keyword in ['bondage', 'bdsm', '乳膠']):
-        return 'bdsm'
-    if any(keyword in haystack for keyword in ['baroque', '巴洛克']):
-        return 'baroque'
-    if any(keyword in haystack for keyword in ['victorian', '維多利亞']):
-        return 'victorian'
-    if any(keyword in haystack for keyword in ['lolita', '蘿莉塔']):
-        return 'lolita'
-    if any(keyword in haystack for keyword in ['schoolgirl', 'jk', '女高中生']):
-        return 'schoolgirl'
-    if any(keyword in haystack for keyword in ['lingerie', '內衣']):
-        return 'lingerie'
-    if any(keyword in haystack for keyword in ['swimwear', '泳裝']):
-        return 'swimwear'
-    if any(keyword in haystack for keyword in ['military', '軍裝']):
-        return 'military'
-    if any(keyword in haystack for keyword in ['industrial', '工業']):
-        return 'industrial'
-    return 'neutral'
-
 def load_dictionary(filename):
     """
     Parses a markdown dictionary file and returns a dictionary of dimensions and parameters.
@@ -151,9 +113,6 @@ def build_prompt():
     extract_cat(character_data, '姿勢與肢體語言', structured["Pose & Expression"])
 
     # Wardrobe
-    vibe = extract_cat(wardrobe_data, '風格基調', structured["Wardrobe"])
-    wardrobe_family = infer_wardrobe_family(vibe["zh"] if vibe else "")
-
     def extract_filtered(data_dict, category, target_list, predicate=lambda item: True, prob=1.0):
         if not data_dict or category not in data_dict or random.random() > prob:
             return None
@@ -164,86 +123,39 @@ def build_prompt():
         target_list.append(choice)
         return choice
 
+    if extract_cat(wardrobe_data, '套裝', structured["Wardrobe"], prob=0.35):
+        wardrobe_locked_to_preset = True
+    else:
+        wardrobe_locked_to_preset = False
+
     def allow_item(item, slot):
         text = f"{item['zh']} {item['en']}".lower()
         if item['zh'] == '全無':
             return True
-        if wardrobe_family == 'swimwear':
-            if slot == '上身':
-                return any(keyword in text for keyword in ['camisole', 'tube top', 'swim', 'bare'])
-            if slot == '褲裝':
-                return False
-            if slot == '襪類':
-                return 'bare legs' in text or '全無' in item['zh']
-            if slot == '外套':
-                return False
-            if slot == '裙裝':
-                return False
-        if wardrobe_family == 'lolita':
-            if slot == '上身':
-                return any(keyword in text for keyword in ['lace', 'victorian', 'lolita'])
-            if slot == '褲裝':
-                return False
-            if slot == '裙裝':
-                return 'lolita' in text or '鐘形' in item['zh']
-            if slot == '鞋款':
-                return 'mary jane' in text or '瑪莉珍' in item['zh']
-            if slot == '外套':
-                return any(keyword in text for keyword in ['baroque', 'cape'])
-        if wardrobe_family == 'schoolgirl':
-            if slot == '上身':
-                return any(keyword in text for keyword in ['shirt', 'sailor', 't-shirt', '針織'])
-            if slot == '褲裝':
-                return False
-            if slot == '裙裝':
-                return 'pleated' in text or '百褶' in item['zh']
-            if slot == '襪類':
-                return 'over-knee' in text or '膝上襪' in item['zh'] or 'bare legs' in text or '全無' in item['zh']
-            if slot == '鞋款':
-                return any(keyword in text for keyword in ['loafers', 'sneakers', '樂福', '球鞋'])
-        if wardrobe_family in ('techwear', 'industrial', 'military'):
-            if slot == '上身':
-                return any(keyword in text for keyword in ['utility', 'knit', 'shirt', 'vest', 'tactical', 't-shirt'])
-            if slot == '裙裝':
-                return False
-            if slot == '鞋款':
-                return any(keyword in text for keyword in ['boots', 'sneakers', '軍靴', '老爹鞋'])
-        if wardrobe_family in ('baroque', 'victorian'):
-            if slot == '上身':
-                return any(keyword in text for keyword in ['victorian', 'lace', 'bodysuit'])
-            if slot == '裙裝':
-                return any(keyword in text for keyword in ['skirt', 'lolita', 'pencil'])
-            if slot == '外套':
-                return any(keyword in text for keyword in ['baroque', 'cape', 'military', 'victorian'])
-        if wardrobe_family in ('minimal', 'parisian'):
-            if slot == '上身':
-                return not any(keyword in text for keyword in ['metallic', 'tactical', 'lace bodysuit'])
-        if slot == '飾品點綴':
-            if any(keyword in text for keyword in ['nose ring', 'lip ring', '頸鍊', '鼻環', '唇環']) and wardrobe_family not in ('punk', 'y2k', 'streetwear', 'industrial', 'cyberpunk'):
-                return False
+        if slot == '襪類' and any(item_in_slot['zh'] for item_in_slot in structured["Wardrobe"] if '褲' in item_in_slot['zh']):
+            return 'bare legs' in text or item['zh'] == '全無'
         return True
 
-    extract_filtered(wardrobe_data, '上身', structured["Wardrobe"], lambda item: allow_item(item, '上身'))
-    if wardrobe_family in ('lolita', 'schoolgirl', 'lingerie', 'victorian', 'baroque'):
-        extract_filtered(wardrobe_data, '裙裝', structured["Wardrobe"], lambda item: allow_item(item, '裙裝'))
-    elif random.random() < 0.5:
-        extract_filtered(wardrobe_data, '褲裝', structured["Wardrobe"], lambda item: allow_item(item, '褲裝'))
-    else:
-        extract_filtered(wardrobe_data, '裙裝', structured["Wardrobe"], lambda item: allow_item(item, '裙裝'))
-    if not any(
-        ('裙' in item['zh'] or '褲' in item['zh'] or item['zh'] == '全無')
-        for item in structured["Wardrobe"]
-    ):
-        extract_filtered(wardrobe_data, '褲裝', structured["Wardrobe"], lambda item: allow_item(item, '褲裝'))
+    if not wardrobe_locked_to_preset:
+        extract_filtered(wardrobe_data, '上身', structured["Wardrobe"], lambda item: allow_item(item, '上身'))
+        if random.random() < 0.5:
+            extract_filtered(wardrobe_data, '褲裝', structured["Wardrobe"], lambda item: allow_item(item, '褲裝'))
+        else:
+            extract_filtered(wardrobe_data, '裙裝', structured["Wardrobe"], lambda item: allow_item(item, '裙裝'))
+        if not any(
+            ('裙' in item['zh'] or '褲' in item['zh'] or item['zh'] == '全無')
+            for item in structured["Wardrobe"]
+        ):
+            extract_filtered(wardrobe_data, '褲裝', structured["Wardrobe"], lambda item: allow_item(item, '褲裝'))
 
-    if any('裙' in item['zh'] for item in structured["Wardrobe"]) or random.random() < 0.2:
-        extract_filtered(wardrobe_data, '襪類', structured["Wardrobe"], lambda item: allow_item(item, '襪類'), prob=0.45)
-    else:
-        extract_filtered(wardrobe_data, '襪類', structured["Wardrobe"], lambda item: item['zh'] == '全無', prob=0.25)
+        if any('裙' in item['zh'] for item in structured["Wardrobe"]) or random.random() < 0.2:
+            extract_filtered(wardrobe_data, '襪類', structured["Wardrobe"], lambda item: allow_item(item, '襪類'), prob=0.45)
+        else:
+            extract_filtered(wardrobe_data, '襪類', structured["Wardrobe"], lambda item: item['zh'] == '全無', prob=0.25)
 
-    extract_filtered(wardrobe_data, '外套', structured["Wardrobe"], lambda item: allow_item(item, '外套'), prob=0.35 if wardrobe_family != 'swimwear' else 0.05)
-    extract_filtered(wardrobe_data, '鞋款', structured["Wardrobe"], lambda item: allow_item(item, '鞋款'))
-    extract_filtered(wardrobe_data, '飾品點綴', structured["Wardrobe"], lambda item: allow_item(item, '飾品點綴'), prob=0.55)
+        extract_filtered(wardrobe_data, '外套', structured["Wardrobe"], lambda item: allow_item(item, '外套'), prob=0.35)
+        extract_filtered(wardrobe_data, '鞋款', structured["Wardrobe"], lambda item: allow_item(item, '鞋款'))
+        extract_filtered(wardrobe_data, '飾品點綴', structured["Wardrobe"], lambda item: allow_item(item, '飾品點綴'), prob=0.55)
 
     # Location
     if locations_data:

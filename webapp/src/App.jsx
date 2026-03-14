@@ -41,7 +41,7 @@ const CHARACTER_CONTROL_ORDER = [
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId', 'lightingId', 'lightDirectionId', 'filmId'];
 const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'aspectRatio', 'locationId', 'framingId', 'angleId', 'orbitId'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId', 'wardrobeVibeId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'shoesId', 'jewelryIds'];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
@@ -238,7 +238,7 @@ export default function App() {
     () =>
       sortControls(
         lockControls.filter((control) => {
-          if (!(control.section === 'wardrobe' || control.key === 'wardrobeVibeId')) return false;
+          if (control.section !== 'wardrobe') return false;
           if (control.key === 'outfitPresetId' && locks.subjectCount === '2') return false;
           if ((control.key === 'outfitPresetAId' || control.key === 'outfitPresetBId') && locks.subjectCount !== '2') return false;
           if (control.key === 'duoStylingId' && locks.subjectCount !== '2') return false;
@@ -683,7 +683,6 @@ const SUMMARY_REROLL_MAP = {
     'outfitPresetId',
     'outfitPresetAId',
     'outfitPresetBId',
-    'wardrobeVibeId',
     'topId',
     'topColorId',
     'duoStylingId',
