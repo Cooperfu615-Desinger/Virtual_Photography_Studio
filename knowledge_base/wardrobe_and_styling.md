@@ -71,6 +71,8 @@
 | **褲裝 (Pants)** | 破壞抽鬚牛仔寬褲 | `distressed baggy denim jeans, frayed edges, heavy wash denim` | 重度水洗、寬鬆廓形，帶隨性街頭感。 |
 | **褲裝 (Pants)** | 絲絨喇叭褲 | `velvet flared pants, 70s retro style, soft plush texture` | 帶有復古戲劇感與柔軟光澤。 |
 | **褲裝 (Pants)** | 亮面貼身皮褲 | `sleek fitted leather pants, glossy finish, sharp silhouette` | 緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。 |
+| **褲裝 (Pants)** | 亮面乳膠緊身長褲 | `glossy latex leggings, ultra-shiny body-hugging latex pants, second-skin silhouette` | 高反光乳膠材質緊貼腿部，適合 fetish、夜拍與強烈時裝主題。 |
+| **褲裝 (Pants)** | 亮面乳膠緊身短褲 | `glossy latex fitted shorts, ultra-shiny tight latex shorts, second-skin silhouette` | 短版乳膠褲更直接強調腿部與臀部線條，適合派對、夜景與邊緣造型。 |
 | **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian wide-leg trousers, flowing fabric, artisanal relaxed silhouette` | 布料柔軟飄逸，輪廓寬鬆自然，帶有旅行感與民俗風的輕鬆氣質。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
 | **裙裝 (Skirts)** | 合身迷你裙 | `fitted mini skirt, clean tailored finish, sleek silhouette` | 高頻實用短裙，適合城市、寫真與時裝風格。 |
@@ -87,6 +89,8 @@
 | **裙裝 (Skirts)** | 低腰長裙 | `low-rise maxi skirt, elongated hip line, belt detail, side zipper detail, urban y2k silhouette` | 低腰線搭配腰帶與側邊拉鏈細節，更強調臀線與腰線比例，適合都會、Y2K 與性感主題。 |
 | **裙裝 (Skirts)** | 緞面短裙 | `satin mini skirt, soft sheen, sleek sensual finish` | 低調光澤感明顯，適合飯店、寫真與成熟感風格。 |
 | **裙裝 (Skirts)** | 開衩長裙 | `slit maxi skirt, leg-revealing elegant cut, fluid elongated silhouette` | 成熟、性感且有流動感，適合時裝、晚間與高級場景。 |
+| **裙裝 (Skirts)** | 無袖連身洋裝 | `sleeveless one-piece dress, clean uninterrupted silhouette, feminine full-body styling` | 以無袖輪廓直接完成整體造型，適合日常寫真、飯店與極簡時裝感畫面。 |
+| **裙裝 (Skirts)** | 細肩帶連身洋裝 | `strappy slip dress, delicate shoulder straps, fluid one-piece silhouette` | 細肩帶連身洋裝帶有輕盈與微性感氣質，適合臥室、飯店與夏日寫真主題。 |
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
 | **裙裝 (Skirts)** | 高腰窄裙 | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
 | **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian maxi skirt, flowing layered fabric, artisanal relaxed movement` | 長裙輪廓柔和飄逸，帶有民俗與旅拍氣質，適合自然、度假與文藝風格。 |

@@ -363,9 +363,15 @@ button:disabled {
 }
 
 .chip-active {
-  background: rgba(201, 124, 67, 0.18);
-  color: var(--text-primary);
-  border-color: rgba(201, 124, 67, 0.45);
+  background: var(--accent);
+  color: #fffdf8;
+  border-color: var(--accent);
+}
+
+.chip-active:hover {
+  background: var(--accent-hover);
+  color: #fffdf8;
+  border-color: var(--accent-hover);
 }
 
 .toolbar {
