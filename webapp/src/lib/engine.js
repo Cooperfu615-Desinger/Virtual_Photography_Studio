@@ -95,21 +95,21 @@ const LOCK_DEFINITIONS = [
   { key: 'filmId', label: '成像風格', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
   { key: 'bodyTypeId', label: '體態', category: '體態 (Body Type)', section: 'character' },
   { key: 'facialFeaturesId', label: '五官特徵', category: '五官特徵 (Facial Features)', section: 'character' },
-  { key: 'facialFeaturesAId', label: '人物 A 五官', category: '五官特徵 (Facial Features)', section: 'character' },
-  { key: 'facialFeaturesBId', label: '人物 B 五官', category: '五官特徵 (Facial Features)', section: 'character' },
+  { key: 'facialFeaturesAId', label: '人物 1 五官', category: '五官特徵 (Facial Features)', section: 'character' },
+  { key: 'facialFeaturesBId', label: '人物 2 五官', category: '五官特徵 (Facial Features)', section: 'character' },
   { key: 'skinDetailsId', label: '膚質特徵', category: '膚質特徵 (Skin Details)', section: 'character' },
   { key: 'hairstyleId', label: '髮型', category: '髮型 (Hairstyle)', section: 'character' },
-  { key: 'hairstyleAId', label: '人物 A 髮型', category: '髮型 (Hairstyle)', section: 'character' },
-  { key: 'hairstyleBId', label: '人物 B 髮型', category: '髮型 (Hairstyle)', section: 'character' },
+  { key: 'hairstyleAId', label: '人物 1 髮型', category: '髮型 (Hairstyle)', section: 'character' },
+  { key: 'hairstyleBId', label: '人物 2 髮型', category: '髮型 (Hairstyle)', section: 'character' },
   { key: 'hairColorId', label: '髮色', category: '髮色 (Hair Color)', section: 'character' },
-  { key: 'hairColorAId', label: '人物 A 髮色', category: '髮色 (Hair Color)', section: 'character' },
-  { key: 'hairColorBId', label: '人物 B 髮色', category: '髮色 (Hair Color)', section: 'character' },
+  { key: 'hairColorAId', label: '人物 1 髮色', category: '髮色 (Hair Color)', section: 'character' },
+  { key: 'hairColorBId', label: '人物 2 髮色', category: '髮色 (Hair Color)', section: 'character' },
   { key: 'duoInteractionId', label: '雙人互動', options: DUO_INTERACTION_OPTIONS, section: 'character' },
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'outfitPresetId', label: '套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
-  { key: 'outfitPresetAId', label: '人物 A 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
-  { key: 'outfitPresetBId', label: '人物 B 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
+  { key: 'outfitPresetAId', label: '人物 1 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
+  { key: 'outfitPresetBId', label: '人物 2 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
   { key: 'topId', label: '上身', category: '上身 (Tops)', section: 'wardrobe' },
   { key: 'topColorId', label: '上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'duoStylingId', label: '雙人穿搭', options: DUO_STYLING_OPTIONS, section: 'wardrobe' },
@@ -137,21 +137,21 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'outfitPresetId', label: 'Outfit Preset' },
   { key: 'bodyTypeId', label: 'Body Type' },
   { key: 'facialFeaturesId', label: 'Face' },
-  { key: 'facialFeaturesAId', label: 'Face A' },
-  { key: 'facialFeaturesBId', label: 'Face B' },
+  { key: 'facialFeaturesAId', label: 'Woman 1 Facial Features' },
+  { key: 'facialFeaturesBId', label: 'Woman 2 Facial Features' },
   { key: 'skinDetailsId', label: 'Skin' },
   { key: 'hairstyleId', label: 'Hair Style' },
-  { key: 'hairstyleAId', label: 'Hair Style A' },
-  { key: 'hairstyleBId', label: 'Hair Style B' },
+  { key: 'hairstyleAId', label: 'Woman 1 Hairstyle' },
+  { key: 'hairstyleBId', label: 'Woman 2 Hairstyle' },
   { key: 'hairColorId', label: 'Hair Color' },
-  { key: 'hairColorAId', label: 'Hair Color A' },
-  { key: 'hairColorBId', label: 'Hair Color B' },
+  { key: 'hairColorAId', label: 'Woman 1 Hair Color' },
+  { key: 'hairColorBId', label: 'Woman 2 Hair Color' },
   { key: 'duoInteractionId', label: 'Duo Interaction' },
   { key: 'expressionId', label: 'Expression' },
   { key: 'poseId', label: 'Pose' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
-  { key: 'outfitPresetAId', label: 'Outfit Preset A' },
-  { key: 'outfitPresetBId', label: 'Outfit Preset B' },
+  { key: 'outfitPresetAId', label: 'Woman 1 Outfit Preset' },
+  { key: 'outfitPresetBId', label: 'Woman 2 Outfit Preset' },
   { key: 'topId', label: 'Top' },
   { key: 'topColorId', label: 'Top Color' },
   { key: 'duoStylingId', label: 'Duo Styling' },
@@ -1280,8 +1280,8 @@ function buildMidjourneyCharacterSegments(context, characterSlots, duoInteractio
     ]
       .filter(Boolean)
       .join(', ');
-    if (womanA) pushUniqueSegment(segments, `woman A, ${womanA}`);
-    if (womanB) pushUniqueSegment(segments, `woman B, ${womanB}`);
+    if (womanA) pushUniqueSegment(segments, `woman 1, ${womanA}`);
+    if (womanB) pushUniqueSegment(segments, `woman 2, ${womanB}`);
   } else {
     if (characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures)) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 2));
     if (characterSlots.hairstyle?.en && !isNoneLikeItem(characterSlots.hairstyle)) pushUniqueSegment(segments, compactClause(characterSlots.hairstyle.en, 1));
@@ -1359,8 +1359,8 @@ function buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors) {
   const segments = [];
 
   if (slots.outfitPresetA?.en || slots.outfitPresetB?.en) {
-    if (slots.outfitPresetA?.en) pushUniqueSegment(segments, `woman A ${compactClause(slots.outfitPresetA.en, 1)}`);
-    if (slots.outfitPresetB?.en) pushUniqueSegment(segments, `woman B ${compactClause(slots.outfitPresetB.en, 1)}`);
+    if (slots.outfitPresetA?.en) pushUniqueSegment(segments, `woman 1 ${compactClause(slots.outfitPresetA.en, 1)}`);
+    if (slots.outfitPresetB?.en) pushUniqueSegment(segments, `woman 2 ${compactClause(slots.outfitPresetB.en, 1)}`);
     return segments;
   }
 
@@ -1409,8 +1409,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   }
   addContextLine('Location', context.location);
   if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
-    addLine('Outfit Preset A', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA));
-    addLine('Outfit Preset B', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB));
+    addLine('Woman 1 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA));
+    addLine('Woman 2 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB));
   } else if (wardrobeSlots.outfitPreset) {
     addLine('Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPreset));
   }
@@ -1425,17 +1425,17 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   }
   addItemLine('Body Type', characterSlots.bodyType);
   if (context.subject.count === 2) {
-    addItemLine('Facial Features A', characterSlots.facialFeaturesA);
-    addItemLine('Facial Features B', characterSlots.facialFeaturesB);
+    addItemLine('Woman 1 Facial Features', characterSlots.facialFeaturesA);
+    addItemLine('Woman 2 Facial Features', characterSlots.facialFeaturesB);
   } else {
     addItemLine('Facial Features', characterSlots.facialFeatures);
   }
   addItemLine('Skin Details', characterSlots.skinDetails);
   if (context.subject.count === 2) {
-    addItemLine('Hairstyle A', characterSlots.hairstyleA);
-    addItemLine('Hairstyle B', characterSlots.hairstyleB);
-    addItemLine('Hair Color A', characterSlots.hairColorA);
-    addItemLine('Hair Color B', characterSlots.hairColorB);
+    addItemLine('Woman 1 Hairstyle', characterSlots.hairstyleA);
+    addItemLine('Woman 2 Hairstyle', characterSlots.hairstyleB);
+    addItemLine('Woman 1 Hair Color', characterSlots.hairColorA);
+    addItemLine('Woman 2 Hair Color', characterSlots.hairColorB);
   } else {
     addItemLine('Hairstyle', characterSlots.hairstyle);
     addItemLine('Hair Color', characterSlots.hairColor);

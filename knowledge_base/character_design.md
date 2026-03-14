@@ -67,6 +67,10 @@
 | **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿前傾 (親近感) | `casual crouching pose, elbows resting on knees, forward-leaning posture, approachable body language` | 身體下蹲並自然前傾，手肘靠近膝部。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 打開肩線微轉站姿 | `shoulders open, body slightly turned, direct confident stance, balanced standing pose` | 雙肩打開、身體微轉，站姿穩定自信。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 坐姿交叉腿 | `crossed-leg seated pose, poised posture, composed body line` | 雙腿交叉的坐姿，線條成熟穩定，帶有整理過的身體節奏。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 正經坐姿 | `formal seated pose, upright composed posture, legs and hands placed neatly` | 坐姿端正、身體穩定，整體感覺整理過且正式，適合商業、極簡與成熟人像。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 霸氣帥氣坐姿 | `dominant seated pose, confident wide posture, assertive cool attitude` | 坐姿帶有掌控感與壓迫感，適合強勢、冷感與時裝主題。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 正跪姿 | `upright kneeling pose, straight posture, composed lower-body fold` | 以雙膝著地的正面跪姿為主，姿態穩定且集中，適合室內寫真與靜態構圖。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 側身躺 | `side-lying pose, body resting on one side, elongated relaxed silhouette` | 身體側躺並自然延伸，能帶出慵懶、私密或較柔和的線條感。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 抬手整理頭髮 | `hand lifting hair, adjusting hair near ear, candid beauty pose` | 抬手撥髮或整理耳側頭髮，帶有自然動態與生活感。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 托腮近距離姿勢 | `chin resting on hand, face slightly closer to camera, intimate relaxed pose` | 以手輕托下巴，臉部自然靠前，呈現親密而放鬆的近距離姿態。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 放鬆坐姿 | `relaxed seated pose, soft natural posture, calm body language` | 坐姿自然鬆弛，肩膀與四肢不刻意用力，適合安靜柔和的人像氣質。 |
