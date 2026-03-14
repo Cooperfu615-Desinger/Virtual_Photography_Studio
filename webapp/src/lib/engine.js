@@ -281,6 +281,12 @@ function inferLocationMeta(category, item) {
 
   if (hasAny(haystack, ['hotel', 'boutique hotel', '旅館', '飯店'])) tags.push('hospitality', 'indoor');
   if (hasAny(haystack, ['apartment', 'bedroom', 'living room', '臥室', '公寓', '客廳'])) tags.push('residential', 'indoor');
+  if (hasAny(haystack, ['interior', 'inside', 'room', 'hallway', 'corridor', 'stairwell', 'stairwell shaft', 'seating', 'dining aisle', 'bathroom', 'vanity', 'mirror', 'store interior', '店內', '室內', '房間', '浴室', '鏡前', '樓梯井', '長椅區'])) {
+    tags.push('indoor');
+  }
+  if (hasAny(haystack, ['plaza', 'pedestrian', 'crosswalk', 'sidewalk', 'street', 'streetfront', 'square', 'lawn edge', 'outdoor', 'shoreline', 'beach', 'park', 'deck', 'avenue', 'station front', '廣場', '行人區', '人行道', '街頭', '街角', '穿越口', '草地邊', '海灘', '岩岸', '公園', '木棧道', '戶外'])) {
+    tags.push('outdoor');
+  }
   if (hasAny(haystack, ['café', 'bar entrance', 'storefront', 'shopfront', 'night market', 'mall', 'laundromat', '咖啡', '夜市', '商場'])) {
     tags.push('commercial');
   }
@@ -347,6 +353,7 @@ function getGarmentColorOption(id) {
 function inferLightingMeta(category, item) {
   const haystack = toHaystack(category, item.zh, item.en, item.desc);
   const tags = [];
+  const isDirectionCategory = category === '光線方向與質感 (Light Direction & Quality)';
 
   if (hasAny(haystack, ['warm sunset', 'golden evening', 'warm sunlight'])) {
     tags.push('natural_light', 'sunlight', 'warm', 'supports_outdoor', 'supports_urban', 'supports_natural');
@@ -394,8 +401,21 @@ function inferLightingMeta(category, item) {
     tags.push('soft_light', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
   }
   if (hasAny(haystack, ['rim light', 'backlit'])) tags.push('backlight');
-  if (hasAny(haystack, ['butterfly', 'rembrandt', 'split lighting'])) tags.push('portrait_light', 'artificial_light');
-  if (hasAny(haystack, ['top lighting'])) tags.push('overhead', 'artificial_light');
+  if (hasAny(haystack, ['butterfly', 'rembrandt'])) tags.push('portrait_light', 'artificial_light');
+  if (hasAny(haystack, ['split lighting'])) tags.push('portrait_light');
+  if (hasAny(haystack, ['top lighting'])) tags.push('overhead');
+
+  if (isDirectionCategory) {
+    if (hasAny(haystack, ['rembrandt', 'butterfly', 'window / blind slits', 'window light'])) {
+      tags.push('supports_indoor');
+    }
+    if (hasAny(haystack, ['split lighting', 'rim light', 'backlit', 'top lighting'])) {
+      tags.push('supports_outdoor');
+    }
+    if (hasAny(haystack, ['split lighting', 'rim light', 'backlit', 'top lighting'])) {
+      tags.push('supports_indoor');
+    }
+  }
 
   return { tags: withTags(tags) };
 }
@@ -684,6 +704,62 @@ function findById(list, id) {
   return list.find((item) => item.id === id) || null;
 }
 
+function hasAnyTag(tagSet, tags) {
+  return tags.some((tag) => tagSet.has(tag));
+}
+
+function getLocationEnvironmentFlags(location) {
+  const tags = new Set(location?.meta?.tags || []);
+
+  const indoor = hasAnyTag(tags, ['indoor', 'studio', 'set', 'controlled', 'residential', 'hospitality', 'institutional', 'subterranean']);
+  const outdoor = hasAnyTag(tags, ['outdoor', 'natural', 'waterfront', 'green_space']);
+
+  if (!indoor && !outdoor) {
+    if (tags.has('urban') || tags.has('commercial')) return { indoor: false, outdoor: true };
+    if (tags.has('transit')) return { indoor: true, outdoor: false };
+  }
+
+  return { indoor, outdoor };
+}
+
+function getLightingEnvironmentFlags(lighting) {
+  const tags = new Set(lighting?.meta?.tags || []);
+
+  const indoor = hasAnyTag(tags, [
+    'supports_indoor',
+    'supports_studio',
+    'supports_residential',
+    'supports_hospitality',
+    'supports_heritage',
+    'supports_commercial',
+    'supports_subterranean',
+    'window_light',
+    'studio_light',
+    'soft_light',
+  ]);
+  const outdoor = hasAnyTag(tags, [
+    'supports_outdoor',
+    'supports_urban',
+    'supports_natural',
+    'sunlight',
+    'rain',
+    'dusk',
+    'mist',
+    'night_ambient',
+  ]);
+
+  return { indoor, outdoor };
+}
+
+function getLightDirectionEnvironmentFlags(lightDirection) {
+  const tags = new Set(lightDirection?.meta?.tags || []);
+
+  const indoor = hasAnyTag(tags, ['supports_indoor', 'window_light', 'portrait_light', 'overhead', 'backlight']);
+  const outdoor = hasAnyTag(tags, ['supports_outdoor', 'backlight', 'overhead']);
+
+  return { indoor, outdoor };
+}
+
 function visibilityAtLeast(current, minimum) {
   return VISIBILITY_ORDER[current] >= VISIBILITY_ORDER[minimum];
 }
@@ -695,6 +771,11 @@ function frameShowsAtLeast(current, target) {
 function locationSupportsLighting(location, lighting) {
   const locTags = new Set(location.meta.tags);
   const lightTags = new Set(lighting.meta.tags);
+  const locationEnvironment = getLocationEnvironmentFlags(location);
+  const lightingEnvironment = getLightingEnvironmentFlags(lighting);
+
+  if (locationEnvironment.indoor && !locationEnvironment.outdoor && !lightingEnvironment.indoor) return false;
+  if (locationEnvironment.outdoor && !locationEnvironment.indoor && !lightingEnvironment.outdoor) return false;
 
   const sceneSupportChecks = [
     ['studio', 'supports_studio'],
@@ -723,17 +804,44 @@ function locationSupportsLighting(location, lighting) {
 function lightDirectionSupportsScene(lightDirection, framing, location, lighting) {
   const directionTags = new Set(lightDirection.meta.tags);
   const locationTags = new Set(location.meta.tags);
-  const lightingTags = new Set(lighting.meta.tags);
+  const lightingTags = new Set(lighting?.meta?.tags || []);
+  const locationEnvironment = getLocationEnvironmentFlags(location);
+  const directionEnvironment = getLightDirectionEnvironmentFlags(lightDirection);
 
   if (directionTags.has('portrait_light') && !visibilityAtLeast(framing.meta.visibility, 'medium')) return false;
+  if (locationEnvironment.indoor && !locationEnvironment.outdoor && !directionEnvironment.indoor) return false;
+  if (locationEnvironment.outdoor && !locationEnvironment.indoor && !directionEnvironment.outdoor) return false;
   if (directionTags.has('window_light') && !(locationTags.has('indoor') || locationTags.has('residential') || locationTags.has('hospitality') || locationTags.has('heritage'))) return false;
   if (directionTags.has('portrait_light') && lightingTags.has('natural_light') && !lightingTags.has('window_light') && !lightingTags.has('soft_light')) return false;
-  if ((locationTags.has('outdoor') || locationTags.has('natural')) && (directionTags.has('window_light') || directionTags.has('overhead'))) return false;
+  if ((locationTags.has('outdoor') || locationTags.has('natural')) && directionTags.has('window_light')) return false;
   if (lightingTags.has('sunlight') && directionTags.has('artificial_light')) return false;
   if (lightingTags.has('dark') && directionTags.has('window_light')) return false;
   if (locationTags.has('subterranean') && directionTags.has('window_light')) return false;
 
   return true;
+}
+
+export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
+  const runtime = buildCatalog(customLibrary);
+  const locks = normalizeLocks(rawLocks);
+  const fallbackFraming = runtime.flatCatalog.framing.find((item) => item.en.includes('medium shot')) || runtime.flatCatalog.framing[0];
+  const location = findById(runtime.flatCatalog.locations, locks.locationId);
+  const selectedLighting = findById(runtime.flatCatalog.lighting, locks.lightingId);
+  const framing = findById(runtime.flatCatalog.framing, locks.framingId) || fallbackFraming;
+
+  const lightingOptions = location
+    ? runtime.flatCatalog.lighting.filter((item) => item.zh === '全無' || locationSupportsLighting(location, item))
+    : runtime.flatCatalog.lighting;
+
+  const lightingForDirection = selectedLighting && lightingOptions.some((item) => item.id === selectedLighting.id) ? selectedLighting : null;
+
+  const lightDirectionOptions = location
+    ? runtime.flatCatalog.lightDirection.filter(
+        (item) => item.zh === '全無' || lightDirectionSupportsScene(item, framing, location, lightingForDirection)
+      )
+    : runtime.flatCatalog.lightDirection;
+
+  return { lightingOptions, lightDirectionOptions };
 }
 
 function styleFitsLocation(style, location) {

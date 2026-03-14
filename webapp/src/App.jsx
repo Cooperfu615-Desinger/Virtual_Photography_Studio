@@ -7,6 +7,7 @@ import {
   buildLocksFromPrompt,
   createEmptyLocks,
   generatePrompts,
+  getSceneDependentOptions,
   getKnowledgeBaseOptions,
   getLockControls,
   normalizeLocks,
@@ -216,16 +217,27 @@ export default function App() {
 
   const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(customLibrary), [customLibrary]);
   const lockControls = useMemo(() => getLockControls(customLibrary), [customLibrary]);
+  const sceneDependentOptions = useMemo(() => getSceneDependentOptions(customLibrary, locks), [customLibrary, locks]);
   const isPhotographyStyleLocked = Boolean(locks.styleId) && !isNoneSelected('styleId', locks.styleId, lockControls);
   const coreLockControls = useMemo(
-    () =>
-      sortControls(
-        lockControls.filter((control) =>
-          (isPhotographyStyleLocked ? SCENE_CAMERA_SIMPLIFIED_ORDER : SCENE_CAMERA_CONTROL_ORDER).includes(control.key)
-        ),
-        isPhotographyStyleLocked ? SCENE_CAMERA_SIMPLIFIED_ORDER : SCENE_CAMERA_CONTROL_ORDER
-      ),
-    [isPhotographyStyleLocked, lockControls]
+    () => {
+      const activeOrder = isPhotographyStyleLocked ? SCENE_CAMERA_SIMPLIFIED_ORDER : SCENE_CAMERA_CONTROL_ORDER;
+      const controlsWithSceneFiltering = lockControls.map((control) => {
+        if (control.key === 'lightingId') {
+          return { ...control, options: sceneDependentOptions.lightingOptions };
+        }
+        if (control.key === 'lightDirectionId') {
+          return { ...control, options: sceneDependentOptions.lightDirectionOptions };
+        }
+        return control;
+      });
+
+      return sortControls(
+        controlsWithSceneFiltering.filter((control) => activeOrder.includes(control.key)),
+        activeOrder
+      );
+    },
+    [isPhotographyStyleLocked, lockControls, sceneDependentOptions]
   );
   const characterLockControls = useMemo(
     () =>
@@ -289,6 +301,28 @@ export default function App() {
       return haystack.includes(normalizedSearch);
     });
   }, [favoritePrompts, normalizedSearch, prompts, viewMode]);
+
+  useEffect(() => {
+    const allowedLightingIds = new Set(sceneDependentOptions.lightingOptions.map((option) => option.id));
+    const allowedDirectionIds = new Set(sceneDependentOptions.lightDirectionOptions.map((option) => option.id));
+
+    setLocks((prev) => {
+      let changed = false;
+      const next = { ...prev };
+
+      if (prev.lightingId && !allowedLightingIds.has(prev.lightingId)) {
+        next.lightingId = '';
+        changed = true;
+      }
+
+      if (prev.lightDirectionId && !allowedDirectionIds.has(prev.lightDirectionId)) {
+        next.lightDirectionId = '';
+        changed = true;
+      }
+
+      return changed ? next : prev;
+    });
+  }, [sceneDependentOptions]);
 
   const handleGenerate = () => {
     const newPrompts = generatePrompts(genCount, locks, customLibrary);
