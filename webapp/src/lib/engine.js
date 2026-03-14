@@ -74,6 +74,14 @@ const GARMENT_COLOR_OPTIONS = [
   { id: 'gold', zh: '金色', en: 'gold' },
 ];
 
+const STYLE_NONE_OPTION = {
+  id: 'style-none',
+  zh: '全無',
+  en: 'none',
+  desc: 'Explicitly disable photography style so no photographer-inspired style language is added.',
+  meta: { tags: ['none', 'no_style'] },
+};
+
 const OUTFIT_PRESET_NONE_OPTION = {
   id: 'outfit-preset-none',
   zh: '全無',
@@ -528,7 +536,7 @@ function buildCatalog(customLibrary = []) {
   return {
     catalog,
     flatCatalog: {
-      regional: flatten(catalog.regional),
+      regional: [STYLE_NONE_OPTION, ...flatten(catalog.regional)],
       locations: flatten(catalog.locations),
       framing: getByKey(catalog.camera, '景別構圖 (Framing)'),
       angle: getByKey(catalog.camera, '相機視角 (Angle)'),
