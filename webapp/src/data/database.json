@@ -1037,6 +1037,56 @@
         "zh": "頂光 (Top Lighting)",
         "en": "overhead top lighting, deep-set facial shadows, moody cinematic contrast, tense cinematic atmosphere",
         "desc": "光源從上方向下壓，讓眼窩與臉部下緣出現較深陰影，營造緊張、壓迫、帶點危險感的電影氣氛。"
+      },
+      {
+        "zh": "正面柔光 / 平順正面光 (Soft Frontal Light)",
+        "en": "soft frontal light, even forward-facing illumination, clean skin rendering, gentle beauty balance, minimal shadow transition",
+        "desc": "以柔和正面光均勻照亮五官，陰影很少，畫面乾淨透亮，適合清透寫真、商業人像與自然 beauty 感。"
+      },
+      {
+        "zh": "45 度側前柔光 (Loop Lighting)",
+        "en": "loop lighting, 45-degree front-side light, soft nose shadow loop, natural facial contour, elegant portrait modeling",
+        "desc": "光源位於人物前側約 45 度，會形成小而自然的鼻影，臉部立體感比正面柔光更強，但仍保有高頻實用的人像自然感。"
+      },
+      {
+        "zh": "貝殼光 / 上下夾光 (Clamshell Lighting)",
+        "en": "clamshell lighting, beauty light from above and below, smooth under-eye fill, polished skin glow, refined editorial beauty portrait",
+        "desc": "上方主光搭配下方補光，讓臉部陰影更少、膚質更平滑，特別適合妝容、時裝 close-up 與精修感人像。"
+      },
+      {
+        "zh": "側逆光 / 斜後方輪廓光 (Three-quarter Backlight)",
+        "en": "three-quarter backlight, diagonal rear light, glowing hair edges, soft shoulder rim, cinematic subject separation",
+        "desc": "光線從人物斜後方進入，既保留輪廓光，也比純背光更容易看見臉部細節，適合戶外黃昏、街頭夜景與空氣感寫真。"
+      },
+      {
+        "zh": "漫射窗邊側光 (Soft Window Side Light)",
+        "en": "soft window side light, diffused daylight from the side, gentle cheek contour, natural indoor portrait glow, quiet editorial softness",
+        "desc": "從窗邊進來的柔和側光，不帶百葉窗條紋感，常見於寫真、生活感與文藝人像，氣質比電影感窗縫光更自然。"
+      },
+      {
+        "zh": "剪影背光 (Silhouette Backlight)",
+        "en": "silhouette backlight, strong backlit outline, darkened facial detail, graphic subject contour, dramatic negative-space mood",
+        "desc": "光源從主體後方強力照射，人物整體壓暗只保留輪廓，適合海邊、窗前、街頭落日與高情緒對比畫面。"
+      },
+      {
+        "zh": "地面反射補光 / 下方回光 (Bounce / Upfill)",
+        "en": "bounce fill light, soft upward reflected light, lifted lower-face shadows, subtle under-chin glow, natural reflective fill",
+        "desc": "利用地面、牆面或反光板把光線回打到下半臉，能減輕鼻下與下巴陰影，適合戶外寫真、商業人像與高級自然光。"
+      },
+      {
+        "zh": "實景燈源側光 (Practical Motivated Side Light)",
+        "en": "practical motivated side light, lamp-lit side illumination, believable room light source, cinematic interior mood, warm directional glow",
+        "desc": "像檯燈、壁燈、霓虹招牌或店內燈具自然照到人物側臉，強調「畫面內有光源理由」的電影感，適合夜景與室內敘事人像。"
+      },
+      {
+        "zh": "斑駁樹影光 (Dappled Light)",
+        "en": "dappled light, broken sunlight through leaves, irregular shadow patches, lively outdoor texture, organic summer portrait mood",
+        "desc": "陽光穿過樹葉或遮擋物後形成不規則斑駁光影，畫面會帶有自然節奏與夏日流動感，適合草地、公園與戶外寫真。"
+      },
+      {
+        "zh": "霧中體積光 / 光束感 (Volumetric Light)",
+        "en": "volumetric light, visible light rays through haze, atmospheric beam glow, cinematic depth, mist-filled spatial separation",
+        "desc": "光線在霧氣、煙塵或濕氣中形成可見光束，空間層次會明顯增加，適合森林、廢墟、教堂感或強氛圍電影畫面。"
       }
     ],
     "底片與相機模擬 (Camera & Film Simulation)": [
@@ -1125,6 +1175,230 @@
         "zh": "室內：漸層打光背景",
         "en": "gradient-lit backdrop, subtle halo glow behind the subject, soft studio falloff, cover-shoot atmosphere",
         "desc": "利用燈光打出背景漸層光斑，能提升人物立體感與封面感。"
+      }
+    ],
+    "生活感室內 (Indoor & Lifestyle)": [
+      {
+        "zh": "室內：精品飯店房間",
+        "en": "boutique hotel room, warm bedside lamps, crisp bedding, elegant interior details, editorial travel mood",
+        "desc": "高級但不過度奢華的飯店房間，適合寫真、時裝與成熟人像。"
+      },
+      {
+        "zh": "室內：現代高樓公寓客廳",
+        "en": "modern high-rise apartment interior, window glow, clean designer furniture, soft city backdrop, contemporary lifestyle mood",
+        "desc": "現代都會感強，適合 lifestyle 與社群感拍攝。"
+      },
+      {
+        "zh": "室內：臥室窗邊",
+        "en": "bedroom window area, soft daylight spill, linen textures, intimate photobook atmosphere, quiet interior",
+        "desc": "臨窗空間帶有柔和自然光，很適合寫真集與生活感人像。"
+      },
+      {
+        "zh": "室內：浴室鏡前 / 洗手台",
+        "en": "bathroom vanity scene, sink counter details, reflective surfaces, soft indoor glow, modern lifestyle snapshot",
+        "desc": "具有很強的手機隨拍與社群感，也適合妝髮與穿搭展示。"
+      },
+      {
+        "zh": "室內：更衣室 / 試衣間",
+        "en": "fitting room interior, mirror edge, curtain textures, fashion try-on atmosphere, intimate retail lighting",
+        "desc": "很適合時裝、穿搭與社群企劃，鏡面與布簾能增加生活感。"
+      },
+      {
+        "zh": "室內：電梯內",
+        "en": "elevator interior, reflective metal panels, button lights, mirror-selfie atmosphere, urban social snapshot",
+        "desc": "現代社群感強，適合自拍、時裝隨拍與都會情境。"
+      },
+      {
+        "zh": "室內：復古美式 Diner",
+        "en": "retro American diner booth, red leather seating, chrome details, jukebox glow, 1950s atmosphere",
+        "desc": "50 年代復古風，色彩鮮豔、辨識度高，適合社群與時裝拍攝。"
+      },
+      {
+        "zh": "室內：木造圖書館閱讀桌旁",
+        "en": "historic library reading table, aged wood grain, desk lamp, dusty sunbeams, quiet academic stillness",
+        "desc": "木桌與閱讀燈形成的安靜局部場景，適合敘事與沉靜人像。"
+      },
+      {
+        "zh": "室內：木造圖書館木窗邊",
+        "en": "historic library window corner, wooden frame, book stacks, soft light beams, calm literary atmosphere",
+        "desc": "靠近老窗與木框的閱讀角落，適合文藝與自然光人像。"
+      },
+      {
+        "zh": "室內：木造圖書館書車旁",
+        "en": "historic library book cart, stacked books, worn carpet, wood floor, intimate archive mood",
+        "desc": "推車與書堆組成的使用痕跡，讓場景更像人物可依附的局部環境。"
+      },
+      {
+        "zh": "室內：木造圖書館借書台前",
+        "en": "historic library check-out desk, card catalog drawers, stamped paper details, soft wood glow, archival atmosphere",
+        "desc": "舊式借書櫃台與木質細節為主的空間，適合近距離敘事人像。"
+      },
+      {
+        "zh": "室內：洗衣店洗衣機門前",
+        "en": "laundromat washer-door detail, chrome reflections, fluorescent light, sticker-covered surfaces, urban solitude",
+        "desc": "人物靠近洗衣機門與反光金屬表面的場景，局部感更強。"
+      },
+      {
+        "zh": "室內：洗衣店摺衣台旁",
+        "en": "laundromat folding table, scattered clothes, plastic basket, detergent bottle, fluorescent glow",
+        "desc": "摺衣台與散落衣物形成生活感，適合社群與隨拍式構圖。"
+      },
+      {
+        "zh": "室內：洗衣店洗劑貨架前",
+        "en": "laundromat detergent shelf, plastic bottles, price labels, cool fluorescent light, intimate retail texture",
+        "desc": "貨架與瓶罐作為局部背景，生活感更強，也不容易跑成兩排洗衣機。"
+      },
+      {
+        "zh": "室內：洗衣店角落塑膠椅旁",
+        "en": "laundromat waiting corner, plastic chair, wall stickers, loose clothing, machine reflections, lonely night mood",
+        "desc": "封閉一角的等待感與孤獨感，適合貼近人物的局部夜景。"
+      },
+      {
+        "zh": "室內：宮廷音樂廳 / 歌劇院",
+        "en": "opulent opera house interior, chandelier glow, velvet textures, ornate balconies, grand classical atmosphere",
+        "desc": "奢華大型室內空間，適合正式服裝與古典敘事。"
+      },
+      {
+        "zh": "室內：狹小都會旅館房間",
+        "en": "small urban hotel room, compact bedding, dim practical lights, close interior details, enclosed intimate atmosphere",
+        "desc": "保留侷促與親密感，但比膠囊旅館更適合人像與寫真構圖。"
+      }
+    ],
+    "地下與廢墟風格 (Abandoned & Underground)": [
+      {
+        "zh": "室內：廢棄水泥工廠破碎輸送帶區",
+        "en": "abandoned conveyor-belt zone, broken machinery, gravel, cement dust, metal supports, harsh industrial decay",
+        "desc": "廢棄輸送設備周圍的工業場景，質地粗獷，適合重工業與邊緣感人像。"
+      },
+      {
+        "zh": "室內：廢棄水泥工廠生鏽控制室",
+        "en": "rusted control room, industrial panels, broken glass, dust-covered dials, enclosed machinery atmosphere",
+        "desc": "小型控制空間，帶有老工業設備與儀表，適合中近景人像。"
+      },
+      {
+        "zh": "室內：廢棄水泥工廠攪拌槽旁",
+        "en": "cement-mixer tank area, concrete dust, iron ladder, rust stains, heavy industrial shadows",
+        "desc": "靠近大型槽體與厚重混凝土結構的區域，帶有強烈壓迫感。"
+      },
+      {
+        "zh": "室內：廢棄水泥工廠機具堆放區",
+        "en": "abandoned machinery pile, heavy parts, chains, metal sheets, dusty industrial clutter",
+        "desc": "大量廢棄零件與重機散落的角落，適合雜亂工業感人像。"
+      },
+      {
+        "zh": "室內：地下排洪道積水牆角",
+        "en": "flood-tunnel damp corner, pooled water, concrete wall stains, reflected light, humid subterranean air",
+        "desc": "潮濕陰暗的地下角落，牆面積水反光，適合壓迫感與低調人像。"
+      },
+      {
+        "zh": "室內：地下排洪道排水閘門旁",
+        "en": "drainage gate zone, rusted metal structure, wet ground, exposed pipes, harsh underground utility mood",
+        "desc": "靠近閘門與金屬結構的地下區域，工業感強。"
+      },
+      {
+        "zh": "室內：地下排洪道機房通道口",
+        "en": "underground machine-room entrance, heavy steel door, pipework, electrical box, cold damp concrete",
+        "desc": "像機房入口的混凝土地下空間，偏機械與壓迫感。"
+      },
+      {
+        "zh": "室內：廢棄手術室",
+        "en": "abandoned operating room, broken surgical table, metal tray, medicine bottles, cold fluorescent light, peeling walls",
+        "desc": "荒廢已久的手術室，帶有醫療器具與冷白燈，適合不安與冷調人像。"
+      },
+      {
+        "zh": "室內：廢棄病房",
+        "en": "abandoned hospital ward, old bed frame, hanging curtain, medicine cabinet, weak cold light, worn tiles",
+        "desc": "舊病床與醫療設備散落的病房，適合帶有敘事感的醫療廢墟畫面。"
+      },
+      {
+        "zh": "室內：廢棄藥品室",
+        "en": "abandoned medicine storage room, glass bottles, metal cabinet, medicine jars, dust, cold utility light",
+        "desc": "小型封閉藥品空間，擺滿玻璃瓶與醫療罐，適合近距離壓迫感人像。"
+      },
+      {
+        "zh": "室內：廢棄診療室",
+        "en": "abandoned examination room, medical bed, instrument cart, desk lamp, scattered records, clinical decay",
+        "desc": "破舊診療空間，桌椅和器材留有使用痕跡，適合中近景敘事人像。"
+      },
+      {
+        "zh": "室內：廢棄校舍散亂課桌教室",
+        "en": "abandoned classroom, scattered desks, chalkboard, torn papers, broken windows, dusty side light",
+        "desc": "課桌椅凌亂散落的老教室，帶青春殘影與衰敗感。"
+      },
+      {
+        "zh": "室內：廢棄校舍破窗音樂教室",
+        "en": "abandoned music room, old piano, music stand, broken windows, dust, wooden floor",
+        "desc": "樂器殘留與破窗共存的教室，空氣感與情緒感都很強。"
+      },
+      {
+        "zh": "室內：廢棄校舍保健室",
+        "en": "abandoned infirmary room, medicine box, curtain, white metal cabinet, old bed, clinical school decay",
+        "desc": "偏私密的小空間，適合人物和道具同框。"
+      },
+      {
+        "zh": "室內：廢棄校舍體育器材室",
+        "en": "abandoned equipment room, vaulting box, gym mats, ball rack, dust, old wooden door",
+        "desc": "器材堆放雜亂、封閉感較強的空間，適合近距離衰敗人像。"
+      },
+      {
+        "zh": "室內：地下狂歡俱樂部 / 金庫",
+        "en": "underground rave bunker, lasers through smoke, metallic surfaces, bass-heavy atmosphere, dark club energy",
+        "desc": "地牢般俱樂部空間依舊保留，適合強烈夜拍、霓虹與迷幻主題。"
+      },
+      {
+        "zh": "室內：遭洗劫的維多利亞大宅",
+        "en": "ruined Victorian mansion interior, torn wallpaper, broken chandelier glow, haunted decay, aristocratic ruin mood",
+        "desc": "曾經華麗但現已破敗不堪，適合哥德衰敗與古典殘骸場景。"
+      },
+      {
+        "zh": "室內：廢棄商場停用手扶梯旁",
+        "en": "abandoned mall escalator corner, broken signage, dusty tiles, dead retail lighting, empty commerce decay",
+        "desc": "靠近停用手扶梯的商場角落，帶文明停擺感。"
+      },
+      {
+        "zh": "室內：廢棄商場破損櫥窗前",
+        "en": "abandoned storefront window, damaged mannequins, broken glass, dead shop lights, dusty retail interior",
+        "desc": "廢棄店面櫥窗與玻璃殘骸構成的局部場景，適合冷調與時裝人像。"
+      },
+      {
+        "zh": "室內：廢棄商場空置美食街角落",
+        "en": "abandoned food-court corner, plastic tables, empty counter, menu board remnants, tile reflections, retail silence",
+        "desc": "有桌椅與招牌殘留的商場餐飲區，適合帶生活遺跡感的人像。"
+      },
+      {
+        "zh": "室內：廢棄商場服務台殘骸",
+        "en": "abandoned service desk, fallen signage, scattered papers, glass fragments, dim retail glow, collapsed mall detail",
+        "desc": "服務台周圍的破敗區域，適合中近景人像與文明停擺感。"
+      },
+      {
+        "zh": "戶外：雜草叢生的廢棄公園",
+        "en": "abandoned overgrown park, cracked pavement textures, rusted play structures, quiet urban decay, neglected outdoor mood",
+        "desc": "比遊樂園更貼近日常遺跡感，荒廢與雜草交錯，適合孤獨與末日感主題。"
+      },
+      {
+        "zh": "戶外：滿佈塗鴉的火車調車場",
+        "en": "graffiti-covered train yard, rusty metal textures, spray-painted surfaces, rebellious urban decay, street subculture mood",
+        "desc": "生鏽車廂與強烈塗鴉形成明顯次文化氛圍，適合街頭與叛逆主題。"
+      },
+      {
+        "zh": "戶外：高樓建築骨架裸露混凝土地板",
+        "en": "exposed high-rise floor slab, rebar, construction debris, wind-swept height, distant city backdrop",
+        "desc": "裸露樓層地板與城市高空感，適合末世與都會廢墟主題。"
+      },
+      {
+        "zh": "戶外：高樓建築骨架施工鷹架旁",
+        "en": "construction scaffolding zone, steel pipes, dusty tarp, raw building materials, unfinished high-rise atmosphere",
+        "desc": "鷹架與工地結構形成的粗糙空間，適合工地末世感人像。"
+      },
+      {
+        "zh": "戶外：高樓建築骨架開放樓層邊緣",
+        "en": "open high-rise floor edge, exposed beams, concrete lip, wind, distant city haze, precarious ruin mood",
+        "desc": "開放樓層邊緣與城市景色交會的位置，帶有高處與風感。"
+      },
+      {
+        "zh": "戶外：高樓建築骨架建材堆放角落",
+        "en": "construction-material corner, stacked boards, cement bags, tool box, dust, unfinished structure detail",
+        "desc": "堆滿板材與工具的局部區域，雜亂感強，適合中近景工地人像。"
       }
     ],
     "城市與社群感 (Urban & Social Snapshots)": [
@@ -1329,93 +1603,6 @@
         "desc": "靠近窗台與牆面拍攝，保留歐洲夜晚氛圍但不形成大道視角。"
       }
     ],
-    "生活感室內 (Indoor & Lifestyle)": [
-      {
-        "zh": "室內：精品飯店房間",
-        "en": "boutique hotel room, warm bedside lamps, crisp bedding, elegant interior details, editorial travel mood",
-        "desc": "高級但不過度奢華的飯店房間，適合寫真、時裝與成熟人像。"
-      },
-      {
-        "zh": "室內：現代高樓公寓客廳",
-        "en": "modern high-rise apartment interior, window glow, clean designer furniture, soft city backdrop, contemporary lifestyle mood",
-        "desc": "現代都會感強，適合 lifestyle 與社群感拍攝。"
-      },
-      {
-        "zh": "室內：臥室窗邊",
-        "en": "bedroom window area, soft daylight spill, linen textures, intimate photobook atmosphere, quiet interior",
-        "desc": "臨窗空間帶有柔和自然光，很適合寫真集與生活感人像。"
-      },
-      {
-        "zh": "室內：浴室鏡前 / 洗手台",
-        "en": "bathroom vanity scene, sink counter details, reflective surfaces, soft indoor glow, modern lifestyle snapshot",
-        "desc": "具有很強的手機隨拍與社群感，也適合妝髮與穿搭展示。"
-      },
-      {
-        "zh": "室內：更衣室 / 試衣間",
-        "en": "fitting room interior, mirror edge, curtain textures, fashion try-on atmosphere, intimate retail lighting",
-        "desc": "很適合時裝、穿搭與社群企劃，鏡面與布簾能增加生活感。"
-      },
-      {
-        "zh": "室內：電梯內",
-        "en": "elevator interior, reflective metal panels, button lights, mirror-selfie atmosphere, urban social snapshot",
-        "desc": "現代社群感強，適合自拍、時裝隨拍與都會情境。"
-      },
-      {
-        "zh": "室內：復古美式 Diner",
-        "en": "retro American diner booth, red leather seating, chrome details, jukebox glow, 1950s atmosphere",
-        "desc": "50 年代復古風，色彩鮮豔、辨識度高，適合社群與時裝拍攝。"
-      },
-      {
-        "zh": "室內：木造圖書館閱讀桌旁",
-        "en": "historic library reading table, aged wood grain, desk lamp, dusty sunbeams, quiet academic stillness",
-        "desc": "木桌與閱讀燈形成的安靜局部場景，適合敘事與沉靜人像。"
-      },
-      {
-        "zh": "室內：木造圖書館木窗邊",
-        "en": "historic library window corner, wooden frame, book stacks, soft light beams, calm literary atmosphere",
-        "desc": "靠近老窗與木框的閱讀角落，適合文藝與自然光人像。"
-      },
-      {
-        "zh": "室內：木造圖書館書車旁",
-        "en": "historic library book cart, stacked books, worn carpet, wood floor, intimate archive mood",
-        "desc": "推車與書堆組成的使用痕跡，讓場景更像人物可依附的局部環境。"
-      },
-      {
-        "zh": "室內：木造圖書館借書台前",
-        "en": "historic library check-out desk, card catalog drawers, stamped paper details, soft wood glow, archival atmosphere",
-        "desc": "舊式借書櫃台與木質細節為主的空間，適合近距離敘事人像。"
-      },
-      {
-        "zh": "室內：洗衣店洗衣機門前",
-        "en": "laundromat washer-door detail, chrome reflections, fluorescent light, sticker-covered surfaces, urban solitude",
-        "desc": "人物靠近洗衣機門與反光金屬表面的場景，局部感更強。"
-      },
-      {
-        "zh": "室內：洗衣店摺衣台旁",
-        "en": "laundromat folding table, scattered clothes, plastic basket, detergent bottle, fluorescent glow",
-        "desc": "摺衣台與散落衣物形成生活感，適合社群與隨拍式構圖。"
-      },
-      {
-        "zh": "室內：洗衣店洗劑貨架前",
-        "en": "laundromat detergent shelf, plastic bottles, price labels, cool fluorescent light, intimate retail texture",
-        "desc": "貨架與瓶罐作為局部背景，生活感更強，也不容易跑成兩排洗衣機。"
-      },
-      {
-        "zh": "室內：洗衣店角落塑膠椅旁",
-        "en": "laundromat waiting corner, plastic chair, wall stickers, loose clothing, machine reflections, lonely night mood",
-        "desc": "封閉一角的等待感與孤獨感，適合貼近人物的局部夜景。"
-      },
-      {
-        "zh": "室內：宮廷音樂廳 / 歌劇院",
-        "en": "opulent opera house interior, chandelier glow, velvet textures, ornate balconies, grand classical atmosphere",
-        "desc": "奢華大型室內空間，適合正式服裝與古典敘事。"
-      },
-      {
-        "zh": "室內：狹小都會旅館房間",
-        "en": "small urban hotel room, compact bedding, dim practical lights, close interior details, enclosed intimate atmosphere",
-        "desc": "保留侷促與親密感，但比膠囊旅館更適合人像與寫真構圖。"
-      }
-    ],
     "自然與戶外 (Nature & Outdoors)": [
       {
         "zh": "戶外：金色海灘與浪線",
@@ -1451,143 +1638,6 @@
         "zh": "戶外：沙丘與風痕地景",
         "en": "sand dune textures, wind-shaped patterns, minimal desert mood, harsh sunlight, sculptural landscape detail",
         "desc": "保留極簡沙丘場景，但聚焦在人像可用的線條與光影。"
-      }
-    ],
-    "地下與廢墟風格 (Abandoned & Underground)": [
-      {
-        "zh": "室內：廢棄水泥工廠破碎輸送帶區",
-        "en": "abandoned conveyor-belt zone, broken machinery, gravel, cement dust, metal supports, harsh industrial decay",
-        "desc": "廢棄輸送設備周圍的工業場景，質地粗獷，適合重工業與邊緣感人像。"
-      },
-      {
-        "zh": "室內：廢棄水泥工廠生鏽控制室",
-        "en": "rusted control room, industrial panels, broken glass, dust-covered dials, enclosed machinery atmosphere",
-        "desc": "小型控制空間，帶有老工業設備與儀表，適合中近景人像。"
-      },
-      {
-        "zh": "室內：廢棄水泥工廠攪拌槽旁",
-        "en": "cement-mixer tank area, concrete dust, iron ladder, rust stains, heavy industrial shadows",
-        "desc": "靠近大型槽體與厚重混凝土結構的區域，帶有強烈壓迫感。"
-      },
-      {
-        "zh": "室內：廢棄水泥工廠機具堆放區",
-        "en": "abandoned machinery pile, heavy parts, chains, metal sheets, dusty industrial clutter",
-        "desc": "大量廢棄零件與重機散落的角落，適合雜亂工業感人像。"
-      },
-      {
-        "zh": "室內：地下排洪道積水牆角",
-        "en": "flood-tunnel damp corner, pooled water, concrete wall stains, reflected light, humid subterranean air",
-        "desc": "潮濕陰暗的地下角落，牆面積水反光，適合壓迫感與低調人像。"
-      },
-      {
-        "zh": "室內：地下排洪道排水閘門旁",
-        "en": "drainage gate zone, rusted metal structure, wet ground, exposed pipes, harsh underground utility mood",
-        "desc": "靠近閘門與金屬結構的地下區域，工業感強。"
-      },
-      {
-        "zh": "室內：地下排洪道機房通道口",
-        "en": "underground machine-room entrance, heavy steel door, pipework, electrical box, cold damp concrete",
-        "desc": "像機房入口的混凝土地下空間，偏機械與壓迫感。"
-      },
-      {
-        "zh": "室內：廢棄手術室",
-        "en": "abandoned operating room, broken surgical table, metal tray, medicine bottles, cold fluorescent light, peeling walls",
-        "desc": "荒廢已久的手術室，帶有醫療器具與冷白燈，適合不安與冷調人像。"
-      },
-      {
-        "zh": "室內：廢棄病房",
-        "en": "abandoned hospital ward, old bed frame, hanging curtain, medicine cabinet, weak cold light, worn tiles",
-        "desc": "舊病床與醫療設備散落的病房，適合帶有敘事感的醫療廢墟畫面。"
-      },
-      {
-        "zh": "室內：廢棄藥品室",
-        "en": "abandoned medicine storage room, glass bottles, metal cabinet, medicine jars, dust, cold utility light",
-        "desc": "小型封閉藥品空間，擺滿玻璃瓶與醫療罐，適合近距離壓迫感人像。"
-      },
-      {
-        "zh": "室內：廢棄診療室",
-        "en": "abandoned examination room, medical bed, instrument cart, desk lamp, scattered records, clinical decay",
-        "desc": "破舊診療空間，桌椅和器材留有使用痕跡，適合中近景敘事人像。"
-      },
-      {
-        "zh": "室內：廢棄校舍散亂課桌教室",
-        "en": "abandoned classroom, scattered desks, chalkboard, torn papers, broken windows, dusty side light",
-        "desc": "課桌椅凌亂散落的老教室，帶青春殘影與衰敗感。"
-      },
-      {
-        "zh": "室內：廢棄校舍破窗音樂教室",
-        "en": "abandoned music room, old piano, music stand, broken windows, dust, wooden floor",
-        "desc": "樂器殘留與破窗共存的教室，空氣感與情緒感都很強。"
-      },
-      {
-        "zh": "室內：廢棄校舍保健室",
-        "en": "abandoned infirmary room, medicine box, curtain, white metal cabinet, old bed, clinical school decay",
-        "desc": "偏私密的小空間，適合人物和道具同框。"
-      },
-      {
-        "zh": "室內：廢棄校舍體育器材室",
-        "en": "abandoned equipment room, vaulting box, gym mats, ball rack, dust, old wooden door",
-        "desc": "器材堆放雜亂、封閉感較強的空間，適合近距離衰敗人像。"
-      },
-      {
-        "zh": "室內：地下狂歡俱樂部 / 金庫",
-        "en": "underground rave bunker, lasers through smoke, metallic surfaces, bass-heavy atmosphere, dark club energy",
-        "desc": "地牢般俱樂部空間依舊保留，適合強烈夜拍、霓虹與迷幻主題。"
-      },
-      {
-        "zh": "室內：遭洗劫的維多利亞大宅",
-        "en": "ruined Victorian mansion interior, torn wallpaper, broken chandelier glow, haunted decay, aristocratic ruin mood",
-        "desc": "曾經華麗但現已破敗不堪，適合哥德衰敗與古典殘骸場景。"
-      },
-      {
-        "zh": "室內：廢棄商場停用手扶梯旁",
-        "en": "abandoned mall escalator corner, broken signage, dusty tiles, dead retail lighting, empty commerce decay",
-        "desc": "靠近停用手扶梯的商場角落，帶文明停擺感。"
-      },
-      {
-        "zh": "室內：廢棄商場破損櫥窗前",
-        "en": "abandoned storefront window, damaged mannequins, broken glass, dead shop lights, dusty retail interior",
-        "desc": "廢棄店面櫥窗與玻璃殘骸構成的局部場景，適合冷調與時裝人像。"
-      },
-      {
-        "zh": "室內：廢棄商場空置美食街角落",
-        "en": "abandoned food-court corner, plastic tables, empty counter, menu board remnants, tile reflections, retail silence",
-        "desc": "有桌椅與招牌殘留的商場餐飲區，適合帶生活遺跡感的人像。"
-      },
-      {
-        "zh": "室內：廢棄商場服務台殘骸",
-        "en": "abandoned service desk, fallen signage, scattered papers, glass fragments, dim retail glow, collapsed mall detail",
-        "desc": "服務台周圍的破敗區域，適合中近景人像與文明停擺感。"
-      },
-      {
-        "zh": "戶外：雜草叢生的廢棄公園",
-        "en": "abandoned overgrown park, cracked pavement textures, rusted play structures, quiet urban decay, neglected outdoor mood",
-        "desc": "比遊樂園更貼近日常遺跡感，荒廢與雜草交錯，適合孤獨與末日感主題。"
-      },
-      {
-        "zh": "戶外：滿佈塗鴉的火車調車場",
-        "en": "graffiti-covered train yard, rusty metal textures, spray-painted surfaces, rebellious urban decay, street subculture mood",
-        "desc": "生鏽車廂與強烈塗鴉形成明顯次文化氛圍，適合街頭與叛逆主題。"
-      },
-      {
-        "zh": "戶外：高樓建築骨架裸露混凝土地板",
-        "en": "exposed high-rise floor slab, rebar, construction debris, wind-swept height, distant city backdrop",
-        "desc": "裸露樓層地板與城市高空感，適合末世與都會廢墟主題。"
-      },
-      {
-        "zh": "戶外：高樓建築骨架施工鷹架旁",
-        "en": "construction scaffolding zone, steel pipes, dusty tarp, raw building materials, unfinished high-rise atmosphere",
-        "desc": "鷹架與工地結構形成的粗糙空間，適合工地末世感人像。"
-      },
-      {
-        "zh": "戶外：高樓建築骨架開放樓層邊緣",
-        "en": "open high-rise floor edge, exposed beams, concrete lip, wind, distant city haze, precarious ruin mood",
-        "desc": "開放樓層邊緣與城市景色交會的位置，帶有高處與風感。"
-      },
-      {
-        "zh": "戶外：高樓建築骨架建材堆放角落",
-        "en": "construction-material corner, stacked boards, cement bags, tool box, dust, unfinished structure detail",
-        "desc": "堆滿板材與工具的局部區域，雜亂感強，適合中近景工地人像。"
       }
     ]
   },

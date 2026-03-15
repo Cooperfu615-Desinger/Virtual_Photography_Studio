@@ -400,19 +400,40 @@ function inferLightingMeta(category, item) {
   if (hasAny(haystack, ['bright airy backlight', 'soft side light', 'soft frontal light'])) {
     tags.push('soft_light', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
   }
+  if (hasAny(haystack, ['loop lighting', 'clamshell lighting'])) {
+    tags.push('portrait_light', 'artificial_light', 'supports_indoor');
+  }
+  if (hasAny(haystack, ['three-quarter backlight', 'silhouette backlight', 'volumetric light'])) {
+    tags.push('backlight');
+  }
+  if (hasAny(haystack, ['soft window side light'])) {
+    tags.push('window_light', 'soft_light', 'natural_light', 'indoor', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+  }
+  if (hasAny(haystack, ['bounce fill light', 'upward reflected light', 'bounce / upfill'])) {
+    tags.push('soft_light', 'portrait_light', 'supports_indoor', 'supports_outdoor');
+  }
+  if (hasAny(haystack, ['practical motivated side light', 'lamp-lit side illumination'])) {
+    tags.push('artificial_light', 'supports_indoor', 'supports_commercial', 'supports_urban');
+  }
+  if (hasAny(haystack, ['dappled light', 'broken sunlight through leaves'])) {
+    tags.push('natural_light', 'supports_outdoor', 'supports_natural', 'supports_urban');
+  }
+  if (hasAny(haystack, ['volumetric light', 'visible light rays through haze'])) {
+    tags.push('dramatic', 'supports_indoor', 'supports_outdoor');
+  }
   if (hasAny(haystack, ['rim light', 'backlit'])) tags.push('backlight');
   if (hasAny(haystack, ['butterfly', 'rembrandt'])) tags.push('portrait_light', 'artificial_light');
   if (hasAny(haystack, ['split lighting'])) tags.push('portrait_light');
   if (hasAny(haystack, ['top lighting'])) tags.push('overhead');
 
   if (isDirectionCategory) {
-    if (hasAny(haystack, ['rembrandt', 'butterfly', 'window / blind slits', 'window light'])) {
+    if (hasAny(haystack, ['rembrandt', 'butterfly', 'loop lighting', 'clamshell lighting', 'window / blind slits', 'window light', 'soft window side light', 'practical motivated side light'])) {
       tags.push('supports_indoor');
     }
-    if (hasAny(haystack, ['split lighting', 'rim light', 'backlit', 'top lighting'])) {
+    if (hasAny(haystack, ['split lighting', 'rim light', 'backlit', 'top lighting', 'three-quarter backlight', 'silhouette backlight', 'dappled light', 'volumetric light', 'bounce fill light'])) {
       tags.push('supports_outdoor');
     }
-    if (hasAny(haystack, ['split lighting', 'rim light', 'backlit', 'top lighting'])) {
+    if (hasAny(haystack, ['split lighting', 'rim light', 'backlit', 'top lighting', 'three-quarter backlight', 'silhouette backlight', 'bounce fill light', 'volumetric light'])) {
       tags.push('supports_indoor');
     }
   }
