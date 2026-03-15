@@ -5,100 +5,100 @@
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺氛圍與空間感 (Visual & Spatial Context) |
 | :--- | :--- | :--- | :--- |
 | **攝影棚與背景 (Studio Sets)** | 全無 | `none` | 不指定場景，讓模型自行決定背景環境與空間佈局。 |
-| **攝影棚與背景 (Studio Sets)** | 鏡面地板攝影棚 | `mirror floor studio, glossy reflective surface, controlled studio reflections, futuristic editorial mood` | 地面具有鏡面反射，能增加造型與燈光的延伸感，適合時裝大片。 |
-| **攝影棚與背景 (Studio Sets)** | 純潔白幕 | `infinite white background, seamless paper roll, isolated subject, commercial white` | 商業感極強，人物彷彿漂浮在純白無垠空間中。 |
-| **攝影棚與背景 (Studio Sets)** | 深邃黑幕 | `pitch black background, pure dark void, zero ambient light, dramatic isolation` | 絕對黑暗，能將所有注意力集中在被光照到的主體上。 |
-| **攝影棚與背景 (Studio Sets)** | 莫蘭迪灰背景 | `medium grey seamless backdrop, neutral tone, subtle texture, clean studio setting` | 最不會干擾膚色的中性灰背景，穩定且高級。 |
-| **攝影棚與背景 (Studio Sets)** | 鮮豔撞色背景 | `vibrant solid color backdrop, bold color contrast, pop-art studio mood, clean isolated subject` | 高飽和單色背景，適合社群感、Y2K、普普與流行企劃。 |
-| **攝影棚與背景 (Studio Sets)** | 漸層打光背景 | `gradient-lit backdrop, subtle halo glow behind the subject, soft studio falloff, cover-shoot atmosphere` | 利用燈光打出背景漸層光斑，能提升人物立體感與封面感。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 澀谷站前廣場人潮邊緣 | `Shibuya Station front plaza edge, dense pedestrian flow, layered commercial towers, plaza paving, Hachiko-side meeting point` | 聚焦在澀谷站前廣場的人潮邊緣地帶，保留高密度都市節奏與大型建築量體，適合人物置身人流中的街拍構圖。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 八公銅像旁行人區 | `Hachiko statue pedestrian zone, low plaza barriers, waiting crowd, station frontage, compressed public square detail` | 以八公銅像旁的行人等待區為核心，帶有澀谷特有的集合感與廣場壓縮感，適合中近景城市人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 澀谷站前大型看板下穿越口 | `Shibuya crossing entrance under giant billboards, crosswalk markings, station-side tower facades, heavy foot traffic, urban commercial density` | 人物位於大型看板下方的穿越口邊緣，兼具地標辨識度與高流量城市節奏，但不會跑成過遠的大全景。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 九龍城寨內部狹窄走道 | `Kowloon Walled City interior alley, narrow passage, damp walls, exposed wiring, stacked signboards, cramped layered density` | 狹窄、潮濕、壓迫感強的城寨內部巷弄，牆面與電線非常貼近人物，適合強烈敘事與壓縮空間感的人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 九龍城寨雜貨店門口 | `Kowloon Walled City grocery storefront, narrow shop entrance, stacked goods, hanging signs, damp concrete, exposed cable clutter` | 以雜貨店門口為主體的城寨場景，帶有生活痕跡、店面堆疊與狹窄動線，適合貼近人物的日常廢墟感。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 九龍城寨電器行外牆與管線 | `Kowloon Walled City appliance shop wall, exposed conduits, old electrical boxes, peeling tiles, hanging shop signs, compressed alley edge` | 電器行外牆與大量外露管線構成強烈辨識度，適合邊緣都會感與高細節背景。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 九龍城寨樓梯井與鐵窗 | `Kowloon Walled City stairwell shaft, iron window grilles, damp stair rail, tiled wall stains, narrow vertical interior` | 樓梯井、鐵窗與斑駁牆面形成垂直壓縮的室內空間，適合中近景與封閉感很強的人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 興記煲仔飯店門口騎樓區 | `Hing Kee claypot rice storefront, tiled pavement arcade, restaurant signboard, crowded entrance zone, compact Temple Street streetside` | 以興記煲仔飯店門口與騎樓區為核心，保留廟街辨識度但聚焦人物可拍的入口空間。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 興記煲仔飯店內桌椅區 | `Hing Kee claypot rice interior seating, compact tables, tiled walls, busy restaurant layout, narrow dining aisle` | 店內桌椅與狹窄走道構成貼近人物的餐館空間，適合生活感與高密度香港小吃店場景。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 廟街小吃店外桌邊角落 | `Temple Street eatery sidewalk tables, plastic stools, tiled storefront edge, stacked utensils, dense curbside dining detail` | 以小吃店外桌與店面邊角為主，不強調整條夜市，而是人物實際會靠近拍攝的局部餐飲空間。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 孚日廣場拱廊下 | `Place des Vosges arcade walkway, brick arch rhythm, stone floor, recessed residential entrances, refined Parisian symmetry` | 拱廊下的長廊與住宅入口帶有明確的巴黎辨識度，適合成熟、安靜且帶高級住宅氣質的人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 孚日廣場草地邊與紅磚立面 | `Place des Vosges lawn edge, clipped grass border, red-brick facades, shuttered windows, elegant residential square atmosphere` | 廣場草地邊緣與紅磚住宅立面形成開闊但不空洞的空間，適合法式住宅感與中遠景人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 瑪黑區高級住宅門前石牆 | `Le Marais upscale residence entrance, stone doorway, wrought-iron detail, polished wall texture, quiet luxury residential frontage` | 以高級住宅入口與石牆質地為主，保留瑪黑區的成熟精品氣質，但更偏住宅而非商店街。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 曼哈頓精品櫥窗前人行道 | `Manhattan fashion storefront sidewalk, large display window, polished glass, curbside edge, dense avenue reflections` | 人物站在精品櫥窗前的人行道邊，櫥窗是主體，適合都會時裝與高級街拍。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 曼哈頓街角玻璃反射牆面 | `Manhattan corner glass facade, reflective storefront wall, taxi reflections, steam plumes mirrored in glass, tower reflections layered behind` | 玻璃牆面的多層倒影是重點，能把計程車、蒸氣與高樓壓進同一個背景平面。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 曼哈頓店面轉角櫥窗邊 | `Manhattan corner display window, angled storefront glass, crosswalk edge, reflected avenue traffic, polished commercial facade` | 店面轉角與斜切玻璃櫥窗讓構圖更有方向性，適合人物靠牆或站在街角邊緣拍攝。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 塗鴉牆面旁的地鐵月台角落 | `New York subway platform corner, graffiti-covered wall, stained tiles, metal column, gritty waiting-zone detail` | 以月台角落的塗鴉牆、污漬磁磚與金屬柱構成局部背景，適合 edgy、冷感與紀實風人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 無人月台長椅區 | `empty subway bench zone, worn plastic seating, tiled wall panels, platform edge markings, sparse underground transit detail` | 無人長椅區與月台邊線提供安靜又帶壓迫感的構圖，適合孤獨感與都市敘事。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 列車高速進站的月台邊 | `subway platform edge with passing train blur, tiled wall, warning strip, rushing carriage body, compressed underground motion` | 列車高速經過的月台邊更有動勢與壓迫感，適合帶速度感或緊張感的構圖。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 髒污磁磚牆與金屬柱之間 | `dirty subway tile wall, scratched metal column, aged grout lines, narrow standing zone, gritty underground texture` | 聚焦於磁磚牆與金屬柱之間狹窄可站立的局部空間，適合貼近人物的地下都會感背景。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 首爾聖水洞街區 | `Seoul Seongsu-dong urban corner, industrial café frontage, muted concrete textures, trendy contemporary city mood` | 聖水洞結合工業感與潮流店家，適合韓系時裝、生活感與現代城市人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 首爾弘大夜街 | `Seoul Hongdae nightlife, colorful sign glow, youth-culture energy, layered shopfronts, lively snapshot mood` | 弘大街頭更偏年輕、熱鬧與社群感，適合隨拍、街頭風格與流行穿搭。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 台北西門町街頭 | `Taipei Ximending nightlife, bright sign glow, humid urban reflections, dense youth-culture texture, energetic city mood` | 西門町兼具流行文化與台式霓虹街景，適合社群感、隨拍與街頭穿搭。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 洛杉磯日落大道街景 | `Los Angeles Sunset Boulevard atmosphere, palm silhouettes, billboard glow, warm dusk haze, cinematic city mood` | 棕櫚樹、夕陽與大型看板構成經典 LA 都市畫面，適合 lifestyle 與電影感街景。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 新宿歌舞伎町霓虹招牌下 | `Kabukicho neon sign corner, saturated neon glow, wet ground reflections, storefront edge, crowded nightlife tension` | 人物靠近大型霓虹與招牌邊緣，保留歌舞伎町的高張力夜色，但避免整條街的中軸透視。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 新宿歌舞伎町販賣機旁 | `Shinjuku vending machine corner, neon spill, metallic reflections, damp pavement, compact urban night detail` | 販賣機、牆面與反光地面構成局部都市夜景，適合近距離街拍人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 新宿歌舞伎町酒吧門口 | `Kabukicho bar entrance, glowing signboard, damp pavement, doorway shadows, intimate nightlife atmosphere` | 酒吧門口與小型招牌構成局部都市性感感，減少大道式街景。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 新宿歌舞伎町濕地反光角落 | `Kabukicho wet street corner, neon reflections, dark wall edge, layered sign glow, moody night texture` | 街角反光與霓虹混色構成局部夜景，更適合人物貼近場景拍攝。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 蘇荷區酒吧門口 | `Soho pub entrance, warm doorway light, wall textures, wet pavement reflections, intimate nightlife mood` | 人物靠近酒吧入口與暖光門面，保留蘇荷夜生活氣氛，但避免狹長街道感。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 蘇荷區店面櫥窗邊 | `Soho storefront window edge, interior warm glow, reflective glass, damp street texture, stylish urban detail` | 靠近櫥窗與街面反射的局部夜景，強調店面層次而非整條街。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 蘇荷區霓虹招牌下 | `Soho neon sign corner, glowing signage, wall edge, wet ground, layered nightlife reflections` | 人物站在招牌與門面下方，帶有明確夜街辨識度但不強調大道構圖。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 蘇荷區濕地反光街角 | `Soho wet street corner, pub light reflections, turning wall, glossy pavement, stylish night atmosphere` | 街角與濕地反射構成局部夜拍背景，適合街拍與都會時裝人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 法租界老洋房門口 | `French Concession townhouse entrance, old doorway frame, iron railing, tree shadows, refined urban nostalgia` | 靠近老洋房入口與門框的場景，成熟且帶歷史感。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 法租界樹影咖啡窗邊 | `French Concession café window, tree-shadow patterns, warm interior glow, reflective glass, literary city mood` | 咖啡店窗邊與樹影構成的文藝場景，適合成熟、生活感與寫真人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 法租界街角轉角牆面 | `French Concession corner wall, aged brick textures, soft signage glow, tree shadows, intimate street detail` | 轉角牆面與局部街景構成更貼近人物的城市背景。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 法租界鐵欄杆前 | `French Concession iron railing, stone wall, window frame, layered shadows, mature cosmopolitan atmosphere` | 舊式欄杆與牆面形成穩定成熟的都會背景，不容易跑成大道景。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 羅馬老城石牆轉角 | `Rome old-town stone corner, warm wall texture, cobblestone ground, soft evening light, romantic urban detail` | 石牆與轉角構成歐洲街拍局部背景，保留浪漫感但避免長巷透視。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 羅馬老城咖啡館外桌旁 | `Rome café terrace edge, warm lamp glow, outdoor chairs, textured stone wall, intimate evening atmosphere` | 戶外桌椅與暖光店面形成生活感，適合文藝與時裝人像。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 羅馬老城老木門前 | `Rome aged wooden door, stone wall texture, iron handle detail, warm shadows, classic old-city mood` | 老木門與牆面紋理主導畫面，適合成熟與敘事型街拍。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 羅馬老城暖光窗台邊 | `Rome warm window ledge, stone wall, café glow, potted plants, romantic evening detail` | 靠近窗台與牆面拍攝，保留歐洲夜晚氛圍但不形成大道視角。 |
-| **生活感室內 (Indoor & Lifestyle)** | 精品飯店房間 | `boutique hotel room, warm bedside lamps, crisp bedding, elegant interior details, editorial travel mood` | 高級但不過度奢華的飯店房間，適合寫真、時裝與成熟人像。 |
-| **生活感室內 (Indoor & Lifestyle)** | 現代高樓公寓客廳 | `modern high-rise apartment interior, window glow, clean designer furniture, soft city backdrop, contemporary lifestyle mood` | 現代都會感強，適合 lifestyle 與社群感拍攝。 |
-| **生活感室內 (Indoor & Lifestyle)** | 臥室窗邊 | `bedroom window area, soft daylight spill, linen textures, intimate photobook atmosphere, quiet interior` | 臨窗空間帶有柔和自然光，很適合寫真集與生活感人像。 |
-| **生活感室內 (Indoor & Lifestyle)** | 浴室鏡前 / 洗手台 | `bathroom vanity scene, sink counter details, reflective surfaces, soft indoor glow, modern lifestyle snapshot` | 具有很強的手機隨拍與社群感，也適合妝髮與穿搭展示。 |
-| **生活感室內 (Indoor & Lifestyle)** | 更衣室 / 試衣間 | `fitting room interior, mirror edge, curtain textures, fashion try-on atmosphere, intimate retail lighting` | 很適合時裝、穿搭與社群企劃，鏡面與布簾能增加生活感。 |
-| **生活感室內 (Indoor & Lifestyle)** | 電梯內 | `elevator interior, reflective metal panels, button lights, mirror-selfie atmosphere, urban social snapshot` | 現代社群感強，適合自拍、時裝隨拍與都會情境。 |
-| **生活感室內 (Indoor & Lifestyle)** | 復古美式 Diner | `retro American diner booth, red leather seating, chrome details, jukebox glow, 1950s atmosphere` | 50 年代復古風，色彩鮮豔、辨識度高，適合社群與時裝拍攝。 |
-| **生活感室內 (Indoor & Lifestyle)** | 木造圖書館閱讀桌旁 | `historic library reading table, aged wood grain, desk lamp, dusty sunbeams, quiet academic stillness` | 木桌與閱讀燈形成的安靜局部場景，適合敘事與沉靜人像。 |
-| **生活感室內 (Indoor & Lifestyle)** | 木造圖書館木窗邊 | `historic library window corner, wooden frame, book stacks, soft light beams, calm literary atmosphere` | 靠近老窗與木框的閱讀角落，適合文藝與自然光人像。 |
-| **生活感室內 (Indoor & Lifestyle)** | 木造圖書館書車旁 | `historic library book cart, stacked books, worn carpet, wood floor, intimate archive mood` | 推車與書堆組成的使用痕跡，讓場景更像人物可依附的局部環境。 |
-| **生活感室內 (Indoor & Lifestyle)** | 木造圖書館借書台前 | `historic library check-out desk, card catalog drawers, stamped paper details, soft wood glow, archival atmosphere` | 舊式借書櫃台與木質細節為主的空間，適合近距離敘事人像。 |
-| **生活感室內 (Indoor & Lifestyle)** | 洗衣店洗衣機門前 | `laundromat washer-door detail, chrome reflections, fluorescent light, sticker-covered surfaces, urban solitude` | 人物靠近洗衣機門與反光金屬表面的場景，局部感更強。 |
-| **生活感室內 (Indoor & Lifestyle)** | 洗衣店摺衣台旁 | `laundromat folding table, scattered clothes, plastic basket, detergent bottle, fluorescent glow` | 摺衣台與散落衣物形成生活感，適合社群與隨拍式構圖。 |
-| **生活感室內 (Indoor & Lifestyle)** | 洗衣店洗劑貨架前 | `laundromat detergent shelf, plastic bottles, price labels, cool fluorescent light, intimate retail texture` | 貨架與瓶罐作為局部背景，生活感更強，也不容易跑成兩排洗衣機。 |
-| **生活感室內 (Indoor & Lifestyle)** | 洗衣店角落塑膠椅旁 | `laundromat waiting corner, plastic chair, wall stickers, loose clothing, machine reflections, lonely night mood` | 封閉一角的等待感與孤獨感，適合貼近人物的局部夜景。 |
-| **生活感室內 (Indoor & Lifestyle)** | 宮廷音樂廳 / 歌劇院 | `opulent opera house interior, chandelier glow, velvet textures, ornate balconies, grand classical atmosphere` | 奢華大型室內空間，適合正式服裝與古典敘事。 |
-| **生活感室內 (Indoor & Lifestyle)** | 狹小都會旅館房間 | `small urban hotel room, compact bedding, dim practical lights, close interior details, enclosed intimate atmosphere` | 保留侷促與親密感，但比膠囊旅館更適合人像與寫真構圖。 |
-| **自然與戶外 (Nature & Outdoors)** | 金色海灘與浪線 | `golden beach edge, foamy shoreline, sunlit sand texture, bright summer air, open seaside mood` | 高頻好用的海邊場景，畫面乾淨開闊，適合寫真、泳裝與陽光人像。 |
-| **自然與戶外 (Nature & Outdoors)** | 陽光草地與樹影 | `sunlit grassy patch, scattered tree shadows, warm daylight, breezy natural portrait mood, gentle outdoor texture` | 比純自然景觀更貼近人像拍攝，容易形成乾淨生活感與輕寫真氛圍。 |
-| **自然與戶外 (Nature & Outdoors)** | 向日葵花田 | `sunflower bloom cluster, bright summer light, vivid yellow petals, cheerful countryside mood, natural color burst` | 高飽和又有夏日辨識度，適合明亮寫真與日系自然風。 |
-| **自然與戶外 (Nature & Outdoors)** | 霧感森林步道 | `foggy forest clearing, soft mist, dark tree textures, muted green tones, quiet mysterious atmosphere` | 將森林收斂成更可拍的人像步道空間，避免過於奇幻但保留神祕感。 |
-| **自然與戶外 (Nature & Outdoors)** | 湖邊木棧道 | `lakeside wooden deck, calm water reflections, soft twilight glow, open natural stillness, quiet outdoor mood` | 湖面與木棧道讓畫面更具構圖感，適合文藝與安靜寫真。 |
-| **自然與戶外 (Nature & Outdoors)** | 夕陽海邊岩岸 | `rocky shoreline at sunset, warm coastal glow, textured stone surfaces, cinematic outdoor portrait mood` | 比平坦沙灘更多層次，適合成熟、電影感與時裝自然場景。 |
-| **自然與戶外 (Nature & Outdoors)** | 沙丘與風痕地景 | `sand dune textures, wind-shaped patterns, minimal desert mood, harsh sunlight, sculptural landscape detail` | 保留極簡沙丘場景，但聚焦在人像可用的線條與光影。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄水泥工廠破碎輸送帶區 | `abandoned conveyor-belt zone, broken machinery, gravel, cement dust, metal supports, harsh industrial decay` | 廢棄輸送設備周圍的工業場景，質地粗獷，適合重工業與邊緣感人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄水泥工廠生鏽控制室 | `rusted control room, industrial panels, broken glass, dust-covered dials, enclosed machinery atmosphere` | 小型控制空間，帶有老工業設備與儀表，適合中近景人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄水泥工廠攪拌槽旁 | `cement-mixer tank area, concrete dust, iron ladder, rust stains, heavy industrial shadows` | 靠近大型槽體與厚重混凝土結構的區域，帶有強烈壓迫感。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄水泥工廠機具堆放區 | `abandoned machinery pile, heavy parts, chains, metal sheets, dusty industrial clutter` | 大量廢棄零件與重機散落的角落，適合雜亂工業感人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 地下排洪道積水牆角 | `flood-tunnel damp corner, pooled water, concrete wall stains, reflected light, humid subterranean air` | 潮濕陰暗的地下角落，牆面積水反光，適合壓迫感與低調人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 地下排洪道排水閘門旁 | `drainage gate zone, rusted metal structure, wet ground, exposed pipes, harsh underground utility mood` | 靠近閘門與金屬結構的地下區域，工業感強。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 地下排洪道機房通道口 | `underground machine-room entrance, heavy steel door, pipework, electrical box, cold damp concrete` | 像機房入口的混凝土地下空間，偏機械與壓迫感。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 雜草叢生的廢棄公園 | `abandoned overgrown park, cracked pavement textures, rusted play structures, quiet urban decay, neglected outdoor mood` | 比遊樂園更貼近日常遺跡感，荒廢與雜草交錯，適合孤獨與末日感主題。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄手術室 | `abandoned operating room, broken surgical table, metal tray, medicine bottles, cold fluorescent light, peeling walls` | 荒廢已久的手術室，帶有醫療器具與冷白燈，適合不安與冷調人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄病房 | `abandoned hospital ward, old bed frame, hanging curtain, medicine cabinet, weak cold light, worn tiles` | 舊病床與醫療設備散落的病房，適合帶有敘事感的醫療廢墟畫面。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄藥品室 | `abandoned medicine storage room, glass bottles, metal cabinet, medicine jars, dust, cold utility light` | 小型封閉藥品空間，擺滿玻璃瓶與醫療罐，適合近距離壓迫感人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄診療室 | `abandoned examination room, medical bed, instrument cart, desk lamp, scattered records, clinical decay` | 破舊診療空間，桌椅和器材留有使用痕跡，適合中近景敘事人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄校舍散亂課桌教室 | `abandoned classroom, scattered desks, chalkboard, torn papers, broken windows, dusty side light` | 課桌椅凌亂散落的老教室，帶青春殘影與衰敗感。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄校舍破窗音樂教室 | `abandoned music room, old piano, music stand, broken windows, dust, wooden floor` | 樂器殘留與破窗共存的教室，空氣感與情緒感都很強。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄校舍保健室 | `abandoned infirmary room, medicine box, curtain, white metal cabinet, old bed, clinical school decay` | 偏私密的小空間，適合人物和道具同框。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄校舍體育器材室 | `abandoned equipment room, vaulting box, gym mats, ball rack, dust, old wooden door` | 器材堆放雜亂、封閉感較強的空間，適合近距離衰敗人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 地下狂歡俱樂部 / 金庫 | `underground rave bunker, lasers through smoke, metallic surfaces, bass-heavy atmosphere, dark club energy` | 地牢般俱樂部空間依舊保留，適合強烈夜拍、霓虹與迷幻主題。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 遭洗劫的維多利亞大宅 | `ruined Victorian mansion interior, torn wallpaper, broken chandelier glow, haunted decay, aristocratic ruin mood` | 曾經華麗但現已破敗不堪，適合哥德衰敗與古典殘骸場景。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 滿佈塗鴉的火車調車場 | `graffiti-covered train yard, rusty metal textures, spray-painted surfaces, rebellious urban decay, street subculture mood` | 生鏽車廂與強烈塗鴉形成明顯次文化氛圍，適合街頭與叛逆主題。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄商場停用手扶梯旁 | `abandoned mall escalator corner, broken signage, dusty tiles, dead retail lighting, empty commerce decay` | 靠近停用手扶梯的商場角落，帶文明停擺感。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄商場破損櫥窗前 | `abandoned storefront window, damaged mannequins, broken glass, dead shop lights, dusty retail interior` | 廢棄店面櫥窗與玻璃殘骸構成的局部場景，適合冷調與時裝人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄商場空置美食街角落 | `abandoned food-court corner, plastic tables, empty counter, menu board remnants, tile reflections, retail silence` | 有桌椅與招牌殘留的商場餐飲區，適合帶生活遺跡感的人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 廢棄商場服務台殘骸 | `abandoned service desk, fallen signage, scattered papers, glass fragments, dim retail glow, collapsed mall detail` | 服務台周圍的破敗區域，適合中近景人像與文明停擺感。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 高樓建築骨架裸露混凝土地板 | `exposed high-rise floor slab, rebar, construction debris, wind-swept height, distant city backdrop` | 裸露樓層地板與城市高空感，適合末世與都會廢墟主題。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 高樓建築骨架施工鷹架旁 | `construction scaffolding zone, steel pipes, dusty tarp, raw building materials, unfinished high-rise atmosphere` | 鷹架與工地結構形成的粗糙空間，適合工地末世感人像。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 高樓建築骨架開放樓層邊緣 | `open high-rise floor edge, exposed beams, concrete lip, wind, distant city haze, precarious ruin mood` | 開放樓層邊緣與城市景色交會的位置，帶有高處與風感。 |
-| **地下與廢墟風格 (Abandoned & Underground)** | 高樓建築骨架建材堆放角落 | `construction-material corner, stacked boards, cement bags, tool box, dust, unfinished structure detail` | 堆滿板材與工具的局部區域，雜亂感強，適合中近景工地人像。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：鏡面地板攝影棚 | `mirror floor studio, glossy reflective surface, controlled studio reflections, futuristic editorial mood` | 地面具有鏡面反射，能增加造型與燈光的延伸感，適合時裝大片。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純潔白幕 | `infinite white background, seamless paper roll, isolated subject, commercial white` | 商業感極強，人物彷彿漂浮在純白無垠空間中。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：深邃黑幕 | `pitch black background, pure dark void, zero ambient light, dramatic isolation` | 絕對黑暗，能將所有注意力集中在被光照到的主體上。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：莫蘭迪灰背景 | `medium grey seamless backdrop, neutral tone, subtle texture, clean studio setting` | 最不會干擾膚色的中性灰背景，穩定且高級。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：鮮豔撞色背景 | `vibrant solid color backdrop, bold color contrast, pop-art studio mood, clean isolated subject` | 高飽和單色背景，適合社群感、Y2K、普普與流行企劃。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：漸層打光背景 | `gradient-lit backdrop, subtle halo glow behind the subject, soft studio falloff, cover-shoot atmosphere` | 利用燈光打出背景漸層光斑，能提升人物立體感與封面感。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 室內：九龍城寨內部狹窄走道 | `Kowloon Walled City interior alley, narrow passage, damp walls, exposed wiring, stacked signboards, cramped layered density` | 狹窄、潮濕、壓迫感強的城寨內部巷弄，牆面與電線非常貼近人物，適合強烈敘事與壓縮空間感的人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 室內：九龍城寨樓梯井與鐵窗 | `Kowloon Walled City stairwell shaft, iron window grilles, damp stair rail, tiled wall stains, narrow vertical interior` | 樓梯井、鐵窗與斑駁牆面形成垂直壓縮的室內空間，適合中近景與封閉感很強的人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 室內：興記煲仔飯店內桌椅區 | `Hing Kee claypot rice interior seating, compact tables, tiled walls, busy restaurant layout, narrow dining aisle` | 店內桌椅與狹窄走道構成貼近人物的餐館空間，適合生活感與高密度香港小吃店場景。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 室內：塗鴉牆面旁的地鐵月台角落 | `New York subway platform corner, graffiti-covered wall, stained tiles, metal column, gritty waiting-zone detail` | 以月台角落的塗鴉牆、污漬磁磚與金屬柱構成局部背景，適合 edgy、冷感與紀實風人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 室內：無人月台長椅區 | `empty subway bench zone, worn plastic seating, tiled wall panels, platform edge markings, sparse underground transit detail` | 無人長椅區與月台邊線提供安靜又帶壓迫感的構圖，適合孤獨感與都市敘事。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 室內：列車高速進站的月台邊 | `subway platform edge with passing train blur, tiled wall, warning strip, rushing carriage body, compressed underground motion` | 列車高速經過的月台邊更有動勢與壓迫感，適合帶速度感或緊張感的構圖。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 室內：髒污磁磚牆與金屬柱之間 | `dirty subway tile wall, scratched metal column, aged grout lines, narrow standing zone, gritty underground texture` | 聚焦於磁磚牆與金屬柱之間狹窄可站立的局部空間，適合貼近人物的地下都會感背景。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：澀谷站前廣場人潮邊緣 | `Shibuya Station front plaza edge, dense pedestrian flow, layered commercial towers, plaza paving, Hachiko-side meeting point` | 聚焦在澀谷站前廣場的人潮邊緣地帶，保留高密度都市節奏與大型建築量體，適合人物置身人流中的街拍構圖。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：八公銅像旁行人區 | `Hachiko statue pedestrian zone, low plaza barriers, waiting crowd, station frontage, compressed public square detail` | 以八公銅像旁的行人等待區為核心，帶有澀谷特有的集合感與廣場壓縮感，適合中近景城市人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：澀谷站前大型看板下穿越口 | `Shibuya crossing entrance under giant billboards, crosswalk markings, station-side tower facades, heavy foot traffic, urban commercial density` | 人物位於大型看板下方的穿越口邊緣，兼具地標辨識度與高流量城市節奏，但不會跑成過遠的大全景。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：九龍城寨雜貨店門口 | `Kowloon Walled City grocery storefront, narrow shop entrance, stacked goods, hanging signs, damp concrete, exposed cable clutter` | 以雜貨店門口為主體的城寨場景，帶有生活痕跡、店面堆疊與狹窄動線，適合貼近人物的日常廢墟感。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：九龍城寨電器行外牆與管線 | `Kowloon Walled City appliance shop wall, exposed conduits, old electrical boxes, peeling tiles, hanging shop signs, compressed alley edge` | 電器行外牆與大量外露管線構成強烈辨識度，適合邊緣都會感與高細節背景。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：興記煲仔飯店門口騎樓區 | `Hing Kee claypot rice storefront, tiled pavement arcade, restaurant signboard, crowded entrance zone, compact Temple Street streetside` | 以興記煲仔飯店門口與騎樓區為核心，保留廟街辨識度但聚焦人物可拍的入口空間。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：廟街小吃店外桌邊角落 | `Temple Street eatery sidewalk tables, plastic stools, tiled storefront edge, stacked utensils, dense curbside dining detail` | 以小吃店外桌與店面邊角為主，不強調整條夜市，而是人物實際會靠近拍攝的局部餐飲空間。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：孚日廣場拱廊下 | `Place des Vosges arcade walkway, brick arch rhythm, stone floor, recessed residential entrances, refined Parisian symmetry` | 拱廊下的長廊與住宅入口帶有明確的巴黎辨識度，適合成熟、安靜且帶高級住宅氣質的人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：孚日廣場草地邊與紅磚立面 | `Place des Vosges lawn edge, clipped grass border, red-brick facades, shuttered windows, elegant residential square atmosphere` | 廣場草地邊緣與紅磚住宅立面形成開闊但不空洞的空間，適合法式住宅感與中遠景人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：瑪黑區高級住宅門前石牆 | `Le Marais upscale residence entrance, stone doorway, wrought-iron detail, polished wall texture, quiet luxury residential frontage` | 以高級住宅入口與石牆質地為主，保留瑪黑區的成熟精品氣質，但更偏住宅而非商店街。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：曼哈頓精品櫥窗前人行道 | `Manhattan fashion storefront sidewalk, large display window, polished glass, curbside edge, dense avenue reflections` | 人物站在精品櫥窗前的人行道邊，櫥窗是主體，適合都會時裝與高級街拍。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：曼哈頓街角玻璃反射牆面 | `Manhattan corner glass facade, reflective storefront wall, taxi reflections, steam plumes mirrored in glass, tower reflections layered behind` | 玻璃牆面的多層倒影是重點，能把計程車、蒸氣與高樓壓進同一個背景平面。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：曼哈頓店面轉角櫥窗邊 | `Manhattan corner display window, angled storefront glass, crosswalk edge, reflected avenue traffic, polished commercial facade` | 店面轉角與斜切玻璃櫥窗讓構圖更有方向性，適合人物靠牆或站在街角邊緣拍攝。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：首爾聖水洞街區 | `Seoul Seongsu-dong urban corner, industrial café frontage, muted concrete textures, trendy contemporary city mood` | 聖水洞結合工業感與潮流店家，適合韓系時裝、生活感與現代城市人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：首爾弘大夜街 | `Seoul Hongdae nightlife, colorful sign glow, youth-culture energy, layered shopfronts, lively snapshot mood` | 弘大街頭更偏年輕、熱鬧與社群感，適合隨拍、街頭風格與流行穿搭。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：台北西門町街頭 | `Taipei Ximending nightlife, bright sign glow, humid urban reflections, dense youth-culture texture, energetic city mood` | 西門町兼具流行文化與台式霓虹街景，適合社群感、隨拍與街頭穿搭。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：洛杉磯日落大道街景 | `Los Angeles Sunset Boulevard atmosphere, palm silhouettes, billboard glow, warm dusk haze, cinematic city mood` | 棕櫚樹、夕陽與大型看板構成經典 LA 都市畫面，適合 lifestyle 與電影感街景。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：新宿歌舞伎町霓虹招牌下 | `Kabukicho neon sign corner, saturated neon glow, wet ground reflections, storefront edge, crowded nightlife tension` | 人物靠近大型霓虹與招牌邊緣，保留歌舞伎町的高張力夜色，但避免整條街的中軸透視。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：新宿歌舞伎町販賣機旁 | `Shinjuku vending machine corner, neon spill, metallic reflections, damp pavement, compact urban night detail` | 販賣機、牆面與反光地面構成局部都市夜景，適合近距離街拍人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：新宿歌舞伎町酒吧門口 | `Kabukicho bar entrance, glowing signboard, damp pavement, doorway shadows, intimate nightlife atmosphere` | 酒吧門口與小型招牌構成局部都市性感感，減少大道式街景。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：新宿歌舞伎町濕地反光角落 | `Kabukicho wet street corner, neon reflections, dark wall edge, layered sign glow, moody night texture` | 街角反光與霓虹混色構成局部夜景，更適合人物貼近場景拍攝。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：蘇荷區酒吧門口 | `Soho pub entrance, warm doorway light, wall textures, wet pavement reflections, intimate nightlife mood` | 人物靠近酒吧入口與暖光門面，保留蘇荷夜生活氣氛，但避免狹長街道感。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：蘇荷區店面櫥窗邊 | `Soho storefront window edge, interior warm glow, reflective glass, damp street texture, stylish urban detail` | 靠近櫥窗與街面反射的局部夜景，強調店面層次而非整條街。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：蘇荷區霓虹招牌下 | `Soho neon sign corner, glowing signage, wall edge, wet ground, layered nightlife reflections` | 人物站在招牌與門面下方，帶有明確夜街辨識度但不強調大道構圖。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：蘇荷區濕地反光街角 | `Soho wet street corner, pub light reflections, turning wall, glossy pavement, stylish night atmosphere` | 街角與濕地反射構成局部夜拍背景，適合街拍與都會時裝人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：法租界老洋房門口 | `French Concession townhouse entrance, old doorway frame, iron railing, tree shadows, refined urban nostalgia` | 靠近老洋房入口與門框的場景，成熟且帶歷史感。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：法租界樹影咖啡窗邊 | `French Concession café window, tree-shadow patterns, warm interior glow, reflective glass, literary city mood` | 咖啡店窗邊與樹影構成的文藝場景，適合成熟、生活感與寫真人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：法租界街角轉角牆面 | `French Concession corner wall, aged brick textures, soft signage glow, tree shadows, intimate street detail` | 轉角牆面與局部街景構成更貼近人物的城市背景。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：法租界鐵欄杆前 | `French Concession iron railing, stone wall, window frame, layered shadows, mature cosmopolitan atmosphere` | 舊式欄杆與牆面形成穩定成熟的都會背景，不容易跑成大道景。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：羅馬老城石牆轉角 | `Rome old-town stone corner, warm wall texture, cobblestone ground, soft evening light, romantic urban detail` | 石牆與轉角構成歐洲街拍局部背景，保留浪漫感但避免長巷透視。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：羅馬老城咖啡館外桌旁 | `Rome café terrace edge, warm lamp glow, outdoor chairs, textured stone wall, intimate evening atmosphere` | 戶外桌椅與暖光店面形成生活感，適合文藝與時裝人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：羅馬老城老木門前 | `Rome aged wooden door, stone wall texture, iron handle detail, warm shadows, classic old-city mood` | 老木門與牆面紋理主導畫面，適合成熟與敘事型街拍。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：羅馬老城暖光窗台邊 | `Rome warm window ledge, stone wall, café glow, potted plants, romantic evening detail` | 靠近窗台與牆面拍攝，保留歐洲夜晚氛圍但不形成大道視角。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：精品飯店房間 | `boutique hotel room, warm bedside lamps, crisp bedding, elegant interior details, editorial travel mood` | 高級但不過度奢華的飯店房間，適合寫真、時裝與成熟人像。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：現代高樓公寓客廳 | `modern high-rise apartment interior, window glow, clean designer furniture, soft city backdrop, contemporary lifestyle mood` | 現代都會感強，適合 lifestyle 與社群感拍攝。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：臥室窗邊 | `bedroom window area, soft daylight spill, linen textures, intimate photobook atmosphere, quiet interior` | 臨窗空間帶有柔和自然光，很適合寫真集與生活感人像。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：浴室鏡前 / 洗手台 | `bathroom vanity scene, sink counter details, reflective surfaces, soft indoor glow, modern lifestyle snapshot` | 具有很強的手機隨拍與社群感，也適合妝髮與穿搭展示。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：更衣室 / 試衣間 | `fitting room interior, mirror edge, curtain textures, fashion try-on atmosphere, intimate retail lighting` | 很適合時裝、穿搭與社群企劃，鏡面與布簾能增加生活感。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：電梯內 | `elevator interior, reflective metal panels, button lights, mirror-selfie atmosphere, urban social snapshot` | 現代社群感強，適合自拍、時裝隨拍與都會情境。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：復古美式 Diner | `retro American diner booth, red leather seating, chrome details, jukebox glow, 1950s atmosphere` | 50 年代復古風，色彩鮮豔、辨識度高，適合社群與時裝拍攝。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：木造圖書館閱讀桌旁 | `historic library reading table, aged wood grain, desk lamp, dusty sunbeams, quiet academic stillness` | 木桌與閱讀燈形成的安靜局部場景，適合敘事與沉靜人像。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：木造圖書館木窗邊 | `historic library window corner, wooden frame, book stacks, soft light beams, calm literary atmosphere` | 靠近老窗與木框的閱讀角落，適合文藝與自然光人像。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：木造圖書館書車旁 | `historic library book cart, stacked books, worn carpet, wood floor, intimate archive mood` | 推車與書堆組成的使用痕跡，讓場景更像人物可依附的局部環境。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：木造圖書館借書台前 | `historic library check-out desk, card catalog drawers, stamped paper details, soft wood glow, archival atmosphere` | 舊式借書櫃台與木質細節為主的空間，適合近距離敘事人像。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：洗衣店洗衣機門前 | `laundromat washer-door detail, chrome reflections, fluorescent light, sticker-covered surfaces, urban solitude` | 人物靠近洗衣機門與反光金屬表面的場景，局部感更強。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：洗衣店摺衣台旁 | `laundromat folding table, scattered clothes, plastic basket, detergent bottle, fluorescent glow` | 摺衣台與散落衣物形成生活感，適合社群與隨拍式構圖。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：洗衣店洗劑貨架前 | `laundromat detergent shelf, plastic bottles, price labels, cool fluorescent light, intimate retail texture` | 貨架與瓶罐作為局部背景，生活感更強，也不容易跑成兩排洗衣機。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：洗衣店角落塑膠椅旁 | `laundromat waiting corner, plastic chair, wall stickers, loose clothing, machine reflections, lonely night mood` | 封閉一角的等待感與孤獨感，適合貼近人物的局部夜景。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：宮廷音樂廳 / 歌劇院 | `opulent opera house interior, chandelier glow, velvet textures, ornate balconies, grand classical atmosphere` | 奢華大型室內空間，適合正式服裝與古典敘事。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：狹小都會旅館房間 | `small urban hotel room, compact bedding, dim practical lights, close interior details, enclosed intimate atmosphere` | 保留侷促與親密感，但比膠囊旅館更適合人像與寫真構圖。 |
+| **自然與戶外 (Nature & Outdoors)** | 戶外：金色海灘與浪線 | `golden beach edge, foamy shoreline, sunlit sand texture, bright summer air, open seaside mood` | 高頻好用的海邊場景，畫面乾淨開闊，適合寫真、泳裝與陽光人像。 |
+| **自然與戶外 (Nature & Outdoors)** | 戶外：陽光草地與樹影 | `sunlit grassy patch, scattered tree shadows, warm daylight, breezy natural portrait mood, gentle outdoor texture` | 比純自然景觀更貼近人像拍攝，容易形成乾淨生活感與輕寫真氛圍。 |
+| **自然與戶外 (Nature & Outdoors)** | 戶外：向日葵花田 | `sunflower bloom cluster, bright summer light, vivid yellow petals, cheerful countryside mood, natural color burst` | 高飽和又有夏日辨識度，適合明亮寫真與日系自然風。 |
+| **自然與戶外 (Nature & Outdoors)** | 戶外：霧感森林步道 | `foggy forest clearing, soft mist, dark tree textures, muted green tones, quiet mysterious atmosphere` | 將森林收斂成更可拍的人像步道空間，避免過於奇幻但保留神祕感。 |
+| **自然與戶外 (Nature & Outdoors)** | 戶外：湖邊木棧道 | `lakeside wooden deck, calm water reflections, soft twilight glow, open natural stillness, quiet outdoor mood` | 湖面與木棧道讓畫面更具構圖感，適合文藝與安靜寫真。 |
+| **自然與戶外 (Nature & Outdoors)** | 戶外：夕陽海邊岩岸 | `rocky shoreline at sunset, warm coastal glow, textured stone surfaces, cinematic outdoor portrait mood` | 比平坦沙灘更多層次，適合成熟、電影感與時裝自然場景。 |
+| **自然與戶外 (Nature & Outdoors)** | 戶外：沙丘與風痕地景 | `sand dune textures, wind-shaped patterns, minimal desert mood, harsh sunlight, sculptural landscape detail` | 保留極簡沙丘場景，但聚焦在人像可用的線條與光影。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄水泥工廠破碎輸送帶區 | `abandoned conveyor-belt zone, broken machinery, gravel, cement dust, metal supports, harsh industrial decay` | 廢棄輸送設備周圍的工業場景，質地粗獷，適合重工業與邊緣感人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄水泥工廠生鏽控制室 | `rusted control room, industrial panels, broken glass, dust-covered dials, enclosed machinery atmosphere` | 小型控制空間，帶有老工業設備與儀表，適合中近景人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄水泥工廠攪拌槽旁 | `cement-mixer tank area, concrete dust, iron ladder, rust stains, heavy industrial shadows` | 靠近大型槽體與厚重混凝土結構的區域，帶有強烈壓迫感。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄水泥工廠機具堆放區 | `abandoned machinery pile, heavy parts, chains, metal sheets, dusty industrial clutter` | 大量廢棄零件與重機散落的角落，適合雜亂工業感人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：地下排洪道積水牆角 | `flood-tunnel damp corner, pooled water, concrete wall stains, reflected light, humid subterranean air` | 潮濕陰暗的地下角落，牆面積水反光，適合壓迫感與低調人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：地下排洪道排水閘門旁 | `drainage gate zone, rusted metal structure, wet ground, exposed pipes, harsh underground utility mood` | 靠近閘門與金屬結構的地下區域，工業感強。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：地下排洪道機房通道口 | `underground machine-room entrance, heavy steel door, pipework, electrical box, cold damp concrete` | 像機房入口的混凝土地下空間，偏機械與壓迫感。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄手術室 | `abandoned operating room, broken surgical table, metal tray, medicine bottles, cold fluorescent light, peeling walls` | 荒廢已久的手術室，帶有醫療器具與冷白燈，適合不安與冷調人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄病房 | `abandoned hospital ward, old bed frame, hanging curtain, medicine cabinet, weak cold light, worn tiles` | 舊病床與醫療設備散落的病房，適合帶有敘事感的醫療廢墟畫面。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄藥品室 | `abandoned medicine storage room, glass bottles, metal cabinet, medicine jars, dust, cold utility light` | 小型封閉藥品空間，擺滿玻璃瓶與醫療罐，適合近距離壓迫感人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄診療室 | `abandoned examination room, medical bed, instrument cart, desk lamp, scattered records, clinical decay` | 破舊診療空間，桌椅和器材留有使用痕跡，適合中近景敘事人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄校舍散亂課桌教室 | `abandoned classroom, scattered desks, chalkboard, torn papers, broken windows, dusty side light` | 課桌椅凌亂散落的老教室，帶青春殘影與衰敗感。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄校舍破窗音樂教室 | `abandoned music room, old piano, music stand, broken windows, dust, wooden floor` | 樂器殘留與破窗共存的教室，空氣感與情緒感都很強。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄校舍保健室 | `abandoned infirmary room, medicine box, curtain, white metal cabinet, old bed, clinical school decay` | 偏私密的小空間，適合人物和道具同框。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄校舍體育器材室 | `abandoned equipment room, vaulting box, gym mats, ball rack, dust, old wooden door` | 器材堆放雜亂、封閉感較強的空間，適合近距離衰敗人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：地下狂歡俱樂部 / 金庫 | `underground rave bunker, lasers through smoke, metallic surfaces, bass-heavy atmosphere, dark club energy` | 地牢般俱樂部空間依舊保留，適合強烈夜拍、霓虹與迷幻主題。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：遭洗劫的維多利亞大宅 | `ruined Victorian mansion interior, torn wallpaper, broken chandelier glow, haunted decay, aristocratic ruin mood` | 曾經華麗但現已破敗不堪，適合哥德衰敗與古典殘骸場景。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄商場停用手扶梯旁 | `abandoned mall escalator corner, broken signage, dusty tiles, dead retail lighting, empty commerce decay` | 靠近停用手扶梯的商場角落，帶文明停擺感。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄商場破損櫥窗前 | `abandoned storefront window, damaged mannequins, broken glass, dead shop lights, dusty retail interior` | 廢棄店面櫥窗與玻璃殘骸構成的局部場景，適合冷調與時裝人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄商場空置美食街角落 | `abandoned food-court corner, plastic tables, empty counter, menu board remnants, tile reflections, retail silence` | 有桌椅與招牌殘留的商場餐飲區，適合帶生活遺跡感的人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄商場服務台殘骸 | `abandoned service desk, fallen signage, scattered papers, glass fragments, dim retail glow, collapsed mall detail` | 服務台周圍的破敗區域，適合中近景人像與文明停擺感。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 戶外：雜草叢生的廢棄公園 | `abandoned overgrown park, cracked pavement textures, rusted play structures, quiet urban decay, neglected outdoor mood` | 比遊樂園更貼近日常遺跡感，荒廢與雜草交錯，適合孤獨與末日感主題。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 戶外：滿佈塗鴉的火車調車場 | `graffiti-covered train yard, rusty metal textures, spray-painted surfaces, rebellious urban decay, street subculture mood` | 生鏽車廂與強烈塗鴉形成明顯次文化氛圍，適合街頭與叛逆主題。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 戶外：高樓建築骨架裸露混凝土地板 | `exposed high-rise floor slab, rebar, construction debris, wind-swept height, distant city backdrop` | 裸露樓層地板與城市高空感，適合末世與都會廢墟主題。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 戶外：高樓建築骨架施工鷹架旁 | `construction scaffolding zone, steel pipes, dusty tarp, raw building materials, unfinished high-rise atmosphere` | 鷹架與工地結構形成的粗糙空間，適合工地末世感人像。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 戶外：高樓建築骨架開放樓層邊緣 | `open high-rise floor edge, exposed beams, concrete lip, wind, distant city haze, precarious ruin mood` | 開放樓層邊緣與城市景色交會的位置，帶有高處與風感。 |
+| **地下與廢墟風格 (Abandoned & Underground)** | 戶外：高樓建築骨架建材堆放角落 | `construction-material corner, stacked boards, cement bags, tool box, dust, unfinished structure detail` | 堆滿板材與工具的局部區域，雜亂感強，適合中近景工地人像。 |

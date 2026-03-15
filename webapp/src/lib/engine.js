@@ -774,6 +774,12 @@ function locationSupportsLighting(location, lighting) {
   const locationEnvironment = getLocationEnvironmentFlags(location);
   const lightingEnvironment = getLightingEnvironmentFlags(lighting);
 
+  // Hard-stop obviously invalid combinations before the broader support matrix
+  // has a chance to allow them through via generic indoor tags.
+  if ((locTags.has('ruin') || locTags.has('underground') || locTags.has('subterranean')) && lightTags.has('studio_light')) {
+    return false;
+  }
+
   if (locationEnvironment.indoor && !locationEnvironment.outdoor && !lightingEnvironment.indoor) return false;
   if (locationEnvironment.outdoor && !locationEnvironment.indoor && !lightingEnvironment.outdoor) return false;
 
