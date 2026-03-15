@@ -1936,79 +1936,214 @@
         "desc": "不指定姿勢動作，讓模型自行決定人物肢體語言。"
       },
       {
-        "zh": "側身慵懶倚靠",
-        "en": "relaxed leaning posture, body weight shifted to one side, effortless cool",
-        "desc": "身體重心偏向單側，呈現漫不經心的率性感，但不指定任何背景物件。"
+        "zh": "站姿｜自然站姿",
+        "en": "natural standing pose, relaxed balanced posture, everyday body language, unforced presence",
+        "desc": "身體自然站立，重心平均，沒有明顯擺拍感，適合最中性的日常人像。"
       },
       {
-        "zh": "坐姿/蜷縮 (脆弱感)",
-        "en": "curled up sitting pose, knees drawn to chest, vulnerable and introspective",
-        "desc": "抱膝蜷縮，傳遞內斂或自我保護的心理狀態。"
+        "zh": "站姿｜單腳重心放鬆站姿",
+        "en": "weight-on-one-leg standing pose, relaxed asymmetrical stance, casual natural posture",
+        "desc": "重心落在單腳，另一腳自然放鬆，整體更有鬆弛與生活感。"
       },
       {
-        "zh": "動態走路/動作殘影",
-        "en": "mid-stride walking, dynamic movement, hair flying, candid action shot",
-        "desc": "捕捉行走瞬間，充滿動態感與生命力。"
+        "zh": "站姿｜一手撥髮站姿",
+        "en": "standing pose with one hand touching hair, casual grooming gesture, candid beauty body language",
+        "desc": "一手自然碰觸頭髮，讓人物狀態更像被捕捉的瞬間。"
       },
       {
-        "zh": "高挑站姿",
-        "en": "upright confident pose, shoulders back",
-        "desc": "挺胸站立，充滿自信。"
+        "zh": "站姿｜一手撥髮低頭站姿",
+        "en": "standing pose with one hand adjusting hair, head slightly lowered, quiet natural body language",
+        "desc": "一手整理頭髮，同時微微低頭，氣質偏安靜、自然、不刻意。"
       },
       {
-        "zh": "蹲姿前傾 (親近感)",
-        "en": "casual crouching pose, elbows resting on knees, forward-leaning posture, approachable body language",
-        "desc": "身體下蹲並自然前傾，手肘靠近膝部。"
+        "zh": "站姿｜雙手自然垂放站姿",
+        "en": "standing pose with arms naturally at sides, simple clean posture, unforced body line",
+        "desc": "雙手自然下垂，畫面乾淨，適合簡約與真實感構圖。"
       },
       {
-        "zh": "打開肩線微轉站姿",
-        "en": "shoulders open, body slightly turned, direct confident stance, balanced standing pose",
-        "desc": "雙肩打開、身體微轉，站姿穩定自信。"
+        "zh": "站姿｜低頭側望站姿",
+        "en": "standing pose with lowered gaze to the side, introspective natural posture, calm mood",
+        "desc": "頭部微低、視線看向側邊，適合情緒感與內斂氣質。"
       },
       {
-        "zh": "坐姿交叉腿",
-        "en": "crossed-leg seated pose, poised posture, composed body line",
-        "desc": "雙腿交叉的坐姿，線條成熟穩定，帶有整理過的身體節奏。"
+        "zh": "站姿｜回頭站姿",
+        "en": "standing body turned away slightly, head turning back toward camera, subtle motion in pose",
+        "desc": "身體保持前向或側向，頭部回望，增加動勢與互動感。"
       },
       {
-        "zh": "正經坐姿",
-        "en": "formal seated pose, upright composed posture, legs and hands placed neatly",
-        "desc": "坐姿端正、身體穩定，整體感覺整理過且正式，適合商業、極簡與成熟人像。"
+        "zh": "站姿｜雙臂交疊放鬆站姿",
+        "en": "standing pose with loosely crossed arms, relaxed closed posture, cool composed body language",
+        "desc": "手臂自然交疊在身前，帶一點冷靜與收斂感。"
       },
       {
-        "zh": "霸氣帥氣坐姿",
-        "en": "dominant seated pose, confident wide posture, assertive cool attitude",
-        "desc": "坐姿帶有掌控感與壓迫感，適合強勢、冷感與時裝主題。"
+        "zh": "站姿｜自然自拍姿勢",
+        "en": "casual selfie-like standing pose, self-portrait body language, natural arm and gaze coordination, no phone required",
+        "desc": "帶有自拍中的自然互動感，但不強制手機入鏡，重點是自拍狀態與視線感。"
       },
       {
-        "zh": "正跪姿",
-        "en": "upright kneeling pose, straight posture, composed lower-body fold",
-        "desc": "以雙膝著地的正面跪姿為主，姿態穩定且集中，適合室內寫真與靜態構圖。"
+        "zh": "站姿｜鏡子自拍姿勢",
+        "en": "mirror selfie standing pose, holding a phone visibly, face unobstructed, clear facial features, casual self-portrait composition",
+        "desc": "對鏡自拍，手持手機可見但不遮臉，仍保留完整五官辨識度。"
       },
       {
-        "zh": "側身躺",
-        "en": "side-lying pose, body resting on one side, elongated relaxed silhouette",
-        "desc": "身體側躺並自然延伸，能帶出慵懶、私密或較柔和的線條感。"
+        "zh": "坐姿｜自然坐姿",
+        "en": "natural seated pose, relaxed upright sitting posture, everyday calm body language",
+        "desc": "坐姿穩定放鬆，上半身自然伸展，適合最基礎的生活感畫面。"
       },
       {
-        "zh": "抬手整理頭髮",
-        "en": "hand lifting hair, adjusting hair near ear, candid beauty pose",
-        "desc": "抬手撥髮或整理耳側頭髮，帶有自然動態與生活感。"
+        "zh": "坐姿｜微微前傾坐姿",
+        "en": "seated pose leaning slightly forward, engaged natural posture, subtle interactive body language",
+        "desc": "上半身稍微前傾，讓人物更靠近鏡頭，也更有參與感。"
       },
       {
-        "zh": "托腮近距離姿勢",
-        "en": "chin resting on hand, face slightly closer to camera, intimate relaxed pose",
-        "desc": "以手輕托下巴，臉部自然靠前，呈現親密而放鬆的近距離姿態。"
+        "zh": "坐姿｜雙手向後支撐坐姿",
+        "en": "seated pose with both hands placed behind for support, open chest, relaxed stretched posture",
+        "desc": "雙手向後撐住身體，姿態放鬆，帶一點伸展與慵懶感。"
       },
       {
-        "zh": "放鬆坐姿",
-        "en": "relaxed seated pose, soft natural posture, calm body language",
-        "desc": "坐姿自然鬆弛，肩膀與四肢不刻意用力，適合安靜柔和的人像氣質。"
+        "zh": "坐姿｜單腿放鬆坐姿",
+        "en": "asymmetrical seated pose with one leg relaxed, casual uneven body rhythm, natural sitting line",
+        "desc": "一側腿部較放鬆延伸，另一側自然收起，畫面更不對稱也更自然。"
       },
       {
-        "zh": "低頭垂視隨拍感",
-        "en": "looking downward while standing, candid off-guard posture, natural snapshot body language",
-        "desc": "站立時自然低頭垂視，像被瞬間捕捉到的放鬆狀態。"
+        "zh": "坐姿｜雙腿自然伸展坐姿",
+        "en": "seated pose with legs naturally extended, loose comfortable posture, laid-back body language",
+        "desc": "腿部自然往前延伸，不過度端正，適合輕鬆與日常氛圍。"
+      },
+      {
+        "zh": "坐姿｜盤腿坐姿",
+        "en": "cross-legged seated pose, relaxed casual sitting posture, intimate everyday body language",
+        "desc": "雙腿自然盤起，姿勢輕鬆，適合私密、親近、生活化的構圖。"
+      },
+      {
+        "zh": "坐姿｜側身坐姿",
+        "en": "side-facing seated pose, slightly turned torso, natural dimensional sitting posture",
+        "desc": "身體略微側向鏡頭，不正面坐直，線條會更自然。"
+      },
+      {
+        "zh": "坐姿｜低頭坐姿",
+        "en": "seated pose with lowered gaze, quiet introspective body language, calm natural stillness",
+        "desc": "視線向下，畫面偏安靜、內省與柔和。"
+      },
+      {
+        "zh": "坐姿｜坐姿回頭看鏡頭",
+        "en": "seated body turned one way, head looking back toward camera, subtle dynamic seated pose",
+        "desc": "下半身保持坐姿方向，上半身或頭部回望鏡頭，增加互動感。"
+      },
+      {
+        "zh": "坐姿｜抱膝坐姿",
+        "en": "seated pose hugging knees, compact introspective posture, quiet self-contained body language",
+        "desc": "雙手或手臂自然抱膝，帶一點收斂感與安靜情緒。"
+      },
+      {
+        "zh": "坐姿｜自然自拍姿勢",
+        "en": "casual selfie-like seated pose, self-portrait body language, natural arm and gaze coordination, no phone required",
+        "desc": "坐姿狀態下的自拍感，偏社群感與自然日常。"
+      },
+      {
+        "zh": "坐姿｜鏡子自拍姿勢",
+        "en": "mirror selfie seated pose, holding a phone visibly, face unobstructed, clear facial features, relaxed self-portrait framing",
+        "desc": "坐姿下對鏡自拍，手機可見但不遮臉，強調五官與造型仍清楚。"
+      },
+      {
+        "zh": "半躺低姿態｜側身半躺姿勢",
+        "en": "side reclined pose, body gently extended, relaxed low posture, soft flowing body line",
+        "desc": "身體側向延展，整體姿勢放鬆，適合柔和與慵懶感畫面。"
+      },
+      {
+        "zh": "半躺低姿態｜側身半躺回頭看鏡頭",
+        "en": "side reclined pose with head turning back toward camera, relaxed interactive low posture",
+        "desc": "身體保持側躺或半躺，頭部回望鏡頭，兼具放鬆感與互動感。"
+      },
+      {
+        "zh": "半躺低姿態｜半躺低頭姿勢",
+        "en": "reclined low pose with lowered gaze, quiet inward mood, relaxed low body language",
+        "desc": "上半身略低、視線向下，偏安靜與細膩情緒。"
+      },
+      {
+        "zh": "半躺低姿態｜手撐上半身半躺姿勢",
+        "en": "reclined pose supported by one arm, lifted upper body, natural relaxed asymmetry",
+        "desc": "以單手或手肘支撐上半身，讓姿勢更自然，不會太平。"
+      },
+      {
+        "zh": "半躺低姿態｜微蜷放鬆姿勢",
+        "en": "slightly curled relaxed low pose, soft compact body line, intimate restful mood",
+        "desc": "身體略微收起，帶有休息感、柔軟感與生活感。"
+      },
+      {
+        "zh": "半躺低姿態｜趴姿回頭看鏡頭",
+        "en": "low prone pose with head turned back toward camera, intimate playful body language",
+        "desc": "上半身接近低平面，頭部回看鏡頭，適合較親密的構圖。"
+      },
+      {
+        "zh": "半躺低姿態｜趴姿低頭放鬆",
+        "en": "low prone pose with lowered gaze, quiet relaxed body language, soft intimate stillness",
+        "desc": "維持低姿態但不直視鏡頭，更像安靜片刻。"
+      },
+      {
+        "zh": "半躺低姿態｜側躺延伸姿勢",
+        "en": "elongated side-lying pose, extended body line, calm graceful low posture",
+        "desc": "身體橫向延展，線條完整，適合全身構圖。"
+      },
+      {
+        "zh": "半躺低姿態｜自然自拍姿勢",
+        "en": "casual selfie-like reclined pose, self-portrait body language, relaxed arm and gaze coordination, no phone required",
+        "desc": "半躺或低姿態下的自拍感，不強制手機出現，強調自然互動。"
+      },
+      {
+        "zh": "半躺低姿態｜鏡子自拍姿勢",
+        "en": "mirror selfie reclined pose, holding a phone visibly, face unobstructed, clear facial features, relaxed reflective self-portrait",
+        "desc": "若場景本身有鏡面，可使用對鏡自拍版本，手機可見但不遮臉。"
+      },
+      {
+        "zh": "動態互動｜行走中回頭",
+        "en": "walking pose mid-step, head turning back toward camera, candid movement and natural motion",
+        "desc": "身體帶有前進感，頭部回望，適合街拍與抓拍感畫面。"
+      },
+      {
+        "zh": "動態互動｜輕步移動姿勢",
+        "en": "light stepping motion, subtle body movement, natural transitional pose, candid rhythm",
+        "desc": "像正在慢慢走動或移動重心，避免人物太靜止。"
+      },
+      {
+        "zh": "動態互動｜整理頭髮動作",
+        "en": "adjusting hair while moving, candid grooming gesture, natural in-between motion",
+        "desc": "手正在整理頭髮，像被捕捉到的瞬間，而不是正式擺拍。"
+      },
+      {
+        "zh": "動態互動｜低頭整理衣襬",
+        "en": "looking down while adjusting clothing, subtle styling gesture, candid everyday movement",
+        "desc": "手碰觸衣物，帶一點自然、內收、日常片刻感。"
+      },
+      {
+        "zh": "動態互動｜抬手整理肩頸姿勢",
+        "en": "hand lifting toward shoulder or neck, soft adjustment gesture, delicate natural motion",
+        "desc": "手靠近肩頸、鎖骨或耳側，適合細膩近景人物狀態。"
+      },
+      {
+        "zh": "動態互動｜回身側望姿勢",
+        "en": "body turning in motion, head looking to the side, transitional pose with subtle tension",
+        "desc": "身體與頭部朝不同方向，像轉身中的瞬間，增加動勢。"
+      },
+      {
+        "zh": "動態互動｜停步凝視姿勢",
+        "en": "just-stopped movement pose, stillness after motion, focused natural gaze, narrative body language",
+        "desc": "像剛停下腳步的狀態，適合敘事型與街景畫面。"
+      },
+      {
+        "zh": "動態互動｜低頭行進姿勢",
+        "en": "walking pose with lowered gaze, inward quiet motion, solitary natural rhythm",
+        "desc": "帶移動感但視線向下，偏安靜、冷感與獨處氛圍。"
+      },
+      {
+        "zh": "動態互動｜自然自拍姿勢",
+        "en": "casual selfie-like moving pose, self-portrait body language in motion, natural arm and gaze coordination, no phone required",
+        "desc": "帶有邊走邊自拍或抓拍式自拍感，但不強制手機入鏡。"
+      },
+      {
+        "zh": "動態互動｜鏡子自拍姿勢",
+        "en": "mirror selfie in a dynamic pose, holding a phone visibly, face unobstructed, clear facial features, lively self-portrait framing",
+        "desc": "只在有鏡面或反射場景時使用，仍維持手機可見但不遮臉。"
       }
     ]
   },
