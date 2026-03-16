@@ -176,6 +176,16 @@
         "desc": "比基尼或連身泳裝為核心的海邊與度假造型。"
       },
       {
+        "zh": "素色緞面旗袍套裝",
+        "en": "wearing a solid-color satin cheongsam, sleek fitted full-body silhouette, elegant mandarin collar, smooth lustrous fabric, refined traditional Chinese styling",
+        "desc": "以素色緞面旗袍為核心的完整造型，重點在貼身輪廓、立領與乾淨高雅的中式線條。"
+      },
+      {
+        "zh": "精緻刺繡旗袍套裝",
+        "en": "wearing an embroidered cheongsam, fitted full-body silhouette, elegant mandarin collar, intricate floral embroidery, refined traditional Chinese elegance",
+        "desc": "以刺繡細節為主角的完整旗袍造型，帶有更華麗的裝飾感與精緻中式氣質。"
+      },
+      {
         "zh": "短袖女高生水手服",
         "en": "wearing a Japanese schoolgirl sailor uniform with a short-sleeve sailor blouse, pleated skirt, soft ribbon tie, youthful academic styling, clean summer seifuku silhouette",
         "desc": "以短袖水手服上衣、百褶裙與柔軟領巾為核心的日系女高生制服造型，偏夏季、青春與清爽感。"
@@ -311,6 +321,16 @@
         "zh": "維多利亞高領蕾絲襯衫",
         "en": "Victorian high-neck lace blouse, ruffled collar, intricate lace detailing",
         "desc": "領口繁複、禁慾而浪漫。"
+      },
+      {
+        "zh": "素色緞面旗袍上衣",
+        "en": "satin cheongsam-style top, elegant mandarin collar, fitted silhouette, smooth lustrous fabric, refined Chinese-inspired styling",
+        "desc": "旗袍式剪裁的上衣版本，保留立領與貼身輪廓，適合搭配長裙、寬褲或都會中式混搭造型。"
+      },
+      {
+        "zh": "精緻刺繡旗袍上衣",
+        "en": "embroidered cheongsam-style top, elegant mandarin collar, fitted silhouette, intricate floral embroidery, refined Chinese-inspired detail",
+        "desc": "在旗袍式上衣結構中加入細緻刺繡，裝飾感更強，適合更正式或更華麗的中式時裝搭配。"
       },
       {
         "zh": "透膚蕾絲連身上衣",

@@ -22,6 +22,8 @@
 | **套裝 (Outfit Presets)** | 蘿莉塔套裝 | `wearing a Lolita-inspired outfit with bell-shaped skirt, layered frills, bows, rococo-influenced sweetness, ornate doll-like styling` | 鐘形裙襬、荷葉邊與蝴蝶結構成的甜美或哥德蘿莉塔造型。 |
 | **套裝 (Outfit Presets)** | 內衣寫真套裝 | `wearing a lingerie-inspired outfit with lace, sheer panels, boudoir styling, intimate body-conscious silhouette` | 透膚、蕾絲與私密感強的內衣寫真造型。 |
 | **套裝 (Outfit Presets)** | 泳裝度假套裝 | `wearing a swimwear-inspired outfit with bikini or one-piece styling, resort mood, sunlit vacation elegance` | 比基尼或連身泳裝為核心的海邊與度假造型。 |
+| **套裝 (Outfit Presets)** | 素色緞面旗袍套裝 | `wearing a solid-color satin cheongsam, sleek fitted full-body silhouette, elegant mandarin collar, smooth lustrous fabric, refined traditional Chinese styling` | 以素色緞面旗袍為核心的完整造型，重點在貼身輪廓、立領與乾淨高雅的中式線條。 |
+| **套裝 (Outfit Presets)** | 精緻刺繡旗袍套裝 | `wearing an embroidered cheongsam, fitted full-body silhouette, elegant mandarin collar, intricate floral embroidery, refined traditional Chinese elegance` | 以刺繡細節為主角的完整旗袍造型，帶有更華麗的裝飾感與精緻中式氣質。 |
 | **套裝 (Outfit Presets)** | 短袖女高生水手服 | `wearing a Japanese schoolgirl sailor uniform with a short-sleeve sailor blouse, pleated skirt, soft ribbon tie, youthful academic styling, clean summer seifuku silhouette` | 以短袖水手服上衣、百褶裙與柔軟領巾為核心的日系女高生制服造型，偏夏季、青春與清爽感。 |
 | **套裝 (Outfit Presets)** | 長袖女高生水手服 | `wearing a Japanese schoolgirl sailor uniform with a long-sleeve sailor blouse, pleated skirt, soft ribbon tie, classic academic styling, neat seifuku silhouette` | 以長袖水手服上衣、百褶裙與柔軟領巾構成的日系女高生制服造型，整體更經典、端正，也更適合室內與秋冬感畫面。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
@@ -49,6 +51,8 @@
 | **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 偏街頭與運動風，適合社群感、青春感與休閒主題。 |
 | **上身 (Tops)** | 坦克背心 | `tank top, sleeveless casual fit, clean sporty line` | 最簡單直接的無袖上身，適合日常、運動與寫真人像。 |
 | **上身 (Tops)** | 維多利亞高領蕾絲襯衫 | `Victorian high-neck lace blouse, ruffled collar, intricate lace detailing` | 領口繁複、禁慾而浪漫。 |
+| **上身 (Tops)** | 素色緞面旗袍上衣 | `satin cheongsam-style top, elegant mandarin collar, fitted silhouette, smooth lustrous fabric, refined Chinese-inspired styling` | 旗袍式剪裁的上衣版本，保留立領與貼身輪廓，適合搭配長裙、寬褲或都會中式混搭造型。 |
+| **上身 (Tops)** | 精緻刺繡旗袍上衣 | `embroidered cheongsam-style top, elegant mandarin collar, fitted silhouette, intricate floral embroidery, refined Chinese-inspired detail` | 在旗袍式上衣結構中加入細緻刺繡，裝飾感更強，適合更正式或更華麗的中式時裝搭配。 |
 | **上身 (Tops)** | 透膚蕾絲連身上衣 | `sheer lace bodysuit top, floral lace texture, fitted silhouette` | 連身式透膚蕾絲上衣，偏內衣與寫真主題。 |
 | **上身 (Tops)** | 比基尼 | `bikini top, swimwear styling, minimal coverage silhouette` | 直接作為泳裝上身使用，適合海邊、泳池與度假感畫面。 |
 | **上身 (Tops)** | 蕾絲胸罩 | `lace bra, lingerie styling, delicate fitted support` | 蕾絲質地明顯，偏內衣與私密寫真風格。 |
