@@ -1,21 +1,18 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-import CustomLibraryModal from './components/CustomLibraryModal';
+import { Copy } from 'lucide-react';
 import PromptCard from './components/PromptCard';
 import {
   buildLocksFromPrompt,
   createEmptyLocks,
   generatePrompts,
   getSceneDependentOptions,
-  getKnowledgeBaseOptions,
   getLockControls,
-  normalizeLocks,
+  normalizeLocks
 } from './lib/engine';
 import './index.css';
 
-const CUSTOM_LIBRARY_KEY = 'vps.customLibrary';
-const PRESETS_KEY = 'vps.presets';
 const PROMPTS_KEY = 'vps.prompts';
 const FAVORITES_KEY = 'vps.favorites';
 const LOCKS_KEY = 'vps.locks';
@@ -98,6 +95,18 @@ ${Object.entries(data.structured)
 `;
 }
 
+function getSelectedPromptText(control, value) {
+  if (Array.isArray(value)) {
+    const selectedOptions = control.options.filter((option) => value.includes(option.id) && option.zh !== '全無');
+    return selectedOptions.map((option) => option.en).filter(Boolean).join(', ');
+  }
+
+  if (!value) return '';
+  const selectedOption = control.options.find((option) => option.id === value);
+  if (!selectedOption || selectedOption.zh === '全無') return '';
+  return selectedOption.en || '';
+}
+
 function loadJsonStorage(key, fallback) {
   if (typeof window === 'undefined') return fallback;
   try {
@@ -132,62 +141,52 @@ function loadFavoritePrompts() {
   return promptCache.filter((item) => item?.id && idSet.has(item.id));
 }
 
-function normalizeImportedEntries(data) {
-  if (!Array.isArray(data)) return [];
+function SelectControlField({ control, value, onChange, onCopy, disabled = false }) {
+  const copyText = getSelectedPromptText(control, value);
+  const isCopyDisabled = disabled || !copyText;
 
-  return data
-    .filter((entry) => entry && entry.group && entry.category && entry.zh && entry.en)
-    .map((entry, index) => ({
-      id: entry.id || `imported-${Date.now()}-${index}`,
-      group: entry.group,
-      category: entry.category,
-      zh: entry.zh,
-      en: entry.en,
-      desc: entry.desc || '',
-    }));
-}
-
-function normalizeImportedPresets(data) {
-  if (!Array.isArray(data)) return [];
-
-  return data
-    .filter((entry) => entry && entry.name && entry.locks)
-    .map((entry, index) => ({
-      id: entry.id || `preset-import-${Date.now()}-${index}`,
-      name: entry.name,
-      locks: normalizeLocks(entry.locks),
-    }));
+  return (
+    <label className={`field ${disabled ? 'field-disabled' : ''}`}>
+      <div className="field-heading-row">
+        <span>{control.label}</span>
+        <button
+          type="button"
+          className="secondary control-copy-btn control-copy-btn-inline"
+          disabled={isCopyDisabled}
+          onClick={() => onCopy(copyText)}
+          title={`Copy ${control.label} prompt`}
+        >
+          <Copy size={14} />
+          複製
+        </button>
+      </div>
+      <div className="field-control-row">
+        <select
+          disabled={disabled}
+          className={isMutedSelectValue(control, value) ? 'select-muted' : ''}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+        >
+          {!control.required ? <option value="">Random</option> : null}
+          {control.options.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.zh}
+            </option>
+          ))}
+        </select>
+      </div>
+    </label>
+  );
 }
 
 export default function App() {
-  const customLibraryInputRef = useRef(null);
-  const presetInputRef = useRef(null);
-
   const [prompts, setPrompts] = useState(() => loadJsonStorage(PROMPTS_KEY, []));
   const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
   const [genCount, setGenCount] = useState(() => loadJsonStorage(GEN_COUNT_KEY, 3));
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
-  const [customLibrary, setCustomLibrary] = useState(() => loadJsonStorage(CUSTOM_LIBRARY_KEY, []));
-  const [presets, setPresets] = useState(() => loadJsonStorage(PRESETS_KEY, []));
-  const [presetName, setPresetName] = useState('');
   const [searchQuery, setSearchQuery] = useState(() => loadStringStorage(SEARCH_QUERY_KEY, ''));
-  const [isLibraryOpen, setIsLibraryOpen] = useState(false);
-  const [customForm, setCustomForm] = useState({
-    group: 'Locations',
-    category: '',
-    zh: '',
-    en: '',
-    desc: '',
-  });
-
-  useEffect(() => {
-    window.localStorage.setItem(CUSTOM_LIBRARY_KEY, JSON.stringify(customLibrary));
-  }, [customLibrary]);
-
-  useEffect(() => {
-    window.localStorage.setItem(PRESETS_KEY, JSON.stringify(presets));
-  }, [presets]);
+  const [copiedLabel, setCopiedLabel] = useState('');
 
   useEffect(() => {
     window.localStorage.setItem(PROMPTS_KEY, JSON.stringify(prompts.slice(0, MAX_STORED_PROMPTS)));
@@ -215,9 +214,8 @@ export default function App() {
 
   const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
 
-  const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(customLibrary), [customLibrary]);
-  const lockControls = useMemo(() => getLockControls(customLibrary), [customLibrary]);
-  const sceneDependentOptions = useMemo(() => getSceneDependentOptions(customLibrary, locks), [customLibrary, locks]);
+  const lockControls = useMemo(() => getLockControls(), []);
+  const sceneDependentOptions = useMemo(() => getSceneDependentOptions([], locks), [locks]);
   const isPhotographyStyleLocked = Boolean(locks.styleId) && !isNoneSelected('styleId', locks.styleId, lockControls);
   const coreLockControls = useMemo(
     () => {
@@ -302,30 +300,28 @@ export default function App() {
     });
   }, [favoritePrompts, normalizedSearch, prompts, viewMode]);
 
-  useEffect(() => {
-    const allowedLightingIds = new Set(sceneDependentOptions.lightingOptions.map((option) => option.id));
-    const allowedDirectionIds = new Set(sceneDependentOptions.lightDirectionOptions.map((option) => option.id));
-
+  const updateLocks = (updater) => {
     setLocks((prev) => {
-      let changed = false;
-      const next = { ...prev };
+      const candidate = typeof updater === 'function' ? updater(prev) : { ...prev, ...updater };
+      const next = { ...candidate };
+      const nextSceneDependentOptions = getSceneDependentOptions([], next);
+      const allowedLightingIds = new Set(nextSceneDependentOptions.lightingOptions.map((option) => option.id));
+      const allowedDirectionIds = new Set(nextSceneDependentOptions.lightDirectionOptions.map((option) => option.id));
 
-      if (prev.lightingId && !allowedLightingIds.has(prev.lightingId)) {
+      if (next.lightingId && !allowedLightingIds.has(next.lightingId)) {
         next.lightingId = '';
-        changed = true;
       }
 
-      if (prev.lightDirectionId && !allowedDirectionIds.has(prev.lightDirectionId)) {
+      if (next.lightDirectionId && !allowedDirectionIds.has(next.lightDirectionId)) {
         next.lightDirectionId = '';
-        changed = true;
       }
 
-      return changed ? next : prev;
+      return next;
     });
-  }, [sceneDependentOptions]);
+  };
 
   const handleGenerate = () => {
-    const newPrompts = generatePrompts(genCount, locks, customLibrary);
+    const newPrompts = generatePrompts(genCount, locks);
     setPrompts((prev) => [...newPrompts, ...prev].slice(0, MAX_STORED_PROMPTS));
     setViewMode('feed');
   };
@@ -333,7 +329,7 @@ export default function App() {
   const handleRemixPrompt = (prompt, summaryKeys = []) => {
     const keepKeys = Array.from(new Set(summaryKeys.flatMap((key) => SUMMARY_REROLL_MAP[key] || [])));
     const remixLocks = buildLocksFromPrompt(prompt, keepKeys);
-    const [generatedPrompt] = generatePrompts(1, remixLocks, customLibrary);
+    const [generatedPrompt] = generatePrompts(1, remixLocks);
     const nextPrompt = { ...generatedPrompt, id: prompt.id };
     setPrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
     setFavoritePrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
@@ -359,71 +355,20 @@ export default function App() {
     });
   };
 
-  const handleSavePreset = () => {
-    const name = presetName.trim();
-    if (!name) return;
-    const snapshot = { id: `preset-${Date.now()}`, name, locks: normalizeLocks(locks) };
-    setPresets((prev) => [snapshot, ...prev.filter((item) => item.name !== name)].slice(0, 24));
-    setPresetName('');
-  };
-
-  const handleAddCustomEntry = () => {
-    if (!customForm.category || !customForm.zh.trim() || !customForm.en.trim()) return;
-    const entry = {
-      id: `custom-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
-      group: customForm.group,
-      category: customForm.category,
-      zh: customForm.zh.trim(),
-      en: customForm.en.trim(),
-      desc: customForm.desc.trim(),
-    };
-    setCustomLibrary((prev) => [entry, ...prev]);
-    setCustomForm((prev) => ({ ...prev, zh: '', en: '', desc: '' }));
-  };
-
-  const exportCustomLibrary = () => {
-    const blob = new Blob([JSON.stringify(customLibrary, null, 2)], { type: 'application/json' });
-    saveAs(blob, `vps_custom_library_${Date.now()}.json`);
-  };
-
-  const exportPresets = () => {
-    const blob = new Blob([JSON.stringify(presets, null, 2)], { type: 'application/json' });
-    saveAs(blob, `vps_presets_${Date.now()}.json`);
-  };
-
-  const readJsonFile = async (file) => JSON.parse(await file.text());
-
-  const handleImportCustomLibrary = async (event) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const handleCopyText = async (label, text) => {
+    if (!text) return;
     try {
-      const imported = normalizeImportedEntries(await readJsonFile(file));
-      if (imported.length > 0) setCustomLibrary((prev) => [...imported, ...prev].slice(0, 400));
+      await navigator.clipboard.writeText(text);
+      setCopiedLabel(label);
+      window.setTimeout(() => setCopiedLabel(''), 1800);
     } catch {
-      window.alert('Custom library import failed. Please use a valid JSON export.');
-    } finally {
-      event.target.value = '';
+      setCopiedLabel('Copy failed');
+      window.setTimeout(() => setCopiedLabel(''), 1800);
     }
   };
-
-  const handleImportPresets = async (event) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    try {
-      const imported = normalizeImportedPresets(await readJsonFile(file));
-      if (imported.length > 0) setPresets((prev) => [...imported, ...prev].slice(0, 24));
-    } catch {
-      window.alert('Preset import failed. Please use a valid JSON export.');
-    } finally {
-      event.target.value = '';
-    }
-  };
-
-  const selectedGroup = knowledgeBaseOptions.find((group) => group.value === customForm.group);
-  const selectedCategories = selectedGroup?.categories || [];
 
   const toggleJewelrySelection = (option) => {
-    setLocks((prev) => {
+    updateLocks((prev) => {
       const current = Array.isArray(prev.jewelryIds) ? prev.jewelryIds : [];
       const alreadySelected = current.includes(option.id);
 
@@ -445,20 +390,11 @@ export default function App() {
       return { ...prev, jewelryIds: [...next, option.id] };
     });
   };
-
-  const updateCustomGroup = (group) => {
-    const nextGroup = knowledgeBaseOptions.find((item) => item.value === group);
-    setCustomForm((prev) => ({
-      ...prev,
-      group,
-      category: nextGroup?.categories.includes(prev.category) ? prev.category : nextGroup?.categories[0] || '',
-    }));
-  };
+  const jewelryControl = wardrobeLockControls.find((control) => control.key === 'jewelryIds');
+  const jewelryCopyText = jewelryControl ? getSelectedPromptText(jewelryControl, locks.jewelryIds) : '';
 
   return (
     <div className="container">
-      <input ref={presetInputRef} className="hidden-input" type="file" accept="application/json" onChange={handleImportPresets} />
-
       <header className="page-header">
         <div>
           <p className="eyebrow">Virtual Photography Studio</p>
@@ -484,26 +420,13 @@ export default function App() {
             </div>
             <div className="lock-grid detail-lock-grid">
               {coreLockControls.map((control) => (
-                <label key={control.key} className="field">
-                  <span>{control.label}</span>
-                  <select
-                    className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
-                    value={locks[control.key]}
-                    onChange={(event) =>
-                      setLocks((prev) => ({
-                        ...prev,
-                        [control.key]: event.target.value,
-                      }))
-                    }
-                  >
-                    <option value="">Random</option>
-                    {control.options.map((option) => (
-                      <option key={option.id} value={option.id}>
-                        {option.zh}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+                <SelectControlField
+                  key={control.key}
+                  control={control}
+                  value={locks[control.key]}
+                  onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
+                  onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
+                />
               ))}
             </div>
           </div>
@@ -514,26 +437,13 @@ export default function App() {
             </div>
             <div className="lock-grid">
               {characterLockControls.map((control) => (
-                <label key={control.key} className="field">
-                  <span>{control.label}</span>
-                  <select
-                    className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
-                    value={locks[control.key]}
-                    onChange={(event) =>
-                      setLocks((prev) => ({
-                        ...prev,
-                        [control.key]: event.target.value,
-                      }))
-                    }
-                  >
-                    {!control.required ? <option value="">Random</option> : null}
-                    {control.options.map((option) => (
-                      <option key={option.id} value={option.id}>
-                        {option.zh}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+                <SelectControlField
+                  key={control.key}
+                  control={control}
+                  value={locks[control.key]}
+                  onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
+                  onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
+                />
               ))}
             </div>
           </div>
@@ -546,7 +456,19 @@ export default function App() {
               {wardrobeLockControls.map((control) =>
                 control.key === 'jewelryIds' ? (
                   <div key={control.key} className={`field field-full ${isOutfitPresetActive ? 'field-disabled' : ''}`}>
-                    <span>{control.label}</span>
+                    <div className="field-heading-row">
+                      <span>{control.label}</span>
+                      <button
+                        type="button"
+                        className="secondary control-copy-btn control-copy-btn-inline"
+                        disabled={isOutfitPresetActive || !jewelryCopyText}
+                        onClick={() => handleCopyText(`${control.label} copied`, jewelryCopyText)}
+                        title={`Copy ${control.label} prompt`}
+                      >
+                        <Copy size={14} />
+                        複製已選
+                      </button>
+                    </div>
                     <div className="chip-list chip-list-inline">
                       {control.options.map((option) => {
                         const active = Array.isArray(locks.jewelryIds) && locks.jewelryIds.includes(option.id);
@@ -565,68 +487,21 @@ export default function App() {
                     </div>
                   </div>
                 ) : (
-                  <label
+                  <SelectControlField
                     key={control.key}
-                    className={`field ${
+                    control={control}
+                    value={locks[control.key]}
+                    disabled={
                       isOutfitPresetActive &&
                       !['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId'].includes(control.key)
-                        ? 'field-disabled'
-                        : ''
-                    }`}
-                  >
-                    <span>{control.label}</span>
-                    <select
-                      disabled={
-                        isOutfitPresetActive &&
-                        !['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId'].includes(control.key)
-                      }
-                      className={isMutedSelectValue(control, locks[control.key]) ? 'select-muted' : ''}
-                      value={locks[control.key]}
-                      onChange={(event) =>
-                        setLocks((prev) => ({
-                          ...prev,
-                          [control.key]: event.target.value,
-                        }))
-                      }
-                    >
-                      <option value="">Random</option>
-                      {control.options.map((option) => (
-                        <option key={option.id} value={option.id}>
-                          {option.zh}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
+                    }
+                    onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
+                    onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
+                  />
                 )
               )}
             </div>
           </div>
-
-          <div className="preset-row">
-            <input className="text-input" value={presetName} onChange={(event) => setPresetName(event.target.value)} placeholder="Preset name" />
-            <button className="secondary" onClick={handleSavePreset}>
-              Save
-            </button>
-            <button className="secondary" onClick={() => presetInputRef.current?.click()}>
-              Import
-            </button>
-            <button className="secondary" onClick={exportPresets} disabled={presets.length === 0}>
-              Export
-            </button>
-            <button className="secondary subtle-action" onClick={() => setLocks(createEmptyLocks())}>
-              Reset Controls
-            </button>
-          </div>
-
-          {presets.length > 0 ? (
-            <div className="chip-list">
-              {presets.map((preset) => (
-                <button key={preset.id} className="chip" onClick={() => setLocks(preset.locks)}>
-                  {preset.name}
-                </button>
-              ))}
-            </div>
-          ) : null}
 
           <div className="control-actions">
             <div className="control-actions-main">
@@ -635,8 +510,6 @@ export default function App() {
                 <select value={genCount} onChange={(event) => setGenCount(Number(event.target.value))}>
                   <option value={1}>1</option>
                   <option value={3}>3</option>
-                  <option value={6}>6</option>
-                  <option value={10}>10</option>
                 </select>
               </label>
 
@@ -646,10 +519,10 @@ export default function App() {
               <button className="secondary danger" onClick={() => setPrompts([])} disabled={prompts.length === 0}>
                 Clear Feed {prompts.length > 0 ? `(${prompts.length})` : ''}
               </button>
+              <button className="secondary subtle-action" onClick={() => setLocks(createEmptyLocks())}>
+                Reset Controls
+              </button>
             </div>
-            <button className="library-cta" onClick={() => setIsLibraryOpen(true)}>
-              Custom Library
-            </button>
           </div>
         </div>
       </section>
@@ -688,21 +561,7 @@ export default function App() {
         )}
       </div>
 
-      <CustomLibraryModal
-        isOpen={isLibraryOpen}
-        onClose={() => setIsLibraryOpen(false)}
-        customLibraryInputRef={customLibraryInputRef}
-        onImportClick={handleImportCustomLibrary}
-        onExport={exportCustomLibrary}
-        knowledgeBaseOptions={knowledgeBaseOptions}
-        customForm={customForm}
-        updateCustomGroup={updateCustomGroup}
-        setCustomForm={setCustomForm}
-        selectedCategories={selectedCategories}
-        onAddCustomEntry={handleAddCustomEntry}
-        customLibrary={customLibrary}
-        onDeleteEntry={(id) => setCustomLibrary((prev) => prev.filter((item) => item.id !== id))}
-      />
+      {copiedLabel ? <div className="toast">{copiedLabel}</div> : null}
     </div>
   );
 }

@@ -178,6 +178,22 @@ h1 {
   gap: 8px;
 }
 
+.field-control-row,
+.field-heading-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.field-control-row select {
+  flex: 1;
+}
+
+.field-heading-row {
+  justify-content: space-between;
+  min-height: 28px;
+}
+
 .field-disabled {
   opacity: 0.62;
 }
@@ -194,6 +210,20 @@ h1 {
 
 .compact-field {
   min-width: 110px;
+}
+
+.control-copy-btn {
+  min-width: 88px;
+  flex-shrink: 0;
+}
+
+.control-copy-btn-inline {
+  min-height: 32px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 select,
@@ -267,7 +297,6 @@ button:disabled {
   transform: none;
 }
 
-.preset-row,
 .control-actions,
 .inline-actions,
 .tab-row,
@@ -275,17 +304,11 @@ button:disabled {
   gap: 12px;
 }
 
-.preset-row,
 .control-actions,
 .control-actions-main,
 .inline-actions {
   display: flex;
   flex-wrap: wrap;
-}
-
-.preset-row {
-  margin-top: 16px;
-  align-items: center;
 }
 
 .control-actions {
@@ -308,17 +331,6 @@ button:disabled {
 
 .subtle-action {
   margin-left: auto;
-}
-
-.library-cta {
-  margin-left: auto;
-  min-width: 170px;
-  background: var(--accent);
-  color: #fffdf8;
-}
-
-.library-cta:hover {
-  background: var(--accent-hover);
 }
 
 .reroll-panel-inline {
@@ -770,16 +782,11 @@ button:disabled {
     align-items: stretch;
   }
 
-  .preset-row,
   .control-actions,
   .control-actions-main,
   .inline-actions,
   .tab-row {
     flex-wrap: wrap;
-  }
-
-  .library-cta {
-    margin-left: 0;
   }
 
   .primary-action-row,
@@ -795,8 +802,13 @@ button:disabled {
   .subtitle {
     white-space: normal;
   }
+  .field-control-row,
+  .field-heading-row {
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
 
-  .library-cta {
+  .control-copy-btn {
     width: 100%;
   }
 }
