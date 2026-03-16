@@ -217,13 +217,10 @@ h1 {
   flex-shrink: 0;
 }
 
-.control-copy-btn-inline {
-  min-height: 32px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  gap: 6px;
-  white-space: nowrap;
+.control-copy-icon-btn {
+  min-height: auto;
+  min-width: auto;
+  padding: 0;
 }
 
 select,
@@ -810,5 +807,9 @@ button:disabled {
 
   .control-copy-btn {
     width: 100%;
+  }
+
+  .control-copy-icon-btn {
+    width: auto;
   }
 }

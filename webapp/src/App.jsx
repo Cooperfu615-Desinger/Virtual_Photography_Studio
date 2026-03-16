@@ -151,13 +151,13 @@ function SelectControlField({ control, value, onChange, onCopy, disabled = false
         <span>{control.label}</span>
         <button
           type="button"
-          className="secondary control-copy-btn control-copy-btn-inline"
+          className="icon-btn control-copy-icon-btn"
           disabled={isCopyDisabled}
           onClick={() => onCopy(copyText)}
           title={`Copy ${control.label} prompt`}
+          aria-label={`Copy ${control.label} prompt`}
         >
           <Copy size={14} />
-          複製
         </button>
       </div>
       <div className="field-control-row">
@@ -460,13 +460,13 @@ export default function App() {
                       <span>{control.label}</span>
                       <button
                         type="button"
-                        className="secondary control-copy-btn control-copy-btn-inline"
+                        className="icon-btn control-copy-icon-btn"
                         disabled={isOutfitPresetActive || !jewelryCopyText}
                         onClick={() => handleCopyText(`${control.label} copied`, jewelryCopyText)}
                         title={`Copy ${control.label} prompt`}
+                        aria-label={`Copy ${control.label} prompt`}
                       >
                         <Copy size={14} />
-                        複製已選
                       </button>
                     </div>
                     <div className="chip-list chip-list-inline">
