@@ -513,6 +513,16 @@
         "zh": "波西米亞風長褲",
         "en": "bohemian wide-leg trousers, flowing fabric, artisanal relaxed silhouette",
         "desc": "布料柔軟飄逸，輪廓寬鬆自然，帶有旅行感與民俗風的輕鬆氣質。"
+      },
+      {
+        "zh": "丹寧吊帶長褲",
+        "en": "denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling",
+        "desc": "以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。"
+      },
+      {
+        "zh": "丹寧吊帶短褲",
+        "en": "denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood",
+        "desc": "以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。"
       }
     ],
     "裙裝 (Skirts)": [
@@ -527,9 +537,14 @@
         "desc": "高頻實用短裙，適合城市、寫真與時裝風格。"
       },
       {
-        "zh": "A 字裙",
-        "en": "a-line skirt, structured flare, balanced feminine silhouette",
-        "desc": "腰部收合、裙擺自然展開，實用且好搭配。"
+        "zh": "A 字短裙",
+        "en": "a-line mini skirt, structured flare, balanced feminine silhouette",
+        "desc": "腰部收合、裙擺自然展開的短裙版本，實用且好搭配。"
+      },
+      {
+        "zh": "A 字長裙",
+        "en": "a-line maxi skirt, elongated flared silhouette, balanced feminine drape",
+        "desc": "保留 A 字展開輪廓但拉長裙長，整體更柔和也更成熟。"
       },
       {
         "zh": "絲質長裙",
@@ -540,6 +555,11 @@
         "zh": "百褶短裙",
         "en": "classic pleated mini skirt, crisp folds, youthful styling",
         "desc": "學院感強，適合 JK、街頭與 Y2K 主題。"
+      },
+      {
+        "zh": "百褶長裙",
+        "en": "pleated maxi skirt, crisp vertical folds, elongated flowing silhouette",
+        "desc": "把百褶線條延伸到長裙輪廓，整體更優雅，也更適合成熟或文藝造型。"
       },
       {
         "zh": "不對稱層次百褶裙",
@@ -590,6 +610,31 @@
         "zh": "開衩長裙",
         "en": "slit maxi skirt, leg-revealing elegant cut, fluid elongated silhouette",
         "desc": "成熟、性感且有流動感，適合時裝、晚間與高級場景。"
+      },
+      {
+        "zh": "圍裹裙",
+        "en": "wrap skirt, overlapping front panel, adjustable waist tie, fluid asymmetrical drape",
+        "desc": "以包裹式前片與腰部綁結為特色，輪廓自然且帶有輕鬆流動感。"
+      },
+      {
+        "zh": "打摺褲裙",
+        "en": "pleated culotte skirt, wide split silhouette, structured folds, skirt-like volume",
+        "desc": "褲裙結合了裙裝外觀與褲裝結構，帶有寬鬆份量感與更高的活動性。"
+      },
+      {
+        "zh": "抓皺長裙",
+        "en": "ruched maxi skirt, gathered fabric texture, body-skimming drape",
+        "desc": "以抓皺布料與貼合垂墜輪廓為特色，整體更有細節與女人味。"
+      },
+      {
+        "zh": "和服寬擺裙",
+        "en": "kimono-inspired wide skirt, broad sweeping hem, elegant draped volume, Japanese-inspired styling",
+        "desc": "以和服寬擺輪廓為靈感的裙裝，帶有明顯的展幅感與日式服裝語氣。"
+      },
+      {
+        "zh": "直筒裙",
+        "en": "straight skirt, clean vertical silhouette, streamlined fitted drape",
+        "desc": "輪廓筆直、線條乾淨，適合都會、極簡與較成熟的搭配方式。"
       },
       {
         "zh": "無袖連身洋裝",
