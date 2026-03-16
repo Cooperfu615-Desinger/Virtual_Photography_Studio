@@ -33,6 +33,7 @@
 | **髮型 (Hairstyle)** | 雙編髮 | `twin braids, neat braided hairstyle, soft face-framing strands` | 經典雙編髮更日常也更好駕馭，帶有清新與俏皮感。 |
 | **髮型 (Hairstyle)** | 及肩內彎鮑伯 | `shoulder-length bob, curled ends` | 溫婉的中長度，帶有微微的內彎弧度。 |
 | **髮型 (Hairstyle)** | 側分深大波浪 | `deep side part, glamour waves` | 展現成熟與優雅，適合商業攝影。 |
+| **髮型 (Hairstyle)** | 韓系深側分柔波長髮 | `deep side-parted long hair, soft polished waves, sleek face-framing flow, one side tucked behind the ear, elegant Korean editorial hairstyle` | 深側分的長髮帶柔和波浪與貼順光澤，一側自然收耳後，整體偏成熟、都會、精品感的韓系時裝髮型。 |
 | **髮型 (Hairstyle)** | 蓬鬆隨性馬尾 | `undone ponytail, high placement, flyaways` | 帶有細微碎髮的隨意感，自然生活氣息。 |
 | **髮型 (Hairstyle)** | 碎瀏海高盤髮 | `wispy bangs, elegant high updo, loose face-framing tendrils` | 高位盤起的髮型搭配碎瀏海與臉側細捲鬚，帶有日系暗黑與精緻感。 |
 | **髮型 (Hairstyle)** | 半綁公主頭長髮 | `half-up long hair, soft crown lift, loose face-framing strands` | 上半部輕輕束起、下半部自然垂落，清純又帶一點柔和公主感。 |

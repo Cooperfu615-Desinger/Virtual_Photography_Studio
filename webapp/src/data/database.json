@@ -174,6 +174,16 @@
         "zh": "泳裝度假套裝",
         "en": "wearing a swimwear-inspired outfit with bikini or one-piece styling, resort mood, sunlit vacation elegance",
         "desc": "比基尼或連身泳裝為核心的海邊與度假造型。"
+      },
+      {
+        "zh": "短袖女高生水手服",
+        "en": "wearing a Japanese schoolgirl sailor uniform with a short-sleeve sailor blouse, pleated skirt, soft ribbon tie, youthful academic styling, clean summer seifuku silhouette",
+        "desc": "以短袖水手服上衣、百褶裙與柔軟領巾為核心的日系女高生制服造型，偏夏季、青春與清爽感。"
+      },
+      {
+        "zh": "長袖女高生水手服",
+        "en": "wearing a Japanese schoolgirl sailor uniform with a long-sleeve sailor blouse, pleated skirt, soft ribbon tie, classic academic styling, neat seifuku silhouette",
+        "desc": "以長袖水手服上衣、百褶裙與柔軟領巾構成的日系女高生制服造型，整體更經典、端正，也更適合室內與秋冬感畫面。"
       }
     ],
     "上身 (Tops)": [
@@ -268,9 +278,14 @@
         "desc": "女式襯衫，柔軟飄逸的長袖，寬大的袖口飾有精緻的白色蕾絲花邊和柔和的荷葉邊。"
       },
       {
+        "zh": "透膚刺繡襯衫",
+        "en": "sheer embroidered button-up shirt, translucent lightweight fabric, delicate tonal embroidery, soft drape, elegant sensual blouse silhouette",
+        "desc": "半透明的鈕扣襯衫，布料輕薄、帶同色系刺繡紋理，整體更像精緻時裝而不是一般日常襯衫。"
+      },
+      {
         "zh": "網紗透視上衣",
-        "en": "mesh see-through top, sheer net texture, body-hugging silhouette",
-        "desc": "網紗質地讓肌膚若隱若現，適合夜景、時裝與較強風格主題。"
+        "en": "mesh see-through top, sheer net texture, delicate lace motif detailing, subtle floral lace accents, body-hugging silhouette",
+        "desc": "網紗質地讓肌膚若隱若現，並加入蕾絲花紋與細緻裝飾感，適合夜景、時裝與更精緻的強風格主題。"
       },
       {
         "zh": "短版緊身吊帶背心",
@@ -1868,6 +1883,11 @@
         "zh": "側分深大波浪",
         "en": "deep side part, glamour waves",
         "desc": "展現成熟與優雅，適合商業攝影。"
+      },
+      {
+        "zh": "韓系深側分柔波長髮",
+        "en": "deep side-parted long hair, soft polished waves, sleek face-framing flow, one side tucked behind the ear, elegant Korean editorial hairstyle",
+        "desc": "深側分的長髮帶柔和波浪與貼順光澤，一側自然收耳後，整體偏成熟、都會、精品感的韓系時裝髮型。"
       },
       {
         "zh": "蓬鬆隨性馬尾",

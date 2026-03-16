@@ -22,6 +22,8 @@
 | **套裝 (Outfit Presets)** | 蘿莉塔套裝 | `wearing a Lolita-inspired outfit with bell-shaped skirt, layered frills, bows, rococo-influenced sweetness, ornate doll-like styling` | 鐘形裙襬、荷葉邊與蝴蝶結構成的甜美或哥德蘿莉塔造型。 |
 | **套裝 (Outfit Presets)** | 內衣寫真套裝 | `wearing a lingerie-inspired outfit with lace, sheer panels, boudoir styling, intimate body-conscious silhouette` | 透膚、蕾絲與私密感強的內衣寫真造型。 |
 | **套裝 (Outfit Presets)** | 泳裝度假套裝 | `wearing a swimwear-inspired outfit with bikini or one-piece styling, resort mood, sunlit vacation elegance` | 比基尼或連身泳裝為核心的海邊與度假造型。 |
+| **套裝 (Outfit Presets)** | 短袖女高生水手服 | `wearing a Japanese schoolgirl sailor uniform with a short-sleeve sailor blouse, pleated skirt, soft ribbon tie, youthful academic styling, clean summer seifuku silhouette` | 以短袖水手服上衣、百褶裙與柔軟領巾為核心的日系女高生制服造型，偏夏季、青春與清爽感。 |
+| **套裝 (Outfit Presets)** | 長袖女高生水手服 | `wearing a Japanese schoolgirl sailor uniform with a long-sleeve sailor blouse, pleated skirt, soft ribbon tie, classic academic styling, neat seifuku silhouette` | 以長袖水手服上衣、百褶裙與柔軟領巾構成的日系女高生制服造型，整體更經典、端正，也更適合室內與秋冬感畫面。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 合身襯衫 | `fitted shirt, crisp cotton poplin, clean silhouette` | 乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。 |
 | **上身 (Tops)** | 短版棉質露臍小可愛 | `cropped cotton cami, soft ribbed fabric, close body fit` | 棉質與貼身露腰輪廓很直接，適合日常、街頭與夏日寫真風格。 |
@@ -40,7 +42,8 @@
 | **上身 (Tops)** | 一字領上衣 | `off-shoulder top, exposed collarbones, soft neckline silhouette` | 露出鎖骨與肩線，氣質成熟，適合寫真與女性化風格。 |
 | **上身 (Tops)** | 削肩平口連身上衣 | `halter bandeau bodysuit, shoulder-baring fitted one-piece, sleek stretch silhouette` | 結合削肩與平口輪廓，身體線條更完整，適合時裝與寫真。 |
 | **上身 (Tops)** | 絲綢緞面襯衫 | `silk satin blouse, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details` | 女式襯衫，柔軟飄逸的長袖，寬大的袖口飾有精緻的白色蕾絲花邊和柔和的荷葉邊。 |
-| **上身 (Tops)** | 網紗透視上衣 | `mesh see-through top, sheer net texture, body-hugging silhouette` | 網紗質地讓肌膚若隱若現，適合夜景、時裝與較強風格主題。 |
+| **上身 (Tops)** | 透膚刺繡襯衫 | `sheer embroidered button-up shirt, translucent lightweight fabric, delicate tonal embroidery, soft drape, elegant sensual blouse silhouette` | 半透明的鈕扣襯衫，布料輕薄、帶同色系刺繡紋理，整體更像精緻時裝而不是一般日常襯衫。 |
+| **上身 (Tops)** | 網紗透視上衣 | `mesh see-through top, sheer net texture, delicate lace motif detailing, subtle floral lace accents, body-hugging silhouette` | 網紗質地讓肌膚若隱若現，並加入蕾絲花紋與細緻裝飾感，適合夜景、時裝與更精緻的強風格主題。 |
 | **上身 (Tops)** | 短版緊身吊帶背心 | `cropped tight camisole, close body fit, streamlined silhouette` | 貼身露腰、偏 Y2K 與街頭感。 |
 | **上身 (Tops)** | 短版帽T | `cropped hoodie, casual streetwear silhouette, sporty relaxed shape` | 帶有街頭與運動感，適合 Y2K、隨拍與日常造型。 |
 | **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 偏街頭與運動風，適合社群感、青春感與休閒主題。 |
