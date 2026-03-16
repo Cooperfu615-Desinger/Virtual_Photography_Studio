@@ -15,14 +15,14 @@
 | **相機視角 (Angle)** | 俯角 (High Angle) | `high angle, looking down from above, vulnerable, cute, foreshortening` | 由上往下拍。使人物顯得較小、脆弱或無辜，伴隨明顯的透視縮短效益。 |
 | **相機視角 (Angle)** | 荷蘭角/傾斜 (Dutch Angle) | `dutch angle, tilted camera, crooked horizon, unsettling, cinematic tension` | 相機刻意傾斜，地平線不平。營造不安、混亂、速度感或極度戲劇化的電影張力。 |
 | **拍攝方位 (Orbit Angle)** | 全無 | `none` | 不指定環繞角度，讓模型自行決定人物相對鏡頭的朝向。 |
-| **拍攝方位 (Orbit Angle)** | 正面 (Front View) | `front-facing camera position, straight-on subject view, symmetrical subject orientation` | 鏡頭正對人物正面，臉部與身體主要朝向鏡頭，資訊最完整。 |
-| **拍攝方位 (Orbit Angle)** | 正面 45 度 (Front Three-Quarter Left) | `front three-quarter angle, 45-degree turn, slightly angled toward camera, dimensional subject view` | 人物相對鏡頭略微轉開，保留完整臉部資訊，同時更有立體感。 |
-| **拍攝方位 (Orbit Angle)** | 側面 90 度 (Left Profile) | `side profile view, 90-degree subject angle, clean facial profile, lateral composition` | 以側臉或側身輪廓為主，適合強調鼻樑、下顎線與輪廓。 |
-| **拍攝方位 (Orbit Angle)** | 背側 135 度 (Rear Three-Quarter Left) | `rear three-quarter angle, over-shoulder body orientation, partially turned away from camera` | 身體大幅轉離鏡頭，只保留部分側臉或回望可能性，適合帶出神秘感。 |
-| **拍攝方位 (Orbit Angle)** | 背面 180 度 (Back View) | `back view, subject facing away from camera, rear body orientation, turned back silhouette` | 以背影為主，臉部資訊大幅減少，重點轉向髮型、服裝線條與姿態。 |
-| **拍攝方位 (Orbit Angle)** | 背側 225 度 (Rear Three-Quarter Right) | `rear three-quarter angle from opposite side, body turned away, partial shoulder reveal` | 從另一側拍攝背側角度，保留肩線與背部輪廓，仍偏向背影導向。 |
-| **拍攝方位 (Orbit Angle)** | 側面 270 度 (Right Profile) | `right-side profile view, side-facing camera angle, crisp lateral silhouette` | 與另一個側面角度相對，重點同樣在側臉與輪廓線條。 |
-| **拍攝方位 (Orbit Angle)** | 正面 315 度 (Front Three-Quarter Right) | `front three-quarter angle from opposite side, softly turned toward camera, dimensional subject composition` | 從另一側的正面 45 度視角拍攝，保留臉部辨識度，也有自然轉身感。 |
+| **拍攝方位 (Orbit Angle)** | 正面 | `front-facing camera position, straight-on subject view, symmetrical subject orientation` | 鏡頭正對人物正面，臉部與身體主要朝向鏡頭，資訊最完整。 |
+| **拍攝方位 (Orbit Angle)** | 左前斜側 | `front three-quarter angle, 45-degree turn, slightly angled toward camera, dimensional subject view` | 身體略微往左轉開，但仍保留大部分正面資訊，常見於最自然的人像角度。 |
+| **拍攝方位 (Orbit Angle)** | 左側 | `side profile view, 90-degree subject angle, clean facial profile, lateral composition` | 以左側臉或左側身輪廓為主，適合強調鼻樑、下顎線與側面輪廓。 |
+| **拍攝方位 (Orbit Angle)** | 左後斜側 | `rear three-quarter angle, over-shoulder body orientation, partially turned away from camera` | 身體明顯朝左後方轉開，只保留少量側臉或回望可能，神秘感更強。 |
+| **拍攝方位 (Orbit Angle)** | 背面 | `back view, subject facing away from camera, rear body orientation, turned back silhouette` | 以背影為主，臉部資訊大幅減少，重點轉向髮型、服裝線條與姿態。 |
+| **拍攝方位 (Orbit Angle)** | 右後斜側 | `rear three-quarter angle from opposite side, body turned away, partial shoulder reveal` | 從右後方的斜側角度觀看主體，保留肩線與背部輪廓，仍偏背影導向。 |
+| **拍攝方位 (Orbit Angle)** | 右側 | `right-side profile view, side-facing camera angle, crisp lateral silhouette` | 以右側臉或右側身輪廓為主，重點同樣是側面線條與輪廓感。 |
+| **拍攝方位 (Orbit Angle)** | 右前斜側 | `front three-quarter angle from opposite side, softly turned toward camera, dimensional subject composition` | 身體略微往右轉開，但仍保留大部分正面資訊，適合自然且有立體感的人像構圖。 |
 | **鏡頭焦段 (Focal Length)** | 35mm 廣角 (人文視角) | `shot on 35mm lens, documentary style, slight background blur, natural field of view` | 經典的人文與街拍焦段，視角適中不過度變形，能自然融合人物與環境背景。 |
 | **鏡頭焦段 (Focal Length)** | 50mm 標準鏡頭 (Standard) | `shot on 50mm lens, human eye perspective, natural figure rendering, zero distortion` | 最接近人類單眼視覺的透視感，不變形，背景虛化自然，適用於絕大多數日常與棚拍。 |
 | **鏡頭焦段 (Focal Length)** | 85mm 中長焦 (人像鏡皇) | `shot on 85mm lens, shallow depth of field, creamy bokeh, precise facial rendering` | 完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。 |

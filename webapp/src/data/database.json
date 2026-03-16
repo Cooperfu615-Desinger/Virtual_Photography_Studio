@@ -219,13 +219,13 @@
       },
       {
         "zh": "寬鬆襯衫",
-        "en": "oversized shirt, loose drape, relaxed tailoring",
-        "desc": "輪廓寬鬆、生活感強，適合街頭、飯店與慵懶穿搭。"
+        "en": "oversized boyfriend shirt, wearing a loose button-up shirt like a boyfriend's shirt, long relaxed sleeves, soft drape, bare-leg morning-after styling",
+        "desc": "呈現像女友直接套上男友襯衫的鬆大輪廓，袖長偏長、版型寬鬆，帶有居家、親密與慵懶感。"
       },
       {
         "zh": "緊身襯衫＋領帶",
-        "en": "fitted shirt with tie, sharp collar, slim tailored silhouette",
-        "desc": "帶有制服感與整理過的正式氣質，適合制服、辦公室與 fetish 邊緣造型。"
+        "en": "fitted shirt with a soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood",
+        "desc": "保留貼身襯衫的俐落感，但領帶材質更柔軟、長度偏短，氣質更像整理過但不過度正式的制服變體。"
       },
       {
         "zh": "寬鬆落肩 T 恤",
@@ -863,44 +863,44 @@
         "desc": "不指定環繞角度，讓模型自行決定人物相對鏡頭的朝向。"
       },
       {
-        "zh": "正面 (Front View)",
+        "zh": "正面",
         "en": "front-facing camera position, straight-on subject view, symmetrical subject orientation",
         "desc": "鏡頭正對人物正面，臉部與身體主要朝向鏡頭，資訊最完整。"
       },
       {
-        "zh": "正面 45 度 (Front Three-Quarter Left)",
+        "zh": "左前斜側",
         "en": "front three-quarter angle, 45-degree turn, slightly angled toward camera, dimensional subject view",
-        "desc": "人物相對鏡頭略微轉開，保留完整臉部資訊，同時更有立體感。"
+        "desc": "身體略微往左轉開，但仍保留大部分正面資訊，常見於最自然的人像角度。"
       },
       {
-        "zh": "側面 90 度 (Left Profile)",
+        "zh": "左側",
         "en": "side profile view, 90-degree subject angle, clean facial profile, lateral composition",
-        "desc": "以側臉或側身輪廓為主，適合強調鼻樑、下顎線與輪廓。"
+        "desc": "以左側臉或左側身輪廓為主，適合強調鼻樑、下顎線與側面輪廓。"
       },
       {
-        "zh": "背側 135 度 (Rear Three-Quarter Left)",
+        "zh": "左後斜側",
         "en": "rear three-quarter angle, over-shoulder body orientation, partially turned away from camera",
-        "desc": "身體大幅轉離鏡頭，只保留部分側臉或回望可能性，適合帶出神秘感。"
+        "desc": "身體明顯朝左後方轉開，只保留少量側臉或回望可能，神秘感更強。"
       },
       {
-        "zh": "背面 180 度 (Back View)",
+        "zh": "背面",
         "en": "back view, subject facing away from camera, rear body orientation, turned back silhouette",
         "desc": "以背影為主，臉部資訊大幅減少，重點轉向髮型、服裝線條與姿態。"
       },
       {
-        "zh": "背側 225 度 (Rear Three-Quarter Right)",
+        "zh": "右後斜側",
         "en": "rear three-quarter angle from opposite side, body turned away, partial shoulder reveal",
-        "desc": "從另一側拍攝背側角度，保留肩線與背部輪廓，仍偏向背影導向。"
+        "desc": "從右後方的斜側角度觀看主體，保留肩線與背部輪廓，仍偏背影導向。"
       },
       {
-        "zh": "側面 270 度 (Right Profile)",
+        "zh": "右側",
         "en": "right-side profile view, side-facing camera angle, crisp lateral silhouette",
-        "desc": "與另一個側面角度相對，重點同樣在側臉與輪廓線條。"
+        "desc": "以右側臉或右側身輪廓為主，重點同樣是側面線條與輪廓感。"
       },
       {
-        "zh": "正面 315 度 (Front Three-Quarter Right)",
+        "zh": "右前斜側",
         "en": "front three-quarter angle from opposite side, softly turned toward camera, dimensional subject composition",
-        "desc": "從另一側的正面 45 度視角拍攝，保留臉部辨識度，也有自然轉身感。"
+        "desc": "身體略微往右轉開，但仍保留大部分正面資訊，適合自然且有立體感的人像構圖。"
       }
     ],
     "鏡頭焦段 (Focal Length)": [

@@ -30,8 +30,8 @@
 | **上身 (Tops)** | 絲質細肩帶上衣 | `silk camisole top, delicate straps, fluid sheen` | 輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。 |
 | **上身 (Tops)** | 細肩帶上衣 | `camisole top, delicate shoulder straps, fitted silhouette` | 直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。 |
 | **上身 (Tops)** | 合身高領針織上衣 | `fitted turtleneck knit top, fine gauge knit, sleek silhouette` | 貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。 |
-| **上身 (Tops)** | 寬鬆襯衫 | `oversized shirt, loose drape, relaxed tailoring` | 輪廓寬鬆、生活感強，適合街頭、飯店與慵懶穿搭。 |
-| **上身 (Tops)** | 緊身襯衫＋領帶 | `fitted shirt with tie, sharp collar, slim tailored silhouette` | 帶有制服感與整理過的正式氣質，適合制服、辦公室與 fetish 邊緣造型。 |
+| **上身 (Tops)** | 寬鬆襯衫 | `oversized boyfriend shirt, wearing a loose button-up shirt like a boyfriend's shirt, long relaxed sleeves, soft drape, bare-leg morning-after styling` | 呈現像女友直接套上男友襯衫的鬆大輪廓，袖長偏長、版型寬鬆，帶有居家、親密與慵懶感。 |
+| **上身 (Tops)** | 緊身襯衫＋領帶 | `fitted shirt with a soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood` | 保留貼身襯衫的俐落感，但領帶材質更柔軟、長度偏短，氣質更像整理過但不過度正式的制服變體。 |
 | **上身 (Tops)** | 寬鬆落肩 T 恤 | `oversized dropped-shoulder t-shirt, washed cotton jersey, relaxed fit` | 生活感很強的基本款，適合街頭、居家與青春隨拍風格。 |
 | **上身 (Tops)** | 短版緊身露臍 T 恤 | `cropped fitted t-shirt, exposed waistline, close casual silhouette` | 最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。 |
 | **上身 (Tops)** | 短版針織露臍小可愛 | `cropped knit cami, fitted knit texture, exposed waist styling` | 帶有針織紋理與露腰輪廓，介於日常與輕性感之間，適合外穿疊搭。 |
