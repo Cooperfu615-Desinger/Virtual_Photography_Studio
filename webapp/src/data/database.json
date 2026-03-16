@@ -693,19 +693,19 @@
         "desc": "比短靴更強勢，適合地下、龐克與機能風格。"
       },
       {
-        "zh": "籃球鞋",
-        "en": "basketball sneakers, padded sporty silhouette, athletic streetwear energy",
-        "desc": "鞋型厚實、偏運動街頭感，適合休閒與 Y2K。"
-      },
-      {
         "zh": "慢跑鞋",
         "en": "running shoes, lightweight athletic silhouette, casual movement-ready styling",
         "desc": "更偏生活與運動機能感，適合日常與街拍。"
       },
       {
-        "zh": "高跟鞋",
-        "en": "high heels, elongated leg line, elegant elevated silhouette",
-        "desc": "最直接的成熟與性感鞋型，適合寫真、時裝與飯店場景。"
+        "zh": "瑪莉珍鞋",
+        "en": "mary jane shoes, classic strap silhouette, feminine school-inspired styling",
+        "desc": "經典扣帶鞋型，適合制服、百褶裙、甜感與輕學院風搭配。"
+      },
+      {
+        "zh": "厚底瑪莉珍鞋",
+        "en": "platform mary jane shoes, chunky feminine silhouette, youthful doll-like styling",
+        "desc": "在瑪莉珍基礎上加入厚底感，甜感更強，也更適合 Y2K 與制服變體。"
       },
       {
         "zh": "樂福鞋",
@@ -713,24 +713,59 @@
         "desc": "都市、學院、極簡與法式風格都能搭。"
       },
       {
+        "zh": "厚底樂福鞋",
+        "en": "platform loafers, chunky sole, polished leather finish, modern school-inspired styling",
+        "desc": "保留樂福鞋的學院感，但更有份量與時裝感，適合制服、短裙與街頭學院混搭。"
+      },
+      {
+        "zh": "芭蕾平底鞋",
+        "en": "ballet flats, delicate feminine flat shoes, soft elegant silhouette",
+        "desc": "比高跟更輕盈柔和，適合法式、少女感、精緻日常與輕熟穿搭。"
+      },
+      {
+        "zh": "高跟鞋",
+        "en": "high heels, elongated leg line, elegant elevated silhouette",
+        "desc": "最直接的成熟與性感鞋型，適合寫真、時裝與飯店場景。"
+      },
+      {
+        "zh": "經典淺口高跟鞋",
+        "en": "classic pumps, clean pointed or almond toe silhouette, polished feminine heel shape",
+        "desc": "成熟穩定的都會女性鞋款，適合西裝、襯衫、窄裙與通勤風格。"
+      },
+      {
+        "zh": "尖頭細跟高跟鞋",
+        "en": "pointed-toe stiletto heels, sleek feminine silhouette, sharp elegant leg line",
+        "desc": "更強調成熟、性感與時裝感，適合飯店、夜拍與精品風格。"
+      },
+      {
+        "zh": "貓跟高跟鞋",
+        "en": "kitten heels, low delicate heel, refined feminine silhouette, understated elegance",
+        "desc": "跟高較低但氣質成熟，適合通勤、法式、文藝與日常精品感穿搭。"
+      },
+      {
         "zh": "細帶高跟涼鞋",
         "en": "strappy heeled sandals, delicate straps, elegant leg line",
         "desc": "適合飯店、晚間時裝與成熟優雅風格。"
       },
       {
+        "zh": "綁帶高跟涼鞋",
+        "en": "lace-up heeled sandals, wraparound ankle straps, elegant sensual heel styling",
+        "desc": "綁帶細節讓腿部線條更有存在感，適合夜拍、度假、飯店與性感造型。"
+      },
+      {
+        "zh": "防水台高跟鞋",
+        "en": "platform high heels, elevated sole, bold feminine silhouette, nightlife glamour styling",
+        "desc": "防水台讓整體氣勢更強，適合夜生活、派對、性感與強存在感畫面。"
+      },
+      {
+        "zh": "合身過膝長靴",
+        "en": "fitted over-the-knee boots, sleek leg-hugging silhouette, confident feminine styling",
+        "desc": "緊貼腿部的過膝長靴比一般長靴更有女人味，適合秋冬、夜拍與成熟時裝。"
+      },
+      {
         "zh": "尖頭短靴",
         "en": "pointed ankle boots, sleek leather finish, sharp silhouette",
         "desc": "帶有都會感與俐落感，適合秋冬與夜景。"
-      },
-      {
-        "zh": "機能老爹鞋",
-        "en": "chunky tech sneakers, intricate sole design, mesh and rubber paneling",
-        "desc": "鞋底厚重、科技感強。"
-      },
-      {
-        "zh": "復古方頭粗跟鞋",
-        "en": "retro square-toe block heels, smooth leather finish, 90s aesthetic",
-        "desc": "90 年代感的穩定鞋型，簡約耐用。"
       },
       {
         "zh": "漆皮過膝長靴",

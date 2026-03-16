@@ -123,14 +123,21 @@
 | **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday finish, versatile casual style` | 最穩定的日常鞋款，適合街拍與生活感畫面。 |
 | **鞋款 (Shoes)** | 馬丁短靴 | `combat ankle boots, sturdy lace-up silhouette, rugged everyday edge` | 短版軍靴感鞋型，適合龐克、街頭與中性造型。 |
 | **鞋款 (Shoes)** | 馬丁長靴 | `tall combat boots, lace-up knee-high silhouette, strong structured presence` | 比短靴更強勢，適合地下、龐克與機能風格。 |
-| **鞋款 (Shoes)** | 籃球鞋 | `basketball sneakers, padded sporty silhouette, athletic streetwear energy` | 鞋型厚實、偏運動街頭感，適合休閒與 Y2K。 |
 | **鞋款 (Shoes)** | 慢跑鞋 | `running shoes, lightweight athletic silhouette, casual movement-ready styling` | 更偏生活與運動機能感，適合日常與街拍。 |
-| **鞋款 (Shoes)** | 高跟鞋 | `high heels, elongated leg line, elegant elevated silhouette` | 最直接的成熟與性感鞋型，適合寫真、時裝與飯店場景。 |
+| **鞋款 (Shoes)** | 瑪莉珍鞋 | `mary jane shoes, classic strap silhouette, feminine school-inspired styling` | 經典扣帶鞋型，適合制服、百褶裙、甜感與輕學院風搭配。 |
+| **鞋款 (Shoes)** | 厚底瑪莉珍鞋 | `platform mary jane shoes, chunky feminine silhouette, youthful doll-like styling` | 在瑪莉珍基礎上加入厚底感，甜感更強，也更適合 Y2K 與制服變體。 |
 | **鞋款 (Shoes)** | 樂福鞋 | `classic loafers, polished leather, understated elegance` | 都市、學院、極簡與法式風格都能搭。 |
+| **鞋款 (Shoes)** | 厚底樂福鞋 | `platform loafers, chunky sole, polished leather finish, modern school-inspired styling` | 保留樂福鞋的學院感，但更有份量與時裝感，適合制服、短裙與街頭學院混搭。 |
+| **鞋款 (Shoes)** | 芭蕾平底鞋 | `ballet flats, delicate feminine flat shoes, soft elegant silhouette` | 比高跟更輕盈柔和，適合法式、少女感、精緻日常與輕熟穿搭。 |
+| **鞋款 (Shoes)** | 高跟鞋 | `high heels, elongated leg line, elegant elevated silhouette` | 最直接的成熟與性感鞋型，適合寫真、時裝與飯店場景。 |
+| **鞋款 (Shoes)** | 經典淺口高跟鞋 | `classic pumps, clean pointed or almond toe silhouette, polished feminine heel shape` | 成熟穩定的都會女性鞋款，適合西裝、襯衫、窄裙與通勤風格。 |
+| **鞋款 (Shoes)** | 尖頭細跟高跟鞋 | `pointed-toe stiletto heels, sleek feminine silhouette, sharp elegant leg line` | 更強調成熟、性感與時裝感，適合飯店、夜拍與精品風格。 |
+| **鞋款 (Shoes)** | 貓跟高跟鞋 | `kitten heels, low delicate heel, refined feminine silhouette, understated elegance` | 跟高較低但氣質成熟，適合通勤、法式、文藝與日常精品感穿搭。 |
 | **鞋款 (Shoes)** | 細帶高跟涼鞋 | `strappy heeled sandals, delicate straps, elegant leg line` | 適合飯店、晚間時裝與成熟優雅風格。 |
+| **鞋款 (Shoes)** | 綁帶高跟涼鞋 | `lace-up heeled sandals, wraparound ankle straps, elegant sensual heel styling` | 綁帶細節讓腿部線條更有存在感，適合夜拍、度假、飯店與性感造型。 |
+| **鞋款 (Shoes)** | 防水台高跟鞋 | `platform high heels, elevated sole, bold feminine silhouette, nightlife glamour styling` | 防水台讓整體氣勢更強，適合夜生活、派對、性感與強存在感畫面。 |
+| **鞋款 (Shoes)** | 合身過膝長靴 | `fitted over-the-knee boots, sleek leg-hugging silhouette, confident feminine styling` | 緊貼腿部的過膝長靴比一般長靴更有女人味，適合秋冬、夜拍與成熟時裝。 |
 | **鞋款 (Shoes)** | 尖頭短靴 | `pointed ankle boots, sleek leather finish, sharp silhouette` | 帶有都會感與俐落感，適合秋冬與夜景。 |
-| **鞋款 (Shoes)** | 機能老爹鞋 | `chunky tech sneakers, intricate sole design, mesh and rubber paneling` | 鞋底厚重、科技感強。 |
-| **鞋款 (Shoes)** | 復古方頭粗跟鞋 | `retro square-toe block heels, smooth leather finish, 90s aesthetic` | 90 年代感的穩定鞋型，簡約耐用。 |
 | **鞋款 (Shoes)** | 漆皮過膝長靴 | `patent leather thigh-high boots, sleek fetish-inspired silhouette` | 緊貼腿部線條，適合夜景、飯店與 fetish。 |
 | **飾品點綴 (Jewelry & Piercings)** | 全無 | `no jewelry, clean styling, bare accessories` | 不加飾品，讓造型維持乾淨俐落。 |
 | **飾品點綴 (Jewelry & Piercings)** | 小型金屬耳環 | `small metallic earrings, subtle jewelry accent, polished detail` | 最穩定的點綴型飾品，適合大多數風格。 |
