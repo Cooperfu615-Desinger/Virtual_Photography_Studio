@@ -88,7 +88,7 @@
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：蘇荷區霓虹招牌下 | `Soho neon sign corner, glowing signage, wall edge, wet ground, layered nightlife reflections` | 人物站在招牌與門面下方，帶有明確夜街辨識度但不強調大道構圖。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：蘇荷區濕地反光街角 | `Soho wet street corner, pub light reflections, turning wall, glossy pavement, stylish night atmosphere` | 街角與濕地反射構成局部夜拍背景，適合街拍與都會時裝人像。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：法租界老洋房門口 | `French Concession townhouse entrance, old doorway frame, iron railing, tree shadows, refined urban nostalgia` | 靠近老洋房入口與門框的場景，成熟且帶歷史感。 |
-| **城市與社群感 (Urban & Social Snapshots)** | 戶外：法租界樹影咖啡窗邊 | `French Concession café window, tree-shadow patterns, warm interior glow, reflective glass, literary city mood` | 咖啡店窗邊與樹影構成的文藝場景，適合成熟、生活感與寫真人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 室內：法租界咖啡館靠窗座位 | `French Concession café window seat, large floor-to-ceiling windows, sidewalk and swaying park tree shadows outside, warm interior glow, reflective glass, literary café atmosphere` | 法租界咖啡館內的靠窗座位，大片落地窗外可見人行道與公園樹影，溫暖室內燈光與玻璃反射讓整體更適合坐姿、靠窗與文藝生活感人像。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：法租界街角轉角牆面 | `French Concession corner wall, aged brick textures, soft signage glow, tree shadows, intimate street detail` | 轉角牆面與局部街景構成更貼近人物的城市背景。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：法租界鐵欄杆前 | `French Concession iron railing, stone wall, window frame, layered shadows, mature cosmopolitan atmosphere` | 舊式欄杆與牆面形成穩定成熟的都會背景，不容易跑成大道景。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：羅馬老城石牆轉角 | `Rome old-town stone corner, warm wall texture, cobblestone ground, soft evening light, romantic urban detail` | 石牆與轉角構成歐洲街拍局部背景，保留浪漫感但避免長巷透視。 |
