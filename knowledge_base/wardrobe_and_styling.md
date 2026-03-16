@@ -26,6 +26,8 @@
 | **套裝 (Outfit Presets)** | 精緻刺繡旗袍套裝 | `wearing an embroidered cheongsam, fitted full-body silhouette, elegant mandarin collar, intricate floral embroidery, refined traditional Chinese elegance` | 以刺繡細節為主角的完整旗袍造型，帶有更華麗的裝飾感與精緻中式氣質。 |
 | **套裝 (Outfit Presets)** | 經典和服套裝 | `wearing a traditional kimono outfit, wrapped full-body silhouette, wide obi sash, layered collar, elegant Japanese ceremonial styling, refined textile drape` | 以完整和服輪廓、寬版腰封與層疊領口為核心的正式日式造型，整體更端莊、古典且具有儀式感。 |
 | **套裝 (Outfit Presets)** | 輕盈浴衣套裝 | `wearing a traditional yukata outfit, soft wrapped silhouette, tied obi sash, light cotton fabric, relaxed Japanese summer festival styling` | 以輕薄布料與較放鬆的包裹式輪廓構成的浴衣造型，整體更清爽、柔和，也更適合夏日與生活感場景。 |
+| **套裝 (Outfit Presets)** | 經典漢服套裝 | `wearing a traditional hanfu outfit, flowing full-body silhouette, layered cross-collar robes, wide draped sleeves, elegant historical Chinese styling, refined flowing fabric` | 以交領、寬袖與層疊衣袍構成的完整漢服造型，整體更飄逸、古典，帶有明確的中式歷史服飾語言。 |
+| **套裝 (Outfit Presets)** | 改良漢服套裝 | `wearing a modernized hanfu-inspired outfit, soft flowing silhouette, cross-collar details, elegant draped sleeves, refined contemporary Chinese styling` | 保留漢服交領與垂墜輪廓，但更簡化、現代，適合時裝化與日常化的中式造型表現。 |
 | **套裝 (Outfit Presets)** | 短袖女高生水手服 | `wearing a Japanese schoolgirl sailor uniform with a short-sleeve sailor blouse, pleated skirt, soft ribbon tie, youthful academic styling, clean summer seifuku silhouette` | 以短袖水手服上衣、百褶裙與柔軟領巾為核心的日系女高生制服造型，偏夏季、青春與清爽感。 |
 | **套裝 (Outfit Presets)** | 長袖女高生水手服 | `wearing a Japanese schoolgirl sailor uniform with a long-sleeve sailor blouse, pleated skirt, soft ribbon tie, classic academic styling, neat seifuku silhouette` | 以長袖水手服上衣、百褶裙與柔軟領巾構成的日系女高生制服造型，整體更經典、端正，也更適合室內與秋冬感畫面。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
@@ -57,6 +59,8 @@
 | **上身 (Tops)** | 精緻刺繡旗袍上衣 | `embroidered cheongsam-style top, elegant mandarin collar, fitted silhouette, intricate floral embroidery, refined Chinese-inspired detail` | 在旗袍式上衣結構中加入細緻刺繡，裝飾感更強，適合更正式或更華麗的中式時裝搭配。 |
 | **上身 (Tops)** | 和服式上衣 | `kimono-style wrap top, layered crossover front, soft draped sleeves, obi-inspired waist emphasis, refined Japanese-inspired styling` | 以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型與包裹式前襟，適合搭配長裙、寬褲與日式混搭造型。 |
 | **上身 (Tops)** | 浴衣式上衣 | `yukata-style wrap top, lightweight crossover front, relaxed draped sleeves, soft summer Japanese styling` | 以浴衣較輕鬆的包裹式結構為靈感的上衣版本，布料感更輕，適合夏日、生活感與清爽的日式造型。 |
+| **上身 (Tops)** | 漢服式上衣 | `hanfu-style cross-collar top, flowing layered front, wide draped sleeves, refined Chinese-inspired styling` | 保留漢服交領與寬袖輪廓的上衣版本，適合搭配長裙、寬褲與更古典的中式混搭造型。 |
+| **上身 (Tops)** | 改良漢服式上衣 | `modern hanfu-inspired top, simplified cross-collar front, elegant draped sleeves, contemporary Chinese-inspired styling` | 以漢服元素為靈感但更現代化的上衣版本，保留交領與垂墜感，適合日常化或時裝化搭配。 |
 | **上身 (Tops)** | 透膚蕾絲連身上衣 | `sheer lace bodysuit top, floral lace texture, fitted silhouette` | 連身式透膚蕾絲上衣，偏內衣與寫真主題。 |
 | **上身 (Tops)** | 比基尼 | `bikini top, swimwear styling, minimal coverage silhouette` | 直接作為泳裝上身使用，適合海邊、泳池與度假感畫面。 |
 | **上身 (Tops)** | 蕾絲胸罩 | `lace bra, lingerie styling, delicate fitted support` | 蕾絲質地明顯，偏內衣與私密寫真風格。 |
