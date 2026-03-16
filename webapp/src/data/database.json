@@ -186,6 +186,16 @@
         "desc": "以刺繡細節為主角的完整旗袍造型，帶有更華麗的裝飾感與精緻中式氣質。"
       },
       {
+        "zh": "經典和服套裝",
+        "en": "wearing a traditional kimono outfit, wrapped full-body silhouette, wide obi sash, layered collar, elegant Japanese ceremonial styling, refined textile drape",
+        "desc": "以完整和服輪廓、寬版腰封與層疊領口為核心的正式日式造型，整體更端莊、古典且具有儀式感。"
+      },
+      {
+        "zh": "輕盈浴衣套裝",
+        "en": "wearing a traditional yukata outfit, soft wrapped silhouette, tied obi sash, light cotton fabric, relaxed Japanese summer festival styling",
+        "desc": "以輕薄布料與較放鬆的包裹式輪廓構成的浴衣造型，整體更清爽、柔和，也更適合夏日與生活感場景。"
+      },
+      {
         "zh": "短袖女高生水手服",
         "en": "wearing a Japanese schoolgirl sailor uniform with a short-sleeve sailor blouse, pleated skirt, soft ribbon tie, youthful academic styling, clean summer seifuku silhouette",
         "desc": "以短袖水手服上衣、百褶裙與柔軟領巾為核心的日系女高生制服造型，偏夏季、青春與清爽感。"
@@ -331,6 +341,16 @@
         "zh": "精緻刺繡旗袍上衣",
         "en": "embroidered cheongsam-style top, elegant mandarin collar, fitted silhouette, intricate floral embroidery, refined Chinese-inspired detail",
         "desc": "在旗袍式上衣結構中加入細緻刺繡，裝飾感更強，適合更正式或更華麗的中式時裝搭配。"
+      },
+      {
+        "zh": "和服式上衣",
+        "en": "kimono-style wrap top, layered crossover front, soft draped sleeves, obi-inspired waist emphasis, refined Japanese-inspired styling",
+        "desc": "以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型與包裹式前襟，適合搭配長裙、寬褲與日式混搭造型。"
+      },
+      {
+        "zh": "浴衣式上衣",
+        "en": "yukata-style wrap top, lightweight crossover front, relaxed draped sleeves, soft summer Japanese styling",
+        "desc": "以浴衣較輕鬆的包裹式結構為靈感的上衣版本，布料感更輕，適合夏日、生活感與清爽的日式造型。"
       },
       {
         "zh": "透膚蕾絲連身上衣",
