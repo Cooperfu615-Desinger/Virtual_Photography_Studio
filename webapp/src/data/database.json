@@ -1904,6 +1904,41 @@
         "desc": "眼神直接強硬，帶有挑釁與自信感。"
       },
       {
+        "zh": "直視鏡頭｜平靜凝視",
+        "en": "looking directly at the camera, calm steady gaze, composed neutral expression, quiet presence",
+        "desc": "直接看向鏡頭，神情平穩克制，適合乾淨、安靜、寫真感的人像。"
+      },
+      {
+        "zh": "直視鏡頭｜淡淡微笑",
+        "en": "looking directly at the camera, soft gentle smile, warm eyes, subtle approachable expression",
+        "desc": "視線穩定看向鏡頭，帶一點輕柔微笑，整體更親近自然。"
+      },
+      {
+        "zh": "直視鏡頭｜冷淡無表情",
+        "en": "looking directly at the camera, emotionless expression, cool detached gaze, restrained facial tension",
+        "desc": "直視鏡頭但幾乎沒有表情，偏冷感、克制與高級距離感。"
+      },
+      {
+        "zh": "直視鏡頭｜慵懶半瞇眼",
+        "en": "looking directly at the camera, half-lidded eyes, languid sleepy expression, relaxed sensual mood",
+        "desc": "眼神直接但帶半瞇感，狀態偏鬆、慢、帶一點慵懶性感。"
+      },
+      {
+        "zh": "直視鏡頭｜唇微開凝視",
+        "en": "looking directly at the camera, lips slightly parted, focused intimate gaze, soft tension in expression",
+        "desc": "直視鏡頭同時雙唇微開，適合較近距離、私密感、張力較高的畫面。"
+      },
+      {
+        "zh": "直視鏡頭｜挑釁感凝視",
+        "en": "looking directly at the camera, provocative intense gaze, confident challenging expression, bold presence",
+        "desc": "眼神帶有主動性與壓迫感，適合強勢、時裝感或性感張力畫面。"
+      },
+      {
+        "zh": "直視鏡頭｜無辜清透眼神",
+        "en": "looking directly at the camera, innocent clear eyes, delicate soft expression, pure transparent mood",
+        "desc": "直接看向鏡頭，但氣質偏清透、柔和、無辜與乾淨。"
+      },
+      {
         "zh": "慵懶挑逗眼神",
         "en": "seductive half-lidded eyes, languid drowsy expression, bedroom eyes",
         "desc": "慵懶且帶有挑逗意味，時尚感強烈。"
@@ -1917,6 +1952,21 @@
         "zh": "望向遠方/若有所思",
         "en": "gazing into distance, thoughtful contemplation, wistful expression, dreaming look",
         "desc": "眼神飄向遠方，沉浸在自己的世界裡。"
+      },
+      {
+        "zh": "望向遠方｜若有所思",
+        "en": "looking into the distance, thoughtful expression, reflective mood, quiet inward attention",
+        "desc": "視線離開鏡頭望向遠方，帶有思考感與敘事情緒。"
+      },
+      {
+        "zh": "側望｜安靜出神",
+        "en": "looking off to the side, quiet absent-minded expression, soft distant focus, understated mood",
+        "desc": "看向側邊而不是鏡頭，像是短暫放空或安靜出神的片刻。"
+      },
+      {
+        "zh": "低頭不看鏡頭｜內斂情緒",
+        "en": "lowered gaze away from camera, inward quiet expression, restrained emotion, soft introspective mood",
+        "desc": "視線向下且不與鏡頭接觸，適合內斂、安靜、柔和的情緒畫面。"
       },
       {
         "zh": "大笑/自然喜悅",
@@ -2099,6 +2149,26 @@
         "zh": "動態互動｜行走中回頭",
         "en": "walking pose mid-step, head turning back toward camera, candid movement and natural motion",
         "desc": "身體帶有前進感，頭部回望，適合街拍與抓拍感畫面。"
+      },
+      {
+        "zh": "蹲姿｜自然蹲姿",
+        "en": "natural squatting pose, relaxed low posture, balanced body weight, casual grounded body language",
+        "desc": "身體自然下蹲，重心穩定不誇張，適合街頭、生活感與低角度構圖。"
+      },
+      {
+        "zh": "蹲姿｜單膝蹲姿",
+        "en": "one-knee squat pose, asymmetrical low stance, stable grounded posture, natural visual rhythm",
+        "desc": "一膝較低、一膝支撐，姿態更有層次，也更適合時裝與街拍感畫面。"
+      },
+      {
+        "zh": "蹲姿｜手扶膝蓋蹲姿",
+        "en": "squatting pose with one hand resting on knee, relaxed low stance, casual confident body language",
+        "desc": "下蹲時手自然扶在膝上，帶一點自信與街頭感，也更穩定好讀。"
+      },
+      {
+        "zh": "蹲姿｜蹲姿回頭看鏡頭",
+        "en": "squatting pose with head turning back toward camera, interactive low posture, subtle dynamic tension",
+        "desc": "維持低位蹲姿，同時頭部回看鏡頭，適合帶一點互動與張力的畫面。"
       },
       {
         "zh": "動態互動｜輕步移動姿勢",

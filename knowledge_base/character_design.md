@@ -54,9 +54,19 @@
 | **髮色 (Hair Color)** | 奶茶棕 | `milk tea brown hair, soft beige-brown tone` | 帶有柔霧感的淺棕色，是近年非常常見的主流染髮。 |
 | **神情與眼神 (Expression & Gaze)** | 全無 | `none` | 不指定神情與眼神，讓模型自行決定表情與視線。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭微笑 | `Deep gaze looking directly at the camera, a gentle, toothless smile.` | 眼神直接強硬，帶有挑釁與自信感。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜平靜凝視 | `looking directly at the camera, calm steady gaze, composed neutral expression, quiet presence` | 直接看向鏡頭，神情平穩克制，適合乾淨、安靜、寫真感的人像。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜淡淡微笑 | `looking directly at the camera, soft gentle smile, warm eyes, subtle approachable expression` | 視線穩定看向鏡頭，帶一點輕柔微笑，整體更親近自然。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜冷淡無表情 | `looking directly at the camera, emotionless expression, cool detached gaze, restrained facial tension` | 直視鏡頭但幾乎沒有表情，偏冷感、克制與高級距離感。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜慵懶半瞇眼 | `looking directly at the camera, half-lidded eyes, languid sleepy expression, relaxed sensual mood` | 眼神直接但帶半瞇感，狀態偏鬆、慢、帶一點慵懶性感。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜唇微開凝視 | `looking directly at the camera, lips slightly parted, focused intimate gaze, soft tension in expression` | 直視鏡頭同時雙唇微開，適合較近距離、私密感、張力較高的畫面。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜挑釁感凝視 | `looking directly at the camera, provocative intense gaze, confident challenging expression, bold presence` | 眼神帶有主動性與壓迫感，適合強勢、時裝感或性感張力畫面。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜無辜清透眼神 | `looking directly at the camera, innocent clear eyes, delicate soft expression, pure transparent mood` | 直接看向鏡頭，但氣質偏清透、柔和、無辜與乾淨。 |
 | **神情與眼神 (Expression & Gaze)** | 慵懶挑逗眼神 | `seductive half-lidded eyes, languid drowsy expression, bedroom eyes` | 慵懶且帶有挑逗意味，時尚感強烈。 |
 | **神情與眼神 (Expression & Gaze)** | 淡漠高冷 | `cold distant expression, emotionless gaze, icy stare, untouchable aura` | 毫無情緒的冷漠感，高不可攀的氣場。 |
 | **神情與眼神 (Expression & Gaze)** | 望向遠方/若有所思 | `gazing into distance, thoughtful contemplation, wistful expression, dreaming look` | 眼神飄向遠方，沉浸在自己的世界裡。 |
+| **神情與眼神 (Expression & Gaze)** | 望向遠方｜若有所思 | `looking into the distance, thoughtful expression, reflective mood, quiet inward attention` | 視線離開鏡頭望向遠方，帶有思考感與敘事情緒。 |
+| **神情與眼神 (Expression & Gaze)** | 側望｜安靜出神 | `looking off to the side, quiet absent-minded expression, soft distant focus, understated mood` | 看向側邊而不是鏡頭，像是短暫放空或安靜出神的片刻。 |
+| **神情與眼神 (Expression & Gaze)** | 低頭不看鏡頭｜內斂情緒 | `lowered gaze away from camera, inward quiet expression, restrained emotion, soft introspective mood` | 視線向下且不與鏡頭接觸，適合內斂、安靜、柔和的情緒畫面。 |
 | **神情與眼神 (Expression & Gaze)** | 大笑/自然喜悅 | `genuine laughing expression, natural teeth smile, candid joy, uninhibited happiness` | 自然、無防備的開心大笑，充滿生命力。 |
 | **神情與眼神 (Expression & Gaze)** | 慵懶出神/唇微開 | `lips slightly parted, dreamy unfocused gaze, lost in thought, languid and dazed` | 嘴唇微開、眼神渙散，彷彿沉浸在白日夢中。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 全無 | `none` | 不指定姿勢動作，讓模型自行決定人物肢體語言。 |
@@ -93,6 +103,10 @@
 | **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜自然自拍姿勢 | `casual selfie-like reclined pose, self-portrait body language, relaxed arm and gaze coordination, no phone required` | 半躺或低姿態下的自拍感，不強制手機出現，強調自然互動。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜鏡子自拍姿勢 | `mirror selfie reclined pose, holding a phone visibly, face unobstructed, clear facial features, relaxed reflective self-portrait` | 若場景本身有鏡面，可使用對鏡自拍版本，手機可見但不遮臉。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜行走中回頭 | `walking pose mid-step, head turning back toward camera, candid movement and natural motion` | 身體帶有前進感，頭部回望，適合街拍與抓拍感畫面。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜自然蹲姿 | `natural squatting pose, relaxed low posture, balanced body weight, casual grounded body language` | 身體自然下蹲，重心穩定不誇張，適合街頭、生活感與低角度構圖。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜單膝蹲姿 | `one-knee squat pose, asymmetrical low stance, stable grounded posture, natural visual rhythm` | 一膝較低、一膝支撐，姿態更有層次，也更適合時裝與街拍感畫面。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜手扶膝蓋蹲姿 | `squatting pose with one hand resting on knee, relaxed low stance, casual confident body language` | 下蹲時手自然扶在膝上，帶一點自信與街頭感，也更穩定好讀。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜蹲姿回頭看鏡頭 | `squatting pose with head turning back toward camera, interactive low posture, subtle dynamic tension` | 維持低位蹲姿，同時頭部回看鏡頭，適合帶一點互動與張力的畫面。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜輕步移動姿勢 | `light stepping motion, subtle body movement, natural transitional pose, candid rhythm` | 像正在慢慢走動或移動重心，避免人物太靜止。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜整理頭髮動作 | `adjusting hair while moving, candid grooming gesture, natural in-between motion` | 手正在整理頭髮，像被捕捉到的瞬間，而不是正式擺拍。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜低頭整理衣襬 | `looking down while adjusting clothing, subtle styling gesture, candid everyday movement` | 手碰觸衣物，帶一點自然、內收、日常片刻感。 |
