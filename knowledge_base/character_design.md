@@ -20,7 +20,8 @@
 | **膚質特徵 (Skin Details)** | 微曬陽光感膚質 | `slightly sun-kissed skin texture, subtle warm flush, healthy outdoor glow` | 像曬過太陽後留下的自然暖感，帶有生活感與戶外氣息。 |
 | **體態 (Body Type)** | 正常人 | `average youthful body type, balanced proportions, natural everyday build, modest curves` | 普通自然的基本體型，不高不胖，像年輕女生常見的日常身形。 |
 | **體態 (Body Type)** | 模特兒 | `tall slim model body, elongated legs, lean silhouette, long-limbed fashion proportions` | 瘦高修長、腿長線條明顯，整體比例偏時裝模特兒體態。 |
-| **體態 (Body Type)** | 性感 | `curvy sexy body, fuller bust, narrow waist, rounded hips and thighs, hot feminine silhouette` | 胸腰臀線條鮮明，腿部與臀部更圓潤，整體是明顯火辣性感的曲線。 |
+| **體態 (Body Type)** | 內衣模特兒 | `lingerie model body, clearly defined feminine curves, fuller bust and hips, slim waist, toned elegant silhouette, balanced proportions` | 以模特兒體態為基礎，但胸臀曲線更明顯；腰部纖細、比例俐落，整體是專業內衣模特兒常見的性感身形。 |
+| **體態 (Body Type)** | 性感 | `soft curvy body, slightly fuller natural build, balanced fuller bust and hips, gently defined waist, subtle softness, natural feminine proportions` | 比正常人體態略微肉感一些，胸臀更有女人味但不誇張，腰部不是極細，而是帶一點自然柔軟感的成熟曲線。 |
 | **髮型 (Hairstyle)** | 全無 | `none` | 不指定髮型，讓模型自行決定頭髮長度與輪廓。 |
 | **髮型 (Hairstyle)** | 中分長直髮 | `long straight hair, center part, sleek` | 經典女神風，光澤感十足。 |
 | **髮型 (Hairstyle)** | 日系厚劉海長直髮 | `long straight hair with heavy Japanese bangs, smooth sleek silhouette` | 厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。 |

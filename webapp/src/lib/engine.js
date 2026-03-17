@@ -1508,6 +1508,13 @@ function pushUniqueSegment(segments, value) {
   segments.push(cleaned);
 }
 
+function ensureTerminalPeriod(value) {
+  const cleaned = stripMarkdown(value).trim();
+  if (!cleaned) return '';
+  if (/[.!?]$/.test(cleaned)) return cleaned;
+  return `${cleaned}.`;
+}
+
 function buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling) {
   const segments = [context.subject.en];
 
@@ -1732,7 +1739,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const lines = [];
   const addLine = (label, value) => {
     if (!value) return;
-    lines.push(`${label}: ${value}`);
+    lines.push(`${label}: ${ensureTerminalPeriod(value)}`);
   };
   const addItemLine = (label, item) => {
     if (!item || isNoneLikeItem(item)) return;
