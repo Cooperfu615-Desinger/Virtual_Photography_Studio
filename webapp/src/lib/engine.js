@@ -471,7 +471,7 @@ function inferCharacterMeta(category, item) {
   let archetype = null;
 
   if (category.includes('Body Type')) minVisibility = 'full';
-  if (category.includes('Facial Features')) minVisibility = 'portrait';
+  if (category.includes('Facial Features')) minVisibility = 'medium';
   if (category.includes('Skin Details')) minVisibility = 'portrait';
   if (category.includes('Hairstyle')) minVisibility = 'medium';
   if (category.includes('Hair Color')) minVisibility = 'medium';
@@ -1100,12 +1100,12 @@ function buildCharacter(context, catalog) {
 
   pickCategory('體態 (Body Type)', context.locks, () => true, sample, false);
 
-  if (context.subject.count === 1 && visibilityAtLeast(visibility, 'portrait')) {
+  if (context.subject.count === 1 && visibilityAtLeast(visibility, 'medium')) {
     pickCategory('五官特徵 (Facial Features)', context.locks, (item) => !lockedArchetype || !item.meta.archetype || item.meta.archetype === lockedArchetype);
     if (context.locks?.skinDetailsId || Math.random() < 0.55) pickCategory('膚質特徵 (Skin Details)', context.locks);
   }
 
-  if (context.subject.count === 2 && visibilityAtLeast(visibility, 'portrait')) {
+  if (context.subject.count === 2 && visibilityAtLeast(visibility, 'medium')) {
     const faceA = pickDistinctForRole('五官特徵 (Facial Features)', 'a', context.locks?.facialFeaturesAId, [], sample);
     const faceB = pickDistinctForRole('五官特徵 (Facial Features)', 'b', context.locks?.facialFeaturesBId, [faceA], sample);
     if (faceA) character.push(faceA);
@@ -1521,14 +1521,14 @@ function buildMidjourneyCharacterSegments(context, characterSlots, duoInteractio
   if (characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType)) pushUniqueSegment(segments, compactClause(characterSlots.bodyType.en, 2));
   if (context.subject.count === 2) {
     const womanA = [
-      characterSlots.facialFeaturesA?.en && !isNoneLikeItem(characterSlots.facialFeaturesA) ? compactClause(characterSlots.facialFeaturesA.en, 1) : '',
+      characterSlots.facialFeaturesA?.en && !isNoneLikeItem(characterSlots.facialFeaturesA) ? compactClause(characterSlots.facialFeaturesA.en, 2) : '',
       characterSlots.hairstyleA?.en && !isNoneLikeItem(characterSlots.hairstyleA) ? compactClause(characterSlots.hairstyleA.en, 1) : '',
       characterSlots.hairColorA?.en && !isNoneLikeItem(characterSlots.hairColorA) ? compactClause(characterSlots.hairColorA.en, 1) : '',
     ]
       .filter(Boolean)
       .join(', ');
     const womanB = [
-      characterSlots.facialFeaturesB?.en && !isNoneLikeItem(characterSlots.facialFeaturesB) ? compactClause(characterSlots.facialFeaturesB.en, 1) : '',
+      characterSlots.facialFeaturesB?.en && !isNoneLikeItem(characterSlots.facialFeaturesB) ? compactClause(characterSlots.facialFeaturesB.en, 2) : '',
       characterSlots.hairstyleB?.en && !isNoneLikeItem(characterSlots.hairstyleB) ? compactClause(characterSlots.hairstyleB.en, 1) : '',
       characterSlots.hairColorB?.en && !isNoneLikeItem(characterSlots.hairColorB) ? compactClause(characterSlots.hairColorB.en, 1) : '',
     ]
@@ -1537,7 +1537,7 @@ function buildMidjourneyCharacterSegments(context, characterSlots, duoInteractio
     if (womanA) pushUniqueSegment(segments, `woman 1, ${womanA}`);
     if (womanB) pushUniqueSegment(segments, `woman 2, ${womanB}`);
   } else {
-    if (characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures)) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 2));
+    if (characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures)) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 3));
     if (characterSlots.hairstyle?.en && !isNoneLikeItem(characterSlots.hairstyle)) pushUniqueSegment(segments, compactClause(characterSlots.hairstyle.en, 1));
     if (characterSlots.hairColor?.en && !isNoneLikeItem(characterSlots.hairColor)) pushUniqueSegment(segments, compactClause(characterSlots.hairColor.en, 1));
   }
@@ -1576,7 +1576,7 @@ function buildMidjourneyDuoIdentitySegments(characterSlots, wardrobeSlots) {
   const buildWomanSegment = (label, outfitPreset, facialFeatures, hairstyle, hairColor) => {
     const parts = [
       outfitPreset?.en ? compactOutfitDescriptor(outfitPreset.en) : '',
-      facialFeatures?.en && !isNoneLikeItem(facialFeatures) ? compactClause(facialFeatures.en, 1) : '',
+      facialFeatures?.en && !isNoneLikeItem(facialFeatures) ? compactClause(facialFeatures.en, 2) : '',
       hairstyle?.en && !isNoneLikeItem(hairstyle) ? compactClause(hairstyle.en, 1) : '',
       hairColor?.en && !isNoneLikeItem(hairColor) ? compactClause(hairColor.en, 1) : '',
     ]
