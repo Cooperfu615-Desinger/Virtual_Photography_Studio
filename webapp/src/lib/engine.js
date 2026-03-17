@@ -1,8 +1,8 @@
 import database from '../data/database.json' with { type: 'json' };
 
 const SUBJECT_COUNT_OPTIONS = [
-  { id: '1', zh: '1 位', en: 'a seductive stunning Japanese or Korean woman', count: 1 },
-  { id: '2', zh: '2 位', en: 'two seductive stunning Japanese or Korean women', count: 2 },
+  { id: '1', zh: '1 位', en: 'an elegant beautiful Japanese or Korean woman', count: 1 },
+  { id: '2', zh: '2 位', en: 'two elegant beautiful Japanese or Korean women', count: 2 },
 ];
 
 const ASPECT_RATIO_OPTIONS = [
@@ -926,6 +926,7 @@ function lightDirectionSupportsScene(lightDirection, framing, location, lighting
   if (lightingTags.has('indoor') && directionTags.has('sunlight')) return false;
   if (lightingTags.has('window_light') && directionTags.has('sunlight')) return false;
   if ((lightingTags.has('dark') || lightingTags.has('dusk') || lightingTags.has('neon')) && directionTags.has('sunlight')) return false;
+  if ((lightingTags.has('mist') || lightingTags.has('cloudy') || lightingTags.has('rain')) && directionTags.has('sunlight')) return false;
   if (lightingTags.has('rain') && directionTags.has('sunlight') && !directionTags.has('reflective')) return false;
   if (lightingTags.has('neon') && directionTags.has('window_light')) return false;
   if (lightingTags.has('stage_light') && !directionTags.has('artificial_light') && !directionTags.has('dark') && !directionTags.has('overhead')) return false;
@@ -1550,6 +1551,46 @@ function ensureTerminalPeriod(value) {
   return `${cleaned}.`;
 }
 
+function sanitizeMidjourneyText(value) {
+  let cleaned = stripMarkdown(value)
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!cleaned) return '';
+
+  const replacements = [
+    [/\ban elegant beautiful\b/gi, 'an elegant beautiful'],
+    [/\btwo elegant beautiful\b/gi, 'two elegant beautiful'],
+    [/\ba seductive stunning\b/gi, 'an elegant beautiful'],
+    [/\btwo seductive stunning\b/gi, 'two elegant beautiful'],
+    [/\bseductive\b/gi, 'elegant'],
+    [/\bsexy\b/gi, 'feminine'],
+    [/\blingerie\b/gi, 'fashion'],
+    [/\bbdsm\b/gi, 'editorial'],
+    [/\bbondage\b/gi, 'strap-detailed'],
+    [/\bfetish\b/gi, 'avant-garde'],
+    [/\bboudoir\b/gi, 'editorial'],
+    [/\blatex\b/gi, 'glossy coated fabric'],
+    [/\bbikini top\b/gi, 'cropped top'],
+    [/\bbikini\b/gi, 'swimwear'],
+    [/\bbodysuit\b/gi, 'fitted top'],
+    [/\bnightdress\b/gi, 'slip dress'],
+    [/\bgarter\b/gi, 'stocking'],
+    [/\bsee-through\b/gi, 'lightweight'],
+    [/\bsheer\b/gi, 'lightweight'],
+    [/\btransparent\b/gi, 'lightweight'],
+    [/\bnude\b/gi, 'natural'],
+  ];
+
+  replacements.forEach(([pattern, next]) => {
+    cleaned = cleaned.replace(pattern, next);
+  });
+
+  if (/\b(nsfw|sexual organ|explicit adult)\b/i.test(cleaned)) return '';
+
+  return cleaned.replace(/\s+/g, ' ').trim();
+}
+
 function buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling) {
   const segments = [context.subject.en];
 
@@ -1878,7 +1919,9 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
 
   let midjourneyPrompt = '';
   for (const segment of midjourneySegments) {
-    const next = midjourneyPrompt ? `${midjourneyPrompt}, ${segment}` : segment;
+    const safeSegment = sanitizeMidjourneyText(segment);
+    if (!safeSegment) continue;
+    const next = midjourneyPrompt ? `${midjourneyPrompt}, ${safeSegment}` : safeSegment;
     if (next.length > 650) break;
     midjourneyPrompt = next;
   }
