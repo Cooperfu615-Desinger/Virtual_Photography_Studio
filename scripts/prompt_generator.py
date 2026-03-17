@@ -106,8 +106,8 @@ def build_prompt():
     # Natural Hairstyles: 1,2,3,5,15,16,17,18,19,20
     extract_weighted(character_data, '髮型', structured["Character"], [1,2,3,5,15,16,17,18,19,20], natural_weight=0.85)
     
-    # Mainstream Hair Colors: 1-12
-    extract_weighted(character_data, '髮色', structured["Character"], list(range(1, 13)), natural_weight=0.9)
+    # Mainstream Hair Colors: exclude "全無" and keep vivid fashion colors in the special pool.
+    extract_weighted(character_data, '髮色', structured["Character"], list(range(2, 12)), natural_weight=0.9)
     
     extract_cat(character_data, '神情與眼神', structured["Pose & Expression"])
     extract_cat(character_data, '姿勢與肢體語言', structured["Pose & Expression"])

@@ -486,7 +486,34 @@ function inferCharacterMeta(category, item) {
   if (category.includes('Skin Details')) tags.push('skin_detail');
 
   if (category.includes('Hair Color')) {
-    if (hasAny(haystack, ['內層染', '挑染', '分色', '漸層', '耳圈染', 'highlights', 'split dye', 'gradient', 'inner layer', 'face-framing'])) {
+    if (hasAny(haystack, [
+      '內層染',
+      '挑染',
+      '分色',
+      '漸層',
+      '耳圈染',
+      '亮綠',
+      '深綠',
+      '桃紅',
+      '寶藍',
+      '亮黃',
+      '亮紫',
+      'neon green',
+      'forest green',
+      'hot pink',
+      'cobalt blue',
+      'bright lemon yellow',
+      'electric purple',
+      'highlights',
+      'split dye',
+      'gradient',
+      'inner layer',
+      'face-framing',
+      'statement color',
+      'fashion color',
+      'fantasy color',
+      'solid dye',
+    ])) {
       tags.push('special_hair_color');
     } else {
       tags.push('mainstream_hair_color');

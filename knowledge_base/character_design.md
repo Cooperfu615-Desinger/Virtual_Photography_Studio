@@ -53,6 +53,20 @@
 | **髮色 (Hair Color)** | 深咖啡棕 | `deep coffee brown hair, rich brunette tone` | 穩定成熟的深棕色，帶有自然高級感。 |
 | **髮色 (Hair Color)** | 栗子棕 | `chestnut brown hair, warm natural gloss` | 溫暖日常的栗棕色，適合多數膚色與造型。 |
 | **髮色 (Hair Color)** | 奶茶棕 | `milk tea brown hair, soft beige-brown tone` | 帶有柔霧感的淺棕色，是近年非常常見的主流染髮。 |
+| **髮色 (Hair Color)** | 亞麻米棕 | `ashy beige brown hair, airy muted tone` | 帶灰感的米棕色，整體輕盈乾淨，是這幾年很穩定的韓系流行染髮。 |
+| **髮色 (Hair Color)** | 霧感橄欖棕 | `muted olive brown hair, smoky earthy undertone` | 棕色裡帶一點霧橄欖調，低飽和又有個性，適合冷調時裝與街拍。 |
+| **髮色 (Hair Color)** | 玫瑰可可棕 | `rose cocoa brown hair, soft rosy brunette tone` | 在可可棕裡加入微微玫瑰色感，甜度剛好，適合日韓系寫真。 |
+| **髮色 (Hair Color)** | 霧灰棕 | `smoky taupe brown hair, muted cool brunette tone` | 偏冷調的霧灰棕，能讓整體造型更有高級感，也很適合現代都會風格。 |
+| **髮色 (Hair Color)** | 蜂蜜焦糖棕 | `honey caramel brown hair, warm glossy soft light tone` | 比奶茶棕再暖一點，帶有柔和光澤感，是近期很受歡迎的顯氣色髮色。 |
+| **髮色 (Hair Color)** | 亮綠色 | `vivid neon green hair, fantasy statement color, saturated solid dye` | 高飽和亮綠色整頭染，視覺衝擊強，適合前衛、次文化與實驗風格。 |
+| **髮色 (Hair Color)** | 桃紅色 | `hot pink hair, vivid saturated statement color, solid fashion dye` | 鮮明桃紅色整頭染，甜辣張力強烈，適合偶像感與高存在感造型。 |
+| **髮色 (Hair Color)** | 寶藍色 | `cobalt blue hair, rich jewel-tone statement color, saturated solid dye` | 濃郁寶藍色帶珠寶般深度，冷豔醒目，適合夜色、棚拍與未來感畫面。 |
+| **髮色 (Hair Color)** | 亮黃色 | `bright lemon yellow hair, bold saturated fashion color, solid dye` | 亮黃色極具辨識度，偏玩味與實驗感，適合大膽街頭與風格化人像。 |
+| **髮色 (Hair Color)** | 亮紫色 | `vivid electric purple hair, bold saturated fantasy color, solid dye` | 高彩度亮紫色帶強烈幻想與時裝感，適合舞台感、賽博感與非日常造型。 |
+| **髮色 (Hair Color)** | 灰白色 | `silver white hair, cool pale tone, soft luminous sheen` | 接近銀白與灰白之間的冷調髮色，乾淨、輕盈，也帶一點未來感與高級感。 |
+| **髮色 (Hair Color)** | 白人金髮 | `natural European blonde hair, light golden blonde tone, soft fair glow` | 偏歐美白人常見的自然金髮，帶淺金與柔和暖光感，適合洋娃娃感與夏日寫真。 |
+| **髮色 (Hair Color)** | 愛爾蘭紅髮 | `natural Irish red hair, copper auburn tone, fair-skin-friendly warmth` | 接近銅紅與赤褐之間的自然紅髮，辨識度高，帶有歐系復古與故事感。 |
+| **髮色 (Hair Color)** | 深綠色 | `deep forest green hair, dark saturated fashion color, moody solid dye` | 比亮綠更深沉的墨綠髮色，帶神秘感與冷調風格，適合夜景、暗調與風格化人像。 |
 | **神情與眼神 (Expression & Gaze)** | 全無 | `none` | 不指定神情與眼神，讓模型自行決定表情與視線。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭微笑 | `Deep gaze looking directly at the camera, a gentle, toothless smile.` | 眼神直接強硬，帶有挑釁與自信感。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜平靜凝視 | `looking directly at the camera, calm steady gaze, composed neutral expression, quiet presence` | 直接看向鏡頭，神情平穩克制，適合乾淨、安靜、寫真感的人像。 |
