@@ -164,8 +164,8 @@ def build_prompt():
             structured["Location"].append(random.choice(locations_data[random.choice(loc_keys)]))
 
     # Lighting
-    extract_cat(camera_data, '光線類型', structured["Lighting"])
-    extract_cat(camera_data, '光線方向與質感', structured["Lighting"])
+    extract_cat(camera_data, '環境光氛', structured["Lighting"])
+    extract_cat(camera_data, '光線表現', structured["Lighting"])
 
     # Framing
     extract_cat(camera_data, '景別構圖', structured["Framing"])

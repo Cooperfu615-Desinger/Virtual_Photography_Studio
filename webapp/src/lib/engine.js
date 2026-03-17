@@ -105,6 +105,9 @@ const OUTFIT_PRESET_NONE_OPTION = {
   meta: { tags: ['none', 'no_outfit_preset'] },
 };
 
+const ENVIRONMENT_MOOD_CATEGORY = '環境光氛 (Environment Mood)';
+const LIGHT_STYLE_CATEGORY = '光線表現 (Light Style)';
+
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: '4:5', section: 'core' },
@@ -113,8 +116,8 @@ const LOCK_DEFINITIONS = [
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
   { key: 'angleId', label: '俯仰角度', category: '相機視角 (Angle)', section: 'core' },
   { key: 'orbitId', label: '環繞角度', category: '拍攝方位 (Orbit Angle)', section: 'core' },
-  { key: 'lightingId', label: '光線類型', category: '光線類型 (Lighting Type)', section: 'core' },
-  { key: 'lightDirectionId', label: '光線方向', category: '光線方向與質感 (Light Direction & Quality)', section: 'core' },
+  { key: 'lightingId', label: '環境光氛', category: ENVIRONMENT_MOOD_CATEGORY, section: 'core' },
+  { key: 'lightDirectionId', label: '光線表現', category: LIGHT_STYLE_CATEGORY, section: 'core' },
   { key: 'filmId', label: '成像風格', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
   { key: 'bodyTypeId', label: '體態', category: '體態 (Body Type)', section: 'character' },
   { key: 'facialFeaturesId', label: '五官特徵', category: '五官特徵 (Facial Features)', section: 'character' },
@@ -156,8 +159,8 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'framingId', label: 'Framing' },
   { key: 'angleId', label: 'Angle' },
   { key: 'orbitId', label: 'Orbit' },
-  { key: 'lightingId', label: 'Lighting' },
-  { key: 'lightDirectionId', label: 'Light Direction' },
+  { key: 'lightingId', label: 'Environment Mood' },
+  { key: 'lightDirectionId', label: 'Light Style' },
   { key: 'filmId', label: 'Film' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
   { key: 'bodyTypeId', label: 'Body Type' },
@@ -376,88 +379,114 @@ function getLayerColorOption(id) {
 function inferLightingMeta(category, item) {
   const haystack = toHaystack(category, item.zh, item.en, item.desc);
   const tags = [];
-  const isDirectionCategory = category === '光線方向與質感 (Light Direction & Quality)';
+  const isLightStyleCategory = category === LIGHT_STYLE_CATEGORY;
+  const isEnvironmentCategory = category === ENVIRONMENT_MOOD_CATEGORY;
 
-  if (hasAny(haystack, ['warm sunset', 'golden evening', 'warm sunlight'])) {
-    tags.push('natural_light', 'sunlight', 'warm', 'supports_outdoor', 'supports_urban', 'supports_natural');
+  if (isEnvironmentCategory) {
+    if (hasAny(haystack, ['晴朗白日', 'clear daylight'])) {
+      tags.push('natural_light', 'sunlight', 'day', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['藍天白雲', 'clear blue sky'])) {
+      tags.push('natural_light', 'sunlight', 'day', 'clean_sky', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['陰天漫射', 'overcast sky'])) {
+      tags.push('natural_light', 'diffused', 'cloudy', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['清晨薄霧', 'misty morning'])) {
+      tags.push('natural_light', 'diffused', 'mist', 'cool', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['黃昏夕陽', 'golden sunset'])) {
+      tags.push('natural_light', 'sunlight', 'warm', 'dusk', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['藍調傍晚', 'blue hour'])) {
+      tags.push('natural_light', 'dusk', 'cool', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['夜晚街燈', 'streetlit night'])) {
+      tags.push('artificial_light', 'dark', 'night_ambient', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
+    }
+    if (hasAny(haystack, ['霓虹夜色', 'neon night'])) {
+      tags.push('artificial_light', 'neon', 'dark', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
+    }
+    if (hasAny(haystack, ['雨天陰濕', 'rainy atmosphere'])) {
+      tags.push('natural_light', 'rain', 'diffused', 'dark', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['雨後反光', 'post-rain'])) {
+      tags.push('natural_light', 'rain', 'reflective', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['雪地冷光', 'snow-bright'])) {
+      tags.push('natural_light', 'snow', 'cool', 'reflective', 'supports_outdoor', 'supports_natural', 'supports_urban');
+    }
+    if (hasAny(haystack, ['室內窗邊日光', 'indoor daylight by the window'])) {
+      tags.push('window_light', 'natural_light', 'indoor', 'day', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
+    if (hasAny(haystack, ['室內陰影日光', 'indoor dim daylight'])) {
+      tags.push('window_light', 'natural_light', 'indoor', 'diffused', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
+    if (hasAny(haystack, ['室內暖光夜景', 'indoor warm night'])) {
+      tags.push('artificial_light', 'indoor', 'warm', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_heritage');
+    }
+    if (hasAny(haystack, ['室內冷色人造光', 'indoor cool artificial'])) {
+      tags.push('artificial_light', 'indoor', 'cool', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_heritage', 'supports_subterranean');
+    }
+    if (hasAny(haystack, ['舞台演出燈光', 'stage-lit atmosphere'])) {
+      tags.push('artificial_light', 'stage_light', 'dramatic', 'supports_indoor', 'supports_commercial', 'supports_studio', 'supports_subterranean');
+    }
   }
-  if (hasAny(haystack, ['early morning light', 'soft mist', '清晨', '薄霧'])) {
-    tags.push('natural_light', 'diffused', 'mist', 'cool', 'supports_outdoor', 'supports_urban', 'supports_natural');
-  }
-  if (hasAny(haystack, ['blue twilight', 'twilight'])) {
-    tags.push('natural_light', 'dusk', 'cool', 'supports_outdoor', 'supports_urban', 'supports_natural');
-  }
-  if (hasAny(haystack, ['blue sky daylight', 'white clouds'])) {
-    tags.push('natural_light', 'sunlight', 'day', 'clean_sky', 'supports_outdoor', 'supports_urban', 'supports_natural');
-  }
-  if (hasAny(haystack, ['light rain', 'fine drizzle', '小雨', 'drizzle'])) {
-    tags.push('natural_light', 'rain', 'diffused', 'supports_outdoor', 'supports_urban', 'supports_natural');
-  }
-  if (hasAny(haystack, ['heavy rain', 'dense rainfall', '大雨', 'stormy'])) {
-    tags.push('natural_light', 'rain', 'dark', 'dramatic', 'supports_outdoor', 'supports_urban', 'supports_natural');
-  }
-  if (hasAny(haystack, ['overcast', 'cloudy'])) {
-    tags.push('natural_light', 'diffused', 'supports_outdoor', 'supports_urban', 'supports_natural');
-  }
-  if (hasAny(haystack, ['harsh direct sunlight', 'midday sun'])) {
-    tags.push('natural_light', 'sunlight', 'harsh', 'supports_outdoor', 'supports_urban', 'supports_natural');
-  }
-  if (hasAny(haystack, ['neon', 'cyberpunk', 'bi-color'])) {
-    tags.push('artificial_light', 'neon', 'supports_urban', 'supports_commercial', 'supports_subterranean');
-  }
-  if (hasAny(haystack, ['deep night ambient light', 'faint streetlight spill', '深夜', 'streetlight'])) {
-    tags.push('artificial_light', 'dark', 'night_ambient', 'supports_urban', 'supports_commercial', 'supports_subterranean', 'supports_outdoor');
-  }
-  if (hasAny(haystack, ['high key studio', 'softbox'])) {
-    tags.push('studio_light', 'artificial_light', 'controlled', 'supports_studio', 'supports_indoor');
-  }
-  if (hasAny(haystack, ['low key', 'chiaroscuro'])) {
-    tags.push('artificial_light', 'dark', 'dramatic', 'supports_studio', 'supports_indoor', 'supports_heritage');
-  }
-  if (hasAny(haystack, ['ring flash'])) {
-    tags.push('studio_light', 'artificial_light', 'flash', 'supports_studio', 'supports_indoor', 'supports_urban');
-  }
-  if (hasAny(haystack, ['window', 'venetian'])) {
-    tags.push('window_light', 'natural_light', 'indoor', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
-  }
-  if (hasAny(haystack, ['bright airy backlight', 'soft side light', 'soft frontal light'])) {
-    tags.push('soft_light', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
-  }
-  if (hasAny(haystack, ['loop lighting', 'clamshell lighting'])) {
-    tags.push('portrait_light', 'artificial_light', 'supports_indoor');
-  }
-  if (hasAny(haystack, ['three-quarter backlight', 'silhouette backlight', 'volumetric light'])) {
-    tags.push('backlight');
-  }
-  if (hasAny(haystack, ['soft window side light'])) {
-    tags.push('window_light', 'soft_light', 'natural_light', 'indoor', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
-  }
-  if (hasAny(haystack, ['bounce fill light', 'upward reflected light', 'bounce / upfill'])) {
-    tags.push('soft_light', 'portrait_light', 'supports_indoor', 'supports_outdoor');
-  }
-  if (hasAny(haystack, ['practical motivated side light', 'lamp-lit side illumination'])) {
-    tags.push('artificial_light', 'supports_indoor', 'supports_commercial', 'supports_urban');
-  }
-  if (hasAny(haystack, ['dappled light', 'broken sunlight through leaves'])) {
-    tags.push('natural_light', 'supports_outdoor', 'supports_natural', 'supports_urban');
-  }
-  if (hasAny(haystack, ['volumetric light', 'visible light rays through haze'])) {
-    tags.push('dramatic', 'supports_indoor', 'supports_outdoor');
-  }
-  if (hasAny(haystack, ['rim light', 'backlit'])) tags.push('backlight');
-  if (hasAny(haystack, ['butterfly', 'rembrandt'])) tags.push('portrait_light', 'artificial_light');
-  if (hasAny(haystack, ['split lighting'])) tags.push('portrait_light');
-  if (hasAny(haystack, ['top lighting'])) tags.push('overhead');
 
-  if (isDirectionCategory) {
-    if (hasAny(haystack, ['rembrandt', 'butterfly', 'loop lighting', 'clamshell lighting', 'window / blind slits', 'window light', 'soft window side light', 'practical motivated side light'])) {
-      tags.push('supports_indoor');
+  if (isLightStyleCategory) {
+    if (hasAny(haystack, ['柔和順光', 'soft front light'])) {
+      tags.push('soft_light', 'portrait_light', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
     }
-    if (hasAny(haystack, ['split lighting', 'rim light', 'backlit', 'top lighting', 'three-quarter backlight', 'silhouette backlight', 'dappled light', 'volumetric light', 'bounce fill light'])) {
-      tags.push('supports_outdoor');
+    if (hasAny(haystack, ['均勻平光', 'flat even light'])) {
+      tags.push('soft_light', 'controlled', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
     }
-    if (hasAny(haystack, ['split lighting', 'rim light', 'backlit', 'top lighting', 'three-quarter backlight', 'silhouette backlight', 'bounce fill light', 'volumetric light'])) {
-      tags.push('supports_indoor');
+    if (hasAny(haystack, ['側向柔光', 'soft side light'])) {
+      tags.push('soft_light', 'portrait_light', 'supports_indoor', 'supports_outdoor', 'supports_studio');
+    }
+    if (hasAny(haystack, ['側向硬光', 'hard side light'])) {
+      tags.push('portrait_light', 'harsh', 'supports_indoor', 'supports_outdoor', 'supports_studio');
+    }
+    if (hasAny(haystack, ['側逆光', 'back-side light'])) {
+      tags.push('backlight', 'supports_indoor', 'supports_outdoor', 'supports_studio');
+    }
+    if (hasAny(haystack, ['逆光輪廓光', 'strong rim light'])) {
+      tags.push('backlight', 'supports_indoor', 'supports_outdoor', 'supports_studio');
+    }
+    if (hasAny(haystack, ['頂部照明', 'overhead top lighting'])) {
+      tags.push('overhead', 'supports_indoor', 'supports_outdoor', 'supports_studio');
+    }
+    if (hasAny(haystack, ['下方反射光', 'bounce up light'])) {
+      tags.push('soft_light', 'portrait_light', 'reflective', 'supports_indoor', 'supports_outdoor');
+    }
+    if (hasAny(haystack, ['漫射霧光', 'diffused mist light'])) {
+      tags.push('soft_light', 'diffused', 'mist', 'supports_indoor', 'supports_outdoor');
+    }
+    if (hasAny(haystack, ['硬質晴光', 'hard sunlight'])) {
+      tags.push('sunlight', 'harsh', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['低光高反差', 'low-key contrast'])) {
+      tags.push('dark', 'dramatic', 'artificial_light', 'supports_indoor', 'supports_outdoor', 'supports_studio');
+    }
+    if (hasAny(haystack, ['高調亮光', 'high-key bright light'])) {
+      tags.push('soft_light', 'studio_light', 'controlled', 'supports_indoor', 'supports_outdoor', 'supports_studio');
+    }
+    if (hasAny(haystack, ['混合色溫光', 'mixed color temperature'])) {
+      tags.push('artificial_light', 'mixed_color', 'supports_indoor', 'supports_outdoor', 'supports_commercial', 'supports_urban', 'supports_subterranean');
+    }
+    if (hasAny(haystack, ['霓虹染色光', 'neon color spill'])) {
+      tags.push('artificial_light', 'neon', 'supports_indoor', 'supports_outdoor', 'supports_commercial', 'supports_urban', 'supports_subterranean');
+    }
+    if (hasAny(haystack, ['窗格投影光', 'window pattern light'])) {
+      tags.push('window_light', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
+    if (hasAny(haystack, ['斑駁樹影光', 'dappled light'])) {
+      tags.push('natural_light', 'sunlight', 'supports_outdoor', 'supports_natural', 'supports_urban');
+    }
+    if (hasAny(haystack, ['潮濕反射光', 'wet reflective light'])) {
+      tags.push('reflective', 'supports_outdoor', 'supports_urban', 'supports_indoor');
+    }
+    if (hasAny(haystack, ['局部暖光', 'local warm glow'])) {
+      tags.push('artificial_light', 'warm', 'supports_indoor', 'supports_hospitality', 'supports_residential', 'supports_commercial');
     }
   }
 
@@ -602,7 +631,7 @@ function inferCameraMeta(category, item) {
   if (category === '景別構圖 (Framing)') return inferFramingMeta(category, item);
   if (category === '相機視角 (Angle)') return inferAngleMeta(category, item);
   if (category === '拍攝方位 (Orbit Angle)') return inferOrbitMeta(category, item);
-  if (category === '光線類型 (Lighting Type)' || category === '光線方向與質感 (Light Direction & Quality)') {
+  if (category === ENVIRONMENT_MOOD_CATEGORY || category === LIGHT_STYLE_CATEGORY) {
     return inferLightingMeta(category, item);
   }
   if (category === '底片與相機模擬 (Camera & Film Simulation)') return inferFilmMeta(category, item);
@@ -678,8 +707,8 @@ function buildCatalog(customLibrary = []) {
       framing: getByKey(catalog.camera, '景別構圖 (Framing)'),
       angle: getByKey(catalog.camera, '相機視角 (Angle)'),
       orbit: getByKey(catalog.camera, '拍攝方位 (Orbit Angle)'),
-      lighting: getByKey(catalog.camera, '光線類型 (Lighting Type)'),
-      lightDirection: getByKey(catalog.camera, '光線方向與質感 (Light Direction & Quality)'),
+      lighting: getByKey(catalog.camera, ENVIRONMENT_MOOD_CATEGORY),
+      lightDirection: getByKey(catalog.camera, LIGHT_STYLE_CATEGORY),
       film: getByKey(catalog.camera, '底片與相機模擬 (Camera & Film Simulation)'),
       effects: getByKey(catalog.camera, '特殊效果 (Special Effects)'),
       outfitPresets: [OUTFIT_PRESET_NONE_OPTION, ...getByKey(catalog.wardrobe, '套裝 (Outfit Presets)')],
@@ -781,9 +810,9 @@ function hasAnyTag(tagSet, tags) {
 
 function getLocationEnvironmentFlags(location) {
   const tags = new Set(location?.meta?.tags || []);
-
-  const indoor = hasAnyTag(tags, ['indoor', 'studio', 'set', 'controlled', 'residential', 'hospitality', 'institutional', 'subterranean']);
   const outdoor = hasAnyTag(tags, ['outdoor', 'natural', 'waterfront', 'green_space']);
+  const indoor = hasAnyTag(tags, ['indoor', 'studio', 'set', 'controlled', 'residential', 'hospitality', 'institutional'])
+    || (!outdoor && tags.has('subterranean'));
 
   if (!indoor && !outdoor) {
     if (tags.has('urban') || tags.has('commercial')) return { indoor: false, outdoor: true };
@@ -894,6 +923,12 @@ function lightDirectionSupportsScene(lightDirection, framing, location, lighting
   if (lightingTags.has('sunlight') && directionTags.has('artificial_light')) return false;
   if (lightingTags.has('dark') && directionTags.has('window_light')) return false;
   if (locationTags.has('subterranean') && directionTags.has('window_light')) return false;
+  if (lightingTags.has('indoor') && directionTags.has('sunlight')) return false;
+  if (lightingTags.has('window_light') && directionTags.has('sunlight')) return false;
+  if ((lightingTags.has('dark') || lightingTags.has('dusk') || lightingTags.has('neon')) && directionTags.has('sunlight')) return false;
+  if (lightingTags.has('rain') && directionTags.has('sunlight') && !directionTags.has('reflective')) return false;
+  if (lightingTags.has('neon') && directionTags.has('window_light')) return false;
+  if (lightingTags.has('stage_light') && !directionTags.has('artificial_light') && !directionTags.has('dark') && !directionTags.has('overhead')) return false;
 
   return true;
 }
@@ -1386,12 +1421,12 @@ const DUO_PROMPT_OVERRIDES = {
     '正面 315 度 (Front Three-Quarter Right)': 'front three-quarter duo view from the opposite side, both women slightly angled toward camera, balanced dimensional composition',
   },
   lightDirection: {
-    '倫勃朗光/三角光 (Rembrandt Lighting)': 'soft directional light across both women, gentle sculpted contrast, balanced duo editorial lighting',
-    '蝴蝶光/派拉蒙光 (Butterfly Lighting)': 'soft frontal beauty lighting across both women, even luminous facial highlights, balanced duo light',
-    '輪廓光/背光 (Rim Light / Backlight)': 'backlit two-subject image, glowing edge light on both silhouettes, gentle separation from the background',
-    '側光/陰陽光 (Split Lighting)': 'soft side light across both women, clean facial contrast, balanced duo editorial lighting',
-    '窗縫光/百葉窗光 (Window / Blind Slits Light)': 'directional window light across both women, gentle layered indoor contrast, cinematic two-subject atmosphere',
-    '頂光 (Top Lighting)': 'overhead top light across both women, moody duo cinematic contrast, tense cinematic atmosphere',
+    '柔和順光': 'soft frontal light across both women, even luminous facial clarity, balanced duo portrait lighting',
+    '均勻平光': 'flat even light across both women, clean readable facial information, balanced duo exposure',
+    '側向柔光': 'soft side light across both women, gentle dimensional contour, balanced duo editorial lighting',
+    '逆光輪廓光': 'backlit two-subject image, glowing edge light on both silhouettes, gentle separation from the background',
+    '窗格投影光': 'window-pattern light across both women, subtle graphic interior contrast, cinematic duo atmosphere',
+    '頂部照明': 'overhead top light across both women, moody duo cinematic contrast, tense cinematic atmosphere',
   },
   expression: {
     '直視鏡頭微笑': 'both women looking toward the camera, subtle shared smile, calm confident duo presence',
@@ -1767,8 +1802,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addContextLine('Angle', context.angle, (item) => resolvePromptVariant(item, 'angle', context.subject.count));
   addContextLine('Orbit Angle', context.orbit, (item) => resolvePromptVariant(item, 'orbit', context.subject.count));
   if (!context.styleDrivenCamera) {
-    addContextLine('Lighting', context.lighting);
-    addContextLine('Light Direction', lightDirection, (item) => resolvePromptVariant(item, 'lightDirection', context.subject.count));
+    addContextLine('Environment Mood', context.lighting);
+    addContextLine('Light Style', lightDirection, (item) => resolvePromptVariant(item, 'lightDirection', context.subject.count));
     addContextLine('Film', film);
   }
   addItemLine('Body Type', characterSlots.bodyType);

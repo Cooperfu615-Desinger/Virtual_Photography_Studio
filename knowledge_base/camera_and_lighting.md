@@ -26,39 +26,42 @@
 | **鏡頭焦段 (Focal Length)** | 35mm 廣角 (人文視角) | `shot on 35mm lens, documentary style, slight background blur, natural field of view` | 經典的人文與街拍焦段，視角適中不過度變形，能自然融合人物與環境背景。 |
 | **鏡頭焦段 (Focal Length)** | 50mm 標準鏡頭 (Standard) | `shot on 50mm lens, human eye perspective, natural figure rendering, zero distortion` | 最接近人類單眼視覺的透視感，不變形，背景虛化自然，適用於絕大多數日常與棚拍。 |
 | **鏡頭焦段 (Focal Length)** | 85mm 中長焦 (人像鏡皇) | `shot on 85mm lens, shallow depth of field, creamy bokeh, precise facial rendering` | 完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。 |
-| **光線類型 (Lighting Type)** | 全無 | `none` | 不指定光線類型，讓模型自行決定主要光感與氛圍。 |
-| **光線類型 (Lighting Type)** | 夕陽暖光 (Warm Sunset Light) | `warm sunset light, golden evening glow, long shadows, soft orange sunlight` | 夕陽前後的暖色光線，氛圍浪漫柔和，最適合戶外人像與寫真。 |
-| **光線類型 (Lighting Type)** | 清晨薄霧光 | `early morning light, soft mist in the air, pale ambient glow, gentle low-contrast atmosphere` | 清晨空氣中帶有薄霧感，整體光線柔和偏冷，適合安靜、清新與帶一點潮濕感的戶外場景。 |
-| **光線類型 (Lighting Type)** | 夜幕藍調 (Blue Twilight Light) | `blue twilight light, deep evening blue ambience, cool dusk atmosphere, melancholic mood` | 太陽剛落下後的深藍光線，畫面冷靜、安靜，和白天藍天完全不同。 |
-| **光線類型 (Lighting Type)** | 藍天白雲日光 (Blue Sky Daylight) | `clear blue sky daylight, crisp white clouds, bright clean sunlight, open airy atmosphere` | 非黃昏也非陰天，而是藍天很藍、白雲很白的乾淨日光感，適合明亮外景。 |
-| **光線類型 (Lighting Type)** | 小雨濕潤天光 | `light rain, fine drizzle in the air, grey-blue ambient cast, damp surfaces, soft muted atmosphere` | 飄著細小雨絲，整體空氣帶灰藍色調與柔濕感，適合城市、街拍與安靜敘事型場景。 |
-| **光線類型 (Lighting Type)** | 大雨壓迫天光 | `heavy rain, dense rainfall, grey storm light, soaked surfaces, cold blue-grey atmosphere` | 明顯的大雨持續落下，整體光感偏灰藍且壓低，適合強烈情緒、壓迫感與戲劇化外景。 |
-| **光線類型 (Lighting Type)** | 逆光的高曝光柔光 | `bright airy backlight, soft high-key exposure, gentle facial fill light, luminous rim light` | 逆光下整體曝光偏亮，髮絲邊緣有發光感，同時臉部仍保有柔和細節與空氣感。 |
-| **光線類型 (Lighting Type)** | 側光的高曝光柔光 | `soft side light, bright high-key exposure, gentle facial contour, airy luminous skin tones` | 由側邊柔和照亮人物，帶一點立體感，但整體仍是透亮、乾淨、偏高曝光的人像光感。 |
-| **光線類型 (Lighting Type)** | 正光的高曝光柔光 | `soft frontal light, bright high-key exposure, even facial illumination, clean luminous image quality` | 正面柔光均勻照亮五官，陰影很少，畫面乾淨明亮，適合清透寫真與 beauty 感人像。 |
-| **光線類型 (Lighting Type)** | 陰天漫射柔光 (Overcast Soft Light) | `overcast soft light, cloudy day, even diffused lighting, no harsh shadows` | 雲層像巨大的柔光罩，光線極度均勻，沒有強烈陰影，適合展現最真實的膚色與服裝細節。 |
-| **光線類型 (Lighting Type)** | 直射硬光/烈日 (Harsh Sunlight) | `harsh direct sunlight, midday sun, deep black shadows, high contrast, stark` | 正午或無雲的強烈直射光，產生濃黑銳利的邊緣陰影，帶有強烈對比與夏日炎熱感。 |
-| **光線類型 (Lighting Type)** | 電影霓虹混光 (Neon Mixed Lighting) | `neon mixed lighting, cyberpunk city lights, teal and orange, bi-color illumination` | 利用城市霓虹燈或雙色補光燈，通常為紅藍或青橙對比，營造賽博龐克與王家衛浪漫感。 |
-| **光線類型 (Lighting Type)** | 深夜微弱環境光 | `deep night ambient light, faint streetlight spill, weak building glow, dim urban atmosphere, extremely low-key visibility` | 沒有明確主光源，只有路燈、建築物與環境殘留的微弱光線，適合深夜街頭、空曠都市與低能見度場景。 |
-| **光線類型 (Lighting Type)** | 棚內商業平光 (High Key Studio) | `high key studio lighting, bright softbox, white infinity cove, perfectly exposed` | 攝影棚內極度明亮、幾乎無陰影的佈光。畫面乾淨無瑕，常用於時尚、化妝品或型錄攝影。 |
-| **光線類型 (Lighting Type)** | 暗調戲劇光 (Low Key Chiaroscuro) | `low key lighting, chiaroscuro, cinematic shadows, mostly dark background, mysterious` | 畫面大部分區域為暗部交響，僅有少量光線勾勒主體立體感。充滿戲劇張力與古典油畫感。 |
-| **光線方向與質感 (Light Direction & Quality)** | 全無 | `none` | 不指定光線方向，讓模型自行決定光從哪個方向進入畫面。 |
-| **光線方向與質感 (Light Direction & Quality)** | 倫勃朗光/三角光 (Rembrandt Lighting) | `Rembrandt lighting, soft directional side light, sculpted cheek shadow, painterly cinematic contrast, moody elegance` | 經典人像打光法。以柔和側光塑造臉部立體感與古典明暗層次，但不強調任何幾何形狀或圖案。 |
-| **光線方向與質感 (Light Direction & Quality)** | 蝴蝶光/派拉蒙光 (Butterfly Lighting) | `butterfly lighting, centered beauty light, softly sculpted cheekbones, glamorous beauty lighting, clean facial highlights` | 光源從鏡頭前上方照射，重點是讓顴骨、鼻樑與臉部中央更乾淨立體，適合 beauty 與時裝人像。 |
-| **光線方向與質感 (Light Direction & Quality)** | 輪廓光/背光 (Rim Light / Backlight) | `strong rim light, backlit, glowing edges, separated from background, halo effect` | 光源從主體正後方照射，在頭髮與肩膀邊緣勾勒出一道高光輪廓，能讓人物從深色背景中脫穎而出。 |
-| **光線方向與質感 (Light Direction & Quality)** | 側光/陰陽光 (Split Lighting) | `split lighting, strong side light, one side of the face softly shadowed, clean facial contrast, cinematic lighting` | 光源從人物側邊照射，讓臉部明暗對比清楚，但仍保留自然膚色與真實五官，不會像舞台彩妝或半臉塗色。 |
-| **光線方向與質感 (Light Direction & Quality)** | 窗縫光/百葉窗光 (Window / Blind Slits Light) | `directional window light, soft shadow bands, subtle noir mood, cinematic indoor contrast` | 偏向從窗邊進來的方向性光線，帶有輕微的層次陰影與室內電影感，但不追求臉上出現誇張條紋或幾何圖案。 |
-| **光線方向與質感 (Light Direction & Quality)** | 頂光 (Top Lighting) | `overhead top lighting, deep-set facial shadows, moody cinematic contrast, tense cinematic atmosphere` | 光源從上方向下壓，讓眼窩與臉部下緣出現較深陰影，營造緊張、壓迫、帶點危險感的電影氣氛。 |
-| **光線方向與質感 (Light Direction & Quality)** | 正面柔光 / 平順正面光 (Soft Frontal Light) | `soft frontal light, even forward-facing illumination, clean skin rendering, gentle beauty balance, minimal shadow transition` | 以柔和正面光均勻照亮五官，陰影很少，畫面乾淨透亮，適合清透寫真、商業人像與自然 beauty 感。 |
-| **光線方向與質感 (Light Direction & Quality)** | 45 度側前柔光 (Loop Lighting) | `loop lighting, 45-degree front-side light, soft nose shadow loop, natural facial contour, elegant portrait modeling` | 光源位於人物前側約 45 度，會形成小而自然的鼻影，臉部立體感比正面柔光更強，但仍保有高頻實用的人像自然感。 |
-| **光線方向與質感 (Light Direction & Quality)** | 貝殼光 / 上下夾光 (Clamshell Lighting) | `clamshell lighting, beauty light from above and below, smooth under-eye fill, polished skin glow, refined editorial beauty portrait` | 上方主光搭配下方補光，讓臉部陰影更少、膚質更平滑，特別適合妝容、時裝 close-up 與精修感人像。 |
-| **光線方向與質感 (Light Direction & Quality)** | 側逆光 / 斜後方輪廓光 (Three-quarter Backlight) | `three-quarter backlight, diagonal rear light, glowing hair edges, soft shoulder rim, cinematic subject separation` | 光線從人物斜後方進入，既保留輪廓光，也比純背光更容易看見臉部細節，適合戶外黃昏、街頭夜景與空氣感寫真。 |
-| **光線方向與質感 (Light Direction & Quality)** | 漫射窗邊側光 (Soft Window Side Light) | `soft window side light, diffused daylight from the side, gentle cheek contour, natural indoor portrait glow, quiet editorial softness` | 從窗邊進來的柔和側光，不帶百葉窗條紋感，常見於寫真、生活感與文藝人像，氣質比電影感窗縫光更自然。 |
-| **光線方向與質感 (Light Direction & Quality)** | 剪影背光 (Silhouette Backlight) | `silhouette backlight, strong backlit outline, darkened facial detail, graphic subject contour, dramatic negative-space mood` | 光源從主體後方強力照射，人物整體壓暗只保留輪廓，適合海邊、窗前、街頭落日與高情緒對比畫面。 |
-| **光線方向與質感 (Light Direction & Quality)** | 地面反射補光 / 下方回光 (Bounce / Upfill) | `bounce fill light, soft upward reflected light, lifted lower-face shadows, subtle under-chin glow, natural reflective fill` | 利用地面、牆面或反光板把光線回打到下半臉，能減輕鼻下與下巴陰影，適合戶外寫真、商業人像與高級自然光。 |
-| **光線方向與質感 (Light Direction & Quality)** | 實景燈源側光 (Practical Motivated Side Light) | `practical motivated side light, lamp-lit side illumination, believable room light source, cinematic interior mood, warm directional glow` | 像檯燈、壁燈、霓虹招牌或店內燈具自然照到人物側臉，強調「畫面內有光源理由」的電影感，適合夜景與室內敘事人像。 |
-| **光線方向與質感 (Light Direction & Quality)** | 斑駁樹影光 (Dappled Light) | `dappled light, broken sunlight through leaves, irregular shadow patches, lively outdoor texture, organic summer portrait mood` | 陽光穿過樹葉或遮擋物後形成不規則斑駁光影，畫面會帶有自然節奏與夏日流動感，適合草地、公園與戶外寫真。 |
-| **光線方向與質感 (Light Direction & Quality)** | 霧中體積光 / 光束感 (Volumetric Light) | `volumetric light, visible light rays through haze, atmospheric beam glow, cinematic depth, mist-filled spatial separation` | 光線在霧氣、煙塵或濕氣中形成可見光束，空間層次會明顯增加，適合森林、廢墟、教堂感或強氛圍電影畫面。 |
+| **環境光氛 (Environment Mood)** | 全無 | `none` | 不指定環境光氛，讓模型自行決定天空、空氣感、時段與整體場景光氛。 |
+| **環境光氛 (Environment Mood)** | 晴朗白日 | `clear daylight atmosphere, bright daytime sky, clean sunlit distance, open natural visibility` | 明亮乾淨的白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣感。 |
+| **環境光氛 (Environment Mood)** | 藍天白雲 | `clear blue sky, crisp white clouds, bright clean daylight, open airy distance, vivid daytime atmosphere` | 若畫面包含天空、窗外或遠景，應明確呈現藍天與白雲，整體空氣通透、明亮。 |
+| **環境光氛 (Environment Mood)** | 陰天漫射 | `overcast sky, cloud-covered daylight, soft diffused atmosphere, muted distant contrast, calm neutral air` | 雲層厚而均勻，若有天空或遠景，應偏灰白低對比，整體更柔和安靜。 |
+| **環境光氛 (Environment Mood)** | 清晨薄霧 | `misty morning atmosphere, pale cool sky, soft haze in the distance, gentle low-contrast dawn air` | 帶有清晨霧感與偏冷晨光，若有遠景應略帶霧化與空氣透視。 |
+| **環境光氛 (Environment Mood)** | 黃昏夕陽 | `golden sunset atmosphere, warm orange sky, low sun glow, long-shadow evening air, distant amber horizon` | 若畫面包含天空或遠景，應呈現橙金到粉暖色過渡與夕陽低角度氛圍。 |
+| **環境光氛 (Environment Mood)** | 藍調傍晚 | `blue hour atmosphere, deep blue dusk sky, fading ambient daylight, cool evening transition, quiet twilight distance` | 日落後到入夜前的藍調時段，天空偏深藍，遠景仍保留些微殘光。 |
+| **環境光氛 (Environment Mood)** | 夜晚街燈 | `streetlit night atmosphere, dark blue-black night sky, sodium-vapor streetlights, subtle urban glow, natural city night mood` | 一般城市夜晚環境，若有天空通常接近深藍黑色，主要由路燈與城市溢光支撐氛圍。 |
+| **環境光氛 (Environment Mood)** | 霓虹夜色 | `neon night atmosphere, dark night sky, colored city glow, vivid neon reflections, high-saturation urban nightlife mood` | 夜色基底下混入高彩度霓虹，若有遠景應帶彩色反射、招牌光暈與夜生活氣息。 |
+| **環境光氛 (Environment Mood)** | 雨天陰濕 | `rainy atmosphere, grey-blue rain sky, damp air, wet surfaces, muted visibility, cold overcast mood` | 若畫面含天空與遠景，應呈現厚重灰藍雲層、濕冷空氣與低明度場景。 |
+| **環境光氛 (Environment Mood)** | 雨後反光 | `post-rain atmosphere, recently cleared wet streets, reflective surfaces, moody sky remnants, fresh damp urban air` | 雨剛停後的潮濕反光環境，若有遠景可保留殘雲、濕亮地面與更通透的空氣感。 |
+| **環境光氛 (Environment Mood)** | 雪地冷光 | `snow-bright atmosphere, cold pale sky, reflective snowy distance, crisp winter air, bright cool ambient glow` | 若畫面有遠景與天空，應帶冷白冬日感與雪地反射造成的清冽亮度。 |
+| **環境光氛 (Environment Mood)** | 室內窗邊日光 | `indoor daylight by the window, natural window-lit room, bright exterior sky visible outside if present, soft daytime interior atmosphere` | 以白天室內窗光為主；若畫面看得到窗外，外部應明確保持白天天空與日光狀態。 |
+| **環境光氛 (Environment Mood)** | 室內陰影日光 | `indoor dim daylight, soft daylight falling deeper into the room, subdued exterior brightness if visible, quiet shaded interior air` | 白天室內但不在強窗邊，空間較內收；若看得到窗外，外部仍應維持日間亮度。 |
+| **環境光氛 (Environment Mood)** | 室內暖光夜景 | `indoor warm night atmosphere, tungsten room light, cozy amber interior glow, dark exterior beyond windows if visible, intimate nighttime mood` | 晚上室內的人造暖光場景；若窗外可見，應為明確夜色而非白天。 |
+| **環境光氛 (Environment Mood)** | 室內冷色人造光 | `indoor cool artificial light, fluorescent or LED interior mood, cool-white ambient cast, modern controlled space, dim exterior if visible` | 偏冷白的人造光室內空間，若有窗外通常不主導，整體更現代、理性、都市。 |
+| **環境光氛 (Environment Mood)** | 舞台演出燈光 | `stage-lit atmosphere, theatrical venue lighting, dark surrounding space, dramatic colored beams, performance-driven visual mood` | 以舞台、演出或強人工燈具主導的環境，背景通常較暗，空間感由燈束與演出光決定。 |
+| **光線表現 (Light Style)** | 全無 | `none` | 不指定光線表現，讓模型自行決定主體受光方向、質地與氣氛。 |
+| **光線表現 (Light Style)** | 柔和順光 | `soft front light, even forward illumination, gentle skin rendering, low-contrast facial detail` | 正面柔光均勻照亮五官，陰影少，最適合乾淨穩定的人像。 |
+| **光線表現 (Light Style)** | 均勻平光 | `flat even light, balanced full-face illumination, minimal contrast, clean descriptive exposure` | 光線平均、資訊完整、對比低，適合型錄感、敘事清楚的畫面。 |
+| **光線表現 (Light Style)** | 側向柔光 | `soft side light, gentle cheek contour, natural dimensional modeling, airy portrait softness` | 由側邊柔和照亮主體，兼顧立體感與自然膚色。 |
+| **光線表現 (Light Style)** | 側向硬光 | `hard side light, clear shadow edge, strong sculpted contrast, sharper facial definition` | 側光明顯、陰影邊界銳利，時裝感與戲劇感都更強。 |
+| **光線表現 (Light Style)** | 側逆光 | `back-side light, diagonal rear illumination, soft rim edges, cinematic subject separation` | 從斜後方照亮人物，保留輪廓與一部分臉部細節。 |
+| **光線表現 (Light Style)** | 逆光輪廓光 | `strong rim light, backlit outline, glowing hair edges, separated silhouette` | 主體邊緣被勾亮，特別適合夕陽、夜景與高氛圍畫面。 |
+| **光線表現 (Light Style)** | 頂部照明 | `overhead top lighting, downward illumination, moody facial shadow, tense vertical light falloff` | 由上方壓下來的光線讓氣氛更成熟或更有壓迫感。 |
+| **光線表現 (Light Style)** | 下方反射光 | `bounce up light, upward reflected fill, subtle lower-face lift, reflective underglow` | 利用地面、牆面或雪地等反射面回補下半臉陰影。 |
+| **光線表現 (Light Style)** | 漫射霧光 | `diffused mist light, soft atmospheric spread, low-contrast haze, enveloping ambient glow` | 光線被霧氣、濕氣或厚雲層柔化，整體包覆感更強。 |
+| **光線表現 (Light Style)** | 硬質晴光 | `hard sunlight, direct sunbeam exposure, deep shadow contrast, crisp bright highlights` | 直射日光明顯，陰影深且邊緣清楚。 |
+| **光線表現 (Light Style)** | 低光高反差 | `low-key contrast light, deep shadow fields, selective highlight emphasis, cinematic darkness` | 暗部面積大、亮暗落差高，適合夜景、戲劇與低照度畫面。 |
+| **光線表現 (Light Style)** | 高調亮光 | `high-key bright light, luminous exposure, airy highlights, soft low-shadow clarity` | 整體偏亮偏透，陰影很少，乾淨清爽。 |
+| **光線表現 (Light Style)** | 混合色溫光 | `mixed color temperature lighting, warm and cool light interplay, layered color contrast, cinematic environmental mixing` | 冷暖光並存，特別適合都市夜景、室內夜景與敘事場面。 |
+| **光線表現 (Light Style)** | 霓虹染色光 | `neon color spill, saturated colored light cast, vivid skin-edge tinting, nightlife color wash` | 霓虹色光直接染到人物與場景表面，風格化最強。 |
+| **光線表現 (Light Style)** | 窗格投影光 | `window pattern light, slatted or framed daylight shadows, subtle graphic projection, interior cinematic texture` | 來自窗框、百葉或格柵投影的方向性光影，偏室內敘事感。 |
+| **光線表現 (Light Style)** | 斑駁樹影光 | `dappled light, broken sunlight through leaves, irregular moving shadow patches, lively outdoor texture` | 陽光穿過樹葉後形成不規則斑駁陰影，生活感很強。 |
+| **光線表現 (Light Style)** | 潮濕反射光 | `wet reflective light, ground bounce from damp surfaces, glossy street reflections, fragmented luminous highlights` | 由濕地面與牆面反射補光，特別適合雨天與夜街。 |
+| **光線表現 (Light Style)** | 局部暖光 | `local warm glow, lamp-driven warm pool of light, intimate amber highlight zone, cozy night illumination` | 由檯燈、壁燈、床頭燈等局部暖光源形成的親密光區。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 全無 | `none` | 不指定成像風格，讓模型自行決定畫面質感與成像方式。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 拍立得效果 (Polaroid Style) | `polaroid sx-70 style, instant film look, faded pastel colors, soft white border, lo-fi` | 帶有濃烈懷舊感，邊緣失焦、色彩偏淡偏粉（如褪色般），對比低且具有明顯的化學顯影特性。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 柯達 Portra 400 底片 | `Kodak Portra 400 film simulation, warm skin tones, fine film grain, analog aesthetic` | 業界公認最完美的膚色底片。擁有溫暖的橙橘色調、細膩的顆粒感與優秀的寬容度，呈現高品質的文青底片感。 |
