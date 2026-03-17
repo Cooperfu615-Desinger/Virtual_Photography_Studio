@@ -361,8 +361,13 @@ function inferOrbitMeta(_category, item) {
   const tags = [];
 
   if (hasAny(haystack, ['front-facing', 'straight-on', '正面'])) tags.push('front_view', 'eye_contact_ok');
-  if (hasAny(haystack, ['three-quarter', '45-degree', '315', '135', '225'])) tags.push('three_quarter');
+  if (hasAny(haystack, ['front three-quarter', 'slightly angled toward camera', 'softly turned toward camera', '45-degree', '315'])) {
+    tags.push('front_three_quarter', 'three_quarter', 'eye_contact_ok');
+  }
   if (hasAny(haystack, ['profile', '90-degree', '270'])) tags.push('profile_view');
+  if (hasAny(haystack, ['rear three-quarter', 'partially turned away', 'body turned away', 'partial shoulder reveal', '135', '225'])) {
+    tags.push('rear_three_quarter', 'three_quarter');
+  }
   if (hasAny(haystack, ['back view', 'facing away', 'rear'])) tags.push('back_view', 'no_eye_contact');
 
   return { tags: withTags(tags) };
@@ -504,12 +509,14 @@ function inferCharacterMeta(category, item) {
   if (category.includes('Skin Details')) minVisibility = 'portrait';
   if (category.includes('Hairstyle')) minVisibility = 'medium';
   if (category.includes('Hair Color')) minVisibility = 'medium';
-  if (category.includes('Expression')) minVisibility = 'medium';
+  if (category.includes('Expression')) minVisibility = 'full';
   if (category.includes('Pose')) minVisibility = 'full';
 
   if (hasAny(haystack, ['freckles', '雀斑', 'eyelashes', 'lip', 'nose', '瞳', 'gaze', 'eye contact'])) {
-    minVisibility = 'portrait';
-    tags.push('fine_detail');
+    if (!category.includes('Expression')) {
+      minVisibility = 'portrait';
+      tags.push('fine_detail');
+    }
   }
 
   if (category.includes('Skin Details')) tags.push('skin_detail');
@@ -550,6 +557,9 @@ function inferCharacterMeta(category, item) {
   }
 
   if (hasAny(haystack, ['direct gaze', '直視', 'eye contact'])) tags.push('direct_gaze');
+  if (hasAny(haystack, ['into the distance', 'gazing into distance', '望向遠方', '望向遠處'])) tags.push('distance_gaze');
+  if (hasAny(haystack, ['looking off to the side', '側望', 'look to the side'])) tags.push('side_gaze');
+  if (hasAny(haystack, ['lowered gaze', '低頭', '向下'])) tags.push('downward_gaze');
   if (hasAny(haystack, ['top-down', 'aerial view', '俯拍'])) tags.push('requires_aerial');
   if (hasAny(haystack, ['korean', 'idol'])) archetype = 'korean';
   if (hasAny(haystack, ['nordic', 'scandinavian'])) archetype = 'nordic';
@@ -1001,8 +1011,29 @@ function expressionSupportsComposition(item, context) {
   if (!visibilityAtLeast(context.framing.meta.visibility, item.meta.minVisibility)) return false;
   if (item.meta.tags.includes('direct_gaze') && context.angle.meta.tags.includes('aerial')) return false;
   if (item.meta.tags.includes('requires_aerial') && !context.angle.meta.tags.includes('aerial')) return false;
-  if (item.meta.tags.includes('direct_gaze') && context.orbit?.meta.tags.includes('back_view')) return false;
-  if (context.subject.count > 1 && (item.meta.tags.includes('direct_gaze') || item.meta.tags.includes('fine_detail'))) return false;
+  if (item.meta.tags.includes('direct_gaze') && context.orbit && !orbitSupportsExpression(context.orbit, item)) return false;
+  if (context.orbit?.meta.tags.includes('back_view') && (item.meta.tags.includes('side_gaze') || item.meta.tags.includes('distance_gaze'))) return false;
+  return true;
+}
+
+function angleSupportsExpression(angle, expression) {
+  if (!expression) return true;
+  if (expression.meta.tags.includes('direct_gaze') && angle.meta.tags.includes('aerial')) return false;
+  if (expression.meta.tags.includes('requires_aerial') && !angle.meta.tags.includes('aerial')) return false;
+  return true;
+}
+
+function orbitSupportsExpression(orbit, expression) {
+  if (!expression) return true;
+  const orbitTags = new Set(orbit.meta.tags || []);
+  const expressionTags = new Set(expression.meta.tags || []);
+
+  if (expressionTags.has('direct_gaze')) {
+    if (orbitTags.has('back_view') || orbitTags.has('rear_three_quarter') || orbitTags.has('profile_view')) return false;
+  }
+
+  if ((expressionTags.has('distance_gaze') || expressionTags.has('side_gaze')) && orbitTags.has('back_view')) return false;
+
   return true;
 }
 
@@ -1618,8 +1649,8 @@ function buildMidjourneyCharacterSegments(context, characterSlots, duoInteractio
     if (characterSlots.hairColor?.en && !isNoneLikeItem(characterSlots.hairColor)) pushUniqueSegment(segments, compactClause(characterSlots.hairColor.en, 1));
   }
 
-  if (context.framing.meta.visibility !== 'full' && characterSlots.expression?.en && !isNoneLikeItem(characterSlots.expression)) {
-    pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count), 1));
+  if (characterSlots.expression?.en && !isNoneLikeItem(characterSlots.expression)) {
+    pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count), 2));
   }
 
   if (characterSlots.pose?.en && !isNoneLikeItem(characterSlots.pose) && context.framing.meta.visibility !== 'portrait') {
@@ -1675,8 +1706,8 @@ function buildMidjourneyDuoRelationSegments(context, characterSlots, duoInteract
     pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count), 1));
   }
 
-  if (characterSlots.expression?.en && !isNoneLikeItem(characterSlots.expression) && context.framing.meta.visibility !== 'full') {
-    pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count), 1));
+  if (characterSlots.expression?.en && !isNoneLikeItem(characterSlots.expression)) {
+    pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count), 2));
   }
 
   if (duoInteraction?.en) pushUniqueSegment(segments, compactClause(duoInteraction.en, 1));
@@ -1806,12 +1837,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const styleIntro = STYLE_PROMPT_INTROS[context.style.zh] || 'editorial photography mood';
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
-  const expressionAndPose = [
-    characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
-    characterSlots.pose ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
-  ]
-    .filter(Boolean)
-    .join(', ');
+  const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
+  const poseText = characterSlots.pose ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '';
   const lines = [];
   const addLine = (label, value) => {
     if (!value) return;
@@ -1865,7 +1892,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addItemLine('Hair Color', characterSlots.hairColor);
   }
   if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
-  addLine('Expression and Pose', expressionAndPose);
+  addLine('Expression', expressionText);
+  addLine('Pose', poseText);
   if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB) {
     addItemLine('Top', wardrobeSlots.top);
     addLine('Top Color', wardrobeColors.topColor?.en);
@@ -2024,8 +2052,16 @@ function generateSinglePrompt(index, locks, customLibrary) {
     effectiveLocks.framingId,
     (item) => !(location.meta.tags.includes('club') && item.meta.visibility === 'close') && framingSupportsSubject(item, subject, aspectRatio)
   );
-  const angle = pickWithLock(runtime.flatCatalog.angle, effectiveLocks.angleId, (item) => framingSupportsAngle(framing, item), lowFrequencyPicker('low_frequency_angle'));
-  const orbit = pickWithLock(runtime.flatCatalog.orbit, effectiveLocks.orbitId);
+  const lockedExpression = effectiveLocks.expressionId
+    ? findById(getByKey(runtime.catalog.character, '神情與眼神 (Expression & Gaze)'), effectiveLocks.expressionId)
+    : null;
+  const angle = pickWithLock(
+    runtime.flatCatalog.angle,
+    effectiveLocks.angleId,
+    (item) => framingSupportsAngle(framing, item) && angleSupportsExpression(item, lockedExpression),
+    lowFrequencyPicker('low_frequency_angle')
+  );
+  const orbit = pickWithLock(runtime.flatCatalog.orbit, effectiveLocks.orbitId, (item) => orbitSupportsExpression(item, lockedExpression));
   const lighting = styleDrivenCamera
     ? null
     : pickWithLock(runtime.flatCatalog.lighting, effectiveLocks.lightingId, (item) => locationSupportsLighting(location, item));
