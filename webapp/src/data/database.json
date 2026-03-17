@@ -344,33 +344,33 @@
       },
       {
         "zh": "素色緞面旗袍上衣",
-        "en": "satin cheongsam-style top, elegant mandarin collar, fitted silhouette, smooth lustrous fabric, refined Chinese-inspired styling",
-        "desc": "旗袍式剪裁的上衣版本，保留立領與貼身輪廓，適合搭配長裙、寬褲或都會中式混搭造型。"
+        "en": "satin cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, smooth lustrous fabric, untucked hem worn loose over the waistline, refined Chinese-inspired styling",
+        "desc": "旗袍式剪裁的上衣版本，保留立領、盤扣與貼身上半身輪廓，但衣襬自然放出、不紮進下身，適合搭配長裙、寬褲或都會中式混搭造型。"
       },
       {
         "zh": "精緻刺繡旗袍上衣",
-        "en": "embroidered cheongsam-style top, elegant mandarin collar, fitted silhouette, intricate floral embroidery, refined Chinese-inspired detail",
-        "desc": "在旗袍式上衣結構中加入細緻刺繡，裝飾感更強，適合更正式或更華麗的中式時裝搭配。"
+        "en": "embroidered cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, intricate floral embroidery, untucked hem worn loose over the waistline, refined Chinese-inspired detail",
+        "desc": "在旗袍式上衣結構中加入細緻刺繡與盤扣細節，並強調衣襬自然放出、不紮進下身，裝飾感更強，適合更正式或更華麗的中式時裝搭配。"
       },
       {
         "zh": "和服式上衣",
-        "en": "kimono-style wrap top, layered crossover front, soft draped sleeves, obi-inspired waist emphasis, refined Japanese-inspired styling",
-        "desc": "以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型與包裹式前襟，適合搭配長裙、寬褲與日式混搭造型。"
+        "en": "kimono-style wrap top, layered crossover front, soft draped sleeves, obi-inspired waist emphasis, woven floral and traditional motif accents, refined Japanese-inspired styling",
+        "desc": "以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型與包裹式前襟，並加入織紋、花卉或傳統圖樣裝飾，適合搭配長裙、寬褲與日式混搭造型。"
       },
       {
         "zh": "浴衣式上衣",
-        "en": "yukata-style wrap top, lightweight crossover front, relaxed draped sleeves, soft summer Japanese styling",
-        "desc": "以浴衣較輕鬆的包裹式結構為靈感的上衣版本，布料感更輕，適合夏日、生活感與清爽的日式造型。"
+        "en": "yukata-style wrap top, lightweight cotton gauze texture, airy crossover front, relaxed draped sleeves, delicate summer floral or geometric prints, soft summer Japanese styling",
+        "desc": "以浴衣較輕鬆的包裹式結構為靈感的上衣版本，布料更輕薄透氣，並帶有夏日花紋或幾何印花，適合生活感與清爽的日式造型。"
       },
       {
         "zh": "漢服式上衣",
-        "en": "hanfu-style cross-collar top, flowing layered front, wide draped sleeves, refined Chinese-inspired styling",
-        "desc": "保留漢服交領與寬袖輪廓的上衣版本，適合搭配長裙、寬褲與更古典的中式混搭造型。"
+        "en": "hanfu-style cross-collar top, flowing layered front, wide draped sleeves, embroidered trim, woven cloud and floral motifs, refined Chinese-inspired styling",
+        "desc": "保留漢服交領與寬袖輪廓的上衣版本，加入刺繡滾邊與雲紋、花紋等傳統裝飾，適合搭配長裙、寬褲與更古典的中式混搭造型。"
       },
       {
         "zh": "改良漢服式上衣",
-        "en": "modern hanfu-inspired top, simplified cross-collar front, elegant draped sleeves, contemporary Chinese-inspired styling",
-        "desc": "以漢服元素為靈感但更現代化的上衣版本，保留交領與垂墜感，適合日常化或時裝化搭配。"
+        "en": "modern hanfu-inspired top, simplified cross-collar front, elegant draped sleeves, subtle brocade pattern accents, contemporary Chinese-inspired styling",
+        "desc": "以漢服元素為靈感但更現代化的上衣版本，保留交領與垂墜感，並加入低調提花或織紋裝飾，適合日常化或時裝化搭配。"
       },
       {
         "zh": "透膚蕾絲連身上衣",
@@ -404,8 +404,8 @@
       },
       {
         "zh": "波西米亞風上衣",
-        "en": "bohemian blouse, loose drape, soft flowing silhouette, artisanal detail",
-        "desc": "帶有波西米亞與民俗感的寬鬆上衣，適合自然、旅拍與復古主題。"
+        "en": "bohemian blouse, lightweight gauze or crinkled cotton fabric, untucked loose hem worn outside the bottoms, airy layered sleeves, semi-sheer texture, faded floral and folk-inspired patterns, artisanal embroidery detail",
+        "desc": "帶有波西米亞與民俗感的寬鬆上衣，強調輕薄布料、層次袖型、若隱若現的透氣感與花紋刺繡，並讓衣襬自然放出、不紮進下身，適合自然、旅拍與復古主題。"
       }
     ],
     "褲裝 (Pants)": [
@@ -511,8 +511,8 @@
       },
       {
         "zh": "波西米亞風長褲",
-        "en": "bohemian wide-leg trousers, flowing fabric, artisanal relaxed silhouette",
-        "desc": "布料柔軟飄逸，輪廓寬鬆自然，帶有旅行感與民俗風的輕鬆氣質。"
+        "en": "bohemian wide-leg trousers, lightweight flowing fabric, soft layered drape, subtle crinkled texture, border-print or folk-pattern accents, artisanal relaxed silhouette",
+        "desc": "布料輕薄柔軟、帶有自然皺褶與寬鬆垂墜感，可見低調滾邊花紋或民俗印花，整體更有旅行感、層次感與波西米亞氣質。"
       },
       {
         "zh": "丹寧吊帶長褲",
@@ -658,8 +658,8 @@
       },
       {
         "zh": "波西米亞風長裙",
-        "en": "bohemian maxi skirt, flowing layered fabric, artisanal relaxed movement",
-        "desc": "長裙輪廓柔和飄逸，帶有民俗與旅拍氣質，適合自然、度假與文藝風格。"
+        "en": "bohemian maxi skirt, tiered flowing layers, lightweight semi-sheer fabric, soft gathered volume, floral or folk-pattern accents, artisanal relaxed movement",
+        "desc": "長裙輪廓柔和飄逸，強調多層次裙片、輕薄半透布料、自然抓皺份量與花卉或民俗紋樣，適合自然、度假與文藝風格。"
       }
     ],
     "襪類 (Legwear)": [

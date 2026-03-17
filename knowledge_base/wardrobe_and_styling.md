@@ -55,19 +55,19 @@
 | **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 偏街頭與運動風，適合社群感、青春感與休閒主題。 |
 | **上身 (Tops)** | 坦克背心 | `tank top, sleeveless casual fit, clean sporty line` | 最簡單直接的無袖上身，適合日常、運動與寫真人像。 |
 | **上身 (Tops)** | 維多利亞高領蕾絲襯衫 | `Victorian high-neck lace blouse, ruffled collar, intricate lace detailing` | 領口繁複、禁慾而浪漫。 |
-| **上身 (Tops)** | 素色緞面旗袍上衣 | `satin cheongsam-style top, elegant mandarin collar, fitted silhouette, smooth lustrous fabric, refined Chinese-inspired styling` | 旗袍式剪裁的上衣版本，保留立領與貼身輪廓，適合搭配長裙、寬褲或都會中式混搭造型。 |
-| **上身 (Tops)** | 精緻刺繡旗袍上衣 | `embroidered cheongsam-style top, elegant mandarin collar, fitted silhouette, intricate floral embroidery, refined Chinese-inspired detail` | 在旗袍式上衣結構中加入細緻刺繡，裝飾感更強，適合更正式或更華麗的中式時裝搭配。 |
-| **上身 (Tops)** | 和服式上衣 | `kimono-style wrap top, layered crossover front, soft draped sleeves, obi-inspired waist emphasis, refined Japanese-inspired styling` | 以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型與包裹式前襟，適合搭配長裙、寬褲與日式混搭造型。 |
-| **上身 (Tops)** | 浴衣式上衣 | `yukata-style wrap top, lightweight crossover front, relaxed draped sleeves, soft summer Japanese styling` | 以浴衣較輕鬆的包裹式結構為靈感的上衣版本，布料感更輕，適合夏日、生活感與清爽的日式造型。 |
-| **上身 (Tops)** | 漢服式上衣 | `hanfu-style cross-collar top, flowing layered front, wide draped sleeves, refined Chinese-inspired styling` | 保留漢服交領與寬袖輪廓的上衣版本，適合搭配長裙、寬褲與更古典的中式混搭造型。 |
-| **上身 (Tops)** | 改良漢服式上衣 | `modern hanfu-inspired top, simplified cross-collar front, elegant draped sleeves, contemporary Chinese-inspired styling` | 以漢服元素為靈感但更現代化的上衣版本，保留交領與垂墜感，適合日常化或時裝化搭配。 |
+| **上身 (Tops)** | 素色緞面旗袍上衣 | `satin cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, smooth lustrous fabric, untucked hem worn loose over the waistline, refined Chinese-inspired styling` | 旗袍式剪裁的上衣版本，保留立領、盤扣與貼身上半身輪廓，但衣襬自然放出、不紮進下身，適合搭配長裙、寬褲或都會中式混搭造型。 |
+| **上身 (Tops)** | 精緻刺繡旗袍上衣 | `embroidered cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, intricate floral embroidery, untucked hem worn loose over the waistline, refined Chinese-inspired detail` | 在旗袍式上衣結構中加入細緻刺繡與盤扣細節，並強調衣襬自然放出、不紮進下身，裝飾感更強，適合更正式或更華麗的中式時裝搭配。 |
+| **上身 (Tops)** | 和服式上衣 | `kimono-style wrap top, layered crossover front, soft draped sleeves, obi-inspired waist emphasis, woven floral and traditional motif accents, refined Japanese-inspired styling` | 以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型與包裹式前襟，並加入織紋、花卉或傳統圖樣裝飾，適合搭配長裙、寬褲與日式混搭造型。 |
+| **上身 (Tops)** | 浴衣式上衣 | `yukata-style wrap top, lightweight cotton gauze texture, airy crossover front, relaxed draped sleeves, delicate summer floral or geometric prints, soft summer Japanese styling` | 以浴衣較輕鬆的包裹式結構為靈感的上衣版本，布料更輕薄透氣，並帶有夏日花紋或幾何印花，適合生活感與清爽的日式造型。 |
+| **上身 (Tops)** | 漢服式上衣 | `hanfu-style cross-collar top, flowing layered front, wide draped sleeves, embroidered trim, woven cloud and floral motifs, refined Chinese-inspired styling` | 保留漢服交領與寬袖輪廓的上衣版本，加入刺繡滾邊與雲紋、花紋等傳統裝飾，適合搭配長裙、寬褲與更古典的中式混搭造型。 |
+| **上身 (Tops)** | 改良漢服式上衣 | `modern hanfu-inspired top, simplified cross-collar front, elegant draped sleeves, subtle brocade pattern accents, contemporary Chinese-inspired styling` | 以漢服元素為靈感但更現代化的上衣版本，保留交領與垂墜感，並加入低調提花或織紋裝飾，適合日常化或時裝化搭配。 |
 | **上身 (Tops)** | 透膚蕾絲連身上衣 | `sheer lace bodysuit top, floral lace texture, fitted silhouette` | 連身式透膚蕾絲上衣，偏內衣與寫真主題。 |
 | **上身 (Tops)** | 比基尼 | `bikini top, swimwear styling, minimal coverage silhouette` | 直接作為泳裝上身使用，適合海邊、泳池與度假感畫面。 |
 | **上身 (Tops)** | 蕾絲胸罩 | `lace bra, lingerie styling, delicate fitted support` | 蕾絲質地明顯，偏內衣與私密寫真風格。 |
 | **上身 (Tops)** | 運動型內衣 | `sports bra, athletic support top, streamlined active silhouette` | 緊貼身體、運動感明確，適合活力、街頭與健身風格。 |
 | **上身 (Tops)** | 蕾絲緊身睡衣 | `fitted lace nightdress, body-skimming sleepwear, delicate texture` | 貼身的睡衣輪廓，兼具柔軟與親密感。 |
 | **上身 (Tops)** | 蕾絲寬鬆睡衣 | `loose lace sleepwear, relaxed nightdress silhouette, soft drape` | 較鬆身的睡衣輪廓，氣質更慵懶也更生活化。 |
-| **上身 (Tops)** | 波西米亞風上衣 | `bohemian blouse, loose drape, soft flowing silhouette, artisanal detail` | 帶有波西米亞與民俗感的寬鬆上衣，適合自然、旅拍與復古主題。 |
+| **上身 (Tops)** | 波西米亞風上衣 | `bohemian blouse, lightweight gauze or crinkled cotton fabric, untucked loose hem worn outside the bottoms, airy layered sleeves, semi-sheer texture, faded floral and folk-inspired patterns, artisanal embroidery detail` | 帶有波西米亞與民俗感的寬鬆上衣，強調輕薄布料、層次袖型、若隱若現的透氣感與花紋刺繡，並讓衣襬自然放出、不紮進下身，適合自然、旅拍與復古主題。 |
 | **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
 | **褲裝 (Pants)** | 高腰直筒牛仔褲 | `high-waisted straight-leg jeans, clean denim texture, everyday staple` | 最穩定的日常下身單品，適合城市、街拍與生活感畫面。 |
 | **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
@@ -88,7 +88,7 @@
 | **褲裝 (Pants)** | 亮面貼身皮褲 | `sleek fitted leather pants, glossy finish, sharp silhouette` | 緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。 |
 | **褲裝 (Pants)** | 亮面乳膠緊身長褲 | `glossy latex leggings, ultra-shiny body-hugging latex pants, second-skin silhouette` | 高反光乳膠材質緊貼腿部，適合 fetish、夜拍與強烈時裝主題。 |
 | **褲裝 (Pants)** | 亮面乳膠緊身短褲 | `glossy latex fitted shorts, ultra-shiny tight latex shorts, second-skin silhouette` | 短版乳膠褲更直接強調腿部與臀部線條，適合派對、夜景與邊緣造型。 |
-| **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian wide-leg trousers, flowing fabric, artisanal relaxed silhouette` | 布料柔軟飄逸，輪廓寬鬆自然，帶有旅行感與民俗風的輕鬆氣質。 |
+| **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian wide-leg trousers, lightweight flowing fabric, soft layered drape, subtle crinkled texture, border-print or folk-pattern accents, artisanal relaxed silhouette` | 布料輕薄柔軟、帶有自然皺褶與寬鬆垂墜感，可見低調滾邊花紋或民俗印花，整體更有旅行感、層次感與波西米亞氣質。 |
 | **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling` | 以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。 |
 | **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood` | 以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
@@ -117,7 +117,7 @@
 | **裙裝 (Skirts)** | 細肩帶連身洋裝 | `strappy slip dress, delicate shoulder straps, fluid one-piece silhouette` | 細肩帶連身洋裝帶有輕盈與微性感氣質，適合臥室、飯店與夏日寫真主題。 |
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
 | **裙裝 (Skirts)** | 高腰窄裙 | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
-| **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian maxi skirt, flowing layered fabric, artisanal relaxed movement` | 長裙輪廓柔和飄逸，帶有民俗與旅拍氣質，適合自然、度假與文藝風格。 |
+| **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian maxi skirt, tiered flowing layers, lightweight semi-sheer fabric, soft gathered volume, floral or folk-pattern accents, artisanal relaxed movement` | 長裙輪廓柔和飄逸，強調多層次裙片、輕薄半透布料、自然抓皺份量與花卉或民俗紋樣，適合自然、度假與文藝風格。 |
 | **襪類 (Legwear)** | 全無 | `no legwear, bare legs, clean leg styling` | 不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。 |
 | **襪類 (Legwear)** | 透膚絲襪 | `sheer pantyhose, delicate translucent legwear, smooth finish` | 高頻實用，能與短裙、短褲與高跟鞋自然搭配。 |
 | **襪類 (Legwear)** | 半透明黑絲襪 | `semi-sheer black pantyhose, dark translucent legwear, sleek finish` | 比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。 |
