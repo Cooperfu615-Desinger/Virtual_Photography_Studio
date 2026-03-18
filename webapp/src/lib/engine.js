@@ -422,11 +422,17 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['藍天白雲', 'clear blue sky'])) {
       tags.push('natural_light', 'sunlight', 'day', 'clean_sky', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
+    if (hasAny(haystack, ['正午烈日', 'harsh midday sun'])) {
+      tags.push('natural_light', 'sunlight', 'day', 'harsh', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
     if (hasAny(haystack, ['陰天漫射', 'overcast sky'])) {
       tags.push('natural_light', 'diffused', 'cloudy', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
     if (hasAny(haystack, ['清晨薄霧', 'misty morning'])) {
       tags.push('natural_light', 'diffused', 'mist', 'cool', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['晨光日出', 'sunrise atmosphere'])) {
+      tags.push('natural_light', 'sunlight', 'day', 'warm', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
     if (hasAny(haystack, ['黃昏夕陽', 'golden sunset'])) {
       tags.push('natural_light', 'sunlight', 'warm', 'dusk', 'supports_outdoor', 'supports_urban', 'supports_natural');
@@ -437,8 +443,14 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['夜晚街燈', 'streetlit night'])) {
       tags.push('artificial_light', 'dark', 'night_ambient', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
     }
+    if (hasAny(haystack, ['月光夜色', 'moonlit night'])) {
+      tags.push('natural_light', 'dark', 'cool', 'night_ambient', 'supports_outdoor', 'supports_natural', 'supports_urban');
+    }
     if (hasAny(haystack, ['霓虹夜色', 'neon night'])) {
       tags.push('artificial_light', 'neon', 'dark', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
+    }
+    if (hasAny(haystack, ['陰雨將至', 'storm-brewing atmosphere'])) {
+      tags.push('natural_light', 'cloudy', 'dark', 'dramatic', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
     if (hasAny(haystack, ['雨天陰濕', 'rainy atmosphere'])) {
       tags.push('natural_light', 'rain', 'diffused', 'dark', 'supports_outdoor', 'supports_urban', 'supports_natural');
@@ -449,6 +461,9 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['雪地冷光', 'snow-bright'])) {
       tags.push('natural_light', 'snow', 'cool', 'reflective', 'supports_outdoor', 'supports_natural', 'supports_urban');
     }
+    if (hasAny(haystack, ['冬季灰冷', 'cold winter overcast atmosphere'])) {
+      tags.push('natural_light', 'cloudy', 'cool', 'supports_outdoor', 'supports_natural', 'supports_urban');
+    }
     if (hasAny(haystack, ['室內窗邊日光', 'indoor daylight by the window'])) {
       tags.push('window_light', 'natural_light', 'indoor', 'day', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
@@ -458,8 +473,20 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['室內暖光夜景', 'indoor warm night'])) {
       tags.push('artificial_light', 'indoor', 'warm', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_heritage');
     }
+    if (hasAny(haystack, ['室內燭光', 'candlelit interior atmosphere'])) {
+      tags.push('artificial_light', 'indoor', 'warm', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
     if (hasAny(haystack, ['室內冷色人造光', 'indoor cool artificial'])) {
       tags.push('artificial_light', 'indoor', 'cool', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_heritage', 'supports_subterranean');
+    }
+    if (hasAny(haystack, ['室內霓虹夜色', 'indoor neon-lit atmosphere'])) {
+      tags.push('artificial_light', 'indoor', 'neon', 'dark', 'supports_indoor', 'supports_commercial', 'supports_hospitality', 'supports_subterranean');
+    }
+    if (hasAny(haystack, ['高調純白攝影棚', 'high-key white studio atmosphere'])) {
+      tags.push('artificial_light', 'indoor', 'studio_light', 'controlled', 'soft_light', 'supports_indoor', 'supports_studio', 'supports_commercial');
+    }
+    if (hasAny(haystack, ['柔霧美妝攝影棚', 'soft beauty studio atmosphere'])) {
+      tags.push('artificial_light', 'indoor', 'studio_light', 'controlled', 'soft_light', 'portrait_light', 'supports_indoor', 'supports_studio', 'supports_commercial');
     }
     if (hasAny(haystack, ['舞台演出燈光', 'stage-lit atmosphere'])) {
       tags.push('artificial_light', 'stage_light', 'dramatic', 'supports_indoor', 'supports_commercial', 'supports_studio', 'supports_subterranean');
