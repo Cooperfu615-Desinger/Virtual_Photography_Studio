@@ -1921,7 +1921,7 @@ function buildMidjourneyCameraSegments(context, lightDirection, film) {
 }
 
 function applyColorToGarment(item, color) {
-  if (!item?.en) return '';
+  if (!item?.en || isNoneLikeItem(item)) return '';
   const garment = compactClause(item.en, 1);
   if (!garment) return '';
   return color?.en ? `${color.en} ${garment}` : garment;
@@ -1952,7 +1952,9 @@ function buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors) {
   pushUniqueSegment(segments, applyColorToGarment(slots.top, wardrobeColors.topColor));
   pushUniqueSegment(segments, applyColorToGarment(slots.pants, wardrobeColors.bottomColor));
   pushUniqueSegment(segments, applyColorToGarment(slots.skirt, wardrobeColors.bottomColor));
-  pushUniqueSegment(segments, compactClause(slots.legwear?.en, 1));
+  if (slots.legwear?.en && !isNoneLikeItem(slots.legwear)) {
+    pushUniqueSegment(segments, compactClause(slots.legwear.en, 1));
+  }
   pushUniqueSegment(segments, applyColorToGarment(slots.outerwear, wardrobeColors.outerwearColor));
   pushUniqueSegment(segments, applyColorToGarment(slots.shoes, wardrobeColors.shoesColor));
   slots.jewelry.filter((item) => !isNoneLikeItem(item)).forEach((item) => pushUniqueSegment(segments, compactClause(item?.en, 1)));
