@@ -78,6 +78,7 @@
 | **光線表現 (Light Style)** | 混合色溫光 | `mixed color temperature lighting, warm and cool light interplay, layered color contrast, cinematic environmental mixing` | 冷暖光並存，特別適合都市夜景、室內夜景與敘事場面。 |
 | **光線表現 (Light Style)** | 霓虹染色光 | `neon color spill, saturated colored light cast, vivid skin-edge tinting, nightlife color wash` | 霓虹色光直接染到人物與場景表面，風格化最強。 |
 | **光線表現 (Light Style)** | 窗格投影光 | `window pattern light, slatted or framed daylight shadows, subtle graphic projection, interior cinematic texture` | 來自窗框、百葉或格柵投影的方向性光影，偏室內敘事感。 |
+| **光線表現 (Light Style)** | 百葉窗條紋投影光 | `window-blind stripe light, slatted daylight bands across the subject, horizontal shadow lines on skin and clothing, sensual cinematic interior contrast` | 光線穿過百葉窗後形成明顯條紋，直接投射在人物臉部、身體或衣物上，帶有更強烈的私密、電影感與室內敘事張力。 |
 | **光線表現 (Light Style)** | 斑駁樹影光 | `dappled light, broken sunlight through leaves, irregular moving shadow patches, lively outdoor texture` | 陽光穿過樹葉後形成不規則斑駁陰影，生活感很強。 |
 | **光線表現 (Light Style)** | 潮濕反射光 | `wet reflective light, ground bounce from damp surfaces, glossy street reflections, fragmented luminous highlights` | 由濕地面與牆面反射補光，特別適合雨天與夜街。 |
 | **光線表現 (Light Style)** | 局部暖光 | `local warm glow, lamp-driven warm pool of light, intimate amber highlight zone, cozy night illumination` | 由檯燈、壁燈、床頭燈等局部暖光源形成的親密光區。 |

@@ -1394,6 +1394,11 @@
         "desc": "來自窗框、百葉或格柵投影的方向性光影，偏室內敘事感。"
       },
       {
+        "zh": "百葉窗條紋投影光",
+        "en": "window-blind stripe light, slatted daylight bands across the subject, horizontal shadow lines on skin and clothing, sensual cinematic interior contrast",
+        "desc": "光線穿過百葉窗後形成明顯條紋，直接投射在人物臉部、身體或衣物上，帶有更強烈的私密、電影感與室內敘事張力。"
+      },
+      {
         "zh": "斑駁樹影光",
         "en": "dappled light, broken sunlight through leaves, irregular moving shadow patches, lively outdoor texture",
         "desc": "陽光穿過樹葉後形成不規則斑駁陰影，生活感很強。"

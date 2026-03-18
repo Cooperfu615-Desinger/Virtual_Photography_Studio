@@ -539,6 +539,9 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['窗格投影光', 'window pattern light'])) {
       tags.push('window_light', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
+    if (hasAny(haystack, ['百葉窗條紋投影光', 'window-blind stripe light'])) {
+      tags.push('window_light', 'portrait_light', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
     if (hasAny(haystack, ['斑駁樹影光', 'dappled light'])) {
       tags.push('natural_light', 'sunlight', 'supports_outdoor', 'supports_natural', 'supports_urban');
     }
@@ -1547,6 +1550,7 @@ const DUO_PROMPT_OVERRIDES = {
     '側向柔光': 'soft side light across both women, gentle dimensional contour, balanced duo editorial lighting',
     '逆光輪廓光': 'backlit two-subject image, glowing edge light on both silhouettes, gentle separation from the background',
     '窗格投影光': 'window-pattern light across both women, subtle graphic interior contrast, cinematic duo atmosphere',
+    '百葉窗條紋投影光': 'window-blind stripe light across both women, slatted daylight bands falling on faces, bodies, and clothing, intimate cinematic interior contrast',
     '頂部照明': 'overhead top light across both women, moody duo cinematic contrast, tense cinematic atmosphere',
   },
   expression: {
