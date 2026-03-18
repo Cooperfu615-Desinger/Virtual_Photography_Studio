@@ -89,6 +89,18 @@ const LAYER_COLOR_OPTIONS = [
   { id: 'gold', zh: '金色', en: 'gold' },
 ];
 
+const OUTFIT_PRESET_COLOR_OPTIONS = [
+  { id: 'white', zh: '白色', en: 'white' },
+  { id: 'black', zh: '黑色', en: 'black' },
+  { id: 'red', zh: '紅色', en: 'red' },
+  { id: 'blue', zh: '藍色', en: 'blue' },
+  { id: 'green', zh: '綠色', en: 'green' },
+  { id: 'yellow', zh: '黃色', en: 'yellow' },
+  { id: 'black-white', zh: '黑白', en: 'black and white' },
+  { id: 'black-red', zh: '黑紅', en: 'black and red' },
+  { id: 'white-red', zh: '白紅', en: 'white and red' },
+];
+
 const STYLE_NONE_OPTION = {
   id: 'style-none',
   zh: '全無',
@@ -134,8 +146,11 @@ const LOCK_DEFINITIONS = [
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'outfitPresetId', label: '套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
+  { key: 'outfitPresetColorId', label: '套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outfitPresetAId', label: '人物 1 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
+  { key: 'outfitPresetAColorId', label: '人物 1 套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outfitPresetBId', label: '人物 2 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
+  { key: 'outfitPresetBColorId', label: '人物 2 套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'topId', label: '上身', category: '上身 (Tops)', section: 'wardrobe' },
   { key: 'topColorId', label: '上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'duoStylingId', label: '雙人穿搭', options: DUO_STYLING_OPTIONS, section: 'wardrobe' },
@@ -178,8 +193,11 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'expressionId', label: 'Expression' },
   { key: 'poseId', label: 'Pose' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
+  { key: 'outfitPresetColorId', label: 'Outfit Preset Color' },
   { key: 'outfitPresetAId', label: 'Woman 1 Outfit Preset' },
+  { key: 'outfitPresetAColorId', label: 'Woman 1 Outfit Preset Color' },
   { key: 'outfitPresetBId', label: 'Woman 2 Outfit Preset' },
+  { key: 'outfitPresetBColorId', label: 'Woman 2 Outfit Preset Color' },
   { key: 'topId', label: 'Top' },
   { key: 'topColorId', label: 'Top Color' },
   { key: 'duoStylingId', label: 'Duo Styling' },
@@ -379,6 +397,10 @@ function getGarmentColorOption(id) {
 
 function getLayerColorOption(id) {
   return LAYER_COLOR_OPTIONS.find((option) => option.id === id) || null;
+}
+
+function getOutfitPresetColorOption(id) {
+  return OUTFIT_PRESET_COLOR_OPTIONS.find((option) => option.id === id) || null;
 }
 
 function inferLightingMeta(category, item) {
@@ -1360,7 +1382,7 @@ function buildNegativePrompt(context, positiveTags, catalog) {
   return segments.join(', ');
 }
 
-function buildSummaryFields(context, wardrobe, character) {
+function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const characterBits = character.slice(1).filter((item) => item && item.zh && !isNoneLikeItem(item)).slice(0, 3).map((item) => item.zh);
   const subjectLabel = context.subject.count === 2 ? '兩位性感驚豔的日系或韓系女性' : '一位性感驚豔的日系或韓系女性';
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
@@ -1371,13 +1393,20 @@ function buildSummaryFields(context, wardrobe, character) {
   const orbitLabel = context.orbit && !isNoneLikeItem(context.orbit) ? context.orbit.zh : '-';
   const aspectRatioLabel = context.aspectRatio?.zh || '-';
   const lightingLabel = !context.styleDrivenCamera && context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.zh : '-';
+  const formatPresetSummary = (preset, color) => {
+    if (!preset) return '';
+    return color?.zh ? `${color.zh}｜${preset.zh}` : preset.zh;
+  };
 
   return {
     style: styleLabel,
     character: characterBits.length > 0 ? `${subjectLabel}, ${characterBits.join(', ')}` : subjectLabel,
     wardrobe: wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB
-      ? [wardrobeSlots.outfitPresetA?.zh, wardrobeSlots.outfitPresetB?.zh].filter(Boolean).join(' / ')
-      : wardrobeSlots.outfitPreset?.zh || wardrobe[0]?.zh || '-',
+      ? [
+          formatPresetSummary(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor),
+          formatPresetSummary(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor),
+        ].filter(Boolean).join(' / ')
+      : formatPresetSummary(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor) || wardrobe[0]?.zh || '-',
     location: locationLabel,
     camera: `${framingLabel} / ${angleLabel} / ${orbitLabel} / ${aspectRatioLabel}`,
     lighting: context.styleDrivenCamera ? '由攝影風格決定' : lightingLabel,
@@ -1529,19 +1558,44 @@ function extractWardrobeSlots(wardrobe) {
 
 function buildWardrobeColors(wardrobeSlots, locks) {
   if (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
-    return { topColor: null, bottomColor: null, outerwearColor: null, shoesColor: null };
+    const outfitPresetColor = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
+      ? getOutfitPresetColorOption(locks?.outfitPresetColorId) || sample(OUTFIT_PRESET_COLOR_OPTIONS)
+      : null;
+    const outfitPresetAColor = wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)
+      ? getOutfitPresetColorOption(locks?.outfitPresetAColorId) || sample(OUTFIT_PRESET_COLOR_OPTIONS)
+      : null;
+    const outfitPresetBColor = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
+      ? getOutfitPresetColorOption(locks?.outfitPresetBColorId) || sample(OUTFIT_PRESET_COLOR_OPTIONS)
+      : null;
+    return {
+      outfitPresetColor,
+      outfitPresetAColor,
+      outfitPresetBColor,
+      topColor: null,
+      bottomColor: null,
+      outerwearColor: null,
+      shoesColor: null,
+    };
   }
   const topColor = wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top) ? getGarmentColorOption(locks?.topColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
   const hasBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants)) || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt));
   const bottomColor = hasBottom ? getGarmentColorOption(locks?.bottomColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
   const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? getLayerColorOption(locks?.outerwearColorId) || sample(LAYER_COLOR_OPTIONS) : null;
   const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) ? getLayerColorOption(locks?.shoesColorId) || sample(LAYER_COLOR_OPTIONS) : null;
-  return { topColor, bottomColor, outerwearColor, shoesColor };
+  return {
+    outfitPresetColor: null,
+    outfitPresetAColor: null,
+    outfitPresetBColor: null,
+    topColor,
+    bottomColor,
+    outerwearColor,
+    shoesColor,
+  };
 }
 
-function buildOutfitPresetPrompt(item) {
+function buildOutfitPresetPrompt(item, color = null) {
   if (!item || isNoneLikeItem(item)) return '';
-  return item.en;
+  return color?.en ? `${color.en} palette, ${item.en}` : item.en;
 }
 
 function compactClause(text, maxParts = 2) {
@@ -1601,10 +1655,10 @@ function sanitizeMidjourneyText(value) {
     [/\bbondage\b/gi, 'strap-detailed'],
     [/\bfetish\b/gi, 'avant-garde'],
     [/\bboudoir\b/gi, 'editorial'],
-    [/\blatex\b/gi, 'glossy coated fabric'],
+    [/\blatex\b/gi, 'coated fabric'],
     [/\bbikini top\b/gi, 'cropped top'],
     [/\bbikini\b/gi, 'swimwear'],
-    [/\bbodysuit\b/gi, 'fitted top'],
+    [/\bbodysuit\b/gi, 'suit'],
     [/\bnightdress\b/gi, 'slip dress'],
     [/\bgarter\b/gi, 'stocking'],
     [/\bsee-through\b/gi, 'lightweight'],
@@ -1807,18 +1861,25 @@ function applyColorToGarment(item, color) {
   return color?.en ? `${color.en} ${garment}` : garment;
 }
 
+function applyColorToOutfitPreset(item, color) {
+  if (!item?.en) return '';
+  const outfit = compactClause(item.en, 2);
+  if (!outfit) return '';
+  return color?.en ? `${color.en} palette, ${outfit}` : outfit;
+}
+
 function buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors) {
   const slots = extractWardrobeSlots(wardrobe);
   const segments = [];
 
   if (slots.outfitPresetA?.en || slots.outfitPresetB?.en) {
-    if (slots.outfitPresetA?.en) pushUniqueSegment(segments, `woman 1 ${compactClause(slots.outfitPresetA.en, 1)}`);
-    if (slots.outfitPresetB?.en) pushUniqueSegment(segments, `woman 2 ${compactClause(slots.outfitPresetB.en, 1)}`);
+    if (slots.outfitPresetA?.en) pushUniqueSegment(segments, `woman 1 ${applyColorToOutfitPreset(slots.outfitPresetA, wardrobeColors.outfitPresetAColor)}`);
+    if (slots.outfitPresetB?.en) pushUniqueSegment(segments, `woman 2 ${applyColorToOutfitPreset(slots.outfitPresetB, wardrobeColors.outfitPresetBColor)}`);
     return segments;
   }
 
   if (slots.outfitPreset?.en) {
-    pushUniqueSegment(segments, compactClause(slots.outfitPreset.en, 1));
+    pushUniqueSegment(segments, applyColorToOutfitPreset(slots.outfitPreset, wardrobeColors.outfitPresetColor));
     return segments;
   }
 
@@ -1861,9 +1922,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addContextLine('Location', context.location);
   if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
     addLine('Woman 1 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA));
+    addLine('Woman 1 Outfit Preset Color', wardrobeColors.outfitPresetAColor?.en);
     addLine('Woman 2 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB));
+    addLine('Woman 2 Outfit Preset Color', wardrobeColors.outfitPresetBColor?.en);
   } else if (wardrobeSlots.outfitPreset) {
     addLine('Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPreset));
+    addLine('Outfit Preset Color', wardrobeColors.outfitPresetColor?.en);
   }
   if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
   addContextLine('Framing', context.framing, (item) => resolvePromptVariant(item, 'framing', context.subject.count));
@@ -1975,8 +2039,11 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     lightDirectionId: context.styleDrivenCamera ? '' : lightDirection?.id || '',
     filmId: context.styleDrivenCamera ? '' : film?.id || '',
     outfitPresetId: wardrobeSlots.outfitPreset?.id || '',
+    outfitPresetColorId: wardrobeColors.outfitPresetColor?.id || '',
     outfitPresetAId: wardrobeSlots.outfitPresetA?.id?.replace(/:a$/, '') || '',
+    outfitPresetAColorId: wardrobeColors.outfitPresetAColor?.id || '',
     outfitPresetBId: wardrobeSlots.outfitPresetB?.id?.replace(/:b$/, '') || '',
+    outfitPresetBColorId: wardrobeColors.outfitPresetBColor?.id || '',
     bodyTypeId: characterSlots.bodyType?.id || '',
     facialFeaturesId: characterSlots.facialFeatures?.id || '',
     facialFeaturesAId: characterSlots.facialFeaturesA?.id?.replace(/:a$/, '') || '',
@@ -2082,7 +2149,7 @@ function generateSinglePrompt(index, locks, customLibrary) {
   const positiveTags = collectPositiveTags(style, location, framing, angle, lighting, lightDirection, film, effect, wardrobe, character);
   const negativePrompt = buildNegativePrompt(context, positiveTags, runtime);
   const { midjourneyPrompt, grokPrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, effect, duoInteraction, duoStyling);
-  const summaryFields = buildSummaryFields(context, wardrobe, character);
+  const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
   return {
     id: `${Date.now()}-${index}-${Math.random().toString(36).slice(2, 8)}`,

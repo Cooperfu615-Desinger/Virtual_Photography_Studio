@@ -39,7 +39,7 @@ const CHARACTER_CONTROL_ORDER = [
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'filmId', 'aspectRatio'];
 const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'locationId', 'angleId', 'orbitId', 'framingId', 'aspectRatio'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'outerwearColorId', 'shoesId', 'shoesColorId', 'jewelryIds'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'outerwearColorId', 'shoesId', 'shoesColorId', 'jewelryIds'];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
@@ -256,8 +256,8 @@ export default function App() {
       sortControls(
         lockControls.filter((control) => {
           if (control.section !== 'wardrobe') return false;
-          if (control.key === 'outfitPresetId' && locks.subjectCount === '2') return false;
-          if ((control.key === 'outfitPresetAId' || control.key === 'outfitPresetBId') && locks.subjectCount !== '2') return false;
+          if (['outfitPresetId', 'outfitPresetColorId'].includes(control.key) && locks.subjectCount === '2') return false;
+          if (['outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId'].includes(control.key) && locks.subjectCount !== '2') return false;
           if (control.key === 'duoStylingId' && locks.subjectCount !== '2') return false;
           return true;
         }),
@@ -493,7 +493,7 @@ export default function App() {
                     value={locks[control.key]}
                     disabled={
                       isOutfitPresetActive &&
-                      !['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId'].includes(control.key)
+                      !['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId'].includes(control.key)
                     }
                     onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
                     onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
@@ -586,8 +586,11 @@ const SUMMARY_REROLL_MAP = {
   ],
   wardrobe: [
     'outfitPresetId',
+    'outfitPresetColorId',
     'outfitPresetAId',
+    'outfitPresetAColorId',
     'outfitPresetBId',
+    'outfitPresetBColorId',
     'topId',
     'topColorId',
     'duoStylingId',
