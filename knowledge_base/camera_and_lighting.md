@@ -23,9 +23,19 @@
 | **拍攝方位 (Orbit Angle)** | 右後斜側 | `rear three-quarter angle from opposite side, body turned away, partial shoulder reveal` | 從右後方的斜側角度觀看主體，保留肩線與背部輪廓，仍偏背影導向。 |
 | **拍攝方位 (Orbit Angle)** | 右側 | `right-side profile view, side-facing camera angle, crisp lateral silhouette` | 以右側臉或右側身輪廓為主，重點同樣是側面線條與輪廓感。 |
 | **拍攝方位 (Orbit Angle)** | 右前斜側 | `front three-quarter angle from opposite side, softly turned toward camera, dimensional subject composition` | 身體略微往右轉開，但仍保留大部分正面資訊，適合自然且有立體感的人像構圖。 |
+| **鏡頭焦段 (Focal Length)** | 全無 | `none` | 不指定鏡頭焦段，讓模型自行決定視角、透視與空間壓縮感。 |
+| **鏡頭焦段 (Focal Length)** | 20mm 超廣角 | `shot on 20mm ultra-wide lens, exaggerated perspective stretch, immersive spatial depth, dramatic foreground emphasis` | 超廣角帶來強烈透視延展與貼近感，適合建築感、場景感、動態誇張與前景衝擊明顯的畫面。 |
+| **鏡頭焦段 (Focal Length)** | 24mm 廣角 | `shot on 24mm wide-angle lens, expansive environmental view, strong spatial perspective, energetic foreground-background separation` | 廣角感明顯，能保留大量場景資訊，適合街拍、旅拍、時裝外景與強環境敘事的人像。 |
+| **鏡頭焦段 (Focal Length)** | 28mm 廣角 | `shot on 28mm wide-angle lens, natural environmental storytelling, slightly expanded perspective, balanced scene presence` | 比 24mm 更自然一些，仍保有環境參與感，適合 lifestyle、城市漫遊與日常紀實感人像。 |
 | **鏡頭焦段 (Focal Length)** | 35mm 廣角 (人文視角) | `shot on 35mm lens, documentary style, slight background blur, natural field of view` | 經典的人文與街拍焦段，視角適中不過度變形，能自然融合人物與環境背景。 |
 | **鏡頭焦段 (Focal Length)** | 50mm 標準鏡頭 (Standard) | `shot on 50mm lens, human eye perspective, natural figure rendering, zero distortion` | 最接近人類單眼視覺的透視感，不變形，背景虛化自然，適用於絕大多數日常與棚拍。 |
 | **鏡頭焦段 (Focal Length)** | 85mm 中長焦 (人像鏡皇) | `shot on 85mm lens, shallow depth of field, creamy bokeh, precise facial rendering` | 完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。 |
+| **鏡頭焦段 (Focal Length)** | 105mm 中長焦 | `shot on 105mm portrait lens, elegant compression, refined subject isolation, smooth depth transition, clean background rendering` | 比 85mm 更有壓縮感與距離感，適合成熟、安靜、乾淨的商業人像與時裝構圖。 |
+| **鏡頭焦段 (Focal Length)** | 135mm 長焦壓縮 | `shot on 135mm telephoto lens, strong background compression, flattened perspective, distant candid fashion framing` | 長焦讓背景被拉近並壓縮，畫面更乾淨扁平，適合街頭遠距、偷拍感與高級時裝敘事。 |
+| **鏡頭焦段 (Focal Length)** | 微距鏡頭 Macro | `shot on macro lens, extreme close focusing, hyper-detailed optical rendering, intimate micro-detail emphasis` | 適合嘴唇、眼睛、飾品、布料、指尖等局部細節，能呈現極近距離的質感描寫。 |
+| **鏡頭焦段 (Focal Length)** | 魚眼鏡頭 Fisheye | `shot on fisheye lens, extreme barrel distortion, curved perspective, playful experimental optical exaggeration` | 帶來強烈桶狀變形與包覆式空間感，適合街頭、Y2K、玩味、叛逆與實驗感畫面。 |
+| **鏡頭焦段 (Focal Length)** | 移軸鏡頭 Tilt-Shift | `shot on tilt-shift lens, selective focus plane, controlled perspective rendering, miniature-like spatial separation` | 透過特殊焦平面與透視控制，營造模型感、冷靜觀看距離、櫥窗感或都市幾何感。 |
+| **鏡頭焦段 (Focal Length)** | 變形寬銀幕鏡頭 Anamorphic | `shot on anamorphic lens, widescreen cinematic optics, stretched oval bokeh, horizontal flare character, dramatic spatial rendering` | 強烈電影語言的寬銀幕鏡頭，常帶橢圓散景與水平光斑，適合公路片、夜景、敘事感與大片氣質。 |
 | **環境光氛 (Environment Mood)** | 全無 | `none` | 不指定環境光氛，讓模型自行決定天空、空氣感、時段與整體場景光氛。 |
 | **環境光氛 (Environment Mood)** | 晴朗白日 | `clear daylight atmosphere, bright daytime sky, clean sunlit distance, open natural visibility` | 明亮乾淨的白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣感。 |
 | **環境光氛 (Environment Mood)** | 藍天白雲 | `clear blue sky, crisp white clouds, bright clean daylight, open airy distance, vivid daytime atmosphere` | 若畫面包含天空、窗外或遠景，應明確呈現藍天與白雲，整體空氣通透、明亮。 |
@@ -78,6 +88,18 @@
 | **底片與相機模擬 (Camera & Film Simulation)** | Ricoh GR 街頭快照感 | `Ricoh GR street photography look, compact-camera realism, snap focus feel, contrasty urban mood, candid everyday documentary vibe` | 帶有貼身街拍機的即時感與快照感，適合城市漫遊、街頭抓拍與生活紀實氛圍。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 中片幅數位單眼 (Medium Format DSLR) | `Hasselblad medium format image, extreme ultra-high resolution, medium format organic depth` | 哈蘇或飛思等數位後背相機。擁有令人髮指的細節解析度（看清每一根睫毛），以及有別於全片幅的特殊立體過渡與景深空間感。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | VHS 錄影帶低畫質 | `VHS camcorder glitch effect, heavily degraded image, chromatic aberration, scanlines, analog horror` | 模仿 90 年代老舊錄影帶的畫面質感，保留做低頻特殊風格用途。 |
-| **特殊效果 (Special Effects)** | 漏光效果 (Light Leaks) | `vintage film light leaks, red and orange light burns, lens flare, serendipitous analog flaw` | 模擬舊底片相機機身漏光。畫面邊緣出現隨機、不規則的紅色或橙橘色光暈過曝，增添了真實且隨機的復古韻味。 |
-| **特殊效果 (Special Effects)** | 鏡頭光斑 (Lens Flare) | `anamorphic lens flare, horizontal blue streaks, blooming highlights, cinematic light artifacts` | 尤其是模仿變形鏡頭 (Anamorphic) 產生的水平藍色拉絲光斑。是科幻電影或公路大片標誌性的光源特效。 |
-| **特殊效果 (Special Effects)** | 散景/光斑大虛化 (Heavy Bokeh) | `out of focus foreground bokeh, hexagonal light orbs, dreamy shallow depth, optical blur` | 不僅背景虛化，更在鏡頭近處加入了被過度虛化的前景色塊或閃亮的光斑圓圈，營造出窺視與極端夢幻的感覺。 |
+| **光學效果 (Optical Effects)** | 全無 | `none` | 不指定光學效果，讓模型自行決定是否加入 flare、散景、柔焦、暗角等鏡頭特徵。 |
+| **光學效果 (Optical Effects)** | 淺景深 | `shallow depth of field, softly blurred background, gentle subject separation, natural portrait falloff` | 保留自然人像最常見的背景柔化效果，讓主體更清楚浮出畫面。 |
+| **光學效果 (Optical Effects)** | 極淺景深 | `ultra shallow depth of field, heavily blurred background, razor-thin focus plane, dramatic subject isolation` | 焦平面非常薄，前後景快速化開，適合強烈主體分離與夢幻視覺。 |
+| **光學效果 (Optical Effects)** | 重散景光斑 | `heavy bokeh, large luminous blur circles, dreamy optical falloff, pronounced out-of-focus highlights` | 讓背景或前景出現明顯大光斑與夢幻散景，特別適合夜景、節慶燈光與浪漫氛圍。 |
+| **光學效果 (Optical Effects)** | 前景遮擋散景 | `foreground occlusion bokeh, blurred foreground shapes, voyeuristic layered composition, soft depth veil` | 鏡頭前方有模糊遮擋物或散景，能增加偷窺感、層次感與空間包覆感。 |
+| **光學效果 (Optical Effects)** | 鏡頭光斑 Lens Flare | `lens flare, blooming highlights, streaking flare artifacts, cinematic backlit optics` | 逆光或強光源在鏡頭內形成 flare，能提升電影感、舞台感與光源存在感。 |
+| **光學效果 (Optical Effects)** | 變形鏡頭光斑 Anamorphic Flare | `anamorphic lens flare, horizontal blue streaks, widescreen cinematic flare, optical sci-fi sheen` | 水平拉絲的變形鏡頭光斑，是科幻、公路片與大型電影感場面的經典視覺語言。 |
+| **光學效果 (Optical Effects)** | 漏光效果 Light Leaks | `vintage film light leaks, red and orange light burns, accidental analog flare, serendipitous exposure bloom` | 模擬底片相機的意外漏光，畫面邊緣出現不規則暖色過曝，增添偶然性與復古味。 |
+| **光學效果 (Optical Effects)** | 柔焦濾鏡 Soft Focus | `soft focus filter, diffused detail rendering, delicate glow on skin, dreamy vintage softness` | 細節略微柔化，尤其適合膚質、寫真、夢境感與復古日系柔霧氛圍。 |
+| **光學效果 (Optical Effects)** | 霧化高光 Bloom | `highlight bloom, glowing bright areas, soft halation around light sources, luminous haze` | 高光邊緣產生發光暈散，適合夜景、逆光、霓虹與夢幻感畫面。 |
+| **光學效果 (Optical Effects)** | 暗角 Vignette | `subtle vignette, darker frame edges, center-weighted emphasis, cinematic tonal focus` | 畫面四周略暗，能集中視線並增加電影感與復古感。 |
+| **光學效果 (Optical Effects)** | 色差 Chromatic Aberration | `chromatic aberration, subtle RGB edge fringing, optical color separation, digital-imperfect lens character` | 物體邊緣出現輕微分色，適合數位實驗感、低保真、故障美學或偏前衛畫面。 |
+| **光學效果 (Optical Effects)** | 邊緣模糊 | `soft edge blur, center sharpness with peripheral softness, vintage lens imperfection, dreamy frame falloff` | 中心較清楚、四周較鬆，模擬老鏡或特殊鏡頭的周邊解析下降，讓畫面更柔更有氣氛。 |
+| **光學效果 (Optical Effects)** | 星芒高光 | `starburst highlights, diffraction spikes around point lights, sparkling night optics, crisp luminous points` | 夜景點光源形成星芒，適合珠寶、城市夜景、節慶燈飾與華麗亮點。 |
+| **光學效果 (Optical Effects)** | 光學朦朧薄霧 | `optical haze, atmospheric lens mist, veiled contrast, airy cinematic softness` | 畫面像隔著一層淡霧，對比更柔和，適合清晨、夢境、回憶感與安靜敘事。 |

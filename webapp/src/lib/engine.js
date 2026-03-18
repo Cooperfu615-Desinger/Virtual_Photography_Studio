@@ -119,6 +119,8 @@ const OUTFIT_PRESET_NONE_OPTION = {
 
 const ENVIRONMENT_MOOD_CATEGORY = '環境光氛 (Environment Mood)';
 const LIGHT_STYLE_CATEGORY = '光線表現 (Light Style)';
+const FOCAL_LENGTH_CATEGORY = '鏡頭焦段 (Focal Length)';
+const OPTICAL_EFFECTS_CATEGORY = '光學效果 (Optical Effects)';
 
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
@@ -128,6 +130,8 @@ const LOCK_DEFINITIONS = [
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
   { key: 'angleId', label: '俯仰角度', category: '相機視角 (Angle)', section: 'core' },
   { key: 'orbitId', label: '環繞角度', category: '拍攝方位 (Orbit Angle)', section: 'core' },
+  { key: 'lensId', label: '鏡頭焦段', category: FOCAL_LENGTH_CATEGORY, section: 'core' },
+  { key: 'opticalEffectId', label: '光學效果', category: OPTICAL_EFFECTS_CATEGORY, section: 'core' },
   { key: 'lightingId', label: '環境光氛', category: ENVIRONMENT_MOOD_CATEGORY, section: 'core' },
   { key: 'lightDirectionId', label: '光線表現', category: LIGHT_STYLE_CATEGORY, section: 'core' },
   { key: 'filmId', label: '成像風格', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
@@ -174,6 +178,8 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'framingId', label: 'Framing' },
   { key: 'angleId', label: 'Angle' },
   { key: 'orbitId', label: 'Orbit' },
+  { key: 'lensId', label: 'Lens' },
+  { key: 'opticalEffectId', label: 'Optical Effect' },
   { key: 'lightingId', label: 'Environment Mood' },
   { key: 'lightDirectionId', label: 'Light Style' },
   { key: 'filmId', label: 'Film' },
@@ -632,6 +638,21 @@ function inferFilmMeta(_category, item) {
   return { tags: withTags(tags) };
 }
 
+function inferLensMeta(_category, item) {
+  const haystack = toHaystack(item.zh, item.en, item.desc);
+  const tags = [];
+
+  if (hasAny(haystack, ['20mm', '24mm', '28mm', '35mm', 'wide-angle', 'ultra-wide'])) tags.push('wide_lens');
+  if (hasAny(haystack, ['50mm', 'standard'])) tags.push('standard_lens');
+  if (hasAny(haystack, ['85mm', '105mm', '135mm', 'telephoto', 'compression'])) tags.push('telephoto_lens');
+  if (hasAny(haystack, ['macro'])) tags.push('macro_lens');
+  if (hasAny(haystack, ['fisheye'])) tags.push('fisheye_lens');
+  if (hasAny(haystack, ['tilt-shift'])) tags.push('tilt_shift_lens');
+  if (hasAny(haystack, ['anamorphic'])) tags.push('anamorphic_lens');
+
+  return { tags: withTags(tags) };
+}
+
 function inferEffectMeta(_category, item) {
   const haystack = toHaystack(item.zh, item.en, item.desc);
   const tags = [];
@@ -663,11 +684,12 @@ function inferCameraMeta(category, item) {
   if (category === '景別構圖 (Framing)') return inferFramingMeta(category, item);
   if (category === '相機視角 (Angle)') return inferAngleMeta(category, item);
   if (category === '拍攝方位 (Orbit Angle)') return inferOrbitMeta(category, item);
+  if (category === FOCAL_LENGTH_CATEGORY) return inferLensMeta(category, item);
   if (category === ENVIRONMENT_MOOD_CATEGORY || category === LIGHT_STYLE_CATEGORY) {
     return inferLightingMeta(category, item);
   }
   if (category === '底片與相機模擬 (Camera & Film Simulation)') return inferFilmMeta(category, item);
-  if (category === '特殊效果 (Special Effects)') return inferEffectMeta(category, item);
+  if (category === OPTICAL_EFFECTS_CATEGORY || category === '特殊效果 (Special Effects)') return inferEffectMeta(category, item);
   return { tags: [] };
 }
 
@@ -739,10 +761,11 @@ function buildCatalog(customLibrary = []) {
       framing: getByKey(catalog.camera, '景別構圖 (Framing)'),
       angle: getByKey(catalog.camera, '相機視角 (Angle)'),
       orbit: getByKey(catalog.camera, '拍攝方位 (Orbit Angle)'),
+      lens: getByKey(catalog.camera, FOCAL_LENGTH_CATEGORY),
       lighting: getByKey(catalog.camera, ENVIRONMENT_MOOD_CATEGORY),
       lightDirection: getByKey(catalog.camera, LIGHT_STYLE_CATEGORY),
       film: getByKey(catalog.camera, '底片與相機模擬 (Camera & Film Simulation)'),
-      effects: getByKey(catalog.camera, '特殊效果 (Special Effects)'),
+      effects: getByKey(catalog.camera, OPTICAL_EFFECTS_CATEGORY).length > 0 ? getByKey(catalog.camera, OPTICAL_EFFECTS_CATEGORY) : getByKey(catalog.camera, '特殊效果 (Special Effects)'),
       outfitPresets: [OUTFIT_PRESET_NONE_OPTION, ...getByKey(catalog.wardrobe, '套裝 (Outfit Presets)')],
     },
     mergedDatabase,
@@ -796,6 +819,8 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'framingId') options = flatCatalog.framing;
       if (definition.key === 'angleId') options = flatCatalog.angle;
       if (definition.key === 'orbitId') options = flatCatalog.orbit;
+      if (definition.key === 'lensId') options = flatCatalog.lens;
+      if (definition.key === 'opticalEffectId') options = flatCatalog.effects;
       if (definition.key === 'lightingId') options = flatCatalog.lighting;
       if (definition.key === 'lightDirectionId') options = flatCatalog.lightDirection;
       if (definition.key === 'filmId') options = flatCatalog.film;
@@ -1383,6 +1408,10 @@ function buildNegativePrompt(context, positiveTags, catalog) {
 }
 
 function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
+  const joinSummaryParts = (...parts) => {
+    const filtered = parts.filter((part) => part && part !== '-');
+    return filtered.length > 0 ? filtered.join(' / ') : '-';
+  };
   const characterBits = character.slice(1).filter((item) => item && item.zh && !isNoneLikeItem(item)).slice(0, 3).map((item) => item.zh);
   const subjectLabel = context.subject.count === 2 ? '兩位性感驚豔的日系或韓系女性' : '一位性感驚豔的日系或韓系女性';
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
@@ -1391,8 +1420,10 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const framingLabel = context.framing && !isNoneLikeItem(context.framing) ? context.framing.zh : '-';
   const angleLabel = context.angle && !isNoneLikeItem(context.angle) ? context.angle.zh : '-';
   const orbitLabel = context.orbit && !isNoneLikeItem(context.orbit) ? context.orbit.zh : '-';
+  const lensLabel = context.lens && !isNoneLikeItem(context.lens) ? context.lens.zh : '-';
   const aspectRatioLabel = context.aspectRatio?.zh || '-';
   const lightingLabel = !context.styleDrivenCamera && context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.zh : '-';
+  const opticalEffectLabel = context.opticalEffect && !isNoneLikeItem(context.opticalEffect) ? context.opticalEffect.zh : '-';
   const formatPresetSummary = (preset, color) => {
     if (!preset) return '';
     return color?.zh ? `${color.zh}｜${preset.zh}` : preset.zh;
@@ -1408,8 +1439,10 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
         ].filter(Boolean).join(' / ')
       : formatPresetSummary(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor) || wardrobe[0]?.zh || '-',
     location: locationLabel,
-    camera: `${framingLabel} / ${angleLabel} / ${orbitLabel} / ${aspectRatioLabel}`,
-    lighting: context.styleDrivenCamera ? '由攝影風格決定' : lightingLabel,
+    camera: joinSummaryParts(framingLabel, angleLabel, orbitLabel, lensLabel, aspectRatioLabel),
+    lighting: context.styleDrivenCamera
+      ? (opticalEffectLabel !== '-' ? `由攝影風格決定 / ${opticalEffectLabel}` : '由攝影風格決定')
+      : joinSummaryParts(lightingLabel, opticalEffectLabel),
   };
 }
 
@@ -1779,6 +1812,9 @@ function buildMidjourneySceneSegments(context) {
   if (context.framing && !isNoneLikeItem(context.framing)) {
     pushUniqueSegment(segments, compactClause(resolvePromptVariant(context.framing, 'framing', context.subject.count), 1));
   }
+  if (context.lens && !isNoneLikeItem(context.lens)) {
+    pushUniqueSegment(segments, compactClause(context.lens.en, 2));
+  }
 
   const angleText = context.angle && !isNoneLikeItem(context.angle) ? compactClause(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1) : '';
   const orbitText = context.orbit && !isNoneLikeItem(context.orbit) ? compactClause(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1) : '';
@@ -1826,6 +1862,9 @@ function buildMidjourneyCameraSegments(context, lightDirection, film) {
   }
   if (context.framing && !isNoneLikeItem(context.framing)) {
     pushUniqueSegment(segments, compactClause(resolvePromptVariant(context.framing, 'framing', context.subject.count), 1));
+  }
+  if (context.lens && !isNoneLikeItem(context.lens)) {
+    pushUniqueSegment(segments, compactClause(context.lens.en, 2));
   }
 
   const angleText = context.angle && !isNoneLikeItem(context.angle) ? compactClause(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1) : '';
@@ -1933,6 +1972,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addContextLine('Framing', context.framing, (item) => resolvePromptVariant(item, 'framing', context.subject.count));
   addContextLine('Angle', context.angle, (item) => resolvePromptVariant(item, 'angle', context.subject.count));
   addContextLine('Orbit Angle', context.orbit, (item) => resolvePromptVariant(item, 'orbit', context.subject.count));
+  addContextLine('Lens', context.lens);
+  addContextLine('Optical Effect', context.opticalEffect);
   if (!context.styleDrivenCamera) {
     addContextLine('Environment Mood', context.lighting);
     addContextLine('Light Style', lightDirection, (item) => resolvePromptVariant(item, 'lightDirection', context.subject.count));
@@ -1980,7 +2021,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   return lines.join('\n');
 }
 
-function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, effect, duoInteraction, duoStyling) {
+function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const midjourneySegments = [];
@@ -2007,7 +2048,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
     buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   }
-  if (effect?.en) pushUniqueSegment(midjourneySegments, compactClause(effect.en, 1));
+  if (opticalEffect?.en) pushUniqueSegment(midjourneySegments, compactClause(opticalEffect.en, 1));
 
   let midjourneyPrompt = '';
   for (const segment of midjourneySegments) {
@@ -2035,6 +2076,8 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     framingId: context.framing.id,
     angleId: context.angle.id,
     orbitId: context.orbit.id,
+    lensId: context.lens?.id || '',
+    opticalEffectId: context.opticalEffect?.id || '',
     lightingId: context.styleDrivenCamera ? '' : context.lighting?.id || '',
     lightDirectionId: context.styleDrivenCamera ? '' : lightDirection?.id || '',
     filmId: context.styleDrivenCamera ? '' : film?.id || '',
@@ -2129,6 +2172,7 @@ function generateSinglePrompt(index, locks, customLibrary) {
     lowFrequencyPicker('low_frequency_angle')
   );
   const orbit = pickWithLock(runtime.flatCatalog.orbit, effectiveLocks.orbitId, (item) => orbitSupportsExpression(item, lockedExpression));
+  const lens = pickWithLock(runtime.flatCatalog.lens, effectiveLocks.lensId);
   const lighting = styleDrivenCamera
     ? null
     : pickWithLock(runtime.flatCatalog.lighting, effectiveLocks.lightingId, (item) => locationSupportsLighting(location, item));
@@ -2136,19 +2180,19 @@ function generateSinglePrompt(index, locks, customLibrary) {
     ? null
     : pickWithLock(runtime.flatCatalog.lightDirection, effectiveLocks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
   const film = styleDrivenCamera ? null : pickWithLock(runtime.flatCatalog.film, effectiveLocks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
-  const effect = Math.random() > 0.65 ? sample(runtime.flatCatalog.effects) : null;
+  const opticalEffect = pickWithLock(runtime.flatCatalog.effects, effectiveLocks.opticalEffectId);
   const duoInteraction = subject.count === 2 ? getDuoInteractionOption(effectiveLocks.duoInteractionId) || sample(DUO_INTERACTION_OPTIONS) : null;
   const duoStyling = subject.count === 2 ? getDuoStylingOption(effectiveLocks.duoStylingId) || sample(DUO_STYLING_OPTIONS) : null;
 
-  const context = { subject, aspectRatio, style, location, framing, angle, orbit, lighting, locks: effectiveLocks, styleDrivenCamera };
+  const context = { subject, aspectRatio, style, location, framing, angle, orbit, lens, opticalEffect, lighting, locks: effectiveLocks, styleDrivenCamera };
   const character = buildCharacter(context, runtime.catalog);
   const wardrobe = buildWardrobe({ ...context }, effectiveLocks, runtime);
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks);
 
-  const positiveTags = collectPositiveTags(style, location, framing, angle, lighting, lightDirection, film, effect, wardrobe, character);
+  const positiveTags = collectPositiveTags(style, location, framing, angle, lighting, lightDirection, film, opticalEffect, wardrobe, character);
   const negativePrompt = buildNegativePrompt(context, positiveTags, runtime);
-  const { midjourneyPrompt, grokPrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, effect, duoInteraction, duoStyling);
+  const { midjourneyPrompt, grokPrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
   return {
@@ -2165,9 +2209,9 @@ function generateSinglePrompt(index, locks, customLibrary) {
       Character: character,
       Wardrobe: wardrobe,
       Location: [location],
-      Framing: [framing, angle, orbit],
+      Framing: [framing, angle, orbit, lens].filter(Boolean),
       Lighting: [lighting, lightDirection].filter(Boolean),
-      'Camera & Film': [film, effect].filter(Boolean),
+      'Camera & Film': [film, opticalEffect].filter(Boolean),
     },
   };
 }

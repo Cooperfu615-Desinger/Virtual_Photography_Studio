@@ -1115,6 +1115,26 @@
     ],
     "鏡頭焦段 (Focal Length)": [
       {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定鏡頭焦段，讓模型自行決定視角、透視與空間壓縮感。"
+      },
+      {
+        "zh": "20mm 超廣角",
+        "en": "shot on 20mm ultra-wide lens, exaggerated perspective stretch, immersive spatial depth, dramatic foreground emphasis",
+        "desc": "超廣角帶來強烈透視延展與貼近感，適合建築感、場景感、動態誇張與前景衝擊明顯的畫面。"
+      },
+      {
+        "zh": "24mm 廣角",
+        "en": "shot on 24mm wide-angle lens, expansive environmental view, strong spatial perspective, energetic foreground-background separation",
+        "desc": "廣角感明顯，能保留大量場景資訊，適合街拍、旅拍、時裝外景與強環境敘事的人像。"
+      },
+      {
+        "zh": "28mm 廣角",
+        "en": "shot on 28mm wide-angle lens, natural environmental storytelling, slightly expanded perspective, balanced scene presence",
+        "desc": "比 24mm 更自然一些，仍保有環境參與感，適合 lifestyle、城市漫遊與日常紀實感人像。"
+      },
+      {
         "zh": "35mm 廣角 (人文視角)",
         "en": "shot on 35mm lens, documentary style, slight background blur, natural field of view",
         "desc": "經典的人文與街拍焦段，視角適中不過度變形，能自然融合人物與環境背景。"
@@ -1128,6 +1148,36 @@
         "zh": "85mm 中長焦 (人像鏡皇)",
         "en": "shot on 85mm lens, shallow depth of field, creamy bokeh, precise facial rendering",
         "desc": "完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。"
+      },
+      {
+        "zh": "105mm 中長焦",
+        "en": "shot on 105mm portrait lens, elegant compression, refined subject isolation, smooth depth transition, clean background rendering",
+        "desc": "比 85mm 更有壓縮感與距離感，適合成熟、安靜、乾淨的商業人像與時裝構圖。"
+      },
+      {
+        "zh": "135mm 長焦壓縮",
+        "en": "shot on 135mm telephoto lens, strong background compression, flattened perspective, distant candid fashion framing",
+        "desc": "長焦讓背景被拉近並壓縮，畫面更乾淨扁平，適合街頭遠距、偷拍感與高級時裝敘事。"
+      },
+      {
+        "zh": "微距鏡頭 Macro",
+        "en": "shot on macro lens, extreme close focusing, hyper-detailed optical rendering, intimate micro-detail emphasis",
+        "desc": "適合嘴唇、眼睛、飾品、布料、指尖等局部細節，能呈現極近距離的質感描寫。"
+      },
+      {
+        "zh": "魚眼鏡頭 Fisheye",
+        "en": "shot on fisheye lens, extreme barrel distortion, curved perspective, playful experimental optical exaggeration",
+        "desc": "帶來強烈桶狀變形與包覆式空間感，適合街頭、Y2K、玩味、叛逆與實驗感畫面。"
+      },
+      {
+        "zh": "移軸鏡頭 Tilt-Shift",
+        "en": "shot on tilt-shift lens, selective focus plane, controlled perspective rendering, miniature-like spatial separation",
+        "desc": "透過特殊焦平面與透視控制，營造模型感、冷靜觀看距離、櫥窗感或都市幾何感。"
+      },
+      {
+        "zh": "變形寬銀幕鏡頭 Anamorphic",
+        "en": "shot on anamorphic lens, widescreen cinematic optics, stretched oval bokeh, horizontal flare character, dramatic spatial rendering",
+        "desc": "強烈電影語言的寬銀幕鏡頭，常帶橢圓散景與水平光斑，適合公路片、夜景、敘事感與大片氣質。"
       }
     ],
     "環境光氛 (Environment Mood)": [
@@ -1396,21 +1446,81 @@
         "desc": "模仿 90 年代老舊錄影帶的畫面質感，保留做低頻特殊風格用途。"
       }
     ],
-    "特殊效果 (Special Effects)": [
+    "光學效果 (Optical Effects)": [
       {
-        "zh": "漏光效果 (Light Leaks)",
-        "en": "vintage film light leaks, red and orange light burns, lens flare, serendipitous analog flaw",
-        "desc": "模擬舊底片相機機身漏光。畫面邊緣出現隨機、不規則的紅色或橙橘色光暈過曝，增添了真實且隨機的復古韻味。"
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定光學效果，讓模型自行決定是否加入 flare、散景、柔焦、暗角等鏡頭特徵。"
       },
       {
-        "zh": "鏡頭光斑 (Lens Flare)",
-        "en": "anamorphic lens flare, horizontal blue streaks, blooming highlights, cinematic light artifacts",
-        "desc": "尤其是模仿變形鏡頭 (Anamorphic) 產生的水平藍色拉絲光斑。是科幻電影或公路大片標誌性的光源特效。"
+        "zh": "淺景深",
+        "en": "shallow depth of field, softly blurred background, gentle subject separation, natural portrait falloff",
+        "desc": "保留自然人像最常見的背景柔化效果，讓主體更清楚浮出畫面。"
       },
       {
-        "zh": "散景/光斑大虛化 (Heavy Bokeh)",
-        "en": "out of focus foreground bokeh, hexagonal light orbs, dreamy shallow depth, optical blur",
-        "desc": "不僅背景虛化，更在鏡頭近處加入了被過度虛化的前景色塊或閃亮的光斑圓圈，營造出窺視與極端夢幻的感覺。"
+        "zh": "極淺景深",
+        "en": "ultra shallow depth of field, heavily blurred background, razor-thin focus plane, dramatic subject isolation",
+        "desc": "焦平面非常薄，前後景快速化開，適合強烈主體分離與夢幻視覺。"
+      },
+      {
+        "zh": "重散景光斑",
+        "en": "heavy bokeh, large luminous blur circles, dreamy optical falloff, pronounced out-of-focus highlights",
+        "desc": "讓背景或前景出現明顯大光斑與夢幻散景，特別適合夜景、節慶燈光與浪漫氛圍。"
+      },
+      {
+        "zh": "前景遮擋散景",
+        "en": "foreground occlusion bokeh, blurred foreground shapes, voyeuristic layered composition, soft depth veil",
+        "desc": "鏡頭前方有模糊遮擋物或散景，能增加偷窺感、層次感與空間包覆感。"
+      },
+      {
+        "zh": "鏡頭光斑 Lens Flare",
+        "en": "lens flare, blooming highlights, streaking flare artifacts, cinematic backlit optics",
+        "desc": "逆光或強光源在鏡頭內形成 flare，能提升電影感、舞台感與光源存在感。"
+      },
+      {
+        "zh": "變形鏡頭光斑 Anamorphic Flare",
+        "en": "anamorphic lens flare, horizontal blue streaks, widescreen cinematic flare, optical sci-fi sheen",
+        "desc": "水平拉絲的變形鏡頭光斑，是科幻、公路片與大型電影感場面的經典視覺語言。"
+      },
+      {
+        "zh": "漏光效果 Light Leaks",
+        "en": "vintage film light leaks, red and orange light burns, accidental analog flare, serendipitous exposure bloom",
+        "desc": "模擬底片相機的意外漏光，畫面邊緣出現不規則暖色過曝，增添偶然性與復古味。"
+      },
+      {
+        "zh": "柔焦濾鏡 Soft Focus",
+        "en": "soft focus filter, diffused detail rendering, delicate glow on skin, dreamy vintage softness",
+        "desc": "細節略微柔化，尤其適合膚質、寫真、夢境感與復古日系柔霧氛圍。"
+      },
+      {
+        "zh": "霧化高光 Bloom",
+        "en": "highlight bloom, glowing bright areas, soft halation around light sources, luminous haze",
+        "desc": "高光邊緣產生發光暈散，適合夜景、逆光、霓虹與夢幻感畫面。"
+      },
+      {
+        "zh": "暗角 Vignette",
+        "en": "subtle vignette, darker frame edges, center-weighted emphasis, cinematic tonal focus",
+        "desc": "畫面四周略暗，能集中視線並增加電影感與復古感。"
+      },
+      {
+        "zh": "色差 Chromatic Aberration",
+        "en": "chromatic aberration, subtle RGB edge fringing, optical color separation, digital-imperfect lens character",
+        "desc": "物體邊緣出現輕微分色，適合數位實驗感、低保真、故障美學或偏前衛畫面。"
+      },
+      {
+        "zh": "邊緣模糊",
+        "en": "soft edge blur, center sharpness with peripheral softness, vintage lens imperfection, dreamy frame falloff",
+        "desc": "中心較清楚、四周較鬆，模擬老鏡或特殊鏡頭的周邊解析下降，讓畫面更柔更有氣氛。"
+      },
+      {
+        "zh": "星芒高光",
+        "en": "starburst highlights, diffraction spikes around point lights, sparkling night optics, crisp luminous points",
+        "desc": "夜景點光源形成星芒，適合珠寶、城市夜景、節慶燈飾與華麗亮點。"
+      },
+      {
+        "zh": "光學朦朧薄霧",
+        "en": "optical haze, atmospheric lens mist, veiled contrast, airy cinematic softness",
+        "desc": "畫面像隔著一層淡霧，對比更柔和，適合清晨、夢境、回憶感與安靜敘事。"
       }
     ]
   },
