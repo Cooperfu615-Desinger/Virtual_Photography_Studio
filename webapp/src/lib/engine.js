@@ -51,6 +51,7 @@ const DUO_STYLING_OPTIONS = [
 ];
 
 const GARMENT_COLOR_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none' },
   { id: 'black', zh: '黑色', en: 'black' },
   { id: 'white', zh: '白色', en: 'white' },
   { id: 'dark-grey', zh: '深灰色', en: 'dark grey' },
@@ -75,6 +76,7 @@ const GARMENT_COLOR_OPTIONS = [
 ];
 
 const LAYER_COLOR_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none' },
   { id: 'black', zh: '黑色', en: 'black' },
   { id: 'white', zh: '白色', en: 'white' },
   { id: 'off-white', zh: '米白色', en: 'off-white' },
@@ -1400,6 +1402,18 @@ function buildWardrobe(context, locks, catalog) {
     maybePick('外套 (Outerwear)', context.location.meta.tags.includes('outdoor') ? 0.6 : 0.35);
   }
 
+  if (!frameShowsAtLeast(visibility, 'medium') && locks?.legwearId) {
+    maybePick('襪類 (Legwear)', 1, (item) => {
+      if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
+      if (pieces.some((piece) => piece.meta.tags.includes('pants'))) return item.en.includes('bare legs');
+      return true;
+    });
+  }
+
+  if (!frameShowsAtLeast(visibility, 'medium') && locks?.outerwearId) {
+    maybePick('外套 (Outerwear)', 1);
+  }
+
   if (frameShowsAtLeast(visibility, 'full') || locks?.shoesId) {
     maybePick('鞋款 (Shoes)');
   }
@@ -1928,14 +1942,14 @@ function applyColorToGarment(item, color) {
   if (!item?.en || isNoneLikeItem(item)) return '';
   const garment = compactClause(item.en, 1);
   if (!garment) return '';
-  return color?.en ? `${color.en} ${garment}` : garment;
+  return color?.en && !isNoneLikeItem(color) ? `${color.en} ${garment}` : garment;
 }
 
 function applyColorToOutfitPreset(item, color) {
   if (!item?.en) return '';
   const outfit = compactClause(item.en, 2);
   if (!outfit) return '';
-  return color?.en ? `${color.en} palette, ${outfit}` : outfit;
+  return color?.en && !isNoneLikeItem(color) ? `${color.en} palette, ${outfit}` : outfit;
 }
 
 function buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors) {
@@ -1953,13 +1967,13 @@ function buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors) {
     return segments;
   }
 
+  pushUniqueSegment(segments, applyColorToGarment(slots.outerwear, wardrobeColors.outerwearColor));
   pushUniqueSegment(segments, applyColorToGarment(slots.top, wardrobeColors.topColor));
   pushUniqueSegment(segments, applyColorToGarment(slots.pants, wardrobeColors.bottomColor));
   pushUniqueSegment(segments, applyColorToGarment(slots.skirt, wardrobeColors.bottomColor));
   if (slots.legwear?.en && !isNoneLikeItem(slots.legwear)) {
     pushUniqueSegment(segments, compactClause(slots.legwear.en, 1));
   }
-  pushUniqueSegment(segments, applyColorToGarment(slots.outerwear, wardrobeColors.outerwearColor));
   pushUniqueSegment(segments, applyColorToGarment(slots.shoes, wardrobeColors.shoesColor));
   slots.jewelry.filter((item) => !isNoneLikeItem(item)).forEach((item) => pushUniqueSegment(segments, compactClause(item?.en, 1)));
 
@@ -1994,12 +2008,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addContextLine('Location', context.location);
   if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
     addLine('Woman 1 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA));
-    addLine('Woman 1 Outfit Preset Color', wardrobeColors.outfitPresetAColor?.en);
+    addLine('Woman 1 Outfit Preset Color', !isNoneLikeItem(wardrobeColors.outfitPresetAColor) ? wardrobeColors.outfitPresetAColor?.en : '');
     addLine('Woman 2 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB));
-    addLine('Woman 2 Outfit Preset Color', wardrobeColors.outfitPresetBColor?.en);
+    addLine('Woman 2 Outfit Preset Color', !isNoneLikeItem(wardrobeColors.outfitPresetBColor) ? wardrobeColors.outfitPresetBColor?.en : '');
   } else if (wardrobeSlots.outfitPreset) {
     addLine('Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPreset));
-    addLine('Outfit Preset Color', wardrobeColors.outfitPresetColor?.en);
+    addLine('Outfit Preset Color', !isNoneLikeItem(wardrobeColors.outfitPresetColor) ? wardrobeColors.outfitPresetColor?.en : '');
   }
   if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
   addContextLine('Framing', context.framing, (item) => resolvePromptVariant(item, 'framing', context.subject.count));
@@ -2034,15 +2048,15 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addLine('Pose', poseText);
   if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB) {
     addItemLine('Top', wardrobeSlots.top);
-    addLine('Top Color', wardrobeColors.topColor?.en);
+    addLine('Top Color', !isNoneLikeItem(wardrobeColors.topColor) ? wardrobeColors.topColor?.en : '');
     addItemLine('Pants', wardrobeSlots.pants);
     addItemLine('Skirt', wardrobeSlots.skirt);
-    addLine('Bottom Color', wardrobeColors.bottomColor?.en);
+    addLine('Bottom Color', !isNoneLikeItem(wardrobeColors.bottomColor) ? wardrobeColors.bottomColor?.en : '');
     addItemLine('Legwear', wardrobeSlots.legwear);
     addItemLine('Outerwear', wardrobeSlots.outerwear);
-    addLine('Outerwear Color', wardrobeColors.outerwearColor?.en);
+    addLine('Outerwear Color', !isNoneLikeItem(wardrobeColors.outerwearColor) ? wardrobeColors.outerwearColor?.en : '');
     addItemLine('Shoes', wardrobeSlots.shoes);
-    addLine('Shoes Color', wardrobeColors.shoesColor?.en);
+    addLine('Shoes Color', !isNoneLikeItem(wardrobeColors.shoesColor) ? wardrobeColors.shoesColor?.en : '');
     addLine(
       'Jewelry and Piercings',
       wardrobeSlots.jewelry.filter((item) => !isNoneLikeItem(item)).length > 0
@@ -2081,7 +2095,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
     buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   }
-  if (opticalEffect?.en) pushUniqueSegment(midjourneySegments, compactClause(opticalEffect.en, 1));
+  if (opticalEffect?.en && !isNoneLikeItem(opticalEffect)) pushUniqueSegment(midjourneySegments, compactClause(opticalEffect.en, 1));
 
   let midjourneyPrompt = '';
   for (const segment of midjourneySegments) {
