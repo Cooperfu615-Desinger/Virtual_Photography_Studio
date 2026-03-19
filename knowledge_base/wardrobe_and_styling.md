@@ -130,16 +130,16 @@
 | **襪類 (Legwear)** | 白色短襪 | `white ankle socks, clean casual styling, youthful everyday accent` | 白色短襪更偏日系日常與青春感，適合球鞋、樂福鞋與生活感穿搭。 |
 | **襪類 (Legwear)** | 彩色長筒襪 | `colorful knee-high socks, playful legwear accent, vivid casual styling` | 具存在感的彩色長筒襪，適合 Y2K、街頭與較活潑的社群感造型。 |
 | **外套 (Outerwear)** | 全無 | `no outerwear, uncluttered silhouette` | 不加外套，保留上身與下身單品的主要輪廓。 |
-| **外套 (Outerwear)** | 西裝外套（不扣扣子） | `open blazer, unbuttoned tailored jacket, relaxed structured layering` | 維持西裝輪廓但不扣上釦子，適合時裝、辦公室與飯店場景。 |
-| **外套 (Outerwear)** | 運動連帽外套 | `zip-up hoodie, sporty hooded jacket, casual athletic layering` | 偏日常與運動風，適合街頭與生活感畫面。 |
-| **外套 (Outerwear)** | 龐克皮衣 | `punk leather jacket, rebellious outerwear, edgy structured silhouette` | 皮革與強烈輪廓感明確，適合龐克、地下與夜景風格。 |
-| **外套 (Outerwear)** | 賽博反光科技風衣 | `iridescent reflective techwear trench coat, waterproof shell` | 在光線下折射不同色彩，未來感很強。 |
-| **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `fluffy teddy bear fleece jacket, soft plush texture, bulky shape` | 視覺柔軟保暖，適合冬季居家與街頭。 |
-| **外套 (Outerwear)** | 飛行夾克（敞開穿） | `open bomber jacket, unzipped flight jacket, relaxed streetwear layering, casual volume` | 飛行夾克維持敞開不拉拉鍊的狀態，適合短版上衣、背心與街頭感下身。 |
-| **外套 (Outerwear)** | 短版皮外套（不扣） | `open cropped leather jacket, unfastened moto jacket, sharp edgy layering, cool structured silhouette` | 短版皮外套維持不扣合，讓內層上身與腰線仍然清楚可見，適合夜景與時裝感畫面。 |
-| **外套 (Outerwear)** | 丹寧外套（敞開穿） | `open denim jacket, unbuttoned casual layering, relaxed everyday silhouette, washed denim texture` | 丹寧外套以敞開穿為主，最適合生活感、街拍、牛仔單品與日常搭配。 |
-| **外套 (Outerwear)** | 連帽拉鍊外套（不拉拉鍊） | `open zip hoodie, unzipped hooded jacket, casual sporty layering, relaxed off-duty mood` | 連帽拉鍊外套保持不拉拉鍊的放鬆狀態，適合運動型內搭、短版上衣與休閒街頭造型。 |
-| **外套 (Outerwear)** | 西裝外套（半披／滑落肩線） | `blazer worn off the shoulders, open unbuttoned blazer, draped shoulder styling, effortless tailored layering` | 西裝外套半披在肩上或滑落肩線，適合細肩帶、襯衫、短裙與都會時裝感穿搭。 |
+| **外套 (Outerwear)** | 西裝外套（不扣扣子） | `open blazer, unbuttoned tailored jacket, slipped off the shoulders, exposed shoulder styling, relaxed structured layering` | 維持西裝輪廓但不扣上釦子，並固定以滑落肩線、露出肩膀的穿法呈現，適合時裝、辦公室與飯店場景。 |
+| **外套 (Outerwear)** | 運動連帽外套 | `open zip-up hoodie, unzipped sporty hooded jacket, slipped off the shoulders, exposed shoulder styling, casual athletic layering` | 偏日常與運動風，並固定以拉鍊打開、滑落肩線露出肩膀的穿法呈現，適合街頭與生活感畫面。 |
+| **外套 (Outerwear)** | 龐克皮衣 | `open punk leather jacket, unzipped rebellious outerwear, slipped off the shoulders, exposed shoulder styling, edgy structured silhouette` | 皮革與強烈輪廓感明確，並固定以敞開、滑落肩線露出肩膀的穿法呈現，適合龐克、地下與夜景風格。 |
+| **外套 (Outerwear)** | 賽博反光科技風衣 | `open iridescent reflective techwear trench coat, unfastened waterproof shell, slipped off the shoulders, exposed shoulder styling` | 在光線下折射不同色彩，未來感很強，並固定以敞開、滑落肩線露出肩膀的穿法呈現。 |
+| **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `open fluffy teddy bear fleece jacket, soft plush texture, slipped off the shoulders, exposed shoulder styling, bulky cozy shape` | 視覺柔軟保暖，並固定以敞開、滑落肩線露出肩膀的穿法呈現，適合冬季居家與街頭。 |
+| **外套 (Outerwear)** | 飛行夾克（敞開穿） | `open bomber jacket, unzipped flight jacket, slipped off the shoulders, exposed shoulder styling, relaxed streetwear layering, casual volume` | 飛行夾克維持敞開不拉拉鍊的狀態，並固定以滑落肩線、露出肩膀的穿法呈現，適合短版上衣、背心與街頭感下身。 |
+| **外套 (Outerwear)** | 短版皮外套（不扣） | `open cropped leather jacket, unfastened moto jacket, slipped off the shoulders, exposed shoulder styling, sharp edgy layering, cool structured silhouette` | 短版皮外套維持不扣合，並固定以滑落肩線、露出肩膀的穿法呈現，讓內層上身與腰線仍然清楚可見，適合夜景與時裝感畫面。 |
+| **外套 (Outerwear)** | 丹寧外套（敞開穿） | `open denim jacket, unbuttoned casual layering, slipped off the shoulders, exposed shoulder styling, relaxed everyday silhouette, washed denim texture` | 丹寧外套以敞開穿為主，並固定以滑落肩線、露出肩膀的穿法呈現，最適合生活感、街拍、牛仔單品與日常搭配。 |
+| **外套 (Outerwear)** | 連帽拉鍊外套（不拉拉鍊） | `open zip hoodie, unzipped hooded jacket, slipped off the shoulders, exposed shoulder styling, casual sporty layering, relaxed off-duty mood` | 連帽拉鍊外套保持不拉拉鍊的放鬆狀態，並固定以滑落肩線、露出肩膀的穿法呈現，適合運動型內搭、短版上衣與休閒街頭造型。 |
+| **外套 (Outerwear)** | 西裝外套（半披／滑落肩線） | `blazer worn off the shoulders, open unbuttoned blazer, exposed shoulder styling, effortless tailored layering` | 西裝外套固定以半披在肩上或滑落肩線、露出肩膀的穿法呈現，適合細肩帶、襯衫、短裙與都會時裝感穿搭。 |
 | **鞋款 (Shoes)** | 全無 | `barefoot styling, no shoes visible` | 不特別強調鞋款，適合床景、室內寫真或鏡頭不會拍到腳部的情境。 |
 | **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday finish, versatile casual style` | 最穩定的日常鞋款，適合街拍與生活感畫面。 |
 | **鞋款 (Shoes)** | 馬丁短靴 | `combat ankle boots, sturdy lace-up silhouette, rugged everyday edge` | 短版軍靴感鞋型，適合龐克、街頭與中性造型。 |
