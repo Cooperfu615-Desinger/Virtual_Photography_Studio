@@ -5,13 +5,11 @@
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺說明 (Visual Description) |
 | :--- | :--- | :--- | :--- |
 | **五官特徵 (Facial Features)** | 全無 | `none` | 不指定五官特徵，讓模型自行決定臉部輪廓與辨識度。 |
-| **五官特徵 (Facial Features)** | 韓系 K-POP 偶像臉 | `Korean idol face, refined small face, sharp jawline, double eyelids, bright clear eyes, glossy glass skin` | 精緻網感、輪廓俐落、眼神乾淨明亮，是韓系偶像攝影最典型的高顏值範本。 |
-| **五官特徵 (Facial Features)** | 日系清純女演員臉 | `Japanese actress face, natural soft features, gentle eyes, clean delicate facial balance, translucent beauty` | 柔和耐看、乾淨清透，帶有日劇女主角般的自然氣質與親和感。 |
-| **五官特徵 (Facial Features)** | 日系小惡魔少女臉 | `Japanese mischievous beauty face, big expressive eyes, pouty lips, playful seductive charm, sweet but dangerous aura` | 甜美中帶點壞壞挑逗感，像是帶著惡作劇氣息的日系魅惑女孩。 |
-| **五官特徵 (Facial Features)** | 甜美圓潤甜姐臉 | `sweet rounded beauty face, full cheeks, soft eyes, balanced nose and lips, charming youthful glamour` | 臉部線條柔和圓潤、討喜耐看，帶有甜姐系的明亮魅力與親近感。 |
-| **五官特徵 (Facial Features)** | 冷豔高級時裝臉 | `cold editorial beauty face, defined bone structure, sharp contour, aloof expression, luxury fashion aura` | 骨相乾淨、輪廓俐落，帶有時裝大片裡常見的冷感與高級距離感。 |
-| **五官特徵 (Facial Features)** | 清冷空靈仙氣臉 | `ethereal cold beauty face, pale refined features, distant gaze, delicate bone structure, airy elegance` | 清冷、空靈、疏離，像帶著霧感與仙氣的高級冷白美人。 |
-| **五官特徵 (Facial Features)** | 日系性感大姐臉 | `Japanese mature glamour face, sultry eyes, full lips, elegant confidence, seductive older-sister aura` | 走日本御姐系性感路線，成熟柔媚、穩定自信，帶有明顯的掌控感與女人味。 |
+| **五官特徵 (Facial Features)** | 韓系 K-pop 偶像臉孔 | `refined small face, crisp jawline and nose bridge, bright almond eyes, polished balanced features, luminous clear-skin impression, youthful camera-ready beauty with a glossy modern finish` | 五官精緻、臉型偏小、輪廓乾淨俐落，眼神明亮有精神，整體帶高完成度的偶像上鏡感與現代精修感。 |
+| **五官特徵 (Facial Features)** | 日系清純女演員臉孔 | `natural soft features, gentle expressive eyes, delicate nose and lips, clean harmonious facial balance, translucent understated beauty, approachable calm innocence with subtle cinematic realism` | 柔和耐看、乾淨透明，像日系電影女主角那種不鋒利但很有記憶點的自然氣質，親和、安靜、輕盈。 |
+| **五官特徵 (Facial Features)** | 日系圓潤甜姐臉孔 | `soft rounded face, fuller cheeks, warm smiling eyes, petite balanced nose and lips, sweet youthful charm, approachable bright softness with cute feminine fullness` | 臉型較圓潤，臉頰帶飽滿感，整體甜美、討喜、親近，偏少女感與甜姐系的明亮魅力。 |
+| **五官特徵 (Facial Features)** | 冷豔歐美模特兒臉孔 | `defined bone structure, sharp contour lines, high cheekbones, deep-set eyes, sculpted mature facial balance, aloof luxury presence with strong editorial intensity` | 骨相清楚、輪廓銳利、距離感強，整體更像高級時裝模特兒的冷豔氣場，成熟且有壓迫性的高級感。 |
+| **五官特徵 (Facial Features)** | 日系性感嫵媚臉孔 | `sultry eyes, fuller softly shaped lips, mature feminine facial balance, smooth alluring contours, intimate confident glamour, elegant seductive warmth with a polished sensual presence` | 眼神更勾人、唇形更有女人味，整體成熟柔媚，帶日系寫真常見的親密感、性感與穩定自信。 |
 | **膚質特徵 (Skin Details)** | 全無 | `none` | 不指定膚質特徵，讓模型自行決定肌膚表面細節。 |
 | **膚質特徵 (Skin Details)** | 玻璃水光肌 | `glass skin, dewy luminous skin texture, hydrated reflective complexion` | 光澤明顯、飽水感高，適合韓系棚拍與近距離人像。 |
 | **膚質特徵 (Skin Details)** | 柔霧細緻肌 | `soft matte skin texture, refined pores, velvety smooth finish` | 細膩柔霧、不強調油光，適合高級時裝與乾淨妝面。 |
