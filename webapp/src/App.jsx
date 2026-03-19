@@ -39,7 +39,7 @@ const CHARACTER_CONTROL_ORDER = [
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
 const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'locationId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'aspectRatio'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'outerwearId', 'outerwearColorId', 'shoesId', 'shoesColorId', 'jewelryIds'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'shoesId', 'shoesColorId', 'jewelryIds'];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
