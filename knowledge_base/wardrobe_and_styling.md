@@ -28,6 +28,8 @@
 | **套裝 (Outfit Presets)** | 輕盈浴衣套裝 | `wearing a traditional yukata outfit, soft wrapped silhouette, tied obi sash, light cotton fabric, relaxed Japanese summer festival styling` | 以輕薄布料與較放鬆的包裹式輪廓構成的浴衣造型，整體更清爽、柔和，也更適合夏日與生活感場景。 |
 | **套裝 (Outfit Presets)** | 經典漢服套裝 | `wearing a traditional hanfu outfit, flowing full-body silhouette, layered cross-collar robes, wide draped sleeves, elegant historical Chinese styling, refined flowing fabric` | 以交領、寬袖與層疊衣袍構成的完整漢服造型，整體更飄逸、古典，帶有明確的中式歷史服飾語言。 |
 | **套裝 (Outfit Presets)** | 改良漢服套裝 | `wearing a modernized hanfu-inspired outfit, soft flowing silhouette, cross-collar details, elegant draped sleeves, refined contemporary Chinese styling` | 保留漢服交領與垂墜輪廓，但更簡化、現代，適合時裝化與日常化的中式造型表現。 |
+| **套裝 (Outfit Presets)** | 兔女郎套裝 | `wearing a bunny girl outfit, fitted corset bodice, satin or stretch fabric finish, sweetheart neckline, structured black bodysuit silhouette, white cuffs and collar, playful rabbit-ear headband, polished cabaret styling` | 以兔耳頭飾、貼身馬甲式連身輪廓、白色袖口與領圈為核心的高辨識度主題套裝，適合夜景、棚拍、派對與角色扮演感畫面。 |
+| **套裝 (Outfit Presets)** | 女僕套裝 | `wearing a maid outfit, fitted dress bodice, lace-trimmed apron, ruffled neckline and hem, classic black-and-white service styling, delicate headpiece, playful refined cosplay aesthetic` | 以圍裙、荷葉邊、黑白對比與女僕頭飾構成的經典主題套裝，適合室內、咖啡館、棚拍與角色扮演風格。 |
 | **套裝 (Outfit Presets)** | 短袖女高生水手服 | `wearing a Japanese schoolgirl sailor uniform with a short-sleeve sailor blouse, pleated skirt, soft ribbon tie, youthful academic styling, clean summer seifuku silhouette` | 以短袖水手服上衣、百褶裙與柔軟領巾為核心的日系女高生制服造型，偏夏季、青春與清爽感。 |
 | **套裝 (Outfit Presets)** | 長袖女高生水手服 | `wearing a Japanese schoolgirl sailor uniform with a long-sleeve sailor blouse, pleated skirt, soft ribbon tie, classic academic styling, neat seifuku silhouette` | 以長袖水手服上衣、百褶裙與柔軟領巾構成的日系女高生制服造型，整體更經典、端正，也更適合室內與秋冬感畫面。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
@@ -39,19 +41,24 @@
 | **上身 (Tops)** | 細肩帶上衣 | `camisole top, delicate shoulder straps, fitted silhouette` | 直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。 |
 | **上身 (Tops)** | 合身高領針織上衣 | `fitted turtleneck knit top, fine gauge knit, sleek silhouette` | 貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。 |
 | **上身 (Tops)** | 寬鬆襯衫 | `oversized boyfriend shirt, loose untucked button-up shirt, long relaxed sleeves, soft drape, casually hanging hem, effortless off-duty styling` | 呈現像女友直接套上男友襯衫的鬆大輪廓，衣襬自然放出不紮進下身，袖長偏長、版型寬鬆，帶有居家、親密與慵懶感。 |
-| **上身 (Tops)** | 緊身襯衫＋領帶 | `fitted shirt with a soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood` | 保留貼身襯衫的俐落感，但領帶材質更柔軟、長度偏短，氣質更像整理過但不過度正式的制服變體。 |
-| **上身 (Tops)** | 寬鬆落肩 T 恤 | `oversized dropped-shoulder t-shirt, untucked loose hem, washed cotton jersey, relaxed fit, casually draped over the waistline` | 生活感很強的基本款，衣襬自然放出、不紮進裙子或褲子裡，適合街頭、居家與青春隨拍風格。 |
+| **上身 (Tops)** | 緊身襯衫＋領帶（紮入下身） | `fitted shirt tucked neatly into the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, defined waistline` | 保留貼身襯衫的俐落感，並以紮入裙子或褲子的穿法讓腰線更清楚；領帶材質更柔軟、長度偏短，氣質更像整理過但不過度正式的制服變體。 |
+| **上身 (Tops)** | 緊身襯衫＋領帶（放出衣襬） | `fitted shirt worn untucked over the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, relaxed hemline` | 同樣保留貼身襯衫與短領帶的制服感，但衣襬自然放出，整體更慵懶、私服化，也更適合親密或鬆弛感畫面。 |
+| **上身 (Tops)** | 寬鬆落肩 T 恤（紮入下身） | `oversized dropped-shoulder t-shirt tucked into the bottoms, washed cotton jersey, relaxed fit, bloused casual volume, defined waistline` | 生活感很強的基本款，以紮入裙子或褲子的穿法保留寬鬆份量，同時把腰線與比例拉得更清楚，適合街頭、青春與日常隨拍風格。 |
+| **上身 (Tops)** | 寬鬆落肩 T 恤（放出衣襬） | `oversized dropped-shoulder t-shirt, untucked loose hem, washed cotton jersey, relaxed fit, casually draped over the waistline` | 生活感很強的基本款，衣襬自然放出、不紮進裙子或褲子裡，適合街頭、居家與青春隨拍風格。 |
 | **上身 (Tops)** | 短版緊身露臍 T 恤 | `cropped fitted t-shirt, exposed waistline, close casual silhouette` | 最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。 |
 | **上身 (Tops)** | 短版針織露臍小可愛 | `cropped knit cami, fitted knit texture, exposed waist styling` | 帶有針織紋理與露腰輪廓，介於日常與輕性感之間，適合外穿疊搭。 |
 | **上身 (Tops)** | 短版蕾絲露臍小可愛 | `cropped lace cami, delicate lace texture, exposed waist styling` | 蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。 |
 | **上身 (Tops)** | 平口短版上衣 | `strapless cropped tube top, close-fitting stretch fabric, clean line` | 露出肩頸與腰線，適合 Y2K、夏日、派對與寫真主題。 |
 | **上身 (Tops)** | 一字領上衣 | `off-shoulder top, exposed collarbones, soft neckline silhouette` | 露出鎖骨與肩線，氣質成熟，適合寫真與女性化風格。 |
 | **上身 (Tops)** | 削肩平口連身上衣 | `halter bandeau bodysuit, shoulder-baring fitted one-piece, sleek stretch silhouette` | 結合削肩與平口輪廓，身體線條更完整，適合時裝與寫真。 |
-| **上身 (Tops)** | 絲綢緞面襯衫 | `silk satin blouse, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details` | 女式襯衫，柔軟飄逸的長袖，寬大的袖口飾有精緻的白色蕾絲花邊和柔和的荷葉邊。 |
-| **上身 (Tops)** | 透膚刺繡襯衫 | `sheer embroidered button-up shirt, translucent lightweight fabric, delicate tonal embroidery, soft drape, elegant sensual blouse silhouette` | 半透明的鈕扣襯衫，布料輕薄、帶同色系刺繡紋理，整體更像精緻時裝而不是一般日常襯衫。 |
-| **上身 (Tops)** | 網紗透視上衣 | `mesh see-through top, sheer net texture, delicate lace motif detailing, subtle floral lace accents, body-hugging silhouette` | 網紗質地讓肌膚若隱若現，並加入蕾絲花紋與細緻裝飾感，適合夜景、時裝與更精緻的強風格主題。 |
+| **上身 (Tops)** | 絲綢緞面襯衫（紮入下身） | `silk satin blouse tucked into the bottoms, luminous satin sheen, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details, defined waistline` | 女式襯衫以紮入裙子或褲子的穿法呈現，保留柔軟飄逸的長袖與帶光澤的緞面質地，也讓整體更高級、俐落且成熟。 |
+| **上身 (Tops)** | 絲綢緞面襯衫（放出衣襬） | `silk satin blouse worn untucked over the bottoms, luminous satin sheen, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details, flowing relaxed hemline` | 女式襯衫保留柔軟飄逸的長袖、蕾絲袖口與荷葉邊，但衣襬自然放出，整體更慵懶、私密，也更適合法式或飯店感畫面。 |
+| **上身 (Tops)** | 透膚刺繡襯衫（紮入下身） | `sheer embroidered button-up shirt tucked into the bottoms, translucent lightweight fabric, delicate tonal embroidery, soft drape, elegant sensual blouse silhouette, defined waistline` | 半透明的鈕扣襯衫以紮入下身的穿法呈現，保留輕薄布料與同色系刺繡紋理，同時讓腰線與整體造型更精緻俐落。 |
+| **上身 (Tops)** | 透膚刺繡襯衫（放出衣襬） | `sheer embroidered button-up shirt worn untucked over the bottoms, translucent lightweight fabric, delicate tonal embroidery, soft drape, elegant sensual blouse silhouette, relaxed flowing hemline` | 半透明鈕扣襯衫保留輕薄透感與刺繡紋理，但衣襬自然放出，讓畫面更鬆弛、慵懶，也更像精緻時裝而不是一般日常襯衫。 |
+| **上身 (Tops)** | 網紗透視上衣（紮入下身） | `mesh see-through top tucked into the bottoms, sheer net texture, delicate lace motif detailing, subtle floral lace accents, body-hugging silhouette, defined waistline` | 網紗質地讓肌膚若隱若現，並以紮入下身的穿法讓腰線更清楚；蕾絲花紋與細緻裝飾感仍然完整保留，適合夜景、時裝與強風格主題。 |
+| **上身 (Tops)** | 網紗透視上衣（放出衣襬） | `mesh see-through top worn untucked over the bottoms, sheer net texture, delicate lace motif detailing, subtle floral lace accents, body-hugging silhouette, softly extended hemline` | 網紗質地讓肌膚若隱若現，並加入蕾絲花紋與細緻裝飾感；衣襬自然放出後，整體更鬆弛、性感，也更適合夜景與精緻時裝主題。 |
 | **上身 (Tops)** | 短版緊身吊帶背心 | `cropped tight camisole, close body fit, streamlined silhouette` | 貼身露腰、偏 Y2K 與街頭感。 |
-| **上身 (Tops)** | 短版帽T | `cropped hoodie, casual streetwear silhouette, sporty relaxed shape` | 帶有街頭與運動感，適合 Y2K、隨拍與日常造型。 |
+| **上身 (Tops)** | 短版帽T | `cropped hoodie, cinched waist hem, casual streetwear silhouette, sporty relaxed shape` | 帶有街頭與運動感，並補上腰部束口的造型特徵，適合 Y2K、隨拍與日常造型。 |
 | **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 偏街頭與運動風，適合社群感、青春感與休閒主題。 |
 | **上身 (Tops)** | 坦克背心 | `tank top, sleeveless casual fit, clean sporty line` | 最簡單直接的無袖上身，適合日常、運動與寫真人像。 |
 | **上身 (Tops)** | 維多利亞高領蕾絲襯衫 | `Victorian high-neck lace blouse, ruffled collar, intricate lace detailing` | 領口繁複、禁慾而浪漫。 |
