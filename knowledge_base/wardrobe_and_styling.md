@@ -74,7 +74,7 @@
 | **上身 (Tops)** | 運動型內衣 | `sports bra, athletic support top, streamlined active silhouette` | 緊貼身體、運動感明確，適合活力、街頭與健身風格。 |
 | **上身 (Tops)** | 蕾絲緊身睡衣 | `fitted lace nightdress, body-skimming sleepwear, delicate texture` | 貼身的睡衣輪廓，兼具柔軟與親密感。 |
 | **上身 (Tops)** | 蕾絲寬鬆睡衣 | `loose lace sleepwear, relaxed nightdress silhouette, soft drape` | 較鬆身的睡衣輪廓，氣質更慵懶也更生活化。 |
-| **上身 (Tops)** | 波西米亞風上衣 | `bohemian blouse, lightweight gauze or crinkled cotton fabric, untucked loose hem worn outside the bottoms, airy layered sleeves, semi-sheer texture, faded floral and folk-inspired patterns, artisanal embroidery detail` | 帶有波西米亞與民俗感的寬鬆上衣，強調輕薄布料、層次袖型、若隱若現的透氣感與花紋刺繡，並讓衣襬自然放出、不紮進下身，適合自然、旅拍與復古主題。 |
+| **上身 (Tops)** | 波西米亞風上衣 | `bohemian draped blouse, soft crinkled gauze or washed rayon fabric, deep relaxed neckline, untucked loose hem worn outside the bottoms, softly layered sleeves, earth-tone patchwork and folk-woven patterns, artisanal trim and relaxed resort styling` | 更貼近異國咖啡館與度假人文感的波西米亞上衣，強調鬆垮垂墜的領口、土色系拼接與民俗織紋、柔軟皺感布料與披罩式袖型，整體更成熟、鬆弛也更有飾品疊搭空間。 |
 | **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
 | **褲裝 (Pants)** | 高腰直筒牛仔褲 | `high-waisted straight-leg jeans, clean denim texture, everyday staple` | 最穩定的日常下身單品，適合城市、街拍與生活感畫面。 |
 | **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
@@ -96,7 +96,7 @@
 | **褲裝 (Pants)** | 亮面乳膠緊身長褲 | `glossy latex leggings, ultra-shiny body-hugging latex pants, second-skin silhouette` | 高反光乳膠材質緊貼腿部，適合 fetish、夜拍與強烈時裝主題。 |
 | **褲裝 (Pants)** | 亮面乳膠緊身短褲 | `low-rise glossy latex fitted shorts, ultra-shiny tight latex shorts, second-skin silhouette, exposed hip line` | 短版乳膠褲以低腰位置更直接強調腿部、臀部與腰胯線條，適合派對、夜景與邊緣造型。 |
 | **褲裝 (Pants)** | 比基尼下身 | `low-rise bikini bottoms, swimwear styling, exposed hip line, minimal resort silhouette` | 作為泳裝下身使用，低腰位置更直接帶出海邊、泳池與度假感畫面。 |
-| **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian wide-leg trousers, lightweight flowing fabric, soft layered drape, subtle crinkled texture, border-print or folk-pattern accents, artisanal relaxed silhouette` | 布料輕薄柔軟、帶有自然皺褶與寬鬆垂墜感，可見低調滾邊花紋或民俗印花，整體更有旅行感、層次感與波西米亞氣質。 |
+| **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, earthy layered tones, gathered relaxed waist, folk-pattern panels and artisanal resort mood` | 褲身更寬鬆柔軟，帶自然堆疊與土色層次感，像度假地咖啡館裡常見的民俗風寬褲；整體不是俐落剪裁，而是強調鬆弛、垂墜與異國旅行感。 |
 | **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling` | 以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。 |
 | **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood` | 以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
@@ -125,18 +125,18 @@
 | **裙裝 (Skirts)** | 細肩帶連身洋裝 | `strappy slip dress, delicate shoulder straps, fluid one-piece silhouette` | 細肩帶連身洋裝帶有輕盈與微性感氣質，適合臥室、飯店與夏日寫真主題。 |
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
 | **裙裝 (Skirts)** | 高腰窄裙 | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
-| **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian maxi skirt, tiered flowing layers, lightweight semi-sheer fabric, soft gathered volume, floral or folk-pattern accents, artisanal relaxed movement` | 長裙輪廓柔和飄逸，強調多層次裙片、輕薄半透布料、自然抓皺份量與花卉或民俗紋樣，適合自然、度假與文藝風格。 |
+| **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian layered maxi skirt, soft tiered panels, washed earth-tone fabric, crinkled drape, folk-pattern borders, relaxed gathered movement, artisanal resort elegance` | 長裙改成更貼近圖片裡那種土色拼接與層次裙片的方向，布料帶洗舊感與自然皺褶，行走或坐下時會形成柔軟堆疊，整體更像異國度假、手作感強的成熟波西米亞風。 |
 | **襪類 (Legwear)** | 全無 | `no legwear, bare legs, clean leg styling` | 不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。 |
 | **襪類 (Legwear)** | 透膚絲襪 | `sheer pantyhose, delicate translucent legwear, smooth finish` | 高頻實用，能與短裙、短褲與高跟鞋自然搭配。 |
-| **襪類 (Legwear)** | 半透明黑絲襪 | `semi-sheer black pantyhose, dark translucent legwear, sleek finish` | 比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。 |
+| **襪類 (Legwear)** | 半透明絲襪 | `semi-sheer pantyhose, translucent legwear, sleek finish` | 比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。 |
 | **襪類 (Legwear)** | 蕾絲大腿絲襪 | `lace-top thigh-high stockings, sensual legwear, fitted silhouette` | 帶寫真與性感氛圍，適合內衣或飯店場景。 |
 | **襪類 (Legwear)** | 漁網絲襪 | `fishnet tights, open net texture, edgy styling` | 強化龐克、地下與夜晚街頭氣質。 |
-| **襪類 (Legwear)** | 膝上黑蕾絲吊帶襪 | `black lace garter stockings, over-knee fitted legwear, sensual suspended styling` | 黑色蕾絲吊帶襪帶有強烈寫真與性感氣質，適合內衣、飯店與成熟時裝主題。 |
-| **襪類 (Legwear)** | 過膝白絲襪 | `white over-knee stockings, smooth fitted legwear, soft youthful styling` | 白色過膝絲襪帶有明顯甜感，適合 JK、Lolita 與寫真風格。 |
-| **襪類 (Legwear)** | 過膝黑絲襪 | `black over-knee stockings, fitted legwear, sleek dramatic styling` | 黑色過膝絲襪更成熟或更強風格，適合夜拍、時裝與制服變體。 |
+| **襪類 (Legwear)** | 膝上蕾絲吊帶襪 | `lace garter stockings, over-knee fitted legwear, sensual suspended styling` | 蕾絲吊帶襪帶有強烈寫真與性感氣質，適合內衣、飯店與成熟時裝主題。 |
+| **襪類 (Legwear)** | 柔和過膝絲襪 | `over-knee stockings, smooth fitted legwear, soft youthful styling` | 過膝絲襪帶有柔和甜感，適合 JK、Lolita 與寫真風格。 |
+| **襪類 (Legwear)** | 俐落過膝絲襪 | `over-knee stockings, fitted legwear, sleek dramatic styling` | 過膝絲襪輪廓更俐落、存在感更強，適合夜拍、時裝與制服變體。 |
 | **襪類 (Legwear)** | 羅紋短襪 | `ribbed ankle socks, casual everyday styling, soft cotton texture` | 偏日常、可愛、生活感強。 |
-| **襪類 (Legwear)** | 白色短襪 | `white ankle socks, clean casual styling, youthful everyday accent` | 白色短襪更偏日系日常與青春感，適合球鞋、樂福鞋與生活感穿搭。 |
-| **襪類 (Legwear)** | 彩色長筒襪 | `colorful knee-high socks, playful legwear accent, vivid casual styling` | 具存在感的彩色長筒襪，適合 Y2K、街頭與較活潑的社群感造型。 |
+| **襪類 (Legwear)** | 短襪 | `ankle socks, clean casual styling, youthful everyday accent` | 短襪偏日系日常與青春感，適合球鞋、樂福鞋與生活感穿搭。 |
+| **襪類 (Legwear)** | 長筒襪 | `knee-high socks, playful legwear accent, casual youthful styling` | 長筒襪具存在感，適合 Y2K、街頭與較活潑的社群感造型。 |
 | **外套 (Outerwear)** | 全無 | `no outerwear, uncluttered silhouette` | 不加外套，保留上身與下身單品的主要輪廓。 |
 | **外套 (Outerwear)** | 西裝外套（不扣扣子） | `open oversized blazer, unbuttoned tailored jacket, slipped off the shoulder line, slightly oversized structured layering` | 維持西裝輪廓但不扣上釦子，並固定以滑落肩線的穿法呈現；版型設定為略大一號，適合時裝、辦公室與飯店場景。 |
 | **外套 (Outerwear)** | 運動連帽外套 | `open oversized zip-up hoodie, unzipped sporty hooded jacket, slipped off the shoulder line, slightly oversized casual athletic layering` | 偏日常與運動風，並固定以拉鍊打開、滑落肩線的穿法呈現；版型設定為略大一號，適合街頭與生活感畫面。 |
