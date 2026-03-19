@@ -2075,6 +2075,8 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   const hasOutfitPreset = Boolean(wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB);
   const hasDuoPreset = Boolean(wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB);
   const cameraSegments = buildMidjourneyCameraSegments(context, lightDirection, film);
+  const primarySceneSegments = cameraSegments.slice(0, 4);
+  const secondarySceneSegments = cameraSegments.slice(4);
 
   if (context.subject.count === 2) {
     buildMidjourneyDuoSubjectSegments(context, characterSlots).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
@@ -2086,14 +2088,15 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     buildMidjourneySceneSegments(context).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
     buildMidjourneyStyleTailSegments(context, lightDirection, film).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   } else if (hasOutfitPreset) {
-    cameraSegments.slice(0, 3).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
-    buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    primarySceneSegments.forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
     buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
-    cameraSegments.slice(3).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    secondarySceneSegments.forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   } else {
-    cameraSegments.forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
-    buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    primarySceneSegments.forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
     buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    secondarySceneSegments.forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   }
   if (opticalEffect?.en && !isNoneLikeItem(opticalEffect)) pushUniqueSegment(midjourneySegments, compactClause(opticalEffect.en, 1));
 
