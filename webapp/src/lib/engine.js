@@ -1940,7 +1940,7 @@ function buildMidjourneyCameraSegments(context, lightDirection, film) {
 
 function applyColorToGarment(item, color) {
   if (!item?.en || isNoneLikeItem(item)) return '';
-  const garment = compactClause(item.en, 1);
+  const garment = stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
   if (!garment) return '';
   return color?.en && !isNoneLikeItem(color) ? `${color.en} ${garment}` : garment;
 }
@@ -2092,8 +2092,8 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     cameraSegments.slice(3).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   } else {
     cameraSegments.forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
-    buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
     buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
+    buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling).forEach((segment) => pushUniqueSegment(midjourneySegments, segment));
   }
   if (opticalEffect?.en && !isNoneLikeItem(opticalEffect)) pushUniqueSegment(midjourneySegments, compactClause(opticalEffect.en, 1));
 
