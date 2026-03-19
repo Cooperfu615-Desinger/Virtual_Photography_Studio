@@ -1776,7 +1776,7 @@ function buildMidjourneyCharacterSegments(context, characterSlots, duoInteractio
     if (womanA) pushUniqueSegment(segments, `woman 1, ${womanA}`);
     if (womanB) pushUniqueSegment(segments, `woman 2, ${womanB}`);
   } else {
-    if (characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures)) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 3));
+    if (characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures)) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 2));
     if (characterSlots.hairstyle?.en && !isNoneLikeItem(characterSlots.hairstyle)) pushUniqueSegment(segments, compactClause(characterSlots.hairstyle.en, 1));
     if (characterSlots.hairColor?.en && !isNoneLikeItem(characterSlots.hairColor)) pushUniqueSegment(segments, compactClause(characterSlots.hairColor.en, 1));
   }
