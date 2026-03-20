@@ -1722,27 +1722,6 @@ function compactClause(text, maxParts = 2) {
     .join(', ');
 }
 
-function compactOutfitDescriptor(text, maxWords = 8) {
-  const cleaned = stripMarkdown(text)
-    .replace(/^wearing\s+/i, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  if (!cleaned) return '';
-
-  const words = cleaned.split(' ');
-  return words.slice(0, maxWords).join(' ');
-}
-
-function pushUniqueSegment(segments, value) {
-  const cleaned = stripMarkdown(value);
-  if (!cleaned) return;
-
-  const normalized = cleaned.toLowerCase();
-  if (segments.some((existing) => existing.toLowerCase() === normalized)) return;
-  segments.push(cleaned);
-}
-
 function ensureTerminalPeriod(value) {
   const cleaned = stripMarkdown(value).trim();
   if (!cleaned) return '';
@@ -1790,234 +1769,126 @@ function sanitizeMidjourneyText(value) {
   return cleaned.replace(/\s+/g, ' ').trim();
 }
 
-function buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling) {
-  const segments = [context.subject.en];
+function formatMidjourneySectionText(items, maxParts = null) {
+  const cleaned = items
+    .flat()
+    .map((item) => sanitizeMidjourneyText(item))
+    .filter((item) => item && item.toLowerCase() !== 'none');
 
-  if (characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType)) pushUniqueSegment(segments, compactClause(characterSlots.bodyType.en, 2));
-  if (context.subject.count === 2) {
-    const womanA = [
-      characterSlots.facialFeaturesA?.en && !isNoneLikeItem(characterSlots.facialFeaturesA) ? compactClause(characterSlots.facialFeaturesA.en, 2) : '',
-      characterSlots.hairstyleA?.en && !isNoneLikeItem(characterSlots.hairstyleA) ? compactClause(characterSlots.hairstyleA.en, 1) : '',
-      characterSlots.hairColorA?.en && !isNoneLikeItem(characterSlots.hairColorA) ? compactClause(characterSlots.hairColorA.en, 1) : '',
-    ]
-      .filter(Boolean)
-      .join(', ');
-    const womanB = [
-      characterSlots.facialFeaturesB?.en && !isNoneLikeItem(characterSlots.facialFeaturesB) ? compactClause(characterSlots.facialFeaturesB.en, 2) : '',
-      characterSlots.hairstyleB?.en && !isNoneLikeItem(characterSlots.hairstyleB) ? compactClause(characterSlots.hairstyleB.en, 1) : '',
-      characterSlots.hairColorB?.en && !isNoneLikeItem(characterSlots.hairColorB) ? compactClause(characterSlots.hairColorB.en, 1) : '',
-    ]
-      .filter(Boolean)
-      .join(', ');
-    if (womanA) pushUniqueSegment(segments, `woman 1, ${womanA}`);
-    if (womanB) pushUniqueSegment(segments, `woman 2, ${womanB}`);
-  } else {
-    if (characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures)) pushUniqueSegment(segments, compactClause(characterSlots.facialFeatures.en, 2));
-    if (characterSlots.hairstyle?.en && !isNoneLikeItem(characterSlots.hairstyle)) pushUniqueSegment(segments, compactClause(characterSlots.hairstyle.en, 1));
-    if (characterSlots.hairColor?.en && !isNoneLikeItem(characterSlots.hairColor)) pushUniqueSegment(segments, compactClause(characterSlots.hairColor.en, 1));
-  }
-
-  if (characterSlots.expression?.en && !isNoneLikeItem(characterSlots.expression)) {
-    pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count), 2));
-  }
-
-  if (characterSlots.pose?.en && !isNoneLikeItem(characterSlots.pose) && context.framing.meta.visibility !== 'portrait') {
-    pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count), 1));
-  }
-
-  if (context.subject.count === 2 && duoInteraction?.en) {
-    pushUniqueSegment(segments, compactClause(duoInteraction.en, 1));
-  }
-
-  if (context.subject.count === 2) {
-    pushUniqueSegment(segments, 'clearly distinct women, not identical twins, individual facial character');
-    if (duoStyling?.en) pushUniqueSegment(segments, compactClause(duoStyling.en, 1));
-  }
-
-  return segments;
+  if (cleaned.length === 0) return '';
+  const sliced = maxParts ? cleaned.slice(0, maxParts) : cleaned;
+  return sliced.join(', ');
 }
 
-function buildMidjourneyDuoSubjectSegments(context, characterSlots) {
-  const segments = [context.subject.en, 'distinct faces, different appearances, not twins, individual features'];
-  if (characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType)) {
-    pushUniqueSegment(segments, compactClause(characterSlots.bodyType.en, 2));
-  }
-  return segments;
-}
+function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling) {
+  const suffix = ` --ar ${context.aspectRatio.en}`;
+  const maxLength = 1000 - suffix.length;
+  const sections = [];
 
-function buildMidjourneyDuoIdentitySegments(characterSlots, wardrobeSlots) {
-  const segments = [];
-
-  const buildWomanSegment = (label, outfitPreset, facialFeatures, hairstyle, hairColor) => {
-    const parts = [
-      outfitPreset?.en ? compactOutfitDescriptor(outfitPreset.en) : '',
-      facialFeatures?.en && !isNoneLikeItem(facialFeatures) ? compactClause(facialFeatures.en, 2) : '',
-      hairstyle?.en && !isNoneLikeItem(hairstyle) ? compactClause(hairstyle.en, 1) : '',
-      hairColor?.en && !isNoneLikeItem(hairColor) ? compactClause(hairColor.en, 1) : '',
-    ]
+  const pushSection = (label, text) => {
+    const cleaned = String(text || '')
+      .split('\n')
+      .map((line) => stripMarkdown(line).trim())
       .filter(Boolean)
-      .join(', ');
-
-    if (parts) pushUniqueSegment(segments, `${label}: ${parts}`);
+      .join('\n');
+    if (!cleaned) return;
+    sections.push({ label, text: cleaned });
   };
 
-  buildWomanSegment('woman 1', wardrobeSlots.outfitPresetA, characterSlots.facialFeaturesA, characterSlots.hairstyleA, characterSlots.hairColorA);
-  buildWomanSegment('woman 2', wardrobeSlots.outfitPresetB, characterSlots.facialFeaturesB, characterSlots.hairstyleB, characterSlots.hairColorB);
+  const describeLocation = () => {
+    if (!context.location || isNoneLikeItem(context.location)) return '';
+    return compactClause(context.location.en, 3);
+  };
 
-  return segments;
-}
-
-function buildMidjourneyDuoRelationSegments(context, characterSlots, duoInteraction, duoStyling) {
-  const segments = ['woman 1 on the left, woman 2 on the right'];
-
-  if (characterSlots.pose?.en && !isNoneLikeItem(characterSlots.pose) && context.framing.meta.visibility !== 'portrait') {
-    pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count), 1));
+  if (context.subject.count === 2) {
+    pushSection('Subject', formatMidjourneySectionText([
+      context.subject.en,
+      characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType) ? compactClause(characterSlots.bodyType.en, 2) : '',
+      'distinct faces, different appearances, not twins, individual features',
+    ]));
+    pushSection('Hair', formatMidjourneySectionText([
+      characterSlots.hairstyleA?.en,
+      characterSlots.hairColorA?.en,
+      characterSlots.hairstyleB?.en,
+      characterSlots.hairColorB?.en,
+    ]));
+    pushSection('Expression', formatMidjourneySectionText([
+      characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
+      duoInteraction?.en || '',
+      duoStyling?.en || '',
+    ], 3));
+    pushSection('Pose & Gesture', formatMidjourneySectionText([
+      characterSlots.pose ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
+      'woman 1 on the left, woman 2 on the right',
+    ], 2));
+  } else {
+    pushSection('Subject', formatMidjourneySectionText([
+      context.subject.en,
+      characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType) ? compactClause(characterSlots.bodyType.en, 2) : '',
+      characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures) ? compactClause(characterSlots.facialFeatures.en, 2) : '',
+    ]));
+    pushSection('Hair', formatMidjourneySectionText([
+      characterSlots.hairstyle?.en && !isNoneLikeItem(characterSlots.hairstyle) ? compactClause(characterSlots.hairstyle.en, 1) : '',
+      characterSlots.hairColor?.en && !isNoneLikeItem(characterSlots.hairColor) ? compactClause(characterSlots.hairColor.en, 1) : '',
+    ]));
+    pushSection('Expression', formatMidjourneySectionText([
+      characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
+    ], 2));
+    pushSection('Pose & Gesture', formatMidjourneySectionText([
+      characterSlots.pose && !isNoneLikeItem(characterSlots.pose) && context.framing.meta.visibility !== 'portrait'
+        ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)
+        : '',
+    ], 1));
   }
 
-  if (characterSlots.expression?.en && !isNoneLikeItem(characterSlots.expression)) {
-    pushUniqueSegment(segments, compactClause(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count), 2));
+  const clothingLines = [];
+  const addClothingLine = (label, value, maxParts = 4) => {
+    const cleaned = compactClause(sanitizeMidjourneyText(value), maxParts);
+    if (!cleaned) return;
+    clothingLines.push(`${label}: ${cleaned}.`);
+  };
+
+  if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
+    addClothingLine('Woman 1 Outfit', buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true }), 4);
+    addClothingLine('Woman 2 Outfit', buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true }), 4);
+  } else if (wardrobeSlots.outfitPreset) {
+    addClothingLine('Outfit', buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }), 4);
+  } else {
+    addClothingLine('Top', buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor), 4);
+    addClothingLine('Bottom', buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor) || buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors.bottomColor), 4);
+    addClothingLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 3);
+    addClothingLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor), 4);
+    addClothingLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
   }
+  pushSection('Clothing', clothingLines.join('\n'));
 
-  if (duoInteraction?.en) pushUniqueSegment(segments, compactClause(duoInteraction.en, 1));
-  if (duoStyling?.en) pushUniqueSegment(segments, compactClause(duoStyling.en, 1));
+  pushSection('Aspect Ratio', context.aspectRatio.en);
+  pushSection('Framing & Composition', formatMidjourneySectionText([
+    context.framing ? resolvePromptVariant(context.framing, 'framing', context.subject.count) : '',
+    context.angle ? resolvePromptVariant(context.angle, 'angle', context.subject.count) : '',
+    context.orbit ? resolvePromptVariant(context.orbit, 'orbit', context.subject.count) : '',
+    context.subject.count > 1 ? buildCompositionHint(context.subject, context.aspectRatio, context.framing) : '',
+  ], 4));
+  pushSection('Lens & Optical', formatMidjourneySectionText([
+    context.lens?.en || '',
+    opticalEffect?.en || '',
+  ], 3));
+  pushSection('Location', describeLocation());
+  pushSection('Lighting & Mood', formatMidjourneySectionText([
+    !context.styleDrivenCamera ? context.lighting?.en || '' : '',
+    !context.styleDrivenCamera ? lightDirection?.en || '' : '',
+  ], 4));
+  pushSection('Film Style', formatMidjourneySectionText([
+    film?.en || '',
+    context.style && !isNoneLikeItem(context.style) ? compactClause(STYLE_PROMPT_INTROS[context.style.zh] || context.style.en, 1) : '',
+  ], 2));
 
-  return segments;
-}
-
-function buildMidjourneyLocationSegments(context) {
-  const segments = [];
-
-  if (context.location && !isNoneLikeItem(context.location)) {
-    pushUniqueSegment(segments, compactClause(context.location.en, 2));
-  }
-
-  return segments;
-}
-
-function buildMidjourneyLensSegments(context) {
-  const segments = [];
-
-  if (context.framing && !isNoneLikeItem(context.framing)) {
-    pushUniqueSegment(segments, compactClause(resolvePromptVariant(context.framing, 'framing', context.subject.count), 1));
-  }
-  if (context.lens && !isNoneLikeItem(context.lens)) {
-    pushUniqueSegment(segments, compactClause(context.lens.en, 2));
-  }
-  if (context.subject.count > 1) {
-    pushUniqueSegment(segments, compactClause(buildCompositionHint(context.subject, context.aspectRatio, context.framing), 1));
-  }
-
-  return segments;
-}
-
-function buildMidjourneyLightingSegments(context, lightDirection, film, opticalEffect) {
-  const segments = [];
-
-  if (!context.styleDrivenCamera && context.lighting?.en && !isNoneLikeItem(context.lighting)) {
-    pushUniqueSegment(segments, compactClause(context.lighting.en, 2));
-  }
-  if (!context.styleDrivenCamera && lightDirection?.en && !isNoneLikeItem(lightDirection)) {
-    pushUniqueSegment(segments, compactClause(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count), 2));
-  }
-  if (!context.styleDrivenCamera && film?.en && !isNoneLikeItem(film)) {
-    pushUniqueSegment(segments, compactClause(film.en, 1));
-  }
-  if (opticalEffect?.en && !isNoneLikeItem(opticalEffect)) {
-    pushUniqueSegment(segments, compactClause(opticalEffect.en, 1));
-  }
-
-  return segments;
-}
-
-function buildMidjourneyAngleSegments(context) {
-  const segments = [];
-  const orbitText = context.orbit && !isNoneLikeItem(context.orbit) ? compactClause(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1) : '';
-  const angleText = context.angle && !isNoneLikeItem(context.angle) ? compactClause(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1) : '';
-
-  if (orbitText && !orbitText.toLowerCase().includes('front-facing')) {
-    pushUniqueSegment(segments, orbitText);
-  }
-  if (angleText && !(orbitText && orbitText.toLowerCase().includes('back view') && angleText.toLowerCase().includes('direct eye contact'))) {
-    pushUniqueSegment(segments, angleText);
-  }
-
-  return segments;
-}
-
-function buildMidjourneyStyleSegments(context) {
-  const segments = [];
-
-  if (context.style && !isNoneLikeItem(context.style)) {
-    pushUniqueSegment(segments, compactClause(STYLE_PROMPT_INTROS[context.style.zh] || context.style.en, 1));
-  }
-
-  return segments;
-}
-
-function getMidjourneyGarmentMaxParts(item) {
-  const itemId = item?.id || '';
-
-  if (itemId.includes('上身-tops')) return 5;
-  if (itemId.includes('外套-outerwear')) return 4;
-  if (itemId.includes('褲裝-pants') || itemId.includes('裙裝-skirts')) return 4;
-  if (itemId.includes('鞋款-shoes')) return 2;
-
-  return 4;
-}
-
-function applyColorToGarment(item, color) {
-  if (!item?.en || isNoneLikeItem(item)) return '';
-  const garment = compactClause(item.en, getMidjourneyGarmentMaxParts(item));
-  if (!garment) return '';
-  return color?.en && !isNoneLikeItem(color) ? `${color.en} ${garment}` : garment;
-}
-
-function applyColorToOutfitPreset(item, color) {
-  if (!item?.en) return '';
-  const outfit = compactClause(item.en, 2);
-  if (!outfit) return '';
-  return color?.en && !isNoneLikeItem(color) ? `${color.en} palette, ${outfit}` : outfit;
-}
-
-function buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors) {
-  const slots = extractWardrobeSlots(wardrobe);
-  const segments = [];
-
-  if (slots.outfitPresetA?.en || slots.outfitPresetB?.en) {
-    if (slots.outfitPresetA?.en) pushUniqueSegment(segments, `woman 1 ${applyColorToOutfitPreset(slots.outfitPresetA, wardrobeColors.outfitPresetAColor)}`);
-    if (slots.outfitPresetB?.en) pushUniqueSegment(segments, `woman 2 ${applyColorToOutfitPreset(slots.outfitPresetB, wardrobeColors.outfitPresetBColor)}`);
-    return segments;
-  }
-
-  if (slots.outfitPreset?.en) {
-    pushUniqueSegment(segments, applyColorToOutfitPreset(slots.outfitPreset, wardrobeColors.outfitPresetColor));
-    return segments;
-  }
-
-  pushUniqueSegment(segments, applyColorToGarment(slots.outerwear, wardrobeColors.outerwearColor));
-  pushUniqueSegment(segments, applyColorToGarment(slots.top, wardrobeColors.topColor));
-  pushUniqueSegment(segments, applyColorToGarment(slots.pants, wardrobeColors.bottomColor));
-  pushUniqueSegment(segments, applyColorToGarment(slots.skirt, wardrobeColors.bottomColor));
-  pushUniqueSegment(segments, applyColorToGarment(slots.legwear, wardrobeColors.legwearColor));
-  pushUniqueSegment(segments, applyColorToGarment(slots.shoes, wardrobeColors.shoesColor));
-  slots.jewelry.filter((item) => !isNoneLikeItem(item)).forEach((item) => pushUniqueSegment(segments, compactClause(item?.en, 1)));
-
-  return segments;
-}
-
-function buildMidjourneyPromptFromGroups(groups, aspectRatio) {
-  const suffix = ` --ar ${aspectRatio}`;
-  const limit = 650 - suffix.length;
   let prompt = '';
-
-  for (const group of groups) {
-    for (const segment of group) {
-      const safeSegment = sanitizeMidjourneyText(segment);
-      if (!safeSegment) continue;
-      const next = prompt ? `${prompt}, ${safeSegment}` : safeSegment;
-      if (next.length > limit) return `${prompt}${suffix}`;
-      prompt = next;
-    }
+  for (const section of sections) {
+    const block = `${section.label}\n${section.text}`;
+    const next = prompt ? `${prompt}\n\n${block}` : block;
+    if (next.length > maxLength) break;
+    prompt = next;
   }
 
   return `${prompt}${suffix}`;
@@ -2107,32 +1978,17 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
-  const hasDuoPreset = Boolean(wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB);
-  const midjourneyGroups = context.subject.count === 2
-    ? [
-        [
-          ...buildMidjourneyDuoSubjectSegments(context, characterSlots),
-          ...buildMidjourneyDuoRelationSegments(context, characterSlots, duoInteraction, duoStyling),
-          ...buildMidjourneyDuoIdentitySegments(characterSlots, wardrobeSlots),
-        ],
-        ...(hasDuoPreset ? [] : [buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors)]),
-        buildMidjourneyLocationSegments(context),
-        buildMidjourneyLensSegments(context),
-        buildMidjourneyLightingSegments(context, lightDirection, film, opticalEffect),
-        buildMidjourneyAngleSegments(context),
-        buildMidjourneyStyleSegments(context),
-      ]
-    : [
-        buildMidjourneyCharacterSegments(context, characterSlots, duoInteraction, duoStyling),
-        buildMidjourneyWardrobeSegments(wardrobe, wardrobeColors),
-        buildMidjourneyLocationSegments(context),
-        buildMidjourneyLensSegments(context),
-        buildMidjourneyLightingSegments(context, lightDirection, film, opticalEffect),
-        buildMidjourneyAngleSegments(context),
-        buildMidjourneyStyleSegments(context),
-      ];
-
-  const midjourneyPrompt = buildMidjourneyPromptFromGroups(midjourneyGroups, context.aspectRatio.en);
+  const midjourneyPrompt = buildMidjourneyStructuredPrompt(
+    context,
+    characterSlots,
+    wardrobeSlots,
+    wardrobeColors,
+    lightDirection,
+    film,
+    opticalEffect,
+    duoInteraction,
+    duoStyling
+  );
 
   const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction, duoStyling);
 
