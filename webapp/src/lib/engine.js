@@ -1862,7 +1862,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   }
   pushSection('Clothing', clothingLines.join('\n'));
 
-  pushSection('Aspect Ratio', context.aspectRatio.en);
+  pushSection('Location', describeLocation());
   pushSection('Framing & Composition', formatMidjourneySectionText([
     context.framing ? resolvePromptVariant(context.framing, 'framing', context.subject.count) : '',
     context.angle ? resolvePromptVariant(context.angle, 'angle', context.subject.count) : '',
@@ -1873,7 +1873,6 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     context.lens?.en || '',
     opticalEffect?.en || '',
   ], 3));
-  pushSection('Location', describeLocation());
   pushSection('Lighting & Mood', formatMidjourneySectionText([
     !context.styleDrivenCamera ? context.lighting?.en || '' : '',
     !context.styleDrivenCamera ? lightDirection?.en || '' : '',
