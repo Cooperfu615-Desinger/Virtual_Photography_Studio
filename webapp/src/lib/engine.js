@@ -1,8 +1,8 @@
 import database from '../data/database.json' with { type: 'json' };
 
 const SUBJECT_COUNT_OPTIONS = [
-  { id: '1', zh: '1 位', en: 'an elegant beautiful Japanese or Korean woman', count: 1 },
-  { id: '2', zh: '2 位', en: 'two elegant beautiful Japanese or Korean women', count: 2 },
+  { id: '1', zh: '1 位', en: 'an elegant beautiful 20-year-old Japanese or Korean woman', count: 1 },
+  { id: '2', zh: '2 位', en: 'two elegant beautiful 20-year-old Japanese or Korean women', count: 2 },
 ];
 
 const ASPECT_RATIO_OPTIONS = [
