@@ -1977,6 +1977,13 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
   const poseText = characterSlots.pose ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '';
+  const subjectAccessories = [
+    wardrobeSlots.eyewear,
+    wardrobeSlots.earrings,
+    wardrobeSlots.neckAccessory,
+    wardrobeSlots.wristAccessory,
+    wardrobeSlots.ring,
+  ].filter((item) => item && !isNoneLikeItem(item)).map((item) => item.en);
   const lines = [];
   const addLine = (label, value) => {
     if (!value) return;
@@ -1990,8 +1997,9 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     if (!item || isNoneLikeItem(item)) return;
     addLine(label, formatter(item));
   };
+  const mergePromptText = (...parts) => parts.filter((part) => part && part !== 'none').join(', ');
 
-  addLine('Subject Count', context.subject.en);
+  addLine('Subject Count', mergePromptText(context.subject.en, subjectAccessories.join(', ')));
   addLine('Aspect Ratio', context.aspectRatio.en);
   if (context.style && !isNoneLikeItem(context.style)) {
     addLine('Photography Style', `${styleIntro}. ${context.style.en}`);
@@ -2035,18 +2043,20 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addLine('Expression', expressionText);
   addLine('Pose', poseText);
   if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB) {
-    addLine('Top', buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor));
-    addLine('Pants', buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor));
-    addLine('Skirt', buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors.bottomColor));
+    const waistAccessoryText = wardrobeSlots.waistAccessory && !isNoneLikeItem(wardrobeSlots.waistAccessory) ? wardrobeSlots.waistAccessory.en : '';
+    const topText = buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor);
+    const pantsText = buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor);
+    const skirtText = buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors.bottomColor);
+    const waistOnPants = pantsText ? waistAccessoryText : '';
+    const waistOnSkirt = !pantsText && skirtText ? waistAccessoryText : '';
+    const waistOnTop = !pantsText && !skirtText ? waistAccessoryText : '';
+
+    addLine('Top', mergePromptText(topText, waistOnTop));
+    addLine('Pants', mergePromptText(pantsText, waistOnPants));
+    addLine('Skirt', mergePromptText(skirtText, waistOnSkirt));
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
     addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor));
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
-    addItemLine('Eyewear', wardrobeSlots.eyewear);
-    addItemLine('Earrings', wardrobeSlots.earrings);
-    addItemLine('Neck Accessory', wardrobeSlots.neckAccessory);
-    addItemLine('Wrist Accessory', wardrobeSlots.wristAccessory);
-    addItemLine('Ring', wardrobeSlots.ring);
-    addItemLine('Waist Accessory', wardrobeSlots.waistAccessory);
   }
 
   return lines.join('\n');
