@@ -39,7 +39,7 @@ const CHARACTER_CONTROL_ORDER = [
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
 const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'locationId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'aspectRatio'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'shoesId', 'shoesColorId', 'jewelryIds'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'shoesId', 'shoesColorId', 'eyewearId', 'earringsId', 'neckAccessoryId', 'wristAccessoryId', 'ringId', 'waistAccessoryId'];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
@@ -53,15 +53,11 @@ function isMutedSelectValue(control, value) {
   return selected?.zh === '全無';
 }
 
-function isNoneOption(option) {
-  return option?.zh === '全無';
-}
-
 function isNoneSelected(controlKey, value, controls) {
   if (!value) return false;
   const control = controls.find((item) => item.key === controlKey);
   const selected = control?.options.find((option) => option.id === value);
-  return isNoneOption(selected);
+  return selected?.zh === '全無';
 }
 
 function buildMarkdownExport(data) {
@@ -367,32 +363,6 @@ export default function App() {
     }
   };
 
-  const toggleJewelrySelection = (option) => {
-    updateLocks((prev) => {
-      const current = Array.isArray(prev.jewelryIds) ? prev.jewelryIds : [];
-      const alreadySelected = current.includes(option.id);
-
-      if (isNoneOption(option)) {
-        return { ...prev, jewelryIds: alreadySelected ? [] : [option.id] };
-      }
-
-      const noneOption = wardrobeLockControls
-        .find((control) => control.key === 'jewelryIds')
-        ?.options.find((item) => isNoneOption(item));
-      const next = current.filter((id) => id !== noneOption?.id);
-
-      if (alreadySelected) {
-        return { ...prev, jewelryIds: next.filter((id) => id !== option.id) };
-      }
-
-      if (next.length >= 3) return prev;
-
-      return { ...prev, jewelryIds: [...next, option.id] };
-    });
-  };
-  const jewelryControl = wardrobeLockControls.find((control) => control.key === 'jewelryIds');
-  const jewelryCopyText = jewelryControl ? getSelectedPromptText(jewelryControl, locks.jewelryIds) : '';
-
   return (
     <div className="container">
       <header className="page-header">
@@ -450,56 +420,22 @@ export default function App() {
 
           <div className="control-section control-section-secondary">
             <div className="control-section-header">
-              <div className="control-section-title">Style & Wardrobe</div>
+            <div className="control-section-title">Style & Wardrobe</div>
             </div>
             <div className="lock-grid detail-lock-grid">
-              {wardrobeLockControls.map((control) =>
-                control.key === 'jewelryIds' ? (
-                  <div key={control.key} className={`field field-full ${isOutfitPresetActive ? 'field-disabled' : ''}`}>
-                    <div className="field-heading-row">
-                      <span>{control.label}</span>
-                      <button
-                        type="button"
-                        className="icon-btn control-copy-icon-btn"
-                        disabled={isOutfitPresetActive || !jewelryCopyText}
-                        onClick={() => handleCopyText(`${control.label} copied`, jewelryCopyText)}
-                        title={`Copy ${control.label} prompt`}
-                        aria-label={`Copy ${control.label} prompt`}
-                      >
-                        <Copy size={14} />
-                      </button>
-                    </div>
-                    <div className="chip-list chip-list-inline">
-                      {control.options.map((option) => {
-                        const active = Array.isArray(locks.jewelryIds) && locks.jewelryIds.includes(option.id);
-                        return (
-                          <button
-                            key={option.id}
-                            type="button"
-                            className={`chip ${active ? 'chip-active' : ''}`}
-                            disabled={isOutfitPresetActive}
-                            onClick={() => toggleJewelrySelection(option)}
-                          >
-                            {option.zh}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ) : (
-                  <SelectControlField
-                    key={control.key}
-                    control={control}
-                    value={locks[control.key]}
-                    disabled={
-                      isOutfitPresetActive &&
-                      !['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId'].includes(control.key)
-                    }
-                    onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
-                    onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
-                  />
-                )
-              )}
+              {wardrobeLockControls.map((control) => (
+                <SelectControlField
+                  key={control.key}
+                  control={control}
+                  value={locks[control.key]}
+                  disabled={
+                    isOutfitPresetActive &&
+                    !['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId'].includes(control.key)
+                  }
+                  onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
+                  onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
+                />
+              ))}
             </div>
           </div>
 
@@ -602,7 +538,12 @@ const SUMMARY_REROLL_MAP = {
     'outerwearColorId',
     'shoesId',
     'shoesColorId',
-    'jewelryIds',
+    'eyewearId',
+    'earringsId',
+    'neckAccessoryId',
+    'wristAccessoryId',
+    'ringId',
+    'waistAccessoryId',
   ],
   location: ['locationId'],
   camera: ['aspectRatio', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId'],

@@ -184,7 +184,12 @@ const LOCK_DEFINITIONS = [
   { key: 'outerwearColorId', label: '外套配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'shoesId', label: '鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
   { key: 'shoesColorId', label: '鞋款配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'jewelryIds', label: '飾品點綴', category: '飾品點綴 (Jewelry & Piercings)', section: 'wardrobe', multi: true, defaultValue: [] },
+  { key: 'eyewearId', label: '眼鏡', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
+  { key: 'earringsId', label: '耳環', category: '耳環 (Earrings)', section: 'wardrobe' },
+  { key: 'neckAccessoryId', label: '頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
+  { key: 'wristAccessoryId', label: '腕部', category: '腕部 (Wrist Accessories)', section: 'wardrobe' },
+  { key: 'ringId', label: '戒指', category: '戒指 (Rings)', section: 'wardrobe' },
+  { key: 'waistAccessoryId', label: '腰部', category: '腰部 (Waist Accessories)', section: 'wardrobe' },
 ];
 
 const REQUIRED_LOCK_KEYS = LOCK_DEFINITIONS.filter((definition) => definition.required).map((definition) => definition.key);
@@ -234,7 +239,12 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'outerwearColorId', label: 'Outerwear Color' },
   { key: 'shoesId', label: 'Shoes' },
   { key: 'shoesColorId', label: 'Shoes Color' },
-  { key: 'jewelryIds', label: 'Jewelry' },
+  { key: 'eyewearId', label: 'Eyewear' },
+  { key: 'earringsId', label: 'Earrings' },
+  { key: 'neckAccessoryId', label: 'Neck Accessory' },
+  { key: 'wristAccessoryId', label: 'Wrist Accessory' },
+  { key: 'ringId', label: 'Ring' },
+  { key: 'waistAccessoryId', label: 'Waist Accessory' },
 ];
 
 const CUSTOM_GROUP_OPTIONS = [
@@ -664,9 +674,22 @@ function inferWardrobeMeta(category, item) {
   if (category.includes('褲裝') || category.includes('Pants')) tags.push('pants');
   if (category.includes('裙裝') || category.includes('Skirts')) tags.push('skirt');
   if (category.includes('襪類') || category.includes('Legwear')) tags.push('legwear');
-  if (category.includes('飾品點綴') || category.includes('Jewelry')) tags.push('accessory_small');
-  if (hasAny(haystack, ['no jewelry', '全無'])) tags.push('no_accessory');
-  if (hasAny(haystack, ['nose ring', 'lip ring', 'choker', '鼻環', '唇環', '頸鍊'])) tags.push('edgy_accessory');
+  if (
+    category.includes('眼鏡')
+    || category.includes('耳環')
+    || category.includes('頸部')
+    || category.includes('腕部')
+    || category.includes('戒指')
+    || category.includes('腰部')
+    || category.includes('Eyewear')
+    || category.includes('Earrings')
+    || category.includes('Neck Accessories')
+    || category.includes('Wrist Accessories')
+    || category.includes('Rings')
+    || category.includes('Waist Accessories')
+  ) tags.push('accessory_small');
+  if (hasAny(haystack, ['no eyewear', 'no earrings', 'no neck accessories', 'no wrist accessories', 'no rings', 'no waist accessories', '全無'])) tags.push('no_accessory');
+  if (hasAny(haystack, ['choker', '頸圈', '頸鍊', '扣環頸鏈', '打孔腰帶', '皮革腕帶'])) tags.push('edgy_accessory');
   if (hasAny(haystack, ['tailored', 'blazer', 'loafers', 'pencil skirt', 'silk maxi skirt', '細帶高跟', '西裝'])) tags.push('elegant');
   if (hasAny(haystack, ['pleated', 'sailor', 'over-knee socks', 'jk', 'mary jane', '百褶', '膝上襪'])) tags.push('uniform');
   if (hasAny(haystack, ['lolita', 'ruffled', 'lace', 'bell-shaped', '鐘形'])) tags.push('romantic');
@@ -848,13 +871,43 @@ export function normalizeLocks(rawLocks = {}) {
     normalized[key] = value;
   });
 
-  const legacyJewelry = rawLocks?.jewelryId;
-  if (Array.isArray(rawLocks?.jewelryIds)) {
-    normalized.jewelryIds = rawLocks.jewelryIds.filter(Boolean);
-  } else if (legacyJewelry) {
-    normalized.jewelryIds = [legacyJewelry];
-  } else {
-    normalized.jewelryIds = [];
+  const legacyJewelry = Array.isArray(rawLocks?.jewelryIds)
+    ? rawLocks.jewelryIds.filter(Boolean)
+    : rawLocks?.jewelryId
+      ? [rawLocks.jewelryId]
+      : [];
+
+  if (legacyJewelry.length > 0) {
+    const legacyMap = {
+      '黑框眼鏡': 'eyewearId',
+      '細框眼鏡': 'eyewearId',
+      '太陽眼鏡': 'eyewearId',
+      '小型金屬耳環': 'earringsId',
+      '金屬頸鍊': 'neckAccessoryId',
+      '金屬細頸圈': 'neckAccessoryId',
+      '多條層疊的金項鏈': 'neckAccessoryId',
+      '多條層疊的水晶頸鏈與項鍊': 'neckAccessoryId',
+      '多條層疊的水晶項鍊與頸鏈': 'neckAccessoryId',
+      '皮質扣環頸鏈': 'neckAccessoryId',
+      '緞帶頸圈': 'neckAccessoryId',
+      '蕾絲緞帶頸圈': 'neckAccessoryId',
+      '鎖骨細金屬鏈': 'neckAccessoryId',
+      '刺繡絲巾': 'neckAccessoryId',
+      '薄長圍巾': 'neckAccessoryId',
+      '厚長圍巾': 'neckAccessoryId',
+      '街頭風格金項鏈': 'neckAccessoryId',
+      '細戒指': 'ringId',
+      '打孔腰帶': 'waistAccessoryId',
+      '單排打孔腰帶': 'waistAccessoryId',
+      '胸下式短款精緻束腰帶': 'waistAccessoryId',
+    };
+    const { catalog } = buildCatalog();
+    legacyJewelry.forEach((legacyId) => {
+      const legacyItem = Object.values(catalog.wardrobe).flat().find((item) => item.id === legacyId);
+      const targetKey = legacyMap[legacyItem?.zh];
+      if (!targetKey || normalized[targetKey]) return;
+      normalized[targetKey] = legacyId;
+    });
   }
 
   return normalized;
@@ -899,7 +952,12 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'legwearId') options = getByKey(catalog.wardrobe, '襪類 (Legwear)');
       if (definition.key === 'outerwearId') options = getByKey(catalog.wardrobe, '外套 (Outerwear)');
       if (definition.key === 'shoesId') options = getByKey(catalog.wardrobe, '鞋款 (Shoes)');
-      if (definition.key === 'jewelryIds') options = getByKey(catalog.wardrobe, '飾品點綴 (Jewelry & Piercings)');
+      if (definition.key === 'eyewearId') options = getByKey(catalog.wardrobe, '眼鏡 (Eyewear)');
+      if (definition.key === 'earringsId') options = getByKey(catalog.wardrobe, '耳環 (Earrings)');
+      if (definition.key === 'neckAccessoryId') options = getByKey(catalog.wardrobe, '頸部 (Neck Accessories)');
+      if (definition.key === 'wristAccessoryId') options = getByKey(catalog.wardrobe, '腕部 (Wrist Accessories)');
+      if (definition.key === 'ringId') options = getByKey(catalog.wardrobe, '戒指 (Rings)');
+      if (definition.key === 'waistAccessoryId') options = getByKey(catalog.wardrobe, '腰部 (Waist Accessories)');
     }
 
     return { ...definition, options };
@@ -1352,7 +1410,12 @@ function buildWardrobe(context, locks, catalog) {
     '襪類 (Legwear)': 'legwearId',
     '外套 (Outerwear)': 'outerwearId',
     '鞋款 (Shoes)': 'shoesId',
-    '飾品點綴 (Jewelry & Piercings)': 'jewelryIds',
+    '眼鏡 (Eyewear)': 'eyewearId',
+    '耳環 (Earrings)': 'earringsId',
+    '頸部 (Neck Accessories)': 'neckAccessoryId',
+    '腕部 (Wrist Accessories)': 'wristAccessoryId',
+    '戒指 (Rings)': 'ringId',
+    '腰部 (Waist Accessories)': 'waistAccessoryId',
   };
 
   const addPiece = (item) => {
@@ -1439,7 +1502,12 @@ function buildWardrobe(context, locks, catalog) {
     maybePick('鞋款 (Shoes)');
   }
 
-  maybePick('飾品點綴 (Jewelry & Piercings)', visibilityAtLeast(visibility, 'portrait') ? 0.65 : 0.45);
+  maybePick('眼鏡 (Eyewear)', visibilityAtLeast(visibility, 'portrait') ? 0.35 : 0.15);
+  maybePick('耳環 (Earrings)', visibilityAtLeast(visibility, 'portrait') ? 0.45 : 0.2);
+  maybePick('頸部 (Neck Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.4 : 0.2);
+  maybePick('腕部 (Wrist Accessories)', frameShowsAtLeast(visibility, 'medium') ? 0.3 : 0.15);
+  maybePick('戒指 (Rings)', frameShowsAtLeast(visibility, 'medium') ? 0.25 : 0.1);
+  maybePick('腰部 (Waist Accessories)', frameShowsAtLeast(visibility, 'medium') ? 0.35 : 0.15);
 
   return pieces;
 }
@@ -1643,8 +1711,7 @@ function extractCharacterSlots(character) {
 
 function extractWardrobeSlots(wardrobe) {
   const findSlot = (token) => wardrobe.find((item) => item.id?.includes(token));
-  const findSlots = (token) => wardrobe.filter((item) => item.id?.includes(token));
-  const outfitPresets = findSlots('wardrobe:套裝-outfit-presets:');
+  const outfitPresets = wardrobe.filter((item) => item.id?.includes('wardrobe:套裝-outfit-presets:'));
   return {
     outfitPreset: outfitPresets.find((item) => !item.meta?.outfitRole) || null,
     outfitPresetA: outfitPresets.find((item) => item.meta?.outfitRole === 'a') || null,
@@ -1655,7 +1722,12 @@ function extractWardrobeSlots(wardrobe) {
     legwear: findSlot('wardrobe:襪類-legwear:'),
     outerwear: findSlot('wardrobe:外套-outerwear:'),
     shoes: findSlot('wardrobe:鞋款-shoes:'),
-    jewelry: findSlots('wardrobe:飾品點綴-jewelry-piercings:'),
+    eyewear: findSlot('wardrobe:眼鏡-eyewear:'),
+    earrings: findSlot('wardrobe:耳環-earrings:'),
+    neckAccessory: findSlot('wardrobe:頸部-neck-accessories:'),
+    wristAccessory: findSlot('wardrobe:腕部-wrist-accessories:'),
+    ring: findSlot('wardrobe:戒指-rings:'),
+    waistAccessory: findSlot('wardrobe:腰部-waist-accessories:'),
   };
 }
 
@@ -1859,6 +1931,12 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     addClothingLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 3);
     addClothingLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor), 4);
     addClothingLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
+    addClothingLine('Eyewear', wardrobeSlots.eyewear?.en || '', 2);
+    addClothingLine('Earrings', wardrobeSlots.earrings?.en || '', 2);
+    addClothingLine('Neck Accessory', wardrobeSlots.neckAccessory?.en || '', 3);
+    addClothingLine('Wrist Accessory', wardrobeSlots.wristAccessory?.en || '', 3);
+    addClothingLine('Ring', wardrobeSlots.ring?.en || '', 2);
+    addClothingLine('Waist Accessory', wardrobeSlots.waistAccessory?.en || '', 3);
   }
   pushSection('Clothing', clothingLines.join('\n'));
 
@@ -1963,12 +2041,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
     addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor));
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
-    addLine(
-      'Jewelry and Piercings',
-      wardrobeSlots.jewelry.filter((item) => !isNoneLikeItem(item)).length > 0
-        ? wardrobeSlots.jewelry.filter((item) => !isNoneLikeItem(item)).map((item) => item.en).join(', ')
-        : ''
-    );
+    addItemLine('Eyewear', wardrobeSlots.eyewear);
+    addItemLine('Earrings', wardrobeSlots.earrings);
+    addItemLine('Neck Accessory', wardrobeSlots.neckAccessory);
+    addItemLine('Wrist Accessory', wardrobeSlots.wristAccessory);
+    addItemLine('Ring', wardrobeSlots.ring);
+    addItemLine('Waist Accessory', wardrobeSlots.waistAccessory);
   }
 
   return lines.join('\n');
@@ -2042,7 +2120,12 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     outerwearColorId: wardrobeColors.outerwearColor?.id || '',
     shoesId: wardrobeSlots.shoes?.id || '',
     shoesColorId: wardrobeColors.shoesColor?.id || '',
-    jewelryIds: wardrobeSlots.jewelry.map((item) => item.id),
+    eyewearId: wardrobeSlots.eyewear?.id || '',
+    earringsId: wardrobeSlots.earrings?.id || '',
+    neckAccessoryId: wardrobeSlots.neckAccessory?.id || '',
+    wristAccessoryId: wardrobeSlots.wristAccessory?.id || '',
+    ringId: wardrobeSlots.ring?.id || '',
+    waistAccessoryId: wardrobeSlots.waistAccessory?.id || '',
   };
 }
 
@@ -2052,11 +2135,7 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
     base[key] = prompt.selection?.[key] || base[key];
   });
   keepKeys.forEach((key) => {
-    if (key === 'jewelryIds') {
-      base[key] = Array.isArray(prompt.selection?.[key]) ? prompt.selection[key] : [];
-    } else {
-      base[key] = prompt.selection?.[key] || '';
-    }
+    base[key] = prompt.selection?.[key] || '';
   });
   return base;
 }

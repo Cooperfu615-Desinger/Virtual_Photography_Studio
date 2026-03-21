@@ -948,21 +948,11 @@
         "desc": "緊貼腿部線條，適合夜景、飯店與 fetish。"
       }
     ],
-    "飾品點綴 (Jewelry & Piercings)": [
+    "眼鏡 (Eyewear)": [
       {
         "zh": "全無",
-        "en": "no jewelry, clean styling, bare accessories",
-        "desc": "不加飾品，讓造型維持乾淨俐落。"
-      },
-      {
-        "zh": "小型金屬耳環",
-        "en": "small metallic earrings, subtle jewelry accent, polished detail",
-        "desc": "最穩定的點綴型飾品，適合大多數風格。"
-      },
-      {
-        "zh": "細戒指",
-        "en": "slim rings, delicate finger jewelry, understated accent",
-        "desc": "低存在感但能增加精緻度。"
+        "en": "no eyewear, clean face styling",
+        "desc": "不加眼鏡，讓臉部與五官維持乾淨俐落。"
       },
       {
         "zh": "黑框眼鏡",
@@ -978,26 +968,30 @@
         "zh": "太陽眼鏡",
         "en": "sunglasses, tinted lenses, stylish eyewear accent, fashion attitude",
         "desc": "直接帶出街拍、都會或度假感，也能讓角色更有明星與時裝氣場。"
+      }
+    ],
+    "耳環 (Earrings)": [
+      {
+        "zh": "全無",
+        "en": "no earrings, clean ear styling",
+        "desc": "不加耳環，讓耳側與臉部輪廓保持乾淨。"
       },
       {
-        "zh": "鼻環",
-        "en": "nose ring, subtle facial piercing, edgy accent",
-        "desc": "適合龐克、街頭、工業與 Y2K 方向。"
+        "zh": "小型金屬耳環",
+        "en": "small metallic earrings, subtle jewelry accent, polished detail",
+        "desc": "最穩定的點綴型耳環，適合大多數風格。"
+      }
+    ],
+    "頸部 (Neck Accessories)": [
+      {
+        "zh": "全無",
+        "en": "no neck accessories, open neckline styling",
+        "desc": "不加頸部飾品，讓領口與鎖骨區域維持簡潔。"
       },
       {
-        "zh": "唇環",
-        "en": "lip ring, facial piercing detail, rebellious styling",
-        "desc": "風格強度較高，適合地下、龐克與強勢造型。"
-      },
-      {
-        "zh": "金屬頸鍊",
-        "en": "metal choker necklace, close-fitting neck accessory, edgy fashion accent",
-        "desc": "適合夜景、龐克、寫真與強風格時裝。"
-      },
-      {
-        "zh": "打孔腰帶",
-        "en": "punched leather belt, metal eyelets, waist-defining accessory, edgy detail",
-        "desc": "帶有金屬孔眼與皮革質感，能強化腰線並增加龐克或街頭味道。"
+        "zh": "金屬細頸圈",
+        "en": "slim metal choker, close-fitting neck accessory, refined edgy accent",
+        "desc": "比粗頸鍊更俐落，適合夜景、都會與帶一點冷感的造型。"
       },
       {
         "zh": "多條層疊的金項鏈",
@@ -1005,14 +999,9 @@
         "desc": "多層金色項鍊能增加成熟與時裝感，適合低領口與度假、夜拍造型。"
       },
       {
-        "zh": "多條層疊的水晶頸鏈與項鍊",
-        "en": "layered crystal chokers and necklaces, sparkling gemstone details, ornate neck styling",
-        "desc": "水晶頸圈與項鍊疊加後更有華麗感，適合戲劇化、夜拍與高飽和造型。"
-      },
-      {
-        "zh": "胸下式短款精緻束腰帶",
-        "en": "underbust waist cincher belt, short structured waist accessory, refined corset-inspired detail",
-        "desc": "強調胸下與腰部比例的短款束腰帶，適合哥德、維多利亞與時裝造型。"
+        "zh": "多條層疊的水晶項鍊與頸鏈",
+        "en": "layered crystal necklaces and chokers, sparkling gemstone details, ornate neck styling",
+        "desc": "水晶頸鏈與項鍊疊加後更有華麗感，適合戲劇化、夜拍與高飽和造型。"
       },
       {
         "zh": "皮質扣環頸鏈",
@@ -1048,6 +1037,72 @@
         "zh": "厚長圍巾",
         "en": "thick long scarf, cozy wrapped accessory, soft winter layering",
         "desc": "厚實長圍巾更偏秋冬、居家與街頭保暖造型，存在感也更強。"
+      },
+      {
+        "zh": "街頭風格金項鏈",
+        "en": "street-style gold chain necklace, bold urban chain detail, confident streetwear accent",
+        "desc": "比一般層疊金項鏈更偏街頭與都會感，適合 hip-hop、潮流與強態度造型。"
+      }
+    ],
+    "腕部 (Wrist Accessories)": [
+      {
+        "zh": "全無",
+        "en": "no wrist accessories, clean arm styling",
+        "desc": "不加腕部飾品，讓手部與前臂保持簡潔。"
+      },
+      {
+        "zh": "極簡金屬手錶",
+        "en": "minimal metal wristwatch, clean polished timepiece, understated modern accent",
+        "desc": "乾淨俐落的金屬錶款，適合都會、極簡與成熟造型。"
+      },
+      {
+        "zh": "皮革腕錶",
+        "en": "leather-strap wristwatch, classic watch detail, refined everyday styling",
+        "desc": "皮革錶帶更有日常與成熟感，適合文藝、法式與城市穿搭。"
+      },
+      {
+        "zh": "細鍊手鍊",
+        "en": "delicate chain bracelet, slim wrist jewelry, subtle reflective accent",
+        "desc": "存在感低但能增加精緻度，適合多數造型。"
+      },
+      {
+        "zh": "串珠手環",
+        "en": "beaded bracelet stack, artisanal wrist accessory, relaxed layered detail",
+        "desc": "串珠會帶出手作感、波西米亞感與更生活化的層次。"
+      },
+      {
+        "zh": "纏繞式皮革腕帶",
+        "en": "wrapped leather wrist strap, layered leather bracelet, edgy wrist detail",
+        "desc": "多圈纏繞的皮革腕帶更有街頭、龐克與邊緣感。"
+      }
+    ],
+    "戒指 (Rings)": [
+      {
+        "zh": "全無",
+        "en": "no rings, clean hand styling",
+        "desc": "不加戒指，讓手指線條與動作更乾淨。"
+      },
+      {
+        "zh": "細戒指",
+        "en": "slim rings, delicate finger jewelry, understated accent",
+        "desc": "低存在感但能增加精緻度。"
+      }
+    ],
+    "腰部 (Waist Accessories)": [
+      {
+        "zh": "全無",
+        "en": "no waist accessories, clean waistline styling",
+        "desc": "不加腰部飾品，讓腰線維持乾淨簡潔。"
+      },
+      {
+        "zh": "單排打孔腰帶",
+        "en": "single-row punched leather belt, metal eyelets, waist-defining accessory, edgy detail",
+        "desc": "比多排版本更精準俐落，能強化腰線並增加龐克或街頭味道。"
+      },
+      {
+        "zh": "胸下式短款精緻束腰帶",
+        "en": "underbust waist cincher belt, short structured waist accessory, refined corset-inspired detail",
+        "desc": "強調胸下與腰部比例的短款束腰帶，適合哥德、維多利亞與時裝造型。"
       }
     ]
   },
