@@ -148,7 +148,8 @@
 | **外套 (Outerwear)** | 丹寧外套（敞開穿） | `open oversized denim jacket, unbuttoned casual layering, slipped off the shoulder line, slightly oversized everyday silhouette, washed denim texture` | 丹寧外套以敞開穿為主，並固定以滑落肩線的穿法呈現；版型設定為略大一號，最適合生活感、街拍、牛仔單品與日常搭配。 |
 | **外套 (Outerwear)** | 連帽拉鍊外套（不拉拉鍊） | `open oversized zip hoodie, unzipped hooded jacket, slipped off the shoulder line, slightly oversized sporty layering, relaxed off-duty mood` | 連帽拉鍊外套保持不拉拉鍊的放鬆狀態，並固定以滑落肩線的穿法呈現；版型設定為略大一號，適合運動型內搭、短版上衣與休閒街頭造型。 |
 | **外套 (Outerwear)** | 西裝外套（半披／滑落肩線） | `open oversized blazer worn off the shoulder line, unbuttoned tailored jacket, slightly oversized effortless layering` | 西裝外套固定以半披在肩上或滑落肩線的穿法呈現；版型設定為略大一號，適合細肩帶、襯衫、短裙與都會時裝感穿搭。 |
-| **鞋款 (Shoes)** | 全無 | `barefoot styling, no shoes visible` | 不特別強調鞋款，適合床景、室內寫真或鏡頭不會拍到腳部的情境。 |
+| **鞋款 (Shoes)** | 全無 | `no explicit shoe styling, footwear unspecified` | 不特別指定鞋款，主要保留給需要降低鞋部干擾、讓 Grok 更穩定控制人物比例的情境。 |
+| **鞋款 (Shoes)** | 赤腳 | `bare feet, visible toes, relaxed barefoot styling, intimate at-home mood` | 明確要求不穿鞋並露出腳趾，適合居家、床景、地板坐姿與更放鬆的生活感畫面。 |
 | **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday finish, versatile casual style` | 最穩定的日常鞋款，適合街拍與生活感畫面。 |
 | **鞋款 (Shoes)** | 馬丁短靴 | `combat ankle boots, sturdy lace-up silhouette, rugged everyday edge` | 短版軍靴感鞋型，適合龐克、街頭與中性造型。 |
 | **鞋款 (Shoes)** | 馬丁長靴 | `tall combat boots, lace-up knee-high silhouette, strong structured presence` | 比短靴更強勢，適合地下、龐克與機能風格。 |

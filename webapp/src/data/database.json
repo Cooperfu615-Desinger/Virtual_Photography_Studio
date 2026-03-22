@@ -849,8 +849,13 @@
     "鞋款 (Shoes)": [
       {
         "zh": "全無",
-        "en": "barefoot styling, no shoes visible",
-        "desc": "不特別強調鞋款，適合床景、室內寫真或鏡頭不會拍到腳部的情境。"
+        "en": "no explicit shoe styling, footwear unspecified",
+        "desc": "不特別指定鞋款，主要保留給需要降低鞋部干擾、讓 Grok 更穩定控制人物比例的情境。"
+      },
+      {
+        "zh": "赤腳",
+        "en": "bare feet, visible toes, relaxed barefoot styling, intimate at-home mood",
+        "desc": "明確要求不穿鞋並露出腳趾，適合居家、床景、地板坐姿與更放鬆的生活感畫面。"
       },
       {
         "zh": "低筒球鞋",
@@ -1130,8 +1135,8 @@
       },
       {
         "zh": "全身鏡頭 (Full Body Shot)",
-        "en": "full body shot, full-length figure framing, wide framing, environmental scale",
-        "desc": "完整拍攝人物從頭到腳，強調整體穿搭比例與人物在廣大環境中的位置。"
+        "en": "full body shot, full-length figure framing, wide framing, environmental scale, complete lower-body visibility",
+        "desc": "完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。"
       }
     ],
     "相機視角 (Angle)": [

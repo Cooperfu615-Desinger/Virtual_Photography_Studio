@@ -1600,7 +1600,6 @@ function isNoneLikeItem(item) {
     en.startsWith('no ') ||
     en.includes(' no ') ||
     en.includes('bare legs') ||
-    en.includes('barefoot styling') ||
     en === 'none'
   );
 }
@@ -1775,6 +1774,7 @@ function buildColoredGrokPrompt(item, color = null, { preset = false } = {}) {
   if (!item || isNoneLikeItem(item)) return '';
   const base = stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
   if (!base) return '';
+  if (item.zh === '赤腳' || /bare feet|visible toes/i.test(base)) return base;
   if (!color || isNoneLikeItem(color)) return base;
 
   if (preset) {
@@ -1998,6 +1998,19 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine(label, formatter(item));
   };
   const mergePromptText = (...parts) => parts.filter((part) => part && part !== 'none').join(', ');
+  const buildGrokFramingText = () => {
+    const base = context.framing ? resolvePromptVariant(context.framing, 'framing', context.subject.count) : '';
+    if (!base || context.framing?.zh !== '全身鏡頭 (Full Body Shot)') return base;
+
+    const hasLegwear = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear);
+    const hasShoes = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes);
+    const isBarefoot = wardrobeSlots.shoes?.zh === '赤腳';
+
+    if (isBarefoot) return `${base}, bare feet and visible toes clearly shown`;
+    if (hasLegwear && hasShoes) return `${base}, legwear and shoes clearly visible`;
+    if (hasShoes) return `${base}, shoes clearly visible`;
+    return `${base}, full lower legs and feet clearly visible`;
+  };
 
   addLine('Subject Count', mergePromptText(context.subject.en, subjectAccessories.join(', ')));
   addLine('Aspect Ratio', context.aspectRatio.en);
@@ -2012,7 +2025,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }));
   }
   if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
-  addContextLine('Framing', context.framing, (item) => resolvePromptVariant(item, 'framing', context.subject.count));
+  addLine('Framing', buildGrokFramingText());
   addContextLine('Angle', context.angle, (item) => resolvePromptVariant(item, 'angle', context.subject.count));
   addContextLine('Orbit Angle', context.orbit, (item) => resolvePromptVariant(item, 'orbit', context.subject.count));
   addContextLine('Lens', context.lens);
