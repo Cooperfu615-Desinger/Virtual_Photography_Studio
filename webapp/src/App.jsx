@@ -232,6 +232,37 @@ function getSelectedPromptText(control, value) {
   return selectedOption.en || '';
 }
 
+function toShortPromptId(id) {
+  return `#${String(id).slice(-6).toUpperCase()}`;
+}
+
+function createLineage(prompt) {
+  return {
+    rootId: prompt.id,
+    rootShortId: toShortPromptId(prompt.id),
+    parentId: null,
+    parentShortId: '',
+    version: 1,
+    remixCount: 0,
+    lastMode: 'original',
+    lastLocked: [],
+  };
+}
+
+function buildNextLineage(previousPrompt, nextPrompt, summaryKeys, { branch = false } = {}) {
+  const previousLineage = previousPrompt.lineage || createLineage(previousPrompt);
+  return {
+    rootId: previousLineage.rootId || previousPrompt.id,
+    rootShortId: previousLineage.rootShortId || toShortPromptId(previousLineage.rootId || previousPrompt.id),
+    parentId: previousPrompt.id,
+    parentShortId: toShortPromptId(previousPrompt.id),
+    version: (previousLineage.version || 1) + 1,
+    remixCount: (previousLineage.remixCount || 0) + 1,
+    lastMode: branch ? 'branch' : 'replace',
+    lastLocked: summaryKeys.map((key) => REMIX_GROUP_INFO[key]?.label).filter(Boolean),
+  };
+}
+
 function selectionKeysEqual(previous, next, keys) {
   return keys.every((key) => (previous?.selection?.[key] || '') === (next?.selection?.[key] || ''));
 }
@@ -472,20 +503,31 @@ export default function App() {
   };
 
   const handleGenerate = () => {
-    const newPrompts = generatePrompts(genCount, locks);
+    const newPrompts = generatePrompts(genCount, locks).map((prompt) => ({
+      ...prompt,
+      lineage: createLineage(prompt),
+    }));
     setPrompts((prev) => [...newPrompts, ...prev].slice(0, MAX_STORED_PROMPTS));
     setViewMode('feed');
   };
 
-  const handleRemixPrompt = (prompt, summaryKeys = []) => {
+  const handleRemixPrompt = (prompt, summaryKeys = [], options = {}) => {
+    const { branch = false } = options;
     const keepKeys = Array.from(new Set(summaryKeys.flatMap((key) => SUMMARY_REROLL_MAP[key] || [])));
     const remixLocks = buildLocksFromPrompt(prompt, keepKeys);
     const [generatedPrompt] = generatePrompts(1, remixLocks);
     const nextPrompt = {
       ...generatedPrompt,
-      id: prompt.id,
+      id: branch ? generatedPrompt.id : prompt.id,
       remixMeta: buildRemixMeta(prompt, generatedPrompt, summaryKeys),
+      lineage: buildNextLineage(prompt, generatedPrompt, summaryKeys, { branch }),
     };
+    if (branch) {
+      setPrompts((prev) => [nextPrompt, ...prev].slice(0, MAX_STORED_PROMPTS));
+      setViewMode('feed');
+      return;
+    }
+
     setPrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
     setFavoritePrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
   };

@@ -85,12 +85,22 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix, summ
     .join('\n');
 
   const shortId = `#${String(data.id).slice(-6).toUpperCase()}`;
+  const lineageLabel = data.lineage?.version > 1 ? `v${data.lineage.version}` : 'v1';
+  const lineageDetail = data.lineage?.lastMode === 'branch' && data.lineage?.parentShortId
+    ? `分支自 ${data.lineage.parentShortId}`
+    : data.lineage?.remixCount > 0
+      ? `已 remix ${data.lineage.remixCount} 次`
+      : `Root ${data.lineage?.rootShortId || shortId}`;
 
   return (
     <article className="prompt-card prompt-card-summary">
       <div className="card-header card-header-compact">
         <div className="card-meta">
           <span className="card-id">{shortId}</span>
+          <div className="card-lineage">
+            <span>{lineageLabel}</span>
+            <span>{lineageDetail}</span>
+          </div>
         </div>
         <div className="card-actions">
           <button className="icon-btn" onClick={() => onRemix(data, lockedSummaryKeys)} title="Random with selected summary locks">
@@ -122,6 +132,14 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix, summ
               </button>
             ))}
           </div>
+          <button
+            type="button"
+            className="quick-remix-branch-btn"
+            title="保留原卡，另外建立一張新的 remix 分支"
+            onClick={() => onRemix(data, lockedSummaryKeys, { branch: true })}
+          >
+            分支 Remix，保留原卡
+          </button>
         </div>
         <div className="summary-grid">
           {summarySections.map(([key, section]) => (

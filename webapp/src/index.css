@@ -500,8 +500,8 @@ button:disabled {
 }
 
 .card-meta {
+  display: grid;
   gap: 8px;
-  flex-wrap: wrap;
 }
 
 .card-time,
@@ -511,6 +511,14 @@ button:disabled {
   padding: 4px 8px;
   border-radius: 999px;
   background: #f4eadb;
+}
+
+.card-lineage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
 }
 
 .card-action-btn {
@@ -577,6 +585,25 @@ button:disabled {
   transform: translateY(-1px);
   border-color: rgba(232, 140, 79, 0.34);
   background: #fff3e2;
+}
+
+.quick-remix-branch-btn {
+  appearance: none;
+  border: 1px dashed rgba(111, 87, 60, 0.28);
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color 140ms ease, color 140ms ease, background 140ms ease;
+}
+
+.quick-remix-branch-btn:hover {
+  border-color: rgba(232, 140, 79, 0.4);
+  color: var(--text-primary);
+  background: rgba(255, 243, 226, 0.72);
 }
 
 .summary-row {
