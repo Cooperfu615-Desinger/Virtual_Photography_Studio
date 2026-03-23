@@ -20,6 +20,135 @@ const GEN_COUNT_KEY = 'vps.genCount';
 const VIEW_MODE_KEY = 'vps.viewMode';
 const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const MAX_STORED_PROMPTS = 120;
+const SUMMARY_SECTION_INFO = {
+  style: {
+    label: '風格',
+    lockLabels: ['攝影風格'],
+    keys: ['styleId'],
+  },
+  character: {
+    label: '人物',
+    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色', '雙人互動', '表情', '姿勢'],
+    keys: [
+      'subjectCount',
+      'bodyTypeId',
+      'facialFeaturesId',
+      'facialFeaturesAId',
+      'facialFeaturesBId',
+      'skinDetailsId',
+      'hairstyleId',
+      'hairstyleAId',
+      'hairstyleBId',
+      'hairColorId',
+      'hairColorAId',
+      'hairColorBId',
+      'duoInteractionId',
+      'expressionId',
+      'poseId',
+    ],
+  },
+  wardrobe: {
+    label: '服裝',
+    lockLabels: ['套裝', '上身', '下身', '襪類', '襪類配色', '外套', '鞋款', '配件'],
+    keys: [
+      'outfitPresetId',
+      'outfitPresetColorId',
+      'outfitPresetAId',
+      'outfitPresetAColorId',
+      'outfitPresetBId',
+      'outfitPresetBColorId',
+      'topId',
+      'topColorId',
+      'duoStylingId',
+      'pantsId',
+      'skirtId',
+      'bottomColorId',
+      'legwearId',
+      'legwearColorId',
+      'outerwearId',
+      'outerwearColorId',
+      'shoesId',
+      'shoesColorId',
+      'eyewearId',
+      'earringsId',
+      'neckAccessoryId',
+      'wristAccessoryId',
+      'ringId',
+      'waistAccessoryId',
+    ],
+  },
+  location: {
+    label: '場景',
+    lockLabels: ['場景'],
+    keys: ['locationId'],
+  },
+  camera: {
+    label: '鏡頭',
+    lockLabels: ['畫面比例', '景別', '角度', '方位', '焦段', '光學效果', '成像風格'],
+    keys: ['aspectRatio', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId'],
+  },
+  lighting: {
+    label: '光影',
+    lockLabels: ['環境光氛', '光線表現'],
+    keys: ['lightingId', 'lightDirectionId'],
+  },
+};
+const ADVANCED_REMIX_GROUP_INFO = {
+  characterDna: {
+    label: '角色 DNA',
+    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色', '雙人互動'],
+    keys: [
+      'subjectCount',
+      'bodyTypeId',
+      'facialFeaturesId',
+      'facialFeaturesAId',
+      'facialFeaturesBId',
+      'skinDetailsId',
+      'hairstyleId',
+      'hairstyleAId',
+      'hairstyleBId',
+      'hairColorId',
+      'hairColorAId',
+      'hairColorBId',
+      'duoInteractionId',
+    ],
+  },
+  expressionPose: {
+    label: '表情姿勢',
+    lockLabels: ['表情', '姿勢'],
+    keys: ['expressionId', 'poseId'],
+  },
+  wardrobeCore: {
+    label: '服裝主體',
+    lockLabels: ['套裝', '上身', '下身', '外套', '襪類', '鞋款'],
+    keys: [
+      'outfitPresetId',
+      'outfitPresetColorId',
+      'outfitPresetAId',
+      'outfitPresetAColorId',
+      'outfitPresetBId',
+      'outfitPresetBColorId',
+      'topId',
+      'topColorId',
+      'duoStylingId',
+      'pantsId',
+      'skirtId',
+      'bottomColorId',
+      'legwearId',
+      'legwearColorId',
+      'outerwearId',
+      'outerwearColorId',
+      'shoesId',
+      'shoesColorId',
+    ],
+  },
+  sceneLook: {
+    label: '場景鏡頭',
+    lockLabels: ['場景', '鏡頭', '光影'],
+    keys: ['locationId', 'aspectRatio', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId', 'lightingId', 'lightDirectionId'],
+  },
+};
+const REMIX_GROUP_INFO = { ...SUMMARY_SECTION_INFO, ...ADVANCED_REMIX_GROUP_INFO };
 const CHARACTER_CONTROL_ORDER = [
   'subjectCount',
   'bodyTypeId',
@@ -101,6 +230,32 @@ function getSelectedPromptText(control, value) {
   const selectedOption = control.options.find((option) => option.id === value);
   if (!selectedOption || selectedOption.zh === '全無') return '';
   return selectedOption.en || '';
+}
+
+function selectionKeysEqual(previous, next, keys) {
+  return keys.every((key) => (previous?.selection?.[key] || '') === (next?.selection?.[key] || ''));
+}
+
+function buildRemixMeta(previousPrompt, nextPrompt, lockedSections) {
+  const kept = [];
+  const changed = [];
+  const adjusted = [];
+
+  Object.entries(SUMMARY_SECTION_INFO).forEach(([sectionKey, section]) => {
+    const isLocked = lockedSections.includes(sectionKey);
+    const isSame = selectionKeysEqual(previousPrompt, nextPrompt, section.keys);
+
+    if (isLocked && isSame) kept.push(section.label);
+    if (isLocked && !isSame) adjusted.push(section.label);
+    if (!isLocked && !isSame) changed.push(section.label);
+  });
+
+  return {
+    locked: lockedSections.map((key) => REMIX_GROUP_INFO[key]?.label).filter(Boolean),
+    kept,
+    changed,
+    adjusted,
+  };
 }
 
 function loadJsonStorage(key, fallback) {
@@ -326,7 +481,11 @@ export default function App() {
     const keepKeys = Array.from(new Set(summaryKeys.flatMap((key) => SUMMARY_REROLL_MAP[key] || [])));
     const remixLocks = buildLocksFromPrompt(prompt, keepKeys);
     const [generatedPrompt] = generatePrompts(1, remixLocks);
-    const nextPrompt = { ...generatedPrompt, id: prompt.id };
+    const nextPrompt = {
+      ...generatedPrompt,
+      id: prompt.id,
+      remixMeta: buildRemixMeta(prompt, generatedPrompt, summaryKeys),
+    };
     setPrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
     setFavoritePrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
   };
@@ -492,7 +651,15 @@ export default function App() {
           <div className="empty-state">{searchQuery ? '沒有符合搜尋條件的 prompt。' : '先設定條件，再開始批次生成。'}</div>
         ) : (
           displayPrompts.map((prompt) => (
-            <PromptCard key={prompt.id} data={prompt} isFavorite={favoriteIds.has(prompt.id)} onFavorite={toggleFavorite} onRemix={handleRemixPrompt} />
+            <PromptCard
+              key={prompt.id}
+              data={prompt}
+              isFavorite={favoriteIds.has(prompt.id)}
+              onFavorite={toggleFavorite}
+              onRemix={handleRemixPrompt}
+              summarySectionInfo={SUMMARY_SECTION_INFO}
+              advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}
+            />
           ))
         )}
       </div>
@@ -501,51 +668,6 @@ export default function App() {
     </div>
   );
 }
-const SUMMARY_REROLL_MAP = {
-  style: ['styleId'],
-  character: [
-    'subjectCount',
-    'bodyTypeId',
-    'facialFeaturesId',
-    'facialFeaturesAId',
-    'facialFeaturesBId',
-    'skinDetailsId',
-    'hairstyleId',
-    'hairstyleAId',
-    'hairstyleBId',
-    'hairColorId',
-    'hairColorAId',
-    'hairColorBId',
-    'duoInteractionId',
-    'expressionId',
-    'poseId',
-  ],
-  wardrobe: [
-    'outfitPresetId',
-    'outfitPresetColorId',
-    'outfitPresetAId',
-    'outfitPresetAColorId',
-    'outfitPresetBId',
-    'outfitPresetBColorId',
-    'topId',
-    'topColorId',
-    'duoStylingId',
-    'pantsId',
-    'skirtId',
-    'bottomColorId',
-    'legwearId',
-    'outerwearId',
-    'outerwearColorId',
-    'shoesId',
-    'shoesColorId',
-    'eyewearId',
-    'earringsId',
-    'neckAccessoryId',
-    'wristAccessoryId',
-    'ringId',
-    'waistAccessoryId',
-  ],
-  location: ['locationId'],
-  camera: ['aspectRatio', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId'],
-  lighting: ['lightingId', 'lightDirectionId'],
-};
+const SUMMARY_REROLL_MAP = Object.fromEntries(
+  Object.entries(REMIX_GROUP_INFO).map(([sectionKey, section]) => [sectionKey, section.keys])
+);

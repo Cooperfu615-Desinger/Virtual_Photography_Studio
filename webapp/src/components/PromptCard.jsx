@@ -32,19 +32,23 @@ ${Object.entries(data.structured)
 `;
 }
 
-const SUMMARY_LABELS = [
-  ['style', '風格'],
-  ['character', '人物'],
-  ['wardrobe', '服裝'],
-  ['location', '場景'],
-  ['camera', '鏡頭'],
-  ['lighting', '光影'],
+const QUICK_REMIX_PRESETS = [
+  { key: 'characterDna', label: '保角色 DNA' },
+  { key: 'expressionPose', label: '保表情姿勢' },
+  { key: 'wardrobe', label: '保整體服裝' },
+  { key: 'sceneLook', label: '保場景鏡頭' },
 ];
 
-export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
+export default function PromptCard({ data, onFavorite, isFavorite, onRemix, summarySectionInfo, advancedRemixGroupInfo }) {
   const [copiedLabel, setCopiedLabel] = useState('');
   const [expanded, setExpanded] = useState(false);
   const [lockedSummaryKeys, setLockedSummaryKeys] = useState([]);
+  const summarySections = Object.entries(summarySectionInfo);
+  const lockedSectionDetails = lockedSummaryKeys.map((key) => summarySectionInfo[key]).filter(Boolean);
+  const quickPresetDetails = QUICK_REMIX_PRESETS.map((preset) => ({
+    ...preset,
+    info: advancedRemixGroupInfo[preset.key] || summarySectionInfo[preset.key],
+  })).filter((preset) => preset.info);
 
   const handleCopy = async (label, text) => {
     try {
@@ -103,8 +107,24 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
 
       <section className="summary-panel">
         <div className="summary-panel-header">摘要</div>
+        <div className="quick-remix-panel">
+          <div className="summary-insight-title">快速保留</div>
+          <div className="quick-remix-grid">
+            {quickPresetDetails.map((preset) => (
+              <button
+                key={preset.key}
+                type="button"
+                className="quick-remix-btn"
+                title={`直接 remix，保留${preset.info.lockLabels.join('、')}`}
+                onClick={() => onRemix(data, [preset.key])}
+              >
+                {preset.label}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="summary-grid">
-          {SUMMARY_LABELS.map(([key, label]) => (
+          {summarySections.map(([key, section]) => (
             <div key={key} className="summary-row">
               <button
                 type="button"
@@ -112,12 +132,32 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix }) {
                 onClick={() => toggleSummaryLock(key)}
                 title="Click to lock this section during random remix"
               >
-                {label}
+                {section.label}
               </button>
               <div className="summary-row-value">{data.summaryFields?.[key] || '-'}</div>
             </div>
           ))}
         </div>
+        {lockedSectionDetails.length > 0 ? (
+          <div className="summary-insight-box">
+            <div className="summary-insight-title">本次 remix 將保留</div>
+            {lockedSectionDetails.map((section) => (
+              <div key={section.label} className="summary-insight-line">
+                <strong>{section.label}</strong>
+                <span>{section.lockLabels.join('、')}</span>
+              </div>
+            ))}
+          </div>
+        ) : null}
+        {data.remixMeta ? (
+          <div className="summary-insight-box summary-insight-box-muted">
+            <div className="summary-insight-title">上次 Remix 結果</div>
+            {data.remixMeta.locked?.length > 0 ? <div className="summary-insight-line"><strong>鎖定</strong><span>{data.remixMeta.locked.join('、')}</span></div> : null}
+            {data.remixMeta.kept?.length > 0 ? <div className="summary-insight-line"><strong>保留</strong><span>{data.remixMeta.kept.join('、')}</span></div> : null}
+            {data.remixMeta.changed?.length > 0 ? <div className="summary-insight-line"><strong>變更</strong><span>{data.remixMeta.changed.join('、')}</span></div> : null}
+            {data.remixMeta.adjusted?.length > 0 ? <div className="summary-insight-line summary-insight-warning"><strong>已鎖定但調整</strong><span>{data.remixMeta.adjusted.join('、')}</span></div> : null}
+          </div>
+        ) : null}
       </section>
 
       <section className="primary-action-row">

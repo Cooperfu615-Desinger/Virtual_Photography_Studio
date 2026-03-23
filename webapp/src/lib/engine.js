@@ -1545,8 +1545,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     const filtered = parts.filter((part) => part && part !== '-');
     return filtered.length > 0 ? filtered.join(' / ') : '-';
   };
-  const characterBits = character.slice(1).filter((item) => item && item.zh && !isNoneLikeItem(item)).slice(0, 3).map((item) => item.zh);
   const subjectLabel = context.subject.count === 2 ? '兩位性感驚豔的日系或韓系女性' : '一位性感驚豔的日系或韓系女性';
+  const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const styleLabel = context.style && !isNoneLikeItem(context.style) ? context.style.zh : '-';
   const locationLabel = context.location && !isNoneLikeItem(context.location) ? context.location.zh : '-';
@@ -1561,16 +1561,75 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     if (!preset) return '';
     return color?.zh ? `${color.zh}｜${preset.zh}` : preset.zh;
   };
+  const summarizeSingleCharacter = () => {
+    const hairSummary = joinSummaryParts(
+      characterSlots.hairstyle?.zh && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.zh : '',
+      characterSlots.hairColor?.zh && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.zh : ''
+    );
+
+    return joinSummaryParts(
+      subjectLabel,
+      characterSlots.bodyType?.zh && !isNoneLikeItem(characterSlots.bodyType) ? characterSlots.bodyType.zh : '',
+      characterSlots.facialFeatures?.zh && !isNoneLikeItem(characterSlots.facialFeatures) ? characterSlots.facialFeatures.zh : '',
+      hairSummary !== '-' ? hairSummary : '',
+      characterSlots.expression?.zh && !isNoneLikeItem(characterSlots.expression) ? characterSlots.expression.zh : '',
+      characterSlots.pose?.zh && !isNoneLikeItem(characterSlots.pose) ? characterSlots.pose.zh : ''
+    );
+  };
+  const summarizeDuoRole = (face, hair, color) => {
+    const hairSummary = joinSummaryParts(
+      hair?.zh && !isNoneLikeItem(hair) ? hair.zh : '',
+      color?.zh && !isNoneLikeItem(color) ? color.zh : ''
+    );
+    const summary = joinSummaryParts(
+      face?.zh && !isNoneLikeItem(face) ? face.zh : '',
+      hairSummary !== '-' ? hairSummary : ''
+    );
+    return summary === '-' ? '' : summary;
+  };
+  const summarizeWardrobe = () => {
+    if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
+      return [
+        formatPresetSummary(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor),
+        formatPresetSummary(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor),
+      ].filter(Boolean).join(' / ') || '-';
+    }
+
+    if (wardrobeSlots.outfitPreset) {
+      return formatPresetSummary(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor) || '-';
+    }
+
+    const topLabel = wardrobeSlots.top?.zh && !isNoneLikeItem(wardrobeSlots.top) ? wardrobeSlots.top.zh : '';
+    const bottomLabel = wardrobeSlots.pants?.zh && !isNoneLikeItem(wardrobeSlots.pants)
+      ? wardrobeSlots.pants.zh
+      : wardrobeSlots.skirt?.zh && !isNoneLikeItem(wardrobeSlots.skirt)
+        ? wardrobeSlots.skirt.zh
+        : '';
+    const shoeLabel = wardrobeSlots.shoes?.zh && !isNoneLikeItem(wardrobeSlots.shoes) ? wardrobeSlots.shoes.zh : '';
+    const outerwearLabel = wardrobeSlots.outerwear?.zh && !isNoneLikeItem(wardrobeSlots.outerwear) ? wardrobeSlots.outerwear.zh : '';
+    return joinSummaryParts(
+      topLabel,
+      bottomLabel,
+      outerwearLabel,
+      shoeLabel
+    );
+  };
 
   return {
     style: styleLabel,
-    character: characterBits.length > 0 ? `${subjectLabel}, ${characterBits.join(', ')}` : subjectLabel,
-    wardrobe: wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB
-      ? [
-          formatPresetSummary(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor),
-          formatPresetSummary(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor),
-        ].filter(Boolean).join(' / ')
-      : formatPresetSummary(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor) || wardrobe[0]?.zh || '-',
+    character: context.subject.count === 2
+      ? joinSummaryParts(
+          subjectLabel,
+          summarizeDuoRole(characterSlots.facialFeaturesA, characterSlots.hairstyleA, characterSlots.hairColorA)
+            ? `人物 1：${summarizeDuoRole(characterSlots.facialFeaturesA, characterSlots.hairstyleA, characterSlots.hairColorA)}`
+            : '',
+          summarizeDuoRole(characterSlots.facialFeaturesB, characterSlots.hairstyleB, characterSlots.hairColorB)
+            ? `人物 2：${summarizeDuoRole(characterSlots.facialFeaturesB, characterSlots.hairstyleB, characterSlots.hairColorB)}`
+            : '',
+          characterSlots.expression?.zh && !isNoneLikeItem(characterSlots.expression) ? characterSlots.expression.zh : ''
+        )
+      : summarizeSingleCharacter(),
+    wardrobe: summarizeWardrobe(),
     location: locationLabel,
     camera: joinSummaryParts(framingLabel, angleLabel, orbitLabel, lensLabel, aspectRatioLabel),
     lighting: context.styleDrivenCamera
