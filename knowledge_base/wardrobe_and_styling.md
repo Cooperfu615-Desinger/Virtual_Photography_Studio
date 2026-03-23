@@ -100,21 +100,21 @@
 | **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling` | 以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。 |
 | **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood` | 以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
-| **裙裝 (Skirts)** | 合身迷你裙 | `low-rise fitted mini skirt, clean tailored finish, sleek silhouette, exposed hip line` | 高頻實用短裙，並以低腰位置更直接強調腰胯比例，適合城市、寫真與時裝風格。 |
-| **裙裝 (Skirts)** | A 字短裙 | `low-rise a-line mini skirt, structured flare, balanced feminine silhouette, exposed hip line` | 腰部收合、裙擺自然展開的短裙版本，並以低腰位置更直接帶出 Y2K 與腰胯線條，實用且好搭配。 |
+| **裙裝 (Skirts)** | 合身迷你裙 | `fitted mini skirt, clean tailored finish, sleek silhouette` | 高頻實用短裙，線條乾淨俐落，適合城市、寫真與時裝風格。 |
+| **裙裝 (Skirts)** | A 字短裙 | `a-line mini skirt, structured flare, balanced feminine silhouette` | 腰部收合、裙擺自然展開的短裙版本，實用且好搭配。 |
 | **裙裝 (Skirts)** | A 字長裙 | `a-line maxi skirt, elongated flared silhouette, balanced feminine drape` | 保留 A 字展開輪廓但拉長裙長，整體更柔和也更成熟。 |
 | **裙裝 (Skirts)** | 絲質長裙 | `silk maxi skirt, fluid drape, soft reflective sheen` | 垂墜感強、適合法式慵懶與高級飯店場景。 |
-| **裙裝 (Skirts)** | 百褶短裙 | `low-rise pleated mini skirt, crisp folds, youthful styling, exposed hip line` | 學院感強，並以低腰位置讓腰胯線條更明顯，適合 JK、街頭與 Y2K 主題。 |
+| **裙裝 (Skirts)** | 百褶短裙 | `pleated mini skirt, crisp folds, youthful styling` | 學院感強，適合 JK、街頭與 Y2K 主題。 |
 | **裙裝 (Skirts)** | 百褶長裙 | `pleated maxi skirt, crisp vertical folds, elongated flowing silhouette` | 把百褶線條延伸到長裙輪廓，整體更優雅，也更適合成熟或文藝造型。 |
-| **裙裝 (Skirts)** | 不對稱層次百褶裙 | `low-rise asymmetric layered pleated skirt, punk details, uneven hem, exposed hip line` | 層次鮮明，並以低腰位置讓整體更偏 Y2K 與前衛造型。 |
-| **裙裝 (Skirts)** | 龐克格紋百褶裙 | `low-rise punk tartan pleated skirt, plaid pattern, silver buckle belt, safety pin and chain details, exposed hip line` | 格紋圖案明確，搭配銀扣皮帶、別針與鏈條點綴，並以低腰位置讓龐克辨識度更高。 |
-| **裙裝 (Skirts)** | 緊身亮面皮裙 | `low-rise glossy fitted leather mini skirt, high-shine texture, body-hugging silhouette, exposed hip line` | 反光感強烈，並以低腰位置更直接強調腰胯與臀線，適合夜景與邊緣時裝主題。 |
-| **裙裝 (Skirts)** | 包臀短裙 | `low-rise bodycon mini skirt, figure-hugging silhouette, sleek fitted finish, exposed hip line` | 最直接強調曲線的短裙，並以低腰位置讓腰胯比例更明顯，適合寫真、時裝與成熟感造型。 |
-| **裙裝 (Skirts)** | 荷葉短裙 | `low-rise ruffled mini skirt, playful layered hem, lively feminine movement, exposed hip line` | 裙擺更有律動與甜感，並以低腰位置增加年輕與 Y2K 氣質，適合活潑、甜系與年輕造型。 |
-| **裙裝 (Skirts)** | 牛仔短裙 | `low-rise denim mini skirt, structured casual texture, youthful street styling, exposed hip line` | 經典高頻單品，並以低腰位置讓街頭、日常與夏日畫面更有腰胯線條。 |
+| **裙裝 (Skirts)** | 不對稱層次百褶裙 | `asymmetric layered pleated skirt, punk details, uneven hem` | 層次鮮明，整體更偏 Y2K 與前衛造型。 |
+| **裙裝 (Skirts)** | 龐克格紋百褶裙 | `punk tartan pleated skirt, plaid pattern, silver buckle belt, safety pin and chain details` | 格紋圖案明確，搭配銀扣皮帶、別針與鏈條點綴，龐克辨識度很高。 |
+| **裙裝 (Skirts)** | 緊身亮面皮裙 | `glossy fitted leather mini skirt, high-shine texture, body-hugging silhouette` | 反光感強烈，適合夜景與邊緣時裝主題。 |
+| **裙裝 (Skirts)** | 包臀短裙 | `bodycon mini skirt, figure-hugging silhouette, sleek fitted finish` | 最直接強調曲線的短裙，適合寫真、時裝與成熟感造型。 |
+| **裙裝 (Skirts)** | 荷葉短裙 | `ruffled mini skirt, playful layered hem, lively feminine movement` | 裙擺更有律動與甜感，適合活潑、甜系與年輕造型。 |
+| **裙裝 (Skirts)** | 牛仔短裙 | `denim mini skirt, structured casual texture, youthful street styling` | 經典高頻單品，適合街頭、日常與夏日畫面。 |
 | **裙裝 (Skirts)** | 網紗長裙 | `mesh maxi skirt, sheer layered flow, dreamy airy texture` | 夢幻、時裝與飄逸感明顯，適合自然風與視覺層次。 |
 | **裙裝 (Skirts)** | 低腰長裙 | `low-rise maxi skirt, elongated hip line, belt detail, side zipper detail, urban y2k silhouette` | 低腰線搭配腰帶與側邊拉鏈細節，更強調臀線與腰線比例，適合都會、Y2K 與性感主題。 |
-| **裙裝 (Skirts)** | 緞面短裙 | `low-rise satin mini skirt, soft sheen, sleek sensual finish, exposed hip line` | 低調光澤感明顯，並以低腰位置更直接強調腰胯比例，適合飯店、寫真與成熟感風格。 |
+| **裙裝 (Skirts)** | 緞面短裙 | `satin mini skirt, soft sheen, sleek sensual finish` | 低調光澤感明顯，適合飯店、寫真與成熟感風格。 |
 | **裙裝 (Skirts)** | 開衩長裙 | `slit maxi skirt, leg-revealing elegant cut, fluid elongated silhouette` | 成熟、性感且有流動感，適合時裝、晚間與高級場景。 |
 | **裙裝 (Skirts)** | 圍裹裙 | `wrap skirt, overlapping front panel, adjustable waist tie, fluid asymmetrical drape` | 以包裹式前片與腰部綁結為特色，輪廓自然且帶有輕鬆流動感。 |
 | **裙裝 (Skirts)** | 打摺褲裙 | `pleated culotte skirt, wide split silhouette, structured folds, skirt-like volume` | 褲裙結合了裙裝外觀與褲裝結構，帶有寬鬆份量感與更高的活動性。 |
