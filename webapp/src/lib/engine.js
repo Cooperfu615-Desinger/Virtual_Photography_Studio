@@ -1280,11 +1280,20 @@ function buildCharacter(context, catalog) {
   };
 
   const pickCategory = (categoryKey, locks, customPredicate = () => true, picker = sample, respectVisibility = true) => {
-    const candidates = getByKey(catalog.character, categoryKey).filter(
+    const categoryItems = getByKey(catalog.character, categoryKey);
+    const lockedId = locks?.[lockKeyByCategory[categoryKey]];
+    const lockedItem = lockedId ? findById(categoryItems, lockedId) : null;
+
+    if (lockedItem && customPredicate(lockedItem)) {
+      if (lockedItem.meta.archetype && !lockedArchetype) lockedArchetype = lockedItem.meta.archetype;
+      character.push(lockedItem);
+      return lockedItem;
+    }
+
+    const candidates = categoryItems.filter(
       (item) => (!respectVisibility || detailAllowed(item, context.framing)) && customPredicate(item)
     );
     if (candidates.length === 0) return null;
-    const lockedId = locks?.[lockKeyByCategory[categoryKey]];
     const picked = lockedId ? findById(candidates, lockedId) || picker(candidates) : picker(candidates);
     if (picked.meta.archetype && !lockedArchetype) lockedArchetype = picked.meta.archetype;
     character.push(picked);
@@ -1309,13 +1318,14 @@ function buildCharacter(context, catalog) {
   });
 
   const pickDistinctForRole = (categoryKey, role, lockedId, currentItems = [], picker = sample, predicate = () => true) => {
-    const candidates = getByKey(catalog.character, categoryKey).filter(
+    const categoryItems = getByKey(catalog.character, categoryKey);
+    const locked = lockedId ? findById(categoryItems, lockedId) : null;
+    if (locked && predicate(locked)) return cloneCharacterRole(locked, role);
+
+    const candidates = categoryItems.filter(
       (item) => detailAllowed(item, context.framing) && predicate(item)
     );
     if (candidates.length === 0) return null;
-
-    const locked = lockedId ? findById(candidates, lockedId) : null;
-      if (locked) return cloneCharacterRole(locked, role);
 
     const usedIds = new Set(currentItems.map((item) => item?.id?.split(':')[0]).filter(Boolean));
     const distinct = candidates.filter((item) => !usedIds.has(item.id));
@@ -1325,28 +1335,31 @@ function buildCharacter(context, catalog) {
 
   pickCategory('體態 (Body Type)', context.locks, () => true, sample, false);
 
-  if (context.subject.count === 1 && visibilityAtLeast(visibility, 'medium')) {
+  if (context.subject.count === 1 && (visibilityAtLeast(visibility, 'medium') || context.locks?.facialFeaturesId)) {
     pickCategory('五官特徵 (Facial Features)', context.locks, (item) => !lockedArchetype || !item.meta.archetype || item.meta.archetype === lockedArchetype);
-    if (context.locks?.skinDetailsId || Math.random() < 0.55) pickCategory('膚質特徵 (Skin Details)', context.locks);
   }
 
-  if (context.subject.count === 2 && visibilityAtLeast(visibility, 'medium')) {
+  if (context.subject.count === 1 && (context.locks?.skinDetailsId || (visibilityAtLeast(visibility, 'medium') && Math.random() < 0.55))) {
+    pickCategory('膚質特徵 (Skin Details)', context.locks);
+  }
+
+  if (context.subject.count === 2 && (visibilityAtLeast(visibility, 'medium') || context.locks?.facialFeaturesAId || context.locks?.facialFeaturesBId)) {
     const faceA = pickDistinctForRole('五官特徵 (Facial Features)', 'a', context.locks?.facialFeaturesAId, [], sample);
     const faceB = pickDistinctForRole('五官特徵 (Facial Features)', 'b', context.locks?.facialFeaturesBId, [faceA], sample);
     if (faceA) character.push(faceA);
     if (faceB) character.push(faceB);
   }
 
-  if (context.subject.count === 2 && visibilityAtLeast(visibility, 'portrait') && (context.locks?.skinDetailsId || Math.random() < 0.45)) {
+  if (context.subject.count === 2 && (context.locks?.skinDetailsId || (visibilityAtLeast(visibility, 'portrait') && Math.random() < 0.45))) {
     pickCategory('膚質特徵 (Skin Details)', context.locks);
   }
 
-  if (visibilityAtLeast(visibility, 'medium') && context.subject.count === 1) {
+  if (context.subject.count === 1 && (visibilityAtLeast(visibility, 'medium') || context.locks?.hairstyleId || context.locks?.hairColorId)) {
     pickCategory('髮型 (Hairstyle)', context.locks);
     pickCategory('髮色 (Hair Color)', context.locks, () => true, pickHairColor);
   }
 
-  if (visibilityAtLeast(visibility, 'medium') && context.subject.count === 2) {
+  if (context.subject.count === 2 && (visibilityAtLeast(visibility, 'medium') || context.locks?.hairstyleAId || context.locks?.hairstyleBId || context.locks?.hairColorAId || context.locks?.hairColorBId)) {
     const hairA = pickDistinctForRole('髮型 (Hairstyle)', 'a', context.locks?.hairstyleAId, [], sample);
     const hairB = pickDistinctForRole('髮型 (Hairstyle)', 'b', context.locks?.hairstyleBId, [hairA], sample);
     if (hairA) character.push(hairA);
@@ -1362,7 +1375,9 @@ function buildCharacter(context, catalog) {
 
   if (context.subject.count > 1) return character;
 
-  if (visibilityAtLeast(visibility, 'full')) {
+  if (context.locks?.poseId) {
+    pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, () => true, sample, false);
+  } else if (visibilityAtLeast(visibility, 'full')) {
     pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks);
   } else if (!expression) {
     pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, (item) => detailAllowed(item, context.framing));
