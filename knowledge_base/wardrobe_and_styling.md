@@ -72,7 +72,7 @@
 | **上身 (Tops)** | 比基尼 | `bikini top, swimwear styling, minimal coverage silhouette` | 直接作為泳裝上身使用，適合海邊、泳池與度假感畫面。 |
 | **上身 (Tops)** | 蕾絲胸罩 | `lace bra, lingerie styling, delicate fitted support` | 蕾絲質地明顯，偏內衣與私密寫真風格。 |
 | **上身 (Tops)** | 運動型內衣 | `sports bra, athletic support top, streamlined active silhouette` | 緊貼身體、運動感明確，適合活力、街頭與健身風格。 |
-| **上身 (Tops)** | 蕾絲緊身睡衣 | `fitted lace nightdress, body-skimming sleepwear, delicate texture` | 貼身的睡衣輪廓，兼具柔軟與親密感。 |
+| **上身 (Tops)** | 蕾絲緊身睡衣 | `fitted lace nightdress, delicate floral lace panels, scalloped lace trim, satin ribbon accents, refined sleepwear detailing` | 以細緻花卉蕾絲拼接、波浪蕾絲滾邊與緞帶收邊為重點的睡衣款式，整體更偏精緻布料與裝飾細節，而不是強調身體曲線。 |
 | **上身 (Tops)** | 蕾絲寬鬆睡衣 | `loose lace sleepwear, relaxed nightdress silhouette, soft drape` | 較鬆身的睡衣輪廓，氣質更慵懶也更生活化。 |
 | **上身 (Tops)** | 波西米亞風上衣 | `bohemian draped blouse, soft crinkled gauze or washed rayon fabric, deep relaxed neckline, untucked loose hem worn outside the bottoms, softly layered sleeves, earth-tone patchwork and folk-woven patterns, artisanal trim and relaxed resort styling` | 更貼近異國咖啡館與度假人文感的波西米亞上衣，強調鬆垮垂墜的領口、土色系拼接與民俗織紋、柔軟皺感布料與披罩式袖型，整體更成熟、鬆弛也更有飾品疊搭空間。 |
 | **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
@@ -81,7 +81,7 @@
 | **褲裝 (Pants)** | 牛仔熱褲 | `denim hot pants, short fitted shorts, casual summer styling` | 短版且貼腿，偏夏日、街頭與 Y2K 方向。 |
 | **褲裝 (Pants)** | 真理褲 | `micro athletic shorts, ultra-short sporty bottoms, casual fitted silhouette` | 超短運動感褲型，重點在腿部線條與青春活力。 |
 | **褲裝 (Pants)** | 蕾絲內褲 | `low-rise lace panties, lingerie bottoms, delicate intimate styling, exposed hip line` | 以低腰位置貼合臀線與胯部，偏內衣與私密寫真風格，強調蕾絲質地與貼身感。 |
-| **褲裝 (Pants)** | 蕾絲丁字褲 | `low-rise lace thong bottoms, minimal lingerie styling, intimate silhouette, exposed hip line` | 覆蓋面積更少，並以低腰位置更明確露出胯線，風格明顯偏私密與寫真導向。 |
+| **褲裝 (Pants)** | 蕾絲丁字褲 | `lace thong bottoms, delicate floral lace pattern, satin bow accent, scalloped trim, refined lingerie detailing` | 以花卉蕾絲紋樣、細緻波浪邊與小型緞帶點綴為主的內著設計，重點放在材質與裝飾語言，避免把畫面導向裸露或強調身體比例。 |
 | **褲裝 (Pants)** | 亮面緊身皮短褲 | `low-rise glossy fitted leather shorts, sleek tight silhouette, exposed hip line, fetish edge` | 帶有高反光與強勢感，並以低腰位置更直接強調臀線與腰胯比例，適合夜景與邊緣時裝主題。 |
 | **褲裝 (Pants)** | 工裝長褲 | `cargo pants, structured utility silhouette, practical pocket detailing` | 工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。 |
 | **褲裝 (Pants)** | 西裝長褲 | `tailored trousers, sharp clean lines, polished formal drape` | 都會、正式與俐落感很強，適合極簡與成熟造型。 |
@@ -131,7 +131,7 @@
 | **襪類 (Legwear)** | 半透明絲襪 | `semi-sheer pantyhose, translucent legwear, sleek finish` | 比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。 |
 | **襪類 (Legwear)** | 蕾絲大腿絲襪 | `lace-top thigh-high stockings, sensual legwear, fitted silhouette` | 帶寫真與性感氛圍，適合內衣或飯店場景。 |
 | **襪類 (Legwear)** | 漁網絲襪 | `fishnet tights, open net texture, edgy styling` | 強化龐克、地下與夜晚街頭氣質。 |
-| **襪類 (Legwear)** | 膝上蕾絲吊帶襪 | `lace garter stockings, over-knee fitted legwear, sensual suspended styling` | 蕾絲吊帶襪帶有強烈寫真與性感氣質，適合內衣、飯店與成熟時裝主題。 |
+| **襪類 (Legwear)** | 膝上蕾絲吊帶襪 | `lace garter stockings, floral lace top band, satin ribbon garter details, delicate sheer texture, refined lingerie accessory styling` | 重點在蕾絲襪口、吊帶結構、緞帶細節與半透明材質層次，作為完整造型中的精緻配件使用，而不是強調腿部線條本身。 |
 | **襪類 (Legwear)** | 柔和過膝絲襪 | `over-knee stockings, smooth fitted legwear, soft youthful styling` | 過膝絲襪帶有柔和甜感，適合 JK、Lolita 與寫真風格。 |
 | **襪類 (Legwear)** | 俐落過膝絲襪 | `over-knee stockings, fitted legwear, sleek dramatic styling` | 過膝絲襪輪廓更俐落、存在感更強，適合夜拍、時裝與制服變體。 |
 | **襪類 (Legwear)** | 羅紋短襪 | `ribbed ankle socks, casual everyday styling, soft cotton texture` | 偏日常、可愛、生活感強。 |
