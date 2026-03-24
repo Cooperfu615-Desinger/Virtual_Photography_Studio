@@ -473,6 +473,33 @@
         "desc": "更貼近異國咖啡館與度假人文感的波西米亞上衣，強調鬆垮垂墜的領口、土色系拼接與民俗織紋、柔軟皺感布料與披罩式袖型，整體更成熟、鬆弛也更有飾品疊搭空間。"
       }
     ],
+    "上身圖案 (Top Surface Design)": [
+      {
+        "zh": "全無",
+        "en": "no added top pattern, clean solid-color surface styling",
+        "desc": "不額外加入上身表面圖案，保留單色與乾淨版型表現。"
+      },
+      {
+        "zh": "細橫條紋",
+        "en": "fine horizontal stripe pattern, neat repeating stripe spacing, graphic casual surface detail",
+        "desc": "以細密橫向條紋增加日常感與辨識度，適合基本款上衣。"
+      },
+      {
+        "zh": "細直條紋",
+        "en": "fine vertical stripe pattern, narrow linear rhythm, clean graphic surface detail",
+        "desc": "以細緻直條紋帶出俐落感，適合襯衫與簡潔上身單品。"
+      },
+      {
+        "zh": "龐克塗鴉印花",
+        "en": "punk graffiti print, rough hand-drawn markings, rebellious graphic surface detail",
+        "desc": "加入帶手繪感的叛逆塗鴉與粗獷圖形，適合街頭或龐克感造型。"
+      },
+      {
+        "zh": "卡通塗鴉印花",
+        "en": "cartoon doodle print, playful illustrated motifs, colorful graphic surface detail",
+        "desc": "以俏皮卡通塗鴉與插畫感圖案增加青春與 playful 視覺重點。"
+      }
+    ],
     "褲裝 (Pants)": [
       {
         "zh": "全無",
