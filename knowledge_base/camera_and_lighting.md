@@ -111,5 +111,4 @@
 | **光學效果 (Optical Effects)** | 暗角 Vignette | `subtle vignette, darker frame edges, center-weighted emphasis, cinematic tonal focus` | 畫面四周略暗，能集中視線並增加電影感與復古感。 |
 | **光學效果 (Optical Effects)** | 色差 Chromatic Aberration | `chromatic aberration, subtle RGB edge fringing, optical color separation, digital-imperfect lens character` | 物體邊緣出現輕微分色，適合數位實驗感、低保真、故障美學或偏前衛畫面。 |
 | **光學效果 (Optical Effects)** | 邊緣模糊 | `soft edge blur, center sharpness with peripheral softness, vintage lens imperfection, dreamy frame falloff` | 中心較清楚、四周較鬆，模擬老鏡或特殊鏡頭的周邊解析下降，讓畫面更柔更有氣氛。 |
-| **光學效果 (Optical Effects)** | 星芒高光 | `starburst highlights, diffraction spikes around point lights, sparkling night optics, crisp luminous points` | 夜景點光源形成星芒，適合珠寶、城市夜景、節慶燈飾與華麗亮點。 |
 | **光學效果 (Optical Effects)** | 光學朦朧薄霧 | `optical haze, atmospheric lens mist, veiled contrast, airy cinematic softness` | 畫面像隔著一層淡霧，對比更柔和，適合清晨、夢境、回憶感與安靜敘事。 |
