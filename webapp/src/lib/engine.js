@@ -949,6 +949,7 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'expressionId') options = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
       if (definition.key === 'poseId') options = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
       if (definition.key === 'topId') options = getByKey(catalog.wardrobe, '上身 (Tops)');
+      if (definition.key === 'topPatternId') options = getByKey(catalog.wardrobe, '上身圖案 (Top Surface Design)');
       if (definition.key === 'pantsId') options = getByKey(catalog.wardrobe, '褲裝 (Pants)');
       if (definition.key === 'skirtId') options = getByKey(catalog.wardrobe, '裙裝 (Skirts)');
       if (definition.key === 'legwearId') options = getByKey(catalog.wardrobe, '襪類 (Legwear)');
