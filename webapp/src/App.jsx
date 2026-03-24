@@ -271,6 +271,7 @@ function buildRemixMeta(previousPrompt, nextPrompt, lockedSections) {
   const kept = [];
   const changed = [];
   const adjusted = [];
+  const sectionStates = {};
 
   Object.entries(SUMMARY_SECTION_INFO).forEach(([sectionKey, section]) => {
     const isLocked = lockedSections.includes(sectionKey);
@@ -279,6 +280,10 @@ function buildRemixMeta(previousPrompt, nextPrompt, lockedSections) {
     if (isLocked && isSame) kept.push(section.label);
     if (isLocked && !isSame) adjusted.push(section.label);
     if (!isLocked && !isSame) changed.push(section.label);
+
+    sectionStates[sectionKey] = isLocked
+      ? (isSame ? 'kept' : 'adjusted')
+      : (isSame ? 'unchanged' : 'changed');
   });
 
   return {
@@ -286,6 +291,10 @@ function buildRemixMeta(previousPrompt, nextPrompt, lockedSections) {
     kept,
     changed,
     adjusted,
+    sectionStates,
+    previousSummaryFields: previousPrompt.summaryFields || {},
+    nextSummaryFields: nextPrompt.summaryFields || {},
+    sourceShortId: toShortPromptId(previousPrompt.id),
   };
 }
 

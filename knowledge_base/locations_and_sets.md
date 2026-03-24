@@ -9,6 +9,12 @@
 | **攝影棚與背景 (Studio Sets)** | 室內：純潔白幕 | `infinite white background, seamless paper roll, isolated subject, commercial white` | 商業感極強，人物彷彿漂浮在純白無垠空間中。 |
 | **攝影棚與背景 (Studio Sets)** | 室內：深邃黑幕 | `pitch black background, pure dark void, zero ambient light, dramatic isolation` | 絕對黑暗，能將所有注意力集中在被光照到的主體上。 |
 | **攝影棚與背景 (Studio Sets)** | 室內：莫蘭迪灰背景 | `medium grey seamless backdrop, neutral tone, subtle texture, clean studio setting` | 最不會干擾膚色的中性灰背景，穩定且高級。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純藍背景 | `solid blue seamless backdrop, clean studio isolation, saturated color field, crisp commercial studio mood` | 飽和藍色背景乾淨直接，適合流行感、科技感與高辨識度棚拍企劃。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純橘背景 | `solid orange seamless backdrop, vivid warm color field, clean isolated subject, energetic studio mood` | 明亮橘色背景帶有活力與社群感，適合流行、企劃與高飽和人像。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純紅背景 | `solid red seamless backdrop, bold saturated studio background, dramatic isolated subject, striking editorial impact` | 高飽和紅色背景張力很強，適合封面感、戲劇化與高存在感人像。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純黃背景 | `solid yellow seamless backdrop, bright saturated color field, playful clean studio isolation, pop editorial mood` | 亮黃色背景辨識度高，適合青春、普普、Y2K 與社群感企劃。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純紫背景 | `solid purple seamless backdrop, saturated studio color field, stylish isolated subject, moody pop-fashion atmosphere` | 紫色背景兼具流行感與戲劇性，適合時裝、概念感與夜色調企劃。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純綠背景 | `solid green seamless backdrop, vivid studio color field, clean isolated subject, fresh graphic pop mood` | 綠色背景帶有清新又強烈的圖像感，適合流行、實驗感與高對比人像。 |
 | **攝影棚與背景 (Studio Sets)** | 室內：鮮豔撞色背景 | `vibrant solid color backdrop, bold color contrast, pop-art studio mood, clean isolated subject` | 高飽和單色背景，適合社群感、Y2K、普普與流行企劃。 |
 | **攝影棚與背景 (Studio Sets)** | 室內：漸層打光背景 | `gradient-lit backdrop, subtle halo glow behind the subject, soft studio falloff, cover-shoot atmosphere` | 利用燈光打出背景漸層光斑，能提升人物立體感與封面感。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：精品飯店房間 | `boutique hotel room, warm bedside lamps, crisp bedding, elegant interior details, editorial travel mood` | 高級但不過度奢華的飯店房間，適合寫真、時裝與成熟人像。 |

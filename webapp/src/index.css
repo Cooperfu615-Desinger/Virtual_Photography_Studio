@@ -613,6 +613,18 @@ button:disabled {
   align-items: start;
 }
 
+.summary-row-content {
+  display: grid;
+  gap: 6px;
+}
+
+.summary-row-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+}
+
 .summary-row-label {
   appearance: none;
   background: #f1e8d9;
@@ -648,6 +660,48 @@ button:disabled {
   color: var(--text-primary);
   font-size: var(--card-body-size);
   line-height: 1.45;
+  flex: 1;
+}
+
+.summary-row-badge {
+  font-size: 0.73rem;
+  line-height: 1;
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-weight: 700;
+}
+
+.summary-row-badge-kept {
+  background: rgba(118, 167, 112, 0.14);
+  color: #4f7a47;
+}
+
+.summary-row-badge-changed {
+  background: rgba(78, 112, 158, 0.12);
+  color: #466c95;
+}
+
+.summary-row-badge-adjusted {
+  background: rgba(232, 140, 79, 0.14);
+  color: var(--accent);
+}
+
+.summary-row-previous {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+.summary-row-kept .summary-row-value {
+  color: #355734;
+}
+
+.summary-row-changed .summary-row-value {
+  color: #2f557c;
+}
+
+.summary-row-adjusted .summary-row-value {
+  color: #7b4b22;
 }
 
 .summary-insight-box {

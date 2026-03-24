@@ -143,7 +143,7 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix, summ
         </div>
         <div className="summary-grid">
           {summarySections.map(([key, section]) => (
-            <div key={key} className="summary-row">
+            <div key={key} className={`summary-row ${data.remixMeta?.sectionStates?.[key] ? `summary-row-${data.remixMeta.sectionStates[key]}` : ''}`}>
               <button
                 type="button"
                 className={`summary-row-label summary-lock-btn ${lockedSummaryKeys.includes(key) ? 'summary-lock-active' : ''}`}
@@ -152,7 +152,21 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix, summ
               >
                 {section.label}
               </button>
-              <div className="summary-row-value">{data.summaryFields?.[key] || '-'}</div>
+              <div className="summary-row-content">
+                <div className="summary-row-main">
+                  <div className="summary-row-value">{data.summaryFields?.[key] || '-'}</div>
+                  {data.remixMeta?.sectionStates?.[key] && data.remixMeta.sectionStates[key] !== 'unchanged' ? (
+                    <span className={`summary-row-badge summary-row-badge-${data.remixMeta.sectionStates[key]}`}>
+                      {data.remixMeta.sectionStates[key] === 'kept' ? '保留' : data.remixMeta.sectionStates[key] === 'changed' ? '變更' : '調整'}
+                    </span>
+                  ) : null}
+                </div>
+                {['changed', 'adjusted'].includes(data.remixMeta?.sectionStates?.[key]) ? (
+                  <div className="summary-row-previous">
+                    前一版：{data.remixMeta?.previousSummaryFields?.[key] || '-'}
+                  </div>
+                ) : null}
+              </div>
             </div>
           ))}
         </div>
@@ -170,6 +184,7 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix, summ
         {data.remixMeta ? (
           <div className="summary-insight-box summary-insight-box-muted">
             <div className="summary-insight-title">上次 Remix 結果</div>
+            <div className="summary-insight-line"><strong>來源</strong><span>{data.remixMeta.sourceShortId}</span></div>
             {data.remixMeta.locked?.length > 0 ? <div className="summary-insight-line"><strong>鎖定</strong><span>{data.remixMeta.locked.join('、')}</span></div> : null}
             {data.remixMeta.kept?.length > 0 ? <div className="summary-insight-line"><strong>保留</strong><span>{data.remixMeta.kept.join('、')}</span></div> : null}
             {data.remixMeta.changed?.length > 0 ? <div className="summary-insight-line"><strong>變更</strong><span>{data.remixMeta.changed.join('、')}</span></div> : null}

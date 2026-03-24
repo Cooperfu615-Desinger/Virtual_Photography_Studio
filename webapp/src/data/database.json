@@ -1702,6 +1702,36 @@
         "desc": "最不會干擾膚色的中性灰背景，穩定且高級。"
       },
       {
+        "zh": "室內：純藍背景",
+        "en": "solid blue seamless backdrop, clean studio isolation, saturated color field, crisp commercial studio mood",
+        "desc": "飽和藍色背景乾淨直接，適合流行感、科技感與高辨識度棚拍企劃。"
+      },
+      {
+        "zh": "室內：純橘背景",
+        "en": "solid orange seamless backdrop, vivid warm color field, clean isolated subject, energetic studio mood",
+        "desc": "明亮橘色背景帶有活力與社群感，適合流行、企劃與高飽和人像。"
+      },
+      {
+        "zh": "室內：純紅背景",
+        "en": "solid red seamless backdrop, bold saturated studio background, dramatic isolated subject, striking editorial impact",
+        "desc": "高飽和紅色背景張力很強，適合封面感、戲劇化與高存在感人像。"
+      },
+      {
+        "zh": "室內：純黃背景",
+        "en": "solid yellow seamless backdrop, bright saturated color field, playful clean studio isolation, pop editorial mood",
+        "desc": "亮黃色背景辨識度高，適合青春、普普、Y2K 與社群感企劃。"
+      },
+      {
+        "zh": "室內：純紫背景",
+        "en": "solid purple seamless backdrop, saturated studio color field, stylish isolated subject, moody pop-fashion atmosphere",
+        "desc": "紫色背景兼具流行感與戲劇性，適合時裝、概念感與夜色調企劃。"
+      },
+      {
+        "zh": "室內：純綠背景",
+        "en": "solid green seamless backdrop, vivid studio color field, clean isolated subject, fresh graphic pop mood",
+        "desc": "綠色背景帶有清新又強烈的圖像感，適合流行、實驗感與高對比人像。"
+      },
+      {
         "zh": "室內：鮮豔撞色背景",
         "en": "vibrant solid color backdrop, bold color contrast, pop-art studio mood, clean isolated subject",
         "desc": "高飽和單色背景，適合社群感、Y2K、普普與流行企劃。"
