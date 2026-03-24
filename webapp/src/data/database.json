@@ -480,24 +480,39 @@
         "desc": "不額外加入上身表面圖案，保留單色與乾淨版型表現。"
       },
       {
-        "zh": "細橫條紋",
-        "en": "fine horizontal stripe pattern, neat repeating stripe spacing, graphic casual surface detail",
-        "desc": "以細密橫向條紋增加日常感與辨識度，適合基本款上衣。"
+        "zh": "粗橫條紋",
+        "en": "bold horizontal stripe top, clearly defined stripe bands across the torso, strong Breton-style graphic rhythm",
+        "desc": "以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。"
       },
       {
         "zh": "細直條紋",
-        "en": "fine vertical stripe pattern, narrow linear rhythm, clean graphic surface detail",
-        "desc": "以細緻直條紋帶出俐落感，適合襯衫與簡潔上身單品。"
+        "en": "clear vertical stripe pattern from shoulder to hem, narrow repeated stripe lines, crisp linear surface rhythm",
+        "desc": "以肩線延伸到衣襬的清楚直條紋為重點，條紋方向明確，整體更俐落也更像真正的直條紋服裝。"
       },
       {
-        "zh": "龐克塗鴉印花",
-        "en": "punk graffiti print, rough hand-drawn markings, rebellious graphic surface detail",
-        "desc": "加入帶手繪感的叛逆塗鴉與粗獷圖形，適合街頭或龐克感造型。"
+        "zh": "胸前龐克塗鴉印花",
+        "en": "large punk graffiti chest graphic, single bold front print, rebellious hand-drawn artwork centered on the chest",
+        "desc": "以胸前大面積單張龐克塗鴉圖像為主，像樂團 T 或街頭圖像 Tee 的正面主視覺。"
       },
       {
-        "zh": "卡通塗鴉印花",
-        "en": "cartoon doodle print, playful illustrated motifs, colorful graphic surface detail",
-        "desc": "以俏皮卡通塗鴉與插畫感圖案增加青春與 playful 視覺重點。"
+        "zh": "滿版龐克塗鴉印花",
+        "en": "all-over punk graffiti print, rebellious hand-drawn markings covering the entire garment, dense graphic streetwear surface",
+        "desc": "以整件上衣都被龐克塗鴉圖樣覆蓋的滿版印花為重點，整體更街頭也更張揚。"
+      },
+      {
+        "zh": "胸前卡通塗鴉印花",
+        "en": "large cartoon doodle chest graphic, single playful illustrated front print, bold character artwork centered on the chest",
+        "desc": "以胸前大面積單張卡通塗鴉圖像為主，重點像插畫 Tee 或角色圖像 T 的正面主視覺。"
+      },
+      {
+        "zh": "滿版卡通塗鴉印花",
+        "en": "all-over cartoon doodle print, playful illustrated motifs covering the entire garment, colorful graphic casual surface",
+        "desc": "以卡通塗鴉與插畫感圖樣鋪滿整件衣服，整體更活潑、年輕、視覺密度更高。"
+      },
+      {
+        "zh": "胸前復古標語印花",
+        "en": "large vintage slogan chest print, single centered typographic graphic, retro casual t-shirt styling",
+        "desc": "以胸前單張復古字樣或標語圖像為主，適合做比較日常、好生成的 graphic tee 路線。"
       }
     ],
     "褲裝 (Pants)": [

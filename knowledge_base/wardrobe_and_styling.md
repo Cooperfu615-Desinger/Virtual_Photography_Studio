@@ -76,10 +76,13 @@
 | **上身 (Tops)** | 蕾絲寬鬆睡衣 | `loose lace sleepwear, relaxed nightdress silhouette, soft drape` | 較鬆身的睡衣輪廓，氣質更慵懶也更生活化。 |
 | **上身 (Tops)** | 波西米亞風上衣 | `bohemian draped blouse, soft crinkled gauze or washed rayon fabric, deep relaxed neckline, untucked loose hem worn outside the bottoms, softly layered sleeves, earth-tone patchwork and folk-woven patterns, artisanal trim and relaxed resort styling` | 更貼近異國咖啡館與度假人文感的波西米亞上衣，強調鬆垮垂墜的領口、土色系拼接與民俗織紋、柔軟皺感布料與披罩式袖型，整體更成熟、鬆弛也更有飾品疊搭空間。 |
 | **上身圖案 (Top Surface Design)** | 全無 | `no added top pattern, clean solid-color surface styling` | 不額外加入上身表面圖案，保留單色與乾淨版型表現。 |
-| **上身圖案 (Top Surface Design)** | 細橫條紋 | `fine horizontal stripe pattern, neat repeating stripe spacing, graphic casual surface detail` | 以細密橫向條紋增加日常感與辨識度，適合基本款上衣。 |
-| **上身圖案 (Top Surface Design)** | 細直條紋 | `fine vertical stripe pattern, narrow linear rhythm, clean graphic surface detail` | 以細緻直條紋帶出俐落感，適合襯衫與簡潔上身單品。 |
-| **上身圖案 (Top Surface Design)** | 龐克塗鴉印花 | `punk graffiti print, rough hand-drawn markings, rebellious graphic surface detail` | 加入帶手繪感的叛逆塗鴉與粗獷圖形，適合街頭或龐克感造型。 |
-| **上身圖案 (Top Surface Design)** | 卡通塗鴉印花 | `cartoon doodle print, playful illustrated motifs, colorful graphic surface detail` | 以俏皮卡通塗鴉與插畫感圖案增加青春與 playful 視覺重點。 |
+| **上身圖案 (Top Surface Design)** | 粗橫條紋 | `bold horizontal stripe top, clearly defined stripe bands across the torso, strong Breton-style graphic rhythm` | 以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。 |
+| **上身圖案 (Top Surface Design)** | 細直條紋 | `clear vertical stripe pattern from shoulder to hem, narrow repeated stripe lines, crisp linear surface rhythm` | 以肩線延伸到衣襬的清楚直條紋為重點，條紋方向明確，整體更俐落也更像真正的直條紋服裝。 |
+| **上身圖案 (Top Surface Design)** | 胸前龐克塗鴉印花 | `large punk graffiti chest graphic, single bold front print, rebellious hand-drawn artwork centered on the chest` | 以胸前大面積單張龐克塗鴉圖像為主，像樂團 T 或街頭圖像 Tee 的正面主視覺。 |
+| **上身圖案 (Top Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print, rebellious hand-drawn markings covering the entire garment, dense graphic streetwear surface` | 以整件上衣都被龐克塗鴉圖樣覆蓋的滿版印花為重點，整體更街頭也更張揚。 |
+| **上身圖案 (Top Surface Design)** | 胸前卡通塗鴉印花 | `large cartoon doodle chest graphic, single playful illustrated front print, bold character artwork centered on the chest` | 以胸前大面積單張卡通塗鴉圖像為主，重點像插畫 Tee 或角色圖像 T 的正面主視覺。 |
+| **上身圖案 (Top Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print, playful illustrated motifs covering the entire garment, colorful graphic casual surface` | 以卡通塗鴉與插畫感圖樣鋪滿整件衣服，整體更活潑、年輕、視覺密度更高。 |
+| **上身圖案 (Top Surface Design)** | 胸前復古標語印花 | `large vintage slogan chest print, single centered typographic graphic, retro casual t-shirt styling` | 以胸前單張復古字樣或標語圖像為主，適合做比較日常、好生成的 graphic tee 路線。 |
 | **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
 | **褲裝 (Pants)** | 高腰直筒牛仔褲 | `high-waisted straight-leg jeans, clean denim texture, everyday staple` | 最穩定的日常下身單品，適合城市、街拍與生活感畫面。 |
 | **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
