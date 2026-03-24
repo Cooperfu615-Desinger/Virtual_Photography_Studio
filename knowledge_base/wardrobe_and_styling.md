@@ -43,13 +43,13 @@
 | **上身 (Tops)** | 寬鬆襯衫 | `oversized boyfriend shirt, loose untucked button-up shirt, long relaxed sleeves, soft drape, casually hanging hem, effortless off-duty styling` | 呈現像女友直接套上男友襯衫的鬆大輪廓，衣襬自然放出不紮進下身，袖長偏長、版型寬鬆，帶有居家、親密與慵懶感。 |
 | **上身 (Tops)** | 緊身襯衫＋領帶（紮入下身） | `fitted shirt tucked neatly into the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, defined waistline` | 保留貼身襯衫的俐落感，並以紮入裙子或褲子的穿法讓腰線更清楚；領帶材質更柔軟、長度偏短，氣質更像整理過但不過度正式的制服變體。 |
 | **上身 (Tops)** | 緊身襯衫＋領帶（放出衣襬） | `fitted shirt worn untucked over the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, relaxed hemline` | 同樣保留貼身襯衫與短領帶的制服感，但衣襬自然放出，整體更慵懶、私服化，也更適合親密或鬆弛感畫面。 |
-| **上身 (Tops)** | 寬鬆落肩 T 恤（紮入下身） | `oversized dropped-shoulder t-shirt tucked into the bottoms, washed cotton jersey, relaxed fit, bloused casual volume, defined waistline` | 生活感很強的基本款，以紮入裙子或褲子的穿法保留寬鬆份量，同時把腰線與比例拉得更清楚，適合街頭、青春與日常隨拍風格。 |
-| **上身 (Tops)** | 寬鬆落肩 T 恤（放出衣襬） | `oversized dropped-shoulder t-shirt, untucked loose hem, washed cotton jersey, relaxed fit, casually draped over the waistline` | 生活感很強的基本款，衣襬自然放出、不紮進裙子或褲子裡，適合街頭、居家與青春隨拍風格。 |
+| **上身 (Tops)** | 寬鬆落肩 T 恤（紮入下身） | `oversized dropped-shoulder t-shirt tucked into the bottoms, washed cotton jersey, relaxed fit, visible bra straps at the slipped shoulder line, bloused casual volume, defined waistline` | 生活感很強的基本款，以紮入裙子或褲子的穿法保留寬鬆份量，並加入滑落肩線時可見的內衣肩帶細節，讓腰線與比例更清楚，適合街頭、青春與日常隨拍風格。 |
+| **上身 (Tops)** | 寬鬆落肩 T 恤（放出衣襬） | `oversized dropped-shoulder t-shirt, untucked loose hem, washed cotton jersey, relaxed fit, visible bra straps at the slipped shoulder line, casually draped over the waistline` | 生活感很強的基本款，衣襬自然放出、不紮進裙子或褲子裡，並加入滑落肩線時可見的內衣肩帶細節，適合街頭、居家與青春隨拍風格。 |
 | **上身 (Tops)** | 短版緊身露臍 T 恤 | `cropped fitted t-shirt, exposed waistline, close casual silhouette` | 最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。 |
 | **上身 (Tops)** | 短版針織露臍小可愛 | `cropped knit cami, fitted knit texture, exposed waist styling` | 帶有針織紋理與露腰輪廓，介於日常與輕性感之間，適合外穿疊搭。 |
 | **上身 (Tops)** | 短版蕾絲露臍小可愛 | `cropped lace cami, delicate lace texture, exposed waist styling` | 蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。 |
 | **上身 (Tops)** | 平口短版上衣 | `strapless cropped tube top, close-fitting stretch fabric, clean line` | 露出肩頸與腰線，適合 Y2K、夏日、派對與寫真主題。 |
-| **上身 (Tops)** | 一字領上衣 | `off-shoulder top, exposed collarbones, soft neckline silhouette` | 露出鎖骨與肩線，氣質成熟，適合寫真與女性化風格。 |
+| **上身 (Tops)** | 一字領上衣 | `off-shoulder top, soft neckline silhouette, visible bra straps along the shoulder line, refined layered styling detail` | 露出鎖骨與肩線，並加入可見內衣肩帶的層次細節，整體更像日常穿搭中的造型搭配，適合寫真與女性化風格。 |
 | **上身 (Tops)** | 削肩平口連身上衣 | `halter bandeau bodysuit-style top, clean bandeau neckline, smooth stretch fabric, structured upper panel, refined modern fashion detailing` | 以削肩平口結構、乾淨的上緣線條與彈性布料質感為主，重點放在現代化剪裁與上身結構，而不是強調身體輪廓。 |
 | **上身 (Tops)** | 絲綢緞面襯衫（紮入下身） | `silk satin blouse tucked into the bottoms, luminous satin sheen, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details, defined waistline` | 女式襯衫以紮入裙子或褲子的穿法呈現，保留柔軟飄逸的長袖與帶光澤的緞面質地，也讓整體更高級、俐落且成熟。 |
 | **上身 (Tops)** | 絲綢緞面襯衫（放出衣襬） | `silk satin blouse worn untucked over the bottoms, luminous satin sheen, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details, flowing relaxed hemline` | 女式襯衫保留柔軟飄逸的長袖、蕾絲袖口與荷葉邊，但衣襬自然放出，整體更慵懶、私密，也更適合法式或飯店感畫面。 |
