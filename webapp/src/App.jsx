@@ -298,6 +298,24 @@ function buildRemixMeta(previousPrompt, nextPrompt, lockedSections) {
   };
 }
 
+function buildAllNoneLocks(controls, currentLocks) {
+  const nextLocks = createEmptyLocks();
+  nextLocks.subjectCount = currentLocks.subjectCount || nextLocks.subjectCount;
+  nextLocks.aspectRatio = currentLocks.aspectRatio || nextLocks.aspectRatio;
+
+  controls.forEach((control) => {
+    if (['subjectCount', 'aspectRatio'].includes(control.key)) return;
+    const noneOption = control.options?.find((option) => option.zh === '全無');
+    if (noneOption) {
+      nextLocks[control.key] = noneOption.id;
+      return;
+    }
+    nextLocks[control.key] = Array.isArray(nextLocks[control.key]) ? [] : '';
+  });
+
+  return nextLocks;
+}
+
 function loadJsonStorage(key, fallback) {
   if (typeof window === 'undefined') return fallback;
   try {
@@ -665,8 +683,11 @@ export default function App() {
               <button className="secondary danger" onClick={() => setPrompts([])} disabled={prompts.length === 0}>
                 Clear Feed {prompts.length > 0 ? `(${prompts.length})` : ''}
               </button>
-              <button className="secondary subtle-action" onClick={() => setLocks(createEmptyLocks())}>
-                Reset Controls
+              <button className="secondary" onClick={() => setLocks(createEmptyLocks())}>
+                All Random
+              </button>
+              <button className="secondary subtle-action" onClick={() => setLocks(buildAllNoneLocks(lockControls, locks))}>
+                All None
               </button>
             </div>
           </div>
