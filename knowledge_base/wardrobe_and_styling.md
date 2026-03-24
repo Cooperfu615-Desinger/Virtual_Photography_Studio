@@ -50,13 +50,13 @@
 | **上身 (Tops)** | 短版蕾絲露臍小可愛 | `cropped lace cami, delicate lace texture, exposed waist styling` | 蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。 |
 | **上身 (Tops)** | 平口短版上衣 | `strapless cropped tube top, close-fitting stretch fabric, clean line` | 露出肩頸與腰線，適合 Y2K、夏日、派對與寫真主題。 |
 | **上身 (Tops)** | 一字領上衣 | `off-shoulder top, exposed collarbones, soft neckline silhouette` | 露出鎖骨與肩線，氣質成熟，適合寫真與女性化風格。 |
-| **上身 (Tops)** | 削肩平口連身上衣 | `halter bandeau bodysuit, shoulder-baring fitted one-piece, sleek stretch silhouette` | 結合削肩與平口輪廓，身體線條更完整，適合時裝與寫真。 |
+| **上身 (Tops)** | 削肩平口連身上衣 | `halter bandeau bodysuit-style top, clean bandeau neckline, smooth stretch fabric, structured upper panel, refined modern fashion detailing` | 以削肩平口結構、乾淨的上緣線條與彈性布料質感為主，重點放在現代化剪裁與上身結構，而不是強調身體輪廓。 |
 | **上身 (Tops)** | 絲綢緞面襯衫（紮入下身） | `silk satin blouse tucked into the bottoms, luminous satin sheen, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details, defined waistline` | 女式襯衫以紮入裙子或褲子的穿法呈現，保留柔軟飄逸的長袖與帶光澤的緞面質地，也讓整體更高級、俐落且成熟。 |
 | **上身 (Tops)** | 絲綢緞面襯衫（放出衣襬） | `silk satin blouse worn untucked over the bottoms, luminous satin sheen, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details, flowing relaxed hemline` | 女式襯衫保留柔軟飄逸的長袖、蕾絲袖口與荷葉邊，但衣襬自然放出，整體更慵懶、私密，也更適合法式或飯店感畫面。 |
-| **上身 (Tops)** | 透膚刺繡襯衫（紮入下身） | `sheer embroidered button-up shirt tucked into the bottoms, translucent lightweight fabric, delicate tonal embroidery, soft drape, elegant sensual blouse silhouette, defined waistline` | 半透明的鈕扣襯衫以紮入下身的穿法呈現，保留輕薄布料與同色系刺繡紋理，同時讓腰線與整體造型更精緻俐落。 |
-| **上身 (Tops)** | 透膚刺繡襯衫（放出衣襬） | `sheer embroidered button-up shirt worn untucked over the bottoms, translucent lightweight fabric, delicate tonal embroidery, soft drape, elegant sensual blouse silhouette, relaxed flowing hemline` | 半透明鈕扣襯衫保留輕薄透感與刺繡紋理，但衣襬自然放出，讓畫面更鬆弛、慵懶，也更像精緻時裝而不是一般日常襯衫。 |
-| **上身 (Tops)** | 網紗透視上衣（紮入下身） | `mesh see-through top tucked into the bottoms, sheer net texture, delicate lace motif detailing, subtle floral lace accents, body-hugging silhouette, defined waistline` | 網紗質地讓肌膚若隱若現，並以紮入下身的穿法讓腰線更清楚；蕾絲花紋與細緻裝飾感仍然完整保留，適合夜景、時裝與強風格主題。 |
-| **上身 (Tops)** | 網紗透視上衣（放出衣襬） | `mesh see-through top worn untucked over the bottoms, sheer net texture, delicate lace motif detailing, subtle floral lace accents, body-hugging silhouette, softly extended hemline` | 網紗質地讓肌膚若隱若現，並加入蕾絲花紋與細緻裝飾感；衣襬自然放出後，整體更鬆弛、性感，也更適合夜景與精緻時裝主題。 |
+| **上身 (Tops)** | 透膚刺繡襯衫（紮入下身） | `semi-sheer embroidered button-up shirt tucked into the bottoms, lightweight voile fabric, tonal floral embroidery, soft collar structure, refined translucent layering, defined waist styling` | 以半透明薄料、同色花卉刺繡與襯衫領片結構為主，重點是布料層次與刺繡細節；紮入下身後更俐落，但不以裸露感作為描述重點。 |
+| **上身 (Tops)** | 透膚刺繡襯衫（放出衣襬） | `semi-sheer embroidered button-up shirt worn untucked over the bottoms, lightweight voile fabric, tonal floral embroidery, soft collar structure, relaxed translucent layering, flowing hemline` | 保留半透明薄料與細緻刺繡紋理，衣襬自然放出後更偏時裝化層次與柔和垂墜感，而不是強調身體可見度。 |
+| **上身 (Tops)** | 網紗透視上衣（紮入下身） | `semi-sheer mesh top tucked into the bottoms, fine net texture, delicate floral motif panels, lace-trim detailing, lightweight layered styling, defined waist finish` | 以細網紗材質、花卉圖樣拼片與蕾絲滾邊作為重點，整體更像帶裝飾感的時裝上衣；紮入下身後輪廓更俐落，但不強調肌膚裸露。 |
+| **上身 (Tops)** | 網紗透視上衣（放出衣襬） | `semi-sheer mesh top worn untucked over the bottoms, fine net texture, delicate floral motif panels, lace-trim detailing, softly extended hemline, lightweight layered styling` | 保留網紗、花紋拼片與蕾絲收邊等服裝細節，衣襬自然放出後更偏輕層次與裝飾性時裝語言，降低過度裸露導向。 |
 | **上身 (Tops)** | 短版緊身吊帶背心 | `cropped tight camisole, close body fit, streamlined silhouette` | 貼身露腰、偏 Y2K 與街頭感。 |
 | **上身 (Tops)** | 短版帽T | `cropped hoodie, cinched waist hem, casual streetwear silhouette, sporty relaxed shape` | 帶有街頭與運動感，並補上腰部束口的造型特徵，適合 Y2K、隨拍與日常造型。 |
 | **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 偏街頭與運動風，適合社群感、青春感與休閒主題。 |
@@ -68,10 +68,10 @@
 | **上身 (Tops)** | 浴衣式上衣 | `yukata-style wrap top, lightweight cotton gauze texture, delicate summer floral or geometric prints, soft summer Japanese styling. airy crossover front, relaxed draped sleeves` | 以浴衣較輕鬆的包裹式結構為靈感的上衣版本，布料更輕薄透氣，並帶有夏日花紋或幾何印花，適合生活感與清爽的日式造型。 |
 | **上身 (Tops)** | 漢服式上衣 | `hanfu-style cross-collar top, embroidered trim, woven cloud and floral motifs, refined Chinese-inspired styling. flowing layered front, wide draped sleeves` | 保留漢服交領與寬袖輪廓的上衣版本，加入刺繡滾邊與雲紋、花紋等傳統裝飾，適合搭配長裙、寬褲與更古典的中式混搭造型。 |
 | **上身 (Tops)** | 改良漢服式上衣 | `modern hanfu-inspired top, subtle brocade pattern accents, contemporary Chinese-inspired styling. simplified cross-collar front, elegant draped sleeves` | 以漢服元素為靈感但更現代化的上衣版本，保留交領與垂墜感，並加入低調提花或織紋裝飾，適合日常化或時裝化搭配。 |
-| **上身 (Tops)** | 透膚蕾絲連身上衣 | `sheer lace bodysuit top, floral lace texture, fitted silhouette` | 連身式透膚蕾絲上衣，偏內衣與寫真主題。 |
-| **上身 (Tops)** | 比基尼 | `bikini top, swimwear styling, minimal coverage silhouette` | 直接作為泳裝上身使用，適合海邊、泳池與度假感畫面。 |
-| **上身 (Tops)** | 蕾絲胸罩 | `lace bra, lingerie styling, delicate fitted support` | 蕾絲質地明顯，偏內衣與私密寫真風格。 |
-| **上身 (Tops)** | 運動型內衣 | `sports bra, athletic support top, streamlined active silhouette` | 緊貼身體、運動感明確，適合活力、街頭與健身風格。 |
+| **上身 (Tops)** | 透膚蕾絲連身上衣 | `semi-sheer lace bodysuit-style top, floral lace panels, scalloped trim, soft lining details, refined decorative texture` | 以半透明蕾絲拼片、波浪滾邊與裝飾性花紋作為重點的連身式上衣，整體更偏服裝工藝與材質層次，不把重點放在裸露感。 |
+| **上身 (Tops)** | 比基尼 | `bikini top, structured swimwear cups, clean strap detailing, smooth stretch fabric, refined resort styling` | 作為泳裝上身使用時，重點放在罩杯結構、肩帶與彈性面料質感，適合海邊、泳池與度假感畫面。 |
+| **上身 (Tops)** | 蕾絲胸罩 | `lace bra top, deep v neckline, intricate floral lace, scalloped trim, delicate underbust structure, refined lingerie detailing` | 以低胸深 V 結構、精緻花卉蕾絲與波浪邊作為主體設計語言，重點放在服裝細節與材質裝飾，而不是裸露程度。 |
+| **上身 (Tops)** | 運動型內衣 | `sports bra top, Calvin Klein-inspired clean elastic band, smooth technical jersey, minimal athletic seaming, refined activewear styling` | 以簡潔彈性下圍、機能針織面料與俐落運動車線為主的運動上衣語言，參考 Calvin Klein 式極簡運動內衣風格，但更偏服裝設計描述。 |
 | **上身 (Tops)** | 蕾絲緊身睡衣 | `fitted lace nightdress, delicate floral lace panels, scalloped lace trim, satin ribbon accents, refined sleepwear detailing` | 以細緻花卉蕾絲拼接、波浪蕾絲滾邊與緞帶收邊為重點的睡衣款式，整體更偏精緻布料與裝飾細節，而不是強調身體曲線。 |
 | **上身 (Tops)** | 蕾絲寬鬆睡衣 | `loose lace sleepwear, relaxed nightdress silhouette, soft drape` | 較鬆身的睡衣輪廓，氣質更慵懶也更生活化。 |
 | **上身 (Tops)** | 波西米亞風上衣 | `bohemian draped blouse, soft crinkled gauze or washed rayon fabric, deep relaxed neckline, untucked loose hem worn outside the bottoms, softly layered sleeves, earth-tone patchwork and folk-woven patterns, artisanal trim and relaxed resort styling` | 更貼近異國咖啡館與度假人文感的波西米亞上衣，強調鬆垮垂墜的領口、土色系拼接與民俗織紋、柔軟皺感布料與披罩式袖型，整體更成熟、鬆弛也更有飾品疊搭空間。 |

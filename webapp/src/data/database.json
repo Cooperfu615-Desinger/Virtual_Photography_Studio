@@ -349,8 +349,8 @@
       },
       {
         "zh": "削肩平口連身上衣",
-        "en": "halter bandeau bodysuit, shoulder-baring fitted one-piece, sleek stretch silhouette",
-        "desc": "結合削肩與平口輪廓，身體線條更完整，適合時裝與寫真。"
+        "en": "halter bandeau bodysuit-style top, clean bandeau neckline, smooth stretch fabric, structured upper panel, refined modern fashion detailing",
+        "desc": "以削肩平口結構、乾淨的上緣線條與彈性布料質感為主，重點放在現代化剪裁與上身結構，而不是強調身體輪廓。"
       },
       {
         "zh": "絲綢緞面襯衫（紮入下身）",
@@ -364,23 +364,23 @@
       },
       {
         "zh": "透膚刺繡襯衫（紮入下身）",
-        "en": "sheer embroidered button-up shirt tucked into the bottoms, translucent lightweight fabric, delicate tonal embroidery, soft drape, elegant sensual blouse silhouette, defined waistline",
-        "desc": "半透明的鈕扣襯衫以紮入下身的穿法呈現，保留輕薄布料與同色系刺繡紋理，同時讓腰線與整體造型更精緻俐落。"
+        "en": "semi-sheer embroidered button-up shirt tucked into the bottoms, lightweight voile fabric, tonal floral embroidery, soft collar structure, refined translucent layering, defined waist styling",
+        "desc": "以半透明薄料、同色花卉刺繡與襯衫領片結構為主，重點是布料層次與刺繡細節；紮入下身後更俐落，但不以裸露感作為描述重點。"
       },
       {
         "zh": "透膚刺繡襯衫（放出衣襬）",
-        "en": "sheer embroidered button-up shirt worn untucked over the bottoms, translucent lightweight fabric, delicate tonal embroidery, soft drape, elegant sensual blouse silhouette, relaxed flowing hemline",
-        "desc": "半透明鈕扣襯衫保留輕薄透感與刺繡紋理，但衣襬自然放出，讓畫面更鬆弛、慵懶，也更像精緻時裝而不是一般日常襯衫。"
+        "en": "semi-sheer embroidered button-up shirt worn untucked over the bottoms, lightweight voile fabric, tonal floral embroidery, soft collar structure, relaxed translucent layering, flowing hemline",
+        "desc": "保留半透明薄料與細緻刺繡紋理，衣襬自然放出後更偏時裝化層次與柔和垂墜感，而不是強調身體可見度。"
       },
       {
         "zh": "網紗透視上衣（紮入下身）",
-        "en": "mesh see-through top tucked into the bottoms, sheer net texture, delicate lace motif detailing, subtle floral lace accents, body-hugging silhouette, defined waistline",
-        "desc": "網紗質地讓肌膚若隱若現，並以紮入下身的穿法讓腰線更清楚；蕾絲花紋與細緻裝飾感仍然完整保留，適合夜景、時裝與強風格主題。"
+        "en": "semi-sheer mesh top tucked into the bottoms, fine net texture, delicate floral motif panels, lace-trim detailing, lightweight layered styling, defined waist finish",
+        "desc": "以細網紗材質、花卉圖樣拼片與蕾絲滾邊作為重點，整體更像帶裝飾感的時裝上衣；紮入下身後輪廓更俐落，但不強調肌膚裸露。"
       },
       {
         "zh": "網紗透視上衣（放出衣襬）",
-        "en": "mesh see-through top worn untucked over the bottoms, sheer net texture, delicate lace motif detailing, subtle floral lace accents, body-hugging silhouette, softly extended hemline",
-        "desc": "網紗質地讓肌膚若隱若現，並加入蕾絲花紋與細緻裝飾感；衣襬自然放出後，整體更鬆弛、性感，也更適合夜景與精緻時裝主題。"
+        "en": "semi-sheer mesh top worn untucked over the bottoms, fine net texture, delicate floral motif panels, lace-trim detailing, softly extended hemline, lightweight layered styling",
+        "desc": "保留網紗、花紋拼片與蕾絲收邊等服裝細節，衣襬自然放出後更偏輕層次與裝飾性時裝語言，降低過度裸露導向。"
       },
       {
         "zh": "短版緊身吊帶背心",
@@ -439,23 +439,23 @@
       },
       {
         "zh": "透膚蕾絲連身上衣",
-        "en": "sheer lace bodysuit top, floral lace texture, fitted silhouette",
-        "desc": "連身式透膚蕾絲上衣，偏內衣與寫真主題。"
+        "en": "semi-sheer lace bodysuit-style top, floral lace panels, scalloped trim, soft lining details, refined decorative texture",
+        "desc": "以半透明蕾絲拼片、波浪滾邊與裝飾性花紋作為重點的連身式上衣，整體更偏服裝工藝與材質層次，不把重點放在裸露感。"
       },
       {
         "zh": "比基尼",
-        "en": "bikini top, swimwear styling, minimal coverage silhouette",
-        "desc": "直接作為泳裝上身使用，適合海邊、泳池與度假感畫面。"
+        "en": "bikini top, structured swimwear cups, clean strap detailing, smooth stretch fabric, refined resort styling",
+        "desc": "作為泳裝上身使用時，重點放在罩杯結構、肩帶與彈性面料質感，適合海邊、泳池與度假感畫面。"
       },
       {
         "zh": "蕾絲胸罩",
-        "en": "lace bra, lingerie styling, delicate fitted support",
-        "desc": "蕾絲質地明顯，偏內衣與私密寫真風格。"
+        "en": "lace bra top, deep v neckline, intricate floral lace, scalloped trim, delicate underbust structure, refined lingerie detailing",
+        "desc": "以低胸深 V 結構、精緻花卉蕾絲與波浪邊作為主體設計語言，重點放在服裝細節與材質裝飾，而不是裸露程度。"
       },
       {
         "zh": "運動型內衣",
-        "en": "sports bra, athletic support top, streamlined active silhouette",
-        "desc": "緊貼身體、運動感明確，適合活力、街頭與健身風格。"
+        "en": "sports bra top, Calvin Klein-inspired clean elastic band, smooth technical jersey, minimal athletic seaming, refined activewear styling",
+        "desc": "以簡潔彈性下圍、機能針織面料與俐落運動車線為主的運動上衣語言，參考 Calvin Klein 式極簡運動內衣風格，但更偏服裝設計描述。"
       },
       {
         "zh": "蕾絲緊身睡衣",
