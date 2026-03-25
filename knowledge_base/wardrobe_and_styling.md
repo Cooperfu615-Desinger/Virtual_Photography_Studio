@@ -80,7 +80,9 @@
 | **上身 (Tops)** | 波西米亞風上衣 | `bohemian draped blouse, soft crinkled gauze or washed rayon fabric, deep relaxed neckline, untucked loose hem worn outside the bottoms, softly layered sleeves, earth-tone patchwork and folk-woven patterns, artisanal trim and relaxed resort styling` | 更貼近異國咖啡館與度假人文感的波西米亞上衣，強調鬆垮垂墜的領口、土色系拼接與民俗織紋、柔軟皺感布料與披罩式袖型，整體更成熟、鬆弛也更有飾品疊搭空間。 |
 | **上身圖案 (Top Surface Design)** | 全無 | `no added top pattern, clean solid-color surface styling` | 不額外加入上身表面圖案，保留單色與乾淨版型表現。 |
 | **上身圖案 (Top Surface Design)** | 粗橫條紋 | `bold horizontal stripe top, clearly defined stripe bands across the torso, strong Breton-style graphic rhythm` | 以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。 |
+| **上身圖案 (Top Surface Design)** | 細橫條紋 | `fine horizontal stripe top, narrow repeated stripe bands across the torso, delicate Breton-inspired surface rhythm` | 以細緻而連續的橫向條帶覆蓋整件上身，保留清楚的橫條紋識別，同時比粗條紋更日常、更輕盈。 |
 | **上身圖案 (Top Surface Design)** | 細直條紋 | `clear vertical stripe pattern from shoulder to hem, narrow repeated stripe lines, crisp linear surface rhythm` | 以肩線延伸到衣襬的清楚直條紋為重點，條紋方向明確，整體更俐落也更像真正的直條紋服裝。 |
+| **上身圖案 (Top Surface Design)** | 粗直條紋 | `bold vertical stripe top, wide repeated stripe columns from shoulder to hem, strong linear statement styling` | 以寬幅直條紋從肩線延伸到衣襬，方向更明確、存在感更強，整體更接近視覺鮮明的粗直條紋上衣。 |
 | **上身圖案 (Top Surface Design)** | 胸前龐克塗鴉印花 | `large punk graffiti chest graphic, single bold front print, rebellious hand-drawn artwork centered on the chest` | 以胸前大面積單張龐克塗鴉圖像為主，像樂團 T 或街頭圖像 Tee 的正面主視覺。 |
 | **上身圖案 (Top Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print, rebellious hand-drawn markings covering the entire garment, dense graphic streetwear surface` | 以整件上衣都被龐克塗鴉圖樣覆蓋的滿版印花為重點，整體更街頭也更張揚。 |
 | **上身圖案 (Top Surface Design)** | 胸前卡通塗鴉印花 | `large cartoon doodle chest graphic, single playful illustrated front print, bold character artwork centered on the chest` | 以胸前大面積單張卡通塗鴉圖像為主，重點像插畫 Tee 或角色圖像 T 的正面主視覺。 |

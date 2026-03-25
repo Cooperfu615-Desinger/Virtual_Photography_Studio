@@ -515,9 +515,19 @@
         "desc": "以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。"
       },
       {
+        "zh": "細橫條紋",
+        "en": "fine horizontal stripe top, narrow repeated stripe bands across the torso, delicate Breton-inspired surface rhythm",
+        "desc": "以細緻而連續的橫向條帶覆蓋整件上身，保留清楚的橫條紋識別，同時比粗條紋更日常、更輕盈。"
+      },
+      {
         "zh": "細直條紋",
         "en": "clear vertical stripe pattern from shoulder to hem, narrow repeated stripe lines, crisp linear surface rhythm",
         "desc": "以肩線延伸到衣襬的清楚直條紋為重點，條紋方向明確，整體更俐落也更像真正的直條紋服裝。"
+      },
+      {
+        "zh": "粗直條紋",
+        "en": "bold vertical stripe top, wide repeated stripe columns from shoulder to hem, strong linear statement styling",
+        "desc": "以寬幅直條紋從肩線延伸到衣襬，方向更明確、存在感更強，整體更接近視覺鮮明的粗直條紋上衣。"
       },
       {
         "zh": "胸前龐克塗鴉印花",
