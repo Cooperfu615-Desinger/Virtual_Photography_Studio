@@ -2060,11 +2060,14 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   }
 
   const clothingLines = [];
-  const addClothingLine = (label, value, maxParts = 4) => {
+  const accessoryLines = [];
+  const addPromptLine = (target, label, value, maxParts = 4) => {
     const cleaned = compactClause(sanitizeMidjourneyText(value), maxParts);
     if (!cleaned) return;
-    clothingLines.push(`${label}: ${cleaned}.`);
+    target.push(`${label}: ${cleaned}.`);
   };
+  const addClothingLine = (label, value, maxParts = 4) => addPromptLine(clothingLines, label, value, maxParts);
+  const addAccessoryLine = (label, value, maxParts = 3) => addPromptLine(accessoryLines, label, value, maxParts);
 
   if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
     addClothingLine('Woman 1 Outfit', buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true }), 4);
@@ -2082,14 +2085,13 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     addClothingLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 3);
     addClothingLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern }), 4);
     addClothingLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
-    addClothingLine('Eyewear', wardrobeSlots.eyewear?.en || '', 2);
-    addClothingLine('Earrings', wardrobeSlots.earrings?.en || '', 2);
-    addClothingLine('Neck Accessory', wardrobeSlots.neckAccessory?.en || '', 3);
-    addClothingLine('Wrist Accessory', wardrobeSlots.wristAccessory?.en || '', 3);
-    addClothingLine('Ring', wardrobeSlots.ring?.en || '', 2);
-    addClothingLine('Waist Accessory', wardrobeSlots.waistAccessory?.en || '', 3);
+    addAccessoryLine('Eyewear', wardrobeSlots.eyewear?.en || '', 2);
+    addAccessoryLine('Earrings', wardrobeSlots.earrings?.en || '', 2);
+    addAccessoryLine('Neck Accessory', wardrobeSlots.neckAccessory?.en || '', 3);
+    addAccessoryLine('Wrist Accessory', wardrobeSlots.wristAccessory?.en || '', 3);
+    addAccessoryLine('Ring', wardrobeSlots.ring?.en || '', 2);
+    addAccessoryLine('Waist Accessory', wardrobeSlots.waistAccessory?.en || '', 3);
   }
-  pushSection('Clothing', clothingLines.join('\n'));
 
   pushSection('Location', describeLocation());
   pushSection('Framing & Composition', formatMidjourneySectionText([
@@ -2110,6 +2112,8 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     film?.en || '',
     context.style && !isNoneLikeItem(context.style) ? compactClause(STYLE_PROMPT_INTROS[context.style.zh] || context.style.en, 1) : '',
   ], 2));
+  pushSection('Clothing', clothingLines.join('\n'));
+  pushSection('Accessories', accessoryLines.join('\n'));
 
   let prompt = '';
   for (const section of sections) {
