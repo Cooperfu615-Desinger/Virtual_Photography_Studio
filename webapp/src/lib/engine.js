@@ -1253,19 +1253,6 @@ function buildSubjectBase(subject) {
   };
 }
 
-function buildCompositionHint(subject, aspectRatio, framing) {
-  if (subject.count === 2) {
-    const duoHint = aspectRatio.id === '16:9' ? 'balanced duo composition with clear spacing between both women' : 'balanced two-subject composition';
-    if (framing.meta.visibility === 'wide') return `${duoHint}, both women fully readable in frame`;
-    if (framing.meta.visibility === 'full') return `${duoHint}, both women standing naturally in frame`;
-    return `${duoHint}, both women clearly visible`;
-  }
-
-  if (aspectRatio.id === '9:16') return 'single-subject vertical composition';
-  if (aspectRatio.id === '16:9') return 'single-subject cinematic wide composition';
-  return 'single-subject composition';
-}
-
 function pickWithLock(list, lockedId, predicate = () => true, picker = sample) {
   if (lockedId) {
     const locked = findById(list, lockedId);
@@ -2032,45 +2019,50 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     return compactClause(context.location.en, 3);
   };
 
+  let subjectText = '';
+  let hairText = '';
+  let expressionText = '';
+  let poseText = '';
+
   if (context.subject.count === 2) {
-    pushSection('Subject', formatMidjourneySectionText([
+    subjectText = formatMidjourneySectionText([
       context.subject.en,
       characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType) ? compactClause(characterSlots.bodyType.en, 2) : '',
       'distinct faces, different appearances, not twins, individual features',
-    ]));
-    pushSection('Hair', formatMidjourneySectionText([
+    ]);
+    hairText = formatMidjourneySectionText([
       characterSlots.hairstyleA?.en,
       characterSlots.hairColorA?.en,
       characterSlots.hairstyleB?.en,
       characterSlots.hairColorB?.en,
-    ]));
-    pushSection('Expression', formatMidjourneySectionText([
+    ]);
+    expressionText = formatMidjourneySectionText([
       characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
       duoInteraction?.en || '',
       duoStyling?.en || '',
-    ], 3));
-    pushSection('Pose & Gesture', formatMidjourneySectionText([
+    ], 3);
+    poseText = formatMidjourneySectionText([
       characterSlots.pose ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
       'woman 1 on the left, woman 2 on the right',
-    ], 2));
+    ], 2);
   } else {
-    pushSection('Subject', formatMidjourneySectionText([
+    subjectText = formatMidjourneySectionText([
       context.subject.en,
       characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType) ? compactClause(characterSlots.bodyType.en, 2) : '',
       characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures) ? compactClause(characterSlots.facialFeatures.en, 2) : '',
-    ]));
-    pushSection('Hair', formatMidjourneySectionText([
+    ]);
+    hairText = formatMidjourneySectionText([
       characterSlots.hairstyle?.en && !isNoneLikeItem(characterSlots.hairstyle) ? compactClause(characterSlots.hairstyle.en, 1) : '',
       characterSlots.hairColor?.en && !isNoneLikeItem(characterSlots.hairColor) ? compactClause(characterSlots.hairColor.en, 1) : '',
-    ]));
-    pushSection('Expression', formatMidjourneySectionText([
+    ]);
+    expressionText = formatMidjourneySectionText([
       characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
-    ], 2));
-    pushSection('Pose & Gesture', formatMidjourneySectionText([
+    ], 2);
+    poseText = formatMidjourneySectionText([
       characterSlots.pose && !isNoneLikeItem(characterSlots.pose) && context.framing.meta.visibility !== 'portrait'
         ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)
         : '',
-    ], 1));
+    ], 1);
   }
 
   const clothingLines = [];
@@ -2107,13 +2099,10 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     addAccessoryLine('Waist Accessory', wardrobeSlots.waistAccessory?.en || '', 3);
   }
 
+  pushSection('Subject', subjectText);
+  pushSection('Hair', hairText);
   pushSection('Location', describeLocation());
-  pushSection('Framing & Composition', formatMidjourneySectionText([
-    context.framing ? resolvePromptVariant(context.framing, 'framing', context.subject.count) : '',
-    context.angle ? resolvePromptVariant(context.angle, 'angle', context.subject.count) : '',
-    context.orbit ? resolvePromptVariant(context.orbit, 'orbit', context.subject.count) : '',
-    context.subject.count > 1 ? buildCompositionHint(context.subject, context.aspectRatio, context.framing) : '',
-  ], 4));
+  pushSection('Clothing', clothingLines.join('\n'));
   pushSection('Lens & Optical', formatMidjourneySectionText([
     context.lens?.en || '',
     opticalEffect?.en || '',
@@ -2126,7 +2115,8 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     film?.en || '',
     context.style && !isNoneLikeItem(context.style) ? compactClause(STYLE_PROMPT_INTROS[context.style.zh] || context.style.en, 1) : '',
   ], 2));
-  pushSection('Clothing', clothingLines.join('\n'));
+  pushSection('Expression', expressionText);
+  pushSection('Pose & Gesture', poseText);
   pushSection('Accessories', accessoryLines.join('\n'));
 
   let prompt = '';
