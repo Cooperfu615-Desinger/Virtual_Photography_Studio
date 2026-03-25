@@ -1091,9 +1091,24 @@
         "desc": "黑色鏡框辨識度高，能明顯改變角色氣質，適合文青、學生感、冷感與時裝造型。"
       },
       {
+        "zh": "白色鏡框眼鏡",
+        "en": "white-framed glasses, crisp bright eyewear frame, clean graphic face accent",
+        "desc": "白色鏡框更醒目，也更有造型感，適合棚拍、Y2K、日系時裝與高對比穿搭。"
+      },
+      {
+        "zh": "玳瑁色鏡框眼鏡",
+        "en": "tortoiseshell glasses, warm brown mottled frame, refined vintage intellectual styling",
+        "desc": "帶琥珀棕與深色斑紋的玳瑁框更有復古書卷氣，適合文藝、法式與日常精緻穿搭。"
+      },
+      {
         "zh": "細框眼鏡",
         "en": "thin-rimmed glasses, delicate eyewear frame, refined intellectual accent",
         "desc": "比黑框更輕巧、存在感更低，適合文青、知性與乾淨生活感造型。"
+      },
+      {
+        "zh": "復古圓框眼鏡",
+        "en": "retro round glasses, circular frame silhouette, vintage intellectual face styling",
+        "desc": "圓形鏡框辨識度高，整體更偏復古、文藝與帶角色感的造型方向。"
       },
       {
         "zh": "太陽眼鏡",
@@ -1111,6 +1126,26 @@
         "zh": "小型金屬耳環",
         "en": "small metallic earrings, subtle jewelry accent, polished detail",
         "desc": "最穩定的點綴型耳環，適合大多數風格。"
+      },
+      {
+        "zh": "珍珠耳釘",
+        "en": "pearl stud earrings, soft lustrous pearl surface, classic refined ear detail",
+        "desc": "以小巧珍珠與柔亮珠光為主，精緻典雅，適合襯衫、洋裝與成熟感造型。"
+      },
+      {
+        "zh": "水滴寶石耳墜",
+        "en": "teardrop gemstone drop earrings, faceted jewel detail, delicate dangling sparkle",
+        "desc": "以水滴形寶石與垂墜結構為主，亮點更集中，適合晚間、高級寫真與精緻妝髮造型。"
+      },
+      {
+        "zh": "雕塑感金屬耳圈",
+        "en": "sculptural metal hoop earrings, curved polished surface, bold reflective ear accent",
+        "desc": "以帶弧度的金屬輪廓與明顯反射面為主，存在感更強，適合極簡時裝與都會造型。"
+      },
+      {
+        "zh": "十字垂墜耳環",
+        "en": "cross drop earrings, slim dangling metal charms, gothic-inspired ear detail",
+        "desc": "以細長十字垂墜結構為主，帶有哥德、地下與偏冷感的飾品語氣。"
       }
     ],
     "頸部 (Neck Accessories)": [
@@ -1125,14 +1160,39 @@
         "desc": "比粗頸鍊更俐落，適合夜景、都會與帶一點冷感的造型。"
       },
       {
+        "zh": "雕塑感金屬頸圈",
+        "en": "sculptural metal collar necklace, curved polished metal form, bold reflective statement around the neck",
+        "desc": "以帶弧度的金屬輪廓與拋光反射面為主，存在感更強，適合極簡時裝、棚拍與高級感造型。"
+      },
+      {
         "zh": "多條層疊的金項鏈",
         "en": "layered gold necklaces, stacked chain lengths, warm metallic shine",
         "desc": "多層金色項鍊能增加成熟與時裝感，適合低領口與度假、夜拍造型。"
       },
       {
+        "zh": "多條層疊的珍珠項鍊",
+        "en": "layered pearl necklaces, mixed strand lengths, luminous pearl surface, elegant vintage neck styling",
+        "desc": "多層珍珠串帶有柔亮光澤與復古華麗感，適合法式、飯店、古典與成熟寫真造型。"
+      },
+      {
+        "zh": "單圈珍珠項鍊",
+        "en": "single-strand pearl necklace, evenly sized pearls, soft lustrous finish, classic elegant neckline detail",
+        "desc": "以單圈珍珠與溫潤珠光為主，精緻但不過度張揚，適合襯衫、洋裝與典雅造型。"
+      },
+      {
         "zh": "多條層疊的水晶項鍊與頸鏈",
         "en": "layered crystal necklaces and chokers, sparkling gemstone details, ornate neck styling",
         "desc": "水晶頸鏈與項鍊疊加後更有華麗感，適合戲劇化、夜拍與高飽和造型。"
+      },
+      {
+        "zh": "水滴寶石吊墜項鍊",
+        "en": "teardrop gemstone pendant necklace, delicate chain, faceted jewel centerpiece, refined sparkling neckline accent",
+        "desc": "以水滴形寶石主墜與細鍊條為主，亮點集中但不過度繁複，適合高級寫真與較精緻的晚間造型。"
+      },
+      {
+        "zh": "復古浮雕墜飾頸鍊",
+        "en": "vintage cameo pendant necklace, engraved portrait medallion, ornate antique metal frame, romantic old-world detail",
+        "desc": "以浮雕肖像墜飾與仿古金屬邊框為主，整體更偏復古、維多利亞與收藏感造型。"
       },
       {
         "zh": "皮質扣環頸鏈",
@@ -1150,9 +1210,29 @@
         "desc": "在緞帶基礎上加入蕾絲花邊，更偏維多利亞、Lolita 與浪漫風格。"
       },
       {
+        "zh": "絲絨蝴蝶結頸圈",
+        "en": "velvet bow choker, soft ribbon texture, centered bow detail, romantic vintage neckline styling",
+        "desc": "以絲絨帶與中央蝴蝶結為主，質地更厚實柔軟，適合 Lolita、復古甜感與寫真造型。"
+      },
+      {
         "zh": "鎖骨細金屬鏈",
         "en": "delicate collarbone chain, fine metallic necklace, subtle reflective accent",
         "desc": "細緻的金屬鏈條剛好落在鎖骨位置，存在感低但能提升精緻度。"
+      },
+      {
+        "zh": "細鍊鎖頭吊墜項鍊",
+        "en": "lock pendant necklace, slim chain, polished metal lock charm, understated edgy detail",
+        "desc": "以小型鎖頭吊墜作為主要視覺重點，兼具低調街頭感與精緻金屬細節。"
+      },
+      {
+        "zh": "十字吊墜層疊頸鏈",
+        "en": "layered cross pendant necklaces, mixed chain lengths, polished metal charms, gothic-inspired neck detail",
+        "desc": "以不同長度的十字吊墜鍊疊戴為主，帶有哥德、地下與街頭混搭感。"
+      },
+      {
+        "zh": "鑽石網球項鍊",
+        "en": "diamond tennis necklace, continuous line of small stones, crisp sparkle, polished luxury neckline detail",
+        "desc": "以整圈連續鑽石排列形成細緻高光，質感乾淨奢華，適合正式、晚間與高級棚拍造型。"
       },
       {
         "zh": "刺繡絲巾",
@@ -1198,8 +1278,8 @@
       },
       {
         "zh": "串珠手環",
-        "en": "beaded bracelet stack, artisanal wrist accessory, relaxed layered detail",
-        "desc": "串珠會帶出手作感、波西米亞感與更生活化的層次。"
+        "en": "beaded bracelet stack, polished stone and glass beads, mixed translucent textures, artisanal layered wrist detail",
+        "desc": "以拋光石珠、玻璃珠與不同透明度的珠面層疊為主，質感更細緻，整體更像手作精品而不是廉價飾品。"
       },
       {
         "zh": "纏繞式皮革腕帶",

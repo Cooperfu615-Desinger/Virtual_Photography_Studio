@@ -192,18 +192,34 @@
 | **鞋款 (Shoes)** | 漆皮過膝長靴 | `patent leather thigh-high boots, sleek fetish-inspired silhouette` | 緊貼腿部線條，適合夜景、飯店與 fetish。 |
 | **眼鏡 (Eyewear)** | 全無 | `no eyewear, clean face styling` | 不加眼鏡，讓臉部與五官維持乾淨俐落。 |
 | **眼鏡 (Eyewear)** | 黑框眼鏡 | `black-rimmed glasses, bold eyewear frame, intellectual styling accent` | 黑色鏡框辨識度高，能明顯改變角色氣質，適合文青、學生感、冷感與時裝造型。 |
+| **眼鏡 (Eyewear)** | 白色鏡框眼鏡 | `white-framed glasses, crisp bright eyewear frame, clean graphic face accent` | 白色鏡框更醒目，也更有造型感，適合棚拍、Y2K、日系時裝與高對比穿搭。 |
+| **眼鏡 (Eyewear)** | 玳瑁色鏡框眼鏡 | `tortoiseshell glasses, warm brown mottled frame, refined vintage intellectual styling` | 帶琥珀棕與深色斑紋的玳瑁框更有復古書卷氣，適合文藝、法式與日常精緻穿搭。 |
 | **眼鏡 (Eyewear)** | 細框眼鏡 | `thin-rimmed glasses, delicate eyewear frame, refined intellectual accent` | 比黑框更輕巧、存在感更低，適合文青、知性與乾淨生活感造型。 |
+| **眼鏡 (Eyewear)** | 復古圓框眼鏡 | `retro round glasses, circular frame silhouette, vintage intellectual face styling` | 圓形鏡框辨識度高，整體更偏復古、文藝與帶角色感的造型方向。 |
 | **眼鏡 (Eyewear)** | 太陽眼鏡 | `sunglasses, tinted lenses, stylish eyewear accent, fashion attitude` | 直接帶出街拍、都會或度假感，也能讓角色更有明星與時裝氣場。 |
 | **耳環 (Earrings)** | 全無 | `no earrings, clean ear styling` | 不加耳環，讓耳側與臉部輪廓保持乾淨。 |
 | **耳環 (Earrings)** | 小型金屬耳環 | `small metallic earrings, subtle jewelry accent, polished detail` | 最穩定的點綴型耳環，適合大多數風格。 |
+| **耳環 (Earrings)** | 珍珠耳釘 | `pearl stud earrings, soft lustrous pearl surface, classic refined ear detail` | 以小巧珍珠與柔亮珠光為主，精緻典雅，適合襯衫、洋裝與成熟感造型。 |
+| **耳環 (Earrings)** | 水滴寶石耳墜 | `teardrop gemstone drop earrings, faceted jewel detail, delicate dangling sparkle` | 以水滴形寶石與垂墜結構為主，亮點更集中，適合晚間、高級寫真與精緻妝髮造型。 |
+| **耳環 (Earrings)** | 雕塑感金屬耳圈 | `sculptural metal hoop earrings, curved polished surface, bold reflective ear accent` | 以帶弧度的金屬輪廓與明顯反射面為主，存在感更強，適合極簡時裝與都會造型。 |
+| **耳環 (Earrings)** | 十字垂墜耳環 | `cross drop earrings, slim dangling metal charms, gothic-inspired ear detail` | 以細長十字垂墜結構為主，帶有哥德、地下與偏冷感的飾品語氣。 |
 | **頸部 (Neck Accessories)** | 全無 | `no neck accessories, open neckline styling` | 不加頸部飾品，讓領口與鎖骨區域維持簡潔。 |
 | **頸部 (Neck Accessories)** | 金屬細頸圈 | `slim metal choker, close-fitting neck accessory, refined edgy accent` | 比粗頸鍊更俐落，適合夜景、都會與帶一點冷感的造型。 |
+| **頸部 (Neck Accessories)** | 雕塑感金屬頸圈 | `sculptural metal collar necklace, curved polished metal form, bold reflective statement around the neck` | 以帶弧度的金屬輪廓與拋光反射面為主，存在感更強，適合極簡時裝、棚拍與高級感造型。 |
 | **頸部 (Neck Accessories)** | 多條層疊的金項鏈 | `layered gold necklaces, stacked chain lengths, warm metallic shine` | 多層金色項鍊能增加成熟與時裝感，適合低領口與度假、夜拍造型。 |
+| **頸部 (Neck Accessories)** | 多條層疊的珍珠項鍊 | `layered pearl necklaces, mixed strand lengths, luminous pearl surface, elegant vintage neck styling` | 多層珍珠串帶有柔亮光澤與復古華麗感，適合法式、飯店、古典與成熟寫真造型。 |
+| **頸部 (Neck Accessories)** | 單圈珍珠項鍊 | `single-strand pearl necklace, evenly sized pearls, soft lustrous finish, classic elegant neckline detail` | 以單圈珍珠與溫潤珠光為主，精緻但不過度張揚，適合襯衫、洋裝與典雅造型。 |
 | **頸部 (Neck Accessories)** | 多條層疊的水晶項鍊與頸鏈 | `layered crystal necklaces and chokers, sparkling gemstone details, ornate neck styling` | 水晶頸鏈與項鍊疊加後更有華麗感，適合戲劇化、夜拍與高飽和造型。 |
+| **頸部 (Neck Accessories)** | 水滴寶石吊墜項鍊 | `teardrop gemstone pendant necklace, delicate chain, faceted jewel centerpiece, refined sparkling neckline accent` | 以水滴形寶石主墜與細鍊條為主，亮點集中但不過度繁複，適合高級寫真與較精緻的晚間造型。 |
+| **頸部 (Neck Accessories)** | 復古浮雕墜飾頸鍊 | `vintage cameo pendant necklace, engraved portrait medallion, ornate antique metal frame, romantic old-world detail` | 以浮雕肖像墜飾與仿古金屬邊框為主，整體更偏復古、維多利亞與收藏感造型。 |
 | **頸部 (Neck Accessories)** | 皮質扣環頸鏈 | `leather buckle choker, strap-and-buckle neck accessory, edgy statement detail` | 皮革與扣環組成的頸鏈更有支配感與地下風格，適合龐克與 fetish 邊緣造型。 |
 | **頸部 (Neck Accessories)** | 緞帶頸圈 | `ribbon choker, soft neck ribbon, delicate feminine accent` | 緞帶材質讓頸圈更柔和，適合甜系、少女感與輕復古造型。 |
 | **頸部 (Neck Accessories)** | 蕾絲緞帶頸圈 | `lace ribbon choker, delicate lace trim, romantic neck accessory` | 在緞帶基礎上加入蕾絲花邊，更偏維多利亞、Lolita 與浪漫風格。 |
+| **頸部 (Neck Accessories)** | 絲絨蝴蝶結頸圈 | `velvet bow choker, soft ribbon texture, centered bow detail, romantic vintage neckline styling` | 以絲絨帶與中央蝴蝶結為主，質地更厚實柔軟，適合 Lolita、復古甜感與寫真造型。 |
 | **頸部 (Neck Accessories)** | 鎖骨細金屬鏈 | `delicate collarbone chain, fine metallic necklace, subtle reflective accent` | 細緻的金屬鏈條剛好落在鎖骨位置，存在感低但能提升精緻度。 |
+| **頸部 (Neck Accessories)** | 細鍊鎖頭吊墜項鍊 | `lock pendant necklace, slim chain, polished metal lock charm, understated edgy detail` | 以小型鎖頭吊墜作為主要視覺重點，兼具低調街頭感與精緻金屬細節。 |
+| **頸部 (Neck Accessories)** | 十字吊墜層疊頸鏈 | `layered cross pendant necklaces, mixed chain lengths, polished metal charms, gothic-inspired neck detail` | 以不同長度的十字吊墜鍊疊戴為主，帶有哥德、地下與街頭混搭感。 |
+| **頸部 (Neck Accessories)** | 鑽石網球項鍊 | `diamond tennis necklace, continuous line of small stones, crisp sparkle, polished luxury neckline detail` | 以整圈連續鑽石排列形成細緻高光，質感乾淨奢華，適合正式、晚間與高級棚拍造型。 |
 | **頸部 (Neck Accessories)** | 刺繡絲巾 | `embroidered silk scarf, ornate fabric accessory, soft draped neck styling` | 刺繡與絲質結合後更有文藝與復古感，適合法式、古典與旅行造型。 |
 | **頸部 (Neck Accessories)** | 薄長圍巾 | `thin long scarf, lightweight draped accessory, flowing neck detail` | 輕薄長圍巾適合層次穿搭與動態畫面，能增加都市與文藝氣質。 |
 | **頸部 (Neck Accessories)** | 厚長圍巾 | `thick long scarf, cozy wrapped accessory, soft winter layering` | 厚實長圍巾更偏秋冬、居家與街頭保暖造型，存在感也更強。 |
@@ -212,7 +228,7 @@
 | **腕部 (Wrist Accessories)** | 極簡金屬手錶 | `minimal metal wristwatch, clean polished timepiece, understated modern accent` | 乾淨俐落的金屬錶款，適合都會、極簡與成熟造型。 |
 | **腕部 (Wrist Accessories)** | 皮革腕錶 | `leather-strap wristwatch, classic watch detail, refined everyday styling` | 皮革錶帶更有日常與成熟感，適合文藝、法式與城市穿搭。 |
 | **腕部 (Wrist Accessories)** | 細鍊手鍊 | `delicate chain bracelet, slim wrist jewelry, subtle reflective accent` | 存在感低但能增加精緻度，適合多數造型。 |
-| **腕部 (Wrist Accessories)** | 串珠手環 | `beaded bracelet stack, artisanal wrist accessory, relaxed layered detail` | 串珠會帶出手作感、波西米亞感與更生活化的層次。 |
+| **腕部 (Wrist Accessories)** | 串珠手環 | `beaded bracelet stack, polished stone and glass beads, mixed translucent textures, artisanal layered wrist detail` | 以拋光石珠、玻璃珠與不同透明度的珠面層疊為主，質感更細緻，整體更像手作精品而不是廉價飾品。 |
 | **腕部 (Wrist Accessories)** | 纏繞式皮革腕帶 | `wrapped leather wrist strap, layered leather bracelet, edgy wrist detail` | 多圈纏繞的皮革腕帶更有街頭、龐克與邊緣感。 |
 | **戒指 (Rings)** | 全無 | `no rings, clean hand styling` | 不加戒指，讓手指線條與動作更乾淨。 |
 | **戒指 (Rings)** | 細戒指 | `slim rings, delicate finger jewelry, understated accent` | 低存在感但能增加精緻度。 |
