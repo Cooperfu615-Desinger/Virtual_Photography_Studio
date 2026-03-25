@@ -134,6 +134,11 @@
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
 | **裙裝 (Skirts)** | 高腰窄裙 | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
 | **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian layered maxi skirt, soft tiered panels, washed earth-tone fabric, crinkled drape, folk-pattern borders, relaxed gathered movement, artisanal resort elegance` | 長裙改成更貼近圖片裡那種土色拼接與層次裙片的方向，布料帶洗舊感與自然皺褶，行走或坐下時會形成柔軟堆疊，整體更像異國度假、手作感強的成熟波西米亞風。 |
+| **下身圖案 (Bottom Surface Design)** | 全無 | `no added bottom pattern, clean solid-color lower-body styling` | 不額外加入下身圖案，保留褲裝或裙裝本身的材質與輪廓。 |
+| **下身圖案 (Bottom Surface Design)** | 粗橫條紋 | `bold horizontal stripe pattern across the lower garment, clearly defined stripe bands, graphic statement styling` | 以明顯橫向條帶覆蓋下身單品，整體更有視覺節奏與強烈圖案存在感。 |
+| **下身圖案 (Bottom Surface Design)** | 細直條紋 | `clear vertical stripe pattern running through the lower garment, narrow repeated stripe lines, elongated linear rhythm` | 以清楚直條紋延伸整件下身單品，能讓輪廓更俐落，也更接近真正條紋褲或條紋裙。 |
+| **下身圖案 (Bottom Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print across the lower garment, rebellious hand-drawn markings, dense graphic streetwear surface` | 以整件下身都覆蓋龐克塗鴉圖樣為主，整體更街頭、更張揚，也更偏次文化穿搭語言。 |
+| **下身圖案 (Bottom Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print across the lower garment, playful illustrated motifs, colorful youthful graphic surface` | 以卡通塗鴉圖樣覆蓋整件下身，整體更活潑輕鬆，也更像圖案褲或印花裙。 |
 | **襪類 (Legwear)** | 全無 | `no legwear, bare legs, clean leg styling` | 不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。 |
 | **襪類 (Legwear)** | 透膚絲襪 | `sheer pantyhose, delicate translucent legwear, smooth finish` | 高頻實用，能與短裙、短褲與高跟鞋自然搭配。 |
 | **襪類 (Legwear)** | 半透明絲襪 | `semi-sheer pantyhose, translucent legwear, sleek finish` | 比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。 |
@@ -156,6 +161,14 @@
 | **外套 (Outerwear)** | 丹寧外套（敞開穿） | `open oversized denim jacket, unbuttoned casual layering, slipped off the shoulder line, slightly oversized everyday silhouette, washed denim texture` | 丹寧外套以敞開穿為主，並固定以滑落肩線的穿法呈現；版型設定為略大一號，最適合生活感、街拍、牛仔單品與日常搭配。 |
 | **外套 (Outerwear)** | 連帽拉鍊外套（不拉拉鍊） | `open oversized zip hoodie, unzipped hooded jacket, slipped off the shoulder line, slightly oversized sporty layering, relaxed off-duty mood` | 連帽拉鍊外套保持不拉拉鍊的放鬆狀態，並固定以滑落肩線的穿法呈現；版型設定為略大一號，適合運動型內搭、短版上衣與休閒街頭造型。 |
 | **外套 (Outerwear)** | 西裝外套（半披／滑落肩線） | `open oversized blazer worn off the shoulder line, unbuttoned tailored jacket, slightly oversized effortless layering` | 西裝外套固定以半披在肩上或滑落肩線的穿法呈現；版型設定為略大一號，適合細肩帶、襯衫、短裙與都會時裝感穿搭。 |
+| **外套圖案 (Outerwear Surface Design)** | 全無 | `no added outerwear pattern, clean solid-color outer layer styling` | 不額外加入外套圖案，保留外套本身的輪廓、材質與層次。 |
+| **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripe outerwear, clearly defined stripe bands across the jacket, strong graphic layering` | 以明顯橫向條帶覆蓋外套，讓外層單品更有經典條紋與圖形感。 |
+| **外套圖案 (Outerwear Surface Design)** | 細直條紋 | `clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket` | 以俐落直條紋覆蓋外套表面，適合西裝外套、風衣或更結構化的外層單品。 |
+| **外套圖案 (Outerwear Surface Design)** | 胸前龐克塗鴉印花 | `large punk graffiti graphic on the front of the outerwear, bold statement artwork, rebellious streetwear focal point` | 以外套正面的大面積龐克塗鴉圖像為主，讓外層成為穿搭的主要視覺焦點。 |
+| **外套圖案 (Outerwear Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print across the outerwear, rebellious hand-drawn markings, dense graphic streetwear shell` | 以整件外套都覆蓋龐克塗鴉圖樣為重點，整體更街頭、更具次文化感。 |
+| **外套圖案 (Outerwear Surface Design)** | 胸前卡通塗鴉印花 | `large cartoon doodle graphic on the front of the outerwear, playful illustrated focal artwork, bold casual layering` | 以外套正面的大面積卡通塗鴉圖像為主，整體更年輕、活潑，也更有 casual layering 感。 |
+| **外套圖案 (Outerwear Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print across the outerwear, playful illustrated motifs, colorful youthful outer layer surface` | 以卡通塗鴉與插畫感圖樣覆蓋整件外套，整體更活潑且圖案存在感更高。 |
+| **外套圖案 (Outerwear Surface Design)** | 胸前復古標語印花 | `large vintage slogan graphic on the front of the outerwear, centered typographic statement, retro casual streetwear styling` | 以外套正面的大型復古標語或字樣圖像為主，適合做比較好生成的 casual graphic outerwear 路線。 |
 | **鞋款 (Shoes)** | 全無 | `no explicit shoe styling, footwear unspecified` | 不特別指定鞋款，主要保留給需要降低鞋部干擾、讓 Grok 更穩定控制人物比例的情境。 |
 | **鞋款 (Shoes)** | 赤腳 | `bare feet, visible toes, relaxed barefoot styling, intimate at-home mood` | 明確要求不穿鞋並露出腳趾，適合居家、床景、地板坐姿與更放鬆的生活感畫面。 |
 | **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday finish, versatile casual style` | 最穩定的日常鞋款，適合街拍與生活感畫面。 |

@@ -789,6 +789,33 @@
         "desc": "長裙改成更貼近圖片裡那種土色拼接與層次裙片的方向，布料帶洗舊感與自然皺褶，行走或坐下時會形成柔軟堆疊，整體更像異國度假、手作感強的成熟波西米亞風。"
       }
     ],
+    "下身圖案 (Bottom Surface Design)": [
+      {
+        "zh": "全無",
+        "en": "no added bottom pattern, clean solid-color lower-body styling",
+        "desc": "不額外加入下身圖案，保留褲裝或裙裝本身的材質與輪廓。"
+      },
+      {
+        "zh": "粗橫條紋",
+        "en": "bold horizontal stripe pattern across the lower garment, clearly defined stripe bands, graphic statement styling",
+        "desc": "以明顯橫向條帶覆蓋下身單品，整體更有視覺節奏與強烈圖案存在感。"
+      },
+      {
+        "zh": "細直條紋",
+        "en": "clear vertical stripe pattern running through the lower garment, narrow repeated stripe lines, elongated linear rhythm",
+        "desc": "以清楚直條紋延伸整件下身單品，能讓輪廓更俐落，也更接近真正條紋褲或條紋裙。"
+      },
+      {
+        "zh": "滿版龐克塗鴉印花",
+        "en": "all-over punk graffiti print across the lower garment, rebellious hand-drawn markings, dense graphic streetwear surface",
+        "desc": "以整件下身都覆蓋龐克塗鴉圖樣為主，整體更街頭、更張揚，也更偏次文化穿搭語言。"
+      },
+      {
+        "zh": "滿版卡通塗鴉印花",
+        "en": "all-over cartoon doodle print across the lower garment, playful illustrated motifs, colorful youthful graphic surface",
+        "desc": "以卡通塗鴉圖樣覆蓋整件下身，整體更活潑輕鬆，也更像圖案褲或印花裙。"
+      }
+    ],
     "襪類 (Legwear)": [
       {
         "zh": "全無",
@@ -901,6 +928,48 @@
         "zh": "西裝外套（半披／滑落肩線）",
         "en": "open oversized blazer worn off the shoulder line, unbuttoned tailored jacket, slightly oversized effortless layering",
         "desc": "西裝外套固定以半披在肩上或滑落肩線的穿法呈現；版型設定為略大一號，適合細肩帶、襯衫、短裙與都會時裝感穿搭。"
+      }
+    ],
+    "外套圖案 (Outerwear Surface Design)": [
+      {
+        "zh": "全無",
+        "en": "no added outerwear pattern, clean solid-color outer layer styling",
+        "desc": "不額外加入外套圖案，保留外套本身的輪廓、材質與層次。"
+      },
+      {
+        "zh": "粗橫條紋",
+        "en": "bold horizontal stripe outerwear, clearly defined stripe bands across the jacket, strong graphic layering",
+        "desc": "以明顯橫向條帶覆蓋外套，讓外層單品更有經典條紋與圖形感。"
+      },
+      {
+        "zh": "細直條紋",
+        "en": "clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket",
+        "desc": "以俐落直條紋覆蓋外套表面，適合西裝外套、風衣或更結構化的外層單品。"
+      },
+      {
+        "zh": "胸前龐克塗鴉印花",
+        "en": "large punk graffiti graphic on the front of the outerwear, bold statement artwork, rebellious streetwear focal point",
+        "desc": "以外套正面的大面積龐克塗鴉圖像為主，讓外層成為穿搭的主要視覺焦點。"
+      },
+      {
+        "zh": "滿版龐克塗鴉印花",
+        "en": "all-over punk graffiti print across the outerwear, rebellious hand-drawn markings, dense graphic streetwear shell",
+        "desc": "以整件外套都覆蓋龐克塗鴉圖樣為重點，整體更街頭、更具次文化感。"
+      },
+      {
+        "zh": "胸前卡通塗鴉印花",
+        "en": "large cartoon doodle graphic on the front of the outerwear, playful illustrated focal artwork, bold casual layering",
+        "desc": "以外套正面的大面積卡通塗鴉圖像為主，整體更年輕、活潑，也更有 casual layering 感。"
+      },
+      {
+        "zh": "滿版卡通塗鴉印花",
+        "en": "all-over cartoon doodle print across the outerwear, playful illustrated motifs, colorful youthful outer layer surface",
+        "desc": "以卡通塗鴉與插畫感圖樣覆蓋整件外套，整體更活潑且圖案存在感更高。"
+      },
+      {
+        "zh": "胸前復古標語印花",
+        "en": "large vintage slogan graphic on the front of the outerwear, centered typographic statement, retro casual streetwear styling",
+        "desc": "以外套正面的大型復古標語或字樣圖像為主，適合做比較好生成的 casual graphic outerwear 路線。"
       }
     ],
     "鞋款 (Shoes)": [

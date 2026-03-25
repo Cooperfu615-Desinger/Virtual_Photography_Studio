@@ -49,7 +49,7 @@ const SUMMARY_SECTION_INFO = {
   },
   wardrobe: {
     label: '服裝',
-    lockLabels: ['套裝', '上身', '上身圖案', '下身', '襪類', '襪類配色', '外套', '鞋款', '配件'],
+    lockLabels: ['套裝', '上身', '上身圖案', '下身', '下身圖案', '襪類', '襪類配色', '外套', '外套圖案', '鞋款', '配件'],
     keys: [
       'outfitPresetId',
       'outfitPresetColorId',
@@ -64,10 +64,12 @@ const SUMMARY_SECTION_INFO = {
       'pantsId',
       'skirtId',
       'bottomColorId',
+      'bottomPatternId',
       'legwearId',
       'legwearColorId',
       'outerwearId',
       'outerwearColorId',
+      'outerwearPatternId',
       'shoesId',
       'shoesColorId',
       'eyewearId',
@@ -121,7 +123,7 @@ const ADVANCED_REMIX_GROUP_INFO = {
   },
   wardrobeCore: {
     label: '服裝主體',
-    lockLabels: ['套裝', '上身', '上身圖案', '下身', '外套', '襪類', '鞋款'],
+    lockLabels: ['套裝', '上身', '上身圖案', '下身', '下身圖案', '外套', '外套圖案', '襪類', '鞋款'],
     keys: [
       'outfitPresetId',
       'outfitPresetColorId',
@@ -136,10 +138,12 @@ const ADVANCED_REMIX_GROUP_INFO = {
       'pantsId',
       'skirtId',
       'bottomColorId',
+      'bottomPatternId',
       'legwearId',
       'legwearColorId',
       'outerwearId',
       'outerwearColorId',
+      'outerwearPatternId',
       'shoesId',
       'shoesColorId',
     ],
@@ -170,7 +174,7 @@ const CHARACTER_CONTROL_ORDER = [
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
 const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'locationId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'aspectRatio'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topColorId', 'topPatternId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'shoesId', 'shoesColorId', 'eyewearId', 'earringsId', 'neckAccessoryId', 'wristAccessoryId', 'ringId', 'waistAccessoryId'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topColorId', 'topPatternId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'bottomPatternId', 'legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'outerwearPatternId', 'shoesId', 'shoesColorId', 'eyewearId', 'earringsId', 'neckAccessoryId', 'wristAccessoryId', 'ringId', 'waistAccessoryId'];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
