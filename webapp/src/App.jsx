@@ -574,6 +574,11 @@ export default function App() {
     });
   };
 
+  const handleDeletePrompt = (prompt) => {
+    setPrompts((prev) => prev.filter((item) => item.id !== prompt.id));
+    setFavoritePrompts((prev) => prev.filter((item) => item.id !== prompt.id));
+  };
+
   const handleDownloadAll = () => {
     if (displayPrompts.length === 0) return;
     const zip = new JSZip();
@@ -734,6 +739,7 @@ export default function App() {
               data={prompt}
               isFavorite={favoriteIds.has(prompt.id)}
               onFavorite={toggleFavorite}
+              onDelete={handleDeletePrompt}
               onRemix={handleRemixPrompt}
               summarySectionInfo={SUMMARY_SECTION_INFO}
               advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}

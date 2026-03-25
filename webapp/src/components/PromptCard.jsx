@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, Heart, RefreshCcw } from 'lucide-react';
+import { Download, Heart, RefreshCcw, Trash2 } from 'lucide-react';
 
 function buildMarkdownExport(data) {
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
@@ -39,7 +39,7 @@ const QUICK_REMIX_PRESETS = [
   { key: 'sceneLook', label: '保場景鏡頭' },
 ];
 
-export default function PromptCard({ data, onFavorite, isFavorite, onRemix, summarySectionInfo, advancedRemixGroupInfo }) {
+export default function PromptCard({ data, onFavorite, onDelete, isFavorite, onRemix, summarySectionInfo, advancedRemixGroupInfo }) {
   const [copiedLabel, setCopiedLabel] = useState('');
   const [expanded, setExpanded] = useState(false);
   const [lockedSummaryKeys, setLockedSummaryKeys] = useState([]);
@@ -111,6 +111,9 @@ export default function PromptCard({ data, onFavorite, isFavorite, onRemix, summ
           </button>
           <button className="icon-btn" onClick={handleDownload} title="Download Markdown">
             <Download size={18} />
+          </button>
+          <button className="icon-btn icon-btn-danger" onClick={() => onDelete(data)} title="Delete Card">
+            <Trash2 size={18} />
           </button>
         </div>
       </div>

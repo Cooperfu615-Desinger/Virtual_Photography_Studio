@@ -480,6 +480,10 @@ button:disabled {
   color: var(--accent);
 }
 
+.icon-btn-danger:hover {
+  color: var(--danger);
+}
+
 .prompt-card-summary {
   display: flex;
   flex-direction: column;
