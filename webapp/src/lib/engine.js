@@ -3,6 +3,13 @@ import database from '../data/database.json' with { type: 'json' };
 const SUBJECT_COUNT_OPTIONS = [
   { id: '1', zh: '1 位', en: 'an elegant beautiful 20-year-old Japanese or Korean woman', count: 1 },
   { id: '2', zh: '2 位', en: 'two elegant beautiful 20-year-old Japanese or Korean women', count: 2 },
+  {
+    id: 'reference',
+    zh: '上傳人物',
+    en: 'a woman matching the attached reference person, preserve facial identity and overall likeness from the attached image',
+    count: 1,
+    reference: true,
+  },
 ];
 
 const ASPECT_RATIO_OPTIONS = [
@@ -1239,7 +1246,7 @@ function framingSupportsSubject(framing, subject, aspectRatio) {
 
 function buildSubjectBase(subject) {
   return {
-    zh: subject.count === 2 ? '兩位性感驚豔的東亞女性' : '一位性感驚豔的東亞女性',
+    zh: subject.reference ? '一位以附圖人物五官為主的女性' : subject.count === 2 ? '兩位性感驚豔的東亞女性' : '一位性感驚豔的東亞女性',
     en: subject.en,
     id: `base-character-${subject.id}`,
     meta: { tags: ['female', subject.count === 2 ? 'duo' : 'solo'] },
@@ -1276,6 +1283,7 @@ function collectPositiveTags(...items) {
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
   const visibility = context.framing.meta.visibility;
+  const isReferenceSubject = Boolean(context.subject.reference);
   let lockedArchetype = null;
 
   const lockKeyByCategory = {
@@ -1342,13 +1350,15 @@ function buildCharacter(context, catalog) {
     return picked ? cloneCharacterRole(picked, role) : null;
   };
 
-  pickCategory('體態 (Body Type)', context.locks, () => true, sample, false);
+  if (!isReferenceSubject || context.locks?.bodyTypeId) {
+    pickCategory('體態 (Body Type)', context.locks, () => true, sample, false);
+  }
 
-  if (context.subject.count === 1 && (visibilityAtLeast(visibility, 'medium') || context.locks?.facialFeaturesId)) {
+  if (context.subject.count === 1 && (context.locks?.facialFeaturesId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium')))) {
     pickCategory('五官特徵 (Facial Features)', context.locks, (item) => !lockedArchetype || !item.meta.archetype || item.meta.archetype === lockedArchetype);
   }
 
-  if (context.subject.count === 1 && (context.locks?.skinDetailsId || (visibilityAtLeast(visibility, 'medium') && Math.random() < 0.55))) {
+  if (context.subject.count === 1 && (context.locks?.skinDetailsId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium') && Math.random() < 0.55))) {
     pickCategory('膚質特徵 (Skin Details)', context.locks);
   }
 
@@ -1363,7 +1373,7 @@ function buildCharacter(context, catalog) {
     pickCategory('膚質特徵 (Skin Details)', context.locks);
   }
 
-  if (context.subject.count === 1 && (visibilityAtLeast(visibility, 'medium') || context.locks?.hairstyleId || context.locks?.hairColorId)) {
+  if (context.subject.count === 1 && (context.locks?.hairstyleId || context.locks?.hairColorId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium')))) {
     pickCategory('髮型 (Hairstyle)', context.locks);
     pickCategory('髮色 (Hair Color)', context.locks, () => true, pickHairColor);
   }
@@ -1606,7 +1616,11 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     const filtered = parts.filter((part) => part && part !== '-');
     return filtered.length > 0 ? filtered.join(' / ') : '-';
   };
-  const subjectLabel = context.subject.count === 2 ? '兩位性感驚豔的日系或韓系女性' : '一位性感驚豔的日系或韓系女性';
+  const subjectLabel = context.subject.reference
+    ? '一位以附圖人物五官為主的女性'
+    : context.subject.count === 2
+      ? '兩位性感驚豔的日系或韓系女性'
+      : '一位性感驚豔的日系或韓系女性';
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const styleLabel = context.style && !isNoneLikeItem(context.style) ? context.style.zh : '-';
@@ -2168,6 +2182,9 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   };
 
   addLine('Subject Count', mergePromptText(context.subject.en, subjectAccessories.join(', ')));
+  if (context.subject.reference) {
+    addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
+  }
   addLine('Aspect Ratio', context.aspectRatio.en);
   if (context.style && !isNoneLikeItem(context.style)) {
     addLine('Photography Style', `${styleIntro}. ${context.style.en}`);

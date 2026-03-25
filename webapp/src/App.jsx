@@ -644,6 +644,11 @@ export default function App() {
             <div className="control-section-header">
               <div className="control-section-title">Character Setup</div>
             </div>
+            {locks.subjectCount === 'reference' ? (
+              <div className="context-note">
+                此模式不在 app 內上傳圖片；生成後請把同一張人物參考圖直接附給 Midjourney、Grok 或 Gemini，prompt 會以附圖人物五官與身份為主。
+              </div>
+            ) : null}
             <div className="lock-grid">
               {characterLockControls.map((control) => (
                 <SelectControlField
