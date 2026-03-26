@@ -1785,6 +1785,19 @@ const STYLE_PROMPT_INTROS = {
   'Elsa Bleda（艾爾莎·布萊達）': 'Inspired by Elsa Bleda, nocturnal neon image language',
 };
 
+function buildPhotographyStylePrompt(style) {
+  if (!style || isNoneLikeItem(style)) return '';
+
+  const intro = STYLE_PROMPT_INTROS[style.zh] || 'editorial photography mood';
+  const styleText = stripMarkdown(style.en).replace(/\s+/g, ' ').trim();
+  if (!styleText) return intro;
+
+  const dedupedStyleText = styleText.replace(/^Inspired by [^,]+,\s*/i, '');
+  if (!dedupedStyleText) return intro;
+  if (dedupedStyleText === styleText) return `${intro}. ${styleText}`;
+  return `${intro}. ${dedupedStyleText}`;
+}
+
 const DUO_PROMPT_OVERRIDES = {
   framing: {
     '特寫鏡頭 (Close-Up)': 'tight two-subject framing, both women clearly visible, shoulder-up composition, intimate close composition',
@@ -2178,7 +2191,6 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
 }
 
 function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction, duoStyling) {
-  const styleIntro = STYLE_PROMPT_INTROS[context.style.zh] || 'editorial photography mood';
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
@@ -2217,7 +2229,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   }
   addLine('Aspect Ratio', context.aspectRatio.en);
   if (context.style && !isNoneLikeItem(context.style)) {
-    addLine('Photography Style', `${styleIntro}. ${context.style.en}`);
+    addLine('Photography Style', buildPhotographyStylePrompt(context.style));
   }
   addContextLine('Location', context.location);
   if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
