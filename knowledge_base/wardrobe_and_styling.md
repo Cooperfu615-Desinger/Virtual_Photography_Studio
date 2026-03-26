@@ -65,6 +65,7 @@
 | **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 偏街頭與運動風，適合社群感、青春感與休閒主題。 |
 | **上身 (Tops)** | 坦克背心 | `tank top, sleeveless casual fit, clean sporty line` | 最簡單直接的無袖上身，適合日常、運動與寫真人像。 |
 | **上身 (Tops)** | 維多利亞高領蕾絲襯衫 | `Victorian high-neck lace blouse, ruffled collar, intricate lace detailing` | 領口繁複、禁慾而浪漫。 |
+| **上身 (Tops)** | 雪紡荷葉高領蝴蝶結襯衫 | `sheer chiffon high-neck blouse, layered lace ruffles across the front, black ribbon bow at the collar, soft gathered bishop sleeves, delicate button-front placket, lace-trimmed cuffs, refined romantic vintage styling` | 以半透明雪紡材質、高領荷葉、胸前多層蕾絲荷葉、黑色細緞帶蝴蝶結、澎袖與袖口蕾絲為主，整體更貼近古典甜感、文藝咖啡館與日系寫真中的精緻女式襯衫。 |
 | **上身 (Tops)** | 素色緞面旗袍上衣 | `satin cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, smooth lustrous fabric, untucked hem worn loose over the waistline, refined Chinese-inspired styling` | 旗袍式剪裁的上衣版本，保留立領、盤扣與貼身上半身輪廓，但衣襬自然放出、不紮進下身，適合搭配長裙、寬褲或都會中式混搭造型。 |
 | **上身 (Tops)** | 精緻刺繡旗袍上衣 | `embroidered cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, intricate floral embroidery, untucked hem worn loose over the waistline, refined Chinese-inspired detail` | 在旗袍式上衣結構中加入細緻刺繡與盤扣細節，並強調衣襬自然放出、不紮進下身，裝飾感更強，適合更正式或更華麗的中式時裝搭配。 |
 | **上身 (Tops)** | 和服式上衣 | `kimono-style wrap top, woven floral and traditional motif accents, refined Japanese-inspired styling. layered crossover front, soft draped sleeves, obi-inspired waist emphasis` | 以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型與包裹式前襟，並加入織紋、花卉或傳統圖樣裝飾，適合搭配長裙、寬褲與日式混搭造型。 |
