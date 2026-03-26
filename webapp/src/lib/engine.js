@@ -1710,7 +1710,6 @@ function isNoneLikeItem(item) {
   return (
     zh === '全無' ||
     en.startsWith('no ') ||
-    en.includes(' no ') ||
     en.includes('bare legs') ||
     en === 'none'
   );
