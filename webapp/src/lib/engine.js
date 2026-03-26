@@ -266,7 +266,6 @@ const CUSTOM_GROUP_OPTIONS = [
   { value: 'Wardrobe', label: 'Wardrobe' },
   { value: 'Character', label: 'Character' },
   { value: 'CameraLighting', label: 'Camera & Lighting' },
-  { value: 'Negative', label: 'Negative Prompt' },
 ];
 
 const VISIBILITY_ORDER = {
@@ -1263,10 +1262,6 @@ function pickWithLock(list, lockedId, predicate = () => true, picker = sample) {
   return matches.length > 0 ? picker(matches) : picker(list);
 }
 
-function collectPositiveTags(...items) {
-  return withTags(items.filter(Boolean).flatMap((item) => item.meta?.tags || []));
-}
-
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
   const visibility = context.framing.meta.visibility;
@@ -1447,7 +1442,7 @@ function buildWardrobe(context, locks, catalog) {
     pieces.push(item);
   };
 
-  const maybePick = (categoryKey, probability = 1, extraPredicate = () => true) => {
+  const maybePick = (categoryKey, probability = 1, extraPredicate = () => true, { allowNoneWhenUnlocked = false } = {}) => {
     const lockKey = categoryLockMap[categoryKey];
     const categoryItems = getByKey(catalog.catalog.wardrobe, categoryKey);
     const lockedValue = locks?.[lockKey];
@@ -1474,6 +1469,7 @@ function buildWardrobe(context, locks, catalog) {
 
     const candidates = categoryItems.filter(
       (item) =>
+        (allowNoneWhenUnlocked || !isNoneLikeItem(item)) &&
         wardrobeFitsLocation(item, context.location) &&
         extraPredicate(item)
     );
@@ -1488,8 +1484,15 @@ function buildWardrobe(context, locks, catalog) {
     ? topPiece.some((item) => item && !isNoneLikeItem(item))
     : Boolean(topPiece && !isNoneLikeItem(topPiece));
 
+  if (!hasTopPiece && !locks?.topId) {
+    const fallbackTop = getByKey(catalog.catalog.wardrobe, '上身 (Tops)').find(
+      (item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location)
+    );
+    addPiece(fallbackTop);
+  }
+
   if (hasTopPiece || locks?.topPatternId) {
-    maybePick('上身圖案 (Top Surface Design)', 0.35);
+    maybePick('上身圖案 (Top Surface Design)', 0.35, () => true, { allowNoneWhenUnlocked: false });
   }
 
   const hasLockedPants = Boolean(locks?.pantsId);
@@ -1521,7 +1524,7 @@ function buildWardrobe(context, locks, catalog) {
     }
 
     if (hasBottomPiece) {
-      maybePick('下身圖案 (Bottom Surface Design)', 0.3);
+      maybePick('下身圖案 (Bottom Surface Design)', 0.3, () => true, { allowNoneWhenUnlocked: false });
     }
     maybePick('襪類 (Legwear)', 0.45, (item) => {
       if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
@@ -1534,7 +1537,7 @@ function buildWardrobe(context, locks, catalog) {
       : Boolean(outerwearPiece && !isNoneLikeItem(outerwearPiece));
 
     if (hasOuterwearPiece) {
-      maybePick('外套圖案 (Outerwear Surface Design)', 0.3);
+      maybePick('外套圖案 (Outerwear Surface Design)', 0.3, () => true, { allowNoneWhenUnlocked: false });
     }
   }
 
@@ -1568,34 +1571,6 @@ function buildWardrobe(context, locks, catalog) {
   maybePick('腰部 (Waist Accessories)', frameShowsAtLeast(visibility, 'medium') ? 0.35 : 0.15);
 
   return pieces;
-}
-
-function buildNegativePrompt(context, positiveTags, catalog) {
-  const segments = [];
-
-  const pushRandom = (categoryKey, predicate = () => true) => {
-    const pool = getByKey(catalog.catalog.negative, categoryKey).filter((item) => !item.meta.conflictTags.some((tag) => positiveTags.includes(tag)) && predicate(item));
-    if (pool.length > 0) segments.push(sample(pool).en);
-  };
-
-  pushRandom('通用人體防護');
-  pushRandom('畫質與渲染防護');
-  pushRandom('風格與寫實度防護');
-  pushRandom('場景與物理防護');
-  pushRandom('服裝與材質防護');
-
-  if (context.location.meta.tags.includes('outdoor') && context.location.meta.tags.includes('natural')) {
-    pushRandom('特定主題防護 (依需求加入)', (item) => item.meta.useTags.includes('avoid_horror') || item.en.includes('artificial light'));
-  } else if (context.location.meta.tags.includes('heritage') || context.wardrobe.some((item) => ['victorian', 'baroque'].includes(item.meta.family))) {
-    pushRandom('特定主題防護 (依需求加入)', (item) => item.meta.useTags.includes('period_piece'));
-  } else {
-    pushRandom(
-      '特定主題防護 (依需求加入)',
-      (item) => item.meta.useTags.includes('avoid_horror') || item.meta.useTags.includes('avoid_nsfw') || item.meta.useTags.includes('clean_background')
-    );
-  }
-
-  return segments.join(', ');
 }
 
 function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
@@ -2099,6 +2074,9 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     addAccessoryLine('Waist Accessory', wardrobeSlots.waistAccessory?.en || '', 3);
   }
 
+  const primaryClothingCount = clothingLines.filter((line) => /^Top:|^Bottom:|^Outfit:|^Woman 1 Outfit:|^Woman 2 Outfit:/.test(line)).length;
+  const accessoriesText = primaryClothingCount >= 2 ? accessoryLines.join('\n') : '';
+
   pushSection('Subject', subjectText);
   pushSection('Hair', hairText);
   pushSection('Location', describeLocation());
@@ -2117,7 +2095,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   ], 2));
   pushSection('Expression', expressionText);
   pushSection('Pose & Gesture', poseText);
-  pushSection('Accessories', accessoryLines.join('\n'));
+  pushSection('Accessories', accessoriesText);
 
   let prompt = '';
   for (const section of sections) {
@@ -2387,8 +2365,6 @@ function generateSinglePrompt(index, locks, customLibrary) {
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks);
 
-  const positiveTags = collectPositiveTags(style, location, framing, angle, lighting, lightDirection, film, opticalEffect, wardrobe, character);
-  const negativePrompt = buildNegativePrompt(context, positiveTags, runtime);
   const { midjourneyPrompt, grokPrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
@@ -2399,7 +2375,6 @@ function generateSinglePrompt(index, locks, customLibrary) {
     summaryFields,
     midjourneyPrompt,
     grokPrompt,
-    negativePrompt,
     selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film, duoInteraction, duoStyling),
     structured: {
       Style: [style],

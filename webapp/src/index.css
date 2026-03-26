@@ -759,7 +759,7 @@ button:disabled {
 
 .primary-action-row {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -788,15 +788,6 @@ button:disabled {
 
 .primary-copy-grok:hover {
   background: #a4b89f;
-}
-
-.primary-copy-negative {
-  background: #b29573;
-  color: #fbf7f0;
-}
-
-.primary-copy-negative:hover {
-  background: #bea181;
 }
 
 .card-details {

@@ -209,11 +209,6 @@ ${data.midjourneyPrompt}
 ${data.grokPrompt}
 \`\`\`
 
-## Negative Prompt
-\`\`\`text
-${data.negativePrompt}
-\`\`\`
-
 ---
 
 ## Structured Scheme

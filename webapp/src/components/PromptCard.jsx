@@ -15,11 +15,6 @@ ${data.midjourneyPrompt}
 ${data.grokPrompt}
 \`\`\`
 
-## Negative Prompt
-\`\`\`text
-${data.negativePrompt}
-\`\`\`
-
 ---
 
 ## Structured Scheme
@@ -203,9 +198,6 @@ export default function PromptCard({ data, onFavorite, onDelete, isFavorite, onR
         <button className="primary-copy-btn primary-copy-grok" onClick={() => handleCopy('Grok copied', data.grokPrompt)}>
           Grok
         </button>
-        <button className="primary-copy-btn primary-copy-negative" onClick={() => handleCopy('Negative copied', data.negativePrompt)}>
-          Negative
-        </button>
         <button className="secondary primary-copy-btn" onClick={() => setExpanded((prev) => !prev)}>
           {expanded ? 'Collapse' : 'Expand'}
         </button>
@@ -228,15 +220,6 @@ export default function PromptCard({ data, onFavorite, onDelete, isFavorite, onR
             </div>
             <div className="prompt-box">
               <div className="prompt-text prompt-text-full">{data.grokPrompt}</div>
-            </div>
-          </section>
-
-          <section className="prompt-section">
-            <div className="prompt-label">
-              <span>Negative Prompt</span>
-            </div>
-            <div className="prompt-box">
-              <div className="prompt-text prompt-text-full">{data.negativePrompt}</div>
             </div>
           </section>
 
