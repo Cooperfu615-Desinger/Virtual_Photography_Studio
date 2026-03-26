@@ -47,25 +47,25 @@
 | **髮型 (Hairstyle)** | 齊瀏海圓弧鮑伯 | `blunt bob with full bangs, rounded silhouette, smooth curved ends` | 齊瀏海搭配圓弧感鮑伯，帶有強烈辨識度與日系娃娃感。 |
 | **髮型 (Hairstyle)** | 不對稱濕感短鮑伯 | `asymmetrical wet bob, one-side-over-eye styling, damp separated strands` | 一側髮絲覆蓋眼周，帶有濕潤分束感與更強的時裝、私密與危險氣質。 |
 | **髮色 (Hair Color)** | 全無 | `none` | 不指定髮色，讓模型自行決定髮色深淺與色調。 |
-| **髮色 (Hair Color)** | 自然黑 | `glossy natural black hair` | 最穩定也最百搭的自然黑髮，適合大多數日常與商業風格。 |
-| **髮色 (Hair Color)** | 柔霧黑茶 | `soft black tea brown hair, muted sheen` | 黑中帶一點茶棕感，低調柔和，常見於亞洲系寫真。 |
-| **髮色 (Hair Color)** | 深咖啡棕 | `deep coffee brown hair, rich brunette tone` | 穩定成熟的深棕色，帶有自然高級感。 |
-| **髮色 (Hair Color)** | 栗子棕 | `chestnut brown hair, warm natural gloss` | 溫暖日常的栗棕色，適合多數膚色與造型。 |
-| **髮色 (Hair Color)** | 奶茶棕 | `milk tea brown hair, soft beige-brown tone` | 帶有柔霧感的淺棕色，是近年非常常見的主流染髮。 |
-| **髮色 (Hair Color)** | 亞麻米棕 | `ashy beige brown hair, airy muted tone` | 帶灰感的米棕色，整體輕盈乾淨，是這幾年很穩定的韓系流行染髮。 |
-| **髮色 (Hair Color)** | 霧感橄欖棕 | `muted olive brown hair, smoky earthy undertone` | 棕色裡帶一點霧橄欖調，低飽和又有個性，適合冷調時裝與街拍。 |
-| **髮色 (Hair Color)** | 玫瑰可可棕 | `rose cocoa brown hair, soft rosy brunette tone` | 在可可棕裡加入微微玫瑰色感，甜度剛好，適合日韓系寫真。 |
-| **髮色 (Hair Color)** | 霧灰棕 | `smoky taupe brown hair, muted cool brunette tone` | 偏冷調的霧灰棕，能讓整體造型更有高級感，也很適合現代都會風格。 |
-| **髮色 (Hair Color)** | 蜂蜜焦糖棕 | `honey caramel brown hair, warm glossy soft light tone` | 比奶茶棕再暖一點，帶有柔和光澤感，是近期很受歡迎的顯氣色髮色。 |
-| **髮色 (Hair Color)** | 亮綠色 | `vivid neon green hair, fantasy statement color, saturated solid dye` | 高飽和亮綠色整頭染，視覺衝擊強，適合前衛、次文化與實驗風格。 |
-| **髮色 (Hair Color)** | 桃紅色 | `hot pink hair, vivid saturated statement color, solid fashion dye` | 鮮明桃紅色整頭染，甜辣張力強烈，適合偶像感與高存在感造型。 |
-| **髮色 (Hair Color)** | 寶藍色 | `cobalt blue hair, rich jewel-tone statement color, saturated solid dye` | 濃郁寶藍色帶珠寶般深度，冷豔醒目，適合夜色、棚拍與未來感畫面。 |
-| **髮色 (Hair Color)** | 亮黃色 | `bright lemon yellow hair, bold saturated fashion color, solid dye` | 亮黃色極具辨識度，偏玩味與實驗感，適合大膽街頭與風格化人像。 |
-| **髮色 (Hair Color)** | 亮紫色 | `vivid electric purple hair, bold saturated fantasy color, solid dye` | 高彩度亮紫色帶強烈幻想與時裝感，適合舞台感、賽博感與非日常造型。 |
-| **髮色 (Hair Color)** | 灰白色 | `silver white hair, cool pale tone, soft luminous sheen` | 接近銀白與灰白之間的冷調髮色，乾淨、輕盈，也帶一點未來感與高級感。 |
-| **髮色 (Hair Color)** | 白人金髮 | `natural European blonde hair, light golden blonde tone, soft fair glow` | 偏歐美白人常見的自然金髮，帶淺金與柔和暖光感，適合洋娃娃感與夏日寫真。 |
-| **髮色 (Hair Color)** | 愛爾蘭紅髮 | `natural Irish red hair, copper auburn tone, fair-skin-friendly warmth` | 接近銅紅與赤褐之間的自然紅髮，辨識度高，帶有歐系復古與故事感。 |
-| **髮色 (Hair Color)** | 深綠色 | `deep forest green hair, dark saturated fashion color, moody solid dye` | 比亮綠更深沉的墨綠髮色，帶神秘感與冷調風格，適合夜景、暗調與風格化人像。 |
+| **髮色 (Hair Color)** | 自然黑 | `natural jet-black hair with subtle blue-black undertones, realistic dyed-black variation, soft natural depth, realistic human hair texture, visible individual strands, subtle root variation, gentle baby hairs around the hairline, natural sheen, no plastic wig texture` | 最穩定也最百搭的自然黑髮，強調真實髮絲、髮根層次與非假髮質感，適合大多數日常與商業風格。 |
+| **髮色 (Hair Color)** | 柔霧黑茶 | `soft black-tea brown hair, muted brown-black tone, subtle tonal variation, soft natural depth, realistic human hair texture, visible individual strands, subtle root variation, gentle baby hairs around the hairline, natural sheen, no plastic wig texture` | 黑中帶一點茶棕感，低調柔和，補強真髮絲分離感與自然染髮層次。 |
+| **髮色 (Hair Color)** | 深咖啡棕 | `deep coffee-brown hair, rich brunette depth, natural root variation, soft reflected warmth, realistic human hair texture, visible individual strands, soft highlights and lowlights, natural sheen, no plastic wig texture` | 穩定成熟的深棕色，帶有真實根部深淺變化與柔和反光感。 |
+| **髮色 (Hair Color)** | 栗子棕 | `chestnut-brown hair, warm brown tone with subtle soft highlights, natural dimensional shine, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 溫暖日常的栗棕色，保留自然高光與真實髮絲層次，不走塑膠色塊感。 |
+| **髮色 (Hair Color)** | 奶茶棕 | `milk-tea brown hair, soft beige-brown tone, airy tonal variation, natural salon-dyed finish, realistic human hair texture, visible individual strands, subtle root variation, soft highlights and lowlights, no plastic wig texture` | 帶有柔霧感的淺棕色，補強沙龍染髮的自然漸變與真髮質地。 |
+| **髮色 (Hair Color)** | 亞麻米棕 | `ashy beige-brown hair, muted cool-beige tone, soft root depth, light natural tonal shift, realistic human hair texture, visible individual strands, airy separation, no plastic wig texture` | 帶灰感的米棕色，整體輕盈乾淨，並加入髮根深度與真實髮流表現。 |
+| **髮色 (Hair Color)** | 霧感橄欖棕 | `muted olive-brown hair, smoky earthy undertone, subtle cool-toned variation, natural dyed texture, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 棕色裡帶一點霧橄欖調，低飽和又有個性，同時維持真實染髮質感。 |
+| **髮色 (Hair Color)** | 玫瑰可可棕 | `rose cocoa-brown hair, soft rosy-brown undertone, subtle warm tonal variation, natural dimensional sheen, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 在可可棕裡加入微微玫瑰色感，甜度剛好，並保留真實髮絲與層次光澤。 |
+| **髮色 (Hair Color)** | 霧灰棕 | `smoky taupe-brown hair, muted cool brunette tone, soft ash-brown variation, natural depth from root to tip, realistic human hair texture, visible individual strands, no plastic wig texture` | 偏冷調的霧灰棕，讓造型更有高級感，同時避免假髮般的均勻色塊。 |
+| **髮色 (Hair Color)** | 蜂蜜焦糖棕 | `honey caramel-brown hair, warm caramel tone with soft golden variation, natural glossy depth, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 比奶茶棕再暖一點，帶柔和焦糖層次與真實髮絲反光感。 |
+| **髮色 (Hair Color)** | 亮綠色 | `professionally dyed vivid neon-green hair, high-saturation fashion color with visible strand texture, subtle root depth and tonal variation, realistically dyed human hair, slight unevenness from real dye absorption, no plastic wig texture, no uniform block color` | 高飽和亮綠色整頭染，改以真實染髮質感呈現，避免像道具假髮。 |
+| **髮色 (Hair Color)** | 桃紅色 | `professionally dyed hot-pink hair, vivid fashion color with subtle tonal variation, visible strands and natural root depth, realistically dyed human hair, slight unevenness from real dye absorption, no plastic wig texture, no uniform block color` | 鮮明桃紅色整頭染，保留高存在感，但補強真實髮絲、髮根與染劑吸收不均的自然感。 |
+| **髮色 (Hair Color)** | 寶藍色 | `professionally dyed cobalt-blue hair, rich jewel-toned blue with subtle tonal variation, visible strand texture and soft root depth, realistically dyed human hair, natural fiber detail, no plastic wig texture, no uniform block color` | 濃郁寶藍色帶珠寶般深度，改以更像真人染髮而非假髮的方式表現。 |
+| **髮色 (Hair Color)** | 亮黃色 | `professionally dyed bright lemon-yellow hair, bold fashion color with slight tonal unevenness, visible root depth and real hair strand texture, realistically dyed human hair, no plastic wig texture, no uniform block color` | 亮黃色極具辨識度，加入真實染後的不均勻層次與髮根深度，避免 cosplay 假髮感。 |
+| **髮色 (Hair Color)** | 亮紫色 | `professionally dyed electric-purple hair, vivid fashion color with subtle tonal variation, visible strands, soft root depth, natural fiber detail, realistically dyed human hair, no plastic wig texture, no uniform block color` | 高彩度亮紫色帶強烈時裝感，但改為更真實的人類染髮表現。 |
+| **髮色 (Hair Color)** | 灰白色 | `silver-white hair, cool pale tone with soft tonal variation, airy light reflection, natural strand detail, subtle root variation, realistic human hair texture, no plastic wig texture` | 接近銀白與灰白之間的冷調髮色，加入細微色差與真實髮絲，避免過度人工。 |
+| **髮色 (Hair Color)** | 淺金髮 | `light blonde hair, soft golden-beige tone, natural root variation, subtle highlights and lowlights, realistic human hair texture, visible individual strands, gentle baby hairs around the hairline, natural sheen, no plastic wig texture` | 以淺金與柔和米金調為核心，不再暗示特定人種，並補強真實髮絲與染髮層次。 |
+| **髮色 (Hair Color)** | 銅紅髮 | `natural copper-auburn hair, warm red-brown tone, subtle tonal variation, soft dimensional depth, realistic human hair texture, visible individual strands, subtle root variation, natural sheen, no plastic wig texture` | 接近銅紅與赤褐之間的自然紅髮，保留故事感但不再帶入特定族裔暗示。 |
+| **髮色 (Hair Color)** | 深綠色 | `professionally dyed deep forest-green hair, dark moody green tone with subtle tonal variation, visible strand texture and natural root depth, realistically dyed human hair, natural fiber detail, no plastic wig texture, no uniform block color` | 比亮綠更深沉的墨綠髮色，改以真實染髮層次與真髮纖維質感呈現。 |
 | **神情與眼神 (Expression & Gaze)** | 全無 | `none` | 不指定神情與眼神，讓模型自行決定表情與視線。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜清透微笑 | `looking directly at the camera, direct eye contact, gentle natural smile, bright clear eyes, soft approachable warmth, clean luminous expression` | 直接看向鏡頭並帶自然輕柔的微笑，整體清透、親和、沒有過度表演感，適合女演員感與日常寫真。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜平靜凝視 | `looking directly at the camera, direct eye contact, calm steady gaze, composed neutral expression, quiet presence` | 直接看向鏡頭，神情平穩克制，適合乾淨、安靜、寫真感的人像。 |
