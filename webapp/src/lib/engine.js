@@ -1905,6 +1905,19 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
   return patternText ? `${coloredBase}, ${patternText}` : coloredBase;
 }
 
+function buildHairColorPrompt(item) {
+  if (!item || isNoneLikeItem(item)) return '';
+  const base = stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
+  if (!base) return '';
+
+  const highRiskHairColorNames = new Set(['淺金髮', '銅紅髮', '灰白色']);
+  const requiresEyebrowGuard = highRiskHairColorNames.has(item.zh) || item.meta?.tags?.includes('special_hair_color');
+
+  if (!requiresEyebrowGuard) return base;
+
+  return `${base}, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair`;
+}
+
 function compactClause(text, maxParts = 2) {
   if (!text) return '';
   return text
@@ -2185,11 +2198,11 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.subject.count === 2) {
     addItemLine('Woman 1 Hairstyle', characterSlots.hairstyleA);
     addItemLine('Woman 2 Hairstyle', characterSlots.hairstyleB);
-    addItemLine('Woman 1 Hair Color', characterSlots.hairColorA);
-    addItemLine('Woman 2 Hair Color', characterSlots.hairColorB);
+    addLine('Woman 1 Hair Color', buildHairColorPrompt(characterSlots.hairColorA));
+    addLine('Woman 2 Hair Color', buildHairColorPrompt(characterSlots.hairColorB));
   } else {
     addItemLine('Hairstyle', characterSlots.hairstyle);
-    addItemLine('Hair Color', characterSlots.hairColor);
+    addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
   }
   if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
   addLine('Expression', expressionText);
