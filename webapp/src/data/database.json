@@ -1154,28 +1154,28 @@
       },
       {
         "zh": "小型金屬耳環",
-        "en": "small metallic earrings, subtle jewelry accent, polished detail",
-        "desc": "最穩定的點綴型耳環，適合大多數風格。"
+        "en": "small metallic earring detail, subtle understated jewelry styling",
+        "desc": "最穩定的點綴型耳環，存在感更低，適合大多數風格。"
       },
       {
         "zh": "珍珠耳釘",
-        "en": "pearl stud earrings, soft lustrous pearl surface, classic refined ear detail",
-        "desc": "以小巧珍珠與柔亮珠光為主，精緻典雅，適合襯衫、洋裝與成熟感造型。"
+        "en": "small pearl stud earring detail, soft understated pearl accent",
+        "desc": "以小巧珍珠與柔亮珠光為主，精緻典雅，但刻意降低搶戲程度。"
       },
       {
         "zh": "水滴寶石耳墜",
-        "en": "teardrop gemstone drop earrings, faceted jewel detail, delicate dangling sparkle",
-        "desc": "以水滴形寶石與垂墜結構為主，亮點更集中，適合晚間、高級寫真與精緻妝髮造型。"
+        "en": "small teardrop gemstone earring detail, delicate understated sparkle",
+        "desc": "以水滴形寶石與小型垂墜結構為主，保留精緻感但不過度主導畫面。"
       },
       {
         "zh": "雕塑感金屬耳圈",
-        "en": "sculptural metal hoop earrings, curved polished surface, bold reflective ear accent",
-        "desc": "以帶弧度的金屬輪廓與明顯反射面為主，存在感更強，適合極簡時裝與都會造型。"
+        "en": "small sculptural hoop earring detail, subtle polished metal accent",
+        "desc": "以帶弧度的金屬輪廓為主，改成較低干擾的點綴型語氣。"
       },
       {
         "zh": "十字垂墜耳環",
-        "en": "cross drop earrings, slim dangling metal charms, gothic-inspired ear detail",
-        "desc": "以細長十字垂墜結構為主，帶有哥德、地下與偏冷感的飾品語氣。"
+        "en": "small cross earring detail, subtle gothic-inspired accessory accent",
+        "desc": "保留哥德、地下與偏冷感，但控制在較低存在感的配件層級。"
       }
     ],
     "頸部 (Neck Accessories)": [
@@ -1186,103 +1186,103 @@
       },
       {
         "zh": "金屬細頸圈",
-        "en": "slim metal choker, close-fitting neck accessory, refined edgy accent",
-        "desc": "比粗頸鍊更俐落，適合夜景、都會與帶一點冷感的造型。"
+        "en": "slim metal choker detail, subtle close-fitting neck accent",
+        "desc": "比粗頸鍊更俐落，調整為低干擾的頸部點綴。"
       },
       {
         "zh": "雕塑感金屬頸圈",
-        "en": "sculptural metal collar necklace, curved polished metal form, bold reflective statement around the neck",
-        "desc": "以帶弧度的金屬輪廓與拋光反射面為主，存在感更強，適合極簡時裝、棚拍與高級感造型。"
+        "en": "sculptural metal collar detail, subtle polished neck accent",
+        "desc": "保留金屬雕塑感，但降低成為主體 statement piece 的機率。"
       },
       {
         "zh": "多條層疊的金項鏈",
-        "en": "layered gold necklaces, stacked chain lengths, warm metallic shine",
-        "desc": "多層金色項鍊能增加成熟與時裝感，適合低領口與度假、夜拍造型。"
+        "en": "layered gold necklace detail, subtle stacked chain accent",
+        "desc": "多層金色項鍊保留成熟與時裝感，但以輕量配件語氣呈現。"
       },
       {
         "zh": "多條層疊的珍珠項鍊",
-        "en": "layered pearl necklaces, mixed strand lengths, luminous pearl surface, elegant vintage neck styling",
-        "desc": "多層珍珠串帶有柔亮光澤與復古華麗感，適合法式、飯店、古典與成熟寫真造型。"
+        "en": "layered pearl necklace detail, soft understated pearl accent",
+        "desc": "多層珍珠串仍有復古感，但降低華麗程度避免搶戲。"
       },
       {
         "zh": "單圈珍珠項鍊",
-        "en": "single-strand pearl necklace, evenly sized pearls, soft lustrous finish, classic elegant neckline detail",
-        "desc": "以單圈珍珠與溫潤珠光為主，精緻但不過度張揚，適合襯衫、洋裝與典雅造型。"
+        "en": "single-strand pearl necklace detail, subtle classic pearl accent",
+        "desc": "以單圈珍珠與溫潤珠光為主，存在感更低更穩定。"
       },
       {
         "zh": "多條層疊的水晶項鍊與頸鏈",
-        "en": "layered crystal necklaces and chokers, sparkling gemstone details, ornate neck styling",
-        "desc": "水晶頸鏈與項鍊疊加後更有華麗感，適合戲劇化、夜拍與高飽和造型。"
+        "en": "layered crystal necklace detail, subtle reflective neck accent",
+        "desc": "保留水晶反光，但降低 ornate 與誇張珠寶感。"
       },
       {
         "zh": "水滴寶石吊墜項鍊",
-        "en": "teardrop gemstone pendant necklace, delicate chain, faceted jewel centerpiece, refined sparkling neckline accent",
-        "desc": "以水滴形寶石主墜與細鍊條為主，亮點集中但不過度繁複，適合高級寫真與較精緻的晚間造型。"
+        "en": "small teardrop pendant necklace detail, delicate understated jewel accent",
+        "desc": "保留精緻主墜感，但縮小寶石主導畫面的機率。"
       },
       {
         "zh": "復古浮雕墜飾頸鍊",
-        "en": "vintage cameo pendant necklace, engraved portrait medallion, ornate antique metal frame, romantic old-world detail",
-        "desc": "以浮雕肖像墜飾與仿古金屬邊框為主，整體更偏復古、維多利亞與收藏感造型。"
+        "en": "vintage cameo pendant detail, subtle antique-inspired neck accent",
+        "desc": "保留復古收藏感，但改為較輕的點綴描述。"
       },
       {
         "zh": "皮質扣環頸鏈",
-        "en": "leather buckle choker, strap-and-buckle neck accessory, edgy statement detail",
-        "desc": "皮革與扣環組成的頸鏈更有支配感與地下風格，適合龐克與 fetish 邊緣造型。"
+        "en": "leather buckle choker detail, subtle edgy neck accent",
+        "desc": "保留冷感與地下風格，但避免變成過強主題道具。"
       },
       {
         "zh": "緞帶頸圈",
-        "en": "ribbon choker, soft neck ribbon, delicate feminine accent",
-        "desc": "緞帶材質讓頸圈更柔和，適合甜系、少女感與輕復古造型。"
+        "en": "ribbon choker detail, soft understated neck accent",
+        "desc": "緞帶材質讓頸圈更柔和，語氣調整為低存在感裝飾。"
       },
       {
         "zh": "蕾絲緞帶頸圈",
-        "en": "lace ribbon choker, delicate lace trim, romantic neck accessory",
-        "desc": "在緞帶基礎上加入蕾絲花邊，更偏維多利亞、Lolita 與浪漫風格。"
+        "en": "lace ribbon choker detail, subtle romantic neck accent",
+        "desc": "保留浪漫風格，但不讓蕾絲頸圈過度搶戲。"
       },
       {
         "zh": "絲絨蝴蝶結頸圈",
-        "en": "velvet bow choker, soft ribbon texture, centered bow detail, romantic vintage neckline styling",
-        "desc": "以絲絨帶與中央蝴蝶結為主，質地更厚實柔軟，適合 Lolita、復古甜感與寫真造型。"
+        "en": "velvet bow choker detail, subtle vintage ribbon accent",
+        "desc": "保留復古甜感，但降低中央蝴蝶結的主視覺強度。"
       },
       {
         "zh": "鎖骨細金屬鏈",
-        "en": "delicate collarbone chain, fine metallic necklace, subtle reflective accent",
-        "desc": "細緻的金屬鏈條剛好落在鎖骨位置，存在感低但能提升精緻度。"
+        "en": "delicate collarbone chain detail, subtle metallic neck accent",
+        "desc": "細緻金屬鏈條剛好落在鎖骨位置，維持低存在感。"
       },
       {
         "zh": "細鍊鎖頭吊墜項鍊",
-        "en": "lock pendant necklace, slim chain, polished metal lock charm, understated edgy detail",
-        "desc": "以小型鎖頭吊墜作為主要視覺重點，兼具低調街頭感與精緻金屬細節。"
+        "en": "small lock pendant necklace detail, understated edgy neck accent",
+        "desc": "保留低調街頭感與小型吊墜語氣，避免誇張放大。"
       },
       {
         "zh": "十字吊墜層疊頸鏈",
-        "en": "layered cross pendant necklaces, mixed chain lengths, polished metal charms, gothic-inspired neck detail",
-        "desc": "以不同長度的十字吊墜鍊疊戴為主，帶有哥德、地下與街頭混搭感。"
+        "en": "layered cross pendant necklace detail, subtle gothic-inspired neck accent",
+        "desc": "保留哥德與街頭混搭感，但控制在細節層級。"
       },
       {
         "zh": "鑽石網球項鍊",
-        "en": "diamond tennis necklace, continuous line of small stones, crisp sparkle, polished luxury neckline detail",
-        "desc": "以整圈連續鑽石排列形成細緻高光，質感乾淨奢華，適合正式、晚間與高級棚拍造型。"
+        "en": "diamond tennis necklace detail, subtle luxury neck accent",
+        "desc": "保留乾淨奢華感，但不讓鑽石高光成為主畫面焦點。"
       },
       {
         "zh": "刺繡絲巾",
-        "en": "embroidered silk scarf, ornate fabric accessory, soft draped neck styling",
-        "desc": "刺繡與絲質結合後更有文藝與復古感，適合法式、古典與旅行造型。"
+        "en": "embroidered silk scarf detail, soft draped neck accent",
+        "desc": "刺繡與絲質結合後仍有文藝感，但降低布料配件主導性。"
       },
       {
         "zh": "薄長圍巾",
-        "en": "thin long scarf, lightweight draped accessory, flowing neck detail",
-        "desc": "輕薄長圍巾適合層次穿搭與動態畫面，能增加都市與文藝氣質。"
+        "en": "thin long scarf detail, lightweight draped neck accent",
+        "desc": "輕薄長圍巾適合層次穿搭與動態畫面，但控制在配角層級。"
       },
       {
         "zh": "厚長圍巾",
-        "en": "thick long scarf, cozy wrapped accessory, soft winter layering",
-        "desc": "厚實長圍巾更偏秋冬、居家與街頭保暖造型，存在感也更強。"
+        "en": "thick long scarf detail, soft wrapped neck layering",
+        "desc": "厚實長圍巾更偏秋冬保暖，但語氣改得更不搶戲。"
       },
       {
         "zh": "街頭風格金項鏈",
-        "en": "street-style gold chain necklace, bold urban chain detail, confident streetwear accent",
-        "desc": "比一般層疊金項鏈更偏街頭與都會感，適合 hip-hop、潮流與強態度造型。"
+        "en": "street-style gold chain detail, subtle urban neck accent",
+        "desc": "保留街頭與都會感，但降低 bold chain 的強烈存在。"
       }
     ],
     "腕部 (Wrist Accessories)": [
@@ -1337,13 +1337,13 @@
       },
       {
         "zh": "單排打孔腰帶",
-        "en": "single-row punched leather belt, metal eyelets, waist-defining accessory, edgy detail",
-        "desc": "比多排版本更精準俐落，能強化腰線並增加龐克或街頭味道。"
+        "en": "single-row punched leather belt detail, subtle waist accent with metal eyelets",
+        "desc": "比多排版本更精準俐落，但改成較低干擾的腰部點綴。"
       },
       {
         "zh": "胸下式短款精緻束腰帶",
-        "en": "underbust waist cincher belt, short structured waist accessory, refined corset-inspired detail",
-        "desc": "強調胸下與腰部比例的短款束腰帶，適合哥德、維多利亞與時裝造型。"
+        "en": "underbust waist cincher detail, subtle corset-inspired waist accent",
+        "desc": "保留胸下與腰部比例調整感，但不讓束腰帶過度主導畫面。"
       }
     ]
   },

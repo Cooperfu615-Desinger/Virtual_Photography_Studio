@@ -1919,6 +1919,11 @@ function buildHairColorPrompt(item) {
   return `${base}, hair color applies only to the scalp hair, eyebrows remain natural and realistic, not dyed to match the hair`;
 }
 
+function buildAccessoryPrompt(item) {
+  if (!item || isNoneLikeItem(item)) return '';
+  return stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
+}
+
 function compactClause(text, maxParts = 2) {
   if (!text) return '';
   return text
@@ -2127,13 +2132,6 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
   const poseText = characterSlots.pose ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '';
-  const subjectAccessories = [
-    wardrobeSlots.eyewear,
-    wardrobeSlots.earrings,
-    wardrobeSlots.neckAccessory,
-    wardrobeSlots.wristAccessory,
-    wardrobeSlots.ring,
-  ].filter((item) => item && !isNoneLikeItem(item)).map((item) => item.en);
   const lines = [];
   const addLine = (label, value) => {
     if (!value) return;
@@ -2147,7 +2145,6 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     if (!item || isNoneLikeItem(item)) return;
     addLine(label, formatter(item));
   };
-  const mergePromptText = (...parts) => parts.filter((part) => part && part !== 'none').join(', ');
   const buildGrokFramingText = () => {
     const base = context.framing ? resolvePromptVariant(context.framing, 'framing', context.subject.count) : '';
     if (!base || context.framing?.zh !== '全身鏡頭 (Full Body Shot)') return base;
@@ -2162,7 +2159,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     return `${base}, full lower legs and feet clearly visible`;
   };
 
-  addLine('Subject Count', mergePromptText(context.subject.en, subjectAccessories.join(', ')));
+  addLine('Subject Count', context.subject.en);
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
   }
@@ -2209,21 +2206,22 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addLine('Expression', expressionText);
   addLine('Pose', poseText);
   if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB) {
-    const waistAccessoryText = wardrobeSlots.waistAccessory && !isNoneLikeItem(wardrobeSlots.waistAccessory) ? wardrobeSlots.waistAccessory.en : '';
     const topText = buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern });
     const pantsText = buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern });
     const skirtText = buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern });
-    const waistOnPants = pantsText ? waistAccessoryText : '';
-    const waistOnSkirt = !pantsText && skirtText ? waistAccessoryText : '';
-    const waistOnTop = !pantsText && !skirtText ? waistAccessoryText : '';
-
-    addLine('Top', mergePromptText(topText, waistOnTop));
-    addLine('Pants', mergePromptText(pantsText, waistOnPants));
-    addLine('Skirt', mergePromptText(skirtText, waistOnSkirt));
+    addLine('Top', topText);
+    addLine('Pants', pantsText);
+    addLine('Skirt', skirtText);
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
     addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern }));
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
+  addLine('Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewear));
+  addLine('Earrings', buildAccessoryPrompt(wardrobeSlots.earrings));
+  addLine('Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessory));
+  addLine('Wrist Accessory', buildAccessoryPrompt(wardrobeSlots.wristAccessory));
+  addLine('Ring', buildAccessoryPrompt(wardrobeSlots.ring));
+  addLine('Waist Accessory', buildAccessoryPrompt(wardrobeSlots.waistAccessory));
 
   return lines.join('\n');
 }
