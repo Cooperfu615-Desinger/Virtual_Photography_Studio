@@ -173,6 +173,7 @@ const LOCK_DEFINITIONS = [
   { key: 'duoInteractionId', label: '雙人互動', options: DUO_INTERACTION_OPTIONS, section: 'character' },
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
+  { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
   { key: 'outfitPresetId', label: '套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
   { key: 'outfitPresetColorId', label: '套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outfitPresetAId', label: '人物 1 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
@@ -231,6 +232,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'duoInteractionId', label: 'Duo Interaction' },
   { key: 'expressionId', label: 'Expression' },
   { key: 'poseId', label: 'Pose' },
+  { key: 'specialActionId', label: 'Special Action' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
   { key: 'outfitPresetColorId', label: 'Outfit Preset Color' },
   { key: 'outfitPresetAId', label: 'Woman 1 Outfit Preset' },
@@ -614,6 +616,7 @@ function inferCharacterMeta(category, item) {
   if (category.includes('Hair Color')) minVisibility = 'medium';
   if (category.includes('Expression')) minVisibility = 'full';
   if (category.includes('Pose')) minVisibility = 'full';
+  if (category.includes('Special Actions')) minVisibility = 'medium';
 
   if (hasAny(haystack, ['freckles', '雀斑', 'eyelashes', 'lip', 'nose', '瞳', 'gaze', 'eye contact'])) {
     if (!category.includes('Expression')) {
@@ -664,6 +667,25 @@ function inferCharacterMeta(category, item) {
   if (hasAny(haystack, ['looking off to the side', '側望', 'look to the side'])) tags.push('side_gaze');
   if (hasAny(haystack, ['lowered gaze', '低頭', '向下'])) tags.push('downward_gaze');
   if (hasAny(haystack, ['top-down', 'aerial view', '俯拍'])) tags.push('requires_aerial');
+  if (category.includes('Special Actions')) {
+    tags.push('special_action');
+    if (hasAny(haystack, ['lipstick', '口紅', 'coffee', '咖啡', 'lollipop', '棒棒糖', 'cigarette', '抽煙'])) {
+      minVisibility = 'medium';
+      tags.push('prop_action');
+    }
+    if (hasAny(haystack, ['stocking', '絲襪', 'hosiery'])) {
+      minVisibility = 'full';
+      tags.push('prop_action', 'leg_focus_action');
+    }
+    if (hasAny(haystack, ['armchair', '沙發', 'ornate carved'])) {
+      minVisibility = 'full';
+      tags.push('scene_override', 'large_prop_action');
+    }
+    if (hasAny(haystack, ['one shoulder', '肩線', 'pulling the top partially off'])) {
+      minVisibility = 'medium';
+      tags.push('wardrobe_action');
+    }
+  }
   if (hasAny(haystack, ['korean', 'idol'])) archetype = 'korean';
   if (hasAny(haystack, ['nordic', 'scandinavian'])) archetype = 'nordic';
   if (hasAny(haystack, ['east asian', 'asian'])) archetype = 'east_asian';
@@ -958,6 +980,7 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'hairColorBId') options = getByKey(catalog.character, '髮色 (Hair Color)');
       if (definition.key === 'expressionId') options = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
       if (definition.key === 'poseId') options = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
+      if (definition.key === 'specialActionId') options = getByKey(catalog.character, '特殊動作 (Special Actions)');
       if (definition.key === 'topId') options = getByKey(catalog.wardrobe, '上身 (Tops)');
       if (definition.key === 'topPatternId') options = getByKey(catalog.wardrobe, '上身圖案 (Top Surface Design)');
       if (definition.key === 'pantsId') options = getByKey(catalog.wardrobe, '褲裝 (Pants)');
@@ -1243,6 +1266,23 @@ function framingSupportsSubject(framing, subject, aspectRatio) {
   return true;
 }
 
+function specialActionSupportsFraming(action, framing) {
+  if (!action || isNoneLikeItem(action)) return true;
+
+  const visibility = framing.meta.visibility;
+  const actionTags = new Set(action.meta?.tags || []);
+
+  if (actionTags.has('leg_focus_action') || actionTags.has('large_prop_action')) {
+    return visibility === 'full' || visibility === 'wide';
+  }
+
+  if (actionTags.has('prop_action') || actionTags.has('wardrobe_action')) {
+    return visibility !== 'close';
+  }
+
+  return visibility !== 'close';
+}
+
 function buildSubjectBase(subject) {
   return {
     zh: subject.reference ? '一位以附圖人物五官為主的女性' : subject.count === 2 ? '兩位性感驚豔的東亞女性' : '一位性感驚豔的東亞女性',
@@ -1276,6 +1316,7 @@ function buildCharacter(context, catalog) {
     '髮色 (Hair Color)': 'hairColorId',
     '神情與眼神 (Expression & Gaze)': 'expressionId',
     '姿勢與肢體語言 (Pose & Body Language)': 'poseId',
+    '特殊動作 (Special Actions)': 'specialActionId',
   };
 
   const pickCategory = (categoryKey, locks, customPredicate = () => true, picker = sample, respectVisibility = true) => {
@@ -1375,6 +1416,11 @@ function buildCharacter(context, catalog) {
   const expression = pickCategory('神情與眼神 (Expression & Gaze)', context.locks, (item) => expressionSupportsComposition(item, context));
 
   if (context.subject.count > 1) return character;
+
+  const specialAction = context.locks?.specialActionId
+    ? pickCategory('特殊動作 (Special Actions)', context.locks, () => true, sample, false)
+    : null;
+  if (specialAction && !isNoneLikeItem(specialAction)) return character;
 
   if (context.locks?.poseId) {
     pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, () => true, sample, false);
@@ -1610,6 +1656,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       characterSlots.facialFeatures?.zh && !isNoneLikeItem(characterSlots.facialFeatures) ? characterSlots.facialFeatures.zh : '',
       hairSummary !== '-' ? hairSummary : '',
       characterSlots.expression?.zh && !isNoneLikeItem(characterSlots.expression) ? characterSlots.expression.zh : '',
+      characterSlots.specialAction?.zh && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.zh : '',
       characterSlots.pose?.zh && !isNoneLikeItem(characterSlots.pose) ? characterSlots.pose.zh : ''
     );
   };
@@ -1820,6 +1867,7 @@ function extractCharacterSlots(character) {
     hairColorB: findRoleSlot('character:髮色-hair-color:', 'b'),
     expression: findSlot('character:神情與眼神-expression-gaze:'),
     pose: findSlot('character:姿勢與肢體語言-pose-body-language:'),
+    specialAction: findSlot('character:特殊動作-special-actions:'),
   };
 }
 
@@ -2052,6 +2100,9 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
       characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
     ], 2);
     poseText = formatMidjourneySectionText([
+      characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
+        ? characterSlots.specialAction.en
+        : '',
       characterSlots.pose && !isNoneLikeItem(characterSlots.pose) && context.framing.meta.visibility !== 'portrait'
         ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)
         : '',
@@ -2132,6 +2183,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
   const poseText = characterSlots.pose ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '';
+  const specialActionText = characterSlots.specialAction?.en || '';
   const lines = [];
   const addLine = (label, value) => {
     if (!value) return;
@@ -2204,6 +2256,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   }
   if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
   addLine('Expression', expressionText);
+  addLine('Special Action', specialActionText);
   addLine('Pose', poseText);
   if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB) {
     const topText = buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern });
@@ -2282,6 +2335,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     duoInteractionId: duoInteraction?.id || '',
     expressionId: characterSlots.expression?.id || '',
     poseId: characterSlots.pose?.id || '',
+    specialActionId: characterSlots.specialAction?.id || '',
     topId: wardrobeSlots.top?.id || '',
     topColorId: wardrobeColors.topColor?.id || '',
     topPatternId: wardrobeSlots.topPattern?.id || '',
@@ -2343,10 +2397,19 @@ function generateSinglePrompt(index, locks, customLibrary) {
   };
   const location = pickWithLock(runtime.flatCatalog.locations, effectiveLocks.locationId);
   const style = pickWithLock(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
+  const lockedSpecialAction = effectiveLocks.specialActionId
+    ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
+    : null;
   const framing = pickWithLock(
     runtime.flatCatalog.framing,
     effectiveLocks.framingId,
-    (item) => !(location.meta.tags.includes('club') && item.meta.visibility === 'close') && framingSupportsSubject(item, subject, aspectRatio)
+    (item) => (
+      (!lockedSpecialAction || item.zh !== '全無')
+      &&
+      !(location.meta.tags.includes('club') && item.meta.visibility === 'close')
+      && framingSupportsSubject(item, subject, aspectRatio)
+      && specialActionSupportsFraming(lockedSpecialAction, item)
+    )
   );
   const lockedExpression = effectiveLocks.expressionId
     ? findById(getByKey(runtime.catalog.character, '神情與眼神 (Expression & Gaze)'), effectiveLocks.expressionId)

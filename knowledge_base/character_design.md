@@ -124,3 +124,11 @@
 | **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜低頭行進姿勢 | `walking pose with lowered gaze, inward quiet motion, solitary natural rhythm` | 帶移動感但視線向下，偏安靜、冷感與獨處氛圍。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜自然自拍姿勢 | `casual selfie-like moving pose, self-portrait body language in motion, natural arm and gaze coordination, no phone required` | 帶有邊走邊自拍或抓拍式自拍感，但不強制手機入鏡。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜鏡子自拍姿勢 | `mirror selfie in a dynamic pose, holding a phone visibly, face unobstructed, clear facial features, lively self-portrait framing` | 只在有鏡面或反射場景時使用，仍維持手機可見但不遮臉。 |
+| **特殊動作 (Special Actions)** | 全無 | `none` | 不指定特殊動作，保留一般姿勢動作系統。 |
+| **特殊動作 (Special Actions)** | 塗口紅 | `applying lipstick with one hand near the lips, lipstick tube clearly visible, deliberate beauty touch-up moment, staged portrait action` | 以單手拿口紅靠近嘴唇的補妝瞬間為主，重點在明確的美容行為與近距離寫真感。 |
+| **特殊動作 (Special Actions)** | 喝咖啡 | `holding a coffee cup near the lips in the middle of a sip, relaxed staged cafe moment, deliberate everyday portrait action` | 以手持咖啡杯準備啜飲或剛啜飲的瞬間為主，適合咖啡館、室內生活感與刻意擺拍的人像企劃。 |
+| **特殊動作 (Special Actions)** | 吃棒棒糖 | `holding a lollipop lightly at the lips, playful staged portrait action, deliberate candy prop interaction` | 以棒棒糖靠近嘴唇的輕觸瞬間為主，帶一點俏皮與角色感，但保持乾淨直接的人像構圖。 |
+| **特殊動作 (Special Actions)** | 抽煙 | `holding a cigarette between the fingers near the lips, faint smoke, controlled staged portrait action, deliberate cinematic smoking moment` | 以手指夾著香菸靠近嘴邊的瞬間為主，煙霧只作為輕量氛圍，不讓道具過度主導畫面。 |
+| **特殊動作 (Special Actions)** | 整理絲襪 | `one hand pulling up the stocking on one leg, clear hosiery-adjusting motion, deliberate dressing action, staged portrait moment` | 以單手拉起一側絲襪的穿戴整理動作為主，需要至少能清楚看到腿部與手部互動。 |
+| **特殊動作 (Special Actions)** | 半脫上衣整理肩線 | `pulling the top partially off one shoulder while adjusting the fabric, deliberate styling gesture, staged fashion portrait action` | 以把上衣肩線拉下一點並整理布料的造型瞬間為主，偏服裝 styling 動作而不是完整脫衣事件。 |
+| **特殊動作 (Special Actions)** | 霸氣坐在雕花單人沙發上 | `sitting in an exaggerated dominant pose on an ornate carved armchair intentionally placed within the scene, staged editorial action, surreal location contrast` | 以誇張坐姿與被刻意放進場景裡的雕花單人沙發形成反差，允許無視原場景常理來建立企劃感。 |

@@ -28,7 +28,7 @@ const SUMMARY_SECTION_INFO = {
   },
   character: {
     label: '人物',
-    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色', '雙人互動', '表情', '姿勢'],
+    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色', '雙人互動', '表情', '姿勢', '特殊動作'],
     keys: [
       'subjectCount',
       'bodyTypeId',
@@ -45,6 +45,7 @@ const SUMMARY_SECTION_INFO = {
       'duoInteractionId',
       'expressionId',
       'poseId',
+      'specialActionId',
     ],
   },
   wardrobe: {
@@ -118,8 +119,8 @@ const ADVANCED_REMIX_GROUP_INFO = {
   },
   expressionPose: {
     label: '表情姿勢',
-    lockLabels: ['表情', '姿勢'],
-    keys: ['expressionId', 'poseId'],
+    lockLabels: ['表情', '姿勢', '特殊動作'],
+    keys: ['expressionId', 'poseId', 'specialActionId'],
   },
   wardrobeCore: {
     label: '服裝主體',
@@ -171,6 +172,7 @@ const CHARACTER_CONTROL_ORDER = [
   'duoInteractionId',
   'expressionId',
   'poseId',
+  'specialActionId',
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
 const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'locationId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'aspectRatio'];
@@ -453,6 +455,7 @@ export default function App() {
         lockControls.filter((control) => {
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
           if (control.key === 'duoInteractionId' && locks.subjectCount !== '2') return false;
+          if (control.key === 'specialActionId' && locks.subjectCount !== '1') return false;
           if (['facialFeaturesId', 'hairstyleId', 'hairColorId'].includes(control.key) && locks.subjectCount === '2') return false;
           if (['facialFeaturesAId', 'facialFeaturesBId', 'hairstyleAId', 'hairstyleBId', 'hairColorAId', 'hairColorBId'].includes(control.key) && locks.subjectCount !== '2') return false;
           return true;
@@ -524,6 +527,16 @@ export default function App() {
 
       if (next.lightDirectionId && !allowedDirectionIds.has(next.lightDirectionId)) {
         next.lightDirectionId = '';
+      }
+
+      const poseIsActive = Boolean(next.poseId) && !isNoneSelected('poseId', next.poseId, lockControls);
+      const specialActionIsActive = Boolean(next.specialActionId) && !isNoneSelected('specialActionId', next.specialActionId, lockControls);
+      if (poseIsActive && specialActionIsActive) {
+        next.specialActionId = '';
+      }
+
+      if (next.subjectCount !== '1') {
+        next.specialActionId = '';
       }
 
       return next;
@@ -650,7 +663,20 @@ export default function App() {
                   key={control.key}
                   control={control}
                   value={locks[control.key]}
-                  onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
+                  disabled={
+                    (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)) ||
+                    (control.key === 'specialActionId' && Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls))
+                  }
+                  onChange={(value) => updateLocks((prev) => {
+                    const next = { ...prev, [control.key]: value };
+                    if (control.key === 'poseId' && value && !isNoneSelected('poseId', value, characterLockControls)) {
+                      next.specialActionId = '';
+                    }
+                    if (control.key === 'specialActionId' && value && !isNoneSelected('specialActionId', value, characterLockControls)) {
+                      next.poseId = '';
+                    }
+                    return next;
+                  })}
                   onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
                 />
               ))}
