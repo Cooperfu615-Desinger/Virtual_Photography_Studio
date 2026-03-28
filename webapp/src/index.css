@@ -465,6 +465,69 @@ button:disabled {
   gap: 18px;
 }
 
+.library-editor-shell {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.library-sidebar,
+.library-editor-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.library-entry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 560px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.library-entry-item {
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(111, 87, 60, 0.16);
+  background: rgba(255, 250, 240, 0.82);
+  color: var(--text-primary);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.library-entry-item strong {
+  font-size: 0.95rem;
+}
+
+.library-entry-item span {
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.library-entry-item-active {
+  border-color: var(--accent);
+  background: #fff3e6;
+  box-shadow: 0 8px 20px rgba(201, 124, 67, 0.12);
+}
+
+.library-editor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.library-textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
 .prompt-card {
   padding: 18px;
 }
@@ -954,7 +1017,8 @@ button:disabled {
   }
 
   .primary-action-row,
-  .feed {
+  .feed,
+  .library-editor-shell {
     grid-template-columns: 1fr;
   }
 

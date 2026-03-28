@@ -7,6 +7,8 @@ import {
   buildLocksFromPrompt,
   createEmptyLocks,
   generatePrompts,
+  getKnowledgeBaseOptions,
+  getKnowledgeBaseSnapshot,
   getSceneDependentOptions,
   getLockControls,
   normalizeLocks
@@ -19,6 +21,7 @@ const LOCKS_KEY = 'vps.locks';
 const GEN_COUNT_KEY = 'vps.genCount';
 const VIEW_MODE_KEY = 'vps.viewMode';
 const SEARCH_QUERY_KEY = 'vps.searchQuery';
+const LIBRARY_DRAFT_KEY = 'vps.libraryDraft';
 const MAX_STORED_PROMPTS = 120;
 const SUMMARY_SECTION_INFO = {
   style: {
@@ -334,6 +337,10 @@ function loadStringStorage(key, fallback) {
   return window.localStorage.getItem(key) ?? fallback;
 }
 
+function createEntryKey(group, category, index) {
+  return `${group}::${category}::${index}`;
+}
+
 function loadFavoritePrompts() {
   if (typeof window === 'undefined') return [];
 
@@ -398,6 +405,13 @@ export default function App() {
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
   const [searchQuery, setSearchQuery] = useState(() => loadStringStorage(SEARCH_QUERY_KEY, ''));
+  const [libraryDraft, setLibraryDraft] = useState(() => loadJsonStorage(LIBRARY_DRAFT_KEY, null));
+  const [libraryGroup, setLibraryGroup] = useState('Character');
+  const [libraryCategory, setLibraryCategory] = useState('');
+  const [librarySearch, setLibrarySearch] = useState('');
+  const [selectedEntryKey, setSelectedEntryKey] = useState('');
+  const [editorDraft, setEditorDraft] = useState({ zh: '', en: '', desc: '' });
+  const [editorMode, setEditorMode] = useState('edit');
   const [copiedLabel, setCopiedLabel] = useState('');
 
   useEffect(() => {
@@ -424,10 +438,20 @@ export default function App() {
     window.localStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
   }, [searchQuery]);
 
-  const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
+  useEffect(() => {
+    if (libraryDraft) {
+      window.localStorage.setItem(LIBRARY_DRAFT_KEY, JSON.stringify(libraryDraft));
+      return;
+    }
+    window.localStorage.removeItem(LIBRARY_DRAFT_KEY);
+  }, [libraryDraft]);
 
-  const lockControls = useMemo(() => getLockControls(), []);
-  const sceneDependentOptions = useMemo(() => getSceneDependentOptions([], locks), [locks]);
+  const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
+  const activeLibrary = useMemo(() => libraryDraft || [], [libraryDraft]);
+  const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(activeLibrary), [activeLibrary]);
+  const knowledgeBaseSnapshot = useMemo(() => getKnowledgeBaseSnapshot(activeLibrary), [activeLibrary]);
+  const lockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
+  const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
   const isPhotographyStyleLocked = Boolean(locks.styleId) && !isNoneSelected('styleId', locks.styleId, lockControls);
   const coreLockControls = useMemo(
     () => {
@@ -513,11 +537,40 @@ export default function App() {
     });
   }, [favoritePrompts, normalizedSearch, prompts, viewMode]);
 
+  const activeGroupOption = useMemo(
+    () => knowledgeBaseOptions.find((group) => group.value === libraryGroup) || knowledgeBaseOptions[0] || null,
+    [knowledgeBaseOptions, libraryGroup]
+  );
+  const libraryCategories = useMemo(() => activeGroupOption?.categories || [], [activeGroupOption]);
+  const effectiveLibraryGroup = activeGroupOption?.value || '';
+  const effectiveLibraryCategory = libraryCategory && libraryCategories.includes(libraryCategory)
+    ? libraryCategory
+    : (libraryCategories[0] || '');
+  const libraryEntries = useMemo(() => {
+    if (!effectiveLibraryGroup || !effectiveLibraryCategory) return [];
+    const entries = knowledgeBaseSnapshot?.[effectiveLibraryGroup]?.[effectiveLibraryCategory] || [];
+    const normalized = librarySearch.trim().toLowerCase();
+    return entries
+      .map((entry, index) => ({
+        ...entry,
+        entryKey: createEntryKey(effectiveLibraryGroup, effectiveLibraryCategory, index),
+        index,
+      }))
+      .filter((entry) => {
+        if (!normalized) return true;
+        return [entry.zh, entry.en, entry.desc].join(' ').toLowerCase().includes(normalized);
+      });
+  }, [knowledgeBaseSnapshot, effectiveLibraryGroup, effectiveLibraryCategory, librarySearch]);
+  const selectedLibraryEntry = useMemo(() => {
+    if (editorMode === 'new') return null;
+    return libraryEntries.find((entry) => entry.entryKey === selectedEntryKey) || libraryEntries[0] || null;
+  }, [editorMode, libraryEntries, selectedEntryKey]);
+
   const updateLocks = (updater) => {
     setLocks((prev) => {
       const candidate = typeof updater === 'function' ? updater(prev) : { ...prev, ...updater };
       const next = { ...candidate };
-      const nextSceneDependentOptions = getSceneDependentOptions([], next);
+      const nextSceneDependentOptions = getSceneDependentOptions(activeLibrary, next);
       const allowedLightingIds = new Set(nextSceneDependentOptions.lightingOptions.map((option) => option.id));
       const allowedDirectionIds = new Set(nextSceneDependentOptions.lightDirectionOptions.map((option) => option.id));
 
@@ -544,7 +597,7 @@ export default function App() {
   };
 
   const handleGenerate = () => {
-    const newPrompts = generatePrompts(genCount, locks).map((prompt) => ({
+    const newPrompts = generatePrompts(genCount, locks, activeLibrary).map((prompt) => ({
       ...prompt,
       lineage: createLineage(prompt),
     }));
@@ -556,7 +609,7 @@ export default function App() {
     const { branch = false } = options;
     const keepKeys = Array.from(new Set(summaryKeys.flatMap((key) => SUMMARY_REROLL_MAP[key] || [])));
     const remixLocks = buildLocksFromPrompt(prompt, keepKeys);
-    const [generatedPrompt] = generatePrompts(1, remixLocks);
+    const [generatedPrompt] = generatePrompts(1, remixLocks, activeLibrary);
     const nextPrompt = {
       ...generatedPrompt,
       id: branch ? generatedPrompt.id : prompt.id,
@@ -608,6 +661,101 @@ export default function App() {
       setCopiedLabel('Copy failed');
       window.setTimeout(() => setCopiedLabel(''), 1800);
     }
+  };
+
+  const handleLibraryGroupChange = (nextGroup) => {
+    const nextGroupOption = knowledgeBaseOptions.find((group) => group.value === nextGroup) || null;
+    const nextCategory = nextGroupOption?.categories?.[0] || '';
+    const nextEntry = nextCategory ? (knowledgeBaseSnapshot?.[nextGroup]?.[nextCategory]?.[0] || null) : null;
+    setLibraryGroup(nextGroup);
+    setLibraryCategory(nextCategory);
+    setLibrarySearch('');
+    if (nextEntry) {
+      setSelectedEntryKey(createEntryKey(nextGroup, nextCategory, 0));
+      setEditorMode('edit');
+      setEditorDraft({ zh: nextEntry.zh || '', en: nextEntry.en || '', desc: nextEntry.desc || '' });
+      return;
+    }
+    setSelectedEntryKey('');
+    setEditorMode('new');
+    setEditorDraft({ zh: '', en: '', desc: '' });
+  };
+
+  const handleLibraryCategoryChange = (nextCategory) => {
+    const nextEntry = nextCategory ? (knowledgeBaseSnapshot?.[effectiveLibraryGroup]?.[nextCategory]?.[0] || null) : null;
+    setLibraryCategory(nextCategory);
+    setLibrarySearch('');
+    if (nextEntry) {
+      setSelectedEntryKey(createEntryKey(effectiveLibraryGroup, nextCategory, 0));
+      setEditorMode('edit');
+      setEditorDraft({ zh: nextEntry.zh || '', en: nextEntry.en || '', desc: nextEntry.desc || '' });
+      return;
+    }
+    setSelectedEntryKey('');
+    setEditorMode('new');
+    setEditorDraft({ zh: '', en: '', desc: '' });
+  };
+
+  const handleSelectLibraryEntry = (entry) => {
+    setSelectedEntryKey(entry.entryKey);
+    setEditorMode('edit');
+    setEditorDraft({ zh: entry.zh || '', en: entry.en || '', desc: entry.desc || '' });
+  };
+
+  const handleCreateNewEntry = () => {
+    setSelectedEntryKey('');
+    setEditorMode('new');
+    setEditorDraft({ zh: '', en: '', desc: '' });
+  };
+
+  const handleSaveLibraryEntry = () => {
+    if (!effectiveLibraryGroup || !effectiveLibraryCategory) return;
+    if (!editorDraft.zh.trim() || !editorDraft.en.trim()) return;
+
+    const nextDatabase = structuredClone(knowledgeBaseSnapshot);
+    const groupBucket = nextDatabase[effectiveLibraryGroup] || {};
+    const categoryItems = Array.isArray(groupBucket[effectiveLibraryCategory]) ? [...groupBucket[effectiveLibraryCategory]] : [];
+
+    if (editorMode === 'edit' && selectedEntryKey) {
+      const target = selectedLibraryEntry;
+      if (!target) return;
+      categoryItems[target.index] = {
+        zh: editorDraft.zh.trim(),
+        en: editorDraft.en.trim(),
+        desc: editorDraft.desc.trim(),
+      };
+    } else {
+      categoryItems.push({
+        zh: editorDraft.zh.trim(),
+        en: editorDraft.en.trim(),
+        desc: editorDraft.desc.trim(),
+      });
+    }
+
+    nextDatabase[effectiveLibraryGroup] = {
+      ...groupBucket,
+      [effectiveLibraryCategory]: categoryItems,
+    };
+    setLibraryDraft(nextDatabase);
+    if (editorMode === 'new') {
+      const nextKey = createEntryKey(effectiveLibraryGroup, effectiveLibraryCategory, categoryItems.length - 1);
+      setSelectedEntryKey(nextKey);
+      setEditorMode('edit');
+    }
+  };
+
+  const handleResetLibraryDraft = () => {
+    setLibraryDraft(null);
+    setLibrarySearch('');
+  };
+
+  const handleGenerateLibraryTest = () => {
+    const newPrompts = generatePrompts(1, locks, activeLibrary).map((prompt) => ({
+      ...prompt,
+      lineage: createLineage(prompt),
+    }));
+    setPrompts((prev) => [...newPrompts, ...prev].slice(0, MAX_STORED_PROMPTS));
+    setViewMode('feed');
   };
 
   return (
@@ -739,40 +887,151 @@ export default function App() {
           <button className={viewMode === 'favorites' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('favorites')}>
             Favorites ({favoritePrompts.length})
           </button>
-        </div>
-
-        <div className="filter-bar">
-          <div className="search-shell">
-            <input className="text-input search-input" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search by style, scene, wardrobe, character..." />
-          </div>
-          <div className="results-meta">{displayPrompts.length} results</div>
-        </div>
-
-        <div className="tab-row">
-          <button className="secondary" onClick={handleDownloadAll} disabled={displayPrompts.length === 0}>
-            Download Feed
+          <button className={viewMode === 'library' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('library')}>
+            Library Editor
           </button>
         </div>
+
+        {viewMode === 'library' ? (
+          <div className="filter-bar">
+            <div className="results-meta">
+              {libraryDraft ? '目前使用瀏覽器草稿資料庫' : '目前使用內建資料庫'}
+            </div>
+            <div className="tab-row">
+              <button className="secondary" onClick={handleGenerateLibraryTest}>
+                用目前鎖定條件測試 1 張
+              </button>
+              <button className="secondary" onClick={handleResetLibraryDraft} disabled={!libraryDraft}>
+                還原內建資料
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="filter-bar">
+            <div className="search-shell">
+              <input className="text-input search-input" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search by style, scene, wardrobe, character..." />
+            </div>
+            <div className="results-meta">{displayPrompts.length} results</div>
+          </div>
+        )}
+
+        {viewMode !== 'library' ? (
+          <div className="tab-row">
+            <button className="secondary" onClick={handleDownloadAll} disabled={displayPrompts.length === 0}>
+              Download Feed
+            </button>
+          </div>
+        ) : null}
       </section>
 
-      <div className="feed">
-        {displayPrompts.length === 0 ? (
-          <div className="empty-state">{searchQuery ? '沒有符合搜尋條件的 prompt。' : '先設定條件，再開始批次生成。'}</div>
-        ) : (
-          displayPrompts.map((prompt) => (
-            <PromptCard
-              key={prompt.id}
-              data={prompt}
-              isFavorite={favoriteIds.has(prompt.id)}
-              onFavorite={toggleFavorite}
-              onDelete={handleDeletePrompt}
-              onRemix={handleRemixPrompt}
-              summarySectionInfo={SUMMARY_SECTION_INFO}
-              advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}
-            />
-          ))
-        )}
-      </div>
+      {viewMode === 'library' ? (
+        <section className="library-editor-shell">
+          <aside className="library-sidebar lock-panel">
+            <div className="control-section-header">
+              <div className="control-section-title">Library Browser</div>
+            </div>
+            <div className="field">
+              <span>資料群組</span>
+              <select value={effectiveLibraryGroup} onChange={(event) => handleLibraryGroupChange(event.target.value)}>
+                {knowledgeBaseOptions.map((group) => (
+                  <option key={group.value} value={group.value}>{group.label}</option>
+                ))}
+              </select>
+            </div>
+            <div className="field">
+              <span>分類</span>
+              <select value={effectiveLibraryCategory} onChange={(event) => handleLibraryCategoryChange(event.target.value)}>
+                {libraryCategories.map((category) => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+            </div>
+            <div className="field">
+              <span>搜尋條目</span>
+              <input
+                className="text-input"
+                value={librarySearch}
+                onChange={(event) => setLibrarySearch(event.target.value)}
+                placeholder="Search zh / en / desc"
+              />
+            </div>
+            <div className="library-entry-list">
+              {libraryEntries.map((entry) => (
+                <button
+                  key={entry.entryKey}
+                  type="button"
+                  className={`library-entry-item ${selectedLibraryEntry?.entryKey === entry.entryKey && editorMode === 'edit' ? 'library-entry-item-active' : ''}`}
+                  onClick={() => handleSelectLibraryEntry(entry)}
+                >
+                  <strong>{entry.zh}</strong>
+                  <span>{entry.en}</span>
+                </button>
+              ))}
+            </div>
+          </aside>
+
+          <section className="library-editor-panel lock-panel">
+            <div className="control-section-header">
+              <div className="control-section-title">Entry Editor</div>
+              <div className="tab-row">
+                <button className="secondary" onClick={handleCreateNewEntry}>新增條目</button>
+                <button className="primary-cta" onClick={handleSaveLibraryEntry}>儲存草稿</button>
+              </div>
+            </div>
+            <p className="context-note">
+              這個版本會把修改存在瀏覽器草稿中，主頁生成會立即套用。你可以改完 wording 後，直接按上方的「用目前鎖定條件測試 1 張」回 Feed 實測。
+            </p>
+            <div className="library-editor-form">
+              <label className="field">
+                <span>中文名稱</span>
+                <input
+                  className="text-input"
+                  value={editorDraft.zh}
+                  onChange={(event) => setEditorDraft((prev) => ({ ...prev, zh: event.target.value }))}
+                  placeholder="例如：雪紡荷葉高領蝴蝶結襯衫"
+                />
+              </label>
+              <label className="field">
+                <span>英文 Prompt</span>
+                <textarea
+                  className="text-input library-textarea"
+                  value={editorDraft.en}
+                  onChange={(event) => setEditorDraft((prev) => ({ ...prev, en: event.target.value }))}
+                  placeholder="輸入主要 prompt wording"
+                />
+              </label>
+              <label className="field">
+                <span>描述</span>
+                <textarea
+                  className="text-input library-textarea"
+                  value={editorDraft.desc}
+                  onChange={(event) => setEditorDraft((prev) => ({ ...prev, desc: event.target.value }))}
+                  placeholder="中文說明，可選"
+                />
+              </label>
+            </div>
+          </section>
+        </section>
+      ) : (
+        <div className="feed">
+          {displayPrompts.length === 0 ? (
+            <div className="empty-state">{searchQuery ? '沒有符合搜尋條件的 prompt。' : '先設定條件，再開始批次生成。'}</div>
+          ) : (
+            displayPrompts.map((prompt) => (
+              <PromptCard
+                key={prompt.id}
+                data={prompt}
+                isFavorite={favoriteIds.has(prompt.id)}
+                onFavorite={toggleFavorite}
+                onDelete={handleDeletePrompt}
+                onRemix={handleRemixPrompt}
+                summarySectionInfo={SUMMARY_SECTION_INFO}
+                advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}
+              />
+            ))
+          )}
+        </div>
+      )}
 
       {copiedLabel ? <div className="toast">{copiedLabel}</div> : null}
     </div>

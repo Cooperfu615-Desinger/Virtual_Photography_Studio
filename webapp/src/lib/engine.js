@@ -831,6 +831,10 @@ function cloneDatabase(rawDatabase) {
 }
 
 function mergeCustomLibrary(customLibrary = []) {
+  if (customLibrary && !Array.isArray(customLibrary) && typeof customLibrary === 'object') {
+    return cloneDatabase(customLibrary);
+  }
+
   const merged = cloneDatabase(database);
 
   customLibrary.forEach((entry) => {
@@ -893,6 +897,11 @@ export function getKnowledgeBaseOptions(customLibrary = []) {
     ...groupOption,
     categories: Object.keys(mergedDatabase[groupOption.value] || {}).sort(),
   }));
+}
+
+export function getKnowledgeBaseSnapshot(customLibrary = []) {
+  const { mergedDatabase } = buildCatalog(customLibrary);
+  return cloneDatabase(mergedDatabase);
 }
 
 export function createEmptyLocks() {
