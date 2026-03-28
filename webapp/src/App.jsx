@@ -341,6 +341,61 @@ function createEntryKey(group, category, index) {
   return `${group}::${category}::${index}`;
 }
 
+function buildLibraryDraftSummary(baseSnapshot, draftSnapshot) {
+  if (!draftSnapshot) return '';
+
+  const lines = [];
+  const groupMap = {
+    Regional: 'Photography Style',
+    Locations: 'Location',
+    Wardrobe: 'Wardrobe',
+    Character: 'Character',
+    CameraLighting: 'Camera & Lighting',
+    Negative: 'Negative',
+  };
+
+  Object.entries(draftSnapshot).forEach(([groupKey, categories]) => {
+    Object.entries(categories || {}).forEach(([categoryKey, items]) => {
+      const baseItems = baseSnapshot?.[groupKey]?.[categoryKey] || [];
+      items.forEach((item, index) => {
+        const baseItem = baseItems[index];
+        const normalizedItem = {
+          zh: item?.zh || '',
+          en: item?.en || '',
+          desc: item?.desc || '',
+        };
+        const normalizedBase = {
+          zh: baseItem?.zh || '',
+          en: baseItem?.en || '',
+          desc: baseItem?.desc || '',
+        };
+
+        if (!baseItem) {
+          lines.push(`[新增] ${groupMap[groupKey] || groupKey} / ${categoryKey} / ${normalizedItem.zh || normalizedItem.en}`);
+          lines.push(`en: ${normalizedItem.en}`);
+          if (normalizedItem.desc) lines.push(`desc: ${normalizedItem.desc}`);
+          lines.push('');
+          return;
+        }
+
+        if (
+          normalizedItem.zh !== normalizedBase.zh
+          || normalizedItem.en !== normalizedBase.en
+          || normalizedItem.desc !== normalizedBase.desc
+        ) {
+          lines.push(`[修改] ${groupMap[groupKey] || groupKey} / ${categoryKey} / ${normalizedBase.zh || normalizedBase.en}`);
+          if (normalizedItem.zh !== normalizedBase.zh) lines.push(`zh: ${normalizedBase.zh} -> ${normalizedItem.zh}`);
+          if (normalizedItem.en !== normalizedBase.en) lines.push(`en: ${normalizedBase.en} -> ${normalizedItem.en}`);
+          if (normalizedItem.desc !== normalizedBase.desc) lines.push(`desc: ${normalizedBase.desc} -> ${normalizedItem.desc}`);
+          lines.push('');
+        }
+      });
+    });
+  });
+
+  return lines.join('\n').trim();
+}
+
 function loadFavoritePrompts() {
   if (typeof window === 'undefined') return [];
 
@@ -448,6 +503,7 @@ export default function App() {
 
   const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
   const activeLibrary = useMemo(() => libraryDraft || [], [libraryDraft]);
+  const baseKnowledgeBaseSnapshot = useMemo(() => getKnowledgeBaseSnapshot(), []);
   const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(activeLibrary), [activeLibrary]);
   const knowledgeBaseSnapshot = useMemo(() => getKnowledgeBaseSnapshot(activeLibrary), [activeLibrary]);
   const lockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
@@ -565,6 +621,14 @@ export default function App() {
     if (editorMode === 'new') return null;
     return libraryEntries.find((entry) => entry.entryKey === selectedEntryKey) || libraryEntries[0] || null;
   }, [editorMode, libraryEntries, selectedEntryKey]);
+  const libraryDraftSummary = useMemo(
+    () => buildLibraryDraftSummary(baseKnowledgeBaseSnapshot, libraryDraft),
+    [baseKnowledgeBaseSnapshot, libraryDraft]
+  );
+  const libraryDraftChangeCount = useMemo(
+    () => (libraryDraftSummary ? libraryDraftSummary.split('\n\n').filter(Boolean).length : 0),
+    [libraryDraftSummary]
+  );
 
   const updateLocks = (updater) => {
     setLocks((prev) => {
@@ -758,6 +822,11 @@ export default function App() {
     setViewMode('feed');
   };
 
+  const handleCopyLibraryDraftSummary = () => {
+    if (!libraryDraftSummary) return;
+    handleCopyText('Library draft summary copied', libraryDraftSummary);
+  };
+
   return (
     <div className="container">
       <header className="page-header">
@@ -895,11 +964,14 @@ export default function App() {
         {viewMode === 'library' ? (
           <div className="filter-bar">
             <div className="results-meta">
-              {libraryDraft ? '目前使用瀏覽器草稿資料庫' : '目前使用內建資料庫'}
+              {libraryDraft ? `目前使用瀏覽器草稿資料庫，${libraryDraftChangeCount} 項變更` : '目前使用內建資料庫'}
             </div>
             <div className="tab-row">
               <button className="secondary" onClick={handleGenerateLibraryTest}>
                 用目前鎖定條件測試 1 張
+              </button>
+              <button className="secondary" onClick={handleCopyLibraryDraftSummary} disabled={!libraryDraftSummary}>
+                複製草稿摘要
               </button>
               <button className="secondary" onClick={handleResetLibraryDraft} disabled={!libraryDraft}>
                 還原內建資料
