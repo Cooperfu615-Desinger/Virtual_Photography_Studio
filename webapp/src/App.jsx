@@ -22,7 +22,78 @@ const GEN_COUNT_KEY = 'vps.genCount';
 const VIEW_MODE_KEY = 'vps.viewMode';
 const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const LIBRARY_DRAFT_KEY = 'vps.libraryDraft';
+const PAGE_MODE_KEY = 'vps.pageMode';
+const PAGE1_CHARACTER_PROFILE_KEY = 'vps.page1CharacterProfile';
+const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const MAX_STORED_PROMPTS = 120;
+const PAGE2_FIELD_OPTIONS = {
+  eyes: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'round-clear', zh: '圓眼清透感', en: 'clear round eyes with bright open gaze' },
+    { id: 'almond-soft', zh: '杏眼柔和感', en: 'soft almond-shaped eyes with gentle feminine balance' },
+    { id: 'phoenix-mono', zh: '單眼皮鳳眼', en: 'sleek monolid phoenix eyes with elegant lifted shape' },
+    { id: 'siren-mole', zh: '右眼角有痣的媚眼', en: 'siren-like eyes with a small beauty mark near the outer corner of the right eye' },
+    { id: 'cat-upturned', zh: '貓系上挑眼', en: 'slightly upturned cat-like eyes with sharp alluring definition' },
+  ],
+  brows: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'straight-soft', zh: '平直自然眉', en: 'soft straight brows with natural density' },
+    { id: 'arched-gentle', zh: '柔和微挑眉', en: 'gently arched brows with refined feminine lift' },
+    { id: 'cool-thin', zh: '細長冷感眉', en: 'long slim brows with cool composed sharpness' },
+    { id: 'dense-bold', zh: '濃密英氣眉', en: 'defined dense brows with quietly confident strength' },
+  ],
+  nose: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'small-straight', zh: '小巧直鼻', en: 'small straight nose with clean refined bridge' },
+    { id: 'upturned', zh: '精緻微翹鼻', en: 'delicate slightly upturned nose with refined tip' },
+    { id: 'high-bridge', zh: '細長高挺鼻', en: 'slender high-bridge nose with elegant definition' },
+    { id: 'soft-tip', zh: '柔和圓鼻尖', en: 'soft rounded nose tip with natural feminine shape' },
+  ],
+  lips: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'petal', zh: '小巧花瓣唇', en: 'small petal-shaped lips with delicate cupid bow' },
+    { id: 'full-soft', zh: '柔軟飽滿唇', en: 'soft full lips with smooth natural volume' },
+    { id: 'thin-cool', zh: '薄唇冷感型', en: 'slim lips with cool understated definition' },
+    { id: 'defined-cupid', zh: '唇峰明顯的精緻唇', en: 'refined lips with pronounced cupid bow and sculpted shape' },
+  ],
+  faceShape: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'oval-small', zh: '小巧鵝蛋臉', en: 'small oval face with smooth balanced proportions' },
+    { id: 'round-soft', zh: '柔和圓臉', en: 'soft round face with gentle youthful fullness' },
+    { id: 'long-narrow', zh: '窄長臉', en: 'narrow long face with elegant vertical balance' },
+    { id: 'heart', zh: '心形臉', en: 'heart-shaped face with softly tapered chin' },
+    { id: 'defined-small', zh: '線條分明的巴掌臉', en: 'small face with crisp contour lines and defined jaw balance' },
+  ],
+  skin: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'cool-matte', zh: '冷白霧面肌', en: 'cool fair matte skin with clean refined surface' },
+    { id: 'clear-natural', zh: '清透自然肌', en: 'clear natural skin with soft realistic translucency' },
+    { id: 'cream', zh: '細膩奶油肌', en: 'fine creamy skin with smooth soft-focus finish' },
+    { id: 'dewy', zh: '微光澤裸肌', en: 'subtle dewy bare skin with natural healthy sheen' },
+    { id: 'freckles', zh: '帶雀斑清新肌', en: 'fresh skin with soft natural freckles across the cheeks' },
+  ],
+  makeup: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'almost-none', zh: '幾乎無妝感', en: 'almost no-makeup look with understated enhancement' },
+    { id: 'korean-nude', zh: '清透韓系裸妝', en: 'clear Korean nude makeup with polished natural glow' },
+    { id: 'japanese-sweet', zh: '日系甜感眼妝', en: 'sweet Japanese eye makeup with soft feminine warmth' },
+    { id: 'rose-mature', zh: '成熟玫瑰調妝容', en: 'mature rose-toned makeup with elegant romantic depth' },
+    { id: 'cool-smoky', zh: '微煙燻冷感妝', en: 'subtle cool smoky makeup with restrained sharpness' },
+  ],
+};
+const PAGE2_FIELD_CONFIG = [
+  { key: 'eyes', label: '眼睛' },
+  { key: 'brows', label: '眉型' },
+  { key: 'nose', label: '鼻子' },
+  { key: 'lips', label: '嘴唇' },
+  { key: 'faceShape', label: '臉型' },
+  { key: 'skin', label: '皮膚' },
+  { key: 'makeup', label: '妝容' },
+];
+
+function createEmptyPage2Profile() {
+  return Object.fromEntries(PAGE2_FIELD_CONFIG.map((field) => [field.key, '']));
+}
 const SUMMARY_SECTION_INFO = {
   style: {
     label: '風格',
@@ -396,6 +467,35 @@ function buildLibraryDraftSummary(baseSnapshot, draftSnapshot) {
   return lines.join('\n').trim();
 }
 
+function getPage2OptionLabel(fieldKey, optionId) {
+  return PAGE2_FIELD_OPTIONS[fieldKey]?.find((option) => option.id === optionId)?.zh || '';
+}
+
+function getPage2OptionPrompt(fieldKey, optionId) {
+  return PAGE2_FIELD_OPTIONS[fieldKey]?.find((option) => option.id === optionId)?.en || '';
+}
+
+function buildPage2ProfileSummary(profile) {
+  return PAGE2_FIELD_CONFIG
+    .map((field) => getPage2OptionLabel(field.key, profile[field.key]))
+    .filter(Boolean)
+    .join(' / ');
+}
+
+function buildPage2ProfilePrompt(profile) {
+  const promptParts = PAGE2_FIELD_CONFIG
+    .map((field) => getPage2OptionPrompt(field.key, profile[field.key]))
+    .filter(Boolean);
+
+  if (promptParts.length === 0) return '';
+
+  return [
+    'consistent female character identity',
+    promptParts.join(', '),
+    'maintain the same face structure, facial balance, and overall character likeness across images',
+  ].join(', ');
+}
+
 function loadFavoritePrompts() {
   if (typeof window === 'undefined') return [];
 
@@ -457,10 +557,13 @@ export default function App() {
   const [prompts, setPrompts] = useState(() => loadJsonStorage(PROMPTS_KEY, []));
   const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
   const [genCount, setGenCount] = useState(() => loadJsonStorage(GEN_COUNT_KEY, 3));
+  const [pageMode, setPageMode] = useState(() => loadStringStorage(PAGE_MODE_KEY, 'page1'));
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
   const [searchQuery, setSearchQuery] = useState(() => loadStringStorage(SEARCH_QUERY_KEY, ''));
   const [libraryDraft, setLibraryDraft] = useState(() => loadJsonStorage(LIBRARY_DRAFT_KEY, null));
+  const [page1CharacterProfilePrompt, setPage1CharacterProfilePrompt] = useState(() => loadStringStorage(PAGE1_CHARACTER_PROFILE_KEY, ''));
+  const [page2Profile, setPage2Profile] = useState(() => loadJsonStorage(PAGE2_PROFILE_KEY, createEmptyPage2Profile()));
   const [libraryGroup, setLibraryGroup] = useState('Character');
   const [libraryCategory, setLibraryCategory] = useState('');
   const [librarySearch, setLibrarySearch] = useState('');
@@ -486,6 +589,10 @@ export default function App() {
   }, [genCount]);
 
   useEffect(() => {
+    window.localStorage.setItem(PAGE_MODE_KEY, pageMode);
+  }, [pageMode]);
+
+  useEffect(() => {
     window.localStorage.setItem(VIEW_MODE_KEY, viewMode);
   }, [viewMode]);
 
@@ -500,6 +607,18 @@ export default function App() {
     }
     window.localStorage.removeItem(LIBRARY_DRAFT_KEY);
   }, [libraryDraft]);
+
+  useEffect(() => {
+    if (page1CharacterProfilePrompt) {
+      window.localStorage.setItem(PAGE1_CHARACTER_PROFILE_KEY, page1CharacterProfilePrompt);
+      return;
+    }
+    window.localStorage.removeItem(PAGE1_CHARACTER_PROFILE_KEY);
+  }, [page1CharacterProfilePrompt]);
+
+  useEffect(() => {
+    window.localStorage.setItem(PAGE2_PROFILE_KEY, JSON.stringify(page2Profile));
+  }, [page2Profile]);
 
   const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
   const activeLibrary = useMemo(() => libraryDraft || [], [libraryDraft]);
@@ -629,6 +748,8 @@ export default function App() {
     () => (libraryDraftSummary ? libraryDraftSummary.split('\n\n').filter(Boolean).length : 0),
     [libraryDraftSummary]
   );
+  const page2ProfileSummary = useMemo(() => buildPage2ProfileSummary(page2Profile), [page2Profile]);
+  const page2ProfilePrompt = useMemo(() => buildPage2ProfilePrompt(page2Profile), [page2Profile]);
 
   const updateLocks = (updater) => {
     setLocks((prev) => {
@@ -661,7 +782,9 @@ export default function App() {
   };
 
   const handleGenerate = () => {
-    const newPrompts = generatePrompts(genCount, locks, activeLibrary).map((prompt) => ({
+    const newPrompts = generatePrompts(genCount, locks, activeLibrary, {
+      characterProfilePrompt: page1CharacterProfilePrompt,
+    }).map((prompt) => ({
       ...prompt,
       lineage: createLineage(prompt),
     }));
@@ -673,7 +796,9 @@ export default function App() {
     const { branch = false } = options;
     const keepKeys = Array.from(new Set(summaryKeys.flatMap((key) => SUMMARY_REROLL_MAP[key] || [])));
     const remixLocks = buildLocksFromPrompt(prompt, keepKeys);
-    const [generatedPrompt] = generatePrompts(1, remixLocks, activeLibrary);
+    const [generatedPrompt] = generatePrompts(1, remixLocks, activeLibrary, {
+      characterProfilePrompt: page1CharacterProfilePrompt,
+    });
     const nextPrompt = {
       ...generatedPrompt,
       id: branch ? generatedPrompt.id : prompt.id,
@@ -814,7 +939,9 @@ export default function App() {
   };
 
   const handleGenerateLibraryTest = () => {
-    const newPrompts = generatePrompts(1, locks, activeLibrary).map((prompt) => ({
+    const newPrompts = generatePrompts(1, locks, activeLibrary, {
+      characterProfilePrompt: page1CharacterProfilePrompt,
+    }).map((prompt) => ({
       ...prompt,
       lineage: createLineage(prompt),
     }));
@@ -827,16 +954,47 @@ export default function App() {
     handleCopyText('Library draft summary copied', libraryDraftSummary);
   };
 
+  const handleApplyPage2ProfileToPage1 = () => {
+    if (!page2ProfilePrompt) return;
+    setPage1CharacterProfilePrompt(page2ProfilePrompt);
+    setPageMode('page1');
+    setViewMode('feed');
+    setCopiedLabel('Character profile applied to PAGE1');
+    window.setTimeout(() => setCopiedLabel(''), 1800);
+  };
+
   return (
     <div className="container">
       <header className="page-header">
-        <div>
+        <div className="page-header-content">
+          <div className="page-mode-switch" role="tablist" aria-label="Page mode switch">
+            <button
+              type="button"
+              className={pageMode === 'page1' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+              onClick={() => setPageMode('page1')}
+            >
+              PAGE1
+            </button>
+            <button
+              type="button"
+              className={pageMode === 'page2' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+              onClick={() => setPageMode('page2')}
+            >
+              PAGE2
+            </button>
+          </div>
           <p className="eyebrow">Virtual Photography Studio</p>
-          <h1>Prompt Control Deck</h1>
-          <p className="subtitle">一個為個人創作流程設計的虛擬攝影 Prompt 生成工具，支援快速組合、批次生成與風格探索。</p>
+          <h1>{pageMode === 'page1' ? 'Prompt Control Deck' : 'Character Builder'}</h1>
+          <p className="subtitle">
+            {pageMode === 'page1'
+              ? '一個為個人創作流程設計的虛擬攝影 Prompt 生成工具，支援快速組合、批次生成與風格探索。'
+              : '建立固定角色的臉部與妝容設定，整理成可搬回 PAGE1 使用的角色 Prompt。'}
+          </p>
         </div>
       </header>
 
+      {pageMode === 'page1' ? (
+      <>
       <section className="control-shell">
         <div className="lock-panel control-panel">
           <div className="lock-panel-header">
@@ -872,6 +1030,20 @@ export default function App() {
             {locks.subjectCount === 'reference' ? (
               <div className="context-note">
                 此模式不在 app 內上傳圖片；生成後請把同一張人物參考圖直接附給 Midjourney、Grok 或 Gemini，prompt 會以附圖人物五官與身份為主。
+              </div>
+            ) : null}
+            {page1CharacterProfilePrompt ? (
+              <div className="context-note context-note-compact">
+                <strong>PAGE2 角色 Prompt 已套用。</strong>
+                <div className="context-note-copy">{page1CharacterProfilePrompt}</div>
+                <div className="inline-actions">
+                  <button className="secondary" onClick={() => handleCopyText('PAGE1 character profile copied', page1CharacterProfilePrompt)}>
+                    複製角色 Prompt
+                  </button>
+                  <button className="secondary" onClick={() => setPage1CharacterProfilePrompt('')}>
+                    清除套用
+                  </button>
+                </div>
               </div>
             ) : null}
             <div className="lock-grid">
@@ -1102,6 +1274,83 @@ export default function App() {
             ))
           )}
         </div>
+      )}
+      </>
+      ) : (
+        <section className="page2-shell">
+          <section className="lock-panel page2-panel">
+            <div className="lock-panel-header">
+              <div>
+                <div className="lock-title">Page2 Character Profile</div>
+                <p className="lock-subtitle">用簡潔的五官與妝容選項，先建立穩定可重複使用的角色。</p>
+              </div>
+            </div>
+
+            <div className="control-section">
+              <div className="control-section-header">
+                <div className="control-section-title">Face Builder</div>
+              </div>
+              <div className="lock-grid detail-lock-grid">
+                {PAGE2_FIELD_CONFIG.map((field) => (
+                  <label key={field.key} className="field">
+                    <span>{field.label}</span>
+                    <select
+                      className={!page2Profile[field.key] ? 'select-muted' : ''}
+                      value={page2Profile[field.key]}
+                      onChange={(event) => setPage2Profile((prev) => ({ ...prev, [field.key]: event.target.value }))}
+                    >
+                      {PAGE2_FIELD_OPTIONS[field.key].map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option.zh}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="control-actions">
+              <div className="control-actions-main">
+                <button className="primary-cta" onClick={handleApplyPage2ProfileToPage1} disabled={!page2ProfilePrompt}>
+                  套用到 PAGE1
+                </button>
+                <button className="secondary" onClick={() => handleCopyText('Page2 character prompt copied', page2ProfilePrompt)} disabled={!page2ProfilePrompt}>
+                  複製角色 Prompt
+                </button>
+                <button className="secondary" onClick={() => setPage2Profile(createEmptyPage2Profile())}>
+                  清空選項
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section className="lock-panel page2-output-panel">
+            <div className="control-section">
+              <div className="control-section-header">
+                <div className="control-section-title">角色摘要</div>
+              </div>
+              <div className="page2-output-card">
+                {page2ProfileSummary || '尚未選擇角色特徵。'}
+              </div>
+            </div>
+
+            <div className="control-section">
+              <div className="control-section-header">
+                <div className="control-section-title">Character Profile Prompt</div>
+              </div>
+              <textarea
+                className="text-input page2-prompt-textarea"
+                value={page2ProfilePrompt}
+                readOnly
+                placeholder="選擇五官與妝容後，這裡會生成可搬到 PAGE1 的固定角色 prompt。"
+              />
+              <p className="context-note">
+                Page2 目前只負責建立固定角色的臉部與妝容基底。套用到 PAGE1 後，會一起進入 Grok 與 Midjourney prompt。
+              </p>
+            </div>
+          </section>
+        </section>
       )}
 
       {copiedLabel ? <div className="toast">{copiedLabel}</div> : null}

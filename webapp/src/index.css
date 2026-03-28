@@ -50,6 +50,22 @@ textarea {
   margin-bottom: 20px;
 }
 
+.page-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.page-mode-switch {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.page-mode-button {
+  min-width: 128px;
+}
+
 .eyebrow {
   margin: 0 0 8px;
   color: var(--accent);
@@ -180,6 +196,16 @@ h1 {
   color: var(--text-label);
   font-size: 0.9rem;
   line-height: 1.45;
+}
+
+.context-note-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.context-note-copy {
+  word-break: break-word;
 }
 
 .field {
@@ -469,6 +495,33 @@ button:disabled {
   display: grid;
   grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
   gap: 18px;
+}
+
+.page2-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 18px;
+}
+
+.page2-panel,
+.page2-output-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.page2-output-card {
+  min-height: 88px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  background: rgba(255, 250, 240, 0.82);
+  color: var(--text-primary);
+}
+
+.page2-prompt-textarea {
+  min-height: 240px;
+  resize: vertical;
 }
 
 .library-sidebar,
@@ -1014,7 +1067,8 @@ button:disabled {
 
   .primary-action-row,
   .feed,
-  .library-editor-shell {
+  .library-editor-shell,
+  .page2-shell {
     grid-template-columns: 1fr;
   }
 

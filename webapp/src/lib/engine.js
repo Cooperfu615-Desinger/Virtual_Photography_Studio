@@ -2105,6 +2105,9 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   let hairText = '';
   let expressionText = '';
   let poseText = '';
+  const characterIdentityText = formatMidjourneySectionText([
+    context.characterProfilePrompt || '',
+  ], 5);
 
   if (context.subject.count === 2) {
     subjectText = formatMidjourneySectionText([
@@ -2202,6 +2205,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   ], 3);
 
   pushSegment(subjectText);
+  pushSegment(characterIdentityText);
   pushSegment(poseText);
   pushSegment(clothingParts.join(', '));
   pushSegment(describeLocation());
@@ -2259,6 +2263,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
   }
+  addLine('Character Identity', context.characterProfilePrompt);
   addLine('Aspect Ratio', context.aspectRatio.en);
   if (context.style && !isNoneLikeItem(context.style)) {
     addLine('Photography Style', buildPhotographyStylePrompt(context.style));
@@ -2415,7 +2420,7 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
   return base;
 }
 
-function generateSinglePrompt(index, locks, customLibrary) {
+function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) {
   const runtime = buildCatalog(customLibrary);
   const lockedStyle = locks.styleId ? findById(runtime.flatCatalog.regional, locks.styleId) : null;
   const styleDrivenCamera = Boolean(lockedStyle && !isNoneLikeItem(lockedStyle));
@@ -2481,7 +2486,21 @@ function generateSinglePrompt(index, locks, customLibrary) {
   const duoInteraction = subject.count === 2 ? getDuoInteractionOption(effectiveLocks.duoInteractionId) || sample(DUO_INTERACTION_OPTIONS) : null;
   const duoStyling = subject.count === 2 ? getDuoStylingOption(effectiveLocks.duoStylingId) || sample(DUO_STYLING_OPTIONS) : null;
 
-  const context = { subject, aspectRatio, style, location, framing, angle, orbit, lens, opticalEffect, lighting, locks: effectiveLocks, styleDrivenCamera };
+  const context = {
+    subject,
+    aspectRatio,
+    style,
+    location,
+    framing,
+    angle,
+    orbit,
+    lens,
+    opticalEffect,
+    lighting,
+    locks: effectiveLocks,
+    styleDrivenCamera,
+    characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
+  };
   const character = buildCharacter(context, runtime.catalog);
   const wardrobe = buildWardrobe({ ...context }, effectiveLocks, runtime);
   context.wardrobe = wardrobe;
@@ -2510,6 +2529,6 @@ function generateSinglePrompt(index, locks, customLibrary) {
   };
 }
 
-export function generatePrompts(count = 1, locks = createEmptyLocks(), customLibrary = []) {
-  return Array.from({ length: count }, (_, index) => generateSinglePrompt(index, locks, customLibrary));
+export function generatePrompts(count = 1, locks = createEmptyLocks(), customLibrary = [], runtimeOptions = {}) {
+  return Array.from({ length: count }, (_, index) => generateSinglePrompt(index, locks, customLibrary, runtimeOptions));
 }
