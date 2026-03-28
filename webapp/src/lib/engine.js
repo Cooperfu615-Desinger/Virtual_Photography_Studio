@@ -685,7 +685,7 @@ function inferCharacterMeta(category, item) {
       minVisibility = 'medium';
       tags.push('wardrobe_action');
     }
-    if (hasAny(haystack, ['stomach', '俯臥', '趴臥', 'reclining', '斜躺', 'all fours', '四足', 'knees on the ground', 'large pillow', '抱枕'])) {
+    if (hasAny(haystack, ['stomach', '俯臥', '趴臥', 'reclining', '斜躺', 'all fours', '四足', 'knees on the ground', 'large pillow', '抱枕', 'kneeling', '跪姿', '跪坐', 'feet tucked under'])) {
       minVisibility = 'full';
       tags.push('full_body_action');
     }
