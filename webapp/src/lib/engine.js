@@ -685,6 +685,10 @@ function inferCharacterMeta(category, item) {
       minVisibility = 'medium';
       tags.push('wardrobe_action');
     }
+    if (hasAny(haystack, ['stomach', '俯臥', '趴臥', 'reclining', '斜躺', 'all fours', '四足', 'knees on the ground', 'large pillow', '抱枕'])) {
+      minVisibility = 'full';
+      tags.push('full_body_action');
+    }
   }
   if (hasAny(haystack, ['korean', 'idol'])) archetype = 'korean';
   if (hasAny(haystack, ['nordic', 'scandinavian'])) archetype = 'nordic';
@@ -1272,7 +1276,7 @@ function specialActionSupportsFraming(action, framing) {
   const visibility = framing.meta.visibility;
   const actionTags = new Set(action.meta?.tags || []);
 
-  if (actionTags.has('leg_focus_action') || actionTags.has('large_prop_action')) {
+  if (actionTags.has('leg_focus_action') || actionTags.has('large_prop_action') || actionTags.has('full_body_action')) {
     return visibility === 'full' || visibility === 'wide';
   }
 
