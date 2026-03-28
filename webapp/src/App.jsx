@@ -23,7 +23,6 @@ const VIEW_MODE_KEY = 'vps.viewMode';
 const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const LIBRARY_DRAFT_KEY = 'vps.libraryDraft';
 const PAGE_MODE_KEY = 'vps.pageMode';
-const PAGE1_CHARACTER_PROFILE_KEY = 'vps.page1CharacterProfile';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const MAX_STORED_PROMPTS = 120;
 const PAGE2_FIELD_OPTIONS = {
@@ -482,7 +481,7 @@ function buildPage2ProfileSummary(profile) {
     .join(' / ');
 }
 
-function buildPage2ProfilePrompt(profile) {
+function buildPage2ProfileAnchor(profile) {
   const anchorPriority = ['eyes', 'faceShape', 'makeup', 'skin', 'lips', 'brows', 'nose'];
   const promptParts = anchorPriority
     .map((fieldKey) => getPage2OptionPrompt(fieldKey, profile[fieldKey]))
@@ -492,6 +491,42 @@ function buildPage2ProfilePrompt(profile) {
   if (promptParts.length === 0) return '';
 
   return `distinct face anchor, ${promptParts.join(', ')}`;
+}
+
+function buildPage2ViewPrompts(profile) {
+  const anchor = buildPage2ProfileAnchor(profile);
+  if (!anchor) return [];
+
+  const base =
+    'clean studio character reference headshot, neutral seamless background, even studio lighting, clear facial structure visibility, natural realistic skin rendering';
+
+  return [
+    {
+      key: 'front',
+      label: '正面',
+      prompt: `${base}, front-facing portrait, direct symmetrical face view, ${anchor}`,
+    },
+    {
+      key: 'left-three-quarter',
+      label: '左前 45 度',
+      prompt: `${base}, left three-quarter portrait view, partial side angle with both facial planes visible, ${anchor}`,
+    },
+    {
+      key: 'right-three-quarter',
+      label: '右前 45 度',
+      prompt: `${base}, right three-quarter portrait view, partial side angle with both facial planes visible, ${anchor}`,
+    },
+    {
+      key: 'profile',
+      label: '側面',
+      prompt: `${base}, clean side profile portrait, clear nose bridge, brow line, lips, and jaw silhouette visibility, ${anchor}`,
+    },
+    {
+      key: 'back',
+      label: '背面',
+      prompt: 'clean studio character reference back view, neutral seamless background, even studio lighting, back-facing portrait showing head shape, hairstyle silhouette, and hair length clearly',
+    },
+  ];
 }
 
 function loadFavoritePrompts() {
@@ -560,7 +595,6 @@ export default function App() {
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
   const [searchQuery, setSearchQuery] = useState(() => loadStringStorage(SEARCH_QUERY_KEY, ''));
   const [libraryDraft, setLibraryDraft] = useState(() => loadJsonStorage(LIBRARY_DRAFT_KEY, null));
-  const [page1CharacterProfilePrompt, setPage1CharacterProfilePrompt] = useState(() => loadStringStorage(PAGE1_CHARACTER_PROFILE_KEY, ''));
   const [page2Profile, setPage2Profile] = useState(() => loadJsonStorage(PAGE2_PROFILE_KEY, createEmptyPage2Profile()));
   const [libraryGroup, setLibraryGroup] = useState('Character');
   const [libraryCategory, setLibraryCategory] = useState('');
@@ -605,14 +639,6 @@ export default function App() {
     }
     window.localStorage.removeItem(LIBRARY_DRAFT_KEY);
   }, [libraryDraft]);
-
-  useEffect(() => {
-    if (page1CharacterProfilePrompt) {
-      window.localStorage.setItem(PAGE1_CHARACTER_PROFILE_KEY, page1CharacterProfilePrompt);
-      return;
-    }
-    window.localStorage.removeItem(PAGE1_CHARACTER_PROFILE_KEY);
-  }, [page1CharacterProfilePrompt]);
 
   useEffect(() => {
     window.localStorage.setItem(PAGE2_PROFILE_KEY, JSON.stringify(page2Profile));
@@ -747,7 +773,8 @@ export default function App() {
     [libraryDraftSummary]
   );
   const page2ProfileSummary = useMemo(() => buildPage2ProfileSummary(page2Profile), [page2Profile]);
-  const page2ProfilePrompt = useMemo(() => buildPage2ProfilePrompt(page2Profile), [page2Profile]);
+  const page2ProfileAnchor = useMemo(() => buildPage2ProfileAnchor(page2Profile), [page2Profile]);
+  const page2ViewPrompts = useMemo(() => buildPage2ViewPrompts(page2Profile), [page2Profile]);
 
   const updateLocks = (updater) => {
     setLocks((prev) => {
@@ -780,9 +807,7 @@ export default function App() {
   };
 
   const handleGenerate = () => {
-    const newPrompts = generatePrompts(genCount, locks, activeLibrary, {
-      characterProfilePrompt: page1CharacterProfilePrompt,
-    }).map((prompt) => ({
+    const newPrompts = generatePrompts(genCount, locks, activeLibrary).map((prompt) => ({
       ...prompt,
       lineage: createLineage(prompt),
     }));
@@ -794,9 +819,7 @@ export default function App() {
     const { branch = false } = options;
     const keepKeys = Array.from(new Set(summaryKeys.flatMap((key) => SUMMARY_REROLL_MAP[key] || [])));
     const remixLocks = buildLocksFromPrompt(prompt, keepKeys);
-    const [generatedPrompt] = generatePrompts(1, remixLocks, activeLibrary, {
-      characterProfilePrompt: page1CharacterProfilePrompt,
-    });
+    const [generatedPrompt] = generatePrompts(1, remixLocks, activeLibrary);
     const nextPrompt = {
       ...generatedPrompt,
       id: branch ? generatedPrompt.id : prompt.id,
@@ -937,9 +960,7 @@ export default function App() {
   };
 
   const handleGenerateLibraryTest = () => {
-    const newPrompts = generatePrompts(1, locks, activeLibrary, {
-      characterProfilePrompt: page1CharacterProfilePrompt,
-    }).map((prompt) => ({
+    const newPrompts = generatePrompts(1, locks, activeLibrary).map((prompt) => ({
       ...prompt,
       lineage: createLineage(prompt),
     }));
@@ -950,15 +971,6 @@ export default function App() {
   const handleCopyLibraryDraftSummary = () => {
     if (!libraryDraftSummary) return;
     handleCopyText('Library draft summary copied', libraryDraftSummary);
-  };
-
-  const handleApplyPage2ProfileToPage1 = () => {
-    if (!page2ProfilePrompt) return;
-    setPage1CharacterProfilePrompt(page2ProfilePrompt);
-    setPageMode('page1');
-    setViewMode('feed');
-    setCopiedLabel('Character profile applied to PAGE1');
-    window.setTimeout(() => setCopiedLabel(''), 1800);
   };
 
   return (
@@ -1028,20 +1040,6 @@ export default function App() {
             {locks.subjectCount === 'reference' ? (
               <div className="context-note">
                 此模式不在 app 內上傳圖片；生成後請把同一張人物參考圖直接附給 Midjourney、Grok 或 Gemini，prompt 會以附圖人物五官與身份為主。
-              </div>
-            ) : null}
-            {page1CharacterProfilePrompt ? (
-              <div className="context-note context-note-compact">
-                <strong>PAGE2 角色 Prompt 已套用。</strong>
-                <div className="context-note-copy">{page1CharacterProfilePrompt}</div>
-                <div className="inline-actions">
-                  <button className="secondary" onClick={() => handleCopyText('PAGE1 character profile copied', page1CharacterProfilePrompt)}>
-                    複製角色 Prompt
-                  </button>
-                  <button className="secondary" onClick={() => setPage1CharacterProfilePrompt('')}>
-                    清除套用
-                  </button>
-                </div>
               </div>
             ) : null}
             <div className="lock-grid">
@@ -1310,11 +1308,8 @@ export default function App() {
 
             <div className="control-actions">
               <div className="control-actions-main">
-                <button className="primary-cta" onClick={handleApplyPage2ProfileToPage1} disabled={!page2ProfilePrompt}>
-                  套用到 PAGE1
-                </button>
-                <button className="secondary" onClick={() => handleCopyText('Page2 character prompt copied', page2ProfilePrompt)} disabled={!page2ProfilePrompt}>
-                  複製角色 Prompt
+                <button className="secondary" onClick={() => handleCopyText('Face anchor copied', page2ProfileAnchor)} disabled={!page2ProfileAnchor}>
+                  複製 Face Anchor
                 </button>
                 <button className="secondary" onClick={() => setPage2Profile(createEmptyPage2Profile())}>
                   清空選項
@@ -1335,17 +1330,40 @@ export default function App() {
 
             <div className="control-section">
               <div className="control-section-header">
-                <div className="control-section-title">Character Profile Prompt</div>
+                <div className="control-section-title">Face Anchor</div>
               </div>
               <textarea
                 className="text-input page2-prompt-textarea"
-                value={page2ProfilePrompt}
+                value={page2ProfileAnchor}
                 readOnly
-                placeholder="選擇五官與妝容後，這裡會生成可搬到 PAGE1 的固定角色 prompt。"
+                placeholder="選擇五官與妝容後，這裡會生成角色鎖臉用的短錨點。"
               />
               <p className="context-note">
-                Page2 目前只負責建立固定角色的臉部與妝容基底。套用到 PAGE1 後，會一起進入 Grok 與 Midjourney prompt。
+                Page2 目前不會再直接干擾 PAGE1。這裡專門生成多視角鎖臉參考圖 prompt，方便你先做角色 reference。
               </p>
+            </div>
+
+            <div className="control-section">
+              <div className="control-section-header">
+                <div className="control-section-title">Reference Views</div>
+              </div>
+              <div className="library-editor-form">
+                {page2ViewPrompts.map((item) => (
+                  <label key={item.key} className="field">
+                    <span>{item.label}</span>
+                    <textarea
+                      className="text-input page2-prompt-textarea"
+                      value={item.prompt}
+                      readOnly
+                    />
+                    <div className="inline-actions">
+                      <button className="secondary" onClick={() => handleCopyText(`${item.label} 參考 prompt 已複製`, item.prompt)}>
+                        複製 {item.label}
+                      </button>
+                    </div>
+                  </label>
+                ))}
+              </div>
             </div>
           </section>
         </section>

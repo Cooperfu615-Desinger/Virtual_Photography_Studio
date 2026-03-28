@@ -2301,50 +2301,13 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
   }
-  addLine('Framing', buildGrokFramingText());
-  addLine('Composition Priority', buildGrokCompositionPriorityText());
-  addLine('Aspect Ratio', context.aspectRatio.en);
   addItemLine('Body Type', characterSlots.bodyType);
-  if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
   if (context.subject.count === 2) {
     addLine('Woman 1 Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true }));
     addLine('Woman 2 Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true }));
   } else if (wardrobeSlots.outfitPreset) {
     addLine('Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }));
   }
-  addContextLine('Angle', context.angle, (item) => resolvePromptVariant(item, 'angle', context.subject.count));
-  addContextLine('Orbit Angle', context.orbit, (item) => resolvePromptVariant(item, 'orbit', context.subject.count));
-  addContextLine('Lens', context.lens);
-  if (!context.styleDrivenCamera) addContextLine('Film', film);
-  addContextLine('Optical Effect', context.opticalEffect);
-  addContextLine('Location', context.location);
-  if (!context.styleDrivenCamera) {
-    addContextLine('Environment Mood', context.lighting);
-    addContextLine('Light Style', lightDirection, (item) => resolvePromptVariant(item, 'lightDirection', context.subject.count));
-  }
-  if (context.style && !isNoneLikeItem(context.style)) {
-    addLine('Photography Style', buildPhotographyStylePrompt(context.style));
-  }
-  if (context.subject.count === 2) {
-    addItemLine('Woman 1 Facial Features', characterSlots.facialFeaturesA);
-    addItemLine('Woman 2 Facial Features', characterSlots.facialFeaturesB);
-  } else if (!useCharacterIdentityAnchor) {
-    addItemLine('Facial Features', characterSlots.facialFeatures);
-  }
-  if (!useCharacterIdentityAnchor) addItemLine('Skin Details', characterSlots.skinDetails);
-  if (context.subject.count === 2) {
-    addItemLine('Woman 1 Hairstyle', characterSlots.hairstyleA);
-    addItemLine('Woman 2 Hairstyle', characterSlots.hairstyleB);
-    addLine('Woman 1 Hair Color', buildHairColorPrompt(characterSlots.hairColorA));
-    addLine('Woman 2 Hair Color', buildHairColorPrompt(characterSlots.hairColorB));
-  } else {
-    addItemLine('Hairstyle', characterSlots.hairstyle);
-    addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
-  }
-  if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
-  addLine('Expression', expressionText);
-  addLine('Special Action', specialActionText);
-  addLine('Pose', poseText);
   if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB) {
     const topText = buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern });
     const pantsText = buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern });
@@ -2355,6 +2318,43 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
     addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern }));
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+  }
+  if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
+  addLine('Special Action', specialActionText);
+  addLine('Pose', poseText);
+  if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
+  if (context.subject.count === 2) {
+    addItemLine('Woman 1 Facial Features', characterSlots.facialFeaturesA);
+    addItemLine('Woman 2 Facial Features', characterSlots.facialFeaturesB);
+  } else if (!useCharacterIdentityAnchor) {
+    addItemLine('Facial Features', characterSlots.facialFeatures);
+  }
+  if (context.subject.count === 2) {
+    addItemLine('Woman 1 Hairstyle', characterSlots.hairstyleA);
+    addItemLine('Woman 2 Hairstyle', characterSlots.hairstyleB);
+    addLine('Woman 1 Hair Color', buildHairColorPrompt(characterSlots.hairColorA));
+    addLine('Woman 2 Hair Color', buildHairColorPrompt(characterSlots.hairColorB));
+  } else {
+    addItemLine('Hairstyle', characterSlots.hairstyle);
+    addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
+  }
+  if (!useCharacterIdentityAnchor) addItemLine('Skin Details', characterSlots.skinDetails);
+  addLine('Expression', expressionText);
+  addContextLine('Location', context.location);
+  if (!context.styleDrivenCamera) {
+    addContextLine('Environment Mood', context.lighting);
+    addContextLine('Light Style', lightDirection, (item) => resolvePromptVariant(item, 'lightDirection', context.subject.count));
+  }
+  addLine('Aspect Ratio', context.aspectRatio.en);
+  if (!context.styleDrivenCamera) addContextLine('Film', film);
+  addContextLine('Angle', context.angle, (item) => resolvePromptVariant(item, 'angle', context.subject.count));
+  addContextLine('Orbit Angle', context.orbit, (item) => resolvePromptVariant(item, 'orbit', context.subject.count));
+  addContextLine('Lens', context.lens);
+  addContextLine('Optical Effect', context.opticalEffect);
+  addLine('Framing', buildGrokFramingText());
+  addLine('Composition Priority', buildGrokCompositionPriorityText());
+  if (context.style && !isNoneLikeItem(context.style)) {
+    addLine('Photography Style', buildPhotographyStylePrompt(context.style));
   }
   addLine('Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewear));
   addLine('Earrings', buildAccessoryPrompt(wardrobeSlots.earrings));
