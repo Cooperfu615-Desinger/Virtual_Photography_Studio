@@ -2058,18 +2058,17 @@ function formatMidjourneySectionText(items, maxParts = null) {
 }
 
 function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling) {
-  const suffix = ` --ar ${context.aspectRatio.en}`;
-  const maxLength = 1000 - suffix.length;
-  const sections = [];
+  const maxLength = 1000;
+  const segments = [];
 
-  const pushSection = (label, text) => {
+  const pushSegment = (text) => {
     const cleaned = String(text || '')
       .split('\n')
-      .map((line) => stripMarkdown(line).trim())
+      .map((line) => stripMarkdown(line).trim().replace(/[.]+$/g, ''))
       .filter(Boolean)
-      .join('\n');
+      .join(', ');
     if (!cleaned) return;
-    sections.push({ label, text: cleaned });
+    segments.push(cleaned);
   };
 
   const describeLocation = () => {
@@ -2085,7 +2084,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   if (context.subject.count === 2) {
     subjectText = formatMidjourneySectionText([
       context.subject.en,
-      characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType) ? compactClause(characterSlots.bodyType.en, 2) : '',
+      characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType) ? compactClause(characterSlots.bodyType.en, 1) : '',
       'distinct faces, different appearances, not twins, individual features',
     ]);
     hairText = formatMidjourneySectionText([
@@ -2106,8 +2105,8 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   } else {
     subjectText = formatMidjourneySectionText([
       context.subject.en,
-      characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType) ? compactClause(characterSlots.bodyType.en, 2) : '',
-      characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures) ? compactClause(characterSlots.facialFeatures.en, 2) : '',
+      characterSlots.bodyType?.en && !isNoneLikeItem(characterSlots.bodyType) ? compactClause(characterSlots.bodyType.en, 1) : '',
+      characterSlots.facialFeatures?.en && !isNoneLikeItem(characterSlots.facialFeatures) ? compactClause(characterSlots.facialFeatures.en, 1) : '',
     ]);
     hairText = formatMidjourneySectionText([
       characterSlots.hairstyle?.en && !isNoneLikeItem(characterSlots.hairstyle) ? compactClause(characterSlots.hairstyle.en, 1) : '',
@@ -2126,72 +2125,76 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     ], 1);
   }
 
-  const clothingLines = [];
-  const accessoryLines = [];
-  const addPromptLine = (target, label, value, maxParts = 4) => {
+  const clothingParts = [];
+  const accessoryParts = [];
+  const addPromptPart = (target, value, maxParts = 4, prefix = '') => {
     const cleaned = compactClause(sanitizeMidjourneyText(value), maxParts);
     if (!cleaned) return;
-    target.push(`${label}: ${cleaned}.`);
+    target.push(prefix ? `${prefix}${cleaned}` : cleaned);
   };
-  const addClothingLine = (label, value, maxParts = 4) => addPromptLine(clothingLines, label, value, maxParts);
-  const addAccessoryLine = (label, value, maxParts = 3) => addPromptLine(accessoryLines, label, value, maxParts);
+  const addClothingPart = (value, maxParts = 4, prefix = '') => addPromptPart(clothingParts, value, maxParts, prefix);
+  const addAccessoryPart = (value, maxParts = 3, prefix = '') => addPromptPart(accessoryParts, value, maxParts, prefix);
 
   if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
-    addClothingLine('Woman 1 Outfit', buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true }), 4);
-    addClothingLine('Woman 2 Outfit', buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true }), 4);
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true }), 3, 'woman 1 wearing ');
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true }), 3, 'woman 2 wearing ');
   } else if (wardrobeSlots.outfitPreset) {
-    addClothingLine('Outfit', buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }), 4);
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }), 3);
   } else {
-    addClothingLine('Top', buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern }), 4);
-    addClothingLine(
-      'Bottom',
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern }), 3);
+    addClothingPart(
       buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern }) ||
         buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern }),
-      4
+      3
     );
-    addClothingLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 3);
-    addClothingLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern }), 4);
-    addClothingLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
-    addAccessoryLine('Eyewear', wardrobeSlots.eyewear?.en || '', 2);
-    addAccessoryLine('Earrings', wardrobeSlots.earrings?.en || '', 2);
-    addAccessoryLine('Neck Accessory', wardrobeSlots.neckAccessory?.en || '', 3);
-    addAccessoryLine('Wrist Accessory', wardrobeSlots.wristAccessory?.en || '', 3);
-    addAccessoryLine('Ring', wardrobeSlots.ring?.en || '', 2);
-    addAccessoryLine('Waist Accessory', wardrobeSlots.waistAccessory?.en || '', 3);
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 2);
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern }), 3);
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
+    addAccessoryPart(wardrobeSlots.eyewear?.en || '', 2);
+    addAccessoryPart(wardrobeSlots.earrings?.en || '', 2);
+    addAccessoryPart(wardrobeSlots.neckAccessory?.en || '', 3);
+    addAccessoryPart(wardrobeSlots.wristAccessory?.en || '', 3);
+    addAccessoryPart(wardrobeSlots.ring?.en || '', 2);
+    addAccessoryPart(wardrobeSlots.waistAccessory?.en || '', 3);
   }
 
-  const primaryClothingCount = clothingLines.filter((line) => /^Top:|^Bottom:|^Outfit:|^Woman 1 Outfit:|^Woman 2 Outfit:/.test(line)).length;
-  const accessoriesText = primaryClothingCount >= 2 ? accessoryLines.join('\n') : '';
-
-  pushSection('Subject', subjectText);
-  pushSection('Hair', hairText);
-  pushSection('Location', describeLocation());
-  pushSection('Clothing', clothingLines.join('\n'));
-  pushSection('Lens & Optical', formatMidjourneySectionText([
+  const primaryClothingCount = clothingParts.length;
+  const accessoriesText = primaryClothingCount >= 2 ? accessoryParts.join(', ') : '';
+  const cameraText = formatMidjourneySectionText([
+    context.framing ? resolvePromptVariant(context.framing, 'framing', context.subject.count) : '',
+    context.angle ? resolvePromptVariant(context.angle, 'angle', context.subject.count) : '',
+    context.orbit ? resolvePromptVariant(context.orbit, 'orbit', context.subject.count) : '',
     context.lens?.en || '',
     opticalEffect?.en || '',
-  ], 3));
-  pushSection('Lighting & Mood', formatMidjourneySectionText([
+  ], 4);
+  const lightingText = formatMidjourneySectionText([
     !context.styleDrivenCamera ? context.lighting?.en || '' : '',
     !context.styleDrivenCamera ? lightDirection?.en || '' : '',
-  ], 4));
-  pushSection('Film Style', formatMidjourneySectionText([
+  ], 4);
+  const styleText = formatMidjourneySectionText([
+    context.style && !isNoneLikeItem(context.style) ? buildPhotographyStylePrompt(context.style) : '',
     film?.en || '',
-    context.style && !isNoneLikeItem(context.style) ? compactClause(STYLE_PROMPT_INTROS[context.style.zh] || context.style.en, 1) : '',
-  ], 2));
-  pushSection('Expression', expressionText);
-  pushSection('Pose & Gesture', poseText);
-  pushSection('Accessories', accessoriesText);
+  ], 3);
+
+  pushSegment(subjectText);
+  pushSegment(poseText);
+  pushSegment(clothingParts.join(', '));
+  pushSegment(describeLocation());
+  pushSegment(cameraText);
+  pushSegment(lightingText);
+  pushSegment(styleText);
+  pushSegment(expressionText);
+  pushSegment(hairText);
+  pushSegment(accessoriesText);
 
   let prompt = '';
-  for (const section of sections) {
-    const block = `${section.label}\n${section.text}`;
-    const next = prompt ? `${prompt}\n\n${block}` : block;
+  for (const segment of segments) {
+    const next = prompt ? `${prompt}, ${segment}` : segment;
     if (next.length > maxLength) break;
     prompt = next;
   }
 
-  return `${prompt}${suffix}`;
+  return prompt;
 }
 
 function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction, duoStyling) {
