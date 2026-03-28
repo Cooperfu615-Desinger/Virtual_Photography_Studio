@@ -671,7 +671,7 @@ function inferCharacterMeta(category, item) {
     tags.push('special_action');
     if (hasAny(haystack, ['lipstick', '口紅', 'coffee', '咖啡', 'lollipop', '棒棒糖', 'cigarette', '抽煙'])) {
       minVisibility = 'medium';
-      tags.push('prop_action');
+      tags.push('prop_action', 'face_action');
     }
     if (hasAny(haystack, ['stocking', '絲襪', 'hosiery'])) {
       minVisibility = 'full';
@@ -1233,6 +1233,22 @@ function orbitSupportsExpression(orbit, expression) {
   }
 
   if ((expressionTags.has('distance_gaze') || expressionTags.has('side_gaze')) && orbitTags.has('back_view')) return false;
+
+  return true;
+}
+
+function specialActionSupportsOrbit(orbit, action) {
+  if (!action || isNoneLikeItem(action)) return true;
+  const orbitTags = new Set(orbit.meta?.tags || []);
+  const actionTags = new Set(action.meta?.tags || []);
+
+  if (actionTags.has('face_action')) {
+    if (orbitTags.has('back_view') || orbitTags.has('rear_three_quarter')) return false;
+  }
+
+  if (actionTags.has('full_body_action') || actionTags.has('leg_focus_action')) {
+    if (orbitTags.has('back_view')) return false;
+  }
 
   return true;
 }
@@ -2064,7 +2080,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   const pushSegment = (text) => {
     const cleaned = String(text || '')
       .split('\n')
-      .map((line) => stripMarkdown(line).trim().replace(/[.]+$/g, ''))
+      .map((line) => stripMarkdown(line).trim().replace(/\.\s+/g, ', ').replace(/[.]+$/g, ''))
       .filter(Boolean)
       .join(', ');
     if (!cleaned) return;
@@ -2439,7 +2455,11 @@ function generateSinglePrompt(index, locks, customLibrary) {
     (item) => framingSupportsAngle(framing, item) && angleSupportsExpression(item, lockedExpression),
     lowFrequencyPicker('low_frequency_angle')
   );
-  const orbit = pickWithLock(runtime.flatCatalog.orbit, effectiveLocks.orbitId, (item) => orbitSupportsExpression(item, lockedExpression));
+  const orbit = pickWithLock(
+    runtime.flatCatalog.orbit,
+    effectiveLocks.orbitId,
+    (item) => orbitSupportsExpression(item, lockedExpression) && specialActionSupportsOrbit(item, lockedSpecialAction)
+  );
   const lens = pickWithLock(runtime.flatCatalog.lens, effectiveLocks.lensId);
   const lighting = styleDrivenCamera
     ? null
