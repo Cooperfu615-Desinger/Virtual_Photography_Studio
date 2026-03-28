@@ -1860,8 +1860,8 @@
       },
       {
         "zh": "前景遮擋散景",
-        "en": "foreground occlusion bokeh, blurred foreground shapes, voyeuristic layered composition, soft depth veil",
-        "desc": "鏡頭前方有模糊遮擋物或散景，能增加偷窺感、層次感與空間包覆感。"
+        "en": "controlled foreground bokeh occlusion from a fixed out-of-focus object near the lens, soft edge blur framing the subject, stable layered depth, clean cinematic foreground veil",
+        "desc": "鏡頭前方有固定來源的失焦遮擋與散景，用更穩定的前景模糊邊緣包住主體，避免雜亂不明的遮擋形狀。"
       },
       {
         "zh": "鏡頭光斑 Lens Flare",
