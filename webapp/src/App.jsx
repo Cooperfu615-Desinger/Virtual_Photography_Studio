@@ -502,6 +502,11 @@ function buildPage2ViewPrompts(profile) {
 
   return [
     {
+      key: 'four-angle-sheet',
+      label: '四角度合成一張',
+      prompt: `${base}, one image containing four consistent headshot angles arranged as a clean reference sheet: front-facing portrait, left three-quarter portrait, right three-quarter portrait, and clean side profile portrait, same person in every panel, matched lighting and facial proportions, clear facial structure comparison across all four views, ${anchor}`,
+    },
+    {
       key: 'front',
       label: '正面',
       prompt: `${base}, front-facing portrait, direct symmetrical face view, ${anchor}`,
