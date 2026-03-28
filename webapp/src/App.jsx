@@ -963,8 +963,7 @@ export default function App() {
                   className={`library-entry-item ${selectedLibraryEntry?.entryKey === entry.entryKey && editorMode === 'edit' ? 'library-entry-item-active' : ''}`}
                   onClick={() => handleSelectLibraryEntry(entry)}
                 >
-                  <strong>{entry.zh}</strong>
-                  <span>{entry.en}</span>
+                  <strong>{entry.zh || entry.en}</strong>
                 </button>
               ))}
             </div>

@@ -503,12 +503,8 @@ button:disabled {
 
 .library-entry-item strong {
   font-size: 0.95rem;
-}
-
-.library-entry-item span {
-  color: var(--text-secondary);
-  font-size: 0.84rem;
-  line-height: 1.4;
+  line-height: 1.35;
+  word-break: break-word;
 }
 
 .library-entry-item-active {
