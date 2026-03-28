@@ -483,17 +483,15 @@ function buildPage2ProfileSummary(profile) {
 }
 
 function buildPage2ProfilePrompt(profile) {
-  const promptParts = PAGE2_FIELD_CONFIG
-    .map((field) => getPage2OptionPrompt(field.key, profile[field.key]))
-    .filter(Boolean);
+  const anchorPriority = ['eyes', 'faceShape', 'makeup', 'skin', 'lips', 'brows', 'nose'];
+  const promptParts = anchorPriority
+    .map((fieldKey) => getPage2OptionPrompt(fieldKey, profile[fieldKey]))
+    .filter(Boolean)
+    .slice(0, 4);
 
   if (promptParts.length === 0) return '';
 
-  return [
-    'consistent female character identity',
-    promptParts.join(', '),
-    'maintain the same face structure, facial balance, and overall character likeness across images',
-  ].join(', ');
+  return `distinct face anchor, ${promptParts.join(', ')}`;
 }
 
 function loadFavoritePrompts() {
