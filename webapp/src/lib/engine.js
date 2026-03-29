@@ -2018,12 +2018,16 @@ function buildFacialFeaturesPrompt(faceItem, { eyewear, earrings } = {}) {
   const baseFace = faceItem && !isNoneLikeItem(faceItem)
     ? stripMarkdown(faceItem.en).replace(/\s+/g, ' ').trim()
     : '';
-  const faceAccessories = [buildAccessoryPrompt(eyewear), buildAccessoryPrompt(earrings)].filter(Boolean);
+  const normalizeFaceAccessory = (value) => value.replace(/^wearing\s+/i, '').trim();
+  const faceAccessories = [buildAccessoryPrompt(eyewear), buildAccessoryPrompt(earrings)]
+    .filter(Boolean)
+    .map(normalizeFaceAccessory);
+  const accessoryText = faceAccessories.length > 0 ? `wearing ${faceAccessories.join(' and ')}` : '';
 
-  if (!baseFace && faceAccessories.length === 0) return '';
-  if (!baseFace) return faceAccessories.join(', ');
-  if (faceAccessories.length === 0) return baseFace;
-  return `${baseFace}. ${faceAccessories.join(', ')}`;
+  if (!baseFace && !accessoryText) return '';
+  if (!baseFace) return accessoryText;
+  if (!accessoryText) return baseFace;
+  return `${baseFace}. ${accessoryText}`;
 }
 
 function compactClause(text, maxParts = 2) {
