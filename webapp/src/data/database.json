@@ -2035,6 +2035,21 @@
         "desc": "舊式借書櫃台與木質細節為主的空間，適合近距離敘事人像。"
       },
       {
+        "zh": "室內：黑膠唱片聆聽角",
+        "en": "British record listening corner, turntable setup, stacked vinyl sleeves, bookshelf speakers, aged wood cabinet, warm lamp glow, intimate music-lover atmosphere",
+        "desc": "以黑膠唱盤、唱片封套與舊木櫃構成的英式室內音樂角落，適合文藝、成熟與安靜生活感人像。"
+      },
+      {
+        "zh": "室內：老式鋼琴房",
+        "en": "old British piano room, upright piano, sheet music stand, worn wood floor, muted wallpaper, overcast window light, quiet classical interior mood",
+        "desc": "老式直立鋼琴、譜架與舊木地板構成安靜古典空間，帶有英國舊宅與室內樂感。"
+      },
+      {
+        "zh": "室內：地下 live house 後台",
+        "en": "British underground live house backstage, black curtain, road cases, guitar amp, worn posters, cable clutter, dim practical light, gritty indie music atmosphere",
+        "desc": "以後台黑布幕、器材箱、音箱與凌亂線材構成的英國獨立音樂場景，適合叛逆、次文化與演出前後的人像。"
+      },
+      {
         "zh": "室內：洗衣店洗衣機門前",
         "en": "laundromat washer-door detail, chrome reflections, fluorescent light, sticker-covered surfaces, urban solitude",
         "desc": "人物靠近洗衣機門與反光金屬表面的場景，局部感更強。"
@@ -2362,6 +2377,16 @@
         "zh": "戶外：蘇荷區濕地反光街角",
         "en": "Soho wet street corner, pub light reflections, turning wall, glossy pavement, stylish night atmosphere",
         "desc": "街角與濕地反射構成局部夜拍背景，適合街拍與都會時裝人像。"
+      },
+      {
+        "zh": "戶外：倫敦排屋街道",
+        "en": "London townhouse street, Victorian terrace facades, black iron railings, stone steps, overcast British daylight, wet pavement, subtle punk street attitude",
+        "desc": "典型倫敦排屋立面、鐵欄杆與潮濕路面形成成熟英國街景，加入低調英龐克街頭態度但不走觀光大道感。"
+      },
+      {
+        "zh": "戶外：雨後 mews 巷弄",
+        "en": "rain-soaked London mews lane, brick garage fronts, narrow cobbled passage, damp reflections, muted overcast light, British punk backstreet mood",
+        "desc": "以雨後倫敦 mews 巷弄、磚牆與濕石板路為主，帶有英國後巷、獨立樂團與龐克次文化的冷感街頭氣質。"
       },
       {
         "zh": "戶外：法租界老洋房門口",

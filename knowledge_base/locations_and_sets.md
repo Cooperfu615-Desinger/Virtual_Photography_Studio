@@ -28,6 +28,9 @@
 | **生活感室內 (Indoor & Lifestyle)** | 室內：木造圖書館木窗邊 | `historic library window corner, wooden frame, book stacks, soft light beams, calm literary atmosphere` | 靠近老窗與木框的閱讀角落，適合文藝與自然光人像。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：木造圖書館書車旁 | `historic library book cart, stacked books, worn carpet, wood floor, intimate archive mood` | 推車與書堆組成的使用痕跡，讓場景更像人物可依附的局部環境。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：木造圖書館借書台前 | `historic library check-out desk, card catalog drawers, stamped paper details, soft wood glow, archival atmosphere` | 舊式借書櫃台與木質細節為主的空間，適合近距離敘事人像。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：黑膠唱片聆聽角 | `British record listening corner, turntable setup, stacked vinyl sleeves, bookshelf speakers, aged wood cabinet, warm lamp glow, intimate music-lover atmosphere` | 以黑膠唱盤、唱片封套與舊木櫃構成的英式室內音樂角落，適合文藝、成熟與安靜生活感人像。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：老式鋼琴房 | `old British piano room, upright piano, sheet music stand, worn wood floor, muted wallpaper, overcast window light, quiet classical interior mood` | 老式直立鋼琴、譜架與舊木地板構成安靜古典空間，帶有英國舊宅與室內樂感。 |
+| **生活感室內 (Indoor & Lifestyle)** | 室內：地下 live house 後台 | `British underground live house backstage, black curtain, road cases, guitar amp, worn posters, cable clutter, dim practical light, gritty indie music atmosphere` | 以後台黑布幕、器材箱、音箱與凌亂線材構成的英國獨立音樂場景，適合叛逆、次文化與演出前後的人像。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：洗衣店洗衣機門前 | `laundromat washer-door detail, chrome reflections, fluorescent light, sticker-covered surfaces, urban solitude` | 人物靠近洗衣機門與反光金屬表面的場景，局部感更強。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：洗衣店摺衣台旁 | `laundromat folding table, scattered clothes, plastic basket, detergent bottle, fluorescent glow` | 摺衣台與散落衣物形成生活感，適合社群與隨拍式構圖。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：洗衣店洗劑貨架前 | `laundromat detergent shelf, plastic bottles, price labels, cool fluorescent light, intimate retail texture` | 貨架與瓶罐作為局部背景，生活感更強，也不容易跑成兩排洗衣機。 |
@@ -93,6 +96,8 @@
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：蘇荷區店面櫥窗邊 | `Soho storefront window edge, interior warm glow, reflective glass, damp street texture, stylish urban detail` | 靠近櫥窗與街面反射的局部夜景，強調店面層次而非整條街。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：蘇荷區霓虹招牌下 | `Soho neon sign corner, glowing signage, wall edge, wet ground, layered nightlife reflections` | 人物站在招牌與門面下方，帶有明確夜街辨識度但不強調大道構圖。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：蘇荷區濕地反光街角 | `Soho wet street corner, pub light reflections, turning wall, glossy pavement, stylish night atmosphere` | 街角與濕地反射構成局部夜拍背景，適合街拍與都會時裝人像。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：倫敦排屋街道 | `London townhouse street, Victorian terrace facades, black iron railings, stone steps, overcast British daylight, wet pavement, subtle punk street attitude` | 典型倫敦排屋立面、鐵欄杆與潮濕路面形成成熟英國街景，加入低調英龐克街頭態度但不走觀光大道感。 |
+| **城市與社群感 (Urban & Social Snapshots)** | 戶外：雨後 mews 巷弄 | `rain-soaked London mews lane, brick garage fronts, narrow cobbled passage, damp reflections, muted overcast light, British punk backstreet mood` | 以雨後倫敦 mews 巷弄、磚牆與濕石板路為主，帶有英國後巷、獨立樂團與龐克次文化的冷感街頭氣質。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：法租界老洋房門口 | `French Concession townhouse entrance, old doorway frame, iron railing, tree shadows, refined urban nostalgia` | 靠近老洋房入口與門框的場景，成熟且帶歷史感。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 室內：法租界咖啡館靠窗座位 | `French Concession café window seat, large floor-to-ceiling windows, sidewalk and swaying park tree shadows outside, warm interior glow, reflective glass, literary café atmosphere` | 法租界咖啡館內的靠窗座位，大片落地窗外可見人行道與公園樹影，溫暖室內燈光與玻璃反射讓整體更適合坐姿、靠窗與文藝生活感人像。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：法租界咖啡館窗外露台座位 | `French Concession café window, tree-shadow patterns, warm interior glow, reflective glass, literary city mood` | 咖啡館窗外的戶外露台座位，人物更靠近小圓桌、鐵椅與街邊樹影，同時仍保留窗內暖光與法租界的文藝生活感。 |
