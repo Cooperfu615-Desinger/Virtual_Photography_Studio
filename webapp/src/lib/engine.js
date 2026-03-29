@@ -2014,6 +2014,18 @@ function buildAccessoryPrompt(item) {
   return stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
 }
 
+function buildFacialFeaturesPrompt(faceItem, { eyewear, earrings } = {}) {
+  const baseFace = faceItem && !isNoneLikeItem(faceItem)
+    ? stripMarkdown(faceItem.en).replace(/\s+/g, ' ').trim()
+    : '';
+  const faceAccessories = [buildAccessoryPrompt(eyewear), buildAccessoryPrompt(earrings)].filter(Boolean);
+
+  if (!baseFace && faceAccessories.length === 0) return '';
+  if (!baseFace) return faceAccessories.join(', ');
+  if (faceAccessories.length === 0) return baseFace;
+  return `${baseFace}. ${faceAccessories.join(', ')}`;
+}
+
 function compactClause(text, maxParts = 2) {
   if (!text) return '';
   return text
@@ -2327,7 +2339,13 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addItemLine('Woman 1 Facial Features', characterSlots.facialFeaturesA);
     addItemLine('Woman 2 Facial Features', characterSlots.facialFeaturesB);
   } else if (!useCharacterIdentityAnchor) {
-    addItemLine('Facial Features', characterSlots.facialFeatures);
+    addLine(
+      'Facial Features',
+      buildFacialFeaturesPrompt(characterSlots.facialFeatures, {
+        eyewear: wardrobeSlots.eyewear,
+        earrings: wardrobeSlots.earrings,
+      })
+    );
   }
   if (context.subject.count === 2) {
     addItemLine('Woman 1 Hairstyle', characterSlots.hairstyleA);
@@ -2356,8 +2374,10 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.style && !isNoneLikeItem(context.style)) {
     addLine('Photography Style', buildPhotographyStylePrompt(context.style));
   }
-  addLine('Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewear));
-  addLine('Earrings', buildAccessoryPrompt(wardrobeSlots.earrings));
+  if (context.subject.count === 2 || useCharacterIdentityAnchor) {
+    addLine('Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewear));
+    addLine('Earrings', buildAccessoryPrompt(wardrobeSlots.earrings));
+  }
   addLine('Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessory));
   addLine('Wrist Accessory', buildAccessoryPrompt(wardrobeSlots.wristAccessory));
   addLine('Ring', buildAccessoryPrompt(wardrobeSlots.ring));
