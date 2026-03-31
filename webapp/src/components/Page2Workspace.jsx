@@ -6,6 +6,8 @@ export default function Page2Workspace({
   profileSummary,
   profileAnchor,
   viewPrompts,
+  masterPrompt,
+  promptBundle,
   onCopyText,
   createEmptyProfile,
 }) {
@@ -48,6 +50,12 @@ export default function Page2Workspace({
             <button className="secondary" onClick={() => onCopyText('Face anchor copied', profileAnchor)} disabled={!profileAnchor}>
               複製 Face Anchor
             </button>
+            <button className="secondary" onClick={() => onCopyText('Master sheet prompt copied', masterPrompt)} disabled={!masterPrompt}>
+              複製 Master Sheet
+            </button>
+            <button className="secondary" onClick={() => onCopyText('All Page2 prompts copied', promptBundle)} disabled={!promptBundle}>
+              複製全部 Prompt
+            </button>
             <button className="secondary" onClick={() => setProfile(createEmptyProfile())}>
               清空選項
             </button>
@@ -85,6 +93,15 @@ export default function Page2Workspace({
             <div className="control-section-title">Reference Views</div>
           </div>
           <div className="library-editor-form">
+            <label className="field">
+              <span>Master Sheet</span>
+              <textarea
+                className="text-input page2-prompt-textarea"
+                value={masterPrompt}
+                readOnly
+                placeholder="這裡會生成一張包含多視角的主 reference sheet prompt。"
+              />
+            </label>
             {viewPrompts.map((item) => (
               <label key={item.key} className="field">
                 <span>{item.label}</span>
@@ -101,6 +118,18 @@ export default function Page2Workspace({
               </label>
             ))}
           </div>
+        </div>
+
+        <div className="control-section">
+          <div className="control-section-header">
+            <div className="control-section-title">Prompt Bundle</div>
+          </div>
+          <textarea
+            className="text-input page2-prompt-textarea"
+            value={promptBundle}
+            readOnly
+            placeholder="這裡會整理 Face Anchor、Master Sheet 與所有視角 prompt，方便一次複製。"
+          />
         </div>
       </section>
     </section>

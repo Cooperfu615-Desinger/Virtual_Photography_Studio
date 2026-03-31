@@ -7,6 +7,7 @@ export default function Page3Workspace({
   anchor,
   prompt,
   cinematicPrompt,
+  worldPrompt,
   onCopyText,
   createEmptyProfile,
 }) {
@@ -54,6 +55,9 @@ export default function Page3Workspace({
             </button>
             <button className="secondary" onClick={() => onCopyText('Cinematic prompt copied', cinematicPrompt)} disabled={!cinematicPrompt}>
               複製 Cinematic Prompt
+            </button>
+            <button className="secondary" onClick={() => onCopyText('World prompt copied', worldPrompt)} disabled={!worldPrompt}>
+              複製 World Prompt
             </button>
             <button className="secondary" onClick={() => setProfile(createEmptyProfile())}>
               清空選項
@@ -109,6 +113,21 @@ export default function Page3Workspace({
             readOnly
             placeholder="這裡會生成更強調大景、氣勢與電影感的場景 prompt。"
           />
+        </div>
+
+        <div className="control-section">
+          <div className="control-section-header">
+            <div className="control-section-title">World Prompt</div>
+          </div>
+          <textarea
+            className="text-input page2-prompt-textarea"
+            value={worldPrompt}
+            readOnly
+            placeholder="這裡會生成更偏世界觀概念設計與環境設定的 prompt。"
+          />
+          <p className="context-note">
+            World Prompt 會比一般 Scene Prompt 更偏概念設計、文明尺度、空間邏輯與世界觀氣氛，適合大景、奇幻、未來與超現實方向。
+          </p>
         </div>
       </section>
     </section>

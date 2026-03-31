@@ -114,13 +114,20 @@ const PAGE3_FIELD_OPTIONS = {
     { id: 'alley-street', zh: '巷弄街道', en: 'narrow urban alley street' },
     { id: 'city-skyline', zh: '城市天際線', en: 'expansive city skyline' },
     { id: 'industrial-harbor', zh: '港口工業區', en: 'industrial harbor district' },
+    { id: 'grand-terminal', zh: '巨型車站大廳', en: 'grand monumental transit terminal hall' },
     { id: 'mountain-ridge', zh: '山脈稜線', en: 'towering mountain ridgeline' },
     { id: 'canyon', zh: '峽谷地形', en: 'vast canyon terrain' },
     { id: 'coastal-cliff', zh: '海岸懸崖', en: 'dramatic coastal cliff landscape' },
+    { id: 'desert-ruins', zh: '沙漠遺跡', en: 'vast desert ruins landscape' },
+    { id: 'glacier-valley', zh: '冰川山谷', en: 'immense glacier valley environment' },
     { id: 'future-megacity', zh: '巨型未來都市', en: 'colossal futuristic megacity' },
+    { id: 'ringworld-megastructure', zh: '環形巨構世界', en: 'ringworld-scale megastructure environment' },
     { id: 'floating-city', zh: '浮空城市', en: 'floating city suspended in the sky' },
+    { id: 'floating-islands', zh: '漂浮群島', en: 'floating island archipelago in the sky' },
     { id: 'ancient-temple-ruin', zh: '古老神殿遺跡', en: 'ancient monumental temple ruins' },
+    { id: 'celestial-observatory', zh: '天體觀測聖殿', en: 'celestial observatory temple complex' },
     { id: 'otherworld-forest', zh: '異世界森林', en: 'otherworldly forest environment' },
+    { id: 'impossible-city', zh: '不可能結構城市', en: 'impossible architecture cityscape' },
     { id: 'dreamlike-space', zh: '超現實夢境空間', en: 'surreal dreamlike spatial environment' },
   ],
   world: [
@@ -133,34 +140,46 @@ const PAGE3_FIELD_OPTIONS = {
     { id: 'fantasy', zh: '奇幻', en: 'fantasy world atmosphere' },
     { id: 'dark-fantasy', zh: '黑暗奇幻', en: 'dark fantasy mood' },
     { id: 'future-sci-fi', zh: '高科幻未來', en: 'high science-fiction future setting' },
+    { id: 'retro-future', zh: '復古未來', en: 'retro-futurist world tone' },
+    { id: 'solarpunk', zh: '太陽龐克', en: 'solarpunk worldbuilding language' },
     { id: 'cyberpunk', zh: '賽博龐克', en: 'cyberpunk urban world' },
+    { id: 'post-apocalyptic', zh: '末世廢墟', en: 'post-apocalyptic environmental tone' },
     { id: 'surreal', zh: '超現實', en: 'surreal unreal atmosphere' },
     { id: 'dreamlike', zh: '夢境感', en: 'dreamlike environmental tone' },
     { id: 'mythic-unreal', zh: '非現實神話感', en: 'mythic unreal world presence' },
+    { id: 'sacred-cosmic', zh: '神聖宇宙感', en: 'sacred cosmic environmental presence' },
   ],
   timeWeather: [
     { id: '', zh: '未指定', en: '' },
+    { id: 'sunrise', zh: '日出', en: 'sunrise atmosphere' },
     { id: 'clear-day', zh: '晴朗白天', en: 'clear daytime conditions' },
     { id: 'overcast-day', zh: '陰天白天', en: 'overcast daytime sky' },
     { id: 'sunset', zh: '黃昏', en: 'sunset hour atmosphere' },
     { id: 'blue-hour', zh: '藍調時刻', en: 'blue-hour atmosphere' },
     { id: 'deep-night', zh: '深夜', en: 'deep night setting' },
+    { id: 'aurora-night', zh: '極光夜空', en: 'aurora-lit night sky' },
+    { id: 'eclipse', zh: '日蝕或月蝕時刻', en: 'eclipse-darkened sky event' },
     { id: 'after-rain', zh: '雨後', en: 'fresh after-rain atmosphere' },
     { id: 'light-mist', zh: '薄霧', en: 'light mist in the air' },
     { id: 'dense-fog', zh: '濃霧', en: 'dense fog-filled atmosphere' },
     { id: 'storm-coming', zh: '暴風前壓迫天氣', en: 'heavy pre-storm pressure in the sky' },
+    { id: 'lightning-storm', zh: '閃電風暴', en: 'electrical storm atmosphere with distant lightning' },
     { id: 'after-snow', zh: '雪後冷冽空氣', en: 'cold post-snow atmosphere' },
   ],
   lighting: [
     { id: '', zh: '未指定', en: '' },
     { id: 'soft-natural', zh: '柔和自然光', en: 'soft natural ambient light' },
+    { id: 'hard-noon', zh: '強烈正午日照', en: 'hard high-noon sunlight' },
     { id: 'cool-overcast', zh: '冷色陰天光', en: 'cool diffused overcast light' },
     { id: 'warm-tungsten', zh: '暖色鎢絲燈', en: 'warm tungsten practical lighting' },
     { id: 'neon-mixed', zh: '霓虹混光', en: 'mixed neon lighting' },
     { id: 'moonlight', zh: '月光', en: 'cold moonlit illumination' },
     { id: 'strong-backlight', zh: '強烈逆光', en: 'strong backlit atmosphere' },
+    { id: 'god-rays', zh: '穿透光束', en: 'dramatic god rays cutting through atmosphere' },
     { id: 'glowing-mist', zh: '神秘發光霧氣', en: 'mysterious glowing mist illumination' },
     { id: 'celestial-light', zh: '巨型天體照明', en: 'dramatic celestial body lighting' },
+    { id: 'volcanic-glow', zh: '火山熔光', en: 'volcanic glow from below the horizon' },
+    { id: 'bioluminescent', zh: '生物發光環境光', en: 'bioluminescent environmental illumination' },
     { id: 'cloud-diffusion', zh: '漫射雲層天光', en: 'broad diffused skylight through cloud cover' },
     { id: 'spot-source', zh: '局部聚焦光源', en: 'localized focused light sources' },
   ],
@@ -169,8 +188,11 @@ const PAGE3_FIELD_OPTIONS = {
     { id: 'neutral-view', zh: '中性環境視角', en: 'neutral environmental point of view' },
     { id: 'wide-establishing', zh: 'wide establishing shot', en: 'wide establishing shot' },
     { id: 'ultra-wide-pano', zh: 'ultra wide panoramic view', en: 'ultra wide panoramic view' },
+    { id: 'birds-eye', zh: 'bird’s-eye world view', en: 'bird’s-eye world view' },
+    { id: 'distant-aerial', zh: '遠距高空俯瞰', en: 'distant aerial overlook' },
     { id: 'elevated-overlook', zh: 'elevated overlook', en: 'elevated overlook composition' },
     { id: 'low-angle-monumental', zh: 'low-angle monumental framing', en: 'low-angle monumental framing' },
+    { id: 'center-monumental', zh: 'central monumental framing', en: 'central monumental framing' },
     { id: 'symmetrical', zh: 'symmetrical composition', en: 'symmetrical composition' },
     { id: 'layered-depth', zh: 'layered depth composition', en: 'layered depth composition' },
     { id: 'foreground-occlusion', zh: 'cinematic foreground occlusion', en: 'cinematic foreground occlusion' },
@@ -187,8 +209,12 @@ const PAGE3_FIELD_OPTIONS = {
     { id: 'glowing-plants', zh: '發光植被', en: 'subtly glowing vegetation' },
     { id: 'floating-fragments', zh: '漂浮碎片', en: 'floating fragments suspended in space' },
     { id: 'layered-mountains', zh: '遠景層疊山巒', en: 'layered distant mountain forms' },
+    { id: 'waterfalls', zh: '巨大瀑布結構', en: 'massive cascading waterfalls integrated into the environment' },
+    { id: 'colossal-bridges', zh: '巨型橋樑結構', en: 'colossal bridges spanning impossible distances' },
     { id: 'cloud-sea', zh: '厚重雲海', en: 'heavy rolling sea of clouds' },
     { id: 'massive-architecture', zh: '巨型建築輪廓', en: 'massive architectural silhouettes' },
+    { id: 'aerial-traffic', zh: '空中交通光軌', en: 'aerial traffic trails cutting through the distance' },
+    { id: 'cosmic-rings', zh: '天體環帶', en: 'visible cosmic rings dominating the sky' },
     { id: 'weathered-ground', zh: '風化地表紋理', en: 'weathered ground texture and erosion patterns' },
   ],
 };
@@ -631,6 +657,41 @@ function buildPage2ViewPrompts(profile) {
   ];
 }
 
+function buildPage2MasterPrompt(profile) {
+  const anchor = buildPage2ProfileAnchor(profile);
+  if (!anchor) return '';
+
+  return [
+    'clean studio character reference sheet',
+    'neutral seamless background',
+    'even studio lighting',
+    'one image containing five consistent views of the same person',
+    'front-facing portrait',
+    'left three-quarter portrait',
+    'right three-quarter portrait',
+    'clean side profile portrait',
+    'back view showing head shape and hairstyle silhouette',
+    'matched proportions across all views',
+    'clear facial structure comparison',
+    anchor,
+  ].join(', ');
+}
+
+function buildPage2PromptBundle(profile, viewPrompts) {
+  const anchor = buildPage2ProfileAnchor(profile);
+  if (!anchor || viewPrompts.length === 0) return '';
+
+  const lines = [
+    `Face Anchor: ${anchor}`,
+    '',
+    `Master Sheet: ${buildPage2MasterPrompt(profile)}`,
+    '',
+    ...viewPrompts.flatMap((item) => [`${item.label}: ${item.prompt}`, '']),
+  ];
+
+  return lines.join('\n').trim();
+}
+
 function getPage3OptionLabel(fieldKey, optionId) {
   return PAGE3_FIELD_OPTIONS[fieldKey]?.find((option) => option.id === optionId)?.zh || '';
 }
@@ -657,7 +718,55 @@ function buildPage3Anchor(profile) {
   return promptParts.join(', ');
 }
 
-function buildPage3Prompt(profile) {
+function getPage3ScaleTone(scaleId) {
+  switch (scaleId) {
+    case 'small-corner':
+      return ['intimate environmental focus', 'fine localized detail'];
+    case 'interior-space':
+      return ['clear spatial readability', 'contained architectural atmosphere'];
+    case 'street-block':
+      return ['street-scale depth', 'readable surrounding structures'];
+    case 'city-scale':
+      return ['monumental urban scale', 'layered skyline depth'];
+    case 'mountain-landscape':
+      return ['vast geographic scale', 'towering natural mass'];
+    case 'ultra-wide-panorama':
+      return ['ultra wide environmental sweep', 'expansive horizon line'];
+    case 'epic-world':
+      return ['world-scale grandeur', 'mythic environmental vastness'];
+    default:
+      return [];
+  }
+}
+
+function getPage3SubjectTone(subjectId) {
+  const subjectToneMap = {
+    'cafe-corner': ['quiet interior storytelling', 'inviting lived-in texture'],
+    'hotel-room': ['lived-in interior atmosphere', 'traceable signs of recent presence without showing any person'],
+    conservatory: ['glass structure depth', 'botanical enclosure atmosphere'],
+    'alley-street': ['urban emptiness', 'layered street perspective'],
+    'city-skyline': ['recognizable skyline silhouette', 'layered architectural rhythm'],
+    'grand-terminal': ['cathedral-like civic scale', 'structured circulation space'],
+    'mountain-ridge': ['towering landform silhouette', 'clean atmospheric distance'],
+    canyon: ['geological depth', 'immense carved terrain'],
+    'coastal-cliff': ['open coastal exposure', 'dramatic vertical drop'],
+    'desert-ruins': ['ancient scale buried in erosion', 'harsh elemental emptiness'],
+    'glacier-valley': ['cold massive terrain', 'crystalline atmospheric clarity'],
+    'future-megacity': ['dense futuristic infrastructure', 'vast engineered urban layering'],
+    'ringworld-megastructure': ['civilization-scale engineering', 'impossible but believable megastructure presence'],
+    'floating-city': ['suspended architecture', 'weightless monumental balance'],
+    'floating-islands': ['airborne landmass layering', 'open sky depth'],
+    'ancient-temple-ruin': ['sacred ruin atmosphere', 'monumental stone geometry'],
+    'celestial-observatory': ['cosmic ritual architecture', 'astronomical scale motifs'],
+    'otherworld-forest': ['unfamiliar natural logic', 'organic spatial mystery'],
+    'impossible-city': ['architectural paradox', 'non-euclidean visual logic'],
+    'dreamlike-space': ['spatial ambiguity', 'unreal dream atmosphere'],
+  };
+
+  return subjectToneMap[subjectId] || [];
+}
+
+function buildPage3BaseParts(profile) {
   const subject = getPage3OptionPrompt('subject', profile.subject);
   const scale = getPage3OptionPrompt('scale', profile.scale);
   const world = getPage3OptionPrompt('world', profile.world);
@@ -665,15 +774,34 @@ function buildPage3Prompt(profile) {
   const lighting = getPage3OptionPrompt('lighting', profile.lighting);
   const composition = getPage3OptionPrompt('composition', profile.composition);
   const details = getPage3OptionPrompt('details', profile.details);
-
   const qualifiers = ['empty scene', 'no people', 'no human subject'];
   const interiorSubjects = new Set([
-    'cafe-corner', 'hotel-room', 'conservatory', 'vinyl-listening-room', 'piano-room', 'livehouse-backstage'
+    'cafe-corner', 'hotel-room', 'conservatory', 'vinyl-listening-room', 'piano-room', 'livehouse-backstage', 'grand-terminal'
   ]);
   const streetSubjects = new Set(['alley-street']);
 
   if (interiorSubjects.has(profile.subject)) qualifiers.push('unoccupied interior');
   if (streetSubjects.has(profile.subject)) qualifiers.push('empty street scene');
+
+  return {
+    subject,
+    scale,
+    world,
+    timeWeather,
+    lighting,
+    composition,
+    details,
+    qualifiers,
+    scaleTone: getPage3ScaleTone(profile.scale),
+    subjectTone: getPage3SubjectTone(profile.subject),
+    isMonumental: ['city-scale', 'mountain-landscape', 'ultra-wide-panorama', 'epic-world'].includes(profile.scale),
+  };
+}
+
+function buildPage3Prompt(profile) {
+  const {
+    subject, scale, world, timeWeather, lighting, composition, details, qualifiers, scaleTone, subjectTone
+  } = buildPage3BaseParts(profile);
 
   const parts = [
     ...qualifiers,
@@ -684,29 +812,52 @@ function buildPage3Prompt(profile) {
     lighting,
     composition,
     details,
+    ...scaleTone,
+    ...subjectTone,
     'strong environmental storytelling',
+    'focus entirely on environment design',
   ].filter(Boolean);
 
   return parts.join(', ');
 }
 
 function buildPage3CinematicPrompt(profile) {
-  const subject = getPage3OptionPrompt('subject', profile.subject);
-  const scale = getPage3OptionPrompt('scale', profile.scale);
-  const world = getPage3OptionPrompt('world', profile.world);
-  const timeWeather = getPage3OptionPrompt('timeWeather', profile.timeWeather);
-  const lighting = getPage3OptionPrompt('lighting', profile.lighting);
-  const composition = getPage3OptionPrompt('composition', profile.composition);
-  const details = getPage3OptionPrompt('details', profile.details);
-  const monumentalScales = new Set(['city-scale', 'mountain-landscape', 'ultra-wide-panorama', 'epic-world']);
-  const sizeEnhancers = monumentalScales.has(profile.scale)
+  const {
+    subject, scale, world, timeWeather, lighting, composition, details, scaleTone, subjectTone, isMonumental
+  } = buildPage3BaseParts(profile);
+  const opener = isMonumental
+    ? `ultra wide cinematic establishing shot of ${subject || 'a vast environment'}`
+    : `cinematic environment study of ${subject || 'an environment scene'}`;
+  const sizeEnhancers = isMonumental
     ? ['colossal scale', 'monumental presence', 'vast atmospheric depth', 'epic environmental storytelling']
     : ['cinematic environmental storytelling'];
 
   const parts = [
-    'ultra cinematic environment shot',
+    opener,
     'no people',
     'no human subject',
+    scale,
+    world,
+    timeWeather,
+    lighting,
+    composition,
+    details,
+    ...scaleTone,
+    ...subjectTone,
+    ...sizeEnhancers,
+  ].filter(Boolean);
+
+  return parts.join(', ');
+}
+
+function buildPage3WorldPrompt(profile) {
+  const {
+    subject, scale, world, timeWeather, lighting, composition, details, qualifiers, scaleTone, subjectTone, isMonumental
+  } = buildPage3BaseParts(profile);
+
+  const parts = [
+    'worldbuilding environment concept',
+    ...qualifiers,
     subject,
     scale,
     world,
@@ -714,7 +865,11 @@ function buildPage3CinematicPrompt(profile) {
     lighting,
     composition,
     details,
-    ...sizeEnhancers,
+    ...scaleTone,
+    ...subjectTone,
+    isMonumental ? 'civilization-scale environment logic' : 'internally coherent environmental storytelling',
+    'surreal but believable spatial design',
+    'rich atmosphere and layered lore cues',
   ].filter(Boolean);
 
   return parts.join(', ');
@@ -933,10 +1088,13 @@ export default function App() {
   const page2ProfileSummary = useMemo(() => buildPage2ProfileSummary(page2Profile), [page2Profile]);
   const page2ProfileAnchor = useMemo(() => buildPage2ProfileAnchor(page2Profile), [page2Profile]);
   const page2ViewPrompts = useMemo(() => buildPage2ViewPrompts(page2Profile), [page2Profile]);
+  const page2MasterPrompt = useMemo(() => buildPage2MasterPrompt(page2Profile), [page2Profile]);
+  const page2PromptBundle = useMemo(() => buildPage2PromptBundle(page2Profile, page2ViewPrompts), [page2Profile, page2ViewPrompts]);
   const page3Summary = useMemo(() => buildPage3Summary(page3Profile), [page3Profile]);
   const page3Anchor = useMemo(() => buildPage3Anchor(page3Profile), [page3Profile]);
   const page3Prompt = useMemo(() => buildPage3Prompt(page3Profile), [page3Profile]);
   const page3CinematicPrompt = useMemo(() => buildPage3CinematicPrompt(page3Profile), [page3Profile]);
+  const page3WorldPrompt = useMemo(() => buildPage3WorldPrompt(page3Profile), [page3Profile]);
 
   const updateLocks = (updater) => {
     setLocks((prev) => {
@@ -1239,6 +1397,8 @@ export default function App() {
           profileSummary={page2ProfileSummary}
           profileAnchor={page2ProfileAnchor}
           viewPrompts={page2ViewPrompts}
+          masterPrompt={page2MasterPrompt}
+          promptBundle={page2PromptBundle}
           onCopyText={handleCopyText}
           createEmptyProfile={createEmptyPage2Profile}
         />
@@ -1252,6 +1412,7 @@ export default function App() {
           anchor={page3Anchor}
           prompt={page3Prompt}
           cinematicPrompt={page3CinematicPrompt}
+          worldPrompt={page3WorldPrompt}
           onCopyText={handleCopyText}
           createEmptyProfile={createEmptyPage3Profile}
         />
