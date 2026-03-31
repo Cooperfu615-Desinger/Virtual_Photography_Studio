@@ -6,7 +6,9 @@ export default function Page2Workspace({
   profileSummary,
   profileAnchor,
   viewPrompts,
+  identityPrompt,
   masterPrompt,
+  coreViewsBundle,
   promptBundle,
   onCopyText,
   createEmptyProfile,
@@ -50,8 +52,14 @@ export default function Page2Workspace({
             <button className="secondary" onClick={() => onCopyText('Face anchor copied', profileAnchor)} disabled={!profileAnchor}>
               複製 Face Anchor
             </button>
+            <button className="secondary" onClick={() => onCopyText('Identity prompt copied', identityPrompt)} disabled={!identityPrompt}>
+              複製 Identity Prompt
+            </button>
             <button className="secondary" onClick={() => onCopyText('Master sheet prompt copied', masterPrompt)} disabled={!masterPrompt}>
               複製 Master Sheet
+            </button>
+            <button className="secondary" onClick={() => onCopyText('Core views copied', coreViewsBundle)} disabled={!coreViewsBundle}>
+              複製核心角度
             </button>
             <button className="secondary" onClick={() => onCopyText('All Page2 prompts copied', promptBundle)} disabled={!promptBundle}>
               複製全部 Prompt
@@ -94,6 +102,15 @@ export default function Page2Workspace({
           </div>
           <div className="library-editor-form">
             <label className="field">
+              <span>Identity Prompt</span>
+              <textarea
+                className="text-input page2-prompt-textarea"
+                value={identityPrompt}
+                readOnly
+                placeholder="這裡會生成強調同一人物身份一致性的 reference prompt。"
+              />
+            </label>
+            <label className="field">
               <span>Master Sheet</span>
               <textarea
                 className="text-input page2-prompt-textarea"
@@ -118,6 +135,18 @@ export default function Page2Workspace({
               </label>
             ))}
           </div>
+        </div>
+
+        <div className="control-section">
+          <div className="control-section-header">
+            <div className="control-section-title">Core Views Bundle</div>
+          </div>
+          <textarea
+            className="text-input page2-prompt-textarea"
+            value={coreViewsBundle}
+            readOnly
+            placeholder="這裡會整理正面、左右 45 度與正側面的核心角度 prompt。"
+          />
         </div>
 
         <div className="control-section">

@@ -613,7 +613,7 @@ function buildPage2ProfileAnchor(profile) {
 
   if (promptParts.length === 0) return '';
 
-  return `distinct face anchor, ${promptParts.join(', ')}`;
+  return `reference face anchor, ${promptParts.join(', ')}`;
 }
 
 function buildPage2ViewPrompts(profile) {
@@ -621,40 +621,58 @@ function buildPage2ViewPrompts(profile) {
   if (!anchor) return [];
 
   const base =
-    'clean studio character reference headshot, neutral seamless background, even studio lighting, clear facial structure visibility, natural realistic skin rendering';
+    'neutral studio reference portrait, plain seamless background, flat even lighting, passport-photo-like clarity, same exact woman in every image, consistent facial identity, matched facial proportions, no dramatic shadows, no cinematic styling, natural realistic skin rendering';
 
   return [
     {
       key: 'four-angle-sheet',
       label: '四角度合成一張',
-      prompt: `${base}, one image containing four consistent headshot angles arranged as a clean reference sheet: front-facing portrait, left three-quarter portrait, right three-quarter portrait, and clean side profile portrait, same person in every panel, matched lighting and facial proportions, clear facial structure comparison across all four views, ${anchor}`,
+      prompt: `${base}, one image containing four standardized reference angles arranged as a clean identity sheet: exact front view, exact left three-quarter view, exact right three-quarter view, and exact side profile view, same identity in every panel, neutral expression, direct head alignment, clear structural comparison across all four angles, ${anchor}`,
     },
     {
       key: 'front',
       label: '正面',
-      prompt: `${base}, front-facing portrait, direct symmetrical face view, ${anchor}`,
+      prompt: `${base}, exact front-facing reference portrait, direct symmetrical facial axis, centered head position, both ears evenly aligned if visible, both eyes fully visible, nose bridge centered, lips centered, neutral closed-mouth expression, balanced jawline visibility, ${anchor}`,
     },
     {
       key: 'left-three-quarter',
       label: '左前 45 度',
-      prompt: `${base}, left three-quarter portrait view, partial side angle with both facial planes visible, ${anchor}`,
+      prompt: `${base}, exact left three-quarter reference portrait at roughly forty-five degrees, neutral head turn without dramatic tilt, clear separation of the front facial plane and side facial plane, both eyes still visible, nose bridge angle readable, cheekbone and jaw transition clearly defined, neutral closed-mouth expression, ${anchor}`,
     },
     {
       key: 'right-three-quarter',
       label: '右前 45 度',
-      prompt: `${base}, right three-quarter portrait view, partial side angle with both facial planes visible, ${anchor}`,
+      prompt: `${base}, exact right three-quarter reference portrait at roughly forty-five degrees, neutral head turn without dramatic tilt, clear separation of the front facial plane and side facial plane, both eyes still visible, nose bridge angle readable, cheekbone and jaw transition clearly defined, neutral closed-mouth expression, ${anchor}`,
     },
     {
       key: 'profile',
       label: '側面',
-      prompt: `${base}, clean side profile portrait, clear nose bridge, brow line, lips, and jaw silhouette visibility, ${anchor}`,
+      prompt: `${base}, exact ninety-degree side profile reference portrait, only one side of the face visible, head fully turned to profile, no partial front visibility, clean silhouette of forehead, nose bridge, lips, chin, and jawline, neck line readable, neutral closed-mouth expression, clear profile contour readability, ${anchor}`,
     },
     {
       key: 'back',
       label: '背面',
-      prompt: 'clean studio character reference back view, neutral seamless background, even studio lighting, back-facing portrait showing head shape, hairstyle silhouette, and hair length clearly',
+      prompt: 'neutral studio reference back view, plain seamless background, flat even lighting, back-facing portrait showing head shape, hairstyle silhouette, and hair length clearly, no dramatic styling',
     },
   ];
+}
+
+function buildPage2IdentityPrompt(profile) {
+  const anchor = buildPage2ProfileAnchor(profile);
+  if (!anchor) return '';
+
+  return [
+    'same exact woman',
+    'consistent facial identity',
+    'same facial proportions across every image',
+    anchor,
+    'neutral studio reference portrait',
+    'plain seamless background',
+    'flat even lighting',
+    'passport-photo-like clarity',
+    'neutral closed-mouth expression',
+    'no cinematic styling',
+  ].join(', ');
 }
 
 function buildPage2MasterPrompt(profile) {
@@ -662,29 +680,49 @@ function buildPage2MasterPrompt(profile) {
   if (!anchor) return '';
 
   return [
-    'clean studio character reference sheet',
-    'neutral seamless background',
-    'even studio lighting',
-    'one image containing five consistent views of the same person',
-    'front-facing portrait',
-    'left three-quarter portrait',
-    'right three-quarter portrait',
-    'clean side profile portrait',
-    'back view showing head shape and hairstyle silhouette',
+    'neutral studio character reference sheet',
+    'plain seamless background',
+    'flat even lighting',
+    'passport-photo-like clarity',
+    'same exact woman in every panel',
+    'one image containing four core identity views of the same person',
+    'exact front reference view',
+    'exact left three-quarter reference view',
+    'exact right three-quarter reference view',
+    'exact side profile reference view',
+    'neutral expression in every panel',
+    'centered head alignment',
     'matched proportions across all views',
-    'clear facial structure comparison',
-    anchor,
+    'clear structural comparison focused on front, three-quarter, and profile consistency',
+    buildPage2IdentityPrompt(profile),
   ].join(', ');
+}
+
+function buildPage2CoreViewsBundle(viewPrompts) {
+  const coreKeys = new Set(['front', 'left-three-quarter', 'right-three-quarter', 'profile']);
+  const coreViews = viewPrompts.filter((item) => coreKeys.has(item.key));
+  if (coreViews.length === 0) return '';
+
+  return coreViews
+    .map((item) => `${item.label}: ${item.prompt}`)
+    .join('\n\n');
 }
 
 function buildPage2PromptBundle(profile, viewPrompts) {
   const anchor = buildPage2ProfileAnchor(profile);
   if (!anchor || viewPrompts.length === 0) return '';
 
+  const identityPrompt = buildPage2IdentityPrompt(profile);
+  const coreViewsBundle = buildPage2CoreViewsBundle(viewPrompts);
   const lines = [
     `Face Anchor: ${anchor}`,
     '',
+    `Identity Prompt: ${identityPrompt}`,
+    '',
     `Master Sheet: ${buildPage2MasterPrompt(profile)}`,
+    '',
+    'Core Views:',
+    coreViewsBundle,
     '',
     ...viewPrompts.flatMap((item) => [`${item.label}: ${item.prompt}`, '']),
   ];
@@ -1088,7 +1126,9 @@ export default function App() {
   const page2ProfileSummary = useMemo(() => buildPage2ProfileSummary(page2Profile), [page2Profile]);
   const page2ProfileAnchor = useMemo(() => buildPage2ProfileAnchor(page2Profile), [page2Profile]);
   const page2ViewPrompts = useMemo(() => buildPage2ViewPrompts(page2Profile), [page2Profile]);
+  const page2IdentityPrompt = useMemo(() => buildPage2IdentityPrompt(page2Profile), [page2Profile]);
   const page2MasterPrompt = useMemo(() => buildPage2MasterPrompt(page2Profile), [page2Profile]);
+  const page2CoreViewsBundle = useMemo(() => buildPage2CoreViewsBundle(page2ViewPrompts), [page2ViewPrompts]);
   const page2PromptBundle = useMemo(() => buildPage2PromptBundle(page2Profile, page2ViewPrompts), [page2Profile, page2ViewPrompts]);
   const page3Summary = useMemo(() => buildPage3Summary(page3Profile), [page3Profile]);
   const page3Anchor = useMemo(() => buildPage3Anchor(page3Profile), [page3Profile]);
@@ -1397,7 +1437,9 @@ export default function App() {
           profileSummary={page2ProfileSummary}
           profileAnchor={page2ProfileAnchor}
           viewPrompts={page2ViewPrompts}
+          identityPrompt={page2IdentityPrompt}
           masterPrompt={page2MasterPrompt}
+          coreViewsBundle={page2CoreViewsBundle}
           promptBundle={page2PromptBundle}
           onCopyText={handleCopyText}
           createEmptyProfile={createEmptyPage2Profile}
