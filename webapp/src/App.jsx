@@ -1,8 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-import { Copy } from 'lucide-react';
-import PromptCard from './components/PromptCard';
+import Page1Workspace from './components/Page1Workspace';
+import Page2Workspace from './components/Page2Workspace';
+import Page3Workspace from './components/Page3Workspace';
+import SelectControlField from './components/SelectControlField';
 import {
   buildLocksFromPrompt,
   createEmptyLocks,
@@ -24,6 +26,7 @@ const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const LIBRARY_DRAFT_KEY = 'vps.libraryDraft';
 const PAGE_MODE_KEY = 'vps.pageMode';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
+const PAGE3_PROFILE_KEY = 'vps.page3Profile';
 const MAX_STORED_PROMPTS = 120;
 const PAGE2_FIELD_OPTIONS = {
   eyes: [
@@ -89,9 +92,122 @@ const PAGE2_FIELD_CONFIG = [
   { key: 'skin', label: '皮膚' },
   { key: 'makeup', label: '妝容' },
 ];
+const PAGE3_FIELD_OPTIONS = {
+  scale: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'small-corner', zh: '小場景特寫', en: 'intimate small-scale scene' },
+    { id: 'interior-space', zh: '室內空間', en: 'full interior space' },
+    { id: 'street-block', zh: '街區尺度', en: 'street-block scale environment' },
+    { id: 'city-scale', zh: '城市尺度', en: 'large city-scale environment' },
+    { id: 'mountain-landscape', zh: '山脈地景', en: 'vast mountain landscape scale' },
+    { id: 'ultra-wide-panorama', zh: '超廣域全景', en: 'ultra wide panoramic scale' },
+    { id: 'epic-world', zh: '史詩級世界景觀', en: 'epic world-scale environment' },
+  ],
+  subject: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'cafe-corner', zh: '咖啡館角落', en: 'vintage cafe corner interior' },
+    { id: 'hotel-room', zh: '旅館房間', en: 'lived-in hotel room interior' },
+    { id: 'conservatory', zh: '溫室', en: 'glass conservatory interior' },
+    { id: 'vinyl-listening-room', zh: '黑膠唱片聆聽角', en: 'vinyl listening room' },
+    { id: 'piano-room', zh: '老式鋼琴房', en: 'old piano room' },
+    { id: 'livehouse-backstage', zh: '地下 live house 後台', en: 'underground live house backstage area' },
+    { id: 'alley-street', zh: '巷弄街道', en: 'narrow urban alley street' },
+    { id: 'city-skyline', zh: '城市天際線', en: 'expansive city skyline' },
+    { id: 'industrial-harbor', zh: '港口工業區', en: 'industrial harbor district' },
+    { id: 'mountain-ridge', zh: '山脈稜線', en: 'towering mountain ridgeline' },
+    { id: 'canyon', zh: '峽谷地形', en: 'vast canyon terrain' },
+    { id: 'coastal-cliff', zh: '海岸懸崖', en: 'dramatic coastal cliff landscape' },
+    { id: 'future-megacity', zh: '巨型未來都市', en: 'colossal futuristic megacity' },
+    { id: 'floating-city', zh: '浮空城市', en: 'floating city suspended in the sky' },
+    { id: 'ancient-temple-ruin', zh: '古老神殿遺跡', en: 'ancient monumental temple ruins' },
+    { id: 'otherworld-forest', zh: '異世界森林', en: 'otherworldly forest environment' },
+    { id: 'dreamlike-space', zh: '超現實夢境空間', en: 'surreal dreamlike spatial environment' },
+  ],
+  world: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'realistic', zh: '寫實', en: 'grounded realistic worldbuilding' },
+    { id: 'nostalgic', zh: '懷舊', en: 'nostalgic atmosphere' },
+    { id: 'british', zh: '英倫', en: 'British environmental character' },
+    { id: 'punk', zh: '龐克', en: 'punk-influenced visual identity' },
+    { id: 'industrial', zh: '工業', en: 'industrial environmental tone' },
+    { id: 'fantasy', zh: '奇幻', en: 'fantasy world atmosphere' },
+    { id: 'dark-fantasy', zh: '黑暗奇幻', en: 'dark fantasy mood' },
+    { id: 'future-sci-fi', zh: '高科幻未來', en: 'high science-fiction future setting' },
+    { id: 'cyberpunk', zh: '賽博龐克', en: 'cyberpunk urban world' },
+    { id: 'surreal', zh: '超現實', en: 'surreal unreal atmosphere' },
+    { id: 'dreamlike', zh: '夢境感', en: 'dreamlike environmental tone' },
+    { id: 'mythic-unreal', zh: '非現實神話感', en: 'mythic unreal world presence' },
+  ],
+  timeWeather: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'clear-day', zh: '晴朗白天', en: 'clear daytime conditions' },
+    { id: 'overcast-day', zh: '陰天白天', en: 'overcast daytime sky' },
+    { id: 'sunset', zh: '黃昏', en: 'sunset hour atmosphere' },
+    { id: 'blue-hour', zh: '藍調時刻', en: 'blue-hour atmosphere' },
+    { id: 'deep-night', zh: '深夜', en: 'deep night setting' },
+    { id: 'after-rain', zh: '雨後', en: 'fresh after-rain atmosphere' },
+    { id: 'light-mist', zh: '薄霧', en: 'light mist in the air' },
+    { id: 'dense-fog', zh: '濃霧', en: 'dense fog-filled atmosphere' },
+    { id: 'storm-coming', zh: '暴風前壓迫天氣', en: 'heavy pre-storm pressure in the sky' },
+    { id: 'after-snow', zh: '雪後冷冽空氣', en: 'cold post-snow atmosphere' },
+  ],
+  lighting: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'soft-natural', zh: '柔和自然光', en: 'soft natural ambient light' },
+    { id: 'cool-overcast', zh: '冷色陰天光', en: 'cool diffused overcast light' },
+    { id: 'warm-tungsten', zh: '暖色鎢絲燈', en: 'warm tungsten practical lighting' },
+    { id: 'neon-mixed', zh: '霓虹混光', en: 'mixed neon lighting' },
+    { id: 'moonlight', zh: '月光', en: 'cold moonlit illumination' },
+    { id: 'strong-backlight', zh: '強烈逆光', en: 'strong backlit atmosphere' },
+    { id: 'glowing-mist', zh: '神秘發光霧氣', en: 'mysterious glowing mist illumination' },
+    { id: 'celestial-light', zh: '巨型天體照明', en: 'dramatic celestial body lighting' },
+    { id: 'cloud-diffusion', zh: '漫射雲層天光', en: 'broad diffused skylight through cloud cover' },
+    { id: 'spot-source', zh: '局部聚焦光源', en: 'localized focused light sources' },
+  ],
+  composition: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'neutral-view', zh: '中性環境視角', en: 'neutral environmental point of view' },
+    { id: 'wide-establishing', zh: 'wide establishing shot', en: 'wide establishing shot' },
+    { id: 'ultra-wide-pano', zh: 'ultra wide panoramic view', en: 'ultra wide panoramic view' },
+    { id: 'elevated-overlook', zh: 'elevated overlook', en: 'elevated overlook composition' },
+    { id: 'low-angle-monumental', zh: 'low-angle monumental framing', en: 'low-angle monumental framing' },
+    { id: 'symmetrical', zh: 'symmetrical composition', en: 'symmetrical composition' },
+    { id: 'layered-depth', zh: 'layered depth composition', en: 'layered depth composition' },
+    { id: 'foreground-occlusion', zh: 'cinematic foreground occlusion', en: 'cinematic foreground occlusion' },
+    { id: 'horizon-emphasis', zh: 'distant horizon emphasis', en: 'distant horizon emphasis' },
+  ],
+  details: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'wood-furniture', zh: '木質家具與舊物件', en: 'aged wood furniture and lived-in objects' },
+    { id: 'brick-walls', zh: '紅磚與舊牆面', en: 'weathered brick and aged wall surfaces' },
+    { id: 'wet-ground', zh: '潮濕反光地面', en: 'wet reflective ground surfaces' },
+    { id: 'metal-pipes', zh: '金屬結構與管線', en: 'exposed metal structures and pipework' },
+    { id: 'neon-signage', zh: '發光招牌與霓虹', en: 'glowing signage and neon accents' },
+    { id: 'stone-ruins', zh: '石材遺跡', en: 'monumental stone ruins and carved surfaces' },
+    { id: 'glowing-plants', zh: '發光植被', en: 'subtly glowing vegetation' },
+    { id: 'floating-fragments', zh: '漂浮碎片', en: 'floating fragments suspended in space' },
+    { id: 'layered-mountains', zh: '遠景層疊山巒', en: 'layered distant mountain forms' },
+    { id: 'cloud-sea', zh: '厚重雲海', en: 'heavy rolling sea of clouds' },
+    { id: 'massive-architecture', zh: '巨型建築輪廓', en: 'massive architectural silhouettes' },
+    { id: 'weathered-ground', zh: '風化地表紋理', en: 'weathered ground texture and erosion patterns' },
+  ],
+};
+const PAGE3_FIELD_CONFIG = [
+  { key: 'scale', label: '場景尺度' },
+  { key: 'subject', label: '場景主體' },
+  { key: 'world', label: '世界觀方向' },
+  { key: 'timeWeather', label: '時間與天氣' },
+  { key: 'lighting', label: '光線氛圍' },
+  { key: 'composition', label: '構圖與鏡頭' },
+  { key: 'details', label: '材質與環境細節' },
+];
 
 function createEmptyPage2Profile() {
   return Object.fromEntries(PAGE2_FIELD_CONFIG.map((field) => [field.key, '']));
+}
+
+function createEmptyPage3Profile() {
+  return Object.fromEntries(PAGE3_FIELD_CONFIG.map((field) => [field.key, '']));
 }
 const SUMMARY_SECTION_INFO = {
   style: {
@@ -256,13 +372,6 @@ function sortControls(controls, order) {
   return [...controls].sort((a, b) => (orderMap.get(a.key) ?? 999) - (orderMap.get(b.key) ?? 999));
 }
 
-function isMutedSelectValue(control, value) {
-  if (Array.isArray(value)) return value.length === 0;
-  if (!value) return true;
-  const selected = control.options.find((option) => option.id === value);
-  return selected?.zh === '全無';
-}
-
 function isNoneSelected(controlKey, value, controls) {
   if (!value) return false;
   const control = controls.find((item) => item.key === controlKey);
@@ -294,18 +403,6 @@ ${Object.entries(data.structured)
   })
   .join('\n')}
 `;
-}
-
-function getSelectedPromptText(control, value) {
-  if (Array.isArray(value)) {
-    const selectedOptions = control.options.filter((option) => value.includes(option.id) && option.zh !== '全無');
-    return selectedOptions.map((option) => option.en).filter(Boolean).join(', ');
-  }
-
-  if (!value) return '';
-  const selectedOption = control.options.find((option) => option.id === value);
-  if (!selectedOption || selectedOption.zh === '全無') return '';
-  return selectedOption.en || '';
 }
 
 function toShortPromptId(id) {
@@ -534,6 +631,95 @@ function buildPage2ViewPrompts(profile) {
   ];
 }
 
+function getPage3OptionLabel(fieldKey, optionId) {
+  return PAGE3_FIELD_OPTIONS[fieldKey]?.find((option) => option.id === optionId)?.zh || '';
+}
+
+function getPage3OptionPrompt(fieldKey, optionId) {
+  return PAGE3_FIELD_OPTIONS[fieldKey]?.find((option) => option.id === optionId)?.en || '';
+}
+
+function buildPage3Summary(profile) {
+  return PAGE3_FIELD_CONFIG
+    .map((field) => getPage3OptionLabel(field.key, profile[field.key]))
+    .filter(Boolean)
+    .join(' / ');
+}
+
+function buildPage3Anchor(profile) {
+  const priority = ['subject', 'scale', 'world', 'timeWeather', 'lighting', 'composition'];
+  const promptParts = priority
+    .map((fieldKey) => getPage3OptionPrompt(fieldKey, profile[fieldKey]))
+    .filter(Boolean)
+    .slice(0, 6);
+
+  if (promptParts.length === 0) return '';
+  return promptParts.join(', ');
+}
+
+function buildPage3Prompt(profile) {
+  const subject = getPage3OptionPrompt('subject', profile.subject);
+  const scale = getPage3OptionPrompt('scale', profile.scale);
+  const world = getPage3OptionPrompt('world', profile.world);
+  const timeWeather = getPage3OptionPrompt('timeWeather', profile.timeWeather);
+  const lighting = getPage3OptionPrompt('lighting', profile.lighting);
+  const composition = getPage3OptionPrompt('composition', profile.composition);
+  const details = getPage3OptionPrompt('details', profile.details);
+
+  const qualifiers = ['empty scene', 'no people', 'no human subject'];
+  const interiorSubjects = new Set([
+    'cafe-corner', 'hotel-room', 'conservatory', 'vinyl-listening-room', 'piano-room', 'livehouse-backstage'
+  ]);
+  const streetSubjects = new Set(['alley-street']);
+
+  if (interiorSubjects.has(profile.subject)) qualifiers.push('unoccupied interior');
+  if (streetSubjects.has(profile.subject)) qualifiers.push('empty street scene');
+
+  const parts = [
+    ...qualifiers,
+    subject,
+    scale,
+    world,
+    timeWeather,
+    lighting,
+    composition,
+    details,
+    'strong environmental storytelling',
+  ].filter(Boolean);
+
+  return parts.join(', ');
+}
+
+function buildPage3CinematicPrompt(profile) {
+  const subject = getPage3OptionPrompt('subject', profile.subject);
+  const scale = getPage3OptionPrompt('scale', profile.scale);
+  const world = getPage3OptionPrompt('world', profile.world);
+  const timeWeather = getPage3OptionPrompt('timeWeather', profile.timeWeather);
+  const lighting = getPage3OptionPrompt('lighting', profile.lighting);
+  const composition = getPage3OptionPrompt('composition', profile.composition);
+  const details = getPage3OptionPrompt('details', profile.details);
+  const monumentalScales = new Set(['city-scale', 'mountain-landscape', 'ultra-wide-panorama', 'epic-world']);
+  const sizeEnhancers = monumentalScales.has(profile.scale)
+    ? ['colossal scale', 'monumental presence', 'vast atmospheric depth', 'epic environmental storytelling']
+    : ['cinematic environmental storytelling'];
+
+  const parts = [
+    'ultra cinematic environment shot',
+    'no people',
+    'no human subject',
+    subject,
+    scale,
+    world,
+    timeWeather,
+    lighting,
+    composition,
+    details,
+    ...sizeEnhancers,
+  ].filter(Boolean);
+
+  return parts.join(', ');
+}
+
 function loadFavoritePrompts() {
   if (typeof window === 'undefined') return [];
 
@@ -553,44 +739,6 @@ function loadFavoritePrompts() {
   return promptCache.filter((item) => item?.id && idSet.has(item.id));
 }
 
-function SelectControlField({ control, value, onChange, onCopy, disabled = false }) {
-  const copyText = getSelectedPromptText(control, value);
-  const isCopyDisabled = disabled || !copyText;
-
-  return (
-    <label className={`field ${disabled ? 'field-disabled' : ''}`}>
-      <div className="field-heading-row">
-        <span>{control.label}</span>
-        <button
-          type="button"
-          className="icon-btn control-copy-icon-btn"
-          disabled={isCopyDisabled}
-          onClick={() => onCopy(copyText)}
-          title={`Copy ${control.label} prompt`}
-          aria-label={`Copy ${control.label} prompt`}
-        >
-          <Copy size={14} />
-        </button>
-      </div>
-      <div className="field-control-row">
-        <select
-          disabled={disabled}
-          className={isMutedSelectValue(control, value) ? 'select-muted' : ''}
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
-        >
-          {!control.required ? <option value="">Random</option> : null}
-          {control.options.map((option) => (
-            <option key={option.id} value={option.id}>
-              {option.zh}
-            </option>
-          ))}
-        </select>
-      </div>
-    </label>
-  );
-}
-
 export default function App() {
   const [prompts, setPrompts] = useState(() => loadJsonStorage(PROMPTS_KEY, []));
   const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
@@ -601,6 +749,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState(() => loadStringStorage(SEARCH_QUERY_KEY, ''));
   const [libraryDraft, setLibraryDraft] = useState(() => loadJsonStorage(LIBRARY_DRAFT_KEY, null));
   const [page2Profile, setPage2Profile] = useState(() => loadJsonStorage(PAGE2_PROFILE_KEY, createEmptyPage2Profile()));
+  const [page3Profile, setPage3Profile] = useState(() => loadJsonStorage(PAGE3_PROFILE_KEY, createEmptyPage3Profile()));
   const [libraryGroup, setLibraryGroup] = useState('Character');
   const [libraryCategory, setLibraryCategory] = useState('');
   const [librarySearch, setLibrarySearch] = useState('');
@@ -648,6 +797,10 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(PAGE2_PROFILE_KEY, JSON.stringify(page2Profile));
   }, [page2Profile]);
+
+  useEffect(() => {
+    window.localStorage.setItem(PAGE3_PROFILE_KEY, JSON.stringify(page3Profile));
+  }, [page3Profile]);
 
   const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
   const activeLibrary = useMemo(() => libraryDraft || [], [libraryDraft]);
@@ -780,6 +933,10 @@ export default function App() {
   const page2ProfileSummary = useMemo(() => buildPage2ProfileSummary(page2Profile), [page2Profile]);
   const page2ProfileAnchor = useMemo(() => buildPage2ProfileAnchor(page2Profile), [page2Profile]);
   const page2ViewPrompts = useMemo(() => buildPage2ViewPrompts(page2Profile), [page2Profile]);
+  const page3Summary = useMemo(() => buildPage3Summary(page3Profile), [page3Profile]);
+  const page3Anchor = useMemo(() => buildPage3Anchor(page3Profile), [page3Profile]);
+  const page3Prompt = useMemo(() => buildPage3Prompt(page3Profile), [page3Profile]);
+  const page3CinematicPrompt = useMemo(() => buildPage3CinematicPrompt(page3Profile), [page3Profile]);
 
   const updateLocks = (updater) => {
     setLocks((prev) => {
@@ -997,381 +1154,107 @@ export default function App() {
             >
               PAGE2
             </button>
+            <button
+              type="button"
+              className={pageMode === 'page3' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+              onClick={() => setPageMode('page3')}
+            >
+              PAGE3
+            </button>
           </div>
           <p className="eyebrow">Virtual Photography Studio</p>
-          <h1>{pageMode === 'page1' ? 'Prompt Control Deck' : 'Character Builder'}</h1>
+          <h1>{pageMode === 'page1' ? 'Prompt Control Deck' : pageMode === 'page2' ? 'Character Builder' : 'Scene Builder'}</h1>
           <p className="subtitle">
             {pageMode === 'page1'
               ? '一個為個人創作流程設計的虛擬攝影 Prompt 生成工具，支援快速組合、批次生成與風格探索。'
-              : '建立固定角色的臉部與妝容設定，整理成可搬回 PAGE1 使用的角色 Prompt。'}
+              : pageMode === 'page2'
+                ? '建立固定角色的臉部與妝容設定，整理成可搬回 PAGE1 使用的角色 Prompt。'
+                : '建立無人物的純場景與世界觀 prompt，從小空間到超大景都可獨立生成。'}
           </p>
         </div>
       </header>
 
       {pageMode === 'page1' ? (
-      <>
-      <section className="control-shell">
-        <div className="lock-panel control-panel">
-          <div className="lock-panel-header">
-            <div>
-              <div className="lock-title">
-                主控台
-              </div>
-              <p className="lock-subtitle">目前鎖定 {activeLockCount} 個條件。</p>
-            </div>
-          </div>
-
-          <div className="control-section">
-            <div className="control-section-header">
-              <div className="control-section-title">Scene & Camera Language</div>
-            </div>
-            <div className="lock-grid detail-lock-grid">
-              {coreLockControls.map((control) => (
-                <SelectControlField
-                  key={control.key}
-                  control={control}
-                  value={locks[control.key]}
-                  onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
-                  onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="control-section control-section-secondary">
-            <div className="control-section-header">
-              <div className="control-section-title">Character Setup</div>
-            </div>
-            {locks.subjectCount === 'reference' ? (
-              <div className="context-note">
-                此模式不在 app 內上傳圖片；生成後請把同一張人物參考圖直接附給 Midjourney、Grok 或 Gemini，prompt 會以附圖人物五官與身份為主。
-              </div>
-            ) : null}
-            <div className="lock-grid">
-              {characterLockControls.map((control) => (
-                <SelectControlField
-                  key={control.key}
-                  control={control}
-                  value={locks[control.key]}
-                  disabled={
-                    (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)) ||
-                    (control.key === 'specialActionId' && Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls))
-                  }
-                  onChange={(value) => updateLocks((prev) => {
-                    const next = { ...prev, [control.key]: value };
-                    if (control.key === 'poseId' && value && !isNoneSelected('poseId', value, characterLockControls)) {
-                      next.specialActionId = '';
-                    }
-                    if (control.key === 'specialActionId' && value && !isNoneSelected('specialActionId', value, characterLockControls)) {
-                      next.poseId = '';
-                    }
-                    return next;
-                  })}
-                  onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="control-section control-section-secondary">
-            <div className="control-section-header">
-            <div className="control-section-title">Style & Wardrobe</div>
-            </div>
-            <div className="lock-grid detail-lock-grid">
-              {wardrobeLockControls.map((control) => (
-                <SelectControlField
-                  key={control.key}
-                  control={control}
-                  value={locks[control.key]}
-                  disabled={
-                    isOutfitPresetActive &&
-                    !['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId'].includes(control.key)
-                  }
-                  onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
-                  onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="control-actions">
-            <div className="control-actions-main">
-              <label className="field compact-field">
-                <span>卡片張數</span>
-                <select value={genCount} onChange={(event) => setGenCount(Number(event.target.value))}>
-                  <option value={1}>1</option>
-                  <option value={3}>3</option>
-                </select>
-              </label>
-
-              <button className="primary-cta" onClick={handleGenerate}>
-                Generate
-              </button>
-              <button className="secondary danger" onClick={() => setPrompts([])} disabled={prompts.length === 0}>
-                Clear Feed {prompts.length > 0 ? `(${prompts.length})` : ''}
-              </button>
-              <button className="secondary" onClick={() => setLocks(createEmptyLocks())}>
-                All Random
-              </button>
-              <button className="secondary subtle-action" onClick={() => setLocks(buildAllNoneLocks(lockControls, locks))}>
-                All None
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="toolbar toolbar-streamlined">
-        <div className="tab-row">
-          <button className={viewMode === 'feed' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('feed')}>
-            Feed ({prompts.length})
-          </button>
-          <button className={viewMode === 'favorites' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('favorites')}>
-            Favorites ({favoritePrompts.length})
-          </button>
-          <button className={viewMode === 'library' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('library')}>
-            Library Editor
-          </button>
-        </div>
-
-        {viewMode === 'library' ? (
-          <div className="filter-bar">
-            <div className="results-meta">
-              {libraryDraft ? `目前使用瀏覽器草稿資料庫，${libraryDraftChangeCount} 項變更` : '目前使用內建資料庫'}
-            </div>
-            <div className="tab-row">
-              <button className="secondary" onClick={handleGenerateLibraryTest}>
-                用目前鎖定條件測試 1 張
-              </button>
-              <button className="secondary" onClick={handleCopyLibraryDraftSummary} disabled={!libraryDraftSummary}>
-                複製草稿摘要
-              </button>
-              <button className="secondary" onClick={handleResetLibraryDraft} disabled={!libraryDraft}>
-                還原內建資料
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="filter-bar">
-            <div className="search-shell">
-              <input className="text-input search-input" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search by style, scene, wardrobe, character..." />
-            </div>
-            <div className="results-meta">{displayPrompts.length} results</div>
-          </div>
-        )}
-
-        {viewMode !== 'library' ? (
-          <div className="tab-row">
-            <button className="secondary" onClick={handleDownloadAll} disabled={displayPrompts.length === 0}>
-              Download Feed
-            </button>
-          </div>
-        ) : null}
-      </section>
-
-      {viewMode === 'library' ? (
-        <section className="library-editor-shell">
-          <aside className="library-sidebar lock-panel">
-            <div className="control-section-header">
-              <div className="control-section-title">Library Browser</div>
-            </div>
-            <div className="field">
-              <span>資料群組</span>
-              <select value={effectiveLibraryGroup} onChange={(event) => handleLibraryGroupChange(event.target.value)}>
-                {knowledgeBaseOptions.map((group) => (
-                  <option key={group.value} value={group.value}>{group.label}</option>
-                ))}
-              </select>
-            </div>
-            <div className="field">
-              <span>分類</span>
-              <select value={effectiveLibraryCategory} onChange={(event) => handleLibraryCategoryChange(event.target.value)}>
-                {libraryCategories.map((category) => (
-                  <option key={category} value={category}>{category}</option>
-                ))}
-              </select>
-            </div>
-            <div className="field">
-              <span>搜尋條目</span>
-              <input
-                className="text-input"
-                value={librarySearch}
-                onChange={(event) => setLibrarySearch(event.target.value)}
-                placeholder="Search zh / en / desc"
-              />
-            </div>
-            <div className="library-entry-list">
-              {libraryEntries.map((entry) => (
-                <button
-                  key={entry.entryKey}
-                  type="button"
-                  className={`library-entry-item ${selectedLibraryEntry?.entryKey === entry.entryKey && editorMode === 'edit' ? 'library-entry-item-active' : ''}`}
-                  onClick={() => handleSelectLibraryEntry(entry)}
-                >
-                  <strong>{entry.zh || entry.en}</strong>
-                </button>
-              ))}
-            </div>
-          </aside>
-
-          <section className="library-editor-panel lock-panel">
-            <div className="control-section-header">
-              <div className="control-section-title">Entry Editor</div>
-              <div className="tab-row">
-                <button className="secondary" onClick={handleCreateNewEntry}>新增條目</button>
-                <button className="primary-cta" onClick={handleSaveLibraryEntry}>儲存草稿</button>
-              </div>
-            </div>
-            <p className="context-note">
-              這個版本會把修改存在瀏覽器草稿中，主頁生成會立即套用。你可以改完 wording 後，直接按上方的「用目前鎖定條件測試 1 張」回 Feed 實測。
-            </p>
-            <div className="library-editor-form">
-              <label className="field">
-                <span>中文名稱</span>
-                <input
-                  className="text-input"
-                  value={editorDraft.zh}
-                  onChange={(event) => setEditorDraft((prev) => ({ ...prev, zh: event.target.value }))}
-                  placeholder="例如：雪紡荷葉高領蝴蝶結襯衫"
-                />
-              </label>
-              <label className="field">
-                <span>英文 Prompt</span>
-                <textarea
-                  className="text-input library-textarea"
-                  value={editorDraft.en}
-                  onChange={(event) => setEditorDraft((prev) => ({ ...prev, en: event.target.value }))}
-                  placeholder="輸入主要 prompt wording"
-                />
-              </label>
-              <label className="field">
-                <span>描述</span>
-                <textarea
-                  className="text-input library-textarea"
-                  value={editorDraft.desc}
-                  onChange={(event) => setEditorDraft((prev) => ({ ...prev, desc: event.target.value }))}
-                  placeholder="中文說明，可選"
-                />
-              </label>
-            </div>
-          </section>
-        </section>
+        <Page1Workspace
+          activeLockCount={activeLockCount}
+          coreLockControls={coreLockControls}
+          characterLockControls={characterLockControls}
+          wardrobeLockControls={wardrobeLockControls}
+          locks={locks}
+          isNoneSelected={isNoneSelected}
+          updateLocks={updateLocks}
+          handleCopyText={handleCopyText}
+          isOutfitPresetActive={isOutfitPresetActive}
+          genCount={genCount}
+          setGenCount={setGenCount}
+          handleGenerate={handleGenerate}
+          prompts={prompts}
+          setPrompts={setPrompts}
+          createEmptyLocks={createEmptyLocks}
+          buildAllNoneLocks={buildAllNoneLocks}
+          lockControls={lockControls}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          favoritePrompts={favoritePrompts}
+          libraryDraft={libraryDraft}
+          libraryDraftChangeCount={libraryDraftChangeCount}
+          handleGenerateLibraryTest={handleGenerateLibraryTest}
+          handleCopyLibraryDraftSummary={handleCopyLibraryDraftSummary}
+          libraryDraftSummary={libraryDraftSummary}
+          handleResetLibraryDraft={handleResetLibraryDraft}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          displayPrompts={displayPrompts}
+          handleDownloadAll={handleDownloadAll}
+          knowledgeBaseOptions={knowledgeBaseOptions}
+          effectiveLibraryGroup={effectiveLibraryGroup}
+          handleLibraryGroupChange={handleLibraryGroupChange}
+          libraryCategories={libraryCategories}
+          effectiveLibraryCategory={effectiveLibraryCategory}
+          handleLibraryCategoryChange={handleLibraryCategoryChange}
+          librarySearch={librarySearch}
+          setLibrarySearch={setLibrarySearch}
+          libraryEntries={libraryEntries}
+          selectedLibraryEntry={selectedLibraryEntry}
+          editorMode={editorMode}
+          handleSelectLibraryEntry={handleSelectLibraryEntry}
+          editorDraft={editorDraft}
+          setEditorDraft={setEditorDraft}
+          handleCreateNewEntry={handleCreateNewEntry}
+          handleSaveLibraryEntry={handleSaveLibraryEntry}
+          favoriteIds={favoriteIds}
+          toggleFavorite={toggleFavorite}
+          handleDeletePrompt={handleDeletePrompt}
+          handleRemixPrompt={handleRemixPrompt}
+          summarySectionInfo={SUMMARY_SECTION_INFO}
+          advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}
+          SelectControlField={SelectControlField}
+        />
+      ) : pageMode === 'page2' ? (
+        <Page2Workspace
+          fieldConfig={PAGE2_FIELD_CONFIG}
+          fieldOptions={PAGE2_FIELD_OPTIONS}
+          profile={page2Profile}
+          setProfile={setPage2Profile}
+          profileSummary={page2ProfileSummary}
+          profileAnchor={page2ProfileAnchor}
+          viewPrompts={page2ViewPrompts}
+          onCopyText={handleCopyText}
+          createEmptyProfile={createEmptyPage2Profile}
+        />
       ) : (
-        <div className="feed">
-          {displayPrompts.length === 0 ? (
-            <div className="empty-state">{searchQuery ? '沒有符合搜尋條件的 prompt。' : '先設定條件，再開始批次生成。'}</div>
-          ) : (
-            displayPrompts.map((prompt) => (
-              <PromptCard
-                key={prompt.id}
-                data={prompt}
-                isFavorite={favoriteIds.has(prompt.id)}
-                onFavorite={toggleFavorite}
-                onDelete={handleDeletePrompt}
-                onRemix={handleRemixPrompt}
-                summarySectionInfo={SUMMARY_SECTION_INFO}
-                advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}
-              />
-            ))
-          )}
-        </div>
-      )}
-      </>
-      ) : (
-        <section className="page2-shell">
-          <section className="lock-panel page2-panel">
-            <div className="lock-panel-header">
-              <div>
-                <div className="lock-title">Page2 Character Profile</div>
-                <p className="lock-subtitle">用簡潔的五官與妝容選項，先建立穩定可重複使用的角色。</p>
-              </div>
-            </div>
-
-            <div className="control-section">
-              <div className="control-section-header">
-                <div className="control-section-title">Face Builder</div>
-              </div>
-              <div className="lock-grid detail-lock-grid">
-                {PAGE2_FIELD_CONFIG.map((field) => (
-                  <label key={field.key} className="field">
-                    <span>{field.label}</span>
-                    <select
-                      className={!page2Profile[field.key] ? 'select-muted' : ''}
-                      value={page2Profile[field.key]}
-                      onChange={(event) => setPage2Profile((prev) => ({ ...prev, [field.key]: event.target.value }))}
-                    >
-                      {PAGE2_FIELD_OPTIONS[field.key].map((option) => (
-                        <option key={option.id} value={option.id}>
-                          {option.zh}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            <div className="control-actions">
-              <div className="control-actions-main">
-                <button className="secondary" onClick={() => handleCopyText('Face anchor copied', page2ProfileAnchor)} disabled={!page2ProfileAnchor}>
-                  複製 Face Anchor
-                </button>
-                <button className="secondary" onClick={() => setPage2Profile(createEmptyPage2Profile())}>
-                  清空選項
-                </button>
-              </div>
-            </div>
-          </section>
-
-          <section className="lock-panel page2-output-panel">
-            <div className="control-section">
-              <div className="control-section-header">
-                <div className="control-section-title">角色摘要</div>
-              </div>
-              <div className="page2-output-card">
-                {page2ProfileSummary || '尚未選擇角色特徵。'}
-              </div>
-            </div>
-
-            <div className="control-section">
-              <div className="control-section-header">
-                <div className="control-section-title">Face Anchor</div>
-              </div>
-              <textarea
-                className="text-input page2-prompt-textarea"
-                value={page2ProfileAnchor}
-                readOnly
-                placeholder="選擇五官與妝容後，這裡會生成角色鎖臉用的短錨點。"
-              />
-              <p className="context-note">
-                Page2 目前不會再直接干擾 PAGE1。這裡專門生成多視角鎖臉參考圖 prompt，方便你先做角色 reference。
-              </p>
-            </div>
-
-            <div className="control-section">
-              <div className="control-section-header">
-                <div className="control-section-title">Reference Views</div>
-              </div>
-              <div className="library-editor-form">
-                {page2ViewPrompts.map((item) => (
-                  <label key={item.key} className="field">
-                    <span>{item.label}</span>
-                    <textarea
-                      className="text-input page2-prompt-textarea"
-                      value={item.prompt}
-                      readOnly
-                    />
-                    <div className="inline-actions">
-                      <button className="secondary" onClick={() => handleCopyText(`${item.label} 參考 prompt 已複製`, item.prompt)}>
-                        複製 {item.label}
-                      </button>
-                    </div>
-                  </label>
-                ))}
-              </div>
-            </div>
-          </section>
-        </section>
+        <Page3Workspace
+          fieldConfig={PAGE3_FIELD_CONFIG}
+          fieldOptions={PAGE3_FIELD_OPTIONS}
+          profile={page3Profile}
+          setProfile={setPage3Profile}
+          summary={page3Summary}
+          anchor={page3Anchor}
+          prompt={page3Prompt}
+          cinematicPrompt={page3CinematicPrompt}
+          onCopyText={handleCopyText}
+          createEmptyProfile={createEmptyPage3Profile}
+        />
       )}
 
       {copiedLabel ? <div className="toast">{copiedLabel}</div> : null}
