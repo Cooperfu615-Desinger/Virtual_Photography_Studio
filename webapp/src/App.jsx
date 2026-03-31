@@ -627,7 +627,7 @@ function buildPage2ViewPrompts(profile) {
     {
       key: 'four-angle-sheet',
       label: '四角度合成一張',
-      prompt: `${base}, one image containing four standardized reference angles arranged as a clean identity sheet: exact front view, exact left three-quarter view, exact right three-quarter view, and exact side profile view, same identity in every panel, neutral expression, direct head alignment, clear structural comparison across all four angles, ${anchor}`,
+      prompt: `${base}, one image containing four standardized reference angles arranged as a clean identity sheet: exact front view, exact left three-quarter view, exact side profile view, and exact back view, same identity in every panel, neutral expression, direct head alignment, clear structural comparison across all four angles, no duplicated frontal views, ${anchor}`,
     },
     {
       key: 'front',
@@ -638,11 +638,6 @@ function buildPage2ViewPrompts(profile) {
       key: 'left-three-quarter',
       label: '左前 45 度',
       prompt: `${base}, exact left three-quarter reference portrait at roughly forty-five degrees, neutral head turn without dramatic tilt, clear separation of the front facial plane and side facial plane, both eyes still visible, nose bridge angle readable, cheekbone and jaw transition clearly defined, neutral closed-mouth expression, ${anchor}`,
-    },
-    {
-      key: 'right-three-quarter',
-      label: '右前 45 度',
-      prompt: `${base}, exact right three-quarter reference portrait at roughly forty-five degrees, neutral head turn without dramatic tilt, clear separation of the front facial plane and side facial plane, both eyes still visible, nose bridge angle readable, cheekbone and jaw transition clearly defined, neutral closed-mouth expression, ${anchor}`,
     },
     {
       key: 'profile',
@@ -688,18 +683,18 @@ function buildPage2MasterPrompt(profile) {
     'one image containing four core identity views of the same person',
     'exact front reference view',
     'exact left three-quarter reference view',
-    'exact right three-quarter reference view',
     'exact side profile reference view',
+    'exact back reference view',
     'neutral expression in every panel',
     'centered head alignment',
-    'matched proportions across all views',
-    'clear structural comparison focused on front, three-quarter, and profile consistency',
+    'matched proportions across all views including head shape and hairstyle silhouette continuity',
+    'clear structural comparison focused on front, three-quarter, profile, and back-view consistency',
     buildPage2IdentityPrompt(profile),
   ].join(', ');
 }
 
 function buildPage2CoreViewsBundle(viewPrompts) {
-  const coreKeys = new Set(['front', 'left-three-quarter', 'right-three-quarter', 'profile']);
+  const coreKeys = new Set(['front', 'left-three-quarter', 'profile', 'back']);
   const coreViews = viewPrompts.filter((item) => coreKeys.has(item.key));
   if (coreViews.length === 0) return '';
 
