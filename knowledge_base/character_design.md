@@ -40,6 +40,7 @@
 | **髮型 (Hairstyle)** | 中分柔波長髮 | `long softly wavy hair, center part, natural flowing texture` | 中分長髮帶有柔和波浪與飄動感，適合高曝光柔光與清透寫真風格。 |
 | **髮型 (Hairstyle)** | 濕潤感長波浪 | `wet-look long wavy hair, damp separated strands, moody texture` | 帶有濕潤分束感的長波浪髮，適合冷調、私密與邊緣感寫真。 |
 | **髮型 (Hairstyle)** | 空氣瀏海層次長髮 | `airy see-through bangs, long layered hair, soft feathered ends` | 輕透碎瀏海搭配層次長髮與羽毛感髮尾，韓系感更明顯。 |
+| **髮型 (Hairstyle)** | 空氣瀏海長捲髮 | `airy see-through bangs, long loose spiral waves, soft face-framing tendrils, glamorous layered length` | 輕透瀏海搭配長度明顯的鬆捲長髮，臉側有修飾線條，整體更偏韓系甜辣與精緻寫真感。 |
 | **髮型 (Hairstyle)** | 側分柔波鮑伯 | `side-parted wavy bob, soft volume, airy curled ends` | 側分的柔和波浪鮑伯，髮尾自然外彎，帶輕盈時裝感。 |
 | **髮型 (Hairstyle)** | 側分鎖骨波浪髮 | `side-parted collarbone-length waves, soft flowing texture` | 長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。 |
 | **髮型 (Hairstyle)** | 中短層次鮑伯 | `layered short bob, airy texture, softly tousled ends` | 層次明顯的中短鮑伯，髮尾蓬鬆，適合挑染與時尚感造型。 |
@@ -52,6 +53,7 @@
 | **髮色 (Hair Color)** | 深咖啡棕 | `deep coffee-brown hair, rich brunette depth, natural root variation, soft reflected warmth, realistic human hair texture, visible individual strands, soft highlights and lowlights, natural sheen, no plastic wig texture` | 穩定成熟的深棕色，帶有真實根部深淺變化與柔和反光感。 |
 | **髮色 (Hair Color)** | 栗子棕 | `chestnut-brown hair, warm brown tone with subtle soft highlights, natural dimensional shine, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 溫暖日常的栗棕色，保留自然高光與真實髮絲層次，不走塑膠色塊感。 |
 | **髮色 (Hair Color)** | 奶茶棕 | `milk-tea brown hair, soft beige-brown tone, airy tonal variation, natural salon-dyed finish, realistic human hair texture, visible individual strands, subtle root variation, soft highlights and lowlights, no plastic wig texture` | 帶有柔霧感的淺棕色，補強沙龍染髮的自然漸變與真髮質地。 |
+| **髮色 (Hair Color)** | 黑底金色挑染 | `black hair with bold golden-blonde face-framing highlights, high-contrast ribbon-like streaks through the bangs and front sections, dark base with salon-dyed dimensional contrast, realistic human hair texture, visible individual strands, subtle root depth, no plastic wig texture` | 以深黑髮底搭配高對比金色挑染為主，重點在瀏海與臉側髮束的亮色線條，帶明顯韓系偶像感與高辨識度。 |
 | **髮色 (Hair Color)** | 亞麻米棕 | `ashy beige-brown hair, muted cool-beige tone, soft root depth, light natural tonal shift, realistic human hair texture, visible individual strands, airy separation, no plastic wig texture` | 帶灰感的米棕色，整體輕盈乾淨，並加入髮根深度與真實髮流表現。 |
 | **髮色 (Hair Color)** | 霧感橄欖棕 | `muted olive-brown hair, smoky earthy undertone, subtle cool-toned variation, natural dyed texture, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 棕色裡帶一點霧橄欖調，低飽和又有個性，同時維持真實染髮質感。 |
 | **髮色 (Hair Color)** | 玫瑰可可棕 | `rose cocoa-brown hair, soft rosy-brown undertone, subtle warm tonal variation, natural dimensional sheen, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 在可可棕裡加入微微玫瑰色感，甜度剛好，並保留真實髮絲與層次光澤。 |
