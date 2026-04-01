@@ -3130,18 +3130,23 @@
       },
       {
         "zh": "塗口紅",
-        "en": "applying lipstick with one hand near the lips, lipstick tube clearly visible, deliberate beauty touch-up moment, staged portrait action",
-        "desc": "以單手拿口紅靠近嘴唇的補妝瞬間為主，重點在明確的美容行為與近距離寫真感。"
+        "en": "applying lipstick directly onto the lips with the lipstick bullet visibly pressing against the mouth, slight lip deformation from contact pressure, deliberate beauty touch-up moment, staged portrait action",
+        "desc": "以口紅膏體實際接觸嘴唇的補妝瞬間為主，重點是嘴唇因接觸與施力而出現些微擠壓變形，帶明確的美容行為與近距離寫真感。"
       },
       {
-        "zh": "喝咖啡",
-        "en": "holding a coffee cup near the lips in the middle of a sip, relaxed staged cafe moment, deliberate everyday portrait action",
-        "desc": "以手持咖啡杯準備啜飲或剛啜飲的瞬間為主，適合咖啡館、室內生活感與刻意擺拍的人像企劃。"
+        "zh": "塗歪口紅",
+        "en": "applying lipstick loosely beyond the lip line with visible smudging and color spread outside the lips, imperfect messy lipstick application, staged beauty close-up action",
+        "desc": "以口紅塗出唇線外的失手感或刻意塗歪效果為主，強調顏色外溢、邊緣暈開與不完美的近距離美容特寫。"
       },
       {
-        "zh": "吃棒棒糖",
-        "en": "holding a lollipop lightly at the lips, playful staged portrait action, deliberate candy prop interaction",
-        "desc": "以棒棒糖靠近嘴唇的輕觸瞬間為主，帶一點俏皮與角色感，但保持乾淨直接的人像構圖。"
+        "zh": "喝冰咖啡",
+        "en": "holding a clear plastic takeaway cup of iced coffee near the lips in the middle of a sip, relaxed staged cafe moment, deliberate everyday portrait action",
+        "desc": "以手持透明外帶塑膠杯裝的冰咖啡準備啜飲或剛啜飲的瞬間為主，重點是杯身清楚可見、帶生活感與刻意擺拍兼具的日常咖啡情境。"
+      },
+      {
+        "zh": "咬著波板糖",
+        "en": "biting a whirly pop swirl lollipop at the lips, playful staged portrait action, deliberate candy prop interaction",
+        "desc": "以咬著波板糖的瞬間為主，讓糖果本身成為明確視覺道具，帶一點俏皮與角色感，同時保留乾淨直接的人像構圖。"
       },
       {
         "zh": "抽煙",
