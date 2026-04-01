@@ -18,6 +18,7 @@
 | **套裝 (Outfit Presets)** | 都會通勤套裝 | `wearing a polished commuter outfit with refined city tailoring, modern office elegance, structured everyday sophistication` | 成熟俐落、現代城市女性感強的通勤穿搭。 |
 | **套裝 (Outfit Presets)** | 旅行度假套裝 | `wearing a resort casual outfit with breezy layers, sunlit getaway mood, relaxed vacation styling, airy summer elegance` | 輕鬆、清爽、帶風感與日照感的度假造型。 |
 | **套裝 (Outfit Presets)** | 夜生活辣妹套裝 | `wearing a nightlife glamour outfit with body-conscious silhouette, bold feminine styling, party-ready confidence, after-dark allure` | 夜拍、派對與存在感強的女性化夜生活造型。 |
+| **套裝 (Outfit Presets)** | 銀色亮面深V掛脖迷你洋裝套裝 | `wearing a metallic silver halter mini dress with a plunging deep-V neckline, body-contouring fit, glossy reflective fabric, sleek nightlife glamour silhouette, bold feminine party styling` | 以銀色亮面材質、深 V 掛脖領口與貼身迷你洋裝輪廓為核心，整體偏夜拍、派對、精品夜生活感，強調反光材質與成熟性感線條。 |
 | **套裝 (Outfit Presets)** | BDSM 束縛套裝 | `wearing a bdsm-inspired outfit with leather, bondage straps, buckles, chains, latex accents, dominant fetish styling` | 皮革、束帶、金屬環與乳膠點綴構成的束縛風造型。 |
 | **套裝 (Outfit Presets)** | 維多利亞古典套裝 | `wearing a Victorian-inspired outfit with high-neck lace, corset structure, romantic mourning elegance, intricate historical detail` | 高領蕾絲、馬甲與皺褶層次構成的古典禁慾浪漫造型。 |
 | **套裝 (Outfit Presets)** | 蘿莉塔套裝 | `wearing a Lolita-inspired outfit with bell-shaped skirt, layered frills, bows, rococo-influenced sweetness, ornate doll-like styling` | 鐘形裙襬、荷葉邊與蝴蝶結構成的甜美或哥德蘿莉塔造型。 |
@@ -44,6 +45,7 @@
 | **上身 (Tops)** | 絲質細肩帶上衣 | `silk camisole top, delicate straps, fluid sheen` | 輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。 |
 | **上身 (Tops)** | 細肩帶上衣 | `camisole top, delicate shoulder straps, fitted silhouette` | 直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。 |
 | **上身 (Tops)** | 合身高領針織上衣 | `fitted turtleneck knit top, fine gauge knit, sleek silhouette` | 貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。 |
+| **上身 (Tops)** | 高領削肩高衩連身上衣 | `sleeveless high-neck bodysuit-style top, sharply cut armholes, high-cut sides, smooth stretch fabric, sleek body-contouring silhouette` | 以高領無袖連身上衣為核心，特徵是削肩線條、側邊高衩與貼身彈性材質，整體俐落、成熟又帶一點都會性感感；主色應由獨立配色控制。 |
 | **上身 (Tops)** | 寬鬆襯衫 | `oversized boyfriend shirt, loose untucked button-up shirt, long relaxed sleeves, soft drape, casually hanging hem, effortless off-duty styling` | 呈現像女友直接套上男友襯衫的鬆大輪廓，衣襬自然放出不紮進下身，袖長偏長、版型寬鬆，帶有居家、親密與慵懶感。 |
 | **上身 (Tops)** | 緊身襯衫＋領帶（紮入下身） | `fitted shirt tucked neatly into the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, defined waistline` | 保留貼身襯衫的俐落感，並以紮入裙子或褲子的穿法讓腰線更清楚；領帶材質更柔軟、長度偏短，氣質更像整理過但不過度正式的制服變體。 |
 | **上身 (Tops)** | 緊身襯衫＋領帶（放出衣襬） | `fitted shirt worn untucked over the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, relaxed hemline` | 同樣保留貼身襯衫與短領帶的制服感，但衣襬自然放出，整體更慵懶、私服化，也更適合親密或鬆弛感畫面。 |
@@ -100,6 +102,7 @@
 | **褲裝 (Pants)** | 亮面緊身皮短褲 | `low-rise glossy fitted leather shorts, sleek tight silhouette, exposed hip line, fetish edge` | 帶有高反光與強勢感，並以低腰位置更直接強調臀線與腰胯比例，適合夜景與邊緣時裝主題。 |
 | **褲裝 (Pants)** | 工裝長褲 | `cargo pants, structured utility silhouette, practical pocket detailing` | 工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。 |
 | **褲裝 (Pants)** | 西裝長褲 | `tailored trousers, sharp clean lines, polished formal drape` | 都會、正式與俐落感很強，適合極簡與成熟造型。 |
+| **褲裝 (Pants)** | 低腰寬褲 | `low-rise wide-leg trousers, long relaxed drape, soft flowing volume, clean urban silhouette` | 以低腰位置與寬鬆長褲輪廓為主，重點在腰線下移、褲管寬鬆與輕盈垂墜感，適合街拍、都會與 Y2K 混極簡造型；主色應由獨立配色控制。 |
 | **褲裝 (Pants)** | 貼身瑜珈褲 / leggings | `fitted leggings, body-contouring stretch fabric, sleek athletic silhouette` | 緊貼腿部線條，偏運動、貼身與流線感。 |
 | **褲裝 (Pants)** | 寬鬆運動棉褲 | `loose sweatpants, soft casual drape, relaxed sporty volume` | 休閒、街頭與居家感強，畫面更放鬆。 |
 | **褲裝 (Pants)** | 超低腰短褲 | `ultra low-rise shorts, exposed hip line, y2k summer styling` | 強烈 Y2K 感與露腰比例，適合街頭、夏日與性感主題。 |
