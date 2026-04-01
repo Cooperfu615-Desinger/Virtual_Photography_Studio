@@ -964,6 +964,20 @@ function parseLocksFromStandardPrompt(promptText, controls) {
   return { locks: nextLocks, matchedControls };
 }
 
+function buildRestoreLocks(nextLocks, controls) {
+  const restoredLocks = { ...createEmptyLocks(), ...nextLocks };
+
+  controls.forEach((control) => {
+    if (restoredLocks[control.key]) return;
+    const noneOption = control.options?.find((option) => option.zh === '全無');
+    if (noneOption) {
+      restoredLocks[control.key] = noneOption.id;
+    }
+  });
+
+  return restoredLocks;
+}
+
 export default function App() {
   const [prompts, setPrompts] = useState(() => loadJsonStorage(PROMPTS_KEY, []));
   const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
@@ -1251,7 +1265,8 @@ export default function App() {
   };
 
   const applyLocksToConsole = (nextLocks, successLabel) => {
-    updateLocks(() => normalizeLocks({ ...createEmptyLocks(), ...nextLocks }));
+    const restoredLocks = buildRestoreLocks(nextLocks, lockControls);
+    updateLocks(() => normalizeLocks(restoredLocks));
     setPageMode('page1');
     showToast(successLabel);
   };
