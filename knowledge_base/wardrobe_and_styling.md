@@ -186,7 +186,7 @@
 | **鞋款 (Shoes)** | 樂福鞋 | `classic loafers, polished leather, understated elegance` | 都市、學院、極簡與法式風格都能搭。 |
 | **鞋款 (Shoes)** | 厚底樂福鞋 | `platform loafers, chunky sole, polished leather finish, modern school-inspired styling` | 保留樂福鞋的學院感，但更有份量與時裝感，適合制服、短裙與街頭學院混搭。 |
 | **鞋款 (Shoes)** | 芭蕾平底鞋 | `ballet flats, delicate feminine flat shoes, soft elegant silhouette` | 比高跟更輕盈柔和，適合法式、少女感、精緻日常與輕熟穿搭。 |
-| **鞋款 (Shoes)** | 高跟鞋 | `high heels, elongated leg line, elegant elevated silhouette` | 最直接的成熟與性感鞋型，適合寫真、時裝與飯店場景。 |
+| **鞋款 (Shoes)** | 高跟鞋 | `black glossy pointed-toe stiletto pumps, sleek sharp silhouette, slender high heel, elongated leg line` | 以黑色亮面尖頭細跟高跟鞋為主，線條俐落、成熟性感，適合寫真、時裝、飯店與精品感場景。 |
 | **鞋款 (Shoes)** | 經典淺口高跟鞋 | `classic pumps, clean pointed or almond toe silhouette, polished feminine heel shape` | 成熟穩定的都會女性鞋款，適合西裝、襯衫、窄裙與通勤風格。 |
 | **鞋款 (Shoes)** | 尖頭細跟高跟鞋 | `pointed-toe stiletto heels, sleek feminine silhouette, sharp elegant leg line` | 更強調成熟、性感與時裝感，適合飯店、夜拍與精品風格。 |
 | **鞋款 (Shoes)** | 貓跟高跟鞋 | `kitten heels, low delicate heel, refined feminine silhouette, understated elegance` | 跟高較低但氣質成熟，適合通勤、法式、文藝與日常精品感穿搭。 |
