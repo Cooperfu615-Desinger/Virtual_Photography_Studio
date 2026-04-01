@@ -27,10 +27,13 @@ export default function Page1Workspace({
   handleCopyLibraryDraftSummary,
   libraryDraftSummary,
   handleResetLibraryDraft,
-  searchQuery,
-  setSearchQuery,
   displayPrompts,
   handleDownloadAll,
+  isImportPromptOpen,
+  setIsImportPromptOpen,
+  importPromptText,
+  setImportPromptText,
+  handleApplyImportedPrompt,
   knowledgeBaseOptions,
   effectiveLibraryGroup,
   handleLibraryGroupChange,
@@ -51,6 +54,7 @@ export default function Page1Workspace({
   toggleFavorite,
   handleDeletePrompt,
   handleRemixPrompt,
+  handleRestorePromptToConsole,
   summarySectionInfo,
   advancedRemixGroupInfo,
   SelectControlField,
@@ -179,6 +183,9 @@ export default function Page1Workspace({
           <button className={viewMode === 'library' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('library')}>
             Library Editor
           </button>
+          <button className="secondary" onClick={() => setIsImportPromptOpen(true)}>
+            回填 Prompt
+          </button>
         </div>
 
         {viewMode === 'library' ? (
@@ -200,9 +207,6 @@ export default function Page1Workspace({
           </div>
         ) : (
           <div className="filter-bar">
-            <div className="search-shell">
-              <input className="text-input search-input" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search by style, scene, wardrobe, character..." />
-            </div>
             <div className="results-meta">{displayPrompts.length} results</div>
           </div>
         )}
@@ -306,16 +310,18 @@ export default function Page1Workspace({
       ) : (
         <div className="feed">
           {displayPrompts.length === 0 ? (
-            <div className="empty-state">{searchQuery ? '沒有符合搜尋條件的 prompt。' : '先設定條件，再開始批次生成。'}</div>
+            <div className="empty-state">先設定條件，再開始批次生成。</div>
           ) : (
             displayPrompts.map((prompt) => (
               <PromptCard
                 key={prompt.id}
                 data={prompt}
                 isFavorite={favoriteIds.has(prompt.id)}
+                canRestore={favoriteIds.has(prompt.id)}
                 onFavorite={toggleFavorite}
                 onDelete={handleDeletePrompt}
                 onRemix={handleRemixPrompt}
+                onRestore={handleRestorePromptToConsole}
                 summarySectionInfo={summarySectionInfo}
                 advancedRemixGroupInfo={advancedRemixGroupInfo}
               />
@@ -323,6 +329,38 @@ export default function Page1Workspace({
           )}
         </div>
       )}
+
+      {isImportPromptOpen ? (
+        <div className="modal-backdrop" onClick={() => setIsImportPromptOpen(false)}>
+          <div className="modal-panel prompt-import-modal" onClick={(event) => event.stopPropagation()}>
+            <div className="modal-header">
+              <div>
+                <div className="lock-title">標準格式回填</div>
+                <p className="lock-subtitle">貼上本工具輸出的標準 Prompt，系統會盡可能回填到 PAGE1 主控台。</p>
+              </div>
+            </div>
+
+            <label className="field">
+              <span>Prompt 內容</span>
+              <textarea
+                className="text-input prompt-import-textarea"
+                value={importPromptText}
+                onChange={(event) => setImportPromptText(event.target.value)}
+                placeholder="貼上 Midjourney、Grok Structured Prompt，或本工具匯出的標準格式內容"
+              />
+            </label>
+
+            <div className="modal-actions">
+              <button className="secondary" onClick={() => setIsImportPromptOpen(false)}>
+                取消
+              </button>
+              <button className="primary-cta" onClick={handleApplyImportedPrompt} disabled={!importPromptText.trim()}>
+                確認回填
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }

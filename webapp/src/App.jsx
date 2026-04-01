@@ -22,7 +22,6 @@ const FAVORITES_KEY = 'vps.favorites';
 const LOCKS_KEY = 'vps.locks';
 const GEN_COUNT_KEY = 'vps.genCount';
 const VIEW_MODE_KEY = 'vps.viewMode';
-const SEARCH_QUERY_KEY = 'vps.searchQuery';
 const LIBRARY_DRAFT_KEY = 'vps.libraryDraft';
 const PAGE_MODE_KEY = 'vps.pageMode';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
@@ -927,6 +926,44 @@ function loadFavoritePrompts() {
   return promptCache.filter((item) => item?.id && idSet.has(item.id));
 }
 
+function normalizePromptText(text) {
+  return String(text || '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function findBestOptionMatch(options, normalizedPrompt) {
+  const candidates = [...(options || [])]
+    .filter((option) => option?.id && option?.en && option.zh !== '全無')
+    .sort((a, b) => b.en.length - a.en.length);
+
+  return candidates.find((option) => normalizedPrompt.includes(normalizePromptText(option.en))) || null;
+}
+
+function parseLocksFromStandardPrompt(promptText, controls) {
+  const normalizedPrompt = normalizePromptText(promptText);
+  const nextLocks = createEmptyLocks();
+  const matchedControls = [];
+
+  if (!normalizedPrompt) {
+    return { locks: nextLocks, matchedControls };
+  }
+
+  controls.forEach((control) => {
+    const matchedOption = findBestOptionMatch(control.options, normalizedPrompt);
+    if (!matchedOption) return;
+    nextLocks[control.key] = matchedOption.id;
+    matchedControls.push({
+      key: control.key,
+      label: control.label,
+      option: matchedOption,
+    });
+  });
+
+  return { locks: nextLocks, matchedControls };
+}
+
 export default function App() {
   const [prompts, setPrompts] = useState(() => loadJsonStorage(PROMPTS_KEY, []));
   const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
@@ -934,7 +971,6 @@ export default function App() {
   const [pageMode, setPageMode] = useState(() => loadStringStorage(PAGE_MODE_KEY, 'page1'));
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
-  const [searchQuery, setSearchQuery] = useState(() => loadStringStorage(SEARCH_QUERY_KEY, ''));
   const [libraryDraft, setLibraryDraft] = useState(() => loadJsonStorage(LIBRARY_DRAFT_KEY, null));
   const [page2Profile, setPage2Profile] = useState(() => loadJsonStorage(PAGE2_PROFILE_KEY, createEmptyPage2Profile()));
   const [page3Profile, setPage3Profile] = useState(() => loadJsonStorage(PAGE3_PROFILE_KEY, createEmptyPage3Profile()));
@@ -945,6 +981,8 @@ export default function App() {
   const [editorDraft, setEditorDraft] = useState({ zh: '', en: '', desc: '' });
   const [editorMode, setEditorMode] = useState('edit');
   const [copiedLabel, setCopiedLabel] = useState('');
+  const [isImportPromptOpen, setIsImportPromptOpen] = useState(false);
+  const [importPromptText, setImportPromptText] = useState('');
 
   useEffect(() => {
     window.localStorage.setItem(PROMPTS_KEY, JSON.stringify(prompts.slice(0, MAX_STORED_PROMPTS)));
@@ -969,10 +1007,6 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(VIEW_MODE_KEY, viewMode);
   }, [viewMode]);
-
-  useEffect(() => {
-    window.localStorage.setItem(SEARCH_QUERY_KEY, searchQuery);
-  }, [searchQuery]);
 
   useEffect(() => {
     if (libraryDraft) {
@@ -1053,7 +1087,6 @@ export default function App() {
     if (isPhotographyStyleLocked && ['lightingId', 'lightDirectionId', 'filmId'].includes(key)) return false;
     return Array.isArray(value) ? value.length > 0 : Boolean(value);
   }).length;
-  const normalizedSearch = searchQuery.trim().toLowerCase();
   const isOutfitPresetActive = locks.subjectCount === '2'
     ? (
         (Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls)) ||
@@ -1063,24 +1096,8 @@ export default function App() {
 
   const displayPrompts = useMemo(() => {
     const baseList = viewMode === 'favorites' ? favoritePrompts : prompts;
-
-    if (!normalizedSearch) return baseList;
-
-    return baseList.filter((prompt) => {
-      const haystack = [
-        prompt.summary,
-        prompt.summaryFields?.style,
-        prompt.summaryFields?.character,
-        prompt.summaryFields?.wardrobe,
-        prompt.summaryFields?.location,
-        prompt.summaryFields?.camera,
-        prompt.summaryFields?.lighting,
-      ]
-        .join(' ')
-        .toLowerCase();
-      return haystack.includes(normalizedSearch);
-    });
-  }, [favoritePrompts, normalizedSearch, prompts, viewMode]);
+    return baseList;
+  }, [favoritePrompts, prompts, viewMode]);
 
   const activeGroupOption = useMemo(
     () => knowledgeBaseOptions.find((group) => group.value === libraryGroup) || knowledgeBaseOptions[0] || null,
@@ -1228,6 +1245,17 @@ export default function App() {
     }
   };
 
+  const showToast = (label) => {
+    setCopiedLabel(label);
+    window.setTimeout(() => setCopiedLabel(''), 1800);
+  };
+
+  const applyLocksToConsole = (nextLocks, successLabel) => {
+    updateLocks(() => normalizeLocks({ ...createEmptyLocks(), ...nextLocks }));
+    setPageMode('page1');
+    showToast(successLabel);
+  };
+
   const handleLibraryGroupChange = (nextGroup) => {
     const nextGroupOption = knowledgeBaseOptions.find((group) => group.value === nextGroup) || null;
     const nextCategory = nextGroupOption?.categories?.[0] || '';
@@ -1328,6 +1356,25 @@ export default function App() {
     handleCopyText('Library draft summary copied', libraryDraftSummary);
   };
 
+  const handleRestorePromptToConsole = (prompt) => {
+    if (!prompt?.selection) {
+      showToast('這張卡片沒有可回填的設定');
+      return;
+    }
+    applyLocksToConsole(prompt.selection, '卡片設定已回填到主控台');
+  };
+
+  const handleApplyImportedPrompt = () => {
+    const { locks: parsedLocks, matchedControls } = parseLocksFromStandardPrompt(importPromptText, lockControls);
+    if (matchedControls.length === 0) {
+      showToast('沒有解析到可回填的標準欄位');
+      return;
+    }
+    applyLocksToConsole(parsedLocks, `已回填 ${matchedControls.length} 個欄位到主控台`);
+    setIsImportPromptOpen(false);
+    setImportPromptText('');
+  };
+
   return (
     <div className="container">
       <header className="page-header">
@@ -1395,10 +1442,13 @@ export default function App() {
           handleCopyLibraryDraftSummary={handleCopyLibraryDraftSummary}
           libraryDraftSummary={libraryDraftSummary}
           handleResetLibraryDraft={handleResetLibraryDraft}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
           displayPrompts={displayPrompts}
           handleDownloadAll={handleDownloadAll}
+          isImportPromptOpen={isImportPromptOpen}
+          setIsImportPromptOpen={setIsImportPromptOpen}
+          importPromptText={importPromptText}
+          setImportPromptText={setImportPromptText}
+          handleApplyImportedPrompt={handleApplyImportedPrompt}
           knowledgeBaseOptions={knowledgeBaseOptions}
           effectiveLibraryGroup={effectiveLibraryGroup}
           handleLibraryGroupChange={handleLibraryGroupChange}
@@ -1419,6 +1469,7 @@ export default function App() {
           toggleFavorite={toggleFavorite}
           handleDeletePrompt={handleDeletePrompt}
           handleRemixPrompt={handleRemixPrompt}
+          handleRestorePromptToConsole={handleRestorePromptToConsole}
           summarySectionInfo={SUMMARY_SECTION_INFO}
           advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}
           SelectControlField={SelectControlField}

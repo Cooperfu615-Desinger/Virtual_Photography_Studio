@@ -1025,8 +1025,24 @@ button:disabled {
   box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
 }
 
+.prompt-import-modal {
+  width: min(760px, 100%);
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  display: grid;
+  gap: 16px;
+}
+
+.prompt-import-textarea {
+  min-height: 220px;
+  resize: vertical;
+}
+
 .modal-actions {
   margin-bottom: 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
 }
 
 .hidden-input {

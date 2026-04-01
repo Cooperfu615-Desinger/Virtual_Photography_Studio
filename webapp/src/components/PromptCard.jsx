@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, Heart, RefreshCcw, Trash2 } from 'lucide-react';
+import { Download, Heart, RefreshCcw, Trash2, Undo2 } from 'lucide-react';
 
 function buildMarkdownExport(data) {
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
@@ -34,7 +34,7 @@ const QUICK_REMIX_PRESETS = [
   { key: 'sceneLook', label: '保場景鏡頭' },
 ];
 
-export default function PromptCard({ data, onFavorite, onDelete, isFavorite, onRemix, summarySectionInfo, advancedRemixGroupInfo }) {
+export default function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemix, onRestore, summarySectionInfo, advancedRemixGroupInfo }) {
   const [copiedLabel, setCopiedLabel] = useState('');
   const [expanded, setExpanded] = useState(false);
   const [lockedSummaryKeys, setLockedSummaryKeys] = useState([]);
@@ -101,6 +101,11 @@ export default function PromptCard({ data, onFavorite, onDelete, isFavorite, onR
           <button className="icon-btn" onClick={() => onRemix(data, lockedSummaryKeys)} title="Random with selected summary locks">
             <RefreshCcw size={18} />
           </button>
+          {canRestore ? (
+            <button className="icon-btn" onClick={() => onRestore(data)} title="回填到主控台">
+              <Undo2 size={18} />
+            </button>
+          ) : null}
           <button className={`icon-btn ${isFavorite ? 'active' : ''}`} onClick={() => onFavorite(data)} title="Favorite">
             <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
           </button>
