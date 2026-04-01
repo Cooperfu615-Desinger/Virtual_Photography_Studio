@@ -178,9 +178,13 @@
 | **鞋款 (Shoes)** | 全無 | `no explicit shoe styling, footwear unspecified` | 不特別指定鞋款，主要保留給需要降低鞋部干擾、讓 Grok 更穩定控制人物比例的情境。 |
 | **鞋款 (Shoes)** | 赤腳 | `bare feet, visible toes, relaxed barefoot styling, intimate at-home mood` | 明確要求不穿鞋並露出腳趾，適合居家、床景、地板坐姿與更放鬆的生活感畫面。 |
 | **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday finish, versatile casual style` | 最穩定的日常鞋款，適合街拍與生活感畫面。 |
+| **鞋款 (Shoes)** | ADIZERO EVO SL JS4506 | `adidas adizero evo sl js4506 running shoes, low-top speed-runner silhouette, lightweight modern performance sneaker, sleek athletic outsole` | 偏輕量速度型跑鞋輪廓，整體俐落、現代、運動感強，適合街拍、機能與日常運動風。 |
+| **鞋款 (Shoes)** | Samba OG | `adidas samba og sneakers, low-top classic terrace shoe silhouette, slim leather upper, gum sole retro football styling` | 經典薄底復古球鞋，帶足球訓練鞋與 terrace style 氣質，適合日常、街拍與復古休閒搭配。 |
 | **鞋款 (Shoes)** | 馬丁短靴 | `combat ankle boots, sturdy lace-up silhouette, rugged everyday edge` | 短版軍靴感鞋型，適合龐克、街頭與中性造型。 |
 | **鞋款 (Shoes)** | 馬丁長靴 | `tall combat boots, lace-up knee-high silhouette, strong structured presence` | 比短靴更強勢，適合地下、龐克與機能風格。 |
 | **鞋款 (Shoes)** | 慢跑鞋 | `running shoes, lightweight athletic silhouette, casual movement-ready styling` | 更偏生活與運動機能感，適合日常與街拍。 |
+| **鞋款 (Shoes)** | Nike P-6000 | `nike p-6000 running shoes, layered mesh running sneaker, low-top retro runner silhouette, sporty early-2000s performance styling` | 帶 Y2K 跑鞋層次與復古運動感，鞋面線條複雜，適合街拍、科技運動風與日常造型。 |
+| **鞋款 (Shoes)** | Onitsuka Tiger Mexico 66 | `onitsuka tiger mexico 66 sneakers, low-profile retro runner silhouette, slim classic upper, vintage track-shoe styling` | 經典薄底復古跑鞋輪廓，線條輕巧俐落，適合日系休閒、城市日常與復古運動穿搭。 |
 | **鞋款 (Shoes)** | 瑪莉珍鞋 | `mary jane shoes, classic strap silhouette, feminine school-inspired styling` | 經典扣帶鞋型，適合制服、百褶裙、甜感與輕學院風搭配。 |
 | **鞋款 (Shoes)** | 厚底瑪莉珍鞋 | `platform mary jane shoes, chunky feminine silhouette, youthful doll-like styling` | 在瑪莉珍基礎上加入厚底感，甜感更強，也更適合 Y2K 與制服變體。 |
 | **鞋款 (Shoes)** | 樂福鞋 | `classic loafers, polished leather, understated elegance` | 都市、學院、極簡與法式風格都能搭。 |
