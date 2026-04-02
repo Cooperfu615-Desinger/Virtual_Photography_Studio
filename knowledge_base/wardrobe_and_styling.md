@@ -77,7 +77,7 @@
 | **上身 (Tops)** | 漢服式上衣 | `hanfu-style cross-collar top, embroidered trim, woven cloud and floral motifs, refined Chinese-inspired styling. flowing layered front, wide draped sleeves` | 保留漢服交領與寬袖輪廓的上衣版本，加入刺繡滾邊與雲紋、花紋等傳統裝飾，適合搭配長裙、寬褲與更古典的中式混搭造型。 |
 | **上身 (Tops)** | 改良漢服式上衣 | `modern hanfu-inspired top, subtle brocade pattern accents, contemporary Chinese-inspired styling. simplified cross-collar front, elegant draped sleeves` | 以漢服元素為靈感但更現代化的上衣版本，保留交領與垂墜感，並加入低調提花或織紋裝飾，適合日常化或時裝化搭配。 |
 | **上身 (Tops)** | 透膚蕾絲連身上衣 | `semi-sheer lace bodysuit-style top, floral lace panels, scalloped trim, soft lining details, refined decorative texture` | 以半透明蕾絲拼片、波浪滾邊與裝飾性花紋作為重點的連身式上衣，整體更偏服裝工藝與材質層次，不把重點放在裸露感。 |
-| **上身 (Tops)** | 比基尼 | `bikini top, structured swimwear cups, clean strap detailing, smooth stretch fabric, refined resort styling` | 作為泳裝上身使用時，重點放在罩杯結構、肩帶與彈性面料質感，適合海邊、泳池與度假感畫面。 |
+| **上身 (Tops)** | 比基尼 | `triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, clean beachwear styling` | 作為泳裝上身使用時，改成更接近經典三角杯比基尼的結構，重點是細繩肩帶、簡潔三角罩杯與貼身俐落的海邊感線條。 |
 | **上身 (Tops)** | 蕾絲胸罩 | `lace bra top, deep v neckline, intricate floral lace, scalloped trim, delicate underbust structure, refined lingerie detailing` | 以低胸深 V 結構、精緻花卉蕾絲與波浪邊作為主體設計語言，重點放在服裝細節與材質裝飾，而不是裸露程度。 |
 | **上身 (Tops)** | 運動型內衣 | `sports bra top, Calvin Klein-inspired clean elastic band, smooth technical jersey, minimal athletic seaming, refined activewear styling` | 以簡潔彈性下圍、機能針織面料與俐落運動車線為主的運動上衣語言，參考 Calvin Klein 式極簡運動內衣風格，但更偏服裝設計描述。 |
 | **上身 (Tops)** | 蕾絲緊身睡衣 | `fitted lace nightdress, delicate floral lace panels, scalloped lace trim, satin ribbon accents, refined sleepwear detailing` | 以細緻花卉蕾絲拼接、波浪蕾絲滾邊與緞帶收邊為重點的睡衣款式，整體更偏精緻布料與裝飾細節，而不是強調身體曲線。 |
@@ -114,7 +114,7 @@
 | **褲裝 (Pants)** | 亮面貼身皮褲 | `sleek fitted leather pants, glossy finish, sharp silhouette` | 緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。 |
 | **褲裝 (Pants)** | 亮面乳膠緊身長褲 | `glossy latex leggings, ultra-shiny body-hugging latex pants, second-skin silhouette` | 高反光乳膠材質緊貼腿部，適合 fetish、夜拍與強烈時裝主題。 |
 | **褲裝 (Pants)** | 亮面乳膠緊身短褲 | `low-rise glossy latex fitted shorts, ultra-shiny tight latex shorts, second-skin silhouette, exposed hip line` | 短版乳膠褲以低腰位置更直接強調腿部、臀部與腰胯線條，適合派對、夜景與邊緣造型。 |
-| **褲裝 (Pants)** | 比基尼下身 | `low-rise bikini bottoms, swimwear styling, exposed hip line, minimal resort silhouette` | 作為泳裝下身使用，低腰位置更直接帶出海邊、泳池與度假感畫面。 |
+| **褲裝 (Pants)** | 比基尼下身 | `low-rise side-tie bikini bottoms, string-tied hips, minimal swimwear coverage, exposed hip line, clean beachwear silhouette` | 作為泳裝下身使用時，改成更接近兩側綁帶的低腰比基尼褲型，重點是髖部綁結、簡潔包覆與俐落直接的海邊泳裝輪廓。 |
 | **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, earthy layered tones, gathered relaxed waist, folk-pattern panels and artisanal resort mood` | 褲身更寬鬆柔軟，帶自然堆疊與土色層次感，像度假地咖啡館裡常見的民俗風寬褲；整體不是俐落剪裁，而是強調鬆弛、垂墜與異國旅行感。 |
 | **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling` | 以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。 |
 | **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood` | 以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。 |
