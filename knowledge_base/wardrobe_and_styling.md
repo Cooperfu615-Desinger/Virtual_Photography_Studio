@@ -45,7 +45,8 @@
 | **上身 (Tops)** | 絲質細肩帶上衣 | `silk camisole top, delicate straps, fluid sheen` | 輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。 |
 | **上身 (Tops)** | 細肩帶上衣 | `camisole top, delicate shoulder straps, fitted silhouette` | 直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。 |
 | **上身 (Tops)** | 合身高領針織上衣 | `fitted turtleneck knit top, fine gauge knit, sleek silhouette` | 貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。 |
-| **上身 (Tops)** | 高領削肩高衩連身上衣 | `sleeveless high-neck bodysuit-style top, sharply cut armholes, high-cut sides, smooth stretch fabric, sleek body-contouring silhouette` | 以高領無袖連身上衣為核心，特徵是削肩線條、側邊高衩與貼身彈性材質，整體俐落、成熟又帶一點都會性感感；主色應由獨立配色控制。 |
+| **上身 (Tops)** | 高領高衩連身彈性上衣 | `sleeveless high-neck bodysuit-style top, sharply cut armholes, high-cut sides, smooth stretch fabric, sleek body-contouring silhouette` | 以高領無袖連身上衣為核心，特徵是削肩線條、側邊高衩與平滑貼身的彈性材質，整體俐落、成熟又帶一點都會性感感；主色應由獨立配色控制。 |
+| **上身 (Tops)** | 高領高衩連身羅紋上衣 | `sleeveless high-neck bodysuit-style top, sharply cut armholes, high-cut sides, fine ribbed stretch knit fabric, sleek body-contouring silhouette` | 保留高領無袖連身上衣與側邊高衩的輪廓，但改成細緻羅紋彈性針織材質，整體更有日常貼身感與紋理層次；主色應由獨立配色控制。 |
 | **上身 (Tops)** | 寬鬆襯衫 | `oversized boyfriend shirt, loose untucked button-up shirt, long relaxed sleeves, soft drape, casually hanging hem, effortless off-duty styling` | 呈現像女友直接套上男友襯衫的鬆大輪廓，衣襬自然放出不紮進下身，袖長偏長、版型寬鬆，帶有居家、親密與慵懶感。 |
 | **上身 (Tops)** | 緊身襯衫＋領帶（紮入下身） | `fitted shirt tucked neatly into the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, defined waistline` | 保留貼身襯衫的俐落感，並以紮入裙子或褲子的穿法讓腰線更清楚；領帶材質更柔軟、長度偏短，氣質更像整理過但不過度正式的制服變體。 |
 | **上身 (Tops)** | 緊身襯衫＋領帶（放出衣襬） | `fitted shirt worn untucked over the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, relaxed hemline` | 同樣保留貼身襯衫與短領帶的制服感，但衣襬自然放出，整體更慵懶、私服化，也更適合親密或鬆弛感畫面。 |
