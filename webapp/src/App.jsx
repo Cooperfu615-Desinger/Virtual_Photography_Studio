@@ -91,7 +91,7 @@ const PAGE2_FIELD_CONFIG = [
   { key: 'skin', label: '皮膚' },
   { key: 'makeup', label: '妝容' },
 ];
-const PAGE3_FIELD_OPTIONS = {
+const PAGE3_BASE_FIELD_OPTIONS = {
   scale: [
     { id: '', zh: '未指定', en: '' },
     { id: 'small-corner', zh: '小場景特寫', en: 'intimate small-scale scene' },
@@ -221,6 +221,7 @@ const PAGE3_FIELD_CONFIG = [
   { key: 'scale', label: '場景尺度' },
   { key: 'subject', label: '場景主體' },
   { key: 'world', label: '世界觀方向' },
+  { key: 'styleId', label: '攝影風格' },
   { key: 'timeWeather', label: '時間與天氣' },
   { key: 'lighting', label: '光線氛圍' },
   { key: 'composition', label: '構圖與鏡頭' },
@@ -724,25 +725,29 @@ function buildPage2PromptBundle(profile, viewPrompts) {
   return lines.join('\n').trim();
 }
 
-function getPage3OptionLabel(fieldKey, optionId) {
-  return PAGE3_FIELD_OPTIONS[fieldKey]?.find((option) => option.id === optionId)?.zh || '';
+function getPage3Option(fieldOptions, fieldKey, optionId) {
+  return fieldOptions[fieldKey]?.find((option) => option.id === optionId) || null;
 }
 
-function getPage3OptionPrompt(fieldKey, optionId) {
-  return PAGE3_FIELD_OPTIONS[fieldKey]?.find((option) => option.id === optionId)?.en || '';
+function getPage3OptionLabel(fieldOptions, fieldKey, optionId) {
+  return getPage3Option(fieldOptions, fieldKey, optionId)?.zh || '';
 }
 
-function buildPage3Summary(profile) {
+function getPage3OptionPrompt(fieldOptions, fieldKey, optionId) {
+  return getPage3Option(fieldOptions, fieldKey, optionId)?.en || '';
+}
+
+function buildPage3Summary(profile, fieldOptions) {
   return PAGE3_FIELD_CONFIG
-    .map((field) => getPage3OptionLabel(field.key, profile[field.key]))
+    .map((field) => getPage3OptionLabel(fieldOptions, field.key, profile[field.key]))
     .filter(Boolean)
     .join(' / ');
 }
 
-function buildPage3Anchor(profile) {
-  const priority = ['subject', 'scale', 'world', 'timeWeather', 'lighting', 'composition'];
+function buildPage3Anchor(profile, fieldOptions) {
+  const priority = ['subject', 'scale', 'world', 'styleId', 'timeWeather', 'lighting', 'composition'];
   const promptParts = priority
-    .map((fieldKey) => getPage3OptionPrompt(fieldKey, profile[fieldKey]))
+    .map((fieldKey) => getPage3OptionPrompt(fieldOptions, fieldKey, profile[fieldKey]))
     .filter(Boolean)
     .slice(0, 6);
 
@@ -798,14 +803,58 @@ function getPage3SubjectTone(subjectId) {
   return subjectToneMap[subjectId] || [];
 }
 
-function buildPage3BaseParts(profile) {
-  const subject = getPage3OptionPrompt('subject', profile.subject);
-  const scale = getPage3OptionPrompt('scale', profile.scale);
-  const world = getPage3OptionPrompt('world', profile.world);
-  const timeWeather = getPage3OptionPrompt('timeWeather', profile.timeWeather);
-  const lighting = getPage3OptionPrompt('lighting', profile.lighting);
-  const composition = getPage3OptionPrompt('composition', profile.composition);
-  const details = getPage3OptionPrompt('details', profile.details);
+function buildPage3StylePrompt(style) {
+  if (!style || !style.id || style.zh === '全無' || style.en === 'none') return '';
+
+  const styleText = String(style.en || '')
+    .replace(/^Inspired by [^,]+,\s*/i, '')
+    .replace(/\bportraiture\b/gi, 'environmental photography')
+    .replace(/\bportrait photography\b/gi, 'environmental photography')
+    .replace(/\bportrait\b/gi, 'environmental')
+    .replace(/\bcommanding presence\b/gi, 'commanding spatial presence')
+    .replace(/\bspontaneous energy\b/gi, 'spontaneous environmental energy')
+    .replace(/\bcandid movement\b/gi, 'incidental environmental motion cues')
+    .replace(/\bfeminine confidence\b/gi, 'charged atmospheric confidence')
+    .replace(/\bbeauty lighting\b/gi, 'polished scene lighting')
+    .replace(/\bskin rendering\b/gi, 'surface rendering')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const styleTags = new Set(style.meta?.tags || []);
+  const tagPhrases = [
+    styleTags.has('high_saturation') ? 'heightened color contrast' : '',
+    styleTags.has('moody') ? 'moody scene atmosphere' : '',
+    styleTags.has('dreamlike') ? 'dreamlike visual tension' : '',
+    styleTags.has('minimal') ? 'disciplined negative space' : '',
+    styleTags.has('structured') ? 'ordered structural composition' : '',
+    styleTags.has('conceptual') ? 'conceptual environmental staging' : '',
+    styleTags.has('natural_light_bias') ? 'natural-light observation' : '',
+    styleTags.has('studio_bias') || styleTags.has('set_bias') ? 'controlled stylized lighting' : '',
+    styleTags.has('urban_bias') ? 'urban observational framing' : '',
+    styleTags.has('night_bias') ? 'night-environment emphasis' : '',
+    styleTags.has('low_key_bias') ? 'low-key shadow shaping' : '',
+    styleTags.has('soft_grade') ? 'soft lifted tonal rendering' : '',
+    styleTags.has('clean_grade') ? 'clean editorial polish' : '',
+    styleTags.has('monochrome') ? 'monochrome-ready tonal discipline' : '',
+    styleTags.has('neon') ? 'neon color separation' : '',
+  ].filter(Boolean);
+
+  return [
+    `${style.zh} inspired environmental image language`,
+    styleText,
+    ...tagPhrases,
+  ].filter(Boolean).join(', ');
+}
+
+function buildPage3BaseParts(profile, fieldOptions) {
+  const subject = getPage3OptionPrompt(fieldOptions, 'subject', profile.subject);
+  const scale = getPage3OptionPrompt(fieldOptions, 'scale', profile.scale);
+  const world = getPage3OptionPrompt(fieldOptions, 'world', profile.world);
+  const timeWeather = getPage3OptionPrompt(fieldOptions, 'timeWeather', profile.timeWeather);
+  const lighting = getPage3OptionPrompt(fieldOptions, 'lighting', profile.lighting);
+  const composition = getPage3OptionPrompt(fieldOptions, 'composition', profile.composition);
+  const details = getPage3OptionPrompt(fieldOptions, 'details', profile.details);
+  const style = buildPage3StylePrompt(getPage3Option(fieldOptions, 'styleId', profile.styleId));
   const qualifiers = ['empty scene', 'no people', 'no human subject'];
   const interiorSubjects = new Set([
     'cafe-corner', 'hotel-room', 'conservatory', 'vinyl-listening-room', 'piano-room', 'livehouse-backstage', 'grand-terminal'
@@ -819,6 +868,7 @@ function buildPage3BaseParts(profile) {
     subject,
     scale,
     world,
+    style,
     timeWeather,
     lighting,
     composition,
@@ -830,16 +880,17 @@ function buildPage3BaseParts(profile) {
   };
 }
 
-function buildPage3Prompt(profile) {
+function buildPage3Prompt(profile, fieldOptions) {
   const {
-    subject, scale, world, timeWeather, lighting, composition, details, qualifiers, scaleTone, subjectTone
-  } = buildPage3BaseParts(profile);
+    subject, scale, world, style, timeWeather, lighting, composition, details, qualifiers, scaleTone, subjectTone
+  } = buildPage3BaseParts(profile, fieldOptions);
 
   const parts = [
     ...qualifiers,
     subject,
     scale,
     world,
+    style,
     timeWeather,
     lighting,
     composition,
@@ -853,10 +904,10 @@ function buildPage3Prompt(profile) {
   return parts.join(', ');
 }
 
-function buildPage3CinematicPrompt(profile) {
+function buildPage3CinematicPrompt(profile, fieldOptions) {
   const {
-    subject, scale, world, timeWeather, lighting, composition, details, scaleTone, subjectTone, isMonumental
-  } = buildPage3BaseParts(profile);
+    subject, scale, world, style, timeWeather, lighting, composition, details, scaleTone, subjectTone, isMonumental
+  } = buildPage3BaseParts(profile, fieldOptions);
   const opener = isMonumental
     ? `ultra wide cinematic establishing shot of ${subject || 'a vast environment'}`
     : `cinematic environment study of ${subject || 'an environment scene'}`;
@@ -870,6 +921,7 @@ function buildPage3CinematicPrompt(profile) {
     'no human subject',
     scale,
     world,
+    style,
     timeWeather,
     lighting,
     composition,
@@ -882,10 +934,10 @@ function buildPage3CinematicPrompt(profile) {
   return parts.join(', ');
 }
 
-function buildPage3WorldPrompt(profile) {
+function buildPage3WorldPrompt(profile, fieldOptions) {
   const {
-    subject, scale, world, timeWeather, lighting, composition, details, qualifiers, scaleTone, subjectTone, isMonumental
-  } = buildPage3BaseParts(profile);
+    subject, scale, world, style, timeWeather, lighting, composition, details, qualifiers, scaleTone, subjectTone, isMonumental
+  } = buildPage3BaseParts(profile, fieldOptions);
 
   const parts = [
     'worldbuilding environment concept',
@@ -893,6 +945,7 @@ function buildPage3WorldPrompt(profile) {
     subject,
     scale,
     world,
+    style,
     timeWeather,
     lighting,
     composition,
@@ -1156,11 +1209,23 @@ export default function App() {
   const page2MasterPrompt = useMemo(() => buildPage2MasterPrompt(page2Profile), [page2Profile]);
   const page2CoreViewsBundle = useMemo(() => buildPage2CoreViewsBundle(page2ViewPrompts), [page2ViewPrompts]);
   const page2PromptBundle = useMemo(() => buildPage2PromptBundle(page2Profile, page2ViewPrompts), [page2Profile, page2ViewPrompts]);
-  const page3Summary = useMemo(() => buildPage3Summary(page3Profile), [page3Profile]);
-  const page3Anchor = useMemo(() => buildPage3Anchor(page3Profile), [page3Profile]);
-  const page3Prompt = useMemo(() => buildPage3Prompt(page3Profile), [page3Profile]);
-  const page3CinematicPrompt = useMemo(() => buildPage3CinematicPrompt(page3Profile), [page3Profile]);
-  const page3WorldPrompt = useMemo(() => buildPage3WorldPrompt(page3Profile), [page3Profile]);
+  const page3FieldOptions = useMemo(() => {
+    const styleControl = lockControls.find((control) => control.key === 'styleId');
+    const styleOptions = [
+      { id: '', zh: '未指定', en: '' },
+      ...(styleControl?.options || []).filter((option) => option.id !== 'style-none'),
+    ];
+
+    return {
+      ...PAGE3_BASE_FIELD_OPTIONS,
+      styleId: styleOptions,
+    };
+  }, [lockControls]);
+  const page3Summary = useMemo(() => buildPage3Summary(page3Profile, page3FieldOptions), [page3Profile, page3FieldOptions]);
+  const page3Anchor = useMemo(() => buildPage3Anchor(page3Profile, page3FieldOptions), [page3Profile, page3FieldOptions]);
+  const page3Prompt = useMemo(() => buildPage3Prompt(page3Profile, page3FieldOptions), [page3Profile, page3FieldOptions]);
+  const page3CinematicPrompt = useMemo(() => buildPage3CinematicPrompt(page3Profile, page3FieldOptions), [page3Profile, page3FieldOptions]);
+  const page3WorldPrompt = useMemo(() => buildPage3WorldPrompt(page3Profile, page3FieldOptions), [page3Profile, page3FieldOptions]);
 
   const updateLocks = (updater) => {
     setLocks((prev) => {
@@ -1508,7 +1573,7 @@ export default function App() {
       ) : (
         <Page3Workspace
           fieldConfig={PAGE3_FIELD_CONFIG}
-          fieldOptions={PAGE3_FIELD_OPTIONS}
+          fieldOptions={page3FieldOptions}
           profile={page3Profile}
           setProfile={setPage3Profile}
           summary={page3Summary}
