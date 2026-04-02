@@ -205,6 +205,10 @@
 | **鞋款 (Shoes)** | 合身過膝長靴 | `fitted over-the-knee boots, sleek leg-hugging silhouette, confident feminine styling` | 緊貼腿部的過膝長靴比一般長靴更有女人味，適合秋冬、夜拍與成熟時裝。 |
 | **鞋款 (Shoes)** | 尖頭短靴 | `pointed ankle boots, sleek leather finish, sharp silhouette` | 帶有都會感與俐落感，適合秋冬與夜景。 |
 | **鞋款 (Shoes)** | 漆皮過膝長靴 | `patent leather thigh-high boots, sleek fetish-inspired silhouette` | 緊貼腿部線條，適合夜景、飯店與 fetish。 |
+| **頭部配件 (Head Accessories)** | 全無 | `no head accessories, clean head styling` | 不加頭部配件，讓髮型與頭部輪廓維持乾淨俐落。 |
+| **頭部配件 (Head Accessories)** | 耳罩式耳機（戴在頭上） | `over-ear headphones worn on the head, cushioned earcups, clear headband silhouette, stylish audio accessory` | 以完整戴在頭上的耳罩式耳機為主，重點是清楚可見的頭帶與厚實耳罩，適合音樂感、街頭與科技日常造型。 |
+| **頭部配件 (Head Accessories)** | 耳罩式耳機（掛在脖子上） | `over-ear headphones resting around the neck, cushioned earcups visible at the collar area, casual audio accessory styling` | 以耳罩式耳機自然掛在脖子上的穿戴方式為主，重點是耳罩落在領口附近的存在感，適合放鬆、街頭與音樂相關場景。 |
+| **頭部配件 (Head Accessories)** | 有線耳機 | `wired earphones with visible cable, lightweight in-ear audio accessory, casual everyday listening detail` | 以有線耳機與可見線材為主，適合日常隨拍、通勤、生活感與輕音樂陪伴的造型氛圍。 |
 | **眼鏡 (Eyewear)** | 全無 | `no eyewear, clean face styling` | 不加眼鏡，讓臉部與五官維持乾淨俐落。 |
 | **眼鏡 (Eyewear)** | 黑框眼鏡 | `black-rimmed glasses, bold eyewear frame, intellectual styling accent` | 黑色鏡框辨識度高，能明顯改變角色氣質，適合文青、學生感、冷感與時裝造型。 |
 | **眼鏡 (Eyewear)** | 白色鏡框眼鏡 | `white-framed glasses, crisp bright eyewear frame, clean graphic face accent` | 白色鏡框更醒目，也更有造型感，適合棚拍、Y2K、日系時裝與高對比穿搭。 |

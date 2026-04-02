@@ -1159,6 +1159,28 @@
         "desc": "緊貼腿部線條，適合夜景、飯店與 fetish。"
       }
     ],
+    "頭部配件 (Head Accessories)": [
+      {
+        "zh": "全無",
+        "en": "no head accessories, clean head styling",
+        "desc": "不加頭部配件，讓髮型與頭部輪廓維持乾淨俐落。"
+      },
+      {
+        "zh": "耳罩式耳機（戴在頭上）",
+        "en": "over-ear headphones worn on the head, cushioned earcups, clear headband silhouette, stylish audio accessory",
+        "desc": "以完整戴在頭上的耳罩式耳機為主，重點是清楚可見的頭帶與厚實耳罩，適合音樂感、街頭與科技日常造型。"
+      },
+      {
+        "zh": "耳罩式耳機（掛在脖子上）",
+        "en": "over-ear headphones resting around the neck, cushioned earcups visible at the collar area, casual audio accessory styling",
+        "desc": "以耳罩式耳機自然掛在脖子上的穿戴方式為主，重點是耳罩落在領口附近的存在感，適合放鬆、街頭與音樂相關場景。"
+      },
+      {
+        "zh": "有線耳機",
+        "en": "wired earphones with visible cable, lightweight in-ear audio accessory, casual everyday listening detail",
+        "desc": "以有線耳機與可見線材為主，適合日常隨拍、通勤、生活感與輕音樂陪伴的造型氛圍。"
+      }
+    ],
     "眼鏡 (Eyewear)": [
       {
         "zh": "全無",
