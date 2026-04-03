@@ -1095,13 +1095,6 @@ export default function App() {
     window.localStorage.setItem(PAGE3_PROFILE_KEY, JSON.stringify(page3Profile));
   }, [page3Profile]);
 
-  useEffect(() => {
-    setLocks((prev) => {
-      const sanitized = sanitizeLocksForCloseupMode(prev, lockControls);
-      return JSON.stringify(prev) === JSON.stringify(sanitized) ? prev : sanitized;
-    });
-  }, [lockControls]);
-
   const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
   const activeLibrary = useMemo(() => libraryDraft || [], [libraryDraft]);
   const baseKnowledgeBaseSnapshot = useMemo(() => getKnowledgeBaseSnapshot(), []);
@@ -1239,6 +1232,13 @@ export default function App() {
   const page3Prompt = useMemo(() => buildPage3Prompt(page3Profile, page3FieldOptions), [page3Profile, page3FieldOptions]);
   const page3CinematicPrompt = useMemo(() => buildPage3CinematicPrompt(page3Profile, page3FieldOptions), [page3Profile, page3FieldOptions]);
   const page3WorldPrompt = useMemo(() => buildPage3WorldPrompt(page3Profile, page3FieldOptions), [page3Profile, page3FieldOptions]);
+
+  useEffect(() => {
+    setLocks((prev) => {
+      const sanitized = sanitizeLocksForCloseupMode(prev, lockControls);
+      return JSON.stringify(prev) === JSON.stringify(sanitized) ? prev : sanitized;
+    });
+  }, [lockControls]);
 
   const updateLocks = (updater) => {
     setLocks((prev) => {
