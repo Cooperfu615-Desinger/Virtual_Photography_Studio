@@ -1432,6 +1432,26 @@
         "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。"
       },
       {
+        "zh": "臉部特寫",
+        "en": "extreme face close-up, the entire face filling almost the whole frame, minimal space around the forehead, cheeks, and chin, full facial features clearly visible",
+        "desc": "整張臉幾乎塞滿畫面，額頭、下巴與左右臉只留極少空隙，適合五官辨識、妝容、神情與臉部存在感最強的拍法。"
+      },
+      {
+        "zh": "胸上特寫",
+        "en": "tight bust-up portrait, framed from the chest upward, face and upper torso clearly visible, compact portrait composition",
+        "desc": "構圖從胸口以上，保留臉部、肩頸與部分上身資訊，適合兼顧表情、髮型、頸部配件與少量穿搭。"
+      },
+      {
+        "zh": "局部五官特寫",
+        "en": "oppressive extreme close-up of partial facial features, only a tight fragment of the face visible, cropped to eyes and glasses or eyes and nose or nose and lips, intentional partial-face composition",
+        "desc": "只保留局部五官，像是雙眼與眼鏡、眼睛與鼻子、鼻子與嘴巴等極近距離片段，強調壓迫感、細節與刻意裁切的臉部構圖。"
+      },
+      {
+        "zh": "半臉傾斜特寫",
+        "en": "extreme close-up of only one half of the face, strong dutch angle, intentional off-center crop, partial face filling the frame, stylized asymmetric close-up composition",
+        "desc": "只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，整體更像雜誌化、風格化且刻意不完整的高壓特寫。"
+      },
+      {
         "zh": "中景鏡頭 (Medium Shot)",
         "en": "medium shot, waist up framing, natural subject presence, showing some background",
         "desc": "構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。"

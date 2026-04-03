@@ -10,10 +10,13 @@ import {
   createEmptyLocks,
   generatePrompts,
   getKnowledgeBaseOptions,
+  getCloseupAllowedKeys,
   getKnowledgeBaseSnapshot,
   getSceneDependentOptions,
   getLockControls,
-  normalizeLocks
+  isCloseupModeFramingId,
+  normalizeLocks,
+  sanitizeLocksForCloseupMode
 } from './lib/engine';
 import './index.css';
 
@@ -1092,6 +1095,13 @@ export default function App() {
     window.localStorage.setItem(PAGE3_PROFILE_KEY, JSON.stringify(page3Profile));
   }, [page3Profile]);
 
+  useEffect(() => {
+    setLocks((prev) => {
+      const sanitized = sanitizeLocksForCloseupMode(prev, lockControls);
+      return JSON.stringify(prev) === JSON.stringify(sanitized) ? prev : sanitized;
+    });
+  }, [lockControls]);
+
   const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
   const activeLibrary = useMemo(() => libraryDraft || [], [libraryDraft]);
   const baseKnowledgeBaseSnapshot = useMemo(() => getKnowledgeBaseSnapshot(), []);
@@ -1099,6 +1109,8 @@ export default function App() {
   const knowledgeBaseSnapshot = useMemo(() => getKnowledgeBaseSnapshot(activeLibrary), [activeLibrary]);
   const lockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
   const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
+  const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
+  const closeupAllowedKeys = useMemo(() => getCloseupAllowedKeys(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
   const isPhotographyStyleLocked = Boolean(locks.styleId) && !isNoneSelected('styleId', locks.styleId, lockControls);
   const coreLockControls = useMemo(
     () => {
@@ -1231,7 +1243,7 @@ export default function App() {
   const updateLocks = (updater) => {
     setLocks((prev) => {
       const candidate = typeof updater === 'function' ? updater(prev) : { ...prev, ...updater };
-      const next = { ...candidate };
+      const next = sanitizeLocksForCloseupMode({ ...candidate }, lockControls);
       const nextSceneDependentOptions = getSceneDependentOptions(activeLibrary, next);
       const allowedLightingIds = new Set(nextSceneDependentOptions.lightingOptions.map((option) => option.id));
       const allowedDirectionIds = new Set(nextSceneDependentOptions.lightDirectionOptions.map((option) => option.id));
@@ -1502,6 +1514,8 @@ export default function App() {
           characterLockControls={characterLockControls}
           wardrobeLockControls={wardrobeLockControls}
           locks={locks}
+          isCloseupMode={isCloseupMode}
+          closeupAllowedKeys={closeupAllowedKeys}
           isNoneSelected={isNoneSelected}
           updateLocks={updateLocks}
           handleCopyText={handleCopyText}

@@ -6,6 +6,8 @@ export default function Page1Workspace({
   characterLockControls,
   wardrobeLockControls,
   locks,
+  isCloseupMode,
+  closeupAllowedKeys,
   isNoneSelected,
   updateLocks,
   handleCopyText,
@@ -82,6 +84,7 @@ export default function Page1Workspace({
                   key={control.key}
                   control={control}
                   value={locks[control.key]}
+                  disabled={isCloseupMode && !closeupAllowedKeys.has(control.key)}
                   onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
                   onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
                 />
@@ -98,6 +101,11 @@ export default function Page1Workspace({
                 此模式不在 app 內上傳圖片；生成後請把同一張人物參考圖直接附給 Midjourney、Grok 或 Gemini，prompt 會以附圖人物五官與身份為主。
               </div>
             ) : null}
+            {isCloseupMode ? (
+              <div className="context-note">
+                目前為特寫模式，系統已自動停用與臉部無關的服裝、下身、姿勢與場景欄位，讓 prompt 專心描述人物臉孔。
+              </div>
+            ) : null}
             <div className="lock-grid">
               {characterLockControls.map((control) => (
                 <SelectControlField
@@ -105,6 +113,8 @@ export default function Page1Workspace({
                   control={control}
                   value={locks[control.key]}
                   disabled={
+                    (isCloseupMode && !closeupAllowedKeys.has(control.key))
+                    ||
                     (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)) ||
                     (control.key === 'specialActionId' && Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls))
                   }
@@ -135,6 +145,8 @@ export default function Page1Workspace({
                   control={control}
                   value={locks[control.key]}
                   disabled={
+                    (isCloseupMode && !closeupAllowedKeys.has(control.key))
+                    ||
                     isOutfitPresetActive &&
                     !['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId'].includes(control.key)
                   }

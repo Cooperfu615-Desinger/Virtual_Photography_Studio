@@ -410,6 +410,10 @@ function inferLocationMeta(category, item) {
 function inferFramingMeta(_category, item) {
   const haystack = toHaystack(item.zh, item.en, item.desc);
 
+  if (hasAny(haystack, ['partial facial features', '局部五官特寫'])) return { visibility: 'close', tags: ['face_detail', 'partial_face'] };
+  if (hasAny(haystack, ['only one half of the face', '半臉傾斜特寫'])) return { visibility: 'close', tags: ['face_detail', 'partial_face', 'dutch_bias'] };
+  if (hasAny(haystack, ['entire face filling almost the whole frame', '臉部特寫'])) return { visibility: 'close', tags: ['face_detail', 'full_face_tight'] };
+  if (hasAny(haystack, ['tight bust-up portrait', '胸上特寫'])) return { visibility: 'portrait', tags: ['eye_contact_ok', 'face_detail', 'upper_body_focus'] };
   if (hasAny(haystack, ['extreme close-up', 'macro'])) return { visibility: 'close', tags: ['face_detail'] };
   if (hasAny(haystack, ['close-up', 'head and shoulders'])) return { visibility: 'portrait', tags: ['eye_contact_ok', 'face_detail'] };
   if (hasAny(haystack, ['medium shot', 'waist up'])) return { visibility: 'medium', tags: ['eye_contact_ok'] };
@@ -760,6 +764,87 @@ function inferFilmMeta(_category, item) {
   return { tags: withTags(tags) };
 }
 
+const CLOSEUP_MODE_ZH_LABELS = new Set(['臉部特寫', '胸上特寫', '局部五官特寫', '半臉傾斜特寫']);
+const CLOSEUP_CHEST_UP_LABEL = '胸上特寫';
+const CLOSEUP_DISABLED_KEYS = new Set([
+  'locationId',
+  'poseId',
+  'specialActionId',
+  'duoInteractionId',
+  'duoStylingId',
+  'outfitPresetId',
+  'outfitPresetColorId',
+  'outfitPresetAId',
+  'outfitPresetAColorId',
+  'outfitPresetBId',
+  'outfitPresetBColorId',
+  'pantsId',
+  'skirtId',
+  'bottomColorId',
+  'bottomPatternId',
+  'legwearId',
+  'legwearColorId',
+  'outerwearId',
+  'outerwearColorId',
+  'outerwearPatternId',
+  'shoesId',
+  'shoesColorId',
+  'wristAccessoryId',
+  'ringId',
+  'waistAccessoryId',
+]);
+const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
+  'subjectCount',
+  'aspectRatio',
+  'styleId',
+  'framingId',
+  'angleId',
+  'orbitId',
+  'lensId',
+  'opticalEffectId',
+  'lightingId',
+  'lightDirectionId',
+  'filmId',
+  'facialFeaturesId',
+  'facialFeaturesAId',
+  'facialFeaturesBId',
+  'skinDetailsId',
+  'hairstyleId',
+  'hairstyleAId',
+  'hairstyleBId',
+  'hairColorId',
+  'hairColorAId',
+  'hairColorBId',
+  'expressionId',
+  'headAccessoryId',
+  'eyewearId',
+  'earringsId',
+]);
+const CLOSEUP_CHEST_ALLOWED_KEYS = new Set(['topId', 'topColorId', 'topPatternId', 'neckAccessoryId']);
+
+function isCloseupModeFramingItem(framing) {
+  return Boolean(framing?.zh && CLOSEUP_MODE_ZH_LABELS.has(framing.zh));
+}
+
+export function isCloseupModeFramingId(framingId, customLibrary = []) {
+  if (!framingId) return false;
+  const controls = getLockControls(customLibrary);
+  const framingControl = controls.find((control) => control.key === 'framingId');
+  const framing = findById(framingControl?.options || [], framingId);
+  return isCloseupModeFramingItem(framing);
+}
+
+export function getCloseupAllowedKeys(framingId, customLibrary = []) {
+  const controls = getLockControls(customLibrary);
+  const framingControl = controls.find((control) => control.key === 'framingId');
+  const framing = findById(framingControl?.options || [], framingId);
+  const allowed = new Set(CLOSEUP_ALWAYS_ALLOWED_KEYS);
+  if (framing?.zh === CLOSEUP_CHEST_UP_LABEL) {
+    CLOSEUP_CHEST_ALLOWED_KEYS.forEach((key) => allowed.add(key));
+  }
+  return allowed;
+}
+
 function inferLensMeta(_category, item) {
   const haystack = toHaystack(item.zh, item.en, item.desc);
   const tags = [];
@@ -969,6 +1054,25 @@ export function normalizeLocks(rawLocks = {}) {
   }
 
   return normalized;
+}
+
+export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
+  const nextLocks = normalizeLocks(rawLocks);
+  const framing = nextLocks.framingId ? findById(controls.find((control) => control.key === 'framingId')?.options || [], nextLocks.framingId) : null;
+  if (!isCloseupModeFramingItem(framing)) return nextLocks;
+
+  const allowedKeys = new Set(CLOSEUP_ALWAYS_ALLOWED_KEYS);
+  if (framing?.zh === CLOSEUP_CHEST_UP_LABEL) {
+    CLOSEUP_CHEST_ALLOWED_KEYS.forEach((key) => allowedKeys.add(key));
+  }
+
+  controls.forEach((control) => {
+    if (allowedKeys.has(control.key) || control.key === 'framingId') return;
+    const noneOption = control.options?.find((option) => option.zh === '全無');
+    nextLocks[control.key] = noneOption ? noneOption.id : '';
+  });
+
+  return nextLocks;
 }
 
 export function getLockControls(customLibrary = []) {
