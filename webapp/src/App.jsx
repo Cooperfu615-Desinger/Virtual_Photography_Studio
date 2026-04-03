@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import Page1Workspace from './components/Page1Workspace';
@@ -433,6 +433,135 @@ ${Object.entries(data.structured)
   })
   .join('\n')}
 `;
+}
+
+function parseSummaryFields(summary) {
+  const text = String(summary || '');
+  const labels = {
+    style: '風格',
+    character: '人物',
+    wardrobe: '服裝',
+    location: '場景',
+    camera: '鏡頭',
+    lighting: '光影',
+  };
+
+  return Object.fromEntries(
+    Object.entries(labels).map(([key, label]) => {
+      const match = text.match(new RegExp(`${label}：([^|]+)`));
+      return [key, match ? match[1].trim() : '-'];
+    })
+  );
+}
+
+function buildImportedStructured(locks, controls) {
+  const controlMap = new Map(controls.map((control) => [control.key, control]));
+  const getOption = (key) => {
+    const value = locks[key];
+    if (!value) return null;
+    const control = controlMap.get(key);
+    return control?.options?.find((option) => option.id === value) || null;
+  };
+  const buildSection = (keys) => keys.map(getOption).filter(Boolean);
+
+  return {
+    Style: buildSection(['styleId']),
+    Character: buildSection([
+      'subjectCount',
+      'bodyTypeId',
+      'facialFeaturesId',
+      'facialFeaturesAId',
+      'facialFeaturesBId',
+      'skinDetailsId',
+      'hairstyleId',
+      'hairstyleAId',
+      'hairstyleBId',
+      'hairColorId',
+      'hairColorAId',
+      'hairColorBId',
+      'duoInteractionId',
+      'expressionId',
+      'poseId',
+      'specialActionId',
+    ]),
+    Wardrobe: buildSection([
+      'outfitPresetId',
+      'outfitPresetColorId',
+      'outfitPresetAId',
+      'outfitPresetAColorId',
+      'outfitPresetBId',
+      'outfitPresetBColorId',
+      'topId',
+      'topColorId',
+      'topPatternId',
+      'duoStylingId',
+      'pantsId',
+      'skirtId',
+      'bottomColorId',
+      'bottomPatternId',
+      'legwearId',
+      'legwearColorId',
+      'outerwearId',
+      'outerwearColorId',
+      'outerwearPatternId',
+      'shoesId',
+      'shoesColorId',
+      'headAccessoryId',
+      'eyewearId',
+      'earringsId',
+      'neckAccessoryId',
+      'wristAccessoryId',
+      'ringId',
+      'waistAccessoryId',
+    ]),
+    Location: buildSection(['locationId']),
+    Framing: buildSection(['framingId', 'angleId', 'orbitId', 'lensId']),
+    Lighting: buildSection(['lightingId', 'lightDirectionId']),
+    'Camera & Film': buildSection(['filmId', 'opticalEffectId']),
+  };
+}
+
+function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) {
+  const text = String(markdownText || '').replace(/\r\n/g, '\n');
+  const summaryMatch = text.match(/\*\*Summary:\*\*\s*(.+)/);
+  const midjourneyMatch = text.match(/## Midjourney Prompt\n```text\n([\s\S]*?)\n```/);
+  const grokMatch = text.match(/## Grok Structured Prompt\n```text\n([\s\S]*?)\n```/);
+
+  if (!summaryMatch || !midjourneyMatch || !grokMatch) {
+    throw new Error('missing required markdown sections');
+  }
+
+  const summary = summaryMatch[1].trim();
+  const midjourneyPrompt = midjourneyMatch[1].trim();
+  const grokPrompt = grokMatch[1].trim();
+  const { locks: parsedLocks, matchedControls } = parseLocksFromStandardPrompt(`${midjourneyPrompt}\n${grokPrompt}`, controls);
+
+  if (matchedControls.length === 0) {
+    throw new Error('no recoverable controls found in prompt');
+  }
+
+  const selection = buildRestoreLocks(parsedLocks, controls);
+  const prompt = {
+    id: fallbackId || `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    date: new Date().toISOString(),
+    summary,
+    summaryFields: parseSummaryFields(summary),
+    midjourneyPrompt,
+    grokPrompt,
+    selection,
+    structured: buildImportedStructured(selection, controls),
+  };
+
+  return {
+    ...prompt,
+    lineage: createLineage(prompt),
+  };
+}
+
+function mergeFavoritePrompts(existingPrompts, importedPrompts) {
+  const importedIds = new Set(importedPrompts.map((item) => item.id));
+  const preservedExisting = existingPrompts.filter((item) => !importedIds.has(item.id));
+  return [...importedPrompts, ...preservedExisting].slice(0, MAX_STORED_PROMPTS);
 }
 
 function toShortPromptId(id) {
@@ -1036,6 +1165,7 @@ function buildRestoreLocks(nextLocks, controls) {
 }
 
 export default function App() {
+  const importFeedInputRef = useRef(null);
   const [prompts, setPrompts] = useState(() => loadJsonStorage(PROMPTS_KEY, []));
   const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
   const [genCount, setGenCount] = useState(() => loadJsonStorage(GEN_COUNT_KEY, 3));
@@ -1325,6 +1455,41 @@ export default function App() {
     });
   };
 
+  const handleOpenImportFeed = () => {
+    importFeedInputRef.current?.click();
+  };
+
+  const handleImportFeed = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+
+    try {
+      const zip = await JSZip.loadAsync(file);
+      const markdownEntries = Object.values(zip.files)
+        .filter((entry) => !entry.dir && entry.name.toLowerCase().endsWith('.md'))
+        .sort((a, b) => a.name.localeCompare(b.name));
+
+      if (markdownEntries.length === 0) {
+        throw new Error('zip does not contain exported markdown prompts');
+      }
+
+      const importedPrompts = [];
+      for (const entry of markdownEntries) {
+        const markdown = await entry.async('string');
+        const idMatch = entry.name.match(/prompt_(.+)\.md$/i);
+        const fallbackId = idMatch?.[1] || `${Date.now()}-${importedPrompts.length}`;
+        importedPrompts.push(parseExportedMarkdownPrompt(markdown, lockControls, fallbackId));
+      }
+
+      setFavoritePrompts((prev) => mergeFavoritePrompts(prev, importedPrompts));
+      setViewMode('favorites');
+      showToast(`已匯入 ${importedPrompts.length} 張最愛卡片`);
+    } catch {
+      showToast('ZIP 格式錯誤，無法匯入 Favorites');
+    }
+  };
+
   const handleCopyText = async (label, text) => {
     if (!text) return;
     try {
@@ -1539,6 +1704,9 @@ export default function App() {
           handleResetLibraryDraft={handleResetLibraryDraft}
           displayPrompts={displayPrompts}
           handleDownloadAll={handleDownloadAll}
+          importFeedInputRef={importFeedInputRef}
+          handleOpenImportFeed={handleOpenImportFeed}
+          handleImportFeed={handleImportFeed}
           isImportPromptOpen={isImportPromptOpen}
           setIsImportPromptOpen={setIsImportPromptOpen}
           importPromptText={importPromptText}

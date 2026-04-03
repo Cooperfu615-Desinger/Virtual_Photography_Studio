@@ -31,6 +31,9 @@ export default function Page1Workspace({
   handleResetLibraryDraft,
   displayPrompts,
   handleDownloadAll,
+  importFeedInputRef,
+  handleOpenImportFeed,
+  handleImportFeed,
   isImportPromptOpen,
   setIsImportPromptOpen,
   importPromptText,
@@ -228,6 +231,16 @@ export default function Page1Workspace({
             <button className="secondary" onClick={handleDownloadAll} disabled={displayPrompts.length === 0}>
               Download Feed
             </button>
+            <button className="secondary" onClick={handleOpenImportFeed}>
+              Import Feed
+            </button>
+            <input
+              ref={importFeedInputRef}
+              type="file"
+              accept=".zip,application/zip"
+              style={{ display: 'none' }}
+              onChange={handleImportFeed}
+            />
           </div>
         ) : null}
       </section>
