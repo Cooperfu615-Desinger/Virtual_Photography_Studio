@@ -162,16 +162,21 @@
 | **襪類 (Legwear)** | 短襪 | `ankle socks, clean casual styling, youthful everyday accent` | 短襪偏日系日常與青春感，適合球鞋、樂福鞋與生活感穿搭。 |
 | **襪類 (Legwear)** | 長筒襪 | `knee-high socks, playful legwear accent, casual youthful styling` | 長筒襪具存在感，適合 Y2K、街頭與較活潑的社群感造型。 |
 | **外套 (Outerwear)** | 全無 | `no outerwear, uncluttered silhouette` | 不加外套，保留上身與下身單品的主要輪廓。 |
-| **外套 (Outerwear)** | 西裝外套（不扣扣子） | `open oversized blazer, unbuttoned tailored jacket, slipped off the shoulder line, slightly oversized structured layering` | 維持西裝輪廓但不扣上釦子，並固定以滑落肩線的穿法呈現；版型設定為略大一號，適合時裝、辦公室與飯店場景。 |
-| **外套 (Outerwear)** | 運動連帽外套 | `open oversized zip-up hoodie, unzipped sporty hooded jacket, slipped off the shoulder line, slightly oversized casual athletic layering` | 偏日常與運動風，並固定以拉鍊打開、滑落肩線的穿法呈現；版型設定為略大一號，適合街頭與生活感畫面。 |
-| **外套 (Outerwear)** | 龐克皮衣 | `open oversized punk leather jacket, unzipped rebellious outerwear, slipped off the shoulder line, slightly oversized edgy structured silhouette` | 皮革與強烈輪廓感明確，並固定以敞開、滑落肩線的穿法呈現；版型設定為略大一號，適合龐克、地下與夜景風格。 |
-| **外套 (Outerwear)** | 賽博反光科技風衣 | `open oversized iridescent reflective techwear trench coat, unfastened waterproof shell, slipped off the shoulder line, slightly oversized futuristic layering` | 在光線下折射不同色彩，未來感很強，並固定以敞開、滑落肩線的穿法呈現；版型設定為略大一號。 |
-| **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `open oversized fluffy teddy bear fleece jacket, soft plush texture, slipped off the shoulder line, slightly oversized cozy shape` | 視覺柔軟保暖，並固定以敞開、滑落肩線的穿法呈現；版型設定為略大一號，適合冬季居家與街頭。 |
-| **外套 (Outerwear)** | 飛行夾克（敞開穿） | `open oversized bomber jacket, unzipped flight jacket, slipped off the shoulder line, slightly oversized streetwear layering, casual volume` | 飛行夾克維持敞開不拉拉鍊的狀態，並固定以滑落肩線的穿法呈現；版型設定為略大一號，適合短版上衣、背心與街頭感下身。 |
-| **外套 (Outerwear)** | 短版皮外套（不扣） | `open slightly oversized cropped leather jacket, unfastened moto jacket, slipped off the shoulder line, edgy layered silhouette, cool structured shape` | 短版皮外套維持不扣合，並固定以滑落肩線的穿法呈現；版型設定為略大一號，讓內層上身與腰線仍然清楚可見，適合夜景與時裝感畫面。 |
-| **外套 (Outerwear)** | 丹寧外套（敞開穿） | `open oversized denim jacket, unbuttoned casual layering, slipped off the shoulder line, slightly oversized everyday silhouette, washed denim texture` | 丹寧外套以敞開穿為主，並固定以滑落肩線的穿法呈現；版型設定為略大一號，最適合生活感、街拍、牛仔單品與日常搭配。 |
-| **外套 (Outerwear)** | 連帽拉鍊外套（不拉拉鍊） | `open oversized zip hoodie, unzipped hooded jacket, slipped off the shoulder line, slightly oversized sporty layering, relaxed off-duty mood` | 連帽拉鍊外套保持不拉拉鍊的放鬆狀態，並固定以滑落肩線的穿法呈現；版型設定為略大一號，適合運動型內搭、短版上衣與休閒街頭造型。 |
-| **外套 (Outerwear)** | 西裝外套（半披／滑落肩線） | `open oversized blazer worn off the shoulder line, unbuttoned tailored jacket, slightly oversized effortless layering` | 西裝外套固定以半披在肩上或滑落肩線的穿法呈現；版型設定為略大一號，適合細肩帶、襯衫、短裙與都會時裝感穿搭。 |
+| **外套 (Outerwear)** | 西裝外套（不扣扣子） | `open oversized blazer, unbuttoned tailored jacket, slightly oversized structured layering` | 維持西裝輪廓但不扣上釦子；版型設定為略大一號，適合時裝、辦公室與飯店場景。 |
+| **外套 (Outerwear)** | 運動連帽外套 | `open oversized zip-up hoodie, unzipped sporty hooded jacket, slightly oversized casual athletic layering` | 偏日常與運動風，維持拉鍊打開的放鬆狀態；版型設定為略大一號，適合街頭與生活感畫面。 |
+| **外套 (Outerwear)** | 龐克皮衣 | `open oversized punk leather jacket, unzipped rebellious outerwear, slightly oversized edgy structured silhouette` | 皮革與強烈輪廓感明確，維持敞開狀態；版型設定為略大一號，適合龐克、地下與夜景風格。 |
+| **外套 (Outerwear)** | 賽博反光科技風衣 | `open oversized iridescent reflective techwear trench coat, unfastened waterproof shell, slightly oversized futuristic layering` | 在光線下折射不同色彩，未來感很強，維持敞開狀態；版型設定為略大一號。 |
+| **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `open oversized fluffy teddy bear fleece jacket, soft plush texture, slightly oversized cozy shape` | 視覺柔軟保暖，維持敞開狀態；版型設定為略大一號，適合冬季居家與街頭。 |
+| **外套 (Outerwear)** | 飛行夾克（敞開穿） | `open oversized bomber jacket, unzipped flight jacket, slightly oversized streetwear layering, casual volume` | 飛行夾克維持敞開不拉拉鍊的狀態；版型設定為略大一號，適合短版上衣、背心與街頭感下身。 |
+| **外套 (Outerwear)** | 短版皮外套（不扣） | `open slightly oversized cropped leather jacket, unfastened moto jacket, edgy layered silhouette, cool structured shape` | 短版皮外套維持不扣合；版型設定為略大一號，讓內層上身與腰線仍然清楚可見，適合夜景與時裝感畫面。 |
+| **外套 (Outerwear)** | 丹寧外套（敞開穿） | `open oversized denim jacket, unbuttoned casual layering, slightly oversized everyday silhouette, washed denim texture` | 丹寧外套以敞開穿為主；版型設定為略大一號，最適合生活感、街拍、牛仔單品與日常搭配。 |
+| **外套 (Outerwear)** | 連帽拉鍊外套（不拉拉鍊） | `open oversized zip hoodie, unzipped hooded jacket, slightly oversized sporty layering, relaxed off-duty mood` | 連帽拉鍊外套保持不拉拉鍊的放鬆狀態；版型設定為略大一號，適合運動型內搭、短版上衣與休閒街頭造型。 |
+| **外套 (Outerwear)** | 寬鬆西裝外套 | `oversized blazer, relaxed tailored jacket, softly structured roomy silhouette, effortless city layering` | 版型偏寬鬆、肩線較放大，適合都會、時裝與中性廓形搭配。 |
+| **外套 (Outerwear)** | 合身西裝外套 | `tailored fitted blazer, close-cut structured jacket, clean waist-defining silhouette, polished tailored layering` | 輪廓更俐落貼身，整體更正式也更適合精緻都會風穿搭。 |
+| **外套 (Outerwear)** | 人造毛皮草外套 | `faux fur coat, plush textured outerwear, voluminous soft pile, statement cold-weather fashion layer` | 以人造毛皮的柔軟厚實質感與存在感為主，適合冬季、夜拍與強烈時裝感造型。 |
+| **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
+| **外套穿法 (Outerwear Styling)** | 正常穿著 | `worn normally on both shoulders` | 外套正常穿在雙肩上，維持最標準的穿法。 |
+| **外套穿法 (Outerwear Styling)** | 滑落肩部 | `slipped off the shoulder line` | 外套刻意滑落肩線，可呈現單邊或雙邊滑落的放鬆時裝感。 |
 | **外套圖案 (Outerwear Surface Design)** | 全無 | `no added outerwear pattern, clean solid-color outer layer styling` | 不額外加入外套圖案，保留外套本身的輪廓、材質與層次。 |
 | **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripe outerwear, clearly defined stripe bands across the jacket, strong graphic layering` | 以明顯橫向條帶覆蓋外套，讓外層單品更有經典條紋與圖形感。 |
 | **外套圖案 (Outerwear Surface Design)** | 細直條紋 | `clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket` | 以俐落直條紋覆蓋外套表面，適合西裝外套、風衣或更結構化的外層單品。 |

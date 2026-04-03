@@ -199,6 +199,7 @@ const LOCK_DEFINITIONS = [
   { key: 'outerwearId', label: '外套', category: '外套 (Outerwear)', section: 'wardrobe' },
   { key: 'outerwearColorId', label: '外套配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outerwearPatternId', label: '外套圖案', category: '外套圖案 (Outerwear Surface Design)', section: 'wardrobe' },
+  { key: 'outerwearStylingId', label: '外套穿法', category: '外套穿法 (Outerwear Styling)', section: 'wardrobe' },
   { key: 'shoesId', label: '鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
   { key: 'shoesColorId', label: '鞋款配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'headAccessoryId', label: '頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
@@ -259,6 +260,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'outerwearId', label: 'Outerwear' },
   { key: 'outerwearColorId', label: 'Outerwear Color' },
   { key: 'outerwearPatternId', label: 'Outerwear Surface Design' },
+  { key: 'outerwearStylingId', label: 'Outerwear Styling' },
   { key: 'shoesId', label: 'Shoes' },
   { key: 'shoesColorId', label: 'Shoes Color' },
   { key: 'headAccessoryId', label: 'Head Accessory' },
@@ -787,6 +789,7 @@ const CLOSEUP_DISABLED_KEYS = new Set([
   'outerwearId',
   'outerwearColorId',
   'outerwearPatternId',
+  'outerwearStylingId',
   'shoesId',
   'shoesColorId',
   'wristAccessoryId',
@@ -1117,6 +1120,7 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'legwearId') options = getByKey(catalog.wardrobe, '襪類 (Legwear)');
       if (definition.key === 'outerwearId') options = getByKey(catalog.wardrobe, '外套 (Outerwear)');
       if (definition.key === 'outerwearPatternId') options = getByKey(catalog.wardrobe, '外套圖案 (Outerwear Surface Design)');
+      if (definition.key === 'outerwearStylingId') options = getByKey(catalog.wardrobe, '外套穿法 (Outerwear Styling)');
       if (definition.key === 'shoesId') options = getByKey(catalog.wardrobe, '鞋款 (Shoes)');
       if (definition.key === 'headAccessoryId') options = getByKey(catalog.wardrobe, '頭部配件 (Head Accessories)');
       if (definition.key === 'eyewearId') options = getByKey(catalog.wardrobe, '眼鏡 (Eyewear)');
@@ -1619,6 +1623,7 @@ function buildWardrobe(context, locks, catalog) {
     '襪類 (Legwear)': 'legwearId',
     '外套 (Outerwear)': 'outerwearId',
     '外套圖案 (Outerwear Surface Design)': 'outerwearPatternId',
+    '外套穿法 (Outerwear Styling)': 'outerwearStylingId',
     '鞋款 (Shoes)': 'shoesId',
     '頭部配件 (Head Accessories)': 'headAccessoryId',
     '眼鏡 (Eyewear)': 'eyewearId',
@@ -1730,6 +1735,7 @@ function buildWardrobe(context, locks, catalog) {
 
     if (hasOuterwearPiece) {
       maybePick('外套圖案 (Outerwear Surface Design)', 0.3, () => true, { allowNoneWhenUnlocked: false });
+      maybePick('外套穿法 (Outerwear Styling)', 0.55, () => true, { allowNoneWhenUnlocked: false });
     }
   }
 
@@ -1748,6 +1754,7 @@ function buildWardrobe(context, locks, catalog) {
       : Boolean(outerwearPiece && !isNoneLikeItem(outerwearPiece));
     if (hasOuterwearPiece) {
       maybePick('外套圖案 (Outerwear Surface Design)', 1);
+      maybePick('外套穿法 (Outerwear Styling)', 1);
     }
   }
 
@@ -1852,7 +1859,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     const outerwearLabel = wardrobeSlots.outerwear?.zh && !isNoneLikeItem(wardrobeSlots.outerwear)
       ? joinSummaryParts(
           wardrobeSlots.outerwear.zh,
-          wardrobeSlots.outerwearPattern?.zh && !isNoneLikeItem(wardrobeSlots.outerwearPattern) ? wardrobeSlots.outerwearPattern.zh : ''
+          wardrobeSlots.outerwearPattern?.zh && !isNoneLikeItem(wardrobeSlots.outerwearPattern) ? wardrobeSlots.outerwearPattern.zh : '',
+          wardrobeSlots.outerwearStyling?.zh && !isNoneLikeItem(wardrobeSlots.outerwearStyling) ? wardrobeSlots.outerwearStyling.zh : ''
         )
       : '';
     return joinSummaryParts(
@@ -2048,6 +2056,7 @@ function extractWardrobeSlots(wardrobe) {
     legwear: findSlot('wardrobe:襪類-legwear:'),
     outerwear: findSlot('wardrobe:外套-outerwear:'),
     outerwearPattern: findSlot('wardrobe:外套圖案-outerwear-surface-design:'),
+    outerwearStyling: findSlot('wardrobe:外套穿法-outerwear-styling:'),
     shoes: findSlot('wardrobe:鞋款-shoes:'),
     headAccessory: findSlot('wardrobe:頭部配件-head-accessories:'),
     eyewear: findSlot('wardrobe:眼鏡-eyewear:'),
@@ -2099,7 +2108,7 @@ function buildWardrobeColors(wardrobeSlots, locks) {
   };
 }
 
-function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = null } = {}) {
+function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = null, styling = null } = {}) {
   if (!item || isNoneLikeItem(item)) return '';
   const base = stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
   if (!base) return '';
@@ -2107,14 +2116,18 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
   const patternText = pattern && !isNoneLikeItem(pattern)
     ? stripMarkdown(pattern.en).replace(/\s+/g, ' ').trim()
     : '';
-  if (!color || isNoneLikeItem(color)) return patternText ? `${base}, ${patternText}` : base;
+  const stylingText = styling && !isNoneLikeItem(styling)
+    ? stripMarkdown(styling.en).replace(/\s+/g, ' ').trim()
+    : '';
+  const detailText = [patternText, stylingText].filter(Boolean).join(', ');
+  if (!color || isNoneLikeItem(color)) return detailText ? `${base}, ${detailText}` : base;
 
   if (preset) {
     return `${color.en} ${base.replace(/^wearing\s+/i, '')}`;
   }
 
   const coloredBase = `${color.en} ${base}`;
-  return patternText ? `${coloredBase}, ${patternText}` : coloredBase;
+  return detailText ? `${coloredBase}, ${detailText}` : coloredBase;
 }
 
 function buildHairColorPrompt(item) {
@@ -2334,7 +2347,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
       3
     );
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 2);
-    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern }), 3);
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }), 3);
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
     addAccessoryPart(wardrobeSlots.headAccessory?.en || '', 3);
     addAccessoryPart(wardrobeSlots.eyewear?.en || '', 2);
@@ -2454,7 +2467,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Pants', pantsText);
     addLine('Skirt', skirtText);
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
-    addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern }));
+    addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
   if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
@@ -2585,6 +2598,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     outerwearId: wardrobeSlots.outerwear?.id || '',
     outerwearColorId: wardrobeColors.outerwearColor?.id || '',
     outerwearPatternId: wardrobeSlots.outerwearPattern?.id || '',
+    outerwearStylingId: wardrobeSlots.outerwearStyling?.id || '',
     shoesId: wardrobeSlots.shoes?.id || '',
     shoesColorId: wardrobeColors.shoesColor?.id || '',
     headAccessoryId: wardrobeSlots.headAccessory?.id || '',
