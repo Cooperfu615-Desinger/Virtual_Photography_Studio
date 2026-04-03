@@ -12,7 +12,7 @@
 | **套裝 (Outfit Presets)** | 日系街頭套裝 | `wearing a Japanese streetwear outfit with oversized silhouette, layered casual pieces, Harajuku-inspired styling, urban fashion attitude` | 以 oversized、多層次與日本街頭感為主的都會造型。 |
 | **套裝 (Outfit Presets)** | 居家慵懶套裝 | `wearing a cozy homewear outfit with soft relaxed layers, intimate off-duty mood, comfortable drape, quiet indoor styling` | 放鬆柔軟、像房間裡自然生活片段的親密穿搭。 |
 | **套裝 (Outfit Presets)** | 文青生活套裝 | `wearing an understated artistic casual outfit with quiet lifestyle mood, soft textures, literary simplicity, refined everyday styling` | 帶閱讀感、咖啡館氣質與安靜生活感的文藝穿搭。 |
-| **套裝 (Outfit Presets)** | 全黑長版襯衫百褶長裙套裝 | `wearing an all-black outfit with an oversized long black button-up shirt layered over a flowing black pleated maxi skirt, soft draped monochrome silhouette, understated austere elegance, quiet editorial styling` | 以寬鬆長版黑色襯衫外搭黑色百褶長裙為核心，整體輪廓修長、垂墜、安靜而克制，帶一點極簡修道感與文藝時裝氣質。 |
+| **套裝 (Outfit Presets)** | 全黑長版襯衫百褶長裙套裝 | `wearing an oversized long button-up shirt layered over a flowing pleated maxi skirt, soft draped silhouette, understated austere elegance, quiet editorial styling` | 以寬鬆長版襯衫外搭百褶長裙的修長垂墜輪廓為核心，整體安靜、克制，帶一點極簡修道感與文藝時裝氣質；主色應由獨立配色控制。 |
 | **套裝 (Outfit Presets)** | 清爽運動套裝 | `wearing a sporty clean outfit with active casualwear, lightweight athletic mood, fresh movement-ready styling` | 乾淨、有活力，像日常運動與休閒街頭的清爽造型。 |
 | **套裝 (Outfit Presets)** | 甜辣街頭套裝 | `wearing a sweet-and-spicy streetwear outfit with fitted youthful silhouette, playful urban attitude, trendy social-media styling` | 青春、帶點性感與社群感的甜辣街頭造型。 |
 | **套裝 (Outfit Presets)** | 都會通勤套裝 | `wearing a polished commuter outfit with refined city tailoring, modern office elegance, structured everyday sophistication` | 成熟俐落、現代城市女性感強的通勤穿搭。 |
