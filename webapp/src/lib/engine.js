@@ -2139,18 +2139,28 @@ function buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors) {
   const styling = wardrobeSlots.outerwearStyling;
 
   if (!top || !outerwear || isNoneLikeItem(top) || isNoneLikeItem(outerwear)) return null;
-  if (top.zh !== '比基尼') return null;
-  if (outerwear.zh !== '人造毛皮草外套') return null;
-  if (!styling || isNoneLikeItem(styling) || styling.zh !== '正常穿著') return null;
 
   const topText = buildColoredGrokPrompt(top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern });
-  const outerwearColorText = wardrobeColors.outerwearColor && !isNoneLikeItem(wardrobeColors.outerwearColor)
-    ? `${wardrobeColors.outerwearColor.en} `
-    : '';
-
   if (!topText) return null;
 
-  return `${topText}, layered under a ${outerwearColorText}faux fur coat fully worn on both shoulders as a complete outer layer, shoulder line covered by the coat, not slipping off the shoulders, plush voluminous fur framing the exposed bikini neckline`;
+  const outerwearBase = buildColoredGrokPrompt(outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern });
+  if (!outerwearBase) return topText;
+
+  const isNormalStyling = styling && !isNoneLikeItem(styling) && styling.zh === '正常穿著';
+  const isSlippedStyling = styling && !isNoneLikeItem(styling) && styling.zh === '滑落肩部';
+
+  let outerwearPhrase = `${outerwearBase} as the outer layer`;
+  if (isNormalStyling) {
+    outerwearPhrase = `${buildColoredGrokPrompt(outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern })} fully worn on both shoulders as a complete outer layer, shoulder line covered by the outerwear, not slipping off the shoulders`;
+  } else if (isSlippedStyling) {
+    outerwearPhrase = `${buildColoredGrokPrompt(outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern })} slipped off the shoulder line as a relaxed outer layer`;
+  }
+
+  if (top.zh === '比基尼' && outerwear.zh === '人造毛皮草外套' && isNormalStyling) {
+    return `${topText}, layered under ${outerwearPhrase}, plush voluminous fur framing the exposed bikini neckline`;
+  }
+
+  return `${topText}, layered under ${outerwearPhrase}`;
 }
 
 function buildHairColorPrompt(item) {
