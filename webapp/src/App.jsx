@@ -29,7 +29,6 @@ const LIBRARY_DRAFT_KEY = 'vps.libraryDraft';
 const PAGE_MODE_KEY = 'vps.pageMode';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const PAGE3_PROFILE_KEY = 'vps.page3Profile';
-const MAX_STORED_PROMPTS = 120;
 const PAGE2_FIELD_OPTIONS = {
   eyes: [
     { id: '', zh: '未指定', en: '' },
@@ -564,7 +563,7 @@ function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) {
 function mergeFavoritePrompts(existingPrompts, importedPrompts) {
   const importedIds = new Set(importedPrompts.map((item) => item.id));
   const preservedExisting = existingPrompts.filter((item) => !importedIds.has(item.id));
-  return [...importedPrompts, ...preservedExisting].slice(0, MAX_STORED_PROMPTS);
+  return [...importedPrompts, ...preservedExisting];
 }
 
 function toShortPromptId(id) {
@@ -1189,7 +1188,7 @@ export default function App() {
   const [importPromptText, setImportPromptText] = useState('');
 
   useEffect(() => {
-    window.localStorage.setItem(PROMPTS_KEY, JSON.stringify(prompts.slice(0, MAX_STORED_PROMPTS)));
+    window.localStorage.setItem(PROMPTS_KEY, JSON.stringify(prompts));
   }, [prompts]);
 
   useEffect(() => {
@@ -1408,7 +1407,7 @@ export default function App() {
       ...prompt,
       lineage: createLineage(prompt),
     }));
-    setPrompts((prev) => [...newPrompts, ...prev].slice(0, MAX_STORED_PROMPTS));
+    setPrompts((prev) => [...newPrompts, ...prev]);
     setViewMode('feed');
   };
 
@@ -1424,7 +1423,7 @@ export default function App() {
       lineage: buildNextLineage(prompt, generatedPrompt, summaryKeys, { branch }),
     };
     if (branch) {
-      setPrompts((prev) => [nextPrompt, ...prev].slice(0, MAX_STORED_PROMPTS));
+      setPrompts((prev) => [nextPrompt, ...prev]);
       setViewMode('feed');
       return;
     }
@@ -1438,7 +1437,7 @@ export default function App() {
       if (prev.some((item) => item.id === prompt.id)) {
         return prev.filter((item) => item.id !== prompt.id);
       }
-      return [prompt, ...prev].slice(0, MAX_STORED_PROMPTS);
+      return [prompt, ...prev];
     });
   };
 
@@ -1608,7 +1607,7 @@ export default function App() {
       ...prompt,
       lineage: createLineage(prompt),
     }));
-    setPrompts((prev) => [...newPrompts, ...prev].slice(0, MAX_STORED_PROMPTS));
+    setPrompts((prev) => [...newPrompts, ...prev]);
     setViewMode('feed');
   };
 
