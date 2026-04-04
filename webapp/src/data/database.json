@@ -374,13 +374,13 @@
       },
       {
         "zh": "寬鬆落肩 T 恤（紮入下身）",
-        "en": "oversized dropped-shoulder t-shirt tucked into the bottoms, washed cotton jersey, relaxed fit, visible white bra straps at the slipped shoulder line, bloused casual volume, defined waistline",
-        "desc": "生活感很強的基本款，以紮入裙子或褲子的穿法保留寬鬆份量，並加入滑落肩線時可見的白色內衣肩帶細節，讓腰線與比例更清楚，適合街頭、青春與日常隨拍風格。"
+        "en": "oversized dropped-shoulder t-shirt tucked into the bottoms, washed cotton jersey, relaxed fit, low shoulder seam construction, shoulders still properly covered, bloused casual volume, defined waistline",
+        "desc": "生活感很強的基本款，以紮入裙子或褲子的穿法保留寬鬆份量；重點放在落肩剪裁與寬鬆份量，而不是露肩或可見內衣肩帶，適合街頭、青春與日常隨拍風格。"
       },
       {
         "zh": "寬鬆落肩 T 恤（放出衣襬）",
-        "en": "oversized dropped-shoulder t-shirt, untucked loose hem, washed cotton jersey, relaxed fit, visible white bra straps at the slipped shoulder line, casually draped over the waistline",
-        "desc": "生活感很強的基本款，衣襬自然放出、不紮進裙子或褲子裡，並加入滑落肩線時可見的白色內衣肩帶細節，適合街頭、居家與青春隨拍風格。"
+        "en": "oversized dropped-shoulder t-shirt, untucked loose hem, washed cotton jersey, relaxed fit, low shoulder seam construction, shoulders still properly covered, casually draped over the waistline",
+        "desc": "生活感很強的基本款，衣襬自然放出、不紮進裙子或褲子裡；重點放在落肩剪裁與日常鬆弛感，不再強調露肩或可見內衣肩帶，適合街頭、居家與青春隨拍風格。"
       },
       {
         "zh": "短版緊身露臍 T 恤",
@@ -1013,8 +1013,8 @@
       },
       {
         "zh": "正常穿著",
-        "en": "worn normally on both shoulders",
-        "desc": "外套正常穿在雙肩上，維持最標準的穿法。"
+        "en": "properly worn on both shoulders as a standard outer layer over the top, shoulder line fully covered",
+        "desc": "外套正常穿在雙肩上，作為完整覆蓋上衣肩線的外層，不帶滑肩或露肩效果。"
       },
       {
         "zh": "滑落肩部",

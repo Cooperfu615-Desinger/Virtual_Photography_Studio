@@ -51,8 +51,8 @@
 | **上身 (Tops)** | 寬鬆襯衫 | `oversized boyfriend shirt, loose untucked button-up shirt, long relaxed sleeves, soft drape, casually hanging hem, effortless off-duty styling` | 呈現像女友直接套上男友襯衫的鬆大輪廓，衣襬自然放出不紮進下身，袖長偏長、版型寬鬆，帶有居家、親密與慵懶感。 |
 | **上身 (Tops)** | 緊身襯衫＋領帶（紮入下身） | `fitted shirt tucked neatly into the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, defined waistline` | 保留貼身襯衫的俐落感，並以紮入裙子或褲子的穿法讓腰線更清楚；領帶材質更柔軟、長度偏短，氣質更像整理過但不過度正式的制服變體。 |
 | **上身 (Tops)** | 緊身襯衫＋領帶（放出衣襬） | `fitted shirt worn untucked over the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, relaxed hemline` | 同樣保留貼身襯衫與短領帶的制服感，但衣襬自然放出，整體更慵懶、私服化，也更適合親密或鬆弛感畫面。 |
-| **上身 (Tops)** | 寬鬆落肩 T 恤（紮入下身） | `oversized dropped-shoulder t-shirt tucked into the bottoms, washed cotton jersey, relaxed fit, visible white bra straps at the slipped shoulder line, bloused casual volume, defined waistline` | 生活感很強的基本款，以紮入裙子或褲子的穿法保留寬鬆份量，並加入滑落肩線時可見的白色內衣肩帶細節，讓腰線與比例更清楚，適合街頭、青春與日常隨拍風格。 |
-| **上身 (Tops)** | 寬鬆落肩 T 恤（放出衣襬） | `oversized dropped-shoulder t-shirt, untucked loose hem, washed cotton jersey, relaxed fit, visible white bra straps at the slipped shoulder line, casually draped over the waistline` | 生活感很強的基本款，衣襬自然放出、不紮進裙子或褲子裡，並加入滑落肩線時可見的白色內衣肩帶細節，適合街頭、居家與青春隨拍風格。 |
+| **上身 (Tops)** | 寬鬆落肩 T 恤（紮入下身） | `oversized dropped-shoulder t-shirt tucked into the bottoms, washed cotton jersey, relaxed fit, low shoulder seam construction, shoulders still properly covered, bloused casual volume, defined waistline` | 生活感很強的基本款，以紮入裙子或褲子的穿法保留寬鬆份量；重點放在落肩剪裁與寬鬆份量，而不是露肩或可見內衣肩帶，適合街頭、青春與日常隨拍風格。 |
+| **上身 (Tops)** | 寬鬆落肩 T 恤（放出衣襬） | `oversized dropped-shoulder t-shirt, untucked loose hem, washed cotton jersey, relaxed fit, low shoulder seam construction, shoulders still properly covered, casually draped over the waistline` | 生活感很強的基本款，衣襬自然放出、不紮進裙子或褲子裡；重點放在落肩剪裁與日常鬆弛感，不再強調露肩或可見內衣肩帶，適合街頭、居家與青春隨拍風格。 |
 | **上身 (Tops)** | 短版緊身露臍 T 恤 | `cropped fitted t-shirt, exposed waistline, close casual silhouette` | 最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。 |
 | **上身 (Tops)** | 短版針織露臍小可愛 | `cropped knit cami, fitted knit texture, exposed waist styling` | 帶有針織紋理與露腰輪廓，介於日常與輕性感之間，適合外穿疊搭。 |
 | **上身 (Tops)** | 短版蕾絲露臍小可愛 | `cropped lace cami, delicate lace texture, exposed waist styling` | 蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。 |
@@ -176,7 +176,7 @@
 | **外套 (Outerwear)** | 合身西裝外套 | `tailored fitted blazer, close-cut structured jacket, clean waist-defining silhouette, polished tailored layering` | 輪廓更俐落貼身，整體更正式也更適合精緻都會風穿搭。 |
 | **外套 (Outerwear)** | 人造毛皮草外套 | `faux fur coat, plush textured outerwear, voluminous soft pile, statement cold-weather fashion layer` | 以人造毛皮的柔軟厚實質感與存在感為主，適合冬季、夜拍與強烈時裝感造型。 |
 | **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
-| **外套穿法 (Outerwear Styling)** | 正常穿著 | `worn normally on both shoulders` | 外套正常穿在雙肩上，維持最標準的穿法。 |
+| **外套穿法 (Outerwear Styling)** | 正常穿著 | `properly worn on both shoulders as a standard outer layer over the top, shoulder line fully covered` | 外套正常穿在雙肩上，作為完整覆蓋上衣肩線的外層，不帶滑肩或露肩效果。 |
 | **外套穿法 (Outerwear Styling)** | 滑落肩部 | `slipped off the shoulder line` | 外套刻意滑落肩線，可呈現單邊或雙邊滑落的放鬆時裝感。 |
 | **外套圖案 (Outerwear Surface Design)** | 全無 | `no added outerwear pattern, clean solid-color outer layer styling` | 不額外加入外套圖案，保留外套本身的輪廓、材質與層次。 |
 | **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripe outerwear, clearly defined stripe bands across the jacket, strong graphic layering` | 以明顯橫向條帶覆蓋外套，讓外層單品更有經典條紋與圖形感。 |

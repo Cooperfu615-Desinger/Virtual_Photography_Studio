@@ -2116,9 +2116,12 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
   const patternText = pattern && !isNoneLikeItem(pattern)
     ? stripMarkdown(pattern.en).replace(/\s+/g, ' ').trim()
     : '';
-  const stylingText = styling && !isNoneLikeItem(styling)
+  let stylingText = styling && !isNoneLikeItem(styling)
     ? stripMarkdown(styling.en).replace(/\s+/g, ' ').trim()
     : '';
+  if (styling?.zh === '正常穿著') {
+    stylingText = 'properly worn on both shoulders as a standard outer layer over the top, shoulder line fully covered';
+  }
   const detailText = [patternText, stylingText].filter(Boolean).join(', ');
   if (!color || isNoneLikeItem(color)) return detailText ? `${base}, ${detailText}` : base;
 
@@ -2404,8 +2407,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
-  const poseText = characterSlots.pose ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '';
-  const specialActionText = characterSlots.specialAction?.en || '';
+  const poseText = characterSlots.pose && !isNoneLikeItem(characterSlots.pose)
+    ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)
+    : '';
+  const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
+    ? characterSlots.specialAction.en
+    : '';
   const lines = [];
   const addLine = (label, value) => {
     if (!value) return;
