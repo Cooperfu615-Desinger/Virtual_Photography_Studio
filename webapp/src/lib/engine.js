@@ -2133,6 +2133,26 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
   return detailText ? `${coloredBase}, ${detailText}` : coloredBase;
 }
 
+function buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors) {
+  const top = wardrobeSlots.top;
+  const outerwear = wardrobeSlots.outerwear;
+  const styling = wardrobeSlots.outerwearStyling;
+
+  if (!top || !outerwear || isNoneLikeItem(top) || isNoneLikeItem(outerwear)) return null;
+  if (top.zh !== '比基尼') return null;
+  if (outerwear.zh !== '人造毛皮草外套') return null;
+  if (!styling || isNoneLikeItem(styling) || styling.zh !== '正常穿著') return null;
+
+  const topText = buildColoredGrokPrompt(top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern });
+  const outerwearColorText = wardrobeColors.outerwearColor && !isNoneLikeItem(wardrobeColors.outerwearColor)
+    ? `${wardrobeColors.outerwearColor.en} `
+    : '';
+
+  if (!topText) return null;
+
+  return `${topText}, layered under a ${outerwearColorText}faux fur coat fully worn on both shoulders as a complete outer layer, shoulder line covered by the coat, not slipping off the shoulders, plush voluminous fur framing the exposed bikini neckline`;
+}
+
 function buildHairColorPrompt(item) {
   if (!item || isNoneLikeItem(item)) return '';
   const base = stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
@@ -2255,6 +2275,7 @@ function buildCompositionGuardText(context) {
 function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling) {
   const maxLength = 1000;
   const segments = [];
+  const topOuterwearComboText = buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
 
   const pushSegment = (text) => {
@@ -2343,14 +2364,16 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   } else if (wardrobeSlots.outfitPreset) {
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }), 3);
   } else {
-    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern }), 3);
+    addClothingPart(topOuterwearComboText || buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern }), 3);
     addClothingPart(
       buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern }) ||
         buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern }),
       3
     );
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 2);
-    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }), 3);
+    if (!topOuterwearComboText) {
+      addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }), 3);
+    }
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
     addAccessoryPart(wardrobeSlots.headAccessory?.en || '', 3);
     addAccessoryPart(wardrobeSlots.eyewear?.en || '', 2);
@@ -2405,6 +2428,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
 function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction, duoStyling) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const topOuterwearComboText = buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
   const poseText = characterSlots.pose && !isNoneLikeItem(characterSlots.pose)
@@ -2467,14 +2491,16 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }));
   }
   if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB) {
-    const topText = buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern });
+    const topText = topOuterwearComboText || buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern });
     const pantsText = buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern });
     const skirtText = buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern });
     addLine('Top', topText);
     addLine('Pants', pantsText);
     addLine('Skirt', skirtText);
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
-    addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
+    if (!topOuterwearComboText) {
+      addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
+    }
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
   if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
