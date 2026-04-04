@@ -1218,6 +1218,12 @@ function locationSupportsLighting(location, lighting) {
   if ((locTags.has('ruin') || locTags.has('underground') || locTags.has('subterranean')) && lightTags.has('studio_light')) {
     return false;
   }
+  if ((locTags.has('underground') || locTags.has('subterranean')) && !lightTags.has('indoor') && (lightTags.has('day') || lightTags.has('sunlight') || lightTags.has('clean_sky') || lightTags.has('cloudy') || lightTags.has('dusk') || lightTags.has('night_ambient'))) {
+    return false;
+  }
+  if (locationEnvironment.indoor && !locationEnvironment.outdoor && !lightTags.has('indoor') && (lightTags.has('day') || lightTags.has('sunlight') || lightTags.has('clean_sky') || lightTags.has('cloudy') || lightTags.has('dusk') || lightTags.has('night_ambient'))) {
+    return false;
+  }
 
   if (locationEnvironment.indoor && !locationEnvironment.outdoor && !lightingEnvironment.indoor) return false;
   if (locationEnvironment.outdoor && !locationEnvironment.indoor && !lightingEnvironment.outdoor) return false;
@@ -1330,8 +1336,23 @@ function wardrobeFitsLocation(item, location) {
 
 function framingSupportsAngle(framing, angle) {
   const angleTags = new Set(angle.meta.tags);
+  const framingTags = new Set(framing.meta.tags || []);
 
   if (angleTags.has('aerial') && VISIBILITY_ORDER[framing.meta.visibility] >= VISIBILITY_ORDER.medium) return false;
+  if ((framingTags.has('partial_face') || framingTags.has('full_face_tight')) && (angleTags.has('low_angle') || angleTags.has('high_angle') || angleTags.has('aerial'))) return false;
+
+  return true;
+}
+
+function framingSupportsOrbit(framing, orbit) {
+  const framingTags = new Set(framing.meta.tags || []);
+  const orbitTags = new Set(orbit.meta.tags || []);
+
+  if (framingTags.has('partial_face')) {
+    if (orbitTags.has('back_view') || orbitTags.has('rear_three_quarter') || orbitTags.has('front_view')) return false;
+  }
+
+  if (framingTags.has('full_face_tight') && (orbitTags.has('back_view') || orbitTags.has('rear_three_quarter'))) return false;
 
   return true;
 }
@@ -1448,7 +1469,10 @@ function pickWithLock(list, lockedId, predicate = () => true, picker = sample) {
   }
 
   const matches = list.filter(predicate);
-  return matches.length > 0 ? picker(matches) : picker(list);
+  if (matches.length > 0) return picker(matches);
+
+  const noneOption = list.find((item) => isNoneLikeItem(item));
+  return noneOption || null;
 }
 
 function buildCharacter(context, catalog) {
@@ -1565,6 +1589,7 @@ function buildCharacter(context, catalog) {
   const expression = pickCategory('神情與眼神 (Expression & Gaze)', context.locks, (item) => expressionSupportsComposition(item, context));
 
   if (context.subject.count > 1) return character;
+  if (visibility === 'close') return character;
 
   const specialAction = context.locks?.specialActionId
     ? pickCategory('特殊動作 (Special Actions)', context.locks, () => true, sample, false)
@@ -1680,6 +1705,13 @@ function buildWardrobe(context, locks, catalog) {
   const hasTopPiece = Array.isArray(topPiece)
     ? topPiece.some((item) => item && !isNoneLikeItem(item))
     : Boolean(topPiece && !isNoneLikeItem(topPiece));
+
+  if (visibility === 'close') {
+    maybePick('頭部配件 (Head Accessories)', 0.28);
+    maybePick('眼鏡 (Eyewear)', 0.35);
+    maybePick('耳環 (Earrings)', 0.45);
+    return pieces.filter((item) => item?.meta?.tags?.includes('accessory_small'));
+  }
 
   if (!hasTopPiece && !locks?.topId) {
     const fallbackTop = getByKey(catalog.catalog.wardrobe, '上身 (Tops)').find(
@@ -2597,11 +2629,11 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   return {
     subjectCount: context.subject.id,
     aspectRatio: context.aspectRatio.id,
-    styleId: context.style.id,
-    locationId: context.location.id,
-    framingId: context.framing.id,
-    angleId: context.angle.id,
-    orbitId: context.orbit.id,
+    styleId: context.style?.id || '',
+    locationId: context.location?.id || '',
+    framingId: context.framing?.id || '',
+    angleId: context.angle?.id || '',
+    orbitId: context.orbit?.id || '',
     lensId: context.lens?.id || '',
     opticalEffectId: context.opticalEffect?.id || '',
     lightingId: context.styleDrivenCamera ? '' : context.lighting?.id || '',
@@ -2717,7 +2749,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const orbit = pickWithLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,
-    (item) => orbitSupportsExpression(item, lockedExpression) && specialActionSupportsOrbit(item, lockedSpecialAction)
+    (item) => framingSupportsOrbit(framing, item) && orbitSupportsExpression(item, lockedExpression) && specialActionSupportsOrbit(item, lockedSpecialAction)
   );
   const lens = pickWithLock(runtime.flatCatalog.lens, effectiveLocks.lensId);
   const lighting = styleDrivenCamera
