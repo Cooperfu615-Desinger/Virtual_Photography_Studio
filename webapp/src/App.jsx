@@ -131,6 +131,16 @@ const PAGE3_BASE_FIELD_OPTIONS = {
     { id: 'impossible-city', zh: '不可能結構城市', en: 'impossible architecture cityscape' },
     { id: 'dreamlike-space', zh: '超現實夢境空間', en: 'surreal dreamlike spatial environment' },
   ],
+  cityIdentity: [
+    { id: '', zh: '未指定', en: '' },
+    { id: 'tokyo', zh: '東京', en: 'recognizable Tokyo urban character, dense layered Japanese signage, narrow commercial street rhythm, Tokyo Tower or Tokyo Skytree visible as a signature skyline landmark' },
+    { id: 'seoul', zh: '首爾', en: 'recognizable Seoul urban character, Korean commercial streetscape, dense mid-rise building rhythm, N Seoul Tower and layered Han River-side skyline silhouettes' },
+    { id: 'taipei', zh: '台北', en: 'recognizable Taipei urban character, humid dense city texture, layered signage, mixed older facades and modern storefronts, Taipei 101 visible as a signature skyline landmark' },
+    { id: 'shanghai', zh: '上海', en: 'recognizable Shanghai urban character, broad commercial scale, polished metropolitan density, Oriental Pearl Tower or Lujiazui skyline silhouettes as signature landmarks' },
+    { id: 'new-york', zh: '紐約', en: 'recognizable New York City character, dense vertical urban grid, iconic Manhattan-like commercial density, Empire State Building or One World Trade Center visible as signature skyline landmarks' },
+    { id: 'london', zh: '倫敦', en: 'recognizable London urban character, restrained historic-modern contrast, British street rhythm, Big Ben, the Shard, or the London Eye visible as signature skyline landmarks' },
+    { id: 'paris', zh: '巴黎', en: 'recognizable Paris urban character, elegant Haussmann-style facades, refined boulevard rhythm, Eiffel Tower visible as a signature skyline landmark' },
+  ],
   world: [
     { id: '', zh: '未指定', en: '' },
     { id: 'realistic', zh: '寫實', en: 'grounded realistic worldbuilding' },
@@ -222,6 +232,7 @@ const PAGE3_BASE_FIELD_OPTIONS = {
 const PAGE3_FIELD_CONFIG = [
   { key: 'scale', label: '場景尺度' },
   { key: 'subject', label: '場景主體' },
+  { key: 'cityIdentity', label: '城市定位' },
   { key: 'world', label: '世界觀方向' },
   { key: 'styleId', label: '攝影風格' },
   { key: 'timeWeather', label: '時間與天氣' },
@@ -880,7 +891,7 @@ function buildPage3Summary(profile, fieldOptions) {
 }
 
 function buildPage3Anchor(profile, fieldOptions) {
-  const priority = ['subject', 'scale', 'world', 'styleId', 'timeWeather', 'lighting', 'composition'];
+  const priority = ['subject', 'cityIdentity', 'scale', 'world', 'styleId', 'timeWeather', 'lighting', 'composition'];
   const promptParts = priority
     .map((fieldKey) => getPage3OptionPrompt(fieldOptions, fieldKey, profile[fieldKey]))
     .filter(Boolean)
@@ -938,6 +949,38 @@ function getPage3SubjectTone(subjectId) {
   return subjectToneMap[subjectId] || [];
 }
 
+function buildPage3CityPrompt(profile, fieldOptions) {
+  const city = getPage3Option(fieldOptions, 'cityIdentity', profile.cityIdentity);
+  if (!city || !city.en) return '';
+
+  const urbanSubjects = new Set([
+    'alley-street',
+    'city-skyline',
+    'industrial-harbor',
+    'grand-terminal',
+    'future-megacity',
+    'impossible-city',
+  ]);
+  const interiorSubjects = new Set([
+    'cafe-corner',
+    'hotel-room',
+    'conservatory',
+    'vinyl-listening-room',
+    'piano-room',
+    'livehouse-backstage',
+  ]);
+
+  if (interiorSubjects.has(profile.subject)) {
+    return `${city.en}, subtle landmark or skyline presence only through windows, openings, or distant exterior glimpses`;
+  }
+
+  if (urbanSubjects.has(profile.subject)) {
+    return city.en;
+  }
+
+  return `${city.en}, landmark presence kept secondary to the main environment`;
+}
+
 function buildPage3StylePrompt(style) {
   if (!style || !style.id || style.zh === '全無' || style.en === 'none') return '';
 
@@ -984,6 +1027,7 @@ function buildPage3StylePrompt(style) {
 function buildPage3BaseParts(profile, fieldOptions) {
   const subject = getPage3OptionPrompt(fieldOptions, 'subject', profile.subject);
   const scale = getPage3OptionPrompt(fieldOptions, 'scale', profile.scale);
+  const cityIdentity = buildPage3CityPrompt(profile, fieldOptions);
   const world = getPage3OptionPrompt(fieldOptions, 'world', profile.world);
   const timeWeather = getPage3OptionPrompt(fieldOptions, 'timeWeather', profile.timeWeather);
   const lighting = getPage3OptionPrompt(fieldOptions, 'lighting', profile.lighting);
@@ -1002,6 +1046,7 @@ function buildPage3BaseParts(profile, fieldOptions) {
   return {
     subject,
     scale,
+    cityIdentity,
     world,
     style,
     timeWeather,
@@ -1017,12 +1062,13 @@ function buildPage3BaseParts(profile, fieldOptions) {
 
 function buildPage3Prompt(profile, fieldOptions) {
   const {
-    subject, scale, world, style, timeWeather, lighting, composition, details, qualifiers, scaleTone, subjectTone
+    subject, scale, cityIdentity, world, style, timeWeather, lighting, composition, details, qualifiers, scaleTone, subjectTone
   } = buildPage3BaseParts(profile, fieldOptions);
 
   const parts = [
     ...qualifiers,
     subject,
+    cityIdentity,
     scale,
     world,
     style,
@@ -1041,7 +1087,7 @@ function buildPage3Prompt(profile, fieldOptions) {
 
 function buildPage3CinematicPrompt(profile, fieldOptions) {
   const {
-    subject, scale, world, style, timeWeather, lighting, composition, details, scaleTone, subjectTone, isMonumental
+    subject, scale, cityIdentity, world, style, timeWeather, lighting, composition, details, scaleTone, subjectTone, isMonumental
   } = buildPage3BaseParts(profile, fieldOptions);
   const opener = isMonumental
     ? `ultra wide cinematic establishing shot of ${subject || 'a vast environment'}`
@@ -1054,6 +1100,7 @@ function buildPage3CinematicPrompt(profile, fieldOptions) {
     opener,
     'no people',
     'no human subject',
+    cityIdentity,
     scale,
     world,
     style,
@@ -1071,13 +1118,14 @@ function buildPage3CinematicPrompt(profile, fieldOptions) {
 
 function buildPage3WorldPrompt(profile, fieldOptions) {
   const {
-    subject, scale, world, style, timeWeather, lighting, composition, details, qualifiers, scaleTone, subjectTone, isMonumental
+    subject, scale, cityIdentity, world, style, timeWeather, lighting, composition, details, qualifiers, scaleTone, subjectTone, isMonumental
   } = buildPage3BaseParts(profile, fieldOptions);
 
   const parts = [
     'worldbuilding environment concept',
     ...qualifiers,
     subject,
+    cityIdentity,
     scale,
     world,
     style,
