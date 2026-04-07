@@ -20,29 +20,29 @@
 | **體態 (Body Type)** | 內衣模特兒 | `tall lingerie model body, clearly defined feminine curves, fuller bust and hips, slim waist, elongated torso-to-leg ratio, long shapely legs, toned elegant silhouette, polished high-fashion proportions` | 以高挑內衣模特兒身形為基礎，胸臀曲線明顯、腰部纖細，並加強腿長與整體修長比例，避免人物顯得短小；整體仍然是專業內衣模特兒常見的性感體態。 |
 | **體態 (Body Type)** | 性感 | `tall slim exaggerated hourglass body, narrow waist, fuller bust and rounded hips, pronounced bust-waist-hip contrast, elongated leg line, long shapely legs, toned feminine silhouette, voluptuous proportions without any sense of heaviness or body fat` | 以高挑纖細骨架為基礎，但胸、腰、臀比例明顯誇張，並額外強調修長雙腿與更拉長的整體比例；重點是前凸後翹、腰部明確收窄、整體仍然俐落緊實，不帶肥胖或厚重感，也避免人物顯得短小。 |
 | **髮型 (Hairstyle)** | 全無 | `none` | 不指定髮型，讓模型自行決定頭髮長度與輪廓。 |
-| **髮型 (Hairstyle)** | 中分長直髮 | `long straight hair, center part, sleek` | 經典女神風，光澤感十足。 |
-| **髮型 (Hairstyle)** | 日系厚劉海長直髮 | `long straight hair with heavy Japanese bangs, smooth sleek silhouette` | 厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。 |
-| **髮型 (Hairstyle)** | 高位雙馬尾 | `high double pigtails, youthful` | 活潑俏皮，適合 Y2K 或 JK 風格。 |
-| **髮型 (Hairstyle)** | 韓系低包頭 | `low messy bun, wispy bangs` | 優雅隨興，臉側帶有修飾性的碎髮。 |
-| **髮型 (Hairstyle)** | 韓系層次中長髮 | `Korean layered medium-long hair, airy texture, soft face framing layers` | 現代韓系常見的中長層次髮，線條輕盈，修飾臉型效果好。 |
-| **髮型 (Hairstyle)** | 高級感低盤髮 | `sleek low chignon, polished updo, elegant clean finish` | 低位盤髮乾淨俐落，適合精品時裝、晚宴與高級商攝。 |
-| **髮型 (Hairstyle)** | 韓系空氣瀏海直髮 | `see-through bangs, long straight hair, airy Korean styling` | 輕盈空氣瀏海配上筆直長髮，是最常見也最穩定的韓系清透髮型。 |
-| **髮型 (Hairstyle)** | 自然蓬鬆鎖骨髮 | `soft collarbone-length hair, airy volume, naturally tousled blowout` | 長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。 |
-| **髮型 (Hairstyle)** | 雙編髮 | `twin braids, neat braided hairstyle, soft face-framing strands` | 經典雙編髮更日常也更好駕馭，帶有清新與俏皮感。 |
-| **髮型 (Hairstyle)** | 及肩內彎鮑伯 | `shoulder-length bob, curled ends` | 溫婉的中長度，帶有微微的內彎弧度。 |
-| **髮型 (Hairstyle)** | 韓系深側分柔波長髮 | `deep side-parted long hair, soft polished waves, sleek face-framing flow, one side tucked behind the ear, elegant Korean editorial hairstyle` | 深側分的長髮帶柔和波浪與貼順光澤，一側自然收耳後，整體偏成熟、都會、精品感的韓系時裝髮型。 |
-| **髮型 (Hairstyle)** | 蓬鬆隨性馬尾 | `undone ponytail, high placement, flyaways` | 帶有細微碎髮的隨意感，自然生活氣息。 |
-| **髮型 (Hairstyle)** | 碎瀏海高盤髮 | `wispy bangs, elegant high updo, loose face-framing tendrils` | 高位盤起的髮型搭配碎瀏海與臉側細捲鬚，帶有日系暗黑與精緻感。 |
-| **髮型 (Hairstyle)** | 半綁公主頭長髮 | `half-up long hair, soft crown lift, loose face-framing strands` | 上半部輕輕束起、下半部自然垂落，清純又帶一點柔和公主感。 |
-| **髮型 (Hairstyle)** | 慵懶高丸子頭 | `messy high bun, loose wispy strands, airy casual updo` | 高位丸子頭帶有鬆散碎髮，適合自然光、隨拍與生活感人像。 |
-| **髮型 (Hairstyle)** | 中分柔波長髮 | `long softly wavy hair, center part, natural flowing texture` | 中分長髮帶有柔和波浪與飄動感，適合高曝光柔光與清透寫真風格。 |
-| **髮型 (Hairstyle)** | 濕潤感長波浪 | `wet-look long wavy hair, damp separated strands, moody texture` | 帶有濕潤分束感的長波浪髮，適合冷調、私密與邊緣感寫真。 |
-| **髮型 (Hairstyle)** | 空氣瀏海層次長髮 | `airy see-through bangs, long layered hair, soft feathered ends` | 輕透碎瀏海搭配層次長髮與羽毛感髮尾，韓系感更明顯。 |
-| **髮型 (Hairstyle)** | 空氣瀏海長捲髮 | `airy see-through bangs, long loose spiral waves, soft face-framing tendrils, glamorous layered length` | 輕透瀏海搭配長度明顯的鬆捲長髮，臉側有修飾線條，整體更偏韓系甜辣與精緻寫真感。 |
-| **髮型 (Hairstyle)** | 側分鎖骨波浪髮 | `side-parted collarbone-length waves, soft flowing texture` | 長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。 |
-| **髮型 (Hairstyle)** | 中短層次鮑伯 | `layered short bob, airy texture, softly tousled ends` | 層次明顯的中短鮑伯，髮尾蓬鬆，適合挑染與時尚感造型。 |
-| **髮型 (Hairstyle)** | 齊瀏海圓弧鮑伯 | `blunt bob with full bangs, rounded silhouette, smooth curved ends` | 齊瀏海搭配圓弧感鮑伯，帶有強烈辨識度與日系娃娃感。 |
-| **髮型 (Hairstyle)** | 不對稱濕感短鮑伯 | `asymmetrical wet bob, one-side-over-eye styling, damp separated strands` | 一側髮絲覆蓋眼周，帶有濕潤分束感與更強的時裝、私密與危險氣質。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜中分長直髮 | `long straight hair, center part, sleek` | 經典女神風，光澤感十足。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜日系厚劉海長直髮 | `long straight hair with heavy Japanese bangs, smooth sleek silhouette` | 厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜韓系層次中長髮 | `Korean layered medium-long hair, airy texture, soft face framing layers` | 現代韓系常見的中長層次髮，線條輕盈，修飾臉型效果好。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜韓系空氣瀏海直髮 | `see-through bangs, long straight hair, airy Korean styling` | 輕盈空氣瀏海配上筆直長髮，是最常見也最穩定的韓系清透髮型。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜韓系深側分柔波長髮 | `deep side-parted long hair, soft polished waves, sleek face-framing flow, one side tucked behind the ear, elegant Korean editorial hairstyle` | 深側分的長髮帶柔和波浪與貼順光澤，一側自然收耳後，整體偏成熟、都會、精品感的韓系時裝髮型。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜中分柔波長髮 | `long softly wavy hair, center part, natural flowing texture` | 中分長髮帶有柔和波浪與飄動感，適合高曝光柔光與清透寫真風格。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜濕潤感長波浪 | `wet-look long wavy hair, damp separated strands, moody texture` | 帶有濕潤分束感的長波浪髮，適合冷調、私密與邊緣感寫真。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜空氣瀏海層次長髮 | `airy see-through bangs, long layered hair, soft feathered ends` | 輕透碎瀏海搭配層次長髮與羽毛感髮尾，韓系感更明顯。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜空氣瀏海長捲髮 | `airy see-through bangs, long loose spiral waves, soft face-framing tendrils, glamorous layered length` | 輕透瀏海搭配長度明顯的鬆捲長髮，臉側有修飾線條，整體更偏韓系甜辣與精緻寫真感。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜高位雙馬尾 | `high double pigtails, youthful` | 活潑俏皮，適合 Y2K 或 JK 風格。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜韓系低包頭 | `low messy bun, wispy bangs` | 優雅隨興，臉側帶有修飾性的碎髮。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜高級感低盤髮 | `sleek low chignon, polished updo, elegant clean finish` | 低位盤髮乾淨俐落，適合精品時裝、晚宴與高級商攝。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜雙編髮 | `twin braids, neat braided hairstyle, soft face-framing strands` | 經典雙編髮更日常也更好駕馭，帶有清新與俏皮感。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜蓬鬆隨性馬尾 | `undone ponytail, high placement, flyaways` | 帶有細微碎髮的隨意感，自然生活氣息。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜碎瀏海高盤髮 | `wispy bangs, elegant high updo, loose face-framing tendrils` | 高位盤起的髮型搭配碎瀏海與臉側細捲鬚，帶有日系暗黑與精緻感。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜半綁公主頭長髮 | `half-up long hair, soft crown lift, loose face-framing strands` | 上半部輕輕束起、下半部自然垂落，清純又帶一點柔和公主感。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜慵懶高丸子頭 | `messy high bun, loose wispy strands, airy casual updo` | 高位丸子頭帶有鬆散碎髮，適合自然光、隨拍與生活感人像。 |
+| **髮型 (Hairstyle)** | 短髮｜自然蓬鬆鎖骨髮 | `soft collarbone-length hair, airy volume, naturally tousled blowout` | 長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。 |
+| **髮型 (Hairstyle)** | 短髮｜及肩內彎鮑伯 | `shoulder-length bob, curled ends` | 溫婉的中長度，帶有微微的內彎弧度。 |
+| **髮型 (Hairstyle)** | 短髮｜側分鎖骨波浪髮 | `side-parted collarbone-length waves, soft flowing texture` | 長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。 |
+| **髮型 (Hairstyle)** | 短髮｜中短層次鮑伯 | `layered short bob, airy texture, softly tousled ends` | 層次明顯的中短鮑伯，髮尾蓬鬆，適合挑染與時尚感造型。 |
+| **髮型 (Hairstyle)** | 短髮｜齊瀏海圓弧鮑伯 | `blunt bob with full bangs, rounded silhouette, smooth curved ends` | 齊瀏海搭配圓弧感鮑伯，帶有強烈辨識度與日系娃娃感。 |
+| **髮型 (Hairstyle)** | 短髮｜不對稱濕感短鮑伯 | `asymmetrical wet bob, one-side-over-eye styling, damp separated strands` | 一側髮絲覆蓋眼周，帶有濕潤分束感與更強的時裝、私密與危險氣質。 |
 | **髮色 (Hair Color)** | 全無 | `none` | 不指定髮色，讓模型自行決定髮色深淺與色調。 |
 | **髮色 (Hair Color)** | 自然黑 | `natural jet-black hair with subtle blue-black undertones, realistic dyed-black variation, soft natural depth, realistic human hair texture, visible individual strands, subtle root variation, gentle baby hairs around the hairline, natural sheen, no plastic wig texture` | 最穩定也最百搭的自然黑髮，強調真實髮絲、髮根層次與非假髮質感，適合大多數日常與商業風格。 |
 | **髮色 (Hair Color)** | 柔霧黑茶 | `soft black-tea brown hair, muted brown-black tone, subtle tonal variation, soft natural depth, realistic human hair texture, visible individual strands, subtle root variation, gentle baby hairs around the hairline, natural sheen, no plastic wig texture` | 黑中帶一點茶棕感，低調柔和，補強真髮絲分離感與自然染髮層次。 |
