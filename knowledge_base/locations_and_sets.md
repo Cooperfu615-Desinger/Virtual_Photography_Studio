@@ -39,6 +39,7 @@
 | **生活感室內 (Indoor & Lifestyle)** | 室內：洗衣店摺衣台旁 | `laundromat folding table, scattered clothes, plastic basket, detergent bottle, fluorescent glow` | 摺衣台與散落衣物形成生活感，適合社群與隨拍式構圖。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：洗衣店洗劑貨架前 | `laundromat detergent shelf, plastic bottles, price labels, cool fluorescent light, intimate retail texture` | 貨架與瓶罐作為局部背景，生活感更強，也不容易跑成兩排洗衣機。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：洗衣店角落塑膠椅旁 | `laundromat waiting corner, plastic chair, wall stickers, loose clothing, machine reflections, lonely night mood` | 封閉一角的等待感與孤獨感，適合貼近人物的局部夜景。 |
+| **生活感室內 (Indoor & Lifestyle)** | 戶外：日本住宅陽台曬衣架旁 | `Japanese apartment balcony with laundry rack, freshly washed clothes hanging to dry, metal railing, compact residential veranda, neighboring apartment facades, bright everyday domestic atmosphere` | 日本住宅或公寓陽台上的生活化場景，重點是欄杆、曬衣架、洗好的衣物與鄰近住宅立面，整體有很強的日常居家感與都市住宅氣息。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：宮廷音樂廳 / 歌劇院 | `opulent opera house interior, chandelier glow, velvet textures, ornate balconies, grand classical atmosphere` | 奢華大型室內空間，適合正式服裝與古典敘事。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：狹小都會旅館房間 | `small urban hotel room, compact bedding, dim practical lights, close interior details, enclosed intimate atmosphere` | 保留侷促與親密感，但比膠囊旅館更適合人像與寫真構圖。 |
 | **地下與廢墟風格 (Abandoned & Underground)** | 室內：廢棄水泥工廠破碎輸送帶區 | `abandoned conveyor-belt zone, broken machinery, gravel, cement dust, metal supports, harsh industrial decay` | 廢棄輸送設備周圍的工業場景，質地粗獷，適合重工業與邊緣感人像。 |
