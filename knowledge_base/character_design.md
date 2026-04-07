@@ -30,7 +30,6 @@
 | **髮型 (Hairstyle)** | 自然蓬鬆鎖骨髮 | `soft collarbone-length hair, airy volume, naturally tousled blowout` | 長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。 |
 | **髮型 (Hairstyle)** | 雙編髮 | `twin braids, neat braided hairstyle, soft face-framing strands` | 經典雙編髮更日常也更好駕馭，帶有清新與俏皮感。 |
 | **髮型 (Hairstyle)** | 及肩內彎鮑伯 | `shoulder-length bob, curled ends` | 溫婉的中長度，帶有微微的內彎弧度。 |
-| **髮型 (Hairstyle)** | 側分深大波浪 | `deep side part, glamour waves` | 展現成熟與優雅，適合商業攝影。 |
 | **髮型 (Hairstyle)** | 韓系深側分柔波長髮 | `deep side-parted long hair, soft polished waves, sleek face-framing flow, one side tucked behind the ear, elegant Korean editorial hairstyle` | 深側分的長髮帶柔和波浪與貼順光澤，一側自然收耳後，整體偏成熟、都會、精品感的韓系時裝髮型。 |
 | **髮型 (Hairstyle)** | 蓬鬆隨性馬尾 | `undone ponytail, high placement, flyaways` | 帶有細微碎髮的隨意感，自然生活氣息。 |
 | **髮型 (Hairstyle)** | 碎瀏海高盤髮 | `wispy bangs, elegant high updo, loose face-framing tendrils` | 高位盤起的髮型搭配碎瀏海與臉側細捲鬚，帶有日系暗黑與精緻感。 |
@@ -40,10 +39,8 @@
 | **髮型 (Hairstyle)** | 濕潤感長波浪 | `wet-look long wavy hair, damp separated strands, moody texture` | 帶有濕潤分束感的長波浪髮，適合冷調、私密與邊緣感寫真。 |
 | **髮型 (Hairstyle)** | 空氣瀏海層次長髮 | `airy see-through bangs, long layered hair, soft feathered ends` | 輕透碎瀏海搭配層次長髮與羽毛感髮尾，韓系感更明顯。 |
 | **髮型 (Hairstyle)** | 空氣瀏海長捲髮 | `airy see-through bangs, long loose spiral waves, soft face-framing tendrils, glamorous layered length` | 輕透瀏海搭配長度明顯的鬆捲長髮，臉側有修飾線條，整體更偏韓系甜辣與精緻寫真感。 |
-| **髮型 (Hairstyle)** | 側分柔波鮑伯 | `side-parted wavy bob, soft volume, airy curled ends` | 側分的柔和波浪鮑伯，髮尾自然外彎，帶輕盈時裝感。 |
 | **髮型 (Hairstyle)** | 側分鎖骨波浪髮 | `side-parted collarbone-length waves, soft flowing texture` | 長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。 |
 | **髮型 (Hairstyle)** | 中短層次鮑伯 | `layered short bob, airy texture, softly tousled ends` | 層次明顯的中短鮑伯，髮尾蓬鬆，適合挑染與時尚感造型。 |
-| **髮型 (Hairstyle)** | 蓬鬆短波浪鮑伯 | `voluminous wavy bob, softly tousled texture, airy rounded silhouette` | 長度落在下巴到肩上之間，整體更蓬鬆，帶有成熟柔和的短髮時裝感。 |
 | **髮型 (Hairstyle)** | 齊瀏海圓弧鮑伯 | `blunt bob with full bangs, rounded silhouette, smooth curved ends` | 齊瀏海搭配圓弧感鮑伯，帶有強烈辨識度與日系娃娃感。 |
 | **髮型 (Hairstyle)** | 不對稱濕感短鮑伯 | `asymmetrical wet bob, one-side-over-eye styling, damp separated strands` | 一側髮絲覆蓋眼周，帶有濕潤分束感與更強的時裝、私密與危險氣質。 |
 | **髮色 (Hair Color)** | 全無 | `none` | 不指定髮色，讓模型自行決定髮色深淺與色調。 |
