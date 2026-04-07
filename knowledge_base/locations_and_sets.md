@@ -117,6 +117,8 @@
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：羅馬老城老木門前 | `Rome aged wooden door, stone wall texture, iron handle detail, warm shadows, classic old-city mood` | 老木門與牆面紋理主導畫面，適合成熟與敘事型街拍。 |
 | **城市與社群感 (Urban & Social Snapshots)** | 戶外：羅馬老城暖光窗台邊 | `Rome warm window ledge, stone wall, café glow, potted plants, romantic evening detail` | 靠近窗台與牆面拍攝，保留歐洲夜晚氛圍但不形成大道視角。 |
 | **自然與戶外 (Nature & Outdoors)** | 戶外：金色海灘與浪線 | `golden beach edge, foamy shoreline, sunlit sand texture, bright summer air, open seaside mood` | 高頻好用的海邊場景，畫面乾淨開闊，適合寫真、泳裝與陽光人像。 |
+| **自然與戶外 (Nature & Outdoors)** | 戶外：清澈海灣岩岸 | `clear turquoise cove shoreline, pale rocky coast, shallow transparent seawater, sunlit coastal cliffs, quiet Mediterranean-style inlet atmosphere` | 以清澈淺藍海水、淺色岩岸與被海水包圍的小海灣為核心，畫面更像安靜而明亮的地中海式海灣，而不是平坦沙灘。 |
+| **自然與戶外 (Nature & Outdoors)** | 戶外：岩洞感海灣淺灘 | `rocky seaside cove with cave-like cliff openings, shallow crystalline water, irregular stone shoreline, sunlit coastal rock textures, intimate hidden-bay atmosphere` | 岩壁上帶有洞口或凹陷感的海灣淺灘，前景是碎石與淺水區，背景是起伏岩壁，整體更有祕境海灣與岩洞海岸的辨識度。 |
 | **自然與戶外 (Nature & Outdoors)** | 戶外：陽光草地與樹影 | `sunlit grassy patch, scattered tree shadows, warm daylight, breezy natural portrait mood, gentle outdoor texture` | 比純自然景觀更貼近人像拍攝，容易形成乾淨生活感與輕寫真氛圍。 |
 | **自然與戶外 (Nature & Outdoors)** | 戶外：向日葵花田 | `sunflower bloom cluster, bright summer light, vivid yellow petals, cheerful countryside mood, natural color burst` | 高飽和又有夏日辨識度，適合明亮寫真與日系自然風。 |
 | **自然與戶外 (Nature & Outdoors)** | 戶外：霧感森林步道 | `foggy forest clearing, soft mist, dark tree textures, muted green tones, quiet mysterious atmosphere` | 將森林收斂成更可拍的人像步道空間，避免過於奇幻但保留神祕感。 |
