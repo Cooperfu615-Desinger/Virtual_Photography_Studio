@@ -29,6 +29,11 @@ const LIBRARY_DRAFT_KEY = 'vps.libraryDraft';
 const PAGE_MODE_KEY = 'vps.pageMode';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const PAGE3_PROFILE_KEY = 'vps.page3Profile';
+const FAVORITES_STORAGE_VERSION = 2;
+const STORAGE_BUDGETS = {
+  [PROMPTS_KEY]: 2_250_000,
+  [FAVORITES_KEY]: 2_250_000,
+};
 const PAGE2_FIELD_OPTIONS = {
   eyes: [
     { id: '', zh: '未指定', en: '' },
@@ -682,6 +687,148 @@ function loadStringStorage(key, fallback) {
   return window.localStorage.getItem(key) ?? fallback;
 }
 
+function compactPromptSelection(selection) {
+  if (!selection || typeof selection !== 'object') return null;
+
+  const normalized = normalizeLocks({ ...createEmptyLocks(), ...selection });
+  return Object.fromEntries(
+    Object.entries(normalized).filter(([key, value]) => {
+      if (key === 'subjectCount' || key === 'aspectRatio') return true;
+      return Array.isArray(value) ? value.length > 0 : Boolean(value);
+    })
+  );
+}
+
+function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
+  if (!prompt || typeof prompt !== 'object' || !prompt.id) return null;
+
+  const rawSelection = prompt.selection && typeof prompt.selection === 'object'
+    ? prompt.selection
+    : null;
+  const selection = rawSelection
+    ? normalizeLocks({ ...createEmptyLocks(), ...rawSelection })
+    : null;
+  const summaryFields = prompt.summaryFields && typeof prompt.summaryFields === 'object'
+    ? prompt.summaryFields
+    : parseSummaryFields(prompt.summary);
+  const structured = prompt.structured && typeof prompt.structured === 'object'
+    ? prompt.structured
+    : (selection ? buildImportedStructured(selection, controls) : {});
+
+  return {
+    id: prompt.id,
+    date: prompt.date || new Date().toISOString(),
+    summary: String(prompt.summary || ''),
+    summaryFields,
+    midjourneyPrompt: String(prompt.midjourneyPrompt || ''),
+    grokPrompt: String(prompt.grokPrompt || ''),
+    selection,
+    structured,
+    lineage: prompt.lineage && typeof prompt.lineage === 'object' ? prompt.lineage : null,
+    remixMeta: prompt.remixMeta && typeof prompt.remixMeta === 'object' ? prompt.remixMeta : null,
+  };
+}
+
+function sanitizeStoredPromptCollection(items) {
+  if (!Array.isArray(items)) return [];
+  return items.map(sanitizeStoredPrompt).filter(Boolean);
+}
+
+function serializeFavoritePrompt(prompt) {
+  const sanitized = sanitizeStoredPrompt(prompt);
+  if (!sanitized) return null;
+
+  return {
+    v: FAVORITES_STORAGE_VERSION,
+    i: sanitized.id,
+    d: sanitized.date,
+    s: sanitized.summary,
+    m: sanitized.midjourneyPrompt,
+    g: sanitized.grokPrompt,
+    l: compactPromptSelection(sanitized.selection),
+    n: sanitized.lineage,
+    r: sanitized.remixMeta,
+  };
+}
+
+function deserializeFavoritePrompt(record) {
+  if (!record || typeof record !== 'object') return null;
+
+  if (record.v === FAVORITES_STORAGE_VERSION && record.i) {
+    return sanitizeStoredPrompt({
+      id: record.i,
+      date: record.d,
+      summary: record.s,
+      midjourneyPrompt: record.m,
+      grokPrompt: record.g,
+      selection: record.l,
+      lineage: record.n,
+      remixMeta: record.r,
+    });
+  }
+
+  return sanitizeStoredPrompt(record);
+}
+
+function deserializeFavoritePromptCollection(items) {
+  if (!Array.isArray(items)) return [];
+  return items.map(deserializeFavoritePrompt).filter(Boolean);
+}
+
+function estimateStorageBytes(text) {
+  return new Blob([text]).size;
+}
+
+function fitPromptsToStorageBudget(prompts, budget) {
+  if (!budget) return prompts;
+
+  const fitted = [];
+  let bytesUsed = 2;
+
+  for (const prompt of prompts) {
+    const serializedPrompt = JSON.stringify(prompt);
+    const nextBytes = estimateStorageBytes(serializedPrompt) + (fitted.length > 0 ? 1 : 0);
+    if (bytesUsed + nextBytes > budget) break;
+    fitted.push(prompt);
+    bytesUsed += nextBytes;
+  }
+
+  return fitted;
+}
+
+function persistPromptCollection(key, prompts, serializer = sanitizeStoredPromptCollection) {
+  if (typeof window === 'undefined') {
+    return { truncatedCount: 0, failed: false };
+  }
+
+  const sanitized = serializer(prompts).filter(Boolean);
+  let fitted = fitPromptsToStorageBudget(sanitized, STORAGE_BUDGETS[key]);
+
+  while (fitted.length >= 0) {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(fitted));
+      return {
+        truncatedCount: sanitized.length - fitted.length,
+        failed: false,
+      };
+    } catch (error) {
+      const isQuotaExceeded = error instanceof DOMException
+        && (error.name === 'QuotaExceededError' || error.name === 'NS_ERROR_DOM_QUOTA_REACHED');
+
+      if (!isQuotaExceeded || fitted.length === 0) {
+        return {
+          truncatedCount: sanitized.length,
+          failed: true,
+        };
+      }
+
+      fitted = fitted.slice(0, -1);
+    }
+  }
+
+  return { truncatedCount: sanitized.length, failed: true };
+}
+
 function createEntryKey(group, category, index) {
   return `${group}::${category}::${index}`;
 }
@@ -1157,11 +1304,11 @@ function loadFavoritePrompts() {
 
   // New format: store full prompt objects directly.
   if (typeof rawFavorites[0] === 'object' && rawFavorites[0] !== null) {
-    return rawFavorites.filter((item) => item?.id);
+    return deserializeFavoritePromptCollection(rawFavorites);
   }
 
   // Legacy format: store only ids, recover from prompt cache if possible.
-  const promptCache = loadJsonStorage(PROMPTS_KEY, []);
+  const promptCache = sanitizeStoredPromptCollection(loadJsonStorage(PROMPTS_KEY, []));
   if (!Array.isArray(promptCache)) return [];
 
   const idSet = new Set(rawFavorites.filter(Boolean));
@@ -1222,7 +1369,8 @@ function buildRestoreLocks(nextLocks, controls) {
 
 export default function App() {
   const importFeedInputRef = useRef(null);
-  const [prompts, setPrompts] = useState(() => loadJsonStorage(PROMPTS_KEY, []));
+  const storageWarningRef = useRef('');
+  const [prompts, setPrompts] = useState(() => sanitizeStoredPromptCollection(loadJsonStorage(PROMPTS_KEY, [])));
   const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
   const [genCount, setGenCount] = useState(() => loadJsonStorage(GEN_COUNT_KEY, 3));
   const [pageMode, setPageMode] = useState(() => loadStringStorage(PAGE_MODE_KEY, 'page1'));
@@ -1242,11 +1390,31 @@ export default function App() {
   const [importPromptText, setImportPromptText] = useState('');
 
   useEffect(() => {
-    window.localStorage.setItem(PROMPTS_KEY, JSON.stringify(prompts));
+    const result = persistPromptCollection(PROMPTS_KEY, prompts);
+    if (result.failed) {
+      showStorageWarning('提示：本機儲存空間已滿，新的 Feed 卡片這次無法完整保存。');
+      return;
+    }
+    if (result.truncatedCount > 0) {
+      showStorageWarning(`提示：為避免瀏覽器儲存爆滿，只保留最新 ${prompts.length - result.truncatedCount} 張 Feed 卡片到本機。`);
+      return;
+    }
+    clearStorageWarning('prompts');
   }, [prompts]);
 
   useEffect(() => {
-    window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoritePrompts));
+    const result = persistPromptCollection(FAVORITES_KEY, favoritePrompts, (items) =>
+      items.map(serializeFavoritePrompt).filter(Boolean)
+    );
+    if (result.failed) {
+      showStorageWarning('提示：本機儲存空間已滿，這次最愛變更無法完整保存，但畫面不會再白掉。');
+      return;
+    }
+    if (result.truncatedCount > 0) {
+      showStorageWarning(`提示：為避免瀏覽器儲存爆滿，只保留最新 ${favoritePrompts.length - result.truncatedCount} 張 Favorites 到本機。`);
+      return;
+    }
+    clearStorageWarning('favorites');
   }, [favoritePrompts]);
 
   useEffect(() => {
@@ -1519,6 +1687,11 @@ export default function App() {
     });
   };
 
+  const handleClearFavorites = () => {
+    setFavoritePrompts([]);
+    showToast('Favorites 已清空');
+  };
+
   const handleOpenImportFeed = () => {
     importFeedInputRef.current?.click();
   };
@@ -1563,6 +1736,21 @@ export default function App() {
     } catch {
       setCopiedLabel('Copy failed');
       window.setTimeout(() => setCopiedLabel(''), 1800);
+    }
+  };
+
+  const showStorageWarning = (label) => {
+    if (storageWarningRef.current === label) return;
+    storageWarningRef.current = label;
+    showToast(label);
+  };
+
+  const clearStorageWarning = (channel) => {
+    if (channel === 'prompts' && storageWarningRef.current.includes('Feed')) {
+      storageWarningRef.current = '';
+    }
+    if (channel === 'favorites' && storageWarningRef.current.includes('Favorites')) {
+      storageWarningRef.current = '';
     }
   };
 
@@ -1768,6 +1956,7 @@ export default function App() {
           handleResetLibraryDraft={handleResetLibraryDraft}
           displayPrompts={displayPrompts}
           handleDownloadAll={handleDownloadAll}
+          handleClearFavorites={handleClearFavorites}
           importFeedInputRef={importFeedInputRef}
           handleOpenImportFeed={handleOpenImportFeed}
           handleImportFeed={handleImportFeed}

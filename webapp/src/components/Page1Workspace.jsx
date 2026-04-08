@@ -31,6 +31,7 @@ export default function Page1Workspace({
   handleResetLibraryDraft,
   displayPrompts,
   handleDownloadAll,
+  handleClearFavorites,
   importFeedInputRef,
   handleOpenImportFeed,
   handleImportFeed,
@@ -231,6 +232,11 @@ export default function Page1Workspace({
             <button className="secondary" onClick={handleDownloadAll} disabled={displayPrompts.length === 0}>
               Download Feed
             </button>
+            {viewMode === 'favorites' ? (
+              <button className="secondary danger" onClick={handleClearFavorites} disabled={favoritePrompts.length === 0}>
+                Clear Favorites {favoritePrompts.length > 0 ? `(${favoritePrompts.length})` : ''}
+              </button>
+            ) : null}
             <button className="secondary" onClick={handleOpenImportFeed}>
               Import Feed
             </button>
