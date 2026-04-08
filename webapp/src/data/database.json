@@ -2196,6 +2196,26 @@
         "desc": "以後台黑布幕、器材箱、音箱與凌亂線材構成的英國獨立音樂場景，適合叛逆、次文化與演出前後的人像。"
       },
       {
+        "zh": "室內：女高生房間",
+        "en": "Japanese schoolgirl bedroom, compact single bed, study desk, curtains, soft pastel everyday clutter, youthful private-room atmosphere",
+        "desc": "偏真實日本少女房間，不走動漫誇張感，重點是單人床、書桌、窗簾與帶點生活雜物的日常私密氣息。"
+      },
+      {
+        "zh": "室內：日式和室",
+        "en": "traditional Japanese washitsu room, tatami flooring, shoji sliding doors, low table, soft natural daylight, quiet domestic stillness",
+        "desc": "以榻榻米、障子拉門、低矮桌面與安靜自然光構成的典型和室，整體偏真實日式住宅空間。"
+      },
+      {
+        "zh": "室內：日本學校教室",
+        "en": "Japanese school classroom, rows of wooden desks and chairs, blackboard, window-side daylight, realistic everyday school atmosphere",
+        "desc": "日本校園常見的木桌椅、黑板與窗邊天光形成的真實教室場景，適合制服、日常與青春敘事人像。"
+      },
+      {
+        "zh": "室內：辦公室茶水間",
+        "en": "Japanese office pantry corner, compact kitchenette, vending machine or coffee station, office cabinetry, fluorescent workday atmosphere",
+        "desc": "日系辦公樓層內常見的小茶水間或 pantry，重點是茶水台、櫃體與上班日常的生活化空間。"
+      },
+      {
         "zh": "室內：洗衣店洗衣機門前",
         "en": "laundromat washer-door detail, chrome reflections, fluorescent light, sticker-covered surfaces, urban solitude",
         "desc": "人物靠近洗衣機門與反光金屬表面的場景，局部感更強。"
@@ -2229,6 +2249,11 @@
         "zh": "戶外：社區自動販賣機旁",
         "en": "Japanese neighborhood vending machine corner, glowing drink machines, concrete wall edge, apartment frontage, quiet everyday street detail, casual residential atmosphere",
         "desc": "日本住宅社區常見的自動販賣機角落，重點是飲料販賣機、牆角與住宅立面，整體有很強的日常街區生活感。"
+      },
+      {
+        "zh": "戶外：辦公大樓人行道（上班途中）",
+        "en": "Japanese business-district office sidewalk, glass-and-steel office towers, clean paving, commuter walkway, weekday urban workday atmosphere",
+        "desc": "日本都心商辦區常見的人行道與辦公樓立面，帶有通勤途中、上班前後的城市工作日氛圍。"
       },
       {
         "zh": "室內：宮廷音樂廳 / 歌劇院",

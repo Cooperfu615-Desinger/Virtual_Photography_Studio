@@ -155,11 +155,17 @@ const ENVIRONMENT_MOOD_CATEGORY = '環境光氛 (Environment Mood)';
 const LIGHT_STYLE_CATEGORY = '光線表現 (Light Style)';
 const FOCAL_LENGTH_CATEGORY = '鏡頭焦段 (Focal Length)';
 const OPTICAL_EFFECTS_CATEGORY = '光學效果 (Optical Effects)';
+const SCENE_ATTRIBUTE_OPTIONS = [
+  { id: '', zh: '未指定', en: '' },
+  { id: 'indoor', zh: '室內', en: 'indoor setting' },
+  { id: 'outdoor', zh: '戶外', en: 'outdoor setting' },
+];
 
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: '4:5', section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
+  { key: 'sceneAttributeId', label: '場景屬性', options: SCENE_ATTRIBUTE_OPTIONS, section: 'core' },
   { key: 'locationId', label: '場景', category: null, section: 'core' },
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
   { key: 'angleId', label: '俯仰角度', category: '相機視角 (Angle)', section: 'core' },
@@ -222,6 +228,7 @@ const LOCK_KEYS = new Set(LOCK_DEFINITIONS.map((definition) => definition.key));
 
 const PARTIAL_REROLL_OPTIONS = [
   { key: 'styleId', label: 'Style' },
+  { key: 'sceneAttributeId', label: 'Scene Attribute' },
   { key: 'locationId', label: 'Location' },
   { key: 'framingId', label: 'Framing' },
   { key: 'angleId', label: 'Angle' },
@@ -1173,6 +1180,21 @@ function getLocationEnvironmentFlags(location) {
   return { indoor, outdoor };
 }
 
+function getSceneAttributeOption(id) {
+  return SCENE_ATTRIBUTE_OPTIONS.find((option) => option.id === id) || null;
+}
+
+function locationMatchesSceneAttribute(location, sceneAttribute) {
+  if (!sceneAttribute?.id) return true;
+
+  const flags = getLocationEnvironmentFlags(location);
+
+  if (sceneAttribute.id === 'indoor') return flags.indoor;
+  if (sceneAttribute.id === 'outdoor') return flags.outdoor;
+
+  return true;
+}
+
 function getLightingEnvironmentFlags(lighting) {
   const tags = new Set(lighting?.meta?.tags || []);
 
@@ -1295,7 +1317,9 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
   const runtime = buildCatalog(customLibrary);
   const locks = normalizeLocks(rawLocks);
   const fallbackFraming = runtime.flatCatalog.framing.find((item) => item.en.includes('medium shot')) || runtime.flatCatalog.framing[0];
-  const location = findById(runtime.flatCatalog.locations, locks.locationId);
+  const sceneAttribute = getSceneAttributeOption(locks.sceneAttributeId);
+  const locationOptions = runtime.flatCatalog.locations.filter((item) => locationMatchesSceneAttribute(item, sceneAttribute));
+  const location = findById(locationOptions, locks.locationId);
   const selectedLighting = findById(runtime.flatCatalog.lighting, locks.lightingId);
   const framing = findById(runtime.flatCatalog.framing, locks.framingId) || fallbackFraming;
 
@@ -1311,7 +1335,7 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
       )
     : runtime.flatCatalog.lightDirection;
 
-  return { lightingOptions, lightDirectionOptions };
+  return { locationOptions, lightingOptions, lightDirectionOptions };
 }
 
 function styleFitsLocation(style, location) {
@@ -2713,6 +2737,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     subjectCount: context.subject.id,
     aspectRatio: context.aspectRatio.id,
     styleId: context.style?.id || '',
+    sceneAttributeId: context.sceneAttribute?.id || '',
     locationId: context.location?.id || '',
     framingId: context.framing?.id || '',
     angleId: context.angle?.id || '',
@@ -2796,6 +2821,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     : locks;
   const subject = getSubjectOption(effectiveLocks.subjectCount);
   const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio);
+  const sceneAttribute = getSceneAttributeOption(effectiveLocks.sceneAttributeId);
   const lowFrequencyPicker = (tag) => (candidates) => {
     const regular = candidates.filter((item) => !item.meta.tags?.includes(tag));
     const lowFrequency = candidates.filter((item) => item.meta.tags?.includes(tag));
@@ -2806,7 +2832,11 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
 
     return sample(lowFrequency.length > 0 ? lowFrequency : candidates);
   };
-  const location = pickWithLock(runtime.flatCatalog.locations, effectiveLocks.locationId);
+  const location = pickWithLock(
+    runtime.flatCatalog.locations,
+    effectiveLocks.locationId,
+    (item) => locationMatchesSceneAttribute(item, sceneAttribute)
+  );
   const style = pickWithLock(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
   const lockedSpecialAction = effectiveLocks.specialActionId
     ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
@@ -2851,6 +2881,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const context = {
     subject,
     aspectRatio,
+    sceneAttribute,
     style,
     location,
     framing,

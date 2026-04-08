@@ -315,8 +315,8 @@ const SUMMARY_SECTION_INFO = {
   },
   location: {
     label: '場景',
-    lockLabels: ['場景'],
-    keys: ['locationId'],
+    lockLabels: ['場景屬性', '場景'],
+    keys: ['sceneAttributeId', 'locationId'],
   },
   camera: {
     label: '鏡頭',
@@ -386,8 +386,8 @@ const ADVANCED_REMIX_GROUP_INFO = {
   },
   sceneLook: {
     label: '場景鏡頭',
-    lockLabels: ['場景', '鏡頭', '光影'],
-    keys: ['locationId', 'aspectRatio', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId', 'lightingId', 'lightDirectionId'],
+    lockLabels: ['場景屬性', '場景', '鏡頭', '光影'],
+    keys: ['sceneAttributeId', 'locationId', 'aspectRatio', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId', 'lightingId', 'lightDirectionId'],
   },
 };
 const REMIX_GROUP_INFO = { ...SUMMARY_SECTION_INFO, ...ADVANCED_REMIX_GROUP_INFO };
@@ -409,8 +409,8 @@ const CHARACTER_CONTROL_ORDER = [
   'poseId',
   'specialActionId',
 ];
-const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
-const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'locationId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'aspectRatio'];
+const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'sceneAttributeId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
+const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'sceneAttributeId', 'locationId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'aspectRatio'];
 const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topColorId', 'topPatternId', 'dressId', 'dressColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'bottomPatternId', 'legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'outerwearPatternId', 'outerwearStylingId', 'shoesId', 'shoesColorId', 'headAccessoryId', 'eyewearId', 'earringsId', 'neckAccessoryId', 'wristAccessoryId', 'ringId', 'waistAccessoryId'];
 
 function sortControls(controls, order) {
@@ -533,7 +533,7 @@ function buildImportedStructured(locks, controls) {
       'ringId',
       'waistAccessoryId',
     ]),
-    Location: buildSection(['locationId']),
+    Location: buildSection(['sceneAttributeId', 'locationId']),
     Framing: buildSection(['framingId', 'angleId', 'orbitId', 'lensId']),
     Lighting: buildSection(['lightingId', 'lightDirectionId']),
     'Camera & Film': buildSection(['filmId', 'opticalEffectId']),
@@ -1295,6 +1295,9 @@ export default function App() {
     () => {
       const activeOrder = isPhotographyStyleLocked ? SCENE_CAMERA_SIMPLIFIED_ORDER : SCENE_CAMERA_CONTROL_ORDER;
       const controlsWithSceneFiltering = lockControls.map((control) => {
+        if (control.key === 'locationId') {
+          return { ...control, options: sceneDependentOptions.locationOptions };
+        }
         if (control.key === 'lightingId') {
           return { ...control, options: sceneDependentOptions.lightingOptions };
         }
@@ -1431,8 +1434,13 @@ export default function App() {
       const candidate = typeof updater === 'function' ? updater(prev) : { ...prev, ...updater };
       const next = sanitizeLocksForCloseupMode({ ...candidate }, lockControls);
       const nextSceneDependentOptions = getSceneDependentOptions(activeLibrary, next);
+      const allowedLocationIds = new Set(nextSceneDependentOptions.locationOptions.map((option) => option.id));
       const allowedLightingIds = new Set(nextSceneDependentOptions.lightingOptions.map((option) => option.id));
       const allowedDirectionIds = new Set(nextSceneDependentOptions.lightDirectionOptions.map((option) => option.id));
+
+      if (next.locationId && !allowedLocationIds.has(next.locationId)) {
+        next.locationId = '';
+      }
 
       if (next.lightingId && !allowedLightingIds.has(next.lightingId)) {
         next.lightingId = '';
