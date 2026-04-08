@@ -94,6 +94,9 @@
 | **上身圖案 (Top Surface Design)** | 胸前卡通塗鴉印花 | `large cartoon doodle chest graphic, single playful illustrated front print, bold character artwork centered on the chest` | 以胸前大面積單張卡通塗鴉圖像為主，重點像插畫 Tee 或角色圖像 T 的正面主視覺。 |
 | **上身圖案 (Top Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print, playful illustrated motifs covering the entire garment, colorful graphic casual surface` | 以卡通塗鴉與插畫感圖樣鋪滿整件衣服，整體更活潑、年輕、視覺密度更高。 |
 | **上身圖案 (Top Surface Design)** | 胸前復古標語印花 | `large vintage slogan chest print, single centered typographic graphic, retro casual t-shirt styling` | 以胸前單張復古字樣或標語圖像為主，適合做比較日常、好生成的 graphic tee 路線。 |
+| **連身 (Dresses)** | 全無 | `no dress, one-piece styling omitted` | 不使用連身服裝，方便保留上身與下身分開搭配的穿法。 |
+| **連身 (Dresses)** | 無袖連身洋裝 | `sleeveless one-piece dress, clean uninterrupted silhouette, feminine full-body styling` | 以無袖輪廓直接完成整體造型，適合日常寫真、飯店與極簡時裝感畫面。 |
+| **連身 (Dresses)** | 細肩帶連身洋裝 | `strappy slip dress, delicate shoulder straps, fluid one-piece silhouette` | 細肩帶連身洋裝帶有輕盈與微性感氣質，適合臥室、飯店與夏日寫真主題。 |
 | **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
 | **褲裝 (Pants)** | 高腰直筒牛仔褲 | `high-waisted straight-leg jeans, clean denim texture, everyday staple` | 最穩定的日常下身單品，適合城市、街拍與生活感畫面。 |
 | **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
@@ -141,8 +144,6 @@
 | **裙裝 (Skirts)** | 抓皺長裙 | `ruched maxi skirt, gathered fabric texture, body-skimming drape` | 以抓皺布料與貼合垂墜輪廓為特色，整體更有細節與女人味。 |
 | **裙裝 (Skirts)** | 和服寬擺裙 | `kimono-inspired wide skirt, broad sweeping hem, elegant draped volume, Japanese-inspired styling` | 以和服寬擺輪廓為靈感的裙裝，帶有明顯的展幅感與日式服裝語氣。 |
 | **裙裝 (Skirts)** | 直筒裙 | `straight skirt, clean vertical silhouette, streamlined fitted drape` | 輪廓筆直、線條乾淨，適合都會、極簡與較成熟的搭配方式。 |
-| **裙裝 (Skirts)** | 無袖連身洋裝 | `sleeveless one-piece dress, clean uninterrupted silhouette, feminine full-body styling` | 以無袖輪廓直接完成整體造型，適合日常寫真、飯店與極簡時裝感畫面。 |
-| **裙裝 (Skirts)** | 細肩帶連身洋裝 | `strappy slip dress, delicate shoulder straps, fluid one-piece silhouette` | 細肩帶連身洋裝帶有輕盈與微性感氣質，適合臥室、飯店與夏日寫真主題。 |
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
 | **裙裝 (Skirts)** | 高腰窄裙 | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
 | **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian layered maxi skirt, soft tiered panels, washed earth-tone fabric, crinkled drape, folk-pattern borders, relaxed gathered movement, artisanal resort elegance` | 長裙改成更貼近圖片裡那種土色拼接與層次裙片的方向，布料帶洗舊感與自然皺褶，行走或坐下時會形成柔軟堆疊，整體更像異國度假、手作感強的成熟波西米亞風。 |

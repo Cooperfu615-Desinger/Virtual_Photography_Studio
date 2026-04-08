@@ -590,6 +590,23 @@
         "desc": "以胸前單張復古字樣或標語圖像為主，適合做比較日常、好生成的 graphic tee 路線。"
       }
     ],
+    "連身 (Dresses)": [
+      {
+        "zh": "全無",
+        "en": "no dress, one-piece styling omitted",
+        "desc": "不使用連身服裝，方便保留上身與下身分開搭配的穿法。"
+      },
+      {
+        "zh": "無袖連身洋裝",
+        "en": "sleeveless one-piece dress, clean uninterrupted silhouette, feminine full-body styling",
+        "desc": "以無袖輪廓直接完成整體造型，適合日常寫真、飯店與極簡時裝感畫面。"
+      },
+      {
+        "zh": "細肩帶連身洋裝",
+        "en": "strappy slip dress, delicate shoulder straps, fluid one-piece silhouette",
+        "desc": "細肩帶連身洋裝帶有輕盈與微性感氣質，適合臥室、飯店與夏日寫真主題。"
+      }
+    ],
     "褲裝 (Pants)": [
       {
         "zh": "全無",
@@ -827,16 +844,6 @@
         "zh": "直筒裙",
         "en": "straight skirt, clean vertical silhouette, streamlined fitted drape",
         "desc": "輪廓筆直、線條乾淨，適合都會、極簡與較成熟的搭配方式。"
-      },
-      {
-        "zh": "無袖連身洋裝",
-        "en": "sleeveless one-piece dress, clean uninterrupted silhouette, feminine full-body styling",
-        "desc": "以無袖輪廓直接完成整體造型，適合日常寫真、飯店與極簡時裝感畫面。"
-      },
-      {
-        "zh": "細肩帶連身洋裝",
-        "en": "strappy slip dress, delicate shoulder straps, fluid one-piece silhouette",
-        "desc": "細肩帶連身洋裝帶有輕盈與微性感氣質，適合臥室、飯店與夏日寫真主題。"
       },
       {
         "zh": "蘿莉塔鐘形澎裙",
