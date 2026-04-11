@@ -15,6 +15,11 @@ ${data.midjourneyPrompt}
 ${data.grokPrompt}
 \`\`\`
 
+## Z-Image Prompt
+\`\`\`text
+${data.zImagePrompt || ''}
+\`\`\`
+
 ---
 
 ## Structured Scheme
@@ -203,6 +208,9 @@ export default function PromptCard({ data, onFavorite, onDelete, isFavorite, can
         <button className="primary-copy-btn primary-copy-grok" onClick={() => handleCopy('Grok copied', data.grokPrompt)}>
           Grok
         </button>
+        <button className="primary-copy-btn primary-copy-zimage" onClick={() => handleCopy('Z-Image copied', data.zImagePrompt)} disabled={!data.zImagePrompt}>
+          Z-Image
+        </button>
         <button className="secondary primary-copy-btn" onClick={() => setExpanded((prev) => !prev)}>
           {expanded ? 'Collapse' : 'Expand'}
         </button>
@@ -227,6 +235,17 @@ export default function PromptCard({ data, onFavorite, onDelete, isFavorite, can
               <div className="prompt-text prompt-text-full">{data.grokPrompt}</div>
             </div>
           </section>
+
+          {data.zImagePrompt ? (
+            <section className="prompt-section">
+              <div className="prompt-label">
+                <span>Z-Image Prompt</span>
+              </div>
+              <div className="prompt-box">
+                <div className="prompt-text prompt-text-full">{data.zImagePrompt}</div>
+              </div>
+            </section>
+          ) : null}
 
           <section className="prompt-section">
             <div className="prompt-label">

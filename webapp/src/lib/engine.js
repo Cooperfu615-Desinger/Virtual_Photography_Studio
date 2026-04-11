@@ -1443,6 +1443,20 @@ function detailAllowed(item, framing) {
   return visibilityAtLeast(framing.meta.visibility, item.meta.minVisibility);
 }
 
+function isOutdoorLocationContext(context) {
+  if (context.sceneAttribute?.id === 'outdoor') return true;
+  const locationTags = new Set(context.location?.meta?.tags || []);
+  return locationTags.has('outdoor') || locationTags.has('natural') || locationTags.has('waterfront') || locationTags.has('green_space');
+}
+
+function poseSupportsLocationContext(item, context) {
+  if (!item || isNoneLikeItem(item)) return true;
+  if (!isOutdoorLocationContext(context)) return true;
+
+  const poseText = toHaystack(item.zh, item.en, item.desc);
+  return !hasAny(poseText, ['mirror selfie', '鏡子自拍']);
+}
+
 function getSubjectOption(id) {
   return SUBJECT_COUNT_OPTIONS.find((option) => option.id === id) || SUBJECT_COUNT_OPTIONS[0];
 }
@@ -1635,9 +1649,15 @@ function buildCharacter(context, catalog) {
   if (context.locks?.poseId) {
     pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, () => true, sample, false);
   } else if (visibilityAtLeast(visibility, 'full')) {
-    pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks);
+    pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, (item) => poseSupportsLocationContext(item, context));
   } else if (!expression) {
-    pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, (item) => detailAllowed(item, context.framing));
+    pickCategory(
+      '姿勢與肢體語言 (Pose & Body Language)',
+      context.locks,
+      (item) => detailAllowed(item, context.framing) && poseSupportsLocationContext(item, context),
+      sample,
+      false
+    );
   }
 
   return character;
@@ -2297,6 +2317,61 @@ function buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors) {
   return `${baseLayerText}, layered under ${outerwearPhrase}`;
 }
 
+function getTopBottomHaystack(item) {
+  return toHaystack(item?.zh || '', item?.en || '', item?.desc || '');
+}
+
+function isLowRiseBottomItem(item) {
+  if (!item || isNoneLikeItem(item)) return false;
+  return hasAny(getTopBottomHaystack(item), ['low-rise', 'ultra low-rise', '低腰', '露腰', 'exposed hip line']);
+}
+
+function isCroppedTopItem(item) {
+  if (!item || isNoneLikeItem(item)) return false;
+  return hasAny(getTopBottomHaystack(item), ['cropped', 'crop top', '短版', '露臍', '露腰', 'exposed waist']);
+}
+
+function isUntuckedTopItem(item) {
+  if (!item || isNoneLikeItem(item)) return false;
+  return hasAny(getTopBottomHaystack(item), [
+    'untucked',
+    'worn untucked',
+    'hanging hem',
+    'relaxed hemline',
+    'flowing hemline',
+    'over the bottoms',
+    'over the waistline',
+    '放出衣襬',
+    '衣襬自然放出',
+  ]);
+}
+
+function isTuckedTopItem(item) {
+  if (!item || isNoneLikeItem(item)) return false;
+  return hasAny(getTopBottomHaystack(item), ['tucked into the bottoms', '紮入下身']);
+}
+
+function buildWaistlineCompatibilityPrompt(wardrobeSlots) {
+  const bottom = wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants)
+    ? wardrobeSlots.pants
+    : wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt)
+      ? wardrobeSlots.skirt
+      : null;
+  const top = wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top) ? wardrobeSlots.top : null;
+
+  if (!bottom || !top || !isLowRiseBottomItem(bottom) || isCroppedTopItem(top)) return '';
+
+  if (isUntuckedTopItem(top)) {
+    return 'top hem fully covering the low-rise waistband and abdomen, untucked shirt length extending below the waistband, no accidental midriff exposure';
+  }
+
+  if (isTuckedTopItem(top)) {
+    return 'top properly tucked into the low-rise waistband with a natural low-rise proportion, clean waist styling, not cropped';
+  }
+
+  return 'top length extending below the low-rise waistband, abdomen covered, not cropped into an unintended midriff reveal';
+}
+
 function buildHairColorPrompt(item) {
   if (!item || isNoneLikeItem(item)) return '';
   const base = stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
@@ -2420,6 +2495,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   const maxLength = 1000;
   const segments = [];
   const topOuterwearComboText = buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors);
+  const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
 
   const pushSegment = (text) => {
@@ -2553,6 +2629,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   pushSegment(subjectText);
   pushSegment(poseText);
   pushSegment(clothingParts.join(', '));
+  pushSegment(waistlineCompatibilityText);
   pushSegment(describeLocation());
   pushSegment(cameraText);
   pushSegment(lightingText);
@@ -2576,6 +2653,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const topOuterwearComboText = buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors);
+  const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
   const poseText = characterSlots.pose && !isNoneLikeItem(characterSlots.pose)
@@ -2652,6 +2730,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     }
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
+  addLine('Waistline Coordination', waistlineCompatibilityText);
   if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
   addLine('Special Action', specialActionText);
   addLine('Pose', poseText);
@@ -2710,6 +2789,118 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   return lines.join('\n');
 }
 
+function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling) {
+  const characterSlots = extractCharacterSlots(character);
+  const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const topOuterwearComboText = buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors);
+  const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
+  const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
+  const sentence = (value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
+  const joinSentenceParts = (parts) => sentence(parts.filter(Boolean).join(', '));
+  const leadSentence = (lead, parts) => {
+    const detail = parts.filter(Boolean).join(', ');
+    return detail ? sentence(`${lead} ${detail}`) : '';
+  };
+  const buildCharacterText = () => {
+    const parts = [
+      useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en,
+      characterSlots.bodyType?.en,
+      context.subject.count === 2
+        ? [
+            characterSlots.facialFeaturesA?.en ? `woman 1 has ${characterSlots.facialFeaturesA.en}` : '',
+            characterSlots.facialFeaturesB?.en ? `woman 2 has ${characterSlots.facialFeaturesB.en}` : '',
+          ].filter(Boolean).join(', ')
+        : (!useCharacterIdentityAnchor ? characterSlots.facialFeatures?.en : ''),
+      context.subject.count === 2
+        ? [
+            characterSlots.hairstyleA?.en,
+            characterSlots.hairColorA?.en,
+            characterSlots.hairstyleB?.en,
+            characterSlots.hairColorB?.en,
+          ].filter(Boolean).join(', ')
+        : [characterSlots.hairstyle?.en, characterSlots.hairColor?.en].filter(Boolean).join(', '),
+      !useCharacterIdentityAnchor ? characterSlots.skinDetails?.en : '',
+      characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
+      characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
+      characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
+      context.subject.count === 2 ? duoInteraction?.en : '',
+    ].filter(Boolean);
+
+    return leadSentence('The image shows', parts);
+  };
+  const buildWardrobeText = () => {
+    const parts = [];
+    const add = (value) => {
+      if (value) parts.push(value);
+    };
+
+    if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
+      add(wardrobeSlots.outfitPresetA ? `woman 1 wears ${buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true })}` : '');
+      add(wardrobeSlots.outfitPresetB ? `woman 2 wears ${buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true })}` : '');
+      add(duoStyling?.en || '');
+    } else if (wardrobeSlots.outfitPreset) {
+      add(`the subject wears ${buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true })}`);
+    } else {
+      const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor);
+      add(dressText || topOuterwearComboText || buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern }));
+      if (!dressText) {
+        add(buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern }));
+        add(buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern }));
+      }
+      add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
+      if (!topOuterwearComboText) {
+        add(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
+      }
+      add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+      add(waistlineCompatibilityText);
+    }
+
+    const accessories = [
+      buildAccessoryPrompt(wardrobeSlots.headAccessory),
+      buildAccessoryPrompt(wardrobeSlots.eyewear),
+      buildAccessoryPrompt(wardrobeSlots.earrings),
+      buildAccessoryPrompt(wardrobeSlots.neckAccessory),
+      buildAccessoryPrompt(wardrobeSlots.wristAccessory),
+      buildAccessoryPrompt(wardrobeSlots.ring),
+      buildAccessoryPrompt(wardrobeSlots.waistAccessory),
+    ].filter(Boolean);
+    if (accessories.length > 0) add(`accessories include ${accessories.join(', ')}`);
+
+    return parts.length > 0 ? sentence(`Wardrobe details: ${parts.join(', ')}`) : '';
+  };
+  const buildSceneText = () => {
+    const sceneParts = [
+      context.location && !isNoneLikeItem(context.location) ? context.location.en : '',
+      !context.styleDrivenCamera && context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.en : '',
+      !context.styleDrivenCamera && lightDirection && !isNoneLikeItem(lightDirection) ? resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count) : '',
+    ].filter(Boolean);
+
+    return leadSentence('The setting is', sceneParts);
+  };
+  const buildCameraText = () => leadSentence('The composition uses', [
+    context.framing ? resolvePromptVariant(context.framing, 'framing', context.subject.count) : '',
+    context.angle ? resolvePromptVariant(context.angle, 'angle', context.subject.count) : '',
+    context.orbit ? resolvePromptVariant(context.orbit, 'orbit', context.subject.count) : '',
+    context.lens?.en,
+    opticalEffect?.en,
+    `aspect ratio ${context.aspectRatio.en}`,
+  ]);
+  const buildStyleText = () => joinSentenceParts([
+    context.style && !isNoneLikeItem(context.style) ? buildPhotographyStylePrompt(context.style) : '',
+    !context.styleDrivenCamera ? film?.en : '',
+    'natural photographic detail, coherent fabric construction, clear facial readability, realistic spatial depth',
+    'do not add visible text unless explicitly requested',
+  ]);
+
+  return [
+    buildCharacterText(),
+    buildWardrobeText(),
+    buildSceneText(),
+    buildCameraText(),
+    buildStyleText(),
+  ].filter(Boolean).join(' ');
+}
+
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
@@ -2726,8 +2917,9 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   );
 
   const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction, duoStyling);
+  const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling);
 
-  return { midjourneyPrompt, grokPrompt };
+  return { midjourneyPrompt, grokPrompt, zImagePrompt };
 }
 
 function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film, duoInteraction, duoStyling) {
@@ -2899,7 +3091,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks);
 
-  const { midjourneyPrompt, grokPrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling);
+  const { midjourneyPrompt, grokPrompt, zImagePrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction, duoStyling);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
   return {
@@ -2909,6 +3101,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     summaryFields,
     midjourneyPrompt,
     grokPrompt,
+    zImagePrompt,
     selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film, duoInteraction, duoStyling),
     structured: {
       Style: [style],

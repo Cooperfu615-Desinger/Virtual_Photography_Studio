@@ -444,6 +444,11 @@ ${data.midjourneyPrompt}
 ${data.grokPrompt}
 \`\`\`
 
+## Z-Image Prompt
+\`\`\`text
+${data.zImagePrompt || ''}
+\`\`\`
+
 ---
 
 ## Structured Scheme
@@ -550,6 +555,7 @@ function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) {
   const summaryMatch = text.match(/\*\*Summary:\*\*\s*(.+)/);
   const midjourneyMatch = text.match(/## Midjourney Prompt\n```text\n([\s\S]*?)\n```/);
   const grokMatch = text.match(/## Grok Structured Prompt\n```text\n([\s\S]*?)\n```/);
+  const zImageMatch = text.match(/## Z-Image Prompt\n```text\n([\s\S]*?)\n```/);
 
   if (!summaryMatch || !midjourneyMatch || !grokMatch) {
     throw new Error('missing required markdown sections');
@@ -558,7 +564,8 @@ function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) {
   const summary = summaryMatch[1].trim();
   const midjourneyPrompt = midjourneyMatch[1].trim();
   const grokPrompt = grokMatch[1].trim();
-  const { locks: parsedLocks, matchedControls } = parseLocksFromStandardPrompt(`${midjourneyPrompt}\n${grokPrompt}`, controls);
+  const zImagePrompt = zImageMatch?.[1]?.trim() || '';
+  const { locks: parsedLocks, matchedControls } = parseLocksFromStandardPrompt(`${midjourneyPrompt}\n${grokPrompt}\n${zImagePrompt}`, controls);
 
   if (matchedControls.length === 0) {
     throw new Error('no recoverable controls found in prompt');
@@ -572,6 +579,7 @@ function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) {
     summaryFields: parseSummaryFields(summary),
     midjourneyPrompt,
     grokPrompt,
+    zImagePrompt,
     selection,
     structured: buildImportedStructured(selection, controls),
   };
@@ -722,6 +730,7 @@ function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
     summaryFields,
     midjourneyPrompt: String(prompt.midjourneyPrompt || ''),
     grokPrompt: String(prompt.grokPrompt || ''),
+    zImagePrompt: String(prompt.zImagePrompt || ''),
     selection,
     structured,
     lineage: prompt.lineage && typeof prompt.lineage === 'object' ? prompt.lineage : null,
@@ -745,6 +754,7 @@ function serializeFavoritePrompt(prompt) {
     s: sanitized.summary,
     m: sanitized.midjourneyPrompt,
     g: sanitized.grokPrompt,
+    z: sanitized.zImagePrompt,
     l: compactPromptSelection(sanitized.selection),
     n: sanitized.lineage,
     r: sanitized.remixMeta,
@@ -761,6 +771,7 @@ function deserializeFavoritePrompt(record) {
       summary: record.s,
       midjourneyPrompt: record.m,
       grokPrompt: record.g,
+      zImagePrompt: record.z,
       selection: record.l,
       lineage: record.n,
       remixMeta: record.r,
