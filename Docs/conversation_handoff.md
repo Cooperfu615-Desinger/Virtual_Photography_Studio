@@ -11,36 +11,43 @@
 
 ## Current Working State
 
-- Latest pushed commit on `main`: `e90cbfe Refine face accessory wording`
-- Working tree has no tracked code changes pending
-- Untracked docs currently present and intentionally untouched:
-  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/DUO_MODE_DESIGN_BRIEF.md`
-  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/analysis_report.md`
-  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/conversation_handoff.md`
+- Latest pushed commit on `main`: `e509cd4 Add scene attribute filtering for page1 locations`
+- Working tree was clean at handoff time except this handoff doc if edited again later
+- Work continues directly on `main`
+- Standard validation flow remains:
+  - `python3 scripts/sync_to_json.py`
+  - `npm run build`
 
 ## Main Code Areas
 
 - Prompt engine:
   - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
-- Main app / page switch / library editor / Page2:
+- Main app / page switch / locks / import-export / PAGE2 / PAGE3:
   - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/App.jsx`
-- Result card UI:
+- PAGE1 workspace UI:
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page1Workspace.jsx`
+- PAGE2 workspace UI:
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page2Workspace.jsx`
+- PAGE3 workspace UI:
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page3Workspace.jsx`
+- Prompt card UI:
   - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptCard.jsx`
 - Shared styles:
   - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/index.css`
 
 ## Core Product State
 
-- The app remains frontend-only with no backend.
-- Work still commits directly to `main`.
-- `Subject Count` still supports:
+- The app is still frontend-only with no backend.
+- `Subject Count` supports:
   - `1 位`
   - `2 位`
   - `上傳人物`
 - `上傳人物` is still prompt-only guidance:
   - no in-app upload exists
-  - prompt tells the image model to use the attached reference image as primary facial identity guidance
+  - generated prompt expects the user to attach the same reference image directly in the target image tool
 - Main controls still include:
+  - `Generate`
+  - `Clear Feed`
   - `All Random`
   - `All None`
 
@@ -48,298 +55,334 @@
 
 ### PAGE1
 
-- PAGE1 is the main prompt-generation workspace.
-- It is the place for:
-  - scene
+- PAGE1 is the main full-scene prompt generator.
+- PAGE1 now includes:
+  - scene + scene attribute
   - wardrobe
   - body type
-  - special action / pose
+  - pose / special action
   - lighting
   - camera language
-- PAGE1 no longer receives Page2 role prompt injection.
+  - restore / import tools
+- PAGE1 remains the only page that generates full Midjourney + Grok prompts for final image use.
 
 ### PAGE2
 
-- PAGE2 is now a separate character-reference builder.
-- PAGE2 does **not** feed a role prompt back into PAGE1 anymore.
-- PAGE2 is intended to generate face-lock / reference-image prompts, not final scene prompts.
-- Current PAGE2 fields:
-  - `眼睛`
-  - `眉型`
-  - `鼻子`
-  - `嘴唇`
-  - `臉型`
-  - `皮膚`
-  - `妝容`
-- PAGE2 outputs:
-  - a short `Face Anchor`
-  - multiple character reference prompts
-- Current reference outputs include:
-  - `四角度合成一張`
-  - `正面`
-  - `左前 45 度`
-  - `右前 45 度`
-  - `側面`
-  - `背面`
-- The top UI now has direct `PAGE1` / `PAGE2` switch buttons.
+- PAGE2 is a fully separate character-reference builder.
+- PAGE2 does not inject role text back into PAGE1.
+- PAGE2 is intended for identity-lock / reference prompts only.
+- PAGE2 was moved toward a more passport / reference-photo direction for cross-model reuse.
+- PAGE2 currently emphasizes standard identity views rather than editorial portrait language.
+- Key PAGE2 outputs now include:
+  - `Face Anchor`
+  - `Identity Prompt`
+  - `Master Sheet`
+  - `Core Views Bundle`
+  - `Prompt Bundle`
+- Core reference-angle logic was tuned toward:
+  - front
+  - left three-quarter
+  - side profile
+  - back view
 
-## Library Editor
+### PAGE3
 
-- In-app `Library Editor` exists and is usable.
-- It is a browser-draft workflow, not direct repo writing.
-- Current capabilities:
-  - choose group/category
-  - search entries
-  - edit `zh / en / desc`
-  - add new entry
-  - save browser draft
-  - restore built-in data
-  - generate one test prompt from current draft
-  - copy draft summary
-- Draft summary export is intended to help later formal writeback into markdown knowledge-base files.
-- Changes made in the editor apply immediately to prompt generation inside the browser session.
+- PAGE3 exists and is fully separate from PAGE1 / PAGE2.
+- PAGE3 is a pure scene / world / environment prompt builder.
+- PAGE3 outputs:
+  - `Scene Anchor`
+  - `Scene Prompt`
+  - `Cinematic Prompt`
+  - `World Prompt`
+- PAGE3 currently supports:
+  - scene scale
+  - scene subject
+  - city identity
+  - worldview direction
+  - photography style
+  - time / weather
+  - lighting mood
+  - composition / lens language
+  - material / environment details
+- PAGE3 can now use PAGE1 photography styles in a scene-adapted way.
+- PAGE3 also has a dedicated `城市定位` field:
+  - 東京
+  - 首爾
+  - 台北
+  - 上海
+  - 紐約
+  - 倫敦
+  - 巴黎
+- City identity wording includes landmark-aware cues:
+  - Tokyo Tower / Skytree
+  - Taipei 101
+  - Oriental Pearl / Lujiazui
+  - Big Ben / The Shard / London Eye
+  - Eiffel Tower
 
-## Card / Remix System
+## PAGE1 Restore / Import / Feed System
+
+- Favorites now support direct restore back to PAGE1.
+- Prompt cards in Favorites have a restore control that loads the saved structured selection back into the console.
+- `回填 Prompt` exists next to `Library Editor`.
+- Standard-format prompt restore is implemented:
+  - paste a standard exported prompt
+  - parse matching controls
+  - restore them into PAGE1
+- Restore default rule:
+  - if a control has `全無` and restore misses it, it becomes `全無`
+  - otherwise it falls back to `Random`
+- `Download Feed` exists.
+- `Import Feed` exists and is live.
+- Feed ZIP import rules:
+  - accepts the app’s own ZIP format only
+  - merges into current Favorites
+  - duplicate ids are overwritten by imported entries
+  - invalid ZIP format rejects the whole import
+- Feed and Favorites no longer have the old 120-item cap.
+
+## Prompt Card / Remix System
 
 - Prompt cards support:
-  - summary-level lock-aware remix
+  - summary-level remix
   - retained / changed / adjusted diff states
-  - quick remix buttons:
-    - `保角色 DNA`
-    - `保表情姿勢`
-    - `保整體服裝`
-    - `保場景鏡頭`
   - lineage display
   - branch remix
   - delete
-- Favorites and feed stay in sync with deletes and replacements.
+  - favorite toggle
+  - restore from favorite
+- Quick remix groups still exist and use summary / advanced group mappings.
 
-## Prompt-System State
+## Prompt System State
 
 ### General
 
-- Negative prompt output was removed from active UI / export flow.
-- `Special Action` and normal `Pose` are mutually exclusive.
-- `Special Action` is single-select and only available in single-subject mode.
+- Negative prompt output is not part of the active UI / export flow.
+- `Pose` and `Special Action` remain mutually exclusive.
+- `Special Action` is single-subject only.
+- `Special Action: none.` and `Pose: none.` no longer appear in structured prompt output.
 
-### Grok Prompt
+### Grok Prompt Direction
 
 - Grok remains the fuller structured prompt.
-- Grok structure was heavily reworked to prioritize:
+- Current priority still favors:
   - subject
   - body type
   - clothing
-  - action
-  - then face / hair / expression
-  - then location / lighting
-  - camera language later
-- The current ordering is intentionally biased toward “make the person exist correctly first”.
-- This was done because Aurora / Grok was over-prioritizing face description and sometimes collapsing into headshot-like results or dropping outfit clarity.
-
-### Current Grok Priority Direction
-
-- Current intended priority is roughly:
-  - `Subject Count`
-  - `Body Type`
-  - `Outfit Preset` or `Top / Pants / Skirt`
-  - `Special Action / Pose`
-  - `Facial Features`
-  - `Hairstyle / Hair Color`
-  - `Expression`
-  - `Location`
-  - `Environment Mood`
-  - `Light Style`
-  - `Aspect Ratio`
-  - `Film`
-  - `Angle`
-  - `Orbit Angle`
-  - `Lens`
-  - `Optical Effect`
-  - other accessories later
+  - pose / action
+  - face / hair / expression
+  - then location / lighting / camera
+- This ordering was intentionally kept because Grok / Aurora tends to over-prioritize face detail if face content is too early.
 
 ### Midjourney Prompt
 
-- Midjourney Prompt v2 is active.
-- Midjourney output is now flattened / direct-use oriented:
-  - no visible section labels
-  - no automatic `--ar`
-- A second refinement pass already adjusted:
-  - special action priority
-  - angle / orbit conflicts for face-heavy actions
-  - punctuation cleanup
-- Midjourney is currently much more compact than older versions.
+- Midjourney output is still flattened and direct-use oriented.
+- No automatic `--ar`.
+- Compact wording remains preferred.
 
-## Aurora / Grok-Specific Learnings
+## Close-up Mode
 
-- Aurora / Grok was found to over-prioritize detailed face-lock text.
-- Because of that:
-  - Page2 no longer injects into PAGE1
-  - face-heavy identity wording was reduced
-  - composition / clothing / action are prioritized earlier in PAGE1 output
-- This shift was based on real testing that showed overly detailed role identity text often caused:
-  - headshot-like crops
-  - dropped outfit details
-  - reduced obedience to action / location
+- PAGE1 has four dedicated close-up framings:
+  - `臉部特寫`
+  - `胸上特寫`
+  - `局部五官特寫`
+  - `半臉傾斜特寫`
+- Choosing one of these activates close-up mode.
+- Close-up mode automatically disables or clears non-face-relevant wardrobe / pose fields.
+- `胸上特寫` is the only one that still keeps limited upper-clothing options.
+- User explicitly reviewed this behavior and accepted it.
+- Important consequence:
+  - if everything is set to Random, some outputs will intentionally have no visible top / bottom when a close-up framing is randomly chosen
+  - this is expected and should not currently be “fixed”
 
-## Facial Feature / Face Accessory Logic
+## Random Logic State
 
-- For single-subject prompts, `Eyewear` and `Earrings` are now merged into `Facial Features`.
-- Current behavior:
-  - if `Facial Features` exists and face accessories are set, output becomes one combined block
-  - face accessories are formatted as a single `wearing ... and ...` phrase
-- Example direction:
-  - `Facial Features: ... . wearing retro round glasses ... and small metallic earring detail ...`
-- This was done because Grok follows face accessories better when they are attached to face description instead of emitted as detached accessory lines.
-- Dual-subject prompts still keep safer separate logic.
-- This face-accessory merge is the right place to extend later for:
-  - nose ring
-  - eyebrow piercing
-  - lip ring
+- Wardrobe random routing was upgraded.
+- When core wardrobe is Random, routing now chooses among:
+  - `套裝`
+  - `連身`
+  - separated `上身 + 下身`
+- If random lands on `套裝`:
+  - core clothing does not mix with separate top / pants / skirt
+  - socks / shoes / small accessories can still randomize
+- `Random` itself does not intentionally choose `全無` for core wardrobe items.
+- Many earlier “conflict” cases came from close-up framing rules rather than wardrobe random itself.
+- Additional random-conflict reduction was already added:
+  - close-up framings do not randomly keep irrelevant pose
+  - close-up framings do not keep unrelated lower-body clothing
+  - indoor / underground scenes are more protected from obviously outdoor sky-like lighting combinations
 
-## Hair System Changes
+## Scene System State
 
-- Hair color wording was extensively rewritten for realism.
-- Major fixes:
-  - removed ethnicity-driving hair terms like `European` / `Irish`
-  - renamed hair entries:
-    - `白人金髮` -> `淺金髮`
-    - `愛爾蘭紅髮` -> `銅紅髮`
-  - all hair colors now emphasize:
-    - realistic human hair texture
-    - visible strands
-    - subtle root variation
-    - no plastic wig texture
-- High-risk hair colors also include eyebrow-protection wording so eyebrows are less likely to be dyed to match.
-- A bug in none-like detection was fixed:
-  - earlier, text containing `no ...` could be mistaken for “none”
-  - this was causing some hair color lines to disappear from Grok
+- PAGE1 now has a separate `場景屬性` control:
+  - `未指定`
+  - `室內`
+  - `戶外`
+- `場景` options are filtered by `場景屬性`.
+- Random scene selection also respects this filter.
+- Scene-dependent lighting / light-direction filtering still exists and continues to work.
 
-## Photography Style System
+### Recent Japanese Lifestyle Scene Additions
 
-- Photography style wording was globally shortened and made less literary.
-- Older long abstract tails were removed in favor of more image-controlling wording:
-  - lighting
-  - contrast
-  - tone
-  - texture
-- `STYLE_PROMPT_INTROS` still exists in `engine.js`.
-- Duplicate `Inspired by ...` repetition in Grok was already fixed:
-  - intro remains
-  - duplicated second prefix is stripped
-- Added style preset:
-  - `Yuki Aoyama（青山裕企）`
+- Added:
+  - `室內：女高生房間`
+  - `室內：日式和室`
+  - `室內：日本學校教室`
+  - `室內：辦公室茶水間`
+  - `戶外：日本住宅陽台曬衣架旁`
+  - `戶外：日本住宅外樓梯間`
+  - `戶外：社區自動販賣機旁`
+  - `戶外：辦公大樓人行道（上班途中）`
 
-## Special Action System
+### Other Recent Scene Additions
 
-- Special action system is active and separate from pose.
-- Current special actions include items such as:
-  - `塗口紅`
-  - `喝咖啡`
-  - `吃棒棒糖`
-  - `抽煙`
-  - `整理絲襪`
-  - `半脫上衣整理肩線`
-  - `霸氣坐在雕花單人沙發上`
-  - `趴臥滑手機`
-  - `側身斜躺伸腿`
-  - `四足跪姿前傾`
-  - `抱枕俯臥回眸`
-  - `分腿跪坐仰視`
-- Full-body-sensitive special actions already bias framing selection to keep limbs visible.
-- Important recent tweak target:
-  - `趴臥滑手機`
-  - user wants the pose unchanged but gaze toward camera instead of looking down at phone
-  - if not yet updated in KB, this is a likely next micro-task
+- `戶外：目黑川旁的櫻花隧道`
+  - refined to avoid generic two-row cherry avenue framing
+  - intended framing is bridge foreground + river + one-side sakura + city
+- `戶外：大阪道頓堀心齋橋河道`
+- `戶外：清澈海灣岩岸`
+- `戶外：岩洞感海灣淺灘`
 
-## Accessory System
+## Wardrobe System State
 
-- Active separate accessory controls still include:
-  - `眼鏡`
-  - `耳環`
-  - `頸部`
-  - `腕部`
-  - `戒指`
-  - `腰部`
-- However, face-adjacent accessories now behave differently in Grok:
-  - `Eyewear`
-  - `Earrings`
-  - merged into `Facial Features` for single-subject prompts
-- Accessory wording in general was also softened earlier so Grok would not over-focus on jewelry.
+### Structural Changes
 
-## Location / Scene Additions
+- `連身 (Dresses)` is now a dedicated category.
+- `無袖連身洋裝` and `細肩帶連身洋裝` were moved there from `裙裝`.
+- `連身` is treated as a single one-piece outfit covering upper + lower body.
+- It can still combine with:
+  - outerwear
+  - shoes
+  - legwear
+  - accessories
 
-### British Interior Set
+### Outerwear
 
-- Added British lifestyle interiors:
-  - `室內：倫敦老咖啡館角落`
-  - `室內：英式小旅館房間`
-  - `室內：傳統酒吧二樓包廂`
-  - `室內：英式溫室 conservatory`
+- Added `外套穿法`:
+  - `正常穿著`
+  - `滑落肩部`
+- Added:
+  - `人造毛皮草外套`
+  - `寬鬆西裝外套`
+  - `合身西裝外套`
+- All `top + outerwear` combinations now favor a short merged prompt format rather than two loose lines.
+- This was done because separate top / outerwear wording was causing frequent shoulder and layering conflicts.
+- A tested special-case remains for:
+  - `比基尼 + 人造毛皮草外套 + 正常穿著`
+  - this combo was tuned with a short merged wording because it tested best in Grok Imagine.
 
-### British Music Interiors
+### Head Accessories
 
-- Added music-oriented British interiors:
-  - `室內：黑膠唱片聆聽角`
-  - `室內：老式鋼琴房`
-  - `室內：地下 live house 後台`
+- New `頭部配件` control exists.
+- Current entries include:
+  - `耳罩式耳機（戴在頭上）`
+  - `耳罩式耳機（掛在脖子上）`
+  - `有線耳機`
+- Two headphone variants were later refined toward:
+  - Marshall Major V black
+  - AirPods Max silver
 
-### British Outdoor / Punk / Street-Art Set
+### Shoes / Color Pool
 
-- Added British outdoor scenes:
-  - `戶外：倫敦排屋街道`
-  - `戶外：雨後 mews 巷弄`
-- Added East London street-art / punk scenes:
-  - `戶外：Brick Lane 海報牆巷口`
-  - `戶外：Shoreditch 紅磚塗鴉街`
-  - `戶外：Camden 龐克街角`
+- Branded sneaker options were added:
+  - `ADIZERO EVO SL JS4506`
+  - `Samba OG`
+  - `Nike P-6000`
+  - `Onitsuka Tiger Mexico 66`
+- Shoe colors were expanded with stronger vivid / fluorescent options.
+- Garment color pool was also rebalanced by adding more vivid colors, which reduced the previous “green appears too often” feeling in Random tests.
+- User tested this and reported that the current result feels much better.
 
-## Camera / Lighting Notes
+### Outfit Presets and Recent Wardrobe Additions
 
-- `前景遮擋散景` wording was tightened to a more stable version:
-  - `controlled foreground bokeh occlusion from a fixed out-of-focus object near the lens, soft edge blur framing the subject, stable layered depth, clean cinematic foreground veil`
-- The goal was to avoid chaotic foreground blobs and make the occlusion feel physically anchored.
+- Added and refined multiple outfit presets and garments, including:
+  - generalized monochrome long shirt + pleated skirt preset
+  - gothic off-shoulder dress preset with fixed black details and variable main color
+  - silver halter mini dress preset
+  - high-neck high-cut bodysuit variants
+  - multiple lifestyle and swimwear refinements
 
-## Wardrobe / Prompt Safety Notes
+## Character / Body / Hair State
 
-- Wardrobe randomization no longer allows top to disappear accidentally due to `全無`.
-- Top fallback logic exists so unlocked random generation does not silently remove upper clothing.
-- Negative prompt UI / markdown export were removed from active usage.
-- Added one more precise blouse top entry based on reference analysis:
-  - `雪紡荷葉高領蝴蝶結襯衫`
+### Body Types
 
-## Page2 Notes For Next Session
+- `正常人` was removed from body types.
+- `內衣模特兒` and `性感` were rewritten to emphasize:
+  - tall proportions
+  - long legs
+  - narrow waist
+  - stronger bust / hip contrast
+  - less risk of short, stocky output
+- `性感` was also specifically rewritten away from “slightly fuller” language and toward a slim exaggerated hourglass silhouette.
 
-- PAGE2 is now useful as a face-reference prompt generator, not a role injector.
-- Good next-step ideas if continuing PAGE2:
-  - allow one-click batch copy of all reference prompts
-  - add more face options only after validating current 7-field set
-  - possibly add a “4-panel sheet + back view” combined master prompt
+### Hair
+
+- Hairstyle list was recently pruned and regrouped.
+- Display names are now grouped into:
+  - `長髮（放髮）｜...`
+  - `長髮（綁髮）｜...`
+  - `短髮｜...`
+- Some overlapping styles were removed, with user-approved keeps such as:
+  - `韓系深側分柔波長髮`
+  - `及肩內彎鮑伯`
+  - `中短層次鮑伯`
+- Hair color system remains realism-oriented:
+  - real strands
+  - subtle root variation
+  - no plastic wig texture
+
+## Special Action State
+
+- Special action library expanded significantly during recent sessions.
+- Recent additions include:
+  - `靠牆站立`
+  - `靠牆坐姿`
+  - `跪姿前傾倚靠高背`
+  - `靠牆後仰站姿`
+  - multiple lipstick / lollipop / coffee / lounge / wall / recline refinements
+- Lipstick actions were split for better control:
+  - clean application
+  - messy / outside-the-lip-line application
+- `塗歪口紅` was explicitly updated to require the lipstick to be visibly held and applied, not just the smeared result.
+
+## Library Editor
+
+- Library Editor remains browser-draft based.
+- It does not write markdown files directly.
+- It supports:
+  - choose group/category
+  - search entries
+  - edit `zh / en / desc`
+  - create entry
+  - save browser draft
+  - reset to built-in library
+  - generate one test card from current locks
+  - copy draft summary
 
 ## Implementation Notes
 
-- Markdown knowledge-base edits should always be followed by:
+- Markdown KB edits should always be followed by:
   - `python3 scripts/sync_to_json.py`
-- When manually editing code, continue using `apply_patch`.
-- Be careful not to stage or remove untracked `Docs/` files unless explicitly asked.
-- Recent sessions repeatedly saw a misleading first `git push origin main` that returned `Everything up-to-date` while a just-created commit still had not reached origin because commit and push were run in parallel.
-  - safest practice after commit:
-    - run `git push origin main` again if needed
-    - then run `git status -sb`
+- Then validate with:
+  - `npm run build`
+- Continue using `apply_patch` for manual file edits.
+- If a first `git push origin main` says `Everything up-to-date` right after commit, verify with:
+  - `git status -sb`
+  - `git rev-parse HEAD`
+  - `git rev-parse origin/main`
+- This repo has occasionally hit stale `.git/index.lock`; removing it is safe only after confirming no other git process is running.
 
 ## Good Next-Step Context
 
-- High-value prompt-quality areas:
-  - further Grok ordering refinement based on real renders
-  - further Midjourney compactness / priority tuning
-  - more face accessories:
-    - nose ring
-    - eyebrow piercing
-    - lip ring
-- High-value content expansion areas:
-  - more British lighting presets
-  - more British subculture locations
-  - more outfit presets compatible with British interiors / punk exteriors
-- High-value UI / workflow areas:
-  - batch-copy tools for PAGE2 reference prompts
-  - formal writeback path from Library Editor drafts into markdown KB
-  - clearer indication of which prompt system parts are single-subject-only
+- High-value PAGE3 next steps:
+  - add more real-city scene subjects
+  - add more Japan-specific lifestyle / city / station / neighborhood scene types
+  - keep improving city landmark phrasing without turning every scene into a postcard
+- High-value PAGE1 next steps:
+  - continue random-conflict tuning as more wardrobe and scene categories are added
+  - consider whether some scene groups should get stronger indoor / outdoor compatibility rules
+  - keep evaluating merged `top + outerwear` prompt behavior across more clothing pairs
+- High-value content expansion:
+  - more Japanese everyday locations
+  - more office / school / commute scenes
+  - more one-piece dresses and layered outerwear combinations
