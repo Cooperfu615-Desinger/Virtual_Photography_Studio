@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import Page1Workspace from './components/Page1Workspace';
@@ -34,6 +34,8 @@ const STORAGE_BUDGETS = {
   [PROMPTS_KEY]: 2_250_000,
   [FAVORITES_KEY]: 2_250_000,
 };
+const STORAGE_PERSIST_DELAY_MS = 300;
+const STORAGE_IDLE_TIMEOUT_MS = 1000;
 const PAGE2_FIELD_OPTIONS = {
   eyes: [
     { id: '', zh: '未指定', en: '' },
@@ -840,6 +842,35 @@ function persistPromptCollection(key, prompts, serializer = sanitizeStoredPrompt
   return { truncatedCount: sanitized.length, failed: true };
 }
 
+function schedulePromptCollectionPersist(key, prompts, serializer, onResult) {
+  if (typeof window === 'undefined') return () => {};
+
+  let idleHandle = null;
+  const timeoutId = window.setTimeout(() => {
+    const persist = () => {
+      idleHandle = null;
+      onResult(persistPromptCollection(key, prompts, serializer));
+    };
+
+    if ('requestIdleCallback' in window) {
+      idleHandle = window.requestIdleCallback(persist, { timeout: STORAGE_IDLE_TIMEOUT_MS });
+      return;
+    }
+
+    idleHandle = window.setTimeout(persist, 0);
+  }, STORAGE_PERSIST_DELAY_MS);
+
+  return () => {
+    window.clearTimeout(timeoutId);
+    if (idleHandle === null) return;
+    if ('cancelIdleCallback' in window) {
+      window.cancelIdleCallback(idleHandle);
+      return;
+    }
+    window.clearTimeout(idleHandle);
+  };
+}
+
 function createEntryKey(group, category, index) {
   return `${group}::${category}::${index}`;
 }
@@ -1399,34 +1430,71 @@ export default function App() {
   const [copiedLabel, setCopiedLabel] = useState('');
   const [isImportPromptOpen, setIsImportPromptOpen] = useState(false);
   const [importPromptText, setImportPromptText] = useState('');
+  const promptsRef = useRef(prompts);
+  const favoritePromptsRef = useRef(favoritePrompts);
 
   useEffect(() => {
-    const result = persistPromptCollection(PROMPTS_KEY, prompts);
-    if (result.failed) {
-      showStorageWarning('提示：本機儲存空間已滿，新的 Feed 卡片這次無法完整保存。');
-      return;
-    }
-    if (result.truncatedCount > 0) {
-      showStorageWarning(`提示：為避免瀏覽器儲存爆滿，只保留最新 ${prompts.length - result.truncatedCount} 張 Feed 卡片到本機。`);
-      return;
-    }
-    clearStorageWarning('prompts');
+    promptsRef.current = prompts;
   }, [prompts]);
 
   useEffect(() => {
-    const result = persistPromptCollection(FAVORITES_KEY, favoritePrompts, (items) =>
-      items.map(serializeFavoritePrompt).filter(Boolean)
-    );
-    if (result.failed) {
-      showStorageWarning('提示：本機儲存空間已滿，這次最愛變更無法完整保存，但畫面不會再白掉。');
-      return;
-    }
-    if (result.truncatedCount > 0) {
-      showStorageWarning(`提示：為避免瀏覽器儲存爆滿，只保留最新 ${favoritePrompts.length - result.truncatedCount} 張 Favorites 到本機。`);
-      return;
-    }
-    clearStorageWarning('favorites');
+    favoritePromptsRef.current = favoritePrompts;
   }, [favoritePrompts]);
+
+  useEffect(() => {
+    return schedulePromptCollectionPersist(PROMPTS_KEY, prompts, sanitizeStoredPromptCollection, (result) => {
+      if (result.failed) {
+        showStorageWarning('提示：本機儲存空間已滿，新的 Feed 卡片這次無法完整保存。');
+        return;
+      }
+      if (result.truncatedCount > 0) {
+        showStorageWarning(`提示：為避免瀏覽器儲存爆滿，只保留最新 ${prompts.length - result.truncatedCount} 張 Feed 卡片到本機。`);
+        return;
+      }
+      clearStorageWarning('prompts');
+    });
+  }, [prompts]);
+
+  useEffect(() => {
+    return schedulePromptCollectionPersist(
+      FAVORITES_KEY,
+      favoritePrompts,
+      (items) => items.map(serializeFavoritePrompt).filter(Boolean),
+      (result) => {
+        if (result.failed) {
+          showStorageWarning('提示：本機儲存空間已滿，這次最愛變更無法完整保存，但畫面不會再白掉。');
+          return;
+        }
+        if (result.truncatedCount > 0) {
+          showStorageWarning(`提示：為避免瀏覽器儲存爆滿，只保留最新 ${favoritePrompts.length - result.truncatedCount} 張 Favorites 到本機。`);
+          return;
+        }
+        clearStorageWarning('favorites');
+      }
+    );
+  }, [favoritePrompts]);
+
+  useEffect(() => {
+    const flushPromptCollections = () => {
+      persistPromptCollection(PROMPTS_KEY, promptsRef.current);
+      persistPromptCollection(FAVORITES_KEY, favoritePromptsRef.current, (items) =>
+        items.map(serializeFavoritePrompt).filter(Boolean)
+      );
+    };
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        flushPromptCollections();
+      }
+    };
+
+    window.addEventListener('pagehide', flushPromptCollections);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('pagehide', flushPromptCollections);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
 
   useEffect(() => {
     window.localStorage.setItem(LOCKS_KEY, JSON.stringify(locks));
@@ -1608,7 +1676,7 @@ export default function App() {
     });
   }, [lockControls]);
 
-  const updateLocks = (updater) => {
+  const updateLocks = useCallback((updater) => {
     setLocks((prev) => {
       const candidate = typeof updater === 'function' ? updater(prev) : { ...prev, ...updater };
       const next = sanitizeLocksForCloseupMode({ ...candidate }, lockControls);
@@ -1641,18 +1709,18 @@ export default function App() {
 
       return next;
     });
-  };
+  }, [activeLibrary, lockControls]);
 
-  const handleGenerate = () => {
+  const handleGenerate = useCallback(() => {
     const newPrompts = generatePrompts(genCount, locks, activeLibrary).map((prompt) => ({
       ...prompt,
       lineage: createLineage(prompt),
     }));
     setPrompts((prev) => [...newPrompts, ...prev]);
     setViewMode('feed');
-  };
+  }, [activeLibrary, genCount, locks]);
 
-  const handleRemixPrompt = (prompt, summaryKeys = [], options = {}) => {
+  const handleRemixPrompt = useCallback((prompt, summaryKeys = [], options = {}) => {
     const { branch = false } = options;
     const keepKeys = Array.from(new Set(summaryKeys.flatMap((key) => SUMMARY_REROLL_MAP[key] || [])));
     const remixLocks = buildLocksFromPrompt(prompt, keepKeys);
@@ -1671,21 +1739,21 @@ export default function App() {
 
     setPrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
     setFavoritePrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
-  };
+  }, [activeLibrary]);
 
-  const toggleFavorite = (prompt) => {
+  const toggleFavorite = useCallback((prompt) => {
     setFavoritePrompts((prev) => {
       if (prev.some((item) => item.id === prompt.id)) {
         return prev.filter((item) => item.id !== prompt.id);
       }
       return [prompt, ...prev];
     });
-  };
+  }, []);
 
-  const handleDeletePrompt = (prompt) => {
+  const handleDeletePrompt = useCallback((prompt) => {
     setPrompts((prev) => prev.filter((item) => item.id !== prompt.id));
     setFavoritePrompts((prev) => prev.filter((item) => item.id !== prompt.id));
-  };
+  }, []);
 
   const handleDownloadAll = () => {
     if (displayPrompts.length === 0) return;
@@ -1770,12 +1838,12 @@ export default function App() {
     window.setTimeout(() => setCopiedLabel(''), 1800);
   };
 
-  const applyLocksToConsole = (nextLocks, successLabel) => {
+  const applyLocksToConsole = useCallback((nextLocks, successLabel) => {
     const restoredLocks = buildRestoreLocks(nextLocks, lockControls);
     updateLocks(() => normalizeLocks(restoredLocks));
     setPageMode('page1');
     showToast(successLabel);
-  };
+  }, [lockControls, updateLocks]);
 
   const handleLibraryGroupChange = (nextGroup) => {
     const nextGroupOption = knowledgeBaseOptions.find((group) => group.value === nextGroup) || null;
@@ -1877,13 +1945,13 @@ export default function App() {
     handleCopyText('Library draft summary copied', libraryDraftSummary);
   };
 
-  const handleRestorePromptToConsole = (prompt) => {
+  const handleRestorePromptToConsole = useCallback((prompt) => {
     if (!prompt?.selection) {
       showToast('這張卡片沒有可回填的設定');
       return;
     }
     applyLocksToConsole(prompt.selection, '卡片設定已回填到主控台');
-  };
+  }, [applyLocksToConsole]);
 
   const handleApplyImportedPrompt = () => {
     const { locks: parsedLocks, matchedControls } = parseLocksFromStandardPrompt(importPromptText, lockControls);
