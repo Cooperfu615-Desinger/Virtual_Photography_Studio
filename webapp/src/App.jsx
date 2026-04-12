@@ -4,7 +4,13 @@ import { saveAs } from 'file-saver';
 import Page1Workspace from './components/Page1Workspace';
 import Page2Workspace from './components/Page2Workspace';
 import Page3Workspace from './components/Page3Workspace';
-import SelectControlField from './components/SelectControlField';
+import {
+  loadCloudFavorites,
+  replaceCloudFavorites,
+  signInToFavorites,
+  signOutFromFavorites,
+  subscribeToFavoriteAuth,
+} from './lib/favoritesRepository';
 import {
   buildLocksFromPrompt,
   createEmptyLocks,
@@ -36,6 +42,7 @@ const STORAGE_BUDGETS = {
 };
 const STORAGE_PERSIST_DELAY_MS = 300;
 const STORAGE_IDLE_TIMEOUT_MS = 1000;
+const FAVORITES_CLOUD_SYNC_DELAY_MS = 900;
 const PAGE2_FIELD_OPTIONS = {
   eyes: [
     { id: '', zh: '未指定', en: '' },
@@ -1430,8 +1437,31 @@ export default function App() {
   const [copiedLabel, setCopiedLabel] = useState('');
   const [isImportPromptOpen, setIsImportPromptOpen] = useState(false);
   const [importPromptText, setImportPromptText] = useState('');
+  const [favoriteCloudAuth, setFavoriteCloudAuth] = useState({ status: 'loading', user: null, error: null });
+  const [favoriteCloudSyncStatus, setFavoriteCloudSyncStatus] = useState('local-only');
   const promptsRef = useRef(prompts);
   const favoritePromptsRef = useRef(favoritePrompts);
+  const favoriteCloudSyncReadyRef = useRef(false);
+
+  const showToast = useCallback((label) => {
+    setCopiedLabel(label);
+    window.setTimeout(() => setCopiedLabel(''), 1800);
+  }, []);
+
+  const showStorageWarning = useCallback((label) => {
+    if (storageWarningRef.current === label) return;
+    storageWarningRef.current = label;
+    showToast(label);
+  }, [showToast]);
+
+  const clearStorageWarning = useCallback((channel) => {
+    if (channel === 'prompts' && storageWarningRef.current.includes('Feed')) {
+      storageWarningRef.current = '';
+    }
+    if (channel === 'favorites' && storageWarningRef.current.includes('Favorites')) {
+      storageWarningRef.current = '';
+    }
+  }, []);
 
   useEffect(() => {
     promptsRef.current = prompts;
@@ -1440,6 +1470,33 @@ export default function App() {
   useEffect(() => {
     favoritePromptsRef.current = favoritePrompts;
   }, [favoritePrompts]);
+
+  useEffect(() => {
+    return subscribeToFavoriteAuth((nextAuthState) => {
+      favoriteCloudSyncReadyRef.current = false;
+      setFavoriteCloudAuth(nextAuthState);
+
+      if (nextAuthState.status !== 'signed-in' || !nextAuthState.user) {
+        setFavoriteCloudSyncStatus(nextAuthState.status === 'disabled' ? 'disabled' : 'local-only');
+        return;
+      }
+
+      setFavoriteCloudSyncStatus('loading');
+      loadCloudFavorites(nextAuthState.user.uid)
+        .then((cloudFavorites) => {
+          const hydratedCloudFavorites = deserializeFavoritePromptCollection(cloudFavorites);
+          setFavoritePrompts((prev) => mergeFavoritePrompts(hydratedCloudFavorites, prev));
+          favoriteCloudSyncReadyRef.current = true;
+          setFavoriteCloudSyncStatus('synced');
+        })
+        .catch((error) => {
+          favoriteCloudSyncReadyRef.current = false;
+          console.error('Failed to load cloud favorites:', error);
+          setFavoriteCloudSyncStatus('error');
+          showToast('Firebase Favorites 載入失敗，暫時使用本機資料');
+        });
+    });
+  }, [showToast]);
 
   useEffect(() => {
     return schedulePromptCollectionPersist(PROMPTS_KEY, prompts, sanitizeStoredPromptCollection, (result) => {
@@ -1453,7 +1510,7 @@ export default function App() {
       }
       clearStorageWarning('prompts');
     });
-  }, [prompts]);
+  }, [clearStorageWarning, prompts, showStorageWarning]);
 
   useEffect(() => {
     return schedulePromptCollectionPersist(
@@ -1472,7 +1529,29 @@ export default function App() {
         clearStorageWarning('favorites');
       }
     );
-  }, [favoritePrompts]);
+  }, [clearStorageWarning, favoritePrompts, showStorageWarning]);
+
+  useEffect(() => {
+    if (favoriteCloudAuth.status !== 'signed-in' || !favoriteCloudAuth.user || !favoriteCloudSyncReadyRef.current) {
+      return undefined;
+    }
+
+    setFavoriteCloudSyncStatus('saving');
+    const timeoutId = window.setTimeout(() => {
+      const serializedFavorites = favoritePrompts.map(serializeFavoritePrompt).filter(Boolean);
+      replaceCloudFavorites(favoriteCloudAuth.user.uid, serializedFavorites)
+        .then(() => {
+          setFavoriteCloudSyncStatus('synced');
+        })
+        .catch((error) => {
+          console.error('Failed to sync cloud favorites:', error);
+          setFavoriteCloudSyncStatus('error');
+          showToast('Firebase Favorites 同步失敗，已保留本機資料');
+        });
+    }, FAVORITES_CLOUD_SYNC_DELAY_MS);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [favoriteCloudAuth, favoritePrompts, showToast]);
 
   useEffect(() => {
     const flushPromptCollections = () => {
@@ -1480,6 +1559,14 @@ export default function App() {
       persistPromptCollection(FAVORITES_KEY, favoritePromptsRef.current, (items) =>
         items.map(serializeFavoritePrompt).filter(Boolean)
       );
+      if (favoriteCloudAuth.status === 'signed-in' && favoriteCloudAuth.user && favoriteCloudSyncReadyRef.current) {
+        replaceCloudFavorites(
+          favoriteCloudAuth.user.uid,
+          favoritePromptsRef.current.map(serializeFavoritePrompt).filter(Boolean)
+        ).catch((error) => {
+          console.error('Failed to flush cloud favorites:', error);
+        });
+      }
     };
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
@@ -1494,7 +1581,7 @@ export default function App() {
       window.removeEventListener('pagehide', flushPromptCollections);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, []);
+  }, [favoriteCloudAuth]);
 
   useEffect(() => {
     window.localStorage.setItem(LOCKS_KEY, JSON.stringify(locks));
@@ -1771,6 +1858,25 @@ export default function App() {
     showToast('Favorites 已清空');
   };
 
+  const handleSignInFavorites = useCallback(async () => {
+    try {
+      await signInToFavorites();
+    } catch (error) {
+      console.error('Firebase sign-in failed:', error);
+      showToast('Firebase 登入失敗，請稍後再試');
+    }
+  }, [showToast]);
+
+  const handleSignOutFavorites = useCallback(async () => {
+    try {
+      await signOutFromFavorites();
+      showToast('Firebase 已登出，Favorites 改用本機保存');
+    } catch (error) {
+      console.error('Firebase sign-out failed:', error);
+      showToast('Firebase 登出失敗，請稍後再試');
+    }
+  }, [showToast]);
+
   const handleOpenImportFeed = () => {
     importFeedInputRef.current?.click();
   };
@@ -1818,32 +1924,12 @@ export default function App() {
     }
   };
 
-  const showStorageWarning = (label) => {
-    if (storageWarningRef.current === label) return;
-    storageWarningRef.current = label;
-    showToast(label);
-  };
-
-  const clearStorageWarning = (channel) => {
-    if (channel === 'prompts' && storageWarningRef.current.includes('Feed')) {
-      storageWarningRef.current = '';
-    }
-    if (channel === 'favorites' && storageWarningRef.current.includes('Favorites')) {
-      storageWarningRef.current = '';
-    }
-  };
-
-  const showToast = (label) => {
-    setCopiedLabel(label);
-    window.setTimeout(() => setCopiedLabel(''), 1800);
-  };
-
   const applyLocksToConsole = useCallback((nextLocks, successLabel) => {
     const restoredLocks = buildRestoreLocks(nextLocks, lockControls);
     updateLocks(() => normalizeLocks(restoredLocks));
     setPageMode('page1');
     showToast(successLabel);
-  }, [lockControls, updateLocks]);
+  }, [lockControls, showToast, updateLocks]);
 
   const handleLibraryGroupChange = (nextGroup) => {
     const nextGroupOption = knowledgeBaseOptions.find((group) => group.value === nextGroup) || null;
@@ -1951,7 +2037,7 @@ export default function App() {
       return;
     }
     applyLocksToConsole(prompt.selection, '卡片設定已回填到主控台');
-  }, [applyLocksToConsole]);
+  }, [applyLocksToConsole, showToast]);
 
   const handleApplyImportedPrompt = () => {
     const { locks: parsedLocks, matchedControls } = parseLocksFromStandardPrompt(importPromptText, lockControls);
@@ -2027,6 +2113,10 @@ export default function App() {
           viewMode={viewMode}
           setViewMode={setViewMode}
           favoritePrompts={favoritePrompts}
+          favoriteCloudAuth={favoriteCloudAuth}
+          favoriteCloudSyncStatus={favoriteCloudSyncStatus}
+          handleSignInFavorites={handleSignInFavorites}
+          handleSignOutFavorites={handleSignOutFavorites}
           libraryDraft={libraryDraft}
           libraryDraftChangeCount={libraryDraftChangeCount}
           handleGenerateLibraryTest={handleGenerateLibraryTest}
@@ -2067,7 +2157,6 @@ export default function App() {
           handleRestorePromptToConsole={handleRestorePromptToConsole}
           summarySectionInfo={SUMMARY_SECTION_INFO}
           advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}
-          SelectControlField={SelectControlField}
         />
       ) : pageMode === 'page2' ? (
         <Page2Workspace

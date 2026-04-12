@@ -2298,7 +2298,7 @@ function buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors) {
   if (!baseLayerText) return null;
 
   const outerwearBase = buildColoredGrokPrompt(outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern });
-  if (!outerwearBase) return topText;
+  if (!outerwearBase) return baseLayerText;
 
   const isNormalStyling = styling && !isNoneLikeItem(styling) && styling.zh === '正常穿著';
   const isSlippedStyling = styling && !isNoneLikeItem(styling) && styling.zh === '滑落肩部';
