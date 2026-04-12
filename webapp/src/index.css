@@ -50,6 +50,51 @@ textarea {
   margin-bottom: 20px;
 }
 
+.site-settings {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.settings-trigger {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 20;
+  min-width: 280px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255, 250, 241, 0.98);
+  box-shadow: 0 18px 40px rgba(70, 48, 25, 0.18);
+  display: grid;
+  gap: 12px;
+}
+
+.settings-menu-title {
+  color: #2f2418;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.settings-menu-status {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
 .page-header-content {
   display: flex;
   flex-direction: column;
@@ -1106,6 +1151,15 @@ button:disabled {
   .filter-bar {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .site-settings {
+    align-self: flex-start;
+  }
+
+  .settings-menu {
+    left: 0;
+    right: auto;
   }
 
   .control-actions,

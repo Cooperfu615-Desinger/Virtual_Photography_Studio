@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import { Settings } from 'lucide-react';
 import Page1Workspace from './components/Page1Workspace';
 import Page2Workspace from './components/Page2Workspace';
 import Page3Workspace from './components/Page3Workspace';
@@ -1439,6 +1440,7 @@ export default function App() {
   const [importPromptText, setImportPromptText] = useState('');
   const [favoriteCloudAuth, setFavoriteCloudAuth] = useState({ status: 'loading', user: null, error: null });
   const [favoriteCloudSyncStatus, setFavoriteCloudSyncStatus] = useState('local-only');
+  const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false);
   const promptsRef = useRef(prompts);
   const favoritePromptsRef = useRef(favoritePrompts);
   const favoriteCloudSyncReadyRef = useRef(false);
@@ -1694,6 +1696,17 @@ export default function App() {
     const baseList = viewMode === 'favorites' ? favoritePrompts : prompts;
     return baseList;
   }, [favoritePrompts, prompts, viewMode]);
+  const favoriteCloudLabel = useMemo(() => {
+    if (favoriteCloudAuth?.status === 'signed-in') {
+      if (favoriteCloudSyncStatus === 'loading') return 'Firebase 載入中';
+      if (favoriteCloudSyncStatus === 'saving') return 'Firebase 同步中';
+      if (favoriteCloudSyncStatus === 'error') return 'Firebase 同步失敗';
+      return `Firebase 已同步：${favoriteCloudAuth.user.email}`;
+    }
+    if (favoriteCloudAuth?.status === 'unauthorized') return favoriteCloudAuth.error || 'Firebase 權限不足';
+    if (favoriteCloudAuth?.status === 'disabled') return 'Firebase 尚未設定';
+    return 'Favorites 僅存本機';
+  }, [favoriteCloudAuth, favoriteCloudSyncStatus]);
 
   const activeGroupOption = useMemo(
     () => knowledgeBaseOptions.find((group) => group.value === libraryGroup) || knowledgeBaseOptions[0] || null,
@@ -1861,6 +1874,7 @@ export default function App() {
   const handleSignInFavorites = useCallback(async () => {
     try {
       await signInToFavorites();
+      setIsSettingsMenuOpen(false);
     } catch (error) {
       console.error('Firebase sign-in failed:', error);
       showToast('Firebase 登入失敗，請稍後再試');
@@ -1870,6 +1884,7 @@ export default function App() {
   const handleSignOutFavorites = useCallback(async () => {
     try {
       await signOutFromFavorites();
+      setIsSettingsMenuOpen(false);
       showToast('Firebase 已登出，Favorites 改用本機保存');
     } catch (error) {
       console.error('Firebase sign-out failed:', error);
@@ -2087,6 +2102,34 @@ export default function App() {
                 : '建立無人物的純場景與世界觀 prompt，從小空間到超大景都可獨立生成。'}
           </p>
         </div>
+        <div className="site-settings">
+          <button
+            type="button"
+            className="settings-trigger"
+            aria-label="Open settings"
+            aria-expanded={isSettingsMenuOpen}
+            onClick={() => setIsSettingsMenuOpen((prev) => !prev)}
+          >
+            <Settings size={18} />
+          </button>
+          {isSettingsMenuOpen ? (
+            <div className="settings-menu">
+              <div className="settings-menu-title">Settings</div>
+              <div className={`settings-menu-status sync-status-${favoriteCloudSyncStatus}`}>
+                {favoriteCloudLabel}
+              </div>
+              {favoriteCloudAuth?.status === 'signed-in' ? (
+                <button className="secondary" onClick={handleSignOutFavorites}>
+                  Sign Out Firebase
+                </button>
+              ) : (
+                <button className="secondary" onClick={handleSignInFavorites} disabled={favoriteCloudAuth?.status === 'disabled'}>
+                  Sign In Firebase
+                </button>
+              )}
+            </div>
+          ) : null}
+        </div>
       </header>
 
       {pageMode === 'page1' ? (
@@ -2113,10 +2156,6 @@ export default function App() {
           viewMode={viewMode}
           setViewMode={setViewMode}
           favoritePrompts={favoritePrompts}
-          favoriteCloudAuth={favoriteCloudAuth}
-          favoriteCloudSyncStatus={favoriteCloudSyncStatus}
-          handleSignInFavorites={handleSignInFavorites}
-          handleSignOutFavorites={handleSignOutFavorites}
           libraryDraft={libraryDraft}
           libraryDraftChangeCount={libraryDraftChangeCount}
           handleGenerateLibraryTest={handleGenerateLibraryTest}

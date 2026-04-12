@@ -24,10 +24,6 @@ export default function Page1Workspace({
   viewMode,
   setViewMode,
   favoritePrompts,
-  favoriteCloudAuth,
-  favoriteCloudSyncStatus,
-  handleSignInFavorites,
-  handleSignOutFavorites,
   libraryDraft,
   libraryDraftChangeCount,
   handleGenerateLibraryTest,
@@ -69,18 +65,6 @@ export default function Page1Workspace({
   summarySectionInfo,
   advancedRemixGroupInfo,
 }) {
-  const favoriteCloudLabel = (() => {
-    if (favoriteCloudAuth?.status === 'signed-in') {
-      if (favoriteCloudSyncStatus === 'loading') return 'Firebase 載入中';
-      if (favoriteCloudSyncStatus === 'saving') return 'Firebase 同步中';
-      if (favoriteCloudSyncStatus === 'error') return 'Firebase 同步失敗';
-      return `Firebase 已同步：${favoriteCloudAuth.user.email}`;
-    }
-    if (favoriteCloudAuth?.status === 'unauthorized') return favoriteCloudAuth.error || 'Firebase 權限不足';
-    if (favoriteCloudAuth?.status === 'disabled') return 'Firebase 尚未設定';
-    return 'Favorites 僅存本機';
-  })();
-
   return (
     <>
       <section className="control-shell">
@@ -256,18 +240,6 @@ export default function Page1Workspace({
             <button className="secondary" onClick={handleOpenImportFeed}>
               Import Feed
             </button>
-            {favoriteCloudAuth?.status === 'signed-in' ? (
-              <button className="secondary" onClick={handleSignOutFavorites}>
-                Sign Out Firebase
-              </button>
-            ) : (
-              <button className="secondary" onClick={handleSignInFavorites} disabled={favoriteCloudAuth?.status === 'disabled'}>
-                Sign In Firebase
-              </button>
-            )}
-            <span className={`sync-status sync-status-${favoriteCloudSyncStatus}`}>
-              {favoriteCloudLabel}
-            </span>
             <input
               ref={importFeedInputRef}
               type="file"
