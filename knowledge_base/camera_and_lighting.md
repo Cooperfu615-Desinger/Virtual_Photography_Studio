@@ -103,7 +103,7 @@
 | **底片與相機模擬 (Camera & Film Simulation)** | 中片幅數位單眼 (Medium Format DSLR) | `Hasselblad medium format image, extreme ultra-high resolution, medium format organic depth` | 哈蘇或飛思等數位後背相機。擁有令人髮指的細節解析度（看清每一根睫毛），以及有別於全片幅的特殊立體過渡與景深空間感。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | VHS 錄影帶低畫質 | `VHS camcorder glitch effect, heavily degraded image, chromatic aberration, scanlines, analog horror` | 模仿 90 年代老舊錄影帶的畫面質感，保留做低頻特殊風格用途。 |
 | **光學效果 (Optical Effects)** | 全無 | `none` | 不指定光學效果，讓模型自行決定是否加入 flare、散景、柔焦、暗角等鏡頭特徵。 |
-| **光學效果 (Optical Effects)** | 淺景深 | `shallow depth of field, softly blurred background, gentle subject separation, natural portrait falloff` | 保留自然人像最常見的背景柔化效果，讓主體更清楚浮出畫面。 |
+| **光學效果 (Optical Effects)** | 淺景深 | `shallow depth of field, softly blurred background, gentle subject separation` | 保留自然的背景柔化效果，讓主體更清楚浮出畫面。 |
 | **光學效果 (Optical Effects)** | 極淺景深 | `ultra shallow depth of field, heavily blurred background, razor-thin focus plane, dramatic subject isolation` | 焦平面非常薄，前後景快速化開，適合強烈主體分離與夢幻視覺。 |
 | **光學效果 (Optical Effects)** | 重散景光斑 | `heavy bokeh, large luminous blur circles, dreamy optical falloff, pronounced out-of-focus highlights` | 讓背景或前景出現明顯大光斑與夢幻散景，特別適合夜景、節慶燈光與浪漫氛圍。 |
 | **光學效果 (Optical Effects)** | 前景遮擋散景 | `controlled foreground bokeh occlusion from a fixed out-of-focus object near the lens, soft edge blur framing the subject, stable layered depth, clean cinematic foreground veil` | 鏡頭前方有固定來源的失焦遮擋與散景，用更穩定的前景模糊邊緣包住主體，避免雜亂不明的遮擋形狀。 |
