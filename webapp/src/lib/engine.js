@@ -2703,6 +2703,9 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     }
     return 'preserve the intended composition with the outfit and surrounding setting visible, avoid an overly tight face crop';
   };
+  const buildGrokWardrobeIntegrityText = () => (
+    'preserve the specified wardrobe as complete clothing, detailed realistic fabric folds and wrinkles visible, clothing covers the body appropriately, fully clothed styling, no nudity'
+  );
 
   addLine('Subject Count', useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en);
   if (context.subject.reference) {
@@ -2731,6 +2734,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
   addLine('Waistline Coordination', waistlineCompatibilityText);
+  addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
   if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
   addLine('Special Action', specialActionText);
   addLine('Pose', poseText);

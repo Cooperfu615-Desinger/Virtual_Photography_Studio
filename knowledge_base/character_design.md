@@ -16,9 +16,9 @@
 | **膚質特徵 (Skin Details)** | 自然雀斑 | `natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail` | 鼻樑與臉頰帶有自然雀斑，能增加真實感與辨識度。 |
 | **膚質特徵 (Skin Details)** | 淚痣／唇邊痣 | `small beauty mark under eye or near lips, delicate facial mole detail` | 臉上有細小痣點，位置通常在眼下或唇邊，能增加個性與記憶點。 |
 | **膚質特徵 (Skin Details)** | 微曬陽光感膚質 | `slightly sun-kissed skin texture, subtle warm flush, healthy outdoor glow` | 像曬過太陽後留下的自然暖感，帶有生活感與戶外氣息。 |
-| **體態 (Body Type)** | 模特兒 | `tall slim model body, elongated legs, lean silhouette, long-limbed fashion proportions` | 瘦高修長、腿長線條明顯，整體比例偏時裝模特兒體態。 |
-| **體態 (Body Type)** | 內衣模特兒 | `tall lingerie model body, clearly defined feminine curves, fuller bust and hips, slim waist, elongated torso-to-leg ratio, long shapely legs, toned elegant silhouette, polished high-fashion proportions` | 以高挑內衣模特兒身形為基礎，胸臀曲線明顯、腰部纖細，並加強腿長與整體修長比例，避免人物顯得短小；整體仍然是專業內衣模特兒常見的性感體態。 |
-| **體態 (Body Type)** | 性感 | `tall slim exaggerated hourglass body, narrow waist, fuller bust and rounded hips, pronounced bust-waist-hip contrast, elongated leg line, long shapely legs, toned feminine silhouette, voluptuous proportions without any sense of heaviness or body fat` | 以高挑纖細骨架為基礎，但胸、腰、臀比例明顯誇張，並額外強調修長雙腿與更拉長的整體比例；重點是前凸後翹、腰部明確收窄、整體仍然俐落緊實，不帶肥胖或厚重感，也避免人物顯得短小。 |
+| **體態 (Body Type)** | 模特兒 | `tall slim fashion model body with long elegant legs, lean and graceful silhouette, long-limbed proportions, refined athletic-feminine lines, balanced lightweight figure, polished editorial fashion proportions` | 瘦高修長、腿長線條明顯，整體改以時裝 editorial 比例描述，避免把重點導向裸露身體曲線。 |
+| **體態 (Body Type)** | 優雅曲線模特兒 | `tall elegant fashion model body with balanced feminine curves, gently defined waist, natural body lines, graceful elongated torso-to-leg ratio, long shapely legs, toned refined silhouette, polished high-fashion proportions under properly worn clothing` | 以高挑、優雅且平衡的女性曲線為主，保留曲線感與腿長比例，但使用更中性的時裝語言，並強調曲線是在完整穿著下呈現。 |
+| **體態 (Body Type)** | 柔和沙漏身形 | `tall slim elegant hourglass figure with balanced proportions, gently narrowed waist, soft natural curves, balanced hip line, graceful elongated leg line, long shapely legs, toned feminine silhouette, refined lightweight proportions without heaviness` | 保留沙漏身形的腰線與腿長印象，但移除誇張、豐滿與強烈胸臀對比等高風險詞，整體更偏優雅時裝比例。 |
 | **髮型 (Hairstyle)** | 全無 | `none` | 不指定髮型，讓模型自行決定頭髮長度與輪廓。 |
 | **髮型 (Hairstyle)** | 長髮（放髮）｜中分長直髮 | `long straight hair, center part, sleek` | 經典女神風，光澤感十足。 |
 | **髮型 (Hairstyle)** | 長髮（放髮）｜日系厚劉海長直髮 | `long straight hair with heavy Japanese bangs, smooth sleek silhouette` | 厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。 |
