@@ -494,7 +494,10 @@ function inferFramingMeta(_category, item) {
 function inferAngleMeta(_category, item) {
   const haystack = toHaystack(item.zh, item.en, item.desc);
 
-  if (hasAny(haystack, ['bird', 'top-down', 'zenith'])) return { tags: ['aerial', 'no_eye_contact'] };
+  if (hasAny(haystack, ['bird', 'top-down', 'zenith', 'overhead', '正上方俯視', '鳥瞰'])) return { tags: ['aerial', 'no_eye_contact', 'low_frequency_angle'] };
+  if (hasAny(haystack, ['ground-level', '地面高度'])) return { tags: ['low_angle', 'low_frequency_angle'] };
+  if (hasAny(haystack, ['knee-level', '膝蓋高度'])) return { tags: ['low_angle', 'low_frequency_angle'] };
+  if (hasAny(haystack, ['hip-level', '腰部高度'])) return { tags: ['low_angle'] };
   if (hasAny(haystack, ['high angle'])) return { tags: ['high_angle'] };
   if (hasAny(haystack, ['low angle'])) return { tags: ['low_angle'] };
   if (hasAny(haystack, ['dutch angle'])) return { tags: ['dynamic', 'low_frequency_angle'] };

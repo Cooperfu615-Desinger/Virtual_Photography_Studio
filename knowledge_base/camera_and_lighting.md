@@ -15,8 +15,14 @@
 | **景別構圖 (Framing)** | 全身鏡頭 (Full Body Shot) | `full body shot, full-length figure framing, wide framing, environmental scale, complete lower-body visibility` | 完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。 |
 | **相機視角 (Angle)** | 全無 | `none` | 不指定俯仰角度，讓模型自行決定相機高低視角。 |
 | **相機視角 (Angle)** | 平視角 (Eye-Level Angle) | `eye-level angle, objective view, neutral perspective, natural camera height` | 最自然客觀的視角，觀眾與拍攝對象處於平等地位，適合大多數日常與時裝構圖。 |
+| **相機視角 (Angle)** | 肩部高度鏡頭 | `shoulder-level camera height, camera positioned around the subject's shoulder line, natural upper-body perspective, stable portrait viewpoint` | 相機高度約在肩線附近，比平視略低或略貼近上半身，適合胸上、中景與日常人像，能保留自然但更貼近人物的視角。 |
+| **相機視角 (Angle)** | 腰部高度鏡頭 | `hip-level camera height, camera positioned around the subject's waist or hip line, subtle low perspective, grounded fashion portrait viewpoint` | 相機高度落在腰部或髖部附近，能讓腿部與下身穿搭更有存在感，但不像極低角度那樣誇張，適合全身、牛仔中景與時裝穿搭。 |
+| **相機視角 (Angle)** | 膝蓋高度鏡頭 | `knee-level camera height, camera positioned around the subject's knees, low fashion perspective, elongated legs, grounded full-body viewpoint` | 相機高度接近膝蓋，會明顯強化腿部延伸與下身比例，適合全身構圖、鞋款、長靴與街拍時裝，但不適合臉部特寫。 |
+| **相機視角 (Angle)** | 地面高度鏡頭 | `ground-level camera height, camera placed very close to the floor, dramatic low perspective, strong upward view, elongated full-body silhouette` | 相機幾乎貼近地面，透視感很強，會讓人物更高挑、更具壓迫感與舞台感，適合全身或環境人像，屬於低頻特殊視角。 |
 | **相機視角 (Angle)** | 仰角 (Low Angle) | `low angle, looking up from below, heroic, powerful silhouette, dominance` | 由下往上拍。能拉長人物比例（特別是腿部），賦予主體強勢、英雄般或具壓迫感的氣場。 |
 | **相機視角 (Angle)** | 俯角 (High Angle) | `high angle, looking down from above, vulnerable, cute, foreshortening` | 由上往下拍。使人物顯得較小、脆弱或無辜，伴隨明顯的透視縮短效益。 |
+| **相機視角 (Angle)** | 鳥瞰視角 | `bird's-eye view, elevated overhead camera position, looking down from high above, small figure against the surrounding space` | 從高處往下看，人物與環境關係更明顯，適合全身或廣一點的環境構圖，不適合需要眼神直視或臉部細節的近景。 |
+| **相機視角 (Angle)** | 正上方俯視鏡頭 | `top-down view, vertical overhead camera angle, camera directly above the subject, graphic flattened composition` | 相機幾乎在人物正上方垂直俯拍，畫面更平面化、圖像化，適合地面、床面、桌面或造型排列感強的畫面，屬於低頻特殊視角。 |
 | **相機視角 (Angle)** | 荷蘭角/傾斜 (Dutch Angle) | `dutch angle, tilted camera, crooked horizon, unsettling, cinematic tension` | 相機刻意傾斜，地平線不平。營造不安、混亂、速度感或極度戲劇化的電影張力。 |
 | **拍攝方位 (Orbit Angle)** | 全無 | `none` | 不指定環繞角度，讓模型自行決定人物相對鏡頭的朝向。 |
 | **拍攝方位 (Orbit Angle)** | 正面 | `front-facing camera position, straight-on subject view, symmetrical subject orientation` | 鏡頭正對人物正面，臉部與身體主要朝向鏡頭，資訊最完整。 |

@@ -4,18 +4,27 @@
 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
 - Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
-- App type: Vite + React frontend-only prompt generator
+- App type: Vite + React prompt generator with optional Firebase Favorites sync
 - Knowledge base source: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
 - Sync script: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
 - Synced data target: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
 
 ## Current Working State
 
-- Latest pushed commit on `main`: `e509cd4 Add scene attribute filtering for page1 locations`
-- Working tree was clean at handoff time except this handoff doc if edited again later
+- Latest pushed commit on `main`: `147f088 Optimize Firebase loading and safer body prompts`
+- Recent important commits:
+  - `147f088 Optimize Firebase loading and safer body prompts`
+  - `b4fd8af Expand graffiti clothing prompt variations`
+  - `a3877bc Move Firebase auth into settings menu`
+  - `0086d4f Add Firebase favorites sync`
+  - `6067712 Improve prompt feed persistence performance`
+  - `455ff28 Remove portrait falloff from shallow depth prompt`
+  - `18b8069 Add Z-Image prompt output`
+- Working tree should be clean after `147f088`; if this handoff doc is edited, only this doc should be dirty
 - Work continues directly on `main`
 - Standard validation flow remains:
   - `python3 scripts/sync_to_json.py`
+  - `npm run lint` from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
   - `npm run build`
 
 ## Main Code Areas
@@ -37,7 +46,8 @@
 
 ## Core Product State
 
-- The app is still frontend-only with no backend.
+- The app remains a Vite + React frontend app, but Favorites now optionally sync to Firebase Cloud Firestore via Firebase modular SDK.
+- Firebase is used only for Favorites persistence / Google sign-in, not for prompt generation.
 - `Subject Count` supports:
   - `1 位`
   - `2 位`
@@ -50,6 +60,7 @@
   - `Clear Feed`
   - `All Random`
   - `All None`
+- The site-wide Firebase sign-in / sign-out control now lives in the top-right gear settings menu, not inside the Favorites toolbar.
 
 ## Page Architecture
 
@@ -124,6 +135,15 @@
 
 - Favorites now support direct restore back to PAGE1.
 - Prompt cards in Favorites have a restore control that loads the saved structured selection back into the console.
+- Favorites now support Firebase Cloud Firestore sync when signed in with the allowed Google account.
+- Firebase path: `users/{uid}/favorites/{promptId}`.
+- Existing local Favorites are merged with cloud Favorites after sign-in, so local records can migrate into Firebase.
+- Favorites localStorage format is compact:
+  - it stores essential prompt fields only
+  - it no longer stores full prompt card objects verbatim
+  - this does not remove or shorten the actual Midjourney / Grok / Z-Image prompt strings
+- Favorites still keep localStorage as fallback when Firebase is unavailable or signed out.
+- A `Clear Favorites` / clear saved content control exists to remove saved Favorites from the current app state.
 - `回填 Prompt` exists next to `Library Editor`.
 - Standard-format prompt restore is implemented:
   - paste a standard exported prompt
@@ -140,6 +160,38 @@
   - duplicate ids are overwritten by imported entries
   - invalid ZIP format rejects the whole import
 - Feed and Favorites no longer have the old 120-item cap.
+
+## Firebase Favorites / Auth State
+
+- Firebase modular SDK dependency is installed in `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`.
+- Main files:
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/firebase.js`
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/favoritesRepository.js`
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/firebase_favorites_rules.md`
+- Firebase config is provided through Vite env vars.
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/.env.production` exists so GitHub Pages builds can include the Firebase config.
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/.env.local` remains ignored for local overrides.
+- Allowed account currently used by the user:
+  - `cooperfu.615@gmail.com`
+- The user already enabled:
+  - Firebase Authentication with Google sign-in
+  - Cloud Firestore
+  - Firestore rules from `Docs/firebase_favorites_rules.md`
+- Important user-facing setup reminder:
+  - for GitHub Pages, Firebase Authorized Domains should include `cooperfu615-desinger.github.io`
+
+## Firebase Performance State
+
+- Firebase Favorites repository is now lazy-loaded with dynamic `import()` from `App.jsx`.
+- Build output now splits Firebase into a separate `favoritesRepository-*.js` chunk.
+- Recent measured production build after optimization:
+  - main JS chunk: about `658 kB`
+  - Firebase Favorites chunk: about `329 kB`
+  - before this optimization, the main JS chunk was about `987 kB`
+- Initial page render should now happen before Firebase repository initialization completes.
+- `pagehide` / `visibilitychange` no longer trigger a full Firestore `replaceCloudFavorites()` flush.
+- Background tab switching now only forces local prompt/Favorites persistence; cloud sync remains handled by the normal debounced Favorites sync flow.
+- Build still shows Vite's existing `Some chunks are larger than 500 kB` warning, but the Firebase split is working.
 
 ## Prompt Card / Remix System
 
@@ -165,6 +217,9 @@
 ### Grok Prompt Direction
 
 - Grok remains the fuller structured prompt.
+- Grok prompt now includes a `Wardrobe Integrity` line to reduce Grok Imagine's tendency to drop clothing when body-type wording is present.
+- Current guard wording:
+  - `preserve the specified wardrobe as complete clothing, detailed realistic fabric folds and wrinkles visible, clothing covers the body appropriately, fully clothed styling, no nudity`
 - Current priority still favors:
   - subject
   - body type
@@ -173,12 +228,27 @@
   - face / hair / expression
   - then location / lighting / camera
 - This ordering was intentionally kept because Grok / Aurora tends to over-prioritize face detail if face content is too early.
+- `Optical Effect: shallow depth of field...` was updated earlier to remove `natural portrait falloff` because it caused Grok Imagine to bias toward tight portrait / upper-body compositions.
 
 ### Midjourney Prompt
 
 - Midjourney output is still flattened and direct-use oriented.
 - No automatic `--ar`.
 - Compact wording remains preferred.
+
+### Z-Image Prompt
+
+- Z-Image prompt output now exists alongside Midjourney and Grok.
+- There are now three copyable prompt versions:
+  - Midjourney
+  - Grok
+  - Z-Image
+- Z-Image is implemented without connecting to an LLM / prompt enhancer service.
+- User explicitly chose to keep Z-Image generation local and deterministic rather than integrating an external LLM enhancer.
+- Z-Image direction:
+  - longer, more structured natural-language prompt
+  - keep current app architecture and data-driven composition
+  - no official PE automation for now
 
 ## Close-up Mode
 
@@ -211,6 +281,7 @@
   - close-up framings do not randomly keep irrelevant pose
   - close-up framings do not keep unrelated lower-body clothing
   - indoor / underground scenes are more protected from obviously outdoor sky-like lighting combinations
+  - outdoor scenes do not randomly choose the `鏡子自拍姿勢` pose family, because Grok Imagine often generated an actual mirror into outdoor scenes
 
 ## Scene System State
 
@@ -302,18 +373,46 @@
   - high-neck high-cut bodysuit variants
   - multiple lifestyle and swimwear refinements
 
+### Graphic / Graffiti Pattern Expansion
+
+- Top and bottom surface-design prompts were expanded for more random variety.
+- The original generic punk / cartoon graffiti entries remain, but more specific variants were added.
+- Punk graffiti variants now include:
+  - black-and-white punk slogan graffiti
+  - red-and-black punk flyer / band-poster graffiti
+  - sticker-bomb punk collage
+  - spray-paint tag graffiti
+  - skull / safety-pin punk doodle language
+- Cartoon graffiti variants now include:
+  - cute character doodles
+  - quirky cartoon monster doodles
+  - comic speech-bubble / action-mark doodles
+  - pastel diary-like doodles
+  - cartoon sticker collage prints
+- This was done in `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/wardrobe_and_styling.md`, then synced to `webapp/src/data/database.json`.
+
 ## Character / Body / Hair State
 
 ### Body Types
 
 - `正常人` was removed from body types.
-- `內衣模特兒` and `性感` were rewritten to emphasize:
-  - tall proportions
-  - long legs
-  - narrow waist
-  - stronger bust / hip contrast
-  - less risk of short, stocky output
-- `性感` was also specifically rewritten away from “slightly fuller” language and toward a slim exaggerated hourglass silhouette.
+- Body type prompts were later rewritten again to reduce Grok Imagine nudity risk.
+- High-risk body wording was removed or avoided:
+  - `lingerie model body`
+  - `fuller bust and hips`
+  - `exaggerated hourglass`
+  - `pronounced bust-waist-hip contrast`
+  - `voluptuous proportions`
+- Current body-type entries:
+  - `模特兒`
+  - `優雅曲線模特兒`
+  - `柔和沙漏身形`
+- Current direction:
+  - use fashion / editorial proportion language
+  - preserve tall, long-legged, elegant styling
+  - avoid pushing Grok Imagine toward naked body-curve rendering
+  - reinforce that curves appear under properly worn clothing where needed
+- Related Grok guard is implemented in `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js` as `Wardrobe Integrity`.
 
 ### Hair
 
@@ -364,8 +463,13 @@
 - Markdown KB edits should always be followed by:
   - `python3 scripts/sync_to_json.py`
 - Then validate with:
+  - `npm run lint` from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
   - `npm run build`
 - Continue using `apply_patch` for manual file edits.
+- Recent validation after `147f088`:
+  - `npm run lint` passed
+  - `npm run build` passed
+  - build output kept Firebase in a separate `favoritesRepository-*.js` chunk
 - If a first `git push origin main` says `Everything up-to-date` right after commit, verify with:
   - `git status -sb`
   - `git rev-parse HEAD`
