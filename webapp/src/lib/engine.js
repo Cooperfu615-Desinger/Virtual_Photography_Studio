@@ -135,6 +135,54 @@ const OUTFIT_PRESET_COLOR_OPTIONS = [
   { id: 'white-red', zh: '白紅', en: 'white and red' },
 ];
 
+const TOP_BOTTOM_PALETTE_OPTIONS = [
+  { id: 'random', zh: '隨機', en: 'random top and bottom palette', random: true },
+  { id: 'none', zh: '全無', en: 'none', meta: { tags: ['none'] } },
+  {
+    id: 'mocha-berry-soft-vanilla',
+    zh: '摩卡莓果 × 柔香草',
+    en: 'mocha berry top with soft vanilla bottom',
+    topColor: { zh: '摩卡莓果', en: 'mocha berry (#7B4955)' },
+    bottomColor: { zh: '柔香草', en: 'soft vanilla (#F4EDDB)' },
+  },
+  {
+    id: 'jasmine-dark-graphite',
+    zh: '茉莉黃 × 暗石墨',
+    en: 'jasmine yellow top with dark graphite bottom',
+    topColor: { zh: '茉莉黃', en: 'jasmine yellow (#F8DE7F)' },
+    bottomColor: { zh: '暗石墨', en: 'dark graphite (#3A393F)' },
+  },
+  {
+    id: 'matcha-cream-milky-honey',
+    zh: '抹茶奶霜 × 蜜乳白',
+    en: 'matcha cream top with milky honey bottom',
+    topColor: { zh: '抹茶奶霜', en: 'matcha cream (#9CA763)' },
+    bottomColor: { zh: '蜜乳白', en: 'milky honey (#F1E8C7)' },
+  },
+  {
+    id: 'hot-chocolate-fresh-cabbage',
+    zh: '熱巧克力 × 新鮮高麗菜',
+    en: 'hot chocolate top with fresh cabbage bottom',
+    topColor: { zh: '熱巧克力', en: 'hot chocolate (#2F2420)' },
+    bottomColor: { zh: '新鮮高麗菜', en: 'fresh cabbage (#849753)' },
+  },
+  {
+    id: 'xanthous-burgundy',
+    zh: '藤黃 × 勃艮第紅',
+    en: 'xanthous yellow top with burgundy bottom',
+    topColor: { zh: '藤黃', en: 'xanthous yellow (#F7B638)' },
+    bottomColor: { zh: '勃艮第紅', en: 'burgundy (#780115)' },
+  },
+  {
+    id: 'claret-dark-purple',
+    zh: '深紅酒 × 暗紫',
+    en: 'claret top with dark purple bottom',
+    topColor: { zh: '深紅酒', en: 'claret (#C20F47)' },
+    bottomColor: { zh: '暗紫', en: 'dark purple (#241125)' },
+  },
+];
+const TOP_BOTTOM_PALETTE_POOL = TOP_BOTTOM_PALETTE_OPTIONS.filter((option) => option.topColor && option.bottomColor);
+
 const STYLE_NONE_OPTION = {
   id: 'style-none',
   zh: '全無',
@@ -197,6 +245,7 @@ const LOCK_DEFINITIONS = [
   { key: 'outfitPresetBId', label: '人物 2 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
   { key: 'outfitPresetBColorId', label: '人物 2 套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'topId', label: '上身', category: '上身 (Tops)', section: 'wardrobe' },
+  { key: 'topBottomPaletteId', label: '特殊上下身配色', options: TOP_BOTTOM_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
   { key: 'topColorId', label: '上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'topPatternId', label: '上身圖案', category: '上身圖案 (Top Surface Design)', section: 'wardrobe' },
   { key: 'dressId', label: '連身', category: '連身 (Dresses)', section: 'wardrobe' },
@@ -261,6 +310,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'outfitPresetBId', label: 'Woman 2 Outfit Preset' },
   { key: 'outfitPresetBColorId', label: 'Woman 2 Outfit Preset Color' },
   { key: 'topId', label: 'Top' },
+  { key: 'topBottomPaletteId', label: 'Special Top/Bottom Palette' },
   { key: 'topColorId', label: 'Top Color' },
   { key: 'topPatternId', label: 'Top Surface Design' },
   { key: 'dressId', label: 'Dress' },
@@ -483,6 +533,13 @@ function getLegwearColorOption(id) {
 
 function getOutfitPresetColorOption(id) {
   return OUTFIT_PRESET_COLOR_OPTIONS.find((option) => option.id === id) || null;
+}
+
+function getTopBottomPaletteOption(id) {
+  const option = TOP_BOTTOM_PALETTE_OPTIONS.find((item) => item.id === id) || null;
+  if (!option || option.id === 'none') return null;
+  if (option.random) return sample(TOP_BOTTOM_PALETTE_POOL);
+  return option.topColor && option.bottomColor ? option : null;
 }
 
 function inferLightingMeta(category, item) {
@@ -800,6 +857,7 @@ const CLOSEUP_DISABLED_KEYS = new Set([
   'dressColorId',
   'pantsId',
   'skirtId',
+  'topBottomPaletteId',
   'bottomColorId',
   'bottomPatternId',
   'legwearId',
@@ -841,7 +899,7 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'eyewearId',
   'earringsId',
 ]);
-const CLOSEUP_CHEST_ALLOWED_KEYS = new Set(['topId', 'topColorId', 'topPatternId', 'dressId', 'dressColorId', 'neckAccessoryId']);
+const CLOSEUP_CHEST_ALLOWED_KEYS = new Set(['topId', 'topBottomPaletteId', 'topColorId', 'topPatternId', 'dressId', 'dressColorId', 'neckAccessoryId']);
 
 function isCloseupModeFramingItem(framing) {
   return Boolean(framing?.zh && CLOSEUP_MODE_ZH_LABELS.has(framing.zh));
@@ -2230,6 +2288,7 @@ function buildWardrobeColors(wardrobeSlots, locks) {
       outfitPresetColor,
       outfitPresetAColor,
       outfitPresetBColor,
+      topBottomPalette: null,
       topColor: null,
       dressColor: null,
       bottomColor: null,
@@ -2238,10 +2297,13 @@ function buildWardrobeColors(wardrobeSlots, locks) {
       shoesColor: null,
     };
   }
-  const topColor = wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top) ? getGarmentColorOption(locks?.topColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
+  const topBottomPalette = getTopBottomPaletteOption(locks?.topBottomPaletteId);
+  const topColor = wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top)
+    ? topBottomPalette?.topColor || getGarmentColorOption(locks?.topColorId) || sample(GARMENT_COLOR_OPTIONS)
+    : null;
   const dressColor = wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) ? getGarmentColorOption(locks?.dressColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
   const hasBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants)) || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt));
-  const bottomColor = hasBottom ? getGarmentColorOption(locks?.bottomColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
+  const bottomColor = hasBottom ? topBottomPalette?.bottomColor || getGarmentColorOption(locks?.bottomColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
   const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(locks?.legwearColorId) || sample(LEGWEAR_COLOR_OPTIONS) : null;
   const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? getLayerColorOption(locks?.outerwearColorId) || sample(LAYER_COLOR_OPTIONS) : null;
   const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) ? getLayerColorOption(locks?.shoesColorId) || sample(LAYER_COLOR_OPTIONS) : null;
@@ -2249,6 +2311,7 @@ function buildWardrobeColors(wardrobeSlots, locks) {
     outfitPresetColor: null,
     outfitPresetAColor: null,
     outfitPresetBColor: null,
+    topBottomPalette,
     topColor,
     dressColor,
     bottomColor,
@@ -2965,6 +3028,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     poseId: characterSlots.pose?.id || '',
     specialActionId: characterSlots.specialAction?.id || '',
     topId: wardrobeSlots.top?.id || '',
+    topBottomPaletteId: wardrobeColors.topBottomPalette?.id || '',
     topColorId: wardrobeColors.topColor?.id || '',
     topPatternId: wardrobeSlots.topPattern?.id || '',
     dressId: wardrobeSlots.dress?.id || '',

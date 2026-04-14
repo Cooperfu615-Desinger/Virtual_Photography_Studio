@@ -293,7 +293,7 @@ const SUMMARY_SECTION_INFO = {
   },
   wardrobe: {
     label: '服裝',
-    lockLabels: ['套裝', '上身', '上身圖案', '連身', '下身', '下身圖案', '襪類', '襪類配色', '外套', '外套圖案', '外套穿法', '鞋款', '配件'],
+    lockLabels: ['套裝', '上身', '特殊上下身配色', '上身圖案', '連身', '下身', '下身圖案', '襪類', '襪類配色', '外套', '外套圖案', '外套穿法', '鞋款', '配件'],
     keys: [
       'outfitPresetId',
       'outfitPresetColorId',
@@ -302,6 +302,7 @@ const SUMMARY_SECTION_INFO = {
       'outfitPresetBId',
       'outfitPresetBColorId',
       'topId',
+      'topBottomPaletteId',
       'topColorId',
       'topPatternId',
       'dressId',
@@ -371,7 +372,7 @@ const ADVANCED_REMIX_GROUP_INFO = {
   },
   wardrobeCore: {
     label: '服裝主體',
-    lockLabels: ['套裝', '上身', '上身圖案', '連身', '下身', '下身圖案', '外套', '外套圖案', '外套穿法', '襪類', '鞋款'],
+    lockLabels: ['套裝', '上身', '特殊上下身配色', '上身圖案', '連身', '下身', '下身圖案', '外套', '外套圖案', '外套穿法', '襪類', '鞋款'],
     keys: [
       'outfitPresetId',
       'outfitPresetColorId',
@@ -380,6 +381,7 @@ const ADVANCED_REMIX_GROUP_INFO = {
       'outfitPresetBId',
       'outfitPresetBColorId',
       'topId',
+      'topBottomPaletteId',
       'topColorId',
       'topPatternId',
       'dressId',
@@ -426,7 +428,7 @@ const CHARACTER_CONTROL_ORDER = [
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'sceneAttributeId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
 const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'sceneAttributeId', 'locationId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'aspectRatio'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topColorId', 'topPatternId', 'dressId', 'dressColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'bottomPatternId', 'legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'outerwearPatternId', 'outerwearStylingId', 'shoesId', 'shoesColorId', 'headAccessoryId', 'eyewearId', 'earringsId', 'neckAccessoryId', 'wristAccessoryId', 'ringId', 'waistAccessoryId'];
+const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topBottomPaletteId', 'topColorId', 'topPatternId', 'dressId', 'dressColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'bottomPatternId', 'legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'outerwearPatternId', 'outerwearStylingId', 'shoesId', 'shoesColorId', 'headAccessoryId', 'eyewearId', 'earringsId', 'neckAccessoryId', 'wristAccessoryId', 'ringId', 'waistAccessoryId'];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
@@ -528,6 +530,7 @@ function buildImportedStructured(locks, controls) {
       'outfitPresetBId',
       'outfitPresetBColorId',
       'topId',
+      'topBottomPaletteId',
       'topColorId',
       'topPatternId',
       'dressId',
@@ -712,6 +715,7 @@ function compactPromptSelection(selection) {
   return Object.fromEntries(
     Object.entries(normalized).filter(([key, value]) => {
       if (key === 'subjectCount' || key === 'aspectRatio') return true;
+      if (key === 'topBottomPaletteId' && value === 'none') return false;
       return Array.isArray(value) ? value.length > 0 : Boolean(value);
     })
   );
@@ -1706,6 +1710,7 @@ export default function App() {
   const activeLockCount = Object.entries(locks).filter(([key, value]) => {
     if (['subjectCount', 'aspectRatio'].includes(key)) return false;
     if (isPhotographyStyleLocked && ['lightingId', 'lightDirectionId', 'filmId'].includes(key)) return false;
+    if (key === 'topBottomPaletteId' && value === 'none') return false;
     return Array.isArray(value) ? value.length > 0 : Boolean(value);
   }).length;
   const isOutfitPresetActive = locks.subjectCount === '2'
@@ -1824,6 +1829,12 @@ export default function App() {
       const specialActionIsActive = Boolean(next.specialActionId) && !isNoneSelected('specialActionId', next.specialActionId, lockControls);
       if (poseIsActive && specialActionIsActive) {
         next.specialActionId = '';
+      }
+
+      const specialTopBottomPaletteIsActive = next.topBottomPaletteId && !isNoneSelected('topBottomPaletteId', next.topBottomPaletteId, lockControls);
+      if (specialTopBottomPaletteIsActive) {
+        next.topColorId = 'none';
+        next.bottomColorId = 'none';
       }
 
       if (next.subjectCount !== '1') {

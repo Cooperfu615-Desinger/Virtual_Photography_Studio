@@ -151,6 +151,8 @@ export default function Page1Workspace({
                   disabled={
                     (isCloseupMode && !closeupAllowedKeys.has(control.key))
                     ||
+                    (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
+                    ||
                     isOutfitPresetActive &&
                     !['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId'].includes(control.key)
                   }
