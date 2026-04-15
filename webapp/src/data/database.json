@@ -1890,8 +1890,8 @@
       },
       {
         "zh": "雨後反光",
-        "en": "post-rain atmosphere, recently cleared wet streets, reflective surfaces, moody sky remnants, fresh damp urban air",
-        "desc": "雨剛停後的潮濕反光環境，若有遠景可保留殘雲、濕亮地面與更通透的空氣感。"
+        "en": "post-rain atmosphere, freshly damp urban surfaces, reflective stone and wall textures, moody sky remnants, fresh humid air after rainfall",
+        "desc": "雨剛停後的潮濕反光環境，重點放在濕潤表面、石材、牆面與局部反射，不主動指定街道，若有遠景可保留殘雲與更通透的空氣感。"
       },
       {
         "zh": "雪地冷光",
@@ -1935,18 +1935,18 @@
       },
       {
         "zh": "高調純白攝影棚",
-        "en": "high-key white studio atmosphere, seamless white cyc wall, shadowless commercial lighting environment, ultra-clean bright studio air",
-        "desc": "純白無縫背景與高調棚燈主導的商業攝影棚氛圍，整體明亮乾淨、陰影極淡或近乎消失，適合 beauty、catalog、電商、極簡時裝與乾淨人像。"
+        "en": "high-key white studio lighting, shadowless commercial illumination, ultra-clean bright studio air, crisp isolated subject lighting",
+        "desc": "高調白光與均勻棚燈主導的商業攝影光氛，整體明亮乾淨、陰影極淡或近乎消失，不額外指定背景結構。"
       },
       {
         "zh": "柔霧美妝攝影棚",
-        "en": "soft beauty studio atmosphere, diffused shadowless lighting environment, creamy clean studio air, polished commercial portrait mood",
-        "desc": "以大型柔光與均勻棚燈營造的美妝棚拍氛圍，陰影極輕、膚質細膩、畫面乾淨柔順，適合特寫寫真、妝容、保養品與高級人像。"
+        "en": "soft beauty studio lighting, diffused shadowless illumination, creamy clean light quality, polished commercial portrait glow",
+        "desc": "以大型柔光與均勻棚燈營造的美妝棚拍光氛，陰影極輕、膚質細膩、畫面乾淨柔順，不額外指定背景結構。"
       },
       {
         "zh": "舞台演出燈光",
-        "en": "stage-lit atmosphere, theatrical venue lighting, dark surrounding space, dramatic colored beams, performance-driven visual mood",
-        "desc": "以舞台、演出或強人工燈具主導的環境，背景通常較暗，空間感由燈束與演出光決定。"
+        "en": "stage-inspired studio lighting, dramatic colored beams, controlled performance-like illumination, commercial editorial light drama",
+        "desc": "以舞台感燈束與強人工燈具主導的攝影棚光氛，保留戲劇化照明效果，但不生成實際演出場館。"
       }
     ],
     "光線表現 (Light Style)": [
@@ -2215,63 +2215,63 @@
       },
       {
         "zh": "室內：鏡面地板攝影棚",
-        "en": "mirror floor studio, glossy reflective surface, controlled studio reflections, futuristic editorial mood",
-        "desc": "地面具有鏡面反射，能增加造型與燈光的延伸感，適合時裝大片。"
+        "en": "five-sided mirror chamber studio, three mirrored walls, mirrored floor and mirrored ceiling, infinite reflective commercial space, isolated subject",
+        "desc": "三面牆、地板與天花板皆為鏡面的特殊攝影棚空間，形成全方位鏡面延伸與商業時裝感。"
       },
       {
         "zh": "室內：純潔白幕",
-        "en": "infinite white background, seamless paper roll, isolated subject, commercial white",
-        "desc": "商業感極強，人物彷彿漂浮在純白無垠空間中。"
+        "en": "infinite white background, isolated subject, commercial white studio",
+        "desc": "商業感極強，人物彷彿漂浮在純白無限延伸空間中。"
       },
       {
         "zh": "室內：深邃黑幕",
-        "en": "pitch black background, pure dark void, zero ambient light, dramatic isolation",
-        "desc": "絕對黑暗，能將所有注意力集中在被光照到的主體上。"
+        "en": "infinite black background, isolated subject, commercial black studio",
+        "desc": "絕對黑色的無限延伸背景，能將所有注意力集中在被光照到的主體上。"
       },
       {
         "zh": "室內：莫蘭迪灰背景",
-        "en": "medium grey seamless backdrop, neutral tone, subtle texture, clean studio setting",
-        "desc": "最不會干擾膚色的中性灰背景，穩定且高級。"
+        "en": "infinite muted grey background, isolated subject, commercial neutral grey studio",
+        "desc": "低飽和灰色的無限延伸背景，穩定、中性且不干擾膚色。"
       },
       {
         "zh": "室內：純藍背景",
-        "en": "solid blue seamless backdrop, clean studio isolation, saturated color field, crisp commercial studio mood",
-        "desc": "飽和藍色背景乾淨直接，適合流行感、科技感與高辨識度棚拍企劃。"
+        "en": "infinite solid blue background, isolated subject, commercial blue studio",
+        "desc": "飽和藍色的無限延伸背景，乾淨直接，適合高辨識度棚拍企劃。"
       },
       {
         "zh": "室內：純橘背景",
-        "en": "solid orange seamless backdrop, vivid warm color field, clean isolated subject, energetic studio mood",
-        "desc": "明亮橘色背景帶有活力與社群感，適合流行、企劃與高飽和人像。"
+        "en": "infinite solid orange background, isolated subject, commercial orange studio",
+        "desc": "明亮橘色的無限延伸背景，帶有活力與高飽和商業感。"
       },
       {
         "zh": "室內：純紅背景",
-        "en": "solid red seamless backdrop, bold saturated studio background, dramatic isolated subject, striking editorial impact",
-        "desc": "高飽和紅色背景張力很強，適合封面感、戲劇化與高存在感人像。"
+        "en": "infinite solid red background, isolated subject, commercial red studio",
+        "desc": "高飽和紅色的無限延伸背景，張力強且具商業封面感。"
       },
       {
         "zh": "室內：純黃背景",
-        "en": "solid yellow seamless backdrop, bright saturated color field, playful clean studio isolation, pop editorial mood",
-        "desc": "亮黃色背景辨識度高，適合青春、普普、Y2K 與社群感企劃。"
+        "en": "infinite solid yellow background, isolated subject, commercial yellow studio",
+        "desc": "亮黃色的無限延伸背景，辨識度高，適合青春與流行企劃。"
       },
       {
         "zh": "室內：純紫背景",
-        "en": "solid purple seamless backdrop, saturated studio color field, stylish isolated subject, moody pop-fashion atmosphere",
-        "desc": "紫色背景兼具流行感與戲劇性，適合時裝、概念感與夜色調企劃。"
+        "en": "infinite solid purple background, isolated subject, commercial purple studio",
+        "desc": "紫色的無限延伸背景，兼具流行感與概念商業感。"
       },
       {
         "zh": "室內：純綠背景",
-        "en": "solid green seamless backdrop, vivid studio color field, clean isolated subject, fresh graphic pop mood",
-        "desc": "綠色背景帶有清新又強烈的圖像感，適合流行、實驗感與高對比人像。"
+        "en": "infinite solid green background, isolated subject, commercial green studio",
+        "desc": "綠色的無限延伸背景，清新、圖像感強且適合高對比棚拍。"
       },
       {
         "zh": "室內：鮮豔撞色背景",
-        "en": "vibrant solid color backdrop, bold color contrast, pop-art studio mood, clean isolated subject",
-        "desc": "高飽和單色背景，適合社群感、Y2K、普普與流行企劃。"
+        "en": "infinite vibrant solid-color background, isolated subject, commercial color-block studio",
+        "desc": "高飽和純色塊的無限延伸背景，適合社群感、普普與商業企劃。"
       },
       {
         "zh": "室內：漸層打光背景",
-        "en": "gradient-lit backdrop, subtle halo glow behind the subject, soft studio falloff, cover-shoot atmosphere",
-        "desc": "利用燈光打出背景漸層光斑，能提升人物立體感與封面感。"
+        "en": "infinite gradient-lit background, isolated subject, commercial gradient studio",
+        "desc": "漸層打光的無限延伸背景，能提升人物立體感與商業封面感。"
       }
     ],
     "生活感室內 (Indoor & Lifestyle)": [

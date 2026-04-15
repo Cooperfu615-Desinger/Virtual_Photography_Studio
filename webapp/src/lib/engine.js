@@ -476,6 +476,33 @@ function inferLocationMeta(category, item) {
   }
   if (hasAny(haystack, ['bunker', 'drainage', 'tunnel', '地下', '排洪道'])) tags.push('subterranean');
   if (hasAny(haystack, ['white background', 'grey seamless', 'paper roll', 'backdrop', '白幕', '黑幕', '背景'])) tags.push('studio');
+  if (hasAny(haystack, ['鏡面地板攝影棚', 'five-sided mirror chamber studio'])) {
+    tags.push('mirror_studio', 'studio_lighting_scene');
+  }
+  if (hasAny(haystack, [
+    '純潔白幕',
+    '深邃黑幕',
+    '莫蘭迪灰背景',
+    '純藍背景',
+    '純橘背景',
+    '純紅背景',
+    '純黃背景',
+    '純紫背景',
+    '純綠背景',
+    '鮮豔撞色背景',
+    'infinite white background',
+    'infinite black background',
+    'infinite muted grey background',
+    'infinite solid blue background',
+    'infinite solid orange background',
+    'infinite solid red background',
+    'infinite solid yellow background',
+    'infinite solid purple background',
+    'infinite solid green background',
+    'infinite vibrant solid-color background',
+  ])) {
+    tags.push('solid_color_studio', 'studio_lighting_scene');
+  }
 
   return { tags: withTags(tags) };
 }
@@ -625,13 +652,13 @@ function inferLightingMeta(category, item) {
       tags.push('artificial_light', 'indoor', 'neon', 'dark', 'supports_indoor', 'supports_commercial', 'supports_hospitality', 'supports_subterranean');
     }
     if (hasAny(haystack, ['高調純白攝影棚', 'high-key white studio atmosphere'])) {
-      tags.push('artificial_light', 'indoor', 'studio_light', 'controlled', 'soft_light', 'supports_indoor', 'supports_studio', 'supports_commercial');
+      tags.push('artificial_light', 'indoor', 'studio_light', 'studio_scene_only', 'controlled', 'soft_light', 'supports_indoor', 'supports_studio', 'supports_commercial');
     }
     if (hasAny(haystack, ['柔霧美妝攝影棚', 'soft beauty studio atmosphere'])) {
-      tags.push('artificial_light', 'indoor', 'studio_light', 'controlled', 'soft_light', 'portrait_light', 'supports_indoor', 'supports_studio', 'supports_commercial');
+      tags.push('artificial_light', 'indoor', 'studio_light', 'studio_scene_only', 'controlled', 'soft_light', 'portrait_light', 'supports_indoor', 'supports_studio', 'supports_commercial');
     }
     if (hasAny(haystack, ['舞台演出燈光', 'stage-lit atmosphere'])) {
-      tags.push('artificial_light', 'stage_light', 'dramatic', 'supports_indoor', 'supports_commercial', 'supports_studio', 'supports_subterranean');
+      tags.push('artificial_light', 'stage_light', 'studio_scene_only', 'dramatic', 'supports_indoor', 'supports_commercial', 'supports_studio');
     }
   }
 
@@ -688,7 +715,7 @@ function inferLightingMeta(category, item) {
       tags.push('natural_light', 'sunlight', 'supports_outdoor', 'supports_natural', 'supports_urban');
     }
     if (hasAny(haystack, ['潮濕反射光', 'wet reflective light'])) {
-      tags.push('reflective', 'supports_outdoor', 'supports_urban', 'supports_indoor');
+      tags.push('reflective', 'wet_surface', 'outdoor_only', 'supports_outdoor', 'supports_urban');
     }
     if (hasAny(haystack, ['局部暖光', 'local warm glow'])) {
       tags.push('artificial_light', 'warm', 'supports_indoor', 'supports_hospitality', 'supports_residential', 'supports_commercial');
@@ -1234,6 +1261,10 @@ function hasAnyTag(tagSet, tags) {
 }
 
 function getLocationEnvironmentFlags(location) {
+  const label = location?.zh || '';
+  if (label.startsWith('室內')) return { indoor: true, outdoor: false };
+  if (label.startsWith('戶外')) return { indoor: false, outdoor: true };
+
   const tags = new Set(location?.meta?.tags || []);
   const outdoor = hasAnyTag(tags, ['outdoor', 'natural', 'waterfront', 'green_space']);
   const indoor = hasAnyTag(tags, ['indoor', 'studio', 'set', 'controlled', 'residential', 'hospitality', 'institutional'])
@@ -1319,6 +1350,9 @@ function locationSupportsLighting(location, lighting) {
   if ((locTags.has('ruin') || locTags.has('underground') || locTags.has('subterranean')) && lightTags.has('studio_light')) {
     return false;
   }
+  if (lightTags.has('studio_scene_only') && !locTags.has('studio_lighting_scene')) {
+    return false;
+  }
   if ((locTags.has('underground') || locTags.has('subterranean')) && !lightTags.has('indoor') && (lightTags.has('day') || lightTags.has('sunlight') || lightTags.has('clean_sky') || lightTags.has('cloudy') || lightTags.has('dusk') || lightTags.has('night_ambient'))) {
     return false;
   }
@@ -1361,6 +1395,7 @@ function lightDirectionSupportsScene(lightDirection, framing, location, lighting
   const directionEnvironment = getLightDirectionEnvironmentFlags(lightDirection);
 
   if (directionTags.has('portrait_light') && !visibilityAtLeast(framing.meta.visibility, 'medium')) return false;
+  if (directionTags.has('outdoor_only') && locationEnvironment.indoor && !locationEnvironment.outdoor) return false;
   if (locationEnvironment.indoor && !locationEnvironment.outdoor && !directionEnvironment.indoor) return false;
   if (locationEnvironment.outdoor && !locationEnvironment.indoor && !directionEnvironment.outdoor) return false;
   if (directionTags.has('window_light') && !(locationTags.has('indoor') || locationTags.has('residential') || locationTags.has('hospitality') || locationTags.has('heritage'))) return false;
@@ -1585,6 +1620,19 @@ function pickWithLock(list, lockedId, predicate = () => true, picker = sample) {
   if (lockedId) {
     const locked = findById(list, lockedId);
     if (locked) return locked;
+  }
+
+  const matches = list.filter(predicate);
+  if (matches.length > 0) return picker(matches);
+
+  const noneOption = list.find((item) => isNoneLikeItem(item));
+  return noneOption || null;
+}
+
+function pickWithCompatibleLock(list, lockedId, predicate = () => true, picker = sample) {
+  if (lockedId) {
+    const locked = findById(list, lockedId);
+    if (locked && predicate(locked)) return locked;
   }
 
   const matches = list.filter(predicate);
@@ -3142,10 +3190,10 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const lens = pickWithLock(runtime.flatCatalog.lens, effectiveLocks.lensId);
   const lighting = styleDrivenCamera
     ? null
-    : pickWithLock(runtime.flatCatalog.lighting, effectiveLocks.lightingId, (item) => locationSupportsLighting(location, item));
+    : pickWithCompatibleLock(runtime.flatCatalog.lighting, effectiveLocks.lightingId, (item) => locationSupportsLighting(location, item));
   const lightDirection = styleDrivenCamera || !lighting
     ? null
-    : pickWithLock(runtime.flatCatalog.lightDirection, effectiveLocks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
+    : pickWithCompatibleLock(runtime.flatCatalog.lightDirection, effectiveLocks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
   const film = styleDrivenCamera ? null : pickWithLock(runtime.flatCatalog.film, effectiveLocks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
   const opticalEffect = pickWithLock(runtime.flatCatalog.effects, effectiveLocks.opticalEffectId);
   const duoInteraction = subject.count === 2 ? getDuoInteractionOption(effectiveLocks.duoInteractionId) || sample(DUO_INTERACTION_OPTIONS) : null;

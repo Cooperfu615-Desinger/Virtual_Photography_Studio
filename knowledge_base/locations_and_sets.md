@@ -5,18 +5,18 @@
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺氛圍與空間感 (Visual & Spatial Context) |
 | :--- | :--- | :--- | :--- |
 | **攝影棚與背景 (Studio Sets)** | 全無 | `none` | 不指定場景，讓模型自行決定背景環境與空間佈局。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：鏡面地板攝影棚 | `mirror floor studio, glossy reflective surface, controlled studio reflections, futuristic editorial mood` | 地面具有鏡面反射，能增加造型與燈光的延伸感，適合時裝大片。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：純潔白幕 | `infinite white background, seamless paper roll, isolated subject, commercial white` | 商業感極強，人物彷彿漂浮在純白無垠空間中。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：深邃黑幕 | `pitch black background, pure dark void, zero ambient light, dramatic isolation` | 絕對黑暗，能將所有注意力集中在被光照到的主體上。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：莫蘭迪灰背景 | `medium grey seamless backdrop, neutral tone, subtle texture, clean studio setting` | 最不會干擾膚色的中性灰背景，穩定且高級。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：純藍背景 | `solid blue seamless backdrop, clean studio isolation, saturated color field, crisp commercial studio mood` | 飽和藍色背景乾淨直接，適合流行感、科技感與高辨識度棚拍企劃。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：純橘背景 | `solid orange seamless backdrop, vivid warm color field, clean isolated subject, energetic studio mood` | 明亮橘色背景帶有活力與社群感，適合流行、企劃與高飽和人像。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：純紅背景 | `solid red seamless backdrop, bold saturated studio background, dramatic isolated subject, striking editorial impact` | 高飽和紅色背景張力很強，適合封面感、戲劇化與高存在感人像。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：純黃背景 | `solid yellow seamless backdrop, bright saturated color field, playful clean studio isolation, pop editorial mood` | 亮黃色背景辨識度高，適合青春、普普、Y2K 與社群感企劃。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：純紫背景 | `solid purple seamless backdrop, saturated studio color field, stylish isolated subject, moody pop-fashion atmosphere` | 紫色背景兼具流行感與戲劇性，適合時裝、概念感與夜色調企劃。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：純綠背景 | `solid green seamless backdrop, vivid studio color field, clean isolated subject, fresh graphic pop mood` | 綠色背景帶有清新又強烈的圖像感，適合流行、實驗感與高對比人像。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：鮮豔撞色背景 | `vibrant solid color backdrop, bold color contrast, pop-art studio mood, clean isolated subject` | 高飽和單色背景，適合社群感、Y2K、普普與流行企劃。 |
-| **攝影棚與背景 (Studio Sets)** | 室內：漸層打光背景 | `gradient-lit backdrop, subtle halo glow behind the subject, soft studio falloff, cover-shoot atmosphere` | 利用燈光打出背景漸層光斑，能提升人物立體感與封面感。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：鏡面地板攝影棚 | `five-sided mirror chamber studio, three mirrored walls, mirrored floor and mirrored ceiling, infinite reflective commercial space, isolated subject` | 三面牆、地板與天花板皆為鏡面的特殊攝影棚空間，形成全方位鏡面延伸與商業時裝感。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純潔白幕 | `infinite white background, isolated subject, commercial white studio` | 商業感極強，人物彷彿漂浮在純白無限延伸空間中。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：深邃黑幕 | `infinite black background, isolated subject, commercial black studio` | 絕對黑色的無限延伸背景，能將所有注意力集中在被光照到的主體上。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：莫蘭迪灰背景 | `infinite muted grey background, isolated subject, commercial neutral grey studio` | 低飽和灰色的無限延伸背景，穩定、中性且不干擾膚色。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純藍背景 | `infinite solid blue background, isolated subject, commercial blue studio` | 飽和藍色的無限延伸背景，乾淨直接，適合高辨識度棚拍企劃。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純橘背景 | `infinite solid orange background, isolated subject, commercial orange studio` | 明亮橘色的無限延伸背景，帶有活力與高飽和商業感。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純紅背景 | `infinite solid red background, isolated subject, commercial red studio` | 高飽和紅色的無限延伸背景，張力強且具商業封面感。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純黃背景 | `infinite solid yellow background, isolated subject, commercial yellow studio` | 亮黃色的無限延伸背景，辨識度高，適合青春與流行企劃。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純紫背景 | `infinite solid purple background, isolated subject, commercial purple studio` | 紫色的無限延伸背景，兼具流行感與概念商業感。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：純綠背景 | `infinite solid green background, isolated subject, commercial green studio` | 綠色的無限延伸背景，清新、圖像感強且適合高對比棚拍。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：鮮豔撞色背景 | `infinite vibrant solid-color background, isolated subject, commercial color-block studio` | 高飽和純色塊的無限延伸背景，適合社群感、普普與商業企劃。 |
+| **攝影棚與背景 (Studio Sets)** | 室內：漸層打光背景 | `infinite gradient-lit background, isolated subject, commercial gradient studio` | 漸層打光的無限延伸背景，能提升人物立體感與商業封面感。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：精品飯店房間 | `boutique hotel room, warm bedside lamps, crisp bedding, elegant interior details, editorial travel mood` | 高級但不過度奢華的飯店房間，適合寫真、時裝與成熟人像。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：現代高樓公寓客廳 | `modern high-rise apartment interior, window glow, clean designer furniture, soft city backdrop, contemporary lifestyle mood` | 現代都會感強，適合 lifestyle 與社群感拍攝。 |
 | **生活感室內 (Indoor & Lifestyle)** | 室內：臥室窗邊 | `bedroom window area, soft daylight spill, linen textures, intimate photobook atmosphere, quiet interior` | 臨窗空間帶有柔和自然光，很適合寫真集與生活感人像。 |

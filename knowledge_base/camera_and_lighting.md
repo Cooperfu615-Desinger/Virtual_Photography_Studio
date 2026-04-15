@@ -60,7 +60,7 @@
 | **環境光氛 (Environment Mood)** | 霓虹夜色 | `neon night atmosphere, dark night sky, colored city glow, vivid neon reflections, high-saturation urban nightlife mood` | 夜色基底下混入高彩度霓虹，若有遠景應帶彩色反射、招牌光暈與夜生活氣息。 |
 | **環境光氛 (Environment Mood)** | 陰雨將至 | `storm-brewing atmosphere, heavy dark clouds, charged humid air, pre-rain tension, oppressive low-sky mood` | 暴雨前的烏雲壓頂與潮悶空氣，畫面帶有等待風暴來臨的壓迫感與不安定張力。 |
 | **環境光氛 (Environment Mood)** | 雨天陰濕 | `rainy atmosphere, grey-blue rain sky, damp air, wet surfaces, muted visibility, cold overcast mood` | 若畫面含天空與遠景，應呈現厚重灰藍雲層、濕冷空氣與低明度場景。 |
-| **環境光氛 (Environment Mood)** | 雨後反光 | `post-rain atmosphere, recently cleared wet streets, reflective surfaces, moody sky remnants, fresh damp urban air` | 雨剛停後的潮濕反光環境，若有遠景可保留殘雲、濕亮地面與更通透的空氣感。 |
+| **環境光氛 (Environment Mood)** | 雨後反光 | `post-rain atmosphere, freshly damp urban surfaces, reflective stone and wall textures, moody sky remnants, fresh humid air after rainfall` | 雨剛停後的潮濕反光環境，重點放在濕潤表面、石材、牆面與局部反射，不主動指定街道，若有遠景可保留殘雲與更通透的空氣感。 |
 | **環境光氛 (Environment Mood)** | 雪地冷光 | `snow-bright atmosphere, cold pale sky, reflective snowy distance, crisp winter air, bright cool ambient glow` | 若畫面有遠景與天空，應帶冷白冬日感與雪地反射造成的清冽亮度。 |
 | **環境光氛 (Environment Mood)** | 冬季灰冷 | `cold winter overcast atmosphere, pale grey sky, dry freezing air, subdued daylight, stark seasonal stillness` | 不一定下雪，但整體帶有冬季灰冷、乾燥、沉靜而偏冷白的季節空氣感。 |
 | **環境光氛 (Environment Mood)** | 室內窗邊日光 | `indoor daylight by the window, natural window-lit room, bright exterior sky visible outside if present, soft daytime interior atmosphere` | 以白天室內窗光為主；若畫面看得到窗外，外部應明確保持白天天空與日光狀態。 |
@@ -69,9 +69,9 @@
 | **環境光氛 (Environment Mood)** | 室內燭光 | `candlelit interior atmosphere, flickering warm flame glow, intimate low-light room, soft amber darkness, romantic firelit mood` | 由燭光或火光主導的室內夜景，整體更親密、古典、柔暖，適合 boudoir、復古與私密敘事。 |
 | **環境光氛 (Environment Mood)** | 室內冷色人造光 | `indoor cool artificial light, fluorescent or LED interior mood, cool-white ambient cast, modern controlled space, dim exterior if visible` | 偏冷白的人造光室內空間，若有窗外通常不主導，整體更現代、理性、都市。 |
 | **環境光氛 (Environment Mood)** | 室內霓虹夜色 | `indoor neon-lit atmosphere, colored LED glow, nightlife interior mood, saturated urban light spill, moody modern room ambiance` | 由室內霓虹或 LED 光源主導的夜景氛圍，適合旅館、酒吧、浴室、夜店與都會感室內畫面。 |
-| **環境光氛 (Environment Mood)** | 高調純白攝影棚 | `high-key white studio atmosphere, seamless white cyc wall, shadowless commercial lighting environment, ultra-clean bright studio air` | 純白無縫背景與高調棚燈主導的商業攝影棚氛圍，整體明亮乾淨、陰影極淡或近乎消失，適合 beauty、catalog、電商、極簡時裝與乾淨人像。 |
-| **環境光氛 (Environment Mood)** | 柔霧美妝攝影棚 | `soft beauty studio atmosphere, diffused shadowless lighting environment, creamy clean studio air, polished commercial portrait mood` | 以大型柔光與均勻棚燈營造的美妝棚拍氛圍，陰影極輕、膚質細膩、畫面乾淨柔順，適合特寫寫真、妝容、保養品與高級人像。 |
-| **環境光氛 (Environment Mood)** | 舞台演出燈光 | `stage-lit atmosphere, theatrical venue lighting, dark surrounding space, dramatic colored beams, performance-driven visual mood` | 以舞台、演出或強人工燈具主導的環境，背景通常較暗，空間感由燈束與演出光決定。 |
+| **環境光氛 (Environment Mood)** | 高調純白攝影棚 | `high-key white studio lighting, shadowless commercial illumination, ultra-clean bright studio air, crisp isolated subject lighting` | 高調白光與均勻棚燈主導的商業攝影光氛，整體明亮乾淨、陰影極淡或近乎消失，不額外指定背景結構。 |
+| **環境光氛 (Environment Mood)** | 柔霧美妝攝影棚 | `soft beauty studio lighting, diffused shadowless illumination, creamy clean light quality, polished commercial portrait glow` | 以大型柔光與均勻棚燈營造的美妝棚拍光氛，陰影極輕、膚質細膩、畫面乾淨柔順，不額外指定背景結構。 |
+| **環境光氛 (Environment Mood)** | 舞台演出燈光 | `stage-inspired studio lighting, dramatic colored beams, controlled performance-like illumination, commercial editorial light drama` | 以舞台感燈束與強人工燈具主導的攝影棚光氛，保留戲劇化照明效果，但不生成實際演出場館。 |
 | **光線表現 (Light Style)** | 全無 | `none` | 不指定光線表現，讓模型自行決定主體受光方向、質地與氣氛。 |
 | **光線表現 (Light Style)** | 柔和順光 | `soft front light, even forward illumination, gentle skin rendering, low-contrast facial detail` | 正面柔光均勻照亮五官，陰影少，最適合乾淨穩定的人像。 |
 | **光線表現 (Light Style)** | 均勻平光 | `flat even light, balanced full-face illumination, minimal contrast, clean descriptive exposure` | 光線平均、資訊完整、對比低，適合型錄感、敘事清楚的畫面。 |
