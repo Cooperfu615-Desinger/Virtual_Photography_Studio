@@ -12,13 +12,19 @@ const SUBJECT_COUNT_OPTIONS = [
   },
 ];
 
-const ASPECT_RATIO_OPTIONS = [
+const ASPECT_RATIO_POOL = [
   { id: '1:1', zh: '1:1', en: '1:1' },
   { id: '3:4', zh: '3:4', en: '3:4' },
   { id: '4:5', zh: '4:5', en: '4:5' },
   { id: '2:3', zh: '2:3', en: '2:3' },
   { id: '9:16', zh: '9:16', en: '9:16' },
   { id: '16:9', zh: '16:9', en: '16:9' },
+];
+const DEFAULT_ASPECT_RATIO = ASPECT_RATIO_POOL[2];
+const ASPECT_RATIO_OPTIONS = [
+  { id: 'random', zh: '隨機', en: 'random aspect ratio', random: true },
+  { id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } },
+  ...ASPECT_RATIO_POOL,
 ];
 
 const DUO_INTERACTION_OPTIONS = [
@@ -211,7 +217,7 @@ const SCENE_ATTRIBUTE_OPTIONS = [
 
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
-  { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: '4:5', section: 'core' },
+  { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
   { key: 'sceneAttributeId', label: '場景屬性', options: SCENE_ATTRIBUTE_OPTIONS, section: 'core' },
   { key: 'locationId', label: '場景', category: null, section: 'core' },
@@ -1523,7 +1529,9 @@ function getSubjectOption(id) {
 }
 
 function getAspectRatioOption(id) {
-  return ASPECT_RATIO_OPTIONS.find((option) => option.id === id) || ASPECT_RATIO_OPTIONS[2];
+  const option = ASPECT_RATIO_OPTIONS.find((entry) => entry.id === id);
+  if (option?.random) return sample(ASPECT_RATIO_POOL);
+  return option || DEFAULT_ASPECT_RATIO;
 }
 
 function getDuoInteractionOption(id) {
@@ -2955,7 +2963,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     context.orbit ? resolvePromptVariant(context.orbit, 'orbit', context.subject.count) : '',
     context.lens?.en,
     opticalEffect?.en,
-    `aspect ratio ${context.aspectRatio.en}`,
+    context.aspectRatio.en ? `aspect ratio ${context.aspectRatio.en}` : '',
   ]);
   const buildStyleText = () => joinSentenceParts([
     context.style && !isNoneLikeItem(context.style) ? buildPhotographyStylePrompt(context.style) : '',

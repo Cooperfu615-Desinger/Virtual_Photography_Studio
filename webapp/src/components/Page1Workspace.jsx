@@ -180,10 +180,10 @@ export default function Page1Workspace({
                 Clear Feed {prompts.length > 0 ? `(${prompts.length})` : ''}
               </button>
               <button className="secondary" onClick={() => updateLocks(createEmptyLocks())}>
-                All Random
+                全部隨機
               </button>
               <button className="secondary subtle-action" onClick={() => updateLocks(buildAllNoneLocks(lockControls, locks))}>
-                All None
+                全部全無
               </button>
             </div>
           </div>

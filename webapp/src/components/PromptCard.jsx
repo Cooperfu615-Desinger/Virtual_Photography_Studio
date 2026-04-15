@@ -103,7 +103,7 @@ function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemi
           </div>
         </div>
         <div className="card-actions">
-          <button className="icon-btn" onClick={() => onRemix(data, lockedSummaryKeys)} title="Random with selected summary locks">
+          <button className="icon-btn" onClick={() => onRemix(data, lockedSummaryKeys)} title="使用已鎖定摘要隨機重抽">
             <RefreshCcw size={18} />
           </button>
           {canRestore ? (

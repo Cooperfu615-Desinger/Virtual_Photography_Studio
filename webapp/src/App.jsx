@@ -678,10 +678,9 @@ function buildRemixMeta(previousPrompt, nextPrompt, lockedSections) {
 function buildAllNoneLocks(controls, currentLocks) {
   const nextLocks = createEmptyLocks();
   nextLocks.subjectCount = currentLocks.subjectCount || nextLocks.subjectCount;
-  nextLocks.aspectRatio = currentLocks.aspectRatio || nextLocks.aspectRatio;
 
   controls.forEach((control) => {
-    if (['subjectCount', 'aspectRatio'].includes(control.key)) return;
+    if (control.key === 'subjectCount') return;
     const noneOption = control.options?.find((option) => option.zh === '全無');
     if (noneOption) {
       nextLocks[control.key] = noneOption.id;
