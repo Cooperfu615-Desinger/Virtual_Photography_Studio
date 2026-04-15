@@ -513,9 +513,9 @@
         "desc": "作為泳裝上身使用時，改成更接近經典三角杯比基尼的結構，重點是細繩肩帶、簡潔三角罩杯與貼身俐落的海邊感線條。"
       },
       {
-        "zh": "蕾絲胸罩",
-        "en": "lace bra top, deep v neckline, intricate floral lace, scalloped trim, delicate underbust structure, refined lingerie detailing",
-        "desc": "以低胸深 V 結構、精緻花卉蕾絲與波浪邊作為主體設計語言，重點放在服裝細節與材質裝飾，而不是裸露程度。"
+        "zh": "細肩帶蕾絲胸罩",
+        "en": "thin-strap lace bra top, slender shoulder straps, deep v neckline, intricate floral lace, scalloped trim, delicate underbust structure, refined lingerie detailing",
+        "desc": "以細肩帶、低胸深 V 結構、精緻花卉蕾絲與波浪邊作為主體設計語言，重點放在服裝細節與材質裝飾，而不是裸露程度。"
       },
       {
         "zh": "運動型內衣",
@@ -536,6 +536,11 @@
         "zh": "波西米亞風上衣",
         "en": "bohemian draped blouse, soft crinkled gauze or washed rayon fabric, deep relaxed neckline, untucked loose hem worn outside the bottoms, softly layered sleeves, earth-tone patchwork and folk-woven patterns, artisanal trim and relaxed resort styling",
         "desc": "更貼近異國咖啡館與度假人文感的波西米亞上衣，強調鬆垮垂墜的領口、土色系拼接與民俗織紋、柔軟皺感布料與披罩式袖型，整體更成熟、鬆弛也更有飾品疊搭空間。"
+      },
+      {
+        "zh": "無肩帶蕾絲胸罩",
+        "en": "strapless lace bra top, clean bare-shoulder neckline, structured bandeau-style cups, intricate floral lace, scalloped trim, delicate underbust support, refined lingerie detailing",
+        "desc": "以無肩帶平口輪廓、結構式罩杯、精緻花卉蕾絲與波浪邊作為主體設計語言，讓肩線更乾淨，並保留完整服裝與細緻布料裝飾。"
       }
     ],
     "上身圖案 (Top Surface Design)": [

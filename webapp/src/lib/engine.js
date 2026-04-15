@@ -1829,13 +1829,15 @@ function buildWardrobe(context, locks, catalog) {
   const lockedTop = Array.isArray(lockedTopValue)
     ? lockedTopValue.map((id) => findById(topItems, id)).find(Boolean)
     : (lockedTopValue ? findById(topItems, lockedTopValue) : null);
+  const activeLockedDress = lockedDress && !isNoneLikeItem(lockedDress) ? lockedDress : null;
+  const activeLockedTop = lockedTop && !isNoneLikeItem(lockedTop) ? lockedTop : null;
 
   let topPiece = null;
   let dressPiece = null;
 
-  if (lockedDress) {
+  if (activeLockedDress) {
     dressPiece = maybePick('連身 (Dresses)');
-  } else if (lockedTop) {
+  } else if (activeLockedTop) {
     topPiece = maybePick('上身 (Tops)');
   } else if (Math.random() < 0.18) {
     dressPiece = maybePick('連身 (Dresses)');
