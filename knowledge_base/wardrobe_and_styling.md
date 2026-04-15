@@ -250,6 +250,7 @@
 | **眼鏡 (Eyewear)** | 細框眼鏡 | `thin-rimmed glasses, delicate eyewear frame, refined intellectual accent` | 比黑框更輕巧、存在感更低，適合文青、知性與乾淨生活感造型。 |
 | **眼鏡 (Eyewear)** | 復古圓框眼鏡 | `retro round glasses, circular frame silhouette, vintage intellectual face styling` | 圓形鏡框辨識度高，整體更偏復古、文藝與帶角色感的造型方向。 |
 | **眼鏡 (Eyewear)** | 太陽眼鏡 | `sunglasses, tinted lenses, stylish eyewear accent, fashion attitude` | 直接帶出街拍、都會或度假感，也能讓角色更有明星與時裝氣場。 |
+| **眼鏡 (Eyewear)** | 眼鏡戴在頭頂 | `glasses resting on top of the head, eyewear pushed up into the hair above the forehead, thin frame visible as a casual styling accent, eyes unobstructed, relaxed off-face eyewear placement` | 參考將眼鏡推到頭頂、卡在髮絲上方的佩戴方式，臉部與眼睛保持清楚可見，同時保留自然隨性的造型感。 |
 | **耳環 (Earrings)** | 全無 | `no earrings, clean ear styling` | 不加耳環，讓耳側與臉部輪廓保持乾淨。 |
 | **耳環 (Earrings)** | 小型金屬耳環 | `small metallic earring detail, subtle understated jewelry styling` | 最穩定的點綴型耳環，存在感更低，適合大多數風格。 |
 | **耳環 (Earrings)** | 珍珠耳釘 | `small pearl stud earring detail, soft understated pearl accent` | 以小巧珍珠與柔亮珠光為主，精緻典雅，但刻意降低搶戲程度。 |
