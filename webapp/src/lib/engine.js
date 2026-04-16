@@ -368,6 +368,10 @@ const slugify = (text = '') =>
     .replace(/^-+|-+$/g, '');
 
 const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const sampleNonNone = (arr) => {
+  const nonNone = arr.filter((item) => !isNoneLikeItem(item));
+  return sample(nonNone.length > 0 ? nonNone : arr);
+};
 
 const withTags = (...parts) =>
   Array.from(
@@ -1623,6 +1627,8 @@ function pickWithLock(list, lockedId, predicate = () => true, picker = sample) {
   }
 
   const matches = list.filter(predicate);
+  const nonNoneMatches = matches.filter((item) => !isNoneLikeItem(item));
+  if (nonNoneMatches.length > 0) return picker(nonNoneMatches);
   if (matches.length > 0) return picker(matches);
 
   const noneOption = list.find((item) => isNoneLikeItem(item));
@@ -1632,10 +1638,13 @@ function pickWithLock(list, lockedId, predicate = () => true, picker = sample) {
 function pickWithCompatibleLock(list, lockedId, predicate = () => true, picker = sample) {
   if (lockedId) {
     const locked = findById(list, lockedId);
+    if (locked && isNoneLikeItem(locked)) return locked;
     if (locked && predicate(locked)) return locked;
   }
 
   const matches = list.filter(predicate);
+  const nonNoneMatches = matches.filter((item) => !isNoneLikeItem(item));
+  if (nonNoneMatches.length > 0) return picker(nonNoneMatches);
   if (matches.length > 0) return picker(matches);
 
   const noneOption = list.find((item) => isNoneLikeItem(item));
@@ -2337,13 +2346,13 @@ function extractWardrobeSlots(wardrobe) {
 function buildWardrobeColors(wardrobeSlots, locks) {
   if (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
     const outfitPresetColor = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
-      ? getOutfitPresetColorOption(locks?.outfitPresetColorId) || sample(OUTFIT_PRESET_COLOR_OPTIONS)
+      ? getOutfitPresetColorOption(locks?.outfitPresetColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
       : null;
     const outfitPresetAColor = wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)
-      ? getOutfitPresetColorOption(locks?.outfitPresetAColorId) || sample(OUTFIT_PRESET_COLOR_OPTIONS)
+      ? getOutfitPresetColorOption(locks?.outfitPresetAColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
       : null;
     const outfitPresetBColor = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
-      ? getOutfitPresetColorOption(locks?.outfitPresetBColorId) || sample(OUTFIT_PRESET_COLOR_OPTIONS)
+      ? getOutfitPresetColorOption(locks?.outfitPresetBColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
       : null;
     return {
       outfitPresetColor,
@@ -2360,14 +2369,14 @@ function buildWardrobeColors(wardrobeSlots, locks) {
   }
   const topBottomPalette = getTopBottomPaletteOption(locks?.topBottomPaletteId);
   const topColor = wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top)
-    ? topBottomPalette?.topColor || getGarmentColorOption(locks?.topColorId) || sample(GARMENT_COLOR_OPTIONS)
+    ? topBottomPalette?.topColor || getGarmentColorOption(locks?.topColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS)
     : null;
-  const dressColor = wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) ? getGarmentColorOption(locks?.dressColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
+  const dressColor = wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) ? getGarmentColorOption(locks?.dressColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
   const hasBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants)) || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt));
-  const bottomColor = hasBottom ? topBottomPalette?.bottomColor || getGarmentColorOption(locks?.bottomColorId) || sample(GARMENT_COLOR_OPTIONS) : null;
-  const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(locks?.legwearColorId) || sample(LEGWEAR_COLOR_OPTIONS) : null;
-  const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? getLayerColorOption(locks?.outerwearColorId) || sample(LAYER_COLOR_OPTIONS) : null;
-  const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) ? getLayerColorOption(locks?.shoesColorId) || sample(LAYER_COLOR_OPTIONS) : null;
+  const bottomColor = hasBottom ? topBottomPalette?.bottomColor || getGarmentColorOption(locks?.bottomColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
+  const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(locks?.legwearColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS) : null;
+  const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? getLayerColorOption(locks?.outerwearColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
+  const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) ? getLayerColorOption(locks?.shoesColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
   return {
     outfitPresetColor: null,
     outfitPresetAColor: null,
