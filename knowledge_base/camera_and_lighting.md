@@ -49,6 +49,7 @@
 | **環境光氛 (Environment Mood)** | 全無 | `none` | 不指定環境光氛，讓模型自行決定天空、空氣感、時段與整體場景光氛。 |
 | **環境光氛 (Environment Mood)** | 晴朗白日 | `clear daylight atmosphere, bright daytime sky, clean sunlit distance, open natural visibility` | 明亮乾淨的白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣感。 |
 | **環境光氛 (Environment Mood)** | 藍天白雲 | `saturated clear blue sky, deeper vivid azure tone, brilliant clean white clouds, high-clarity daylight, open airy distance, crisp blue-and-white daytime atmosphere` | 若畫面包含天空、窗外或遠景，應明確強化藍天與白雲的色彩對比，藍色更乾淨飽和、白雲更明亮純白，整體空氣通透、清澈。 |
+| **環境光氛 (Environment Mood)** | 夏日深藍積雲 | `expansive deep azure summer sky, saturated clean blue atmosphere, towering luminous white cumulus clouds, crisp cloud-edge separation, bright clouds with preserved detail, vivid blue-and-white daylight without cartoon oversaturation` | 更具日系夏日記憶感的大天空光氛，強調大面積深藍天空、高聳明亮白色積雲、清楚雲邊與藍白分離度；白雲明亮但保留細節，天空飽和但避免卡通化或過度 HDR。 |
 | **環境光氛 (Environment Mood)** | 正午烈日 | `harsh midday sun atmosphere, overhead summer daylight, short hard shadows, glaring bright sky, heat-baked outdoor air` | 接近正午的強烈直射日光，天空刺亮、陰影短而硬，整體帶有炎熱曝曬與高反差的戶外感。 |
 | **環境光氛 (Environment Mood)** | 陰天漫射 | `overcast sky, cloud-covered daylight, soft diffused atmosphere, muted distant contrast, calm neutral air` | 雲層厚而均勻，若有天空或遠景，應偏灰白低對比，整體更柔和安靜。 |
 | **環境光氛 (Environment Mood)** | 清晨薄霧 | `misty morning atmosphere, pale cool sky, soft haze in the distance, gentle low-contrast dawn air` | 帶有清晨霧感與偏冷晨光，若有遠景應略帶霧化與空氣透視。 |

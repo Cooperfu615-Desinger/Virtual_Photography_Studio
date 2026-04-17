@@ -596,6 +596,9 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['藍天白雲', 'clear blue sky'])) {
       tags.push('natural_light', 'sunlight', 'day', 'clean_sky', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
+    if (hasAny(haystack, ['夏日深藍積雲', 'deep azure summer sky', 'towering luminous white cumulus'])) {
+      tags.push('natural_light', 'sunlight', 'day', 'clean_sky', 'summer_sky', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
     if (hasAny(haystack, ['正午烈日', 'harsh midday sun'])) {
       tags.push('natural_light', 'sunlight', 'day', 'harsh', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
