@@ -472,7 +472,7 @@ function inferLocationMeta(category, item) {
   if (hasAny(haystack, ['opera house', 'mansion', 'library', 'old town', 'townhouse', '洋房', '歌劇院', '大宅', '老城'])) {
     tags.push('heritage');
   }
-  if (hasAny(haystack, ['beach', 'shoreline', 'coastline', 'lake', 'lakeside', 'sand dune', '沙丘', '海灘', '湖邊', '岩岸'])) {
+  if (hasAny(haystack, ['beach', 'shoreline', 'coastline', 'lake', 'lakeside', 'marina', 'harbor', 'waterfront', 'dockside', 'yacht', 'sailboat', 'pier', 'sand dune', '沙丘', '海灘', '湖邊', '岩岸', '碼頭', '港灣', '水岸', '遊艇', '帆船'])) {
     tags.push('waterfront', 'outdoor', 'natural');
   }
   if (hasAny(haystack, ['forest', 'grass', 'sunflower', 'park', '樹影', '森林', '草地', '花田', '公園'])) {
