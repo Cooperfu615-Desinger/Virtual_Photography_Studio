@@ -48,7 +48,7 @@
 | **鏡頭焦段 (Focal Length)** | 變形寬銀幕鏡頭 Anamorphic | `shot on anamorphic lens` | 強烈電影語言的寬銀幕鏡頭，常帶橢圓散景與水平光斑，適合公路片、夜景、敘事感與大片氣質。 |
 | **環境光氛 (Environment Mood)** | 全無 | `none` | 不指定環境光氛，讓模型自行決定天空、空氣感、時段與整體場景光氛。 |
 | **環境光氛 (Environment Mood)** | 晴朗白日 | `clear daylight atmosphere, bright daytime sky, clean sunlit distance, open natural visibility` | 明亮乾淨的白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣感。 |
-| **環境光氛 (Environment Mood)** | 藍天白雲 | `clear blue sky, crisp white clouds, bright clean daylight, open airy distance, vivid daytime atmosphere` | 若畫面包含天空、窗外或遠景，應明確呈現藍天與白雲，整體空氣通透、明亮。 |
+| **環境光氛 (Environment Mood)** | 藍天白雲 | `saturated clear blue sky, deeper vivid azure tone, brilliant clean white clouds, high-clarity daylight, open airy distance, crisp blue-and-white daytime atmosphere` | 若畫面包含天空、窗外或遠景，應明確強化藍天與白雲的色彩對比，藍色更乾淨飽和、白雲更明亮純白，整體空氣通透、清澈。 |
 | **環境光氛 (Environment Mood)** | 正午烈日 | `harsh midday sun atmosphere, overhead summer daylight, short hard shadows, glaring bright sky, heat-baked outdoor air` | 接近正午的強烈直射日光，天空刺亮、陰影短而硬，整體帶有炎熱曝曬與高反差的戶外感。 |
 | **環境光氛 (Environment Mood)** | 陰天漫射 | `overcast sky, cloud-covered daylight, soft diffused atmosphere, muted distant contrast, calm neutral air` | 雲層厚而均勻，若有天空或遠景，應偏灰白低對比，整體更柔和安靜。 |
 | **環境光氛 (Environment Mood)** | 清晨薄霧 | `misty morning atmosphere, pale cool sky, soft haze in the distance, gentle low-contrast dawn air` | 帶有清晨霧感與偏冷晨光，若有遠景應略帶霧化與空氣透視。 |
