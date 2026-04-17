@@ -445,13 +445,14 @@ function inferStyleMeta(_category, item) {
 
 function inferLocationMeta(category, item) {
   const haystack = toHaystack(category, item.zh, item.en, item.desc);
+  const itemHaystack = toHaystack(item.zh, item.en, item.desc);
   const tags = [];
 
   if (hasAny(haystack, ['studio sets', '攝影棚與背景'])) tags.push('indoor', 'set', 'controlled', 'studio');
   if (hasAny(haystack, ['urban & social snapshots', '城市與社群感'])) tags.push('urban');
   if (hasAny(haystack, ['indoor & lifestyle', '生活感室內'])) tags.push('indoor');
   if (hasAny(haystack, ['nature & outdoors', '自然與戶外'])) tags.push('outdoor', 'natural');
-  if (hasAny(haystack, ['abandoned & underground', '地下與廢墟風格'])) tags.push('underground', 'ruin');
+  if (hasAny(haystack, ['abandoned & underground', '地下與廢墟風格'])) tags.push('ruin');
 
   if (hasAny(haystack, ['hotel', 'boutique hotel', '旅館', '飯店'])) tags.push('hospitality', 'indoor');
   if (hasAny(haystack, ['apartment', 'bedroom', 'living room', '臥室', '公寓', '客廳'])) tags.push('residential', 'indoor');
@@ -478,7 +479,7 @@ function inferLocationMeta(category, item) {
   if (hasAny(haystack, ['forest', 'grass', 'sunflower', 'park', '樹影', '森林', '草地', '花田', '公園'])) {
     tags.push('green_space');
   }
-  if (hasAny(haystack, ['bunker', 'drainage', 'tunnel', '地下', '排洪道'])) tags.push('subterranean');
+  if (hasAny(itemHaystack, ['bunker', 'drainage', 'tunnel', '地下', '排洪道'])) tags.push('subterranean');
   if (hasAny(haystack, ['white background', 'grey seamless', 'paper roll', 'backdrop', '白幕', '黑幕', '背景'])) tags.push('studio');
   if (hasAny(haystack, ['鏡面地板攝影棚', 'five-sided mirror chamber studio'])) {
     tags.push('mirror_studio', 'studio_lighting_scene');
@@ -619,7 +620,7 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['月光夜色', 'moonlit night'])) {
       tags.push('natural_light', 'dark', 'cool', 'night_ambient', 'supports_outdoor', 'supports_natural', 'supports_urban');
     }
-    if (hasAny(haystack, ['霓虹夜色', 'neon night'])) {
+    if (item.zh === '霓虹夜色' || hasAny(haystack, ['neon night atmosphere'])) {
       tags.push('artificial_light', 'neon', 'dark', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
     }
     if (hasAny(haystack, ['陰雨將至', 'storm-brewing atmosphere'])) {
