@@ -50,6 +50,7 @@
 | **環境光氛 (Environment Mood)** | 晴朗白日 | `clear daylight atmosphere, bright daytime sky, clean sunlit distance, open natural visibility` | 明亮乾淨的白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣感。 |
 | **環境光氛 (Environment Mood)** | 藍天白雲 | `saturated clear blue sky, deeper vivid azure tone, brilliant clean white clouds, high-clarity daylight, open airy distance, crisp blue-and-white daytime atmosphere` | 若畫面包含天空、窗外或遠景，應明確強化藍天與白雲的色彩對比，藍色更乾淨飽和、白雲更明亮純白，整體空氣通透、清澈。 |
 | **環境光氛 (Environment Mood)** | 夏日深藍積雲 | `expansive deep azure summer sky, saturated clean blue atmosphere, towering luminous white cumulus clouds, crisp cloud-edge separation, bright clouds with preserved detail, vivid blue-and-white daylight without cartoon oversaturation` | 更具日系夏日記憶感的大天空光氛，強調大面積深藍天空、高聳明亮白色積雲、清楚雲邊與藍白分離度；白雲明亮但保留細節，天空飽和但避免卡通化或過度 HDR。 |
+| **環境光氛 (Environment Mood)** | 雨前灰黑天空 | `expansive charcoal-gray pre-rain sky, layered dark storm clouds, dense gray-black cloud mass, low ceiling sky, crisp cloud-edge separation, moody overcast daylight with preserved cloud detail, dramatic gray-and-black atmosphere before rainfall without lightning or visible rain` | 沿用夏日深藍積雲的大天空結構，但轉為陰天雨前版本；強調大面積灰黑天空、層層堆疊的厚重烏雲、低壓天幕與清楚雲層邊界，保留雲的細節，不主動生成閃電或已經下雨的畫面。 |
 | **環境光氛 (Environment Mood)** | 正午烈日 | `harsh midday sun atmosphere, overhead summer daylight, short hard shadows, glaring bright sky, heat-baked outdoor air` | 接近正午的強烈直射日光，天空刺亮、陰影短而硬，整體帶有炎熱曝曬與高反差的戶外感。 |
 | **環境光氛 (Environment Mood)** | 陰天漫射 | `overcast sky, cloud-covered daylight, soft diffused atmosphere, muted distant contrast, calm neutral air` | 雲層厚而均勻，若有天空或遠景，應偏灰白低對比，整體更柔和安靜。 |
 | **環境光氛 (Environment Mood)** | 清晨薄霧 | `misty morning atmosphere, pale cool sky, soft haze in the distance, gentle low-contrast dawn air` | 帶有清晨霧感與偏冷晨光，若有遠景應略帶霧化與空氣透視。 |
@@ -83,6 +84,7 @@
 | **光線表現 (Light Style)** | 頂部照明 | `overhead top lighting, downward illumination, moody facial shadow, tense vertical light falloff` | 由上方壓下來的光線讓氣氛更成熟或更有壓迫感。 |
 | **光線表現 (Light Style)** | 下方反射光 | `bounce up light, upward reflected fill, subtle lower-face lift, reflective underglow` | 利用地面、牆面或雪地等反射面回補下半臉陰影。 |
 | **光線表現 (Light Style)** | 漫射霧光 | `diffused mist light, soft atmospheric spread, low-contrast haze, enveloping ambient glow` | 光線被霧氣、濕氣或厚雲層柔化，整體包覆感更強。 |
+| **光線表現 (Light Style)** | 雨前壓雲光 | `pre-rain overcast light, dim diffused daylight under heavy storm clouds, low ceiling ambient illumination, subdued skin highlights, soft but weighty shadow falloff, muted contrast with dramatic cloud-filtered brightness` | 暴雨前厚雲壓低天空形成的自然漫射光，整體比一般陰天更暗、更重，人物受光柔和但不明亮，保留雨前低壓、悶濕、灰黑天空下的戲劇感。 |
 | **光線表現 (Light Style)** | 硬質晴光 | `hard sunlight, direct sunbeam exposure, deep shadow contrast, crisp bright highlights` | 直射日光明顯，陰影深且邊緣清楚。 |
 | **光線表現 (Light Style)** | 低光高反差 | `low-key contrast light, deep shadow fields, selective highlight emphasis, cinematic darkness` | 暗部面積大、亮暗落差高，適合夜景、戲劇與低照度畫面。 |
 | **光線表現 (Light Style)** | 高調亮光 | `high-key bright light, luminous exposure, airy highlights, soft low-shadow clarity` | 整體偏亮偏透，陰影很少，乾淨清爽。 |

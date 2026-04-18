@@ -1839,6 +1839,11 @@
         "desc": "更具日系夏日記憶感的大天空光氛，強調大面積深藍天空、高聳明亮白色積雲、清楚雲邊與藍白分離度；白雲明亮但保留細節，天空飽和但避免卡通化或過度 HDR。"
       },
       {
+        "zh": "雨前灰黑天空",
+        "en": "expansive charcoal-gray pre-rain sky, layered dark storm clouds, dense gray-black cloud mass, low ceiling sky, crisp cloud-edge separation, moody overcast daylight with preserved cloud detail, dramatic gray-and-black atmosphere before rainfall without lightning or visible rain",
+        "desc": "沿用夏日深藍積雲的大天空結構，但轉為陰天雨前版本；強調大面積灰黑天空、層層堆疊的厚重烏雲、低壓天幕與清楚雲層邊界，保留雲的細節，不主動生成閃電或已經下雨的畫面。"
+      },
+      {
         "zh": "正午烈日",
         "en": "harsh midday sun atmosphere, overhead summer daylight, short hard shadows, glaring bright sky, heat-baked outdoor air",
         "desc": "接近正午的強烈直射日光，天空刺亮、陰影短而硬，整體帶有炎熱曝曬與高反差的戶外感。"
@@ -2004,6 +2009,11 @@
         "zh": "漫射霧光",
         "en": "diffused mist light, soft atmospheric spread, low-contrast haze, enveloping ambient glow",
         "desc": "光線被霧氣、濕氣或厚雲層柔化，整體包覆感更強。"
+      },
+      {
+        "zh": "雨前壓雲光",
+        "en": "pre-rain overcast light, dim diffused daylight under heavy storm clouds, low ceiling ambient illumination, subdued skin highlights, soft but weighty shadow falloff, muted contrast with dramatic cloud-filtered brightness",
+        "desc": "暴雨前厚雲壓低天空形成的自然漫射光，整體比一般陰天更暗、更重，人物受光柔和但不明亮，保留雨前低壓、悶濕、灰黑天空下的戲劇感。"
       },
       {
         "zh": "硬質晴光",

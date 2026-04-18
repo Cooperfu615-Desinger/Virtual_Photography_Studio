@@ -600,6 +600,9 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['夏日深藍積雲', 'deep azure summer sky', 'towering luminous white cumulus'])) {
       tags.push('natural_light', 'sunlight', 'day', 'clean_sky', 'summer_sky', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
+    if (hasAny(haystack, ['雨前灰黑天空', 'charcoal-gray pre-rain sky', 'gray-black cloud mass'])) {
+      tags.push('natural_light', 'cloudy', 'dark', 'dramatic', 'pre_rain_sky', 'supports_outdoor', 'supports_urban', 'supports_natural');
+    }
     if (hasAny(haystack, ['正午烈日', 'harsh midday sun'])) {
       tags.push('natural_light', 'sunlight', 'day', 'harsh', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
@@ -698,6 +701,9 @@ function inferLightingMeta(category, item) {
     }
     if (hasAny(haystack, ['漫射霧光', 'diffused mist light'])) {
       tags.push('soft_light', 'diffused', 'mist', 'supports_indoor', 'supports_outdoor');
+    }
+    if (hasAny(haystack, ['雨前壓雲光', 'pre-rain overcast light'])) {
+      tags.push('natural_light', 'soft_light', 'diffused', 'cloudy', 'dark', 'dramatic', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
     if (hasAny(haystack, ['硬質晴光', 'hard sunlight'])) {
       tags.push('sunlight', 'harsh', 'supports_outdoor', 'supports_urban', 'supports_natural');
