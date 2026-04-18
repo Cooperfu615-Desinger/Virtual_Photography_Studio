@@ -29,19 +29,26 @@ const ASPECT_RATIO_OPTIONS = [
 
 const DUO_INTERACTION_OPTIONS = [
   {
+    id: 'none',
+    zh: '全無',
+    en: '',
+    desc: 'Do not specify duo interaction, letting the model decide the relationship and action design.',
+    meta: { tags: ['none'] },
+  },
+  {
+    id: 'editorial',
+    zh: '寫真風格',
+    en: 'magazine-style duo posing, both women in the same continuous scene, staggered front-and-back or left-and-right placement, relaxed asymmetrical body language, one slightly closer to camera and the other behind or beside her, casual editorial fashion-photo attitude, no split-screen, no separate panels',
+  },
+  {
     id: 'natural',
     zh: '互動自然',
-    en: 'natural interaction, relaxed shared presence, candid chemistry, effortless duo connection',
+    en: 'natural best-friend interaction, candid lifestyle body language, standing or sitting close in the same shared space, chatting, laughing softly, walking together, leaning casually near each other, one looking at the other or both reacting naturally, friendly relaxed chemistry, no romantic kissing, no staged split composition',
   },
   {
     id: 'intimate',
     zh: '互動親密',
-    en: 'intimate interaction, close body language, emotional closeness, warm romantic chemistry',
-  },
-  {
-    id: 'independent',
-    zh: '各自為立',
-    en: 'independent presence, minimal interaction, distinct personal space, separate confident attitudes',
+    en: 'affectionate close duo interaction, rich physical closeness, arms around shoulders or waist, gentle hugging, cheek-to-cheek closeness, heads leaning together, face-to-face closeness without kissing, warm intimate body contact, same continuous frame, no kiss, no split-screen',
   },
 ];
 
@@ -456,8 +463,8 @@ function inferLocationMeta(category, item) {
   if (hasAny(haystack, ['abandoned & underground', '地下與廢墟風格'])) tags.push('ruin');
 
   if (hasAny(haystack, ['hotel', 'boutique hotel', '旅館', '飯店'])) tags.push('hospitality', 'indoor');
-  if (hasAny(haystack, ['apartment', 'bedroom', 'living room', '臥室', '公寓', '客廳'])) tags.push('residential', 'indoor');
-  if (hasAny(haystack, ['interior', 'inside', 'room', 'hallway', 'corridor', 'stairwell', 'stairwell shaft', 'seating', 'dining aisle', 'bathroom', 'vanity', 'mirror', 'store interior', '店內', '室內', '房間', '浴室', '鏡前', '樓梯井', '長椅區'])) {
+  if (hasAny(haystack, ['apartment', 'bedroom', 'living room', 'home kitchen', 'domestic kitchen', '臥室', '公寓', '客廳', '住宅廚房'])) tags.push('residential', 'indoor');
+  if (hasAny(haystack, ['interior', 'inside', 'room', 'hallway', 'corridor', 'stairwell', 'stairwell shaft', 'seating', 'dining aisle', 'bathroom', 'vanity', 'mirror', 'store interior', 'kitchen', '店內', '室內', '房間', '浴室', '鏡前', '樓梯井', '長椅區', '廚房'])) {
     tags.push('indoor');
   }
   if (hasAny(haystack, ['plaza', 'pedestrian', 'crosswalk', 'sidewalk', 'street', 'streetfront', 'square', 'lawn edge', 'outdoor', 'shoreline', 'beach', 'park', 'deck', 'avenue', 'station front', '廣場', '行人區', '人行道', '街頭', '街角', '穿越口', '草地邊', '海灘', '岩岸', '公園', '木棧道', '戶外'])) {
@@ -1585,6 +1592,7 @@ function getAspectRatioOption(id) {
 }
 
 function getDuoInteractionOption(id) {
+  if (id === 'independent') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'editorial') || null;
   return DUO_INTERACTION_OPTIONS.find((option) => option.id === id) || null;
 }
 
@@ -2685,7 +2693,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     ], 3);
     poseText = formatMidjourneySectionText([
       characterSlots.pose ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
-      'woman 1 on the left, woman 2 on the right',
+      'both women in the same continuous frame, shared physical space, natural overlapping depth, avoid split-screen composition',
     ], 2);
   } else {
     subjectText = formatMidjourneySectionText([
@@ -3216,7 +3224,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     : pickWithCompatibleLock(runtime.flatCatalog.lightDirection, effectiveLocks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
   const film = styleDrivenCamera ? null : pickWithLock(runtime.flatCatalog.film, effectiveLocks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
   const opticalEffect = pickWithLock(runtime.flatCatalog.effects, effectiveLocks.opticalEffectId);
-  const duoInteraction = subject.count === 2 ? getDuoInteractionOption(effectiveLocks.duoInteractionId) || sample(DUO_INTERACTION_OPTIONS) : null;
+  const duoInteraction = subject.count === 2 ? getDuoInteractionOption(effectiveLocks.duoInteractionId) || sampleNonNone(DUO_INTERACTION_OPTIONS) : null;
   const duoStyling = subject.count === 2 ? getDuoStylingOption(effectiveLocks.duoStylingId) || sample(DUO_STYLING_OPTIONS) : null;
 
   const context = {
