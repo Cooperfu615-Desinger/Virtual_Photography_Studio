@@ -2851,8 +2851,8 @@
       },
       {
         "zh": "戶外：城市遊艇碼頭欄杆旁",
-        "en": "urban yacht marina railing, dockside metal guardrail, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes",
-        "desc": "參考城市港灣或遊艇碼頭旁的人像場景，前景有金屬欄杆與碼頭邊緣，中後景是停泊帆船、桅杆、水面反射、遠方城市與山影，整體偏都會水岸而不是沙灘海景。"
+        "en": "urban yacht marina promenade, slim stainless-steel marina handrail with round tubular rails, yacht-club pedestrian railing not a highway guardrail, weathered wooden dock planks and timber pier decking, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes",
+        "desc": "參考城市港灣或遊艇碼頭旁的人像場景，前景是遊艇碼頭常見的細圓管不鏽鋼行人欄杆、木棧橋與船舶碼頭木板材質，中後景是停泊帆船、桅杆、港灣水面、遠方城市與山影；明確避免生成高速公路護欄，並且不指定光線或環境光氛。"
       },
       {
         "zh": "戶外：高樓頂樓城市天際線",
