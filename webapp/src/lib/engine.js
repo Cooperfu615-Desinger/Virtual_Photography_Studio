@@ -249,6 +249,8 @@ const LOCK_DEFINITIONS = [
   { key: 'hairColorBId', label: '人物 2 髮色', category: '髮色 (Hair Color)', section: 'character' },
   { key: 'duoInteractionId', label: '雙人互動', options: DUO_INTERACTION_OPTIONS, section: 'character' },
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
+  { key: 'expressionAId', label: '人物 1 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
+  { key: 'expressionBId', label: '人物 2 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
   { key: 'outfitPresetId', label: '套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
@@ -314,6 +316,8 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'hairColorBId', label: 'Woman 2 Hair Color' },
   { key: 'duoInteractionId', label: 'Duo Interaction' },
   { key: 'expressionId', label: 'Expression' },
+  { key: 'expressionAId', label: 'Woman 1 Expression' },
+  { key: 'expressionBId', label: 'Woman 2 Expression' },
   { key: 'poseId', label: 'Pose' },
   { key: 'specialActionId', label: 'Special Action' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
@@ -953,6 +957,8 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'hairColorAId',
   'hairColorBId',
   'expressionId',
+  'expressionAId',
+  'expressionBId',
   'headAccessoryId',
   'eyewearId',
   'earringsId',
@@ -1244,6 +1250,8 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'hairColorAId') options = getByKey(catalog.character, '髮色 (Hair Color)');
       if (definition.key === 'hairColorBId') options = getByKey(catalog.character, '髮色 (Hair Color)');
       if (definition.key === 'expressionId') options = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
+      if (definition.key === 'expressionAId') options = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
+      if (definition.key === 'expressionBId') options = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
       if (definition.key === 'poseId') options = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
       if (definition.key === 'specialActionId') options = getByKey(catalog.character, '特殊動作 (Special Actions)');
       if (definition.key === 'topId') options = getByKey(catalog.wardrobe, '上身 (Tops)');
@@ -1781,7 +1789,29 @@ function buildCharacter(context, catalog) {
     if (hairColorB) character.push(hairColorB);
   }
 
-  const expression = pickCategory('神情與眼神 (Expression & Gaze)', context.locks, (item) => expressionSupportsComposition(item, context));
+  let expression = null;
+  if (context.subject.count === 2) {
+    const expressionA = pickDistinctForRole(
+      '神情與眼神 (Expression & Gaze)',
+      'a',
+      context.locks?.expressionAId || context.locks?.expressionId,
+      [],
+      sample,
+      (item) => expressionSupportsComposition(item, context)
+    );
+    const expressionB = pickDistinctForRole(
+      '神情與眼神 (Expression & Gaze)',
+      'b',
+      context.locks?.expressionBId || context.locks?.expressionId,
+      [expressionA],
+      sample,
+      (item) => expressionSupportsComposition(item, context)
+    );
+    if (expressionA) character.push(expressionA);
+    if (expressionB) character.push(expressionB);
+  } else {
+    expression = pickCategory('神情與眼神 (Expression & Gaze)', context.locks, (item) => expressionSupportsComposition(item, context));
+  }
 
   if (context.subject.count > 1) return character;
   if (visibility === 'close') return character;
@@ -2313,8 +2343,13 @@ function resolvePromptVariant(item, kind, subjectCount) {
   return DUO_PROMPT_OVERRIDES[kind]?.[item.zh] || item.en;
 }
 
+function buildRoleExpressionPrompt(item, label) {
+  if (!item || isNoneLikeItem(item)) return '';
+  return `${label} ${item.en}`;
+}
+
 function extractCharacterSlots(character) {
-  const findSlot = (token) => character.find((item) => item.id?.includes(token));
+  const findSlot = (token) => character.find((item) => item.id?.includes(token) && !item.meta?.characterRole);
   const findRoleSlot = (token, role) => character.find((item) => item.id?.includes(token) && item.meta?.characterRole === role);
   return {
     bodyType: findSlot('character:體態-body-type:'),
@@ -2329,6 +2364,8 @@ function extractCharacterSlots(character) {
     hairColorA: findRoleSlot('character:髮色-hair-color:', 'a'),
     hairColorB: findRoleSlot('character:髮色-hair-color:', 'b'),
     expression: findSlot('character:神情與眼神-expression-gaze:'),
+    expressionA: findRoleSlot('character:神情與眼神-expression-gaze:', 'a'),
+    expressionB: findRoleSlot('character:神情與眼神-expression-gaze:', 'b'),
     pose: findSlot('character:姿勢與肢體語言-pose-body-language:'),
     specialAction: findSlot('character:特殊動作-special-actions:'),
   };
@@ -2687,7 +2724,8 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
       characterSlots.hairColorB?.en,
     ]);
     expressionText = formatMidjourneySectionText([
-      characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
+      buildRoleExpressionPrompt(characterSlots.expressionA, 'woman 1'),
+      buildRoleExpressionPrompt(characterSlots.expressionB, 'woman 2'),
       duoInteraction?.en || '',
       duoStyling?.en || '',
     ], 3);
@@ -2808,6 +2846,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
+  const expressionAText = buildRoleExpressionPrompt(characterSlots.expressionA, 'woman 1');
+  const expressionBText = buildRoleExpressionPrompt(characterSlots.expressionB, 'woman 2');
   const poseText = characterSlots.pose && !isNoneLikeItem(characterSlots.pose)
     ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)
     : '';
@@ -2913,7 +2953,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
   }
   if (!useCharacterIdentityAnchor) addItemLine('Skin Details', characterSlots.skinDetails);
-  addLine('Expression', expressionText);
+  if (context.subject.count === 2) {
+    addLine('Woman 1 Expression', expressionAText);
+    addLine('Woman 2 Expression', expressionBText);
+  } else {
+    addLine('Expression', expressionText);
+  }
   addContextLine('Location', context.location);
   if (!context.styleDrivenCamera) {
     addContextLine('Environment Mood', context.lighting);
@@ -2976,7 +3021,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
           ].filter(Boolean).join(', ')
         : [characterSlots.hairstyle?.en, characterSlots.hairColor?.en].filter(Boolean).join(', '),
       !useCharacterIdentityAnchor ? characterSlots.skinDetails?.en : '',
-      characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
+      context.subject.count === 2
+        ? [buildRoleExpressionPrompt(characterSlots.expressionA, 'woman 1'), buildRoleExpressionPrompt(characterSlots.expressionB, 'woman 2')].filter(Boolean).join(', ')
+        : (characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : ''),
       characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
       characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
       context.subject.count === 2 ? duoInteraction?.en : '',
@@ -3114,6 +3161,8 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     hairColorBId: characterSlots.hairColorB?.id?.replace(/:b$/, '') || '',
     duoInteractionId: duoInteraction?.id || '',
     expressionId: characterSlots.expression?.id || '',
+    expressionAId: characterSlots.expressionA?.id?.replace(/:a$/, '') || '',
+    expressionBId: characterSlots.expressionB?.id?.replace(/:b$/, '') || '',
     poseId: characterSlots.pose?.id || '',
     specialActionId: characterSlots.specialAction?.id || '',
     topId: wardrobeSlots.top?.id || '',
@@ -3201,19 +3250,22 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
       && specialActionSupportsFraming(lockedSpecialAction, item)
     )
   );
-  const lockedExpression = effectiveLocks.expressionId
-    ? findById(getByKey(runtime.catalog.character, '神情與眼神 (Expression & Gaze)'), effectiveLocks.expressionId)
-    : null;
+  const expressionOptions = getByKey(runtime.catalog.character, '神情與眼神 (Expression & Gaze)');
+  const lockedExpressions = [
+    subject.count === 2 && effectiveLocks.expressionAId ? findById(expressionOptions, effectiveLocks.expressionAId) : null,
+    subject.count === 2 && effectiveLocks.expressionBId ? findById(expressionOptions, effectiveLocks.expressionBId) : null,
+    effectiveLocks.expressionId ? findById(expressionOptions, effectiveLocks.expressionId) : null,
+  ].filter(Boolean);
   const angle = pickWithLock(
     runtime.flatCatalog.angle,
     effectiveLocks.angleId,
-    (item) => framingSupportsAngle(framing, item) && angleSupportsExpression(item, lockedExpression),
+    (item) => framingSupportsAngle(framing, item) && lockedExpressions.every((expression) => angleSupportsExpression(item, expression)),
     lowFrequencyPicker('low_frequency_angle')
   );
   const orbit = pickWithLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,
-    (item) => framingSupportsOrbit(framing, item) && orbitSupportsExpression(item, lockedExpression) && specialActionSupportsOrbit(item, lockedSpecialAction)
+    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedSpecialAction)
   );
   const lens = pickWithLock(runtime.flatCatalog.lens, effectiveLocks.lensId);
   const lighting = styleDrivenCamera

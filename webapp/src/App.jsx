@@ -271,7 +271,7 @@ const SUMMARY_SECTION_INFO = {
   },
   character: {
     label: '人物',
-    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色', '雙人互動', '表情', '姿勢', '特殊動作'],
+    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色', '雙人互動', '表情', '人物 1 表情', '人物 2 表情', '姿勢', '特殊動作'],
     keys: [
       'subjectCount',
       'bodyTypeId',
@@ -287,6 +287,8 @@ const SUMMARY_SECTION_INFO = {
       'hairColorBId',
       'duoInteractionId',
       'expressionId',
+      'expressionAId',
+      'expressionBId',
       'poseId',
       'specialActionId',
     ],
@@ -367,8 +369,8 @@ const ADVANCED_REMIX_GROUP_INFO = {
   },
   expressionPose: {
     label: '表情姿勢',
-    lockLabels: ['表情', '姿勢', '特殊動作'],
-    keys: ['expressionId', 'poseId', 'specialActionId'],
+    lockLabels: ['表情', '人物 1 表情', '人物 2 表情', '姿勢', '特殊動作'],
+    keys: ['expressionId', 'expressionAId', 'expressionBId', 'poseId', 'specialActionId'],
   },
   wardrobeCore: {
     label: '服裝主體',
@@ -423,6 +425,8 @@ const CHARACTER_CONTROL_ORDER = [
   'skinDetailsId',
   'duoInteractionId',
   'expressionId',
+  'expressionAId',
+  'expressionBId',
   'poseId',
   'specialActionId',
 ];
@@ -519,6 +523,8 @@ function buildImportedStructured(locks, controls) {
       'hairColorBId',
       'duoInteractionId',
       'expressionId',
+      'expressionAId',
+      'expressionBId',
       'poseId',
       'specialActionId',
     ]),
@@ -1683,8 +1689,8 @@ export default function App() {
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
           if (control.key === 'duoInteractionId' && locks.subjectCount !== '2') return false;
           if (control.key === 'specialActionId' && locks.subjectCount !== '1') return false;
-          if (['facialFeaturesId', 'hairstyleId', 'hairColorId'].includes(control.key) && locks.subjectCount === '2') return false;
-          if (['facialFeaturesAId', 'facialFeaturesBId', 'hairstyleAId', 'hairstyleBId', 'hairColorAId', 'hairColorBId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          if (['facialFeaturesId', 'hairstyleId', 'hairColorId', 'expressionId'].includes(control.key) && locks.subjectCount === '2') return false;
+          if (['facialFeaturesAId', 'facialFeaturesBId', 'hairstyleAId', 'hairstyleBId', 'hairColorAId', 'hairColorBId', 'expressionAId', 'expressionBId'].includes(control.key) && locks.subjectCount !== '2') return false;
           return true;
         }),
         CHARACTER_CONTROL_ORDER
