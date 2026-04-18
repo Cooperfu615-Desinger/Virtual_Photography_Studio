@@ -2437,8 +2437,8 @@
       },
       {
         "zh": "戶外：社區自動販賣機旁",
-        "en": "Japanese neighborhood vending machine corner, glowing drink machines, concrete wall edge, apartment frontage, quiet everyday street detail, casual residential atmosphere",
-        "desc": "日本住宅社區常見的自動販賣機角落，重點是飲料販賣機、牆角與住宅立面，整體有很強的日常街區生活感。"
+        "en": "Japanese residential neighborhood road, narrow local lane, detached houses and apartment facades, utility poles and overhead power lines, distant low-rise buildings and open sky, two or three vending machines lined up along the roadside, asphalt road markings and quiet curbside details",
+        "desc": "日本住宅區道路旁的自動販賣機場景，重點是巷弄、民宅與公寓立面、電線桿與架空電線、遠處建築與天空，以及道路旁兩三台並排的自動販賣機；只描述街區構成，不指定光線或環境光氛。"
       },
       {
         "zh": "戶外：辦公大樓人行道（上班途中）",
@@ -2628,6 +2628,16 @@
         "zh": "室內：髒污磁磚牆與金屬柱之間",
         "en": "dirty subway tile wall, scratched metal column, aged grout lines, narrow standing zone, gritty underground texture",
         "desc": "聚焦於磁磚牆與金屬柱之間狹窄可站立的局部空間，適合貼近人物的地下都會感背景。"
+      },
+      {
+        "zh": "室內：電車車廂正面長椅視角",
+        "en": "Japanese commuter train car interior, straight-on front view toward a long bench seat, blue fabric bench upholstery, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps and small carriage posters, centered seated composition",
+        "desc": "指定為車廂內正面視角，人物坐在長椅中央，背景包含車窗、滑門、金屬牆面、吊環、路線圖與車廂海報；只描述車廂構成與角度，不指定光線或環境光氛。"
+      },
+      {
+        "zh": "室內：電車車廂側面走道視角",
+        "en": "Japanese commuter train car interior, side-profile aisle view, narrow carriage aisle receding into depth, vertical grab poles and overhead hand straps, row seating along both sides, nearby standing passengers and seated commuters as background context, subject standing beside a pole with phone, elongated train-car perspective",
+        "desc": "指定為車廂內側面走道視角，人物站在扶手柱旁，車廂走道向遠處延伸，兩側座位、乘客、吊環與扶手柱形成通勤車廂的縱深感；只描述車廂構成與角度，不指定光線或環境光氛。"
       },
       {
         "zh": "戶外：澀谷站前廣場人潮邊緣",
