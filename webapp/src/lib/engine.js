@@ -446,6 +446,7 @@ function inferStyleMeta(_category, item) {
 function inferLocationMeta(category, item) {
   const haystack = toHaystack(category, item.zh, item.en, item.desc);
   const itemHaystack = toHaystack(item.zh, item.en, item.desc);
+  const itemPromptHaystack = toHaystack(item.zh, item.en);
   const tags = [];
 
   if (hasAny(haystack, ['studio sets', '攝影棚與背景'])) tags.push('indoor', 'set', 'controlled', 'studio');
@@ -480,7 +481,7 @@ function inferLocationMeta(category, item) {
     tags.push('green_space');
   }
   if (hasAny(itemHaystack, ['bunker', 'drainage', 'tunnel', '地下', '排洪道'])) tags.push('subterranean');
-  if (hasAny(haystack, ['white background', 'grey seamless', 'paper roll', 'backdrop', '白幕', '黑幕', '背景'])) tags.push('studio');
+  if (hasAny(itemPromptHaystack, ['white background', 'grey seamless', 'paper roll', 'backdrop', '白幕', '黑幕', '背景'])) tags.push('studio');
   if (hasAny(haystack, ['鏡面地板攝影棚', 'five-sided mirror chamber studio'])) {
     tags.push('mirror_studio', 'studio_lighting_scene');
   }

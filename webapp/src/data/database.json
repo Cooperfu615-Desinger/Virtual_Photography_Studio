@@ -2296,6 +2296,11 @@
         "desc": "臨窗空間帶有柔和自然光，很適合寫真集與生活感人像。"
       },
       {
+        "zh": "室內：白色書櫃落地窗臥室",
+        "en": "vintage white bookcase bedroom, tall white bookshelf filled with books, large white floor-to-ceiling window, sheer curtain panels, comfortable white bed and pillows, sky and treetops visible outside the window",
+        "desc": "以復古白色書櫃、白色大型落地窗、輕薄紗窗、舒適白色床鋪與枕頭為主的室內場景，窗外可見天空與樹梢；只描述空間、家具與窗外元素，不指定光線或環境光氛。"
+      },
+      {
         "zh": "室內：浴室鏡前 / 洗手台",
         "en": "bathroom vanity scene, sink counter details, reflective surfaces, soft indoor glow, modern lifestyle snapshot",
         "desc": "具有很強的手機隨拍與社群感，也適合妝髮與穿搭展示。"
@@ -2821,8 +2826,13 @@
       },
       {
         "zh": "戶外：城市遊艇碼頭欄杆旁",
-        "en": "urban yacht marina railing, dockside metal guardrail, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes, cool overcast waterfront atmosphere",
+        "en": "urban yacht marina railing, dockside metal guardrail, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes",
         "desc": "參考城市港灣或遊艇碼頭旁的人像場景，前景有金屬欄杆與碼頭邊緣，中後景是停泊帆船、桅杆、水面反射、遠方城市與山影，整體偏都會水岸而不是沙灘海景。"
+      },
+      {
+        "zh": "戶外：高樓頂樓城市天際線",
+        "en": "high-rise rooftop edge, rooftop guardrail and concrete parapet, modern city skyline in the distance, layered urban towers, broad rooftop ledge, elevated metropolitan overlook",
+        "desc": "參考高樓大廈頂樓或屋頂邊緣的人像場景，前景是頂樓欄杆、矮牆與屋頂平台，遠景是現代化都市、高樓群與天際線；只描述空間與背景，不指定時段、光線或天氣。"
       }
     ],
     "自然與戶外 (Nature & Outdoors)": [
@@ -2845,6 +2855,11 @@
         "zh": "戶外：陽光草地與樹影",
         "en": "sunlit grassy patch, scattered tree shadows, warm daylight, breezy natural portrait mood, gentle outdoor texture",
         "desc": "比純自然景觀更貼近人像拍攝，容易形成乾淨生活感與輕寫真氛圍。"
+      },
+      {
+        "zh": "戶外：廣闊草原平原與天空",
+        "en": "wide open grassland plain, low meadow grasses and wild plants, flat horizon line, expansive open sky, distant tree line, spacious countryside field",
+        "desc": "廣闊草原與平原感的戶外場景，重點是低矮草叢、野生植物、平坦地平線、大面積天空與遠方樹線；只描述地景與空間，不指定時段、光線或天氣。"
       },
       {
         "zh": "戶外：向日葵花田",
