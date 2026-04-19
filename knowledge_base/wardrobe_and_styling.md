@@ -114,6 +114,7 @@
 | **連身 (Dresses)** | 全無 | `no dress, one-piece styling omitted` | 不使用連身服裝，方便保留上身與下身分開搭配的穿法。 |
 | **連身 (Dresses)** | 無袖連身洋裝 | `sleeveless one-piece dress, clean uninterrupted silhouette, feminine full-body styling` | 以無袖輪廓直接完成整體造型，適合日常寫真、飯店與極簡時裝感畫面。 |
 | **連身 (Dresses)** | 細肩帶連身洋裝 | `strappy slip dress, delicate shoulder straps, fluid one-piece silhouette` | 細肩帶連身洋裝帶有輕盈與微性感氣質，適合臥室、飯店與夏日寫真主題。 |
+| **連身 (Dresses)** | 細肩帶蕾絲棉質迷你洋裝 | `spaghetti-strap cotton lace mini dress, delicate shoulder straps, soft sweetheart neckline, front button placket, gathered underbust seam, airy lightweight cotton voile, lace inset panels across the bodice and waist, scalloped lace hem, softly flared tiered skirt, relaxed summer one-piece silhouette` | 參考附圖中細肩帶、胸前鈕扣、胸身與腰線蕾絲拼接、輕薄棉質與短版傘狀裙襬的生活感洋裝；主色交由連身配色控制，整體偏清爽、日常、夏季寫真。 |
 | **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
 | **褲裝 (Pants)** | 高腰直筒牛仔褲 | `high-waisted straight-leg jeans, clean denim texture, everyday staple` | 最穩定的日常下身單品，適合城市、街拍與生活感畫面。 |
 | **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
