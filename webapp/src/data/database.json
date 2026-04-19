@@ -2930,8 +2930,8 @@
       },
       {
         "zh": "其他：陽光灑落的樹下",
-        "en": "under a tree canopy, dappled sunlight falling across the ground, patchy leaf shadows, natural resting surface beneath the tree, subject lying comfortably under the tree",
-        "desc": "為仰躺姿勢準備的樹下場景，重點是樹蔭、灑落光斑與葉影形成的可躺臥自然平面。"
+        "en": "under a tree canopy on a dense green grass lawn, soft grass blades filling the ground plane, several visible tree roots breaking through the grass near the subject, dappled sunlight and patchy leaf shadows across the grassy surface, subject lying comfortably on the grass, no concrete pavement, no bare dirt ground",
+        "desc": "為仰躺姿勢準備的樹下草地場景，重點是明確的綠色草坪、可見草葉材質、局部樹根穿出草面，以及樹蔭下的灑落光斑與葉影；避免生成水泥地或大片裸露泥土地。"
       },
       {
         "zh": "其他：沙灘海岸線",
