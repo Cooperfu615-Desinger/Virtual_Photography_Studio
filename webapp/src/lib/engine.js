@@ -1850,6 +1850,7 @@ function buildWardrobe(context, locks, catalog) {
     id: `${item.id}:${role}`,
     meta: { ...(item.meta || {}), outfitRole: role },
   });
+  const presetPieces = [];
 
   if (context.subject.count === 2 && (locks.outfitPresetAId || locks.outfitPresetBId)) {
     const presets = catalog.flatCatalog.outfitPresets;
@@ -1868,13 +1869,13 @@ function buildWardrobe(context, locks, catalog) {
       const resolvedA = presetAIsNone ? null : presetA || (!locks.outfitPresetAId && presetB && !presetBIsNone ? randomDistinctPreset(presetB.id) : null);
       const resolvedB = presetBIsNone ? null : presetB || (!locks.outfitPresetBId && resolvedA ? randomDistinctPreset(resolvedA.id) : null);
 
-      return [resolvedA ? clonePresetForRole(resolvedA, 'a') : null, resolvedB ? clonePresetForRole(resolvedB, 'b') : null].filter(Boolean);
+      presetPieces.push(...[resolvedA ? clonePresetForRole(resolvedA, 'a') : null, resolvedB ? clonePresetForRole(resolvedB, 'b') : null].filter(Boolean));
     }
   }
 
   const outfitPreset = locks.outfitPresetId ? findById(catalog.flatCatalog.outfitPresets, locks.outfitPresetId) : null;
   if (outfitPreset && !isNoneLikeItem(outfitPreset)) {
-    return [outfitPreset];
+    presetPieces.push(outfitPreset);
   }
 
   const pieces = [];
@@ -1904,6 +1905,8 @@ function buildWardrobe(context, locks, catalog) {
     if (!item || pieces.some((piece) => piece.id === item.id)) return;
     pieces.push(item);
   };
+  presetPieces.forEach(addPiece);
+  const hasOutfitPresetPiece = presetPieces.length > 0;
 
   const maybePick = (categoryKey, probability = 1, extraPredicate = () => true, { allowNoneWhenUnlocked = false } = {}) => {
     const lockKey = categoryLockMap[categoryKey];
@@ -1958,7 +1961,9 @@ function buildWardrobe(context, locks, catalog) {
   let topPiece = null;
   let dressPiece = null;
 
-  if (activeLockedDress) {
+  if (hasOutfitPresetPiece) {
+    // Outfit presets define the main upper/lower-body styling, while layers and accessories remain combinable.
+  } else if (activeLockedDress) {
     dressPiece = maybePick('連身 (Dresses)');
   } else if (activeLockedTop) {
     topPiece = maybePick('上身 (Tops)');
@@ -2013,14 +2018,14 @@ function buildWardrobe(context, locks, catalog) {
     return pieces;
   }
 
-  if (!hasTopPiece && !hasDressPiece && !locks?.topId) {
+  if (!hasOutfitPresetPiece && !hasTopPiece && !hasDressPiece && !locks?.topId) {
     const fallbackTop = getByKey(catalog.catalog.wardrobe, '上身 (Tops)').find(
       (item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location)
     );
     addPiece(fallbackTop);
   }
 
-  if ((hasTopPiece && !hasDressPiece) || locks?.topPatternId) {
+  if (!hasOutfitPresetPiece && ((hasTopPiece && !hasDressPiece) || locks?.topPatternId)) {
     maybePick('上身圖案 (Top Surface Design)', 0.35, () => true, { allowNoneWhenUnlocked: false });
   }
 
@@ -2029,7 +2034,7 @@ function buildWardrobe(context, locks, catalog) {
   const hasLockedBottom = hasLockedPants || hasLockedSkirt;
   let hasBottomPiece = false;
 
-  if ((frameShowsAtLeast(visibility, 'medium') || hasLockedBottom) && !hasDressPiece) {
+  if (!hasOutfitPresetPiece && (frameShowsAtLeast(visibility, 'medium') || hasLockedBottom) && !hasDressPiece) {
     if (hasLockedPants && hasLockedSkirt) {
       const pickedPants = maybePick('褲裝 (Pants)');
       const pickedSkirt = maybePick('裙裝 (Skirts)');
@@ -2061,6 +2066,22 @@ function buildWardrobe(context, locks, catalog) {
       return true;
     });
     const outerwearPiece = maybePick('外套 (Outerwear)', context.location.meta.tags.includes('outdoor') ? 0.6 : 0.35);
+    const hasOuterwearPiece = Array.isArray(outerwearPiece)
+      ? outerwearPiece.some((item) => item && !isNoneLikeItem(item))
+      : Boolean(outerwearPiece && !isNoneLikeItem(outerwearPiece));
+
+    if (hasOuterwearPiece) {
+      maybePick('外套圖案 (Outerwear Surface Design)', 0.3, () => true, { allowNoneWhenUnlocked: false });
+      maybePick('外套穿法 (Outerwear Styling)', 0.55, () => true, { allowNoneWhenUnlocked: false });
+    }
+  }
+
+  if (hasOutfitPresetPiece) {
+    maybePick('襪類 (Legwear)', frameShowsAtLeast(visibility, 'medium') ? 0.35 : 0.15, (item) => {
+      if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
+      return true;
+    });
+    const outerwearPiece = maybePick('外套 (Outerwear)', context.location.meta.tags.includes('outdoor') ? 0.55 : 0.3);
     const hasOuterwearPiece = Array.isArray(outerwearPiece)
       ? outerwearPiece.some((item) => item && !isNoneLikeItem(item))
       : Boolean(outerwearPiece && !isNoneLikeItem(outerwearPiece));
@@ -2409,43 +2430,34 @@ function extractWardrobeSlots(wardrobe) {
 }
 
 function buildWardrobeColors(wardrobeSlots, locks) {
-  if (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
-    const outfitPresetColor = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
-      ? getOutfitPresetColorOption(locks?.outfitPresetColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
-      : null;
-    const outfitPresetAColor = wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)
-      ? getOutfitPresetColorOption(locks?.outfitPresetAColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
-      : null;
-    const outfitPresetBColor = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
-      ? getOutfitPresetColorOption(locks?.outfitPresetBColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
-      : null;
-    return {
-      outfitPresetColor,
-      outfitPresetAColor,
-      outfitPresetBColor,
-      topBottomPalette: null,
-      topColor: null,
-      dressColor: null,
-      bottomColor: null,
-      legwearColor: null,
-      outerwearColor: null,
-      shoesColor: null,
-    };
-  }
-  const topBottomPalette = getTopBottomPaletteOption(locks?.topBottomPaletteId);
-  const topColor = wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top)
+  const hasOutfitPreset = Boolean(
+    (wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)) ||
+    (wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)) ||
+    (wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB))
+  );
+  const outfitPresetColor = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
+    ? getOutfitPresetColorOption(locks?.outfitPresetColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    : null;
+  const outfitPresetAColor = wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)
+    ? getOutfitPresetColorOption(locks?.outfitPresetAColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    : null;
+  const outfitPresetBColor = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
+    ? getOutfitPresetColorOption(locks?.outfitPresetBColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    : null;
+  const topBottomPalette = hasOutfitPreset ? null : getTopBottomPaletteOption(locks?.topBottomPaletteId);
+  const topColor = !hasOutfitPreset && wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top)
     ? topBottomPalette?.topColor || getGarmentColorOption(locks?.topColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS)
     : null;
-  const dressColor = wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) ? getGarmentColorOption(locks?.dressColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
+  const dressColor = !hasOutfitPreset && wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) ? getGarmentColorOption(locks?.dressColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
   const hasBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants)) || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt));
-  const bottomColor = hasBottom ? topBottomPalette?.bottomColor || getGarmentColorOption(locks?.bottomColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
+  const bottomColor = !hasOutfitPreset && hasBottom ? topBottomPalette?.bottomColor || getGarmentColorOption(locks?.bottomColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
   const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(locks?.legwearColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS) : null;
   const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? getLayerColorOption(locks?.outerwearColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
   const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) ? getLayerColorOption(locks?.shoesColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
   return {
-    outfitPresetColor: null,
-    outfitPresetAColor: null,
-    outfitPresetBColor: null,
+    outfitPresetColor,
+    outfitPresetAColor,
+    outfitPresetBColor,
     topBottomPalette,
     topColor,
     dressColor,
@@ -2521,6 +2533,21 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboTe
     .replace(/^wearing\s+/i, '')
     .trim();
   const joinParts = (parts) => parts.map(normalizeWearable).filter(Boolean).join(', ');
+  const buildSharedAddonText = () => joinParts([
+    buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor),
+    buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
+      pattern: wardrobeSlots.outerwearPattern,
+      styling: wardrobeSlots.outerwearStyling,
+    }),
+    buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor),
+    buildAccessoryPrompt(wardrobeSlots.headAccessory),
+    buildAccessoryPrompt(wardrobeSlots.eyewear),
+    buildAccessoryPrompt(wardrobeSlots.earrings),
+    buildAccessoryPrompt(wardrobeSlots.neckAccessory),
+    buildAccessoryPrompt(wardrobeSlots.wristAccessory),
+    buildAccessoryPrompt(wardrobeSlots.ring),
+    buildAccessoryPrompt(wardrobeSlots.waistAccessory),
+  ]);
 
   const presetAText = normalizeWearable(
     buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true })
@@ -2529,16 +2556,18 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboTe
     buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true })
   );
   if (presetAText || presetBText) {
+    const sharedAddonText = buildSharedAddonText();
     const rolePresetParts = [
       presetAText ? `woman 1 wearing ${presetAText}` : '',
       presetBText ? `woman 2 wearing ${presetBText}` : '',
     ].filter(Boolean);
     return {
       mode: 'role-presets',
-      clothingText: `with ${rolePresetParts.join(' and ')}`,
+      clothingText: `with ${rolePresetParts.join(' and ')}${sharedAddonText ? `, both styled with ${sharedAddonText}` : ''}`,
       stylingText: [
         presetAText ? `woman 1 wearing ${presetAText}` : '',
         presetBText ? `woman 2 wearing ${presetBText}` : '',
+        sharedAddonText ? `both styled with ${sharedAddonText}` : '',
         'distinct outfit-visible editorial styling, complete wardrobe visible on both women, visible torso and wardrobe details, no headshot-only crop',
       ].filter(Boolean).join(', '),
     };
@@ -2548,10 +2577,11 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboTe
     buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true })
   );
   if (presetText) {
+    const sharedAddonText = buildSharedAddonText();
     return {
       mode: 'shared-preset',
-      clothingText: `both wearing ${presetText}`,
-      stylingText: `both women share the specified outfit preset, both wearing ${presetText}, coordinated outfit-visible editorial duo composition, visible torso and wardrobe details, no headshot-only crop`,
+      clothingText: `both wearing ${presetText}${sharedAddonText ? `, styled with ${sharedAddonText}` : ''}`,
+      stylingText: `both women share the specified outfit preset, both wearing ${presetText}${sharedAddonText ? `, styled with ${sharedAddonText}` : ''}, coordinated outfit-visible editorial duo composition, visible torso and wardrobe details, no headshot-only crop`,
     };
   }
 
@@ -2897,6 +2927,21 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     addAccessoryPart(wardrobeSlots.ring?.en || '', 2);
     addAccessoryPart(wardrobeSlots.waistAccessory?.en || '', 3);
   }
+  if (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 2);
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
+      pattern: wardrobeSlots.outerwearPattern,
+      styling: wardrobeSlots.outerwearStyling,
+    }), 3);
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
+    addAccessoryPart(wardrobeSlots.headAccessory?.en || '', 3);
+    addAccessoryPart(wardrobeSlots.eyewear?.en || '', 2);
+    addAccessoryPart(wardrobeSlots.earrings?.en || '', 2);
+    addAccessoryPart(wardrobeSlots.neckAccessory?.en || '', 3);
+    addAccessoryPart(wardrobeSlots.wristAccessory?.en || '', 3);
+    addAccessoryPart(wardrobeSlots.ring?.en || '', 2);
+    addAccessoryPart(wardrobeSlots.waistAccessory?.en || '', 3);
+  }
 
   const primaryClothingCount = clothingParts.length;
   const accessoriesText = primaryClothingCount >= 2 ? accessoryParts.join(', ') : '';
@@ -3035,6 +3080,14 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     }
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
+  if (!hasDuoSceneAnchor && (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
+    addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
+    addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
+      pattern: wardrobeSlots.outerwearPattern,
+      styling: wardrobeSlots.outerwearStyling,
+    }));
+    addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+  }
   if (!hasDuoSceneAnchor) {
     addLine('Waistline Coordination', waistlineCompatibilityText);
     addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
@@ -3152,9 +3205,15 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
       add(wardrobeSlots.outfitPresetA ? `woman 1 wears ${buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true })}` : '');
       add(wardrobeSlots.outfitPresetB ? `woman 2 wears ${buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true })}` : '');
+      add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
+      add(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
+      add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
       add(duoStyling?.en || '');
     } else if (wardrobeSlots.outfitPreset) {
       add(`the subject wears ${buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true })}`);
+      add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
+      add(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
+      add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
     } else {
       const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor);
       add(dressText || topOuterwearComboText || buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern }));

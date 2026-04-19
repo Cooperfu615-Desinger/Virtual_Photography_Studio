@@ -1,6 +1,19 @@
 import PromptCard from './PromptCard';
 import SelectControlField from './SelectControlField';
 
+const OUTFIT_PRESET_COVERED_KEYS = new Set([
+  'topId',
+  'topBottomPaletteId',
+  'topColorId',
+  'topPatternId',
+  'dressId',
+  'dressColorId',
+  'pantsId',
+  'skirtId',
+  'bottomColorId',
+  'bottomPatternId',
+]);
+
 export default function Page1Workspace({
   activeLockCount,
   coreLockControls,
@@ -153,8 +166,7 @@ export default function Page1Workspace({
                     ||
                     (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
                     ||
-                    isOutfitPresetActive &&
-                    !['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId'].includes(control.key)
+                    (isOutfitPresetActive && OUTFIT_PRESET_COVERED_KEYS.has(control.key))
                   }
                   onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
                   onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
