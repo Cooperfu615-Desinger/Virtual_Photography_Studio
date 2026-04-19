@@ -1857,16 +1857,19 @@ function buildWardrobe(context, locks, catalog) {
     const presetB = locks.outfitPresetBId ? findById(presets, locks.outfitPresetBId) : null;
     const presetAIsNone = isNoneLikeItem(presetA);
     const presetBIsNone = isNoneLikeItem(presetB);
+    const hasRolePreset = (presetA && !presetAIsNone) || (presetB && !presetBIsNone);
 
-    const randomDistinctPreset = (excludeId) => {
-      const candidates = presets.filter((item) => !isNoneLikeItem(item) && item.id !== excludeId);
-      return sample(candidates.length > 0 ? candidates : presets);
-    };
+    if (hasRolePreset) {
+      const randomDistinctPreset = (excludeId) => {
+        const candidates = presets.filter((item) => !isNoneLikeItem(item) && item.id !== excludeId);
+        return sample(candidates.length > 0 ? candidates : presets);
+      };
 
-    const resolvedA = presetAIsNone ? null : presetA || (!locks.outfitPresetAId && presetB && !presetBIsNone ? randomDistinctPreset(presetB.id) : null);
-    const resolvedB = presetBIsNone ? null : presetB || (!locks.outfitPresetBId && resolvedA ? randomDistinctPreset(resolvedA.id) : null);
+      const resolvedA = presetAIsNone ? null : presetA || (!locks.outfitPresetAId && presetB && !presetBIsNone ? randomDistinctPreset(presetB.id) : null);
+      const resolvedB = presetBIsNone ? null : presetB || (!locks.outfitPresetBId && resolvedA ? randomDistinctPreset(resolvedA.id) : null);
 
-    return [resolvedA ? clonePresetForRole(resolvedA, 'a') : null, resolvedB ? clonePresetForRole(resolvedB, 'b') : null].filter(Boolean);
+      return [resolvedA ? clonePresetForRole(resolvedA, 'a') : null, resolvedB ? clonePresetForRole(resolvedB, 'b') : null].filter(Boolean);
+    }
   }
 
   const outfitPreset = locks.outfitPresetId ? findById(catalog.flatCatalog.outfitPresets, locks.outfitPresetId) : null;
@@ -2512,6 +2515,94 @@ function buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors) {
   return `${baseLayerText}, layered under ${outerwearPhrase}`;
 }
 
+function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboText) {
+  const normalizeWearable = (value) => stripMarkdown(value || '')
+    .replace(/\s+/g, ' ')
+    .replace(/^wearing\s+/i, '')
+    .trim();
+  const joinParts = (parts) => parts.map(normalizeWearable).filter(Boolean).join(', ');
+
+  const presetAText = normalizeWearable(
+    buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true })
+  );
+  const presetBText = normalizeWearable(
+    buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true })
+  );
+  if (presetAText || presetBText) {
+    return {
+      mode: 'role-presets',
+      clothingText: [presetAText ? `woman 1 wearing ${presetAText}` : '', presetBText ? `woman 2 wearing ${presetBText}` : ''].filter(Boolean).join(', '),
+      stylingText: [
+        presetAText ? `woman 1 wearing ${presetAText}` : '',
+        presetBText ? `woman 2 wearing ${presetBText}` : '',
+        'distinct outfit-visible editorial styling, complete wardrobe visible on both women, visible torso and wardrobe details, no headshot-only crop',
+      ].filter(Boolean).join(', '),
+    };
+  }
+
+  const presetText = normalizeWearable(
+    buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true })
+  );
+  if (presetText) {
+    return {
+      mode: 'shared-preset',
+      clothingText: `both wearing ${presetText}`,
+      stylingText: `both women share the specified outfit preset, both wearing ${presetText}, coordinated outfit-visible editorial duo composition, visible torso and wardrobe details, no headshot-only crop`,
+    };
+  }
+
+  const dressText = normalizeWearable(buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor));
+  const topText = normalizeWearable(
+    topOuterwearComboText || buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern })
+  );
+  const pantsText = normalizeWearable(
+    buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern })
+  );
+  const skirtText = normalizeWearable(
+    buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern })
+  );
+  const legwearText = normalizeWearable(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
+  const outerwearText = topOuterwearComboText
+    ? ''
+    : normalizeWearable(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
+        pattern: wardrobeSlots.outerwearPattern,
+        styling: wardrobeSlots.outerwearStyling,
+      }));
+  const shoesText = normalizeWearable(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+  const accessoryText = joinParts([
+    buildAccessoryPrompt(wardrobeSlots.headAccessory),
+    buildAccessoryPrompt(wardrobeSlots.eyewear),
+    buildAccessoryPrompt(wardrobeSlots.earrings),
+    buildAccessoryPrompt(wardrobeSlots.neckAccessory),
+    buildAccessoryPrompt(wardrobeSlots.wristAccessory),
+    buildAccessoryPrompt(wardrobeSlots.ring),
+    buildAccessoryPrompt(wardrobeSlots.waistAccessory),
+  ]);
+  const sharedParts = dressText
+    ? [topOuterwearComboText ? topText : dressText, legwearText, outerwearText, shoesText, accessoryText]
+    : [topText, pantsText, skirtText, legwearText, outerwearText, shoesText, accessoryText];
+  const sharedText = joinParts(sharedParts);
+
+  if (!sharedText) return { mode: 'none', clothingText: '', stylingText: '' };
+  return {
+    mode: 'shared-pieces',
+    clothingText: `both wearing ${sharedText}`,
+    stylingText: `both women share the specified wardrobe styling, both wearing ${sharedText}, coordinated outfit-visible editorial duo composition, matching wardrobe structure with subtle individual fit differences, visible torso and wardrobe details, no headshot-only crop, no split wardrobe interpretation`,
+  };
+}
+
+function buildDuoSceneAnchorText(context, wardrobeSlots, wardrobeColors, topOuterwearComboText) {
+  if (context.subject.count !== 2) return '';
+  const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboText);
+  if (!duoWardrobeText.clothingText) return '';
+  const subjectText = stripMarkdown(context.subject.en || 'two women').replace(/\s+/g, ' ').trim();
+  const locationText = context.location && !isNoneLikeItem(context.location)
+    ? stripMarkdown(context.location.en).replace(/\s+/g, ' ').trim()
+    : '';
+  const locationClause = locationText ? ` in ${locationText}` : '';
+  return `an editorial film still of ${subjectText} ${duoWardrobeText.clothingText}${locationClause}, outfit-visible editorial duo composition, visible torso and wardrobe details, both women shown within the same continuous frame, avoid headshot-only crop`;
+}
+
 function getTopBottomHaystack(item) {
   return toHaystack(item?.zh || '', item?.en || '', item?.desc || '');
 }
@@ -2849,6 +2940,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const topOuterwearComboText = buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors);
+  const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboText);
+  const duoSceneAnchorText = buildDuoSceneAnchorText(context, wardrobeSlots, wardrobeColors, topOuterwearComboText);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
@@ -2887,6 +2980,9 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     return `${base}, full lower legs and feet clearly visible`;
   };
   const buildGrokCompositionPriorityText = () => {
+    if (context.subject.count === 2 && duoWardrobeText.clothingText) {
+      return 'preserve an outfit-visible editorial duo composition with both women in the same continuous frame, keep visible torso and wardrobe details, avoid collapsing into a headshot-only crop';
+    }
     if (!context.characterProfilePrompt || context.subject.count !== 1) return '';
     const visibility = context.framing?.meta?.visibility || '';
     if (visibility === 'portrait') return '';
@@ -2905,6 +3001,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     'preserve the specified wardrobe as complete clothing, detailed realistic fabric folds and wrinkles visible, clothing covers the body appropriately, fully clothed styling, no nudity'
   );
 
+  addLine('Duo Scene Anchor', duoSceneAnchorText);
   addLine('Subject Count', useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en);
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
@@ -2916,7 +3013,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   } else if (wardrobeSlots.outfitPreset) {
     addLine('Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }));
   }
-  if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB) {
+  if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
     const topText = topOuterwearComboText || buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern });
     const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor);
     const pantsText = buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern });
@@ -2933,7 +3030,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   }
   addLine('Waistline Coordination', waistlineCompatibilityText);
   addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
-  if (context.subject.count === 2) addLine('Duo Styling', duoStyling?.en);
+  if (context.subject.count === 2) addLine('Duo Styling', duoWardrobeText.stylingText || duoStyling?.en);
   addLine('Special Action', specialActionText);
   addLine('Pose', poseText);
   if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
