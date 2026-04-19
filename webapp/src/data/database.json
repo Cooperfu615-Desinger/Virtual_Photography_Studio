@@ -2868,8 +2868,8 @@
     "自然與戶外 (Nature & Outdoors)": [
       {
         "zh": "戶外：金色海灘與浪線",
-        "en": "golden beach edge, foamy shoreline, sunlit sand texture, bright summer air, open seaside mood",
-        "desc": "高頻好用的海邊場景，畫面乾淨開闊，適合寫真、泳裝與陽光人像。"
+        "en": "golden sandy beach edge, shallow clear seawater gently washing around the subject, thin receding wave edge across the sand, transparent water lapping near the body, wet sunlit sand texture, open seaside setting, no thick foam piles, no bubble bath texture",
+        "desc": "高頻好用的海邊場景，重點是金色沙灘、透明淺水、薄薄退潮浪緣與濕潤反光沙面；海水可以輕輕打到人物周圍，但避免生成厚重白色泡沫或泡泡浴感。"
       },
       {
         "zh": "戶外：清澈海灣岩岸",
@@ -2935,8 +2935,8 @@
       },
       {
         "zh": "其他：沙灘海岸線",
-        "en": "beach shoreline ground plane, pale sand texture, gentle foam line near the subject, coastal edge surface for lying down, simple seaside foreground",
-        "desc": "為仰躺姿勢準備的沙灘海岸線場景，重點是沙灘平面、近處浪線與海岸邊緣，不拉成遙遠海景。"
+        "en": "pale sandy beach ground plane, clean fine sand surface for lying down, shallow clear seawater gently reaching around the subject's body, thin transparent wave edge spreading across the sand, wet sand glistening around the skin, distant calm shoreline in the background, no thick foam piles, no bubble bath texture",
+        "desc": "為仰躺或坐在沙灘上的姿勢準備的海岸線場景，重點是乾淨細沙、透明淺水輕輕推到身體周圍、薄浪緣與濕沙反光；避免厚重白色泡沫包住身體或生成泡泡浴質感。"
       }
     ]
   },
