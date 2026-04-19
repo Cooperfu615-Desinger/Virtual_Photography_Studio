@@ -727,6 +727,9 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['高調亮光', 'high-key bright light'])) {
       tags.push('soft_light', 'studio_light', 'controlled', 'supports_indoor', 'supports_outdoor', 'supports_studio');
     }
+    if (hasAny(haystack, ['暖金黃昏色溫', 'warm golden-amber color temperature'])) {
+      tags.push('soft_light', 'warm', 'color_temperature', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
+    }
     if (hasAny(haystack, ['混合色溫光', 'mixed color temperature'])) {
       tags.push('artificial_light', 'mixed_color', 'supports_indoor', 'supports_outdoor', 'supports_commercial', 'supports_urban', 'supports_subterranean');
     }

@@ -88,6 +88,7 @@
 | **光線表現 (Light Style)** | 硬質晴光 | `hard sunlight, direct sunbeam exposure, deep shadow contrast, crisp bright highlights` | 直射日光明顯，陰影深且邊緣清楚。 |
 | **光線表現 (Light Style)** | 低光高反差 | `low-key contrast light, deep shadow fields, selective highlight emphasis, cinematic darkness` | 暗部面積大、亮暗落差高，適合夜景、戲劇與低照度畫面。 |
 | **光線表現 (Light Style)** | 高調亮光 | `high-key bright light, luminous exposure, airy highlights, soft low-shadow clarity` | 整體偏亮偏透，陰影很少，乾淨清爽。 |
+| **光線表現 (Light Style)** | 暖金黃昏色溫 | `warm golden-amber color temperature, soft honey-orange light cast, gentle peach-toned highlights, warm cinematic color wash, subdued shadows with cozy amber skin warmth` | 只指定接近黃昏感的暖金、橘蜜與蜜桃色溫，不主動生成夕陽、日落、太陽或天空景象，適合想要黃昏感色彩但不改變場景內容時使用。 |
 | **光線表現 (Light Style)** | 混合色溫光 | `mixed color temperature lighting, warm and cool light interplay, layered color contrast, cinematic environmental mixing` | 冷暖光並存，特別適合都市夜景、室內夜景與敘事場面。 |
 | **光線表現 (Light Style)** | 霓虹染色光 | `neon color spill, saturated colored light cast, vivid skin-edge tinting, nightlife color wash` | 霓虹色光直接染到人物與場景表面，風格化最強。 |
 | **光線表現 (Light Style)** | 窗格投影光 | `window pattern light, slatted or framed daylight shadows, subtle graphic projection, interior cinematic texture` | 來自窗框、百葉或格柵投影的方向性光影，偏室內敘事感。 |

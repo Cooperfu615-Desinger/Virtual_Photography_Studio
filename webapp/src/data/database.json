@@ -2031,6 +2031,11 @@
         "desc": "整體偏亮偏透，陰影很少，乾淨清爽。"
       },
       {
+        "zh": "暖金黃昏色溫",
+        "en": "warm golden-amber color temperature, soft honey-orange light cast, gentle peach-toned highlights, warm cinematic color wash, subdued shadows with cozy amber skin warmth",
+        "desc": "只指定接近黃昏感的暖金、橘蜜與蜜桃色溫，不主動生成夕陽、日落、太陽或天空景象，適合想要黃昏感色彩但不改變場景內容時使用。"
+      },
+      {
         "zh": "混合色溫光",
         "en": "mixed color temperature lighting, warm and cool light interplay, layered color contrast, cinematic environmental mixing",
         "desc": "冷暖光並存，特別適合都市夜景、室內夜景與敘事場面。"
@@ -2920,8 +2925,8 @@
       },
       {
         "zh": "其他：白色床鋪",
-        "en": "white bed surface, soft white sheets and pillows, comfortable bedding plane, subject lying on the bed, clean relaxed bedroom surface",
-        "desc": "為仰躺姿勢準備的白色床鋪場景，重點是柔軟白色床單、枕頭與可躺臥的床面，不強調完整臥室遠景。"
+        "en": "lived-in white bed surface, casually rumpled white comforter, two white pillows placed loosely and naturally, soft cotton bedding texture, comfortable everyday bedroom feeling, subject lying on the bed",
+        "desc": "為仰躺姿勢準備的生活感白色床鋪場景，重點是隨意擺放的兩顆枕頭、鬆軟白色棉被、棉質床品紋理與舒適日常感，不強調完整臥室遠景。"
       },
       {
         "zh": "其他：陽光灑落的樹下",
@@ -3426,8 +3431,8 @@
       },
       {
         "zh": "半躺低姿態｜舒適正面仰躺姿勢",
-        "en": "comfortable supine lying pose, lying on her back facing upward, relaxed front-facing upward body posture, both arms and legs resting casually and comfortably, calm effortless lounging stillness",
-        "desc": "舒服放鬆、正面朝上躺著的姿勢，雙手雙腳隨性舒適地放著；只指定整體仰躺方向與放鬆狀態，不指定地面材質，讓 AI 依照場景自由發揮細節；適合草地、床面、沙發、地板與棚拍背景自由搭配。"
+        "en": "comfortable supine lying pose, lying on her back facing upward, head positioned toward the top edge of the image, feet positioned toward the bottom edge of the image, body aligned naturally along the vertical axis of the frame, both arms and legs resting casually and comfortably, calm effortless lounging stillness, upright non-inverted body orientation",
+        "desc": "舒服放鬆、正面朝上躺著的姿勢，頭部位於畫面上方、腳部位於畫面下方，身體自然沿畫面垂直方向延展，雙手雙腳隨性舒適地放著；只指定整體仰躺方向與放鬆狀態，不指定地面材質，避免倒置成頭下腳上的構圖。"
       },
       {
         "zh": "半躺低姿態｜側身半躺回頭看鏡頭",
