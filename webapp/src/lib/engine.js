@@ -2529,9 +2529,13 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboTe
     buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true })
   );
   if (presetAText || presetBText) {
+    const rolePresetParts = [
+      presetAText ? `woman 1 wearing ${presetAText}` : '',
+      presetBText ? `woman 2 wearing ${presetBText}` : '',
+    ].filter(Boolean);
     return {
       mode: 'role-presets',
-      clothingText: [presetAText ? `woman 1 wearing ${presetAText}` : '', presetBText ? `woman 2 wearing ${presetBText}` : ''].filter(Boolean).join(', '),
+      clothingText: `with ${rolePresetParts.join(' and ')}`,
       stylingText: [
         presetAText ? `woman 1 wearing ${presetAText}` : '',
         presetBText ? `woman 2 wearing ${presetBText}` : '',
@@ -2942,6 +2946,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const topOuterwearComboText = buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors);
   const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboText);
   const duoSceneAnchorText = buildDuoSceneAnchorText(context, wardrobeSlots, wardrobeColors, topOuterwearComboText);
+  const hasDuoSceneAnchor = Boolean(duoSceneAnchorText);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
@@ -3002,15 +3007,17 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   );
 
   addLine('Duo Scene Anchor', duoSceneAnchorText);
-  addLine('Subject Count', useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en);
+  if (!hasDuoSceneAnchor) {
+    addLine('Subject Count', useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en);
+  }
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
   }
-  addItemLine('Body Type', characterSlots.bodyType);
-  if (context.subject.count === 2) {
+  if (!hasDuoSceneAnchor) addItemLine('Body Type', characterSlots.bodyType);
+  if (context.subject.count === 2 && !hasDuoSceneAnchor) {
     addLine('Woman 1 Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true }));
     addLine('Woman 2 Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true }));
-  } else if (wardrobeSlots.outfitPreset) {
+  } else if (wardrobeSlots.outfitPreset && !hasDuoSceneAnchor) {
     addLine('Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }));
   }
   if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
@@ -3028,9 +3035,11 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     }
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
-  addLine('Waistline Coordination', waistlineCompatibilityText);
-  addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
-  if (context.subject.count === 2) addLine('Duo Styling', duoWardrobeText.stylingText || duoStyling?.en);
+  if (!hasDuoSceneAnchor) {
+    addLine('Waistline Coordination', waistlineCompatibilityText);
+    addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
+  }
+  if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Styling', duoWardrobeText.stylingText || duoStyling?.en);
   addLine('Special Action', specialActionText);
   addLine('Pose', poseText);
   if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
