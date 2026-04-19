@@ -3403,6 +3403,11 @@
         "desc": "身體側向延展，整體姿勢放鬆，適合柔和與慵懶感畫面。"
       },
       {
+        "zh": "半躺低姿態｜舒適正面仰躺姿勢",
+        "en": "comfortable supine lying pose, lying on her back facing upward, relaxed front-facing upward body posture, calm effortless lounging stillness",
+        "desc": "舒服放鬆、正面朝上躺著的姿勢，只指定整體仰躺方向與放鬆狀態，不指定手臂、腿部或地面材質，讓 AI 依照場景自由發揮細節；適合草地、床面、沙發、地板與棚拍背景自由搭配。"
+      },
+      {
         "zh": "半躺低姿態｜側身半躺回頭看鏡頭",
         "en": "side reclined pose with head turning back toward camera, relaxed interactive low posture",
         "desc": "身體保持側躺或半躺，頭部回望鏡頭，兼具放鬆感與互動感。"
