@@ -99,7 +99,7 @@
 | **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜自然自拍姿勢 | `casual selfie-like seated pose, self-portrait body language, natural arm and gaze coordination, no phone required` | 坐姿狀態下的自拍感，偏社群感與自然日常。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜鏡子自拍姿勢 | `mirror selfie seated pose, holding a phone visibly, face unobstructed, clear facial features, relaxed self-portrait framing` | 坐姿下對鏡自拍，手機可見但不遮臉，強調五官與造型仍清楚。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜側身半躺姿勢 | `side reclined pose, body gently extended, relaxed low posture, soft flowing body line` | 身體側向延展，整體姿勢放鬆，適合柔和與慵懶感畫面。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜舒適正面仰躺姿勢 | `comfortable supine lying pose, lying on her back facing upward, relaxed front-facing upward body posture, calm effortless lounging stillness` | 舒服放鬆、正面朝上躺著的姿勢，只指定整體仰躺方向與放鬆狀態，不指定手臂、腿部或地面材質，讓 AI 依照場景自由發揮細節；適合草地、床面、沙發、地板與棚拍背景自由搭配。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜舒適正面仰躺姿勢 | `comfortable supine lying pose, lying on her back facing upward, relaxed front-facing upward body posture, both arms and legs resting casually and comfortably, calm effortless lounging stillness` | 舒服放鬆、正面朝上躺著的姿勢，雙手雙腳隨性舒適地放著；只指定整體仰躺方向與放鬆狀態，不指定地面材質，讓 AI 依照場景自由發揮細節；適合草地、床面、沙發、地板與棚拍背景自由搭配。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜側身半躺回頭看鏡頭 | `side reclined pose with head turning back toward camera, relaxed interactive low posture` | 身體保持側躺或半躺，頭部回望鏡頭，兼具放鬆感與互動感。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜半躺低頭姿勢 | `reclined low pose with lowered gaze, quiet inward mood, relaxed low body language` | 上半身略低、視線向下，偏安靜與細膩情緒。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜手撐上半身半躺姿勢 | `reclined pose supported by one arm, lifted upper body, natural relaxed asymmetry` | 以單手或手肘支撐上半身，讓姿勢更自然，不會太平。 |

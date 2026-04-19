@@ -220,6 +220,7 @@ const SCENE_ATTRIBUTE_OPTIONS = [
   { id: '', zh: '未指定', en: '' },
   { id: 'indoor', zh: '室內', en: 'indoor setting' },
   { id: 'outdoor', zh: '戶外', en: 'outdoor setting' },
+  { id: 'other', zh: '其他', en: 'other dedicated setting' },
 ];
 
 const LOCK_DEFINITIONS = [
@@ -465,6 +466,7 @@ function inferLocationMeta(category, item) {
   if (hasAny(haystack, ['indoor & lifestyle', '生活感室內'])) tags.push('indoor');
   if (hasAny(haystack, ['nature & outdoors', '自然與戶外'])) tags.push('outdoor', 'natural');
   if (hasAny(haystack, ['abandoned & underground', '地下與廢墟風格'])) tags.push('ruin');
+  if (hasAny(haystack, ['other dedicated scenes', '其他專屬場景'])) tags.push('other_scene');
 
   if (hasAny(haystack, ['hotel', 'boutique hotel', '旅館', '飯店'])) tags.push('hospitality', 'indoor');
   if (hasAny(haystack, ['apartment', 'bedroom', 'living room', 'home kitchen', 'domestic kitchen', '臥室', '公寓', '客廳', '住宅廚房'])) tags.push('residential', 'indoor');
@@ -1319,6 +1321,7 @@ function locationMatchesSceneAttribute(location, sceneAttribute) {
 
   if (sceneAttribute.id === 'indoor') return flags.indoor;
   if (sceneAttribute.id === 'outdoor') return flags.outdoor;
+  if (sceneAttribute.id === 'other') return location.meta.tags.includes('other_scene');
 
   return true;
 }
