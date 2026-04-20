@@ -2045,14 +2045,22 @@ function buildWardrobe(context, locks, catalog) {
       if (pieces.some((piece) => piece.meta.tags.includes('pants'))) return item.en.includes('bare legs');
       return true;
     });
-    const outerwearPiece = maybePick('外套 (Outerwear)', context.location.meta.tags.includes('outdoor') ? 0.6 : 0.35);
+  }
+
+  if (hasOutfitPresetPiece || hasDressPiece || hasBottomPiece || locks?.outerwearId) {
+    const outerwearProbability = locks?.outerwearId
+      ? 1
+      : context.location.meta.tags.includes('outdoor')
+        ? (hasOutfitPresetPiece ? 0.55 : 0.6)
+        : (hasOutfitPresetPiece ? 0.3 : 0.35);
+    const outerwearPiece = maybePick('外套 (Outerwear)', outerwearProbability);
     const hasOuterwearPiece = Array.isArray(outerwearPiece)
       ? outerwearPiece.some((item) => item && !isNoneLikeItem(item))
       : Boolean(outerwearPiece && !isNoneLikeItem(outerwearPiece));
 
     if (hasOuterwearPiece) {
-      maybePick('外套圖案 (Outerwear Surface Design)', 0.3, () => true, { allowNoneWhenUnlocked: false });
-      maybePick('外套穿法 (Outerwear Styling)', 0.55, () => true, { allowNoneWhenUnlocked: false });
+      maybePick('外套圖案 (Outerwear Surface Design)', locks?.outerwearPatternId ? 1 : 0.3, () => true, { allowNoneWhenUnlocked: false });
+      maybePick('外套穿法 (Outerwear Styling)', locks?.outerwearStylingId ? 1 : 0.55, () => true, { allowNoneWhenUnlocked: false });
     }
   }
 
@@ -2061,15 +2069,6 @@ function buildWardrobe(context, locks, catalog) {
       if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
       return true;
     });
-    const outerwearPiece = maybePick('外套 (Outerwear)', context.location.meta.tags.includes('outdoor') ? 0.55 : 0.3);
-    const hasOuterwearPiece = Array.isArray(outerwearPiece)
-      ? outerwearPiece.some((item) => item && !isNoneLikeItem(item))
-      : Boolean(outerwearPiece && !isNoneLikeItem(outerwearPiece));
-
-    if (hasOuterwearPiece) {
-      maybePick('外套圖案 (Outerwear Surface Design)', 0.3, () => true, { allowNoneWhenUnlocked: false });
-      maybePick('外套穿法 (Outerwear Styling)', 0.55, () => true, { allowNoneWhenUnlocked: false });
-    }
   }
 
   if (!frameShowsAtLeast(visibility, 'medium') && locks?.legwearId) {
@@ -2831,7 +2830,6 @@ function buildMinimalLeadAccessoryText(wardrobeSlots) {
 
 function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction) {
   const maxLength = 1000;
-  const topOuterwearComboText = buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
 
   const clothingParts = [];
@@ -2850,7 +2848,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }), 1);
   } else {
     const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor);
-    addClothingPart(topOuterwearComboText || dressText || buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern }), 1);
+    addClothingPart(dressText || buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern }), 1);
     if (!dressText) {
       addClothingPart(
         buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors.bottomColor, { pattern: wardrobeSlots.bottomPattern }) ||
@@ -2859,9 +2857,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
       );
     }
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 1);
-    if (!topOuterwearComboText) {
-      addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }), 1);
-    }
+    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }), 1);
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
     accessoryParts.push(buildMinimalAccessoryText(wardrobeSlots));
   }
