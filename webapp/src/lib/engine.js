@@ -1819,7 +1819,14 @@ function buildCharacter(context, catalog) {
     expression = pickCategory('神情與眼神 (Expression & Gaze)', context.locks, (item) => expressionSupportsComposition(item, context));
   }
 
-  if (context.subject.count > 1) return character;
+  if (context.subject.count > 1) {
+    if (context.locks?.poseId) {
+      pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, () => true, sample, false);
+    } else {
+      pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, (item) => poseSupportsLocationContext(item, context), sampleNonNone);
+    }
+    return character;
+  }
   if (visibility === 'close') return character;
 
   const specialAction = context.locks?.specialActionId
@@ -2815,6 +2822,38 @@ function buildMinimalExpressionText(characterSlots, subjectCount, duoInteraction
   );
 }
 
+function buildMinimalDuoPoseText(pose) {
+  if (!pose || isNoneLikeItem(pose)) return '';
+  const zh = pose.zh || '';
+  const haystack = `${zh} ${pose.en || ''}`.toLowerCase();
+
+  if (zh.includes('站姿') || /standing/.test(haystack)) return 'two women in a relaxed standing pose';
+  if (zh.includes('坐姿') || /seated|sitting|cross-legged/.test(haystack)) return 'two women in a relaxed seated pose';
+  if (zh.includes('蹲姿') || /squatting|squat|crouching/.test(haystack)) return 'two women in a relaxed squatting pose';
+  if (zh.includes('半躺') || zh.includes('側躺') || zh.includes('趴姿') || /reclined|lying|low prone|side-lying/.test(haystack)) {
+    return 'two women in a relaxed reclined pose';
+  }
+  if (zh.includes('行走') || zh.includes('動態') || /walking|moving|motion|stepping/.test(haystack)) return 'two women in a relaxed moving pose';
+
+  return buildMinimalPromptPart(resolvePromptVariant(pose, 'pose', 2), 1);
+}
+
+function buildMinimalSoloPoseText(pose) {
+  if (!pose || isNoneLikeItem(pose)) return '';
+  const zh = pose.zh || '';
+  const haystack = `${zh} ${pose.en || ''}`.toLowerCase();
+
+  if (zh.includes('站姿') || /standing/.test(haystack)) return 'relaxed standing pose';
+  if (zh.includes('坐姿') || /seated|sitting|cross-legged/.test(haystack)) return 'relaxed seated pose';
+  if (zh.includes('蹲姿') || /squatting|squat|crouching/.test(haystack)) return 'relaxed squatting pose';
+  if (zh.includes('半躺') || zh.includes('側躺') || zh.includes('趴姿') || /reclined|lying|low prone|side-lying/.test(haystack)) {
+    return 'relaxed reclined pose';
+  }
+  if (zh.includes('行走') || zh.includes('動態') || /walking|moving|motion|stepping/.test(haystack)) return 'relaxed moving pose';
+
+  return buildMinimalPromptPart(resolvePromptVariant(pose, 'pose', 1), 1);
+}
+
 function buildMinimalAccessoryText(wardrobeSlots) {
   return [
     buildMinimalItemPromptPart(wardrobeSlots.neckAccessory, 1),
@@ -2885,14 +2924,17 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     context.subject.count === 2 ? 'distinct faces, different appearances' : '',
     useCharacterIdentityAnchor ? buildMinimalPromptPart(context.characterProfilePrompt, 2) : '',
   ].filter(Boolean).join(', ');
-  const poseText = context.subject.count === 1
-    ? buildMinimalPromptPart(
+  const poseText = context.subject.count === 2
+    ? buildMinimalDuoPoseText(characterSlots.pose)
+    : [
+      buildMinimalPromptPart(
         characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
           ? characterSlots.specialAction.en
           : '',
         1
-      )
-    : '';
+      ),
+      buildMinimalSoloPoseText(characterSlots.pose),
+    ].filter(Boolean).join(', ');
   const clothingText = [...clothingParts, ...accessoryParts].filter(Boolean).join(', ');
   const locationText = buildMinimalLocationText(context.location);
   const angleText = buildMinimalAngleText(context.angle);
