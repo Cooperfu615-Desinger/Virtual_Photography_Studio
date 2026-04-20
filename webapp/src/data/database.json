@@ -1545,67 +1545,6 @@
         "en": "street-style gold chain detail, subtle urban neck accent",
         "desc": "保留街頭與都會感，但降低 bold chain 的強烈存在。"
       }
-    ],
-    "腕部 (Wrist Accessories)": [
-      {
-        "zh": "全無",
-        "en": "no wrist accessories, clean arm styling",
-        "desc": "不加腕部飾品，讓手部與前臂保持簡潔。"
-      },
-      {
-        "zh": "極簡金屬手錶",
-        "en": "minimal metal wristwatch, clean polished timepiece, understated modern accent",
-        "desc": "乾淨俐落的金屬錶款，適合都會、極簡與成熟造型。"
-      },
-      {
-        "zh": "皮革腕錶",
-        "en": "leather-strap wristwatch, classic watch detail, refined everyday styling",
-        "desc": "皮革錶帶更有日常與成熟感，適合文藝、法式與城市穿搭。"
-      },
-      {
-        "zh": "細鍊手鍊",
-        "en": "delicate chain bracelet, slim wrist jewelry, subtle reflective accent",
-        "desc": "存在感低但能增加精緻度，適合多數造型。"
-      },
-      {
-        "zh": "串珠手環",
-        "en": "beaded bracelet stack, polished stone and glass beads, mixed translucent textures, artisanal layered wrist detail",
-        "desc": "以拋光石珠、玻璃珠與不同透明度的珠面層疊為主，質感更細緻，整體更像手作精品而不是廉價飾品。"
-      },
-      {
-        "zh": "纏繞式皮革腕帶",
-        "en": "wrapped leather wrist strap, layered leather bracelet, edgy wrist detail",
-        "desc": "多圈纏繞的皮革腕帶更有街頭、龐克與邊緣感。"
-      }
-    ],
-    "戒指 (Rings)": [
-      {
-        "zh": "全無",
-        "en": "no rings, clean hand styling",
-        "desc": "不加戒指，讓手指線條與動作更乾淨。"
-      },
-      {
-        "zh": "細戒指",
-        "en": "slim rings, delicate finger jewelry, understated accent",
-        "desc": "低存在感但能增加精緻度。"
-      }
-    ],
-    "腰部 (Waist Accessories)": [
-      {
-        "zh": "全無",
-        "en": "no waist accessories, clean waistline styling",
-        "desc": "不加腰部飾品，讓腰線維持乾淨簡潔。"
-      },
-      {
-        "zh": "單排打孔腰帶",
-        "en": "single-row punched leather belt detail, subtle waist accent with metal eyelets",
-        "desc": "比多排版本更精準俐落，但改成較低干擾的腰部點綴。"
-      },
-      {
-        "zh": "胸下式短款精緻束腰帶",
-        "en": "underbust waist cincher detail, subtle corset-inspired waist accent",
-        "desc": "保留胸下與腰部比例調整感，但不讓束腰帶過度主導畫面。"
-      }
     ]
   },
   "CameraLighting": {

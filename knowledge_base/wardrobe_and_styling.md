@@ -280,14 +280,3 @@
 | **頸部 (Neck Accessories)** | 薄長圍巾 | `thin long scarf detail, lightweight draped neck accent` | 輕薄長圍巾適合層次穿搭與動態畫面，但控制在配角層級。 |
 | **頸部 (Neck Accessories)** | 厚長圍巾 | `thick long scarf detail, soft wrapped neck layering` | 厚實長圍巾更偏秋冬保暖，但語氣改得更不搶戲。 |
 | **頸部 (Neck Accessories)** | 街頭風格金項鏈 | `street-style gold chain detail, subtle urban neck accent` | 保留街頭與都會感，但降低 bold chain 的強烈存在。 |
-| **腕部 (Wrist Accessories)** | 全無 | `no wrist accessories, clean arm styling` | 不加腕部飾品，讓手部與前臂保持簡潔。 |
-| **腕部 (Wrist Accessories)** | 極簡金屬手錶 | `minimal metal wristwatch, clean polished timepiece, understated modern accent` | 乾淨俐落的金屬錶款，適合都會、極簡與成熟造型。 |
-| **腕部 (Wrist Accessories)** | 皮革腕錶 | `leather-strap wristwatch, classic watch detail, refined everyday styling` | 皮革錶帶更有日常與成熟感，適合文藝、法式與城市穿搭。 |
-| **腕部 (Wrist Accessories)** | 細鍊手鍊 | `delicate chain bracelet, slim wrist jewelry, subtle reflective accent` | 存在感低但能增加精緻度，適合多數造型。 |
-| **腕部 (Wrist Accessories)** | 串珠手環 | `beaded bracelet stack, polished stone and glass beads, mixed translucent textures, artisanal layered wrist detail` | 以拋光石珠、玻璃珠與不同透明度的珠面層疊為主，質感更細緻，整體更像手作精品而不是廉價飾品。 |
-| **腕部 (Wrist Accessories)** | 纏繞式皮革腕帶 | `wrapped leather wrist strap, layered leather bracelet, edgy wrist detail` | 多圈纏繞的皮革腕帶更有街頭、龐克與邊緣感。 |
-| **戒指 (Rings)** | 全無 | `no rings, clean hand styling` | 不加戒指，讓手指線條與動作更乾淨。 |
-| **戒指 (Rings)** | 細戒指 | `slim rings, delicate finger jewelry, understated accent` | 低存在感但能增加精緻度。 |
-| **腰部 (Waist Accessories)** | 全無 | `no waist accessories, clean waistline styling` | 不加腰部飾品，讓腰線維持乾淨簡潔。 |
-| **腰部 (Waist Accessories)** | 單排打孔腰帶 | `single-row punched leather belt detail, subtle waist accent with metal eyelets` | 比多排版本更精準俐落，但改成較低干擾的腰部點綴。 |
-| **腰部 (Waist Accessories)** | 胸下式短款精緻束腰帶 | `underbust waist cincher detail, subtle corset-inspired waist accent` | 保留胸下與腰部比例調整感，但不讓束腰帶過度主導畫面。 |
