@@ -2761,6 +2761,11 @@ function buildMinimalPromptPart(value, maxParts = 1) {
   return compactClause(cleaned, maxParts);
 }
 
+function buildMinimalItemPromptPart(item, maxParts = 1) {
+  if (!item || isNoneLikeItem(item)) return '';
+  return buildMinimalPromptPart(item.en, maxParts);
+}
+
 function buildMinimalLocationText(location) {
   if (!location || isNoneLikeItem(location)) return '';
   return buildMinimalPromptPart(location.en, 1);
@@ -2812,13 +2817,18 @@ function buildMinimalExpressionText(characterSlots, subjectCount, duoInteraction
 
 function buildMinimalAccessoryText(wardrobeSlots) {
   return [
-    buildMinimalPromptPart(wardrobeSlots.headAccessory?.en, 1),
-    buildMinimalPromptPart(wardrobeSlots.eyewear?.en, 1),
-    buildMinimalPromptPart(wardrobeSlots.earrings?.en, 1),
-    buildMinimalPromptPart(wardrobeSlots.neckAccessory?.en, 1),
-    buildMinimalPromptPart(wardrobeSlots.wristAccessory?.en, 1),
-    buildMinimalPromptPart(wardrobeSlots.ring?.en, 1),
-    buildMinimalPromptPart(wardrobeSlots.waistAccessory?.en, 1),
+    buildMinimalItemPromptPart(wardrobeSlots.neckAccessory, 1),
+    buildMinimalItemPromptPart(wardrobeSlots.wristAccessory, 1),
+    buildMinimalItemPromptPart(wardrobeSlots.ring, 1),
+    buildMinimalItemPromptPart(wardrobeSlots.waistAccessory, 1),
+  ].filter(Boolean).join(', ');
+}
+
+function buildMinimalLeadAccessoryText(wardrobeSlots) {
+  return [
+    buildMinimalItemPromptPart(wardrobeSlots.eyewear, 1),
+    buildMinimalItemPromptPart(wardrobeSlots.earrings, 1),
+    buildMinimalItemPromptPart(wardrobeSlots.headAccessory, 1),
   ].filter(Boolean).join(', ');
 }
 
@@ -2870,6 +2880,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
 
   const subjectText = [
     buildFreeformSubjectText(context.subject),
+    buildMinimalLeadAccessoryText(wardrobeSlots),
     buildMinimalPromptPart(characterSlots.bodyType?.en, 1),
     context.subject.count === 2 ? 'distinct faces, different appearances' : '',
     useCharacterIdentityAnchor ? buildMinimalPromptPart(context.characterProfilePrompt, 2) : '',
