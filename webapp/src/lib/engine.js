@@ -93,7 +93,7 @@ const GARMENT_COLOR_OPTIONS = [
   { id: 'neon-green', zh: '螢光綠色', en: 'neon green' },
   { id: 'goose-yellow', zh: '鵝黃色', en: 'soft yellow' },
   { id: 'neon-yellow', zh: '螢光黃色', en: 'neon yellow' },
-  { id: 'multicolor-horizontal-stripes', zh: '彩色橫條紋', en: 'multicolored horizontal stripes' },
+  { id: 'multicolor-horizontal-stripes', zh: '彩色橫條紋', en: 'bold multicolored horizontal stripes, wide stripe bands, clearly separated random colors' },
   { id: 'silver', zh: '銀色', en: 'silver' },
   { id: 'gold', zh: '金色', en: 'gold' },
 ];
