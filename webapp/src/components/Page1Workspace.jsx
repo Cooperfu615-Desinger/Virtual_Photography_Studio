@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import PromptCard from './PromptCard';
 import SelectControlField from './SelectControlField';
+import LightingReferenceModal from './LightingReferenceModal';
 
 const OUTFIT_PRESET_COVERED_KEYS = new Set([
   'topId',
@@ -78,6 +80,8 @@ export default function Page1Workspace({
   summarySectionInfo,
   advancedRemixGroupInfo,
 }) {
+  const [isLightingReferenceOpen, setIsLightingReferenceOpen] = useState(false);
+
   return (
     <>
       <section className="control-shell">
@@ -94,6 +98,9 @@ export default function Page1Workspace({
           <div className="control-section">
             <div className="control-section-header">
               <div className="control-section-title">Scene & Camera Language</div>
+              <button className="secondary reference-trigger-btn" type="button" onClick={() => setIsLightingReferenceOpen(true)}>
+                查看光線定位對照
+              </button>
             </div>
             <div className="lock-grid detail-lock-grid">
               {coreLockControls.map((control) => (
@@ -406,6 +413,8 @@ export default function Page1Workspace({
           </div>
         </div>
       ) : null}
+
+      <LightingReferenceModal open={isLightingReferenceOpen} onClose={() => setIsLightingReferenceOpen(false)} />
     </>
   );
 }
