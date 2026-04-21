@@ -2714,10 +2714,12 @@ function buildDuoSceneAnchorText(context, wardrobeSlots, wardrobeColors, topOute
   const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboText);
   if (!duoWardrobeText.clothingText) return '';
   const subjectText = stripMarkdown(context.subject.en || 'two women').replace(/\s+/g, ' ').trim();
+  const sceneAccentText = buildContextualSceneAccent(context);
   const locationText = context.location && !isNoneLikeItem(context.location)
     ? stripMarkdown(context.location.en).replace(/\s+/g, ' ').trim()
     : '';
-  const locationClause = locationText ? ` in ${locationText}` : '';
+  const locationDetail = [locationText, sceneAccentText].filter(Boolean).join(', ');
+  const locationClause = locationDetail ? ` in ${locationDetail}` : '';
   return `an editorial film still of ${subjectText} ${duoWardrobeText.clothingText}${locationClause}, outfit-visible editorial duo composition, visible torso and wardrobe details, both women shown within the same continuous frame, avoid headshot-only crop`;
 }
 
@@ -2850,9 +2852,164 @@ function buildMinimalItemPromptPart(item, maxParts = 1) {
   return buildMinimalPromptPart(item.en, maxParts);
 }
 
-function buildMinimalLocationText(location) {
+function getSceneAccentMoodType(lighting) {
+  if (!lighting || isNoneLikeItem(lighting)) return '';
+
+  const haystack = toHaystack(lighting.zh || '', lighting.en || '', lighting.desc || '');
+  if (hasAny(haystack, ['月光夜色', 'moonlit night'])) return 'moonlit_night';
+  if (hasAny(haystack, ['藍調傍晚', 'blue hour'])) return 'blue_hour';
+  if (hasAny(haystack, ['夜晚街燈', 'streetlit night'])) return 'streetlit_night';
+  return '';
+}
+
+function getSceneAccentProfile(location) {
   if (!location || isNoneLikeItem(location)) return '';
-  return buildMinimalPromptPart(location.en, 1);
+
+  const tags = new Set(location.meta?.tags || []);
+  const haystack = toHaystack(location.zh || '', location.en || '', location.desc || '');
+  const isIndoor = location.zh?.startsWith('室內') || (tags.has('indoor') && !tags.has('outdoor'));
+  const isNaturalBeachLike = hasAny(haystack, [
+    'beach',
+    'shoreline',
+    'coastline',
+    'cove',
+    'rocky coast',
+    'sand dune',
+    'grassland',
+    'plains',
+    'meadow',
+    'tatami',
+    'tree shade',
+    '樹下',
+    '草地',
+    '草原',
+    '海灘',
+    '海岸線',
+    '海灣',
+    '榻榻米',
+  ]);
+
+  if (isIndoor || isNaturalBeachLike) return '';
+
+  const isWaterfrontUrban = tags.has('waterfront') && hasAny(haystack, [
+    'marina',
+    'harbor',
+    'dock',
+    'pier',
+    'yacht',
+    'promenade',
+    'city skyline',
+    'rooftop',
+    'canal',
+    'bridge',
+    '遊艇',
+    '碼頭',
+    '港灣',
+    '天際線',
+    '頂樓',
+    '屋頂',
+    '河道',
+    '橋',
+  ]);
+
+  if (isWaterfrontUrban) return 'urban_waterfront';
+
+  const isUrbanBuiltScene = hasAny(haystack, [
+    'residential neighborhood',
+    'local lane',
+    'vending machine',
+    'street',
+    'sidewalk',
+    'alley',
+    'pedestrian',
+    'storefront',
+    'shopfront',
+    'café',
+    'bar entrance',
+    'road',
+    'apartment',
+    'houses',
+    'station front',
+    'crossing',
+    'plaza',
+    'rooftop',
+    'skyline',
+    'townhouse',
+    'window seat',
+    'iron railing',
+    'stone wall',
+    'residence entrance',
+    '路邊',
+    '住宅區',
+    '巷弄',
+    '自動販賣機',
+    '街頭',
+    '人行道',
+    '咖啡館',
+    '酒吧門口',
+    '道路',
+    '公寓',
+    '民宅',
+    '廣場',
+    '頂樓',
+    '天際線',
+    '洋房',
+    '欄杆',
+    '石牆',
+  ]);
+
+  if (isUrbanBuiltScene || tags.has('urban') || tags.has('commercial') || tags.has('residential')) {
+    return 'urban_street';
+  }
+
+  return '';
+}
+
+function buildContextualSceneAccent(context, { short = false } = {}) {
+  const moodType = getSceneAccentMoodType(context?.lighting);
+  const profile = getSceneAccentProfile(context?.location);
+
+  if (!moodType || !profile) return '';
+
+  const variants = {
+    urban_street: {
+      moonlit_night: {
+        full: 'a few softly lit windows, vending machine panels glowing softly in the dark, sparse street lamps, faint distant building lights',
+        short: 'softly lit windows, glowing vending machines, and sparse street lamps',
+      },
+      blue_hour: {
+        full: 'early evening practical lights beginning to appear, a few dim interior windows, vending machine glow becoming visible, soft street lighting starting to punctuate the street',
+        short: 'early evening practical lights starting to appear',
+      },
+      streetlit_night: {
+        full: 'lit windows, glowing vending machine panels, street lamps casting soft pools of light, scattered building lights along the street',
+        short: 'lit windows, glowing vending machines, and street lamps',
+      },
+    },
+    urban_waterfront: {
+      moonlit_night: {
+        full: 'sparse illuminated windows across the skyline, distant harbor or city lights, faint reflections from practical light sources on surrounding surfaces',
+        short: 'sparse skyline lights and faint harbor glow',
+      },
+      blue_hour: {
+        full: 'city lights beginning to emerge, a few illuminated windows across the skyline, subtle harbor and building lights appearing in the distance',
+        short: 'early city lights appearing across the skyline',
+      },
+      streetlit_night: {
+        full: 'layered building lights, brighter harbor and city light points, subtle reflections from surrounding artificial lights',
+        short: 'layered city lights and harbor reflections',
+      },
+    },
+  };
+
+  return variants[profile]?.[moodType]?.[short ? 'short' : 'full'] || '';
+}
+
+function buildMinimalLocationText(location, context = null) {
+  if (!location || isNoneLikeItem(location)) return '';
+  const base = buildMinimalPromptPart(location.en, 1);
+  const accent = context ? buildMinimalPromptPart(buildContextualSceneAccent(context, { short: true }), 1) : '';
+  return [base, accent].filter(Boolean).join(', ');
 }
 
 function buildMinimalAngleText(angle) {
@@ -3007,7 +3164,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
       buildMinimalSoloPoseText(characterSlots.pose),
     ].filter(Boolean).join(', ');
   const clothingText = [...clothingParts, ...accessoryParts].filter(Boolean).join(', ');
-  const locationText = buildMinimalLocationText(context.location);
+  const locationText = buildMinimalLocationText(context.location, context);
   const angleText = buildMinimalAngleText(context.angle);
   const cameraText = [
     angleText,
@@ -3058,6 +3215,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
     ? characterSlots.specialAction.en
     : '';
+  const sceneAccentText = buildContextualSceneAccent(context);
   const lines = [];
   const addLine = (label, value) => {
     if (!value) return;
@@ -3180,6 +3338,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Expression', expressionText);
   }
   addContextLine('Location', context.location);
+  addLine('Scene Accent', sceneAccentText);
   if (!context.styleDrivenCamera) {
     addContextLine('Environment Mood', context.lighting);
     addContextLine('Light Style', lightDirection, (item) => resolvePromptVariant(item, 'lightDirection', context.subject.count));
@@ -3213,6 +3372,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const topOuterwearComboText = buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
+  const sceneAccentText = buildContextualSceneAccent(context);
   const sentence = (value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
   const joinSentenceParts = (parts) => sentence(parts.filter(Boolean).join(', '));
   const leadSentence = (lead, parts) => {
@@ -3294,6 +3454,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const buildSceneText = () => {
     const sceneParts = [
       context.location && !isNoneLikeItem(context.location) ? context.location.en : '',
+      sceneAccentText,
       !context.styleDrivenCamera && context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.en : '',
       !context.styleDrivenCamera && lightDirection && !isNoneLikeItem(lightDirection) ? resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count) : '',
     ].filter(Boolean);
