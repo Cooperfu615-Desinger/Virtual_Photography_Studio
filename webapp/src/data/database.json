@@ -2000,11 +2000,6 @@
         "desc": "光線被霧氣、濕氣或厚雲層柔化，整體包覆感更強。"
       },
       {
-        "zh": "雨前壓雲光",
-        "en": "pre-rain overcast light, dim diffused daylight under heavy storm clouds, low ceiling ambient illumination, subdued skin highlights, soft but weighty shadow falloff, muted contrast with dramatic cloud-filtered brightness",
-        "desc": "暴雨前厚雲壓低天空形成的自然漫射光，整體比一般陰天更暗、更重，人物受光柔和但不明亮，保留雨前低壓、悶濕、灰黑天空下的戲劇感。"
-      },
-      {
         "zh": "硬質晴光",
         "en": "hard sunlight, direct sunbeam exposure, deep shadow contrast, crisp bright highlights",
         "desc": "直射日光明顯，陰影深且邊緣清楚。"
@@ -2023,6 +2018,21 @@
         "zh": "暖金黃昏色溫",
         "en": "warm golden-amber color temperature, soft honey-orange light cast, gentle peach-toned highlights, warm cinematic color wash, subdued shadows with cozy amber skin warmth",
         "desc": "只指定接近黃昏感的暖金、橘蜜與蜜桃色溫，不主動生成夕陽、日落、太陽或天空景象，適合想要黃昏感色彩但不改變場景內容時使用。"
+      },
+      {
+        "zh": "冷白日光色溫",
+        "en": "cool clean daylight color temperature, crisp pale-white light cast, neutral-cool highlight rendering, fresh daylight skin separation, restrained cool brightness without gloomy overcast heaviness",
+        "desc": "讓整體受光偏冷白、乾淨、通透，像冷白自然日光或乾淨商業日光色溫，不直接指定陰天、天空或場景狀態。"
+      },
+      {
+        "zh": "室內暖白燈色溫",
+        "en": "indoor warm-white lamp color temperature, soft neutral-warm household light cast, cozy clean interior skin warmth, gentle practical lamp tone without deep amber tungsten heaviness",
+        "desc": "偏日常室內暖白燈色溫，比鎢絲黃光更乾淨、比黃昏色更中性，適合居家、旅館、咖啡廳與生活感空間。"
+      },
+      {
+        "zh": "冷藍夜色光",
+        "en": "cool blue night-toned light cast, restrained blue-cyan edge illumination, quiet nocturnal skin contrast, subdued cool shadow tint, cinematic night color temperature without visible moon or skyline cues",
+        "desc": "讓人物受光偏冷藍夜色，不直接生成月亮、夜景或城市天際線，適合深夜、安靜、冷感的畫面色溫控制。"
       },
       {
         "zh": "混合色溫光",
@@ -2045,6 +2055,11 @@
         "desc": "光線穿過百葉窗後形成明顯條紋，直接投射在人物臉部、身體或衣物上，帶有更強烈的私密、電影感與室內敘事張力。"
       },
       {
+        "zh": "冷調窗邊輪廓光",
+        "en": "cool window-side rim light, restrained side-edge illumination from a nearby window, clean cool contour separation, soft shadow-side falloff, quiet interior silhouette shaping",
+        "desc": "由窗邊冷色自然光或外部微冷光源勾出人物邊緣，不是投影條紋，而是更安靜、乾淨的輪廓分離感。"
+      },
+      {
         "zh": "斑駁樹影光",
         "en": "dappled light, broken sunlight through leaves, irregular moving shadow patches, lively outdoor texture",
         "desc": "陽光穿過樹葉後形成不規則斑駁陰影，生活感很強。"
@@ -2058,6 +2073,11 @@
         "zh": "局部暖光",
         "en": "local warm glow, lamp-driven warm pool of light, intimate amber highlight zone, cozy night illumination",
         "desc": "由檯燈、壁燈、床頭燈等局部暖光源形成的親密光區。"
+      },
+      {
+        "zh": "深夜邊緣微光",
+        "en": "midnight edge glimmer, minimal rim illumination along the face and body outline, most of the subject resting in darkness, faint selective edge visibility, sparse nocturnal highlight tracing",
+        "desc": "主體大多留在暗部，只在臉側、肩線、髮絲或肢體邊緣保留很少量的夜間微光，適合深夜、安靜、性感或神秘的畫面。"
       }
     ],
     "底片與相機模擬 (Camera & Film Simulation)": [

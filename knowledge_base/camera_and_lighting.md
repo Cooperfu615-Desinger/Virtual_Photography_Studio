@@ -92,18 +92,22 @@
 | **光線表現 (Light Style)** | 頂部照明 | `overhead top lighting, downward illumination, moody facial shadow, tense vertical light falloff` | 由上方壓下來的光線讓氣氛更成熟或更有壓迫感。 |
 | **光線表現 (Light Style)** | 下方反射光 | `bounce up light, upward reflected fill, subtle lower-face lift, reflective underglow` | 利用地面、牆面或雪地等反射面回補下半臉陰影。 |
 | **光線表現 (Light Style)** | 漫射霧光 | `diffused mist light, soft atmospheric spread, low-contrast haze, enveloping ambient glow` | 光線被霧氣、濕氣或厚雲層柔化，整體包覆感更強。 |
-| **光線表現 (Light Style)** | 雨前壓雲光 | `pre-rain overcast light, dim diffused daylight under heavy storm clouds, low ceiling ambient illumination, subdued skin highlights, soft but weighty shadow falloff, muted contrast with dramatic cloud-filtered brightness` | 暴雨前厚雲壓低天空形成的自然漫射光，整體比一般陰天更暗、更重，人物受光柔和但不明亮，保留雨前低壓、悶濕、灰黑天空下的戲劇感。 |
 | **光線表現 (Light Style)** | 硬質晴光 | `hard sunlight, direct sunbeam exposure, deep shadow contrast, crisp bright highlights` | 直射日光明顯，陰影深且邊緣清楚。 |
 | **光線表現 (Light Style)** | 低光高反差 | `low-key contrast light, deep shadow fields, selective highlight emphasis, cinematic darkness` | 暗部面積大、亮暗落差高，適合夜景、戲劇與低照度畫面。 |
 | **光線表現 (Light Style)** | 高調亮光 | `high-key bright light, luminous exposure, airy highlights, soft low-shadow clarity` | 整體偏亮偏透，陰影很少，乾淨清爽。 |
 | **光線表現 (Light Style)** | 暖金黃昏色溫 | `warm golden-amber color temperature, soft honey-orange light cast, gentle peach-toned highlights, warm cinematic color wash, subdued shadows with cozy amber skin warmth` | 只指定接近黃昏感的暖金、橘蜜與蜜桃色溫，不主動生成夕陽、日落、太陽或天空景象，適合想要黃昏感色彩但不改變場景內容時使用。 |
+| **光線表現 (Light Style)** | 冷白日光色溫 | `cool clean daylight color temperature, crisp pale-white light cast, neutral-cool highlight rendering, fresh daylight skin separation, restrained cool brightness without gloomy overcast heaviness` | 讓整體受光偏冷白、乾淨、通透，像冷白自然日光或乾淨商業日光色溫，不直接指定陰天、天空或場景狀態。 |
+| **光線表現 (Light Style)** | 室內暖白燈色溫 | `indoor warm-white lamp color temperature, soft neutral-warm household light cast, cozy clean interior skin warmth, gentle practical lamp tone without deep amber tungsten heaviness` | 偏日常室內暖白燈色溫，比鎢絲黃光更乾淨、比黃昏色更中性，適合居家、旅館、咖啡廳與生活感空間。 |
+| **光線表現 (Light Style)** | 冷藍夜色光 | `cool blue night-toned light cast, restrained blue-cyan edge illumination, quiet nocturnal skin contrast, subdued cool shadow tint, cinematic night color temperature without visible moon or skyline cues` | 讓人物受光偏冷藍夜色，不直接生成月亮、夜景或城市天際線，適合深夜、安靜、冷感的畫面色溫控制。 |
 | **光線表現 (Light Style)** | 混合色溫光 | `mixed color temperature lighting, warm and cool light interplay, layered color contrast, cinematic environmental mixing` | 冷暖光並存，特別適合都市夜景、室內夜景與敘事場面。 |
 | **光線表現 (Light Style)** | 霓虹染色光 | `neon color spill, saturated colored light cast, vivid skin-edge tinting, nightlife color wash` | 霓虹色光直接染到人物與場景表面，風格化最強。 |
 | **光線表現 (Light Style)** | 窗格投影光 | `window pattern light, slatted or framed daylight shadows, subtle graphic projection, interior cinematic texture` | 來自窗框、百葉或格柵投影的方向性光影，偏室內敘事感。 |
 | **光線表現 (Light Style)** | 百葉窗條紋投影光 | `window-blind stripe light, slatted daylight bands across the subject, horizontal shadow lines across the face, skin, and clothing, sensual cinematic interior contrast` | 光線穿過百葉窗後形成明顯條紋，直接投射在人物臉部、身體或衣物上，帶有更強烈的私密、電影感與室內敘事張力。 |
+| **光線表現 (Light Style)** | 冷調窗邊輪廓光 | `cool window-side rim light, restrained side-edge illumination from a nearby window, clean cool contour separation, soft shadow-side falloff, quiet interior silhouette shaping` | 由窗邊冷色自然光或外部微冷光源勾出人物邊緣，不是投影條紋，而是更安靜、乾淨的輪廓分離感。 |
 | **光線表現 (Light Style)** | 斑駁樹影光 | `dappled light, broken sunlight through leaves, irregular moving shadow patches, lively outdoor texture` | 陽光穿過樹葉後形成不規則斑駁陰影，生活感很強。 |
 | **光線表現 (Light Style)** | 潮濕反射光 | `wet reflective light, ground bounce from damp surfaces, glossy street reflections, fragmented luminous highlights` | 由濕地面與牆面反射補光，特別適合雨天與夜街。 |
 | **光線表現 (Light Style)** | 局部暖光 | `local warm glow, lamp-driven warm pool of light, intimate amber highlight zone, cozy night illumination` | 由檯燈、壁燈、床頭燈等局部暖光源形成的親密光區。 |
+| **光線表現 (Light Style)** | 深夜邊緣微光 | `midnight edge glimmer, minimal rim illumination along the face and body outline, most of the subject resting in darkness, faint selective edge visibility, sparse nocturnal highlight tracing` | 主體大多留在暗部，只在臉側、肩線、髮絲或肢體邊緣保留很少量的夜間微光，適合深夜、安靜、性感或神秘的畫面。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 全無 | `none` | 不指定成像風格，讓模型自行決定畫面質感與成像方式。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 拍立得效果 (Polaroid Style) | `polaroid sx-70 style, instant film look, faded pastel colors, soft white border, lo-fi` | 帶有濃烈懷舊感，邊緣失焦、色彩偏淡偏粉（如褪色般），對比低且具有明顯的化學顯影特性。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 柯達 Portra 400 底片 | `Kodak Portra 400 film simulation, warm skin tones, fine film grain, analog aesthetic` | 業界公認最完美的膚色底片。擁有溫暖的橙橘色調、細膩的顆粒感與優秀的寬容度，呈現高品質的文青底片感。 |

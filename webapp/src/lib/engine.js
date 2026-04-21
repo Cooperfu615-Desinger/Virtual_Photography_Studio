@@ -733,9 +733,6 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['漫射霧光', 'diffused mist light'])) {
       tags.push('soft_light', 'diffused', 'mist', 'supports_indoor', 'supports_outdoor');
     }
-    if (hasAny(haystack, ['雨前壓雲光', 'pre-rain overcast light'])) {
-      tags.push('natural_light', 'soft_light', 'diffused', 'cloudy', 'dark', 'dramatic', 'supports_outdoor', 'supports_urban', 'supports_natural');
-    }
     if (hasAny(haystack, ['硬質晴光', 'hard sunlight'])) {
       tags.push('sunlight', 'harsh', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
@@ -747,6 +744,15 @@ function inferLightingMeta(category, item) {
     }
     if (hasAny(haystack, ['暖金黃昏色溫', 'warm golden-amber color temperature'])) {
       tags.push('soft_light', 'warm', 'color_temperature', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['冷白日光色溫', 'cool clean daylight color temperature'])) {
+      tags.push('soft_light', 'cool', 'color_temperature', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
+    }
+    if (hasAny(haystack, ['室內暖白燈色溫', 'indoor warm-white lamp color temperature'])) {
+      tags.push('soft_light', 'warm', 'color_temperature', 'indoor', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_studio');
+    }
+    if (hasAny(haystack, ['冷藍夜色光', 'cool blue night-toned light cast'])) {
+      tags.push('cool', 'dark', 'color_temperature', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_subterranean');
     }
     if (hasAny(haystack, ['混合色溫光', 'mixed color temperature'])) {
       tags.push('artificial_light', 'mixed_color', 'supports_indoor', 'supports_outdoor', 'supports_commercial', 'supports_urban', 'supports_subterranean');
@@ -760,6 +766,9 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['百葉窗條紋投影光', 'window-blind stripe light'])) {
       tags.push('window_light', 'portrait_light', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
+    if (hasAny(haystack, ['冷調窗邊輪廓光', 'cool window-side rim light'])) {
+      tags.push('backlight', 'portrait_light', 'cool', 'indoor', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
     if (hasAny(haystack, ['斑駁樹影光', 'dappled light'])) {
       tags.push('natural_light', 'sunlight', 'supports_outdoor', 'supports_natural', 'supports_urban');
     }
@@ -768,6 +777,9 @@ function inferLightingMeta(category, item) {
     }
     if (hasAny(haystack, ['局部暖光', 'local warm glow'])) {
       tags.push('artificial_light', 'warm', 'supports_indoor', 'supports_hospitality', 'supports_residential', 'supports_commercial');
+    }
+    if (hasAny(haystack, ['深夜邊緣微光', 'midnight edge glimmer'])) {
+      tags.push('backlight', 'dark', 'cool', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_subterranean');
     }
   }
 
@@ -1365,9 +1377,24 @@ function getLightingEnvironmentFlags(lighting) {
 
 function getLightDirectionEnvironmentFlags(lightDirection) {
   const tags = new Set(lightDirection?.meta?.tags || []);
+  const explicitlyIndoor = hasAnyTag(tags, [
+    'indoor',
+    'supports_indoor',
+    'window_light',
+    'supports_residential',
+    'supports_hospitality',
+    'supports_heritage',
+    'supports_studio',
+    'supports_commercial',
+  ]);
+  const explicitlyOutdoor = hasAnyTag(tags, [
+    'supports_outdoor',
+    'supports_urban',
+    'supports_natural',
+  ]);
 
-  const indoor = hasAnyTag(tags, ['supports_indoor', 'window_light', 'portrait_light', 'overhead', 'backlight']);
-  const outdoor = hasAnyTag(tags, ['supports_outdoor', 'backlight', 'overhead']);
+  const indoor = explicitlyIndoor || (!explicitlyOutdoor && hasAnyTag(tags, ['portrait_light', 'overhead', 'backlight']));
+  const outdoor = explicitlyOutdoor || (!explicitlyIndoor && hasAnyTag(tags, ['backlight', 'overhead']));
 
   return { indoor, outdoor };
 }
