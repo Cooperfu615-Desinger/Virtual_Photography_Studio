@@ -655,17 +655,41 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['室內窗邊日光', 'indoor daylight by the window'])) {
       tags.push('window_light', 'natural_light', 'indoor', 'day', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
+    if (hasAny(haystack, ['室內清晨冷白日光', 'indoor early-morning daylight'])) {
+      tags.push('window_light', 'natural_light', 'indoor', 'day', 'cool', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
+    if (hasAny(haystack, ['室內午後柔亮日光', 'indoor late-afternoon daylight'])) {
+      tags.push('window_light', 'natural_light', 'indoor', 'day', 'soft_light', 'warm', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
     if (hasAny(haystack, ['室內陰影日光', 'indoor dim daylight'])) {
       tags.push('window_light', 'natural_light', 'indoor', 'diffused', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
+    if (hasAny(haystack, ['室內陰雨昏暗天光', 'indoor rainy-day daylight'])) {
+      tags.push('window_light', 'natural_light', 'indoor', 'rain', 'cloudy', 'diffused', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
+    if (hasAny(haystack, ['室內黃昏微暖餘光', 'indoor dusk afterglow'])) {
+      tags.push('window_light', 'natural_light', 'indoor', 'dusk', 'warm', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
     if (hasAny(haystack, ['室內暖光夜景', 'indoor warm night'])) {
       tags.push('artificial_light', 'indoor', 'warm', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_heritage');
+    }
+    if (hasAny(haystack, ['室內夜晚低照度暖光', 'indoor low-light warm night atmosphere'])) {
+      tags.push('artificial_light', 'indoor', 'warm', 'dark', 'soft_light', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
     if (hasAny(haystack, ['室內燭光', 'candlelit interior atmosphere'])) {
       tags.push('artificial_light', 'indoor', 'warm', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
     if (hasAny(haystack, ['室內冷色人造光', 'indoor cool artificial'])) {
       tags.push('artificial_light', 'indoor', 'cool', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_heritage', 'supports_subterranean');
+    }
+    if (hasAny(haystack, ['室內冷白螢光日常', 'indoor fluorescent everyday atmosphere'])) {
+      tags.push('artificial_light', 'indoor', 'cool', 'controlled', 'supports_indoor', 'supports_residential', 'supports_commercial', 'supports_hospitality', 'supports_subterranean');
+    }
+    if (hasAny(haystack, ['室內外光滲入微暗空間', 'dim interior lit mostly by exterior spill light'])) {
+      tags.push('window_light', 'natural_light', 'indoor', 'dark', 'diffused', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
+    if (hasAny(haystack, ['室內深夜冷暗微光', 'very dark late-night interior'])) {
+      tags.push('window_light', 'natural_light', 'indoor', 'dark', 'cool', 'night_ambient', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage', 'supports_subterranean');
     }
     if (hasAny(haystack, ['室內霓虹夜色', 'indoor neon-lit atmosphere'])) {
       tags.push('artificial_light', 'indoor', 'neon', 'dark', 'supports_indoor', 'supports_commercial', 'supports_hospitality', 'supports_subterranean');
@@ -1309,8 +1333,8 @@ function locationMatchesSceneAttribute(location, sceneAttribute) {
 
 function getLightingEnvironmentFlags(lighting) {
   const tags = new Set(lighting?.meta?.tags || []);
-
-  const indoor = hasAnyTag(tags, [
+  const explicitlyIndoor = hasAnyTag(tags, [
+    'indoor',
     'supports_indoor',
     'supports_studio',
     'supports_residential',
@@ -1320,18 +1344,21 @@ function getLightingEnvironmentFlags(lighting) {
     'supports_subterranean',
     'window_light',
     'studio_light',
-    'soft_light',
   ]);
-  const outdoor = hasAnyTag(tags, [
+  const explicitlyOutdoor = hasAnyTag(tags, [
     'supports_outdoor',
     'supports_urban',
     'supports_natural',
+  ]);
+
+  const indoor = explicitlyIndoor;
+  const outdoor = explicitlyOutdoor || (!explicitlyIndoor && hasAnyTag(tags, [
     'sunlight',
     'rain',
     'dusk',
     'mist',
     'night_ambient',
-  ]);
+  ]));
 
   return { indoor, outdoor };
 }
@@ -1343,6 +1370,24 @@ function getLightDirectionEnvironmentFlags(lightDirection) {
   const outdoor = hasAnyTag(tags, ['supports_outdoor', 'backlight', 'overhead']);
 
   return { indoor, outdoor };
+}
+
+function lightingMatchesSceneAttribute(lighting, sceneAttribute) {
+  if (!sceneAttribute?.id || !lighting || lighting.zh === '全無') return true;
+  const flags = getLightingEnvironmentFlags(lighting);
+
+  if (sceneAttribute.id === 'indoor') return flags.indoor;
+  if (sceneAttribute.id === 'outdoor') return flags.outdoor;
+  return true;
+}
+
+function lightDirectionMatchesSceneAttribute(lightDirection, sceneAttribute) {
+  if (!sceneAttribute?.id || !lightDirection || lightDirection.zh === '全無') return true;
+  const flags = getLightDirectionEnvironmentFlags(lightDirection);
+
+  if (sceneAttribute.id === 'indoor') return flags.indoor;
+  if (sceneAttribute.id === 'outdoor') return flags.outdoor;
+  return true;
 }
 
 function visibilityAtLeast(current, minimum) {
@@ -1439,17 +1484,19 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
   const selectedLighting = findById(runtime.flatCatalog.lighting, locks.lightingId);
   const framing = findById(runtime.flatCatalog.framing, locks.framingId) || fallbackFraming;
 
-  const lightingOptions = location
-    ? runtime.flatCatalog.lighting.filter((item) => item.zh === '全無' || locationSupportsLighting(location, item))
-    : runtime.flatCatalog.lighting;
+  const lightingOptions = runtime.flatCatalog.lighting.filter((item) => {
+    if (item.zh === '全無') return true;
+    if (!lightingMatchesSceneAttribute(item, sceneAttribute)) return false;
+    return location ? locationSupportsLighting(location, item) : true;
+  });
 
   const lightingForDirection = selectedLighting && lightingOptions.some((item) => item.id === selectedLighting.id) ? selectedLighting : null;
 
-  const lightDirectionOptions = location
-    ? runtime.flatCatalog.lightDirection.filter(
-        (item) => item.zh === '全無' || lightDirectionSupportsScene(item, framing, location, lightingForDirection)
-      )
-    : runtime.flatCatalog.lightDirection;
+  const lightDirectionOptions = runtime.flatCatalog.lightDirection.filter((item) => {
+    if (item.zh === '全無') return true;
+    if (!lightDirectionMatchesSceneAttribute(item, sceneAttribute)) return false;
+    return location ? lightDirectionSupportsScene(item, framing, location, lightingForDirection) : true;
+  });
 
   return { locationOptions, lightingOptions, lightDirectionOptions };
 }

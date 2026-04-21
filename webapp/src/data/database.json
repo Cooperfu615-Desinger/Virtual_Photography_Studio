@@ -1868,14 +1868,39 @@
         "desc": "以白天室內窗光為主；若畫面看得到窗外，外部應明確保持白天天空與日光狀態。"
       },
       {
+        "zh": "室內清晨冷白日光",
+        "en": "indoor early-morning daylight, cool pale window light, quiet waking-room atmosphere, crisp soft interior air, faint cool exterior brightness if visible",
+        "desc": "偏清晨的室內自然光，色溫較冷、亮度乾淨，像剛起床時的安靜房間；若窗外可見，應保留早晨偏冷的亮度感。"
+      },
+      {
+        "zh": "室內午後柔亮日光",
+        "en": "indoor late-afternoon daylight, softly bright room atmosphere, gentle warm-neutral daylight spread, calm lived-in interior air, mellow exterior brightness if visible",
+        "desc": "偏午後的室內自然光，亮度柔和、空氣感舒展，不是強烈直射窗光，而是更均勻舒服的生活感白天室內。"
+      },
+      {
         "zh": "室內陰影日光",
         "en": "indoor dim daylight, soft daylight falling deeper into the room, subdued exterior brightness if visible, quiet shaded interior air",
         "desc": "白天室內但不在強窗邊，空間較內收；若看得到窗外，外部仍應維持日間亮度。"
       },
       {
+        "zh": "室內陰雨昏暗天光",
+        "en": "indoor rainy-day daylight, dim grey window light, subdued overcast room atmosphere, low-brightness interior air, muted exterior sky if visible",
+        "desc": "陰雨天的室內自然光，整體更灰、更暗、更安靜；若窗外可見，應偏灰白低亮度，而不是晴天藍天。"
+      },
+      {
+        "zh": "室內黃昏微暖餘光",
+        "en": "indoor dusk afterglow, faint warm residual daylight, dimming room atmosphere, gentle amber-tinted interior air, fading exterior light if visible",
+        "desc": "接近傍晚但不直接生成夕陽，整體只保留微微暖色餘光與正在變暗的室內空間感。"
+      },
+      {
         "zh": "室內暖光夜景",
         "en": "indoor warm night atmosphere, tungsten room light, cozy amber interior glow, dark exterior beyond windows if visible, intimate nighttime mood",
         "desc": "晚上室內的人造暖光場景；若窗外可見，應為明確夜色而非白天。"
+      },
+      {
+        "zh": "室內夜晚低照度暖光",
+        "en": "indoor low-light warm night atmosphere, sparse amber practical lights, dim cozy room glow, shadowy intimate interior air, dark exterior if visible",
+        "desc": "比一般室內暖光夜景更暗、更安靜，像只開少量檯燈或床頭燈的夜晚房間，整體偏低照度生活感。"
       },
       {
         "zh": "室內燭光",
@@ -1888,9 +1913,24 @@
         "desc": "偏冷白的人造光室內空間，若有窗外通常不主導，整體更現代、理性、都市。"
       },
       {
+        "zh": "室內冷白螢光日常",
+        "en": "indoor fluorescent everyday atmosphere, cool-white overhead room light, practical daily interior mood, plain lived-in space, dim exterior if visible",
+        "desc": "更生活化的冷白燈室內氛圍，像住宅、辦公室、便利空間或普通日常場景，不偏棚拍或強風格化。"
+      },
+      {
         "zh": "室內霓虹夜色",
         "en": "indoor neon-lit atmosphere, colored LED glow, nightlife interior mood, saturated urban light spill, moody modern room ambiance",
         "desc": "由室內霓虹或 LED 光源主導的夜景氛圍，適合旅館、酒吧、浴室、夜店與都會感室內畫面。"
+      },
+      {
+        "zh": "室內外光滲入微暗空間",
+        "en": "dim interior lit mostly by exterior spill light, barely lit room atmosphere, outside light leaking softly into the space, shadowy quiet interior air, strong contrast between dark room and incoming ambient light",
+        "desc": "室內幾乎沒開燈，主要靠窗外、門外或走廊外部光源滲進空間來照亮；整體偏暗，但仍有外部光線把人物與環境隱約勾出來。"
+      },
+      {
+        "zh": "室內深夜冷暗微光",
+        "en": "very dark late-night interior, faint cool spill light from outside or idle electronic indicators, near-unlit room atmosphere, shadow-heavy quiet interior air, minimal cold edge illumination, deep nocturnal stillness",
+        "desc": "比「室內外光滲入微暗空間」更深夜、更冷、更暗，像房間幾乎完全沒開燈，只剩窗外微弱夜光、走廊漏光，或電器待機燈把空間邊緣隱約勾亮。"
       },
       {
         "zh": "高調純白攝影棚",
