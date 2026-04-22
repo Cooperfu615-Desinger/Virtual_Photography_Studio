@@ -9,9 +9,7 @@ import {
   buildLocksFromPrompt,
   createEmptyLocks,
   generatePrompts,
-  getKnowledgeBaseOptions,
   getCloseupAllowedKeys,
-  getKnowledgeBaseSnapshot,
   getSceneDependentOptions,
   getLockControls,
   isCloseupModeFramingId,
@@ -23,9 +21,7 @@ import './index.css';
 const PROMPTS_KEY = 'vps.prompts';
 const FAVORITES_KEY = 'vps.favorites';
 const LOCKS_KEY = 'vps.locks';
-const GEN_COUNT_KEY = 'vps.genCount';
 const VIEW_MODE_KEY = 'vps.viewMode';
-const LIBRARY_DRAFT_KEY = 'vps.libraryDraft';
 const PAGE_MODE_KEY = 'vps.pageMode';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const PAGE3_PROFILE_KEY = 'vps.page3Profile';
@@ -945,65 +941,6 @@ function schedulePromptCollectionPersist(key, prompts, serializer, onResult) {
   };
 }
 
-function createEntryKey(group, category, index) {
-  return `${group}::${category}::${index}`;
-}
-
-function buildLibraryDraftSummary(baseSnapshot, draftSnapshot) {
-  if (!draftSnapshot) return '';
-
-  const lines = [];
-  const groupMap = {
-    Regional: 'Photography Style',
-    Locations: 'Location',
-    Wardrobe: 'Wardrobe',
-    Character: 'Character',
-    CameraLighting: 'Camera & Lighting',
-    Negative: 'Negative',
-  };
-
-  Object.entries(draftSnapshot).forEach(([groupKey, categories]) => {
-    Object.entries(categories || {}).forEach(([categoryKey, items]) => {
-      const baseItems = baseSnapshot?.[groupKey]?.[categoryKey] || [];
-      items.forEach((item, index) => {
-        const baseItem = baseItems[index];
-        const normalizedItem = {
-          zh: item?.zh || '',
-          en: item?.en || '',
-          desc: item?.desc || '',
-        };
-        const normalizedBase = {
-          zh: baseItem?.zh || '',
-          en: baseItem?.en || '',
-          desc: baseItem?.desc || '',
-        };
-
-        if (!baseItem) {
-          lines.push(`[新增] ${groupMap[groupKey] || groupKey} / ${categoryKey} / ${normalizedItem.zh || normalizedItem.en}`);
-          lines.push(`en: ${normalizedItem.en}`);
-          if (normalizedItem.desc) lines.push(`desc: ${normalizedItem.desc}`);
-          lines.push('');
-          return;
-        }
-
-        if (
-          normalizedItem.zh !== normalizedBase.zh
-          || normalizedItem.en !== normalizedBase.en
-          || normalizedItem.desc !== normalizedBase.desc
-        ) {
-          lines.push(`[修改] ${groupMap[groupKey] || groupKey} / ${categoryKey} / ${normalizedBase.zh || normalizedBase.en}`);
-          if (normalizedItem.zh !== normalizedBase.zh) lines.push(`zh: ${normalizedBase.zh} -> ${normalizedItem.zh}`);
-          if (normalizedItem.en !== normalizedBase.en) lines.push(`en: ${normalizedBase.en} -> ${normalizedItem.en}`);
-          if (normalizedItem.desc !== normalizedBase.desc) lines.push(`desc: ${normalizedBase.desc} -> ${normalizedItem.desc}`);
-          lines.push('');
-        }
-      });
-    });
-  });
-
-  return lines.join('\n').trim();
-}
-
 function getPage2OptionLabel(fieldKey, optionId) {
   return PAGE2_FIELD_OPTIONS[fieldKey]?.find((option) => option.id === optionId)?.zh || '';
 }
@@ -1488,19 +1425,11 @@ export default function App() {
   const storageWarningRef = useRef('');
   const [prompts, setPrompts] = useState(() => sanitizeStoredPromptCollection(loadJsonStorage(PROMPTS_KEY, [])));
   const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
-  const [genCount, setGenCount] = useState(() => loadJsonStorage(GEN_COUNT_KEY, 3));
   const [pageMode, setPageMode] = useState(() => loadStringStorage(PAGE_MODE_KEY, 'page1'));
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
-  const [libraryDraft, setLibraryDraft] = useState(() => loadJsonStorage(LIBRARY_DRAFT_KEY, null));
   const [page2Profile, setPage2Profile] = useState(() => loadJsonStorage(PAGE2_PROFILE_KEY, createEmptyPage2Profile()));
   const [page3Profile, setPage3Profile] = useState(() => loadJsonStorage(PAGE3_PROFILE_KEY, createEmptyPage3Profile()));
-  const [libraryGroup, setLibraryGroup] = useState('Character');
-  const [libraryCategory, setLibraryCategory] = useState('');
-  const [librarySearch, setLibrarySearch] = useState('');
-  const [selectedEntryKey, setSelectedEntryKey] = useState('');
-  const [editorDraft, setEditorDraft] = useState({ zh: '', en: '', desc: '' });
-  const [editorMode, setEditorMode] = useState('edit');
   const [copiedLabel, setCopiedLabel] = useState('');
   const [isImportPromptOpen, setIsImportPromptOpen] = useState(false);
   const [importPromptText, setImportPromptText] = useState('');
@@ -1679,24 +1608,12 @@ export default function App() {
   }, [locks]);
 
   useEffect(() => {
-    window.localStorage.setItem(GEN_COUNT_KEY, JSON.stringify(genCount));
-  }, [genCount]);
-
-  useEffect(() => {
     window.localStorage.setItem(PAGE_MODE_KEY, pageMode);
   }, [pageMode]);
 
   useEffect(() => {
     window.localStorage.setItem(VIEW_MODE_KEY, viewMode);
   }, [viewMode]);
-
-  useEffect(() => {
-    if (libraryDraft) {
-      window.localStorage.setItem(LIBRARY_DRAFT_KEY, JSON.stringify(libraryDraft));
-      return;
-    }
-    window.localStorage.removeItem(LIBRARY_DRAFT_KEY);
-  }, [libraryDraft]);
 
   useEffect(() => {
     window.localStorage.setItem(PAGE2_PROFILE_KEY, JSON.stringify(page2Profile));
@@ -1707,10 +1624,7 @@ export default function App() {
   }, [page3Profile]);
 
   const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
-  const activeLibrary = useMemo(() => libraryDraft || [], [libraryDraft]);
-  const baseKnowledgeBaseSnapshot = useMemo(() => getKnowledgeBaseSnapshot(), []);
-  const knowledgeBaseOptions = useMemo(() => getKnowledgeBaseOptions(activeLibrary), [activeLibrary]);
-  const knowledgeBaseSnapshot = useMemo(() => getKnowledgeBaseSnapshot(activeLibrary), [activeLibrary]);
+  const activeLibrary = useMemo(() => [], []);
   const lockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
   const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
   const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
@@ -1827,6 +1741,10 @@ export default function App() {
     const baseList = viewMode === 'favorites' ? favoritePrompts : prompts;
     return baseList;
   }, [favoritePrompts, prompts, viewMode]);
+  const previewPrompt = useMemo(() => {
+    const [prompt] = generatePrompts(1, locks, activeLibrary);
+    return prompt || null;
+  }, [activeLibrary, locks]);
   const favoriteCloudLabel = useMemo(() => {
     if (favoriteCloudAuth?.status === 'signed-in') {
       if (favoriteCloudSyncStatus === 'loading') return 'Firebase 載入中';
@@ -1839,42 +1757,6 @@ export default function App() {
     return 'Favorites 僅存本機';
   }, [favoriteCloudAuth, favoriteCloudSyncStatus]);
 
-  const activeGroupOption = useMemo(
-    () => knowledgeBaseOptions.find((group) => group.value === libraryGroup) || knowledgeBaseOptions[0] || null,
-    [knowledgeBaseOptions, libraryGroup]
-  );
-  const libraryCategories = useMemo(() => activeGroupOption?.categories || [], [activeGroupOption]);
-  const effectiveLibraryGroup = activeGroupOption?.value || '';
-  const effectiveLibraryCategory = libraryCategory && libraryCategories.includes(libraryCategory)
-    ? libraryCategory
-    : (libraryCategories[0] || '');
-  const libraryEntries = useMemo(() => {
-    if (!effectiveLibraryGroup || !effectiveLibraryCategory) return [];
-    const entries = knowledgeBaseSnapshot?.[effectiveLibraryGroup]?.[effectiveLibraryCategory] || [];
-    const normalized = librarySearch.trim().toLowerCase();
-    return entries
-      .map((entry, index) => ({
-        ...entry,
-        entryKey: createEntryKey(effectiveLibraryGroup, effectiveLibraryCategory, index),
-        index,
-      }))
-      .filter((entry) => {
-        if (!normalized) return true;
-        return [entry.zh, entry.en, entry.desc].join(' ').toLowerCase().includes(normalized);
-      });
-  }, [knowledgeBaseSnapshot, effectiveLibraryGroup, effectiveLibraryCategory, librarySearch]);
-  const selectedLibraryEntry = useMemo(() => {
-    if (editorMode === 'new') return null;
-    return libraryEntries.find((entry) => entry.entryKey === selectedEntryKey) || libraryEntries[0] || null;
-  }, [editorMode, libraryEntries, selectedEntryKey]);
-  const libraryDraftSummary = useMemo(
-    () => buildLibraryDraftSummary(baseKnowledgeBaseSnapshot, libraryDraft),
-    [baseKnowledgeBaseSnapshot, libraryDraft]
-  );
-  const libraryDraftChangeCount = useMemo(
-    () => (libraryDraftSummary ? libraryDraftSummary.split('\n\n').filter(Boolean).length : 0),
-    [libraryDraftSummary]
-  );
   const page2ProfileSummary = useMemo(() => buildPage2ProfileSummary(page2Profile), [page2Profile]);
   const page2ProfileAnchor = useMemo(() => buildPage2ProfileAnchor(page2Profile), [page2Profile]);
   const page2ViewPrompts = useMemo(() => buildPage2ViewPrompts(page2Profile), [page2Profile]);
@@ -1949,13 +1831,16 @@ export default function App() {
   }, [activeLibrary, lockControls]);
 
   const handleGenerate = useCallback(() => {
-    const newPrompts = generatePrompts(genCount, locks, activeLibrary).map((prompt) => ({
-      ...prompt,
-      lineage: createLineage(prompt),
-    }));
-    setPrompts((prev) => [...newPrompts, ...prev]);
+    if (!previewPrompt) return;
+    const nextPrompt = {
+      ...previewPrompt,
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      date: new Date().toISOString(),
+    };
+    nextPrompt.lineage = createLineage(nextPrompt);
+    setPrompts((prev) => [nextPrompt, ...prev]);
     setViewMode('feed');
-  }, [activeLibrary, genCount, locks]);
+  }, [previewPrompt]);
 
   const handleRemixPrompt = useCallback((prompt, summaryKeys = [], options = {}) => {
     const { branch = false } = options;
@@ -2085,106 +1970,6 @@ export default function App() {
     showToast(successLabel);
   }, [lockControls, showToast, updateLocks]);
 
-  const handleLibraryGroupChange = (nextGroup) => {
-    const nextGroupOption = knowledgeBaseOptions.find((group) => group.value === nextGroup) || null;
-    const nextCategory = nextGroupOption?.categories?.[0] || '';
-    const nextEntry = nextCategory ? (knowledgeBaseSnapshot?.[nextGroup]?.[nextCategory]?.[0] || null) : null;
-    setLibraryGroup(nextGroup);
-    setLibraryCategory(nextCategory);
-    setLibrarySearch('');
-    if (nextEntry) {
-      setSelectedEntryKey(createEntryKey(nextGroup, nextCategory, 0));
-      setEditorMode('edit');
-      setEditorDraft({ zh: nextEntry.zh || '', en: nextEntry.en || '', desc: nextEntry.desc || '' });
-      return;
-    }
-    setSelectedEntryKey('');
-    setEditorMode('new');
-    setEditorDraft({ zh: '', en: '', desc: '' });
-  };
-
-  const handleLibraryCategoryChange = (nextCategory) => {
-    const nextEntry = nextCategory ? (knowledgeBaseSnapshot?.[effectiveLibraryGroup]?.[nextCategory]?.[0] || null) : null;
-    setLibraryCategory(nextCategory);
-    setLibrarySearch('');
-    if (nextEntry) {
-      setSelectedEntryKey(createEntryKey(effectiveLibraryGroup, nextCategory, 0));
-      setEditorMode('edit');
-      setEditorDraft({ zh: nextEntry.zh || '', en: nextEntry.en || '', desc: nextEntry.desc || '' });
-      return;
-    }
-    setSelectedEntryKey('');
-    setEditorMode('new');
-    setEditorDraft({ zh: '', en: '', desc: '' });
-  };
-
-  const handleSelectLibraryEntry = (entry) => {
-    setSelectedEntryKey(entry.entryKey);
-    setEditorMode('edit');
-    setEditorDraft({ zh: entry.zh || '', en: entry.en || '', desc: entry.desc || '' });
-  };
-
-  const handleCreateNewEntry = () => {
-    setSelectedEntryKey('');
-    setEditorMode('new');
-    setEditorDraft({ zh: '', en: '', desc: '' });
-  };
-
-  const handleSaveLibraryEntry = () => {
-    if (!effectiveLibraryGroup || !effectiveLibraryCategory) return;
-    if (!editorDraft.zh.trim() || !editorDraft.en.trim()) return;
-
-    const nextDatabase = structuredClone(knowledgeBaseSnapshot);
-    const groupBucket = nextDatabase[effectiveLibraryGroup] || {};
-    const categoryItems = Array.isArray(groupBucket[effectiveLibraryCategory]) ? [...groupBucket[effectiveLibraryCategory]] : [];
-
-    if (editorMode === 'edit' && selectedEntryKey) {
-      const target = selectedLibraryEntry;
-      if (!target) return;
-      categoryItems[target.index] = {
-        zh: editorDraft.zh.trim(),
-        en: editorDraft.en.trim(),
-        desc: editorDraft.desc.trim(),
-      };
-    } else {
-      categoryItems.push({
-        zh: editorDraft.zh.trim(),
-        en: editorDraft.en.trim(),
-        desc: editorDraft.desc.trim(),
-      });
-    }
-
-    nextDatabase[effectiveLibraryGroup] = {
-      ...groupBucket,
-      [effectiveLibraryCategory]: categoryItems,
-    };
-    setLibraryDraft(nextDatabase);
-    if (editorMode === 'new') {
-      const nextKey = createEntryKey(effectiveLibraryGroup, effectiveLibraryCategory, categoryItems.length - 1);
-      setSelectedEntryKey(nextKey);
-      setEditorMode('edit');
-    }
-  };
-
-  const handleResetLibraryDraft = () => {
-    setLibraryDraft(null);
-    setLibrarySearch('');
-  };
-
-  const handleGenerateLibraryTest = () => {
-    const newPrompts = generatePrompts(1, locks, activeLibrary).map((prompt) => ({
-      ...prompt,
-      lineage: createLineage(prompt),
-    }));
-    setPrompts((prev) => [...newPrompts, ...prev]);
-    setViewMode('feed');
-  };
-
-  const handleCopyLibraryDraftSummary = () => {
-    if (!libraryDraftSummary) return;
-    handleCopyText('Library draft summary copied', libraryDraftSummary);
-  };
-
   const handleRestorePromptToConsole = useCallback((prompt) => {
     if (!prompt?.selection) {
       showToast('這張卡片沒有可回填的設定');
@@ -2284,8 +2069,6 @@ export default function App() {
           updateLocks={updateLocks}
           handleCopyText={handleCopyText}
           isOutfitPresetActive={isOutfitPresetActive}
-          genCount={genCount}
-          setGenCount={setGenCount}
           handleGenerate={handleGenerate}
           prompts={prompts}
           setPrompts={setPrompts}
@@ -2295,13 +2078,8 @@ export default function App() {
           viewMode={viewMode}
           setViewMode={setViewMode}
           favoritePrompts={favoritePrompts}
-          libraryDraft={libraryDraft}
-          libraryDraftChangeCount={libraryDraftChangeCount}
-          handleGenerateLibraryTest={handleGenerateLibraryTest}
-          handleCopyLibraryDraftSummary={handleCopyLibraryDraftSummary}
-          libraryDraftSummary={libraryDraftSummary}
-          handleResetLibraryDraft={handleResetLibraryDraft}
           displayPrompts={displayPrompts}
+          previewPrompt={previewPrompt}
           handleDownloadAll={handleDownloadAll}
           handleClearFavorites={handleClearFavorites}
           importFeedInputRef={importFeedInputRef}
@@ -2312,22 +2090,6 @@ export default function App() {
           importPromptText={importPromptText}
           setImportPromptText={setImportPromptText}
           handleApplyImportedPrompt={handleApplyImportedPrompt}
-          knowledgeBaseOptions={knowledgeBaseOptions}
-          effectiveLibraryGroup={effectiveLibraryGroup}
-          handleLibraryGroupChange={handleLibraryGroupChange}
-          libraryCategories={libraryCategories}
-          effectiveLibraryCategory={effectiveLibraryCategory}
-          handleLibraryCategoryChange={handleLibraryCategoryChange}
-          librarySearch={librarySearch}
-          setLibrarySearch={setLibrarySearch}
-          libraryEntries={libraryEntries}
-          selectedLibraryEntry={selectedLibraryEntry}
-          editorMode={editorMode}
-          handleSelectLibraryEntry={handleSelectLibraryEntry}
-          editorDraft={editorDraft}
-          setEditorDraft={setEditorDraft}
-          handleCreateNewEntry={handleCreateNewEntry}
-          handleSaveLibraryEntry={handleSaveLibraryEntry}
           favoriteIds={favoriteIds}
           toggleFavorite={toggleFavorite}
           handleDeletePrompt={handleDeletePrompt}
