@@ -217,14 +217,6 @@ function buildWorkspaceSummary(locks, controls) {
   };
 }
 
-function buildPreviewDigest(summary) {
-  return [
-    { label: '人物', value: summary.character.summary, meta: summary.character.meta },
-    { label: '穿搭', value: summary.wardrobe.summary, meta: '' },
-    { label: '場景', value: summary.scene.summary, meta: '' },
-  ];
-}
-
 function filterControlsByKeys(controls, keys) {
   const keySet = new Set(keys);
   return controls.filter((control) => keySet.has(control.key));
@@ -281,7 +273,6 @@ export default function Page1Workspace({
   const [isMobileFavoritesMode, setIsMobileFavoritesMode] = useState(false);
 
   const workspaceSummary = useMemo(() => buildWorkspaceSummary(locks, lockControls), [locks, lockControls]);
-  const previewDigest = useMemo(() => buildPreviewDigest(workspaceSummary), [workspaceSummary]);
   const activeSectionConfig = WORKSPACE_SECTIONS.find((section) => section.id === activeSection) || WORKSPACE_SECTIONS[0];
   const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
   const activeSubpanelId = activeSubpanels[activeSection] || sectionSubpanels[0]?.id || '';
@@ -570,25 +561,8 @@ export default function Page1Workspace({
             <div className="control-section-header">
               <div>
                 <div className="control-section-title">Live Prompt Preview</div>
-                <p className="workspace-panel-copy">先看摘要，再看完整 Grok。Midjourney 與 Z-Image 維持一鍵複製即可。</p>
+                <p className="workspace-panel-copy">右側只保留 prompt 本體與複製操作，選項摘要請直接看左側工作台。</p>
               </div>
-            </div>
-
-            <div className="page1-preview-summary">
-              <div className="page1-preview-summary-label">目前卡片摘要</div>
-              <div className="page1-preview-summary-value">{previewPrompt?.summary || '請先選擇條件來建立預覽 prompt。'}</div>
-            </div>
-
-            <div className="page1-preview-digest">
-              {previewDigest.map((item) => (
-                <div key={item.label} className="page1-preview-digest-row">
-                  <div className="page1-preview-digest-label">{item.label}</div>
-                  <div className="page1-preview-digest-body">
-                    <div className="page1-preview-digest-value">{item.value || '尚未指定'}</div>
-                    {item.meta ? <div className="page1-preview-digest-meta">{item.meta}</div> : null}
-                  </div>
-                </div>
-              ))}
             </div>
 
             <div className="primary-action-row page1-preview-actions">

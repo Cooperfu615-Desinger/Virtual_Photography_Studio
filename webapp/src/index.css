@@ -44,10 +44,7 @@ textarea {
 }
 
 .page-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  align-items: flex-start;
+  display: block;
   margin-bottom: 20px;
 }
 
@@ -106,6 +103,13 @@ textarea {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+.page-header-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .page-mode-button {
@@ -593,11 +597,6 @@ button:disabled {
   min-height: 100%;
 }
 
-.page1-sidebar {
-  position: sticky;
-  top: 24px;
-}
-
 .page1-sidebar-header,
 .page1-editor-header {
   display: grid;
@@ -719,75 +718,6 @@ button:disabled {
 
 .page1-preview-column {
   gap: 18px;
-}
-
-.page1-preview-panel {
-  position: sticky;
-  top: 24px;
-}
-
-.page1-preview-summary {
-  display: grid;
-  gap: 8px;
-  padding: 14px 16px;
-  border-radius: 16px;
-  background: #f7efe2;
-  border: 1px solid rgba(111, 87, 60, 0.12);
-}
-
-.page1-preview-summary-label {
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  font-weight: 700;
-}
-
-.page1-preview-summary-value {
-  font-size: 0.92rem;
-  line-height: 1.5;
-}
-
-.page1-preview-digest {
-  display: grid;
-  gap: 10px;
-  padding: 14px 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(111, 87, 60, 0.1);
-  background: rgba(255, 253, 249, 0.82);
-}
-
-.page1-preview-digest-row {
-  display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  gap: 12px;
-  align-items: start;
-}
-
-.page1-preview-digest-label {
-  font-size: 0.76rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  font-weight: 700;
-  padding-top: 2px;
-}
-
-.page1-preview-digest-body {
-  display: grid;
-  gap: 4px;
-}
-
-.page1-preview-digest-value {
-  font-size: 0.88rem;
-  line-height: 1.45;
-  color: var(--text-primary);
-}
-
-.page1-preview-digest-meta {
-  font-size: 0.82rem;
-  line-height: 1.4;
-  color: var(--text-secondary);
 }
 
 .page1-preview-actions {
@@ -1670,11 +1600,6 @@ button:disabled {
   .page1-workspace-shell {
     grid-template-columns: 1fr;
   }
-
-  .page1-sidebar,
-  .page1-preview-panel {
-    position: static;
-  }
 }
 
 @media (max-width: 820px) {
@@ -1687,6 +1612,11 @@ button:disabled {
 
   .site-settings {
     align-self: flex-start;
+  }
+
+  .page-header-toolbar {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .settings-menu {

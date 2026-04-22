@@ -2002,57 +2002,60 @@ export default function App() {
                 ? '建立固定角色的臉部與妝容設定，整理成可搬回 PAGE1 使用的角色 Prompt。'
                 : '建立無人物的純場景與世界觀 prompt，從小空間到超大景都可獨立生成。'}
           </p>
-          <div className="page-mode-switch" role="tablist" aria-label="Page mode switch">
-            <button
-              type="button"
-              className={pageMode === 'page1' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
-              onClick={() => setPageMode('page1')}
-            >
-              Prompt 工作台
-            </button>
-            <button
-              type="button"
-              className={pageMode === 'page2' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
-              onClick={() => setPageMode('page2')}
-            >
-              角色建模
-            </button>
-            <button
-              type="button"
-              className={pageMode === 'page3' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
-              onClick={() => setPageMode('page3')}
-            >
-              場景建模
-            </button>
-          </div>
-        </div>
-        <div className="site-settings">
-          <button
-            type="button"
-            className="settings-trigger"
-            aria-label="Open settings"
-            aria-expanded={isSettingsMenuOpen}
-            onClick={() => setIsSettingsMenuOpen((prev) => !prev)}
-          >
-            <Settings size={18} />
-          </button>
-          {isSettingsMenuOpen ? (
-            <div className="settings-menu">
-              <div className="settings-menu-title">Settings</div>
-              <div className={`settings-menu-status sync-status-${favoriteCloudSyncStatus}`}>
-                {favoriteCloudLabel}
-              </div>
-              {favoriteCloudAuth?.status === 'signed-in' ? (
-                <button className="secondary" onClick={handleSignOutFavorites}>
-                  Sign Out Firebase
-                </button>
-              ) : (
-                <button className="secondary" onClick={handleSignInFavorites} disabled={favoriteCloudAuth?.status === 'disabled'}>
-                  Sign In Firebase
-                </button>
-              )}
+          <div className="page-header-toolbar">
+            <div className="page-mode-switch" role="tablist" aria-label="Page mode switch">
+              <button
+                type="button"
+                className={pageMode === 'page1' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+                onClick={() => setPageMode('page1')}
+              >
+                Prompt 工作台
+              </button>
+              <button
+                type="button"
+                className={pageMode === 'page2' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+                onClick={() => setPageMode('page2')}
+              >
+                角色建模
+              </button>
+              <button
+                type="button"
+                className={pageMode === 'page3' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+                onClick={() => setPageMode('page3')}
+              >
+                場景建模
+              </button>
             </div>
-          ) : null}
+
+            <div className="site-settings">
+              <button
+                type="button"
+                className="settings-trigger"
+                aria-label="Open settings"
+                aria-expanded={isSettingsMenuOpen}
+                onClick={() => setIsSettingsMenuOpen((prev) => !prev)}
+              >
+                <Settings size={18} />
+              </button>
+              {isSettingsMenuOpen ? (
+                <div className="settings-menu">
+                  <div className="settings-menu-title">Settings</div>
+                  <div className={`settings-menu-status sync-status-${favoriteCloudSyncStatus}`}>
+                    {favoriteCloudLabel}
+                  </div>
+                  {favoriteCloudAuth?.status === 'signed-in' ? (
+                    <button className="secondary" onClick={handleSignOutFavorites}>
+                      Sign Out Firebase
+                    </button>
+                  ) : (
+                    <button className="secondary" onClick={handleSignInFavorites} disabled={favoriteCloudAuth?.status === 'disabled'}>
+                      Sign In Firebase
+                    </button>
+                  )}
+                </div>
+              ) : null}
+            </div>
+          </div>
         </div>
       </header>
 
