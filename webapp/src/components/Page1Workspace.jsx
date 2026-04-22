@@ -22,6 +22,131 @@ const WORKSPACE_SECTIONS = [
   { id: 'scene', label: 'C 場景與鏡頭', summaryKey: 'sceneLook', metaKey: null },
 ];
 
+const SECTION_SUBPANELS = {
+  character: [
+    {
+      id: 'identity',
+      label: '身份基底',
+      description: '先確立人物數量、體態與臉髮基礎，讓角色 DNA 先穩定下來。',
+      keys: [
+        'subjectCount',
+        'bodyTypeId',
+        'facialFeaturesId',
+        'facialFeaturesAId',
+        'facialFeaturesBId',
+        'skinDetailsId',
+        'hairstyleId',
+        'hairstyleAId',
+        'hairstyleBId',
+        'hairColorId',
+        'hairColorAId',
+        'hairColorBId',
+      ],
+    },
+    {
+      id: 'expression',
+      label: '神情姿態',
+      description: '再補上表情、雙人互動與動作，讓人物狀態更完整。',
+      keys: [
+        'duoInteractionId',
+        'expressionId',
+        'expressionAId',
+        'expressionBId',
+        'poseId',
+        'specialActionId',
+      ],
+    },
+  ],
+  wardrobe: [
+    {
+      id: 'overall',
+      label: '整體穿搭',
+      description: '優先決定套裝或整體搭配方向，這會直接影響後續單件欄位。',
+      keys: [
+        'outfitPresetId',
+        'outfitPresetPrimaryColorId',
+        'outfitPresetContrastColorId',
+        'outfitPresetLockedPaletteId',
+        'outfitPresetAId',
+        'outfitPresetAPrimaryColorId',
+        'outfitPresetAContrastColorId',
+        'outfitPresetALockedPaletteId',
+        'outfitPresetBId',
+        'outfitPresetBPrimaryColorId',
+        'outfitPresetBContrastColorId',
+        'outfitPresetBLockedPaletteId',
+        'duoStylingId',
+      ],
+    },
+    {
+      id: 'garments',
+      label: '上下身單件',
+      description: '當你不走整套 preset 時，這裡決定連身或上下身的主體輪廓。',
+      keys: [
+        'topId',
+        'topBottomPaletteId',
+        'topColorId',
+        'topPatternId',
+        'dressId',
+        'dressColorId',
+        'pantsId',
+        'skirtId',
+        'bottomColorId',
+        'bottomPatternId',
+      ],
+    },
+    {
+      id: 'layers',
+      label: '鞋襪與外層',
+      description: '補上襪類、鞋款與外套，建立完整造型層次。',
+      keys: [
+        'legwearId',
+        'legwearColorId',
+        'outerwearId',
+        'outerwearColorId',
+        'outerwearPatternId',
+        'outerwearStylingId',
+        'shoesId',
+        'shoesColorId',
+      ],
+    },
+    {
+      id: 'accessories',
+      label: '配件細節',
+      description: '最後才加配件，避免太早被細節打散主造型方向。',
+      keys: [
+        'headAccessoryId',
+        'eyewearId',
+        'earringsId',
+        'neckAccessoryId',
+        'wristAccessoryId',
+        'ringId',
+        'waistAccessoryId',
+      ],
+    },
+  ],
+  scene: [
+    {
+      id: 'space',
+      label: '場景基底',
+      description: '先定義世界、場景屬性與畫面比例，決定整體敘事容器。',
+      keys: ['styleId', 'sceneAttributeId', 'locationId', 'aspectRatio'],
+    },
+    {
+      id: 'camera',
+      label: '鏡頭構圖',
+      description: '再調整景別、角度與光學效果，讓畫面語言成型。',
+      keys: ['framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId'],
+    },
+    {
+      id: 'light',
+      label: '光線成像',
+      description: '最後補上光線與成像風格，決定氣氛與最後的攝影質感。',
+      keys: ['lightingId', 'lightDirectionId', 'filmId'],
+    },
+  ],
+};
+
 function buildSectionSnapshot(previewPrompt, summaryKey, metaKey) {
   const summary = previewPrompt?.summaryFields?.[summaryKey] || '尚未形成明確選項';
   const meta = metaKey ? (previewPrompt?.summaryFields?.[metaKey] || '') : '';
@@ -34,6 +159,11 @@ function buildWorkspaceSummary(previewPrompt) {
     wardrobe: buildSectionSnapshot(previewPrompt, 'wardrobe', null),
     scene: buildSectionSnapshot(previewPrompt, 'sceneLook', null),
   };
+}
+
+function filterControlsByKeys(controls, keys) {
+  const keySet = new Set(keys);
+  return controls.filter((control) => keySet.has(control.key));
 }
 
 export default function Page1Workspace({
@@ -79,32 +209,60 @@ export default function Page1Workspace({
 }) {
   const [isLightingReferenceOpen, setIsLightingReferenceOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('character');
+  const [activeSubpanels, setActiveSubpanels] = useState({
+    character: 'identity',
+    wardrobe: 'overall',
+    scene: 'space',
+  });
 
   const workspaceSummary = useMemo(() => buildWorkspaceSummary(previewPrompt), [previewPrompt]);
+  const activeSectionConfig = WORKSPACE_SECTIONS.find((section) => section.id === activeSection) || WORKSPACE_SECTIONS[0];
+  const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
+  const activeSubpanelId = activeSubpanels[activeSection] || sectionSubpanels[0]?.id || '';
+  const activeSubpanel = sectionSubpanels.find((panel) => panel.id === activeSubpanelId) || sectionSubpanels[0] || null;
+
+  const renderControlGrid = (controls) => (
+    <div className="lock-grid detail-lock-grid">
+      {controls.map((control) => (
+        <SelectControlField
+          key={control.key}
+          control={control}
+          value={locks[control.key]}
+          disabled={
+            (isCloseupMode && !closeupAllowedKeys.has(control.key))
+            || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls))
+            || (control.key === 'specialActionId' && Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls))
+            || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
+            || (isOutfitPresetActive && OUTFIT_PRESET_COVERED_KEYS.has(control.key))
+          }
+          onChange={(value) => updateLocks((prev) => {
+            const next = { ...prev, [control.key]: value };
+            if (control.key === 'poseId' && value && !isNoneSelected('poseId', value, characterLockControls)) {
+              next.specialActionId = '';
+            }
+            if (control.key === 'specialActionId' && value && !isNoneSelected('specialActionId', value, characterLockControls)) {
+              next.poseId = '';
+            }
+            return next;
+          })}
+          onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
+        />
+      ))}
+    </div>
+  );
 
   const renderSceneControls = () => (
     <div className="control-section">
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Scene & Camera Language</div>
-          <p className="workspace-panel-copy">先決定構圖、場景與光線，右側會同步反映成目前可直接使用的 Grok prompt。</p>
+          <p className="workspace-panel-copy">{activeSubpanel?.description || '先決定構圖、場景與光線，右側會同步反映成目前可直接使用的 Grok prompt。'}</p>
         </div>
         <button className="secondary reference-trigger-btn" type="button" onClick={() => setIsLightingReferenceOpen(true)}>
           查看光線定位對照
         </button>
       </div>
-      <div className="lock-grid detail-lock-grid">
-        {coreLockControls.map((control) => (
-          <SelectControlField
-            key={control.key}
-            control={control}
-            value={locks[control.key]}
-            disabled={isCloseupMode && !closeupAllowedKeys.has(control.key)}
-            onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
-            onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
-          />
-        ))}
-      </div>
+      {renderControlGrid(filterControlsByKeys(coreLockControls, activeSubpanel?.keys || []))}
     </div>
   );
 
@@ -113,7 +271,7 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Character Setup</div>
-          <p className="workspace-panel-copy">把人物身份、臉部與姿態先固定下來，後面換穿搭與場景會更穩定。</p>
+          <p className="workspace-panel-copy">{activeSubpanel?.description || '把人物身份、臉部與姿態先固定下來，後面換穿搭與場景會更穩定。'}</p>
         </div>
       </div>
       {locks.subjectCount === 'reference' ? (
@@ -126,31 +284,7 @@ export default function Page1Workspace({
           目前為特寫模式，系統已自動停用與臉部無關的服裝、下身、姿勢與場景欄位，讓 prompt 專心描述人物臉孔。
         </div>
       ) : null}
-      <div className="lock-grid">
-        {characterLockControls.map((control) => (
-          <SelectControlField
-            key={control.key}
-            control={control}
-            value={locks[control.key]}
-            disabled={
-              (isCloseupMode && !closeupAllowedKeys.has(control.key))
-              || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls))
-              || (control.key === 'specialActionId' && Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls))
-            }
-            onChange={(value) => updateLocks((prev) => {
-              const next = { ...prev, [control.key]: value };
-              if (control.key === 'poseId' && value && !isNoneSelected('poseId', value, characterLockControls)) {
-                next.specialActionId = '';
-              }
-              if (control.key === 'specialActionId' && value && !isNoneSelected('specialActionId', value, characterLockControls)) {
-                next.poseId = '';
-              }
-              return next;
-            })}
-            onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
-          />
-        ))}
-      </div>
+      {renderControlGrid(filterControlsByKeys(characterLockControls, activeSubpanel?.keys || []))}
     </div>
   );
 
@@ -159,7 +293,7 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Style & Wardrobe</div>
-          <p className="workspace-panel-copy">目前 Phase 1 先保留完整欄位深度，下一階段再拆成更明確的穿搭子分類。</p>
+          <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡分段處理整體造型、單件、鞋襪與配件。'}</p>
         </div>
       </div>
       {isOutfitPresetActive ? (
@@ -167,22 +301,7 @@ export default function Page1Workspace({
           套裝預設已接管主要服裝輪廓，和它重疊的上身、下身單件欄位會自動停用，避免 prompt 互相打架。
         </div>
       ) : null}
-      <div className="lock-grid detail-lock-grid">
-        {wardrobeLockControls.map((control) => (
-          <SelectControlField
-            key={control.key}
-            control={control}
-            value={locks[control.key]}
-            disabled={
-              (isCloseupMode && !closeupAllowedKeys.has(control.key))
-              || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
-              || (isOutfitPresetActive && OUTFIT_PRESET_COVERED_KEYS.has(control.key))
-            }
-            onChange={(value) => updateLocks((prev) => ({ ...prev, [control.key]: value }))}
-            onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
-          />
-        ))}
-      </div>
+      {renderControlGrid(filterControlsByKeys(wardrobeLockControls, activeSubpanel?.keys || []))}
     </div>
   );
 
@@ -209,7 +328,13 @@ export default function Page1Workspace({
                   key={section.id}
                   type="button"
                   className={`page1-section-card ${activeSection === section.id ? 'page1-section-card-active' : ''}`}
-                  onClick={() => setActiveSection(section.id)}
+                  onClick={() => {
+                    setActiveSection(section.id);
+                    setActiveSubpanels((prev) => ({
+                      ...prev,
+                      [section.id]: prev[section.id] || SECTION_SUBPANELS[section.id]?.[0]?.id || '',
+                    }));
+                  }}
                 >
                   <span className="page1-section-label">{section.label}</span>
                   <strong className="page1-section-value">{snapshot.summary}</strong>
@@ -238,12 +363,30 @@ export default function Page1Workspace({
         <section className="page1-editor lock-panel">
           <div className="page1-editor-header">
             <div>
-              <div className="lock-title">
-                {WORKSPACE_SECTIONS.find((section) => section.id === activeSection)?.label || 'PAGE1'}
-              </div>
-              <p className="lock-subtitle">這裡只顯示目前正在編輯的區域，讓選項更聚焦。</p>
+              <div className="lock-title">{activeSectionConfig.label}</div>
+              <p className="lock-subtitle">這裡只顯示目前正在編輯的子區域，讓你能一段一段把 prompt 鎖穩。</p>
             </div>
           </div>
+
+          <div className="page1-subpanel-tabs">
+            {sectionSubpanels.map((panel) => (
+              <button
+                key={panel.id}
+                type="button"
+                className={`page1-subpanel-tab ${activeSubpanel?.id === panel.id ? 'page1-subpanel-tab-active' : ''}`}
+                onClick={() => setActiveSubpanels((prev) => ({ ...prev, [activeSection]: panel.id }))}
+              >
+                <span className="page1-subpanel-label">{panel.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {activeSubpanel ? (
+            <div className="page1-subpanel-summary">
+              <div className="page1-subpanel-summary-title">{activeSubpanel.label}</div>
+              <div className="page1-subpanel-summary-copy">{activeSubpanel.description}</div>
+            </div>
+          ) : null}
 
           {renderEditorPanel()}
         </section>

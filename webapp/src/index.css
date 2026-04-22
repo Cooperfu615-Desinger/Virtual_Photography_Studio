@@ -647,6 +647,65 @@ button:disabled {
   line-height: 1.45;
 }
 
+.page1-subpanel-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.page1-subpanel-tab {
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  background: #f6edde;
+  color: var(--text-secondary);
+}
+
+.page1-subpanel-tab:hover {
+  background: #efe1cb;
+}
+
+.page1-subpanel-tab-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fffdf8;
+}
+
+.page1-subpanel-tab-active:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: #fffdf8;
+}
+
+.page1-subpanel-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.page1-subpanel-summary {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(111, 87, 60, 0.12);
+  background: linear-gradient(180deg, rgba(255, 250, 240, 0.82) 0%, rgba(247, 239, 226, 0.9) 100%);
+}
+
+.page1-subpanel-summary-title {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.page1-subpanel-summary-copy {
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
 .page1-preview-column {
   gap: 18px;
 }
