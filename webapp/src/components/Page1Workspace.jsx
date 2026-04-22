@@ -161,6 +161,14 @@ function buildWorkspaceSummary(previewPrompt) {
   };
 }
 
+function buildPreviewDigest(summary) {
+  return [
+    { label: '人物', value: summary.character.summary, meta: summary.character.meta },
+    { label: '穿搭', value: summary.wardrobe.summary, meta: '' },
+    { label: '場景', value: summary.scene.summary, meta: '' },
+  ];
+}
+
 function filterControlsByKeys(controls, keys) {
   const keySet = new Set(keys);
   return controls.filter((control) => keySet.has(control.key));
@@ -217,6 +225,7 @@ export default function Page1Workspace({
   const [isMobileFavoritesMode, setIsMobileFavoritesMode] = useState(false);
 
   const workspaceSummary = useMemo(() => buildWorkspaceSummary(previewPrompt), [previewPrompt]);
+  const previewDigest = useMemo(() => buildPreviewDigest(workspaceSummary), [workspaceSummary]);
   const activeSectionConfig = WORKSPACE_SECTIONS.find((section) => section.id === activeSection) || WORKSPACE_SECTIONS[0];
   const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
   const activeSubpanelId = activeSubpanels[activeSection] || sectionSubpanels[0]?.id || '';
@@ -426,7 +435,7 @@ export default function Page1Workspace({
         <aside className="page1-sidebar lock-panel">
           <div className="page1-sidebar-header">
             <div className="lock-title">Prompt Workspace</div>
-            <p className="lock-subtitle">目前鎖定 {activeLockCount} 個條件，右側會即時更新成可複製的版本。</p>
+            <p className="lock-subtitle">目前鎖定 {activeLockCount} 個條件。左邊看階段、中間編輯、右邊直接校對 prompt。</p>
           </div>
 
           <div className="page1-section-nav">
@@ -473,7 +482,7 @@ export default function Page1Workspace({
           <div className="page1-editor-header">
             <div>
               <div className="lock-title">{activeSectionConfig.label}</div>
-              <p className="lock-subtitle">這裡只顯示目前正在編輯的子區域，讓你能一段一段把 prompt 鎖穩。</p>
+              <p className="lock-subtitle">一次只處理一小段，避免 prompt 在太多欄位之間互相干擾。</p>
             </div>
           </div>
 
@@ -505,13 +514,25 @@ export default function Page1Workspace({
             <div className="control-section-header">
               <div>
                 <div className="control-section-title">Live Prompt Preview</div>
-                <p className="workspace-panel-copy">右欄只顯示 Grok 全文，另外兩種格式保留為快速複製。</p>
+                <p className="workspace-panel-copy">先看摘要，再看完整 Grok。Midjourney 與 Z-Image 維持一鍵複製即可。</p>
               </div>
             </div>
 
             <div className="page1-preview-summary">
               <div className="page1-preview-summary-label">目前卡片摘要</div>
               <div className="page1-preview-summary-value">{previewPrompt?.summary || '請先選擇條件來建立預覽 prompt。'}</div>
+            </div>
+
+            <div className="page1-preview-digest">
+              {previewDigest.map((item) => (
+                <div key={item.label} className="page1-preview-digest-row">
+                  <div className="page1-preview-digest-label">{item.label}</div>
+                  <div className="page1-preview-digest-body">
+                    <div className="page1-preview-digest-value">{item.value || '尚未指定'}</div>
+                    {item.meta ? <div className="page1-preview-digest-meta">{item.meta}</div> : null}
+                  </div>
+                </div>
+              ))}
             </div>
 
             <div className="primary-action-row page1-preview-actions">
@@ -531,11 +552,11 @@ export default function Page1Workspace({
             </div>
           </section>
 
-          <section className="page1-feed-panel lock-panel">
+          <section className="page1-feed-panel lock-panel page1-feed-panel-muted">
             <div className="control-section-header">
               <div>
                 <div className="control-section-title">Saved Cards</div>
-                <p className="workspace-panel-copy">Phase 1 先保留 Feed 與 Favorites 的卡片工作流，方便你邊調整邊存版本。</p>
+                <p className="workspace-panel-copy">這裡是版本庫，不是主編輯區。需要時再回頭比對、收藏或 remix 即可。</p>
               </div>
             </div>
 
