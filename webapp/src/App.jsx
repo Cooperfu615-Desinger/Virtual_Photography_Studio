@@ -1993,29 +1993,6 @@ export default function App() {
     <div className="container">
       <header className="page-header">
         <div className="page-header-content">
-          <div className="page-mode-switch" role="tablist" aria-label="Page mode switch">
-            <button
-              type="button"
-              className={pageMode === 'page1' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
-              onClick={() => setPageMode('page1')}
-            >
-              PAGE1
-            </button>
-            <button
-              type="button"
-              className={pageMode === 'page2' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
-              onClick={() => setPageMode('page2')}
-            >
-              PAGE2
-            </button>
-            <button
-              type="button"
-              className={pageMode === 'page3' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
-              onClick={() => setPageMode('page3')}
-            >
-              PAGE3
-            </button>
-          </div>
           <p className="eyebrow">Virtual Photography Studio</p>
           <h1>{pageMode === 'page1' ? 'Prompt Control Deck' : pageMode === 'page2' ? 'Character Builder' : 'Scene Builder'}</h1>
           <p className="subtitle">
@@ -2025,6 +2002,29 @@ export default function App() {
                 ? '建立固定角色的臉部與妝容設定，整理成可搬回 PAGE1 使用的角色 Prompt。'
                 : '建立無人物的純場景與世界觀 prompt，從小空間到超大景都可獨立生成。'}
           </p>
+          <div className="page-mode-switch" role="tablist" aria-label="Page mode switch">
+            <button
+              type="button"
+              className={pageMode === 'page1' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+              onClick={() => setPageMode('page1')}
+            >
+              Prompt 工作台
+            </button>
+            <button
+              type="button"
+              className={pageMode === 'page2' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+              onClick={() => setPageMode('page2')}
+            >
+              角色建模
+            </button>
+            <button
+              type="button"
+              className={pageMode === 'page3' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+              onClick={() => setPageMode('page3')}
+            >
+              場景建模
+            </button>
+          </div>
         </div>
         <div className="site-settings">
           <button

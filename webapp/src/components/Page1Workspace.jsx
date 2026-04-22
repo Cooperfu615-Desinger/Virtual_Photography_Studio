@@ -147,17 +147,73 @@ const SECTION_SUBPANELS = {
   ],
 };
 
-function buildSectionSnapshot(previewPrompt, summaryKey, metaKey) {
-  const summary = previewPrompt?.summaryFields?.[summaryKey] || '尚未形成明確選項';
-  const meta = metaKey ? (previewPrompt?.summaryFields?.[metaKey] || '') : '';
-  return { summary, meta };
+function getControlOptionLabel(controls, key, value) {
+  if (!value) return '';
+  const control = controls.find((item) => item.key === key);
+  const option = control?.options?.find((item) => item.id === value);
+  if (!option || option.zh === '全無' || option.zh === '隨機') return '';
+  return option.zh || '';
 }
 
-function buildWorkspaceSummary(previewPrompt) {
+function buildSummaryText(parts) {
+  const filtered = parts.filter(Boolean);
+  return filtered.length > 0 ? filtered.join(' / ') : '尚未形成明確選項';
+}
+
+function buildWorkspaceSummary(locks, controls) {
+  const characterSummary = buildSummaryText([
+    getControlOptionLabel(controls, 'facialFeaturesId', locks.facialFeaturesId),
+    getControlOptionLabel(controls, 'facialFeaturesAId', locks.facialFeaturesAId),
+    getControlOptionLabel(controls, 'facialFeaturesBId', locks.facialFeaturesBId),
+    getControlOptionLabel(controls, 'bodyTypeId', locks.bodyTypeId),
+    getControlOptionLabel(controls, 'hairstyleId', locks.hairstyleId),
+    getControlOptionLabel(controls, 'hairstyleAId', locks.hairstyleAId),
+    getControlOptionLabel(controls, 'hairstyleBId', locks.hairstyleBId),
+    getControlOptionLabel(controls, 'hairColorId', locks.hairColorId),
+    getControlOptionLabel(controls, 'hairColorAId', locks.hairColorAId),
+    getControlOptionLabel(controls, 'hairColorBId', locks.hairColorBId),
+  ]);
+  const characterMeta = buildSummaryText([
+    getControlOptionLabel(controls, 'expressionId', locks.expressionId),
+    getControlOptionLabel(controls, 'expressionAId', locks.expressionAId),
+    getControlOptionLabel(controls, 'expressionBId', locks.expressionBId),
+    getControlOptionLabel(controls, 'poseId', locks.poseId),
+    getControlOptionLabel(controls, 'specialActionId', locks.specialActionId),
+    getControlOptionLabel(controls, 'duoInteractionId', locks.duoInteractionId),
+  ]);
+  const wardrobeSummary = buildSummaryText([
+    getControlOptionLabel(controls, 'outfitPresetId', locks.outfitPresetId),
+    getControlOptionLabel(controls, 'outfitPresetAId', locks.outfitPresetAId),
+    getControlOptionLabel(controls, 'outfitPresetBId', locks.outfitPresetBId),
+    getControlOptionLabel(controls, 'dressId', locks.dressId),
+    getControlOptionLabel(controls, 'topId', locks.topId),
+    getControlOptionLabel(controls, 'pantsId', locks.pantsId),
+    getControlOptionLabel(controls, 'skirtId', locks.skirtId),
+    getControlOptionLabel(controls, 'legwearId', locks.legwearId),
+    getControlOptionLabel(controls, 'shoesId', locks.shoesId),
+  ]);
+  const sceneSummary = buildSummaryText([
+    getControlOptionLabel(controls, 'styleId', locks.styleId),
+    getControlOptionLabel(controls, 'locationId', locks.locationId),
+    getControlOptionLabel(controls, 'framingId', locks.framingId),
+    getControlOptionLabel(controls, 'angleId', locks.angleId),
+    getControlOptionLabel(controls, 'lensId', locks.lensId),
+    getControlOptionLabel(controls, 'lightingId', locks.lightingId),
+  ]);
+
   return {
-    character: buildSectionSnapshot(previewPrompt, 'characterDna', 'expressionPose'),
-    wardrobe: buildSectionSnapshot(previewPrompt, 'wardrobe', null),
-    scene: buildSectionSnapshot(previewPrompt, 'sceneLook', null),
+    character: {
+      summary: characterSummary,
+      meta: characterMeta === '尚未形成明確選項' ? '' : characterMeta,
+    },
+    wardrobe: {
+      summary: wardrobeSummary,
+      meta: '',
+    },
+    scene: {
+      summary: sceneSummary,
+      meta: '',
+    },
   };
 }
 
@@ -224,7 +280,7 @@ export default function Page1Workspace({
   });
   const [isMobileFavoritesMode, setIsMobileFavoritesMode] = useState(false);
 
-  const workspaceSummary = useMemo(() => buildWorkspaceSummary(previewPrompt), [previewPrompt]);
+  const workspaceSummary = useMemo(() => buildWorkspaceSummary(locks, lockControls), [locks, lockControls]);
   const previewDigest = useMemo(() => buildPreviewDigest(workspaceSummary), [workspaceSummary]);
   const activeSectionConfig = WORKSPACE_SECTIONS.find((section) => section.id === activeSection) || WORKSPACE_SECTIONS[0];
   const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
@@ -537,13 +593,13 @@ export default function Page1Workspace({
 
             <div className="primary-action-row page1-preview-actions">
               <button className="primary-copy-btn primary-copy-grok" onClick={() => handleCopyText('Grok copied', previewPrompt?.grokPrompt)} disabled={!previewPrompt?.grokPrompt}>
-                Copy Grok
-              </button>
-              <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopyText('Midjourney copied', previewPrompt?.midjourneyPrompt)} disabled={!previewPrompt?.midjourneyPrompt}>
-                Copy Midjourney
+                Grok
               </button>
               <button className="primary-copy-btn primary-copy-zimage" onClick={() => handleCopyText('Z-Image copied', previewPrompt?.zImagePrompt)} disabled={!previewPrompt?.zImagePrompt}>
-                Copy Z-Image
+                Z-Image
+              </button>
+              <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopyText('Midjourney copied', previewPrompt?.midjourneyPrompt)} disabled={!previewPrompt?.midjourneyPrompt}>
+                AI
               </button>
             </div>
 
