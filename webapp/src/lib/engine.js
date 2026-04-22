@@ -559,6 +559,9 @@ function inferLocationMeta(category, item) {
   ])) {
     tags.push('solid_color_studio', 'studio_lighting_scene');
   }
+  if (hasAny(haystack, ['CRT 電視牆攝影棚', 'retro cathode-ray display wall', 'seamless desaturated blue-grey floor and backdrop'])) {
+    tags.push('studio_lighting_scene');
+  }
 
   return { tags: withTags(tags) };
 }

@@ -703,8 +703,18 @@
       },
       {
         "zh": "細肩帶蕾絲棉質迷你洋裝",
-        "en": "spaghetti-strap loose layered lace mini dress, delicate shoulder straps, soft straight-to-gently-curved neckline, relaxed shapeless babydoll silhouette without a defined waistline, lightweight opaque inner slip layer under a sheer floral-lace outer layer, airy loose-hanging body, subtle lace texture throughout, softly scalloped semi-sheer lace hem, easy breezy summer one-piece silhouette",
+        "en": "spaghetti-strap cotton lace mini dress, delicate shoulder straps, soft sweetheart neckline, front button placket, gathered underbust seam, airy lightweight cotton voile, lace inset panels across the bodice and waist, scalloped lace hem, softly flared tiered skirt, relaxed summer one-piece silhouette",
         "desc": "參考附圖中細肩帶、胸前鈕扣、胸身與腰線蕾絲拼接、輕薄棉質與短版傘狀裙襬的生活感洋裝；主色交由連身配色控制，整體偏清爽、日常、夏季寫真。"
+      },
+      {
+        "zh": "波希米亞刺繡蕾絲寬鬆罩衫洋裝",
+        "en": "loose bohemian tunic dress, soft dusty pink fabric, lightweight and flowy material, wide V neckline, dark brown lace trim along the neckline forming a deep V shape, floral embroidery along the neckline in dark brown thread, symmetrical small rose patterns, front tie string at the center chest with a long cord and tassel ends hanging down, relaxed oversized silhouette, drop-shoulder design, wide flutter sleeves, elbow-length sleeves with dark brown scalloped lace trim at the edges, soft draping fabric with gentle folds, hemline finished with matching dark brown lace trim, blouse-like dress worn loose and untucked, longline silhouette naturally covering the hips and upper thighs",
+        "desc": "以柔和 dusty pink 布料、深 V 領深棕蕾絲滾邊、領口小玫瑰刺繡、胸前綁繩流蘇、寬鬆落肩與寬大 flutter sleeves 為重點的波希米亞罩衫式洋裝；整體偏輕柔、鬆身、帶民族感細節，像長版上衣延伸成可單穿的 tunic dress。"
+      },
+      {
+        "zh": "雛菊背心丹寧吊帶短褲連身造型",
+        "en": "two-piece casual summer outfit, sleeveless pink camisole top with soft lightweight fabric, gathered neckline with an elastic ruffle edge, small ribbon tie at the center front forming a bow, subtle small white and yellow daisy floral pattern evenly distributed, thin shoulder straps, paired with high-waisted teal denim overall shorts, structured waistband with belt loops and a wide band detail, front button closure with multiple round buttons, suspenders attached with small metallic heart-shaped clips, adjustable shoulder straps, front pockets and side pockets, distressed denim texture with visible wear and frayed ripped areas on the thighs, rolled hem with raw edges, small embroidered pink flower motifs on the shorts, fitted waist and slightly loose leg openings, soft pastel color harmony, clean detailed stitching and fabric texture",
+        "desc": "以粉色小雛菊細肩背心搭配高腰青綠色丹寧吊帶短褲為核心的夏日連身造型；重點是荷葉鬆緊領口、胸前蝴蝶結、小花圖樣、愛心金屬吊帶夾、磨損刷色與捲邊褲口，整體偏可愛、生活感、青春夏季穿搭。"
       }
     ],
     "褲裝 (Pants)": [
@@ -2306,6 +2316,11 @@
         "zh": "室內：漸層打光背景",
         "en": "infinite gradient-lit background, isolated subject, commercial gradient studio",
         "desc": "漸層打光的無限延伸背景，能提升人物立體感與商業封面感。"
+      },
+      {
+        "zh": "室內：CRT 電視牆攝影棚",
+        "en": "studio set with a stacked wall of assorted CRT televisions and vintage computer monitors in mixed sizes and shapes, retro cathode-ray display wall, some screens dark and some glowing with abstract analog static, scattered VHS tapes, coiled cables, security monitors, VCR decks and old electronic equipment around the set, seamless desaturated blue-grey floor and backdrop, controlled commercial studio environment, isolated subject",
+        "desc": "以不同尺寸與型號的 CRT 電視、復古電腦螢幕堆成一整面電視牆，周圍散落錄影帶、線材、監視器、VCR 等舊電子設備；地面與背景維持一致的低飽和藍灰純色，保留復古科技感，同時避免背景太花搶走主體。"
       }
     ],
     "生活感室內 (Indoor & Lifestyle)": [
