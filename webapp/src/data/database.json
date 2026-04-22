@@ -138,177 +138,794 @@
       {
         "zh": "亮面乳膠束帶套裝",
         "en": "ultra-detailed fetish couture portrait, woman wearing a tightly sculpted glossy latex one-piece with a halter neckline, dramatic zip-front plunge, bold torso cut-out, high-cut leg line, integrated choker collar, opera-length latex gloves, double buckle hip straps, thigh harness straps, polished metallic hardware, rich liquid-like shine, sleek second-skin contour, editorial fetish fashion finish",
-        "desc": "以亮面乳膠連身輪廓為核心，強調頸圈式領口、深拉鍊前襟、腹部鏤空、高衩腿線、長手套、髖部雙皮帶與腿部束帶，整體更接近高細節、強五金感的時裝化 fetish couture 造型；配色應由獨立的套裝配色控制。"
+        "desc": "以亮面乳膠連身輪廓為核心，強調頸圈式領口、深拉鍊前襟、腹部鏤空、高衩腿線、長手套、髖部雙皮帶與腿部束帶，整體更接近高細節、強五金感的時裝化 fetish couture 造型；配色應由獨立的套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "latex_bodysuit",
+              "integrated_choker",
+              "opera_gloves"
+            ],
+            "contrast": [
+              "hip_straps",
+              "thigh_harness_straps",
+              "zip_front_trim"
+            ],
+            "locked": [
+              "metal_hardware"
+            ]
+          }
+        }
       },
       {
         "zh": "皮革馬甲束腰套裝",
-        "en": "ultra-detailed couture boudoir portrait, woman wearing a tightly-laced structured leather corset-bodice one-piece, dramatic hourglass tailoring, sharply cinched waist, sculpted overbust cup construction, rich glossy leather with subtle patent sheen, lavish floral embroidery, dense French lace trims and appliques, ornate boned panels with metallic grommets, buckle hardware and ring connectors, satin ribbon lacing, plunging sweetheart neckline, sheer mesh and lace paneling through the lower half, high-cut leg line, multiple suspender-style garter straps, luxurious semi-sheer lace stockings, refined sensual couture finish",
-        "desc": "以皮革馬甲式胸衣與束腰輪廓為核心，加入立體胸杯結構、更繁複的法式蕾絲與花卉刺繡、骨架拼片、金屬孔眼、扣件與環狀五金、多重吊帶結構，以及更精緻的網紗蕾絲下身細節，整體更偏高級精緻、帶 boudoir 感的時裝內衣語言；配色應由獨立的套裝配色控制。"
+        "en": "ultra-detailed couture boudoir portrait, woman wearing a tightly-laced structured leather corset-bodice one-piece, dramatic hourglass tailoring, sharply cinched waist, sculpted overbust cup construction, rich glossy leather with subtle patent sheen, lavish floral embroidery, dense French lace trims and appliques, ornate boned panels with metallic grommets, buckle hardware and ring connectors, satin ribbon lacing, plunging sweetheart neckline, sheer mesh and lace paneling through the lower half, high-cut leg line, refined sensual couture finish",
+        "desc": "以皮革馬甲式胸衣與束腰輪廓為核心，加入立體胸杯結構、更繁複的法式蕾絲與花卉刺繡、骨架拼片、金屬孔眼、扣件與環狀五金，以及更精緻的網紗蕾絲下身細節，整體更偏高級精緻、帶 boudoir 感的時裝內衣語言；配色應由獨立的套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "corset_bodice",
+              "main_leather_panels",
+              "lower_half_base_panels"
+            ],
+            "contrast": [
+              "lace_trims",
+              "embroidery",
+              "mesh_panel_accents",
+              "ribbon_lacing"
+            ],
+            "locked": [
+              "grommets",
+              "buckles",
+              "ring_hardware"
+            ]
+          }
+        }
       },
       {
         "zh": "玫瑰粉乳膠迷你洋裝套裝",
-        "en": "wearing a dusty rose latex mini dress with matching thigh-high stockings and extreme ballet-style pointed heels, ultra-detailed latex sheen, sculptural heel structure, niche heel fetish fashion",
-        "desc": "玫瑰粉乳膠迷你洋裝搭配同色系過膝襪與芭蕾尖頭高跟，帶有夢幻又強烈的 heel fetish fashion 風格。"
+        "en": "wearing a glossy latex mini dress, ultra-detailed latex sheen, sculptural silhouette, niche fetish-fashion mood, dominant dress color controlled by the outfit color selection",
+        "desc": "以亮面乳膠迷你洋裝本體為主，保留夢幻又強烈的 fetish fashion 氣質，但顏色不寫死，改由套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "latex_mini_dress"
+            ],
+            "contrast": [
+              "minor_trim_accents",
+              "panel_edges"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "象牙白春日巴黎套裝",
-        "en": "wearing an ivory silk camisole layered under an oversized white linen shirt left open with high-waisted light grey wide-leg trousers, silky sheen, airy linen layers, effortless Parisian spring styling",
-        "desc": "象牙白絲質細肩帶搭配寬鬆白色亞麻襯衫與高腰淺灰寬褲，走輕盈鬆弛的巴黎春日穿搭語氣。"
+        "en": "wearing a silk camisole layered under an oversized linen shirt left open with high-waisted wide-leg trousers, silky sheen, airy linen layers, effortless Parisian spring styling, coordinated tonal palette controlled by the outfit color selection",
+        "desc": "以絲質細肩帶、寬鬆亞麻襯衫與高腰寬褲構成的巴黎春日穿搭為核心，保留輕盈鬆弛的 tone-on-tone 層次感，但不固定象牙白、白色與淺灰，整體改由套裝配色控制。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "linen_shirt",
+              "overall_tonal_palette"
+            ],
+            "contrast": [
+              "silk_camisole",
+              "wide_leg_trousers"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "極簡高級套裝",
         "en": "wearing a minimalist luxury outfit with clean lines, monochromatic palette, refined tailoring, premium fabric drape, understated elegant styling",
-        "desc": "乾淨剪裁、單色系與高級布料垂墜感為核心的極簡時裝造型。"
+        "desc": "乾淨剪裁、單色系與高級布料垂墜感為核心的極簡時裝造型。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_outfit_body"
+            ],
+            "contrast": [
+              "inner_layer",
+              "subtle_structural_accents"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "日系街頭套裝",
         "en": "wearing a Japanese streetwear outfit with oversized silhouette, layered casual pieces, Harajuku-inspired styling, urban fashion attitude",
-        "desc": "以 oversized、多層次與日本街頭感為主的都會造型。"
+        "desc": "以 oversized、多層次與日本街頭感為主的都會造型。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "outer_layer",
+              "largest_garment_block"
+            ],
+            "contrast": [
+              "inner_layer",
+              "bottoms",
+              "graphic_accents"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "居家慵懶套裝",
         "en": "wearing a cozy homewear outfit with soft relaxed layers, intimate off-duty mood, comfortable drape, quiet indoor styling",
-        "desc": "放鬆柔軟、像房間裡自然生活片段的親密穿搭。"
+        "desc": "放鬆柔軟、像房間裡自然生活片段的親密穿搭。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_loungewear_body"
+            ],
+            "contrast": [
+              "inner_layer",
+              "pants",
+              "soft_trim_accents"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "文青生活套裝",
         "en": "wearing an understated artistic casual outfit with quiet lifestyle mood, soft textures, literary simplicity, refined everyday styling",
-        "desc": "帶閱讀感、咖啡館氣質與安靜生活感的文藝穿搭。"
+        "desc": "帶閱讀感、咖啡館氣質與安靜生活感的文藝穿搭。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_top_or_dress_layer"
+            ],
+            "contrast": [
+              "bottoms",
+              "outer_layer"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "全黑長版襯衫百褶長裙套裝",
-        "en": "wearing an oversized long button-up shirt layered over a flowing pleated maxi skirt, soft draped silhouette, understated austere elegance, quiet editorial styling",
-        "desc": "以寬鬆長版襯衫外搭百褶長裙的修長垂墜輪廓為核心，整體安靜、克制，帶一點極簡修道感與文藝時裝氣質；主色應由獨立配色控制。"
+        "en": "wearing an oversized long button-up shirt layered over a flowing pleated maxi skirt, soft draped silhouette, understated austere elegance, quiet editorial styling, dominant outfit color controlled by the outfit color selection",
+        "desc": "以寬鬆長版襯衫外搭百褶長裙的修長垂墜輪廓為核心，整體安靜、克制，帶一點極簡修道感與文藝時裝氣質；不再固定全黑，主色改由獨立配色控制。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "long_shirt",
+              "pleated_skirt"
+            ],
+            "contrast": [
+              "inner_layer",
+              "secondary_tonal_accents"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "清爽運動套裝",
         "en": "wearing a sporty clean outfit with active casualwear, lightweight athletic mood, fresh movement-ready styling",
-        "desc": "乾淨、有活力，像日常運動與休閒街頭的清爽造型。"
+        "desc": "乾淨、有活力，像日常運動與休閒街頭的清爽造型。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_sportswear_pieces"
+            ],
+            "contrast": [
+              "stripes",
+              "paneling",
+              "shorts_or_inner_layer"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "甜辣街頭套裝",
         "en": "wearing a sweet-and-spicy streetwear outfit with fitted youthful silhouette, playful urban attitude, trendy social-media styling",
-        "desc": "青春、帶點性感與社群感的甜辣街頭造型。"
+        "desc": "青春、帶點性感與社群感的甜辣街頭造型。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_outfit_body"
+            ],
+            "contrast": [
+              "inner_layer",
+              "bottoms",
+              "accent_trims"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "都會通勤套裝",
         "en": "wearing a polished commuter outfit with refined city tailoring, modern office elegance, structured everyday sophistication",
-        "desc": "成熟俐落、現代城市女性感強的通勤穿搭。"
+        "desc": "成熟俐落、現代城市女性感強的通勤穿搭。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "tailored_outer_layer",
+              "main_suit_body"
+            ],
+            "contrast": [
+              "shirt_layer",
+              "skirt_or_trousers",
+              "trim_accents"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "旅行度假套裝",
         "en": "wearing a resort casual outfit with breezy layers, sunlit getaway mood, relaxed vacation styling, airy summer elegance",
-        "desc": "輕鬆、清爽、帶風感與日照感的度假造型。"
+        "desc": "輕鬆、清爽、帶風感與日照感的度假造型。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_resortwear_body"
+            ],
+            "contrast": [
+              "cover_up",
+              "belt",
+              "bottoms"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "夜生活辣妹套裝",
         "en": "wearing a nightlife glamour outfit with body-conscious silhouette, bold feminine styling, party-ready confidence, after-dark allure",
-        "desc": "夜拍、派對與存在感強的女性化夜生活造型。"
+        "desc": "夜拍、派對與存在感強的女性化夜生活造型。",
+        "meta": {
+          "series": "daily",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_nightlife_garment"
+            ],
+            "contrast": [
+              "panel_accents",
+              "trim_accents"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "黑色細節一字領哥德洋裝套裝",
         "en": "wearing an off-shoulder mini dress with smooth soft fabric, wide elastic neckline, scalloped collar edge, fully off-shoulder style, long soft balloon sleeves with gathered cuffs, fitted high waist, loose A-line silhouette, mini length, front vertical black ribbon detail, small black buttons aligned on the chest, decorative black bow at the neckline, black choker ribbon around the neck, thin shoulder straps visible under the neckline, layered hem, black sheer underskirt with lace trim visible beneath the dress, delicate lace edge, clean soft gothic style, dominant main dress color controlled by the outfit color selection while all black contrast details remain fixed",
-        "desc": "以一字領、寬鬆長袖、高腰 A-line 迷你洋裝與柔和哥德感為主，主體洋裝顏色交由套裝配色控制；黑色緞帶、胸前小鈕扣、領口蝴蝶結、choker、肩帶與黑色透紗蕾絲內襯固定保留。"
+        "desc": "以一字領、寬鬆長袖、高腰 A-line 迷你洋裝與柔和哥德感為主，主體洋裝顏色交由套裝配色控制；黑色緞帶、胸前小鈕扣、領口蝴蝶結、choker、肩帶與黑色透紗蕾絲內襯固定保留。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "dress_body"
+            ],
+            "contrast": [
+              "optional_secondary_trim_areas"
+            ],
+            "locked": [
+              "black_ribbons",
+              "black_buttons",
+              "black_bow",
+              "black_choker",
+              "black_sheer_underskirt",
+              "black_straps"
+            ]
+          }
+        }
       },
       {
         "zh": "銀色亮面深V掛脖迷你洋裝套裝",
-        "en": "wearing a metallic silver halter mini dress with a plunging deep-V neckline, body-contouring fit, glossy reflective fabric, sleek nightlife glamour silhouette, bold feminine party styling",
-        "desc": "以銀色亮面材質、深 V 掛脖領口與貼身迷你洋裝輪廓為核心，整體偏夜拍、派對、精品夜生活感，強調反光材質與成熟性感線條。"
+        "en": "wearing a metallic halter mini dress with a plunging deep-V neckline, body-contouring fit, glossy reflective fabric, sleek nightlife glamour silhouette, bold feminine party styling, dominant dress color controlled by the outfit color selection",
+        "desc": "以亮面金屬感材質、深 V 掛脖領口與貼身迷你洋裝輪廓為核心，整體偏夜拍、派對、精品夜生活感，強調反光材質與成熟性感線條；顏色不再固定銀色，改由套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "halter_mini_dress"
+            ],
+            "contrast": [
+              "minor_edge_accents"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "BDSM 束縛套裝",
         "en": "wearing a bdsm-inspired outfit with leather, bondage straps, buckles, chains, latex accents, dominant fetish styling",
-        "desc": "皮革、束帶、金屬環與乳膠點綴構成的束縛風造型。"
+        "desc": "皮革、束帶、金屬環與乳膠點綴構成的束縛風造型。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_outfit_body"
+            ],
+            "contrast": [
+              "bondage_straps",
+              "panel_accents",
+              "latex_accent_areas"
+            ],
+            "locked": [
+              "buckles",
+              "chains",
+              "metal_rings"
+            ]
+          }
+        }
       },
       {
         "zh": "維多利亞古典套裝",
         "en": "wearing a Victorian-inspired outfit with high-neck lace, corset structure, romantic mourning elegance, intricate historical detail",
-        "desc": "高領蕾絲、馬甲與皺褶層次構成的古典禁慾浪漫造型。"
+        "desc": "高領蕾絲、馬甲與皺褶層次構成的古典禁慾浪漫造型。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_dress_body"
+            ],
+            "contrast": [
+              "lace",
+              "collar",
+              "corset_lines",
+              "ruffle_accents"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "蘿莉塔套裝",
         "en": "wearing a Lolita-inspired outfit with bell-shaped skirt, layered frills, bows, rococo-influenced sweetness, ornate doll-like styling",
-        "desc": "鐘形裙襬、荷葉邊與蝴蝶結構成的甜美或哥德蘿莉塔造型。"
+        "desc": "鐘形裙襬、荷葉邊與蝴蝶結構成的甜美或哥德蘿莉塔造型。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "dress_main_fabric"
+            ],
+            "contrast": [
+              "frills",
+              "bows",
+              "hem_trim"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "內衣寫真套裝",
         "en": "wearing a lingerie-inspired outfit with lace, sheer panels, boudoir styling, intimate body-conscious silhouette",
-        "desc": "透膚、蕾絲與私密感強的內衣寫真造型。"
+        "desc": "透膚、蕾絲與私密感強的內衣寫真造型。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "lingerie_base_fabric"
+            ],
+            "contrast": [
+              "lace_panels",
+              "ribbons",
+              "scalloped_trim"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "泳裝度假套裝",
         "en": "wearing a swimwear-inspired outfit with bikini or one-piece styling, resort mood, sunlit vacation elegance",
-        "desc": "比基尼或連身泳裝為核心的海邊與度假造型。"
+        "desc": "比基尼或連身泳裝為核心的海邊與度假造型。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "swimwear_body"
+            ],
+            "contrast": [
+              "tie_details",
+              "trim",
+              "cover_up_layer"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "素色緞面旗袍套裝",
         "en": "wearing a solid-color satin cheongsam, sleek fitted full-body silhouette, elegant mandarin collar, smooth lustrous fabric, refined traditional Chinese styling",
-        "desc": "以素色緞面旗袍為核心的完整造型，重點在貼身輪廓、立領與乾淨高雅的中式線條。"
+        "desc": "以素色緞面旗袍為核心的完整造型，重點在貼身輪廓、立領與乾淨高雅的中式線條。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "cheongsam_body"
+            ],
+            "contrast": [],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "精緻刺繡旗袍套裝",
         "en": "wearing an embroidered cheongsam, fitted full-body silhouette, elegant mandarin collar, intricate floral embroidery, refined traditional Chinese elegance",
-        "desc": "以刺繡細節為主角的完整旗袍造型，帶有更華麗的裝飾感與精緻中式氣質。"
+        "desc": "以刺繡細節為主角的完整旗袍造型，帶有更華麗的裝飾感與精緻中式氣質。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "cheongsam_base_fabric"
+            ],
+            "contrast": [
+              "embroidery"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "經典和服套裝",
         "en": "wearing a traditional kimono outfit, wrapped full-body silhouette, wide obi sash, layered collar, elegant Japanese ceremonial styling, refined textile drape",
-        "desc": "以完整和服輪廓、寬版腰封與層疊領口為核心的正式日式造型，整體更端莊、古典且具有儀式感。"
+        "desc": "以完整和服輪廓、寬版腰封與層疊領口為核心的正式日式造型，整體更端莊、古典且具有儀式感。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "kimono_robe"
+            ],
+            "contrast": [
+              "obi_sash",
+              "collar_layers"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "輕盈浴衣套裝",
         "en": "wearing a traditional yukata outfit, soft wrapped silhouette, tied obi sash, light cotton fabric, relaxed Japanese summer festival styling",
-        "desc": "以輕薄布料與較放鬆的包裹式輪廓構成的浴衣造型，整體更清爽、柔和，也更適合夏日與生活感場景。"
+        "desc": "以輕薄布料與較放鬆的包裹式輪廓構成的浴衣造型，整體更清爽、柔和，也更適合夏日與生活感場景。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "yukata_body"
+            ],
+            "contrast": [
+              "obi_sash"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "經典漢服套裝",
         "en": "wearing a traditional hanfu outfit, flowing full-body silhouette, layered cross-collar robes, wide draped sleeves, elegant historical Chinese styling, refined flowing fabric",
-        "desc": "以交領、寬袖與層疊衣袍構成的完整漢服造型，整體更飄逸、古典，帶有明確的中式歷史服飾語言。"
+        "desc": "以交領、寬袖與層疊衣袍構成的完整漢服造型，整體更飄逸、古典，帶有明確的中式歷史服飾語言。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "outer_robe"
+            ],
+            "contrast": [
+              "inner_collar",
+              "waist_sash"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "改良漢服套裝",
         "en": "wearing a modernized hanfu-inspired outfit, soft flowing silhouette, cross-collar details, elegant draped sleeves, refined contemporary Chinese styling",
-        "desc": "保留漢服交領與垂墜輪廓，但更簡化、現代，適合時裝化與日常化的中式造型表現。"
+        "desc": "保留漢服交領與垂墜輪廓，但更簡化、現代，適合時裝化與日常化的中式造型表現。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_hanfu_body"
+            ],
+            "contrast": [
+              "collar",
+              "sleeve_edge",
+              "waist_line"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "兔女郎套裝",
-        "en": "wearing a bunny girl outfit, fitted corset bodice, satin or stretch fabric finish, sweetheart neckline, structured black bodysuit silhouette, white cuffs and collar, playful rabbit-ear headband, polished cabaret styling",
-        "desc": "以兔耳頭飾、貼身馬甲式連身輪廓、白色袖口與領圈為核心的高辨識度主題套裝，適合夜景、棚拍、派對與角色扮演感畫面。"
+        "en": "wearing a bunny girl outfit, fitted corset bodice, satin or stretch fabric finish, sweetheart neckline, structured bodysuit silhouette, crisp contrast cuffs and collar, playful rabbit-ear headband, polished cabaret styling, dominant main fabric color controlled by the outfit color selection while the cuffs and collar remain a clean contrast detail",
+        "desc": "以兔耳頭飾、貼身馬甲式連身輪廓、袖口與領圈構成的高辨識度主題套裝，適合夜景、棚拍、派對與角色扮演感畫面；主體顏色改由套裝配色控制，袖口與領圈保留乾淨的對比細節。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": true,
+          "colorTargets": {
+            "primary": [
+              "bodysuit_body"
+            ],
+            "contrast": [
+              "cuffs",
+              "collar"
+            ],
+            "locked": [
+              "optional_classic_white_cuff_collar_scheme"
+            ]
+          }
+        }
       },
       {
         "zh": "女僕套裝",
         "en": "wearing a maid outfit, fitted dress bodice, lace-trimmed apron, ruffled neckline and hem, classic black-and-white service styling, delicate headpiece, playful refined cosplay aesthetic",
-        "desc": "以圍裙、荷葉邊、黑白對比與女僕頭飾構成的經典主題套裝，適合室內、咖啡館、棚拍與角色扮演風格。"
+        "desc": "以圍裙、荷葉邊、黑白對比與女僕頭飾構成的經典主題套裝，適合室內、咖啡館、棚拍與角色扮演風格。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": true,
+          "colorTargets": {
+            "primary": [
+              "dress_body"
+            ],
+            "contrast": [
+              "apron",
+              "ruffles",
+              "headpiece"
+            ],
+            "locked": [
+              "optional_classic_white_apron_scheme"
+            ]
+          }
+        }
       },
       {
         "zh": "女僕風荷葉比基尼套裝",
         "en": "maid-inspired lingerie costume set, frilled maid headband, ruffled neck collar with small ribbon bow, triangle bra top with slim straps, ruffled low-rise bikini-style bottoms, side-tie bow accents at the hips, matching ruffled wrist cuffs, playful costume-lingerie styling, dominant main fabric color controlled by the outfit color selection, contrast ruffle trims and ribbon details coordinated without fixed color",
-        "desc": "參考附圖中的女僕風內衣套裝結構：荷葉頭飾、頸部荷葉領與蝴蝶結、三角罩杯上身、荷葉邊低腰下身、側綁帶與手腕荷葉袖口；不指定固定顏色，主色由套裝配色控制，荷葉與緞帶作為對比細節保留變化。"
+        "desc": "參考附圖中的女僕風內衣套裝結構：荷葉頭飾、頸部荷葉領與蝴蝶結、三角罩杯上身、荷葉邊低腰下身、側綁帶與手腕荷葉袖口；不指定固定顏色，主色由套裝配色控制，荷葉與緞帶作為對比細節保留變化。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "bikini_base_fabric"
+            ],
+            "contrast": [
+              "ruffles",
+              "bows",
+              "neck_collar"
+            ],
+            "locked": []
+          }
+        }
       },
       {
         "zh": "短袖女高生水手服",
         "en": "wearing a Japanese schoolgirl sailor uniform with a short-sleeve sailor blouse, pleated skirt, soft ribbon tie, youthful academic styling, clean summer seifuku silhouette",
-        "desc": "以短袖水手服上衣、百褶裙與柔軟領巾為核心的日系女高生制服造型，偏夏季、青春與清爽感。"
+        "desc": "以短袖水手服上衣、百褶裙與柔軟領巾為核心的日系女高生制服造型，偏夏季、青春與清爽感。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "balanced",
+          "lockedOptional": true,
+          "colorTargets": {
+            "primary": [
+              "uniform_body",
+              "skirt"
+            ],
+            "contrast": [
+              "scarf",
+              "sailor_trim_lines"
+            ],
+            "locked": [
+              "optional_fixed_school_trim_colors"
+            ]
+          }
+        }
       },
       {
         "zh": "長袖女高生水手服",
         "en": "wearing a Japanese schoolgirl sailor uniform with a long-sleeve sailor blouse, pleated skirt, soft ribbon tie, classic academic styling, neat seifuku silhouette",
-        "desc": "以長袖水手服上衣、百褶裙與柔軟領巾構成的日系女高生制服造型，整體更經典、端正，也更適合室內與秋冬感畫面。"
+        "desc": "以長袖水手服上衣、百褶裙與柔軟領巾構成的日系女高生制服造型，整體更經典、端正，也更適合室內與秋冬感畫面。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "balanced",
+          "lockedOptional": true,
+          "colorTargets": {
+            "primary": [
+              "uniform_body",
+              "skirt"
+            ],
+            "contrast": [
+              "scarf",
+              "sailor_trim_lines"
+            ],
+            "locked": [
+              "optional_fixed_school_trim_colors"
+            ]
+          }
+        }
       },
       {
         "zh": "復古雙排釦洋裝套裝",
         "en": "wearing a classic elegant dress outfit, one-piece dress with tailored structure, high waist design, slightly flared skirt, smooth fabric with gentle sheen, double-breasted bodice with two rows of gold buttons, short cropped jacket-like upper section integrated into the dress, ruffled collar with lace trim, ribbon bow at the neckline, long sleeves with gathered cuffs, cuffs finished with lace frill, subtle pocket details with contrast trim accents, skirt hem decorated with a thin contrast stripe and a delicate inner accent line, lace underskirt visible beneath the hem, refined vintage style, clean silhouette with soft folds and detailed stitching",
-        "desc": "以高腰洋裝、雙排金釦胸身、短版外套式上半身結構、荷葉蕾絲領、蝴蝶結領口與袖口蕾絲為重點的復古套裝，裙襬再以對比細條、內側裝飾線與蕾絲襯裙收尾；整體更偏精緻古典、制服感與 vintage dress styling，主色與對比色應由獨立的套裝配色控制。"
+        "desc": "以高腰洋裝、雙排金釦胸身、短版外套式上半身結構、荷葉蕾絲領、蝴蝶結領口與袖口蕾絲為重點的復古套裝，裙襬再以對比細條、內側裝飾線與蕾絲襯裙收尾；整體更偏精緻古典、制服感與 vintage dress styling，主色與對比色應由獨立的套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "balanced",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "dress_body"
+            ],
+            "contrast": [
+              "trim_accents",
+              "neck_bow",
+              "inner_accent_line",
+              "lace_underskirt_accents"
+            ],
+            "locked": [
+              "gold_buttons"
+            ]
+          }
+        }
       },
       {
         "zh": "玫瑰哥德蘿莉塔洋裝套裝",
         "en": "wearing an elegant gothic lolita dress, base fabric with large rose print, scattered realistic floral motifs, cursive script text pattern across the fabric, fitted corset bodice with lace-up ribbon front, structured waist, heart-shaped neckline with contrast trim, halter neck strap connected by a small decorative ring at the collar, long sheer lace sleeves fitted along the arms with delicate floral lace pattern, off-shoulder sleeve attachment, flared voluminous skirt with multiple layers including a tulle underskirt, hem decorated with ruffle trim and a thin metallic accent line, rich main-color and contrast-color balance, detailed fabric texture and lace transparency, elegant dramatic silhouette",
-        "desc": "以玫瑰印花布料、手寫字樣圖樣、綁帶馬甲胸身、愛心領口、頸帶與小金屬環、透膚蕾絲長袖、薄紗襯裙與荷葉滾邊構成的哥德蘿莉塔套裝，整體強調花卉印花、蕾絲透明度、裙襬份量與戲劇化輪廓；主色與對比色應由獨立的套裝配色控制。"
+        "desc": "以玫瑰印花布料、手寫字樣圖樣、綁帶馬甲胸身、愛心領口、頸帶與小金屬環、透膚蕾絲長袖、薄紗襯裙與荷葉滾邊構成的哥德蘿莉塔套裝，整體強調花卉印花、蕾絲透明度、裙襬份量與戲劇化輪廓；主色與對比色應由獨立的套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "main_dress_fabric"
+            ],
+            "contrast": [
+              "contrast_trim",
+              "lace_up_ribbon",
+              "underskirt",
+              "ruffle_accents"
+            ],
+            "locked": [
+              "decorative_metal_ring",
+              "optional_preserved_rose_print_palette"
+            ]
+          }
+        }
       },
       {
         "zh": "哥德休閒針織荷葉短裙套裝",
         "en": "wearing an elegant gothic casual outfit, fitted knit top with slight texture, deep neckline layered with a lace inner camisole, lace trim along the neckline, large striped ribbon bow at the chest, long sleeves with slim fit, outer layer slightly open at the front with soft drape, high-waist mini skirt with multiple layered ruffles, alternating main-color and striped contrast panels, asymmetrical frill arrangement, decorative buttons and strap details on the skirt, softly gathered waistline, combination of soft knit, lace, and structured frill fabrics, monochrome-inspired styling with adjustable main-color and contrast-color balance, detailed folds and layered textures",
-        "desc": "以合身針織上衣、深領口內搭蕾絲背心、領口蕾絲滾邊、胸前大尺寸條紋蝴蝶結與多層荷葉高腰短裙構成的哥德休閒套裝；裙身保留不對稱荷葉、裝飾鈕扣與帶扣細節，並以針織、蕾絲與挺版荷葉布料建立層次，主色與對比色應由獨立的套裝配色控制。"
+        "desc": "以合身針織上衣、深領口內搭蕾絲背心、領口蕾絲滾邊、胸前大尺寸條紋蝴蝶結與多層荷葉高腰短裙構成的哥德休閒套裝；裙身保留不對稱荷葉、裝飾鈕扣與帶扣細節，並以針織、蕾絲與挺版荷葉布料建立層次，主色與對比色應由獨立的套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "knit_top",
+              "main_skirt_fabric"
+            ],
+            "contrast": [
+              "striped_bow",
+              "ruffle_panels",
+              "lace_inner_layer"
+            ],
+            "locked": []
+          }
+        }
       }
     ],
     "上身 (Tops)": [

@@ -295,14 +295,23 @@ const SUMMARY_SECTION_INFO = {
   },
   wardrobe: {
     label: '服裝',
-    lockLabels: ['套裝', '上身', '特殊上下身配色', '上身圖案', '連身', '下身', '下身圖案', '襪類', '襪類配色', '外套', '外套圖案', '外套穿法', '鞋款', '配件'],
+    lockLabels: ['套裝', '套裝主色', '套裝對比色', '套裝鎖定色方案', '上身', '特殊上下身配色', '上身圖案', '連身', '下身', '下身圖案', '襪類', '襪類配色', '外套', '外套圖案', '外套穿法', '鞋款', '配件'],
     keys: [
       'outfitPresetId',
       'outfitPresetColorId',
+      'outfitPresetPrimaryColorId',
+      'outfitPresetContrastColorId',
+      'outfitPresetLockedPaletteId',
       'outfitPresetAId',
       'outfitPresetAColorId',
+      'outfitPresetAPrimaryColorId',
+      'outfitPresetAContrastColorId',
+      'outfitPresetALockedPaletteId',
       'outfitPresetBId',
       'outfitPresetBColorId',
+      'outfitPresetBPrimaryColorId',
+      'outfitPresetBContrastColorId',
+      'outfitPresetBLockedPaletteId',
       'topId',
       'topBottomPaletteId',
       'topColorId',
@@ -374,14 +383,23 @@ const ADVANCED_REMIX_GROUP_INFO = {
   },
   wardrobeCore: {
     label: '服裝主體',
-    lockLabels: ['套裝', '上身', '特殊上下身配色', '上身圖案', '連身', '下身', '下身圖案', '外套', '外套圖案', '外套穿法', '襪類', '鞋款'],
+    lockLabels: ['套裝', '套裝主色', '套裝對比色', '套裝鎖定色方案', '上身', '特殊上下身配色', '上身圖案', '連身', '下身', '下身圖案', '外套', '外套圖案', '外套穿法', '襪類', '鞋款'],
     keys: [
       'outfitPresetId',
       'outfitPresetColorId',
+      'outfitPresetPrimaryColorId',
+      'outfitPresetContrastColorId',
+      'outfitPresetLockedPaletteId',
       'outfitPresetAId',
       'outfitPresetAColorId',
+      'outfitPresetAPrimaryColorId',
+      'outfitPresetAContrastColorId',
+      'outfitPresetALockedPaletteId',
       'outfitPresetBId',
       'outfitPresetBColorId',
+      'outfitPresetBPrimaryColorId',
+      'outfitPresetBContrastColorId',
+      'outfitPresetBLockedPaletteId',
       'topId',
       'topBottomPaletteId',
       'topColorId',
@@ -432,7 +450,46 @@ const CHARACTER_CONTROL_ORDER = [
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'sceneAttributeId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
 const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'sceneAttributeId', 'locationId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'aspectRatio'];
-const STYLE_WARDROBE_CONTROL_ORDER = ['outfitPresetId', 'outfitPresetColorId', 'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId', 'topId', 'topBottomPaletteId', 'topColorId', 'topPatternId', 'dressId', 'dressColorId', 'duoStylingId', 'pantsId', 'skirtId', 'bottomColorId', 'bottomPatternId', 'legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'outerwearPatternId', 'outerwearStylingId', 'shoesId', 'shoesColorId', 'headAccessoryId', 'eyewearId', 'earringsId', 'neckAccessoryId', 'wristAccessoryId', 'ringId', 'waistAccessoryId'];
+const STYLE_WARDROBE_CONTROL_ORDER = [
+  'outfitPresetId',
+  'outfitPresetPrimaryColorId',
+  'outfitPresetContrastColorId',
+  'outfitPresetLockedPaletteId',
+  'outfitPresetAId',
+  'outfitPresetAPrimaryColorId',
+  'outfitPresetAContrastColorId',
+  'outfitPresetALockedPaletteId',
+  'outfitPresetBId',
+  'outfitPresetBPrimaryColorId',
+  'outfitPresetBContrastColorId',
+  'outfitPresetBLockedPaletteId',
+  'topId',
+  'topBottomPaletteId',
+  'topColorId',
+  'topPatternId',
+  'dressId',
+  'dressColorId',
+  'duoStylingId',
+  'pantsId',
+  'skirtId',
+  'bottomColorId',
+  'bottomPatternId',
+  'legwearId',
+  'legwearColorId',
+  'outerwearId',
+  'outerwearColorId',
+  'outerwearPatternId',
+  'outerwearStylingId',
+  'shoesId',
+  'shoesColorId',
+  'headAccessoryId',
+  'eyewearId',
+  'earringsId',
+  'neckAccessoryId',
+  'wristAccessoryId',
+  'ringId',
+  'waistAccessoryId',
+];
 
 function sortControls(controls, order) {
   const orderMap = new Map(order.map((key, index) => [key, index]));
@@ -1659,6 +1716,45 @@ export default function App() {
   const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
   const closeupAllowedKeys = useMemo(() => getCloseupAllowedKeys(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
   const isPhotographyStyleLocked = Boolean(locks.styleId) && !isNoneSelected('styleId', locks.styleId, lockControls);
+  const outfitPresetControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetId') || null, [lockControls]);
+  const outfitPresetAControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetAId') || null, [lockControls]);
+  const outfitPresetBControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetBId') || null, [lockControls]);
+  const selectedOutfitPreset = useMemo(
+    () => outfitPresetControl?.options?.find((option) => option.id === locks.outfitPresetId) || null,
+    [outfitPresetControl, locks.outfitPresetId]
+  );
+  const selectedOutfitPresetA = useMemo(
+    () => outfitPresetAControl?.options?.find((option) => option.id === locks.outfitPresetAId) || null,
+    [outfitPresetAControl, locks.outfitPresetAId]
+  );
+  const selectedOutfitPresetB = useMemo(
+    () => outfitPresetBControl?.options?.find((option) => option.id === locks.outfitPresetBId) || null,
+    [outfitPresetBControl, locks.outfitPresetBId]
+  );
+  const isActivePreset = (preset) => Boolean(preset && preset.zh !== '全無' && preset.en !== 'none');
+
+  const getPresetColorMode = (preset) => preset?.meta?.colorMode || '';
+  const hasLockedTargets = (preset) => Array.isArray(preset?.meta?.colorTargets?.locked) && preset.meta.colorTargets.locked.length > 0;
+
+  const shouldShowPresetColorControl = useCallback((controlKey) => {
+    const singleMode = getPresetColorMode(selectedOutfitPreset);
+    const duoModeA = getPresetColorMode(selectedOutfitPresetA);
+    const duoModeB = getPresetColorMode(selectedOutfitPresetB);
+
+    if (controlKey === 'outfitPresetPrimaryColorId') return isActivePreset(selectedOutfitPreset);
+    if (controlKey === 'outfitPresetContrastColorId') return singleMode === 'primary_contrast' || singleMode === 'primary_contrast_locked';
+    if (controlKey === 'outfitPresetLockedPaletteId') return singleMode === 'primary_contrast_locked' && hasLockedTargets(selectedOutfitPreset);
+
+    if (controlKey === 'outfitPresetAPrimaryColorId') return isActivePreset(selectedOutfitPresetA);
+    if (controlKey === 'outfitPresetAContrastColorId') return duoModeA === 'primary_contrast' || duoModeA === 'primary_contrast_locked';
+    if (controlKey === 'outfitPresetALockedPaletteId') return duoModeA === 'primary_contrast_locked' && hasLockedTargets(selectedOutfitPresetA);
+
+    if (controlKey === 'outfitPresetBPrimaryColorId') return isActivePreset(selectedOutfitPresetB);
+    if (controlKey === 'outfitPresetBContrastColorId') return duoModeB === 'primary_contrast' || duoModeB === 'primary_contrast_locked';
+    if (controlKey === 'outfitPresetBLockedPaletteId') return duoModeB === 'primary_contrast_locked' && hasLockedTargets(selectedOutfitPresetB);
+
+    return true;
+  }, [selectedOutfitPreset, selectedOutfitPresetA, selectedOutfitPresetB]);
   const coreLockControls = useMemo(
     () => {
       const activeOrder = isPhotographyStyleLocked ? SCENE_CAMERA_SIMPLIFIED_ORDER : SCENE_CAMERA_CONTROL_ORDER;
@@ -1702,14 +1798,16 @@ export default function App() {
       sortControls(
         lockControls.filter((control) => {
           if (control.section !== 'wardrobe') return false;
-          if (['outfitPresetId', 'outfitPresetColorId'].includes(control.key) && locks.subjectCount === '2') return false;
-          if (['outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetBId', 'outfitPresetBColorId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          if (['outfitPresetId', 'outfitPresetPrimaryColorId', 'outfitPresetContrastColorId', 'outfitPresetLockedPaletteId'].includes(control.key) && locks.subjectCount === '2') return false;
+          if (['outfitPresetAId', 'outfitPresetAPrimaryColorId', 'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId', 'outfitPresetBId', 'outfitPresetBPrimaryColorId', 'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          if (control.key.startsWith('outfitPreset') && !control.key.endsWith('Id') && !shouldShowPresetColorControl(control.key)) return false;
+          if (['outfitPresetPrimaryColorId', 'outfitPresetContrastColorId', 'outfitPresetLockedPaletteId', 'outfitPresetAPrimaryColorId', 'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId', 'outfitPresetBPrimaryColorId', 'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId'].includes(control.key) && !shouldShowPresetColorControl(control.key)) return false;
           if (control.key === 'duoStylingId' && locks.subjectCount !== '2') return false;
           return true;
         }),
         STYLE_WARDROBE_CONTROL_ORDER
       ),
-    [lockControls, locks.subjectCount]
+    [lockControls, locks.subjectCount, shouldShowPresetColorControl]
   );
 
   const activeLockCount = Object.entries(locks).filter(([key, value]) => {

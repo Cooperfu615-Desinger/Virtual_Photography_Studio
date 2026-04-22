@@ -7,6 +7,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KB_DIR = os.path.join(BASE_DIR, 'knowledge_base')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'webapp', 'src', 'data')
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, 'database.json')
+OUTFIT_PRESET_METADATA_FILE = os.path.join(KB_DIR, 'outfit_preset_metadata.json')
 
 
 def clean_cell(text):
@@ -73,6 +74,28 @@ def parse_markdown_table(file_path):
 def count_entries(grouped_data):
     return sum(len(items) for items in grouped_data.values())
 
+def load_json_file(file_path):
+    if not os.path.exists(file_path):
+        return {}
+    with open(file_path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+def merge_outfit_preset_metadata(grouped_data, metadata_by_name):
+    category = '套裝 (Outfit Presets)'
+    items = grouped_data.get(category, [])
+    if not items:
+        return 0
+
+    merged_count = 0
+    for item in items:
+        metadata = metadata_by_name.get(item.get('zh'))
+        if not metadata:
+            continue
+        item['meta'] = metadata
+        merged_count += 1
+
+    return merged_count
+
 def main():
     print("Starting sync from MD to JSON...")
     
@@ -91,10 +114,15 @@ def main():
         'negative_prompts.md': 'Negative'
     }
     
+    outfit_preset_metadata = load_json_file(OUTFIT_PRESET_METADATA_FILE)
+
     for filename, db_key in files_to_sync.items():
         file_path = os.path.join(KB_DIR, filename)
         print(f"Parsing {filename}...")
         parsed_data = parse_markdown_table(file_path)
+        if filename == 'wardrobe_and_styling.md':
+            merged_count = merge_outfit_preset_metadata(parsed_data, outfit_preset_metadata)
+            print(f"  Outfit preset metadata merged: {merged_count}")
         print(f"  Categories: {len(parsed_data)} | Entries: {count_entries(parsed_data)}")
         database[db_key] = parsed_data
         

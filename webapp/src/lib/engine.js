@@ -149,6 +149,16 @@ const OUTFIT_PRESET_COLOR_OPTIONS = [
   { id: 'white-red', zh: '白紅', en: 'white and red' },
 ];
 
+const OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none' },
+  { id: 'metallic-gold', zh: '金屬金', en: 'metallic gold' },
+  { id: 'metallic-silver', zh: '金屬銀', en: 'metallic silver' },
+  { id: 'classic-black-trim', zh: '經典黑色細節', en: 'classic black trim' },
+  { id: 'classic-white-apron', zh: '經典白圍裙', en: 'classic white apron' },
+  { id: 'classic-white-cuff-collar', zh: '經典白領圈袖口', en: 'classic white cuffs and collar' },
+  { id: 'classic-school-navy-trim', zh: '經典制服深藍飾線', en: 'classic school navy trim' },
+];
+
 const TOP_BOTTOM_PALETTE_OPTIONS = [
   { id: 'random', zh: '隨機', en: 'random top and bottom palette', random: true },
   { id: 'none', zh: '全無', en: 'none', meta: { tags: ['none'] } },
@@ -298,11 +308,20 @@ const LOCK_DEFINITIONS = [
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
   { key: 'outfitPresetId', label: '套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
-  { key: 'outfitPresetColorId', label: '套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetColorId', label: '套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
   { key: 'outfitPresetAId', label: '人物 1 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
-  { key: 'outfitPresetAColorId', label: '人物 1 套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetAColorId', label: '人物 1 套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
   { key: 'outfitPresetBId', label: '人物 2 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
-  { key: 'outfitPresetBColorId', label: '人物 2 套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetBColorId', label: '人物 2 套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
+  { key: 'outfitPresetPrimaryColorId', label: '套裝主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetContrastColorId', label: '套裝對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetLockedPaletteId', label: '套裝鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetAPrimaryColorId', label: '人物 1 套裝主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetAContrastColorId', label: '人物 1 套裝對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetALockedPaletteId', label: '人物 1 套裝鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetBPrimaryColorId', label: '人物 2 套裝主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetBContrastColorId', label: '人物 2 套裝對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetBLockedPaletteId', label: '人物 2 套裝鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
   { key: 'topId', label: '上身', category: '上身 (Tops)', section: 'wardrobe' },
   { key: 'topBottomPaletteId', label: '特殊上下身配色', options: TOP_BOTTOM_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
   { key: 'topColorId', label: '上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
@@ -363,10 +382,19 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'specialActionId', label: 'Special Action' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
   { key: 'outfitPresetColorId', label: 'Outfit Preset Color' },
+  { key: 'outfitPresetPrimaryColorId', label: 'Outfit Preset Primary Color' },
+  { key: 'outfitPresetContrastColorId', label: 'Outfit Preset Contrast Color' },
+  { key: 'outfitPresetLockedPaletteId', label: 'Outfit Preset Locked Palette' },
   { key: 'outfitPresetAId', label: 'Woman 1 Outfit Preset' },
   { key: 'outfitPresetAColorId', label: 'Woman 1 Outfit Preset Color' },
+  { key: 'outfitPresetAPrimaryColorId', label: 'Woman 1 Outfit Preset Primary Color' },
+  { key: 'outfitPresetAContrastColorId', label: 'Woman 1 Outfit Preset Contrast Color' },
+  { key: 'outfitPresetALockedPaletteId', label: 'Woman 1 Outfit Preset Locked Palette' },
   { key: 'outfitPresetBId', label: 'Woman 2 Outfit Preset' },
   { key: 'outfitPresetBColorId', label: 'Woman 2 Outfit Preset Color' },
+  { key: 'outfitPresetBPrimaryColorId', label: 'Woman 2 Outfit Preset Primary Color' },
+  { key: 'outfitPresetBContrastColorId', label: 'Woman 2 Outfit Preset Contrast Color' },
+  { key: 'outfitPresetBLockedPaletteId', label: 'Woman 2 Outfit Preset Locked Palette' },
   { key: 'topId', label: 'Top' },
   { key: 'topBottomPaletteId', label: 'Special Top/Bottom Palette' },
   { key: 'topColorId', label: 'Top Color' },
@@ -628,6 +656,33 @@ function getLegwearColorOption(id) {
 
 function getOutfitPresetColorOption(id) {
   return OUTFIT_PRESET_COLOR_OPTIONS.find((option) => option.id === id) || null;
+}
+
+function getOutfitPresetLockedPaletteOption(id) {
+  return OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS.find((option) => option.id === id) || null;
+}
+
+function normalizeLegacyOutfitPresetColors(locks = {}) {
+  const next = { ...locks };
+  const mappings = [
+    ['outfitPresetColorId', 'outfitPresetPrimaryColorId'],
+    ['outfitPresetAColorId', 'outfitPresetAPrimaryColorId'],
+    ['outfitPresetBColorId', 'outfitPresetBPrimaryColorId'],
+  ];
+
+  mappings.forEach(([legacyKey, primaryKey]) => {
+    const legacyValue = next[legacyKey] || '';
+    const primaryValue = next[primaryKey] || '';
+
+    if (!primaryValue && legacyValue) {
+      next[primaryKey] = legacyValue;
+    }
+    if (!legacyValue && primaryValue) {
+      next[legacyKey] = primaryValue;
+    }
+  });
+
+  return next;
 }
 
 function getTopBottomPaletteOption(id) {
@@ -986,10 +1041,19 @@ const CLOSEUP_DISABLED_KEYS = new Set([
   'duoStylingId',
   'outfitPresetId',
   'outfitPresetColorId',
+  'outfitPresetPrimaryColorId',
+  'outfitPresetContrastColorId',
+  'outfitPresetLockedPaletteId',
   'outfitPresetAId',
   'outfitPresetAColorId',
+  'outfitPresetAPrimaryColorId',
+  'outfitPresetAContrastColorId',
+  'outfitPresetALockedPaletteId',
   'outfitPresetBId',
   'outfitPresetBColorId',
+  'outfitPresetBPrimaryColorId',
+  'outfitPresetBContrastColorId',
+  'outfitPresetBLockedPaletteId',
   'dressId',
   'dressColorId',
   'pantsId',
@@ -1264,7 +1328,7 @@ export function normalizeLocks(rawLocks = {}) {
     });
   }
 
-  return normalized;
+  return normalizeLegacyOutfitPresetColors(normalized);
 }
 
 export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
@@ -2243,9 +2307,9 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const aspectRatioLabel = context.aspectRatio?.zh || '-';
   const lightingLabel = !context.styleDrivenCamera && context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.zh : '-';
   const opticalEffectLabel = context.opticalEffect && !isNoneLikeItem(context.opticalEffect) ? context.opticalEffect.zh : '-';
-  const formatPresetSummary = (preset, color) => {
+  const formatPresetSummary = (preset, primaryColor) => {
     if (!preset) return '';
-    return color?.zh ? `${color.zh}｜${preset.zh}` : preset.zh;
+    return primaryColor?.zh ? `${primaryColor.zh}｜${preset.zh}` : preset.zh;
   };
   const summarizeSingleCharacter = () => {
     const hairSummary = joinSummaryParts(
@@ -2277,13 +2341,13 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const summarizeWardrobe = () => {
     if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
       return [
-        formatPresetSummary(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor),
-        formatPresetSummary(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor),
+        formatPresetSummary(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAPrimaryColor || wardrobeColors.outfitPresetAColor),
+        formatPresetSummary(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBPrimaryColor || wardrobeColors.outfitPresetBColor),
       ].filter(Boolean).join(' / ') || '-';
     }
 
     if (wardrobeSlots.outfitPreset) {
-      return formatPresetSummary(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor) || '-';
+      return formatPresetSummary(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetPrimaryColor || wardrobeColors.outfitPresetColor) || '-';
     }
 
     const topLabel = wardrobeSlots.top?.zh && !isNoneLikeItem(wardrobeSlots.top)
@@ -2528,29 +2592,72 @@ function buildWardrobeColors(wardrobeSlots, locks) {
     (wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)) ||
     (wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB))
   );
+  const normalizedLocks = normalizeLegacyOutfitPresetColors(locks || {});
   const outfitPresetColor = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
-    ? getOutfitPresetColorOption(locks?.outfitPresetColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    ? getOutfitPresetColorOption(normalizedLocks.outfitPresetColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
     : null;
   const outfitPresetAColor = wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)
-    ? getOutfitPresetColorOption(locks?.outfitPresetAColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    ? getOutfitPresetColorOption(normalizedLocks.outfitPresetAColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
     : null;
   const outfitPresetBColor = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
-    ? getOutfitPresetColorOption(locks?.outfitPresetBColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    ? getOutfitPresetColorOption(normalizedLocks.outfitPresetBColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
     : null;
-  const topBottomPalette = hasOutfitPreset ? null : getTopBottomPaletteOption(locks?.topBottomPaletteId);
+  const outfitPresetPrimaryColor = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
+    ? getOutfitPresetColorOption(normalizedLocks.outfitPresetPrimaryColorId)
+      || getOutfitPresetColorOption(normalizedLocks.outfitPresetColorId)
+      || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    : null;
+  const outfitPresetContrastColor = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
+    ? getOutfitPresetColorOption(normalizedLocks.outfitPresetContrastColorId)
+    : null;
+  const outfitPresetLockedPalette = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
+    ? getOutfitPresetLockedPaletteOption(normalizedLocks.outfitPresetLockedPaletteId)
+    : null;
+  const outfitPresetAPrimaryColor = wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)
+    ? getOutfitPresetColorOption(normalizedLocks.outfitPresetAPrimaryColorId)
+      || getOutfitPresetColorOption(normalizedLocks.outfitPresetAColorId)
+      || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    : null;
+  const outfitPresetAContrastColor = wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)
+    ? getOutfitPresetColorOption(normalizedLocks.outfitPresetAContrastColorId)
+    : null;
+  const outfitPresetALockedPalette = wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)
+    ? getOutfitPresetLockedPaletteOption(normalizedLocks.outfitPresetALockedPaletteId)
+    : null;
+  const outfitPresetBPrimaryColor = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
+    ? getOutfitPresetColorOption(normalizedLocks.outfitPresetBPrimaryColorId)
+      || getOutfitPresetColorOption(normalizedLocks.outfitPresetBColorId)
+      || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    : null;
+  const outfitPresetBContrastColor = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
+    ? getOutfitPresetColorOption(normalizedLocks.outfitPresetBContrastColorId)
+    : null;
+  const outfitPresetBLockedPalette = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
+    ? getOutfitPresetLockedPaletteOption(normalizedLocks.outfitPresetBLockedPaletteId)
+    : null;
+  const topBottomPalette = hasOutfitPreset ? null : getTopBottomPaletteOption(normalizedLocks.topBottomPaletteId);
   const topColor = !hasOutfitPreset && wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top)
-    ? topBottomPalette?.topColor || getGarmentColorOption(locks?.topColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS)
+    ? topBottomPalette?.topColor || getGarmentColorOption(normalizedLocks.topColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS)
     : null;
-  const dressColor = !hasOutfitPreset && wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) ? getGarmentColorOption(locks?.dressColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
+  const dressColor = !hasOutfitPreset && wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) ? getGarmentColorOption(normalizedLocks.dressColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
   const hasBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants)) || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt));
-  const bottomColor = !hasOutfitPreset && hasBottom ? topBottomPalette?.bottomColor || getGarmentColorOption(locks?.bottomColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
-  const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(locks?.legwearColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS) : null;
-  const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? getLayerColorOption(locks?.outerwearColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
-  const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) ? getLayerColorOption(locks?.shoesColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
+  const bottomColor = !hasOutfitPreset && hasBottom ? topBottomPalette?.bottomColor || getGarmentColorOption(normalizedLocks.bottomColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
+  const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(normalizedLocks.legwearColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS) : null;
+  const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? getLayerColorOption(normalizedLocks.outerwearColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
+  const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) ? getLayerColorOption(normalizedLocks.shoesColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
   return {
     outfitPresetColor,
     outfitPresetAColor,
     outfitPresetBColor,
+    outfitPresetPrimaryColor,
+    outfitPresetContrastColor,
+    outfitPresetLockedPalette,
+    outfitPresetAPrimaryColor,
+    outfitPresetAContrastColor,
+    outfitPresetALockedPalette,
+    outfitPresetBPrimaryColor,
+    outfitPresetBContrastColor,
+    outfitPresetBLockedPalette,
     topBottomPalette,
     topColor,
     dressColor,
@@ -2584,6 +2691,199 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
 
   const coloredBase = `${color.en} ${base}`;
   return detailText ? `${coloredBase}, ${detailText}` : coloredBase;
+}
+
+function joinNaturalList(parts = []) {
+  const filtered = parts.filter(Boolean);
+  if (filtered.length === 0) return '';
+  if (filtered.length === 1) return filtered[0];
+  if (filtered.length === 2) return `${filtered[0]} and ${filtered[1]}`;
+  return `${filtered.slice(0, -1).join(', ')}, and ${filtered[filtered.length - 1]}`;
+}
+
+function describeOutfitColorTargets(targets = []) {
+  const phraseMap = {
+    latex_bodysuit: 'the latex bodysuit',
+    integrated_choker: 'the integrated choker',
+    opera_gloves: 'the opera-length gloves',
+    hip_straps: 'the hip straps',
+    thigh_harness_straps: 'the thigh harness straps',
+    zip_front_trim: 'the zip-front trim',
+    corset_bodice: 'the corset bodice',
+    main_leather_panels: 'the main leather panels',
+    lower_half_base_panels: 'the lower-half base panels',
+    lace_trims: 'the lace trims',
+    embroidery: 'the embroidery',
+    mesh_panel_accents: 'the mesh panel accents',
+    ribbon_lacing: 'the ribbon lacing',
+    latex_mini_dress: 'the latex mini dress',
+    minor_trim_accents: 'the minor trim accents',
+    panel_edges: 'the panel edges',
+    linen_shirt: 'the linen shirt',
+    overall_tonal_palette: 'the overall tonal palette',
+    silk_camisole: 'the silk camisole',
+    wide_leg_trousers: 'the wide-leg trousers',
+    main_outfit_body: 'the main outfit body',
+    inner_layer: 'the inner layer',
+    subtle_structural_accents: 'the subtle structural accents',
+    outer_layer: 'the outer layer',
+    largest_garment_block: 'the largest garment block',
+    bottoms: 'the bottom layer',
+    graphic_accents: 'the graphic accents',
+    main_loungewear_body: 'the main loungewear body',
+    pants: 'the pants',
+    soft_trim_accents: 'the soft trim accents',
+    main_top_or_dress_layer: 'the main top or dress layer',
+    long_shirt: 'the long shirt',
+    pleated_skirt: 'the pleated skirt',
+    secondary_tonal_accents: 'the secondary tonal accents',
+    main_sportswear_pieces: 'the main sportswear pieces',
+    stripes: 'the stripe details',
+    paneling: 'the paneling',
+    shorts_or_inner_layer: 'the shorts or inner layer',
+    accent_trims: 'the accent trims',
+    tailored_outer_layer: 'the tailored outer layer',
+    main_suit_body: 'the main suit body',
+    shirt_layer: 'the shirt layer',
+    skirt_or_trousers: 'the skirt or trousers',
+    trim_accents: 'the trim accents',
+    main_resortwear_body: 'the main resortwear body',
+    cover_up: 'the cover-up layer',
+    belt: 'the belt',
+    main_nightlife_garment: 'the main nightlife garment',
+    panel_accents: 'the panel accents',
+    dress_body: 'the dress body',
+    optional_secondary_trim_areas: 'the secondary trim areas',
+    halter_mini_dress: 'the halter mini dress',
+    minor_edge_accents: 'the edge accents',
+    bondage_straps: 'the bondage straps',
+    latex_accent_areas: 'the latex accent areas',
+    main_dress_body: 'the main dress body',
+    lace: 'the lace details',
+    collar: 'the collar',
+    corset_lines: 'the corset lines',
+    ruffle_accents: 'the ruffle accents',
+    dress_main_fabric: 'the main dress fabric',
+    frills: 'the frills',
+    bows: 'the bows',
+    hem_trim: 'the hem trim',
+    lingerie_base_fabric: 'the lingerie base fabric',
+    lace_panels: 'the lace panels',
+    ribbons: 'the ribbons',
+    scalloped_trim: 'the scalloped trim',
+    swimwear_body: 'the swimwear body',
+    tie_details: 'the tie details',
+    trim: 'the trim',
+    cheongsam_body: 'the cheongsam body',
+    cheongsam_base_fabric: 'the cheongsam base fabric',
+    kimono_robe: 'the kimono robe',
+    obi_sash: 'the obi sash',
+    collar_layers: 'the collar layers',
+    yukata_body: 'the yukata body',
+    outer_robe: 'the outer robe',
+    inner_collar: 'the inner collar',
+    waist_sash: 'the waist sash',
+    main_hanfu_body: 'the main hanfu body',
+    sleeve_edge: 'the sleeve edges',
+    waist_line: 'the waist line',
+    bodysuit_body: 'the bodysuit body',
+    cuffs: 'the cuffs',
+    apron: 'the apron',
+    ruffles: 'the ruffles',
+    headpiece: 'the headpiece',
+    bikini_base_fabric: 'the bikini base fabric',
+    neck_collar: 'the neck collar',
+    uniform_body: 'the uniform body',
+    skirt: 'the skirt',
+    scarf: 'the scarf',
+    sailor_trim_lines: 'the sailor-style trim lines',
+    neck_bow: 'the neck bow',
+    inner_accent_line: 'the inner accent line',
+    lace_underskirt_accents: 'the lace underskirt accents',
+    main_dress_fabric: 'the main dress fabric',
+    contrast_trim: 'the contrast trim',
+    lace_up_ribbon: 'the lace-up ribbon',
+    underskirt: 'the underskirt',
+    knit_top: 'the knit top',
+    main_skirt_fabric: 'the main skirt fabric',
+    striped_bow: 'the striped bow',
+    ruffle_panels: 'the ruffle panels',
+    lace_inner_layer: 'the lace inner layer',
+  };
+
+  return joinNaturalList(targets.map((target) => phraseMap[target] || target.replace(/_/g, ' ')));
+}
+
+function describeLockedPalette(lockedPalette, targets = [], lockedOptional = false) {
+  const targetText = describeOutfitColorTargets(targets);
+  const paletteId = lockedPalette?.id || '';
+  const paletteText = lockedPalette?.en || '';
+
+  if (!targetText) return '';
+
+  const paletteMap = {
+    'metallic-gold': `${targetText} kept in fixed metallic gold`,
+    'metallic-silver': `${targetText} kept in fixed metallic silver`,
+    'classic-black-trim': `${targetText} kept in crisp classic black`,
+    'classic-white-apron': `${targetText} kept in classic clean white`,
+    'classic-white-cuff-collar': `${targetText} kept in classic clean white`,
+    'classic-school-navy-trim': `${targetText} kept in a classic navy uniform trim scheme`,
+  };
+
+  if (paletteId && paletteMap[paletteId]) return paletteMap[paletteId];
+  if (paletteText && paletteId !== 'none') return `${targetText} kept in ${paletteText}`;
+
+  if (targets.some((target) => /metal|grommet|buckle|ring|hardware|button/.test(target))) {
+    return `${targetText} kept in fixed metallic tones`;
+  }
+
+  if (lockedOptional) {
+    return `${targetText} can retain a classic signature color scheme`;
+  }
+
+  return `${targetText} kept in fixed signature colors`;
+}
+
+function buildOutfitPresetPrompt(item, colorState = {}) {
+  if (!item || isNoneLikeItem(item)) return '';
+
+  const base = stripMarkdown(item.en).replace(/\s+/g, ' ').trim().replace(/^wearing\s+/i, '');
+  if (!base) return '';
+
+  const meta = item.meta || {};
+  const colorTargets = meta.colorTargets || {};
+  const colorMode = meta.colorMode || 'primary';
+  const lockedOptional = Boolean(meta.lockedOptional);
+
+  const primaryColor = colorState.primary || colorState.legacy || null;
+  const contrastColor = colorState.contrast || null;
+  const lockedPalette = colorState.lockedPalette || null;
+
+  if (!meta.colorMode || !colorTargets || Object.keys(colorTargets).length === 0) {
+    return primaryColor && !isNoneLikeItem(primaryColor) ? `${primaryColor.en} ${base}` : base;
+  }
+
+  const details = [];
+  const primaryTargets = colorTargets.primary || [];
+  const contrastTargets = colorTargets.contrast || [];
+  const lockedTargets = colorTargets.locked || [];
+
+  if (primaryColor && !isNoneLikeItem(primaryColor)) {
+    const targetText = describeOutfitColorTargets(primaryTargets);
+    details.push(targetText ? `${targetText} in ${primaryColor.en}` : `main outfit color in ${primaryColor.en}`);
+  }
+
+  if (colorMode !== 'primary' && contrastColor && !isNoneLikeItem(contrastColor) && contrastTargets.length > 0) {
+    const contrastText = describeOutfitColorTargets(contrastTargets);
+    if (contrastText) details.push(`${contrastText} in ${contrastColor.en}`);
+  }
+
+  if (colorMode === 'primary_contrast_locked' && lockedTargets.length > 0) {
+    const lockedText = describeLockedPalette(lockedPalette, lockedTargets, lockedOptional);
+    if (lockedText) details.push(lockedText);
+  }
+
+  return details.length > 0 ? `${base}, ${details.join(', ')}` : base;
 }
 
 function buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors) {
@@ -2640,10 +2940,20 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboTe
   ]);
 
   const presetAText = normalizeWearable(
-    buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true })
+    buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
+      legacy: wardrobeColors.outfitPresetAColor,
+      primary: wardrobeColors.outfitPresetAPrimaryColor,
+      contrast: wardrobeColors.outfitPresetAContrastColor,
+      lockedPalette: wardrobeColors.outfitPresetALockedPalette,
+    })
   );
   const presetBText = normalizeWearable(
-    buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true })
+    buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
+      legacy: wardrobeColors.outfitPresetBColor,
+      primary: wardrobeColors.outfitPresetBPrimaryColor,
+      contrast: wardrobeColors.outfitPresetBContrastColor,
+      lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
+    })
   );
   if (presetAText || presetBText) {
     const sharedAddonText = buildSharedAddonText();
@@ -2664,7 +2974,12 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboTe
   }
 
   const presetText = normalizeWearable(
-    buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true })
+    buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
+      legacy: wardrobeColors.outfitPresetColor,
+      primary: wardrobeColors.outfitPresetPrimaryColor,
+      contrast: wardrobeColors.outfitPresetContrastColor,
+      lockedPalette: wardrobeColors.outfitPresetLockedPalette,
+    })
   );
   if (presetText) {
     const sharedAddonText = buildSharedAddonText();
@@ -3119,10 +3434,25 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   const addClothingPart = (value, maxParts = 1, prefix = '') => addPromptPart(clothingParts, value, maxParts, prefix);
 
   if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
-    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true }), 1, 'dressed separately: woman 1 in ');
-    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true }), 1, 'woman 2 in ');
+    addClothingPart(buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
+      legacy: wardrobeColors.outfitPresetAColor,
+      primary: wardrobeColors.outfitPresetAPrimaryColor,
+      contrast: wardrobeColors.outfitPresetAContrastColor,
+      lockedPalette: wardrobeColors.outfitPresetALockedPalette,
+    }), 1, 'dressed separately: woman 1 in ');
+    addClothingPart(buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
+      legacy: wardrobeColors.outfitPresetBColor,
+      primary: wardrobeColors.outfitPresetBPrimaryColor,
+      contrast: wardrobeColors.outfitPresetBContrastColor,
+      lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
+    }), 1, 'woman 2 in ');
   } else if (wardrobeSlots.outfitPreset) {
-    addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }), 1);
+    addClothingPart(buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
+      legacy: wardrobeColors.outfitPresetColor,
+      primary: wardrobeColors.outfitPresetPrimaryColor,
+      contrast: wardrobeColors.outfitPresetContrastColor,
+      lockedPalette: wardrobeColors.outfitPresetLockedPalette,
+    }), 1);
   } else {
     const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor);
     addClothingPart(dressText || buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern }), 1);
@@ -3276,10 +3606,25 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   }
   if (!hasDuoSceneAnchor) addItemLine('Body Type', characterSlots.bodyType);
   if (context.subject.count === 2 && !hasDuoSceneAnchor) {
-    addLine('Woman 1 Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true }));
-    addLine('Woman 2 Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true }));
+    addLine('Woman 1 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
+      legacy: wardrobeColors.outfitPresetAColor,
+      primary: wardrobeColors.outfitPresetAPrimaryColor,
+      contrast: wardrobeColors.outfitPresetAContrastColor,
+      lockedPalette: wardrobeColors.outfitPresetALockedPalette,
+    }));
+    addLine('Woman 2 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
+      legacy: wardrobeColors.outfitPresetBColor,
+      primary: wardrobeColors.outfitPresetBPrimaryColor,
+      contrast: wardrobeColors.outfitPresetBContrastColor,
+      lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
+    }));
   } else if (wardrobeSlots.outfitPreset && !hasDuoSceneAnchor) {
-    addLine('Outfit Preset', buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true }));
+    addLine('Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
+      legacy: wardrobeColors.outfitPresetColor,
+      primary: wardrobeColors.outfitPresetPrimaryColor,
+      contrast: wardrobeColors.outfitPresetContrastColor,
+      lockedPalette: wardrobeColors.outfitPresetLockedPalette,
+    }));
   }
   if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
     const topText = topOuterwearComboText || buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, { pattern: wardrobeSlots.topPattern });
@@ -3418,14 +3763,29 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     };
 
     if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
-      add(wardrobeSlots.outfitPresetA ? `woman 1 wears ${buildColoredGrokPrompt(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAColor, { preset: true })}` : '');
-      add(wardrobeSlots.outfitPresetB ? `woman 2 wears ${buildColoredGrokPrompt(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBColor, { preset: true })}` : '');
+      add(wardrobeSlots.outfitPresetA ? `woman 1 wears ${buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
+        legacy: wardrobeColors.outfitPresetAColor,
+        primary: wardrobeColors.outfitPresetAPrimaryColor,
+        contrast: wardrobeColors.outfitPresetAContrastColor,
+        lockedPalette: wardrobeColors.outfitPresetALockedPalette,
+      })}` : '');
+      add(wardrobeSlots.outfitPresetB ? `woman 2 wears ${buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
+        legacy: wardrobeColors.outfitPresetBColor,
+        primary: wardrobeColors.outfitPresetBPrimaryColor,
+        contrast: wardrobeColors.outfitPresetBContrastColor,
+        lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
+      })}` : '');
       add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
       add(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
       add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
       add(duoStyling?.en || '');
     } else if (wardrobeSlots.outfitPreset) {
-      add(`the subject wears ${buildColoredGrokPrompt(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetColor, { preset: true })}`);
+      add(`the subject wears ${buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
+        legacy: wardrobeColors.outfitPresetColor,
+        primary: wardrobeColors.outfitPresetPrimaryColor,
+        contrast: wardrobeColors.outfitPresetContrastColor,
+        lockedPalette: wardrobeColors.outfitPresetLockedPalette,
+      })}`);
       add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
       add(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
       add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
@@ -3511,6 +3871,20 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
 function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film, duoInteraction, duoStyling) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const normalizedSelection = normalizeLegacyOutfitPresetColors({
+    outfitPresetColorId: wardrobeColors.outfitPresetColor?.id || wardrobeColors.outfitPresetPrimaryColor?.id || '',
+    outfitPresetAColorId: wardrobeColors.outfitPresetAColor?.id || wardrobeColors.outfitPresetAPrimaryColor?.id || '',
+    outfitPresetBColorId: wardrobeColors.outfitPresetBColor?.id || wardrobeColors.outfitPresetBPrimaryColor?.id || '',
+    outfitPresetPrimaryColorId: wardrobeColors.outfitPresetPrimaryColor?.id || wardrobeColors.outfitPresetColor?.id || '',
+    outfitPresetContrastColorId: wardrobeColors.outfitPresetContrastColor?.id || '',
+    outfitPresetLockedPaletteId: wardrobeColors.outfitPresetLockedPalette?.id || '',
+    outfitPresetAPrimaryColorId: wardrobeColors.outfitPresetAPrimaryColor?.id || wardrobeColors.outfitPresetAColor?.id || '',
+    outfitPresetAContrastColorId: wardrobeColors.outfitPresetAContrastColor?.id || '',
+    outfitPresetALockedPaletteId: wardrobeColors.outfitPresetALockedPalette?.id || '',
+    outfitPresetBPrimaryColorId: wardrobeColors.outfitPresetBPrimaryColor?.id || wardrobeColors.outfitPresetBColor?.id || '',
+    outfitPresetBContrastColorId: wardrobeColors.outfitPresetBContrastColor?.id || '',
+    outfitPresetBLockedPaletteId: wardrobeColors.outfitPresetBLockedPalette?.id || '',
+  });
   return {
     subjectCount: context.subject.id,
     aspectRatio: context.aspectRatio.id,
@@ -3526,11 +3900,20 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     lightDirectionId: context.styleDrivenCamera ? '' : lightDirection?.id || '',
     filmId: context.styleDrivenCamera ? '' : film?.id || '',
     outfitPresetId: wardrobeSlots.outfitPreset?.id || '',
-    outfitPresetColorId: wardrobeColors.outfitPresetColor?.id || '',
+    outfitPresetColorId: normalizedSelection.outfitPresetColorId,
+    outfitPresetPrimaryColorId: normalizedSelection.outfitPresetPrimaryColorId,
+    outfitPresetContrastColorId: normalizedSelection.outfitPresetContrastColorId,
+    outfitPresetLockedPaletteId: normalizedSelection.outfitPresetLockedPaletteId,
     outfitPresetAId: wardrobeSlots.outfitPresetA?.id?.replace(/:a$/, '') || '',
-    outfitPresetAColorId: wardrobeColors.outfitPresetAColor?.id || '',
+    outfitPresetAColorId: normalizedSelection.outfitPresetAColorId,
+    outfitPresetAPrimaryColorId: normalizedSelection.outfitPresetAPrimaryColorId,
+    outfitPresetAContrastColorId: normalizedSelection.outfitPresetAContrastColorId,
+    outfitPresetALockedPaletteId: normalizedSelection.outfitPresetALockedPaletteId,
     outfitPresetBId: wardrobeSlots.outfitPresetB?.id?.replace(/:b$/, '') || '',
-    outfitPresetBColorId: wardrobeColors.outfitPresetBColor?.id || '',
+    outfitPresetBColorId: normalizedSelection.outfitPresetBColorId,
+    outfitPresetBPrimaryColorId: normalizedSelection.outfitPresetBPrimaryColorId,
+    outfitPresetBContrastColorId: normalizedSelection.outfitPresetBContrastColorId,
+    outfitPresetBLockedPaletteId: normalizedSelection.outfitPresetBLockedPaletteId,
     bodyTypeId: characterSlots.bodyType?.id || '',
     facialFeaturesId: characterSlots.facialFeatures?.id || '',
     facialFeaturesAId: characterSlots.facialFeaturesA?.id?.replace(/:a$/, '') || '',
