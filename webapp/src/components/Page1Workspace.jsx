@@ -513,6 +513,9 @@ export default function Page1Workspace({
             <button className="primary-cta" onClick={handleGenerate} disabled={!previewPrompt}>
               Save Current Card
             </button>
+            <button className="secondary danger" onClick={() => updateLocks(createEmptyLocks())}>
+              清除已選
+            </button>
             <button className="secondary" onClick={() => updateLocks(createEmptyLocks())}>
               全部隨機
             </button>
