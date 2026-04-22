@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-import { Settings } from 'lucide-react';
 import Page1Workspace from './components/Page1Workspace';
 import Page2Workspace from './components/Page2Workspace';
 import Page3Workspace from './components/Page3Workspace';
@@ -2035,7 +2034,7 @@ export default function App() {
                 aria-expanded={isSettingsMenuOpen}
                 onClick={() => setIsSettingsMenuOpen((prev) => !prev)}
               >
-                <Settings size={18} />
+                設置
               </button>
               {isSettingsMenuOpen ? (
                 <div className="settings-menu">
