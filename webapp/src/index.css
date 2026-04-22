@@ -761,6 +761,20 @@ button:disabled {
   padding-right: 4px;
 }
 
+.page1-mobile-shell,
+.page1-mobile-favorites,
+.page1-mobile-card-list {
+  display: grid;
+  gap: 16px;
+}
+
+.page1-mobile-header,
+.page1-mobile-favorites {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .library-editor-shell {
   display: grid;
   grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
