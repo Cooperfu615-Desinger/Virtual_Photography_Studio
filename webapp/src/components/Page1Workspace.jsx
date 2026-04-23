@@ -45,9 +45,10 @@ const SECTION_SUBPANELS = {
     {
       id: 'expression',
       label: '神情姿態',
-      description: '再補上表情、雙人互動與動作，讓人物狀態更完整。',
+      description: '再補上表情、雙人互動與構圖姿態，讓人物狀態更完整。',
       keys: [
         'duoInteractionId',
+        'duoPoseId',
         'expressionId',
         'expressionAId',
         'expressionBId',
@@ -76,7 +77,6 @@ const SECTION_SUBPANELS = {
         'outfitPresetBPrimaryColorId',
         'outfitPresetBContrastColorId',
         'outfitPresetBLockedPaletteId',
-        'duoStylingId',
       ],
     },
     {
@@ -200,6 +200,7 @@ function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'expressionId', locks.expressionId),
     getControlOptionLabel(controls, 'expressionAId', locks.expressionAId),
     getControlOptionLabel(controls, 'expressionBId', locks.expressionBId),
+    getControlOptionLabel(controls, 'duoPoseId', locks.duoPoseId),
     getControlOptionLabel(controls, 'poseId', locks.poseId),
     getControlOptionLabel(controls, 'specialActionId', locks.specialActionId),
     getControlOptionLabel(controls, 'duoInteractionId', locks.duoInteractionId),

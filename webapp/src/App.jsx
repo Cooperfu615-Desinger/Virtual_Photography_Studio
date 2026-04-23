@@ -285,7 +285,7 @@ const SUMMARY_SECTION_INFO = {
   },
   character: {
     label: '人物',
-    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色', '雙人互動', '表情', '人物 1 表情', '人物 2 表情', '姿勢', '特殊動作'],
+    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色', '雙人互動', '雙人構圖姿態', '表情', '人物 1 表情', '人物 2 表情', '姿勢', '特殊動作'],
     keys: [
       'subjectCount',
       'bodyTypeId',
@@ -300,6 +300,7 @@ const SUMMARY_SECTION_INFO = {
       'hairColorAId',
       'hairColorBId',
       'duoInteractionId',
+      'duoPoseId',
       'expressionId',
       'expressionAId',
       'expressionBId',
@@ -332,7 +333,6 @@ const SUMMARY_SECTION_INFO = {
       'topPatternId',
       'dressId',
       'dressColorId',
-      'duoStylingId',
       'pantsId',
       'skirtId',
       'bottomColorId',
@@ -397,7 +397,7 @@ const SUMMARY_SECTION_INFO = {
 const ADVANCED_REMIX_GROUP_INFO = {
   characterDna: {
     label: '角色 DNA',
-    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色', '雙人互動'],
+    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色'],
     keys: [
       'subjectCount',
       'bodyTypeId',
@@ -411,13 +411,12 @@ const ADVANCED_REMIX_GROUP_INFO = {
       'hairColorId',
       'hairColorAId',
       'hairColorBId',
-      'duoInteractionId',
     ],
   },
   expressionPose: {
     label: '表情姿勢',
-    lockLabels: ['表情', '人物 1 表情', '人物 2 表情', '姿勢', '特殊動作'],
-    keys: ['expressionId', 'expressionAId', 'expressionBId', 'poseId', 'specialActionId'],
+    lockLabels: ['雙人互動', '雙人構圖姿態', '表情', '人物 1 表情', '人物 2 表情', '姿勢', '特殊動作'],
+    keys: ['duoInteractionId', 'duoPoseId', 'expressionId', 'expressionAId', 'expressionBId', 'poseId', 'specialActionId'],
   },
   wardrobeCore: {
     label: '服裝主體',
@@ -444,7 +443,6 @@ const ADVANCED_REMIX_GROUP_INFO = {
       'topPatternId',
       'dressId',
       'dressColorId',
-      'duoStylingId',
       'pantsId',
       'skirtId',
       'bottomColorId',
@@ -508,6 +506,7 @@ const CHARACTER_CONTROL_ORDER = [
   'hairColorBId',
   'skinDetailsId',
   'duoInteractionId',
+  'duoPoseId',
   'expressionId',
   'expressionAId',
   'expressionBId',
@@ -534,7 +533,6 @@ const STYLE_WARDROBE_CONTROL_ORDER = [
   'topPatternId',
   'dressId',
   'dressColorId',
-  'duoStylingId',
   'pantsId',
   'skirtId',
   'bottomColorId',
@@ -676,6 +674,7 @@ function buildImportedStructured(locks, controls) {
       'hairColorAId',
       'hairColorBId',
       'duoInteractionId',
+      'duoPoseId',
       'expressionId',
       'expressionAId',
       'expressionBId',
@@ -695,7 +694,6 @@ function buildImportedStructured(locks, controls) {
       'topPatternId',
       'dressId',
       'dressColorId',
-      'duoStylingId',
       'pantsId',
       'skirtId',
       'bottomColorId',
@@ -1889,10 +1887,10 @@ export default function App() {
       sortControls(
         lockControls.filter((control) => {
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
-          if (control.key === 'duoInteractionId' && locks.subjectCount !== '2') return false;
+          if (['duoInteractionId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;
           if (control.key === 'specialActionId' && locks.subjectCount !== '1') return false;
-          if (['facialFeaturesId', 'hairstyleId', 'hairColorId', 'expressionId'].includes(control.key) && locks.subjectCount === '2') return false;
-          if (['facialFeaturesAId', 'facialFeaturesBId', 'hairstyleAId', 'hairstyleBId', 'hairColorAId', 'hairColorBId', 'expressionAId', 'expressionBId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          if (['facialFeaturesId', 'hairstyleId', 'hairColorId', 'expressionId', 'poseId'].includes(control.key) && locks.subjectCount === '2') return false;
+          if (['facialFeaturesAId', 'facialFeaturesBId', 'hairstyleAId', 'hairstyleBId', 'hairColorAId', 'hairColorBId', 'expressionAId', 'expressionBId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;
           return true;
         }),
         CHARACTER_CONTROL_ORDER
@@ -1916,7 +1914,6 @@ export default function App() {
           if (duoAccessoryKeys.includes(control.key) && locks.subjectCount !== '2') return false;
           if (control.key.startsWith('outfitPreset') && !control.key.endsWith('Id') && !shouldShowPresetColorControl(control.key)) return false;
           if (['outfitPresetPrimaryColorId', 'outfitPresetContrastColorId', 'outfitPresetLockedPaletteId', 'outfitPresetAPrimaryColorId', 'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId', 'outfitPresetBPrimaryColorId', 'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId'].includes(control.key) && !shouldShowPresetColorControl(control.key)) return false;
-          if (control.key === 'duoStylingId' && locks.subjectCount !== '2') return false;
           return true;
         }),
         STYLE_WARDROBE_CONTROL_ORDER
