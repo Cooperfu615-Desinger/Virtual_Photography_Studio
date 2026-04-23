@@ -271,6 +271,7 @@ export default function Page1Workspace({
   handleCopyText,
   isOutfitPresetActive,
   handleGenerate,
+  handleRerollPreview,
   createEmptyLocks,
   buildAllNoneLocks,
   lockControls,
@@ -419,6 +420,9 @@ export default function Page1Workspace({
           </div>
 
           <div className="page1-sidebar-actions">
+            <button className="page1-random-generate-btn" onClick={handleRerollPreview} disabled={!previewPrompt}>
+              隨機生成
+            </button>
             <button className="secondary danger" onClick={() => updateLocks(createEmptyLocks())}>
               清除已選
             </button>

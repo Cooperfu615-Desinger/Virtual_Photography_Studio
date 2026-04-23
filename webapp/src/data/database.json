@@ -3929,24 +3929,29 @@
         "desc": "直接看向鏡頭，神情平穩克制，適合乾淨、安靜、寫真感的人像。"
       },
       {
-        "zh": "直視鏡頭｜慵懶半瞇眼",
-        "en": "looking directly at the camera, direct eye contact, half-lidded eyes, languid sleepy expression, relaxed sensual mood",
-        "desc": "眼神直接但帶半瞇感，狀態偏鬆、慢、帶一點慵懶性感。"
+        "zh": "直視鏡頭｜自信淡笑",
+        "en": "looking directly at the camera, direct eye contact, subtle confident smile, bright composed eyes, poised elegant expression",
+        "desc": "直接看向鏡頭，帶一點自信但不張揚的淡笑，適合都會感、時裝感與成熟乾淨的人像。"
       },
       {
-        "zh": "直視鏡頭｜唇微開凝視",
-        "en": "looking directly at the camera, direct eye contact, lips slightly parted, focused intimate gaze, soft tension in expression",
-        "desc": "直視鏡頭同時雙唇微開，適合較近距離、私密感、張力較高的畫面。"
+        "zh": "直視鏡頭｜慵懶淡然",
+        "en": "looking directly at the camera, direct eye contact, relaxed half-lidded eyes, effortless calm expression, soft editorial mood",
+        "desc": "保留一點慵懶感，但收斂成更自然的淡然神情，適合雜誌感、夜晚室內或低飽和情緒畫面。"
       },
       {
-        "zh": "直視鏡頭｜挑釁凝視",
-        "en": "looking directly at the camera, direct eye contact, provocative intense gaze, confident challenging expression, bold presence",
-        "desc": "眼神帶有主動性與壓迫感，適合強勢、時裝感或性感張力畫面。"
+        "zh": "直視鏡頭｜若有似無微笑",
+        "en": "looking directly at the camera, direct eye contact, faint almost-hidden smile, soft attentive eyes, restrained charming expression",
+        "desc": "像是嘴角剛要揚起的微妙神情，比一般微笑更含蓄，適合特寫、生活感與曖昧留白畫面。"
       },
       {
         "zh": "直視鏡頭｜無辜清透眼神",
         "en": "looking directly at the camera, direct eye contact, innocent clear eyes, delicate soft expression, pure transparent mood",
         "desc": "直接看向鏡頭，但氣質偏清透、柔和、無辜與乾淨。"
+      },
+      {
+        "zh": "抿唇忍笑｜俏皮輕鬆",
+        "en": "looking toward the camera, lips gently pressed with a barely contained smile, playful relaxed expression, light teasing warmth",
+        "desc": "像是剛聽到有趣的話、正在忍笑的神情，俏皮但不誇張，適合朋友感、街拍與生活寫真。"
       },
       {
         "zh": "望向遠方｜若有所思",
@@ -3962,6 +3967,16 @@
         "zh": "低頭不看鏡頭｜內斂情緒",
         "en": "lowered gaze away from camera, eyes cast downward, inward quiet expression, restrained emotion, soft introspective mood",
         "desc": "視線向下且不與鏡頭接觸，適合內斂、安靜、柔和的情緒畫面。"
+      },
+      {
+        "zh": "回眸側看｜輕柔注意",
+        "en": "glancing back over the shoulder, soft sideward attention, gentle alert expression, light narrative presence",
+        "desc": "像是被聲音或動作吸引後回頭一看，帶一點敘事感，適合街景、走動或轉身瞬間。"
+      },
+      {
+        "zh": "閉眼感受光線｜安靜沉浸",
+        "en": "eyes gently closed, calm absorbed expression, breathing in the light, quiet immersive mood",
+        "desc": "閉上眼睛感受風、光線或空氣，情緒安靜而沈浸，適合窗邊、海邊、陽光與靜物感場景。"
       },
       {
         "zh": "大笑｜自然喜悅",

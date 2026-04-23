@@ -727,6 +727,15 @@ button:disabled {
   gap: 18px;
 }
 
+.page1-random-generate-btn {
+  background: var(--accent);
+  color: #fffdf8;
+}
+
+.page1-random-generate-btn:hover {
+  background: var(--accent-hover);
+}
+
 .page1-preview-actions {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -746,6 +755,8 @@ button:disabled {
 
 .page1-live-prompt-box .prompt-text-full {
   max-height: 460px;
+  font-size: 0.72rem;
+  line-height: 1.68;
 }
 
 .page1-feed-panel .filter-bar {

@@ -1355,6 +1355,7 @@ export default function App() {
   const [pageMode, setPageMode] = useState(() => loadStringStorage(PAGE_MODE_KEY, 'page1'));
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
+  const [previewGenerationNonce, setPreviewGenerationNonce] = useState(0);
   const [page2Profile, setPage2Profile] = useState(() => loadJsonStorage(PAGE2_PROFILE_KEY, createEmptyPage2Profile()));
   const [page3Profile, setPage3Profile] = useState(() => loadJsonStorage(PAGE3_PROFILE_KEY, createEmptyPage3Profile()));
   const [copiedLabel, setCopiedLabel] = useState('');
@@ -1672,9 +1673,9 @@ export default function App() {
     return baseList;
   }, [favoritePrompts, prompts, viewMode]);
   const previewPrompt = useMemo(() => {
-    const [prompt] = generatePrompts(1, locks, activeLibrary);
+    const [prompt] = generatePrompts(1, locks, activeLibrary, { previewGenerationNonce });
     return prompt || null;
-  }, [activeLibrary, locks]);
+  }, [activeLibrary, locks, previewGenerationNonce]);
   const favoriteCloudLabel = useMemo(() => {
     if (favoriteCloudAuth?.status === 'signed-in') {
       if (favoriteCloudSyncStatus === 'loading') return 'Firebase 載入中';
@@ -1771,6 +1772,11 @@ export default function App() {
     setFavoritePrompts((prev) => [nextPrompt, ...prev]);
     showToast('目前 Prompt 已加入我的最愛');
   }, [previewPrompt, showToast]);
+
+  const handleRerollPreview = useCallback(() => {
+    setPreviewGenerationNonce((prev) => prev + 1);
+    showToast('已依目前設定重新隨機生成');
+  }, [showToast]);
 
   const handleDeletePrompt = useCallback((prompt) => {
     setPrompts((prev) => prev.filter((item) => item.id !== prompt.id));
@@ -2006,6 +2012,7 @@ export default function App() {
           handleCopyText={handleCopyText}
           isOutfitPresetActive={isOutfitPresetActive}
           handleGenerate={handleGenerate}
+          handleRerollPreview={handleRerollPreview}
           createEmptyLocks={createEmptyLocks}
           buildAllNoneLocks={buildAllNoneLocks}
           lockControls={lockControls}
