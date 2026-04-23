@@ -3406,15 +3406,10 @@ function buildMinimalSoloPoseText(pose) {
 
 function buildMinimalAccessoryText(wardrobeSlots) {
   return [
-    buildMinimalItemPromptPart(wardrobeSlots.neckAccessory, 1),
-  ].filter(Boolean).join(', ');
-}
-
-function buildMinimalLeadAccessoryText(wardrobeSlots) {
-  return [
     buildMinimalItemPromptPart(wardrobeSlots.eyewear, 1),
     buildMinimalItemPromptPart(wardrobeSlots.earrings, 1),
     buildMinimalItemPromptPart(wardrobeSlots.headAccessory, 1),
+    buildMinimalItemPromptPart(wardrobeSlots.neckAccessory, 1),
   ].filter(Boolean).join(', ');
 }
 
@@ -3423,7 +3418,6 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
 
   const clothingParts = [];
-  const accessoryParts = [];
   const addPromptPart = (target, value, maxParts = 1, prefix = '') => {
     const cleaned = buildMinimalPromptPart(value, maxParts);
     if (!cleaned) return;
@@ -3464,7 +3458,6 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 1);
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }), 1);
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
-    accessoryParts.push(buildMinimalAccessoryText(wardrobeSlots));
   }
   if (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), 1);
@@ -3473,13 +3466,13 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
       styling: wardrobeSlots.outerwearStyling,
     }), 1);
     addClothingPart(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), 2);
-    accessoryParts.push(buildMinimalAccessoryText(wardrobeSlots));
   }
 
+  const accessoryText = buildMinimalAccessoryText(wardrobeSlots);
   const subjectText = [
     buildFreeformSubjectText(context.subject),
-    buildMinimalLeadAccessoryText(wardrobeSlots),
     buildMinimalPromptPart(characterSlots.bodyType?.en, 1),
+    accessoryText,
     context.subject.count === 2 ? 'distinct faces, different appearances' : '',
     useCharacterIdentityAnchor ? buildMinimalPromptPart(context.characterProfilePrompt, 2) : '',
   ].filter(Boolean).join(', ');
@@ -3494,7 +3487,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
       ),
       buildMinimalSoloPoseText(characterSlots.pose),
     ].filter(Boolean).join(', ');
-  const clothingText = [...clothingParts, ...accessoryParts].filter(Boolean).join(', ');
+  const clothingText = clothingParts.filter(Boolean).join(', ');
   const locationText = buildMinimalLocationText(context.location, context);
   const angleText = buildMinimalAngleText(context.angle);
   const cameraText = [
