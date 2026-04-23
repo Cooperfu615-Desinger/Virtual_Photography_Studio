@@ -67,6 +67,8 @@ const SECTION_SUBPANELS = {
         'outfitPresetPrimaryColorId',
         'outfitPresetContrastColorId',
         'outfitPresetLockedPaletteId',
+        'dressId',
+        'dressColorId',
         'outfitPresetAId',
         'outfitPresetAPrimaryColorId',
         'outfitPresetAContrastColorId',
@@ -84,13 +86,11 @@ const SECTION_SUBPANELS = {
       description: '當你不走整套 preset 時，這裡決定連身或上下身的主體輪廓。',
       keys: [
         'topId',
+        'pantsId',
+        'skirtId',
         'topBottomPaletteId',
         'topColorId',
         'topPatternId',
-        'dressId',
-        'dressColorId',
-        'pantsId',
-        'skirtId',
         'bottomColorId',
         'bottomPatternId',
       ],
@@ -510,9 +510,6 @@ export default function Page1Workspace({
           </div>
 
           <div className="page1-sidebar-actions">
-            <button className="primary-cta" onClick={handleGenerate} disabled={!previewPrompt}>
-              Save Current Card
-            </button>
             <button className="secondary danger" onClick={() => updateLocks(createEmptyLocks())}>
               清除已選
             </button>
@@ -577,6 +574,9 @@ export default function Page1Workspace({
               </button>
               <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopyText('Midjourney copied', previewPrompt?.midjourneyPrompt)} disabled={!previewPrompt?.midjourneyPrompt}>
                 AI
+              </button>
+              <button className="primary-copy-btn page1-save-current-btn" onClick={handleGenerate} disabled={!previewPrompt}>
+                Save
               </button>
             </div>
 

@@ -728,7 +728,16 @@ button:disabled {
 }
 
 .page1-preview-actions {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.page1-save-current-btn {
+  background: var(--accent);
+  color: #fffdf8;
+}
+
+.page1-save-current-btn:hover {
+  background: var(--accent-hover);
 }
 
 .page1-live-prompt-box {
