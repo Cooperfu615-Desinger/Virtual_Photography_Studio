@@ -345,6 +345,22 @@ const SUMMARY_SECTION_INFO = {
       'outerwearStylingId',
       'shoesId',
       'shoesColorId',
+      'legwearAId',
+      'legwearAColorId',
+      'outerwearAId',
+      'outerwearAColorId',
+      'outerwearAPatternId',
+      'outerwearAStylingId',
+      'shoesAId',
+      'shoesAColorId',
+      'legwearBId',
+      'legwearBColorId',
+      'outerwearBId',
+      'outerwearBColorId',
+      'outerwearBPatternId',
+      'outerwearBStylingId',
+      'shoesBId',
+      'shoesBColorId',
       'headAccessoryId',
       'eyewearId',
       'earringsId',
@@ -433,6 +449,22 @@ const ADVANCED_REMIX_GROUP_INFO = {
       'outerwearStylingId',
       'shoesId',
       'shoesColorId',
+      'legwearAId',
+      'legwearAColorId',
+      'outerwearAId',
+      'outerwearAColorId',
+      'outerwearAPatternId',
+      'outerwearAStylingId',
+      'shoesAId',
+      'shoesAColorId',
+      'legwearBId',
+      'legwearBColorId',
+      'outerwearBId',
+      'outerwearBColorId',
+      'outerwearBPatternId',
+      'outerwearBStylingId',
+      'shoesBId',
+      'shoesBColorId',
     ],
   },
   sceneLook: {
@@ -495,6 +527,22 @@ const STYLE_WARDROBE_CONTROL_ORDER = [
   'outerwearStylingId',
   'shoesId',
   'shoesColorId',
+  'legwearAId',
+  'legwearAColorId',
+  'outerwearAId',
+  'outerwearAColorId',
+  'outerwearAPatternId',
+  'outerwearAStylingId',
+  'shoesAId',
+  'shoesAColorId',
+  'legwearBId',
+  'legwearBColorId',
+  'outerwearBId',
+  'outerwearBColorId',
+  'outerwearBPatternId',
+  'outerwearBStylingId',
+  'shoesBId',
+  'shoesBColorId',
   'headAccessoryId',
   'eyewearId',
   'earringsId',
@@ -1819,9 +1867,13 @@ export default function App() {
     () =>
       sortControls(
         lockControls.filter((control) => {
+          const sharedLayerKeys = ['legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'outerwearPatternId', 'outerwearStylingId', 'shoesId', 'shoesColorId'];
+          const duoLayerKeys = ['legwearAId', 'legwearAColorId', 'outerwearAId', 'outerwearAColorId', 'outerwearAPatternId', 'outerwearAStylingId', 'shoesAId', 'shoesAColorId', 'legwearBId', 'legwearBColorId', 'outerwearBId', 'outerwearBColorId', 'outerwearBPatternId', 'outerwearBStylingId', 'shoesBId', 'shoesBColorId'];
           if (control.section !== 'wardrobe') return false;
           if (['outfitPresetId', 'outfitPresetPrimaryColorId', 'outfitPresetContrastColorId', 'outfitPresetLockedPaletteId'].includes(control.key) && locks.subjectCount === '2') return false;
           if (['outfitPresetAId', 'outfitPresetAPrimaryColorId', 'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId', 'outfitPresetBId', 'outfitPresetBPrimaryColorId', 'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          if (sharedLayerKeys.includes(control.key) && locks.subjectCount === '2') return false;
+          if (duoLayerKeys.includes(control.key) && locks.subjectCount !== '2') return false;
           if (control.key.startsWith('outfitPreset') && !control.key.endsWith('Id') && !shouldShowPresetColorControl(control.key)) return false;
           if (['outfitPresetPrimaryColorId', 'outfitPresetContrastColorId', 'outfitPresetLockedPaletteId', 'outfitPresetAPrimaryColorId', 'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId', 'outfitPresetBPrimaryColorId', 'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId'].includes(control.key) && !shouldShowPresetColorControl(control.key)) return false;
           if (control.key === 'duoStylingId' && locks.subjectCount !== '2') return false;
