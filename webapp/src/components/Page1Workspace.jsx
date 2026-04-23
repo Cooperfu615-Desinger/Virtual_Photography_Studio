@@ -485,7 +485,7 @@ export default function Page1Workspace({
                 AI
               </button>
               <button className="primary-copy-btn page1-save-current-btn" onClick={handleGenerate} disabled={!previewPrompt}>
-                Save
+                加入最愛
               </button>
             </div>
 

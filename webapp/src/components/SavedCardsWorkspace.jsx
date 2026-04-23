@@ -20,13 +20,7 @@ export default function SavedCardsWorkspace({
   importFeedInputRef,
   handleOpenImportFeed,
   handleImportFeed,
-  favoriteIds,
-  toggleFavorite,
   handleDeletePrompt,
-  handleRemixPrompt,
-  handleRestorePromptToConsole,
-  summarySectionInfo,
-  advancedRemixGroupInfo,
 }) {
   const isFavoritesView = viewMode === 'favorites';
   const [sourceFilter, setSourceFilter] = useState('all');
@@ -49,7 +43,7 @@ export default function SavedCardsWorkspace({
         <div>
           <div className="lock-title">Saved Cards Library</div>
           <p className="lock-subtitle">
-            集中管理 Prompt 工作台保存的版本。這裡可以下載、匯入、回填、remix，讓主工作台保持乾淨。
+            集中查看你保留下來的 Prompt。這裡只保留卡片內容與三種版本的複製操作，讓閱讀更乾淨。
           </p>
         </div>
 
@@ -135,14 +129,7 @@ export default function SavedCardsWorkspace({
               <PromptCard
                 key={prompt.id}
                 data={prompt}
-                isFavorite={favoriteIds.has(prompt.id)}
-                canRestore={Boolean(prompt.selection)}
-                onFavorite={toggleFavorite}
                 onDelete={handleDeletePrompt}
-                onRemix={handleRemixPrompt}
-                onRestore={handleRestorePromptToConsole}
-                summarySectionInfo={summarySectionInfo}
-                advancedRemixGroupInfo={advancedRemixGroupInfo}
               />
             ))
           )}

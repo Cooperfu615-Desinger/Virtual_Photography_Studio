@@ -6,7 +6,6 @@ import Page2Workspace from './components/Page2Workspace';
 import Page3Workspace from './components/Page3Workspace';
 import SavedCardsWorkspace from './components/SavedCardsWorkspace';
 import {
-  buildLocksFromPrompt,
   createEmptyLocks,
   generatePrompts,
   getCloseupAllowedKeys,
@@ -49,7 +48,7 @@ const PAGE_MODE_COPY = {
   },
   page4: {
     title: 'Saved Cards',
-    subtitle: '集中管理已保存的 Prompt 版本，支援收藏、回填、匯入、匯出與 remix。',
+    subtitle: '集中查看已加入最愛的 Prompt 版本，保留三種輸出內容與一鍵複製流程。',
   },
 };
 
@@ -277,221 +276,6 @@ function createEmptyPage2Profile() {
 function createEmptyPage3Profile() {
   return Object.fromEntries(PAGE3_FIELD_CONFIG.map((field) => [field.key, '']));
 }
-const SUMMARY_SECTION_INFO = {
-  style: {
-    label: '風格',
-    lockLabels: ['攝影風格'],
-    keys: ['styleId'],
-  },
-  character: {
-    label: '人物',
-    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色', '雙人互動', '雙人構圖姿態', '表情', '人物 1 表情', '人物 2 表情', '姿勢', '特殊動作'],
-    keys: [
-      'subjectCount',
-      'bodyTypeId',
-      'facialFeaturesId',
-      'facialFeaturesAId',
-      'facialFeaturesBId',
-      'skinDetailsId',
-      'hairstyleId',
-      'hairstyleAId',
-      'hairstyleBId',
-      'hairColorId',
-      'hairColorAId',
-      'hairColorBId',
-      'duoInteractionId',
-      'duoPoseId',
-      'expressionId',
-      'expressionAId',
-      'expressionBId',
-      'poseId',
-      'specialActionId',
-    ],
-  },
-  wardrobe: {
-    label: '服裝',
-    lockLabels: ['套裝', '套裝主色', '套裝對比色', '套裝鎖定色方案', '上身', '特殊上下身配色', '上身圖案', '連身', '下身', '下身圖案', '襪類', '襪類配色', '外套', '外套圖案', '外套穿法', '鞋款', '配件'],
-    keys: [
-      'outfitPresetId',
-      'outfitPresetColorId',
-      'outfitPresetPrimaryColorId',
-      'outfitPresetContrastColorId',
-      'outfitPresetLockedPaletteId',
-      'outfitPresetAId',
-      'outfitPresetAColorId',
-      'outfitPresetAPrimaryColorId',
-      'outfitPresetAContrastColorId',
-      'outfitPresetALockedPaletteId',
-      'outfitPresetBId',
-      'outfitPresetBColorId',
-      'outfitPresetBPrimaryColorId',
-      'outfitPresetBContrastColorId',
-      'outfitPresetBLockedPaletteId',
-      'topId',
-      'topBottomPaletteId',
-      'topColorId',
-      'topPatternId',
-      'dressId',
-      'dressColorId',
-      'pantsId',
-      'skirtId',
-      'bottomColorId',
-      'bottomPatternId',
-      'legwearId',
-      'legwearColorId',
-      'outerwearId',
-      'outerwearColorId',
-      'outerwearPatternId',
-      'outerwearStylingId',
-      'shoesId',
-      'shoesColorId',
-      'legwearAId',
-      'legwearAColorId',
-      'outerwearAId',
-      'outerwearAColorId',
-      'outerwearAPatternId',
-      'outerwearAStylingId',
-      'shoesAId',
-      'shoesAColorId',
-      'legwearBId',
-      'legwearBColorId',
-      'outerwearBId',
-      'outerwearBColorId',
-      'outerwearBPatternId',
-      'outerwearBStylingId',
-      'shoesBId',
-      'shoesBColorId',
-      'headAccessoryId',
-      'eyewearId',
-      'earringsId',
-      'neckAccessoryId',
-      'headAccessoryAId',
-      'eyewearAId',
-      'earringsAId',
-      'neckAccessoryAId',
-      'headAccessoryBId',
-      'eyewearBId',
-      'earringsBId',
-      'neckAccessoryBId',
-      'wristAccessoryId',
-      'ringId',
-      'waistAccessoryId',
-    ],
-  },
-  location: {
-    label: '場景',
-    lockLabels: ['場景屬性', '場景'],
-    keys: ['sceneAttributeId', 'locationId'],
-  },
-  camera: {
-    label: '鏡頭',
-    lockLabels: ['畫面比例', '景別', '角度', '方位', '焦段', '光學效果', '成像風格'],
-    keys: ['aspectRatio', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId'],
-  },
-  lighting: {
-    label: '光影',
-    lockLabels: ['環境光氛', '光線表現'],
-    keys: ['lightingId', 'lightDirectionId'],
-  },
-};
-const ADVANCED_REMIX_GROUP_INFO = {
-  characterDna: {
-    label: '角色 DNA',
-    lockLabels: ['人數', '體態', '五官', '膚質', '髮型', '髮色'],
-    keys: [
-      'subjectCount',
-      'bodyTypeId',
-      'facialFeaturesId',
-      'facialFeaturesAId',
-      'facialFeaturesBId',
-      'skinDetailsId',
-      'hairstyleId',
-      'hairstyleAId',
-      'hairstyleBId',
-      'hairColorId',
-      'hairColorAId',
-      'hairColorBId',
-    ],
-  },
-  expressionPose: {
-    label: '表情姿勢',
-    lockLabels: ['雙人互動', '雙人構圖姿態', '表情', '人物 1 表情', '人物 2 表情', '姿勢', '特殊動作'],
-    keys: ['duoInteractionId', 'duoPoseId', 'expressionId', 'expressionAId', 'expressionBId', 'poseId', 'specialActionId'],
-  },
-  wardrobeCore: {
-    label: '服裝主體',
-    lockLabels: ['套裝', '套裝主色', '套裝對比色', '套裝鎖定色方案', '上身', '特殊上下身配色', '上身圖案', '連身', '下身', '下身圖案', '外套', '外套圖案', '外套穿法', '襪類', '鞋款'],
-    keys: [
-      'outfitPresetId',
-      'outfitPresetColorId',
-      'outfitPresetPrimaryColorId',
-      'outfitPresetContrastColorId',
-      'outfitPresetLockedPaletteId',
-      'outfitPresetAId',
-      'outfitPresetAColorId',
-      'outfitPresetAPrimaryColorId',
-      'outfitPresetAContrastColorId',
-      'outfitPresetALockedPaletteId',
-      'outfitPresetBId',
-      'outfitPresetBColorId',
-      'outfitPresetBPrimaryColorId',
-      'outfitPresetBContrastColorId',
-      'outfitPresetBLockedPaletteId',
-      'topId',
-      'topBottomPaletteId',
-      'topColorId',
-      'topPatternId',
-      'dressId',
-      'dressColorId',
-      'pantsId',
-      'skirtId',
-      'bottomColorId',
-      'bottomPatternId',
-      'legwearId',
-      'legwearColorId',
-      'outerwearId',
-      'outerwearColorId',
-      'outerwearPatternId',
-      'outerwearStylingId',
-      'shoesId',
-      'shoesColorId',
-      'legwearAId',
-      'legwearAColorId',
-      'outerwearAId',
-      'outerwearAColorId',
-      'outerwearAPatternId',
-      'outerwearAStylingId',
-      'shoesAId',
-      'shoesAColorId',
-      'legwearBId',
-      'legwearBColorId',
-      'outerwearBId',
-      'outerwearBColorId',
-      'outerwearBPatternId',
-      'outerwearBStylingId',
-      'shoesBId',
-      'shoesBColorId',
-      'headAccessoryId',
-      'eyewearId',
-      'earringsId',
-      'neckAccessoryId',
-      'headAccessoryAId',
-      'eyewearAId',
-      'earringsAId',
-      'neckAccessoryAId',
-      'headAccessoryBId',
-      'eyewearBId',
-      'earringsBId',
-      'neckAccessoryBId',
-    ],
-  },
-  sceneLook: {
-    label: '場景鏡頭',
-    lockLabels: ['場景屬性', '場景', '鏡頭', '光影'],
-    keys: ['sceneAttributeId', 'locationId', 'aspectRatio', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId', 'lightingId', 'lightDirectionId'],
-  },
-};
-const REMIX_GROUP_INFO = { ...SUMMARY_SECTION_INFO, ...ADVANCED_REMIX_GROUP_INFO };
 const CHARACTER_CONTROL_ORDER = [
   'subjectCount',
   'bodyTypeId',
@@ -789,55 +573,6 @@ function createLineage(prompt) {
     remixCount: 0,
     lastMode: 'original',
     lastLocked: [],
-  };
-}
-
-function buildNextLineage(previousPrompt, nextPrompt, summaryKeys, { branch = false } = {}) {
-  const previousLineage = previousPrompt.lineage || createLineage(previousPrompt);
-  return {
-    rootId: previousLineage.rootId || previousPrompt.id,
-    rootShortId: previousLineage.rootShortId || toShortPromptId(previousLineage.rootId || previousPrompt.id),
-    parentId: previousPrompt.id,
-    parentShortId: toShortPromptId(previousPrompt.id),
-    version: (previousLineage.version || 1) + 1,
-    remixCount: (previousLineage.remixCount || 0) + 1,
-    lastMode: branch ? 'branch' : 'replace',
-    lastLocked: summaryKeys.map((key) => REMIX_GROUP_INFO[key]?.label).filter(Boolean),
-  };
-}
-
-function selectionKeysEqual(previous, next, keys) {
-  return keys.every((key) => (previous?.selection?.[key] || '') === (next?.selection?.[key] || ''));
-}
-
-function buildRemixMeta(previousPrompt, nextPrompt, lockedSections) {
-  const kept = [];
-  const changed = [];
-  const adjusted = [];
-  const sectionStates = {};
-
-  Object.entries(SUMMARY_SECTION_INFO).forEach(([sectionKey, section]) => {
-    const isLocked = lockedSections.includes(sectionKey);
-    const isSame = selectionKeysEqual(previousPrompt, nextPrompt, section.keys);
-
-    if (isLocked && isSame) kept.push(section.label);
-    if (isLocked && !isSame) adjusted.push(section.label);
-    if (!isLocked && !isSame) changed.push(section.label);
-
-    sectionStates[sectionKey] = isLocked
-      ? (isSame ? 'kept' : 'adjusted')
-      : (isSame ? 'unchanged' : 'changed');
-  });
-
-  return {
-    locked: lockedSections.map((key) => REMIX_GROUP_INFO[key]?.label).filter(Boolean),
-    kept,
-    changed,
-    adjusted,
-    sectionStates,
-    previousSummaryFields: previousPrompt.summaryFields || {},
-    nextSummaryFields: nextPrompt.summaryFields || {},
-    sourceShortId: toShortPromptId(previousPrompt.id),
   };
 }
 
@@ -1815,7 +1550,6 @@ export default function App() {
     window.localStorage.setItem(PAGE3_PROFILE_KEY, JSON.stringify(page3Profile));
   }, [page3Profile]);
 
-  const favoriteIds = useMemo(() => new Set(favoritePrompts.map((prompt) => prompt.id)), [favoritePrompts]);
   const activeLibrary = useMemo(() => [], []);
   const lockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
   const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
@@ -2034,39 +1768,9 @@ export default function App() {
       date: new Date().toISOString(),
     };
     nextPrompt.lineage = createLineage(nextPrompt);
-    setPrompts((prev) => [nextPrompt, ...prev]);
-    setViewMode('feed');
-  }, [previewPrompt]);
-
-  const handleRemixPrompt = useCallback((prompt, summaryKeys = [], options = {}) => {
-    const { branch = false } = options;
-    const keepKeys = Array.from(new Set(summaryKeys.flatMap((key) => SUMMARY_REROLL_MAP[key] || [])));
-    const remixLocks = buildLocksFromPrompt(prompt, keepKeys);
-    const [generatedPrompt] = generatePrompts(1, remixLocks, activeLibrary);
-    const nextPrompt = {
-      ...generatedPrompt,
-      id: branch ? generatedPrompt.id : prompt.id,
-      remixMeta: buildRemixMeta(prompt, generatedPrompt, summaryKeys),
-      lineage: buildNextLineage(prompt, generatedPrompt, summaryKeys, { branch }),
-    };
-    if (branch) {
-      setPrompts((prev) => [nextPrompt, ...prev]);
-      setViewMode('feed');
-      return;
-    }
-
-    setPrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
-    setFavoritePrompts((prev) => prev.map((item) => (item.id === prompt.id ? nextPrompt : item)));
-  }, [activeLibrary]);
-
-  const toggleFavorite = useCallback((prompt) => {
-    setFavoritePrompts((prev) => {
-      if (prev.some((item) => item.id === prompt.id)) {
-        return prev.filter((item) => item.id !== prompt.id);
-      }
-      return [prompt, ...prev];
-    });
-  }, []);
+    setFavoritePrompts((prev) => [nextPrompt, ...prev]);
+    showToast('目前 Prompt 已加入我的最愛');
+  }, [previewPrompt, showToast]);
 
   const handleDeletePrompt = useCallback((prompt) => {
     setPrompts((prev) => prev.filter((item) => item.id !== prompt.id));
@@ -2165,14 +1869,6 @@ export default function App() {
     setPageMode('page1');
     showToast(successLabel);
   }, [lockControls, showToast, updateLocks]);
-
-  const handleRestorePromptToConsole = useCallback((prompt) => {
-    if (!prompt?.selection) {
-      showToast('這張卡片沒有可回填的設定');
-      return;
-    }
-    applyLocksToConsole(prompt.selection, '卡片設定已回填到主控台');
-  }, [applyLocksToConsole, showToast]);
 
   const handleApplyImportedPrompt = () => {
     const { locks: parsedLocks, matchedControls } = parseLocksFromStandardPrompt(importPromptText, lockControls);
@@ -2365,13 +2061,7 @@ export default function App() {
           importFeedInputRef={importFeedInputRef}
           handleOpenImportFeed={handleOpenImportFeed}
           handleImportFeed={handleImportFeed}
-          favoriteIds={favoriteIds}
-          toggleFavorite={toggleFavorite}
           handleDeletePrompt={handleDeletePrompt}
-          handleRemixPrompt={handleRemixPrompt}
-          handleRestorePromptToConsole={handleRestorePromptToConsole}
-          summarySectionInfo={SUMMARY_SECTION_INFO}
-          advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}
         />
       )}
 
@@ -2379,6 +2069,3 @@ export default function App() {
     </div>
   );
 }
-const SUMMARY_REROLL_MAP = Object.fromEntries(
-  Object.entries(REMIX_GROUP_INFO).map(([sectionKey, section]) => [sectionKey, section.keys])
-);
