@@ -837,15 +837,21 @@ button:disabled {
 }
 
 .saved-cards-view-tabs,
-.saved-cards-actions {
+.saved-cards-actions,
+.saved-cards-source-tabs {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   width: 100%;
 }
 
 .saved-cards-view-tabs button,
-.saved-cards-actions button {
+.saved-cards-actions button,
+.saved-cards-source-tabs button {
   width: 100%;
+}
+
+.saved-cards-source-tabs {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
 }
 
 .saved-cards-results-meta {

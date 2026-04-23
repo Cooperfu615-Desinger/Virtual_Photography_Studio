@@ -11,6 +11,7 @@ export default function Page2Workspace({
   coreViewsBundle,
   promptBundle,
   onCopyText,
+  onSaveCard,
   createEmptyProfile,
 }) {
   return (
@@ -63,6 +64,9 @@ export default function Page2Workspace({
             </button>
             <button className="secondary" onClick={() => onCopyText('All Page2 prompts copied', promptBundle)} disabled={!promptBundle}>
               複製全部 Prompt
+            </button>
+            <button className="primary-cta" onClick={onSaveCard} disabled={!promptBundle}>
+              加入 Saved Cards
             </button>
             <button className="secondary" onClick={() => setProfile(createEmptyProfile())}>
               清空選項

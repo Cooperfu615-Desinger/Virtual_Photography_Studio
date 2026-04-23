@@ -1,4 +1,12 @@
+import { useMemo, useState } from 'react';
 import PromptCard from './PromptCard';
+
+const SOURCE_FILTERS = [
+  { id: 'all', label: '全部來源' },
+  { id: 'page1', label: 'Prompt 工作台' },
+  { id: 'page2', label: '角色建模' },
+  { id: 'page3', label: '場景建模' },
+];
 
 export default function SavedCardsWorkspace({
   prompts,
@@ -21,6 +29,19 @@ export default function SavedCardsWorkspace({
   advancedRemixGroupInfo,
 }) {
   const isFavoritesView = viewMode === 'favorites';
+  const [sourceFilter, setSourceFilter] = useState('all');
+  const sourceCounts = useMemo(() => {
+    const counts = { all: displayPrompts.length, page1: 0, page2: 0, page3: 0 };
+    displayPrompts.forEach((prompt) => {
+      const source = prompt.source || 'page1';
+      if (counts[source] !== undefined) counts[source] += 1;
+    });
+    return counts;
+  }, [displayPrompts]);
+  const filteredPrompts = useMemo(
+    () => displayPrompts.filter((prompt) => sourceFilter === 'all' || (prompt.source || 'page1') === sourceFilter),
+    [displayPrompts, sourceFilter]
+  );
 
   return (
     <section className="saved-cards-shell">
@@ -43,7 +64,7 @@ export default function SavedCardsWorkspace({
           </div>
           <div className="saved-cards-stat">
             <span>Current View</span>
-            <strong>{displayPrompts.length}</strong>
+            <strong>{filteredPrompts.length}</strong>
           </div>
         </div>
       </section>
@@ -60,7 +81,7 @@ export default function SavedCardsWorkspace({
           </div>
 
           <div className="tab-row saved-cards-actions">
-            <button className="secondary" onClick={handleDownloadAll} disabled={displayPrompts.length === 0}>
+            <button className="secondary" onClick={() => handleDownloadAll(filteredPrompts)} disabled={filteredPrompts.length === 0}>
               Download
             </button>
             {isFavoritesView ? (
@@ -85,24 +106,37 @@ export default function SavedCardsWorkspace({
           />
         </div>
 
+        <div className="tab-row saved-cards-source-tabs" aria-label="Saved card source filter">
+          {SOURCE_FILTERS.map((filter) => (
+            <button
+              key={filter.id}
+              type="button"
+              className={sourceFilter === filter.id ? 'tab-primary-active' : 'secondary'}
+              onClick={() => setSourceFilter(filter.id)}
+            >
+              {filter.label} ({sourceCounts[filter.id] || 0})
+            </button>
+          ))}
+        </div>
+
         <div className="saved-cards-results-meta">
-          {isFavoritesView ? 'Favorites' : 'Feed'} view currently showing {displayPrompts.length} cards.
+          {isFavoritesView ? 'Favorites' : 'Feed'} view currently showing {filteredPrompts.length} cards.
         </div>
 
         <div className="saved-cards-list">
-          {displayPrompts.length === 0 ? (
+          {filteredPrompts.length === 0 ? (
             <div className="empty-state">
               {isFavoritesView
                 ? '目前還沒有收藏卡片。回到 Prompt 工作台儲存或點愛心後，這裡會集中顯示。'
                 : '目前還沒有保存版本。回到 Prompt 工作台，用 Save 保存你想留下的 prompt。'}
             </div>
           ) : (
-            displayPrompts.map((prompt) => (
+            filteredPrompts.map((prompt) => (
               <PromptCard
                 key={prompt.id}
                 data={prompt}
                 isFavorite={favoriteIds.has(prompt.id)}
-                canRestore={favoriteIds.has(prompt.id)}
+                canRestore={Boolean(prompt.selection)}
                 onFavorite={toggleFavorite}
                 onDelete={handleDeletePrompt}
                 onRemix={handleRemixPrompt}

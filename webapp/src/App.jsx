@@ -517,20 +517,28 @@ function isNoneSelected(controlKey, value, controls) {
 }
 
 function buildMarkdownExport(data) {
+  const labels = {
+    midjourney: data.promptLabels?.midjourney || 'Midjourney Prompt',
+    grok: data.promptLabels?.grok || 'Grok Structured Prompt',
+    zImage: data.promptLabels?.zImage || 'Z-Image Prompt',
+  };
+  const structured = data.structured && typeof data.structured === 'object' ? data.structured : {};
+
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
+**Source:** ${data.sourceLabel || 'Prompt 工作台'}
 **Summary:** ${data.summary}
 
-## Midjourney Prompt
+## ${labels.midjourney}
 \`\`\`text
 ${data.midjourneyPrompt}
 \`\`\`
 
-## Grok Structured Prompt
+## ${labels.grok}
 \`\`\`text
 ${data.grokPrompt}
 \`\`\`
 
-## Z-Image Prompt
+## ${labels.zImage}
 \`\`\`text
 ${data.zImagePrompt || ''}
 \`\`\`
@@ -538,7 +546,7 @@ ${data.zImagePrompt || ''}
 ---
 
 ## Structured Scheme
-${Object.entries(data.structured)
+${Object.entries(structured)
   .map(([key, items]) => {
     const text = items.map((item) => `${item.en} (${item.zh})`).join(', ');
     return `* **${key}:** ${text || '-'}`;
@@ -799,10 +807,11 @@ function compactPromptSelection(selection) {
 function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
   if (!prompt || typeof prompt !== 'object' || !prompt.id) return null;
 
+  const source = String(prompt.source || 'page1');
   const rawSelection = prompt.selection && typeof prompt.selection === 'object'
     ? prompt.selection
     : null;
-  const selection = rawSelection
+  const selection = source === 'page1' && rawSelection
     ? normalizeLocks({ ...createEmptyLocks(), ...rawSelection })
     : null;
   const summaryFields = prompt.summaryFields && typeof prompt.summaryFields === 'object'
@@ -814,14 +823,18 @@ function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
 
   return {
     id: prompt.id,
+    source,
+    sourceLabel: String(prompt.sourceLabel || ''),
     date: prompt.date || new Date().toISOString(),
     summary: String(prompt.summary || ''),
     summaryFields,
     midjourneyPrompt: String(prompt.midjourneyPrompt || ''),
     grokPrompt: String(prompt.grokPrompt || ''),
     zImagePrompt: String(prompt.zImagePrompt || ''),
+    promptLabels: prompt.promptLabels && typeof prompt.promptLabels === 'object' ? prompt.promptLabels : null,
     selection,
     structured,
+    profile: prompt.profile && typeof prompt.profile === 'object' ? prompt.profile : null,
     lineage: prompt.lineage && typeof prompt.lineage === 'object' ? prompt.lineage : null,
     remixMeta: prompt.remixMeta && typeof prompt.remixMeta === 'object' ? prompt.remixMeta : null,
   };
@@ -839,12 +852,16 @@ function serializeFavoritePrompt(prompt) {
   return {
     v: FAVORITES_STORAGE_VERSION,
     i: sanitized.id,
+    o: sanitized.source,
+    b: sanitized.sourceLabel,
     d: sanitized.date,
     s: sanitized.summary,
     m: sanitized.midjourneyPrompt,
     g: sanitized.grokPrompt,
     z: sanitized.zImagePrompt,
+    y: sanitized.promptLabels,
     l: compactPromptSelection(sanitized.selection),
+    p: sanitized.profile,
     n: sanitized.lineage,
     r: sanitized.remixMeta,
   };
@@ -856,12 +873,16 @@ function deserializeFavoritePrompt(record) {
   if (record.v === FAVORITES_STORAGE_VERSION && record.i) {
     return sanitizeStoredPrompt({
       id: record.i,
+      source: record.o,
+      sourceLabel: record.b,
       date: record.d,
       summary: record.s,
       midjourneyPrompt: record.m,
       grokPrompt: record.g,
       zImagePrompt: record.z,
+      promptLabels: record.y,
       selection: record.l,
+      profile: record.p,
       lineage: record.n,
       remixMeta: record.r,
     });
@@ -1092,6 +1113,42 @@ function buildPage2PromptBundle(profile, viewPrompts) {
   ];
 
   return lines.join('\n').trim();
+}
+
+function buildPage2SavedCard(profile, summary, anchor, masterPrompt, coreViewsBundle, promptBundle) {
+  const safeSummary = summary || '尚未選擇角色特徵';
+
+  return {
+    id: `page2-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    source: 'page2',
+    sourceLabel: '角色建模',
+    date: new Date().toISOString(),
+    summary: `角色建模｜${safeSummary}`,
+    summaryFields: {
+      characterDna: safeSummary,
+      expressionPose: anchor || '-',
+      wardrobe: '-',
+      sceneLook: '-',
+    },
+    midjourneyPrompt: masterPrompt,
+    grokPrompt: promptBundle,
+    zImagePrompt: coreViewsBundle,
+    promptLabels: {
+      midjourney: 'Master Sheet',
+      grok: 'Prompt Bundle',
+      zImage: 'Core Views',
+    },
+    selection: null,
+    structured: {
+      'Page2 Character': [
+        {
+          zh: safeSummary,
+          en: anchor || 'character profile anchor',
+        },
+      ],
+    },
+    profile: { ...profile },
+  };
 }
 
 function getPage3Option(fieldOptions, fieldKey, optionId) {
@@ -1364,6 +1421,42 @@ function buildPage3WorldPrompt(profile, fieldOptions) {
   ].filter(Boolean);
 
   return parts.join(', ');
+}
+
+function buildPage3SavedCard(profile, summary, anchor, prompt, cinematicPrompt, worldPrompt) {
+  const safeSummary = summary || '尚未選擇場景條件';
+
+  return {
+    id: `page3-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    source: 'page3',
+    sourceLabel: '場景建模',
+    date: new Date().toISOString(),
+    summary: `場景建模｜${safeSummary}`,
+    summaryFields: {
+      characterDna: '-',
+      expressionPose: '-',
+      wardrobe: '-',
+      sceneLook: safeSummary,
+    },
+    midjourneyPrompt: prompt,
+    grokPrompt: cinematicPrompt,
+    zImagePrompt: worldPrompt,
+    promptLabels: {
+      midjourney: 'Scene Prompt',
+      grok: 'Cinematic',
+      zImage: 'World',
+    },
+    selection: null,
+    structured: {
+      'Page3 Scene': [
+        {
+          zh: safeSummary,
+          en: anchor || 'scene profile anchor',
+        },
+      ],
+    },
+    profile: { ...profile },
+  };
 }
 
 function loadFavoritePrompts() {
@@ -1891,10 +1984,10 @@ export default function App() {
     setFavoritePrompts((prev) => prev.filter((item) => item.id !== prompt.id));
   }, []);
 
-  const handleDownloadAll = () => {
-    if (displayPrompts.length === 0) return;
+  const handleDownloadAll = (items = displayPrompts) => {
+    if (items.length === 0) return;
     const zip = new JSZip();
-    displayPrompts.forEach((data) => {
+    items.forEach((data) => {
       zip.file(`prompt_${data.id}.md`, buildMarkdownExport(data));
     });
     zip.generateAsync({ type: 'blob' }).then((content) => {
@@ -2002,6 +2095,45 @@ export default function App() {
     setIsImportPromptOpen(false);
     setImportPromptText('');
   };
+  const handleSavePage2Card = useCallback(() => {
+    if (!page2PromptBundle) {
+      showToast('請先完成角色設定再加入 Saved Cards');
+      return;
+    }
+
+    const nextCard = buildPage2SavedCard(
+      page2Profile,
+      page2ProfileSummary,
+      page2ProfileAnchor,
+      page2MasterPrompt,
+      page2CoreViewsBundle,
+      page2PromptBundle
+    );
+    setFavoritePrompts((prev) => [nextCard, ...prev]);
+    setViewMode('favorites');
+    setPageMode('page4');
+    showToast('角色建模 Prompt 已加入 Saved Cards');
+  }, [page2CoreViewsBundle, page2MasterPrompt, page2Profile, page2ProfileAnchor, page2ProfileSummary, page2PromptBundle, showToast]);
+
+  const handleSavePage3Card = useCallback(() => {
+    if (!page3Prompt) {
+      showToast('請先完成場景設定再加入 Saved Cards');
+      return;
+    }
+
+    const nextCard = buildPage3SavedCard(
+      page3Profile,
+      page3Summary,
+      page3Anchor,
+      page3Prompt,
+      page3CinematicPrompt,
+      page3WorldPrompt
+    );
+    setFavoritePrompts((prev) => [nextCard, ...prev]);
+    setViewMode('favorites');
+    setPageMode('page4');
+    showToast('場景建模 Prompt 已加入 Saved Cards');
+  }, [page3Anchor, page3CinematicPrompt, page3Profile, page3Prompt, page3Summary, page3WorldPrompt, showToast]);
   const pageHeaderCopy = PAGE_MODE_COPY[pageMode] || PAGE_MODE_COPY.page1;
 
   return (
@@ -2113,6 +2245,7 @@ export default function App() {
           coreViewsBundle={page2CoreViewsBundle}
           promptBundle={page2PromptBundle}
           onCopyText={handleCopyText}
+          onSaveCard={handleSavePage2Card}
           createEmptyProfile={createEmptyPage2Profile}
         />
       ) : pageMode === 'page3' ? (
@@ -2127,6 +2260,7 @@ export default function App() {
           cinematicPrompt={page3CinematicPrompt}
           worldPrompt={page3WorldPrompt}
           onCopyText={handleCopyText}
+          onSaveCard={handleSavePage3Card}
           createEmptyProfile={createEmptyPage3Profile}
         />
       ) : (

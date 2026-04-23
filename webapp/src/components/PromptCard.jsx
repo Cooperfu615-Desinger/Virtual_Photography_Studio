@@ -2,20 +2,28 @@ import React, { memo, useState } from 'react';
 import { Download, Heart, RefreshCcw, Trash2, Undo2 } from 'lucide-react';
 
 function buildMarkdownExport(data) {
+  const labels = {
+    midjourney: data.promptLabels?.midjourney || 'Midjourney Prompt',
+    grok: data.promptLabels?.grok || 'Grok Structured Prompt',
+    zImage: data.promptLabels?.zImage || 'Z-Image Prompt',
+  };
+  const structured = data.structured && typeof data.structured === 'object' ? data.structured : {};
+
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
+**Source:** ${data.sourceLabel || 'Prompt 工作台'}
 **Summary:** ${data.summary}
 
-## Midjourney Prompt
+## ${labels.midjourney}
 \`\`\`text
 ${data.midjourneyPrompt}
 \`\`\`
 
-## Grok Structured Prompt
+## ${labels.grok}
 \`\`\`text
 ${data.grokPrompt}
 \`\`\`
 
-## Z-Image Prompt
+## ${labels.zImage}
 \`\`\`text
 ${data.zImagePrompt || ''}
 \`\`\`
@@ -23,7 +31,7 @@ ${data.zImagePrompt || ''}
 ---
 
 ## Structured Scheme
-${Object.entries(data.structured)
+${Object.entries(structured)
   .map(([key, items]) => {
     const text = items.map((item) => `${item.en} (${item.zh})`).join(', ');
     return `* **${key}:** ${text || '-'}`;
@@ -45,6 +53,14 @@ function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemi
   const [lockedSummaryKeys, setLockedSummaryKeys] = useState([]);
   const summarySections = Object.entries(summarySectionInfo);
   const lockedSectionDetails = lockedSummaryKeys.map((key) => summarySectionInfo[key]).filter(Boolean);
+  const source = data.source || 'page1';
+  const sourceLabel = data.sourceLabel || 'Prompt 工作台';
+  const labels = {
+    midjourney: data.promptLabels?.midjourney || 'Midjourney',
+    grok: data.promptLabels?.grok || 'Grok',
+    zImage: data.promptLabels?.zImage || 'Z-Image',
+  };
+  const canRemix = source === 'page1' && typeof onRemix === 'function';
   const quickPresetDetails = QUICK_REMIX_PRESETS.map((preset) => ({
     ...preset,
     info: advancedRemixGroupInfo[preset.key] || summarySectionInfo[preset.key],
@@ -77,7 +93,7 @@ function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemi
     setLockedSummaryKeys((prev) => (prev.includes(key) ? prev.filter((item) => item !== key) : [...prev, key]));
   };
 
-  const structuredText = Object.entries(data.structured)
+  const structuredText = Object.entries(data.structured && typeof data.structured === 'object' ? data.structured : {})
     .map(([key, items]) => {
       const text = items.map((item) => `${item.en} (${item.zh})`).join(', ');
       return `* **${key}:** ${text || '-'}`;
@@ -96,16 +112,18 @@ function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemi
     <article className="prompt-card prompt-card-summary">
       <div className="card-header card-header-compact">
         <div className="card-meta">
-          <span className="card-id">{shortId}</span>
+          <span className="card-id">{sourceLabel} · {shortId}</span>
           <div className="card-lineage">
             <span>{lineageLabel}</span>
             <span>{lineageDetail}</span>
           </div>
         </div>
         <div className="card-actions">
-          <button className="icon-btn" onClick={() => onRemix(data, lockedSummaryKeys)} title="使用已鎖定摘要隨機重抽">
-            <RefreshCcw size={18} />
-          </button>
+          {canRemix ? (
+            <button className="icon-btn" onClick={() => onRemix(data, lockedSummaryKeys)} title="使用已鎖定摘要隨機重抽">
+              <RefreshCcw size={18} />
+            </button>
+          ) : null}
           {canRestore ? (
             <button className="icon-btn" onClick={() => onRestore(data)} title="回填到主控台">
               <Undo2 size={18} />
@@ -125,30 +143,32 @@ function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemi
 
       <section className="summary-panel">
         <div className="summary-panel-header">摘要</div>
-        <div className="quick-remix-panel">
-          <div className="summary-insight-title">快速保留</div>
-          <div className="quick-remix-grid">
-            {quickPresetDetails.map((preset) => (
-              <button
-                key={preset.key}
-                type="button"
-                className="quick-remix-btn"
-                title={`直接 remix，保留${preset.info.lockLabels.join('、')}`}
-                onClick={() => onRemix(data, [preset.key])}
-              >
-                {preset.label}
-              </button>
-            ))}
+        {canRemix ? (
+          <div className="quick-remix-panel">
+            <div className="summary-insight-title">快速保留</div>
+            <div className="quick-remix-grid">
+              {quickPresetDetails.map((preset) => (
+                <button
+                  key={preset.key}
+                  type="button"
+                  className="quick-remix-btn"
+                  title={`直接 remix，保留${preset.info.lockLabels.join('、')}`}
+                  onClick={() => onRemix(data, [preset.key])}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="quick-remix-branch-btn"
+              title="保留原卡，另外建立一張新的 remix 分支"
+              onClick={() => onRemix(data, lockedSummaryKeys, { branch: true })}
+            >
+              分支 Remix，保留原卡
+            </button>
           </div>
-          <button
-            type="button"
-            className="quick-remix-branch-btn"
-            title="保留原卡，另外建立一張新的 remix 分支"
-            onClick={() => onRemix(data, lockedSummaryKeys, { branch: true })}
-          >
-            分支 Remix，保留原卡
-          </button>
-        </div>
+        ) : null}
         <div className="summary-grid">
           {summarySections.map(([key, section]) => (
             <div key={key} className={`summary-row ${data.remixMeta?.sectionStates?.[key] ? `summary-row-${data.remixMeta.sectionStates[key]}` : ''}`}>
@@ -156,6 +176,7 @@ function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemi
                 type="button"
                 className={`summary-row-label summary-lock-btn ${lockedSummaryKeys.includes(key) ? 'summary-lock-active' : ''}`}
                 onClick={() => toggleSummaryLock(key)}
+                disabled={!canRemix}
                 title="Click to lock this section during random remix"
               >
                 {section.label}
@@ -202,14 +223,14 @@ function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemi
       </section>
 
       <section className="primary-action-row">
-        <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopy('Midjourney copied', data.midjourneyPrompt)}>
-          Midjourney
+        <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopy(`${labels.midjourney} copied`, data.midjourneyPrompt)}>
+          {labels.midjourney}
         </button>
-        <button className="primary-copy-btn primary-copy-grok" onClick={() => handleCopy('Grok copied', data.grokPrompt)}>
-          Grok
+        <button className="primary-copy-btn primary-copy-grok" onClick={() => handleCopy(`${labels.grok} copied`, data.grokPrompt)}>
+          {labels.grok}
         </button>
-        <button className="primary-copy-btn primary-copy-zimage" onClick={() => handleCopy('Z-Image copied', data.zImagePrompt)} disabled={!data.zImagePrompt}>
-          Z-Image
+        <button className="primary-copy-btn primary-copy-zimage" onClick={() => handleCopy(`${labels.zImage} copied`, data.zImagePrompt)} disabled={!data.zImagePrompt}>
+          {labels.zImage}
         </button>
         <button className="secondary primary-copy-btn" onClick={() => setExpanded((prev) => !prev)}>
           {expanded ? 'Collapse' : 'Expand'}
@@ -220,7 +241,7 @@ function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemi
         <div className="card-details">
           <section className="prompt-section">
             <div className="prompt-label">
-              <span>Midjourney Prompt</span>
+              <span>{labels.midjourney}</span>
             </div>
             <div className="prompt-box">
               <div className="prompt-text prompt-text-full">{data.midjourneyPrompt}</div>
@@ -229,7 +250,7 @@ function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemi
 
           <section className="prompt-section">
             <div className="prompt-label">
-              <span>Grok Structured Prompt</span>
+              <span>{labels.grok}</span>
             </div>
             <div className="prompt-box">
               <div className="prompt-text prompt-text-full">{data.grokPrompt}</div>
@@ -239,7 +260,7 @@ function PromptCard({ data, onFavorite, onDelete, isFavorite, canRestore, onRemi
           {data.zImagePrompt ? (
             <section className="prompt-section">
               <div className="prompt-label">
-                <span>Z-Image Prompt</span>
+                <span>{labels.zImage}</span>
               </div>
               <div className="prompt-box">
                 <div className="prompt-text prompt-text-full">{data.zImagePrompt}</div>

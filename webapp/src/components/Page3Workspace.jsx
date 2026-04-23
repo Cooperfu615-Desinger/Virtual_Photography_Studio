@@ -9,6 +9,7 @@ export default function Page3Workspace({
   cinematicPrompt,
   worldPrompt,
   onCopyText,
+  onSaveCard,
   createEmptyProfile,
 }) {
   return (
@@ -58,6 +59,9 @@ export default function Page3Workspace({
             </button>
             <button className="secondary" onClick={() => onCopyText('World prompt copied', worldPrompt)} disabled={!worldPrompt}>
               複製 World Prompt
+            </button>
+            <button className="primary-cta" onClick={onSaveCard} disabled={!prompt}>
+              加入 Saved Cards
             </button>
             <button className="secondary" onClick={() => setProfile(createEmptyProfile())}>
               清空選項
