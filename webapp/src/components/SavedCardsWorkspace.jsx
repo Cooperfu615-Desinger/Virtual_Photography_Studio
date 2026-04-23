@@ -1,0 +1,119 @@
+import PromptCard from './PromptCard';
+
+export default function SavedCardsWorkspace({
+  prompts,
+  setPrompts,
+  viewMode,
+  setViewMode,
+  favoritePrompts,
+  displayPrompts,
+  handleDownloadAll,
+  handleClearFavorites,
+  importFeedInputRef,
+  handleOpenImportFeed,
+  handleImportFeed,
+  favoriteIds,
+  toggleFavorite,
+  handleDeletePrompt,
+  handleRemixPrompt,
+  handleRestorePromptToConsole,
+  summarySectionInfo,
+  advancedRemixGroupInfo,
+}) {
+  const isFavoritesView = viewMode === 'favorites';
+
+  return (
+    <section className="saved-cards-shell">
+      <section className="saved-cards-hero lock-panel">
+        <div>
+          <div className="lock-title">Saved Cards Library</div>
+          <p className="lock-subtitle">
+            集中管理 Prompt 工作台保存的版本。這裡可以下載、匯入、回填、remix，讓主工作台保持乾淨。
+          </p>
+        </div>
+
+        <div className="saved-cards-stats" aria-label="Saved card counts">
+          <div className="saved-cards-stat">
+            <span>Feed</span>
+            <strong>{prompts.length}</strong>
+          </div>
+          <div className="saved-cards-stat">
+            <span>Favorites</span>
+            <strong>{favoritePrompts.length}</strong>
+          </div>
+          <div className="saved-cards-stat">
+            <span>Current View</span>
+            <strong>{displayPrompts.length}</strong>
+          </div>
+        </div>
+      </section>
+
+      <section className="saved-cards-panel lock-panel">
+        <div className="saved-cards-toolbar">
+          <div className="tab-row saved-cards-view-tabs">
+            <button className={viewMode === 'feed' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('feed')}>
+              Feed ({prompts.length})
+            </button>
+            <button className={isFavoritesView ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('favorites')}>
+              Favorites ({favoritePrompts.length})
+            </button>
+          </div>
+
+          <div className="tab-row saved-cards-actions">
+            <button className="secondary" onClick={handleDownloadAll} disabled={displayPrompts.length === 0}>
+              Download
+            </button>
+            {isFavoritesView ? (
+              <button className="secondary danger" onClick={handleClearFavorites} disabled={favoritePrompts.length === 0}>
+                Clear Favorites
+              </button>
+            ) : (
+              <button className="secondary danger" onClick={() => setPrompts([])} disabled={prompts.length === 0}>
+                Clear Feed
+              </button>
+            )}
+            <button className="secondary" onClick={handleOpenImportFeed}>
+              Import
+            </button>
+          </div>
+          <input
+            ref={importFeedInputRef}
+            type="file"
+            accept=".zip,application/zip"
+            style={{ display: 'none' }}
+            onChange={handleImportFeed}
+          />
+        </div>
+
+        <div className="saved-cards-results-meta">
+          {isFavoritesView ? 'Favorites' : 'Feed'} view currently showing {displayPrompts.length} cards.
+        </div>
+
+        <div className="saved-cards-list">
+          {displayPrompts.length === 0 ? (
+            <div className="empty-state">
+              {isFavoritesView
+                ? '目前還沒有收藏卡片。回到 Prompt 工作台儲存或點愛心後，這裡會集中顯示。'
+                : '目前還沒有保存版本。回到 Prompt 工作台，用 Save 保存你想留下的 prompt。'}
+            </div>
+          ) : (
+            displayPrompts.map((prompt) => (
+              <PromptCard
+                key={prompt.id}
+                data={prompt}
+                isFavorite={favoriteIds.has(prompt.id)}
+                canRestore={favoriteIds.has(prompt.id)}
+                onFavorite={toggleFavorite}
+                onDelete={handleDeletePrompt}
+                onRemix={handleRemixPrompt}
+                onRestore={handleRestorePromptToConsole}
+                summarySectionInfo={summarySectionInfo}
+                advancedRemixGroupInfo={advancedRemixGroupInfo}
+              />
+            ))
+          )}
+        </div>
+      </section>
+    </section>
+  );
+}

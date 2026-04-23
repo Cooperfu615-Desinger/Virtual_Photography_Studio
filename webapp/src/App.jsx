@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver';
 import Page1Workspace from './components/Page1Workspace';
 import Page2Workspace from './components/Page2Workspace';
 import Page3Workspace from './components/Page3Workspace';
+import SavedCardsWorkspace from './components/SavedCardsWorkspace';
 import {
   buildLocksFromPrompt,
   createEmptyLocks,
@@ -33,6 +34,24 @@ const STORAGE_BUDGETS = {
 const STORAGE_PERSIST_DELAY_MS = 300;
 const STORAGE_IDLE_TIMEOUT_MS = 1000;
 const FAVORITES_CLOUD_SYNC_DELAY_MS = 900;
+const PAGE_MODE_COPY = {
+  page1: {
+    title: 'Prompt Control Deck',
+    subtitle: '一個為個人創作流程設計的虛擬攝影 Prompt 生成工具，支援快速組合、批次生成與風格探索。',
+  },
+  page2: {
+    title: 'Character Builder',
+    subtitle: '建立固定角色的臉部與妝容設定，整理成可搬回 PAGE1 使用的角色 Prompt。',
+  },
+  page3: {
+    title: 'Scene Builder',
+    subtitle: '建立無人物的純場景與世界觀 prompt，從小空間到超大景都可獨立生成。',
+  },
+  page4: {
+    title: 'Saved Cards',
+    subtitle: '集中管理已保存的 Prompt 版本，支援收藏、回填、匯入、匯出與 remix。',
+  },
+};
 
 function loadFavoriteCloudRepository() {
   favoriteCloudRepositoryPromise ||= import('./lib/favoritesRepository');
@@ -1983,20 +2002,15 @@ export default function App() {
     setIsImportPromptOpen(false);
     setImportPromptText('');
   };
+  const pageHeaderCopy = PAGE_MODE_COPY[pageMode] || PAGE_MODE_COPY.page1;
 
   return (
     <div className="container">
       <header className="page-header">
         <div className="page-header-content">
           <p className="eyebrow">Virtual Photography Studio</p>
-          <h1>{pageMode === 'page1' ? 'Prompt Control Deck' : pageMode === 'page2' ? 'Character Builder' : 'Scene Builder'}</h1>
-          <p className="subtitle">
-            {pageMode === 'page1'
-              ? '一個為個人創作流程設計的虛擬攝影 Prompt 生成工具，支援快速組合、批次生成與風格探索。'
-              : pageMode === 'page2'
-                ? '建立固定角色的臉部與妝容設定，整理成可搬回 PAGE1 使用的角色 Prompt。'
-                : '建立無人物的純場景與世界觀 prompt，從小空間到超大景都可獨立生成。'}
-          </p>
+          <h1>{pageHeaderCopy.title}</h1>
+          <p className="subtitle">{pageHeaderCopy.subtitle}</p>
           <div className="page-header-toolbar">
             <div className="page-mode-switch" role="tablist" aria-label="Page mode switch">
               <button
@@ -2019,6 +2033,13 @@ export default function App() {
                 onClick={() => setPageMode('page3')}
               >
                 場景建模
+              </button>
+              <button
+                type="button"
+                className={pageMode === 'page4' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+                onClick={() => setPageMode('page4')}
+              >
+                Saved Cards
               </button>
             </div>
 
@@ -2068,33 +2089,15 @@ export default function App() {
           handleCopyText={handleCopyText}
           isOutfitPresetActive={isOutfitPresetActive}
           handleGenerate={handleGenerate}
-          prompts={prompts}
-          setPrompts={setPrompts}
           createEmptyLocks={createEmptyLocks}
           buildAllNoneLocks={buildAllNoneLocks}
           lockControls={lockControls}
-          viewMode={viewMode}
-          setViewMode={setViewMode}
-          favoritePrompts={favoritePrompts}
-          displayPrompts={displayPrompts}
           previewPrompt={previewPrompt}
-          handleDownloadAll={handleDownloadAll}
-          handleClearFavorites={handleClearFavorites}
-          importFeedInputRef={importFeedInputRef}
-          handleOpenImportFeed={handleOpenImportFeed}
-          handleImportFeed={handleImportFeed}
           isImportPromptOpen={isImportPromptOpen}
           setIsImportPromptOpen={setIsImportPromptOpen}
           importPromptText={importPromptText}
           setImportPromptText={setImportPromptText}
           handleApplyImportedPrompt={handleApplyImportedPrompt}
-          favoriteIds={favoriteIds}
-          toggleFavorite={toggleFavorite}
-          handleDeletePrompt={handleDeletePrompt}
-          handleRemixPrompt={handleRemixPrompt}
-          handleRestorePromptToConsole={handleRestorePromptToConsole}
-          summarySectionInfo={SUMMARY_SECTION_INFO}
-          advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}
         />
       ) : pageMode === 'page2' ? (
         <Page2Workspace
@@ -2112,7 +2115,7 @@ export default function App() {
           onCopyText={handleCopyText}
           createEmptyProfile={createEmptyPage2Profile}
         />
-      ) : (
+      ) : pageMode === 'page3' ? (
         <Page3Workspace
           fieldConfig={PAGE3_FIELD_CONFIG}
           fieldOptions={page3FieldOptions}
@@ -2125,6 +2128,27 @@ export default function App() {
           worldPrompt={page3WorldPrompt}
           onCopyText={handleCopyText}
           createEmptyProfile={createEmptyPage3Profile}
+        />
+      ) : (
+        <SavedCardsWorkspace
+          prompts={prompts}
+          setPrompts={setPrompts}
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          favoritePrompts={favoritePrompts}
+          displayPrompts={displayPrompts}
+          handleDownloadAll={handleDownloadAll}
+          handleClearFavorites={handleClearFavorites}
+          importFeedInputRef={importFeedInputRef}
+          handleOpenImportFeed={handleOpenImportFeed}
+          handleImportFeed={handleImportFeed}
+          favoriteIds={favoriteIds}
+          toggleFavorite={toggleFavorite}
+          handleDeletePrompt={handleDeletePrompt}
+          handleRemixPrompt={handleRemixPrompt}
+          handleRestorePromptToConsole={handleRestorePromptToConsole}
+          summarySectionInfo={SUMMARY_SECTION_INFO}
+          advancedRemixGroupInfo={ADVANCED_REMIX_GROUP_INFO}
         />
       )}
 

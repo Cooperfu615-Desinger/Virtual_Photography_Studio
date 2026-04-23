@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
-import PromptCard from './PromptCard';
+import { useMemo, useState } from 'react';
 import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
 
@@ -235,33 +234,15 @@ export default function Page1Workspace({
   handleCopyText,
   isOutfitPresetActive,
   handleGenerate,
-  prompts,
-  setPrompts,
   createEmptyLocks,
   buildAllNoneLocks,
   lockControls,
-  viewMode,
-  setViewMode,
-  favoritePrompts,
-  displayPrompts,
   previewPrompt,
-  handleDownloadAll,
-  handleClearFavorites,
-  importFeedInputRef,
-  handleOpenImportFeed,
-  handleImportFeed,
   isImportPromptOpen,
   setIsImportPromptOpen,
   importPromptText,
   setImportPromptText,
   handleApplyImportedPrompt,
-  favoriteIds,
-  toggleFavorite,
-  handleDeletePrompt,
-  handleRemixPrompt,
-  handleRestorePromptToConsole,
-  summarySectionInfo,
-  advancedRemixGroupInfo,
 }) {
   const [isLightingReferenceOpen, setIsLightingReferenceOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('character');
@@ -270,34 +251,12 @@ export default function Page1Workspace({
     wardrobe: 'overall',
     scene: 'space',
   });
-  const [isMobileFavoritesMode, setIsMobileFavoritesMode] = useState(false);
 
   const workspaceSummary = useMemo(() => buildWorkspaceSummary(locks, lockControls), [locks, lockControls]);
   const activeSectionConfig = WORKSPACE_SECTIONS.find((section) => section.id === activeSection) || WORKSPACE_SECTIONS[0];
   const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
   const activeSubpanelId = activeSubpanels[activeSection] || sectionSubpanels[0]?.id || '';
   const activeSubpanel = sectionSubpanels.find((panel) => panel.id === activeSubpanelId) || sectionSubpanels[0] || null;
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return undefined;
-    const mediaQuery = window.matchMedia('(max-width: 820px)');
-    const syncMode = (event) => {
-      const matches = typeof event?.matches === 'boolean' ? event.matches : mediaQuery.matches;
-      setIsMobileFavoritesMode(matches);
-      if (matches) {
-        setViewMode('favorites');
-      }
-    };
-    syncMode();
-
-    if (typeof mediaQuery.addEventListener === 'function') {
-      mediaQuery.addEventListener('change', syncMode);
-      return () => mediaQuery.removeEventListener('change', syncMode);
-    }
-
-    mediaQuery.addListener(syncMode);
-    return () => mediaQuery.removeListener(syncMode);
-  }, [setViewMode]);
 
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
@@ -388,93 +347,6 @@ export default function Page1Workspace({
     if (activeSection === 'wardrobe') return renderWardrobeControls();
     return renderCharacterControls();
   };
-
-  if (isMobileFavoritesMode) {
-    return (
-      <>
-        <section className="page1-mobile-shell">
-          <div className="page1-mobile-header lock-panel">
-            <div className="lock-title">PAGE1 Favorites</div>
-            <p className="lock-subtitle">手機版先保留最愛卡片瀏覽與複製，完整編輯工作台請使用桌機開啟。</p>
-          </div>
-
-          <section className="page1-mobile-favorites lock-panel">
-            <div className="control-section-header">
-              <div>
-                <div className="control-section-title">Favorites Library</div>
-                <p className="workspace-panel-copy">你可以在手機上快速查看、複製與回填最常用的 prompt 卡片。</p>
-              </div>
-            </div>
-
-            <div className="filter-bar">
-              <div className="results-meta">{favoritePrompts.length} favorites</div>
-              <div className="tab-row">
-                <button className="secondary" onClick={handleDownloadAll} disabled={favoritePrompts.length === 0}>
-                  Download
-                </button>
-                <button className="secondary danger" onClick={handleClearFavorites} disabled={favoritePrompts.length === 0}>
-                  Clear Favorites
-                </button>
-              </div>
-            </div>
-
-            <div className="page1-mobile-card-list">
-              {favoritePrompts.length === 0 ? (
-                <div className="empty-state">目前還沒有最愛卡片。桌機版保存後，手機這裡就會直接看到。</div>
-              ) : (
-                favoritePrompts.map((prompt) => (
-                  <PromptCard
-                    key={prompt.id}
-                    data={prompt}
-                    isFavorite={favoriteIds.has(prompt.id)}
-                    canRestore={favoriteIds.has(prompt.id)}
-                    onFavorite={toggleFavorite}
-                    onDelete={handleDeletePrompt}
-                    onRemix={handleRemixPrompt}
-                    onRestore={handleRestorePromptToConsole}
-                    summarySectionInfo={summarySectionInfo}
-                    advancedRemixGroupInfo={advancedRemixGroupInfo}
-                  />
-                ))
-              )}
-            </div>
-          </section>
-        </section>
-
-        {isImportPromptOpen ? (
-          <div className="modal-backdrop" onClick={() => setIsImportPromptOpen(false)}>
-            <div className="modal-panel prompt-import-modal" onClick={(event) => event.stopPropagation()}>
-              <div className="modal-header">
-                <div>
-                  <div className="lock-title">標準格式回填</div>
-                  <p className="lock-subtitle">貼上本工具輸出的標準 Prompt，系統會盡可能回填到 PAGE1 主控台。</p>
-                </div>
-              </div>
-
-              <label className="field">
-                <span>Prompt 內容</span>
-                <textarea
-                  className="text-input prompt-import-textarea"
-                  value={importPromptText}
-                  onChange={(event) => setImportPromptText(event.target.value)}
-                  placeholder="貼上 Midjourney、Grok Structured Prompt，或本工具匯出的標準格式內容"
-                />
-              </label>
-
-              <div className="modal-actions">
-                <button className="secondary" onClick={() => setIsImportPromptOpen(false)}>
-                  取消
-                </button>
-                <button className="primary-cta" onClick={handleApplyImportedPrompt} disabled={!importPromptText.trim()}>
-                  確認回填
-                </button>
-              </div>
-            </div>
-          </div>
-        ) : null}
-      </>
-    );
-  }
 
   return (
     <>
@@ -585,72 +457,6 @@ export default function Page1Workspace({
             </div>
           </section>
 
-          <section className="page1-feed-panel lock-panel page1-feed-panel-muted">
-            <div className="control-section-header">
-              <div>
-                <div className="control-section-title">Saved Cards</div>
-                <p className="workspace-panel-copy">這裡是版本庫，不是主編輯區。需要時再回頭比對、收藏或 remix 即可。</p>
-              </div>
-            </div>
-
-            <div className="tab-row">
-              <button className={viewMode === 'feed' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('feed')}>
-                Feed ({prompts.length})
-              </button>
-              <button className={viewMode === 'favorites' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('favorites')}>
-                Favorites ({favoritePrompts.length})
-              </button>
-            </div>
-
-            <div className="filter-bar">
-              <div className="results-meta">{displayPrompts.length} results</div>
-              <div className="tab-row">
-                <button className="secondary" onClick={handleDownloadAll} disabled={displayPrompts.length === 0}>
-                  Download
-                </button>
-                {viewMode === 'favorites' ? (
-                  <button className="secondary danger" onClick={handleClearFavorites} disabled={favoritePrompts.length === 0}>
-                    Clear Favorites
-                  </button>
-                ) : (
-                  <button className="secondary danger" onClick={() => setPrompts([])} disabled={prompts.length === 0}>
-                    Clear Feed
-                  </button>
-                )}
-                <button className="secondary" onClick={handleOpenImportFeed}>
-                  Import
-                </button>
-              </div>
-              <input
-                ref={importFeedInputRef}
-                type="file"
-                accept=".zip,application/zip"
-                style={{ display: 'none' }}
-                onChange={handleImportFeed}
-              />
-            </div>
-
-            <div className="page1-feed-list">
-              {displayPrompts.length === 0 ? (
-                <div className="empty-state">先在左側調整條件，然後用 Save Current Card 保存你要的版本。</div>
-              ) : (
-                displayPrompts.map((prompt) => (
-                  <PromptCard
-                    key={prompt.id}
-                    data={prompt}
-                    isFavorite={favoriteIds.has(prompt.id)}
-                    canRestore={favoriteIds.has(prompt.id)}
-                    onFavorite={toggleFavorite}
-                    onDelete={handleDeletePrompt}
-                    onRemix={handleRemixPrompt}
-                    onRestore={handleRestorePromptToConsole}
-                    summarySectionInfo={summarySectionInfo}
-                    advancedRemixGroupInfo={advancedRemixGroupInfo}
-                  />
-                ))
-              )}
-            </div>
-          </section>
         </aside>
       </section>
 
