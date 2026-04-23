@@ -444,7 +444,6 @@ const CHARACTER_CONTROL_ORDER = [
   'specialActionId',
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'sceneAttributeId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
-const SCENE_CAMERA_SIMPLIFIED_ORDER = ['styleId', 'sceneAttributeId', 'locationId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'aspectRatio'];
 const STYLE_WARDROBE_CONTROL_ORDER = [
   'outfitPresetId',
   'outfitPresetPrimaryColorId',
@@ -1628,7 +1627,6 @@ export default function App() {
   const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
   const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
   const closeupAllowedKeys = useMemo(() => getCloseupAllowedKeys(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
-  const isPhotographyStyleLocked = Boolean(locks.styleId) && !isNoneSelected('styleId', locks.styleId, lockControls);
   const outfitPresetControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetId') || null, [lockControls]);
   const outfitPresetAControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetAId') || null, [lockControls]);
   const outfitPresetBControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetBId') || null, [lockControls]);
@@ -1670,7 +1668,6 @@ export default function App() {
   }, [selectedOutfitPreset, selectedOutfitPresetA, selectedOutfitPresetB]);
   const coreLockControls = useMemo(
     () => {
-      const activeOrder = isPhotographyStyleLocked ? SCENE_CAMERA_SIMPLIFIED_ORDER : SCENE_CAMERA_CONTROL_ORDER;
       const controlsWithSceneFiltering = lockControls.map((control) => {
         if (control.key === 'locationId') {
           return { ...control, options: sceneDependentOptions.locationOptions };
@@ -1685,11 +1682,11 @@ export default function App() {
       });
 
       return sortControls(
-        controlsWithSceneFiltering.filter((control) => activeOrder.includes(control.key)),
-        activeOrder
+        controlsWithSceneFiltering.filter((control) => SCENE_CAMERA_CONTROL_ORDER.includes(control.key)),
+        SCENE_CAMERA_CONTROL_ORDER
       );
     },
-    [isPhotographyStyleLocked, lockControls, sceneDependentOptions]
+    [lockControls, sceneDependentOptions]
   );
   const characterLockControls = useMemo(
     () =>
@@ -1725,7 +1722,6 @@ export default function App() {
 
   const activeLockCount = Object.entries(locks).filter(([key, value]) => {
     if (['subjectCount', 'aspectRatio'].includes(key)) return false;
-    if (isPhotographyStyleLocked && ['lightingId', 'lightDirectionId', 'filmId'].includes(key)) return false;
     if (key === 'topBottomPaletteId' && value === 'none') return false;
     return Array.isArray(value) ? value.length > 0 : Boolean(value);
   }).length;

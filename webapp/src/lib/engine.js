@@ -2305,7 +2305,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const orbitLabel = context.orbit && !isNoneLikeItem(context.orbit) ? context.orbit.zh : '-';
   const lensLabel = context.lens && !isNoneLikeItem(context.lens) ? context.lens.zh : '-';
   const aspectRatioLabel = context.aspectRatio?.zh || '-';
-  const lightingLabel = !context.styleDrivenCamera && context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.zh : '-';
+  const lightingLabel = context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.zh : '-';
   const opticalEffectLabel = context.opticalEffect && !isNoneLikeItem(context.opticalEffect) ? context.opticalEffect.zh : '-';
   const formatPresetSummary = (preset, primaryColor) => {
     if (!preset) return '';
@@ -2402,9 +2402,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     wardrobe: summarizeWardrobe(),
     location: locationLabel,
     camera: joinSummaryParts(framingLabel, angleLabel, orbitLabel, lensLabel, aspectRatioLabel),
-    lighting: context.styleDrivenCamera
-      ? (opticalEffectLabel !== '-' ? `由攝影風格決定 / ${opticalEffectLabel}` : '由攝影風格決定')
-      : joinSummaryParts(lightingLabel, opticalEffectLabel),
+    lighting: joinSummaryParts(lightingLabel, opticalEffectLabel),
   };
 }
 
@@ -3687,12 +3685,10 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   }
   addContextLine('Location', context.location);
   addLine('Scene Accent', sceneAccentText);
-  if (!context.styleDrivenCamera) {
-    addContextLine('Environment Mood', context.lighting);
-    addContextLine('Light Style', lightDirection, (item) => resolvePromptVariant(item, 'lightDirection', context.subject.count));
-  }
+  addContextLine('Environment Mood', context.lighting);
+  addContextLine('Light Style', lightDirection, (item) => resolvePromptVariant(item, 'lightDirection', context.subject.count));
   addLine('Aspect Ratio', context.aspectRatio.en);
-  if (!context.styleDrivenCamera) addContextLine('Film', film);
+  addContextLine('Film', film);
   addContextLine('Angle', context.angle, (item) => resolvePromptVariant(item, 'angle', context.subject.count));
   addContextLine('Orbit Angle', context.orbit, (item) => resolvePromptVariant(item, 'orbit', context.subject.count));
   addContextLine('Lens', context.lens);
@@ -3818,8 +3814,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     const sceneParts = [
       context.location && !isNoneLikeItem(context.location) ? context.location.en : '',
       sceneAccentText,
-      !context.styleDrivenCamera && context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.en : '',
-      !context.styleDrivenCamera && lightDirection && !isNoneLikeItem(lightDirection) ? resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count) : '',
+      context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.en : '',
+      lightDirection && !isNoneLikeItem(lightDirection) ? resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count) : '',
     ].filter(Boolean);
 
     return leadSentence('The setting is', sceneParts);
@@ -3834,7 +3830,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   ]);
   const buildStyleText = () => joinSentenceParts([
     context.style && !isNoneLikeItem(context.style) ? buildPhotographyStylePrompt(context.style) : '',
-    !context.styleDrivenCamera ? film?.en : '',
+    film?.en,
     'natural photographic detail, coherent fabric construction, clear facial readability, realistic spatial depth',
     'do not add visible text unless explicitly requested',
   ]);
@@ -3896,9 +3892,9 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     orbitId: context.orbit?.id || '',
     lensId: context.lens?.id || '',
     opticalEffectId: context.opticalEffect?.id || '',
-    lightingId: context.styleDrivenCamera ? '' : context.lighting?.id || '',
-    lightDirectionId: context.styleDrivenCamera ? '' : lightDirection?.id || '',
-    filmId: context.styleDrivenCamera ? '' : film?.id || '',
+    lightingId: context.lighting?.id || '',
+    lightDirectionId: lightDirection?.id || '',
+    filmId: film?.id || '',
     outfitPresetId: wardrobeSlots.outfitPreset?.id || '',
     outfitPresetColorId: normalizedSelection.outfitPresetColorId,
     outfitPresetPrimaryColorId: normalizedSelection.outfitPresetPrimaryColorId,
@@ -3970,16 +3966,7 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
 
 function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) {
   const runtime = buildCatalog(customLibrary);
-  const lockedStyle = locks.styleId ? findById(runtime.flatCatalog.regional, locks.styleId) : null;
-  const styleDrivenCamera = Boolean(lockedStyle && !isNoneLikeItem(lockedStyle));
-  const effectiveLocks = styleDrivenCamera
-    ? {
-        ...locks,
-        lightingId: '',
-        lightDirectionId: '',
-        filmId: '',
-      }
-    : locks;
+  const effectiveLocks = locks;
   const subject = getSubjectOption(effectiveLocks.subjectCount);
   const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio);
   const sceneAttribute = getSceneAttributeOption(effectiveLocks.sceneAttributeId);
@@ -4031,13 +4018,11 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedSpecialAction)
   );
   const lens = pickWithLock(runtime.flatCatalog.lens, effectiveLocks.lensId);
-  const lighting = styleDrivenCamera
-    ? null
-    : pickWithCompatibleLock(runtime.flatCatalog.lighting, effectiveLocks.lightingId, (item) => locationSupportsLighting(location, item));
-  const lightDirection = styleDrivenCamera || !lighting
+  const lighting = pickWithCompatibleLock(runtime.flatCatalog.lighting, effectiveLocks.lightingId, (item) => locationSupportsLighting(location, item));
+  const lightDirection = !lighting
     ? null
     : pickWithCompatibleLock(runtime.flatCatalog.lightDirection, effectiveLocks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
-  const film = styleDrivenCamera ? null : pickWithLock(runtime.flatCatalog.film, effectiveLocks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
+  const film = pickWithLock(runtime.flatCatalog.film, effectiveLocks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
   const opticalEffect = pickWithLock(runtime.flatCatalog.effects, effectiveLocks.opticalEffectId);
   const duoInteraction = subject.count === 2 ? getDuoInteractionOption(effectiveLocks.duoInteractionId) || sampleNonNone(DUO_INTERACTION_OPTIONS) : null;
   const duoStyling = subject.count === 2 ? getDuoStylingOption(effectiveLocks.duoStylingId) || sample(DUO_STYLING_OPTIONS) : null;
@@ -4055,7 +4040,6 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     opticalEffect,
     lighting,
     locks: effectiveLocks,
-    styleDrivenCamera,
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
   const character = buildCharacter(context, runtime.catalog);

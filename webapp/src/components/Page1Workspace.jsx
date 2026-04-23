@@ -130,7 +130,7 @@ const SECTION_SUBPANELS = {
       id: 'space',
       label: '場景基底',
       description: '先定義世界、場景屬性與畫面比例，決定整體敘事容器。',
-      keys: ['styleId', 'sceneAttributeId', 'locationId', 'aspectRatio'],
+      keys: ['sceneAttributeId', 'locationId', 'aspectRatio'],
     },
     {
       id: 'camera',
@@ -142,7 +142,7 @@ const SECTION_SUBPANELS = {
       id: 'light',
       label: '光線成像',
       description: '最後補上光線與成像風格，決定氣氛與最後的攝影質感。',
-      keys: ['lightingId', 'lightDirectionId', 'filmId'],
+      keys: ['styleId', 'lightingId', 'lightDirectionId', 'filmId'],
     },
   ],
 };
