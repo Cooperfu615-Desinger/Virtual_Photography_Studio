@@ -224,8 +224,11 @@
 | **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday finish, versatile casual style` | 最穩定的日常鞋款，適合街拍與生活感畫面。 |
 | **鞋款 (Shoes)** | ADIZERO EVO SL JS4506 | `adidas adizero evo sl js4506 running shoes, low-top speed-runner silhouette, lightweight modern performance sneaker, sleek athletic outsole` | 偏輕量速度型跑鞋輪廓，整體俐落、現代、運動感強，適合街拍、機能與日常運動風。 |
 | **鞋款 (Shoes)** | Samba OG | `adidas samba og sneakers, low-top classic terrace shoe silhouette, slim leather upper, gum sole retro football styling` | 經典薄底復古球鞋，帶足球訓練鞋與 terrace style 氣質，適合日常、街拍與復古休閒搭配。 |
-| **鞋款 (Shoes)** | 馬丁短靴 | `combat ankle boots, sturdy lace-up silhouette, rugged everyday edge` | 短版軍靴感鞋型，適合龐克、街頭與中性造型。 |
-| **鞋款 (Shoes)** | 馬丁長靴 | `tall combat boots, lace-up knee-high silhouette, strong structured presence` | 比短靴更強勢，適合地下、龐克與機能風格。 |
+| **鞋款 (Shoes)** | Dr. Martens 1461 Bex | `dr martens 1461 bex shoes, three-eye leather lace-up shoe silhouette, chunky bex platform sole, polished oxford-style upper, rugged school-inspired edge` | 低筒三孔皮鞋搭配 Bex 厚底，介於學院、街頭與中性龐克之間，適合短裙、襪類與日常造型。 |
+| **鞋款 (Shoes)** | Dr. Martens 1461 Lace Up Shoes | `dr martens 1461 lace up shoes, classic three-eye smooth leather shoes, low-cut oxford silhouette, sturdy welt stitching, clean vintage workwear edge` | 經典三孔皮鞋版本，比 Bex 更低調，適合文青、學院、極簡與復古日常穿搭。 |
+| **鞋款 (Shoes)** | Dr. Martens 1460 Round Toe Lace-Up Boots | `dr martens 1460 round toe lace-up boots, classic eight-eye leather ankle boots, rounded toe, yellow welt stitching, sturdy combat boot silhouette` | 經典 8 孔短靴輪廓，保留馬丁靴代表性的圓頭、縫線與街頭龐克感。 |
+| **鞋款 (Shoes)** | Dr. Martens Jadon Max Platform Boots | `dr martens jadon max platform boots, chunky leather platform combat boots, extra-thick sole, eight-eye lace-up silhouette, bold heavy punk presence` | 厚底份量最強，適合 Y2K、龐克、地下、暗黑與高存在感造型。 |
+| **鞋款 (Shoes)** | Dr. Martens 1B99 Mid Calf Lace-Up Boots | `dr martens 1b99 mid calf lace-up boots, tall leather lace-up boots, slim mid-calf shaft, rounded toe, structured gothic punk silhouette` | 中長筒綁帶靴，比例比短靴更修長，適合蘿莉塔、龐克、哥德與制服混搭。 |
 | **鞋款 (Shoes)** | 慢跑鞋 | `running shoes, lightweight athletic silhouette, casual movement-ready styling` | 更偏生活與運動機能感，適合日常與街拍。 |
 | **鞋款 (Shoes)** | Nike P-6000 | `nike p-6000 running shoes, layered mesh running sneaker, low-top retro runner silhouette, sporty early-2000s performance styling` | 帶 Y2K 跑鞋層次與復古運動感，鞋面線條複雜，適合街拍、科技運動風與日常造型。 |
 | **鞋款 (Shoes)** | Onitsuka Tiger Mexico 66 | `onitsuka tiger mexico 66 sneakers, low-profile retro runner silhouette, slim classic upper, vintage track-shoe styling` | 經典薄底復古跑鞋輪廓，線條輕巧俐落，適合日系休閒、城市日常與復古運動穿搭。 |
