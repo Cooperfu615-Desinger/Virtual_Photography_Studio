@@ -36,69 +36,29 @@ const DUO_INTERACTION_OPTIONS = [
     meta: { tags: ['none'] },
   },
   {
-    id: 'side-by-side-chatting',
-    zh: '並肩聊天',
-    en: 'both women chatting side by side in the same shared space, relaxed natural conversation, candid shared attention, lifestyle duo energy',
+    id: 'strangers',
+    zh: '陌生',
+    en: 'both women sharing the same frame with unfamiliar detached chemistry, no obvious intimacy, reserved social distance',
   },
   {
-    id: 'seated-chatting',
-    zh: '坐著聊天',
-    en: 'both women sitting and chatting together, relaxed conversational rhythm, candid seated interaction, shared lifestyle mood',
+    id: 'distance',
+    zh: '有距離',
+    en: 'both women maintaining a noticeable emotional and physical distance, restrained interaction, cool composed shared atmosphere',
   },
   {
-    id: 'eating-together',
-    zh: '一起吃飯',
-    en: 'both women sharing a meal together, casual dining interaction, hands, tableware, and body language naturally integrated into the same scene',
+    id: 'shoulder-lean',
+    zh: '靠肩',
+    en: 'both women leaning shoulder to shoulder, soft physical closeness, relaxed affectionate interaction in the same frame',
   },
   {
-    id: 'shopping-together',
-    zh: '一起逛街',
-    en: 'both women shopping or browsing together, walking slowly side by side, shared urban lifestyle interaction, natural environmental chemistry',
+    id: 'intimate',
+    zh: '親密',
+    en: 'both women sharing intimate natural closeness, comfortable emotional connection, warm shared body language, restrained romantic chemistry',
   },
   {
-    id: 'walking-together',
-    zh: '一起慢步走',
-    en: 'both women walking together at an easy pace, coordinated movement, candid in-between moment, shared forward motion in one continuous scene',
-  },
-  {
-    id: 'looking-same-direction',
-    zh: '一起看向同一處',
-    en: 'both women looking toward the same point of interest, shared attention, quiet environmental interaction, unified visual focus',
-  },
-  {
-    id: 'one-looking-at-other',
-    zh: '一人看向另一人',
-    en: 'one woman looking toward the other while the second reacts naturally, asymmetrical eye-line interaction, scene-aware shared chemistry',
-  },
-  {
-    id: 'adjusting-hair-or-clothes',
-    zh: '一起整理頭髮或衣物',
-    en: 'both women naturally adjusting their hair or clothing, candid styling gesture, soft in-between interaction, lifestyle realism',
-  },
-  {
-    id: 'leaning-shoulders',
-    zh: '靠肩互動',
-    en: 'both women leaning gently shoulder to shoulder, soft physical closeness, relaxed affectionate interaction in the same frame',
-  },
-  {
-    id: 'arm-around-close',
-    zh: '摟肩貼近',
-    en: 'both women standing or sitting in close contact with an arm around the other, intimate friendly closeness, warm shared body language',
-  },
-  {
-    id: 'whispering-close',
-    zh: '貼近耳語',
-    en: 'both women leaning close in a whispering interaction, intimate conversational distance, subtle secrecy and warmth, no kissing',
-  },
-  {
-    id: 'intimate-eye-contact',
-    zh: '親密互看',
-    en: 'both women facing each other with intimate eye contact, soft emotional tension, close shared presence, romantic but restrained mood',
-  },
-  {
-    id: 'lying-on-back-together',
-    zh: '一起仰躺',
-    en: 'both women lying on their backs together in the same scene, relaxed shared reclined interaction, quiet intimacy, scene-aware low posture',
+    id: 'sensual-embrace',
+    zh: '性感擁抱',
+    en: 'both women in a sensual embracing interaction, close body contact, confident seductive chemistry, fashion-forward intimate tension',
   },
 ];
 
@@ -116,54 +76,84 @@ const DUO_POSE_OPTIONS = [
     en: 'two women standing side by side, balanced shared framing, straightforward duo composition',
   },
   {
-    id: 'staggered-standing',
-    zh: '前後錯位站姿',
-    en: 'two women standing in a staggered front-and-back arrangement, layered depth, editorial duo composition',
+    id: 'front-back-standing',
+    zh: '前後站立',
+    en: 'two women standing in a front-back arrangement, layered depth, staggered editorial duo composition',
   },
   {
-    id: 'height-varied-standing',
-    zh: '高低落差站姿',
-    en: 'two women standing with a visible height or level difference in composition, varied silhouette rhythm, dynamic duo staging',
+    id: 'side-by-side-walking',
+    zh: '並肩行進',
+    en: 'two women moving forward side by side, synchronized walking rhythm, clean shared motion composition',
   },
   {
-    id: 'side-by-side-seated',
-    zh: '並肩坐姿',
-    en: 'two women seated side by side, calm shared seating arrangement, lifestyle duo composition',
+    id: 'front-back-walking',
+    zh: '前後行進',
+    en: 'two women moving in a front-back staggered walk, layered forward motion, dynamic editorial pacing',
   },
   {
-    id: 'face-to-face-seated',
-    zh: '面對面坐姿',
-    en: 'two women seated facing one another, clear conversational composition, intimate scene-ready staging',
+    id: 'leaning-on-each-other',
+    zh: '彼此倚靠',
+    en: 'two women leaning into each other for support, asymmetrical weight balance, close shared composition',
   },
   {
-    id: 'one-seated-one-standing',
-    zh: '一坐一站',
-    en: 'one woman seated and the other standing nearby, layered height contrast, editorial duo composition',
+    id: 'split-wall-lean',
+    zh: '左右靠牆',
+    en: 'two women arranged against opposite or separated wall planes, left-right architectural balance, clean spatial framing',
   },
   {
-    id: 'side-by-side-squatting',
-    zh: '並肩蹲姿',
+    id: 'side-by-side-squat',
+    zh: '蹲姿',
     en: 'two women squatting side by side, low grounded composition, close shared framing',
   },
   {
-    id: 'wall-leaning-standing',
-    zh: '靠牆站姿',
-    en: 'two women standing near or against a wall, supported vertical composition, relaxed urban staging',
+    id: 'stand-and-squat',
+    zh: '站＋蹲',
+    en: 'one woman standing while the other squats nearby, clear height contrast, layered duo composition',
   },
   {
-    id: 'sofa-sitting-together',
-    zh: '沙發並坐',
-    en: 'two women sitting together on a sofa, casual lounge composition, shared indoor staging',
+    id: 'side-by-side-kneeling',
+    zh: '跪姿',
+    en: 'two women kneeling together, upright low composition, poised controlled body lines',
   },
   {
-    id: 'bedside-sitting-together',
-    zh: '床邊並坐',
-    en: 'two women sitting together at the edge of a bed, intimate room composition, natural shared staging',
+    id: 'kneel-and-squat',
+    zh: '跪＋蹲',
+    en: 'one woman kneeling while the other squats, compact height contrast, stylized low duo composition',
   },
   {
-    id: 'floor-sitting-together',
-    zh: '地面並坐',
-    en: 'two women sitting together on the floor, grounded low composition, candid shared posture',
+    id: 'side-by-side-seated',
+    zh: '坐姿',
+    en: 'two women seated together, stable grounded composition, calm shared staging',
+  },
+  {
+    id: 'sit-and-squat',
+    zh: '坐＋蹲',
+    en: 'one woman seated while the other squats nearby, layered low-height contrast, relaxed duo balance',
+  },
+  {
+    id: 'side-lying',
+    zh: '側躺',
+    en: 'two women lying on their sides, elongated lateral composition, soft reclined shared framing',
+  },
+  {
+    id: 'side-lying-and-seated',
+    zh: '側躺＋坐',
+    en: 'one woman side-lying while the other sits nearby, mixed-height reclined composition, editorial contrast',
+  },
+  {
+    id: 'lying-on-back',
+    zh: '仰躺',
+    en: 'two women lying on their backs, open low composition, calm reclined symmetry',
+  },
+  {
+    id: 'lying-on-back-and-side',
+    zh: '仰躺＋側躺',
+    en: 'one woman lying on her back while the other lies on her side, varied reclined body lines, soft asymmetrical low composition',
+  },
+  {
+    id: 'prone',
+    zh: '俯臥',
+    en: 'two women lying prone, low elongated composition, intimate grounded body arrangement',
   },
 ];
 
@@ -1935,9 +1925,22 @@ function getAspectRatioOption(id) {
 }
 
 function getDuoInteractionOption(id) {
-  if (id === 'editorial') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'side-by-side-chatting') || null;
-  if (id === 'natural') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'walking-together') || null;
-  if (id === 'intimate') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'leaning-shoulders') || null;
+  if (id === 'editorial') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
+  if (id === 'natural') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'shoulder-lean') || null;
+  if (id === 'intimate') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'intimate') || null;
+  if (id === 'side-by-side-chatting') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
+  if (id === 'seated-chatting') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
+  if (id === 'eating-together') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
+  if (id === 'shopping-together') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
+  if (id === 'walking-together') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
+  if (id === 'looking-same-direction') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'strangers') || null;
+  if (id === 'one-looking-at-other') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
+  if (id === 'adjusting-hair-or-clothes') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
+  if (id === 'leaning-shoulders') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'shoulder-lean') || null;
+  if (id === 'arm-around-close') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'intimate') || null;
+  if (id === 'whispering-close') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'intimate') || null;
+  if (id === 'intimate-eye-contact') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'intimate') || null;
+  if (id === 'lying-on-back-together') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'intimate') || null;
   return DUO_INTERACTION_OPTIONS.find((option) => option.id === id) || null;
 }
 
@@ -3707,17 +3710,16 @@ function buildMinimalDuoPoseText(duoPose) {
   const zh = duoPose.zh || '';
   const haystack = `${zh} ${duoPose.en || ''}`.toLowerCase();
 
-  if (zh.includes('站') || /standing/.test(haystack)) return 'two women in a relaxed standing composition';
+  if (zh.includes('前後行進') || zh.includes('並肩行進') || /walking|moving|motion|stepping/.test(haystack)) return 'two women in a relaxed moving composition';
+  if (zh.includes('站＋蹲') || zh.includes('前後站立') || zh.includes('並肩站立') || /standing/.test(haystack)) return 'two women in a relaxed standing composition';
+  if (zh.includes('跪＋蹲') || zh.includes('跪姿') || /kneeling/.test(haystack)) return 'two women in a poised low kneeling composition';
   if (zh.includes('坐') || /seated|sitting/.test(haystack)) return 'two women in a relaxed seated composition';
   if (zh.includes('蹲') || /squatting|squat|crouching/.test(haystack)) return 'two women in a relaxed low squatting composition';
-  if (zh.includes('地面') || /floor/.test(haystack)) return 'two women sitting together in a grounded low composition';
-  if (zh.includes('沙發') || /sofa/.test(haystack)) return 'two women sitting together in a relaxed sofa composition';
-  if (zh.includes('床邊') || /bed/.test(haystack)) return 'two women sitting together in an intimate bedside composition';
+  if (zh.includes('彼此倚靠')) return 'two women in a relaxed leaning composition';
   if (zh.includes('靠牆') || /wall/.test(haystack)) return 'two women arranged in a relaxed wall-side standing composition';
-  if (zh.includes('仰躺') || zh.includes('半躺') || zh.includes('側躺') || zh.includes('趴姿') || /reclined|lying|low prone|side-lying/.test(haystack)) {
+  if (zh.includes('仰躺') || zh.includes('側躺') || zh.includes('俯臥') || /reclined|lying|low prone|side-lying|prone/.test(haystack)) {
     return 'two women in a relaxed reclined pose';
   }
-  if (zh.includes('走') || /walking|moving|motion|stepping/.test(haystack)) return 'two women in a relaxed moving composition';
 
   return buildMinimalPromptPart(duoPose.en, 1);
 }
