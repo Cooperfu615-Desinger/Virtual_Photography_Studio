@@ -898,7 +898,8 @@ button:disabled {
 }
 
 .page2-shell,
-.page3-shell {
+.page3-shell,
+.page5-shell {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
   gap: 18px;
@@ -907,7 +908,9 @@ button:disabled {
 .page2-panel,
 .page2-output-panel,
 .page3-panel,
-.page3-output-panel {
+.page3-output-panel,
+.page5-panel,
+.page5-output-panel {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -925,6 +928,61 @@ button:disabled {
 .page2-prompt-textarea {
   min-height: 240px;
   resize: vertical;
+}
+
+.suno-field-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.suno-field-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.suno-field-meta {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.suno-option-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.suno-chip {
+  min-height: 42px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  background: #f6edde;
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.suno-chip:hover {
+  background: #efe1cb;
+}
+
+.suno-chip-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fffdf8;
+}
+
+.suno-chip-active:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.suno-prompt-textarea {
+  min-height: 180px;
 }
 
 .library-sidebar,
@@ -1753,7 +1811,8 @@ button:disabled {
   .saved-cards-list,
   .saved-cards-stats,
   .page2-shell,
-  .page3-shell {
+  .page3-shell,
+  .page5-shell {
     grid-template-columns: 1fr;
   }
 

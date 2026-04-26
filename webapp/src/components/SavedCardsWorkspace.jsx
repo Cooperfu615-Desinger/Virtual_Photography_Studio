@@ -6,6 +6,7 @@ const SOURCE_FILTERS = [
   { id: 'page1', label: 'Prompt 工作台' },
   { id: 'page2', label: '角色建模' },
   { id: 'page3', label: '場景建模' },
+  { id: 'page5', label: 'SUNO' },
 ];
 
 export default function SavedCardsWorkspace({
@@ -25,7 +26,7 @@ export default function SavedCardsWorkspace({
   const isFavoritesView = viewMode === 'favorites';
   const [sourceFilter, setSourceFilter] = useState('all');
   const sourceCounts = useMemo(() => {
-    const counts = { all: displayPrompts.length, page1: 0, page2: 0, page3: 0 };
+    const counts = { all: displayPrompts.length, page1: 0, page2: 0, page3: 0, page5: 0 };
     displayPrompts.forEach((prompt) => {
       const source = prompt.source || 'page1';
       if (counts[source] !== undefined) counts[source] += 1;
