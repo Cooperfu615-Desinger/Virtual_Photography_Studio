@@ -485,7 +485,7 @@ export default function Page1Workspace({
               <button className="primary-copy-btn primary-copy-zimage" onClick={() => handleCopyText('Z-Image copied', previewPrompt?.zImagePrompt)} disabled={!previewPrompt?.zImagePrompt}>
                 Z-Image
               </button>
-              <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopyText('Midjourney copied', previewPrompt?.midjourneyPrompt)} disabled={!previewPrompt?.midjourneyPrompt}>
+              <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopyText('AI copied', previewPrompt?.midjourneyPrompt)} disabled={!previewPrompt?.midjourneyPrompt}>
                 AI
               </button>
               <button className="primary-copy-btn page1-save-current-btn" onClick={handleGenerate} disabled={!previewPrompt}>

@@ -392,7 +392,7 @@ function isNoneSelected(controlKey, value, controls) {
 
 function buildMarkdownExport(data) {
   const labels = {
-    midjourney: data.promptLabels?.midjourney || 'Midjourney Prompt',
+    midjourney: data.promptLabels?.midjourney || 'AI Prompt',
     grok: data.promptLabels?.grok || 'Grok Structured Prompt',
     zImage: data.promptLabels?.zImage || 'Z-Image Prompt',
   };
@@ -532,7 +532,7 @@ function buildImportedStructured(locks, controls) {
 function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) {
   const text = String(markdownText || '').replace(/\r\n/g, '\n');
   const summaryMatch = text.match(/\*\*Summary:\*\*\s*(.+)/);
-  const midjourneyMatch = text.match(/## Midjourney Prompt\n```text\n([\s\S]*?)\n```/);
+  const midjourneyMatch = text.match(/## (?:AI Prompt|Midjourney Prompt)\n```text\n([\s\S]*?)\n```/);
   const grokMatch = text.match(/## Grok Structured Prompt\n```text\n([\s\S]*?)\n```/);
   const zImageMatch = text.match(/## Z-Image Prompt\n```text\n([\s\S]*?)\n```/);
 

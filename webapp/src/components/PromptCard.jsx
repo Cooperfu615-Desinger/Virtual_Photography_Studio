@@ -3,7 +3,7 @@ import { Download, Trash2 } from 'lucide-react';
 
 function buildMarkdownExport(data) {
   const labels = {
-    midjourney: data.promptLabels?.midjourney || 'Midjourney Prompt',
+    midjourney: data.promptLabels?.midjourney || 'AI Prompt',
     grok: data.promptLabels?.grok || 'Grok Structured Prompt',
     zImage: data.promptLabels?.zImage || 'Z-Image Prompt',
   };
@@ -33,7 +33,7 @@ function PromptCard({ data, onDelete }) {
   const [copiedLabel, setCopiedLabel] = useState('');
   const [expanded, setExpanded] = useState(false);
   const labels = {
-    midjourney: data.promptLabels?.midjourney || 'Midjourney',
+    midjourney: data.promptLabels?.midjourney || 'AI',
     grok: data.promptLabels?.grok || 'Grok',
     zImage: data.promptLabels?.zImage || 'Z-Image',
   };
