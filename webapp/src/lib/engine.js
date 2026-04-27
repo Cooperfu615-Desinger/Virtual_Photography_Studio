@@ -2336,30 +2336,121 @@ function buildWardrobe(context, locks, catalog) {
 
   const dressItems = getByKey(catalog.catalog.wardrobe, '連身 (Dresses)');
   const topItems = getByKey(catalog.catalog.wardrobe, '上身 (Tops)');
-  const lockedDressValue = locks?.dressId;
-  const lockedTopValue = locks?.topId;
-  const lockedDress = Array.isArray(lockedDressValue)
-    ? lockedDressValue.map((id) => findById(dressItems, id)).find(Boolean)
-    : (lockedDressValue ? findById(dressItems, lockedDressValue) : null);
-  const lockedTop = Array.isArray(lockedTopValue)
-    ? lockedTopValue.map((id) => findById(topItems, id)).find(Boolean)
-    : (lockedTopValue ? findById(topItems, lockedTopValue) : null);
-  const activeLockedDress = lockedDress && !isNoneLikeItem(lockedDress) ? lockedDress : null;
-  const activeLockedTop = lockedTop && !isNoneLikeItem(lockedTop) ? lockedTop : null;
+  const pantsItems = getByKey(catalog.catalog.wardrobe, '褲裝 (Pants)');
+  const skirtItems = getByKey(catalog.catalog.wardrobe, '裙裝 (Skirts)');
+  const resolveLockState = (items, lockedValue) => {
+    const lockedItem = Array.isArray(lockedValue)
+      ? lockedValue.map((id) => findById(items, id)).find(Boolean)
+      : (lockedValue ? findById(items, lockedValue) : null);
+    return {
+      lockedItem,
+      isExplicitNone: Boolean(lockedItem && isNoneLikeItem(lockedItem)),
+      specifiedItem: lockedItem && !isNoneLikeItem(lockedItem) ? lockedItem : null,
+    };
+  };
+  const outfitPresetState = resolveLockState(catalog.flatCatalog.outfitPresets, locks?.outfitPresetId);
+  const dressState = resolveLockState(dressItems, locks?.dressId);
+  const topState = resolveLockState(topItems, locks?.topId);
+  const pantsState = resolveLockState(pantsItems, locks?.pantsId);
+  const skirtState = resolveLockState(skirtItems, locks?.skirtId);
+  const pickRandomWardrobeItem = (items, { allowNone = false, predicate = () => true } = {}) => {
+    const candidates = items.filter(
+      (item) => (allowNone || !isNoneLikeItem(item)) && wardrobeFitsLocation(item, context.location) && predicate(item)
+    );
+    if (candidates.length === 0) return null;
+    const picked = sample(candidates);
+    addPiece(picked);
+    return picked;
+  };
 
   let topPiece = null;
   let dressPiece = null;
+  let hasBottomPiece = false;
+
+  const firstSpecifiedMainLayer = outfitPresetState.specifiedItem
+    ? 'outfit'
+    : dressState.specifiedItem
+      ? 'dress'
+      : topState.specifiedItem
+        ? 'top'
+        : pantsState.specifiedItem
+          ? 'pants'
+          : skirtState.specifiedItem
+            ? 'skirt'
+            : null;
+
+  const ensureTopPiece = () => {
+    if (topPiece && !isNoneLikeItem(topPiece)) return topPiece;
+    if (topState.specifiedItem) {
+      topPiece = topState.specifiedItem;
+      addPiece(topPiece);
+      return topPiece;
+    }
+    topPiece = pickRandomWardrobeItem(topItems);
+    return topPiece;
+  };
+
+  const ensureBottomPiece = () => {
+    if (hasBottomPiece) return true;
+
+    if (pantsState.specifiedItem) {
+      addPiece(pantsState.specifiedItem);
+      hasBottomPiece = true;
+      return true;
+    }
+
+    const randomPants = pantsState.isExplicitNone
+      ? null
+      : pickRandomWardrobeItem(pantsItems, { allowNone: true });
+    if (randomPants && !isNoneLikeItem(randomPants)) {
+      hasBottomPiece = true;
+      return true;
+    }
+
+    if (skirtState.specifiedItem) {
+      addPiece(skirtState.specifiedItem);
+      hasBottomPiece = true;
+      return true;
+    }
+
+    const forcedSkirt = pickRandomWardrobeItem(skirtItems);
+    hasBottomPiece = Boolean(forcedSkirt && !isNoneLikeItem(forcedSkirt));
+    return hasBottomPiece;
+  };
 
   if (hasOutfitPresetPiece) {
-    // Outfit presets define the main upper/lower-body styling, while layers and accessories remain combinable.
-  } else if (activeLockedDress) {
-    dressPiece = maybePick('連身 (Dresses)');
-  } else if (activeLockedTop) {
-    topPiece = maybePick('上身 (Tops)');
-  } else if (Math.random() < 0.18) {
-    dressPiece = maybePick('連身 (Dresses)');
+    // Duo preset pieces already define the main body styling.
+  } else if (firstSpecifiedMainLayer === 'outfit') {
+    addPiece(outfitPresetState.specifiedItem);
+  } else if (firstSpecifiedMainLayer === 'dress') {
+    dressPiece = dressState.specifiedItem;
+    addPiece(dressPiece);
+  } else if (firstSpecifiedMainLayer === 'top') {
+    ensureTopPiece();
+    ensureBottomPiece();
+  } else if (firstSpecifiedMainLayer === 'pants') {
+    ensureTopPiece();
+    addPiece(pantsState.specifiedItem);
+    hasBottomPiece = true;
+  } else if (firstSpecifiedMainLayer === 'skirt') {
+    ensureTopPiece();
+    addPiece(skirtState.specifiedItem);
+    hasBottomPiece = true;
   } else {
-    topPiece = maybePick('上身 (Tops)');
+    const randomPreset = outfitPresetState.isExplicitNone
+      ? null
+      : pickRandomWardrobeItem(catalog.flatCatalog.outfitPresets, { allowNone: true });
+    if (randomPreset && !isNoneLikeItem(randomPreset)) {
+      // Main outfit resolved at the preset layer.
+    } else {
+      const randomDress = dressState.isExplicitNone ? null : pickRandomWardrobeItem(dressItems);
+      if (randomDress && !isNoneLikeItem(randomDress)) {
+        dressPiece = randomDress;
+      } else {
+        ensureTopPiece();
+        ensureBottomPiece();
+      }
+    }
   }
 
   const hasTopPiece = Array.isArray(topPiece)
@@ -2379,125 +2470,55 @@ function buildWardrobe(context, locks, catalog) {
       addRoleLockedPiece('耳環 (Earrings)', 'earringsBId', 'b', 'earrings');
     }
     if (!hasDuoAccessoryLock) {
-      maybePick('頭部配件 (Head Accessories)', 0.28);
-      maybePick('眼鏡 (Eyewear)', 0.35);
-      maybePick('耳環 (Earrings)', 0.45);
+      maybePick('頭部配件 (Head Accessories)', 0.28, () => true, { allowNoneWhenUnlocked: true });
+      maybePick('眼鏡 (Eyewear)', 0.35, () => true, { allowNoneWhenUnlocked: true });
+      maybePick('耳環 (Earrings)', 0.45, () => true, { allowNoneWhenUnlocked: true });
     }
     return pieces.filter((item) => item?.meta?.tags?.includes('accessory_small'));
   }
 
-  const hasCoreGarmentLock = Boolean(
-    locks?.outfitPresetId ||
-    locks?.topId ||
-    locks?.dressId ||
-    locks?.pantsId ||
-    locks?.skirtId
-  );
+  const hasOutfitPresetPieceResolved = pieces.some((piece) => piece.id?.includes('wardrobe:套裝-outfit-presets:') && !isNoneLikeItem(piece));
 
-  if (!hasOutfitPresetPiece && !hasCoreGarmentLock && Math.random() < 0.18) {
-    const presetCandidates = catalog.flatCatalog.outfitPresets.filter(
-      (item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location)
-    );
-    const randomPreset = sample(presetCandidates);
-    addPiece(randomPreset);
-
-    maybePick('襪類 (Legwear)', frameShowsAtLeast(visibility, 'medium') ? 0.35 : 0.15, (item) => {
-      if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
-      return true;
-    });
-    if (frameShowsAtLeast(visibility, 'full') || locks?.shoesId) {
-      maybePick('鞋款 (Shoes)');
-    }
-    if (context.subject.count === 2) {
-      addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryAId', 'a', 'headAccessory');
-      addRoleLockedPiece('眼鏡 (Eyewear)', 'eyewearAId', 'a', 'eyewear');
-      addRoleLockedPiece('耳環 (Earrings)', 'earringsAId', 'a', 'earrings');
-      addRoleLockedPiece('頸部 (Neck Accessories)', 'neckAccessoryAId', 'a', 'neckAccessory');
-      addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryBId', 'b', 'headAccessory');
-      addRoleLockedPiece('眼鏡 (Eyewear)', 'eyewearBId', 'b', 'eyewear');
-      addRoleLockedPiece('耳環 (Earrings)', 'earringsBId', 'b', 'earrings');
-      addRoleLockedPiece('頸部 (Neck Accessories)', 'neckAccessoryBId', 'b', 'neckAccessory');
-    }
-    if (!hasDuoAccessoryLock) {
-      maybePick('頭部配件 (Head Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.28 : 0.12);
-      maybePick('眼鏡 (Eyewear)', visibilityAtLeast(visibility, 'portrait') ? 0.35 : 0.15);
-      maybePick('耳環 (Earrings)', visibilityAtLeast(visibility, 'portrait') ? 0.45 : 0.2);
-    }
-
-    return pieces;
-  }
-
-  if (!hasOutfitPresetPiece && !hasTopPiece && !hasDressPiece && !locks?.topId) {
+  if (!hasOutfitPresetPieceResolved && !hasTopPiece && !hasDressPiece) {
     const fallbackTop = getByKey(catalog.catalog.wardrobe, '上身 (Tops)').find(
       (item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location)
     );
+    topPiece = fallbackTop;
     addPiece(fallbackTop);
   }
 
-  if (!hasOutfitPresetPiece && ((hasTopPiece && !hasDressPiece) || locks?.topPatternId)) {
+  const hasResolvedTopPiece = Boolean(topPiece && !isNoneLikeItem(topPiece));
+
+  if (!hasOutfitPresetPieceResolved && ((hasResolvedTopPiece && !hasDressPiece) || locks?.topPatternId)) {
     maybePick('上身圖案 (Top Surface Design)', 0.35, () => true, { allowNoneWhenUnlocked: false });
   }
 
-  const hasLockedPants = Boolean(locks?.pantsId);
-  const hasLockedSkirt = Boolean(locks?.skirtId);
-  const hasLockedBottom = hasLockedPants || hasLockedSkirt;
-  let hasBottomPiece = false;
-
-  if (!hasOutfitPresetPiece && (frameShowsAtLeast(visibility, 'medium') || hasLockedBottom) && !hasDressPiece) {
-    if (hasLockedPants && hasLockedSkirt) {
-      const pickedPants = maybePick('褲裝 (Pants)');
-      const pickedSkirt = maybePick('裙裝 (Skirts)');
-      hasBottomPiece = Boolean(
-        (Array.isArray(pickedPants) ? pickedPants : [pickedPants]).concat(Array.isArray(pickedSkirt) ? pickedSkirt : [pickedSkirt])
-          .filter(Boolean)
-          .some((item) => !isNoneLikeItem(item))
-      );
-    } else if (hasLockedPants) {
-      const pickedPants = maybePick('褲裝 (Pants)');
-      hasBottomPiece = Boolean((Array.isArray(pickedPants) ? pickedPants : [pickedPants]).filter(Boolean).some((item) => !isNoneLikeItem(item)));
-    } else if (hasLockedSkirt) {
-      const pickedSkirt = maybePick('裙裝 (Skirts)');
-      hasBottomPiece = Boolean((Array.isArray(pickedSkirt) ? pickedSkirt : [pickedSkirt]).filter(Boolean).some((item) => !isNoneLikeItem(item)));
-    } else if (Math.random() < 0.5) {
-      const pickedPants = maybePick('褲裝 (Pants)');
-      hasBottomPiece = Boolean((Array.isArray(pickedPants) ? pickedPants : [pickedPants]).filter(Boolean).some((item) => !isNoneLikeItem(item)));
-    } else {
-      const pickedSkirt = maybePick('裙裝 (Skirts)');
-      hasBottomPiece = Boolean((Array.isArray(pickedSkirt) ? pickedSkirt : [pickedSkirt]).filter(Boolean).some((item) => !isNoneLikeItem(item)));
-    }
-
-    if (hasBottomPiece) {
-      maybePick('下身圖案 (Bottom Surface Design)', 0.3, () => true, { allowNoneWhenUnlocked: false });
-    }
-    maybePick('襪類 (Legwear)', 0.45, (item) => {
-      if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
-      if (pieces.some((piece) => piece.meta.tags.includes('pants'))) return item.en.includes('bare legs');
-      return true;
-    });
+  if (!hasOutfitPresetPieceResolved && hasBottomPiece) {
+    maybePick('下身圖案 (Bottom Surface Design)', 0.3, () => true, { allowNoneWhenUnlocked: false });
   }
 
-  if ((hasOutfitPresetPiece && !hasDuoLayerLock) || hasDressPiece || hasBottomPiece || locks?.outerwearId) {
+  if ((hasOutfitPresetPieceResolved && !hasDuoLayerLock) || hasDressPiece || hasBottomPiece || locks?.outerwearId) {
     const outerwearProbability = locks?.outerwearId
       ? 1
       : context.location.meta.tags.includes('outdoor')
-        ? (hasOutfitPresetPiece ? 0.55 : 0.6)
-        : (hasOutfitPresetPiece ? 0.3 : 0.35);
-    const outerwearPiece = maybePick('外套 (Outerwear)', outerwearProbability);
+        ? (hasOutfitPresetPieceResolved ? 0.55 : 0.6)
+        : (hasOutfitPresetPieceResolved ? 0.3 : 0.35);
+    const outerwearPiece = maybePick('外套 (Outerwear)', outerwearProbability, () => true, { allowNoneWhenUnlocked: true });
     const hasOuterwearPiece = Array.isArray(outerwearPiece)
       ? outerwearPiece.some((item) => item && !isNoneLikeItem(item))
       : Boolean(outerwearPiece && !isNoneLikeItem(outerwearPiece));
 
     if (hasOuterwearPiece) {
-      maybePick('外套圖案 (Outerwear Surface Design)', locks?.outerwearPatternId ? 1 : 0.3, () => true, { allowNoneWhenUnlocked: false });
-      maybePick('外套穿法 (Outerwear Styling)', locks?.outerwearStylingId ? 1 : 0.55, () => true, { allowNoneWhenUnlocked: false });
+      maybePick('外套圖案 (Outerwear Surface Design)', locks?.outerwearPatternId ? 1 : 0.3, () => true, { allowNoneWhenUnlocked: true });
+      maybePick('外套穿法 (Outerwear Styling)', locks?.outerwearStylingId ? 1 : 0.55, () => true, { allowNoneWhenUnlocked: true });
     }
   }
 
-  if (hasOutfitPresetPiece && !hasDuoLayerLock) {
+  if ((hasOutfitPresetPieceResolved || hasBottomPiece || hasDressPiece || locks?.legwearId) && !hasDuoLayerLock) {
     maybePick('襪類 (Legwear)', frameShowsAtLeast(visibility, 'medium') ? 0.35 : 0.15, (item) => {
       if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
       return true;
-    });
+    }, { allowNoneWhenUnlocked: true });
   }
 
   if (!frameShowsAtLeast(visibility, 'medium') && locks?.legwearId) {
@@ -2505,22 +2526,22 @@ function buildWardrobe(context, locks, catalog) {
       if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
       if (pieces.some((piece) => piece.meta.tags.includes('pants'))) return item.en.includes('bare legs');
       return true;
-    });
+    }, { allowNoneWhenUnlocked: true });
   }
 
   if (!frameShowsAtLeast(visibility, 'medium') && locks?.outerwearId) {
-    const outerwearPiece = maybePick('外套 (Outerwear)', 1);
+    const outerwearPiece = maybePick('外套 (Outerwear)', 1, () => true, { allowNoneWhenUnlocked: true });
     const hasOuterwearPiece = Array.isArray(outerwearPiece)
       ? outerwearPiece.some((item) => item && !isNoneLikeItem(item))
       : Boolean(outerwearPiece && !isNoneLikeItem(outerwearPiece));
     if (hasOuterwearPiece) {
-      maybePick('外套圖案 (Outerwear Surface Design)', 1);
-      maybePick('外套穿法 (Outerwear Styling)', 1);
+      maybePick('外套圖案 (Outerwear Surface Design)', 1, () => true, { allowNoneWhenUnlocked: true });
+      maybePick('外套穿法 (Outerwear Styling)', 1, () => true, { allowNoneWhenUnlocked: true });
     }
   }
 
   if ((frameShowsAtLeast(visibility, 'full') && !hasDuoLayerLock) || locks?.shoesId) {
-    maybePick('鞋款 (Shoes)');
+    maybePick('鞋款 (Shoes)', 1, () => true, { allowNoneWhenUnlocked: true });
   }
 
   if (context.subject.count === 2) {
@@ -2545,10 +2566,10 @@ function buildWardrobe(context, locks, catalog) {
   }
 
   if (!hasDuoAccessoryLock) {
-    maybePick('頭部配件 (Head Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.28 : 0.12);
-    maybePick('眼鏡 (Eyewear)', visibilityAtLeast(visibility, 'portrait') ? 0.35 : 0.15);
-    maybePick('耳環 (Earrings)', visibilityAtLeast(visibility, 'portrait') ? 0.45 : 0.2);
-    maybePick('頸部 (Neck Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.4 : 0.2);
+    maybePick('頭部配件 (Head Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.28 : 0.12, () => true, { allowNoneWhenUnlocked: true });
+    maybePick('眼鏡 (Eyewear)', visibilityAtLeast(visibility, 'portrait') ? 0.35 : 0.15, () => true, { allowNoneWhenUnlocked: true });
+    maybePick('耳環 (Earrings)', visibilityAtLeast(visibility, 'portrait') ? 0.45 : 0.2, () => true, { allowNoneWhenUnlocked: true });
+    maybePick('頸部 (Neck Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.4 : 0.2, () => true, { allowNoneWhenUnlocked: true });
   }
 
   return pieces;
