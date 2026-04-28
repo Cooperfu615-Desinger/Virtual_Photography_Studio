@@ -3764,8 +3764,12 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
   ].filter(Boolean).join(', ');
   const duoFaceDetails = context.subject.count === 2
     ? [
-        characterSlots.facialFeaturesA?.en ? `woman 1 with ${compactClause(characterSlots.facialFeaturesA.en, 2)}` : '',
-        characterSlots.facialFeaturesB?.en ? `woman 2 with ${compactClause(characterSlots.facialFeaturesB.en, 2)}` : '',
+        characterSlots.facialFeaturesA && !isNoneLikeItem(characterSlots.facialFeaturesA)
+          ? `woman 1 with ${compactClause(characterSlots.facialFeaturesA.en, 2)}`
+          : '',
+        characterSlots.facialFeaturesB && !isNoneLikeItem(characterSlots.facialFeaturesB)
+          ? `woman 2 with ${compactClause(characterSlots.facialFeaturesB.en, 2)}`
+          : '',
       ].filter(Boolean).join(', ')
     : '';
   const eyewearText = buildAiEyewearText(wardrobeSlots, context.subject.count);
@@ -4007,18 +4011,25 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       characterSlots.bodyType?.en,
       context.subject.count === 2
         ? [
-            characterSlots.facialFeaturesA?.en ? `woman 1 has ${characterSlots.facialFeaturesA.en}` : '',
-            characterSlots.facialFeaturesB?.en ? `woman 2 has ${characterSlots.facialFeaturesB.en}` : '',
+            characterSlots.facialFeaturesA && !isNoneLikeItem(characterSlots.facialFeaturesA)
+              ? `woman 1 has ${characterSlots.facialFeaturesA.en}`
+              : '',
+            characterSlots.facialFeaturesB && !isNoneLikeItem(characterSlots.facialFeaturesB)
+              ? `woman 2 has ${characterSlots.facialFeaturesB.en}`
+              : '',
           ].filter(Boolean).join(', ')
         : (!useCharacterIdentityAnchor ? characterSlots.facialFeatures?.en : ''),
       context.subject.count === 2
         ? [
-            characterSlots.hairstyleA?.en,
-            characterSlots.hairColorA?.en,
-            characterSlots.hairstyleB?.en,
-            characterSlots.hairColorB?.en,
+            characterSlots.hairstyleA && !isNoneLikeItem(characterSlots.hairstyleA) ? characterSlots.hairstyleA.en : '',
+            characterSlots.hairColorA && !isNoneLikeItem(characterSlots.hairColorA) ? characterSlots.hairColorA.en : '',
+            characterSlots.hairstyleB && !isNoneLikeItem(characterSlots.hairstyleB) ? characterSlots.hairstyleB.en : '',
+            characterSlots.hairColorB && !isNoneLikeItem(characterSlots.hairColorB) ? characterSlots.hairColorB.en : '',
           ].filter(Boolean).join(', ')
-        : [characterSlots.hairstyle?.en, characterSlots.hairColor?.en].filter(Boolean).join(', '),
+        : [
+            characterSlots.hairstyle && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.en : '',
+            characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
+          ].filter(Boolean).join(', '),
       !useCharacterIdentityAnchor ? characterSlots.skinDetails?.en : '',
       context.subject.count === 2
         ? [buildRoleExpressionPrompt(characterSlots.expressionA, 'woman 1'), buildRoleExpressionPrompt(characterSlots.expressionB, 'woman 2')].filter(Boolean).join(', ')
