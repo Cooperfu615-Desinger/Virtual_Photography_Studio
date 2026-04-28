@@ -386,8 +386,10 @@ function sortControls(controls, order) {
 function isNoneSelected(controlKey, value, controls) {
   if (!value) return false;
   const control = controls.find((item) => item.key === controlKey);
+  if (!control) return true;
   const selected = control?.options.find((option) => option.id === value);
-  return selected?.zh === '全無';
+  if (!selected) return true;
+  return selected.zh === '全無';
 }
 
 function buildMarkdownExport(data) {

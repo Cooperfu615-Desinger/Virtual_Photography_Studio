@@ -1485,7 +1485,30 @@ export function normalizeLocks(rawLocks = {}) {
     });
   }
 
-  return normalizeLegacyOutfitPresetColors(normalized);
+  const normalizedWithLegacyColors = normalizeLegacyOutfitPresetColors(normalized);
+  const controls = getLockControls();
+
+  controls.forEach((control) => {
+    if (!Array.isArray(control.options) || control.options.length === 0) return;
+    const optionIds = new Set(control.options.map((option) => option.id));
+    const currentValue = normalizedWithLegacyColors[control.key];
+
+    if (control.multi) {
+      normalizedWithLegacyColors[control.key] = Array.isArray(currentValue)
+        ? currentValue.filter((item) => optionIds.has(item))
+        : [];
+      return;
+    }
+
+    if (!currentValue || optionIds.has(currentValue)) return;
+
+    const noneOption = control.options.find((option) => option.zh === '全無');
+    normalizedWithLegacyColors[control.key] = noneOption
+      ? noneOption.id
+      : (control.defaultValue ?? '');
+  });
+
+  return normalizedWithLegacyColors;
 }
 
 export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
