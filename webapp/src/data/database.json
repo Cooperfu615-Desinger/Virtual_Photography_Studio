@@ -935,24 +935,28 @@
         "desc": "不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。"
       },
       {
-        "zh": "合身襯衫",
-        "en": "fitted shirt, crisp cotton poplin, clean silhouette",
-        "desc": "乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。"
+        "zh": "襯衫",
+        "en": "shirt, crisp cotton poplin, clean placket construction, balanced collar line",
+        "desc": "以俐落門襟、清楚領型與乾淨肩線構成的基礎上身單品，重點在剪裁結構而不是情境語氣。",
+        "legacyIds": ["wardrobe:上身-tops:合身襯衫:1"]
       },
       {
-        "zh": "短版棉質露臍小可愛",
-        "en": "cropped cotton cami, soft ribbed fabric, close body fit",
-        "desc": "棉質與貼身露腰輪廓很直接，適合日常、街頭與夏日寫真風格。"
+        "zh": "棉質細肩背心",
+        "en": "cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line",
+        "desc": "以細肩帶、棉質羅紋與短而俐落的上緣比例為主，強調基礎內搭式剪裁與貼身輪廓。",
+        "legacyIds": ["wardrobe:上身-tops:短版棉質露臍小可愛:2"]
       },
       {
-        "zh": "合身削肩針織上衣",
-        "en": "fitted sleeveless knit top, ribbed texture, shoulder-baring silhouette",
-        "desc": "乾淨貼身的削肩針織輪廓，能自然勾勒肩頸與上半身線條。"
+        "zh": "削肩針織上衣",
+        "en": "sleeveless knit top, ribbed texture, clean shoulder-baring cut, narrow armhole shaping",
+        "desc": "以削肩結構、貼近頸根的領線與細緻針織紋理為重點，輪廓乾淨且偏都會感。",
+        "legacyIds": ["wardrobe:上身-tops:合身削肩針織上衣:3"]
       },
       {
-        "zh": "短袖貼身上衣",
-        "en": "fitted short-sleeve top, body-hugging silhouette, smooth stretch fabric",
-        "desc": "貼身短袖能自然強調上半身線條，適合日常、寫真與極簡時裝。"
+        "zh": "短袖上衣",
+        "en": "short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion",
+        "desc": "以俐落袖長、順身布面與簡潔上半身線條為主，適合作為中性基礎版型。",
+        "legacyIds": ["wardrobe:上身-tops:短袖貼身上衣:4"]
       },
       {
         "zh": "絲質細肩帶上衣",
@@ -965,24 +969,28 @@
         "desc": "直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。"
       },
       {
-        "zh": "合身高領針織上衣",
-        "en": "fitted turtleneck knit top, fine gauge knit, sleek silhouette",
-        "desc": "貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。"
+        "zh": "高領針織上衣",
+        "en": "turtleneck knit top, fine gauge knit, smooth neckline transition, clean torso structure",
+        "desc": "以貼頸高領、細針織面與順直上身比例為主，重點在安定、收斂的上半身結構。",
+        "legacyIds": ["wardrobe:上身-tops:合身高領針織上衣:7"]
       },
       {
-        "zh": "高領高衩連身彈性上衣",
-        "en": "sleeveless high-neck bodysuit-style top, sharply cut armholes, high-cut sides, smooth stretch fabric, sleek body-contouring silhouette",
-        "desc": "以高領無袖連身上衣為核心，特徵是削肩線條、側邊高衩與平滑貼身的彈性材質，整體俐落、成熟又帶一點都會性感感；主色應由獨立配色控制。"
+        "zh": "高領連身上衣",
+        "en": "high-neck bodysuit-style top, sleeveless construction, sharply cut armholes, smooth stretch fabric, continuous torso line",
+        "desc": "以高領、無袖與連身式結構為主，重點在連續上身線條與乾淨開袖比例；主色應由獨立配色控制。",
+        "legacyIds": ["wardrobe:上身-tops:高領高衩連身彈性上衣:8"]
       },
       {
-        "zh": "高領高衩連身羅紋上衣",
-        "en": "sleeveless high-neck bodysuit-style top, sharply cut armholes, high-cut sides, fine ribbed stretch knit fabric, sleek body-contouring silhouette",
-        "desc": "保留高領無袖連身上衣與側邊高衩的輪廓，但改成細緻羅紋彈性針織材質，整體更有日常貼身感與紋理層次；主色應由獨立配色控制。"
+        "zh": "羅紋高領連身上衣",
+        "en": "high-neck ribbed bodysuit-style top, sleeveless cut, fine rib stretch knit, continuous close torso structure",
+        "desc": "保留高領連身結構，並把重點放在細羅紋面料與更明確的縱向布紋節奏；主色應由獨立配色控制。",
+        "legacyIds": ["wardrobe:上身-tops:高領高衩連身羅紋上衣:9"]
       },
       {
-        "zh": "寬鬆襯衫",
-        "en": "oversized boyfriend shirt, loose untucked button-up shirt, long relaxed sleeves, soft drape, casually hanging hem, effortless off-duty styling",
-        "desc": "呈現像女友直接套上男友襯衫的鬆大輪廓，衣襬自然放出不紮進下身，袖長偏長、版型寬鬆，帶有居家、親密與慵懶感。"
+        "zh": "長版襯衫",
+        "en": "longline shirt, extended hem length, relaxed sleeve volume, softened drape through the body",
+        "desc": "以較長衣襬、寬鬆袖量與柔垂布面為主，重點在長版比例與輪廓延伸，不預設特定穿法。",
+        "legacyIds": ["wardrobe:上身-tops:寬鬆襯衫:10"]
       },
       {
         "zh": "長版寬鬆麻花針織毛衣",
@@ -990,44 +998,52 @@
         "desc": "以寬鬆長版毛衣、明顯麻花編織、落肩剪裁與偏長袖型為主，衣襬可自然蓋到大腿上緣，整體更接近居家、親密、慵懶的男友風針織輪廓。"
       },
       {
-        "zh": "緊身襯衫＋領帶（紮入下身）",
-        "en": "fitted shirt tucked neatly into the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, defined waistline",
-        "desc": "保留貼身襯衫的俐落感，並以紮入裙子或褲子的穿法讓腰線更清楚；領帶材質更柔軟、長度偏短，氣質更像整理過但不過度正式的制服變體。"
+        "zh": "領帶襯衫",
+        "en": "shirt with a soft short tie, slightly relaxed collar opening, clean front placket, slim uniform-inspired upper-body structure",
+        "desc": "以短領帶、微鬆領口與俐落門襟作為主體設計語言，偏制服靈感但維持乾淨上身結構。",
+        "legacyIds": ["wardrobe:上身-tops:緊身襯衫-領帶-紮入下身:12"]
       },
       {
-        "zh": "緊身襯衫＋領帶（放出衣襬）",
-        "en": "fitted shirt worn untucked over the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, relaxed hemline",
-        "desc": "同樣保留貼身襯衫與短領帶的制服感，但衣襬自然放出，整體更慵懶、私服化，也更適合親密或鬆弛感畫面。"
+        "zh": "鬆領帶襯衫",
+        "en": "shirt with a soft short tie, relaxed collar opening, lighter drape through the torso, softened uniform-inspired structure",
+        "desc": "保留短領帶與制服式前襟，但用更鬆的領口與較柔和的上身垂墜感形成變化，不預設衣襬狀態。",
+        "legacyIds": ["wardrobe:上身-tops:緊身襯衫-領帶-放出衣襬:13"]
       },
       {
-        "zh": "寬鬆落肩 T 恤（紮入下身）",
-        "en": "oversized dropped-shoulder t-shirt tucked into the bottoms, washed cotton jersey, relaxed fit, low shoulder seam construction, shoulders still properly covered, bloused casual volume, defined waistline",
-        "desc": "生活感很強的基本款，以紮入裙子或褲子的穿法保留寬鬆份量；重點放在落肩剪裁與寬鬆份量，而不是露肩或可見內衣肩帶，適合街頭、青春與日常隨拍風格。"
+        "zh": "落肩 T 恤",
+        "en": "dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion",
+        "desc": "以落肩線、寬鬆袖根與水洗棉面料為主，重點在肩線下降後形成的休閒輪廓。",
+        "legacyIds": ["wardrobe:上身-tops:寬鬆落肩-t-恤-紮入下身:14"]
       },
       {
-        "zh": "寬鬆落肩 T 恤（放出衣襬）",
-        "en": "oversized dropped-shoulder t-shirt, untucked loose hem, washed cotton jersey, relaxed fit, low shoulder seam construction, shoulders still properly covered, casually draped over the waistline",
-        "desc": "生活感很強的基本款，衣襬自然放出、不紮進裙子或褲子裡；重點放在落肩剪裁與日常鬆弛感，不再強調露肩或可見內衣肩帶，適合街頭、居家與青春隨拍風格。"
+        "zh": "長版落肩 T 恤",
+        "en": "longline dropped-shoulder t-shirt, washed cotton jersey, lowered shoulder seam, extended hem proportion",
+        "desc": "保留落肩結構，並把差異放在更長的衣襬比例與較明顯的縱向份量感。",
+        "legacyIds": ["wardrobe:上身-tops:寬鬆落肩-t-恤-放出衣襬:15"]
       },
       {
-        "zh": "短版緊身露臍 T 恤",
-        "en": "cropped fitted t-shirt, exposed waistline, close casual silhouette",
-        "desc": "最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。"
+        "zh": "短版 T 恤",
+        "en": "cropped t-shirt, concise hem length, compact torso block, casual knit structure",
+        "desc": "以短版衣長與精簡衣身比例為主，重點在裁短後的上半身輪廓，而非情境化描述。",
+        "legacyIds": ["wardrobe:上身-tops:短版緊身露臍-t-恤:16"]
       },
       {
-        "zh": "短版針織露臍小可愛",
-        "en": "cropped knit cami, fitted knit texture, exposed waist styling",
-        "desc": "帶有針織紋理與露腰輪廓，介於日常與輕性感之間，適合外穿疊搭。"
+        "zh": "短版針織背心",
+        "en": "cropped knit camisole, compact hem length, ribbed knit texture, narrow shoulder strap construction",
+        "desc": "以短版長度、細肩帶與針織紋理為主，輪廓精簡且帶明確針織表面語言。",
+        "legacyIds": ["wardrobe:上身-tops:短版針織露臍小可愛:17"]
       },
       {
-        "zh": "短版蕾絲露臍小可愛",
-        "en": "cropped lace cami, delicate lace texture, exposed waist styling",
-        "desc": "蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。"
+        "zh": "短版蕾絲背心",
+        "en": "cropped lace camisole, compact upper-body length, floral lace surface, delicate edge finish",
+        "desc": "以短版比例、蕾絲面料與精細收邊為主，重點在材質與結構而非情境暗示。",
+        "legacyIds": ["wardrobe:上身-tops:短版蕾絲露臍小可愛:18"]
       },
       {
-        "zh": "平口短版上衣",
-        "en": "strapless cropped tube top, close-fitting stretch fabric, clean line",
-        "desc": "露出肩頸與腰線，適合 Y2K、夏日、派對與寫真主題。"
+        "zh": "平口上衣",
+        "en": "strapless tube top, clean upper edge, smooth stretch fabric, compact bandeau structure",
+        "desc": "以平直上緣、無肩帶結構與簡潔帶狀上身比例為主，輪廓俐落直接。",
+        "legacyIds": ["wardrobe:上身-tops:平口短版上衣:19"]
       },
       {
         "zh": "一字領上衣",
@@ -1040,39 +1056,46 @@
         "desc": "以削肩平口結構、乾淨的上緣線條與彈性布料質感為主，重點放在現代化剪裁與上身結構，而不是強調身體輪廓。"
       },
       {
-        "zh": "絲綢緞面襯衫（紮入下身）",
-        "en": "silk satin blouse tucked into the bottoms, luminous satin sheen, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details, defined waistline",
-        "desc": "女式襯衫以紮入裙子或褲子的穿法呈現，保留柔軟飄逸的長袖與帶光澤的緞面質地，也讓整體更高級、俐落且成熟。"
+        "zh": "絲綢緞面襯衫",
+        "en": "silk satin blouse, luminous satin sheen, soft draping long sleeves, refined cuff detailing, fluid blouse construction",
+        "desc": "以緞面光澤、柔垂長袖與細緻袖口收邊為主，重點在柔軟布性與襯衫結構的平衡。",
+        "legacyIds": ["wardrobe:上身-tops:絲綢緞面襯衫-紮入下身:22"]
       },
       {
-        "zh": "絲綢緞面襯衫（放出衣襬）",
-        "en": "silk satin blouse worn untucked over the bottoms, luminous satin sheen, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details, flowing relaxed hemline",
-        "desc": "女式襯衫保留柔軟飄逸的長袖、蕾絲袖口與荷葉邊，但衣襬自然放出，整體更慵懶、私密，也更適合法式或飯店感畫面。"
+        "zh": "荷葉袖絲綢襯衫",
+        "en": "silk satin blouse with ruffled sleeve finish, luminous sheen, flowing sleeve drape, decorative soft cuff structure",
+        "desc": "保留絲綢緞面的柔亮布感，並把重點放在荷葉式袖口與更裝飾性的袖部收邊。",
+        "legacyIds": ["wardrobe:上身-tops:絲綢緞面襯衫-放出衣襬:23"]
       },
       {
-        "zh": "透膚刺繡襯衫（紮入下身）",
-        "en": "semi-sheer embroidered button-up shirt tucked into the bottoms, lightweight voile fabric, tonal floral embroidery, soft collar structure, refined translucent layering, defined waist styling",
-        "desc": "以半透明薄料、同色花卉刺繡與襯衫領片結構為主，重點是布料層次與刺繡細節；紮入下身後更俐落，但不以裸露感作為描述重點。"
+        "zh": "透膚刺繡襯衫",
+        "en": "semi-sheer embroidered shirt, lightweight voile fabric, tonal floral embroidery, soft collar structure, translucent layered surface",
+        "desc": "以半透明薄料、同色刺繡與襯衫領片結構為主，重點在表面工藝與布層深度。",
+        "legacyIds": ["wardrobe:上身-tops:透膚刺繡襯衫-紮入下身:24"]
       },
       {
-        "zh": "透膚刺繡襯衫（放出衣襬）",
-        "en": "semi-sheer embroidered button-up shirt worn untucked over the bottoms, lightweight voile fabric, tonal floral embroidery, soft collar structure, relaxed translucent layering, flowing hemline",
-        "desc": "保留半透明薄料與細緻刺繡紋理，衣襬自然放出後更偏時裝化層次與柔和垂墜感，而不是強調身體可見度。"
+        "zh": "柔垂透膚刺繡襯衫",
+        "en": "semi-sheer embroidered blouse, lightweight voile fabric, tonal floral embroidery, softer draped body, translucent layered structure",
+        "desc": "同樣保留半透明薄料與刺繡，但整體輪廓更柔垂，重點放在布面下墜與層次過渡。",
+        "legacyIds": ["wardrobe:上身-tops:透膚刺繡襯衫-放出衣襬:25"]
       },
       {
-        "zh": "網紗透視上衣（紮入下身）",
-        "en": "semi-sheer mesh top tucked into the bottoms, fine net texture, delicate floral motif panels, lace-trim detailing, lightweight layered styling, defined waist finish",
-        "desc": "以細網紗材質、花卉圖樣拼片與蕾絲滾邊作為重點，整體更像帶裝飾感的時裝上衣；紮入下身後輪廓更俐落，但不強調肌膚裸露。"
+        "zh": "網紗透視上衣",
+        "en": "semi-sheer mesh top, fine net texture, floral motif panels, lace-trim detailing, lightweight layered construction",
+        "desc": "以細網紗、花卉拼片與蕾絲收邊為主，重點在裝飾性表面與層次式上身結構。",
+        "legacyIds": ["wardrobe:上身-tops:網紗透視上衣-紮入下身:26"]
       },
       {
-        "zh": "網紗透視上衣（放出衣襬）",
-        "en": "semi-sheer mesh top worn untucked over the bottoms, fine net texture, delicate floral motif panels, lace-trim detailing, softly extended hemline, lightweight layered styling",
-        "desc": "保留網紗、花紋拼片與蕾絲收邊等服裝細節，衣襬自然放出後更偏輕層次與裝飾性時裝語言，降低過度裸露導向。"
+        "zh": "裝飾網紗上衣",
+        "en": "decorative mesh top, fine net texture, layered motif panels, lace-trim detailing, softened hem extension",
+        "desc": "保留網紗與拼片裝飾，但更強調裝飾性面料堆疊與下擺延伸比例。",
+        "legacyIds": ["wardrobe:上身-tops:網紗透視上衣-放出衣襬:27"]
       },
       {
-        "zh": "短版緊身吊帶背心",
-        "en": "cropped tight camisole, close body fit, streamlined silhouette",
-        "desc": "貼身露腰、偏 Y2K 與街頭感。"
+        "zh": "短版吊帶背心",
+        "en": "cropped camisole, narrow straps, concise torso block, streamlined upper-body silhouette",
+        "desc": "以短版衣長、細肩帶與精簡上身比例為主，輪廓明快直接。",
+        "legacyIds": ["wardrobe:上身-tops:短版緊身吊帶背心:28"]
       },
       {
         "zh": "短版帽T",
@@ -1341,9 +1364,10 @@
         "desc": "不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。"
       },
       {
-        "zh": "高腰直筒牛仔褲",
-        "en": "high-waisted straight-leg jeans, clean denim texture, everyday staple",
-        "desc": "最穩定的日常下身單品，適合城市、街拍與生活感畫面。"
+        "zh": "直筒牛仔褲",
+        "en": "straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction",
+        "desc": "以直筒褲管、標準丹寧結構與清楚褲線比例為主，重點在穩定耐看的基礎版型。",
+        "legacyIds": ["wardrobe:褲裝-pants:高腰直筒牛仔褲:1"]
       },
       {
         "zh": "低腰牛仔褲",
@@ -1351,14 +1375,16 @@
         "desc": "千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。"
       },
       {
-        "zh": "牛仔熱褲",
-        "en": "denim hot pants, short fitted shorts, casual summer styling",
-        "desc": "短版且貼腿，偏夏日、街頭與 Y2K 方向。"
+        "zh": "牛仔短褲",
+        "en": "denim shorts, short hemline, compact fitted seat, clean cut-off-inspired silhouette",
+        "desc": "以短褲長度、丹寧布面與俐落褲口比例為主，重點是簡潔直接的短版結構。",
+        "legacyIds": ["wardrobe:褲裝-pants:牛仔熱褲:3"]
       },
       {
-        "zh": "真理褲",
-        "en": "micro athletic shorts, ultra-short sporty bottoms, casual fitted silhouette",
-        "desc": "超短運動感褲型，重點在腿部線條與青春活力。"
+        "zh": "超短運動短褲",
+        "en": "micro athletic shorts, compact sporty cut, minimal hem length, lightweight activewear structure",
+        "desc": "以超短褲長、運動褲口與輕量機能結構為主，整體偏精簡直接的 activewear 語言。",
+        "legacyIds": ["wardrobe:褲裝-pants:真理褲:4"]
       },
       {
         "zh": "蕾絲內褲",
@@ -1371,9 +1397,10 @@
         "desc": "以花卉蕾絲紋樣、細緻波浪邊與小型緞帶點綴為主的內著設計，重點放在材質與裝飾語言，避免把畫面導向裸露或強調身體比例。"
       },
       {
-        "zh": "亮面緊身皮短褲",
-        "en": "low-rise glossy fitted leather shorts, sleek tight silhouette, exposed hip line, fetish edge",
-        "desc": "帶有高反光與強勢感，並以低腰位置更直接強調臀線與腰胯比例，適合夜景與邊緣時裝主題。"
+        "zh": "皮革短褲",
+        "en": "leather shorts, glossy leather surface, compact fitted seat, sharp short-bottom silhouette",
+        "desc": "以皮革表面、俐落短褲比例與較硬挺的下身結構為主，重點在材質與剪裁態度。",
+        "legacyIds": ["wardrobe:褲裝-pants:亮面緊身皮短褲:7"]
       },
       {
         "zh": "工裝長褲",
@@ -1386,24 +1413,28 @@
         "desc": "都會、正式與俐落感很強，適合極簡與成熟造型。"
       },
       {
-        "zh": "低腰寬褲",
-        "en": "low-rise wide-leg trousers, long relaxed drape, soft flowing volume, clean urban silhouette",
-        "desc": "以低腰位置與寬鬆長褲輪廓為主，重點在腰線下移、褲管寬鬆與輕盈垂墜感，適合街拍、都會與 Y2K 混極簡造型；主色應由獨立配色控制。"
+        "zh": "寬褲",
+        "en": "wide-leg trousers, elongated drape, broad leg opening, fluid tailored volume",
+        "desc": "以寬褲管、拉長垂墜與流動份量感為核心，重點在褲型展幅與線條延伸。",
+        "legacyIds": ["wardrobe:褲裝-pants:低腰寬褲:10"]
       },
       {
-        "zh": "貼身瑜珈褲 / leggings",
-        "en": "fitted leggings, body-contouring stretch fabric, sleek athletic silhouette",
-        "desc": "緊貼腿部線條，偏運動、貼身與流線感。"
+        "zh": "leggings",
+        "en": "leggings, stretch knit structure, continuous leg line, streamlined athletic silhouette",
+        "desc": "以連續腿線、彈性針織布面與簡潔機能結構為主，重點在流線下身比例。",
+        "legacyIds": ["wardrobe:褲裝-pants:貼身瑜珈褲-leggings:11"]
       },
       {
-        "zh": "寬鬆運動棉褲",
-        "en": "loose sweatpants, soft casual drape, relaxed sporty volume",
-        "desc": "休閒、街頭與居家感強，畫面更放鬆。"
+        "zh": "運動棉褲",
+        "en": "sweatpants, soft knit body, elastic waistband construction, relaxed athletic drape",
+        "desc": "以棉質針織布身、鬆緊腰頭與自然垂墜的運動褲結構為主。",
+        "legacyIds": ["wardrobe:褲裝-pants:寬鬆運動棉褲:12"]
       },
       {
-        "zh": "超低腰短褲",
-        "en": "ultra low-rise shorts, exposed hip line, y2k summer styling",
-        "desc": "強烈 Y2K 感與露腰比例，適合街頭、夏日與性感主題。"
+        "zh": "短褲",
+        "en": "shorts, concise hem length, compact lower-body proportion, clean casual bottom structure",
+        "desc": "以短褲長度、俐落褲口與直接的下身比例為主，可再透過腰線與版型欄位延伸風格。",
+        "legacyIds": ["wardrobe:褲裝-pants:超低腰短褲:13"]
       },
       {
         "zh": "皮革長褲",
@@ -1411,14 +1442,16 @@
         "desc": "比短褲更完整且更冷調，適合夜景、時裝與強勢造型。"
       },
       {
-        "zh": "寬鬆尼龍工裝褲",
-        "en": "oversized nylon cargo pants, lightweight utility volume, technical streetwear feel",
-        "desc": "機能、街頭與輕量工裝感明顯，適合運動與 techwear。"
+        "zh": "尼龍工裝褲",
+        "en": "nylon cargo pants, lightweight technical fabric, utility pocket construction, crisp utilitarian line",
+        "desc": "以尼龍面料、工裝口袋與較俐落的功能性褲身結構為主，重點在材質與機能細節。",
+        "legacyIds": ["wardrobe:褲裝-pants:寬鬆尼龍工裝褲:15"]
       },
       {
-        "zh": "破壞抽鬚牛仔寬褲",
-        "en": "distressed baggy denim jeans, frayed edges, heavy wash denim",
-        "desc": "重度水洗、寬鬆廓形，帶隨性街頭感。"
+        "zh": "破壞牛仔寬褲",
+        "en": "distressed wide-leg denim, frayed edge detailing, heavy-wash texture, expanded leg volume",
+        "desc": "以破壞刷色、抽鬚邊緣與寬版褲管為主，重點在表面處理與份量感。",
+        "legacyIds": ["wardrobe:褲裝-pants:破壞抽鬚牛仔寬褲:16"]
       },
       {
         "zh": "絲絨喇叭褲",
@@ -1426,19 +1459,22 @@
         "desc": "帶有復古戲劇感與柔軟光澤。"
       },
       {
-        "zh": "亮面貼身皮褲",
-        "en": "sleek fitted leather pants, glossy finish, sharp silhouette",
-        "desc": "緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。"
+        "zh": "亮面皮革長褲",
+        "en": "gloss-finish leather trousers, reflective surface treatment, elongated leg line, sharp lower-body structure",
+        "desc": "以亮面皮革、拉長褲身線條與更明確的表面反光處理為主，重點在材質態度。",
+        "legacyIds": ["wardrobe:褲裝-pants:亮面貼身皮褲:18"]
       },
       {
-        "zh": "亮面乳膠緊身長褲",
-        "en": "glossy latex leggings, ultra-shiny body-hugging latex pants, second-skin silhouette",
-        "desc": "高反光乳膠材質緊貼腿部，適合 fetish、夜拍與強烈時裝主題。"
+        "zh": "乳膠長褲",
+        "en": "latex trousers, high-shine latex surface, continuous leg contour, polished synthetic finish",
+        "desc": "以乳膠表面、高反光塗層與連續腿線為主，重點在材質與完整褲身結構。",
+        "legacyIds": ["wardrobe:褲裝-pants:亮面乳膠緊身長褲:19"]
       },
       {
-        "zh": "亮面乳膠緊身短褲",
-        "en": "low-rise glossy latex fitted shorts, ultra-shiny tight latex shorts, second-skin silhouette, exposed hip line",
-        "desc": "短版乳膠褲以低腰位置更直接強調腿部、臀部與腰胯線條，適合派對、夜景與邊緣造型。"
+        "zh": "乳膠短褲",
+        "en": "latex shorts, high-shine latex surface, concise short-bottom block, polished synthetic finish",
+        "desc": "以乳膠表面、短褲比例與更直接的材質反光為主，重點在精簡下身結構。",
+        "legacyIds": ["wardrobe:褲裝-pants:亮面乳膠緊身短褲:20"]
       },
       {
         "zh": "比基尼下身",
@@ -1468,9 +1504,10 @@
         "desc": "不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。"
       },
       {
-        "zh": "合身迷你裙",
-        "en": "fitted mini skirt, clean tailored finish, sleek silhouette",
-        "desc": "高頻實用短裙，線條乾淨俐落，適合城市、寫真與時裝風格。"
+        "zh": "迷你裙",
+        "en": "mini skirt, concise hem length, clean tailored finish, compact lower-body proportion",
+        "desc": "以短裙長度、乾淨下擺與簡潔裙身比例為主，是最基礎的迷你裙結構。",
+        "legacyIds": ["wardrobe:裙裝-skirts:合身迷你裙:1"]
       },
       {
         "zh": "A 字短裙",
@@ -1508,14 +1545,16 @@
         "desc": "格紋圖案明確，搭配銀扣皮帶、別針與鏈條點綴，龐克辨識度很高。"
       },
       {
-        "zh": "緊身亮面皮裙",
-        "en": "glossy fitted leather mini skirt, high-shine texture, body-hugging silhouette",
-        "desc": "反光感強烈，適合夜景與邊緣時裝主題。"
+        "zh": "皮革迷你裙",
+        "en": "leather mini skirt, glossy surface, compact skirt length, sharp lower-body line",
+        "desc": "以皮革布面、短裙比例與明確下擺線條為主，整體偏俐落、冷感的時裝剪裁。",
+        "legacyIds": ["wardrobe:裙裝-skirts:緊身亮面皮裙:9"]
       },
       {
-        "zh": "包臀短裙",
-        "en": "bodycon mini skirt, figure-hugging silhouette, sleek fitted finish",
-        "desc": "最直接強調曲線的短裙，適合寫真、時裝與成熟感造型。"
+        "zh": "窄身短裙",
+        "en": "body-skimming mini skirt, narrow skirt block, compact hemline, close lower-body line",
+        "desc": "以較窄的裙身與更貼近腿線的短裙比例為主，重點在收斂俐落的裙裝結構。",
+        "legacyIds": ["wardrobe:裙裝-skirts:包臀短裙:10"]
       },
       {
         "zh": "荷葉短裙",
@@ -1533,9 +1572,10 @@
         "desc": "夢幻、時裝與飄逸感明顯，適合自然風與視覺層次。"
       },
       {
-        "zh": "低腰長裙",
-        "en": "low-rise maxi skirt, elongated hip line, belt detail, side zipper detail, urban y2k silhouette",
-        "desc": "低腰線搭配腰帶與側邊拉鏈細節，更強調臀線與腰線比例，適合都會、Y2K 與性感主題。"
+        "zh": "長裙",
+        "en": "maxi skirt, elongated hemline, vertical drape, clean continuous lower-body silhouette",
+        "desc": "以長裙長度、垂直延伸與連續裙身比例為主，重點在整體拉長效果與布面流向。",
+        "legacyIds": ["wardrobe:裙裝-skirts:低腰長裙:14"]
       },
       {
         "zh": "緞面短裙",
@@ -1578,9 +1618,10 @@
         "desc": "由裙撐撐起的鐘形裙襬，風格非常鮮明。"
       },
       {
-        "zh": "高腰窄裙",
-        "en": "high-waisted pencil skirt, body-skimming fit, elegant office silhouette",
-        "desc": "合身但不誇張，適合極簡、商業與成熟女性主題。"
+        "zh": "短窄裙",
+        "en": "narrow mini skirt, slim pencil-like proportion, compact hemline, clean tapered skirt shape",
+        "desc": "以窄版裙身、短裙長度與收斂下擺線條為主，整體偏俐落精簡的窄裙結構。",
+        "legacyIds": ["wardrobe:裙裝-skirts:高腰窄裙:22"]
       },
       {
         "zh": "波西米亞風長裙",

@@ -11,16 +11,19 @@
 
 ## Current Working State
 
-- Latest pushed commit on `main`: `147f088 Optimize Firebase loading and safer body prompts`
+- Latest pushed commit on `main`: `083c9df Add nighttime scene accents and update lace dress`
 - Recent important commits:
+  - `083c9df Add nighttime scene accents and update lace dress`
+  - `c384126 Refine striped color wording`
+  - `ea6d7a7 Add knit sweater and palette options`
+  - `e48812d Add lighting reference modal`
+  - `162b6dd Refine light style controls`
+  - `e7cfcd1 Add more indoor environment moods`
   - `147f088 Optimize Firebase loading and safer body prompts`
   - `b4fd8af Expand graffiti clothing prompt variations`
   - `a3877bc Move Firebase auth into settings menu`
   - `0086d4f Add Firebase favorites sync`
-  - `6067712 Improve prompt feed persistence performance`
-  - `455ff28 Remove portrait falloff from shallow depth prompt`
-  - `18b8069 Add Z-Image prompt output`
-- Working tree should be clean after `147f088`; if this handoff doc is edited, only this doc should be dirty
+- Working tree should be clean after `083c9df`; if this handoff doc is edited, only this doc should be dirty
 - Work continues directly on `main`
 - Standard validation flow remains:
   - `python3 scripts/sync_to_json.py`
@@ -229,6 +232,28 @@
   - then location / lighting / camera
 - This ordering was intentionally kept because Grok / Aurora tends to over-prioritize face detail if face content is too early.
 - `Optical Effect: shallow depth of field...` was updated earlier to remove `natural portrait falloff` because it caused Grok Imagine to bias toward tight portrait / upper-body compositions.
+- As of `083c9df`, Grok prompt output can now include a separate `Scene Accent:` line for supported night-scene combinations.
+
+### Current Night-Lighting Research Direction
+
+- The user is actively testing a new direction for night-city prompts where the subject should not be independently brightened beyond the background.
+- This is currently **discussion / manual prompt-testing only** and is not yet a generalized engine rule.
+- Main observed problem:
+  - urban night prompts can still render the woman noticeably brighter than the background
+  - especially when using white / off-white dresses, medium portrait framings, and longer portrait lenses such as `135mm`
+  - wording like `clear facial readability` also appears to encourage unwanted subject lift
+- Current proposed future rule direction:
+  - subject lit mainly by surrounding ambient urban light
+  - no strong frontal key light
+  - no bright front fill
+  - no studio-like subject lift
+  - subject brightness kept close to the surrounding night scene
+  - white garments remain subdued, not glowing / not overexposed
+- A full manual test prompt variant was drafted for the user to A/B test against the current prompt style.
+- If that manual test works well, a future session should formalize the rule in:
+  - environment mood wording
+  - light-style wording
+  - or additional exposure guard helpers in `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
 
 ### Midjourney Prompt
 
@@ -282,6 +307,7 @@
   - close-up framings do not keep unrelated lower-body clothing
   - indoor / underground scenes are more protected from obviously outdoor sky-like lighting combinations
   - outdoor scenes do not randomly choose the `鏡子自拍姿勢` pose family, because Grok Imagine often generated an actual mirror into outdoor scenes
+- `Random` still intentionally excludes `全無` for most core content choices.
 
 ## Scene System State
 
@@ -292,6 +318,79 @@
 - `場景` options are filtered by `場景屬性`.
 - Random scene selection also respects this filter.
 - Scene-dependent lighting / light-direction filtering still exists and continues to work.
+
+### Contextual Night Scene Accent Layer
+
+- As of `083c9df`, PAGE1 prompt assembly now includes a new dynamic `Scene Accent` layer for supported outdoor night-scene combinations.
+- This logic lives in `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js` and does **not** require rewriting the raw location database entries.
+- Intended scene-assembly structure is now:
+  - base `Location` stays neutral / physical
+  - `Environment Mood` defines time-of-day and atmosphere
+  - `Scene Accent` adds scene-reaction details when compatible
+  - `Light Style` remains responsible for subject-light behavior
+
+#### Current Triggered Night Moods
+
+- `月光夜色`
+- `藍調傍晚`
+- `夜晚街燈`
+
+#### Current Scene Profiles
+
+- `urban_street`
+- `urban_waterfront`
+
+#### Current Accent Behavior
+
+- `urban_street` examples:
+  - moonlit:
+    - softly lit windows
+    - glowing vending machine panels
+    - sparse street lamps
+    - faint distant building lights
+  - blue hour:
+    - early practical lights appearing
+    - dim interior windows
+    - vending machine glow becoming visible
+  - streetlit night:
+    - lit windows
+    - glowing vending machines
+    - street lamps casting soft pools of light
+- `urban_waterfront` examples:
+  - moonlit:
+    - sparse skyline lights
+    - distant harbor / city lights
+    - faint reflections from practical light sources
+  - blue hour:
+    - city lights beginning to emerge
+    - illuminated windows across the skyline
+    - subtle harbor and building lights in the distance
+  - streetlit night:
+    - layered building lights
+    - brighter harbor / city light points
+    - subtle artificial-light reflections
+
+#### Current Injection Targets
+
+- Grok structured prompt:
+  - emits `Scene Accent: ...`
+- Z-Image prompt:
+  - appends accent into the scene sentence
+- Midjourney-style flattened prompt:
+  - appends a shorter accent clause to the location phrase
+- Duo scene anchor:
+  - also includes the accent when applicable
+
+#### Important Guardrail
+
+- Purely natural scenes such as beach / grassland / tatami-like contexts are intentionally excluded from the night-accent layer so they do not gain urban light artifacts.
+
+#### Verified Local Cases During Implementation
+
+- `戶外：社區自動販賣機旁 + 月光夜色`
+  - now emits vending machine / window / streetlamp accent wording
+- `戶外：城市遊艇碼頭欄杆旁 + 藍調傍晚`
+  - now emits skyline / harbor lights beginning-to-appear wording
 
 ### Recent Japanese Lifestyle Scene Additions
 
@@ -326,6 +425,24 @@
   - shoes
   - legwear
   - accessories
+
+### Recent Dress Refinement
+
+- `細肩帶蕾絲棉質迷你洋裝` was updated in `083c9df`.
+- Previous wording leaned more toward:
+  - visible underbust gathering
+  - lace panels across bodice and waist
+  - a more shaped summer mini dress
+- Current wording now aims closer to:
+  - loose layered lace mini dress
+  - no defined waistline
+  - relaxed shapeless / babydoll-like hang
+  - opaque inner slip layer under a sheer floral-lace outer layer
+  - airy loose-hanging body
+  - softly scalloped semi-sheer lace hem
+- Current `en` entry:
+  - `spaghetti-strap loose layered lace mini dress, delicate shoulder straps, soft straight-to-gently-curved neckline, relaxed shapeless babydoll silhouette without a defined waistline, lightweight opaque inner slip layer under a sheer floral-lace outer layer, airy loose-hanging body, subtle lace texture throughout, softly scalloped semi-sheer lace hem, easy breezy summer one-piece silhouette`
+- User briefly questioned whether the result might still read as having waist shaping, but then explicitly said to ignore that concern for now because the final wording conclusion already emphasizes `無腰身`.
 
 ### Outerwear
 
@@ -372,6 +489,8 @@
   - silver halter mini dress preset
   - high-neck high-cut bodysuit variants
   - multiple lifestyle and swimwear refinements
+  - `長版寬鬆麻花針織毛衣`
+  - the refined `細肩帶蕾絲棉質迷你洋裝` wording above
 
 ### Graphic / Graffiti Pattern Expansion
 
@@ -466,6 +585,12 @@
   - `npm run lint` from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
   - `npm run build`
 - Continue using `apply_patch` for manual file edits.
+- Recent validation after `083c9df`:
+  - `npm run build` passed
+  - local node-based prompt generation checks were run against:
+    - `戶外：社區自動販賣機旁 + 月光夜色`
+    - `戶外：城市遊艇碼頭欄杆旁 + 藍調傍晚`
+  - both confirmed the new `Scene Accent` layer was emitted correctly
 - Recent validation after `147f088`:
   - `npm run lint` passed
   - `npm run build` passed
@@ -486,7 +611,266 @@
   - continue random-conflict tuning as more wardrobe and scene categories are added
   - consider whether some scene groups should get stronger indoor / outdoor compatibility rules
   - keep evaluating merged `top + outerwear` prompt behavior across more clothing pairs
+  - if the user approves the new night-city exposure direction, formalize a rule so subjects in city night scenes are not automatically brightened beyond the background
+  - likely implementation area for that future work:
+    - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
+    - especially environment mood wording, light-style wording, or extra exposure guard helpers
 - High-value content expansion:
   - more Japanese everyday locations
   - more office / school / commute scenes
   - more one-piece dresses and layered outerwear combinations
+
+## 2026-04-28 Latest State
+
+### Recent Mainline Commits
+
+- Recent pushed commits after the older sections above:
+  - `1f18e29 Add SUNO styles builder`
+  - `9862d35 Refine wardrobe reroll decision flow`
+  - `947bbde Refine AI and Z-Image prompt outputs`
+  - `6a4aab2 Fix none leakage in prompt outputs`
+  - `08b45b1 Fix stale wardrobe lock states`
+  - `a517b94 Allow bottoms in chest-up closeup mode`
+
+### PAGE1 / Workspace UX
+
+- PAGE1 was reworked into a left / center / right workspace layout:
+  - left: section navigation and workspace actions
+  - center: active control group editor
+  - right: live prompt preview
+- `SAVE` in `LIVE PROMPT PREVIEW` no longer creates a normal feed card.
+- `SAVE` now means: directly add the current prompt into favorites / `Saved Cards`.
+- `Saved Cards` was simplified:
+  - removed reroll
+  - removed prompt backfill
+  - removed in-card favorite toggle
+  - removed quick keep / style-regenerate style actions
+  - kept only prompt content + copy buttons
+- `Settings` button now visually matches the main tab buttons and uses text instead of a gear icon.
+- `Prompt Workspace` now includes:
+  - `隨機生成`
+  - `清除已選`
+  - `全部隨機`
+  - `全部全無`
+  - `回填 Prompt`
+
+### Prompt Roles
+
+- Current prompt families are:
+  - `Grok`
+  - `Z-Image`
+  - `AI`
+- Their intended roles are now:
+  - `Grok`:
+    - most complete
+    - structured
+    - closest to direct selection fidelity
+  - `Z-Image`:
+    - derived from Grok-style content
+    - rewritten into natural-language prompt flow
+    - still keeps full selection meaning
+  - `AI`:
+    - highly simplified
+    - preserves only:
+      - subject core
+      - main outfit
+      - whether eyewear exists
+      - main scene
+      - core camera
+      - core lighting
+      - one or two atmosphere terms
+- Important recent bugfix:
+  - `AI` / duo prompts no longer leak strings such as:
+    - `woman 1 with none, woman 2 with none`
+
+### Random / Reroll Logic
+
+- Wardrobe reroll logic was rewritten into a safer decision tree.
+- Main-body wardrobe now resolves in this order:
+  - outfit preset
+  - dress
+  - top
+  - pants
+  - skirt
+- Key rules:
+  - first real specified value wins as the reroll starting point
+  - unresolved branches continue downward
+  - top and bottom are protected from accidental empty results
+  - reroll should preserve explicitly chosen values instead of overwriting them
+- Secondary styling layers are now handled independently:
+  - legwear
+  - outerwear
+  - accessories
+- `none` remains acceptable in secondary layers, but those layers should not clear each other.
+
+### Duo System
+
+- Duo-specific wardrobe support was added earlier and remains active:
+  - separate duo layer controls
+  - separate duo accessory controls
+- Duo interaction system was restructured twice and is now stabilized around:
+  - relationship / interaction strength
+  - duo composition pose
+- Current `雙人互動` options:
+  - `陌生`
+  - `有距離`
+  - `靠肩`
+  - `親密`
+  - `性感擁抱`
+- Current `雙人構圖姿態` options:
+  - `並肩站立`
+  - `前後站立`
+  - `並肩行進`
+  - `前後行進`
+  - `彼此倚靠`
+  - `左右靠牆`
+  - `蹲姿`
+  - `站＋蹲`
+  - `跪姿`
+  - `跪＋蹲`
+  - `坐姿`
+  - `坐＋蹲`
+  - `側躺`
+  - `側躺＋坐`
+  - `仰躺`
+  - `仰躺＋側躺`
+  - `俯臥`
+
+### Scene / Set Updates
+
+- `CRT 電視牆攝影棚` was revised:
+  - screens are now stacked in uneven heights instead of forming a perfect flat wall
+  - many CRTs should be on
+  - screens may show:
+    - the subject
+    - broadcast / news imagery
+    - static / visual noise
+    - analog interference
+
+### SUNO Tab
+
+- New `SUNO` tab was added as a `SUNO Styles Builder`.
+- Current supported fields:
+  - music genres
+  - core instruments
+  - BPM range
+  - groove
+  - vocal traits
+  - texture / atmosphere
+- Current BPM range choices are intentionally broad:
+  - `40~60`
+  - `50~70`
+  - `50~80`
+  - `60~90`
+- `Saved Cards` now also supports SUNO entries.
+
+### Close-Up / Lock-State Fixes
+
+- Two important PAGE1 lock-state fixes were made:
+  - stale invalid wardrobe values are normalized instead of silently continuing to lock controls
+  - `胸上特寫` no longer blocks editing of:
+    - pants
+    - skirt
+    - bottom color
+    - bottom pattern
+- This means chest-up framing is now treated as compatible with lower-body prompt control even if the crop is upper-body-focused.
+
+### Clothing Refactor: Phase 1 / Phase 2
+
+- A two-phase wardrobe cleanup was started to normalize top / bottom clothing prompts.
+- Core new controls added to PAGE1:
+  - `上身版型`
+  - `上身穿法`
+  - `下身版型`
+  - `下身腰線`
+- Current option sets:
+  - `上身版型`:
+    - `正常`
+    - `合身`
+    - `緊身`
+    - `oversize`
+  - `上身穿法`:
+    - `正常穿著`
+    - `紮入下身`
+    - `半紮`
+    - `自然放出`
+    - `下擺打結`
+  - `下身版型`:
+    - `正常`
+    - `合身`
+    - `緊身`
+    - `寬版`
+  - `下身腰線`:
+    - `高腰`
+    - `正常腰線`
+    - `低腰`
+    - `超低腰`
+- These controls are now wired into prompt generation, not just UI display.
+- Prompt language for tops / bottoms was intentionally shifted toward:
+  - design direction
+  - silhouette
+  - cut
+  - surface / fabric construction
+  - reduced scene-like phrasing
+
+### Current Name Normalization Direction
+
+- Examples already normalized:
+  - `合身襯衫` -> `襯衫`
+  - `短版棉質露臍小可愛` -> `棉質細肩背心`
+  - `合身削肩針織上衣` -> `削肩針織上衣`
+  - `短袖貼身上衣` -> `短袖上衣`
+  - `高腰直筒牛仔褲` -> `直筒牛仔褲`
+  - `牛仔熱褲` -> `牛仔短褲`
+  - `真理褲` -> `超短運動短褲`
+  - `亮面緊身皮短褲` -> `皮革短褲`
+  - `低腰寬褲` -> `寬褲`
+  - `超低腰短褲` -> `短褲`
+  - `緊身亮面皮裙` -> `皮革迷你裙`
+  - `低腰長裙` -> `長裙`
+  - `高腰窄裙` -> `短窄裙`
+- Additional phase-2 normalization now also includes examples such as:
+  - `合身高領針織上衣` -> `高領針織上衣`
+  - `高領高衩連身彈性上衣` -> `高領連身上衣`
+  - `高領高衩連身羅紋上衣` -> `羅紋高領連身上衣`
+  - `寬鬆襯衫` -> `長版襯衫`
+  - `貼身瑜珈褲 / leggings` -> `leggings`
+  - `寬鬆運動棉褲` -> `運動棉褲`
+  - `寬鬆尼龍工裝褲` -> `尼龍工裝褲`
+  - `破壞抽鬚牛仔寬褲` -> `破壞牛仔寬褲`
+  - `亮面貼身皮褲` -> `亮面皮革長褲`
+  - `亮面乳膠緊身長褲` -> `乳膠長褲`
+  - `亮面乳膠緊身短褲` -> `乳膠短褲`
+  - `合身迷你裙` -> `迷你裙`
+  - `包臀短裙` -> `窄身短裙`
+
+### Legacy Mapping
+
+- Because many wardrobe item names changed, `legacyIds` support was added in the wardrobe catalog build process.
+- Old stored selection ids can now map onto renamed entries during normalization instead of silently becoming invalid.
+- Relevant implementation lives in:
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
+
+### Important Current Dirty-Tree Note
+
+- If this handoff doc is being updated together with current wardrobe refactor work, expected dirty files may include:
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/conversation_handoff.md`
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/App.jsx`
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page1Workspace.jsx`
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/wardrobe_and_styling.md`
+
+### Recommended Next Wardrobe Step
+
+- Continue reducing cases where a single item name still hardcodes:
+  - fit
+  - rise
+  - tucked / untucked behavior
+  - situation-like styling language
+- Best next candidates:
+  - remaining shirt / blouse variants
+  - remaining cropped top variants
+  - remaining bodycon / fitted skirt variants
+  - any pants or skirts still implicitly encoding low-rise or tightness in the base item name

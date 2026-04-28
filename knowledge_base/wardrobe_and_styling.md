@@ -40,34 +40,34 @@
 | **套裝 (Outfit Presets)** | 玫瑰哥德蘿莉塔洋裝套裝 | `wearing an elegant gothic lolita dress, base fabric with large rose print, scattered realistic floral motifs, cursive script text pattern across the fabric, fitted corset bodice with lace-up ribbon front, structured waist, heart-shaped neckline with contrast trim, halter neck strap connected by a small decorative ring at the collar, long sheer lace sleeves fitted along the arms with delicate floral lace pattern, off-shoulder sleeve attachment, flared voluminous skirt with multiple layers including a tulle underskirt, hem decorated with ruffle trim and a thin metallic accent line, rich main-color and contrast-color balance, detailed fabric texture and lace transparency, elegant dramatic silhouette` | 以玫瑰印花布料、手寫字樣圖樣、綁帶馬甲胸身、愛心領口、頸帶與小金屬環、透膚蕾絲長袖、薄紗襯裙與荷葉滾邊構成的哥德蘿莉塔套裝，整體強調花卉印花、蕾絲透明度、裙襬份量與戲劇化輪廓；主色與對比色應由獨立的套裝配色控制。 |
 | **套裝 (Outfit Presets)** | 哥德休閒針織荷葉短裙套裝 | `wearing an elegant gothic casual outfit, fitted knit top with slight texture, deep neckline layered with a lace inner camisole, lace trim along the neckline, large striped ribbon bow at the chest, long sleeves with slim fit, outer layer slightly open at the front with soft drape, high-waist mini skirt with multiple layered ruffles, alternating main-color and striped contrast panels, asymmetrical frill arrangement, decorative buttons and strap details on the skirt, softly gathered waistline, combination of soft knit, lace, and structured frill fabrics, monochrome-inspired styling with adjustable main-color and contrast-color balance, detailed folds and layered textures` | 以合身針織上衣、深領口內搭蕾絲背心、領口蕾絲滾邊、胸前大尺寸條紋蝴蝶結與多層荷葉高腰短裙構成的哥德休閒套裝；裙身保留不對稱荷葉、裝飾鈕扣與帶扣細節，並以針織、蕾絲與挺版荷葉布料建立層次，主色與對比色應由獨立的套裝配色控制。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
-| **上身 (Tops)** | 合身襯衫 | `fitted shirt, crisp cotton poplin, clean silhouette` | 乾淨俐落的高頻基礎單品，適合極簡、城市與寫真風格。 |
-| **上身 (Tops)** | 短版棉質露臍小可愛 | `cropped cotton cami, soft ribbed fabric, close body fit` | 棉質與貼身露腰輪廓很直接，適合日常、街頭與夏日寫真風格。 |
-| **上身 (Tops)** | 合身削肩針織上衣 | `fitted sleeveless knit top, ribbed texture, shoulder-baring silhouette` | 乾淨貼身的削肩針織輪廓，能自然勾勒肩頸與上半身線條。 |
-| **上身 (Tops)** | 短袖貼身上衣 | `fitted short-sleeve top, body-hugging silhouette, smooth stretch fabric` | 貼身短袖能自然強調上半身線條，適合日常、寫真與極簡時裝。 |
+| **上身 (Tops)** | 襯衫 | `shirt, crisp cotton poplin, clean placket construction, balanced collar line` | 以俐落門襟、清楚領型與乾淨肩線構成的基礎上身單品，重點在剪裁結構而不是情境語氣。 |
+| **上身 (Tops)** | 棉質細肩背心 | `cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line` | 以細肩帶、棉質羅紋與短而俐落的上緣比例為主，強調基礎內搭式剪裁與貼身輪廓。 |
+| **上身 (Tops)** | 削肩針織上衣 | `sleeveless knit top, ribbed texture, clean shoulder-baring cut, narrow armhole shaping` | 以削肩結構、貼近頸根的領線與細緻針織紋理為重點，輪廓乾淨且偏都會感。 |
+| **上身 (Tops)** | 短袖上衣 | `short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion` | 以俐落袖長、順身布面與簡潔上半身線條為主，適合作為中性基礎版型。 |
 | **上身 (Tops)** | 絲質細肩帶上衣 | `silk camisole top, delicate straps, fluid sheen` | 輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。 |
 | **上身 (Tops)** | 細肩帶上衣 | `camisole top, delicate shoulder straps, fitted silhouette` | 直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。 |
-| **上身 (Tops)** | 合身高領針織上衣 | `fitted turtleneck knit top, fine gauge knit, sleek silhouette` | 貼身高領與細緻針織紋理，適合秋冬、極簡與冷調 editorial。 |
-| **上身 (Tops)** | 高領高衩連身彈性上衣 | `sleeveless high-neck bodysuit-style top, sharply cut armholes, high-cut sides, smooth stretch fabric, sleek body-contouring silhouette` | 以高領無袖連身上衣為核心，特徵是削肩線條、側邊高衩與平滑貼身的彈性材質，整體俐落、成熟又帶一點都會性感感；主色應由獨立配色控制。 |
-| **上身 (Tops)** | 高領高衩連身羅紋上衣 | `sleeveless high-neck bodysuit-style top, sharply cut armholes, high-cut sides, fine ribbed stretch knit fabric, sleek body-contouring silhouette` | 保留高領無袖連身上衣與側邊高衩的輪廓，但改成細緻羅紋彈性針織材質，整體更有日常貼身感與紋理層次；主色應由獨立配色控制。 |
-| **上身 (Tops)** | 寬鬆襯衫 | `oversized boyfriend shirt, loose untucked button-up shirt, long relaxed sleeves, soft drape, casually hanging hem, effortless off-duty styling` | 呈現像女友直接套上男友襯衫的鬆大輪廓，衣襬自然放出不紮進下身，袖長偏長、版型寬鬆，帶有居家、親密與慵懶感。 |
+| **上身 (Tops)** | 高領針織上衣 | `turtleneck knit top, fine gauge knit, smooth neckline transition, clean torso structure` | 以貼頸高領、細針織面與順直上身比例為主，重點在安定、收斂的上半身結構。 |
+| **上身 (Tops)** | 高領連身上衣 | `high-neck bodysuit-style top, sleeveless construction, sharply cut armholes, smooth stretch fabric, continuous torso line` | 以高領、無袖與連身式結構為主，重點在連續上身線條與乾淨開袖比例；主色應由獨立配色控制。 |
+| **上身 (Tops)** | 羅紋高領連身上衣 | `high-neck ribbed bodysuit-style top, sleeveless cut, fine rib stretch knit, continuous close torso structure` | 保留高領連身結構，並把重點放在細羅紋面料與更明確的縱向布紋節奏；主色應由獨立配色控制。 |
+| **上身 (Tops)** | 長版襯衫 | `longline shirt, extended hem length, relaxed sleeve volume, softened drape through the body` | 以較長衣襬、寬鬆袖量與柔垂布面為主，重點在長版比例與輪廓延伸，不預設特定穿法。 |
 | **上身 (Tops)** | 長版寬鬆麻花針織毛衣 | `oversized cable-knit sweater, chunky soft knit texture, longline hem covering the upper thighs, slouchy boyfriend fit, dropped shoulders, extra-long relaxed sleeves, cozy homewear silhouette, effortless intimate off-duty styling` | 以寬鬆長版毛衣、明顯麻花編織、落肩剪裁與偏長袖型為主，衣襬可自然蓋到大腿上緣，整體更接近居家、親密、慵懶的男友風針織輪廓。 |
-| **上身 (Tops)** | 緊身襯衫＋領帶（紮入下身） | `fitted shirt tucked neatly into the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, defined waistline` | 保留貼身襯衫的俐落感，並以紮入裙子或褲子的穿法讓腰線更清楚；領帶材質更柔軟、長度偏短，氣質更像整理過但不過度正式的制服變體。 |
-| **上身 (Tops)** | 緊身襯衫＋領帶（放出衣襬） | `fitted shirt worn untucked over the bottoms, soft short tie, slightly loosened collar, supple fabric tie, slim tailored silhouette, subtle uniform mood, relaxed hemline` | 同樣保留貼身襯衫與短領帶的制服感，但衣襬自然放出，整體更慵懶、私服化，也更適合親密或鬆弛感畫面。 |
-| **上身 (Tops)** | 寬鬆落肩 T 恤（紮入下身） | `oversized dropped-shoulder t-shirt tucked into the bottoms, washed cotton jersey, relaxed fit, low shoulder seam construction, shoulders still properly covered, bloused casual volume, defined waistline` | 生活感很強的基本款，以紮入裙子或褲子的穿法保留寬鬆份量；重點放在落肩剪裁與寬鬆份量，而不是露肩或可見內衣肩帶，適合街頭、青春與日常隨拍風格。 |
-| **上身 (Tops)** | 寬鬆落肩 T 恤（放出衣襬） | `oversized dropped-shoulder t-shirt, untucked loose hem, washed cotton jersey, relaxed fit, low shoulder seam construction, shoulders still properly covered, casually draped over the waistline` | 生活感很強的基本款，衣襬自然放出、不紮進裙子或褲子裡；重點放在落肩剪裁與日常鬆弛感，不再強調露肩或可見內衣肩帶，適合街頭、居家與青春隨拍風格。 |
-| **上身 (Tops)** | 短版緊身露臍 T 恤 | `cropped fitted t-shirt, exposed waistline, close casual silhouette` | 最直接的露腰日常單品，適合 Y2K、街頭與生活感畫面。 |
-| **上身 (Tops)** | 短版針織露臍小可愛 | `cropped knit cami, fitted knit texture, exposed waist styling` | 帶有針織紋理與露腰輪廓，介於日常與輕性感之間，適合外穿疊搭。 |
-| **上身 (Tops)** | 短版蕾絲露臍小可愛 | `cropped lace cami, delicate lace texture, exposed waist styling` | 蕾絲質地明顯，偏私密與寫真，也可搭配外套形成層次。 |
-| **上身 (Tops)** | 平口短版上衣 | `strapless cropped tube top, close-fitting stretch fabric, clean line` | 露出肩頸與腰線，適合 Y2K、夏日、派對與寫真主題。 |
+| **上身 (Tops)** | 領帶襯衫 | `shirt with a soft short tie, slightly relaxed collar opening, clean front placket, slim uniform-inspired upper-body structure` | 以短領帶、微鬆領口與俐落門襟作為主體設計語言，偏制服靈感但維持乾淨上身結構。 |
+| **上身 (Tops)** | 鬆領帶襯衫 | `shirt with a soft short tie, relaxed collar opening, lighter drape through the torso, softened uniform-inspired structure` | 保留短領帶與制服式前襟，但用更鬆的領口與較柔和的上身垂墜感形成變化，不預設衣襬狀態。 |
+| **上身 (Tops)** | 落肩 T 恤 | `dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion` | 以落肩線、寬鬆袖根與水洗棉面料為主，重點在肩線下降後形成的休閒輪廓。 |
+| **上身 (Tops)** | 長版落肩 T 恤 | `longline dropped-shoulder t-shirt, washed cotton jersey, lowered shoulder seam, extended hem proportion` | 保留落肩結構，並把差異放在更長的衣襬比例與較明顯的縱向份量感。 |
+| **上身 (Tops)** | 短版 T 恤 | `cropped t-shirt, concise hem length, compact torso block, casual knit structure` | 以短版衣長與精簡衣身比例為主，重點在裁短後的上半身輪廓，而非情境化描述。 |
+| **上身 (Tops)** | 短版針織背心 | `cropped knit camisole, compact hem length, ribbed knit texture, narrow shoulder strap construction` | 以短版長度、細肩帶與針織紋理為主，輪廓精簡且帶明確針織表面語言。 |
+| **上身 (Tops)** | 短版蕾絲背心 | `cropped lace camisole, compact upper-body length, floral lace surface, delicate edge finish` | 以短版比例、蕾絲面料與精細收邊為主，重點在材質與結構而非情境暗示。 |
+| **上身 (Tops)** | 平口上衣 | `strapless tube top, clean upper edge, smooth stretch fabric, compact bandeau structure` | 以平直上緣、無肩帶結構與簡潔帶狀上身比例為主，輪廓俐落直接。 |
 | **上身 (Tops)** | 一字領上衣 | `off-shoulder top, soft neckline silhouette, visible white bra straps along the shoulder line, refined layered styling detail` | 露出鎖骨與肩線，並加入可見白色內衣肩帶的層次細節，整體更像日常穿搭中的造型搭配，適合寫真與女性化風格。 |
 | **上身 (Tops)** | 削肩平口連身上衣 | `halter bandeau bodysuit-style top, clean bandeau neckline, smooth stretch fabric, structured upper panel, refined modern fashion detailing` | 以削肩平口結構、乾淨的上緣線條與彈性布料質感為主，重點放在現代化剪裁與上身結構，而不是強調身體輪廓。 |
-| **上身 (Tops)** | 絲綢緞面襯衫（紮入下身） | `silk satin blouse tucked into the bottoms, luminous satin sheen, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details, defined waistline` | 女式襯衫以紮入裙子或褲子的穿法呈現，保留柔軟飄逸的長袖與帶光澤的緞面質地，也讓整體更高級、俐落且成熟。 |
-| **上身 (Tops)** | 絲綢緞面襯衫（放出衣襬） | `silk satin blouse worn untucked over the bottoms, luminous satin sheen, soft draping long sleeves, white lace-trimmed cuffs, gentle ruffle details, flowing relaxed hemline` | 女式襯衫保留柔軟飄逸的長袖、蕾絲袖口與荷葉邊，但衣襬自然放出，整體更慵懶、私密，也更適合法式或飯店感畫面。 |
-| **上身 (Tops)** | 透膚刺繡襯衫（紮入下身） | `semi-sheer embroidered button-up shirt tucked into the bottoms, lightweight voile fabric, tonal floral embroidery, soft collar structure, refined translucent layering, defined waist styling` | 以半透明薄料、同色花卉刺繡與襯衫領片結構為主，重點是布料層次與刺繡細節；紮入下身後更俐落，但不以裸露感作為描述重點。 |
-| **上身 (Tops)** | 透膚刺繡襯衫（放出衣襬） | `semi-sheer embroidered button-up shirt worn untucked over the bottoms, lightweight voile fabric, tonal floral embroidery, soft collar structure, relaxed translucent layering, flowing hemline` | 保留半透明薄料與細緻刺繡紋理，衣襬自然放出後更偏時裝化層次與柔和垂墜感，而不是強調身體可見度。 |
-| **上身 (Tops)** | 網紗透視上衣（紮入下身） | `semi-sheer mesh top tucked into the bottoms, fine net texture, delicate floral motif panels, lace-trim detailing, lightweight layered styling, defined waist finish` | 以細網紗材質、花卉圖樣拼片與蕾絲滾邊作為重點，整體更像帶裝飾感的時裝上衣；紮入下身後輪廓更俐落，但不強調肌膚裸露。 |
-| **上身 (Tops)** | 網紗透視上衣（放出衣襬） | `semi-sheer mesh top worn untucked over the bottoms, fine net texture, delicate floral motif panels, lace-trim detailing, softly extended hemline, lightweight layered styling` | 保留網紗、花紋拼片與蕾絲收邊等服裝細節，衣襬自然放出後更偏輕層次與裝飾性時裝語言，降低過度裸露導向。 |
-| **上身 (Tops)** | 短版緊身吊帶背心 | `cropped tight camisole, close body fit, streamlined silhouette` | 貼身露腰、偏 Y2K 與街頭感。 |
+| **上身 (Tops)** | 絲綢緞面襯衫 | `silk satin blouse, luminous satin sheen, soft draping long sleeves, refined cuff detailing, fluid blouse construction` | 以緞面光澤、柔垂長袖與細緻袖口收邊為主，重點在柔軟布性與襯衫結構的平衡。 |
+| **上身 (Tops)** | 荷葉袖絲綢襯衫 | `silk satin blouse with ruffled sleeve finish, luminous sheen, flowing sleeve drape, decorative soft cuff structure` | 保留絲綢緞面的柔亮布感，並把重點放在荷葉式袖口與更裝飾性的袖部收邊。 |
+| **上身 (Tops)** | 透膚刺繡襯衫 | `semi-sheer embroidered shirt, lightweight voile fabric, tonal floral embroidery, soft collar structure, translucent layered surface` | 以半透明薄料、同色刺繡與襯衫領片結構為主，重點在表面工藝與布層深度。 |
+| **上身 (Tops)** | 柔垂透膚刺繡襯衫 | `semi-sheer embroidered blouse, lightweight voile fabric, tonal floral embroidery, softer draped body, translucent layered structure` | 同樣保留半透明薄料與刺繡，但整體輪廓更柔垂，重點放在布面下墜與層次過渡。 |
+| **上身 (Tops)** | 網紗透視上衣 | `semi-sheer mesh top, fine net texture, floral motif panels, lace-trim detailing, lightweight layered construction` | 以細網紗、花卉拼片與蕾絲收邊為主，重點在裝飾性表面與層次式上身結構。 |
+| **上身 (Tops)** | 裝飾網紗上衣 | `decorative mesh top, fine net texture, layered motif panels, lace-trim detailing, softened hem extension` | 保留網紗與拼片裝飾，但更強調裝飾性面料堆疊與下擺延伸比例。 |
+| **上身 (Tops)** | 短版吊帶背心 | `cropped camisole, narrow straps, concise torso block, streamlined upper-body silhouette` | 以短版衣長、細肩帶與精簡上身比例為主，輪廓明快直接。 |
 | **上身 (Tops)** | 短版帽T | `cropped hoodie, cinched waist hem, casual streetwear silhouette, sporty relaxed shape` | 帶有街頭與運動感，並補上腰部束口的造型特徵，適合 Y2K、隨拍與日常造型。 |
 | **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 偏街頭與運動風，適合社群感、青春感與休閒主題。 |
 | **上身 (Tops)** | 坦克背心 | `tank top, sleeveless casual fit, clean sporty line` | 最簡單直接的無袖上身，適合日常、運動與寫真人像。 |
@@ -120,32 +120,32 @@
 | **連身 (Dresses)** | 波希米亞刺繡蕾絲寬鬆罩衫洋裝 | `loose bohemian tunic dress, soft dusty pink fabric, lightweight and flowy material, wide V neckline, dark brown lace trim along the neckline forming a deep V shape, floral embroidery along the neckline in dark brown thread, symmetrical small rose patterns, front tie string at the center chest with a long cord and tassel ends hanging down, relaxed oversized silhouette, drop-shoulder design, wide flutter sleeves, elbow-length sleeves with dark brown scalloped lace trim at the edges, soft draping fabric with gentle folds, hemline finished with matching dark brown lace trim, blouse-like dress worn loose and untucked, longline silhouette naturally covering the hips and upper thighs` | 以柔和 dusty pink 布料、深 V 領深棕蕾絲滾邊、領口小玫瑰刺繡、胸前綁繩流蘇、寬鬆落肩與寬大 flutter sleeves 為重點的波希米亞罩衫式洋裝；整體偏輕柔、鬆身、帶民族感細節，像長版上衣延伸成可單穿的 tunic dress。 |
 | **連身 (Dresses)** | 雛菊背心丹寧吊帶短褲連身造型 | `two-piece casual summer outfit, sleeveless pink camisole top with soft lightweight fabric, gathered neckline with an elastic ruffle edge, small ribbon tie at the center front forming a bow, subtle small white and yellow daisy floral pattern evenly distributed, thin shoulder straps, paired with high-waisted teal denim overall shorts, structured waistband with belt loops and a wide band detail, front button closure with multiple round buttons, suspenders attached with small metallic heart-shaped clips, adjustable shoulder straps, front pockets and side pockets, distressed denim texture with visible wear and frayed ripped areas on the thighs, rolled hem with raw edges, small embroidered pink flower motifs on the shorts, fitted waist and slightly loose leg openings, soft pastel color harmony, clean detailed stitching and fabric texture` | 以粉色小雛菊細肩背心搭配高腰青綠色丹寧吊帶短褲為核心的夏日連身造型；重點是荷葉鬆緊領口、胸前蝴蝶結、小花圖樣、愛心金屬吊帶夾、磨損刷色與捲邊褲口，整體偏可愛、生活感、青春夏季穿搭。 |
 | **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
-| **褲裝 (Pants)** | 高腰直筒牛仔褲 | `high-waisted straight-leg jeans, clean denim texture, everyday staple` | 最穩定的日常下身單品，適合城市、街拍與生活感畫面。 |
+| **褲裝 (Pants)** | 直筒牛仔褲 | `straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction` | 以直筒褲管、標準丹寧結構與清楚褲線比例為主，重點在穩定耐看的基礎版型。 |
 | **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
-| **褲裝 (Pants)** | 牛仔熱褲 | `denim hot pants, short fitted shorts, casual summer styling` | 短版且貼腿，偏夏日、街頭與 Y2K 方向。 |
-| **褲裝 (Pants)** | 真理褲 | `micro athletic shorts, ultra-short sporty bottoms, casual fitted silhouette` | 超短運動感褲型，重點在腿部線條與青春活力。 |
+| **褲裝 (Pants)** | 牛仔短褲 | `denim shorts, short hemline, compact fitted seat, clean cut-off-inspired silhouette` | 以短褲長度、丹寧布面與俐落褲口比例為主，重點是簡潔直接的短版結構。 |
+| **褲裝 (Pants)** | 超短運動短褲 | `micro athletic shorts, compact sporty cut, minimal hem length, lightweight activewear structure` | 以超短褲長、運動褲口與輕量機能結構為主，整體偏精簡直接的 activewear 語言。 |
 | **褲裝 (Pants)** | 蕾絲內褲 | `low-rise lace panties, lingerie bottoms, delicate intimate styling, exposed hip line` | 以低腰位置貼合臀線與胯部，偏內衣與私密寫真風格，強調蕾絲質地與貼身感。 |
 | **褲裝 (Pants)** | 蕾絲丁字褲 | `lace thong bottoms, delicate floral lace pattern, satin bow accent, scalloped trim, refined lingerie detailing` | 以花卉蕾絲紋樣、細緻波浪邊與小型緞帶點綴為主的內著設計，重點放在材質與裝飾語言，避免把畫面導向裸露或強調身體比例。 |
-| **褲裝 (Pants)** | 亮面緊身皮短褲 | `low-rise glossy fitted leather shorts, sleek tight silhouette, exposed hip line, fetish edge` | 帶有高反光與強勢感，並以低腰位置更直接強調臀線與腰胯比例，適合夜景與邊緣時裝主題。 |
+| **褲裝 (Pants)** | 皮革短褲 | `leather shorts, glossy leather surface, compact fitted seat, sharp short-bottom silhouette` | 以皮革表面、俐落短褲比例與較硬挺的下身結構為主，重點在材質與剪裁態度。 |
 | **褲裝 (Pants)** | 工裝長褲 | `cargo pants, structured utility silhouette, practical pocket detailing` | 工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。 |
 | **褲裝 (Pants)** | 西裝長褲 | `tailored trousers, sharp clean lines, polished formal drape` | 都會、正式與俐落感很強，適合極簡與成熟造型。 |
-| **褲裝 (Pants)** | 低腰寬褲 | `low-rise wide-leg trousers, long relaxed drape, soft flowing volume, clean urban silhouette` | 以低腰位置與寬鬆長褲輪廓為主，重點在腰線下移、褲管寬鬆與輕盈垂墜感，適合街拍、都會與 Y2K 混極簡造型；主色應由獨立配色控制。 |
-| **褲裝 (Pants)** | 貼身瑜珈褲 / leggings | `fitted leggings, body-contouring stretch fabric, sleek athletic silhouette` | 緊貼腿部線條，偏運動、貼身與流線感。 |
-| **褲裝 (Pants)** | 寬鬆運動棉褲 | `loose sweatpants, soft casual drape, relaxed sporty volume` | 休閒、街頭與居家感強，畫面更放鬆。 |
-| **褲裝 (Pants)** | 超低腰短褲 | `ultra low-rise shorts, exposed hip line, y2k summer styling` | 強烈 Y2K 感與露腰比例，適合街頭、夏日與性感主題。 |
+| **褲裝 (Pants)** | 寬褲 | `wide-leg trousers, elongated drape, broad leg opening, fluid tailored volume` | 以寬褲管、拉長垂墜與流動份量感為核心，重點在褲型展幅與線條延伸。 |
+| **褲裝 (Pants)** | leggings | `leggings, stretch knit structure, continuous leg line, streamlined athletic silhouette` | 以連續腿線、彈性針織布面與簡潔機能結構為主，重點在流線下身比例。 |
+| **褲裝 (Pants)** | 運動棉褲 | `sweatpants, soft knit body, elastic waistband construction, relaxed athletic drape` | 以棉質針織布身、鬆緊腰頭與自然垂墜的運動褲結構為主。 |
+| **褲裝 (Pants)** | 短褲 | `shorts, concise hem length, compact lower-body proportion, clean casual bottom structure` | 以短褲長度、俐落褲口與直接的下身比例為主，可再透過腰線與版型欄位延伸風格。 |
 | **褲裝 (Pants)** | 皮革長褲 | `leather trousers, sleek fitted structure, cool fashion attitude` | 比短褲更完整且更冷調，適合夜景、時裝與強勢造型。 |
-| **褲裝 (Pants)** | 寬鬆尼龍工裝褲 | `oversized nylon cargo pants, lightweight utility volume, technical streetwear feel` | 機能、街頭與輕量工裝感明顯，適合運動與 techwear。 |
-| **褲裝 (Pants)** | 破壞抽鬚牛仔寬褲 | `distressed baggy denim jeans, frayed edges, heavy wash denim` | 重度水洗、寬鬆廓形，帶隨性街頭感。 |
+| **褲裝 (Pants)** | 尼龍工裝褲 | `nylon cargo pants, lightweight technical fabric, utility pocket construction, crisp utilitarian line` | 以尼龍面料、工裝口袋與較俐落的功能性褲身結構為主，重點在材質與機能細節。 |
+| **褲裝 (Pants)** | 破壞牛仔寬褲 | `distressed wide-leg denim, frayed edge detailing, heavy-wash texture, expanded leg volume` | 以破壞刷色、抽鬚邊緣與寬版褲管為主，重點在表面處理與份量感。 |
 | **褲裝 (Pants)** | 絲絨喇叭褲 | `velvet flared pants, 70s retro style, soft plush texture` | 帶有復古戲劇感與柔軟光澤。 |
-| **褲裝 (Pants)** | 亮面貼身皮褲 | `sleek fitted leather pants, glossy finish, sharp silhouette` | 緊貼腿部線條，適合夜景、強勢時裝與冷感性感主題。 |
-| **褲裝 (Pants)** | 亮面乳膠緊身長褲 | `glossy latex leggings, ultra-shiny body-hugging latex pants, second-skin silhouette` | 高反光乳膠材質緊貼腿部，適合 fetish、夜拍與強烈時裝主題。 |
-| **褲裝 (Pants)** | 亮面乳膠緊身短褲 | `low-rise glossy latex fitted shorts, ultra-shiny tight latex shorts, second-skin silhouette, exposed hip line` | 短版乳膠褲以低腰位置更直接強調腿部、臀部與腰胯線條，適合派對、夜景與邊緣造型。 |
+| **褲裝 (Pants)** | 亮面皮革長褲 | `gloss-finish leather trousers, reflective surface treatment, elongated leg line, sharp lower-body structure` | 以亮面皮革、拉長褲身線條與更明確的表面反光處理為主，重點在材質態度。 |
+| **褲裝 (Pants)** | 乳膠長褲 | `latex trousers, high-shine latex surface, continuous leg contour, polished synthetic finish` | 以乳膠表面、高反光塗層與連續腿線為主，重點在材質與完整褲身結構。 |
+| **褲裝 (Pants)** | 乳膠短褲 | `latex shorts, high-shine latex surface, concise short-bottom block, polished synthetic finish` | 以乳膠表面、短褲比例與更直接的材質反光為主，重點在精簡下身結構。 |
 | **褲裝 (Pants)** | 比基尼下身 | `low-rise side-tie bikini bottoms, string-tied hips, minimal swimwear coverage, exposed hip line, clean beachwear silhouette` | 作為泳裝下身使用時，改成更接近兩側綁帶的低腰比基尼褲型，重點是髖部綁結、簡潔包覆與俐落直接的海邊泳裝輪廓。 |
 | **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, earthy layered tones, gathered relaxed waist, folk-pattern panels and artisanal resort mood` | 褲身更寬鬆柔軟，帶自然堆疊與土色層次感，像度假地咖啡館裡常見的民俗風寬褲；整體不是俐落剪裁，而是強調鬆弛、垂墜與異國旅行感。 |
 | **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling` | 以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。 |
 | **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood` | 以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
-| **裙裝 (Skirts)** | 合身迷你裙 | `fitted mini skirt, clean tailored finish, sleek silhouette` | 高頻實用短裙，線條乾淨俐落，適合城市、寫真與時裝風格。 |
+| **裙裝 (Skirts)** | 迷你裙 | `mini skirt, concise hem length, clean tailored finish, compact lower-body proportion` | 以短裙長度、乾淨下擺與簡潔裙身比例為主，是最基礎的迷你裙結構。 |
 | **裙裝 (Skirts)** | A 字短裙 | `a-line mini skirt, structured flare, balanced feminine silhouette` | 腰部收合、裙擺自然展開的短裙版本，實用且好搭配。 |
 | **裙裝 (Skirts)** | A 字長裙 | `a-line maxi skirt, elongated flared silhouette, balanced feminine drape` | 保留 A 字展開輪廓但拉長裙長，整體更柔和也更成熟。 |
 | **裙裝 (Skirts)** | 絲質長裙 | `silk maxi skirt, fluid drape, soft reflective sheen` | 垂墜感強、適合法式慵懶與高級飯店場景。 |
@@ -153,12 +153,12 @@
 | **裙裝 (Skirts)** | 百褶長裙 | `pleated maxi skirt, crisp vertical folds, elongated flowing silhouette` | 把百褶線條延伸到長裙輪廓，整體更優雅，也更適合成熟或文藝造型。 |
 | **裙裝 (Skirts)** | 不對稱層次百褶裙 | `asymmetric layered pleated skirt, punk details, uneven hem` | 層次鮮明，整體更偏 Y2K 與前衛造型。 |
 | **裙裝 (Skirts)** | 龐克格紋百褶裙 | `punk tartan pleated skirt, plaid pattern, silver buckle belt, safety pin and chain details` | 格紋圖案明確，搭配銀扣皮帶、別針與鏈條點綴，龐克辨識度很高。 |
-| **裙裝 (Skirts)** | 緊身亮面皮裙 | `glossy fitted leather mini skirt, high-shine texture, body-hugging silhouette` | 反光感強烈，適合夜景與邊緣時裝主題。 |
-| **裙裝 (Skirts)** | 包臀短裙 | `bodycon mini skirt, figure-hugging silhouette, sleek fitted finish` | 最直接強調曲線的短裙，適合寫真、時裝與成熟感造型。 |
+| **裙裝 (Skirts)** | 皮革迷你裙 | `leather mini skirt, glossy surface, compact skirt length, sharp lower-body line` | 以皮革布面、短裙比例與明確下擺線條為主，整體偏俐落、冷感的時裝剪裁。 |
+| **裙裝 (Skirts)** | 窄身短裙 | `body-skimming mini skirt, narrow skirt block, compact hemline, close lower-body line` | 以較窄的裙身與更貼近腿線的短裙比例為主，重點在收斂俐落的裙裝結構。 |
 | **裙裝 (Skirts)** | 荷葉短裙 | `ruffled mini skirt, playful layered hem, lively feminine movement` | 裙擺更有律動與甜感，適合活潑、甜系與年輕造型。 |
 | **裙裝 (Skirts)** | 牛仔短裙 | `denim mini skirt, structured casual texture, youthful street styling` | 經典高頻單品，適合街頭、日常與夏日畫面。 |
 | **裙裝 (Skirts)** | 網紗長裙 | `mesh maxi skirt, sheer layered flow, dreamy airy texture` | 夢幻、時裝與飄逸感明顯，適合自然風與視覺層次。 |
-| **裙裝 (Skirts)** | 低腰長裙 | `low-rise maxi skirt, elongated hip line, belt detail, side zipper detail, urban y2k silhouette` | 低腰線搭配腰帶與側邊拉鏈細節，更強調臀線與腰線比例，適合都會、Y2K 與性感主題。 |
+| **裙裝 (Skirts)** | 長裙 | `maxi skirt, elongated hemline, vertical drape, clean continuous lower-body silhouette` | 以長裙長度、垂直延伸與連續裙身比例為主，重點在整體拉長效果與布面流向。 |
 | **裙裝 (Skirts)** | 緞面短裙 | `satin mini skirt, soft sheen, sleek sensual finish` | 低調光澤感明顯，適合飯店、寫真與成熟感風格。 |
 | **裙裝 (Skirts)** | 開衩長裙 | `slit maxi skirt, leg-revealing elegant cut, fluid elongated silhouette` | 成熟、性感且有流動感，適合時裝、晚間與高級場景。 |
 | **裙裝 (Skirts)** | 圍裹裙 | `wrap skirt, overlapping front panel, adjustable waist tie, fluid asymmetrical drape` | 以包裹式前片與腰部綁結為特色，輪廓自然且帶有輕鬆流動感。 |
@@ -167,7 +167,7 @@
 | **裙裝 (Skirts)** | 和服寬擺裙 | `kimono-inspired wide skirt, broad sweeping hem, elegant draped volume, Japanese-inspired styling` | 以和服寬擺輪廓為靈感的裙裝，帶有明顯的展幅感與日式服裝語氣。 |
 | **裙裝 (Skirts)** | 直筒裙 | `straight skirt, clean vertical silhouette, streamlined fitted drape` | 輪廓筆直、線條乾淨，適合都會、極簡與較成熟的搭配方式。 |
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
-| **裙裝 (Skirts)** | 高腰窄裙 | `high-waisted pencil skirt, body-skimming fit, elegant office silhouette` | 合身但不誇張，適合極簡、商業與成熟女性主題。 |
+| **裙裝 (Skirts)** | 短窄裙 | `narrow mini skirt, slim pencil-like proportion, compact hemline, clean tapered skirt shape` | 以窄版裙身、短裙長度與收斂下擺線條為主，整體偏俐落精簡的窄裙結構。 |
 | **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian layered maxi skirt, soft tiered panels, washed earth-tone fabric, crinkled drape, folk-pattern borders, relaxed gathered movement, artisanal resort elegance` | 長裙改成更貼近圖片裡那種土色拼接與層次裙片的方向，布料帶洗舊感與自然皺褶，行走或坐下時會形成柔軟堆疊，整體更像異國度假、手作感強的成熟波西米亞風。 |
 | **下身圖案 (Bottom Surface Design)** | 全無 | `no added bottom pattern, clean solid-color lower-body styling` | 不額外加入下身圖案，保留褲裝或裙裝本身的材質與輪廓。 |
 | **下身圖案 (Bottom Surface Design)** | 粗橫條紋 | `bold horizontal stripe pattern across the lower garment, clearly defined stripe bands, graphic statement styling` | 以明顯橫向條帶覆蓋下身單品，整體更有視覺節奏與強烈圖案存在感。 |

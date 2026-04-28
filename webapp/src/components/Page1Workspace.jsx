@@ -4,6 +4,8 @@ import LightingReferenceModal from './LightingReferenceModal';
 
 const OUTFIT_PRESET_COVERED_KEYS = new Set([
   'topId',
+  'topFitId',
+  'topStylingId',
   'topBottomPaletteId',
   'topColorId',
   'topPatternId',
@@ -11,6 +13,8 @@ const OUTFIT_PRESET_COVERED_KEYS = new Set([
   'dressColorId',
   'pantsId',
   'skirtId',
+  'bottomFitId',
+  'bottomRiseId',
   'bottomColorId',
   'bottomPatternId',
 ]);
@@ -85,8 +89,14 @@ const SECTION_SUBPANELS = {
       description: '當你不走整套 preset 時，這裡決定連身或上下身的主體輪廓。',
       keys: [
         'topId',
+        'topFitId',
+        'topStylingId',
+        'dressId',
+        'dressColorId',
         'pantsId',
         'skirtId',
+        'bottomFitId',
+        'bottomRiseId',
         'topBottomPaletteId',
         'topColorId',
         'topPatternId',
@@ -211,8 +221,12 @@ function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'outfitPresetBId', locks.outfitPresetBId),
     getControlOptionLabel(controls, 'dressId', locks.dressId),
     getControlOptionLabel(controls, 'topId', locks.topId),
+    getControlOptionLabel(controls, 'topFitId', locks.topFitId),
+    getControlOptionLabel(controls, 'topStylingId', locks.topStylingId),
     getControlOptionLabel(controls, 'pantsId', locks.pantsId),
     getControlOptionLabel(controls, 'skirtId', locks.skirtId),
+    getControlOptionLabel(controls, 'bottomFitId', locks.bottomFitId),
+    getControlOptionLabel(controls, 'bottomRiseId', locks.bottomRiseId),
     getControlOptionLabel(controls, 'legwearId', locks.legwearId),
     getControlOptionLabel(controls, 'shoesId', locks.shoesId),
     getControlOptionLabel(controls, 'legwearAId', locks.legwearAId),
@@ -356,7 +370,7 @@ export default function Page1Workspace({
       ) : null}
       {isCloseupMode ? (
         <div className="context-note">
-          目前為特寫模式，系統已自動停用與臉部無關的服裝、下身、姿勢與場景欄位，讓 prompt 專心描述人物臉孔。
+          目前為特寫模式，系統會自動收斂不必要欄位，保留與人物、主要服裝輪廓與構圖相關的設定，讓 prompt 更聚焦。
         </div>
       ) : null}
       {renderControlGrid(filterControlsByKeys(characterLockControls, activeSubpanel?.keys || []))}
