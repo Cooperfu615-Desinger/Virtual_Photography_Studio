@@ -1256,7 +1256,21 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'eyewearBId',
   'earringsBId',
 ]);
-const CLOSEUP_CHEST_ALLOWED_KEYS = new Set(['topId', 'topBottomPaletteId', 'topColorId', 'topPatternId', 'dressId', 'dressColorId', 'neckAccessoryId', 'neckAccessoryAId', 'neckAccessoryBId']);
+const CLOSEUP_CHEST_ALLOWED_KEYS = new Set([
+  'topId',
+  'topBottomPaletteId',
+  'topColorId',
+  'topPatternId',
+  'dressId',
+  'dressColorId',
+  'pantsId',
+  'skirtId',
+  'bottomColorId',
+  'bottomPatternId',
+  'neckAccessoryId',
+  'neckAccessoryAId',
+  'neckAccessoryBId',
+]);
 
 function isCloseupModeFramingItem(framing) {
   return Boolean(framing?.zh && CLOSEUP_MODE_ZH_LABELS.has(framing.zh));
