@@ -152,10 +152,13 @@
 | **裙裝 (Skirts)** | 百褶短裙 | `pleated mini skirt, crisp folds, youthful styling` | 學院感強，適合 JK、街頭與 Y2K 主題。 |
 | **裙裝 (Skirts)** | 百褶長裙 | `pleated maxi skirt, crisp vertical folds, elongated flowing silhouette` | 把百褶線條延伸到長裙輪廓，整體更優雅，也更適合成熟或文藝造型。 |
 | **裙裝 (Skirts)** | 不對稱層次百褶裙 | `asymmetric layered pleated skirt, punk details, uneven hem` | 層次鮮明，整體更偏 Y2K 與前衛造型。 |
-| **裙裝 (Skirts)** | 龐克格紋百褶裙 | `punk tartan pleated skirt, plaid pattern, silver buckle belt, safety pin and chain details` | 格紋圖案明確，搭配銀扣皮帶、別針與鏈條點綴，龐克辨識度很高。 |
+| **裙裝 (Skirts)** | 龐克格紋百褶裙 | `punk tartan pleated skirt, plaid pattern, black belt with silver buckle hardware, safety pin and chain details` | 以格紋百褶裙身、黑色皮帶與銀色帶扣五金、別針與鏈條點綴為主，龐克識別度高且結構更完整。 |
 | **裙裝 (Skirts)** | 皮革迷你裙 | `leather mini skirt, glossy surface, compact skirt length, sharp lower-body line` | 以皮革布面、短裙比例與明確下擺線條為主，整體偏俐落、冷感的時裝剪裁。 |
 | **裙裝 (Skirts)** | 窄身短裙 | `body-skimming mini skirt, narrow skirt block, compact hemline, close lower-body line` | 以較窄的裙身與更貼近腿線的短裙比例為主，重點在收斂俐落的裙裝結構。 |
 | **裙裝 (Skirts)** | 荷葉短裙 | `ruffled mini skirt, playful layered hem, lively feminine movement` | 裙擺更有律動與甜感，適合活潑、甜系與年輕造型。 |
+| **裙裝 (Skirts)** | 多層網紗荷葉短裙 | `tiered mesh ruffle mini skirt, wide waistband panel, multiple horizontal ruffle tiers, airy semi-sheer mesh layers, soft cake-like volume` | 以寬版腰頭、規則堆疊的多層水平荷葉與輕透網紗面料為重點，整體偏蛋糕裙式層次與輕盈展幅。 |
+| **裙裝 (Skirts)** | 不對稱荷葉短裙 | `asymmetric ruffle mini skirt, diagonal layered flounces, structured fabric body, uneven cascading hem detail, deconstructed lower-body silhouette` | 以斜向不對稱荷葉、較挺的裙身結構與一側延伸垂墜片為主，重點在解構感與前衛層次。 |
+| **裙裝 (Skirts)** | 透膚蕾絲荷葉短裙 | `sheer lace ruffle mini skirt, floral lace surface, gathered waistband, delicate ruffle trim tiers, translucent lace underlayer at the hem` | 以花卉蕾絲表面、細緻荷葉滾邊與下擺透膚蕾絲延伸為主，整體偏甜黑層次與柔軟裝飾感。 |
 | **裙裝 (Skirts)** | 牛仔短裙 | `denim mini skirt, structured casual texture, youthful street styling` | 經典高頻單品，適合街頭、日常與夏日畫面。 |
 | **裙裝 (Skirts)** | 網紗長裙 | `mesh maxi skirt, sheer layered flow, dreamy airy texture` | 夢幻、時裝與飄逸感明顯，適合自然風與視覺層次。 |
 | **裙裝 (Skirts)** | 長裙 | `maxi skirt, elongated hemline, vertical drape, clean continuous lower-body silhouette` | 以長裙長度、垂直延伸與連續裙身比例為主，重點在整體拉長效果與布面流向。 |

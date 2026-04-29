@@ -1541,8 +1541,8 @@
       },
       {
         "zh": "龐克格紋百褶裙",
-        "en": "punk tartan pleated skirt, plaid pattern, silver buckle belt, safety pin and chain details",
-        "desc": "格紋圖案明確，搭配銀扣皮帶、別針與鏈條點綴，龐克辨識度很高。"
+        "en": "punk tartan pleated skirt, plaid pattern, black belt with silver buckle hardware, safety pin and chain details",
+        "desc": "以格紋百褶裙身、黑色皮帶與銀色帶扣五金、別針與鏈條點綴為主，龐克識別度高且結構更完整。"
       },
       {
         "zh": "皮革迷你裙",
@@ -1560,6 +1560,21 @@
         "zh": "荷葉短裙",
         "en": "ruffled mini skirt, playful layered hem, lively feminine movement",
         "desc": "裙擺更有律動與甜感，適合活潑、甜系與年輕造型。"
+      },
+      {
+        "zh": "多層網紗荷葉短裙",
+        "en": "tiered mesh ruffle mini skirt, wide waistband panel, multiple horizontal ruffle tiers, airy semi-sheer mesh layers, soft cake-like volume",
+        "desc": "以寬版腰頭、規則堆疊的多層水平荷葉與輕透網紗面料為重點，整體偏蛋糕裙式層次與輕盈展幅。"
+      },
+      {
+        "zh": "不對稱荷葉短裙",
+        "en": "asymmetric ruffle mini skirt, diagonal layered flounces, structured fabric body, uneven cascading hem detail, deconstructed lower-body silhouette",
+        "desc": "以斜向不對稱荷葉、較挺的裙身結構與一側延伸垂墜片為主，重點在解構感與前衛層次。"
+      },
+      {
+        "zh": "透膚蕾絲荷葉短裙",
+        "en": "sheer lace ruffle mini skirt, floral lace surface, gathered waistband, delicate ruffle trim tiers, translucent lace underlayer at the hem",
+        "desc": "以花卉蕾絲表面、細緻荷葉滾邊與下擺透膚蕾絲延伸為主，整體偏甜黑層次與柔軟裝飾感。"
       },
       {
         "zh": "牛仔短裙",
