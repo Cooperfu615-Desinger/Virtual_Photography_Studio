@@ -444,19 +444,47 @@ const LOCK_DEFINITIONS = [
   { key: 'outfitPresetBContrastColorId', label: '人物 2 套裝對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outfitPresetBLockedPaletteId', label: '人物 2 套裝鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
   { key: 'topId', label: '上身', category: '上身 (Tops)', section: 'wardrobe' },
+  { key: 'topAId', label: '人物 1 上身', category: '上身 (Tops)', section: 'wardrobe' },
+  { key: 'topBId', label: '人物 2 上身', category: '上身 (Tops)', section: 'wardrobe' },
   { key: 'topFitId', label: '上身版型', options: TOP_FIT_OPTIONS, section: 'wardrobe' },
+  { key: 'topFitAId', label: '人物 1 上身版型', options: TOP_FIT_OPTIONS, section: 'wardrobe' },
+  { key: 'topFitBId', label: '人物 2 上身版型', options: TOP_FIT_OPTIONS, section: 'wardrobe' },
   { key: 'topStylingId', label: '上身穿法', options: TOP_STYLING_OPTIONS, section: 'wardrobe' },
+  { key: 'topStylingAId', label: '人物 1 上身穿法', options: TOP_STYLING_OPTIONS, section: 'wardrobe' },
+  { key: 'topStylingBId', label: '人物 2 上身穿法', options: TOP_STYLING_OPTIONS, section: 'wardrobe' },
   { key: 'topBottomPaletteId', label: '特殊上下身配色', options: TOP_BOTTOM_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
+  { key: 'topBottomPaletteAId', label: '人物 1 特殊上下身配色', options: TOP_BOTTOM_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
+  { key: 'topBottomPaletteBId', label: '人物 2 特殊上下身配色', options: TOP_BOTTOM_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
   { key: 'topColorId', label: '上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'topAColorId', label: '人物 1 上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'topBColorId', label: '人物 2 上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'topPatternId', label: '上身圖案', category: '上身圖案 (Top Surface Design)', section: 'wardrobe' },
+  { key: 'topAPatternId', label: '人物 1 上身圖案', category: '上身圖案 (Top Surface Design)', section: 'wardrobe' },
+  { key: 'topBPatternId', label: '人物 2 上身圖案', category: '上身圖案 (Top Surface Design)', section: 'wardrobe' },
   { key: 'dressId', label: '連身', category: '連身 (Dresses)', section: 'wardrobe' },
+  { key: 'dressAId', label: '人物 1 連身', category: '連身 (Dresses)', section: 'wardrobe' },
+  { key: 'dressBId', label: '人物 2 連身', category: '連身 (Dresses)', section: 'wardrobe' },
   { key: 'dressColorId', label: '連身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'dressAColorId', label: '人物 1 連身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'dressBColorId', label: '人物 2 連身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'pantsId', label: '褲裝', category: '褲裝 (Pants)', section: 'wardrobe' },
+  { key: 'pantsAId', label: '人物 1 褲裝', category: '褲裝 (Pants)', section: 'wardrobe' },
+  { key: 'pantsBId', label: '人物 2 褲裝', category: '褲裝 (Pants)', section: 'wardrobe' },
   { key: 'skirtId', label: '裙裝', category: '裙裝 (Skirts)', section: 'wardrobe' },
+  { key: 'skirtAId', label: '人物 1 裙裝', category: '裙裝 (Skirts)', section: 'wardrobe' },
+  { key: 'skirtBId', label: '人物 2 裙裝', category: '裙裝 (Skirts)', section: 'wardrobe' },
   { key: 'bottomFitId', label: '下身版型', options: BOTTOM_FIT_OPTIONS, section: 'wardrobe' },
+  { key: 'bottomFitAId', label: '人物 1 下身版型', options: BOTTOM_FIT_OPTIONS, section: 'wardrobe' },
+  { key: 'bottomFitBId', label: '人物 2 下身版型', options: BOTTOM_FIT_OPTIONS, section: 'wardrobe' },
   { key: 'bottomRiseId', label: '下身腰線', options: BOTTOM_RISE_OPTIONS, section: 'wardrobe' },
+  { key: 'bottomRiseAId', label: '人物 1 下身腰線', options: BOTTOM_RISE_OPTIONS, section: 'wardrobe' },
+  { key: 'bottomRiseBId', label: '人物 2 下身腰線', options: BOTTOM_RISE_OPTIONS, section: 'wardrobe' },
   { key: 'bottomColorId', label: '下身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'bottomAColorId', label: '人物 1 下身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'bottomBColorId', label: '人物 2 下身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'bottomPatternId', label: '下身圖案', category: '下身圖案 (Bottom Surface Design)', section: 'wardrobe' },
+  { key: 'bottomAPatternId', label: '人物 1 下身圖案', category: '下身圖案 (Bottom Surface Design)', section: 'wardrobe' },
+  { key: 'bottomBPatternId', label: '人物 2 下身圖案', category: '下身圖案 (Bottom Surface Design)', section: 'wardrobe' },
   { key: 'legwearId', label: '襪類', category: '襪類 (Legwear)', section: 'wardrobe' },
   { key: 'legwearColorId', label: '襪類配色', options: LEGWEAR_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outerwearId', label: '外套', category: '外套 (Outerwear)', section: 'wardrobe' },
@@ -545,19 +573,47 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'outfitPresetBContrastColorId', label: 'Woman 2 Outfit Preset Contrast Color' },
   { key: 'outfitPresetBLockedPaletteId', label: 'Woman 2 Outfit Preset Locked Palette' },
   { key: 'topId', label: 'Top' },
+  { key: 'topAId', label: 'Woman 1 Top' },
+  { key: 'topBId', label: 'Woman 2 Top' },
   { key: 'topFitId', label: 'Top Fit' },
+  { key: 'topFitAId', label: 'Woman 1 Top Fit' },
+  { key: 'topFitBId', label: 'Woman 2 Top Fit' },
   { key: 'topStylingId', label: 'Top Styling' },
+  { key: 'topStylingAId', label: 'Woman 1 Top Styling' },
+  { key: 'topStylingBId', label: 'Woman 2 Top Styling' },
   { key: 'topBottomPaletteId', label: 'Special Top/Bottom Palette' },
+  { key: 'topBottomPaletteAId', label: 'Woman 1 Special Top/Bottom Palette' },
+  { key: 'topBottomPaletteBId', label: 'Woman 2 Special Top/Bottom Palette' },
   { key: 'topColorId', label: 'Top Color' },
+  { key: 'topAColorId', label: 'Woman 1 Top Color' },
+  { key: 'topBColorId', label: 'Woman 2 Top Color' },
   { key: 'topPatternId', label: 'Top Surface Design' },
+  { key: 'topAPatternId', label: 'Woman 1 Top Surface Design' },
+  { key: 'topBPatternId', label: 'Woman 2 Top Surface Design' },
   { key: 'dressId', label: 'Dress' },
+  { key: 'dressAId', label: 'Woman 1 Dress' },
+  { key: 'dressBId', label: 'Woman 2 Dress' },
   { key: 'dressColorId', label: 'Dress Color' },
+  { key: 'dressAColorId', label: 'Woman 1 Dress Color' },
+  { key: 'dressBColorId', label: 'Woman 2 Dress Color' },
   { key: 'pantsId', label: 'Pants' },
+  { key: 'pantsAId', label: 'Woman 1 Pants' },
+  { key: 'pantsBId', label: 'Woman 2 Pants' },
   { key: 'skirtId', label: 'Skirt' },
+  { key: 'skirtAId', label: 'Woman 1 Skirt' },
+  { key: 'skirtBId', label: 'Woman 2 Skirt' },
   { key: 'bottomFitId', label: 'Bottom Fit' },
+  { key: 'bottomFitAId', label: 'Woman 1 Bottom Fit' },
+  { key: 'bottomFitBId', label: 'Woman 2 Bottom Fit' },
   { key: 'bottomRiseId', label: 'Bottom Rise' },
+  { key: 'bottomRiseAId', label: 'Woman 1 Bottom Rise' },
+  { key: 'bottomRiseBId', label: 'Woman 2 Bottom Rise' },
   { key: 'bottomColorId', label: 'Bottom Color' },
+  { key: 'bottomAColorId', label: 'Woman 1 Bottom Color' },
+  { key: 'bottomBColorId', label: 'Woman 2 Bottom Color' },
   { key: 'bottomPatternId', label: 'Bottom Surface Design' },
+  { key: 'bottomAPatternId', label: 'Woman 1 Bottom Surface Design' },
+  { key: 'bottomBPatternId', label: 'Woman 2 Bottom Surface Design' },
   { key: 'legwearId', label: 'Legwear' },
   { key: 'legwearColorId', label: 'Legwear Color' },
   { key: 'outerwearId', label: 'Outerwear' },
@@ -1231,16 +1287,38 @@ const CLOSEUP_DISABLED_KEYS = new Set([
   'outfitPresetBContrastColorId',
   'outfitPresetBLockedPaletteId',
   'dressId',
+  'dressAId',
+  'dressBId',
   'dressColorId',
+  'dressAColorId',
+  'dressBColorId',
   'pantsId',
+  'pantsAId',
+  'pantsBId',
   'skirtId',
+  'skirtAId',
+  'skirtBId',
   'topFitId',
+  'topFitAId',
+  'topFitBId',
   'topStylingId',
+  'topStylingAId',
+  'topStylingBId',
   'topBottomPaletteId',
+  'topBottomPaletteAId',
+  'topBottomPaletteBId',
   'bottomFitId',
+  'bottomFitAId',
+  'bottomFitBId',
   'bottomRiseId',
+  'bottomRiseAId',
+  'bottomRiseBId',
   'bottomColorId',
+  'bottomAColorId',
+  'bottomBColorId',
   'bottomPatternId',
+  'bottomAPatternId',
+  'bottomBPatternId',
   'legwearId',
   'legwearColorId',
   'outerwearId',
@@ -1303,19 +1381,47 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
 ]);
 const CLOSEUP_CHEST_ALLOWED_KEYS = new Set([
   'topId',
+  'topAId',
+  'topBId',
   'topFitId',
+  'topFitAId',
+  'topFitBId',
   'topStylingId',
+  'topStylingAId',
+  'topStylingBId',
   'topBottomPaletteId',
+  'topBottomPaletteAId',
+  'topBottomPaletteBId',
   'topColorId',
+  'topAColorId',
+  'topBColorId',
   'topPatternId',
+  'topAPatternId',
+  'topBPatternId',
   'dressId',
+  'dressAId',
+  'dressBId',
   'dressColorId',
+  'dressAColorId',
+  'dressBColorId',
   'pantsId',
+  'pantsAId',
+  'pantsBId',
   'skirtId',
+  'skirtAId',
+  'skirtBId',
   'bottomFitId',
+  'bottomFitAId',
+  'bottomFitBId',
   'bottomRiseId',
+  'bottomRiseAId',
+  'bottomRiseBId',
   'bottomColorId',
+  'bottomAColorId',
+  'bottomBColorId',
   'bottomPatternId',
+  'bottomAPatternId',
+  'bottomBPatternId',
   'neckAccessoryId',
   'neckAccessoryAId',
   'neckAccessoryBId',
@@ -1636,12 +1742,12 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'expressionBId') options = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
       if (definition.key === 'poseId') options = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
       if (definition.key === 'specialActionId') options = getByKey(catalog.character, '特殊動作 (Special Actions)');
-      if (definition.key === 'topId') options = getByKey(catalog.wardrobe, '上身 (Tops)');
-      if (definition.key === 'topPatternId') options = getByKey(catalog.wardrobe, '上身圖案 (Top Surface Design)');
-      if (definition.key === 'dressId') options = getByKey(catalog.wardrobe, '連身 (Dresses)');
-      if (definition.key === 'pantsId') options = getByKey(catalog.wardrobe, '褲裝 (Pants)');
-      if (definition.key === 'skirtId') options = getByKey(catalog.wardrobe, '裙裝 (Skirts)');
-      if (definition.key === 'bottomPatternId') options = getByKey(catalog.wardrobe, '下身圖案 (Bottom Surface Design)');
+      if (['topId', 'topAId', 'topBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '上身 (Tops)');
+      if (['topPatternId', 'topAPatternId', 'topBPatternId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '上身圖案 (Top Surface Design)');
+      if (['dressId', 'dressAId', 'dressBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '連身 (Dresses)');
+      if (['pantsId', 'pantsAId', 'pantsBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '褲裝 (Pants)');
+      if (['skirtId', 'skirtAId', 'skirtBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '裙裝 (Skirts)');
+      if (['bottomPatternId', 'bottomAPatternId', 'bottomBPatternId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '下身圖案 (Bottom Surface Design)');
       if (['legwearId', 'legwearAId', 'legwearBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '襪類 (Legwear)');
       if (['outerwearId', 'outerwearAId', 'outerwearBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '外套 (Outerwear)');
       if (['outerwearPatternId', 'outerwearAPatternId', 'outerwearBPatternId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '外套圖案 (Outerwear Surface Design)');
@@ -1724,11 +1830,29 @@ function buildTopWardrobePrompt(wardrobeSlots, wardrobeColors) {
   });
 }
 
+function buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role) {
+  const suffix = role === 'a' ? 'A' : 'B';
+  return buildColoredGrokPrompt(wardrobeSlots[`top${suffix}`], wardrobeColors[`top${suffix}Color`], {
+    pattern: wardrobeSlots[`top${suffix}Pattern`],
+    fit: wardrobeSlots[`topFit${suffix}`],
+    styling: wardrobeSlots[`topStyling${suffix}`],
+  });
+}
+
 function buildBottomWardrobePrompt(bottomItem, wardrobeSlots, wardrobeColors) {
   return buildColoredGrokPrompt(bottomItem, wardrobeColors.bottomColor, {
     pattern: wardrobeSlots.bottomPattern,
     fit: wardrobeSlots.bottomFit,
     rise: wardrobeSlots.bottomRise,
+  });
+}
+
+function buildRoleBottomWardrobePrompt(bottomItem, wardrobeSlots, wardrobeColors, role) {
+  const suffix = role === 'a' ? 'A' : 'B';
+  return buildColoredGrokPrompt(bottomItem, wardrobeColors[`bottom${suffix}Color`], {
+    pattern: wardrobeSlots[`bottom${suffix}Pattern`],
+    fit: wardrobeSlots[`bottomFit${suffix}`],
+    rise: wardrobeSlots[`bottomRise${suffix}`],
   });
 }
 
@@ -2487,6 +2611,55 @@ function buildWardrobe(context, locks, catalog) {
   const topState = resolveLockState(topItems, locks?.topId);
   const pantsState = resolveLockState(pantsItems, locks?.pantsId);
   const skirtState = resolveLockState(skirtItems, locks?.skirtId);
+  const duoRoleWardrobeKeys = [
+    'topAId',
+    'topBId',
+    'topFitAId',
+    'topFitBId',
+    'topStylingAId',
+    'topStylingBId',
+    'topBottomPaletteAId',
+    'topBottomPaletteBId',
+    'topAColorId',
+    'topBColorId',
+    'topAPatternId',
+    'topBPatternId',
+    'dressAId',
+    'dressBId',
+    'dressAColorId',
+    'dressBColorId',
+    'pantsAId',
+    'pantsBId',
+    'skirtAId',
+    'skirtBId',
+    'bottomFitAId',
+    'bottomFitBId',
+    'bottomRiseAId',
+    'bottomRiseBId',
+    'bottomAColorId',
+    'bottomBColorId',
+    'bottomAPatternId',
+    'bottomBPatternId',
+  ];
+  const sharedMainWardrobeKeys = [
+    'topId',
+    'topFitId',
+    'topStylingId',
+    'topBottomPaletteId',
+    'topColorId',
+    'topPatternId',
+    'dressId',
+    'dressColorId',
+    'pantsId',
+    'skirtId',
+    'bottomFitId',
+    'bottomRiseId',
+    'bottomColorId',
+    'bottomPatternId',
+  ];
+  const hasDuoRoleWardrobeLock = context.subject.count === 2 && duoRoleWardrobeKeys.some((key) => Boolean(locks?.[key]));
+  const hasSharedMainWardrobeLock = sharedMainWardrobeKeys.some((key) => Boolean(locks?.[key]));
+  const useDuoRoleWardrobe = context.subject.count === 2 && (hasDuoRoleWardrobeLock || !hasSharedMainWardrobeLock);
   const pickRandomWardrobeItem = (items, { allowNone = false, predicate = () => true } = {}) => {
     const candidates = items.filter(
       (item) => (allowNone || !isNoneLikeItem(item)) && wardrobeFitsLocation(item, context.location) && predicate(item)
@@ -2566,7 +2739,174 @@ function buildWardrobe(context, locks, catalog) {
       : null;
   };
 
-  if (hasOutfitPresetPiece) {
+  const addRoleModifier = (lockedValue, options, getOption, token, role, layerSlot) => {
+    const modifier = resolveWardrobeModifier(lockedValue, options, getOption, token);
+    if (!modifier) return null;
+    const clonedModifier = cloneWardrobePieceForRole(modifier, role, layerSlot);
+    addPiece(clonedModifier);
+    return clonedModifier;
+  };
+
+  const pickRoleWardrobeItem = (items, role, layerSlot, { allowNone = false } = {}) => {
+    const candidates = items.filter((item) => (allowNone || !isNoneLikeItem(item)) && wardrobeFitsLocation(item, context.location));
+    if (candidates.length === 0) return null;
+    const picked = sample(candidates);
+    const clonedItem = cloneWardrobePieceForRole(picked, role, layerSlot);
+    addPiece(clonedItem);
+    return clonedItem;
+  };
+
+  const addLockedRoleWardrobeItem = (items, lockedValue, role, layerSlot) => {
+    const lockedItem = lockedValue ? findById(items, lockedValue) : null;
+    if (!lockedItem) return null;
+    const clonedItem = cloneWardrobePieceForRole(lockedItem, role, layerSlot);
+    addPiece(clonedItem);
+    return clonedItem;
+  };
+
+  const addRolePattern = (items, lockedValue, role, layerSlot, probability) => {
+    const lockedItem = lockedValue ? findById(items, lockedValue) : null;
+    if (lockedItem) {
+      if (isNoneLikeItem(lockedItem)) return null;
+      const clonedItem = cloneWardrobePieceForRole(lockedItem, role, layerSlot);
+      addPiece(clonedItem);
+      return clonedItem;
+    }
+    if (Math.random() > probability) return null;
+    return pickRoleWardrobeItem(items, role, layerSlot, { allowNone: false });
+  };
+
+  if (useDuoRoleWardrobe) {
+    const topPatternItems = getByKey(catalog.catalog.wardrobe, '上身圖案 (Top Surface Design)');
+    const bottomPatternItems = getByKey(catalog.catalog.wardrobe, '下身圖案 (Bottom Surface Design)');
+    const roleConfigs = [
+      {
+        role: 'a',
+        presetId: locks?.outfitPresetAId,
+        dressId: locks?.dressAId,
+        topId: locks?.topAId,
+        pantsId: locks?.pantsAId,
+        skirtId: locks?.skirtAId,
+        topFitId: locks?.topFitAId,
+        topStylingId: locks?.topStylingAId,
+        topPatternId: locks?.topAPatternId,
+        bottomFitId: locks?.bottomFitAId,
+        bottomRiseId: locks?.bottomRiseAId,
+        bottomPatternId: locks?.bottomAPatternId,
+      },
+      {
+        role: 'b',
+        presetId: locks?.outfitPresetBId,
+        dressId: locks?.dressBId,
+        topId: locks?.topBId,
+        pantsId: locks?.pantsBId,
+        skirtId: locks?.skirtBId,
+        topFitId: locks?.topFitBId,
+        topStylingId: locks?.topStylingBId,
+        topPatternId: locks?.topBPatternId,
+        bottomFitId: locks?.bottomFitBId,
+        bottomRiseId: locks?.bottomRiseBId,
+        bottomPatternId: locks?.bottomBPatternId,
+      },
+    ];
+
+    roleConfigs.forEach((config) => {
+      if (config.presetId) return;
+
+      const dressRoleState = resolveLockState(dressItems, config.dressId);
+      const topRoleState = resolveLockState(topItems, config.topId);
+      const pantsRoleState = resolveLockState(pantsItems, config.pantsId);
+      const skirtRoleState = resolveLockState(skirtItems, config.skirtId);
+      const firstSpecifiedRoleLayer = dressRoleState.specifiedItem
+        ? 'dress'
+        : topRoleState.specifiedItem
+          ? 'top'
+          : pantsRoleState.specifiedItem
+            ? 'pants'
+            : skirtRoleState.specifiedItem
+              ? 'skirt'
+              : null;
+
+      let roleHasTop = false;
+      let roleHasDress = false;
+      let roleHasBottom = false;
+
+      const ensureRoleTop = () => {
+        if (roleHasTop) return true;
+        if (topRoleState.specifiedItem) {
+          addLockedRoleWardrobeItem(topItems, config.topId, config.role, 'top');
+          roleHasTop = true;
+          return true;
+        }
+        const randomTop = topRoleState.isExplicitNone ? null : pickRoleWardrobeItem(topItems, config.role, 'top');
+        roleHasTop = Boolean(randomTop && !isNoneLikeItem(randomTop));
+        return roleHasTop;
+      };
+
+      const ensureRoleBottom = () => {
+        if (roleHasBottom) return true;
+        if (pantsRoleState.specifiedItem) {
+          addLockedRoleWardrobeItem(pantsItems, config.pantsId, config.role, 'pants');
+          roleHasBottom = true;
+          return true;
+        }
+
+        const randomPants = pantsRoleState.isExplicitNone
+          ? null
+          : pickRoleWardrobeItem(pantsItems, config.role, 'pants', { allowNone: true });
+        if (randomPants && !isNoneLikeItem(randomPants)) {
+          roleHasBottom = true;
+          return true;
+        }
+
+        if (skirtRoleState.specifiedItem) {
+          addLockedRoleWardrobeItem(skirtItems, config.skirtId, config.role, 'skirt');
+          roleHasBottom = true;
+          return true;
+        }
+
+        const forcedSkirt = pickRoleWardrobeItem(skirtItems, config.role, 'skirt');
+        roleHasBottom = Boolean(forcedSkirt && !isNoneLikeItem(forcedSkirt));
+        return roleHasBottom;
+      };
+
+      if (firstSpecifiedRoleLayer === 'dress') {
+        addLockedRoleWardrobeItem(dressItems, config.dressId, config.role, 'dress');
+        roleHasDress = true;
+      } else if (firstSpecifiedRoleLayer === 'top') {
+        ensureRoleTop();
+        ensureRoleBottom();
+      } else if (firstSpecifiedRoleLayer === 'pants') {
+        ensureRoleTop();
+        addLockedRoleWardrobeItem(pantsItems, config.pantsId, config.role, 'pants');
+        roleHasBottom = true;
+      } else if (firstSpecifiedRoleLayer === 'skirt') {
+        ensureRoleTop();
+        addLockedRoleWardrobeItem(skirtItems, config.skirtId, config.role, 'skirt');
+        roleHasBottom = true;
+      } else {
+        const randomDress = dressRoleState.isExplicitNone ? null : pickRoleWardrobeItem(dressItems, config.role, 'dress');
+        if (randomDress && !isNoneLikeItem(randomDress)) {
+          roleHasDress = true;
+        } else {
+          ensureRoleTop();
+          ensureRoleBottom();
+        }
+      }
+
+      if (!roleHasDress && roleHasTop) {
+        addRoleModifier(config.topFitId, TOP_FIT_OPTIONS, getTopFitOption, '上身版型-top-fit', config.role, 'topFit');
+        addRoleModifier(config.topStylingId, TOP_STYLING_OPTIONS, getTopStylingOption, '上身穿法-top-styling', config.role, 'topStyling');
+        addRolePattern(topPatternItems, config.topPatternId, config.role, 'topPattern', 0.35);
+      }
+
+      if (!roleHasDress && roleHasBottom) {
+        addRoleModifier(config.bottomFitId, BOTTOM_FIT_OPTIONS, getBottomFitOption, '下身版型-bottom-fit', config.role, 'bottomFit');
+        addRoleModifier(config.bottomRiseId, BOTTOM_RISE_OPTIONS, getBottomRiseOption, '下身腰線-bottom-rise', config.role, 'bottomRise');
+        addRolePattern(bottomPatternItems, config.bottomPatternId, config.role, 'bottomPattern', 0.3);
+      }
+    });
+  } else if (hasOutfitPresetPiece) {
     // Duo preset pieces already define the main body styling.
   } else if (firstSpecifiedMainLayer === 'outfit') {
     addPiece(outfitPresetState.specifiedItem);
@@ -2601,12 +2941,20 @@ function buildWardrobe(context, locks, catalog) {
     }
   }
 
-  const hasTopPiece = Array.isArray(topPiece)
-    ? topPiece.some((item) => item && !isNoneLikeItem(item))
-    : Boolean(topPiece && !isNoneLikeItem(topPiece));
-  const hasDressPiece = Array.isArray(dressPiece)
-    ? dressPiece.some((item) => item && !isNoneLikeItem(item))
-    : Boolean(dressPiece && !isNoneLikeItem(dressPiece));
+  const hasRoleTopPiece = pieces.some((piece) => piece.meta?.wardrobeRole && piece.meta?.layerSlot === 'top' && !isNoneLikeItem(piece));
+  const hasRoleDressPiece = pieces.some((piece) => piece.meta?.wardrobeRole && piece.meta?.layerSlot === 'dress' && !isNoneLikeItem(piece));
+  const hasRoleBottomPiece = pieces.some((piece) => piece.meta?.wardrobeRole && ['pants', 'skirt'].includes(piece.meta?.layerSlot) && !isNoneLikeItem(piece));
+  const hasTopPiece = useDuoRoleWardrobe
+    ? hasRoleTopPiece
+    : (Array.isArray(topPiece)
+        ? topPiece.some((item) => item && !isNoneLikeItem(item))
+        : Boolean(topPiece && !isNoneLikeItem(topPiece)));
+  const hasDressPiece = useDuoRoleWardrobe
+    ? hasRoleDressPiece
+    : (Array.isArray(dressPiece)
+        ? dressPiece.some((item) => item && !isNoneLikeItem(item))
+        : Boolean(dressPiece && !isNoneLikeItem(dressPiece)));
+  hasBottomPiece = useDuoRoleWardrobe ? hasRoleBottomPiece : hasBottomPiece;
 
   if (visibility === 'close') {
     if (context.subject.count === 2) {
@@ -2627,7 +2975,7 @@ function buildWardrobe(context, locks, catalog) {
 
   const hasOutfitPresetPieceResolved = pieces.some((piece) => piece.id?.includes('wardrobe:套裝-outfit-presets:') && !isNoneLikeItem(piece));
 
-  if (!hasOutfitPresetPieceResolved && !hasTopPiece && !hasDressPiece) {
+  if (!useDuoRoleWardrobe && !hasOutfitPresetPieceResolved && !hasTopPiece && !hasDressPiece) {
     const fallbackTop = getByKey(catalog.catalog.wardrobe, '上身 (Tops)').find(
       (item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location)
     );
@@ -2639,27 +2987,27 @@ function buildWardrobe(context, locks, catalog) {
   const bottomPiece = pieces.find(
     (piece) => !isNoneLikeItem(piece) && (piece.id?.includes('wardrobe:褲裝-pants:') || piece.id?.includes('wardrobe:裙裝-skirts:'))
   );
-  const hasResolvedBottomPiece = Boolean(bottomPiece);
+  const hasResolvedBottomPiece = useDuoRoleWardrobe ? hasRoleBottomPiece : Boolean(bottomPiece);
 
-  if (!hasOutfitPresetPieceResolved && !hasDressPiece && hasResolvedTopPiece) {
+  if (!useDuoRoleWardrobe && !hasOutfitPresetPieceResolved && !hasDressPiece && hasResolvedTopPiece) {
     addPiece(resolveWardrobeModifier(locks?.topFitId, TOP_FIT_OPTIONS, getTopFitOption, '上身版型-top-fit'));
     addPiece(resolveWardrobeModifier(locks?.topStylingId, TOP_STYLING_OPTIONS, getTopStylingOption, '上身穿法-top-styling'));
   }
 
-  if (!hasOutfitPresetPieceResolved && !hasDressPiece && hasResolvedBottomPiece) {
+  if (!useDuoRoleWardrobe && !hasOutfitPresetPieceResolved && !hasDressPiece && hasResolvedBottomPiece) {
     addPiece(resolveWardrobeModifier(locks?.bottomFitId, BOTTOM_FIT_OPTIONS, getBottomFitOption, '下身版型-bottom-fit'));
     addPiece(resolveWardrobeModifier(locks?.bottomRiseId, BOTTOM_RISE_OPTIONS, getBottomRiseOption, '下身腰線-bottom-rise'));
   }
 
-  if (!hasOutfitPresetPieceResolved && ((hasResolvedTopPiece && !hasDressPiece) || locks?.topPatternId)) {
+  if (!useDuoRoleWardrobe && !hasOutfitPresetPieceResolved && ((hasResolvedTopPiece && !hasDressPiece) || locks?.topPatternId)) {
     maybePick('上身圖案 (Top Surface Design)', 0.35, () => true, { allowNoneWhenUnlocked: false });
   }
 
-  if (!hasOutfitPresetPieceResolved && hasBottomPiece) {
+  if (!useDuoRoleWardrobe && !hasOutfitPresetPieceResolved && hasBottomPiece) {
     maybePick('下身圖案 (Bottom Surface Design)', 0.3, () => true, { allowNoneWhenUnlocked: false });
   }
 
-  if ((hasOutfitPresetPieceResolved && !hasDuoLayerLock) || hasDressPiece || hasBottomPiece || locks?.outerwearId) {
+  if (!useDuoRoleWardrobe && ((hasOutfitPresetPieceResolved && !hasDuoLayerLock) || hasDressPiece || hasBottomPiece || locks?.outerwearId)) {
     const outerwearProbability = locks?.outerwearId
       ? 1
       : context.location.meta.tags.includes('outdoor')
@@ -2676,14 +3024,14 @@ function buildWardrobe(context, locks, catalog) {
     }
   }
 
-  if ((hasOutfitPresetPieceResolved || hasBottomPiece || hasDressPiece || locks?.legwearId) && !hasDuoLayerLock) {
+  if (!useDuoRoleWardrobe && (hasOutfitPresetPieceResolved || hasBottomPiece || hasDressPiece || locks?.legwearId) && !hasDuoLayerLock) {
     maybePick('襪類 (Legwear)', frameShowsAtLeast(visibility, 'medium') ? 0.35 : 0.15, (item) => {
       if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
       return true;
     }, { allowNoneWhenUnlocked: true });
   }
 
-  if (!frameShowsAtLeast(visibility, 'medium') && locks?.legwearId) {
+  if (!useDuoRoleWardrobe && !frameShowsAtLeast(visibility, 'medium') && locks?.legwearId) {
     maybePick('襪類 (Legwear)', 1, (item) => {
       if (item.meta.tags.includes('legwear') && item.en.includes('bare legs')) return true;
       if (pieces.some((piece) => piece.meta.tags.includes('pants'))) return item.en.includes('bare legs');
@@ -2691,7 +3039,7 @@ function buildWardrobe(context, locks, catalog) {
     }, { allowNoneWhenUnlocked: true });
   }
 
-  if (!frameShowsAtLeast(visibility, 'medium') && locks?.outerwearId) {
+  if (!useDuoRoleWardrobe && !frameShowsAtLeast(visibility, 'medium') && locks?.outerwearId) {
     const outerwearPiece = maybePick('外套 (Outerwear)', 1, () => true, { allowNoneWhenUnlocked: true });
     const hasOuterwearPiece = Array.isArray(outerwearPiece)
       ? outerwearPiece.some((item) => item && !isNoneLikeItem(item))
@@ -2702,7 +3050,7 @@ function buildWardrobe(context, locks, catalog) {
     }
   }
 
-  if ((frameShowsAtLeast(visibility, 'full') && !hasDuoLayerLock) || locks?.shoesId) {
+  if (!useDuoRoleWardrobe && ((frameShowsAtLeast(visibility, 'full') && !hasDuoLayerLock) || locks?.shoesId)) {
     maybePick('鞋款 (Shoes)', 1, () => true, { allowNoneWhenUnlocked: true });
   }
 
@@ -2794,6 +3142,45 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       return [
         formatPresetSummary(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAPrimaryColor || wardrobeColors.outfitPresetAColor),
         formatPresetSummary(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBPrimaryColor || wardrobeColors.outfitPresetBColor),
+      ].filter(Boolean).join(' / ') || '-';
+    }
+
+    if (
+      wardrobeSlots.dressA || wardrobeSlots.dressB ||
+      wardrobeSlots.topA || wardrobeSlots.topB ||
+      wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
+      wardrobeSlots.skirtA || wardrobeSlots.skirtB
+    ) {
+      const summarizeRoleWardrobe = (role) => {
+        const suffix = role === 'a' ? 'A' : 'B';
+        const dressLabel = wardrobeSlots[`dress${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`dress${suffix}`])
+          ? wardrobeSlots[`dress${suffix}`].zh
+          : '';
+        if (dressLabel) return dressLabel;
+
+        const topLabel = wardrobeSlots[`top${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`top${suffix}`])
+          ? joinSummaryParts(
+              wardrobeSlots[`top${suffix}`].zh,
+              wardrobeSlots[`topPattern${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`topPattern${suffix}`]) ? wardrobeSlots[`topPattern${suffix}`].zh : ''
+            )
+          : '';
+        const bottomLabel = wardrobeSlots[`pants${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`pants${suffix}`])
+          ? joinSummaryParts(
+              wardrobeSlots[`pants${suffix}`].zh,
+              wardrobeSlots[`bottomPattern${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`bottomPattern${suffix}`]) ? wardrobeSlots[`bottomPattern${suffix}`].zh : ''
+            )
+          : wardrobeSlots[`skirt${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`skirt${suffix}`])
+            ? joinSummaryParts(
+                wardrobeSlots[`skirt${suffix}`].zh,
+                wardrobeSlots[`bottomPattern${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`bottomPattern${suffix}`]) ? wardrobeSlots[`bottomPattern${suffix}`].zh : ''
+              )
+            : '';
+        return joinSummaryParts(topLabel, bottomLabel);
+      };
+
+      return [
+        summarizeRoleWardrobe('a') ? `人物 1：${summarizeRoleWardrobe('a')}` : '',
+        summarizeRoleWardrobe('b') ? `人物 2：${summarizeRoleWardrobe('b')}` : '',
       ].filter(Boolean).join(' / ') || '-';
     }
 
@@ -3024,15 +3411,35 @@ function extractWardrobeSlots(wardrobe) {
     outfitPresetA: outfitPresets.find((item) => item.meta?.outfitRole === 'a') || null,
     outfitPresetB: outfitPresets.find((item) => item.meta?.outfitRole === 'b') || null,
     top: findSlot('wardrobe:上身-tops:'),
+    topA: findRoleSlot('wardrobe:上身-tops:', 'a', 'top'),
+    topB: findRoleSlot('wardrobe:上身-tops:', 'b', 'top'),
     topFit: findSlot('wardrobe:上身版型-top-fit:'),
+    topFitA: findRoleSlot('wardrobe:上身版型-top-fit:', 'a', 'topFit'),
+    topFitB: findRoleSlot('wardrobe:上身版型-top-fit:', 'b', 'topFit'),
     topStyling: findSlot('wardrobe:上身穿法-top-styling:'),
+    topStylingA: findRoleSlot('wardrobe:上身穿法-top-styling:', 'a', 'topStyling'),
+    topStylingB: findRoleSlot('wardrobe:上身穿法-top-styling:', 'b', 'topStyling'),
     topPattern: findSlot('wardrobe:上身圖案-top-surface-design:'),
+    topPatternA: findRoleSlot('wardrobe:上身圖案-top-surface-design:', 'a', 'topPattern'),
+    topPatternB: findRoleSlot('wardrobe:上身圖案-top-surface-design:', 'b', 'topPattern'),
     dress: findSlot('wardrobe:連身-dresses:'),
+    dressA: findRoleSlot('wardrobe:連身-dresses:', 'a', 'dress'),
+    dressB: findRoleSlot('wardrobe:連身-dresses:', 'b', 'dress'),
     pants: findSlot('wardrobe:褲裝-pants:'),
+    pantsA: findRoleSlot('wardrobe:褲裝-pants:', 'a', 'pants'),
+    pantsB: findRoleSlot('wardrobe:褲裝-pants:', 'b', 'pants'),
     skirt: findSlot('wardrobe:裙裝-skirts:'),
+    skirtA: findRoleSlot('wardrobe:裙裝-skirts:', 'a', 'skirt'),
+    skirtB: findRoleSlot('wardrobe:裙裝-skirts:', 'b', 'skirt'),
     bottomFit: findSlot('wardrobe:下身版型-bottom-fit:'),
+    bottomFitA: findRoleSlot('wardrobe:下身版型-bottom-fit:', 'a', 'bottomFit'),
+    bottomFitB: findRoleSlot('wardrobe:下身版型-bottom-fit:', 'b', 'bottomFit'),
     bottomRise: findSlot('wardrobe:下身腰線-bottom-rise:'),
+    bottomRiseA: findRoleSlot('wardrobe:下身腰線-bottom-rise:', 'a', 'bottomRise'),
+    bottomRiseB: findRoleSlot('wardrobe:下身腰線-bottom-rise:', 'b', 'bottomRise'),
     bottomPattern: findSlot('wardrobe:下身圖案-bottom-surface-design:'),
+    bottomPatternA: findRoleSlot('wardrobe:下身圖案-bottom-surface-design:', 'a', 'bottomPattern'),
+    bottomPatternB: findRoleSlot('wardrobe:下身圖案-bottom-surface-design:', 'b', 'bottomPattern'),
     legwear: findSlot('wardrobe:襪類-legwear:'),
     outerwear: findSlot('wardrobe:外套-outerwear:'),
     outerwearPattern: findSlot('wardrobe:外套圖案-outerwear-surface-design:'),
@@ -3113,12 +3520,26 @@ function buildWardrobeColors(wardrobeSlots, locks) {
     ? getOutfitPresetLockedPaletteOption(normalizedLocks.outfitPresetBLockedPaletteId)
     : null;
   const topBottomPalette = hasOutfitPreset ? null : getTopBottomPaletteOption(normalizedLocks.topBottomPaletteId);
+  const topBottomPaletteA = hasOutfitPreset ? null : getTopBottomPaletteOption(normalizedLocks.topBottomPaletteAId);
+  const topBottomPaletteB = hasOutfitPreset ? null : getTopBottomPaletteOption(normalizedLocks.topBottomPaletteBId);
   const topColor = !hasOutfitPreset && wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top)
     ? topBottomPalette?.topColor || getGarmentColorOption(normalizedLocks.topColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS)
     : null;
+  const topAColor = !hasOutfitPreset && wardrobeSlots.topA && !isNoneLikeItem(wardrobeSlots.topA)
+    ? topBottomPaletteA?.topColor || getGarmentColorOption(normalizedLocks.topAColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS)
+    : null;
+  const topBColor = !hasOutfitPreset && wardrobeSlots.topB && !isNoneLikeItem(wardrobeSlots.topB)
+    ? topBottomPaletteB?.topColor || getGarmentColorOption(normalizedLocks.topBColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS)
+    : null;
   const dressColor = !hasOutfitPreset && wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) ? getGarmentColorOption(normalizedLocks.dressColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
+  const dressAColor = !hasOutfitPreset && wardrobeSlots.dressA && !isNoneLikeItem(wardrobeSlots.dressA) ? getGarmentColorOption(normalizedLocks.dressAColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
+  const dressBColor = !hasOutfitPreset && wardrobeSlots.dressB && !isNoneLikeItem(wardrobeSlots.dressB) ? getGarmentColorOption(normalizedLocks.dressBColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
   const hasBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants)) || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt));
+  const hasBottomA = (wardrobeSlots.pantsA && !isNoneLikeItem(wardrobeSlots.pantsA)) || (wardrobeSlots.skirtA && !isNoneLikeItem(wardrobeSlots.skirtA));
+  const hasBottomB = (wardrobeSlots.pantsB && !isNoneLikeItem(wardrobeSlots.pantsB)) || (wardrobeSlots.skirtB && !isNoneLikeItem(wardrobeSlots.skirtB));
   const bottomColor = !hasOutfitPreset && hasBottom ? topBottomPalette?.bottomColor || getGarmentColorOption(normalizedLocks.bottomColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
+  const bottomAColor = !hasOutfitPreset && hasBottomA ? topBottomPaletteA?.bottomColor || getGarmentColorOption(normalizedLocks.bottomAColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
+  const bottomBColor = !hasOutfitPreset && hasBottomB ? topBottomPaletteB?.bottomColor || getGarmentColorOption(normalizedLocks.bottomBColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
   const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(normalizedLocks.legwearColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS) : null;
   const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? getLayerColorOption(normalizedLocks.outerwearColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
   const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) ? getLayerColorOption(normalizedLocks.shoesColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
@@ -3142,9 +3563,17 @@ function buildWardrobeColors(wardrobeSlots, locks) {
     outfitPresetBContrastColor,
     outfitPresetBLockedPalette,
     topBottomPalette,
+    topBottomPaletteA,
+    topBottomPaletteB,
     topColor,
+    topAColor,
+    topBColor,
     dressColor,
+    dressAColor,
+    dressBColor,
     bottomColor,
+    bottomAColor,
+    bottomBColor,
     legwearColor,
     outerwearColor,
     shoesColor,
@@ -3449,6 +3878,63 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboTe
       buildAccessoryPrompt(wardrobeSlots[`neckAccessory${suffix}`]),
     ]);
   };
+  const buildSharedMainText = () => {
+    const dressText = normalizeWearable(buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor));
+    const topText = normalizeWearable(topOuterwearComboText || buildTopWardrobePrompt(wardrobeSlots, wardrobeColors));
+    const pantsText = normalizeWearable(buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors));
+    const skirtText = normalizeWearable(buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors));
+    return joinParts(dressText ? [topOuterwearComboText ? topText : dressText] : [topText, pantsText, skirtText]);
+  };
+  const buildRoleMainText = (role) => {
+    const suffix = role === 'a' ? 'A' : 'B';
+    const preset = wardrobeSlots[`outfitPreset${suffix}`];
+    if (preset && !isNoneLikeItem(preset)) {
+      return normalizeWearable(buildOutfitPresetPrompt(preset, {
+        legacy: wardrobeColors[`outfitPreset${suffix}Color`],
+        primary: wardrobeColors[`outfitPreset${suffix}PrimaryColor`],
+        contrast: wardrobeColors[`outfitPreset${suffix}ContrastColor`],
+        lockedPalette: wardrobeColors[`outfitPreset${suffix}LockedPalette`],
+      }));
+    }
+
+    const dressText = normalizeWearable(buildColoredGrokPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`]));
+    if (dressText) return dressText;
+
+    const topText = normalizeWearable(buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role));
+    const pantsText = normalizeWearable(buildRoleBottomWardrobePrompt(wardrobeSlots[`pants${suffix}`], wardrobeSlots, wardrobeColors, role));
+    const skirtText = normalizeWearable(buildRoleBottomWardrobePrompt(wardrobeSlots[`skirt${suffix}`], wardrobeSlots, wardrobeColors, role));
+    return joinParts([topText, pantsText, skirtText]);
+  };
+  const hasRoleMainWardrobe = Boolean(
+    wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB ||
+    wardrobeSlots.dressA || wardrobeSlots.dressB ||
+    wardrobeSlots.topA || wardrobeSlots.topB ||
+    wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
+    wardrobeSlots.skirtA || wardrobeSlots.skirtB
+  );
+
+  if (hasRoleMainWardrobe) {
+    const sharedAddonText = buildSharedAddonText();
+    const sharedMainText = buildSharedMainText();
+    const roleAAddonText = buildRoleAddonText('a');
+    const roleBAddonText = buildRoleAddonText('b');
+    const roleAMainText = buildRoleMainText('a') || sharedMainText;
+    const roleBMainText = buildRoleMainText('b') || sharedMainText;
+    const roleLooks = [
+      roleAMainText ? `woman 1 wears ${roleAMainText}${roleAAddonText ? `, styled with ${roleAAddonText}` : ''}` : '',
+      roleBMainText ? `woman 2 wears ${roleBMainText}${roleBAddonText ? `, styled with ${roleBAddonText}` : ''}` : '',
+    ].filter(Boolean);
+
+    return {
+      mode: 'role-garments',
+      clothingText: `${roleLooks.join(', ')}${sharedAddonText ? `, both styled with ${sharedAddonText}` : ''}`,
+      stylingText: [
+        ...roleLooks,
+        sharedAddonText ? `both styled with ${sharedAddonText}` : '',
+        'distinct outfit-visible editorial duo composition, complete wardrobe visible on both women, visible torso and wardrobe details, no headshot-only crop',
+      ].filter(Boolean).join(', '),
+    };
+  }
 
   const presetAText = normalizeWearable(
     buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
@@ -3880,24 +4366,40 @@ function buildAiEyewearText(wardrobeSlots, subjectCount) {
 function buildAiMainWardrobeText(wardrobeSlots, wardrobeColors, subjectCount) {
   const normalize = (value) => stripWearingPrefix(compactClause(value, 2));
 
-  if (subjectCount === 2 && (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
+  const buildRoleMainText = (role) => {
+    const suffix = role === 'a' ? 'A' : 'B';
+    const preset = wardrobeSlots[`outfitPreset${suffix}`];
+    if (preset && !isNoneLikeItem(preset)) {
+      return normalize(buildOutfitPresetPrompt(preset, {
+        legacy: wardrobeColors[`outfitPreset${suffix}Color`],
+        primary: wardrobeColors[`outfitPreset${suffix}PrimaryColor`],
+        contrast: wardrobeColors[`outfitPreset${suffix}ContrastColor`],
+        lockedPalette: wardrobeColors[`outfitPreset${suffix}LockedPalette`],
+      }));
+    }
+
+    const dressText = normalize(buildColoredGrokPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`]));
+    if (dressText) return dressText;
+
+    const topText = normalize(buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role));
+    const bottomText = normalize(
+      buildRoleBottomWardrobePrompt(wardrobeSlots[`pants${suffix}`], wardrobeSlots, wardrobeColors, role) ||
+      buildRoleBottomWardrobePrompt(wardrobeSlots[`skirt${suffix}`], wardrobeSlots, wardrobeColors, role)
+    );
+
+    return [topText, bottomText].filter(Boolean).join(', ');
+  };
+
+  if (subjectCount === 2 && (
+    wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB ||
+    wardrobeSlots.dressA || wardrobeSlots.dressB ||
+    wardrobeSlots.topA || wardrobeSlots.topB ||
+    wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
+    wardrobeSlots.skirtA || wardrobeSlots.skirtB
+  )) {
     return [
-      wardrobeSlots.outfitPresetA
-        ? `woman 1 wears ${normalize(buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
-            legacy: wardrobeColors.outfitPresetAColor,
-            primary: wardrobeColors.outfitPresetAPrimaryColor,
-            contrast: wardrobeColors.outfitPresetAContrastColor,
-            lockedPalette: wardrobeColors.outfitPresetALockedPalette,
-          }))}`
-        : '',
-      wardrobeSlots.outfitPresetB
-        ? `woman 2 wears ${normalize(buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
-            legacy: wardrobeColors.outfitPresetBColor,
-            primary: wardrobeColors.outfitPresetBPrimaryColor,
-            contrast: wardrobeColors.outfitPresetBContrastColor,
-            lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
-          }))}`
-        : '',
+      buildRoleMainText('a') ? `woman 1 wears ${buildRoleMainText('a')}` : '',
+      buildRoleMainText('b') ? `woman 2 wears ${buildRoleMainText('b')}` : '',
     ].filter(Boolean).join(', ');
   }
 
@@ -4241,20 +4743,39 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         buildAccessoryPrompt(wardrobeSlots[`neckAccessory${suffix}`]),
       ].filter(Boolean).join(', ');
     };
+    const buildRoleMainText = (role) => {
+      const suffix = role === 'a' ? 'A' : 'B';
+      const preset = wardrobeSlots[`outfitPreset${suffix}`];
+      if (preset && !isNoneLikeItem(preset)) {
+        return buildOutfitPresetPrompt(preset, {
+          legacy: wardrobeColors[`outfitPreset${suffix}Color`],
+          primary: wardrobeColors[`outfitPreset${suffix}PrimaryColor`],
+          contrast: wardrobeColors[`outfitPreset${suffix}ContrastColor`],
+          lockedPalette: wardrobeColors[`outfitPreset${suffix}LockedPalette`],
+        });
+      }
 
-    if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
-      add(wardrobeSlots.outfitPresetA ? `woman 1 wears ${buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
-        legacy: wardrobeColors.outfitPresetAColor,
-        primary: wardrobeColors.outfitPresetAPrimaryColor,
-        contrast: wardrobeColors.outfitPresetAContrastColor,
-        lockedPalette: wardrobeColors.outfitPresetALockedPalette,
-      })}` : '');
-      add(wardrobeSlots.outfitPresetB ? `woman 2 wears ${buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
-        legacy: wardrobeColors.outfitPresetBColor,
-        primary: wardrobeColors.outfitPresetBPrimaryColor,
-        contrast: wardrobeColors.outfitPresetBContrastColor,
-        lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
-      })}` : '');
+      const dressText = buildColoredGrokPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`]);
+      if (dressText) return dressText;
+
+      return [
+        buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role),
+        buildRoleBottomWardrobePrompt(wardrobeSlots[`pants${suffix}`], wardrobeSlots, wardrobeColors, role),
+        buildRoleBottomWardrobePrompt(wardrobeSlots[`skirt${suffix}`], wardrobeSlots, wardrobeColors, role),
+      ].filter(Boolean).join(', ');
+    };
+
+    if (
+      context.subject.count === 2 && (
+        wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB ||
+        wardrobeSlots.dressA || wardrobeSlots.dressB ||
+        wardrobeSlots.topA || wardrobeSlots.topB ||
+        wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
+        wardrobeSlots.skirtA || wardrobeSlots.skirtB
+      )
+    ) {
+      add(buildRoleMainText('a') ? `woman 1 wears ${buildRoleMainText('a')}` : '');
+      add(buildRoleMainText('b') ? `woman 2 wears ${buildRoleMainText('b')}` : '');
       add(buildRoleLayerText('a') ? `woman 1 additional styling includes ${buildRoleLayerText('a')}` : '');
       add(buildRoleLayerText('b') ? `woman 2 additional styling includes ${buildRoleLayerText('b')}` : '');
       add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
@@ -4418,19 +4939,47 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     poseId: characterSlots.pose?.id || '',
     specialActionId: characterSlots.specialAction?.id || '',
     topId: wardrobeSlots.top?.id || '',
+    topAId: wardrobeSlots.topA?.id?.replace(/:a$/, '') || '',
+    topBId: wardrobeSlots.topB?.id?.replace(/:b$/, '') || '',
     topFitId: wardrobeSlots.topFit?.id?.split(':').pop() || '',
+    topFitAId: wardrobeSlots.topFitA?.id?.replace(/:a$/, '')?.split(':').pop() || '',
+    topFitBId: wardrobeSlots.topFitB?.id?.replace(/:b$/, '')?.split(':').pop() || '',
     topStylingId: wardrobeSlots.topStyling?.id?.split(':').pop() || '',
+    topStylingAId: wardrobeSlots.topStylingA?.id?.replace(/:a$/, '')?.split(':').pop() || '',
+    topStylingBId: wardrobeSlots.topStylingB?.id?.replace(/:b$/, '')?.split(':').pop() || '',
     topBottomPaletteId: wardrobeColors.topBottomPalette?.id || '',
+    topBottomPaletteAId: wardrobeColors.topBottomPaletteA?.id || '',
+    topBottomPaletteBId: wardrobeColors.topBottomPaletteB?.id || '',
     topColorId: wardrobeColors.topColor?.id || '',
+    topAColorId: wardrobeColors.topAColor?.id || '',
+    topBColorId: wardrobeColors.topBColor?.id || '',
     topPatternId: wardrobeSlots.topPattern?.id || '',
+    topAPatternId: wardrobeSlots.topPatternA?.id?.replace(/:a$/, '') || '',
+    topBPatternId: wardrobeSlots.topPatternB?.id?.replace(/:b$/, '') || '',
     dressId: wardrobeSlots.dress?.id || '',
+    dressAId: wardrobeSlots.dressA?.id?.replace(/:a$/, '') || '',
+    dressBId: wardrobeSlots.dressB?.id?.replace(/:b$/, '') || '',
     dressColorId: wardrobeColors.dressColor?.id || '',
+    dressAColorId: wardrobeColors.dressAColor?.id || '',
+    dressBColorId: wardrobeColors.dressBColor?.id || '',
     pantsId: wardrobeSlots.pants?.id || '',
+    pantsAId: wardrobeSlots.pantsA?.id?.replace(/:a$/, '') || '',
+    pantsBId: wardrobeSlots.pantsB?.id?.replace(/:b$/, '') || '',
     skirtId: wardrobeSlots.skirt?.id || '',
+    skirtAId: wardrobeSlots.skirtA?.id?.replace(/:a$/, '') || '',
+    skirtBId: wardrobeSlots.skirtB?.id?.replace(/:b$/, '') || '',
     bottomFitId: wardrobeSlots.bottomFit?.id?.split(':').pop() || '',
+    bottomFitAId: wardrobeSlots.bottomFitA?.id?.replace(/:a$/, '')?.split(':').pop() || '',
+    bottomFitBId: wardrobeSlots.bottomFitB?.id?.replace(/:b$/, '')?.split(':').pop() || '',
     bottomRiseId: wardrobeSlots.bottomRise?.id?.split(':').pop() || '',
+    bottomRiseAId: wardrobeSlots.bottomRiseA?.id?.replace(/:a$/, '')?.split(':').pop() || '',
+    bottomRiseBId: wardrobeSlots.bottomRiseB?.id?.replace(/:b$/, '')?.split(':').pop() || '',
     bottomColorId: wardrobeColors.bottomColor?.id || '',
+    bottomAColorId: wardrobeColors.bottomAColor?.id || '',
+    bottomBColorId: wardrobeColors.bottomBColor?.id || '',
     bottomPatternId: wardrobeSlots.bottomPattern?.id || '',
+    bottomAPatternId: wardrobeSlots.bottomPatternA?.id?.replace(/:a$/, '') || '',
+    bottomBPatternId: wardrobeSlots.bottomPatternB?.id?.replace(/:b$/, '') || '',
     legwearId: wardrobeSlots.legwear?.id || '',
     legwearColorId: wardrobeColors.legwearColor?.id || '',
     outerwearId: wardrobeSlots.outerwear?.id || '',

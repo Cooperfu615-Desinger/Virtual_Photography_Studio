@@ -19,6 +19,40 @@ const OUTFIT_PRESET_COVERED_KEYS = new Set([
   'bottomPatternId',
 ]);
 
+const OUTFIT_PRESET_A_COVERED_KEYS = new Set([
+  'topAId',
+  'topFitAId',
+  'topStylingAId',
+  'topBottomPaletteAId',
+  'topAColorId',
+  'topAPatternId',
+  'dressAId',
+  'dressAColorId',
+  'pantsAId',
+  'skirtAId',
+  'bottomFitAId',
+  'bottomRiseAId',
+  'bottomAColorId',
+  'bottomAPatternId',
+]);
+
+const OUTFIT_PRESET_B_COVERED_KEYS = new Set([
+  'topBId',
+  'topFitBId',
+  'topStylingBId',
+  'topBottomPaletteBId',
+  'topBColorId',
+  'topBPatternId',
+  'dressBId',
+  'dressBColorId',
+  'pantsBId',
+  'skirtBId',
+  'bottomFitBId',
+  'bottomRiseBId',
+  'bottomBColorId',
+  'bottomBPatternId',
+]);
+
 const WORKSPACE_SECTIONS = [
   { id: 'character', label: 'A 人物設定', summaryKey: 'characterDna', metaKey: 'expressionPose' },
   { id: 'wardrobe', label: 'B 穿搭設定', summaryKey: 'wardrobe', metaKey: null },
@@ -71,6 +105,8 @@ const SECTION_SUBPANELS = {
         'dressId',
         'outfitPresetAId',
         'outfitPresetBId',
+        'dressAId',
+        'dressBId',
       ],
     },
     {
@@ -79,12 +115,26 @@ const SECTION_SUBPANELS = {
       description: '當你不走整體造型時，這裡只處理上身、褲裝與裙裝的主體輪廓。',
       keys: [
         'topId',
+        'topAId',
+        'topBId',
         'topFitId',
+        'topFitAId',
+        'topFitBId',
         'topStylingId',
+        'topStylingAId',
+        'topStylingBId',
         'pantsId',
+        'pantsAId',
+        'pantsBId',
         'skirtId',
+        'skirtAId',
+        'skirtBId',
         'bottomFitId',
+        'bottomFitAId',
+        'bottomFitBId',
         'bottomRiseId',
+        'bottomRiseAId',
+        'bottomRiseBId',
       ],
     },
     {
@@ -103,10 +153,22 @@ const SECTION_SUBPANELS = {
         'outfitPresetBContrastColorId',
         'outfitPresetBLockedPaletteId',
         'topBottomPaletteId',
+        'topBottomPaletteAId',
+        'topBottomPaletteBId',
         'topColorId',
+        'topAColorId',
+        'topBColorId',
         'topPatternId',
+        'topAPatternId',
+        'topBPatternId',
+        'dressAColorId',
+        'dressBColorId',
         'bottomColorId',
+        'bottomAColorId',
+        'bottomBColorId',
         'bottomPatternId',
+        'bottomAPatternId',
+        'bottomBPatternId',
       ],
     },
     {
@@ -225,11 +287,19 @@ function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'outfitPresetAId', locks.outfitPresetAId),
     getControlOptionLabel(controls, 'outfitPresetBId', locks.outfitPresetBId),
     getControlOptionLabel(controls, 'dressId', locks.dressId),
+    getControlOptionLabel(controls, 'dressAId', locks.dressAId),
+    getControlOptionLabel(controls, 'dressBId', locks.dressBId),
     getControlOptionLabel(controls, 'topId', locks.topId),
+    getControlOptionLabel(controls, 'topAId', locks.topAId),
+    getControlOptionLabel(controls, 'topBId', locks.topBId),
     getControlOptionLabel(controls, 'topFitId', locks.topFitId),
     getControlOptionLabel(controls, 'topStylingId', locks.topStylingId),
     getControlOptionLabel(controls, 'pantsId', locks.pantsId),
+    getControlOptionLabel(controls, 'pantsAId', locks.pantsAId),
+    getControlOptionLabel(controls, 'pantsBId', locks.pantsBId),
     getControlOptionLabel(controls, 'skirtId', locks.skirtId),
+    getControlOptionLabel(controls, 'skirtAId', locks.skirtAId),
+    getControlOptionLabel(controls, 'skirtBId', locks.skirtBId),
     getControlOptionLabel(controls, 'bottomFitId', locks.bottomFitId),
     getControlOptionLabel(controls, 'bottomRiseId', locks.bottomRiseId),
     getControlOptionLabel(controls, 'legwearId', locks.legwearId),
@@ -314,6 +384,9 @@ export default function Page1Workspace({
   const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
   const activeSubpanelId = activeSubpanels[activeSection] || sectionSubpanels[0]?.id || '';
   const activeSubpanel = sectionSubpanels.find((panel) => panel.id === activeSubpanelId) || sectionSubpanels[0] || null;
+  const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
+  const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
+  const isOutfitPresetBActive = Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls);
 
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
@@ -327,7 +400,11 @@ export default function Page1Workspace({
             || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls))
             || (control.key === 'specialActionId' && Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls))
             || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
-            || (isOutfitPresetActive && OUTFIT_PRESET_COVERED_KEYS.has(control.key))
+            || (['topAColorId', 'bottomAColorId'].includes(control.key) && Boolean(locks.topBottomPaletteAId) && !isNoneSelected('topBottomPaletteAId', locks.topBottomPaletteAId, wardrobeLockControls))
+            || (['topBColorId', 'bottomBColorId'].includes(control.key) && Boolean(locks.topBottomPaletteBId) && !isNoneSelected('topBottomPaletteBId', locks.topBottomPaletteBId, wardrobeLockControls))
+            || (isSingleOutfitPresetActive && OUTFIT_PRESET_COVERED_KEYS.has(control.key))
+            || (isOutfitPresetAActive && OUTFIT_PRESET_A_COVERED_KEYS.has(control.key))
+            || (isOutfitPresetBActive && OUTFIT_PRESET_B_COVERED_KEYS.has(control.key))
           }
           onChange={(value) => updateLocks((prev) => {
             const next = { ...prev, [control.key]: value };

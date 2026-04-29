@@ -328,19 +328,47 @@ const STYLE_WARDROBE_CONTROL_ORDER = [
   'outfitPresetBContrastColorId',
   'outfitPresetBLockedPaletteId',
   'topId',
+  'topAId',
+  'topBId',
   'topFitId',
+  'topFitAId',
+  'topFitBId',
   'topStylingId',
+  'topStylingAId',
+  'topStylingBId',
   'dressId',
+  'dressAId',
+  'dressBId',
   'dressColorId',
+  'dressAColorId',
+  'dressBColorId',
   'pantsId',
+  'pantsAId',
+  'pantsBId',
   'skirtId',
+  'skirtAId',
+  'skirtBId',
   'bottomFitId',
+  'bottomFitAId',
+  'bottomFitBId',
   'bottomRiseId',
+  'bottomRiseAId',
+  'bottomRiseBId',
   'topBottomPaletteId',
+  'topBottomPaletteAId',
+  'topBottomPaletteBId',
   'topColorId',
+  'topAColorId',
+  'topBColorId',
   'topPatternId',
+  'topAPatternId',
+  'topBPatternId',
   'bottomColorId',
+  'bottomAColorId',
+  'bottomBColorId',
   'bottomPatternId',
+  'bottomAPatternId',
+  'bottomBPatternId',
   'legwearId',
   'legwearColorId',
   'outerwearId',
@@ -495,15 +523,47 @@ function buildImportedStructured(locks, controls) {
       'outfitPresetBId',
       'outfitPresetBColorId',
       'topId',
+      'topAId',
+      'topBId',
+      'topFitId',
+      'topFitAId',
+      'topFitBId',
+      'topStylingId',
+      'topStylingAId',
+      'topStylingBId',
       'topBottomPaletteId',
+      'topBottomPaletteAId',
+      'topBottomPaletteBId',
       'topColorId',
+      'topAColorId',
+      'topBColorId',
       'topPatternId',
+      'topAPatternId',
+      'topBPatternId',
       'dressId',
+      'dressAId',
+      'dressBId',
       'dressColorId',
+      'dressAColorId',
+      'dressBColorId',
       'pantsId',
+      'pantsAId',
+      'pantsBId',
       'skirtId',
+      'skirtAId',
+      'skirtBId',
+      'bottomFitId',
+      'bottomFitAId',
+      'bottomFitBId',
+      'bottomRiseId',
+      'bottomRiseAId',
+      'bottomRiseBId',
       'bottomColorId',
+      'bottomAColorId',
+      'bottomBColorId',
       'bottomPatternId',
+      'bottomAPatternId',
+      'bottomBPatternId',
       'legwearId',
       'legwearColorId',
       'outerwearId',
@@ -1663,6 +1723,18 @@ export default function App() {
     () =>
       sortControls(
         lockControls.filter((control) => {
+          const sharedGarmentKeys = [
+            'topId', 'topFitId', 'topStylingId', 'topBottomPaletteId', 'topColorId', 'topPatternId',
+            'dressId', 'dressColorId', 'pantsId', 'skirtId', 'bottomFitId', 'bottomRiseId', 'bottomColorId', 'bottomPatternId',
+          ];
+          const duoGarmentKeys = [
+            'topAId', 'topBId', 'topFitAId', 'topFitBId', 'topStylingAId', 'topStylingBId',
+            'topBottomPaletteAId', 'topBottomPaletteBId', 'topAColorId', 'topBColorId', 'topAPatternId', 'topBPatternId',
+            'dressAId', 'dressBId', 'dressAColorId', 'dressBColorId',
+            'pantsAId', 'pantsBId', 'skirtAId', 'skirtBId',
+            'bottomFitAId', 'bottomFitBId', 'bottomRiseAId', 'bottomRiseBId',
+            'bottomAColorId', 'bottomBColorId', 'bottomAPatternId', 'bottomBPatternId',
+          ];
           const sharedLayerKeys = ['legwearId', 'legwearColorId', 'outerwearId', 'outerwearColorId', 'outerwearPatternId', 'outerwearStylingId', 'shoesId', 'shoesColorId'];
           const duoLayerKeys = ['legwearAId', 'legwearAColorId', 'outerwearAId', 'outerwearAColorId', 'outerwearAPatternId', 'outerwearAStylingId', 'shoesAId', 'shoesAColorId', 'legwearBId', 'legwearBColorId', 'outerwearBId', 'outerwearBColorId', 'outerwearBPatternId', 'outerwearBStylingId', 'shoesBId', 'shoesBColorId'];
           const sharedAccessoryKeys = ['headAccessoryId', 'eyewearId', 'earringsId', 'neckAccessoryId'];
@@ -1670,6 +1742,8 @@ export default function App() {
           if (control.section !== 'wardrobe') return false;
           if (['outfitPresetId', 'outfitPresetPrimaryColorId', 'outfitPresetContrastColorId', 'outfitPresetLockedPaletteId'].includes(control.key) && locks.subjectCount === '2') return false;
           if (['outfitPresetAId', 'outfitPresetAPrimaryColorId', 'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId', 'outfitPresetBId', 'outfitPresetBPrimaryColorId', 'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          if (sharedGarmentKeys.includes(control.key) && locks.subjectCount === '2') return false;
+          if (duoGarmentKeys.includes(control.key) && locks.subjectCount !== '2') return false;
           if (sharedLayerKeys.includes(control.key) && locks.subjectCount === '2') return false;
           if (duoLayerKeys.includes(control.key) && locks.subjectCount !== '2') return false;
           if (sharedAccessoryKeys.includes(control.key) && locks.subjectCount === '2') return false;
@@ -1780,9 +1854,19 @@ export default function App() {
       }
 
       const specialTopBottomPaletteIsActive = next.topBottomPaletteId && !isNoneSelected('topBottomPaletteId', next.topBottomPaletteId, lockControls);
+      const specialTopBottomPaletteAIsActive = next.topBottomPaletteAId && !isNoneSelected('topBottomPaletteAId', next.topBottomPaletteAId, lockControls);
+      const specialTopBottomPaletteBIsActive = next.topBottomPaletteBId && !isNoneSelected('topBottomPaletteBId', next.topBottomPaletteBId, lockControls);
       if (specialTopBottomPaletteIsActive) {
         next.topColorId = 'none';
         next.bottomColorId = 'none';
+      }
+      if (specialTopBottomPaletteAIsActive) {
+        next.topAColorId = 'none';
+        next.bottomAColorId = 'none';
+      }
+      if (specialTopBottomPaletteBIsActive) {
+        next.topBColorId = 'none';
+        next.bottomBColorId = 'none';
       }
 
       if (next.subjectCount !== '1') {
