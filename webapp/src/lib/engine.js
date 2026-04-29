@@ -2811,7 +2811,8 @@ function buildWardrobe(context, locks, catalog) {
     ];
 
     roleConfigs.forEach((config) => {
-      if (config.presetId) return;
+      const presetRoleState = resolveLockState(catalog.flatCatalog.outfitPresets, config.presetId);
+      if (presetRoleState.specifiedItem) return;
 
       const dressRoleState = resolveLockState(dressItems, config.dressId);
       const topRoleState = resolveLockState(topItems, config.topId);
