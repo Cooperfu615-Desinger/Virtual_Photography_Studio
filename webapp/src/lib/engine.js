@@ -4394,16 +4394,21 @@ function buildAiEyewearText(wardrobeSlots, subjectCount) {
 
 function buildAiMainWardrobeText(wardrobeSlots, wardrobeColors, subjectCount) {
   const normalize = (value) => stripWearingPrefix(compactClause(value, 2));
+  const buildAiLayerItemText = (item, color, maxParts = 2) => {
+    const coloredText = buildColoredGrokPrompt(item, color);
+    if (coloredText) return normalize(compactClause(coloredText, maxParts));
+    return buildMinimalItemPromptPart(item, maxParts);
+  };
   const buildRoleLayerText = (role) => {
     const suffix = role === 'a' ? 'A' : 'B';
     return [
-      buildMinimalItemPromptPart(wardrobeSlots[`legwear${suffix}`], 1),
-      buildMinimalItemPromptPart(wardrobeSlots[`shoes${suffix}`], 1),
+      buildAiLayerItemText(wardrobeSlots[`legwear${suffix}`], wardrobeColors[`legwear${suffix}Color`], 2),
+      buildAiLayerItemText(wardrobeSlots[`shoes${suffix}`], wardrobeColors[`shoes${suffix}Color`], 2),
     ].filter(Boolean).join(', ');
   };
   const buildSharedLayerText = () => [
-    buildMinimalItemPromptPart(wardrobeSlots.legwear, 1),
-    buildMinimalItemPromptPart(wardrobeSlots.shoes, 1),
+    buildAiLayerItemText(wardrobeSlots.legwear, wardrobeColors.legwearColor, 2),
+    buildAiLayerItemText(wardrobeSlots.shoes, wardrobeColors.shoesColor, 2),
   ].filter(Boolean).join(', ');
 
   const buildRoleMainText = (role) => {
@@ -4455,14 +4460,9 @@ function buildAiMainWardrobeText(wardrobeSlots, wardrobeColors, subjectCount) {
     wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
     wardrobeSlots.skirtA || wardrobeSlots.skirtB
   )) {
-    const sharedLayerText = buildSharedLayerText();
     return [
-      buildRoleMainText('a')
-        ? `woman 1 wears ${buildRoleMainText('a')}${buildRoleLayerText('a') ? `, ${buildRoleLayerText('a')}` : ''}${sharedLayerText ? `, ${sharedLayerText}` : ''}`
-        : '',
-      buildRoleMainText('b')
-        ? `woman 2 wears ${buildRoleMainText('b')}${buildRoleLayerText('b') ? `, ${buildRoleLayerText('b')}` : ''}${sharedLayerText ? `, ${sharedLayerText}` : ''}`
-        : '',
+      buildRoleMainText('a') ? `woman 1 wears ${buildRoleMainText('a')}` : '',
+      buildRoleMainText('b') ? `woman 2 wears ${buildRoleMainText('b')}` : '',
     ].filter(Boolean).join(', ');
   }
 
