@@ -3846,6 +3846,30 @@ function buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors) {
   return `${baseLayerText}, layered under ${outerwearPhrase}`;
 }
 
+function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
+  if (!styling || isNoneLikeItem(styling)) return '';
+  if (styling.zh === '正常穿著') {
+    return minimal ? '' : 'properly worn on both shoulders';
+  }
+  if (styling.zh === '滑落肩部') {
+    return minimal ? 'slipped off the shoulder line' : 'slipped off the shoulder line';
+  }
+  return stripMarkdown(styling.en || '').replace(/\s+/g, ' ').trim();
+}
+
+function buildOuterwearFirstPrompt(baseLayerText, outerwearItem, outerwearColor, outerwearPattern, outerwearStyling, { minimal = false } = {}) {
+  if (!baseLayerText || !outerwearItem || isNoneLikeItem(outerwearItem)) return '';
+  const outerwearText = buildColoredGrokPrompt(outerwearItem, outerwearColor, { pattern: outerwearPattern });
+  if (!outerwearText) return baseLayerText;
+  const stylingText = buildOuterwearStylingLeadText(outerwearStyling, { minimal });
+  const joined = [
+    outerwearText,
+    stylingText,
+    `layered over ${baseLayerText}`,
+  ].filter(Boolean).join(', ');
+  return joined;
+}
+
 function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboText) {
   const normalizeWearable = (value) => stripMarkdown(value || '')
     .replace(/\s+/g, ' ')
@@ -4380,13 +4404,25 @@ function buildAiMainWardrobeText(wardrobeSlots, wardrobeColors, subjectCount) {
     }
 
     const dressText = normalize(buildColoredGrokPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`]));
-    if (dressText) return dressText;
+    const outerwearText = normalize(buildColoredGrokPrompt(wardrobeSlots[`outerwear${suffix}`], wardrobeColors[`outerwear${suffix}Color`], {
+      pattern: wardrobeSlots[`outerwear${suffix}Pattern`],
+    }));
+    const outerwearStylingText = buildOuterwearStylingLeadText(wardrobeSlots[`outerwear${suffix}Styling`], { minimal: true });
+    if (dressText) {
+      return outerwearText
+        ? [outerwearText, outerwearStylingText, `over ${dressText}`].filter(Boolean).join(', ')
+        : dressText;
+    }
 
     const topText = normalize(buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role));
     const bottomText = normalize(
       buildRoleBottomWardrobePrompt(wardrobeSlots[`pants${suffix}`], wardrobeSlots, wardrobeColors, role) ||
       buildRoleBottomWardrobePrompt(wardrobeSlots[`skirt${suffix}`], wardrobeSlots, wardrobeColors, role)
     );
+
+    if (outerwearText && topText) {
+      return [outerwearText, outerwearStylingText, `over ${topText}`, bottomText].filter(Boolean).join(', ');
+    }
 
     return [topText, bottomText].filter(Boolean).join(', ');
   };
@@ -4414,13 +4450,25 @@ function buildAiMainWardrobeText(wardrobeSlots, wardrobeColors, subjectCount) {
   }
 
   const dressText = normalize(buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor));
-  if (dressText) return dressText;
+  const outerwearText = normalize(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
+    pattern: wardrobeSlots.outerwearPattern,
+  }));
+  const outerwearStylingText = buildOuterwearStylingLeadText(wardrobeSlots.outerwearStyling, { minimal: true });
+  if (dressText) {
+    return outerwearText
+      ? [outerwearText, outerwearStylingText, `over ${dressText}`].filter(Boolean).join(', ')
+      : dressText;
+  }
 
   const topText = normalize(buildTopWardrobePrompt(wardrobeSlots, wardrobeColors));
   const bottomText = normalize(
     buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors) ||
     buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors)
   );
+
+  if (outerwearText && topText) {
+    return [outerwearText, outerwearStylingText, `over ${topText}`, bottomText].filter(Boolean).join(', ');
+  }
 
   return [topText, bottomText].filter(Boolean).join(', ');
 }
@@ -4757,10 +4805,26 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       }
 
       const dressText = buildColoredGrokPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`]);
-      if (dressText) return dressText;
+      const outerwearFirstDressText = buildOuterwearFirstPrompt(
+        dressText,
+        wardrobeSlots[`outerwear${suffix}`],
+        wardrobeColors[`outerwear${suffix}Color`],
+        wardrobeSlots[`outerwear${suffix}Pattern`],
+        wardrobeSlots[`outerwear${suffix}Styling`]
+      );
+      if (dressText) return outerwearFirstDressText || dressText;
+
+      const topText = buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role);
+      const outerwearFirstTopText = buildOuterwearFirstPrompt(
+        topText,
+        wardrobeSlots[`outerwear${suffix}`],
+        wardrobeColors[`outerwear${suffix}Color`],
+        wardrobeSlots[`outerwear${suffix}Pattern`],
+        wardrobeSlots[`outerwear${suffix}Styling`]
+      );
 
       return [
-        buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role),
+        outerwearFirstTopText || topText,
         buildRoleBottomWardrobePrompt(wardrobeSlots[`pants${suffix}`], wardrobeSlots, wardrobeColors, role),
         buildRoleBottomWardrobePrompt(wardrobeSlots[`skirt${suffix}`], wardrobeSlots, wardrobeColors, role),
       ].filter(Boolean).join(', ');
@@ -4794,13 +4858,28 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
     } else {
       const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor);
-      add(dressText || topOuterwearComboText || buildTopWardrobePrompt(wardrobeSlots, wardrobeColors));
+      const topText = buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
+      const outerwearFirstDressText = buildOuterwearFirstPrompt(
+        dressText,
+        wardrobeSlots.outerwear,
+        wardrobeColors.outerwearColor,
+        wardrobeSlots.outerwearPattern,
+        wardrobeSlots.outerwearStyling
+      );
+      const outerwearFirstTopText = buildOuterwearFirstPrompt(
+        topText,
+        wardrobeSlots.outerwear,
+        wardrobeColors.outerwearColor,
+        wardrobeSlots.outerwearPattern,
+        wardrobeSlots.outerwearStyling
+      );
+      add(dressText ? (outerwearFirstDressText || dressText) : (outerwearFirstTopText || topText));
       if (!dressText) {
         add(buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors));
         add(buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors));
       }
       add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
-      if (!topOuterwearComboText) {
+      if (!(dressText ? outerwearFirstDressText : outerwearFirstTopText)) {
         add(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
       }
       add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
