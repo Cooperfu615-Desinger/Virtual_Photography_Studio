@@ -261,18 +261,23 @@ function buildSummaryText(parts) {
 }
 
 function buildWorkspaceSummary(locks, controls) {
-  const characterSummary = buildSummaryText([
-    getControlOptionLabel(controls, 'facialFeaturesId', locks.facialFeaturesId),
-    getControlOptionLabel(controls, 'facialFeaturesAId', locks.facialFeaturesAId),
-    getControlOptionLabel(controls, 'facialFeaturesBId', locks.facialFeaturesBId),
-    getControlOptionLabel(controls, 'bodyTypeId', locks.bodyTypeId),
-    getControlOptionLabel(controls, 'hairstyleId', locks.hairstyleId),
-    getControlOptionLabel(controls, 'hairstyleAId', locks.hairstyleAId),
-    getControlOptionLabel(controls, 'hairstyleBId', locks.hairstyleBId),
-    getControlOptionLabel(controls, 'hairColorId', locks.hairColorId),
-    getControlOptionLabel(controls, 'hairColorAId', locks.hairColorAId),
-    getControlOptionLabel(controls, 'hairColorBId', locks.hairColorBId),
-  ]);
+  const subjectTypeLabel = getControlOptionLabel(controls, 'subjectCount', locks.subjectCount);
+  const isSkeletonMode = locks.subjectCount === 'skeleton';
+  const characterSummary = isSkeletonMode
+    ? '骷髏'
+    : buildSummaryText([
+        subjectTypeLabel === '上傳人物' ? subjectTypeLabel : '',
+        getControlOptionLabel(controls, 'facialFeaturesId', locks.facialFeaturesId),
+        getControlOptionLabel(controls, 'facialFeaturesAId', locks.facialFeaturesAId),
+        getControlOptionLabel(controls, 'facialFeaturesBId', locks.facialFeaturesBId),
+        getControlOptionLabel(controls, 'bodyTypeId', locks.bodyTypeId),
+        getControlOptionLabel(controls, 'hairstyleId', locks.hairstyleId),
+        getControlOptionLabel(controls, 'hairstyleAId', locks.hairstyleAId),
+        getControlOptionLabel(controls, 'hairstyleBId', locks.hairstyleBId),
+        getControlOptionLabel(controls, 'hairColorId', locks.hairColorId),
+        getControlOptionLabel(controls, 'hairColorAId', locks.hairColorAId),
+        getControlOptionLabel(controls, 'hairColorBId', locks.hairColorBId),
+      ]);
   const characterMeta = buildSummaryText([
     getControlOptionLabel(controls, 'expressionId', locks.expressionId),
     getControlOptionLabel(controls, 'expressionAId', locks.expressionAId),
@@ -384,6 +389,14 @@ export default function Page1Workspace({
   const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
   const activeSubpanelId = activeSubpanels[activeSection] || sectionSubpanels[0]?.id || '';
   const activeSubpanel = sectionSubpanels.find((panel) => panel.id === activeSubpanelId) || sectionSubpanels[0] || null;
+  const isSkeletonMode = locks.subjectCount === 'skeleton';
+  const effectiveCharacterSubpanel = activeSection === 'character' && isSkeletonMode && activeSubpanel?.id === 'identity'
+    ? {
+        ...activeSubpanel,
+        description: '骷髏模式在這裡保留主體切換，姿勢動作與特殊動作請切到「神情姿態」設定。',
+        keys: ['subjectCount', 'poseId', 'specialActionId'],
+      }
+    : activeSubpanel;
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
   const isOutfitPresetBActive = Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls);
@@ -442,7 +455,7 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Character Setup</div>
-          <p className="workspace-panel-copy">{activeSubpanel?.description || '把人物身份、臉部與姿態先固定下來，後面換穿搭與場景會更穩定。'}</p>
+          <p className="workspace-panel-copy">{effectiveCharacterSubpanel?.description || '把人物身份、臉部與姿態先固定下來，後面換穿搭與場景會更穩定。'}</p>
         </div>
       </div>
       {locks.subjectCount === 'reference' ? (
@@ -460,7 +473,7 @@ export default function Page1Workspace({
           目前為特寫模式，系統會自動收斂不必要欄位，保留與人物、主要服裝輪廓與構圖相關的設定，讓 prompt 更聚焦。
         </div>
       ) : null}
-      {renderControlGrid(filterControlsByKeys(characterLockControls, activeSubpanel?.keys || []))}
+      {renderControlGrid(filterControlsByKeys(characterLockControls, effectiveCharacterSubpanel?.keys || []))}
     </div>
   );
 
@@ -564,14 +577,6 @@ export default function Page1Workspace({
               </button>
             ))}
           </div>
-
-          {activeSubpanel ? (
-            <div className="page1-subpanel-summary">
-              <div className="page1-subpanel-summary-title">{activeSubpanel.label}</div>
-              <div className="page1-subpanel-summary-copy">{activeSubpanel.description}</div>
-            </div>
-          ) : null}
-
           {renderEditorPanel()}
         </section>
 
