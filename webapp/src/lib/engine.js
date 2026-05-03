@@ -4,6 +4,13 @@ const SUBJECT_COUNT_OPTIONS = [
   { id: '1', zh: '1 位', en: 'an elegant beautiful 20-year-old Japanese or Korean woman', count: 1 },
   { id: '2', zh: '2 位', en: 'two elegant beautiful 20-year-old Japanese or Korean women', count: 2 },
   {
+    id: 'skeleton',
+    zh: '骷髏',
+    en: 'a complete human skeleton, fleshless, clean anatomical specimen presence, realistic full skeletal structure, dark blue-black bone tone, subtle cool blue highlights, dry matte specimen surface, surreal photographic installation presence',
+    count: 1,
+    specialSubject: 'skeleton',
+  },
+  {
     id: 'reference',
     zh: '上傳人物',
     en: 'a woman matching the attached reference person, preserve facial identity and overall likeness from the attached image',
@@ -2176,6 +2183,10 @@ function getSubjectOption(id) {
   return SUBJECT_COUNT_OPTIONS.find((option) => option.id === id) || SUBJECT_COUNT_OPTIONS[0];
 }
 
+function isSkeletonSubject(subject) {
+  return subject?.specialSubject === 'skeleton';
+}
+
 function getAspectRatioOption(id) {
   const option = ASPECT_RATIO_OPTIONS.find((entry) => entry.id === id);
   if (option?.random) return sample(ASPECT_RATIO_POOL);
@@ -2237,6 +2248,15 @@ function specialActionSupportsFraming(action, framing) {
 }
 
 function buildSubjectBase(subject) {
+  if (isSkeletonSubject(subject)) {
+    return {
+      zh: '一具完整人類骷髏',
+      en: subject.en,
+      id: `base-character-${subject.id}`,
+      meta: { tags: ['skeleton', 'solo', 'surreal_subject'] },
+    };
+  }
+
   return {
     zh: subject.reference ? '一位以附圖人物五官為主的女性' : subject.count === 2 ? '兩位性感驚豔的東亞女性' : '一位性感驚豔的東亞女性',
     en: subject.en,
@@ -2278,6 +2298,7 @@ function pickWithCompatibleLock(list, lockedId, predicate = () => true, picker =
 
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
+  if (isSkeletonSubject(context.subject)) return character;
   const visibility = context.framing.meta.visibility;
   const isReferenceSubject = Boolean(context.subject.reference);
   let lockedArchetype = null;
@@ -3095,7 +3116,9 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     const filtered = parts.filter((part) => part && part !== '-');
     return filtered.length > 0 ? filtered.join(' / ') : '-';
   };
-  const subjectLabel = context.subject.reference
+  const subjectLabel = isSkeletonSubject(context.subject)
+    ? '一具完整人類骷髏'
+    : context.subject.reference
     ? '一位以附圖人物五官為主的女性'
     : context.subject.count === 2
       ? '兩位性感驚豔的日系或韓系女性'
@@ -3116,6 +3139,10 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     return primaryColor?.zh ? `${primaryColor.zh}｜${preset.zh}` : preset.zh;
   };
   const summarizeSingleCharacter = () => {
+    if (isSkeletonSubject(context.subject)) {
+      return joinSummaryParts(subjectLabel, '深藍黑骨色', '乾淨標本質感', '超現實攝影裝置感');
+    }
+
     const hairSummary = joinSummaryParts(
       characterSlots.hairstyle?.zh && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.zh : '',
       characterSlots.hairColor?.zh && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.zh : ''
@@ -4199,7 +4226,26 @@ function ensureTerminalPeriod(value) {
   return `${cleaned}.`;
 }
 
+function sanitizeSkeletonPromptText(value) {
+  return stripMarkdown(value || '')
+    .replace(/extreme face close-up/gi, 'extreme skull close-up')
+    .replace(/the entire face filling almost the whole frame/gi, 'the cranial structure filling almost the whole frame')
+    .replace(/full facial features clearly visible/gi, 'full cranial structure clearly visible')
+    .replace(/detailed facial features/gi, 'detailed cranial structure')
+    .replace(/moody facial shadow/gi, 'moody cranial shadow')
+    .replace(/clean facial profile/gi, 'clean cranial profile')
+    .replace(/commercial portrait glow/gi, 'clean commercial studio glow')
+    .replace(/\bportraiture\b/gi, 'studio stillness')
+    .replace(/transparent skin tones/gi, 'clean tonal separation')
+    .replace(/warm skin tones/gi, 'warm tonal rendering')
+    .replace(/coherent fabric construction/gi, 'coherent anatomical structure')
+    .replace(/clear facial readability/gi, 'clear skeletal structure readability')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function buildFreeformSubjectText(subject) {
+  if (isSkeletonSubject(subject)) return 'a complete human skeleton, fleshless, dark blue-black anatomical specimen';
   if (subject?.count === 2) return 'two elegant beautiful seductive stunning 20-year-old Japanese or Korean women';
   return 'an elegant beautiful seductive stunning 20-year-old Japanese or Korean woman';
 }
@@ -4515,6 +4561,27 @@ function buildAiAtmosphereText(context, film) {
 
 function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots, wardrobeColors, lightDirection, film) {
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
+  if (isSkeletonSubject(context.subject)) {
+    const sceneText = buildMinimalLocationText(context.location, context);
+    const cameraText = [
+      context.framing ? buildMinimalPromptPart(sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)), 1) : '',
+      context.angle ? buildMinimalPromptPart(sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)), 1) : '',
+      buildMinimalPromptPart(context.lens?.en, 1),
+    ].filter(Boolean).join(', ');
+    const lightText = [
+      context.lighting ? buildMinimalPromptPart(sanitizeSkeletonPromptText(context.lighting.en), 1) : '',
+      lightDirection ? buildMinimalPromptPart(sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)), 1) : '',
+    ].filter(Boolean).join(', ');
+    const atmosphereText = sanitizeSkeletonPromptText(buildAiAtmosphereText(context, film));
+
+    return [
+      ensureTerminalPeriod(context.subject.en),
+      sceneText ? ensureTerminalPeriod(`setting: ${sceneText}`) : '',
+      cameraText ? ensureTerminalPeriod(`camera: ${cameraText}`) : '',
+      lightText ? ensureTerminalPeriod(`lighting: ${lightText}`) : '',
+      atmosphereText ? ensureTerminalPeriod(`atmosphere: ${atmosphereText}`) : '',
+    ].filter(Boolean).join(' ');
+  }
   const subjectCore = [
     buildFreeformSubjectText(context.subject),
     buildMinimalPromptPart(characterSlots.bodyType?.en, 1),
@@ -4563,6 +4630,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
 function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const skeletonMode = isSkeletonSubject(context.subject);
   const topOuterwearComboText = buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors);
   const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboText);
   const duoSceneAnchorText = buildDuoSceneAnchorText(context, wardrobeSlots, wardrobeColors, topOuterwearComboText);
@@ -4636,7 +4704,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
   }
-  if (!hasDuoSceneAnchor) addItemLine('Body Type', characterSlots.bodyType);
+  if (!hasDuoSceneAnchor && !skeletonMode) addItemLine('Body Type', characterSlots.bodyType);
   if (context.subject.count === 2 && !hasDuoSceneAnchor) {
     addLine('Woman 1 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
       legacy: wardrobeColors.outfitPresetAColor,
@@ -4658,7 +4726,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
       lockedPalette: wardrobeColors.outfitPresetLockedPalette,
     }));
   }
-  if (!wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
+  if (!skeletonMode && !wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
     const topText = topOuterwearComboText || buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
     const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor);
     const pantsText = buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors);
@@ -4673,7 +4741,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     }
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
-  if (!hasDuoSceneAnchor && (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
+  if (!skeletonMode && !hasDuoSceneAnchor && (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
     addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
       pattern: wardrobeSlots.outerwearPattern,
@@ -4681,18 +4749,18 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     }));
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
-  if (!hasDuoSceneAnchor) {
+  if (!skeletonMode && !hasDuoSceneAnchor) {
     addLine('Waistline Coordination', waistlineCompatibilityText);
     addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
-  addLine('Special Action', specialActionText);
-  addLine(context.subject.count === 2 ? 'Duo Pose' : 'Pose', poseText);
-  if (context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
-  if (context.subject.count === 2) {
+  if (!skeletonMode) addLine('Special Action', specialActionText);
+  if (!skeletonMode) addLine(context.subject.count === 2 ? 'Duo Pose' : 'Pose', poseText);
+  if (!skeletonMode && context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
+  if (!skeletonMode && context.subject.count === 2) {
     addItemLine('Woman 1 Facial Features', characterSlots.facialFeaturesA);
     addItemLine('Woman 2 Facial Features', characterSlots.facialFeaturesB);
-  } else if (!useCharacterIdentityAnchor) {
+  } else if (!skeletonMode && !useCharacterIdentityAnchor) {
     addLine(
       'Facial Features',
       buildFacialFeaturesPrompt(characterSlots.facialFeatures, {
@@ -4701,20 +4769,20 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
       })
     );
   }
-  if (context.subject.count === 2) {
+  if (!skeletonMode && context.subject.count === 2) {
     addItemLine('Woman 1 Hairstyle', characterSlots.hairstyleA);
     addItemLine('Woman 2 Hairstyle', characterSlots.hairstyleB);
     addLine('Woman 1 Hair Color', buildHairColorPrompt(characterSlots.hairColorA));
     addLine('Woman 2 Hair Color', buildHairColorPrompt(characterSlots.hairColorB));
-  } else {
+  } else if (!skeletonMode) {
     addItemLine('Hairstyle', characterSlots.hairstyle);
     addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
   }
-  if (!useCharacterIdentityAnchor) addItemLine('Skin Details', characterSlots.skinDetails);
-  if (context.subject.count === 2) {
+  if (!skeletonMode && !useCharacterIdentityAnchor) addItemLine('Skin Details', characterSlots.skinDetails);
+  if (!skeletonMode && context.subject.count === 2) {
     addLine('Woman 1 Expression', expressionAText);
     addLine('Woman 2 Expression', expressionBText);
-  } else {
+  } else if (!skeletonMode) {
     addLine('Expression', expressionText);
   }
   addContextLine('Location', context.location);
@@ -4732,7 +4800,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.style && !isNoneLikeItem(context.style)) {
     addLine('Photography Style', buildPhotographyStylePrompt(context.style));
   }
-  if (context.subject.count === 2) {
+  if (!skeletonMode && context.subject.count === 2) {
     addLine('Woman 1 Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessoryA));
     addLine('Woman 1 Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewearA));
     addLine('Woman 1 Earrings', buildAccessoryPrompt(wardrobeSlots.earringsA));
@@ -4742,14 +4810,14 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Woman 2 Earrings', buildAccessoryPrompt(wardrobeSlots.earringsB));
     addLine('Woman 2 Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessoryB));
   }
-  if (context.subject.count === 2 || useCharacterIdentityAnchor) {
+  if (!skeletonMode && (context.subject.count === 2 || useCharacterIdentityAnchor)) {
     addLine('Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessory));
     addLine('Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewear));
     addLine('Earrings', buildAccessoryPrompt(wardrobeSlots.earrings));
   }
-  if (!(context.subject.count === 2 || useCharacterIdentityAnchor)) addLine('Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessory));
-  addLine('Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessory));
-  if (!useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
+  if (!skeletonMode && !(context.subject.count === 2 || useCharacterIdentityAnchor)) addLine('Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessory));
+  if (!skeletonMode) addLine('Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessory));
+  if (!skeletonMode && !useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
 
   return lines.join('\n');
 }
@@ -4767,7 +4835,12 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     const detail = parts.filter(Boolean).join(', ');
     return detail ? sentence(`${lead} ${detail}`) : '';
   };
+  const skeletonMode = isSkeletonSubject(context.subject);
   const buildCharacterText = () => {
+    if (skeletonMode) {
+      return sentence(`The image shows ${sanitizeSkeletonPromptText(context.subject.en)}`);
+    }
+
     const parts = [
       useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en,
       characterSlots.bodyType?.en,
@@ -4951,26 +5024,28 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   };
   const buildSceneText = () => {
     const sceneParts = [
-      context.location && !isNoneLikeItem(context.location) ? context.location.en : '',
-      sceneAccentText,
-      context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.en : '',
-      lightDirection && !isNoneLikeItem(lightDirection) ? resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count) : '',
+      context.location && !isNoneLikeItem(context.location) ? (skeletonMode ? sanitizeSkeletonPromptText(context.location.en) : context.location.en) : '',
+      skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : sceneAccentText,
+      context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
+      lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
     ].filter(Boolean);
 
     return leadSentence('The setting is', sceneParts);
   };
   const buildCameraText = () => leadSentence('The composition uses', [
-    context.framing ? resolvePromptVariant(context.framing, 'framing', context.subject.count) : '',
-    context.angle ? resolvePromptVariant(context.angle, 'angle', context.subject.count) : '',
-    context.orbit ? resolvePromptVariant(context.orbit, 'orbit', context.subject.count) : '',
+    context.framing ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : resolvePromptVariant(context.framing, 'framing', context.subject.count)) : '',
+    context.angle ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
+    context.orbit ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
     context.lens?.en,
-    opticalEffect?.en,
+    skeletonMode ? sanitizeSkeletonPromptText(opticalEffect?.en) : opticalEffect?.en,
     context.aspectRatio.en ? `aspect ratio ${context.aspectRatio.en}` : '',
   ]);
   const buildStyleText = () => joinSentenceParts([
-    context.style && !isNoneLikeItem(context.style) ? buildPhotographyStylePrompt(context.style) : '',
-    film?.en,
-    'natural photographic detail, coherent fabric construction, clear facial readability, realistic spatial depth',
+    context.style && !isNoneLikeItem(context.style) ? (skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : buildPhotographyStylePrompt(context.style)) : '',
+    skeletonMode ? sanitizeSkeletonPromptText(film?.en) : film?.en,
+    skeletonMode
+      ? 'natural photographic detail, coherent anatomical structure, clear skeletal structure readability, realistic spatial depth'
+      : 'natural photographic detail, coherent fabric construction, clear facial readability, realistic spatial depth',
     'do not add visible text unless explicitly requested',
   ]);
 
@@ -5238,7 +5313,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
   const character = buildCharacter(context, runtime.catalog);
-  const wardrobe = buildWardrobe({ ...context }, effectiveLocks, runtime);
+  const wardrobe = isSkeletonSubject(subject) ? [] : buildWardrobe({ ...context }, effectiveLocks, runtime);
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks);
 

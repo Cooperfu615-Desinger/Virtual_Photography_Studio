@@ -1708,6 +1708,9 @@ export default function App() {
     () =>
       sortControls(
         lockControls.filter((control) => {
+          if (locks.subjectCount === 'skeleton') {
+            return control.key === 'subjectCount';
+          }
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
           if (['duoInteractionId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;
           if (control.key === 'specialActionId' && locks.subjectCount !== '1') return false;
@@ -1723,6 +1726,7 @@ export default function App() {
     () =>
       sortControls(
         lockControls.filter((control) => {
+          if (locks.subjectCount === 'skeleton') return false;
           const sharedGarmentKeys = [
             'topId', 'topFitId', 'topStylingId', 'topBottomPaletteId', 'topColorId', 'topPatternId',
             'dressId', 'dressColorId', 'pantsId', 'skirtId', 'bottomFitId', 'bottomRiseId', 'bottomColorId', 'bottomPatternId',

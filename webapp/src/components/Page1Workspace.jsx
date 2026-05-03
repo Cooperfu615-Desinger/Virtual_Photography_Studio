@@ -450,6 +450,11 @@ export default function Page1Workspace({
           此模式不在 app 內上傳圖片；生成後請把同一張人物參考圖直接附給 Midjourney、Grok 或 Gemini，prompt 會以附圖人物五官與身份為主。
         </div>
       ) : null}
+      {locks.subjectCount === 'skeleton' ? (
+        <div className="context-note">
+          骷髏模式會使用一具完整人類骨架作為單獨主體，保留場景、鏡頭、光線與風格控制，人物五官、髮型與服裝欄位會暫時停用。
+        </div>
+      ) : null}
       {isCloseupMode ? (
         <div className="context-note">
           目前為特寫模式，系統會自動收斂不必要欄位，保留與人物、主要服裝輪廓與構圖相關的設定，讓 prompt 更聚焦。
@@ -470,6 +475,11 @@ export default function Page1Workspace({
       {isOutfitPresetActive ? (
         <div className="context-note">
           套裝預設已接管主要服裝輪廓，和它重疊的上身、下身單件欄位會自動停用，避免 prompt 互相打架。
+        </div>
+      ) : null}
+      {locks.subjectCount === 'skeleton' ? (
+        <div className="context-note">
+          骷髏模式目前不使用服裝、鞋襪或配件欄位，這一區已暫時停用，請改用場景、鏡頭、光線與風格去塑造作品氣氛。
         </div>
       ) : null}
       {renderControlGrid(filterControlsByKeys(wardrobeLockControls, activeSubpanel?.keys || []))}
