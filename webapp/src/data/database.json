@@ -1749,8 +1749,8 @@
       },
       {
         "zh": "膝上蕾絲吊帶襪",
-        "en": "lace garter stockings, floral lace top band, satin ribbon garter details, delicate sheer texture, refined lingerie accessory styling",
-        "desc": "重點在蕾絲襪口、吊帶結構、緞帶細節與半透明材質層次，作為完整造型中的精緻配件使用，而不是強調腿部線條本身。"
+        "en": "thigh-high sheer lace garter stockings, translucent stocking legs extending above the knee, floral lace top band, matching lace garter straps and satin ribbon garter details, delicate nylon hosiery texture, refined lingerie accessory styling",
+        "desc": "明確包含膝上絲襪本體、半透明尼龍絲襪質感、蕾絲襪口與吊帶結構，讓模型不只生成吊襪帶，也能完整表現絲襪本身的材質與長度。"
       },
       {
         "zh": "柔和過膝絲襪",

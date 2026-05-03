@@ -192,7 +192,7 @@
 | **襪類 (Legwear)** | 半透明絲襪 | `semi-sheer pantyhose, translucent legwear, sleek finish` | 比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。 |
 | **襪類 (Legwear)** | 蕾絲大腿絲襪 | `lace-top thigh-high stockings, sensual legwear, fitted silhouette` | 帶寫真與性感氛圍，適合內衣或飯店場景。 |
 | **襪類 (Legwear)** | 漁網絲襪 | `fishnet tights, open net texture, edgy styling` | 強化龐克、地下與夜晚街頭氣質。 |
-| **襪類 (Legwear)** | 膝上蕾絲吊帶襪 | `lace garter stockings, floral lace top band, satin ribbon garter details, delicate sheer texture, refined lingerie accessory styling` | 重點在蕾絲襪口、吊帶結構、緞帶細節與半透明材質層次，作為完整造型中的精緻配件使用，而不是強調腿部線條本身。 |
+| **襪類 (Legwear)** | 膝上蕾絲吊帶襪 | `thigh-high sheer lace garter stockings, translucent stocking legs extending above the knee, floral lace top band, matching lace garter straps and satin ribbon garter details, delicate nylon hosiery texture, refined lingerie accessory styling` | 明確包含膝上絲襪本體、半透明尼龍絲襪質感、蕾絲襪口與吊帶結構，讓模型不只生成吊襪帶，也能完整表現絲襪本身的材質與長度。 |
 | **襪類 (Legwear)** | 柔和過膝絲襪 | `over-knee stockings, smooth fitted legwear, soft youthful styling` | 過膝絲襪帶有柔和甜感，適合 JK、Lolita 與寫真風格。 |
 | **襪類 (Legwear)** | 俐落過膝絲襪 | `over-knee stockings, fitted legwear, sleek dramatic styling` | 過膝絲襪輪廓更俐落、存在感更強，適合夜拍、時裝與制服變體。 |
 | **襪類 (Legwear)** | 羅紋短襪 | `ribbed ankle socks, casual everyday styling, soft cotton texture` | 偏日常、可愛、生活感強。 |
