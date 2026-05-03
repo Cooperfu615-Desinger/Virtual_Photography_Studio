@@ -2298,8 +2298,33 @@ function pickWithCompatibleLock(list, lockedId, predicate = () => true, picker =
 
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
-  if (isSkeletonSubject(context.subject)) return character;
   const visibility = context.framing.meta.visibility;
+  if (isSkeletonSubject(context.subject)) {
+    const poseItems = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
+    const specialActionItems = getByKey(catalog.character, '特殊動作 (Special Actions)');
+
+    if (context.locks?.specialActionId) {
+      const specialAction = findById(specialActionItems, context.locks.specialActionId);
+      if (specialAction && !isNoneLikeItem(specialAction)) {
+        character.push(specialAction);
+        return character;
+      }
+    }
+
+    if (context.locks?.poseId) {
+      const pose = findById(poseItems, context.locks.poseId);
+      if (pose && !isNoneLikeItem(pose)) {
+        character.push(pose);
+        return character;
+      }
+    }
+
+    const skeletonPose = visibilityAtLeast(visibility, 'full')
+      ? sample(poseItems.filter((item) => !isNoneLikeItem(item) && poseSupportsLocationContext(item, context)))
+      : null;
+    if (skeletonPose) character.push(skeletonPose);
+    return character;
+  }
   const isReferenceSubject = Boolean(context.subject.reference);
   let lockedArchetype = null;
   const buildDuoPoseItem = (option) => {
@@ -3140,7 +3165,14 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   };
   const summarizeSingleCharacter = () => {
     if (isSkeletonSubject(context.subject)) {
-      return joinSummaryParts(subjectLabel, '深藍黑骨色', '乾淨標本質感', '超現實攝影裝置感');
+      return joinSummaryParts(
+        subjectLabel,
+        '深藍黑骨色',
+        '乾淨標本質感',
+        '超現實攝影裝置感',
+        characterSlots.specialAction?.zh && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.zh : '',
+        characterSlots.pose?.zh && !isNoneLikeItem(characterSlots.pose) ? characterSlots.pose.zh : ''
+      );
     }
 
     const hairSummary = joinSummaryParts(
@@ -4562,6 +4594,10 @@ function buildAiAtmosphereText(context, film) {
 function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots, wardrobeColors, lightDirection, film) {
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
   if (isSkeletonSubject(context.subject)) {
+    const skeletonActionText = [
+      characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? buildMinimalPromptPart(characterSlots.specialAction.en, 1) : '',
+      characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? buildMinimalPromptPart(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count), 1) : '',
+    ].filter(Boolean).join(', ');
     const sceneText = buildMinimalLocationText(context.location, context);
     const cameraText = [
       context.framing ? buildMinimalPromptPart(sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)), 1) : '',
@@ -4575,7 +4611,7 @@ function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots,
     const atmosphereText = sanitizeSkeletonPromptText(buildAiAtmosphereText(context, film));
 
     return [
-      ensureTerminalPeriod(context.subject.en),
+      ensureTerminalPeriod([context.subject.en, skeletonActionText].filter(Boolean).join(', ')),
       sceneText ? ensureTerminalPeriod(`setting: ${sceneText}`) : '',
       cameraText ? ensureTerminalPeriod(`camera: ${cameraText}`) : '',
       lightText ? ensureTerminalPeriod(`lighting: ${lightText}`) : '',
@@ -4754,8 +4790,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
-  if (!skeletonMode) addLine('Special Action', specialActionText);
-  if (!skeletonMode) addLine(context.subject.count === 2 ? 'Duo Pose' : 'Pose', poseText);
+  addLine('Special Action', specialActionText);
+  addLine(context.subject.count === 2 ? 'Duo Pose' : 'Pose', poseText);
   if (!skeletonMode && context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
   if (!skeletonMode && context.subject.count === 2) {
     addItemLine('Woman 1 Facial Features', characterSlots.facialFeaturesA);
@@ -4838,7 +4874,12 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const skeletonMode = isSkeletonSubject(context.subject);
   const buildCharacterText = () => {
     if (skeletonMode) {
-      return sentence(`The image shows ${sanitizeSkeletonPromptText(context.subject.en)}`);
+      const parts = [
+        sanitizeSkeletonPromptText(context.subject.en),
+        characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? sanitizeSkeletonPromptText(characterSlots.specialAction.en) : '',
+        characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : '',
+      ].filter(Boolean);
+      return leadSentence('The image shows', parts);
     }
 
     const parts = [

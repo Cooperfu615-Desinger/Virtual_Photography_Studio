@@ -6,10 +6,10 @@
 | :--- | :--- | :--- | :--- |
 | **景別構圖 (Framing)** | 全無 | `none` | 不指定景別構圖，讓模型自行決定畫面距離與主體範圍。 |
 | **景別構圖 (Framing)** | 特寫鏡頭 (Close-Up) | `close-up shot, head and shoulders framing, detailed facial features, tight subject crop` | 構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。 |
-| **景別構圖 (Framing)** | 臉部特寫 | `extreme face close-up, the entire face filling almost the whole frame, minimal space around the forehead, cheeks, and chin, full facial features clearly visible` | 整張臉幾乎塞滿畫面，額頭、下巴與左右臉只留極少空隙，適合五官辨識、妝容、神情與臉部存在感最強的拍法。 |
+| **景別構圖 (Framing)** | 臉部特寫 | `tight facial close-up portrait, face dominant in frame, balanced proportions, clean frontal readability` | 整張臉幾乎塞滿畫面，額頭、下巴與左右臉只留極少空隙，適合五官辨識、妝容、神情與臉部存在感最強的拍法。 |
 | **景別構圖 (Framing)** | 胸上特寫 | `tight bust-up portrait, framed from the chest upward, face and upper torso clearly visible, compact portrait composition` | 構圖從胸口以上，保留臉部、肩頸與部分上身資訊，適合兼顧表情、髮型、頸部配件與少量穿搭。 |
-| **景別構圖 (Framing)** | 局部五官特寫 | `oppressive extreme close-up of partial facial features, only a tight fragment of the face visible, cropped to eyes and glasses or eyes and nose or nose and lips, intentional partial-face composition` | 只保留局部五官，像是雙眼與眼鏡、眼睛與鼻子、鼻子與嘴巴等極近距離片段，強調壓迫感、細節與刻意裁切的臉部構圖。 |
-| **景別構圖 (Framing)** | 半臉傾斜特寫 | `extreme close-up of only one half of the face, strong dutch angle, intentional off-center crop, partial face filling the frame, stylized asymmetric close-up composition` | 只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，整體更像雜誌化、風格化且刻意不完整的高壓特寫。 |
+| **景別構圖 (Framing)** | 局部五官特寫 | `tight close-up focused on the eye area and upper facial structure, cropped editorial framing, strong visual tension` | 只保留局部五官，像是雙眼與眼鏡、眼睛與鼻子、鼻子與嘴巴等極近距離片段，強調壓迫感、細節與刻意裁切的臉部構圖。 |
+| **景別構圖 (Framing)** | 半臉傾斜特寫 | `stylized asymmetrical close-up portrait, one side of the face emphasized, off-center framing, slight dutch angle` | 只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，整體更像雜誌化、風格化且刻意不完整的高壓特寫。 |
 | **景別構圖 (Framing)** | 中景鏡頭 (Medium Shot) | `medium shot, waist up framing, natural subject presence, showing some background` | 構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。 |
 | **景別構圖 (Framing)** | 牛仔中景 (Cowboy Shot) | `cowboy shot, american shot, knee up framing, dynamic pose` | 從膝蓋上方截斷，源於西部片用來展示槍套。適合展現強勢氣場與全身大部分服裝。 |
 | **景別構圖 (Framing)** | 全身鏡頭 (Full Body Shot) | `full body shot, full-length figure framing, wide framing, environmental scale, complete lower-body visibility` | 完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。 |

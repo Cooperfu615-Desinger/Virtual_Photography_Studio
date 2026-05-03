@@ -1709,7 +1709,7 @@ export default function App() {
       sortControls(
         lockControls.filter((control) => {
           if (locks.subjectCount === 'skeleton') {
-            return control.key === 'subjectCount';
+            return ['subjectCount', 'poseId', 'specialActionId'].includes(control.key);
           }
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
           if (['duoInteractionId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;

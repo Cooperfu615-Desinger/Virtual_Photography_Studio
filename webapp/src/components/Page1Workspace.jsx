@@ -452,7 +452,7 @@ export default function Page1Workspace({
       ) : null}
       {locks.subjectCount === 'skeleton' ? (
         <div className="context-note">
-          骷髏模式會使用一具完整人類骨架作為單獨主體，保留場景、鏡頭、光線與風格控制，人物五官、髮型與服裝欄位會暫時停用。
+          骷髏模式會使用一具完整人類骨架作為單獨主體，保留場景、鏡頭、光線、風格，以及姿勢動作與特殊動作；人物五官、髮型與服裝欄位會暫時停用。
         </div>
       ) : null}
       {isCloseupMode ? (
