@@ -877,6 +877,16 @@ button:disabled {
   align-items: start;
 }
 
+.saved-cards-load-more {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0 2px;
+}
+
+.saved-cards-load-more button {
+  min-width: 220px;
+}
+
 .page1-mobile-shell,
 .page1-mobile-favorites,
 .page1-mobile-card-list {

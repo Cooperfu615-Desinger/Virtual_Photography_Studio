@@ -9,6 +9,9 @@ const SOURCE_FILTERS = [
   { id: 'page5', label: 'SUNO' },
 ];
 
+const INITIAL_VISIBLE_CARDS = 40;
+const VISIBLE_CARD_INCREMENT = 40;
+
 export default function SavedCardsWorkspace({
   prompts,
   setPrompts,
@@ -25,6 +28,9 @@ export default function SavedCardsWorkspace({
 }) {
   const isFavoritesView = viewMode === 'favorites';
   const [sourceFilter, setSourceFilter] = useState('all');
+  const visibleKey = `${viewMode}:${sourceFilter}`;
+  const [visibleState, setVisibleState] = useState({ key: visibleKey, count: INITIAL_VISIBLE_CARDS });
+  const visibleCount = visibleState.key === visibleKey ? visibleState.count : INITIAL_VISIBLE_CARDS;
   const sourceCounts = useMemo(() => {
     const counts = { all: displayPrompts.length, page1: 0, page2: 0, page3: 0, page5: 0 };
     displayPrompts.forEach((prompt) => {
@@ -37,6 +43,11 @@ export default function SavedCardsWorkspace({
     () => displayPrompts.filter((prompt) => sourceFilter === 'all' || (prompt.source || 'page1') === sourceFilter),
     [displayPrompts, sourceFilter]
   );
+  const visiblePrompts = useMemo(
+    () => filteredPrompts.slice(0, visibleCount),
+    [filteredPrompts, visibleCount]
+  );
+  const hasMoreCards = visiblePrompts.length < filteredPrompts.length;
 
   return (
     <section className="saved-cards-shell">
@@ -115,7 +126,7 @@ export default function SavedCardsWorkspace({
         </div>
 
         <div className="saved-cards-results-meta">
-          {isFavoritesView ? 'Favorites' : 'Feed'} view currently showing {filteredPrompts.length} cards.
+          {isFavoritesView ? 'Favorites' : 'Feed'} view currently showing {visiblePrompts.length} of {filteredPrompts.length} cards.
         </div>
 
         <div className="saved-cards-list">
@@ -126,7 +137,7 @@ export default function SavedCardsWorkspace({
                 : '目前還沒有保存版本。回到 Prompt 工作台，用 Save 保存你想留下的 prompt。'}
             </div>
           ) : (
-            filteredPrompts.map((prompt) => (
+            visiblePrompts.map((prompt) => (
               <PromptCard
                 key={prompt.id}
                 data={prompt}
@@ -135,6 +146,18 @@ export default function SavedCardsWorkspace({
             ))
           )}
         </div>
+
+        {hasMoreCards ? (
+          <div className="saved-cards-load-more">
+            <button
+              type="button"
+              className="secondary"
+              onClick={() => setVisibleState({ key: visibleKey, count: visibleCount + VISIBLE_CARD_INCREMENT })}
+            >
+              Load More ({filteredPrompts.length - visiblePrompts.length})
+            </button>
+          </div>
+        ) : null}
       </section>
     </section>
   );

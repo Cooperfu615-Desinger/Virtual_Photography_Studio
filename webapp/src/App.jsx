@@ -45,6 +45,7 @@ const STORAGE_BUDGETS = {
 const STORAGE_PERSIST_DELAY_MS = 300;
 const STORAGE_IDLE_TIMEOUT_MS = 1000;
 const FAVORITES_CLOUD_SYNC_DELAY_MS = 900;
+const FAVORITES_CLOUD_BATCH_SYNC_THRESHOLD = 25;
 const PAGE_MODE_COPY = {
   page1: {
     title: 'Prompt Control Deck',
@@ -1449,8 +1450,14 @@ export default function App() {
   const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false);
   const promptsRef = useRef(prompts);
   const favoritePromptsRef = useRef(favoritePrompts);
+  const favoriteCloudAuthRef = useRef(favoriteCloudAuth);
   const favoriteCloudSyncReadyRef = useRef(false);
-  const favoriteCloudLastSignatureRef = useRef('');
+  const favoriteCloudMutationTimerRef = useRef(null);
+  const favoriteCloudPendingMutationsRef = useRef({
+    clear: false,
+    upserts: new Map(),
+    deletes: new Set(),
+  });
 
   const showToast = useCallback((label) => {
     setCopiedLabel(label);
@@ -1481,6 +1488,131 @@ export default function App() {
   }, [favoritePrompts]);
 
   useEffect(() => {
+    favoriteCloudAuthRef.current = favoriteCloudAuth;
+  }, [favoriteCloudAuth]);
+
+  useEffect(() => () => {
+    if (favoriteCloudMutationTimerRef.current) {
+      window.clearTimeout(favoriteCloudMutationTimerRef.current);
+    }
+  }, []);
+
+  const scheduleFavoriteCloudMutationFlush = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    if (favoriteCloudMutationTimerRef.current) {
+      window.clearTimeout(favoriteCloudMutationTimerRef.current);
+    }
+
+    favoriteCloudMutationTimerRef.current = window.setTimeout(async () => {
+      favoriteCloudMutationTimerRef.current = null;
+      const currentAuth = favoriteCloudAuthRef.current;
+
+      if (currentAuth.status !== 'signed-in' || !currentAuth.user) {
+        favoriteCloudPendingMutationsRef.current = {
+          clear: false,
+          upserts: new Map(),
+          deletes: new Set(),
+        };
+        return;
+      }
+
+      if (!favoriteCloudSyncReadyRef.current) {
+        return;
+      }
+
+      const pending = favoriteCloudPendingMutationsRef.current;
+      favoriteCloudPendingMutationsRef.current = {
+        clear: false,
+        upserts: new Map(),
+        deletes: new Set(),
+      };
+
+      const upserts = [...pending.upserts.values()];
+      const deletes = [...pending.deletes].filter((id) => !pending.upserts.has(id));
+      if (!pending.clear && upserts.length === 0 && deletes.length === 0) {
+        return;
+      }
+
+      setFavoriteCloudSyncStatus('saving');
+      try {
+        const {
+          clearCloudFavorites,
+          deleteCloudFavorite,
+          saveCloudFavorite,
+          saveCloudFavorites,
+        } = await loadFavoriteCloudRepository();
+
+        if (pending.clear) {
+          await clearCloudFavorites(currentAuth.user.uid);
+        }
+
+        if (deletes.length > 0) {
+          await Promise.all(deletes.map((favoriteId) => deleteCloudFavorite(currentAuth.user.uid, favoriteId)));
+        }
+
+        if (upserts.length >= FAVORITES_CLOUD_BATCH_SYNC_THRESHOLD) {
+          await saveCloudFavorites(currentAuth.user.uid, upserts);
+        } else {
+          await Promise.all(upserts.map((favorite) => saveCloudFavorite(currentAuth.user.uid, favorite)));
+        }
+
+        setFavoriteCloudSyncStatus('synced');
+      } catch (error) {
+        console.error('Failed to sync cloud favorite mutations:', error);
+        setFavoriteCloudSyncStatus('error');
+        favoriteCloudPendingMutationsRef.current = {
+          clear: pending.clear || favoriteCloudPendingMutationsRef.current.clear,
+          upserts: new Map([...pending.upserts, ...favoriteCloudPendingMutationsRef.current.upserts]),
+          deletes: new Set([...pending.deletes, ...favoriteCloudPendingMutationsRef.current.deletes]),
+        };
+        showToast('Firebase Favorites 同步失敗，已保留本機資料');
+      }
+    }, FAVORITES_CLOUD_SYNC_DELAY_MS);
+  }, [showToast]);
+
+  const queueFavoriteCloudUpsert = useCallback((prompt) => {
+    const serializedFavorite = serializeFavoritePrompt(prompt);
+    if (!serializedFavorite?.i) return;
+    const pending = favoriteCloudPendingMutationsRef.current;
+    if (!pending.clear) pending.deletes.delete(serializedFavorite.i);
+    pending.upserts.set(serializedFavorite.i, serializedFavorite);
+    scheduleFavoriteCloudMutationFlush();
+  }, [scheduleFavoriteCloudMutationFlush]);
+
+  const queueFavoriteCloudUpserts = useCallback((promptsToSync) => {
+    const pending = favoriteCloudPendingMutationsRef.current;
+    promptsToSync.forEach((prompt) => {
+      const serializedFavorite = serializeFavoritePrompt(prompt);
+      if (!serializedFavorite?.i) return;
+      if (!pending.clear) pending.deletes.delete(serializedFavorite.i);
+      pending.upserts.set(serializedFavorite.i, serializedFavorite);
+    });
+    scheduleFavoriteCloudMutationFlush();
+  }, [scheduleFavoriteCloudMutationFlush]);
+
+  const queueFavoriteCloudDelete = useCallback((favoriteId) => {
+    if (!favoriteId) return;
+    const pending = favoriteCloudPendingMutationsRef.current;
+    pending.upserts.delete(favoriteId);
+    if (!pending.clear) pending.deletes.add(favoriteId);
+    scheduleFavoriteCloudMutationFlush();
+  }, [scheduleFavoriteCloudMutationFlush]);
+
+  const queueFavoriteCloudClear = useCallback(() => {
+    favoriteCloudPendingMutationsRef.current = {
+      clear: true,
+      upserts: new Map(),
+      deletes: new Set(),
+    };
+    scheduleFavoriteCloudMutationFlush();
+  }, [scheduleFavoriteCloudMutationFlush]);
+
+  const addFavoritePrompt = useCallback((prompt) => {
+    setFavoritePrompts((prev) => [prompt, ...prev]);
+    queueFavoriteCloudUpsert(prompt);
+  }, [queueFavoriteCloudUpsert]);
+
+  useEffect(() => {
     let isCancelled = false;
     let unsubscribe = () => {};
 
@@ -1502,9 +1634,27 @@ export default function App() {
             .then((cloudFavorites) => {
               if (isCancelled) return;
               const hydratedCloudFavorites = deserializeFavoritePromptCollection(cloudFavorites);
-              setFavoritePrompts((prev) => mergeFavoritePrompts(hydratedCloudFavorites, prev));
+              const mergedFavorites = mergeFavoritePrompts(hydratedCloudFavorites, favoritePromptsRef.current);
+              setFavoritePrompts(mergedFavorites);
               favoriteCloudSyncReadyRef.current = true;
               setFavoriteCloudSyncStatus('synced');
+              if (mergedFavorites.length > hydratedCloudFavorites.length) {
+                favoriteCloudPendingMutationsRef.current = {
+                  clear: false,
+                  upserts: new Map(
+                    mergedFavorites
+                      .map(serializeFavoritePrompt)
+                      .filter(Boolean)
+                      .map((favorite) => [favorite.i, favorite])
+                  ),
+                  deletes: new Set(),
+                };
+                scheduleFavoriteCloudMutationFlush();
+              }
+              const pending = favoriteCloudPendingMutationsRef.current;
+              if (!pending.clear && (pending.upserts.size > 0 || pending.deletes.size > 0)) {
+                scheduleFavoriteCloudMutationFlush();
+              }
             })
             .catch((error) => {
               if (isCancelled) return;
@@ -1527,7 +1677,7 @@ export default function App() {
       isCancelled = true;
       unsubscribe();
     };
-  }, [showToast]);
+  }, [scheduleFavoriteCloudMutationFlush, showToast]);
 
   useEffect(() => {
     return schedulePromptCollectionPersist(PROMPTS_KEY, prompts, sanitizeStoredPromptCollection, (result) => {
@@ -1561,36 +1711,6 @@ export default function App() {
       }
     );
   }, [clearStorageWarning, favoritePrompts, showStorageWarning]);
-
-  useEffect(() => {
-    if (favoriteCloudAuth.status !== 'signed-in' || !favoriteCloudAuth.user || !favoriteCloudSyncReadyRef.current) {
-      return undefined;
-    }
-
-    const serializedFavorites = favoritePrompts.map(serializeFavoritePrompt).filter(Boolean);
-    const nextSignature = JSON.stringify(serializedFavorites);
-    if (favoriteCloudLastSignatureRef.current === nextSignature) {
-      setFavoriteCloudSyncStatus('synced');
-      return undefined;
-    }
-
-    setFavoriteCloudSyncStatus('saving');
-    const timeoutId = window.setTimeout(() => {
-      loadFavoriteCloudRepository()
-        .then(({ replaceCloudFavorites }) => replaceCloudFavorites(favoriteCloudAuth.user.uid, serializedFavorites))
-        .then(() => {
-          favoriteCloudLastSignatureRef.current = nextSignature;
-          setFavoriteCloudSyncStatus('synced');
-        })
-        .catch((error) => {
-          console.error('Failed to sync cloud favorites:', error);
-          setFavoriteCloudSyncStatus('error');
-          showToast('Firebase Favorites 同步失敗，已保留本機資料');
-        });
-    }, FAVORITES_CLOUD_SYNC_DELAY_MS);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [favoriteCloudAuth, favoritePrompts, showToast]);
 
   useEffect(() => {
     const flushPromptCollections = () => {
@@ -1889,9 +2009,9 @@ export default function App() {
       date: new Date().toISOString(),
     };
     nextPrompt.lineage = createLineage(nextPrompt);
-    setFavoritePrompts((prev) => [nextPrompt, ...prev]);
+    addFavoritePrompt(nextPrompt);
     showToast('目前 Prompt 已加入我的最愛');
-  }, [previewPrompt, showToast]);
+  }, [addFavoritePrompt, previewPrompt, showToast]);
 
   const handleRerollPreview = useCallback(() => {
     setPreviewGenerationNonce((prev) => prev + 1);
@@ -1901,7 +2021,8 @@ export default function App() {
   const handleDeletePrompt = useCallback((prompt) => {
     setPrompts((prev) => prev.filter((item) => item.id !== prompt.id));
     setFavoritePrompts((prev) => prev.filter((item) => item.id !== prompt.id));
-  }, []);
+    queueFavoriteCloudDelete(prompt.id);
+  }, [queueFavoriteCloudDelete]);
 
   const handleDownloadAll = (items = displayPrompts) => {
     if (items.length === 0) return;
@@ -1916,6 +2037,7 @@ export default function App() {
 
   const handleClearFavorites = () => {
     setFavoritePrompts([]);
+    queueFavoriteCloudClear();
     showToast('Favorites 已清空');
   };
 
@@ -1970,6 +2092,7 @@ export default function App() {
       }
 
       setFavoritePrompts((prev) => mergeFavoritePrompts(prev, importedPrompts));
+      queueFavoriteCloudUpserts(importedPrompts);
       setViewMode('favorites');
       showToast(`已匯入 ${importedPrompts.length} 張最愛卡片`);
     } catch {
@@ -2020,11 +2143,11 @@ export default function App() {
       page2CoreViewsBundle,
       page2PromptBundle
     );
-    setFavoritePrompts((prev) => [nextCard, ...prev]);
+    addFavoritePrompt(nextCard);
     setViewMode('favorites');
     setPageMode('page4');
     showToast('角色建模 Prompt 已加入 Saved Cards');
-  }, [page2CoreViewsBundle, page2MasterPrompt, page2Profile, page2ProfileAnchor, page2ProfileSummary, page2PromptBundle, showToast]);
+  }, [addFavoritePrompt, page2CoreViewsBundle, page2MasterPrompt, page2Profile, page2ProfileAnchor, page2ProfileSummary, page2PromptBundle, showToast]);
 
   const handleSavePage3Card = useCallback(() => {
     if (!page3Prompt) {
@@ -2040,11 +2163,11 @@ export default function App() {
       page3CinematicPrompt,
       page3WorldPrompt
     );
-    setFavoritePrompts((prev) => [nextCard, ...prev]);
+    addFavoritePrompt(nextCard);
     setViewMode('favorites');
     setPageMode('page4');
     showToast('場景建模 Prompt 已加入 Saved Cards');
-  }, [page3Anchor, page3CinematicPrompt, page3Profile, page3Prompt, page3Summary, page3WorldPrompt, showToast]);
+  }, [addFavoritePrompt, page3Anchor, page3CinematicPrompt, page3Profile, page3Prompt, page3Summary, page3WorldPrompt, showToast]);
 
   const handleRandomizePage5Profile = useCallback(() => {
     setPage5Profile(buildRandomSunoProfile());
@@ -2058,11 +2181,11 @@ export default function App() {
     }
 
     const nextCard = buildSunoSavedCard(normalizedPage5Profile);
-    setFavoritePrompts((prev) => [nextCard, ...prev]);
+    addFavoritePrompt(nextCard);
     setViewMode('favorites');
     setPageMode('page4');
     showToast('SUNO Styles Prompt 已加入 Saved Cards');
-  }, [normalizedPage5Profile, page5StylesPrompt, showToast]);
+  }, [addFavoritePrompt, normalizedPage5Profile, page5StylesPrompt, showToast]);
   const pageHeaderCopy = PAGE_MODE_COPY[pageMode] || PAGE_MODE_COPY.page1;
 
   return (

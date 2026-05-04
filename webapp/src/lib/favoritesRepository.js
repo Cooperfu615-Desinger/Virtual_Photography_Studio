@@ -4,6 +4,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  setDoc,
   writeBatch,
 } from 'firebase/firestore';
 import {
@@ -109,6 +110,33 @@ export async function replaceCloudFavorites(userId, serializedFavorites) {
         return;
       }
       batch.set(operation.ref, operation.data);
+    });
+    await batch.commit();
+  }
+}
+
+export async function saveCloudFavorite(userId, serializedFavorite) {
+  const favoritesRef = getFavoritesCollection(userId);
+  if (!favoritesRef || !serializedFavorite?.i) return;
+
+  await setDoc(doc(favoritesRef, toFavoriteDocId(serializedFavorite.i)), {
+    ...serializedFavorite,
+    cloudUpdatedAt: new Date().toISOString(),
+  });
+}
+
+export async function saveCloudFavorites(userId, serializedFavorites) {
+  const favoritesRef = getFavoritesCollection(userId);
+  if (!firebaseDb || !favoritesRef) return;
+
+  const nextFavorites = serializedFavorites.filter((favorite) => favorite?.i);
+  for (let index = 0; index < nextFavorites.length; index += CLOUD_SYNC_CHUNK_SIZE) {
+    const batch = writeBatch(firebaseDb);
+    nextFavorites.slice(index, index + CLOUD_SYNC_CHUNK_SIZE).forEach((favorite) => {
+      batch.set(doc(favoritesRef, toFavoriteDocId(favorite.i)), {
+        ...favorite,
+        cloudUpdatedAt: new Date().toISOString(),
+      });
     });
     await batch.commit();
   }
