@@ -11,19 +11,19 @@
 
 ## Current Working State
 
-- Latest pushed commit on `main`: `083c9df Add nighttime scene accents and update lace dress`
+- Latest pushed commit on `main`: `ad2d906 Refine garter stocking prompt details`
 - Recent important commits:
-  - `083c9df Add nighttime scene accents and update lace dress`
-  - `c384126 Refine striped color wording`
-  - `ea6d7a7 Add knit sweater and palette options`
-  - `e48812d Add lighting reference modal`
-  - `162b6dd Refine light style controls`
-  - `e7cfcd1 Add more indoor environment moods`
-  - `147f088 Optimize Firebase loading and safer body prompts`
-  - `b4fd8af Expand graffiti clothing prompt variations`
-  - `a3877bc Move Firebase auth into settings menu`
-  - `0086d4f Add Firebase favorites sync`
-- Working tree should be clean after `083c9df`; if this handoff doc is edited, only this doc should be dirty
+  - `ad2d906 Refine garter stocking prompt details`
+  - `4377620 Polish skeleton workspace UI`
+  - `f46327e Refine framing prompts and skeleton posing`
+  - `83e57e2 Add skeleton special subject mode`
+  - `f4e2f8b Refine AI footwear prompt details`
+  - `6ee71df Refine AI wardrobe layering output`
+  - `40a8943 Prioritize outerwear in prompt layering`
+  - `9cfb308 Fix duo wardrobe random preset flow`
+  - `513a56c Restore duo wardrobe controls`
+  - `32daff2 Add new ruffle skirt variants`
+- Working tree should be clean after `ad2d906`; if this handoff doc is edited, only this doc should be dirty
 - Work continues directly on `main`
 - Standard validation flow remains:
   - `python3 scripts/sync_to_json.py`
@@ -54,15 +54,24 @@
 - `Subject Count` supports:
   - `1 位`
   - `2 位`
+  - `骷髏`
   - `上傳人物`
 - `上傳人物` is still prompt-only guidance:
   - no in-app upload exists
   - generated prompt expects the user to attach the same reference image directly in the target image tool
+- `骷髏` is now a dedicated special-subject mode:
+  - standalone subject only
+  - full human skeleton
+  - deep blue-black bone tone
+  - clean specimen / surreal installation feel
+  - no wardrobe generation
+  - scene / camera / lighting / style remain active
 - Main controls still include:
-  - `Generate`
-  - `Clear Feed`
+  - `隨機生成`
+  - `清除已選`
   - `All Random`
   - `All None`
+- `加入最愛` in live preview now saves directly to `Saved Cards`
 - The site-wide Firebase sign-in / sign-out control now lives in the top-right gear settings menu, not inside the Favorites toolbar.
 
 ## Page Architecture
@@ -874,3 +883,269 @@
   - remaining cropped top variants
   - remaining bodycon / fitted skirt variants
   - any pants or skirts still implicitly encoding low-rise or tightness in the base item name
+
+## 2026-05-03 / 2026-05-04 Latest State
+
+### Recent Mainline Commits
+
+- Recent pushed commits after the older sections above:
+  - `ad2d906 Refine garter stocking prompt details`
+  - `4377620 Polish skeleton workspace UI`
+  - `f46327e Refine framing prompts and skeleton posing`
+  - `83e57e2 Add skeleton special subject mode`
+  - `f4e2f8b Refine AI footwear prompt details`
+  - `6ee71df Refine AI wardrobe layering output`
+  - `40a8943 Prioritize outerwear in prompt layering`
+
+### Prompt Family State
+
+- PAGE1 prompt roles are now explicitly defined as:
+  - `Grok`
+    - full structured prompt
+    - closest to exact control fidelity
+  - `Z-Image`
+    - natural-language version derived from the same deterministic selection data
+    - still keeps most full control meaning
+  - `AI`
+    - intentionally simplified
+    - keeps:
+      - subject core
+      - main outfit
+      - eyewear if present
+      - main scene
+      - core camera
+      - core lighting
+      - limited atmosphere wording
+- Current copy buttons in `LIVE PROMPT PREVIEW` are:
+  - `Grok`
+  - `Z-Image`
+  - `AI`
+  - `加入最愛`
+
+### Outerwear-First Prompt Logic
+
+- `Z-Image` and `AI` now prioritize outerwear when outerwear exists.
+- New order for those two prompt families:
+  - outerwear
+  - outerwear styling
+  - inner top / layered upper garment
+  - lower-body garment
+- `Grok` was intentionally left more structured and was not converted to this flattened order.
+- Related commits:
+  - `40a8943 Prioritize outerwear in prompt layering`
+  - `6ee71df Refine AI wardrobe layering output`
+
+### AI Footwear / Legwear Refinement
+
+- `AI` prompt output now keeps:
+  - sock / legwear color
+  - shoe style silhouette
+- This applies to both single and duo generation.
+- Earlier duplication bugs in duo footwear wording were fixed.
+
+### PAGE1 Workspace / Saved Cards UX
+
+- PAGE1 remains the main 3-column workspace:
+  - left = stage navigation + actions
+  - center = focused control editor
+  - right = live prompt preview
+- `加入最愛` from the preview saves directly to `Saved Cards`.
+- `Saved Cards` was simplified and now functions mainly as:
+  - prompt storage
+  - prompt copying
+  - source split including `SUNO`
+- The extra duplicated middle description card under each subpanel was removed.
+- A/B/C sections now rely on the top header copy plus the active controls only.
+
+### PAGE1 Wardrobe Panel Structure
+
+- `B 穿搭設定` is now split into:
+  - `整體穿搭`
+  - `上下身單件`
+  - `配色`
+  - `鞋襪與外層`
+  - `配件細節`
+- `上下身單件` no longer includes:
+  - `連身`
+  - `連身配色`
+- `整體穿搭` now owns:
+  - outfit preset
+  - dress
+- `配色` now owns:
+  - outfit preset color groups
+  - dress color
+  - top/bottom palette
+  - top color / pattern
+  - bottom color / pattern
+
+### Duo Wardrobe Restoration
+
+- Duo-specific independent controls were restored for:
+  - `整體穿搭`
+    - separate dress controls for A/B
+  - `上下身單件`
+    - top / fit / styling
+    - pants / skirt
+    - bottom fit / rise
+  - `配色`
+    - separate palette / top color / bottom color / pattern fields
+  - `鞋襪與外層`
+  - `配件細節`
+- Prompt generation, selection snapshots, and favorites restore all support these A/B controls again.
+
+### Wardrobe Refactor Progress
+
+- The wardrobe refactor now has active first-pass normalized controls for:
+  - `上身版型`
+  - `上身穿法`
+  - `下身版型`
+  - `下身腰線`
+- Current option sets remain:
+  - `上身版型`
+    - `正常`
+    - `合身`
+    - `緊身`
+    - `oversize`
+  - `上身穿法`
+    - `正常穿著`
+    - `紮入下身`
+    - `半紮`
+    - `自然放出`
+    - `下擺打結`
+  - `下身版型`
+    - `正常`
+    - `合身`
+    - `緊身`
+    - `寬版`
+  - `下身腰線`
+    - `高腰`
+    - `正常腰線`
+    - `低腰`
+    - `超低腰`
+- Prompt wording for these fields was intentionally shifted toward:
+  - silhouette
+  - construction
+  - styling direction
+  - cut / fit
+  - reduced scene-like phrasing
+
+### Random / Reroll State
+
+- Wardrobe reroll logic was rewritten around a more stable decision tree.
+- Main-body order now resolves through:
+  - outfit preset
+  - dress
+  - top
+  - pants
+  - skirt
+- Explicit locks should now be respected more consistently.
+- Secondary layers are handled independently:
+  - legwear
+  - outerwear
+  - accessories
+- Important duo bug fix:
+  - if `outfitPresetAId` / `outfitPresetBId` were set to `隨機`, they previously could be misread as “already specified,” which caused duo main wardrobe to disappear
+  - fixed in `9cfb308`
+
+### Framing / Close-Up Refinement
+
+- Three high-risk close-up framings were rewritten to reduce split-face / multi-face artifacts:
+  - `臉部特寫`
+    - now:
+      - `tight facial close-up portrait, face dominant in frame, balanced proportions, clean frontal readability`
+  - `局部五官特寫`
+    - now:
+      - `tight close-up focused on the eye area and upper facial structure, cropped editorial framing, strong visual tension`
+  - `半臉傾斜特寫`
+    - now:
+      - `stylized asymmetrical close-up portrait, one side of the face emphasized, off-center framing, slight dutch angle`
+- Main reasoning:
+  - older wording such as `one half of the face`, `partial face`, and `entire face filling almost the whole frame` was too likely to trigger:
+    - split-face renders
+    - dual-surface facial artifacts
+    - half-human / half-object merges
+
+### Skeleton Special Subject Mode
+
+- `Subject Count` now includes `骷髏`.
+- Current skeleton-mode behavior:
+  - one complete human skeleton only
+  - no flesh
+  - deep blue-black bone tone
+  - clean specimen texture
+  - surreal studio / installation feel
+- Prompt routing:
+  - no wardrobe generation
+  - no face / hair / skin-detail generation
+  - `Grok`, `Z-Image`, and `AI` all switch to skeleton subject text
+- UI behavior:
+  - left `A 人物設定` summary now displays `骷髏`
+  - wardrobe panel is effectively disabled with a skeleton-specific note
+  - duplicate workspace explanation card was removed
+- Motion support:
+  - skeleton mode now keeps:
+    - `姿勢動作`
+    - `特殊動作`
+  - this is currently single-subject only
+- Important current limitation:
+  - skeleton mode still shares the general scene/camera/style system, so some neutral human-photography phrasing may still appear in style or scene text even though direct human subject language has been removed
+
+### Legwear Detail Fix
+
+- `膝上蕾絲吊帶襪` was refined because models often rendered only the garter hardware and omitted the stockings.
+- Updated wording now explicitly includes:
+  - thigh-high stocking body
+  - translucent nylon hosiery texture
+  - lace top band
+  - matching garter straps
+  - satin ribbon garter detail
+- Current wording:
+  - `thigh-high sheer lace garter stockings, translucent stocking legs extending above the knee, floral lace top band, matching lace garter straps and satin ribbon garter details, delicate nylon hosiery texture, refined lingerie accessory styling`
+- Legwear color should still apply through the normal `legwearColor` flow; no special engine rewrite was needed.
+
+### New Skirt Variants
+
+- Added:
+  - `多層網紗荷葉短裙`
+  - `不對稱荷葉短裙`
+  - `透膚蕾絲荷葉短裙`
+- Existing `荷葉短裙` was kept as the base general option.
+- `龐克格紋百褶裙` was also refined to include black belt / hardware detail.
+
+### SUNO State
+
+- `SUNO` tab exists and remains active as a styles builder.
+- Current fields:
+  - genres
+  - main instruments
+  - BPM range
+  - groove
+  - vocal traits
+  - texture / atmosphere
+- Current BPM ranges:
+  - `40~60`
+  - `50~70`
+  - `50~80`
+  - `60~90`
+
+### Validation Notes
+
+- Recent implementation often relied on:
+  - direct node-based prompt generation checks from `webapp/src/lib/engine.js`
+  - git diff verification
+- `npm run build` has sometimes appeared to hang in this environment after `vite build` starts transforming, so practical validation in recent sessions has often used direct generation checks when build completion was unclear.
+- If a future session needs full validation, still try:
+  - `python3 scripts/sync_to_json.py`
+  - `npm run lint`
+  - `npm run build`
+
+### Best Current Follow-Up Areas
+
+- Continue reducing human-photography residue in skeleton mode:
+  - scene text
+  - lighting adjectives
+  - style / film phrases
+- Add more outfit / accessory compatibility guardrails for close-up compositions.
+- Continue wardrobe normalization:
+  - reduce remaining item names that still embed fit / rise / styling state
+  - keep base garment names cleaner and reusable
