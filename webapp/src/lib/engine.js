@@ -4244,23 +4244,6 @@ function buildFacialFeaturesPrompt(faceItem, { eyewear, earrings } = {}) {
   return `${baseFace}. ${accessoryText}`;
 }
 
-function compactClause(text, maxParts = 2) {
-  if (!text) return '';
-  return text
-    .split(',')
-    .map((part) => stripMarkdown(part))
-    .filter(Boolean)
-    .slice(0, maxParts)
-    .join(', ');
-}
-
-function stripWearingPrefix(value) {
-  return stripMarkdown(value || '')
-    .replace(/\s+/g, ' ')
-    .replace(/^wearing\s+/i, '')
-    .trim();
-}
-
 function ensureTerminalPeriod(value) {
   const cleaned = stripMarkdown(value).trim();
   if (!cleaned) return '';
@@ -4328,23 +4311,6 @@ function sanitizeSkeletonPromptText(value) {
     .replace(/clear facial readability/gi, 'clear skeletal structure readability')
     .replace(/\s+/g, ' ')
     .trim();
-}
-
-function buildFreeformSubjectText(subject) {
-  if (isSkeletonSubject(subject)) return 'a complete human skeleton, fleshless, dark blue-black anatomical specimen';
-  if (subject?.count === 2) return 'two elegant beautiful seductive stunning 20-year-old Japanese or Korean women';
-  return 'an elegant beautiful seductive stunning 20-year-old Japanese or Korean woman';
-}
-
-function buildMinimalPromptPart(value, maxParts = 1) {
-  const cleaned = stripWearingPrefix(value);
-  if (!cleaned || cleaned.toLowerCase() === 'none') return '';
-  return compactClause(cleaned, maxParts);
-}
-
-function buildMinimalItemPromptPart(item, maxParts = 1) {
-  if (!item || isNoneLikeItem(item)) return '';
-  return buildMinimalPromptPart(item.en, maxParts);
 }
 
 function getSceneAccentMoodType(lighting) {
@@ -4498,225 +4464,6 @@ function buildContextualSceneAccent(context, { short = false } = {}) {
   };
 
   return variants[profile]?.[moodType]?.[short ? 'short' : 'full'] || '';
-}
-
-function buildMinimalLocationText(location, context = null) {
-  if (!location || isNoneLikeItem(location)) return '';
-  const isSkeletonMode = context ? isSkeletonSubject(context.subject) : false;
-  const clean = (value) => (isSkeletonMode ? sanitizeSkeletonPromptText(value) : value);
-  const base = buildMinimalPromptPart(clean(location.en), 1);
-  const accent = context ? buildMinimalPromptPart(clean(buildContextualSceneAccent(context, { short: true })), 1) : '';
-  return [base, accent].filter(Boolean).join(', ');
-}
-
-function buildAiEyewearText(wardrobeSlots, subjectCount) {
-  if (subjectCount === 2) {
-    const roleA = buildMinimalItemPromptPart(wardrobeSlots.eyewearA, 1);
-    const roleB = buildMinimalItemPromptPart(wardrobeSlots.eyewearB, 1);
-    const shared = buildMinimalItemPromptPart(wardrobeSlots.eyewear, 1);
-    const parts = [
-      roleA ? `woman 1 wearing ${roleA}` : '',
-      roleB ? `woman 2 wearing ${roleB}` : '',
-      !roleA && !roleB && shared ? `both wearing ${shared}` : '',
-    ].filter(Boolean);
-    return parts.join(', ');
-  }
-
-  const single = buildMinimalItemPromptPart(wardrobeSlots.eyewear, 1);
-  return single ? `wearing ${single}` : '';
-}
-
-function buildAiMainWardrobeText(wardrobeSlots, wardrobeColors, subjectCount) {
-  const normalize = (value) => stripWearingPrefix(compactClause(value, 2));
-  const buildAiLayerItemText = (item, color, maxParts = 2) => {
-    const coloredText = buildColoredGrokPrompt(item, color);
-    if (coloredText) return normalize(compactClause(coloredText, maxParts));
-    return buildMinimalItemPromptPart(item, maxParts);
-  };
-  const buildRoleLayerText = (role) => {
-    const suffix = role === 'a' ? 'A' : 'B';
-    return [
-      buildAiLayerItemText(wardrobeSlots[`legwear${suffix}`], wardrobeColors[`legwear${suffix}Color`], 2),
-      buildAiLayerItemText(wardrobeSlots[`shoes${suffix}`], wardrobeColors[`shoes${suffix}Color`], 2),
-    ].filter(Boolean).join(', ');
-  };
-  const buildSharedLayerText = () => [
-    buildAiLayerItemText(wardrobeSlots.legwear, wardrobeColors.legwearColor, 2),
-    buildAiLayerItemText(wardrobeSlots.shoes, wardrobeColors.shoesColor, 2),
-  ].filter(Boolean).join(', ');
-
-  const buildRoleMainText = (role) => {
-    const suffix = role === 'a' ? 'A' : 'B';
-    const preset = wardrobeSlots[`outfitPreset${suffix}`];
-    if (preset && !isNoneLikeItem(preset)) {
-      return normalize(buildOutfitPresetPrompt(preset, {
-        legacy: wardrobeColors[`outfitPreset${suffix}Color`],
-        primary: wardrobeColors[`outfitPreset${suffix}PrimaryColor`],
-        contrast: wardrobeColors[`outfitPreset${suffix}ContrastColor`],
-        lockedPalette: wardrobeColors[`outfitPreset${suffix}LockedPalette`],
-      }));
-    }
-
-    const dressText = normalize(buildColoredGrokPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`]));
-    const outerwearText = normalize(buildColoredGrokPrompt(wardrobeSlots[`outerwear${suffix}`], wardrobeColors[`outerwear${suffix}Color`], {
-      pattern: wardrobeSlots[`outerwear${suffix}Pattern`],
-    }));
-    const outerwearStylingText = buildOuterwearStylingLeadText(wardrobeSlots[`outerwear${suffix}Styling`], { minimal: true });
-    const roleLayerText = buildRoleLayerText(role);
-    const sharedLayerText = buildSharedLayerText();
-    if (dressText) {
-      return outerwearText
-        ? [outerwearText, outerwearStylingText, `over ${dressText}`, roleLayerText, sharedLayerText].filter(Boolean).join(', ')
-        : [dressText, roleLayerText, sharedLayerText].filter(Boolean).join(', ');
-    }
-
-    const topText = normalize(buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role));
-    const bottomText = normalize(
-      buildRoleBottomWardrobePrompt(wardrobeSlots[`pants${suffix}`], wardrobeSlots, wardrobeColors, role) ||
-      buildRoleBottomWardrobePrompt(wardrobeSlots[`skirt${suffix}`], wardrobeSlots, wardrobeColors, role)
-    );
-
-    if (outerwearText && topText) {
-      return [outerwearText, outerwearStylingText, `over ${topText}`, bottomText, roleLayerText, sharedLayerText].filter(Boolean).join(', ');
-    }
-
-    if (outerwearText) {
-      return [outerwearText, outerwearStylingText, bottomText, roleLayerText, sharedLayerText].filter(Boolean).join(', ');
-    }
-
-    return [topText, bottomText, roleLayerText, sharedLayerText].filter(Boolean).join(', ');
-  };
-
-  if (subjectCount === 2 && (
-    wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB ||
-    wardrobeSlots.dressA || wardrobeSlots.dressB ||
-    wardrobeSlots.topA || wardrobeSlots.topB ||
-    wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
-    wardrobeSlots.skirtA || wardrobeSlots.skirtB
-  )) {
-    return [
-      buildRoleMainText('a') ? `woman 1 wears ${buildRoleMainText('a')}` : '',
-      buildRoleMainText('b') ? `woman 2 wears ${buildRoleMainText('b')}` : '',
-    ].filter(Boolean).join(', ');
-  }
-
-  if (wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)) {
-    const presetText = normalize(buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
-      legacy: wardrobeColors.outfitPresetColor,
-      primary: wardrobeColors.outfitPresetPrimaryColor,
-      contrast: wardrobeColors.outfitPresetContrastColor,
-      lockedPalette: wardrobeColors.outfitPresetLockedPalette,
-    }));
-    const sharedLayerText = buildSharedLayerText();
-    return [presetText, sharedLayerText].filter(Boolean).join(', ');
-  }
-
-  const dressText = normalize(buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor));
-  const outerwearText = normalize(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
-    pattern: wardrobeSlots.outerwearPattern,
-  }));
-  const outerwearStylingText = buildOuterwearStylingLeadText(wardrobeSlots.outerwearStyling, { minimal: true });
-  const sharedLayerText = buildSharedLayerText();
-  if (dressText) {
-    return outerwearText
-      ? [outerwearText, outerwearStylingText, `over ${dressText}`, sharedLayerText].filter(Boolean).join(', ')
-      : [dressText, sharedLayerText].filter(Boolean).join(', ');
-  }
-
-  const topText = normalize(buildTopWardrobePrompt(wardrobeSlots, wardrobeColors));
-  const bottomText = normalize(
-    buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors) ||
-    buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors)
-  );
-
-  if (outerwearText && topText) {
-    return [outerwearText, outerwearStylingText, `over ${topText}`, bottomText, sharedLayerText].filter(Boolean).join(', ');
-  }
-
-  if (outerwearText) {
-    return [outerwearText, outerwearStylingText, bottomText, sharedLayerText].filter(Boolean).join(', ');
-  }
-
-  return [topText, bottomText, sharedLayerText].filter(Boolean).join(', ');
-}
-
-function buildAiAtmosphereText(context, film) {
-  const sceneAccentText = compactClause(buildContextualSceneAccent(context, { short: true }), 1);
-  const filmText = compactClause(film?.en, 1);
-  const parts = [...new Set([sceneAccentText, filmText].filter(Boolean))].slice(0, 2);
-  return parts.join(', ');
-}
-
-function buildMidjourneyStructuredPrompt(context, characterSlots, wardrobeSlots, wardrobeColors, lightDirection, film) {
-  const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
-  if (isSkeletonSubject(context.subject)) {
-    const skeletonActionText = [
-      characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? buildMinimalPromptPart(sanitizeSkeletonPromptText(characterSlots.specialAction.en), 1) : '',
-      characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? buildMinimalPromptPart(sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)), 1) : '',
-    ].filter(Boolean).join(', ');
-    const sceneText = buildMinimalLocationText(context.location, context);
-    const cameraText = [
-      context.framing ? buildMinimalPromptPart(sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)), 1) : '',
-      context.angle ? buildMinimalPromptPart(sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)), 1) : '',
-      buildMinimalPromptPart(context.lens?.en, 1),
-    ].filter(Boolean).join(', ');
-    const lightText = [
-      context.lighting ? buildMinimalPromptPart(sanitizeSkeletonPromptText(context.lighting.en), 1) : '',
-      lightDirection ? buildMinimalPromptPart(sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)), 1) : '',
-    ].filter(Boolean).join(', ');
-    const atmosphereText = sanitizeSkeletonPromptText(buildAiAtmosphereText(context, film));
-
-    return [
-      ensureTerminalPeriod([context.subject.en, skeletonActionText].filter(Boolean).join(', ')),
-      sceneText ? ensureTerminalPeriod(`setting: ${sceneText}`) : '',
-      cameraText ? ensureTerminalPeriod(`camera: ${cameraText}`) : '',
-      lightText ? ensureTerminalPeriod(`lighting: ${lightText}`) : '',
-      atmosphereText ? ensureTerminalPeriod(`atmosphere: ${atmosphereText}`) : '',
-    ].filter(Boolean).join(' ');
-  }
-  const subjectCore = [
-    buildFreeformSubjectText(context.subject),
-    buildMinimalPromptPart(characterSlots.bodyType?.en, 1),
-    context.subject.count === 2
-      ? 'distinct faces, different appearances'
-      : (!useCharacterIdentityAnchor
-          ? buildMinimalPromptPart(buildFacialFeaturesPrompt(characterSlots.facialFeatures), 2)
-          : buildMinimalPromptPart(context.characterProfilePrompt, 2)),
-  ].filter(Boolean).join(', ');
-  const duoFaceDetails = context.subject.count === 2
-    ? [
-        characterSlots.facialFeaturesA && !isNoneLikeItem(characterSlots.facialFeaturesA)
-          ? `woman 1 with ${compactClause(characterSlots.facialFeaturesA.en, 2)}`
-          : '',
-        characterSlots.facialFeaturesB && !isNoneLikeItem(characterSlots.facialFeaturesB)
-          ? `woman 2 with ${compactClause(characterSlots.facialFeaturesB.en, 2)}`
-          : '',
-      ].filter(Boolean).join(', ')
-    : '';
-  const eyewearText = buildAiEyewearText(wardrobeSlots, context.subject.count);
-  const wardrobeText = buildAiMainWardrobeText(wardrobeSlots, wardrobeColors, context.subject.count);
-  const sceneText = buildMinimalLocationText(context.location);
-  const cameraText = [
-    context.framing ? buildMinimalPromptPart(resolvePromptVariant(context.framing, 'framing', context.subject.count), 1) : '',
-    context.angle ? buildMinimalPromptPart(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1) : '',
-    buildMinimalPromptPart(context.lens?.en, 1),
-  ].filter(Boolean).join(', ');
-  const lightText = [
-    context.lighting ? buildMinimalPromptPart(context.lighting.en, 1) : '',
-    lightDirection ? buildMinimalPromptPart(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count), 1) : '',
-  ].filter(Boolean).join(', ');
-  const atmosphereText = buildAiAtmosphereText(context, film);
-
-  return [
-    ensureTerminalPeriod(subjectCore),
-    ensureTerminalPeriod(duoFaceDetails),
-    ensureTerminalPeriod(eyewearText),
-    wardrobeText ? ensureTerminalPeriod(`main outfit: ${wardrobeText}`) : '',
-    sceneText ? ensureTerminalPeriod(`setting: ${sceneText}`) : '',
-    cameraText ? ensureTerminalPeriod(`camera: ${cameraText}`) : '',
-    lightText ? ensureTerminalPeriod(`lighting: ${lightText}`) : '',
-    atmosphereText ? ensureTerminalPeriod(`atmosphere: ${atmosphereText}`) : '',
-  ].filter(Boolean).join(' ');
 }
 
 function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction) {
@@ -5157,21 +4904,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction) {
-  const characterSlots = extractCharacterSlots(character);
-  const wardrobeSlots = extractWardrobeSlots(wardrobe);
-  const midjourneyPrompt = buildMidjourneyStructuredPrompt(
-    context,
-    characterSlots,
-    wardrobeSlots,
-    wardrobeColors,
-    lightDirection,
-    film,
-    opticalEffect,
-    duoInteraction
-  );
-
   const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction);
   const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction);
+  const midjourneyPrompt = zImagePrompt;
 
   return { midjourneyPrompt, grokPrompt, zImagePrompt };
 }
