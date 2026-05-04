@@ -2952,53 +2952,53 @@
       },
       {
         "zh": "室內：純潔白幕",
-        "en": "infinite white background, isolated subject, commercial white studio",
-        "desc": "商業感極強，人物彷彿漂浮在純白無限延伸空間中。"
+        "en": "seamless matte pure white cyclorama, one continuous clean white surface covering both floor and background, full-bleed solid white field, no visible wall corner, no backdrop stand, no curtain folds, no studio equipment, no props",
+        "desc": "以純白單色無縫地面與背景為主，像滿版白色空間，不出現布幕、燈架、牆角或其他棚內物件。"
       },
       {
         "zh": "室內：深邃黑幕",
-        "en": "infinite black background, isolated subject, commercial black studio",
-        "desc": "絕對黑色的無限延伸背景，能將所有注意力集中在被光照到的主體上。"
+        "en": "seamless matte deep black cyclorama, one continuous clean black surface covering both floor and background, full-bleed solid black field, no visible wall corner, no backdrop stand, no curtain folds, no studio equipment, no props",
+        "desc": "以深黑單色無縫地面與背景為主，主體像站在滿版黑色空間中，不出現布幕、燈架、牆角或其他棚內物件。"
       },
       {
         "zh": "室內：莫蘭迪灰背景",
-        "en": "infinite muted grey background, isolated subject, commercial neutral grey studio",
-        "desc": "低飽和灰色的無限延伸背景，穩定、中性且不干擾膚色。"
+        "en": "seamless matte muted grey cyclorama, one continuous clean grey surface covering both floor and background, full-bleed solid neutral-grey field, no visible wall corner, no backdrop stand, no curtain folds, no studio equipment, no props",
+        "desc": "以乾淨低飽和灰色單色無縫地面與背景為主，穩定、中性，不出現布幕、燈架、牆角或棚內物件。"
       },
       {
         "zh": "室內：純藍背景",
-        "en": "infinite solid blue background, isolated subject, commercial blue studio",
-        "desc": "飽和藍色的無限延伸背景，乾淨直接，適合高辨識度棚拍企劃。"
+        "en": "seamless matte saturated pure blue cyclorama, one continuous vivid blue surface covering both floor and background, full-bleed solid blue color field, clean saturated pigment, no visible wall corner, no backdrop stand, no curtain folds, no studio equipment, no props",
+        "desc": "以高飽和純藍單色無縫地面與背景為主，像附圖那種乾淨滿版色塊，不出現棚內道具或設備。"
       },
       {
         "zh": "室內：純橘背景",
-        "en": "infinite solid orange background, isolated subject, commercial orange studio",
-        "desc": "明亮橘色的無限延伸背景，帶有活力與高飽和商業感。"
+        "en": "seamless matte saturated pure orange cyclorama, one continuous vivid orange surface covering both floor and background, full-bleed solid orange color field, clean saturated pigment, no visible wall corner, no backdrop stand, no curtain folds, no studio equipment, no props",
+        "desc": "以高飽和純橘單色無縫地面與背景為主，乾淨、飽滿、滿版，不出現棚內道具或設備。"
       },
       {
         "zh": "室內：純紅背景",
-        "en": "infinite solid red background, isolated subject, commercial red studio",
-        "desc": "高飽和紅色的無限延伸背景，張力強且具商業封面感。"
+        "en": "seamless matte saturated pure red cyclorama, one continuous vivid red surface covering both floor and background, full-bleed solid red color field like a clean graphic red void, clean saturated pigment, no visible wall corner, no backdrop stand, no curtain folds, no studio equipment, no props",
+        "desc": "以附圖感的高飽和純紅單色無縫地面與背景為主，紅色必須乾淨、飽滿、滿版，不出現棚內道具或設備。"
       },
       {
         "zh": "室內：純黃背景",
-        "en": "infinite solid yellow background, isolated subject, commercial yellow studio",
-        "desc": "亮黃色的無限延伸背景，辨識度高，適合青春與流行企劃。"
+        "en": "seamless matte saturated pure yellow cyclorama, one continuous vivid yellow surface covering both floor and background, full-bleed solid yellow color field, clean saturated pigment, no visible wall corner, no backdrop stand, no curtain folds, no studio equipment, no props",
+        "desc": "以高飽和純黃單色無縫地面與背景為主，乾淨、明亮、滿版，不出現棚內道具或設備。"
       },
       {
         "zh": "室內：純紫背景",
-        "en": "infinite solid purple background, isolated subject, commercial purple studio",
-        "desc": "紫色的無限延伸背景，兼具流行感與概念商業感。"
+        "en": "seamless matte saturated pure purple cyclorama, one continuous vivid purple surface covering both floor and background, full-bleed solid purple color field, clean saturated pigment, no visible wall corner, no backdrop stand, no curtain folds, no studio equipment, no props",
+        "desc": "以高飽和純紫單色無縫地面與背景為主，乾淨、飽滿、滿版，不出現棚內道具或設備。"
       },
       {
         "zh": "室內：純綠背景",
-        "en": "infinite solid green background, isolated subject, commercial green studio",
-        "desc": "綠色的無限延伸背景，清新、圖像感強且適合高對比棚拍。"
+        "en": "seamless matte saturated pure green cyclorama, one continuous vivid green surface covering both floor and background, full-bleed solid green color field, clean saturated pigment, no visible wall corner, no backdrop stand, no curtain folds, no studio equipment, no props",
+        "desc": "以高飽和純綠單色無縫地面與背景為主，乾淨、飽滿、滿版，不出現棚內道具或設備。"
       },
       {
         "zh": "室內：鮮豔撞色背景",
-        "en": "infinite vibrant solid-color background, isolated subject, commercial color-block studio",
-        "desc": "高飽和純色塊的無限延伸背景，適合社群感、普普與商業企劃。"
+        "en": "seamless matte single vivid color cyclorama, one continuous saturated pop-color surface covering both floor and background, full-bleed solid color-block field, clean saturated pigment, no gradient, no visible wall corner, no backdrop stand, no curtain folds, no studio equipment, no props",
+        "desc": "隨機高飽和單一色塊背景，重點是滿版純色，不做漸層或棚景，不出現布幕、燈架、牆角或道具。"
       },
       {
         "zh": "室內：漸層打光背景",
