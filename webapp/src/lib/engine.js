@@ -4903,10 +4903,41 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   ].filter(Boolean).join(' ');
 }
 
+const AI_PROMPT_EXCLUDED_GROK_LABELS = new Set([
+  'Wardrobe Integrity',
+  'Composition Priority',
+]);
+
+function normalizeAiPromptClause(value) {
+  return stripMarkdown(value || '')
+    .replace(/[.!?]+/g, ',')
+    .replace(/\s*,\s*/g, ', ')
+    .replace(/(?:,\s*)+$/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function buildAiSingleSentencePrompt(grokPrompt) {
+  const clauses = grokPrompt
+    .split('\n')
+    .map((line) => {
+      const separatorIndex = line.indexOf(':');
+      if (separatorIndex === -1) return '';
+
+      const label = line.slice(0, separatorIndex).trim();
+      if (AI_PROMPT_EXCLUDED_GROK_LABELS.has(label)) return '';
+
+      return normalizeAiPromptClause(line.slice(separatorIndex + 1));
+    })
+    .filter(Boolean);
+
+  return ensureTerminalPeriod(`Create a natural photographic image of ${clauses.join(', ')}`);
+}
+
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction) {
   const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction);
   const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction);
-  const midjourneyPrompt = zImagePrompt;
+  const midjourneyPrompt = buildAiSingleSentencePrompt(grokPrompt);
 
   return { midjourneyPrompt, grokPrompt, zImagePrompt };
 }
