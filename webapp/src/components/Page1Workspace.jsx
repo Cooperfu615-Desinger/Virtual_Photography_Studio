@@ -353,7 +353,6 @@ function filterControlsByKeys(controls, keys) {
 }
 
 export default function Page1Workspace({
-  activeLockCount,
   coreLockControls,
   characterLockControls,
   wardrobeLockControls,
@@ -511,7 +510,6 @@ export default function Page1Workspace({
         <aside className="page1-sidebar lock-panel">
           <div className="page1-sidebar-header">
             <div className="lock-title">Prompt Workspace</div>
-            <p className="lock-subtitle">目前鎖定 {activeLockCount} 個條件。左邊看階段、中間編輯、右邊直接校對 prompt。</p>
           </div>
 
           <div className="page1-section-nav">
@@ -561,7 +559,6 @@ export default function Page1Workspace({
           <div className="page1-editor-header">
             <div>
               <div className="lock-title">{activeSectionConfig.label}</div>
-              <p className="lock-subtitle">一次只處理一小段，避免 prompt 在太多欄位之間互相干擾。</p>
             </div>
           </div>
 
@@ -585,7 +582,6 @@ export default function Page1Workspace({
             <div className="control-section-header">
               <div>
                 <div className="control-section-title">Live Prompt Preview</div>
-                <p className="workspace-panel-copy">右側只保留 prompt 本體與複製操作，選項摘要請直接看左側工作台。</p>
               </div>
             </div>
 

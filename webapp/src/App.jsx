@@ -1881,11 +1881,6 @@ export default function App() {
     [lockControls, locks.subjectCount, shouldShowPresetColorControl]
   );
 
-  const activeLockCount = Object.entries(locks).filter(([key, value]) => {
-    if (['subjectCount', 'aspectRatio'].includes(key)) return false;
-    if (key === 'topBottomPaletteId' && value === 'none') return false;
-    return Array.isArray(value) ? value.length > 0 : Boolean(value);
-  }).length;
   const isOutfitPresetActive = locks.subjectCount === '2'
     ? (
         (Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls)) ||
@@ -2268,7 +2263,6 @@ export default function App() {
 
       {pageMode === 'page1' ? (
         <Page1Workspace
-          activeLockCount={activeLockCount}
           coreLockControls={coreLockControls}
           characterLockControls={characterLockControls}
           wardrobeLockControls={wardrobeLockControls}
