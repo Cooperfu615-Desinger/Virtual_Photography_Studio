@@ -2888,8 +2888,8 @@
       },
       {
         "zh": "前景遮擋散景",
-        "en": "controlled foreground bokeh occlusion from a fixed out-of-focus object near the lens, soft edge blur framing the subject, stable layered depth, clean cinematic foreground veil",
-        "desc": "鏡頭前方有固定來源的失焦遮擋與散景，用更穩定的前景模糊邊緣包住主體，避免雜亂不明的遮擋形狀。"
+        "en": "heavy doorway foreground occlusion, dark out-of-focus door panels blocking both left and right frame edges, foreground obstruction covering at least one third of the image area, narrow vertical opening toward the subject, thick blurred near-edge framing, voyeuristic hidden-camera cinematic depth",
+        "desc": "鏡頭像從門縫或半開門後方拍攝，左右兩側有深色失焦門板大面積遮住畫面邊緣，前景遮擋至少佔整體畫面三分之一，只留下中間窄縫看向主體，營造更明顯的偷拍視角。"
       },
       {
         "zh": "鏡頭光斑 Lens Flare",
