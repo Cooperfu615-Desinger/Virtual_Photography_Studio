@@ -4908,16 +4908,137 @@ const AI_PROMPT_EXCLUDED_GROK_LABELS = new Set([
   'Composition Priority',
 ]);
 
-function normalizeAiPromptClause(value) {
-  return stripMarkdown(value || '')
-    .replace(/[.!?]+/g, ',')
-    .replace(/\s*,\s*/g, ', ')
-    .replace(/(?:,\s*)+$/g, '')
+const AI_PROMPT_SECTION_LABELS = {
+  subject: new Set([
+    'Duo Scene Anchor',
+    'Subject Count',
+    'Reference Guidance',
+    'Body Type',
+    'Special Action',
+    'Pose',
+    'Duo Pose',
+    'Duo Interaction',
+    'Facial Features',
+    'Woman 1 Facial Features',
+    'Woman 2 Facial Features',
+    'Hairstyle',
+    'Woman 1 Hairstyle',
+    'Woman 2 Hairstyle',
+    'Hair Color',
+    'Woman 1 Hair Color',
+    'Woman 2 Hair Color',
+    'Skin Details',
+    'Expression',
+    'Woman 1 Expression',
+    'Woman 2 Expression',
+    'Character Identity',
+  ]),
+  outfit: new Set([
+    'Outfit Preset',
+    'Woman 1 Outfit Preset',
+    'Woman 2 Outfit Preset',
+    'Dress',
+    'Top',
+    'Pants',
+    'Skirt',
+    'Legwear',
+    'Outerwear',
+    'Shoes',
+    'Waistline Coordination',
+    'Duo Wardrobe',
+  ]),
+  accessories: new Set([
+    'Head Accessory',
+    'Woman 1 Head Accessory',
+    'Woman 2 Head Accessory',
+    'Eyewear',
+    'Woman 1 Eyewear',
+    'Woman 2 Eyewear',
+    'Earrings',
+    'Woman 1 Earrings',
+    'Woman 2 Earrings',
+    'Neck Accessory',
+    'Woman 1 Neck Accessory',
+    'Woman 2 Neck Accessory',
+  ]),
+  setting: new Set([
+    'Location',
+  ]),
+  camera: new Set([
+    'Aspect Ratio',
+    'Angle',
+    'Orbit Angle',
+    'Lens',
+    'Optical Effect',
+    'Framing',
+  ]),
+  lighting: new Set([
+    'Environment Mood',
+    'Light Style',
+  ]),
+  atmosphere: new Set([
+    'Film',
+    'Photography Style',
+  ]),
+};
+
+const AI_PROMPT_CORE_PART_LIMITS = {
+  default: 1,
+  'Body Type': 1,
+  'Facial Features': 2,
+  'Woman 1 Facial Features': 2,
+  'Woman 2 Facial Features': 2,
+  'Hairstyle': 2,
+  'Woman 1 Hairstyle': 2,
+  'Woman 2 Hairstyle': 2,
+  'Outfit Preset': 2,
+  'Woman 1 Outfit Preset': 2,
+  'Woman 2 Outfit Preset': 2,
+  Dress: 2,
+  Top: 2,
+  Pants: 2,
+  Skirt: 2,
+  Legwear: 2,
+  Outerwear: 3,
+  Shoes: 2,
+  'Duo Wardrobe': 2,
+};
+
+function normalizeAiPromptValue(value, label) {
+  const partLimit = AI_PROMPT_CORE_PART_LIMITS[label] || AI_PROMPT_CORE_PART_LIMITS.default;
+  const cleaned = stripMarkdown(value || '')
     .replace(/\s+/g, ' ')
+    .replace(/[.!?]+$/g, '')
     .trim();
+  if (!cleaned) return '';
+
+  return cleaned
+    .split(/[.!?]|\s*,\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .slice(0, partLimit)
+    .join(', ');
 }
 
-function buildAiSingleSentencePrompt(grokPrompt) {
+function buildAiSectionText(values) {
+  return [...new Set(values.filter(Boolean))].join(', ');
+}
+
+function pushAiSectionValue(sections, label, value) {
+  if (!value) return;
+  if (AI_PROMPT_SECTION_LABELS.accessories.has(label)) {
+    sections.subject.push(value);
+    return;
+  }
+
+  Object.entries(AI_PROMPT_SECTION_LABELS).some(([sectionName, labels]) => {
+    if (sectionName === 'accessories' || !labels.has(label)) return false;
+    sections[sectionName].push(value);
+    return true;
+  });
+}
+
+function buildAiFallbackPromptFromGrok(grokPrompt) {
   const clauses = grokPrompt
     .split('\n')
     .map((line) => {
@@ -4926,18 +5047,58 @@ function buildAiSingleSentencePrompt(grokPrompt) {
 
       const label = line.slice(0, separatorIndex).trim();
       if (AI_PROMPT_EXCLUDED_GROK_LABELS.has(label)) return '';
-
-      return normalizeAiPromptClause(line.slice(separatorIndex + 1));
+      return normalizeAiPromptValue(line.slice(separatorIndex + 1), label);
     })
     .filter(Boolean);
 
-  return ensureTerminalPeriod(`Create a natural photographic image of ${clauses.join(', ')}`);
+  return ensureTerminalPeriod(clauses.join(', '));
+}
+
+function buildAiMinimalPromptFromGrok(grokPrompt) {
+  const sections = {
+    subject: [],
+    outfit: [],
+    setting: [],
+    camera: [],
+    lighting: [],
+    atmosphere: [],
+  };
+
+  grokPrompt
+    .split('\n')
+    .forEach((line) => {
+      const separatorIndex = line.indexOf(':');
+      if (separatorIndex === -1) return;
+
+      const label = line.slice(0, separatorIndex).trim();
+      if (AI_PROMPT_EXCLUDED_GROK_LABELS.has(label)) return;
+
+      pushAiSectionValue(sections, label, normalizeAiPromptValue(line.slice(separatorIndex + 1), label));
+    });
+
+  const subjectText = buildAiSectionText(sections.subject);
+  if (!subjectText) return buildAiFallbackPromptFromGrok(grokPrompt);
+
+  const outfitText = buildAiSectionText(sections.outfit);
+  const settingText = buildAiSectionText(sections.setting);
+  const cameraText = buildAiSectionText(sections.camera);
+  const lightingText = buildAiSectionText(sections.lighting);
+  const atmosphereText = buildAiSectionText(sections.atmosphere);
+
+  return [
+    ensureTerminalPeriod(subjectText),
+    outfitText ? ensureTerminalPeriod(`main outfit: ${outfitText}`) : '',
+    settingText ? ensureTerminalPeriod(`setting: ${settingText}`) : '',
+    cameraText ? ensureTerminalPeriod(`camera: ${cameraText}`) : '',
+    lightingText ? ensureTerminalPeriod(`lighting: ${lightingText}`) : '',
+    atmosphereText ? ensureTerminalPeriod(`atmosphere: ${atmosphereText}`) : '',
+  ].filter(Boolean).join(' ');
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction) {
   const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction);
   const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction);
-  const midjourneyPrompt = buildAiSingleSentencePrompt(grokPrompt);
+  const midjourneyPrompt = buildAiMinimalPromptFromGrok(grokPrompt);
 
   return { midjourneyPrompt, grokPrompt, zImagePrompt };
 }
