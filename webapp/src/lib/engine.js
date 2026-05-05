@@ -1272,6 +1272,46 @@ function inferFilmMeta(_category, item) {
 
 const CLOSEUP_MODE_ZH_LABELS = new Set(['臉部特寫', '胸上特寫', '局部五官特寫', '半臉傾斜特寫']);
 const CLOSEUP_CHEST_UP_LABEL = '胸上特寫';
+const WARDROBE_INCOMPATIBLE_CLOSEUP_LABELS = new Set(['特寫鏡頭 (Close-Up)', '臉部特寫', '局部五官特寫', '半臉傾斜特寫']);
+const WARDROBE_SAFE_FRAMING_LABEL = '中景鏡頭 (Medium Shot)';
+const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
+  'outfitPresetId',
+  'outfitPresetAId',
+  'outfitPresetBId',
+  'dressId',
+  'dressAId',
+  'dressBId',
+  'topId',
+  'topAId',
+  'topBId',
+  'pantsId',
+  'pantsAId',
+  'pantsBId',
+  'skirtId',
+  'skirtAId',
+  'skirtBId',
+  'legwearId',
+  'legwearAId',
+  'legwearBId',
+  'outerwearId',
+  'outerwearAId',
+  'outerwearBId',
+  'shoesId',
+  'shoesAId',
+  'shoesBId',
+  'headAccessoryId',
+  'headAccessoryAId',
+  'headAccessoryBId',
+  'eyewearId',
+  'eyewearAId',
+  'eyewearBId',
+  'earringsId',
+  'earringsAId',
+  'earringsBId',
+  'neckAccessoryId',
+  'neckAccessoryAId',
+  'neckAccessoryBId',
+]);
 const CLOSEUP_DISABLED_KEYS = new Set([
   'locationId',
   'poseId',
@@ -1436,6 +1476,43 @@ const CLOSEUP_CHEST_ALLOWED_KEYS = new Set([
 
 function isCloseupModeFramingItem(framing) {
   return Boolean(framing?.zh && CLOSEUP_MODE_ZH_LABELS.has(framing.zh));
+}
+
+function isWardrobeIncompatibleCloseupFramingItem(framing) {
+  return Boolean(framing?.zh && WARDROBE_INCOMPATIBLE_CLOSEUP_LABELS.has(framing.zh));
+}
+
+export function isWardrobeIncompatibleCloseupFramingId(framingId, customLibrary = []) {
+  if (!framingId) return false;
+  const controls = getLockControls(customLibrary);
+  const framingControl = controls.find((control) => control.key === 'framingId');
+  const framing = findById(framingControl?.options || [], framingId);
+  return isWardrobeIncompatibleCloseupFramingItem(framing);
+}
+
+export function hasEffectiveWardrobeLocks(rawLocks = {}, controls = getLockControls()) {
+  const locks = normalizeLocks(rawLocks);
+  return [...EFFECTIVE_WARDROBE_LOCK_KEYS].some((key) => {
+    const value = locks[key];
+    if (Array.isArray(value)) {
+      return value.some((item) => {
+        const control = controls.find((entry) => entry.key === key);
+        const selected = control?.options?.find((option) => option.id === item);
+        return Boolean(selected && !isNoneLikeItem(selected));
+      });
+    }
+    if (!value) return false;
+    const control = controls.find((entry) => entry.key === key);
+    const selected = control?.options?.find((option) => option.id === value);
+    return Boolean(selected && !isNoneLikeItem(selected));
+  });
+}
+
+function getWardrobeSafeFramingId(controls) {
+  const framingOptions = controls.find((control) => control.key === 'framingId')?.options || [];
+  return framingOptions.find((option) => option.zh === WARDROBE_SAFE_FRAMING_LABEL)?.id ||
+    framingOptions.find((option) => !isWardrobeIncompatibleCloseupFramingItem(option) && !isNoneLikeItem(option))?.id ||
+    '';
 }
 
 export function isCloseupModeFramingId(framingId, customLibrary = []) {
@@ -1697,6 +1774,10 @@ export function normalizeLocks(rawLocks = {}) {
 export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
   const nextLocks = normalizeLocks(rawLocks);
   const framing = nextLocks.framingId ? findById(controls.find((control) => control.key === 'framingId')?.options || [], nextLocks.framingId) : null;
+  if (hasEffectiveWardrobeLocks(nextLocks, controls) && isWardrobeIncompatibleCloseupFramingItem(framing)) {
+    nextLocks.framingId = getWardrobeSafeFramingId(controls);
+    return nextLocks;
+  }
   if (!isCloseupModeFramingItem(framing)) return nextLocks;
 
   const allowedKeys = new Set(CLOSEUP_ALWAYS_ALLOWED_KEYS);
@@ -3018,6 +3099,15 @@ function buildWardrobe(context, locks, catalog) {
   hasBottomPiece = useDuoRoleWardrobe ? hasRoleBottomPiece : hasBottomPiece;
 
   if (visibility === 'close') {
+    const keepExplicitCloseupWardrobeItem = (item) => {
+      if (!item || isNoneLikeItem(item)) return false;
+      if (item.meta?.tags?.includes('accessory_small')) return true;
+      if (outfitPresetState.specifiedItem && item.id === outfitPresetState.specifiedItem.id) return true;
+      if (dressState.specifiedItem && item.id === dressState.specifiedItem.id) return true;
+      if (topState.specifiedItem && item.id === topState.specifiedItem.id) return true;
+      return false;
+    };
+
     if (context.subject.count === 2) {
       addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryAId', 'a', 'headAccessory');
       addRoleLockedPiece('眼鏡 (Eyewear)', 'eyewearAId', 'a', 'eyewear');
@@ -3031,7 +3121,7 @@ function buildWardrobe(context, locks, catalog) {
       maybePick('眼鏡 (Eyewear)', 0.35, () => true, { allowNoneWhenUnlocked: true });
       maybePick('耳環 (Earrings)', 0.45, () => true, { allowNoneWhenUnlocked: true });
     }
-    return pieces.filter((item) => item?.meta?.tags?.includes('accessory_small'));
+    return pieces.filter(keepExplicitCloseupWardrobeItem);
   }
 
   const hasOutfitPresetPieceResolved = pieces.some((piece) => piece.id?.includes('wardrobe:套裝-outfit-presets:') && !isNoneLikeItem(piece));
@@ -5260,8 +5350,10 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
 }
 
 function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) {
+  const lockControls = getLockControls(customLibrary);
   const runtime = buildCatalog(customLibrary);
-  const effectiveLocks = locks;
+  const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
+  const hasWardrobeLocks = hasEffectiveWardrobeLocks(effectiveLocks, lockControls);
   const subject = getSubjectOption(effectiveLocks.subjectCount);
   const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio);
   const sceneAttribute = getSceneAttributeOption(effectiveLocks.sceneAttributeId);
@@ -5291,6 +5383,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
       (!lockedSpecialAction || item.zh !== '全無')
       &&
       !(location.meta.tags.includes('club') && item.meta.visibility === 'close')
+      && !(hasWardrobeLocks && isWardrobeIncompatibleCloseupFramingItem(item))
       && framingSupportsSubject(item, subject, aspectRatio)
       && specialActionSupportsFraming(lockedSpecialAction, item)
     )

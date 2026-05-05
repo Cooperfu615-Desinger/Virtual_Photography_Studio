@@ -12,7 +12,9 @@ import {
   getCloseupAllowedKeys,
   getSceneDependentOptions,
   getLockControls,
+  hasEffectiveWardrobeLocks,
   isCloseupModeFramingId,
+  isWardrobeIncompatibleCloseupFramingId,
   normalizeLocks,
   sanitizeLocksForCloseupMode
 } from './lib/engine';
@@ -1759,7 +1761,21 @@ export default function App() {
   }, [page5Profile]);
 
   const activeLibrary = useMemo(() => [], []);
-  const lockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
+  const rawLockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
+  const hasWardrobeLocks = useMemo(() => hasEffectiveWardrobeLocks(locks, rawLockControls), [locks, rawLockControls]);
+  const lockControls = useMemo(
+    () => rawLockControls.map((control) => {
+      if (control.key !== 'framingId' || !hasWardrobeLocks) return control;
+      return {
+        ...control,
+        options: control.options.map((option) => ({
+          ...option,
+          disabled: isWardrobeIncompatibleCloseupFramingId(option.id, activeLibrary),
+        })),
+      };
+    }),
+    [activeLibrary, hasWardrobeLocks, rawLockControls]
+  );
   const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
   const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
   const closeupAllowedKeys = useMemo(() => getCloseupAllowedKeys(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);

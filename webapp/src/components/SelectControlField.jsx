@@ -47,7 +47,7 @@ export default function SelectControlField({ control, value, onChange, onCopy, d
         >
           {!control.required && !control.suppressDefaultRandomOption ? <option value="">隨機</option> : null}
           {control.options.map((option) => (
-            <option key={option.id} value={option.id}>
+            <option key={option.id} value={option.id} disabled={option.disabled}>
               {option.zh}
             </option>
           ))}
