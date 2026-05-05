@@ -2190,8 +2190,8 @@
       },
       {
         "zh": "皮質扣環頸鏈",
-        "en": "leather buckle choker detail, subtle edgy neck accent",
-        "desc": "保留冷感與地下風格，但避免變成過強主題道具。"
+        "en": "thin leather buckle choker detail, narrow slim leather strap around the neck, subtle edgy neck accent, not a wide belt-like collar",
+        "desc": "保留冷感與地下風格，但指定為細窄皮革頸鏈，避免生成腰帶粗細或寬厚項圈。"
       },
       {
         "zh": "緞帶頸圈",
