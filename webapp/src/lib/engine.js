@@ -1429,6 +1429,7 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'earringsBId',
 ]);
 const CLOSEUP_CHEST_ALLOWED_KEYS = new Set([
+  'locationId',
   'outfitPresetId',
   'outfitPresetColorId',
   'outfitPresetPrimaryColorId',
