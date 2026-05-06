@@ -264,16 +264,18 @@ const LEGWEAR_COLOR_OPTIONS = [
   { id: 'colorful', zh: '彩色', en: 'colorful' },
 ];
 
-const OUTFIT_PRESET_COLOR_OPTIONS = [
-  { id: 'white', zh: '白色', en: 'white' },
-  { id: 'black', zh: '黑色', en: 'black' },
-  { id: 'red', zh: '紅色', en: 'red' },
+const OUTFIT_PRESET_EXTRA_COLOR_OPTIONS = [
   { id: 'blue', zh: '藍色', en: 'blue' },
   { id: 'green', zh: '綠色', en: 'green' },
   { id: 'yellow', zh: '黃色', en: 'yellow' },
   { id: 'black-white', zh: '黑白', en: 'black and white' },
   { id: 'black-red', zh: '黑紅', en: 'black and red' },
   { id: 'white-red', zh: '白紅', en: 'white and red' },
+];
+
+const OUTFIT_PRESET_COLOR_OPTIONS = [
+  ...GARMENT_COLOR_OPTIONS,
+  ...OUTFIT_PRESET_EXTRA_COLOR_OPTIONS,
 ];
 
 const OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS = [
