@@ -3746,29 +3746,94 @@
         "desc": "不指定髮型，讓模型自行決定頭髮長度與輪廓。"
       },
       {
-        "zh": "長髮（放髮）｜中分長直髮",
-        "en": "long straight hair, center part, sleek",
-        "desc": "經典女神風，光澤感十足。"
+        "zh": "短髮｜帥氣濕亮油頭",
+        "en": "slicked-back short hair, glossy wet-look finish, hair combed away from the forehead, sharp androgynous fashion silhouette",
+        "desc": "頭髮向後梳開並帶濕亮光澤，帥氣俐落，偏時裝感與中性氣質。"
       },
       {
-        "zh": "長髮（放髮）｜日系厚劉海長直髮",
+        "zh": "短髮｜精靈短髮",
+        "en": "pixie cut, minimal short hair, clean cropped silhouette, delicate face-framing texture",
+        "desc": "短而俐落的精靈剪，輪廓乾淨，能凸顯五官與頸部線條。"
+      },
+      {
+        "zh": "短髮｜齊耳法式短鮑伯",
+        "en": "ear-length French bob, softly blunt ends, subtle natural volume, effortless chic shape",
+        "desc": "長度落在耳下附近，髮尾乾淨，帶一點法式隨性與精緻感。"
+      },
+      {
+        "zh": "短髮｜A 字線條鮑伯",
+        "en": "A-line bob, clean angled silhouette, slightly longer front pieces, polished face-framing line",
+        "desc": "前側略長、後側收短的 A 字鮑伯，臉部線條更俐落。"
+      },
+      {
+        "zh": "短髮｜服貼光澤短鮑伯",
+        "en": "sleek short bob, smooth glossy surface, tucked clean ends, polished modern editorial shape",
+        "desc": "髮面服貼有光澤，髮尾收得乾淨，適合都會、精品與高級感人像。"
+      },
+      {
+        "zh": "短髮｜齊瀏海圓弧鮑伯",
+        "en": "blunt bob with full bangs, rounded silhouette, smooth curved ends",
+        "desc": "齊瀏海搭配圓弧感鮑伯，帶有強烈辨識度與日系娃娃感。"
+      },
+      {
+        "zh": "短髮｜不對稱濕感短鮑伯",
+        "en": "asymmetrical wet bob, one-side-over-eye styling, damp separated strands",
+        "desc": "一側髮絲覆蓋眼周，帶有濕潤分束感與更強的時裝、私密與危險氣質。"
+      },
+      {
+        "zh": "短髮｜復古外翹短髮",
+        "en": "short flipped hair, softly turned-out ends, retro polished shape, light movement around the jawline",
+        "desc": "短髮髮尾向外翻起，帶有復古時裝感與俏皮線條。"
+      },
+      {
+        "zh": "中長髮｜自然蓬鬆鎖骨髮",
+        "en": "soft collarbone-length hair, airy volume, naturally tousled blowout",
+        "desc": "長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。"
+      },
+      {
+        "zh": "中長髮｜韓系柔順中長髮",
+        "en": "soft Korean medium hair, gentle inward curve, sheer bangs, smooth modern silhouette",
+        "desc": "柔順中長髮搭配輕透瀏海與內彎輪廓，乾淨、溫柔且穩定。"
+      },
+      {
+        "zh": "中長髮｜及肩內彎鮑伯",
+        "en": "shoulder-length bob, gentle inward-curled ends, soft rounded lower silhouette",
+        "desc": "溫婉的中長度鮑伯，髮尾帶有自然內彎弧度。"
+      },
+      {
+        "zh": "中長髮｜側分鎖骨波浪髮",
+        "en": "side-parted collarbone-length waves, soft flowing texture, elegant face-framing movement",
+        "desc": "長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。"
+      },
+      {
+        "zh": "中長髮｜輕盈層次剪",
+        "en": "medium layered cut, airy framing layers, feathered ends, natural movement",
+        "desc": "中長髮帶輕盈層次與羽毛感髮尾，修飾臉型且更有動態。"
+      },
+      {
+        "zh": "中長髮｜半濕感中長髮",
+        "en": "semi-wet medium-length hair, separated strands, soft glossy texture, moody fashion finish",
+        "desc": "中長髮帶半濕潤分束與光澤，適合冷調、私密與時裝感畫面。"
+      },
+      {
+        "zh": "長髮（放髮）｜中分長直髮",
+        "en": "long straight hair, center part, sleek glossy length, clean vertical silhouette",
+        "desc": "經典中分長直髮，光澤感明確，線條乾淨修長。"
+      },
+      {
+        "zh": "長髮（放髮）｜日系厚瀏海長直髮",
         "en": "long straight hair with heavy Japanese bangs, smooth sleek silhouette",
         "desc": "厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。"
       },
       {
-        "zh": "長髮（放髮）｜韓系層次中長髮",
-        "en": "Korean layered medium-long hair, airy texture, soft face framing layers",
-        "desc": "現代韓系常見的中長層次髮，線條輕盈，修飾臉型效果好。"
-      },
-      {
-        "zh": "長髮（放髮）｜韓系空氣瀏海直髮",
-        "en": "see-through bangs, long straight hair, airy Korean styling",
-        "desc": "輕盈空氣瀏海配上筆直長髮，是最常見也最穩定的韓系清透髮型。"
+        "zh": "長髮（放髮）｜姬髮式長直髮",
+        "en": "hime cut long straight hair, blunt cheek-length side locks, straight full length, sharp Japanese fashion silhouette",
+        "desc": "姬髮式的臉側短切線搭配長直髮，辨識度高，日系時裝感強。"
       },
       {
         "zh": "長髮（放髮）｜韓系深側分柔波長髮",
-        "en": "deep side-parted long hair, soft polished waves, sleek face-framing flow, one side tucked behind the ear, elegant Korean editorial hairstyle",
-        "desc": "深側分的長髮帶柔和波浪與貼順光澤，一側自然收耳後，整體偏成熟、都會、精品感的韓系時裝髮型。"
+        "en": "deep side-parted long hair, soft polished waves, sleek face-framing flow, one side tucked behind the ear",
+        "desc": "深側分的長髮帶柔和波浪與貼順光澤，一側自然收耳後，偏成熟都會感。"
       },
       {
         "zh": "長髮（放髮）｜中分柔波長髮",
@@ -3781,23 +3846,28 @@
         "desc": "帶有濕潤分束感的長波浪髮，適合冷調、私密與邊緣感寫真。"
       },
       {
-        "zh": "長髮（放髮）｜空氣瀏海層次長髮",
-        "en": "airy see-through bangs, long layered hair, soft feathered ends",
-        "desc": "輕透碎瀏海搭配層次長髮與羽毛感髮尾，韓系感更明顯。"
-      },
-      {
         "zh": "長髮（放髮）｜空氣瀏海長捲髮",
         "en": "airy see-through bangs, long loose spiral waves, soft face-framing tendrils, glamorous layered length",
-        "desc": "輕透瀏海搭配長度明顯的鬆捲長髮，臉側有修飾線條，整體更偏韓系甜辣與精緻寫真感。"
+        "desc": "輕透瀏海搭配長度明顯的鬆捲長髮，臉側有修飾線條，甜辣且精緻。"
       },
       {
         "zh": "長髮（綁髮）｜高位雙馬尾",
-        "en": "high double pigtails, youthful",
-        "desc": "活潑俏皮，適合 Y2K 或 JK 風格。"
+        "en": "high double pigtails, youthful twin-tail shape, clean lifted volume",
+        "desc": "活潑俏皮，適合 Y2K、JK 或更青春感的造型。"
+      },
+      {
+        "zh": "長髮（綁髮）｜蓬鬆高馬尾",
+        "en": "high ponytail, natural loose strands, lifted volume, active polished movement",
+        "desc": "高位馬尾帶自然碎髮與動態感，乾淨、活力且上鏡。"
+      },
+      {
+        "zh": "長髮（綁髮）｜極簡低馬尾",
+        "en": "low ponytail, fine face-framing strands, minimal clean tie, understated mature elegance",
+        "desc": "低馬尾乾淨成熟，臉側保留細碎髮，適合知性與都會感人像。"
       },
       {
         "zh": "長髮（綁髮）｜韓系低包頭",
-        "en": "low messy bun, wispy bangs",
+        "en": "low messy bun, wispy bangs, soft face-framing loose strands",
         "desc": "優雅隨興，臉側帶有修飾性的碎髮。"
       },
       {
@@ -3806,59 +3876,19 @@
         "desc": "低位盤髮乾淨俐落，適合精品時裝、晚宴與高級商攝。"
       },
       {
-        "zh": "長髮（綁髮）｜雙編髮",
-        "en": "twin braids, neat braided hairstyle, soft face-framing strands",
-        "desc": "經典雙編髮更日常也更好駕馭，帶有清新與俏皮感。"
-      },
-      {
-        "zh": "長髮（綁髮）｜蓬鬆隨性馬尾",
-        "en": "undone ponytail, high placement, flyaways",
-        "desc": "帶有細微碎髮的隨意感，自然生活氣息。"
-      },
-      {
-        "zh": "長髮（綁髮）｜碎瀏海高盤髮",
-        "en": "wispy bangs, elegant high updo, loose face-framing tendrils",
-        "desc": "高位盤起的髮型搭配碎瀏海與臉側細捲鬚，帶有日系暗黑與精緻感。"
-      },
-      {
         "zh": "長髮（綁髮）｜半綁公主頭長髮",
         "en": "half-up long hair, soft crown lift, loose face-framing strands",
         "desc": "上半部輕輕束起、下半部自然垂落，清純又帶一點柔和公主感。"
       },
       {
-        "zh": "長髮（綁髮）｜慵懶高丸子頭",
-        "en": "messy high bun, loose wispy strands, airy casual updo",
-        "desc": "高位丸子頭帶有鬆散碎髮，適合自然光、隨拍與生活感人像。"
+        "zh": "長髮（編髮）｜瀑布編髮",
+        "en": "waterfall braid, soft semi-long flowing hair, delicate woven crown detail, romantic airy texture",
+        "desc": "瀑布編髮帶有細緻編織與垂落髮流，柔和浪漫且不厚重。"
       },
       {
-        "zh": "短髮｜自然蓬鬆鎖骨髮",
-        "en": "soft collarbone-length hair, airy volume, naturally tousled blowout",
-        "desc": "長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。"
-      },
-      {
-        "zh": "短髮｜及肩內彎鮑伯",
-        "en": "shoulder-length bob, curled ends",
-        "desc": "溫婉的中長度，帶有微微的內彎弧度。"
-      },
-      {
-        "zh": "短髮｜側分鎖骨波浪髮",
-        "en": "side-parted collarbone-length waves, soft flowing texture",
-        "desc": "長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。"
-      },
-      {
-        "zh": "短髮｜中短層次鮑伯",
-        "en": "layered short bob, airy texture, softly tousled ends",
-        "desc": "層次明顯的中短鮑伯，髮尾蓬鬆，適合挑染與時尚感造型。"
-      },
-      {
-        "zh": "短髮｜齊瀏海圓弧鮑伯",
-        "en": "blunt bob with full bangs, rounded silhouette, smooth curved ends",
-        "desc": "齊瀏海搭配圓弧感鮑伯，帶有強烈辨識度與日系娃娃感。"
-      },
-      {
-        "zh": "短髮｜不對稱濕感短鮑伯",
-        "en": "asymmetrical wet bob, one-side-over-eye styling, damp separated strands",
-        "desc": "一側髮絲覆蓋眼周，帶有濕潤分束感與更強的時裝、私密與危險氣質。"
+        "zh": "長髮（編髮）｜魚骨辮",
+        "en": "fishtail braid, soft woven volume, loose face-framing strands, elegant event-ready braid",
+        "desc": "魚骨辮線條精緻，比一般雙編髮更成熟，適合正式或度假感造型。"
       }
     ],
     "髮色 (Hair Color)": [
