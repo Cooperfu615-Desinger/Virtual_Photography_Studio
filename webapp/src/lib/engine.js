@@ -20,14 +20,14 @@ const SUBJECT_COUNT_OPTIONS = [
 ];
 
 const ASPECT_RATIO_POOL = [
-  { id: '1:1', zh: '1:1', en: '1:1' },
-  { id: '3:4', zh: '3:4', en: '3:4' },
-  { id: '4:5', zh: '4:5', en: '4:5' },
-  { id: '2:3', zh: '2:3', en: '2:3' },
-  { id: '9:16', zh: '9:16', en: '9:16' },
-  { id: '16:9', zh: '16:9', en: '16:9' },
+  { id: '1:1', zh: '1:1 正方形', en: '1:1' },
+  { id: '4:5', zh: '4:5 社群貼文', en: '4:5' },
+  { id: '3:4', zh: '3:4 直向人像', en: '3:4', legacyIds: ['2:3'] },
+  { id: '9:16', zh: '9:16 手機直式', en: '9:16' },
+  { id: '4:3', zh: '4:3 Classic', en: '4:3' },
+  { id: '16:9', zh: '16:9 寬螢幕', en: '16:9' },
 ];
-const DEFAULT_ASPECT_RATIO = ASPECT_RATIO_POOL[2];
+const DEFAULT_ASPECT_RATIO = ASPECT_RATIO_POOL[1];
 const ASPECT_RATIO_OPTIONS = [
   { id: 'random', zh: '隨機', en: 'random aspect ratio', random: true },
   { id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } },
