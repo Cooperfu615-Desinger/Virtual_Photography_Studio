@@ -101,12 +101,12 @@ const SECTION_SUBPANELS = {
       label: '整體穿搭',
       description: '優先決定套裝或連身這類整體輪廓，這會直接影響後續單件欄位。',
       keys: [
+        'specialOutfitId',
+        'specialOutfitAId',
+        'specialOutfitBId',
         'outfitPresetId',
-        'dressId',
         'outfitPresetAId',
         'outfitPresetBId',
-        'dressAId',
-        'dressBId',
       ],
     },
     {
@@ -140,12 +140,11 @@ const SECTION_SUBPANELS = {
     {
       id: 'colors',
       label: '配色',
-      description: '把套裝、連身與上下身單件的配色和圖案集中處理，避免與主體輪廓混在一起。',
+      description: '把套裝/連身與上下身單件的配色和圖案集中處理，避免與主體輪廓混在一起。',
       keys: [
         'outfitPresetPrimaryColorId',
         'outfitPresetContrastColorId',
         'outfitPresetLockedPaletteId',
-        'dressColorId',
         'outfitPresetAPrimaryColorId',
         'outfitPresetAContrastColorId',
         'outfitPresetALockedPaletteId',
@@ -161,8 +160,6 @@ const SECTION_SUBPANELS = {
         'topPatternId',
         'topAPatternId',
         'topBPatternId',
-        'dressAColorId',
-        'dressBColorId',
         'bottomColorId',
         'bottomAColorId',
         'bottomBColorId',
@@ -288,6 +285,9 @@ function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'duoInteractionId', locks.duoInteractionId),
   ]);
   const wardrobeSummary = buildSummaryText([
+    getControlOptionLabel(controls, 'specialOutfitId', locks.specialOutfitId),
+    getControlOptionLabel(controls, 'specialOutfitAId', locks.specialOutfitAId),
+    getControlOptionLabel(controls, 'specialOutfitBId', locks.specialOutfitBId),
     getControlOptionLabel(controls, 'outfitPresetId', locks.outfitPresetId),
     getControlOptionLabel(controls, 'outfitPresetAId', locks.outfitPresetAId),
     getControlOptionLabel(controls, 'outfitPresetBId', locks.outfitPresetBId),
@@ -399,6 +399,12 @@ export default function Page1Workspace({
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
   const isOutfitPresetBActive = Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls);
+  const isSpecialOutfitActive = locks.subjectCount === '2'
+    ? (
+        (Boolean(locks.specialOutfitAId) && !isNoneSelected('specialOutfitAId', locks.specialOutfitAId, wardrobeLockControls)) ||
+        (Boolean(locks.specialOutfitBId) && !isNoneSelected('specialOutfitBId', locks.specialOutfitBId, wardrobeLockControls))
+      )
+    : Boolean(locks.specialOutfitId) && !isNoneSelected('specialOutfitId', locks.specialOutfitId, wardrobeLockControls);
 
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
@@ -486,7 +492,12 @@ export default function Page1Workspace({
       </div>
       {isOutfitPresetActive ? (
         <div className="context-note">
-          套裝預設已接管主要服裝輪廓，和它重疊的上身、下身單件欄位會自動停用，避免 prompt 互相打架。
+          套裝/連身已接管主要服裝輪廓，和它重疊的上身、下身單件欄位會自動停用，避免 prompt 互相打架。
+        </div>
+      ) : null}
+      {isSpecialOutfitActive ? (
+        <div className="context-note">
+          特殊穿搭是完整從頭到腳造型，已接管所有服裝、鞋襪與配件欄位。
         </div>
       ) : null}
       {locks.subjectCount === 'skeleton' ? (

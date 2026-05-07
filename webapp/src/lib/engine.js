@@ -437,21 +437,24 @@ const LOCK_DEFINITIONS = [
   { key: 'expressionBId', label: '人物 2 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
-  { key: 'outfitPresetId', label: '套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
-  { key: 'outfitPresetColorId', label: '套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
-  { key: 'outfitPresetAId', label: '人物 1 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
-  { key: 'outfitPresetAColorId', label: '人物 1 套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
-  { key: 'outfitPresetBId', label: '人物 2 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
-  { key: 'outfitPresetBColorId', label: '人物 2 套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
-  { key: 'outfitPresetPrimaryColorId', label: '套裝主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetContrastColorId', label: '套裝對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetLockedPaletteId', label: '套裝鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetAPrimaryColorId', label: '人物 1 套裝主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetAContrastColorId', label: '人物 1 套裝對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetALockedPaletteId', label: '人物 1 套裝鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetBPrimaryColorId', label: '人物 2 套裝主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetBContrastColorId', label: '人物 2 套裝對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetBLockedPaletteId', label: '人物 2 套裝鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
+  { key: 'specialOutfitId', label: '特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
+  { key: 'specialOutfitAId', label: '人物 1 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
+  { key: 'specialOutfitBId', label: '人物 2 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
+  { key: 'outfitPresetId', label: '套裝/連身', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
+  { key: 'outfitPresetColorId', label: '套裝/連身配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
+  { key: 'outfitPresetAId', label: '人物 1 套裝/連身', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
+  { key: 'outfitPresetAColorId', label: '人物 1 套裝/連身配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
+  { key: 'outfitPresetBId', label: '人物 2 套裝/連身', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
+  { key: 'outfitPresetBColorId', label: '人物 2 套裝/連身配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
+  { key: 'outfitPresetPrimaryColorId', label: '套裝/連身主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetContrastColorId', label: '套裝/連身對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetLockedPaletteId', label: '套裝/連身鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetAPrimaryColorId', label: '人物 1 套裝/連身主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetAContrastColorId', label: '人物 1 套裝/連身對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetALockedPaletteId', label: '人物 1 套裝/連身鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetBPrimaryColorId', label: '人物 2 套裝/連身主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetBContrastColorId', label: '人物 2 套裝/連身對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetBLockedPaletteId', label: '人物 2 套裝/連身鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
   { key: 'topId', label: '上身', category: '上身 (Tops)', section: 'wardrobe' },
   { key: 'topAId', label: '人物 1 上身', category: '上身 (Tops)', section: 'wardrobe' },
   { key: 'topBId', label: '人物 2 上身', category: '上身 (Tops)', section: 'wardrobe' },
@@ -566,16 +569,19 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'expressionBId', label: 'Woman 2 Expression' },
   { key: 'poseId', label: 'Pose' },
   { key: 'specialActionId', label: 'Special Action' },
+  { key: 'specialOutfitId', label: 'Special Outfit' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
   { key: 'outfitPresetColorId', label: 'Outfit Preset Color' },
   { key: 'outfitPresetPrimaryColorId', label: 'Outfit Preset Primary Color' },
   { key: 'outfitPresetContrastColorId', label: 'Outfit Preset Contrast Color' },
   { key: 'outfitPresetLockedPaletteId', label: 'Outfit Preset Locked Palette' },
+  { key: 'specialOutfitAId', label: 'Woman 1 Special Outfit' },
   { key: 'outfitPresetAId', label: 'Woman 1 Outfit Preset' },
   { key: 'outfitPresetAColorId', label: 'Woman 1 Outfit Preset Color' },
   { key: 'outfitPresetAPrimaryColorId', label: 'Woman 1 Outfit Preset Primary Color' },
   { key: 'outfitPresetAContrastColorId', label: 'Woman 1 Outfit Preset Contrast Color' },
   { key: 'outfitPresetALockedPaletteId', label: 'Woman 1 Outfit Preset Locked Palette' },
+  { key: 'specialOutfitBId', label: 'Woman 2 Special Outfit' },
   { key: 'outfitPresetBId', label: 'Woman 2 Outfit Preset' },
   { key: 'outfitPresetBColorId', label: 'Woman 2 Outfit Preset Color' },
   { key: 'outfitPresetBPrimaryColorId', label: 'Woman 2 Outfit Preset Primary Color' },
@@ -1277,6 +1283,9 @@ const CLOSEUP_CHEST_UP_LABEL = '胸上特寫';
 const WARDROBE_INCOMPATIBLE_CLOSEUP_LABELS = new Set(['特寫鏡頭 (Close-Up)', '臉部特寫', '局部五官特寫', '半臉傾斜特寫']);
 const WARDROBE_SAFE_FRAMING_LABEL = '中景鏡頭 (Medium Shot)';
 const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
+  'specialOutfitId',
+  'specialOutfitAId',
+  'specialOutfitBId',
   'outfitPresetId',
   'outfitPresetAId',
   'outfitPresetBId',
@@ -1320,6 +1329,9 @@ const CLOSEUP_DISABLED_KEYS = new Set([
   'duoPoseId',
   'specialActionId',
   'duoInteractionId',
+  'specialOutfitId',
+  'specialOutfitAId',
+  'specialOutfitBId',
   'outfitPresetId',
   'outfitPresetColorId',
   'outfitPresetPrimaryColorId',
@@ -1430,6 +1442,9 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
 ]);
 const CLOSEUP_CHEST_ALLOWED_KEYS = new Set([
   'locationId',
+  'specialOutfitId',
+  'specialOutfitAId',
+  'specialOutfitBId',
   'outfitPresetId',
   'outfitPresetColorId',
   'outfitPresetPrimaryColorId',
@@ -1697,7 +1712,12 @@ function buildCatalog(customLibrary = []) {
       lightDirection: getByKey(catalog.camera, LIGHT_STYLE_CATEGORY),
       film: getByKey(catalog.camera, '底片與相機模擬 (Camera & Film Simulation)'),
       effects: getByKey(catalog.camera, OPTICAL_EFFECTS_CATEGORY).length > 0 ? getByKey(catalog.camera, OPTICAL_EFFECTS_CATEGORY) : getByKey(catalog.camera, '特殊效果 (Special Effects)'),
-      outfitPresets: [OUTFIT_PRESET_NONE_OPTION, ...getByKey(catalog.wardrobe, '套裝 (Outfit Presets)')],
+      specialOutfits: getByKey(catalog.wardrobe, '特殊穿搭 (Special Outfits)'),
+      outfitPresets: [
+        OUTFIT_PRESET_NONE_OPTION,
+        ...getByKey(catalog.wardrobe, '套裝 (Outfit Presets)'),
+        ...getByKey(catalog.wardrobe, '連身 (Dresses)').filter((item) => !isNoneLikeItem(item)),
+      ],
     },
     mergedDatabase,
   };
@@ -1841,6 +1861,9 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'lightingId') options = flatCatalog.lighting;
       if (definition.key === 'lightDirectionId') options = flatCatalog.lightDirection;
       if (definition.key === 'filmId') options = flatCatalog.film;
+      if (definition.key === 'specialOutfitId') options = flatCatalog.specialOutfits;
+      if (definition.key === 'specialOutfitAId') options = flatCatalog.specialOutfits;
+      if (definition.key === 'specialOutfitBId') options = flatCatalog.specialOutfits;
       if (definition.key === 'outfitPresetId') options = flatCatalog.outfitPresets;
       if (definition.key === 'outfitPresetAId') options = flatCatalog.outfitPresets;
       if (definition.key === 'outfitPresetBId') options = flatCatalog.outfitPresets;
@@ -2615,6 +2638,11 @@ function buildCharacter(context, catalog) {
 }
 
 function buildWardrobe(context, locks, catalog) {
+  const cloneSpecialOutfitForRole = (item, role) => ({
+    ...item,
+    id: `${item.id}:${role}`,
+    meta: { ...(item.meta || {}), specialOutfitRole: role },
+  });
   const clonePresetForRole = (item, role) => ({
     ...item,
     id: `${item.id}:${role}`,
@@ -2626,6 +2654,20 @@ function buildWardrobe(context, locks, catalog) {
     meta: { ...(item.meta || {}), wardrobeRole: role, layerSlot },
   });
   const presetPieces = [];
+  const specialOutfitPieces = [];
+
+  if (context.subject.count === 2 && (locks.specialOutfitAId || locks.specialOutfitBId)) {
+    const specialOutfits = catalog.flatCatalog.specialOutfits;
+    const specialA = locks.specialOutfitAId ? findById(specialOutfits, locks.specialOutfitAId) : null;
+    const specialB = locks.specialOutfitBId ? findById(specialOutfits, locks.specialOutfitBId) : null;
+    if (specialA && !isNoneLikeItem(specialA)) specialOutfitPieces.push(cloneSpecialOutfitForRole(specialA, 'a'));
+    if (specialB && !isNoneLikeItem(specialB)) specialOutfitPieces.push(cloneSpecialOutfitForRole(specialB, 'b'));
+  } else {
+    const specialOutfit = locks.specialOutfitId ? findById(catalog.flatCatalog.specialOutfits, locks.specialOutfitId) : null;
+    if (specialOutfit && !isNoneLikeItem(specialOutfit)) specialOutfitPieces.push(specialOutfit);
+  }
+
+  if (specialOutfitPieces.length > 0) return specialOutfitPieces;
 
   if (context.subject.count === 2 && (locks.outfitPresetAId || locks.outfitPresetBId)) {
     const presets = catalog.flatCatalog.outfitPresets;
@@ -3332,6 +3374,17 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     return summary === '-' ? '' : summary;
   };
   const summarizeWardrobe = () => {
+    if (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB) {
+      return [
+        wardrobeSlots.specialOutfitA?.zh && !isNoneLikeItem(wardrobeSlots.specialOutfitA) ? `人物 1：${wardrobeSlots.specialOutfitA.zh}` : '',
+        wardrobeSlots.specialOutfitB?.zh && !isNoneLikeItem(wardrobeSlots.specialOutfitB) ? `人物 2：${wardrobeSlots.specialOutfitB.zh}` : '',
+      ].filter(Boolean).join(' / ') || '-';
+    }
+
+    if (wardrobeSlots.specialOutfit) {
+      return wardrobeSlots.specialOutfit.zh || '-';
+    }
+
     if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
       return [
         formatPresetSummary(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAPrimaryColor || wardrobeColors.outfitPresetAColor),
@@ -3599,8 +3652,12 @@ function extractCharacterSlots(character) {
 function extractWardrobeSlots(wardrobe) {
   const findSlot = (token) => wardrobe.find((item) => item.id?.includes(token) && !item.meta?.wardrobeRole);
   const findRoleSlot = (token, role, layerSlot) => wardrobe.find((item) => item.id?.includes(token) && item.meta?.wardrobeRole === role && item.meta?.layerSlot === layerSlot);
-  const outfitPresets = wardrobe.filter((item) => item.id?.includes('wardrobe:套裝-outfit-presets:'));
+  const specialOutfits = wardrobe.filter((item) => item.id?.includes('wardrobe:特殊穿搭-special-outfits:'));
+  const outfitPresets = wardrobe.filter((item) => item.id?.includes('wardrobe:套裝-outfit-presets:') || item.id?.includes('wardrobe:連身-dresses:'));
   return {
+    specialOutfit: specialOutfits.find((item) => !item.meta?.specialOutfitRole) || null,
+    specialOutfitA: specialOutfits.find((item) => item.meta?.specialOutfitRole === 'a') || null,
+    specialOutfitB: specialOutfits.find((item) => item.meta?.specialOutfitRole === 'b') || null,
     outfitPreset: outfitPresets.find((item) => !item.meta?.outfitRole) || null,
     outfitPresetA: outfitPresets.find((item) => item.meta?.outfitRole === 'a') || null,
     outfitPresetB: outfitPresets.find((item) => item.meta?.outfitRole === 'b') || null,
@@ -4005,6 +4062,14 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
   return details.length > 0 ? `${base}, ${details.join(', ')}` : base;
 }
 
+function buildSpecialOutfitPrompt(item) {
+  if (!item || isNoneLikeItem(item)) return '';
+  return stripMarkdown(item.en || '')
+    .replace(/\s+/g, ' ')
+    .replace(/^complete outfit:\s*/i, '')
+    .trim();
+}
+
 function buildTopOuterwearComboPrompt(wardrobeSlots, wardrobeColors) {
   const top = wardrobeSlots.top;
   const dress = wardrobeSlots.dress;
@@ -4069,6 +4134,27 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, topOuterwearComboTe
     .replace(/^wearing\s+/i, '')
     .trim();
   const joinParts = (parts) => parts.map(normalizeWearable).filter(Boolean).join(', ');
+  const specialAText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA));
+  const specialBText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB));
+  const specialSharedText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit));
+  if (specialAText || specialBText) {
+    const roleParts = [
+      specialAText ? `woman 1 wears complete special outfit: ${specialAText}` : '',
+      specialBText ? `woman 2 wears complete special outfit: ${specialBText}` : '',
+    ].filter(Boolean);
+    return {
+      mode: 'role-special-outfits',
+      clothingText: roleParts.join(', '),
+      stylingText: `${roleParts.join(', ')}, complete wardrobe visible on both women, no additional clothing or accessory overrides`,
+    };
+  }
+  if (specialSharedText) {
+    return {
+      mode: 'shared-special-outfit',
+      clothingText: `both wearing complete special outfit: ${specialSharedText}`,
+      stylingText: `both women share the complete special outfit: ${specialSharedText}, no additional clothing or accessory overrides`,
+    };
+  }
   const buildSharedAddonText = () => joinParts([
     buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor),
     buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
@@ -4667,6 +4753,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   }
   if (!hasDuoSceneAnchor && !skeletonMode) addItemLine('Body Type', characterSlots.bodyType);
   if (context.subject.count === 2 && !hasDuoSceneAnchor) {
+    addLine('Woman 1 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA));
+    addLine('Woman 2 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB));
+  } else if (wardrobeSlots.specialOutfit && !hasDuoSceneAnchor) {
+    addLine('Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit));
+  }
+  if (context.subject.count === 2 && !hasDuoSceneAnchor) {
     addLine('Woman 1 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
       legacy: wardrobeColors.outfitPresetAColor,
       primary: wardrobeColors.outfitPresetAPrimaryColor,
@@ -4687,7 +4779,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
       lockedPalette: wardrobeColors.outfitPresetLockedPalette,
     }));
   }
-  if (!skeletonMode && !wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
+  if (!skeletonMode && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && !wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
     const topText = topOuterwearComboText || buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
     const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor);
     const pantsText = buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors);
@@ -4702,7 +4794,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     }
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
-  if (!skeletonMode && !hasDuoSceneAnchor && (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
+  if (!skeletonMode && !hasDuoSceneAnchor && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
     addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
       pattern: wardrobeSlots.outerwearPattern,
@@ -4848,6 +4940,15 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     const add = (value) => {
       if (value) parts.push(value);
     };
+    if (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB) {
+      add(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA) ? `woman 1 wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA)}` : '');
+      add(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB) ? `woman 2 wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB)}` : '');
+      return parts.length > 0 ? sentence(`Wardrobe details: ${parts.join(', ')}`) : '';
+    }
+    if (wardrobeSlots.specialOutfit) {
+      add(`the subject wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit)}`);
+      return parts.length > 0 ? sentence(`Wardrobe details: ${parts.join(', ')}`) : '';
+    }
     const buildRoleLayerText = (role) => {
       const suffix = role === 'a' ? 'A' : 'B';
       return [
@@ -5054,6 +5155,9 @@ const AI_PROMPT_SECTION_LABELS = {
     'Character Identity',
   ]),
   outfit: new Set([
+    'Special Outfit',
+    'Woman 1 Special Outfit',
+    'Woman 2 Special Outfit',
     'Outfit Preset',
     'Woman 1 Outfit Preset',
     'Woman 2 Outfit Preset',
@@ -5112,6 +5216,9 @@ const AI_PROMPT_CORE_PART_LIMITS = {
   'Woman 1 Hairstyle': 2,
   'Woman 2 Hairstyle': 2,
   'Outfit Preset': 2,
+  'Special Outfit': 2,
+  'Woman 1 Special Outfit': 2,
+  'Woman 2 Special Outfit': 2,
   'Woman 1 Outfit Preset': 2,
   'Woman 2 Outfit Preset': 2,
   Dress: 2,
@@ -5254,6 +5361,9 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     lightingId: context.lighting?.id || '',
     lightDirectionId: lightDirection?.id || '',
     filmId: film?.id || '',
+    specialOutfitId: wardrobeSlots.specialOutfit?.id || '',
+    specialOutfitAId: wardrobeSlots.specialOutfitA?.id?.replace(/:a$/, '') || '',
+    specialOutfitBId: wardrobeSlots.specialOutfitB?.id?.replace(/:b$/, '') || '',
     outfitPresetId: wardrobeSlots.outfitPreset?.id || '',
     outfitPresetColorId: normalizedSelection.outfitPresetColorId,
     outfitPresetPrimaryColorId: normalizedSelection.outfitPresetPrimaryColorId,

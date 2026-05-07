@@ -318,6 +318,9 @@ const CHARACTER_CONTROL_ORDER = [
 ];
 const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'sceneAttributeId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
 const STYLE_WARDROBE_CONTROL_ORDER = [
+  'specialOutfitId',
+  'specialOutfitAId',
+  'specialOutfitBId',
   'outfitPresetId',
   'outfitPresetPrimaryColorId',
   'outfitPresetContrastColorId',
@@ -1880,6 +1883,16 @@ export default function App() {
           const sharedAccessoryKeys = ['headAccessoryId', 'eyewearId', 'earringsId', 'neckAccessoryId'];
           const duoAccessoryKeys = ['headAccessoryAId', 'eyewearAId', 'earringsAId', 'neckAccessoryAId', 'headAccessoryBId', 'eyewearBId', 'earringsBId', 'neckAccessoryBId'];
           if (control.section !== 'wardrobe') return false;
+          const specialOutfitActive = locks.subjectCount === '2'
+            ? (
+                (Boolean(locks.specialOutfitAId) && !isNoneSelected('specialOutfitAId', locks.specialOutfitAId, lockControls)) ||
+                (Boolean(locks.specialOutfitBId) && !isNoneSelected('specialOutfitBId', locks.specialOutfitBId, lockControls))
+              )
+            : Boolean(locks.specialOutfitId) && !isNoneSelected('specialOutfitId', locks.specialOutfitId, lockControls);
+          if (['specialOutfitId'].includes(control.key) && locks.subjectCount === '2') return false;
+          if (['specialOutfitAId', 'specialOutfitBId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          if (specialOutfitActive && !['specialOutfitId', 'specialOutfitAId', 'specialOutfitBId'].includes(control.key)) return false;
+          if (['dressId', 'dressAId', 'dressBId', 'dressColorId', 'dressAColorId', 'dressBColorId'].includes(control.key)) return false;
           if (['outfitPresetId', 'outfitPresetPrimaryColorId', 'outfitPresetContrastColorId', 'outfitPresetLockedPaletteId'].includes(control.key) && locks.subjectCount === '2') return false;
           if (['outfitPresetAId', 'outfitPresetAPrimaryColorId', 'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId', 'outfitPresetBId', 'outfitPresetBPrimaryColorId', 'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId'].includes(control.key) && locks.subjectCount !== '2') return false;
           if (sharedGarmentKeys.includes(control.key) && locks.subjectCount === '2') return false;
@@ -1894,7 +1907,7 @@ export default function App() {
         }),
         STYLE_WARDROBE_CONTROL_ORDER
       ),
-    [lockControls, locks.subjectCount, shouldShowPresetColorControl]
+    [lockControls, locks.specialOutfitAId, locks.specialOutfitBId, locks.specialOutfitId, locks.subjectCount, shouldShowPresetColorControl]
   );
 
   const isOutfitPresetActive = locks.subjectCount === '2'
@@ -2002,6 +2015,21 @@ export default function App() {
       if (specialTopBottomPaletteBIsActive) {
         next.topBColorId = 'none';
         next.bottomBColorId = 'none';
+      }
+
+      const specialOutfitIsActive = next.subjectCount === '2'
+        ? (
+            (Boolean(next.specialOutfitAId) && !isNoneSelected('specialOutfitAId', next.specialOutfitAId, lockControls)) ||
+            (Boolean(next.specialOutfitBId) && !isNoneSelected('specialOutfitBId', next.specialOutfitBId, lockControls))
+          )
+        : Boolean(next.specialOutfitId) && !isNoneSelected('specialOutfitId', next.specialOutfitId, lockControls);
+      if (specialOutfitIsActive) {
+        lockControls.forEach((control) => {
+          if (control.section !== 'wardrobe') return;
+          if (['specialOutfitId', 'specialOutfitAId', 'specialOutfitBId'].includes(control.key)) return;
+          const noneOption = control.options?.find((option) => option.zh === '全無');
+          next[control.key] = noneOption ? noneOption.id : '';
+        });
       }
 
       if (next.subjectCount !== '1') {

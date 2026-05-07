@@ -134,6 +134,23 @@
     ]
   },
   "Wardrobe": {
+    "特殊穿搭 (Special Outfits)": [
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不使用特殊穿搭，保留一般服裝、鞋襪與配件欄位。"
+      },
+      {
+        "zh": "黑色波點頭巾透紗套裝",
+        "en": "complete outfit: black sheer polka-dot matching fashion set, black fabric with crisp white polka dots throughout. separate black polka-dot pirate-style headscarf tied over the hair, fitted close to the head with the back fully gathered and tucked away, not a loose draped silk scarf. separate slim black polka-dot neck scarf tied around the neck with a short front knot. sleeveless sheer cropped top with a clean round neckline and visible layered under-bodice structure, slightly boxy cropped hem exposing the waist. matching sheer low-rise asymmetrical skirt with diagonal draped hem and soft translucent fabric movement. black slouchy knee-high leather boots, black leather shoulder bag with long thin straps, subtle silver wrist jewelry and rings, coordinated modern street-fashion editorial styling",
+        "desc": "完整特殊穿搭：黑色白波點頭巾、脖子絲巾、透紗短版上衣、不對稱透紗裙、黑色靴子、黑色肩背包與銀色飾品。"
+      },
+      {
+        "zh": "藍灰長外套蕾絲胸衣寬褲造型",
+        "en": "complete outfit: oversized blue-gray tailored long coat worn open, long relaxed trench-coat length, broad lapels, loose dropped-shoulder silhouette, single dark button detail, deep muted slate-blue fabric with soft structured drape. black sheer lace bustier crop top underneath, delicate floral lace texture, structured cups, straight neckline, semi-transparent lingerie-inspired paneling. high-waisted gray wide-leg tailored trousers, very loose flowing full-length silhouette, soft suiting fabric, asymmetric folded waistband panel, black lace-up cord details across the front waist, extra-long dangling ties, additional black lace-up grommet details running along the lower pant legs near the ankles. round gold statement sunglasses with small circular lenses and decorative rim details. small structured handbag with black handles, pale blue body, playful colorful sticker-like patches and a bright green fuzzy charm. subtle rings and small jewelry, coordinated avant-garde street-fashion editorial styling",
+        "desc": "完整特殊穿搭：藍灰長外套、黑色透膚蕾絲胸衣、灰色綁繩寬褲、金色圓框墨鏡、貼紙感小包與飾品。"
+      }
+    ],
     "套裝 (Outfit Presets)": [
       {
         "zh": "亮面乳膠束帶套裝",
