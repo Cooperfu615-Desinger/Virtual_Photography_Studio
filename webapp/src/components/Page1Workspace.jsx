@@ -171,7 +171,7 @@ const SECTION_SUBPANELS = {
     {
       id: 'layers',
       label: '鞋襪與外層',
-      description: '補上襪類、鞋款與外套，建立完整造型層次。',
+      description: '補上外套、襪類與鞋款，建立完整造型層次。',
       keys: [
         'outerwearId',
         'outerwearColorId',
