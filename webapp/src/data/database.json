@@ -3031,37 +3031,37 @@
     "生活感室內 (Indoor & Lifestyle)": [
       {
         "zh": "室內：精品飯店房間",
-        "en": "boutique hotel room, warm bedside lamps, crisp bedding, elegant interior details, editorial travel mood",
+        "en": "boutique hotel room, bedside lamp fixtures, crisp bedding, elegant interior details, editorial travel mood",
         "desc": "高級但不過度奢華的飯店房間，適合寫真、時裝與成熟人像。"
       },
       {
         "zh": "室內：現代高樓公寓客廳",
-        "en": "modern high-rise apartment interior, window glow, clean designer furniture, soft city backdrop, contemporary lifestyle mood",
+        "en": "modern high-rise apartment interior, large window wall, clean designer furniture, city backdrop outside the windows, contemporary lifestyle mood",
         "desc": "現代都會感強，適合 lifestyle 與社群感拍攝。"
       },
       {
         "zh": "室內：臥室窗邊",
-        "en": "bedroom window area, soft daylight spill, linen textures, intimate photobook atmosphere, quiet interior",
-        "desc": "臨窗空間帶有柔和自然光，很適合寫真集與生活感人像。"
+        "en": "bedroom window area, linen textures, intimate photobook atmosphere, quiet interior, curtains and bedding near the window",
+        "desc": "臨窗空間、床品與布料質感構成安靜生活感，很適合寫真集與生活感人像。"
       },
       {
         "zh": "室內：白色書櫃落地窗臥室",
         "en": "vintage white bookcase bedroom, tall white bookshelf filled with books, large white floor-to-ceiling window, sheer curtain panels, comfortable white bed and pillows, sky and treetops visible outside the window",
-        "desc": "以復古白色書櫃、白色大型落地窗、輕薄紗窗、舒適白色床鋪與枕頭為主的室內場景，窗外可見天空與樹梢；只描述空間、家具與窗外元素，不指定光線或環境光氛。"
+        "desc": "以復古白色書櫃、白色大型落地窗、輕薄紗窗、舒適白色床鋪與枕頭為主的室內場景，窗外可見天空與樹梢。"
       },
       {
         "zh": "室內：浴室鏡前 / 洗手台",
-        "en": "bathroom vanity scene, sink counter details, reflective surfaces, soft indoor glow, modern lifestyle snapshot",
+        "en": "bathroom vanity scene, sink counter details, reflective surfaces, mirror edge, modern lifestyle snapshot",
         "desc": "具有很強的手機隨拍與社群感，也適合妝髮與穿搭展示。"
       },
       {
         "zh": "室內：日本住宅使用感廚房",
         "en": "lived-in Japanese home kitchen, wooden-framed windows, tiled kitchen wall, stainless steel sink and counter, stacked dishes and bowls, drying rack, hanging utensils, pots and kettle, condiment bottles, compact refrigerator edge, cluttered everyday cooking tools, narrow domestic kitchen layout",
-        "desc": "很有使用痕跡的日本住宅廚房，重點是木框窗、磁磚牆、流理台、堆疊碗盤、瀝水架、吊掛餐具、鍋具水壺、調味瓶、冰箱邊緣與日常烹飪工具；只描述空間與生活物件，不指定光線或環境光氛。"
+        "desc": "很有使用痕跡的日本住宅廚房，重點是木框窗、磁磚牆、流理台、堆疊碗盤、瀝水架、吊掛餐具、鍋具水壺、調味瓶、冰箱邊緣與日常烹飪工具。"
       },
       {
         "zh": "室內：更衣室 / 試衣間",
-        "en": "fitting room interior, mirror edge, curtain textures, fashion try-on atmosphere, intimate retail lighting",
+        "en": "fitting room interior, mirror edge, curtain textures, fashion try-on atmosphere, compact retail changing area",
         "desc": "很適合時裝、穿搭與社群企劃，鏡面與布簾能增加生活感。"
       },
       {
@@ -3071,17 +3071,17 @@
       },
       {
         "zh": "室內：復古美式 Diner",
-        "en": "retro American diner booth, red leather seating, chrome details, jukebox glow, 1950s atmosphere",
+        "en": "retro American diner booth, red leather seating, chrome details, jukebox corner, 1950s atmosphere",
         "desc": "50 年代復古風，色彩鮮豔、辨識度高，適合社群與時裝拍攝。"
       },
       {
         "zh": "室內：木造圖書館閱讀桌旁",
-        "en": "historic library reading table, aged wood grain, desk lamp, dusty sunbeams, quiet academic stillness",
+        "en": "historic library reading table, aged wood grain, desk lamp fixture, stacked books, quiet academic stillness",
         "desc": "木桌與閱讀燈形成的安靜局部場景，適合敘事與沉靜人像。"
       },
       {
         "zh": "室內：木造圖書館木窗邊",
-        "en": "historic library window corner, wooden frame, book stacks, soft light beams, calm literary atmosphere",
+        "en": "historic library window corner, wooden frame, book stacks, calm literary atmosphere",
         "desc": "靠近老窗與木框的閱讀角落，適合文藝與自然光人像。"
       },
       {
@@ -3091,42 +3091,42 @@
       },
       {
         "zh": "室內：木造圖書館借書台前",
-        "en": "historic library check-out desk, card catalog drawers, stamped paper details, soft wood glow, archival atmosphere",
+        "en": "historic library check-out desk, card catalog drawers, stamped paper details, aged wood counter, archival atmosphere",
         "desc": "舊式借書櫃台與木質細節為主的空間，適合近距離敘事人像。"
       },
       {
         "zh": "室內：倫敦老咖啡館角落",
-        "en": "old London café corner, dark wood table, fogged window glass, warm pendant lamp, muted wall tones, quiet literary café atmosphere",
-        "desc": "以深木桌、霧面窗玻璃與昏暖吊燈構成的倫敦老咖啡館角落，適合文藝、安靜與成熟生活感人像。"
+        "en": "old London café corner, dark wood table, fogged window glass, pendant lamp fixture, muted wall tones, quiet literary café atmosphere",
+        "desc": "以深木桌、霧面窗玻璃與吊燈構成的倫敦老咖啡館角落，適合文藝、安靜與成熟生活感人像。"
       },
       {
         "zh": "室內：英式小旅館房間",
-        "en": "small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, soft overcast daylight, intimate travel atmosphere",
+        "en": "small British inn room, floral bedding, narrow sash window, cream walls, aged wooden furniture, intimate travel atmosphere",
         "desc": "帶有碎花床品、窄窗與舊木家具的英式小旅館房間，氣質私密、柔和，適合生活寫真與安靜敘事。"
       },
       {
         "zh": "室內：傳統酒吧二樓包廂",
-        "en": "traditional British pub upstairs booth, dark wood paneling, red-brown leather seating, framed vintage prints, low warm lamp light, intimate old-pub atmosphere",
-        "desc": "英國老式酒吧二樓包廂空間，暗木與紅棕皮革帶出成熟、微醺與夜晚生活感。"
+        "en": "traditional British pub upstairs booth, dark wood paneling, red-brown leather seating, framed vintage prints, low lamp fixtures, intimate old-pub atmosphere",
+        "desc": "英國老式酒吧二樓包廂空間，暗木、紅棕皮革與老式牆面裝飾帶出成熟微醺感。"
       },
       {
         "zh": "室內：英式溫室 conservatory",
-        "en": "British conservatory interior, white-painted window frames, glass roof panels, potted greenery, soft damp daylight, airy garden-room atmosphere",
-        "desc": "白色窗框、玻璃屋頂與植栽構成的英式溫室空間，清透但不空，適合自然光與安靜生活感人像。"
+        "en": "British conservatory interior, white-painted window frames, glass roof panels, potted greenery, airy garden-room atmosphere",
+        "desc": "白色窗框、玻璃屋頂與植栽構成的英式溫室空間，清透但不空，適合安靜生活感人像。"
       },
       {
         "zh": "室內：黑膠唱片聆聽角",
-        "en": "British record listening corner, turntable setup, stacked vinyl sleeves, bookshelf speakers, aged wood cabinet, warm lamp glow, intimate music-lover atmosphere",
+        "en": "British record listening corner, turntable setup, stacked vinyl sleeves, bookshelf speakers, aged wood cabinet, lamp fixture, intimate music-lover atmosphere",
         "desc": "以黑膠唱盤、唱片封套與舊木櫃構成的英式室內音樂角落，適合文藝、成熟與安靜生活感人像。"
       },
       {
         "zh": "室內：老式鋼琴房",
-        "en": "old British piano room, upright piano, sheet music stand, worn wood floor, muted wallpaper, overcast window light, quiet classical interior mood",
+        "en": "old British piano room, upright piano, sheet music stand, worn wood floor, muted wallpaper, quiet classical interior mood",
         "desc": "老式直立鋼琴、譜架與舊木地板構成安靜古典空間，帶有英國舊宅與室內樂感。"
       },
       {
         "zh": "室內：地下 live house 後台",
-        "en": "British underground live house backstage, black curtain, road cases, guitar amp, worn posters, cable clutter, dim practical light, gritty indie music atmosphere",
+        "en": "British underground live house backstage, black curtain, road cases, guitar amp, worn posters, cable clutter, gritty indie music atmosphere",
         "desc": "以後台黑布幕、器材箱、音箱與凌亂線材構成的英國獨立音樂場景，適合叛逆、次文化與演出前後的人像。"
       },
       {
@@ -3136,42 +3136,42 @@
       },
       {
         "zh": "室內：日式和室",
-        "en": "traditional Japanese washitsu room, tatami flooring, shoji sliding doors, low table, soft natural daylight, quiet domestic stillness",
-        "desc": "以榻榻米、障子拉門、低矮桌面與安靜自然光構成的典型和室，整體偏真實日式住宅空間。"
+        "en": "traditional Japanese washitsu room, tatami flooring, shoji sliding doors, low table, quiet domestic stillness",
+        "desc": "以榻榻米、障子拉門與低矮桌面構成的典型和室，整體偏真實日式住宅空間。"
       },
       {
         "zh": "室內：日本學校教室",
-        "en": "Japanese school classroom, rows of wooden desks and chairs, blackboard, window-side daylight, realistic everyday school atmosphere",
-        "desc": "日本校園常見的木桌椅、黑板與窗邊天光形成的真實教室場景，適合制服、日常與青春敘事人像。"
+        "en": "Japanese school classroom, rows of wooden desks and chairs, blackboard, classroom windows, realistic everyday school atmosphere",
+        "desc": "日本校園常見的木桌椅、黑板與窗邊座位形成的真實教室場景，適合制服、日常與青春敘事人像。"
       },
       {
         "zh": "室內：辦公室茶水間",
-        "en": "Japanese office pantry corner, compact kitchenette, vending machine or coffee station, office cabinetry, fluorescent workday atmosphere",
-        "desc": "日系辦公樓層內常見的小茶水間或 pantry，重點是茶水台、櫃體與上班日常的生活化空間。"
+        "en": "Japanese office pantry corner, compact kitchenette, vending machine or coffee station, office cabinetry, everyday workplace atmosphere",
+        "desc": "日系辦公樓層內常見的小茶水間或 pantry，重點是茶水台、櫃體與生活化工作空間。"
       },
       {
         "zh": "室內：洗衣店洗衣機門前",
-        "en": "laundromat washer-door detail, chrome reflections, fluorescent light, sticker-covered surfaces, urban solitude",
+        "en": "laundromat washer-door detail, chrome reflections, sticker-covered surfaces, urban solitude",
         "desc": "人物靠近洗衣機門與反光金屬表面的場景，局部感更強。"
       },
       {
         "zh": "室內：洗衣店摺衣台旁",
-        "en": "laundromat folding table, scattered clothes, plastic basket, detergent bottle, fluorescent glow",
+        "en": "laundromat folding table, scattered clothes, plastic basket, detergent bottle, tiled floor detail",
         "desc": "摺衣台與散落衣物形成生活感，適合社群與隨拍式構圖。"
       },
       {
         "zh": "室內：洗衣店洗劑貨架前",
-        "en": "laundromat detergent shelf, plastic bottles, price labels, cool fluorescent light, intimate retail texture",
+        "en": "laundromat detergent shelf, plastic bottles, price labels, intimate retail texture",
         "desc": "貨架與瓶罐作為局部背景，生活感更強，也不容易跑成兩排洗衣機。"
       },
       {
         "zh": "室內：洗衣店角落塑膠椅旁",
-        "en": "laundromat waiting corner, plastic chair, wall stickers, loose clothing, machine reflections, lonely night mood",
-        "desc": "封閉一角的等待感與孤獨感，適合貼近人物的局部夜景。"
+        "en": "laundromat waiting corner, plastic chair, wall stickers, loose clothing, machine reflections, lonely waiting-area mood",
+        "desc": "封閉一角的等待感與孤獨感，適合貼近人物的局部生活感場景。"
       },
       {
         "zh": "戶外：日本住宅陽台曬衣架旁",
-        "en": "Japanese apartment balcony with laundry rack, freshly washed clothes hanging to dry, metal railing, compact residential veranda, neighboring apartment facades, bright everyday domestic atmosphere",
+        "en": "Japanese apartment balcony with laundry rack, freshly washed clothes hanging to dry, metal railing, compact residential veranda, neighboring apartment facades, everyday domestic atmosphere",
         "desc": "日本住宅或公寓陽台上的生活化場景，重點是欄杆、曬衣架、洗好的衣物與鄰近住宅立面，整體有很強的日常居家感與都市住宅氣息。"
       },
       {
@@ -3182,21 +3182,21 @@
       {
         "zh": "戶外：社區自動販賣機旁",
         "en": "Japanese residential neighborhood road, narrow local lane, detached houses and apartment facades, utility poles and overhead power lines, distant low-rise buildings and open sky, two or three vending machines lined up along the roadside, asphalt road markings and quiet curbside details",
-        "desc": "日本住宅區道路旁的自動販賣機場景，重點是巷弄、民宅與公寓立面、電線桿與架空電線、遠處建築與天空，以及道路旁兩三台並排的自動販賣機；只描述街區構成，不指定光線或環境光氛。"
+        "desc": "日本住宅區道路旁的自動販賣機場景，重點是巷弄、民宅與公寓立面、電線桿與架空電線、遠處建築與天空，以及道路旁兩三台並排的自動販賣機。"
       },
       {
         "zh": "戶外：辦公大樓人行道（上班途中）",
-        "en": "Japanese business-district office sidewalk, glass-and-steel office towers, clean paving, commuter walkway, weekday urban workday atmosphere",
-        "desc": "日本都心商辦區常見的人行道與辦公樓立面，帶有通勤途中、上班前後的城市工作日氛圍。"
+        "en": "Japanese business-district office sidewalk, glass-and-steel office towers, clean paving, commuter walkway, urban office-district atmosphere",
+        "desc": "日本都心商辦區常見的人行道與辦公樓立面，帶有通勤動線與城市工作區氛圍。"
       },
       {
         "zh": "室內：宮廷音樂廳 / 歌劇院",
-        "en": "opulent opera house interior, chandelier glow, velvet textures, ornate balconies, grand classical atmosphere",
+        "en": "opulent opera house interior, chandelier fixtures, velvet textures, ornate balconies, grand classical atmosphere",
         "desc": "奢華大型室內空間，適合正式服裝與古典敘事。"
       },
       {
         "zh": "室內：狹小都會旅館房間",
-        "en": "small urban hotel room, compact bedding, dim practical lights, close interior details, enclosed intimate atmosphere",
+        "en": "small urban hotel room, compact bedding, practical lamp fixtures, close interior details, enclosed intimate atmosphere",
         "desc": "保留侷促與親密感，但比膠囊旅館更適合人像與寫真構圖。"
       }
     ],
@@ -3213,7 +3213,7 @@
       },
       {
         "zh": "室內：廢棄水泥工廠攪拌槽旁",
-        "en": "cement-mixer tank area, concrete dust, iron ladder, rust stains, heavy industrial shadows",
+        "en": "cement-mixer tank area, concrete dust, iron ladder, rust stains, heavy industrial structures",
         "desc": "靠近大型槽體與厚重混凝土結構的區域，帶有強烈壓迫感。"
       },
       {
@@ -3223,7 +3223,7 @@
       },
       {
         "zh": "室內：地下排洪道積水牆角",
-        "en": "flood-tunnel damp corner, pooled water, concrete wall stains, reflected light, humid subterranean air",
+        "en": "flood-tunnel damp corner, pooled water, concrete wall stains, reflective wet surfaces, humid subterranean air",
         "desc": "潮濕陰暗的地下角落，牆面積水反光，適合壓迫感與低調人像。"
       },
       {
@@ -3238,17 +3238,17 @@
       },
       {
         "zh": "室內：廢棄手術室",
-        "en": "abandoned operating room, broken surgical table, metal tray, medicine bottles, cold fluorescent light, peeling walls",
-        "desc": "荒廢已久的手術室，帶有醫療器具與冷白燈，適合不安與冷調人像。"
+        "en": "abandoned operating room, broken surgical table, metal tray, medicine bottles, peeling walls",
+        "desc": "荒廢已久的手術室，帶有醫療器具、剝落牆面與臨床空間感。"
       },
       {
         "zh": "室內：廢棄病房",
-        "en": "abandoned hospital ward, old bed frame, hanging curtain, medicine cabinet, weak cold light, worn tiles",
+        "en": "abandoned hospital ward, old bed frame, hanging curtain, medicine cabinet, worn tiles",
         "desc": "舊病床與醫療設備散落的病房，適合帶有敘事感的醫療廢墟畫面。"
       },
       {
         "zh": "室內：廢棄藥品室",
-        "en": "abandoned medicine storage room, glass bottles, metal cabinet, medicine jars, dust, cold utility light",
+        "en": "abandoned medicine storage room, glass bottles, metal cabinet, medicine jars, dust, utility-room surfaces",
         "desc": "小型封閉藥品空間，擺滿玻璃瓶與醫療罐，適合近距離壓迫感人像。"
       },
       {
@@ -3258,7 +3258,7 @@
       },
       {
         "zh": "室內：廢棄校舍散亂課桌教室",
-        "en": "abandoned classroom, scattered desks, chalkboard, torn papers, broken windows, dusty side light",
+        "en": "abandoned classroom, scattered desks, chalkboard, torn papers, broken windows, dusty schoolroom surfaces",
         "desc": "課桌椅凌亂散落的老教室，帶青春殘影與衰敗感。"
       },
       {
@@ -3278,22 +3278,22 @@
       },
       {
         "zh": "室內：地下狂歡俱樂部 / 金庫",
-        "en": "underground rave bunker, lasers through smoke, metallic surfaces, bass-heavy atmosphere, dark club energy",
-        "desc": "地牢般俱樂部空間依舊保留，適合強烈夜拍、霓虹與迷幻主題。"
+        "en": "underground rave bunker, laser fixtures, smoke-machine haze, metallic surfaces, bass-heavy club architecture",
+        "desc": "地牢般俱樂部空間依舊保留，重點是地下 bunker、金屬表面、煙霧機與雷射裝置。"
       },
       {
         "zh": "室內：遭洗劫的維多利亞大宅",
-        "en": "ruined Victorian mansion interior, torn wallpaper, broken chandelier glow, haunted decay, aristocratic ruin mood",
+        "en": "ruined Victorian mansion interior, torn wallpaper, broken chandelier, haunted decay, aristocratic ruin mood",
         "desc": "曾經華麗但現已破敗不堪，適合哥德衰敗與古典殘骸場景。"
       },
       {
         "zh": "室內：廢棄商場停用手扶梯旁",
-        "en": "abandoned mall escalator corner, broken signage, dusty tiles, dead retail lighting, empty commerce decay",
+        "en": "abandoned mall escalator corner, broken signage, dusty tiles, empty commerce decay",
         "desc": "靠近停用手扶梯的商場角落，帶文明停擺感。"
       },
       {
         "zh": "室內：廢棄商場破損櫥窗前",
-        "en": "abandoned storefront window, damaged mannequins, broken glass, dead shop lights, dusty retail interior",
+        "en": "abandoned storefront window, damaged mannequins, broken glass, dusty retail interior",
         "desc": "廢棄店面櫥窗與玻璃殘骸構成的局部場景，適合冷調與時裝人像。"
       },
       {
@@ -3303,7 +3303,7 @@
       },
       {
         "zh": "室內：廢棄商場服務台殘骸",
-        "en": "abandoned service desk, fallen signage, scattered papers, glass fragments, dim retail glow, collapsed mall detail",
+        "en": "abandoned service desk, fallen signage, scattered papers, glass fragments, collapsed mall detail",
         "desc": "服務台周圍的破敗區域，適合中近景人像與文明停擺感。"
       },
       {
@@ -3376,12 +3376,12 @@
       {
         "zh": "室內：電車車廂正面長椅視角",
         "en": "Japanese commuter train car interior, straight-on front view toward a long bench seat, blue fabric bench upholstery, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps and small carriage posters, centered seated composition",
-        "desc": "指定為車廂內正面視角，人物坐在長椅中央，背景包含車窗、滑門、金屬牆面、吊環、路線圖與車廂海報；只描述車廂構成與角度，不指定光線或環境光氛。"
+        "desc": "指定為車廂內正面視角，人物坐在長椅中央，背景包含車窗、滑門、金屬牆面、吊環、路線圖與車廂海報。"
       },
       {
         "zh": "室內：電車車廂側面走道視角",
         "en": "Japanese commuter train car interior, side-profile aisle view, narrow carriage aisle receding into depth, vertical grab poles and overhead hand straps, row seating along both sides, nearby standing passengers and seated commuters as background context, subject standing beside a pole with phone, elongated train-car perspective",
-        "desc": "指定為車廂內側面走道視角，人物站在扶手柱旁，車廂走道向遠處延伸，兩側座位、乘客、吊環與扶手柱形成通勤車廂的縱深感；只描述車廂構成與角度，不指定光線或環境光氛。"
+        "desc": "指定為車廂內側面走道視角，人物站在扶手柱旁，車廂走道向遠處延伸，兩側座位、乘客、吊環與扶手柱形成通勤車廂的縱深感。"
       },
       {
         "zh": "戶外：澀谷站前廣場人潮邊緣",
@@ -3400,13 +3400,13 @@
       },
       {
         "zh": "戶外：目黑川旁的櫻花隧道",
-        "en": "viewed from a bridge over the Meguro River, bridge railing in the foreground, the river running along the left side of the frame, a continuous row of cherry blossom trees lining the right riverside, layered Tokyo city buildings in the background, soft spring daylight, pale pink petals drifting through the air, recognizable urban hanami atmosphere, avoid symmetrical two-sided cherry tree avenue, avoid central road lined with cherry blossoms",
+        "en": "viewed from a bridge over the Meguro River, bridge railing in the foreground, the river running along the left side of the frame, a continuous row of cherry blossom trees lining the right riverside, layered Tokyo city buildings in the background, pale pink petals drifting through the air, recognizable urban hanami atmosphere, avoid symmetrical two-sided cherry tree avenue, avoid central road lined with cherry blossoms",
         "desc": "構圖以橋上視角為核心，前景先看到橋面或欄杆，左側是目黑川河道，右側是一整排沿著河岸延伸的櫻花樹，遠處再帶出東京城市建築；明確避免兩側對稱櫻花樹夾著中央道路的制式櫻花大道畫面。"
       },
       {
         "zh": "戶外：大阪道頓堀心齋橋河道",
-        "en": "Dotonbori Shinsaibashi riverside scene in Osaka, iconic illuminated billboard signage, the Shinsaibashi bridge spanning the foreground, canal water clearly visible below, dense commercial facades and famous neon advertisements layered in the background, recognizable bustling Osaka nightlife atmosphere",
-        "desc": "以大阪道頓堀與心齋橋周邊最有辨識度的橋、河道與大型廣告招牌為核心，畫面前方可見橋面或橋欄，河道清楚存在，後方再帶出高密度商業立面與著名霓虹看板，整體更像經典道頓堀夜景而不是一般日本商店街。"
+        "en": "Dotonbori Shinsaibashi riverside scene in Osaka, iconic billboard signage, the Shinsaibashi bridge spanning the foreground, canal water clearly visible below, dense commercial facades and famous advertisement boards layered in the background, recognizable bustling Osaka entertainment-district atmosphere",
+        "desc": "以大阪道頓堀與心齋橋周邊最有辨識度的橋、河道與大型廣告招牌為核心，畫面前方可見橋面或橋欄，河道清楚存在，後方再帶出高密度商業立面與著名看板。"
       },
       {
         "zh": "戶外：九龍城寨雜貨店門口",
@@ -3426,7 +3426,7 @@
       {
         "zh": "戶外：廟街小吃店外桌邊角落",
         "en": "Temple Street eatery sidewalk tables, plastic stools, tiled storefront edge, stacked utensils, dense curbside dining detail",
-        "desc": "以小吃店外桌與店面邊角為主，不強調整條夜市，而是人物實際會靠近拍攝的局部餐飲空間。"
+        "desc": "以小吃店外桌與店面邊角為主，不強調整條街市，而是人物實際會靠近拍攝的局部餐飲空間。"
       },
       {
         "zh": "戶外：孚日廣場拱廊下",
@@ -3464,59 +3464,59 @@
         "desc": "聖水洞結合工業感與潮流店家，適合韓系時裝、生活感與現代城市人像。"
       },
       {
-        "zh": "戶外：首爾弘大夜街",
-        "en": "Seoul Hongdae nightlife, colorful sign glow, youth-culture energy, layered shopfronts, lively snapshot mood",
+        "zh": "戶外：首爾弘大街頭",
+        "en": "Seoul Hongdae youth-culture street, colorful signboards, layered shopfronts, lively snapshot mood, dense trendy district texture",
         "desc": "弘大街頭更偏年輕、熱鬧與社群感，適合隨拍、街頭風格與流行穿搭。"
       },
       {
         "zh": "戶外：台北西門町街頭",
-        "en": "Taipei Ximending nightlife, bright sign glow, humid urban reflections, dense youth-culture texture, energetic city mood",
-        "desc": "西門町兼具流行文化與台式霓虹街景，適合社群感、隨拍與街頭穿搭。"
+        "en": "Taipei Ximending street, dense commercial signboards, humid urban reflections, dense youth-culture texture, energetic city mood",
+        "desc": "西門町兼具流行文化與台式商業街景，適合社群感、隨拍與街頭穿搭。"
       },
       {
         "zh": "戶外：洛杉磯日落大道街景",
-        "en": "Los Angeles Sunset Boulevard atmosphere, palm silhouettes, billboard glow, warm dusk haze, cinematic city mood",
-        "desc": "棕櫚樹、夕陽與大型看板構成經典 LA 都市畫面，適合 lifestyle 與電影感街景。"
+        "en": "Los Angeles Sunset Boulevard atmosphere, palm tree silhouettes, large billboard structures, broad boulevard edge, cinematic city mood",
+        "desc": "棕櫚樹、大型看板與寬闊道路構成經典 LA 都市畫面，適合 lifestyle 與電影感街景。"
       },
       {
-        "zh": "戶外：新宿歌舞伎町霓虹招牌下",
-        "en": "Kabukicho neon sign corner, saturated neon glow, wet ground reflections, storefront edge, crowded nightlife tension",
-        "desc": "人物靠近大型霓虹與招牌邊緣，保留歌舞伎町的高張力夜色，但避免整條街的中軸透視。"
+        "zh": "戶外：新宿歌舞伎町招牌下",
+        "en": "Kabukicho signboard corner, stacked neon sign structures, wet ground reflections, storefront edge, crowded entertainment-district tension",
+        "desc": "人物靠近大型招牌與店面邊緣，保留歌舞伎町的高張力娛樂街區感。"
       },
       {
         "zh": "戶外：新宿歌舞伎町販賣機旁",
-        "en": "Shinjuku vending machine corner, neon spill, metallic reflections, damp pavement, compact urban night detail",
-        "desc": "販賣機、牆面與反光地面構成局部都市夜景，適合近距離街拍人像。"
+        "en": "Shinjuku vending machine corner, metallic vending-machine surfaces, damp pavement, compact urban street detail",
+        "desc": "販賣機、牆面與反光地面構成局部都市場景，適合近距離街拍人像。"
       },
       {
         "zh": "戶外：新宿歌舞伎町酒吧門口",
-        "en": "Kabukicho bar entrance, glowing signboard, damp pavement, doorway shadows, intimate nightlife atmosphere",
+        "en": "Kabukicho bar entrance, compact signboard, damp pavement, doorway recess, intimate entertainment-district atmosphere",
         "desc": "酒吧門口與小型招牌構成局部都市性感感，減少大道式街景。"
       },
       {
         "zh": "戶外：新宿歌舞伎町濕地反光角落",
-        "en": "Kabukicho wet street corner, neon reflections, dark wall edge, layered sign glow, moody night texture",
-        "desc": "街角反光與霓虹混色構成局部夜景，更適合人物貼近場景拍攝。"
+        "en": "Kabukicho wet street corner, reflective pavement, wall edge, layered signboards, moody entertainment-district texture",
+        "desc": "街角反光與多層招牌構成局部都市背景，更適合人物貼近場景拍攝。"
       },
       {
         "zh": "戶外：蘇荷區酒吧門口",
-        "en": "Soho pub entrance, warm doorway light, wall textures, wet pavement reflections, intimate nightlife mood",
-        "desc": "人物靠近酒吧入口與暖光門面，保留蘇荷夜生活氣氛，但避免狹長街道感。"
+        "en": "Soho pub entrance, doorway frame, wall textures, wet pavement reflections, intimate pub-street mood",
+        "desc": "人物靠近酒吧入口與門面，保留蘇荷酒吧街氣氛，但避免狹長街道感。"
       },
       {
         "zh": "戶外：蘇荷區店面櫥窗邊",
-        "en": "Soho storefront window edge, interior warm glow, reflective glass, damp street texture, stylish urban detail",
-        "desc": "靠近櫥窗與街面反射的局部夜景，強調店面層次而非整條街。"
+        "en": "Soho storefront window edge, reflective glass, damp street texture, stylish urban detail",
+        "desc": "靠近櫥窗與街面反射的局部街景，強調店面層次而非整條街。"
       },
       {
-        "zh": "戶外：蘇荷區霓虹招牌下",
-        "en": "Soho neon sign corner, glowing signage, wall edge, wet ground, layered nightlife reflections",
-        "desc": "人物站在招牌與門面下方，帶有明確夜街辨識度但不強調大道構圖。"
+        "zh": "戶外：蘇荷區招牌下",
+        "en": "Soho signboard corner, neon sign structure, wall edge, wet ground, layered storefront reflections",
+        "desc": "人物站在招牌與門面下方，帶有明確街區辨識度但不強調大道構圖。"
       },
       {
         "zh": "戶外：蘇荷區濕地反光街角",
-        "en": "Soho wet street corner, pub light reflections, turning wall, glossy pavement, stylish night atmosphere",
-        "desc": "街角與濕地反射構成局部夜拍背景，適合街拍與都會時裝人像。"
+        "en": "Soho wet street corner, pub frontage reflections, turning wall, glossy pavement, stylish urban atmosphere",
+        "desc": "街角與濕地反射構成局部街拍背景，適合街拍與都會時裝人像。"
       },
       {
         "zh": "戶外：Brick Lane 海報牆巷口",
@@ -3535,100 +3535,100 @@
       },
       {
         "zh": "戶外：倫敦排屋街道",
-        "en": "London townhouse street, Victorian terrace facades, black iron railings, stone steps, overcast British daylight, wet pavement, subtle punk street attitude",
+        "en": "London townhouse street, Victorian terrace facades, black iron railings, stone steps, wet pavement, subtle punk street attitude",
         "desc": "典型倫敦排屋立面、鐵欄杆與潮濕路面形成成熟英國街景，加入低調英龐克街頭態度但不走觀光大道感。"
       },
       {
         "zh": "戶外：雨後 mews 巷弄",
-        "en": "rain-soaked London mews lane, brick garage fronts, narrow cobbled passage, damp reflections, muted overcast light, British punk backstreet mood",
+        "en": "rain-soaked London mews lane, brick garage fronts, narrow cobbled passage, damp reflections, British punk backstreet mood",
         "desc": "以雨後倫敦 mews 巷弄、磚牆與濕石板路為主，帶有英國後巷、獨立樂團與龐克次文化的冷感街頭氣質。"
       },
       {
         "zh": "戶外：法租界老洋房門口",
-        "en": "French Concession townhouse entrance, old doorway frame, iron railing, tree shadows, refined urban nostalgia",
+        "en": "French Concession townhouse entrance, old doorway frame, iron railing, tree-lined street detail, refined urban nostalgia",
         "desc": "靠近老洋房入口與門框的場景，成熟且帶歷史感。"
       },
       {
         "zh": "室內：法租界咖啡館靠窗座位",
-        "en": "French Concession café window seat, large floor-to-ceiling windows, sidewalk and swaying park tree shadows outside, warm interior glow, reflective glass, literary café atmosphere",
-        "desc": "法租界咖啡館內的靠窗座位，大片落地窗外可見人行道與公園樹影，溫暖室內燈光與玻璃反射讓整體更適合坐姿、靠窗與文藝生活感人像。"
+        "en": "French Concession café window seat, large floor-to-ceiling windows, sidewalk and park trees outside, reflective glass, literary café atmosphere",
+        "desc": "法租界咖啡館內的靠窗座位，大片落地窗外可見人行道與公園樹木，玻璃反射讓整體更適合坐姿、靠窗與文藝生活感人像。"
       },
       {
         "zh": "戶外：法租界咖啡館窗外露台座位",
-        "en": "French Concession café window, tree-shadow patterns, warm interior glow, reflective glass, literary city mood",
-        "desc": "咖啡館窗外的戶外露台座位，人物更靠近小圓桌、鐵椅與街邊樹影，同時仍保留窗內暖光與法租界的文藝生活感。"
+        "en": "French Concession café window terrace, small round table, metal chairs, street trees, reflective glass, literary city mood",
+        "desc": "咖啡館窗外的戶外露台座位，人物更靠近小圓桌、鐵椅與街邊樹木，同時仍保留窗面反射與法租界的文藝生活感。"
       },
       {
         "zh": "戶外：法租界街角轉角牆面",
-        "en": "French Concession corner wall, aged brick textures, soft signage glow, tree shadows, intimate street detail",
+        "en": "French Concession corner wall, aged brick textures, small shop signage, street trees, intimate street detail",
         "desc": "轉角牆面與局部街景構成更貼近人物的城市背景。"
       },
       {
         "zh": "戶外：法租界鐵欄杆前",
-        "en": "French Concession iron railing, stone wall, window frame, layered shadows, mature cosmopolitan atmosphere",
+        "en": "French Concession iron railing, stone wall, window frame, layered street textures, mature cosmopolitan atmosphere",
         "desc": "舊式欄杆與牆面形成穩定成熟的都會背景，不容易跑成大道景。"
       },
       {
         "zh": "戶外：羅馬老城石牆轉角",
-        "en": "Rome old-town stone corner, warm wall texture, cobblestone ground, soft evening light, romantic urban detail",
+        "en": "Rome old-town stone corner, warm wall texture, cobblestone ground, romantic urban detail",
         "desc": "石牆與轉角構成歐洲街拍局部背景，保留浪漫感但避免長巷透視。"
       },
       {
         "zh": "戶外：羅馬老城咖啡館外桌旁",
-        "en": "Rome café terrace edge, warm lamp glow, outdoor chairs, textured stone wall, intimate evening atmosphere",
-        "desc": "戶外桌椅與暖光店面形成生活感，適合文藝與時裝人像。"
+        "en": "Rome café terrace edge, outdoor chairs, textured stone wall, intimate café-street atmosphere",
+        "desc": "戶外桌椅與店面形成生活感，適合文藝與時裝人像。"
       },
       {
         "zh": "戶外：羅馬老城老木門前",
-        "en": "Rome aged wooden door, stone wall texture, iron handle detail, warm shadows, classic old-city mood",
+        "en": "Rome aged wooden door, stone wall texture, iron handle detail, classic old-city mood",
         "desc": "老木門與牆面紋理主導畫面，適合成熟與敘事型街拍。"
       },
       {
-        "zh": "戶外：羅馬老城暖光窗台邊",
-        "en": "Rome warm window ledge, stone wall, café glow, potted plants, romantic evening detail",
-        "desc": "靠近窗台與牆面拍攝，保留歐洲夜晚氛圍但不形成大道視角。"
+        "zh": "戶外：羅馬老城窗台邊",
+        "en": "Rome old-town window ledge, stone wall, café frontage detail, potted plants, romantic street detail",
+        "desc": "靠近窗台與牆面拍攝，保留歐洲街角生活感但不形成大道視角。"
       },
       {
         "zh": "戶外：城市遊艇碼頭欄杆旁",
         "en": "urban yacht marina promenade, slim stainless-steel marina handrail with round tubular rails, yacht-club pedestrian railing not a highway guardrail, weathered wooden dock planks and timber pier decking, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes",
-        "desc": "參考城市港灣或遊艇碼頭旁的人像場景，前景是遊艇碼頭常見的細圓管不鏽鋼行人欄杆、木棧橋與船舶碼頭木板材質，中後景是停泊帆船、桅杆、港灣水面、遠方城市與山影；明確避免生成高速公路護欄，並且不指定光線或環境光氛。"
+        "desc": "參考城市港灣或遊艇碼頭旁的人像場景，前景是遊艇碼頭常見的細圓管不鏽鋼行人欄杆、木棧橋與船舶碼頭木板材質，中後景是停泊帆船、桅杆、港灣水面、遠方城市與山影；明確避免生成高速公路護欄。"
       },
       {
         "zh": "戶外：高樓頂樓城市天際線",
         "en": "high-rise rooftop edge, rooftop guardrail and concrete parapet, modern city skyline in the distance, layered urban towers, broad rooftop ledge, elevated metropolitan overlook",
-        "desc": "參考高樓大廈頂樓或屋頂邊緣的人像場景，前景是頂樓欄杆、矮牆與屋頂平台，遠景是現代化都市、高樓群與天際線；只描述空間與背景，不指定時段、光線或天氣。"
+        "desc": "參考高樓大廈頂樓或屋頂邊緣的人像場景，前景是頂樓欄杆、矮牆與屋頂平台，遠景是現代化都市、高樓群與天際線。"
       }
     ],
     "自然與戶外 (Nature & Outdoors)": [
       {
         "zh": "戶外：金色海灘與浪線",
-        "en": "golden sandy beach edge, shallow clear seawater gently washing around the subject, thin receding wave edge across the sand, transparent water lapping near the body, wet sunlit sand texture, open seaside setting, no thick foam piles, no bubble bath texture",
-        "desc": "高頻好用的海邊場景，重點是金色沙灘、透明淺水、薄薄退潮浪緣與濕潤反光沙面；海水可以輕輕打到人物周圍，但避免生成厚重白色泡沫或泡泡浴感。"
+        "en": "golden sandy beach edge, shallow clear seawater gently washing around the subject, thin receding wave edge across the sand, transparent water lapping near the body, wet sand texture, open seaside setting, no thick foam piles, no bubble bath texture",
+        "desc": "高頻好用的海邊場景，重點是金色沙灘、透明淺水、薄薄退潮浪緣與濕潤沙面；海水可以輕輕打到人物周圍，但避免生成厚重白色泡沫或泡泡浴感。"
       },
       {
         "zh": "戶外：清澈海灣岩岸",
-        "en": "clear turquoise cove shoreline, pale rocky coast, shallow transparent seawater, sunlit coastal cliffs, quiet Mediterranean-style inlet atmosphere",
-        "desc": "以清澈淺藍海水、淺色岩岸與被海水包圍的小海灣為核心，畫面更像安靜而明亮的地中海式海灣，而不是平坦沙灘。"
+        "en": "clear turquoise cove shoreline, pale rocky coast, shallow transparent seawater, coastal cliffs, quiet Mediterranean-style inlet atmosphere",
+        "desc": "以清澈淺藍海水、淺色岩岸與被海水包圍的小海灣為核心，畫面更像安靜的地中海式海灣，而不是平坦沙灘。"
       },
       {
         "zh": "戶外：岩洞感海灣淺灘",
-        "en": "rocky seaside cove with cave-like cliff openings, shallow crystalline water, irregular stone shoreline, sunlit coastal rock textures, intimate hidden-bay atmosphere",
+        "en": "rocky seaside cove with cave-like cliff openings, shallow crystalline water, irregular stone shoreline, coastal rock textures, intimate hidden-bay atmosphere",
         "desc": "岩壁上帶有洞口或凹陷感的海灣淺灘，前景是碎石與淺水區，背景是起伏岩壁，整體更有祕境海灣與岩洞海岸的辨識度。"
       },
       {
-        "zh": "戶外：陽光草地與樹影",
-        "en": "sunlit grassy patch, scattered tree shadows, warm daylight, breezy natural portrait mood, gentle outdoor texture",
+        "zh": "戶外：草地與樹木",
+        "en": "grassy patch, scattered trees, breezy natural portrait mood, gentle outdoor texture",
         "desc": "比純自然景觀更貼近人像拍攝，容易形成乾淨生活感與輕寫真氛圍。"
       },
       {
         "zh": "戶外：廣闊草原平原與天空",
         "en": "wide open grassland plain, low meadow grasses and wild plants, flat horizon line, expansive open sky, distant tree line, spacious countryside field",
-        "desc": "廣闊草原與平原感的戶外場景，重點是低矮草叢、野生植物、平坦地平線、大面積天空與遠方樹線；只描述地景與空間，不指定時段、光線或天氣。"
+        "desc": "廣闊草原與平原感的戶外場景，重點是低矮草叢、野生植物、平坦地平線、大面積天空與遠方樹線。"
       },
       {
         "zh": "戶外：向日葵花田",
-        "en": "sunflower bloom cluster, bright summer light, vivid yellow petals, cheerful countryside mood, natural color burst",
-        "desc": "高飽和又有夏日辨識度，適合明亮寫真與日系自然風。"
+        "en": "sunflower bloom cluster, vivid yellow petals, cheerful countryside mood, natural color burst",
+        "desc": "高飽和又有夏日辨識度，適合日系自然風。"
       },
       {
         "zh": "戶外：霧感森林步道",
@@ -3637,17 +3637,17 @@
       },
       {
         "zh": "戶外：湖邊木棧道",
-        "en": "lakeside wooden deck, calm water reflections, soft twilight glow, open natural stillness, quiet outdoor mood",
+        "en": "lakeside wooden deck, calm water reflections, open natural stillness, quiet outdoor mood",
         "desc": "湖面與木棧道讓畫面更具構圖感，適合文藝與安靜寫真。"
       },
       {
-        "zh": "戶外：夕陽海邊岩岸",
-        "en": "rocky shoreline at sunset, warm coastal glow, textured stone surfaces, cinematic outdoor portrait mood",
+        "zh": "戶外：海邊岩岸",
+        "en": "rocky shoreline, textured stone surfaces, coastal edge, cinematic outdoor portrait mood",
         "desc": "比平坦沙灘更多層次，適合成熟、電影感與時裝自然場景。"
       },
       {
         "zh": "戶外：沙丘與風痕地景",
-        "en": "sand dune textures, wind-shaped patterns, minimal desert mood, harsh sunlight, sculptural landscape detail",
+        "en": "sand dune textures, wind-shaped patterns, minimal desert mood, sculptural landscape detail",
         "desc": "保留極簡沙丘場景，但聚焦在人像可用的線條與光影。"
       }
     ],
@@ -3668,9 +3668,9 @@
         "desc": "為仰躺、坐姿或俯拍構圖準備的生活感日式榻榻米房間，重點是榻榻米編織紋理、障子窗或紙門邊緣、角落雜誌與小物，以及落在榻榻米上的矩形窗光。"
       },
       {
-        "zh": "其他：陽光灑落的樹下",
+        "zh": "其他：樹下草地",
         "en": "under a tree canopy on a dense green grass lawn, soft grass blades filling the ground plane, several visible tree roots breaking through the grass near the subject, dappled sunlight and patchy leaf shadows across the grassy surface, subject lying comfortably on the grass, no concrete pavement, no bare dirt ground",
-        "desc": "為仰躺姿勢準備的樹下草地場景，重點是明確的綠色草坪、可見草葉材質、局部樹根穿出草面，以及樹蔭下的灑落光斑與葉影；避免生成水泥地或大片裸露泥土地。"
+        "desc": "為仰躺姿勢準備的樹下草地場景，重點是明確的綠色草坪、可見草葉材質、局部樹根穿出草面，以及樹冠覆蓋下的草地層次；避免生成水泥地或大片裸露泥土地。"
       },
       {
         "zh": "其他：沙灘海岸線",
