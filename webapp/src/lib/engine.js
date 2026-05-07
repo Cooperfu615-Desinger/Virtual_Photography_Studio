@@ -5231,6 +5231,12 @@ const AI_PROMPT_CORE_PART_LIMITS = {
   'Duo Wardrobe': 2,
 };
 
+const AI_PROMPT_FULL_VALUE_LABELS = new Set([
+  'Special Outfit',
+  'Woman 1 Special Outfit',
+  'Woman 2 Special Outfit',
+]);
+
 function normalizeAiPromptValue(value, label) {
   const partLimit = AI_PROMPT_CORE_PART_LIMITS[label] || AI_PROMPT_CORE_PART_LIMITS.default;
   const cleaned = stripMarkdown(value || '')
@@ -5238,6 +5244,7 @@ function normalizeAiPromptValue(value, label) {
     .replace(/[.!?]+$/g, '')
     .trim();
   if (!cleaned) return '';
+  if (AI_PROMPT_FULL_VALUE_LABELS.has(label) || /complete special outfit/i.test(cleaned)) return cleaned;
 
   return cleaned
     .split(/[.!?]|\s*,\s*/)
@@ -5281,7 +5288,7 @@ function buildAiFallbackPromptFromGrok(grokPrompt) {
   return ensureTerminalPeriod(clauses.join(', '));
 }
 
-function buildAiMinimalPromptFromGrok(grokPrompt) {
+function buildAiMinimalPromptFromGrok(grokPrompt, context) {
   const sections = {
     subject: [],
     outfit: [],
@@ -5300,13 +5307,26 @@ function buildAiMinimalPromptFromGrok(grokPrompt) {
       const label = line.slice(0, separatorIndex).trim();
       if (AI_PROMPT_EXCLUDED_GROK_LABELS.has(label)) return;
 
-      pushAiSectionValue(sections, label, normalizeAiPromptValue(line.slice(separatorIndex + 1), label));
+      const rawValue = line.slice(separatorIndex + 1);
+      if (label === 'Duo Scene Anchor' && /complete special outfit/i.test(rawValue)) {
+        const outfitStart = rawValue.search(/woman 1 wears complete special outfit|both wearing complete special outfit/i);
+        if (outfitStart > -1) {
+          const subjectValue = rawValue.slice(0, outfitStart).trim();
+          const outfitValue = rawValue.slice(outfitStart).trim();
+          pushAiSectionValue(sections, 'Subject Count', normalizeAiPromptValue(subjectValue, 'Subject Count'));
+          pushAiSectionValue(sections, 'Duo Wardrobe', normalizeAiPromptValue(outfitValue, 'Duo Wardrobe'));
+          return;
+        }
+      }
+
+      pushAiSectionValue(sections, label, normalizeAiPromptValue(rawValue, label));
     });
 
   const subjectText = buildAiSectionText(sections.subject);
   if (!subjectText) return buildAiFallbackPromptFromGrok(grokPrompt);
 
   const outfitText = buildAiSectionText(sections.outfit);
+  const outfitLead = context?.subject?.count === 2 ? 'They wearing' : 'She wearing';
   const settingText = buildAiSectionText(sections.setting);
   const cameraText = buildAiSectionText(sections.camera);
   const lightingText = buildAiSectionText(sections.lighting);
@@ -5314,7 +5334,7 @@ function buildAiMinimalPromptFromGrok(grokPrompt) {
 
   return [
     ensureTerminalPeriod(subjectText),
-    outfitText ? ensureTerminalPeriod(`main outfit: ${outfitText}`) : '',
+    outfitText ? ensureTerminalPeriod(`${outfitLead} ${outfitText}`) : '',
     settingText ? ensureTerminalPeriod(`setting: ${settingText}`) : '',
     cameraText ? ensureTerminalPeriod(`camera: ${cameraText}`) : '',
     lightingText ? ensureTerminalPeriod(`lighting: ${lightingText}`) : '',
@@ -5325,7 +5345,7 @@ function buildAiMinimalPromptFromGrok(grokPrompt) {
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction) {
   const grokPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction);
   const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction);
-  const midjourneyPrompt = buildAiMinimalPromptFromGrok(grokPrompt);
+  const midjourneyPrompt = buildAiMinimalPromptFromGrok(grokPrompt, context);
 
   return { midjourneyPrompt, grokPrompt, zImagePrompt };
 }
