@@ -26,39 +26,39 @@ export const SUNO_LIMITS = {
 
 export const SUNO_OPTIONS = {
   genres: [
-    { id: 'soft-rock', zh: 'Soft Rock', prompt: 'soft rock' },
-    { id: 'acid-jazz', zh: 'Acid Jazz', prompt: 'acid jazz' },
-    { id: 'hip-hop-soul', zh: 'Hip Hop Soul', prompt: 'hip hop soul' },
-    { id: 'britpop', zh: 'Britpop', prompt: 'britpop' },
-    { id: 'lofi-indie-pop', zh: 'Lo-Fi Indie Pop', prompt: 'lo-fi indie pop' },
-    { id: 'dream-pop', zh: 'Dream Pop', prompt: 'dream pop' },
-    { id: 'city-pop', zh: 'City Pop', prompt: 'city pop' },
-    { id: 'neo-soul', zh: 'Neo Soul', prompt: 'neo soul' },
-    { id: 'jazz-rap', zh: 'Jazz Rap', prompt: 'jazz rap' },
-    { id: 'alternative-rnb', zh: 'Alternative R&B', prompt: 'alternative r&b' },
-    { id: 'trip-hop', zh: 'Trip Hop', prompt: 'trip hop' },
-    { id: 'downtempo', zh: 'Downtempo', prompt: 'downtempo' },
-    { id: 'indie-folk', zh: 'Indie Folk', prompt: 'indie folk' },
-    { id: 'ambient-pop', zh: 'Ambient Pop', prompt: 'ambient pop' },
-    { id: 'bedroom-pop', zh: 'Bedroom Pop', prompt: 'bedroom pop' },
-    { id: 'chillwave', zh: 'Chillwave', prompt: 'chillwave' },
+    { id: 'soft-rock', zh: '柔和搖滾', prompt: 'soft rock' },
+    { id: 'acid-jazz', zh: '迷幻爵士', prompt: 'acid jazz' },
+    { id: 'hip-hop-soul', zh: '嘻哈靈魂樂', prompt: 'hip hop soul' },
+    { id: 'britpop', zh: '英倫流行搖滾', prompt: 'britpop' },
+    { id: 'lofi-indie-pop', zh: '低傳真獨立流行', prompt: 'lo-fi indie pop' },
+    { id: 'dream-pop', zh: '夢幻流行', prompt: 'dream pop' },
+    { id: 'city-pop', zh: '都會流行', prompt: 'city pop' },
+    { id: 'neo-soul', zh: '新靈魂樂', prompt: 'neo soul' },
+    { id: 'jazz-rap', zh: '爵士饒舌', prompt: 'jazz rap' },
+    { id: 'alternative-rnb', zh: '另類節奏藍調', prompt: 'alternative r&b' },
+    { id: 'trip-hop', zh: '迷幻嘻哈', prompt: 'trip hop' },
+    { id: 'downtempo', zh: '慢速電子', prompt: 'downtempo' },
+    { id: 'indie-folk', zh: '獨立民謠', prompt: 'indie folk' },
+    { id: 'ambient-pop', zh: '氛圍流行', prompt: 'ambient pop' },
+    { id: 'bedroom-pop', zh: '臥室流行', prompt: 'bedroom pop' },
+    { id: 'chillwave', zh: '冷波電子', prompt: 'chillwave' },
   ],
   instruments: [
-    { id: 'rhodes-stabs', zh: 'Rhodes 和弦點綴', prompt: 'Rhodes chord stabs' },
-    { id: '808-sub-bass', zh: '808 Sub Bass', prompt: '808 sub-bass' },
-    { id: 'deep-808-bass', zh: 'Deep 808 Bass', prompt: 'deep 808 bass' },
+    { id: 'rhodes-stabs', zh: '電鋼琴和弦點綴', prompt: 'Rhodes chord stabs' },
+    { id: '808-sub-bass', zh: '808 次低音', prompt: '808 sub-bass' },
+    { id: 'deep-808-bass', zh: '深沉 808 低音', prompt: 'deep 808 bass' },
     { id: 'upright-bass', zh: '立式低音提琴', prompt: 'soft upright bass' },
     { id: 'brushed-snare', zh: '刷鈸軍鼓', prompt: 'brushed snare accents' },
-    { id: 'rim-clicks', zh: 'Rim Clicks', prompt: 'brushed snare rim clicks' },
+    { id: 'rim-clicks', zh: '鼓框敲擊', prompt: 'brushed snare rim clicks' },
     { id: 'muted-electric-guitar', zh: '悶音電吉他', prompt: 'muted electric guitar' },
     { id: 'acoustic-guitar', zh: '節奏木吉他', prompt: 'muted rhythmic acoustic guitar' },
-    { id: 'hammond-organ', zh: 'Hammond Organ Pad', prompt: 'Hammond organ pad' },
-    { id: 'analog-keys', zh: 'Analog Keys', prompt: 'warm analog keys' },
-    { id: 'tape-rhodes', zh: 'Tape Rhodes', prompt: 'tape-saturated Rhodes' },
-    { id: 'melodica', zh: 'Melodica', prompt: 'distant melodica phrases' },
-    { id: 'synth-pad', zh: 'Synth Pad', prompt: 'soft synth pad' },
+    { id: 'hammond-organ', zh: '哈蒙德風琴鋪底', prompt: 'Hammond organ pad' },
+    { id: 'analog-keys', zh: '類比鍵盤', prompt: 'warm analog keys' },
+    { id: 'tape-rhodes', zh: '磁帶感電鋼琴', prompt: 'tape-saturated Rhodes' },
+    { id: 'melodica', zh: '口風琴', prompt: 'distant melodica phrases' },
+    { id: 'synth-pad', zh: '合成器鋪底', prompt: 'soft synth pad' },
     { id: 'plate-piano', zh: '柔和鋼琴', prompt: 'soft cinematic piano' },
-    { id: 'electric-piano', zh: 'Electric Piano', prompt: 'electric piano comping' },
+    { id: 'electric-piano', zh: '電鋼琴伴奏', prompt: 'electric piano comping' },
     { id: 'vinyl-keys', zh: '黑膠質感鍵盤', prompt: 'dusty vintage keys' },
   ],
   bpm: [
@@ -68,44 +68,44 @@ export const SUNO_OPTIONS = {
     { id: '60-90', zh: '60~90 BPM', prompt: '60-90 BPM' },
   ],
   groove: [
-    { id: 'halftime-groove', zh: 'Halftime Groove', prompt: 'halftime groove' },
-    { id: 'swung-backbeat', zh: 'Swung Backbeat', prompt: 'swung backbeat' },
-    { id: 'laidback-groove', zh: 'Laid-Back Groove', prompt: 'laid-back groove' },
-    { id: 'steady-straight', zh: 'Steady Straight Beat', prompt: 'steady straight beat' },
-    { id: 'broken-beat', zh: 'Broken Beat Sway', prompt: 'broken beat sway' },
-    { id: 'head-nod-pocket', zh: 'Head-Nod Pocket', prompt: 'gentle head-nod pocket' },
-    { id: 'night-drive-pulse', zh: 'Night Drive Pulse', prompt: 'pulse-driven nocturnal groove' },
-    { id: 'slow-rolling', zh: 'Slow Rolling Groove', prompt: 'slow rolling groove' },
+    { id: 'halftime-groove', zh: '半拍律動', prompt: 'halftime groove' },
+    { id: 'swung-backbeat', zh: '搖擺反拍', prompt: 'swung backbeat' },
+    { id: 'laidback-groove', zh: '慵懶律動', prompt: 'laid-back groove' },
+    { id: 'steady-straight', zh: '穩定直拍', prompt: 'steady straight beat' },
+    { id: 'broken-beat', zh: '碎拍搖擺', prompt: 'broken beat sway' },
+    { id: 'head-nod-pocket', zh: '點頭節拍口袋', prompt: 'gentle head-nod pocket' },
+    { id: 'night-drive-pulse', zh: '夜間駕車脈衝', prompt: 'pulse-driven nocturnal groove' },
+    { id: 'slow-rolling', zh: '緩慢滾動律動', prompt: 'slow rolling groove' },
   ],
   vocals: [
     { id: 'intimate-female', zh: '親密女聲', prompt: 'intimate female vocals' },
     { id: 'airy-female', zh: '空氣感女聲', prompt: 'airy female vocals' },
     { id: 'breathy-soft', zh: '輕柔氣聲', prompt: 'soft breathy vocals' },
-    { id: 'close-mic', zh: 'Close-Mic Vocal', prompt: 'close-mic vocal' },
-    { id: 'japanese-hooks', zh: '日文 Hook Lines', prompt: 'Japanese hook lines' },
+    { id: 'close-mic', zh: '近距離收音人聲', prompt: 'close-mic vocal' },
+    { id: 'japanese-hooks', zh: '日文副歌旋律句', prompt: 'Japanese hook lines' },
     { id: 'restrained-delivery', zh: '克制情緒唱法', prompt: 'restrained emotional delivery' },
-    { id: 'layered-backing', zh: 'Layered Backing Vocals', prompt: 'layered backing vocals' },
+    { id: 'layered-backing', zh: '多層和聲', prompt: 'layered backing vocals' },
     { id: 'whispery-tone', zh: '耳語感音色', prompt: 'whispery vocal tone' },
     { id: 'mellow-male', zh: '溫柔男聲', prompt: 'mellow male vocals' },
     { id: 'low-register-female', zh: '低聲線女聲', prompt: 'low-register female vocals' },
   ],
   textures: [
-    { id: 'plate-reverb', zh: 'Plate Reverb', prompt: 'cinematic plate reverb' },
-    { id: 'spring-reverb', zh: 'Spring Reverb', prompt: 'spring reverb' },
-    { id: 'tape-saturation', zh: 'Tape Saturation', prompt: 'tape saturation' },
-    { id: 'vinyl-crackle', zh: 'Vinyl Crackle', prompt: 'vinyl crackle' },
-    { id: 'analog-warmth', zh: 'Analog Warmth', prompt: 'analog warmth' },
-    { id: 'mono-close-drums', zh: 'Mono-Close Drums', prompt: 'mono-close drums' },
-    { id: 'sidechain-pumping', zh: 'Sidechain Pumping', prompt: 'sidechain pumping' },
-    { id: 'tokyo-night-drive', zh: 'Tokyo Night Drive', prompt: 'Tokyo night drive' },
-    { id: 'rainy-night-melancholy', zh: 'Rainy-Night Melancholy', prompt: 'rainy-night melancholy' },
-    { id: 'bittersweet-devotion', zh: 'Bittersweet Devotion', prompt: 'bittersweet devotion' },
-    { id: 'reflective-drift', zh: 'Reflective Drift', prompt: 'reflective drift' },
-    { id: 'late-night-tenderness', zh: 'Late-Night Tenderness', prompt: 'late-night tenderness' },
-    { id: 'majestic-sunrise', zh: 'Majestic Sunrise Atmosphere', prompt: 'majestic sunrise atmosphere' },
-    { id: 'wet-pavement-foley', zh: 'Wet Pavement Foley', prompt: 'wet pavement foley' },
-    { id: 'epic-finale', zh: 'Epic Finale', prompt: 'epic finale' },
-    { id: 'dusky-neon-glow', zh: 'Dusky Neon Glow', prompt: 'dusky neon glow' },
+    { id: 'plate-reverb', zh: '板式殘響', prompt: 'cinematic plate reverb' },
+    { id: 'spring-reverb', zh: '彈簧殘響', prompt: 'spring reverb' },
+    { id: 'tape-saturation', zh: '磁帶飽和', prompt: 'tape saturation' },
+    { id: 'vinyl-crackle', zh: '黑膠雜訊', prompt: 'vinyl crackle' },
+    { id: 'analog-warmth', zh: '類比暖度', prompt: 'analog warmth' },
+    { id: 'mono-close-drums', zh: '單聲道近距鼓組', prompt: 'mono-close drums' },
+    { id: 'sidechain-pumping', zh: '側鏈起伏', prompt: 'sidechain pumping' },
+    { id: 'tokyo-night-drive', zh: '東京夜間駕車感', prompt: 'Tokyo night drive' },
+    { id: 'rainy-night-melancholy', zh: '雨夜憂鬱感', prompt: 'rainy-night melancholy' },
+    { id: 'bittersweet-devotion', zh: '苦甜深情感', prompt: 'bittersweet devotion' },
+    { id: 'reflective-drift', zh: '沉思漂浮感', prompt: 'reflective drift' },
+    { id: 'late-night-tenderness', zh: '深夜溫柔感', prompt: 'late-night tenderness' },
+    { id: 'majestic-sunrise', zh: '壯闊日出氛圍', prompt: 'majestic sunrise atmosphere' },
+    { id: 'wet-pavement-foley', zh: '濕地面環境聲', prompt: 'wet pavement foley' },
+    { id: 'epic-finale', zh: '史詩收尾感', prompt: 'epic finale' },
+    { id: 'dusky-neon-glow', zh: '暮色霓虹光感', prompt: 'dusky neon glow' },
   ],
 };
 
@@ -198,28 +198,6 @@ export function buildSunoStylesPrompt(profile) {
   ]);
 }
 
-export function buildSunoCompactPrompt(profile) {
-  const normalized = coerceSunoProfile(profile);
-  return joinPromptParts([
-    ...resolveMultiPrompts('genres', normalized.genres).slice(0, 3).map((item) => item.prompt),
-    resolveSinglePrompt('bpm', normalized.bpm)?.prompt,
-    ...resolveMultiPrompts('instruments', normalized.instruments).slice(0, 3).map((item) => item.prompt),
-    ...resolveMultiPrompts('vocals', normalized.vocals).slice(0, 2).map((item) => item.prompt),
-    ...resolveMultiPrompts('textures', normalized.textures).slice(0, 2).map((item) => item.prompt),
-  ]);
-}
-
-export function buildSunoMoodPrompt(profile) {
-  const normalized = coerceSunoProfile(profile);
-  return joinPromptParts([
-    ...resolveMultiPrompts('genres', normalized.genres).slice(0, 3).map((item) => item.prompt),
-    resolveSinglePrompt('bpm', normalized.bpm)?.prompt,
-    resolveSinglePrompt('groove', normalized.groove)?.prompt,
-    ...resolveMultiPrompts('textures', normalized.textures).map((item) => item.prompt),
-    ...resolveMultiPrompts('vocals', normalized.vocals).slice(0, 2).map((item) => item.prompt),
-  ]);
-}
-
 export function buildRandomSunoProfile() {
   return {
     genres: sampleMany(SUNO_OPTIONS.genres.map((item) => item.id), sample([2, 3, 4])).slice(0, SUNO_LIMITS.genres),
@@ -247,8 +225,6 @@ export function buildSunoSavedCard(profile) {
   const normalized = coerceSunoProfile(profile);
   const summary = buildSunoSummary(normalized);
   const stylesPrompt = buildSunoStylesPrompt(normalized);
-  const compactPrompt = buildSunoCompactPrompt(normalized);
-  const moodPrompt = buildSunoMoodPrompt(normalized);
 
   return {
     id: `page5-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
@@ -263,12 +239,10 @@ export function buildSunoSavedCard(profile) {
       sceneLook: resolveMultiPrompts('textures', normalized.textures).map((item) => item.zh).join(' / ') || '-',
     },
     midjourneyPrompt: stylesPrompt,
-    grokPrompt: compactPrompt,
-    zImagePrompt: moodPrompt,
+    grokPrompt: '',
+    zImagePrompt: '',
     promptLabels: {
       midjourney: 'Styles Prompt',
-      grok: 'Compact Prompt',
-      zImage: 'Mood Prompt',
     },
     selection: null,
     structured: buildSunoStructured(normalized),

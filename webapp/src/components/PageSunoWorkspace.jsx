@@ -56,8 +56,6 @@ export default function PageSunoWorkspace({
   setProfile,
   summary,
   stylesPrompt,
-  compactPrompt,
-  moodPrompt,
   onCopyText,
   onSaveCard,
   onRandomize,
@@ -137,12 +135,6 @@ export default function PageSunoWorkspace({
             <button className="secondary" onClick={() => onCopyText('SUNO styles prompt copied', stylesPrompt)} disabled={!stylesPrompt}>
               複製 Styles Prompt
             </button>
-            <button className="secondary" onClick={() => onCopyText('SUNO compact prompt copied', compactPrompt)} disabled={!compactPrompt}>
-              複製 Compact Prompt
-            </button>
-            <button className="secondary" onClick={() => onCopyText('SUNO mood prompt copied', moodPrompt)} disabled={!moodPrompt}>
-              複製 Mood Prompt
-            </button>
             <button className="secondary" onClick={onRandomize}>
               隨機生成
             </button>
@@ -178,29 +170,6 @@ export default function PageSunoWorkspace({
           />
         </div>
 
-        <div className="control-section">
-          <div className="control-section-header">
-            <div className="control-section-title">Compact Prompt</div>
-          </div>
-          <textarea
-            className="text-input page2-prompt-textarea suno-prompt-textarea"
-            value={compactPrompt}
-            readOnly
-            placeholder="這裡會生成較精簡的短版 style 組合。"
-          />
-        </div>
-
-        <div className="control-section">
-          <div className="control-section-header">
-            <div className="control-section-title">Mood Prompt</div>
-          </div>
-          <textarea
-            className="text-input page2-prompt-textarea suno-prompt-textarea"
-            value={moodPrompt}
-            readOnly
-            placeholder="這裡會偏重氣氛、律動與人聲的 mood 版本。"
-          />
-        </div>
       </section>
     </section>
   );

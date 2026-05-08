@@ -2,31 +2,29 @@ import React, { memo, useState } from 'react';
 import { Download, Trash2 } from 'lucide-react';
 
 function buildMarkdownExport(data) {
-  const labels = {
+  const promptEntries = getPromptEntries(data, {
     midjourney: data.promptLabels?.midjourney || 'AI Prompt',
     grok: data.promptLabels?.grok || 'Grok Structured Prompt',
     zImage: data.promptLabels?.zImage || 'Z-Image Prompt',
-  };
+  });
 
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
 **Source:** ${data.sourceLabel || 'Prompt 工作台'}
 **Summary:** ${data.summary}
 
-## ${labels.midjourney}
+${promptEntries.map((entry) => `## ${entry.label}
 \`\`\`text
-${data.midjourneyPrompt}
-\`\`\`
-
-## ${labels.grok}
-\`\`\`text
-${data.grokPrompt}
-\`\`\`
-
-## ${labels.zImage}
-\`\`\`text
-${data.zImagePrompt || ''}
-\`\`\`
+${entry.text}
+\`\`\``).join('\n\n')}
 `;
+}
+
+function getPromptEntries(data, labels) {
+  return [
+    { key: 'grok', label: labels.grok, text: data.grokPrompt },
+    { key: 'midjourney', label: labels.midjourney, text: data.midjourneyPrompt },
+    { key: 'zImage', label: labels.zImage, text: data.zImagePrompt },
+  ].filter((entry) => entry.text);
 }
 
 function PromptCard({ data, onDelete }) {
@@ -37,6 +35,7 @@ function PromptCard({ data, onDelete }) {
     grok: data.promptLabels?.grok || 'Grok',
     zImage: data.promptLabels?.zImage || 'Z-Image',
   };
+  const promptEntries = getPromptEntries(data, labels);
 
   const handleCopy = async (label, text) => {
     try {
@@ -98,15 +97,15 @@ function PromptCard({ data, onDelete }) {
       </section>
 
       <section className="primary-action-row">
-        <button className="primary-copy-btn primary-copy-grok" onClick={() => handleCopy(`${labels.grok} copied`, data.grokPrompt)}>
-          {labels.grok}
-        </button>
-        <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopy(`${labels.midjourney} copied`, data.midjourneyPrompt)}>
-          {labels.midjourney}
-        </button>
-        <button className="primary-copy-btn primary-copy-zimage" onClick={() => handleCopy(`${labels.zImage} copied`, data.zImagePrompt)} disabled={!data.zImagePrompt}>
-          {labels.zImage}
-        </button>
+        {promptEntries.map((entry) => (
+          <button
+            key={entry.key}
+            className={`primary-copy-btn primary-copy-${entry.key === 'midjourney' ? 'midjourney' : entry.key.toLowerCase()}`}
+            onClick={() => handleCopy(`${entry.label} copied`, entry.text)}
+          >
+            {entry.label}
+          </button>
+        ))}
         <button className="secondary primary-copy-btn" onClick={() => setExpanded((prev) => !prev)}>
           {expanded ? 'Collapse' : 'Expand'}
         </button>
@@ -114,34 +113,16 @@ function PromptCard({ data, onDelete }) {
 
       {expanded ? (
         <div className="card-details">
-          <section className="prompt-section">
-            <div className="prompt-label">
-              <span>{labels.grok}</span>
-            </div>
-            <div className="prompt-box">
-              <div className="prompt-text prompt-text-full">{data.grokPrompt}</div>
-            </div>
-          </section>
-
-          <section className="prompt-section">
-            <div className="prompt-label">
-              <span>{labels.midjourney}</span>
-            </div>
-            <div className="prompt-box">
-              <div className="prompt-text prompt-text-full">{data.midjourneyPrompt}</div>
-            </div>
-          </section>
-
-          {data.zImagePrompt ? (
+          {promptEntries.map((entry) => (
             <section className="prompt-section">
               <div className="prompt-label">
-                <span>{labels.zImage}</span>
+                <span>{entry.label}</span>
               </div>
               <div className="prompt-box">
-                <div className="prompt-text prompt-text-full">{data.zImagePrompt}</div>
+                <div className="prompt-text prompt-text-full">{entry.text}</div>
               </div>
             </section>
-          ) : null}
+          ))}
         </div>
       ) : null}
 

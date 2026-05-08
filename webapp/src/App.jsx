@@ -20,8 +20,6 @@ import {
 } from './lib/engine';
 import {
   buildRandomSunoProfile,
-  buildSunoCompactPrompt,
-  buildSunoMoodPrompt,
   buildSunoSavedCard,
   buildSunoStylesPrompt,
   buildSunoSummary,
@@ -437,25 +435,20 @@ function buildMarkdownExport(data) {
     zImage: data.promptLabels?.zImage || 'Z-Image Prompt',
   };
   const structured = data.structured && typeof data.structured === 'object' ? data.structured : {};
+  const promptEntries = [
+    { label: labels.midjourney, text: data.midjourneyPrompt },
+    { label: labels.grok, text: data.grokPrompt },
+    { label: labels.zImage, text: data.zImagePrompt },
+  ].filter((entry) => entry.text);
 
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
 **Source:** ${data.sourceLabel || 'Prompt 工作台'}
 **Summary:** ${data.summary}
 
-## ${labels.midjourney}
+${promptEntries.map((entry) => `## ${entry.label}
 \`\`\`text
-${data.midjourneyPrompt}
-\`\`\`
-
-## ${labels.grok}
-\`\`\`text
-${data.grokPrompt}
-\`\`\`
-
-## ${labels.zImage}
-\`\`\`text
-${data.zImagePrompt || ''}
-\`\`\`
+${entry.text}
+\`\`\``).join('\n\n')}
 
 ---
 
@@ -1964,8 +1957,6 @@ export default function App() {
   const normalizedPage5Profile = useMemo(() => coerceSunoProfile(page5Profile), [page5Profile]);
   const page5Summary = useMemo(() => buildSunoSummary(normalizedPage5Profile), [normalizedPage5Profile]);
   const page5StylesPrompt = useMemo(() => buildSunoStylesPrompt(normalizedPage5Profile), [normalizedPage5Profile]);
-  const page5CompactPrompt = useMemo(() => buildSunoCompactPrompt(normalizedPage5Profile), [normalizedPage5Profile]);
-  const page5MoodPrompt = useMemo(() => buildSunoMoodPrompt(normalizedPage5Profile), [normalizedPage5Profile]);
 
   useEffect(() => {
     setLocks((prev) => {
@@ -2367,8 +2358,6 @@ export default function App() {
           setProfile={setPage5Profile}
           summary={page5Summary}
           stylesPrompt={page5StylesPrompt}
-          compactPrompt={page5CompactPrompt}
-          moodPrompt={page5MoodPrompt}
           onCopyText={handleCopyText}
           onSaveCard={handleSavePage5Card}
           onRandomize={handleRandomizePage5Profile}
