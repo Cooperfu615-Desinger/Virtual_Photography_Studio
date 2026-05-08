@@ -365,6 +365,7 @@ export default function Page1Workspace({
   isOutfitPresetActive,
   handleGenerate,
   handleRerollPreview,
+  handleApplyPreviewSelection,
   createEmptyLocks,
   buildAllNoneLocks,
   lockControls,
@@ -605,6 +606,9 @@ export default function Page1Workspace({
               </button>
               <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopyText('AI copied', previewPrompt?.midjourneyPrompt)} disabled={!previewPrompt?.midjourneyPrompt}>
                 AI
+              </button>
+              <button className="secondary primary-copy-btn" onClick={handleApplyPreviewSelection} disabled={!previewPrompt?.selection}>
+                套用目前預覽
               </button>
               <button className="primary-copy-btn page1-save-current-btn" onClick={handleGenerate} disabled={!previewPrompt}>
                 加入最愛

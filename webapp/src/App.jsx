@@ -2048,6 +2048,16 @@ export default function App() {
     showToast('已依目前設定重新隨機生成');
   }, [showToast]);
 
+  const handleApplyPreviewSelection = useCallback(() => {
+    if (!previewPrompt?.selection) {
+      showToast('目前沒有可回填的預覽選項');
+      return;
+    }
+    const restoredLocks = buildRestoreLocks(previewPrompt.selection, lockControls);
+    updateLocks(() => normalizeLocks(restoredLocks));
+    showToast('已將目前預覽回填到所有選項');
+  }, [lockControls, previewPrompt, showToast, updateLocks]);
+
   const handleDeletePrompt = useCallback((prompt) => {
     setPrompts((prev) => prev.filter((item) => item.id !== prompt.id));
     setFavoritePrompts((prev) => prev.filter((item) => item.id !== prompt.id));
@@ -2310,6 +2320,7 @@ export default function App() {
           isOutfitPresetActive={isOutfitPresetActive}
           handleGenerate={handleGenerate}
           handleRerollPreview={handleRerollPreview}
+          handleApplyPreviewSelection={handleApplyPreviewSelection}
           createEmptyLocks={createEmptyLocks}
           buildAllNoneLocks={buildAllNoneLocks}
           lockControls={lockControls}
