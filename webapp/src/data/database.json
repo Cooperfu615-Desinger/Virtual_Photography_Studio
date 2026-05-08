@@ -179,6 +179,36 @@
         }
       },
       {
+        "zh": "酒紅鏈條緞面內衣套裝",
+        "en": "wearing an ultra-detailed jewel-chain satin lingerie set, deep jewel-tone satin triangle bra with slim nude-beige straps and pale contrast binding, delicate gold chain connectors between the cups and under the bust, tiny heart charm hardware, matching high-cut string thong with jewel-tone satin front panel, nude-beige side straps, fine gold chain belt detail across the hips, small pearl and bead accents, heart-shaped charm at the front, layered pearl choker and delicate gold necklace chains, large rhinestone hoop earrings, subtle navel jewelry, sheer white thigh-high stockings with clean translucent fabric and smooth top bands, glamorous boudoir fashion styling, dominant satin color controlled by the outfit color selection",
+        "desc": "參考圖中的緞面內衣式套裝：酒紅感三角胸衣、裸色細帶與滾邊、金色鏈條連接五金、愛心吊飾、同款高衩細帶下身、珍珠與金色項鍊、亮鑽大耳環，以及白色透明大腿襪；主緞面色改由套裝配色控制。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "satin_bra_cups",
+              "satin_thong_panel",
+              "main_lingerie_panels"
+            ],
+            "contrast": [
+              "nude_straps",
+              "contrast_binding",
+              "side_straps"
+            ],
+            "locked": [
+              "gold_chain_hardware",
+              "heart_charms",
+              "pearl_jewelry",
+              "rhinestone_hoop_earrings",
+              "white_sheer_thigh_high_stockings"
+            ]
+          }
+        }
+      },
+      {
         "zh": "皮革馬甲束腰套裝",
         "en": "ultra-detailed couture boudoir portrait, woman wearing a tightly-laced structured leather corset-bodice one-piece, dramatic hourglass tailoring, sharply cinched waist, sculpted overbust cup construction, rich glossy leather with subtle patent sheen, lavish floral embroidery, dense French lace trims and appliques, ornate boned panels with metallic grommets, buckle hardware and ring connectors, satin ribbon lacing, plunging sweetheart neckline, sheer mesh and lace paneling through the lower half, high-cut leg line, refined sensual couture finish",
         "desc": "以皮革馬甲式胸衣與束腰輪廓為核心，加入立體胸杯結構、更繁複的法式蕾絲與花卉刺繡、骨架拼片、金屬孔眼、扣件與環狀五金，以及更精緻的網紗蕾絲下身細節，整體更偏高級精緻、帶 boudoir 感的時裝內衣語言；配色應由獨立的套裝配色控制。",
