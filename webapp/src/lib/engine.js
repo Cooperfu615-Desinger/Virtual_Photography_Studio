@@ -5192,6 +5192,7 @@ const AI_PROMPT_CORE_PART_LIMITS = {
 };
 
 const AI_PROMPT_FULL_VALUE_LABELS = new Set([
+  'Special Action',
   'Special Outfit',
   'Woman 1 Special Outfit',
   'Woman 2 Special Outfit',
