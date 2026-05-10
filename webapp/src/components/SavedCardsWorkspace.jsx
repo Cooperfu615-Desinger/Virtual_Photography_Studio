@@ -25,6 +25,7 @@ export default function SavedCardsWorkspace({
   handleOpenImportFeed,
   handleImportFeed,
   handleDeletePrompt,
+  handleApplySavedCardSelection,
 }) {
   const isFavoritesView = viewMode === 'favorites';
   const [sourceFilter, setSourceFilter] = useState('all');
@@ -142,6 +143,7 @@ export default function SavedCardsWorkspace({
                 key={prompt.id}
                 data={prompt}
                 onDelete={handleDeletePrompt}
+                onApplySelection={isFavoritesView ? handleApplySavedCardSelection : null}
               />
             ))
           )}

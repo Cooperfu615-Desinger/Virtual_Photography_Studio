@@ -27,7 +27,7 @@ function getPromptEntries(data, labels) {
   ].filter((entry) => entry.text);
 }
 
-function PromptCard({ data, onDelete }) {
+function PromptCard({ data, onDelete, onApplySelection }) {
   const [copiedLabel, setCopiedLabel] = useState('');
   const [expanded, setExpanded] = useState(false);
   const labels = {
@@ -97,6 +97,16 @@ function PromptCard({ data, onDelete }) {
       </section>
 
       <section className="primary-action-row">
+        {onApplySelection ? (
+          <button
+            className="secondary primary-copy-btn"
+            onClick={() => onApplySelection(data)}
+            disabled={!data.selection}
+            title={data.selection ? '套用這張卡片保存的選項設定' : '這張卡片沒有可回填的選項設定'}
+          >
+            套用目前預覽
+          </button>
+        ) : null}
         {promptEntries.map((entry) => (
           <button
             key={entry.key}

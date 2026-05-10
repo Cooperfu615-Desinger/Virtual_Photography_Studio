@@ -2058,6 +2058,18 @@ export default function App() {
     showToast('已將目前預覽回填到所有選項');
   }, [lockControls, previewPrompt, showToast, updateLocks]);
 
+  const handleApplySavedCardSelection = useCallback((prompt) => {
+    if (!prompt?.selection) {
+      showToast('這張卡片沒有可回填的選項設定');
+      return;
+    }
+
+    const restoredLocks = buildRestoreLocks(prompt.selection, lockControls);
+    updateLocks(() => normalizeLocks(restoredLocks));
+    setPageMode('page1');
+    showToast('已套用收藏卡片的預覽選項');
+  }, [lockControls, showToast, updateLocks]);
+
   const handleDeletePrompt = useCallback((prompt) => {
     setPrompts((prev) => prev.filter((item) => item.id !== prompt.id));
     setFavoritePrompts((prev) => prev.filter((item) => item.id !== prompt.id));
@@ -2389,6 +2401,7 @@ export default function App() {
           handleOpenImportFeed={handleOpenImportFeed}
           handleImportFeed={handleImportFeed}
           handleDeletePrompt={handleDeletePrompt}
+          handleApplySavedCardSelection={handleApplySavedCardSelection}
         />
       )}
 
