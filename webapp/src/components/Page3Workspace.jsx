@@ -17,8 +17,8 @@ export default function Page3Workspace({
       <section className="lock-panel page3-panel">
         <div className="lock-panel-header">
           <div>
-            <div className="lock-title">Page3 Scene Profile</div>
-            <p className="lock-subtitle">專門建立無人物的純場景與世界觀，從小空間到史詩級大景都能獨立生成。</p>
+            <div className="lock-title">Page3 World Street Scene</div>
+            <p className="lock-subtitle">以真實城市錨點建立街拍空景、城市攝影與高視角地景 prompt。</p>
           </div>
         </div>
 
@@ -100,10 +100,10 @@ export default function Page3Workspace({
             className="text-input page2-prompt-textarea"
             value={prompt}
             readOnly
-            placeholder="這裡會生成通用型純場景 prompt。"
+            placeholder="這裡會生成世界街景攝影 prompt。"
           />
           <p className="context-note">
-            PAGE3 完全獨立於 PAGE1 與 PAGE2，預設會強調空景、無人物、無人類主體，適合做環境 reference、世界觀設定與純場景生成。
+            PAGE3 目前獨立於 PAGE1，專注街拍空景、城市地標攝影與高視角地景；街拍模式允許路人與交通作為城市生活痕跡，但不設定明確人物主體。
           </p>
         </div>
 
@@ -115,7 +115,7 @@ export default function Page3Workspace({
             className="text-input page2-prompt-textarea"
             value={cinematicPrompt}
             readOnly
-            placeholder="這裡會生成更強調大景、氣勢與電影感的場景 prompt。"
+            placeholder="這裡會生成更強調電影感構圖與空間層次的城市場景 prompt。"
           />
         </div>
 
@@ -127,10 +127,10 @@ export default function Page3Workspace({
             className="text-input page2-prompt-textarea"
             value={worldPrompt}
             readOnly
-            placeholder="這裡會生成更偏世界觀概念設計與環境設定的 prompt。"
+            placeholder="這裡會生成更偏城市地理、街區文化與環境邏輯的 prompt。"
           />
           <p className="context-note">
-            World Prompt 會比一般 Scene Prompt 更偏概念設計、文明尺度、空間邏輯與世界觀氣氛，適合大景、奇幻、未來與超現實方向。
+            World Prompt 會比一般 Scene Prompt 更強調地點關係、街區文化與城市空間邏輯，適合做城市 reference 或空景系列。
           </p>
         </div>
       </section>
