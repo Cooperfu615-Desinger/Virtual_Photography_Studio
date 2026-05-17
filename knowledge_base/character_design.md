@@ -2,11 +2,12 @@
 
 > ⚠️ 本辭典僅收錄**女性角色**相關設定參數，供 AI 造型師與 AI 攝影師進行人物外觀設計與抽樣使用。
 
+
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺說明 (Visual Description) |
 | :--- | :--- | :--- | :--- |
 | **五官特徵 (Facial Features)** | 全無 | `none` | 不指定五官特徵，讓模型自行決定臉部輪廓與辨識度。 |
 | **五官特徵 (Facial Features)** | KPOP | `sharp delicate V-line jaw and tapered chin, petite symmetrical oval face, bright clear double-eyelid eyes with subtle aegyo-sal, small straight refined nose with soft tip, softly defined plump lips, gentle high cheekbones, polished K-pop idol facial balance` | 韓系偶像感的小臉比例，重點在 V-line 下顎、清亮雙眼皮與自然臥蠶，整體精緻、對稱、上鏡。 |
-| **五官特徵 (Facial Features)** | 圓潤 | `soft round face with plump apple cheeks and rounded jawline, large gentle round eyes with subtle aegyo-sal, small button nose with rounded tip, full soft pouty lips, gentle low cheekbones, sweet approachable facial softness` | 圓臉、蘋果肌與柔和下顎是主軸，五官更甜、更親近，避免與銳利或成熟骨相混在一起。 |
+| **五官特徵 (Facial Features)** | 日系透明 | `pure transparent Japanese girl-next-door facial style, delicate small oval face without heavy roundness, clear gentle eyes with soft natural eyelids, light airy facial presence, petite straight nose, softly tinted natural lips, subtle youthful innocence, clean fresh makeup, calm pure beauty` | 日系透明清純感，重點在淡顏、清澈眼神、小巧自然五官與乾淨妝感；避免圓臉、蘋果肌或豐腴暗示，和 KPOP、性感、歐美做出區隔。 |
 | **五官特徵 (Facial Features)** | 性感 | `elegant feminine face with high cheekbones and a softly sharp jawline, elongated fox-like eyes with slightly lifted outer corners, straight refined nose, full sensuous lips with defined cupid's bow, mature alluring facial balance` | 以拉長狐狸眼、高顴骨、柔銳下顎與明確唇峰營造成熟嫵媚感，讓性感更偏五官結構而非單純表情。 |
 | **五官特徵 (Facial Features)** | 歐美 | `sharp sculpted angular face with prominent high cheekbones and defined jawline, striking deep-set almond eyes, high-bridged straight narrow nose, full sharply defined lips, three-dimensional Western editorial facial structure` | 骨相更立體、眼窩深、鼻樑高且輪廓雕塑感強，偏歐美時裝 editorial 的高辨識度臉孔。 |
 | **膚質特徵 (Skin Details)** | 全無 | `none` | 不指定膚質特徵，讓模型自行決定肌膚表面細節。 |
@@ -19,29 +20,35 @@
 | **體態 (Body Type)** | 優雅曲線模特兒 | `tall elegant fashion model body with balanced feminine curves, gently defined waist, natural body lines, graceful elongated torso-to-leg ratio, long shapely legs, toned refined silhouette, polished high-fashion proportions under properly worn clothing` | 以高挑、優雅且平衡的女性曲線為主，保留曲線感與腿長比例，但使用更中性的時裝語言，並強調曲線是在完整穿著下呈現。 |
 | **體態 (Body Type)** | 柔和沙漏身形 | `tall slim elegant hourglass figure with balanced proportions, gently narrowed waist, soft natural curves, balanced hip line, graceful elongated leg line, long shapely legs, toned feminine silhouette, refined lightweight proportions without heaviness` | 保留沙漏身形的腰線與腿長印象，但移除誇張、豐滿與強烈胸臀對比等高風險詞，整體更偏優雅時裝比例。 |
 | **髮型 (Hairstyle)** | 全無 | `none` | 不指定髮型，讓模型自行決定頭髮長度與輪廓。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜中分長直髮 | `long straight hair, center part, sleek` | 經典女神風，光澤感十足。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜日系厚劉海長直髮 | `long straight hair with heavy Japanese bangs, smooth sleek silhouette` | 厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜韓系層次中長髮 | `Korean layered medium-long hair, airy texture, soft face framing layers` | 現代韓系常見的中長層次髮，線條輕盈，修飾臉型效果好。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜韓系空氣瀏海直髮 | `see-through bangs, long straight hair, airy Korean styling` | 輕盈空氣瀏海配上筆直長髮，是最常見也最穩定的韓系清透髮型。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜韓系深側分柔波長髮 | `deep side-parted long hair, soft polished waves, sleek face-framing flow, one side tucked behind the ear, elegant Korean editorial hairstyle` | 深側分的長髮帶柔和波浪與貼順光澤，一側自然收耳後，整體偏成熟、都會、精品感的韓系時裝髮型。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜中分柔波長髮 | `long softly wavy hair, center part, natural flowing texture` | 中分長髮帶有柔和波浪與飄動感，適合高曝光柔光與清透寫真風格。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜濕潤感長波浪 | `wet-look long wavy hair, damp separated strands, moody texture` | 帶有濕潤分束感的長波浪髮，適合冷調、私密與邊緣感寫真。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜空氣瀏海層次長髮 | `airy see-through bangs, long layered hair, soft feathered ends` | 輕透碎瀏海搭配層次長髮與羽毛感髮尾，韓系感更明顯。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜空氣瀏海長捲髮 | `airy see-through bangs, long loose spiral waves, soft face-framing tendrils, glamorous layered length` | 輕透瀏海搭配長度明顯的鬆捲長髮，臉側有修飾線條，整體更偏韓系甜辣與精緻寫真感。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜高位雙馬尾 | `high double pigtails, youthful` | 活潑俏皮，適合 Y2K 或 JK 風格。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜韓系低包頭 | `low messy bun, wispy bangs` | 優雅隨興，臉側帶有修飾性的碎髮。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜高級感低盤髮 | `sleek low chignon, polished updo, elegant clean finish` | 低位盤髮乾淨俐落，適合精品時裝、晚宴與高級商攝。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜雙編髮 | `twin braids, neat braided hairstyle, soft face-framing strands` | 經典雙編髮更日常也更好駕馭，帶有清新與俏皮感。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜蓬鬆隨性馬尾 | `undone ponytail, high placement, flyaways` | 帶有細微碎髮的隨意感，自然生活氣息。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜碎瀏海高盤髮 | `wispy bangs, elegant high updo, loose face-framing tendrils` | 高位盤起的髮型搭配碎瀏海與臉側細捲鬚，帶有日系暗黑與精緻感。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜半綁公主頭長髮 | `half-up long hair, soft crown lift, loose face-framing strands` | 上半部輕輕束起、下半部自然垂落，清純又帶一點柔和公主感。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜慵懶高丸子頭 | `messy high bun, loose wispy strands, airy casual updo` | 高位丸子頭帶有鬆散碎髮，適合自然光、隨拍與生活感人像。 |
-| **髮型 (Hairstyle)** | 短髮｜自然蓬鬆鎖骨髮 | `soft collarbone-length hair, airy volume, naturally tousled blowout` | 長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。 |
-| **髮型 (Hairstyle)** | 短髮｜及肩內彎鮑伯 | `shoulder-length bob, curled ends` | 溫婉的中長度，帶有微微的內彎弧度。 |
-| **髮型 (Hairstyle)** | 短髮｜側分鎖骨波浪髮 | `side-parted collarbone-length waves, soft flowing texture` | 長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。 |
-| **髮型 (Hairstyle)** | 短髮｜中短層次鮑伯 | `layered short bob, airy texture, softly tousled ends` | 層次明顯的中短鮑伯，髮尾蓬鬆，適合挑染與時尚感造型。 |
+| **髮型 (Hairstyle)** | 短髮｜帥氣濕亮油頭 | `slicked-back short hair, glossy wet-look finish, hair combed away from the forehead, sharp androgynous fashion silhouette` | 頭髮向後梳開並帶濕亮光澤，帥氣俐落，偏時裝感與中性氣質。 |
+| **髮型 (Hairstyle)** | 短髮｜精靈短髮 | `pixie cut, minimal short hair, clean cropped silhouette, delicate face-framing texture` | 短而俐落的精靈剪，輪廓乾淨，能凸顯五官與頸部線條。 |
+| **髮型 (Hairstyle)** | 短髮｜齊耳法式短鮑伯 | `ear-length French bob, softly blunt ends, subtle natural volume, effortless chic shape` | 長度落在耳下附近，髮尾乾淨，帶一點法式隨性與精緻感。 |
+| **髮型 (Hairstyle)** | 短髮｜A 字線條鮑伯 | `A-line bob, clean angled silhouette, slightly longer front pieces, polished face-framing line` | 前側略長、後側收短的 A 字鮑伯，臉部線條更俐落。 |
+| **髮型 (Hairstyle)** | 短髮｜服貼光澤短鮑伯 | `sleek short bob, smooth glossy surface, tucked clean ends, polished modern editorial shape` | 髮面服貼有光澤，髮尾收得乾淨，適合都會、精品與高級感人像。 |
 | **髮型 (Hairstyle)** | 短髮｜齊瀏海圓弧鮑伯 | `blunt bob with full bangs, rounded silhouette, smooth curved ends` | 齊瀏海搭配圓弧感鮑伯，帶有強烈辨識度與日系娃娃感。 |
 | **髮型 (Hairstyle)** | 短髮｜不對稱濕感短鮑伯 | `asymmetrical wet bob, one-side-over-eye styling, damp separated strands` | 一側髮絲覆蓋眼周，帶有濕潤分束感與更強的時裝、私密與危險氣質。 |
+| **髮型 (Hairstyle)** | 短髮｜復古外翹短髮 | `short flipped hair, softly turned-out ends, retro polished shape, light movement around the jawline` | 短髮髮尾向外翻起，帶有復古時裝感與俏皮線條。 |
+| **髮型 (Hairstyle)** | 中長髮｜自然蓬鬆鎖骨髮 | `soft collarbone-length hair, airy volume, naturally tousled blowout` | 長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。 |
+| **髮型 (Hairstyle)** | 中長髮｜韓系柔順中長髮 | `soft Korean medium hair, gentle inward curve, sheer bangs, smooth modern silhouette` | 柔順中長髮搭配輕透瀏海與內彎輪廓，乾淨、溫柔且穩定。 |
+| **髮型 (Hairstyle)** | 中長髮｜及肩內彎鮑伯 | `shoulder-length bob, gentle inward-curled ends, soft rounded lower silhouette` | 溫婉的中長度鮑伯，髮尾帶有自然內彎弧度。 |
+| **髮型 (Hairstyle)** | 中長髮｜側分鎖骨波浪髮 | `side-parted collarbone-length waves, soft flowing texture, elegant face-framing movement` | 長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。 |
+| **髮型 (Hairstyle)** | 中長髮｜輕盈層次剪 | `medium layered cut, airy framing layers, feathered ends, natural movement` | 中長髮帶輕盈層次與羽毛感髮尾，修飾臉型且更有動態。 |
+| **髮型 (Hairstyle)** | 中長髮｜半濕感中長髮 | `semi-wet medium-length hair, separated strands, soft glossy texture, moody fashion finish` | 中長髮帶半濕潤分束與光澤，適合冷調、私密與時裝感畫面。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜中分長直髮 | `long straight hair, center part, sleek glossy length, clean vertical silhouette` | 經典中分長直髮，光澤感明確，線條乾淨修長。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜日系厚瀏海長直髮 | `long straight hair with heavy Japanese bangs, smooth sleek silhouette` | 厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜姬髮式長直髮 | `hime cut long straight hair, blunt cheek-length side locks, straight full length, sharp Japanese fashion silhouette` | 姬髮式的臉側短切線搭配長直髮，辨識度高，日系時裝感強。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜韓系深側分柔波長髮 | `deep side-parted long hair, soft polished waves, sleek face-framing flow, one side tucked behind the ear` | 深側分的長髮帶柔和波浪與貼順光澤，一側自然收耳後，偏成熟都會感。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜中分柔波長髮 | `long softly wavy hair, center part, natural flowing texture` | 中分長髮帶有柔和波浪與飄動感，適合高曝光柔光與清透寫真風格。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜濕潤感長波浪 | `wet-look long wavy hair, damp separated strands, moody texture` | 帶有濕潤分束感的長波浪髮，適合冷調、私密與邊緣感寫真。 |
+| **髮型 (Hairstyle)** | 長髮（放髮）｜空氣瀏海長捲髮 | `airy see-through bangs, long loose spiral waves, soft face-framing tendrils, glamorous layered length` | 輕透瀏海搭配長度明顯的鬆捲長髮，臉側有修飾線條，甜辣且精緻。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜高位雙馬尾 | `high double pigtails, youthful twin-tail shape, clean lifted volume` | 活潑俏皮，適合 Y2K、JK 或更青春感的造型。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜蓬鬆高馬尾 | `high ponytail, natural loose strands, lifted volume, active polished movement` | 高位馬尾帶自然碎髮與動態感，乾淨、活力且上鏡。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜極簡低馬尾 | `low ponytail, fine face-framing strands, minimal clean tie, understated mature elegance` | 低馬尾乾淨成熟，臉側保留細碎髮，適合知性與都會感人像。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜韓系低包頭 | `low messy bun, wispy bangs, soft face-framing loose strands` | 優雅隨興，臉側帶有修飾性的碎髮。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜高級感低盤髮 | `sleek low chignon, polished updo, elegant clean finish` | 低位盤髮乾淨俐落，適合精品時裝、晚宴與高級商攝。 |
+| **髮型 (Hairstyle)** | 長髮（綁髮）｜半綁公主頭長髮 | `half-up long hair, soft crown lift, loose face-framing strands` | 上半部輕輕束起、下半部自然垂落，清純又帶一點柔和公主感。 |
+| **髮型 (Hairstyle)** | 長髮（編髮）｜瀑布編髮 | `waterfall braid, soft semi-long flowing hair, delicate woven crown detail, romantic airy texture` | 瀑布編髮帶有細緻編織與垂落髮流，柔和浪漫且不厚重。 |
+| **髮型 (Hairstyle)** | 長髮（編髮）｜魚骨辮 | `fishtail braid, soft woven volume, loose face-framing strands, elegant event-ready braid` | 魚骨辮線條精緻，比一般雙編髮更成熟，適合正式或度假感造型。 |
 | **髮色 (Hair Color)** | 全無 | `none` | 不指定髮色，讓模型自行決定髮色深淺與色調。 |
 | **髮色 (Hair Color)** | 自然黑 | `natural jet-black hair with subtle blue-black undertones, realistic dyed-black variation, soft natural depth, realistic human hair texture, visible individual strands, subtle root variation, gentle baby hairs around the hairline, natural sheen, no plastic wig texture` | 最穩定也最百搭的自然黑髮，強調真實髮絲、髮根層次與非假髮質感，適合大多數日常與商業風格。 |
 | **髮色 (Hair Color)** | 柔霧黑茶 | `soft black-tea brown hair, muted brown-black tone, subtle tonal variation, soft natural depth, realistic human hair texture, visible individual strands, subtle root variation, gentle baby hairs around the hairline, natural sheen, no plastic wig texture` | 黑中帶一點茶棕感，低調柔和，補強真髮絲分離感與自然染髮層次。 |
@@ -66,13 +73,16 @@
 | **神情與眼神 (Expression & Gaze)** | 全無 | `none` | 不指定神情與眼神，讓模型自行決定表情與視線。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜清透微笑 | `looking directly at the camera, direct eye contact, gentle natural smile, bright clear eyes, soft approachable warmth, clean luminous expression` | 直接看向鏡頭並帶自然輕柔的微笑，整體清透、親和、沒有過度表演感，適合女演員感與日常寫真。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜平靜凝視 | `looking directly at the camera, direct eye contact, calm steady gaze, composed neutral expression, quiet presence` | 直接看向鏡頭，神情平穩克制，適合乾淨、安靜、寫真感的人像。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜慵懶半瞇眼 | `looking directly at the camera, direct eye contact, half-lidded eyes, languid sleepy expression, relaxed sensual mood` | 眼神直接但帶半瞇感，狀態偏鬆、慢、帶一點慵懶性感。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜唇微開凝視 | `looking directly at the camera, direct eye contact, lips slightly parted, focused intimate gaze, soft tension in expression` | 直視鏡頭同時雙唇微開，適合較近距離、私密感、張力較高的畫面。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜挑釁凝視 | `looking directly at the camera, direct eye contact, provocative intense gaze, confident challenging expression, bold presence` | 眼神帶有主動性與壓迫感，適合強勢、時裝感或性感張力畫面。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜自信淡笑 | `looking directly at the camera, direct eye contact, subtle confident smile, bright composed eyes, poised elegant expression` | 直接看向鏡頭，帶一點自信但不張揚的淡笑，適合都會感、時裝感與成熟乾淨的人像。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜慵懶淡然 | `looking directly at the camera, direct eye contact, relaxed half-lidded eyes, effortless calm expression, soft editorial mood` | 保留一點慵懶感，但收斂成更自然的淡然神情，適合雜誌感、夜晚室內或低飽和情緒畫面。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜若有似無微笑 | `looking directly at the camera, direct eye contact, faint almost-hidden smile, soft attentive eyes, restrained charming expression` | 像是嘴角剛要揚起的微妙神情，比一般微笑更含蓄，適合特寫、生活感與曖昧留白畫面。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜無辜清透眼神 | `looking directly at the camera, direct eye contact, innocent clear eyes, delicate soft expression, pure transparent mood` | 直接看向鏡頭，但氣質偏清透、柔和、無辜與乾淨。 |
+| **神情與眼神 (Expression & Gaze)** | 抿唇忍笑｜俏皮輕鬆 | `looking toward the camera, lips gently pressed with a barely contained smile, playful relaxed expression, light teasing warmth` | 像是剛聽到有趣的話、正在忍笑的神情，俏皮但不誇張，適合朋友感、街拍與生活寫真。 |
 | **神情與眼神 (Expression & Gaze)** | 望向遠方｜若有所思 | `looking away from the camera into the distance, thoughtful expression, reflective mood, quiet inward attention` | 視線離開鏡頭望向遠方，帶有思考感與敘事情緒。 |
 | **神情與眼神 (Expression & Gaze)** | 側望｜安靜出神 | `looking off to the side, eyes turned away from camera, quiet absent-minded expression, soft distant focus, understated mood` | 看向側邊而不是鏡頭，像是短暫放空或安靜出神的片刻。 |
 | **神情與眼神 (Expression & Gaze)** | 低頭不看鏡頭｜內斂情緒 | `lowered gaze away from camera, eyes cast downward, inward quiet expression, restrained emotion, soft introspective mood` | 視線向下且不與鏡頭接觸，適合內斂、安靜、柔和的情緒畫面。 |
+| **神情與眼神 (Expression & Gaze)** | 回眸側看｜輕柔注意 | `glancing back over the shoulder, soft sideward attention, gentle alert expression, light narrative presence` | 像是被聲音或動作吸引後回頭一看，帶一點敘事感，適合街景、走動或轉身瞬間。 |
+| **神情與眼神 (Expression & Gaze)** | 閉眼感受光線｜安靜沉浸 | `eyes gently closed, calm absorbed expression, breathing in the light, quiet immersive mood` | 閉上眼睛感受風、光線或空氣，情緒安靜而沈浸，適合窗邊、海邊、陽光與靜物感場景。 |
 | **神情與眼神 (Expression & Gaze)** | 大笑｜自然喜悅 | `looking toward the camera, genuine laughing expression, natural teeth smile, candid joy, uninhibited happiness` | 自然、無防備的開心大笑，充滿生命力，適合青春、生活感與抓拍氛圍。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 全無 | `none` | 不指定姿勢動作，讓模型自行決定人物肢體語言。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜自然站姿 | `natural standing pose, relaxed balanced posture, everyday body language, unforced presence` | 身體自然站立，重心平均，沒有明顯擺拍感，適合最中性的日常人像。 |
@@ -129,6 +139,10 @@
 | **特殊動作 (Special Actions)** | 咬著波板糖 | `biting a whirly pop swirl lollipop at the lips, playful staged portrait action, deliberate candy prop interaction` | 以咬著波板糖的瞬間為主，讓糖果本身成為明確視覺道具，帶一點俏皮與角色感，同時保留乾淨直接的人像構圖。 |
 | **特殊動作 (Special Actions)** | 抽煙 | `holding a cigarette between the fingers near the lips, faint smoke, controlled staged portrait action, deliberate cinematic smoking moment` | 以手指夾著香菸靠近嘴邊的瞬間為主，煙霧只作為輕量氛圍，不讓道具過度主導畫面。 |
 | **特殊動作 (Special Actions)** | 整理絲襪 | `one hand pulling up the stocking on one leg, clear hosiery-adjusting motion, deliberate dressing action, staged portrait moment` | 以單手拉起一側絲襪的穿戴整理動作為主，需要至少能清楚看到腿部與手部互動。 |
+| **特殊動作 (Special Actions)** | 側坐單手後撐 | `seated side-saddle pose with both legs folded to one side, one hand planted behind the body for support, torso slightly leaning back, relaxed asymmetrical seated action` | 以側坐、雙腿折向一側、一手在身後或身側支撐身體的動作為主，不綁定特定場景或道具。 |
+| **特殊動作 (Special Actions)** | 抱膝托腮坐姿 | `seated pose with knees drawn up close to the chest, both elbows resting near the knees, both hands cupping the cheeks, chin gently supported by the palms, intimate front-facing seated action` | 以膝蓋靠近胸前、雙手托腮、手肘靠近膝蓋的正面坐姿為主，不綁定特定場景或道具。 |
+| **特殊動作 (Special Actions)** | 仰躺雙手微抬 | `lying on her back, both arms bent and relaxed beside the shoulders, hands softly lifted near the head, calm resting action with a gentle open upper-body posture` | 以仰躺、雙手在肩膀或頭部兩側自然微抬的休息動作為主，不綁定特定場景或道具。 |
+| **特殊動作 (Special Actions)** | 跪坐回眸撩髮 | `kneeling seated pose with the body turned away from the camera, looking back over the shoulder, one hand lifted to touch the hair near the head, deliberate over-the-shoulder action` | 以跪坐或坐在小腿上的回眸姿態為主，身體背向鏡頭、一手抬起觸碰頭髮，不綁定特定場景或道具。 |
 | **特殊動作 (Special Actions)** | 半脫上衣整理肩線 | `pulling the top partially off one shoulder while adjusting the fabric, deliberate styling gesture, staged fashion portrait action` | 以把上衣肩線拉下一點並整理布料的造型瞬間為主，偏服裝 styling 動作而不是完整脫衣事件。 |
 | **特殊動作 (Special Actions)** | 隨性癱坐在雕花單人絨布沙發上 | `lounging in a relaxed, casual sprawl on an ornate carved velvet armchair intentionally placed within the scene, allowing the body to slump, recline, lean, or drape naturally across the seat, staged editorial action, surreal location contrast` | 以被刻意放進場景裡的雕花單人絨布沙發為核心，整體姿勢偏慵懶隨性，允許人物自然癱坐、倚靠、斜躺或半躺在沙發上，重點是鬆弛而帶企劃感的擺拍狀態。 |
 | **特殊動作 (Special Actions)** | 趴臥滑手機 | `lying on her stomach with her upper body propped on her forearms, holding a cell phone in one hand while gazing toward the camera, legs bent upward with relaxed crossed ankles, casual staged lounging action` | 以俯臥趴姿滑手機的放鬆瞬間為主，上半身由前臂支撐，雙腿抬起交疊，適合帶一點私密感的休閒企劃。 |

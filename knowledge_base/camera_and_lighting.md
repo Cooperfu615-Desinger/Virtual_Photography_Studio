@@ -2,7 +2,8 @@
 
 此辭典專供 AI 攝影師在整合場景時進行參數抽樣。請結合構圖、焦段、光影與底片模擬，為畫面賦予專業的攝影質感與電影氛圍。
 
-| 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺效果與適用情境 (Visual Effect & Context) |
+
+| 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺說明 (Visual Description) |
 | :--- | :--- | :--- | :--- |
 | **景別構圖 (Framing)** | 全無 | `none` | 不指定景別構圖，讓模型自行決定畫面距離與主體範圍。 |
 | **景別構圖 (Framing)** | 特寫鏡頭 (Close-Up) | `close-up shot, head and shoulders framing, detailed facial features, tight subject crop` | 構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。 |
@@ -128,7 +129,7 @@
 | **光學效果 (Optical Effects)** | 淺景深 | `shallow depth of field, softly blurred background, gentle subject separation` | 保留自然的背景柔化效果，讓主體更清楚浮出畫面。 |
 | **光學效果 (Optical Effects)** | 極淺景深 | `ultra shallow depth of field, heavily blurred background, razor-thin focus plane, dramatic subject isolation` | 焦平面非常薄，前後景快速化開，適合強烈主體分離與夢幻視覺。 |
 | **光學效果 (Optical Effects)** | 重散景光斑 | `heavy bokeh, large luminous blur circles, dreamy optical falloff, pronounced out-of-focus highlights` | 讓背景或前景出現明顯大光斑與夢幻散景，特別適合夜景、節慶燈光與浪漫氛圍。 |
-| **光學效果 (Optical Effects)** | 前景遮擋散景 | `controlled foreground bokeh occlusion from a fixed out-of-focus object near the lens, soft edge blur framing the subject, stable layered depth, clean cinematic foreground veil` | 鏡頭前方有固定來源的失焦遮擋與散景，用更穩定的前景模糊邊緣包住主體，避免雜亂不明的遮擋形狀。 |
+| **光學效果 (Optical Effects)** | 前景遮擋散景 | `heavy doorway foreground occlusion, dark out-of-focus door panels blocking both left and right frame edges, foreground obstruction covering at least one third of the image area, narrow vertical opening toward the subject, thick blurred near-edge framing, voyeuristic hidden-camera cinematic depth` | 鏡頭像從門縫或半開門後方拍攝，左右兩側有深色失焦門板大面積遮住畫面邊緣，前景遮擋至少佔整體畫面三分之一，只留下中間窄縫看向主體，營造更明顯的偷拍視角。 |
 | **光學效果 (Optical Effects)** | 鏡頭光斑 Lens Flare | `lens flare, blooming highlights, streaking flare artifacts, cinematic backlit optics` | 逆光或強光源在鏡頭內形成 flare，能提升電影感、舞台感與光源存在感。 |
 | **光學效果 (Optical Effects)** | 變形鏡頭光斑 Anamorphic Flare | `anamorphic lens flare, horizontal blue streaks, widescreen cinematic flare, optical sci-fi sheen` | 水平拉絲的變形鏡頭光斑，是科幻、公路片與大型電影感場面的經典視覺語言。 |
 | **光學效果 (Optical Effects)** | 漏光效果 Light Leaks | `vintage film light leaks, red and orange light burns, accidental analog flare, serendipitous exposure bloom` | 模擬底片相機的意外漏光，畫面邊緣出現不規則暖色過曝，增添偶然性與復古味。 |

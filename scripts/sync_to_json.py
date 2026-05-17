@@ -96,6 +96,39 @@ def merge_outfit_preset_metadata(grouped_data, metadata_by_name):
 
     return merged_count
 
+def preserve_existing_item_metadata(new_database, existing_database):
+    """Keep non-table item metadata that Markdown rows cannot represent."""
+    preserved_count = 0
+
+    for db_key, grouped_data in new_database.items():
+        existing_grouped_data = existing_database.get(db_key, {})
+        if not isinstance(existing_grouped_data, dict):
+            continue
+
+        for category, items in grouped_data.items():
+            existing_items = existing_grouped_data.get(category, [])
+            if not isinstance(existing_items, list):
+                continue
+
+            existing_by_name = {
+                item.get('zh'): item
+                for item in existing_items
+                if isinstance(item, dict) and item.get('zh')
+            }
+
+            for item in items:
+                existing_item = existing_by_name.get(item.get('zh'))
+                if not existing_item:
+                    continue
+
+                for key, value in existing_item.items():
+                    if key in ('zh', 'en', 'desc') or key in item:
+                        continue
+                    item[key] = value
+                    preserved_count += 1
+
+    return preserved_count
+
 def main():
     print("Starting sync from MD to JSON...")
     
@@ -125,6 +158,11 @@ def main():
             print(f"  Outfit preset metadata merged: {merged_count}")
         print(f"  Categories: {len(parsed_data)} | Entries: {count_entries(parsed_data)}")
         database[db_key] = parsed_data
+
+    existing_database = load_json_file(OUTPUT_FILE)
+    preserved_count = preserve_existing_item_metadata(database, existing_database)
+    if preserved_count:
+        print(f"Preserved existing item metadata fields: {preserved_count}")
         
     # Validation
     if not database.get('Character'):
