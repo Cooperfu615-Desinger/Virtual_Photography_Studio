@@ -11,24 +11,265 @@
 
 ## Current Working State
 
-- Latest pushed commit on `main`: `ad2d906 Refine garter stocking prompt details`
-- Recent important commits:
-  - `ad2d906 Refine garter stocking prompt details`
-  - `4377620 Polish skeleton workspace UI`
-  - `f46327e Refine framing prompts and skeleton posing`
-  - `83e57e2 Add skeleton special subject mode`
-  - `f4e2f8b Refine AI footwear prompt details`
-  - `6ee71df Refine AI wardrobe layering output`
-  - `40a8943 Prioritize outerwear in prompt layering`
-  - `9cfb308 Fix duo wardrobe random preset flow`
-  - `513a56c Restore duo wardrobe controls`
-  - `32daff2 Add new ruffle skirt variants`
-- Working tree should be clean after `ad2d906`; if this handoff doc is edited, only this doc should be dirty
+- Latest pushed commit on `main`: `4309a80 Add three special outfit prompts`
+- Recent important commits from this session:
+  - `4309a80 Add three special outfit prompts`
+  - `aa27889 Align outerwear color options with garments`
+  - `598bdc2 Add seven special outfit presets`
+  - `dbc5d17 Refine Japanese transparent facial feature preset`
+  - `98f056e Add special outfits and favorite apply action`
+  - `b384cdc Add five streetwear special outfit presets`
+  - `36f57ef Preserve special action in AI prompts`
+  - `d51a87a Update subject prompt wording`
+  - `6120333 Add five special outfit presets`
+  - `7227dce Add apply preview selection action`
+  - `08d83fe Normalize prompt wardrobe ordering`
+  - `88ede2b Add chain satin lingerie outfit preset`
+  - `3d0990a Simplify Suno styles prompt builder`
+  - `2f78134 Apply layer control display order`
+  - `f5fc3a2 Reorder layer wardrobe controls`
+  - `c84abf7 Normalize scene descriptions`
+  - `b92f5bb Preserve special outfits in AI prompts`
+  - `f11ec0c Add special outfit presets`
+  - `9f98074 Refine aspect ratio options`
+  - `9f87379 Rebalance hairstyle options`
+  - `19b2535 Allow location in chest-up framing`
+  - `e1d99a1 Allow outerwear in chest-up framing`
+  - `c4af20d Expand outfit preset color options`
+  - `bf2386e Add seated and reclining special actions`
+  - `2cdacfc Allow outfit presets in chest-up framing`
+  - `ee428ea Prevent wardrobe prompts from using tight closeups`
+  - `0cf80ec Refine leather choker prompt detail`
+  - `4461b2c Strengthen doorway foreground occlusion effect`
+  - `3218587 Remove workspace helper copy`
+  - `5ee96e5 Refine AI prompt minimal format`
+- Working tree should be clean after `4309a80`; if this handoff doc is edited, only this doc should be dirty
 - Work continues directly on `main`
 - Standard validation flow remains:
   - `python3 scripts/sync_to_json.py`
   - `npm run lint` from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
   - `npm run build`
+
+## Session 2026-05-17 Update
+
+This session heavily refined PAGE1 prompt behavior, wardrobe data, Favorites usability, and supporting tools. Most changes were committed and pushed to `main`; the latest pushed code state is `4309a80`.
+
+### Prompt Format / Prompt Engine
+
+- AI prompt was redefined as a Grok-minimal version:
+  - same category structure as Grok
+  - keeps all selected option information
+  - uses shorter, more model-direct phrasing
+  - scene fields stay compact, such as `setting: Shibuya Station front plaza edge`, instead of copying Grok's full scene prose
+- AI wardrobe prefix changed from fixed `main outfit:` to `She wearing` / same logic for duo subjects, to improve image-model clothing adherence.
+- Special outfits now render with full outfit wording in all three prompt versions:
+  - AI
+  - Z-Image
+  - Grok
+- Fixed a bug where `特殊動作` could disappear from AI prompts when combined with `特殊穿搭`.
+- Subject wording was changed from:
+  - `an elegant beautiful 20-year-old Japanese or Korean woman`
+  - to `an seductive stunning & beautiful 20-year-old Japanese or Korean woman`
+  - duo subject wording follows the same direction.
+- Wardrobe prompt ordering was normalized across AI / Grok / Z-Image:
+  - subject-level accessories:
+    - person > glasses > earrings > head accessory
+  - wardrobe:
+    - outerwear > top / outfit preset / dress > neck accessory > bottom > socks > shoes
+- This ordering is intended to reduce missing garments and improve prompt parse stability.
+
+### AI / Grok / Z-Image Relationship
+
+- Final user-approved interpretation:
+  - Grok = full detailed prompt
+  - AI = Grok minimal version, but still includes every selected option
+  - Z-Image = longer natural-language structured version
+- Do not make AI and Z-Image identical.
+- Do not collapse AI to only one vague sentence; keep the compact field format.
+
+### Indoor Color Backgrounds
+
+- Indoor color-background series was tuned toward seamless, pure, saturated single-color cyclorama wording.
+- Goal:
+  - avoid weak / muddy colors
+  - avoid visible studio equipment
+  - avoid backdrop stands, curtain folds, wall corners, props
+- Example direction:
+  - `seamless matte saturated pure red cyclorama`
+  - one continuous color surface covering floor and background
+  - clean full-bleed color field
+
+### Optical Effects
+
+- `前景遮擋散景` was adjusted toward a doorway / doorframe occlusion look.
+- User wanted a more voyeuristic / hidden-camera feel:
+  - foreground should cover at least about one third of the frame
+  - left and right sides can be blocked by dark door edges or wall panels
+  - subject remains visible through the center gap
+- Committed as `4461b2c Strengthen doorway foreground occlusion effect`.
+
+### Close-Up / Wardrobe Lock Rules
+
+- Adopted the first user-proposed strategy:
+  - when visible clothing is selected, tight close-up options that cannot show clothing are disabled / excluded from random.
+- `臉部特寫` and equivalent tight face framings are excluded from random when wardrobe is active.
+- `胸上特寫` logic was refined:
+  - outfit presets are allowed
+  - outerwear is allowed
+  - scene/location is allowed
+  - only socks and shoes are locked because they are not visible
+- The previous issue where chest-up framing locked outfit presets, outerwear, or scene base was fixed through:
+  - `2cdacfc Allow outfit presets in chest-up framing`
+  - `e1d99a1 Allow outerwear in chest-up framing`
+  - `19b2535 Allow location in chest-up framing`
+
+### Wardrobe Structure / Controls
+
+- `套裝` and `連身` were conceptually merged into the same top-level one-piece / preset selection path.
+- A top-level `特殊穿搭` option exists:
+  - when selected, all normal wardrobe pieces and accessories are unavailable
+  - special outfit prompt is treated as a complete head-to-toe look
+- Shoes / socks / outerwear control ordering was repeatedly refined:
+  - final order in the UI should be `外套 > 襪類 > 鞋款`
+  - this was fixed both in control order and display layout after the user noticed the previous change had not affected the visible order.
+- Outerwear color options were aligned with top / bottom garment color options in `aa27889 Align outerwear color options with garments`.
+- Outfit preset main-color options were expanded to match top / bottom color richness in `c84abf7 Expand outfit preset color options`.
+- Neck accessory `皮革扣環頸鏈` was refined to specify a thin leather choker so models stop generating a belt-width collar.
+
+### Special Outfit Database Additions
+
+- Many image-derived special outfits were added to `webapp/src/data/database.json`.
+- Special outfits are written as complete outfit blobs and should include:
+  - headwear if part of the requested outfit
+  - glasses / earrings / neck accessories
+  - outerwear
+  - top / one-piece / dress
+  - bottom
+  - socks / legwear
+  - shoes
+  - bags and jewelry when visible and requested
+- Do not include temporary hand-held objects unless the user explicitly asks:
+  - coffee cups, phones, bottles, food, and shopping bags are usually excluded unless clearly part of styling.
+- Recent added examples include:
+  - polka-dot pirate-bandana and scarf street look
+  - blue-gray long coat with lace bralette and wide lace-up trousers
+  - striped theatrical blazer / lace skirt gothic outfit
+  - sporty bohemian black crop tank + leopard bike shorts outfit
+  - lace corset / camo sheer top / layered black skirt outfit
+  - grunge oversized graphic tee duo looks
+  - denim jacket / washed jeans street looks
+  - sequin floral black sheer set
+  - red pants embroidered jacket look
+  - plaid cropped tailoring with embellished ripped denim
+  - brown blazer / white trouser menswear look
+  - white crop tank / wide jeans look
+  - black bandeau / track pants sport look
+  - red varsity cardigan / plaid shorts look
+  - leather jacket / cartoon knit / embellished denim look
+  - olive glossy coat / cream knit / jeans look
+  - white wide-brim hat / denim strapless dress look
+  - rust-orange tie-dye workwear overalls + hoodie look
+  - white ringer graphic baby tee + pinstripe lace mini skirt look
+  - gold beret + faux fur jacket + wide indigo denim look
+- Latest commit `4309a80` added:
+  - `鏽橘紮染工裝吊帶褲帽T造型`
+  - `白色字母短T條紋蕾絲裙靴造型`
+  - `金色貝雷帽皮草外套寬牛仔造型`
+
+### Special Actions
+
+- Added image-derived special actions, with only the action body language and no scene props unless essential.
+- Recent action concepts include:
+  - relaxed side-sitting on bed / surface with one hand braced
+  - knees-up sitting with both cheeks resting in hands
+  - lying on back with arms relaxed near head
+  - seated back-turn / over-shoulder hair-touch pose
+  - lounging relaxed sprawl on ornate armchair
+- These action prompts should avoid adding beds, rooms, or environmental details unless the action physically needs the support object.
+
+### Hairstyles / Face Feature Presets
+
+- Hairstyle list was rebalanced:
+  - short hair category expanded
+  - long-hair duplicates reduced
+  - `油頭` was added as a short, cool, slicked-back style
+  - short wolf cut was explicitly not added
+- Hair prompt style references from X were analyzed and distilled:
+  - keep hair length / silhouette / texture explicit
+  - optionally pair hair with natural makeup mood
+  - avoid overloading clothing / scene into hairstyle entries
+- Face feature preset `圓潤` was replaced / repurposed toward a Japanese transparent pure look because the old wording made models generate a chubby face and sometimes a heavier body.
+- New direction is more distinct from KPOP / sexy / Western face styles:
+  - Japanese transparent clean beauty
+  - soft pure expression
+  - delicate natural proportions
+  - no body-size implication
+
+### Aspect Ratio Options
+
+- Aspect ratios were simplified to a smaller set covering the broadest practical range.
+- Final user-approved six-ratio direction:
+  - `1:1`
+  - `3:4`
+  - `9:16`
+  - `4:3`
+  - `16:9`
+  - one additional broad-use ratio retained per implementation
+- Implemented in `9f98074 Refine aspect ratio options`.
+
+### Scene Description Cleanup
+
+- Indoor and outdoor scene descriptions were audited for embedded time-of-day / day-night wording.
+- User asked to fix scene descriptions first, before later tuning environment mood and lighting.
+- Scene base descriptions were normalized to stay physical / location-only where possible.
+- Time, weather, light, and mood should be controlled by:
+  - environment mood
+  - lighting
+  - scene accent layer
+  - not raw scene base entries.
+- Committed as `c84abf7 Normalize scene descriptions`.
+
+### Favorites / Preview Workflow
+
+- User requested easier fine-tuning after random generation.
+- Chosen implementation:
+  - add a button/action to apply the current live preview values back into the actual ABC option controls
+  - avoids forcing every random generation to mutate visible controls automatically.
+- Added `套用目前預覽` action for the live preview / selection restore workflow.
+- Favorites cards also received a `套用目前預覽` button so saved cards can be used as a tuning base again.
+- Favorites performance was previously optimized by compact storage / repository split and remains important because large Favorites counts had caused lag.
+
+### Workspace Copy / UI Text
+
+- Removed the following helper copy from the workspace:
+  - `目前鎖定 43 個條件。左邊看階段、中間編輯、右邊直接校對 prompt。`
+  - `一次只處理一小段，避免 prompt 在太多欄位之間互相干擾。`
+  - `右側只保留 prompt 本體與複製操作，選項摘要請直接看左側工作台。`
+
+### SUNO Styles Builder
+
+- All SUNO Styles Builder options were localized to Chinese:
+  - music style
+  - main instruments
+  - groove
+  - vocal character
+  - texture / atmosphere
+- `STYLES PROMPT`, `COMPACT PROMPT`, and `MOOD PROMPT` were reviewed.
+- User decided to keep only `STYLES PROMPT`.
+- `COMPACT PROMPT` and `MOOD PROMPT` were removed.
+- Committed as `3d0990a Simplify Suno styles prompt builder`.
+
+### Validation Used During This Session
+
+- For data-only changes:
+  - `node -e "JSON.parse(require('fs').readFileSync('./webapp/src/data/database.json','utf8')); console.log('database json ok')"`
+  - `npm run lint`
+  - `npm run build`
+- Last validation before `4309a80`:
+  - JSON parse passed
+  - `npm run lint` passed
+  - `npm run build` passed
+  - build still emits the expected large chunk warning, but completes successfully.
 
 ## Main Code Areas
 
