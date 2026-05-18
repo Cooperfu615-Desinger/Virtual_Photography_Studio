@@ -4,18 +4,61 @@ const SUBJECT_COUNT_OPTIONS = [
   { id: '1', zh: '1 位', en: 'an seductive stunning & beautiful 20-year-old Japanese or Korean woman', count: 1 },
   { id: '2', zh: '2 位', en: 'two seductive stunning & beautiful 20-year-old Japanese or Korean women', count: 2 },
   {
-    id: 'skeleton',
-    zh: '骷髏',
-    en: 'a complete human skeleton, fleshless, clean anatomical specimen presence, realistic full skeletal structure, dark blue-black bone tone, subtle cool blue highlights, dry matte specimen surface, surreal photographic installation presence',
-    count: 1,
-    specialSubject: 'skeleton',
-  },
-  {
     id: 'reference',
     zh: '上傳人物',
     en: 'a woman matching the attached reference person, preserve facial identity and overall likeness from the attached image',
     count: 1,
     reference: true,
+  },
+];
+
+const SPECIAL_SUBJECT_OPTIONS = [
+  {
+    id: 'none',
+    zh: '全無',
+    en: '',
+    desc: 'Use the normal character setup instead of a dedicated special subject.',
+    meta: { tags: ['none'] },
+  },
+  {
+    id: 'skeleton',
+    zh: '黑骷髏',
+    en: 'a complete human skeleton, fleshless, clean anatomical specimen presence, realistic full skeletal structure, dark blue-black bone tone, subtle cool blue highlights, dry matte specimen surface, surreal photographic installation presence',
+    count: 1,
+    specialSubject: 'skeleton',
+    skeletonToneZh: '深藍黑骨色',
+  },
+  {
+    id: 'white-skeleton',
+    zh: '白骷髏',
+    en: 'a complete human skeleton, fleshless, clean anatomical specimen presence, realistic full skeletal structure, warm ivory bone tone, aged off-white bone surface, subtle beige porous texture, dry matte specimen surface, surreal photographic installation presence',
+    count: 1,
+    specialSubject: 'skeleton',
+    skeletonToneZh: '米白骨色',
+  },
+  {
+    id: 'sengoku-samurai',
+    zh: '日本戰國武士',
+    en: 'a realistic Japanese Sengoku-era samurai warrior as the single main subject, authentic layered lamellar armor, dark lacquered cuirass, shoulder guards, armored sleeves, weathered fabric ties, period waist sash, sheathed katana and wakizashi, historically grounded battlefield presence, museum-realistic material detail, not anime, not cosplay',
+    count: 1,
+    specialSubject: 'historical-warrior',
+    specialToneZh: '戰國甲冑',
+  },
+  {
+    id: 'european-knight',
+    zh: '歐洲騎士',
+    en: 'a realistic medieval European knight as the single main subject, articulated polished plate armor over chainmail, worn steel surfaces, leather straps, padded gambeson edges, simple cloak, longsword at the side, historically grounded chivalric presence, museum-realistic armor construction, not fantasy armor, not cosplay',
+    count: 1,
+    specialSubject: 'historical-warrior',
+    specialToneZh: '中世紀板甲',
+  },
+  {
+    id: 'female-android',
+    zh: '女性人形機器人',
+    en: 'a realistic female humanoid android as the single main subject, elegant synthetic humanlike silhouette, porcelain-white polymer skin panels, brushed titanium joints, subtle seam lines, exposed precision mechanical details at the neck and wrists, calm artificial presence, premium industrial design, realistic robotics, not cartoon, not toy-like',
+    count: 1,
+    specialSubject: 'android',
+    specialToneZh: '仿生機械質感',
   },
 ];
 
@@ -407,6 +450,7 @@ const SCENE_ATTRIBUTE_OPTIONS = [
 
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
+  { key: 'specialSubjectId', label: '特殊角色', options: SPECIAL_SUBJECT_OPTIONS, defaultValue: 'none', section: 'character' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
   { key: 'sceneAttributeId', label: '場景屬性', options: SCENE_ATTRIBUTE_OPTIONS, section: 'core' },
@@ -1751,6 +1795,11 @@ export function normalizeLocks(rawLocks = {}) {
     normalized[key] = value;
   });
 
+  if (rawLocks?.subjectCount && SPECIAL_SUBJECT_OPTIONS.some((option) => option.id === rawLocks.subjectCount && !isNoneLikeItem(option))) {
+    normalized.specialSubjectId = rawLocks.subjectCount;
+    normalized.subjectCount = '1';
+  }
+
   const legacyJewelry = Array.isArray(rawLocks?.jewelryIds)
     ? rawLocks.jewelryIds.filter(Boolean)
     : rawLocks?.jewelryId
@@ -2317,6 +2366,15 @@ function getSubjectOption(id) {
   return SUBJECT_COUNT_OPTIONS.find((option) => option.id === id) || SUBJECT_COUNT_OPTIONS[0];
 }
 
+function getSpecialSubjectOption(id) {
+  const option = SPECIAL_SUBJECT_OPTIONS.find((entry) => entry.id === id);
+  return option && !isNoneLikeItem(option) ? option : null;
+}
+
+function isSpecialSubject(subject) {
+  return Boolean(subject?.specialSubject);
+}
+
 function isSkeletonSubject(subject) {
   return subject?.specialSubject === 'skeleton';
 }
@@ -2382,12 +2440,12 @@ function specialActionSupportsFraming(action, framing) {
 }
 
 function buildSubjectBase(subject) {
-  if (isSkeletonSubject(subject)) {
+  if (isSpecialSubject(subject)) {
     return {
-      zh: '一具完整人類骷髏',
+      zh: subject.zh || '一具完整人類骷髏',
       en: subject.en,
       id: `base-character-${subject.id}`,
-      meta: { tags: ['skeleton', 'solo', 'surreal_subject'] },
+      meta: { tags: [subject.specialSubject, 'solo', 'special_subject'] },
     };
   }
 
@@ -2432,17 +2490,13 @@ function pickWithCompatibleLock(list, lockedId, predicate = () => true, picker =
 
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
-  const visibility = context.framing.meta.visibility;
-  if (isSkeletonSubject(context.subject)) {
+  if (isSpecialSubject(context.subject)) {
+    const expressionItems = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
     const poseItems = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
-    const specialActionItems = getByKey(catalog.character, '特殊動作 (Special Actions)');
 
-    if (context.locks?.specialActionId) {
-      const specialAction = findById(specialActionItems, context.locks.specialActionId);
-      if (specialAction && !isNoneLikeItem(specialAction)) {
-        character.push(specialAction);
-        return character;
-      }
+    if (context.locks?.expressionId) {
+      const expression = findById(expressionItems, context.locks.expressionId);
+      if (expression && !isNoneLikeItem(expression)) character.push(expression);
     }
 
     if (context.locks?.poseId) {
@@ -2453,12 +2507,9 @@ function buildCharacter(context, catalog) {
       }
     }
 
-    const skeletonPose = visibilityAtLeast(visibility, 'full')
-      ? sample(poseItems.filter((item) => !isNoneLikeItem(item) && poseSupportsLocationContext(item, context)))
-      : null;
-    if (skeletonPose) character.push(skeletonPose);
     return character;
   }
+  const visibility = context.framing.meta.visibility;
   const isReferenceSubject = Boolean(context.subject.reference);
   let lockedArchetype = null;
   const buildDuoPoseItem = (option) => {
@@ -3313,8 +3364,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     const filtered = parts.filter((part) => part && part !== '-');
     return filtered.length > 0 ? filtered.join(' / ') : '-';
   };
-  const subjectLabel = isSkeletonSubject(context.subject)
-    ? '一具完整人類骷髏'
+  const subjectLabel = isSpecialSubject(context.subject)
+    ? context.subject.zh || '一具完整人類骷髏'
     : context.subject.reference
     ? '一位以附圖人物五官為主的女性'
     : context.subject.count === 2
@@ -3336,13 +3387,13 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     return primaryColor?.zh ? `${primaryColor.zh}｜${preset.zh}` : preset.zh;
   };
   const summarizeSingleCharacter = () => {
-    if (isSkeletonSubject(context.subject)) {
+    if (isSpecialSubject(context.subject)) {
       return joinSummaryParts(
         subjectLabel,
-        '深藍黑骨色',
-        '乾淨標本質感',
-        '超現實攝影裝置感',
-        characterSlots.specialAction?.zh && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.zh : '',
+        context.subject.skeletonToneZh || context.subject.specialToneZh || '',
+        isSkeletonSubject(context.subject) ? '乾淨標本質感' : '',
+        isSkeletonSubject(context.subject) ? '超現實攝影裝置感' : '',
+        characterSlots.expression?.zh && !isNoneLikeItem(characterSlots.expression) ? characterSlots.expression.zh : '',
         characterSlots.pose?.zh && !isNoneLikeItem(characterSlots.pose) ? characterSlots.pose.zh : ''
       );
     }
@@ -4626,12 +4677,13 @@ function buildContextualSceneAccent(context, { short = false } = {}) {
 function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const specialSubjectMode = isSpecialSubject(context.subject);
   const skeletonMode = isSkeletonSubject(context.subject);
   const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors);
   const duoSceneAnchorText = buildDuoSceneAnchorText(context, wardrobeSlots, wardrobeColors);
   const hasDuoSceneAnchor = Boolean(duoSceneAnchorText);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
-  const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
+  const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
   const expressionAText = buildRoleExpressionPrompt(characterSlots.expressionA, 'woman 1');
   const expressionBText = buildRoleExpressionPrompt(characterSlots.expressionB, 'woman 2');
@@ -4701,15 +4753,15 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
   }
-  if (!hasDuoSceneAnchor && !skeletonMode) addItemLine('Body Type', characterSlots.bodyType);
-  if (!skeletonMode && context.subject.count === 2) {
+  if (!hasDuoSceneAnchor && !specialSubjectMode) addItemLine('Body Type', characterSlots.bodyType);
+  if (!specialSubjectMode && context.subject.count === 2) {
     addLine('Woman 1 Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewearA));
     addLine('Woman 1 Earrings', buildAccessoryPrompt(wardrobeSlots.earringsA));
     addLine('Woman 1 Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessoryA));
     addLine('Woman 2 Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewearB));
     addLine('Woman 2 Earrings', buildAccessoryPrompt(wardrobeSlots.earringsB));
     addLine('Woman 2 Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessoryB));
-  } else if (!skeletonMode) {
+  } else if (!specialSubjectMode) {
     addLine('Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewear));
     addLine('Earrings', buildAccessoryPrompt(wardrobeSlots.earrings));
     addLine('Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessory));
@@ -4760,7 +4812,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     }));
     addLine('Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessory));
   }
-  if (!skeletonMode && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && !wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
+  if (!specialSubjectMode && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && !wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
     const topText = buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
     const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor);
     const pantsText = buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors);
@@ -4774,39 +4826,40 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
-  if (!skeletonMode && !hasDuoSceneAnchor && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
+  if (!specialSubjectMode && !hasDuoSceneAnchor && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
     addLine('Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessory));
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
-  if (!skeletonMode && !hasDuoSceneAnchor) {
+  if (!specialSubjectMode && !hasDuoSceneAnchor) {
     addLine('Waistline Coordination', waistlineCompatibilityText);
     addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
   addLine('Special Action', skeletonText(specialActionText));
   addLine(context.subject.count === 2 ? 'Duo Pose' : 'Pose', skeletonText(poseText));
-  if (!skeletonMode && context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
-  if (!skeletonMode && context.subject.count === 2) {
+  if (specialSubjectMode) addLine('Expression', skeletonText(expressionText));
+  if (!specialSubjectMode && context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
+  if (!specialSubjectMode && context.subject.count === 2) {
     addItemLine('Woman 1 Facial Features', characterSlots.facialFeaturesA);
     addItemLine('Woman 2 Facial Features', characterSlots.facialFeaturesB);
-  } else if (!skeletonMode && !useCharacterIdentityAnchor) {
+  } else if (!specialSubjectMode && !useCharacterIdentityAnchor) {
     addLine('Facial Features', buildFacialFeaturesPrompt(characterSlots.facialFeatures));
   }
-  if (!skeletonMode && context.subject.count === 2) {
+  if (!specialSubjectMode && context.subject.count === 2) {
     addItemLine('Woman 1 Hairstyle', characterSlots.hairstyleA);
     addItemLine('Woman 2 Hairstyle', characterSlots.hairstyleB);
     addLine('Woman 1 Hair Color', buildHairColorPrompt(characterSlots.hairColorA));
     addLine('Woman 2 Hair Color', buildHairColorPrompt(characterSlots.hairColorB));
-  } else if (!skeletonMode) {
+  } else if (!specialSubjectMode) {
     addItemLine('Hairstyle', characterSlots.hairstyle);
     addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
   }
-  if (!skeletonMode && !useCharacterIdentityAnchor) addItemLine('Skin Details', characterSlots.skinDetails);
-  if (!skeletonMode && context.subject.count === 2) {
+  if (!specialSubjectMode && !useCharacterIdentityAnchor) addItemLine('Skin Details', characterSlots.skinDetails);
+  if (!specialSubjectMode && context.subject.count === 2) {
     addLine('Woman 1 Expression', expressionAText);
     addLine('Woman 2 Expression', expressionBText);
-  } else if (!skeletonMode) {
+  } else if (!specialSubjectMode) {
     addLine('Expression', expressionText);
   }
   addContextLine('Location', context.location, (item) => skeletonText(item.en));
@@ -4824,7 +4877,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.style && !isNoneLikeItem(context.style)) {
     addLine('Photography Style', skeletonText(buildPhotographyStylePrompt(context.style)));
   }
-  if (!skeletonMode && !useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
+  if (!specialSubjectMode && !useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
 
   return lines.join('\n');
 }
@@ -4833,7 +4886,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
-  const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1;
+  const specialSubjectMode = isSpecialSubject(context.subject);
+  const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const sceneAccentText = buildContextualSceneAccent(context);
   const sentence = (value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
   const joinSentenceParts = (parts) => sentence(parts.filter(Boolean).join(', '));
@@ -4843,11 +4897,11 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   };
   const skeletonMode = isSkeletonSubject(context.subject);
   const buildCharacterText = () => {
-    if (skeletonMode) {
+    if (specialSubjectMode) {
       const parts = [
-        sanitizeSkeletonPromptText(context.subject.en),
-        characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? sanitizeSkeletonPromptText(characterSlots.specialAction.en) : '',
-        characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : '',
+        skeletonMode ? sanitizeSkeletonPromptText(context.subject.en) : context.subject.en,
+        characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : '',
+        characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : '',
       ].filter(Boolean);
       return leadSentence('The image shows', parts);
     }
@@ -5071,6 +5125,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     skeletonMode ? sanitizeSkeletonPromptText(film?.en) : film?.en,
     skeletonMode
       ? 'natural photographic detail, coherent anatomical structure, clear skeletal structure readability, realistic spatial depth'
+      : specialSubjectMode
+        ? 'natural photographic detail, coherent subject construction, clear material readability, realistic spatial depth'
       : 'natural photographic detail, coherent fabric construction, clear facial readability, realistic spatial depth',
     'do not add visible text unless explicitly requested',
   ]);
@@ -5329,7 +5385,8 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     outfitPresetBLockedPaletteId: wardrobeColors.outfitPresetBLockedPalette?.id || '',
   });
   return {
-    subjectCount: context.subject.id,
+    subjectCount: isSpecialSubject(context.subject) ? '1' : context.subject.id,
+    specialSubjectId: isSpecialSubject(context.subject) ? context.subject.id : 'none',
     aspectRatio: context.aspectRatio.id,
     styleId: context.style?.id || '',
     sceneAttributeId: context.sceneAttribute?.id || '',
@@ -5474,8 +5531,9 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const lockControls = getLockControls(customLibrary);
   const runtime = buildCatalog(customLibrary);
   const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
-  const hasWardrobeLocks = hasEffectiveWardrobeLocks(effectiveLocks, lockControls);
-  const subject = getSubjectOption(effectiveLocks.subjectCount);
+  const specialSubject = getSpecialSubjectOption(effectiveLocks.specialSubjectId);
+  const subject = specialSubject || getSubjectOption(effectiveLocks.subjectCount);
+  const hasWardrobeLocks = !specialSubject && hasEffectiveWardrobeLocks(effectiveLocks, lockControls);
   const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio);
   const sceneAttribute = getSceneAttributeOption(effectiveLocks.sceneAttributeId);
   const lowFrequencyPicker = (tag) => (candidates) => {
@@ -5494,7 +5552,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     (item) => locationMatchesSceneAttribute(item, sceneAttribute)
   );
   const style = pickWithLock(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
-  const lockedSpecialAction = effectiveLocks.specialActionId
+  const lockedSpecialAction = !specialSubject && effectiveLocks.specialActionId
     ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
     : null;
   const framing = pickWithLock(
@@ -5552,7 +5610,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
   const character = buildCharacter(context, runtime.catalog);
-  const wardrobe = isSkeletonSubject(subject) ? [] : buildWardrobe({ ...context }, effectiveLocks, runtime);
+  const wardrobe = isSpecialSubject(subject) ? [] : buildWardrobe({ ...context }, effectiveLocks, runtime);
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks);
 

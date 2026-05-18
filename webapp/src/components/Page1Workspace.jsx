@@ -94,6 +94,16 @@ const SECTION_SUBPANELS = {
         'specialActionId',
       ],
     },
+    {
+      id: 'special',
+      label: '特殊角色',
+      description: '特殊角色會接管人物主體，只保留神情眼神與姿勢動作，穿搭設定會暫時停用。',
+      keys: [
+        'specialSubjectId',
+        'expressionId',
+        'poseId',
+      ],
+    },
   ],
   wardrobe: [
     {
@@ -259,9 +269,11 @@ function buildSummaryText(parts) {
 
 function buildWorkspaceSummary(locks, controls) {
   const subjectTypeLabel = getControlOptionLabel(controls, 'subjectCount', locks.subjectCount);
-  const isSkeletonMode = locks.subjectCount === 'skeleton';
-  const characterSummary = isSkeletonMode
-    ? '骷髏'
+  const specialSubjectControl = controls.find((control) => control.key === 'specialSubjectId');
+  const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
+  const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
+  const characterSummary = isSpecialSubjectMode
+    ? specialSubjectOption?.zh || '特殊角色'
     : buildSummaryText([
         subjectTypeLabel === '上傳人物' ? subjectTypeLabel : '',
         getControlOptionLabel(controls, 'facialFeaturesId', locks.facialFeaturesId),
@@ -389,14 +401,10 @@ export default function Page1Workspace({
   const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
   const activeSubpanelId = activeSubpanels[activeSection] || sectionSubpanels[0]?.id || '';
   const activeSubpanel = sectionSubpanels.find((panel) => panel.id === activeSubpanelId) || sectionSubpanels[0] || null;
-  const isSkeletonMode = locks.subjectCount === 'skeleton';
-  const effectiveCharacterSubpanel = activeSection === 'character' && isSkeletonMode && activeSubpanel?.id === 'identity'
-    ? {
-        ...activeSubpanel,
-        description: '骷髏模式在這裡保留主體切換，姿勢動作與特殊動作請切到「神情姿態」設定。',
-        keys: ['subjectCount', 'poseId', 'specialActionId'],
-      }
-    : activeSubpanel;
+  const specialSubjectControl = lockControls.find((control) => control.key === 'specialSubjectId');
+  const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
+  const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
+  const effectiveCharacterSubpanel = activeSubpanel;
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
   const isOutfitPresetBActive = Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls);
@@ -469,9 +477,9 @@ export default function Page1Workspace({
           此模式不在 app 內上傳圖片；生成後請把同一張人物參考圖直接附給 Midjourney、Grok 或 Gemini，prompt 會以附圖人物五官與身份為主。
         </div>
       ) : null}
-      {locks.subjectCount === 'skeleton' ? (
+      {isSpecialSubjectMode ? (
         <div className="context-note">
-          骷髏模式會使用一具完整人類骨架作為單獨主體，保留場景、鏡頭、光線、風格，以及姿勢動作與特殊動作；人物五官、髮型與服裝欄位會暫時停用。
+          特殊角色會接管人物主體，只保留神情眼神與姿勢動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。
         </div>
       ) : null}
       {isCloseupMode ? (
@@ -501,9 +509,9 @@ export default function Page1Workspace({
           特殊穿搭是完整從頭到腳造型，已接管所有服裝、鞋襪與配件欄位。
         </div>
       ) : null}
-      {locks.subjectCount === 'skeleton' ? (
+      {isSpecialSubjectMode ? (
         <div className="context-note">
-          骷髏模式目前不使用服裝、鞋襪或配件欄位，這一區已暫時停用，請改用場景、鏡頭、光線與風格去塑造作品氣氛。
+          特殊角色目前不使用服裝、鞋襪或配件欄位，這一區已暫時停用，請改用角色本身、場景、鏡頭、光線與風格去塑造作品氣氛。
         </div>
       ) : null}
       {renderControlGrid(filterControlsByKeys(wardrobeLockControls, activeSubpanel?.keys || []))}

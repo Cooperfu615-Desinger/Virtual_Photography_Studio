@@ -157,6 +157,7 @@ function createEmptyPage3Profile() {
 }
 const CHARACTER_CONTROL_ORDER = [
   'subjectCount',
+  'specialSubjectId',
   'bodyTypeId',
   'facialFeaturesId',
   'facialFeaturesAId',
@@ -357,6 +358,7 @@ function buildImportedStructured(locks, controls) {
     Style: buildSection(['styleId']),
     Character: buildSection([
       'subjectCount',
+      'specialSubjectId',
       'bodyTypeId',
       'facialFeaturesId',
       'facialFeaturesAId',
@@ -558,6 +560,7 @@ function compactPromptSelection(selection) {
   return Object.fromEntries(
     Object.entries(normalized).filter(([key, value]) => {
       if (key === 'subjectCount' || key === 'aspectRatio') return true;
+      if (key === 'specialSubjectId' && value === 'none') return false;
       if (key === 'topBottomPaletteId' && value === 'none') return false;
       return Array.isArray(value) ? value.length > 0 : Boolean(value);
     })
@@ -1427,13 +1430,18 @@ export default function App() {
     [lockControls, sceneDependentOptions]
   );
   const characterLockControls = useMemo(
-    () =>
-      sortControls(
+    () => {
+      const specialSubjectControl = lockControls.find((control) => control.key === 'specialSubjectId');
+      const selectedSpecialSubject = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
+      const isSpecialSubject = Boolean(selectedSpecialSubject?.specialSubject);
+
+      return sortControls(
         lockControls.filter((control) => {
-          if (locks.subjectCount === 'skeleton') {
-            return ['subjectCount', 'poseId', 'specialActionId'].includes(control.key);
+          if (isSpecialSubject) {
+            return ['specialSubjectId', 'expressionId', 'poseId'].includes(control.key);
           }
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
+          if (control.key === 'specialSubjectId') return true;
           if (['duoInteractionId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;
           if (control.key === 'specialActionId' && locks.subjectCount !== '1') return false;
           if (['facialFeaturesId', 'hairstyleId', 'hairColorId', 'expressionId', 'poseId'].includes(control.key) && locks.subjectCount === '2') return false;
@@ -1441,14 +1449,19 @@ export default function App() {
           return true;
         }),
         CHARACTER_CONTROL_ORDER
-      ),
-    [lockControls, locks.subjectCount]
+      );
+    },
+    [lockControls, locks.specialSubjectId, locks.subjectCount]
   );
   const wardrobeLockControls = useMemo(
-    () =>
-      sortControls(
+    () => {
+      const specialSubjectControl = lockControls.find((control) => control.key === 'specialSubjectId');
+      const selectedSpecialSubject = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
+      const isSpecialSubject = Boolean(selectedSpecialSubject?.specialSubject);
+
+      return sortControls(
         lockControls.filter((control) => {
-          if (locks.subjectCount === 'skeleton') return false;
+          if (isSpecialSubject) return false;
           const sharedGarmentKeys = [
             'topId', 'topFitId', 'topStylingId', 'topBottomPaletteId', 'topColorId', 'topPatternId',
             'dressId', 'dressColorId', 'pantsId', 'skirtId', 'bottomFitId', 'bottomRiseId', 'bottomColorId', 'bottomPatternId',
@@ -1489,8 +1502,9 @@ export default function App() {
           return true;
         }),
         STYLE_WARDROBE_CONTROL_ORDER
-      ),
-    [lockControls, locks.specialOutfitAId, locks.specialOutfitBId, locks.specialOutfitId, locks.subjectCount, shouldShowPresetColorControl]
+      );
+    },
+    [lockControls, locks.specialOutfitAId, locks.specialOutfitBId, locks.specialOutfitId, locks.specialSubjectId, locks.subjectCount, shouldShowPresetColorControl]
   );
 
   const isOutfitPresetActive = locks.subjectCount === '2'
