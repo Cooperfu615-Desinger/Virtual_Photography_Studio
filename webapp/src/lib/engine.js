@@ -55,10 +55,10 @@ const SPECIAL_SUBJECT_OPTIONS = [
   {
     id: 'female-android',
     zh: '女性人形機器人',
-    en: 'a realistic female humanoid android as the single main subject, elegant synthetic humanlike silhouette, porcelain-white polymer skin panels, brushed titanium joints, subtle seam lines, exposed precision mechanical details at the neck and wrists, calm artificial presence, premium industrial design, realistic robotics, not cartoon, not toy-like',
+    en: 'a realistic humanlike female figure wearing a pure white mechanical bodysuit as the single main subject, smooth pure-white armor shell panels fitted over an elegant human female silhouette, black flexible mechanical zones at the neck, waist, shoulders, elbows, wrists, hips, knees, and ankles, complex exposed machinery with layered servos, pistons, cables, actuator rings, connector plates, and dense micro-mechanical detail in the high-mobility areas, selected panel seams and joint modules containing subtle glowing light elements, optional full enclosed helmet with an opaque visor covering the face, no visible face required, premium sci-fi industrial design, realistic robotics, not cartoon, not toy-like',
     count: 1,
     specialSubject: 'android',
-    specialToneZh: '仿生機械質感',
+    specialToneZh: '純白機械服',
   },
 ];
 

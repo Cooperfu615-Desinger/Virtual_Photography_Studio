@@ -55,6 +55,23 @@ test('historical warrior special subjects disable wardrobe and preserve expressi
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
+test('female android reads as a white mechanical suit over a humanlike female body', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    specialSubjectId: 'female-android',
+  };
+
+  const [prompt] = generatePrompts(1, locks);
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'female-android');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /女性人形機器人|pure white mechanical bodysuit|black flexible mechanical zones/);
+  assert.match(promptText, /neck, waist, shoulders, elbows, wrists, hips, knees, and ankles/);
+  assert.match(promptText, /complex exposed machinery|glowing light elements|full enclosed helmet/);
+  assert.doesNotMatch(promptText, /porcelain-white polymer skin panels|brushed titanium joints/);
+});
+
 test('legacy skeleton subject count locks migrate into the special subject control', () => {
   const normalized = normalizeLocks({
     ...createEmptyLocks(),

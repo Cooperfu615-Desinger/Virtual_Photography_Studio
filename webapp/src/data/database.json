@@ -3622,18 +3622,18 @@
       },
       {
         "zh": "室內：電車車廂正面長椅視角",
-        "en": "Japanese commuter train car interior, straight-on front view toward a long bench seat, blue fabric bench upholstery, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps and small carriage posters, centered seated composition",
-        "desc": "指定為車廂內正面視角，人物坐在長椅中央，背景包含車窗、滑門、金屬牆面、吊環、路線圖與車廂海報。"
+        "en": "Japanese commuter train car interior, straight-on front view toward a long bench seat, blue fabric bench upholstery, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps and small carriage posters, centered seated composition, outside the train windows the passing scenery may show urban buildings, rural fields, or seaside coastline, letting the model choose one exterior landscape",
+        "desc": "指定為車廂內正面視角，人物坐在長椅中央，背景包含車窗、滑門、金屬牆面、吊環、路線圖與車廂海報；窗外可帶入都市建築、鄉間田野或海邊沿岸其中一種移動風景，由模型自行決定。"
       },
       {
         "zh": "室內：電車車廂側面走道視角",
-        "en": "Japanese commuter train car interior, side-profile aisle view, narrow carriage aisle receding into depth, vertical grab poles and overhead hand straps, row seating along both sides, nearby standing passengers and seated commuters as background context, subject standing beside a pole with phone, elongated train-car perspective",
-        "desc": "指定為車廂內側面走道視角，人物站在扶手柱旁，車廂走道向遠處延伸，兩側座位、乘客、吊環與扶手柱形成通勤車廂的縱深感。"
+        "en": "Japanese commuter train car interior, side-profile aisle view, narrow carriage aisle receding into depth, vertical grab poles and overhead hand straps, row seating along both sides, nearby standing passengers and seated commuters as background context, subject standing beside a pole with phone, elongated train-car perspective, outside the train windows the passing scenery may show urban buildings, rural fields, or seaside coastline, letting the model choose one exterior landscape",
+        "desc": "指定為車廂內側面走道視角，人物站在扶手柱旁，車廂走道向遠處延伸，兩側座位、乘客、吊環與扶手柱形成通勤車廂的縱深感；窗外可帶入都市建築、鄉間田野或海邊沿岸其中一種移動風景，由模型自行決定。"
       },
       {
         "zh": "室內：電車車廂坐滿與站滿乘客",
-        "en": "crowded Japanese commuter train car during rush hour, bench seats fully occupied by seated passengers, narrow aisle packed with standing commuters, overhead hand straps in use, vertical grab poles, sliding doors and train windows behind layered bodies, route map panels and small carriage ads, compressed everyday Tokyo commute density, realistic public-transit lifestyle atmosphere",
-        "desc": "日本上下班尖峰時段的電車車廂，長椅坐滿乘客、走道也站滿通勤者，吊環與扶手柱正在被使用，車窗、滑門、路線圖與車廂廣告被人群層層遮擋，重點是生活感、擁擠密度與真實通勤氛圍。"
+        "en": "crowded Japanese commuter train car during rush hour, bench seats fully occupied by seated passengers, narrow aisle packed with standing commuters, overhead hand straps in use, vertical grab poles, sliding doors and train windows behind layered bodies, route map panels and small carriage ads, compressed everyday Tokyo commute density, realistic public-transit lifestyle atmosphere, outside the train windows the passing scenery may show urban buildings, rural fields, or seaside coastline, letting the model choose one exterior landscape",
+        "desc": "日本上下班尖峰時段的電車車廂，長椅坐滿乘客、走道也站滿通勤者，吊環與扶手柱正在被使用，車窗、滑門、路線圖與車廂廣告被人群層層遮擋，重點是生活感、擁擠密度與真實通勤氛圍；窗外可帶入都市建築、鄉間田野或海邊沿岸其中一種移動風景，由模型自行決定。"
       },
       {
         "zh": "戶外：澀谷站前廣場人潮邊緣",
