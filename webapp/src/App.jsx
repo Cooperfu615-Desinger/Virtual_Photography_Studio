@@ -1434,11 +1434,12 @@ export default function App() {
       const specialSubjectControl = lockControls.find((control) => control.key === 'specialSubjectId');
       const selectedSpecialSubject = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
       const isSpecialSubject = Boolean(selectedSpecialSubject?.specialSubject);
+      const isAndroidSubject = selectedSpecialSubject?.specialSubject === 'android';
 
       return sortControls(
         lockControls.filter((control) => {
           if (isSpecialSubject) {
-            return ['specialSubjectId', 'expressionId', 'poseId'].includes(control.key);
+            return ['specialSubjectId', 'expressionId', 'poseId', ...(isAndroidSubject ? ['hairstyleId', 'hairColorId'] : [])].includes(control.key);
           }
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
           if (control.key === 'specialSubjectId') return true;

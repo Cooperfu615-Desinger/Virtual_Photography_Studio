@@ -404,6 +404,7 @@ export default function Page1Workspace({
   const specialSubjectControl = lockControls.find((control) => control.key === 'specialSubjectId');
   const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
+  const isAndroidSubjectMode = specialSubjectOption?.specialSubject === 'android';
   const effectiveCharacterSubpanel = activeSubpanel;
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
@@ -479,7 +480,9 @@ export default function Page1Workspace({
       ) : null}
       {isSpecialSubjectMode ? (
         <div className="context-note">
-          特殊角色會接管人物主體，只保留神情眼神與姿勢動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。
+          {isAndroidSubjectMode
+            ? '女性人形機器人會接管人物主體，但仍可套用髮型、髮色、神情眼神與姿勢動作；身份基底中的五官、體態與 B 穿搭設定會暫時停用。'
+            : '特殊角色會接管人物主體，只保留神情眼神與姿勢動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。'}
         </div>
       ) : null}
       {isCloseupMode ? (

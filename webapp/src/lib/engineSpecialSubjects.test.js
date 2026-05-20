@@ -51,14 +51,44 @@ test('historical warrior special subjects disable wardrobe and preserve expressi
 
   assert.equal(prompt.selection.specialSubjectId, 'sengoku-samurai');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /日本戰國武士|Sengoku-era samurai|lamellar armor|戰國甲冑/);
+  assert.match(promptText, /日本戰國武士/);
+  assert.match(promptText, /female Japanese Sengoku-era samurai/);
+  assert.match(promptText, /feminine bust-waist-hip silhouette/);
+  assert.match(promptText, /戰國女武士甲冑/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
-test('female android reads as a white mechanical suit over a humanlike female body', () => {
+test('european knight special subject is female with feminine armor shaping', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    specialSubjectId: 'european-knight',
+  };
+
+  const [prompt] = generatePrompts(1, locks);
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'european-knight');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /歐洲騎士/);
+  assert.match(promptText, /female medieval European knight/);
+  assert.match(promptText, /feminine bust-waist-hip silhouette/);
+  assert.match(promptText, /中世紀女騎士板甲/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+});
+
+test('female android reads as a near-human android and keeps hair controls', () => {
+  const controls = getLockControls();
+  const hairstyleId = controls
+    .find((control) => control.key === 'hairstyleId')
+    .options.find((option) => option.zh === '長髮（放髮）｜中分長直髮').id;
+  const hairColorId = controls
+    .find((control) => control.key === 'hairColorId')
+    .options.find((option) => option.zh === '自然黑').id;
   const locks = {
     ...createEmptyLocks(),
     specialSubjectId: 'female-android',
+    hairstyleId,
+    hairColorId,
   };
 
   const [prompt] = generatePrompts(1, locks);
@@ -66,10 +96,10 @@ test('female android reads as a white mechanical suit over a humanlike female bo
 
   assert.equal(prompt.selection.specialSubjectId, 'female-android');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /女性人形機器人|pure white mechanical bodysuit|black flexible mechanical zones/);
-  assert.match(promptText, /neck, waist, shoulders, elbows, wrists, hips, knees, and ankles/);
-  assert.match(promptText, /complex exposed machinery|glowing light elements|full enclosed helmet/);
-  assert.doesNotMatch(promptText, /porcelain-white polymer skin panels|brushed titanium joints/);
+  assert.match(promptText, /女性人形機器人|near-human female android|sexy feminine body proportions/);
+  assert.match(promptText, /subtle facial panel lines|black precision mechanical joint structures/);
+  assert.match(promptText, /長髮（放髮）｜中分長直髮|long straight hair|自然黑|natural jet-black hair/);
+  assert.doesNotMatch(promptText, /pure white mechanical bodysuit|full enclosed helmet|no visible face required/);
 });
 
 test('legacy skeleton subject count locks migrate into the special subject control', () => {

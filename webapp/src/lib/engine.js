@@ -39,26 +39,26 @@ const SPECIAL_SUBJECT_OPTIONS = [
   {
     id: 'sengoku-samurai',
     zh: '日本戰國武士',
-    en: 'a realistic Japanese Sengoku-era samurai warrior as the single main subject, authentic layered lamellar armor, dark lacquered cuirass, shoulder guards, armored sleeves, weathered fabric ties, period waist sash, sheathed katana and wakizashi, historically grounded battlefield presence, museum-realistic material detail, not anime, not cosplay',
+    en: 'a realistic female Japanese Sengoku-era samurai warrior as the single main subject, authentic layered lamellar armor reshaped for a feminine bust-waist-hip silhouette, sculpted but battle-ready cuirass, narrowed waist plates, hip-aware kusazuri armor skirt, shoulder guards, armored sleeves, weathered fabric ties, period waist sash, sheathed katana and wakizashi, historically grounded battlefield presence with stylized feminine armor shaping, museum-realistic material detail, not anime, not cosplay',
     count: 1,
     specialSubject: 'historical-warrior',
-    specialToneZh: '戰國甲冑',
+    specialToneZh: '戰國女武士甲冑',
   },
   {
     id: 'european-knight',
     zh: '歐洲騎士',
-    en: 'a realistic medieval European knight as the single main subject, articulated polished plate armor over chainmail, worn steel surfaces, leather straps, padded gambeson edges, simple cloak, longsword at the side, historically grounded chivalric presence, museum-realistic armor construction, not fantasy armor, not cosplay',
+    en: 'a realistic female medieval European knight as the single main subject, articulated polished plate armor over chainmail reshaped for a feminine bust-waist-hip silhouette, sculpted breastplate with clear torso contour, narrowed armored waist, curved hip faulds, fitted armored sleeves, worn steel surfaces, leather straps, padded gambeson edges, simple cloak, longsword at the side, historically grounded chivalric presence with stylized feminine armor shaping, museum-realistic armor construction, not fantasy armor, not cosplay',
     count: 1,
     specialSubject: 'historical-warrior',
-    specialToneZh: '中世紀板甲',
+    specialToneZh: '中世紀女騎士板甲',
   },
   {
     id: 'female-android',
     zh: '女性人形機器人',
-    en: 'a realistic humanlike female figure wearing a pure white mechanical bodysuit as the single main subject, smooth pure-white armor shell panels fitted over an elegant human female silhouette, black flexible mechanical zones at the neck, waist, shoulders, elbows, wrists, hips, knees, and ankles, complex exposed machinery with layered servos, pistons, cables, actuator rings, connector plates, and dense micro-mechanical detail in the high-mobility areas, selected panel seams and joint modules containing subtle glowing light elements, optional full enclosed helmet with an opaque visor covering the face, no visible face required, premium sci-fi industrial design, realistic robotics, not cartoon, not toy-like',
+    en: 'a near-human female android as the single main subject, realistic human female head and face, natural facial proportions with only subtle facial panel lines and small embedded mechanical seams across the cheeks and temples, sexy feminine body proportions with sculpted bust-waist-hip contours, smooth pale synthetic skin-like shell mixed with glossy white and champagne-gold mechanical plates, body covered by elegant mechanical linework and block-like armor structures, black precision mechanical joint structures at the neck, shoulders, elbows, wrists, waist, hips, knees, and ankles, fine actuator seams and micro-panel divisions following the torso, arms, and legs, refined luminous circuit accents in selected seams, realistic robotics with a sensual high-fashion cyborg presence, not a helmeted robot, not cartoon, not toy-like',
     count: 1,
     specialSubject: 'android',
-    specialToneZh: '純白機械服',
+    specialToneZh: '近真人機械女性',
   },
 ];
 
@@ -2379,6 +2379,10 @@ function isSkeletonSubject(subject) {
   return subject?.specialSubject === 'skeleton';
 }
 
+function isAndroidSubject(subject) {
+  return subject?.specialSubject === 'android';
+}
+
 function getAspectRatioOption(id) {
   const option = ASPECT_RATIO_OPTIONS.find((entry) => entry.id === id);
   if (option?.random) return sample(ASPECT_RATIO_POOL);
@@ -2491,8 +2495,18 @@ function pickWithCompatibleLock(list, lockedId, predicate = () => true, picker =
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
   if (isSpecialSubject(context.subject)) {
+    const hairstyleItems = getByKey(catalog.character, '髮型 (Hairstyle)');
+    const hairColorItems = getByKey(catalog.character, '髮色 (Hair Color)');
     const expressionItems = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
     const poseItems = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
+
+    if (isAndroidSubject(context.subject)) {
+      const hairstyle = context.locks?.hairstyleId ? findById(hairstyleItems, context.locks.hairstyleId) : null;
+      if (hairstyle && !isNoneLikeItem(hairstyle)) character.push(hairstyle);
+
+      const hairColor = context.locks?.hairColorId ? findById(hairColorItems, context.locks.hairColorId) : null;
+      if (hairColor && !isNoneLikeItem(hairColor)) character.push(hairColor);
+    }
 
     if (context.locks?.expressionId) {
       const expression = findById(expressionItems, context.locks.expressionId);
@@ -3393,6 +3407,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
         context.subject.skeletonToneZh || context.subject.specialToneZh || '',
         isSkeletonSubject(context.subject) ? '乾淨標本質感' : '',
         isSkeletonSubject(context.subject) ? '超現實攝影裝置感' : '',
+        isAndroidSubject(context.subject) && characterSlots.hairstyle?.zh && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.zh : '',
+        isAndroidSubject(context.subject) && characterSlots.hairColor?.zh && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.zh : '',
         characterSlots.expression?.zh && !isNoneLikeItem(characterSlots.expression) ? characterSlots.expression.zh : '',
         characterSlots.pose?.zh && !isNoneLikeItem(characterSlots.pose) ? characterSlots.pose.zh : ''
       );
@@ -4838,6 +4854,10 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
   addLine('Special Action', skeletonText(specialActionText));
   addLine(context.subject.count === 2 ? 'Duo Pose' : 'Pose', skeletonText(poseText));
+  if (isAndroidSubject(context.subject)) {
+    addItemLine('Hairstyle', characterSlots.hairstyle);
+    addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
+  }
   if (specialSubjectMode) addLine('Expression', skeletonText(expressionText));
   if (!specialSubjectMode && context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
   if (!specialSubjectMode && context.subject.count === 2) {
@@ -4900,6 +4920,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     if (specialSubjectMode) {
       const parts = [
         skeletonMode ? sanitizeSkeletonPromptText(context.subject.en) : context.subject.en,
+        isAndroidSubject(context.subject) && characterSlots.hairstyle && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.en : '',
+        isAndroidSubject(context.subject) && characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : '',
         characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : '',
       ].filter(Boolean);
