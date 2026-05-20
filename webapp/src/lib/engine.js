@@ -290,6 +290,7 @@ const BOTTOM_RISE_OPTIONS = [
   { id: 'mid-rise', zh: '正常腰線', en: 'standard waist placement' },
   { id: 'low-rise', zh: '低腰', en: 'low-rise waist placement' },
   { id: 'ultra-low-rise', zh: '超低腰', en: 'ultra-low-rise waist placement' },
+  { id: 'unbuttoned-slightly-unzipped', zh: '扣子解開拉鏈微開', en: 'pants waist button undone and front zipper slightly lowered, relaxed loosened waistband styling, still worn securely on the hips' },
 ];
 
 const LEGWEAR_COLOR_OPTIONS = [
