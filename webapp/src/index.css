@@ -940,6 +940,13 @@ button:disabled {
   resize: vertical;
 }
 
+.page2-output-panel .page2-prompt-textarea,
+.page3-output-panel .page2-prompt-textarea {
+  min-height: 120px;
+  font-size: 0.78rem;
+  line-height: 1.42;
+}
+
 .suno-field-stack {
   display: flex;
   flex-direction: column;

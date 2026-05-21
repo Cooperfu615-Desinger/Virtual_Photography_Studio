@@ -94,7 +94,10 @@ export default function Page3Workspace({
 
         <div className="control-section">
           <div className="control-section-header">
-            <div className="control-section-title">Scene Prompt</div>
+            <div>
+              <div className="control-section-title">Scene Prompt</div>
+              <p className="workspace-panel-copy">以街頭攝影、器材痕跡與自然取景為主，適合生成日常感、隨手感或旅行紀實場景。</p>
+            </div>
           </div>
           <textarea
             className="text-input page2-prompt-textarea"
@@ -102,14 +105,14 @@ export default function Page3Workspace({
             readOnly
             placeholder="這裡會生成世界街景攝影 prompt。"
           />
-          <p className="context-note">
-            PAGE3 目前獨立於 PAGE1，先描述照片特性、器材與拍法，再描述場景與氛圍；街拍模式允許路人與交通作為城市生活痕跡，但不設定明確人物主體。
-          </p>
         </div>
 
         <div className="control-section">
           <div className="control-section-header">
-            <div className="control-section-title">Cinematic Prompt</div>
+            <div>
+              <div className="control-section-title">Cinematic Prompt</div>
+              <p className="workspace-panel-copy">在同一地點基礎上加強電影感、空間層次與前中後景關係，適合更有敘事張力的城市畫面。</p>
+            </div>
           </div>
           <textarea
             className="text-input page2-prompt-textarea"
@@ -121,7 +124,10 @@ export default function Page3Workspace({
 
         <div className="control-section">
           <div className="control-section-header">
-            <div className="control-section-title">World Prompt</div>
+            <div>
+              <div className="control-section-title">World Prompt</div>
+              <p className="workspace-panel-copy">強調城市地理、街區文化與環境邏輯，適合建立地點 reference、空景系列或世界觀場景。</p>
+            </div>
           </div>
           <textarea
             className="text-input page2-prompt-textarea"
@@ -129,9 +135,6 @@ export default function Page3Workspace({
             readOnly
             placeholder="這裡會生成更偏城市地理、街區文化與環境邏輯的 prompt。"
           />
-          <p className="context-note">
-            World Prompt 會比一般 Scene Prompt 更強調地點關係、街區文化與城市空間邏輯，適合做城市 reference 或空景系列。
-          </p>
         </div>
       </section>
     </section>
