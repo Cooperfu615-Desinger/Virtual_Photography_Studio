@@ -935,6 +935,71 @@ button:disabled {
   color: var(--text-primary);
 }
 
+.prompt-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 28px;
+}
+
+.prompt-preview-card {
+  min-width: 0;
+}
+
+.prompt-preview-card-wide {
+  grid-column: 1 / -1;
+}
+
+.prompt-preview-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.prompt-preview-card-header h3 {
+  margin: 0;
+  color: #15110c;
+  font-size: clamp(1rem, 1.5vw, 1.55rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.prompt-preview-copy-btn {
+  color: #77726a;
+  background: transparent;
+  border-color: transparent;
+  border-radius: 8px;
+  min-width: 34px;
+  min-height: 34px;
+}
+
+.prompt-preview-copy-btn:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: rgba(111, 87, 60, 0.08);
+  border-color: transparent;
+}
+
+.prompt-preview-summary-box {
+  min-height: 120px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(111, 87, 60, 0.16);
+  background: #e9dfcf;
+  color: #111;
+  font-size: clamp(1.02rem, 1.35vw, 1.35rem);
+  line-height: 1.45;
+}
+
+.prompt-preview-description {
+  margin: 10px 0 0;
+  color: #9a6b51;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
 .page2-prompt-textarea {
   min-height: 240px;
   resize: vertical;
@@ -943,8 +1008,39 @@ button:disabled {
 .page2-output-panel .page2-prompt-textarea,
 .page3-output-panel .page2-prompt-textarea {
   min-height: 120px;
+  max-height: 180px;
   font-size: 0.78rem;
   line-height: 1.42;
+}
+
+.prompt-preview-textarea {
+  background: #e9dfcf;
+  color: #111;
+  border-color: rgba(111, 87, 60, 0.16);
+  border-radius: 16px;
+  scrollbar-color: #b9b9b9 transparent;
+  scrollbar-width: thin;
+}
+
+.prompt-preview-textarea::-webkit-scrollbar {
+  width: 14px;
+}
+
+.prompt-preview-textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.prompt-preview-textarea::-webkit-scrollbar-thumb {
+  min-height: 42px;
+  border: 5px solid transparent;
+  border-radius: 999px;
+  background: #b9b9b9;
+  background-clip: content-box;
+}
+
+.prompt-preview-textarea::-webkit-scrollbar-thumb:hover {
+  background: #9f9f9f;
+  background-clip: content-box;
 }
 
 .suno-field-stack {
@@ -1824,6 +1920,7 @@ button:disabled {
   .primary-action-row,
   .feed,
   .library-editor-shell,
+  .prompt-preview-grid,
   .page1-feed-list,
   .saved-cards-list,
   .saved-cards-stats,
