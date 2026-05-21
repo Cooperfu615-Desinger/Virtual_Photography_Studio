@@ -926,6 +926,77 @@ button:disabled {
   gap: 14px;
 }
 
+.reference-output-panel {
+  gap: 18px;
+}
+
+.reference-output-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(111, 87, 60, 0.12);
+}
+
+.reference-output-count {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  border-radius: 999px;
+  background: #f2e8d9;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.location-mode-panel {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: end;
+  padding: 14px;
+  border: 1px solid rgba(111, 87, 60, 0.12);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 250, 240, 0.82) 0%, rgba(239, 229, 212, 0.52) 100%);
+}
+
+.segmented-control {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 5px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  border-radius: 14px;
+  background: #e9dfcf;
+}
+
+.segmented-control button {
+  min-height: 42px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  color: #5e4a34;
+  box-shadow: none;
+}
+
+.segmented-control button:hover {
+  transform: none;
+}
+
+.segmented-control-active,
+.segmented-control-active:hover {
+  background: #fffaf0;
+  border-color: rgba(111, 87, 60, 0.18);
+  color: #2f2418;
+  box-shadow: 0 8px 18px rgba(70, 48, 25, 0.1);
+}
+
+.location-mode-field {
+  min-width: 0;
+}
+
 .page2-output-card {
   min-height: 88px;
   padding: 14px 16px;
@@ -957,11 +1028,26 @@ button:disabled {
   margin-bottom: 10px;
 }
 
+.prompt-preview-card-title-stack {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.prompt-preview-eyebrow {
+  color: #9a6b51;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 .prompt-preview-card-header h3 {
   margin: 0;
   color: #15110c;
-  font-size: clamp(1rem, 1.5vw, 1.55rem);
-  font-weight: 500;
+  font-size: 0.82rem;
+  font-weight: 800;
   line-height: 1.15;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -985,11 +1071,11 @@ button:disabled {
 .prompt-preview-summary-box {
   min-height: 120px;
   padding: 18px 20px;
-  border-radius: 16px;
+  border-radius: 10px;
   border: 1px solid rgba(111, 87, 60, 0.16);
   background: #e9dfcf;
   color: #111;
-  font-size: clamp(1.02rem, 1.35vw, 1.35rem);
+  font-size: 0.78rem;
   line-height: 1.45;
 }
 
@@ -1007,23 +1093,24 @@ button:disabled {
 
 .page2-output-panel .page2-prompt-textarea,
 .page3-output-panel .page2-prompt-textarea {
-  min-height: 120px;
-  max-height: 180px;
+  min-height: 136px;
+  max-height: 196px;
   font-size: 0.78rem;
   line-height: 1.42;
 }
 
 .prompt-preview-textarea {
+  padding: 14px;
   background: #e9dfcf;
   color: #111;
   border-color: rgba(111, 87, 60, 0.16);
-  border-radius: 16px;
+  border-radius: 10px;
   scrollbar-color: #b9b9b9 transparent;
   scrollbar-width: thin;
 }
 
 .prompt-preview-textarea::-webkit-scrollbar {
-  width: 14px;
+  width: 12px;
 }
 
 .prompt-preview-textarea::-webkit-scrollbar-track {
@@ -1032,7 +1119,7 @@ button:disabled {
 
 .prompt-preview-textarea::-webkit-scrollbar-thumb {
   min-height: 42px;
-  border: 5px solid transparent;
+  border: 4px solid transparent;
   border-radius: 999px;
   background: #b9b9b9;
   background-clip: content-box;
@@ -1891,6 +1978,7 @@ button:disabled {
 @media (max-width: 820px) {
   .page-header,
   .lock-panel-header,
+  .reference-output-header,
   .filter-bar {
     flex-direction: column;
     align-items: stretch;
@@ -1920,6 +2008,7 @@ button:disabled {
   .primary-action-row,
   .feed,
   .library-editor-shell,
+  .location-mode-panel,
   .prompt-preview-grid,
   .page1-feed-list,
   .saved-cards-list,

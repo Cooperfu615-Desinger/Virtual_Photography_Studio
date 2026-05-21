@@ -15,7 +15,9 @@ export default function PromptPreviewCard({
   return (
     <article className={cardClass}>
       <div className="prompt-preview-card-header">
-        <h3>{title}</h3>
+        <div className="prompt-preview-card-title-stack">
+          <h3>{title}</h3>
+        </div>
         <button
           className="icon-btn prompt-preview-copy-btn"
           type="button"

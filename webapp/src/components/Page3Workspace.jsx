@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PromptPreviewCard from './PromptPreviewCard';
 
 export default function Page3Workspace({
@@ -13,7 +14,24 @@ export default function Page3Workspace({
   onCopyText,
   onSaveCard,
 }) {
+  const [locationMode, setLocationMode] = useState(profile.specialLocation ? 'special' : 'world');
+  const builderFields = fieldConfig.filter((field) => field.key !== 'worldLocation' && field.key !== 'specialLocation');
+  const activeLocationField = locationMode === 'special'
+    ? { key: 'specialLocation', label: '特殊地點' }
+    : { key: 'worldLocation', label: '世界地點' };
+
+  const handleLocationModeChange = (mode) => {
+    setLocationMode(mode);
+    setProfile((prev) => ({
+      ...prev,
+      worldLocation: mode === 'world' ? prev.worldLocation : '',
+      specialLocation: mode === 'special' ? prev.specialLocation : '',
+    }));
+  };
+
   const handleFieldChange = (key, value) => {
+    if (key === 'worldLocation' && value) setLocationMode('world');
+    if (key === 'specialLocation' && value) setLocationMode('special');
     setProfile((prev) => {
       const next = { ...prev, [key]: value };
       if (key === 'worldLocation' && value) next.specialLocation = '';
@@ -25,6 +43,7 @@ export default function Page3Workspace({
   const promptCards = [
     {
       title: '場景摘要',
+      eyebrow: 'Summary',
       value: summary,
       placeholder: '尚未選擇場景條件。',
       variant: 'summary',
@@ -33,6 +52,7 @@ export default function Page3Workspace({
     },
     {
       title: 'Scene Anchor',
+      eyebrow: 'Anchor',
       value: anchor,
       placeholder: '選擇場景條件後，這裡會生成短版場景錨點。',
       description: '',
@@ -40,6 +60,7 @@ export default function Page3Workspace({
     },
     {
       title: 'Scene Prompt',
+      eyebrow: 'Scene',
       value: prompt,
       placeholder: '這裡會生成世界街景攝影 prompt。',
       description: '以街頭攝影、器材痕跡與自然取景為主，適合生成日常感、隨手感或旅行紀實場景。',
@@ -47,6 +68,7 @@ export default function Page3Workspace({
     },
     {
       title: 'Cinematic Prompt',
+      eyebrow: 'Cinematic',
       value: cinematicPrompt,
       placeholder: '這裡會生成更強調電影感構圖與空間層次的城市場景 prompt。',
       description: '在同一地點基礎上加強電影感、空間層次與前中後景關係，適合更有敘事張力的城市畫面。',
@@ -54,6 +76,7 @@ export default function Page3Workspace({
     },
     {
       title: 'World Prompt',
+      eyebrow: 'World',
       value: worldPrompt,
       placeholder: '這裡會生成更偏城市地理、街區文化與環境邏輯的 prompt。',
       description: '強調城市地理、街區文化與環境邏輯，適合建立地點 reference、空景系列或世界觀場景。',
@@ -73,10 +96,45 @@ export default function Page3Workspace({
 
         <div className="control-section">
           <div className="control-section-header">
-            <div className="control-section-title">Scene Builder</div>
+            <div>
+              <div className="control-section-title">Scene Builder</div>
+              <p className="workspace-panel-copy">先決定地點來源，再組合攝影器材、拍法、取景與環境光。</p>
+            </div>
+          </div>
+          <div className="location-mode-panel">
+            <div className="segmented-control" role="group" aria-label="Location mode">
+              <button
+                type="button"
+                className={locationMode === 'world' ? 'segmented-control-active' : 'secondary'}
+                onClick={() => handleLocationModeChange('world')}
+              >
+                世界地點
+              </button>
+              <button
+                type="button"
+                className={locationMode === 'special' ? 'segmented-control-active' : 'secondary'}
+                onClick={() => handleLocationModeChange('special')}
+              >
+                特殊地點
+              </button>
+            </div>
+            <label className="field location-mode-field">
+              <span>{activeLocationField.label}</span>
+              <select
+                className={!profile[activeLocationField.key] ? 'select-muted' : ''}
+                value={profile[activeLocationField.key] || ''}
+                onChange={(event) => handleFieldChange(activeLocationField.key, event.target.value)}
+              >
+                {fieldOptions[activeLocationField.key].map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.zh}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
           <div className="lock-grid detail-lock-grid">
-            {fieldConfig.map((field) => (
+            {builderFields.map((field) => (
               <label key={field.key} className="field">
                 <span>{field.label}</span>
                 <select
@@ -104,7 +162,14 @@ export default function Page3Workspace({
         </div>
       </section>
 
-      <section className="lock-panel page3-output-panel">
+      <section className="lock-panel page3-output-panel reference-output-panel">
+        <div className="reference-output-header">
+          <div>
+            <div className="control-section-title">Reference Outputs</div>
+            <p className="workspace-panel-copy">右側集中整理場景摘要、錨點與三種場景 prompt。</p>
+          </div>
+          <span className="reference-output-count">{promptCards.length} outputs</span>
+        </div>
         <div className="prompt-preview-grid">
           {promptCards.map((card, index) => (
             <PromptPreviewCard
