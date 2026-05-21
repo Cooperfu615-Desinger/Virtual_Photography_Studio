@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import {
   PAGE3_WORLD_SCENE_FIELD_OPTIONS,
+  SPECIAL_SCENE_LOCATIONS,
   WORLD_SCENE_LOCATIONS,
   buildPage3WorldSceneAnchor,
   buildPage3WorldScenePrompt,
@@ -29,6 +30,23 @@ test('world scene location pack contains ten cities with five anchors each', () 
     Rome: 5,
     'Los Angeles': 5,
   });
+});
+
+test('special scene location pack exposes seven non-city photographic locations', () => {
+  assert.equal(SPECIAL_SCENE_LOCATIONS.length, 7);
+  assert.deepEqual(
+    SPECIAL_SCENE_LOCATIONS.map((location) => location.labelZh),
+    [
+      '特殊地點｜廢墟：學校',
+      '特殊地點｜廢墟：醫院',
+      '特殊地點｜廢墟：飯店',
+      '特殊地點｜廢墟：都市',
+      '特殊地點｜廢墟：遊樂園',
+      '特殊地點｜老舊公寓',
+      '特殊地點｜日本住宅區巷弄',
+    ],
+  );
+  assert.equal(SPECIAL_SCENE_LOCATIONS.every((location) => location.generic), true);
 });
 
 test('Dotonbori street prompt keeps real location anchors and street-photography intent', () => {
@@ -88,9 +106,39 @@ test('aerial mode uses elevated spatial language and realism guards', () => {
   assert.match(summary, /香港｜維多利亞港/);
 });
 
+test('special location prompt avoids forced world-city context', () => {
+  const profile = {
+    sceneMode: 'street-only',
+    worldLocation: 'tokyo-shinjuku-golden-gai',
+    specialLocation: 'special-ruins-hospital',
+    cameraSystem: 'smartphone-doc',
+    shootingMethod: 'slight-hand-shake',
+    focalViewpoint: '35mm-classic',
+    sceneFocus: 'free-framing',
+    imagingStyle: 'documentary-street',
+    ambientLight: 'overcast-daylight',
+  };
+
+  const prompt = buildPage3WorldScenePrompt(profile);
+  const anchor = buildPage3WorldSceneAnchor(profile);
+  const summary = buildPage3WorldSceneSummary(profile);
+
+  assert.match(prompt, /non-specific photographic location/i);
+  assert.match(prompt, /abandoned hospital ruins/i);
+  assert.match(prompt, /empty hospital ward/i);
+  assert.match(prompt, /tiled corridors/i);
+  assert.match(prompt, /avoid gore or explicit injury/i);
+  assert.doesNotMatch(prompt, /Special Location/);
+  assert.doesNotMatch(prompt, /Shinjuku/);
+  assert.match(anchor, /Abandoned hospital/);
+  assert.match(summary, /特殊地點｜廢墟：醫院/);
+  assert.doesNotMatch(summary, /東京/);
+});
+
 test('field options expose scene modes and the first city pack locations', () => {
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneMode.length, 4);
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.worldLocation.length, 51);
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.specialLocation.length, 8);
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.shootingMethod.length, 8);
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneFocus.length, 8);
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneMode[1].zh, '街拍：單純場景');

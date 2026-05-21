@@ -13,6 +13,15 @@ export default function Page3Workspace({
   onCopyText,
   onSaveCard,
 }) {
+  const handleFieldChange = (key, value) => {
+    setProfile((prev) => {
+      const next = { ...prev, [key]: value };
+      if (key === 'worldLocation' && value) next.specialLocation = '';
+      if (key === 'specialLocation' && value) next.worldLocation = '';
+      return next;
+    });
+  };
+
   const promptCards = [
     {
       title: '場景摘要',
@@ -72,8 +81,8 @@ export default function Page3Workspace({
                 <span>{field.label}</span>
                 <select
                   className={!profile[field.key] ? 'select-muted' : ''}
-                  value={profile[field.key]}
-                  onChange={(event) => setProfile((prev) => ({ ...prev, [field.key]: event.target.value }))}
+                  value={profile[field.key] || ''}
+                  onChange={(event) => handleFieldChange(field.key, event.target.value)}
                 >
                   {fieldOptions[field.key].map((option) => (
                     <option key={option.id} value={option.id}>

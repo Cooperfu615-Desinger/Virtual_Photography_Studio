@@ -1,4 +1,4 @@
-import { WORLD_SCENE_LOCATIONS } from '../data/page3WorldScenes.js';
+import { SPECIAL_SCENE_LOCATIONS, WORLD_SCENE_LOCATIONS } from '../data/page3WorldScenes.js';
 
 const SCENE_MODE_OPTIONS = [
   { id: '', zh: '未指定', en: '' },
@@ -146,6 +146,7 @@ export const PAGE3_WORLD_SCENE_FIELD_CONFIG = [
   { key: 'shootingMethod', label: '拍攝手法' },
   { key: 'focalViewpoint', label: '焦段 / 視角' },
   { key: 'worldLocation', label: '世界地點' },
+  { key: 'specialLocation', label: '特殊地點' },
   { key: 'sceneFocus', label: '場景取景方式' },
   { key: 'imagingStyle', label: '成像風格' },
   { key: 'ambientLight', label: '環境光氛' },
@@ -161,6 +162,14 @@ export const PAGE3_WORLD_SCENE_FIELD_OPTIONS = {
       en: `${location.city}, ${location.district}, ${location.locationName}`,
     })),
   ],
+  specialLocation: [
+    { id: '', zh: '未指定', en: '' },
+    ...SPECIAL_SCENE_LOCATIONS.map((location) => ({
+      id: location.id,
+      zh: location.labelZh,
+      en: `${location.district}, ${location.locationName}`,
+    })),
+  ],
   cameraSystem: CAMERA_SYSTEM_OPTIONS,
   shootingMethod: SHOOTING_METHOD_OPTIONS,
   focalViewpoint: FOCAL_VIEWPOINT_OPTIONS,
@@ -169,7 +178,7 @@ export const PAGE3_WORLD_SCENE_FIELD_OPTIONS = {
   ambientLight: AMBIENT_LIGHT_OPTIONS,
 };
 
-export { WORLD_SCENE_LOCATIONS };
+export { SPECIAL_SCENE_LOCATIONS, WORLD_SCENE_LOCATIONS };
 
 export function createEmptyPage3WorldSceneProfile() {
   return Object.fromEntries(PAGE3_WORLD_SCENE_FIELD_CONFIG.map((field) => [field.key, '']));
@@ -179,13 +188,21 @@ function findOption(options, id) {
   return options.find((option) => option.id === id) || options[0] || null;
 }
 
-function findLocation(id) {
+function findWorldLocation(id) {
   return WORLD_SCENE_LOCATIONS.find((location) => location.id === id) || null;
+}
+
+function findSpecialLocation(id) {
+  return SPECIAL_SCENE_LOCATIONS.find((location) => location.id === id) || null;
+}
+
+function getSelectedLocation(profile = {}) {
+  return findSpecialLocation(profile.specialLocation) || findWorldLocation(profile.worldLocation);
 }
 
 function getProfileParts(profile = {}) {
   const mode = findOption(SCENE_MODE_OPTIONS, profile.sceneMode);
-  const location = findLocation(profile.worldLocation);
+  const location = getSelectedLocation(profile);
   const cameraSystem = findOption(CAMERA_SYSTEM_OPTIONS, profile.cameraSystem);
   const shootingMethod = findOption(SHOOTING_METHOD_OPTIONS, profile.shootingMethod);
   const focalViewpoint = findOption(FOCAL_VIEWPOINT_OPTIONS, profile.focalViewpoint);
@@ -220,7 +237,22 @@ function pickPosition(location, mode) {
 
 function formatLocationTitle(location) {
   if (!location) return '';
+  if (location.generic) return location.locationName;
   return `${location.locationName} in ${location.city}, ${location.country}`;
+}
+
+function formatAnchorLocation(location) {
+  if (!location) return '';
+  if (location.generic) return `${location.district}, ${location.locationName}`;
+  return `${location.city}, ${location.district}, ${location.locationName}`;
+}
+
+function formatLocationPhrase(location) {
+  if (!location) return '';
+  if (location.generic) {
+    return `The scene is set in a non-specific photographic location: ${location.locationName}, using ${location.district} as the environment type`;
+  }
+  return `The scene is set around ${formatLocationTitle(location)}, within the ${location.district} district context`;
 }
 
 function sentenceJoin(parts) {
@@ -259,7 +291,7 @@ export function buildPage3WorldSceneAnchor(profile = {}) {
 
   return cleanJoin([
     mode?.anchor,
-    location ? `${location.city}, ${location.district}, ${location.locationName}` : '',
+    formatAnchorLocation(location),
     location?.landmarkCues?.slice(0, 3),
   ]);
 }
@@ -270,14 +302,11 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
 
   const leadKey = variant === 'cinematic' ? 'cinematicPhotoType' : variant === 'world' ? 'worldPhotoType' : 'photoType';
   const lead = mode?.[leadKey] || mode?.photoType || 'This is a realistic location photograph';
-  const locationTitle = formatLocationTitle(location);
   const position = pickPosition(location, mode);
   const cameraPhrase = getCameraPhrase(cameraSystem);
   const shootingPhrase = shootingMethod?.en ? `The shooting method is ${shootingMethod.en}` : '';
   const focalPhrase = focalViewpoint?.en ? `The viewpoint is ${focalViewpoint.en}` : '';
-  const locationPhrase = locationTitle
-    ? `The scene is set around ${locationTitle}, within the ${location.district} district context`
-    : '';
+  const locationPhrase = formatLocationPhrase(location);
   const landmarkPhrase = location?.landmarkCues?.length
     ? `Keep the local cues believable: ${location.landmarkCues.join(', ')}`
     : '';
