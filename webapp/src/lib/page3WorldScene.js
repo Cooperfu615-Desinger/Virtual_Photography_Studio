@@ -7,31 +7,34 @@ const SCENE_MODE_OPTIONS = [
     zh: '街拍：單純場景',
     en: 'documentary street photograph',
     anchor: 'street-only documentary scene',
-    promptLead: 'documentary street photograph of',
-    cinematicLead: 'cinematic documentary street scene of',
-    worldLead: 'street-level urban environment study of',
+    photoType: 'This is a documentary street photography work',
+    photographer: 'It is made by a photographer who is good at catching unscripted city moments from ordinary pedestrian distance',
+    cinematicPhotoType: 'This is a cinematic documentary street photograph',
+    worldPhotoType: 'This is a street-level urban environment photograph',
     positionKey: 'streetPositions',
-    modeNotes: ['incidental pedestrians and traffic allowed as street life', 'no deliberate portrait subject', 'storefront clutter, road texture, signs, and public movement visible'],
+    modeNotes: ['incidental pedestrians and traffic may appear only as traces of street life', 'no deliberate portrait subject', 'avoid a postcard-like establishing shot or complete landmark panorama'],
   },
   {
     id: 'cityscape',
     zh: '空景城市攝影',
     en: 'realistic city and landmark photography',
     anchor: 'clean cityscape scene',
-    promptLead: 'realistic travel editorial photograph of',
-    cinematicLead: 'cinematic city establishing shot of',
-    worldLead: 'grounded city-world environment study of',
+    photoType: 'This is a realistic city photography work',
+    photographer: 'It is made by a travel and architecture photographer observing the city as a lived place rather than a generic skyline',
+    cinematicPhotoType: 'This is a cinematic city photography still',
+    worldPhotoType: 'This is a grounded city-world environment photograph',
     positionKey: 'cityscapePositions',
-    modeNotes: ['city, architecture, street, or landmark is the subject', 'no deliberate human subject', 'composed travel-photography realism'],
+    modeNotes: ['city, architecture, street, or landmark is the subject', 'no deliberate human subject', 'keep the place specific instead of turning it into a generic city view'],
   },
   {
     id: 'aerial-high-view',
     zh: '空拍 / 高視角地景',
     en: 'drone-like elevated cityscape',
     anchor: 'elevated high-view city scene',
-    promptLead: 'drone-like elevated cityscape over',
-    cinematicLead: 'ultra wide elevated cinematic cityscape over',
-    worldLead: 'high-view spatial geography study of',
+    photoType: 'This is an aerial or high-view cityscape photograph',
+    photographer: 'It is made from a drone or grounded overlook by a photographer focused on spatial layout and city geography',
+    cinematicPhotoType: 'This is an elevated cinematic cityscape photograph',
+    worldPhotoType: 'This is a high-view spatial geography photograph',
     positionKey: 'aerialPositions',
     modeNotes: ['spatial layout and geography are dominant', 'bridges, roads, waterways, rooftops, and skyline relationships visible', 'use a grounded overlook when that is more realistic than a true drone view'],
   },
@@ -51,14 +54,25 @@ const CAMERA_SYSTEM_OPTIONS = [
 
 const FOCAL_VIEWPOINT_OPTIONS = [
   { id: '', zh: '未指定', en: '' },
-  { id: '24mm-wide', zh: '24mm 廣角街景', en: '24mm wide street view' },
-  { id: '28mm-documentary', zh: '28mm 紀實街拍', en: '28mm documentary street view' },
-  { id: '35mm-classic', zh: '35mm 經典街拍', en: '35mm classic street photography view' },
-  { id: '50mm-natural', zh: '50mm 自然視角', en: '50mm natural perspective' },
-  { id: '85mm-compressed', zh: '85mm 壓縮街景細節', en: '85mm compressed street detail' },
-  { id: '135mm-telephoto', zh: '135mm 遠攝壓縮', en: '135mm telephoto compression' },
-  { id: 'elevated-wide', zh: '高處廣角城市視角', en: 'elevated wide city view' },
-  { id: 'drone-overhead', zh: '空拍俯視視角', en: 'drone-like overhead view' },
+  { id: '24mm-wide', zh: '24mm 廣角街景', en: '24mm wide street view at human eye level, close enough to feel inside the street' },
+  { id: '28mm-documentary', zh: '28mm 紀實街拍', en: '28mm documentary street view at pedestrian height' },
+  { id: '35mm-classic', zh: '35mm 經典街拍', en: '35mm classic street photography view from a passerby perspective' },
+  { id: '50mm-natural', zh: '50mm 自然視角', en: '50mm natural perspective with casual human-scale distance' },
+  { id: '85mm-compressed', zh: '85mm 壓縮街景細節', en: '85mm compressed street detail, isolating a fragment of the place instead of the whole skyline' },
+  { id: '135mm-telephoto', zh: '135mm 遠攝壓縮', en: '135mm telephoto compression focused on layered urban details' },
+  { id: 'elevated-wide', zh: '高處廣角城市視角', en: 'elevated wide city view from a building, bridge, or overlook' },
+  { id: 'drone-overhead', zh: '空拍俯視視角', en: 'drone-like overhead view looking down at the spatial layout' },
+];
+
+const SHOOTING_METHOD_OPTIONS = [
+  { id: '', zh: '未指定', en: '' },
+  { id: 'walk-by-snapshot', zh: '邊走邊拍快照', en: 'shot while walking, slightly imperfect and spontaneous, with a casual snapshot rhythm' },
+  { id: 'slight-hand-shake', zh: '輕微手震', en: 'shot with subtle hand shake, tiny motion blur, and imperfect handheld timing' },
+  { id: 'overexposed-phone', zh: '手機些微過曝', en: 'shot with a phone-like slightly overexposed look, clipped highlights, and quick automatic exposure' },
+  { id: 'through-window', zh: '隔窗拍攝', en: 'shot through glass with reflections, glare, and layered interior-exterior depth' },
+  { id: 'direct-flash', zh: '直閃快照', en: 'shot with direct flash, hard highlights, and raw street snapshot energy' },
+  { id: 'quiet-tripod', zh: '安靜穩定構圖', en: 'shot with a steady composed camera, controlled framing, and quiet observational timing' },
+  { id: 'drone-survey', zh: '空拍巡航', en: 'shot from a drone in a slow survey pass, keeping the geography readable' },
 ];
 
 const IMAGING_STYLE_OPTIONS = [
@@ -87,11 +101,52 @@ const AMBIENT_LIGHT_OPTIONS = [
   { id: 'hazy-summer-heat', zh: '夏季霧熱空氣', en: 'hazy summer heat' },
 ];
 
+const SCENE_FOCUS_OPTIONS = [
+  { id: '', zh: '未指定', en: '' },
+  {
+    id: 'free-framing',
+    zh: '自由取景',
+    en: 'Within the chosen place, the composition may naturally choose one believable focus: a street corner, storefront entrance, window reflection, sign fragment, wet pavement, narrow slice of sky, alley depth, wall texture, or sidewalk detail.',
+  },
+  {
+    id: 'signs-storefronts',
+    zh: '招牌與店面',
+    en: 'Let signs, storefronts, doorways, menus, awnings, and shop lights become the main visual focus without needing to show the whole landmark.',
+  },
+  {
+    id: 'windows-reflections',
+    zh: '櫥窗與反光',
+    en: 'Focus on window glass, display reflections, interior light leaking outward, layered reflections, and partial street fragments.',
+  },
+  {
+    id: 'alley-corner-depth',
+    zh: '街角與巷弄深處',
+    en: 'Focus on a corner, alley mouth, receding narrow passage, side street depth, stacked signs, and compressed pedestrian-scale space.',
+  },
+  {
+    id: 'ground-rain-texture',
+    zh: '路面與濕地反光',
+    en: 'Focus on pavement texture, rain reflections, curb edges, road markings, puddles, and light reflected from the ground.',
+  },
+  {
+    id: 'sky-building-slice',
+    zh: '天空縫隙與建築切片',
+    en: 'Focus on the slice of sky between buildings, cropped facades, utility lines, balconies, and vertical urban layers.',
+  },
+  {
+    id: 'landmark-fragment',
+    zh: '地標局部',
+    en: 'Focus on a recognizable fragment of the landmark or district rather than a complete frontal postcard view.',
+  },
+];
+
 export const PAGE3_WORLD_SCENE_FIELD_CONFIG = [
   { key: 'sceneMode', label: '場景模式' },
-  { key: 'worldLocation', label: '世界地點' },
   { key: 'cameraSystem', label: '相機系統' },
+  { key: 'shootingMethod', label: '拍攝手法' },
   { key: 'focalViewpoint', label: '焦段 / 視角' },
+  { key: 'worldLocation', label: '世界地點' },
+  { key: 'sceneFocus', label: '場景取景方式' },
   { key: 'imagingStyle', label: '成像風格' },
   { key: 'ambientLight', label: '環境光氛' },
 ];
@@ -107,7 +162,9 @@ export const PAGE3_WORLD_SCENE_FIELD_OPTIONS = {
     })),
   ],
   cameraSystem: CAMERA_SYSTEM_OPTIONS,
+  shootingMethod: SHOOTING_METHOD_OPTIONS,
   focalViewpoint: FOCAL_VIEWPOINT_OPTIONS,
+  sceneFocus: SCENE_FOCUS_OPTIONS,
   imagingStyle: IMAGING_STYLE_OPTIONS,
   ambientLight: AMBIENT_LIGHT_OPTIONS,
 };
@@ -130,7 +187,9 @@ function getProfileParts(profile = {}) {
   const mode = findOption(SCENE_MODE_OPTIONS, profile.sceneMode);
   const location = findLocation(profile.worldLocation);
   const cameraSystem = findOption(CAMERA_SYSTEM_OPTIONS, profile.cameraSystem);
+  const shootingMethod = findOption(SHOOTING_METHOD_OPTIONS, profile.shootingMethod);
   const focalViewpoint = findOption(FOCAL_VIEWPOINT_OPTIONS, profile.focalViewpoint);
+  const sceneFocus = findOption(SCENE_FOCUS_OPTIONS, profile.sceneFocus);
   const imagingStyle = findOption(IMAGING_STYLE_OPTIONS, profile.imagingStyle);
   const ambientLight = findOption(AMBIENT_LIGHT_OPTIONS, profile.ambientLight);
 
@@ -138,7 +197,9 @@ function getProfileParts(profile = {}) {
     mode,
     location,
     cameraSystem,
+    shootingMethod,
     focalViewpoint,
+    sceneFocus,
     imagingStyle,
     ambientLight,
   };
@@ -162,22 +223,31 @@ function formatLocationTitle(location) {
   return `${location.locationName} in ${location.city}, ${location.country}`;
 }
 
-function getCameraPhrase(cameraSystem, focalViewpoint) {
+function sentenceJoin(parts) {
+  return parts
+    .flat()
+    .map((part) => String(part || '').trim())
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .map((part) => (/[.!?]$/.test(part) ? part : `${part}.`))
+    .join(' ');
+}
+
+function getCameraPhrase(cameraSystem) {
   const camera = cameraSystem?.en || '';
-  const focal = focalViewpoint?.en || '';
-  if (camera && focal) return `shot on a ${camera} with a ${focal}`;
-  if (camera) return `shot on a ${camera}`;
-  if (focal) return focal;
+  if (camera) return `The photographer uses a ${camera}`;
   return '';
 }
 
 export function buildPage3WorldSceneSummary(profile = {}) {
-  const { mode, location, cameraSystem, focalViewpoint, imagingStyle, ambientLight } = getProfileParts(profile);
+  const { mode, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
   return [
     mode?.zh,
-    location?.labelZh,
     cameraSystem?.zh,
+    shootingMethod?.zh,
     focalViewpoint?.zh,
+    location?.labelZh,
+    sceneFocus?.zh,
     imagingStyle?.zh,
     ambientLight?.zh,
   ].filter(Boolean).join(' / ');
@@ -195,33 +265,50 @@ export function buildPage3WorldSceneAnchor(profile = {}) {
 }
 
 function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
-  const { mode, location, cameraSystem, focalViewpoint, imagingStyle, ambientLight } = getProfileParts(profile);
+  const { mode, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
   if (!mode?.id && !location) return '';
 
-  const leadKey = variant === 'cinematic' ? 'cinematicLead' : variant === 'world' ? 'worldLead' : 'promptLead';
-  const lead = mode?.[leadKey] || mode?.promptLead || 'realistic location photograph of';
+  const leadKey = variant === 'cinematic' ? 'cinematicPhotoType' : variant === 'world' ? 'worldPhotoType' : 'photoType';
+  const lead = mode?.[leadKey] || mode?.photoType || 'This is a realistic location photograph';
   const locationTitle = formatLocationTitle(location);
   const position = pickPosition(location, mode);
-  const cameraPhrase = getCameraPhrase(cameraSystem, focalViewpoint);
+  const cameraPhrase = getCameraPhrase(cameraSystem);
+  const shootingPhrase = shootingMethod?.en ? `The shooting method is ${shootingMethod.en}` : '';
+  const focalPhrase = focalViewpoint?.en ? `The viewpoint is ${focalViewpoint.en}` : '';
+  const locationPhrase = locationTitle
+    ? `The scene is set around ${locationTitle}, within the ${location.district} district context`
+    : '';
+  const landmarkPhrase = location?.landmarkCues?.length
+    ? `Keep the local cues believable: ${location.landmarkCues.join(', ')}`
+    : '';
+  const positionPhrase = position ? `Use this as a possible spatial direction: ${position}` : '';
+  const focusPhrase = sceneFocus?.en
+    || (mode?.id === 'street-only'
+      ? 'Within the chosen place, the composition may choose a small believable street detail instead of showing the whole landmark.'
+      : '');
+  const stylePhrase = cleanJoin([imagingStyle?.en, ambientLight?.en]);
   const worldVariantNotes = variant === 'world'
-    ? ['internally coherent urban geography', 'real-place environmental logic', 'street-scale cultural texture']
-    : [];
+    ? 'Keep internally coherent urban geography, real-place environmental logic, and street-scale cultural texture'
+    : '';
   const cinematicVariantNotes = variant === 'cinematic'
-    ? ['cinematic spatial depth', 'strong atmospheric composition', 'layered foreground-middle-background structure']
-    : [];
+    ? 'Use cinematic spatial depth, strong atmospheric composition, and layered foreground-middle-background structure'
+    : '';
 
-  return cleanJoin([
-    locationTitle ? `${lead} ${locationTitle}` : lead,
-    location ? `${location.district} district context` : '',
-    location?.landmarkCues,
-    position,
-    mode?.modeNotes,
+  return sentenceJoin([
+    lead,
+    mode?.photographer,
     cameraPhrase,
-    imagingStyle?.en,
-    ambientLight?.en,
+    shootingPhrase,
+    focalPhrase,
+    stylePhrase ? `The image rendering has ${stylePhrase}` : '',
+    locationPhrase,
+    focusPhrase,
+    landmarkPhrase,
+    positionPhrase,
+    mode?.modeNotes?.join(', '),
     cinematicVariantNotes,
     worldVariantNotes,
-    location?.realismGuards,
+    location?.realismGuards?.join(', '),
   ]);
 }
 

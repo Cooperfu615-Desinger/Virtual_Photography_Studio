@@ -18,7 +18,7 @@ export default function Page3Workspace({
         <div className="lock-panel-header">
           <div>
             <div className="lock-title">Page3 World Street Scene</div>
-            <p className="lock-subtitle">以真實城市錨點建立街拍空景、城市攝影與高視角地景 prompt。</p>
+            <p className="lock-subtitle">以攝影作品、器材、拍攝手法、取景方式與真實城市錨點建立自然語言場景 prompt。</p>
           </div>
         </div>
 
@@ -103,7 +103,7 @@ export default function Page3Workspace({
             placeholder="這裡會生成世界街景攝影 prompt。"
           />
           <p className="context-note">
-            PAGE3 目前獨立於 PAGE1，專注街拍空景、城市地標攝影與高視角地景；街拍模式允許路人與交通作為城市生活痕跡，但不設定明確人物主體。
+            PAGE3 目前獨立於 PAGE1，先描述照片特性、器材與拍法，再描述場景與氛圍；街拍模式允許路人與交通作為城市生活痕跡，但不設定明確人物主體。
           </p>
         </div>
 
