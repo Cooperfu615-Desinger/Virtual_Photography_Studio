@@ -49,6 +49,27 @@ test('special scene location pack exposes seven non-city photographic locations'
   assert.equal(SPECIAL_SCENE_LOCATIONS.every((location) => location.generic), true);
 });
 
+test('special ruin locations emphasize empty photographer-only ruins and heavy decay', () => {
+  const ruinLocations = SPECIAL_SCENE_LOCATIONS.filter((location) => location.id.startsWith('special-ruins-'));
+
+  assert.equal(ruinLocations.length, 5);
+  for (const location of ruinLocations) {
+    const text = [
+      location.landmarkCues,
+      location.streetPositions,
+      location.cityscapePositions,
+      location.aerialPositions,
+      location.realismGuards,
+    ].flat().join(' ');
+
+    assert.match(text, /no visible people/i);
+    assert.match(text, /only the photographer/i);
+    assert.match(text, /clutter|debris|broken|damaged|collapsed/i);
+    assert.match(text, /dirt|grime|stains|dust/i);
+    assert.match(text, /overgrown|vegetation|weeds|vines|moss/i);
+  }
+});
+
 test('Dotonbori street prompt keeps real location anchors and street-photography intent', () => {
   const profile = {
     sceneMode: 'street-only',
@@ -128,6 +149,9 @@ test('special location prompt avoids forced world-city context', () => {
   assert.match(prompt, /empty hospital ward/i);
   assert.match(prompt, /tiled corridors/i);
   assert.match(prompt, /avoid gore or explicit injury/i);
+  assert.match(prompt, /no visible people/i);
+  assert.match(prompt, /only the photographer exists behind the camera/i);
+  assert.doesNotMatch(prompt, /incidental pedestrians/i);
   assert.doesNotMatch(prompt, /Special Location/);
   assert.doesNotMatch(prompt, /Shinjuku/);
   assert.match(anchor, /Abandoned hospital/);

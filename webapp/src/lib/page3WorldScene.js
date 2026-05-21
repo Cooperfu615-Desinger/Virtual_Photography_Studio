@@ -300,6 +300,7 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
   const { mode, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
   if (!mode?.id && !location) return '';
 
+  const isSpecialRuinLocation = Boolean(location?.id?.startsWith('special-ruins-'));
   const leadKey = variant === 'cinematic' ? 'cinematicPhotoType' : variant === 'world' ? 'worldPhotoType' : 'photoType';
   const lead = mode?.[leadKey] || mode?.photoType || 'This is a realistic location photograph';
   const position = pickPosition(location, mode);
@@ -322,6 +323,9 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
   const cinematicVariantNotes = variant === 'cinematic'
     ? 'Use cinematic spatial depth, strong atmospheric composition, and layered foreground-middle-background structure'
     : '';
+  const modeNotes = isSpecialRuinLocation
+    ? mode?.modeNotes?.filter((note) => !/pedestrians|traffic/i.test(note))
+    : mode?.modeNotes;
 
   return sentenceJoin([
     lead,
@@ -334,7 +338,7 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
     focusPhrase,
     landmarkPhrase,
     positionPhrase,
-    mode?.modeNotes?.join(', '),
+    modeNotes?.join(', '),
     cinematicVariantNotes,
     worldVariantNotes,
     location?.realismGuards?.join(', '),
