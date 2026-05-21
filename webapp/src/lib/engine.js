@@ -4713,6 +4713,16 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     ? characterSlots.specialAction.en
     : '';
   const sceneAccentText = buildContextualSceneAccent(context);
+  const sceneProtectedWardrobeMode = !specialSubjectMode
+    && !hasDuoSceneAnchor
+    && Boolean(
+      wardrobeSlots.specialOutfit
+      || wardrobeSlots.specialOutfitA
+      || wardrobeSlots.specialOutfitB
+      || wardrobeSlots.outfitPreset
+      || wardrobeSlots.outfitPresetA
+      || wardrobeSlots.outfitPresetB
+    );
   const lines = [];
   const addLine = (label, value) => {
     if (!value) return;
@@ -4727,6 +4737,29 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine(label, formatter(item));
   };
   const skeletonText = (value) => (skeletonMode ? sanitizeSkeletonPromptText(value) : value);
+  const buildGrokScenePriorityText = () => {
+    if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
+
+    const locationAnchor = stripMarkdown(context.location.en || context.location.zh || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[()]/g, '')
+      .split(',')
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .slice(0, 2)
+      .join(', ');
+
+    if (!locationAnchor) return '';
+    return `(${locationAnchor}:1.35), keep the recognizable selected environment visible behind the subject, preserve clear spatial context and background details, avoid plain or empty background`;
+  };
+  const addGrokSceneLines = () => {
+    addContextLine('Location', context.location, (item) => skeletonText(item.en));
+    addLine('Scene Accent', skeletonText(sceneAccentText));
+    addContextLine('Environment Mood', context.lighting, (item) => skeletonText(item.en));
+    addContextLine('Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
+    addLine('Scene Priority', skeletonText(buildGrokScenePriorityText()));
+  };
   const buildGrokFramingText = () => {
     const base = context.framing ? resolvePromptVariant(context.framing, 'framing', context.subject.count) : '';
     if (!base || context.framing?.zh !== '全身鏡頭 (Full Body Shot)') return skeletonText(base);
@@ -4744,6 +4777,9 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const buildGrokCompositionPriorityText = () => {
     if (context.subject.count === 2 && duoWardrobeText.clothingText) {
       return 'preserve an outfit-visible editorial duo composition with both women in the same continuous frame, keep visible torso and wardrobe details, avoid collapsing into a headshot-only crop';
+    }
+    if (sceneProtectedWardrobeMode) {
+      return 'preserve the selected environment as a visible, recognizable background with moderate depth of field when needed, background softly separated but still readable, avoid collapsing into a plain backdrop or overly tight crop';
     }
     if (!context.characterProfilePrompt || context.subject.count !== 1) return '';
     const visibility = context.framing?.meta?.visibility || '';
@@ -4783,6 +4819,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Earrings', buildAccessoryPrompt(wardrobeSlots.earrings));
     addLine('Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessory));
   }
+  if (sceneProtectedWardrobeMode) addGrokSceneLines();
   if (context.subject.count === 2 && !hasDuoSceneAnchor && (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB)) {
     addLine('Outerwear', buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
       pattern: wardrobeSlots.outerwearPattern,
@@ -4883,10 +4920,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   } else if (!specialSubjectMode) {
     addLine('Expression', expressionText);
   }
-  addContextLine('Location', context.location, (item) => skeletonText(item.en));
-  addLine('Scene Accent', skeletonText(sceneAccentText));
-  addContextLine('Environment Mood', context.lighting, (item) => skeletonText(item.en));
-  addContextLine('Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
+  if (!sceneProtectedWardrobeMode) {
+    addContextLine('Location', context.location, (item) => skeletonText(item.en));
+    addLine('Scene Accent', skeletonText(sceneAccentText));
+    addContextLine('Environment Mood', context.lighting, (item) => skeletonText(item.en));
+    addContextLine('Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
+  }
   addLine('Aspect Ratio', context.aspectRatio.en);
   addContextLine('Film', film, (item) => skeletonText(item.en));
   addContextLine('Angle', context.angle, (item) => skeletonText(resolvePromptVariant(item, 'angle', context.subject.count)));
@@ -4910,6 +4949,15 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const specialSubjectMode = isSpecialSubject(context.subject);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const sceneAccentText = buildContextualSceneAccent(context);
+  const sceneProtectedWardrobeMode = !specialSubjectMode
+    && Boolean(
+      wardrobeSlots.specialOutfit
+      || wardrobeSlots.specialOutfitA
+      || wardrobeSlots.specialOutfitB
+      || wardrobeSlots.outfitPreset
+      || wardrobeSlots.outfitPresetA
+      || wardrobeSlots.outfitPresetB
+    );
   const sentence = (value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
   const joinSentenceParts = (parts) => sentence(parts.filter(Boolean).join(', '));
   const leadSentence = (lead, parts) => {
@@ -4917,6 +4965,22 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     return detail ? sentence(`${lead} ${detail}`) : '';
   };
   const skeletonMode = isSkeletonSubject(context.subject);
+  const buildZImageScenePriorityText = () => {
+    if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
+
+    const locationAnchor = stripMarkdown(context.location.en || context.location.zh || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[()]/g, '')
+      .split(',')
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .slice(0, 2)
+      .join(', ');
+
+    if (!locationAnchor) return '';
+    return `Scene priority: (${locationAnchor}:1.35), keep the recognizable selected environment visible behind the subject, preserve clear spatial context and background details, avoid plain or empty background`;
+  };
   const buildCharacterText = () => {
     if (specialSubjectMode) {
       const parts = [
@@ -5131,6 +5195,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : sceneAccentText,
       context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
       lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
+      skeletonMode ? sanitizeSkeletonPromptText(buildZImageScenePriorityText()) : buildZImageScenePriorityText(),
     ].filter(Boolean);
 
     return leadSentence('The setting is', sceneParts);
@@ -5156,8 +5221,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
 
   return [
     buildCharacterText(),
+    sceneProtectedWardrobeMode ? buildSceneText() : '',
     buildWardrobeText(),
-    buildSceneText(),
+    sceneProtectedWardrobeMode ? '' : buildSceneText(),
     buildCameraText(),
     buildStyleText(),
   ].filter(Boolean).join(' ');
