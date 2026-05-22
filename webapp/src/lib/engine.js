@@ -5049,14 +5049,25 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     const add = (value) => {
       if (value) parts.push(value);
     };
+    const cleanWearablePrefix = (value) => String(value || '').replace(/^wearing\s+/i, '').trim();
+    const buildSingleOutfitPresetText = () => buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
+      legacy: wardrobeColors.outfitPresetColor,
+      primary: wardrobeColors.outfitPresetPrimaryColor,
+      contrast: wardrobeColors.outfitPresetContrastColor,
+      lockedPalette: wardrobeColors.outfitPresetLockedPalette,
+    });
+    const buildSingleOuterwearText = () => buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
+      pattern: wardrobeSlots.outerwearPattern,
+      styling: wardrobeSlots.outerwearStyling,
+    });
     if (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB) {
       add(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA) ? `woman 1 wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA)}` : '');
       add(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB) ? `woman 2 wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB)}` : '');
-      return parts.length > 0 ? sentence(`Wardrobe details: ${parts.join(', ')}`) : '';
+      return parts.length > 0 ? sentence(parts.join(', ')) : '';
     }
     if (wardrobeSlots.specialOutfit) {
-      add(`the subject wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit)}`);
-      return parts.length > 0 ? sentence(`Wardrobe details: ${parts.join(', ')}`) : '';
+      add(`She wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit)}`);
+      return parts.length > 0 ? sentence(parts.join(', ')) : '';
     }
     const buildRoleLayerText = (role) => {
       const suffix = role === 'a' ? 'A' : 'B';
@@ -5131,16 +5142,20 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
       add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
     } else if (wardrobeSlots.outfitPreset) {
-      add(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
-      add(`the subject wears ${buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
-        legacy: wardrobeColors.outfitPresetColor,
-        primary: wardrobeColors.outfitPresetPrimaryColor,
-        contrast: wardrobeColors.outfitPresetContrastColor,
-        lockedPalette: wardrobeColors.outfitPresetLockedPalette,
-      })}`);
-      add(buildAccessoryPrompt(wardrobeSlots.neckAccessory));
-      add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
-      add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+      const outfitPresetText = buildSingleOutfitPresetText();
+      const outerwearText = buildSingleOuterwearText();
+      const neckAccessoryText = cleanWearablePrefix(buildAccessoryPrompt(wardrobeSlots.neckAccessory));
+      const legwearText = buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor);
+      const shoesText = buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor);
+
+      if (outerwearText) {
+        add(`She wears ${outerwearText}, layered over ${outfitPresetText}`);
+      } else {
+        add(`She wears ${outfitPresetText}`);
+      }
+      if (neckAccessoryText) add(`with ${neckAccessoryText}`);
+      if (legwearText) add(`paired with ${legwearText}`);
+      if (shoesText) add(`paired with ${shoesText}`);
     } else {
       const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor);
       const topText = buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
@@ -5170,7 +5185,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         (!dressText && (outerwearFirstTopText || (!topText && fallbackOuterwearText)))
       );
       if (!usedOuterwearInMain) {
-        add(buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, { pattern: wardrobeSlots.outerwearPattern, styling: wardrobeSlots.outerwearStyling }));
+        add(buildSingleOuterwearText());
       }
       add(mainWardrobeText);
       add(buildAccessoryPrompt(wardrobeSlots.neckAccessory));
@@ -5187,7 +5202,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       add(buildRoleLayerText('b') ? `woman 2 additional styling includes ${buildRoleLayerText('b')}` : '');
     }
 
-    return parts.length > 0 ? sentence(`Wardrobe details: ${parts.join(', ')}`) : '';
+    return parts.length > 0 ? sentence(parts.join(', ')) : '';
   };
   const buildSceneText = () => {
     const sceneParts = [
