@@ -727,6 +727,10 @@ button:disabled {
   gap: 18px;
 }
 
+.page1-output-panel {
+  gap: 18px;
+}
+
 .page1-random-generate-btn {
   background: var(--accent);
   color: #fffdf8;
@@ -738,6 +742,20 @@ button:disabled {
 
 .page1-preview-actions {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.page1-generation-actions {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.page1-generation-grid {
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.page1-generation-grid .prompt-preview-summary-box,
+.page1-generation-grid .page2-prompt-textarea {
+  min-height: 136px;
 }
 
 .page1-save-current-btn {

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
+import PromptPreviewCard from './PromptPreviewCard';
 
 const OUTFIT_PRESET_COVERED_KEYS = new Set([
   'topId',
@@ -397,6 +398,11 @@ export default function Page1Workspace({
   });
 
   const workspaceSummary = useMemo(() => buildWorkspaceSummary(locks, lockControls), [locks, lockControls]);
+  const generationSummary = [
+    workspaceSummary.character.summary,
+    workspaceSummary.wardrobe.summary,
+    workspaceSummary.scene.summary,
+  ].filter(Boolean).join(' / ');
   const activeSectionConfig = WORKSPACE_SECTIONS.find((section) => section.id === activeSection) || WORKSPACE_SECTIONS[0];
   const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
   const activeSubpanelId = activeSubpanels[activeSection] || sectionSubpanels[0]?.id || '';
@@ -527,6 +533,30 @@ export default function Page1Workspace({
     return renderCharacterControls();
   };
 
+  const generationPromptCards = [
+    {
+      title: 'Grok Prompt',
+      value: previewPrompt?.grokPrompt || '',
+      placeholder: '目前尚無可顯示的 Grok Prompt。',
+      description: '結構化主 prompt，適合需要清楚描述人物、穿搭、場景與鏡頭的生成流程。',
+      copyLabel: 'Grok copied',
+    },
+    {
+      title: 'Z-Image Prompt',
+      value: previewPrompt?.zImagePrompt || '',
+      placeholder: '目前尚無可顯示的 Z-Image Prompt。',
+      description: '較適合直接輸入影像生成模型的整合版本，保留重要視覺條件。',
+      copyLabel: 'Z-Image copied',
+    },
+    {
+      title: 'AI Prompt',
+      value: previewPrompt?.midjourneyPrompt || '',
+      placeholder: '目前尚無可顯示的 AI Prompt。',
+      description: '偏通用影像生成語氣，適合快速貼到外部工具測試視覺方向。',
+      copyLabel: 'AI copied',
+    },
+  ];
+
   return (
     <>
       <section className="page1-workspace-shell">
@@ -560,9 +590,6 @@ export default function Page1Workspace({
           </div>
 
           <div className="page1-sidebar-actions">
-            <button className="page1-random-generate-btn" onClick={handleRerollPreview} disabled={!previewPrompt}>
-              隨機生成
-            </button>
             <button className="secondary danger" onClick={() => updateLocks(createEmptyLocks())}>
               清除已選
             </button>
@@ -601,22 +628,18 @@ export default function Page1Workspace({
         </section>
 
         <aside className="page1-preview-column">
-          <section className="page1-preview-panel lock-panel">
-            <div className="control-section-header">
+          <section className="page1-preview-panel page1-output-panel lock-panel reference-output-panel">
+            <div className="reference-output-header">
               <div>
-                <div className="control-section-title">Live Prompt Preview</div>
+                <div className="control-section-title">Generation Outputs</div>
+                <p className="workspace-panel-copy">右側集中整理目前 PAGE1 的三種生成輸出。</p>
               </div>
+              <span className="reference-output-count">{generationPromptCards.length} outputs</span>
             </div>
 
-            <div className="primary-action-row page1-preview-actions">
-              <button className="primary-copy-btn primary-copy-grok" onClick={() => handleCopyText('Grok copied', previewPrompt?.grokPrompt)} disabled={!previewPrompt?.grokPrompt}>
-                Grok
-              </button>
-              <button className="primary-copy-btn primary-copy-zimage" onClick={() => handleCopyText('Z-Image copied', previewPrompt?.zImagePrompt)} disabled={!previewPrompt?.zImagePrompt}>
-                Z-Image
-              </button>
-              <button className="primary-copy-btn primary-copy-midjourney" onClick={() => handleCopyText('AI copied', previewPrompt?.midjourneyPrompt)} disabled={!previewPrompt?.midjourneyPrompt}>
-                AI
+            <div className="primary-action-row page1-generation-actions">
+              <button className="primary-copy-btn page1-random-generate-btn" onClick={handleRerollPreview} disabled={!previewPrompt}>
+                隨機生成
               </button>
               <button className="secondary primary-copy-btn" onClick={handleApplyPreviewSelection} disabled={!previewPrompt?.selection}>
                 套用目前預覽
@@ -626,8 +649,22 @@ export default function Page1Workspace({
               </button>
             </div>
 
-            <div className="prompt-box page1-live-prompt-box">
-              <div className="prompt-text prompt-text-full">{previewPrompt?.grokPrompt || '目前尚無可顯示的 Grok Prompt。'}</div>
+            <div className="prompt-preview-grid page1-generation-grid">
+              <PromptPreviewCard
+                title="生成摘要"
+                value={generationSummary}
+                placeholder="尚未形成明確選項。"
+                variant="summary"
+                description=""
+                onCopy={(text) => handleCopyText('Generation summary copied', text)}
+              />
+              {generationPromptCards.map((card) => (
+                <PromptPreviewCard
+                  key={card.title}
+                  {...card}
+                  onCopy={(text) => handleCopyText(card.copyLabel, text)}
+                />
+              ))}
             </div>
           </section>
 
