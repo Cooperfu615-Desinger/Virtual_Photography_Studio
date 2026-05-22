@@ -29,6 +29,7 @@ export default function SavedCardsWorkspace({
 }) {
   const isFavoritesView = viewMode === 'favorites';
   const [sourceFilter, setSourceFilter] = useState('all');
+  const [cardDensity, setCardDensity] = useState('compact');
   const visibleKey = `${viewMode}:${sourceFilter}`;
   const [visibleState, setVisibleState] = useState({ key: visibleKey, count: INITIAL_VISIBLE_CARDS });
   const visibleCount = visibleState.key === visibleKey ? visibleState.count : INITIAL_VISIBLE_CARDS;
@@ -126,11 +127,29 @@ export default function SavedCardsWorkspace({
           ))}
         </div>
 
-        <div className="saved-cards-results-meta">
-          {isFavoritesView ? 'Favorites' : 'Feed'} view currently showing {visiblePrompts.length} of {filteredPrompts.length} cards.
+        <div className="saved-cards-library-bar">
+          <div className="saved-cards-results-meta">
+            {isFavoritesView ? 'Favorites' : 'Feed'} view currently showing {visiblePrompts.length} of {filteredPrompts.length} cards.
+          </div>
+          <div className="segmented-control saved-cards-density-control" role="group" aria-label="Card density">
+            <button
+              type="button"
+              className={cardDensity === 'compact' ? 'segmented-control-active' : 'secondary'}
+              onClick={() => setCardDensity('compact')}
+            >
+              Compact
+            </button>
+            <button
+              type="button"
+              className={cardDensity === 'detail' ? 'segmented-control-active' : 'secondary'}
+              onClick={() => setCardDensity('detail')}
+            >
+              Detail
+            </button>
+          </div>
         </div>
 
-        <div className="saved-cards-list">
+        <div className={`saved-cards-list saved-cards-list-${cardDensity}`}>
           {filteredPrompts.length === 0 ? (
             <div className="empty-state">
               {isFavoritesView
@@ -142,6 +161,7 @@ export default function SavedCardsWorkspace({
               <PromptCard
                 key={prompt.id}
                 data={prompt}
+                density={cardDensity}
                 onDelete={handleDeletePrompt}
                 onApplySelection={isFavoritesView ? handleApplySavedCardSelection : null}
               />

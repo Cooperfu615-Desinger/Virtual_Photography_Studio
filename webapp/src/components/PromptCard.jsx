@@ -27,15 +27,41 @@ function getPromptEntries(data, labels) {
   ].filter((entry) => entry.text);
 }
 
-function PromptCard({ data, onDelete, onApplySelection }) {
+const SUMMARY_FIELD_LABELS = {
+  characterDna: '人物',
+  expressionPose: '神情',
+  wardrobe: '穿搭',
+  sceneLook: '場景',
+};
+
+function buildMetadataChips(data, promptEntries) {
+  const chips = [
+    data.sourceLabel || 'Prompt 工作台',
+    `${promptEntries.length} prompts`,
+  ];
+
+  Object.entries(data.summaryFields || {}).forEach(([key, value]) => {
+    if (!value || value === '-') return;
+    chips.push(SUMMARY_FIELD_LABELS[key] || key);
+  });
+
+  if (data.selection) chips.push('可回填');
+
+  return [...new Set(chips)].slice(0, 6);
+}
+
+function PromptCard({ data, density = 'compact', onDelete, onApplySelection }) {
   const [copiedLabel, setCopiedLabel] = useState('');
   const [expanded, setExpanded] = useState(false);
+  const [activePromptKey, setActivePromptKey] = useState('');
   const labels = {
     midjourney: data.promptLabels?.midjourney || 'AI',
     grok: data.promptLabels?.grok || 'Grok',
     zImage: data.promptLabels?.zImage || 'Z-Image',
   };
   const promptEntries = getPromptEntries(data, labels);
+  const activePrompt = promptEntries.find((entry) => entry.key === activePromptKey) || promptEntries[0] || null;
+  const metadataChips = buildMetadataChips(data, promptEntries);
 
   const handleCopy = async (label, text) => {
     try {
@@ -62,14 +88,20 @@ function PromptCard({ data, onDelete, onApplySelection }) {
 
   const shortId = `#${String(data.id).slice(-6).toUpperCase()}`;
   const sourceLabel = data.sourceLabel || 'Prompt 工作台';
+  const cardClass = ['prompt-card', 'prompt-card-summary', `prompt-card-${density}`].join(' ');
 
   return (
-    <article className="prompt-card prompt-card-summary">
+    <article className={cardClass}>
       <div className="card-header card-header-compact">
         <div className="card-meta">
           <span className="card-id">{sourceLabel} · {shortId}</span>
           <div className="card-lineage">
             <span>{new Date(data.date).toLocaleString()}</span>
+          </div>
+          <div className="card-chip-row" aria-label="Card metadata">
+            {metadataChips.map((chip) => (
+              <span key={chip} className="card-meta-chip">{chip}</span>
+            ))}
           </div>
         </div>
         <div className="card-actions">
@@ -117,22 +149,37 @@ function PromptCard({ data, onDelete, onApplySelection }) {
           </button>
         ))}
         <button className="secondary primary-copy-btn" onClick={() => setExpanded((prev) => !prev)}>
-          {expanded ? 'Collapse' : 'Expand'}
+          {expanded ? '收合' : 'Detail'}
         </button>
       </section>
 
       {expanded ? (
         <div className="card-details">
-          {promptEntries.map((entry) => (
+          <div className="prompt-detail-tabs" role="tablist" aria-label="Prompt versions">
+            {promptEntries.map((entry) => (
+              <button
+                key={entry.key}
+                type="button"
+                className={activePrompt?.key === entry.key ? 'prompt-detail-tab-active' : 'secondary'}
+                onClick={() => setActivePromptKey(entry.key)}
+              >
+                {entry.label}
+              </button>
+            ))}
+          </div>
+          {activePrompt ? (
             <section className="prompt-section">
               <div className="prompt-label">
-                <span>{entry.label}</span>
+                <span>{activePrompt.label}</span>
+                <button className="icon-btn" type="button" onClick={() => handleCopy(`${activePrompt.label} copied`, activePrompt.text)}>
+                  Copy
+                </button>
               </div>
               <div className="prompt-box">
-                <div className="prompt-text prompt-text-full">{entry.text}</div>
+                <div className="prompt-text prompt-text-full">{activePrompt.text}</div>
               </div>
             </section>
-          ))}
+          ) : null}
         </div>
       ) : null}
 
