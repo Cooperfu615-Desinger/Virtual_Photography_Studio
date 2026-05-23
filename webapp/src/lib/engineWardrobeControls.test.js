@@ -3,6 +3,13 @@ import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
 
+const optionId = (controlKey, zh) => {
+  const control = getLockControls().find((item) => item.key === controlKey);
+  const option = control?.options.find((item) => item.zh === zh);
+  assert.ok(option, `${controlKey} should include ${zh}`);
+  return option.id;
+};
+
 test('bottom rise controls include a slightly unbuttoned and unzipped pants state', () => {
   const controls = getLockControls();
   const bottomRiseControl = controls.find((control) => control.key === 'bottomRiseId');
@@ -22,5 +29,51 @@ test('bottom rise controls include a slightly unbuttoned and unzipped pants stat
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
 
   assert.match(promptText, /扣子解開拉鏈微開|waist button undone and front zipper slightly lowered/);
+  assert.match(promptText, /直筒牛仔褲|straight-leg jeans/);
+});
+
+test('special top and bottom palette controls include the new color-card pairings', () => {
+  const controls = getLockControls();
+  const paletteControl = controls.find((control) => control.key === 'topBottomPaletteId');
+  const expectedPalettes = [
+    '櫻花粉 × 奶油黃',
+    '皇家海軍藍 × 檸檬雪紡',
+    '暗影灰 × 沙陶棕',
+    '柔亞麻 × 櫻花粉',
+    '藍灰 × 晨光奶油黃',
+    '午夜潮汐藍 × 沙丘珍珠',
+    '日光薄紗 × 鳳凰陶橘',
+    '月騎士銀 × 黑色夜幕',
+    '酒紅 × 香檳米',
+    '薊花淡紫 × 深摩卡',
+    '獵人綠 × 沙丘米',
+    '萊姆奶油 × 復古葡萄紫',
+    '電光玫瑰 × 查特酒綠',
+    '熱情桃紅 × 棉花玫瑰',
+    '咖啡豆棕黑 × 覆盆莓紅',
+  ];
+
+  assert.ok(paletteControl);
+  for (const zh of expectedPalettes) {
+    assert.ok(
+      paletteControl.options.some((option) => option.zh === zh),
+      `topBottomPaletteId should include ${zh}`
+    );
+  }
+});
+
+test('special top and bottom palettes apply separate colors to top and bottom garments', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    topId: optionId('topId', '棉質細肩背心'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    topBottomPaletteId: optionId('topBottomPaletteId', '櫻花粉 × 奶油黃'),
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.match(promptText, /cherry blossom pink \(#F9A8BB\)/);
+  assert.match(promptText, /cream yellow \(#FAFFC7\)/);
+  assert.match(promptText, /棉質細肩背心|cotton camisole/);
   assert.match(promptText, /直筒牛仔褲|straight-leg jeans/);
 });
