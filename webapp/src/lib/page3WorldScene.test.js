@@ -99,6 +99,43 @@ test('Dotonbori street prompt keeps real location anchors and street-photography
   assert.doesNotMatch(prompt, /no people, no human subject/i);
 });
 
+test('photographer style adds PAGE1-style photographic language to PAGE3 prompts', () => {
+  const profile = {
+    sceneMode: 'street-only',
+    photographerStyle: 'regional:攝影風格:daido-moriyama-森山大道:15',
+    worldLocation: 'tokyo-shinjuku-golden-gai',
+    cameraSystem: 'ricoh-gr',
+    shootingMethod: 'walk-by-snapshot',
+    focalViewpoint: '35mm-classic',
+    sceneFocus: 'alley-corner-depth',
+    imagingStyle: 'documentary-street',
+    ambientLight: 'neon-mixed-light',
+  };
+
+  const prompt = buildPage3WorldScenePrompt(profile);
+  const summary = buildPage3WorldSceneSummary(profile);
+
+  assert.match(prompt, /Daido Moriyama/i);
+  assert.match(prompt, /gritty high-contrast street image language/i);
+  assert.match(prompt, /light behavior, framing rhythm, color contrast, texture, subject distance, and image atmosphere/i);
+  assert.match(summary, /Daido Moriyama/);
+});
+
+test('photographer style none disables photographer-inspired language', () => {
+  const profile = {
+    sceneMode: 'street-only',
+    photographerStyle: 'style-none',
+    worldLocation: 'tokyo-shinjuku-golden-gai',
+  };
+
+  const prompt = buildPage3WorldScenePrompt(profile);
+  const summary = buildPage3WorldSceneSummary(profile);
+
+  assert.doesNotMatch(prompt, /photographer's visual language/i);
+  assert.doesNotMatch(prompt, /Inspired by/i);
+  assert.match(summary, /全無/);
+});
+
 test('aerial mode uses elevated spatial language and realism guards', () => {
   const profile = {
     sceneMode: 'aerial-high-view',
@@ -160,10 +197,14 @@ test('special location prompt avoids forced world-city context', () => {
 });
 
 test('field options expose scene modes and the first city pack locations', () => {
-  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneMode.length, 4);
-  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.worldLocation.length, 51);
-  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.specialLocation.length, 8);
-  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.shootingMethod.length, 8);
-  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneFocus.length, 8);
-  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneMode[1].zh, '街拍：單純場景');
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneMode.length, 5);
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.worldLocation.length, 52);
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.specialLocation.length, 9);
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.photographerStyle.length, 28);
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.shootingMethod.length, 9);
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneFocus.length, 9);
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneMode[1].zh, '全無');
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneMode[2].zh, '街拍：單純場景');
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.cameraSystem[1].zh, '全無');
+  assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.worldLocation[1].zh, '全無');
 });

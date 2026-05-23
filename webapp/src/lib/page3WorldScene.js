@@ -1,7 +1,12 @@
 import { SPECIAL_SCENE_LOCATIONS, WORLD_SCENE_LOCATIONS } from '../data/page3WorldScenes.js';
+import { buildPhotographyStylePrompt, getPhotographyStyleOptions } from './engine.js';
+
+const UNSPECIFIED_OPTION = { id: '', zh: '未指定', en: '' };
+const NONE_OPTION = { id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } };
 
 const SCENE_MODE_OPTIONS = [
-  { id: '', zh: '未指定', en: '' },
+  UNSPECIFIED_OPTION,
+  NONE_OPTION,
   {
     id: 'street-only',
     zh: '街拍：單純場景',
@@ -41,7 +46,8 @@ const SCENE_MODE_OPTIONS = [
 ];
 
 const CAMERA_SYSTEM_OPTIONS = [
-  { id: '', zh: '未指定', en: '' },
+  UNSPECIFIED_OPTION,
+  NONE_OPTION,
   { id: 'leica-m', zh: 'Leica M 街拍旁軸', en: 'Leica M street rangefinder camera' },
   { id: 'ricoh-gr', zh: 'Ricoh GR 隨身街拍機', en: 'Ricoh GR compact street camera' },
   { id: 'fujifilm-x100', zh: 'Fujifilm X100 系列', en: 'Fujifilm X100 series camera' },
@@ -53,7 +59,8 @@ const CAMERA_SYSTEM_OPTIONS = [
 ];
 
 const FOCAL_VIEWPOINT_OPTIONS = [
-  { id: '', zh: '未指定', en: '' },
+  UNSPECIFIED_OPTION,
+  NONE_OPTION,
   { id: '24mm-wide', zh: '24mm 廣角街景', en: '24mm wide street view at human eye level, close enough to feel inside the street' },
   { id: '28mm-documentary', zh: '28mm 紀實街拍', en: '28mm documentary street view at pedestrian height' },
   { id: '35mm-classic', zh: '35mm 經典街拍', en: '35mm classic street photography view from a passerby perspective' },
@@ -65,7 +72,8 @@ const FOCAL_VIEWPOINT_OPTIONS = [
 ];
 
 const SHOOTING_METHOD_OPTIONS = [
-  { id: '', zh: '未指定', en: '' },
+  UNSPECIFIED_OPTION,
+  NONE_OPTION,
   { id: 'walk-by-snapshot', zh: '邊走邊拍快照', en: 'shot while walking, slightly imperfect and spontaneous, with a casual snapshot rhythm' },
   { id: 'slight-hand-shake', zh: '輕微手震', en: 'shot with subtle hand shake, tiny motion blur, and imperfect handheld timing' },
   { id: 'overexposed-phone', zh: '手機些微過曝', en: 'shot with a phone-like slightly overexposed look, clipped highlights, and quick automatic exposure' },
@@ -76,7 +84,8 @@ const SHOOTING_METHOD_OPTIONS = [
 ];
 
 const IMAGING_STYLE_OPTIONS = [
-  { id: '', zh: '未指定', en: '' },
+  UNSPECIFIED_OPTION,
+  NONE_OPTION,
   { id: 'documentary-street', zh: '寫實紀實街拍', en: 'realistic documentary street photography' },
   { id: 'travel-editorial', zh: '旅遊編輯攝影', en: 'travel editorial photography' },
   { id: 'japanese-photobook', zh: '日系寫真書街景', en: 'Japanese photobook street realism' },
@@ -88,7 +97,8 @@ const IMAGING_STYLE_OPTIONS = [
 ];
 
 const AMBIENT_LIGHT_OPTIONS = [
-  { id: '', zh: '未指定', en: '' },
+  UNSPECIFIED_OPTION,
+  NONE_OPTION,
   { id: 'overcast-daylight', zh: '陰天自然光', en: 'overcast daylight' },
   { id: 'clear-morning', zh: '晴朗早晨日光', en: 'clear morning daylight' },
   { id: 'harsh-midday', zh: '正午硬光', en: 'harsh midday sun' },
@@ -102,7 +112,8 @@ const AMBIENT_LIGHT_OPTIONS = [
 ];
 
 const SCENE_FOCUS_OPTIONS = [
-  { id: '', zh: '未指定', en: '' },
+  UNSPECIFIED_OPTION,
+  NONE_OPTION,
   {
     id: 'free-framing',
     zh: '自由取景',
@@ -140,8 +151,14 @@ const SCENE_FOCUS_OPTIONS = [
   },
 ];
 
+const PHOTOGRAPHER_STYLE_OPTIONS = [
+  UNSPECIFIED_OPTION,
+  ...getPhotographyStyleOptions(),
+];
+
 export const PAGE3_WORLD_SCENE_FIELD_CONFIG = [
   { key: 'sceneMode', label: '場景模式' },
+  { key: 'photographerStyle', label: '攝影師風格' },
   { key: 'cameraSystem', label: '相機系統' },
   { key: 'shootingMethod', label: '拍攝手法' },
   { key: 'focalViewpoint', label: '焦段 / 視角' },
@@ -154,8 +171,10 @@ export const PAGE3_WORLD_SCENE_FIELD_CONFIG = [
 
 export const PAGE3_WORLD_SCENE_FIELD_OPTIONS = {
   sceneMode: SCENE_MODE_OPTIONS,
+  photographerStyle: PHOTOGRAPHER_STYLE_OPTIONS,
   worldLocation: [
-    { id: '', zh: '未指定', en: '' },
+    UNSPECIFIED_OPTION,
+    NONE_OPTION,
     ...WORLD_SCENE_LOCATIONS.map((location) => ({
       id: location.id,
       zh: location.labelZh,
@@ -163,7 +182,8 @@ export const PAGE3_WORLD_SCENE_FIELD_OPTIONS = {
     })),
   ],
   specialLocation: [
-    { id: '', zh: '未指定', en: '' },
+    UNSPECIFIED_OPTION,
+    NONE_OPTION,
     ...SPECIAL_SCENE_LOCATIONS.map((location) => ({
       id: location.id,
       zh: location.labelZh,
@@ -188,6 +208,10 @@ function findOption(options, id) {
   return options.find((option) => option.id === id) || options[0] || null;
 }
 
+function isNoneOption(option) {
+  return option?.id === 'none' || option?.id === 'style-none' || option?.zh === '全無' || option?.en === 'none';
+}
+
 function findWorldLocation(id) {
   return WORLD_SCENE_LOCATIONS.find((location) => location.id === id) || null;
 }
@@ -202,6 +226,7 @@ function getSelectedLocation(profile = {}) {
 
 function getProfileParts(profile = {}) {
   const mode = findOption(SCENE_MODE_OPTIONS, profile.sceneMode);
+  const photographerStyle = findOption(PHOTOGRAPHER_STYLE_OPTIONS, profile.photographerStyle);
   const location = getSelectedLocation(profile);
   const cameraSystem = findOption(CAMERA_SYSTEM_OPTIONS, profile.cameraSystem);
   const shootingMethod = findOption(SHOOTING_METHOD_OPTIONS, profile.shootingMethod);
@@ -212,6 +237,7 @@ function getProfileParts(profile = {}) {
 
   return {
     mode,
+    photographerStyle,
     location,
     cameraSystem,
     shootingMethod,
@@ -271,10 +297,17 @@ function getCameraPhrase(cameraSystem) {
   return '';
 }
 
+function getPhotographerStylePhrase(photographerStyle) {
+  const stylePrompt = buildPhotographyStylePrompt(photographerStyle);
+  if (!stylePrompt) return '';
+  return `The photographer's visual language follows ${stylePrompt}, shaping the light behavior, framing rhythm, color contrast, texture, subject distance, and image atmosphere`;
+}
+
 export function buildPage3WorldSceneSummary(profile = {}) {
-  const { mode, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
+  const { mode, photographerStyle, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
   return [
     mode?.zh,
+    photographerStyle?.zh,
     cameraSystem?.zh,
     shootingMethod?.zh,
     focalViewpoint?.zh,
@@ -287,22 +320,25 @@ export function buildPage3WorldSceneSummary(profile = {}) {
 
 export function buildPage3WorldSceneAnchor(profile = {}) {
   const { mode, location } = getProfileParts(profile);
-  if (!mode?.id && !location) return '';
+  const hasMode = Boolean(mode?.id && !isNoneOption(mode));
+  if (!hasMode && !location) return '';
 
   return cleanJoin([
-    mode?.anchor,
+    hasMode ? mode?.anchor : '',
     formatAnchorLocation(location),
     location?.landmarkCues?.slice(0, 3),
   ]);
 }
 
 function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
-  const { mode, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
-  if (!mode?.id && !location) return '';
+  const { mode, photographerStyle, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
+  const hasMode = Boolean(mode?.id && !isNoneOption(mode));
+  const photographerStylePhrase = getPhotographerStylePhrase(photographerStyle);
+  if (!hasMode && !location && !photographerStylePhrase) return '';
 
   const isSpecialRuinLocation = Boolean(location?.id?.startsWith('special-ruins-'));
   const leadKey = variant === 'cinematic' ? 'cinematicPhotoType' : variant === 'world' ? 'worldPhotoType' : 'photoType';
-  const lead = mode?.[leadKey] || mode?.photoType || 'This is a realistic location photograph';
+  const lead = hasMode ? (mode?.[leadKey] || mode?.photoType) : 'This is a realistic location photograph';
   const position = pickPosition(location, mode);
   const cameraPhrase = getCameraPhrase(cameraSystem);
   const shootingPhrase = shootingMethod?.en ? `The shooting method is ${shootingMethod.en}` : '';
@@ -325,11 +361,12 @@ function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
     : '';
   const modeNotes = isSpecialRuinLocation
     ? mode?.modeNotes?.filter((note) => !/pedestrians|traffic/i.test(note))
-    : mode?.modeNotes;
+    : (hasMode ? mode?.modeNotes : null);
 
   return sentenceJoin([
     lead,
-    mode?.photographer,
+    hasMode ? mode?.photographer : '',
+    photographerStylePhrase,
     cameraPhrase,
     shootingPhrase,
     focalPhrase,

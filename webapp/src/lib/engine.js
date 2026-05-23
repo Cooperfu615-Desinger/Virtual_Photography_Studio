@@ -3607,7 +3607,7 @@ const STYLE_PROMPT_INTROS = {
   'Elsa Bleda（艾爾莎·布萊達）': 'Inspired by Elsa Bleda, nocturnal neon image language',
 };
 
-function buildPhotographyStylePrompt(style) {
+export function buildPhotographyStylePrompt(style) {
   if (!style || isNoneLikeItem(style)) return '';
 
   const intro = STYLE_PROMPT_INTROS[style.zh] || 'editorial photography mood';
@@ -3618,6 +3618,10 @@ function buildPhotographyStylePrompt(style) {
   if (!dedupedStyleText) return intro;
   if (dedupedStyleText === styleText) return `${intro}. ${styleText}`;
   return `${intro}. ${dedupedStyleText}`;
+}
+
+export function getPhotographyStyleOptions(customLibrary = []) {
+  return buildCatalog(customLibrary).flatCatalog.regional;
 }
 
 const DUO_PROMPT_OVERRIDES = {
