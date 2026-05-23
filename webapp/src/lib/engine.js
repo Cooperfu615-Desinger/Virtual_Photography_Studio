@@ -442,6 +442,17 @@ const ENVIRONMENT_MOOD_CATEGORY = '環境光氛 (Environment Mood)';
 const LIGHT_STYLE_CATEGORY = '光線表現 (Light Style)';
 const FOCAL_LENGTH_CATEGORY = '鏡頭焦段 (Focal Length)';
 const OPTICAL_EFFECTS_CATEGORY = '光學效果 (Optical Effects)';
+const CAMERA_SYSTEM_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定攝影器材，讓模型自行決定。', meta: { tags: ['none'] } },
+  { id: 'leica-m-rangefinder', zh: 'Leica M 街拍旁軸', en: 'Leica M street rangefinder camera, discreet manual-focus street photography feel', desc: '適合安靜、觀察式、街拍距離的影像語氣。', meta: { tags: ['rangefinder', 'street'] } },
+  { id: 'ricoh-gr-snapshot', zh: 'Ricoh GR 隨身街拍機', en: 'Ricoh GR compact snapshot camera, quick candid street photography response', desc: '適合隨手、快速、紀實感強的街頭瞬間。', meta: { tags: ['compact', 'street', 'snapshot'] } },
+  { id: 'fujifilm-x100', zh: 'Fujifilm X100 系列', en: 'Fujifilm X100 fixed-lens camera, refined travel street photography color', desc: '適合旅行街景、色彩與復古數位質感。', meta: { tags: ['fixed_lens', 'travel', 'street'] } },
+  { id: 'sony-full-frame-mirrorless', zh: 'Sony 全片幅無反', en: 'Sony full-frame mirrorless camera, clean modern digital photography rendering', desc: '適合清晰、現代、可塑性高的數位影像。', meta: { tags: ['full_frame', 'mirrorless'] } },
+  { id: 'canon-nikon-dslr', zh: 'Canon / Nikon DSLR', en: 'Canon or Nikon DSLR camera, classic optical viewfinder photography character', desc: '適合傳統攝影感、穩定可靠的寫真語氣。', meta: { tags: ['dslr', 'classic'] } },
+  { id: 'digital-medium-format', zh: '中片幅數位相機', en: 'digital medium format camera, high-resolution editorial photography depth and tonal detail', desc: '適合細膩商業、時尚、大片感的成像質地。', meta: { tags: ['medium_format', 'editorial'] } },
+  { id: 'drone-camera', zh: '空拍機相機', en: 'drone camera, elevated aerial photography perspective with stabilized capture', desc: '適合俯瞰、空景、城市或自然地貌的大尺度畫面。', meta: { tags: ['drone', 'aerial'] } },
+  { id: 'smartphone-documentary', zh: '手機紀實攝影', en: 'smartphone documentary camera, spontaneous handheld everyday photography feel', desc: '適合生活感、即時、輕微隨手感的紀實畫面。', meta: { tags: ['smartphone', 'documentary'] } },
+];
 const SCENE_ATTRIBUTE_OPTIONS = [
   { id: '', zh: '未指定', en: '' },
   { id: 'indoor', zh: '室內', en: 'indoor setting' },
@@ -454,6 +465,7 @@ const LOCK_DEFINITIONS = [
   { key: 'specialSubjectId', label: '特殊角色', options: SPECIAL_SUBJECT_OPTIONS, defaultValue: 'none', section: 'character' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
+  { key: 'cameraSystemId', label: '攝影器材', options: CAMERA_SYSTEM_OPTIONS, section: 'core' },
   { key: 'sceneAttributeId', label: '場景屬性', options: SCENE_ATTRIBUTE_OPTIONS, section: 'core' },
   { key: 'locationId', label: '場景', category: null, section: 'core' },
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
@@ -585,6 +597,7 @@ const LOCK_KEYS = new Set(LOCK_DEFINITIONS.map((definition) => definition.key));
 
 const PARTIAL_REROLL_OPTIONS = [
   { key: 'styleId', label: 'Style' },
+  { key: 'cameraSystemId', label: 'Camera System' },
   { key: 'sceneAttributeId', label: 'Scene Attribute' },
   { key: 'locationId', label: 'Location' },
   { key: 'framingId', label: 'Framing' },
@@ -1454,6 +1467,7 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'subjectCount',
   'aspectRatio',
   'styleId',
+  'cameraSystemId',
   'framingId',
   'angleId',
   'orbitId',
@@ -3389,6 +3403,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const styleLabel = context.style && !isNoneLikeItem(context.style) ? context.style.zh : '-';
+  const cameraSystemLabel = context.cameraSystem && !isNoneLikeItem(context.cameraSystem) ? context.cameraSystem.zh : '-';
   const locationLabel = context.location && !isNoneLikeItem(context.location) ? context.location.zh : '-';
   const framingLabel = context.framing && !isNoneLikeItem(context.framing) ? context.framing.zh : '-';
   const angleLabel = context.angle && !isNoneLikeItem(context.angle) ? context.angle.zh : '-';
@@ -3555,7 +3570,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       : summarizeSingleCharacter(),
     wardrobe: summarizeWardrobe(),
     location: locationLabel,
-    camera: joinSummaryParts(framingLabel, angleLabel, orbitLabel, lensLabel, aspectRatioLabel),
+    camera: joinSummaryParts(cameraSystemLabel, framingLabel, angleLabel, orbitLabel, lensLabel, aspectRatioLabel),
     lighting: joinSummaryParts(lightingLabel, opticalEffectLabel),
   };
 }
@@ -4931,6 +4946,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addContextLine('Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
   }
   addLine('Aspect Ratio', context.aspectRatio.en);
+  addContextLine('Camera System', context.cameraSystem, (item) => skeletonText(item.en));
   addContextLine('Film', film, (item) => skeletonText(item.en));
   addContextLine('Angle', context.angle, (item) => skeletonText(resolvePromptVariant(item, 'angle', context.subject.count)));
   addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(resolvePromptVariant(item, 'orbit', context.subject.count)));
@@ -5220,6 +5236,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     return leadSentence('The setting is', sceneParts);
   };
   const buildCameraText = () => leadSentence('The composition uses', [
+    context.cameraSystem && !isNoneLikeItem(context.cameraSystem) ? (skeletonMode ? sanitizeSkeletonPromptText(context.cameraSystem.en) : context.cameraSystem.en) : '',
     context.framing ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : resolvePromptVariant(context.framing, 'framing', context.subject.count)) : '',
     context.angle ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
     context.orbit ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
@@ -5314,6 +5331,7 @@ const AI_PROMPT_SECTION_LABELS = {
   ]),
   camera: new Set([
     'Aspect Ratio',
+    'Camera System',
     'Angle',
     'Orbit Angle',
     'Lens',
@@ -5497,6 +5515,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     specialSubjectId: isSpecialSubject(context.subject) ? context.subject.id : 'none',
     aspectRatio: context.aspectRatio.id,
     styleId: context.style?.id || '',
+    cameraSystemId: context.cameraSystem?.id || '',
     sceneAttributeId: context.sceneAttribute?.id || '',
     locationId: context.location?.id || '',
     framingId: context.framing?.id || '',
@@ -5660,6 +5679,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     (item) => locationMatchesSceneAttribute(item, sceneAttribute)
   );
   const style = pickWithLock(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
+  const cameraSystem = pickWithLock(CAMERA_SYSTEM_OPTIONS, effectiveLocks.cameraSystemId);
   const lockedSpecialAction = !specialSubject && effectiveLocks.specialActionId
     ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
     : null;
@@ -5706,6 +5726,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     aspectRatio,
     sceneAttribute,
     style,
+    cameraSystem,
     location,
     framing,
     angle,
@@ -5741,7 +5762,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
       Location: [location],
       Framing: [framing, angle, orbit, lens].filter(Boolean),
       Lighting: [lighting, lightDirection].filter(Boolean),
-      'Camera & Film': [film, opticalEffect].filter(Boolean),
+      'Camera & Film': [cameraSystem, film, opticalEffect].filter(Boolean),
     },
   };
 }

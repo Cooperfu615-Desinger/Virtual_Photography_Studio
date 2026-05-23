@@ -610,6 +610,48 @@ button:disabled {
   gap: 8px;
 }
 
+.page1-mode-stack {
+  display: grid;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(111, 87, 60, 0.12);
+}
+
+.page1-mode-label {
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.page1-mode-chip-row,
+.page1-section-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.page1-mode-chip,
+.page1-section-chip,
+.page1-section-status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+.page1-mode-chip {
+  min-height: 26px;
+  padding: 5px 9px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  background: #f6edde;
+  color: #5f4b36;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
 .page1-section-nav,
 .page1-sidebar-actions {
   display: grid;
@@ -625,6 +667,13 @@ button:disabled {
   background: rgba(255, 250, 240, 0.78);
   color: var(--text-primary);
   text-align: left;
+}
+
+.page1-section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .page1-section-card:hover {
@@ -645,15 +694,44 @@ button:disabled {
   font-weight: 700;
 }
 
+.page1-section-status {
+  flex: 0 0 auto;
+  min-height: 22px;
+  padding: 5px 8px;
+  background: #efe5d4;
+  border: 1px solid rgba(111, 87, 60, 0.16);
+  color: #6f573c;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
 .page1-section-value {
   font-size: 0.95rem;
   line-height: 1.45;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .page1-section-meta {
   color: var(--text-secondary);
   font-size: 0.85rem;
   line-height: 1.45;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.page1-section-chip {
+  min-height: 22px;
+  padding: 4px 8px;
+  background: rgba(232, 140, 79, 0.1);
+  border: 1px solid rgba(232, 140, 79, 0.18);
+  color: #8b5a34;
+  font-size: 0.7rem;
+  font-weight: 700;
 }
 
 .workspace-panel-copy {

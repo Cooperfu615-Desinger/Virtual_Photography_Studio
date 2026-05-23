@@ -71,3 +71,15 @@ test('Z-Image prompt keeps scene priority disabled for normal separates', () => 
 
   assert.doesNotMatch(prompt.zImagePrompt, /Scene priority:/);
 });
+
+test('PAGE1 camera system lock appears in generated outputs and selection', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    cameraSystemId: optionId('cameraSystemId', 'Ricoh GR 隨身街拍機'),
+  });
+
+  assert.equal(prompt.selection.cameraSystemId, 'ricoh-gr-snapshot');
+  assert.match(prompt.grokPrompt, /Camera System: Ricoh GR compact snapshot camera/);
+  assert.match(prompt.zImagePrompt, /Ricoh GR compact snapshot camera/);
+  assert.equal(prompt.structured['Camera & Film'][0].id, 'ricoh-gr-snapshot');
+});

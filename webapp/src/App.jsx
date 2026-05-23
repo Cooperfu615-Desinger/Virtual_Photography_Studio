@@ -177,7 +177,7 @@ const CHARACTER_CONTROL_ORDER = [
   'poseId',
   'specialActionId',
 ];
-const SCENE_CAMERA_CONTROL_ORDER = ['styleId', 'sceneAttributeId', 'locationId', 'lightingId', 'lightDirectionId', 'angleId', 'orbitId', 'framingId', 'lensId', 'opticalEffectId', 'filmId', 'aspectRatio'];
+const SCENE_CAMERA_CONTROL_ORDER = ['sceneAttributeId', 'locationId', 'lightingId', 'lightDirectionId', 'aspectRatio', 'styleId', 'cameraSystemId', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId'];
 const STYLE_WARDROBE_CONTROL_ORDER = [
   'specialOutfitId',
   'specialOutfitAId',
@@ -454,7 +454,7 @@ function buildImportedStructured(locks, controls) {
     Location: buildSection(['sceneAttributeId', 'locationId']),
     Framing: buildSection(['framingId', 'angleId', 'orbitId', 'lensId']),
     Lighting: buildSection(['lightingId', 'lightDirectionId']),
-    'Camera & Film': buildSection(['filmId', 'opticalEffectId']),
+    'Camera & Film': buildSection(['cameraSystemId', 'filmId', 'opticalEffectId']),
   };
 }
 

@@ -57,7 +57,8 @@ const OUTFIT_PRESET_B_COVERED_KEYS = new Set([
 const WORKSPACE_SECTIONS = [
   { id: 'character', label: 'A 人物設定', summaryKey: 'characterDna', metaKey: 'expressionPose' },
   { id: 'wardrobe', label: 'B 穿搭設定', summaryKey: 'wardrobe', metaKey: null },
-  { id: 'scene', label: 'C 場景與鏡頭', summaryKey: 'sceneLook', metaKey: null },
+  { id: 'scene', label: 'C 場景與環境', summaryKey: 'sceneLook', metaKey: null },
+  { id: 'photography', label: 'D 攝影與成像', summaryKey: 'photographyLook', metaKey: null },
 ];
 
 const SECTION_SUBPANELS = {
@@ -237,20 +238,34 @@ const SECTION_SUBPANELS = {
     {
       id: 'space',
       label: '場景基底',
-      description: '先定義世界、場景屬性與畫面比例，決定整體敘事容器。',
-      keys: ['sceneAttributeId', 'locationId', 'aspectRatio'],
-    },
-    {
-      id: 'camera',
-      label: '鏡頭構圖',
-      description: '再調整景別、角度與光學效果，讓畫面語言成型。',
-      keys: ['framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId'],
+      description: '先定義場景屬性與具體地點，讓作品的空間錨點先成立。',
+      keys: ['sceneAttributeId', 'locationId'],
     },
     {
       id: 'light',
-      label: '光線成像',
-      description: '最後補上光線與成像風格，決定氣氛與最後的攝影質感。',
-      keys: ['styleId', 'lightingId', 'lightDirectionId', 'filmId'],
+      label: '環境與光線',
+      description: '補上環境光氛、光線表現與畫面比例，決定空間氣候與輸出格式。',
+      keys: ['lightingId', 'lightDirectionId', 'aspectRatio'],
+    },
+  ],
+  photography: [
+    {
+      id: 'style',
+      label: '攝影風格',
+      description: '先選攝影師語氣與器材，決定影像的觀察方式與成像基調。',
+      keys: ['styleId', 'cameraSystemId'],
+    },
+    {
+      id: 'composition',
+      label: '構圖與視角',
+      description: '調整景別、相機視角與拍攝方位，決定人物和場景在畫面中的關係。',
+      keys: ['framingId', 'angleId', 'orbitId'],
+    },
+    {
+      id: 'rendering',
+      label: '鏡頭與成像',
+      description: '最後指定焦段、光學效果與底片模擬，控制影像的細節質感。',
+      keys: ['lensId', 'opticalEffectId', 'filmId'],
     },
   ],
 };
@@ -336,12 +351,21 @@ function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'neckAccessoryBId', locks.neckAccessoryBId),
   ]);
   const sceneSummary = buildSummaryText([
-    getControlOptionLabel(controls, 'styleId', locks.styleId),
+    getControlOptionLabel(controls, 'sceneAttributeId', locks.sceneAttributeId),
     getControlOptionLabel(controls, 'locationId', locks.locationId),
+    getControlOptionLabel(controls, 'lightingId', locks.lightingId),
+    getControlOptionLabel(controls, 'lightDirectionId', locks.lightDirectionId),
+    getControlOptionLabel(controls, 'aspectRatio', locks.aspectRatio),
+  ]);
+  const photographySummary = buildSummaryText([
+    getControlOptionLabel(controls, 'styleId', locks.styleId),
+    getControlOptionLabel(controls, 'cameraSystemId', locks.cameraSystemId),
     getControlOptionLabel(controls, 'framingId', locks.framingId),
     getControlOptionLabel(controls, 'angleId', locks.angleId),
+    getControlOptionLabel(controls, 'orbitId', locks.orbitId),
     getControlOptionLabel(controls, 'lensId', locks.lensId),
-    getControlOptionLabel(controls, 'lightingId', locks.lightingId),
+    getControlOptionLabel(controls, 'opticalEffectId', locks.opticalEffectId),
+    getControlOptionLabel(controls, 'filmId', locks.filmId),
   ]);
 
   return {
@@ -357,12 +381,30 @@ function buildWorkspaceSummary(locks, controls) {
       summary: sceneSummary,
       meta: '',
     },
+    photography: {
+      summary: photographySummary,
+      meta: '',
+    },
   };
 }
 
 function filterControlsByKeys(controls, keys) {
   const keySet = new Set(keys);
   return controls.filter((control) => keySet.has(control.key));
+}
+
+function getSectionKeys(sectionId) {
+  return (SECTION_SUBPANELS[sectionId] || []).flatMap((panel) => panel.keys);
+}
+
+function countEffectiveSelections(sectionId, locks, controls) {
+  return Array.from(new Set(getSectionKeys(sectionId)))
+    .filter((key) => getControlOptionLabel(controls, key, locks[key]))
+    .length;
+}
+
+function formatSelectionStatus(count) {
+  return count > 0 ? `已選 ${count}` : '未設定';
 }
 
 export default function Page1Workspace({
@@ -395,6 +437,7 @@ export default function Page1Workspace({
     character: 'identity',
     wardrobe: 'overall',
     scene: 'space',
+    photography: 'style',
   });
 
   const workspaceSummary = useMemo(() => buildWorkspaceSummary(locks, lockControls), [locks, lockControls]);
@@ -402,6 +445,7 @@ export default function Page1Workspace({
     workspaceSummary.character.summary,
     workspaceSummary.wardrobe.summary,
     workspaceSummary.scene.summary,
+    workspaceSummary.photography.summary,
   ].filter(Boolean).join(' / ');
   const activeSectionConfig = WORKSPACE_SECTIONS.find((section) => section.id === activeSection) || WORKSPACE_SECTIONS[0];
   const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
@@ -421,6 +465,51 @@ export default function Page1Workspace({
         (Boolean(locks.specialOutfitBId) && !isNoneSelected('specialOutfitBId', locks.specialOutfitBId, wardrobeLockControls))
       )
     : Boolean(locks.specialOutfitId) && !isNoneSelected('specialOutfitId', locks.specialOutfitId, wardrobeLockControls);
+  const isDuoMode = locks.subjectCount === '2';
+  const isReferenceSubjectMode = locks.subjectCount === 'reference';
+  const isAnyOutfitPresetActive = isSingleOutfitPresetActive || isOutfitPresetAActive || isOutfitPresetBActive;
+  const currentModeBadges = [
+    isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
+    isReferenceSubjectMode ? '上傳人物' : '',
+    isDuoMode ? '雙人' : '',
+    isCloseupMode ? '特寫模式' : '',
+    isAnyOutfitPresetActive ? '套裝接管' : '',
+    isSpecialOutfitActive ? '特殊穿搭' : '',
+  ].filter(Boolean);
+  const sectionDiagnostics = {
+    character: {
+      status: isSpecialSubjectMode ? '接管中' : formatSelectionStatus(countEffectiveSelections('character', locks, lockControls)),
+      chips: [
+        isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
+        isReferenceSubjectMode ? '上傳人物' : '',
+        isDuoMode ? '雙人設定' : '',
+        isCloseupMode ? '特寫收斂' : '',
+      ].filter(Boolean),
+    },
+    wardrobe: {
+      status: isSpecialSubjectMode ? '已停用' : (isAnyOutfitPresetActive || isSpecialOutfitActive ? '接管中' : formatSelectionStatus(countEffectiveSelections('wardrobe', locks, lockControls))),
+      chips: [
+        isSpecialSubjectMode ? '特殊角色停用穿搭' : '',
+        isSpecialOutfitActive ? '特殊穿搭接管' : '',
+        isAnyOutfitPresetActive ? '套裝接管單件' : '',
+      ].filter(Boolean),
+    },
+    scene: {
+      status: isCloseupMode ? '特寫中' : formatSelectionStatus(countEffectiveSelections('scene', locks, lockControls)),
+      chips: [
+        getControlOptionLabel(lockControls, 'locationId', locks.locationId) ? '場景錨點' : '',
+        getControlOptionLabel(lockControls, 'lightingId', locks.lightingId) ? '環境光氛' : '',
+      ].filter(Boolean),
+    },
+    photography: {
+      status: isCloseupMode ? '特寫中' : formatSelectionStatus(countEffectiveSelections('photography', locks, lockControls)),
+      chips: [
+        isCloseupMode ? '收斂構圖欄位' : '',
+        getControlOptionLabel(lockControls, 'styleId', locks.styleId) ? '攝影風格' : '',
+        getControlOptionLabel(lockControls, 'cameraSystemId', locks.cameraSystemId) ? '攝影器材' : '',
+      ].filter(Boolean),
+    },
+  };
 
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
@@ -460,12 +549,24 @@ export default function Page1Workspace({
     <div className="control-section">
       <div className="control-section-header">
         <div>
-          <div className="control-section-title">Scene & Camera Language</div>
-          <p className="workspace-panel-copy">{activeSubpanel?.description || '先決定構圖、場景與光線，右側會同步反映成目前可直接使用的 Grok prompt。'}</p>
+          <div className="control-section-title">Scene & Environment</div>
+          <p className="workspace-panel-copy">{activeSubpanel?.description || '先決定場景、環境與光線，右側會同步反映成目前可直接使用的 Grok prompt。'}</p>
         </div>
         <button className="secondary reference-trigger-btn" type="button" onClick={() => setIsLightingReferenceOpen(true)}>
           查看光線定位對照
         </button>
+      </div>
+      {renderControlGrid(filterControlsByKeys(coreLockControls, activeSubpanel?.keys || []))}
+    </div>
+  );
+
+  const renderPhotographyControls = () => (
+    <div className="control-section">
+      <div className="control-section-header">
+        <div>
+          <div className="control-section-title">Photography & Rendering</div>
+          <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡整理攝影師語氣、器材、構圖與成像風格。'}</p>
+        </div>
       </div>
       {renderControlGrid(filterControlsByKeys(coreLockControls, activeSubpanel?.keys || []))}
     </div>
@@ -528,6 +629,7 @@ export default function Page1Workspace({
   );
 
   const renderEditorPanel = () => {
+    if (activeSection === 'photography') return renderPhotographyControls();
     if (activeSection === 'scene') return renderSceneControls();
     if (activeSection === 'wardrobe') return renderWardrobeControls();
     return renderCharacterControls();
@@ -563,11 +665,20 @@ export default function Page1Workspace({
         <aside className="page1-sidebar lock-panel">
           <div className="page1-sidebar-header">
             <div className="lock-title">Prompt Workspace</div>
+            <div className="page1-mode-stack">
+              <span className="page1-mode-label">Current Modes</span>
+              <div className="page1-mode-chip-row">
+                {(currentModeBadges.length > 0 ? currentModeBadges : ['一般模式']).map((badge) => (
+                  <span key={badge} className="page1-mode-chip">{badge}</span>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="page1-section-nav">
             {WORKSPACE_SECTIONS.map((section) => {
               const snapshot = workspaceSummary[section.id];
+              const diagnostics = sectionDiagnostics[section.id];
               return (
                 <button
                   key={section.id}
@@ -581,9 +692,19 @@ export default function Page1Workspace({
                     }));
                   }}
                 >
-                  <span className="page1-section-label">{section.label}</span>
+                  <span className="page1-section-heading">
+                    <span className="page1-section-label">{section.label}</span>
+                    <span className="page1-section-status">{diagnostics.status}</span>
+                  </span>
                   <strong className="page1-section-value">{snapshot.summary}</strong>
                   {snapshot.meta ? <span className="page1-section-meta">{snapshot.meta}</span> : null}
+                  {diagnostics.chips.length > 0 ? (
+                    <span className="page1-section-chip-row">
+                      {diagnostics.chips.map((chip) => (
+                        <span key={chip} className="page1-section-chip">{chip}</span>
+                      ))}
+                    </span>
+                  ) : null}
                 </button>
               );
             })}
