@@ -1036,12 +1036,19 @@ button:disabled {
   gap: 18px;
 }
 
+.page5-builder-shell {
+  grid-template-columns: minmax(230px, 0.68fr) minmax(360px, 1.05fr) minmax(360px, 1fr);
+  align-items: start;
+}
+
 .page2-panel,
 .page2-output-panel,
 .page3-panel,
 .page3-output-panel,
 .page5-panel,
-.page5-output-panel {
+.page5-output-panel,
+.page5-sidebar,
+.page5-editor {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -1272,7 +1279,7 @@ button:disabled {
 
 .suno-option-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
   gap: 10px;
 }
 
@@ -1304,6 +1311,10 @@ button:disabled {
 
 .suno-prompt-textarea {
   min-height: 180px;
+}
+
+.page5-output-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .library-sidebar,
@@ -2194,7 +2205,8 @@ button:disabled {
   .saved-cards-stats,
   .page2-shell,
   .page3-shell,
-  .page5-shell {
+  .page5-shell,
+  .page5-builder-shell {
     grid-template-columns: 1fr;
   }
 

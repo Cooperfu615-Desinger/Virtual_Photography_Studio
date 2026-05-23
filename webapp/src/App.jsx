@@ -21,6 +21,7 @@ import {
 import {
   buildRandomSunoProfile,
   buildSunoSavedCard,
+  buildSunoPromptBundle,
   buildSunoStylesPrompt,
   buildSunoSummary,
   coerceSunoProfile,
@@ -1551,6 +1552,7 @@ export default function App() {
   const normalizedPage5Profile = useMemo(() => coerceSunoProfile(page5Profile), [page5Profile]);
   const page5Summary = useMemo(() => buildSunoSummary(normalizedPage5Profile), [normalizedPage5Profile]);
   const page5StylesPrompt = useMemo(() => buildSunoStylesPrompt(normalizedPage5Profile), [normalizedPage5Profile]);
+  const page5PromptBundle = useMemo(() => buildSunoPromptBundle(normalizedPage5Profile), [normalizedPage5Profile]);
 
   useEffect(() => {
     setLocks((prev) => {
@@ -1975,6 +1977,7 @@ export default function App() {
           setProfile={setPage5Profile}
           summary={page5Summary}
           stylesPrompt={page5StylesPrompt}
+          promptBundle={page5PromptBundle}
           onCopyText={handleCopyText}
           onSaveCard={handleSavePage5Card}
           onRandomize={handleRandomizePage5Profile}

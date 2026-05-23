@@ -1,4 +1,11 @@
-import { SUNO_FIELD_CONFIG, SUNO_LIMITS, getSunoFieldOptions } from '../lib/suno';
+import { useMemo, useState } from 'react';
+import PromptPreviewCard from './PromptPreviewCard';
+import {
+  SUNO_LIMITS,
+  SUNO_SECTION_CONFIG,
+  getSunoFieldOptions,
+  getSunoFieldsForSection,
+} from '../lib/suno';
 
 function MultiSelectField({ label, fieldKey, value, limit, onToggle }) {
   const selected = Array.isArray(value) ? value : [];
@@ -51,17 +58,72 @@ function SingleSelectField({ label, fieldKey, value, onChange }) {
   );
 }
 
+function countSectionSelections(sectionId, profile) {
+  return getSunoFieldsForSection(sectionId).reduce((count, field) => {
+    const value = profile[field.key];
+    if (Array.isArray(value)) return count + value.length;
+    return value ? count + 1 : count;
+  }, 0);
+}
+
 export default function PageSunoWorkspace({
   profile,
   setProfile,
   summary,
   stylesPrompt,
+  promptBundle,
   onCopyText,
   onSaveCard,
   onRandomize,
   onNotice,
   createEmptyProfile,
 }) {
+  const [activeSection, setActiveSection] = useState('base');
+  const activeSectionConfig = SUNO_SECTION_CONFIG.find((section) => section.id === activeSection) || SUNO_SECTION_CONFIG[0];
+  const activeFields = getSunoFieldsForSection(activeSectionConfig.id);
+  const sectionStatus = useMemo(
+    () => Object.fromEntries(SUNO_SECTION_CONFIG.map((section) => [section.id, countSectionSelections(section.id, profile)])),
+    [profile]
+  );
+  const outputs = promptBundle || {
+    stylePrompt: stylesPrompt,
+    lyricsDirection: '',
+    fullPrompt: stylesPrompt,
+    avoidPrompt: '',
+  };
+  const outputCards = [
+    {
+      title: 'STYLE PROMPT',
+      value: outputs.stylePrompt,
+      placeholder: '尚未形成 SUNO style prompt。',
+      description: '貼到 SUNO Style 欄，集中描述曲風、速度、人聲、樂器與聲音質感。',
+      copyLabel: 'SUNO style prompt copied',
+    },
+    {
+      title: 'LYRICS DIRECTION',
+      value: outputs.lyricsDirection,
+      placeholder: '尚未形成歌詞方向。',
+      description: '給歌詞主題、敘事視角、語言、密度與 hook 方向使用。',
+      copyLabel: 'SUNO lyrics direction copied',
+    },
+    {
+      title: 'FULL SUNO PROMPT',
+      value: outputs.fullPrompt,
+      placeholder: '尚未形成完整 SUNO prompt。',
+      description: '整合 style、lyrics 與 avoid 的完整自然語言版本。',
+      copyLabel: 'SUNO full prompt copied',
+      fullWidth: true,
+    },
+    {
+      title: 'AVOID PROMPT',
+      value: outputs.avoidPrompt,
+      placeholder: '尚未設定避免項目。',
+      description: '用來提醒模型避開不想要的音樂方向。',
+      copyLabel: 'SUNO avoid prompt copied',
+      fullWidth: true,
+    },
+  ];
+
   const handleToggleMulti = (fieldKey, optionId) => {
     const limit = SUNO_LIMITS[fieldKey] || 99;
     setProfile((prev) => {
@@ -71,7 +133,7 @@ export default function PageSunoWorkspace({
         return { ...prev, [fieldKey]: current.filter((item) => item !== optionId) };
       }
       if (current.length >= limit) {
-        onNotice?.(`${SUNO_FIELD_CONFIG.find((field) => field.key === fieldKey)?.label || '此欄位'} 最多選擇 ${limit} 個`);
+        onNotice?.(`${activeFields.find((field) => field.key === fieldKey)?.label || '此欄位'} 最多選擇 ${limit} 個`);
         return prev;
       }
       return { ...prev, [fieldKey]: [...current, optionId] };
@@ -83,94 +145,107 @@ export default function PageSunoWorkspace({
   };
 
   return (
-    <section className="page5-shell">
-      <section className="lock-panel page5-panel">
-        <div className="lock-panel-header">
+    <section className="page5-shell page5-builder-shell">
+      <aside className="page5-sidebar lock-panel">
+        <div className="page1-sidebar-header">
           <div>
-            <div className="lock-title">SUNO Styles Builder</div>
-            <p className="lock-subtitle">用結構化欄位快速組出 SUNO 專用的音樂 styles prompt，方便反覆測試風格方向。</p>
+            <div className="lock-title">SUNO Music Builder</div>
+            <p className="lock-subtitle">用音樂選項組合出 SUNO 可用的 style、lyrics、full prompt 與 avoid prompt。</p>
           </div>
         </div>
 
-        <div className="control-section">
-          <div className="control-section-header">
-            <div className="control-section-title">Style Inputs</div>
-          </div>
-          <div className="suno-field-stack">
-            <MultiSelectField
-              label="音樂風格"
-              fieldKey="genres"
-              value={profile.genres}
-              limit={SUNO_LIMITS.genres}
-              onToggle={handleToggleMulti}
-            />
-            <MultiSelectField
-              label="主要樂器"
-              fieldKey="instruments"
-              value={profile.instruments}
-              limit={SUNO_LIMITS.instruments}
-              onToggle={handleToggleMulti}
-            />
-            <SingleSelectField label="節奏速度" fieldKey="bpm" value={profile.bpm} onChange={handleSingleChange} />
-            <SingleSelectField label="律動" fieldKey="groove" value={profile.groove} onChange={handleSingleChange} />
-            <MultiSelectField
-              label="人聲特色"
-              fieldKey="vocals"
-              value={profile.vocals}
-              limit={SUNO_LIMITS.vocals}
-              onToggle={handleToggleMulti}
-            />
-            <MultiSelectField
-              label="質感氛圍"
-              fieldKey="textures"
-              value={profile.textures}
-              limit={SUNO_LIMITS.textures}
-              onToggle={handleToggleMulti}
-            />
+        <div className="page1-section-nav">
+          {SUNO_SECTION_CONFIG.map((section) => {
+            const count = sectionStatus[section.id] || 0;
+            return (
+              <button
+                key={section.id}
+                type="button"
+                className={`page1-section-card ${activeSection === section.id ? 'page1-section-card-active' : ''}`}
+                onClick={() => setActiveSection(section.id)}
+              >
+                <span className="page1-section-heading">
+                  <span className="page1-section-label">{section.label}</span>
+                  <span className="page1-section-status">{count > 0 ? `已選 ${count}` : '未設定'}</span>
+                </span>
+                <strong className="page1-section-value">{section.description}</strong>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="page1-sidebar-actions">
+          <button className="secondary" onClick={onRandomize}>
+            隨機生成
+          </button>
+          <button className="secondary danger" onClick={() => setProfile(createEmptyProfile())}>
+            清空選項
+          </button>
+          <button className="primary-copy-btn" onClick={onSaveCard} disabled={!outputs.fullPrompt && !outputs.stylePrompt}>
+            加入 Saved Cards
+          </button>
+        </div>
+      </aside>
+
+      <section className="page5-editor lock-panel">
+        <div className="page1-editor-header">
+          <div>
+            <div className="lock-title">{activeSectionConfig.label}</div>
+            <p className="workspace-panel-copy">{activeSectionConfig.description}</p>
           </div>
         </div>
 
-        <div className="control-actions">
-          <div className="control-actions-main">
-            <button className="secondary" onClick={() => onCopyText('SUNO styles prompt copied', stylesPrompt)} disabled={!stylesPrompt}>
-              複製 Styles Prompt
-            </button>
-            <button className="secondary" onClick={onRandomize}>
-              隨機生成
-            </button>
-            <button className="primary-cta" onClick={onSaveCard} disabled={!stylesPrompt}>
-              加入 Saved Cards
-            </button>
-            <button className="secondary" onClick={() => setProfile(createEmptyProfile())}>
-              清空選項
-            </button>
-          </div>
+        <div className="suno-field-stack">
+          {activeFields.map((field) => (
+            field.type === 'multi' ? (
+              <MultiSelectField
+                key={field.key}
+                label={field.label}
+                fieldKey={field.key}
+                value={profile[field.key]}
+                limit={field.limit}
+                onToggle={handleToggleMulti}
+              />
+            ) : (
+              <SingleSelectField
+                key={field.key}
+                label={field.label}
+                fieldKey={field.key}
+                value={profile[field.key]}
+                onChange={handleSingleChange}
+              />
+            )
+          ))}
         </div>
       </section>
 
-      <section className="lock-panel page5-output-panel">
-        <div className="control-section">
-          <div className="control-section-header">
-            <div className="control-section-title">風格摘要</div>
+      <aside className="page5-output-panel lock-panel reference-output-panel">
+        <div className="reference-output-header">
+          <div>
+            <div className="control-section-title">SUNO Outputs</div>
+            <p className="workspace-panel-copy">右側集中整理目前可複製與保存的音樂 prompt。</p>
           </div>
-          <div className="page2-output-card">
-            {summary || '尚未選擇音樂風格條件。'}
-          </div>
+          <span className="reference-output-count">4 outputs</span>
         </div>
 
-        <div className="control-section">
-          <div className="control-section-header">
-            <div className="control-section-title">Styles Prompt</div>
-          </div>
-          <textarea
-            className="text-input page2-prompt-textarea suno-prompt-textarea"
-            value={stylesPrompt}
-            readOnly
-            placeholder="選擇風格、樂器與質感後，這裡會生成 SUNO 的主要 styles prompt。"
+        <div className="prompt-preview-grid page5-output-grid">
+          <PromptPreviewCard
+            title="音樂摘要"
+            value={summary}
+            placeholder="尚未選擇音樂條件。"
+            variant="summary"
+            description=""
+            onCopy={(text) => onCopyText('SUNO summary copied', text)}
           />
+          {outputCards.map((card) => (
+            <PromptPreviewCard
+              key={card.title}
+              {...card}
+              onCopy={(text) => onCopyText(card.copyLabel, text)}
+            />
+          ))}
         </div>
-
-      </section>
+      </aside>
     </section>
   );
 }
