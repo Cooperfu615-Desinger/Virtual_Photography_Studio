@@ -102,6 +102,12 @@ test('special outfit controls include the six street-style outfit presets', () =
     '酒紅皮草白高領短裙長靴造型',
     '棕色羊羔絨飛行外套皮褲造型',
     '黑高領格紋百褶短裙長靴造型',
+    '綠格紋外套恐龍T芥黃寬褲造型',
+    '薄荷短襯衫花卉荷葉裙粉靴造型',
+    '藍花背心黑皮短裙刺青西部造型',
+    '灰運動內衣刺青工裝牛仔褲造型',
+    '黑色鉚釘兜帽皮革迷你裙造型',
+    '棕色風衣白短T破壞牛仔褲造型',
   ];
 
   assert.ok(specialOutfitControl);
