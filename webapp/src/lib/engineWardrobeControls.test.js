@@ -132,7 +132,7 @@ test('wardrobe layering logic preserves outerwear over strappy dresses', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     outerwearId: optionId('outerwearId', '西裝外套（不扣扣子）'),
-    dressId: optionId('dressId', '細肩帶連身洋裝'),
+    dressId: optionId('dressId', '連身：細肩帶洋裝'),
   });
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
@@ -141,6 +141,47 @@ test('wardrobe layering logic preserves outerwear over strappy dresses', () => {
   assert.match(promptText, /intact shoulders, sleeves, lapels and hem/);
   assert.match(promptText, /thin straps belong to the inner dress only/);
   assert.match(promptText, /do not turn the outerwear into slipped straps/);
+});
+
+test('outfit preset and dress option labels use unified prefixes without fixed color wording', () => {
+  const controls = getLockControls();
+  const outfitPresetControl = controls.find((control) => control.key === 'outfitPresetId');
+  const dressControl = controls.find((control) => control.key === 'dressId');
+
+  assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：春日巴黎'));
+  assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：極簡高級'));
+  assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：日系街頭'));
+  assert.ok(!outfitPresetControl.options.some((option) => option.zh === '象牙白春日巴黎套裝'));
+  assert.ok(dressControl.options.some((option) => option.zh === '連身：無袖洋裝'));
+  assert.ok(dressControl.options.some((option) => option.zh === '連身：細肩帶洋裝'));
+});
+
+test('special top and bottom palette applies to outfit presets', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: optionId('outfitPresetId', '套裝：春日巴黎'),
+    topBottomPaletteId: optionId('topBottomPaletteId', '櫻花粉 × 奶油黃'),
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.match(promptText, /cherry blossom pink \(#F9A8BB\)/);
+  assert.match(promptText, /cream yellow \(#FAFFC7\)/);
+  assert.equal(prompt.selection.topBottomPaletteId, optionId('topBottomPaletteId', '櫻花粉 × 奶油黃'));
+});
+
+test('special top and bottom palette applies to dress controls', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    dressId: optionId('dressId', '連身：無袖洋裝'),
+    topBottomPaletteId: optionId('topBottomPaletteId', '櫻花粉 × 奶油黃'),
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.match(promptText, /cherry blossom pink \(#F9A8BB\)/);
+  assert.match(promptText, /cream yellow \(#FAFFC7\)/);
+  assert.match(promptText, /coordinated top-to-bottom palette/);
 });
 
 test('wardrobe layering logic makes legwear secondary under long bottoms', () => {

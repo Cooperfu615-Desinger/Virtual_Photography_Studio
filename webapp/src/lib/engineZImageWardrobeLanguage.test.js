@@ -13,7 +13,7 @@ function optionId(controlKey, zh) {
 test('Z-Image describes outfit presets with natural wardrobe language', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    outfitPresetId: optionId('outfitPresetId', '日系街頭套裝'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：日系街頭'),
     outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '粉紅色'),
     outerwearId: optionId('outerwearId', '全無'),
     neckAccessoryId: optionId('neckAccessoryId', '全無'),
@@ -28,7 +28,7 @@ test('Z-Image describes outfit presets with natural wardrobe language', () => {
 test('Z-Image keeps outerwear secondary when layered over an outfit preset', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    outfitPresetId: optionId('outfitPresetId', '日系街頭套裝'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：日系街頭'),
     outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '粉紅色'),
     outerwearId: optionId('outerwearId', '運動連帽外套'),
     outerwearColorId: optionId('outerwearColorId', '白色'),
