@@ -112,3 +112,54 @@ test('special outfit controls include the six street-style outfit presets', () =
     );
   }
 });
+
+test('wardrobe layering logic keeps long tops untucked over shorts', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    topId: optionId('topId', '長版寬鬆麻花針織毛衣'),
+    pantsId: optionId('pantsId', '超短運動短褲'),
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
+
+  assert.match(promptText, /Wardrobe Layering Logic:/);
+  assert.match(promptText, /long top layer worn naturally untucked/);
+  assert.match(promptText, /do not tuck the long top into the shorts/);
+  assert.match(promptText, /shorts only peek out naturally below the hem/);
+});
+
+test('wardrobe layering logic preserves outerwear over strappy dresses', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outerwearId: optionId('outerwearId', '西裝外套（不扣扣子）'),
+    dressId: optionId('dressId', '細肩帶連身洋裝'),
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
+
+  assert.match(promptText, /outerwear is the complete outer layer/);
+  assert.match(promptText, /intact shoulders, sleeves, lapels and hem/);
+  assert.match(promptText, /thin straps belong to the inner dress only/);
+  assert.match(promptText, /do not turn the outerwear into slipped straps/);
+});
+
+test('wardrobe layering logic makes legwear secondary under long bottoms', () => {
+  const [pantsPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    legwearId: optionId('legwearId', '羅紋短襪'),
+  });
+  const [skirtPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    skirtId: optionId('skirtId', '長裙'),
+    legwearId: optionId('legwearId', '羅紋短襪'),
+  });
+
+  const pantsText = [pantsPrompt.grokPrompt, pantsPrompt.zImagePrompt].join('\n');
+  const skirtText = [skirtPrompt.grokPrompt, skirtPrompt.zImagePrompt].join('\n');
+
+  assert.match(pantsText, /legwear is secondary under the long bottom layer/);
+  assert.match(pantsText, /do not force full socks or stockings to be completely displayed/);
+  assert.match(skirtText, /legwear is secondary under the long bottom layer/);
+  assert.match(skirtText, /long bottom layer keeps its natural full length and drape/);
+});

@@ -4657,6 +4657,108 @@ function buildWaistlineCompatibilityPrompt(wardrobeSlots) {
   return 'top length extending below the low-rise waistband, abdomen covered, not cropped into an unintended midriff reveal';
 }
 
+function hasWardrobeText(item, patterns = []) {
+  if (!item || isNoneLikeItem(item)) return false;
+  const haystack = getTopBottomHaystack(item);
+  return hasAny(haystack, patterns);
+}
+
+function isLongTopLayer(item) {
+  return hasWardrobeText(item, [
+    '長版',
+    'longline',
+    'oversized sweater',
+    'oversized cable-knit',
+    'long shirt',
+    'tunic',
+    'hanging hem',
+    'relaxed hemline',
+    'over the bottoms',
+  ]);
+}
+
+function isShortBottomLayer(item) {
+  return hasWardrobeText(item, [
+    '短褲',
+    'shorts',
+    'mini shorts',
+    'hot pants',
+  ]);
+}
+
+function isLongBottomLayer(item) {
+  if (isShortBottomLayer(item)) return false;
+  return hasWardrobeText(item, [
+    '褲',
+    '牛仔褲',
+    '長褲',
+    '寬褲',
+    'leggings',
+    '長裙',
+    'jeans',
+    'pants',
+    'long pants',
+    'wide-leg',
+    'trousers',
+    'long skirt',
+    'maxi',
+  ]);
+}
+
+function isStrappyInnerLayer(item) {
+  return hasWardrobeText(item, [
+    '細肩帶',
+    'camisole',
+    'spaghetti strap',
+    'thin strap',
+  ]);
+}
+
+function hasCompleteOuterwearLayer(wardrobeSlots, role = '') {
+  const suffix = role === 'a' ? 'A' : role === 'b' ? 'B' : '';
+  const outerwear = wardrobeSlots[`outerwear${suffix}`] || null;
+  return outerwear && !isNoneLikeItem(outerwear);
+}
+
+function buildWardrobeLayeringLogicPrompt(wardrobeSlots, role = '') {
+  const suffix = role === 'a' ? 'A' : role === 'b' ? 'B' : '';
+  const top = wardrobeSlots[`top${suffix}`] && !isNoneLikeItem(wardrobeSlots[`top${suffix}`]) ? wardrobeSlots[`top${suffix}`] : null;
+  const dress = wardrobeSlots[`dress${suffix}`] && !isNoneLikeItem(wardrobeSlots[`dress${suffix}`]) ? wardrobeSlots[`dress${suffix}`] : null;
+  const pants = wardrobeSlots[`pants${suffix}`] && !isNoneLikeItem(wardrobeSlots[`pants${suffix}`]) ? wardrobeSlots[`pants${suffix}`] : null;
+  const skirt = wardrobeSlots[`skirt${suffix}`] && !isNoneLikeItem(wardrobeSlots[`skirt${suffix}`]) ? wardrobeSlots[`skirt${suffix}`] : null;
+  const legwear = wardrobeSlots[`legwear${suffix}`] && !isNoneLikeItem(wardrobeSlots[`legwear${suffix}`]) ? wardrobeSlots[`legwear${suffix}`] : null;
+  const hasOuterwear = hasCompleteOuterwearLayer(wardrobeSlots, role);
+  const bottom = pants || skirt;
+  const rules = [];
+
+  if (top && pants && isLongTopLayer(top) && isShortBottomLayer(pants)) {
+    rules.push('long top layer worn naturally untucked, covering the waist and partially covering the shorts; shorts only peek out naturally below the hem; do not tuck the long top into the shorts');
+  }
+
+  if (hasOuterwear && (dress || top)) {
+    rules.push('outerwear is the complete outer layer, properly worn with intact shoulders, sleeves, lapels and hem; inner garment remains visible only where naturally exposed at the neckline, front opening or hem');
+  }
+
+  if (hasOuterwear && dress && isStrappyInnerLayer(dress)) {
+    rules.push('thin straps belong to the inner dress only; do not turn the outerwear into slipped straps, broken shoulders or an off-shoulder jacket shape');
+  }
+
+  if (hasOuterwear && top && isStrappyInnerLayer(top)) {
+    rules.push('thin straps belong to the inner top only; keep the outerwear silhouette complete and structurally clean');
+  }
+
+  if (legwear && bottom && isLongBottomLayer(bottom)) {
+    rules.push('legwear is secondary under the long bottom layer, visible only subtly near the shoe opening or through natural movement; do not force full socks or stockings to be completely displayed');
+  }
+
+  if (bottom && isLongBottomLayer(bottom)) {
+    rules.push('long bottom layer keeps its natural full length and drape; shoes can remain normally visible without distorting the pants or skirt');
+  }
+
+  if (rules.length === 0) return '';
+  return `realistic outer-to-inner dressing order: ${rules.join('; ')}`;
+}
+
 function buildHairColorPrompt(item) {
   if (!item || isNoneLikeItem(item)) return '';
   const base = stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
@@ -4922,6 +5024,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const duoSceneAnchorText = buildDuoSceneAnchorText(context, wardrobeSlots, wardrobeColors);
   const hasDuoSceneAnchor = Boolean(duoSceneAnchorText);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
+  const wardrobeLayeringLogicText = buildWardrobeLayeringLogicPrompt(wardrobeSlots);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
   const expressionAText = buildRoleExpressionPrompt(characterSlots.expressionA, 'woman 1');
@@ -4988,11 +5091,13 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
 
     const hasLegwear = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear);
     const hasShoes = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes);
+    const longBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants) && isLongBottomLayer(wardrobeSlots.pants))
+      || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt) && isLongBottomLayer(wardrobeSlots.skirt));
     const isBarefoot = wardrobeSlots.shoes?.zh === '赤腳';
 
     if (skeletonMode) return skeletonText(`${base}, complete skeletal feet clearly visible`);
     if (isBarefoot) return `${base}, bare feet and visible toes clearly shown`;
-    if (hasLegwear && hasShoes) return `${base}, legwear and shoes clearly visible`;
+    if (hasLegwear && hasShoes && !longBottom) return `${base}, legwear and shoes clearly visible`;
     if (hasShoes) return `${base}, shoes clearly visible`;
     return `${base}, full lower legs and feet clearly visible`;
   };
@@ -5109,6 +5214,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   }
   if (!specialSubjectMode && !hasDuoSceneAnchor) {
     addLine('Waistline Coordination', waistlineCompatibilityText);
+    addLine('Wardrobe Layering Logic', wardrobeLayeringLogicText);
     addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
@@ -5169,6 +5275,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
+  const wardrobeLayeringLogicText = buildWardrobeLayeringLogicPrompt(wardrobeSlots);
   const specialSubjectMode = isSpecialSubject(context.subject);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const sceneAccentText = buildContextualSceneAccent(context);
@@ -5419,6 +5526,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
       add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
       add(waistlineCompatibilityText);
+      add(wardrobeLayeringLogicText);
     }
     if (context.subject.count === 2 && !(wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
       add(buildRoleLayerText('a') ? `woman 1 additional styling includes ${buildRoleLayerText('a')}` : '');
