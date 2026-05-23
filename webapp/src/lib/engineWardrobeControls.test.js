@@ -91,3 +91,24 @@ test('special top and bottom palettes apply separate colors to top and bottom ga
   assert.match(promptText, /棉質細肩背心|cotton camisole/);
   assert.match(promptText, /直筒牛仔褲|straight-leg jeans/);
 });
+
+test('special outfit controls include the six street-style outfit presets', () => {
+  const controls = getLockControls();
+  const specialOutfitControl = controls.find((control) => control.key === 'specialOutfitId');
+  const expectedOutfits = [
+    '拼布絨呢外套塗鴉奶白工裝褲',
+    '紅色寬T棕色工裝吊帶褲',
+    '紅長大衣虎紋圍巾學院造型',
+    '酒紅皮草白高領短裙長靴造型',
+    '棕色羊羔絨飛行外套皮褲造型',
+    '黑高領格紋百褶短裙長靴造型',
+  ];
+
+  assert.ok(specialOutfitControl);
+  for (const zh of expectedOutfits) {
+    assert.ok(
+      specialOutfitControl.options.some((option) => option.zh === zh),
+      `specialOutfitId should include ${zh}`
+    );
+  }
+});
