@@ -1,7 +1,35 @@
 import { useMemo, useState } from 'react';
+import { Copy } from 'lucide-react';
 import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
 import PromptPreviewCard from './PromptPreviewCard';
+
+const WARDROBE_PICKER_KEYS = new Set([
+  'specialOutfitId',
+  'specialOutfitAId',
+  'specialOutfitBId',
+  'outfitPresetId',
+  'outfitPresetAId',
+  'outfitPresetBId',
+  'outfitPresetPrimaryColorId',
+  'outfitPresetContrastColorId',
+  'outfitPresetLockedPaletteId',
+  'outfitPresetAPrimaryColorId',
+  'outfitPresetAContrastColorId',
+  'outfitPresetALockedPaletteId',
+  'outfitPresetBPrimaryColorId',
+  'outfitPresetBContrastColorId',
+  'outfitPresetBLockedPaletteId',
+  'topBottomPaletteId',
+  'topBottomPaletteAId',
+  'topBottomPaletteBId',
+  'topColorId',
+  'topAColorId',
+  'topBColorId',
+  'bottomColorId',
+  'bottomAColorId',
+  'bottomBColorId',
+]);
 
 const OUTFIT_PRESET_COVERED_KEYS = new Set([
   'topId',
@@ -404,6 +432,278 @@ function formatSelectionStatus(count) {
   return count > 0 ? `已選 ${count}` : '未設定';
 }
 
+function findControlOption(control, value) {
+  if (!value) return null;
+  return control?.options?.find((option) => option.id === value) || null;
+}
+
+function getSelectedPromptText(control, value) {
+  const selectedOption = findControlOption(control, value);
+  if (!selectedOption || selectedOption.zh === '全無') return '';
+  return selectedOption.en || '';
+}
+
+function getOptionSwatches(option) {
+  const colorPairs = [option?.topColor, option?.bottomColor]
+    .filter(Boolean)
+    .map((color) => ({ color: color.hex, label: color.zh }));
+  if (colorPairs.length > 0) return colorPairs;
+
+  const hexMatches = (option?.en || '').match(/#[0-9a-fA-F]{6}/g) || [];
+  return Array.from(new Set(hexMatches)).slice(0, 3).map((color) => ({ color, label: color }));
+}
+
+function getOptionCategory(option) {
+  const label = option?.zh || '';
+  if (label.includes('全無')) return '全無';
+  if (label.startsWith('套裝：')) return '套裝';
+  if (label.startsWith('連身：')) return '連身';
+  if (label.includes('配色') || option?.topColor || option?.bottomColor) return '配色';
+  if (label.includes('特殊') || label.includes('風格') || label.includes('造型')) return '造型';
+  return '選項';
+}
+
+function buildWardrobeLayerInsights(locks, controls, isSpecialOutfitActive, isAnyOutfitPresetActive) {
+  const selected = (key) => getControlOptionLabel(controls, key, locks[key]);
+  const hasAny = (keys) => keys.some((key) => selected(key));
+  const mainOutfitLabels = [
+    selected('specialOutfitId'),
+    selected('specialOutfitAId'),
+    selected('specialOutfitBId'),
+    selected('outfitPresetId'),
+    selected('outfitPresetAId'),
+    selected('outfitPresetBId'),
+    selected('dressId'),
+    selected('dressAId'),
+    selected('dressBId'),
+    selected('topId'),
+    selected('topAId'),
+    selected('topBId'),
+    selected('pantsId'),
+    selected('pantsAId'),
+    selected('pantsBId'),
+    selected('skirtId'),
+    selected('skirtAId'),
+    selected('skirtBId'),
+  ].filter(Boolean);
+  const paletteLabels = [
+    selected('outfitPresetPrimaryColorId'),
+    selected('outfitPresetContrastColorId'),
+    selected('outfitPresetLockedPaletteId'),
+    selected('outfitPresetAPrimaryColorId'),
+    selected('outfitPresetAContrastColorId'),
+    selected('outfitPresetALockedPaletteId'),
+    selected('outfitPresetBPrimaryColorId'),
+    selected('outfitPresetBContrastColorId'),
+    selected('outfitPresetBLockedPaletteId'),
+    selected('topBottomPaletteId'),
+    selected('topBottomPaletteAId'),
+    selected('topBottomPaletteBId'),
+  ].filter(Boolean);
+  const layerLabels = [
+    selected('outerwearId'),
+    selected('outerwearAId'),
+    selected('outerwearBId'),
+    selected('legwearId'),
+    selected('legwearAId'),
+    selected('legwearBId'),
+    selected('shoesId'),
+    selected('shoesAId'),
+    selected('shoesBId'),
+  ].filter(Boolean);
+  const accessoryLabels = [
+    selected('headAccessoryId'),
+    selected('headAccessoryAId'),
+    selected('headAccessoryBId'),
+    selected('eyewearId'),
+    selected('eyewearAId'),
+    selected('eyewearBId'),
+    selected('earringsId'),
+    selected('earringsAId'),
+    selected('earringsBId'),
+    selected('neckAccessoryId'),
+    selected('neckAccessoryAId'),
+    selected('neckAccessoryBId'),
+    selected('wristAccessoryId'),
+    selected('ringId'),
+    selected('waistAccessoryId'),
+  ].filter(Boolean);
+
+  const notes = [];
+  if (isSpecialOutfitActive) {
+    notes.push('特殊穿搭維持完整造型描述，不再額外改寫服裝結構。');
+  }
+  if (isAnyOutfitPresetActive && hasAny(['outerwearId', 'outerwearAId', 'outerwearBId'])) {
+    notes.push('套裝/連身會被視為主體輪廓，外套固定作為完整最外層，避免西裝或罩衫被模型拆成奇怪形狀。');
+  }
+  if (isAnyOutfitPresetActive && hasAny(['legwearId', 'legwearAId', 'legwearBId'])) {
+    notes.push('襪類只作為露出的腿部或邊緣細節，不要求模型為了看見襪子而破壞長褲、長裙或連身洋裝。');
+  }
+  if (isAnyOutfitPresetActive && paletteLabels.length > 0) {
+    notes.push('套裝/連身配色會套用在主體服裝上，不會強迫拆成獨立上身與下身版型。');
+  }
+  if (mainOutfitLabels.length === 0) {
+    notes.push('先選整體穿搭或上下身單件後，這裡會顯示更明確的疊穿順序。');
+  }
+
+  return {
+    main: mainOutfitLabels.slice(0, 3),
+    palette: paletteLabels.slice(0, 3),
+    layers: layerLabels.slice(0, 4),
+    accessories: accessoryLabels.slice(0, 4),
+    notes,
+  };
+}
+
+function WardrobePickerField({ control, value, disabled, onOpen, onChange, onCopy }) {
+  const selectedOption = findControlOption(control, value);
+  const selectedLabel = selectedOption?.zh || '隨機';
+  const copyText = getSelectedPromptText(control, value);
+  const swatches = getOptionSwatches(selectedOption);
+  const isMuted = !selectedOption || selectedOption.zh === '全無';
+
+  return (
+    <label className={`field wardrobe-picker-field ${disabled ? 'field-disabled' : ''}`}>
+      <div className="field-heading-row">
+        <span>{control.label}</span>
+        <button
+          type="button"
+          className="icon-btn control-copy-icon-btn"
+          disabled={disabled || !copyText}
+          onClick={() => onCopy(copyText)}
+          title={`Copy ${control.label} prompt`}
+          aria-label={`Copy ${control.label} prompt`}
+        >
+          <Copy size={14} />
+        </button>
+      </div>
+      <button
+        type="button"
+        className={`wardrobe-picker-trigger ${isMuted ? 'wardrobe-picker-trigger-muted' : ''}`}
+        disabled={disabled}
+        onClick={onOpen}
+      >
+        <span className="wardrobe-picker-trigger-main">{selectedLabel}</span>
+        {swatches.length > 0 ? (
+          <span className="wardrobe-picker-swatches" aria-hidden="true">
+            {swatches.map((swatch) => (
+              <span key={`${swatch.color}-${swatch.label}`} className="wardrobe-picker-swatch" style={{ background: swatch.color }} />
+            ))}
+          </span>
+        ) : null}
+        <span className="wardrobe-picker-open">選擇</span>
+      </button>
+      {value ? (
+        <button className="wardrobe-picker-clear" type="button" disabled={disabled} onClick={() => onChange('')}>
+          回到隨機
+        </button>
+      ) : null}
+    </label>
+  );
+}
+
+function WardrobePickerModal({ control, value, query, onQueryChange, onClose, onSelect }) {
+  const selectedOption = findControlOption(control, value);
+  const normalizedQuery = query.trim().toLowerCase();
+  const visibleOptions = control.options.filter((option) => {
+    if (!normalizedQuery) return true;
+    return `${option.zh} ${option.en || ''}`.toLowerCase().includes(normalizedQuery);
+  });
+  const categories = Array.from(new Set(control.options.map(getOptionCategory)));
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal-panel wardrobe-picker-modal" onClick={(event) => event.stopPropagation()}>
+        <div className="modal-header">
+          <div>
+            <div className="lock-title">{control.label}</div>
+            <p className="lock-subtitle">搜尋中文名稱、英文 prompt 或配色關鍵字，適合資料庫持續增加時快速定位。</p>
+          </div>
+          <button className="secondary" type="button" onClick={onClose}>關閉</button>
+        </div>
+
+        <div className="wardrobe-picker-toolbar">
+          <input
+            className="text-input wardrobe-picker-search"
+            value={query}
+            onChange={(event) => onQueryChange(event.target.value)}
+            placeholder="搜尋套裝、連身、配色或 prompt 關鍵字"
+            autoFocus
+          />
+          <button className="secondary" type="button" onClick={() => onSelect('')}>
+            隨機
+          </button>
+        </div>
+
+        <div className="wardrobe-picker-category-row">
+          {categories.map((category) => (
+            <span key={category} className="wardrobe-picker-category">{category}</span>
+          ))}
+          <span className="wardrobe-picker-count">{visibleOptions.length} options</span>
+        </div>
+
+        <div className="wardrobe-picker-option-grid">
+          {visibleOptions.map((option) => {
+            const swatches = getOptionSwatches(option);
+            const isActive = selectedOption?.id === option.id;
+            return (
+              <button
+                key={option.id}
+                type="button"
+                className={`wardrobe-picker-option ${isActive ? 'wardrobe-picker-option-active' : ''}`}
+                disabled={option.disabled}
+                onClick={() => onSelect(option.id)}
+              >
+                <span className="wardrobe-picker-option-topline">
+                  <strong>{option.zh}</strong>
+                  <span>{getOptionCategory(option)}</span>
+                </span>
+                {swatches.length > 0 ? (
+                  <span className="wardrobe-picker-swatches wardrobe-picker-option-swatches" aria-hidden="true">
+                    {swatches.map((swatch) => (
+                      <span key={`${option.id}-${swatch.color}-${swatch.label}`} className="wardrobe-picker-swatch" style={{ background: swatch.color }} />
+                    ))}
+                  </span>
+                ) : null}
+                {option.en ? <span className="wardrobe-picker-option-copy">{option.en}</span> : null}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WardrobeLayerPanel({ insights }) {
+  const rows = [
+    { label: '主體', values: insights.main },
+    { label: '配色', values: insights.palette },
+    { label: '外層鞋襪', values: insights.layers },
+    { label: '配件', values: insights.accessories },
+  ];
+
+  return (
+    <div className="wardrobe-layer-panel">
+      <div className="wardrobe-layer-grid">
+        {rows.map((row) => (
+          <div key={row.label} className="wardrobe-layer-row">
+            <span>{row.label}</span>
+            <strong>{row.values.length > 0 ? row.values.join(' / ') : '未設定'}</strong>
+          </div>
+        ))}
+      </div>
+      {insights.notes.length > 0 ? (
+        <div className="wardrobe-layer-notes">
+          {insights.notes.map((note) => (
+            <span key={note}>{note}</span>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export default function Page1Workspace({
   coreLockControls,
   characterLockControls,
@@ -429,6 +729,8 @@ export default function Page1Workspace({
   handleApplyImportedPrompt,
 }) {
   const [isLightingReferenceOpen, setIsLightingReferenceOpen] = useState(false);
+  const [activeWardrobePickerKey, setActiveWardrobePickerKey] = useState('');
+  const [wardrobePickerQuery, setWardrobePickerQuery] = useState('');
   const [activeSection, setActiveSection] = useState('character');
   const [activeSubpanels, setActiveSubpanels] = useState({
     character: 'identity',
@@ -465,6 +767,11 @@ export default function Page1Workspace({
   const isDuoMode = locks.subjectCount === '2';
   const isReferenceSubjectMode = locks.subjectCount === 'reference';
   const isAnyOutfitPresetActive = isSingleOutfitPresetActive || isOutfitPresetAActive || isOutfitPresetBActive;
+  const wardrobeLayerInsights = useMemo(
+    () => buildWardrobeLayerInsights(locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive),
+    [locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive],
+  );
+  const activeWardrobePickerControl = wardrobeLockControls.find((control) => control.key === activeWardrobePickerKey);
   const currentModeBadges = [
     isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
     isReferenceSubjectMode ? '上傳人物' : '',
@@ -508,37 +815,65 @@ export default function Page1Workspace({
     },
   };
 
+  const isControlDisabled = (control) => (
+    (isCloseupMode && !closeupAllowedKeys.has(control.key))
+    || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls))
+    || (control.key === 'specialActionId' && Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls))
+    || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
+    || (['topAColorId', 'bottomAColorId'].includes(control.key) && Boolean(locks.topBottomPaletteAId) && !isNoneSelected('topBottomPaletteAId', locks.topBottomPaletteAId, wardrobeLockControls))
+    || (['topBColorId', 'bottomBColorId'].includes(control.key) && Boolean(locks.topBottomPaletteBId) && !isNoneSelected('topBottomPaletteBId', locks.topBottomPaletteBId, wardrobeLockControls))
+    || (isSingleOutfitPresetActive && OUTFIT_PRESET_COVERED_KEYS.has(control.key))
+    || (isOutfitPresetAActive && OUTFIT_PRESET_A_COVERED_KEYS.has(control.key))
+    || (isOutfitPresetBActive && OUTFIT_PRESET_B_COVERED_KEYS.has(control.key))
+  );
+
+  const applyControlValue = (control, value) => {
+    updateLocks((prev) => {
+      const next = { ...prev, [control.key]: value };
+      if (control.key === 'poseId' && value && !isNoneSelected('poseId', value, characterLockControls)) {
+        next.specialActionId = '';
+      }
+      if (control.key === 'specialActionId' && value && !isNoneSelected('specialActionId', value, characterLockControls)) {
+        next.poseId = '';
+      }
+      return next;
+    });
+  };
+
+  const openWardrobePicker = (control) => {
+    setActiveWardrobePickerKey(control.key);
+    setWardrobePickerQuery('');
+  };
+
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
-      {controls.map((control) => (
-        <SelectControlField
-          key={control.key}
-          control={control}
-          value={locks[control.key]}
-          disabled={
-            (isCloseupMode && !closeupAllowedKeys.has(control.key))
-            || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls))
-            || (control.key === 'specialActionId' && Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls))
-            || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
-            || (['topAColorId', 'bottomAColorId'].includes(control.key) && Boolean(locks.topBottomPaletteAId) && !isNoneSelected('topBottomPaletteAId', locks.topBottomPaletteAId, wardrobeLockControls))
-            || (['topBColorId', 'bottomBColorId'].includes(control.key) && Boolean(locks.topBottomPaletteBId) && !isNoneSelected('topBottomPaletteBId', locks.topBottomPaletteBId, wardrobeLockControls))
-            || (isSingleOutfitPresetActive && OUTFIT_PRESET_COVERED_KEYS.has(control.key))
-            || (isOutfitPresetAActive && OUTFIT_PRESET_A_COVERED_KEYS.has(control.key))
-            || (isOutfitPresetBActive && OUTFIT_PRESET_B_COVERED_KEYS.has(control.key))
-          }
-          onChange={(value) => updateLocks((prev) => {
-            const next = { ...prev, [control.key]: value };
-            if (control.key === 'poseId' && value && !isNoneSelected('poseId', value, characterLockControls)) {
-              next.specialActionId = '';
-            }
-            if (control.key === 'specialActionId' && value && !isNoneSelected('specialActionId', value, characterLockControls)) {
-              next.poseId = '';
-            }
-            return next;
-          })}
-          onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
-        />
-      ))}
+      {controls.map((control) => {
+        const disabled = isControlDisabled(control);
+        if (activeSection === 'wardrobe' && WARDROBE_PICKER_KEYS.has(control.key)) {
+          return (
+            <WardrobePickerField
+              key={control.key}
+              control={control}
+              value={locks[control.key]}
+              disabled={disabled}
+              onOpen={() => openWardrobePicker(control)}
+              onChange={(value) => applyControlValue(control, value)}
+              onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
+            />
+          );
+        }
+
+        return (
+          <SelectControlField
+            key={control.key}
+            control={control}
+            value={locks[control.key]}
+            disabled={disabled}
+            onChange={(value) => applyControlValue(control, value)}
+            onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
+          />
+        );
+      })}
     </div>
   );
 
@@ -621,6 +956,7 @@ export default function Page1Workspace({
           特殊角色目前不使用服裝、鞋襪或配件欄位，這一區已暫時停用，請改用角色本身、場景、鏡頭、光線與風格去塑造作品氣氛。
         </div>
       ) : null}
+      <WardrobeLayerPanel insights={wardrobeLayerInsights} />
       {renderControlGrid(filterControlsByKeys(wardrobeLockControls, activeSubpanel?.keys || []))}
     </div>
   );
@@ -822,6 +1158,19 @@ export default function Page1Workspace({
       ) : null}
 
       <LightingReferenceModal open={isLightingReferenceOpen} onClose={() => setIsLightingReferenceOpen(false)} />
+      {activeWardrobePickerControl ? (
+        <WardrobePickerModal
+          control={activeWardrobePickerControl}
+          value={locks[activeWardrobePickerControl.key]}
+          query={wardrobePickerQuery}
+          onQueryChange={setWardrobePickerQuery}
+          onClose={() => setActiveWardrobePickerKey('')}
+          onSelect={(value) => {
+            applyControlValue(activeWardrobePickerControl, value);
+            setActiveWardrobePickerKey('');
+          }}
+        />
+      ) : null}
     </>
   );
 }

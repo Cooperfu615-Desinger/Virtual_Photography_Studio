@@ -326,6 +326,127 @@ h1 {
   padding: 0;
 }
 
+.wardrobe-picker-field {
+  min-width: 0;
+}
+
+.wardrobe-picker-trigger {
+  min-height: 48px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.wardrobe-picker-trigger:hover:not(:disabled) {
+  border-color: rgba(199, 120, 65, 0.42);
+  background: #fff8ec;
+}
+
+.wardrobe-picker-trigger-muted {
+  color: var(--text-muted-choice);
+}
+
+.wardrobe-picker-trigger-main {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
+  font-size: 0.84rem;
+}
+
+.wardrobe-picker-open,
+.wardrobe-picker-clear,
+.wardrobe-picker-category,
+.wardrobe-picker-count {
+  color: #8b5a34;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.wardrobe-picker-clear {
+  align-self: flex-start;
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.wardrobe-picker-clear:hover:not(:disabled) {
+  background: transparent;
+  color: var(--accent-hover);
+  transform: none;
+}
+
+.wardrobe-picker-swatches {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wardrobe-picker-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(47, 36, 24, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
+}
+
+.wardrobe-layer-panel {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  border-radius: 8px;
+  background: #f7efe3;
+}
+
+.wardrobe-layer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.wardrobe-layer-row {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 250, 240, 0.78);
+}
+
+.wardrobe-layer-row span {
+  color: #9a6b45;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.wardrobe-layer-row strong {
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.wardrobe-layer-notes {
+  display: grid;
+  gap: 6px;
+  color: var(--text-label);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.wardrobe-layer-notes span {
+  padding-left: 10px;
+  border-left: 3px solid rgba(199, 120, 65, 0.42);
+}
+
 select,
 button,
 .text-input,
@@ -1888,6 +2009,130 @@ button:disabled {
   color: var(--text-primary);
   display: grid;
   gap: 16px;
+}
+
+.wardrobe-picker-modal {
+  width: min(1040px, 100%);
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  display: grid;
+  gap: 14px;
+  border-radius: 16px;
+}
+
+.wardrobe-picker-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.wardrobe-picker-search {
+  min-height: 44px;
+}
+
+.wardrobe-picker-category-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.wardrobe-picker-category,
+.wardrobe-picker-count {
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  background: #f6edde;
+}
+
+.wardrobe-picker-count {
+  margin-left: auto;
+  background: transparent;
+}
+
+.wardrobe-picker-option-grid {
+  max-height: min(56vh, 560px);
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+  padding-right: 4px;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(111, 87, 60, 0.32) transparent;
+}
+
+.wardrobe-picker-option-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.wardrobe-picker-option-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wardrobe-picker-option-grid::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(111, 87, 60, 0.32);
+}
+
+.wardrobe-picker-option {
+  min-height: 132px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  background: #f7efe3;
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.wardrobe-picker-option:hover:not(:disabled),
+.wardrobe-picker-option-active {
+  border-color: rgba(199, 120, 65, 0.55);
+  background: #fff8ec;
+}
+
+.wardrobe-picker-option-topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.wardrobe-picker-option-topline strong {
+  min-width: 0;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.wardrobe-picker-option-topline span {
+  flex-shrink: 0;
+  color: #9a6b45;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.wardrobe-picker-option-swatches {
+  min-height: 20px;
+}
+
+.wardrobe-picker-option-copy {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.45;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .reference-modal {
