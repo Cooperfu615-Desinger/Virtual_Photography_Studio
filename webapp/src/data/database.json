@@ -3123,78 +3123,78 @@
       },
       {
         "zh": "拍立得效果 (Polaroid Style)",
-        "en": "polaroid sx-70 style, instant film look, faded pastel colors, soft white border, lo-fi",
-        "desc": "帶有濃烈懷舊感，邊緣失焦、色彩偏淡偏粉（如褪色般），對比低且具有明顯的化學顯影特性。"
+        "en": "Polaroid SX-70 instant film simulation, faded pastel color response, low contrast curve, soft chemical development texture, subtle edge softness, classic white instant-film border",
+        "desc": "模擬拍立得即時成像的低對比、淡粉 pastel 色彩、柔和邊緣與化學顯影質地，白色相紙邊框作為成像特徵保留。"
       },
       {
         "zh": "柯達 Portra 400 底片",
-        "en": "Kodak Portra 400 film simulation, warm skin tones, fine film grain, analog aesthetic",
-        "desc": "業界公認最完美的膚色底片。擁有溫暖的橙橘色調、細膩的顆粒感與優秀的寬容度，呈現高品質的文青底片感。"
+        "en": "Kodak Portra 400 film simulation, warm accurate skin-tone response, fine film grain, broad highlight latitude, smooth contrast curve, gentle analog color density",
+        "desc": "強調 Portra 400 的暖膚色反應、細緻底片顆粒、寬亮部容忍度與柔順對比曲線，整體色彩濃度溫和自然。"
       },
       {
         "zh": "富士 Superia 400 底片",
-        "en": "Fujifilm Superia 400 simulation, slightly green shadows, high contrast, everyday analog",
-        "desc": "偏冷色調，特別是在陰影處容易帶有微微的日系青綠色，綠色跟紅色的表現非常搶眼，適合日本街頭紀實。"
+        "en": "Fujifilm Superia 400 film simulation, cool-green shadow tint, punchy reds and greens, medium-high contrast curve, visible consumer-film grain, crisp analog color response",
+        "desc": "偏冷的陰影青綠色、較鮮明的紅綠色反應、中高對比與可見消費級底片顆粒，呈現清楚而有個性的類比色彩。"
       },
       {
         "zh": "Leica 數位紀實感",
-        "en": "Leica digital look, crisp micro-contrast, refined tonal separation, realistic skin detail, restrained color response, premium documentary rendering",
-        "desc": "Leica 風格重點在乾淨克制的色彩、明確的微對比與高級紀實感，適合街拍、旅拍與極簡人物。"
+        "en": "Leica digital camera rendering, crisp micro-contrast, refined tonal separation, realistic skin texture, restrained color saturation, clean high-acutance detail",
+        "desc": "以 Leica 數位成像的乾淨色彩、明確微對比、細膩階調分離與克制飽和度為核心，保留真實皮膚紋理與高銳度細節。"
       },
       {
         "zh": "富士 Classic Chrome 電影感",
-        "en": "Fujifilm Classic Chrome look, muted color palette, soft contrast, documentary mood, subdued blues and reds, editorial travel-film atmosphere",
-        "desc": "低飽和、偏雜誌感與紀實旅行感，適合城市、咖啡館、街拍與日常敘事人像。"
+        "en": "Fujifilm Classic Chrome film simulation, muted color palette, subdued blues and reds, gentle contrast curve, dry editorial color response, restrained midtone density",
+        "desc": "低飽和、藍紅色受控、對比柔和且中間調密度較穩，呈現乾淨克制的雜誌式色彩反應。"
       },
       {
         "zh": "富士 Provia 清透明亮感",
-        "en": "Fujifilm Provia look, clean balanced color, crisp daylight rendering, transparent skin tones, bright natural contrast",
-        "desc": "比 Classic Chrome 更乾淨明亮，適合自然日光、生活感與清爽透明的日系數位色調。"
+        "en": "Fujifilm Provia film simulation, clean balanced color, transparent skin tones, bright natural contrast, crisp daylight-neutral rendering, smooth saturation response",
+        "desc": "比 Classic Chrome 更乾淨明亮，色彩平衡、膚色透明、對比清爽且飽和度過渡平順，偏向標準日光中性的富士色彩。"
       },
       {
         "zh": "Leica Monochrom 黑白灰階",
-        "en": "Leica Monochrom black and white look, rich grayscale separation, crisp detail, deep blacks, luminous highlights, timeless documentary mood",
-        "desc": "不只是一般黑白濾鏡，而是灰階層次細膩、黑位深、亮部乾淨的高級黑白紀實感。"
+        "en": "Leica Monochrom rendering, black and white tonal response, rich grayscale separation, crisp micro-detail, deep blacks, luminous highlight control",
+        "desc": "不是一般黑白濾鏡，而是以細膩灰階層次、深黑位、清楚微細節與乾淨亮部控制形成高階黑白成像。"
       },
       {
         "zh": "Contax Zeiss 復古銳利感",
-        "en": "Contax Zeiss look, crisp vintage sharpness, subtle warm highlights, rich contrast, cinematic 35mm character, nostalgic premium rendering",
-        "desc": "帶有老鏡味的復古銳利感，不是柔糊朦朧，而是帶年代感與高級光學個性的經典電影氣質。"
+        "en": "Contax Zeiss lens-camera rendering, crisp vintage sharpness, rich micro-contrast, subtle warm highlights, clean 35mm color density, precise edge definition",
+        "desc": "帶有老鏡味的復古銳利感，重點是清楚邊緣、豐富微對比、微暖亮部與 35mm 色彩密度，而不是柔糊朦朧。"
       },
       {
         "zh": "Canon 暖膚人像感",
-        "en": "Canon full-frame portrait look, warm flattering skin tones, soft highlight roll-off, smooth color rendering, commercial beauty photography feel",
-        "desc": "Canon 典型的人像優勢是膚色討喜、亮部柔順、整體商業感穩定，適合寫真與商攝。"
+        "en": "Canon full-frame portrait rendering, warm flattering skin-tone response, soft highlight roll-off, smooth color transitions, gentle contrast curve, polished digital color",
+        "desc": "強調 Canon 全片幅常見的暖膚色、柔順亮部 roll-off、平滑色彩過渡與穩定數位色彩，讓人物膚色更討喜。"
       },
       {
         "zh": "Canon 直出生活感",
-        "en": "Canon JPEG look, bright warm color balance, pleasing skin tones, soft contrast, everyday lifestyle photography mood",
-        "desc": "偏向 Canon 直出的舒服日常色彩，明亮、輕暖、適合居家、咖啡館與生活感畫面。"
+        "en": "Canon JPEG color rendering, bright warm white balance, pleasing skin tones, soft contrast, clean consumer-camera color, smooth in-camera processing",
+        "desc": "偏向 Canon JPEG 直出的明亮暖白平衡、舒服膚色、柔和對比與乾淨機內色彩處理，成像自然親和。"
       },
       {
         "zh": "Nikon 冷調寫實感",
-        "en": "Nikon digital look, crisp detail rendering, cool-neutral color balance, strong clarity, realistic tonal depth, editorial precision",
-        "desc": "細節清楚、色調冷靜、寫實感強，適合清冷時裝、紀實街拍與較硬朗的視覺風格。"
+        "en": "Nikon digital camera rendering, crisp detail, cool-neutral white balance, strong clarity, realistic tonal depth, firm contrast curve, precise color separation",
+        "desc": "強調 Nikon 數位成像的清楚細節、冷中性白平衡、較強 clarity、紮實階調深度與明確色彩分離。"
       },
       {
         "zh": "Nikon 通透明亮外景感",
-        "en": "Nikon landscape-oriented digital look, wide dynamic range, transparent shadows, crisp natural color, clean daylight realism",
-        "desc": "強調戶外自然光下的通透感與動態範圍，適合旅行、自然景與白天外景人像。"
+        "en": "Nikon high-dynamic-range digital rendering, transparent shadows, crisp natural color, clean daylight-neutral contrast, clear highlight retention, high-resolution detail",
+        "desc": "強調高動態範圍、透明陰影、乾淨自然色、亮部保留與高解析細節，適合需要通透明亮成像的畫面。"
       },
       {
         "zh": "Ricoh GR 街頭快照感",
-        "en": "Ricoh GR street photography look, compact-camera realism, snap focus feel, contrasty urban mood, candid everyday documentary vibe",
-        "desc": "帶有貼身街拍機的即時感與快照感，適合城市漫遊、街頭抓拍與生活紀實氛圍。"
+        "en": "Ricoh GR compact-camera rendering, snap-focus clarity, high-acutance detail, contrasty black levels, compact APS-C color response, candid snapshot texture",
+        "desc": "保留 Ricoh GR 的小型相機即時感、snap focus 清晰度、高銳利細節、偏硬黑位與 APS-C 色彩反應，但不指定拍攝場景。"
       },
       {
         "zh": "中片幅數位單眼 (Medium Format DSLR)",
-        "en": "Hasselblad medium format image, extreme ultra-high resolution, medium format organic depth",
-        "desc": "哈蘇或飛思等數位後背相機。擁有令人髮指的細節解析度（看清每一根睫毛），以及有別於全片幅的特殊立體過渡與景深空間感。"
+        "en": "Hasselblad medium format digital rendering, ultra-high resolution, broad dynamic range, smooth tonal transitions, refined color depth, organic medium-format depth",
+        "desc": "模擬哈蘇或飛思等中片幅數位後背的高解析、寬動態範圍、平滑階調過渡、細緻色彩深度與不同於全片幅的立體空間感。"
       },
       {
         "zh": "VHS 錄影帶低畫質",
-        "en": "VHS camcorder glitch effect, heavily degraded image, chromatic aberration, scanlines, analog horror",
-        "desc": "模仿 90 年代老舊錄影帶的畫面質感，保留做低頻特殊風格用途。"
+        "en": "VHS camcorder image degradation, analog tape noise, scanlines, color bleeding, chromatic aberration, low-resolution interlaced texture, tracking glitches",
+        "desc": "模擬老舊錄影帶的低解析、類比雜訊、掃描線、色彩滲色、色差與追蹤故障，用於明確的低畫質成像效果。"
       }
     ],
     "光學效果 (Optical Effects)": [
