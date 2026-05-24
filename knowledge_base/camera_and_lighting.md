@@ -35,18 +35,18 @@
 | **拍攝方位 (Orbit Angle)** | 右側 | `right-side profile view, side-facing camera angle, crisp lateral silhouette` | 以右側臉或右側身輪廓為主，重點同樣是側面線條與輪廓感。 |
 | **拍攝方位 (Orbit Angle)** | 右前斜側 | `front three-quarter angle from opposite side, softly turned toward camera, dimensional subject composition` | 身體略微往右轉開，但仍保留大部分正面資訊，適合自然且有立體感的人像構圖。 |
 | **鏡頭焦段 (Focal Length)** | 全無 | `none` | 不指定鏡頭焦段，讓模型自行決定視角、透視與空間壓縮感。 |
-| **鏡頭焦段 (Focal Length)** | 20mm 超廣角 | `shot on 20mm lens` | 超廣角帶來強烈透視延展與貼近感，適合建築感、場景感、動態誇張與前景衝擊明顯的畫面。 |
-| **鏡頭焦段 (Focal Length)** | 24mm 廣角 | `shot on 24mm lens` | 廣角感明顯，能保留大量場景資訊，適合街拍、旅拍、時裝外景與強環境敘事的人像。 |
-| **鏡頭焦段 (Focal Length)** | 28mm 廣角 | `shot on 28mm lens` | 比 24mm 更自然一些，仍保有環境參與感，適合 lifestyle、城市漫遊與日常紀實感人像。 |
-| **鏡頭焦段 (Focal Length)** | 35mm 廣角 (人文視角) | `shot on 35mm lens` | 經典的人文與街拍焦段，視角適中不過度變形，能自然融合人物與環境背景。 |
-| **鏡頭焦段 (Focal Length)** | 50mm 標準鏡頭 (Standard) | `shot on 50mm lens` | 最接近人類單眼視覺的透視感，不變形，背景虛化自然，適用於絕大多數日常與棚拍。 |
-| **鏡頭焦段 (Focal Length)** | 85mm 中長焦 (人像鏡皇) | `shot on 85mm lens` | 完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。 |
-| **鏡頭焦段 (Focal Length)** | 105mm 中長焦 | `shot on 105mm lens` | 比 85mm 更有壓縮感與距離感，適合成熟、安靜、乾淨的商業人像與時裝構圖。 |
-| **鏡頭焦段 (Focal Length)** | 135mm 長焦壓縮 | `shot on 135mm lens` | 長焦讓背景被拉近並壓縮，畫面更乾淨扁平，適合街頭遠距、偷拍感與高級時裝敘事。 |
-| **鏡頭焦段 (Focal Length)** | 微距鏡頭 Macro | `shot on macro lens` | 適合嘴唇、眼睛、飾品、布料、指尖等局部細節，能呈現極近距離的質感描寫。 |
-| **鏡頭焦段 (Focal Length)** | 魚眼鏡頭 Fisheye | `shot on fisheye lens` | 帶來強烈桶狀變形與包覆式空間感，適合街頭、Y2K、玩味、叛逆與實驗感畫面。 |
-| **鏡頭焦段 (Focal Length)** | 移軸鏡頭 Tilt-Shift | `shot on tilt-shift lens` | 透過特殊焦平面與透視控制，營造模型感、冷靜觀看距離、櫥窗感或都市幾何感。 |
-| **鏡頭焦段 (Focal Length)** | 變形寬銀幕鏡頭 Anamorphic | `shot on anamorphic lens` | 強烈電影語言的寬銀幕鏡頭，常帶橢圓散景與水平光斑，適合公路片、夜景、敘事感與大片氣質。 |
+| **鏡頭焦段 (Focal Length)** | 20mm 超廣角 | `shot on 20mm ultra-wide-angle lens, very wide field of view, strong perspective expansion, close foreground enlargement, visible edge stretching, deep subject-to-background spatial inclusion` | 極廣視角與明顯透視延展，近距離物體會被放大，畫面邊緣更容易拉伸，能讓人物與背景保持強烈空間關係。 |
+| **鏡頭焦段 (Focal Length)** | 24mm 廣角 | `shot on 24mm wide-angle lens, broad field of view, clear spatial context, moderate perspective stretch, close camera-to-subject distance, readable foreground-to-background depth` | 廣角視野保留大量周圍空間，透視延展比 20mm 溫和，但仍會強化前景到背景的距離感。 |
+| **鏡頭焦段 (Focal Length)** | 28mm 廣角 | `shot on 28mm wide-angle lens, natural wide perspective, mild perspective expansion, balanced subject and environment visibility, moderate working distance, controlled edge distortion` | 比 24mm 更接近自然廣角，仍保留空間參與感，但邊緣變形較易控制，人物比例較穩定。 |
+| **鏡頭焦段 (Focal Length)** | 35mm 廣角 (人文視角) | `shot on 35mm lens, slightly wide natural perspective, human-scale field of view, low geometric distortion, balanced subject-to-background relationship, realistic spatial depth` | 介於廣角與標準鏡之間，保留背景資訊但不過度變形，人物與環境的比例關係自然。 |
+| **鏡頭焦段 (Focal Length)** | 50mm 標準鏡頭 (Standard) | `shot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression` | 標準視角與自然比例，幾何變形少，人物與背景的距離感維持中性，不特別誇張也不過度壓縮。 |
+| **鏡頭焦段 (Focal Length)** | 85mm 中長焦 (人像鏡皇) | `shot on 85mm short telephoto portrait lens, compressed facial perspective, flattering subject proportions, smooth background separation, reduced spatial depth, narrow field of view` | 中長焦會壓縮臉部與身體透視，背景參與度降低，主體與背景分離更明顯，視角較窄。 |
+| **鏡頭焦段 (Focal Length)** | 105mm 中長焦 | `shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, increased subject-background separation, flattened spatial layers, controlled facial proportion rendering` | 比 85mm 更壓縮空間層次，視角更窄，人物與背景分離更強，臉部比例更受長焦壓縮影響。 |
+| **鏡頭焦段 (Focal Length)** | 135mm 長焦壓縮 | `shot on 135mm long telephoto lens, strong background compression, narrow field of view, flattened distance between spatial layers, pronounced subject isolation, distant camera-to-subject working distance` | 長焦會大幅壓縮遠近距離，讓背景看起來被拉近且扁平化，主體隔離感最強，拍攝距離通常較遠。 |
+| **鏡頭焦段 (Focal Length)** | 微距鏡頭 Macro | `shot on macro lens, close focusing distance, high magnification, razor-thin focus plane at close range, enlarged small surface details, shallow depth around tiny subject areas` | 微距鏡頭強調近距離對焦與放大率，能把小範圍表面細節放大；近拍時焦平面很薄，景深快速衰減。 |
+| **鏡頭焦段 (Focal Length)** | 魚眼鏡頭 Fisheye | `shot on fisheye lens, extreme hemispherical field of view, barrel distortion, curved straight lines near frame edges, exaggerated spatial wraparound, expanded peripheral visibility` | 魚眼鏡頭具有半球形超廣視野與明顯桶狀變形，直線靠近邊緣會彎曲，空間有包覆感。 |
+| **鏡頭焦段 (Focal Length)** | 移軸鏡頭 Tilt-Shift | `shot on tilt-shift lens, shifted perspective control, tilted focus plane, selective plane-of-focus effect, corrected vertical lines, controlled miniature-like depth compression` | 移軸鏡頭可控制透視與焦平面，能修正垂直線或讓焦點沿特定平面延伸，也可能造成局部模型化的景深壓縮。 |
+| **鏡頭焦段 (Focal Length)** | 變形寬銀幕鏡頭 Anamorphic | `shot on anamorphic lens, horizontally squeezed widescreen optics, oval bokeh rendering, horizontal flare behavior, widened horizontal field of view, cinematic lens breathing and edge character` | 變形鏡頭以水平壓縮成像與寬銀幕視野為核心，常帶橢圓散景、水平 flare 與邊緣光學個性。 |
 | **環境光條件 (Ambient Light Conditions)** | 全無 | `none` | 不指定環境條件，讓模型自行決定天空、時段、空氣狀態與室內外明暗。 |
 | **環境光條件 (Ambient Light Conditions)** | 晴朗白日 | `clear daylight conditions, bright daytime sky, clean sunlit distance, high natural visibility` | 明亮乾淨的白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣狀態。 |
 | **環境光條件 (Ambient Light Conditions)** | 藍天白雲 | `saturated clear blue sky, deeper vivid azure tone, brilliant clean white clouds, high-clarity daylight, open airy distance, crisp blue-and-white daytime conditions` | 若畫面包含天空、窗外或遠景，強化藍天與白雲的色彩對比，藍色乾淨飽和、白雲明亮純白，空氣通透清澈。 |

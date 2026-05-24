@@ -61,6 +61,7 @@ test('studio ambient conditions hide natural outdoor subject-light patterns', ()
 test('optical effects stay in the camera summary while light style stays in lighting summary', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    locationId: optionId('locationId', '戶外：蘇荷區濕地反光街角'),
     lightingId: optionId('lightingId', '雨天陰濕'),
     lightDirectionId: optionId('lightDirectionId', '漫射霧光'),
     opticalEffectId: optionId('opticalEffectId', '霧化高光 Bloom'),

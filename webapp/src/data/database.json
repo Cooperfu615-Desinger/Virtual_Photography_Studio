@@ -2742,63 +2742,63 @@
       },
       {
         "zh": "20mm 超廣角",
-        "en": "shot on 20mm lens",
-        "desc": "超廣角帶來強烈透視延展與貼近感，適合建築感、場景感、動態誇張與前景衝擊明顯的畫面。"
+        "en": "shot on 20mm ultra-wide-angle lens, very wide field of view, strong perspective expansion, close foreground enlargement, visible edge stretching, deep subject-to-background spatial inclusion",
+        "desc": "極廣視角與明顯透視延展，近距離物體會被放大，畫面邊緣更容易拉伸，能讓人物與背景保持強烈空間關係。"
       },
       {
         "zh": "24mm 廣角",
-        "en": "shot on 24mm lens",
-        "desc": "廣角感明顯，能保留大量場景資訊，適合街拍、旅拍、時裝外景與強環境敘事的人像。"
+        "en": "shot on 24mm wide-angle lens, broad field of view, clear spatial context, moderate perspective stretch, close camera-to-subject distance, readable foreground-to-background depth",
+        "desc": "廣角視野保留大量周圍空間，透視延展比 20mm 溫和，但仍會強化前景到背景的距離感。"
       },
       {
         "zh": "28mm 廣角",
-        "en": "shot on 28mm lens",
-        "desc": "比 24mm 更自然一些，仍保有環境參與感，適合 lifestyle、城市漫遊與日常紀實感人像。"
+        "en": "shot on 28mm wide-angle lens, natural wide perspective, mild perspective expansion, balanced subject and environment visibility, moderate working distance, controlled edge distortion",
+        "desc": "比 24mm 更接近自然廣角，仍保留空間參與感，但邊緣變形較易控制，人物比例較穩定。"
       },
       {
         "zh": "35mm 廣角 (人文視角)",
-        "en": "shot on 35mm lens",
-        "desc": "經典的人文與街拍焦段，視角適中不過度變形，能自然融合人物與環境背景。"
+        "en": "shot on 35mm lens, slightly wide natural perspective, human-scale field of view, low geometric distortion, balanced subject-to-background relationship, realistic spatial depth",
+        "desc": "介於廣角與標準鏡之間，保留背景資訊但不過度變形，人物與環境的比例關係自然。"
       },
       {
         "zh": "50mm 標準鏡頭 (Standard)",
-        "en": "shot on 50mm lens",
-        "desc": "最接近人類單眼視覺的透視感，不變形，背景虛化自然，適用於絕大多數日常與棚拍。"
+        "en": "shot on 50mm standard lens, neutral perspective, minimal geometric distortion, natural subject proportions, balanced depth separation, moderate background compression",
+        "desc": "標準視角與自然比例，幾何變形少，人物與背景的距離感維持中性，不特別誇張也不過度壓縮。"
       },
       {
         "zh": "85mm 中長焦 (人像鏡皇)",
-        "en": "shot on 85mm lens",
-        "desc": "完美壓縮臉部特徵使其更顯精緻，具有奶油般柔和的背景散景，是特寫人像的首選。"
+        "en": "shot on 85mm short telephoto portrait lens, compressed facial perspective, flattering subject proportions, smooth background separation, reduced spatial depth, narrow field of view",
+        "desc": "中長焦會壓縮臉部與身體透視，背景參與度降低，主體與背景分離更明顯，視角較窄。"
       },
       {
         "zh": "105mm 中長焦",
-        "en": "shot on 105mm lens",
-        "desc": "比 85mm 更有壓縮感與距離感，適合成熟、安靜、乾淨的商業人像與時裝構圖。"
+        "en": "shot on 105mm medium telephoto lens, stronger perspective compression, narrowed field of view, increased subject-background separation, flattened spatial layers, controlled facial proportion rendering",
+        "desc": "比 85mm 更壓縮空間層次，視角更窄，人物與背景分離更強，臉部比例更受長焦壓縮影響。"
       },
       {
         "zh": "135mm 長焦壓縮",
-        "en": "shot on 135mm lens",
-        "desc": "長焦讓背景被拉近並壓縮，畫面更乾淨扁平，適合街頭遠距、偷拍感與高級時裝敘事。"
+        "en": "shot on 135mm long telephoto lens, strong background compression, narrow field of view, flattened distance between spatial layers, pronounced subject isolation, distant camera-to-subject working distance",
+        "desc": "長焦會大幅壓縮遠近距離，讓背景看起來被拉近且扁平化，主體隔離感最強，拍攝距離通常較遠。"
       },
       {
         "zh": "微距鏡頭 Macro",
-        "en": "shot on macro lens",
-        "desc": "適合嘴唇、眼睛、飾品、布料、指尖等局部細節，能呈現極近距離的質感描寫。"
+        "en": "shot on macro lens, close focusing distance, high magnification, razor-thin focus plane at close range, enlarged small surface details, shallow depth around tiny subject areas",
+        "desc": "微距鏡頭強調近距離對焦與放大率，能把小範圍表面細節放大；近拍時焦平面很薄，景深快速衰減。"
       },
       {
         "zh": "魚眼鏡頭 Fisheye",
-        "en": "shot on fisheye lens",
-        "desc": "帶來強烈桶狀變形與包覆式空間感，適合街頭、Y2K、玩味、叛逆與實驗感畫面。"
+        "en": "shot on fisheye lens, extreme hemispherical field of view, barrel distortion, curved straight lines near frame edges, exaggerated spatial wraparound, expanded peripheral visibility",
+        "desc": "魚眼鏡頭具有半球形超廣視野與明顯桶狀變形，直線靠近邊緣會彎曲，空間有包覆感。"
       },
       {
         "zh": "移軸鏡頭 Tilt-Shift",
-        "en": "shot on tilt-shift lens",
-        "desc": "透過特殊焦平面與透視控制，營造模型感、冷靜觀看距離、櫥窗感或都市幾何感。"
+        "en": "shot on tilt-shift lens, shifted perspective control, tilted focus plane, selective plane-of-focus effect, corrected vertical lines, controlled miniature-like depth compression",
+        "desc": "移軸鏡頭可控制透視與焦平面，能修正垂直線或讓焦點沿特定平面延伸，也可能造成局部模型化的景深壓縮。"
       },
       {
         "zh": "變形寬銀幕鏡頭 Anamorphic",
-        "en": "shot on anamorphic lens",
-        "desc": "強烈電影語言的寬銀幕鏡頭，常帶橢圓散景與水平光斑，適合公路片、夜景、敘事感與大片氣質。"
+        "en": "shot on anamorphic lens, horizontally squeezed widescreen optics, oval bokeh rendering, horizontal flare behavior, widened horizontal field of view, cinematic lens breathing and edge character",
+        "desc": "變形鏡頭以水平壓縮成像與寬銀幕視野為核心，常帶橢圓散景、水平 flare 與邊緣光學個性。"
       }
     ],
     "環境光條件 (Ambient Light Conditions)": [
