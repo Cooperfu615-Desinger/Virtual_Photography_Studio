@@ -326,8 +326,8 @@ const SECTION_SUBPANELS = {
     {
       id: 'style',
       label: '攝影風格',
-      description: '先選攝影師語氣與器材，決定影像的觀察方式與成像基調。',
-      keys: ['styleId', 'cameraSystemId'],
+      description: '先選攝影師語氣，決定影像的觀看方式、人物距離、色彩節奏與整體作者語彙。',
+      keys: ['styleId'],
     },
     {
       id: 'composition',
@@ -336,10 +336,16 @@ const SECTION_SUBPANELS = {
       keys: ['framingId', 'angleId', 'orbitId'],
     },
     {
-      id: 'rendering',
-      label: '鏡頭與成像',
-      description: '最後指定焦段、光學效果與底片模擬，控制影像的細節質感。',
-      keys: ['lensId', 'opticalEffectId', 'filmId'],
+      id: 'optics',
+      label: '鏡頭與光學',
+      description: '指定焦段與光學效果，控制透視、空間壓縮、景深、flare、暗角與鏡片瑕疵。',
+      keys: ['lensId', 'opticalEffectId'],
+    },
+    {
+      id: 'imaging',
+      label: '成像模擬',
+      description: '最後選相機、底片或數位色彩模擬，控制顆粒、色彩反應、動態範圍與輸出質地。',
+      keys: ['filmId'],
     },
   ],
 };
@@ -433,7 +439,6 @@ function buildWorkspaceSummary(locks, controls) {
   ]);
   const photographySummary = buildSummaryText([
     getControlOptionLabel(controls, 'styleId', locks.styleId),
-    getControlOptionLabel(controls, 'cameraSystemId', locks.cameraSystemId),
     getControlOptionLabel(controls, 'framingId', locks.framingId),
     getControlOptionLabel(controls, 'angleId', locks.angleId),
     getControlOptionLabel(controls, 'orbitId', locks.orbitId),
@@ -870,7 +875,7 @@ export default function Page1Workspace({
       chips: [
         isCloseupMode ? '收斂構圖欄位' : '',
         getControlOptionLabel(lockControls, 'styleId', locks.styleId) ? '攝影風格' : '',
-        getControlOptionLabel(lockControls, 'cameraSystemId', locks.cameraSystemId) ? '攝影器材' : '',
+        getControlOptionLabel(lockControls, 'filmId', locks.filmId) ? '成像模擬' : '',
       ].filter(Boolean),
     },
   };
@@ -957,7 +962,7 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Photography & Rendering</div>
-          <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡整理攝影師語氣、器材、構圖與成像風格。'}</p>
+          <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡整理攝影師語氣、構圖視角、鏡頭光學與成像模擬。'}</p>
         </div>
       </div>
       {renderControlGrid(filterControlsByKeys(coreLockControls, activeSubpanel?.keys || []))}

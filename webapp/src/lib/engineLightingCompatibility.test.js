@@ -70,6 +70,6 @@ test('optical effects stay in the camera summary while light style stays in ligh
   assert.match(prompt.summary, /鏡頭：[^|]*霧化高光 Bloom/);
   assert.match(prompt.summary, /光影：雨天陰濕 \/ 漫射霧光/);
   assert.doesNotMatch(prompt.summary, /光影：[^|]*霧化高光 Bloom/);
-  assert.ok(prompt.structured['Camera & Film'].some((entry) => entry.zh === '霧化高光 Bloom'));
+  assert.ok(prompt.structured['Lens & Imaging'].some((entry) => entry.zh === '霧化高光 Bloom'));
   assert.ok(!prompt.structured.Lighting.some((entry) => entry.zh === '霧化高光 Bloom'));
 });

@@ -72,14 +72,27 @@ test('Z-Image prompt keeps scene priority disabled for normal separates', () => 
   assert.doesNotMatch(prompt.zImagePrompt, /Scene priority:/);
 });
 
-test('PAGE1 camera system lock appears in generated outputs and selection', () => {
+test('PAGE1 imaging simulation includes merged camera profiles in generated outputs and selection', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    cameraSystemId: optionId('cameraSystemId', 'Ricoh GR 隨身街拍機'),
+    filmId: optionId('filmId', '器材成像｜Ricoh GR 快拍'),
   });
 
+  assert.equal(prompt.selection.filmId, 'ricoh-gr-snapshot');
   assert.equal(prompt.selection.cameraSystemId, 'ricoh-gr-snapshot');
-  assert.match(prompt.grokPrompt, /Camera System: Ricoh GR compact snapshot camera/);
-  assert.match(prompt.zImagePrompt, /Ricoh GR compact snapshot camera/);
-  assert.equal(prompt.structured['Camera & Film'][0].id, 'ricoh-gr-snapshot');
+  assert.doesNotMatch(prompt.grokPrompt, /Camera System:/);
+  assert.match(prompt.grokPrompt, /Imaging Simulation: Ricoh GR compact-camera rendering/);
+  assert.match(prompt.zImagePrompt, /Ricoh GR compact-camera rendering/);
+  assert.equal(prompt.structured['Lens & Imaging'].at(-1).id, 'ricoh-gr-snapshot');
+});
+
+test('legacy camera system lock migrates into imaging simulation', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    cameraSystemId: optionId('cameraSystemId', '器材成像｜Ricoh GR 快拍'),
+  });
+
+  assert.equal(prompt.selection.filmId, 'ricoh-gr-snapshot');
+  assert.equal(prompt.selection.cameraSystemId, 'ricoh-gr-snapshot');
+  assert.match(prompt.grokPrompt, /Imaging Simulation: Ricoh GR compact-camera rendering/);
 });

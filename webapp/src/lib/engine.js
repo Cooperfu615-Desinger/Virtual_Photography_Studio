@@ -648,16 +648,17 @@ const LIGHT_STYLE_CATEGORY = '光線表現 (Light Style)';
 const FOCAL_LENGTH_CATEGORY = '鏡頭焦段 (Focal Length)';
 const OPTICAL_EFFECTS_CATEGORY = '光學效果 (Optical Effects)';
 const CAMERA_SYSTEM_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不指定攝影器材，讓模型自行決定。', meta: { tags: ['none'] } },
-  { id: 'leica-m-rangefinder', zh: 'Leica M 街拍旁軸', en: 'Leica M street rangefinder camera, discreet manual-focus street photography feel', desc: '適合安靜、觀察式、街拍距離的影像語氣。', meta: { tags: ['rangefinder', 'street'] } },
-  { id: 'ricoh-gr-snapshot', zh: 'Ricoh GR 隨身街拍機', en: 'Ricoh GR compact snapshot camera, quick candid street photography response', desc: '適合隨手、快速、紀實感強的街頭瞬間。', meta: { tags: ['compact', 'street', 'snapshot'] } },
-  { id: 'fujifilm-x100', zh: 'Fujifilm X100 系列', en: 'Fujifilm X100 fixed-lens camera, refined travel street photography color', desc: '適合旅行街景、色彩與復古數位質感。', meta: { tags: ['fixed_lens', 'travel', 'street'] } },
-  { id: 'sony-full-frame-mirrorless', zh: 'Sony 全片幅無反', en: 'Sony full-frame mirrorless camera, clean modern digital photography rendering', desc: '適合清晰、現代、可塑性高的數位影像。', meta: { tags: ['full_frame', 'mirrorless'] } },
-  { id: 'canon-nikon-dslr', zh: 'Canon / Nikon DSLR', en: 'Canon or Nikon DSLR camera, classic optical viewfinder photography character', desc: '適合傳統攝影感、穩定可靠的寫真語氣。', meta: { tags: ['dslr', 'classic'] } },
-  { id: 'digital-medium-format', zh: '中片幅數位相機', en: 'digital medium format camera, high-resolution editorial photography depth and tonal detail', desc: '適合細膩商業、時尚、大片感的成像質地。', meta: { tags: ['medium_format', 'editorial'] } },
-  { id: 'drone-camera', zh: '空拍機相機', en: 'drone camera, elevated aerial photography perspective with stabilized capture', desc: '適合俯瞰、空景、城市或自然地貌的大尺度畫面。', meta: { tags: ['drone', 'aerial'] } },
-  { id: 'smartphone-documentary', zh: '手機紀實攝影', en: 'smartphone documentary camera, spontaneous handheld everyday photography feel', desc: '適合生活感、即時、輕微隨手感的紀實畫面。', meta: { tags: ['smartphone', 'documentary'] } },
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定器材成像，讓模型自行決定。', meta: { tags: ['none'] } },
+  { id: 'leica-m-rangefinder', zh: '器材成像｜Leica M 旁軸', en: 'Leica M rangefinder image rendering, discreet manual-focus camera feel, crisp microcontrast, restrained color response, compact optical immediacy', desc: '以旁軸相機的克制色彩、清楚微對比、手動對焦感與緊湊機身視覺反應為核心。', meta: { tags: ['rangefinder', 'compact_camera', 'micro_contrast'] } },
+  { id: 'ricoh-gr-snapshot', zh: '器材成像｜Ricoh GR 快拍', en: 'Ricoh GR compact-camera rendering, quick snapshot response, high-acutance detail, contrasty black levels, candid compact-camera texture', desc: '強調小型 APS-C 快拍機的即時反應、高銳利細節、偏硬黑位與輕微隨身相機質地。', meta: { tags: ['compact', 'snapshot', 'high_acutance'] } },
+  { id: 'fujifilm-x100', zh: '器材成像｜Fujifilm X100', en: 'Fujifilm X100 fixed-lens digital rendering, refined hybrid-viewfinder color, compact prime-lens clarity, balanced Fuji color response', desc: '以固定鏡頭 X100 系列的清楚定焦感、富士色彩反應與輕巧數位機身質地為主。', meta: { tags: ['fixed_lens', 'fuji_color', 'compact_camera'] } },
+  { id: 'sony-full-frame-mirrorless', zh: '器材成像｜Sony 全片幅無反', en: 'Sony full-frame mirrorless digital rendering, clean modern clarity, high dynamic range, precise autofocus sharpness, neutral flexible color response', desc: '強調現代全片幅無反的乾淨解析、高動態範圍、準確銳利與中性可塑的數位色彩。', meta: { tags: ['full_frame', 'mirrorless', 'clean_digital'] } },
+  { id: 'canon-nikon-dslr', zh: '器材成像｜Canon / Nikon DSLR', en: 'Canon or Nikon DSLR image rendering, classic optical-viewfinder camera character, stable digital color, firm contrast, reliable photographic clarity', desc: '保留傳統 DSLR 的穩定數位色彩、紮實對比、光學觀景器拍攝感與可靠清晰度。', meta: { tags: ['dslr', 'classic_digital'] } },
+  { id: 'digital-medium-format', zh: '器材成像｜中片幅數位', en: 'digital medium-format camera rendering, high-resolution tonal detail, broad dynamic range, smooth color depth, refined editorial clarity', desc: '以中片幅數位的高解析、寬動態範圍、平滑階調與細膩色深建立精緻成像。', meta: { tags: ['medium_format', 'detail_heavy', 'editorial'] } },
+  { id: 'drone-camera', zh: '器材成像｜空拍機小型感光元件', en: 'drone-camera digital capture profile, stabilized small-sensor clarity, deep-focus distant detail, crisp high-view digital rendering', desc: '保留空拍機小型感光元件的穩定、深焦、遠距細節清楚與偏數位銳利的捕捉質地。', meta: { tags: ['drone', 'aerial', 'deep_focus'] } },
+  { id: 'smartphone-documentary', zh: '器材成像｜手機紀實直出', en: 'smartphone documentary image rendering, computational camera sharpness, automatic exposure response, casual handheld immediacy, clean phone-camera texture', desc: '強調手機運算攝影的自動曝光、直接銳利、隨手感與乾淨但略帶運算味的直出質地。', meta: { tags: ['smartphone', 'documentary', 'computational'] } },
 ];
+const CAMERA_PROFILE_OPTION_IDS = new Set(CAMERA_SYSTEM_OPTIONS.filter((option) => option.id !== 'none').map((option) => option.id));
 const SCENE_ATTRIBUTE_OPTIONS = [
   { id: '', zh: '未指定', en: '' },
   { id: 'indoor', zh: '室內', en: 'indoor setting' },
@@ -670,7 +671,7 @@ const LOCK_DEFINITIONS = [
   { key: 'specialSubjectId', label: '特殊角色', options: SPECIAL_SUBJECT_OPTIONS, defaultValue: 'none', section: 'character' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
-  { key: 'cameraSystemId', label: '攝影器材', options: CAMERA_SYSTEM_OPTIONS, section: 'core' },
+  { key: 'cameraSystemId', label: '舊攝影器材', options: CAMERA_SYSTEM_OPTIONS, section: 'hidden' },
   { key: 'sceneAttributeId', label: '場景屬性', options: SCENE_ATTRIBUTE_OPTIONS, section: 'core' },
   { key: 'locationId', label: '場景', category: null, section: 'core' },
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
@@ -680,7 +681,7 @@ const LOCK_DEFINITIONS = [
   { key: 'opticalEffectId', label: '光學效果', category: OPTICAL_EFFECTS_CATEGORY, section: 'core' },
   { key: 'lightingId', label: '環境光條件', category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, section: 'core' },
   { key: 'lightDirectionId', label: '光線表現', category: LIGHT_STYLE_CATEGORY, section: 'core' },
-  { key: 'filmId', label: '成像風格', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
+  { key: 'filmId', label: '成像模擬', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
   { key: 'bodyTypeId', label: '體態', category: '體態 (Body Type)', section: 'character' },
   { key: 'facialFeaturesId', label: '五官特徵', category: '五官特徵 (Facial Features)', section: 'character' },
   { key: 'facialFeaturesAId', label: '人物 1 五官', category: '五官特徵 (Facial Features)', section: 'character' },
@@ -802,7 +803,6 @@ const LOCK_KEYS = new Set(LOCK_DEFINITIONS.map((definition) => definition.key));
 
 const PARTIAL_REROLL_OPTIONS = [
   { key: 'styleId', label: 'Style' },
-  { key: 'cameraSystemId', label: 'Camera System' },
   { key: 'sceneAttributeId', label: 'Scene Attribute' },
   { key: 'locationId', label: 'Location' },
   { key: 'framingId', label: 'Framing' },
@@ -812,7 +812,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'opticalEffectId', label: 'Optical Effect' },
   { key: 'lightingId', label: 'Ambient Light Conditions' },
   { key: 'lightDirectionId', label: 'Subject Light Style' },
-  { key: 'filmId', label: 'Film' },
+  { key: 'filmId', label: 'Imaging Simulation' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
   { key: 'bodyTypeId', label: 'Body Type' },
   { key: 'facialFeaturesId', label: 'Face' },
@@ -2036,7 +2036,7 @@ function buildCatalog(customLibrary = []) {
       lens: getByKey(catalog.camera, FOCAL_LENGTH_CATEGORY),
       lighting: getByKeys(catalog.camera, ENVIRONMENT_LIGHT_CATEGORIES),
       lightDirection: getByKey(catalog.camera, LIGHT_STYLE_CATEGORY),
-      film: getByKey(catalog.camera, '底片與相機模擬 (Camera & Film Simulation)'),
+      film: buildImagingSimulationOptions(getByKey(catalog.camera, '底片與相機模擬 (Camera & Film Simulation)')),
       effects: getByKey(catalog.camera, OPTICAL_EFFECTS_CATEGORY).length > 0 ? getByKey(catalog.camera, OPTICAL_EFFECTS_CATEGORY) : getByKey(catalog.camera, '特殊效果 (Special Effects)'),
       specialOutfits: getByKey(catalog.wardrobe, '特殊穿搭 (Special Outfits)'),
       outfitPresets: [
@@ -2080,6 +2080,10 @@ export function normalizeLocks(rawLocks = {}) {
   if (rawLocks?.subjectCount && SPECIAL_SUBJECT_OPTIONS.some((option) => option.id === rawLocks.subjectCount && !isNoneLikeItem(option))) {
     normalized.specialSubjectId = rawLocks.subjectCount;
     normalized.subjectCount = '1';
+  }
+
+  if (!normalized.filmId && normalized.cameraSystemId && CAMERA_PROFILE_OPTION_IDS.has(normalized.cameraSystemId)) {
+    normalized.filmId = normalized.cameraSystemId;
   }
 
   const legacyJewelry = Array.isArray(rawLocks?.jewelryIds)
@@ -3789,12 +3793,12 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const styleLabel = context.style && !isNoneLikeItem(context.style) ? context.style.zh : '-';
-  const cameraSystemLabel = context.cameraSystem && !isNoneLikeItem(context.cameraSystem) ? context.cameraSystem.zh : '-';
   const locationLabel = context.location && !isNoneLikeItem(context.location) ? context.location.zh : '-';
   const framingLabel = context.framing && !isNoneLikeItem(context.framing) ? context.framing.zh : '-';
   const angleLabel = context.angle && !isNoneLikeItem(context.angle) ? context.angle.zh : '-';
   const orbitLabel = context.orbit && !isNoneLikeItem(context.orbit) ? context.orbit.zh : '-';
   const lensLabel = context.lens && !isNoneLikeItem(context.lens) ? context.lens.zh : '-';
+  const filmLabel = context.film && !isNoneLikeItem(context.film) ? context.film.zh : '-';
   const aspectRatioLabel = context.aspectRatio?.zh || '-';
   const lightingLabel = context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.zh : '-';
   const lightDirectionLabel = context.lightDirection && !isNoneLikeItem(context.lightDirection) ? context.lightDirection.zh : '-';
@@ -3957,7 +3961,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       : summarizeSingleCharacter(),
     wardrobe: summarizeWardrobe(),
     location: locationLabel,
-    camera: joinSummaryParts(cameraSystemLabel, framingLabel, angleLabel, orbitLabel, lensLabel, opticalEffectLabel, aspectRatioLabel),
+    camera: joinSummaryParts(framingLabel, angleLabel, orbitLabel, lensLabel, opticalEffectLabel, filmLabel, aspectRatioLabel),
     lighting: joinSummaryParts(lightingLabel, lightDirectionLabel),
   };
 }
@@ -3984,6 +3988,19 @@ function isNoneLikeItem(item) {
     en.includes('bare legs') ||
     en === 'none'
   );
+}
+
+function buildImagingSimulationOptions(filmOptions = []) {
+  const noneOption = filmOptions.find((item) => isNoneLikeItem(item)) || CAMERA_SYSTEM_OPTIONS.find((item) => isNoneLikeItem(item));
+  const cameraProfiles = CAMERA_SYSTEM_OPTIONS.filter((item) => !isNoneLikeItem(item));
+  const renderingProfiles = filmOptions.filter((item) => !isNoneLikeItem(item));
+
+  return [noneOption, ...cameraProfiles, ...renderingProfiles].filter(Boolean);
+}
+
+function getLegacyCameraSystemFromImaging(imagingSimulation) {
+  if (!imagingSimulation || !CAMERA_PROFILE_OPTION_IDS.has(imagingSimulation.id)) return null;
+  return CAMERA_SYSTEM_OPTIONS.find((item) => item.id === imagingSimulation.id) || null;
 }
 
 const STYLE_PROMPT_INTROS = {
@@ -5481,17 +5498,16 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
   }
   addLine('Aspect Ratio', context.aspectRatio.en);
-  addContextLine('Camera System', context.cameraSystem, (item) => skeletonText(item.en));
-  addContextLine('Film', film, (item) => skeletonText(item.en));
+  if (context.style && !isNoneLikeItem(context.style)) {
+    addLine('Photography Style', skeletonText(buildPhotographyStylePrompt(context.style)));
+  }
+  addLine('Framing', buildGrokFramingText());
+  addLine('Composition Priority', buildGrokCompositionPriorityText());
   addContextLine('Angle', context.angle, (item) => skeletonText(resolvePromptVariant(item, 'angle', context.subject.count)));
   addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(resolvePromptVariant(item, 'orbit', context.subject.count)));
   addContextLine('Lens', context.lens);
   addContextLine('Optical Effect', context.opticalEffect, (item) => skeletonText(item.en));
-  addLine('Framing', buildGrokFramingText());
-  addLine('Composition Priority', buildGrokCompositionPriorityText());
-  if (context.style && !isNoneLikeItem(context.style)) {
-    addLine('Photography Style', skeletonText(buildPhotographyStylePrompt(context.style)));
-  }
+  addContextLine('Imaging Simulation', film, (item) => skeletonText(item.en));
   if (!specialSubjectMode && !useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
 
   return lines.join('\n');
@@ -5765,7 +5781,6 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     return leadSentence('The setting is', sceneParts);
   };
   const buildCameraText = () => leadSentence('The composition uses', [
-    context.cameraSystem && !isNoneLikeItem(context.cameraSystem) ? (skeletonMode ? sanitizeSkeletonPromptText(context.cameraSystem.en) : context.cameraSystem.en) : '',
     context.framing ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : resolvePromptVariant(context.framing, 'framing', context.subject.count)) : '',
     context.angle ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
     context.orbit ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
@@ -5773,8 +5788,10 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     skeletonMode ? sanitizeSkeletonPromptText(opticalEffect?.en) : opticalEffect?.en,
     context.aspectRatio.en ? `aspect ratio ${context.aspectRatio.en}` : '',
   ]);
-  const buildStyleText = () => joinSentenceParts([
+  const buildPhotographyStyleText = () => joinSentenceParts([
     context.style && !isNoneLikeItem(context.style) ? (skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : buildPhotographyStylePrompt(context.style)) : '',
+  ]);
+  const buildRenderingText = () => joinSentenceParts([
     skeletonMode ? sanitizeSkeletonPromptText(film?.en) : film?.en,
     skeletonMode
       ? 'natural photographic detail, coherent anatomical structure, clear skeletal structure readability, realistic spatial depth'
@@ -5789,8 +5806,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     sceneProtectedWardrobeMode ? buildSceneText() : '',
     buildWardrobeText(),
     sceneProtectedWardrobeMode ? '' : buildSceneText(),
+    buildPhotographyStyleText(),
     buildCameraText(),
-    buildStyleText(),
+    buildRenderingText(),
   ].filter(Boolean).join(' ');
 }
 
@@ -5860,7 +5878,6 @@ const AI_PROMPT_SECTION_LABELS = {
   ]),
   camera: new Set([
     'Aspect Ratio',
-    'Camera System',
     'Angle',
     'Orbit Angle',
     'Lens',
@@ -5875,6 +5892,7 @@ const AI_PROMPT_SECTION_LABELS = {
   ]),
   atmosphere: new Set([
     'Film',
+    'Imaging Simulation',
     'Photography Style',
   ]),
 };
@@ -6210,7 +6228,6 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     (item) => locationMatchesSceneAttribute(item, sceneAttribute)
   );
   const style = pickWithLock(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
-  const cameraSystem = pickWithLock(CAMERA_SYSTEM_OPTIONS, effectiveLocks.cameraSystemId);
   const lockedSpecialAction = !specialSubject && effectiveLocks.specialActionId
     ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
     : null;
@@ -6248,7 +6265,9 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const lightDirection = !lighting
     ? null
     : pickWithCompatibleLock(runtime.flatCatalog.lightDirection, effectiveLocks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
-  const film = pickWithLock(runtime.flatCatalog.film, effectiveLocks.filmId, () => true, lowFrequencyPicker('low_frequency_film'));
+  const imagingLockId = effectiveLocks.filmId || (CAMERA_PROFILE_OPTION_IDS.has(effectiveLocks.cameraSystemId) ? effectiveLocks.cameraSystemId : '');
+  const film = pickWithLock(runtime.flatCatalog.film, imagingLockId, () => true, lowFrequencyPicker('low_frequency_film'));
+  const cameraSystem = getLegacyCameraSystemFromImaging(film);
   const opticalEffect = pickWithLock(runtime.flatCatalog.effects, effectiveLocks.opticalEffectId);
   const duoInteraction = subject.count === 2 ? getDuoInteractionOption(effectiveLocks.duoInteractionId) || sampleNonNone(DUO_INTERACTION_OPTIONS) : null;
 
@@ -6264,6 +6283,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     orbit,
     lens,
     opticalEffect,
+    film,
     lighting,
     lightDirection,
     locks: effectiveLocks,
@@ -6292,9 +6312,9 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
       Character: character,
       Wardrobe: wardrobe,
       Location: [location],
-      Framing: [framing, angle, orbit, lens].filter(Boolean),
+      Framing: [framing, angle, orbit].filter(Boolean),
       Lighting: [lighting, lightDirection].filter(Boolean),
-      'Camera & Film': [cameraSystem, film, opticalEffect].filter(Boolean),
+      'Lens & Imaging': [lens, opticalEffect, film].filter(Boolean),
     },
   };
 }
