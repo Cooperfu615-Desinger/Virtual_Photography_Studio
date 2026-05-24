@@ -1317,6 +1317,16 @@ function inferLightingMeta(category, item) {
     }
   }
 
+  if (isEnvironmentCategory && !isNoneLikeItem(item)) {
+    if (/(攝影棚|舞台)/.test(item.zh || '')) {
+      tags.push('ambient_studio', 'ambient_indoor');
+    } else if (String(item.zh || '').startsWith('室內')) {
+      tags.push('ambient_indoor');
+    } else {
+      tags.push('ambient_outdoor');
+    }
+  }
+
   if (isLightStyleCategory) {
     if (hasAny(haystack, ['柔和順光', 'soft frontal key light'])) {
       tags.push('soft_light', 'portrait_light', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
@@ -1346,13 +1356,13 @@ function inferLightingMeta(category, item) {
       tags.push('soft_light', 'diffused', 'mist', 'supports_indoor', 'supports_outdoor');
     }
     if (hasAny(haystack, ['硬質晴光', 'hard direct sunlight'])) {
-      tags.push('sunlight', 'harsh', 'supports_outdoor', 'supports_urban', 'supports_natural');
+      tags.push('sunlight', 'harsh', 'hard_direct_sun', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
     if (hasAny(haystack, ['低光高反差', 'low-key subject lighting'])) {
-      tags.push('dark', 'dramatic', 'artificial_light', 'supports_indoor', 'supports_outdoor', 'supports_studio');
+      tags.push('dark', 'dramatic', 'artificial_light', 'low_key_subject', 'supports_indoor', 'supports_outdoor', 'supports_studio');
     }
     if (hasAny(haystack, ['高調亮光', 'high-key subject lighting'])) {
-      tags.push('soft_light', 'studio_light', 'controlled', 'supports_indoor', 'supports_outdoor', 'supports_studio');
+      tags.push('soft_light', 'studio_light', 'controlled', 'high_key_subject', 'supports_indoor', 'supports_outdoor', 'supports_studio');
     }
     if (hasAny(haystack, ['暖金黃昏色溫', 'warm golden-amber subject light color'])) {
       tags.push('soft_light', 'warm', 'color_temperature', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
@@ -1364,25 +1374,25 @@ function inferLightingMeta(category, item) {
       tags.push('soft_light', 'warm', 'color_temperature', 'indoor', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_studio');
     }
     if (hasAny(haystack, ['冷藍夜色光', 'cool blue night-toned subject light'])) {
-      tags.push('cool', 'dark', 'color_temperature', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_subterranean');
+      tags.push('cool', 'dark', 'color_temperature', 'night_subject', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_subterranean');
     }
     if (hasAny(haystack, ['混合色溫光', 'mixed warm and cool subject lighting'])) {
       tags.push('artificial_light', 'mixed_color', 'supports_indoor', 'supports_outdoor', 'supports_commercial', 'supports_urban', 'supports_subterranean');
     }
     if (hasAny(haystack, ['霓虹染色光', 'neon color spill'])) {
-      tags.push('artificial_light', 'neon', 'supports_indoor', 'supports_outdoor', 'supports_commercial', 'supports_urban', 'supports_subterranean');
+      tags.push('artificial_light', 'neon', 'neon_subject', 'supports_indoor', 'supports_outdoor', 'supports_commercial', 'supports_urban', 'supports_subterranean');
     }
     if (hasAny(haystack, ['窗格投影光', 'window-frame pattern light'])) {
-      tags.push('window_light', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+      tags.push('window_light', 'window_projection', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
     if (hasAny(haystack, ['百葉窗條紋投影光', 'window-blind stripe light'])) {
-      tags.push('window_light', 'portrait_light', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+      tags.push('window_light', 'portrait_light', 'window_projection', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
     if (hasAny(haystack, ['冷調窗邊輪廓光', 'cool window-side rim light'])) {
       tags.push('backlight', 'portrait_light', 'cool', 'indoor', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
     if (hasAny(haystack, ['斑駁樹影光', 'dappled leaf-shadow light'])) {
-      tags.push('natural_light', 'sunlight', 'supports_outdoor', 'supports_natural', 'supports_urban');
+      tags.push('natural_light', 'sunlight', 'dappled_subject_light', 'supports_outdoor', 'supports_natural', 'supports_urban');
     }
     if (hasAny(haystack, ['潮濕反射光', 'wet-surface reflected fill light'])) {
       tags.push('reflective', 'wet_surface', 'outdoor_only', 'supports_outdoor', 'supports_urban');
@@ -1391,7 +1401,7 @@ function inferLightingMeta(category, item) {
       tags.push('artificial_light', 'warm', 'supports_indoor', 'supports_hospitality', 'supports_residential', 'supports_commercial');
     }
     if (hasAny(haystack, ['深夜邊緣微光', 'minimal nocturnal rim light'])) {
-      tags.push('backlight', 'dark', 'cool', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_subterranean');
+      tags.push('backlight', 'dark', 'cool', 'night_subject', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_subterranean');
     }
   }
 
@@ -2384,6 +2394,10 @@ function locationMatchesSceneAttribute(location, sceneAttribute) {
 
 function getLightingEnvironmentFlags(lighting) {
   const tags = new Set(lighting?.meta?.tags || []);
+  if (tags.has('ambient_outdoor')) return { indoor: false, outdoor: true, studio: false };
+  if (tags.has('ambient_studio')) return { indoor: true, outdoor: false, studio: true };
+  if (tags.has('ambient_indoor')) return { indoor: true, outdoor: false, studio: false };
+
   const explicitlyIndoor = hasAnyTag(tags, [
     'indoor',
     'supports_indoor',
@@ -2411,7 +2425,7 @@ function getLightingEnvironmentFlags(lighting) {
     'night_ambient',
   ]));
 
-  return { indoor, outdoor };
+  return { indoor, outdoor, studio: tags.has('studio_light') || tags.has('stage_light') };
 }
 
 function getLightDirectionEnvironmentFlags(lightDirection) {
@@ -2481,6 +2495,12 @@ function locationSupportsLighting(location, lighting) {
   if ((locTags.has('underground') || locTags.has('subterranean')) && !lightTags.has('indoor') && (lightTags.has('day') || lightTags.has('sunlight') || lightTags.has('clean_sky') || lightTags.has('cloudy') || lightTags.has('dusk') || lightTags.has('night_ambient'))) {
     return false;
   }
+  if (lightTags.has('ambient_outdoor') && locationEnvironment.indoor && !locationEnvironment.outdoor) {
+    return false;
+  }
+  if ((lightTags.has('ambient_indoor') || lightTags.has('ambient_studio')) && locationEnvironment.outdoor && !locationEnvironment.indoor) {
+    return false;
+  }
   if (locationEnvironment.indoor && !locationEnvironment.outdoor && !lightTags.has('indoor') && (lightTags.has('day') || lightTags.has('sunlight') || lightTags.has('clean_sky') || lightTags.has('cloudy') || lightTags.has('dusk') || lightTags.has('night_ambient'))) {
     return false;
   }
@@ -2512,12 +2532,54 @@ function locationSupportsLighting(location, lighting) {
   return true;
 }
 
+function lightDirectionSupportsAmbientLight(lightDirection, lighting) {
+  if (!lighting || isNoneLikeItem(lighting) || !lightDirection || isNoneLikeItem(lightDirection)) return true;
+
+  const directionTags = new Set(lightDirection.meta.tags);
+  const lightingTags = new Set(lighting?.meta?.tags || []);
+  const ambientIsOutdoor = lightingTags.has('ambient_outdoor');
+  const ambientIsIndoor = lightingTags.has('ambient_indoor');
+  const ambientIsStudio = lightingTags.has('ambient_studio') || lightingTags.has('studio_light') || lightingTags.has('stage_light');
+  const ambientIsWetOrCloudy = hasAnyTag(lightingTags, ['rain', 'cloudy', 'mist', 'pre_rain_sky']);
+  const ambientIsDarkOrNight = hasAnyTag(lightingTags, ['dark', 'night_ambient']);
+  const ambientIsDaySun = hasAnyTag(lightingTags, ['day', 'sunlight', 'clean_sky', 'summer_sky']);
+
+  if (ambientIsWetOrCloudy && directionTags.has('sunlight')) return false;
+  if (ambientIsDarkOrNight && directionTags.has('hard_direct_sun')) return false;
+  if (ambientIsDarkOrNight && directionTags.has('high_key_subject') && !ambientIsStudio) return false;
+  if (ambientIsDarkOrNight && directionTags.has('window_projection')) return false;
+  if (ambientIsDaySun && ambientIsOutdoor && directionTags.has('night_subject')) return false;
+
+  if (ambientIsStudio && (
+    directionTags.has('natural_light') ||
+    directionTags.has('sunlight') ||
+    directionTags.has('window_light') ||
+    directionTags.has('outdoor_only') ||
+    directionTags.has('wet_surface') ||
+    directionTags.has('dappled_subject_light')
+  )) {
+    return false;
+  }
+
+  if (ambientIsOutdoor && directionTags.has('window_light')) return false;
+  if (ambientIsIndoor && !ambientIsStudio && directionTags.has('outdoor_only')) return false;
+  if (lightingTags.has('window_light') && directionTags.has('sunlight')) return false;
+  if (lightingTags.has('window_light') && directionTags.has('neon_subject')) return false;
+  if (lightingTags.has('neon') && directionTags.has('window_light')) return false;
+  if (lightingTags.has('stage_light') && !directionTags.has('artificial_light') && !directionTags.has('dark') && !directionTags.has('overhead') && !directionTags.has('backlight')) return false;
+
+  return true;
+}
+
 function lightDirectionSupportsScene(lightDirection, framing, location, lighting) {
   const directionTags = new Set(lightDirection.meta.tags);
-  const locationTags = new Set(location.meta.tags);
+  const locationTags = new Set(location?.meta?.tags || []);
   const lightingTags = new Set(lighting?.meta?.tags || []);
-  const locationEnvironment = getLocationEnvironmentFlags(location);
+  const locationEnvironment = location ? getLocationEnvironmentFlags(location) : { indoor: false, outdoor: false };
   const directionEnvironment = getLightDirectionEnvironmentFlags(lightDirection);
+
+  if (!lightDirectionSupportsAmbientLight(lightDirection, lighting)) return false;
+  if (!location) return true;
 
   if (directionTags.has('portrait_light') && !visibilityAtLeast(framing.meta.visibility, 'medium')) return false;
   if (directionTags.has('outdoor_only') && locationEnvironment.indoor && !locationEnvironment.outdoor) return false;
@@ -2561,7 +2623,7 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
   const lightDirectionOptions = runtime.flatCatalog.lightDirection.filter((item) => {
     if (item.zh === '全無') return true;
     if (!lightDirectionMatchesSceneAttribute(item, sceneAttribute)) return false;
-    return location ? lightDirectionSupportsScene(item, framing, location, lightingForDirection) : true;
+    return lightDirectionSupportsScene(item, framing, location, lightingForDirection);
   });
 
   return { locationOptions, lightingOptions, lightDirectionOptions };
@@ -3720,6 +3782,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const lensLabel = context.lens && !isNoneLikeItem(context.lens) ? context.lens.zh : '-';
   const aspectRatioLabel = context.aspectRatio?.zh || '-';
   const lightingLabel = context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.zh : '-';
+  const lightDirectionLabel = context.lightDirection && !isNoneLikeItem(context.lightDirection) ? context.lightDirection.zh : '-';
   const opticalEffectLabel = context.opticalEffect && !isNoneLikeItem(context.opticalEffect) ? context.opticalEffect.zh : '-';
   const formatPresetSummary = (preset, primaryColor) => {
     if (!preset) return '';
@@ -3879,8 +3942,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       : summarizeSingleCharacter(),
     wardrobe: summarizeWardrobe(),
     location: locationLabel,
-    camera: joinSummaryParts(cameraSystemLabel, framingLabel, angleLabel, orbitLabel, lensLabel, aspectRatioLabel),
-    lighting: joinSummaryParts(lightingLabel, opticalEffectLabel),
+    camera: joinSummaryParts(cameraSystemLabel, framingLabel, angleLabel, orbitLabel, lensLabel, opticalEffectLabel, aspectRatioLabel),
+    lighting: joinSummaryParts(lightingLabel, lightDirectionLabel),
   };
 }
 
@@ -6181,6 +6244,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     lens,
     opticalEffect,
     lighting,
+    lightDirection,
     locks: effectiveLocks,
     duoInteraction,
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
