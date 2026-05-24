@@ -161,6 +161,53 @@ test('generic shoe colors do not conflict with fixed color wording', () => {
   assert.doesNotMatch(prompt.zImagePrompt, /black glossy pointed-toe/);
 });
 
+test('single-subject eyewear earrings and neck accessories are bound to the subject description', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    eyewearId: optionId('eyewearId', '復古圓框眼鏡'),
+    earringsId: optionId('earringsId', '珍珠耳釘'),
+    neckAccessoryId: optionId('neckAccessoryId', '金屬細頸圈'),
+  });
+
+  const subjectLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Subject Count:'));
+  assert.ok(subjectLine);
+  assert.match(subjectLine, /with .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
+  assert.doesNotMatch(prompt.grokPrompt, /^Eyewear:/m);
+  assert.doesNotMatch(prompt.grokPrompt, /^Earrings:/m);
+  assert.doesNotMatch(prompt.grokPrompt, /^Neck Accessory:/m);
+
+  assert.match(prompt.zImagePrompt, /with .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
+});
+
+test('duo eyewear earrings and neck accessories stay grouped by person in the subject description', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    eyewearAId: optionId('eyewearAId', '黑框眼鏡'),
+    earringsAId: optionId('earringsAId', '小型金屬耳環'),
+    neckAccessoryAId: optionId('neckAccessoryAId', '街頭風格金項鏈'),
+    eyewearBId: optionId('eyewearBId', '太陽眼鏡'),
+    earringsBId: optionId('earringsBId', '十字垂墜耳環'),
+    neckAccessoryBId: optionId('neckAccessoryBId', '皮質扣環頸鏈'),
+  });
+
+  const subjectLine = prompt.grokPrompt
+    .split('\n')
+    .find((line) => line.startsWith('Subject Count:') || line.startsWith('Duo Scene Anchor:'));
+  assert.ok(subjectLine);
+  assert.match(subjectLine, /woman 1 with .*black-rimmed glasses.*metallic earrings?.*gold chain/i);
+  assert.match(subjectLine, /woman 2 with .*sunglasses.*cross.*earrings?.*leather buckle choker/i);
+  assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Eyewear:/m);
+  assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Earrings:/m);
+  assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Neck Accessory:/m);
+  assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Eyewear:/m);
+  assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Earrings:/m);
+  assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Neck Accessory:/m);
+
+  assert.match(prompt.zImagePrompt, /woman 1 with .*black-rimmed glasses.*metallic earrings?.*gold chain/i);
+  assert.match(prompt.zImagePrompt, /woman 2 with .*sunglasses.*cross.*earrings?.*leather buckle choker/i);
+});
+
 test('special top and bottom palette controls include the new color-card pairings', () => {
   const controls = getLockControls();
   const paletteControl = controls.find((control) => control.key === 'topBottomPaletteId');

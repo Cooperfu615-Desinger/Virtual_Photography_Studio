@@ -4523,7 +4523,6 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors) {
   }
   const buildSharedAddonText = () => joinParts([
     buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors),
-    buildAccessoryPrompt(wardrobeSlots.neckAccessory),
     buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor),
     buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor),
   ]);
@@ -4531,7 +4530,6 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors) {
     const suffix = role === 'a' ? 'A' : 'B';
     return joinParts([
       buildRoleOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors, role),
-      buildAccessoryPrompt(wardrobeSlots[`neckAccessory${suffix}`]),
       buildColoredGrokPrompt(wardrobeSlots[`legwear${suffix}`], wardrobeColors[`legwear${suffix}Color`]),
       buildColoredGrokPrompt(wardrobeSlots[`shoes${suffix}`], wardrobeColors[`shoes${suffix}Color`]),
     ]);
@@ -4662,12 +4660,11 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors) {
     buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors)
   );
   const outerwearText = normalizeWearable(buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-  const neckText = normalizeWearable(buildAccessoryPrompt(wardrobeSlots.neckAccessory));
   const legwearText = normalizeWearable(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
   const shoesText = normalizeWearable(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   const sharedParts = dressText
-    ? [outerwearText, dressText, neckText, legwearText, shoesText]
-    : [outerwearText, topText, neckText, pantsText, skirtText, legwearText, shoesText];
+    ? [outerwearText, dressText, legwearText, shoesText]
+    : [outerwearText, topText, pantsText, skirtText, legwearText, shoesText];
   const sharedText = joinParts(sharedParts);
   const roleAAddonText = buildRoleAddonText('a');
   const roleBAddonText = buildRoleAddonText('b');
@@ -4688,7 +4685,12 @@ function buildDuoSceneAnchorText(context, wardrobeSlots, wardrobeColors) {
   if (context.subject.count !== 2) return '';
   const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors);
   if (!duoWardrobeText.clothingText) return '';
-  const subjectText = stripMarkdown(context.subject.en || 'two women').replace(/\s+/g, ' ').trim();
+  const subjectBaseText = stripMarkdown(context.subject.en || 'two women').replace(/\s+/g, ' ').trim();
+  const roleAccessoryText = [
+    buildRoleSubjectAccessoryPrompt(wardrobeSlots, 'a'),
+    buildRoleSubjectAccessoryPrompt(wardrobeSlots, 'b'),
+  ].filter(Boolean).join(', ');
+  const subjectText = roleAccessoryText ? `${subjectBaseText}, ${roleAccessoryText}` : subjectBaseText;
   const sceneAccentText = buildContextualSceneAccent(context);
   const locationText = context.location && !isNoneLikeItem(context.location)
     ? stripMarkdown(context.location.en).replace(/\s+/g, ' ').trim()
@@ -4876,6 +4878,42 @@ function buildHairColorPrompt(item) {
 function buildAccessoryPrompt(item) {
   if (!item || isNoneLikeItem(item)) return '';
   return stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
+}
+
+function cleanSubjectAccessoryPrompt(item) {
+  return buildAccessoryPrompt(item)
+    .replace(/^wearing\s+/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function buildSubjectAccessoryPrompt({ eyewear, earrings, neckAccessory } = {}) {
+  const parts = [
+    cleanSubjectAccessoryPrompt(eyewear),
+    cleanSubjectAccessoryPrompt(earrings),
+    cleanSubjectAccessoryPrompt(neckAccessory),
+  ].filter(Boolean);
+
+  return parts.length > 0 ? `with ${joinNaturalList(parts)}` : '';
+}
+
+function appendSubjectAccessories(subjectText, accessoryText) {
+  const cleanedSubject = stripMarkdown(subjectText || '').replace(/\s+/g, ' ').trim();
+  if (!cleanedSubject) return accessoryText || '';
+  if (!accessoryText) return cleanedSubject;
+  const separator = /^woman\s+\d\b/i.test(accessoryText) ? ', ' : ' ';
+  return `${cleanedSubject}${separator}${accessoryText}`;
+}
+
+function buildRoleSubjectAccessoryPrompt(wardrobeSlots, role) {
+  const suffix = role === 'a' ? 'A' : 'B';
+  const accessoryText = buildSubjectAccessoryPrompt({
+    eyewear: wardrobeSlots[`eyewear${suffix}`],
+    earrings: wardrobeSlots[`earrings${suffix}`],
+    neckAccessory: wardrobeSlots[`neckAccessory${suffix}`],
+  });
+
+  return accessoryText ? `woman ${role === 'a' ? '1' : '2'} ${accessoryText}` : '';
 }
 
 function buildFacialFeaturesPrompt(faceItem, { eyewear, earrings } = {}) {
@@ -5149,6 +5187,25 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
       || wardrobeSlots.outfitPresetA
       || wardrobeSlots.outfitPresetB
     );
+  const buildGrokSubjectText = () => {
+    const baseSubjectText = useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en;
+    if (specialSubjectMode) return baseSubjectText;
+
+    if (context.subject.count === 2) {
+      const roleAccessoryText = [
+        buildRoleSubjectAccessoryPrompt(wardrobeSlots, 'a'),
+        buildRoleSubjectAccessoryPrompt(wardrobeSlots, 'b'),
+      ].filter(Boolean).join(', ');
+
+      return roleAccessoryText ? `${baseSubjectText}, ${roleAccessoryText}` : baseSubjectText;
+    }
+
+    return appendSubjectAccessories(baseSubjectText, buildSubjectAccessoryPrompt({
+      eyewear: wardrobeSlots.eyewear,
+      earrings: wardrobeSlots.earrings,
+      neckAccessory: wardrobeSlots.neckAccessory,
+    }));
+  };
   const lines = [];
   const addLine = (label, value) => {
     if (!value) return;
@@ -5229,22 +5286,16 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
 
   addLine('Duo Scene Anchor', duoSceneAnchorText);
   if (!hasDuoSceneAnchor) {
-    addLine('Subject Count', useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en);
+    addLine('Subject Count', buildGrokSubjectText());
   }
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
   }
   if (!hasDuoSceneAnchor && !specialSubjectMode) addItemLine('Body Type', characterSlots.bodyType);
   if (!specialSubjectMode && context.subject.count === 2) {
-    addLine('Woman 1 Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewearA));
-    addLine('Woman 1 Earrings', buildAccessoryPrompt(wardrobeSlots.earringsA));
     addLine('Woman 1 Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessoryA));
-    addLine('Woman 2 Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewearB));
-    addLine('Woman 2 Earrings', buildAccessoryPrompt(wardrobeSlots.earringsB));
     addLine('Woman 2 Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessoryB));
   } else if (!specialSubjectMode) {
-    addLine('Eyewear', buildAccessoryPrompt(wardrobeSlots.eyewear));
-    addLine('Earrings', buildAccessoryPrompt(wardrobeSlots.earrings));
     addLine('Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessory));
   }
   if (sceneProtectedWardrobeMode) addGrokSceneLines();
@@ -5270,8 +5321,6 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
       contrast: wardrobeColors.outfitPresetBContrastColor,
       lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
     }));
-    addLine('Woman 1 Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessoryA));
-    addLine('Woman 2 Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessoryB));
   } else if (wardrobeSlots.outfitPreset && !hasDuoSceneAnchor) {
     addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
     addLine('Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
@@ -5280,7 +5329,6 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
       contrast: wardrobeColors.outfitPresetContrastColor,
       lockedPalette: wardrobeColors.outfitPresetLockedPalette,
     }));
-    addLine('Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessory));
   }
   if (!specialSubjectMode && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && !wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
     const topText = buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
@@ -5290,14 +5338,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
     addLine('Dress', dressText);
     addLine('Top', dressText ? '' : topText);
-    addLine('Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessory));
     addLine('Pants', dressText ? '' : pantsText);
     addLine('Skirt', dressText ? '' : skirtText);
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
   if (!specialSubjectMode && !hasDuoSceneAnchor && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
-    addLine('Neck Accessory', buildAccessoryPrompt(wardrobeSlots.neckAccessory));
     addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
     addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
   }
@@ -5412,8 +5458,27 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       return leadSentence('The image shows', parts);
     }
 
+    const subjectAccessoryText = context.subject.count === 2
+      ? [
+          buildRoleSubjectAccessoryPrompt(wardrobeSlots, 'a'),
+          buildRoleSubjectAccessoryPrompt(wardrobeSlots, 'b'),
+        ].filter(Boolean).join(', ')
+      : buildSubjectAccessoryPrompt({
+          eyewear: wardrobeSlots.eyewear,
+          earrings: wardrobeSlots.earrings,
+          neckAccessory: wardrobeSlots.neckAccessory,
+        });
+    const headAccessoryText = context.subject.count === 2
+      ? [
+          buildAccessoryPrompt(wardrobeSlots.headAccessoryA) ? `woman 1 wearing ${cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessoryA)}` : '',
+          buildAccessoryPrompt(wardrobeSlots.headAccessoryB) ? `woman 2 wearing ${cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessoryB)}` : '',
+        ].filter(Boolean).join(', ')
+      : cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessory);
     const parts = [
-      useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en,
+      appendSubjectAccessories(
+        useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en,
+        subjectAccessoryText
+      ),
       characterSlots.bodyType?.en,
       context.subject.count === 2
         ? [
@@ -5436,20 +5501,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
             characterSlots.hairstyle && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.en : '',
             characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
           ].filter(Boolean).join(', '),
-      context.subject.count === 2
-        ? [
-            buildAccessoryPrompt(wardrobeSlots.eyewearA) ? `woman 1 wearing ${buildAccessoryPrompt(wardrobeSlots.eyewearA).replace(/^wearing\s+/i, '')}` : '',
-            buildAccessoryPrompt(wardrobeSlots.earringsA) ? `woman 1 wearing ${buildAccessoryPrompt(wardrobeSlots.earringsA).replace(/^wearing\s+/i, '')}` : '',
-            buildAccessoryPrompt(wardrobeSlots.headAccessoryA) ? `woman 1 wearing ${buildAccessoryPrompt(wardrobeSlots.headAccessoryA).replace(/^wearing\s+/i, '')}` : '',
-            buildAccessoryPrompt(wardrobeSlots.eyewearB) ? `woman 2 wearing ${buildAccessoryPrompt(wardrobeSlots.eyewearB).replace(/^wearing\s+/i, '')}` : '',
-            buildAccessoryPrompt(wardrobeSlots.earringsB) ? `woman 2 wearing ${buildAccessoryPrompt(wardrobeSlots.earringsB).replace(/^wearing\s+/i, '')}` : '',
-            buildAccessoryPrompt(wardrobeSlots.headAccessoryB) ? `woman 2 wearing ${buildAccessoryPrompt(wardrobeSlots.headAccessoryB).replace(/^wearing\s+/i, '')}` : '',
-          ].filter(Boolean).join(', ')
-        : [
-            buildAccessoryPrompt(wardrobeSlots.eyewear),
-            buildAccessoryPrompt(wardrobeSlots.earrings),
-            buildAccessoryPrompt(wardrobeSlots.headAccessory),
-          ].filter(Boolean).join(', '),
+      headAccessoryText,
       !useCharacterIdentityAnchor ? characterSlots.skinDetails?.en : '',
       context.subject.count === 2
         ? [buildRoleExpressionPrompt(characterSlots.expressionA, 'woman 1'), buildRoleExpressionPrompt(characterSlots.expressionB, 'woman 2')].filter(Boolean).join(', ')
@@ -5468,7 +5520,6 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     const add = (value) => {
       if (value) parts.push(value);
     };
-    const cleanWearablePrefix = (value) => String(value || '').replace(/^wearing\s+/i, '').trim();
     const buildSingleOutfitPresetText = () => buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
       legacy: wardrobeColors.outfitPresetColor,
       primary: wardrobeColors.outfitPresetPrimaryColor,
@@ -5493,7 +5544,6 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       const suffix = role === 'a' ? 'A' : 'B';
       return [
         buildRoleOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors, role),
-        buildAccessoryPrompt(wardrobeSlots[`neckAccessory${suffix}`]),
         buildColoredGrokPrompt(wardrobeSlots[`legwear${suffix}`], wardrobeColors[`legwear${suffix}Color`]),
         buildColoredGrokPrompt(wardrobeSlots[`shoes${suffix}`], wardrobeColors[`shoes${suffix}Color`]),
       ].filter(Boolean).join(', ');
@@ -5552,13 +5602,11 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       add(buildRoleLayerText('a') ? `woman 1 additional styling includes ${buildRoleLayerText('a')}` : '');
       add(buildRoleLayerText('b') ? `woman 2 additional styling includes ${buildRoleLayerText('b')}` : '');
       add(buildSingleOuterwearText());
-      add(buildAccessoryPrompt(wardrobeSlots.neckAccessory));
       add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
       add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
     } else if (wardrobeSlots.outfitPreset) {
       const outfitPresetText = buildSingleOutfitPresetText();
       const outerwearText = buildSingleOuterwearText({ minimalStyling: true });
-      const neckAccessoryText = cleanWearablePrefix(buildAccessoryPrompt(wardrobeSlots.neckAccessory));
       const legwearText = buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor);
       const shoesText = buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor);
 
@@ -5567,7 +5615,6 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       } else {
         add(`She wears ${outfitPresetText}`);
       }
-      if (neckAccessoryText) add(`with ${neckAccessoryText}`);
       if (legwearText) add(`paired with ${legwearText}`);
       if (shoesText) add(`paired with ${shoesText}`);
     } else {
@@ -5599,7 +5646,6 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         add(buildSingleOuterwearText());
       }
       add(mainWardrobeText);
-      add(buildAccessoryPrompt(wardrobeSlots.neckAccessory));
       if (!dressText) {
         add(buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors));
         add(buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors));

@@ -32,6 +32,7 @@ test('Z-Image keeps outerwear secondary when layered over an outfit preset', () 
     outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '粉紅色'),
     outerwearId: optionId('outerwearId', '運動連帽外套'),
     outerwearColorId: optionId('outerwearColorId', '白色'),
+    outerwearStylingId: optionId('outerwearStylingId', '正常穿著'),
     shoesId: optionId('shoesId', '尖頭細跟高跟鞋'),
     shoesColorId: optionId('shoesColorId', '黑色'),
   });
