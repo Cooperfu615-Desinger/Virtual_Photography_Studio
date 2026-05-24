@@ -1873,10 +1873,20 @@ function inferEffectMeta(_category, item) {
   const haystack = toHaystack(item.zh, item.en, item.desc);
   const tags = [];
 
+  if (hasAny(haystack, ['shallow depth of field', 'focus plane', 'focus falloff', '景深', '焦平面'])) tags.push('depth_of_field');
+  if (hasAny(haystack, ['foreground occlusion', 'foreground obstruction', 'near-field bokeh', '前景遮擋'])) tags.push('foreground_occlusion', 'depth_layering');
+  if (hasAny(haystack, ['lens flare', 'veiling flare', 'ghosting', 'internal lens reflections', '鏡頭光斑'])) tags.push('light_artifact', 'flare_artifact');
+  if (hasAny(haystack, ['anamorphic lens flare', 'cylindrical lens', 'horizontal flare', '變形鏡頭光斑'])) tags.push('light_artifact', 'anamorphic_artifact');
+  if (hasAny(haystack, ['light leak', 'film-gate leaks', 'exposure burns', '漏光'])) tags.push('analog_artifact', 'light_leak');
+  if (hasAny(haystack, ['soft focus', 'diffusion filter', 'lowered microcontrast', '柔焦'])) tags.push('soft_focus', 'diffusion_filter');
+  if (hasAny(haystack, ['highlight bloom', 'halation', 'luminance bleeding', '霧化高光'])) tags.push('bloom', 'halation');
+  if (hasAny(haystack, ['vignette', 'vignetting', 'frame corners', '暗角'])) tags.push('vignette');
+  if (hasAny(haystack, ['chromatic aberration', 'rgb edge fringing', 'color separation', '色差'])) tags.push('chromatic_aberration');
+  if (hasAny(haystack, ['edge blur', 'peripheral edge blur', 'field curvature', '邊緣模糊'])) tags.push('edge_blur');
+  if (hasAny(haystack, ['optical haze', 'lens mist', 'veiling glare', '光學朦朧'])) tags.push('optical_haze', 'diffusion_filter');
   if (hasAny(haystack, ['motion blur', 'light trails'])) tags.push('motion');
-  if (hasAny(haystack, ['light leaks', 'lens flare'])) tags.push('light_artifact');
   if (hasAny(haystack, ['double exposure'])) tags.push('surreal');
-  if (hasAny(haystack, ['bokeh', 'optical blur'])) tags.push('dreamy');
+  if (hasAny(haystack, ['bokeh', 'blur circles', 'out-of-focus highlight'])) tags.push('bokeh');
 
   return { tags: withTags(tags) };
 }

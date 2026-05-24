@@ -3205,68 +3205,68 @@
       },
       {
         "zh": "淺景深",
-        "en": "shallow depth of field, softly blurred background, gentle subject separation",
-        "desc": "保留自然的背景柔化效果，讓主體更清楚浮出畫面。"
+        "en": "shallow depth of field, background defocus, controlled focus falloff behind the subject, clear subject plane separation, moderate optical blur gradient",
+        "desc": "使用較淺景深讓焦點平面外的背景逐漸柔化，重點是主體平面與背景的光學分離。"
       },
       {
         "zh": "極淺景深",
-        "en": "ultra shallow depth of field, heavily blurred background, razor-thin focus plane, dramatic subject isolation",
-        "desc": "焦平面非常薄，前後景快速化開，適合強烈主體分離與夢幻視覺。"
+        "en": "ultra shallow depth of field, razor-thin focus plane, rapid foreground and background defocus, extremely narrow in-focus region, strong optical focus falloff",
+        "desc": "焦平面非常薄，前景與背景快速離焦，只有很窄的區域保持清楚。"
       },
       {
         "zh": "重散景光斑",
-        "en": "heavy bokeh, large luminous blur circles, dreamy optical falloff, pronounced out-of-focus highlights",
-        "desc": "讓背景或前景出現明顯大光斑與夢幻散景，特別適合夜景、節慶燈光與浪漫氛圍。"
+        "en": "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls",
+        "desc": "讓離焦高光形成大型光斑或光圈形狀，重點是散景形狀、尺寸與離焦高光的光學表現。"
       },
       {
         "zh": "前景遮擋散景",
-        "en": "heavy doorway foreground occlusion, dark out-of-focus door panels blocking both left and right frame edges, foreground obstruction covering at least one third of the image area, narrow vertical opening toward the subject, thick blurred near-edge framing, voyeuristic hidden-camera cinematic depth",
-        "desc": "鏡頭像從門縫或半開門後方拍攝，左右兩側有深色失焦門板大面積遮住畫面邊緣，前景遮擋至少佔整體畫面三分之一，只留下中間窄縫看向主體，營造更明顯的偷拍視角。"
+        "en": "blurred foreground occlusion near the lens, out-of-focus foreground shapes crossing one or more frame edges, partial opening toward the subject, thick near-field bokeh layer, foreground obstruction covering at least one third of the image area",
+        "desc": "鏡頭前方有失焦遮擋物形成近景模糊層，可遮住畫面部分邊緣或局部視線，重點是前景深度層次與遮擋比例。"
       },
       {
         "zh": "鏡頭光斑 Lens Flare",
-        "en": "lens flare, blooming highlights, streaking flare artifacts, cinematic backlit optics",
-        "desc": "逆光或強光源在鏡頭內形成 flare，能提升電影感、舞台感與光源存在感。"
+        "en": "lens flare artifacts, internal lens reflections, veiling flare, ghosting shapes, streaking flare artifacts from a strong off-axis light source",
+        "desc": "強光進入鏡頭後造成內部反射、鬼影、光暈或條狀 flare，重點是鏡頭內部反射瑕疵。"
       },
       {
         "zh": "變形鏡頭光斑 Anamorphic Flare",
-        "en": "anamorphic lens flare, horizontal blue streaks, widescreen cinematic flare, optical sci-fi sheen",
-        "desc": "水平拉絲的變形鏡頭光斑，是科幻、公路片與大型電影感場面的經典視覺語言。"
+        "en": "anamorphic lens flare artifacts, horizontal flare streaks, cylindrical lens reflection behavior, oval bokeh response, stretched optical highlights",
+        "desc": "變形鏡頭造成水平 flare、橢圓散景與被拉伸的高光反射，重點是柱面光學特徵。"
       },
       {
         "zh": "漏光效果 Light Leaks",
-        "en": "vintage film light leaks, red and orange light burns, accidental analog flare, serendipitous exposure bloom",
-        "desc": "模擬底片相機的意外漏光，畫面邊緣出現不規則暖色過曝，增添偶然性與復古味。"
+        "en": "analog film light leak artifacts, irregular edge exposure burns, translucent red-orange film-gate leaks, uneven accidental exposure streaks, frame-edge chemical light contamination",
+        "desc": "模擬底片或膠片匣漏光造成的不規則邊緣曝光、暖色光痕與局部化學感覆蓋。"
       },
       {
         "zh": "柔焦濾鏡 Soft Focus",
-        "en": "soft focus filter, diffused detail rendering, delicate glow on skin, dreamy vintage softness",
-        "desc": "細節略微柔化，尤其適合膚質、寫真、夢境感與復古日系柔霧氛圍。"
+        "en": "soft focus diffusion filter, lowered microcontrast, softened fine detail, gentle glow around high-contrast edges, preserved overall facial and subject structure",
+        "desc": "柔焦或擴散濾鏡降低微對比與細節銳度，在高反差邊緣產生柔和暈散，但仍保留主體結構。"
       },
       {
         "zh": "霧化高光 Bloom",
-        "en": "highlight bloom, glowing bright areas, soft halation around light sources, luminous haze",
-        "desc": "高光邊緣產生發光暈散，適合夜景、逆光、霓虹與夢幻感畫面。"
+        "en": "highlight bloom, halation around bright areas, local luminance bleeding, softened highlight edges, optical glow spill limited to high-value regions",
+        "desc": "高亮區域邊緣向外暈散，形成局部亮度溢出與 halation，重點是高光反應而非整體場景狀態。"
       },
       {
         "zh": "暗角 Vignette",
-        "en": "subtle vignette, darker frame edges, center-weighted emphasis, cinematic tonal focus",
-        "desc": "畫面四周略暗，能集中視線並增加電影感與復古感。"
+        "en": "optical vignetting, darker frame corners, radial edge exposure falloff, center-weighted brightness, subtle lens shading toward the image perimeter",
+        "desc": "鏡頭邊緣進光量下降，畫面角落與邊緣呈現徑向變暗，中心亮度相對更集中。"
       },
       {
         "zh": "色差 Chromatic Aberration",
-        "en": "chromatic aberration, subtle RGB edge fringing, optical color separation, digital-imperfect lens character",
-        "desc": "物體邊緣出現輕微分色，適合數位實驗感、低保真、故障美學或偏前衛畫面。"
+        "en": "chromatic aberration, subtle RGB edge fringing, lateral color separation along high-contrast edges, minor lens dispersion artifact",
+        "desc": "高反差邊緣出現輕微 RGB 分離或彩色邊，重點是鏡片色散造成的光學瑕疵。"
       },
       {
         "zh": "邊緣模糊",
-        "en": "soft edge blur, center sharpness with peripheral softness, vintage lens imperfection, dreamy frame falloff",
-        "desc": "中心較清楚、四周較鬆，模擬老鏡或特殊鏡頭的周邊解析下降，讓畫面更柔更有氣氛。"
+        "en": "peripheral edge blur, center sharpness with soft frame edges, field curvature softness, reduced corner resolution, lens falloff away from the image center",
+        "desc": "中心解析較高，越接近畫面邊緣越柔，模擬場曲、邊角解析下降或鏡頭周邊成像衰減。"
       },
       {
         "zh": "光學朦朧薄霧",
-        "en": "optical haze, atmospheric lens mist, veiled contrast, airy cinematic softness",
-        "desc": "畫面像隔著一層淡霧，對比更柔和，適合清晨、夢境、回憶感與安靜敘事。"
+        "en": "lens mist filter haze, veiling glare, lowered global contrast, softened black levels, diffused highlight edges, no environmental fog or smoke cue",
+        "desc": "像鏡頭前加了 mist 濾鏡或產生遮蔽眩光，使整體對比下降、黑位抬高與高光邊緣變柔；不是環境霧或煙霧。"
       }
     ]
   },
