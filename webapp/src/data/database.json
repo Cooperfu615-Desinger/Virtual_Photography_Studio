@@ -2801,7 +2801,7 @@
         "desc": "強烈電影語言的寬銀幕鏡頭，常帶橢圓散景與水平光斑，適合公路片、夜景、敘事感與大片氣質。"
       }
     ],
-    "環境光氛 (Environment Mood)": [
+    "環境光條件 (Ambient Light Conditions)": [
       {
         "zh": "全無",
         "en": "none",
@@ -2987,132 +2987,132 @@
       {
         "zh": "全無",
         "en": "none",
-        "desc": "不指定光線表現，讓模型自行決定主體受光方向、質地與氣氛。"
+        "desc": "不指定人物受光方式，讓模型自行決定光源方向、硬度、反差、投影與反射。"
       },
       {
         "zh": "柔和順光",
-        "en": "soft front light, even forward illumination, gentle skin rendering, low-contrast facial detail",
-        "desc": "正面柔光均勻照亮五官，陰影少，最適合乾淨穩定的人像。"
+        "en": "soft frontal key light on the subject, even facial illumination, low-contrast skin detail, minimal cast shadows",
+        "desc": "正面柔光均勻照亮人物五官與上身，陰影少，適合乾淨穩定的人像受光。"
       },
       {
         "zh": "均勻平光",
-        "en": "flat even light, balanced full-face illumination, minimal contrast, clean descriptive exposure",
-        "desc": "光線平均、資訊完整、對比低，適合型錄感、敘事清楚的畫面。"
+        "en": "flat even subject lighting, balanced full-face illumination, minimal modeling contrast, clean exposure across skin and clothing",
+        "desc": "人物受光平均、資訊完整、對比低，讓臉部與服裝細節都清楚可讀。"
       },
       {
         "zh": "側向柔光",
-        "en": "soft side light, gentle cheek contour, natural dimensional modeling, airy portrait softness",
-        "desc": "由側邊柔和照亮主體，兼顧立體感與自然膚色。"
+        "en": "soft side key light on the subject, gentle cheek contour, gradual shadow transition, natural facial dimensionality",
+        "desc": "由側邊柔和照亮人物，讓臉頰與輪廓有立體感，但陰影過渡保持柔順。"
       },
       {
         "zh": "側向硬光",
-        "en": "hard side light, clear shadow edge, strong sculpted contrast, sharper facial definition",
-        "desc": "側光明顯、陰影邊界銳利，時裝感與戲劇感都更強。"
+        "en": "hard side key light on the subject, sharp shadow edge across facial planes, strong sculpted contrast, crisp highlight-to-shadow separation",
+        "desc": "側光明顯且邊界銳利，強化人物臉部、肩線與衣物皺褶的明暗分離。"
       },
       {
         "zh": "側逆光",
-        "en": "back-side light, diagonal rear illumination, soft rim edges, cinematic subject separation",
-        "desc": "從斜後方照亮人物，保留輪廓與一部分臉部細節。"
+        "en": "diagonal rear-side light on the subject, soft rim edge along hair and shoulder, partial facial fill, subject separated from background",
+        "desc": "從斜後方照亮人物，保留髮絲與肩線輪廓，同時留下部分臉部補光。"
       },
       {
         "zh": "逆光輪廓光",
-        "en": "strong rim light, backlit outline, glowing hair edges, separated silhouette",
-        "desc": "主體邊緣被勾亮，特別適合夕陽、夜景與高氛圍畫面。"
+        "en": "strong back rim light on the subject, bright outline along hair shoulders and body edge, subject silhouette separation, controlled shadow-side detail",
+        "desc": "主體邊緣被後方光源勾亮，重點是髮絲、肩線與身體輪廓的分離。"
       },
       {
         "zh": "頂部照明",
-        "en": "overhead top lighting, downward illumination, moody facial shadow, tense vertical light falloff",
-        "desc": "由上方壓下來的光線讓氣氛更成熟或更有壓迫感。"
+        "en": "overhead top light on the subject, downward illumination, eye-socket and nose shadows, vertical falloff across face and torso",
+        "desc": "由上方壓下來的人物受光，重點是眼窩、鼻下、下巴與身體垂直方向的明暗落差。"
       },
       {
         "zh": "下方反射光",
-        "en": "bounce up light, upward reflected fill, subtle lower-face lift, reflective underglow",
-        "desc": "利用地面、牆面或雪地等反射面回補下半臉陰影。"
+        "en": "upward bounce fill on the subject, reflected light from below, subtle lower-face lift, softened chin and neck shadows",
+        "desc": "利用地面、牆面或雪地等反射面回補人物下半臉、下巴與頸部陰影。"
       },
       {
         "zh": "漫射霧光",
-        "en": "diffused mist light, soft atmospheric spread, low-contrast haze, enveloping ambient glow",
-        "desc": "光線被霧氣、濕氣或厚雲層柔化，整體包覆感更強。"
+        "en": "diffused light wrapping around the subject, softened shadow edges, low-contrast subject illumination, broad ambient fill across skin and clothing",
+        "desc": "光線被空氣、水氣或霧化介質柔化後包覆人物，重點是陰影邊緣變軟與低反差受光。"
       },
       {
         "zh": "硬質晴光",
-        "en": "hard sunlight, direct sunbeam exposure, deep shadow contrast, crisp bright highlights",
-        "desc": "直射日光明顯，陰影深且邊緣清楚。"
+        "en": "hard direct sunlight on the subject, crisp shadow edges, deep subject-side contrast, clear bright highlights on skin and clothing",
+        "desc": "直射光落在人物身上，陰影深且邊緣清楚，皮膚與衣物亮部更銳利。"
       },
       {
         "zh": "低光高反差",
-        "en": "low-key contrast light, deep shadow fields, selective highlight emphasis, cinematic darkness",
-        "desc": "暗部面積大、亮暗落差高，適合夜景、戲劇與低照度畫面。"
+        "en": "low-key subject lighting, deep shadow areas on face and body, selective highlight accents, high contrast exposure across the subject",
+        "desc": "人物大面積留在暗部，只保留局部亮面或輪廓，形成高反差受光。"
       },
       {
         "zh": "高調亮光",
-        "en": "high-key bright light, luminous exposure, airy highlights, soft low-shadow clarity",
-        "desc": "整體偏亮偏透，陰影很少，乾淨清爽。"
+        "en": "high-key subject lighting, bright even exposure, pale soft shadows, clean highlight detail across face and clothing",
+        "desc": "人物整體偏亮、陰影很淡，臉部與服裝保留乾淨明亮的細節。"
       },
       {
         "zh": "暖金黃昏色溫",
-        "en": "warm golden-amber color temperature, soft honey-orange light cast, gentle peach-toned highlights, warm cinematic color wash, subdued shadows with cozy amber skin warmth",
-        "desc": "只指定接近黃昏感的暖金、橘蜜與蜜桃色溫，不主動生成夕陽、日落、太陽或天空景象，適合想要黃昏感色彩但不改變場景內容時使用。"
+        "en": "warm golden-amber subject light color, honey-orange cast on skin and clothing, peach-toned highlights, subdued warm shadows, no sunset or sky cues",
+        "desc": "只指定人物受光偏暖金、橘蜜與蜜桃色，不主動生成夕陽、日落、太陽或天空景象。"
       },
       {
         "zh": "冷白日光色溫",
-        "en": "cool clean daylight color temperature, crisp pale-white light cast, neutral-cool highlight rendering, fresh daylight skin separation, restrained cool brightness without gloomy overcast heaviness",
-        "desc": "讓整體受光偏冷白、乾淨、通透，像冷白自然日光或乾淨商業日光色溫，不直接指定陰天、天空或場景狀態。"
+        "en": "cool clean daylight color cast on the subject, crisp pale-white highlights, neutral-cool skin rendering, restrained cool shadow edges, no sky or weather cues",
+        "desc": "讓人物受光偏冷白、乾淨、通透，不直接指定陰天、天空或場景狀態。"
       },
       {
         "zh": "室內暖白燈色溫",
-        "en": "indoor warm-white lamp color temperature, soft neutral-warm household light cast, cozy clean interior skin warmth, gentle practical lamp tone without deep amber tungsten heaviness",
-        "desc": "偏日常室內暖白燈色溫，比鎢絲黃光更乾淨、比黃昏色更中性，適合居家、旅館、咖啡廳與生活感空間。"
+        "en": "warm-white practical-lamp color cast on the subject, neutral-warm skin highlights, gentle household lamp tone, no deep tungsten amber dominance",
+        "desc": "偏日常室內暖白燈的人物受光色溫，比鎢絲黃光更乾淨、比黃昏色更中性。"
       },
       {
         "zh": "冷藍夜色光",
-        "en": "cool blue night-toned light cast, restrained blue-cyan edge illumination, quiet nocturnal skin contrast, subdued cool shadow tint, cinematic night color temperature without visible moon or skyline cues",
-        "desc": "讓人物受光偏冷藍夜色，不直接生成月亮、夜景或城市天際線，適合深夜、安靜、冷感的畫面色溫控制。"
+        "en": "cool blue night-toned subject light, restrained blue-cyan rim or fill, subdued cool shadow tint, no moon skyline or night-sky cues",
+        "desc": "讓人物受光偏冷藍夜色，不直接生成月亮、夜景、城市天際線或天空線索。"
       },
       {
         "zh": "混合色溫光",
-        "en": "mixed color temperature lighting, warm and cool light interplay, layered color contrast, cinematic environmental mixing",
-        "desc": "冷暖光並存，特別適合都市夜景、室內夜景與敘事場面。"
+        "en": "mixed warm and cool subject lighting, warm-cool highlight contrast across face and clothing, layered color temperature separation",
+        "desc": "冷暖光同時落在人物身上，重點是臉部、髮絲與服裝的冷暖分離。"
       },
       {
         "zh": "霓虹染色光",
-        "en": "neon color spill, saturated colored light cast, vivid skin-edge tinting, nightlife color wash",
-        "desc": "霓虹色光直接染到人物與場景表面，風格化最強。"
+        "en": "neon color spill across the subject, saturated colored highlights on skin and clothing edges, vivid hue tinting, controlled colored light cast",
+        "desc": "霓虹色光直接染到人物皮膚、髮絲、衣物與邊緣亮面。"
       },
       {
         "zh": "窗格投影光",
-        "en": "window pattern light, slatted or framed daylight shadows, subtle graphic projection, interior cinematic texture",
-        "desc": "來自窗框、百葉或格柵投影的方向性光影，偏室內敘事感。"
+        "en": "window-frame pattern light cast on the subject, slatted or framed daylight shadows, visible geometric shadow bands on face and clothing",
+        "desc": "窗框、格柵或框線形狀投射到人物臉部、身體或衣物上，形成幾何陰影。"
       },
       {
         "zh": "百葉窗條紋投影光",
-        "en": "window-blind stripe light, slatted daylight bands across the subject, horizontal shadow lines across the face, skin, and clothing, sensual cinematic interior contrast",
-        "desc": "光線穿過百葉窗後形成明顯條紋，直接投射在人物臉部、身體或衣物上，帶有更強烈的私密、電影感與室內敘事張力。"
+        "en": "window-blind stripe light across the subject, horizontal shadow bands on face skin and clothing, sharp slatted light-dark pattern",
+        "desc": "百葉窗條紋直接投射在人物臉部、皮膚與衣物上，重點是水平明暗條紋。"
       },
       {
         "zh": "冷調窗邊輪廓光",
-        "en": "cool window-side rim light, restrained side-edge illumination from a nearby window, clean cool contour separation, soft shadow-side falloff, quiet interior silhouette shaping",
-        "desc": "由窗邊冷色自然光或外部微冷光源勾出人物邊緣，不是投影條紋，而是更安靜、乾淨的輪廓分離感。"
+        "en": "cool window-side rim light on the subject, side-edge illumination from a nearby window, clean cool contour separation, soft shadow-side falloff",
+        "desc": "由窗邊冷色自然光或外部微冷光源勾出人物側邊，不是投影條紋，而是輪廓分離。"
       },
       {
         "zh": "斑駁樹影光",
-        "en": "dappled light, broken sunlight through leaves, irregular moving shadow patches, lively outdoor texture",
-        "desc": "陽光穿過樹葉後形成不規則斑駁陰影，生活感很強。"
+        "en": "dappled leaf-shadow light on the subject, broken sunlight patches across skin and clothing, irregular branch and leaf shadow pattern",
+        "desc": "陽光穿過樹葉後形成不規則斑駁陰影，投射在人物皮膚與衣物上。"
       },
       {
         "zh": "潮濕反射光",
-        "en": "wet reflective light, ground bounce from damp surfaces, glossy street reflections, fragmented luminous highlights",
-        "desc": "由濕地面與牆面反射補光，特別適合雨天與夜街。"
+        "en": "wet-surface reflected fill light on the subject, upward bounce from damp ground or walls, glossy reflected highlights on lower face and clothing",
+        "desc": "由濕地面或牆面反射回人物身上，特別是下半臉、衣物與身體邊緣的反射補光。"
       },
       {
         "zh": "局部暖光",
-        "en": "local warm glow, lamp-driven warm pool of light, intimate amber highlight zone, cozy night illumination",
-        "desc": "由檯燈、壁燈、床頭燈等局部暖光源形成的親密光區。"
+        "en": "local warm practical-light pool on the subject, lamp-driven amber highlight zone, warm falloff across face hands and clothing",
+        "desc": "由檯燈、壁燈、床頭燈等局部暖光源落在人物身上，形成明確暖色光區與衰減。"
       },
       {
         "zh": "深夜邊緣微光",
-        "en": "midnight edge glimmer, minimal rim illumination along the face and body outline, most of the subject resting in darkness, faint selective edge visibility, sparse nocturnal highlight tracing",
-        "desc": "主體大多留在暗部，只在臉側、肩線、髮絲或肢體邊緣保留很少量的夜間微光，適合深夜、安靜、性感或神秘的畫面。"
+        "en": "minimal nocturnal rim light along face hair shoulders and body outline, most of the subject in darkness, faint selective edge visibility, sparse cool highlight tracing",
+        "desc": "主體大多留在暗部，只在臉側、肩線、髮絲或肢體邊緣保留很少量夜間微光。"
       }
     ],
     "底片與相機模擬 (Camera & Film Simulation)": [

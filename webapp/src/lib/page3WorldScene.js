@@ -166,7 +166,7 @@ export const PAGE3_WORLD_SCENE_FIELD_CONFIG = [
   { key: 'specialLocation', label: '特殊地點' },
   { key: 'sceneFocus', label: '場景取景方式' },
   { key: 'imagingStyle', label: '成像風格' },
-  { key: 'ambientLight', label: '環境光氛' },
+  { key: 'ambientLight', label: '環境光條件' },
 ];
 
 export const PAGE3_WORLD_SCENE_FIELD_OPTIONS = {

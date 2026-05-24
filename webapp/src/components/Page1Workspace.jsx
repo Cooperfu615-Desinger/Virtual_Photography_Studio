@@ -318,7 +318,7 @@ const SECTION_SUBPANELS = {
     {
       id: 'light',
       label: '環境與光線',
-      description: '補上環境光氛、光線表現與畫面比例，決定空間氣候與輸出格式。',
+      description: '補上環境光條件、人物受光與畫面比例，決定空間氣候與輸出格式。',
       keys: ['lightingId', 'lightDirectionId', 'aspectRatio'],
     },
   ],
@@ -862,7 +862,7 @@ export default function Page1Workspace({
       status: isCloseupMode ? '特寫中' : formatSelectionStatus(countEffectiveSelections('scene', locks, lockControls)),
       chips: [
         getControlOptionLabel(lockControls, 'locationId', locks.locationId) ? '場景錨點' : '',
-        getControlOptionLabel(lockControls, 'lightingId', locks.lightingId) ? '環境光氛' : '',
+        getControlOptionLabel(lockControls, 'lightingId', locks.lightingId) ? '環境光條件' : '',
       ].filter(Boolean),
     },
     photography: {

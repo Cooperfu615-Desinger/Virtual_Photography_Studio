@@ -1,13 +1,13 @@
 const POSITIONING_ROWS = [
   {
     topic: '主要回答的問題',
-    environmentMood: '整個空間現在是什麼光氛、時段、空氣感。',
-    lightStyle: '光怎麼打在人物與畫面上，包含方向、質地、色溫與投影。',
+    environmentMood: '整個場景現在是什麼天空、時段、天氣、空氣與全場明暗。',
+    lightStyle: '光怎麼打在人物身上，包含方向、硬度、反差、色溫、投影與反射。',
   },
   {
     topic: '描述重點',
-    environmentMood: '天空、窗外、室內亮度、陰雨感、深夜感、霓虹氛圍。',
-    lightStyle: '順光、側光、逆光、硬光、柔光、條紋投影、暖冷色溫。',
+    environmentMood: '天空、窗外狀態、室內亮度、陰雨、深夜、霓虹環境光。',
+    lightStyle: '順光、側光、逆光、硬光、柔光、條紋投影、人物受光色溫。',
   },
   {
     topic: '適合放的語意',
@@ -24,12 +24,12 @@ const POSITIONING_ROWS = [
 const ENVIRONMENT_GROUPS = [
   {
     title: '白天與窗光',
-    description: '適合描述空間本身是清晨、白天、午後或陰影中的室內日光。',
+    description: '適合描述空間本身是清晨、白天、午後或陰影中的室內日光條件。',
     items: ['室內窗邊日光', '室內清晨冷白日光', '室內午後柔亮日光', '室內陰影日光'],
   },
   {
     title: '陰天與灰暗氣氛',
-    description: '用來定義整個畫面的天氣與空氣感，而不是人物受光方向。',
+    description: '用來定義整個畫面的天氣、雲層與空氣能見度，而不是人物受光方向。',
     items: ['陰天漫射', '室內陰雨昏暗天光', '雨前灰黑天空', '陰雨將至'],
   },
   {
@@ -39,12 +39,12 @@ const ENVIRONMENT_GROUPS = [
   },
   {
     title: '外部滲光與特殊室內氣氛',
-    description: '適合強調室內幾乎沒開燈，只靠外面或特殊光源維持環境亮度。',
+    description: '適合強調室內幾乎沒開燈，只靠外面或特殊光源維持全場亮度。',
     items: ['室內外光滲入微暗空間', '室內冷白螢光日常', '室內霓虹夜色'],
   },
   {
     title: '戶外天空與空氣狀態',
-    description: '屬於戶外整體氛圍控制，優先決定畫面的大環境。',
+    description: '屬於戶外整體環境光控制，優先決定畫面的大環境。',
     items: ['晴朗白日', '藍天白雲', '夏日深藍積雲', '月光夜色'],
   },
 ];
@@ -62,7 +62,7 @@ const LIGHT_STYLE_GROUPS = [
   },
   {
     title: '色溫控制',
-    description: '只改變光的冷暖與色偏，不主動規定天空、時段或場景內容。',
+    description: '只改變人物受光的冷暖與色偏，不主動規定天空、時段或場景內容。',
     items: ['暖金黃昏色溫', '冷白日光色溫', '室內暖白燈色溫', '冷藍夜色光', '混合色溫光', '霓虹染色光'],
   },
   {
@@ -121,10 +121,10 @@ export default function LightingReferenceModal({ open, onClose }) {
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-panel reference-modal" onClick={(event) => event.stopPropagation()}>
-        <div className="reference-modal-body">
+      <div className="reference-modal-body">
           <div className="modal-header">
             <div>
-              <div className="lock-title">環境光氛 / 光線表現定位對照</div>
+              <div className="lock-title">環境光條件 / 光線表現定位對照</div>
               <p className="lock-subtitle">用來快速判斷某個描述該放在哪一欄，避免語意重疊。</p>
             </div>
             <button className="reference-close-btn" type="button" aria-label="關閉定位對照" onClick={onClose}>
@@ -139,7 +139,7 @@ export default function LightingReferenceModal({ open, onClose }) {
                 <thead>
                   <tr>
                     <th>面向</th>
-                    <th>環境光氛</th>
+                    <th>環境光條件</th>
                     <th>光線表現</th>
                   </tr>
                 </thead>
@@ -160,8 +160,8 @@ export default function LightingReferenceModal({ open, onClose }) {
             <div className="reference-section-title">建議放在哪裡</div>
             <div className="reference-dual-grid">
               <div className="reference-card">
-                <div className="reference-card-title">環境光氛</div>
-                <div className="reference-card-copy">描述整個空間的亮度、時段、天空、窗外狀態與空氣感。</div>
+                <div className="reference-card-title">環境光條件</div>
+                <div className="reference-card-copy">描述整個空間的亮度、時段、天空、窗外狀態與空氣條件。</div>
                 <div className="reference-group-list">
                   {ENVIRONMENT_GROUPS.map((group) => (
                     <article key={group.title} className="reference-group-card">
@@ -175,7 +175,7 @@ export default function LightingReferenceModal({ open, onClose }) {
 
               <div className="reference-card">
                 <div className="reference-card-title">光線表現</div>
-                <div className="reference-card-copy">描述光打在人物身上的方式，包括方向、質地、色溫、投影與反射。</div>
+                <div className="reference-card-copy">描述光打在人物身上的方式，包括方向、硬度、反差、色溫、投影與反射。</div>
                 <div className="reference-group-list">
                   {LIGHT_STYLE_GROUPS.map((group) => (
                     <article key={group.title} className="reference-group-card">
@@ -196,7 +196,7 @@ export default function LightingReferenceModal({ open, onClose }) {
                 <article key={example.goal} className="reference-example-card">
                   <h4>{example.goal}</h4>
                   <div className="reference-example-row">
-                    <span>環境光氛</span>
+                    <span>環境光條件</span>
                     <strong>{example.environmentMood}</strong>
                   </div>
                   <div className="reference-example-row">
