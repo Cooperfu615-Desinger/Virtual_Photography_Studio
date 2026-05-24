@@ -3,133 +3,133 @@
     "攝影風格": [
       {
         "zh": "Mika Ninagawa（蜷川實花）",
-        "en": "Inspired by Mika Ninagawa, hyper-saturated theatrical portraiture, vivid reds and hot pinks, cyan highlights, glossy artificial light, floral set-piece drama",
-        "desc": "濃烈色彩與花卉戲劇感 | 強烈飽和、鮮花、彩色光與夢境般張力，適合棚拍、花牆、彩色佈景與戲劇化寫真。"
+        "en": "Inspired by Mika Ninagawa, hyper-saturated theatrical portraiture, vivid reds and hot pinks, cyan highlights, glossy artificial light, dense decorative color layers, surreal feminine intensity",
+        "desc": "濃烈色彩與裝飾戲劇感 | 強烈飽和、鮮豔紅粉與青色高光、閃亮人工光、密集裝飾性色層與夢境張力；以色彩和表面光澤主導，不綁定具體空間。"
       },
       {
         "zh": "Yoshihiko Ueda（上田義彥）",
-        "en": "Inspired by Yoshihiko Ueda, quiet natural portraiture, deep velvety shadows, cool desaturated greens and charcoals, low-key atmospheric elegance",
-        "desc": "靜默自然影像語言 | 深色陰影、低調光、冷淡色盤與靜默情緒，適合森林、窗邊、低光室內等安靜場景。"
+        "en": "Inspired by Yoshihiko Ueda, quiet natural portraiture, deep velvety shadows, cool desaturated greens and charcoals, low-key tonal calm, subtle atmospheric depth",
+        "desc": "靜默自然影像語言 | 深色陰影、低調光、冷淡色盤、靜默情緒與細膩空氣層次，重點放在暗部質地與人物距離感。"
       },
       {
         "zh": "Osamu Yokonami（橫浪修）",
-        "en": "Inspired by Osamu Yokonami, high-key minimalist portraiture, muted pastels, luminous whites, flat overcast softness, generous negative space",
-        "desc": "群像秩序與安靜疏離感 | 強調排列、留白、安靜與輕微距離感，適合雙人構圖、空曠室內、校舍與極簡空間。"
+        "en": "Inspired by Osamu Yokonami, high-key minimalist portraiture, muted pastels, luminous whites, flat overcast softness, structured spacing, generous negative space",
+        "desc": "群像秩序與安靜疏離感 | 強調排列秩序、留白、安靜疏離、柔平光線與淡色調，可套用在單人或雙人構圖，不綁定具體空間。"
       },
       {
         "zh": "Rinko Kawauchi（川內倫子）",
-        "en": "Inspired by Rinko Kawauchi, airy high-key photography, pale softly overexposed daylight glow, cool pastel tones, delicate everyday realism",
-        "desc": "輕盈日常與微光語言 | 輕盈、柔光、日常碎片與微過曝感，適合窗邊、居家、草地與安靜生活場景。"
+        "en": "Inspired by Rinko Kawauchi, airy high-key photography, pale softly overexposed daylight glow, cool pastel tones, delicate everyday realism, fragile quiet details",
+        "desc": "輕盈日常與微光語言 | 輕盈、柔光、日常碎片、微過曝與細小感受性，讓畫面帶有透明而安靜的高調質感。"
       },
       {
         "zh": "Masumi Ishida（石田真澄）",
-        "en": "Inspired by Masumi Ishida, luminous youthful portraiture, gentle summer daylight, softly lifted exposure, airy pastel balance, washed film texture",
-        "desc": "夏日底片感與柔亮彩色空氣 | 著重柔亮自然光、微微提亮的曝光感、帶空氣感的 pastel 配色與淡淡底片質地，適合夏日街道、校園、窗邊、公園與清爽生活感畫面。"
+        "en": "Inspired by Masumi Ishida, luminous youthful portraiture, gentle summer-color daylight, softly lifted exposure, airy pastel balance, washed film texture, transparent skin tone",
+        "desc": "柔亮底片感與彩色空氣 | 著重柔亮自然光、微微提亮曝光、帶空氣感的 pastel 配色、淡淡底片質地與清透膚色。"
       },
       {
         "zh": "Orie Ichihashi（市橋織江）",
-        "en": "Inspired by Orie Ichihashi, quiet natural portraiture, transparent window light, soft open shadows, low-saturation neutral palette, delicate film grain",
-        "desc": "透明自然光與低飽和靜謐色盤 | 著重透明窗光、柔和開放陰影、低飽和米白藍灰色盤與細緻底片顆粒，整體質感安靜克制，適合室內窗邊、旅館、公寓與日常靜物式人像。"
+        "en": "Inspired by Orie Ichihashi, quiet natural portraiture, transparent natural-light quality, soft open shadows, low-saturation neutral palette, delicate film grain",
+        "desc": "透明自然光與低飽和靜謐色盤 | 著重透明自然光感、柔和開放陰影、低飽和米白藍灰色盤與細緻底片顆粒，整體安靜克制。"
       },
       {
         "zh": "Yoko Takahashi（高橋ヨーコ）",
-        "en": "Inspired by Yoko Takahashi, breezy coastal portraiture, crisp sunlit contrast, dry sun-bleached colors, faded blues and chalky whites, relaxed editorial realism",
-        "desc": "海風日光與乾爽褪色色調 | 著重海邊日光、乾爽高亮對比、褪色藍白色調與被陽光曬淡的質感，整體更鬆弛、通風、帶鹽分空氣感，適合海邊、天台、街道與開闊戶外場景。"
+        "en": "Inspired by Yoko Takahashi, breezy sun-bleached portraiture, crisp sunlit contrast, dry faded colors, faded blues and chalky whites, relaxed editorial realism, airy negative space",
+        "desc": "乾爽日光與褪色色調 | 著重乾爽高亮對比、褪色藍白色調、被陽光曬淡的質感、鬆弛編輯感與通風的畫面空間。"
       },
       {
         "zh": "Paolo Roversi（保羅・羅韋爾西）",
-        "en": "Inspired by Paolo Roversi, soft haze couture portraiture, dim romantic light, velvety shadows, painterly softness, muted elegant tones",
-        "desc": "柔霧高級時裝語言 | 柔霧、低速感、暗色調與古典脆弱感，適合棚拍、復古室內與高級時裝畫面。"
+        "en": "Inspired by Paolo Roversi, soft haze couture portraiture, dim romantic light, velvety shadows, painterly softness, muted elegant tones, slow-shutter delicacy",
+        "desc": "柔霧高級時裝語言 | 柔霧、低速感、暗色調、天鵝絨般陰影與古典脆弱感，形成高級時裝式的朦朧人物質地。"
       },
       {
         "zh": "Ellen von Unwerth（艾倫・馮・昂沃斯）",
         "en": "Inspired by Ellen von Unwerth, playful sensual editorial portraiture, spontaneous energy, candid movement, flash-assisted glamour, lively feminine confidence",
-        "desc": "俏皮性感與抓拍雜誌語言 | 俏皮、性感、抓拍感強，介於雜誌與寫真之間，適合床景、沙發、街頭與隨拍主題。"
+        "desc": "俏皮性感與抓拍雜誌語言 | 俏皮、性感、抓拍感強，介於雜誌與寫真之間；重點是動作能量、閃光輔助與自信人物狀態。"
       },
       {
         "zh": "Nan Goldin（南・戈爾丁）",
-        "en": "Inspired by Nan Goldin, intimate lived-in portraiture, warm indoor light, heavy grain, raw emotional immediacy, messy domestic realism",
-        "desc": "私人相簿與粗粒子室內語言 | 私密、粗粒子、暖光與生活混亂感，適合臥室、旅館、洗手台鏡前等私人空間。"
+        "en": "Inspired by Nan Goldin, intimate diaristic portraiture, warm ambient light, heavy grain, raw emotional immediacy, imperfect lived-in color, close personal distance",
+        "desc": "私人相簿與粗粒子親密語言 | 私密、粗粒子、暖色環境光、情緒即時感與不完美色彩，重點是貼近人物的私人相簿質地。"
       },
       {
         "zh": "Juergen Teller（尤爾根・特勒）",
-        "en": "Inspired by Juergen Teller, raw direct-flash portraiture, anti-polished editorial tension, awkward realism, immediate camera presence, blunt fashion attitude",
-        "desc": "直閃粗糙與反精緻時裝語言 | 直打閃光、不完美與反精緻時尚感，適合白牆、電梯、街頭、試衣間與社群式大片。"
+        "en": "Inspired by Juergen Teller, raw direct-flash portraiture, anti-polished editorial tension, awkward realism, immediate camera presence, blunt fashion attitude, flat flash shadows",
+        "desc": "直閃粗糙與反精緻時裝語言 | 直打閃光、不完美、反精緻時尚感與略尷尬的真實性，讓人物與鏡頭之間保持直接壓力。"
       },
       {
         "zh": "Richard Avedon（理察・阿維頓）",
-        "en": "Inspired by Richard Avedon, stripped-down studio portraiture, clean backdrop, crisp tonal contrast, commanding presence, razor-clear editorial focus",
-        "desc": "純背景與強存在感語言 | 純背景、極簡、人物存在感極強，適合棚拍、封面感企劃與高辨識度人物主題。"
+        "en": "Inspired by Richard Avedon, stripped-down editorial portraiture, clean negative space, crisp tonal contrast, commanding presence, razor-clear focus, minimal visual distraction",
+        "desc": "極簡留白與強存在感語言 | 極簡、乾淨留白、人物存在感極強、階調清楚且對焦俐落，避免多餘視覺元素搶走主體。"
       },
       {
         "zh": "Alec Soth（亞歷克・索斯）",
-        "en": "Inspired by Alec Soth, spacious documentary portraiture, soft natural light, understated storytelling, calm emotional distance, open roadside stillness",
-        "desc": "寬鬆構圖與平靜敘事語言 | 構圖留白較多、氣氛平靜、帶有孤獨與旅行感，適合郊區、公路、旅館與空曠戶外場景。"
+        "en": "Inspired by Alec Soth, spacious documentary portraiture, soft natural light, understated storytelling, calm emotional distance, open negative space, quiet color restraint",
+        "desc": "寬鬆構圖與平靜敘事語言 | 構圖留白較多、氣氛平靜、敘事低調、人物距離感較遠，透過空間感和克制色彩產生安靜張力。"
       },
       {
         "zh": "Sally Mann（莎莉・曼）",
-        "en": "Inspired by Sally Mann, antique wet-plate portraiture, soft blur, ghostly texture, timeworn atmosphere, nostalgic stillness",
-        "desc": "古典濕版與記憶感影像語言 | 古典、朦朧、帶有時間感與衰敗氣息，適合森林、老屋、復古室內與低調黑白畫面。"
+        "en": "Inspired by Sally Mann, antique wet-plate portraiture, soft blur, ghostly texture, timeworn atmosphere, nostalgic stillness, handmade tonal irregularity",
+        "desc": "古典濕版與記憶感影像語言 | 古典、朦朧、幽微顆粒、手工階調不均與時間感，讓畫面有記憶、靜止與衰退的質地。"
       },
       {
         "zh": "Wolfgang Tillmans（沃夫岡・提爾曼斯）",
-        "en": "Inspired by Wolfgang Tillmans, casual everyday portraiture, snapshot energy, natural-light realism, spontaneous composition, relaxed documentary tone",
-        "desc": "生活切片與非正式影像語言 | 生活切片、輕鬆隨拍與非正式構圖，適合公寓、咖啡店、街頭與朋友感主題。"
+        "en": "Inspired by Wolfgang Tillmans, casual everyday portraiture, snapshot energy, natural-light realism, spontaneous composition, relaxed documentary tone, informal framing",
+        "desc": "生活切片與非正式影像語言 | 生活切片、輕鬆隨拍、自然光寫實與非正式構圖，重點是鬆弛、直接且不過度修飾的觀看方式。"
       },
       {
         "zh": "Daido Moriyama（森山大道）",
-        "en": "Inspired by Daido Moriyama, gritty high-contrast street photography, rough focus, heavy grain, harsh blacks, nocturnal city tension",
-        "desc": "噪訊街頭與焦躁城市語言 | 高反差、粗粒子、夜晚城市與焦躁感，適合巷口、地鐵、街邊與地下感場景。"
+        "en": "Inspired by Daido Moriyama, gritty high-contrast monochrome photography, rough focus, heavy grain, harsh blacks, restless dark tonal tension, raw tonal abrasion",
+        "desc": "噪訊黑白與焦躁暗調語言 | 高反差黑白、粗粒子、粗糙對焦、強烈黑位與焦躁的暗調張力，讓畫面帶有低保真且直接的視覺摩擦。"
       },
       {
         "zh": "Nobuyoshi Araki（荒木經惟）",
-        "en": "Inspired by Nobuyoshi Araki, raw intimate diaristic portraiture, lived-in Tokyo interior mood, spontaneous flash-lit realism, private emotional tension",
-        "desc": "私寫真與東京室內親密語言 | 私密、即興、貼近生活，帶東京室內與旅館感，適合臥室、老公寓、旅館與私人空間主題。"
+        "en": "Inspired by Nobuyoshi Araki, raw intimate diaristic portraiture, spontaneous flash-lit realism, private emotional tension, saturated personal color, close camera distance",
+        "desc": "私寫真與親密影像語言 | 私寫真、即興、閃光寫實、飽和個人色彩與近距離情緒壓力，重點是人物與鏡頭之間的私密張力。"
       },
       {
         "zh": "Kishin Shinoyama（篠山紀信）",
-        "en": "Inspired by Kishin Shinoyama, polished Japanese gravure portraiture, clean visual control, glossy high-production finish, vivid feminine presence, flattering studio lighting",
-        "desc": "經典寫真與名人肖像語言 | 乾淨、鮮明、人物魅力直接，兼具寫真與名人肖像感，適合棚拍、街拍與高完成度人物企劃。"
+        "en": "Inspired by Kishin Shinoyama, polished Japanese gravure portraiture, clean visual control, glossy high-production finish, vivid feminine presence, flattering controlled lighting",
+        "desc": "經典寫真與名人肖像語言 | 乾淨、鮮明、人物魅力直接，兼具寫真與名人肖像感；重點是高完成度、討喜光線與清楚人物辨識度。"
       },
       {
         "zh": "Chikashi Suzuki（鈴木親）",
-        "en": "Inspired by Chikashi Suzuki, relaxed fashion editorial on film, youthful candid beauty, soft everyday realism, muted natural tones, delicate film grain",
-        "desc": "年輕時尚雜誌與生活感語言 | 年輕、自然、可親，帶日系時尚雜誌的清爽生活感，適合街頭、咖啡店、公寓與日常外景。"
+        "en": "Inspired by Chikashi Suzuki, relaxed fashion editorial on film, youthful candid beauty, soft everyday realism, muted natural tones, delicate film grain, gentle magazine clarity",
+        "desc": "年輕時尚雜誌與生活感語言 | 年輕、自然、可親，帶日系時尚雜誌的清爽生活感；重點是底片顆粒、柔和寫實與不過度擺拍的美感。"
       },
       {
         "zh": "Yuki Aoyama（青山裕企）",
-        "en": "Inspired by Yuki Aoyama, youthful Japanese portraiture, natural daylight, direct straightforward composition, crisp everyday realism, clean candid intimacy",
-        "desc": "日系青春寫真與直接人像語言 | 著重日系青春寫真感、自然日光、直接構圖與乾淨的人像距離感，適合校園感場景、室內日常空間、純背景與清爽生活感畫面。"
+        "en": "Inspired by Yuki Aoyama, youthful Japanese portraiture, natural daylight, direct straightforward composition, crisp everyday realism, clean candid intimacy, simple subject distance",
+        "desc": "日系青春寫真與直接人像語言 | 著重日系青春寫真感、自然日光、直接構圖、乾淨人像距離與清楚的日常寫實質地。"
       },
       {
         "zh": "Yuhki Toyama（奧山由之）",
-        "en": "Inspired by Yuhki Toyama, tender cinematic youth portraiture, gentle diffused summer light, quiet presence, translucent coming-of-age atmosphere",
-        "desc": "青春電影感與透明敘事語言 | 青春、透明、略帶電影感與情緒敘事，適合校園、街道、夏日戶外、天台與生活感人像。"
+        "en": "Inspired by Yuhki Toyama, tender cinematic youth portraiture, gentle diffused summer light, quiet presence, translucent coming-of-age atmosphere, soft narrative color",
+        "desc": "青春電影感與透明敘事語言 | 青春、透明、略帶電影感與情緒敘事，透過柔和漫射光、安靜存在感和敘事性色彩建立氛圍。"
       },
       {
         "zh": "Leslie Kee（レスリー・キー）",
         "en": "Inspired by Leslie Kee, polished star portrait photography, high-definition beauty lighting, immaculate skin rendering, vibrant commercial fashion finish, premium cover-shoot intensity",
-        "desc": "華麗明星感與高完成度商業語言 | 明星感強、商業完成度高、人物辨識度鮮明，適合棚拍、封面、紅毯感與高精修時裝主題。"
+        "desc": "華麗明星感與高完成度商業語言 | 明星感強、商業完成度高、人物辨識度鮮明；重點是高解析美膚光、鮮明色彩和精修封面強度。"
       },
       {
         "zh": "Eikoh Hosoe（細江英公）",
         "en": "Inspired by Eikoh Hosoe, dramatic monochrome art portraiture, sculptural body tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity",
-        "desc": "戲劇黑白與人體藝術張力語言 | 黑白、戲劇、雕塑般肢體張力與藝術性很強，適合舞台光、極簡背景、人體藝術與概念黑白企劃。"
+        "desc": "戲劇黑白與人體藝術張力語言 | 黑白、戲劇、雕塑般肢體張力、強烈明暗對照與前衛藝術性，讓人物姿態具有高度圖像張力。"
       },
       {
         "zh": "Guy Bourdin（蓋・布爾丁）",
-        "en": "Inspired by Guy Bourdin, bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour",
-        "desc": "鮮豔色塊與危險敘事時裝語言 | 鮮豔色塊、強敘事張力與危險感，適合飯店、泳池、復古室內與概念時裝企劃。"
+        "en": "Inspired by Guy Bourdin, bold narrative fashion portraiture, vivid color blocking, surreal tension, graphic contrast, dangerous glamour, staged editorial precision",
+        "desc": "鮮豔色塊與危險敘事時裝語言 | 鮮豔色塊、強敘事張力、超現實危險感、平面化對比與精準的時裝編輯控制。"
       },
       {
         "zh": "Miles Aldridge（邁爾斯・奧爾德里奇）",
-        "en": "Inspired by Miles Aldridge, hyper-stylized studio portraiture, saturated retro palette, elaborate set-piece design, glossy cinematic light, lacquered color precision",
-        "desc": "濃烈色彩與復古電影棚拍語言 | 人工色彩很強、佈景精緻、帶復古未來感，適合棚拍、廚房、沙發、旅館與概念場景。"
+        "en": "Inspired by Miles Aldridge, hyper-stylized fashion portraiture, saturated retro palette, elaborate color staging, glossy cinematic light, lacquered color precision, artificial high-production polish",
+        "desc": "濃烈色彩與復古高製作語言 | 人工色彩很強、復古濃彩、精密色彩調度、亮面電影光與高完成度時裝質感，重點是精準而誇張的視覺控制。"
       },
       {
         "zh": "Elsa Bleda（艾爾莎·布萊達）",
-        "en": "Inspired by Elsa Bleda, nocturnal neon portraiture, moody urban silence, cinematic street glow, wet reflections, deep blue and magenta night tones",
-        "desc": "霓虹夜景與城市孤寂語言 | 夜晚城市、霓虹、濕地反光與孤獨感很強，適合巷口、街角、地鐵口與安靜夜街場景。"
+        "en": "Inspired by Elsa Bleda, nocturnal neon portraiture, moody neon silence, cinematic low-light glow, wet-reflection color, deep blue and magenta night tones",
+        "desc": "霓虹低光與孤寂色光語言 | 霓虹、低光、濕潤反射色、深藍與洋紅夜色，以及安靜疏離的畫面氣氛；重點是色光與暗部的冷感張力。"
       }
     ]
   },

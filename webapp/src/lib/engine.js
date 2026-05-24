@@ -1006,27 +1006,32 @@ function inferStyleMeta(_category, item) {
   const haystack = toHaystack(item.zh, item.en, item.desc);
   const tags = [];
 
-  if (hasAny(haystack, ['airy', 'translucent', 'gentle mood', '清透寫真'])) tags.push('soft_grade', 'natural_light_bias', 'indoor_bias');
-  if (hasAny(haystack, ['clean studio', 'beauty lighting', '棚拍'])) tags.push('clean_grade', 'beauty', 'studio_bias', 'controlled');
-  if (hasAny(haystack, ['neon cinematic', 'urban night', '霓虹電影'])) tags.push('neon', 'urban_bias', 'artificial_light', 'night_bias');
-  if (hasAny(haystack, ['forest-like shadows', 'low-key', '靜謐森林'])) tags.push('moody', 'cool_grade', 'dramatic', 'natural_bias', 'low_key_bias');
-  if (hasAny(haystack, ['hyper-saturated', 'floral', '花卉夢境'])) tags.push('high_saturation', 'dreamlike', 'set_bias', 'studio_bias');
-  if (hasAny(haystack, ['symmetrical', 'negative space', '留白疏離'])) tags.push('minimal', 'structured', 'conceptual', 'indoor_bias');
-  if (hasAny(haystack, ['poetic everyday', 'lyrical realism', '日常微光'])) tags.push('soft_grade', 'natural_light_bias', 'natural_bias', 'indoor_bias');
-  if (hasAny(haystack, ['soft haze', 'painterly softness', '柔霧古典'])) tags.push('studio_bias', 'moody', 'elegant', 'controlled');
-  if (hasAny(haystack, ['minimal studio', 'sculptural pose', '極簡雕塑'])) tags.push('studio_bias', 'minimal', 'structured', 'controlled');
-  if (hasAny(haystack, ['cold glamorous', 'assertive pose', '權力性感'])) tags.push('dramatic', 'urban_bias', 'elegant', 'night_bias');
-  if (hasAny(haystack, ['playful sensual', 'flirtatious', '俏皮性感'])) tags.push('artificial_light', 'lively', 'indoor_bias');
-  if (hasAny(haystack, ['intimate documentary', 'private room ambience', '私密生活'])) tags.push('film', 'indoor_bias', 'warm_grade');
-  if (hasAny(haystack, ['direct flash fashion', 'flat flash lighting', '直閃時尚'])) tags.push('artificial_light', 'urban_bias', 'flash_bias', 'raw');
-  if (hasAny(haystack, ['black and white supermodel', '黑白真實超模'])) tags.push('monochrome', 'dramatic', 'outdoor_bias', 'editorial');
-  if (hasAny(haystack, ['clean backdrop image', '純背景凝視'])) tags.push('studio_bias', 'minimal', 'controlled', 'editorial');
-  if (hasAny(haystack, ['quiet documentary image', 'american road atmosphere', '空曠美式'])) tags.push('natural_bias', 'outdoor_bias', 'documentary', 'soft_grade');
-  if (hasAny(haystack, ['wet plate inspired', '古典濕版'])) tags.push('monochrome', 'moody', 'natural_bias', 'heritage_bias', 'low_frequency_style');
-  if (hasAny(haystack, ['casual youthful image', '青春日常隨拍'])) tags.push('natural_light_bias', 'urban_bias', 'lively', 'indoor_bias');
-  if (hasAny(haystack, ['high contrast black and white', '高反差黑白街頭'])) tags.push('monochrome', 'urban_bias', 'night_bias', 'raw', 'low_frequency_style');
-  if (hasAny(haystack, ['bold narrative fashion', '危險敘事'])) tags.push('dramatic', 'set_bias', 'studio_bias', 'high_saturation');
-  if (hasAny(haystack, ['hyper-stylized fashion image', '濃彩復古電影棚拍'])) tags.push('studio_bias', 'set_bias', 'high_saturation', 'artificial_light');
+  if (hasAny(haystack, ['mika ninagawa', '蜷川實花', 'hyper-saturated theatrical'])) tags.push('high_saturation', 'dreamlike', 'artificial_light', 'controlled');
+  if (hasAny(haystack, ['yoshihiko ueda', '上田義彥', 'low-key tonal calm'])) tags.push('moody', 'cool_grade', 'dramatic', 'natural_light_bias', 'low_key_bias');
+  if (hasAny(haystack, ['osamu yokonami', '橫浪修', 'structured spacing'])) tags.push('minimal', 'structured', 'conceptual', 'soft_grade');
+  if (hasAny(haystack, ['rinko kawauchi', '川內倫子', 'fragile quiet details'])) tags.push('soft_grade', 'natural_light_bias', 'high_key');
+  if (hasAny(haystack, ['masumi ishida', '石田真澄', 'summer-color daylight'])) tags.push('soft_grade', 'natural_light_bias', 'film', 'lively');
+  if (hasAny(haystack, ['orie ichihashi', '市橋織江', 'transparent natural-light quality'])) tags.push('soft_grade', 'natural_light_bias', 'film', 'cool_grade');
+  if (hasAny(haystack, ['yoko takahashi', '高橋ヨーコ', 'sun-bleached portraiture'])) tags.push('soft_grade', 'natural_light_bias', 'bright_grade');
+  if (hasAny(haystack, ['paolo roversi', '保羅・羅韋爾西', 'soft haze couture'])) tags.push('soft_grade', 'moody', 'elegant', 'controlled');
+  if (hasAny(haystack, ['ellen von unwerth', '艾倫・馮・昂沃斯', 'playful sensual editorial'])) tags.push('artificial_light', 'flash_bias', 'lively', 'editorial');
+  if (hasAny(haystack, ['nan goldin', '南・戈爾丁', 'intimate diaristic'])) tags.push('film', 'warm_grade', 'raw', 'intimate');
+  if (hasAny(haystack, ['juergen teller', '尤爾根・特勒', 'raw direct-flash'])) tags.push('artificial_light', 'flash_bias', 'raw', 'editorial');
+  if (hasAny(haystack, ['richard avedon', '理察・阿維頓', 'clean negative space'])) tags.push('minimal', 'controlled', 'editorial', 'clean_grade');
+  if (hasAny(haystack, ['alec soth', '亞歷克・索斯', 'spacious documentary'])) tags.push('natural_light_bias', 'documentary', 'soft_grade', 'minimal');
+  if (hasAny(haystack, ['sally mann', '莎莉・曼', 'wet-plate portraiture'])) tags.push('monochrome', 'moody', 'heritage_style', 'low_frequency_style');
+  if (hasAny(haystack, ['wolfgang tillmans', '沃夫岡・提爾曼斯', 'informal framing'])) tags.push('natural_light_bias', 'documentary', 'lively', 'raw');
+  if (hasAny(haystack, ['daido moriyama', '森山大道', 'high-contrast monochrome'])) tags.push('monochrome', 'high_contrast', 'raw', 'low_frequency_style');
+  if (hasAny(haystack, ['nobuyoshi araki', '荒木經惟', 'raw intimate diaristic'])) tags.push('film', 'flash_bias', 'raw', 'intimate');
+  if (hasAny(haystack, ['kishin shinoyama', '篠山紀信', 'polished japanese gravure'])) tags.push('clean_grade', 'beauty', 'controlled', 'editorial');
+  if (hasAny(haystack, ['chikashi suzuki', '鈴木親', 'relaxed fashion editorial'])) tags.push('natural_light_bias', 'film', 'soft_grade', 'editorial');
+  if (hasAny(haystack, ['yuki aoyama', '青山裕企', 'simple subject distance'])) tags.push('natural_light_bias', 'lively', 'clean_grade');
+  if (hasAny(haystack, ['yuhki toyama', '奧山由之', 'coming-of-age atmosphere'])) tags.push('natural_light_bias', 'soft_grade', 'cinematic');
+  if (hasAny(haystack, ['leslie kee', 'レスリー・キー', 'star portrait photography'])) tags.push('clean_grade', 'beauty', 'controlled', 'editorial');
+  if (hasAny(haystack, ['eikoh hosoe', '細江英公', 'dramatic monochrome art'])) tags.push('monochrome', 'dramatic', 'controlled', 'low_frequency_style');
+  if (hasAny(haystack, ['guy bourdin', '蓋・布爾丁', 'bold narrative fashion'])) tags.push('dramatic', 'high_saturation', 'editorial', 'controlled');
+  if (hasAny(haystack, ['miles aldridge', '邁爾斯・奧爾德里奇', 'hyper-stylized fashion'])) tags.push('high_saturation', 'artificial_light', 'controlled', 'editorial');
+  if (hasAny(haystack, ['elsa bleda', '艾爾莎·布萊達', 'nocturnal neon'])) tags.push('neon', 'artificial_light', 'night_bias', 'moody');
 
   return { tags: withTags(tags) };
 }
@@ -3988,19 +3993,25 @@ const STYLE_PROMPT_INTROS = {
   'Rinko Kawauchi（川內倫子）': 'Inspired by Rinko Kawauchi, airy high-key image language',
   'Masumi Ishida（石田真澄）': 'Inspired by Masumi Ishida, luminous summer film image language',
   'Orie Ichihashi（市橋織江）': 'Inspired by Orie Ichihashi, transparent natural-light image language',
-  'Yoko Takahashi（高橋ヨーコ）': 'Inspired by Yoko Takahashi, breezy sun-bleached coastal image language',
+  'Yoko Takahashi（高橋ヨーコ）': 'Inspired by Yoko Takahashi, breezy sun-bleached image language',
   'Paolo Roversi（保羅・羅韋爾西）': 'Inspired by Paolo Roversi, soft haze editorial image language',
   'Ellen von Unwerth（艾倫・馮・昂沃斯）': 'Inspired by Ellen von Unwerth, playful sensual editorial image language',
-  'Nan Goldin（南・戈爾丁）': 'Inspired by Nan Goldin, intimate lived-in image language',
+  'Nan Goldin（南・戈爾丁）': 'Inspired by Nan Goldin, intimate diaristic image language',
   'Juergen Teller（尤爾根・特勒）': 'Inspired by Juergen Teller, raw direct-flash image language',
-  'Richard Avedon（理察・阿維頓）': 'Inspired by Richard Avedon, stripped-down studio image language',
+  'Richard Avedon（理察・阿維頓）': 'Inspired by Richard Avedon, stripped-down editorial image language',
   'Alec Soth（亞歷克・索斯）': 'Inspired by Alec Soth, spacious documentary image language',
   'Sally Mann（莎莉・曼）': 'Inspired by Sally Mann, antique wet-plate image language',
   'Wolfgang Tillmans（沃夫岡・提爾曼斯）': 'Inspired by Wolfgang Tillmans, casual everyday image language',
-  'Daido Moriyama（森山大道）': 'Inspired by Daido Moriyama, gritty high-contrast street image language',
+  'Daido Moriyama（森山大道）': 'Inspired by Daido Moriyama, gritty high-contrast monochrome image language',
+  'Nobuyoshi Araki（荒木經惟）': 'Inspired by Nobuyoshi Araki, raw intimate diaristic image language',
+  'Kishin Shinoyama（篠山紀信）': 'Inspired by Kishin Shinoyama, polished Japanese portrait image language',
+  'Chikashi Suzuki（鈴木親）': 'Inspired by Chikashi Suzuki, relaxed film-editorial image language',
   'Yuki Aoyama（青山裕企）': 'Inspired by Yuki Aoyama, youthful Japanese portrait image language',
+  'Yuhki Toyama（奧山由之）': 'Inspired by Yuhki Toyama, tender cinematic youth image language',
+  'Leslie Kee（レスリー・キー）': 'Inspired by Leslie Kee, polished star-portrait image language',
+  'Eikoh Hosoe（細江英公）': 'Inspired by Eikoh Hosoe, dramatic monochrome art image language',
   'Guy Bourdin（蓋・布爾丁）': 'Inspired by Guy Bourdin, bold narrative fashion image language',
-  'Miles Aldridge（邁爾斯・奧爾德里奇）': 'Inspired by Miles Aldridge, hyper-stylized studio image language',
+  'Miles Aldridge（邁爾斯・奧爾德里奇）': 'Inspired by Miles Aldridge, hyper-stylized fashion image language',
   'Elsa Bleda（艾爾莎·布萊達）': 'Inspired by Elsa Bleda, nocturnal neon image language',
 };
 

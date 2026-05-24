@@ -116,7 +116,7 @@ test('photographer style adds PAGE1-style photographic language to PAGE3 prompts
   const summary = buildPage3WorldSceneSummary(profile);
 
   assert.match(prompt, /Daido Moriyama/i);
-  assert.match(prompt, /gritty high-contrast street image language/i);
+  assert.match(prompt, /gritty high-contrast monochrome image language/i);
   assert.match(prompt, /light behavior, framing rhythm, color contrast, texture, subject distance, and image atmosphere/i);
   assert.match(summary, /Daido Moriyama/);
 });
