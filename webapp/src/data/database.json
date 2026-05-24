@@ -3361,8 +3361,8 @@
       },
       {
         "zh": "室內：白色書櫃落地窗臥室",
-        "en": "vintage white bookcase bedroom, tall white bookshelf filled with books, large white floor-to-ceiling window, sheer curtain panels, comfortable white bed and pillows, sky and treetops visible outside the window",
-        "desc": "以復古白色書櫃、白色大型落地窗、輕薄紗窗、舒適白色床鋪與枕頭為主的室內場景，窗外可見天空與樹梢。"
+        "en": "vintage white bookcase bedroom, tall white bookshelf filled with books, large white floor-to-ceiling window, sheer curtain panels, white bed surface, white pillows, sky and treetops visible outside the window",
+        "desc": "以復古白色書櫃、白色大型落地窗、輕薄紗窗、白色床面與枕頭為主的室內場景，窗外可見天空與樹梢。"
       },
       {
         "zh": "室內：浴室鏡前 / 洗手台",
@@ -3922,8 +3922,8 @@
     "自然與戶外 (Nature & Outdoors)": [
       {
         "zh": "戶外：金色海灘與浪線",
-        "en": "golden sandy beach edge, shallow clear seawater gently washing around the subject, thin receding wave edge across the sand, transparent water lapping near the body, wet sand texture, open seaside setting, no thick foam piles, no bubble bath texture",
-        "desc": "高頻好用的海邊場景，重點是金色沙灘、透明淺水、薄薄退潮浪緣與濕潤沙面；海水可以輕輕打到人物周圍，但避免生成厚重白色泡沫或泡泡浴感。"
+        "en": "golden sandy beach edge, shallow clear seawater, thin receding wave edge across the sand, transparent waterline, wet sand texture, open seaside setting, no thick foam piles, no bubble bath texture",
+        "desc": "高頻好用的海邊場景，重點是金色沙灘、透明淺水、薄薄退潮浪緣、清楚水線與濕潤沙面；避免生成厚重白色泡沫或泡泡浴感。"
       },
       {
         "zh": "戶外：清澈海灣岩岸",
@@ -3932,8 +3932,8 @@
       },
       {
         "zh": "戶外：岩洞感海灣淺灘",
-        "en": "rocky seaside cove with cave-like cliff openings, shallow crystalline water, irregular stone shoreline, cave-shadowed rock wall, coastal rock textures, uneven shallow-water edge",
-        "desc": "岩壁上帶有洞口或凹陷感的海灣淺灘，重點是碎石、淺水、洞口岩壁、岩面材質與不規則水邊。"
+        "en": "rocky seaside cove with cave-like cliff openings, shallow crystalline water, irregular stone shoreline, recessed rock wall, coastal rock textures, uneven shallow-water edge",
+        "desc": "岩壁上帶有洞口或凹陷感的海灣淺灘，重點是碎石、淺水、凹入岩壁、岩面材質與不規則水邊。"
       },
       {
         "zh": "戶外：草地與樹木",
@@ -3974,28 +3974,28 @@
     "其他專屬場景 (Other Dedicated Scenes)": [
       {
         "zh": "其他：草地",
-        "en": "close grassy ground plane, dense green lawn texture, subject lying directly on the grass, simple natural surface filling the frame",
-        "desc": "為仰躺或俯拍構圖準備的草地平面場景，重點是近距離草地材質與可躺臥的平面，不拉成遠景草原。"
+        "en": "close grassy ground plane, dense green lawn texture, simple natural surface filling the frame, short grass blades, no distant meadow horizon",
+        "desc": "近距離草地平面場景，重點是密集綠色草皮、短草葉材質與滿版自然地面，不拉成遠景草原。"
       },
       {
         "zh": "其他：白色床鋪",
-        "en": "lived-in white bed surface, casually rumpled white comforter, two white pillows placed loosely and naturally, soft cotton bedding texture, comfortable everyday bedroom feeling, subject lying on the bed",
-        "desc": "為仰躺姿勢準備的生活感白色床鋪場景，重點是隨意擺放的兩顆枕頭、鬆軟白色棉被、棉質床品紋理與舒適日常感，不強調完整臥室遠景。"
+        "en": "lived-in white bed surface, casually rumpled white comforter, two white pillows placed loosely and naturally, cotton bedding texture, bed surface filling the frame, no full bedroom wide shot",
+        "desc": "生活感白色床鋪場景，重點是隨意擺放的兩顆枕頭、白色棉被、棉質床品紋理與近距離床面，不強調完整臥室遠景。"
       },
       {
         "zh": "其他：生活感日式榻榻米房間",
-        "en": "lived-in Japanese tatami room ground plane, woven tatami mat texture filling the floor, shoji sliding window or paper screen edge, low domestic room details, magazine or small personal items near the corner, soft rectangular window light patches across the tatami, subject lying or sitting directly on the tatami",
-        "desc": "為仰躺、坐姿或俯拍構圖準備的生活感日式榻榻米房間，重點是榻榻米編織紋理、障子窗或紙門邊緣、角落雜誌與小物，以及落在榻榻米上的矩形窗光。"
+        "en": "lived-in Japanese tatami room ground plane, woven tatami mat texture filling the floor, shoji sliding window or paper screen edge, low domestic room details, magazine or small personal items near the corner, tatami seam grid and paper-screen frame geometry",
+        "desc": "生活感日式榻榻米房間，重點是榻榻米編織紋理、障子窗或紙門邊緣、低矮室內細節、角落雜誌小物、榻榻米接縫與紙門框線。"
       },
       {
         "zh": "其他：樹下草地",
-        "en": "under a tree canopy on a dense green grass lawn, soft grass blades filling the ground plane, several visible tree roots breaking through the grass near the subject, dappled sunlight and patchy leaf shadows across the grassy surface, subject lying comfortably on the grass, no concrete pavement, no bare dirt ground",
-        "desc": "為仰躺姿勢準備的樹下草地場景，重點是明確的綠色草坪、可見草葉材質、局部樹根穿出草面，以及樹冠覆蓋下的草地層次；避免生成水泥地或大片裸露泥土地。"
+        "en": "dense green grass lawn under a tree canopy, visible grass blade texture, several tree roots breaking through the grass, tree trunk base near one side, low branch and leaf canopy fragments, no concrete pavement, no bare dirt ground",
+        "desc": "樹下草地場景，重點是明確的綠色草坪、可見草葉材質、局部樹根、偏側樹幹基部與低處枝葉片段；避免生成水泥地或大片裸露泥土地。"
       },
       {
         "zh": "其他：沙灘海岸線",
-        "en": "pale sandy beach ground plane, clean fine sand surface for lying down, shallow clear seawater gently reaching around the subject's body, thin transparent wave edge spreading across the sand, wet sand glistening around the skin, distant calm shoreline in the background, no thick foam piles, no bubble bath texture",
-        "desc": "為仰躺或坐在沙灘上的姿勢準備的海岸線場景，重點是乾淨細沙、透明淺水輕輕推到身體周圍、薄浪緣與濕沙反光；避免厚重白色泡沫包住身體或生成泡泡浴質感。"
+        "en": "pale sandy beach ground plane, clean fine sand surface, shallow clear seawater at the sand edge, thin transparent wave edge spreading across the sand, wet sand texture, distant calm shoreline in the background, no thick foam piles, no bubble bath texture",
+        "desc": "沙灘海岸線場景，重點是乾淨細沙、透明淺水、薄浪緣、濕沙材質與遠處平緩海岸線；避免厚重白色泡沫或泡泡浴質感。"
       }
     ]
   },
