@@ -261,19 +261,19 @@ const LAYER_COLOR_OPTIONS = [
 
 const TOP_FIT_OPTIONS = [
   { id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } },
-  { id: 'standard', zh: '正常', en: 'standard cut' },
-  { id: 'fitted', zh: '合身', en: 'fitted cut' },
-  { id: 'tight', zh: '緊身', en: 'tight body-skimming fit' },
-  { id: 'oversized', zh: 'oversize', en: 'oversized proportion' },
+  { id: 'standard', zh: '正常', en: 'standard upper-body cut' },
+  { id: 'fitted', zh: '合身', en: 'fitted upper-body cut following the garment shape' },
+  { id: 'tight', zh: '緊身', en: 'tight body-skimming upper-body fit' },
+  { id: 'oversized', zh: 'oversize', en: 'oversized upper-body proportion with roomy shoulders and body' },
 ];
 
 const TOP_STYLING_OPTIONS = [
   { id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } },
-  { id: 'standard', zh: '正常穿著', en: 'worn in a standard natural position' },
-  { id: 'tucked', zh: '紮入下身', en: 'tucked neatly into the bottoms' },
+  { id: 'standard', zh: '正常穿著', en: 'top worn in a standard natural position' },
+  { id: 'tucked', zh: '紮入下身', en: 'top hem tucked neatly into the bottoms' },
   { id: 'half-tucked', zh: '半紮', en: 'front hem half-tucked into the bottoms' },
-  { id: 'untucked', zh: '自然放出', en: 'hem worn naturally loose over the waistband' },
-  { id: 'knot-tied', zh: '下擺打結', en: 'front hem tied into a compact knot' },
+  { id: 'untucked', zh: '自然放出', en: 'top hem worn naturally loose over the waistband' },
+  { id: 'knot-tied', zh: '下擺打結', en: 'front hem tied into a compact knot below the waist' },
 ];
 
 const BOTTOM_FIT_OPTIONS = [
@@ -2262,8 +2262,25 @@ function createSyntheticWardrobeModifier(token, option) {
   };
 }
 
+function normalizeWardrobePromptText(value) {
+  return stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+}
+
+function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = null, styling = null } = {}) {
+  if (!topItem || isNoneLikeItem(topItem)) return '';
+  const base = normalizeWardrobePromptText(topItem.en);
+  if (!base) return '';
+
+  const fitText = fit && !isNoneLikeItem(fit) ? normalizeWardrobePromptText(fit.en) : '';
+  const stylingText = styling && !isNoneLikeItem(styling) ? normalizeWardrobePromptText(styling.en) : '';
+  const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
+  const coloredBase = color && !isNoneLikeItem(color) ? `${color.en} ${base}` : base;
+
+  return [fitText, stylingText, coloredBase, patternText].filter(Boolean).join(', ');
+}
+
 function buildTopWardrobePrompt(wardrobeSlots, wardrobeColors) {
-  return buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors.topColor, {
+  return buildTopColoredPrompt(wardrobeSlots.top, wardrobeColors.topColor, {
     pattern: wardrobeSlots.topPattern,
     fit: wardrobeSlots.topFit,
     styling: wardrobeSlots.topStyling,
@@ -2272,15 +2289,11 @@ function buildTopWardrobePrompt(wardrobeSlots, wardrobeColors) {
 
 function buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role) {
   const suffix = role === 'a' ? 'A' : 'B';
-  return buildColoredGrokPrompt(wardrobeSlots[`top${suffix}`], wardrobeColors[`top${suffix}Color`], {
+  return buildTopColoredPrompt(wardrobeSlots[`top${suffix}`], wardrobeColors[`top${suffix}Color`], {
     pattern: wardrobeSlots[`top${suffix}Pattern`],
     fit: wardrobeSlots[`topFit${suffix}`],
     styling: wardrobeSlots[`topStyling${suffix}`],
   });
-}
-
-function normalizeWardrobePromptText(value) {
-  return stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
 }
 
 function isPantsWardrobeItem(item) {

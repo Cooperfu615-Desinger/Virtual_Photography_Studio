@@ -75,6 +75,36 @@ test('pants-specific unbuttoned zipper waist state is not applied to skirts', ()
   assert.match(promptText, /mini skirt/);
 });
 
+test('top fit and styling appear before the top garment in generated wardrobe text', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    topId: optionId('topId', '襯衫'),
+    topFitId: optionId('topFitId', '緊身'),
+    topStylingId: optionId('topStylingId', '下擺打結'),
+  });
+
+  const grokTopLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Top:'));
+  assert.ok(grokTopLine);
+  assert.ok(
+    grokTopLine.indexOf('tight body-skimming upper-body fit') < grokTopLine.indexOf('front hem tied into a compact knot below the waist'),
+    'top fit should appear before top styling'
+  );
+  assert.ok(
+    grokTopLine.indexOf('front hem tied into a compact knot below the waist') < grokTopLine.indexOf('shirt, crisp cotton poplin'),
+    'top styling should appear before the top item'
+  );
+
+  const zImageText = prompt.zImagePrompt;
+  assert.ok(
+    zImageText.indexOf('tight body-skimming upper-body fit') < zImageText.indexOf('front hem tied into a compact knot below the waist'),
+    'Z-Image top fit should appear before top styling'
+  );
+  assert.ok(
+    zImageText.indexOf('front hem tied into a compact knot below the waist') < zImageText.indexOf('shirt, crisp cotton poplin'),
+    'Z-Image top styling should appear before the top item'
+  );
+});
+
 test('special top and bottom palette controls include the new color-card pairings', () => {
   const controls = getLockControls();
   const paletteControl = controls.find((control) => control.key === 'topBottomPaletteId');
