@@ -29,7 +29,56 @@ const WARDROBE_PICKER_KEYS = new Set([
   'bottomColorId',
   'bottomAColorId',
   'bottomBColorId',
+  'outerwearColorId',
+  'outerwearAColorId',
+  'outerwearBColorId',
+  'legwearColorId',
+  'legwearAColorId',
+  'legwearBColorId',
+  'shoesColorId',
+  'shoesAColorId',
+  'shoesBColorId',
 ]);
+
+const NAMED_COLOR_SWATCHES = {
+  black: ['#111111'],
+  white: ['#ffffff'],
+  'off-white': ['#f4efe3'],
+  'dark grey': ['#3f3f3f'],
+  'light grey': ['#cfcfcf'],
+  'dark brown': ['#4a2e21'],
+  'light brown': ['#b8895f'],
+  brown: ['#7a4f2f'],
+  red: ['#c81e2c'],
+  'bright red': ['#ff2a2a'],
+  'neon red': ['#ff003c'],
+  pink: ['#f6a7c8'],
+  'neon pink': ['#ff4fd8'],
+  'light blue': ['#9ed6ff'],
+  'dark blue': ['#173d78'],
+  'bright blue': ['#1c7cff'],
+  blue: ['#2f6fd6'],
+  'royal blue': ['#1748c8'],
+  'neon blue': ['#00b7ff'],
+  'tiffany aqua': ['#81d8d0'],
+  'turquoise green': ['#40e0c0'],
+  'light green': ['#a9d98d'],
+  'dark green': ['#245c38'],
+  green: ['#4b9a45'],
+  'olive green': ['#687a3a'],
+  'neon green': ['#39ff14'],
+  'soft yellow': ['#f7dc72'],
+  yellow: ['#f6d547'],
+  'neon yellow': ['#eaff00'],
+  burgundy: ['#800020'],
+  silver: ['#c7c9cc'],
+  gold: ['#d6a84f'],
+  colorful: ['#f45b69', '#f7d154', '#4ecdc4'],
+  'black and white': ['#111111', '#ffffff'],
+  'black and red': ['#111111', '#c81e2c'],
+  'white and red': ['#ffffff', '#c81e2c'],
+  'bold multicolored horizontal stripes, wide stripe bands, clearly separated random colors': ['#f45b69', '#f7d154', '#4ecdc4'],
+};
 
 const OUTFIT_PRESET_COVERED_KEYS = new Set([
   'topId',
@@ -446,15 +495,25 @@ function getSelectedPromptText(control, value) {
 function getOptionSwatches(option) {
   const colorPairs = [option?.topColor, option?.bottomColor]
     .filter(Boolean)
-    .map((color) => ({ color: color.hex, label: color.zh }));
+    .map((color) => {
+      const hex = color.hex || (color.en || '').match(/#[0-9a-fA-F]{6}/)?.[0] || NAMED_COLOR_SWATCHES[color.en]?.[0] || '';
+      return hex ? { color: hex, label: color.zh } : null;
+    })
+    .filter(Boolean);
   if (colorPairs.length > 0) return colorPairs;
 
   const hexMatches = (option?.en || '').match(/#[0-9a-fA-F]{6}/g) || [];
-  return Array.from(new Set(hexMatches)).slice(0, 3).map((color) => ({ color, label: color }));
+  if (hexMatches.length > 0) {
+    return Array.from(new Set(hexMatches)).slice(0, 3).map((color) => ({ color, label: color }));
+  }
+
+  const namedSwatches = NAMED_COLOR_SWATCHES[option?.en] || NAMED_COLOR_SWATCHES[option?.id];
+  return (namedSwatches || []).slice(0, 3).map((color) => ({ color, label: option?.zh || color }));
 }
 
-function getOptionCategory(option) {
+function getOptionCategory(option, control) {
   const label = option?.zh || '';
+  if (control?.label?.includes('配色') || control?.label?.includes('色')) return '配色';
   if (label.includes('全無')) return '全無';
   if (label.startsWith('套裝：')) return '套裝';
   if (label.startsWith('連身：')) return '連身';
@@ -609,7 +668,7 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
     if (!normalizedQuery) return true;
     return `${option.zh} ${option.en || ''}`.toLowerCase().includes(normalizedQuery);
   });
-  const categories = Array.from(new Set(control.options.map(getOptionCategory)));
+  const categories = Array.from(new Set(control.options.map((option) => getOptionCategory(option, control))));
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -630,9 +689,6 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
             placeholder="搜尋套裝、連身、配色或 prompt 關鍵字"
             autoFocus
           />
-          <button className="secondary" type="button" onClick={() => onSelect('')}>
-            隨機
-          </button>
         </div>
 
         <div className="wardrobe-picker-category-row">
@@ -646,17 +702,21 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
           {visibleOptions.map((option) => {
             const swatches = getOptionSwatches(option);
             const isActive = selectedOption?.id === option.id;
+            const isColorOption = swatches.length > 0;
+            const isNoneOption = option.zh === '全無' || option.id === 'none';
+            const isRandomOption = Boolean(option.random) || option.id === 'random';
+            const useColorCardStyle = isColorOption || isNoneOption || isRandomOption;
             return (
               <button
                 key={option.id}
                 type="button"
-                className={`wardrobe-picker-option ${isActive ? 'wardrobe-picker-option-active' : ''}`}
+                className={`wardrobe-picker-option ${useColorCardStyle ? 'wardrobe-picker-option-color' : ''} ${isNoneOption ? 'wardrobe-picker-option-none' : ''} ${isActive ? 'wardrobe-picker-option-active' : ''}`}
                 disabled={option.disabled}
                 onClick={() => onSelect(option.id)}
               >
                 <span className="wardrobe-picker-option-topline">
-                  <strong>{option.zh}</strong>
-                  <span>{getOptionCategory(option)}</span>
+                  <strong>{useColorCardStyle ? (option.en || option.zh) : option.zh}</strong>
+                  {!useColorCardStyle ? <span>{getOptionCategory(option, control)}</span> : null}
                 </span>
                 {swatches.length > 0 ? (
                   <span className="wardrobe-picker-swatches wardrobe-picker-option-swatches" aria-hidden="true">
@@ -665,7 +725,7 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
                     ))}
                   </span>
                 ) : null}
-                {option.en ? <span className="wardrobe-picker-option-copy">{option.en}</span> : null}
+                {option.en && !useColorCardStyle ? <span className="wardrobe-picker-option-copy">{option.en}</span> : null}
               </button>
             );
           })}

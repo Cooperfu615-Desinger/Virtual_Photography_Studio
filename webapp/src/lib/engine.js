@@ -5475,7 +5475,11 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       contrast: wardrobeColors.outfitPresetContrastColor,
       lockedPalette: wardrobeColors.outfitPresetLockedPalette,
     });
-    const buildSingleOuterwearText = () => buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors);
+    const buildSingleOuterwearText = ({ minimalStyling = false } = {}) => buildOuterwearColoredPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
+      pattern: wardrobeSlots.outerwearPattern,
+      styling: wardrobeSlots.outerwearStyling,
+      minimalStyling,
+    });
     if (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB) {
       add(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA) ? `woman 1 wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA)}` : '');
       add(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB) ? `woman 2 wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB)}` : '');
@@ -5553,7 +5557,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
     } else if (wardrobeSlots.outfitPreset) {
       const outfitPresetText = buildSingleOutfitPresetText();
-      const outerwearText = buildSingleOuterwearText();
+      const outerwearText = buildSingleOuterwearText({ minimalStyling: true });
       const neckAccessoryText = cleanWearablePrefix(buildAccessoryPrompt(wardrobeSlots.neckAccessory));
       const legwearText = buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor);
       const shoesText = buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor);
