@@ -2056,52 +2056,52 @@
       },
       {
         "zh": "透膚絲襪",
-        "en": "sheer pantyhose, delicate translucent legwear, smooth finish",
+        "en": "sheer pantyhose, translucent smooth hosiery",
         "desc": "高頻實用，能與短裙、短褲與高跟鞋自然搭配。"
       },
       {
         "zh": "半透明絲襪",
-        "en": "semi-sheer pantyhose, translucent legwear, sleek finish",
+        "en": "semi-sheer pantyhose, stronger translucent hosiery finish",
         "desc": "比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。"
       },
       {
         "zh": "蕾絲大腿絲襪",
-        "en": "lace-top thigh-high stockings, sensual legwear, fitted silhouette",
+        "en": "lace-top thigh-high stockings, fitted sheer hosiery",
         "desc": "帶寫真與性感氛圍，適合內衣或飯店場景。"
       },
       {
         "zh": "漁網絲襪",
-        "en": "fishnet tights, open net texture, edgy styling",
+        "en": "fishnet tights, open net hosiery texture",
         "desc": "強化龐克、地下與夜晚街頭氣質。"
       },
       {
         "zh": "膝上蕾絲吊帶襪",
-        "en": "thigh-high sheer lace garter stockings, translucent stocking legs extending above the knee, floral lace top band, matching lace garter straps and satin ribbon garter details, delicate nylon hosiery texture, refined lingerie accessory styling",
+        "en": "thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery",
         "desc": "明確包含膝上絲襪本體、半透明尼龍絲襪質感、蕾絲襪口與吊帶結構，讓模型不只生成吊襪帶，也能完整表現絲襪本身的材質與長度。"
       },
       {
         "zh": "柔和過膝絲襪",
-        "en": "over-knee stockings, smooth fitted legwear, soft youthful styling",
+        "en": "over-knee stockings, smooth fitted legwear",
         "desc": "過膝絲襪帶有柔和甜感，適合 JK、Lolita 與寫真風格。"
       },
       {
         "zh": "俐落過膝絲襪",
-        "en": "over-knee stockings, fitted legwear, sleek dramatic styling",
+        "en": "over-knee stockings, sleek fitted legwear",
         "desc": "過膝絲襪輪廓更俐落、存在感更強，適合夜拍、時裝與制服變體。"
       },
       {
         "zh": "羅紋短襪",
-        "en": "ribbed ankle socks, casual everyday styling, soft cotton texture",
+        "en": "ribbed ankle socks, soft cotton texture",
         "desc": "偏日常、可愛、生活感強。"
       },
       {
         "zh": "短襪",
-        "en": "ankle socks, clean casual styling, youthful everyday accent",
+        "en": "ankle socks, clean casual cotton legwear",
         "desc": "短襪偏日系日常與青春感，適合球鞋、樂福鞋與生活感穿搭。"
       },
       {
         "zh": "長筒襪",
-        "en": "knee-high socks, playful legwear accent, casual youthful styling",
+        "en": "knee-high socks, clean youthful legwear",
         "desc": "長筒襪具存在感，適合 Y2K、街頭與較活潑的社群感造型。"
       }
     ],
@@ -2249,132 +2249,132 @@
       },
       {
         "zh": "低筒球鞋",
-        "en": "low-top sneakers, clean everyday finish, versatile casual style",
+        "en": "low-top sneakers, clean everyday casual shoe shape",
         "desc": "最穩定的日常鞋款，適合街拍與生活感畫面。"
       },
       {
         "zh": "ADIZERO EVO SL JS4506",
-        "en": "adidas adizero evo sl js4506 running shoes, low-top speed-runner silhouette, lightweight modern performance sneaker, sleek athletic outsole",
+        "en": "adidas adizero evo sl js4506 running shoes, sleek speed-runner shape, contrast three-stripe side mark, lightweight athletic outsole",
         "desc": "偏輕量速度型跑鞋輪廓，整體俐落、現代、運動感強，適合街拍、機能與日常運動風。"
       },
       {
         "zh": "Samba OG",
-        "en": "adidas samba og sneakers, low-top classic terrace shoe silhouette, slim leather upper, gum sole retro football styling",
+        "en": "adidas samba og sneakers, gum sole, three-stripe side detail, terrace football styling",
         "desc": "經典薄底復古球鞋，帶足球訓練鞋與 terrace style 氣質，適合日常、街拍與復古休閒搭配。"
       },
       {
         "zh": "Dr. Martens 1461 Bex",
-        "en": "dr martens 1461 bex shoes, three-eye leather lace-up shoe silhouette, chunky bex platform sole, polished oxford-style upper, rugged school-inspired edge",
+        "en": "dr martens 1461 bex shoes, three-eye lace-up front, chunky bex platform sole, yellow welt stitching",
         "desc": "低筒三孔皮鞋搭配 Bex 厚底，介於學院、街頭與中性龐克之間，適合短裙、襪類與日常造型。"
       },
       {
         "zh": "Dr. Martens 1461 Lace Up Shoes",
-        "en": "dr martens 1461 lace up shoes, classic three-eye smooth leather shoes, low-cut oxford silhouette, sturdy welt stitching, clean vintage workwear edge",
+        "en": "dr martens 1461 lace up shoes, three-eye lace-up front, yellow welt stitching, classic smooth leather oxford shape",
         "desc": "經典三孔皮鞋版本，比 Bex 更低調，適合文青、學院、極簡與復古日常穿搭。"
       },
       {
         "zh": "Dr. Martens 1460 Round Toe Lace-Up Boots",
-        "en": "dr martens 1460 round toe lace-up boots, classic eight-eye leather ankle boots, rounded toe, yellow welt stitching, sturdy combat boot silhouette",
+        "en": "dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent",
         "desc": "經典 8 孔短靴輪廓，保留馬丁靴代表性的圓頭、縫線與街頭龐克感。"
       },
       {
         "zh": "Dr. Martens Jadon Max Platform Boots",
-        "en": "dr martens jadon max platform boots, chunky leather platform combat boots, extra-thick sole, eight-eye lace-up silhouette, bold heavy punk presence",
+        "en": "dr martens jadon max platform boots, extra-thick platform sole, eight-eye lace-up front, yellow welt stitching",
         "desc": "厚底份量最強，適合 Y2K、龐克、地下、暗黑與高存在感造型。"
       },
       {
         "zh": "Dr. Martens 1B99 Mid Calf Lace-Up Boots",
-        "en": "dr martens 1b99 mid calf lace-up boots, tall leather lace-up boots, slim mid-calf shaft, rounded toe, structured gothic punk silhouette",
+        "en": "dr martens 1b99 mid calf lace-up boots, tall slim lace-up shaft, yellow welt stitching, gothic punk boot shape",
         "desc": "中長筒綁帶靴，比例比短靴更修長，適合蘿莉塔、龐克、哥德與制服混搭。"
       },
       {
         "zh": "慢跑鞋",
-        "en": "running shoes, lightweight athletic silhouette, casual movement-ready styling",
+        "en": "running shoes, lightweight athletic shoe shape",
         "desc": "更偏生活與運動機能感，適合日常與街拍。"
       },
       {
         "zh": "Nike P-6000",
-        "en": "nike p-6000 running shoes, layered mesh running sneaker, low-top retro runner silhouette, sporty early-2000s performance styling",
+        "en": "nike p-6000 running shoes, layered mesh panels, metallic-like overlay accents, Y2K runner styling",
         "desc": "帶 Y2K 跑鞋層次與復古運動感，鞋面線條複雜，適合街拍、科技運動風與日常造型。"
       },
       {
         "zh": "Onitsuka Tiger Mexico 66",
-        "en": "onitsuka tiger mexico 66 sneakers, low-profile retro runner silhouette, slim classic upper, vintage track-shoe styling",
+        "en": "onitsuka tiger mexico 66 sneakers, low-profile slim upper, signature side stripe accents, vintage track-shoe styling",
         "desc": "經典薄底復古跑鞋輪廓，線條輕巧俐落，適合日系休閒、城市日常與復古運動穿搭。"
       },
       {
         "zh": "瑪莉珍鞋",
-        "en": "mary jane shoes, classic strap silhouette, feminine school-inspired styling",
+        "en": "mary jane shoes, classic instep strap, rounded feminine shoe shape",
         "desc": "經典扣帶鞋型，適合制服、百褶裙、甜感與輕學院風搭配。"
       },
       {
         "zh": "厚底瑪莉珍鞋",
-        "en": "platform mary jane shoes, chunky feminine silhouette, youthful doll-like styling",
+        "en": "platform mary jane shoes, chunky sole, classic instep strap",
         "desc": "在瑪莉珍基礎上加入厚底感，甜感更強，也更適合 Y2K 與制服變體。"
       },
       {
         "zh": "樂福鞋",
-        "en": "classic loafers, polished leather, understated elegance",
+        "en": "classic loafers, polished leather slip-on shape",
         "desc": "都市、學院、極簡與法式風格都能搭。"
       },
       {
         "zh": "厚底樂福鞋",
-        "en": "platform loafers, chunky sole, polished leather finish, modern school-inspired styling",
+        "en": "platform loafers, chunky sole, polished leather slip-on shape",
         "desc": "保留樂福鞋的學院感，但更有份量與時裝感，適合制服、短裙與街頭學院混搭。"
       },
       {
         "zh": "芭蕾平底鞋",
-        "en": "ballet flats, delicate feminine flat shoes, soft elegant silhouette",
+        "en": "ballet flats, delicate flat shoe shape, soft rounded vamp",
         "desc": "比高跟更輕盈柔和，適合法式、少女感、精緻日常與輕熟穿搭。"
       },
       {
         "zh": "高跟鞋",
-        "en": "black glossy pointed-toe stiletto pumps, sleek sharp silhouette, slender high heel, elongated leg line",
-        "desc": "以黑色亮面尖頭細跟高跟鞋為主，線條俐落、成熟性感，適合寫真、時裝、飯店與精品感場景。"
+        "en": "glossy pointed-toe stiletto pumps, slender high heel, sleek sharp silhouette",
+        "desc": "以亮面尖頭細跟高跟鞋為主，主色由鞋款配色控制，線條俐落、成熟性感，適合寫真、時裝、飯店與精品感場景。"
       },
       {
         "zh": "經典淺口高跟鞋",
-        "en": "classic pumps, clean pointed or almond toe silhouette, polished feminine heel shape",
+        "en": "classic pumps, shallow-cut upper, clean pointed or almond toe, polished heel shape",
         "desc": "成熟穩定的都會女性鞋款，適合西裝、襯衫、窄裙與通勤風格。"
       },
       {
         "zh": "尖頭細跟高跟鞋",
-        "en": "pointed-toe stiletto heels, sleek feminine silhouette, sharp elegant leg line",
+        "en": "pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape",
         "desc": "更強調成熟、性感與時裝感，適合飯店、夜拍與精品風格。"
       },
       {
         "zh": "貓跟高跟鞋",
-        "en": "kitten heels, low delicate heel, refined feminine silhouette, understated elegance",
+        "en": "kitten heels, low delicate heel, refined feminine shoe shape",
         "desc": "跟高較低但氣質成熟，適合通勤、法式、文藝與日常精品感穿搭。"
       },
       {
         "zh": "細帶高跟涼鞋",
-        "en": "strappy heeled sandals, delicate straps, elegant leg line",
+        "en": "strappy heeled sandals, delicate narrow straps, slim heel",
         "desc": "適合飯店、晚間時裝與成熟優雅風格。"
       },
       {
         "zh": "綁帶高跟涼鞋",
-        "en": "lace-up heeled sandals, wraparound ankle straps, elegant sensual heel styling",
+        "en": "lace-up heeled sandals, wraparound ankle straps, slim heel",
         "desc": "綁帶細節讓腿部線條更有存在感，適合夜拍、度假、飯店與性感造型。"
       },
       {
         "zh": "防水台高跟鞋",
-        "en": "platform high heels, elevated sole, bold feminine silhouette, nightlife glamour styling",
+        "en": "platform high heels, elevated front sole, bold high-heel shape",
         "desc": "防水台讓整體氣勢更強，適合夜生活、派對、性感與強存在感畫面。"
       },
       {
         "zh": "合身過膝長靴",
-        "en": "fitted over-the-knee boots, sleek leg-hugging silhouette, confident feminine styling",
+        "en": "fitted over-the-knee boots, sleek leg-hugging shaft",
         "desc": "緊貼腿部的過膝長靴比一般長靴更有女人味，適合秋冬、夜拍與成熟時裝。"
       },
       {
         "zh": "尖頭短靴",
-        "en": "pointed ankle boots, sleek leather finish, sharp silhouette",
+        "en": "pointed ankle boots, sharp toe, sleek ankle-height shape",
         "desc": "帶有都會感與俐落感，適合秋冬與夜景。"
       },
       {
         "zh": "漆皮過膝長靴",
-        "en": "patent leather thigh-high boots, sleek fetish-inspired silhouette",
+        "en": "patent leather thigh-high boots, glossy leg-hugging shaft",
         "desc": "緊貼腿部線條，適合夜景、飯店與 fetish。"
       }
     ],

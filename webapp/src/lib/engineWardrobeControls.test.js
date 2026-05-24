@@ -126,6 +126,41 @@ test('outerwear styling appears before the outerwear garment in generated wardro
   );
 });
 
+test('model-specific shoes stay concise while preserving signature accent details', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    shoesId: optionId('shoesId', 'Samba OG'),
+    shoesColorId: optionId('shoesColorId', '白色'),
+  });
+
+  const grokShoesLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Shoes:'));
+  assert.ok(grokShoesLine);
+  assert.match(grokShoesLine, /white adidas samba og sneakers/);
+  assert.match(grokShoesLine, /gum sole/);
+  assert.match(grokShoesLine, /three-stripe side detail/);
+  assert.doesNotMatch(grokShoesLine, /low-top classic terrace shoe silhouette/);
+
+  assert.match(prompt.zImagePrompt, /white adidas samba og sneakers/);
+  assert.match(prompt.zImagePrompt, /gum sole/);
+  assert.match(prompt.zImagePrompt, /three-stripe side detail/);
+});
+
+test('generic shoe colors do not conflict with fixed color wording', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    shoesId: optionId('shoesId', '高跟鞋'),
+    shoesColorId: optionId('shoesColorId', '白色'),
+  });
+
+  const grokShoesLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Shoes:'));
+  assert.ok(grokShoesLine);
+  assert.match(grokShoesLine, /white glossy pointed-toe stiletto pumps/);
+  assert.doesNotMatch(grokShoesLine, /black glossy pointed-toe/);
+
+  assert.match(prompt.zImagePrompt, /white glossy pointed-toe stiletto pumps/);
+  assert.doesNotMatch(prompt.zImagePrompt, /black glossy pointed-toe/);
+});
+
 test('special top and bottom palette controls include the new color-card pairings', () => {
   const controls = getLockControls();
   const paletteControl = controls.find((control) => control.key === 'topBottomPaletteId');
