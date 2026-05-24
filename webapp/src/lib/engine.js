@@ -278,18 +278,18 @@ const TOP_STYLING_OPTIONS = [
 
 const BOTTOM_FIT_OPTIONS = [
   { id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } },
-  { id: 'standard', zh: '正常', en: 'standard proportion' },
-  { id: 'fitted', zh: '合身', en: 'fitted tailored line' },
-  { id: 'tight', zh: '緊身', en: 'tight body-skimming line' },
-  { id: 'wide', zh: '寬版', en: 'wide-volume cut' },
+  { id: 'standard', zh: '正常', en: 'standard lower-body proportion' },
+  { id: 'fitted', zh: '合身', en: 'fitted lower-body line following the garment shape' },
+  { id: 'tight', zh: '緊身', en: 'tight body-skimming lower-body fit' },
+  { id: 'wide', zh: '寬版', en: 'wide-leg volume with a broad lower-body opening' },
 ];
 
 const BOTTOM_RISE_OPTIONS = [
   { id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } },
-  { id: 'high-rise', zh: '高腰', en: 'high-rise waist placement' },
-  { id: 'mid-rise', zh: '正常腰線', en: 'standard waist placement' },
-  { id: 'low-rise', zh: '低腰', en: 'low-rise waist placement' },
-  { id: 'ultra-low-rise', zh: '超低腰', en: 'ultra-low-rise waist placement' },
+  { id: 'high-rise', zh: '高腰', en: 'high-rise waistband sitting above the natural waist' },
+  { id: 'mid-rise', zh: '正常腰線', en: 'mid-rise waistband sitting at the natural waist' },
+  { id: 'low-rise', zh: '低腰', en: 'low-rise waistband sitting on the hips' },
+  { id: 'ultra-low-rise', zh: '超低腰', en: 'ultra-low-rise waistband sitting very low on the hips' },
   { id: 'unbuttoned-slightly-unzipped', zh: '扣子解開拉鏈微開', en: 'pants waist button undone and front zipper slightly lowered, relaxed loosened waistband styling, still worn securely on the hips' },
 ];
 
@@ -2279,8 +2279,35 @@ function buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role) {
   });
 }
 
+function normalizeWardrobePromptText(value) {
+  return stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+}
+
+function isPantsWardrobeItem(item) {
+  return item?.id?.includes('wardrobe:褲裝-pants:');
+}
+
+function getApplicableBottomRise(bottomItem, rise) {
+  if (!rise || isNoneLikeItem(rise)) return null;
+  if (rise.id?.includes('unbuttoned-slightly-unzipped') && !isPantsWardrobeItem(bottomItem)) return null;
+  return rise;
+}
+
+function buildBottomColoredPrompt(bottomItem, color = null, { pattern = null, fit = null, rise = null } = {}) {
+  if (!bottomItem || isNoneLikeItem(bottomItem)) return '';
+  const base = normalizeWardrobePromptText(bottomItem.en);
+  if (!base) return '';
+
+  const riseText = normalizeWardrobePromptText(getApplicableBottomRise(bottomItem, rise)?.en);
+  const fitText = fit && !isNoneLikeItem(fit) ? normalizeWardrobePromptText(fit.en) : '';
+  const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
+  const coloredBase = color && !isNoneLikeItem(color) ? `${color.en} ${base}` : base;
+
+  return [riseText, fitText, coloredBase, patternText].filter(Boolean).join(', ');
+}
+
 function buildBottomWardrobePrompt(bottomItem, wardrobeSlots, wardrobeColors) {
-  return buildColoredGrokPrompt(bottomItem, wardrobeColors.bottomColor, {
+  return buildBottomColoredPrompt(bottomItem, wardrobeColors.bottomColor, {
     pattern: wardrobeSlots.bottomPattern,
     fit: wardrobeSlots.bottomFit,
     rise: wardrobeSlots.bottomRise,
@@ -2289,7 +2316,7 @@ function buildBottomWardrobePrompt(bottomItem, wardrobeSlots, wardrobeColors) {
 
 function buildRoleBottomWardrobePrompt(bottomItem, wardrobeSlots, wardrobeColors, role) {
   const suffix = role === 'a' ? 'A' : 'B';
-  return buildColoredGrokPrompt(bottomItem, wardrobeColors[`bottom${suffix}Color`], {
+  return buildBottomColoredPrompt(bottomItem, wardrobeColors[`bottom${suffix}Color`], {
     pattern: wardrobeSlots[`bottom${suffix}Pattern`],
     fit: wardrobeSlots[`bottomFit${suffix}`],
     rise: wardrobeSlots[`bottomRise${suffix}`],

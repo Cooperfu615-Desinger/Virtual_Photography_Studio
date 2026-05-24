@@ -32,6 +32,49 @@ test('bottom rise controls include a slightly unbuttoned and unzipped pants stat
   assert.match(promptText, /直筒牛仔褲|straight-leg jeans/);
 });
 
+test('bottom rise and fit appear before the bottom garment in generated wardrobe text', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    bottomRiseId: optionId('bottomRiseId', '低腰'),
+    bottomFitId: optionId('bottomFitId', '寬版'),
+  });
+
+  const grokPantsLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Pants:'));
+  assert.ok(grokPantsLine);
+  assert.ok(
+    grokPantsLine.indexOf('low-rise waistband sitting on the hips') < grokPantsLine.indexOf('wide-leg volume with a broad lower-body opening'),
+    'bottom rise should appear before bottom fit'
+  );
+  assert.ok(
+    grokPantsLine.indexOf('wide-leg volume with a broad lower-body opening') < grokPantsLine.indexOf('straight-leg jeans'),
+    'bottom fit should appear before the pants item'
+  );
+
+  const zImageText = prompt.zImagePrompt;
+  assert.ok(
+    zImageText.indexOf('low-rise waistband sitting on the hips') < zImageText.indexOf('wide-leg volume with a broad lower-body opening'),
+    'Z-Image bottom rise should appear before bottom fit'
+  );
+  assert.ok(
+    zImageText.indexOf('wide-leg volume with a broad lower-body opening') < zImageText.indexOf('straight-leg jeans'),
+    'Z-Image bottom fit should appear before the pants item'
+  );
+});
+
+test('pants-specific unbuttoned zipper waist state is not applied to skirts', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    skirtId: optionId('skirtId', '迷你裙'),
+    bottomRiseId: optionId('bottomRiseId', '扣子解開拉鏈微開'),
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
+
+  assert.doesNotMatch(promptText, /waist button undone and front zipper slightly lowered/);
+  assert.match(promptText, /mini skirt/);
+});
+
 test('special top and bottom palette controls include the new color-card pairings', () => {
   const controls = getLockControls();
   const paletteControl = controls.find((control) => control.key === 'topBottomPaletteId');
