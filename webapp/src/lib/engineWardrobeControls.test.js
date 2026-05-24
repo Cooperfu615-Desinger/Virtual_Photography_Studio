@@ -105,6 +105,27 @@ test('top fit and styling appear before the top garment in generated wardrobe te
   );
 });
 
+test('outerwear styling appears before the outerwear garment in generated wardrobe text', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outerwearId: optionId('outerwearId', '運動連帽外套'),
+    outerwearStylingId: optionId('outerwearStylingId', '正常穿著'),
+  });
+
+  const grokOuterwearLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Outerwear:'));
+  assert.ok(grokOuterwearLine);
+  assert.ok(
+    grokOuterwearLine.indexOf('properly worn on both shoulders') < grokOuterwearLine.indexOf('zip-up hoodie'),
+    'outerwear styling should appear before the outerwear item'
+  );
+
+  const zImageText = prompt.zImagePrompt;
+  assert.ok(
+    zImageText.indexOf('properly worn on both shoulders') < zImageText.indexOf('zip-up hoodie'),
+    'Z-Image outerwear styling should appear before the outerwear item'
+  );
+});
+
 test('special top and bottom palette controls include the new color-card pairings', () => {
   const controls = getLockControls();
   const paletteControl = controls.find((control) => control.key === 'topBottomPaletteId');
