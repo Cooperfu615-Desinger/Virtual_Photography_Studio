@@ -85,9 +85,9 @@ test('generated prompts expose camera film as a single D-section rendering layer
     opticalEffectId: optionByLabel('opticalEffectId', '前景遮擋散景').id,
   });
 
-  assert.match(prompt.grokPrompt, /Camera \/ Film: Ricoh GR compact APS-C camera profile/);
-  assert.match(prompt.grokPrompt, /Lens: shot on 35mm lens/);
-  assert.match(prompt.grokPrompt, /Optical Effect: blurred foreground occlusion near the lens/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Ricoh GR compact APS-C camera profile/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*shot on 35mm lens/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*blurred foreground occlusion near the lens/);
   assert.match(prompt.zImagePrompt, /meaningful partial frame coverage/);
   assert.match(prompt.summary, /鏡頭：[^|]*相機｜Ricoh GR 快拍/);
 });

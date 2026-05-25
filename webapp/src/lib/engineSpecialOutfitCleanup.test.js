@@ -76,7 +76,7 @@ test('selected special outfit stays the complete wardrobe priority', () => {
     shoesId: optionByLabel('shoesId', '高跟鞋').id,
   });
 
-  assert.match(prompt.grokPrompt, /Special Outfit: black sheer polka-dot matching fashion set/);
+  assert.match(prompt.grokPrompt, /Wardrobe:\nShe wears black sheer polka-dot matching fashion set/);
   assert.doesNotMatch(prompt.grokPrompt, /\nTop:|\nPants:|\nShoes:|\nOutfit Preset:|\nDress:/);
   assert.match(prompt.zImagePrompt, /She wears complete special outfit: black sheer polka-dot matching fashion set/);
 });

@@ -63,8 +63,8 @@ test('generated prompts keep ambient conditions separate from subject light styl
     lightDirectionId: optionByLabel('lightDirectionId', '暖金黃昏色溫').id,
   });
 
-  assert.match(prompt.grokPrompt, /Ambient Light Conditions: deep azure summer sky/);
-  assert.match(prompt.grokPrompt, /Subject Light Style: warm golden-amber subject light color/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*deep azure summer sky/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*warm golden-amber subject light color/);
   assert.match(prompt.zImagePrompt, /deep azure summer sky/);
   assert.match(prompt.zImagePrompt, /warm golden-amber subject light color/);
   assert.match(prompt.summary, /光影：夏日深藍積雲 \/ 暖金黃昏色溫/);

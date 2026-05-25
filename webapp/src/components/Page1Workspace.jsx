@@ -3,6 +3,14 @@ import { Copy } from 'lucide-react';
 import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
 import PromptPreviewCard from './PromptPreviewCard';
+import {
+  OUTFIT_PRESET_A_COVERED_KEYS,
+  OUTFIT_PRESET_B_COVERED_KEYS,
+  OUTFIT_PRESET_COVERED_KEYS,
+  buildWardrobeLayerInsights,
+  buildWorkspaceSummary,
+  getControlOptionLabel,
+} from '../lib/page1WorkspaceSummary.js';
 
 const WARDROBE_PICKER_KEYS = new Set([
   'specialOutfitId',
@@ -79,54 +87,6 @@ const NAMED_COLOR_SWATCHES = {
   'white and red': ['#ffffff', '#c81e2c'],
   'bold multicolored horizontal stripes, wide stripe bands, clearly separated random colors': ['#f45b69', '#f7d154', '#4ecdc4'],
 };
-
-const OUTFIT_PRESET_COVERED_KEYS = new Set([
-  'topId',
-  'topFitId',
-  'topStylingId',
-  'topColorId',
-  'topPatternId',
-  'dressId',
-  'dressColorId',
-  'pantsId',
-  'skirtId',
-  'bottomFitId',
-  'bottomRiseId',
-  'bottomColorId',
-  'bottomPatternId',
-]);
-
-const OUTFIT_PRESET_A_COVERED_KEYS = new Set([
-  'topAId',
-  'topFitAId',
-  'topStylingAId',
-  'topAColorId',
-  'topAPatternId',
-  'dressAId',
-  'dressAColorId',
-  'pantsAId',
-  'skirtAId',
-  'bottomFitAId',
-  'bottomRiseAId',
-  'bottomAColorId',
-  'bottomAPatternId',
-]);
-
-const OUTFIT_PRESET_B_COVERED_KEYS = new Set([
-  'topBId',
-  'topFitBId',
-  'topStylingBId',
-  'topBColorId',
-  'topBPatternId',
-  'dressBId',
-  'dressBColorId',
-  'pantsBId',
-  'skirtBId',
-  'bottomFitBId',
-  'bottomRiseBId',
-  'bottomBColorId',
-  'bottomBPatternId',
-]);
 
 const WARDROBE_GARMENT_CONTROL_DIVIDERS = {
   topId: '上身單品',
@@ -363,127 +323,6 @@ const SECTION_SUBPANELS = {
   ],
 };
 
-function getControlOptionLabel(controls, key, value) {
-  if (!value) return '';
-  const control = controls.find((item) => item.key === key);
-  const option = control?.options?.find((item) => item.id === value);
-  if (!option || option.zh === '全無' || option.zh === '隨機') return '';
-  return option.zh || '';
-}
-
-function buildSummaryText(parts) {
-  const filtered = parts.filter(Boolean);
-  return filtered.length > 0 ? filtered.join(' / ') : '尚未形成明確選項';
-}
-
-function buildWorkspaceSummary(locks, controls) {
-  const subjectTypeLabel = getControlOptionLabel(controls, 'subjectCount', locks.subjectCount);
-  const specialSubjectControl = controls.find((control) => control.key === 'specialSubjectId');
-  const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
-  const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
-  const characterSummary = isSpecialSubjectMode
-    ? specialSubjectOption?.zh || '特殊角色'
-    : buildSummaryText([
-        subjectTypeLabel === '上傳人物' ? subjectTypeLabel : '',
-        getControlOptionLabel(controls, 'facialFeaturesId', locks.facialFeaturesId),
-        getControlOptionLabel(controls, 'facialFeaturesAId', locks.facialFeaturesAId),
-        getControlOptionLabel(controls, 'facialFeaturesBId', locks.facialFeaturesBId),
-        getControlOptionLabel(controls, 'bodyTypeId', locks.bodyTypeId),
-        getControlOptionLabel(controls, 'hairstyleId', locks.hairstyleId),
-        getControlOptionLabel(controls, 'hairstyleAId', locks.hairstyleAId),
-        getControlOptionLabel(controls, 'hairstyleBId', locks.hairstyleBId),
-        getControlOptionLabel(controls, 'hairColorId', locks.hairColorId),
-        getControlOptionLabel(controls, 'hairColorAId', locks.hairColorAId),
-        getControlOptionLabel(controls, 'hairColorBId', locks.hairColorBId),
-      ]);
-  const characterMeta = buildSummaryText([
-    getControlOptionLabel(controls, 'expressionId', locks.expressionId),
-    getControlOptionLabel(controls, 'expressionAId', locks.expressionAId),
-    getControlOptionLabel(controls, 'expressionBId', locks.expressionBId),
-    getControlOptionLabel(controls, 'duoPoseId', locks.duoPoseId),
-    getControlOptionLabel(controls, 'poseId', locks.poseId),
-    getControlOptionLabel(controls, 'specialActionId', locks.specialActionId),
-    getControlOptionLabel(controls, 'duoInteractionId', locks.duoInteractionId),
-  ]);
-  const wardrobeSummary = buildSummaryText([
-    getControlOptionLabel(controls, 'specialOutfitId', locks.specialOutfitId),
-    getControlOptionLabel(controls, 'specialOutfitAId', locks.specialOutfitAId),
-    getControlOptionLabel(controls, 'specialOutfitBId', locks.specialOutfitBId),
-    getControlOptionLabel(controls, 'outfitPresetId', locks.outfitPresetId),
-    getControlOptionLabel(controls, 'outfitPresetAId', locks.outfitPresetAId),
-    getControlOptionLabel(controls, 'outfitPresetBId', locks.outfitPresetBId),
-    getControlOptionLabel(controls, 'dressId', locks.dressId),
-    getControlOptionLabel(controls, 'dressAId', locks.dressAId),
-    getControlOptionLabel(controls, 'dressBId', locks.dressBId),
-    getControlOptionLabel(controls, 'topId', locks.topId),
-    getControlOptionLabel(controls, 'topAId', locks.topAId),
-    getControlOptionLabel(controls, 'topBId', locks.topBId),
-    getControlOptionLabel(controls, 'topFitId', locks.topFitId),
-    getControlOptionLabel(controls, 'topStylingId', locks.topStylingId),
-    getControlOptionLabel(controls, 'pantsId', locks.pantsId),
-    getControlOptionLabel(controls, 'pantsAId', locks.pantsAId),
-    getControlOptionLabel(controls, 'pantsBId', locks.pantsBId),
-    getControlOptionLabel(controls, 'skirtId', locks.skirtId),
-    getControlOptionLabel(controls, 'skirtAId', locks.skirtAId),
-    getControlOptionLabel(controls, 'skirtBId', locks.skirtBId),
-    getControlOptionLabel(controls, 'bottomFitId', locks.bottomFitId),
-    getControlOptionLabel(controls, 'bottomRiseId', locks.bottomRiseId),
-    getControlOptionLabel(controls, 'legwearId', locks.legwearId),
-    getControlOptionLabel(controls, 'shoesId', locks.shoesId),
-    getControlOptionLabel(controls, 'legwearAId', locks.legwearAId),
-    getControlOptionLabel(controls, 'shoesAId', locks.shoesAId),
-    getControlOptionLabel(controls, 'headAccessoryAId', locks.headAccessoryAId),
-    getControlOptionLabel(controls, 'eyewearAId', locks.eyewearAId),
-    getControlOptionLabel(controls, 'eyewearAColorId', locks.eyewearAColorId),
-    getControlOptionLabel(controls, 'eyewearAPlacementId', locks.eyewearAPlacementId),
-    getControlOptionLabel(controls, 'earringsAId', locks.earringsAId),
-    getControlOptionLabel(controls, 'neckAccessoryAId', locks.neckAccessoryAId),
-    getControlOptionLabel(controls, 'legwearBId', locks.legwearBId),
-    getControlOptionLabel(controls, 'shoesBId', locks.shoesBId),
-    getControlOptionLabel(controls, 'headAccessoryBId', locks.headAccessoryBId),
-    getControlOptionLabel(controls, 'eyewearBId', locks.eyewearBId),
-    getControlOptionLabel(controls, 'eyewearBColorId', locks.eyewearBColorId),
-    getControlOptionLabel(controls, 'eyewearBPlacementId', locks.eyewearBPlacementId),
-    getControlOptionLabel(controls, 'earringsBId', locks.earringsBId),
-    getControlOptionLabel(controls, 'neckAccessoryBId', locks.neckAccessoryBId),
-  ]);
-  const sceneSummary = buildSummaryText([
-    getControlOptionLabel(controls, 'sceneAttributeId', locks.sceneAttributeId),
-    getControlOptionLabel(controls, 'locationId', locks.locationId),
-    getControlOptionLabel(controls, 'lightingId', locks.lightingId),
-    getControlOptionLabel(controls, 'lightDirectionId', locks.lightDirectionId),
-    getControlOptionLabel(controls, 'aspectRatio', locks.aspectRatio),
-  ]);
-  const photographySummary = buildSummaryText([
-    getControlOptionLabel(controls, 'styleId', locks.styleId),
-    getControlOptionLabel(controls, 'framingId', locks.framingId),
-    getControlOptionLabel(controls, 'angleId', locks.angleId),
-    getControlOptionLabel(controls, 'orbitId', locks.orbitId),
-    getControlOptionLabel(controls, 'lensId', locks.lensId),
-    getControlOptionLabel(controls, 'opticalEffectId', locks.opticalEffectId),
-    getControlOptionLabel(controls, 'filmId', locks.filmId),
-  ]);
-
-  return {
-    character: {
-      summary: characterSummary,
-      meta: characterMeta === '尚未形成明確選項' ? '' : characterMeta,
-    },
-    wardrobe: {
-      summary: wardrobeSummary,
-      meta: '',
-    },
-    scene: {
-      summary: sceneSummary,
-      meta: '',
-    },
-    photography: {
-      summary: photographySummary,
-      meta: '',
-    },
-  };
-}
-
 function filterControlsByKeys(controls, keys) {
   const keySet = new Set(keys);
   return controls.filter((control) => keySet.has(control.key));
@@ -542,104 +381,6 @@ function getOptionCategory(option, control) {
   if (label.includes('配色') || option?.topColor || option?.bottomColor) return '配色';
   if (label.includes('特殊') || label.includes('風格') || label.includes('造型')) return '造型';
   return '選項';
-}
-
-function buildWardrobeLayerInsights(locks, controls, isSpecialOutfitActive, isAnyOutfitPresetActive) {
-  const selected = (key) => getControlOptionLabel(controls, key, locks[key]);
-  const hasAny = (keys) => keys.some((key) => selected(key));
-  const mainOutfitLabels = [
-    selected('specialOutfitId'),
-    selected('specialOutfitAId'),
-    selected('specialOutfitBId'),
-    selected('outfitPresetId'),
-    selected('outfitPresetAId'),
-    selected('outfitPresetBId'),
-    selected('dressId'),
-    selected('dressAId'),
-    selected('dressBId'),
-    selected('topId'),
-    selected('topAId'),
-    selected('topBId'),
-    selected('pantsId'),
-    selected('pantsAId'),
-    selected('pantsBId'),
-    selected('skirtId'),
-    selected('skirtAId'),
-    selected('skirtBId'),
-  ].filter(Boolean);
-  const paletteLabels = [
-    selected('outfitPresetPrimaryColorId'),
-    selected('outfitPresetContrastColorId'),
-    selected('outfitPresetLockedPaletteId'),
-    selected('outfitPresetAPrimaryColorId'),
-    selected('outfitPresetAContrastColorId'),
-    selected('outfitPresetALockedPaletteId'),
-    selected('outfitPresetBPrimaryColorId'),
-    selected('outfitPresetBContrastColorId'),
-    selected('outfitPresetBLockedPaletteId'),
-    selected('topBottomPaletteId'),
-    selected('topBottomPaletteAId'),
-    selected('topBottomPaletteBId'),
-  ].filter(Boolean);
-  const layerLabels = [
-    selected('outerwearId'),
-    selected('outerwearAId'),
-    selected('outerwearBId'),
-    selected('legwearId'),
-    selected('legwearAId'),
-    selected('legwearBId'),
-    selected('shoesId'),
-    selected('shoesAId'),
-    selected('shoesBId'),
-  ].filter(Boolean);
-  const accessoryLabels = [
-    selected('headAccessoryId'),
-    selected('headAccessoryAId'),
-    selected('headAccessoryBId'),
-    selected('eyewearId'),
-    selected('eyewearColorId'),
-    selected('eyewearPlacementId'),
-    selected('eyewearAId'),
-    selected('eyewearAColorId'),
-    selected('eyewearAPlacementId'),
-    selected('eyewearBId'),
-    selected('eyewearBColorId'),
-    selected('eyewearBPlacementId'),
-    selected('earringsId'),
-    selected('earringsAId'),
-    selected('earringsBId'),
-    selected('neckAccessoryId'),
-    selected('neckAccessoryAId'),
-    selected('neckAccessoryBId'),
-    selected('wristAccessoryId'),
-    selected('ringId'),
-    selected('waistAccessoryId'),
-  ].filter(Boolean);
-
-  const notes = [];
-  if (isSpecialOutfitActive) {
-    notes.push('特殊穿搭維持完整造型描述，不再額外改寫服裝結構。');
-  }
-  if (isAnyOutfitPresetActive && hasAny(['outerwearId', 'outerwearAId', 'outerwearBId'])) {
-    notes.push('套裝/連身會被視為主體輪廓，外套固定作為完整最外層，避免西裝或罩衫被模型拆成奇怪形狀。');
-  }
-  if (isAnyOutfitPresetActive && hasAny(['legwearId', 'legwearAId', 'legwearBId'])) {
-    notes.push('襪類只作為露出的腿部或邊緣細節，不要求模型為了看見襪子而破壞長褲、長裙或連身洋裝。');
-  }
-  if (isAnyOutfitPresetActive && paletteLabels.length > 0) {
-    notes.push('套裝/連身配色會套用在主體服裝上，不會強迫拆成獨立上身與下身版型。');
-  }
-  if (mainOutfitLabels.length === 0) {
-    notes.push('先選整體穿搭或上下身單件後，這裡會顯示更明確的疊穿順序。');
-  }
-
-  return {
-    main: mainOutfitLabels.slice(0, 3),
-    palette: paletteLabels.slice(0, 3),
-    layers: layerLabels.slice(0, 4),
-    accessories: accessoryLabels.slice(0, 4),
-    notes,
-  };
 }
 
 function WardrobePickerField({ control, value, disabled, onOpen, onChange, onCopy }) {
@@ -991,7 +732,7 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Scene & Environment</div>
-          <p className="workspace-panel-copy">{activeSubpanel?.description || '先決定場景、環境與光線，右側會同步反映成目前可直接使用的 Grok prompt。'}</p>
+          <p className="workspace-panel-copy">{activeSubpanel?.description || '先決定場景、環境與光線，右側會同步反映成目前可直接使用的 Gpt prompt。'}</p>
         </div>
         <button className="secondary reference-trigger-btn" type="button" onClick={() => setIsLightingReferenceOpen(true)}>
           查看光線定位對照
@@ -1079,18 +820,18 @@ export default function Page1Workspace({
 
   const generationPromptCards = [
     {
-      title: 'Grok Prompt',
+      title: 'Gpt',
       value: previewPrompt?.grokPrompt || '',
-      placeholder: '目前尚無可顯示的 Grok Prompt。',
-      description: '結構化主 prompt，適合需要清楚描述人物、穿搭、場景與鏡頭的生成流程。',
-      copyLabel: 'Grok copied',
+      placeholder: '目前尚無可顯示的 Gpt prompt。',
+      description: '分段自然語言主 prompt，主要給 ChatGPT-Image-2 / GPT Image 使用。',
+      copyLabel: 'Gpt copied',
     },
     {
-      title: 'Z-Image Prompt',
+      title: 'Grok/Z-Image',
       value: previewPrompt?.zImagePrompt || '',
-      placeholder: '目前尚無可顯示的 Z-Image Prompt。',
-      description: '較適合直接輸入影像生成模型的整合版本，保留重要視覺條件。',
-      copyLabel: 'Z-Image copied',
+      placeholder: '目前尚無可顯示的 Grok/Z-Image prompt。',
+      description: '更自然的完整段落描述，主要給 Grok Imagine / Z-Image 使用。',
+      copyLabel: 'Grok/Z-Image copied',
     },
     {
       title: 'AI Prompt',
@@ -1250,7 +991,7 @@ export default function Page1Workspace({
                 className="text-input prompt-import-textarea"
                 value={importPromptText}
                 onChange={(event) => setImportPromptText(event.target.value)}
-                placeholder="貼上 Midjourney、Grok Structured Prompt，或本工具匯出的標準格式內容"
+                placeholder="貼上 AI、Gpt、Grok/Z-Image，或本工具匯出的標準格式內容"
               />
             </label>
 

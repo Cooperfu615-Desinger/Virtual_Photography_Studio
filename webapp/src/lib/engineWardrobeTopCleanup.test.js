@@ -105,7 +105,7 @@ test('simplified top prompts remain compact and usable in generated wardrobe out
     topId: top.id,
   });
 
-  assert.match(prompt.grokPrompt, /Top: .*lace bra top/);
+  assert.match(prompt.grokPrompt, /Wardrobe:\n[\s\S]*lace bra top/);
   assert.match(prompt.zImagePrompt, /lace bra top/);
   assert.ok(top.en.split(/\s+/).length <= 24);
 });

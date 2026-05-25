@@ -10,7 +10,7 @@ function optionId(controlKey, zh) {
   return option.id;
 }
 
-test('Grok prompt prioritizes scene before special outfit details', () => {
+test('Gpt prompt prioritizes scene before special outfit details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     specialOutfitId: optionId('specialOutfitId', '黑色波點頭巾透紗套裝'),
@@ -18,27 +18,26 @@ test('Grok prompt prioritizes scene before special outfit details', () => {
   });
 
   const grok = prompt.grokPrompt;
-  const locationIndex = grok.indexOf('Location:');
-  const scenePriorityIndex = grok.indexOf('Scene Priority:');
-  const specialOutfitIndex = grok.indexOf('Special Outfit:');
+  const sceneIndex = grok.indexOf('Scene:');
+  const scenePriorityIndex = grok.indexOf('(Seoul Seongsu-dong urban corner, industrial cafe frontage:1.35)');
+  const specialOutfitIndex = grok.indexOf('black sheer polka-dot matching fashion set');
 
-  assert.notEqual(locationIndex, -1);
+  assert.notEqual(sceneIndex, -1);
   assert.notEqual(scenePriorityIndex, -1);
   assert.notEqual(specialOutfitIndex, -1);
-  assert.ok(locationIndex < specialOutfitIndex);
+  assert.ok(sceneIndex < specialOutfitIndex);
   assert.ok(scenePriorityIndex < specialOutfitIndex);
-  assert.match(grok, /Scene Priority: \(Seoul Seongsu-dong urban corner, industrial cafe frontage:1\.35\)/);
   assert.match(grok, /recognizable selected environment/);
 });
 
-test('Grok prompt keeps scene priority disabled for normal separates', () => {
+test('Gpt prompt keeps scene priority disabled for normal separates', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     locationId: optionId('locationId', '戶外：首爾聖水洞街區'),
     topId: optionId('topId', '棉質細肩背心'),
   });
 
-  assert.doesNotMatch(prompt.grokPrompt, /Scene Priority:/);
+  assert.doesNotMatch(prompt.grokPrompt, /recognizable selected environment/);
 });
 
 test('Z-Image prompt prioritizes scene before special outfit details', () => {
@@ -81,7 +80,7 @@ test('PAGE1 imaging simulation includes merged camera profiles in generated outp
   assert.equal(prompt.selection.filmId, 'ricoh-gr-snapshot');
   assert.equal(prompt.selection.cameraSystemId, 'ricoh-gr-snapshot');
   assert.doesNotMatch(prompt.grokPrompt, /Camera System:/);
-  assert.match(prompt.grokPrompt, /Camera \/ Film: Ricoh GR compact APS-C camera profile/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Ricoh GR compact APS-C camera profile/);
   assert.match(prompt.zImagePrompt, /Ricoh GR compact APS-C camera profile/);
   assert.equal(prompt.structured['Lens & Imaging'].at(-1).id, 'ricoh-gr-snapshot');
 });
@@ -94,5 +93,5 @@ test('legacy camera system lock migrates into imaging simulation', () => {
 
   assert.equal(prompt.selection.filmId, 'ricoh-gr-snapshot');
   assert.equal(prompt.selection.cameraSystemId, 'ricoh-gr-snapshot');
-  assert.match(prompt.grokPrompt, /Camera \/ Film: Ricoh GR compact APS-C camera profile/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Ricoh GR compact APS-C camera profile/);
 });

@@ -121,6 +121,6 @@ test('generated prompts keep outfit preset color separate from clothing structur
   });
 
   assert.equal(prompt.selection.outfitPresetId, outfit.id);
-  assert.match(prompt.grokPrompt, /Outfit Preset: red satin lingerie set/);
+  assert.match(prompt.grokPrompt, /Wardrobe:\nShe wears [\s\S]*red satin lingerie set/);
   assert.match(prompt.grokPrompt, /satin lingerie set/);
 });

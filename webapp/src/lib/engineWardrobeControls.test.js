@@ -40,7 +40,7 @@ test('bottom rise and fit appear before the bottom garment in generated wardrobe
     bottomFitId: optionId('bottomFitId', '寬版'),
   });
 
-  const grokPantsLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Pants:'));
+  const grokPantsLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokPantsLine);
   assert.ok(
     grokPantsLine.indexOf('low-rise waistband sitting on the hips') < grokPantsLine.indexOf('wide-leg volume with a broad lower-body opening'),
@@ -83,7 +83,7 @@ test('top fit and styling appear before the top garment in generated wardrobe te
     topStylingId: optionId('topStylingId', '下擺打結'),
   });
 
-  const grokTopLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Top:'));
+  const grokTopLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokTopLine);
   assert.ok(
     grokTopLine.indexOf('tight body-skimming upper-body fit') < grokTopLine.indexOf('front hem tied into a compact knot below the waist'),
@@ -112,7 +112,7 @@ test('outerwear styling appears before the outerwear garment in generated wardro
     outerwearStylingId: optionId('outerwearStylingId', '正常穿著'),
   });
 
-  const grokOuterwearLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Outerwear:'));
+  const grokOuterwearLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokOuterwearLine);
   assert.ok(
     grokOuterwearLine.indexOf('properly worn on both shoulders') < grokOuterwearLine.indexOf('zip-up hoodie'),
@@ -133,7 +133,7 @@ test('model-specific shoes stay concise while preserving signature accent detail
     shoesColorId: optionId('shoesColorId', '白色'),
   });
 
-  const grokShoesLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Shoes:'));
+  const grokShoesLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokShoesLine);
   assert.match(grokShoesLine, /white adidas samba og sneakers/);
   assert.match(grokShoesLine, /gum sole/);
@@ -152,7 +152,7 @@ test('generic shoe colors do not conflict with fixed color wording', () => {
     shoesColorId: optionId('shoesColorId', '白色'),
   });
 
-  const grokShoesLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Shoes:'));
+  const grokShoesLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokShoesLine);
   assert.match(grokShoesLine, /white glossy pointed-toe stiletto pumps/);
   assert.doesNotMatch(grokShoesLine, /black glossy pointed-toe/);
@@ -169,7 +169,7 @@ test('single-subject eyewear earrings and neck accessories are bound to the subj
     neckAccessoryId: optionId('neckAccessoryId', '金屬細頸圈'),
   });
 
-  const subjectLine = prompt.grokPrompt.split('\n').find((line) => line.startsWith('Subject Count:'));
+  const subjectLine = prompt.grokPrompt.match(/Subject:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(subjectLine);
   assert.match(subjectLine, /with .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
   assert.doesNotMatch(prompt.grokPrompt, /^Eyewear:/m);
@@ -193,9 +193,7 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
     neckAccessoryBId: optionId('neckAccessoryBId', '皮質扣環頸鏈'),
   });
 
-  const subjectLine = prompt.grokPrompt
-    .split('\n')
-    .find((line) => line.startsWith('Subject Count:') || line.startsWith('Duo Scene Anchor:'));
+  const subjectLine = prompt.grokPrompt.match(/Subject:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(subjectLine);
   assert.match(subjectLine, /woman 1 with .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
   assert.match(subjectLine, /woman 2 with .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
@@ -307,7 +305,7 @@ test('wardrobe layering logic keeps long tops untucked over shorts', () => {
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
 
-  assert.match(promptText, /Wardrobe Layering Logic:/);
+  assert.match(promptText, /Wardrobe:\n[\s\S]*long top layer worn naturally untucked/);
   assert.match(promptText, /long top layer worn naturally untucked/);
   assert.match(promptText, /do not tuck the long top into the shorts/);
   assert.match(promptText, /shorts only peek out naturally below the hem/);

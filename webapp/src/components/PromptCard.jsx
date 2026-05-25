@@ -4,8 +4,8 @@ import { Download, Trash2 } from 'lucide-react';
 function buildMarkdownExport(data) {
   const promptEntries = getPromptEntries(data, {
     midjourney: data.promptLabels?.midjourney || 'AI Prompt',
-    grok: data.promptLabels?.grok || 'Grok Structured Prompt',
-    zImage: data.promptLabels?.zImage || 'Z-Image Prompt',
+    grok: data.promptLabels?.grok || 'Gpt',
+    zImage: data.promptLabels?.zImage || 'Grok/Z-Image',
   });
 
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
@@ -56,8 +56,8 @@ function PromptCard({ data, density = 'compact', onDelete, onApplySelection }) {
   const [activePromptKey, setActivePromptKey] = useState('');
   const labels = {
     midjourney: data.promptLabels?.midjourney || 'AI',
-    grok: data.promptLabels?.grok || 'Grok',
-    zImage: data.promptLabels?.zImage || 'Z-Image',
+    grok: data.promptLabels?.grok || 'Gpt',
+    zImage: data.promptLabels?.zImage || 'Grok/Z-Image',
   };
   const promptEntries = getPromptEntries(data, labels);
   const activePrompt = promptEntries.find((entry) => entry.key === activePromptKey) || promptEntries[0] || null;

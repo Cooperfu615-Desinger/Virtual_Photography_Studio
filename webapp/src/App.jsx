@@ -295,8 +295,8 @@ function isNoneSelected(controlKey, value, controls) {
 function buildMarkdownExport(data) {
   const labels = {
     midjourney: data.promptLabels?.midjourney || 'AI Prompt',
-    grok: data.promptLabels?.grok || 'Grok Structured Prompt',
-    zImage: data.promptLabels?.zImage || 'Z-Image Prompt',
+    grok: data.promptLabels?.grok || 'Gpt',
+    zImage: data.promptLabels?.zImage || 'Grok/Z-Image',
   };
   const structured = data.structured && typeof data.structured === 'object' ? data.structured : {};
   const promptEntries = [
@@ -463,8 +463,8 @@ function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) {
   const text = String(markdownText || '').replace(/\r\n/g, '\n');
   const summaryMatch = text.match(/\*\*Summary:\*\*\s*(.+)/);
   const midjourneyMatch = text.match(/## (?:AI Prompt|Midjourney Prompt)\n```text\n([\s\S]*?)\n```/);
-  const grokMatch = text.match(/## Grok Structured Prompt\n```text\n([\s\S]*?)\n```/);
-  const zImageMatch = text.match(/## Z-Image Prompt\n```text\n([\s\S]*?)\n```/);
+  const grokMatch = text.match(/## (?:Gpt|Grok Structured Prompt)\n```text\n([\s\S]*?)\n```/);
+  const zImageMatch = text.match(/## (?:Grok\/Z-Image|Z-Image Prompt)\n```text\n([\s\S]*?)\n```/);
 
   if (!summaryMatch || !midjourneyMatch || !grokMatch) {
     throw new Error('missing required markdown sections');
