@@ -254,6 +254,20 @@ test('special top and bottom palette controls include the new color-card pairing
   }
 });
 
+test('special top and bottom palettes expose two hex swatches for the wardrobe picker', () => {
+  const controls = getLockControls();
+  const paletteControl = controls.find((control) => control.key === 'topBottomPaletteId');
+
+  assert.ok(paletteControl);
+  const paletteOptions = paletteControl.options.filter((option) => option.topColor && option.bottomColor);
+  assert.ok(paletteOptions.length > 0);
+
+  for (const option of paletteOptions) {
+    assert.match(option.topColor.hex || '', /^#[0-9A-Fa-f]{6}$/, `${option.zh} top color should have a hex swatch`);
+    assert.match(option.bottomColor.hex || '', /^#[0-9A-Fa-f]{6}$/, `${option.zh} bottom color should have a hex swatch`);
+  }
+});
+
 test('special top and bottom palettes apply separate colors to top and bottom garments', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
