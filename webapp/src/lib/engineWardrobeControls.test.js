@@ -268,31 +268,17 @@ test('special top and bottom palettes apply separate colors to top and bottom ga
   assert.match(promptText, /直筒牛仔褲|straight-leg jeans/);
 });
 
-test('special outfit controls include the six street-style outfit presets', () => {
+test('special outfit controls expose approved complete looks and remove stale extras', () => {
   const controls = getLockControls();
   const specialOutfitControl = controls.find((control) => control.key === 'specialOutfitId');
-  const expectedOutfits = [
-    '拼布絨呢外套塗鴉奶白工裝褲',
-    '紅色寬T棕色工裝吊帶褲',
-    '紅長大衣虎紋圍巾學院造型',
-    '酒紅皮草白高領短裙長靴造型',
-    '棕色羊羔絨飛行外套皮褲造型',
-    '黑高領格紋百褶短裙長靴造型',
-    '綠格紋外套恐龍T芥黃寬褲造型',
-    '薄荷短襯衫花卉荷葉裙粉靴造型',
-    '藍花背心黑皮短裙刺青西部造型',
-    '灰運動內衣刺青工裝牛仔褲造型',
-    '黑色鉚釘兜帽皮革迷你裙造型',
-    '棕色風衣白短T破壞牛仔褲造型',
-  ];
 
   assert.ok(specialOutfitControl);
-  for (const zh of expectedOutfits) {
-    assert.ok(
-      specialOutfitControl.options.some((option) => option.zh === zh),
-      `specialOutfitId should include ${zh}`
-    );
-  }
+  const optionLabels = specialOutfitControl.options.map((option) => option.zh);
+  assert.ok(optionLabels.includes('黑色波點頭巾透紗套裝'));
+  assert.ok(optionLabels.includes('金色貝雷帽皮草外套寬牛仔造型'));
+  assert.equal(optionLabels.filter((label) => label !== '全無').length, 29);
+  assert.ok(!optionLabels.includes('拼布絨呢外套塗鴉奶白工裝褲'));
+  assert.ok(!optionLabels.includes('黑色鉚釘兜帽皮革迷你裙造型'));
 });
 
 test('wardrobe layering logic keeps long tops untucked over shorts', () => {
