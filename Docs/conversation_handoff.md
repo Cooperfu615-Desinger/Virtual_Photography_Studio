@@ -11,44 +11,228 @@
 
 ## Current Working State
 
-- Latest pushed commit on `main`: `4309a80 Add three special outfit prompts`
-- Recent important commits from this session:
-  - `4309a80 Add three special outfit prompts`
-  - `aa27889 Align outerwear color options with garments`
-  - `598bdc2 Add seven special outfit presets`
-  - `dbc5d17 Refine Japanese transparent facial feature preset`
-  - `98f056e Add special outfits and favorite apply action`
-  - `b384cdc Add five streetwear special outfit presets`
-  - `36f57ef Preserve special action in AI prompts`
-  - `d51a87a Update subject prompt wording`
-  - `6120333 Add five special outfit presets`
-  - `7227dce Add apply preview selection action`
-  - `08d83fe Normalize prompt wardrobe ordering`
-  - `88ede2b Add chain satin lingerie outfit preset`
-  - `3d0990a Simplify Suno styles prompt builder`
-  - `2f78134 Apply layer control display order`
-  - `f5fc3a2 Reorder layer wardrobe controls`
-  - `c84abf7 Normalize scene descriptions`
-  - `b92f5bb Preserve special outfits in AI prompts`
-  - `f11ec0c Add special outfit presets`
-  - `9f98074 Refine aspect ratio options`
-  - `9f87379 Rebalance hairstyle options`
-  - `19b2535 Allow location in chest-up framing`
-  - `e1d99a1 Allow outerwear in chest-up framing`
-  - `c4af20d Expand outfit preset color options`
-  - `bf2386e Add seated and reclining special actions`
-  - `2cdacfc Allow outfit presets in chest-up framing`
-  - `ee428ea Prevent wardrobe prompts from using tight closeups`
-  - `0cf80ec Refine leather choker prompt detail`
-  - `4461b2c Strengthen doorway foreground occlusion effect`
-  - `3218587 Remove workspace helper copy`
-  - `5ee96e5 Refine AI prompt minimal format`
-- Working tree should be clean after `4309a80`; if this handoff doc is edited, only this doc should be dirty
+- Latest pushed commit on `main`: `c51c5bc Group accessories into subject prompts`
+- Recent important commits from the 2026-05-24 optimization session:
+  - `c51c5bc Group accessories into subject prompts`
+  - `b1147bb Refine shoes and legwear prompts`
+  - `76d4fcb Refine wardrobe color picker cards`
+  - `3398d7c Refine outerwear wardrobe controls`
+  - `143fbdb Refine top wardrobe controls`
+  - `801d91a Refine bottom wardrobe controls`
+  - `d043b76 Refine top wardrobe descriptions`
+  - `ada751f Improve wardrobe selection UX`
+  - `cfa23f4 Add tattooed street style special outfits`
+  - `44b79cf Unify outfit preset labels and palette support`
+  - `1392412 Add wardrobe layering logic guards`
+  - `796de07 Add six street style special outfits`
+  - `86911cc Add more top bottom color palettes`
+  - `a35b49f Add top bottom color card palettes`
+  - `87fcd2f Naturalize Z-Image wardrobe language`
+  - `28bb122 Refine office pantry scene prompt`
+  - `e500f2b Enhance Page3 ruin location prompts`
+  - `316d3e5 Prioritize scenes for wardrobe-heavy prompts`
+  - `8f44c1b Add forward waistband grip action`
+  - `37949b4 Add loosened pants waist option`
+  - `5e1b341 Refine special subject character prompts`
+  - `d3d13d5 Refine bohemian tunic dress preset`
+  - `05aae44 Refine cropped fitted blazer wording`
+  - `cf1f488 Add cropped fitted blazer outerwear`
+  - `be8242b Refine train scenery and android subject`
+  - `5104b04 Add crowded commuter train scene`
+- Working tree should be clean after `c51c5bc`; if this handoff doc is edited, only this doc should be dirty
 - Work continues directly on `main`
 - Standard validation flow remains:
   - `python3 scripts/sync_to_json.py`
   - `npm run lint` from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
   - `npm run build`
+
+## Session 2026-05-24 Update
+
+This session focused on database growth, prompt stability, wardrobe simplification, and Grok / Z-Image output structure. Most edits touched `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json` and `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`.
+
+### Scene / Location Updates
+
+- Added a new indoor base scene:
+  - `室內：電車車廂坐滿與站滿乘客`
+  - Direction: Japanese commuter train during rush hour, packed with seated and standing passengers, with everyday-life density.
+- Added outside-window scenery supplements to the three train-related scenes:
+  - urban city scenery
+  - countryside scenery
+  - seaside scenery
+  - These descriptions intentionally avoid day/night, lighting, and time-of-day wording; they only describe possible scenery outside the train windows and let the model choose one.
+- Enhanced five PAGE3 special ruin locations:
+  - stronger abandoned / ruined feeling
+  - more clutter, damaged structures, old broken surfaces, grime, disorder, and plants growing everywhere
+  - no extra people should appear; only the photographer / viewer presence is implied.
+- Fixed the conflict between street-photo incidental pedestrians and empty ruin scenes:
+  - when a ruin / empty special location is selected, incidental pedestrian hints are removed
+  - non-ruin street scenes keep the usual incidental pedestrian language.
+- Revised `室內：辦公室茶水間`:
+  - removed vending-machine language
+  - now describes a narrow long office pantry with small sink, coffee machine, storage cabinets, and common office break-room elements.
+
+### Special Characters
+
+- `日本戰國武士` and `歐洲騎士` were changed to female characters.
+- Their armor descriptions were revised to emphasize feminine body shaping and female-character armor design while keeping the warrior identity.
+- `女性機器人` was revised in two stages:
+  - first pass: a human woman wearing a pure white mechanical suit, with black precision mechanical sections at joints, neck, waist, and other high-mobility areas, plus subtle glowing elements and optional helmet
+  - current final direction: a near-human sexy female android with a real woman-like head and face, only subtle mechanical panel lines on the face, mechanical lines / block structures across the body, and black precision mechanisms at major joints.
+- Female android now supports normal hairstyle and hair-color controls.
+
+### Wardrobe Additions
+
+- Added `緊身短版西裝外套` as an outerwear option.
+- Final cropped blazer direction:
+  - fitted and short
+  - hem sits between the lower waist and upper hip, not above the waist
+  - sharp shoulder line, long sleeves, back darts
+  - double-button front, explicitly buttoned / closed.
+- Revised `波西米亞刺繡蕾絲寬鬆罩衫洋裝` into the reference-style bohemian layered look:
+  - loose open-knit sweater
+  - layered boho skirt / wide lower silhouette
+  - asymmetric lace and cloth panels
+  - tassel / bead ornaments
+  - shoe details are intentionally excluded.
+- Added lower-body waist state for pants:
+  - button undone
+  - zipper slightly lowered
+  - intended for pants styling only, not skirts.
+- Added a special action based on the leaning-forward image:
+  - body leans toward camera
+  - hands near waistband / hips
+  - direct gaze and dynamic forward posture
+  - action only; no clothing or scene should be baked into it.
+
+### Special Top / Bottom Color Palettes
+
+- Added two batches of special upper/lower-body color palettes from user-provided color cards.
+- Total added in this session: 29 palette options.
+- Palette behavior:
+  - exposed through `topBottomPaletteId`
+  - applies coordinated but separate colors to upper and lower garments
+  - also supports outfit preset / dress logic where relevant.
+- Later wardrobe color picker UI was refined so these palette choices are easier to scan and use.
+
+### Special Outfit Additions
+
+- Added two rounds of image-derived special outfits, six looks per round.
+- First six focused on street-style complete outfits:
+  - patchwork fleece jacket with cream graphic work pants
+  - red oversized tee with tan work overalls and bright boots
+  - red long coat with tiger-pattern scarf
+  - burgundy faux-fur jacket with mini-skirt, fishnet / tights, boots, and bag
+  - brown shearling bomber with black slim pants and boots
+  - black turtleneck with plaid mini skirt, tall black boots, and accessories.
+- Second six focused on more detailed / tattooed street outfits:
+  - green plaid jacket, dinosaur-print tee, mustard wide pants, oversized glasses, earrings, tote, sneakers
+  - mint cropped floral shirt, pink floral ruffle mini skirt, pink lace-up boots, pearl necklace, rings, bag
+  - blue floral vest, black leather mini skirt, visible tattoos, oversized sunglasses, crochet tote, cowboy boots
+  - gray sports bra, exposed tattoos across arms / torso / neck / leg, low-slung workwear jeans, boots, keychain details
+  - black studded hooded micro leather look, black mini skirt, layered necklaces, bracelets, high-top sneakers
+  - brown trench coat, white cropped tee, distressed light jeans, sneakers, shoulder bag, subtle visible tattoo.
+- For image-derived special outfits:
+  - include visible glasses, jewelry, bags, gloves, tattoos, and styling details when requested
+  - avoid unrelated temporary handheld props unless the user explicitly asks for them.
+
+### Grok / Z-Image Prompt Structure
+
+- User reported that `特殊穿搭` and `套裝/連身` often caused Grok Imagine to ignore the scene.
+- Prompt structure was adjusted so scene/location appears earlier and stays more prominent before complex wardrobe text.
+- Grok keeps a more structured format, but with scene priority improved.
+- Z-Image was updated to a more natural-language wardrobe style and should no longer use `Wardrobe details:`.
+- Important Z-Image wardrobe phrasing:
+  - outfit only: `She wears {outfit preset}.`
+  - outfit + outerwear: `She wears {outerwear}, layered over {outfit preset}.`
+  - separated pieces: natural sentence form such as `She wears ... paired with ...`
+  - when outerwear is combined with an outfit preset / dress / top, outerwear is described first as a layer, and the inner outfit remains explicit.
+- Confirmed behavior:
+  - `套裝/連身` can be combined with outerwear.
+  - The outerwear should not replace or erase the outfit preset.
+- The original AI prompt version was already performing better for this case and was not made identical to Z-Image.
+
+### Wardrobe Layering Bug
+
+- The initial suspected bug was that switching from one outfit preset to another still generated the previous white commute outfit.
+- Actual root cause found during discussion:
+  - when outfit preset + outerwear were selected, the model often treated the outerwear as the whole outfit and ignored the inner preset.
+- Fix:
+  - natural layered language for Z-Image
+  - explicit outerwear-over-outfit relationship
+  - layering guards in prompt composition.
+
+### Top / Bottom Description Simplification
+
+- Started broad database cleanup to reduce long, duplicated single-garment descriptions.
+- Top garments:
+  - priority items optimized first
+  - secondary items optimized next
+  - descriptions now focus on the garment identity and distinctive details only.
+- Bottom garments:
+  - pants and skirts were simplified so the base item is just the garment
+  - rise / waist and fit language was removed from many item descriptions because `bottomRiseId` and `bottomFitId` control those separately.
+- Prompt ordering was changed:
+  - bottoms: `bottomRise` before `bottomFit` before base garment
+  - tops: `topFit` before `topStyling` before base garment
+- This is intended to make fit / styling controls stronger and avoid contradictions inside base garment descriptions.
+- User noted fit / rise effects may still need more testing in real generations; next session can strengthen control wording if needed.
+
+### Outerwear / Shoes / Socks Optimization
+
+- Outerwear descriptions were simplified like tops:
+  - less repeated fit / color wording
+  - base description focuses on garment identity
+  - `outerwearStyling` appears before the outerwear garment text.
+- Socks / legwear descriptions were tightened and made less repetitive.
+- Shoes were handled differently depending on type:
+  - model-specific shoes keep the model name and only signature cues
+  - generic shoes avoid hardcoded color wording so color controls can work.
+- Example direction:
+  - model-specific sneaker wording can rely on the model name, then add only key accent details such as gum sole / stripe / logo
+  - generic high heels should not say black unless black is selected by the color control.
+
+### Accessory Prompt Composition
+
+- Latest change in this session: glasses, earrings, and neck accessories now bind into the subject/person description for Grok and Z-Image.
+- User wanted a compact style similar to:
+  - `A seductive stunning 20-year-old Japanese or Korean with dark round-frame glasses.`
+- Current behavior:
+  - single subject: accessories are grouped into the subject line, such as `with retro round-frame glasses, small pearl stud earrings, and slim metal choker`
+  - duo subject: accessories are grouped per person, such as `woman 1 with ...`, `woman 2 with ...`
+  - separate Grok lines like `Eyewear:`, `Earrings:`, and `Neck Accessory:` were removed.
+- Neck accessories were removed from wardrobe/layer addon text so necklaces / chokers are not parsed as clothing layers.
+- Head accessories remain near appearance / head-related wording and are not merged into wardrobe.
+- Accessory database wording was simplified:
+  - eyewear as noun phrases, such as `black-rimmed glasses`
+  - earrings as noun phrases, such as `small pearl stud earrings`
+  - neck accessories as noun phrases, such as `slim metal choker`
+  - head accessories also simplified, but headphones / headwear still preserve head-silhouette information.
+
+### Verification Status
+
+- Latest validation before the handoff update:
+  - `npm run test -- src/lib/engineWardrobeControls.test.js` passed, 42 / 42 tests
+  - `npm run lint` passed
+  - `npm run build` passed with the existing chunk-size warning only.
+- The latest pushed code state before this handoff edit is:
+  - `c51c5bc Group accessories into subject prompts`
+
+### Suggested Next Session Focus
+
+- Continue accessory-detail optimization:
+  - decide whether head accessories should remain separate or get a more explicit subject-binding rule
+  - audit any accessory categories beyond eyewear / earrings / neck / head if present.
+- Review whether AI prompt should also mirror the new subject-bound accessory ordering, or remain closer to its current compact format.
+- Continue concise database cleanup for remaining categories:
+  - special outfits may remain more verbose because they are complete head-to-toe looks
+  - scene / camera / lighting descriptions can be reviewed later for repetition.
+- Test real-generation effectiveness of:
+  - `topFit`
+  - `topStyling`
+  - `bottomFit`
+  - `bottomRise`
+  - `outerwearStyling`
+  - If these controls still feel weak, strengthen their wording rather than re-adding fit/rise text into every base garment.
 
 ## Session 2026-05-17 Update
 
