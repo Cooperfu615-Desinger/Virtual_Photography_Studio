@@ -26,6 +26,7 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.match(prompt.grokPrompt, /\nLighting:\n/);
   assert.match(prompt.grokPrompt, /\nCamera Look:\n/);
   assert.match(prompt.grokPrompt, /\nConstraints:\n/);
+  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
 });
 
@@ -39,6 +40,8 @@ test('Grok/Z-Image prompt remains natural language and AI is compacted from it',
 
   assert.match(prompt.zImagePrompt, /^Create a photorealistic editorial portrait /);
   assert.doesNotMatch(prompt.zImagePrompt, /^Subject Count:/m);
+  assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
 });

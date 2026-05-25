@@ -6167,6 +6167,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
     section('Constraints', joinNaturalPromptValues(constraints)),
+    'multi-cut sequence n=2',
   ].filter(Boolean).join('\n\n');
 }
 
