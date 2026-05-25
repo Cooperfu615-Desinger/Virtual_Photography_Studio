@@ -95,10 +95,12 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
 });
 
 test('identity base prompt wording is controlled by selected DNA options', () => {
+  const bodyType = optionByLabel('bodyTypeId', '性感曲線身形');
+  const facialFeatures = optionByLabel('facialFeaturesId', '成熟性感臉');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    bodyTypeId: optionByLabel('bodyTypeId', '性感曲線身形').id,
-    facialFeaturesId: optionByLabel('facialFeaturesId', '成熟性感臉').id,
+    bodyTypeId: bodyType.id,
+    facialFeaturesId: facialFeatures.id,
     hairstyleId: optionByLabel('hairstyleId', '柔波：深側分').id,
     hairColorId: optionByLabel('hairColorId', '亮桃粉').id,
   });
@@ -113,9 +115,13 @@ test('identity base prompt wording is controlled by selected DNA options', () =>
   assert.match(promptText, /20-year-old Japanese or Korean female portrait subject/);
   assert.doesNotMatch(promptText, /adult Japanese or Korean female portrait subject/);
   assert.doesNotMatch(promptText, /seductive stunning & beautiful/);
-  assert.match(promptText, /curvy silhouette|成熟性感臉|deep side-parted long soft waves|hot-pink fashion hair/);
-  assert.equal(prompt.selection.bodyTypeId, optionByLabel('bodyTypeId', '性感曲線身形').id);
-  assert.equal(prompt.selection.facialFeaturesId, optionByLabel('facialFeaturesId', '成熟性感臉').id);
+  assert.doesNotMatch(bodyType.en, /\bmature\b/i);
+  assert.match(bodyType.en, /bust-waist-hip|fuller bust|rounded hips/);
+  assert.doesNotMatch(facialFeatures.en, /\bmature\b/i);
+  assert.match(facialFeatures.en, /alluring|seductive|magnetic|sensual/);
+  assert.match(promptText, /curvy silhouette|bust-waist-hip|fuller bust|rounded hips|alluring beauty face|deep side-parted long soft waves|hot-pink fashion hair/);
+  assert.equal(prompt.selection.bodyTypeId, bodyType.id);
+  assert.equal(prompt.selection.facialFeaturesId, facialFeatures.id);
   assert.equal(prompt.selection.hairstyleId, optionByLabel('hairstyleId', '柔波：深側分').id);
   assert.equal(prompt.selection.hairColorId, optionByLabel('hairColorId', '亮桃粉').id);
 });

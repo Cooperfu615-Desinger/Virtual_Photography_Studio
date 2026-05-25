@@ -10,7 +10,7 @@
 | **五官特徵 (Facial Features)** | 日系清透臉 | `young beautiful Japanese transparent face, soft natural features, clean gentle eyes, airy fresh beauty, subtle innocent portrait presence` | 日系清透淡顏，重點是自然、透明、乾淨與柔和的寫真感。 |
 | **五官特徵 (Facial Features)** | 甜美可愛臉 | `young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look` | 甜美、親和、年輕漂亮，帶可愛感但不幼態。 |
 | **五官特徵 (Facial Features)** | 冷感高級臉 | `young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence` | 冷感、俐落、時裝 editorial 氣質，臉部基底更高級克制。 |
-| **五官特徵 (Facial Features)** | 成熟性感臉 | `young mature alluring beauty face, elegant feminine facial balance, defined eyes and lips, confident sensual portrait presence` | 成熟、明艷、有女人味，以五官氣質帶出性感而不是靠表情。 |
+| **五官特徵 (Facial Features)** | 成熟性感臉 | `young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence` | 性感、迷人、明艷、有女人味，以五官氣質帶出吸引力而不是靠表情。 |
 | **五官特徵 (Facial Features)** | 混血立體臉 | `young mixed editorial face, dimensional facial structure, defined nose bridge and deep-set eyes, international high-fashion beauty` | 立體骨相與國際 editorial 感，仍可服務日韓女性角色主線。 |
 | **膚質特徵 (Skin Details)** | 全無 | `none` | 不指定膚質特徵，讓模型自行決定肌膚表面細節。 |
 | **膚質特徵 (Skin Details)** | 玻璃水光肌 | `glass skin, dewy luminous skin texture, hydrated reflective complexion` | 光澤明顯、飽水感高，適合韓系棚拍與近距離人像。 |
@@ -21,7 +21,7 @@
 | **體態 (Body Type)** | 高挑時裝模特 | `tall fashion model body, long elegant legs, lean editorial proportions, graceful runway-like silhouette` | 高挑、腿長、時裝 editorial 比例，適合乾淨高級的人像基底。 |
 | **體態 (Body Type)** | 優雅曲線模特 | `tall elegant fashion model body with balanced feminine curves, long legs, softly defined waist, polished high-fashion silhouette` | 高挑模特比例加上柔和女性曲線，比純模特兒更有身形存在感。 |
 | **體態 (Body Type)** | 柔和沙漏身形 | `soft natural hourglass figure, clear waistline, balanced hip rhythm, graceful feminine body line` | 腰線與臀線更明確，但保持自然柔和，不走誇張曲線。 |
-| **體態 (Body Type)** | 性感曲線身形 | `sensual curvy feminine silhouette, confident mature body presence, defined waist and soft curves, fashion portrait allure` | 性感、成熟、有存在感的曲線身形，用時裝寫真語氣呈現。 |
+| **體態 (Body Type)** | 性感曲線身形 | `sensual curvy feminine silhouette, fuller bust-waist-hip curves, defined waist, rounded hips, fashion portrait allure` | 性感、有存在感的曲線身形，強調胸部、腰線與臀部的女性曲線，用時裝寫真語氣呈現。 |
 | **體態 (Body Type)** | 運動緊實身形 | `fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions` | 健康、俐落、緊實，有運動感與輕微肌肉張力。 |
 | **體態 (Body Type)** | 小隻精緻身形 | `petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence` | 較嬌小、比例精緻，帶偶像感與可愛但成熟的身形輪廓。 |
 | **髮型 (Hairstyle)** | 全無 | `none` | 不指定髮型，讓模型自行決定頭髮長度與輪廓。 |

@@ -95,9 +95,9 @@ core identity phrase, 1-3 concrete visual traits, restrained style or realism cu
 
 - 新選項必須能帶出明顯 silhouette 差異。
 - 英文 prompt 以 8-18 words 為目標。
-- 可描述 `tall`、`petite`、`curvy`、`athletic`、`hourglass`、`long legs`、`defined waist`。
+- 可描述 `tall`、`petite`、`curvy`、`athletic`、`hourglass`、`long legs`、`defined waist`、`bust-waist-hip curves`、`rounded hips`。
 - 避免 `underweight`、`bony`、`fragile`、`childlike`、過度誇張身材或不健康身形。
-- 不描述胸部、臀部到過度物化的程度；用 `feminine curves`、`body line`、`silhouette` 較穩定。
+- 胸部與臀部曲線可以用比例與輪廓語氣描述，例如 `fuller bust-waist-hip curves`、`rounded hips`，避免露骨或過度物化。
 
 範例語氣：
 
@@ -122,7 +122,7 @@ fit toned athletic female body, healthy firm silhouette, subtle muscle definitio
 
 - 英文 prompt 以 10-20 words 為目標。
 - 可以寫 `young beautiful`，但不要每列都堆滿 beautiful synonyms。
-- 每個選項只抓 2-3 個臉部氣質，例如 idol、transparent、sweet、cool editorial、mature alluring、mixed editorial。
+- 每個選項只抓 2-3 個臉部氣質，例如 idol、transparent、sweet、cool editorial、seductive alluring、mixed editorial。
 - 可愛選項要避免幼態，中文描述可明確寫「可愛但不幼態」。
 - 不要加入表情、妝容、髮型、鏡頭或光線。
 
