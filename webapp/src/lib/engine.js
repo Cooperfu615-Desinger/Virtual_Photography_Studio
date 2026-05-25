@@ -1473,12 +1473,16 @@ function inferCharacterMeta(category, item) {
   }
 
   if (hasAny(haystack, ['direct gaze', '直視', 'eye contact'])) tags.push('direct_gaze');
-  if (hasAny(haystack, ['into the distance', 'gazing into distance', '望向遠方', '望向遠處'])) tags.push('distance_gaze');
-  if (hasAny(haystack, ['looking off to the side', '側望', 'look to the side'])) tags.push('side_gaze');
+  if (hasAny(haystack, ['into the distance', 'gazing into distance', 'distant sideward gaze', '望向遠方', '望向遠處', '離鏡'])) tags.push('distance_gaze');
+  if (hasAny(haystack, ['looking off to the side', 'sideward gaze', 'sideward attention', '側望', '側看', 'look to the side'])) tags.push('side_gaze');
   if (hasAny(haystack, ['lowered gaze', '低頭', '向下'])) tags.push('downward_gaze');
   if (hasAny(haystack, ['top-down', 'aerial view', '俯拍'])) tags.push('requires_aerial');
   if (category.includes('Special Actions')) {
     tags.push('special_action');
+    if (hasAny(haystack, ['social-media self-portrait', 'self-portrait energy', 'mirror selfie', 'boyfriend-perspective', 'best-friend-perspective', '自然自拍', '鏡子自拍', '男友視角', '閨蜜視角'])) {
+      minVisibility = 'medium';
+      tags.push('social_shooting_action');
+    }
     if (hasAny(haystack, ['lipstick', '口紅', 'coffee', '咖啡', 'lollipop', '棒棒糖', 'cigarette', '抽煙'])) {
       minVisibility = 'medium';
       tags.push('prop_action', 'face_action');
@@ -1989,14 +1993,78 @@ const CHARACTER_IDENTITY_LEGACY_OPTION_MAP = [
   { category: '髮色 (Hair Color)', targetZh: '深森林綠', legacy: [['霧感橄欖棕', 8], ['亮綠色', 12], ['深綠色', 20]] },
 ];
 
-function applyCharacterIdentityLegacyOptionIds(catalog) {
-  CHARACTER_IDENTITY_LEGACY_OPTION_MAP.forEach(({ category, targetZh, legacy }) => {
+const CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP = [
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '直視鏡頭｜柔和微笑', legacy: [['直視鏡頭｜清透微笑', 1], ['直視鏡頭｜自信淡笑', 3], ['直視鏡頭｜若有似無微笑', 5]] },
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '直視鏡頭｜平靜淡然', legacy: [['直視鏡頭｜平靜凝視', 2], ['直視鏡頭｜慵懶淡然', 4]] },
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '直視鏡頭｜無辜清透', legacy: [['直視鏡頭｜無辜清透眼神', 6]] },
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '抿唇忍笑｜俏皮', legacy: [['抿唇忍笑｜俏皮輕鬆', 7]] },
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '離鏡凝視｜若有所思', legacy: [['望向遠方｜若有所思', 8], ['側望｜安靜出神', 9]] },
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '低頭垂眼｜內斂', legacy: [['低頭不看鏡頭｜內斂情緒', 10]] },
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '回眸側看｜輕柔注意', legacy: [['回眸側看｜輕柔注意', 11]] },
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '閉眼沉浸', legacy: [['閉眼感受光線｜安靜沉浸', 12]] },
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '大笑｜自然喜悅', legacy: [['大笑｜自然喜悅', 13]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '站姿｜單腳重心', legacy: [['站姿｜單腳重心放鬆站姿', 2]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '站姿｜雙手自然垂放', legacy: [['站姿｜雙手自然垂放站姿', 5]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '站姿｜雙臂交疊', legacy: [['站姿｜雙臂交疊放鬆站姿', 8]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '站姿｜自然站姿', legacy: [['站姿｜低頭側望站姿', 6], ['站姿｜自然自拍姿勢', 9], ['站姿｜鏡子自拍姿勢', 10]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '坐姿｜自然坐姿', legacy: [['坐姿｜自然坐姿', 11], ['坐姿｜低頭坐姿', 18], ['坐姿｜自然自拍姿勢', 21], ['坐姿｜鏡子自拍姿勢', 22]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '坐姿｜微微前傾', legacy: [['坐姿｜微微前傾坐姿', 12]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '坐姿｜雙手後撐', legacy: [['坐姿｜雙手向後支撐坐姿', 13]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '坐姿｜單腿放鬆', legacy: [['坐姿｜單腿放鬆坐姿', 14]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '坐姿｜雙腿自然伸展', legacy: [['坐姿｜雙腿自然伸展坐姿', 15]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '坐姿｜盤腿坐姿', legacy: [['坐姿｜盤腿坐姿', 16]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '坐姿｜側身坐姿', legacy: [['坐姿｜側身坐姿', 17], ['坐姿｜坐姿回頭看鏡頭', 19]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '坐姿｜抱膝坐姿', legacy: [['坐姿｜抱膝坐姿', 20]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '半躺低姿態｜側身半躺', legacy: [['半躺低姿態｜側身半躺姿勢', 23], ['半躺低姿態｜側身半躺回頭看鏡頭', 25], ['半躺低姿態｜半躺低頭姿勢', 26], ['半躺低姿態｜自然自拍姿勢', 32], ['半躺低姿態｜鏡子自拍姿勢', 33]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '半躺低姿態｜正面仰躺', legacy: [['半躺低姿態｜舒適正面仰躺姿勢', 24]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '半躺低姿態｜手撐半躺', legacy: [['半躺低姿態｜手撐上半身半躺姿勢', 27]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '半躺低姿態｜微蜷放鬆', legacy: [['半躺低姿態｜微蜷放鬆姿勢', 28]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '半躺低姿態｜趴姿', legacy: [['半躺低姿態｜趴姿回頭看鏡頭', 29], ['半躺低姿態｜趴姿低頭放鬆', 30]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '半躺低姿態｜側躺延伸', legacy: [['半躺低姿態｜側躺延伸姿勢', 31]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '蹲姿｜自然蹲姿', legacy: [['蹲姿｜自然蹲姿', 35], ['蹲姿｜蹲姿回頭看鏡頭', 38]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '蹲姿｜單膝蹲姿', legacy: [['蹲姿｜單膝蹲姿', 36]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '蹲姿｜手扶膝蓋蹲姿', legacy: [['蹲姿｜手扶膝蓋蹲姿', 37]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '動態｜輕步移動', legacy: [['動態互動｜輕步移動姿勢', 39], ['動態互動｜低頭行進姿勢', 45], ['動態互動｜自然自拍姿勢', 46], ['動態互動｜鏡子自拍姿勢', 47]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '動態｜整理頭髮', legacy: [['站姿｜一手撥髮站姿', 3], ['站姿｜一手撥髮低頭站姿', 4], ['動態互動｜整理頭髮動作', 40]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '動態｜整理衣襬', legacy: [['動態互動｜低頭整理衣襬', 41]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '動態｜抬手整理肩頸', legacy: [['動態互動｜抬手整理肩頸姿勢', 42]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '動態｜回身動作', legacy: [['站姿｜回頭站姿', 7], ['動態互動｜行走中回頭', 34], ['動態互動｜回身側望姿勢', 43]] },
+  { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '動態｜停步姿勢', legacy: [['動態互動｜停步凝視姿勢', 44]] },
+];
+
+const CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS = [
+  { legacy: ['站姿｜自然自拍姿勢', 9], poseZh: '站姿｜自然站姿', specialActionZh: '自然自拍感' },
+  { legacy: ['站姿｜鏡子自拍姿勢', 10], poseZh: '站姿｜自然站姿', specialActionZh: '鏡子自拍' },
+  { legacy: ['坐姿｜自然自拍姿勢', 21], poseZh: '坐姿｜自然坐姿', specialActionZh: '自然自拍感' },
+  { legacy: ['坐姿｜鏡子自拍姿勢', 22], poseZh: '坐姿｜自然坐姿', specialActionZh: '鏡子自拍' },
+  { legacy: ['半躺低姿態｜自然自拍姿勢', 32], poseZh: '半躺低姿態｜側身半躺', specialActionZh: '自然自拍感' },
+  { legacy: ['半躺低姿態｜鏡子自拍姿勢', 33], poseZh: '半躺低姿態｜側身半躺', specialActionZh: '鏡子自拍' },
+  { legacy: ['動態互動｜自然自拍姿勢', 46], poseZh: '動態｜輕步移動', specialActionZh: '自然自拍感' },
+  { legacy: ['動態互動｜鏡子自拍姿勢', 47], poseZh: '動態｜輕步移動', specialActionZh: '鏡子自拍' },
+].map((entry) => ({
+  ...entry,
+  legacyId: `character:${slugify('姿勢與肢體語言 (Pose & Body Language)')}:${slugify(entry.legacy[0])}:${entry.legacy[1]}`,
+}));
+
+function buildCharacterLegacyIds(category, legacy) {
+  return legacy.map(([label, index]) => `character:${slugify(category)}:${slugify(label)}:${index}`);
+}
+
+function applyCharacterLegacyOptionIds(catalog, legacyMap) {
+  legacyMap.forEach(({ category, targetZh, legacy }) => {
     const target = getByKey(catalog.character, category).find((item) => item.zh === targetZh);
     if (!target) return;
 
-    const legacyIds = legacy.map(([label, index]) => `character:${slugify(category)}:${slugify(label)}:${index}`);
-    target.legacyIds = Array.from(new Set([...(target.legacyIds || []), ...legacyIds]));
+    target.legacyIds = Array.from(new Set([...(target.legacyIds || []), ...buildCharacterLegacyIds(category, legacy)]));
   });
+}
+
+function applyCharacterIdentityLegacyOptionIds(catalog) {
+  applyCharacterLegacyOptionIds(catalog, CHARACTER_IDENTITY_LEGACY_OPTION_MAP);
+}
+
+function applyCharacterExpressionPoseLegacyOptionIds(catalog) {
+  applyCharacterLegacyOptionIds(catalog, CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP);
 }
 
 function buildEntries(groupName, groupedData, inferMeta) {
@@ -2072,6 +2140,7 @@ function buildCatalog(customLibrary = []) {
     negative: buildEntries('negative', mergedDatabase.Negative || {}, inferNegativeMeta),
   };
   applyCharacterIdentityLegacyOptionIds(catalog);
+  applyCharacterExpressionPoseLegacyOptionIds(catalog);
 
   const flatten = (group) => Object.values(group).flat();
 
@@ -2117,6 +2186,29 @@ export function createEmptyLocks() {
   return Object.fromEntries(
     LOCK_DEFINITIONS.map((definition) => [definition.key, definition.defaultValue ?? (definition.multi ? [] : '')])
   );
+}
+
+function getControlOptionByZh(controls, key, zh) {
+  return controls.find((control) => control.key === key)?.options?.find((option) => option.zh === zh) || null;
+}
+
+function getControlOptionById(controls, key, id) {
+  if (!id) return null;
+  return controls.find((control) => control.key === key)?.options?.find((option) => option.id === id) || null;
+}
+
+function applyExpressionPoseLegacySocialLockMigration(normalizedLocks, rawLocks, controls) {
+  const migration = CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS.find((entry) => entry.legacyId === rawLocks?.poseId);
+  if (!migration) return;
+
+  const pose = getControlOptionByZh(controls, 'poseId', migration.poseZh);
+  if (pose) normalizedLocks.poseId = pose.id;
+
+  const specialAction = getControlOptionByZh(controls, 'specialActionId', migration.specialActionZh);
+  const currentSpecialAction = getControlOptionById(controls, 'specialActionId', normalizedLocks.specialActionId);
+  if (specialAction && (!normalizedLocks.specialActionId || isNoneLikeItem(currentSpecialAction))) {
+    normalizedLocks.specialActionId = specialAction.id;
+  }
 }
 
 export function normalizeLocks(rawLocks = {}) {
@@ -2202,6 +2294,8 @@ export function normalizeLocks(rawLocks = {}) {
       ? noneOption.id
       : (control.defaultValue ?? '');
   });
+
+  applyExpressionPoseLegacySocialLockMigration(normalizedWithLegacyColors, rawLocks, controls);
 
   return normalizedWithLegacyColors;
 }
@@ -2788,6 +2882,8 @@ function specialActionSupportsOrbit(orbit, action) {
   const orbitTags = new Set(orbit.meta?.tags || []);
   const actionTags = new Set(action.meta?.tags || []);
 
+  if (actionTags.has('social_shooting_action')) return true;
+
   if (actionTags.has('face_action')) {
     if (orbitTags.has('back_view') || orbitTags.has('rear_three_quarter')) return false;
   }
@@ -2797,6 +2893,10 @@ function specialActionSupportsOrbit(orbit, action) {
   }
 
   return true;
+}
+
+function isSocialShootingAction(action) {
+  return Boolean(action?.meta?.tags?.includes('social_shooting_action'));
 }
 
 function detailAllowed(item, framing) {
@@ -2886,6 +2986,8 @@ function specialActionSupportsFraming(action, framing) {
 
   const visibility = framing.meta.visibility;
   const actionTags = new Set(action.meta?.tags || []);
+
+  if (actionTags.has('social_shooting_action')) return true;
 
   if (actionTags.has('leg_focus_action') || actionTags.has('large_prop_action') || actionTags.has('full_body_action')) {
     return visibility === 'full' || visibility === 'wide';
@@ -3138,7 +3240,7 @@ function buildCharacter(context, catalog) {
   const specialAction = context.locks?.specialActionId
     ? pickCategory('特殊動作 (Special Actions)', context.locks, () => true, sample, false)
     : null;
-  if (specialAction && !isNoneLikeItem(specialAction)) return character;
+  if (specialAction && !isNoneLikeItem(specialAction) && !isSocialShootingAction(specialAction)) return character;
 
   if (context.locks?.poseId) {
     pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, () => true, sample, false);

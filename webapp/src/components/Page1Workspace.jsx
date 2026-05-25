@@ -880,10 +880,15 @@ export default function Page1Workspace({
     },
   };
 
+  const specialActionControl = characterLockControls.find((control) => control.key === 'specialActionId');
+  const getSpecialActionOption = (id) => specialActionControl?.options?.find((option) => option.id === id) || null;
+  const isSocialShootingActionOption = (option) => Boolean(option?.meta?.tags?.includes('social_shooting_action'));
+  const selectedSpecialActionOption = getSpecialActionOption(locks.specialActionId);
+  const selectedSpecialActionIsSocial = isSocialShootingActionOption(selectedSpecialActionOption);
+
   const isControlDisabled = (control) => (
     (isCloseupMode && !closeupAllowedKeys.has(control.key))
-    || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls))
-    || (control.key === 'specialActionId' && Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls))
+    || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls) && !selectedSpecialActionIsSocial)
     || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
     || (['topAColorId', 'bottomAColorId'].includes(control.key) && Boolean(locks.topBottomPaletteAId) && !isNoneSelected('topBottomPaletteAId', locks.topBottomPaletteAId, wardrobeLockControls))
     || (['topBColorId', 'bottomBColorId'].includes(control.key) && Boolean(locks.topBottomPaletteBId) && !isNoneSelected('topBottomPaletteBId', locks.topBottomPaletteBId, wardrobeLockControls))
@@ -896,10 +901,16 @@ export default function Page1Workspace({
     updateLocks((prev) => {
       const next = { ...prev, [control.key]: value };
       if (control.key === 'poseId' && value && !isNoneSelected('poseId', value, characterLockControls)) {
-        next.specialActionId = '';
+        const currentSpecialAction = getSpecialActionOption(prev.specialActionId);
+        if (currentSpecialAction && !isSocialShootingActionOption(currentSpecialAction)) {
+          next.specialActionId = '';
+        }
       }
       if (control.key === 'specialActionId' && value && !isNoneSelected('specialActionId', value, characterLockControls)) {
-        next.poseId = '';
+        const nextSpecialAction = getSpecialActionOption(value);
+        if (!isSocialShootingActionOption(nextSpecialAction)) {
+          next.poseId = '';
+        }
       }
       return next;
     });

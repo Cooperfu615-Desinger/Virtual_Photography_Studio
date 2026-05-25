@@ -62,67 +62,43 @@
 | **髮色 (Hair Color)** | 寶石藍 | `jewel cobalt-blue fashion hair color, rich blue tone with realistic dyed hair texture` | 寶石感深藍，色彩存在感強但不螢光。 |
 | **髮色 (Hair Color)** | 深森林綠 | `deep forest-green fashion hair color, dark moody green tone with realistic dyed hair texture` | 深森林綠，保留特殊色但比亮綠更穩定。 |
 | **神情與眼神 (Expression & Gaze)** | 全無 | `none` | 不指定神情與眼神，讓模型自行決定表情與視線。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜清透微笑 | `looking directly at the camera, direct eye contact, gentle natural smile, bright clear eyes, soft approachable warmth, clean luminous expression` | 直接看向鏡頭並帶自然輕柔的微笑，整體清透、親和、沒有過度表演感，適合女演員感與日常寫真。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜平靜凝視 | `looking directly at the camera, direct eye contact, calm steady gaze, composed neutral expression, quiet presence` | 直接看向鏡頭，神情平穩克制，適合乾淨、安靜、寫真感的人像。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜自信淡笑 | `looking directly at the camera, direct eye contact, subtle confident smile, bright composed eyes, poised elegant expression` | 直接看向鏡頭，帶一點自信但不張揚的淡笑，適合都會感、時裝感與成熟乾淨的人像。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜慵懶淡然 | `looking directly at the camera, direct eye contact, relaxed half-lidded eyes, effortless calm expression, soft editorial mood` | 保留一點慵懶感，但收斂成更自然的淡然神情，適合雜誌感、夜晚室內或低飽和情緒畫面。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜若有似無微笑 | `looking directly at the camera, direct eye contact, faint almost-hidden smile, soft attentive eyes, restrained charming expression` | 像是嘴角剛要揚起的微妙神情，比一般微笑更含蓄，適合特寫、生活感與曖昧留白畫面。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜無辜清透眼神 | `looking directly at the camera, direct eye contact, innocent clear eyes, delicate soft expression, pure transparent mood` | 直接看向鏡頭，但氣質偏清透、柔和、無辜與乾淨。 |
-| **神情與眼神 (Expression & Gaze)** | 抿唇忍笑｜俏皮輕鬆 | `looking toward the camera, lips gently pressed with a barely contained smile, playful relaxed expression, light teasing warmth` | 像是剛聽到有趣的話、正在忍笑的神情，俏皮但不誇張，適合朋友感、街拍與生活寫真。 |
-| **神情與眼神 (Expression & Gaze)** | 望向遠方｜若有所思 | `looking away from the camera into the distance, thoughtful expression, reflective mood, quiet inward attention` | 視線離開鏡頭望向遠方，帶有思考感與敘事情緒。 |
-| **神情與眼神 (Expression & Gaze)** | 側望｜安靜出神 | `looking off to the side, eyes turned away from camera, quiet absent-minded expression, soft distant focus, understated mood` | 看向側邊而不是鏡頭，像是短暫放空或安靜出神的片刻。 |
-| **神情與眼神 (Expression & Gaze)** | 低頭不看鏡頭｜內斂情緒 | `lowered gaze away from camera, eyes cast downward, inward quiet expression, restrained emotion, soft introspective mood` | 視線向下且不與鏡頭接觸，適合內斂、安靜、柔和的情緒畫面。 |
-| **神情與眼神 (Expression & Gaze)** | 回眸側看｜輕柔注意 | `glancing back over the shoulder, soft sideward attention, gentle alert expression, light narrative presence` | 像是被聲音或動作吸引後回頭一看，帶一點敘事感，適合街景、走動或轉身瞬間。 |
-| **神情與眼神 (Expression & Gaze)** | 閉眼感受光線｜安靜沉浸 | `eyes gently closed, calm absorbed expression, breathing in the light, quiet immersive mood` | 閉上眼睛感受風、光線或空氣，情緒安靜而沈浸，適合窗邊、海邊、陽光與靜物感場景。 |
-| **神情與眼神 (Expression & Gaze)** | 大笑｜自然喜悅 | `looking toward the camera, genuine laughing expression, natural teeth smile, candid joy, uninhibited happiness` | 自然、無防備的開心大笑，充滿生命力，適合青春、生活感與抓拍氛圍。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜柔和微笑 | `looking directly at the camera, direct eye contact, soft natural smile, gentle confidence, bright approachable expression` | 直接看向鏡頭，帶自然柔和的微笑，親近但不過度表演。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜平靜淡然 | `looking directly at the camera, direct eye contact, calm neutral expression, relaxed half-lidded ease, quiet composed presence` | 直接看向鏡頭，神情平穩克制，保留一點淡然與鬆弛感。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜無辜清透 | `looking directly at the camera, direct eye contact, innocent clear eyes, delicate soft expression, pure transparent mood` | 直接看向鏡頭，眼神乾淨、柔和、偏清透無辜。 |
+| **神情與眼神 (Expression & Gaze)** | 抿唇忍笑｜俏皮 | `looking toward the camera, lips gently pressed with a barely contained smile, playful relaxed expression` | 嘴角像是忍住笑意，俏皮但不誇張，適合日常或朋友感畫面。 |
+| **神情與眼神 (Expression & Gaze)** | 離鏡凝視｜若有所思 | `looking away from the camera, distant sideward gaze, thoughtful quiet expression, reflective mood` | 視線離開鏡頭，帶思考感、安靜出神與敘事留白。 |
+| **神情與眼神 (Expression & Gaze)** | 低頭垂眼｜內斂 | `eyes cast downward away from camera, lowered gaze, inward quiet expression, restrained emotion` | 視線向下且不與鏡頭接觸，整體內斂、安靜、柔和。 |
+| **神情與眼神 (Expression & Gaze)** | 回眸側看｜輕柔注意 | `glancing back over the shoulder, soft sideward attention, gentle alert expression` | 像是被聲音或動作吸引後回頭一看，帶輕柔注意力。 |
+| **神情與眼神 (Expression & Gaze)** | 閉眼沉浸 | `eyes gently closed, calm absorbed expression, quiet immersive mood` | 閉上眼睛，情緒安靜而沉浸，不綁定特定場景或光線。 |
+| **神情與眼神 (Expression & Gaze)** | 大笑｜自然喜悅 | `looking toward the camera, genuine laughing expression, natural teeth smile, candid joy` | 自然、無防備的開心大笑，帶生活感與抓拍感。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 全無 | `none` | 不指定姿勢動作，讓模型自行決定人物肢體語言。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜自然站姿 | `natural standing pose, relaxed balanced posture, everyday body language, unforced presence` | 身體自然站立，重心平均，沒有明顯擺拍感，適合最中性的日常人像。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜單腳重心放鬆站姿 | `weight-on-one-leg standing pose, relaxed asymmetrical stance, casual natural posture` | 重心落在單腳，另一腳自然放鬆，整體更有鬆弛與生活感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜一手撥髮站姿 | `standing pose with one hand touching hair, casual grooming gesture, candid beauty body language` | 一手自然碰觸頭髮，讓人物狀態更像被捕捉的瞬間。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜一手撥髮低頭站姿 | `standing pose with one hand adjusting hair, head slightly lowered, quiet natural body language` | 一手整理頭髮，同時微微低頭，氣質偏安靜、自然、不刻意。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜雙手自然垂放站姿 | `standing pose with arms naturally at sides, simple clean posture, unforced body line` | 雙手自然下垂，畫面乾淨，適合簡約與真實感構圖。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜低頭側望站姿 | `standing pose with lowered gaze to the side, introspective natural posture, calm mood` | 頭部微低、視線看向側邊，適合情緒感與內斂氣質。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜回頭站姿 | `standing body turned away slightly, head turning back toward camera, subtle motion in pose` | 身體保持前向或側向，頭部回望，增加動勢與互動感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜雙臂交疊放鬆站姿 | `standing pose with loosely crossed arms, relaxed closed posture, cool composed body language` | 手臂自然交疊在身前，帶一點冷靜與收斂感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜自然自拍姿勢 | `casual selfie-like standing pose, self-portrait body language, natural arm and gaze coordination, no phone required` | 帶有自拍中的自然互動感，但不強制手機入鏡，重點是自拍狀態與視線感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜鏡子自拍姿勢 | `mirror selfie standing pose, holding a phone visibly, face unobstructed, clear facial features, casual self-portrait composition` | 對鏡自拍，手持手機可見但不遮臉，仍保留完整五官辨識度。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜自然坐姿 | `natural seated pose, relaxed upright sitting posture, everyday calm body language` | 坐姿穩定放鬆，上半身自然伸展，適合最基礎的生活感畫面。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜微微前傾坐姿 | `seated pose leaning slightly forward, engaged natural posture, subtle interactive body language` | 上半身稍微前傾，讓人物更靠近鏡頭，也更有參與感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜雙手向後支撐坐姿 | `seated pose with both hands placed behind for support, open chest, relaxed stretched posture` | 雙手向後撐住身體，姿態放鬆，帶一點伸展與慵懶感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜單腿放鬆坐姿 | `asymmetrical seated pose with one leg relaxed, casual uneven body rhythm, natural sitting line` | 一側腿部較放鬆延伸，另一側自然收起，畫面更不對稱也更自然。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜雙腿自然伸展坐姿 | `seated pose with legs naturally extended, loose comfortable posture, laid-back body language` | 腿部自然往前延伸，不過度端正，適合輕鬆與日常氛圍。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜盤腿坐姿 | `cross-legged seated pose, relaxed casual sitting posture, intimate everyday body language` | 雙腿自然盤起，姿勢輕鬆，適合私密、親近、生活化的構圖。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜側身坐姿 | `side-facing seated pose, slightly turned torso, natural dimensional sitting posture` | 身體略微側向鏡頭，不正面坐直，線條會更自然。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜低頭坐姿 | `seated pose with lowered gaze, quiet introspective body language, calm natural stillness` | 視線向下，畫面偏安靜、內省與柔和。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜坐姿回頭看鏡頭 | `seated body turned one way, head looking back toward camera, subtle dynamic seated pose` | 下半身保持坐姿方向，上半身或頭部回望鏡頭，增加互動感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜抱膝坐姿 | `seated pose hugging knees, compact introspective posture, quiet self-contained body language` | 雙手或手臂自然抱膝，帶一點收斂感與安靜情緒。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜自然自拍姿勢 | `casual selfie-like seated pose, self-portrait body language, natural arm and gaze coordination, no phone required` | 坐姿狀態下的自拍感，偏社群感與自然日常。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜鏡子自拍姿勢 | `mirror selfie seated pose, holding a phone visibly, face unobstructed, clear facial features, relaxed self-portrait framing` | 坐姿下對鏡自拍，手機可見但不遮臉，強調五官與造型仍清楚。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜側身半躺姿勢 | `side reclined pose, body gently extended, relaxed low posture, soft flowing body line` | 身體側向延展，整體姿勢放鬆，適合柔和與慵懶感畫面。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜舒適正面仰躺姿勢 | `sensual relaxed supine pose, lying on her back facing upward, one arm raised loosely above the head, the other resting casually beside the body, legs bent naturally in a soft asymmetrical way, resting in a comfortably alluring lounging posture, upright non-inverted body orientation` | 以舒服自然的仰躺姿勢為主，一隻手往上、一隻手隨性擺放，雙腳自然彎曲並帶一點柔和不對稱感，整體偏舒適、誘人又不僵硬；保留正面朝上與非倒置方向控制，避免生成頭下腳上的構圖。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜側身半躺回頭看鏡頭 | `side reclined pose with head turning back toward camera, relaxed interactive low posture` | 身體保持側躺或半躺，頭部回望鏡頭，兼具放鬆感與互動感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜半躺低頭姿勢 | `reclined low pose with lowered gaze, quiet inward mood, relaxed low body language` | 上半身略低、視線向下，偏安靜與細膩情緒。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜手撐上半身半躺姿勢 | `reclined pose supported by one arm, lifted upper body, natural relaxed asymmetry` | 以單手或手肘支撐上半身，讓姿勢更自然，不會太平。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜微蜷放鬆姿勢 | `slightly curled relaxed low pose, soft compact body line, intimate restful mood` | 身體略微收起，帶有休息感、柔軟感與生活感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜趴姿回頭看鏡頭 | `low prone pose with head turned back toward camera, intimate playful body language` | 上半身接近低平面，頭部回看鏡頭，適合較親密的構圖。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜趴姿低頭放鬆 | `low prone pose with lowered gaze, quiet relaxed body language, soft intimate stillness` | 維持低姿態但不直視鏡頭，更像安靜片刻。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜側躺延伸姿勢 | `elongated side-lying pose, extended body line, calm graceful low posture` | 身體橫向延展，線條完整，適合全身構圖。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜自然自拍姿勢 | `casual selfie-like reclined pose, self-portrait body language, relaxed arm and gaze coordination, no phone required` | 半躺或低姿態下的自拍感，不強制手機出現，強調自然互動。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜鏡子自拍姿勢 | `mirror selfie reclined pose, holding a phone visibly, face unobstructed, clear facial features, relaxed reflective self-portrait` | 若場景本身有鏡面，可使用對鏡自拍版本，手機可見但不遮臉。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜行走中回頭 | `walking pose mid-step, head turning back toward camera, candid movement and natural motion` | 身體帶有前進感，頭部回望，適合街拍與抓拍感畫面。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜自然蹲姿 | `natural squatting pose, relaxed low posture, balanced body weight, casual grounded body language` | 身體自然下蹲，重心穩定不誇張，適合街頭、生活感與低角度構圖。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜單膝蹲姿 | `one-knee squat pose, asymmetrical low stance, stable grounded posture, natural visual rhythm` | 一膝較低、一膝支撐，姿態更有層次，也更適合時裝與街拍感畫面。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜手扶膝蓋蹲姿 | `squatting pose with one hand resting on knee, relaxed low stance, casual confident body language` | 下蹲時手自然扶在膝上，帶一點自信與街頭感，也更穩定好讀。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜蹲姿回頭看鏡頭 | `squatting pose with head turning back toward camera, interactive low posture, subtle dynamic tension` | 維持低位蹲姿，同時頭部回看鏡頭，適合帶一點互動與張力的畫面。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜輕步移動姿勢 | `light stepping motion, subtle body movement, natural transitional pose, candid rhythm` | 像正在慢慢走動或移動重心，避免人物太靜止。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜整理頭髮動作 | `adjusting hair while moving, candid grooming gesture, natural in-between motion` | 手正在整理頭髮，像被捕捉到的瞬間，而不是正式擺拍。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜低頭整理衣襬 | `looking down while adjusting clothing, subtle styling gesture, candid everyday movement` | 手碰觸衣物，帶一點自然、內收、日常片刻感。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜抬手整理肩頸姿勢 | `hand lifting toward shoulder or neck, soft adjustment gesture, delicate natural motion` | 手靠近肩頸、鎖骨或耳側，適合細膩近景人物狀態。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜回身側望姿勢 | `body turning in motion, head looking to the side, transitional pose with subtle tension` | 身體與頭部朝不同方向，像轉身中的瞬間，增加動勢。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜停步凝視姿勢 | `just-stopped movement pose, stillness after motion, focused natural gaze, narrative body language` | 像剛停下腳步的狀態，適合敘事型與街景畫面。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜低頭行進姿勢 | `walking pose with lowered gaze, inward quiet motion, solitary natural rhythm` | 帶移動感但視線向下，偏安靜、冷感與獨處氛圍。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜自然自拍姿勢 | `casual selfie-like moving pose, self-portrait body language in motion, natural arm and gaze coordination, no phone required` | 帶有邊走邊自拍或抓拍式自拍感，但不強制手機入鏡。 |
-| **姿勢與肢體語言 (Pose & Body Language)** | 動態互動｜鏡子自拍姿勢 | `mirror selfie in a dynamic pose, holding a phone visibly, face unobstructed, clear facial features, lively self-portrait framing` | 只在有鏡面或反射場景時使用，仍維持手機可見但不遮臉。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜自然站姿 | `natural standing pose, relaxed balanced posture, everyday body language, unforced presence` | 身體自然站立，重心平均，沒有明顯擺拍感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜單腳重心 | `weight-on-one-leg standing pose, relaxed asymmetrical stance, casual natural posture` | 重心落在單腳，另一腳自然放鬆，整體更有鬆弛感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜雙手自然垂放 | `standing pose with arms naturally at sides, simple clean posture, unforced body line` | 雙手自然下垂，畫面乾淨，適合簡約人像。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜雙臂交疊 | `standing pose with loosely crossed arms, relaxed closed posture, cool composed body language` | 手臂自然交疊在身前，身體線條收斂而穩定。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜自然坐姿 | `natural seated pose, relaxed upright sitting posture, everyday calm body language` | 坐姿穩定放鬆，上半身自然伸展。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜微微前傾 | `seated pose leaning slightly forward, engaged natural posture, subtle interactive body language` | 上半身稍微前傾，讓人物更靠近鏡頭且更有參與感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜雙手後撐 | `seated pose with both hands placed behind for support, open chest, relaxed stretched posture` | 雙手向後撐住身體，姿態放鬆並帶伸展感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜單腿放鬆 | `asymmetrical seated pose with one leg relaxed, casual uneven body rhythm, natural sitting line` | 一側腿部較放鬆延伸，另一側自然收起，形成不對稱節奏。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜雙腿自然伸展 | `seated pose with legs naturally extended, loose comfortable posture, laid-back body language` | 腿部自然往前延伸，不過度端正，保留輕鬆感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜盤腿坐姿 | `cross-legged seated pose, relaxed casual sitting posture, intimate everyday body language` | 雙腿自然盤起，姿勢輕鬆，適合私密生活感構圖。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜側身坐姿 | `side-facing seated pose, slightly turned torso, natural dimensional sitting posture` | 身體略微側向鏡頭，避免正面坐直的僵硬感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 坐姿｜抱膝坐姿 | `seated pose hugging knees, compact self-contained posture, quiet relaxed body language` | 雙手或手臂自然抱膝，身體線條較集中而收斂。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜側身半躺 | `side reclined pose, body gently extended, relaxed low posture, soft flowing body line` | 身體側向延展，整體姿勢放鬆，適合柔和低姿態畫面。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜正面仰躺 | `relaxed supine pose, lying on her back facing upward, one arm raised loosely above the head, the other resting casually beside the body, legs bent naturally in a soft asymmetrical way, upright non-inverted body orientation` | 正面朝上的舒服仰躺姿勢，手腳自然不對稱，避免頭下腳上的倒置構圖。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜手撐半躺 | `reclined pose supported by one arm, lifted upper body, natural relaxed asymmetry` | 以單手或手肘支撐上半身，讓姿勢更有層次。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜微蜷放鬆 | `slightly curled relaxed low pose, soft compact body line, intimate restful posture` | 身體略微收起，帶休息感、柔軟感與生活感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜趴姿 | `low prone pose, upper body close to the surface, relaxed intimate body line` | 上半身接近低平面，身體趴臥放鬆，適合低姿態構圖。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 半躺低姿態｜側躺延伸 | `elongated side-lying pose, extended body line, calm graceful low posture` | 身體橫向延展，線條完整，適合全身構圖。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜自然蹲姿 | `natural squatting pose, relaxed low posture, balanced body weight, casual grounded body language` | 身體自然下蹲，重心穩定不誇張。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜單膝蹲姿 | `one-knee squat pose, asymmetrical low stance, stable grounded posture, natural visual rhythm` | 一膝較低、一膝支撐，姿態更有層次。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 蹲姿｜手扶膝蓋蹲姿 | `squatting pose with one hand resting on knee, relaxed low stance, casual confident body language` | 下蹲時手自然扶在膝上，姿態清楚且穩定。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 動態｜輕步移動 | `light stepping motion, subtle body movement, natural transitional pose, candid rhythm` | 像正在慢慢走動或移動重心，避免人物太靜止。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 動態｜整理頭髮 | `adjusting hair while moving, candid grooming gesture, natural in-between motion` | 手正在整理頭髮，像被捕捉到的自然瞬間。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 動態｜整理衣襬 | `adjusting clothing hem, subtle styling gesture, candid everyday movement` | 手碰觸衣物或衣襬，帶自然日常的整理動作。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 動態｜抬手整理肩頸 | `hand lifting toward shoulder or neck, soft adjustment gesture, delicate natural motion` | 手靠近肩頸、鎖骨或耳側，適合細膩近景人物狀態。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 動態｜回身動作 | `body turning in motion, torso rotating naturally, transitional pose with subtle tension` | 身體正在轉向或回身，增加動勢與不僵硬的過渡感。 |
+| **姿勢與肢體語言 (Pose & Body Language)** | 動態｜停步姿勢 | `just-stopped movement pose, stillness after motion, balanced transitional body language` | 像剛停下腳步的狀態，保留動作後的穩定停格。 |
 | **特殊動作 (Special Actions)** | 全無 | `none` | 不指定特殊動作，保留一般姿勢動作系統。 |
 | **特殊動作 (Special Actions)** | 塗口紅 | `applying lipstick directly onto the lips with the lipstick bullet visibly pressing against the mouth, slight lip deformation from contact pressure, deliberate beauty touch-up moment, staged portrait action` | 以口紅膏體實際接觸嘴唇的補妝瞬間為主，重點是嘴唇因接觸與施力而出現些微擠壓變形，帶明確的美容行為與近距離寫真感。 |
 | **特殊動作 (Special Actions)** | 塗歪口紅 | `holding a lipstick bullet against the mouth while applying it loosely beyond the lip line, with visible smudging and color spread outside the lips, imperfect messy lipstick application, staged beauty close-up action` | 以手持口紅實際往嘴唇塗抹、並且塗出唇線外的失手感或刻意塗歪效果為主，強調口紅道具清楚可見、顏色外溢、邊緣暈開與不完美的近距離美容特寫。 |
@@ -147,3 +123,7 @@
 | **特殊動作 (Special Actions)** | 四足跪姿前傾 | `on all fours with both hands and knees on the ground, torso leaning forward, arms extended, back arched, hips lifted, head angled downward, deliberate animalistic staged pose` | 以四足跪姿前傾的誇張肢體張力為主，背部拱起、臀部抬高，需要大範圍肢體可見才能成立。 |
 | **特殊動作 (Special Actions)** | 抱枕俯臥回眸 | `lying prone with her torso propped on a large pillow, turning over her shoulder to the side, hips lifted in an arched posture, knees grounded with legs extended behind, one hand near her face with relaxed curled fingers, staged intimate lounging action` | 以俯臥抱枕並回眸的姿勢為主，強調靠枕、拱起的身體曲線與帶點私密感的回望瞬間。 |
 | **特殊動作 (Special Actions)** | 分腿跪坐仰視 | `kneeling with her legs spread and feet tucked under, torso sitting back toward the heels, both palms planted on the ground between her thighs with fingers splayed, chest pushed forward, head dipped while the eyes look upward toward the viewer, deliberate staged kneeling pose` | 以分腿跪坐、雙手撐地、低頭抬眼的誇張肢體張力為主，重點在前挺胸口與壓低頭部形成的視線反差，需要清楚看到完整跪姿。 |
+| **特殊動作 (Special Actions)** | 自然自拍感 | `social-media self-portrait energy, close camera awareness, natural arm-angle feel without forcing a visible phone, relaxed face-near-camera interaction` | 帶社群自拍感與近鏡頭互動，但不強制手機出現，方便搭配任何一般姿勢。 |
+| **特殊動作 (Special Actions)** | 鏡子自拍 | `mirror selfie action, phone visibly held in one hand, reflective self-portrait composition, face unobstructed by the phone` | 明確對鏡自拍，手機可見但不能遮住臉，場景可再另外決定鏡面位置。 |
+| **特殊動作 (Special Actions)** | 男友視角拍攝 | `boyfriend-perspective candid portrait, photographed by someone close to her, intimate relaxed camera awareness, affectionate natural interaction with the lens` | 像被親近的人拍下的自然人像，互動親密、放鬆，不等於特定姿勢。 |
+| **特殊動作 (Special Actions)** | 閨蜜視角拍攝 | `best-friend-perspective candid portrait, playful casual social snapshot, relaxed unposed energy, natural laughter and easy camera interaction` | 像被朋友拍下的社群感照片，輕鬆、俏皮、自然，不強制特定場景。 |
