@@ -1180,12 +1180,9 @@
         ]
       },
       {
-        "zh": "水洗牛仔褲",
-        "en": "washed denim jeans, casual denim texture, classic five-pocket construction, relaxed everyday streetwear surface",
-        "desc": "保留牛仔褲本身的刷色、口袋與日常街頭質感，不預設低腰或露腰，腰線交由下身腰線欄位控制。",
-        "legacyIds": [
-          "wardrobe:褲裝-pants:低腰牛仔褲:2"
-        ]
+        "zh": "低腰牛仔褲",
+        "en": "low-rise jeans, casual denim silhouette, exposed waist styling",
+        "desc": "千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。"
       },
       {
         "zh": "牛仔短褲",
@@ -1205,8 +1202,8 @@
       },
       {
         "zh": "蕾絲內褲",
-        "en": "lace panties, delicate floral lace surface, scalloped trim, compact lingerie-bottom construction",
-        "desc": "以花卉蕾絲、波浪邊與內著下身結構為主，不額外預設低腰或露臀比例。"
+        "en": "low-rise lace panties, lingerie bottoms, delicate intimate styling, exposed hip line",
+        "desc": "以低腰位置貼合臀線與胯部，偏內衣與私密寫真風格，強調蕾絲質地與貼身感。"
       },
       {
         "zh": "蕾絲丁字褲",
@@ -1223,13 +1220,13 @@
       },
       {
         "zh": "工裝長褲",
-        "en": "cargo pants, utility pocket construction, reinforced seams, practical workwear fabric texture",
-        "desc": "以工裝口袋、加固縫線與耐穿布料為核心，版型寬窄交由下身版型欄位控制。"
+        "en": "cargo pants, structured utility silhouette, practical pocket detailing",
+        "desc": "工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。"
       },
       {
         "zh": "西裝長褲",
-        "en": "tailored trousers, clean pressed crease, polished suiting fabric, neat formal waistband construction",
-        "desc": "以西裝褲的壓線、布料垂墜與正式褲頭結構為主，不預設高腰或窄版。"
+        "en": "tailored trousers, sharp clean lines, polished formal drape",
+        "desc": "都會、正式與俐落感很強，適合極簡與成熟造型。"
       },
       {
         "zh": "寬褲",
@@ -1265,8 +1262,8 @@
       },
       {
         "zh": "皮革長褲",
-        "en": "leather trousers, smooth leather surface, structured lower-body panels, clean fashion trouser construction",
-        "desc": "以皮革表面、拼片與完整長褲結構為主，貼身或寬鬆程度交由下身版型欄位決定。"
+        "en": "leather trousers, sleek fitted structure, cool fashion attitude",
+        "desc": "比短褲更完整且更冷調，適合夜景、時裝與強勢造型。"
       },
       {
         "zh": "尼龍工裝褲",
@@ -1286,8 +1283,8 @@
       },
       {
         "zh": "絲絨喇叭褲",
-        "en": "velvet flared pants, soft plush velvet texture, flared hem construction, subtle retro trouser character",
-        "desc": "以絲絨布面、喇叭褲口與復古褲型特徵為主，腰線位置不在單品描述中固定。"
+        "en": "velvet flared pants, 70s retro style, soft plush texture",
+        "desc": "帶有復古戲劇感與柔軟光澤。"
       },
       {
         "zh": "亮面皮革長褲",
@@ -1320,18 +1317,18 @@
       },
       {
         "zh": "波西米亞風長褲",
-        "en": "bohemian draped trousers, washed rayon or crinkled cotton fabric, earthy layered tones, folk-pattern panels, artisanal resort character",
-        "desc": "保留波西米亞布料、土色層次與民俗圖案語言，褲身鬆緊與腰線交由控制欄位決定。"
+        "en": "bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, earthy layered tones, gathered relaxed waist, folk-pattern panels and artisanal resort mood",
+        "desc": "褲身更寬鬆柔軟，帶自然堆疊與土色層次感，像度假地咖啡館裡常見的民俗風寬褲；整體不是俐落剪裁，而是強調鬆弛、垂墜與異國旅行感。"
       },
       {
         "zh": "丹寧吊帶長褲",
-        "en": "denim overalls, bib-front denim construction, adjustable shoulder straps, utility pockets, full-length trouser body",
-        "desc": "以吊帶胸片、可調式肩帶、工裝口袋與長褲式丹寧褲身為核心。"
+        "en": "denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling",
+        "desc": "以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。"
       },
       {
         "zh": "丹寧吊帶短褲",
-        "en": "denim short overalls, bib-front denim construction, adjustable shoulder straps, utility pockets, short trouser body",
-        "desc": "以吊帶胸片、可調式肩帶、工裝口袋與短褲式丹寧褲身為核心。"
+        "en": "denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood",
+        "desc": "以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。"
       }
     ],
     "裙裝 (Skirts)": [
@@ -1350,23 +1347,23 @@
       },
       {
         "zh": "A 字短裙",
-        "en": "a-line mini skirt, structured flared skirt body, clean waistband, gently widening hem",
-        "desc": "以 A 字裙身、乾淨腰頭與自然展開的短裙下擺為核心，腰線位置交由下身腰線欄位控制。"
+        "en": "a-line mini skirt, structured flare, balanced feminine silhouette",
+        "desc": "腰部收合、裙擺自然展開的短裙版本，實用且好搭配。"
       },
       {
         "zh": "A 字長裙",
-        "en": "a-line maxi skirt, elongated flared skirt body, continuous fabric drape, gently widening long hem",
-        "desc": "以長裙長度、A 字展幅與連續布面垂墜為主，不額外固定高腰或貼身比例。"
+        "en": "a-line maxi skirt, elongated flared silhouette, balanced feminine drape",
+        "desc": "保留 A 字展開輪廓但拉長裙長，整體更柔和也更成熟。"
       },
       {
         "zh": "絲質長裙",
-        "en": "silk maxi skirt, fluid silk drape, soft reflective sheen, smooth continuous skirt surface",
-        "desc": "以絲質光澤、柔順垂墜與乾淨長裙布面為主，不綁定特定場景。"
+        "en": "silk maxi skirt, fluid drape, soft reflective sheen",
+        "desc": "垂墜感強、適合法式慵懶與高級飯店場景。"
       },
       {
         "zh": "百褶短裙",
-        "en": "pleated mini skirt, crisp repeated folds, compact short hem, clean waistband structure",
-        "desc": "以規則百褶、短裙下擺與乾淨腰頭結構為主，風格由其他欄位決定。"
+        "en": "pleated mini skirt, crisp folds, youthful styling",
+        "desc": "學院感強，適合 JK、街頭與 Y2K 主題。"
       },
       {
         "zh": "百褶長裙",
@@ -1375,8 +1372,8 @@
       },
       {
         "zh": "不對稱層次百褶裙",
-        "en": "asymmetric layered pleated skirt, uneven pleated panels, staggered hem lengths, deconstructed lower-body shape",
-        "desc": "以不對稱百褶片、錯落裙長與解構層次為核心，不額外預設龐克或 Y2K 場景。"
+        "en": "asymmetric layered pleated skirt, punk details, uneven hem",
+        "desc": "層次鮮明，整體更偏 Y2K 與前衛造型。"
       },
       {
         "zh": "龐克格紋百褶裙",
@@ -1401,8 +1398,8 @@
       },
       {
         "zh": "荷葉短裙",
-        "en": "ruffled mini skirt, layered ruffle hem, soft gathered fabric, compact skirt body",
-        "desc": "以荷葉下擺、抓皺布量與短裙裙身為主，語氣更集中在服裝結構。"
+        "en": "ruffled mini skirt, playful layered hem, lively feminine movement",
+        "desc": "裙擺更有律動與甜感，適合活潑、甜系與年輕造型。"
       },
       {
         "zh": "多層網紗荷葉短裙",
@@ -1421,13 +1418,13 @@
       },
       {
         "zh": "牛仔短裙",
-        "en": "denim mini skirt, structured denim texture, five-pocket skirt construction, clean casual hem",
-        "desc": "以丹寧布面、口袋結構與短裙下擺為核心，不預設街頭或夏日場景。"
+        "en": "denim mini skirt, structured casual texture, youthful street styling",
+        "desc": "經典高頻單品，適合街頭、日常與夏日畫面。"
       },
       {
         "zh": "網紗長裙",
-        "en": "mesh maxi skirt, sheer layered mesh panels, airy fabric flow, translucent long-skirt texture",
-        "desc": "以多層網紗、透膚布面與長裙流動感為主，保留材質而不固定風格。"
+        "en": "mesh maxi skirt, sheer layered flow, dreamy airy texture",
+        "desc": "夢幻、時裝與飄逸感明顯，適合自然風與視覺層次。"
       },
       {
         "zh": "長裙",
@@ -1439,13 +1436,13 @@
       },
       {
         "zh": "緞面短裙",
-        "en": "satin mini skirt, smooth satin surface, soft reflective sheen, clean compact hemline",
-        "desc": "以緞面光澤、平滑裙身與短裙下擺為核心，不額外加入性感或場景指向。"
+        "en": "satin mini skirt, soft sheen, sleek sensual finish",
+        "desc": "低調光澤感明顯，適合飯店、寫真與成熟感風格。"
       },
       {
         "zh": "開衩長裙",
-        "en": "slit maxi skirt, long skirt body with a defined side slit, fluid fabric drape, elongated hemline",
-        "desc": "以長裙裙身、側開衩與布面垂墜為主，弱化場景與情緒詞。"
+        "en": "slit maxi skirt, leg-revealing elegant cut, fluid elongated silhouette",
+        "desc": "成熟、性感且有流動感，適合時裝、晚間與高級場景。"
       },
       {
         "zh": "圍裹裙",
@@ -1459,13 +1456,13 @@
       },
       {
         "zh": "抓皺長裙",
-        "en": "ruched maxi skirt, gathered fabric texture, vertical ruching detail, continuous long-skirt drape",
-        "desc": "以抓皺布料、垂直褶皺與長裙布面為主，貼合程度交由下身版型欄位控制。"
+        "en": "ruched maxi skirt, gathered fabric texture, body-skimming drape",
+        "desc": "以抓皺布料與貼合垂墜輪廓為特色，整體更有細節與女人味。"
       },
       {
         "zh": "和服寬擺裙",
-        "en": "kimono-inspired wide skirt, broad sweeping hem, folded fabric panels, draped wrap-like skirt construction",
-        "desc": "以和服感布片、寬擺下襬與包覆式裙裝結構為主，減少固定風格詞。"
+        "en": "kimono-inspired wide skirt, broad sweeping hem, elegant draped volume, Japanese-inspired styling",
+        "desc": "以和服寬擺輪廓為靈感的裙裝，帶有明顯的展幅感與日式服裝語氣。"
       },
       {
         "zh": "直筒裙",
@@ -1474,8 +1471,8 @@
       },
       {
         "zh": "蘿莉塔鐘形澎裙",
-        "en": "Lolita bell-shaped skirt, petticoat-supported volume, rounded bell silhouette, ruffled tier details",
-        "desc": "以裙撐支撐的鐘形份量、圓弧裙身與荷葉層次為核心。"
+        "en": "Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath",
+        "desc": "由裙撐撐起的鐘形裙襬，風格非常鮮明。"
       },
       {
         "zh": "短窄裙",
@@ -1487,8 +1484,8 @@
       },
       {
         "zh": "波西米亞風長裙",
-        "en": "bohemian layered maxi skirt, tiered fabric panels, washed earth-tone textile, crinkled drape, folk-pattern border details",
-        "desc": "以土色拼接、層次裙片、洗舊皺褶布面與民俗邊飾為主，減少情境與身體比例描述。"
+        "en": "bohemian layered maxi skirt, soft tiered panels, washed earth-tone fabric, crinkled drape, folk-pattern borders, relaxed gathered movement, artisanal resort elegance",
+        "desc": "長裙改成更貼近圖片裡那種土色拼接與層次裙片的方向，布料帶洗舊感與自然皺褶，行走或坐下時會形成柔軟堆疊，整體更像異國度假、手作感強的成熟波西米亞風。"
       }
     ],
     "下身圖案 (Bottom Surface Design)": [
@@ -1710,7 +1707,7 @@
       },
       {
         "zh": "滑落肩部",
-        "en": "slipped off the shoulder line, jacket lowered from one or both shoulders while sleeves remain on the arms",
+        "en": "slipped off the shoulder line",
         "desc": "外套刻意滑落肩線，可呈現單邊或雙邊滑落的放鬆時裝感。"
       }
     ],
@@ -1952,6 +1949,55 @@
         "desc": "以深色或染色鏡片與太陽眼鏡本體為主。"
       }
     ],
+    "眼鏡配色 (Eyewear Color)": [
+      {
+        "zh": "全無",
+        "en": "no specified eyewear frame color",
+        "desc": "不指定眼鏡顏色或材質，保留眼鏡本體輪廓。"
+      },
+      {
+        "zh": "黑色",
+        "en": "black frame",
+        "desc": "以黑色鏡框表面為主。"
+      },
+      {
+        "zh": "白色",
+        "en": "white frame",
+        "desc": "以白色鏡框表面為主。"
+      },
+      {
+        "zh": "玳瑁色",
+        "en": "tortoiseshell frame",
+        "desc": "以琥珀棕與深色斑紋交錯的玳瑁鏡框為主。"
+      },
+      {
+        "zh": "金屬銀",
+        "en": "silver metal frame",
+        "desc": "以銀色金屬鏡框材質為主。"
+      },
+      {
+        "zh": "金屬金",
+        "en": "gold metal frame",
+        "desc": "以金色金屬鏡框材質為主。"
+      },
+      {
+        "zh": "透明框",
+        "en": "clear transparent frame",
+        "desc": "以透明或半透明膠框材質為主。"
+      }
+    ],
+    "眼鏡配戴方式 (Eyewear Placement)": [
+      {
+        "zh": "正常戴在臉上",
+        "en": "worn normally on the face, lenses aligned over the eyes",
+        "desc": "眼鏡正常戴在臉上，鏡片對齊雙眼。"
+      },
+      {
+        "zh": "戴在頭頂",
+        "en": "resting on top of the head, pushed into the hair, eyes unobstructed",
+        "desc": "眼鏡推到頭頂並卡在髮絲上方，臉部與眼睛保持清楚可見。"
+      }
+    ],
     "耳環 (Earrings)": [
       {
         "zh": "全無",
@@ -2089,55 +2135,6 @@
         "zh": "街頭風格金項鏈",
         "en": "street-style gold chain detail, subtle urban neck accent",
         "desc": "保留街頭與都會感，但降低 bold chain 的強烈存在。"
-      }
-    ],
-    "眼鏡配色 (Eyewear Color)": [
-      {
-        "zh": "全無",
-        "en": "no specified eyewear frame color",
-        "desc": "不指定眼鏡顏色或材質，保留眼鏡本體輪廓。"
-      },
-      {
-        "zh": "黑色",
-        "en": "black frame",
-        "desc": "以黑色鏡框表面為主。"
-      },
-      {
-        "zh": "白色",
-        "en": "white frame",
-        "desc": "以白色鏡框表面為主。"
-      },
-      {
-        "zh": "玳瑁色",
-        "en": "tortoiseshell frame",
-        "desc": "以琥珀棕與深色斑紋交錯的玳瑁鏡框為主。"
-      },
-      {
-        "zh": "金屬銀",
-        "en": "silver metal frame",
-        "desc": "以銀色金屬鏡框材質為主。"
-      },
-      {
-        "zh": "金屬金",
-        "en": "gold metal frame",
-        "desc": "以金色金屬鏡框材質為主。"
-      },
-      {
-        "zh": "透明框",
-        "en": "clear transparent frame",
-        "desc": "以透明或半透明膠框材質為主。"
-      }
-    ],
-    "眼鏡配戴方式 (Eyewear Placement)": [
-      {
-        "zh": "正常戴在臉上",
-        "en": "worn normally on the face, lenses aligned over the eyes",
-        "desc": "眼鏡正常戴在臉上，鏡片對齊雙眼。"
-      },
-      {
-        "zh": "戴在頭頂",
-        "en": "resting on top of the head, pushed into the hair, eyes unobstructed",
-        "desc": "眼鏡推到頭頂並卡在髮絲上方，臉部與眼睛保持清楚可見。"
       }
     ]
   },
@@ -2368,178 +2365,178 @@
       },
       {
         "zh": "晴朗白日",
-        "en": "clear daylight conditions, bright daytime sky, clean sunlit distance, high natural visibility",
-        "desc": "明亮乾淨的白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣狀態。"
+        "en": "clear daylight environment, bright daytime sky, clean distant visibility, neutral outdoor air",
+        "desc": "明亮乾淨的通用白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣狀態。"
       },
       {
         "zh": "藍天白雲",
-        "en": "saturated clear blue sky, deeper vivid azure tone, brilliant clean white clouds, high-clarity daylight, open airy distance, crisp blue-and-white daytime conditions",
+        "en": "clear blue-sky daylight, saturated azure sky, brilliant white cloud shapes, open airy distance, crisp blue-and-white atmosphere",
         "desc": "若畫面包含天空、窗外或遠景，強化藍天與白雲的色彩對比，藍色乾淨飽和、白雲明亮純白，空氣通透清澈。"
       },
       {
         "zh": "夏日深藍積雲",
-        "en": "expansive deep azure summer sky, saturated clean blue air, towering luminous white cumulus clouds, crisp cloud-edge separation, bright clouds with preserved detail, vivid blue-and-white daylight without cartoon oversaturation",
-        "desc": "夏季大天空環境，強調大面積深藍天空、高聳明亮白色積雲、清楚雲邊與藍白分離度；白雲明亮但保留細節，天空飽和但避免卡通化或過度 HDR。"
+        "en": "deep azure summer sky, saturated clean blue atmosphere, towering luminous white cumulus clouds, crisp cloud-edge detail, vivid blue-and-white daylight",
+        "desc": "夏季大天空環境，強調大面積深藍天空、高聳明亮白色積雲、清楚雲邊與藍白分離度；白雲明亮但保留細節。"
       },
       {
         "zh": "雨前灰黑天空",
-        "en": "expansive charcoal-gray pre-rain sky, layered dark storm clouds, dense gray-black cloud mass, low ceiling sky, crisp cloud-edge separation, overcast daylight with preserved cloud detail, gray-and-black sky conditions before rainfall without lightning or visible rain",
-        "desc": "陰天雨前版本的大天空環境，重點是大面積灰黑天空、層層堆疊的厚重烏雲、低壓天幕與清楚雲層邊界，保留雲的細節，不主動生成閃電或已經下雨的畫面。"
+        "en": "charcoal-gray pre-rain sky, layered dark storm clouds, dense gray-black cloud mass, low cloud ceiling, preserved cloud detail before rainfall",
+        "desc": "陰天雨前版本的大天空環境，重點是大面積灰黑天空、層層堆疊的厚重烏雲、低壓天幕與清楚雲層邊界。"
       },
       {
         "zh": "正午烈日",
-        "en": "harsh midday sun conditions, overhead summer daylight, short hard shadows, glaring bright sky, heat-baked outdoor air",
-        "desc": "接近正午的強烈直射日光，天空刺亮、陰影短而硬，戶外空氣帶炎熱曝曬與高反差。"
+        "en": "harsh midday environment, overhead summer sun position, glaring bright sky, heat-baked outdoor air, high-clarity dry distance",
+        "desc": "接近正午的強烈日間環境，天空刺亮、太陽位置高，戶外空氣帶炎熱曝曬與乾燥高能見度。"
       },
       {
         "zh": "陰天漫射",
-        "en": "overcast sky, cloud-covered daylight, soft diffused air, muted distant contrast, neutral grey-white sky cover",
-        "desc": "雲層厚而均勻，若有天空或遠景，應偏灰白低對比，整體光線漫射。"
+        "en": "overcast daylight environment, cloud-covered sky, soft diffused air, muted distant contrast, neutral grey-white sky cover",
+        "desc": "雲層厚而均勻，若有天空或遠景，應偏灰白低對比，整體環境明暗更柔和。"
       },
       {
         "zh": "清晨薄霧",
-        "en": "misty morning conditions, pale cool sky, soft haze in the distance, low-contrast dawn air, visible atmospheric perspective",
+        "en": "misty morning environment, pale cool sky, soft distant haze, low-contrast dawn air, visible atmospheric perspective",
         "desc": "清晨霧感與偏冷晨間空氣，若有遠景應略帶霧化與空氣透視。"
       },
       {
         "zh": "晨光日出",
-        "en": "sunrise conditions, early golden morning light, fresh crisp air, soft warm horizon glow, low-angle dawn brightness",
-        "desc": "剛日出的晨間環境，光線偏金暖但仍清新，遠景可保留低角度晨光與暖色地平線。"
+        "en": "sunrise environment, early golden morning sky, fresh crisp air, soft warm horizon glow, low-angle dawn brightness",
+        "desc": "剛日出的晨間環境，遠景可保留低角度晨光、暖色地平線與清新空氣。"
       },
       {
         "zh": "黃昏夕陽",
-        "en": "golden sunset conditions, warm orange sky, low sun glow, long evening shadows, distant amber horizon",
-        "desc": "若畫面包含天空或遠景，應呈現橙金到粉暖色過渡、低角度夕陽與較長陰影。"
+        "en": "golden sunset environment, warm orange-pink sky gradient, low sun near the horizon, distant amber evening atmosphere",
+        "desc": "若畫面包含天空或遠景，應呈現橙金到粉暖色過渡、低角度夕陽與傍晚空氣感。"
       },
       {
         "zh": "藍調傍晚",
-        "en": "blue hour conditions, deep blue dusk sky, fading ambient daylight, cool evening transition, low remaining daylight in the distance",
+        "en": "blue hour environment, deep blue dusk sky, fading ambient daylight, cool evening transition, faint remaining distance light",
         "desc": "日落後到入夜前的藍調時段，天空偏深藍，遠景仍保留些微殘光。"
       },
       {
         "zh": "夜晚街燈",
-        "en": "streetlit night conditions, dark blue-black night sky, sodium-vapor streetlights, subtle urban glow, visible practical street lighting",
+        "en": "streetlit night environment, dark blue-black night sky, sodium-vapor streetlights, subtle urban glow, practical street-light visibility",
         "desc": "一般城市夜晚環境，若有天空通常接近深藍黑色，主要由路燈與城市溢光提供可見度。"
       },
       {
         "zh": "月光夜色",
-        "en": "moonlit night conditions, cool silvery darkness, faint moon glow, natural blue-black night sky, low nocturnal visibility",
+        "en": "moonlit night environment, cool silvery darkness, faint moon glow, natural blue-black night sky, low nocturnal visibility",
         "desc": "以自然月光為主的夜色環境，整體偏冷、銀藍，戶外可見度較低。"
       },
       {
         "zh": "霓虹夜色",
-        "en": "neon night conditions, dark night sky, colored city glow, vivid neon reflections, high-saturation urban light spill",
+        "en": "neon night environment, dark night sky, colored city glow, vivid neon reflections, saturated urban light spill",
         "desc": "夜色基底下混入高彩度霓虹，若有遠景應帶彩色反射、招牌光暈與都會夜間溢光。"
       },
       {
         "zh": "陰雨將至",
-        "en": "storm-brewing conditions, heavy dark clouds, charged humid air, pre-rain sky pressure, dense low cloud ceiling",
-        "desc": "暴雨前的烏雲壓頂與潮悶空氣，重點是厚重雲層、低壓天幕與降雨前濕度。"
+        "en": "storm-brewing humid environment, heavy dark cloud cover, charged damp air, pre-rain pressure, dense low cloud ceiling",
+        "desc": "暴雨前的潮悶低壓環境，重點是厚重雲層、濕度、壓迫感與降雨前空氣。"
       },
       {
         "zh": "雨天陰濕",
-        "en": "rainy conditions, grey-blue rain sky, damp air, wet surfaces, muted visibility, cold overcast daylight",
+        "en": "rainy overcast environment, grey-blue rain sky, damp air, wet surfaces, muted visibility, cold daylight atmosphere",
         "desc": "若畫面含天空與遠景，應呈現厚重灰藍雲層、濕冷空氣、濕表面與低能見度。"
       },
       {
         "zh": "雨後反光",
-        "en": "post-rain conditions, freshly damp urban surfaces, reflective stone and wall textures, leftover cloud cover, fresh humid air after rainfall",
-        "desc": "雨剛停後的潮濕反光環境，重點是濕潤表面、石材、牆面與局部反射，不主動指定街道；若有遠景可保留殘雲與較通透空氣。"
+        "en": "post-rain environment, freshly damp surfaces, reflective stone and wall textures, leftover cloud cover, fresh humid air after rainfall",
+        "desc": "雨剛停後的潮濕反光環境，重點是濕潤表面、石材、牆面與局部反射；若有遠景可保留殘雲與較通透空氣。"
       },
       {
         "zh": "雪地冷光",
-        "en": "snow-bright conditions, cold pale sky, reflective snowy distance, crisp winter air, bright cool ambient bounce from snow",
+        "en": "snow-bright winter environment, cold pale sky, reflective snowy distance, crisp winter air, cool ambient brightness from snow",
         "desc": "若畫面有遠景與天空，應帶冷白冬日感與雪地反射造成的清冽亮度。"
       },
       {
         "zh": "冬季灰冷",
-        "en": "cold winter overcast conditions, pale grey sky, dry freezing air, subdued daylight, low-saturation winter distance",
+        "en": "cold winter overcast environment, pale grey sky, dry freezing air, subdued daylight, low-saturation winter distance",
         "desc": "不一定下雪，但整體帶有冬季灰冷、乾燥、偏冷白的環境狀態。"
       },
       {
         "zh": "室內窗邊日光",
-        "en": "indoor daylight by the window, natural window-lit room, bright exterior sky visible outside if present, daytime interior brightness",
+        "en": "indoor window-daylight environment, natural window-lit room brightness, daytime exterior sky if visible",
         "desc": "以白天室內窗光為主；若畫面看得到窗外，外部應明確保持白天天空與日光狀態。"
       },
       {
         "zh": "室內清晨冷白日光",
-        "en": "indoor early-morning daylight, cool pale window light, crisp interior air, faint cool exterior brightness if visible, clean morning room brightness",
+        "en": "indoor early-morning daylight environment, cool pale window brightness, crisp interior air, faint cool exterior brightness if visible",
         "desc": "偏清晨的室內自然光，色溫較冷、亮度乾淨；若窗外可見，應保留早晨偏冷的亮度感。"
       },
       {
         "zh": "室內午後柔亮日光",
-        "en": "indoor late-afternoon daylight, bright but softened room illumination, warm-neutral daylight spread, mellow exterior brightness if visible",
-        "desc": "偏午後的室內自然光，亮度柔和、偏暖中性，不是強烈直射窗光，而是更均勻的白天室內明度。"
+        "en": "indoor late-afternoon daylight environment, bright softened room illumination, warm-neutral daylight spread, mellow exterior brightness if visible",
+        "desc": "偏午後的室內自然光，亮度柔和、偏暖中性，是均勻的白天室內明度。"
       },
       {
         "zh": "室內陰影日光",
-        "en": "indoor dim daylight, daylight falling deeper into the room, subdued exterior brightness if visible, shaded interior brightness",
+        "en": "indoor shaded daylight environment, daylight falling deeper into the room, subdued exterior brightness if visible, dim interior air",
         "desc": "白天室內但不在強窗邊，空間較內收；若看得到窗外，外部仍應維持日間亮度。"
       },
       {
         "zh": "室內陰雨昏暗天光",
-        "en": "indoor rainy-day daylight, dim grey window light, subdued overcast room brightness, low-brightness interior air, muted exterior sky if visible",
-        "desc": "陰雨天的室內自然光，整體更灰、更暗；若窗外可見，應偏灰白低亮度，而不是晴天藍天。"
+        "en": "indoor rainy-day daylight environment, dim grey window brightness, subdued overcast room light, muted exterior sky if visible",
+        "desc": "陰雨天的室內自然光，整體更灰、更暗；若窗外可見，應偏灰白低亮度。"
       },
       {
         "zh": "室內黃昏微暖餘光",
-        "en": "indoor dusk afterglow, faint warm residual daylight, dimming room brightness, gentle amber-tinted interior air, fading exterior light if visible",
+        "en": "indoor dusk afterglow environment, faint warm residual daylight, dimming room brightness, fading exterior light if visible",
         "desc": "接近傍晚但不直接生成夕陽，保留微暖色餘光、正在變暗的室內明度與窗外漸暗狀態。"
       },
       {
         "zh": "室內暖光夜景",
-        "en": "indoor warm night conditions, tungsten room light, amber interior glow, dark exterior beyond windows if visible, visible warm practical lighting",
+        "en": "indoor warm night environment, tungsten room glow, amber interior atmosphere, dark exterior beyond windows if visible",
         "desc": "晚上室內的人造暖光場景；若窗外可見，應為明確夜色而非白天。"
       },
       {
         "zh": "室內夜晚低照度暖光",
-        "en": "indoor low-light warm night conditions, sparse amber practical lights, dim room glow, shadowed interior corners, dark exterior if visible",
+        "en": "indoor low-light warm night environment, sparse amber practical lights, dim room glow, shadowed interior corners, dark exterior if visible",
         "desc": "比一般室內暖光夜景更暗，像只開少量檯燈或床頭燈的夜晚房間，重點是低照度、暖色實用燈與暗角。"
       },
       {
         "zh": "室內燭光",
-        "en": "candlelit interior conditions, flickering warm flame glow, low-light room, soft amber darkness, visible candle or firelight source if appropriate",
+        "en": "candlelit interior environment, flickering warm flame glow, low-light room, soft amber darkness, visible candle or firelight source if appropriate",
         "desc": "由燭光或火光主導的室內夜景，重點是低照度、暖色火光、可見燭光或火光來源。"
       },
       {
         "zh": "室內冷色人造光",
-        "en": "indoor cool artificial light, fluorescent or LED interior conditions, cool-white ambient cast, modern controlled space, dim exterior if visible",
+        "en": "indoor cool artificial-light environment, fluorescent or LED room conditions, cool-white ambient cast, dim exterior if visible",
         "desc": "偏冷白的人造光室內空間，若有窗外通常不主導，重點是螢光燈或 LED 造成的冷白環境色。"
       },
       {
         "zh": "室內冷白螢光日常",
-        "en": "indoor fluorescent everyday conditions, cool-white overhead room light, practical daily interior illumination, plain lived-in space, dim exterior if visible",
+        "en": "indoor fluorescent everyday environment, cool-white overhead room light, practical daily interior brightness, plain lived-in space",
         "desc": "更生活化的冷白燈室內環境，像住宅、辦公室、便利空間或普通日常場景，不偏棚拍或強風格化。"
       },
       {
         "zh": "室內霓虹夜色",
-        "en": "indoor neon-lit conditions, colored LED glow, saturated urban light spill, visible neon or LED practical source, dark exterior if visible",
+        "en": "indoor neon night environment, colored LED glow, saturated urban light spill, visible neon or LED practical source, dark exterior if visible",
         "desc": "由室內霓虹或 LED 光源主導的夜景環境，適合旅館、酒吧、浴室、夜店與都會感室內畫面。"
       },
       {
         "zh": "室內外光滲入微暗空間",
-        "en": "dim interior lit mostly by exterior spill light, barely lit room conditions, outside light leaking into the space, shadowed interior corners, strong contrast between dark room and incoming ambient light",
+        "en": "dim interior spill-light environment, exterior light leaking into a mostly dark room, shadowed interior corners, strong dark-room contrast",
         "desc": "室內幾乎沒開燈，主要靠窗外、門外或走廊外部光源滲進空間來照亮；重點是暗室、外部漏光與明暗落差。"
       },
       {
         "zh": "室內深夜冷暗微光",
-        "en": "very dark late-night interior, faint cool spill light from outside or idle electronic indicators, near-unlit room conditions, minimal cold edge illumination, low nocturnal visibility",
+        "en": "very dark late-night interior environment, faint cool exterior spill light or idle electronic indicators, near-unlit room, low nocturnal visibility",
         "desc": "比「室內外光滲入微暗空間」更深夜、更冷、更暗，像房間幾乎完全沒開燈，只剩窗外微弱夜光、走廊漏光或電器待機燈。"
       },
       {
         "zh": "高調純白攝影棚",
-        "en": "high-key white studio lighting, shadowless commercial illumination, ultra-clean bright studio light condition, crisp isolated subject lighting, no background structure specified",
-        "desc": "高調白光與均勻棚燈主導的商業攝影光條件，整體明亮乾淨、陰影極淡或近乎消失，不額外指定背景結構。"
+        "en": "high-key white studio environment, ultra-clean bright commercial illumination, near-shadowless studio ambience, no background structure specified",
+        "desc": "高調白光與均勻棚燈主導的商業攝影環境，整體明亮乾淨、陰影極淡或近乎消失，不額外指定背景結構。"
       },
       {
         "zh": "柔霧美妝攝影棚",
-        "en": "soft beauty studio lighting, diffused shadowless illumination, creamy clean light quality, polished commercial portrait illumination, no background structure specified",
-        "desc": "以大型柔光與均勻棚燈營造的美妝棚拍光條件，陰影極輕、膚質細膩、畫面乾淨柔順，不額外指定背景結構。"
+        "en": "soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience, no background structure specified",
+        "desc": "以大型柔光與均勻棚燈營造的美妝棚拍環境，陰影極輕、膚質細膩、畫面乾淨柔順，不額外指定背景結構。"
       },
       {
         "zh": "舞台演出燈光",
-        "en": "stage-inspired studio lighting, colored controlled light beams, performance-like illumination pattern, artificial light shafts without generating a stage venue",
-        "desc": "以舞台感燈束與強人工燈具主導的攝影棚光條件，保留彩色燈束與表演式照明，但不生成實際演出場館。"
+        "en": "stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts without generating a stage venue",
+        "desc": "以舞台感燈束與強人工燈具主導的攝影棚環境，保留彩色燈束與表演式照明，但不生成實際演出場館。"
       }
     ],
     "光線表現 (Light Style)": [
@@ -2550,12 +2547,12 @@
       },
       {
         "zh": "柔和順光",
-        "en": "soft frontal key light on the subject, even facial illumination, low-contrast skin detail, minimal cast shadows",
+        "en": "soft frontal key light on the subject, even facial illumination, low-contrast skin detail, gentle minimal cast shadows",
         "desc": "正面柔光均勻照亮人物五官與上身，陰影少，適合乾淨穩定的人像受光。"
       },
       {
         "zh": "均勻平光",
-        "en": "flat even subject lighting, balanced full-face illumination, minimal modeling contrast, clean exposure across skin and clothing",
+        "en": "flat even subject lighting, balanced full-face illumination, minimal modeling contrast, clean readable skin and clothing exposure",
         "desc": "人物受光平均、資訊完整、對比低，讓臉部與服裝細節都清楚可讀。"
       },
       {
@@ -2565,17 +2562,17 @@
       },
       {
         "zh": "側向硬光",
-        "en": "hard side key light on the subject, sharp shadow edge across facial planes, strong sculpted contrast, crisp highlight-to-shadow separation",
+        "en": "hard side key light on the subject, sharp facial-plane shadow edge, sculpted side contrast, crisp highlight-to-shadow separation",
         "desc": "側光明顯且邊界銳利，強化人物臉部、肩線與衣物皺褶的明暗分離。"
       },
       {
         "zh": "側逆光",
-        "en": "diagonal rear-side light on the subject, soft rim edge along hair and shoulder, partial facial fill, subject separated from background",
+        "en": "diagonal rear-side subject light, soft rim edge along hair and shoulder, partial facial fill, separated subject contour",
         "desc": "從斜後方照亮人物，保留髮絲與肩線輪廓，同時留下部分臉部補光。"
       },
       {
         "zh": "逆光輪廓光",
-        "en": "strong back rim light on the subject, bright outline along hair shoulders and body edge, subject silhouette separation, controlled shadow-side detail",
+        "en": "strong back rim light on the subject, bright outline along hair shoulders and body edge, controlled shadow-side detail",
         "desc": "主體邊緣被後方光源勾亮，重點是髮絲、肩線與身體輪廓的分離。"
       },
       {
@@ -2590,7 +2587,7 @@
       },
       {
         "zh": "漫射霧光",
-        "en": "diffused light wrapping around the subject, softened shadow edges, low-contrast subject illumination, broad ambient fill across skin and clothing",
+        "en": "diffused light wrapping around the subject, softened shadow edges, low-contrast subject illumination, broad fill across skin and clothing",
         "desc": "光線被空氣、水氣或霧化介質柔化後包覆人物，重點是陰影邊緣變軟與低反差受光。"
       },
       {
@@ -2600,7 +2597,7 @@
       },
       {
         "zh": "低光高反差",
-        "en": "low-key subject lighting, deep shadow areas on face and body, selective highlight accents, high contrast exposure across the subject",
+        "en": "low-key subject lighting, deep face and body shadows, selective highlight accents, high contrast across the subject",
         "desc": "人物大面積留在暗部，只保留局部亮面或輪廓，形成高反差受光。"
       },
       {
@@ -2615,12 +2612,12 @@
       },
       {
         "zh": "冷白日光色溫",
-        "en": "cool clean daylight color cast on the subject, crisp pale-white highlights, neutral-cool skin rendering, restrained cool shadow edges, no sky or weather cues",
+        "en": "cool clean daylight subject color, crisp pale-white highlights, neutral-cool skin rendering, restrained cool shadow edges, no sky or weather cues",
         "desc": "讓人物受光偏冷白、乾淨、通透，不直接指定陰天、天空或場景狀態。"
       },
       {
         "zh": "室內暖白燈色溫",
-        "en": "warm-white practical-lamp color cast on the subject, neutral-warm skin highlights, gentle household lamp tone, no deep tungsten amber dominance",
+        "en": "warm-white practical-lamp subject color, neutral-warm skin highlights, gentle household lamp tone, no deep tungsten amber dominance",
         "desc": "偏日常室內暖白燈的人物受光色溫，比鎢絲黃光更乾淨、比黃昏色更中性。"
       },
       {
@@ -2635,12 +2632,12 @@
       },
       {
         "zh": "霓虹染色光",
-        "en": "neon color spill across the subject, saturated colored highlights on skin and clothing edges, vivid hue tinting, controlled colored light cast",
+        "en": "neon color spill across the subject, saturated colored highlights on skin hair and clothing edges, controlled vivid color cast",
         "desc": "霓虹色光直接染到人物皮膚、髮絲、衣物與邊緣亮面。"
       },
       {
         "zh": "窗格投影光",
-        "en": "window-frame pattern light cast on the subject, slatted or framed daylight shadows, visible geometric shadow bands on face and clothing",
+        "en": "window-frame pattern light cast on the subject, framed daylight shadows, visible geometric shadow bands on face and clothing",
         "desc": "窗框、格柵或框線形狀投射到人物臉部、身體或衣物上，形成幾何陰影。"
       },
       {
@@ -2670,7 +2667,7 @@
       },
       {
         "zh": "深夜邊緣微光",
-        "en": "minimal nocturnal rim light along face hair shoulders and body outline, most of the subject in darkness, faint selective edge visibility, sparse cool highlight tracing",
+        "en": "minimal nocturnal subject rim light, faint cool edge tracing along face hair shoulders and body outline, mostly dark subject mass",
         "desc": "主體大多留在暗部，只在臉側、肩線、髮絲或肢體邊緣保留很少量夜間微光。"
       }
     ],
@@ -2843,63 +2840,63 @@
       },
       {
         "zh": "室內：純潔白幕",
-        "en": "horizonless seamless matte pure white color field, one continuous white ground-and-background plane visually blending into a single solid white void, full-bleed white surface with subtle natural contact shadow under the subject, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以純白無縫單色空間為主，地面與背景視覺上融合成滿版白色，人物腳下可保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以純白無縫單色空間為主，地面與背景融合成滿版白色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：深邃黑幕",
-        "en": "horizonless seamless matte deep black color field, one continuous black ground-and-background plane visually blending into a single solid black void, full-bleed black surface with subtle natural contact shadow under the subject, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以深黑無縫單色空間為主，地面與背景視覺上融合成滿版黑色，人物腳下可保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless matte deep black color field, continuous black ground-and-background plane blending into a solid black void, full-bleed black surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以深黑無縫單色空間為主，地面與背景融合成滿版黑色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：莫蘭迪灰背景",
-        "en": "horizonless seamless matte muted grey color field, one continuous neutral-grey ground-and-background plane visually blending into a single solid grey void, full-bleed low-saturation grey surface with subtle natural contact shadow under the subject, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以低飽和灰色無縫單色空間為主，地面與背景融合成滿版中性灰，人物腳下可保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless matte muted grey color field, continuous neutral-grey ground-and-background plane blending into a solid grey void, full-bleed low-saturation grey surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以低飽和灰色無縫單色空間為主，地面與背景融合成滿版中性灰，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：純藍背景",
-        "en": "horizonless seamless matte saturated pure blue color field, one continuous vivid blue ground-and-background plane visually blending into a single solid blue void, full-bleed clean blue surface with subtle natural contact shadow under the subject, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以高飽和純藍無縫單色空間為主，地面與背景融合成滿版藍色，人物腳下可保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless matte saturated pure blue color field, continuous vivid blue ground-and-background plane blending into a solid blue void, full-bleed clean blue surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純藍無縫單色空間為主，地面與背景融合成滿版藍色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：純橘背景",
-        "en": "horizonless seamless matte saturated pure orange color field, one continuous vivid orange ground-and-background plane visually blending into a single solid orange void, full-bleed clean orange surface with subtle natural contact shadow under the subject, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以高飽和純橘無縫單色空間為主，地面與背景融合成滿版橘色，人物腳下可保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless matte saturated pure orange color field, continuous vivid orange ground-and-background plane blending into a solid orange void, full-bleed clean orange surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純橘無縫單色空間為主，地面與背景融合成滿版橘色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：純紅背景",
-        "en": "horizonless seamless matte saturated pure red color field, one continuous vivid red ground-and-background plane visually blending into a single solid red void, full-bleed clean graphic red surface with subtle natural contact shadow under the subject, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以高飽和純紅無縫單色空間為主，地面與背景融合成滿版紅色，人物腳下可保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless matte saturated pure red color field, continuous vivid red ground-and-background plane blending into a solid red void, full-bleed clean red surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純紅無縫單色空間為主，地面與背景融合成滿版紅色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：純黃背景",
-        "en": "horizonless seamless matte saturated pure yellow color field, one continuous vivid yellow ground-and-background plane visually blending into a single solid yellow void, full-bleed clean yellow surface with subtle natural contact shadow under the subject, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以高飽和純黃無縫單色空間為主，地面與背景融合成滿版黃色，人物腳下可保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless matte saturated pure yellow color field, continuous vivid yellow ground-and-background plane blending into a solid yellow void, full-bleed clean yellow surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純黃無縫單色空間為主，地面與背景融合成滿版黃色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：純紫背景",
-        "en": "horizonless seamless matte saturated pure purple color field, one continuous vivid purple ground-and-background plane visually blending into a single solid purple void, full-bleed clean purple surface with subtle natural contact shadow under the subject, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以高飽和純紫無縫單色空間為主，地面與背景融合成滿版紫色，人物腳下可保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless matte saturated pure purple color field, continuous vivid purple ground-and-background plane blending into a solid purple void, full-bleed clean purple surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純紫無縫單色空間為主，地面與背景融合成滿版紫色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：純綠背景",
-        "en": "horizonless seamless matte saturated pure green color field, one continuous vivid green ground-and-background plane visually blending into a single solid green void, full-bleed clean green surface with subtle natural contact shadow under the subject, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以高飽和純綠無縫單色空間為主，地面與背景融合成滿版綠色，人物腳下可保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless matte saturated pure green color field, continuous vivid green ground-and-background plane blending into a solid green void, full-bleed clean green surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以高飽和純綠無縫單色空間為主，地面與背景融合成滿版綠色，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：鮮豔撞色背景",
-        "en": "horizonless seamless matte single vivid pop-color field, one continuous saturated color ground-and-background plane visually blending into a single solid graphic color void, full-bleed clean color-block surface with subtle natural contact shadow under the subject, no gradient, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以單一高飽和色塊無縫空間為主，地面與背景融合成滿版純色，人物腳下可保留自然接觸陰影；避免漸層、紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless matte single vivid pop-color field, continuous saturated ground-and-background plane blending into a solid graphic color void, full-bleed clean color-block surface, subtle natural contact shadow under the subject, no gradient, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以單一高飽和色塊無縫空間為主，地面與背景融合成滿版純色，人物腳下保留自然接觸陰影；避免漸層、紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：漸層打光背景",
-        "en": "horizonless seamless smooth gradient color field, one continuous gradient ground-and-background plane with no visible boundary, full-bleed tonal transition surface with subtle natural contact shadow under the subject, no visible wall corner, no floor-wall seam, no horizon line, no visible ceiling, no fluorescent ceiling tubes, no paper roll backdrop, no backdrop stand, no light stands, no studio equipment, no props",
-        "desc": "以無縫漸層色場為主，地面與背景融合成沒有邊界的漸層平面，人物腳下可保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
+        "en": "horizonless seamless smooth gradient color field, continuous gradient ground-and-background plane with no visible boundary, full-bleed tonal transition surface, subtle natural contact shadow under the subject, no wall corner, no floor seam, no ceiling, no fluorescent tubes, no paper roll, no backdrop stand, no light stands, no studio equipment",
+        "desc": "以無縫漸層色場為主，地面與背景融合成沒有邊界的漸層平面，人物腳下保留自然接觸陰影；避免紙卷、紙架、燈架、天花板燈管、牆角或棚內設備。"
       },
       {
         "zh": "室內：CRT 電視牆攝影棚",
-        "en": "studio set with assorted CRT televisions and vintage computer monitors stacked in an irregular high-low arrangement instead of a perfect flat wall, retro cathode-ray display cluster with varied heights and gaps, most screens powered on and glowing with mixed content such as the heroine's face, live news footage, analog static, scan lines, and broadcast noise, scattered VHS tapes, coiled cables, security monitors, VCR decks and old electronic equipment around the set, seamless desaturated blue-grey floor and backdrop, controlled commercial studio environment, isolated subject",
-        "desc": "以不同尺寸與型號的 CRT 電視、復古電腦螢幕高高低低錯落堆疊，不是整齊完整的一面牆；多數螢幕維持開啟狀態，可顯示主角畫面、新聞播報、雜訊、掃描線等內容，讓整體更豐富。周圍散落錄影帶、線材、監視器、VCR 等舊電子設備；地面與背景維持一致的低飽和藍灰純色，保留復古科技感，同時避免背景太花搶走主體。"
+        "en": "studio set with assorted CRT televisions and vintage computer monitors in an irregular high-low cluster, retro cathode-ray displays with varied gaps and heights, glowing screens with analog static, scan lines, news footage, or the subject's face, scattered VHS tapes, coiled cables, security monitors and VCR decks, seamless desaturated blue-grey floor and backdrop, isolated subject",
+        "desc": "以不同尺寸 CRT 電視與復古螢幕高低錯落堆疊，形成不規則顯示器群；螢幕可顯示雜訊、掃描線、新聞或主角畫面，周圍有錄影帶、線材與舊電子設備，地面與背景維持低飽和藍灰色。"
       }
     ],
     "生活感室內 (Indoor & Lifestyle)": [
@@ -2920,8 +2917,8 @@
       },
       {
         "zh": "室內：白色書櫃落地窗臥室",
-        "en": "vintage white bookcase bedroom, tall white bookshelf filled with books, large white floor-to-ceiling window, sheer curtain panels, white bed surface, white pillows, sky and treetops visible outside the window",
-        "desc": "以復古白色書櫃、白色大型落地窗、輕薄紗窗、白色床面與枕頭為主的室內場景，窗外可見天空與樹梢。"
+        "en": "vintage white bookcase bedroom corner, tall white bookshelf filled with books, large window edge, sheer curtain panels, white bedding surface, pillow details, sky and treetop fragments outside",
+        "desc": "以復古白色書櫃、窗邊、輕薄紗窗、白色床面與枕頭為主的偏角室內場景，窗外可見天空與樹梢片段。"
       },
       {
         "zh": "室內：浴室鏡前 / 洗手台",
@@ -2930,8 +2927,8 @@
       },
       {
         "zh": "室內：日本住宅使用感廚房",
-        "en": "lived-in Japanese home kitchen, wooden-framed windows, tiled kitchen wall, stainless steel sink and counter, stacked dishes and bowls, drying rack, hanging utensils, pots and kettle, condiment bottles, compact refrigerator edge, cluttered everyday cooking tools, narrow domestic kitchen layout",
-        "desc": "很有使用痕跡的日本住宅廚房，重點是木框窗、磁磚牆、流理台、堆疊碗盤、瀝水架、吊掛餐具、鍋具水壺、調味瓶、冰箱邊緣與日常烹飪工具。"
+        "en": "lived-in Japanese home kitchen corner, wooden window frame, tiled wall, stainless steel sink counter, stacked dishes, drying rack, hanging utensils, pots, kettle, condiment bottles, refrigerator edge, everyday cooking clutter",
+        "desc": "很有使用痕跡的日本住宅廚房角落，重點是木框窗、磁磚牆、流理台、碗盤、瀝水架、吊掛餐具、鍋具水壺、調味瓶、冰箱邊緣與日常烹飪工具。"
       },
       {
         "zh": "室內：更衣室 / 試衣間",
@@ -3005,8 +3002,8 @@
       },
       {
         "zh": "室內：女高生房間",
-        "en": "Japanese schoolgirl bedroom, compact single bed, study desk, curtains, soft pastel everyday clutter, school bag or small personal items, private room corner",
-        "desc": "偏真實日本少女房間，不走動漫誇張感，重點是單人床、書桌、窗簾、書包或小物與生活雜物。"
+        "en": "Japanese student bedroom corner, compact single bed, study desk, curtains, soft everyday clutter, school bag or small personal items, private lived-in room details",
+        "desc": "偏真實日本學生房間，不走動漫誇張感，重點是單人床、書桌、窗簾、書包或小物與生活雜物。"
       },
       {
         "zh": "室內：日式和室",
@@ -3020,8 +3017,8 @@
       },
       {
         "zh": "室內：辦公室茶水間",
-        "en": "Japanese office pantry room, compact kitchenette corner, small sink counter, compact coffee machine, electric kettle, office storage cabinets, upper wall cabinets, simple countertop, paper cups and small workplace supplies, no vending machine",
-        "desc": "日系辦公樓層內的茶水間或 pantry，重點是小型水槽、咖啡機、熱水壺、置物櫥櫃、上方吊櫃、簡單檯面與紙杯等辦公室元素；不包含自動販賣機。"
+        "en": "Japanese office pantry corner, small sink counter, compact coffee machine, electric kettle, storage cabinets, upper wall cabinets, simple countertop, paper cups and small workplace supplies",
+        "desc": "日系辦公樓層內的茶水間或 pantry，重點是小型水槽、咖啡機、熱水壺、置物櫥櫃、上方吊櫃、簡單檯面與紙杯等辦公室元素。"
       },
       {
         "zh": "室內：洗衣店洗衣機門前",
@@ -3055,8 +3052,8 @@
       },
       {
         "zh": "戶外：社區自動販賣機旁",
-        "en": "Japanese residential neighborhood road, narrow local lane, detached houses and apartment facades, utility poles and overhead power lines, distant low-rise buildings and open sky, two or three vending machines lined up along the roadside, asphalt road markings and quiet curbside details",
-        "desc": "日本住宅區道路旁的自動販賣機場景，重點是巷弄、民宅與公寓立面、電線桿與架空電線、遠處建築與天空，以及道路旁兩三台並排的自動販賣機。"
+        "en": "Japanese residential vending-machine corner, two or three machines beside a wall, utility pole fragment, overhead power lines, quiet curbside asphalt, apartment facade edge, detached house detail, compact neighborhood roadside surface",
+        "desc": "日本住宅區道路旁的自動販賣機場景，重點是牆邊兩三台販賣機、電線桿片段、架空電線、安靜路緣、民宅或公寓立面與近距離路面細節。"
       },
       {
         "zh": "戶外：辦公大樓人行道（上班途中）",
@@ -3249,17 +3246,17 @@
       },
       {
         "zh": "室內：電車車廂正面長椅視角",
-        "en": "Japanese commuter train car interior, front-facing view toward a long bench seat from a slight offset angle, blue fabric bench upholstery, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps and small carriage posters, outside the train windows the passing scenery may show urban buildings, rural fields, or seaside coastline, letting the model choose one exterior landscape",
-        "desc": "指定為車廂內正面長椅視角，但以略偏側角度避免過度置中；背景包含車窗、滑門、金屬牆面、吊環、路線圖與車廂海報。"
+        "en": "Japanese commuter train car interior, slight offset view toward a blue fabric bench seat, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps, small carriage posters, passing scenery glimpsed through windows",
+        "desc": "指定為車廂內長椅視角，但以略偏側角度避免過度置中；背景包含車窗、滑門、金屬牆面、吊環、路線圖、車廂海報與窗外掠過景色。"
       },
       {
         "zh": "室內：電車車廂側面走道視角",
-        "en": "Japanese commuter train car interior, side-profile aisle section, vertical grab pole near the subject, overhead hand straps, side bench seats, sliding doors and train windows, route map panels, nearby commuters as background context, outside the train windows the passing scenery may show urban buildings, rural fields, or seaside coastline, letting the model choose one exterior landscape",
-        "desc": "指定為車廂內側面走道區，人物靠近扶手柱；重點是吊環、側邊長椅、滑門、車窗、路線圖與附近通勤乘客，而不是左右對稱走廊。"
+        "en": "Japanese commuter train car side aisle section, vertical grab pole near the subject, overhead hand straps, side bench seats, sliding doors, train windows, route map panels, nearby commuters as background context",
+        "desc": "指定為車廂內側面走道區，人物靠近扶手柱；重點是吊環、側邊長椅、滑門、車窗、路線圖與附近通勤乘客。"
       },
       {
         "zh": "室內：電車車廂坐滿與站滿乘客",
-        "en": "crowded Japanese commuter train car, bench seats occupied by seated passengers, narrow aisle packed with standing commuters, overhead hand straps in use, vertical grab poles, sliding doors and train windows behind layered bodies, route map panels and small carriage ads, compressed public-transit density, outside the train windows the passing scenery may show urban buildings, rural fields, or seaside coastline, letting the model choose one exterior landscape",
+        "en": "crowded Japanese commuter train car, seated passengers on bench seats, standing commuters around vertical grab poles, overhead hand straps in use, sliding doors and train windows behind layered bodies, route map panels, small carriage ads, compressed public-transit density",
         "desc": "擁擠日本通勤車廂，長椅坐滿、走道站滿，重點是吊環、扶手柱、滑門、車窗、路線圖、車廂廣告與層層人物密度。"
       },
       {
@@ -3279,8 +3276,8 @@
       },
       {
         "zh": "戶外：目黑川旁的櫻花隧道",
-        "en": "viewed from a bridge over the Meguro River, bridge railing in the foreground, the river running along the left side of the frame, one-sided cherry blossom trees lining the right riverside, layered Tokyo city buildings in the background, pale pink petals as small physical details, avoid symmetrical two-sided cherry tree avenue, avoid central road lined with cherry blossoms",
-        "desc": "構圖以橋上視角為核心，前景先看到橋面或欄杆，左側是目黑川河道，右側是沿河岸延伸的一側櫻花樹，避免兩側對稱櫻花大道。"
+        "en": "Meguro River bridge viewpoint, bridge railing in the foreground, river channel offset along one side, one riverside cherry blossom canopy, layered Tokyo buildings behind the riverbank, pale pink petals as small physical details, asymmetric riverside composition",
+        "desc": "構圖以橋上視角為核心，前景先看到橋面或欄杆，河道偏向畫面一側，櫻花集中在單側河岸與城市建築之間，形成不對稱沿河場景。"
       },
       {
         "zh": "戶外：大阪道頓堀心齋橋河道",
@@ -3469,8 +3466,8 @@
       },
       {
         "zh": "戶外：城市遊艇碼頭欄杆旁",
-        "en": "urban yacht marina promenade, slim stainless-steel marina handrail with round tubular rails, yacht-club pedestrian railing not a highway guardrail, weathered wooden dock planks and timber pier decking, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes",
-        "desc": "參考城市港灣或遊艇碼頭旁的人像場景，前景是遊艇碼頭常見的細圓管不鏽鋼行人欄杆、木棧橋與船舶碼頭木板材質，中後景是停泊帆船、桅杆、港灣水面、遠方城市與山影；明確避免生成高速公路護欄。"
+        "en": "urban yacht marina promenade, slim stainless-steel pedestrian handrail with round tubular rails, weathered dock planks, timber pier decking, moored sailboats and yacht masts, calm harbor water, distant city skyline and mountain silhouettes",
+        "desc": "參考城市港灣或遊艇碼頭旁的人像場景，前景是細圓管不鏽鋼行人欄杆、木棧橋與碼頭木板材質，中後景是停泊帆船、桅杆、港灣水面、遠方城市與山影。"
       },
       {
         "zh": "戶外：高樓頂樓城市天際線",
@@ -3481,8 +3478,8 @@
     "自然與戶外 (Nature & Outdoors)": [
       {
         "zh": "戶外：金色海灘與浪線",
-        "en": "golden sandy beach edge, shallow clear seawater, thin receding wave edge across the sand, transparent waterline, wet sand texture, open seaside setting, no thick foam piles, no bubble bath texture",
-        "desc": "高頻好用的海邊場景，重點是金色沙灘、透明淺水、薄薄退潮浪緣、清楚水線與濕潤沙面；避免生成厚重白色泡沫或泡泡浴感。"
+        "en": "golden sandy beach edge, shallow clear seawater, thin transparent receding wave line across wet sand, clean waterline, open seaside ground plane, smooth beach surface",
+        "desc": "高頻好用的海邊場景，重點是金色沙灘、透明淺水、薄薄退潮浪緣、清楚水線與濕潤沙面。"
       },
       {
         "zh": "戶外：清澈海灣岩岸",
@@ -3496,8 +3493,8 @@
       },
       {
         "zh": "戶外：草地與樹木",
-        "en": "small grassy park patch, uneven lawn texture, scattered tree trunks set at different distances, low shrubs, ground-level natural surface, offset tree edge",
-        "desc": "小型草地與樹木邊緣，重點是不均勻草皮、不同距離的樹幹、低矮灌木與偏側樹木錨點，避免整齊林蔭大道。"
+        "en": "small grassy park patch, uneven lawn texture, scattered tree trunks at varied depths, low shrubs, ground-level natural surface, off-center tree edge",
+        "desc": "小型草地與樹木邊緣，重點是不均勻草皮、不同距離的樹幹、低矮灌木與偏側樹木錨點。"
       },
       {
         "zh": "戶外：廣闊草原平原與天空",
@@ -3506,8 +3503,8 @@
       },
       {
         "zh": "戶外：向日葵花田",
-        "en": "sunflower field edge, dense sunflower stems and large yellow flower heads, uneven rows broken by leaves, soil path fragment on one side, rural field background",
-        "desc": "向日葵花田邊緣，重點是密集花莖、大型黃色花頭、被葉片打斷的不規則花列、單側土路片段與田野背景。"
+        "en": "sunflower field edge, dense sunflower stems, large yellow flower heads, irregular plant clusters broken by leaves, soil path fragment on one side, rural field background",
+        "desc": "向日葵花田邊緣，重點是密集花莖、大型黃色花頭、被葉片打斷的不規則植株群、單側土路片段與田野背景。"
       },
       {
         "zh": "戶外：霧感森林步道",
@@ -3533,28 +3530,28 @@
     "其他專屬場景 (Other Dedicated Scenes)": [
       {
         "zh": "其他：草地",
-        "en": "close grassy ground plane, dense green lawn texture, simple natural surface filling the frame, short grass blades, no distant meadow horizon",
+        "en": "close grassy ground plane, dense green lawn texture, short grass blades, simple natural surface filling the frame, near-ground scene base",
         "desc": "近距離草地平面場景，重點是密集綠色草皮、短草葉材質與滿版自然地面，不拉成遠景草原。"
       },
       {
         "zh": "其他：白色床鋪",
-        "en": "lived-in white bed surface, casually rumpled white comforter, two white pillows placed loosely and naturally, cotton bedding texture, bed surface filling the frame, no full bedroom wide shot",
+        "en": "lived-in white bed surface, casually rumpled white comforter, two loose white pillows, cotton bedding texture, close bed-surface scene base filling the frame",
         "desc": "生活感白色床鋪場景，重點是隨意擺放的兩顆枕頭、白色棉被、棉質床品紋理與近距離床面，不強調完整臥室遠景。"
       },
       {
         "zh": "其他：生活感日式榻榻米房間",
-        "en": "lived-in Japanese tatami room ground plane, woven tatami mat texture filling the floor, shoji sliding window or paper screen edge, low domestic room details, magazine or small personal items near the corner, tatami seam grid and paper-screen frame geometry",
-        "desc": "生活感日式榻榻米房間，重點是榻榻米編織紋理、障子窗或紙門邊緣、低矮室內細節、角落雜誌小物、榻榻米接縫與紙門框線。"
+        "en": "lived-in Japanese tatami ground plane, woven mat texture filling the floor, shoji screen edge, low domestic detail, small personal items near a corner, tatami seam geometry",
+        "desc": "生活感日式榻榻米基底，重點是榻榻米編織紋理、障子或紙門邊緣、低矮生活細節、角落小物與榻榻米接縫。"
       },
       {
         "zh": "其他：樹下草地",
-        "en": "dense green grass lawn under a tree canopy, visible grass blade texture, several tree roots breaking through the grass, tree trunk base near one side, low branch and leaf canopy fragments, no concrete pavement, no bare dirt ground",
-        "desc": "樹下草地場景，重點是明確的綠色草坪、可見草葉材質、局部樹根、偏側樹幹基部與低處枝葉片段；避免生成水泥地或大片裸露泥土地。"
+        "en": "green lawn under tree canopy, visible grass blade texture, tree roots breaking through the grass, tree trunk base near one side, low branch and leaf fragments, natural ground scene base",
+        "desc": "樹下草地場景，重點是綠色草坪、草葉材質、局部樹根、偏側樹幹基部與低處枝葉片段。"
       },
       {
         "zh": "其他：沙灘海岸線",
-        "en": "pale sandy beach ground plane, clean fine sand surface, shallow clear seawater at the sand edge, thin transparent wave edge spreading across the sand, wet sand texture, distant calm shoreline in the background, no thick foam piles, no bubble bath texture",
-        "desc": "沙灘海岸線場景，重點是乾淨細沙、透明淺水、薄浪緣、濕沙材質與遠處平緩海岸線；避免厚重白色泡沫或泡泡浴質感。"
+        "en": "pale sandy beach ground plane, clean fine sand surface, shallow clear seawater at the edge, thin transparent wave line across wet sand, calm shoreline scene base",
+        "desc": "沙灘海岸線場景，重點是乾淨細沙、透明淺水、薄浪緣、濕沙材質與平緩海岸線。"
       }
     ]
   },
