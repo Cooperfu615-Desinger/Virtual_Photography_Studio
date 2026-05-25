@@ -1954,6 +1954,9 @@ function formatWardrobeOptionDisplayName(category, rawZh) {
   return rawZh;
 }
 
+const WARDROBE_OUTFIT_PRESET_CATEGORY = '套裝 (Outfit Presets)';
+const WARDROBE_DRESS_CATEGORY = '連身 (Dresses)';
+
 const CHARACTER_IDENTITY_LEGACY_OPTION_MAP = [
   { category: '體態 (Body Type)', targetZh: '高挑時裝模特', legacy: [['模特兒', 0]] },
   { category: '體態 (Body Type)', targetZh: '優雅曲線模特', legacy: [['優雅曲線模特兒', 1]] },
@@ -2046,8 +2049,65 @@ const CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS = [
   legacyId: `character:${slugify('姿勢與肢體語言 (Pose & Body Language)')}:${slugify(entry.legacy[0])}:${entry.legacy[1]}`,
 }));
 
+const WARDROBE_LEGACY_OPTION_MAP = [
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：鏈條緞面內衣', legacy: [['酒紅鏈條緞面內衣套裝', 1]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：春日巴黎亞麻長褲', legacy: [['象牙白春日巴黎套裝', 4]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：長版襯衫百褶長裙', legacy: [['全黑長版襯衫百褶長裙套裝', 9]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：BDSM 束縛', legacy: [['BDSM 束縛套裝', 17]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：維多利亞古典', legacy: [['維多利亞古典套裝', 18]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：蘿莉塔', legacy: [['蘿莉塔套裝', 19]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：內衣寫真', legacy: [['內衣寫真套裝', 20]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：泳裝度假', legacy: [['泳裝度假套裝', 21]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：素色緞面旗袍', legacy: [['素色緞面旗袍套裝', 22]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：精緻刺繡旗袍', legacy: [['精緻刺繡旗袍套裝', 23]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：經典和服', legacy: [['經典和服套裝', 24]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：輕盈浴衣', legacy: [['輕盈浴衣套裝', 25]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：兔女郎', legacy: [['兔女郎套裝', 28]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：女僕', legacy: [['女僕套裝', 29]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：女僕風荷葉比基尼', legacy: [['女僕風荷葉比基尼套裝', 30]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：短袖女高生水手服', legacy: [['短袖女高生水手服', 31]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：長袖女高生水手服', legacy: [['長袖女高生水手服', 32]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：玫瑰哥德蘿莉塔洋裝', legacy: [['玫瑰哥德蘿莉塔洋裝套裝', 34]] },
+  { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：哥德休閒針織荷葉短裙', legacy: [['哥德休閒針織荷葉短裙套裝', 35]] },
+  { category: WARDROBE_DRESS_CATEGORY, targetZh: '連身：短版｜無袖迷你洋裝', legacy: [['無袖連身洋裝', 1]] },
+  { category: WARDROBE_DRESS_CATEGORY, targetZh: '連身：短版｜細肩帶迷你洋裝', legacy: [['細肩帶連身洋裝', 2]] },
+  { category: WARDROBE_DRESS_CATEGORY, targetZh: '連身：長版｜波希米亞罩衫洋裝', legacy: [['波希米亞刺繡蕾絲寬鬆罩衫洋裝', 4]] },
+];
+
+const WARDROBE_OUTFIT_TO_DRESS_LEGACY_LOCK_MIGRATIONS = [
+  { legacy: ['玫瑰粉乳膠迷你洋裝套裝', 3], dressZh: '連身：短版｜亮面乳膠迷你洋裝' },
+  { legacy: ['黑色細節一字領哥德洋裝套裝', 15], dressZh: '連身：短版｜一字領哥德迷你洋裝' },
+  { legacy: ['銀色亮面深V掛脖迷你洋裝套裝', 16], dressZh: '連身：短版｜亮面深V掛脖迷你洋裝' },
+  { legacy: ['復古雙排釦洋裝套裝', 33], dressZh: '連身：短版｜復古雙排釦迷你洋裝' },
+].map((entry) => ({
+  ...entry,
+  legacyIds: buildWardrobeLegacyIds(WARDROBE_OUTFIT_PRESET_CATEGORY, [entry.legacy]),
+}));
+
+function buildWardrobeLegacyIds(category, legacy) {
+  return Array.from(new Set(
+    legacy.flatMap(([label, index]) => {
+      const rawId = `wardrobe:${slugify(category)}:${slugify(label)}:${index}`;
+      const displayId = `wardrobe:${slugify(category)}:${slugify(formatWardrobeOptionDisplayName(category, label))}:${index}`;
+      return [rawId, displayId];
+    })
+  ));
+}
+
 function buildCharacterLegacyIds(category, legacy) {
   return legacy.map(([label, index]) => `character:${slugify(category)}:${slugify(label)}:${index}`);
+}
+
+function applyWardrobeLegacyOptionIds(catalog) {
+  WARDROBE_LEGACY_OPTION_MAP.forEach(({ category, targetZh, legacy }) => {
+    const target = getByKey(catalog.wardrobe, category).find((item) => item.zh === targetZh);
+    if (!target) return;
+
+    target.legacyIds = Array.from(new Set([
+      ...(target.legacyIds || []),
+      ...buildWardrobeLegacyIds(category, legacy),
+    ]));
+  });
 }
 
 function applyCharacterLegacyOptionIds(catalog, legacyMap) {
@@ -2139,6 +2199,7 @@ function buildCatalog(customLibrary = []) {
     character: buildEntries('character', mergedDatabase.Character || {}, inferCharacterMeta),
     negative: buildEntries('negative', mergedDatabase.Negative || {}, inferNegativeMeta),
   };
+  applyWardrobeLegacyOptionIds(catalog);
   applyCharacterIdentityLegacyOptionIds(catalog);
   applyCharacterExpressionPoseLegacyOptionIds(catalog);
 
@@ -2209,6 +2270,29 @@ function applyExpressionPoseLegacySocialLockMigration(normalizedLocks, rawLocks,
   if (specialAction && (!normalizedLocks.specialActionId || isNoneLikeItem(currentSpecialAction))) {
     normalizedLocks.specialActionId = specialAction.id;
   }
+}
+
+function applyOutfitPresetToDressLegacyLockMigration(normalizedLocks, rawLocks, controls) {
+  const mappings = [
+    { outfitKey: 'outfitPresetId', dressKey: 'dressId' },
+    { outfitKey: 'outfitPresetAId', dressKey: 'dressAId' },
+    { outfitKey: 'outfitPresetBId', dressKey: 'dressBId' },
+  ];
+
+  mappings.forEach(({ outfitKey, dressKey }) => {
+    const rawValue = rawLocks?.[outfitKey];
+    const migration = WARDROBE_OUTFIT_TO_DRESS_LEGACY_LOCK_MIGRATIONS.find((entry) => entry.legacyIds.includes(rawValue));
+    if (!migration) return;
+
+    const outfitNone = getControlOptionByZh(controls, outfitKey, '全無');
+    if (outfitNone) normalizedLocks[outfitKey] = outfitNone.id;
+
+    const targetDress = getControlOptionByZh(controls, dressKey, migration.dressZh);
+    const currentDress = getControlOptionById(controls, dressKey, normalizedLocks[dressKey]);
+    if (targetDress && (!normalizedLocks[dressKey] || isNoneLikeItem(currentDress))) {
+      normalizedLocks[dressKey] = targetDress.id;
+    }
+  });
 }
 
 export function normalizeLocks(rawLocks = {}) {
@@ -2296,6 +2380,7 @@ export function normalizeLocks(rawLocks = {}) {
   });
 
   applyExpressionPoseLegacySocialLockMigration(normalizedWithLegacyColors, rawLocks, controls);
+  applyOutfitPresetToDressLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
 
   return normalizedWithLegacyColors;
 }

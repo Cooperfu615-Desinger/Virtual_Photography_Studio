@@ -13,7 +13,7 @@ function optionId(controlKey, zh) {
 test('Z-Image describes outfit presets with natural wardrobe language', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    outfitPresetId: optionId('outfitPresetId', '套裝：日系街頭'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：春日巴黎亞麻長褲'),
     outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '粉紅色'),
     outerwearId: optionId('outerwearId', '全無'),
     neckAccessoryId: optionId('neckAccessoryId', '全無'),
@@ -22,13 +22,13 @@ test('Z-Image describes outfit presets with natural wardrobe language', () => {
   });
 
   assert.doesNotMatch(prompt.zImagePrompt, /Wardrobe details:/);
-  assert.match(prompt.zImagePrompt, /She wears pink a Japanese streetwear outfit/);
+  assert.match(prompt.zImagePrompt, /She wears pink Parisian linen trouser outfit/);
 });
 
 test('Z-Image keeps outerwear secondary when layered over an outfit preset', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    outfitPresetId: optionId('outfitPresetId', '套裝：日系街頭'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：春日巴黎亞麻長褲'),
     outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '粉紅色'),
     outerwearId: optionId('outerwearId', '運動連帽外套'),
     outerwearColorId: optionId('outerwearColorId', '白色'),
@@ -42,6 +42,6 @@ test('Z-Image keeps outerwear secondary when layered over an outfit preset', () 
   assert.doesNotMatch(prompt.zImagePrompt, /Wardrobe details:/);
   assert.match(wardrobeSentence, /^She wears white zip-up hoodie/);
   assert.doesNotMatch(wardrobeSentence, /open oversized zip-up hoodie/);
-  assert.match(wardrobeSentence, /layered over pink a Japanese streetwear outfit/);
+  assert.match(wardrobeSentence, /layered over pink Parisian linen trouser outfit/);
   assert.match(wardrobeSentence, /paired with black pointed-toe stiletto heels/);
 });

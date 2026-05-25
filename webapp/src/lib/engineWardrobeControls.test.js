@@ -314,7 +314,7 @@ test('wardrobe layering logic preserves outerwear over strappy dresses', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     outerwearId: optionId('outerwearId', '西裝外套（不扣扣子）'),
-    dressId: optionId('dressId', '連身：細肩帶洋裝'),
+    dressId: optionId('dressId', '連身：短版｜細肩帶迷你洋裝'),
   });
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
@@ -330,18 +330,20 @@ test('outfit preset and dress option labels use unified prefixes without fixed c
   const outfitPresetControl = controls.find((control) => control.key === 'outfitPresetId');
   const dressControl = controls.find((control) => control.key === 'dressId');
 
-  assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：春日巴黎'));
-  assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：極簡高級'));
-  assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：日系街頭'));
+  assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：春日巴黎亞麻長褲'));
+  assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：西裝長褲'));
+  assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：鏈條緞面內衣'));
+  assert.ok(!outfitPresetControl.options.some((option) => option.zh === '套裝：極簡高級'));
+  assert.ok(!outfitPresetControl.options.some((option) => option.zh === '套裝：日系街頭'));
   assert.ok(!outfitPresetControl.options.some((option) => option.zh === '象牙白春日巴黎套裝'));
-  assert.ok(dressControl.options.some((option) => option.zh === '連身：無袖洋裝'));
-  assert.ok(dressControl.options.some((option) => option.zh === '連身：細肩帶洋裝'));
+  assert.ok(dressControl.options.some((option) => option.zh === '連身：短版｜無袖迷你洋裝'));
+  assert.ok(dressControl.options.some((option) => option.zh === '連身：短版｜細肩帶迷你洋裝'));
 });
 
 test('special top and bottom palette applies to outfit presets', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    outfitPresetId: optionId('outfitPresetId', '套裝：春日巴黎'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：春日巴黎亞麻長褲'),
     topBottomPaletteId: optionId('topBottomPaletteId', '櫻花粉 × 奶油黃'),
   });
 
@@ -355,7 +357,7 @@ test('special top and bottom palette applies to outfit presets', () => {
 test('special top and bottom palette applies to dress controls', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    dressId: optionId('dressId', '連身：無袖洋裝'),
+    dressId: optionId('dressId', '連身：短版｜無袖迷你洋裝'),
     topBottomPaletteId: optionId('topBottomPaletteId', '櫻花粉 × 奶油黃'),
   });
 
