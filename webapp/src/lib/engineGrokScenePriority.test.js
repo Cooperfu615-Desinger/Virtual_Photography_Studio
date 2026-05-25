@@ -75,24 +75,24 @@ test('Z-Image prompt keeps scene priority disabled for normal separates', () => 
 test('PAGE1 imaging simulation includes merged camera profiles in generated outputs and selection', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    filmId: optionId('filmId', '器材成像｜Ricoh GR 快拍'),
+    filmId: optionId('filmId', '相機｜Ricoh GR 快拍'),
   });
 
   assert.equal(prompt.selection.filmId, 'ricoh-gr-snapshot');
   assert.equal(prompt.selection.cameraSystemId, 'ricoh-gr-snapshot');
   assert.doesNotMatch(prompt.grokPrompt, /Camera System:/);
-  assert.match(prompt.grokPrompt, /Imaging Simulation: Ricoh GR compact-camera rendering/);
-  assert.match(prompt.zImagePrompt, /Ricoh GR compact-camera rendering/);
+  assert.match(prompt.grokPrompt, /Camera \/ Film: Ricoh GR compact APS-C camera profile/);
+  assert.match(prompt.zImagePrompt, /Ricoh GR compact APS-C camera profile/);
   assert.equal(prompt.structured['Lens & Imaging'].at(-1).id, 'ricoh-gr-snapshot');
 });
 
 test('legacy camera system lock migrates into imaging simulation', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    cameraSystemId: optionId('cameraSystemId', '器材成像｜Ricoh GR 快拍'),
+    cameraSystemId: optionId('cameraSystemId', '相機｜Ricoh GR 快拍'),
   });
 
   assert.equal(prompt.selection.filmId, 'ricoh-gr-snapshot');
   assert.equal(prompt.selection.cameraSystemId, 'ricoh-gr-snapshot');
-  assert.match(prompt.grokPrompt, /Imaging Simulation: Ricoh GR compact-camera rendering/);
+  assert.match(prompt.grokPrompt, /Camera \/ Film: Ricoh GR compact APS-C camera profile/);
 });

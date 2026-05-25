@@ -3,8 +3,8 @@
     "攝影風格": [
       {
         "zh": "Mika Ninagawa（蜷川實花）",
-        "en": "Inspired by Mika Ninagawa, hyper-saturated theatrical portraiture, vivid reds and hot pinks, cyan highlights, glossy artificial light, dense decorative color layers, surreal feminine intensity",
-        "desc": "濃烈色彩與裝飾戲劇感 | 強烈飽和、鮮豔紅粉與青色高光、閃亮人工光、密集裝飾性色層與夢境張力；以色彩和表面光澤主導，不綁定具體空間。"
+        "en": "Inspired by Mika Ninagawa, hyper-saturated theatrical portraiture, vivid reds and hot pinks, cyan accents, glossy color surfaces, dense decorative color layers, surreal feminine intensity",
+        "desc": "濃烈色彩與裝飾戲劇感 | 強烈飽和、鮮豔紅粉與青色點綴、密集裝飾性色層與夢境張力；以色彩和表面光澤主導，不綁定具體空間或燈具。"
       },
       {
         "zh": "Yoshihiko Ueda（上田義彥）",
@@ -23,8 +23,8 @@
       },
       {
         "zh": "Masumi Ishida（石田真澄）",
-        "en": "Inspired by Masumi Ishida, luminous youthful portraiture, gentle summer-color daylight, softly lifted exposure, airy pastel balance, washed film texture, transparent skin tone",
-        "desc": "柔亮底片感與彩色空氣 | 著重柔亮自然光、微微提亮曝光、帶空氣感的 pastel 配色、淡淡底片質地與清透膚色。"
+        "en": "Inspired by Masumi Ishida, luminous youth-photobook portraiture, gentle summer-color brightness, softly lifted exposure, airy pastel balance, washed film texture, transparent tonal softness",
+        "desc": "柔亮底片感與彩色空氣 | 著重柔亮自然感、微微提亮曝光、帶空氣感的 pastel 配色、淡淡底片質地與清透階調。"
       },
       {
         "zh": "Orie Ichihashi（市橋織江）",
@@ -43,8 +43,8 @@
       },
       {
         "zh": "Ellen von Unwerth（艾倫・馮・昂沃斯）",
-        "en": "Inspired by Ellen von Unwerth, playful sensual editorial portraiture, spontaneous energy, candid movement, flash-assisted glamour, lively feminine confidence",
-        "desc": "俏皮性感與抓拍雜誌語言 | 俏皮、性感、抓拍感強，介於雜誌與寫真之間；重點是動作能量、閃光輔助與自信人物狀態。"
+        "en": "Inspired by Ellen von Unwerth, playful editorial portraiture, spontaneous energy, candid movement, flash-assisted magazine glamour, lively fashion confidence",
+        "desc": "俏皮抓拍雜誌語言 | 俏皮、抓拍感強，介於雜誌與寫真之間；重點是動作能量、閃光輔助與時裝雜誌式自信。"
       },
       {
         "zh": "Nan Goldin（南・戈爾丁）",
@@ -88,18 +88,18 @@
       },
       {
         "zh": "Kishin Shinoyama（篠山紀信）",
-        "en": "Inspired by Kishin Shinoyama, polished Japanese gravure portraiture, clean visual control, glossy high-production finish, vivid feminine presence, flattering controlled lighting",
-        "desc": "經典寫真與名人肖像語言 | 乾淨、鮮明、人物魅力直接，兼具寫真與名人肖像感；重點是高完成度、討喜光線與清楚人物辨識度。"
+        "en": "Inspired by Kishin Shinoyama, polished Japanese gravure portraiture, clean visual control, glossy high-production finish, direct portrait presence, flattering controlled lighting",
+        "desc": "經典寫真與名人肖像語言 | 乾淨、鮮明、人物存在感直接，兼具寫真與名人肖像感；重點是高完成度、討喜光線與清楚人物辨識度。"
       },
       {
         "zh": "Chikashi Suzuki（鈴木親）",
-        "en": "Inspired by Chikashi Suzuki, relaxed fashion editorial on film, youthful candid beauty, soft everyday realism, muted natural tones, delicate film grain, gentle magazine clarity",
-        "desc": "年輕時尚雜誌與生活感語言 | 年輕、自然、可親，帶日系時尚雜誌的清爽生活感；重點是底片顆粒、柔和寫實與不過度擺拍的美感。"
+        "en": "Inspired by Chikashi Suzuki, relaxed fashion editorial on film, youthful candid immediacy, soft everyday realism, muted natural tones, delicate film grain, gentle magazine clarity",
+        "desc": "年輕時尚雜誌與生活感語言 | 年輕、自然、可親，帶日系時尚雜誌的清爽生活感；重點是底片顆粒、柔和寫實與不過度擺拍的節奏。"
       },
       {
         "zh": "Yuki Aoyama（青山裕企）",
-        "en": "Inspired by Yuki Aoyama, youthful Japanese portraiture, natural daylight, direct straightforward composition, crisp everyday realism, clean candid intimacy, simple subject distance",
-        "desc": "日系青春寫真與直接人像語言 | 著重日系青春寫真感、自然日光、直接構圖、乾淨人像距離與清楚的日常寫實質地。"
+        "en": "Inspired by Yuki Aoyama, Japanese photobook portraiture, natural daylight feel, direct straightforward composition, crisp everyday realism, clean candid intimacy, simple subject distance",
+        "desc": "日系青春寫真與直接人像語言 | 著重日系寫真集語言、自然日光感、直接構圖、乾淨人像距離與清楚的日常寫實質地。"
       },
       {
         "zh": "Yuhki Toyama（奧山由之）",
@@ -108,13 +108,13 @@
       },
       {
         "zh": "Leslie Kee（レスリー・キー）",
-        "en": "Inspired by Leslie Kee, polished star portrait photography, high-definition beauty lighting, immaculate skin rendering, vibrant commercial fashion finish, premium cover-shoot intensity",
-        "desc": "華麗明星感與高完成度商業語言 | 明星感強、商業完成度高、人物辨識度鮮明；重點是高解析美膚光、鮮明色彩和精修封面強度。"
+        "en": "Inspired by Leslie Kee, polished star portrait photography, high-definition commercial clarity, immaculate retouched finish, vibrant fashion color, premium cover-shoot intensity",
+        "desc": "華麗明星感與高完成度商業語言 | 明星感強、商業完成度高、人物辨識度鮮明；重點是高解析商業清晰度、鮮明色彩和精修封面強度。"
       },
       {
         "zh": "Eikoh Hosoe（細江英公）",
-        "en": "Inspired by Eikoh Hosoe, dramatic monochrome art portraiture, sculptural body tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity",
-        "desc": "戲劇黑白與人體藝術張力語言 | 黑白、戲劇、雕塑般肢體張力、強烈明暗對照與前衛藝術性，讓人物姿態具有高度圖像張力。"
+        "en": "Inspired by Eikoh Hosoe, dramatic monochrome art portraiture, sculptural tonal tension, theatrical shadow contrast, stark chiaroscuro, avant-garde intensity",
+        "desc": "戲劇黑白與藝術張力語言 | 黑白、戲劇、雕塑般明暗張力、強烈明暗對照與前衛藝術性，讓畫面具有高度圖像張力。"
       },
       {
         "zh": "Guy Bourdin（蓋・布爾丁）",
@@ -2167,8 +2167,8 @@
       },
       {
         "zh": "半臉傾斜特寫",
-        "en": "stylized asymmetrical close-up portrait, one side of the face emphasized, off-center framing, slight dutch angle",
-        "desc": "只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，整體更像雜誌化、風格化且刻意不完整的高壓特寫。"
+        "en": "asymmetrical half-face close-up portrait, one side of the face emphasized, off-center crop, slight dutch angle",
+        "desc": "只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，重點是刻意不完整的近距離臉部構圖。"
       },
       {
         "zh": "中景鏡頭 (Medium Shot)",
@@ -2177,8 +2177,8 @@
       },
       {
         "zh": "牛仔中景 (Cowboy Shot)",
-        "en": "cowboy shot, american shot, knee up framing, dynamic pose",
-        "desc": "從膝蓋上方截斷，源於西部片用來展示槍套。適合展現強勢氣場與全身大部分服裝。"
+        "en": "cowboy shot, american shot, knee-up figure framing, lower-body crop line, readable outfit proportions",
+        "desc": "從膝蓋上方截斷，保留上身、腰腿比例與大部分穿搭資訊，介於中景與全身之間。"
       },
       {
         "zh": "全身鏡頭 (Full Body Shot)",
@@ -2219,13 +2219,13 @@
       },
       {
         "zh": "仰角 (Low Angle)",
-        "en": "low angle, looking up from below, heroic, powerful silhouette, dominance",
-        "desc": "由下往上拍。能拉長人物比例（特別是腿部），賦予主體強勢、英雄般或具壓迫感的氣場。"
+        "en": "low camera angle, looking upward from below eye level, elongated vertical perspective, stronger lower-body scale",
+        "desc": "由下往上拍，會拉長垂直比例與腿部視覺延伸，讓畫面具有更明顯的低視角透視。"
       },
       {
         "zh": "俯角 (High Angle)",
-        "en": "high angle, looking down from above, vulnerable, cute, foreshortening",
-        "desc": "由上往下拍。使人物顯得較小、脆弱或無辜，伴隨明顯的透視縮短效益。"
+        "en": "high camera angle, looking downward from above eye level, compressed vertical perspective, visible foreshortening",
+        "desc": "由上往下拍，人物比例會被壓縮，頭肩與上半身更靠近鏡頭，伴隨明顯透視縮短。"
       },
       {
         "zh": "鳥瞰視角",
@@ -2239,8 +2239,8 @@
       },
       {
         "zh": "荷蘭角/傾斜 (Dutch Angle)",
-        "en": "dutch angle, tilted camera, crooked horizon, unsettling, cinematic tension",
-        "desc": "相機刻意傾斜，地平線不平。營造不安、混亂、速度感或極度戲劇化的電影張力。"
+        "en": "dutch angle, tilted camera axis, diagonal horizon line, off-balance frame geometry",
+        "desc": "相機刻意傾斜，地平線或垂直線不再水平，形成偏移、斜向、非穩定的畫面幾何。"
       }
     ],
     "拍攝方位 (Orbit Angle)": [
@@ -2333,12 +2333,12 @@
       },
       {
         "zh": "135mm 長焦壓縮",
-        "en": "shot on 135mm long telephoto lens, strong background compression, narrow field of view, flattened distance between spatial layers, pronounced subject isolation, distant camera-to-subject working distance",
+        "en": "shot on 135mm long telephoto lens, strong background compression, narrow field of view, flattened spatial layers, pronounced subject isolation, distant working distance",
         "desc": "長焦會大幅壓縮遠近距離，讓背景看起來被拉近且扁平化，主體隔離感最強，拍攝距離通常較遠。"
       },
       {
         "zh": "微距鏡頭 Macro",
-        "en": "shot on macro lens, close focusing distance, high magnification, razor-thin focus plane at close range, enlarged small surface details, shallow depth around tiny subject areas",
+        "en": "shot on macro lens, close focusing distance, high magnification, razor-thin focus plane, enlarged small surface details, shallow close-range depth",
         "desc": "微距鏡頭強調近距離對焦與放大率，能把小範圍表面細節放大；近拍時焦平面很薄，景深快速衰減。"
       },
       {
@@ -2353,7 +2353,7 @@
       },
       {
         "zh": "變形寬銀幕鏡頭 Anamorphic",
-        "en": "shot on anamorphic lens, horizontally squeezed widescreen optics, oval bokeh rendering, horizontal flare behavior, widened horizontal field of view, cinematic lens breathing and edge character",
+        "en": "shot on anamorphic lens, horizontally squeezed widescreen optics, oval bokeh rendering, horizontal flare behavior, widened field of view, edge character",
         "desc": "變形鏡頭以水平壓縮成像與寬銀幕視野為核心，常帶橢圓散景、水平 flare 與邊緣光學個性。"
       }
     ],
@@ -2693,9 +2693,9 @@
         "desc": "偏冷的陰影青綠色、較鮮明的紅綠色反應、中高對比與可見消費級底片顆粒，呈現清楚而有個性的類比色彩。"
       },
       {
-        "zh": "Leica 數位紀實感",
-        "en": "Leica digital camera rendering, crisp micro-contrast, refined tonal separation, realistic skin texture, restrained color saturation, clean high-acutance detail",
-        "desc": "以 Leica 數位成像的乾淨色彩、明確微對比、細膩階調分離與克制飽和度為核心，保留真實皮膚紋理與高銳度細節。"
+        "zh": "數位微對比紀實感",
+        "en": "digital documentary rendering, crisp micro-contrast, refined tonal separation, realistic skin texture, restrained color saturation, clean high-acutance detail",
+        "desc": "以乾淨數位紀實成像的明確微對比、細膩階調分離與克制飽和度為核心，保留真實皮膚紋理與高銳度細節。"
       },
       {
         "zh": "富士 Classic Chrome 電影感",
@@ -2708,44 +2708,44 @@
         "desc": "比 Classic Chrome 更乾淨明亮，色彩平衡、膚色透明、對比清爽且飽和度過渡平順，偏向標準日光中性的富士色彩。"
       },
       {
-        "zh": "Leica Monochrom 黑白灰階",
-        "en": "Leica Monochrom rendering, black and white tonal response, rich grayscale separation, crisp micro-detail, deep blacks, luminous highlight control",
+        "zh": "高階黑白灰階",
+        "en": "premium monochrome rendering, black-and-white tonal response, rich grayscale separation, crisp micro-detail, deep blacks, luminous highlight control",
         "desc": "不是一般黑白濾鏡，而是以細膩灰階層次、深黑位、清楚微細節與乾淨亮部控制形成高階黑白成像。"
       },
       {
-        "zh": "Contax Zeiss 復古銳利感",
-        "en": "Contax Zeiss lens-camera rendering, crisp vintage sharpness, rich micro-contrast, subtle warm highlights, clean 35mm color density, precise edge definition",
-        "desc": "帶有老鏡味的復古銳利感，重點是清楚邊緣、豐富微對比、微暖亮部與 35mm 色彩密度，而不是柔糊朦朧。"
+        "zh": "復古微對比銳利感",
+        "en": "vintage sharp rendering, rich micro-contrast, subtle warm highlights, clean 35mm color density, precise edge definition",
+        "desc": "帶有復古銳利感，重點是清楚邊緣、豐富微對比、微暖亮部與 35mm 色彩密度，而不是柔糊朦朧。"
       },
       {
-        "zh": "Canon 暖膚人像感",
-        "en": "Canon full-frame portrait rendering, warm flattering skin-tone response, soft highlight roll-off, smooth color transitions, gentle contrast curve, polished digital color",
-        "desc": "強調 Canon 全片幅常見的暖膚色、柔順亮部 roll-off、平滑色彩過渡與穩定數位色彩，讓人物膚色更討喜。"
+        "zh": "暖膚數位人像",
+        "en": "warm digital portrait rendering, flattering skin-tone response, soft highlight roll-off, smooth color transitions, gentle contrast curve, polished color",
+        "desc": "強調暖膚色、柔順亮部 roll-off、平滑色彩過渡與穩定數位色彩，讓人物膚色更討喜。"
       },
       {
-        "zh": "Canon 直出生活感",
-        "en": "Canon JPEG color rendering, bright warm white balance, pleasing skin tones, soft contrast, clean consumer-camera color, smooth in-camera processing",
-        "desc": "偏向 Canon JPEG 直出的明亮暖白平衡、舒服膚色、柔和對比與乾淨機內色彩處理，成像自然親和。"
+        "zh": "暖白 JPEG 直出",
+        "en": "warm JPEG color rendering, bright warm white balance, pleasing skin tones, soft contrast, clean consumer color, smooth in-camera processing",
+        "desc": "偏向 JPEG 直出的明亮暖白平衡、舒服膚色、柔和對比與乾淨機內色彩處理，成像自然親和。"
       },
       {
-        "zh": "Nikon 冷調寫實感",
-        "en": "Nikon digital camera rendering, crisp detail, cool-neutral white balance, strong clarity, realistic tonal depth, firm contrast curve, precise color separation",
-        "desc": "強調 Nikon 數位成像的清楚細節、冷中性白平衡、較強 clarity、紮實階調深度與明確色彩分離。"
+        "zh": "冷調清晰寫實",
+        "en": "cool-neutral digital rendering, crisp detail, cool white balance, strong clarity, realistic tonal depth, firm contrast curve, precise color separation",
+        "desc": "強調冷中性白平衡、清楚細節、較強 clarity、紮實階調深度與明確色彩分離。"
       },
       {
-        "zh": "Nikon 通透明亮外景感",
-        "en": "Nikon high-dynamic-range digital rendering, transparent shadows, crisp natural color, clean daylight-neutral contrast, clear highlight retention, high-resolution detail",
+        "zh": "高動態通透明亮",
+        "en": "high-dynamic-range digital rendering, transparent shadows, crisp natural color, daylight-neutral contrast, clear highlight retention, high-resolution detail",
         "desc": "強調高動態範圍、透明陰影、乾淨自然色、亮部保留與高解析細節，適合需要通透明亮成像的畫面。"
       },
       {
-        "zh": "Ricoh GR 街頭快照感",
-        "en": "Ricoh GR compact-camera rendering, snap-focus clarity, high-acutance detail, contrasty black levels, compact APS-C color response, candid snapshot texture",
-        "desc": "保留 Ricoh GR 的小型相機即時感、snap focus 清晰度、高銳利細節、偏硬黑位與 APS-C 色彩反應，但不指定拍攝場景。"
+        "zh": "高銳利快照黑位",
+        "en": "high-acutance snapshot rendering, snap-focus clarity, contrasty black levels, crisp APS-C-like color response, candid compact-camera texture",
+        "desc": "保留快照成像的 snap 清晰度、高銳利細節、偏硬黑位與小型相機質地，但不指定特定相機或場景。"
       },
       {
-        "zh": "中片幅數位單眼 (Medium Format DSLR)",
-        "en": "Hasselblad medium format digital rendering, ultra-high resolution, broad dynamic range, smooth tonal transitions, refined color depth, organic medium-format depth",
-        "desc": "模擬哈蘇或飛思等中片幅數位後背的高解析、寬動態範圍、平滑階調過渡、細緻色彩深度與不同於全片幅的立體空間感。"
+        "zh": "中片幅數位色深",
+        "en": "medium-format digital rendering, ultra-high resolution, broad dynamic range, smooth tonal transitions, refined color depth, organic large-sensor depth",
+        "desc": "模擬中片幅數位的高解析、寬動態範圍、平滑階調過渡、細緻色彩深度與大感光元件立體感。"
       },
       {
         "zh": "VHS 錄影帶低畫質",
@@ -2776,8 +2776,8 @@
       },
       {
         "zh": "前景遮擋散景",
-        "en": "blurred foreground occlusion near the lens, out-of-focus foreground shapes crossing one or more frame edges, partial opening toward the subject, thick near-field bokeh layer, foreground obstruction covering at least one third of the image area",
-        "desc": "鏡頭前方有失焦遮擋物形成近景模糊層，可遮住畫面部分邊緣或局部視線，重點是前景深度層次與遮擋比例。"
+        "en": "blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, meaningful partial frame coverage, thick near-field bokeh veil, clear opening toward the subject",
+        "desc": "鏡頭前方有失焦遮擋物形成近景模糊層，必須遮住部分畫面邊緣或局部視線，但保留能看清主體的開口與前景深度層次。"
       },
       {
         "zh": "鏡頭光斑 Lens Flare",
@@ -2821,8 +2821,8 @@
       },
       {
         "zh": "光學朦朧薄霧",
-        "en": "lens mist filter haze, veiling glare, lowered global contrast, softened black levels, diffused highlight edges, no environmental fog or smoke cue",
-        "desc": "像鏡頭前加了 mist 濾鏡或產生遮蔽眩光，使整體對比下降、黑位抬高與高光邊緣變柔；不是環境霧或煙霧。"
+        "en": "lens-only mist-filter haze, veiling glare, lowered global contrast, softened black levels, diffused highlight edges, optical diffusion layer",
+        "desc": "像鏡頭前加了 mist 濾鏡或產生遮蔽眩光，使整體對比下降、黑位抬高與高光邊緣變柔；重點是鏡頭濾鏡感，不是場景天氣。"
       }
     ]
   },

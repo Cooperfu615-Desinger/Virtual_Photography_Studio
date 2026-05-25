@@ -648,15 +648,15 @@ const LIGHT_STYLE_CATEGORY = '光線表現 (Light Style)';
 const FOCAL_LENGTH_CATEGORY = '鏡頭焦段 (Focal Length)';
 const OPTICAL_EFFECTS_CATEGORY = '光學效果 (Optical Effects)';
 const CAMERA_SYSTEM_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不指定器材成像，讓模型自行決定。', meta: { tags: ['none'] } },
-  { id: 'leica-m-rangefinder', zh: '器材成像｜Leica M 旁軸', en: 'Leica M rangefinder image rendering, discreet manual-focus camera feel, crisp microcontrast, restrained color response, compact optical immediacy', desc: '以旁軸相機的克制色彩、清楚微對比、手動對焦感與緊湊機身視覺反應為核心。', meta: { tags: ['rangefinder', 'compact_camera', 'micro_contrast'] } },
-  { id: 'ricoh-gr-snapshot', zh: '器材成像｜Ricoh GR 快拍', en: 'Ricoh GR compact-camera rendering, quick snapshot response, high-acutance detail, contrasty black levels, candid compact-camera texture', desc: '強調小型 APS-C 快拍機的即時反應、高銳利細節、偏硬黑位與輕微隨身相機質地。', meta: { tags: ['compact', 'snapshot', 'high_acutance'] } },
-  { id: 'fujifilm-x100', zh: '器材成像｜Fujifilm X100', en: 'Fujifilm X100 fixed-lens digital rendering, refined hybrid-viewfinder color, compact prime-lens clarity, balanced Fuji color response', desc: '以固定鏡頭 X100 系列的清楚定焦感、富士色彩反應與輕巧數位機身質地為主。', meta: { tags: ['fixed_lens', 'fuji_color', 'compact_camera'] } },
-  { id: 'sony-full-frame-mirrorless', zh: '器材成像｜Sony 全片幅無反', en: 'Sony full-frame mirrorless digital rendering, clean modern clarity, high dynamic range, precise autofocus sharpness, neutral flexible color response', desc: '強調現代全片幅無反的乾淨解析、高動態範圍、準確銳利與中性可塑的數位色彩。', meta: { tags: ['full_frame', 'mirrorless', 'clean_digital'] } },
-  { id: 'canon-nikon-dslr', zh: '器材成像｜Canon / Nikon DSLR', en: 'Canon or Nikon DSLR image rendering, classic optical-viewfinder camera character, stable digital color, firm contrast, reliable photographic clarity', desc: '保留傳統 DSLR 的穩定數位色彩、紮實對比、光學觀景器拍攝感與可靠清晰度。', meta: { tags: ['dslr', 'classic_digital'] } },
-  { id: 'digital-medium-format', zh: '器材成像｜中片幅數位', en: 'digital medium-format camera rendering, high-resolution tonal detail, broad dynamic range, smooth color depth, refined editorial clarity', desc: '以中片幅數位的高解析、寬動態範圍、平滑階調與細膩色深建立精緻成像。', meta: { tags: ['medium_format', 'detail_heavy', 'editorial'] } },
-  { id: 'drone-camera', zh: '器材成像｜空拍機小型感光元件', en: 'drone-camera digital capture profile, stabilized small-sensor clarity, deep-focus distant detail, crisp high-view digital rendering', desc: '保留空拍機小型感光元件的穩定、深焦、遠距細節清楚與偏數位銳利的捕捉質地。', meta: { tags: ['drone', 'aerial', 'deep_focus'] } },
-  { id: 'smartphone-documentary', zh: '器材成像｜手機紀實直出', en: 'smartphone documentary image rendering, computational camera sharpness, automatic exposure response, casual handheld immediacy, clean phone-camera texture', desc: '強調手機運算攝影的自動曝光、直接銳利、隨手感與乾淨但略帶運算味的直出質地。', meta: { tags: ['smartphone', 'documentary', 'computational'] } },
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定相機系統，讓模型自行決定。', meta: { tags: ['none'] } },
+  { id: 'leica-m-rangefinder', zh: '相機｜Leica M 旁軸', en: 'Leica M rangefinder camera profile, compact manual-focus body, 35mm or 50mm prime-lens pairing, crisp microcontrast, discreet optical immediacy', desc: '以旁軸相機的緊湊手動對焦、35mm 或 50mm 定焦搭配、清楚微對比與低干擾拍攝反應為核心。', meta: { tags: ['rangefinder', 'compact_camera', 'micro_contrast'] } },
+  { id: 'ricoh-gr-snapshot', zh: '相機｜Ricoh GR 快拍', en: 'Ricoh GR compact APS-C camera profile, 28mm-equivalent snap perspective, fast street-snapshot response, high-acutance detail, pocket-camera immediacy', desc: '強調 Ricoh GR 的小型 APS-C 機身、28mm 等效快拍視角、snap 反應、高銳利細節與隨身相機即時感。', meta: { tags: ['compact', 'snapshot', 'high_acutance'] } },
+  { id: 'fujifilm-x100', zh: '相機｜Fujifilm X100', en: 'Fujifilm X100 fixed-lens camera profile, 35mm-equivalent prime perspective, hybrid-viewfinder shooting feel, compact leaf-shutter clarity, refined Fuji response', desc: '以 X100 系列固定鏡頭機身、35mm 等效視角、混合觀景器拍攝感、葉片快門與富士反應為核心。', meta: { tags: ['fixed_lens', 'fuji_color', 'compact_camera'] } },
+  { id: 'sony-full-frame-mirrorless', zh: '相機｜Sony 全片幅無反', en: 'Sony full-frame mirrorless camera profile, interchangeable-lens flexibility, precise autofocus response, clean high-resolution capture, broad dynamic range', desc: '強調現代全片幅無反的鏡頭彈性、準確自動對焦、高解析捕捉與寬動態範圍。', meta: { tags: ['full_frame', 'mirrorless', 'clean_digital'] } },
+  { id: 'canon-nikon-dslr', zh: '相機｜Canon / Nikon DSLR', en: 'Canon or Nikon DSLR camera profile, optical-viewfinder shooting feel, classic full-frame lens behavior, reliable autofocus, firm digital capture', desc: '保留傳統 DSLR 的光學觀景器拍攝感、全片幅鏡頭反應、可靠對焦與穩定數位捕捉。', meta: { tags: ['dslr', 'classic_digital'] } },
+  { id: 'digital-medium-format', zh: '相機｜中片幅數位', en: 'digital medium-format camera profile, large-sensor perspective, high-resolution capture, broad tonal latitude, smooth depth and detail rendering', desc: '以中片幅數位的大感光元件、高解析捕捉、寬階調容忍度與更平滑的空間細節為核心。', meta: { tags: ['medium_format', 'detail_heavy', 'editorial'] } },
+  { id: 'drone-camera', zh: '相機｜空拍機小型感光元件', en: 'drone-camera profile, stabilized small-sensor capture, high-view perspective, deep-focus distant detail, crisp aerial digital response', desc: '保留空拍機小型感光元件的穩定、高視角、深焦遠距細節與偏數位銳利的捕捉反應。', meta: { tags: ['drone', 'aerial', 'deep_focus'] } },
+  { id: 'smartphone-documentary', zh: '相機｜手機紀實直出', en: 'smartphone camera profile, computational capture response, automatic exposure behavior, wide everyday lens feel, casual handheld immediacy', desc: '強調手機運算攝影、自動曝光、日常廣角視覺與隨手拍的即時反應。', meta: { tags: ['smartphone', 'documentary', 'computational'] } },
 ];
 const CAMERA_PROFILE_OPTION_IDS = new Set(CAMERA_SYSTEM_OPTIONS.filter((option) => option.id !== 'none').map((option) => option.id));
 const SCENE_ATTRIBUTE_OPTIONS = [
@@ -671,7 +671,7 @@ const LOCK_DEFINITIONS = [
   { key: 'specialSubjectId', label: '特殊角色', options: SPECIAL_SUBJECT_OPTIONS, defaultValue: 'none', section: 'character' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
-  { key: 'cameraSystemId', label: '舊攝影器材', options: CAMERA_SYSTEM_OPTIONS, section: 'hidden' },
+  { key: 'cameraSystemId', label: '舊相機', options: CAMERA_SYSTEM_OPTIONS, section: 'hidden' },
   { key: 'sceneAttributeId', label: '場景屬性', options: SCENE_ATTRIBUTE_OPTIONS, section: 'core' },
   { key: 'locationId', label: '場景', category: null, section: 'core' },
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
@@ -681,7 +681,7 @@ const LOCK_DEFINITIONS = [
   { key: 'opticalEffectId', label: '光學效果', category: OPTICAL_EFFECTS_CATEGORY, section: 'core' },
   { key: 'lightingId', label: '環境光條件', category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, section: 'core' },
   { key: 'lightDirectionId', label: '光線表現', category: LIGHT_STYLE_CATEGORY, section: 'core' },
-  { key: 'filmId', label: '成像模擬', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
+  { key: 'filmId', label: '相機 / 底片', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
   { key: 'bodyTypeId', label: '體態', category: '體態 (Body Type)', section: 'character' },
   { key: 'facialFeaturesId', label: '五官特徵', category: '五官特徵 (Facial Features)', section: 'character' },
   { key: 'facialFeaturesAId', label: '人物 1 五官', category: '五官特徵 (Facial Features)', section: 'character' },
@@ -818,7 +818,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'opticalEffectId', label: 'Optical Effect' },
   { key: 'lightingId', label: 'Ambient Light Conditions' },
   { key: 'lightDirectionId', label: 'Subject Light Style' },
-  { key: 'filmId', label: 'Imaging Simulation' },
+  { key: 'filmId', label: 'Camera / Film' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
   { key: 'bodyTypeId', label: 'Body Type' },
   { key: 'facialFeaturesId', label: 'Face' },
@@ -1022,11 +1022,11 @@ function inferStyleMeta(_category, item) {
   if (hasAny(haystack, ['yoshihiko ueda', '上田義彥', 'low-key tonal calm'])) tags.push('moody', 'cool_grade', 'dramatic', 'natural_light_bias', 'low_key_bias');
   if (hasAny(haystack, ['osamu yokonami', '橫浪修', 'structured spacing'])) tags.push('minimal', 'structured', 'conceptual', 'soft_grade');
   if (hasAny(haystack, ['rinko kawauchi', '川內倫子', 'fragile quiet details'])) tags.push('soft_grade', 'natural_light_bias', 'high_key');
-  if (hasAny(haystack, ['masumi ishida', '石田真澄', 'summer-color daylight'])) tags.push('soft_grade', 'natural_light_bias', 'film', 'lively');
+  if (hasAny(haystack, ['masumi ishida', '石田真澄', 'summer-color brightness'])) tags.push('soft_grade', 'natural_light_bias', 'film', 'lively');
   if (hasAny(haystack, ['orie ichihashi', '市橋織江', 'transparent natural-light quality'])) tags.push('soft_grade', 'natural_light_bias', 'film', 'cool_grade');
   if (hasAny(haystack, ['yoko takahashi', '高橋ヨーコ', 'sun-bleached portraiture'])) tags.push('soft_grade', 'natural_light_bias', 'bright_grade');
   if (hasAny(haystack, ['paolo roversi', '保羅・羅韋爾西', 'soft haze couture'])) tags.push('soft_grade', 'moody', 'elegant', 'controlled');
-  if (hasAny(haystack, ['ellen von unwerth', '艾倫・馮・昂沃斯', 'playful sensual editorial'])) tags.push('artificial_light', 'flash_bias', 'lively', 'editorial');
+  if (hasAny(haystack, ['ellen von unwerth', '艾倫・馮・昂沃斯', 'playful editorial'])) tags.push('artificial_light', 'flash_bias', 'lively', 'editorial');
   if (hasAny(haystack, ['nan goldin', '南・戈爾丁', 'intimate diaristic'])) tags.push('film', 'warm_grade', 'raw', 'intimate');
   if (hasAny(haystack, ['juergen teller', '尤爾根・特勒', 'raw direct-flash'])) tags.push('artificial_light', 'flash_bias', 'raw', 'editorial');
   if (hasAny(haystack, ['richard avedon', '理察・阿維頓', 'clean negative space'])) tags.push('minimal', 'controlled', 'editorial', 'clean_grade');
@@ -1947,7 +1947,7 @@ function inferCameraMeta(category, item) {
   if (ENVIRONMENT_LIGHT_CATEGORIES.includes(category) || category === LIGHT_STYLE_CATEGORY) {
     return inferLightingMeta(category, item);
   }
-  if (category === '底片與相機模擬 (Camera & Film Simulation)') return inferFilmMeta(category, item);
+  if (category === CAMERA_FILM_CATEGORY) return inferFilmMeta(category, item);
   if (category === OPTICAL_EFFECTS_CATEGORY || category === '特殊效果 (Special Effects)') return inferEffectMeta(category, item);
   return { tags: [] };
 }
@@ -1984,6 +1984,19 @@ const WARDROBE_TOP_CATEGORY = '上身 (Tops)';
 const WARDROBE_EYEWEAR_CATEGORY = '眼鏡 (Eyewear)';
 const WARDROBE_EYEWEAR_COLOR_CATEGORY = '眼鏡配色 (Eyewear Color)';
 const WARDROBE_EYEWEAR_PLACEMENT_CATEGORY = '眼鏡配戴方式 (Eyewear Placement)';
+const CAMERA_FILM_CATEGORY = '底片與相機模擬 (Camera & Film Simulation)';
+
+const CAMERA_FILM_LEGACY_OPTION_MAP = [
+  { category: CAMERA_FILM_CATEGORY, targetZh: '數位微對比紀實感', legacy: [['Leica 數位紀實感', 4]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '高階黑白灰階', legacy: [['Leica Monochrom 黑白灰階', 7]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '復古微對比銳利感', legacy: [['Contax Zeiss 復古銳利感', 8]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '暖膚數位人像', legacy: [['Canon 暖膚人像感', 9]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '暖白 JPEG 直出', legacy: [['Canon 直出生活感', 10]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '冷調清晰寫實', legacy: [['Nikon 冷調寫實感', 11]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '高動態通透明亮', legacy: [['Nikon 通透明亮外景感', 12]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '高銳利快照黑位', legacy: [['Ricoh GR 街頭快照感', 13]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '中片幅數位色深', legacy: [['中片幅數位單眼 (Medium Format DSLR)', 14]] },
+];
 
 const CHARACTER_IDENTITY_LEGACY_OPTION_MAP = [
   { category: '體態 (Body Type)', targetZh: '高挑時裝模特', legacy: [['模特兒', 0]] },
@@ -2163,6 +2176,10 @@ function buildCharacterLegacyIds(category, legacy) {
   return legacy.map(([label, index]) => `character:${slugify(category)}:${slugify(label)}:${index}`);
 }
 
+function buildCameraLegacyIds(category, legacy) {
+  return legacy.map(([label, index]) => `camera:${slugify(category)}:${slugify(label)}:${index}`);
+}
+
 function applyWardrobeLegacyOptionIds(catalog) {
   WARDROBE_LEGACY_OPTION_MAP.forEach(({ category, targetZh, legacy }) => {
     const target = getByKey(catalog.wardrobe, category).find((item) => item.zh === targetZh);
@@ -2181,6 +2198,15 @@ function applyCharacterLegacyOptionIds(catalog, legacyMap) {
     if (!target) return;
 
     target.legacyIds = Array.from(new Set([...(target.legacyIds || []), ...buildCharacterLegacyIds(category, legacy)]));
+  });
+}
+
+function applyCameraLegacyOptionIds(catalog) {
+  CAMERA_FILM_LEGACY_OPTION_MAP.forEach(({ category, targetZh, legacy }) => {
+    const target = getByKey(catalog.camera, category).find((item) => item.zh === targetZh);
+    if (!target) return;
+
+    target.legacyIds = Array.from(new Set([...(target.legacyIds || []), ...buildCameraLegacyIds(category, legacy)]));
   });
 }
 
@@ -2267,6 +2293,7 @@ function buildCatalog(customLibrary = []) {
   applyWardrobeLegacyOptionIds(catalog);
   applyCharacterIdentityLegacyOptionIds(catalog);
   applyCharacterExpressionPoseLegacyOptionIds(catalog);
+  applyCameraLegacyOptionIds(catalog);
 
   const flatten = (group) => Object.values(group).flat();
 
@@ -2281,7 +2308,7 @@ function buildCatalog(customLibrary = []) {
       lens: getByKey(catalog.camera, FOCAL_LENGTH_CATEGORY),
       lighting: getByKeys(catalog.camera, ENVIRONMENT_LIGHT_CATEGORIES),
       lightDirection: getByKey(catalog.camera, LIGHT_STYLE_CATEGORY),
-      film: buildImagingSimulationOptions(getByKey(catalog.camera, '底片與相機模擬 (Camera & Film Simulation)')),
+      film: buildImagingSimulationOptions(getByKey(catalog.camera, CAMERA_FILM_CATEGORY)),
       effects: getByKey(catalog.camera, OPTICAL_EFFECTS_CATEGORY).length > 0 ? getByKey(catalog.camera, OPTICAL_EFFECTS_CATEGORY) : getByKey(catalog.camera, '特殊效果 (Special Effects)'),
       specialOutfits: getByKey(catalog.wardrobe, '特殊穿搭 (Special Outfits)'),
       outfitPresets: [
@@ -4390,7 +4417,7 @@ const STYLE_PROMPT_INTROS = {
   'Orie Ichihashi（市橋織江）': 'Inspired by Orie Ichihashi, transparent natural-light image language',
   'Yoko Takahashi（高橋ヨーコ）': 'Inspired by Yoko Takahashi, breezy sun-bleached image language',
   'Paolo Roversi（保羅・羅韋爾西）': 'Inspired by Paolo Roversi, soft haze editorial image language',
-  'Ellen von Unwerth（艾倫・馮・昂沃斯）': 'Inspired by Ellen von Unwerth, playful sensual editorial image language',
+  'Ellen von Unwerth（艾倫・馮・昂沃斯）': 'Inspired by Ellen von Unwerth, playful editorial image language',
   'Nan Goldin（南・戈爾丁）': 'Inspired by Nan Goldin, intimate diaristic image language',
   'Juergen Teller（尤爾根・特勒）': 'Inspired by Juergen Teller, raw direct-flash image language',
   'Richard Avedon（理察・阿維頓）': 'Inspired by Richard Avedon, stripped-down editorial image language',
@@ -4401,9 +4428,9 @@ const STYLE_PROMPT_INTROS = {
   'Nobuyoshi Araki（荒木經惟）': 'Inspired by Nobuyoshi Araki, raw intimate diaristic image language',
   'Kishin Shinoyama（篠山紀信）': 'Inspired by Kishin Shinoyama, polished Japanese portrait image language',
   'Chikashi Suzuki（鈴木親）': 'Inspired by Chikashi Suzuki, relaxed film-editorial image language',
-  'Yuki Aoyama（青山裕企）': 'Inspired by Yuki Aoyama, youthful Japanese portrait image language',
-  'Yuhki Toyama（奧山由之）': 'Inspired by Yuhki Toyama, tender cinematic youth image language',
-  'Leslie Kee（レスリー・キー）': 'Inspired by Leslie Kee, polished star-portrait image language',
+  'Yuki Aoyama（青山裕企）': 'Inspired by Yuki Aoyama, Japanese photobook image language',
+  'Yuhki Toyama（奧山由之）': 'Inspired by Yuhki Toyama, tender cinematic image language',
+  'Leslie Kee（レスリー・キー）': 'Inspired by Leslie Kee, polished commercial portrait image language',
   'Eikoh Hosoe（細江英公）': 'Inspired by Eikoh Hosoe, dramatic monochrome art image language',
   'Guy Bourdin（蓋・布爾丁）': 'Inspired by Guy Bourdin, bold narrative fashion image language',
   'Miles Aldridge（邁爾斯・奧爾德里奇）': 'Inspired by Miles Aldridge, hyper-stylized fashion image language',
@@ -5907,7 +5934,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(resolvePromptVariant(item, 'orbit', context.subject.count)));
   addContextLine('Lens', context.lens);
   addContextLine('Optical Effect', context.opticalEffect, (item) => skeletonText(item.en));
-  addContextLine('Imaging Simulation', film, (item) => skeletonText(item.en));
+  addContextLine('Camera / Film', film, (item) => skeletonText(item.en));
   if (!specialSubjectMode && !useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
 
   return lines.join('\n');
@@ -6296,6 +6323,7 @@ const AI_PROMPT_SECTION_LABELS = {
   atmosphere: new Set([
     'Film',
     'Imaging Simulation',
+    'Camera / Film',
     'Photography Style',
   ]),
 };
