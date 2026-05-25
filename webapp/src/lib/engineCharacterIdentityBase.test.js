@@ -110,7 +110,8 @@ test('identity base prompt wording is controlled by selected DNA options', () =>
     prompt.summary,
   ].join('\n');
 
-  assert.match(promptText, /adult Japanese or Korean female portrait subject/);
+  assert.match(promptText, /20-year-old Japanese or Korean female portrait subject/);
+  assert.doesNotMatch(promptText, /adult Japanese or Korean female portrait subject/);
   assert.doesNotMatch(promptText, /seductive stunning & beautiful/);
   assert.match(promptText, /curvy silhouette|成熟性感臉|deep side-parted long soft waves|hot-pink fashion hair/);
   assert.equal(prompt.selection.bodyTypeId, optionByLabel('bodyTypeId', '性感曲線身形').id);

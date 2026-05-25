@@ -10,7 +10,7 @@ A 區只負責「人物是誰、長什麼樣、當下表情與身體狀態」。
 
 整體人物主線維持：
 
-- 成人日系或韓系女性寫真人像。
+- 20 歲日系或韓系女性寫真人像。
 - 年輕、漂亮、真實攝影感。
 - 可以有性感、成熟、可愛、冷感或偶像感，但必須由對應欄位承擔，不要塞進人物數量或每一列 prompt。
 
@@ -64,8 +64,8 @@ core identity phrase, 1-3 concrete visual traits, restrained style or realism cu
 
 目前選項：
 
-- `1 位`: one adult Japanese or Korean female portrait subject
-- `2 位`: two adult Japanese or Korean female portrait subjects
+- `1 位`: one 20-year-old Japanese or Korean female portrait subject
+- `2 位`: two 20-year-old Japanese or Korean female portrait subjects
 - `上傳人物`: preserve attached reference identity and likeness
 
 維護規則：

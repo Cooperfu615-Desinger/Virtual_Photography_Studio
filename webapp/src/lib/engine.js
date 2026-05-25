@@ -1,8 +1,8 @@
 import database from '../data/database.json' with { type: 'json' };
 
 const SUBJECT_COUNT_OPTIONS = [
-  { id: '1', zh: '1 位', en: 'one adult Japanese or Korean female portrait subject', count: 1 },
-  { id: '2', zh: '2 位', en: 'two adult Japanese or Korean female portrait subjects', count: 2 },
+  { id: '1', zh: '1 位', en: 'one 20-year-old Japanese or Korean female portrait subject', count: 1 },
+  { id: '2', zh: '2 位', en: 'two 20-year-old Japanese or Korean female portrait subjects', count: 2 },
   {
     id: 'reference',
     zh: '上傳人物',
