@@ -183,10 +183,12 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
-    eyewearAId: optionId('eyewearAId', '黑框眼鏡'),
+    eyewearAId: optionId('eyewearAId', '粗框眼鏡'),
+    eyewearAColorId: optionId('eyewearAColorId', '黑色'),
     earringsAId: optionId('earringsAId', '小型金屬耳環'),
     neckAccessoryAId: optionId('neckAccessoryAId', '街頭風格金項鏈'),
     eyewearBId: optionId('eyewearBId', '太陽眼鏡'),
+    eyewearBColorId: optionId('eyewearBColorId', '黑色'),
     earringsBId: optionId('earringsBId', '十字垂墜耳環'),
     neckAccessoryBId: optionId('neckAccessoryBId', '皮質扣環頸鏈'),
   });
@@ -195,8 +197,8 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
     .split('\n')
     .find((line) => line.startsWith('Subject Count:') || line.startsWith('Duo Scene Anchor:'));
   assert.ok(subjectLine);
-  assert.match(subjectLine, /woman 1 with .*black-rimmed glasses.*metallic earrings?.*gold chain/i);
-  assert.match(subjectLine, /woman 2 with .*sunglasses.*cross.*earrings?.*leather buckle choker/i);
+  assert.match(subjectLine, /woman 1 with .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
+  assert.match(subjectLine, /woman 2 with .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Eyewear:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Earrings:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Neck Accessory:/m);
@@ -204,8 +206,8 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Earrings:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Neck Accessory:/m);
 
-  assert.match(prompt.zImagePrompt, /woman 1 with .*black-rimmed glasses.*metallic earrings?.*gold chain/i);
-  assert.match(prompt.zImagePrompt, /woman 2 with .*sunglasses.*cross.*earrings?.*leather buckle choker/i);
+  assert.match(prompt.zImagePrompt, /woman 1 with .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
+  assert.match(prompt.zImagePrompt, /woman 2 with .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
 });
 
 test('special top and bottom palette controls include the new color-card pairings', () => {
@@ -262,8 +264,9 @@ test('special top and bottom palettes apply separate colors to top and bottom ga
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
 
-  assert.match(promptText, /cherry blossom pink \(#F9A8BB\)/);
-  assert.match(promptText, /cream yellow \(#FAFFC7\)/);
+  assert.match(promptText, /cherry blossom pink/);
+  assert.match(promptText, /cream yellow/);
+  assert.doesNotMatch(promptText, /#[0-9A-Fa-f]{6}/);
   assert.match(promptText, /棉質細肩背心|cotton camisole/);
   assert.match(promptText, /直筒牛仔褲|straight-leg jeans/);
 });
@@ -335,8 +338,9 @@ test('special top and bottom palette applies to outfit presets', () => {
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
 
-  assert.match(promptText, /cherry blossom pink \(#F9A8BB\)/);
-  assert.match(promptText, /cream yellow \(#FAFFC7\)/);
+  assert.match(promptText, /cherry blossom pink/);
+  assert.match(promptText, /cream yellow/);
+  assert.doesNotMatch(promptText, /#[0-9A-Fa-f]{6}/);
   assert.equal(prompt.selection.topBottomPaletteId, optionId('topBottomPaletteId', '櫻花粉 × 奶油黃'));
 });
 
@@ -349,8 +353,9 @@ test('special top and bottom palette applies to dress controls', () => {
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
 
-  assert.match(promptText, /cherry blossom pink \(#F9A8BB\)/);
-  assert.match(promptText, /cream yellow \(#FAFFC7\)/);
+  assert.match(promptText, /cherry blossom pink/);
+  assert.match(promptText, /cream yellow/);
+  assert.doesNotMatch(promptText, /#[0-9A-Fa-f]{6}/);
   assert.match(promptText, /coordinated top-to-bottom palette/);
 });
 

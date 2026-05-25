@@ -214,6 +214,30 @@ h1 {
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 }
 
+.control-grid-divider {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 20px;
+  margin-top: 4px;
+}
+
+.control-grid-divider::after {
+  content: '';
+  flex: 1 1 auto;
+  height: 1px;
+  background: rgba(111, 87, 60, 0.18);
+}
+
+.control-grid-divider span {
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .control-section {
   display: flex;
   flex-direction: column;

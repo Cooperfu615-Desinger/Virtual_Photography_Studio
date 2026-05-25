@@ -339,232 +339,232 @@ const TOP_BOTTOM_PALETTE_OPTIONS = [
     id: 'cherry-blossom-cream',
     zh: '櫻花粉 × 奶油黃',
     en: 'cherry blossom pink top with cream yellow bottom',
-    topColor: { zh: '櫻花粉', en: 'cherry blossom pink (#F9A8BB)' },
-    bottomColor: { zh: '奶油黃', en: 'cream yellow (#FAFFC7)' },
+    topColor: { zh: '櫻花粉', en: 'cherry blossom pink' },
+    bottomColor: { zh: '奶油黃', en: 'cream yellow' },
   },
   {
     id: 'regal-navy-lemon-chiffon',
     zh: '皇家海軍藍 × 檸檬雪紡',
     en: 'regal navy top with lemon chiffon bottom',
-    topColor: { zh: '皇家海軍藍', en: 'regal navy (#0D3B66)' },
-    bottomColor: { zh: '檸檬雪紡', en: 'lemon chiffon (#FAF0CA)' },
+    topColor: { zh: '皇家海軍藍', en: 'regal navy' },
+    bottomColor: { zh: '檸檬雪紡', en: 'lemon chiffon' },
   },
   {
     id: 'shadow-grey-sandy-clay',
     zh: '暗影灰 × 沙陶棕',
     en: 'shadow grey top with sandy clay bottom',
-    topColor: { zh: '暗影灰', en: 'shadow grey (#272727)' },
-    bottomColor: { zh: '沙陶棕', en: 'sandy clay (#D4AA7D)' },
+    topColor: { zh: '暗影灰', en: 'shadow grey' },
+    bottomColor: { zh: '沙陶棕', en: 'sandy clay' },
   },
   {
     id: 'soft-linen-cherry-blossom',
     zh: '柔亞麻 × 櫻花粉',
     en: 'soft linen top with cherry blossom pink bottom',
-    topColor: { zh: '柔亞麻', en: 'soft linen (#F5F1E6)' },
-    bottomColor: { zh: '櫻花粉', en: 'cherry blossom pink (#F9A8BB)' },
+    topColor: { zh: '柔亞麻', en: 'soft linen' },
+    bottomColor: { zh: '櫻花粉', en: 'cherry blossom pink' },
   },
   {
     id: 'blue-grey-morning-butter',
     zh: '藍灰 × 晨光奶油黃',
     en: 'blue grey top with morning butter bottom',
-    topColor: { zh: '藍灰', en: 'blue grey (#7298C7)' },
-    bottomColor: { zh: '晨光奶油黃', en: 'morning butter (#F3D98F)' },
+    topColor: { zh: '藍灰', en: 'blue grey' },
+    bottomColor: { zh: '晨光奶油黃', en: 'morning butter' },
   },
   {
     id: 'midnight-tide-dune-pearl',
     zh: '午夜潮汐藍 × 沙丘珍珠',
     en: 'midnight tide top with dune pearl bottom',
-    topColor: { zh: '午夜潮汐藍', en: 'midnight tide (#30364F)' },
-    bottomColor: { zh: '沙丘珍珠', en: 'dune pearl (#F0F0DB)' },
+    topColor: { zh: '午夜潮汐藍', en: 'midnight tide' },
+    bottomColor: { zh: '沙丘珍珠', en: 'dune pearl' },
   },
   {
     id: 'solar-veil-phoenix-core',
     zh: '日光薄紗 × 鳳凰陶橘',
     en: 'solar veil top with phoenix core bottom',
-    topColor: { zh: '日光薄紗', en: 'solar veil (#FAE9DA)' },
-    bottomColor: { zh: '鳳凰陶橘', en: 'phoenix core (#C87941)' },
+    topColor: { zh: '日光薄紗', en: 'solar veil' },
+    bottomColor: { zh: '鳳凰陶橘', en: 'phoenix core' },
   },
   {
     id: 'moon-knight-silver-black-noir',
     zh: '月騎士銀 × 黑色夜幕',
     en: 'moon knight silver top with black noir bottom',
-    topColor: { zh: '月騎士銀', en: 'moon knight silver (#DDDDDD)' },
-    bottomColor: { zh: '黑色夜幕', en: 'black noir (#222831)' },
+    topColor: { zh: '月騎士銀', en: 'moon knight silver' },
+    bottomColor: { zh: '黑色夜幕', en: 'black noir' },
   },
   {
     id: 'burgundy-champagne',
     zh: '酒紅 × 香檳米',
     en: 'burgundy top with champagne bottom',
-    topColor: { zh: '酒紅', en: 'burgundy (#80011F)' },
-    bottomColor: { zh: '香檳米', en: 'champagne (#F7E7CE)' },
+    topColor: { zh: '酒紅', en: 'burgundy' },
+    bottomColor: { zh: '香檳米', en: 'champagne' },
   },
   {
     id: 'thistle-deep-mocha',
     zh: '薊花淡紫 × 深摩卡',
     en: 'thistle top with deep mocha bottom',
-    topColor: { zh: '薊花淡紫', en: 'thistle (#D6C8DF)' },
-    bottomColor: { zh: '深摩卡', en: 'deep mocha (#332927)' },
+    topColor: { zh: '薊花淡紫', en: 'thistle' },
+    bottomColor: { zh: '深摩卡', en: 'deep mocha' },
   },
   {
     id: 'hunter-green-sand-dune',
     zh: '獵人綠 × 沙丘米',
     en: 'hunter green top with sand dune bottom',
-    topColor: { zh: '獵人綠', en: 'hunter green (#3E5F44)' },
-    bottomColor: { zh: '沙丘米', en: 'sand dune (#DDD6B9)' },
+    topColor: { zh: '獵人綠', en: 'hunter green' },
+    bottomColor: { zh: '沙丘米', en: 'sand dune' },
   },
   {
     id: 'lime-cream-vintage-grape',
     zh: '萊姆奶油 × 復古葡萄紫',
     en: 'lime cream top with vintage grape bottom',
-    topColor: { zh: '萊姆奶油', en: 'lime cream (#DDEA78)' },
-    bottomColor: { zh: '復古葡萄紫', en: 'vintage grape (#433455)' },
+    topColor: { zh: '萊姆奶油', en: 'lime cream' },
+    bottomColor: { zh: '復古葡萄紫', en: 'vintage grape' },
   },
   {
     id: 'electric-rose-chartreuse',
     zh: '電光玫瑰 × 查特酒綠',
     en: 'electric rose top with chartreuse bottom',
-    topColor: { zh: '電光玫瑰', en: 'electric rose (#FE00AE)' },
-    bottomColor: { zh: '查特酒綠', en: 'chartreuse (#C1FE1A)' },
+    topColor: { zh: '電光玫瑰', en: 'electric rose' },
+    bottomColor: { zh: '查特酒綠', en: 'chartreuse' },
   },
   {
     id: 'hot-fuchsia-cotton-rose',
     zh: '熱情桃紅 × 棉花玫瑰',
     en: 'hot fuchsia top with cotton rose bottom',
-    topColor: { zh: '熱情桃紅', en: 'hot fuchsia (#F8395A)' },
-    bottomColor: { zh: '棉花玫瑰', en: 'cotton rose (#EEB3B5)' },
+    topColor: { zh: '熱情桃紅', en: 'hot fuchsia' },
+    bottomColor: { zh: '棉花玫瑰', en: 'cotton rose' },
   },
   {
     id: 'coffee-bean-raspberry-red',
     zh: '咖啡豆棕黑 × 覆盆莓紅',
     en: 'coffee bean top with raspberry red bottom',
-    topColor: { zh: '咖啡豆棕黑', en: 'coffee bean (#2E1E1F)' },
-    bottomColor: { zh: '覆盆莓紅', en: 'raspberry red (#E30B5C)' },
+    topColor: { zh: '咖啡豆棕黑', en: 'coffee bean' },
+    bottomColor: { zh: '覆盆莓紅', en: 'raspberry red' },
   },
   {
     id: 'lilac-cream',
     zh: '丁香紫 × 奶油白',
     en: 'lilac top with cream bottom',
-    topColor: { zh: '丁香紫', en: 'lilac (#C8A2C9)' },
-    bottomColor: { zh: '奶油白', en: 'cream (#FEFBCE)' },
+    topColor: { zh: '丁香紫', en: 'lilac' },
+    bottomColor: { zh: '奶油白', en: 'cream' },
   },
   {
     id: 'icy-blue-gunmetal',
     zh: '冰藍 × 鎗灰',
     en: 'icy blue top with gunmetal bottom',
-    topColor: { zh: '冰藍', en: 'icy blue (#A4D8FF)' },
-    bottomColor: { zh: '鎗灰', en: 'gunmetal (#35393C)' },
+    topColor: { zh: '冰藍', en: 'icy blue' },
+    bottomColor: { zh: '鎗灰', en: 'gunmetal' },
   },
   {
     id: 'blush-morning-butter',
     zh: '腮紅粉 × 晨光奶油黃',
     en: 'blush top with morning butter bottom',
-    topColor: { zh: '腮紅粉', en: 'blush (#E36887)' },
-    bottomColor: { zh: '晨光奶油黃', en: 'morning butter (#F3D98F)' },
+    topColor: { zh: '腮紅粉', en: 'blush' },
+    bottomColor: { zh: '晨光奶油黃', en: 'morning butter' },
   },
   {
     id: 'espresso-peony',
     zh: '濃縮咖啡棕 × 牡丹粉',
     en: 'espresso top with peony bottom',
-    topColor: { zh: '濃縮咖啡棕', en: 'espresso (#3E2723)' },
-    bottomColor: { zh: '牡丹粉', en: 'peony (#F4C9D6)' },
+    topColor: { zh: '濃縮咖啡棕', en: 'espresso' },
+    bottomColor: { zh: '牡丹粉', en: 'peony' },
   },
   {
     id: 'softlight-halo-dragon-fire',
     zh: '柔光光暈 × 龍焰橘',
     en: 'softlight halo top with dragon fire bottom',
-    topColor: { zh: '柔光光暈', en: 'softlight halo (#FAF3E1)' },
-    bottomColor: { zh: '龍焰橘', en: 'dragon fire (#FA8112)' },
+    topColor: { zh: '柔光光暈', en: 'softlight halo' },
+    bottomColor: { zh: '龍焰橘', en: 'dragon fire' },
   },
   {
     id: 'eclipse-violet-lime-whisper',
     zh: '日蝕紫 × 萊姆低語',
     en: 'eclipse violet top with lime whisper bottom',
-    topColor: { zh: '日蝕紫', en: 'eclipse violet (#1E104E)' },
-    bottomColor: { zh: '萊姆低語', en: 'lime whisper (#D5E7B5)' },
+    topColor: { zh: '日蝕紫', en: 'eclipse violet' },
+    bottomColor: { zh: '萊姆低語', en: 'lime whisper' },
   },
   {
     id: 'shadow-wood-moonveil-sand',
     zh: '暗影木棕 × 月紗沙色',
     en: 'shadow wood top with moonveil sand bottom',
-    topColor: { zh: '暗影木棕', en: 'shadow wood (#492828)' },
-    bottomColor: { zh: '月紗沙色', en: 'moonveil sand (#E2DFD6)' },
+    topColor: { zh: '暗影木棕', en: 'shadow wood' },
+    bottomColor: { zh: '月紗沙色', en: 'moonveil sand' },
   },
   {
     id: 'icy-blue-berry-red',
     zh: '冰藍 × 莓果紅',
     en: 'icy blue top with berry red bottom',
-    topColor: { zh: '冰藍', en: 'icy blue (#B3E6FB)' },
-    bottomColor: { zh: '莓果紅', en: 'berry red (#C21121)' },
+    topColor: { zh: '冰藍', en: 'icy blue' },
+    bottomColor: { zh: '莓果紅', en: 'berry red' },
   },
   {
     id: 'midnight-lavender-black-wave',
     zh: '午夜薰衣草紫 × 黑浪',
     en: 'midnight lavender top with black wave bottom',
-    topColor: { zh: '午夜薰衣草紫', en: 'midnight lavender (#AD8FFA)' },
-    bottomColor: { zh: '黑浪', en: 'black wave (#181818)' },
+    topColor: { zh: '午夜薰衣草紫', en: 'midnight lavender' },
+    bottomColor: { zh: '黑浪', en: 'black wave' },
   },
   {
     id: 'arctic-knight-darkstar-empress',
     zh: '北極騎士白 × 暗星莓紫',
     en: 'arctic knight top with darkstar empress bottom',
-    topColor: { zh: '北極騎士白', en: 'arctic knight (#F3F4F4)' },
-    bottomColor: { zh: '暗星莓紫', en: 'darkstar empress (#853953)' },
+    topColor: { zh: '北極騎士白', en: 'arctic knight' },
+    bottomColor: { zh: '暗星莓紫', en: 'darkstar empress' },
   },
   {
     id: 'crystal-lagoon-ethereal-dawn',
     zh: '水晶潟湖藍 × 空靈晨曦',
     en: 'crystal lagoon top with ethereal dawn bottom',
-    topColor: { zh: '水晶潟湖藍', en: 'crystal lagoon (#54B2BC)' },
-    bottomColor: { zh: '空靈晨曦', en: 'ethereal dawn (#F7F6E5)' },
+    topColor: { zh: '水晶潟湖藍', en: 'crystal lagoon' },
+    bottomColor: { zh: '空靈晨曦', en: 'ethereal dawn' },
   },
   {
     id: 'cosmic-harbor-cherry-blossom',
     zh: '宇宙港灣藍 × 櫻花粉',
     en: 'cosmic harbor top with cherry blossom pink bottom',
-    topColor: { zh: '宇宙港灣藍', en: 'cosmic harbor (#021A54)' },
-    bottomColor: { zh: '櫻花粉', en: 'cherry blossom pink (#FFCEE3)' },
+    topColor: { zh: '宇宙港灣藍', en: 'cosmic harbor' },
+    bottomColor: { zh: '櫻花粉', en: 'cherry blossom pink' },
   },
   {
     id: 'void-current-pikachu-yellow',
     zh: '虛空暗流 × 皮卡丘黃',
     en: 'void current top with pikachu yellow bottom',
-    topColor: { zh: '虛空暗流', en: 'void current (#091413)' },
-    bottomColor: { zh: '皮卡丘黃', en: 'pikachu yellow (#F6CF57)' },
+    topColor: { zh: '虛空暗流', en: 'void current' },
+    bottomColor: { zh: '皮卡丘黃', en: 'pikachu yellow' },
   },
   {
     id: 'frosted-mint-blackwater-core',
     zh: '霜薄荷 × 黑水核心',
     en: 'frosted mint top with blackwater core bottom',
-    topColor: { zh: '霜薄荷', en: 'frosted mint (#B0E4CC)' },
-    bottomColor: { zh: '黑水核心', en: 'blackwater core (#091413)' },
+    topColor: { zh: '霜薄荷', en: 'frosted mint' },
+    bottomColor: { zh: '黑水核心', en: 'blackwater core' },
   },
   {
     id: 'mocha-berry-soft-vanilla',
     zh: '摩卡莓果 × 柔香草',
     en: 'mocha berry top with soft vanilla bottom',
-    topColor: { zh: '摩卡莓果', en: 'mocha berry (#7B4955)' },
-    bottomColor: { zh: '柔香草', en: 'soft vanilla (#F4EDDB)' },
+    topColor: { zh: '摩卡莓果', en: 'mocha berry' },
+    bottomColor: { zh: '柔香草', en: 'soft vanilla' },
   },
   {
     id: 'jasmine-dark-graphite',
     zh: '茉莉黃 × 暗石墨',
     en: 'jasmine yellow top with dark graphite bottom',
-    topColor: { zh: '茉莉黃', en: 'jasmine yellow (#F8DE7F)' },
-    bottomColor: { zh: '暗石墨', en: 'dark graphite (#3A393F)' },
+    topColor: { zh: '茉莉黃', en: 'jasmine yellow' },
+    bottomColor: { zh: '暗石墨', en: 'dark graphite' },
   },
   {
     id: 'matcha-cream-milky-honey',
     zh: '抹茶奶霜 × 蜜乳白',
     en: 'matcha cream top with milky honey bottom',
-    topColor: { zh: '抹茶奶霜', en: 'matcha cream (#9CA763)' },
-    bottomColor: { zh: '蜜乳白', en: 'milky honey (#F1E8C7)' },
+    topColor: { zh: '抹茶奶霜', en: 'matcha cream' },
+    bottomColor: { zh: '蜜乳白', en: 'milky honey' },
   },
   {
     id: 'hot-chocolate-fresh-cabbage',
     zh: '熱巧克力 × 新鮮高麗菜',
     en: 'hot chocolate top with fresh cabbage bottom',
-    topColor: { zh: '熱巧克力', en: 'hot chocolate (#2F2420)' },
-    bottomColor: { zh: '新鮮高麗菜', en: 'fresh cabbage (#849753)' },
+    topColor: { zh: '熱巧克力', en: 'hot chocolate' },
+    bottomColor: { zh: '新鮮高麗菜', en: 'fresh cabbage' },
   },
   {
     id: 'sky-blue-navy',
@@ -612,15 +612,15 @@ const TOP_BOTTOM_PALETTE_OPTIONS = [
     id: 'xanthous-burgundy',
     zh: '藤黃 × 勃艮第紅',
     en: 'xanthous yellow top with burgundy bottom',
-    topColor: { zh: '藤黃', en: 'xanthous yellow (#F7B638)' },
-    bottomColor: { zh: '勃艮第紅', en: 'burgundy (#780115)' },
+    topColor: { zh: '藤黃', en: 'xanthous yellow' },
+    bottomColor: { zh: '勃艮第紅', en: 'burgundy' },
   },
   {
     id: 'claret-dark-purple',
     zh: '深紅酒 × 暗紫',
     en: 'claret top with dark purple bottom',
-    topColor: { zh: '深紅酒', en: 'claret (#C20F47)' },
-    bottomColor: { zh: '暗紫', en: 'dark purple (#241125)' },
+    topColor: { zh: '深紅酒', en: 'claret' },
+    bottomColor: { zh: '暗紫', en: 'dark purple' },
   },
 ];
 const TOP_BOTTOM_PALETTE_POOL = TOP_BOTTOM_PALETTE_OPTIONS.filter((option) => option.topColor && option.bottomColor);
@@ -785,15 +785,21 @@ const LOCK_DEFINITIONS = [
   { key: 'shoesBId', label: '人物 2 鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
   { key: 'shoesBColorId', label: '人物 2 鞋款配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'headAccessoryId', label: '頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
-  { key: 'eyewearId', label: '眼鏡', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
+  { key: 'eyewearId', label: '眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
+  { key: 'eyewearColorId', label: '眼鏡配色', category: '眼鏡配色 (Eyewear Color)', section: 'wardrobe' },
+  { key: 'eyewearPlacementId', label: '眼鏡配戴方式', category: '眼鏡配戴方式 (Eyewear Placement)', section: 'wardrobe' },
   { key: 'earringsId', label: '耳環', category: '耳環 (Earrings)', section: 'wardrobe' },
   { key: 'neckAccessoryId', label: '頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryAId', label: '人物 1 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
-  { key: 'eyewearAId', label: '人物 1 眼鏡', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
+  { key: 'eyewearAId', label: '人物 1 眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
+  { key: 'eyewearAColorId', label: '人物 1 眼鏡配色', category: '眼鏡配色 (Eyewear Color)', section: 'wardrobe' },
+  { key: 'eyewearAPlacementId', label: '人物 1 眼鏡配戴方式', category: '眼鏡配戴方式 (Eyewear Placement)', section: 'wardrobe' },
   { key: 'earringsAId', label: '人物 1 耳環', category: '耳環 (Earrings)', section: 'wardrobe' },
   { key: 'neckAccessoryAId', label: '人物 1 頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryBId', label: '人物 2 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
-  { key: 'eyewearBId', label: '人物 2 眼鏡', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
+  { key: 'eyewearBId', label: '人物 2 眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
+  { key: 'eyewearBColorId', label: '人物 2 眼鏡配色', category: '眼鏡配色 (Eyewear Color)', section: 'wardrobe' },
+  { key: 'eyewearBPlacementId', label: '人物 2 眼鏡配戴方式', category: '眼鏡配戴方式 (Eyewear Placement)', section: 'wardrobe' },
   { key: 'earringsBId', label: '人物 2 耳環', category: '耳環 (Earrings)', section: 'wardrobe' },
   { key: 'neckAccessoryBId', label: '人物 2 頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
 ];
@@ -917,15 +923,21 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'shoesBId', label: 'Woman 2 Shoes' },
   { key: 'shoesBColorId', label: 'Woman 2 Shoes Color' },
   { key: 'headAccessoryId', label: 'Head Accessory' },
-  { key: 'eyewearId', label: 'Eyewear' },
+  { key: 'eyewearId', label: 'Eyewear Frame' },
+  { key: 'eyewearColorId', label: 'Eyewear Color' },
+  { key: 'eyewearPlacementId', label: 'Eyewear Placement' },
   { key: 'earringsId', label: 'Earrings' },
   { key: 'neckAccessoryId', label: 'Neck Accessory' },
   { key: 'headAccessoryAId', label: 'Woman 1 Head Accessory' },
-  { key: 'eyewearAId', label: 'Woman 1 Eyewear' },
+  { key: 'eyewearAId', label: 'Woman 1 Eyewear Frame' },
+  { key: 'eyewearAColorId', label: 'Woman 1 Eyewear Color' },
+  { key: 'eyewearAPlacementId', label: 'Woman 1 Eyewear Placement' },
   { key: 'earringsAId', label: 'Woman 1 Earrings' },
   { key: 'neckAccessoryAId', label: 'Woman 1 Neck Accessory' },
   { key: 'headAccessoryBId', label: 'Woman 2 Head Accessory' },
-  { key: 'eyewearBId', label: 'Woman 2 Eyewear' },
+  { key: 'eyewearBId', label: 'Woman 2 Eyewear Frame' },
+  { key: 'eyewearBColorId', label: 'Woman 2 Eyewear Color' },
+  { key: 'eyewearBPlacementId', label: 'Woman 2 Eyewear Placement' },
   { key: 'earringsBId', label: 'Woman 2 Earrings' },
   { key: 'neckAccessoryBId', label: 'Woman 2 Neck Accessory' },
 ];
@@ -1597,8 +1609,14 @@ const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
   'headAccessoryAId',
   'headAccessoryBId',
   'eyewearId',
+  'eyewearColorId',
+  'eyewearPlacementId',
   'eyewearAId',
+  'eyewearAColorId',
+  'eyewearAPlacementId',
   'eyewearBId',
+  'eyewearBColorId',
+  'eyewearBPlacementId',
   'earringsId',
   'earringsAId',
   'earringsBId',
@@ -1716,12 +1734,18 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'expressionBId',
   'headAccessoryId',
   'eyewearId',
+  'eyewearColorId',
+  'eyewearPlacementId',
   'earringsId',
   'headAccessoryAId',
   'eyewearAId',
+  'eyewearAColorId',
+  'eyewearAPlacementId',
   'earringsAId',
   'headAccessoryBId',
   'eyewearBId',
+  'eyewearBColorId',
+  'eyewearBPlacementId',
   'earringsBId',
 ]);
 const CLOSEUP_CHEST_ALLOWED_KEYS = new Set([
@@ -1956,6 +1980,10 @@ function formatWardrobeOptionDisplayName(category, rawZh) {
 
 const WARDROBE_OUTFIT_PRESET_CATEGORY = '套裝 (Outfit Presets)';
 const WARDROBE_DRESS_CATEGORY = '連身 (Dresses)';
+const WARDROBE_TOP_CATEGORY = '上身 (Tops)';
+const WARDROBE_EYEWEAR_CATEGORY = '眼鏡 (Eyewear)';
+const WARDROBE_EYEWEAR_COLOR_CATEGORY = '眼鏡配色 (Eyewear Color)';
+const WARDROBE_EYEWEAR_PLACEMENT_CATEGORY = '眼鏡配戴方式 (Eyewear Placement)';
 
 const CHARACTER_IDENTITY_LEGACY_OPTION_MAP = [
   { category: '體態 (Body Type)', targetZh: '高挑時裝模特', legacy: [['模特兒', 0]] },
@@ -2050,6 +2078,43 @@ const CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS = [
 }));
 
 const WARDROBE_LEGACY_OPTION_MAP = [
+  { category: WARDROBE_EYEWEAR_CATEGORY, targetZh: '粗框眼鏡', legacy: [['黑框眼鏡', 1], ['白色鏡框眼鏡', 2]] },
+  { category: WARDROBE_EYEWEAR_CATEGORY, targetZh: '細框眼鏡', legacy: [['細框眼鏡', 4], ['眼鏡戴在頭頂', 7]] },
+  { category: WARDROBE_EYEWEAR_CATEGORY, targetZh: '復古圓框眼鏡', legacy: [['復古圓框眼鏡', 5]] },
+  { category: WARDROBE_EYEWEAR_CATEGORY, targetZh: '太陽眼鏡', legacy: [['太陽眼鏡', 6]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '長版襯衫', legacy: [['長版襯衫', 10]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '領帶襯衫', legacy: [['領帶襯衫', 12], ['鬆領帶襯衫', 13]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '落肩 T 恤', legacy: [['落肩 T 恤', 14], ['長版落肩 T 恤', 15]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '短版 T 恤', legacy: [['短版 T 恤', 16]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '棉質細肩背心', legacy: [['棉質細肩背心', 2], ['細肩帶上衣', 6]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '絲質細肩帶上衣', legacy: [['絲質細肩帶上衣', 5]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '削肩針織上衣', legacy: [['削肩針織上衣', 3]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '坦克背心', legacy: [['坦克背心', 31]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '高領針織上衣', legacy: [['高領針織上衣', 7]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '高領連身上衣', legacy: [['高領連身上衣', 8], ['羅紋高領連身上衣', 9]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '長版寬鬆麻花針織毛衣', legacy: [['長版寬鬆麻花針織毛衣', 11]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '短版針織背心', legacy: [['短版針織背心', 17]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '短版蕾絲背心', legacy: [['短版蕾絲背心', 18]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '平口上衣', legacy: [['平口上衣', 19], ['削肩平口連身上衣', 21]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '一字領上衣', legacy: [['一字領上衣', 20]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '絲綢緞面襯衫', legacy: [['絲綢緞面襯衫', 22], ['荷葉袖絲綢襯衫', 23]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '透膚刺繡襯衫', legacy: [['透膚刺繡襯衫', 24], ['柔垂透膚刺繡襯衫', 25]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '網紗透視上衣', legacy: [['網紗透視上衣', 26], ['裝飾網紗上衣', 27], ['透膚蕾絲連身上衣', 40]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '短版吊帶背心', legacy: [['短版吊帶背心', 28]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '短版帽T', legacy: [['短版帽T', 29]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '球衣 / 運動 jersey', legacy: [['球衣 / 運動 jersey', 30]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '維多利亞高領蕾絲襯衫', legacy: [['維多利亞高領蕾絲襯衫', 32]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '雪紡荷葉蝴蝶結襯衫', legacy: [['雪紡荷葉高領蝴蝶結襯衫', 33]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '素色緞面旗袍上衣', legacy: [['素色緞面旗袍上衣', 34]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '精緻刺繡旗袍上衣', legacy: [['精緻刺繡旗袍上衣', 35]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '和服式上衣', legacy: [['和服式上衣', 36]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '浴衣式上衣', legacy: [['浴衣式上衣', 37]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '比基尼上身', legacy: [['比基尼', 41]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '蕾絲胸罩', legacy: [['細肩帶蕾絲胸罩', 42], ['無肩帶蕾絲胸罩', 47]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '運動型內衣', legacy: [['運動型內衣', 43]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '蕾絲睡衣上身', legacy: [['蕾絲緊身睡衣', 44], ['蕾絲寬鬆睡衣', 45]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '波西米亞風上衣', legacy: [['波西米亞風上衣', 46]] },
+  { category: WARDROBE_TOP_CATEGORY, targetZh: '全無', legacy: [['漢服式上衣', 38], ['改良漢服式上衣', 39]] },
   { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：鏈條緞面內衣', legacy: [['酒紅鏈條緞面內衣套裝', 1]] },
   { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：春日巴黎亞麻長褲', legacy: [['象牙白春日巴黎套裝', 4]] },
   { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：長版襯衫百褶長裙', legacy: [['全黑長版襯衫百褶長裙套裝', 9]] },
@@ -2295,6 +2360,42 @@ function applyOutfitPresetToDressLegacyLockMigration(normalizedLocks, rawLocks, 
   });
 }
 
+const LEGACY_EYEWEAR_LOCK_MIGRATIONS = [
+  { legacy: ['黑框眼鏡', 1], frameZh: '粗框眼鏡', colorZh: '黑色', placementZh: '正常戴在臉上' },
+  { legacy: ['白色鏡框眼鏡', 2], frameZh: '粗框眼鏡', colorZh: '白色', placementZh: '正常戴在臉上' },
+  { legacy: ['玳瑁色鏡框眼鏡', 3], frameZh: '粗框眼鏡', colorZh: '玳瑁色', placementZh: '正常戴在臉上' },
+  { legacy: ['細框眼鏡', 4], frameZh: '細框眼鏡', placementZh: '正常戴在臉上' },
+  { legacy: ['復古圓框眼鏡', 5], frameZh: '復古圓框眼鏡', placementZh: '正常戴在臉上' },
+  { legacy: ['太陽眼鏡', 6], frameZh: '太陽眼鏡', colorZh: '黑色', placementZh: '正常戴在臉上' },
+  { legacy: ['眼鏡戴在頭頂', 7], frameZh: '細框眼鏡', placementZh: '戴在頭頂' },
+].map((entry) => ({
+  ...entry,
+  legacyIds: buildWardrobeLegacyIds(WARDROBE_EYEWEAR_CATEGORY, [entry.legacy]),
+}));
+
+function applyEyewearLegacyLockMigration(normalizedLocks, rawLocks, controls) {
+  const mappings = [
+    { frameKey: 'eyewearId', colorKey: 'eyewearColorId', placementKey: 'eyewearPlacementId' },
+    { frameKey: 'eyewearAId', colorKey: 'eyewearAColorId', placementKey: 'eyewearAPlacementId' },
+    { frameKey: 'eyewearBId', colorKey: 'eyewearBColorId', placementKey: 'eyewearBPlacementId' },
+  ];
+
+  mappings.forEach(({ frameKey, colorKey, placementKey }) => {
+    const rawValue = rawLocks?.[frameKey];
+    const migration = LEGACY_EYEWEAR_LOCK_MIGRATIONS.find((entry) => entry.legacyIds.includes(rawValue));
+    if (!migration) return;
+
+    const frame = getControlOptionByZh(controls, frameKey, migration.frameZh);
+    if (frame) normalizedLocks[frameKey] = frame.id;
+
+    const color = migration.colorZh ? getControlOptionByZh(controls, colorKey, migration.colorZh) : null;
+    if (color) normalizedLocks[colorKey] = color.id;
+
+    const placement = getControlOptionByZh(controls, placementKey, migration.placementZh);
+    if (placement) normalizedLocks[placementKey] = placement.id;
+  });
+}
+
 export function normalizeLocks(rawLocks = {}) {
   const normalized = createEmptyLocks();
 
@@ -2381,6 +2482,7 @@ export function normalizeLocks(rawLocks = {}) {
 
   applyExpressionPoseLegacySocialLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOutfitPresetToDressLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
+  applyEyewearLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
 
   return normalizedWithLegacyColors;
 }
@@ -2459,7 +2561,9 @@ export function getLockControls(customLibrary = []) {
       if (['outerwearStylingId', 'outerwearAStylingId', 'outerwearBStylingId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '外套穿法 (Outerwear Styling)');
       if (['shoesId', 'shoesAId', 'shoesBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '鞋款 (Shoes)');
       if (['headAccessoryId', 'headAccessoryAId', 'headAccessoryBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '頭部配件 (Head Accessories)');
-      if (['eyewearId', 'eyewearAId', 'eyewearBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '眼鏡 (Eyewear)');
+      if (['eyewearId', 'eyewearAId', 'eyewearBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, WARDROBE_EYEWEAR_CATEGORY);
+      if (['eyewearColorId', 'eyewearAColorId', 'eyewearBColorId'].includes(definition.key)) options = getByKey(catalog.wardrobe, WARDROBE_EYEWEAR_COLOR_CATEGORY);
+      if (['eyewearPlacementId', 'eyewearAPlacementId', 'eyewearBPlacementId'].includes(definition.key)) options = getByKey(catalog.wardrobe, WARDROBE_EYEWEAR_PLACEMENT_CATEGORY);
       if (['earringsId', 'earringsAId', 'earringsBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '耳環 (Earrings)');
       if (['neckAccessoryId', 'neckAccessoryAId', 'neckAccessoryBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '頸部 (Neck Accessories)');
     }
@@ -3423,7 +3527,9 @@ function buildWardrobe(context, locks, catalog) {
     '外套穿法 (Outerwear Styling)': 'outerwearStylingId',
     '鞋款 (Shoes)': 'shoesId',
     '頭部配件 (Head Accessories)': 'headAccessoryId',
-    '眼鏡 (Eyewear)': 'eyewearId',
+    [WARDROBE_EYEWEAR_CATEGORY]: 'eyewearId',
+    [WARDROBE_EYEWEAR_COLOR_CATEGORY]: 'eyewearColorId',
+    [WARDROBE_EYEWEAR_PLACEMENT_CATEGORY]: 'eyewearPlacementId',
     '耳環 (Earrings)': 'earringsId',
     '頸部 (Neck Accessories)': 'neckAccessoryId',
   };
@@ -3449,10 +3555,14 @@ function buildWardrobe(context, locks, catalog) {
   const hasDuoAccessoryLock = context.subject.count === 2 && [
     'headAccessoryAId',
     'eyewearAId',
+    'eyewearAColorId',
+    'eyewearAPlacementId',
     'earringsAId',
     'neckAccessoryAId',
     'headAccessoryBId',
     'eyewearBId',
+    'eyewearBColorId',
+    'eyewearBPlacementId',
     'earringsBId',
     'neckAccessoryBId',
   ].some((key) => Boolean(locks?.[key]));
@@ -3895,15 +4005,26 @@ function buildWardrobe(context, locks, catalog) {
 
     if (context.subject.count === 2) {
       addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryAId', 'a', 'headAccessory');
-      addRoleLockedPiece('眼鏡 (Eyewear)', 'eyewearAId', 'a', 'eyewear');
+      addRoleLockedPiece(WARDROBE_EYEWEAR_CATEGORY, 'eyewearAId', 'a', 'eyewear');
+      addRoleLockedPiece(WARDROBE_EYEWEAR_COLOR_CATEGORY, 'eyewearAColorId', 'a', 'eyewearColor');
+      addRoleLockedPiece(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, 'eyewearAPlacementId', 'a', 'eyewearPlacement');
       addRoleLockedPiece('耳環 (Earrings)', 'earringsAId', 'a', 'earrings');
       addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryBId', 'b', 'headAccessory');
-      addRoleLockedPiece('眼鏡 (Eyewear)', 'eyewearBId', 'b', 'eyewear');
+      addRoleLockedPiece(WARDROBE_EYEWEAR_CATEGORY, 'eyewearBId', 'b', 'eyewear');
+      addRoleLockedPiece(WARDROBE_EYEWEAR_COLOR_CATEGORY, 'eyewearBColorId', 'b', 'eyewearColor');
+      addRoleLockedPiece(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, 'eyewearBPlacementId', 'b', 'eyewearPlacement');
       addRoleLockedPiece('耳環 (Earrings)', 'earringsBId', 'b', 'earrings');
     }
     if (!hasDuoAccessoryLock) {
       maybePick('頭部配件 (Head Accessories)', 0.28, () => true, { allowNoneWhenUnlocked: true });
-      maybePick('眼鏡 (Eyewear)', 0.35, () => true, { allowNoneWhenUnlocked: true });
+      const eyewearPiece = maybePick(WARDROBE_EYEWEAR_CATEGORY, 0.35, () => true, { allowNoneWhenUnlocked: true });
+      const hasEyewearPiece = Array.isArray(eyewearPiece)
+        ? eyewearPiece.some((item) => item && !isNoneLikeItem(item))
+        : Boolean(eyewearPiece && !isNoneLikeItem(eyewearPiece));
+      if (hasEyewearPiece) {
+        maybePick(WARDROBE_EYEWEAR_COLOR_CATEGORY, locks?.eyewearColorId ? 1 : 0.85, () => true, { allowNoneWhenUnlocked: true });
+        maybePick(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, locks?.eyewearPlacementId ? 1 : 1, () => true, { allowNoneWhenUnlocked: false });
+      }
       maybePick('耳環 (Earrings)', 0.45, () => true, { allowNoneWhenUnlocked: true });
     }
     return pieces.filter(keepExplicitCloseupWardrobeItem);
@@ -4002,18 +4123,32 @@ function buildWardrobe(context, locks, catalog) {
     addRoleLockedPiece('外套穿法 (Outerwear Styling)', 'outerwearBStylingId', 'b', 'outerwearStyling');
     addRoleLockedPiece('鞋款 (Shoes)', 'shoesBId', 'b', 'shoes');
     addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryAId', 'a', 'headAccessory');
-    addRoleLockedPiece('眼鏡 (Eyewear)', 'eyewearAId', 'a', 'eyewear');
+    addRoleLockedPiece(WARDROBE_EYEWEAR_CATEGORY, 'eyewearAId', 'a', 'eyewear');
+    addRoleLockedPiece(WARDROBE_EYEWEAR_COLOR_CATEGORY, 'eyewearAColorId', 'a', 'eyewearColor');
+    addRoleLockedPiece(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, 'eyewearAPlacementId', 'a', 'eyewearPlacement');
     addRoleLockedPiece('耳環 (Earrings)', 'earringsAId', 'a', 'earrings');
     addRoleLockedPiece('頸部 (Neck Accessories)', 'neckAccessoryAId', 'a', 'neckAccessory');
     addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryBId', 'b', 'headAccessory');
-    addRoleLockedPiece('眼鏡 (Eyewear)', 'eyewearBId', 'b', 'eyewear');
+    addRoleLockedPiece(WARDROBE_EYEWEAR_CATEGORY, 'eyewearBId', 'b', 'eyewear');
+    addRoleLockedPiece(WARDROBE_EYEWEAR_COLOR_CATEGORY, 'eyewearBColorId', 'b', 'eyewearColor');
+    addRoleLockedPiece(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, 'eyewearBPlacementId', 'b', 'eyewearPlacement');
     addRoleLockedPiece('耳環 (Earrings)', 'earringsBId', 'b', 'earrings');
     addRoleLockedPiece('頸部 (Neck Accessories)', 'neckAccessoryBId', 'b', 'neckAccessory');
   }
 
   if (!hasDuoAccessoryLock) {
     maybePick('頭部配件 (Head Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.28 : 0.12, () => true, { allowNoneWhenUnlocked: true });
-    maybePick('眼鏡 (Eyewear)', visibilityAtLeast(visibility, 'portrait') ? 0.35 : 0.15, () => true, { allowNoneWhenUnlocked: true });
+    const eyewearPiece = maybePick(WARDROBE_EYEWEAR_CATEGORY, visibilityAtLeast(visibility, 'portrait') ? 0.35 : 0.15, () => true, { allowNoneWhenUnlocked: true });
+    const hasEyewearPiece = Array.isArray(eyewearPiece)
+      ? eyewearPiece.some((item) => item && !isNoneLikeItem(item))
+      : Boolean(eyewearPiece && !isNoneLikeItem(eyewearPiece));
+    if (hasEyewearPiece || locks?.eyewearColorId || locks?.eyewearPlacementId) {
+      if (!hasEyewearPiece && (locks?.eyewearColorId || locks?.eyewearPlacementId)) {
+        maybePick(WARDROBE_EYEWEAR_CATEGORY, 1, () => true, { allowNoneWhenUnlocked: false });
+      }
+      maybePick(WARDROBE_EYEWEAR_COLOR_CATEGORY, locks?.eyewearColorId ? 1 : 0.85, () => true, { allowNoneWhenUnlocked: true });
+      maybePick(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, locks?.eyewearPlacementId ? 1 : 1, () => true, { allowNoneWhenUnlocked: false });
+    }
     maybePick('耳環 (Earrings)', visibilityAtLeast(visibility, 'portrait') ? 0.45 : 0.2, () => true, { allowNoneWhenUnlocked: true });
     maybePick('頸部 (Neck Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.4 : 0.2, () => true, { allowNoneWhenUnlocked: true });
   }
@@ -4448,14 +4583,20 @@ function extractWardrobeSlots(wardrobe) {
     shoesB: findRoleSlot('wardrobe:鞋款-shoes:', 'b', 'shoes'),
     headAccessory: findSlot('wardrobe:頭部配件-head-accessories:'),
     eyewear: findSlot('wardrobe:眼鏡-eyewear:'),
+    eyewearColor: findSlot('wardrobe:眼鏡配色-eyewear-color:'),
+    eyewearPlacement: findSlot('wardrobe:眼鏡配戴方式-eyewear-placement:'),
     earrings: findSlot('wardrobe:耳環-earrings:'),
     neckAccessory: findSlot('wardrobe:頸部-neck-accessories:'),
     headAccessoryA: findRoleSlot('wardrobe:頭部配件-head-accessories:', 'a', 'headAccessory'),
     eyewearA: findRoleSlot('wardrobe:眼鏡-eyewear:', 'a', 'eyewear'),
+    eyewearAColor: findRoleSlot('wardrobe:眼鏡配色-eyewear-color:', 'a', 'eyewearColor'),
+    eyewearAPlacement: findRoleSlot('wardrobe:眼鏡配戴方式-eyewear-placement:', 'a', 'eyewearPlacement'),
     earringsA: findRoleSlot('wardrobe:耳環-earrings:', 'a', 'earrings'),
     neckAccessoryA: findRoleSlot('wardrobe:頸部-neck-accessories:', 'a', 'neckAccessory'),
     headAccessoryB: findRoleSlot('wardrobe:頭部配件-head-accessories:', 'b', 'headAccessory'),
     eyewearB: findRoleSlot('wardrobe:眼鏡-eyewear:', 'b', 'eyewear'),
+    eyewearBColor: findRoleSlot('wardrobe:眼鏡配色-eyewear-color:', 'b', 'eyewearColor'),
+    eyewearBPlacement: findRoleSlot('wardrobe:眼鏡配戴方式-eyewear-placement:', 'b', 'eyewearPlacement'),
     earringsB: findRoleSlot('wardrobe:耳環-earrings:', 'b', 'earrings'),
     neckAccessoryB: findRoleSlot('wardrobe:頸部-neck-accessories:', 'b', 'neckAccessory'),
   };
@@ -5227,8 +5368,20 @@ function buildHairColorPrompt(item) {
 }
 
 function buildAccessoryPrompt(item) {
+  if (typeof item === 'string') return item.replace(/\s+/g, ' ').trim();
   if (!item || isNoneLikeItem(item)) return '';
   return stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
+}
+
+function buildEyewearPrompt(eyewear, color = null, placement = null) {
+  if (!eyewear || isNoneLikeItem(eyewear)) return '';
+  const base = buildAccessoryPrompt(eyewear);
+  const colorText = color && !isNoneLikeItem(color) ? buildAccessoryPrompt(color) : '';
+  const placementText = placement && !isNoneLikeItem(placement)
+    ? buildAccessoryPrompt(placement)
+    : 'worn normally on the face, lenses aligned over the eyes';
+
+  return [colorText, base, placementText].filter(Boolean).join(', ');
 }
 
 function cleanSubjectAccessoryPrompt(item) {
@@ -5238,9 +5391,9 @@ function cleanSubjectAccessoryPrompt(item) {
     .trim();
 }
 
-function buildSubjectAccessoryPrompt({ eyewear, earrings, neckAccessory } = {}) {
+function buildSubjectAccessoryPrompt({ eyewear, eyewearColor, eyewearPlacement, earrings, neckAccessory } = {}) {
   const parts = [
-    cleanSubjectAccessoryPrompt(eyewear),
+    buildEyewearPrompt(eyewear, eyewearColor, eyewearPlacement),
     cleanSubjectAccessoryPrompt(earrings),
     cleanSubjectAccessoryPrompt(neckAccessory),
   ].filter(Boolean);
@@ -5260,6 +5413,8 @@ function buildRoleSubjectAccessoryPrompt(wardrobeSlots, role) {
   const suffix = role === 'a' ? 'A' : 'B';
   const accessoryText = buildSubjectAccessoryPrompt({
     eyewear: wardrobeSlots[`eyewear${suffix}`],
+    eyewearColor: wardrobeSlots[`eyewear${suffix}Color`],
+    eyewearPlacement: wardrobeSlots[`eyewear${suffix}Placement`],
     earrings: wardrobeSlots[`earrings${suffix}`],
     neckAccessory: wardrobeSlots[`neckAccessory${suffix}`],
   });
@@ -5553,6 +5708,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
 
     return appendSubjectAccessories(baseSubjectText, buildSubjectAccessoryPrompt({
       eyewear: wardrobeSlots.eyewear,
+      eyewearColor: wardrobeSlots.eyewearColor,
+      eyewearPlacement: wardrobeSlots.eyewearPlacement,
       earrings: wardrobeSlots.earrings,
       neckAccessory: wardrobeSlots.neckAccessory,
     }));
@@ -5816,6 +5973,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         ].filter(Boolean).join(', ')
       : buildSubjectAccessoryPrompt({
           eyewear: wardrobeSlots.eyewear,
+          eyewearColor: wardrobeSlots.eyewearColor,
+          eyewearPlacement: wardrobeSlots.eyewearPlacement,
           earrings: wardrobeSlots.earrings,
           neckAccessory: wardrobeSlots.neckAccessory,
         });
@@ -6423,14 +6582,20 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     shoesBColorId: wardrobeColors.shoesBColor?.id || '',
     headAccessoryId: wardrobeSlots.headAccessory?.id || '',
     eyewearId: wardrobeSlots.eyewear?.id || '',
+    eyewearColorId: wardrobeSlots.eyewearColor?.id || '',
+    eyewearPlacementId: wardrobeSlots.eyewearPlacement?.id || '',
     earringsId: wardrobeSlots.earrings?.id || '',
     neckAccessoryId: wardrobeSlots.neckAccessory?.id || '',
     headAccessoryAId: wardrobeSlots.headAccessoryA?.id?.replace(/:a$/, '') || '',
     eyewearAId: wardrobeSlots.eyewearA?.id?.replace(/:a$/, '') || '',
+    eyewearAColorId: wardrobeSlots.eyewearAColor?.id?.replace(/:a$/, '') || '',
+    eyewearAPlacementId: wardrobeSlots.eyewearAPlacement?.id?.replace(/:a$/, '') || '',
     earringsAId: wardrobeSlots.earringsA?.id?.replace(/:a$/, '') || '',
     neckAccessoryAId: wardrobeSlots.neckAccessoryA?.id?.replace(/:a$/, '') || '',
     headAccessoryBId: wardrobeSlots.headAccessoryB?.id?.replace(/:b$/, '') || '',
     eyewearBId: wardrobeSlots.eyewearB?.id?.replace(/:b$/, '') || '',
+    eyewearBColorId: wardrobeSlots.eyewearBColor?.id?.replace(/:b$/, '') || '',
+    eyewearBPlacementId: wardrobeSlots.eyewearBPlacement?.id?.replace(/:b$/, '') || '',
     earringsBId: wardrobeSlots.earringsB?.id?.replace(/:b$/, '') || '',
     neckAccessoryBId: wardrobeSlots.neckAccessoryB?.id?.replace(/:b$/, '') || '',
   };

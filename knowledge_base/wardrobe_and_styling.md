@@ -63,52 +63,39 @@
 | **套裝 (Outfit Presets)** | 哥德休閒針織荷葉短裙套裝 | `gothic casual knit-and-ruffle outfit, fitted knit top, lace camisole layer, large ribbon bow, high-waist layered ruffle mini skirt, button and strap details, main fabric color controlled by the outfit color selection, contrast panels controlled by contrast palette` | 以針織上身、蕾絲內層、蝴蝶結與多層荷葉短裙為核心的哥德休閒套裝；主色與對比細節由配色控制。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 襯衫 | `shirt, crisp cotton poplin, clean placket construction, balanced collar line` | 以俐落門襟、清楚領型與乾淨肩線構成的基礎上身單品，重點在剪裁結構而不是情境語氣。 |
-| **上身 (Tops)** | 棉質細肩背心 | `cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line` | 以細肩帶、棉質羅紋與短而俐落的上緣比例為主，強調基礎內搭式剪裁與貼身輪廓。 |
-| **上身 (Tops)** | 削肩針織上衣 | `sleeveless knit top, ribbed texture, clean shoulder-baring cut, narrow armhole shaping` | 以削肩結構、貼近頸根的領線與細緻針織紋理為重點，輪廓乾淨且偏都會感。 |
-| **上身 (Tops)** | 短袖上衣 | `short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion` | 以俐落袖長、順身布面與簡潔上半身線條為主，適合作為中性基礎版型。 |
-| **上身 (Tops)** | 絲質細肩帶上衣 | `silk camisole top, delicate straps, fluid sheen` | 輕薄柔軟且帶微光澤，適合飯店、臥室與法式慵懶主題。 |
-| **上身 (Tops)** | 細肩帶上衣 | `camisole top, delicate shoulder straps, fitted silhouette` | 直接露出肩頸與鎖骨線條，適合寫真、日常與輕性感風格。 |
-| **上身 (Tops)** | 高領針織上衣 | `turtleneck knit top, fine gauge knit, smooth neckline transition, clean torso structure` | 以貼頸高領、細針織面與順直上身比例為主，重點在安定、收斂的上半身結構。 |
-| **上身 (Tops)** | 高領連身上衣 | `high-neck bodysuit-style top, sleeveless construction, sharply cut armholes, smooth stretch fabric, continuous torso line` | 以高領、無袖與連身式結構為主，重點在連續上身線條與乾淨開袖比例；主色應由獨立配色控制。 |
-| **上身 (Tops)** | 羅紋高領連身上衣 | `high-neck ribbed bodysuit-style top, sleeveless cut, fine rib stretch knit, continuous close torso structure` | 保留高領連身結構，並把重點放在細羅紋面料與更明確的縱向布紋節奏；主色應由獨立配色控制。 |
 | **上身 (Tops)** | 長版襯衫 | `longline shirt, extended hem length, relaxed sleeve volume, softened drape through the body` | 以較長衣襬、寬鬆袖量與柔垂布面為主，重點在長版比例與輪廓延伸，不預設特定穿法。 |
-| **上身 (Tops)** | 長版寬鬆麻花針織毛衣 | `oversized cable-knit sweater, chunky soft knit texture, longline hem covering the upper thighs, slouchy boyfriend fit, dropped shoulders, extra-long relaxed sleeves, cozy homewear silhouette, effortless intimate off-duty styling` | 以寬鬆長版毛衣、明顯麻花編織、落肩剪裁與偏長袖型為主，衣襬可自然蓋到大腿上緣，整體更接近居家、親密、慵懶的男友風針織輪廓。 |
-| **上身 (Tops)** | 領帶襯衫 | `shirt with a soft short tie, slightly relaxed collar opening, clean front placket, slim uniform-inspired upper-body structure` | 以短領帶、微鬆領口與俐落門襟作為主體設計語言，偏制服靈感但維持乾淨上身結構。 |
-| **上身 (Tops)** | 鬆領帶襯衫 | `shirt with a soft short tie, relaxed collar opening, lighter drape through the torso, softened uniform-inspired structure` | 保留短領帶與制服式前襟，但用更鬆的領口與較柔和的上身垂墜感形成變化，不預設衣襬狀態。 |
-| **上身 (Tops)** | 落肩 T 恤 | `dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion` | 以落肩線、寬鬆袖根與水洗棉面料為主，重點在肩線下降後形成的休閒輪廓。 |
-| **上身 (Tops)** | 長版落肩 T 恤 | `longline dropped-shoulder t-shirt, washed cotton jersey, lowered shoulder seam, extended hem proportion` | 保留落肩結構，並把差異放在更長的衣襬比例與較明顯的縱向份量感。 |
+| **上身 (Tops)** | 領帶襯衫 | `shirt with a soft short tie, relaxed collar opening, clean front placket, uniform-inspired upper-body structure` | 以短領帶、微鬆領口與制服式前襟為主，保留襯衫結構但不預設衣襬狀態。 |
+| **上身 (Tops)** | 短袖上衣 | `short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion` | 以俐落袖長、順身布面與簡潔上半身線條為主，適合作為中性基礎版型。 |
+| **上身 (Tops)** | 落肩 T 恤 | `dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion` | 以低肩線、寬鬆袖根與棉質 T 恤輪廓為主，上身比例放鬆但不指定衣長。 |
 | **上身 (Tops)** | 短版 T 恤 | `cropped t-shirt, concise hem length, compact torso block, casual knit structure` | 以短版衣長與精簡衣身比例為主，重點在裁短後的上半身輪廓，而非情境化描述。 |
+| **上身 (Tops)** | 棉質細肩背心 | `cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line` | 以棉質羅紋、細肩帶與乾淨內搭式輪廓為主，線條貼近身形但不過度複雜。 |
+| **上身 (Tops)** | 絲質細肩帶上衣 | `silk camisole top, delicate straps, fluid sheen` | 以柔軟絲質、細肩帶與流動微光布面為主，輪廓輕薄貼身，可作精緻內搭或單穿上身。 |
+| **上身 (Tops)** | 削肩針織上衣 | `sleeveless knit top, ribbed texture, clean shoulder-baring cut, narrow armhole shaping` | 以削肩結構、貼近頸根的領線與細緻針織紋理為重點，輪廓乾淨且偏都會感。 |
+| **上身 (Tops)** | 坦克背心 | `tank top, sleeveless casual fit, clean sporty line` | 最簡單直接的無袖上身，適合日常、運動與寫真人像。 |
+| **上身 (Tops)** | 高領針織上衣 | `turtleneck knit top, fine gauge knit, smooth neckline transition, clean torso structure` | 以貼頸高領、細針織面與順直上身比例為主，重點在安定、收斂的上半身結構。 |
+| **上身 (Tops)** | 高領連身上衣 | `high-neck bodysuit-style top, sleeveless construction, smooth stretch or ribbed fabric, continuous torso line` | 以高領、無袖、連續上身線條與貼身布面為主，讓頸部到軀幹的輪廓保持順直。 |
+| **上身 (Tops)** | 長版寬鬆麻花針織毛衣 | `oversized cable-knit sweater, chunky knit texture, longline upper-thigh hem, dropped shoulders, extra-long relaxed sleeves, slouchy boyfriend fit` | 以寬鬆長版毛衣、明顯麻花編織、落肩剪裁與偏長袖型為主，衣襬自然覆蓋大腿上緣，呈現柔軟厚實的男友風針織輪廓。 |
 | **上身 (Tops)** | 短版針織背心 | `cropped knit camisole, compact hem length, ribbed knit texture, narrow shoulder strap construction` | 以短版長度、細肩帶與針織紋理為主，輪廓精簡且帶明確針織表面語言。 |
 | **上身 (Tops)** | 短版蕾絲背心 | `cropped lace camisole, compact upper-body length, floral lace surface, delicate edge finish` | 以短版比例、蕾絲面料與精細收邊為主，重點在材質與結構而非情境暗示。 |
-| **上身 (Tops)** | 平口上衣 | `strapless tube top, clean upper edge, smooth stretch fabric, compact bandeau structure` | 以平直上緣、無肩帶結構與簡潔帶狀上身比例為主，輪廓俐落直接。 |
-| **上身 (Tops)** | 一字領上衣 | `off-shoulder top, soft neckline silhouette, visible white bra straps along the shoulder line, refined layered styling detail` | 露出鎖骨與肩線，並加入可見白色內衣肩帶的層次細節，整體更像日常穿搭中的造型搭配，適合寫真與女性化風格。 |
-| **上身 (Tops)** | 削肩平口連身上衣 | `halter bandeau bodysuit-style top, clean bandeau neckline, smooth stretch fabric, structured upper panel, refined modern fashion detailing` | 以削肩平口結構、乾淨的上緣線條與彈性布料質感為主，重點放在現代化剪裁與上身結構，而不是強調身體輪廓。 |
-| **上身 (Tops)** | 絲綢緞面襯衫 | `silk satin blouse, luminous satin sheen, soft draping long sleeves, refined cuff detailing, fluid blouse construction` | 以緞面光澤、柔垂長袖與細緻袖口收邊為主，重點在柔軟布性與襯衫結構的平衡。 |
-| **上身 (Tops)** | 荷葉袖絲綢襯衫 | `silk satin blouse with ruffled sleeve finish, luminous sheen, flowing sleeve drape, decorative soft cuff structure` | 保留絲綢緞面的柔亮布感，並把重點放在荷葉式袖口與更裝飾性的袖部收邊。 |
-| **上身 (Tops)** | 透膚刺繡襯衫 | `semi-sheer embroidered shirt, lightweight voile fabric, tonal floral embroidery, soft collar structure, translucent layered surface` | 以半透明薄料、同色刺繡與襯衫領片結構為主，重點在表面工藝與布層深度。 |
-| **上身 (Tops)** | 柔垂透膚刺繡襯衫 | `semi-sheer embroidered blouse, lightweight voile fabric, tonal floral embroidery, softer draped body, translucent layered structure` | 同樣保留半透明薄料與刺繡，但整體輪廓更柔垂，重點放在布面下墜與層次過渡。 |
-| **上身 (Tops)** | 網紗透視上衣 | `semi-sheer mesh top, fine net texture, floral motif panels, lace-trim detailing, lightweight layered construction` | 以細網紗、花卉拼片與蕾絲收邊為主，重點在裝飾性表面與層次式上身結構。 |
-| **上身 (Tops)** | 裝飾網紗上衣 | `decorative mesh top, fine net texture, layered motif panels, lace-trim detailing, softened hem extension` | 保留網紗與拼片裝飾，但更強調裝飾性面料堆疊與下擺延伸比例。 |
+| **上身 (Tops)** | 平口上衣 | `strapless tube top, clean upper edge, smooth stretch fabric, compact bandeau or halter-bandeau structure` | 以無肩帶或平口上緣、簡潔帶狀比例與貼身彈性布面為主，輪廓短而乾淨。 |
+| **上身 (Tops)** | 一字領上衣 | `off-shoulder top, soft neckline silhouette, visible white bra straps along the shoulder line, refined layered styling detail` | 以露出鎖骨與肩線的一字領為主，可見白色內衣肩帶形成細緻層次，輪廓柔和且女性化。 |
+| **上身 (Tops)** | 絲綢緞面襯衫 | `silk satin blouse, luminous satin sheen, soft draping sleeves, refined cuff or ruffle finish, fluid blouse construction` | 以柔亮緞面、流動布感、柔垂袖型與細緻袖口為主，保留襯衫結構與高級布面光澤。 |
+| **上身 (Tops)** | 透膚刺繡襯衫 | `semi-sheer embroidered shirt, lightweight voile fabric, tonal floral embroidery, soft draped collar structure, translucent layered surface` | 以輕薄透膚布料、同色刺繡、柔垂領口與襯衫結構為主，表面有細緻層次。 |
+| **上身 (Tops)** | 網紗透視上衣 | `semi-sheer mesh or lace top, fine net texture, floral motif panels, lace-trim detailing, lightweight layered construction` | 以細網材質、蕾絲拼片、花卉紋理與輕透層次為主，保留清楚的透視上衣結構。 |
 | **上身 (Tops)** | 短版吊帶背心 | `cropped camisole, narrow straps, concise torso block, streamlined upper-body silhouette` | 以短版衣長、細肩帶與精簡上身比例為主，輪廓明快直接。 |
-| **上身 (Tops)** | 短版帽T | `cropped hoodie, cinched waist hem, casual streetwear silhouette, sporty relaxed shape` | 帶有街頭與運動感，並補上腰部束口的造型特徵，適合 Y2K、隨拍與日常造型。 |
-| **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 偏街頭與運動風，適合社群感、青春感與休閒主題。 |
-| **上身 (Tops)** | 坦克背心 | `tank top, sleeveless casual fit, clean sporty line` | 最簡單直接的無袖上身，適合日常、運動與寫真人像。 |
-| **上身 (Tops)** | 維多利亞高領蕾絲襯衫 | `Victorian high-neck lace blouse, ruffled collar, intricate lace detailing` | 領口繁複、禁慾而浪漫。 |
-| **上身 (Tops)** | 雪紡荷葉高領蝴蝶結襯衫 | `sheer chiffon high-neck blouse, layered lace ruffles across the front, black ribbon bow at the collar, soft gathered bishop sleeves, delicate button-front placket, lace-trimmed cuffs, refined romantic vintage styling` | 以半透明雪紡材質、高領荷葉、胸前多層蕾絲荷葉、黑色細緞帶蝴蝶結、澎袖與袖口蕾絲為主，整體更貼近古典甜感、文藝咖啡館與日系寫真中的精緻女式襯衫。 |
+| **上身 (Tops)** | 短版帽T | `cropped hoodie, cinched waist hem, casual streetwear silhouette, sporty relaxed shape` | 以短版衣長、帽兜、腰部束口與放鬆運動輪廓為主，保留明確街頭上身結構。 |
+| **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 以運動制服感、寬鬆衣身與球衣式面料為主，輪廓清楚且偏休閒運動。 |
+| **上身 (Tops)** | 維多利亞高領蕾絲襯衫 | `Victorian high-neck lace blouse, ruffled collar, intricate lace detailing` | 以高領、荷葉領邊、細緻蕾絲與復古襯衫結構為主，領口與胸前細節較繁複。 |
+| **上身 (Tops)** | 雪紡荷葉蝴蝶結襯衫 | `sheer chiffon ruffle blouse, layered lace ruffles across the front, ribbon bow at the collar, soft gathered sleeves, romantic vintage styling` | 以雪紡薄料、前胸荷葉層次、領口蝴蝶結與柔軟抓褶袖為主，輪廓偏古典甜美。 |
 | **上身 (Tops)** | 素色緞面旗袍上衣 | `satin cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, smooth lustrous fabric, untucked hem worn loose over the waistline, refined Chinese-inspired styling` | 旗袍式剪裁的上衣版本，保留立領、盤扣與貼身上半身輪廓，但衣襬自然放出、不紮進下身，適合搭配長裙、寬褲或都會中式混搭造型。 |
 | **上身 (Tops)** | 精緻刺繡旗袍上衣 | `embroidered cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, intricate floral embroidery, untucked hem worn loose over the waistline, refined Chinese-inspired detail` | 在旗袍式上衣結構中加入細緻刺繡與盤扣細節，並強調衣襬自然放出、不紮進下身，裝飾感更強，適合更正式或更華麗的中式時裝搭配。 |
-| **上身 (Tops)** | 和服式上衣 | `kimono-style wrap top, woven floral and traditional motif accents, refined Japanese-inspired styling. layered crossover front, soft draped sleeves, obi-inspired waist emphasis` | 以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型與包裹式前襟，並加入織紋、花卉或傳統圖樣裝飾，適合搭配長裙、寬褲與日式混搭造型。 |
-| **上身 (Tops)** | 浴衣式上衣 | `yukata-style wrap top, lightweight cotton gauze texture, delicate summer floral or geometric prints, soft summer Japanese styling. airy crossover front, relaxed draped sleeves` | 以浴衣較輕鬆的包裹式結構為靈感的上衣版本，布料更輕薄透氣，並帶有夏日花紋或幾何印花，適合生活感與清爽的日式造型。 |
-| **上身 (Tops)** | 漢服式上衣 | `hanfu-style cross-collar top, embroidered trim, woven cloud and floral motifs, refined Chinese-inspired styling. flowing layered front, wide draped sleeves` | 保留漢服交領與寬袖輪廓的上衣版本，加入刺繡滾邊與雲紋、花紋等傳統裝飾，適合搭配長裙、寬褲與更古典的中式混搭造型。 |
-| **上身 (Tops)** | 改良漢服式上衣 | `modern hanfu-inspired top, subtle brocade pattern accents, contemporary Chinese-inspired styling. simplified cross-collar front, elegant draped sleeves` | 以漢服元素為靈感但更現代化的上衣版本，保留交領與垂墜感，並加入低調提花或織紋裝飾，適合日常化或時裝化搭配。 |
-| **上身 (Tops)** | 透膚蕾絲連身上衣 | `semi-sheer lace bodysuit-style top, floral lace panels, scalloped trim, soft lining details, refined decorative texture` | 以半透明蕾絲拼片、波浪滾邊與裝飾性花紋作為重點的連身式上衣，整體更偏服裝工藝與材質層次，不把重點放在裸露感。 |
-| **上身 (Tops)** | 比基尼 | `triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, clean beachwear styling` | 作為泳裝上身使用時，改成更接近經典三角杯比基尼的結構，重點是細繩肩帶、簡潔三角罩杯與貼身俐落的海邊感線條。 |
-| **上身 (Tops)** | 細肩帶蕾絲胸罩 | `thin-strap lace bra top, slender shoulder straps, deep v neckline, intricate floral lace, scalloped trim, delicate underbust structure, refined lingerie detailing` | 以細肩帶、低胸深 V 結構、精緻花卉蕾絲與波浪邊作為主體設計語言，重點放在服裝細節與材質裝飾，而不是裸露程度。 |
+| **上身 (Tops)** | 和服式上衣 | `kimono-style wrap top, layered crossover front, soft draped sleeves, woven floral or traditional motif accents, obi-inspired waist emphasis` | 以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型、包裹式前襟、腰部強調與傳統圖樣裝飾。 |
+| **上身 (Tops)** | 浴衣式上衣 | `yukata-style wrap top, airy crossover front, relaxed draped sleeves, lightweight cotton gauze texture, delicate floral or geometric prints` | 以浴衣較輕鬆的包裹式結構為靈感，布料輕薄透氣，保留交疊前襟、寬鬆袖型與簡潔印花。 |
+| **上身 (Tops)** | 比基尼上身 | `triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, clean beachwear styling` | 作為泳裝上身使用，重點是細繩肩帶、簡潔三角罩杯與俐落海邊感線條。 |
+| **上身 (Tops)** | 蕾絲胸罩 | `lace bra top, delicate straps or strapless structure, floral lace, scalloped trim, refined lingerie detailing` | 以蕾絲罩杯、細肩帶或無肩帶結構、波浪邊與完整內衣式上身線條為主。 |
 | **上身 (Tops)** | 運動型內衣 | `sports bra top, Calvin Klein-inspired clean elastic band, smooth technical jersey, minimal athletic seaming, refined activewear styling` | 以簡潔彈性下圍、機能針織面料與俐落運動車線為主的運動上衣語言，參考 Calvin Klein 式極簡運動內衣風格，但更偏服裝設計描述。 |
-| **上身 (Tops)** | 蕾絲緊身睡衣 | `fitted lace nightdress, delicate floral lace panels, scalloped lace trim, satin ribbon accents, refined sleepwear detailing` | 以細緻花卉蕾絲拼接、波浪蕾絲滾邊與緞帶收邊為重點的睡衣款式，整體更偏精緻布料與裝飾細節，而不是強調身體曲線。 |
-| **上身 (Tops)** | 蕾絲寬鬆睡衣 | `loose lace sleepwear, relaxed nightdress silhouette, soft drape` | 較鬆身的睡衣輪廓，氣質更慵懶也更生活化。 |
-| **上身 (Tops)** | 波西米亞風上衣 | `bohemian draped blouse, soft crinkled gauze or washed rayon fabric, deep relaxed neckline, untucked loose hem worn outside the bottoms, softly layered sleeves, earth-tone patchwork and folk-woven patterns, artisanal trim and relaxed resort styling` | 更貼近異國咖啡館與度假人文感的波西米亞上衣，強調鬆垮垂墜的領口、土色系拼接與民俗織紋、柔軟皺感布料與披罩式袖型，整體更成熟、鬆弛也更有飾品疊搭空間。 |
-| **上身 (Tops)** | 無肩帶蕾絲胸罩 | `strapless lace bra top, clean bare-shoulder neckline, structured bandeau-style cups, intricate floral lace, scalloped trim, delicate underbust support, refined lingerie detailing` | 以無肩帶平口輪廓、結構式罩杯、精緻花卉蕾絲與波浪邊作為主體設計語言，讓肩線更乾淨，並保留完整服裝與細緻布料裝飾。 |
+| **上身 (Tops)** | 蕾絲睡衣上身 | `lace sleepwear top, delicate floral lace panels, scalloped trim, soft relaxed drape, refined sleepwear detailing` | 以蕾絲拼接、花卉蕾絲面、波浪收邊與柔軟垂墜為主，保留睡衣式上身結構。 |
+| **上身 (Tops)** | 波西米亞風上衣 | `bohemian draped blouse, crinkled gauze or washed rayon, deep relaxed neckline, loose untucked hem, layered sleeves, folk-woven trim` | 以皺感薄紗或水洗 rayon、鬆垂領口、寬鬆外放衣襬、層次袖型與民俗織帶細節為主，保留波西米亞上衣的垂墜結構。 |
 | **上身圖案 (Top Surface Design)** | 全無 | `no added top pattern, clean solid-color surface styling` | 不額外加入上身表面圖案，保留單色與乾淨版型表現。 |
 | **上身圖案 (Top Surface Design)** | 粗橫條紋 | `bold horizontal stripe top, clearly defined stripe bands across the torso, strong Breton-style graphic rhythm` | 以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。 |
 | **上身圖案 (Top Surface Design)** | 細橫條紋 | `fine horizontal stripe top, narrow repeated stripe bands across the torso, delicate Breton-inspired surface rhythm` | 以細緻而連續的橫向條帶覆蓋整件上身，保留清楚的橫條紋識別，同時比粗條紋更日常、更輕盈。 |
@@ -116,25 +103,25 @@
 | **上身圖案 (Top Surface Design)** | 粗直條紋 | `bold vertical stripe top, wide repeated stripe columns from shoulder to hem, strong linear statement styling` | 以寬幅直條紋從肩線延伸到衣襬，方向更明確、存在感更強，整體更接近視覺鮮明的粗直條紋上衣。 |
 | **上身圖案 (Top Surface Design)** | 胸前龐克塗鴉印花 | `large punk graffiti chest graphic, single bold front print, rebellious hand-drawn artwork centered on the chest` | 以胸前大面積單張龐克塗鴉圖像為主，像樂團 T 或街頭圖像 Tee 的正面主視覺。 |
 | **上身圖案 (Top Surface Design)** | 胸前黑白龐克標語塗鴉 | `large black-and-white punk slogan chest graphic, rough marker strokes, chaotic handwritten symbols, zine-inspired front print` | 以黑白手寫標語、粗麥克筆痕與地下刊物感圖像作為胸前主視覺，龐克感更直接但配色不會過度混亂。 |
-| **上身圖案 (Top Surface Design)** | 胸前紅黑龐克海報塗鴉 | `large red-and-black punk band-poster chest graphic, distressed screenprint texture, torn flyer fragments, rebellious DIY music scene artwork` | 以紅黑樂團海報、撕裂傳單與復古網版印刷感做成胸前單張圖案，適合地下音樂與街頭龐克路線。 |
-| **上身圖案 (Top Surface Design)** | 胸前龐克貼紙拼貼塗鴉 | `large sticker-bomb punk chest graphic, layered sticker shapes, scratched icons, ransom-note fragments, messy street subculture front print` | 以貼紙炸彈、刮痕符號與剪貼字母組成胸前主圖，變化性高且更像真實街頭服飾印花。 |
+| **上身圖案 (Top Surface Design)** | 胸前紅黑龐克海報塗鴉 | `large red-and-black punk band-poster chest graphic, distressed screenprint texture, torn flyer fragments, rebellious DIY music scene artwork` | 以紅黑樂團海報、撕裂傳單與復古網版印刷感做成胸前單張圖案，主題明確且帶刷舊印花質地。 |
+| **上身圖案 (Top Surface Design)** | 胸前龐克貼紙拼貼塗鴉 | `large sticker-bomb punk chest graphic, layered sticker shapes, scratched icons, ransom-note fragments, messy street subculture front print` | 以貼紙炸彈、刮痕符號與剪貼字母組成胸前主圖，呈現零碎拼貼與街頭服飾印花感。 |
 | **上身圖案 (Top Surface Design)** | 胸前骷髏龐克塗鴉 | `large punk skull doodle chest graphic, safety-pin symbols, rough stars, jagged hand-drawn lettering, distressed rebellious artwork` | 以骷髏、別針、粗糙星形與鋸齒手寫字作為胸前主視覺，讓龐克符號更具體。 |
 | **上身圖案 (Top Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print, rebellious hand-drawn markings covering the entire garment, dense graphic streetwear surface` | 以整件上衣都被龐克塗鴉圖樣覆蓋的滿版印花為重點，整體更街頭也更張揚。 |
 | **上身圖案 (Top Surface Design)** | 滿版黑白龐克標語塗鴉 | `all-over black-and-white punk slogan graffiti print, rough handwritten text fragments, marker scratches, zine-like DIY surface pattern` | 以黑白標語碎片與手寫刮痕鋪滿整件上衣，適合想要高密度但不過度彩色的龐克圖案。 |
 | **上身圖案 (Top Surface Design)** | 滿版紅黑龐克海報塗鴉 | `all-over red-and-black punk flyer graffiti print, torn poster fragments, distressed ink texture, DIY underground music graphic surface` | 以撕裂海報、紅黑油墨與地下樂團傳單感覆蓋整件上衣，圖像語彙比一般塗鴉更有主題。 |
 | **上身圖案 (Top Surface Design)** | 滿版噴漆標籤龐克塗鴉 | `all-over spray-paint tag punk graffiti print, uneven aerosol edges, overlapping street tags, gritty urban wall-inspired garment surface` | 以噴漆標籤、霧化邊緣與重疊街頭 tag 做成滿版印花，更接近城市牆面塗鴉的質感。 |
-| **上身圖案 (Top Surface Design)** | 滿版龐克貼紙炸彈印花 | `all-over sticker-bomb punk print, layered sticker graphics, scratched warning icons, ransom-note letters, chaotic streetwear surface` | 以貼紙、警示符號與剪貼字母鋪滿上衣，隨機感強，也能讓每次抽到的視覺更有差異。 |
+| **上身圖案 (Top Surface Design)** | 滿版龐克貼紙炸彈印花 | `all-over sticker-bomb punk print, layered sticker graphics, scratched warning icons, ransom-note letters, chaotic streetwear surface` | 以貼紙、警示符號與剪貼字母鋪滿上衣，形成高密度、零碎且不規則的街頭印花。 |
 | **上身圖案 (Top Surface Design)** | 胸前卡通塗鴉印花 | `large cartoon doodle chest graphic, single playful illustrated front print, bold character artwork centered on the chest` | 以胸前大面積單張卡通塗鴉圖像為主，重點像插畫 Tee 或角色圖像 T 的正面主視覺。 |
 | **上身圖案 (Top Surface Design)** | 胸前可愛角色塗鴉印花 | `large cute cartoon character chest graphic, playful doodle face, rounded marker outlines, colorful sticker-like front print` | 以單一可愛角色臉、圓潤線條與貼紙感色塊作為胸前主圖，比泛用卡通塗鴉更明確。 |
 | **上身圖案 (Top Surface Design)** | 胸前怪奇小怪物塗鴉 | `large quirky cartoon monster chest graphic, silly creature doodle, uneven hand-drawn outline, playful colorful front artwork` | 以怪奇但可愛的小怪物塗鴉作為胸前圖像，增加幽默感與不規則手繪感。 |
-| **上身圖案 (Top Surface Design)** | 胸前漫畫泡泡塗鴉 | `large comic doodle chest graphic, bold speech bubble shape, tiny action marks, playful pop-art front print` | 以漫畫對話框、動作符號與 pop-art 感形成胸前主視覺，適合比較活潑的 casual 造型。 |
+| **上身圖案 (Top Surface Design)** | 胸前漫畫泡泡塗鴉 | `large comic doodle chest graphic, bold speech bubble shape, tiny action marks, playful pop-art front print` | 以漫畫對話框、動作符號與 pop-art 感形成胸前主視覺，圖形感集中且活潑。 |
 | **上身圖案 (Top Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print, playful illustrated motifs covering the entire garment, colorful graphic casual surface` | 以卡通塗鴉與插畫感圖樣鋪滿整件衣服，整體更活潑、年輕、視覺密度更高。 |
 | **上身圖案 (Top Surface Design)** | 滿版可愛角色塗鴉印花 | `all-over cute cartoon doodle print, tiny character faces, stars, hearts, speech bubbles, colorful hand-drawn casual surface` | 以小角色臉、星星、愛心與對話泡泡鋪滿整件上衣，讓滿版圖案更可愛且元素更多。 |
 | **上身圖案 (Top Surface Design)** | 滿版怪奇小怪物塗鴉 | `all-over quirky cartoon monster doodle print, silly creature icons, uneven outlines, playful sticker-like motifs, colorful youth graphic surface` | 以各種小怪物、歪斜線條與貼紙感符號做成滿版印花，讓卡通塗鴉更有怪趣味。 |
 | **上身圖案 (Top Surface Design)** | 滿版漫畫符號塗鴉 | `all-over comic doodle print, bold speech bubbles, action marks, tiny illustrated symbols, playful pop-art casual garment graphic` | 以漫畫泡泡、速度線、驚嘆符與小圖示鋪滿上衣，畫面更有漫畫節奏。 |
 | **上身圖案 (Top Surface Design)** | 滿版粉彩手帳塗鴉 | `all-over pastel cartoon doodle print, diary-like hand-drawn icons, soft marker colors, cute casual illustrated surface` | 以粉彩手帳風小圖示、柔和麥克筆色與手繪感圖案為主，卡通感更輕盈可愛。 |
-| **上身圖案 (Top Surface Design)** | 滿版卡通貼紙拼貼印花 | `all-over cartoon sticker collage print, layered cute doodle decals, mismatched icons, playful colorful street-casual graphic surface` | 以卡通貼紙、不同大小圖示與拼貼式排列覆蓋上衣，增加隨機感與街頭休閒感。 |
-| **上身圖案 (Top Surface Design)** | 胸前復古標語印花 | `large vintage slogan chest print, single centered typographic graphic, retro casual t-shirt styling` | 以胸前單張復古字樣或標語圖像為主，適合做比較日常、好生成的 graphic tee 路線。 |
+| **上身圖案 (Top Surface Design)** | 滿版卡通貼紙拼貼印花 | `all-over cartoon sticker collage print, layered cute doodle decals, mismatched icons, playful colorful street-casual graphic surface` | 以卡通貼紙、不同大小圖示與拼貼式排列覆蓋上衣，形成隨機但清楚的滿版貼紙表面。 |
+| **上身圖案 (Top Surface Design)** | 胸前復古標語印花 | `large vintage slogan chest print, single centered typographic graphic, retro casual t-shirt styling` | 以胸前單張復古字樣或標語圖像為主，形成清楚置中的 graphic tee 主視覺。 |
 | **連身 (Dresses)** | 全無 | `no dress` | 不套用連身服裝。 |
 | **連身 (Dresses)** | 短版｜無袖迷你洋裝 | `sleeveless mini dress, one-piece silhouette, clean shoulder line, compact short hem, main fabric color controlled by dress color selection` | 短版無袖迷你洋裝，輪廓簡潔，顏色由連身配色控制。 |
 | **連身 (Dresses)** | 短版｜細肩帶迷你洋裝 | `spaghetti-strap mini dress, one-piece silhouette, slim straps, fitted bodice, short hem, main fabric color controlled by dress color selection` | 短版細肩帶迷你洋裝，適合清爽或性感寫真，顏色由連身配色控制。 |
@@ -203,94 +190,101 @@
 | **下身圖案 (Bottom Surface Design)** | 全無 | `no added bottom pattern, clean solid-color lower-body styling` | 不額外加入下身圖案，保留褲裝或裙裝本身的材質與輪廓。 |
 | **下身圖案 (Bottom Surface Design)** | 粗橫條紋 | `bold horizontal stripe pattern across the lower garment, clearly defined stripe bands, graphic statement styling` | 以明顯橫向條帶覆蓋下身單品，整體更有視覺節奏與強烈圖案存在感。 |
 | **下身圖案 (Bottom Surface Design)** | 細直條紋 | `clear vertical stripe pattern running through the lower garment, narrow repeated stripe lines, elongated linear rhythm` | 以清楚直條紋延伸整件下身單品，能讓輪廓更俐落，也更接近真正條紋褲或條紋裙。 |
-| **下身圖案 (Bottom Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print across the lower garment, rebellious hand-drawn markings, dense graphic streetwear surface` | 以整件下身都覆蓋龐克塗鴉圖樣為主，整體更街頭、更張揚，也更偏次文化穿搭語言。 |
+| **下身圖案 (Bottom Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print across the lower garment, rebellious hand-drawn markings, dense graphic streetwear surface` | 以整件下身都覆蓋龐克塗鴉圖樣為主，形成高密度手繪標記與街頭印花表面。 |
 | **下身圖案 (Bottom Surface Design)** | 滿版黑白龐克標語塗鴉 | `all-over black-and-white punk slogan graffiti across the lower garment, rough handwritten text fragments, marker scratches, zine-like DIY pattern` | 以黑白手寫標語與刮痕鋪滿褲裝或裙裝，保留龐克密度但不讓色彩過度搶戲。 |
-| **下身圖案 (Bottom Surface Design)** | 滿版紅黑龐克海報塗鴉 | `all-over red-and-black punk flyer graffiti across the lower garment, torn poster fragments, distressed ink texture, DIY underground music pattern` | 以紅黑樂團傳單、撕裂海報與刷舊油墨質感覆蓋下身，適合更明確的地下音樂龐克語氣。 |
+| **下身圖案 (Bottom Surface Design)** | 滿版紅黑龐克海報塗鴉 | `all-over red-and-black punk flyer graffiti across the lower garment, torn poster fragments, distressed ink texture, DIY underground music pattern` | 以紅黑樂團傳單、撕裂海報與刷舊油墨質感覆蓋下身，主題明確且有海報拼貼感。 |
 | **下身圖案 (Bottom Surface Design)** | 滿版噴漆標籤龐克塗鴉 | `all-over spray-paint tag punk graffiti across the lower garment, uneven aerosol edges, overlapping street tags, gritty urban wall-inspired pattern` | 以噴漆 tag 與重疊街頭標記覆蓋下身，讓圖案更像街頭牆面轉印到服裝上。 |
-| **下身圖案 (Bottom Surface Design)** | 滿版龐克貼紙炸彈印花 | `all-over sticker-bomb punk print across the lower garment, layered sticker graphics, scratched warning icons, ransom-note letters, chaotic streetwear pattern` | 以貼紙炸彈、警示符號與剪貼字母覆蓋下身，圖案更零碎、更隨機，也更有街頭感。 |
+| **下身圖案 (Bottom Surface Design)** | 滿版龐克貼紙炸彈印花 | `all-over sticker-bomb punk print across the lower garment, layered sticker graphics, scratched warning icons, ransom-note letters, chaotic streetwear pattern` | 以貼紙炸彈、警示符號與剪貼字母覆蓋下身，形成零碎、重疊且高密度的印花表面。 |
 | **下身圖案 (Bottom Surface Design)** | 滿版骷髏龐克塗鴉 | `all-over punk skull doodle print across the lower garment, safety-pin symbols, rough stars, jagged hand-drawn lettering, distressed rebellious pattern` | 以骷髏、別針與粗糙手寫字鋪滿下身，增加龐克符號辨識度。 |
-| **下身圖案 (Bottom Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print across the lower garment, playful illustrated motifs, colorful youthful graphic surface` | 以卡通塗鴉圖樣覆蓋整件下身，整體更活潑輕鬆，也更像圖案褲或印花裙。 |
+| **下身圖案 (Bottom Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print across the lower garment, playful illustrated motifs, colorful youthful graphic surface` | 以卡通塗鴉圖樣覆蓋整件下身，形成明確的圖案褲或印花裙表面。 |
 | **下身圖案 (Bottom Surface Design)** | 滿版可愛角色塗鴉印花 | `all-over cute cartoon doodle print across the lower garment, tiny character faces, stars, hearts, speech bubbles, colorful hand-drawn pattern` | 以小角色臉、星星、愛心與泡泡圖案鋪滿下身，更像可愛插畫感圖案褲或印花裙。 |
 | **下身圖案 (Bottom Surface Design)** | 滿版怪奇小怪物塗鴉 | `all-over quirky cartoon monster doodle print across the lower garment, silly creature icons, uneven outlines, playful sticker-like motifs` | 以怪奇小怪物與歪斜手繪線條覆蓋下身，卡通感更有個性。 |
 | **下身圖案 (Bottom Surface Design)** | 滿版漫畫符號塗鴉 | `all-over comic doodle print across the lower garment, bold speech bubbles, action marks, tiny illustrated symbols, playful pop-art pattern` | 以漫畫泡泡、速度線與小圖示鋪滿下身，讓圖案更有漫畫節奏與視覺動態。 |
-| **下身圖案 (Bottom Surface Design)** | 滿版粉彩手帳塗鴉 | `all-over pastel cartoon doodle print across the lower garment, diary-like hand-drawn icons, soft marker colors, cute casual illustrated pattern` | 以粉彩手帳圖示與柔和色彩覆蓋下身，卡通塗鴉會比較輕盈、甜感也更強。 |
-| **下身圖案 (Bottom Surface Design)** | 滿版卡通貼紙拼貼印花 | `all-over cartoon sticker collage print across the lower garment, layered cute doodle decals, mismatched icons, playful colorful street-casual pattern` | 以卡通貼紙拼貼與不同大小的小圖示覆蓋下身，讓每次抽到的圖案更像隨機拼貼。 |
+| **下身圖案 (Bottom Surface Design)** | 滿版粉彩手帳塗鴉 | `all-over pastel cartoon doodle print across the lower garment, diary-like hand-drawn icons, soft marker colors, cute casual illustrated pattern` | 以粉彩手帳圖示與柔和色彩覆蓋下身，形成輕盈、柔和的手繪圖案表面。 |
+| **下身圖案 (Bottom Surface Design)** | 滿版卡通貼紙拼貼印花 | `all-over cartoon sticker collage print across the lower garment, layered cute doodle decals, mismatched icons, playful colorful street-casual pattern` | 以卡通貼紙拼貼與不同大小的小圖示覆蓋下身，形成隨機排列的滿版貼紙表面。 |
 | **襪類 (Legwear)** | 全無 | `no legwear, bare legs, clean leg styling` | 不加絲襪、膝上襪或其他襪類，讓腿部線條保持乾淨直接。 |
-| **襪類 (Legwear)** | 透膚絲襪 | `sheer pantyhose, delicate translucent legwear, smooth finish` | 高頻實用，能與短裙、短褲與高跟鞋自然搭配。 |
-| **襪類 (Legwear)** | 半透明絲襪 | `semi-sheer pantyhose, translucent legwear, sleek finish` | 比一般透膚絲襪更有存在感，適合夜景、成熟與偏時裝感造型。 |
-| **襪類 (Legwear)** | 蕾絲大腿絲襪 | `lace-top thigh-high stockings, sensual legwear, fitted silhouette` | 帶寫真與性感氛圍，適合內衣或飯店場景。 |
-| **襪類 (Legwear)** | 漁網絲襪 | `fishnet tights, open net texture, edgy styling` | 強化龐克、地下與夜晚街頭氣質。 |
-| **襪類 (Legwear)** | 膝上蕾絲吊帶襪 | `thigh-high sheer lace garter stockings, translucent stocking legs extending above the knee, floral lace top band, matching lace garter straps and satin ribbon garter details, delicate nylon hosiery texture, refined lingerie accessory styling` | 明確包含膝上絲襪本體、半透明尼龍絲襪質感、蕾絲襪口與吊帶結構，讓模型不只生成吊襪帶，也能完整表現絲襪本身的材質與長度。 |
-| **襪類 (Legwear)** | 柔和過膝絲襪 | `over-knee stockings, smooth fitted legwear, soft youthful styling` | 過膝絲襪帶有柔和甜感，適合 JK、Lolita 與寫真風格。 |
-| **襪類 (Legwear)** | 俐落過膝絲襪 | `over-knee stockings, fitted legwear, sleek dramatic styling` | 過膝絲襪輪廓更俐落、存在感更強，適合夜拍、時裝與制服變體。 |
-| **襪類 (Legwear)** | 羅紋短襪 | `ribbed ankle socks, casual everyday styling, soft cotton texture` | 偏日常、可愛、生活感強。 |
-| **襪類 (Legwear)** | 短襪 | `ankle socks, clean casual styling, youthful everyday accent` | 短襪偏日系日常與青春感，適合球鞋、樂福鞋與生活感穿搭。 |
-| **襪類 (Legwear)** | 長筒襪 | `knee-high socks, playful legwear accent, casual youthful styling` | 長筒襪具存在感，適合 Y2K、街頭與較活潑的社群感造型。 |
+| **襪類 (Legwear)** | 透膚絲襪 | `sheer pantyhose, translucent smooth hosiery` | 以薄透尼龍、平滑腿部表面與貼腿包覆為主，透明度低調。 |
+| **襪類 (Legwear)** | 半透明絲襪 | `semi-sheer pantyhose, stronger translucent hosiery finish` | 以更明顯的半透明尼龍質感與平滑包覆為主，襪面存在感比透膚絲襪更強。 |
+| **襪類 (Legwear)** | 蕾絲大腿絲襪 | `lace-top thigh-high stockings, fitted sheer hosiery` | 以大腿長度、貼腿絲襪本體與蕾絲襪口為主，保留上緣裝飾細節。 |
+| **襪類 (Legwear)** | 漁網絲襪 | `fishnet tights, open net hosiery texture` | 以清楚開孔網格、貼腿彈性結構與強烈表面紋理為主。 |
+| **襪類 (Legwear)** | 膝上蕾絲吊帶襪 | `thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery` | 以膝上絲襪本體、半透明尼龍、蕾絲襪口與可見吊帶結構為主，避免只生成吊襪帶。 |
+| **襪類 (Legwear)** | 柔和過膝絲襪 | `over-knee stockings, smooth fitted legwear` | 以過膝長度、平滑貼腿布面與柔和襪口線條為主。 |
+| **襪類 (Legwear)** | 俐落過膝絲襪 | `over-knee stockings, sleek fitted legwear` | 以過膝長度、俐落貼合輪廓與較清楚的襪口邊界為主。 |
+| **襪類 (Legwear)** | 羅紋短襪 | `ribbed ankle socks, soft cotton texture` | 以腳踝高度、棉質羅紋與柔軟襪口為主。 |
+| **襪類 (Legwear)** | 短襪 | `ankle socks, clean casual cotton legwear` | 以腳踝高度、乾淨棉質表面與簡潔襪口為主。 |
+| **襪類 (Legwear)** | 長筒襪 | `knee-high socks, clean youthful legwear` | 以膝下到膝高長度、平整襪面與清楚襪口線條為主。 |
 | **外套 (Outerwear)** | 全無 | `no outerwear, uncluttered silhouette` | 不加外套，保留上身與下身單品的主要輪廓。 |
-| **外套 (Outerwear)** | 西裝外套（不扣扣子） | `open oversized blazer, unbuttoned tailored jacket, slightly oversized structured layering` | 維持西裝輪廓但不扣上釦子；版型設定為略大一號，適合時裝、辦公室與飯店場景。 |
-| **外套 (Outerwear)** | 運動連帽外套 | `open oversized zip-up hoodie, unzipped sporty hooded jacket, slightly oversized casual athletic layering` | 偏日常與運動風，維持拉鍊打開的放鬆狀態；版型設定為略大一號，適合街頭與生活感畫面。 |
-| **外套 (Outerwear)** | 龐克皮衣 | `open oversized punk leather jacket, unzipped rebellious outerwear, slightly oversized edgy structured silhouette` | 皮革與強烈輪廓感明確，維持敞開狀態；版型設定為略大一號，適合龐克、地下與夜景風格。 |
-| **外套 (Outerwear)** | 賽博反光科技風衣 | `open oversized iridescent reflective techwear trench coat, unfastened waterproof shell, slightly oversized futuristic layering` | 在光線下折射不同色彩，未來感很強，維持敞開狀態；版型設定為略大一號。 |
-| **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `open oversized fluffy teddy bear fleece jacket, soft plush texture, slightly oversized cozy shape` | 視覺柔軟保暖，維持敞開狀態；版型設定為略大一號，適合冬季居家與街頭。 |
-| **外套 (Outerwear)** | 飛行夾克（敞開穿） | `open oversized bomber jacket, unzipped flight jacket, slightly oversized streetwear layering, casual volume` | 飛行夾克維持敞開不拉拉鍊的狀態；版型設定為略大一號，適合短版上衣、背心與街頭感下身。 |
-| **外套 (Outerwear)** | 短版皮外套（不扣） | `open slightly oversized cropped leather jacket, unfastened moto jacket, edgy layered silhouette, cool structured shape` | 短版皮外套維持不扣合；版型設定為略大一號，讓內層上身與腰線仍然清楚可見，適合夜景與時裝感畫面。 |
-| **外套 (Outerwear)** | 丹寧外套（敞開穿） | `open oversized denim jacket, unbuttoned casual layering, slightly oversized everyday silhouette, washed denim texture` | 丹寧外套以敞開穿為主；版型設定為略大一號，最適合生活感、街拍、牛仔單品與日常搭配。 |
-| **外套 (Outerwear)** | 連帽拉鍊外套（不拉拉鍊） | `open oversized zip hoodie, unzipped hooded jacket, slightly oversized sporty layering, relaxed off-duty mood` | 連帽拉鍊外套保持不拉拉鍊的放鬆狀態；版型設定為略大一號，適合運動型內搭、短版上衣與休閒街頭造型。 |
-| **外套 (Outerwear)** | 寬鬆西裝外套 | `oversized blazer, relaxed tailored jacket, softly structured roomy silhouette, effortless city layering` | 版型偏寬鬆、肩線較放大，適合都會、時裝與中性廓形搭配。 |
-| **外套 (Outerwear)** | 合身西裝外套 | `tailored fitted blazer, close-cut structured jacket, clean waist-defining silhouette, polished tailored layering` | 輪廓更俐落貼身，整體更正式也更適合精緻都會風穿搭。 |
-| **外套 (Outerwear)** | 短版合身西裝外套 | `cropped fitted blazer, short tailored jacket ending between the lower waist and upper hip, close-cut waist-defining silhouette, structured shoulders, slim long sleeves, sharp back seam lines, clean notched lapels, front two-button closure fully buttoned, polished suiting fabric, compact formal outerwear shape` | 緊身短版的西裝外套，重點是衣長落在腰下、臀上之間，收腰貼身剪裁、俐落肩線、長袖、背部省道線、前方雙扣且保持扣好狀態，適合正式與性感之間的精緻都會造型；不綁定內搭、下身或姿勢。 |
-| **外套 (Outerwear)** | 人造毛皮草外套 | `faux fur coat, plush textured outerwear, voluminous soft pile, statement cold-weather fashion layer` | 以人造毛皮的柔軟厚實質感與存在感為主，適合冬季、夜拍與強烈時裝感造型。 |
+| **外套 (Outerwear)** | 西裝外套（不扣扣子） | `blazer, tailored jacket structure, defined lapels, clean shoulder line, polished suiting fabric` | 以西裝翻領、清楚肩線、挺版西裝布與乾淨剪裁為主，是最基礎的外層西裝輪廓。 |
+| **外套 (Outerwear)** | 運動連帽外套 | `sport zip-up hoodie, athletic hooded jacket, ribbed cuffs and hem, casual performance knit structure` | 以運動感連帽、前拉鍊、羅紋袖口下擺與較俐落的機能針織結構為主。 |
+| **外套 (Outerwear)** | 龐克皮衣 | `punk leather jacket, moto-inspired leather outerwear, sharp lapels, zipper hardware, structured edgy silhouette` | 以皮革表面、騎士外套式翻領、拉鍊五金與硬挺短外層輪廓為主。 |
+| **外套 (Outerwear)** | 賽博反光科技風衣 | `iridescent reflective techwear trench coat, waterproof shell texture, futuristic long outerwear structure` | 以虹彩反光、防水機能布、長版風衣結構與俐落科技感材質為主。 |
+| **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `fluffy teddy fleece jacket, plush pile texture, rounded cozy outerwear structure` | 以蓬鬆毛絨、柔軟刷毛表面與圓潤保暖外套份量為主。 |
+| **外套 (Outerwear)** | 飛行夾克（敞開穿） | `bomber jacket, flight jacket structure, ribbed collar cuffs and hem, rounded casual outerwear volume` | 以飛行夾克結構、羅紋領口袖口下擺與圓潤短外套份量為主。 |
+| **外套 (Outerwear)** | 短版皮外套（不扣） | `cropped leather moto jacket, short hem, leather panels, zipper hardware, structured cropped outerwear shape` | 以短版衣長、皮革拼片、拉鍊五金與騎士外套結構為主，外層比例更短更俐落。 |
+| **外套 (Outerwear)** | 丹寧外套（敞開穿） | `denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear` | 以水洗丹寧、胸前口袋、金屬扣與牛仔外套的硬挺日常結構為主。 |
+| **外套 (Outerwear)** | 連帽拉鍊外套（不拉拉鍊） | `soft zip hoodie, hooded sweatshirt jacket, front zipper, relaxed knit body, ribbed cuffs and hem` | 以柔軟連帽外套、前拉鍊、衛衣針織布與放鬆衣身為主，語氣比運動連帽外套更休閒。 |
+| **外套 (Outerwear)** | 寬鬆西裝外套 | `oversized blazer, roomy tailored jacket, broad shoulder line, softened suiting structure` | 以寬版西裝輪廓、放大肩線、較寬衣身與柔化西裝結構為主。 |
+| **外套 (Outerwear)** | 合身西裝外套 | `tailored fitted blazer, close-cut jacket structure, defined waist shaping, polished suiting fabric` | 以合身西裝剪裁、收腰線條、俐落肩線與挺版西裝布為主。 |
+| **外套 (Outerwear)** | 短版合身西裝外套 | `cropped fitted blazer, short tailored jacket, waist-defining cut, structured shoulders, slim sleeves, clean notched lapels, buttoned front, polished suiting fabric` | 以短版西裝衣長、收腰剪裁、俐落肩線、窄袖、翻領與前方扣合狀態為主，不綁定內搭、下身或姿勢。 |
+| **外套 (Outerwear)** | 人造毛皮草外套 | `faux fur coat, plush textured outerwear, voluminous soft pile, cold-weather fashion layer` | 以人造毛皮的厚實絨面、蓬鬆外層份量與柔軟大面積材質為主。 |
 | **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
 | **外套穿法 (Outerwear Styling)** | 正常穿著 | `properly worn on both shoulders as a standard outer layer over the top, shoulder line fully covered` | 外套正常穿在雙肩上，作為完整覆蓋上衣肩線的外層，不帶滑肩或露肩效果。 |
 | **外套穿法 (Outerwear Styling)** | 滑落肩部 | `slipped off the shoulder line` | 外套刻意滑落肩線，可呈現單邊或雙邊滑落的放鬆時裝感。 |
 | **外套圖案 (Outerwear Surface Design)** | 全無 | `no added outerwear pattern, clean solid-color outer layer styling` | 不額外加入外套圖案，保留外套本身的輪廓、材質與層次。 |
 | **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripe outerwear, clearly defined stripe bands across the jacket, strong graphic layering` | 以明顯橫向條帶覆蓋外套，讓外層單品更有經典條紋與圖形感。 |
-| **外套圖案 (Outerwear Surface Design)** | 細直條紋 | `clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket` | 以俐落直條紋覆蓋外套表面，適合西裝外套、風衣或更結構化的外層單品。 |
+| **外套圖案 (Outerwear Surface Design)** | 細直條紋 | `clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket` | 以俐落直條紋覆蓋外套表面，形成結構化外層單品的線性節奏。 |
 | **外套圖案 (Outerwear Surface Design)** | 胸前龐克塗鴉印花 | `large punk graffiti graphic on the front of the outerwear, bold statement artwork, rebellious streetwear focal point` | 以外套正面的大面積龐克塗鴉圖像為主，讓外層成為穿搭的主要視覺焦點。 |
 | **外套圖案 (Outerwear Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print across the outerwear, rebellious hand-drawn markings, dense graphic streetwear shell` | 以整件外套都覆蓋龐克塗鴉圖樣為重點，整體更街頭、更具次文化感。 |
 | **外套圖案 (Outerwear Surface Design)** | 胸前卡通塗鴉印花 | `large cartoon doodle graphic on the front of the outerwear, playful illustrated focal artwork, bold casual layering` | 以外套正面的大面積卡通塗鴉圖像為主，整體更年輕、活潑，也更有 casual layering 感。 |
 | **外套圖案 (Outerwear Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print across the outerwear, playful illustrated motifs, colorful youthful outer layer surface` | 以卡通塗鴉與插畫感圖樣覆蓋整件外套，整體更活潑且圖案存在感更高。 |
-| **外套圖案 (Outerwear Surface Design)** | 胸前復古標語印花 | `large vintage slogan graphic on the front of the outerwear, centered typographic statement, retro casual streetwear styling` | 以外套正面的大型復古標語或字樣圖像為主，適合做比較好生成的 casual graphic outerwear 路線。 |
-| **鞋款 (Shoes)** | 全無 | `no explicit shoe styling, footwear unspecified` | 不特別指定鞋款，主要保留給需要降低鞋部干擾、讓 Grok 更穩定控制人物比例的情境。 |
-| **鞋款 (Shoes)** | 赤腳 | `bare feet, visible toes, relaxed barefoot styling, intimate at-home mood` | 明確要求不穿鞋並露出腳趾，適合居家、床景、地板坐姿與更放鬆的生活感畫面。 |
-| **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday finish, versatile casual style` | 最穩定的日常鞋款，適合街拍與生活感畫面。 |
-| **鞋款 (Shoes)** | ADIZERO EVO SL JS4506 | `adidas adizero evo sl js4506 running shoes, low-top speed-runner silhouette, lightweight modern performance sneaker, sleek athletic outsole` | 偏輕量速度型跑鞋輪廓，整體俐落、現代、運動感強，適合街拍、機能與日常運動風。 |
-| **鞋款 (Shoes)** | Samba OG | `adidas samba og sneakers, low-top classic terrace shoe silhouette, slim leather upper, gum sole retro football styling` | 經典薄底復古球鞋，帶足球訓練鞋與 terrace style 氣質，適合日常、街拍與復古休閒搭配。 |
-| **鞋款 (Shoes)** | Dr. Martens 1461 Bex | `dr martens 1461 bex shoes, three-eye leather lace-up shoe silhouette, chunky bex platform sole, polished oxford-style upper, rugged school-inspired edge` | 低筒三孔皮鞋搭配 Bex 厚底，介於學院、街頭與中性龐克之間，適合短裙、襪類與日常造型。 |
-| **鞋款 (Shoes)** | Dr. Martens 1461 Lace Up Shoes | `dr martens 1461 lace up shoes, classic three-eye smooth leather shoes, low-cut oxford silhouette, sturdy welt stitching, clean vintage workwear edge` | 經典三孔皮鞋版本，比 Bex 更低調，適合文青、學院、極簡與復古日常穿搭。 |
-| **鞋款 (Shoes)** | Dr. Martens 1460 Round Toe Lace-Up Boots | `dr martens 1460 round toe lace-up boots, classic eight-eye leather ankle boots, rounded toe, yellow welt stitching, sturdy combat boot silhouette` | 經典 8 孔短靴輪廓，保留馬丁靴代表性的圓頭、縫線與街頭龐克感。 |
-| **鞋款 (Shoes)** | Dr. Martens Jadon Max Platform Boots | `dr martens jadon max platform boots, chunky leather platform combat boots, extra-thick sole, eight-eye lace-up silhouette, bold heavy punk presence` | 厚底份量最強，適合 Y2K、龐克、地下、暗黑與高存在感造型。 |
-| **鞋款 (Shoes)** | Dr. Martens 1B99 Mid Calf Lace-Up Boots | `dr martens 1b99 mid calf lace-up boots, tall leather lace-up boots, slim mid-calf shaft, rounded toe, structured gothic punk silhouette` | 中長筒綁帶靴，比例比短靴更修長，適合蘿莉塔、龐克、哥德與制服混搭。 |
-| **鞋款 (Shoes)** | 慢跑鞋 | `running shoes, lightweight athletic silhouette, casual movement-ready styling` | 更偏生活與運動機能感，適合日常與街拍。 |
-| **鞋款 (Shoes)** | Nike P-6000 | `nike p-6000 running shoes, layered mesh running sneaker, low-top retro runner silhouette, sporty early-2000s performance styling` | 帶 Y2K 跑鞋層次與復古運動感，鞋面線條複雜，適合街拍、科技運動風與日常造型。 |
-| **鞋款 (Shoes)** | Onitsuka Tiger Mexico 66 | `onitsuka tiger mexico 66 sneakers, low-profile retro runner silhouette, slim classic upper, vintage track-shoe styling` | 經典薄底復古跑鞋輪廓，線條輕巧俐落，適合日系休閒、城市日常與復古運動穿搭。 |
-| **鞋款 (Shoes)** | 瑪莉珍鞋 | `mary jane shoes, classic strap silhouette, feminine school-inspired styling` | 經典扣帶鞋型，適合制服、百褶裙、甜感與輕學院風搭配。 |
-| **鞋款 (Shoes)** | 厚底瑪莉珍鞋 | `platform mary jane shoes, chunky feminine silhouette, youthful doll-like styling` | 在瑪莉珍基礎上加入厚底感，甜感更強，也更適合 Y2K 與制服變體。 |
-| **鞋款 (Shoes)** | 樂福鞋 | `classic loafers, polished leather, understated elegance` | 都市、學院、極簡與法式風格都能搭。 |
-| **鞋款 (Shoes)** | 厚底樂福鞋 | `platform loafers, chunky sole, polished leather finish, modern school-inspired styling` | 保留樂福鞋的學院感，但更有份量與時裝感，適合制服、短裙與街頭學院混搭。 |
-| **鞋款 (Shoes)** | 芭蕾平底鞋 | `ballet flats, delicate feminine flat shoes, soft elegant silhouette` | 比高跟更輕盈柔和，適合法式、少女感、精緻日常與輕熟穿搭。 |
-| **鞋款 (Shoes)** | 高跟鞋 | `black glossy pointed-toe stiletto pumps, sleek sharp silhouette, slender high heel, elongated leg line` | 以黑色亮面尖頭細跟高跟鞋為主，線條俐落、成熟性感，適合寫真、時裝、飯店與精品感場景。 |
-| **鞋款 (Shoes)** | 經典淺口高跟鞋 | `classic pumps, clean pointed or almond toe silhouette, polished feminine heel shape` | 成熟穩定的都會女性鞋款，適合西裝、襯衫、窄裙與通勤風格。 |
-| **鞋款 (Shoes)** | 尖頭細跟高跟鞋 | `pointed-toe stiletto heels, sleek feminine silhouette, sharp elegant leg line` | 更強調成熟、性感與時裝感，適合飯店、夜拍與精品風格。 |
-| **鞋款 (Shoes)** | 貓跟高跟鞋 | `kitten heels, low delicate heel, refined feminine silhouette, understated elegance` | 跟高較低但氣質成熟，適合通勤、法式、文藝與日常精品感穿搭。 |
-| **鞋款 (Shoes)** | 細帶高跟涼鞋 | `strappy heeled sandals, delicate straps, elegant leg line` | 適合飯店、晚間時裝與成熟優雅風格。 |
-| **鞋款 (Shoes)** | 綁帶高跟涼鞋 | `lace-up heeled sandals, wraparound ankle straps, elegant sensual heel styling` | 綁帶細節讓腿部線條更有存在感，適合夜拍、度假、飯店與性感造型。 |
-| **鞋款 (Shoes)** | 防水台高跟鞋 | `platform high heels, elevated sole, bold feminine silhouette, nightlife glamour styling` | 防水台讓整體氣勢更強，適合夜生活、派對、性感與強存在感畫面。 |
-| **鞋款 (Shoes)** | 合身過膝長靴 | `fitted over-the-knee boots, sleek leg-hugging silhouette, confident feminine styling` | 緊貼腿部的過膝長靴比一般長靴更有女人味，適合秋冬、夜拍與成熟時裝。 |
-| **鞋款 (Shoes)** | 尖頭短靴 | `pointed ankle boots, sleek leather finish, sharp silhouette` | 帶有都會感與俐落感，適合秋冬與夜景。 |
-| **鞋款 (Shoes)** | 漆皮過膝長靴 | `patent leather thigh-high boots, sleek fetish-inspired silhouette` | 緊貼腿部線條，適合夜景、飯店與 fetish。 |
+| **外套圖案 (Outerwear Surface Design)** | 胸前復古標語印花 | `large vintage slogan graphic on the front of the outerwear, centered typographic statement, retro casual streetwear styling` | 以外套正面的大型復古標語或字樣圖像為主，形成置中的 graphic outerwear 主視覺。 |
+| **鞋款 (Shoes)** | 全無 | `no explicit shoe styling, footwear unspecified` | 不特別指定鞋款，讓畫面避免額外鞋部細節。 |
+| **鞋款 (Shoes)** | 赤腳 | `bare feet, visible toes, relaxed barefoot styling` | 明確要求不穿鞋並露出腳趾，保留自然腳部狀態。 |
+| **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday casual shoe shape` | 以低筒鞋口、簡潔鞋面與日常球鞋輪廓為主。 |
+| **鞋款 (Shoes)** | ADIZERO EVO SL JS4506 | `adidas adizero evo sl js4506 running shoes, sleek speed-runner shape, contrast three-stripe side mark, lightweight athletic outsole` | 以速度型跑鞋輪廓、俐落鞋身、側邊三線標記與輕量運動鞋底為主。 |
+| **鞋款 (Shoes)** | Samba OG | `adidas samba og sneakers, gum sole, three-stripe side detail, terrace football styling` | 以薄底復古球鞋、膠底、側邊三線與足球訓練鞋輪廓為主。 |
+| **鞋款 (Shoes)** | Dr. Martens 1461 Bex | `dr martens 1461 bex shoes, three-eye lace-up front, chunky bex platform sole, yellow welt stitching` | 以三孔綁帶、Bex 厚底、黃線縫邊與低筒皮鞋輪廓為主。 |
+| **鞋款 (Shoes)** | Dr. Martens 1461 Lace Up Shoes | `dr martens 1461 lace up shoes, three-eye lace-up front, yellow welt stitching, classic smooth leather oxford shape` | 以三孔綁帶、黃線縫邊與經典低筒 smooth leather Oxford 鞋型為主。 |
+| **鞋款 (Shoes)** | Dr. Martens 1460 Round Toe Lace-Up Boots | `dr martens 1460 round toe lace-up boots, eight-eye ankle boot shape, yellow welt stitching, heel pull-tab accent` | 以八孔短靴、圓頭鞋楦、黃線縫邊與後跟拉環為主。 |
+| **鞋款 (Shoes)** | Dr. Martens Jadon Max Platform Boots | `dr martens jadon max platform boots, extra-thick platform sole, eight-eye lace-up front, yellow welt stitching` | 以超厚防水台鞋底、八孔綁帶與厚重短靴輪廓為主。 |
+| **鞋款 (Shoes)** | Dr. Martens 1B99 Mid Calf Lace-Up Boots | `dr martens 1b99 mid calf lace-up boots, tall slim lace-up shaft, yellow welt stitching, gothic punk boot shape` | 以中筒高度、修長綁帶筒身、黃線縫邊與窄長靴型為主。 |
+| **鞋款 (Shoes)** | 慢跑鞋 | `running shoes, lightweight athletic shoe shape` | 以輕量運動鞋身、彈性鞋底與基礎跑鞋輪廓為主。 |
+| **鞋款 (Shoes)** | Nike P-6000 | `nike p-6000 running shoes, layered mesh panels, metallic-like overlay accents, early-2000s runner styling` | 以多層網布鞋面、金屬感覆片、厚實跑鞋底與復古跑鞋線條為主。 |
+| **鞋款 (Shoes)** | Onitsuka Tiger Mexico 66 | `onitsuka tiger mexico 66 sneakers, low-profile slim upper, signature side stripe accents, vintage track-shoe styling` | 以低扁鞋身、修長鞋面、側邊條紋與復古田徑鞋輪廓為主。 |
+| **鞋款 (Shoes)** | 瑪莉珍鞋 | `mary jane shoes, classic instep strap, rounded feminine shoe shape` | 以腳背扣帶、圓潤鞋頭與經典 Mary Jane 鞋型為主。 |
+| **鞋款 (Shoes)** | 厚底瑪莉珍鞋 | `platform mary jane shoes, chunky sole, classic instep strap` | 以 Mary Jane 扣帶結構、厚底鞋底與較重的鞋型份量為主。 |
+| **鞋款 (Shoes)** | 樂福鞋 | `classic loafers, polished leather slip-on shape` | 以無鞋帶套入式鞋口、拋光皮革與簡潔樂福鞋輪廓為主。 |
+| **鞋款 (Shoes)** | 厚底樂福鞋 | `platform loafers, chunky sole, polished leather slip-on shape` | 以樂福鞋套入式結構、厚底鞋底與拋光皮革表面為主。 |
+| **鞋款 (Shoes)** | 芭蕾平底鞋 | `ballet flats, delicate flat shoe shape, soft rounded vamp` | 以低平鞋底、柔和鞋面開口與圓潤前襟為主。 |
+| **鞋款 (Shoes)** | 高跟鞋 | `glossy pointed-toe stiletto pumps, slender high heel, sleek sharp silhouette` | 以亮面材質、尖頭鞋楦、細跟與俐落淺口高跟輪廓為主；主色由鞋款配色控制。 |
+| **鞋款 (Shoes)** | 經典淺口高跟鞋 | `classic pumps, shallow-cut upper, clean pointed or almond toe, polished heel shape` | 以淺口鞋面、尖頭或杏仁頭鞋楦與乾淨高跟鞋型為主。 |
+| **鞋款 (Shoes)** | 尖頭細跟高跟鞋 | `pointed-toe stiletto heels, slender high heel, sharp feminine shoe shape` | 以尖頭鞋楦、細長高跟與銳利修長的高跟鞋輪廓為主。 |
+| **鞋款 (Shoes)** | 貓跟高跟鞋 | `kitten heels, low delicate heel, refined feminine shoe shape` | 以低細跟、輕巧鞋身與精緻女性化鞋型為主。 |
+| **鞋款 (Shoes)** | 細帶高跟涼鞋 | `strappy heeled sandals, delicate narrow straps, slim heel` | 以細窄鞋帶、露趾涼鞋結構與纖細高跟為主。 |
+| **鞋款 (Shoes)** | 綁帶高跟涼鞋 | `lace-up heeled sandals, wraparound ankle straps, slim heel` | 以繞踝綁帶、細高跟與露趾涼鞋結構為主。 |
+| **鞋款 (Shoes)** | 防水台高跟鞋 | `platform high heels, elevated front sole, bold high-heel shape` | 以加高前掌防水台、厚實鞋底與高跟鞋輪廓為主。 |
+| **鞋款 (Shoes)** | 合身過膝長靴 | `fitted over-the-knee boots, sleek leg-hugging shaft` | 以過膝高度、貼腿靴筒與順直長靴線條為主。 |
+| **鞋款 (Shoes)** | 尖頭短靴 | `pointed ankle boots, sharp toe, sleek ankle-height shape` | 以尖頭鞋楦、踝高靴筒與俐落短靴輪廓為主。 |
+| **鞋款 (Shoes)** | 漆皮過膝長靴 | `patent leather thigh-high boots, glossy leg-hugging shaft` | 以亮面漆皮、過膝到大腿高度與貼腿靴筒為主。 |
 | **頭部配件 (Head Accessories)** | 全無 | `no head accessories, clean head styling` | 不加頭部配件，讓髮型與頭部輪廓維持乾淨俐落。 |
-| **頭部配件 (Head Accessories)** | 耳罩式耳機（戴在頭上） | `black Marshall Major V on-ear headphones worn on the head, compact black earcups, slim structured headband, iconic rock-inspired audio accessory styling` | 以黑色 Marshall Major V 這種偏緊湊、經典搖滾感的耳罩式耳機為主，重點是黑色機身、小巧耳罩與清楚的頭帶輪廓，適合音樂感、街頭與酷感日常造型。 |
-| **頭部配件 (Head Accessories)** | 耳罩式耳機（掛在脖子上） | `silver AirPods Max resting around the neck, smooth metallic silver earcups, premium cushioned over-ear headphones visible at the collar area, polished modern tech accessory styling` | 以銀色 AirPods Max 掛在脖子上的穿戴方式為主，重點是光滑銀色耳罩、較高級的科技感質地與領口附近清楚可見的耳機存在感。 |
-| **頭部配件 (Head Accessories)** | 有線耳機 | `wired earphones with visible cable, lightweight in-ear audio accessory, casual everyday listening detail` | 以有線耳機與可見線材為主，適合日常隨拍、通勤、生活感與輕音樂陪伴的造型氛圍。 |
+| **頭部配件 (Head Accessories)** | 耳罩式耳機（戴在頭上） | `black Marshall Major V on-ear headphones worn on the head, compact black earcups, slim structured headband` | 以黑色 Marshall Major V 耳罩式耳機為主，清楚呈現小巧黑色耳罩、細窄頭帶與頭戴位置。 |
+| **頭部配件 (Head Accessories)** | 耳罩式耳機（掛在脖子上） | `black Marshall Major V on-ear headphones resting around the neck, compact black earcups, slim structured headband visible at the collar` | 以同款黑色 Marshall Major V 掛在脖子上為主，耳罩落在領口附近，頭帶自然跨過後頸。 |
+| **頭部配件 (Head Accessories)** | 有線耳機 | `wired earphones with visible cable, lightweight in-ear audio accessory` | 以入耳式耳機、細線材與可見垂落線條為主。 |
 | **眼鏡 (Eyewear)** | 全無 | `no eyewear, clean face styling` | 不加眼鏡，讓臉部與五官維持乾淨俐落。 |
-| **眼鏡 (Eyewear)** | 黑框眼鏡 | `black-rimmed glasses, bold eyewear frame, intellectual styling accent` | 黑色鏡框辨識度高，能明顯改變角色氣質，適合文青、學生感、冷感與時裝造型。 |
-| **眼鏡 (Eyewear)** | 白色鏡框眼鏡 | `white-framed glasses, crisp bright eyewear frame, clean graphic face accent` | 白色鏡框更醒目，也更有造型感，適合棚拍、Y2K、日系時裝與高對比穿搭。 |
-| **眼鏡 (Eyewear)** | 玳瑁色鏡框眼鏡 | `tortoiseshell glasses, warm brown mottled frame, refined vintage intellectual styling` | 帶琥珀棕與深色斑紋的玳瑁框更有復古書卷氣，適合文藝、法式與日常精緻穿搭。 |
-| **眼鏡 (Eyewear)** | 細框眼鏡 | `thin-rimmed glasses, delicate eyewear frame, refined intellectual accent` | 比黑框更輕巧、存在感更低，適合文青、知性與乾淨生活感造型。 |
-| **眼鏡 (Eyewear)** | 復古圓框眼鏡 | `retro round glasses, circular frame silhouette, vintage intellectual face styling` | 圓形鏡框辨識度高，整體更偏復古、文藝與帶角色感的造型方向。 |
-| **眼鏡 (Eyewear)** | 太陽眼鏡 | `sunglasses, tinted lenses, stylish eyewear accent, fashion attitude` | 直接帶出街拍、都會或度假感，也能讓角色更有明星與時裝氣場。 |
-| **眼鏡 (Eyewear)** | 眼鏡戴在頭頂 | `glasses resting on top of the head, eyewear pushed up into the hair above the forehead, thin frame visible as a casual styling accent, eyes unobstructed, relaxed off-face eyewear placement` | 參考將眼鏡推到頭頂、卡在髮絲上方的佩戴方式，臉部與眼睛保持清楚可見，同時保留自然隨性的造型感。 |
+| **眼鏡 (Eyewear)** | 粗框眼鏡 | `bold thick-frame glasses` | 以較厚、辨識度高的鏡框本體為主。 |
+| **眼鏡 (Eyewear)** | 細框眼鏡 | `thin-frame glasses` | 以細窄輕量鏡框本體為主。 |
+| **眼鏡 (Eyewear)** | 復古圓框眼鏡 | `retro round-frame glasses` | 以圓形鏡框與復古比例為主。 |
+| **眼鏡 (Eyewear)** | 窄版橢圓眼鏡 | `narrow oval glasses` | 以窄版橢圓鏡框與細長橫向比例為主。 |
+| **眼鏡 (Eyewear)** | 太陽眼鏡 | `sunglasses with tinted lenses` | 以深色或染色鏡片與太陽眼鏡本體為主。 |
+| **眼鏡配色 (Eyewear Color)** | 全無 | `no specified eyewear frame color` | 不指定眼鏡顏色或材質，保留眼鏡本體輪廓。 |
+| **眼鏡配色 (Eyewear Color)** | 黑色 | `black frame` | 以黑色鏡框表面為主。 |
+| **眼鏡配色 (Eyewear Color)** | 白色 | `white frame` | 以白色鏡框表面為主。 |
+| **眼鏡配色 (Eyewear Color)** | 玳瑁色 | `tortoiseshell frame` | 以琥珀棕與深色斑紋交錯的玳瑁鏡框為主。 |
+| **眼鏡配色 (Eyewear Color)** | 金屬銀 | `silver metal frame` | 以銀色金屬鏡框材質為主。 |
+| **眼鏡配色 (Eyewear Color)** | 金屬金 | `gold metal frame` | 以金色金屬鏡框材質為主。 |
+| **眼鏡配色 (Eyewear Color)** | 透明框 | `clear transparent frame` | 以透明或半透明膠框材質為主。 |
+| **眼鏡配戴方式 (Eyewear Placement)** | 正常戴在臉上 | `worn normally on the face, lenses aligned over the eyes` | 眼鏡正常戴在臉上，鏡片對齊雙眼。 |
+| **眼鏡配戴方式 (Eyewear Placement)** | 戴在頭頂 | `resting on top of the head, pushed into the hair, eyes unobstructed` | 眼鏡推到頭頂並卡在髮絲上方，臉部與眼睛保持清楚可見。 |
 | **耳環 (Earrings)** | 全無 | `no earrings, clean ear styling` | 不加耳環，讓耳側與臉部輪廓保持乾淨。 |
 | **耳環 (Earrings)** | 小型金屬耳環 | `small metallic earring detail, subtle understated jewelry styling` | 最穩定的點綴型耳環，存在感更低，適合大多數風格。 |
 | **耳環 (Earrings)** | 珍珠耳釘 | `small pearl stud earring detail, soft understated pearl accent` | 以小巧珍珠與柔亮珠光為主，精緻典雅，但刻意降低搶戲程度。 |

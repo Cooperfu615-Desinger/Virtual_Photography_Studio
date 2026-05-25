@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { Copy } from 'lucide-react';
 import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
@@ -127,6 +127,13 @@ const OUTFIT_PRESET_B_COVERED_KEYS = new Set([
   'bottomBColorId',
   'bottomBPatternId',
 ]);
+
+const WARDROBE_GARMENT_CONTROL_DIVIDERS = {
+  topId: '上身單品',
+  topAId: '上身單品',
+  pantsId: '下身單品',
+  pantsAId: '下身單品',
+};
 
 const WORKSPACE_SECTIONS = [
   { id: 'character', label: 'A 人物設定', summaryKey: 'characterDna', metaKey: 'expressionPose' },
@@ -292,14 +299,20 @@ const SECTION_SUBPANELS = {
       keys: [
         'headAccessoryId',
         'eyewearId',
+        'eyewearColorId',
+        'eyewearPlacementId',
         'earringsId',
         'neckAccessoryId',
         'headAccessoryAId',
         'eyewearAId',
+        'eyewearAColorId',
+        'eyewearAPlacementId',
         'earringsAId',
         'neckAccessoryAId',
         'headAccessoryBId',
         'eyewearBId',
+        'eyewearBColorId',
+        'eyewearBPlacementId',
         'earringsBId',
         'neckAccessoryBId',
         'wristAccessoryId',
@@ -421,12 +434,16 @@ function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'shoesAId', locks.shoesAId),
     getControlOptionLabel(controls, 'headAccessoryAId', locks.headAccessoryAId),
     getControlOptionLabel(controls, 'eyewearAId', locks.eyewearAId),
+    getControlOptionLabel(controls, 'eyewearAColorId', locks.eyewearAColorId),
+    getControlOptionLabel(controls, 'eyewearAPlacementId', locks.eyewearAPlacementId),
     getControlOptionLabel(controls, 'earringsAId', locks.earringsAId),
     getControlOptionLabel(controls, 'neckAccessoryAId', locks.neckAccessoryAId),
     getControlOptionLabel(controls, 'legwearBId', locks.legwearBId),
     getControlOptionLabel(controls, 'shoesBId', locks.shoesBId),
     getControlOptionLabel(controls, 'headAccessoryBId', locks.headAccessoryBId),
     getControlOptionLabel(controls, 'eyewearBId', locks.eyewearBId),
+    getControlOptionLabel(controls, 'eyewearBColorId', locks.eyewearBColorId),
+    getControlOptionLabel(controls, 'eyewearBPlacementId', locks.eyewearBPlacementId),
     getControlOptionLabel(controls, 'earringsBId', locks.earringsBId),
     getControlOptionLabel(controls, 'neckAccessoryBId', locks.neckAccessoryBId),
   ]);
@@ -580,8 +597,14 @@ function buildWardrobeLayerInsights(locks, controls, isSpecialOutfitActive, isAn
     selected('headAccessoryAId'),
     selected('headAccessoryBId'),
     selected('eyewearId'),
+    selected('eyewearColorId'),
+    selected('eyewearPlacementId'),
     selected('eyewearAId'),
+    selected('eyewearAColorId'),
+    selected('eyewearAPlacementId'),
     selected('eyewearBId'),
+    selected('eyewearBColorId'),
+    selected('eyewearBPlacementId'),
     selected('earringsId'),
     selected('earringsAId'),
     selected('earringsBId'),
@@ -925,23 +948,20 @@ export default function Page1Workspace({
     <div className="lock-grid detail-lock-grid">
       {controls.map((control) => {
         const disabled = isControlDisabled(control);
-        if (activeSection === 'wardrobe' && WARDROBE_PICKER_KEYS.has(control.key)) {
-          return (
-            <WardrobePickerField
-              key={control.key}
-              control={control}
-              value={locks[control.key]}
-              disabled={disabled}
-              onOpen={() => openWardrobePicker(control)}
-              onChange={(value) => applyControlValue(control, value)}
-              onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
-            />
-          );
-        }
-
-        return (
+        const dividerLabel = activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
+          ? WARDROBE_GARMENT_CONTROL_DIVIDERS[control.key]
+          : '';
+        const field = activeSection === 'wardrobe' && WARDROBE_PICKER_KEYS.has(control.key) ? (
+          <WardrobePickerField
+            control={control}
+            value={locks[control.key]}
+            disabled={disabled}
+            onOpen={() => openWardrobePicker(control)}
+            onChange={(value) => applyControlValue(control, value)}
+            onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
+          />
+        ) : (
           <SelectControlField
-            key={control.key}
             control={control}
             value={locks[control.key]}
             disabled={disabled}
@@ -949,6 +969,19 @@ export default function Page1Workspace({
             onCopy={(text) => handleCopyText(`${control.label} copied`, text)}
           />
         );
+
+        if (dividerLabel) {
+          return (
+            <Fragment key={control.key}>
+              <div className="control-grid-divider">
+                <span>{dividerLabel}</span>
+              </div>
+              {field}
+            </Fragment>
+          );
+        }
+
+        return <Fragment key={control.key}>{field}</Fragment>;
       })}
     </div>
   );
