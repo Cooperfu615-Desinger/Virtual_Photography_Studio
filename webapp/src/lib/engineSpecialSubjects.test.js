@@ -80,7 +80,7 @@ test('female android reads as a near-human android and keeps hair controls', () 
   const controls = getLockControls();
   const hairstyleId = controls
     .find((control) => control.key === 'hairstyleId')
-    .options.find((option) => option.zh === '長髮（放髮）｜中分長直髮').id;
+    .options.find((option) => option.zh === '直髮：中分').id;
   const hairColorId = controls
     .find((control) => control.key === 'hairColorId')
     .options.find((option) => option.zh === '自然黑').id;
@@ -98,7 +98,7 @@ test('female android reads as a near-human android and keeps hair controls', () 
   assert.equal(prompt.structured.Wardrobe.length, 0);
   assert.match(promptText, /女性人形機器人|near-human female android|sexy feminine body proportions/);
   assert.match(promptText, /subtle facial panel lines|black precision mechanical joint structures/);
-  assert.match(promptText, /長髮（放髮）｜中分長直髮|long straight hair|自然黑|natural jet-black hair/);
+  assert.match(promptText, /直髮：中分|long straight hair with a center part|自然黑|natural black hair/);
   assert.doesNotMatch(promptText, /pure white mechanical bodysuit|full enclosed helmet|no visible face required/);
 });
 

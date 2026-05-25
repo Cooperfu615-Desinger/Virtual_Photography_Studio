@@ -1,8 +1,8 @@
 import database from '../data/database.json' with { type: 'json' };
 
 const SUBJECT_COUNT_OPTIONS = [
-  { id: '1', zh: '1 位', en: 'an seductive stunning & beautiful 20-year-old Japanese or Korean woman', count: 1 },
-  { id: '2', zh: '2 位', en: 'two seductive stunning & beautiful 20-year-old Japanese or Korean women', count: 2 },
+  { id: '1', zh: '1 位', en: 'one adult Japanese or Korean female portrait subject', count: 1 },
+  { id: '2', zh: '2 位', en: 'two adult Japanese or Korean female portrait subjects', count: 2 },
   {
     id: 'reference',
     zh: '上傳人物',
@@ -1950,6 +1950,55 @@ function formatWardrobeOptionDisplayName(category, rawZh) {
   return rawZh;
 }
 
+const CHARACTER_IDENTITY_LEGACY_OPTION_MAP = [
+  { category: '體態 (Body Type)', targetZh: '高挑時裝模特', legacy: [['模特兒', 0]] },
+  { category: '體態 (Body Type)', targetZh: '優雅曲線模特', legacy: [['優雅曲線模特兒', 1]] },
+  { category: '體態 (Body Type)', targetZh: '柔和沙漏身形', legacy: [['柔和沙漏身形', 2]] },
+  { category: '五官特徵 (Facial Features)', targetZh: '韓系偶像臉', legacy: [['KPOP', 1]] },
+  { category: '五官特徵 (Facial Features)', targetZh: '日系清透臉', legacy: [['日系透明', 2]] },
+  { category: '五官特徵 (Facial Features)', targetZh: '成熟性感臉', legacy: [['性感', 3]] },
+  { category: '五官特徵 (Facial Features)', targetZh: '混血立體臉', legacy: [['歐美', 4]] },
+  { category: '髮型 (Hairstyle)', targetZh: '帥氣濕亮油頭', legacy: [['短髮｜帥氣濕亮油頭', 1], ['短髮｜精靈短髮', 2]] },
+  { category: '髮型 (Hairstyle)', targetZh: '乾淨短鮑伯', legacy: [['短髮｜齊耳法式短鮑伯', 3], ['短髮｜A 字線條鮑伯', 4], ['短髮｜服貼光澤短鮑伯', 5]] },
+  { category: '髮型 (Hairstyle)', targetZh: '齊瀏海圓弧鮑伯', legacy: [['短髮｜齊瀏海圓弧鮑伯', 6]] },
+  { category: '髮型 (Hairstyle)', targetZh: '不對稱濕感短鮑伯', legacy: [['短髮｜不對稱濕感短鮑伯', 7]] },
+  { category: '髮型 (Hairstyle)', targetZh: '復古外翹短髮', legacy: [['短髮｜復古外翹短髮', 8]] },
+  { category: '髮型 (Hairstyle)', targetZh: '自然層次鎖骨髮', legacy: [['中長髮｜自然蓬鬆鎖骨髮', 9], ['中長髮｜輕盈層次剪', 13]] },
+  { category: '髮型 (Hairstyle)', targetZh: '韓系柔順中長髮', legacy: [['中長髮｜韓系柔順中長髮', 10], ['中長髮｜及肩內彎鮑伯', 11]] },
+  { category: '髮型 (Hairstyle)', targetZh: '側分柔波中長髮', legacy: [['中長髮｜側分鎖骨波浪髮', 12]] },
+  { category: '髮型 (Hairstyle)', targetZh: '半濕感中長髮', legacy: [['中長髮｜半濕感中長髮', 14]] },
+  { category: '髮型 (Hairstyle)', targetZh: '直髮：中分', legacy: [['長髮（放髮）｜中分長直髮', 15]] },
+  { category: '髮型 (Hairstyle)', targetZh: '直髮：日式瀏海', legacy: [['長髮（放髮）｜日系厚瀏海長直髮', 16], ['長髮（放髮）｜姬髮式長直髮', 17]] },
+  { category: '髮型 (Hairstyle)', targetZh: '柔波：深側分', legacy: [['長髮（放髮）｜韓系深側分柔波長髮', 18]] },
+  { category: '髮型 (Hairstyle)', targetZh: '柔波：中分', legacy: [['長髮（放髮）｜中分柔波長髮', 19]] },
+  { category: '髮型 (Hairstyle)', targetZh: '濕潤感長波浪', legacy: [['長髮（放髮）｜濕潤感長波浪', 20]] },
+  { category: '髮型 (Hairstyle)', targetZh: '柔波：瀏海', legacy: [['長髮（放髮）｜空氣瀏海長捲髮', 21]] },
+  { category: '髮型 (Hairstyle)', targetZh: '高位雙馬尾', legacy: [['長髮（綁髮）｜高位雙馬尾', 22]] },
+  { category: '髮型 (Hairstyle)', targetZh: '蓬鬆高馬尾', legacy: [['長髮（綁髮）｜蓬鬆高馬尾', 23]] },
+  { category: '髮型 (Hairstyle)', targetZh: '低馬尾', legacy: [['長髮（綁髮）｜極簡低馬尾', 24]] },
+  { category: '髮型 (Hairstyle)', targetZh: '低包頭盤髮', legacy: [['長髮（綁髮）｜韓系低包頭', 25], ['長髮（綁髮）｜高級感低盤髮', 26]] },
+  { category: '髮型 (Hairstyle)', targetZh: '半綁公主頭', legacy: [['長髮（綁髮）｜半綁公主頭長髮', 27]] },
+  { category: '髮型 (Hairstyle)', targetZh: '柔和編髮造型', legacy: [['長髮（編髮）｜瀑布編髮', 28], ['長髮（編髮）｜魚骨辮', 29]] },
+  { category: '髮色 (Hair Color)', targetZh: '亞麻米棕', legacy: [['亞麻米棕', 7], ['霧灰棕', 10]] },
+  { category: '髮色 (Hair Color)', targetZh: '蜂蜜焦糖棕', legacy: [['蜂蜜焦糖棕', 11]] },
+  { category: '髮色 (Hair Color)', targetZh: '玫瑰可可棕', legacy: [['玫瑰可可棕', 9], ['銅紅髮', 19]] },
+  { category: '髮色 (Hair Color)', targetZh: '淺金髮', legacy: [['黑底金色挑染', 6], ['亮黃色', 15], ['淺金髮', 18]] },
+  { category: '髮色 (Hair Color)', targetZh: '銀灰白', legacy: [['灰白色', 17]] },
+  { category: '髮色 (Hair Color)', targetZh: '亮桃粉', legacy: [['桃紅色', 13], ['亮紫色', 16]] },
+  { category: '髮色 (Hair Color)', targetZh: '寶石藍', legacy: [['寶藍色', 14]] },
+  { category: '髮色 (Hair Color)', targetZh: '深森林綠', legacy: [['霧感橄欖棕', 8], ['亮綠色', 12], ['深綠色', 20]] },
+];
+
+function applyCharacterIdentityLegacyOptionIds(catalog) {
+  CHARACTER_IDENTITY_LEGACY_OPTION_MAP.forEach(({ category, targetZh, legacy }) => {
+    const target = getByKey(catalog.character, category).find((item) => item.zh === targetZh);
+    if (!target) return;
+
+    const legacyIds = legacy.map(([label, index]) => `character:${slugify(category)}:${slugify(label)}:${index}`);
+    target.legacyIds = Array.from(new Set([...(target.legacyIds || []), ...legacyIds]));
+  });
+}
+
 function buildEntries(groupName, groupedData, inferMeta) {
   return Object.entries(groupedData).reduce((acc, [category, items]) => {
     acc[category] = items.map((item, index) => {
@@ -2022,6 +2071,7 @@ function buildCatalog(customLibrary = []) {
     character: buildEntries('character', mergedDatabase.Character || {}, inferCharacterMeta),
     negative: buildEntries('negative', mergedDatabase.Negative || {}, inferNegativeMeta),
   };
+  applyCharacterIdentityLegacyOptionIds(catalog);
 
   const flatten = (group) => Object.values(group).flat();
 

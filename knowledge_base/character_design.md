@@ -6,70 +6,61 @@
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺說明 (Visual Description) |
 | :--- | :--- | :--- | :--- |
 | **五官特徵 (Facial Features)** | 全無 | `none` | 不指定五官特徵，讓模型自行決定臉部輪廓與辨識度。 |
-| **五官特徵 (Facial Features)** | KPOP | `sharp delicate V-line jaw and tapered chin, petite symmetrical oval face, bright clear double-eyelid eyes with subtle aegyo-sal, small straight refined nose with soft tip, softly defined plump lips, gentle high cheekbones, polished K-pop idol facial balance` | 韓系偶像感的小臉比例，重點在 V-line 下顎、清亮雙眼皮與自然臥蠶，整體精緻、對稱、上鏡。 |
-| **五官特徵 (Facial Features)** | 日系透明 | `pure transparent Japanese girl-next-door facial style, delicate small oval face without heavy roundness, clear gentle eyes with soft natural eyelids, light airy facial presence, petite straight nose, softly tinted natural lips, subtle youthful innocence, clean fresh makeup, calm pure beauty` | 日系透明清純感，重點在淡顏、清澈眼神、小巧自然五官與乾淨妝感；避免圓臉、蘋果肌或豐腴暗示，和 KPOP、性感、歐美做出區隔。 |
-| **五官特徵 (Facial Features)** | 性感 | `elegant feminine face with high cheekbones and a softly sharp jawline, elongated fox-like eyes with slightly lifted outer corners, straight refined nose, full sensuous lips with defined cupid's bow, mature alluring facial balance` | 以拉長狐狸眼、高顴骨、柔銳下顎與明確唇峰營造成熟嫵媚感，讓性感更偏五官結構而非單純表情。 |
-| **五官特徵 (Facial Features)** | 歐美 | `sharp sculpted angular face with prominent high cheekbones and defined jawline, striking deep-set almond eyes, high-bridged straight narrow nose, full sharply defined lips, three-dimensional Western editorial facial structure` | 骨相更立體、眼窩深、鼻樑高且輪廓雕塑感強，偏歐美時裝 editorial 的高辨識度臉孔。 |
+| **五官特徵 (Facial Features)** | 韓系偶像臉 | `young beautiful Korean idol face, refined small face, clear bright eyes, polished youthful beauty, photogenic K-pop portrait balance` | 韓系偶像感的年輕漂亮臉，重點是精緻、上鏡、明亮與乾淨。 |
+| **五官特徵 (Facial Features)** | 日系清透臉 | `young beautiful Japanese transparent face, soft natural features, clean gentle eyes, airy fresh beauty, subtle innocent portrait presence` | 日系清透淡顏，重點是自然、透明、乾淨與柔和的寫真感。 |
+| **五官特徵 (Facial Features)** | 甜美可愛臉 | `young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look` | 甜美、親和、年輕漂亮，帶可愛感但不幼態。 |
+| **五官特徵 (Facial Features)** | 冷感高級臉 | `young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence` | 冷感、俐落、時裝 editorial 氣質，臉部基底更高級克制。 |
+| **五官特徵 (Facial Features)** | 成熟性感臉 | `young mature alluring beauty face, elegant feminine facial balance, defined eyes and lips, confident sensual portrait presence` | 成熟、明艷、有女人味，以五官氣質帶出性感而不是靠表情。 |
+| **五官特徵 (Facial Features)** | 混血立體臉 | `young mixed editorial face, dimensional facial structure, defined nose bridge and deep-set eyes, international high-fashion beauty` | 立體骨相與國際 editorial 感，仍可服務日韓女性角色主線。 |
 | **膚質特徵 (Skin Details)** | 全無 | `none` | 不指定膚質特徵，讓模型自行決定肌膚表面細節。 |
 | **膚質特徵 (Skin Details)** | 玻璃水光肌 | `glass skin, dewy luminous skin texture, hydrated reflective complexion` | 光澤明顯、飽水感高，適合韓系棚拍與近距離人像。 |
 | **膚質特徵 (Skin Details)** | 柔霧細緻肌 | `soft matte skin texture, refined pores, velvety smooth finish` | 細膩柔霧、不強調油光，適合高級時裝與乾淨妝面。 |
 | **膚質特徵 (Skin Details)** | 自然雀斑 | `natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail` | 鼻樑與臉頰帶有自然雀斑，能增加真實感與辨識度。 |
 | **膚質特徵 (Skin Details)** | 淚痣／唇邊痣 | `small beauty mark under eye or near lips, delicate facial mole detail` | 臉上有細小痣點，位置通常在眼下或唇邊，能增加個性與記憶點。 |
 | **膚質特徵 (Skin Details)** | 微曬陽光感膚質 | `slightly sun-kissed skin texture, subtle warm flush, healthy outdoor glow` | 像曬過太陽後留下的自然暖感，帶有生活感與戶外氣息。 |
-| **體態 (Body Type)** | 模特兒 | `tall slim fashion model body with long elegant legs, lean and graceful silhouette, long-limbed proportions, refined athletic-feminine lines, balanced lightweight figure, polished editorial fashion proportions` | 瘦高修長、腿長線條明顯，整體改以時裝 editorial 比例描述，避免把重點導向裸露身體曲線。 |
-| **體態 (Body Type)** | 優雅曲線模特兒 | `tall elegant fashion model body with balanced feminine curves, gently defined waist, natural body lines, graceful elongated torso-to-leg ratio, long shapely legs, toned refined silhouette, polished high-fashion proportions under properly worn clothing` | 以高挑、優雅且平衡的女性曲線為主，保留曲線感與腿長比例，但使用更中性的時裝語言，並強調曲線是在完整穿著下呈現。 |
-| **體態 (Body Type)** | 柔和沙漏身形 | `tall slim elegant hourglass figure with balanced proportions, gently narrowed waist, soft natural curves, balanced hip line, graceful elongated leg line, long shapely legs, toned feminine silhouette, refined lightweight proportions without heaviness` | 保留沙漏身形的腰線與腿長印象，但移除誇張、豐滿與強烈胸臀對比等高風險詞，整體更偏優雅時裝比例。 |
+| **體態 (Body Type)** | 高挑時裝模特 | `tall fashion model body, long elegant legs, lean editorial proportions, graceful runway-like silhouette` | 高挑、腿長、時裝 editorial 比例，適合乾淨高級的人像基底。 |
+| **體態 (Body Type)** | 優雅曲線模特 | `tall elegant fashion model body with balanced feminine curves, long legs, softly defined waist, polished high-fashion silhouette` | 高挑模特比例加上柔和女性曲線，比純模特兒更有身形存在感。 |
+| **體態 (Body Type)** | 柔和沙漏身形 | `soft natural hourglass figure, clear waistline, balanced hip rhythm, graceful feminine body line` | 腰線與臀線更明確，但保持自然柔和，不走誇張曲線。 |
+| **體態 (Body Type)** | 性感曲線身形 | `sensual curvy feminine silhouette, confident mature body presence, defined waist and soft curves, fashion portrait allure` | 性感、成熟、有存在感的曲線身形，用時裝寫真語氣呈現。 |
+| **體態 (Body Type)** | 運動緊實身形 | `fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions` | 健康、俐落、緊實，有運動感與輕微肌肉張力。 |
+| **體態 (Body Type)** | 小隻精緻身形 | `petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence` | 較嬌小、比例精緻，帶偶像感與可愛但成熟的身形輪廓。 |
 | **髮型 (Hairstyle)** | 全無 | `none` | 不指定髮型，讓模型自行決定頭髮長度與輪廓。 |
-| **髮型 (Hairstyle)** | 短髮｜帥氣濕亮油頭 | `slicked-back short hair, glossy wet-look finish, hair combed away from the forehead, sharp androgynous fashion silhouette` | 頭髮向後梳開並帶濕亮光澤，帥氣俐落，偏時裝感與中性氣質。 |
-| **髮型 (Hairstyle)** | 短髮｜精靈短髮 | `pixie cut, minimal short hair, clean cropped silhouette, delicate face-framing texture` | 短而俐落的精靈剪，輪廓乾淨，能凸顯五官與頸部線條。 |
-| **髮型 (Hairstyle)** | 短髮｜齊耳法式短鮑伯 | `ear-length French bob, softly blunt ends, subtle natural volume, effortless chic shape` | 長度落在耳下附近，髮尾乾淨，帶一點法式隨性與精緻感。 |
-| **髮型 (Hairstyle)** | 短髮｜A 字線條鮑伯 | `A-line bob, clean angled silhouette, slightly longer front pieces, polished face-framing line` | 前側略長、後側收短的 A 字鮑伯，臉部線條更俐落。 |
-| **髮型 (Hairstyle)** | 短髮｜服貼光澤短鮑伯 | `sleek short bob, smooth glossy surface, tucked clean ends, polished modern editorial shape` | 髮面服貼有光澤，髮尾收得乾淨，適合都會、精品與高級感人像。 |
-| **髮型 (Hairstyle)** | 短髮｜齊瀏海圓弧鮑伯 | `blunt bob with full bangs, rounded silhouette, smooth curved ends` | 齊瀏海搭配圓弧感鮑伯，帶有強烈辨識度與日系娃娃感。 |
-| **髮型 (Hairstyle)** | 短髮｜不對稱濕感短鮑伯 | `asymmetrical wet bob, one-side-over-eye styling, damp separated strands` | 一側髮絲覆蓋眼周，帶有濕潤分束感與更強的時裝、私密與危險氣質。 |
-| **髮型 (Hairstyle)** | 短髮｜復古外翹短髮 | `short flipped hair, softly turned-out ends, retro polished shape, light movement around the jawline` | 短髮髮尾向外翻起，帶有復古時裝感與俏皮線條。 |
-| **髮型 (Hairstyle)** | 中長髮｜自然蓬鬆鎖骨髮 | `soft collarbone-length hair, airy volume, naturally tousled blowout` | 長度落在鎖骨附近，蓬鬆自然，帶有日常又上鏡的輕熟感。 |
-| **髮型 (Hairstyle)** | 中長髮｜韓系柔順中長髮 | `soft Korean medium hair, gentle inward curve, sheer bangs, smooth modern silhouette` | 柔順中長髮搭配輕透瀏海與內彎輪廓，乾淨、溫柔且穩定。 |
-| **髮型 (Hairstyle)** | 中長髮｜及肩內彎鮑伯 | `shoulder-length bob, gentle inward-curled ends, soft rounded lower silhouette` | 溫婉的中長度鮑伯，髮尾帶有自然內彎弧度。 |
-| **髮型 (Hairstyle)** | 中長髮｜側分鎖骨波浪髮 | `side-parted collarbone-length waves, soft flowing texture, elegant face-framing movement` | 長度落在鎖骨附近，側分與柔波讓整體更成熟柔美。 |
-| **髮型 (Hairstyle)** | 中長髮｜輕盈層次剪 | `medium layered cut, airy framing layers, feathered ends, natural movement` | 中長髮帶輕盈層次與羽毛感髮尾，修飾臉型且更有動態。 |
-| **髮型 (Hairstyle)** | 中長髮｜半濕感中長髮 | `semi-wet medium-length hair, separated strands, soft glossy texture, moody fashion finish` | 中長髮帶半濕潤分束與光澤，適合冷調、私密與時裝感畫面。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜中分長直髮 | `long straight hair, center part, sleek glossy length, clean vertical silhouette` | 經典中分長直髮，光澤感明確，線條乾淨修長。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜日系厚瀏海長直髮 | `long straight hair with heavy Japanese bangs, smooth sleek silhouette` | 厚實齊瀏海搭配筆直長髮，帶有日系寫真常見的乾淨輪廓與柔和存在感。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜姬髮式長直髮 | `hime cut long straight hair, blunt cheek-length side locks, straight full length, sharp Japanese fashion silhouette` | 姬髮式的臉側短切線搭配長直髮，辨識度高，日系時裝感強。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜韓系深側分柔波長髮 | `deep side-parted long hair, soft polished waves, sleek face-framing flow, one side tucked behind the ear` | 深側分的長髮帶柔和波浪與貼順光澤，一側自然收耳後，偏成熟都會感。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜中分柔波長髮 | `long softly wavy hair, center part, natural flowing texture` | 中分長髮帶有柔和波浪與飄動感，適合高曝光柔光與清透寫真風格。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜濕潤感長波浪 | `wet-look long wavy hair, damp separated strands, moody texture` | 帶有濕潤分束感的長波浪髮，適合冷調、私密與邊緣感寫真。 |
-| **髮型 (Hairstyle)** | 長髮（放髮）｜空氣瀏海長捲髮 | `airy see-through bangs, long loose spiral waves, soft face-framing tendrils, glamorous layered length` | 輕透瀏海搭配長度明顯的鬆捲長髮，臉側有修飾線條，甜辣且精緻。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜高位雙馬尾 | `high double pigtails, youthful twin-tail shape, clean lifted volume` | 活潑俏皮，適合 Y2K、JK 或更青春感的造型。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜蓬鬆高馬尾 | `high ponytail, natural loose strands, lifted volume, active polished movement` | 高位馬尾帶自然碎髮與動態感，乾淨、活力且上鏡。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜極簡低馬尾 | `low ponytail, fine face-framing strands, minimal clean tie, understated mature elegance` | 低馬尾乾淨成熟，臉側保留細碎髮，適合知性與都會感人像。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜韓系低包頭 | `low messy bun, wispy bangs, soft face-framing loose strands` | 優雅隨興，臉側帶有修飾性的碎髮。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜高級感低盤髮 | `sleek low chignon, polished updo, elegant clean finish` | 低位盤髮乾淨俐落，適合精品時裝、晚宴與高級商攝。 |
-| **髮型 (Hairstyle)** | 長髮（綁髮）｜半綁公主頭長髮 | `half-up long hair, soft crown lift, loose face-framing strands` | 上半部輕輕束起、下半部自然垂落，清純又帶一點柔和公主感。 |
-| **髮型 (Hairstyle)** | 長髮（編髮）｜瀑布編髮 | `waterfall braid, soft semi-long flowing hair, delicate woven crown detail, romantic airy texture` | 瀑布編髮帶有細緻編織與垂落髮流，柔和浪漫且不厚重。 |
-| **髮型 (Hairstyle)** | 長髮（編髮）｜魚骨辮 | `fishtail braid, soft woven volume, loose face-framing strands, elegant event-ready braid` | 魚骨辮線條精緻，比一般雙編髮更成熟，適合正式或度假感造型。 |
+| **髮型 (Hairstyle)** | 帥氣濕亮油頭 | `slicked-back short hair, glossy wet-look finish, hair combed away from the forehead, sharp fashion silhouette` | 頭髮向後梳開並帶濕亮光澤，帥氣俐落，偏時裝感。 |
+| **髮型 (Hairstyle)** | 乾淨短鮑伯 | `clean short bob haircut, softly blunt ends, polished face-framing line, neat modern shape` | 合併乾淨短鮑伯類型，重點是短髮輪廓俐落、髮尾乾淨、臉側線條清楚。 |
+| **髮型 (Hairstyle)** | 齊瀏海圓弧鮑伯 | `rounded short bob with full straight bangs, smooth curved ends, cute Japanese bob silhouette` | 齊瀏海搭配圓弧感短鮑伯，日系娃娃感明確。 |
+| **髮型 (Hairstyle)** | 不對稱濕感短鮑伯 | `asymmetrical wet short bob, one side falling near the eye, damp separated strands, moody fashion texture` | 一側髮絲靠近眼周，帶濕潤分束與更強的時裝情緒。 |
+| **髮型 (Hairstyle)** | 復古外翹短髮 | `short flipped-out hair, retro outward ends, polished playful movement around the jawline` | 短髮髮尾向外翻起，復古、俏皮且有線條感。 |
+| **髮型 (Hairstyle)** | 自然層次鎖骨髮 | `collarbone-length layered hair, airy natural volume, soft face-framing movement` | 鎖骨附近長度，帶自然層次、蓬鬆與臉側修飾。 |
+| **髮型 (Hairstyle)** | 韓系柔順中長髮 | `smooth Korean medium-length hair, gentle inward curve, clean soft modern silhouette` | 柔順中長髮，髮尾自然內彎，乾淨溫柔且穩定。 |
+| **髮型 (Hairstyle)** | 側分柔波中長髮 | `side-parted medium soft waves, collarbone-length flow, elegant face-framing movement` | 中長度側分柔波，成熟柔和，修飾臉型。 |
+| **髮型 (Hairstyle)** | 半濕感中長髮 | `semi-wet medium-length hair, separated strands, soft glossy moody texture` | 中長髮帶半濕潤分束與光澤，偏冷調時裝感。 |
+| **髮型 (Hairstyle)** | 直髮：中分 | `long straight hair with a center part, sleek clean vertical flow` | 長直髮搭配中分，線條垂直乾淨。 |
+| **髮型 (Hairstyle)** | 直髮：旁分 | `long straight hair with a side part, smooth polished length, elegant face-framing line` | 長直髮搭配旁分，較成熟優雅。 |
+| **髮型 (Hairstyle)** | 直髮：日式瀏海 | `long straight hair with full Japanese bangs, smooth clean silhouette` | 長直髮搭配日式厚瀏海，柔和且辨識度高。 |
+| **髮型 (Hairstyle)** | 柔波：中分 | `long soft waves with a center part, natural flowing texture` | 長髮柔波搭配中分，乾淨自然。 |
+| **髮型 (Hairstyle)** | 柔波：深側分 | `deep side-parted long soft waves, polished Korean-style face-framing flow` | 長髮柔波搭配深側分，成熟、精緻、韓系感更明顯。 |
+| **髮型 (Hairstyle)** | 柔波：瀏海 | `long soft waves with airy see-through bangs, gentle romantic face-framing strands` | 長髮柔波搭配空氣瀏海，甜美柔和。 |
+| **髮型 (Hairstyle)** | 濕潤感長波浪 | `wet-look long wavy hair, damp separated strands, moody glossy texture` | 長波浪髮帶濕潤分束與光澤，適合冷調與時裝畫面。 |
+| **髮型 (Hairstyle)** | 高位雙馬尾 | `high double pigtails, youthful twin-tail shape, clean lifted volume` | 高位雙馬尾，青春、活潑、Y2K 或偶像感。 |
+| **髮型 (Hairstyle)** | 蓬鬆高馬尾 | `voluminous high ponytail, loose natural strands, lifted active movement` | 高馬尾帶蓬鬆與碎髮，乾淨、有活力。 |
+| **髮型 (Hairstyle)** | 低馬尾 | `minimal low ponytail, fine face-framing strands, clean understated elegance` | 低馬尾乾淨成熟，臉側保留細碎髮。 |
+| **髮型 (Hairstyle)** | 低包頭盤髮 | `low bun or low chignon, soft wispy face-framing strands, elegant tied-up silhouette` | 合併低包頭與低盤髮，優雅、成熟、乾淨。 |
+| **髮型 (Hairstyle)** | 半綁公主頭 | `half-up long hair, soft crown lift, loose face-framing strands` | 上半部輕束、下半部自然垂落，清純柔和。 |
+| **髮型 (Hairstyle)** | 柔和編髮造型 | `soft braided hairstyle, delicate woven detail, romantic natural texture` | 合併柔和編髮造型，保留編織細節但不過度複雜。 |
 | **髮色 (Hair Color)** | 全無 | `none` | 不指定髮色，讓模型自行決定髮色深淺與色調。 |
-| **髮色 (Hair Color)** | 自然黑 | `natural jet-black hair with subtle blue-black undertones, realistic dyed-black variation, soft natural depth, realistic human hair texture, visible individual strands, subtle root variation, gentle baby hairs around the hairline, natural sheen, no plastic wig texture` | 最穩定也最百搭的自然黑髮，強調真實髮絲、髮根層次與非假髮質感，適合大多數日常與商業風格。 |
-| **髮色 (Hair Color)** | 柔霧黑茶 | `soft black-tea brown hair, muted brown-black tone, subtle tonal variation, soft natural depth, realistic human hair texture, visible individual strands, subtle root variation, gentle baby hairs around the hairline, natural sheen, no plastic wig texture` | 黑中帶一點茶棕感，低調柔和，補強真髮絲分離感與自然染髮層次。 |
-| **髮色 (Hair Color)** | 深咖啡棕 | `deep coffee-brown hair, rich brunette depth, natural root variation, soft reflected warmth, realistic human hair texture, visible individual strands, soft highlights and lowlights, natural sheen, no plastic wig texture` | 穩定成熟的深棕色，帶有真實根部深淺變化與柔和反光感。 |
-| **髮色 (Hair Color)** | 栗子棕 | `chestnut-brown hair, warm brown tone with subtle soft highlights, natural dimensional shine, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 溫暖日常的栗棕色，保留自然高光與真實髮絲層次，不走塑膠色塊感。 |
-| **髮色 (Hair Color)** | 奶茶棕 | `milk-tea brown hair, soft beige-brown tone, airy tonal variation, natural salon-dyed finish, realistic human hair texture, visible individual strands, subtle root variation, soft highlights and lowlights, no plastic wig texture` | 帶有柔霧感的淺棕色，補強沙龍染髮的自然漸變與真髮質地。 |
-| **髮色 (Hair Color)** | 黑底金色挑染 | `black hair with bold golden-blonde face-framing highlights, high-contrast ribbon-like streaks through the bangs and front sections, dark base with salon-dyed dimensional contrast, realistic human hair texture, visible individual strands, subtle root depth, no plastic wig texture` | 以深黑髮底搭配高對比金色挑染為主，重點在瀏海與臉側髮束的亮色線條，帶明顯韓系偶像感與高辨識度。 |
-| **髮色 (Hair Color)** | 亞麻米棕 | `ashy beige-brown hair, muted cool-beige tone, soft root depth, light natural tonal shift, realistic human hair texture, visible individual strands, airy separation, no plastic wig texture` | 帶灰感的米棕色，整體輕盈乾淨，並加入髮根深度與真實髮流表現。 |
-| **髮色 (Hair Color)** | 霧感橄欖棕 | `muted olive-brown hair, smoky earthy undertone, subtle cool-toned variation, natural dyed texture, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 棕色裡帶一點霧橄欖調，低飽和又有個性，同時維持真實染髮質感。 |
-| **髮色 (Hair Color)** | 玫瑰可可棕 | `rose cocoa-brown hair, soft rosy-brown undertone, subtle warm tonal variation, natural dimensional sheen, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 在可可棕裡加入微微玫瑰色感，甜度剛好，並保留真實髮絲與層次光澤。 |
-| **髮色 (Hair Color)** | 霧灰棕 | `smoky taupe-brown hair, muted cool brunette tone, soft ash-brown variation, natural depth from root to tip, realistic human hair texture, visible individual strands, no plastic wig texture` | 偏冷調的霧灰棕，讓造型更有高級感，同時避免假髮般的均勻色塊。 |
-| **髮色 (Hair Color)** | 蜂蜜焦糖棕 | `honey caramel-brown hair, warm caramel tone with soft golden variation, natural glossy depth, realistic human hair texture, visible individual strands, subtle root variation, no plastic wig texture` | 比奶茶棕再暖一點，帶柔和焦糖層次與真實髮絲反光感。 |
-| **髮色 (Hair Color)** | 亮綠色 | `professionally dyed vivid neon-green hair, high-saturation fashion color with visible strand texture, subtle root depth and tonal variation, realistically dyed human hair, slight unevenness from real dye absorption, no plastic wig texture, no uniform block color` | 高飽和亮綠色整頭染，改以真實染髮質感呈現，避免像道具假髮。 |
-| **髮色 (Hair Color)** | 桃紅色 | `professionally dyed hot-pink hair, vivid fashion color with subtle tonal variation, visible strands and natural root depth, realistically dyed human hair, slight unevenness from real dye absorption, no plastic wig texture, no uniform block color` | 鮮明桃紅色整頭染，保留高存在感，但補強真實髮絲、髮根與染劑吸收不均的自然感。 |
-| **髮色 (Hair Color)** | 寶藍色 | `professionally dyed cobalt-blue hair, rich jewel-toned blue with subtle tonal variation, visible strand texture and soft root depth, realistically dyed human hair, natural fiber detail, no plastic wig texture, no uniform block color` | 濃郁寶藍色帶珠寶般深度，改以更像真人染髮而非假髮的方式表現。 |
-| **髮色 (Hair Color)** | 亮黃色 | `professionally dyed bright lemon-yellow hair, bold fashion color with slight tonal unevenness, visible root depth and real hair strand texture, realistically dyed human hair, no plastic wig texture, no uniform block color` | 亮黃色極具辨識度，加入真實染後的不均勻層次與髮根深度，避免 cosplay 假髮感。 |
-| **髮色 (Hair Color)** | 亮紫色 | `professionally dyed electric-purple hair, vivid fashion color with subtle tonal variation, visible strands, soft root depth, natural fiber detail, realistically dyed human hair, no plastic wig texture, no uniform block color` | 高彩度亮紫色帶強烈時裝感，但改為更真實的人類染髮表現。 |
-| **髮色 (Hair Color)** | 灰白色 | `silver-white hair, cool pale tone with soft tonal variation, airy light reflection, natural strand detail, subtle root variation, realistic human hair texture, no plastic wig texture` | 接近銀白與灰白之間的冷調髮色，加入細微色差與真實髮絲，避免過度人工。 |
-| **髮色 (Hair Color)** | 淺金髮 | `light blonde hair, soft golden-beige tone, natural root variation, subtle highlights and lowlights, realistic human hair texture, visible individual strands, gentle baby hairs around the hairline, natural sheen, no plastic wig texture` | 以淺金與柔和米金調為核心，不再暗示特定人種，並補強真實髮絲與染髮層次。 |
-| **髮色 (Hair Color)** | 銅紅髮 | `natural copper-auburn hair, warm red-brown tone, subtle tonal variation, soft dimensional depth, realistic human hair texture, visible individual strands, subtle root variation, natural sheen, no plastic wig texture` | 接近銅紅與赤褐之間的自然紅髮，保留故事感但不再帶入特定族裔暗示。 |
-| **髮色 (Hair Color)** | 深綠色 | `professionally dyed deep forest-green hair, dark moody green tone with subtle tonal variation, visible strand texture and natural root depth, realistically dyed human hair, natural fiber detail, no plastic wig texture, no uniform block color` | 比亮綠更深沉的墨綠髮色，改以真實染髮層次與真髮纖維質感呈現。 |
+| **髮色 (Hair Color)** | 自然黑 | `natural black hair, soft realistic shine, clean dark depth` | 最穩定百搭的自然黑髮，適合多數日韓女性人像。 |
+| **髮色 (Hair Color)** | 柔霧黑茶 | `soft black-tea brown hair, muted brown-black salon tone` | 黑中帶茶棕感，低調柔和。 |
+| **髮色 (Hair Color)** | 深咖啡棕 | `deep coffee-brown hair, rich brunette depth, soft warm reflection` | 穩定成熟的深棕色，帶柔和暖反光。 |
+| **髮色 (Hair Color)** | 栗子棕 | `chestnut-brown hair, warm natural brown salon color` | 溫暖日常的栗棕色。 |
+| **髮色 (Hair Color)** | 奶茶棕 | `milk-tea brown hair, soft beige-brown muted salon color` | 柔霧淺棕，日韓沙龍染髮感。 |
+| **髮色 (Hair Color)** | 亞麻米棕 | `ashy beige-brown hair, muted cool-beige tone, airy soft color` | 帶灰感的米棕色，輕盈乾淨。 |
+| **髮色 (Hair Color)** | 蜂蜜焦糖棕 | `honey caramel-brown hair, warm golden brown salon color` | 暖焦糖棕，甜美明亮但仍自然。 |
+| **髮色 (Hair Color)** | 玫瑰可可棕 | `rose cocoa-brown hair, soft rosy brunette tone` | 可可棕裡帶微玫瑰調，甜度剛好。 |
+| **髮色 (Hair Color)** | 淺金髮 | `light blonde hair, soft golden-beige tone, realistic dyed hair texture` | 柔和米金色，保留真實染髮質地。 |
+| **髮色 (Hair Color)** | 銀灰白 | `silver-gray white hair, cool pale fashion color, realistic dyed hair texture` | 冷調銀灰白，特殊但較高級。 |
+| **髮色 (Hair Color)** | 亮桃粉 | `hot-pink fashion hair color, vivid pink tone with realistic dyed hair texture` | 鮮明桃粉色，保留時裝感與真實染髮質地。 |
+| **髮色 (Hair Color)** | 寶石藍 | `jewel cobalt-blue fashion hair color, rich blue tone with realistic dyed hair texture` | 寶石感深藍，色彩存在感強但不螢光。 |
+| **髮色 (Hair Color)** | 深森林綠 | `deep forest-green fashion hair color, dark moody green tone with realistic dyed hair texture` | 深森林綠，保留特殊色但比亮綠更穩定。 |
 | **神情與眼神 (Expression & Gaze)** | 全無 | `none` | 不指定神情與眼神，讓模型自行決定表情與視線。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜清透微笑 | `looking directly at the camera, direct eye contact, gentle natural smile, bright clear eyes, soft approachable warmth, clean luminous expression` | 直接看向鏡頭並帶自然輕柔的微笑，整體清透、親和、沒有過度表演感，適合女演員感與日常寫真。 |
 | **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜平靜凝視 | `looking directly at the camera, direct eye contact, calm steady gaze, composed neutral expression, quiet presence` | 直接看向鏡頭，神情平穩克制，適合乾淨、安靜、寫真感的人像。 |
