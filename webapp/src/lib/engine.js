@@ -23,7 +23,7 @@ const SPECIAL_SUBJECT_OPTIONS = [
   {
     id: 'skeleton',
     zh: '黑骷髏',
-    en: 'a complete human skeleton, fleshless, clean anatomical specimen presence, realistic full skeletal structure, dark blue-black bone tone, subtle cool blue highlights, dry matte specimen surface, surreal photographic installation presence',
+    en: 'a full-body unknown skeletal figure, complete human skeleton with realistic anatomical proportions, visible skull ribcage spine pelvis hands and feet, articulated joints, realistic joint spacing, dark blue-black bone tone, subtle cool blue highlights, dry matte porous bone surface, human-scale physical photographic presence, surreal but grounded live-action realism',
     count: 1,
     specialSubject: 'skeleton',
     skeletonToneZh: '深藍黑骨色',
@@ -31,7 +31,7 @@ const SPECIAL_SUBJECT_OPTIONS = [
   {
     id: 'white-skeleton',
     zh: '白骷髏',
-    en: 'a complete human skeleton, fleshless, clean anatomical specimen presence, realistic full skeletal structure, warm ivory bone tone, aged off-white bone surface, subtle beige porous texture, dry matte specimen surface, surreal photographic installation presence',
+    en: 'a full-body unknown skeletal figure, complete human skeleton with realistic anatomical proportions, visible skull ribcage spine pelvis hands and feet, articulated joints, realistic joint spacing, warm ivory bone tone, aged off-white bone surface, subtle beige porous texture, dry matte material finish, quiet anomalous physical photographic presence',
     count: 1,
     specialSubject: 'skeleton',
     skeletonToneZh: '米白骨色',
@@ -39,7 +39,7 @@ const SPECIAL_SUBJECT_OPTIONS = [
   {
     id: 'sengoku-samurai',
     zh: '日本戰國武士',
-    en: 'a realistic female Japanese Sengoku-era samurai warrior as the single main subject, authentic layered lamellar armor reshaped for a feminine bust-waist-hip silhouette, sculpted but battle-ready cuirass, narrowed waist plates, hip-aware kusazuri armor skirt, shoulder guards, armored sleeves, weathered fabric ties, period waist sash, sheathed katana and wakizashi, historically grounded battlefield presence with stylized feminine armor shaping, museum-realistic material detail, not anime, not cosplay',
+    en: 'a realistic female Japanese Sengoku-era samurai warrior as the single main subject, authentic layered lamellar armor reshaped for a feminine bust-waist-hip silhouette, sculpted cuirass, narrowed waist plates, hip-aware kusazuri armor skirt, shoulder guards, armored sleeves, weathered fabric ties, period waist sash, sheathed katana and wakizashi, worn lacquer and metal surfaces, practical physical construction, documentary-real material detail, live-action photographic realism, a historical warrior standing naturally in the present-day world',
     count: 1,
     specialSubject: 'historical-warrior',
     specialToneZh: '戰國女武士甲冑',
@@ -47,7 +47,7 @@ const SPECIAL_SUBJECT_OPTIONS = [
   {
     id: 'european-knight',
     zh: '歐洲騎士',
-    en: 'a realistic female medieval European knight as the single main subject, articulated polished plate armor over chainmail reshaped for a feminine bust-waist-hip silhouette, sculpted breastplate with clear torso contour, narrowed armored waist, curved hip faulds, fitted armored sleeves, worn steel surfaces, leather straps, padded gambeson edges, simple cloak, longsword at the side, historically grounded chivalric presence with stylized feminine armor shaping, museum-realistic armor construction, not fantasy armor, not cosplay',
+    en: 'a realistic female medieval European knight as the single main subject, articulated polished plate armor over chainmail reshaped for a feminine bust-waist-hip silhouette, sculpted breastplate with clear torso contour, narrowed armored waist, curved hip faulds, fitted armored sleeves, worn steel surfaces, leather straps, padded gambeson edges, simple cloak, longsword at the side, practical plate construction, documentary-real material detail, live-action photographic realism, a medieval knight standing naturally in the present-day world',
     count: 1,
     specialSubject: 'historical-warrior',
     specialToneZh: '中世紀女騎士板甲',
@@ -55,7 +55,7 @@ const SPECIAL_SUBJECT_OPTIONS = [
   {
     id: 'female-android',
     zh: '女性人形機器人',
-    en: 'a near-human female android as the single main subject, realistic human female head and face, natural facial proportions with only subtle facial panel lines and small embedded mechanical seams across the cheeks and temples, sexy feminine body proportions with sculpted bust-waist-hip contours, smooth pale synthetic skin-like shell mixed with glossy white and champagne-gold mechanical plates, body covered by elegant mechanical linework and block-like armor structures, black precision mechanical joint structures at the neck, shoulders, elbows, wrists, waist, hips, knees, and ankles, fine actuator seams and micro-panel divisions following the torso, arms, and legs, refined luminous circuit accents in selected seams, realistic robotics with a sensual high-fashion cyborg presence, not a helmeted robot, not cartoon, not toy-like',
+    en: 'a near-human female android as the single main subject, realistic human female head and face, natural facial proportions with subtle facial panel lines and small embedded mechanical seams across the cheeks and temples, elegant feminine body proportions with sculpted bust-waist-hip contours, smooth pale synthetic skin-like shell mixed with glossy white and champagne-gold mechanical plates, elegant mechanical linework and block-like armor structures across the body, black precision mechanical joint structures at the neck shoulders elbows wrists waist hips knees and ankles, fine actuator seams and micro-panel divisions following the torso arms and legs, refined luminous circuit accents in selected seams, realistic robotics and synthetic material construction, sensual high-fashion cyborg presence, human-scale physical realism',
     count: 1,
     specialSubject: 'android',
     specialToneZh: '近真人機械女性',
@@ -3023,6 +3023,12 @@ function isAndroidSubject(subject) {
   return subject?.specialSubject === 'android';
 }
 
+function buildSpecialSubjectIntegrationPrompt(subject) {
+  if (!isSpecialSubject(subject)) return '';
+  const text = 'an unknown anomalous figure appearing naturally inside a real contemporary environment, photographed as if genuinely present in the same physical space, grounded by realistic scale, contact shadows, ambient light, and ordinary surroundings';
+  return isSkeletonSubject(subject) ? sanitizeSkeletonPromptText(text) : text;
+}
+
 function getAspectRatioOption(id) {
   const option = ASPECT_RATIO_OPTIONS.find((entry) => entry.id === id);
   if (option?.random) return sample(ASPECT_RATIO_POOL);
@@ -5534,7 +5540,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     );
   const buildGrokSubjectText = () => {
     const baseSubjectText = useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en;
-    if (specialSubjectMode) return baseSubjectText;
+    if (specialSubjectMode) return [baseSubjectText, buildSpecialSubjectIntegrationPrompt(context.subject)].filter(Boolean).join(', ');
 
     if (context.subject.count === 2) {
       const roleAccessoryText = [
@@ -5794,6 +5800,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     if (specialSubjectMode) {
       const parts = [
         skeletonMode ? sanitizeSkeletonPromptText(context.subject.en) : context.subject.en,
+        buildSpecialSubjectIntegrationPrompt(context.subject),
         isAndroidSubject(context.subject) && characterSlots.hairstyle && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.en : '',
         isAndroidSubject(context.subject) && characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : '',
