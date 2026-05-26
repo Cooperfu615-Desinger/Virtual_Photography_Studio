@@ -76,7 +76,7 @@
 | **上身 (Tops)** | 高領連身上衣 | `high-neck bodysuit-style top, sleeveless construction, smooth stretch or ribbed fabric, continuous torso line` | 以高領、無袖、連續上身線條與貼身布面為主，讓頸部到軀幹的輪廓保持順直。 |
 | **上身 (Tops)** | 長版寬鬆麻花針織毛衣 | `oversized cable-knit sweater, chunky knit texture, longline upper-thigh hem, dropped shoulders, extra-long relaxed sleeves, slouchy boyfriend fit` | 以寬鬆長版毛衣、明顯麻花編織、落肩剪裁與偏長袖型為主，衣襬自然覆蓋大腿上緣，呈現柔軟厚實的男友風針織輪廓。 |
 | **上身 (Tops)** | 短版針織背心 | `cropped knit camisole, compact hem length, ribbed knit texture, narrow shoulder strap construction` | 以短版長度、細肩帶與針織紋理為主，輪廓精簡且帶明確針織表面語言。 |
-| **上身 (Tops)** | 短版蕾絲背心 | `cropped lace camisole, compact upper-body length, floral lace surface, delicate edge finish` | 以短版比例、蕾絲面料與精細收邊為主，重點在材質與結構而非情境暗示。 |
+| **上身 (Tops)** | 短版蕾絲背心 | `sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem` | 參考 LENY 蕾絲 cami 款式：透明花卉蕾絲、細可調肩帶、三角胸杯感上緣與短版波浪蕾絲下襬；顏色交由上身配色控制。 |
 | **上身 (Tops)** | 平口上衣 | `strapless tube top, clean upper edge, smooth stretch fabric, compact bandeau or halter-bandeau structure` | 以無肩帶或平口上緣、簡潔帶狀比例與貼身彈性布面為主，輪廓短而乾淨。 |
 | **上身 (Tops)** | 一字領上衣 | `off-shoulder top, soft neckline silhouette, visible white bra straps along the shoulder line, refined layered styling detail` | 以露出鎖骨與肩線的一字領為主，可見白色內衣肩帶形成細緻層次，輪廓柔和且女性化。 |
 | **上身 (Tops)** | 絲綢緞面襯衫 | `silk satin blouse, luminous satin sheen, soft draping sleeves, refined cuff or ruffle finish, fluid blouse construction` | 以柔亮緞面、流動布感、柔垂袖型與細緻袖口為主，保留襯衫結構與高級布面光澤。 |

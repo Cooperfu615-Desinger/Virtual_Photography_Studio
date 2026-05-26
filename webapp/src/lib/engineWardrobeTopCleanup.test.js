@@ -109,3 +109,24 @@ test('simplified top prompts remain compact and usable in generated wardrobe out
   assert.match(prompt.zImagePrompt, /lace bra top/);
   assert.ok(top.en.split(/\s+/).length <= 24);
 });
+
+test('cropped lace camisole matches the LENY-style lace cami construction', () => {
+  const top = optionByLabel('topId', '短版蕾絲背心');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    topId: top.id,
+  });
+
+  [
+    /sheer floral lace/i,
+    /slim adjustable straps/i,
+    /triangle cup/i,
+    /scalloped lace hem/i,
+  ].forEach((pattern) => {
+    assert.match(top.en, pattern);
+    assert.match(prompt.grokPrompt, pattern);
+    assert.match(prompt.zImagePrompt, pattern);
+  });
+
+  assert.ok(top.en.split(/\s+/).length <= 24);
+});
