@@ -936,9 +936,8 @@ export default function Page1Workspace({
             <div className="reference-output-header">
               <div>
                 <div className="control-section-title">Generation Outputs</div>
-                <p className="workspace-panel-copy">右側集中整理目前 PAGE1 的三種生成輸出。</p>
+                <p className="workspace-panel-copy">右側集中整理目前 工作台 的三種生成輸出。</p>
               </div>
-              <span className="reference-output-count">{generationPromptCards.length} outputs</span>
             </div>
 
             <div className="primary-action-row page1-generation-actions">
@@ -960,7 +959,6 @@ export default function Page1Workspace({
                 placeholder="尚未形成明確選項。"
                 variant="summary"
                 description=""
-                onCopy={(text) => handleCopyText('Generation summary copied', text)}
               />
               {generationPromptCards.map((card) => (
                 <PromptPreviewCard

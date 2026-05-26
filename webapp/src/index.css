@@ -585,6 +585,7 @@ button:disabled {
 .page1-sidebar-actions .subtle-action {
   width: 100%;
   margin-left: 0;
+  font-size: 13px;
 }
 
 .reroll-panel-inline {
@@ -851,7 +852,7 @@ button:disabled {
 }
 
 .page1-section-value {
-  font-size: 0.95rem;
+  font-size: 12.2px;
   line-height: 1.45;
   display: -webkit-box;
   overflow: hidden;
@@ -896,7 +897,7 @@ button:disabled {
 .page1-subpanel-tab {
   min-height: 42px;
   padding: 10px 14px;
-  border-radius: 999px;
+  border-radius: 10px;
   border: 1px solid rgba(111, 87, 60, 0.14);
   background: #f6edde;
   color: var(--text-secondary);
@@ -954,13 +955,41 @@ button:disabled {
   gap: 18px;
 }
 
+.page1-editor .control-section-header > div {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.page1-editor .workspace-panel-copy {
+  margin-top: 1px;
+  font-family: Arial, sans-serif;
+  width: min(400px, 100%);
+  max-width: 400px;
+  font-size: 11px;
+}
+
+.page1-editor .context-note {
+  font-family: Arial, sans-serif;
+  font-size: 11.6px;
+}
+
+.page1-editor select {
+  padding: 10px 6px;
+}
+
+.page1-output-panel .workspace-panel-copy {
+  margin-top: -1px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+}
+
 .page1-random-generate-btn {
-  background: var(--accent);
+  background: #e86017;
   color: #fffdf8;
 }
 
 .page1-random-generate-btn:hover {
-  background: var(--accent-hover);
+  background: #f06b22;
 }
 
 .page1-preview-actions {
@@ -976,18 +1005,84 @@ button:disabled {
   gap: 18px;
 }
 
+.prompt-preview-grid.page1-generation-grid {
+  gap: 18px;
+}
+
 .page1-generation-grid .prompt-preview-summary-box,
 .page1-generation-grid .page2-prompt-textarea {
   min-height: 136px;
 }
 
+.page1-generation-grid .prompt-preview-summary-card {
+  grid-column: 1 / -1;
+}
+
+.page1-generation-grid .prompt-preview-summary-card .prompt-preview-card-header {
+  margin-bottom: 8px;
+}
+
+.page1-generation-grid .prompt-preview-summary-card .prompt-preview-summary-box {
+  min-height: auto;
+  padding: 10px 12px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 250, 240, 0.72);
+  color: var(--text-label);
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.page1-generation-grid .prompt-preview-card-header {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+.page1-generation-grid .prompt-preview-card-header h3 {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+.page1-generation-grid .prompt-preview-copy-btn {
+  width: 29px;
+  height: 21px;
+  min-width: 29px;
+  min-height: 21px;
+  padding: 1px 0 0;
+  font-size: 10px;
+}
+
+.page1-generation-grid .prompt-preview-copy-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.page1-generation-grid .prompt-preview-description {
+  margin-top: 0;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+}
+
+.page1-generation-grid .prompt-preview-textarea {
+  width: min(190px, 100%);
+  height: 145px;
+  min-height: 145px;
+  margin-top: -10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
 .page1-save-current-btn {
-  background: var(--accent);
+  background: #ff2934;
   color: #fffdf8;
 }
 
 .page1-save-current-btn:hover {
-  background: var(--accent-hover);
+  background: #ff3d47;
 }
 
 .page1-live-prompt-box {
