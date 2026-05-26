@@ -1,13 +1,20 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
+import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 
 const optionId = (controlKey, zh) => {
   const control = getLockControls().find((item) => item.key === controlKey);
   const option = control?.options.find((item) => item.zh === zh);
   assert.ok(option, `${controlKey} should include ${zh}`);
   return option.id;
+};
+
+const optionByLabel = (controlKey, zh) => {
+  const control = getLockControls().find((item) => item.key === controlKey);
+  const option = control?.options.find((item) => item.zh === zh);
+  assert.ok(option, `${controlKey} should include ${zh}`);
+  return option;
 };
 
 test('bottom rise controls include a slightly unbuttoned and unzipped pants state', () => {
@@ -73,6 +80,30 @@ test('pants-specific unbuttoned zipper waist state is not applied to skirts', ()
 
   assert.doesNotMatch(promptText, /waist button undone and front zipper slightly lowered/);
   assert.match(promptText, /mini skirt/);
+});
+
+test('pants controls include booty shorts and knee-length fitted shorts', () => {
+  const bootyShorts = optionByLabel('pantsId', '真理褲');
+  const rhythmicShorts = optionByLabel('pantsId', '韻律緊身短褲');
+
+  assert.match(bootyShorts.en, /booty shorts/);
+  assert.match(rhythmicShorts.en, /knee-length stretch leggings shorts/);
+
+  const [bootyPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    pantsId: bootyShorts.id,
+  });
+  const [rhythmicPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    pantsId: rhythmicShorts.id,
+  });
+
+  assert.match([bootyPrompt.grokPrompt, bootyPrompt.zImagePrompt].join('\n'), /booty shorts/);
+  assert.match([rhythmicPrompt.grokPrompt, rhythmicPrompt.zImagePrompt].join('\n'), /knee-length stretch leggings shorts/);
+  assert.equal(
+    normalizeLocks({ ...createEmptyLocks(), pantsId: 'wardrobe:褲裝-pants:真理褲:4' }).pantsId,
+    bootyShorts.id
+  );
 });
 
 test('top fit and styling appear before the top garment in generated wardrobe text', () => {

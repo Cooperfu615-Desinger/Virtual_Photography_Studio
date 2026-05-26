@@ -1195,10 +1195,20 @@
       {
         "zh": "超短運動短褲",
         "en": "micro athletic shorts, compact sporty cut, minimal hem length, lightweight activewear structure",
-        "desc": "以超短褲長、運動褲口與輕量機能結構為主，整體偏精簡直接的 activewear 語言。",
+        "desc": "以超短褲長、運動褲口與輕量機能結構為主，整體偏精簡直接的 activewear 語言。"
+      },
+      {
+        "zh": "真理褲",
+        "en": "booty shorts, ultra-short fitted shorts, compact hip-hugging seat, minimal lower-body hemline",
+        "desc": "以 booty shorts 為核心的超短貼身短褲，重點是短版褲長、貼身臀部包覆與精簡下身比例。",
         "legacyIds": [
           "wardrobe:褲裝-pants:真理褲:4"
         ]
+      },
+      {
+        "zh": "韻律緊身短褲",
+        "en": "knee-length stretch leggings shorts, fitted rhythmic dance shorts, elastic activewear fabric, streamlined mid-leg silhouette",
+        "desc": "以五分長度的緊身韻律短褲為主，像 leggings 的貼身彈性布料但長度停在膝上到膝位附近，不是長褲。"
       },
       {
         "zh": "蕾絲內褲",

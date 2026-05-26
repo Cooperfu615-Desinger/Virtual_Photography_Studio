@@ -139,6 +139,8 @@
 | **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
 | **褲裝 (Pants)** | 牛仔短褲 | `denim shorts, short hemline, compact fitted seat, clean cut-off-inspired silhouette` | 以短褲長度、丹寧布面與俐落褲口比例為主，重點是簡潔直接的短版結構。 |
 | **褲裝 (Pants)** | 超短運動短褲 | `micro athletic shorts, compact sporty cut, minimal hem length, lightweight activewear structure` | 以超短褲長、運動褲口與輕量機能結構為主，整體偏精簡直接的 activewear 語言。 |
+| **褲裝 (Pants)** | 真理褲 | `booty shorts, ultra-short fitted shorts, compact hip-hugging seat, minimal lower-body hemline` | 以 booty shorts 為核心的超短貼身短褲，重點是短版褲長、貼身臀部包覆與精簡下身比例。 |
+| **褲裝 (Pants)** | 韻律緊身短褲 | `knee-length stretch leggings shorts, fitted rhythmic dance shorts, elastic activewear fabric, streamlined mid-leg silhouette` | 以五分長度的緊身韻律短褲為主，像 leggings 的貼身彈性布料但長度停在膝上到膝位附近，不是長褲。 |
 | **褲裝 (Pants)** | 蕾絲內褲 | `low-rise lace panties, lingerie bottoms, delicate intimate styling, exposed hip line` | 以低腰位置貼合臀線與胯部，偏內衣與私密寫真風格，強調蕾絲質地與貼身感。 |
 | **褲裝 (Pants)** | 蕾絲丁字褲 | `lace thong bottoms, delicate floral lace pattern, satin bow accent, scalloped trim, refined lingerie detailing` | 以花卉蕾絲紋樣、細緻波浪邊與小型緞帶點綴為主的內著設計，重點放在材質與裝飾語言，避免把畫面導向裸露或強調身體比例。 |
 | **褲裝 (Pants)** | 皮革短褲 | `leather shorts, glossy leather surface, compact fitted seat, sharp short-bottom silhouette` | 以皮革表面、俐落短褲比例與較硬挺的下身結構為主，重點在材質與剪裁態度。 |
