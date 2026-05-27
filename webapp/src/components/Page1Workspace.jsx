@@ -384,6 +384,13 @@ function getOptionCategory(option, control) {
   return '選項';
 }
 
+function getReferenceImageUrl(option) {
+  const referenceImage = option?.meta?.referenceImage;
+  if (!referenceImage) return '';
+  if (/^https?:\/\//.test(referenceImage) || referenceImage.startsWith('/')) return referenceImage;
+  return `${import.meta.env.BASE_URL}${referenceImage}`;
+}
+
 function WardrobePickerField({ control, value, disabled, onOpen, onChange, onCopy }) {
   const selectedOption = findControlOption(control, value);
   const selectedLabel = selectedOption?.zh || '隨機';
@@ -438,6 +445,7 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
     if (!normalizedQuery) return true;
     return `${option.zh} ${option.en || ''}`.toLowerCase().includes(normalizedQuery);
   });
+  const hasReferenceImageOptions = visibleOptions.some((option) => getReferenceImageUrl(option));
   const categories = Array.from(new Set(control.options.map((option) => getOptionCategory(option, control))));
 
   return (
@@ -468,22 +476,29 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
           <span className="wardrobe-picker-count">{visibleOptions.length} options</span>
         </div>
 
-        <div className="wardrobe-picker-option-grid">
+        <div className={`wardrobe-picker-option-grid ${hasReferenceImageOptions ? 'wardrobe-picker-option-grid-image' : ''}`}>
           {visibleOptions.map((option) => {
             const swatches = getOptionSwatches(option);
             const isActive = selectedOption?.id === option.id;
             const isColorOption = swatches.length > 0;
             const isNoneOption = option.zh === '全無' || option.id === 'none';
             const isRandomOption = Boolean(option.random) || option.id === 'random';
+            const referenceImageUrl = getReferenceImageUrl(option);
+            const hasReferenceImage = Boolean(referenceImageUrl);
             const useColorCardStyle = isColorOption || isNoneOption || isRandomOption;
             return (
               <button
                 key={option.id}
                 type="button"
-                className={`wardrobe-picker-option ${useColorCardStyle ? 'wardrobe-picker-option-color' : ''} ${isNoneOption ? 'wardrobe-picker-option-none' : ''} ${isActive ? 'wardrobe-picker-option-active' : ''}`}
+                className={`wardrobe-picker-option ${useColorCardStyle ? 'wardrobe-picker-option-color' : ''} ${hasReferenceImage ? 'wardrobe-picker-option-image' : ''} ${isNoneOption ? 'wardrobe-picker-option-none' : ''} ${isActive ? 'wardrobe-picker-option-active' : ''}`}
                 disabled={option.disabled}
                 onClick={() => onSelect(option.id)}
               >
+                {hasReferenceImage ? (
+                  <span className="wardrobe-picker-option-image-frame" aria-hidden="true">
+                    <img src={referenceImageUrl} alt="" loading="lazy" />
+                  </span>
+                ) : null}
                 <span className="wardrobe-picker-option-topline">
                   <strong>{useColorCardStyle ? (option.en || option.zh) : option.zh}</strong>
                   {!useColorCardStyle ? <span>{getOptionCategory(option, control)}</span> : null}
@@ -495,7 +510,7 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
                     ))}
                   </span>
                 ) : null}
-                {option.en && !useColorCardStyle ? <span className="wardrobe-picker-option-copy">{option.en}</span> : null}
+                {option.en && !useColorCardStyle && !hasReferenceImage ? <span className="wardrobe-picker-option-copy">{option.en}</span> : null}
               </button>
             );
           })}

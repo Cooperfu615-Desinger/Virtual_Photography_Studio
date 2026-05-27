@@ -114,6 +114,23 @@ test('doctor and secretary outfit prompts include updated signature props and si
   assert.match([secretaryPrompt.grokPrompt, secretaryPrompt.zImagePrompt].join('\n'), /tight mini skirt/i);
 });
 
+test('wardrobe image metadata is available for outfit presets and dresses', () => {
+  const doctorOutfit = optionByLabel('outfitPresetId', '套裝：醫生診療袍');
+  const halterDress = optionByLabel('dressId', '連身：短版｜亮面深V掛脖迷你洋裝');
+
+  assert.equal(doctorOutfit.meta.referenceImage, 'reference/wardrobe/outfit-presets/10_醫生.png');
+  assert.equal(doctorOutfit.meta.referenceImageFormat, 'png');
+  assert.equal(halterDress.meta.referenceImage, 'reference/wardrobe/dresses/31_深V掛脖迷你洋裝.png');
+  assert.equal(halterDress.meta.referenceImageFormat, 'png');
+});
+
+test('wardrobe image metadata is available for special outfits', () => {
+  const specialOutfit = optionByLabel('specialOutfitId', '粉紫蕾絲豹紋低腰喇叭褲造型');
+
+  assert.equal(specialOutfit.meta.referenceImage, 'reference/wardrobe/special-outfits/09_粉紫蕾絲豹紋.png');
+  assert.equal(specialOutfit.meta.referenceImageFormat, 'png');
+});
+
 test('moved and renamed outfit preset legacy locks normalize safely', () => {
   const movedLatexDress = normalizeLocks({
     ...createEmptyLocks(),

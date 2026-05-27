@@ -2333,9 +2333,20 @@ function buildEntries(groupName, groupedData, inferMeta) {
         ])),
       };
 
+      const inferredMeta = inferMeta(category, normalized);
+      const sourceMeta = item.meta && typeof item.meta === 'object' && !Array.isArray(item.meta)
+        ? item.meta
+        : {};
+      const sourceTags = Array.isArray(sourceMeta.tags) ? sourceMeta.tags : [];
+      const inferredTags = Array.isArray(inferredMeta.tags) ? inferredMeta.tags : [];
+
       return {
         ...normalized,
-        meta: inferMeta(category, normalized),
+        meta: {
+          ...inferredMeta,
+          ...sourceMeta,
+          tags: withTags([...inferredTags, ...sourceTags]),
+        },
       };
     });
     return acc;

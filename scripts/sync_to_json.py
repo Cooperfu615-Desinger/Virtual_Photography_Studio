@@ -8,6 +8,12 @@ KB_DIR = os.path.join(BASE_DIR, 'knowledge_base')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'webapp', 'src', 'data')
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, 'database.json')
 OUTFIT_PRESET_METADATA_FILE = os.path.join(KB_DIR, 'outfit_preset_metadata.json')
+WARDROBE_REFERENCE_IMAGE_ROOT = os.path.join(BASE_DIR, 'webapp', 'public', 'reference', 'wardrobe')
+WARDROBE_REFERENCE_IMAGE_DIRS = {
+    '特殊穿搭 (Special Outfits)': 'special-outfits',
+    '套裝 (Outfit Presets)': 'outfit-presets',
+    '連身 (Dresses)': 'dresses',
+}
 
 
 def clean_cell(text):
@@ -96,6 +102,43 @@ def merge_outfit_preset_metadata(grouped_data, metadata_by_name):
 
     return merged_count
 
+def list_reference_images(category):
+    directory_name = WARDROBE_REFERENCE_IMAGE_DIRS.get(category)
+    if not directory_name:
+        return []
+
+    directory_path = os.path.join(WARDROBE_REFERENCE_IMAGE_ROOT, directory_name)
+    if not os.path.isdir(directory_path):
+        return []
+
+    return [
+        file_name
+        for file_name in sorted(os.listdir(directory_path))
+        if file_name.lower().endswith(('.jpg', '.jpeg', '.png', '.webp', '.avif'))
+    ]
+
+def merge_wardrobe_reference_images(grouped_data):
+    merged_count = 0
+
+    for category, directory_name in WARDROBE_REFERENCE_IMAGE_DIRS.items():
+        items = [item for item in grouped_data.get(category, []) if item.get('zh') != '全無']
+        image_files = list_reference_images(category)
+
+        if not items or not image_files:
+            continue
+
+        if len(items) != len(image_files):
+            print(f"  Warning: {category} reference images count mismatch: {len(image_files)} images for {len(items)} items")
+
+        for item, image_file in zip(items, image_files):
+            meta = item.setdefault('meta', {})
+            public_path = f"reference/wardrobe/{directory_name}/{image_file}"
+            meta['referenceImage'] = public_path
+            meta['referenceImageFormat'] = os.path.splitext(image_file)[1].lstrip('.').lower()
+            merged_count += 1
+
+    return merged_count
+
 def preserve_existing_item_metadata(new_database, existing_database):
     """Keep non-table item metadata that Markdown rows cannot represent."""
     preserved_count = 0
@@ -156,6 +199,8 @@ def main():
         if filename == 'wardrobe_and_styling.md':
             merged_count = merge_outfit_preset_metadata(parsed_data, outfit_preset_metadata)
             print(f"  Outfit preset metadata merged: {merged_count}")
+            image_count = merge_wardrobe_reference_images(parsed_data)
+            print(f"  Wardrobe reference images merged: {image_count}")
         print(f"  Categories: {len(parsed_data)} | Entries: {count_entries(parsed_data)}")
         database[db_key] = parsed_data
 
