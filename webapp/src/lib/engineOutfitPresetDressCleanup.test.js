@@ -78,6 +78,18 @@ test('cleaned outfit and dress prompts avoid fixed color wording', () => {
   });
 });
 
+test('nurse uniform outfit prompt does not include apron-like panel wording', () => {
+  const nurseOutfit = optionByLabel('outfitPresetId', '套裝：護士制服');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: nurseOutfit.id,
+  });
+  const text = [nurseOutfit.en, prompt.grokPrompt, prompt.zImagePrompt].join('\n');
+
+  assert.match(text, /nurse uniform outfit/);
+  assert.doesNotMatch(text, /apron-like panel/i);
+});
+
 test('moved and renamed outfit preset legacy locks normalize safely', () => {
   const movedLatexDress = normalizeLocks({
     ...createEmptyLocks(),
