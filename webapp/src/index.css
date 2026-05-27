@@ -955,9 +955,23 @@ button:disabled {
   gap: 18px;
 }
 
-.page1-editor .control-section-header > div {
+.page1-editor .control-section-header > div:first-child {
   flex: 1 1 auto;
   min-width: 0;
+}
+
+.page1-section-header-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.page1-section-random-btn {
+  min-height: 36px;
+  padding: 8px 12px;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .page1-editor .workspace-panel-copy {

@@ -11,6 +11,7 @@ import {
   buildWorkspaceSummary,
   getControlOptionLabel,
 } from '../lib/page1WorkspaceSummary.js';
+import { randomizeLockKeys } from '../lib/page1SectionRandom.js';
 
 const WARDROBE_PICKER_KEYS = new Set([
   'specialOutfitId',
@@ -680,6 +681,16 @@ export default function Page1Workspace({
     });
   };
 
+  const handleRandomizeActiveSection = () => {
+    updateLocks((prev) => randomizeLockKeys(prev, getSectionKeys(activeSection), createEmptyLocks()));
+  };
+
+  const renderSectionRandomButton = () => (
+    <button className="secondary page1-section-random-btn" type="button" onClick={handleRandomizeActiveSection}>
+      全部隨機
+    </button>
+  );
+
   const openWardrobePicker = (control) => {
     setActiveWardrobePickerKey(control.key);
     setWardrobePickerQuery('');
@@ -734,9 +745,12 @@ export default function Page1Workspace({
           <div className="control-section-title">Scene & Environment</div>
           <p className="workspace-panel-copy">{activeSubpanel?.description || '先決定場景、環境與光線，右側會同步反映成目前可直接使用的 Gpt prompt。'}</p>
         </div>
-        <button className="secondary reference-trigger-btn" type="button" onClick={() => setIsLightingReferenceOpen(true)}>
-          查看光線定位對照
-        </button>
+        <div className="page1-section-header-actions">
+          {renderSectionRandomButton()}
+          <button className="secondary reference-trigger-btn" type="button" onClick={() => setIsLightingReferenceOpen(true)}>
+            查看光線定位對照
+          </button>
+        </div>
       </div>
       {renderControlGrid(filterControlsByKeys(coreLockControls, activeSubpanel?.keys || []))}
     </div>
@@ -749,6 +763,7 @@ export default function Page1Workspace({
           <div className="control-section-title">Photography & Rendering</div>
           <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡整理攝影師語氣、構圖視角、鏡頭光學與成像模擬。'}</p>
         </div>
+        {renderSectionRandomButton()}
       </div>
       {renderControlGrid(filterControlsByKeys(coreLockControls, activeSubpanel?.keys || []))}
     </div>
@@ -761,6 +776,7 @@ export default function Page1Workspace({
           <div className="control-section-title">Character Setup</div>
           <p className="workspace-panel-copy">{effectiveCharacterSubpanel?.description || '把人物身份、臉部與姿態先固定下來，後面換穿搭與場景會更穩定。'}</p>
         </div>
+        {renderSectionRandomButton()}
       </div>
       {locks.subjectCount === 'reference' ? (
         <div className="context-note">
@@ -790,6 +806,7 @@ export default function Page1Workspace({
           <div className="control-section-title">Style & Wardrobe</div>
           <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡分段處理整體造型、單件、鞋襪與配件。'}</p>
         </div>
+        {renderSectionRandomButton()}
       </div>
       {isOutfitPresetActive ? (
         <div className="context-note">
