@@ -30,12 +30,17 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
 });
 
-test('Grok/Z-Image prompt remains natural language and AI is compacted from it', () => {
+test('Grok/Z-Image prompt remains natural language and AI is compacted from Gpt sections', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     locationId: optionId('locationId', '室內：深邃黑幕'),
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
+    outerwearId: optionId('outerwearId', '全無'),
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
+    lightingId: optionId('lightingId', '晴朗白日'),
+    lightDirectionId: optionId('lightDirectionId', '側向柔光'),
+    lensId: optionId('lensId', '50mm 標準鏡頭 (Standard)'),
+    filmId: optionId('filmId', '相機｜Fujifilm X100'),
   });
 
   assert.match(prompt.zImagePrompt, /^Create a photorealistic editorial portrait /);
@@ -43,5 +48,12 @@ test('Grok/Z-Image prompt remains natural language and AI is compacted from it',
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
+  assert.match(prompt.midjourneyPrompt, /^Create a photorealistic editorial portrait/);
+  assert.match(prompt.midjourneyPrompt, /deep black color field/);
+  assert.match(prompt.midjourneyPrompt, /20-year-old Japanese or Korean/);
+  assert.match(prompt.midjourneyPrompt, /She wears .*flight attendant uniform outfit/);
+  assert.match(prompt.midjourneyPrompt, /standing pose with loosely crossed arms/);
+  assert.match(prompt.midjourneyPrompt, /Lighting: /);
+  assert.match(prompt.midjourneyPrompt, /Camera look: /);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
 });

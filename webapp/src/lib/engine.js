@@ -6066,12 +6066,7 @@ function joinNaturalPromptValues(values) {
     .join(', ');
 }
 
-function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
-  const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
-  const section = (title, sentence) => {
-    const cleaned = ensureTerminalPeriod(stripMarkdown(sentence || '').replace(/\s+/g, ' ').trim());
-    return cleaned ? `${title}:\n${cleaned}` : '';
-  };
+function buildPromptSectionSources(valuesByLabel, context) {
   const subjectValues = getStructuredValues(valuesByLabel, [
     'Duo Scene Anchor',
     'Subject Count',
@@ -6144,12 +6139,6 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
     : 'Create a photorealistic editorial portrait';
   const subjectLead = context.subject?.count === 2 ? 'The subjects are' : 'The subject is';
   const wardrobeLead = context.subject?.count === 2 ? 'They wear' : 'She wears';
-  const sceneText = joinNaturalPromptValues(sceneValues);
-  const subjectText = joinNaturalPromptValues(subjectValues);
-  const wardrobeText = joinNaturalPromptValues(wardrobeValues);
-  const poseText = joinNaturalPromptValues(poseValues);
-  const lightingText = joinNaturalPromptValues(lightingValues);
-  const cameraText = joinNaturalPromptValues(cameraValues);
   const constraints = [
     ...getStructuredValues(valuesByLabel, ['Wardrobe Integrity']),
     'Keep the specified outfit complete and fully visible where the framing allows',
@@ -6157,6 +6146,39 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
     'no extra people unless specified',
     'no visible text or logos unless explicitly requested',
   ];
+
+  return {
+    imageType,
+    sceneText: joinNaturalPromptValues(sceneValues),
+    subjectText: joinNaturalPromptValues(subjectValues),
+    wardrobeText: joinNaturalPromptValues(wardrobeValues),
+    poseText: joinNaturalPromptValues(poseValues),
+    lightingText: joinNaturalPromptValues(lightingValues),
+    cameraText: joinNaturalPromptValues(cameraValues),
+    constraintsText: joinNaturalPromptValues(constraints),
+    subjectLead,
+    wardrobeLead,
+  };
+}
+
+function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
+  const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
+  const section = (title, sentence) => {
+    const cleaned = ensureTerminalPeriod(stripMarkdown(sentence || '').replace(/\s+/g, ' ').trim());
+    return cleaned ? `${title}:\n${cleaned}` : '';
+  };
+  const {
+    imageType,
+    sceneText,
+    subjectText,
+    wardrobeText,
+    poseText,
+    lightingText,
+    cameraText,
+    constraintsText,
+    subjectLead,
+    wardrobeLead,
+  } = buildPromptSectionSources(valuesByLabel, context);
 
   return [
     section('Image Type', imageType),
@@ -6166,7 +6188,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
     section('Pose and Composition', poseText),
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
-    section('Constraints', joinNaturalPromptValues(constraints)),
+    section('Constraints', constraintsText),
     'multi-cut sequence n=2',
   ].filter(Boolean).join('\n\n');
 }
@@ -6484,31 +6506,41 @@ function compactAiSentence(sentenceText, limit = 3) {
     .join(', ');
 }
 
-function buildAiMinimalPromptFromZImage(zImagePrompt) {
-  const sentences = stripMarkdown(zImagePrompt || '')
-    .replace(/\s+/g, ' ')
-    .match(/[^.!?]+[.!?]/g) || [];
-  const firstSentence = sentences[0] || '';
-  const wardrobeSentence = sentences.find((sentenceText) => /\b(She wears|They wear|woman 1 wears|woman 2 wears)\b/i.test(sentenceText));
-  const settingSentence = sentences.find((sentenceText) => /^The setting is/i.test(sentenceText));
-  const compositionSentence = sentences.find((sentenceText) => /^The composition uses/i.test(sentenceText));
-  const renderingSentence = sentences.at(-1) || '';
+function buildAiPromptFromStructuredPrompt(structuredPrompt, context) {
+  const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
+  const {
+    imageType,
+    sceneText,
+    subjectText,
+    wardrobeText,
+    poseText,
+    lightingText,
+    cameraText,
+    constraintsText,
+    subjectLead,
+    wardrobeLead,
+  } = buildPromptSectionSources(valuesByLabel, context);
   const parts = [
-    compactAiSentence(firstSentence, 4),
-    compactAiSentence(wardrobeSentence, 3),
-    compactAiSentence(settingSentence, 2),
-    compactAiSentence(compositionSentence, 2),
-    compactAiSentence(renderingSentence, 2),
-  ].filter(Boolean);
+    compactAiSentence(imageType, 1),
+    sceneText ? `The scene is ${compactAiSentence(sceneText, 2)}` : '',
+    subjectText ? `${subjectLead} ${compactAiSentence(subjectText, 4)}` : '',
+    wardrobeText ? `${wardrobeLead} ${compactAiSentence(wardrobeText, 6)}` : '',
+    poseText ? `Pose and composition: ${compactAiSentence(poseText, 3)}` : '',
+    lightingText ? `Lighting: ${compactAiSentence(lightingText, 3)}` : '',
+    cameraText ? `Camera look: ${compactAiSentence(cameraText, 3)}` : '',
+    constraintsText ? `Keep ${compactAiSentence(constraintsText, 3)}` : '',
+  ]
+    .map((part) => ensureTerminalPeriod(part))
+    .filter(Boolean);
 
-  return ensureTerminalPeriod([...new Set(parts)].join('. '));
+  return [...new Set(parts)].join(' ');
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction) {
   const structuredPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction);
   const grokPrompt = buildGptPromptFromStructuredPrompt(structuredPrompt, context);
   const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction);
-  const midjourneyPrompt = buildAiMinimalPromptFromZImage(zImagePrompt, context);
+  const midjourneyPrompt = buildAiPromptFromStructuredPrompt(structuredPrompt, context);
 
   return { midjourneyPrompt, grokPrompt, zImagePrompt };
 }
