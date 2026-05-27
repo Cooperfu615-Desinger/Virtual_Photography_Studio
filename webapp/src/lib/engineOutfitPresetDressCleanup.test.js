@@ -90,6 +90,30 @@ test('nurse uniform outfit prompt does not include apron-like panel wording', ()
   assert.doesNotMatch(text, /apron-like panel/i);
 });
 
+test('doctor and secretary outfit prompts include updated signature props and silhouettes', () => {
+  const doctorOutfit = optionByLabel('outfitPresetId', '套裝：醫生診療袍');
+  const secretaryOutfit = optionByLabel('outfitPresetId', '套裝：秘書短裙');
+
+  assert.match(doctorOutfit.en, /stethoscope/i);
+  assert.match(doctorOutfit.en, /medical chart/i);
+  assert.match(secretaryOutfit.en, /body-hugging blazer/i);
+  assert.match(secretaryOutfit.en, /tight mini skirt/i);
+
+  const [doctorPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: doctorOutfit.id,
+  });
+  const [secretaryPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: secretaryOutfit.id,
+  });
+
+  assert.match([doctorPrompt.grokPrompt, doctorPrompt.zImagePrompt].join('\n'), /stethoscope/i);
+  assert.match([doctorPrompt.grokPrompt, doctorPrompt.zImagePrompt].join('\n'), /medical chart/i);
+  assert.match([secretaryPrompt.grokPrompt, secretaryPrompt.zImagePrompt].join('\n'), /body-hugging blazer/i);
+  assert.match([secretaryPrompt.grokPrompt, secretaryPrompt.zImagePrompt].join('\n'), /tight mini skirt/i);
+});
+
 test('moved and renamed outfit preset legacy locks normalize safely', () => {
   const movedLatexDress = normalizeLocks({
     ...createEmptyLocks(),
