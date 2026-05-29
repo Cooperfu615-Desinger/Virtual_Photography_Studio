@@ -97,6 +97,21 @@ test('social shooting special actions can compose with body poses', () => {
   assert.match(promptText, /男友視角拍攝|boyfriend-perspective candid portrait/);
 });
 
+test('locked expression updates output even when the previous orbit conflicts', () => {
+  const rearOrbit = optionByLabel('orbitId', '背面');
+  const sideGlance = optionByLabel('expressionId', '回眸側看｜輕柔注意');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    orbitId: rearOrbit.id,
+    expressionId: sideGlance.id,
+  });
+
+  assert.equal(prompt.selection.expressionId, sideGlance.id);
+  assert.notEqual(prompt.selection.orbitId, rearOrbit.id);
+  assert.match(prompt.summary, /回眸側看｜輕柔注意/);
+  assert.match(prompt.grokPrompt, /glancing back over the shoulder/);
+});
+
 test('non-social special actions still replace the body pose slot', () => {
   const pose = optionByLabel('poseId', '坐姿｜自然坐姿');
   const specialAction = optionByLabel('specialActionId', '塗口紅');

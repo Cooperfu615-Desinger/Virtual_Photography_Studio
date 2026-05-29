@@ -6769,13 +6769,14 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     subject.count === 2 && effectiveLocks.expressionBId ? findById(expressionOptions, effectiveLocks.expressionBId) : null,
     effectiveLocks.expressionId ? findById(expressionOptions, effectiveLocks.expressionId) : null,
   ].filter(Boolean);
-  const angle = pickWithLock(
+  const pickCameraWithExpressionLock = lockedExpressions.length > 0 ? pickWithCompatibleLock : pickWithLock;
+  const angle = pickCameraWithExpressionLock(
     runtime.flatCatalog.angle,
     effectiveLocks.angleId,
     (item) => framingSupportsAngle(framing, item) && lockedExpressions.every((expression) => angleSupportsExpression(item, expression)),
     lowFrequencyPicker('low_frequency_angle')
   );
-  const orbit = pickWithLock(
+  const orbit = pickCameraWithExpressionLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,
     (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedSpecialAction)
