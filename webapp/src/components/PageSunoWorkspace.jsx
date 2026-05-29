@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import ImagePromptAnalyzerPanel from './ImagePromptAnalyzerPanel';
 import PromptPreviewCard from './PromptPreviewCard';
 import {
   SUNO_LIMITS,
@@ -245,6 +246,7 @@ export default function PageSunoWorkspace({
             />
           ))}
         </div>
+        <ImagePromptAnalyzerPanel onCopyText={onCopyText} />
       </aside>
     </section>
   );

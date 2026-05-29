@@ -1,5 +1,6 @@
 import { Fragment, useMemo, useState } from 'react';
 import { Copy } from 'lucide-react';
+import DllPicProPanel from './DllPicProPanel';
 import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
 import PromptPreviewCard from './PromptPreviewCard';
@@ -1001,6 +1002,17 @@ export default function Page1Workspace({
               ))}
             </div>
           </section>
+
+          <DllPicProPanel
+            title="DLL_PIC Pro"
+            description="使用目前右側 prompt 直接生成圖像預覽。"
+            promptSources={[
+              { id: 'gpt', label: 'Gpt', value: previewPrompt?.grokPrompt || '' },
+              { id: 'grok', label: 'Grok/Z-Image', value: previewPrompt?.zImagePrompt || '' },
+              { id: 'ai', label: 'AI Prompt', value: previewPrompt?.midjourneyPrompt || '' },
+            ]}
+            defaultSourceId="gpt"
+          />
 
         </aside>
       </section>

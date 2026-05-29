@@ -1,4 +1,5 @@
 import PromptPreviewCard from './PromptPreviewCard';
+import DllPicProPanel from './DllPicProPanel';
 
 export default function Page2Workspace({
   fieldConfig,
@@ -136,6 +137,14 @@ export default function Page2Workspace({
             />
           ))}
         </div>
+        <DllPicProPanel
+          title="DLL_PIC Pro"
+          description="用角色建模 prompt 直接生成 reference image。"
+          promptSources={promptCards
+            .filter((card) => card.value)
+            .map((card) => ({ id: card.title, label: card.title, value: card.value }))}
+          defaultSourceId="Master Sheet"
+        />
       </section>
     </section>
   );

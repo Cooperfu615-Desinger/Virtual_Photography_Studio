@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import DllPicProPanel from './DllPicProPanel';
 import PromptPreviewCard from './PromptPreviewCard';
 
 export default function Page3Workspace({
@@ -180,6 +181,14 @@ export default function Page3Workspace({
             />
           ))}
         </div>
+        <DllPicProPanel
+          title="DLL_PIC Pro"
+          description="用場景 prompt 直接生成環境參考圖。"
+          promptSources={promptCards
+            .filter((card) => card.value)
+            .map((card) => ({ id: card.title, label: card.title, value: card.value }))}
+          defaultSourceId="Scene Prompt"
+        />
       </section>
     </section>
   );
