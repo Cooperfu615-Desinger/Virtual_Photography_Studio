@@ -942,34 +942,34 @@ export default function Page1Workspace({
           </div>
         </aside>
 
-        <section className="page1-editor lock-panel">
-          <div className="page1-editor-header">
-            <div>
-              <div className="lock-title">{activeSectionConfig.label}</div>
+        <main className="page1-center-column">
+          <section className="page1-editor lock-panel">
+            <div className="page1-editor-header">
+              <div>
+                <div className="lock-title">{activeSectionConfig.label}</div>
+              </div>
             </div>
-          </div>
 
-          <div className="page1-subpanel-tabs">
-            {sectionSubpanels.map((panel) => (
-              <button
-                key={panel.id}
-                type="button"
-                className={`page1-subpanel-tab ${activeSubpanel?.id === panel.id ? 'page1-subpanel-tab-active' : ''}`}
-                onClick={() => setActiveSubpanels((prev) => ({ ...prev, [activeSection]: panel.id }))}
-              >
-                <span className="page1-subpanel-label">{panel.label}</span>
-              </button>
-            ))}
-          </div>
-          {renderEditorPanel()}
-        </section>
+            <div className="page1-subpanel-tabs">
+              {sectionSubpanels.map((panel) => (
+                <button
+                  key={panel.id}
+                  type="button"
+                  className={`page1-subpanel-tab ${activeSubpanel?.id === panel.id ? 'page1-subpanel-tab-active' : ''}`}
+                  onClick={() => setActiveSubpanels((prev) => ({ ...prev, [activeSection]: panel.id }))}
+                >
+                  <span className="page1-subpanel-label">{panel.label}</span>
+                </button>
+              ))}
+            </div>
+            {renderEditorPanel()}
+          </section>
 
-        <aside className="page1-preview-column">
           <section className="page1-preview-panel page1-output-panel lock-panel reference-output-panel">
             <div className="reference-output-header">
               <div>
                 <div className="control-section-title">Generation Outputs</div>
-                <p className="workspace-panel-copy">右側集中整理目前 工作台 的三種生成輸出。</p>
+                <p className="workspace-panel-copy">集中整理目前 工作台 的三種生成輸出。</p>
               </div>
             </div>
 
@@ -1002,10 +1002,12 @@ export default function Page1Workspace({
               ))}
             </div>
           </section>
+        </main>
 
+        <aside className="page1-preview-column">
           <DllPicProPanel
             title="DLL_PIC Pro"
-            description="使用目前右側 prompt 直接生成圖像預覽。"
+            description="使用目前 prompt 直接生成圖像預覽。"
             promptSources={[
               { id: 'gpt', label: 'Gpt', value: previewPrompt?.grokPrompt || '' },
               { id: 'grok', label: 'Grok/Z-Image', value: previewPrompt?.zImagePrompt || '' },

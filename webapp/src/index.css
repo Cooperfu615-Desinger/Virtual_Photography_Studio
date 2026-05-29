@@ -728,12 +728,13 @@ button:disabled {
 
 .page1-workspace-shell {
   display: grid;
-  grid-template-columns: minmax(240px, 280px) minmax(0, 1fr) minmax(360px, 440px);
+  grid-template-columns: minmax(220px, 260px) minmax(560px, 1fr) minmax(300px, 360px);
   gap: 18px;
   align-items: start;
 }
 
 .page1-sidebar,
+.page1-center-column,
 .page1-editor,
 .page1-preview-column,
 .page1-preview-panel,
@@ -1015,11 +1016,12 @@ button:disabled {
 }
 
 .page1-generation-grid {
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 
 .prompt-preview-grid.page1-generation-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 
