@@ -106,6 +106,26 @@ test('pants controls include booty shorts and knee-length fitted shorts', () => 
   );
 });
 
+test('lace thong prompt uses thin-strap minimal-coverage thong structure', () => {
+  const lacePanties = optionByLabel('pantsId', '蕾絲內褲');
+  const laceThong = optionByLabel('pantsId', '蕾絲丁字褲');
+
+  assert.match(lacePanties.en, /lace panties/);
+  assert.match(laceThong.en, /seamless lace thong bottoms/);
+  assert.match(laceThong.en, /ultra-thin side straps/);
+  assert.match(laceThong.en, /minimal rear coverage/);
+  assert.match(laceThong.en, /exposed buttock curve/);
+  assert.doesNotMatch(lacePanties.en, /thong|minimal rear coverage|exposed buttock curve/i);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    pantsId: laceThong.id,
+  });
+
+  assert.match([prompt.grokPrompt, prompt.zImagePrompt].join('\n'), /seamless lace thong bottoms/);
+  assert.match([prompt.grokPrompt, prompt.zImagePrompt].join('\n'), /ultra-thin side straps/);
+});
+
 test('top fit and styling appear before the top garment in generated wardrobe text', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

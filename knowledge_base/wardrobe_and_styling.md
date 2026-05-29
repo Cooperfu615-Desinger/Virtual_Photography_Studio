@@ -142,7 +142,7 @@
 | **褲裝 (Pants)** | 真理褲 | `booty shorts, ultra-short fitted shorts, compact hip-hugging seat, minimal lower-body hemline` | 以 booty shorts 為核心的超短貼身短褲，重點是短版褲長、貼身臀部包覆與精簡下身比例。 |
 | **褲裝 (Pants)** | 韻律緊身短褲 | `knee-length stretch leggings shorts, fitted rhythmic dance shorts, elastic activewear fabric, streamlined mid-leg silhouette` | 以五分長度的緊身韻律短褲為主，像 leggings 的貼身彈性布料但長度停在膝上到膝位附近，不是長褲。 |
 | **褲裝 (Pants)** | 蕾絲內褲 | `low-rise lace panties, lingerie bottoms, delicate intimate styling, exposed hip line` | 以低腰位置貼合臀線與胯部，偏內衣與私密寫真風格，強調蕾絲質地與貼身感。 |
-| **褲裝 (Pants)** | 蕾絲丁字褲 | `lace thong bottoms, delicate floral lace pattern, satin bow accent, scalloped trim, refined lingerie detailing` | 以花卉蕾絲紋樣、細緻波浪邊與小型緞帶點綴為主的內著設計，重點放在材質與裝飾語言，避免把畫面導向裸露或強調身體比例。 |
+| **褲裝 (Pants)** | 蕾絲丁字褲 | `seamless lace thong bottoms, ultra-thin side straps, low-rise V-front, minimal rear coverage, exposed buttock curve` | 以無痕蕾絲丁字褲為主，低腰 V 字前片、極細側帶與極少後片覆蓋，讓臀部曲線明顯露出，和一般蕾絲內褲做出清楚區隔。 |
 | **褲裝 (Pants)** | 皮革短褲 | `leather shorts, glossy leather surface, compact fitted seat, sharp short-bottom silhouette` | 以皮革表面、俐落短褲比例與較硬挺的下身結構為主，重點在材質與剪裁態度。 |
 | **褲裝 (Pants)** | 工裝長褲 | `cargo pants, structured utility silhouette, practical pocket detailing` | 工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。 |
 | **褲裝 (Pants)** | 西裝長褲 | `tailored trousers, sharp clean lines, polished formal drape` | 都會、正式與俐落感很強，適合極簡與成熟造型。 |

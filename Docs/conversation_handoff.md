@@ -11,40 +11,347 @@
 
 ## Current Working State
 
-- Latest pushed commit on `main`: `c51c5bc Group accessories into subject prompts`
-- Recent important commits from the 2026-05-24 optimization session:
-  - `c51c5bc Group accessories into subject prompts`
-  - `b1147bb Refine shoes and legwear prompts`
-  - `76d4fcb Refine wardrobe color picker cards`
-  - `3398d7c Refine outerwear wardrobe controls`
-  - `143fbdb Refine top wardrobe controls`
-  - `801d91a Refine bottom wardrobe controls`
-  - `d043b76 Refine top wardrobe descriptions`
-  - `ada751f Improve wardrobe selection UX`
-  - `cfa23f4 Add tattooed street style special outfits`
-  - `44b79cf Unify outfit preset labels and palette support`
-  - `1392412 Add wardrobe layering logic guards`
-  - `796de07 Add six street style special outfits`
-  - `86911cc Add more top bottom color palettes`
-  - `a35b49f Add top bottom color card palettes`
-  - `87fcd2f Naturalize Z-Image wardrobe language`
-  - `28bb122 Refine office pantry scene prompt`
-  - `e500f2b Enhance Page3 ruin location prompts`
-  - `316d3e5 Prioritize scenes for wardrobe-heavy prompts`
-  - `8f44c1b Add forward waistband grip action`
-  - `37949b4 Add loosened pants waist option`
-  - `5e1b341 Refine special subject character prompts`
-  - `d3d13d5 Refine bohemian tunic dress preset`
-  - `05aae44 Refine cropped fitted blazer wording`
-  - `cf1f488 Add cropped fitted blazer outerwear`
-  - `be8242b Refine train scenery and android subject`
-  - `5104b04 Add crowded commuter train scene`
-- Working tree should be clean after `c51c5bc`; if this handoff doc is edited, only this doc should be dirty
+- Latest pushed commit on `main`: `62d78d0 Document photography imaging authoring guide`
+- This handoff update is being written after `62d78d0`; expected dirty files after editing:
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/conversation_handoff.md`
+  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/.DS_Store` may still be modified locally and should normally stay out of commits.
 - Work continues directly on `main`
 - Standard validation flow remains:
   - `python3 scripts/sync_to_json.py`
+  - `npm test` from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
   - `npm run lint` from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
-  - `npm run build`
+  - `npm run build` from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
+- Last full validation before the current handoff edit:
+  - `npm test`: 92 / 92 passed
+  - `npm run lint`: passed
+  - `npm run build`: passed with the existing Vite chunk-size warning only
+  - `git diff --check`: passed
+
+## Session 2026-05-25 Update
+
+This session was a broad PAGE1 prompt database cleanup and specification pass. The main goal was to make sections A / B / C / D easier to maintain, less repetitive, and more stable for real image generation while preserving the user's preferred Japanese / Korean female portrait direction.
+
+### Authoring Guide Files
+
+Four spec files now exist under `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs`:
+
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/character-section-a-authoring-guide.md`
+  - Covers `A. 人物設定`.
+  - Use this before adding or changing body type, face type, skin, hairstyle, hair color, expression, pose, special action, or special subject.
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/wardrobe-section-b-authoring-guide.md`
+  - Covers `B. 穿搭設定`.
+  - Use this before adding or changing tops, bottoms, outfit presets, dresses, special outfits, shoes, socks, outerwear, accessories, color, patterns, and wardrobe composition logic.
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/scene-section-c-authoring-guide.md`
+  - Covers `C. 場景與環境`.
+  - Use this before adding or changing indoor / outdoor / other scene bases, ambient light, subject lighting, scene compatibility tags, or scene-light filtering.
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/photography-section-d-authoring-guide.md`
+  - Covers `D. 攝影與成像`.
+  - Use this before adding or changing photographer style, framing, camera angle, orbit angle, camera profile, focal length, optical effect, film stock, rendering simulation, or legacy imaging mappings.
+
+These guides are now the preferred source of rules for future database expansion. When adding a new prompt option, read the relevant guide first, then update the knowledge base / engine / tests as needed.
+
+### Recent Important Commits After `c51c5bc`
+
+- `330748f Document scene base cleanup design`
+- `2247368 Clean legacy scene base prompts`
+- `ae787bf Clean ruin scene base prompts`
+- `9cb306b Clean urban scene base prompts`
+- `4f42ecf Refine seamless color field backgrounds`
+- `d078987 Finalize scene base prompt cleanup`
+- `46ed909 Clean environment mood prompts`
+- `0881b64 Clarify ambient and subject lighting prompts`
+- `1fe1988 Refine lighting compatibility rules`
+- `b36ae34 Clean focal length prompt wording`
+- `f75cef3 Clean optical effects prompt wording`
+- `b60b6ae Clean film and camera simulation prompts`
+- `5fb89b4 Clean photography style prompts`
+- `e5ef63c Restructure photography imaging controls`
+- `ce074cb Document character identity base cleanup design`
+- `516d676 Clean character identity base prompts`
+- `466308a Document expression pose cleanup design`
+- `d1779c8 Clean expression and pose prompts`
+- `5b9c900 Document outfit preset and dress cleanup design`
+- `e8759f4 Clean outfit presets and dresses`
+- `315dfdc Document special outfit cleanup design`
+- `2f3a9a1 Clean special outfit prompts`
+- `4751ea8 Document special action prompt cleanup`
+- `9b7fbd5 Clean special action prompts`
+- `3e696ae Document special subject prompt enhancement`
+- `9650430 Enhance special subject prompts`
+- `c9f178c Document character section A authoring guide`
+- `d88488d Refine wardrobe controls and accessory prompts`
+- `e47100d Document wardrobe section B authoring guide`
+- `228fab8 Refine scene and lighting prompts`
+- `29c39a6 Document scene rules and refine imaging prompts`
+- `62d78d0 Document photography imaging authoring guide`
+
+### A. 人物設定 Cleanup
+
+The A section is considered optimized for the current phase.
+
+Identity base:
+
+- User explicitly wants to preserve Japanese / Korean female identity direction because most generated subjects are Japanese / Korean women.
+- `subjectCount` should only decide subject quantity:
+  - one subject
+  - two subjects
+  - uploaded subject reference
+- Body types now carry the strongest silhouette and sensuality differences.
+- Face types were simplified into six clear directions:
+  - `韓系偶像臉`
+  - `日系清透臉`
+  - `甜美可愛臉`
+  - `冷感高級臉`
+  - `成熟性感臉`
+  - `混血立體臉`
+- The former thin / bony / cold body direction was removed because it did not fit the desired output.
+
+Hair:
+
+- Hairstyles were merged and simplified.
+- Long hair naming now follows the user's preferred structure:
+  - `直髮：中分`
+  - `直髮：旁分`
+  - `直髮：日式劉海`
+  - `柔波：中分`
+  - `柔波：深側分`
+  - `柔波：劉海`
+- `姬髮式長直髮` was removed.
+- `俐落精靈短髮` was replaced by `帥氣濕亮油頭`.
+- Hair colors were simplified, with fewer special colors.
+
+Expression / pose:
+
+- Repetitive expressions were merged:
+  - natural / confident smile directions were tightened
+  - calm gaze / relaxed indifferent directions were tightened
+- General portrait and social selfie directions both remain.
+- Social selfie language was strengthened.
+- Only two selfie-specific options remain:
+  - natural selfie feel
+  - mirror selfie
+- Elevator mirror selfie and bathroom mirror selfie were intentionally not added because they can be composed from scene + pose.
+- Boyfriend / best-friend photographer perspective was added as a social snapshot direction.
+- Pose count stayed at 27.
+
+Special actions:
+
+- All existing special actions were preserved.
+- Descriptions were cleaned for clarity and stability.
+- Scene-object-dependent actions are allowed because the user plans to pair them with compatible scenes manually.
+
+Special subjects:
+
+- All special subjects were preserved.
+- Special subjects can override normal A-person settings.
+- Descriptions were expanded more than normal options because they define the full subject identity.
+- Target feeling: an unknown character suddenly appears in the real modern world and blends naturally into the photograph.
+- Special subject wording should emphasize live-action realism, natural environmental integration, and credible material / body details instead of cosplay or fantasy staging.
+
+### B. 穿搭設定 Cleanup
+
+The B section is considered optimized for the current phase.
+
+Outfit presets / dresses:
+
+- `套裝` was redefined as clothing with a clear style direction, not generic daily / commute / street categories.
+- Generic directions removed:
+  - minimal premium set
+  - Japanese street set
+  - cozy home set
+  - literary lifestyle set
+  - clean sport set
+  - sweet-hot street set
+  - urban commute set
+  - travel vacation set
+  - nightlife hot-girl set
+- `吊帶短褲` was removed from one-piece / preset because bottoms already cover it.
+- Work set directions kept:
+  - suit with pants
+  - secretary short skirt
+  - flight attendant
+  - nurse
+  - doctor
+- Sets and one-piece options should not hardcode color; color should come from palette controls.
+- Hanfu was removed.
+- `玫瑰哥德蘿莉塔洋裝套裝` was moved into outfit preset / set logic.
+
+Special outfits:
+
+- User chose plan A: keep all 29 special outfits.
+- They were cleaned, deduplicated, and stabilized without deleting options.
+- Tests now confirm:
+  - 29 non-empty special outfits remain
+  - every special outfit prompt starts with `complete outfit:`
+  - descriptions do not become overly long
+  - special outfits still output as complete looks and keep priority over normal separated wardrobe pieces.
+
+Tops / bottoms:
+
+- Tops were considered too repetitive and were merged / simplified.
+- Bottom pants and skirts were mostly acceptable and left structurally stable.
+- A visual separation between top and bottom options was added to the B UI.
+- Top descriptions were optimized so base items focus on garment identity, material, and distinctive structure.
+- `topFit`, `topStyling`, `bottomFit`, and `bottomRise` were intentionally left unchanged for now.
+
+Color / pattern:
+
+- Special upper / lower color entries should not use raw color codes.
+- Pattern options were reviewed and considered sufficient; only wording stability matters in future edits.
+
+Shoes / socks / outerwear:
+
+- Prompt descriptions were reviewed directly, not only composition order.
+- Outerwear descriptions were tightened to avoid repeated structure / fit phrasing.
+- Shoes and socks remain focused on visible item identity and should not override wardrobe color logic unless the model identity requires it.
+
+Accessories:
+
+- `銀色 AirPods Max` was removed.
+- User only wants `black Marshall Major V` as the headphone style.
+- Headphone placement can be selected separately:
+  - worn on head
+  - hanging around neck
+- Eyewear was restructured so frame type, color, and placement are separated:
+  - frame type such as thick frame, thin frame, round frame
+  - color as a separate control
+  - default normal wearing
+  - optional worn on head
+- Accessory prompts should stay compact noun phrases and bind naturally into subject / wardrobe output.
+
+### C. 場景與環境 Cleanup
+
+The C section is considered optimized for the current phase.
+
+Scene base:
+
+- User requested text simplification and stabilization only:
+  - no options deleted
+  - no categories moved
+  - prompt descriptions cleaned for indoor / outdoor / other scene bases.
+- Legacy / older scene bases were cleaned first.
+- Ruin and underground scenes were tightened for stronger physical location detail.
+- Urban scenes were cleaned to avoid repetitive street language.
+- Final pass scanned scene bases for redundant wording and stability.
+- Scene base prompts should avoid forcing the common symmetrical composition problem where buildings, trees, or similar elements line both sides of the frame in an overly neat left-right corridor.
+
+Seamless color-field backgrounds:
+
+- User wants to keep the current solid-color studio background series.
+- Desired output: a single-color seamless field where it is hard to tell wall, ceiling, and floor apart.
+- Avoid visible paper rolls, paper stands, light stands, ceiling fluorescent tubes, obvious studio rigging, and obvious paper backdrop construction.
+- These options can feel like studio backgrounds, but should read as clean seamless color fields.
+- Green-screen-like clean background is acceptable only as a conceptual reference, but the actual user preference is to preserve the current solid-color studio series.
+- Subject shadows should still exist.
+
+Ambient light vs subject light:
+
+- C lighting was split conceptually into two groups:
+  - `環境光條件`: the whole scene's sky / weather / time / color temperature state, such as blue summer cumulus sky, overcast, rainy environment.
+  - `光線表現`: how the subject is lit, including direction, hardness, contrast, edge light, shadows, and reflectivity.
+- Optical effects were intentionally reserved for D photography / imaging.
+- Environment and lighting prompts were cleaned in the order:
+  - scene base
+  - ambient environment mood
+  - subject light style
+  - compatibility rules and tests.
+
+Compatibility:
+
+- Scene attribute filtering remains:
+  - indoor
+  - outdoor
+  - other
+- Lighting compatibility rules were refined so indoor / outdoor / other scene attributes do not show clearly incompatible ambient or subject lighting options.
+- Future C changes should update `engineLightingCompatibility.test.js` and the scene guide.
+
+### D. 攝影與成像 Cleanup
+
+The D section is considered optimized for the current phase.
+
+Structural decision:
+
+- User wanted to rethink the mapping between:
+  - `攝影風格`
+  - `構圖與視角`
+  - `鏡頭與成像`
+- The final direction is:
+  - keep photographer / regional style as the broad image-language layer
+  - keep composition and viewpoint as geometry
+  - merge camera / lens / optical / film rendering more coherently under imaging controls.
+
+Camera / film merge:
+
+- `成像模擬` was merged conceptually with camera / lens / optical output.
+- UI language is now treated as `相機 / 底片`.
+- Camera profile options describe:
+  - camera system traits
+  - likely lens perspective
+  - optical behavior
+  - capture response
+- Film / rendering options describe:
+  - color response
+  - contrast curve
+  - grain
+  - highlight roll-off
+  - low-quality media texture where relevant.
+- This avoids repeating camera and rendering language across separate options and gives future expansion a cleaner structure.
+
+Photographer style:
+
+- Photographer-style descriptions were slightly tightened rather than aggressively rewritten.
+- They should focus on image language, color rhythm, editorial / documentary distance, and viewing behavior.
+- They should not carry body type, sexuality, wardrobe, or scene responsibilities.
+
+Framing / viewpoint:
+
+- Composition and viewpoint options were reviewed for responsibility boundaries.
+- Geometry should describe crop, camera height, tilt, orbit, and body visibility.
+- It should not describe emotional pose, story mood, or character personality.
+
+Focal length:
+
+- Lens focal length prompts were cleaned first within D.
+- They now focus on field of view, perspective, compression, distortion, working distance, and focus plane behavior.
+- Lens options should not define film color, subject pose, or scene mood.
+
+Optical effects:
+
+- Optical effect descriptions were cleaned after focal lengths.
+- `前景遮擋散景` intentionally keeps a strong partial-occlusion effect because the user wants something visibly blocking part of the frame.
+- The wording can be tuned, but the effect should remain a real foreground obstruction, not just generic bokeh.
+- Optical effects stay in D and should not be mixed into C lighting.
+
+Film / camera simulation:
+
+- Film and camera simulation prompts were cleaned before the final imaging restructure.
+- After restructuring, camera profile and film / rendering options now share the `filmId` pathway with compatibility mappings.
+- Legacy mappings must be maintained through `CAMERA_FILM_LEGACY_OPTION_MAP`, `buildImagingSimulationOptions`, and `normalizeLocks`.
+
+### Code / Data Areas Touched In This Session
+
+Most changes were in these files:
+
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/character_design.md`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/wardrobe_and_styling.md`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/locations_and_sets.md`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/camera_and_lighting.md`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/regional_portrait_styles.md`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page1Workspace.jsx`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/index.css`
+- new / updated tests under `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib`
+- new guide files under `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs`
+
+### Current Next-Step Recommendation
+
+The broad A / B / C / D cleanup pass is now complete. Good next directions:
+
+- Use the new spec files whenever adding database options.
+- If adding new options, start with one section at a time and update the matching guide if the new pattern creates a new rule.
+- Run targeted tests first, then full `npm test`, `npm run lint`, and `npm run build` before commit / push.
+- Future work can now focus on real-generation testing and small targeted additions rather than more broad cleanup.
 
 ## Session 2026-05-24 Update
 
