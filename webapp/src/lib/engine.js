@@ -1766,9 +1766,6 @@ function inferFilmMeta(_category, item) {
 }
 
 const CLOSEUP_MODE_ZH_LABELS = new Set(['臉部特寫', '胸上特寫', '局部五官特寫', '半臉傾斜特寫']);
-const CLOSEUP_CHEST_UP_LABEL = '胸上特寫';
-const WARDROBE_INCOMPATIBLE_CLOSEUP_LABELS = new Set(['特寫鏡頭 (Close-Up)', '臉部特寫', '局部五官特寫', '半臉傾斜特寫']);
-const WARDROBE_SAFE_FRAMING_LABEL = '中景鏡頭 (Medium Shot)';
 const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
   'specialOutfitId',
   'specialOutfitAId',
@@ -1815,88 +1812,6 @@ const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
   'neckAccessoryId',
   'neckAccessoryAId',
   'neckAccessoryBId',
-]);
-const CLOSEUP_DISABLED_KEYS = new Set([
-  'locationId',
-  'poseId',
-  'duoPoseId',
-  'specialActionId',
-  'duoInteractionId',
-  'specialOutfitId',
-  'specialOutfitAId',
-  'specialOutfitBId',
-  'outfitPresetId',
-  'outfitPresetColorId',
-  'outfitPresetPrimaryColorId',
-  'outfitPresetContrastColorId',
-  'outfitPresetLockedPaletteId',
-  'outfitPresetAId',
-  'outfitPresetAColorId',
-  'outfitPresetAPrimaryColorId',
-  'outfitPresetAContrastColorId',
-  'outfitPresetALockedPaletteId',
-  'outfitPresetBId',
-  'outfitPresetBColorId',
-  'outfitPresetBPrimaryColorId',
-  'outfitPresetBContrastColorId',
-  'outfitPresetBLockedPaletteId',
-  'dressId',
-  'dressAId',
-  'dressBId',
-  'dressColorId',
-  'dressAColorId',
-  'dressBColorId',
-  'pantsId',
-  'pantsAId',
-  'pantsBId',
-  'skirtId',
-  'skirtAId',
-  'skirtBId',
-  'topFitId',
-  'topFitAId',
-  'topFitBId',
-  'topStylingId',
-  'topStylingAId',
-  'topStylingBId',
-  'topBottomPaletteId',
-  'topBottomPaletteAId',
-  'topBottomPaletteBId',
-  'bottomFitId',
-  'bottomFitAId',
-  'bottomFitBId',
-  'bottomRiseId',
-  'bottomRiseAId',
-  'bottomRiseBId',
-  'bottomColorId',
-  'bottomAColorId',
-  'bottomBColorId',
-  'bottomPatternId',
-  'bottomAPatternId',
-  'bottomBPatternId',
-  'legwearId',
-  'legwearColorId',
-  'outerwearId',
-  'outerwearColorId',
-  'outerwearPatternId',
-  'outerwearStylingId',
-  'shoesId',
-  'shoesColorId',
-  'legwearAId',
-  'legwearAColorId',
-  'outerwearAId',
-  'outerwearAColorId',
-  'outerwearAPatternId',
-  'outerwearAStylingId',
-  'shoesAId',
-  'shoesAColorId',
-  'legwearBId',
-  'legwearBColorId',
-  'outerwearBId',
-  'outerwearBColorId',
-  'outerwearBPatternId',
-  'outerwearBStylingId',
-  'shoesBId',
-  'shoesBColorId',
 ]);
 const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'subjectCount',
@@ -2018,13 +1933,50 @@ const CLOSEUP_CHEST_ALLOWED_KEYS = new Set([
   'neckAccessoryAId',
   'neckAccessoryBId',
 ]);
+const CLOSEUP_CONTEXT_ALLOWED_KEYS = new Set([
+  ...CLOSEUP_CHEST_ALLOWED_KEYS,
+  'locationId',
+  'pantsId',
+  'pantsAId',
+  'pantsBId',
+  'skirtId',
+  'skirtAId',
+  'skirtBId',
+  'bottomFitId',
+  'bottomFitAId',
+  'bottomFitBId',
+  'bottomRiseId',
+  'bottomRiseAId',
+  'bottomRiseBId',
+  'bottomColorId',
+  'bottomAColorId',
+  'bottomBColorId',
+  'bottomPatternId',
+  'bottomAPatternId',
+  'bottomBPatternId',
+  'legwearId',
+  'legwearAId',
+  'legwearBId',
+  'legwearColorId',
+  'legwearAColorId',
+  'legwearBColorId',
+  'shoesId',
+  'shoesAId',
+  'shoesBId',
+  'shoesColorId',
+  'shoesAColorId',
+  'shoesBColorId',
+  'neckAccessoryId',
+  'neckAccessoryAId',
+  'neckAccessoryBId',
+]);
 
 function isCloseupModeFramingItem(framing) {
   return Boolean(framing?.zh && CLOSEUP_MODE_ZH_LABELS.has(framing.zh));
 }
 
-function isWardrobeIncompatibleCloseupFramingItem(framing) {
-  return Boolean(framing?.zh && WARDROBE_INCOMPATIBLE_CLOSEUP_LABELS.has(framing.zh));
+function isWardrobeIncompatibleCloseupFramingItem() {
+  return false;
 }
 
 export function isWardrobeIncompatibleCloseupFramingId(framingId, customLibrary = []) {
@@ -2053,13 +2005,6 @@ export function hasEffectiveWardrobeLocks(rawLocks = {}, controls = getLockContr
   });
 }
 
-function getWardrobeSafeFramingId(controls) {
-  const framingOptions = controls.find((control) => control.key === 'framingId')?.options || [];
-  return framingOptions.find((option) => option.zh === WARDROBE_SAFE_FRAMING_LABEL)?.id ||
-    framingOptions.find((option) => !isWardrobeIncompatibleCloseupFramingItem(option) && !isNoneLikeItem(option))?.id ||
-    '';
-}
-
 export function isCloseupModeFramingId(framingId, customLibrary = []) {
   if (!framingId) return false;
   const controls = getLockControls(customLibrary);
@@ -2073,8 +2018,8 @@ export function getCloseupAllowedKeys(framingId, customLibrary = []) {
   const framingControl = controls.find((control) => control.key === 'framingId');
   const framing = findById(framingControl?.options || [], framingId);
   const allowed = new Set(CLOSEUP_ALWAYS_ALLOWED_KEYS);
-  if (framing?.zh === CLOSEUP_CHEST_UP_LABEL) {
-    CLOSEUP_CHEST_ALLOWED_KEYS.forEach((key) => allowed.add(key));
+  if (isCloseupModeFramingItem(framing)) {
+    CLOSEUP_CONTEXT_ALLOWED_KEYS.forEach((key) => allowed.add(key));
   }
   return allowed;
 }
@@ -2752,16 +2697,10 @@ export function normalizeLocks(rawLocks = {}) {
 export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
   const nextLocks = normalizeLocks(rawLocks);
   const framing = nextLocks.framingId ? findById(controls.find((control) => control.key === 'framingId')?.options || [], nextLocks.framingId) : null;
-  if (hasEffectiveWardrobeLocks(nextLocks, controls) && isWardrobeIncompatibleCloseupFramingItem(framing)) {
-    nextLocks.framingId = getWardrobeSafeFramingId(controls);
-    return nextLocks;
-  }
   if (!isCloseupModeFramingItem(framing)) return nextLocks;
 
   const allowedKeys = new Set(CLOSEUP_ALWAYS_ALLOWED_KEYS);
-  if (framing?.zh === CLOSEUP_CHEST_UP_LABEL) {
-    CLOSEUP_CHEST_ALLOWED_KEYS.forEach((key) => allowedKeys.add(key));
-  }
+  CLOSEUP_CONTEXT_ALLOWED_KEYS.forEach((key) => allowedKeys.add(key));
 
   controls.forEach((control) => {
     if (allowedKeys.has(control.key) || control.key === 'framingId') return;
@@ -4313,6 +4252,12 @@ function buildWardrobe(context, locks, catalog) {
       if (outfitPresetState.specifiedItem && item.id === outfitPresetState.specifiedItem.id) return true;
       if (dressState.specifiedItem && item.id === dressState.specifiedItem.id) return true;
       if (topState.specifiedItem && item.id === topState.specifiedItem.id) return true;
+      if (pantsState.specifiedItem && item.id === pantsState.specifiedItem.id) return true;
+      if (skirtState.specifiedItem && item.id === skirtState.specifiedItem.id) return true;
+      if (locks?.outerwearId && item.id === locks.outerwearId) return true;
+      if (locks?.legwearId && item.id === locks.legwearId) return true;
+      if (locks?.shoesId && item.id === locks.shoesId) return true;
+      if (locks?.neckAccessoryId && item.id === locks.neckAccessoryId) return true;
       return false;
     };
 
@@ -4339,6 +4284,12 @@ function buildWardrobe(context, locks, catalog) {
         maybePick(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, locks?.eyewearPlacementId ? 1 : 1, () => true, { allowNoneWhenUnlocked: false });
       }
       maybePick('耳環 (Earrings)', 0.45, () => true, { allowNoneWhenUnlocked: true });
+    }
+    if (!useDuoRoleWardrobe) {
+      if (locks?.outerwearId) maybePick('外套 (Outerwear)', 1, () => true, { allowNoneWhenUnlocked: true });
+      if (locks?.legwearId) maybePick('襪類 (Legwear)', 1, () => true, { allowNoneWhenUnlocked: true });
+      if (locks?.shoesId) maybePick('鞋款 (Shoes)', 1, () => true, { allowNoneWhenUnlocked: true });
+      if (locks?.neckAccessoryId) maybePick('頸部 (Neck Accessories)', 1, () => true, { allowNoneWhenUnlocked: true });
     }
     return pieces.filter(keepExplicitCloseupWardrobeItem);
   }
@@ -5979,6 +5930,33 @@ function buildContextualSceneAccent(context, { short = false } = {}) {
   return variants[profile]?.[moodType]?.[short ? 'short' : 'full'] || '';
 }
 
+function isCloseupVisibilityContext(context) {
+  return context?.framing?.meta?.visibility === 'close';
+}
+
+function buildCloseupSceneContextPrompt(context) {
+  if (!isCloseupVisibilityContext(context) || !context.location || isNoneLikeItem(context.location)) return '';
+
+  const locationAnchor = stripMarkdown(context.location.en || context.location.zh || '')
+    .split(',')
+    .map((part) => part.trim())
+    .filter(Boolean)[0];
+
+  const selectedContext = locationAnchor ? `selected ${locationAnchor}` : 'the selected scene';
+  return `close-up scene context: ${selectedContext} informs soft blurred background color, environmental light, atmosphere, and vague spatial shapes; do not require full furniture, room layout, or complete environment visibility`;
+}
+
+function buildCloseupWardrobeVisibilityPrompt(context) {
+  if (!isCloseupVisibilityContext(context)) return '';
+
+  const isPartialFace = context?.framing?.meta?.tags?.includes('partial_face');
+  if (isPartialFace) {
+    return 'close-up wardrobe visibility: selected styling remains contextual only; visible wardrobe may be limited to hair-adjacent accessories, eyewear, earrings, skin-adjacent fabric edges, or local facial styling cues; do not require torso clothing, lower-body garments, legwear, or shoes to appear in frame';
+  }
+
+  return 'close-up wardrobe visibility: selected styling remains contextual, but only neckline, collar, shoulder, accessory, or fabric hints may be visible in the frame; lower-body garments, legwear, and shoes are not required to appear';
+}
+
 function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
@@ -6004,6 +5982,9 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     ? characterSlots.specialAction.en
     : '';
   const sceneAccentText = buildContextualSceneAccent(context);
+  const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
+  const closeupWardrobeVisibilityText = buildCloseupWardrobeVisibilityPrompt(context);
+  const isCloseupVisibility = Boolean(closeupWardrobeVisibilityText);
   const sceneProtectedWardrobeMode = !specialSubjectMode
     && !hasDuoSceneAnchor
     && Boolean(
@@ -6066,6 +6047,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     return `(${locationAnchor}:1.35), keep the recognizable selected environment visible behind the subject, preserve clear spatial context and background details, avoid plain or empty background`;
   };
   const addGrokSceneLines = () => {
+    if (isCloseupVisibility) {
+      addLine('Scene Context', skeletonText(closeupSceneContextText));
+      addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
+      addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
+      return;
+    }
     addContextLine('Location', context.location, (item) => skeletonText(item.en));
     addLine('Scene Accent', skeletonText(sceneAccentText));
     addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
@@ -6092,15 +6079,15 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     if (context.subject.count === 2 && duoWardrobeText.clothingText) {
       return 'preserve an outfit-visible editorial duo composition with both women in the same continuous frame, keep visible torso and wardrobe details, avoid collapsing into a headshot-only crop';
     }
+    const visibility = context.framing?.meta?.visibility || '';
+    if (visibility === 'close') {
+      return 'honor the tight close-up crop; keep clothing and setting as close-range context only, avoid expanding the frame just to show the full outfit or room';
+    }
     if (sceneProtectedWardrobeMode) {
       return 'preserve the selected environment as a visible, recognizable background with moderate depth of field when needed, background softly separated but still readable, avoid collapsing into a plain backdrop or overly tight crop';
     }
     if (!context.characterProfilePrompt || context.subject.count !== 1) return '';
-    const visibility = context.framing?.meta?.visibility || '';
     if (visibility === 'portrait') return '';
-    if (visibility === 'close') {
-      return 'preserve a medium composition with the outfit and surrounding setting visible, avoid an overly tight face crop';
-    }
     if (visibility === 'full') {
       return 'preserve a full-body composition with the full outfit and environment clearly visible, avoid collapsing into a face-only crop';
     }
@@ -6130,55 +6117,79 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (sceneProtectedWardrobeMode) addGrokSceneLines();
   if (context.subject.count === 2 && !hasDuoSceneAnchor && (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB)) {
     addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-    addLine('Woman 1 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA));
-    addLine('Woman 2 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB));
+    if (isCloseupVisibility) {
+      addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
+    } else {
+      addLine('Woman 1 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA));
+      addLine('Woman 2 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB));
+    }
   } else if (wardrobeSlots.specialOutfit && !hasDuoSceneAnchor) {
     addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-    addLine('Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit));
+    if (isCloseupVisibility) {
+      addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
+    } else {
+      addLine('Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit));
+    }
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor && (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
     addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-    addLine('Woman 1 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
-      legacy: wardrobeColors.outfitPresetAColor,
-      primary: wardrobeColors.outfitPresetAPrimaryColor,
-      contrast: wardrobeColors.outfitPresetAContrastColor,
-      lockedPalette: wardrobeColors.outfitPresetALockedPalette,
-    }));
-    addLine('Woman 2 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
-      legacy: wardrobeColors.outfitPresetBColor,
-      primary: wardrobeColors.outfitPresetBPrimaryColor,
-      contrast: wardrobeColors.outfitPresetBContrastColor,
-      lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
-    }));
+    if (isCloseupVisibility) {
+      addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
+    } else {
+      addLine('Woman 1 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
+        legacy: wardrobeColors.outfitPresetAColor,
+        primary: wardrobeColors.outfitPresetAPrimaryColor,
+        contrast: wardrobeColors.outfitPresetAContrastColor,
+        lockedPalette: wardrobeColors.outfitPresetALockedPalette,
+      }));
+      addLine('Woman 2 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
+        legacy: wardrobeColors.outfitPresetBColor,
+        primary: wardrobeColors.outfitPresetBPrimaryColor,
+        contrast: wardrobeColors.outfitPresetBContrastColor,
+        lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
+      }));
+    }
   } else if (wardrobeSlots.outfitPreset && !hasDuoSceneAnchor) {
     addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-    addLine('Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
-      legacy: wardrobeColors.outfitPresetColor,
-      primary: wardrobeColors.outfitPresetPrimaryColor,
-      contrast: wardrobeColors.outfitPresetContrastColor,
-      lockedPalette: wardrobeColors.outfitPresetLockedPalette,
-    }));
+    if (isCloseupVisibility) {
+      addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
+    } else {
+      addLine('Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
+        legacy: wardrobeColors.outfitPresetColor,
+        primary: wardrobeColors.outfitPresetPrimaryColor,
+        contrast: wardrobeColors.outfitPresetContrastColor,
+        lockedPalette: wardrobeColors.outfitPresetLockedPalette,
+      }));
+    }
   }
   if (!specialSubjectMode && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && !wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
     const topText = buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
     const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor });
     const pantsText = buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors);
     const skirtText = buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors);
-    addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-    addLine('Dress', dressText);
-    addLine('Top', dressText ? '' : topText);
-    addLine('Pants', dressText ? '' : pantsText);
-    addLine('Skirt', dressText ? '' : skirtText);
-    addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
-    addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+    if (isCloseupVisibility) {
+      addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
+    } else {
+      addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
+      addLine('Dress', dressText);
+      addLine('Top', dressText ? '' : topText);
+      addLine('Pants', dressText ? '' : pantsText);
+      addLine('Skirt', dressText ? '' : skirtText);
+      addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
+      addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+    }
   }
   if (!specialSubjectMode && !hasDuoSceneAnchor && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
-    addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
-    addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+    if (!isCloseupVisibility) {
+      addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
+      addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+    }
   }
   if (!specialSubjectMode && !hasDuoSceneAnchor) {
-    addLine('Waistline Coordination', waistlineCompatibilityText);
-    addLine('Wardrobe Layering Logic', wardrobeLayeringLogicText);
+    if (!isCloseupVisibility) {
+      addLine('Waistline Coordination', waistlineCompatibilityText);
+      addLine('Wardrobe Layering Logic', wardrobeLayeringLogicText);
+    }
     addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
@@ -6213,10 +6224,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addLine('Expression', expressionText);
   }
   if (!sceneProtectedWardrobeMode) {
-    addContextLine('Location', context.location, (item) => skeletonText(item.en));
-    addLine('Scene Accent', skeletonText(sceneAccentText));
-    addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
-    addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
+    addGrokSceneLines();
   }
   addLine('Aspect Ratio', context.aspectRatio.en);
   if (context.style && !isNoneLikeItem(context.style)) {
@@ -6293,6 +6301,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
   const sceneValues = getStructuredValues(valuesByLabel, [
     'Location',
     'Scene Accent',
+    'Scene Context',
     'Scene Priority',
   ]);
   const wardrobeValues = getStructuredValues(valuesByLabel, [
@@ -6310,6 +6319,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Legwear',
     'Shoes',
     'Duo Wardrobe',
+    'Wardrobe Visibility',
     'Waistline Coordination',
     'Wardrobe Layering Logic',
   ]);
@@ -6401,6 +6411,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const specialSubjectMode = isSpecialSubject(context.subject);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const sceneAccentText = buildContextualSceneAccent(context);
+  const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
+  const closeupWardrobeVisibilityText = buildCloseupWardrobeVisibilityPrompt(context);
+  const isCloseupVisibility = Boolean(closeupWardrobeVisibilityText);
   const sceneProtectedWardrobeMode = !specialSubjectMode
     && Boolean(
       wardrobeSlots.specialOutfit
@@ -6512,6 +6525,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     const add = (value) => {
       if (value) parts.push(value);
     };
+    if (isCloseupVisibility) return sentence(closeupWardrobeVisibilityText);
     const buildSingleOutfitPresetText = () => buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
       legacy: wardrobeColors.outfitPresetColor,
       primary: wardrobeColors.outfitPresetPrimaryColor,
@@ -6655,6 +6669,14 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     return parts.length > 0 ? sentence(parts.join(', ')) : '';
   };
   const buildSceneText = () => {
+    if (isCloseupVisibility) {
+      return leadSentence('The setting is', [
+        skeletonMode ? sanitizeSkeletonPromptText(closeupSceneContextText) : closeupSceneContextText,
+        context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
+        lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
+      ]);
+    }
+
     const sceneParts = [
       context.location && !isNoneLikeItem(context.location) ? (skeletonMode ? sanitizeSkeletonPromptText(context.location.en) : context.location.en) : '',
       skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : sceneAccentText,
@@ -6925,6 +6947,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const specialSubject = getSpecialSubjectOption(effectiveLocks.specialSubjectId);
   const subject = specialSubject || getSubjectOption(effectiveLocks.subjectCount);
   const hasWardrobeLocks = !specialSubject && hasEffectiveWardrobeLocks(effectiveLocks, lockControls);
+  const hasSceneLocks = Boolean(effectiveLocks.locationId || effectiveLocks.sceneAttributeId);
   const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio);
   const sceneAttribute = getSceneAttributeOption(effectiveLocks.sceneAttributeId);
   const lowFrequencyPicker = (tag) => (candidates) => {
@@ -6953,7 +6976,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
       (!lockedSpecialAction || item.zh !== '全無')
       &&
       !(location.meta.tags.includes('club') && item.meta.visibility === 'close')
-      && !(hasWardrobeLocks && isWardrobeIncompatibleCloseupFramingItem(item))
+      && (effectiveLocks.framingId || (!hasWardrobeLocks && !hasSceneLocks) || item.meta.visibility !== 'close')
       && framingSupportsSubject(item, subject, aspectRatio)
       && specialActionSupportsFraming(lockedSpecialAction, item)
     )

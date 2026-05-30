@@ -1,7 +1,15 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
+import {
+  createEmptyLocks,
+  generatePrompts,
+  getCloseupAllowedKeys,
+  getLockControls,
+  isWardrobeIncompatibleCloseupFramingId,
+  normalizeLocks,
+  sanitizeLocksForCloseupMode,
+} from './engine.js';
 
 const optionId = (controlKey, zh) => {
   const control = getLockControls().find((item) => item.key === controlKey);
@@ -441,4 +449,61 @@ test('wardrobe layering logic makes legwear secondary under long bottoms', () =>
   assert.match(pantsText, /do not force full socks or stockings to be completely displayed/);
   assert.match(skirtText, /legwear is secondary under the long bottom layer/);
   assert.match(skirtText, /long bottom layer keeps its natural full length and drape/);
+});
+
+test('face close-up framing keeps wardrobe and location locks available as contextual inputs', () => {
+  const controls = getLockControls();
+  const faceCloseupId = optionId('framingId', '臉部特寫');
+  const locks = {
+    ...createEmptyLocks(),
+    framingId: faceCloseupId,
+    locationId: optionId('locationId', '室內：現代高樓公寓客廳'),
+    topId: optionId('topId', '透膚刺繡襯衫'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    shoesId: optionId('shoesId', '高跟鞋'),
+  };
+
+  assert.equal(isWardrobeIncompatibleCloseupFramingId(faceCloseupId), false);
+
+  const allowedKeys = getCloseupAllowedKeys(faceCloseupId);
+  assert.equal(allowedKeys.has('locationId'), true);
+  assert.equal(allowedKeys.has('topId'), true);
+  assert.equal(allowedKeys.has('pantsId'), true);
+  assert.equal(allowedKeys.has('shoesId'), true);
+
+  const sanitized = sanitizeLocksForCloseupMode(locks, controls);
+  assert.equal(sanitized.framingId, locks.framingId);
+  assert.equal(sanitized.locationId, locks.locationId);
+  assert.equal(sanitized.topId, locks.topId);
+  assert.equal(sanitized.pantsId, locks.pantsId);
+  assert.equal(sanitized.shoesId, locks.shoesId);
+});
+
+test('face close-up prompts degrade selected wardrobe and scene into visible close-up context', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '臉部特寫'),
+    locationId: optionId('locationId', '室內：現代高樓公寓客廳'),
+    topId: optionId('topId', '透膚刺繡襯衫'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    shoesId: optionId('shoesId', '高跟鞋'),
+  });
+
+  assert.equal(prompt.selection.framingId, optionId('framingId', '臉部特寫'));
+  assert.equal(prompt.selection.locationId, optionId('locationId', '室內：現代高樓公寓客廳'));
+  assert.equal(prompt.selection.topId, optionId('topId', '透膚刺繡襯衫'));
+  assert.equal(prompt.selection.pantsId, optionId('pantsId', '直筒牛仔褲'));
+  assert.equal(prompt.selection.shoesId, optionId('shoesId', '高跟鞋'));
+
+  assert.match(prompt.grokPrompt, /tight facial close-up portrait/);
+  assert.match(prompt.grokPrompt, /close-up wardrobe visibility/i);
+  assert.match(prompt.grokPrompt, /neckline, collar, shoulder, accessory, or fabric hints/i);
+  assert.match(prompt.grokPrompt, /close-up scene context/i);
+  assert.match(prompt.grokPrompt, /soft blurred background/i);
+  assert.doesNotMatch(prompt.grokPrompt, /straight-leg jeans/);
+  assert.doesNotMatch(prompt.grokPrompt, /glossy pointed-toe stiletto pumps/);
+  assert.match(prompt.zImagePrompt, /close-up wardrobe visibility/i);
+  assert.match(prompt.zImagePrompt, /close-up scene context/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /straight-leg jeans/);
+  assert.doesNotMatch(prompt.zImagePrompt, /glossy pointed-toe stiletto pumps/);
 });
