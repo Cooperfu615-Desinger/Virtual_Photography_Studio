@@ -21,7 +21,7 @@
 | **相機視角 (Angle)** | 腰部高度鏡頭 | `waist-level camera position, level lens axis, grounded fashion portrait height, no upward or downward tilt` | 相機高度落在腰部或髖部附近，以平視鏡頭軸拍攝，不做俯仰描述，適合全身、牛仔中景與下身穿搭。 |
 | **相機視角 (Angle)** | 膝蓋高度鏡頭 | `knee-level camera position, level lens axis, low fashion camera height, legs and shoes emphasized` | 相機高度接近膝蓋，以平視鏡頭軸拍攝，不做俯仰描述，強調低機位、腿部比例與鞋款存在感。 |
 | **相機視角 (Angle)** | 地面高度鏡頭 | `floor-level camera position, low camera near the floor, upward view, elongated full-body perspective` | 相機接近地面，低機位並明顯向上看，但仍保持可控的人像低角度透視，不強制近前景誇張放大。 |
-| **相機視角 (Angle)** | 蟲眼視角鏡頭 | `worm's-eye view, camera almost touching the floor, sharply looking upward, near foreground enlarged, rising vertical lines` | 相機極低、貼近地面、強烈向上看，通常帶強烈透視、近物放大、垂直線上升感，最接近地面貼近前景的戲劇化仰拍。 |
+| **相機視角 (Angle)** | 蟲眼視角鏡頭 | `worm's-eye view, ultra-low upward camera, ultra-wide lens perspective, strong near-far scale distortion, feet extremely close to the lens, intense spatial impact` | 相機極低、貼近地面、強烈向上看，結合超廣角近大遠小透視；人物腳部或最近前景距離鏡頭極近，形成巨大壓迫感與空間衝擊力。 |
 | **相機視角 (Angle)** | 鳥瞰視角 | `bird's-eye view, elevated overhead camera position, looking down from high above, small figure against the surrounding space` | 從高處往下看，人物與環境關係更明顯，適合全身或廣一點的環境構圖，不適合需要眼神直視或臉部細節的近景。 |
 | **相機視角 (Angle)** | 正上方俯視鏡頭 | `top-down view, vertical overhead camera angle, camera directly above the subject, graphic flattened composition` | 相機幾乎在人物正上方垂直俯拍，畫面更平面化、圖像化，適合地面、床面、桌面或造型排列感強的畫面，屬於低頻特殊視角。 |
 | **相機視角 (Angle)** | 荷蘭角/傾斜 (Dutch Angle) | `dutch angle, tilted camera axis, diagonal horizon line, off-balance frame geometry` | 相機刻意傾斜，地平線或垂直線不再水平，形成偏移、斜向、非穩定的畫面幾何。 |

@@ -565,6 +565,7 @@ export default function Page1Workspace({
   wardrobeLockControls,
   locks,
   isCloseupMode,
+  isWormEyeAngle,
   closeupAllowedKeys,
   isNoneSelected,
   updateLocks,
@@ -632,6 +633,7 @@ export default function Page1Workspace({
     isReferenceSubjectMode ? '上傳人物' : '',
     isDuoMode ? '雙人' : '',
     isCloseupMode ? '特寫模式' : '',
+    isWormEyeAngle ? '蟲眼視角' : '',
     isAnyOutfitPresetActive ? '套裝接管' : '',
     isSpecialOutfitActive ? '特殊穿搭' : '',
   ].filter(Boolean);
@@ -664,6 +666,7 @@ export default function Page1Workspace({
       status: isCloseupMode ? '特寫中' : formatSelectionStatus(countEffectiveSelections('photography', locks, lockControls)),
       chips: [
         isCloseupMode ? '收斂構圖欄位' : '',
+        isWormEyeAngle ? '攝影風格與鏡頭光學全無' : '',
         getControlOptionLabel(lockControls, 'styleId', locks.styleId) ? '攝影風格' : '',
         getControlOptionLabel(lockControls, 'filmId', locks.filmId) ? '成像模擬' : '',
       ].filter(Boolean),
@@ -700,6 +703,7 @@ export default function Page1Workspace({
 
   const isControlDisabled = (control) => (
     (isCloseupMode && !closeupAllowedKeys.has(control.key))
+    || (isWormEyeAngle && ['styleId', 'lensId', 'opticalEffectId'].includes(control.key))
     || (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1')
     || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
     || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))

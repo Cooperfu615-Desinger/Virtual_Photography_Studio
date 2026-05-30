@@ -1,7 +1,15 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { buildPhotographyStylePrompt, createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
+import {
+  buildPhotographyStylePrompt,
+  createEmptyLocks,
+  generatePrompts,
+  getLockControls,
+  isWormEyeAngleId,
+  normalizeLocks,
+  sanitizeLocksForCloseupMode,
+} from './engine.js';
 
 function control(key) {
   const entry = getLockControls().find((item) => item.key === key);
@@ -41,8 +49,51 @@ test('composition and angle prompts stay geometric instead of emotional', () => 
   }
 
   assert.match(optionByLabel('angleId', '地面高度鏡頭').en, /floor-level camera position/);
-  assert.match(optionByLabel('angleId', '蟲眼視角鏡頭').en, /worm's-eye view/);
+  assert.match(optionByLabel('angleId', '蟲眼視角鏡頭').en, /ultra-low upward camera/);
+  assert.match(optionByLabel('angleId', '蟲眼視角鏡頭').en, /ultra-wide lens perspective/);
+  assert.match(optionByLabel('angleId', '蟲眼視角鏡頭').en, /feet extremely close to the lens/);
   assert.match(optionByLabel('angleId', '高位俯視鏡頭').en, /looking downward/);
+});
+
+test('worm-eye angle forces photography style and lens optics to none', () => {
+  const controls = getLockControls();
+  const wormEye = optionByLabel('angleId', '蟲眼視角鏡頭');
+  const style = optionByLabel('styleId', 'Ellen von Unwerth（艾倫・馮・昂沃斯）');
+  const lens = optionByLabel('lensId', '105mm 中長焦');
+  const opticalEffect = optionByLabel('opticalEffectId', '前景遮擋散景');
+  const noneStyle = optionByLabel('styleId', '全無');
+  const noneLens = optionByLabel('lensId', '全無');
+  const noneOpticalEffect = optionByLabel('opticalEffectId', '全無');
+
+  assert.equal(isWormEyeAngleId(wormEye.id), true);
+
+  const sanitized = sanitizeLocksForCloseupMode({
+    ...createEmptyLocks(),
+    angleId: wormEye.id,
+    styleId: style.id,
+    lensId: lens.id,
+    opticalEffectId: opticalEffect.id,
+  }, controls);
+
+  assert.equal(sanitized.styleId, noneStyle.id);
+  assert.equal(sanitized.lensId, noneLens.id);
+  assert.equal(sanitized.opticalEffectId, noneOpticalEffect.id);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    angleId: wormEye.id,
+    styleId: style.id,
+    lensId: lens.id,
+    opticalEffectId: opticalEffect.id,
+  });
+
+  assert.equal(prompt.selection.styleId, noneStyle.id);
+  assert.equal(prompt.selection.lensId, noneLens.id);
+  assert.equal(prompt.selection.opticalEffectId, noneOpticalEffect.id);
+  assert.match(prompt.grokPrompt, /ultra-low upward camera/);
+  assert.doesNotMatch(prompt.grokPrompt, /Inspired by Ellen von Unwerth/);
+  assert.doesNotMatch(prompt.grokPrompt, /105mm medium telephoto lens/);
+  assert.doesNotMatch(prompt.grokPrompt, /blurred foreground occlusion near the lens/);
 });
 
 test('camera angle control uses height-based definitions with legacy lock migration', () => {
@@ -90,6 +141,17 @@ test('duo angle overrides stay geometric after angle cleanup', () => {
 
   assert.doesNotMatch(prompt, /dominant|cinematic tension/i);
   assert.match(prompt, /tilted two-subject framing/);
+
+  const wormEye = optionByLabel('angleId', '蟲眼視角鏡頭');
+  const wormEyePrompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    angleId: wormEye.id,
+  })[0].grokPrompt;
+
+  assert.match(wormEyePrompt, /ultra-low upward camera/);
+  assert.match(wormEyePrompt, /ultra-wide lens perspective/);
+  assert.match(wormEyePrompt, /feet extremely close to the lens/);
 });
 
 test('orbit control uses degree-based body orientation with legacy lock migration', () => {

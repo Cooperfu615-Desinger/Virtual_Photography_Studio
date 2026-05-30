@@ -1798,6 +1798,8 @@ function inferFilmMeta(_category, item) {
 }
 
 const CLOSEUP_MODE_ZH_LABELS = new Set(['臉部特寫', '胸上特寫', '局部五官特寫', '半臉傾斜特寫']);
+const WORM_EYE_ANGLE_LABEL = '蟲眼視角鏡頭';
+const WORM_EYE_FORCED_NONE_KEYS = ['styleId', 'lensId', 'opticalEffectId'];
 const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
   'specialOutfitId',
   'specialOutfitAId',
@@ -2007,6 +2009,10 @@ function isCloseupModeFramingItem(framing) {
   return Boolean(framing?.zh && CLOSEUP_MODE_ZH_LABELS.has(framing.zh));
 }
 
+function isWormEyeAngleItem(angle) {
+  return angle?.zh === WORM_EYE_ANGLE_LABEL;
+}
+
 function isWardrobeIncompatibleCloseupFramingItem() {
   return false;
 }
@@ -2043,6 +2049,14 @@ export function isCloseupModeFramingId(framingId, customLibrary = []) {
   const framingControl = controls.find((control) => control.key === 'framingId');
   const framing = findById(framingControl?.options || [], framingId);
   return isCloseupModeFramingItem(framing);
+}
+
+export function isWormEyeAngleId(angleId, customLibrary = []) {
+  if (!angleId) return false;
+  const controls = getLockControls(customLibrary);
+  const angleControl = controls.find((control) => control.key === 'angleId');
+  const angle = findById(angleControl?.options || [], angleId);
+  return isWormEyeAngleItem(angle);
 }
 
 export function getCloseupAllowedKeys(framingId, customLibrary = []) {
@@ -2729,6 +2743,13 @@ export function normalizeLocks(rawLocks = {}) {
 export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
   const nextLocks = normalizeLocks(rawLocks);
   const framing = nextLocks.framingId ? findById(controls.find((control) => control.key === 'framingId')?.options || [], nextLocks.framingId) : null;
+  const angle = nextLocks.angleId ? findById(controls.find((control) => control.key === 'angleId')?.options || [], nextLocks.angleId) : null;
+  if (isWormEyeAngleItem(angle)) {
+    WORM_EYE_FORCED_NONE_KEYS.forEach((key) => {
+      const noneOption = controls.find((control) => control.key === key)?.options?.find((option) => option.zh === '全無');
+      nextLocks[key] = noneOption ? noneOption.id : '';
+    });
+  }
   if (!isCloseupModeFramingItem(framing)) return nextLocks;
 
   const allowedKeys = new Set(CLOSEUP_ALWAYS_ALLOWED_KEYS);
@@ -4772,7 +4793,7 @@ const DUO_PROMPT_OVERRIDES = {
     '腰部高度鏡頭': 'waist-level camera position, level lens axis, grounded fashion duo camera height, no upward or downward tilt',
     '膝蓋高度鏡頭': 'knee-level camera position, level lens axis, low fashion duo camera height, legs and shoes emphasized when visible',
     '地面高度鏡頭': 'floor-level camera position, low camera near the floor, upward view toward both women, elongated full-body duo perspective',
-    '蟲眼視角鏡頭': "worm's-eye view, camera almost touching the floor, sharply looking upward at both women, near foreground enlarged, rising vertical lines",
+    '蟲眼視角鏡頭': "worm's-eye view, ultra-low upward camera, ultra-wide lens perspective, strong near-far scale distortion, feet extremely close to the lens, intense spatial impact",
     '荷蘭角/傾斜 (Dutch Angle)': 'dutch angle, tilted two-subject framing, diagonal horizon line, both women held in frame',
   },
   orbit: {
@@ -7032,7 +7053,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     effectiveLocks.locationId,
     (item) => locationMatchesSceneAttribute(item, sceneAttribute)
   );
-  const style = pickWithLock(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
+  let style = pickWithLock(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
   const lockedSpecialAction = !specialSubject && effectiveLocks.specialActionId
     ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
     : null;
@@ -7061,6 +7082,15 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     (item) => framingSupportsAngle(framing, item) && lockedExpressions.every((expression) => angleSupportsExpression(item, expression)),
     lowFrequencyPicker('low_frequency_angle')
   );
+  if (isWormEyeAngleItem(angle)) {
+    const noneStyle = getControlOptionByZh(lockControls, 'styleId', '全無');
+    const noneLens = getControlOptionByZh(lockControls, 'lensId', '全無');
+    const noneOpticalEffect = getControlOptionByZh(lockControls, 'opticalEffectId', '全無');
+    style = noneStyle || null;
+    effectiveLocks.styleId = noneStyle?.id || '';
+    effectiveLocks.lensId = noneLens?.id || '';
+    effectiveLocks.opticalEffectId = noneOpticalEffect?.id || '';
+  }
   const orbit = pickCameraWithExpressionLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,

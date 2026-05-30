@@ -15,6 +15,7 @@ import {
   hasEffectiveWardrobeLocks,
   isCloseupModeFramingId,
   isWardrobeIncompatibleCloseupFramingId,
+  isWormEyeAngleId,
   normalizeLocks,
   sanitizeLocksForCloseupMode
 } from './lib/engine';
@@ -1379,6 +1380,7 @@ export default function App() {
   );
   const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
   const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
+  const isWormEyeAngle = useMemo(() => isWormEyeAngleId(locks.angleId, activeLibrary), [locks.angleId, activeLibrary]);
   const closeupAllowedKeys = useMemo(() => getCloseupAllowedKeys(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
   const outfitPresetControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetId') || null, [lockControls]);
   const outfitPresetAControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetAId') || null, [lockControls]);
@@ -1941,6 +1943,7 @@ export default function App() {
           wardrobeLockControls={wardrobeLockControls}
           locks={locks}
           isCloseupMode={isCloseupMode}
+          isWormEyeAngle={isWormEyeAngle}
           closeupAllowedKeys={closeupAllowedKeys}
           isNoneSelected={isNoneSelected}
           updateLocks={updateLocks}
