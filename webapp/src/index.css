@@ -1562,6 +1562,79 @@ button:disabled {
   font-weight: 800;
 }
 
+.dll-pic-lightbox-backdrop {
+  padding: 18px;
+}
+
+.modal-panel.dll-pic-lightbox {
+  width: min(calc(var(--dll-pic-lightbox-width, 760px) + 36px), calc(100vw - 36px));
+  max-height: calc(100vh - 36px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px;
+  border-color: #fff;
+  border-radius: 18px;
+  background: #ffeacc;
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+.dll-pic-lightbox-header {
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 250, 241, 0.14);
+}
+
+.dll-pic-lightbox-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.dll-pic-lightbox-close {
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.74rem;
+}
+
+.dll-pic-lightbox .dll-pic-download-btn {
+  background: #ffadad;
+  border-color: rgba(111, 87, 60, 0.18);
+  color: #4a3420;
+}
+
+.dll-pic-lightbox .dll-pic-download-btn:hover {
+  background: #ffa0a0;
+}
+
+.dll-pic-lightbox-image-frame {
+  width: min(var(--dll-pic-lightbox-width, 760px), calc(100vw - 72px));
+  max-height: min(var(--dll-pic-lightbox-height, 520px), calc(100vh - 150px));
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background:
+    linear-gradient(45deg, rgba(255, 250, 241, 0.055) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 250, 241, 0.055) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 250, 241, 0.055) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 250, 241, 0.055) 75%),
+    #0f0d0b;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  background-size: 20px 20px;
+  overflow: auto;
+}
+
+.dll-pic-lightbox-image-frame img {
+  display: block;
+  width: min(var(--dll-pic-lightbox-width, 760px), calc(100vw - 72px));
+  height: auto;
+  max-height: min(var(--dll-pic-lightbox-height, 520px), calc(100vh - 150px));
+}
+
 .image-analyzer-panel {
   margin-top: 4px;
 }

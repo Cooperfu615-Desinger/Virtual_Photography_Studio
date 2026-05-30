@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   DLL_PIC_ASPECT_RATIOS,
   DLL_PIC_MODEL_CONFIG,
@@ -13,10 +13,19 @@ function loadStoredValue(key, fallback = '') {
 }
 
 function saveImage(src, index) {
+  const extension = src.match(/^data:image\/([a-zA-Z0-9.+-]+);/)?.[1]
+    || src.split('?')[0].split('.').pop()
+    || 'png';
   const link = document.createElement('a');
   link.href = src;
-  link.download = `dll_pic_pro_${Date.now()}_${index + 1}.png`;
+  link.download = `dll_pic_pro_${Date.now()}_${index + 1}.${extension.replace('jpeg', 'jpg')}`;
   link.click();
+}
+
+function loadDevPreviewImages() {
+  if (typeof window === 'undefined' || !import.meta.env.DEV) return [];
+  const demoImageUrl = new URLSearchParams(window.location.search).get('dllPicDemoImage');
+  return demoImageUrl ? [{ src: demoImageUrl, mimeType: 'image/jpeg' }] : [];
 }
 
 export default function DllPicProPanel({
@@ -33,12 +42,19 @@ export default function DllPicProPanel({
   const [selectedSourceId, setSelectedSourceId] = useState(initialSourceId);
   const [aspectRatio, setAspectRatio] = useState('9:16');
   const [count, setCount] = useState(1);
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(loadDevPreviewImages);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [previewImageIndex, setPreviewImageIndex] = useState(null);
+  const [previewImageSize, setPreviewImageSize] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(() => (loadDevPreviewImages().length ? '已套用本地預覽圖' : ''));
 
   const activeModel = getDllPicModelConfig(modelKey);
+  const previewImage = previewImageIndex === null ? null : images[previewImageIndex] || null;
+  const previewDisplaySize = previewImageSize ? {
+    width: previewImageSize.width / 2,
+    height: previewImageSize.height / 2,
+  } : null;
   const selectedSource = useMemo(() => (
     promptSources.find((source) => source.id === selectedSourceId) || availableSources[0] || promptSources[0] || null
   ), [availableSources, promptSources, selectedSourceId]);
@@ -51,11 +67,24 @@ export default function DllPicProPanel({
     setMessage('DLL_PIC Pro 設定已保存');
   };
 
+  const openImagePreview = (index) => {
+    setSelectedImageIndex(index);
+    setPreviewImageSize(null);
+    setPreviewImageIndex(index);
+  };
+
+  const closeImagePreview = () => {
+    setPreviewImageIndex(null);
+    setPreviewImageSize(null);
+  };
+
   const handleGenerate = async () => {
     setIsGenerating(true);
     setMessage('');
     setImages([]);
     setSelectedImageIndex(0);
+    setPreviewImageIndex(null);
+    setPreviewImageSize(null);
 
     try {
       window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.apiKey, apiKey.trim());
@@ -75,6 +104,17 @@ export default function DllPicProPanel({
       setIsGenerating(false);
     }
   };
+
+  useEffect(() => {
+    if (!previewImage) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setPreviewImageIndex(null);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [previewImage]);
 
   return (
     <section className={`dll-pic-panel ${compact ? 'dll-pic-panel-compact' : ''}`}>
@@ -173,7 +213,12 @@ export default function DllPicProPanel({
                 key={`${image.src.slice(0, 48)}-${index}`}
                 className={`dll-pic-image-card ${selectedImageIndex === index ? 'dll-pic-image-card-active' : ''}`}
               >
-                <button type="button" className="dll-pic-image-select" onClick={() => setSelectedImageIndex(index)}>
+                <button
+                  type="button"
+                  className="dll-pic-image-select"
+                  onClick={() => openImagePreview(index)}
+                  aria-label={`開啟 DLL_PIC Pro 圖像 ${index + 1} 原尺寸預覽`}
+                >
                   <img src={image.src} alt={`DLL_PIC Pro generated ${index + 1}`} />
                 </button>
                 <figcaption>
@@ -187,6 +232,52 @@ export default function DllPicProPanel({
           </div>
         )}
       </div>
+
+      {previewImage ? (
+        <div className="modal-backdrop dll-pic-lightbox-backdrop" onClick={closeImagePreview}>
+          <div
+            className="modal-panel dll-pic-lightbox"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`DLL_PIC Pro 圖像 ${previewImageIndex + 1} 原尺寸預覽`}
+            style={previewDisplaySize ? {
+              '--dll-pic-lightbox-width': `${previewDisplaySize.width}px`,
+              '--dll-pic-lightbox-height': `${previewDisplaySize.height}px`,
+            } : undefined}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="modal-header dll-pic-lightbox-header">
+              <div>
+                <div className="control-section-title">DLL_PIC Pro 預覽圖 #{previewImageIndex + 1}</div>
+              </div>
+              <div className="dll-pic-lightbox-actions">
+                <button
+                  type="button"
+                  className="secondary dll-pic-download-btn"
+                  onClick={() => saveImage(previewImage.src, previewImageIndex)}
+                >
+                  下載
+                </button>
+                <button type="button" className="secondary dll-pic-lightbox-close" onClick={closeImagePreview}>
+                  關閉
+                </button>
+              </div>
+            </div>
+            <div className="dll-pic-lightbox-image-frame">
+              <img
+                src={previewImage.src}
+                alt={`DLL_PIC Pro generated half size ${previewImageIndex + 1}`}
+                onLoad={(event) => {
+                  setPreviewImageSize({
+                    width: event.currentTarget.naturalWidth,
+                    height: event.currentTarget.naturalHeight,
+                  });
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
