@@ -92,6 +92,62 @@ test('duo angle overrides stay geometric after angle cleanup', () => {
   assert.match(prompt, /tilted two-subject framing/);
 });
 
+test('orbit control uses degree-based body orientation with legacy lock migration', () => {
+  const orbitLabels = options('orbitId').map((item) => item.zh);
+
+  assert.deepEqual(orbitLabels, [
+    '全無',
+    '正面 0 度',
+    '左前 45 度',
+    '左側 90 度',
+    '左後 135 度',
+    '背面 180 度',
+    '右後 225 度',
+    '右側 270 度',
+    '右前 315 度',
+  ]);
+
+  assert.ok(!orbitLabels.includes('左前斜側'));
+  assert.ok(!orbitLabels.includes('左後斜側'));
+  assert.ok(!orbitLabels.includes('右後斜側'));
+  assert.ok(!orbitLabels.includes('右前斜側'));
+
+  const oldFront = 'camera:拍攝方位-orbit-angle:正面:1';
+  const oldLeftFront = 'camera:拍攝方位-orbit-angle:左前斜側:2';
+  const oldLeftSide = 'camera:拍攝方位-orbit-angle:左側:3';
+  const oldLeftRear = 'camera:拍攝方位-orbit-angle:左後斜側:4';
+  const oldBack = 'camera:拍攝方位-orbit-angle:背面:5';
+  const oldRightRear = 'camera:拍攝方位-orbit-angle:右後斜側:6';
+  const oldRightSide = 'camera:拍攝方位-orbit-angle:右側:7';
+  const oldRightFront = 'camera:拍攝方位-orbit-angle:右前斜側:8';
+
+  assert.equal(optionById('orbitId', normalizeLocks({ ...createEmptyLocks(), orbitId: oldFront }).orbitId).zh, '正面 0 度');
+  assert.equal(optionById('orbitId', normalizeLocks({ ...createEmptyLocks(), orbitId: oldLeftFront }).orbitId).zh, '左前 45 度');
+  assert.equal(optionById('orbitId', normalizeLocks({ ...createEmptyLocks(), orbitId: oldLeftSide }).orbitId).zh, '左側 90 度');
+  assert.equal(optionById('orbitId', normalizeLocks({ ...createEmptyLocks(), orbitId: oldLeftRear }).orbitId).zh, '左後 135 度');
+  assert.equal(optionById('orbitId', normalizeLocks({ ...createEmptyLocks(), orbitId: oldBack }).orbitId).zh, '背面 180 度');
+  assert.equal(optionById('orbitId', normalizeLocks({ ...createEmptyLocks(), orbitId: oldRightRear }).orbitId).zh, '右後 225 度');
+  assert.equal(optionById('orbitId', normalizeLocks({ ...createEmptyLocks(), orbitId: oldRightSide }).orbitId).zh, '右側 270 度');
+  assert.equal(optionById('orbitId', normalizeLocks({ ...createEmptyLocks(), orbitId: oldRightFront }).orbitId).zh, '右前 315 度');
+
+  const backView = optionByLabel('orbitId', '背面 180 度');
+  assert.match(backView.en, /180-degree rear view/);
+  assert.match(backView.en, /body remains rear-facing even if the head turns/);
+  assert.doesNotMatch(backView.en, /no frontal face visible/i);
+});
+
+test('duo orbit overrides use current degree labels', () => {
+  const rightFront = optionByLabel('orbitId', '右前 315 度');
+  const prompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    orbitId: rightFront.id,
+  })[0].grokPrompt;
+
+  assert.match(prompt, /315-degree front three-quarter duo view/);
+  assert.doesNotMatch(prompt, /正面 315 度/);
+});
+
 test('camera and film control separates camera profiles from rendering looks', () => {
   const filmControl = control('filmId');
   assert.equal(filmControl.label, '相機 / 底片');

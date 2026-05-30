@@ -2488,44 +2488,44 @@
         "desc": "不指定環繞角度，讓模型自行決定人物相對鏡頭的朝向。"
       },
       {
-        "zh": "正面",
-        "en": "front-facing camera position, straight-on subject view, symmetrical subject orientation",
-        "desc": "鏡頭正對人物正面，臉部與身體主要朝向鏡頭，資訊最完整。"
+        "zh": "正面 0 度",
+        "en": "camera positioned directly in front of the subject, 0-degree front view, frontal torso orientation",
+        "desc": "鏡頭位於人物正前方，人物身體正面朝向鏡頭，臉部與身體資訊最完整。"
       },
       {
-        "zh": "左前斜側",
-        "en": "front three-quarter angle, 45-degree turn, slightly angled toward camera, dimensional subject view",
-        "desc": "身體略微往左轉開，但仍保留大部分正面資訊，常見於最自然的人像角度。"
+        "zh": "左前 45 度",
+        "en": "camera at the subject's front-left, 45-degree front three-quarter view, torso angled toward the lens",
+        "desc": "鏡頭位於人物左前方 45 度，呈現正面與側面兼具的前斜側身體方位。"
       },
       {
-        "zh": "左側",
-        "en": "side profile view, 90-degree subject angle, clean facial profile, lateral composition",
-        "desc": "以左側臉或左側身輪廓為主，適合強調鼻樑、下顎線與側面輪廓。"
+        "zh": "左側 90 度",
+        "en": "camera positioned on the subject's left side, 90-degree left profile view, lateral torso orientation",
+        "desc": "鏡頭位於人物左側 90 度，以左側臉與左側身體輪廓為主。"
       },
       {
-        "zh": "左後斜側",
-        "en": "rear three-quarter angle, over-shoulder body orientation, partially turned away from camera",
-        "desc": "身體明顯朝左後方轉開，只保留少量側臉或回望可能，神秘感更強。"
+        "zh": "左後 135 度",
+        "en": "camera behind-left at 135-degree orbit, rear three-quarter view, shoulder line visible, torso stays rear-facing if head turns",
+        "desc": "鏡頭位於人物左後方 135 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。"
       },
       {
-        "zh": "背面",
-        "en": "back view, subject facing away from camera, rear body orientation, turned back silhouette",
-        "desc": "以背影為主，臉部資訊大幅減少，重點轉向髮型、服裝線條與姿態。"
+        "zh": "背面 180 度",
+        "en": "camera positioned directly behind the subject, 180-degree rear view, subject's back facing the camera, rear body orientation, body remains rear-facing even if the head turns",
+        "desc": "鏡頭位於人物正後方 180 度，人物背部朝向鏡頭；可允許頭部回看，但身體方位仍保持背面。"
       },
       {
-        "zh": "右後斜側",
-        "en": "rear three-quarter angle from opposite side, body turned away, partial shoulder reveal",
-        "desc": "從右後方的斜側角度觀看主體，保留肩線與背部輪廓，仍偏背影導向。"
+        "zh": "右後 225 度",
+        "en": "camera behind-right at 225-degree orbit, rear three-quarter view, shoulder line visible, torso stays rear-facing if head turns",
+        "desc": "鏡頭位於人物右後方 225 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。"
       },
       {
-        "zh": "右側",
-        "en": "right-side profile view, side-facing camera angle, crisp lateral silhouette",
-        "desc": "以右側臉或右側身輪廓為主，重點同樣是側面線條與輪廓感。"
+        "zh": "右側 270 度",
+        "en": "camera positioned on the subject's right side, 270-degree right profile view, lateral torso orientation",
+        "desc": "鏡頭位於人物右側 270 度，以右側臉與右側身體輪廓為主。"
       },
       {
-        "zh": "右前斜側",
-        "en": "front three-quarter angle from opposite side, softly turned toward camera, dimensional subject composition",
-        "desc": "身體略微往右轉開，但仍保留大部分正面資訊，適合自然且有立體感的人像構圖。"
+        "zh": "右前 315 度",
+        "en": "camera at the subject's front-right, 315-degree front three-quarter view, torso angled toward the lens",
+        "desc": "鏡頭位於人物右前方 315 度，呈現正面與側面兼具的前斜側身體方位。"
       }
     ],
     "鏡頭焦段 (Focal Length)": [

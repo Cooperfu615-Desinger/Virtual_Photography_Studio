@@ -2177,6 +2177,7 @@ const WARDROBE_EYEWEAR_CATEGORY = '眼鏡 (Eyewear)';
 const WARDROBE_EYEWEAR_COLOR_CATEGORY = '眼鏡配色 (Eyewear Color)';
 const WARDROBE_EYEWEAR_PLACEMENT_CATEGORY = '眼鏡配戴方式 (Eyewear Placement)';
 const CAMERA_ANGLE_CATEGORY = '相機視角 (Angle)';
+const CAMERA_ORBIT_CATEGORY = '拍攝方位 (Orbit Angle)';
 const CAMERA_FILM_CATEGORY = '底片與相機模擬 (Camera & Film Simulation)';
 
 const CAMERA_ANGLE_LEGACY_OPTION_MAP = [
@@ -2186,6 +2187,17 @@ const CAMERA_ANGLE_LEGACY_OPTION_MAP = [
   { category: CAMERA_ANGLE_CATEGORY, targetZh: '膝蓋高度鏡頭', legacy: [['膝蓋高度鏡頭', 4]] },
   { category: CAMERA_ANGLE_CATEGORY, targetZh: '地面高度鏡頭', legacy: [['地面高度鏡頭', 5], ['仰角 (Low Angle)', 6]] },
   { category: CAMERA_ANGLE_CATEGORY, targetZh: '高位俯視鏡頭', legacy: [['俯角 (High Angle)', 7]] },
+];
+
+const CAMERA_ORBIT_LEGACY_OPTION_MAP = [
+  { category: CAMERA_ORBIT_CATEGORY, targetZh: '正面 0 度', legacy: [['正面', 1]] },
+  { category: CAMERA_ORBIT_CATEGORY, targetZh: '左前 45 度', legacy: [['左前斜側', 2]] },
+  { category: CAMERA_ORBIT_CATEGORY, targetZh: '左側 90 度', legacy: [['左側', 3]] },
+  { category: CAMERA_ORBIT_CATEGORY, targetZh: '左後 135 度', legacy: [['左後斜側', 4]] },
+  { category: CAMERA_ORBIT_CATEGORY, targetZh: '背面 180 度', legacy: [['背面', 5]] },
+  { category: CAMERA_ORBIT_CATEGORY, targetZh: '右後 225 度', legacy: [['右後斜側', 6]] },
+  { category: CAMERA_ORBIT_CATEGORY, targetZh: '右側 270 度', legacy: [['右側', 7]] },
+  { category: CAMERA_ORBIT_CATEGORY, targetZh: '右前 315 度', legacy: [['右前斜側', 8]] },
 ];
 
 const CAMERA_FILM_LEGACY_OPTION_MAP = [
@@ -2404,7 +2416,10 @@ function applyCharacterLegacyOptionIds(catalog, legacyMap) {
 }
 
 function applyCameraLegacyOptionIds(catalog) {
-  CAMERA_ANGLE_LEGACY_OPTION_MAP.forEach(({ category, targetZh, legacy }) => {
+  [
+    ...CAMERA_ANGLE_LEGACY_OPTION_MAP,
+    ...CAMERA_ORBIT_LEGACY_OPTION_MAP,
+  ].forEach(({ category, targetZh, legacy }) => {
     const target = getByKey(catalog.camera, category).find((item) => item.zh === targetZh);
     if (!target) return;
 
@@ -4744,14 +4759,14 @@ const DUO_PROMPT_OVERRIDES = {
     '荷蘭角/傾斜 (Dutch Angle)': 'dutch angle, tilted two-subject framing, diagonal horizon line, both women held in frame',
   },
   orbit: {
-    '正面 (Front View)': 'front-facing duo view, both women facing camera, balanced front composition',
-    '正面 45 度 (Front Three-Quarter Left)': 'front three-quarter duo view, both women slightly angled toward camera, dimensional shared composition',
-    '側面 90 度 (Left Profile)': 'side-by-side lateral duo view, both women readable in profile, balanced side composition',
-    '背側 135 度 (Rear Three-Quarter Left)': 'rear three-quarter duo view, both women turned partly away, shared shoulder-line composition',
-    '背面 180 度 (Back View)': 'back-facing duo view, both women turned away, shared silhouette composition from behind',
-    '背側 225 度 (Rear Three-Quarter Right)': 'rear three-quarter duo view from the opposite side, both women partly turned away, balanced shared framing',
-    '側面 270 度 (Right Profile)': 'side-by-side lateral duo view from the opposite side, both women readable in profile',
-    '正面 315 度 (Front Three-Quarter Right)': 'front three-quarter duo view from the opposite side, both women slightly angled toward camera, balanced dimensional composition',
+    '正面 0 度': '0-degree front duo view, camera positioned directly in front of both women, frontal torso orientation',
+    '左前 45 度': '45-degree front three-quarter duo view, camera at the duo front-left, both torsos angled toward the lens',
+    '左側 90 度': '90-degree left-profile duo view, camera on the duo left side, lateral torso orientation',
+    '左後 135 度': '135-degree rear three-quarter duo view, camera behind-left, shoulder line visible, torsos stay rear-facing if heads turn',
+    '背面 180 度': '180-degree rear duo view, camera directly behind both women, rear torso orientation, bodies remain rear-facing if heads turn',
+    '右後 225 度': '225-degree rear three-quarter duo view, camera behind-right, shoulder line visible, torsos stay rear-facing if heads turn',
+    '右側 270 度': '270-degree right-profile duo view, camera on the duo right side, lateral torso orientation',
+    '右前 315 度': '315-degree front three-quarter duo view, camera at the duo front-right, both torsos angled toward the lens',
   },
   lightDirection: {
     '柔和順光': 'soft frontal light across both women, even luminous facial clarity, balanced duo portrait lighting',
