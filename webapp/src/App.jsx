@@ -180,9 +180,10 @@ const CHARACTER_CONTROL_ORDER = [
   'poseBaseId',
   'poseArrangementId',
   'poseHandId',
+  'poseHeadId',
   'poseAnchorId',
 ];
-const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseAnchorId'];
+const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'];
 const SCENE_CAMERA_CONTROL_ORDER = ['sceneAttributeId', 'locationId', 'lightingId', 'lightDirectionId', 'aspectRatio', 'styleId', 'cameraSystemId', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId'];
 const STYLE_WARDROBE_CONTROL_ORDER = [
   'specialOutfitId',
@@ -386,6 +387,7 @@ function buildImportedStructured(locks, controls) {
       'poseBaseId',
       'poseArrangementId',
       'poseHandId',
+      'poseHeadId',
       'poseAnchorId',
     ]),
     Wardrobe: buildSection([

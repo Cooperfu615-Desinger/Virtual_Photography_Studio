@@ -766,6 +766,7 @@ const POSE_COMPOSER_BASE_OPTIONS = [
   { id: 'sitting', zh: '坐姿', en: 'seated pose', desc: '以坐姿作為姿勢基底。' },
   { id: 'kneeling', zh: '跪姿', en: 'kneeling pose', desc: '以跪姿作為姿勢基底。' },
   { id: 'squatting', zh: '蹲姿', en: 'squatting pose', desc: '以蹲姿作為姿勢基底。' },
+  { id: 'lying', zh: '躺姿', en: 'lying pose', desc: '以躺臥作為姿勢基底。' },
 ];
 const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定肢體變化。', meta: { tags: ['none'] } },
@@ -799,6 +800,12 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'squatting-side', base: 'squatting', zh: '側身蹲姿', en: 'side-facing squatting arrangement' },
   { id: 'squatting-hug-knees', base: 'squatting', zh: '抱膝蹲', en: 'hugging-knees squat, compact grounded body shape' },
   { id: 'squatting-one-hand-ground', base: 'squatting', zh: '單手撐地蹲', en: 'squatting arrangement with one hand supporting on the ground' },
+  { id: 'lying-natural', base: 'lying', zh: '自然躺姿', en: 'natural lying arrangement' },
+  { id: 'lying-on-back', base: 'lying', zh: '仰躺', en: 'lying on the back, relaxed upward-facing body line' },
+  { id: 'lying-side', base: 'lying', zh: '側躺', en: 'side-lying arrangement, body turned along one side' },
+  { id: 'lying-prone', base: 'lying', zh: '趴臥', en: 'prone lying arrangement, body resting forward on the surface' },
+  { id: 'lying-half-reclined', base: 'lying', zh: '半躺倚靠', en: 'half-reclined lying arrangement with the upper body softly supported' },
+  { id: 'lying-languid', base: 'lying', zh: '隨性慵懶', en: 'casually languid lying arrangement, relaxed uneven limbs, soft body weight settled into the surface' },
 ];
 const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
@@ -814,6 +821,18 @@ const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'hands-on-thighs', zh: '雙手放在大腿上', en: 'both hands resting on the thighs' },
   { id: 'hands-on-cheeks', zh: '雙手扶臉頰', en: 'both hands gently holding the cheeks' },
   { id: 'one-hand-chin-other-down', zh: '單手托下巴', en: 'one hand supporting the chin, the other hand relaxed' },
+];
+const POSE_COMPOSER_HEAD_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定頭部方向。', meta: { tags: ['none'] } },
+  { id: 'random', zh: '隨機', en: 'random head direction', desc: '隨機選擇頭部方向。', meta: { tags: ['random'] } },
+  { id: 'head-camera-natural', zh: '頭部自然朝向鏡頭', en: 'head naturally facing the camera' },
+  { id: 'head-slight-tilt', zh: '頭部微微側傾', en: 'head slightly tilted' },
+  { id: 'chin-slightly-raised', zh: '下巴微抬', en: 'chin slightly raised' },
+  { id: 'chin-slightly-lowered', zh: '下巴微收', en: 'chin slightly lowered' },
+  { id: 'head-turned-away', zh: '側臉轉向畫面外', en: 'head turned into a three-quarter side profile facing out of frame' },
+  { id: 'head-turned-back-camera', zh: '回頭朝向鏡頭', en: 'head turned back toward the camera' },
+  { id: 'head-looking-down-hands', zh: '低頭看向手部', en: 'head lowered toward the hands' },
+  { id: 'head-near-shoulder', zh: '頭靠近肩膀', en: 'head angled close to one shoulder' },
 ];
 const POSE_COMPOSER_ANCHOR_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定接觸或支撐物。', meta: { tags: ['none'] } },
@@ -849,6 +868,18 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
   { id: 'squatting-railing', base: 'squatting', zh: '蹲在欄杆旁', en: 'squatting beside a railing' },
   { id: 'squatting-vending-machine', base: 'squatting', zh: '蹲在自動販賣機旁', en: 'squatting beside a vending machine' },
   { id: 'squatting-column', base: 'squatting', zh: '蹲在柱子旁', en: 'squatting beside a column' },
+  {
+    id: 'shared-bathtub',
+    bases: ['standing', 'sitting', 'squatting', 'lying'],
+    zh: '浴缸',
+    en: 'near a bathtub',
+    phraseByBase: {
+      standing: 'standing beside a bathtub',
+      sitting: 'sitting on the edge of a bathtub',
+      squatting: 'squatting inside a bathtub',
+      lying: 'reclining inside a bathtub',
+    },
+  },
 ];
 
 const LOCK_DEFINITIONS = [
@@ -888,6 +919,7 @@ const LOCK_DEFINITIONS = [
   { key: 'poseBaseId', label: '姿勢基底', options: POSE_COMPOSER_BASE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseArrangementId', label: '肢體變化', options: POSE_COMPOSER_ARRANGEMENT_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseHandId', label: '手部姿勢', options: POSE_COMPOSER_HAND_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'poseHeadId', label: '頭部方向', options: POSE_COMPOSER_HEAD_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseAnchorId', label: '接觸 / 支撐', options: POSE_COMPOSER_ANCHOR_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'specialOutfitId', label: '特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
   { key: 'specialOutfitAId', label: '人物 1 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
@@ -3381,22 +3413,55 @@ function resolvePoseComposerOption(options, id, predicate = () => true) {
   return predicate(option) ? option : null;
 }
 
+function poseComposerOptionMatchesBase(option, baseId) {
+  if (!option) return false;
+  if (option.base) return option.base === baseId;
+  if (Array.isArray(option.bases)) return option.bases.includes(baseId);
+  return false;
+}
+
+function getPoseComposerAnchorPhrase(anchor, base) {
+  if (!anchor || !base) return '';
+  return anchor.phraseByBase?.[base.id] || anchor.en || '';
+}
+
+function getPoseComposerBasePhrase(base) {
+  const phrases = {
+    standing: 'standing',
+    sitting: 'sitting',
+    kneeling: 'kneeling',
+    squatting: 'squatting',
+    lying: 'lying down',
+  };
+  return phrases[base?.id] || base?.en || '';
+}
+
+function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head }) {
+  const anchorPhrase = getPoseComposerAnchorPhrase(anchor, base);
+  const opening = anchorPhrase || getPoseComposerBasePhrase(base);
+  const details = [arrangement?.en, handPose?.en, head?.en].filter(Boolean);
+
+  if (details.length === 0) return `She is ${opening}.`;
+  return `She is ${opening} with ${details.join(', ')}.`;
+}
+
 function buildPoseComposerItem(context) {
   if (context.subject.count !== 1 || isSpecialSubject(context.subject)) return null;
 
   const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId);
   if (!base) return null;
 
-  const matchesBase = (option) => option.base === base.id;
+  const matchesBase = (option) => poseComposerOptionMatchesBase(option, base.id);
   const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase);
   const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
+  const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
   const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesBase);
-  const parts = [base, arrangement, handPose, anchor].filter(Boolean);
+  const parts = [base, arrangement, handPose, head, anchor].filter(Boolean);
 
   return {
     id: `character:姿勢組合器-pose-composer:${parts.map((part) => part.id).join(':')}`,
     zh: parts.map((part) => part.zh).join(' + '),
-    en: parts.map((part) => part.en).join(', '),
+    en: buildPoseComposerSentence({ base, arrangement, handPose, anchor, head }),
     desc: '由姿勢組合器生成的組合姿勢。',
     meta: {
       tags: ['pose_composer'],
@@ -3404,6 +3469,7 @@ function buildPoseComposerItem(context) {
       poseBaseId: base.id,
       poseArrangementId: arrangement?.id || 'none',
       poseHandId: handPose?.id || 'none',
+      poseHeadId: head?.id || 'none',
       poseAnchorId: anchor?.id || 'none',
     },
   };
@@ -6841,6 +6907,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || 'none',
     poseArrangementId: characterSlots.poseComposer?.meta?.poseArrangementId || 'none',
     poseHandId: characterSlots.poseComposer?.meta?.poseHandId || 'none',
+    poseHeadId: characterSlots.poseComposer?.meta?.poseHeadId || 'none',
     poseAnchorId: characterSlots.poseComposer?.meta?.poseAnchorId || 'none',
     topId: wardrobeSlots.top?.id || '',
     topAId: wardrobeSlots.topA?.id?.replace(/:a$/, '') || '',

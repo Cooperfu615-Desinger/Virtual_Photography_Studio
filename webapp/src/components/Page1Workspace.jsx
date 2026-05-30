@@ -50,9 +50,9 @@ const WARDROBE_PICKER_KEYS = new Set([
   'shoesBColorId',
 ]);
 
-const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseAnchorId'];
+const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'];
 const POSE_COMPOSER_CONTEXT_KEYS = new Set(['poseArrangementId', 'poseAnchorId']);
-const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting']);
+const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting', 'lying']);
 
 const NAMED_COLOR_SWATCHES = {
   black: ['#111111'],
@@ -144,6 +144,7 @@ const SECTION_SUBPANELS = {
         'poseBaseId',
         'poseArrangementId',
         'poseHandId',
+        'poseHeadId',
         'poseAnchorId',
       ],
     },
@@ -683,7 +684,12 @@ export default function Page1Workspace({
     if (!POSE_COMPOSER_CONTEXT_KEYS.has(control.key)) return control;
     return {
       ...control,
-      options: control.options.filter((option) => !option.base || (selectedPoseBaseId && option.base === selectedPoseBaseId)),
+      options: control.options.filter((option) => {
+        if (!option.base && !option.bases) return true;
+        if (!selectedPoseBaseId) return false;
+        if (option.base) return option.base === selectedPoseBaseId;
+        return option.bases.includes(selectedPoseBaseId);
+      }),
     };
   };
   const resetPoseComposerLocks = (target) => {
@@ -733,7 +739,12 @@ export default function Page1Workspace({
         ['poseArrangementId', 'poseAnchorId'].forEach((key) => {
           const nextControl = characterLockControls.find((item) => item.key === key);
           const selected = nextControl?.options?.find((option) => option.id === next[key]);
-          if (selected?.base && selected.base !== nextBase) next[key] = 'none';
+          const selectedSupportsBase = selected?.base
+            ? selected.base === nextBase
+            : selected?.bases
+              ? selected.bases.includes(nextBase)
+              : true;
+          if (!selectedSupportsBase) next[key] = 'none';
         });
       }
       return next;
