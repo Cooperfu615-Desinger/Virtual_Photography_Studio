@@ -759,6 +759,97 @@ const SCENE_ATTRIBUTE_OPTIONS = [
   { id: 'outdoor', zh: '戶外', en: 'outdoor setting' },
   { id: 'other', zh: '其他', en: 'other dedicated setting' },
 ];
+const POSE_COMPOSER_BASE_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', desc: '不使用姿勢組合器。', meta: { tags: ['none'] } },
+  { id: 'random', zh: '隨機', en: 'random pose base', desc: '由姿勢組合器隨機選擇姿勢基底。', meta: { tags: ['random'] } },
+  { id: 'standing', zh: '站姿', en: 'standing pose', desc: '以站立作為姿勢基底。' },
+  { id: 'sitting', zh: '坐姿', en: 'seated pose', desc: '以坐姿作為姿勢基底。' },
+  { id: 'kneeling', zh: '跪姿', en: 'kneeling pose', desc: '以跪姿作為姿勢基底。' },
+  { id: 'squatting', zh: '蹲姿', en: 'squatting pose', desc: '以蹲姿作為姿勢基底。' },
+];
+const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定肢體變化。', meta: { tags: ['none'] } },
+  { id: 'random', zh: '隨機', en: 'random body arrangement', desc: '依姿勢基底隨機選擇肢體變化。', meta: { tags: ['random'] } },
+  { id: 'standing-natural', base: 'standing', zh: '自然站姿', en: 'natural relaxed standing arrangement' },
+  { id: 'standing-one-leg-weight', base: 'standing', zh: '單腳重心', en: 'one-leg weight shift, relaxed asymmetrical body balance' },
+  { id: 'standing-forward-lean', base: 'standing', zh: '身體微前傾', en: 'slight forward-leaning standing arrangement' },
+  { id: 'standing-back-lean', base: 'standing', zh: '身體微後仰', en: 'slight backward-leaning standing arrangement' },
+  { id: 'standing-turn-back', base: 'standing', zh: '回身轉向', en: 'turning-back standing arrangement, torso subtly rotated' },
+  { id: 'standing-contrapposto', base: 'standing', zh: '身體側傾', en: 'side-leaning contrapposto body arrangement' },
+  { id: 'standing-raised-foot', base: 'standing', zh: '單腳微抬', en: 'one foot slightly lifted, delicate balance pose' },
+  { id: 'sitting-natural', base: 'sitting', zh: '自然坐姿', en: 'natural seated arrangement' },
+  { id: 'sitting-forward-lean', base: 'sitting', zh: '微微前傾', en: 'slightly forward-leaning seated arrangement' },
+  { id: 'sitting-hands-behind-support', base: 'sitting', zh: '雙手後撐', en: 'seated arrangement with both hands supporting behind the body' },
+  { id: 'sitting-one-leg-relaxed', base: 'sitting', zh: '單腿放鬆', en: 'one leg relaxed in an easy seated arrangement' },
+  { id: 'sitting-legs-extended', base: 'sitting', zh: '雙腿自然伸展', en: 'both legs naturally extended in a seated pose' },
+  { id: 'sitting-cross-legged', base: 'sitting', zh: '盤腿坐姿', en: 'cross-legged seated arrangement' },
+  { id: 'sitting-hug-knees', base: 'sitting', zh: '抱膝坐姿', en: 'hugging-knees seated arrangement' },
+  { id: 'sitting-slouched', base: 'sitting', zh: '隨性癱坐', en: 'casually slouched seated arrangement, relaxed body weight' },
+  { id: 'sitting-leg-cross', base: 'sitting', zh: '翹二郎腿', en: 'leg-cross seated arrangement' },
+  { id: 'kneeling-seiza', base: 'kneeling', zh: '跪坐', en: 'seiza-style kneeling arrangement' },
+  { id: 'kneeling-wide', base: 'kneeling', zh: '分腿跪坐', en: 'wide-knee kneeling arrangement' },
+  { id: 'kneeling-forward-lean', base: 'kneeling', zh: '前傾跪姿', en: 'forward-leaning kneeling arrangement' },
+  { id: 'kneeling-all-fours', base: 'kneeling', zh: '四足跪姿', en: 'all-fours kneeling arrangement with hands and knees supporting the body' },
+  { id: 'kneeling-one-knee', base: 'kneeling', zh: '單膝跪地', en: 'one-knee kneeling arrangement' },
+  { id: 'kneeling-side', base: 'kneeling', zh: '跪姿側身', en: 'side-facing kneeling arrangement' },
+  { id: 'squatting-natural', base: 'squatting', zh: '自然蹲姿', en: 'natural squatting arrangement' },
+  { id: 'squatting-one-knee', base: 'squatting', zh: '單膝蹲姿', en: 'one-knee squatting arrangement' },
+  { id: 'squatting-hands-knees', base: 'squatting', zh: '手扶膝蓋蹲姿', en: 'squatting arrangement with hands resting on the knees' },
+  { id: 'squatting-compact', base: 'squatting', zh: '緊湊蹲姿', en: 'compact low squatting arrangement' },
+  { id: 'squatting-side', base: 'squatting', zh: '側身蹲姿', en: 'side-facing squatting arrangement' },
+  { id: 'squatting-hug-knees', base: 'squatting', zh: '抱膝蹲', en: 'hugging-knees squat, compact grounded body shape' },
+  { id: 'squatting-one-hand-ground', base: 'squatting', zh: '單手撐地蹲', en: 'squatting arrangement with one hand supporting on the ground' },
+];
+const POSE_COMPOSER_HAND_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
+  { id: 'random', zh: '隨機', en: 'random hand pose', desc: '隨機選擇手部姿勢。', meta: { tags: ['random'] } },
+  { id: 'hands-relaxed-down', zh: '雙手自然垂放', en: 'both hands relaxed naturally at the sides' },
+  { id: 'hands-in-pockets', zh: '雙手插口袋', en: 'both hands tucked into pockets' },
+  { id: 'arms-crossed', zh: '雙臂交疊', en: 'arms crossed loosely in front of the body' },
+  { id: 'hands-on-waist', zh: '雙手撐腰', en: 'both hands placed on the waist' },
+  { id: 'one-hand-chin', zh: '單手摸下巴', en: 'one hand touching the chin' },
+  { id: 'one-hand-forehead', zh: '單手扶額 / 摸頭', en: 'one hand touching the forehead or hair' },
+  { id: 'hands-behind-back', zh: '雙手背在身後', en: 'both hands held behind the back' },
+  { id: 'one-hand-hair', zh: '單手撩髮', en: 'one hand brushing through the hair' },
+  { id: 'hands-on-thighs', zh: '雙手放在大腿上', en: 'both hands resting on the thighs' },
+  { id: 'hands-on-cheeks', zh: '雙手扶臉頰', en: 'both hands gently holding the cheeks' },
+  { id: 'one-hand-chin-other-down', zh: '單手托下巴', en: 'one hand supporting the chin, the other hand relaxed' },
+];
+const POSE_COMPOSER_ANCHOR_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定接觸或支撐物。', meta: { tags: ['none'] } },
+  { id: 'random', zh: '隨機', en: 'random pose anchor', desc: '依姿勢基底隨機選擇接觸或支撐物。', meta: { tags: ['random'] } },
+  { id: 'standing-wall', base: 'standing', zh: '靠牆', en: 'leaning against a wall' },
+  { id: 'standing-doorway', base: 'standing', zh: '站在門框邊', en: 'standing beside a doorway frame' },
+  { id: 'standing-table-edge', base: 'standing', zh: '站在桌邊', en: 'standing beside a table edge' },
+  { id: 'standing-railing', base: 'standing', zh: '站在欄杆旁', en: 'standing beside a railing' },
+  { id: 'standing-chair-side', base: 'standing', zh: '站在椅子旁', en: 'standing beside a chair' },
+  { id: 'standing-window', base: 'standing', zh: '站在窗邊', en: 'standing beside a window' },
+  { id: 'standing-column', base: 'standing', zh: '站在柱子旁', en: 'standing beside a column' },
+  { id: 'standing-vending-machine', base: 'standing', zh: '站在自動販賣機旁', en: 'standing beside a vending machine' },
+  { id: 'sitting-floor', base: 'sitting', zh: '坐在地板', en: 'sitting on the floor' },
+  { id: 'sitting-ornate-velvet-armchair', base: 'sitting', zh: '坐在單人雕花絨布椅', en: 'lounging on an ornate single velvet armchair' },
+  { id: 'sitting-bed-edge', base: 'sitting', zh: '坐在床邊', en: 'sitting on the edge of a bed' },
+  { id: 'sitting-table-edge', base: 'sitting', zh: '坐在桌面邊緣', en: 'sitting on the edge of a tabletop' },
+  { id: 'sitting-stairs', base: 'sitting', zh: '坐在樓梯台階', en: 'sitting on stair steps' },
+  { id: 'sitting-bar-stool', base: 'sitting', zh: '坐在吧台高腳椅', en: 'sitting on a bar stool' },
+  { id: 'sitting-sofa-seat', base: 'sitting', zh: '坐在沙發座面', en: 'sitting on a sofa seat' },
+  { id: 'sitting-window-sill', base: 'sitting', zh: '坐在窗台', en: 'sitting on a window sill' },
+  { id: 'sitting-high-back-chair', base: 'sitting', zh: '坐在高背椅', en: 'sitting on a high-back chair' },
+  { id: 'kneeling-floor', base: 'kneeling', zh: '跪在地面', en: 'kneeling on the ground' },
+  { id: 'kneeling-bed', base: 'kneeling', zh: '跪在床上', en: 'kneeling on a bed' },
+  { id: 'kneeling-sofa-seat', base: 'kneeling', zh: '跪在沙發座面', en: 'kneeling on a sofa seat' },
+  { id: 'kneeling-chair-front', base: 'kneeling', zh: '跪在椅子前', en: 'kneeling in front of a chair' },
+  { id: 'kneeling-high-back-lean', base: 'kneeling', zh: '倚靠高背椅', en: 'leaning against a high-back chair' },
+  { id: 'kneeling-hands-ground', base: 'kneeling', zh: '雙手支撐在地面', en: 'both hands supporting on the ground' },
+  { id: 'kneeling-high-back-front', base: 'kneeling', zh: '跪在高背椅前', en: 'kneeling in front of a high-back chair' },
+  { id: 'squatting-ground', base: 'squatting', zh: '蹲在地面', en: 'squatting on the ground' },
+  { id: 'squatting-wall', base: 'squatting', zh: '蹲在牆邊', en: 'squatting beside a wall' },
+  { id: 'squatting-chair-front', base: 'squatting', zh: '蹲在椅子前', en: 'squatting in front of a chair' },
+  { id: 'squatting-low-step', base: 'squatting', zh: '蹲在低矮台階上', en: 'squatting on a low step' },
+  { id: 'squatting-railing', base: 'squatting', zh: '蹲在欄杆旁', en: 'squatting beside a railing' },
+  { id: 'squatting-vending-machine', base: 'squatting', zh: '蹲在自動販賣機旁', en: 'squatting beside a vending machine' },
+  { id: 'squatting-column', base: 'squatting', zh: '蹲在柱子旁', en: 'squatting beside a column' },
+];
 
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
@@ -794,6 +885,10 @@ const LOCK_DEFINITIONS = [
   { key: 'expressionBId', label: '人物 2 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
+  { key: 'poseBaseId', label: '姿勢基底', options: POSE_COMPOSER_BASE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'poseArrangementId', label: '肢體變化', options: POSE_COMPOSER_ARRANGEMENT_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'poseHandId', label: '手部姿勢', options: POSE_COMPOSER_HAND_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'poseAnchorId', label: '接觸 / 支撐', options: POSE_COMPOSER_ANCHOR_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'specialOutfitId', label: '特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
   { key: 'specialOutfitAId', label: '人物 1 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
   { key: 'specialOutfitBId', label: '人物 2 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
@@ -1065,6 +1160,7 @@ const sampleNonNone = (arr) => {
   const nonNone = arr.filter((item) => !isNoneLikeItem(item));
   return sample(nonNone.length > 0 ? nonNone : arr);
 };
+const isRandomOption = (item) => item?.id === 'random';
 
 const withTags = (...parts) =>
   Array.from(
@@ -3295,6 +3391,51 @@ function getDuoPoseOption(id) {
   return DUO_POSE_OPTIONS.find((option) => option.id === id) || null;
 }
 
+function getPoseComposerOption(options, id) {
+  return id ? options.find((option) => option.id === id) || null : null;
+}
+
+function isActivePoseComposerOption(option) {
+  return Boolean(option && !isNoneLikeItem(option));
+}
+
+function resolvePoseComposerOption(options, id, predicate = () => true) {
+  const option = getPoseComposerOption(options, id);
+  if (!isActivePoseComposerOption(option)) return null;
+
+  const candidates = options.filter((item) => isActivePoseComposerOption(item) && !isRandomOption(item) && predicate(item));
+  if (isRandomOption(option)) return sample(candidates);
+  return predicate(option) ? option : null;
+}
+
+function buildPoseComposerItem(context) {
+  if (context.subject.count !== 1 || isSpecialSubject(context.subject)) return null;
+
+  const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId);
+  if (!base) return null;
+
+  const matchesBase = (option) => option.base === base.id;
+  const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase);
+  const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
+  const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesBase);
+  const parts = [base, arrangement, handPose, anchor].filter(Boolean);
+
+  return {
+    id: `character:姿勢組合器-pose-composer:${parts.map((part) => part.id).join(':')}`,
+    zh: parts.map((part) => part.zh).join(' + '),
+    en: parts.map((part) => part.en).join(', '),
+    desc: '由姿勢組合器生成的組合姿勢。',
+    meta: {
+      tags: ['pose_composer'],
+      minVisibility: 'full',
+      poseBaseId: base.id,
+      poseArrangementId: arrangement?.id || 'none',
+      poseHandId: handPose?.id || 'none',
+      poseAnchorId: anchor?.id || 'none',
+    },
+  };
+}
+
 function framingSupportsSubject(framing, subject, aspectRatio) {
   const visibility = framing.meta.visibility;
 
@@ -3563,6 +3704,12 @@ function buildCharacter(context, catalog) {
     return character;
   }
   if (visibility === 'close') return character;
+
+  const poseComposer = buildPoseComposerItem(context);
+  if (poseComposer && !isNoneLikeItem(poseComposer)) {
+    character.push(poseComposer);
+    return character;
+  }
 
   const specialAction = context.locks?.specialActionId
     ? pickCategory('特殊動作 (Special Actions)', context.locks, () => true, sample, false)
@@ -4343,6 +4490,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       hairSummary !== '-' ? hairSummary : '',
       characterSlots.expression?.zh && !isNoneLikeItem(characterSlots.expression) ? characterSlots.expression.zh : '',
       characterSlots.specialAction?.zh && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.zh : '',
+      characterSlots.poseComposer?.zh && !isNoneLikeItem(characterSlots.poseComposer) ? characterSlots.poseComposer.zh : '',
       characterSlots.pose?.zh && !isNoneLikeItem(characterSlots.pose) ? characterSlots.pose.zh : ''
     );
   };
@@ -4651,6 +4799,7 @@ function extractCharacterSlots(character) {
     expressionA: findRoleSlot('character:神情與眼神-expression-gaze:', 'a'),
     expressionB: findRoleSlot('character:神情與眼神-expression-gaze:', 'b'),
     duoPose: findSlot('character:雙人構圖姿態-duo-pose:'),
+    poseComposer: findSlot('character:姿勢組合器-pose-composer:'),
     pose: findSlot('character:姿勢與肢體語言-pose-body-language:'),
     specialAction: findSlot('character:特殊動作-special-actions:'),
   };
@@ -5808,7 +5957,9 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const expressionBText = buildRoleExpressionPrompt(characterSlots.expressionB, 'woman 2');
   const poseText = context.subject.count === 2
     ? (characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.en : '')
-    : characterSlots.pose && !isNoneLikeItem(characterSlots.pose)
+    : characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
+      ? characterSlots.poseComposer.en
+      : characterSlots.pose && !isNoneLikeItem(characterSlots.pose)
       ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)
       : '';
   const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
@@ -6310,7 +6461,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
       context.subject.count === 2
         ? (characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.en : '')
-        : (characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : ''),
+        : (characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
+          ? characterSlots.poseComposer.en
+          : (characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '')),
       context.subject.count === 2 ? duoInteraction?.en : '',
     ].filter(Boolean);
 
@@ -6536,7 +6689,7 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context) {
     sceneText ? `The scene is ${compactAiSentence(sceneText, 2)}` : '',
     subjectText ? `${subjectLead} ${compactAiSentence(subjectText, 4)}` : '',
     wardrobeText ? `${wardrobeLead} ${compactAiSentence(wardrobeText, 6)}` : '',
-    poseText ? `Pose and composition: ${compactAiSentence(poseText, 3)}` : '',
+    poseText ? `Pose and composition: ${compactAiSentence(poseText, 5)}` : '',
     lightingText ? `Lighting: ${compactAiSentence(lightingText, 3)}` : '',
     cameraText ? `Camera look: ${compactAiSentence(cameraText, 3)}` : '',
     constraintsText ? `Keep ${compactAiSentence(constraintsText, 3)}` : '',
@@ -6625,6 +6778,10 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     expressionBId: characterSlots.expressionB?.id?.replace(/:b$/, '') || '',
     poseId: characterSlots.pose?.id || '',
     specialActionId: characterSlots.specialAction?.id || '',
+    poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || 'none',
+    poseArrangementId: characterSlots.poseComposer?.meta?.poseArrangementId || 'none',
+    poseHandId: characterSlots.poseComposer?.meta?.poseHandId || 'none',
+    poseAnchorId: characterSlots.poseComposer?.meta?.poseAnchorId || 'none',
     topId: wardrobeSlots.top?.id || '',
     topAId: wardrobeSlots.topA?.id?.replace(/:a$/, '') || '',
     topBId: wardrobeSlots.topB?.id?.replace(/:b$/, '') || '',

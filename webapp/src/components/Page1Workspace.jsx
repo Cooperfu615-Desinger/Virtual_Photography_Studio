@@ -50,6 +50,10 @@ const WARDROBE_PICKER_KEYS = new Set([
   'shoesBColorId',
 ]);
 
+const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseAnchorId'];
+const POSE_COMPOSER_CONTEXT_KEYS = new Set(['poseArrangementId', 'poseAnchorId']);
+const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting']);
+
 const NAMED_COLOR_SWATCHES = {
   black: ['#111111'],
   white: ['#ffffff'],
@@ -137,6 +141,10 @@ const SECTION_SUBPANELS = {
         'expressionBId',
         'poseId',
         'specialActionId',
+        'poseBaseId',
+        'poseArrangementId',
+        'poseHandId',
+        'poseAnchorId',
       ],
     },
     {
@@ -666,9 +674,30 @@ export default function Page1Workspace({
   const isSocialShootingActionOption = (option) => Boolean(option?.meta?.tags?.includes('social_shooting_action'));
   const selectedSpecialActionOption = getSpecialActionOption(locks.specialActionId);
   const selectedSpecialActionIsSocial = isSocialShootingActionOption(selectedSpecialActionOption);
+  const isPoseComposerValueActive = (key, value = locks[key]) => (
+    Boolean(value) && !isNoneSelected(key, value, characterLockControls)
+  );
+  const isPoseComposerActive = POSE_COMPOSER_KEYS.some((key) => isPoseComposerValueActive(key));
+  const selectedPoseBaseId = POSE_COMPOSER_BASE_IDS.has(locks.poseBaseId) ? locks.poseBaseId : '';
+  const buildPoseComposerControl = (control) => {
+    if (!POSE_COMPOSER_CONTEXT_KEYS.has(control.key)) return control;
+    return {
+      ...control,
+      options: control.options.filter((option) => !option.base || (selectedPoseBaseId && option.base === selectedPoseBaseId)),
+    };
+  };
+  const resetPoseComposerLocks = (target) => {
+    POSE_COMPOSER_KEYS.forEach((key) => {
+      target[key] = 'none';
+    });
+  };
 
   const isControlDisabled = (control) => (
     (isCloseupMode && !closeupAllowedKeys.has(control.key))
+    || (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1')
+    || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
+    || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
+    || (['poseId', 'specialActionId'].includes(control.key) && isPoseComposerActive)
     || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls) && !selectedSpecialActionIsSocial)
     || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
     || (['topAColorId', 'bottomAColorId'].includes(control.key) && Boolean(locks.topBottomPaletteAId) && !isNoneSelected('topBottomPaletteAId', locks.topBottomPaletteAId, wardrobeLockControls))
@@ -686,12 +715,26 @@ export default function Page1Workspace({
         if (currentSpecialAction && !isSocialShootingActionOption(currentSpecialAction)) {
           next.specialActionId = '';
         }
+        resetPoseComposerLocks(next);
       }
       if (control.key === 'specialActionId' && value && !isNoneSelected('specialActionId', value, characterLockControls)) {
         const nextSpecialAction = getSpecialActionOption(value);
         if (!isSocialShootingActionOption(nextSpecialAction)) {
           next.poseId = '';
         }
+        resetPoseComposerLocks(next);
+      }
+      if (POSE_COMPOSER_KEYS.includes(control.key) && value && !isNoneSelected(control.key, value, characterLockControls)) {
+        next.poseId = '';
+        next.specialActionId = '';
+      }
+      if (control.key === 'poseBaseId') {
+        const nextBase = POSE_COMPOSER_BASE_IDS.has(value) ? value : '';
+        ['poseArrangementId', 'poseAnchorId'].forEach((key) => {
+          const nextControl = characterLockControls.find((item) => item.key === key);
+          const selected = nextControl?.options?.find((option) => option.id === next[key]);
+          if (selected?.base && selected.base !== nextBase) next[key] = 'none';
+        });
       }
       return next;
     });
@@ -714,7 +757,8 @@ export default function Page1Workspace({
 
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
-      {controls.map((control) => {
+      {controls.map((rawControl) => {
+        const control = buildPoseComposerControl(rawControl);
         const disabled = isControlDisabled(control);
         const dividerLabel = activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
           ? WARDROBE_GARMENT_CONTROL_DIVIDERS[control.key]

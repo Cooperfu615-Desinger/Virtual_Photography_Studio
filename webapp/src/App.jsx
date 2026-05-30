@@ -177,7 +177,12 @@ const CHARACTER_CONTROL_ORDER = [
   'expressionBId',
   'poseId',
   'specialActionId',
+  'poseBaseId',
+  'poseArrangementId',
+  'poseHandId',
+  'poseAnchorId',
 ];
+const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseAnchorId'];
 const SCENE_CAMERA_CONTROL_ORDER = ['sceneAttributeId', 'locationId', 'lightingId', 'lightDirectionId', 'aspectRatio', 'styleId', 'cameraSystemId', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId'];
 const STYLE_WARDROBE_CONTROL_ORDER = [
   'specialOutfitId',
@@ -378,6 +383,10 @@ function buildImportedStructured(locks, controls) {
       'expressionBId',
       'poseId',
       'specialActionId',
+      'poseBaseId',
+      'poseArrangementId',
+      'poseHandId',
+      'poseAnchorId',
     ]),
     Wardrobe: buildSection([
       'outfitPresetId',
@@ -1446,6 +1455,7 @@ export default function App() {
           if (control.key === 'specialSubjectId') return true;
           if (['duoInteractionId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;
           if (control.key === 'specialActionId' && locks.subjectCount !== '1') return false;
+          if (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1') return false;
           if (['facialFeaturesId', 'hairstyleId', 'hairColorId', 'expressionId', 'poseId'].includes(control.key) && locks.subjectCount === '2') return false;
           if (['facialFeaturesAId', 'facialFeaturesBId', 'hairstyleAId', 'hairstyleBId', 'hairColorAId', 'hairColorBId', 'expressionAId', 'expressionBId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;
           return true;
@@ -1584,7 +1594,12 @@ export default function App() {
 
       const poseIsActive = Boolean(next.poseId) && !isNoneSelected('poseId', next.poseId, lockControls);
       const specialActionIsActive = Boolean(next.specialActionId) && !isNoneSelected('specialActionId', next.specialActionId, lockControls);
+      const poseComposerIsActive = POSE_COMPOSER_KEYS.some((key) => Boolean(next[key]) && !isNoneSelected(key, next[key], lockControls));
       if (poseIsActive && specialActionIsActive) {
+        next.specialActionId = '';
+      }
+      if (poseComposerIsActive) {
+        next.poseId = '';
         next.specialActionId = '';
       }
 
@@ -1621,6 +1636,9 @@ export default function App() {
 
       if (next.subjectCount !== '1') {
         next.specialActionId = '';
+        POSE_COMPOSER_KEYS.forEach((key) => {
+          next[key] = 'none';
+        });
       }
 
       return next;
