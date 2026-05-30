@@ -6110,7 +6110,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     return 'preserve the intended composition with the outfit and surrounding setting visible, avoid an overly tight face crop';
   };
   const buildGrokWardrobeIntegrityText = () => (
-    'preserve the specified wardrobe as complete clothing, detailed realistic fabric folds and wrinkles visible, clothing covers the body appropriately, fully clothed styling, no nudity'
+    'preserve the selected wardrobe as complete, realistic clothing with natural fabric texture, folds, and construction'
   );
 
   addLine('Duo Scene Anchor', duoSceneAnchorText);
@@ -6341,7 +6341,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
   const wardrobeLead = context.subject?.count === 2 ? 'They wear' : 'She wears';
   const constraints = [
     ...getStructuredValues(valuesByLabel, ['Wardrobe Integrity']),
-    'Keep the specified outfit complete and fully visible where the framing allows',
+    'Keep the specified outfit visible where the chosen framing allows',
     'natural body proportions',
     'no extra people unless specified',
     'no visible text or logos unless explicitly requested',
