@@ -1,0 +1,257 @@
+# Virtual Photography Studio Current Project State
+
+This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
+
+## Snapshot
+
+- Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
+- Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
+- App: Vite + React prompt generator
+- Latest pushed commit on `main`: `4d457ac Add Page1 pose composer`
+- Normal working branch: `main`
+
+## Validation
+
+Run from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp` unless noted:
+
+- `npm test`
+- `npm run lint`
+- `npm run build`
+- From repo root when knowledge base markdown changes: `python3 scripts/sync_to_json.py`
+- Optional dev server: `npm run dev -- --host 127.0.0.1 --port 5175`
+- Dev URL: `http://127.0.0.1:5175/Virtual_Photography_Studio/`
+
+Last full validation before this document was created:
+
+- `npm test`: 109 / 109 passed
+- `npm run lint`: passed
+- `npm run build`: passed with the existing Vite chunk-size warning
+- `git diff --check`: passed
+
+## Product Pages
+
+### PAGE1 Prompt Workspace
+
+PAGE1 is the main full portrait prompt workspace. It combines subject, wardrobe, pose, scene, lighting, camera, and imaging controls.
+
+Current PAGE1 output labels:
+
+- `Gpt`
+  - Internal field: `grokPrompt`
+  - Target: ChatGPT Image / GPT Image
+  - Structured natural prompt
+  - Must end with `multi-cut sequence n=2`
+- `Grok/Z-Image`
+  - Internal field: `zImagePrompt`
+  - Target: Grok Imagine / Aurora and Z-Image
+  - More natural-language description
+- `AI`
+  - Internal field: `midjourneyPrompt`
+  - Compact natural paragraph derived from Gpt sections
+  - Must not drop selected wardrobe, clothing, pose, or action details
+
+Important naming note:
+
+- Older docs may say `Grok` where the current UI says `Gpt`.
+- Older docs may say `Midjourney` where the current UI says `AI`.
+- Current source fields are historical names; do not rename them casually.
+
+PAGE1 also includes:
+
+- Section-scoped random controls
+- Standard prompt backfill / restore
+- Favorites and saved cards
+- DLL PIC Pro generation panel
+- Wardrobe reference image picker cards
+- Lighting reference modal
+
+### PAGE2 Character Reference
+
+PAGE2 is separate from PAGE1 and is used for character / identity reference prompts. It does not inject role text back into PAGE1. It has its own prompt preview and DLL PIC Pro panel.
+
+### PAGE3 World Scene
+
+PAGE3 is separate from PAGE1 and PAGE2. It builds scene / world / environment prompts and has its own prompt preview and DLL PIC Pro panel.
+
+### SUNO
+
+SUNO is a music style prompt builder. It is not part of PAGE1 image prompt generation.
+
+## DLL PIC Pro / Image Analyzer
+
+DLL PIC Pro is a local UI wrapper for direct image generation from current prompt outputs.
+
+Main files:
+
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/ImagePromptAnalyzerPanel.jsx`
+
+Generation panel behavior:
+
+- PAGE1 / PAGE2 / PAGE3 include `DllPicProPanel`.
+- API key and selected model are stored in localStorage:
+  - `dll_pic_pro_api_key`
+  - `dll_pic_pro_model`
+- PAGE1 prompt sources:
+  - `Gpt` from `previewPrompt.grokPrompt`
+  - `Grok/Z-Image` from `previewPrompt.zImagePrompt`
+  - `AI Prompt` from `previewPrompt.midjourneyPrompt`
+- PAGE1 default source is `Gpt`.
+- PAGE2 default source is `Master Sheet`.
+- PAGE3 default source is `Scene Prompt`.
+- Supported aspect ratios:
+  - `16:9`, `9:16`, `1:1`, `4:3`, `3:4`
+- Generation count can be 1 to 4 images.
+- Current connected generation providers:
+  - `Google Gemini`: `gemini-2.5-flash-image`
+  - `Google Gemini (實驗)`: `gemini-3.1-flash-image-preview`
+  - `xAI Grok` is listed but has no generation model connected yet.
+- Returned inline image data is previewed as data URLs and can be downloaded as `dll_pic_pro_{timestamp}_{index}.png`.
+
+Image Analyzer behavior:
+
+- SUNO page currently includes `ImagePromptAnalyzerPanel`.
+- It uses the same DLL PIC Pro API key / model storage.
+- It calls Gemini image analysis and returns:
+  - short prompt
+  - detailed GPT-image-style prompt
+  - structured analysis
+- Current analysis model for Google options is `gemini-2.5-flash`.
+
+## Current PAGE1 Control Rules
+
+### Subject Routing
+
+- `subjectCount` controls normal subject count:
+  - `1`
+  - `2`
+  - `reference`
+- Special characters are controlled by `specialSubjectId`, not `subjectCount`.
+- Current special subjects include:
+  - `黑骷髏`
+  - `白骷髏`
+  - `日本戰國武士`
+  - `歐洲騎士`
+  - `女性人形機器人`
+- `上傳人物` is prompt-only reference guidance. The app does not upload an image; the user attaches the reference image in the target image tool.
+
+### Prompt Pipeline
+
+- `buildStructuredGrokPrompt()` creates the detailed structured source.
+- `buildGptPromptFromStructuredPrompt()` converts it into the current `Gpt` output.
+- `buildZImagePrompt()` creates the natural `Grok/Z-Image` output.
+- `buildAiPromptFromStructuredPrompt()` creates the compact `AI` output.
+- `buildPrompts()` returns the three historical fields:
+  - `midjourneyPrompt`
+  - `grokPrompt`
+  - `zImagePrompt`
+
+### Pose / Action / Pose Composer
+
+Existing controls remain:
+
+- `poseId`
+- `specialActionId`
+
+New Pose Composer controls:
+
+- `poseBaseId`
+- `poseArrangementId`
+- `poseHandId`
+- `poseAnchorId`
+
+Rules:
+
+- Pose Composer is single-subject only.
+- Duo mode ignores Pose Composer and uses `duoPoseId` / `duoInteractionId`.
+- In PAGE1 UI, Pose Composer is mutually exclusive with old `poseId` and `specialActionId`.
+- Existing social shooting action behavior is preserved where possible: social special actions can still compose with old `poseId`.
+- Engine priority: if Pose Composer resolves, it outputs instead of old `poseId` / `specialActionId`.
+- Scene conflict checking for Pose Composer is intentionally not implemented yet.
+- `Pose Modifier` is intentionally not implemented yet.
+
+### Wardrobe Priority
+
+- `specialOutfitId` / duo special outfit controls produce complete looks and take priority over normal wardrobe pieces.
+- Outfit presets / dresses remain explicit and can layer with outerwear.
+- AI and Grok/Z-Image must preserve clothing details; do not over-compress wardrobe.
+- Accessories such as eyewear, earrings, and neck accessories are generally bound into the subject/person description rather than emitted as separate prompt lines.
+
+### Close-Up Mode
+
+- Close-up framing can disable or clear controls that cannot be visible.
+- Chest-up framing has special allowances for upper-body wardrobe.
+- Do not re-enable all wardrobe fields in tight close-up without checking existing close-up rules and tests.
+
+## Key Files
+
+Core prompt engine:
+
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
+
+PAGE1 app state and control filtering:
+
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/App.jsx`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page1Workspace.jsx`
+
+Shared PAGE UI / prompt display:
+
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptCard.jsx`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptPreviewCard.jsx`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/ImagePromptAnalyzerPanel.jsx`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
+
+PAGE1 helpers:
+
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/page1SectionRandom.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/page1WorkspaceSummary.js`
+
+Knowledge base:
+
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
+
+Authoring guides:
+
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/character-section-a-authoring-guide.md`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/wardrobe-section-b-authoring-guide.md`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/scene-section-c-authoring-guide.md`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/photography-section-d-authoring-guide.md`
+
+## Important Tests
+
+- `enginePromptPipeline.test.js`
+- `enginePoseComposer.test.js`
+- `engineExpressionPoseCleanup.test.js`
+- `engineWardrobeControls.test.js`
+- `engineGrokScenePriority.test.js`
+- `engineZImageWardrobeLanguage.test.js`
+- `engineLightingCompatibility.test.js`
+- `page1SectionRandom.test.js`
+- `page1WorkspaceSummary.test.js`
+
+Prefer targeted tests first, then full `npm test`.
+
+## Paused Ideas
+
+- Style prefix control for oil painting / watercolor / animation / 3D is paused.
+  - It worked in GPT Image and Nano Banana.
+  - It failed in Grok.
+  - Do not implement until the user asks to revisit model-specific style handling.
+- Pose Modifier is paused.
+  - First verify base + arrangement + hand + anchor generation quality.
+- Pose Composer scene compatibility is paused.
+  - User currently prefers free combination.
+
+## Best Next Work
+
+- Real-generation test Pose Composer with fixed combinations before expanding the database.
+- Expand Pose Composer options in batches only after stable results:
+  - standing / sitting first
+  - kneeling / squatting next
+  - modifiers last
+- Continue database additions through the relevant authoring guide first.
+- Keep prompt-output changes backed by tests because naming and source-field history are easy to confuse.
