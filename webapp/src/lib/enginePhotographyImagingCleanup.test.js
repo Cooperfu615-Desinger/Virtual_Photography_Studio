@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { buildPhotographyStylePrompt, createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
+import { buildPhotographyStylePrompt, createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 
 function control(key) {
   const entry = getLockControls().find((item) => item.key === key);
@@ -12,6 +12,12 @@ function control(key) {
 function optionByLabel(key, label) {
   const option = control(key).options.find((item) => item.zh === label);
   assert.ok(option, `Missing option ${label} in ${key}`);
+  return option;
+}
+
+function optionById(key, id) {
+  const option = control(key).options.find((item) => item.id === id);
+  assert.ok(option, `Missing option id ${id} in ${key}`);
   return option;
 }
 
@@ -34,8 +40,56 @@ test('composition and angle prompts stay geometric instead of emotional', () => 
     );
   }
 
-  assert.match(optionByLabel('angleId', '仰角 (Low Angle)').en, /elongated vertical perspective/);
-  assert.match(optionByLabel('angleId', '俯角 (High Angle)').en, /compressed vertical perspective/);
+  assert.match(optionByLabel('angleId', '地面高度鏡頭').en, /floor-level camera position/);
+  assert.match(optionByLabel('angleId', '蟲眼視角鏡頭').en, /worm's-eye view/);
+  assert.match(optionByLabel('angleId', '高位俯視鏡頭').en, /looking downward/);
+});
+
+test('camera angle control uses height-based definitions with legacy lock migration', () => {
+  const angleLabels = options('angleId').map((item) => item.zh);
+
+  assert.deepEqual(angleLabels, [
+    '全無',
+    '高位俯視鏡頭',
+    '平視高度鏡頭',
+    '肩部高度鏡頭',
+    '腰部高度鏡頭',
+    '膝蓋高度鏡頭',
+    '地面高度鏡頭',
+    '蟲眼視角鏡頭',
+    '鳥瞰視角',
+    '正上方俯視鏡頭',
+    '荷蘭角/傾斜 (Dutch Angle)',
+  ]);
+
+  assert.ok(!angleLabels.includes('平視角 (Eye-Level Angle)'));
+  assert.ok(!angleLabels.includes('仰角 (Low Angle)'));
+  assert.ok(!angleLabels.includes('俯角 (High Angle)'));
+
+  const oldEyeLevel = 'camera:相機視角-angle:平視角-eye-level-angle:1';
+  const oldLowAngle = 'camera:相機視角-angle:仰角-low-angle:6';
+  const oldHighAngle = 'camera:相機視角-angle:俯角-high-angle:7';
+  const oldGroundLevel = 'camera:相機視角-angle:地面高度鏡頭:5';
+
+  assert.equal(optionById('angleId', normalizeLocks({ ...createEmptyLocks(), angleId: oldEyeLevel }).angleId).zh, '平視高度鏡頭');
+  assert.equal(optionById('angleId', normalizeLocks({ ...createEmptyLocks(), angleId: oldLowAngle }).angleId).zh, '地面高度鏡頭');
+  assert.equal(optionById('angleId', normalizeLocks({ ...createEmptyLocks(), angleId: oldHighAngle }).angleId).zh, '高位俯視鏡頭');
+  assert.equal(optionById('angleId', normalizeLocks({ ...createEmptyLocks(), angleId: oldGroundLevel }).angleId).zh, '地面高度鏡頭');
+
+  assert.ok(!optionByLabel('angleId', '高位俯視鏡頭').meta.tags.includes('aerial'));
+  assert.ok(optionByLabel('angleId', '鳥瞰視角').meta.tags.includes('aerial'));
+});
+
+test('duo angle overrides stay geometric after angle cleanup', () => {
+  const dutchAngle = optionByLabel('angleId', '荷蘭角/傾斜 (Dutch Angle)');
+  const prompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    angleId: dutchAngle.id,
+  })[0].grokPrompt;
+
+  assert.doesNotMatch(prompt, /dominant|cinematic tension/i);
+  assert.match(prompt, /tilted two-subject framing/);
 });
 
 test('camera and film control separates camera profiles from rendering looks', () => {

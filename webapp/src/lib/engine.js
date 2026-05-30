@@ -1332,10 +1332,12 @@ function inferFramingMeta(_category, item) {
 function inferAngleMeta(_category, item) {
   const haystack = toHaystack(item.zh, item.en, item.desc);
 
+  if (hasAny(haystack, ['high camera position', '高位俯視'])) return { tags: ['high_angle'] };
   if (hasAny(haystack, ['bird', 'top-down', 'zenith', 'overhead', '正上方俯視', '鳥瞰'])) return { tags: ['aerial', 'no_eye_contact', 'low_frequency_angle'] };
-  if (hasAny(haystack, ['ground-level', '地面高度'])) return { tags: ['low_angle', 'low_frequency_angle'] };
-  if (hasAny(haystack, ['knee-level', '膝蓋高度'])) return { tags: ['low_angle', 'low_frequency_angle'] };
-  if (hasAny(haystack, ['hip-level', '腰部高度'])) return { tags: ['low_angle'] };
+  if (hasAny(haystack, ['worm', '蟲眼視角'])) return { tags: ['low_angle', 'low_camera_height', 'near_foreground_perspective', 'low_frequency_angle'] };
+  if (hasAny(haystack, ['floor-level', 'ground-level', '地面高度'])) return { tags: ['low_angle', 'low_camera_height', 'low_frequency_angle'] };
+  if (hasAny(haystack, ['knee-level', '膝蓋高度'])) return { tags: ['low_camera_height', 'low_frequency_angle'] };
+  if (hasAny(haystack, ['waist-level', 'hip-level', '腰部高度'])) return { tags: ['low_camera_height'] };
   if (hasAny(haystack, ['high angle'])) return { tags: ['high_angle'] };
   if (hasAny(haystack, ['low angle'])) return { tags: ['low_angle'] };
   if (hasAny(haystack, ['dutch angle'])) return { tags: ['dynamic', 'low_frequency_angle'] };
@@ -2174,7 +2176,17 @@ const WARDROBE_TOP_CATEGORY = '上身 (Tops)';
 const WARDROBE_EYEWEAR_CATEGORY = '眼鏡 (Eyewear)';
 const WARDROBE_EYEWEAR_COLOR_CATEGORY = '眼鏡配色 (Eyewear Color)';
 const WARDROBE_EYEWEAR_PLACEMENT_CATEGORY = '眼鏡配戴方式 (Eyewear Placement)';
+const CAMERA_ANGLE_CATEGORY = '相機視角 (Angle)';
 const CAMERA_FILM_CATEGORY = '底片與相機模擬 (Camera & Film Simulation)';
+
+const CAMERA_ANGLE_LEGACY_OPTION_MAP = [
+  { category: CAMERA_ANGLE_CATEGORY, targetZh: '平視高度鏡頭', legacy: [['平視角 (Eye-Level Angle)', 1]] },
+  { category: CAMERA_ANGLE_CATEGORY, targetZh: '肩部高度鏡頭', legacy: [['肩部高度鏡頭', 2]] },
+  { category: CAMERA_ANGLE_CATEGORY, targetZh: '腰部高度鏡頭', legacy: [['腰部高度鏡頭', 3]] },
+  { category: CAMERA_ANGLE_CATEGORY, targetZh: '膝蓋高度鏡頭', legacy: [['膝蓋高度鏡頭', 4]] },
+  { category: CAMERA_ANGLE_CATEGORY, targetZh: '地面高度鏡頭', legacy: [['地面高度鏡頭', 5], ['仰角 (Low Angle)', 6]] },
+  { category: CAMERA_ANGLE_CATEGORY, targetZh: '高位俯視鏡頭', legacy: [['俯角 (High Angle)', 7]] },
+];
 
 const CAMERA_FILM_LEGACY_OPTION_MAP = [
   { category: CAMERA_FILM_CATEGORY, targetZh: '數位微對比紀實感', legacy: [['Leica 數位紀實感', 4]] },
@@ -2392,6 +2404,13 @@ function applyCharacterLegacyOptionIds(catalog, legacyMap) {
 }
 
 function applyCameraLegacyOptionIds(catalog) {
+  CAMERA_ANGLE_LEGACY_OPTION_MAP.forEach(({ category, targetZh, legacy }) => {
+    const target = getByKey(catalog.camera, category).find((item) => item.zh === targetZh);
+    if (!target) return;
+
+    target.legacyIds = Array.from(new Set([...(target.legacyIds || []), ...buildCameraLegacyIds(category, legacy)]));
+  });
+
   CAMERA_FILM_LEGACY_OPTION_MAP.forEach(({ category, targetZh, legacy }) => {
     const target = getByKey(catalog.camera, category).find((item) => item.zh === targetZh);
     if (!target) return;
@@ -3246,7 +3265,7 @@ function framingSupportsAngle(framing, angle) {
   const framingTags = new Set(framing.meta.tags || []);
 
   if (angleTags.has('aerial') && VISIBILITY_ORDER[framing.meta.visibility] >= VISIBILITY_ORDER.medium) return false;
-  if ((framingTags.has('partial_face') || framingTags.has('full_face_tight')) && (angleTags.has('low_angle') || angleTags.has('high_angle') || angleTags.has('aerial'))) return false;
+  if ((framingTags.has('partial_face') || framingTags.has('full_face_tight')) && (angleTags.has('low_angle') || angleTags.has('low_camera_height') || angleTags.has('high_angle') || angleTags.has('aerial'))) return false;
 
   return true;
 }
@@ -4715,10 +4734,14 @@ const DUO_PROMPT_OVERRIDES = {
     '全身鏡頭 (Full Body Shot)': 'full body shot, full-length two-subject framing, both women fully visible, balanced side-by-side composition',
   },
   angle: {
-    '平視角 (Eye-Level Angle)': 'eye-level angle, neutral two-subject perspective, both women equally readable',
-    '仰角 (Low Angle)': 'low angle, looking slightly up at both women, shared dominant presence, elongated duo silhouette',
-    '俯角 (High Angle)': 'high angle, looking down on both women, balanced two-subject framing, gentle foreshortening',
-    '荷蘭角/傾斜 (Dutch Angle)': 'dutch angle, tilted two-subject framing, dynamic cinematic tension, both women held in frame',
+    '高位俯視鏡頭': 'high camera position above both subjects, looking downward, elevated two-subject portrait viewpoint, both women held clearly in frame',
+    '平視高度鏡頭': 'eye-height camera position, level two-subject perspective, neutral stable duo portrait viewpoint, both women equally readable',
+    '肩部高度鏡頭': 'shoulder-level camera position, level lens axis near the shoulder line, stable upper-body duo portrait viewpoint',
+    '腰部高度鏡頭': 'waist-level camera position, level lens axis, grounded fashion duo camera height, no upward or downward tilt',
+    '膝蓋高度鏡頭': 'knee-level camera position, level lens axis, low fashion duo camera height, legs and shoes emphasized when visible',
+    '地面高度鏡頭': 'floor-level camera position, low camera near the floor, upward view toward both women, elongated full-body duo perspective',
+    '蟲眼視角鏡頭': "worm's-eye view, camera almost touching the floor, sharply looking upward at both women, near foreground enlarged, rising vertical lines",
+    '荷蘭角/傾斜 (Dutch Angle)': 'dutch angle, tilted two-subject framing, diagonal horizon line, both women held in frame',
   },
   orbit: {
     '正面 (Front View)': 'front-facing duo view, both women facing camera, balanced front composition',
