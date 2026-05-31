@@ -15,6 +15,13 @@ function optionId(controlKey, zh) {
   return option.id;
 }
 
+function assertArrangementOption(zh, base, expectedEnglish) {
+  const option = control('poseArrangementId').options.find((entry) => entry.zh === zh);
+  assert.ok(option, `Expected arrangement option ${zh}`);
+  assert.equal(option.base, base);
+  assert.match(option.en, expectedEnglish);
+}
+
 test('pose composer controls expose base arrangement hand and anchor options', () => {
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '站姿'));
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '躺姿'));
@@ -24,6 +31,52 @@ test('pose composer controls expose base arrangement hand and anchor options', (
   assert.ok(control('poseHeadId').options.some((option) => option.zh === '頭部微微側傾'));
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '站在門框邊' && option.base === 'standing'));
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '浴缸' && option.bases.includes('lying')));
+});
+
+test('pose composer exposes new standing sitting and squatting arrangement batch', () => {
+  [
+    ['交叉腿站姿', 'standing', /crossed-leg standing arrangement/],
+    ['膝蓋微彎站姿', 'standing', /soft bent-knee standing arrangement/],
+    ['背對回身站姿', 'standing', /back-facing turn-back standing arrangement/],
+    ['側身窄站姿', 'standing', /narrow side-facing standing arrangement/],
+    ['一腳向前點地', 'standing', /one foot pointed forward/],
+    ['單腿屈起坐姿', 'sitting', /one knee drawn up/],
+    ['雙腿側放坐姿', 'sitting', /both legs angled to one side/],
+    ['坐姿身體前傾', 'sitting', /grounded forward-leaning seated arrangement/],
+    ['開闊自信坐姿', 'sitting', /open confident seated arrangement/],
+    ['椅緣端坐', 'sitting', /edge-of-seat poised seated arrangement/],
+    ['低蹲單腿前伸', 'squatting', /low squat with one leg extended forward/],
+    ['側身低蹲', 'squatting', /side-facing low squat/],
+    ['腳跟抬起蹲姿', 'squatting', /raised-heel squatting arrangement/],
+    ['蹲姿身體前傾', 'squatting', /forward-leaning squatting arrangement/],
+    ['緊湊抱膝蹲姿變體', 'squatting', /compact knees-held squat variation/],
+  ].forEach(([zh, base, expectedEnglish]) => {
+    assertArrangementOption(zh, base, expectedEnglish);
+  });
+});
+
+test('new arrangement batch is preserved in all prompt versions', () => {
+  const cases = [
+    ['站姿', '交叉腿站姿', /crossed-leg standing arrangement/],
+    ['坐姿', '開闊自信坐姿', /open confident seated arrangement/],
+    ['蹲姿', '側身低蹲', /side-facing low squat/],
+  ];
+
+  for (const [baseZh, arrangementZh, expected] of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      poseBaseId: optionId('poseBaseId', baseZh),
+      poseArrangementId: optionId('poseArrangementId', arrangementZh),
+      poseHandId: optionId('poseHandId', '雙手自然垂放'),
+      poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+    });
+
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      assert.match(text, expected);
+    }
+  }
 });
 
 test('single-subject pose composer outputs natural base arrangement hand anchor and head direction in all prompt versions', () => {
