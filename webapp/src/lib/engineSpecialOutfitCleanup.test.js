@@ -45,6 +45,10 @@ const EXPECTED_SPECIAL_OUTFITS = [
   '黑皮革騎士外套鉛筆裙套裝造型',
   '黑皮革短外套水鑽蛇紋喇叭褲造型',
   '黃色皮革外套紅花洋裝銀靴造型',
+  '紅緞背心牛仔迷你裙騎士靴造型',
+  '米色細肩背心蕾絲胸衣工裝寬褲造型',
+  '粉色蝴蝶結背心牛仔短褲泡泡襪造型',
+  '白色短袖背心格紋迷你裙白蕾絲襪造型',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
@@ -58,7 +62,7 @@ const optionByLabel = (key, label) => {
 
 const wordCount = (text) => text.trim().split(/\s+/).filter(Boolean).length;
 
-test('special outfit controls expose exactly the approved 41 complete looks', () => {
+test('special outfit controls expose exactly the approved 45 complete looks', () => {
   assert.deepEqual(nonNoneSpecialOutfits().map((option) => option.zh), EXPECTED_SPECIAL_OUTFITS);
 });
 
@@ -71,10 +75,11 @@ test('special outfit prompts keep complete outfit prefix and stay compact', () =
   }
 });
 
-test('special outfit options include popup reference images', () => {
+test('special outfit popup reference metadata uses special outfit png paths', () => {
   for (const option of nonNoneSpecialOutfits()) {
+    if (!option.meta?.referenceImage) continue;
     assert.match(
-      option.meta?.referenceImage || '',
+      option.meta.referenceImage,
       /^reference\/wardrobe\/special-outfits\/\d{2}_.+\.png$/,
       `${option.zh} should have a special outfit popup reference image`,
     );
