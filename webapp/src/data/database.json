@@ -404,62 +404,110 @@
       {
         "zh": "棕色開襟外套細肩背心條紋工裝褲造型",
         "en": "complete outfit: layered Y2K city street look. long loose center-part brown hair, black narrow oval sunglasses, dark brown open knit cardigan, beige fitted camisole tank, low-rise blue-and-white pinstripe oversized cargo pants, black leather belt with oval gold buckle, layered chain and pendant necklaces, chunky dark sneakers, coordinated downtown styling.",
-        "desc": "完整特殊穿搭：棕開襟外套、米色細肩背心、藍白條紋低腰工裝寬褲、黑皮帶、黑墨鏡、層次項鍊與厚底鞋。"
+        "desc": "完整特殊穿搭：棕開襟外套、米色細肩背心、藍白條紋低腰工裝寬褲、黑皮帶、黑墨鏡、層次項鍊與厚底鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/30_棕色開襟外套.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "黑毛帽白短背心鏈條工裝寬褲造型",
         "en": "complete outfit: chain-heavy Y2K utility street look. long straight light-brown hair under a black knit beanie, white cropped ribbed tank top, black detached arm warmers, low-rise dark navy oversized cargo pants, layered brown and black belts with large ring buckle, draped chain waist charms, stacked pendant necklaces, black shoulder strap, chunky black boots, coordinated cyber utility styling.",
-        "desc": "完整特殊穿搭：黑毛帽、白色短背心、黑袖套、低腰深色工裝寬褲、雙層皮帶、褲鏈、層次項鍊與黑厚靴。"
+        "desc": "完整特殊穿搭：黑毛帽、白色短背心、黑袖套、低腰深色工裝寬褲、雙層皮帶、褲鏈、層次項鍊與黑厚靴。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/31_黑毛帽白短背心.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "粉色圖像背心格紋襯衫破壞寬褲造型",
         "en": "complete outfit: cute punk layered street look. black messy twin-bun hair with face-framing strands and thin braids, pale pink graphic camisole tank, red-and-green plaid shirt tied around the waist, black shredded wide-leg pants with patched texture, black choker, black fingerless gloves and wrist cuffs, pale pink platform Mary Jane shoes, coordinated punk doll styling.",
-        "desc": "完整特殊穿搭：雙丸子髮、粉色圖像背心、腰綁紅綠格紋襯衫、黑破壞寬褲、黑頸圈、露指手套與粉色厚底鞋。"
+        "desc": "完整特殊穿搭：雙丸子髮、粉色圖像背心、腰綁紅綠格紋襯衫、黑破壞寬褲、黑頸圈、露指手套與粉色厚底鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/32_粉色圖像背心.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "灰色長版圖像T腰帶短裙靴造型",
         "en": "complete outfit: gothic graphic tee dress styling. shoulder-length wavy dark hair with full bangs, oversized charcoal-gray graphic T-shirt worn as a mini dress, black grommet belt harness wrapping the waist with long hanging straps, black choker, stacked bracelets, black lace-up leg straps, chunky black platform boots with buckle hardware, small black fuzzy charm bag, coordinated gothic street styling.",
-        "desc": "完整特殊穿搭：灰色長版圖像T、黑孔眼腰帶與垂帶、黑頸圈、手鍊、腿部綁帶、黑厚底扣靴與毛絨小包。"
+        "desc": "完整特殊穿搭：灰色長版圖像T、黑孔眼腰帶與垂帶、黑頸圈、手鍊、腿部綁帶、黑厚底扣靴與毛絨小包。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/33_灰色長版圖像T.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "黑色破壞圖像上衣紅格裙破壞牛仔造型",
         "en": "complete outfit: oversized punk grunge layered look. tousled dark wavy hair with full bangs, black distressed off-shoulder long-sleeve graphic top with red skull print, red plaid ruffle mini skirt layer, gray heavily shredded wide-leg jeans with black patchwork texture, black grommet choker and strap details, black fluffy shoulder bag, chunky black platform shoes with metal hardware, coordinated punk styling.",
-        "desc": "完整特殊穿搭：黑破壞露肩圖像長袖、紅格紋荷葉短裙層、灰黑重破壞寬牛仔褲、孔眼頸圈、黑毛絨包與厚底鞋。"
+        "desc": "完整特殊穿搭：黑破壞露肩圖像長袖、紅格紋荷葉短裙層、灰黑重破壞寬牛仔褲、孔眼頸圈、黑毛絨包與厚底鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/34_黑色破壞圖像上衣.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "鼠尾草圖像T白蕾絲長裙靴造型",
         "en": "complete outfit: soft grunge lace layered look. messy spiky black shag hair with full bangs, oversized sage-green graphic T-shirt, white sheer lace midi skirt with soft volume, striped black-and-gray fingerless arm warmers, long black beaded pendant necklace, turquoise drop earrings, chunky black lace-up platform boots, coordinated thrifted romantic grunge styling.",
-        "desc": "完整特殊穿搭：刺刺黑色 shag 髮、鼠尾草綠圖像寬T、白色透蕾絲中長裙、條紋露指袖套、長項鍊、綠耳墜與黑厚底靴。"
+        "desc": "完整特殊穿搭：刺刺黑色 shag 髮、鼠尾草綠圖像寬T、白色透蕾絲中長裙、條紋露指袖套、長項鍊、綠耳墜與黑厚底靴。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/35_鼠尾草圖像T.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "黃色寬T條紋襯衫橄欖工裝褲造型",
         "en": "complete outfit: playful layered casual utility look. long dark side braid under a pale blue embroidered baseball cap, oversized yellow graphic T-shirt layered over a pale blue striped button-down shirt, olive-gray wide cargo pants with drawcord details, small purple shirt clip, bright red mesh tote bag, red-and-cream low-top sneakers, coordinated relaxed street styling.",
-        "desc": "完整特殊穿搭：藍棒球帽、側編髮、黃色寬T疊藍白條紋襯衫、橄欖灰工裝寬褲、紫色衣夾、紅網袋與紅白低筒鞋。"
+        "desc": "完整特殊穿搭：藍棒球帽、側編髮、黃色寬T疊藍白條紋襯衫、橄欖灰工裝寬褲、紫色衣夾、紅網袋與紅白低筒鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/36_黃色寬T條紋.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "黑皮革短外套佩斯利襯衫鉛筆裙造型",
         "en": "complete outfit: polished leather tailoring look. long center-part strawberry-blonde soft hair, black narrow oval sunglasses, cropped black leather jacket, red paisley button shirt with pointed hem, charcoal pinstripe knee-length pencil skirt, beige monogram shoulder bag with black trim, glossy black pointed kitten heels, small earrings, coordinated sharp retro styling.",
-        "desc": "完整特殊穿搭：草莓金中分長髮、黑窄墨鏡、黑皮革短外套、紅佩斯利襯衫、炭灰細條紋鉛筆裙、米色花紋肩包與黑尖頭鞋。"
+        "desc": "完整特殊穿搭：草莓金中分長髮、黑窄墨鏡、黑皮革短外套、紅佩斯利襯衫、炭灰細條紋鉛筆裙、米色花紋肩包與黑尖頭鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/37_黑皮革短外套.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "棕皮草披肩條紋西裝洋裝造型",
         "en": "complete outfit: dramatic fur-tailored glamour look. long dark straight hair with blunt bangs, silver hoop earrings, brown faux-fur jacket draped around the shoulders, black pinstripe double-breasted blazer dress with sharp lapels, sheer black tights, glossy black pointed pumps, black patent chain-strap shoulder bag, rings, coordinated luxury tailoring styling.",
-        "desc": "完整特殊穿搭：黑長直髮與齊瀏海、棕色仿皮草披肩、黑細條紋雙排扣西裝洋裝、黑透膚絲襪、黑漆皮鍊包與尖頭鞋。"
+        "desc": "完整特殊穿搭：黑長直髮與齊瀏海、棕色仿皮草披肩、黑細條紋雙排扣西裝洋裝、黑透膚絲襪、黑漆皮鍊包與尖頭鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/38_棕皮草披肩條紋.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "黑皮革騎士外套鉛筆裙套裝造型",
         "en": "complete outfit: sleek black leather city look. long dark soft wavy hair with airy bangs, fitted black leather moto jacket with asymmetrical zipper, matching black leather pencil skirt, black waist belt with silver buckle, sheer black tights, black mid-calf leather boots, delicate pendant necklace and small earrings, coordinated polished leather styling.",
-        "desc": "完整特殊穿搭：深色柔波長髮、黑皮革騎士外套、黑皮革鉛筆裙、黑腰帶、黑絲襪、黑中筒靴、小墜鍊與耳飾。"
+        "desc": "完整特殊穿搭：深色柔波長髮、黑皮革騎士外套、黑皮革鉛筆裙、黑腰帶、黑絲襪、黑中筒靴、小墜鍊與耳飾。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/39_黑皮革騎士外套.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "黑皮革短外套水鑽蛇紋喇叭褲造型",
         "en": "complete outfit: high-glam leather and crystal look. slick center-part low bun, cropped black leather zip jacket, low-rise beige snakeskin flared trousers covered with dense rhinestone sparkle, black glossy pointed heels, black monogram shoulder bag with chain strap, silver earrings and rings, coordinated sharp luxury styling.",
-        "desc": "完整特殊穿搭：光滑中分低包頭、黑皮革短外套、低腰米色蛇紋水鑽喇叭褲、黑尖頭高跟鞋、黑花紋鍊包與銀飾。"
+        "desc": "完整特殊穿搭：光滑中分低包頭、黑皮革短外套、低腰米色蛇紋水鑽喇叭褲、黑尖頭高跟鞋、黑花紋鍊包與銀飾。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/40_黑皮革水鑽蛇紋.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "黃色皮革外套紅花洋裝銀靴造型",
         "en": "complete outfit: eclectic floral leather statement look. messy dark updo with short bangs, oversized bright yellow leather jacket worn loose, red plunging floral sleeveless dress, black floral skirt layer under silver ring-chain mesh overlay, chunky silver chain necklace, black ribbon choker, black hoop earrings, metallic silver knee-high boots, coordinated maximalist styling.",
-        "desc": "完整特殊穿搭：凌亂黑色盤髮與短瀏海、黃色寬皮外套、紅色深V花洋裝、銀色圈鏈網罩裙、粗銀鍊、黑頸繩、黑耳環與銀長靴。"
+        "desc": "完整特殊穿搭：凌亂黑色盤髮與短瀏海、黃色寬皮外套、紅色深V花洋裝、銀色圈鏈網罩裙、粗銀鍊、黑頸繩、黑耳環與銀長靴。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/41_黃皮革外套.png",
+          "referenceImageFormat": "png"
+        }
       }
     ],
     "套裝 (Outfit Presets)": [

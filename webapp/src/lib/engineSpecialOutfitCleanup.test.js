@@ -71,6 +71,17 @@ test('special outfit prompts keep complete outfit prefix and stay compact', () =
   }
 });
 
+test('special outfit options include popup reference images', () => {
+  for (const option of nonNoneSpecialOutfits()) {
+    assert.match(
+      option.meta?.referenceImage || '',
+      /^reference\/wardrobe\/special-outfits\/\d{2}_.+\.png$/,
+      `${option.zh} should have a special outfit popup reference image`,
+    );
+    assert.equal(option.meta?.referenceImageFormat, 'png', `${option.zh} should declare png reference format`);
+  }
+});
+
 test('special outfit prompts avoid unstable negative phrasing', () => {
   const unstableNegative = /\b(excluding|without|not a|do not|avoid)\b/i;
   for (const option of nonNoneSpecialOutfits()) {
