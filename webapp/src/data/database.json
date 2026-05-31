@@ -512,22 +512,38 @@
       {
         "zh": "紅緞背心牛仔迷你裙騎士靴造型",
         "en": "complete outfit: Y2K biker denim styling. long wavy black hair under a Gucci-inspired luxury patterned bandana headscarf, vintage rimless translucent blue sunglasses, red satin camisole layered over a black strapless lace bra, ultra low-rise faded denim mini skirt, low-slung red grommet belt, layered necklaces with a Baroque metal cross pendant, hoop earrings, stacked bracelets and rings, ivory crew socks, black knee-high biker boots with four side buckle straps, coordinated playful styling.",
-        "desc": "完整特殊穿搭：GUGGI 風格奢華印花頭巾、黑長捲髮、復古無框藍色半透明墨鏡、紅緞面背心內搭黑色無肩帶蕾絲胸罩、超低腰牛仔迷你裙、低位紅孔眼皮帶、巴洛克金屬十字架項鍊、手飾、白襪與四條側扣帶騎士靴。"
+        "desc": "完整特殊穿搭：GUGGI 風格奢華印花頭巾、黑長捲髮、復古無框藍色半透明墨鏡、紅緞面背心內搭黑色無肩帶蕾絲胸罩、超低腰牛仔迷你裙、低位紅孔眼皮帶、巴洛克金屬十字架項鍊、手飾、白襪與四條側扣帶騎士靴。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/42_紅緞背心牛仔.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "米色細肩背心蕾絲胸衣工裝寬褲造型",
         "en": "complete outfit: fitted camisole and oversized cargo contrast. long voluminous side-part black waves, cream cropped spaghetti-strap camisole with an ultra-low square neckline ending above the navel, visible black lace bra underneath, low-rise light-wash oversized cargo jeans with many flap pockets and utility seams, small cherry tattoo on the right chest, layered necklaces with a metal cross pendant, gold bracelets and rings, white chunky platform slide sandals, coordinated Y2K styling.",
-        "desc": "完整特殊穿搭：側分黑色蓬鬆長捲髮、米色超低胸平口短版細肩背心露肚臍、內搭黑蕾絲胸罩、低腰淺色多袋工裝寬牛仔褲、右胸櫻桃刺青、金屬十字架項鍊、金手飾與白厚底拖鞋。"
+        "desc": "完整特殊穿搭：側分黑色蓬鬆長捲髮、米色超低胸平口短版細肩背心露肚臍、內搭黑蕾絲胸罩、低腰淺色多袋工裝寬牛仔褲、右胸櫻桃刺青、金屬十字架項鍊、金手飾與白厚底拖鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/43_米色細肩背心.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "粉色蝴蝶結背心牛仔短褲泡泡襪造型",
         "en": "complete outfit: soft doll-like casual styling. short blonde bob with full bangs and small pink bow hair clips, dusty pink striped babydoll camisole with satin center bow, dark blue fitted denim micro shorts, cream slouchy leg warmers, black chunky platform Mary Jane shoes, pearl heart necklace, brown shoulder bag with dangling charms, coordinated cute styling.",
-        "desc": "完整特殊穿搭：金色短鮑伯與齊瀏海、粉蝴蝶結髮夾、粉色條紋蝴蝶結娃娃背心、深藍牛仔短褲、奶油泡泡襪、黑厚底 Mary Jane、珍珠心形項鍊與棕肩包。"
+        "desc": "完整特殊穿搭：金色短鮑伯與齊瀏海、粉蝴蝶結髮夾、粉色條紋蝴蝶結娃娃背心、深藍牛仔短褲、奶油泡泡襪、黑厚底 Mary Jane、珍珠心形項鍊與棕肩包。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/44_粉色蝴蝶結背心.png",
+          "referenceImageFormat": "png"
+        }
       },
       {
         "zh": "白色短袖背心格紋迷你裙白蕾絲襪造型",
         "en": "complete outfit: crisp Y2K schoolgirl-inspired styling. long straight side-part black hair, cropped white short-sleeve button shirt with a slightly sheer gauze texture ending above the waistline, two chest buttons open revealing a black lace bra and neckline, bottom button open showing a small midriff gap, ultra low-rise yellow plaid pleated mini skirt with thin side ribbons hanging down, white lace thigh-high stockings with garter straps, white pointed heels, brown monogram shoulder bag, delicate pendant necklace.",
-        "desc": "完整特殊穿搭：側分黑長直髮、微透短版白短袖襯衫、胸前兩扣與下擺開扣露黑蕾絲胸罩和少量腹部、超低腰黃格裙垂細絲帶、白蕾絲吊帶襪、白尖頭鞋、棕肩包與細項鍊。"
+        "desc": "完整特殊穿搭：側分黑長直髮、微透短版白短袖襯衫、胸前兩扣與下擺開扣露黑蕾絲胸罩和少量腹部、超低腰黃格裙垂細絲帶、白蕾絲吊帶襪、白尖頭鞋、棕肩包與細項鍊。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/45_白色短袖背心.png",
+          "referenceImageFormat": "png"
+        }
       }
     ],
     "套裝 (Outfit Presets)": [
