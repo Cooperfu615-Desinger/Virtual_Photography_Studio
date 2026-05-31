@@ -87,3 +87,50 @@ test('selected special outfit stays the complete wardrobe priority', () => {
   assert.doesNotMatch(prompt.grokPrompt, /\nTop:|\nPants:|\nShoes:|\nOutfit Preset:|\nDress:/);
   assert.match(prompt.zImagePrompt, /She wears complete special outfit: black sheer polka-dot matching fashion set/);
 });
+
+test('special outfit hairstyle suppresses regular hairstyle and hair color controls', () => {
+  const hairstyleOutfit = optionByLabel('specialOutfitId', '棕色開襟外套細肩背心條紋工裝褲造型');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialOutfitId: hairstyleOutfit.id,
+    hairstyleId: optionByLabel('hairstyleId', '直髮：中分').id,
+    hairColorId: optionByLabel('hairColorId', '寶石藍').id,
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.hairstyleId, '');
+  assert.equal(prompt.selection.hairColorId, '');
+  assert.match(promptText, /long loose center-part brown hair/);
+  assert.doesNotMatch(promptText, /long straight hair with a center part|jewel cobalt-blue fashion hair color|直髮：中分|寶石藍/);
+});
+
+test('special outfit hair accessories do not suppress regular hairstyle controls', () => {
+  const accessoryOutfit = optionByLabel('specialOutfitId', '迷彩透紗白蕾絲束胸裙裝');
+  const clawClipOutfit = optionByLabel('specialOutfitId', '粉紫蕾絲豹紋低腰喇叭褲造型');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialOutfitId: accessoryOutfit.id,
+    hairstyleId: optionByLabel('hairstyleId', '直髮：中分').id,
+    hairColorId: optionByLabel('hairColorId', '寶石藍').id,
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.hairstyleId, optionByLabel('hairstyleId', '直髮：中分').id);
+  assert.equal(prompt.selection.hairColorId, optionByLabel('hairColorId', '寶石藍').id);
+  assert.match(promptText, /small white hair clips/);
+  assert.match(promptText, /long straight hair with a center part|直髮：中分/);
+  assert.match(promptText, /jewel cobalt-blue fashion hair color|寶石藍/);
+
+  const [clawClipPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialOutfitId: clawClipOutfit.id,
+    hairstyleId: optionByLabel('hairstyleId', '直髮：中分').id,
+    hairColorId: optionByLabel('hairColorId', '寶石藍').id,
+  });
+  const clawClipText = [clawClipPrompt.grokPrompt, clawClipPrompt.zImagePrompt, clawClipPrompt.midjourneyPrompt, clawClipPrompt.summary].join('\n');
+
+  assert.equal(clawClipPrompt.selection.hairstyleId, optionByLabel('hairstyleId', '直髮：中分').id);
+  assert.equal(clawClipPrompt.selection.hairColorId, optionByLabel('hairColorId', '寶石藍').id);
+  assert.match(clawClipText, /reddish hair claw clip/);
+  assert.match(clawClipText, /long straight hair with a center part|直髮：中分/);
+});

@@ -3577,6 +3577,28 @@ function pickWithCompatibleLock(list, lockedId, predicate = () => true, picker =
   return noneOption || null;
 }
 
+function specialOutfitHasHairstyle(item) {
+  if (!item || isNoneLikeItem(item)) return false;
+  const text = stripMarkdown(item.en || '')
+    .replace(/\bhair\s+(?:clips?|claw clips?|pins?|barrettes?|accessories?)\b/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return /\b(hair|bangs|braids?|side braid|twin-bun|pigtails?|ponytail|bob|shag|chignon|bun)\b/i.test(text);
+}
+
+function selectedSpecialOutfitHasHairstyle(context, catalog, role = null) {
+  if (isSpecialSubject(context.subject)) return false;
+  const specialOutfits = getByKey(catalog.wardrobe, '特殊穿搭 (Special Outfits)');
+  const shared = context.locks?.specialOutfitId ? findById(specialOutfits, context.locks.specialOutfitId) : null;
+  if (shared && specialOutfitHasHairstyle(shared)) return true;
+
+  if (context.subject.count !== 2 || !role) return false;
+  const roleKey = role === 'a' ? 'specialOutfitAId' : 'specialOutfitBId';
+  const roleOutfit = context.locks?.[roleKey] ? findById(specialOutfits, context.locks[roleKey]) : null;
+  return specialOutfitHasHairstyle(roleOutfit);
+}
+
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
   if (isSpecialSubject(context.subject)) {
@@ -3710,19 +3732,22 @@ function buildCharacter(context, catalog) {
     pickCategory('膚質特徵 (Skin Details)', context.locks);
   }
 
-  if (context.subject.count === 1 && (context.locks?.hairstyleId || context.locks?.hairColorId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium')))) {
+  const suppressSingleHair = context.subject.count === 1 && selectedSpecialOutfitHasHairstyle(context, catalog);
+  if (!suppressSingleHair && context.subject.count === 1 && (context.locks?.hairstyleId || context.locks?.hairColorId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium')))) {
     pickCategory('髮型 (Hairstyle)', context.locks);
     pickCategory('髮色 (Hair Color)', context.locks, () => true, pickHairColor);
   }
 
   if (context.subject.count === 2 && (visibilityAtLeast(visibility, 'medium') || context.locks?.hairstyleAId || context.locks?.hairstyleBId || context.locks?.hairColorAId || context.locks?.hairColorBId)) {
-    const hairA = pickDistinctForRole('髮型 (Hairstyle)', 'a', context.locks?.hairstyleAId, [], sample);
-    const hairB = pickDistinctForRole('髮型 (Hairstyle)', 'b', context.locks?.hairstyleBId, [hairA], sample);
+    const suppressHairA = selectedSpecialOutfitHasHairstyle(context, catalog, 'a');
+    const suppressHairB = selectedSpecialOutfitHasHairstyle(context, catalog, 'b');
+    const hairA = suppressHairA ? null : pickDistinctForRole('髮型 (Hairstyle)', 'a', context.locks?.hairstyleAId, [], sample);
+    const hairB = suppressHairB ? null : pickDistinctForRole('髮型 (Hairstyle)', 'b', context.locks?.hairstyleBId, [hairA], sample);
     if (hairA) character.push(hairA);
     if (hairB) character.push(hairB);
 
-    const hairColorA = pickDistinctForRole('髮色 (Hair Color)', 'a', context.locks?.hairColorAId, [], pickHairColor);
-    const hairColorB = pickDistinctForRole('髮色 (Hair Color)', 'b', context.locks?.hairColorBId, [hairColorA], pickHairColor);
+    const hairColorA = suppressHairA ? null : pickDistinctForRole('髮色 (Hair Color)', 'a', context.locks?.hairColorAId, [], pickHairColor);
+    const hairColorB = suppressHairB ? null : pickDistinctForRole('髮色 (Hair Color)', 'b', context.locks?.hairColorBId, [hairColorA], pickHairColor);
     if (hairColorA) character.push(hairColorA);
     if (hairColorB) character.push(hairColorB);
   }
