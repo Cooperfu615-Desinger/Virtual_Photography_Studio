@@ -40,6 +40,11 @@ const EXPECTED_SPECIAL_OUTFITS = [
   '黑色破壞圖像上衣紅格裙破壞牛仔造型',
   '鼠尾草圖像T白蕾絲長裙靴造型',
   '黃色寬T條紋襯衫橄欖工裝褲造型',
+  '黑皮革短外套佩斯利襯衫鉛筆裙造型',
+  '棕皮草披肩條紋西裝洋裝造型',
+  '黑皮革騎士外套鉛筆裙套裝造型',
+  '黑皮革短外套水鑽蛇紋喇叭褲造型',
+  '黃色皮革外套紅花洋裝銀靴造型',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
@@ -53,7 +58,7 @@ const optionByLabel = (key, label) => {
 
 const wordCount = (text) => text.trim().split(/\s+/).filter(Boolean).length;
 
-test('special outfit controls expose exactly the approved 36 complete looks', () => {
+test('special outfit controls expose exactly the approved 41 complete looks', () => {
   assert.deepEqual(nonNoneSpecialOutfits().map((option) => option.zh), EXPECTED_SPECIAL_OUTFITS);
 });
 
