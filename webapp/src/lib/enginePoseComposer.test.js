@@ -22,6 +22,12 @@ function assertArrangementOption(zh, base, expectedEnglish) {
   assert.match(option.en, expectedEnglish);
 }
 
+function assertHandOption(zh, expectedEnglish) {
+  const option = control('poseHandId').options.find((entry) => entry.zh === zh);
+  assert.ok(option, `Expected hand option ${zh}`);
+  assert.match(option.en, expectedEnglish);
+}
+
 test('pose composer controls expose base arrangement hand and anchor options', () => {
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '站姿'));
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '躺姿'));
@@ -31,6 +37,50 @@ test('pose composer controls expose base arrangement hand and anchor options', (
   assert.ok(control('poseHeadId').options.some((option) => option.zh === '頭部微微側傾'));
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '站在門框邊' && option.base === 'standing'));
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '浴缸' && option.bases.includes('lying')));
+});
+
+test('pose composer exposes expressive hand interaction batch', () => {
+  [
+    ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],
+    ['單手把眼鏡拉下', /pulling the glasses slightly down the nose bridge/],
+    ['單手碰嘴角', /one hand lightly touching the corner of the mouth/],
+    ['單手遮住半邊臉', /partially covering one side of the face/],
+    ['雙手整理頭髮', /both hands arranging the hair/],
+    ['單手撩起後頸頭髮', /lifting hair away from the nape of the neck/],
+    ['單手搭在鎖骨', /one hand resting across the collarbone/],
+    ['一手扶腰一手自然放下', /one hand on the waist, the other hand relaxed down/],
+    ['一手撐地一手放腿上', /one hand supporting on the ground, the other hand resting on the leg/],
+    ['一手扶膝一手垂放', /one hand holding the knee, the other hand hanging relaxed/],
+  ].forEach(([zh, expectedEnglish]) => {
+    assertHandOption(zh, expectedEnglish);
+  });
+
+  assertHandOption('單手撩髮', /brushing hair back from the side of the face/);
+  assertHandOption('單手撩髮', /near the temple or ear/);
+});
+
+test('expressive hand interactions are preserved in all prompt versions', () => {
+  const cases = [
+    ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],
+    ['單手把眼鏡拉下', /pulling the glasses slightly down the nose bridge/],
+    ['一手撐地一手放腿上', /one hand supporting on the ground, the other hand resting on the leg/],
+  ];
+
+  for (const [handZh, expected] of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      poseBaseId: optionId('poseBaseId', '站姿'),
+      poseArrangementId: optionId('poseArrangementId', '交叉腿站姿'),
+      poseHandId: optionId('poseHandId', handZh),
+      poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+    });
+
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      assert.match(text, expected);
+    }
+  }
 });
 
 test('pose composer exposes new standing sitting and squatting arrangement batch', () => {
@@ -177,6 +227,8 @@ test('duo mode does not output pose composer', () => {
   });
 
   assert.doesNotMatch(prompt.grokPrompt, /hugging-knees squat/);
-  assert.doesNotMatch(prompt.zImagePrompt, /vending machine/);
   assert.equal(prompt.selection.poseBaseId, 'none');
+  assert.equal(prompt.selection.poseArrangementId, 'none');
+  assert.equal(prompt.selection.poseHandId, 'none');
+  assert.equal(prompt.selection.poseAnchorId, 'none');
 });
