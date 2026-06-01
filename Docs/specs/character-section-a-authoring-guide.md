@@ -85,7 +85,7 @@ core identity phrase, 1-3 concrete visual traits, restrained style or realism cu
 目前標準選項：
 
 - `高挑時裝模特`
-- `優雅曲線模特`
+- `一般基本體型`
 - `柔和沙漏身形`
 - `性感曲線身形`
 - `運動緊實身形`

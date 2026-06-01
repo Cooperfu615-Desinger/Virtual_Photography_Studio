@@ -18,10 +18,10 @@
 | **膚質特徵 (Skin Details)** | 自然雀斑 | `natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail` | 鼻樑與臉頰帶有自然雀斑，能增加真實感與辨識度。 |
 | **膚質特徵 (Skin Details)** | 淚痣／唇邊痣 | `small beauty mark under eye or near lips, delicate facial mole detail` | 臉上有細小痣點，位置通常在眼下或唇邊，能增加個性與記憶點。 |
 | **膚質特徵 (Skin Details)** | 微曬陽光感膚質 | `slightly sun-kissed skin texture, subtle warm flush, healthy outdoor glow` | 像曬過太陽後留下的自然暖感，帶有生活感與戶外氣息。 |
-| **體態 (Body Type)** | 高挑時裝模特 | `tall fashion model body, long elegant legs, lean editorial proportions, graceful runway-like silhouette` | 高挑、腿長、時裝 editorial 比例，適合乾淨高級的人像基底。 |
-| **體態 (Body Type)** | 優雅曲線模特 | `tall elegant fashion model body with balanced feminine curves, long legs, softly defined waist, polished high-fashion silhouette` | 高挑模特比例加上柔和女性曲線，比純模特兒更有身形存在感。 |
-| **體態 (Body Type)** | 柔和沙漏身形 | `soft natural hourglass figure, clear waistline, balanced hip rhythm, graceful feminine body line` | 腰線與臀線更明確，但保持自然柔和，不走誇張曲線。 |
-| **體態 (Body Type)** | 性感曲線身形 | `sensual curvy feminine silhouette, fuller bust-waist-hip curves, defined waist, rounded hips, fashion portrait allure` | 性感、有存在感的曲線身形，強調胸部、腰線與臀部的女性曲線，用時裝寫真語氣呈現。 |
+| **體態 (Body Type)** | 高挑時裝模特 | `tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor, long legs with about 3.5:6.5 torso-to-leg balance, shorter upper torso, high waistline, narrow ribcage, gently wider hips, clean editorial silhouette` | 高挑、纖細、短上身與高腰線，腿身比例更拉長，臀圍略寬但仍維持時裝 editorial 的乾淨輪廓。 |
+| **體態 (Body Type)** | 一般基本體型 | `natural basic body, about 160-165 cm visual height, 83-62-88 body proportion anchor, balanced torso-to-leg ratio around 4:6, low-contrast waist curve, modest bust and hips, smooth natural silhouette` | 一般自然體型，曲線不強調，胸腰臀落差較低，整體比例平衡，不加入肉感或年齡相關描述。 |
+| **體態 (Body Type)** | 柔和沙漏身形 | `soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor, balanced torso-to-leg ratio around 4:6, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines` | 柔和沙漏比例，上身較長、腰線較低，胸部與臀圍更明顯，腹部較長並帶自然線條。 |
+| **體態 (Body Type)** | 性感曲線身形 | `sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve` | 性感但偏纖長的曲線體型，以足夠身高、精瘦視覺體重與明確胸腰臀比例避免變胖或年齡感，重點是誇張但乾淨的曲線線條。 |
 | **體態 (Body Type)** | 運動緊實身形 | `fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions` | 健康、俐落、緊實，有運動感與輕微肌肉張力。 |
 | **體態 (Body Type)** | 小隻精緻身形 | `petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence` | 較嬌小、比例精緻，帶偶像感與可愛但成熟的身形輪廓。 |
 | **髮型 (Hairstyle)** | 全無 | `none` | 不指定髮型，讓模型自行決定頭髮長度與輪廓。 |

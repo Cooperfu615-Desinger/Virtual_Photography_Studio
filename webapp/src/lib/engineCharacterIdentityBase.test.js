@@ -16,7 +16,7 @@ test('identity base exposes approved body and facial feature options', () => {
     optionLabels('bodyTypeId'),
     [
       '高挑時裝模特',
-      '優雅曲線模特',
+      '一般基本體型',
       '柔和沙漏身形',
       '性感曲線身形',
       '運動緊實身形',
@@ -115,8 +115,8 @@ test('identity base prompt wording is controlled by selected DNA options', () =>
   assert.match(promptText, /20-year-old Japanese or Korean female portrait subject/);
   assert.doesNotMatch(promptText, /adult Japanese or Korean female portrait subject/);
   assert.doesNotMatch(promptText, /seductive stunning & beautiful/);
-  assert.doesNotMatch(bodyType.en, /\bmature\b/i);
-  assert.match(bodyType.en, /bust-waist-hip|fuller bust|rounded hips/);
+  assert.doesNotMatch(bodyType.en, /\bmature\b|\bolder\b|\bage\b/i);
+  assert.match(bodyType.en, /168-173 cm|53-58 kg|F-to-G-cup|bust-waist-hip|rounded hips/);
   assert.doesNotMatch(facialFeatures.en, /\bmature\b/i);
   assert.match(facialFeatures.en, /alluring|seductive|magnetic|sensual/);
   assert.match(promptText, /curvy silhouette|bust-waist-hip|fuller bust|rounded hips|alluring beauty face|deep side-parted long soft waves|hot-pink fashion hair/);
@@ -148,6 +148,10 @@ test('legacy identity base locks migrate into the merged options', () => {
   assert.equal(
     normalizeLocks({ ...locks, bodyTypeId: 'character:體態-body-type:模特兒:0' }).bodyTypeId,
     optionByLabel('bodyTypeId', '高挑時裝模特').id
+  );
+  assert.equal(
+    normalizeLocks({ ...locks, bodyTypeId: 'character:體態-body-type:優雅曲線模特:1' }).bodyTypeId,
+    optionByLabel('bodyTypeId', '一般基本體型').id
   );
   assert.equal(
     normalizeLocks({ ...locks, facialFeaturesId: 'character:五官特徵-facial-features:kpop:1' }).facialFeaturesId,

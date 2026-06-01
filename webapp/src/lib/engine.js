@@ -2268,7 +2268,7 @@ const CAMERA_PROFILE_RENDERING_MIGRATIONS = {
 
 const CHARACTER_IDENTITY_LEGACY_OPTION_MAP = [
   { category: '體態 (Body Type)', targetZh: '高挑時裝模特', legacy: [['模特兒', 0]] },
-  { category: '體態 (Body Type)', targetZh: '優雅曲線模特', legacy: [['優雅曲線模特兒', 1]] },
+  { category: '體態 (Body Type)', targetZh: '一般基本體型', legacy: [['優雅曲線模特', 1], ['優雅曲線模特兒', 1]] },
   { category: '體態 (Body Type)', targetZh: '柔和沙漏身形', legacy: [['柔和沙漏身形', 2]] },
   { category: '五官特徵 (Facial Features)', targetZh: '韓系偶像臉', legacy: [['KPOP', 1]] },
   { category: '五官特徵 (Facial Features)', targetZh: '日系清透臉', legacy: [['日系透明', 2]] },
