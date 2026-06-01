@@ -164,25 +164,48 @@ test('top fit and styling appear before the top garment in generated wardrobe te
   );
 });
 
-test('outerwear styling appears before the outerwear garment in generated wardrobe text', () => {
+test('outerwear styling appears after the outerwear garment in generated wardrobe text', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     outerwearId: optionId('outerwearId', '運動連帽外套'),
     outerwearStylingId: optionId('outerwearStylingId', '正常穿著'),
+    topId: optionId('topId', '襯衫'),
   });
 
   const grokOuterwearLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokOuterwearLine);
   assert.ok(
-    grokOuterwearLine.indexOf('properly worn on both shoulders') < grokOuterwearLine.indexOf('zip-up hoodie'),
-    'outerwear styling should appear before the outerwear item'
+    grokOuterwearLine.indexOf('zip-up hoodie') < grokOuterwearLine.indexOf('properly worn on both shoulders'),
+    'outerwear item should appear before outerwear styling'
   );
 
   const zImageText = prompt.zImagePrompt;
   assert.ok(
-    zImageText.indexOf('properly worn on both shoulders') < zImageText.indexOf('zip-up hoodie'),
-    'Z-Image outerwear styling should appear before the outerwear item'
+    zImageText.indexOf('zip-up hoodie') < zImageText.indexOf('properly worn on both shoulders'),
+    'Z-Image outerwear item should appear before outerwear styling'
   );
+});
+
+test('outerwear and long shirt compose as explicit outer-over-inner layers', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outerwearId: optionId('outerwearId', '丹寧外套（敞開穿）'),
+    outerwearColorId: optionId('outerwearColorId', '深灰色'),
+    outerwearStylingId: optionId('outerwearStylingId', '正常穿著'),
+    topId: optionId('topId', '長版襯衫'),
+    topColorId: optionId('topColorId', '米白色'),
+    topFitId: optionId('topFitId', '緊身'),
+    pantsId: optionId('pantsId', '絲絨喇叭褲'),
+    bottomRiseId: optionId('bottomRiseId', '超低腰'),
+    bottomFitId: optionId('bottomFitId', '緊身'),
+  });
+
+  const grokWardrobeLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
+  assert.ok(grokWardrobeLine);
+  assert.match(grokWardrobeLine, /dark grey denim jacket[\s\S]*properly worn on both shoulders[\s\S]*layered over[\s\S]*off-white longline shirt/);
+  assert.doesNotMatch(grokWardrobeLine, /She wears properly worn on both shoulders, dark grey denim jacket/);
+  assert.match(grokWardrobeLine, /realistic outer-to-inner dressing order/);
+  assert.match(prompt.zImagePrompt, /dark grey denim jacket[\s\S]*properly worn on both shoulders[\s\S]*layered over[\s\S]*off-white longline shirt/);
 });
 
 test('model-specific shoes stay concise while preserving signature accent details', () => {

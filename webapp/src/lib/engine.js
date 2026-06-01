@@ -2985,7 +2985,7 @@ function buildOuterwearColoredPrompt(outerwearItem, color = null, { pattern = nu
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
   const coloredBase = color && !isNoneLikeItem(color) ? `${color.en} ${base}` : base;
 
-  return [stylingText, coloredBase, patternText].filter(Boolean).join(', ');
+  return [coloredBase, patternText, stylingText].filter(Boolean).join(', ');
 }
 
 function buildTopWardrobePrompt(wardrobeSlots, wardrobeColors) {
@@ -6428,12 +6428,30 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor });
     const pantsText = buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors);
     const skirtText = buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors);
+    const outerwearFirstDressText = buildOuterwearFirstPrompt(
+      dressText,
+      wardrobeSlots.outerwear,
+      wardrobeColors.outerwearColor,
+      wardrobeSlots.outerwearPattern,
+      wardrobeSlots.outerwearStyling,
+    );
+    const outerwearFirstTopText = buildOuterwearFirstPrompt(
+      topText,
+      wardrobeSlots.outerwear,
+      wardrobeColors.outerwearColor,
+      wardrobeSlots.outerwearPattern,
+      wardrobeSlots.outerwearStyling,
+    );
+    const usedOuterwearInMain = Boolean(
+      (dressText && outerwearFirstDressText) ||
+      (!dressText && outerwearFirstTopText)
+    );
     if (isCloseupVisibility) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
-      addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-      addLine('Dress', dressText);
-      addLine('Top', dressText ? '' : topText);
+      if (!usedOuterwearInMain) addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
+      addLine('Dress', outerwearFirstDressText || dressText);
+      addLine('Top', dressText ? '' : (outerwearFirstTopText || topText));
       addLine('Pants', dressText ? '' : pantsText);
       addLine('Skirt', dressText ? '' : skirtText);
       addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
