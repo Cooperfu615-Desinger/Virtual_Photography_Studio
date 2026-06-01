@@ -219,6 +219,12 @@ test('imaging control exposes rendering and color-grade looks without camera bod
   assert.ok(labels.includes('Leica 風格鹽粒黑白'));
   assert.ok(labels.includes('手機 HDR 直出'));
   assert.ok(labels.includes('日系亮膚高彩濾鏡'));
+  assert.ok(labels.includes('日系清透淡彩濾鏡'));
+  assert.ok(labels.includes('日系高曝光奶油膚色'));
+  assert.ok(labels.includes('日系夜景亮膚霓虹'));
+  assert.ok(labels.includes('日系雜誌高彩銳利'));
+  assert.ok(labels.includes('日系柔霧亮膚'));
+  assert.ok(labels.includes('韓系冷白亮膚濾鏡'));
   assert.ok(labels.includes('高銳利快照黑位'));
   assert.ok(!labels.includes('Ricoh GR 街頭快照感'));
 
@@ -233,6 +239,10 @@ test('imaging control exposes rendering and color-grade looks without camera bod
     renderingLook.legacyIds.some((id) => id.includes('ricoh-gr-街頭快照感')),
     'renamed rendering look should keep the old lock id'
   );
+
+  const nightFilter = optionByLabel('filmId', '日系夜景亮膚霓虹');
+  assert.match(nightFilter.en, /neon bokeh color/);
+  assert.match(nightFilter.en, /bright protected skin tones/);
 });
 
 test('legacy camera profile locks migrate into rendering looks', () => {
