@@ -3060,32 +3060,27 @@
         "desc": "不指定成像風格，讓模型自行決定畫面質感與成像方式。"
       },
       {
-        "zh": "拍立得效果 (Polaroid Style)",
-        "en": "Polaroid SX-70 instant film simulation, faded pastel color response, low contrast curve, soft chemical development texture, subtle edge softness, classic white instant-film border",
+        "zh": "拍立得柔淡即時成像",
+        "en": "Polaroid instant-film rendering, faded pastel color response, low contrast curve, soft chemical development texture, subtle edge softness, classic white border",
         "desc": "模擬拍立得即時成像的低對比、淡粉 pastel 色彩、柔和邊緣與化學顯影質地，白色相紙邊框作為成像特徵保留。"
       },
       {
-        "zh": "柯達 Portra 400 底片",
-        "en": "Kodak Portra 400 film simulation, warm accurate skin-tone response, fine film grain, broad highlight latitude, smooth contrast curve, gentle analog color density",
-        "desc": "強調 Portra 400 的暖膚色反應、細緻底片顆粒、寬亮部容忍度與柔順對比曲線，整體色彩濃度溫和自然。"
+        "zh": "柯達 Portra 暖膚底片",
+        "en": "Kodak Portra film rendering, warm accurate skin-tone response, fine film grain, broad highlight latitude, smooth contrast curve, gentle analog color density",
+        "desc": "強調 Portra 系列的暖膚色反應、細緻底片顆粒、寬亮部容忍度與柔順對比曲線，整體色彩濃度溫和自然。"
       },
       {
-        "zh": "富士 Superia 400 底片",
-        "en": "Fujifilm Superia 400 film simulation, cool-green shadow tint, punchy reds and greens, medium-high contrast curve, visible consumer-film grain, crisp analog color response",
+        "zh": "富士 Superia 青綠陰影底片",
+        "en": "Fujifilm Superia film rendering, cool-green shadow tint, punchy reds and greens, medium-high contrast curve, visible consumer-film grain, crisp analog color response",
         "desc": "偏冷的陰影青綠色、較鮮明的紅綠色反應、中高對比與可見消費級底片顆粒，呈現清楚而有個性的類比色彩。"
       },
       {
-        "zh": "數位微對比紀實感",
-        "en": "digital documentary rendering, crisp micro-contrast, refined tonal separation, realistic skin texture, restrained color saturation, clean high-acutance detail",
-        "desc": "以乾淨數位紀實成像的明確微對比、細膩階調分離與克制飽和度為核心，保留真實皮膚紋理與高銳度細節。"
-      },
-      {
-        "zh": "富士 Classic Chrome 電影感",
+        "zh": "富士 Classic Chrome 低彩編輯感",
         "en": "Fujifilm Classic Chrome film simulation, muted color palette, subdued blues and reds, gentle contrast curve, dry editorial color response, restrained midtone density",
         "desc": "低飽和、藍紅色受控、對比柔和且中間調密度較穩，呈現乾淨克制的雜誌式色彩反應。"
       },
       {
-        "zh": "富士 Provia 清透明亮感",
+        "zh": "富士 Provia 清透明亮",
         "en": "Fujifilm Provia film simulation, clean balanced color, transparent skin tones, bright natural contrast, crisp daylight-neutral rendering, smooth saturation response",
         "desc": "比 Classic Chrome 更乾淨明亮，色彩平衡、膚色透明、對比清爽且飽和度過渡平順，偏向標準日光中性的富士色彩。"
       },
@@ -3093,6 +3088,11 @@
         "zh": "高階黑白灰階",
         "en": "premium monochrome rendering, black-and-white tonal response, rich grayscale separation, crisp micro-detail, deep blacks, luminous highlight control",
         "desc": "不是一般黑白濾鏡，而是以細膩灰階層次、深黑位、清楚微細節與乾淨亮部控制形成高階黑白成像。"
+      },
+      {
+        "zh": "Leica 風格鹽粒黑白",
+        "en": "Leica-like monochrome rendering, rich grayscale separation, fine salt-and-pepper grain, deep blacks, crisp micro-detail, luminous skin highlights",
+        "desc": "以 Leica Monochrom 類型的細鹽粒黑白、高灰階分離、深黑位、清楚微細節與乾淨膚色亮部為核心。"
       },
       {
         "zh": "復古微對比銳利感",
@@ -3130,9 +3130,19 @@
         "desc": "模擬中片幅數位的高解析、寬動態範圍、平滑階調過渡、細緻色彩深度與大感光元件立體感。"
       },
       {
+        "zh": "手機 HDR 直出",
+        "en": "smartphone HDR JPEG rendering, automatic exposure balance, computational highlight recovery, crisp sharpening, noise-reduced shadows, clean modern phone color",
+        "desc": "模擬現代手機直出的 HDR 合成感、自動曝光、亮部追回、銳化、降噪陰影與乾淨手機色彩。"
+      },
+      {
         "zh": "VHS 錄影帶低畫質",
         "en": "VHS camcorder image degradation, analog tape noise, scanlines, color bleeding, chromatic aberration, low-resolution interlaced texture, tracking glitches",
         "desc": "模擬老舊錄影帶的低解析、類比雜訊、掃描線、色彩滲色、色差與追蹤故障，用於明確的低畫質成像效果。"
+      },
+      {
+        "zh": "日系亮膚高彩濾鏡",
+        "en": "glossy Japanese portrait color grade, lifted exposure, creamy pale skin highlights, warm skin protection, cyan-green shadows, saturated lights, clean deep blacks, polished finish",
+        "desc": "偏日系寫真的亮膚高彩調色：曝光與中間調被抬高，膚色奶油白但保留，高光乾淨，暗部偏青綠，黑色材質維持深黑。"
       }
     ],
     "光學效果 (Optical Effects)": [

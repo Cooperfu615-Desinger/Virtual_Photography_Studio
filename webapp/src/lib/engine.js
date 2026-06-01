@@ -931,7 +931,7 @@ const LOCK_DEFINITIONS = [
   { key: 'opticalEffectId', label: '光學效果', category: OPTICAL_EFFECTS_CATEGORY, section: 'core' },
   { key: 'lightingId', label: '環境光條件', category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, section: 'core' },
   { key: 'lightDirectionId', label: '光線表現', category: LIGHT_STYLE_CATEGORY, section: 'core' },
-  { key: 'filmId', label: '相機 / 底片', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
+  { key: 'filmId', label: '成像模擬 / 調色', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
   { key: 'bodyTypeId', label: '體態', category: '體態 (Body Type)', section: 'character' },
   { key: 'facialFeaturesId', label: '五官特徵', category: '五官特徵 (Facial Features)', section: 'character' },
   { key: 'facialFeaturesAId', label: '人物 1 五官', category: '五官特徵 (Facial Features)', section: 'character' },
@@ -1073,7 +1073,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'opticalEffectId', label: 'Optical Effect' },
   { key: 'lightingId', label: 'Ambient Light Conditions' },
   { key: 'lightDirectionId', label: 'Subject Light Style' },
-  { key: 'filmId', label: 'Camera / Film' },
+  { key: 'filmId', label: 'Rendering / Color Grade' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
   { key: 'bodyTypeId', label: 'Body Type' },
   { key: 'facialFeaturesId', label: 'Face' },
@@ -2226,16 +2226,33 @@ const CAMERA_ORBIT_LEGACY_OPTION_MAP = [
 ];
 
 const CAMERA_FILM_LEGACY_OPTION_MAP = [
-  { category: CAMERA_FILM_CATEGORY, targetZh: '數位微對比紀實感', legacy: [['Leica 數位紀實感', 4]] },
-  { category: CAMERA_FILM_CATEGORY, targetZh: '高階黑白灰階', legacy: [['Leica Monochrom 黑白灰階', 7]] },
-  { category: CAMERA_FILM_CATEGORY, targetZh: '復古微對比銳利感', legacy: [['Contax Zeiss 復古銳利感', 8]] },
-  { category: CAMERA_FILM_CATEGORY, targetZh: '暖膚數位人像', legacy: [['Canon 暖膚人像感', 9]] },
-  { category: CAMERA_FILM_CATEGORY, targetZh: '暖白 JPEG 直出', legacy: [['Canon 直出生活感', 10]] },
-  { category: CAMERA_FILM_CATEGORY, targetZh: '冷調清晰寫實', legacy: [['Nikon 冷調寫實感', 11]] },
-  { category: CAMERA_FILM_CATEGORY, targetZh: '高動態通透明亮', legacy: [['Nikon 通透明亮外景感', 12]] },
-  { category: CAMERA_FILM_CATEGORY, targetZh: '高銳利快照黑位', legacy: [['Ricoh GR 街頭快照感', 13]] },
-  { category: CAMERA_FILM_CATEGORY, targetZh: '中片幅數位色深', legacy: [['中片幅數位單眼 (Medium Format DSLR)', 14]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '拍立得柔淡即時成像', legacy: [['拍立得效果 (Polaroid Style)', 1]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '柯達 Portra 暖膚底片', legacy: [['柯達 Portra 400 底片', 2]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '富士 Superia 青綠陰影底片', legacy: [['富士 Superia 400 底片', 3]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '復古微對比銳利感', legacy: [['數位微對比紀實感', 4], ['Leica 數位紀實感', 4], ['復古微對比銳利感', 8], ['Contax Zeiss 復古銳利感', 8]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '富士 Classic Chrome 低彩編輯感', legacy: [['富士 Classic Chrome 電影感', 5]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '富士 Provia 清透明亮', legacy: [['富士 Provia 清透明亮感', 6]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '高階黑白灰階', legacy: [['高階黑白灰階', 7]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: 'Leica 風格鹽粒黑白', legacy: [['Leica Monochrom 黑白灰階', 7]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '暖膚數位人像', legacy: [['暖膚數位人像', 9], ['Canon 暖膚人像感', 9]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '暖白 JPEG 直出', legacy: [['暖白 JPEG 直出', 10], ['Canon 直出生活感', 10]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '冷調清晰寫實', legacy: [['冷調清晰寫實', 11], ['Nikon 冷調寫實感', 11]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '高動態通透明亮', legacy: [['高動態通透明亮', 12], ['Nikon 通透明亮外景感', 12]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '高銳利快照黑位', legacy: [['高銳利快照黑位', 13], ['Ricoh GR 街頭快照感', 13]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '中片幅數位色深', legacy: [['中片幅數位色深', 14], ['中片幅數位單眼 (Medium Format DSLR)', 14]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: 'VHS 錄影帶低畫質', legacy: [['VHS 錄影帶低畫質', 15]] },
 ];
+
+const CAMERA_PROFILE_RENDERING_MIGRATIONS = {
+  'leica-m-rangefinder': '復古微對比銳利感',
+  'ricoh-gr-snapshot': '高銳利快照黑位',
+  'fujifilm-x100': '富士 Provia 清透明亮',
+  'sony-full-frame-mirrorless': '冷調清晰寫實',
+  'canon-nikon-dslr': '暖白 JPEG 直出',
+  'digital-medium-format': '中片幅數位色深',
+  'drone-camera': '高動態通透明亮',
+  'smartphone-documentary': '手機 HDR 直出',
+};
 
 const CHARACTER_IDENTITY_LEGACY_OPTION_MAP = [
   { category: '體態 (Body Type)', targetZh: '高挑時裝模特', legacy: [['模特兒', 0]] },
@@ -2698,6 +2715,16 @@ export function normalizeLocks(rawLocks = {}) {
 
   if (!normalized.filmId && normalized.cameraSystemId && CAMERA_PROFILE_OPTION_IDS.has(normalized.cameraSystemId)) {
     normalized.filmId = normalized.cameraSystemId;
+  }
+
+  const migrateCameraProfileToRendering = (profileId) => {
+    const targetZh = CAMERA_PROFILE_RENDERING_MIGRATIONS[profileId];
+    return targetZh ? getControlOptionByZh(getLockControls(), 'filmId', targetZh) : null;
+  };
+  const migratedRendering = migrateCameraProfileToRendering(normalized.filmId);
+  if (migratedRendering) {
+    normalized.filmId = migratedRendering.id;
+    normalized.cameraSystemId = '';
   }
 
   const legacyJewelry = Array.isArray(rawLocks?.jewelryIds)
@@ -4840,10 +4867,9 @@ function isNoneLikeItem(item) {
 
 function buildImagingSimulationOptions(filmOptions = []) {
   const noneOption = filmOptions.find((item) => isNoneLikeItem(item)) || CAMERA_SYSTEM_OPTIONS.find((item) => isNoneLikeItem(item));
-  const cameraProfiles = CAMERA_SYSTEM_OPTIONS.filter((item) => !isNoneLikeItem(item));
   const renderingProfiles = filmOptions.filter((item) => !isNoneLikeItem(item));
 
-  return [noneOption, ...cameraProfiles, ...renderingProfiles].filter(Boolean);
+  return [noneOption, ...renderingProfiles].filter(Boolean);
 }
 
 function getLegacyCameraSystemFromImaging(imagingSimulation) {

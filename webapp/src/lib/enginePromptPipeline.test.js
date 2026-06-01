@@ -42,7 +42,7 @@ test('Grok/Z-Image prompt remains natural language and AI is compacted from Gpt 
     lightingId: optionId('lightingId', '晴朗白日'),
     lightDirectionId: optionId('lightDirectionId', '側向柔光'),
     lensId: optionId('lensId', '50mm 標準鏡頭 (Standard)'),
-    filmId: optionId('filmId', '相機｜Fujifilm X100'),
+    filmId: optionId('filmId', '富士 Provia 清透明亮'),
   });
 
   assert.match(prompt.zImagePrompt, /^Create a photorealistic editorial portrait /);

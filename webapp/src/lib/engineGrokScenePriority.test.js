@@ -71,27 +71,27 @@ test('Z-Image prompt keeps scene priority disabled for normal separates', () => 
   assert.doesNotMatch(prompt.zImagePrompt, /Scene priority:/);
 });
 
-test('PAGE1 imaging simulation includes merged camera profiles in generated outputs and selection', () => {
+test('PAGE1 imaging simulation uses rendering looks in generated outputs and selection', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    filmId: optionId('filmId', '相機｜Ricoh GR 快拍'),
+    filmId: optionId('filmId', '高銳利快照黑位'),
   });
 
-  assert.equal(prompt.selection.filmId, 'ricoh-gr-snapshot');
-  assert.equal(prompt.selection.cameraSystemId, 'ricoh-gr-snapshot');
+  assert.equal(prompt.selection.filmId, optionId('filmId', '高銳利快照黑位'));
+  assert.equal(prompt.selection.cameraSystemId, '');
   assert.doesNotMatch(prompt.grokPrompt, /Camera System:/);
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Ricoh GR compact APS-C camera profile/);
-  assert.match(prompt.zImagePrompt, /Ricoh GR compact APS-C camera profile/);
-  assert.equal(prompt.structured['Lens & Imaging'].at(-1).id, 'ricoh-gr-snapshot');
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*high-acutance snapshot rendering/);
+  assert.match(prompt.zImagePrompt, /high-acutance snapshot rendering/);
+  assert.equal(prompt.structured['Lens & Imaging'].at(-1).zh, '高銳利快照黑位');
 });
 
-test('legacy camera system lock migrates into imaging simulation', () => {
+test('legacy camera system lock migrates into rendering simulation', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     cameraSystemId: optionId('cameraSystemId', '相機｜Ricoh GR 快拍'),
   });
 
-  assert.equal(prompt.selection.filmId, 'ricoh-gr-snapshot');
-  assert.equal(prompt.selection.cameraSystemId, 'ricoh-gr-snapshot');
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Ricoh GR compact APS-C camera profile/);
+  assert.equal(prompt.selection.filmId, optionId('filmId', '高銳利快照黑位'));
+  assert.equal(prompt.selection.cameraSystemId, '');
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*high-acutance snapshot rendering/);
 });

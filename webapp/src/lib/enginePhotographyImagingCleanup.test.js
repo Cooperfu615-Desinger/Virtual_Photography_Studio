@@ -210,19 +210,21 @@ test('duo orbit overrides use current degree labels', () => {
   assert.doesNotMatch(prompt, /正面 315 度/);
 });
 
-test('camera and film control separates camera profiles from rendering looks', () => {
+test('imaging control exposes rendering and color-grade looks without camera body profiles', () => {
   const filmControl = control('filmId');
-  assert.equal(filmControl.label, '相機 / 底片');
+  assert.equal(filmControl.label, '成像模擬 / 調色');
 
   const labels = filmControl.options.map((item) => item.zh);
-  assert.ok(labels.includes('相機｜Ricoh GR 快拍'));
+  assert.ok(!labels.some((label) => label.startsWith('相機｜')));
+  assert.ok(labels.includes('Leica 風格鹽粒黑白'));
+  assert.ok(labels.includes('手機 HDR 直出'));
+  assert.ok(labels.includes('日系亮膚高彩濾鏡'));
   assert.ok(labels.includes('高銳利快照黑位'));
-  assert.ok(!labels.includes('器材成像｜Ricoh GR 快拍'));
   assert.ok(!labels.includes('Ricoh GR 街頭快照感'));
 
-  const cameraProfile = optionByLabel('filmId', '相機｜Ricoh GR 快拍');
-  assert.match(cameraProfile.en, /28mm-equivalent snap perspective/);
-  assert.match(cameraProfile.en, /compact APS-C camera profile/);
+  const leicaMono = optionByLabel('filmId', 'Leica 風格鹽粒黑白');
+  assert.match(leicaMono.en, /salt-and-pepper grain/);
+  assert.match(leicaMono.en, /rich grayscale separation/);
 
   const renderingLook = optionByLabel('filmId', '高銳利快照黑位');
   assert.doesNotMatch(renderingLook.en, /Ricoh GR/i);
@@ -230,6 +232,21 @@ test('camera and film control separates camera profiles from rendering looks', (
   assert.ok(
     renderingLook.legacyIds.some((id) => id.includes('ricoh-gr-街頭快照感')),
     'renamed rendering look should keep the old lock id'
+  );
+});
+
+test('legacy camera profile locks migrate into rendering looks', () => {
+  assert.equal(
+    optionById('filmId', normalizeLocks({ ...createEmptyLocks(), filmId: 'ricoh-gr-snapshot' }).filmId).zh,
+    '高銳利快照黑位'
+  );
+  assert.equal(
+    optionById('filmId', normalizeLocks({ ...createEmptyLocks(), filmId: 'fujifilm-x100' }).filmId).zh,
+    '富士 Provia 清透明亮'
+  );
+  assert.equal(
+    optionById('filmId', normalizeLocks({ ...createEmptyLocks(), cameraSystemId: 'smartphone-documentary' }).filmId).zh,
+    '手機 HDR 直出'
   );
 });
 
@@ -249,19 +266,20 @@ test('lens and optical effects stay concise while foreground occlusion still blo
   assert.doesNotMatch(opticalMist.en, /no environmental fog/i);
 });
 
-test('generated prompts expose camera film as a single D-section rendering layer', () => {
+test('generated prompts expose rendering color grade as a single D-section rendering layer', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    filmId: optionByLabel('filmId', '相機｜Ricoh GR 快拍').id,
+    filmId: optionByLabel('filmId', '日系亮膚高彩濾鏡').id,
     lensId: optionByLabel('lensId', '35mm 廣角 (人文視角)').id,
     opticalEffectId: optionByLabel('opticalEffectId', '前景遮擋散景').id,
   });
 
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Ricoh GR compact APS-C camera profile/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*glossy Japanese portrait color grade/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*creamy pale skin highlights/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*shot on 35mm lens/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*blurred foreground occlusion near the lens/);
   assert.match(prompt.zImagePrompt, /meaningful partial frame coverage/);
-  assert.match(prompt.summary, /鏡頭：[^|]*相機｜Ricoh GR 快拍/);
+  assert.match(prompt.summary, /鏡頭：[^|]*日系亮膚高彩濾鏡/);
 });
 
 test('photography style prompts stay focused on image language', () => {
