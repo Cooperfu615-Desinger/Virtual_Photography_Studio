@@ -59,3 +59,35 @@ test('Grok/Z-Image prompt remains natural language and AI is compacted from Gpt 
   assert.match(prompt.midjourneyPrompt, /Camera look: /);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
 });
+
+test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt outputs', () => {
+  const importedWorldSceneArchitecture = 'world-scene architecture for the portrait: Shibuya Scramble Crossing remains visible around and behind the subject, large video billboards, station-front buildings, dense pedestrian crosswalk pattern, portrait subject remains the main subject, no no-human-subject restriction';
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    importedWorldSceneMode: 'architecture',
+    importedWorldSceneLabel: '東京｜澀谷 Scramble Crossing',
+    importedWorldSceneArchitectureText: importedWorldSceneArchitecture,
+    outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+  });
+
+  assert.match(prompt.grokPrompt, /world-scene architecture for the portrait/i);
+  assert.match(prompt.grokPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
+  assert.match(prompt.grokPrompt, /large video billboards/i);
+  assert.match(prompt.grokPrompt, /flight attendant uniform outfit/i);
+  assert.match(prompt.grokPrompt, /standing pose with loosely crossed arms/i);
+  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+
+  assert.match(prompt.zImagePrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
+  assert.match(prompt.zImagePrompt, /flight attendant uniform outfit/i);
+  assert.match(prompt.zImagePrompt, /standing pose with loosely crossed arms/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
+
+  assert.match(prompt.midjourneyPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
+  assert.match(prompt.midjourneyPrompt, /flight attendant uniform outfit/i);
+  assert.match(prompt.midjourneyPrompt, /standing pose with loosely crossed arms/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
+  assert.equal(prompt.selection.locationId, optionId('locationId', '全無'));
+  assert.equal(prompt.selection.importedWorldSceneMode, 'architecture');
+  assert.equal(prompt.selection.importedWorldSceneLabel, '東京｜澀谷 Scramble Crossing');
+});

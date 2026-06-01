@@ -33,6 +33,7 @@ import {
   PAGE3_WORLD_SCENE_FIELD_OPTIONS,
   buildPage3WorldSceneAnchor,
   buildPage3WorldSceneCinematicPrompt,
+  buildPage1WorldSceneArchitecture,
   buildPage3WorldScenePrompt,
   buildPage3WorldSceneSummary,
   buildPage3WorldSceneWorldPrompt,
@@ -574,6 +575,7 @@ function compactPromptSelection(selection) {
     Object.entries(normalized).filter(([key, value]) => {
       if (key === 'subjectCount' || key === 'aspectRatio') return true;
       if (key === 'specialSubjectId' && value === 'none') return false;
+      if (key === 'importedWorldSceneMode' && value === 'none') return false;
       if (key === 'topBottomPaletteId' && value === 'none') return false;
       return Array.isArray(value) ? value.length > 0 : Boolean(value);
     })
@@ -1666,6 +1668,23 @@ export default function App() {
     showToast('已依目前設定重新隨機生成');
   }, [showToast]);
 
+  const handleApplyPage3WorldSceneArchitecture = useCallback(() => {
+    const architecture = buildPage1WorldSceneArchitecture(page3Profile);
+    if (!architecture.text) {
+      showToast('PAGE3 目前沒有可匯入的世界場景');
+      return;
+    }
+
+    updateLocks((prev) => ({
+      ...prev,
+      locationId: '',
+      importedWorldSceneMode: 'architecture',
+      importedWorldSceneLabel: architecture.label,
+      importedWorldSceneArchitectureText: architecture.text,
+    }));
+    showToast(`已套用 PAGE3 空景架構：${architecture.label}`);
+  }, [page3Profile, showToast, updateLocks]);
+
   const handleApplyPreviewSelection = useCallback(() => {
     if (!previewPrompt?.selection) {
       showToast('目前沒有可回填的預覽選項');
@@ -1961,6 +1980,7 @@ export default function App() {
           importPromptText={importPromptText}
           setImportPromptText={setImportPromptText}
           handleApplyImportedPrompt={handleApplyImportedPrompt}
+          onApplyPage3WorldSceneArchitecture={handleApplyPage3WorldSceneArchitecture}
         />
       ) : pageMode === 'page2' ? (
         <Page2Workspace

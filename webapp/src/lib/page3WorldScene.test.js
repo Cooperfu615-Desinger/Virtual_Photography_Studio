@@ -8,6 +8,7 @@ import {
   buildPage3WorldSceneAnchor,
   buildPage3WorldScenePrompt,
   buildPage3WorldSceneSummary,
+  buildPage1WorldSceneArchitecture,
 } from './page3WorldScene.js';
 
 test('world scene location pack contains ten cities with five anchors each', () => {
@@ -207,4 +208,29 @@ test('field options expose scene modes and the first city pack locations', () =>
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.sceneMode[2].zh, '街拍：單純場景');
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.cameraSystem[1].zh, '全無');
   assert.equal(PAGE3_WORLD_SCENE_FIELD_OPTIONS.worldLocation[1].zh, '全無');
+});
+
+test('PAGE3 profile can be adapted into PAGE1 portrait world-scene architecture', () => {
+  const profile = {
+    sceneMode: 'street-only',
+    worldLocation: 'tokyo-shibuya-scramble-crossing',
+    cameraSystem: 'ricoh-gr',
+    shootingMethod: 'walk-by-snapshot',
+    focalViewpoint: '35mm-classic',
+    sceneFocus: 'signs-storefronts',
+    imagingStyle: 'documentary-street',
+    ambientLight: 'blue-hour-city-glow',
+  };
+
+  const architecture = buildPage1WorldSceneArchitecture(profile);
+
+  assert.equal(architecture.label, '東京｜澀谷 Scramble Crossing');
+  assert.match(architecture.text, /world-scene architecture for the portrait/i);
+  assert.match(architecture.text, /Shibuya Scramble Crossing/i);
+  assert.match(architecture.text, /large video billboards/i);
+  assert.match(architecture.text, /portrait subject remains the main subject/i);
+  assert.match(architecture.text, /visible around and behind the subject/i);
+  assert.doesNotMatch(architecture.text, /no deliberate portrait subject/i);
+  assert.doesNotMatch(architecture.text, /no deliberate human subject/i);
+  assert.doesNotMatch(architecture.text, /no visible people/i);
 });

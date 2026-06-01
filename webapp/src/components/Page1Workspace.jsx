@@ -583,6 +583,7 @@ export default function Page1Workspace({
   importPromptText,
   setImportPromptText,
   handleApplyImportedPrompt,
+  onApplyPage3WorldSceneArchitecture,
 }) {
   const [isLightingReferenceOpen, setIsLightingReferenceOpen] = useState(false);
   const [activeWardrobePickerKey, setActiveWardrobePickerKey] = useState('');
@@ -623,6 +624,7 @@ export default function Page1Workspace({
   const isDuoMode = locks.subjectCount === '2';
   const isReferenceSubjectMode = locks.subjectCount === 'reference';
   const isAnyOutfitPresetActive = isSingleOutfitPresetActive || isOutfitPresetAActive || isOutfitPresetBActive;
+  const importedWorldSceneActive = locks.importedWorldSceneMode === 'architecture' && Boolean(locks.importedWorldSceneArchitectureText);
   const wardrobeLayerInsights = useMemo(
     () => buildWardrobeLayerInsights(locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive),
     [locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive],
@@ -738,6 +740,11 @@ export default function Page1Workspace({
         next.poseId = '';
         next.specialActionId = '';
       }
+      if (control.key === 'locationId' && value) {
+        next.importedWorldSceneMode = 'none';
+        next.importedWorldSceneLabel = '';
+        next.importedWorldSceneArchitectureText = '';
+      }
       if (control.key === 'poseBaseId') {
         const nextBase = POSE_COMPOSER_BASE_IDS.has(value) ? value : '';
         ['poseArrangementId', 'poseAnchorId'].forEach((key) => {
@@ -757,6 +764,15 @@ export default function Page1Workspace({
 
   const handleRandomizeActiveSection = () => {
     updateLocks((prev) => randomizeLockKeys(prev, getSectionKeys(activeSection), createEmptyLocks()));
+  };
+
+  const clearImportedWorldSceneArchitecture = () => {
+    updateLocks((prev) => ({
+      ...prev,
+      importedWorldSceneMode: 'none',
+      importedWorldSceneLabel: '',
+      importedWorldSceneArchitectureText: '',
+    }));
   };
 
   const renderSectionRandomButton = () => (
@@ -825,6 +841,23 @@ export default function Page1Workspace({
           <button className="secondary reference-trigger-btn" type="button" onClick={() => setIsLightingReferenceOpen(true)}>
             查看光線定位對照
           </button>
+        </div>
+      </div>
+      <div className="context-note context-note-compact">
+        <div className="context-note-copy">
+          {importedWorldSceneActive
+            ? `PAGE3 空景架構已套用：${locks.importedWorldSceneLabel || '未命名世界場景'}。此架構會優先進入三種 PAGE1 prompt，人物、服裝、姿勢仍由 PAGE1 控制。`
+            : '可把目前 PAGE3 的空景建模 profile 套入 PAGE1，作為人像 prompt 的世界場景骨架。'}
+        </div>
+        <div className="page1-section-header-actions">
+          <button className="secondary" type="button" onClick={onApplyPage3WorldSceneArchitecture}>
+            套用 PAGE3 空景架構
+          </button>
+          {importedWorldSceneActive ? (
+            <button className="secondary" type="button" onClick={clearImportedWorldSceneArchitecture}>
+              清除匯入
+            </button>
+          ) : null}
         </div>
       </div>
       {renderControlGrid(filterControlsByKeys(coreLockControls, activeSubpanel?.keys || []))}

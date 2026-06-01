@@ -924,6 +924,9 @@ const LOCK_DEFINITIONS = [
   { key: 'cameraSystemId', label: '舊相機', options: CAMERA_SYSTEM_OPTIONS, section: 'hidden' },
   { key: 'sceneAttributeId', label: '場景屬性', options: SCENE_ATTRIBUTE_OPTIONS, section: 'core' },
   { key: 'locationId', label: '場景', category: null, section: 'core' },
+  { key: 'importedWorldSceneMode', label: '匯入世界場景模式', defaultValue: 'none', section: 'hidden' },
+  { key: 'importedWorldSceneLabel', label: '匯入世界場景標籤', section: 'hidden' },
+  { key: 'importedWorldSceneArchitectureText', label: '匯入世界場景架構', section: 'hidden' },
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
   { key: 'angleId', label: '俯仰角度', category: '相機視角 (Angle)', section: 'core' },
   { key: 'orbitId', label: '環繞角度', category: '拍攝方位 (Orbit Angle)', section: 'core' },
@@ -4677,7 +4680,12 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const styleLabel = context.style && !isNoneLikeItem(context.style) ? context.style.zh : '-';
-  const locationLabel = context.location && !isNoneLikeItem(context.location) ? context.location.zh : '-';
+  const importedWorldSceneLabel = context.locks?.importedWorldSceneMode === 'architecture'
+    ? String(context.locks.importedWorldSceneLabel || '').trim()
+    : '';
+  const locationLabel = importedWorldSceneLabel
+    ? `PAGE3：${importedWorldSceneLabel}`
+    : context.location && !isNoneLikeItem(context.location) ? context.location.zh : '-';
   const framingLabel = context.framing && !isNoneLikeItem(context.framing) ? context.framing.zh : '-';
   const angleLabel = context.angle && !isNoneLikeItem(context.angle) ? context.angle.zh : '-';
   const orbitLabel = context.orbit && !isNoneLikeItem(context.orbit) ? context.orbit.zh : '-';
@@ -6201,6 +6209,13 @@ function buildCloseupWardrobeVisibilityPrompt(context) {
   return 'close-up wardrobe visibility: selected styling remains contextual, but only neckline, collar, shoulder, accessory, or fabric hints may be visible in the frame; lower-body garments, legwear, and shoes are not required to appear';
 }
 
+function getImportedWorldSceneArchitectureText(context) {
+  if (context?.locks?.importedWorldSceneMode !== 'architecture') return '';
+  return stripMarkdown(context?.locks?.importedWorldSceneArchitectureText || '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
@@ -6226,6 +6241,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     ? characterSlots.specialAction.en
     : '';
   const sceneAccentText = buildContextualSceneAccent(context);
+  const importedWorldSceneArchitectureText = getImportedWorldSceneArchitectureText(context);
   const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
   const closeupWardrobeVisibilityText = buildCloseupWardrobeVisibilityPrompt(context);
   const isCloseupVisibility = Boolean(closeupWardrobeVisibilityText);
@@ -6297,6 +6313,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
       addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
       return;
     }
+    addLine('World Scene Architecture', skeletonText(importedWorldSceneArchitectureText));
     addContextLine('Location', context.location, (item) => skeletonText(item.en));
     addLine('Scene Accent', skeletonText(sceneAccentText));
     addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
@@ -6543,6 +6560,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Woman 2 Head Accessory',
   ]);
   const sceneValues = getStructuredValues(valuesByLabel, [
+    'World Scene Architecture',
     'Location',
     'Scene Accent',
     'Scene Context',
@@ -6655,6 +6673,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const specialSubjectMode = isSpecialSubject(context.subject);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const sceneAccentText = buildContextualSceneAccent(context);
+  const importedWorldSceneArchitectureText = getImportedWorldSceneArchitectureText(context);
   const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
   const closeupWardrobeVisibilityText = buildCloseupWardrobeVisibilityPrompt(context);
   const isCloseupVisibility = Boolean(closeupWardrobeVisibilityText);
@@ -6922,6 +6941,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     }
 
     const sceneParts = [
+      skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : importedWorldSceneArchitectureText,
       context.location && !isNoneLikeItem(context.location) ? (skeletonMode ? sanitizeSkeletonPromptText(context.location.en) : context.location.en) : '',
       skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : sceneAccentText,
       context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
@@ -7038,6 +7058,9 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     cameraSystemId: context.cameraSystem?.id || '',
     sceneAttributeId: context.sceneAttribute?.id || '',
     locationId: context.location?.id || '',
+    importedWorldSceneMode: context.locks?.importedWorldSceneMode || 'none',
+    importedWorldSceneLabel: context.locks?.importedWorldSceneLabel || '',
+    importedWorldSceneArchitectureText: context.locks?.importedWorldSceneArchitectureText || '',
     framingId: context.framing?.id || '',
     angleId: context.angle?.id || '',
     orbitId: context.orbit?.id || '',
@@ -7189,6 +7212,11 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const lockControls = getLockControls(customLibrary);
   const runtime = buildCatalog(customLibrary);
   const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
+  if (effectiveLocks.importedWorldSceneMode === 'architecture' && effectiveLocks.importedWorldSceneArchitectureText) {
+    const noneLocation = getControlOptionByZh(lockControls, 'locationId', '全無');
+    effectiveLocks.locationId = noneLocation?.id || '';
+    effectiveLocks.sceneAttributeId = '';
+  }
   const specialSubject = getSpecialSubjectOption(effectiveLocks.specialSubjectId);
   const subject = specialSubject || getSubjectOption(effectiveLocks.subjectCount);
   const hasWardrobeLocks = !specialSubject && hasEffectiveWardrobeLocks(effectiveLocks, lockControls);

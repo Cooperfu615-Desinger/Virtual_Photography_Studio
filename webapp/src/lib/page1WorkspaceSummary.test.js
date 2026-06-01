@@ -31,3 +31,14 @@ test('workspace wardrobe summary hides granular top and bottom selections when a
   assert.doesNotMatch(summary.wardrobe.summary, /比基尼上身|比基尼下身|緊身|超低腰/);
   assert.deepEqual(insights.main, ['套裝：空服員制服']);
 });
+
+test('workspace scene summary shows imported PAGE3 world-scene architecture label', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    importedWorldSceneMode: 'architecture',
+    importedWorldSceneLabel: '東京｜澀谷 Scramble Crossing',
+    importedWorldSceneArchitectureText: 'world-scene architecture for the portrait',
+  }, controls);
+
+  assert.match(summary.scene.summary, /PAGE3：東京｜澀谷 Scramble Crossing/);
+});

@@ -158,8 +158,12 @@ export function buildWorkspaceSummary(locks, controls) {
     wardrobeLabel('earringsBId'),
     wardrobeLabel('neckAccessoryBId'),
   ]);
+  const importedWorldSceneLabel = locks.importedWorldSceneMode === 'architecture' && locks.importedWorldSceneLabel
+    ? `PAGE3：${locks.importedWorldSceneLabel}`
+    : '';
   const sceneSummary = buildSummaryText([
     getControlOptionLabel(controls, 'sceneAttributeId', locks.sceneAttributeId),
+    importedWorldSceneLabel,
     getControlOptionLabel(controls, 'locationId', locks.locationId),
     getControlOptionLabel(controls, 'lightingId', locks.lightingId),
     getControlOptionLabel(controls, 'lightDirectionId', locks.lightDirectionId),

@@ -330,6 +330,39 @@ export function buildPage3WorldSceneAnchor(profile = {}) {
   ]);
 }
 
+export function buildPage1WorldSceneArchitecture(profile = {}) {
+  const { mode, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
+  if (!location) return { label: '', text: '' };
+
+  const position = pickPosition(location, mode)
+    || location.streetPositions?.[0]
+    || location.cityscapePositions?.[0]
+    || '';
+  const cameraCues = cleanJoin([
+    cameraSystem?.en,
+    shootingMethod?.en,
+    focalViewpoint?.en,
+    imagingStyle?.en,
+    ambientLight?.en,
+  ]);
+
+  const text = [
+    `world-scene architecture for the portrait: ${formatAnchorLocation(location)} stays visible around and behind the subject`,
+    'the portrait subject remains the main subject while the selected district, architecture, street texture, signage, landmark fragments, and local spatial cues remain readable',
+    position ? `portrait-friendly spatial anchor: ${position}` : '',
+    location.landmarkCues?.length ? `local cues: ${location.landmarkCues.slice(0, 4).join(', ')}` : '',
+    sceneFocus?.en ? `scene focus: ${sceneFocus.en}` : '',
+    cameraCues ? `PAGE3 camera and environment layer: ${cameraCues}` : '',
+    location.realismGuards?.length ? `real-place guards adapted for the background: ${location.realismGuards.join(', ')}` : '',
+    'keep clear spatial context, avoid a plain empty backdrop, do not let the world scene cancel the person, wardrobe, pose, or action',
+  ].filter(Boolean).join('; ');
+
+  return {
+    label: location.labelZh || formatAnchorLocation(location),
+    text,
+  };
+}
+
 function buildWorldScenePrompt(profile = {}, { variant = 'scene' } = {}) {
   const { mode, photographerStyle, location, cameraSystem, shootingMethod, focalViewpoint, sceneFocus, imagingStyle, ambientLight } = getProfileParts(profile);
   const hasMode = Boolean(mode?.id && !isNoneOption(mode));
