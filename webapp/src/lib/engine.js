@@ -2201,9 +2201,18 @@ const WARDROBE_TOP_CATEGORY = '上身 (Tops)';
 const WARDROBE_EYEWEAR_CATEGORY = '眼鏡 (Eyewear)';
 const WARDROBE_EYEWEAR_COLOR_CATEGORY = '眼鏡配色 (Eyewear Color)';
 const WARDROBE_EYEWEAR_PLACEMENT_CATEGORY = '眼鏡配戴方式 (Eyewear Placement)';
+const CAMERA_FRAMING_CATEGORY = '景別構圖 (Framing)';
 const CAMERA_ANGLE_CATEGORY = '相機視角 (Angle)';
 const CAMERA_ORBIT_CATEGORY = '拍攝方位 (Orbit Angle)';
 const CAMERA_FILM_CATEGORY = '底片與相機模擬 (Camera & Film Simulation)';
+
+const CAMERA_FRAMING_LEGACY_OPTION_MAP = [
+  { category: CAMERA_FRAMING_CATEGORY, targetZh: '特寫鏡頭 (Close-Up)', legacy: [['特寫鏡頭 (Close-Up)', 1]] },
+  { category: CAMERA_FRAMING_CATEGORY, targetZh: '臉部特寫', legacy: [['臉部特寫', 2]] },
+  { category: CAMERA_FRAMING_CATEGORY, targetZh: '胸上特寫', legacy: [['胸上特寫', 3]] },
+  { category: CAMERA_FRAMING_CATEGORY, targetZh: '局部五官特寫', legacy: [['局部五官特寫', 4]] },
+  { category: CAMERA_FRAMING_CATEGORY, targetZh: '半臉傾斜特寫', legacy: [['半臉傾斜特寫', 5]] },
+];
 
 const CAMERA_ANGLE_LEGACY_OPTION_MAP = [
   { category: CAMERA_ANGLE_CATEGORY, targetZh: '平視高度鏡頭', legacy: [['平視角 (Eye-Level Angle)', 1]] },
@@ -2459,6 +2468,7 @@ function applyCharacterLegacyOptionIds(catalog, legacyMap) {
 
 function applyCameraLegacyOptionIds(catalog) {
   [
+    ...CAMERA_FRAMING_LEGACY_OPTION_MAP,
     ...CAMERA_ANGLE_LEGACY_OPTION_MAP,
     ...CAMERA_ORBIT_LEGACY_OPTION_MAP,
   ].forEach(({ category, targetZh, legacy }) => {
@@ -2579,7 +2589,7 @@ function buildCatalog(customLibrary = []) {
     flatCatalog: {
       regional: [STYLE_NONE_OPTION, ...flatten(catalog.regional)],
       locations: flatten(catalog.locations),
-      framing: getByKey(catalog.camera, '景別構圖 (Framing)'),
+      framing: getByKey(catalog.camera, CAMERA_FRAMING_CATEGORY),
       angle: getByKey(catalog.camera, '相機視角 (Angle)'),
       orbit: getByKey(catalog.camera, '拍攝方位 (Orbit Angle)'),
       lens: getByKey(catalog.camera, FOCAL_LENGTH_CATEGORY),

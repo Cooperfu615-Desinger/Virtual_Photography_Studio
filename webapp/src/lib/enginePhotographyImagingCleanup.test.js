@@ -55,6 +55,38 @@ test('composition and angle prompts stay geometric instead of emotional', () => 
   assert.match(optionByLabel('angleId', '高位俯視鏡頭').en, /looking downward/);
 });
 
+test('framing options are ordered from closest face crop to full body with legacy migration', () => {
+  assert.deepEqual(
+    options('framingId').map((item) => item.zh),
+    [
+      '全無',
+      '半臉傾斜特寫',
+      '局部五官特寫',
+      '臉部特寫',
+      '特寫鏡頭 (Close-Up)',
+      '胸上特寫',
+      '中景鏡頭 (Medium Shot)',
+      '牛仔中景 (Cowboy Shot)',
+      '全身鏡頭 (Full Body Shot)',
+    ]
+  );
+
+  assert.equal(
+    optionById('framingId', normalizeLocks({
+      ...createEmptyLocks(),
+      framingId: 'camera:景別構圖-framing:特寫鏡頭-close-up:1',
+    }).framingId).zh,
+    '特寫鏡頭 (Close-Up)'
+  );
+  assert.equal(
+    optionById('framingId', normalizeLocks({
+      ...createEmptyLocks(),
+      framingId: 'camera:景別構圖-framing:半臉傾斜特寫:5',
+    }).framingId).zh,
+    '半臉傾斜特寫'
+  );
+});
+
 test('worm-eye angle forces photography style and lens optics to none', () => {
   const controls = getLockControls();
   const wormEye = optionByLabel('angleId', '蟲眼視角鏡頭');

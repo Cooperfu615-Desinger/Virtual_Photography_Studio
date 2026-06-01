@@ -2528,19 +2528,9 @@
         "desc": "不指定景別構圖，讓模型自行決定畫面距離與主體範圍。"
       },
       {
-        "zh": "特寫鏡頭 (Close-Up)",
-        "en": "close-up shot, head and shoulders framing, detailed facial features, tight subject crop",
-        "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。"
-      },
-      {
-        "zh": "臉部特寫",
-        "en": "tight facial close-up portrait, face dominant in frame, balanced proportions, clean frontal readability",
-        "desc": "整張臉幾乎塞滿畫面，額頭、下巴與左右臉只留極少空隙，適合五官辨識、妝容、神情與臉部存在感最強的拍法。"
-      },
-      {
-        "zh": "胸上特寫",
-        "en": "tight bust-up portrait, framed from the chest upward, face and upper torso clearly visible, compact portrait composition",
-        "desc": "構圖從胸口以上，保留臉部、肩頸與部分上身資訊，適合兼顧表情、髮型、頸部配件與少量穿搭。"
+        "zh": "半臉傾斜特寫",
+        "en": "asymmetrical half-face close-up portrait, one side of the face emphasized, off-center crop, slight dutch angle",
+        "desc": "只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，重點是刻意不完整的近距離臉部構圖。"
       },
       {
         "zh": "局部五官特寫",
@@ -2548,9 +2538,19 @@
         "desc": "只保留局部五官，像是雙眼與眼鏡、眼睛與鼻子、鼻子與嘴巴等極近距離片段，強調壓迫感、細節與刻意裁切的臉部構圖。"
       },
       {
-        "zh": "半臉傾斜特寫",
-        "en": "asymmetrical half-face close-up portrait, one side of the face emphasized, off-center crop, slight dutch angle",
-        "desc": "只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，重點是刻意不完整的近距離臉部構圖。"
+        "zh": "臉部特寫",
+        "en": "tight facial close-up portrait, face dominant in frame, balanced proportions, clean frontal readability",
+        "desc": "整張臉幾乎塞滿畫面，額頭、下巴與左右臉只留極少空隙，適合五官辨識、妝容、神情與臉部存在感最強的拍法。"
+      },
+      {
+        "zh": "特寫鏡頭 (Close-Up)",
+        "en": "close-up shot, head and shoulders framing, detailed facial features, tight subject crop",
+        "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。"
+      },
+      {
+        "zh": "胸上特寫",
+        "en": "tight bust-up portrait, framed from the chest upward, face and upper torso clearly visible, compact portrait composition",
+        "desc": "構圖從胸口以上，保留臉部、肩頸與部分上身資訊，適合兼顧表情、髮型、頸部配件與少量穿搭。"
       },
       {
         "zh": "中景鏡頭 (Medium Shot)",
