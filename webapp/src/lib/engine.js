@@ -3612,6 +3612,54 @@ function specialOutfitHasHairstyle(item) {
   return /\b(hair|bangs|braids?|side braid|twin-bun|pigtails?|ponytail|bob|shag|chignon|bun)\b/i.test(text);
 }
 
+function stripSpecialOutfitHairstyleDescription(text) {
+  if (!text) return '';
+  let next = text
+    .replace(
+      /\b[^,.]*\b(?:hair|braid)\s+under\s+((?:a|an|the)\s+[^,.]*(?:headscarf|beanie|cap|hat)\b[^,.]*)/gi,
+      '$1',
+    )
+    .replace(/\bshort blonde bob with full bangs and (small pink bow hair clips)\b/gi, '$1');
+
+  for (let index = 0; index < 3; index += 1) {
+    const stripped = next.replace(
+      /(\.\s*)[^,.]*\b(?:hair|bangs|braids?|side braid|twin-bun|pigtails?|ponytail|bob|shag|chignon|bun|updo|waves?)\b[^,]*(,\s*)/i,
+      '$1',
+    );
+    if (stripped === next) break;
+    next = stripped;
+  }
+
+  const hairDescription = /\b(hair|bangs|braids?|side braid|twin-bun|pigtails?|ponytail|bob|shag|chignon|bun|updo|waves?)\b/i;
+  const hairAccessory = /\b(headscarf|beanie|cap|hat|beret|headband|scrunchie|hair clips?|claw clip|barrettes?)\b/i;
+  return next
+    .split(',')
+    .map((part) => part.trim())
+    .filter((part) => part && (!hairDescription.test(part) || hairAccessory.test(part)))
+    .join(', ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function hasExplicitHairstyleLock(context, catalog, role = null) {
+  if (isSpecialSubject(context.subject)) return false;
+  const sourceCatalog = catalog.catalog || catalog;
+  const hairstyleItems = getByKey(sourceCatalog.character, '髮型 (Hairstyle)');
+  const hasLock = (lockKey) => {
+    const lockedId = context.locks?.[lockKey];
+    const locked = lockedId ? findById(hairstyleItems, lockedId) : null;
+    return Boolean(locked && !isNoneLikeItem(locked));
+  };
+
+  if (context.subject.count === 2) {
+    if (role === 'a') return hasLock('hairstyleAId');
+    if (role === 'b') return hasLock('hairstyleBId');
+    return hasLock('hairstyleAId') || hasLock('hairstyleBId');
+  }
+
+  return hasLock('hairstyleId');
+}
+
 function selectedSpecialOutfitHasHairstyle(context, catalog, role = null) {
   if (isSpecialSubject(context.subject)) return false;
   const specialOutfits = getByKey(catalog.wardrobe, '特殊穿搭 (Special Outfits)');
@@ -3757,15 +3805,19 @@ function buildCharacter(context, catalog) {
     pickCategory('膚質特徵 (Skin Details)', context.locks);
   }
 
-  const suppressSingleHair = context.subject.count === 1 && selectedSpecialOutfitHasHairstyle(context, catalog);
+  const suppressSingleHair = context.subject.count === 1
+    && selectedSpecialOutfitHasHairstyle(context, catalog)
+    && !hasExplicitHairstyleLock(context, catalog);
   if (!suppressSingleHair && context.subject.count === 1 && (context.locks?.hairstyleId || context.locks?.hairColorId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium')))) {
     pickCategory('髮型 (Hairstyle)', context.locks);
     pickCategory('髮色 (Hair Color)', context.locks, () => true, pickHairColor);
   }
 
   if (context.subject.count === 2 && (visibilityAtLeast(visibility, 'medium') || context.locks?.hairstyleAId || context.locks?.hairstyleBId || context.locks?.hairColorAId || context.locks?.hairColorBId)) {
-    const suppressHairA = selectedSpecialOutfitHasHairstyle(context, catalog, 'a');
-    const suppressHairB = selectedSpecialOutfitHasHairstyle(context, catalog, 'b');
+    const suppressHairA = selectedSpecialOutfitHasHairstyle(context, catalog, 'a')
+      && !hasExplicitHairstyleLock(context, catalog, 'a');
+    const suppressHairB = selectedSpecialOutfitHasHairstyle(context, catalog, 'b')
+      && !hasExplicitHairstyleLock(context, catalog, 'b');
     const hairA = suppressHairA ? null : pickDistinctForRole('髮型 (Hairstyle)', 'a', context.locks?.hairstyleAId, [], sample);
     const hairB = suppressHairB ? null : pickDistinctForRole('髮型 (Hairstyle)', 'b', context.locks?.hairstyleBId, [hairA], sample);
     if (hairA) character.push(hairA);
@@ -3844,11 +3896,18 @@ function buildCharacter(context, catalog) {
 }
 
 function buildWardrobe(context, locks, catalog) {
-  const cloneSpecialOutfitForRole = (item, role) => ({
-    ...item,
-    id: `${item.id}:${role}`,
-    meta: { ...(item.meta || {}), specialOutfitRole: role },
-  });
+  const prepareSpecialOutfit = (item, role = null) => {
+    const meta = { ...(item.meta || {}) };
+    if (role) meta.specialOutfitRole = role;
+    if (hasExplicitHairstyleLock(context, catalog, role)) {
+      meta.suppressSpecialOutfitHairstyle = true;
+    }
+    return {
+      ...item,
+      id: role ? `${item.id}:${role}` : item.id,
+      meta,
+    };
+  };
   const clonePresetForRole = (item, role) => ({
     ...item,
     id: `${item.id}:${role}`,
@@ -3866,11 +3925,11 @@ function buildWardrobe(context, locks, catalog) {
     const specialOutfits = catalog.flatCatalog.specialOutfits;
     const specialA = locks.specialOutfitAId ? findById(specialOutfits, locks.specialOutfitAId) : null;
     const specialB = locks.specialOutfitBId ? findById(specialOutfits, locks.specialOutfitBId) : null;
-    if (specialA && !isNoneLikeItem(specialA)) specialOutfitPieces.push(cloneSpecialOutfitForRole(specialA, 'a'));
-    if (specialB && !isNoneLikeItem(specialB)) specialOutfitPieces.push(cloneSpecialOutfitForRole(specialB, 'b'));
+    if (specialA && !isNoneLikeItem(specialA)) specialOutfitPieces.push(prepareSpecialOutfit(specialA, 'a'));
+    if (specialB && !isNoneLikeItem(specialB)) specialOutfitPieces.push(prepareSpecialOutfit(specialB, 'b'));
   } else {
     const specialOutfit = locks.specialOutfitId ? findById(catalog.flatCatalog.specialOutfits, locks.specialOutfitId) : null;
-    if (specialOutfit && !isNoneLikeItem(specialOutfit)) specialOutfitPieces.push(specialOutfit);
+    if (specialOutfit && !isNoneLikeItem(specialOutfit)) specialOutfitPieces.push(prepareSpecialOutfit(specialOutfit));
   }
 
   if (specialOutfitPieces.length > 0) return specialOutfitPieces;
@@ -5361,10 +5420,13 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
 
 function buildSpecialOutfitPrompt(item) {
   if (!item || isNoneLikeItem(item)) return '';
-  return stripMarkdown(item.en || '')
+  const base = stripMarkdown(item.en || '')
     .replace(/\s+/g, ' ')
     .replace(/^complete outfit:\s*/i, '')
     .trim();
+  return item.meta?.suppressSpecialOutfitHairstyle
+    ? stripSpecialOutfitHairstyleDescription(base)
+    : base;
 }
 
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {

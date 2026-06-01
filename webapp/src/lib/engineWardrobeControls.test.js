@@ -352,7 +352,8 @@ test('special outfit controls expose approved complete looks and remove stale ex
   assert.ok(optionLabels.includes('金色貝雷帽皮草外套寬牛仔造型'));
   assert.ok(optionLabels.includes('黃色寬T條紋襯衫橄欖工裝褲造型'));
   assert.ok(optionLabels.includes('黃色皮革外套紅花洋裝銀靴造型'));
-  assert.equal(optionLabels.filter((label) => label !== '全無').length, 41);
+  assert.ok(optionLabels.includes('白色短袖背心格紋迷你裙白蕾絲襪造型'));
+  assert.equal(optionLabels.filter((label) => label !== '全無').length, 45);
   assert.ok(!optionLabels.includes('拼布絨呢外套塗鴉奶白工裝褲'));
   assert.ok(!optionLabels.includes('黑色鉚釘兜帽皮革迷你裙造型'));
 });

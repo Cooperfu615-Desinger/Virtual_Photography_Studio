@@ -109,20 +109,37 @@ test('selected special outfit stays the complete wardrobe priority', () => {
   assert.match(prompt.zImagePrompt, /She wears complete special outfit: black sheer polka-dot matching fashion set/);
 });
 
-test('special outfit hairstyle suppresses regular hairstyle and hair color controls', () => {
+test('special outfit hairstyle applies when regular hairstyle is unset', () => {
   const hairstyleOutfit = optionByLabel('specialOutfitId', '棕色開襟外套細肩背心條紋工裝褲造型');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     specialOutfitId: hairstyleOutfit.id,
-    hairstyleId: optionByLabel('hairstyleId', '直髮：中分').id,
-    hairColorId: optionByLabel('hairColorId', '寶石藍').id,
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
   assert.equal(prompt.selection.hairstyleId, '');
   assert.equal(prompt.selection.hairColorId, '');
   assert.match(promptText, /long loose center-part brown hair/);
-  assert.doesNotMatch(promptText, /long straight hair with a center part|jewel cobalt-blue fashion hair color|直髮：中分|寶石藍/);
+});
+
+test('explicit hairstyle overrides special outfit hairstyle', () => {
+  const hairstyleOutfit = optionByLabel('specialOutfitId', '棕色開襟外套細肩背心條紋工裝褲造型');
+  const hairstyle = optionByLabel('hairstyleId', '直髮：中分');
+  const hairColor = optionByLabel('hairColorId', '寶石藍');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialOutfitId: hairstyleOutfit.id,
+    hairstyleId: hairstyle.id,
+    hairColorId: hairColor.id,
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.hairstyleId, hairstyle.id);
+  assert.equal(prompt.selection.hairColorId, hairColor.id);
+  assert.match(promptText, /long straight hair with a center part|直髮：中分/);
+  assert.match(promptText, /jewel cobalt-blue fashion hair color|寶石藍/);
+  assert.match(promptText, /dark brown open knit cardigan/);
+  assert.doesNotMatch(promptText, /long loose center-part brown hair/);
 });
 
 test('special outfit hair accessories do not suppress regular hairstyle controls', () => {
