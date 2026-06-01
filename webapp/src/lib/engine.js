@@ -771,6 +771,13 @@ const POSE_COMPOSER_BASE_OPTIONS = [
 const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定肢體變化。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random body arrangement', desc: '依姿勢基底隨機選擇肢體變化。', meta: { tags: ['random'] } },
+  {
+    id: 'model-natural-body-arrangement',
+    bases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
+    zh: '模型自然決定',
+    en: 'let the image model choose a natural physically believable body arrangement within the selected pose base compatible with the wardrobe camera framing and environment',
+    desc: '讓影像模型依目前基底、服裝、鏡頭與場景自行決定自然肢體變化。',
+  },
   { id: 'standing-natural', base: 'standing', zh: '自然站姿', en: 'natural relaxed standing arrangement' },
   { id: 'standing-one-leg-weight', base: 'standing', zh: '單腳重心', en: 'one-leg weight shift, relaxed asymmetrical body balance' },
   { id: 'standing-forward-lean', base: 'standing', zh: '身體微前傾', en: 'slight forward-leaning standing arrangement' },
@@ -825,6 +832,7 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
 const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random hand pose', desc: '隨機選擇手部姿勢。', meta: { tags: ['random'] } },
+  { id: 'model-natural-hand-placement', zh: '模型自然決定', en: 'let the image model choose natural hand placement relaxed and physically compatible with the selected body pose', desc: '讓影像模型依目前身體姿勢自行決定自然手部位置。' },
   { id: 'hands-relaxed-down', zh: '雙手自然垂放', en: 'both hands relaxed naturally at the sides' },
   { id: 'hands-in-pockets', zh: '雙手插口袋', en: 'both hands tucked into pockets' },
   { id: 'arms-crossed', zh: '雙臂交疊', en: 'arms crossed loosely in front of the body' },
@@ -850,6 +858,7 @@ const POSE_COMPOSER_HAND_OPTIONS = [
 const POSE_COMPOSER_HEAD_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定頭部方向。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random head direction', desc: '隨機選擇頭部方向。', meta: { tags: ['random'] } },
+  { id: 'model-natural-head-angle', zh: '模型自然決定', en: 'let the image model choose a natural head angle compatible with the expression camera angle and body orientation', desc: '讓影像模型依表情、鏡頭與身體方向自行決定自然頭部角度。' },
   { id: 'head-camera-natural', zh: '頭部自然朝向鏡頭', en: 'head naturally facing the camera' },
   { id: 'head-slight-tilt', zh: '頭部微微側傾', en: 'head slightly tilted' },
   { id: 'chin-slightly-raised', zh: '下巴微抬', en: 'chin slightly raised' },

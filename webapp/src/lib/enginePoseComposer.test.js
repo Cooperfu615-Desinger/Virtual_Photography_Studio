@@ -28,6 +28,12 @@ function assertHandOption(zh, expectedEnglish) {
   assert.match(option.en, expectedEnglish);
 }
 
+function assertHeadOption(zh, expectedEnglish) {
+  const option = control('poseHeadId').options.find((entry) => entry.zh === zh);
+  assert.ok(option, `Expected head option ${zh}`);
+  assert.match(option.en, expectedEnglish);
+}
+
 test('pose composer controls expose base arrangement hand and anchor options', () => {
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '站姿'));
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '躺姿'));
@@ -37,6 +43,37 @@ test('pose composer controls expose base arrangement hand and anchor options', (
   assert.ok(control('poseHeadId').options.some((option) => option.zh === '頭部微微側傾'));
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '站在門框邊' && option.base === 'standing'));
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '浴缸' && option.bases.includes('lying')));
+});
+
+test('pose composer exposes model natural decision options', () => {
+  const arrangement = control('poseArrangementId').options.find((option) => option.zh === '模型自然決定');
+  assert.ok(arrangement, 'Expected model natural arrangement option');
+  assert.ok(arrangement.bases.includes('standing'));
+  assert.ok(arrangement.bases.includes('lying'));
+  assert.match(arrangement.en, /let the image model choose a natural physically believable body arrangement/);
+  assert.match(arrangement.en, /within the selected pose base/);
+
+  assertHandOption('模型自然決定', /let the image model choose natural hand placement/);
+  assertHeadOption('模型自然決定', /let the image model choose a natural head angle/);
+});
+
+test('model natural decision options are preserved in all prompt versions', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '模型自然決定'),
+    poseHandId: optionId('poseHandId', '模型自然決定'),
+    poseHeadId: optionId('poseHeadId', '模型自然決定'),
+  });
+
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /let the image model choose a natural physically believable body arrangement/);
+    assert.match(text, /within the selected pose base/);
+    assert.match(text, /let the image model choose natural hand placement/);
+    assert.match(text, /let the image model choose a natural head angle/);
+  }
 });
 
 test('pose composer exposes expressive hand interaction batch', () => {
