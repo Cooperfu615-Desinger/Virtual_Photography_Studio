@@ -7230,7 +7230,9 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const lockControls = getLockControls(customLibrary);
   const runtime = buildCatalog(customLibrary);
   const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
-  if (effectiveLocks.importedWorldSceneMode === 'architecture' && effectiveLocks.importedWorldSceneArchitectureText) {
+  const hasImportedWorldSceneArchitecture = effectiveLocks.importedWorldSceneMode === 'architecture'
+    && Boolean(effectiveLocks.importedWorldSceneArchitectureText);
+  if (hasImportedWorldSceneArchitecture) {
     const noneLocation = getControlOptionByZh(lockControls, 'locationId', '全無');
     effectiveLocks.locationId = noneLocation?.id || '';
     effectiveLocks.sceneAttributeId = '';
@@ -7300,10 +7302,19 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedSpecialAction)
   );
   const lens = pickWithLock(runtime.flatCatalog.lens, effectiveLocks.lensId);
-  const lighting = pickWithCompatibleLock(runtime.flatCatalog.lighting, effectiveLocks.lightingId, (item) => locationSupportsLighting(location, item));
+  const locationForLightingCompatibility = hasImportedWorldSceneArchitecture ? null : location;
+  const lighting = pickWithCompatibleLock(
+    runtime.flatCatalog.lighting,
+    effectiveLocks.lightingId,
+    (item) => (locationForLightingCompatibility ? locationSupportsLighting(locationForLightingCompatibility, item) : true)
+  );
   const lightDirection = !lighting
     ? null
-    : pickWithCompatibleLock(runtime.flatCatalog.lightDirection, effectiveLocks.lightDirectionId, (item) => lightDirectionSupportsScene(item, framing, location, lighting));
+    : pickWithCompatibleLock(
+      runtime.flatCatalog.lightDirection,
+      effectiveLocks.lightDirectionId,
+      (item) => lightDirectionSupportsScene(item, framing, locationForLightingCompatibility, lighting)
+    );
   const imagingLockId = effectiveLocks.filmId || (CAMERA_PROFILE_OPTION_IDS.has(effectiveLocks.cameraSystemId) ? effectiveLocks.cameraSystemId : '');
   const film = pickWithLock(runtime.flatCatalog.film, imagingLockId, () => true, lowFrequencyPicker('low_frequency_film'));
   const cameraSystem = getLegacyCameraSystemFromImaging(film);

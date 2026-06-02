@@ -91,3 +91,22 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
   assert.equal(prompt.selection.importedWorldSceneMode, 'architecture');
   assert.equal(prompt.selection.importedWorldSceneLabel, '東京｜澀谷 Scramble Crossing');
 });
+
+test('PAGE3 world-scene import preserves locked PAGE1 ambient and subject lighting', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    importedWorldSceneMode: 'architecture',
+    importedWorldSceneLabel: '大阪｜梅田高架橋下街景',
+    importedWorldSceneArchitectureText: 'world-scene architecture for the portrait: Osaka, Umeda, Umeda elevated railway and underpass street stays visible around and behind the subject',
+    lightingId: optionId('lightingId', '夏日深藍積雲'),
+    lightDirectionId: optionId('lightDirectionId', '硬質晴光'),
+    aspectRatio: optionId('aspectRatio', '16:9 寬螢幕'),
+  });
+
+  assert.match(prompt.grokPrompt, /deep azure summer sky/i);
+  assert.match(prompt.grokPrompt, /hard direct sunlight on the subject/i);
+  assert.doesNotMatch(prompt.grokPrompt, /candlelit interior environment/i);
+  assert.doesNotMatch(prompt.grokPrompt, /warm-white practical-lamp subject color/i);
+  assert.equal(prompt.selection.lightingId, optionId('lightingId', '夏日深藍積雲'));
+  assert.equal(prompt.selection.lightDirectionId, optionId('lightDirectionId', '硬質晴光'));
+});
