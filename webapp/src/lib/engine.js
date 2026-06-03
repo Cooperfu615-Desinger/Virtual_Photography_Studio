@@ -332,6 +332,19 @@ const OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS = [
   { id: 'classic-school-navy-trim', zh: '經典制服深藍飾線', en: 'classic school navy trim' },
 ];
 
+const COMPLETE_LOOK_PALETTE_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none' },
+  { id: 'black-white-cool', zh: '黑白灰冷調', en: 'black, white, and cool gray color family' },
+  { id: 'black-red-street', zh: '黑紅街頭', en: 'black-and-red street color family' },
+  { id: 'deep-denim', zh: '深藍丹寧', en: 'deep indigo denim color family' },
+  { id: 'cream-neutral', zh: '奶油米白', en: 'cream, ivory, and soft neutral color family' },
+  { id: 'pink-sweet-cool', zh: '粉色甜酷', en: 'soft pink sweet-cool color family with dark accent balance' },
+  { id: 'brown-vintage', zh: '棕色復古', en: 'brown, camel, and vintage tan color family' },
+  { id: 'silver-metallic', zh: '銀灰金屬', en: 'silver, graphite, and metallic gray color family' },
+  { id: 'green-utility', zh: '綠灰工裝', en: 'olive green, sage, and utility gray color family' },
+  { id: 'yellow-orange-bright', zh: '黃橘亮色', en: 'yellow, orange, and bright warm color family' },
+];
+
 const TOP_BOTTOM_PALETTE_SWATCH_HEX = {
   'arctic knight': '#f1f0e8',
   'berry red': '#b7133f',
@@ -961,6 +974,9 @@ const LOCK_DEFINITIONS = [
   { key: 'specialOutfitId', label: '特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
   { key: 'specialOutfitAId', label: '人物 1 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
   { key: 'specialOutfitBId', label: '人物 2 特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
+  { key: 'completeLookPaletteId', label: '完整造型色系', options: COMPLETE_LOOK_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
+  { key: 'completeLookPaletteAId', label: '人物 1 完整造型色系', options: COMPLETE_LOOK_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
+  { key: 'completeLookPaletteBId', label: '人物 2 完整造型色系', options: COMPLETE_LOOK_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
   { key: 'outfitPresetId', label: '套裝/連身', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
   { key: 'outfitPresetColorId', label: '套裝/連身配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
   { key: 'outfitPresetAId', label: '人物 1 套裝/連身', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
@@ -1097,18 +1113,21 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'poseId', label: 'Pose' },
   { key: 'specialActionId', label: 'Special Action' },
   { key: 'specialOutfitId', label: 'Special Outfit' },
+  { key: 'completeLookPaletteId', label: 'Complete Look Palette' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
   { key: 'outfitPresetColorId', label: 'Outfit Preset Color' },
   { key: 'outfitPresetPrimaryColorId', label: 'Outfit Preset Primary Color' },
   { key: 'outfitPresetContrastColorId', label: 'Outfit Preset Contrast Color' },
   { key: 'outfitPresetLockedPaletteId', label: 'Outfit Preset Locked Palette' },
   { key: 'specialOutfitAId', label: 'Woman 1 Special Outfit' },
+  { key: 'completeLookPaletteAId', label: 'Woman 1 Complete Look Palette' },
   { key: 'outfitPresetAId', label: 'Woman 1 Outfit Preset' },
   { key: 'outfitPresetAColorId', label: 'Woman 1 Outfit Preset Color' },
   { key: 'outfitPresetAPrimaryColorId', label: 'Woman 1 Outfit Preset Primary Color' },
   { key: 'outfitPresetAContrastColorId', label: 'Woman 1 Outfit Preset Contrast Color' },
   { key: 'outfitPresetALockedPaletteId', label: 'Woman 1 Outfit Preset Locked Palette' },
   { key: 'specialOutfitBId', label: 'Woman 2 Special Outfit' },
+  { key: 'completeLookPaletteBId', label: 'Woman 2 Complete Look Palette' },
   { key: 'outfitPresetBId', label: 'Woman 2 Outfit Preset' },
   { key: 'outfitPresetBColorId', label: 'Woman 2 Outfit Preset Color' },
   { key: 'outfitPresetBPrimaryColorId', label: 'Woman 2 Outfit Preset Primary Color' },
@@ -1449,6 +1468,25 @@ function getOutfitPresetColorOption(id) {
 
 function getOutfitPresetLockedPaletteOption(id) {
   return OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS.find((option) => option.id === id) || null;
+}
+
+function getCompleteLookPaletteOption(id) {
+  const option = COMPLETE_LOOK_PALETTE_OPTIONS.find((item) => item.id === id) || null;
+  return option && option.id !== 'none' ? option : null;
+}
+
+function buildCompleteLookPaletteDirection(palette) {
+  if (!palette || isNoneLikeItem(palette)) return '';
+  const paletteText = stripMarkdown(palette.en || '').replace(/\s+/g, ' ').trim();
+  if (!paletteText || paletteText === 'none') return '';
+  return `complete outfit palette direction: shift the complete outfit palette toward a ${paletteText}, preserving garment structure, accessory separation, material contrast, and multi-piece color variation`;
+}
+
+function appendCompleteLookPaletteDirection(text, palette) {
+  const base = stripMarkdown(text || '').replace(/\s+/g, ' ').trim();
+  const paletteText = buildCompleteLookPaletteDirection(palette);
+  if (!base) return paletteText;
+  return paletteText ? `${base}, ${paletteText}` : base;
 }
 
 function normalizeLegacyOutfitPresetColors(locks = {}) {
@@ -5127,7 +5165,25 @@ function buildWardrobeColors(wardrobeSlots, locks) {
     (wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)) ||
     (wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB))
   );
+  const hasCompleteLook = Boolean(
+    (wardrobeSlots.specialOutfit && !isNoneLikeItem(wardrobeSlots.specialOutfit)) ||
+    (wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)) ||
+    (wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress))
+  );
+  const hasCompleteLookA = Boolean(
+    (wardrobeSlots.specialOutfitA && !isNoneLikeItem(wardrobeSlots.specialOutfitA)) ||
+    (wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)) ||
+    (wardrobeSlots.dressA && !isNoneLikeItem(wardrobeSlots.dressA))
+  );
+  const hasCompleteLookB = Boolean(
+    (wardrobeSlots.specialOutfitB && !isNoneLikeItem(wardrobeSlots.specialOutfitB)) ||
+    (wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)) ||
+    (wardrobeSlots.dressB && !isNoneLikeItem(wardrobeSlots.dressB))
+  );
   const normalizedLocks = normalizeLegacyOutfitPresetColors(locks || {});
+  const completeLookPalette = hasCompleteLook ? getCompleteLookPaletteOption(normalizedLocks.completeLookPaletteId) : null;
+  const completeLookPaletteA = hasCompleteLookA ? getCompleteLookPaletteOption(normalizedLocks.completeLookPaletteAId) : null;
+  const completeLookPaletteB = hasCompleteLookB ? getCompleteLookPaletteOption(normalizedLocks.completeLookPaletteBId) : null;
   const topBottomPalette = getTopBottomPaletteOption(normalizedLocks.topBottomPaletteId);
   const topBottomPaletteA = getTopBottomPaletteOption(normalizedLocks.topBottomPaletteAId);
   const topBottomPaletteB = getTopBottomPaletteOption(normalizedLocks.topBottomPaletteBId);
@@ -5204,6 +5260,9 @@ function buildWardrobeColors(wardrobeSlots, locks) {
   const outerwearBColor = wardrobeSlots.outerwearB && !isNoneLikeItem(wardrobeSlots.outerwearB) ? getGarmentColorOption(normalizedLocks.outerwearBColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
   const shoesBColor = wardrobeSlots.shoesB && !isNoneLikeItem(wardrobeSlots.shoesB) ? getLayerColorOption(normalizedLocks.shoesBColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
   return {
+    completeLookPalette,
+    completeLookPaletteA,
+    completeLookPaletteB,
     outfitPresetColor,
     outfitPresetAColor,
     outfitPresetBColor,
@@ -5273,6 +5332,10 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
 
   const coloredBase = `${color.en} ${base}`;
   return detailText ? `${coloredBase}, ${detailText}` : coloredBase;
+}
+
+function buildCompleteLookDressPrompt(item, color = null, palette = null, options = {}) {
+  return appendCompleteLookPaletteDirection(buildColoredGrokPrompt(item, color, options), palette);
 }
 
 function joinNaturalList(parts = []) {
@@ -5440,12 +5503,13 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
   const primaryColor = colorState.primary || colorState.legacy || null;
   const contrastColor = colorState.contrast || null;
   const lockedPalette = colorState.lockedPalette || null;
+  const completeLookPalette = colorState.completeLookPalette || null;
 
   if (!meta.colorMode || !colorTargets || Object.keys(colorTargets).length === 0) {
     if (primaryColor && contrastColor && !isNoneLikeItem(primaryColor) && !isNoneLikeItem(contrastColor)) {
-      return `${base}, coordinated top-to-bottom palette: upper/main garment area in ${primaryColor.en}, lower or secondary garment area in ${contrastColor.en}`;
+      return appendCompleteLookPaletteDirection(`${base}, coordinated top-to-bottom palette: upper/main garment area in ${primaryColor.en}, lower or secondary garment area in ${contrastColor.en}`, completeLookPalette);
     }
-    return primaryColor && !isNoneLikeItem(primaryColor) ? `${primaryColor.en} ${base}` : base;
+    return appendCompleteLookPaletteDirection(primaryColor && !isNoneLikeItem(primaryColor) ? `${primaryColor.en} ${base}` : base, completeLookPalette);
   }
 
   const details = [];
@@ -5468,18 +5532,19 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
     if (lockedText) details.push(lockedText);
   }
 
-  return details.length > 0 ? `${base}, ${details.join(', ')}` : base;
+  return appendCompleteLookPaletteDirection(details.length > 0 ? `${base}, ${details.join(', ')}` : base, completeLookPalette);
 }
 
-function buildSpecialOutfitPrompt(item) {
+function buildSpecialOutfitPrompt(item, palette = null) {
   if (!item || isNoneLikeItem(item)) return '';
   const base = stripMarkdown(item.en || '')
     .replace(/\s+/g, ' ')
     .replace(/^complete outfit:\s*/i, '')
     .trim();
-  return item.meta?.suppressSpecialOutfitHairstyle
+  const outfitText = item.meta?.suppressSpecialOutfitHairstyle
     ? stripSpecialOutfitHairstyleDescription(base)
     : base;
+  return appendCompleteLookPaletteDirection(outfitText, palette);
 }
 
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
@@ -5514,9 +5579,9 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors) {
     .replace(/^wearing\s+/i, '')
     .trim();
   const joinParts = (parts) => parts.map(normalizeWearable).filter(Boolean).join(', ');
-  const specialAText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA));
-  const specialBText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB));
-  const specialSharedText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit));
+  const specialAText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA));
+  const specialBText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB));
+  const specialSharedText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette));
   if (specialAText || specialBText) {
     const roleParts = [
       specialAText ? `woman 1 wears complete special outfit: ${specialAText}` : '',
@@ -5549,7 +5614,7 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors) {
     ]);
   };
   const buildSharedMainText = () => {
-    const dressText = normalizeWearable(buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor }));
+    const dressText = normalizeWearable(buildCompleteLookDressPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, wardrobeColors.completeLookPalette, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor }));
     const topText = normalizeWearable(buildTopWardrobePrompt(wardrobeSlots, wardrobeColors));
     const pantsText = normalizeWearable(buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors));
     const skirtText = normalizeWearable(buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors));
@@ -5564,10 +5629,11 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors) {
         primary: wardrobeColors[`outfitPreset${suffix}PrimaryColor`],
         contrast: wardrobeColors[`outfitPreset${suffix}ContrastColor`],
         lockedPalette: wardrobeColors[`outfitPreset${suffix}LockedPalette`],
+        completeLookPalette: wardrobeColors[`completeLookPalette${suffix}`],
       }));
     }
 
-    const dressText = normalizeWearable(buildColoredGrokPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`], { secondaryColor: wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor }));
+    const dressText = normalizeWearable(buildCompleteLookDressPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`], wardrobeColors[`completeLookPalette${suffix}`], { secondaryColor: wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor }));
     if (dressText) return dressText;
 
     const topText = normalizeWearable(buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role));
@@ -5612,6 +5678,7 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors) {
       primary: wardrobeColors.outfitPresetAPrimaryColor,
       contrast: wardrobeColors.outfitPresetAContrastColor,
       lockedPalette: wardrobeColors.outfitPresetALockedPalette,
+      completeLookPalette: wardrobeColors.completeLookPaletteA,
     })
   );
   const presetBText = normalizeWearable(
@@ -5620,6 +5687,7 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors) {
       primary: wardrobeColors.outfitPresetBPrimaryColor,
       contrast: wardrobeColors.outfitPresetBContrastColor,
       lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
+      completeLookPalette: wardrobeColors.completeLookPaletteB,
     })
   );
   if (presetAText || presetBText) {
@@ -5648,6 +5716,7 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors) {
       primary: wardrobeColors.outfitPresetPrimaryColor,
       contrast: wardrobeColors.outfitPresetContrastColor,
       lockedPalette: wardrobeColors.outfitPresetLockedPalette,
+      completeLookPalette: wardrobeColors.completeLookPalette,
     })
   );
   if (presetText) {
@@ -5665,7 +5734,7 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors) {
     };
   }
 
-  const dressText = normalizeWearable(buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor }));
+  const dressText = normalizeWearable(buildCompleteLookDressPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, wardrobeColors.completeLookPalette, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor }));
   const topText = normalizeWearable(buildTopWardrobePrompt(wardrobeSlots, wardrobeColors));
   const pantsText = normalizeWearable(
     buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors)
@@ -6381,15 +6450,15 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     if (isCloseupVisibility) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
-      addLine('Woman 1 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA));
-      addLine('Woman 2 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB));
+      addLine('Woman 1 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA));
+      addLine('Woman 2 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB));
     }
   } else if (wardrobeSlots.specialOutfit && !hasDuoSceneAnchor) {
     addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
     if (isCloseupVisibility) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
-      addLine('Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit));
+      addLine('Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette));
     }
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor && (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
@@ -6402,12 +6471,14 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
         primary: wardrobeColors.outfitPresetAPrimaryColor,
         contrast: wardrobeColors.outfitPresetAContrastColor,
         lockedPalette: wardrobeColors.outfitPresetALockedPalette,
+        completeLookPalette: wardrobeColors.completeLookPaletteA,
       }));
       addLine('Woman 2 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
         legacy: wardrobeColors.outfitPresetBColor,
         primary: wardrobeColors.outfitPresetBPrimaryColor,
         contrast: wardrobeColors.outfitPresetBContrastColor,
         lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
+        completeLookPalette: wardrobeColors.completeLookPaletteB,
       }));
     }
   } else if (wardrobeSlots.outfitPreset && !hasDuoSceneAnchor) {
@@ -6420,12 +6491,13 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
         primary: wardrobeColors.outfitPresetPrimaryColor,
         contrast: wardrobeColors.outfitPresetContrastColor,
         lockedPalette: wardrobeColors.outfitPresetLockedPalette,
+        completeLookPalette: wardrobeColors.completeLookPalette,
       }));
     }
   }
   if (!specialSubjectMode && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && !wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
     const topText = buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
-    const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor });
+    const dressText = buildCompleteLookDressPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, wardrobeColors.completeLookPalette, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor });
     const pantsText = buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors);
     const skirtText = buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors);
     const outerwearFirstDressText = buildOuterwearFirstPrompt(
@@ -6812,6 +6884,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       primary: wardrobeColors.outfitPresetPrimaryColor,
       contrast: wardrobeColors.outfitPresetContrastColor,
       lockedPalette: wardrobeColors.outfitPresetLockedPalette,
+      completeLookPalette: wardrobeColors.completeLookPalette,
     });
     const buildSingleOuterwearText = ({ minimalStyling = false } = {}) => buildOuterwearColoredPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
       pattern: wardrobeSlots.outerwearPattern,
@@ -6819,12 +6892,14 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       minimalStyling,
     });
     if (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB) {
-      add(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA) ? `woman 1 wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA)}` : '');
-      add(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB) ? `woman 2 wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB)}` : '');
+      const specialAText = buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA);
+      const specialBText = buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB);
+      add(specialAText ? `woman 1 wears complete special outfit: ${specialAText}` : '');
+      add(specialBText ? `woman 2 wears complete special outfit: ${specialBText}` : '');
       return parts.length > 0 ? sentence(parts.join(', ')) : '';
     }
     if (wardrobeSlots.specialOutfit) {
-      add(`She wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit)}`);
+      add(`She wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette)}`);
       return parts.length > 0 ? sentence(parts.join(', ')) : '';
     }
     const buildRoleLayerText = (role) => {
@@ -6844,10 +6919,11 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
           primary: wardrobeColors[`outfitPreset${suffix}PrimaryColor`],
           contrast: wardrobeColors[`outfitPreset${suffix}ContrastColor`],
           lockedPalette: wardrobeColors[`outfitPreset${suffix}LockedPalette`],
+          completeLookPalette: wardrobeColors[`completeLookPalette${suffix}`],
         });
       }
 
-      const dressText = buildColoredGrokPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`], { secondaryColor: wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor });
+      const dressText = buildCompleteLookDressPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`], wardrobeColors[`completeLookPalette${suffix}`], { secondaryColor: wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor });
       const outerwearFirstDressText = buildOuterwearFirstPrompt(
         dressText,
         wardrobeSlots[`outerwear${suffix}`],
@@ -6905,7 +6981,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       if (legwearText) add(`paired with ${legwearText}`);
       if (shoesText) add(`paired with ${shoesText}`);
     } else {
-      const dressText = buildColoredGrokPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor });
+      const dressText = buildCompleteLookDressPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, wardrobeColors.completeLookPalette, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor });
       const topText = buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
       const outerwearFirstDressText = buildOuterwearFirstPrompt(
         dressText,
@@ -7090,6 +7166,9 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     specialOutfitId: wardrobeSlots.specialOutfit?.id || '',
     specialOutfitAId: wardrobeSlots.specialOutfitA?.id?.replace(/:a$/, '') || '',
     specialOutfitBId: wardrobeSlots.specialOutfitB?.id?.replace(/:b$/, '') || '',
+    completeLookPaletteId: wardrobeColors.completeLookPalette?.id || '',
+    completeLookPaletteAId: wardrobeColors.completeLookPaletteA?.id || '',
+    completeLookPaletteBId: wardrobeColors.completeLookPaletteB?.id || '',
     outfitPresetId: wardrobeSlots.outfitPreset?.id || '',
     outfitPresetColorId: normalizedSelection.outfitPresetColorId,
     outfitPresetPrimaryColorId: normalizedSelection.outfitPresetPrimaryColorId,

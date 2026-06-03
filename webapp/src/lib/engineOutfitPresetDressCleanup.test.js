@@ -177,3 +177,48 @@ test('generated prompts keep outfit preset color separate from clothing structur
   assert.match(prompt.grokPrompt, /Wardrobe:\nShe wears [\s\S]*red satin lingerie set/);
   assert.match(prompt.grokPrompt, /satin lingerie set/);
 });
+
+test('complete look palette applies to special outfits, outfit presets, and dresses only', () => {
+  const completePalette = optionByLabel('completeLookPaletteId', '黑紅街頭');
+  const specialOutfit = optionByLabel('specialOutfitId', '粉紫蕾絲豹紋低腰喇叭褲造型');
+  const outfitPreset = optionByLabel('outfitPresetId', '套裝：秘書短裙');
+  const dress = optionByLabel('dressId', '連身：短版｜亮面乳膠迷你洋裝');
+  const top = optionByLabel('topId', '短版 T 恤');
+  const skirt = optionByLabel('skirtId', '百褶短裙');
+
+  const [specialPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialOutfitId: specialOutfit.id,
+    completeLookPaletteId: completePalette.id,
+  });
+  const [presetPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: outfitPreset.id,
+    completeLookPaletteId: completePalette.id,
+  });
+  const [dressPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    dressId: dress.id,
+    completeLookPaletteId: completePalette.id,
+  });
+  const [separatesPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    topId: top.id,
+    skirtId: skirt.id,
+    completeLookPaletteId: completePalette.id,
+  });
+
+  [specialPrompt, presetPrompt, dressPrompt].forEach((prompt) => {
+    const text = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+    assert.equal(prompt.selection.completeLookPaletteId, completePalette.id);
+    assert.match(text, /complete outfit palette direction: shift the complete outfit palette toward a black-and-red street color family/);
+    assert.match(text, /preserving garment structure, accessory separation, material contrast, and multi-piece color variation/);
+    assert.doesNotMatch(text, /flat color/i);
+  });
+
+  assert.equal(separatesPrompt.selection.completeLookPaletteId, '');
+  assert.doesNotMatch(
+    [separatesPrompt.grokPrompt, separatesPrompt.zImagePrompt, separatesPrompt.midjourneyPrompt].join('\n'),
+    /complete outfit palette direction/
+  );
+});

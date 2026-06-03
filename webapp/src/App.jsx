@@ -191,6 +191,9 @@ const STYLE_WARDROBE_CONTROL_ORDER = [
   'specialOutfitId',
   'specialOutfitAId',
   'specialOutfitBId',
+  'completeLookPaletteId',
+  'completeLookPaletteAId',
+  'completeLookPaletteBId',
   'outfitPresetId',
   'outfitPresetPrimaryColorId',
   'outfitPresetContrastColorId',
@@ -1503,12 +1506,20 @@ export default function App() {
                 (Boolean(locks.specialOutfitBId) && !isNoneSelected('specialOutfitBId', locks.specialOutfitBId, lockControls))
               )
             : Boolean(locks.specialOutfitId) && !isNoneSelected('specialOutfitId', locks.specialOutfitId, lockControls);
-          if (['specialOutfitId'].includes(control.key) && locks.subjectCount === '2') return false;
-          if (['specialOutfitAId', 'specialOutfitBId'].includes(control.key) && locks.subjectCount !== '2') return false;
-          if (specialOutfitActive && !['specialOutfitId', 'specialOutfitAId', 'specialOutfitBId'].includes(control.key)) return false;
-          if (['dressId', 'dressAId', 'dressBId', 'dressColorId', 'dressAColorId', 'dressBColorId'].includes(control.key)) return false;
-          if (['outfitPresetId', 'outfitPresetPrimaryColorId', 'outfitPresetContrastColorId', 'outfitPresetLockedPaletteId'].includes(control.key) && locks.subjectCount === '2') return false;
-          if (['outfitPresetAId', 'outfitPresetAPrimaryColorId', 'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId', 'outfitPresetBId', 'outfitPresetBPrimaryColorId', 'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          const hasCompleteLookSingle = ['specialOutfitId', 'outfitPresetId', 'dressId']
+            .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls));
+          const hasCompleteLookA = ['specialOutfitAId', 'outfitPresetAId', 'dressAId']
+            .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls));
+          const hasCompleteLookB = ['specialOutfitBId', 'outfitPresetBId', 'dressBId']
+            .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls));
+          if (['specialOutfitId', 'completeLookPaletteId'].includes(control.key) && locks.subjectCount === '2') return false;
+          if (['specialOutfitAId', 'specialOutfitBId', 'completeLookPaletteAId', 'completeLookPaletteBId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          if (specialOutfitActive && !['specialOutfitId', 'specialOutfitAId', 'specialOutfitBId', 'completeLookPaletteId', 'completeLookPaletteAId', 'completeLookPaletteBId'].includes(control.key)) return false;
+          if (control.key === 'completeLookPaletteId' && !hasCompleteLookSingle) return false;
+          if (control.key === 'completeLookPaletteAId' && !hasCompleteLookA) return false;
+          if (control.key === 'completeLookPaletteBId' && !hasCompleteLookB) return false;
+          if (['outfitPresetId', 'completeLookPaletteId', 'outfitPresetPrimaryColorId', 'outfitPresetContrastColorId', 'outfitPresetLockedPaletteId'].includes(control.key) && locks.subjectCount === '2') return false;
+          if (['outfitPresetAId', 'completeLookPaletteAId', 'outfitPresetAPrimaryColorId', 'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId', 'outfitPresetBId', 'completeLookPaletteBId', 'outfitPresetBPrimaryColorId', 'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId'].includes(control.key) && locks.subjectCount !== '2') return false;
           if (sharedGarmentKeys.includes(control.key) && locks.subjectCount === '2') return false;
           if (duoGarmentKeys.includes(control.key) && locks.subjectCount !== '2') return false;
           if (sharedLayerKeys.includes(control.key) && locks.subjectCount === '2') return false;
@@ -1522,7 +1533,7 @@ export default function App() {
         STYLE_WARDROBE_CONTROL_ORDER
       );
     },
-    [lockControls, locks.specialOutfitAId, locks.specialOutfitBId, locks.specialOutfitId, locks.specialSubjectId, locks.subjectCount, shouldShowPresetColorControl]
+    [lockControls, locks, shouldShowPresetColorControl]
   );
 
   const isOutfitPresetActive = locks.subjectCount === '2'

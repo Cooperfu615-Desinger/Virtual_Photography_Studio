@@ -18,6 +18,9 @@ const WARDROBE_PICKER_KEYS = new Set([
   'specialOutfitId',
   'specialOutfitAId',
   'specialOutfitBId',
+  'completeLookPaletteId',
+  'completeLookPaletteAId',
+  'completeLookPaletteBId',
   'outfitPresetId',
   'outfitPresetAId',
   'outfitPresetBId',
@@ -91,6 +94,15 @@ const NAMED_COLOR_SWATCHES = {
   'black and white': ['#111111', '#ffffff'],
   'black and red': ['#111111', '#c81e2c'],
   'white and red': ['#ffffff', '#c81e2c'],
+  'black-white-cool': ['#111111', '#ffffff', '#9aa1a9'],
+  'black-red-street': ['#111111', '#b7133f', '#5b0f18'],
+  'deep-denim': ['#102f5f', '#315f92', '#d7d2c6'],
+  'cream-neutral': ['#f4efe3', '#d8c3a5', '#8a7a68'],
+  'pink-sweet-cool': ['#f6a7c8', '#111111', '#d7dce5'],
+  'brown-vintage': ['#4a2e21', '#b8895f', '#ead7b7'],
+  'silver-metallic': ['#c7c9cc', '#4d555c', '#f1f0e8'],
+  'green-utility': ['#687a3a', '#a8b875', '#6f7472'],
+  'yellow-orange-bright': ['#f6d547', '#e56b2f', '#ffffff'],
   'bold multicolored horizontal stripes, wide stripe bands, clearly separated random colors': ['#f45b69', '#f7d154', '#4ecdc4'],
 };
 
@@ -102,10 +114,11 @@ const WARDROBE_GARMENT_CONTROL_DIVIDERS = {
 };
 
 const WORKSPACE_SECTIONS = [
-  { id: 'character', label: 'A 人物設定', summaryKey: 'characterDna', metaKey: 'expressionPose' },
-  { id: 'wardrobe', label: 'B 穿搭設定', summaryKey: 'wardrobe', metaKey: null },
-  { id: 'scene', label: 'C 場景與環境', summaryKey: 'sceneLook', metaKey: null },
-  { id: 'photography', label: 'D 攝影與成像', summaryKey: 'photographyLook', metaKey: null },
+  { id: 'character', label: 'A 人物設定' },
+  { id: 'pose', label: 'B 神情姿態' },
+  { id: 'wardrobe', label: 'C 穿搭設定' },
+  { id: 'scene', label: 'D 場景環境' },
+  { id: 'photography', label: 'E 攝影成像' },
 ];
 
 const SECTION_SUBPANELS = {
@@ -113,7 +126,7 @@ const SECTION_SUBPANELS = {
     {
       id: 'identity',
       label: '身份基底',
-      description: '先確立人物數量、體態與臉髮基礎，讓角色 DNA 先穩定下來。',
+      description: '確立人物數量、體態、五官、膚質與髮型髮色，讓角色身份基底先穩定下來。',
       keys: [
         'subjectCount',
         'bodyTypeId',
@@ -130,9 +143,19 @@ const SECTION_SUBPANELS = {
       ],
     },
     {
-      id: 'expression',
-      label: '神情姿態',
-      description: '再補上表情、雙人互動與構圖姿態，讓人物狀態更完整。',
+      id: 'special',
+      label: '特殊角色',
+      description: '特殊角色會接管人物主體；神情眼神與姿勢動作請到 B 神情姿態調整。',
+      keys: [
+        'specialSubjectId',
+      ],
+    },
+  ],
+  pose: [
+    {
+      id: 'basic',
+      label: '基礎設置',
+      description: '快速設定神情眼神、雙人互動、姿勢動作與特殊動作，適合先抓整體人物狀態。',
       keys: [
         'duoInteractionId',
         'duoPoseId',
@@ -141,6 +164,13 @@ const SECTION_SUBPANELS = {
         'expressionBId',
         'poseId',
         'specialActionId',
+      ],
+    },
+    {
+      id: 'composer',
+      label: '特殊設置',
+      description: '用 Pose Composer 精準組合姿勢基底、肢體變化、手部、頭部與接觸點；目前僅支援單人。',
+      keys: [
         'poseBaseId',
         'poseArrangementId',
         'poseHandId',
@@ -148,22 +178,12 @@ const SECTION_SUBPANELS = {
         'poseAnchorId',
       ],
     },
-    {
-      id: 'special',
-      label: '特殊角色',
-      description: '特殊角色會接管人物主體，只保留神情眼神與姿勢動作，穿搭設定會暫時停用。',
-      keys: [
-        'specialSubjectId',
-        'expressionId',
-        'poseId',
-      ],
-    },
   ],
   wardrobe: [
     {
       id: 'overall',
-      label: '整體穿搭',
-      description: '優先決定套裝或連身這類整體輪廓，這會直接影響後續單件欄位。',
+      label: '完整造型',
+      description: '優先決定特殊穿搭、套裝或連身這類完整造型，它們會直接影響後續單件欄位。',
       keys: [
         'specialOutfitId',
         'specialOutfitAId',
@@ -171,6 +191,9 @@ const SECTION_SUBPANELS = {
         'outfitPresetId',
         'outfitPresetAId',
         'outfitPresetBId',
+        'dressId',
+        'dressAId',
+        'dressBId',
       ],
     },
     {
@@ -203,9 +226,12 @@ const SECTION_SUBPANELS = {
     },
     {
       id: 'colors',
-      label: '配色',
-      description: '把套裝/連身與上下身單件的配色和圖案集中處理，避免與主體輪廓混在一起。',
+      label: '造型配色',
+      description: '把特殊穿搭、套裝/連身與上下身單件的配色和圖案集中處理；完整造型色系只作用在完整造型上。',
       keys: [
+        'completeLookPaletteId',
+        'completeLookPaletteAId',
+        'completeLookPaletteBId',
         'outfitPresetPrimaryColorId',
         'outfitPresetContrastColorId',
         'outfitPresetLockedPaletteId',
@@ -224,6 +250,9 @@ const SECTION_SUBPANELS = {
         'topPatternId',
         'topAPatternId',
         'topBPatternId',
+        'dressColorId',
+        'dressAColorId',
+        'dressBColorId',
         'bottomColorId',
         'bottomAColorId',
         'bottomBColorId',
@@ -235,7 +264,7 @@ const SECTION_SUBPANELS = {
     {
       id: 'layers',
       label: '鞋襪與外層',
-      description: '補上外套、襪類與鞋款，建立完整造型層次。',
+      description: '補上外套、襪類與鞋款，建立完整造型的外層與腳部層次。',
       keys: [
         'outerwearId',
         'outerwearColorId',
@@ -302,22 +331,22 @@ const SECTION_SUBPANELS = {
     {
       id: 'light',
       label: '環境與光線',
-      description: '補上環境光條件、人物受光與畫面比例，決定空間氣候與輸出格式。',
-      keys: ['lightingId', 'lightDirectionId', 'aspectRatio'],
+      description: '補上環境光條件與人物受光，決定空間氣候與主體光線關係。',
+      keys: ['lightingId', 'lightDirectionId'],
     },
   ],
   photography: [
     {
-      id: 'style',
-      label: '攝影風格',
-      description: '先選攝影師語氣，決定影像的觀看方式、人物距離、色彩節奏與整體作者語彙。',
-      keys: ['styleId'],
-    },
-    {
       id: 'composition',
       label: '構圖與視角',
-      description: '調整景別、相機視角與拍攝方位，決定人物和場景在畫面中的關係。',
-      keys: ['framingId', 'angleId', 'orbitId'],
+      description: '先選畫面比例、景別、相機視角與拍攝方位，決定人物和場景在畫面中的關係。',
+      keys: ['aspectRatio', 'framingId', 'angleId', 'orbitId'],
+    },
+    {
+      id: 'style',
+      label: '攝影風格',
+      description: '選攝影師語氣，決定影像的觀看方式、人物距離、色彩節奏與整體作者語彙。',
+      keys: ['styleId'],
     },
     {
       id: 'optics',
@@ -591,14 +620,16 @@ export default function Page1Workspace({
   const [activeSection, setActiveSection] = useState('character');
   const [activeSubpanels, setActiveSubpanels] = useState({
     character: 'identity',
+    pose: 'basic',
     wardrobe: 'overall',
     scene: 'space',
-    photography: 'style',
+    photography: 'composition',
   });
 
   const workspaceSummary = useMemo(() => buildWorkspaceSummary(locks, lockControls), [locks, lockControls]);
   const generationSummary = [
     workspaceSummary.character.summary,
+    workspaceSummary.pose.summary,
     workspaceSummary.wardrobe.summary,
     workspaceSummary.scene.summary,
     workspaceSummary.photography.summary,
@@ -611,7 +642,6 @@ export default function Page1Workspace({
   const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
   const isAndroidSubjectMode = specialSubjectOption?.specialSubject === 'android';
-  const effectiveCharacterSubpanel = activeSubpanel;
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
   const isOutfitPresetBActive = Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls);
@@ -630,6 +660,16 @@ export default function Page1Workspace({
     [locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive],
   );
   const activeWardrobePickerControl = wardrobeLockControls.find((control) => control.key === activeWardrobePickerKey);
+  const specialActionControl = characterLockControls.find((control) => control.key === 'specialActionId');
+  const getSpecialActionOption = (id) => specialActionControl?.options?.find((option) => option.id === id) || null;
+  const isSocialShootingActionOption = (option) => Boolean(option?.meta?.tags?.includes('social_shooting_action'));
+  const selectedSpecialActionOption = getSpecialActionOption(locks.specialActionId);
+  const selectedSpecialActionIsSocial = isSocialShootingActionOption(selectedSpecialActionOption);
+  const isPoseComposerValueActive = (key, value = locks[key]) => (
+    Boolean(value) && !isNoneSelected(key, value, characterLockControls)
+  );
+  const isPoseComposerActive = POSE_COMPOSER_KEYS.some((key) => isPoseComposerValueActive(key));
+  const selectedPoseBaseId = POSE_COMPOSER_BASE_IDS.has(locks.poseBaseId) ? locks.poseBaseId : '';
   const currentModeBadges = [
     isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
     isReferenceSubjectMode ? '上傳人物' : '',
@@ -646,6 +686,14 @@ export default function Page1Workspace({
         isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
         isReferenceSubjectMode ? '上傳人物' : '',
         isDuoMode ? '雙人設定' : '',
+      ].filter(Boolean),
+    },
+    pose: {
+      status: formatSelectionStatus(countEffectiveSelections('pose', locks, lockControls)),
+      chips: [
+        isPoseComposerActive ? 'Pose Composer' : '',
+        selectedSpecialActionIsSocial ? '社群拍攝動作' : '',
+        isDuoMode ? '雙人姿態' : '',
         isCloseupMode ? '特寫收斂' : '',
       ].filter(Boolean),
     },
@@ -669,22 +717,13 @@ export default function Page1Workspace({
       chips: [
         isCloseupMode ? '收斂構圖欄位' : '',
         isWormEyeAngle ? '攝影風格與鏡頭光學全無' : '',
+        getControlOptionLabel(lockControls, 'aspectRatio', locks.aspectRatio) ? '畫面比例' : '',
         getControlOptionLabel(lockControls, 'styleId', locks.styleId) ? '攝影風格' : '',
         getControlOptionLabel(lockControls, 'filmId', locks.filmId) ? '成像模擬' : '',
       ].filter(Boolean),
     },
   };
 
-  const specialActionControl = characterLockControls.find((control) => control.key === 'specialActionId');
-  const getSpecialActionOption = (id) => specialActionControl?.options?.find((option) => option.id === id) || null;
-  const isSocialShootingActionOption = (option) => Boolean(option?.meta?.tags?.includes('social_shooting_action'));
-  const selectedSpecialActionOption = getSpecialActionOption(locks.specialActionId);
-  const selectedSpecialActionIsSocial = isSocialShootingActionOption(selectedSpecialActionOption);
-  const isPoseComposerValueActive = (key, value = locks[key]) => (
-    Boolean(value) && !isNoneSelected(key, value, characterLockControls)
-  );
-  const isPoseComposerActive = POSE_COMPOSER_KEYS.some((key) => isPoseComposerValueActive(key));
-  const selectedPoseBaseId = POSE_COMPOSER_BASE_IDS.has(locks.poseBaseId) ? locks.poseBaseId : '';
   const buildPoseComposerControl = (control) => {
     if (!POSE_COMPOSER_CONTEXT_KEYS.has(control.key)) return control;
     return {
@@ -882,7 +921,7 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Character Setup</div>
-          <p className="workspace-panel-copy">{effectiveCharacterSubpanel?.description || '把人物身份、臉部與姿態先固定下來，後面換穿搭與場景會更穩定。'}</p>
+          <p className="workspace-panel-copy">{activeSubpanel?.description || '把人物身份與特殊角色先固定下來，後面換神情、穿搭與場景會更穩定。'}</p>
         </div>
         {renderSectionRandomButton()}
       </div>
@@ -903,7 +942,30 @@ export default function Page1Workspace({
           目前為特寫模式，系統會自動收斂不必要欄位，保留與人物、主要服裝輪廓與構圖相關的設定，讓 prompt 更聚焦。
         </div>
       ) : null}
-      {renderControlGrid(filterControlsByKeys(characterLockControls, effectiveCharacterSubpanel?.keys || []))}
+      {renderControlGrid(filterControlsByKeys(characterLockControls, activeSubpanel?.keys || []))}
+    </div>
+  );
+
+  const renderPoseControls = () => (
+    <div className="control-section">
+      <div className="control-section-header">
+        <div>
+          <div className="control-section-title">Expression & Pose</div>
+          <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡整理神情眼神、姿勢動作與 Pose Composer。'}</p>
+        </div>
+        {renderSectionRandomButton()}
+      </div>
+      {isPoseComposerActive ? (
+        <div className="context-note">
+          Pose Composer 已接管姿勢輸出，基礎姿勢與非社群型特殊動作會暫時停用，避免同時出現兩套肢體指令。
+        </div>
+      ) : null}
+      {locks.subjectCount !== '1' && activeSubpanel?.id === 'composer' ? (
+        <div className="context-note">
+          Pose Composer 目前僅支援單人；雙人模式請使用基礎設置中的雙人姿態與互動。
+        </div>
+      ) : null}
+      {renderControlGrid(filterControlsByKeys(characterLockControls, activeSubpanel?.keys || []))}
     </div>
   );
 
@@ -940,6 +1002,7 @@ export default function Page1Workspace({
     if (activeSection === 'photography') return renderPhotographyControls();
     if (activeSection === 'scene') return renderSceneControls();
     if (activeSection === 'wardrobe') return renderWardrobeControls();
+    if (activeSection === 'pose') return renderPoseControls();
     return renderCharacterControls();
   };
 

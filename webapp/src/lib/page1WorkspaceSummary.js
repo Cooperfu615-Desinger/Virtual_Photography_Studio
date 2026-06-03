@@ -107,7 +107,7 @@ export function buildWorkspaceSummary(locks, controls) {
         getControlOptionLabel(controls, 'hairColorAId', locks.hairColorAId),
         getControlOptionLabel(controls, 'hairColorBId', locks.hairColorBId),
       ]);
-  const characterMeta = buildSummaryText([
+  const poseSummary = buildSummaryText([
     getControlOptionLabel(controls, 'expressionId', locks.expressionId),
     getControlOptionLabel(controls, 'expressionAId', locks.expressionAId),
     getControlOptionLabel(controls, 'expressionBId', locks.expressionBId),
@@ -115,6 +115,11 @@ export function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'poseId', locks.poseId),
     getControlOptionLabel(controls, 'specialActionId', locks.specialActionId),
     getControlOptionLabel(controls, 'duoInteractionId', locks.duoInteractionId),
+    getControlOptionLabel(controls, 'poseBaseId', locks.poseBaseId),
+    getControlOptionLabel(controls, 'poseArrangementId', locks.poseArrangementId),
+    getControlOptionLabel(controls, 'poseHandId', locks.poseHandId),
+    getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
+    getControlOptionLabel(controls, 'poseAnchorId', locks.poseAnchorId),
   ]);
   const wardrobeSummary = buildSummaryText([
     wardrobeLabel('specialOutfitId'),
@@ -123,6 +128,9 @@ export function buildWorkspaceSummary(locks, controls) {
     wardrobeLabel('outfitPresetId'),
     wardrobeLabel('outfitPresetAId'),
     wardrobeLabel('outfitPresetBId'),
+    wardrobeLabel('completeLookPaletteId'),
+    wardrobeLabel('completeLookPaletteAId'),
+    wardrobeLabel('completeLookPaletteBId'),
     wardrobeLabel('dressId'),
     wardrobeLabel('dressAId'),
     wardrobeLabel('dressBId'),
@@ -167,13 +175,13 @@ export function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'locationId', locks.locationId),
     getControlOptionLabel(controls, 'lightingId', locks.lightingId),
     getControlOptionLabel(controls, 'lightDirectionId', locks.lightDirectionId),
-    getControlOptionLabel(controls, 'aspectRatio', locks.aspectRatio),
   ]);
   const photographySummary = buildSummaryText([
-    getControlOptionLabel(controls, 'styleId', locks.styleId),
+    getControlOptionLabel(controls, 'aspectRatio', locks.aspectRatio),
     getControlOptionLabel(controls, 'framingId', locks.framingId),
     getControlOptionLabel(controls, 'angleId', locks.angleId),
     getControlOptionLabel(controls, 'orbitId', locks.orbitId),
+    getControlOptionLabel(controls, 'styleId', locks.styleId),
     getControlOptionLabel(controls, 'lensId', locks.lensId),
     getControlOptionLabel(controls, 'opticalEffectId', locks.opticalEffectId),
     getControlOptionLabel(controls, 'filmId', locks.filmId),
@@ -182,7 +190,11 @@ export function buildWorkspaceSummary(locks, controls) {
   return {
     character: {
       summary: characterSummary,
-      meta: characterMeta === '尚未形成明確選項' ? '' : characterMeta,
+      meta: '',
+    },
+    pose: {
+      summary: poseSummary,
+      meta: '',
     },
     wardrobe: {
       summary: wardrobeSummary,
@@ -224,6 +236,9 @@ export function buildWardrobeLayerInsights(locks, controls, isSpecialOutfitActiv
     selected('skirtBId'),
   ].filter(Boolean);
   const paletteLabels = [
+    selected('completeLookPaletteId'),
+    selected('completeLookPaletteAId'),
+    selected('completeLookPaletteBId'),
     selected('outfitPresetPrimaryColorId'),
     selected('outfitPresetContrastColorId'),
     selected('outfitPresetLockedPaletteId'),
@@ -284,6 +299,9 @@ export function buildWardrobeLayerInsights(locks, controls, isSpecialOutfitActiv
   }
   if (isAnyOutfitPresetActive && paletteLabels.length > 0) {
     notes.push('套裝/連身配色會套用在主體服裝上，不會強迫拆成獨立上身與下身版型。');
+  }
+  if (paletteLabels.some((label) => /黑白灰冷調|黑紅街頭|深藍丹寧|奶油米白|粉色甜酷|棕色復古|銀灰金屬|綠灰工裝|黃橘亮色/.test(label))) {
+    notes.push('完整造型色系只調整特殊穿搭、套裝/連身或連身裙的整體色彩方向，保留材質差異與配件分層。');
   }
   if (mainOutfitLabels.length === 0) {
     notes.push('先選整體穿搭或上下身單件後，這裡會顯示更明確的疊穿順序。');
