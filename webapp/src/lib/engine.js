@@ -823,6 +823,11 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'kneeling-all-fours', base: 'kneeling', zh: '四足跪姿', en: 'all-fours kneeling arrangement with hands and knees supporting the body' },
   { id: 'kneeling-one-knee', base: 'kneeling', zh: '單膝跪地', en: 'one-knee kneeling arrangement' },
   { id: 'kneeling-side', base: 'kneeling', zh: '跪姿側身', en: 'side-facing kneeling arrangement' },
+  { id: 'kneeling-upright-poised', base: 'kneeling', zh: '直立端正跪姿', en: 'upright poised kneeling arrangement, torso vertical with stable knee support' },
+  { id: 'kneeling-side-sit', base: 'kneeling', zh: '側坐跪姿', en: 'side-sitting kneeling arrangement, hips lowered beside the legs with a soft lateral body line' },
+  { id: 'kneeling-one-knee-forward', base: 'kneeling', zh: '單膝前跨跪姿', en: 'one-knee-forward kneeling arrangement, front knee bent with the other knee grounded' },
+  { id: 'kneeling-elbow-support', base: 'kneeling', zh: '手肘支撐跪姿', en: 'kneeling arrangement with elbows or forearms supporting the upper body on a nearby surface' },
+  { id: 'kneeling-back-arched', base: 'kneeling', zh: '跪姿微後仰', en: 'slightly backward-arched kneeling arrangement, torso leaning back with balanced knee support' },
   { id: 'squatting-natural', base: 'squatting', zh: '自然蹲姿', en: 'natural squatting arrangement' },
   { id: 'squatting-one-knee', base: 'squatting', zh: '單膝蹲姿', en: 'one-knee squatting arrangement' },
   { id: 'squatting-hands-knees', base: 'squatting', zh: '手扶膝蓋蹲姿', en: 'squatting arrangement with hands resting on the knees' },
@@ -841,6 +846,11 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'lying-prone', base: 'lying', zh: '趴臥', en: 'prone lying arrangement, body resting forward on the surface' },
   { id: 'lying-half-reclined', base: 'lying', zh: '半躺倚靠', en: 'half-reclined lying arrangement with the upper body softly supported' },
   { id: 'lying-languid', base: 'lying', zh: '隨性慵懶', en: 'casually languid lying arrangement, relaxed uneven limbs, soft body weight settled into the surface' },
+  { id: 'lying-side-knees-bent', base: 'lying', zh: '側躺屈膝', en: 'side-lying arrangement with both knees softly bent, compact curved body line' },
+  { id: 'lying-on-back-one-arm-overhead', base: 'lying', zh: '仰躺單手過頭', en: 'lying on the back with one arm extended overhead, relaxed elongated body line' },
+  { id: 'lying-prone-elbow-prop', base: 'lying', zh: '趴臥手肘撐起', en: 'prone lying arrangement with elbows propping up the upper body' },
+  { id: 'lying-diagonal-recline', base: 'lying', zh: '斜向半躺', en: 'diagonal reclining arrangement, body angled across the support surface with relaxed limbs' },
+  { id: 'lying-legs-bent-up', base: 'lying', zh: '躺姿雙腿屈起', en: 'lying arrangement with both legs bent upward, knees raised while the back stays supported' },
 ];
 const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
@@ -867,6 +877,11 @@ const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'one-hand-waist-one-down', zh: '一手扶腰一手自然放下', en: 'one hand on the waist, the other hand relaxed down along the body' },
   { id: 'one-hand-ground-one-leg', zh: '一手撐地一手放腿上', en: 'one hand supporting on the ground, the other hand resting on the leg' },
   { id: 'one-hand-knee-one-down', zh: '一手扶膝一手垂放', en: 'one hand holding the knee, the other hand hanging relaxed beside the body' },
+  { id: 'hands-clasped-front', zh: '雙手在身前交握', en: 'both hands clasped loosely in front of the body' },
+  { id: 'one-hand-shoulder', zh: '單手搭肩', en: 'one hand resting on the opposite shoulder, fingers visibly touching the shoulder line' },
+  { id: 'both-hands-overhead', zh: '雙手舉過頭頂', en: 'both hands raised overhead, arms extended naturally without stiff symmetry' },
+  { id: 'one-hand-ankle', zh: '單手扶腳踝', en: 'one hand holding the ankle, fingers visibly touching the ankle or shoe area' },
+  { id: 'hands-behind-head', zh: '雙手放在頭後', en: 'both hands placed behind the head, elbows angled outward naturally' },
 ];
 const POSE_COMPOSER_HEAD_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定頭部方向。', meta: { tags: ['none'] } },
@@ -880,6 +895,10 @@ const POSE_COMPOSER_HEAD_OPTIONS = [
   { id: 'head-turned-back-camera', zh: '回頭朝向鏡頭', en: 'head turned back toward the camera' },
   { id: 'head-looking-down-hands', zh: '低頭看向手部', en: 'head lowered toward the hands' },
   { id: 'head-near-shoulder', zh: '頭靠近肩膀', en: 'head angled close to one shoulder' },
+  { id: 'head-slightly-back', zh: '頭部微微後仰', en: 'head tilted slightly backward with the chin softly lifted' },
+  { id: 'head-down-three-quarter', zh: '低頭三分之四側臉', en: 'head lowered into a three-quarter side angle' },
+  { id: 'head-over-shoulder', zh: '越肩回望', en: 'head turned over one shoulder toward the camera' },
+  { id: 'head-away-profile', zh: '側臉看向遠方', en: 'head turned into a clean side profile looking away from the camera' },
 ];
 const POSE_COMPOSER_ANCHOR_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定接觸或支撐物。', meta: { tags: ['none'] } },
@@ -908,6 +927,8 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
   { id: 'kneeling-high-back-lean', base: 'kneeling', zh: '倚靠高背椅', en: 'leaning against a high-back chair' },
   { id: 'kneeling-hands-ground', base: 'kneeling', zh: '雙手支撐在地面', en: 'both hands supporting on the ground' },
   { id: 'kneeling-high-back-front', base: 'kneeling', zh: '跪在高背椅前', en: 'kneeling in front of a high-back chair' },
+  { id: 'kneeling-low-table-front', base: 'kneeling', zh: '跪在矮桌前', en: 'kneeling in front of a low table' },
+  { id: 'kneeling-bed-edge-lean', base: 'kneeling', zh: '跪在床邊倚靠', en: 'kneeling beside the edge of a bed with the upper body lightly supported' },
   { id: 'squatting-ground', base: 'squatting', zh: '蹲在地面', en: 'squatting on the ground' },
   { id: 'squatting-wall', base: 'squatting', zh: '蹲在牆邊', en: 'squatting beside a wall' },
   { id: 'squatting-chair-front', base: 'squatting', zh: '蹲在椅子前', en: 'squatting in front of a chair' },
@@ -915,6 +936,11 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
   { id: 'squatting-railing', base: 'squatting', zh: '蹲在欄杆旁', en: 'squatting beside a railing' },
   { id: 'squatting-vending-machine', base: 'squatting', zh: '蹲在自動販賣機旁', en: 'squatting beside a vending machine' },
   { id: 'squatting-column', base: 'squatting', zh: '蹲在柱子旁', en: 'squatting beside a column' },
+  { id: 'lying-bed', base: 'lying', zh: '躺在床上', en: 'lying on a bed' },
+  { id: 'lying-sofa', base: 'lying', zh: '躺在沙發上', en: 'lying on a sofa' },
+  { id: 'lying-floor', base: 'lying', zh: '躺在地板', en: 'lying on the floor' },
+  { id: 'lying-rug', base: 'lying', zh: '躺在地毯上', en: 'lying on a rug' },
+  { id: 'lying-bed-edge', base: 'lying', zh: '半躺在床邊', en: 'reclining along the edge of a bed' },
   {
     id: 'shared-bathtub',
     bases: ['standing', 'sitting', 'squatting', 'lying'],

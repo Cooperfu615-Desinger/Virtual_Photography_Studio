@@ -34,6 +34,13 @@ function assertHeadOption(zh, expectedEnglish) {
   assert.match(option.en, expectedEnglish);
 }
 
+function assertAnchorOption(zh, base, expectedEnglish) {
+  const option = control('poseAnchorId').options.find((entry) => entry.zh === zh);
+  assert.ok(option, `Expected anchor option ${zh}`);
+  assert.equal(option.base, base);
+  assert.match(option.en, expectedEnglish);
+}
+
 test('pose composer controls expose base arrangement hand and anchor options', () => {
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '站姿'));
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '躺姿'));
@@ -96,6 +103,27 @@ test('pose composer exposes expressive hand interaction batch', () => {
   assertHandOption('單手撩髮', /near the temple or ear/);
 });
 
+test('pose composer exposes expanded hand and head direction batch', () => {
+  [
+    ['雙手在身前交握', /both hands clasped loosely in front of the body/],
+    ['單手搭肩', /one hand resting on the opposite shoulder/],
+    ['雙手舉過頭頂', /both hands raised overhead/],
+    ['單手扶腳踝', /one hand holding the ankle/],
+    ['雙手放在頭後', /both hands placed behind the head/],
+  ].forEach(([zh, expectedEnglish]) => {
+    assertHandOption(zh, expectedEnglish);
+  });
+
+  [
+    ['頭部微微後仰', /head tilted slightly backward/],
+    ['低頭三分之四側臉', /three-quarter side angle/],
+    ['越肩回望', /head turned over one shoulder/],
+    ['側臉看向遠方', /clean side profile looking away/],
+  ].forEach(([zh, expectedEnglish]) => {
+    assertHeadOption(zh, expectedEnglish);
+  });
+});
+
 test('expressive hand interactions are preserved in all prompt versions', () => {
   const cases = [
     ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],
@@ -142,6 +170,35 @@ test('pose composer exposes new standing sitting and squatting arrangement batch
   });
 });
 
+test('pose composer exposes kneeling and lying expansion batch', () => {
+  [
+    ['直立端正跪姿', 'kneeling', /upright poised kneeling arrangement/],
+    ['側坐跪姿', 'kneeling', /side-sitting kneeling arrangement/],
+    ['單膝前跨跪姿', 'kneeling', /one-knee-forward kneeling arrangement/],
+    ['手肘支撐跪姿', 'kneeling', /forearms supporting the upper body/],
+    ['跪姿微後仰', 'kneeling', /slightly backward-arched kneeling arrangement/],
+    ['側躺屈膝', 'lying', /side-lying arrangement with both knees softly bent/],
+    ['仰躺單手過頭', 'lying', /one arm extended overhead/],
+    ['趴臥手肘撐起', 'lying', /elbows propping up the upper body/],
+    ['斜向半躺', 'lying', /diagonal reclining arrangement/],
+    ['躺姿雙腿屈起', 'lying', /both legs bent upward/],
+  ].forEach(([zh, base, expectedEnglish]) => {
+    assertArrangementOption(zh, base, expectedEnglish);
+  });
+
+  [
+    ['跪在矮桌前', 'kneeling', /kneeling in front of a low table/],
+    ['跪在床邊倚靠', 'kneeling', /edge of a bed/],
+    ['躺在床上', 'lying', /lying on a bed/],
+    ['躺在沙發上', 'lying', /lying on a sofa/],
+    ['躺在地板', 'lying', /lying on the floor/],
+    ['躺在地毯上', 'lying', /lying on a rug/],
+    ['半躺在床邊', 'lying', /edge of a bed/],
+  ].forEach(([zh, base, expectedEnglish]) => {
+    assertAnchorOption(zh, base, expectedEnglish);
+  });
+});
+
 test('new arrangement batch is preserved in all prompt versions', () => {
   const cases = [
     ['站姿', '交叉腿站姿', /crossed-leg standing arrangement/],
@@ -162,6 +219,54 @@ test('new arrangement batch is preserved in all prompt versions', () => {
 
     for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       assert.match(text, expected);
+    }
+  }
+});
+
+test('kneeling and lying expansion batch is preserved in all prompt versions', () => {
+  const cases = [
+    {
+      baseZh: '跪姿',
+      arrangementZh: '側坐跪姿',
+      handZh: '雙手在身前交握',
+      anchorZh: '跪在矮桌前',
+      headZh: '低頭三分之四側臉',
+      expected: [
+        /kneeling in front of a low table/,
+        /side-sitting kneeling arrangement/,
+        /both hands clasped loosely in front of the body/,
+        /head lowered into a three-quarter side angle/,
+      ],
+    },
+    {
+      baseZh: '躺姿',
+      arrangementZh: '趴臥手肘撐起',
+      handZh: '單手扶腳踝',
+      anchorZh: '躺在床上',
+      headZh: '越肩回望',
+      expected: [
+        /lying on a bed/,
+        /prone lying arrangement with elbows propping up/,
+        /one hand holding the ankle/,
+        /head turned over one shoulder toward the camera/,
+      ],
+    },
+  ];
+
+  for (const { baseZh, arrangementZh, handZh, anchorZh, headZh, expected } of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      poseBaseId: optionId('poseBaseId', baseZh),
+      poseArrangementId: optionId('poseArrangementId', arrangementZh),
+      poseHandId: optionId('poseHandId', handZh),
+      poseAnchorId: optionId('poseAnchorId', anchorZh),
+      poseHeadId: optionId('poseHeadId', headZh),
+    });
+
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      expected.forEach((pattern) => assert.match(text, pattern));
     }
   }
 });
