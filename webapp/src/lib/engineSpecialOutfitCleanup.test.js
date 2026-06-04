@@ -110,6 +110,26 @@ test('special outfit prompts avoid unstable negative phrasing', () => {
   }
 });
 
+test('recent special outfit refinements preserve requested garment details', () => {
+  const expectedFragmentsByLabel = {
+    螢光綠熱帶襯衫短褲運動鞋造型: ['intentionally oversized lime-green short-sleeve camp shirt'],
+    白橘圖案襯衫工裝寬褲帆布鞋造型: ['randomly overlapped seashell and conch motif print', 'neon orange dyed-texture cargo trousers'],
+    灰色圖案衛衣紅傘裙高跟鞋造型: ['cute stylized poodle applique', 'stiff structured pleated red midi skirt'],
+    粉色花朵抹胸洋裝草帽拖鞋造型: ['one large central rosette and two smaller side rosettes', 'single-panel waistless cut'],
+    格紋襯衫短褲條紋襪球鞋造型: ['bottom three buttons intentionally left undone'],
+    藍白條紋寬襯衫白短裙球鞋造型: ['bottom three buttons intentionally left undone'],
+    酒紅圖像T黑寬牛仔工裝靴造型: ['slightly cropped length revealing a small midriff gap'],
+    紅色短T低腰寬牛仔耳機造型: ['black rectangular sunglasses clipped onto the cap brim'],
+  };
+
+  for (const [label, fragments] of Object.entries(expectedFragmentsByLabel)) {
+    const option = optionByLabel('specialOutfitId', label);
+    for (const fragment of fragments) {
+      assert.match(option.en, new RegExp(fragment, 'i'), `${label} should include "${fragment}"`);
+    }
+  }
+});
+
 test('selected special outfit stays the complete wardrobe priority', () => {
   const specialOutfit = optionByLabel('specialOutfitId', '黑色波點頭巾透紗套裝');
   const [prompt] = generatePrompts(1, {
