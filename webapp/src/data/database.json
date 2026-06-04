@@ -1213,6 +1213,114 @@
           "referenceImage": "reference/wardrobe/outfit-presets/26_歌德針織短裙.png",
           "referenceImageFormat": "png"
         }
+      },
+      {
+        "zh": "豹紋蕾絲抹胸喇叭牛仔",
+        "en": "leopard-pattern strapless corset top, lace bust cups, long front ribbon ties, low-rise flared jeans, platform sandals, dominant fabric color controlled by the outfit color selection",
+        "desc": "以豹紋抹胸馬甲、蕾絲胸杯、長垂帶、低腰喇叭牛仔褲與厚底涼鞋為核心的性感套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/27_豹紋蕾絲抹胸喇叭牛仔.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "網紗掛脖背心牛仔迷你裙",
+        "en": "sheer mesh halter camisole, visible lace bra layer, denim micro mini skirt, stacked waist jewelry, platform sandals, dominant fabric color controlled by the outfit color selection",
+        "desc": "以透視網紗掛脖背心、內層蕾絲胸衣、牛仔超短迷你裙、腰部飾鍊與厚底涼鞋為核心的套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/28_網紗掛脖牛仔迷你裙.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "天使翅膀三角比基尼",
+        "en": "triangle bikini costume set, feather angel wings, layered body chains, matching string bikini bottoms, platform sandals, dominant swim fabric color controlled by the outfit color selection",
+        "desc": "以三角比基尼、羽毛天使翅膀、身體鏈、細繩下身與厚底涼鞋構成的舞台感比基尼套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/29_天使翅膀比基尼.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "透視背心漆皮短褲長靴",
+        "en": "sheer-panel fitted tank top, glossy micro shorts, sheer side sash, knee-high leather boots, dominant fabric color controlled by the outfit color selection",
+        "desc": "以貼身透視拼片背心、亮面超短褲、側邊垂墜薄紗片與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/30_透視背心漆皮短褲長靴.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "馬甲吊帶喇叭褲",
+        "en": "button-front corset camisole, lingerie-trim neckline, low-rise slim flared trousers, open-toe heeled sandals, dominant fabric color controlled by the outfit color selection",
+        "desc": "以排扣馬甲吊帶、內衣式蕾絲領口、低腰貼身喇叭褲與露趾高跟涼鞋為核心的套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/31_馬甲吊帶喇叭褲.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "豹紋荷葉吊帶漆皮短褲",
+        "en": "leopard-pattern ruffled camisole, draped handkerchief hem, glossy micro shorts, knee-high open-toe boots, dominant fabric color controlled by the outfit color selection",
+        "desc": "以豹紋荷葉吊帶上衣、垂墜手帕式衣襬、亮面超短褲與膝上露趾靴為核心的套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/32_豹紋荷葉吊帶漆皮短褲.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "拼接掛脖長背心漆皮短褲",
+        "en": "patchwork halter scarf top, long pointed drape, glossy micro shorts, lace-up ankle boots, dominant fabric color controlled by the outfit color selection",
+        "desc": "以拼接印花掛脖長背心、尖角垂墜衣襬、亮面超短褲與綁帶短靴為核心的套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/33_拼接掛脖漆皮短褲.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "金屬三角比基尼",
+        "en": "metallic triangle bikini set, slim halter straps, side-tie bikini bottoms, layered body chains, platform sandals, dominant metallic fabric color controlled by the outfit color selection",
+        "desc": "以金屬感三角比基尼、細掛脖帶、側綁下身、身體鏈與厚底涼鞋為核心的比基尼套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/34_金屬三角比基尼.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "單肩短上衣印花圍裙短裙",
+        "en": "one-shoulder cropped top, printed scarf-wrap mini skirt, asymmetric hip drape, lace-up heeled boots, dominant fabric color controlled by the outfit color selection",
+        "desc": "以單肩短版上衣、印花圍裹迷你裙、不對稱臀側垂布與綁帶高跟短靴為核心的套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/35_單肩短上衣印花圍裙短裙.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "垂墜背心腰鏈短裙",
+        "en": "draped sleeveless top, asymmetric wrap mini skirt, chain belt layers, studded waist detail, heeled sandals, dominant fabric color controlled by the outfit color selection",
+        "desc": "以垂墜無袖上衣、不對稱圍裹短裙、多層腰鏈、鉚釘腰部細節與高跟涼鞋為核心的套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/36_垂墜背心腰鏈短裙.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "皮革掛脖背心短褲長靴",
+        "en": "zip-front leather halter vest, low-rise leather shorts, dangling side straps, knee-high leather boots, dominant leather color controlled by the outfit color selection",
+        "desc": "以拉鍊皮革掛脖背心、低腰皮革短褲、側邊垂帶與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/37_皮革掛脖短褲長靴.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "斑馬紋馬甲短褲長靴",
+        "en": "zebra-pattern corset tank, zip-front center panel, glossy micro shorts, knee-high leather boots, dominant fabric color controlled by the outfit color selection",
+        "desc": "以斑馬紋馬甲背心、中線拉鍊拼片、亮面超短褲與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/38_斑馬紋馬甲短褲長靴.png",
+          "referenceImageFormat": "png"
+        }
       }
     ],
     "上身 (Tops)": [

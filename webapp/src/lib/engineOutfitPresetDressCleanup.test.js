@@ -43,6 +43,107 @@ test('outfit presets expose themed options and remove abstract style presets', (
   });
 });
 
+test('reference outfit presets 27 to 38 preserve complete styling anchors and image metadata', () => {
+  [
+    [
+      '套裝：豹紋蕾絲抹胸喇叭牛仔',
+      /leopard-pattern strapless corset top/i,
+      /lace bust cups/i,
+      /low-rise flared jeans/i,
+      'reference/wardrobe/outfit-presets/27_豹紋蕾絲抹胸喇叭牛仔.png',
+    ],
+    [
+      '套裝：網紗掛脖背心牛仔迷你裙',
+      /sheer mesh halter camisole/i,
+      /denim micro mini skirt/i,
+      /platform sandals/i,
+      'reference/wardrobe/outfit-presets/28_網紗掛脖牛仔迷你裙.png',
+    ],
+    [
+      '套裝：天使翅膀三角比基尼',
+      /triangle bikini costume set/i,
+      /feather angel wings/i,
+      /layered body chains/i,
+      'reference/wardrobe/outfit-presets/29_天使翅膀比基尼.png',
+    ],
+    [
+      '套裝：透視背心漆皮短褲長靴',
+      /sheer-panel fitted tank top/i,
+      /glossy micro shorts/i,
+      /knee-high leather boots/i,
+      'reference/wardrobe/outfit-presets/30_透視背心漆皮短褲長靴.png',
+    ],
+    [
+      '套裝：馬甲吊帶喇叭褲',
+      /button-front corset camisole/i,
+      /slim flared trousers/i,
+      /lingerie-trim neckline/i,
+      'reference/wardrobe/outfit-presets/31_馬甲吊帶喇叭褲.png',
+    ],
+    [
+      '套裝：豹紋荷葉吊帶漆皮短褲',
+      /leopard-pattern ruffled camisole/i,
+      /glossy micro shorts/i,
+      /knee-high open-toe boots/i,
+      'reference/wardrobe/outfit-presets/32_豹紋荷葉吊帶漆皮短褲.png',
+    ],
+    [
+      '套裝：拼接掛脖長背心漆皮短褲',
+      /patchwork halter scarf top/i,
+      /glossy micro shorts/i,
+      /lace-up ankle boots/i,
+      'reference/wardrobe/outfit-presets/33_拼接掛脖漆皮短褲.png',
+    ],
+    [
+      '套裝：金屬三角比基尼',
+      /metallic triangle bikini set/i,
+      /side-tie bikini bottoms/i,
+      /layered body chains/i,
+      'reference/wardrobe/outfit-presets/34_金屬三角比基尼.png',
+    ],
+    [
+      '套裝：單肩短上衣印花圍裙短裙',
+      /one-shoulder cropped top/i,
+      /printed scarf-wrap mini skirt/i,
+      /lace-up heeled boots/i,
+      'reference/wardrobe/outfit-presets/35_單肩短上衣印花圍裙短裙.png',
+    ],
+    [
+      '套裝：垂墜背心腰鏈短裙',
+      /draped sleeveless top/i,
+      /asymmetric wrap mini skirt/i,
+      /chain belt/i,
+      'reference/wardrobe/outfit-presets/36_垂墜背心腰鏈短裙.png',
+    ],
+    [
+      '套裝：皮革掛脖背心短褲長靴',
+      /zip-front leather halter vest/i,
+      /low-rise leather shorts/i,
+      /knee-high leather boots/i,
+      'reference/wardrobe/outfit-presets/37_皮革掛脖短褲長靴.png',
+    ],
+    [
+      '套裝：斑馬紋馬甲短褲長靴',
+      /zebra-pattern corset tank/i,
+      /glossy micro shorts/i,
+      /knee-high leather boots/i,
+      'reference/wardrobe/outfit-presets/38_斑馬紋馬甲短褲長靴.png',
+    ],
+  ].forEach(([label, ...expectations]) => {
+    const referenceImage = expectations.pop();
+    const option = optionByLabel('outfitPresetId', label);
+    const text = [option.en, option.desc].join(' ');
+
+    expectations.forEach((pattern) => {
+      assert.match(text, pattern);
+    });
+
+    assert.match(text, /controlled by the outfit color selection/i);
+    assert.equal(option.meta.referenceImage, referenceImage);
+    assert.equal(option.meta.referenceImageFormat, 'png');
+  });
+});
+
 test('dress controls expose short and long one-piece silhouettes only', () => {
   assert.deepEqual(
     optionLabels('dressId'),
