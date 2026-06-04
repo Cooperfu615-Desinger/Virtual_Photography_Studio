@@ -55,6 +55,16 @@ const EXPECTED_SPECIAL_OUTFITS = [
   '米白高領荷葉背心短裙涼鞋造型',
   '白色透紗綁帶洋裝長襪軍靴造型',
   '奶白透膚襯衫腰帶層裙短靴造型',
+  '螢光綠熱帶襯衫短褲運動鞋造型',
+  '白橘圖案襯衫工裝寬褲帆布鞋造型',
+  '灰色圖案衛衣紅傘裙高跟鞋造型',
+  '黑透膚連帽流蘇短褲綁帶鞋造型',
+  '粉色花朵抹胸洋裝草帽拖鞋造型',
+  '格紋襯衫短褲條紋襪球鞋造型',
+  '藍白條紋寬襯衫白短裙球鞋造型',
+  '酒紅圖像T黑寬牛仔工裝靴造型',
+  '紅色短T低腰寬牛仔耳機造型',
+  '黃色圖像短T格紋喇叭褲分趾鞋造型',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
@@ -68,7 +78,7 @@ const optionByLabel = (key, label) => {
 
 const wordCount = (text) => text.trim().split(/\s+/).filter(Boolean).length;
 
-test('special outfit controls expose exactly the approved 51 complete looks', () => {
+test('special outfit controls expose exactly the approved 61 complete looks', () => {
   assert.deepEqual(nonNoneSpecialOutfits().map((option) => option.zh), EXPECTED_SPECIAL_OUTFITS);
 });
 

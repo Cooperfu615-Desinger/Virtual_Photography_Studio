@@ -382,7 +382,10 @@ test('special outfit controls expose approved complete looks and remove stale ex
   assert.ok(optionLabels.includes('米白高領荷葉背心短裙涼鞋造型'));
   assert.ok(optionLabels.includes('白色透紗綁帶洋裝長襪軍靴造型'));
   assert.ok(optionLabels.includes('奶白透膚襯衫腰帶層裙短靴造型'));
-  assert.equal(optionLabels.filter((label) => label !== '全無').length, 51);
+  assert.ok(optionLabels.includes('螢光綠熱帶襯衫短褲運動鞋造型'));
+  assert.ok(optionLabels.includes('粉色花朵抹胸洋裝草帽拖鞋造型'));
+  assert.ok(optionLabels.includes('黃色圖像短T格紋喇叭褲分趾鞋造型'));
+  assert.equal(optionLabels.filter((label) => label !== '全無').length, 61);
   assert.ok(!optionLabels.includes('拼布絨呢外套塗鴉奶白工裝褲'));
   assert.ok(!optionLabels.includes('黑色鉚釘兜帽皮革迷你裙造型'));
 });
