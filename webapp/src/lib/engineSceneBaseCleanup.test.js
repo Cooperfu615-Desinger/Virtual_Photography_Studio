@@ -20,9 +20,10 @@ const wordCount = (text) => text.split(/\s+/).filter(Boolean).length;
 test('scene base keeps indoor outdoor and other location options intact', () => {
   const labels = locationOptions().map((option) => option.zh);
 
-  assert.equal(labels.length, 143);
+  assert.equal(labels.length, 144);
   assert.ok(labels.includes('室內：純潔白幕'));
   assert.ok(labels.includes('戶外：目黑川旁的櫻花隧道'));
+  assert.ok(labels.includes('戶外：奧地利 Hallstatt 湖畔山村觀景欄杆'));
   assert.ok(labels.includes('其他：白色床鋪'));
 });
 
@@ -64,6 +65,12 @@ test('outdoor scene bases avoid symmetric avenue and centered corridor wording',
   const meguro = optionByLabel('戶外：目黑川旁的櫻花隧道');
   assert.match(meguro.en, /asymmetric riverside composition/);
   assert.doesNotMatch(meguro.en, /avoid symmetrical|central road/i);
+
+  const hallstatt = optionByLabel('戶外：奧地利 Hallstatt 湖畔山村觀景欄杆');
+  assert.match(hallstatt.en, /metal railing foreground/);
+  assert.match(hallstatt.en, /church spire/);
+  assert.match(hallstatt.en, /steep mountain backdrop/);
+  assert.match(hallstatt.en, /asymmetric travel-portrait composition/);
 });
 
 test('other dedicated scenes read as close scene bases instead of full environments', () => {
@@ -85,9 +92,15 @@ test('generated prompts use stabilized scene base wording', () => {
     ...createEmptyLocks(),
     locationId: optionId('戶外：目黑川旁的櫻花隧道'),
   });
+  const [hallstattPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    locationId: optionId('戶外：奧地利 Hallstatt 湖畔山村觀景欄杆'),
+  });
 
   assert.match(studioPrompt.grokPrompt, /continuous vivid blue ground-and-background plane/);
   assert.match(studioPrompt.zImagePrompt, /no backdrop stand/);
   assert.match(meguroPrompt.grokPrompt, /asymmetric riverside composition/);
   assert.doesNotMatch(meguroPrompt.zImagePrompt, /avoid symmetrical|central road/i);
+  assert.match(hallstattPrompt.grokPrompt, /Hallstatt lakeside village overlook/);
+  assert.match(hallstattPrompt.zImagePrompt, /church spire and steep mountain backdrop/);
 });
