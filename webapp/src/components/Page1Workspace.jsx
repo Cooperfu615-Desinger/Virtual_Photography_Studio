@@ -24,6 +24,9 @@ const WARDROBE_PICKER_KEYS = new Set([
   'outfitPresetId',
   'outfitPresetAId',
   'outfitPresetBId',
+  'dressId',
+  'dressAId',
+  'dressBId',
   'outfitPresetPrimaryColorId',
   'outfitPresetContrastColorId',
   'outfitPresetLockedPaletteId',
@@ -52,6 +55,18 @@ const WARDROBE_PICKER_KEYS = new Set([
   'shoesAColorId',
   'shoesBColorId',
 ]);
+
+const WARDROBE_IMAGE_ONLY_PICKER_KEYS = new Set([
+  'outfitPresetId',
+  'outfitPresetAId',
+  'outfitPresetBId',
+  'dressId',
+  'dressAId',
+  'dressBId',
+]);
+
+const WARDROBE_OUTFIT_PICKER_KEYS = new Set(['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId']);
+const WARDROBE_DRESS_PICKER_KEYS = new Set(['dressId', 'dressAId', 'dressBId']);
 
 const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'];
 const POSE_COMPOSER_CONTEXT_KEYS = new Set(['poseArrangementId', 'poseAnchorId']);
@@ -227,7 +242,7 @@ const SECTION_SUBPANELS = {
     {
       id: 'colors',
       label: '造型配色',
-      description: '把特殊穿搭、套裝/連身與上下身單件的配色和圖案集中處理；完整造型色系只作用在完整造型上。',
+      description: '把特殊穿搭、套裝或連身與上下身單件的配色和圖案集中處理；完整造型色系只作用在完整造型上。',
       keys: [
         'completeLookPaletteId',
         'completeLookPaletteAId',
@@ -430,6 +445,14 @@ function getReferenceImageUrl(option) {
   return `${import.meta.env.BASE_URL}${referenceImage}`;
 }
 
+function isWardrobeImagePickerOption(option, control) {
+  const label = option?.zh || '';
+  if (!getReferenceImageUrl(option)) return false;
+  if (WARDROBE_OUTFIT_PICKER_KEYS.has(control.key)) return label.startsWith('套裝：');
+  if (WARDROBE_DRESS_PICKER_KEYS.has(control.key)) return label.startsWith('連身：');
+  return true;
+}
+
 function WardrobePickerField({ control, value, disabled, onOpen, onChange, onCopy }) {
   const selectedOption = findControlOption(control, value);
   const selectedLabel = selectedOption?.zh || '隨機';
@@ -480,12 +503,17 @@ function WardrobePickerField({ control, value, disabled, onOpen, onChange, onCop
 function WardrobePickerModal({ control, value, query, onQueryChange, onClose, onSelect }) {
   const selectedOption = findControlOption(control, value);
   const normalizedQuery = query.trim().toLowerCase();
-  const visibleOptions = control.options.filter((option) => {
+  const imageOnly = WARDROBE_IMAGE_ONLY_PICKER_KEYS.has(control.key);
+  const baseOptions = imageOnly ? control.options.filter((option) => isWardrobeImagePickerOption(option, control)) : control.options;
+  const visibleOptions = baseOptions.filter((option) => {
     if (!normalizedQuery) return true;
     return `${option.zh} ${option.en || ''}`.toLowerCase().includes(normalizedQuery);
   });
   const hasReferenceImageOptions = visibleOptions.some((option) => getReferenceImageUrl(option));
-  const categories = Array.from(new Set(control.options.map((option) => getOptionCategory(option, control))));
+  const categories = Array.from(new Set(baseOptions.map((option) => getOptionCategory(option, control))));
+  const searchPlaceholder = imageOnly
+    ? `搜尋${control.label}預覽圖或 prompt 關鍵字`
+    : '搜尋套裝、連身、配色或 prompt 關鍵字';
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -503,7 +531,7 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
             className="text-input wardrobe-picker-search"
             value={query}
             onChange={(event) => onQueryChange(event.target.value)}
-            placeholder="搜尋套裝、連身、配色或 prompt 關鍵字"
+            placeholder={searchPlaceholder}
             autoFocus
           />
         </div>
@@ -980,7 +1008,7 @@ export default function Page1Workspace({
       </div>
       {isOutfitPresetActive ? (
         <div className="context-note">
-          套裝/連身已接管主要服裝輪廓，和它重疊的上身、下身單件欄位會自動停用，避免 prompt 互相打架。
+          套裝或連身已接管主要服裝輪廓，和它重疊的上身、下身單件欄位會自動停用，避免 prompt 互相打架。
         </div>
       ) : null}
       {isSpecialOutfitActive ? (
