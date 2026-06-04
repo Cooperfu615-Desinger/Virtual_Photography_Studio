@@ -59,10 +59,60 @@ test('dress controls expose short and long one-piece silhouettes only', () => {
       '連身：長版｜細肩帶緞面長洋裝',
       '連身：長版｜波希米亞罩衫洋裝',
       '連身：長版｜針織長洋裝',
+      '連身：短版｜蝴蝶結抹胸百褶迷你洋裝',
+      '連身：長版｜細肩帶斜荷葉長洋裝',
+      '連身：短版｜單肩披袖亮片迷你洋裝',
+      '連身：短版｜格紋吊帶荷葉迷你洋裝',
+      '連身：短版｜緞面細肩帶迷你洋裝',
     ]
   );
 
   assert.ok(!optionLabels('dressId').includes('連身：雛菊背心丹寧吊帶短褲造型'));
+});
+
+test('reference dress entries describe garments without accessory or shoe details', () => {
+  [
+    [
+      '連身：短版｜蝴蝶結抹胸百褶迷你洋裝',
+      /strapless plaid mini dress/i,
+      /oversized front bow/i,
+      /tiered pleated micro skirt/i,
+    ],
+    [
+      '連身：長版｜細肩帶斜荷葉長洋裝',
+      /spaghetti-strap jacquard maxi dress/i,
+      /subtle jacquard dot texture/i,
+      /diagonal ruffle hem/i,
+    ],
+    [
+      '連身：短版｜單肩披袖亮片迷你洋裝',
+      /one-shoulder sequined mini dress/i,
+      /draped cape sleeve/i,
+      /shimmering torso panel/i,
+    ],
+    [
+      '連身：短版｜格紋吊帶荷葉迷你洋裝',
+      /plaid spaghetti-strap mini dress/i,
+      /ruched bust panel/i,
+      /waterfall ruffle panels/i,
+    ],
+    [
+      '連身：短版｜緞面細肩帶迷你洋裝',
+      /satin spaghetti-strap mini dress/i,
+      /inner lace bra detail/i,
+      /ruched satin torso/i,
+    ],
+  ].forEach(([label, ...patterns]) => {
+    const option = optionByLabel('dressId', label);
+    const text = [option.en, option.desc].join(' ');
+
+    patterns.forEach((pattern) => {
+      assert.match(text, pattern);
+    });
+
+    assert.doesNotMatch(text, /sandals|shoes|bag|bracelet|necklace|choker|cuff|earrings|bracelets|手環|項鍊|鞋|包|耳環/i);
+    assert.match(text, /controlled by dress color selection/i);
+  });
 });
 
 test('cleaned outfit and dress prompts avoid fixed color wording', () => {

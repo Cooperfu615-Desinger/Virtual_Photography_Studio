@@ -1679,6 +1679,51 @@
           "referenceImage": "reference/wardrobe/dresses/37_針織長洋裝.png",
           "referenceImageFormat": "png"
         }
+      },
+      {
+        "zh": "短版｜蝴蝶結抹胸百褶迷你洋裝",
+        "en": "strapless plaid mini dress, one-piece fitted bodice, oversized front bow with long hanging ribbons, tiered pleated micro skirt, main fabric color controlled by dress color selection",
+        "desc": "短版抹胸格紋迷你洋裝，胸前大型蝴蝶結與長垂帶清楚，搭配分層百褶短裙，顏色由連身配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/38_蝴蝶結抹胸百褶.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "長版｜細肩帶斜荷葉長洋裝",
+        "en": "spaghetti-strap jacquard maxi dress, one-piece flowing silhouette, subtle jacquard dot texture, diagonal draped waist panel, diagonal ruffle hem, main fabric color controlled by dress color selection",
+        "desc": "長版細肩帶緹花洋裝，帶細緻點狀肌理、斜向腰身垂墜片與斜向荷葉裙襬，顏色由連身配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/39_細肩帶斜荷葉長洋裝.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "短版｜單肩披袖亮片迷你洋裝",
+        "en": "one-shoulder sequined mini dress, one-piece asymmetric silhouette, draped cape sleeve, shimmering torso panel, low-slung hip wrap detail, main fabric color controlled by dress color selection",
+        "desc": "短版單肩亮片迷你洋裝，非對稱肩線、披垂斗篷袖、閃亮胸身面板與低腰環繞細節明確，顏色由連身配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/40_單肩披袖亮片.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "短版｜格紋吊帶荷葉迷你洋裝",
+        "en": "plaid spaghetti-strap mini dress, one-piece babydoll silhouette, ruched bust panel, layered waterfall ruffle panels, main fabric color controlled by dress color selection",
+        "desc": "短版格紋細肩帶迷你洋裝，娃娃裝輪廓、抓皺胸片與前身瀑布式層疊荷葉片清楚，顏色由連身配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/41_格紋吊帶荷葉.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "短版｜緞面細肩帶迷你洋裝",
+        "en": "satin spaghetti-strap mini dress, one-piece body-skimming silhouette, inner lace bra detail at neckline, ruched satin torso, short draped hem, main satin color controlled by dress color selection",
+        "desc": "短版緞面細肩帶迷你洋裝，領口內層蕾絲胸衣細節、抓皺緞面胸身與短版垂墜裙襬明確，顏色由連身配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/42_緞面細肩帶迷你洋裝.png",
+          "referenceImageFormat": "png"
+        }
       }
     ],
     "褲裝 (Pants)": [
