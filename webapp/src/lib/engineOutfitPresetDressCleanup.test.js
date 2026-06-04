@@ -59,7 +59,7 @@ test('dress controls expose short and long one-piece silhouettes only', () => {
       '連身：長版｜細肩帶緞面長洋裝',
       '連身：長版｜波希米亞罩衫洋裝',
       '連身：長版｜針織長洋裝',
-      '連身：短版｜蝴蝶結抹胸百褶迷你洋裝',
+      '連身：短版｜蝴蝶結抹胸迷你洋裝',
       '連身：長版｜細肩帶斜荷葉長洋裝',
       '連身：短版｜單肩披袖亮片迷你洋裝',
       '連身：短版｜格紋吊帶荷葉迷你洋裝',
@@ -73,15 +73,16 @@ test('dress controls expose short and long one-piece silhouettes only', () => {
 test('reference dress entries describe garments without accessory or shoe details', () => {
   [
     [
-      '連身：短版｜蝴蝶結抹胸百褶迷你洋裝',
-      /strapless plaid mini dress/i,
+      '連身：短版｜蝴蝶結抹胸迷你洋裝',
+      /soft silk strapless mini dress/i,
+      /tight cropped bodice ending above waistline/i,
       /oversized front bow/i,
-      /tiered pleated micro skirt/i,
+      /ultra-short mini skirt/i,
     ],
     [
       '連身：長版｜細肩帶斜荷葉長洋裝',
-      /spaghetti-strap jacquard maxi dress/i,
-      /subtle jacquard dot texture/i,
+      /sheer tulle spaghetti-strap maxi dress/i,
+      /soft vertical drape/i,
       /diagonal ruffle hem/i,
     ],
     [
