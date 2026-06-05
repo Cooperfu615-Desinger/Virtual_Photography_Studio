@@ -154,7 +154,7 @@ test('sporty ringer tee hot-pants outfit preserves key garment and accessory anc
   assert.match(text, /low-rise dolphin micro shorts/i);
   assert.match(text, /front drawstring and side lace-up grommet detail/i);
   assert.match(text, /knee-high athletic socks/i);
-  assert.match(text, /translucent metallic shoulder bag/i);
+  assert.doesNotMatch(text, /shoulder bag|handbag/i);
   assert.match(text, /controlled by the outfit color selection/i);
 
   const [prompt] = generatePrompts(1, {
