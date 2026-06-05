@@ -448,9 +448,9 @@ function getReferenceImageUrl(option) {
 function isWardrobeImagePickerOption(option, control) {
   const label = option?.zh || '';
   if (option?.zh === '全無' || option?.id === 'none') return true;
-  if (!getReferenceImageUrl(option)) return false;
   if (WARDROBE_OUTFIT_PICKER_KEYS.has(control.key)) return label.startsWith('套裝：');
   if (WARDROBE_DRESS_PICKER_KEYS.has(control.key)) return label.startsWith('連身：');
+  if (!getReferenceImageUrl(option)) return false;
   return true;
 }
 
