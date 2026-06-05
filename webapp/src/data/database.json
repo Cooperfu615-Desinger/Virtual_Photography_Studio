@@ -1845,7 +1845,11 @@
       {
         "zh": "短版｜高領挖腰連身泳裝",
         "en": "high-neck extreme front cut-out monokini swimsuit, bikini-like one-piece construction, separate high-neck chest panel and high-cut bikini bottom connected only by thin side straps, oversized open front torso gap exposing most of the abdomen and navel, smooth stretch swim fabric, main swim fabric color controlled by dress color selection",
-        "desc": "短版高領挖空 monokini 泳裝，視覺接近比基尼但仍是連身結構；上方高領胸前布片與下方高衩比基尼底片只靠側邊細帶連接，前方軀幹大面積挖空，露出大部分腹部與肚臍，顏色由連身配色控制。"
+        "desc": "短版高領挖空 monokini 泳裝，視覺接近比基尼但仍是連身結構；上方高領胸前布片與下方高衩比基尼底片只靠側邊細帶連接，前方軀幹大面積挖空，露出大部分腹部與肚臍，顏色由連身配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/43_高領挖腰連身.png",
+          "referenceImageFormat": "png"
+        }
       }
     ],
     "褲裝 (Pants)": [

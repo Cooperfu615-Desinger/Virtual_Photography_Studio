@@ -281,6 +281,8 @@ test('mirror chrome garment color applies scene-reflective material to the new c
   assert.equal(prompt.selection.outfitPresetId, '');
   assert.equal(prompt.selection.dressId, cutoutSwimsuit.id);
   assert.equal(prompt.selection.dressColorId, mirrorChrome.id);
+  assert.equal(cutoutSwimsuit.meta.referenceImage, 'reference/wardrobe/dresses/43_高領挖腰連身.png');
+  assert.equal(cutoutSwimsuit.meta.referenceImageFormat, 'png');
 });
 
 test('cleaned outfit and dress prompts avoid fixed color wording', () => {
