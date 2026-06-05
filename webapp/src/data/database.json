@@ -1325,7 +1325,11 @@
       {
         "zh": "短版運動T熱褲套裝",
         "en": "sporty ringer baby-tee and dolphin shorts outfit, fitted cropped ringer T-shirt with contrast collar and sleeve binding, faint tonal chest graphic mark, low-rise dolphin micro shorts with contrast piping, contrast elastic waistband, front drawstring and side lace-up grommet detail, knee-high athletic socks, low-top sneakers, main jersey color controlled by the outfit color selection, contrast trim controlled by contrast palette",
-        "desc": "以短版撞色圓領運動T、低腰抽繩 dolphin 熱褲、側邊綁孔細節、長筒運動襪與低筒球鞋構成的甜辣運動套裝；主色與撞色滾邊由套裝配色控制。"
+        "desc": "以短版撞色圓領運動T、低腰抽繩 dolphin 熱褲、側邊綁孔細節、長筒運動襪與低筒球鞋構成的甜辣運動套裝；主色與撞色滾邊由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/39_短版熱褲運動T.png",
+          "referenceImageFormat": "png"
+        }
       }
     ],
     "上身 (Tops)": [
@@ -1840,8 +1844,8 @@
       },
       {
         "zh": "短版｜高領挖腰連身泳裝",
-        "en": "high-neck front cut-out one-piece swimsuit, halter-style neck coverage, large front-center abdomen window exposing belly and navel, narrow side connectors, high-cut leg line, smooth stretch swim fabric, main swim fabric color controlled by dress color selection",
-        "desc": "短版高領連身泳裝，貼頸掛脖式上半身、前方中央大面積腹部開窗、露出腹部與肚臍、側邊窄連接片、高衩腿線與彈性泳裝布料明確，顏色由連身配色控制。"
+        "en": "high-neck extreme front cut-out monokini swimsuit, bikini-like one-piece construction, separate high-neck chest panel and high-cut bikini bottom connected only by thin side straps, oversized open front torso gap exposing most of the abdomen and navel, smooth stretch swim fabric, main swim fabric color controlled by dress color selection",
+        "desc": "短版高領挖空 monokini 泳裝，視覺接近比基尼但仍是連身結構；上方高領胸前布片與下方高衩比基尼底片只靠側邊細帶連接，前方軀幹大面積挖空，露出大部分腹部與肚臍，顏色由連身配色控制。"
       }
     ],
     "褲裝 (Pants)": [

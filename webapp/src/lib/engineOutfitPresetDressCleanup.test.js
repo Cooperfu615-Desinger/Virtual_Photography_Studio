@@ -156,6 +156,8 @@ test('sporty ringer tee hot-pants outfit preserves key garment and accessory anc
   assert.match(text, /knee-high athletic socks/i);
   assert.doesNotMatch(text, /shoulder bag|handbag/i);
   assert.match(text, /controlled by the outfit color selection/i);
+  assert.equal(outfit.meta.referenceImage, 'reference/wardrobe/outfit-presets/39_短版熱褲運動T.png');
+  assert.equal(outfit.meta.referenceImageFormat, 'png');
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -239,10 +241,10 @@ test('reference dress entries describe garments without accessory or shoe detail
     ],
     [
       '連身：短版｜高領挖腰連身泳裝',
-      /high-neck front cut-out one-piece swimsuit/i,
-      /large front-center abdomen window exposing belly and navel/i,
-      /narrow side connectors/i,
-      /high-cut leg line/i,
+      /high-neck extreme front cut-out monokini swimsuit/i,
+      /bikini-like one-piece construction/i,
+      /connected only by thin side straps/i,
+      /oversized open front torso gap exposing most of the abdomen and navel/i,
     ],
   ].forEach(([label, ...patterns]) => {
     const option = optionByLabel('dressId', label);
@@ -272,9 +274,10 @@ test('mirror chrome garment color applies scene-reflective material to the new c
 
   assert.match(promptText, /mirror-chrome silver/i);
   assert.match(promptText, /scene-reflective surface/i);
-  assert.match(promptText, /high-neck front cut-out one-piece swimsuit/i);
-  assert.match(promptText, /large front-center abdomen window exposing belly and navel/i);
-  assert.match(promptText, /narrow side connectors/i);
+  assert.match(promptText, /high-neck extreme front cut-out monokini swimsuit/i);
+  assert.match(promptText, /bikini-like one-piece construction/i);
+  assert.match(promptText, /connected only by thin side straps/i);
+  assert.match(promptText, /oversized open front torso gap exposing most of the abdomen and navel/i);
   assert.equal(prompt.selection.outfitPresetId, '');
   assert.equal(prompt.selection.dressId, cutoutSwimsuit.id);
   assert.equal(prompt.selection.dressColorId, mirrorChrome.id);
