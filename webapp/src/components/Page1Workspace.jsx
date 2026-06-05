@@ -12,7 +12,7 @@ import {
   buildWorkspaceSummary,
   getControlOptionLabel,
 } from '../lib/page1WorkspaceSummary.js';
-import { randomizeLockKeys } from '../lib/page1SectionRandom.js';
+import { randomizeLockKeys, setLockKeysToNone } from '../lib/page1SectionRandom.js';
 
 const WARDROBE_PICKER_KEYS = new Set([
   'specialOutfitId',
@@ -447,6 +447,7 @@ function getReferenceImageUrl(option) {
 
 function isWardrobeImagePickerOption(option, control) {
   const label = option?.zh || '';
+  if (option?.zh === '全無' || option?.id === 'none') return true;
   if (!getReferenceImageUrl(option)) return false;
   if (WARDROBE_OUTFIT_PICKER_KEYS.has(control.key)) return label.startsWith('套裝：');
   if (WARDROBE_DRESS_PICKER_KEYS.has(control.key)) return label.startsWith('連身：');
@@ -833,6 +834,10 @@ export default function Page1Workspace({
     updateLocks((prev) => randomizeLockKeys(prev, getSectionKeys(activeSection), createEmptyLocks()));
   };
 
+  const handleSetActiveSectionNone = () => {
+    updateLocks((prev) => setLockKeysToNone(prev, getSectionKeys(activeSection), lockControls));
+  };
+
   const clearImportedWorldSceneArchitecture = () => {
     updateLocks((prev) => ({
       ...prev,
@@ -846,6 +851,19 @@ export default function Page1Workspace({
     <button className="secondary page1-section-random-btn" type="button" onClick={handleRandomizeActiveSection}>
       全部隨機
     </button>
+  );
+
+  const renderSectionNoneButton = () => (
+    <button className="secondary subtle-action page1-section-random-btn" type="button" onClick={handleSetActiveSectionNone}>
+      全部全無
+    </button>
+  );
+
+  const renderSectionActionButtons = () => (
+    <div className="page1-section-header-actions">
+      {renderSectionRandomButton()}
+      {renderSectionNoneButton()}
+    </div>
   );
 
   const openWardrobePicker = (control) => {
@@ -905,6 +923,7 @@ export default function Page1Workspace({
         </div>
         <div className="page1-section-header-actions">
           {renderSectionRandomButton()}
+          {renderSectionNoneButton()}
           <button className="secondary reference-trigger-btn" type="button" onClick={() => setIsLightingReferenceOpen(true)}>
             查看光線定位對照
           </button>
@@ -938,7 +957,7 @@ export default function Page1Workspace({
           <div className="control-section-title">Photography & Rendering</div>
           <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡整理攝影師語氣、構圖視角、鏡頭光學與成像模擬。'}</p>
         </div>
-        {renderSectionRandomButton()}
+        {renderSectionActionButtons()}
       </div>
       {renderControlGrid(filterControlsByKeys(coreLockControls, activeSubpanel?.keys || []))}
     </div>
@@ -951,7 +970,7 @@ export default function Page1Workspace({
           <div className="control-section-title">Character Setup</div>
           <p className="workspace-panel-copy">{activeSubpanel?.description || '把人物身份與特殊角色先固定下來，後面換神情、穿搭與場景會更穩定。'}</p>
         </div>
-        {renderSectionRandomButton()}
+        {renderSectionActionButtons()}
       </div>
       {locks.subjectCount === 'reference' ? (
         <div className="context-note">
@@ -981,7 +1000,7 @@ export default function Page1Workspace({
           <div className="control-section-title">Expression & Pose</div>
           <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡整理神情眼神、姿勢動作與 Pose Composer。'}</p>
         </div>
-        {renderSectionRandomButton()}
+        {renderSectionActionButtons()}
       </div>
       {isPoseComposerActive ? (
         <div className="context-note">
@@ -1004,7 +1023,7 @@ export default function Page1Workspace({
           <div className="control-section-title">Style & Wardrobe</div>
           <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡分段處理整體造型、單件、鞋襪與配件。'}</p>
         </div>
-        {renderSectionRandomButton()}
+        {renderSectionActionButtons()}
       </div>
       {isOutfitPresetActive ? (
         <div className="context-note">
