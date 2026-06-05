@@ -90,11 +90,13 @@ test('pants-specific unbuttoned zipper waist state is not applied to skirts', ()
   assert.match(promptText, /mini skirt/);
 });
 
-test('pants controls include booty shorts and knee-length fitted shorts', () => {
+test('pants controls include dolphin micro shorts and knee-length fitted shorts', () => {
   const bootyShorts = optionByLabel('pantsId', '真理褲');
   const rhythmicShorts = optionByLabel('pantsId', '韻律緊身短褲');
 
-  assert.match(bootyShorts.en, /booty shorts/);
+  assert.match(bootyShorts.en, /low-rise dolphin micro shorts/);
+  assert.match(bootyShorts.en, /front drawstring/);
+  assert.match(bootyShorts.en, /side lace-up grommet detail/);
   assert.match(rhythmicShorts.en, /knee-length stretch leggings shorts/);
 
   const [bootyPrompt] = generatePrompts(1, {
@@ -106,7 +108,8 @@ test('pants controls include booty shorts and knee-length fitted shorts', () => 
     pantsId: rhythmicShorts.id,
   });
 
-  assert.match([bootyPrompt.grokPrompt, bootyPrompt.zImagePrompt].join('\n'), /booty shorts/);
+  assert.match([bootyPrompt.grokPrompt, bootyPrompt.zImagePrompt].join('\n'), /low-rise dolphin micro shorts/);
+  assert.match([bootyPrompt.grokPrompt, bootyPrompt.zImagePrompt].join('\n'), /side lace-up grommet detail/);
   assert.match([rhythmicPrompt.grokPrompt, rhythmicPrompt.zImagePrompt].join('\n'), /knee-length stretch leggings shorts/);
   assert.equal(
     normalizeLocks({ ...createEmptyLocks(), pantsId: 'wardrobe:褲裝-pants:真理褲:4' }).pantsId,

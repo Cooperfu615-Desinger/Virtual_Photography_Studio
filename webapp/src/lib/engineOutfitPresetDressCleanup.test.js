@@ -22,6 +22,7 @@ test('outfit presets expose themed options and remove abstract style presets', (
     '套裝：醫生診療袍',
     '套裝：鏈條緞面內衣',
     '套裝：玫瑰哥德蘿莉塔洋裝',
+    '套裝：短版運動T熱褲',
   ].forEach((label) => {
     assert.ok(labels.includes(label), `${label} should be available`);
   });
@@ -142,6 +143,37 @@ test('reference outfit presets 27 to 38 preserve complete styling anchors and im
     assert.equal(option.meta.referenceImage, referenceImage);
     assert.equal(option.meta.referenceImageFormat, 'png');
   });
+});
+
+test('sporty ringer tee hot-pants outfit preserves key garment and accessory anchors', () => {
+  const outfit = optionByLabel('outfitPresetId', '套裝：短版運動T熱褲');
+  const text = [outfit.en, outfit.desc].join(' ');
+
+  assert.match(text, /sporty ringer baby-tee and dolphin shorts outfit/i);
+  assert.match(text, /contrast collar and sleeve binding/i);
+  assert.match(text, /low-rise dolphin micro shorts/i);
+  assert.match(text, /front drawstring and side lace-up grommet detail/i);
+  assert.match(text, /knee-high athletic socks/i);
+  assert.match(text, /translucent metallic shoulder bag/i);
+  assert.match(text, /controlled by the outfit color selection/i);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: outfit.id,
+    topId: optionByLabel('topId', '全無').id,
+    dressId: optionByLabel('dressId', '全無').id,
+    pantsId: optionByLabel('pantsId', '全無').id,
+    skirtId: optionByLabel('skirtId', '全無').id,
+    outerwearId: optionByLabel('outerwearId', '全無').id,
+    topBottomPaletteId: optionByLabel('topBottomPaletteId', '全無').id,
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+
+  assert.match(promptText, /sporty ringer baby-tee and dolphin shorts outfit/i);
+  assert.match(promptText, /low-rise dolphin micro shorts/i);
+  assert.match(promptText, /side lace-up grommet detail/i);
+  assert.equal(prompt.selection.outfitPresetId, outfit.id);
 });
 
 test('dress controls expose short and long one-piece silhouettes only', () => {

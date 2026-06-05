@@ -105,6 +105,7 @@
 | **套裝 (Outfit Presets)** | 垂墜背心腰鏈短裙 | `draped sleeveless top, asymmetric wrap mini skirt, chain belt layers, studded waist detail, heeled sandals, dominant fabric color controlled by the outfit color selection` | 以垂墜無袖上衣、不對稱圍裹短裙、多層腰鏈、鉚釘腰部細節與高跟涼鞋為核心的套裝；主色交由套裝配色控制。 |
 | **套裝 (Outfit Presets)** | 皮革掛脖背心短褲長靴 | `zip-front leather halter vest, low-rise leather shorts, dangling side straps, knee-high leather boots, dominant leather color controlled by the outfit color selection` | 以拉鍊皮革掛脖背心、低腰皮革短褲、側邊垂帶與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。 |
 | **套裝 (Outfit Presets)** | 斑馬紋馬甲短褲長靴 | `zebra-pattern corset tank, zip-front center panel, glossy micro shorts, knee-high leather boots, dominant fabric color controlled by the outfit color selection` | 以斑馬紋馬甲背心、中線拉鍊拼片、亮面超短褲與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。 |
+| **套裝 (Outfit Presets)** | 短版運動T熱褲套裝 | `sporty ringer baby-tee and dolphin shorts outfit, fitted cropped ringer T-shirt with contrast collar and sleeve binding, faint tonal chest graphic mark, low-rise dolphin micro shorts with contrast piping, contrast elastic waistband, front drawstring and side lace-up grommet detail, knee-high athletic socks, low-top sneakers, translucent metallic shoulder bag, main jersey color controlled by the outfit color selection, contrast trim controlled by contrast palette` | 以短版撞色圓領運動T、低腰抽繩 dolphin 熱褲、側邊綁孔細節、長筒運動襪、低筒球鞋與透明銀色肩背包構成的甜辣運動套裝；主色與撞色滾邊由套裝配色控制。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 襯衫 | `shirt, crisp cotton poplin, clean placket construction, balanced collar line` | 以俐落門襟、清楚領型與乾淨肩線構成的基礎上身單品，重點在剪裁結構而不是情境語氣。 |
 | **上身 (Tops)** | 長版襯衫 | `longline shirt, extended hem length, relaxed sleeve volume, softened drape through the body` | 以較長衣襬、寬鬆袖量與柔垂布面為主，重點在長版比例與輪廓延伸，不預設特定穿法。 |
@@ -189,7 +190,7 @@
 | **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
 | **褲裝 (Pants)** | 牛仔短褲 | `denim shorts, short hemline, compact fitted seat, clean cut-off-inspired silhouette` | 以短褲長度、丹寧布面與俐落褲口比例為主，重點是簡潔直接的短版結構。 |
 | **褲裝 (Pants)** | 超短運動短褲 | `micro athletic shorts, compact sporty cut, minimal hem length, lightweight activewear structure` | 以超短褲長、運動褲口與輕量機能結構為主，整體偏精簡直接的 activewear 語言。 |
-| **褲裝 (Pants)** | 真理褲 | `booty shorts, ultra-short fitted shorts, compact hip-hugging seat, minimal lower-body hemline` | 以 booty shorts 為核心的超短貼身短褲，重點是短版褲長、貼身臀部包覆與精簡下身比例。 |
+| **褲裝 (Pants)** | 真理褲 | `low-rise dolphin micro shorts, contrast piping, contrast elastic waistband, front drawstring, side lace-up grommet detail, compact athletic hot-pants silhouette` | 以低腰 dolphin 熱褲為核心，包含撞色滾邊、對比鬆緊腰頭、前方抽繩與側邊綁孔細節，重點是短版運動熱褲比例。 |
 | **褲裝 (Pants)** | 韻律緊身短褲 | `knee-length stretch leggings shorts, fitted rhythmic dance shorts, elastic activewear fabric, streamlined mid-leg silhouette` | 以五分長度的緊身韻律短褲為主，像 leggings 的貼身彈性布料但長度停在膝上到膝位附近，不是長褲。 |
 | **褲裝 (Pants)** | 蕾絲內褲 | `low-rise lace panties, lingerie bottoms, delicate intimate styling, exposed hip line` | 以低腰位置貼合臀線與胯部，偏內衣與私密寫真風格，強調蕾絲質地與貼身感。 |
 | **褲裝 (Pants)** | 蕾絲丁字褲 | `seamless lace thong bottoms, ultra-thin side straps, low-rise V-front, minimal rear coverage, exposed buttock curve` | 以無痕蕾絲丁字褲為主，低腰 V 字前片、極細側帶與極少後片覆蓋，讓臀部曲線明顯露出，和一般蕾絲內褲做出清楚區隔。 |
