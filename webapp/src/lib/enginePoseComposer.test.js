@@ -303,11 +303,11 @@ test('lying pose composer supports languid arrangement bathtub anchor and head d
     poseHeadId: optionId('poseHeadId', '回頭朝向鏡頭'),
   });
 
-  assert.match(prompt.grokPrompt, /She is reclining inside a bathtub with/);
+  assert.match(prompt.grokPrompt, /She is reclining inside a water-filled clawfoot vintage bathtub with/);
   assert.match(prompt.grokPrompt, /casually languid lying arrangement/);
   assert.match(prompt.grokPrompt, /one hand supporting the chin/);
   assert.match(prompt.grokPrompt, /head turned back toward the camera/);
-  assert.match(prompt.zImagePrompt, /reclining inside a bathtub/);
+  assert.match(prompt.zImagePrompt, /reclining inside a water-filled clawfoot vintage bathtub/);
   assert.match(prompt.midjourneyPrompt, /casually languid lying arrangement/);
   assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '躺姿'));
   assert.equal(prompt.selection.poseHeadId, optionId('poseHeadId', '回頭朝向鏡頭'));
@@ -315,9 +315,9 @@ test('lying pose composer supports languid arrangement bathtub anchor and head d
 
 test('shared bathtub anchor phrases naturally for standing sitting and squatting bases', () => {
   const cases = [
-    ['站姿', '自然站姿', /She is standing beside a bathtub with/],
-    ['坐姿', '自然坐姿', /She is sitting on the edge of a bathtub with/],
-    ['蹲姿', '自然蹲姿', /She is squatting inside a bathtub with/],
+    ['站姿', '自然站姿', /She is standing beside a water-filled clawfoot vintage bathtub with/],
+    ['坐姿', '自然坐姿', /She is sitting on the edge of a water-filled clawfoot vintage bathtub with/],
+    ['蹲姿', '自然蹲姿', /She is squatting inside a water-filled clawfoot vintage bathtub with/],
   ];
 
   for (const [baseZh, arrangementZh, expected] of cases) {

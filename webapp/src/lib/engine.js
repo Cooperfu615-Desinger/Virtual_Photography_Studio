@@ -946,12 +946,12 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
     id: 'shared-bathtub',
     bases: ['standing', 'sitting', 'squatting', 'lying'],
     zh: '浴缸',
-    en: 'near a bathtub',
+    en: 'near a water-filled clawfoot vintage bathtub',
     phraseByBase: {
-      standing: 'standing beside a bathtub',
-      sitting: 'sitting on the edge of a bathtub',
-      squatting: 'squatting inside a bathtub',
-      lying: 'reclining inside a bathtub',
+      standing: 'standing beside a water-filled clawfoot vintage bathtub',
+      sitting: 'sitting on the edge of a water-filled clawfoot vintage bathtub',
+      squatting: 'squatting inside a water-filled clawfoot vintage bathtub',
+      lying: 'reclining inside a water-filled clawfoot vintage bathtub',
     },
   },
 ];
