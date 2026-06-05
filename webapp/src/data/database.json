@@ -4249,6 +4249,11 @@
         "zh": "戶外：沙丘與風痕地景",
         "en": "sand dune slope, wind-shaped sand ripples, uneven dune ridge, sparse dry grass tufts, open sandy ground plane, off-center crest line",
         "desc": "沙丘坡面與風痕地景，重點是砂紋、不均勻沙脊、稀疏乾草、開闊沙地平面與偏離中心的稜線。"
+      },
+      {
+        "zh": "戶外：白色鹽湖乾裂荒漠",
+        "en": "white salt flat playa edge, cracked salt crust ground, pale polygon surface texture, open dry basin, distant low mountain range, wide blue-sky desert horizon",
+        "desc": "白色鹽湖或乾涸 playa 荒漠場景，重點是乾裂鹽殼地面、淡色多邊形表面紋理、開闊乾盆地、遠方低山與寬闊沙漠地平線。"
       }
     ],
     "其他專屬場景 (Other Dedicated Scenes)": [
