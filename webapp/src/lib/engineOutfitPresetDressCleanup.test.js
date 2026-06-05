@@ -239,8 +239,9 @@ test('reference dress entries describe garments without accessory or shoe detail
     ],
     [
       '連身：短版｜高領挖腰連身泳裝',
-      /high-neck cut-out one-piece swimsuit/i,
-      /open waist and abdomen cut-outs/i,
+      /high-neck front cut-out one-piece swimsuit/i,
+      /large front-center abdomen window exposing belly and navel/i,
+      /narrow side connectors/i,
       /high-cut leg line/i,
     ],
   ].forEach(([label, ...patterns]) => {
@@ -271,8 +272,9 @@ test('mirror chrome garment color applies scene-reflective material to the new c
 
   assert.match(promptText, /mirror-chrome silver/i);
   assert.match(promptText, /scene-reflective surface/i);
-  assert.match(promptText, /high-neck cut-out one-piece swimsuit/i);
-  assert.match(promptText, /open waist and abdomen cut-outs/i);
+  assert.match(promptText, /high-neck front cut-out one-piece swimsuit/i);
+  assert.match(promptText, /large front-center abdomen window exposing belly and navel/i);
+  assert.match(promptText, /narrow side connectors/i);
   assert.equal(prompt.selection.outfitPresetId, '');
   assert.equal(prompt.selection.dressId, cutoutSwimsuit.id);
   assert.equal(prompt.selection.dressColorId, mirrorChrome.id);
