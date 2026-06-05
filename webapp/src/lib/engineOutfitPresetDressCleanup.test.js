@@ -165,6 +165,7 @@ test('dress controls expose short and long one-piece silhouettes only', () => {
       '連身：短版｜單肩披袖亮片迷你洋裝',
       '連身：短版｜格紋吊帶荷葉迷你洋裝',
       '連身：短版｜緞面細肩帶迷你洋裝',
+      '連身：短版｜高領挖腰連身泳裝',
     ]
   );
 
@@ -204,6 +205,12 @@ test('reference dress entries describe garments without accessory or shoe detail
       /inner lace bra detail/i,
       /ruched satin torso/i,
     ],
+    [
+      '連身：短版｜高領挖腰連身泳裝',
+      /high-neck cut-out one-piece swimsuit/i,
+      /open waist and abdomen cut-outs/i,
+      /high-cut leg line/i,
+    ],
   ].forEach(([label, ...patterns]) => {
     const option = optionByLabel('dressId', label);
     const text = [option.en, option.desc].join(' ');
@@ -215,6 +222,28 @@ test('reference dress entries describe garments without accessory or shoe detail
     assert.doesNotMatch(text, /sandals|shoes|bag|bracelet|necklace|choker|cuff|earrings|bracelets|手環|項鍊|鞋|包|耳環/i);
     assert.match(text, /controlled by dress color selection/i);
   });
+});
+
+test('mirror chrome garment color applies scene-reflective material to the new cut-out one-piece', () => {
+  const cutoutSwimsuit = optionByLabel('dressId', '連身：短版｜高領挖腰連身泳裝');
+  const mirrorChrome = optionByLabel('dressColorId', '鏡面鉻銀');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: optionByLabel('outfitPresetId', '全無').id,
+    dressId: cutoutSwimsuit.id,
+    dressColorId: mirrorChrome.id,
+    topBottomPaletteId: optionByLabel('topBottomPaletteId', '全無').id,
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+
+  assert.match(promptText, /mirror-chrome silver/i);
+  assert.match(promptText, /scene-reflective surface/i);
+  assert.match(promptText, /high-neck cut-out one-piece swimsuit/i);
+  assert.match(promptText, /open waist and abdomen cut-outs/i);
+  assert.equal(prompt.selection.outfitPresetId, '');
+  assert.equal(prompt.selection.dressId, cutoutSwimsuit.id);
+  assert.equal(prompt.selection.dressColorId, mirrorChrome.id);
 });
 
 test('cleaned outfit and dress prompts avoid fixed color wording', () => {

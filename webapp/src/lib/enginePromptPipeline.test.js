@@ -68,6 +68,12 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
     importedWorldSceneLabel: '東京｜澀谷 Scramble Crossing',
     importedWorldSceneArchitectureText: importedWorldSceneArchitecture,
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
+    topId: optionId('topId', '全無'),
+    dressId: optionId('dressId', '全無'),
+    pantsId: optionId('pantsId', '全無'),
+    skirtId: optionId('skirtId', '全無'),
+    outerwearId: optionId('outerwearId', '全無'),
+    topBottomPaletteId: optionId('topBottomPaletteId', '全無'),
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
 

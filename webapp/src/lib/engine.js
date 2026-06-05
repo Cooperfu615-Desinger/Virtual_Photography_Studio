@@ -232,6 +232,7 @@ const GARMENT_COLOR_OPTIONS = [
   { id: 'neon-yellow', zh: '螢光黃色', en: 'neon yellow' },
   { id: 'multicolor-horizontal-stripes', zh: '彩色橫條紋', en: 'bold multicolored horizontal stripes, wide stripe bands, clearly separated random colors' },
   { id: 'silver', zh: '銀色', en: 'silver' },
+  { id: 'mirror-chrome-silver', zh: '鏡面鉻銀', en: 'mirror-chrome silver, highly polished scene-reflective surface with crisp environment reflections' },
   { id: 'gold', zh: '金色', en: 'gold' },
 ];
 
@@ -5111,7 +5112,7 @@ function extractWardrobeSlots(wardrobe) {
   const findSlot = (token) => wardrobe.find((item) => item.id?.includes(token) && !item.meta?.wardrobeRole);
   const findRoleSlot = (token, role, layerSlot) => wardrobe.find((item) => item.id?.includes(token) && item.meta?.wardrobeRole === role && item.meta?.layerSlot === layerSlot);
   const specialOutfits = wardrobe.filter((item) => item.id?.includes('wardrobe:特殊穿搭-special-outfits:'));
-  const outfitPresets = wardrobe.filter((item) => item.id?.includes('wardrobe:套裝-outfit-presets:') || item.id?.includes('wardrobe:連身-dresses:'));
+  const outfitPresets = wardrobe.filter((item) => item.id?.includes('wardrobe:套裝-outfit-presets:'));
   return {
     specialOutfit: specialOutfits.find((item) => !item.meta?.specialOutfitRole) || null,
     specialOutfitA: specialOutfits.find((item) => item.meta?.specialOutfitRole === 'a') || null,
