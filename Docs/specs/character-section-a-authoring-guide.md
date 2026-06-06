@@ -169,6 +169,11 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 - `直髮：中分`
 - `直髮：旁分`
 - `直髮：日式瀏海`
+- `直髮：濕感`
+- `自然微彎：中分`
+- `自然微彎：深側分`
+- `自然微彎：瀏海`
+- `自然微彎：濕感`
 - `柔波：中分`
 - `柔波：深側分`
 - `柔波：瀏海`

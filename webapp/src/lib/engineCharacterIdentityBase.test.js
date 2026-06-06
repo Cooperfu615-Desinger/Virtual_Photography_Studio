@@ -55,6 +55,11 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
       '直髮：中分',
       '直髮：旁分',
       '直髮：日式瀏海',
+      '直髮：濕感',
+      '自然微彎：中分',
+      '自然微彎：深側分',
+      '自然微彎：瀏海',
+      '自然微彎：濕感',
       '柔波：中分',
       '柔波：深側分',
       '柔波：瀏海',
@@ -92,6 +97,28 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
   ['亮綠色', '亮黃色', '亮紫色', '銅紅髮', '霧感橄欖棕', '霧灰棕'].forEach((label) => {
     assert.ok(!optionLabels('hairColorId').includes(label), `Removed hair color should not appear: ${label}`);
   });
+});
+
+test('hairstyle prompt exposes straight wet and subtle bend options without over-curl wording', () => {
+  const subtleBend = optionByLabel('hairstyleId', '自然微彎：深側分');
+  const straightWet = optionByLabel('hairstyleId', '直髮：濕感');
+
+  assert.match(subtleBend.en, /subtle natural bends/);
+  assert.match(subtleBend.en, /mostly smooth texture/);
+  assert.doesNotMatch(subtleBend.en, /\bcurl|\bcurls|\bcurly/i);
+  assert.match(straightWet.en, /sleek wet texture/);
+  assert.match(straightWet.en, /minimal wave/);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '全無').id,
+    hairstyleId: subtleBend.id,
+  });
+  assert.match(prompt.grokPrompt, /subtle natural bends/);
+  assert.match(prompt.zImagePrompt, /mostly smooth texture/);
+  assert.equal(prompt.selection.hairstyleId, subtleBend.id);
 });
 
 test('identity base prompt wording is controlled by selected DNA options', () => {

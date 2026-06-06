@@ -37,6 +37,11 @@
 | **髮型 (Hairstyle)** | 直髮：中分 | `long straight hair with a center part, sleek clean vertical flow` | 長直髮搭配中分，線條垂直乾淨。 |
 | **髮型 (Hairstyle)** | 直髮：旁分 | `long straight hair with a side part, smooth polished length, elegant face-framing line` | 長直髮搭配旁分，較成熟優雅。 |
 | **髮型 (Hairstyle)** | 直髮：日式瀏海 | `long straight hair with full Japanese bangs, smooth clean silhouette` | 長直髮搭配日式厚瀏海，柔和且辨識度高。 |
+| **髮型 (Hairstyle)** | 直髮：濕感 | `straight medium-to-long hair with a sleek wet texture, clean straight lengths, separated damp strands, minimal wave` | 直髮帶濕潤質感與分束，保留乾淨直線條，不轉成波浪。 |
+| **髮型 (Hairstyle)** | 自然微彎：中分 | `medium-to-long hair with a center part, mostly smooth texture, subtle natural bends through the lengths and softly curved ends` | 介於直髮與柔波之間，中分長髮帶輕微自然弧度與柔和髮尾。 |
+| **髮型 (Hairstyle)** | 自然微彎：深側分 | `medium-to-long hair with a deep side part, mostly smooth texture, subtle natural bends, gently asymmetric face-framing flow` | 介於直髮與柔波之間，深側分帶輕微自然弧度與不對稱臉側修飾。 |
+| **髮型 (Hairstyle)** | 自然微彎：瀏海 | `medium-to-long hair with soft bangs, mostly smooth texture, subtle natural bends through the lengths, lightly curved ends` | 介於直髮與柔波之間，柔和瀏海搭配輕微自然弧度。 |
+| **髮型 (Hairstyle)** | 自然微彎：濕感 | `medium-to-long hair with a lightly wet texture, subtle natural bends, separated damp strands, softly curved ends` | 介於直髮與柔波之間，帶輕微濕感分束與自然彎度。 |
 | **髮型 (Hairstyle)** | 柔波：中分 | `long soft waves with a center part, natural flowing texture` | 長髮柔波搭配中分，乾淨自然。 |
 | **髮型 (Hairstyle)** | 柔波：深側分 | `deep side-parted long soft waves, polished Korean-style face-framing flow` | 長髮柔波搭配深側分，成熟、精緻、韓系感更明顯。 |
 | **髮型 (Hairstyle)** | 柔波：瀏海 | `long soft waves with airy see-through bangs, gentle romantic face-framing strands` | 長髮柔波搭配空氣瀏海，甜美柔和。 |

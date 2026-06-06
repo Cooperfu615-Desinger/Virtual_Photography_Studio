@@ -4471,6 +4471,31 @@
         "desc": "長直髮搭配日式厚瀏海，柔和且辨識度高。"
       },
       {
+        "zh": "直髮：濕感",
+        "en": "straight medium-to-long hair with a sleek wet texture, clean straight lengths, separated damp strands, minimal wave",
+        "desc": "直髮帶濕潤質感與分束，保留乾淨直線條，不轉成波浪。"
+      },
+      {
+        "zh": "自然微彎：中分",
+        "en": "medium-to-long hair with a center part, mostly smooth texture, subtle natural bends through the lengths and softly curved ends",
+        "desc": "介於直髮與柔波之間，中分長髮帶輕微自然弧度與柔和髮尾。"
+      },
+      {
+        "zh": "自然微彎：深側分",
+        "en": "medium-to-long hair with a deep side part, mostly smooth texture, subtle natural bends, gently asymmetric face-framing flow",
+        "desc": "介於直髮與柔波之間，深側分帶輕微自然弧度與不對稱臉側修飾。"
+      },
+      {
+        "zh": "自然微彎：瀏海",
+        "en": "medium-to-long hair with soft bangs, mostly smooth texture, subtle natural bends through the lengths, lightly curved ends",
+        "desc": "介於直髮與柔波之間，柔和瀏海搭配輕微自然弧度。"
+      },
+      {
+        "zh": "自然微彎：濕感",
+        "en": "medium-to-long hair with a lightly wet texture, subtle natural bends, separated damp strands, softly curved ends",
+        "desc": "介於直髮與柔波之間，帶輕微濕感分束與自然彎度。"
+      },
+      {
         "zh": "柔波：中分",
         "en": "long soft waves with a center part, natural flowing texture",
         "desc": "長髮柔波搭配中分，乾淨自然。"
