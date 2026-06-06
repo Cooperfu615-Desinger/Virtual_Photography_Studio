@@ -3596,10 +3596,23 @@ function getPoseComposerBasePhrase(base) {
   return phrases[base?.id] || base?.en || '';
 }
 
+function getPoseComposerAnchorEffect(anchor, base) {
+  if (anchor?.id !== 'shared-bathtub' || !base) return '';
+
+  const waterContactEffects = {
+    sitting: 'water-contact realism on the lower body and garment edges where they meet the bath water, clothing remains complete and non-transparent, visible water sheen and droplets, darker damp fabric tones, heavier wet folds',
+    squatting: 'the outfit and exposed skin are soaked by bath water, clothing remains complete and non-transparent, visible water sheen and droplets, darker damp fabric tones, heavier wet folds',
+    lying: 'the outfit and exposed skin are soaked by bath water, clothing remains complete and non-transparent, visible water sheen and droplets, darker damp fabric tones, heavier wet folds',
+  };
+
+  return waterContactEffects[base.id] || '';
+}
+
 function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head }) {
   const anchorPhrase = getPoseComposerAnchorPhrase(anchor, base);
   const opening = anchorPhrase || getPoseComposerBasePhrase(base);
-  const details = [arrangement?.en, handPose?.en, head?.en].filter(Boolean);
+  const anchorEffect = getPoseComposerAnchorEffect(anchor, base);
+  const details = [arrangement?.en, anchorEffect, handPose?.en, head?.en].filter(Boolean);
 
   if (details.length === 0) return `She is ${opening}.`;
   return `She is ${opening} with ${details.join(', ')}.`;

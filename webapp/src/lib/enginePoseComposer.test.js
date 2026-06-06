@@ -307,20 +307,24 @@ test('lying pose composer supports languid arrangement bathtub anchor and head d
   assert.match(prompt.grokPrompt, /casually languid lying arrangement/);
   assert.match(prompt.grokPrompt, /one hand supporting the chin/);
   assert.match(prompt.grokPrompt, /head turned back toward the camera/);
+  assert.match(prompt.grokPrompt, /the outfit and exposed skin are soaked by bath water/);
+  assert.match(prompt.grokPrompt, /clothing remains complete and non-transparent/);
   assert.match(prompt.zImagePrompt, /reclining inside a water-filled clawfoot vintage bathtub/);
+  assert.match(prompt.zImagePrompt, /the outfit and exposed skin are soaked by bath water/);
   assert.match(prompt.midjourneyPrompt, /casually languid lying arrangement/);
+  assert.match(prompt.midjourneyPrompt, /clothing remains complete and non-transparent/);
   assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '躺姿'));
   assert.equal(prompt.selection.poseHeadId, optionId('poseHeadId', '回頭朝向鏡頭'));
 });
 
 test('shared bathtub anchor phrases naturally for standing sitting and squatting bases', () => {
   const cases = [
-    ['站姿', '自然站姿', /She is standing beside a water-filled clawfoot vintage bathtub with/],
-    ['坐姿', '自然坐姿', /She is sitting on the edge of a water-filled clawfoot vintage bathtub with/],
-    ['蹲姿', '自然蹲姿', /She is squatting inside a water-filled clawfoot vintage bathtub with/],
+    ['站姿', '自然站姿', /She is standing beside a water-filled clawfoot vintage bathtub with/, false],
+    ['坐姿', '自然坐姿', /She is sitting on the edge of a water-filled clawfoot vintage bathtub with/, true],
+    ['蹲姿', '自然蹲姿', /She is squatting inside a water-filled clawfoot vintage bathtub with/, true],
   ];
 
-  for (const [baseZh, arrangementZh, expected] of cases) {
+  for (const [baseZh, arrangementZh, expected, expectsWaterContact] of cases) {
     const [prompt] = generatePrompts(1, {
       ...createEmptyLocks(),
       subjectCount: '1',
@@ -333,6 +337,12 @@ test('shared bathtub anchor phrases naturally for standing sitting and squatting
     });
 
     assert.match(prompt.grokPrompt, expected);
+    if (expectsWaterContact) {
+      assert.match(prompt.grokPrompt, /visible water sheen and droplets/);
+      assert.match(prompt.grokPrompt, /clothing remains complete and non-transparent/);
+    } else {
+      assert.doesNotMatch(prompt.grokPrompt, /soaked by bath water/);
+    }
   }
 });
 
