@@ -52,6 +52,21 @@ test('pose composer controls expose base arrangement hand and anchor options', (
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '浴缸' && option.bases.includes('lying')));
 });
 
+test('pose composer exposes standing lean support anchor options', () => {
+  [
+    ['靠在欄杆', /leaning lightly against a railing/],
+    ['倚靠桌邊', /one hip resting against a table edge/],
+    ['肩靠門框', /one shoulder leaning against a doorway frame/],
+    ['倚靠窗框', /side of the body lightly supported by a window frame/],
+    ['側身靠柱', /side or back lightly leaning against a column/],
+    ['倚著椅背', /body lightly leaning against the chair back/],
+    ['側身靠自動販賣機', /one shoulder or side leaning against a vending machine/],
+    ['倚靠現有場景物件', /leaning against any suitable existing object within the current scene/],
+  ].forEach(([zh, expected]) => {
+    assertAnchorOption(zh, 'standing', expected);
+  });
+});
+
 test('pose composer exposes model natural decision options', () => {
   const arrangement = control('poseArrangementId').options.find((option) => option.zh === '模型自然決定');
   assert.ok(arrangement, 'Expected model natural arrangement option');
@@ -289,6 +304,24 @@ test('single-subject pose composer outputs natural base arrangement hand anchor 
     assert.match(text, /one hand touching the chin/);
     assert.match(text, /head slightly tilted/);
   }
+});
+
+test('standing lean scene-object anchor preserves supported body contact wording', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '單腳重心'),
+    poseHandId: optionId('poseHandId', '雙手自然垂放'),
+    poseAnchorId: optionId('poseAnchorId', '倚靠現有場景物件'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  });
+
+  assert.match(prompt.grokPrompt, /leaning against any suitable existing object within the current scene/);
+  assert.match(prompt.grokPrompt, /body weight lightly supported by that existing scene object/);
+  assert.match(prompt.zImagePrompt, /using only a naturally available scene object for support/);
+  assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', '倚靠現有場景物件'));
 });
 
 test('lying pose composer supports languid arrangement bathtub anchor and head direction', () => {
