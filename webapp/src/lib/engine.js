@@ -1379,6 +1379,7 @@ function inferLocationMeta(category, item) {
   if (hasAny(haystack, ['interior', 'inside', 'room', 'hallway', 'corridor', 'stairwell', 'stairwell shaft', 'seating', 'dining aisle', 'bathroom', 'vanity', 'mirror', 'store interior', 'kitchen', '店內', '室內', '房間', '浴室', '鏡前', '樓梯井', '長椅區', '廚房'])) {
     tags.push('indoor');
   }
+  if (hasAny(haystack, ['ryokan', 'engawa', 'wooden deck', 'veranda', '緣側', '木廊'])) tags.push('outdoor');
   if (hasAny(haystack, ['plaza', 'pedestrian', 'crosswalk', 'sidewalk', 'street', 'streetfront', 'square', 'lawn edge', 'outdoor', 'shoreline', 'beach', 'park', 'deck', 'avenue', 'station front', '廣場', '行人區', '人行道', '街頭', '街角', '穿越口', '草地邊', '海灘', '岩岸', '公園', '木棧道', '戶外'])) {
     tags.push('outdoor');
   }
@@ -1393,10 +1394,19 @@ function inferLocationMeta(category, item) {
   if (hasAny(haystack, ['opera house', 'mansion', 'library', 'old town', 'townhouse', '洋房', '歌劇院', '大宅', '老城'])) {
     tags.push('heritage');
   }
+  if (hasAny(haystack, ['ryokan', 'engawa', 'traditional japanese', 'washitsu', '緣側', '和室', '日式旅館'])) {
+    tags.push('heritage');
+  }
   if (hasAny(haystack, ['beach', 'shoreline', 'coastline', 'lake', 'lakeside', 'marina', 'harbor', 'waterfront', 'dockside', 'yacht', 'sailboat', 'pier', 'sand dune', '沙丘', '海灘', '湖邊', '岩岸', '碼頭', '港灣', '水岸', '遊艇', '帆船'])) {
     tags.push('waterfront', 'outdoor', 'natural');
   }
-  if (hasAny(haystack, ['forest', 'grass', 'sunflower', 'park', '樹影', '森林', '草地', '花田', '公園'])) {
+  if (hasAny(haystack, ['poolside', 'swimming pool', 'resort pool', '泳池'])) {
+    tags.push('waterfront', 'outdoor');
+  }
+  if (hasAny(haystack, ['river-view', 'riverside', 'river channel', 'river below', 'riverbank', 'canal water', '河流', '河景', '河道'])) {
+    tags.push('waterfront', 'outdoor');
+  }
+  if (hasAny(haystack, ['forest', 'grass', 'sunflower', 'park', 'garden greenery', '庭院', '樹影', '森林', '草地', '花田', '公園'])) {
     tags.push('green_space');
   }
   if (hasAny(itemHaystack, ['bunker', 'drainage', 'tunnel', '地下', '排洪道'])) tags.push('subterranean');
@@ -6190,12 +6200,25 @@ function getSceneAccentProfile(location) {
     'harbor',
     'dock',
     'pier',
+    'poolside',
+    'swimming pool',
+    'resort pool',
     'yacht',
     'promenade',
     'city skyline',
+    'resort',
+    'river-view',
+    'river below',
+    'river channel',
+    'riverside',
     'rooftop',
     'canal',
     'bridge',
+    '泳池',
+    '度假村',
+    '河流',
+    '河景',
+    '河道',
     '遊艇',
     '碼頭',
     '港灣',

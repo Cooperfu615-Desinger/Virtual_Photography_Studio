@@ -3798,6 +3798,11 @@
         "desc": "日本都心商辦區常見的人行道與辦公樓立面，重點是玻璃鋼構辦公樓、乾淨鋪面、入口邊緣、路緣細節與偏側通勤動線片段。"
       },
       {
+        "zh": "戶外：日式旅館緣側木廊",
+        "en": "traditional Japanese ryokan engawa veranda, raised wooden deck edge, sliding door frames, polished timber posts, stone step, garden greenery below, asymmetric threshold composition",
+        "desc": "參考日式旅館或傳統和風建築的緣側空間，重點是抬高木廊、拉門框、木柱、石階、庭院綠意與偏側門檻構圖。"
+      },
+      {
         "zh": "室內：宮廷音樂廳 / 歌劇院",
         "en": "opulent opera house interior, chandelier fixtures, velvet seat rows cropped from one side, ornate balcony rail, carved wall panels, marble or carpeted floor, side aisle edge",
         "desc": "奢華大型室內空間，重點是吊燈、天鵝絨座椅局部、雕飾陽台欄杆、牆板、石材或地毯地面與側邊走道。"
@@ -4215,6 +4220,16 @@
         "zh": "戶外：高樓頂樓城市天際線",
         "en": "high-rise rooftop edge, rooftop guardrail and concrete parapet, modern city skyline in the distance, layered urban towers, broad rooftop ledge, elevated metropolitan overlook",
         "desc": "參考高樓大廈頂樓或屋頂邊緣的人像場景，前景是頂樓欄杆、矮牆與屋頂平台，遠景是現代化都市、高樓群與天際線。"
+      },
+      {
+        "zh": "戶外：飯店度假村泳池露台",
+        "en": "hotel resort poolside terrace, wet stone deck, swimming pool edge, lounge chair corner, balcony facade, palm planters, wall-lamp fixtures, asymmetric poolside composition",
+        "desc": "參考戶外飯店或度假村泳池邊的人像場景，重點是濕石材露台、泳池邊線、躺椅角落、陽台立面、棕櫚植栽與牆燈物件，形成偏側池畔構圖。"
+      },
+      {
+        "zh": "戶外：高級飯店陽台城市河景",
+        "en": "luxury hotel balcony river-view terrace, glass railing, balcony ledge, high-rise facade edge, broad river below, dense skyline towers, asymmetric metropolitan overlook",
+        "desc": "參考高級飯店或高樓住宿陽台的人像場景，重點是玻璃欄杆、陽台邊、建築立面、下方寬闊河流與遠方密集都市天際線。"
       }
     ],
     "自然與戶外 (Nature & Outdoors)": [

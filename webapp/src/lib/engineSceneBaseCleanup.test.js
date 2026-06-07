@@ -20,11 +20,14 @@ const wordCount = (text) => text.split(/\s+/).filter(Boolean).length;
 test('scene base keeps indoor outdoor and other location options intact', () => {
   const labels = locationOptions().map((option) => option.zh);
 
-  assert.equal(labels.length, 145);
+  assert.equal(labels.length, 148);
   assert.ok(labels.includes('室內：純潔白幕'));
   assert.ok(labels.includes('戶外：目黑川旁的櫻花隧道'));
   assert.ok(labels.includes('戶外：奧地利 Hallstatt 湖畔山村觀景欄杆'));
   assert.ok(labels.includes('戶外：白色鹽湖乾裂荒漠'));
+  assert.ok(labels.includes('戶外：飯店度假村泳池露台'));
+  assert.ok(labels.includes('戶外：日式旅館緣側木廊'));
+  assert.ok(labels.includes('戶外：高級飯店陽台城市河景'));
   assert.ok(labels.includes('其他：白色床鋪'));
 });
 
@@ -78,6 +81,37 @@ test('outdoor scene bases avoid symmetric avenue and centered corridor wording',
   assert.match(saltFlat.en, /cracked salt crust ground/);
   assert.match(saltFlat.en, /pale polygon surface texture/);
   assert.match(saltFlat.en, /distant low mountain range/);
+
+  const resortPool = optionByLabel('戶外：飯店度假村泳池露台');
+  assert.ok(wordCount(resortPool.en) <= 28);
+  assert.ok(resortPool.meta.tags.includes('outdoor'));
+  assert.ok(resortPool.meta.tags.includes('waterfront'));
+  assert.ok(resortPool.meta.tags.includes('hospitality'));
+  assert.ok(!resortPool.meta.tags.includes('natural'));
+  assert.match(resortPool.en, /hotel resort poolside terrace/);
+  assert.match(resortPool.en, /wet stone deck/);
+  assert.match(resortPool.en, /asymmetric poolside composition/);
+
+  const ryokanEngawa = optionByLabel('戶外：日式旅館緣側木廊');
+  assert.ok(wordCount(ryokanEngawa.en) <= 28);
+  assert.ok(ryokanEngawa.meta.tags.includes('outdoor'));
+  assert.ok(ryokanEngawa.meta.tags.includes('hospitality'));
+  assert.ok(ryokanEngawa.meta.tags.includes('heritage'));
+  assert.ok(ryokanEngawa.meta.tags.includes('green_space'));
+  assert.match(ryokanEngawa.en, /traditional Japanese ryokan engawa veranda/i);
+  assert.match(ryokanEngawa.en, /raised wooden deck edge/i);
+  assert.match(ryokanEngawa.en, /asymmetric threshold composition/i);
+
+  const luxuryHotelBalcony = optionByLabel('戶外：高級飯店陽台城市河景');
+  assert.ok(wordCount(luxuryHotelBalcony.en) <= 28);
+  assert.ok(luxuryHotelBalcony.meta.tags.includes('outdoor'));
+  assert.ok(luxuryHotelBalcony.meta.tags.includes('waterfront'));
+  assert.ok(luxuryHotelBalcony.meta.tags.includes('hospitality'));
+  assert.ok(luxuryHotelBalcony.meta.tags.includes('urban'));
+  assert.ok(!luxuryHotelBalcony.meta.tags.includes('natural'));
+  assert.match(luxuryHotelBalcony.en, /luxury hotel balcony river-view terrace/i);
+  assert.match(luxuryHotelBalcony.en, /glass railing/);
+  assert.match(luxuryHotelBalcony.en, /dense skyline towers/);
 });
 
 test('other dedicated scenes read as close scene bases instead of full environments', () => {
@@ -107,6 +141,18 @@ test('generated prompts use stabilized scene base wording', () => {
     ...createEmptyLocks(),
     locationId: optionId('戶外：白色鹽湖乾裂荒漠'),
   });
+  const [resortPoolPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    locationId: optionId('戶外：飯店度假村泳池露台'),
+  });
+  const [ryokanEngawaPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    locationId: optionId('戶外：日式旅館緣側木廊'),
+  });
+  const [luxuryHotelBalconyPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    locationId: optionId('戶外：高級飯店陽台城市河景'),
+  });
 
   assert.match(studioPrompt.grokPrompt, /continuous vivid blue ground-and-background plane/);
   assert.match(studioPrompt.zImagePrompt, /no backdrop stand/);
@@ -116,4 +162,10 @@ test('generated prompts use stabilized scene base wording', () => {
   assert.match(hallstattPrompt.zImagePrompt, /church spire and steep mountain backdrop/);
   assert.match(saltFlatPrompt.grokPrompt, /white salt flat playa edge/);
   assert.match(saltFlatPrompt.zImagePrompt, /cracked salt crust ground/);
+  assert.match(resortPoolPrompt.grokPrompt, /hotel resort poolside terrace/);
+  assert.match(resortPoolPrompt.zImagePrompt, /lounge chair corner/);
+  assert.match(ryokanEngawaPrompt.grokPrompt, /traditional Japanese ryokan engawa veranda/i);
+  assert.match(ryokanEngawaPrompt.zImagePrompt, /sliding door frames/i);
+  assert.match(luxuryHotelBalconyPrompt.grokPrompt, /luxury hotel balcony river-view terrace/i);
+  assert.match(luxuryHotelBalconyPrompt.zImagePrompt, /broad river below/i);
 });
