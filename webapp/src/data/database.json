@@ -1487,7 +1487,11 @@
       {
         "zh": "浴巾裹身",
         "en": "bath towel wrap outfit, thick terry towel texture, strapless wrapped construction, upper edge wrapped across the lower bust line, secure coverage from chest to above-knee length, tucked overlap fold, dominant towel color controlled by the outfit color selection",
-        "desc": "以厚實毛巾布包裹身體，上緣從胸部下半部開始包圍，長度到膝蓋上方，主色交由套裝配色控制。"
+        "desc": "以厚實毛巾布包裹身體，上緣從胸部下半部開始包圍，長度到膝蓋上方，主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/49_浴巾.png",
+          "referenceImageFormat": "png"
+        }
       }
     ],
     "上身 (Tops)": [
