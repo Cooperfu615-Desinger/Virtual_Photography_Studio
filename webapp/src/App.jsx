@@ -1689,6 +1689,10 @@ export default function App() {
     updateLocks((prev) => ({
       ...prev,
       locationId: '',
+      fixedCompositionSetId: 'none',
+      fixedSetPositionId: 'none',
+      fixedSetCaptureModeId: 'photographer-shot',
+      fixedSetPerformanceStateId: 'model-natural',
       importedWorldSceneMode: 'architecture',
       importedWorldSceneLabel: architecture.label,
       importedWorldSceneArchitectureText: architecture.text,

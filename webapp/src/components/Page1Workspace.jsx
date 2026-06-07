@@ -71,6 +71,17 @@ const WARDROBE_DRESS_PICKER_KEYS = new Set(['dressId', 'dressAId', 'dressBId']);
 const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'];
 const POSE_COMPOSER_CONTEXT_KEYS = new Set(['poseArrangementId', 'poseAnchorId']);
 const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting', 'lying']);
+const FIXED_SET_KEYS = ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'];
+const FIXED_SET_LOCKED_KEYS = [
+  'sceneAttributeId',
+  'locationId',
+  'aspectRatio',
+  'framingId',
+  'angleId',
+  'orbitId',
+  'lensId',
+  'opticalEffectId',
+];
 
 const NAMED_COLOR_SWATCHES = {
   black: ['#111111'],
@@ -337,6 +348,12 @@ const SECTION_SUBPANELS = {
     },
   ],
   scene: [
+    {
+      id: 'fixed',
+      label: '固定構圖場景',
+      description: '選擇固定場景、場景內人物位置、拍攝型態與演出狀態；啟用後會接管普通場景與鏡頭幾何。',
+      keys: ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'],
+    },
     {
       id: 'space',
       label: '場景基底',
@@ -651,7 +668,7 @@ export default function Page1Workspace({
     character: 'identity',
     pose: 'basic',
     wardrobe: 'overall',
-    scene: 'space',
+    scene: 'fixed',
     photography: 'composition',
   });
 
@@ -684,6 +701,10 @@ export default function Page1Workspace({
   const isReferenceSubjectMode = locks.subjectCount === 'reference';
   const isAnyOutfitPresetActive = isSingleOutfitPresetActive || isOutfitPresetAActive || isOutfitPresetBActive;
   const importedWorldSceneActive = locks.importedWorldSceneMode === 'architecture' && Boolean(locks.importedWorldSceneArchitectureText);
+  const fixedCompositionSetActive = locks.subjectCount !== '2'
+    && Boolean(locks.fixedCompositionSetId)
+    && !isNoneSelected('fixedCompositionSetId', locks.fixedCompositionSetId, lockControls);
+  const selectedFixedCompositionSetId = fixedCompositionSetActive ? locks.fixedCompositionSetId : '';
   const wardrobeLayerInsights = useMemo(
     () => buildWardrobeLayerInsights(locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive),
     [locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive],
@@ -707,6 +728,7 @@ export default function Page1Workspace({
     isWormEyeAngle ? '蟲眼視角' : '',
     isAnyOutfitPresetActive ? '套裝接管' : '',
     isSpecialOutfitActive ? '特殊穿搭' : '',
+    fixedCompositionSetActive ? '固定構圖場景' : '',
   ].filter(Boolean);
   const sectionDiagnostics = {
     character: {
@@ -737,6 +759,7 @@ export default function Page1Workspace({
     scene: {
       status: isCloseupMode ? '特寫中' : formatSelectionStatus(countEffectiveSelections('scene', locks, lockControls)),
       chips: [
+        fixedCompositionSetActive ? '固定構圖場景' : '',
         getControlOptionLabel(lockControls, 'locationId', locks.locationId) ? '場景錨點' : '',
         getControlOptionLabel(lockControls, 'lightingId', locks.lightingId) ? '環境光條件' : '',
       ].filter(Boolean),
@@ -744,6 +767,7 @@ export default function Page1Workspace({
     photography: {
       status: isCloseupMode ? '特寫中' : formatSelectionStatus(countEffectiveSelections('photography', locks, lockControls)),
       chips: [
+        fixedCompositionSetActive ? '固定場景接管構圖' : '',
         isCloseupMode ? '收斂構圖欄位' : '',
         isWormEyeAngle ? '攝影風格與鏡頭光學全無' : '',
         getControlOptionLabel(lockControls, 'aspectRatio', locks.aspectRatio) ? '畫面比例' : '',
@@ -765,6 +789,13 @@ export default function Page1Workspace({
       }),
     };
   };
+  const buildFixedSetControl = (control) => {
+    if (control.key !== 'fixedSetPositionId') return control;
+    return {
+      ...control,
+      options: control.options.filter((option) => option.id === 'none' || option.setId === selectedFixedCompositionSetId),
+    };
+  };
   const resetPoseComposerLocks = (target) => {
     POSE_COMPOSER_KEYS.forEach((key) => {
       target[key] = 'none';
@@ -774,6 +805,8 @@ export default function Page1Workspace({
   const isControlDisabled = (control) => (
     (isCloseupMode && !closeupAllowedKeys.has(control.key))
     || (isWormEyeAngle && ['styleId', 'lensId', 'opticalEffectId'].includes(control.key))
+    || (FIXED_SET_KEYS.includes(control.key) && locks.subjectCount === '2')
+    || (fixedCompositionSetActive && FIXED_SET_LOCKED_KEYS.includes(control.key))
     || (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1')
     || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
     || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
@@ -790,6 +823,37 @@ export default function Page1Workspace({
   const applyControlValue = (control, value) => {
     updateLocks((prev) => {
       const next = { ...prev, [control.key]: value };
+      if (control.key === 'fixedCompositionSetId') {
+        const nextFixedSetActive = Boolean(value) && !isNoneSelected('fixedCompositionSetId', value, lockControls);
+        if (nextFixedSetActive) {
+          next.sceneAttributeId = '';
+          next.locationId = '';
+          next.importedWorldSceneMode = 'none';
+          next.importedWorldSceneLabel = '';
+          next.importedWorldSceneArchitectureText = '';
+          ['framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId'].forEach((key) => {
+            const noneOption = lockControls.find((item) => item.key === key)?.options?.find((option) => option.zh === '全無');
+            next[key] = noneOption?.id || '';
+          });
+          const fixedSetOption = lockControls.find((item) => item.key === 'fixedCompositionSetId')?.options?.find((option) => option.id === value);
+          next.aspectRatio = fixedSetOption?.aspectRatioId || next.aspectRatio;
+
+          const selectedPosition = lockControls.find((item) => item.key === 'fixedSetPositionId')?.options?.find((option) => option.id === prev.fixedSetPositionId);
+          if (selectedPosition?.setId && selectedPosition.setId !== value) {
+            next.fixedSetPositionId = 'none';
+          }
+        } else {
+          next.fixedSetPositionId = 'none';
+          next.fixedSetCaptureModeId = 'photographer-shot';
+          next.fixedSetPerformanceStateId = 'model-natural';
+        }
+      }
+      if (control.key === 'fixedSetPositionId') {
+        const selectedPosition = lockControls.find((item) => item.key === 'fixedSetPositionId')?.options?.find((option) => option.id === value);
+        if (selectedPosition?.setId && selectedPosition.setId !== prev.fixedCompositionSetId) {
+          next.fixedSetPositionId = 'none';
+        }
+      }
       if (control.key === 'poseId' && value && !isNoneSelected('poseId', value, characterLockControls)) {
         const currentSpecialAction = getSpecialActionOption(prev.specialActionId);
         if (currentSpecialAction && !isSocialShootingActionOption(currentSpecialAction)) {
@@ -812,6 +876,10 @@ export default function Page1Workspace({
         next.importedWorldSceneMode = 'none';
         next.importedWorldSceneLabel = '';
         next.importedWorldSceneArchitectureText = '';
+        next.fixedCompositionSetId = 'none';
+        next.fixedSetPositionId = 'none';
+        next.fixedSetCaptureModeId = 'photographer-shot';
+        next.fixedSetPerformanceStateId = 'model-natural';
       }
       if (control.key === 'poseBaseId') {
         const nextBase = POSE_COMPOSER_BASE_IDS.has(value) ? value : '';
@@ -874,7 +942,7 @@ export default function Page1Workspace({
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
-        const control = buildPoseComposerControl(rawControl);
+        const control = buildFixedSetControl(buildPoseComposerControl(rawControl));
         const disabled = isControlDisabled(control);
         const dividerLabel = activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
           ? WARDROBE_GARMENT_CONTROL_DIVIDERS[control.key]
