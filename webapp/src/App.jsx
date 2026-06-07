@@ -39,6 +39,7 @@ import {
   buildPage3WorldSceneWorldPrompt,
   createEmptyPage3WorldSceneProfile,
 } from './lib/page3WorldScene';
+import { SCENE_CAMERA_CONTROL_ORDER } from './lib/page1ControlOrders';
 import './index.css';
 
 const PROMPTS_KEY = 'vps.prompts';
@@ -186,7 +187,6 @@ const CHARACTER_CONTROL_ORDER = [
   'poseAnchorId',
 ];
 const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'];
-const SCENE_CAMERA_CONTROL_ORDER = ['sceneAttributeId', 'locationId', 'lightingId', 'lightDirectionId', 'aspectRatio', 'styleId', 'cameraSystemId', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId', 'filmId'];
 const STYLE_WARDROBE_CONTROL_ORDER = [
   'specialOutfitId',
   'specialOutfitAId',
