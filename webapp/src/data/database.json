@@ -1332,6 +1332,87 @@
         }
       },
       {
+        "zh": "白蕾絲泡袖七分褲",
+        "en": "white lace puff-sleeve tie-front blouse, peplum hem, dark brown cropped capri pants, white lace socks, black patent Mary Jane shoes, silver shoulder bag, small cross pendant necklace",
+        "desc": "以白色蕾絲泡袖綁帶上衣、荷葉下襬、深棕七分褲、白色蕾絲襪、黑色亮面 Mary Jane 鞋、銀色肩背包與小十字項鍊構成的甜美復古套裝。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/40_白蕾絲泡袖七分褲.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "粉針織罩衫寬牛仔",
+        "en": "pale pink sheer knit cardigan, white lace-trim camisole with front tie, light blue wide-leg jeans, silver ballet flats, silver shoulder bag, delicate necklace, pale fabric scrunchie accessory",
+        "desc": "以淡粉薄針織開襟罩衫、白色蕾絲邊綁帶背心、淺藍寬版牛仔褲、銀色娃娃鞋、銀色肩背包、細項鍊與淡色布質髮圈配件構成的柔和日系套裝。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/41_粉針織罩衫寬牛仔.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "深灰短背心氣球寬褲",
+        "en": "dark gray cropped sleeveless tank, light gray balloon wide pants with elastic drawstring waist, oversized pocket drape, white chunky sneakers, silver shoulder bag, small cross pendant, slim bracelet",
+        "desc": "以深灰短版無袖背心、淺灰抽繩氣球寬褲、大口袋垂墜感、白色厚底運動鞋、銀色肩背包、小十字墜飾與細手鍊構成的鬆弛街頭套裝。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/42_深灰短背心氣球寬褲.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "白襯衫緞面背心寬牛仔",
+        "en": "sheer white long shirt worn open, champagne satin camisole, light blue wide-leg jeans, white strappy heeled sandals, silver mini shoulder bag, delicate pendant necklace",
+        "desc": "以透膚白色長襯衫敞開穿、香檳緞面細肩背心、淺藍寬牛仔褲、白色細帶高跟涼鞋、銀色迷你肩背包與細墜鍊構成的清爽層次套裝。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/43_白襯衫緞面背心寬牛仔.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "西裝外套蕾絲迷你洋裝",
+        "en": "navy oversized blazer, white lace mini dress with layered scalloped hem, white knee-high socks, black chunky Mary Jane loafers, black chain shoulder bag, delicate pendant necklace",
+        "desc": "以深藍寬版西裝外套、白色蕾絲迷你洋裝與層疊波浪裙襬、白色及膝襪、黑色厚底 Mary Jane 樂福鞋、黑色鏈條肩背包與細墜鍊構成的學院感套裝。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/44_西裝外套蕾絲迷你洋裝.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "球衣荷葉迷你裙",
+        "en": "oversized white football jersey, large number 28 graphic, red and blue sleeve stripes, red tiered ruffle mini skirt, white crew socks, black chunky Mary Jane shoes, black shoulder bag",
+        "desc": "以寬版白色 28 號球衣、紅藍袖口條紋、紅色層疊荷葉迷你裙、白色中筒襪、黑色厚底 Mary Jane 鞋與黑色肩背包構成的運動甜辣套裝。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/45_球衣荷葉迷你裙.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "酒紅綁帶針織寬牛仔",
+        "en": "burgundy lace-up cropped cardigan, ruffled neckline, white lace camisole layer, distressed black wide-leg jeans, red pointed shoes, black grommet shoulder bag, layered pendant necklaces",
+        "desc": "以酒紅綁帶短版針織外套、荷葉領邊、白色蕾絲背心層次、刷破黑色寬牛仔褲、紅色尖頭鞋、黑色鉚孔肩背包與多層墜鍊構成的復古街頭套裝。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/46_酒紅綁帶針織寬牛仔.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "運動外套荷葉七分褲",
+        "en": "navy zip-up track jacket with white sleeve stripes, white ruffled layered hem top, black cropped jogger pants, white crew socks, black ballet flats, silver shoulder bag",
+        "desc": "以深藍立領拉鍊運動外套、白色袖側條紋、下襬露出的白色多層荷葉上衣、黑色七分運動褲、白色中筒襪、黑色芭蕾平底鞋與銀色肩背包構成的運動混搭套裝。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/47_運動外套荷葉七分褲.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "白蕾絲長罩衫牛仔褲",
+        "en": "long white lace robe cardigan, ruffled lace hem, white tie-front camisole, ripped light blue jeans, brown leather shoulder bag, burgundy ballet flats, delicate pendant necklace",
+        "desc": "以白色長版蕾絲罩衫、荷葉蕾絲下襬、白色綁帶背心、破洞淺藍牛仔褲、棕色皮革肩背包、酒紅芭蕾鞋與細墜鍊構成的復古蕾絲套裝。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/48_白蕾絲長罩衫牛仔褲.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
         "zh": "浴巾裹身",
         "en": "bath towel wrap outfit, thick terry towel texture, strapless wrapped construction, upper edge wrapped across the lower bust line, secure coverage from chest to above-knee length, tucked overlap fold, dominant towel color controlled by the outfit color selection",
         "desc": "以厚實毛巾布包裹身體，上緣從胸部下半部開始包圍，長度到膝蓋上方，主色交由套裝配色控制。"

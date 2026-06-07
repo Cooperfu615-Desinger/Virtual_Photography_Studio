@@ -178,6 +178,104 @@ test('sporty ringer tee hot-pants outfit preserves key garment and accessory anc
   assert.equal(prompt.selection.outfitPresetId, outfit.id);
 });
 
+test('street reference outfit presets 40 to 48 preserve full outfit accessories and footwear', () => {
+  [
+    [
+      '套裝：白蕾絲泡袖七分褲',
+      /white lace puff-sleeve tie-front blouse/i,
+      /dark brown cropped capri pants/i,
+      /white lace socks/i,
+      /black patent Mary Jane shoes/i,
+      /silver shoulder bag/i,
+      'reference/wardrobe/outfit-presets/40_白蕾絲泡袖七分褲.png',
+    ],
+    [
+      '套裝：粉針織罩衫寬牛仔',
+      /pale pink sheer knit cardigan/i,
+      /white lace-trim camisole/i,
+      /light blue wide-leg jeans/i,
+      /silver ballet flats/i,
+      /silver shoulder bag/i,
+      'reference/wardrobe/outfit-presets/41_粉針織罩衫寬牛仔.png',
+    ],
+    [
+      '套裝：深灰短背心氣球寬褲',
+      /dark gray cropped sleeveless tank/i,
+      /light gray balloon wide pants/i,
+      /white chunky sneakers/i,
+      /silver shoulder bag/i,
+      /small cross pendant/i,
+      'reference/wardrobe/outfit-presets/42_深灰短背心氣球寬褲.png',
+    ],
+    [
+      '套裝：白襯衫緞面背心寬牛仔',
+      /sheer white long shirt worn open/i,
+      /champagne satin camisole/i,
+      /light blue wide-leg jeans/i,
+      /white strappy heeled sandals/i,
+      /silver mini shoulder bag/i,
+      'reference/wardrobe/outfit-presets/43_白襯衫緞面背心寬牛仔.png',
+    ],
+    [
+      '套裝：西裝外套蕾絲迷你洋裝',
+      /navy oversized blazer/i,
+      /white lace mini dress/i,
+      /white knee-high socks/i,
+      /black chunky Mary Jane loafers/i,
+      /black chain shoulder bag/i,
+      'reference/wardrobe/outfit-presets/44_西裝外套蕾絲迷你洋裝.png',
+    ],
+    [
+      '套裝：球衣荷葉迷你裙',
+      /oversized white football jersey/i,
+      /large number 28 graphic/i,
+      /red tiered ruffle mini skirt/i,
+      /white crew socks/i,
+      /black chunky Mary Jane shoes/i,
+      'reference/wardrobe/outfit-presets/45_球衣荷葉迷你裙.png',
+    ],
+    [
+      '套裝：綁帶針織寬牛仔',
+      /burgundy lace-up cropped cardigan/i,
+      /white lace camisole layer/i,
+      /distressed black wide-leg jeans/i,
+      /red pointed shoes/i,
+      /black grommet shoulder bag/i,
+      'reference/wardrobe/outfit-presets/46_酒紅綁帶針織寬牛仔.png',
+    ],
+    [
+      '套裝：運動外套荷葉七分褲',
+      /navy zip-up track jacket/i,
+      /white ruffled layered hem top/i,
+      /black cropped jogger pants/i,
+      /white crew socks/i,
+      /black ballet flats/i,
+      'reference/wardrobe/outfit-presets/47_運動外套荷葉七分褲.png',
+    ],
+    [
+      '套裝：白蕾絲長罩衫牛仔褲',
+      /long white lace robe cardigan/i,
+      /white tie-front camisole/i,
+      /ripped light blue jeans/i,
+      /brown leather shoulder bag/i,
+      /burgundy ballet flats/i,
+      'reference/wardrobe/outfit-presets/48_白蕾絲長罩衫牛仔褲.png',
+    ],
+  ].forEach(([label, ...expectations]) => {
+    const referenceImage = expectations.pop();
+    const option = optionByLabel('outfitPresetId', label);
+    const text = [option.en, option.desc].join(' ');
+
+    expectations.forEach((pattern) => {
+      assert.match(text, pattern);
+    });
+
+    assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
+    assert.equal(option.meta.referenceImage, referenceImage);
+    assert.equal(option.meta.referenceImageFormat, 'png');
+  });
+});
+
 test('dress controls expose short and long one-piece silhouettes only', () => {
   assert.deepEqual(
     optionLabels('dressId'),
