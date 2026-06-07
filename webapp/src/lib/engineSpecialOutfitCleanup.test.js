@@ -65,6 +65,14 @@ const EXPECTED_SPECIAL_OUTFITS = [
   '酒紅圖像T黑寬牛仔工裝靴造型',
   '紅色短T低腰寬牛仔耳機造型',
   '黃色圖像短T格紋喇叭褲分趾鞋造型',
+  '綠針織運動短褲藍包造型',
+  '紅色圖像T格紋短褲長襪造型',
+  '紫色佩斯利襯衫短褲軍靴造型',
+  '巴西色背心單肩吊帶牛仔造型',
+  '紫條紋襯衫洋裝紅包造型',
+  '紅帽波點背心寬牛仔造型',
+  '粉色愛心T黑寬褲造型',
+  '白荷葉襯衫黑吊帶長裙波點包造型',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
@@ -78,7 +86,7 @@ const optionByLabel = (key, label) => {
 
 const wordCount = (text) => text.trim().split(/\s+/).filter(Boolean).length;
 
-test('special outfit controls expose exactly the approved 61 complete looks', () => {
+test('special outfit controls expose exactly the approved 69 complete looks', () => {
   assert.deepEqual(nonNoneSpecialOutfits().map((option) => option.zh), EXPECTED_SPECIAL_OUTFITS);
 });
 
@@ -127,6 +135,95 @@ test('recent special outfit refinements preserve requested garment details', () 
     for (const fragment of fragments) {
       assert.match(option.en, new RegExp(fragment, 'i'), `${label} should include "${fragment}"`);
     }
+  }
+});
+
+test('special outfit street reference looks 62 to 69 preserve hair, bags, accessories, and footwear', () => {
+  const expectedByLabel = {
+    綠針織運動短褲藍包造型: [
+      'long blonde hair under a pale blue bandana headscarf',
+      'bright green fuzzy oversized V-neck sweater',
+      'black athletic three-stripe knee shorts',
+      'large cobalt blue nylon shoulder bag',
+      'white crew socks',
+      'black three-stripe sneakers',
+      'reference/wardrobe/special-outfits/62_綠針織運動短褲藍包.png',
+    ],
+    紅色圖像T格紋短褲長襪造型: [
+      'short reddish pixie hair',
+      'red fitted graphic T-shirt',
+      'plaid drawstring shorts',
+      'dark gray thigh-high socks',
+      'black chunky Mary Jane shoes',
+      'tan structured handbag',
+      'reference/wardrobe/special-outfits/63_紅色圖像T格紋短褲長襪.png',
+    ],
+    紫色佩斯利襯衫短褲軍靴造型: [
+      'brown hair tucked under a green bandana headscarf',
+      'oversized purple paisley button-down shirt worn open',
+      'black leather-look knee-length shorts',
+      'black mid-calf socks',
+      'chunky black combat boots with yellow lace accents',
+      'pearl choker necklace',
+      'reference/wardrobe/special-outfits/64_紫色佩斯利襯衫短褲軍靴.png',
+    ],
+    巴西色背心單肩吊帶牛仔造型: [
+      'loose brown hair',
+      'yellow-and-green Brazil flag sports bra top',
+      'blue denim overalls worn slouched with one bib strap undone',
+      'navy shoulder bag',
+      'wired white earphones',
+      'dark low-profile sneakers',
+      'reference/wardrobe/special-outfits/65_巴西色背心單肩吊帶牛仔.png',
+    ],
+    紫條紋襯衫洋裝紅包造型: [
+      'long straight dark hair with full bangs',
+      'oversized purple-and-white vertical striped button-down shirt dress',
+      'red quilted chain-strap shoulder bag',
+      'navy ankle socks',
+      'red pointed flats with striped metallic toe detail',
+      'reference/wardrobe/special-outfits/66_紫條紋襯衫洋裝紅包.png',
+    ],
+    紅帽波點背心寬牛仔造型: [
+      'long wavy hair under a red baseball cap',
+      'white camisole with black polka dots',
+      'very wide dark blue low-rise jeans',
+      'black handbag with a dangling white star charm',
+      'black sunglasses',
+      'black sneakers',
+      'reference/wardrobe/special-outfits/67_紅帽波點背心寬牛仔.png',
+    ],
+    粉色愛心T黑寬褲造型: [
+      'long black wavy hair with wispy bangs',
+      'pink fitted baby tee with I heart ME graphic and leopard heart',
+      'black wide-leg drawstring pants',
+      'black shoulder bag with chain strap',
+      'black heart pendant necklace',
+      'black platform clogs',
+      'reference/wardrobe/special-outfits/68_粉色愛心T黑寬褲.png',
+    ],
+    白荷葉襯衫黑吊帶長裙波點包造型: [
+      'long wavy platinum-blonde hair with braided side detail',
+      'white sheer ruffled Victorian blouse',
+      'black long slip dress layered over the blouse',
+      'oversized red tote bag with white polka dots',
+      'silver pendant necklace',
+      'black sneakers with white three-stripe detail',
+      'reference/wardrobe/special-outfits/69_白荷葉襯衫黑吊帶長裙波點包.png',
+    ],
+  };
+
+  for (const [label, expectations] of Object.entries(expectedByLabel)) {
+    const referenceImage = expectations.at(-1);
+    const fragments = expectations.slice(0, -1);
+    const option = optionByLabel('specialOutfitId', label);
+
+    for (const fragment of fragments) {
+      assert.match(option.en, new RegExp(fragment, 'i'), `${label} should include "${fragment}"`);
+    }
+
+    assert.equal(option.meta.referenceImage, referenceImage);
+    assert.equal(option.meta.referenceImageFormat, 'png');
   }
 });
 

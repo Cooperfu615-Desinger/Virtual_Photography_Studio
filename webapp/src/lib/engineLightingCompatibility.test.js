@@ -62,6 +62,7 @@ test('optical effects stay in the camera summary while light style stays in ligh
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     locationId: optionId('locationId', '戶外：蘇荷區濕地反光街角'),
+    angleId: optionId('angleId', '平視高度鏡頭'),
     lightingId: optionId('lightingId', '雨天陰濕'),
     lightDirectionId: optionId('lightDirectionId', '漫射霧光'),
     opticalEffectId: optionId('opticalEffectId', '霧化高光 Bloom'),
