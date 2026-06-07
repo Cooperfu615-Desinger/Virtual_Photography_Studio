@@ -24,6 +24,9 @@ test('fixed composition controls expose three sets and fixed-set-only option gro
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發座面中央'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '床邊靠窗'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '低角度浴缸前景'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發扶手前景遮擋'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '床單前景遮擋'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '泡泡前景遮擋'));
 
   assert.deepEqual(
     control('fixedSetCaptureModeId').options.map((entry) => entry.zh),
@@ -31,7 +34,7 @@ test('fixed composition controls expose three sets and fixed-set-only option gro
   );
   assert.deepEqual(
     control('fixedSetPerformanceStateId').options.map((entry) => entry.zh),
-    ['模型自然發揮', '自信力量感', '慵懶無力感']
+    ['模型自然發揮', '自信力量感', '慵懶無力感', '冷淡疏離感', '俏皮挑釁感', '安靜脆弱感', '都市疲憊感', '夢遊恍神感', '優雅克制感', '失控隨性感']
   );
 });
 
@@ -125,6 +128,25 @@ test('self-shot fixed composition mode relaxes set, focus, face, and wardrobe co
   assert.match(prompt.zImagePrompt, /imperfect self-shot camera behavior/);
   assert.match(prompt.zImagePrompt, /no visible phone required/);
   assert.match(prompt.midjourneyPrompt, /focus may fall on the background or set objects instead of the face/);
+});
+
+test('fixed composition prompts reinforce set anchors while allowing self-shot fragments', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '清水模牆面沙發棚'),
+    fixedSetPositionId: optionId('fixedSetPositionId', '沙發扶手前景遮擋'),
+    fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '自然自拍感'),
+    fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '夢遊恍神感'),
+  });
+
+  assert.match(prompt.grokPrompt, /Fixed Set Integrity:/);
+  assert.match(prompt.grokPrompt, /raw concrete wall, black vintage Chesterfield sofa, and bare sculptural branches/);
+  assert.match(prompt.grokPrompt, /at least one or two selected set anchors must remain recognizable/);
+  assert.match(prompt.grokPrompt, /do not replace the fixed set with a plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room/);
+  assert.match(prompt.grokPrompt, /dreamlike dazed presence/);
+
+  assert.match(prompt.zImagePrompt, /at least one or two selected set anchors must remain recognizable/);
+  assert.match(prompt.midjourneyPrompt, /do not replace the fixed set/);
 });
 
 test('fixed composition sets are ignored for duo mode in V1', () => {

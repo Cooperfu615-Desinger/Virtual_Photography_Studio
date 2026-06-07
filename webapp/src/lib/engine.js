@@ -970,6 +970,8 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
     id: 'concrete-wall-chesterfield-sofa',
     zh: '清水模牆面沙發棚',
     en: 'fixed editorial set composition, raw concrete wall background, black vintage two-seat Chesterfield leather sofa spanning the lower frame, bare sculptural tree branches on one side, modern-retro interior styling, straight-on horizontal camera view, sofa and wall remain the main set architecture',
+    integrityEn: 'fixed set integrity: preserve the raw concrete wall, black vintage Chesterfield sofa, and bare sculptural branches as the selected set anchors',
+    replacementGuardEn: 'do not replace the fixed set with a plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room',
     desc: '灰色清水模牆、枯樹枝與黑色復古雙人扶手沙發構成的橫幅 editorial set。',
     aspectRatioId: '16:9',
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'sofa_set', 'horizontal_set'] },
@@ -978,6 +980,8 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
     id: 'luxury-hotel-window-nyc',
     zh: '高級飯店落地窗都市夜景',
     en: 'fixed luxury hotel window composition, large floor-to-ceiling glass window filling the background, New York-style high-rise city skyline outside, bed edge and soft white bedding in the lower foreground, intimate room-to-city depth, camera facing the window from inside the room',
+    integrityEn: 'fixed set integrity: preserve the floor-to-ceiling glass window, soft bed or bedding foreground, and New York-style high-rise skyline as the selected set anchors',
+    replacementGuardEn: 'do not replace the fixed set with a generic bedroom, plain wall, cafe, outdoor street, studio backdrop, or unrelated hotel room',
     desc: '高級飯店房間、床面前景、大片落地窗與紐約式高樓城市背景構成的直幅窗景 set。',
     aspectRatioId: '3:4',
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'hotel_window_set', 'vertical_set'] },
@@ -986,6 +990,8 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
     id: 'retro-tile-bathtub',
     zh: '復古磁磚浴室浴缸',
     en: 'fixed bathtub portrait composition, vintage tiled bathroom wall, bathtub rim crossing the lower foreground, white foam bubbles around the subject, chrome faucet and bath hardware on one side, intimate low horizontal camera view from the tub edge',
+    integrityEn: 'fixed set integrity: preserve the bathtub rim, vintage tiled bathroom wall, foam or water surface, and chrome bath hardware as the selected set anchors',
+    replacementGuardEn: 'do not replace the fixed set with a shower room, bedroom, pool, plain studio backdrop, spa lobby, or unrelated bathroom',
     desc: '復古磁磚浴室、浴缸、泡泡、金屬水龍頭與浴缸邊低角度構成的橫幅浴室 set。',
     aspectRatioId: '16:9',
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'bathtub_set', 'horizontal_set'] },
@@ -1013,6 +1019,18 @@ const FIXED_SET_POSITION_OPTIONS = [
     en: 'subject near the wall behind or around the sofa, with the sofa as a horizontal foreground anchor; standing, wall-leaning, or forward-leaning behavior can be model-decided',
   },
   {
+    id: 'sofa-armrest-foreground-occlusion',
+    setId: 'concrete-wall-chesterfield-sofa',
+    zh: '沙發扶手前景遮擋',
+    en: 'subject partly hidden by the sofa armrest or leather cushion edge in the foreground; foreground occlusion, partial body crop, or close-lens layering can be model-decided',
+  },
+  {
+    id: 'sofa-floor-off-center',
+    setId: 'concrete-wall-chesterfield-sofa',
+    zh: '沙發地面偏離中心',
+    en: 'subject on the floor plane near the sofa but off center, allowing asymmetrical spacing, cropped limbs, or casual distance from the sofa without prescribing an exact pose',
+  },
+  {
     id: 'hotel-bed-foreground',
     setId: 'luxury-hotel-window-nyc',
     zh: '近鏡頭床面前景',
@@ -1031,6 +1049,18 @@ const FIXED_SET_POSITION_OPTIONS = [
     en: 'subject near the floor-to-ceiling window; city towers become the dominant background, allowing profile, back-view, window-gazing, or silhouette-like behavior',
   },
   {
+    id: 'hotel-window-frame-close',
+    setId: 'luxury-hotel-window-nyc',
+    zh: '近鏡頭窗框邊緣',
+    en: 'subject very near the lens along the window-frame edge, allowing partial face, shoulder, hair, or half-body crop while the city window remains a recognizable layer',
+  },
+  {
+    id: 'hotel-bedding-foreground-occlusion',
+    setId: 'luxury-hotel-window-nyc',
+    zh: '床單前景遮擋',
+    en: 'soft bedding or pillow shapes become a foreground occlusion layer in front of the subject, with the body distance and exact interaction left to the image model',
+  },
+  {
     id: 'bathtub-center',
     setId: 'retro-tile-bathtub',
     zh: '浴缸內中央',
@@ -1047,6 +1077,18 @@ const FIXED_SET_POSITION_OPTIONS = [
     setId: 'retro-tile-bathtub',
     zh: '浴缸邊緣',
     en: 'subject close to the bathtub edge; sitting on the rim, holding the rim, or leaning from inside the tub can be model-decided',
+  },
+  {
+    id: 'bathtub-rim-close-crop',
+    setId: 'retro-tile-bathtub',
+    zh: '浴缸邊近鏡頭裁切',
+    en: 'subject very close to the camera at the bathtub rim, allowing partial face, shoulder, knees, feet, or torso fragments to enter the foreground without prescribing exact pose',
+  },
+  {
+    id: 'bathtub-foam-foreground-occlusion',
+    setId: 'retro-tile-bathtub',
+    zh: '泡泡前景遮擋',
+    en: 'foam bubbles and water surface create foreground occlusion around the subject, allowing parts of the body or face to be softened, hidden, or out of focus',
   },
 ];
 
@@ -1086,6 +1128,41 @@ const FIXED_SET_PERFORMANCE_STATE_OPTIONS = [
     id: 'lazy-drained',
     zh: '慵懶無力感',
     en: 'lazy drained presence, softened body energy, relaxed weight sinking into the set, unforced tired attitude without specifying exact limb placement',
+  },
+  {
+    id: 'detached-cool',
+    zh: '冷淡疏離感',
+    en: 'detached cool presence, emotionally distant attitude, minimal outward reaction, restrained body energy without specifying exact limb placement',
+  },
+  {
+    id: 'playful-provocative',
+    zh: '俏皮挑釁感',
+    en: 'playful provocative presence, teasing confidence, mischievous frame awareness, lively social energy without specifying exact limb placement',
+  },
+  {
+    id: 'quiet-vulnerable',
+    zh: '安靜脆弱感',
+    en: 'quiet vulnerable presence, softened guarded emotion, delicate inner tension, small protective body energy without specifying exact limb placement',
+  },
+  {
+    id: 'urban-fatigue',
+    zh: '都市疲憊感',
+    en: 'urban fatigue presence, late-night city exhaustion, heavy relaxed energy, candid tired attitude without specifying exact limb placement',
+  },
+  {
+    id: 'dreamlike-dazed',
+    zh: '夢遊恍神感',
+    en: 'dreamlike dazed presence, slightly absent focus, half-awake social snapshot mood, drifting body energy without specifying exact limb placement',
+  },
+  {
+    id: 'elegant-restrained',
+    zh: '優雅克制感',
+    en: 'elegant restrained presence, composed quiet poise, controlled emotion, refined low-key body energy without specifying exact limb placement',
+  },
+  {
+    id: 'chaotic-candid',
+    zh: '失控隨性感',
+    en: 'chaotic candid presence, accidental spontaneous attitude, loose unplanned body energy, imperfect social snapshot timing without specifying exact limb placement',
   },
 ];
 
@@ -3312,6 +3389,17 @@ function getFixedSetPerformanceStateOption(id) {
 
 function isFixedSetSelfShotMode(captureMode) {
   return Boolean(captureMode?.meta?.tags?.includes('fixed_set_self_shot'));
+}
+
+function buildFixedSetIntegrityText(fixedSet, captureMode) {
+  if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
+  const integrityText = fixedSet.integrityEn || '';
+  const replacementGuardText = fixedSet.replacementGuardEn || 'do not replace the fixed set with an unrelated scene';
+  const readabilityText = isFixedSetSelfShotMode(captureMode)
+    ? 'self-shot crop may hide parts of the set, but at least one or two selected set anchors must remain recognizable'
+    : 'keep the fixed set clearly readable as the stable scene architecture';
+
+  return [integrityText, readabilityText, replacementGuardText].filter(Boolean).join('; ');
 }
 
 function getLightingEnvironmentFlags(lighting) {
@@ -6626,6 +6714,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addContextLine('Fixed Set Position', context.fixedSetPosition, (item) => skeletonText(item.en));
     addContextLine('Fixed Set Capture Mode', context.fixedSetCaptureMode, (item) => skeletonText(item.en));
     addContextLine('Fixed Set Performance State', context.fixedSetPerformanceState, (item) => skeletonText(item.en));
+    addLine('Fixed Set Integrity', skeletonText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)));
     addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
     addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
   };
@@ -6925,6 +7014,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
       'Fixed Set Position',
       'Fixed Set Capture Mode',
       'Fixed Set Performance State',
+      'Fixed Set Integrity',
     ]),
     ...getStructuredValues(valuesByLabel, [
       'World Scene Architecture',
@@ -7311,6 +7401,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPosition.en) : context.fixedSetPosition.en) : '',
         context.fixedSetCaptureMode ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en) : '',
         context.fixedSetPerformanceState ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPerformanceState.en) : context.fixedSetPerformanceState.en) : '',
+        skeletonMode ? sanitizeSkeletonPromptText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)) : buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode),
         context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
         lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
       ]);
