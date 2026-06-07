@@ -84,3 +84,33 @@ test('workspace wardrobe summary and palette insights include complete look pale
   assert.deepEqual(insights.palette, ['黑紅街頭']);
   assert.match(insights.notes.join('\n'), /完整造型色系只調整/);
 });
+
+test('workspace scene summary includes fixed composition set controls', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '復古磁磚浴室浴缸'),
+    fixedSetPositionId: optionId('fixedSetPositionId', '低角度浴缸前景'),
+    fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '失控自拍感'),
+    fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '慵懶無力感'),
+  }, controls);
+
+  assert.match(summary.scene.summary, /復古磁磚浴室浴缸/);
+  assert.match(summary.scene.summary, /低角度浴缸前景/);
+  assert.match(summary.scene.summary, /失控自拍感/);
+  assert.match(summary.scene.summary, /慵懶無力感/);
+});
+
+test('fixed composition set aspect ratio remains visible in photography summary', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '清水模牆面沙發棚'),
+    aspectRatio: optionId('aspectRatio', '16:9 寬螢幕'),
+    styleId: optionId('styleId', 'Daido Moriyama（森山大道）'),
+    filmId: optionId('filmId', '高銳利快照黑位'),
+  }, controls);
+
+  assert.match(summary.scene.summary, /清水模牆面沙發棚/);
+  assert.match(summary.photography.summary, /16:9/);
+  assert.match(summary.photography.summary, /Daido Moriyama/);
+  assert.match(summary.photography.summary, /高銳利快照黑位/);
+});

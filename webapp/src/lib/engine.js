@@ -4938,7 +4938,17 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const importedWorldSceneLabel = context.locks?.importedWorldSceneMode === 'architecture'
     ? String(context.locks.importedWorldSceneLabel || '').trim()
     : '';
-  const locationLabel = importedWorldSceneLabel
+  const fixedSetSummaryLabel = context.fixedCompositionSet && !isNoneLikeItem(context.fixedCompositionSet)
+    ? joinSummaryParts(
+        context.fixedCompositionSet.zh,
+        context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition) ? context.fixedSetPosition.zh : '',
+        context.fixedSetCaptureMode?.zh || '',
+        context.fixedSetPerformanceState?.zh || ''
+      )
+    : '';
+  const locationLabel = fixedSetSummaryLabel && fixedSetSummaryLabel !== '-'
+    ? fixedSetSummaryLabel
+    : importedWorldSceneLabel
     ? `PAGE3：${importedWorldSceneLabel}`
     : context.location && !isNoneLikeItem(context.location) ? context.location.zh : '-';
   const framingLabel = context.framing && !isNoneLikeItem(context.framing) ? context.framing.zh : '-';

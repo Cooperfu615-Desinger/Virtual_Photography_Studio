@@ -172,6 +172,10 @@ export function buildWorkspaceSummary(locks, controls) {
   const sceneSummary = buildSummaryText([
     getControlOptionLabel(controls, 'sceneAttributeId', locks.sceneAttributeId),
     importedWorldSceneLabel,
+    getControlOptionLabel(controls, 'fixedCompositionSetId', locks.fixedCompositionSetId),
+    getControlOptionLabel(controls, 'fixedSetPositionId', locks.fixedSetPositionId),
+    getControlOptionLabel(controls, 'fixedSetCaptureModeId', locks.fixedSetCaptureModeId),
+    getControlOptionLabel(controls, 'fixedSetPerformanceStateId', locks.fixedSetPerformanceStateId),
     getControlOptionLabel(controls, 'locationId', locks.locationId),
     getControlOptionLabel(controls, 'lightingId', locks.lightingId),
     getControlOptionLabel(controls, 'lightDirectionId', locks.lightDirectionId),
