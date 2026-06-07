@@ -245,8 +245,9 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
     ],
     [
       '套裝：運動外套荷葉七分褲',
-      /navy zip-up track jacket/i,
-      /white ruffled layered hem top/i,
+      /navy zip-up track jacket outer layer/i,
+      /contrasting white ruffled camisole/i,
+      /skirt-like peplum hem peeking out below the jacket/i,
       /black cropped jogger pants/i,
       /white crew socks/i,
       /black ballet flats/i,

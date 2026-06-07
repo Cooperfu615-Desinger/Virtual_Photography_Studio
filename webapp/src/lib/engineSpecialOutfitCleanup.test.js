@@ -142,6 +142,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
   const expectedByLabel = {
     綠針織運動短褲藍包造型: [
       'long blonde hair under a pale blue bandana headscarf',
+      'semi-transparent brown sunglasses',
       'bright green fuzzy oversized V-neck sweater',
       'black athletic three-stripe knee shorts',
       'large cobalt blue nylon shoulder bag',
@@ -151,6 +152,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
     ],
     紅色圖像T格紋短褲長襪造型: [
       'short reddish pixie hair',
+      'semi-transparent brown sunglasses',
       'red fitted graphic T-shirt',
       'plaid drawstring shorts',
       'dark gray thigh-high socks',
