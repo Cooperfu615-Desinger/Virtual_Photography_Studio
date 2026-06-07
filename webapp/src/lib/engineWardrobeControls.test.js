@@ -431,11 +431,35 @@ test('outfit preset and dress option labels use unified prefixes without fixed c
   assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：春日巴黎亞麻長褲'));
   assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：西裝長褲'));
   assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：鏈條緞面內衣'));
+  assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：浴巾裹身'));
   assert.ok(!outfitPresetControl.options.some((option) => option.zh === '套裝：極簡高級'));
   assert.ok(!outfitPresetControl.options.some((option) => option.zh === '套裝：日系街頭'));
   assert.ok(!outfitPresetControl.options.some((option) => option.zh === '象牙白春日巴黎套裝'));
   assert.ok(dressControl.options.some((option) => option.zh === '連身：短版｜無袖迷你洋裝'));
   assert.ok(dressControl.options.some((option) => option.zh === '連身：短版｜細肩帶迷你洋裝'));
+});
+
+test('bath towel outfit preset and sheer cover-up outerwear preserve requested garment structure', () => {
+  const towelPreset = optionByLabel('outfitPresetId', '套裝：浴巾裹身');
+  const sheerCoverUp = optionByLabel('outerwearId', '薄紗輕薄披衣外套');
+
+  assert.match(towelPreset.en, /bath towel wrap outfit/);
+  assert.match(towelPreset.en, /upper edge wrapped across the lower bust line/);
+  assert.match(towelPreset.en, /above-knee length/);
+  assert.match(sheerCoverUp.en, /sheer lightweight cover-up jacket/);
+  assert.match(sheerCoverUp.en, /translucent gauze mesh fabric/);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: towelPreset.id,
+    outerwearId: sheerCoverUp.id,
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.match(promptText, /upper edge wrapped across the lower bust line/);
+  assert.match(promptText, /thick terry towel texture/);
+  assert.match(promptText, /sheer lightweight cover-up jacket/);
+  assert.match(promptText, /translucent gauze mesh fabric/);
 });
 
 test('special top and bottom palette applies to outfit presets', () => {

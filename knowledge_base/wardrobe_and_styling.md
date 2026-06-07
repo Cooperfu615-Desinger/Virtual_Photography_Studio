@@ -106,6 +106,7 @@
 | **套裝 (Outfit Presets)** | 皮革掛脖背心短褲長靴 | `zip-front leather halter vest, low-rise leather shorts, dangling side straps, knee-high leather boots, dominant leather color controlled by the outfit color selection` | 以拉鍊皮革掛脖背心、低腰皮革短褲、側邊垂帶與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。 |
 | **套裝 (Outfit Presets)** | 斑馬紋馬甲短褲長靴 | `zebra-pattern corset tank, zip-front center panel, glossy micro shorts, knee-high leather boots, dominant fabric color controlled by the outfit color selection` | 以斑馬紋馬甲背心、中線拉鍊拼片、亮面超短褲與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。 |
 | **套裝 (Outfit Presets)** | 短版運動T熱褲套裝 | `sporty ringer baby-tee and dolphin shorts outfit, fitted cropped ringer T-shirt with contrast collar and sleeve binding, faint tonal chest graphic mark, low-rise dolphin micro shorts with contrast piping, contrast elastic waistband, front drawstring and side lace-up grommet detail, knee-high athletic socks, low-top sneakers, main jersey color controlled by the outfit color selection, contrast trim controlled by contrast palette` | 以短版撞色圓領運動T、低腰抽繩 dolphin 熱褲、側邊綁孔細節、長筒運動襪與低筒球鞋構成的甜辣運動套裝；主色與撞色滾邊由套裝配色控制。 |
+| **套裝 (Outfit Presets)** | 浴巾裹身 | `bath towel wrap outfit, thick terry towel texture, strapless wrapped construction, upper edge wrapped across the lower bust line, secure coverage from chest to above-knee length, tucked overlap fold, dominant towel color controlled by the outfit color selection` | 以厚實毛巾布包裹身體，上緣從胸部下半部開始包圍，長度到膝蓋上方，主色交由套裝配色控制。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 襯衫 | `shirt, crisp cotton poplin, clean placket construction, balanced collar line` | 以俐落門襟、清楚領型與乾淨肩線構成的基礎上身單品，重點在剪裁結構而不是情境語氣。 |
 | **上身 (Tops)** | 長版襯衫 | `longline shirt, extended hem length, relaxed sleeve volume, softened drape through the body` | 以較長衣襬、寬鬆袖量與柔垂布面為主，重點在長版比例與輪廓延伸，不預設特定穿法。 |
@@ -280,6 +281,7 @@
 | **外套 (Outerwear)** | 合身西裝外套 | `tailored fitted blazer, close-cut jacket structure, defined waist shaping, polished suiting fabric` | 以合身西裝剪裁、收腰線條、俐落肩線與挺版西裝布為主。 |
 | **外套 (Outerwear)** | 短版合身西裝外套 | `cropped fitted blazer, short tailored jacket, waist-defining cut, structured shoulders, slim sleeves, clean notched lapels, buttoned front, polished suiting fabric` | 以短版西裝衣長、收腰剪裁、俐落肩線、窄袖、翻領與前方扣合狀態為主，不綁定內搭、下身或姿勢。 |
 | **外套 (Outerwear)** | 人造毛皮草外套 | `faux fur coat, plush textured outerwear, voluminous soft pile, cold-weather fashion layer` | 以人造毛皮的厚實絨面、蓬鬆外層份量與柔軟大面積材質為主。 |
+| **外套 (Outerwear)** | 薄紗輕薄披衣外套 | `sheer lightweight cover-up jacket, translucent gauze mesh fabric, hooded zip-front layer, short sleeves, soft draped outerwear` | 以半透明薄紗網布、連帽拉鍊、短袖與輕柔披掛感為主的輕薄外層。 |
 | **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
 | **外套穿法 (Outerwear Styling)** | 正常穿著 | `properly worn on both shoulders as a standard outer layer over the top, shoulder line fully covered` | 外套正常穿在雙肩上，作為完整覆蓋上衣肩線的外層，不帶滑肩或露肩效果。 |
 | **外套穿法 (Outerwear Styling)** | 滑落肩部 | `slipped off the shoulder line` | 外套刻意滑落肩線，可呈現單邊或雙邊滑落的放鬆時裝感。 |

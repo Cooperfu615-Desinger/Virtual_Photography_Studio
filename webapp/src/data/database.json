@@ -1330,6 +1330,11 @@
           "referenceImage": "reference/wardrobe/outfit-presets/39_短版熱褲運動T.png",
           "referenceImageFormat": "png"
         }
+      },
+      {
+        "zh": "浴巾裹身",
+        "en": "bath towel wrap outfit, thick terry towel texture, strapless wrapped construction, upper edge wrapped across the lower bust line, secure coverage from chest to above-knee length, tucked overlap fold, dominant towel color controlled by the outfit color selection",
+        "desc": "以厚實毛巾布包裹身體，上緣從胸部下半部開始包圍，長度到膝蓋上方，主色交由套裝配色控制。"
       }
     ],
     "上身 (Tops)": [
@@ -2389,6 +2394,11 @@
         "zh": "人造毛皮草外套",
         "en": "faux fur coat, plush textured outerwear, voluminous soft pile, cold-weather fashion layer",
         "desc": "以人造毛皮的厚實絨面、蓬鬆外層份量與柔軟大面積材質為主。"
+      },
+      {
+        "zh": "薄紗輕薄披衣外套",
+        "en": "sheer lightweight cover-up jacket, translucent gauze mesh fabric, hooded zip-front layer, short sleeves, soft draped outerwear",
+        "desc": "以半透明薄紗網布、連帽拉鍊、短袖與輕柔披掛感為主的輕薄外層。"
       }
     ],
     "外套穿法 (Outerwear Styling)": [
