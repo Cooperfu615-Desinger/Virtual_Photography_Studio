@@ -964,6 +964,131 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
   },
 ];
 
+const FIXED_COMPOSITION_SET_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', desc: '不使用固定構圖場景。', meta: { tags: ['none'] } },
+  {
+    id: 'concrete-wall-chesterfield-sofa',
+    zh: '清水模牆面沙發棚',
+    en: 'fixed editorial set composition, raw concrete wall background, black vintage two-seat Chesterfield leather sofa spanning the lower frame, bare sculptural tree branches on one side, modern-retro interior styling, straight-on horizontal camera view, sofa and wall remain the main set architecture',
+    desc: '灰色清水模牆、枯樹枝與黑色復古雙人扶手沙發構成的橫幅 editorial set。',
+    aspectRatioId: '16:9',
+    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'sofa_set', 'horizontal_set'] },
+  },
+  {
+    id: 'luxury-hotel-window-nyc',
+    zh: '高級飯店落地窗都市夜景',
+    en: 'fixed luxury hotel window composition, large floor-to-ceiling glass window filling the background, New York-style high-rise city skyline outside, bed edge and soft white bedding in the lower foreground, intimate room-to-city depth, camera facing the window from inside the room',
+    desc: '高級飯店房間、床面前景、大片落地窗與紐約式高樓城市背景構成的直幅窗景 set。',
+    aspectRatioId: '3:4',
+    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'hotel_window_set', 'vertical_set'] },
+  },
+  {
+    id: 'retro-tile-bathtub',
+    zh: '復古磁磚浴室浴缸',
+    en: 'fixed bathtub portrait composition, vintage tiled bathroom wall, bathtub rim crossing the lower foreground, white foam bubbles around the subject, chrome faucet and bath hardware on one side, intimate low horizontal camera view from the tub edge',
+    desc: '復古磁磚浴室、浴缸、泡泡、金屬水龍頭與浴缸邊低角度構成的橫幅浴室 set。',
+    aspectRatioId: '16:9',
+    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'bathtub_set', 'horizontal_set'] },
+  },
+];
+
+const FIXED_SET_POSITION_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定固定場景內的人物位置。', meta: { tags: ['none'] } },
+  {
+    id: 'sofa-foreground',
+    setId: 'concrete-wall-chesterfield-sofa',
+    zh: '近鏡頭沙發前方',
+    en: 'subject in the foreground in front of the sofa, with the sofa becoming a background layer; standing, crouching, floor sitting, or close-lens behavior can be model-decided',
+  },
+  {
+    id: 'sofa-seat-center',
+    setId: 'concrete-wall-chesterfield-sofa',
+    zh: '沙發座面中央',
+    en: 'subject placed on the sofa seat plane; sitting, lounging, half-reclining, lying, or leaning on an armrest can be model-decided',
+  },
+  {
+    id: 'sofa-wall-back',
+    setId: 'concrete-wall-chesterfield-sofa',
+    zh: '沙發後方靠牆',
+    en: 'subject near the wall behind or around the sofa, with the sofa as a horizontal foreground anchor; standing, wall-leaning, or forward-leaning behavior can be model-decided',
+  },
+  {
+    id: 'hotel-bed-foreground',
+    setId: 'luxury-hotel-window-nyc',
+    zh: '近鏡頭床面前景',
+    en: 'subject close to the camera or bed foreground; the city view can be partially blocked or softened',
+  },
+  {
+    id: 'hotel-bed-window-side',
+    setId: 'luxury-hotel-window-nyc',
+    zh: '床邊靠窗',
+    en: 'subject around the bed edge or window-side mid-plane; body, bedding, glass, and city depth can all remain readable',
+  },
+  {
+    id: 'hotel-window-silhouette',
+    setId: 'luxury-hotel-window-nyc',
+    zh: '窗前城市剪影',
+    en: 'subject near the floor-to-ceiling window; city towers become the dominant background, allowing profile, back-view, window-gazing, or silhouette-like behavior',
+  },
+  {
+    id: 'bathtub-center',
+    setId: 'retro-tile-bathtub',
+    zh: '浴缸內中央',
+    en: 'subject in the middle of the bathtub, surrounded by foam and tub edges; face and upper body can remain the main portrait anchor',
+  },
+  {
+    id: 'bathtub-low-foreground',
+    setId: 'retro-tile-bathtub',
+    zh: '低角度浴缸前景',
+    en: 'camera near the tub edge or waterline; tub rim, foam, legs, or partial body forms may create foreground occlusion and focus variation',
+  },
+  {
+    id: 'bathtub-rim-edge',
+    setId: 'retro-tile-bathtub',
+    zh: '浴缸邊緣',
+    en: 'subject close to the bathtub edge; sitting on the rim, holding the rim, or leaning from inside the tub can be model-decided',
+  },
+];
+
+const FIXED_SET_CAPTURE_MODE_OPTIONS = [
+  {
+    id: 'photographer-shot',
+    zh: '攝影師拍攝',
+    en: 'photographer-shot fixed set portrait, subject arranged within the selected set, fixed composition remains readable, face and wardrobe generally clear where framing allows',
+    meta: { tags: ['fixed_set_photographer_shot'] },
+  },
+  {
+    id: 'natural-self-shot',
+    zh: '自然自拍感',
+    en: 'self-shot social composition feeling, subject may move close to the lens, off-center partial face or half-body crop allowed, fixed set may remain only as recognizable background fragments, no visible phone required',
+    meta: { tags: ['fixed_set_self_shot'] },
+  },
+  {
+    id: 'imperfect-self-shot',
+    zh: '失控自拍感',
+    en: 'imperfect self-shot camera behavior, focus may fall on the background or set objects instead of the face, subject may be slightly blurred or partially cropped, fixed set may remain only as recognizable background fragments, casual accidental framing, real social snapshot imperfection, no visible phone required',
+    meta: { tags: ['fixed_set_self_shot', 'fixed_set_imperfect_focus'] },
+  },
+];
+
+const FIXED_SET_PERFORMANCE_STATE_OPTIONS = [
+  {
+    id: 'model-natural',
+    zh: '模型自然發揮',
+    en: 'let the image model choose a natural body attitude and expression that fits the selected fixed set position and capture mode',
+  },
+  {
+    id: 'confident-powerful',
+    zh: '自信力量感',
+    en: 'confident powerful presence, strong self-possessed attitude, assertive body energy, direct control of the frame without specifying exact limb placement',
+  },
+  {
+    id: 'lazy-drained',
+    zh: '慵懶無力感',
+    en: 'lazy drained presence, softened body energy, relaxed weight sinking into the set, unforced tired attitude without specifying exact limb placement',
+  },
+];
+
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
   { key: 'specialSubjectId', label: '特殊角色', options: SPECIAL_SUBJECT_OPTIONS, defaultValue: 'none', section: 'character' },
@@ -975,6 +1100,10 @@ const LOCK_DEFINITIONS = [
   { key: 'importedWorldSceneMode', label: '匯入世界場景模式', defaultValue: 'none', section: 'hidden' },
   { key: 'importedWorldSceneLabel', label: '匯入世界場景標籤', section: 'hidden' },
   { key: 'importedWorldSceneArchitectureText', label: '匯入世界場景架構', section: 'hidden' },
+  { key: 'fixedCompositionSetId', label: '固定構圖場景', options: FIXED_COMPOSITION_SET_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
+  { key: 'fixedSetPositionId', label: '固定場景人物位置', options: FIXED_SET_POSITION_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
+  { key: 'fixedSetCaptureModeId', label: '固定場景拍攝型態', options: FIXED_SET_CAPTURE_MODE_OPTIONS, defaultValue: 'photographer-shot', suppressDefaultRandomOption: true, section: 'core' },
+  { key: 'fixedSetPerformanceStateId', label: '固定場景演出狀態', options: FIXED_SET_PERFORMANCE_STATE_OPTIONS, defaultValue: 'model-natural', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
   { key: 'angleId', label: '俯仰角度', category: '相機視角 (Angle)', section: 'core' },
   { key: 'orbitId', label: '環繞角度', category: '拍攝方位 (Orbit Angle)', section: 'core' },
@@ -1120,6 +1249,10 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'styleId', label: 'Style' },
   { key: 'sceneAttributeId', label: 'Scene Attribute' },
   { key: 'locationId', label: 'Location' },
+  { key: 'fixedCompositionSetId', label: 'Fixed Composition Set' },
+  { key: 'fixedSetPositionId', label: 'Fixed Set Position' },
+  { key: 'fixedSetCaptureModeId', label: 'Fixed Set Capture Mode' },
+  { key: 'fixedSetPerformanceStateId', label: 'Fixed Set Performance State' },
   { key: 'framingId', label: 'Framing' },
   { key: 'angleId', label: 'Angle' },
   { key: 'orbitId', label: 'Orbit' },
@@ -3153,6 +3286,32 @@ function locationMatchesSceneAttribute(location, sceneAttribute) {
   if (sceneAttribute.id === 'other') return location.meta.tags.includes('other_scene');
 
   return true;
+}
+
+function getFixedCompositionSetOption(id) {
+  return FIXED_COMPOSITION_SET_OPTIONS.find((option) => option.id === id) || FIXED_COMPOSITION_SET_OPTIONS[0];
+}
+
+function isFixedCompositionSetActive(item) {
+  return Boolean(item && !isNoneLikeItem(item));
+}
+
+function getFixedSetPositionOption(id, fixedSetId) {
+  const item = FIXED_SET_POSITION_OPTIONS.find((option) => option.id === id) || FIXED_SET_POSITION_OPTIONS[0];
+  if (!fixedSetId || item.id === 'none') return item;
+  return item.setId === fixedSetId ? item : FIXED_SET_POSITION_OPTIONS[0];
+}
+
+function getFixedSetCaptureModeOption(id) {
+  return FIXED_SET_CAPTURE_MODE_OPTIONS.find((option) => option.id === id) || FIXED_SET_CAPTURE_MODE_OPTIONS[0];
+}
+
+function getFixedSetPerformanceStateOption(id) {
+  return FIXED_SET_PERFORMANCE_STATE_OPTIONS.find((option) => option.id === id) || FIXED_SET_PERFORMANCE_STATE_OPTIONS[0];
+}
+
+function isFixedSetSelfShotMode(captureMode) {
+  return Boolean(captureMode?.meta?.tags?.includes('fixed_set_self_shot'));
 }
 
 function getLightingEnvironmentFlags(lighting) {
@@ -6361,6 +6520,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const specialSubjectMode = isSpecialSubject(context.subject);
   const skeletonMode = isSkeletonSubject(context.subject);
+  const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
+  const fixedSetSelfShotMode = fixedCompositionSetActive && isFixedSetSelfShotMode(context.fixedSetCaptureMode);
   const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors);
   const duoSceneAnchorText = buildDuoSceneAnchorText(context, wardrobeSlots, wardrobeColors);
   const hasDuoSceneAnchor = Boolean(duoSceneAnchorText);
@@ -6431,6 +6592,9 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   };
   const skeletonText = (value) => (skeletonMode ? sanitizeSkeletonPromptText(value) : value);
   const buildGrokScenePriorityText = () => {
+    if (fixedSetSelfShotMode) {
+      return 'allow self-shot imperfection: partial face or half-body crop, off-center framing, close-lens proximity, imperfect focus, and incomplete fixed-set visibility are acceptable';
+    }
     if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
 
     const locationAnchor = stripMarkdown(context.location.en || context.location.zh || '')
@@ -6445,6 +6609,15 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
 
     if (!locationAnchor) return '';
     return `(${locationAnchor}:1.35), keep the recognizable selected environment visible behind the subject, preserve clear spatial context and background details, avoid plain or empty background`;
+  };
+  const addFixedCompositionSetLines = () => {
+    if (!fixedCompositionSetActive) return;
+    addContextLine('Fixed Composition Set', context.fixedCompositionSet, (item) => skeletonText(item.en));
+    addContextLine('Fixed Set Position', context.fixedSetPosition, (item) => skeletonText(item.en));
+    addContextLine('Fixed Set Capture Mode', context.fixedSetCaptureMode, (item) => skeletonText(item.en));
+    addContextLine('Fixed Set Performance State', context.fixedSetPerformanceState, (item) => skeletonText(item.en));
+    addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
+    addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
   };
   const addGrokSceneLines = () => {
     if (isCloseupVisibility) {
@@ -6498,7 +6671,9 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     return 'preserve the intended composition with the outfit and surrounding setting visible, avoid an overly tight face crop';
   };
   const buildGrokWardrobeIntegrityText = () => (
-    'preserve the selected wardrobe as complete, realistic clothing with natural fabric texture, folds, and construction'
+    fixedSetSelfShotMode
+      ? 'preserve selected wardrobe identity through visible clothing fragments, fabric color, neckline, shoulder, torso, or local detail when the self-shot crop allows'
+      : 'preserve the selected wardrobe as complete, realistic clothing with natural fabric texture, folds, and construction'
   );
 
   addLine('Duo Scene Anchor', duoSceneAnchorText);
@@ -6515,7 +6690,11 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   } else if (!specialSubjectMode) {
     addLine('Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessory));
   }
-  if (sceneProtectedWardrobeMode) addGrokSceneLines();
+  if (fixedCompositionSetActive) {
+    addFixedCompositionSetLines();
+  } else if (sceneProtectedWardrobeMode) {
+    addGrokSceneLines();
+  }
   if (context.subject.count === 2 && !hasDuoSceneAnchor && (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB)) {
     addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
     if (isCloseupVisibility) {
@@ -6645,19 +6824,23 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   } else if (!specialSubjectMode) {
     addLine('Expression', expressionText);
   }
-  if (!sceneProtectedWardrobeMode) {
+  if (!fixedCompositionSetActive && !sceneProtectedWardrobeMode) {
     addGrokSceneLines();
   }
   addLine('Aspect Ratio', context.aspectRatio.en);
   if (context.style && !isNoneLikeItem(context.style)) {
     addLine('Photography Style', skeletonText(buildPhotographyStylePrompt(context.style)));
   }
-  addLine('Framing', buildGrokFramingText());
-  addLine('Composition Priority', buildGrokCompositionPriorityText());
-  addContextLine('Angle', context.angle, (item) => skeletonText(resolvePromptVariant(item, 'angle', context.subject.count)));
-  addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(resolvePromptVariant(item, 'orbit', context.subject.count)));
-  addContextLine('Lens', context.lens);
-  addContextLine('Optical Effect', context.opticalEffect, (item) => skeletonText(item.en));
+  if (!fixedCompositionSetActive) {
+    addLine('Framing', buildGrokFramingText());
+    addLine('Composition Priority', buildGrokCompositionPriorityText());
+    addContextLine('Angle', context.angle, (item) => skeletonText(resolvePromptVariant(item, 'angle', context.subject.count)));
+    addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(resolvePromptVariant(item, 'orbit', context.subject.count)));
+    addContextLine('Lens', context.lens);
+    addContextLine('Optical Effect', context.opticalEffect, (item) => skeletonText(item.en));
+  } else if (fixedSetSelfShotMode) {
+    addLine('Composition Priority', 'allow imperfect self-shot framing, partial subject crop, close-lens body proximity, and incomplete set visibility when it makes the social snapshot feel real');
+  }
   addContextLine('Camera / Film', film, (item) => skeletonText(item.en));
   if (!specialSubjectMode && !useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
 
@@ -6687,6 +6870,12 @@ function parseStructuredPromptLines(prompt) {
 
 function getStructuredValues(valuesByLabel, labels) {
   return labels.flatMap((label) => valuesByLabel.get(label) || []).filter(Boolean);
+}
+
+function getStructuredLabeledValues(valuesByLabel, labels) {
+  return labels.flatMap((label) => (
+    valuesByLabel.get(label) || []
+  ).map((value) => `${label}: ${value}`)).filter(Boolean);
 }
 
 function joinNaturalPromptValues(values) {
@@ -6720,13 +6909,21 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Woman 1 Head Accessory',
     'Woman 2 Head Accessory',
   ]);
-  const sceneValues = getStructuredValues(valuesByLabel, [
-    'World Scene Architecture',
-    'Location',
-    'Scene Accent',
-    'Scene Context',
-    'Scene Priority',
-  ]);
+  const sceneValues = [
+    ...getStructuredLabeledValues(valuesByLabel, [
+      'Fixed Composition Set',
+      'Fixed Set Position',
+      'Fixed Set Capture Mode',
+      'Fixed Set Performance State',
+    ]),
+    ...getStructuredValues(valuesByLabel, [
+      'World Scene Architecture',
+      'Location',
+      'Scene Accent',
+      'Scene Context',
+      'Scene Priority',
+    ]),
+  ];
   const wardrobeValues = getStructuredValues(valuesByLabel, [
     'Outerwear',
     'Special Outfit',
@@ -6854,6 +7051,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     return detail ? sentence(`${lead} ${detail}`) : '';
   };
   const skeletonMode = isSkeletonSubject(context.subject);
+  const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
   const buildZImageScenePriorityText = () => {
     if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
 
@@ -7097,6 +7295,16 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     return parts.length > 0 ? sentence(parts.join(', ')) : '';
   };
   const buildSceneText = () => {
+    if (fixedCompositionSetActive) {
+      return leadSentence('The portrait uses', [
+        skeletonMode ? sanitizeSkeletonPromptText(context.fixedCompositionSet.en) : context.fixedCompositionSet.en,
+        context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPosition.en) : context.fixedSetPosition.en) : '',
+        context.fixedSetCaptureMode ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en) : '',
+        context.fixedSetPerformanceState ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPerformanceState.en) : context.fixedSetPerformanceState.en) : '',
+        context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
+        lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
+      ]);
+    }
     if (isCloseupVisibility) {
       return leadSentence('The setting is', [
         skeletonMode ? sanitizeSkeletonPromptText(closeupSceneContextText) : closeupSceneContextText,
@@ -7116,14 +7324,22 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
 
     return leadSentence('The setting is', sceneParts);
   };
-  const buildCameraText = () => leadSentence('The composition uses', [
-    context.framing ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : resolvePromptVariant(context.framing, 'framing', context.subject.count)) : '',
-    context.angle ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
-    context.orbit ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
-    context.lens?.en,
-    skeletonMode ? sanitizeSkeletonPromptText(opticalEffect?.en) : opticalEffect?.en,
-    context.aspectRatio.en ? `aspect ratio ${context.aspectRatio.en}` : '',
-  ]);
+  const buildCameraText = () => {
+    if (fixedCompositionSetActive) {
+      return leadSentence('The fixed set owns the camera geometry, using', [
+        context.aspectRatio.en ? `aspect ratio ${context.aspectRatio.en}` : '',
+      ]);
+    }
+
+    return leadSentence('The composition uses', [
+      context.framing ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : resolvePromptVariant(context.framing, 'framing', context.subject.count)) : '',
+      context.angle ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
+      context.orbit ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
+      context.lens?.en,
+      skeletonMode ? sanitizeSkeletonPromptText(opticalEffect?.en) : opticalEffect?.en,
+      context.aspectRatio.en ? `aspect ratio ${context.aspectRatio.en}` : '',
+    ]);
+  };
   const buildPhotographyStyleText = () => joinSentenceParts([
     context.style && !isNoneLikeItem(context.style) ? (skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : buildPhotographyStylePrompt(context.style)) : '',
   ]);
@@ -7161,6 +7377,7 @@ function compactAiSentence(sentenceText, limit = 3) {
 
 function buildAiPromptFromStructuredPrompt(structuredPrompt, context) {
   const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
+  const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
   const {
     imageType,
     sceneText,
@@ -7175,7 +7392,7 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context) {
   } = buildPromptSectionSources(valuesByLabel, context);
   const parts = [
     compactAiSentence(imageType, 1),
-    sceneText ? `The scene is ${compactAiSentence(sceneText, 2)}` : '',
+    sceneText ? `The scene is ${compactAiSentence(sceneText, fixedCompositionSetActive ? 32 : 2)}` : '',
     subjectText ? `${subjectLead} ${compactAiSentence(subjectText, 4)}` : '',
     wardrobeText ? `${wardrobeLead} ${compactAiSentence(wardrobeText, 6)}` : '',
     poseText ? `Pose and composition: ${compactAiSentence(poseText, 5)}` : '',
@@ -7226,6 +7443,10 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     importedWorldSceneMode: context.locks?.importedWorldSceneMode || 'none',
     importedWorldSceneLabel: context.locks?.importedWorldSceneLabel || '',
     importedWorldSceneArchitectureText: context.locks?.importedWorldSceneArchitectureText || '',
+    fixedCompositionSetId: context.fixedCompositionSet?.id || 'none',
+    fixedSetPositionId: context.fixedSetPosition?.id || 'none',
+    fixedSetCaptureModeId: context.fixedSetCaptureMode?.id || 'photographer-shot',
+    fixedSetPerformanceStateId: context.fixedSetPerformanceState?.id || 'model-natural',
     framingId: context.framing?.id || '',
     angleId: context.angle?.id || '',
     orbitId: context.orbit?.id || '',
@@ -7380,6 +7601,28 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const lockControls = getLockControls(customLibrary);
   const runtime = buildCatalog(customLibrary);
   const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
+  const selectedFixedCompositionSet = getFixedCompositionSetOption(effectiveLocks.fixedCompositionSetId);
+  const fixedCompositionSetActive = isFixedCompositionSetActive(selectedFixedCompositionSet) && effectiveLocks.subjectCount !== '2';
+  if (fixedCompositionSetActive) {
+    effectiveLocks.aspectRatio = selectedFixedCompositionSet.aspectRatioId;
+    effectiveLocks.sceneAttributeId = '';
+    effectiveLocks.importedWorldSceneMode = 'none';
+    effectiveLocks.importedWorldSceneLabel = '';
+    effectiveLocks.importedWorldSceneArchitectureText = '';
+
+    ['locationId', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId'].forEach((key) => {
+      const noneOption = getControlOptionByZh(lockControls, key, '全無');
+      effectiveLocks[key] = noneOption?.id || '';
+    });
+
+    const requestedStyle = getControlOptionById(lockControls, 'styleId', locks.styleId);
+    if (requestedStyle) effectiveLocks.styleId = requestedStyle.id;
+  } else {
+    effectiveLocks.fixedCompositionSetId = 'none';
+    effectiveLocks.fixedSetPositionId = 'none';
+    effectiveLocks.fixedSetCaptureModeId = 'photographer-shot';
+    effectiveLocks.fixedSetPerformanceStateId = 'model-natural';
+  }
   const hasImportedWorldSceneArchitecture = effectiveLocks.importedWorldSceneMode === 'architecture'
     && Boolean(effectiveLocks.importedWorldSceneArchitectureText);
   if (hasImportedWorldSceneArchitecture) {
@@ -7469,6 +7712,16 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const film = pickWithLock(runtime.flatCatalog.film, imagingLockId, () => true, lowFrequencyPicker('low_frequency_film'));
   const cameraSystem = getLegacyCameraSystemFromImaging(film);
   const opticalEffect = pickWithLock(runtime.flatCatalog.effects, effectiveLocks.opticalEffectId);
+  const fixedCompositionSet = fixedCompositionSetActive ? selectedFixedCompositionSet : null;
+  const fixedSetPosition = fixedCompositionSet
+    ? getFixedSetPositionOption(effectiveLocks.fixedSetPositionId, fixedCompositionSet.id)
+    : getFixedSetPositionOption('none');
+  const fixedSetCaptureMode = fixedCompositionSet
+    ? getFixedSetCaptureModeOption(effectiveLocks.fixedSetCaptureModeId)
+    : getFixedSetCaptureModeOption('photographer-shot');
+  const fixedSetPerformanceState = fixedCompositionSet
+    ? getFixedSetPerformanceStateOption(effectiveLocks.fixedSetPerformanceStateId)
+    : getFixedSetPerformanceStateOption('model-natural');
   const duoInteraction = subject.count === 2 ? getDuoInteractionOption(effectiveLocks.duoInteractionId) || sampleNonNone(DUO_INTERACTION_OPTIONS) : null;
 
   const context = {
@@ -7483,6 +7736,10 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     orbit,
     lens,
     opticalEffect,
+    fixedCompositionSet,
+    fixedSetPosition,
+    fixedSetCaptureMode,
+    fixedSetPerformanceState,
     film,
     lighting,
     lightDirection,
