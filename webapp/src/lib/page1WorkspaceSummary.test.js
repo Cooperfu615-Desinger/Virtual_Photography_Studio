@@ -57,7 +57,7 @@ test('workspace pose summary is separate from character identity summary', () =>
   assert.match(summary.pose.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
 });
 
-test('workspace aspect ratio belongs to photography summary instead of scene summary', () => {
+test('workspace summary omits PAGE1 aspect ratio from scene and photography summaries', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),
     sceneAttributeId: 'indoor',
@@ -66,7 +66,8 @@ test('workspace aspect ratio belongs to photography summary instead of scene sum
   }, controls);
 
   assert.doesNotMatch(summary.scene.summary, /9:16|portrait vertical/);
-  assert.match(summary.photography.summary, /9:16|全身鏡頭/);
+  assert.doesNotMatch(summary.photography.summary, /9:16|portrait vertical/);
+  assert.match(summary.photography.summary, /全身鏡頭/);
 });
 
 test('workspace wardrobe summary and palette insights include complete look palette', () => {
@@ -100,7 +101,7 @@ test('workspace scene summary includes fixed composition set controls', () => {
   assert.match(summary.scene.summary, /慵懶無力感/);
 });
 
-test('fixed composition set aspect ratio remains visible in photography summary', () => {
+test('fixed composition set leaves PAGE1 aspect ratio out of photography summary', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),
     fixedCompositionSetId: optionId('fixedCompositionSetId', '清水模牆面沙發棚'),
@@ -110,7 +111,7 @@ test('fixed composition set aspect ratio remains visible in photography summary'
   }, controls);
 
   assert.match(summary.scene.summary, /清水模牆面沙發棚/);
-  assert.match(summary.photography.summary, /16:9/);
+  assert.doesNotMatch(summary.photography.summary, /16:9/);
   assert.match(summary.photography.summary, /Daido Moriyama/);
   assert.match(summary.photography.summary, /高銳利快照黑位/);
 });

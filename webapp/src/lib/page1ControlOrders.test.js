@@ -8,4 +8,5 @@ test('PAGE1 scene camera controls include fixed composition controls', () => {
   assert.ok(SCENE_CAMERA_CONTROL_ORDER.includes('fixedSetPositionId'));
   assert.ok(SCENE_CAMERA_CONTROL_ORDER.includes('fixedSetCaptureModeId'));
   assert.ok(SCENE_CAMERA_CONTROL_ORDER.includes('fixedSetPerformanceStateId'));
+  assert.equal(SCENE_CAMERA_CONTROL_ORDER.includes('aspectRatio'), false);
 });

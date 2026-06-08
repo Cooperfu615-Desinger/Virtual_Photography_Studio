@@ -75,7 +75,6 @@ const FIXED_SET_KEYS = ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSet
 const FIXED_SET_LOCKED_KEYS = [
   'sceneAttributeId',
   'locationId',
-  'aspectRatio',
   'framingId',
   'angleId',
   'orbitId',
@@ -371,8 +370,8 @@ const SECTION_SUBPANELS = {
     {
       id: 'composition',
       label: '構圖與視角',
-      description: '先選畫面比例、景別、相機視角與拍攝方位，決定人物和場景在畫面中的關係。',
-      keys: ['aspectRatio', 'framingId', 'angleId', 'orbitId'],
+      description: '選景別、相機視角與拍攝方位，決定人物和場景在畫面中的關係。',
+      keys: ['framingId', 'angleId', 'orbitId'],
     },
     {
       id: 'style',
@@ -770,7 +769,6 @@ export default function Page1Workspace({
         fixedCompositionSetActive ? '固定場景接管構圖' : '',
         isCloseupMode ? '收斂構圖欄位' : '',
         isWormEyeAngle ? '攝影風格與鏡頭光學全無' : '',
-        getControlOptionLabel(lockControls, 'aspectRatio', locks.aspectRatio) ? '畫面比例' : '',
         getControlOptionLabel(lockControls, 'styleId', locks.styleId) ? '攝影風格' : '',
         getControlOptionLabel(lockControls, 'filmId', locks.filmId) ? '成像模擬' : '',
       ].filter(Boolean),
@@ -835,9 +833,6 @@ export default function Page1Workspace({
             const noneOption = lockControls.find((item) => item.key === key)?.options?.find((option) => option.zh === '全無');
             next[key] = noneOption?.id || '';
           });
-          const fixedSetOption = lockControls.find((item) => item.key === 'fixedCompositionSetId')?.options?.find((option) => option.id === value);
-          next.aspectRatio = fixedSetOption?.aspectRatioId || next.aspectRatio;
-
           const selectedPosition = lockControls.find((item) => item.key === 'fixedSetPositionId')?.options?.find((option) => option.id === prev.fixedSetPositionId);
           if (selectedPosition?.setId && selectedPosition.setId !== value) {
             next.fixedSetPositionId = 'none';

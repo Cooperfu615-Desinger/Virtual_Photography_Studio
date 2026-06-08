@@ -969,30 +969,31 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
   {
     id: 'concrete-wall-chesterfield-sofa',
     zh: '清水模牆面沙發棚',
-    en: '1:1 square fixed editorial set composition, raw concrete wall background, brown vintage leather sofa spanning the lower frame, bare sculptural tree branches on one side, low coffee table with art books, cup, small lamp, textured cushions, modern-retro interior styling, eye-level straight-on frontal camera, sofa and wall remain the main set architecture',
-    integrityEn: 'fixed set integrity: preserve the raw concrete wall, brown vintage leather sofa, and bare sculptural branches as the selected set anchors, with the low coffee table, books, lamp, cup, and cushions available as interaction props',
+    en: 'The portrait takes place inside a real-scale compact living-room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: a raw concrete wall fills the back plane, a large brown vintage Chesterfield leather sofa occupies most of the lower set space, with thick rolled armrests, high tufted backrest, and deep adult-sized seat cushions clearly visible. Bare sculptural dry branches stand beside the sofa, and a normal-height coffee table sits in front with art books, a cup, a small lamp, and textured cushions as readable interaction props. Use an eye-level straight-on frontal camera, pulled back enough to show the subject inside the room',
+    integrityEn: 'fixed set integrity: preserve the raw concrete wall, large brown vintage Chesterfield leather sofa, and bare sculptural branches as the selected set anchors, with the low coffee table, books, lamp, cup, and cushions available as interaction props',
+    scaleGuardEn: 'normal adult-scale furniture-to-body relationship: standard adult two-seat sofa and normal-height coffee table; subject fits naturally on the seat plane or floor plane; do not enlarge the subject or shrink the sofa or table',
     replacementGuardEn: 'do not replace the fixed set with a plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room',
-    desc: '灰色清水模牆、枯樹枝、棕色復古皮沙發、茶几書本與桌燈構成的 1:1 editorial set。',
+    desc: '灰色清水模牆、枯樹枝、棕色復古 Chesterfield 皮沙發、茶几書本與桌燈構成的固定 editorial set。',
     aspectRatioId: '1:1',
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'sofa_set', 'square_set'] },
   },
   {
     id: 'luxury-hotel-window-nyc',
     zh: '高級飯店落地窗都市夜景',
-    en: '1:1 square fixed luxury hotel window composition, eye-level straight-on frontal camera, large floor-to-ceiling glass window filling the background, stable window wall plane, New York-style high-rise city skyline outside, bed edge and soft white bedding in the lower foreground, pillows, bedside table, wine glass, book, warm hotel lamp details, intimate room-to-city depth',
-    integrityEn: 'fixed set integrity: preserve the floor-to-ceiling glass window, soft bed or bedding foreground, and New York-style high-rise skyline as the selected set anchors',
+    en: 'The portrait takes place inside a real-scale luxury hotel room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: an ultra-large panoramic floor-to-ceiling glass wall fills almost the entire back plane, like one continuous clear window surface overlooking a New York-style high-rise city skyline. The glass should feel broad, open, and mostly uninterrupted, with only minimal slim structural seams near the far edges if needed. Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors, or apartment-style segmented windows. A bed with soft white rumpled bedding occupies the lower part of the room, with pillows, a bedside table, wine glass, open book, warm hotel lamp, and subtle room-depth details as readable interaction props. Use an eye-level straight-on frontal camera, pulled back enough to show the subject inside the room',
+    integrityEn: 'fixed set integrity: preserve the oversized panoramic glass wall, New York-style skyline, bed or bedding foreground, pillows, bedside table, wine glass, book, and warm hotel lamp as the selected set anchors',
     replacementGuardEn: 'do not replace the fixed set with a generic bedroom, plain wall, cafe, outdoor street, studio backdrop, or unrelated hotel room',
-    desc: '高級飯店房間、床面前景、大片落地窗與紐約式高樓城市背景構成的 1:1 窗景 set。',
+    desc: '高級飯店房間、床面前景、超大片連續落地玻璃牆與紐約式高樓城市背景構成的窗景 set。',
     aspectRatioId: '1:1',
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'hotel_window_set', 'square_set'] },
   },
   {
     id: 'retro-tile-bathtub',
     zh: '復古磁磚浴室浴缸',
-    en: '1:1 square fixed bathroom set, eye-level straight-on frontal camera, freestanding clawfoot bathtub shown broadside across the lower center of the frame and parallel to the camera, flat frontal vintage tiled bathroom wall behind the bathtub, porcelain sink or vanity on one side with a mirror above it, chrome faucet hardware, wall lamp, folded towels, bath bottles, small wooden stool, foam or water surface, subtle steam',
+    en: 'fixed bathroom set, eye-level straight-on frontal camera, freestanding clawfoot bathtub shown broadside across the lower center of the frame and parallel to the camera, flat frontal vintage tiled bathroom wall behind the bathtub, porcelain sink or vanity on one side with a mirror above it, chrome faucet hardware, wall lamp, folded towels, bath bottles, small wooden stool, foam or water surface, subtle steam',
     integrityEn: 'fixed set integrity: preserve the broadside bathtub, flat frontal vintage tiled wall, porcelain sink or vanity, mirror above it, foam or water surface, and chrome bath hardware as the selected set anchors',
     replacementGuardEn: 'do not replace the fixed set with a shower room, bedroom, pool, plain studio backdrop, spa lobby, or unrelated bathroom; no diagonal corner view, no 3/4 bathroom angle, no side-wall perspective, no camera from inside the tub, no low tub-edge POV, no overhead angle, no dutch tilt',
-    desc: '復古磁磚浴室、正面橫置浴缸、洗臉台、鏡子、壁燈、毛巾與瓶罐構成的 1:1 浴室 set。',
+    desc: '復古磁磚浴室、正面橫置浴缸、洗臉台、鏡子、壁燈、毛巾與瓶罐構成的浴室 set。',
     aspectRatioId: '1:1',
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'bathtub_set', 'square_set'] },
   },
@@ -3394,12 +3395,13 @@ function isFixedSetSelfShotMode(captureMode) {
 function buildFixedSetIntegrityText(fixedSet, captureMode) {
   if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
   const integrityText = fixedSet.integrityEn || '';
+  const scaleGuardText = fixedSet.scaleGuardEn || '';
   const replacementGuardText = fixedSet.replacementGuardEn || 'do not replace the fixed set with an unrelated scene';
   const readabilityText = isFixedSetSelfShotMode(captureMode)
     ? 'self-shot crop may hide parts of the set, but at least one or two selected set anchors must remain recognizable'
     : 'keep the fixed set clearly readable as the stable scene architecture';
 
-  return [integrityText, readabilityText, replacementGuardText].filter(Boolean).join('; ');
+  return [integrityText, scaleGuardText, readabilityText, replacementGuardText].filter(Boolean).join('; ');
 }
 
 function getLightingEnvironmentFlags(lighting) {
@@ -5044,7 +5046,6 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const orbitLabel = context.orbit && !isNoneLikeItem(context.orbit) ? context.orbit.zh : '-';
   const lensLabel = context.lens && !isNoneLikeItem(context.lens) ? context.lens.zh : '-';
   const filmLabel = context.film && !isNoneLikeItem(context.film) ? context.film.zh : '-';
-  const aspectRatioLabel = context.aspectRatio?.zh || '-';
   const lightingLabel = context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.zh : '-';
   const lightDirectionLabel = context.lightDirection && !isNoneLikeItem(context.lightDirection) ? context.lightDirection.zh : '-';
   const opticalEffectLabel = context.opticalEffect && !isNoneLikeItem(context.opticalEffect) ? context.opticalEffect.zh : '-';
@@ -5207,7 +5208,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       : summarizeSingleCharacter(),
     wardrobe: summarizeWardrobe(),
     location: locationLabel,
-    camera: joinSummaryParts(framingLabel, angleLabel, orbitLabel, lensLabel, opticalEffectLabel, filmLabel, aspectRatioLabel),
+    camera: joinSummaryParts(framingLabel, angleLabel, orbitLabel, lensLabel, opticalEffectLabel, filmLabel),
     lighting: joinSummaryParts(lightingLabel, lightDirectionLabel),
   };
 }
@@ -6926,7 +6927,6 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (!fixedCompositionSetActive && !sceneProtectedWardrobeMode) {
     addGrokSceneLines();
   }
-  addLine('Aspect Ratio', context.aspectRatio.en);
   if (context.style && !isNoneLikeItem(context.style)) {
     addLine('Photography Style', skeletonText(buildPhotographyStylePrompt(context.style)));
   }
@@ -7052,7 +7052,6 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Composition Priority',
     'Angle',
     'Orbit Angle',
-    'Aspect Ratio',
   ]);
   const lightingValues = getStructuredValues(valuesByLabel, [
     'Ambient Light Conditions',
@@ -7427,9 +7426,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   };
   const buildCameraText = () => {
     if (fixedCompositionSetActive) {
-      return leadSentence('The fixed set owns the camera geometry, using', [
-        context.aspectRatio.en ? `aspect ratio ${context.aspectRatio.en}` : '',
-      ]);
+      return '';
     }
 
     return leadSentence('The composition uses', [
@@ -7438,7 +7435,6 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       context.orbit ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
       context.lens?.en,
       skeletonMode ? sanitizeSkeletonPromptText(opticalEffect?.en) : opticalEffect?.en,
-      context.aspectRatio.en ? `aspect ratio ${context.aspectRatio.en}` : '',
     ]);
   };
   const buildPhotographyStyleText = () => joinSentenceParts([
@@ -7705,7 +7701,6 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const selectedFixedCompositionSet = getFixedCompositionSetOption(effectiveLocks.fixedCompositionSetId);
   const fixedCompositionSetActive = isFixedCompositionSetActive(selectedFixedCompositionSet) && effectiveLocks.subjectCount !== '2';
   if (fixedCompositionSetActive) {
-    effectiveLocks.aspectRatio = selectedFixedCompositionSet.aspectRatioId;
     effectiveLocks.sceneAttributeId = '';
     effectiveLocks.importedWorldSceneMode = 'none';
     effectiveLocks.importedWorldSceneLabel = '';
