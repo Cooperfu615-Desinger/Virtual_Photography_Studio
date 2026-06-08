@@ -89,13 +89,13 @@ test('workspace scene summary includes fixed composition set controls', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),
     fixedCompositionSetId: optionId('fixedCompositionSetId', '復古磁磚浴室浴缸'),
-    fixedSetPositionId: optionId('fixedSetPositionId', '低角度浴缸前景'),
+    fixedSetPositionId: optionId('fixedSetPositionId', '浴缸前景遮擋'),
     fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '失控自拍感'),
     fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '慵懶無力感'),
   }, controls);
 
   assert.match(summary.scene.summary, /復古磁磚浴室浴缸/);
-  assert.match(summary.scene.summary, /低角度浴缸前景/);
+  assert.match(summary.scene.summary, /浴缸前景遮擋/);
   assert.match(summary.scene.summary, /失控自拍感/);
   assert.match(summary.scene.summary, /慵懶無力感/);
 });

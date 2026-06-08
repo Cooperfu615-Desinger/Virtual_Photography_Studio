@@ -23,7 +23,7 @@ test('fixed composition controls expose three sets and fixed-set-only option gro
 
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發座面中央'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '床邊靠窗'));
-  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '低角度浴缸前景'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '浴缸前景遮擋'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發扶手前景遮擋'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '床單前景遮擋'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '泡泡前景遮擋'));
@@ -38,7 +38,7 @@ test('fixed composition controls expose three sets and fixed-set-only option gro
   );
 });
 
-test('fixed composition set overrides normal location, PAGE3 import, camera geometry, optical effect, and aspect ratio', () => {
+test('fixed composition set overrides normal location, PAGE3 import, camera geometry, optical effect, and locks square aspect ratio', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     fixedCompositionSetId: optionId('fixedCompositionSetId', '清水模牆面沙發棚'),
@@ -66,7 +66,7 @@ test('fixed composition set overrides normal location, PAGE3 import, camera geom
   assert.equal(prompt.selection.fixedSetPositionId, optionId('fixedSetPositionId', '沙發座面中央'));
   assert.equal(prompt.selection.fixedSetCaptureModeId, optionId('fixedSetCaptureModeId', '攝影師拍攝'));
   assert.equal(prompt.selection.fixedSetPerformanceStateId, optionId('fixedSetPerformanceStateId', '自信力量感'));
-  assert.equal(prompt.selection.aspectRatio, optionId('aspectRatio', '16:9 寬螢幕'));
+  assert.equal(prompt.selection.aspectRatio, optionId('aspectRatio', '1:1 正方形'));
   assert.equal(prompt.selection.locationId, optionId('locationId', '全無'));
   assert.equal(prompt.selection.importedWorldSceneMode, 'none');
   assert.equal(prompt.selection.sceneAttributeId, '');
@@ -78,6 +78,8 @@ test('fixed composition set overrides normal location, PAGE3 import, camera geom
 
   assert.match(prompt.grokPrompt, /Fixed Composition Set:/);
   assert.match(prompt.grokPrompt, /raw concrete wall background/);
+  assert.match(prompt.grokPrompt, /brown vintage leather sofa/);
+  assert.match(prompt.grokPrompt, /low coffee table/);
   assert.match(prompt.grokPrompt, /subject placed on the sofa seat plane/);
   assert.match(prompt.grokPrompt, /photographer-shot fixed set portrait/);
   assert.match(prompt.grokPrompt, /confident powerful presence/);
@@ -92,10 +94,12 @@ test('fixed composition set overrides normal location, PAGE3 import, camera geom
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 
   assert.match(prompt.zImagePrompt, /fixed editorial set composition/);
+  assert.match(prompt.zImagePrompt, /brown vintage leather sofa/);
   assert.match(prompt.zImagePrompt, /subject placed on the sofa seat plane/);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
 
   assert.match(prompt.midjourneyPrompt, /raw concrete wall background/);
+  assert.match(prompt.midjourneyPrompt, /brown vintage leather sofa/);
   assert.match(prompt.midjourneyPrompt, /subject placed on the sofa seat plane/);
   assert.match(prompt.midjourneyPrompt, /confident powerful presence/);
 });
@@ -140,13 +144,35 @@ test('fixed composition prompts reinforce set anchors while allowing self-shot f
   });
 
   assert.match(prompt.grokPrompt, /Fixed Set Integrity:/);
-  assert.match(prompt.grokPrompt, /raw concrete wall, black vintage Chesterfield sofa, and bare sculptural branches/);
+  assert.match(prompt.grokPrompt, /raw concrete wall, brown vintage leather sofa, and bare sculptural branches/);
   assert.match(prompt.grokPrompt, /at least one or two selected set anchors must remain recognizable/);
   assert.match(prompt.grokPrompt, /do not replace the fixed set with a plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room/);
   assert.match(prompt.grokPrompt, /dreamlike dazed presence/);
 
   assert.match(prompt.zImagePrompt, /at least one or two selected set anchors must remain recognizable/);
   assert.match(prompt.midjourneyPrompt, /do not replace the fixed set/);
+});
+
+test('bathtub fixed composition keeps a frontal wall plane and sink mirror interaction anchors', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '復古磁磚浴室浴缸'),
+    fixedSetPositionId: optionId('fixedSetPositionId', '浴缸前景遮擋'),
+    fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '攝影師拍攝'),
+  });
+
+  assert.equal(prompt.selection.aspectRatio, optionId('aspectRatio', '1:1 正方形'));
+  assert.match(prompt.grokPrompt, /eye-level straight-on frontal camera/);
+  assert.match(prompt.grokPrompt, /bathtub shown broadside across the lower center/);
+  assert.match(prompt.grokPrompt, /porcelain sink or vanity/);
+  assert.match(prompt.grokPrompt, /mirror above it/);
+  assert.match(prompt.grokPrompt, /no diagonal corner view/);
+  assert.match(prompt.grokPrompt, /no 3\/4 bathroom angle/);
+  assert.doesNotMatch(prompt.grokPrompt, /low horizontal camera view from the tub edge/);
+  assert.doesNotMatch(prompt.grokPrompt, /camera near the tub edge or waterline/);
+
+  assert.match(prompt.zImagePrompt, /porcelain sink or vanity/);
+  assert.match(prompt.midjourneyPrompt, /mirror above it/);
 });
 
 test('fixed composition sets are ignored for duo mode in V1', () => {
