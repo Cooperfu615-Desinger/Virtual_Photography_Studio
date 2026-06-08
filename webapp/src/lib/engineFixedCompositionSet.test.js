@@ -30,12 +30,29 @@ test('fixed composition controls expose three sets and fixed-set-only option gro
 
   assert.deepEqual(
     control('fixedSetCaptureModeId').options.map((entry) => entry.zh),
-    ['攝影師拍攝', '自然自拍感', '失控自拍感']
+    ['全無', '攝影師拍攝', '自然自拍感', '失控自拍感']
   );
   assert.deepEqual(
     control('fixedSetPerformanceStateId').options.map((entry) => entry.zh),
-    ['模型自然發揮', '自信力量感', '慵懶無力感', '冷淡疏離感', '俏皮挑釁感', '安靜脆弱感', '都市疲憊感', '夢遊恍神感', '優雅克制感', '失控隨性感']
+    ['全無', '模型自然發揮', '自信力量感', '慵懶無力感', '冷淡疏離感', '俏皮挑釁感', '安靜脆弱感', '都市疲憊感', '夢遊恍神感', '優雅克制感', '失控隨性感']
   );
+});
+
+test('fixed composition capture mode and performance state can be set to none', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '清水模牆面沙發棚'),
+    fixedSetPositionId: optionId('fixedSetPositionId', '沙發座面中央'),
+    fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '全無'),
+    fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '全無'),
+  });
+
+  assert.equal(prompt.selection.fixedSetCaptureModeId, optionId('fixedSetCaptureModeId', '全無'));
+  assert.equal(prompt.selection.fixedSetPerformanceStateId, optionId('fixedSetPerformanceStateId', '全無'));
+  assert.doesNotMatch(prompt.grokPrompt, /Fixed Set Capture Mode:/);
+  assert.doesNotMatch(prompt.grokPrompt, /Fixed Set Performance State:/);
+  assert.doesNotMatch(prompt.zImagePrompt, /photographer-shot fixed set portrait|self-shot social composition feeling|model natural performance/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /photographer-shot fixed set portrait|self-shot social composition feeling|model natural performance/);
 });
 
 test('fixed composition set overrides normal location, PAGE3 import, camera geometry, and optical effect without binding aspect ratio', () => {
@@ -171,11 +188,17 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
     fixedCompositionSetId: optionId('fixedCompositionSetId', '復古磁磚浴室浴缸'),
     fixedSetPositionId: optionId('fixedSetPositionId', '浴缸前景遮擋'),
     fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '攝影師拍攝'),
+    aspectRatio: optionId('aspectRatio', '9:16 手機直式'),
   });
 
-  assert.notEqual(prompt.selection.aspectRatio, optionId('aspectRatio', '1:1 正方形'));
+  assert.equal(prompt.selection.aspectRatio, optionId('aspectRatio', '9:16 手機直式'));
   assert.match(prompt.grokPrompt, /eye-level straight-on frontal camera/);
   assert.match(prompt.grokPrompt, /bathtub shown broadside across the lower center/);
+  assert.match(prompt.grokPrompt, /wet vintage tile floor/);
+  assert.match(prompt.grokPrompt, /visible floor plane beneath and in front of the bathtub/);
+  assert.match(prompt.grokPrompt, /small puddles and water reflections/);
+  assert.match(prompt.grokPrompt, /subject fully soaked from head to toe/);
+  assert.match(prompt.grokPrompt, /wet hair, damp skin, and water-clinging wardrobe or bare skin/);
   assert.match(prompt.grokPrompt, /porcelain sink or vanity/);
   assert.match(prompt.grokPrompt, /mirror above it/);
   assert.match(prompt.grokPrompt, /no diagonal corner view/);
@@ -184,7 +207,11 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.doesNotMatch(prompt.grokPrompt, /camera near the tub edge or waterline/);
 
   assert.match(prompt.zImagePrompt, /porcelain sink or vanity/);
+  assert.match(prompt.zImagePrompt, /wet vintage tile floor/);
+  assert.match(prompt.zImagePrompt, /subject fully soaked from head to toe/);
   assert.match(prompt.midjourneyPrompt, /mirror above it/);
+  assert.match(prompt.midjourneyPrompt, /wet vintage tile floor/);
+  assert.match(prompt.midjourneyPrompt, /subject fully soaked from head to toe/);
 });
 
 test('fixed composition sets are ignored for duo mode in V1', () => {

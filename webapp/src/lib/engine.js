@@ -990,8 +990,8 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
   {
     id: 'retro-tile-bathtub',
     zh: '復古磁磚浴室浴缸',
-    en: 'fixed bathroom set, eye-level straight-on frontal camera, freestanding clawfoot bathtub shown broadside across the lower center of the frame and parallel to the camera, flat frontal vintage tiled bathroom wall behind the bathtub, porcelain sink or vanity on one side with a mirror above it, chrome faucet hardware, wall lamp, folded towels, bath bottles, small wooden stool, foam or water surface, subtle steam',
-    integrityEn: 'fixed set integrity: preserve the broadside bathtub, flat frontal vintage tiled wall, porcelain sink or vanity, mirror above it, foam or water surface, and chrome bath hardware as the selected set anchors',
+    en: 'fixed bathroom set, eye-level straight-on frontal camera, freestanding clawfoot bathtub shown broadside across the lower center of the frame and parallel to the camera, visible floor plane beneath and in front of the bathtub, wet vintage tile floor, small puddles and water reflections on the floor, flat frontal vintage tiled bathroom wall behind the bathtub, porcelain sink or vanity on one side with a mirror above it, chrome faucet hardware, wall lamp, folded towels, bath bottles, small wooden stool, foam or water surface, subtle steam, subject fully soaked from head to toe with wet hair, damp skin, and water-clinging wardrobe or bare skin',
+    integrityEn: 'fixed set integrity: preserve the broadside bathtub, visible wet vintage tile floor plane, flat frontal vintage tiled wall, porcelain sink or vanity, mirror above it, foam or water surface, chrome bath hardware, puddles, and water reflections as the selected set anchors',
     replacementGuardEn: 'do not replace the fixed set with a shower room, bedroom, pool, plain studio backdrop, spa lobby, or unrelated bathroom; no diagonal corner view, no 3/4 bathroom angle, no side-wall perspective, no camera from inside the tub, no low tub-edge POV, no overhead angle, no dutch tilt',
     desc: '復古磁磚浴室、正面橫置浴缸、洗臉台、鏡子、壁燈、毛巾與瓶罐構成的浴室 set。',
     aspectRatioId: '1:1',
@@ -1094,6 +1094,7 @@ const FIXED_SET_POSITION_OPTIONS = [
 ];
 
 const FIXED_SET_CAPTURE_MODE_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', meta: { tags: ['none'] } },
   {
     id: 'photographer-shot',
     zh: '攝影師拍攝',
@@ -1115,6 +1116,7 @@ const FIXED_SET_CAPTURE_MODE_OPTIONS = [
 ];
 
 const FIXED_SET_PERFORMANCE_STATE_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', meta: { tags: ['none'] } },
   {
     id: 'model-natural',
     zh: '模型自然發揮',
@@ -5032,8 +5034,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     ? joinSummaryParts(
         context.fixedCompositionSet.zh,
         context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition) ? context.fixedSetPosition.zh : '',
-        context.fixedSetCaptureMode?.zh || '',
-        context.fixedSetPerformanceState?.zh || ''
+        context.fixedSetCaptureMode && !isNoneLikeItem(context.fixedSetCaptureMode) ? context.fixedSetCaptureMode.zh : '',
+        context.fixedSetPerformanceState && !isNoneLikeItem(context.fixedSetPerformanceState) ? context.fixedSetPerformanceState.zh : ''
       )
     : '';
   const locationLabel = fixedSetSummaryLabel && fixedSetSummaryLabel !== '-'
@@ -7398,8 +7400,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       return leadSentence('The portrait uses', [
         skeletonMode ? sanitizeSkeletonPromptText(context.fixedCompositionSet.en) : context.fixedCompositionSet.en,
         context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPosition.en) : context.fixedSetPosition.en) : '',
-        context.fixedSetCaptureMode ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en) : '',
-        context.fixedSetPerformanceState ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPerformanceState.en) : context.fixedSetPerformanceState.en) : '',
+        context.fixedSetCaptureMode && !isNoneLikeItem(context.fixedSetCaptureMode) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en) : '',
+        context.fixedSetPerformanceState && !isNoneLikeItem(context.fixedSetPerformanceState) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPerformanceState.en) : context.fixedSetPerformanceState.en) : '',
         skeletonMode ? sanitizeSkeletonPromptText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)) : buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode),
         context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
         lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
