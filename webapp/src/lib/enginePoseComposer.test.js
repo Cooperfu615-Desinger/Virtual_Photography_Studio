@@ -72,14 +72,16 @@ test('pose composer exposes model natural decision options', () => {
   assert.ok(arrangement, 'Expected model natural arrangement option');
   assert.ok(arrangement.bases.includes('standing'));
   assert.ok(arrangement.bases.includes('lying'));
-  assert.match(arrangement.en, /let the image model choose a natural physically believable body arrangement/);
+  assert.match(arrangement.en, /let the image model choose a clearly varied non-default physically believable body arrangement/);
   assert.match(arrangement.en, /within the selected pose base/);
+  assert.match(arrangement.en, /distinct weight shift limb angles torso orientation and asymmetry/);
 
-  assertHandOption('模型自然決定', /let the image model choose natural hand placement/);
+  assertHandOption('模型自然決定', /let the image model choose natural varied hand placement/);
+  assertHandOption('模型自然決定', /without defaulting to stiff arms at the sides/);
   assertHeadOption('模型自然決定', /let the image model choose a natural head angle/);
 });
 
-test('model natural decision options are preserved in all prompt versions', () => {
+test('model natural decision options become directive variation prompts in all prompt versions', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '1',
@@ -91,10 +93,14 @@ test('model natural decision options are preserved in all prompt versions', () =
   });
 
   for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
-    assert.match(text, /let the image model choose a natural physically believable body arrangement/);
+    assert.match(text, /She is standing\./);
+    assert.match(text, /Let the image model choose a clearly varied non-default physically believable body arrangement/);
     assert.match(text, /within the selected pose base/);
-    assert.match(text, /let the image model choose natural hand placement/);
-    assert.match(text, /let the image model choose a natural head angle/);
+    assert.match(text, /distinct weight shift limb angles torso orientation and asymmetry/);
+    assert.match(text, /Let the image model choose natural varied hand placement/);
+    assert.match(text, /without defaulting to stiff arms at the sides/);
+    assert.match(text, /Let the image model choose a natural head angle/);
+    assert.doesNotMatch(text, /with let the image model choose/);
   }
 });
 
@@ -107,15 +113,43 @@ test('pose composer exposes expressive hand interaction batch', () => {
     ['雙手整理頭髮', /both hands arranging the hair/],
     ['單手撩起後頸頭髮', /lifting hair away from the nape of the neck/],
     ['單手搭在鎖骨', /one hand resting across the collarbone/],
-    ['一手扶腰一手自然放下', /one hand on the waist, the other hand relaxed down/],
-    ['一手撐地一手放腿上', /one hand supporting on the ground, the other hand resting on the leg/],
-    ['一手扶膝一手垂放', /one hand holding the knee, the other hand hanging relaxed/],
+    ['一手扶腰一手自然放下', /one hand on the waist or hip line with the other hand relaxed along the body or nearby support surface/],
+    ['一手撐地一手放腿上', /one hand supporting on the floor or nearby surface with the other hand resting on the leg/],
+    ['一手扶膝一手垂放', /one hand holding the knee with the other hand relaxed beside the body or support surface/],
   ].forEach(([zh, expectedEnglish]) => {
     assertHandOption(zh, expectedEnglish);
   });
 
   assertHandOption('單手撩髮', /brushing hair back from the side of the face/);
   assertHandOption('單手撩髮', /near the temple or ear/);
+});
+
+test('generic hand poses adapt beyond standing bases', () => {
+  [
+    ['雙手自然垂放', /both hands resting naturally along the body or on a nearby support surface/],
+    ['雙手撐腰', /both hands placed on the waist or hip line with elbows naturally adapted to the pose/],
+    ['雙手背在身後', /both hands drawn behind the back or torso only where physically plausible for the selected pose/],
+    ['雙手放在大腿上', /both hands resting on the thighs or nearest upper-leg surface/],
+    ['單手托下巴', /one hand supporting the chin with the other hand relaxed along the body or support surface/],
+  ].forEach(([zh, expectedEnglish]) => {
+    assertHandOption(zh, expectedEnglish);
+  });
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '躺姿'),
+    poseArrangementId: optionId('poseArrangementId', '側躺屈膝'),
+    poseHandId: optionId('poseHandId', '雙手自然垂放'),
+    poseAnchorId: optionId('poseAnchorId', '躺在沙發上'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  });
+
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /both hands resting naturally along the body or on a nearby support surface/);
+    assert.doesNotMatch(text, /both hands relaxed naturally at the sides/);
+  }
 });
 
 test('pose composer exposes expanded hand and head direction batch', () => {
@@ -133,17 +167,73 @@ test('pose composer exposes expanded hand and head direction batch', () => {
     ['頭部微微後仰', /head tilted slightly backward/],
     ['低頭三分之四側臉', /three-quarter side angle/],
     ['越肩回望', /head turned over one shoulder/],
-    ['側臉看向遠方', /clean side profile looking away/],
+    ['側臉看向遠方', /clean side profile with the face oriented away/],
   ].forEach(([zh, expectedEnglish]) => {
     assertHeadOption(zh, expectedEnglish);
   });
+});
+
+test('head direction options stay orientation-only without gaze or expression wording', () => {
+  const disallowed = /\b(gaze|expression|eyes?|looking|look)\b/i;
+  control('poseHeadId').options
+    .filter((option) => !['none', 'random'].includes(option.id))
+    .forEach((option) => {
+      assert.doesNotMatch(option.en, disallowed, `${option.zh} should stay head-orientation only`);
+    });
+});
+
+test('pose composer exposes support surface and close-lens head direction batch', () => {
+  [
+    ['下巴靠近肩線', /chin tucked toward one shoulder line/],
+    ['頭部貼近支撐面', /head angled close to a support surface or shoulder line/],
+    ['近鏡頭偏轉頭部', /head turned slightly off-axis near the lens/],
+    ['頭靠近邊緣支撐', /head angled low near a rim or support edge/],
+  ].forEach(([zh, expectedEnglish]) => {
+    assertHeadOption(zh, expectedEnglish);
+  });
+});
+
+test('support surface head directions are preserved in all prompt versions', () => {
+  const cases = [
+    {
+      baseZh: '躺姿',
+      arrangementZh: '側躺屈膝',
+      anchorZh: '躺在沙發上',
+      headZh: '頭部貼近支撐面',
+      expected: /head angled close to a support surface or shoulder line/,
+    },
+    {
+      baseZh: '坐姿',
+      arrangementZh: '單腿屈起坐姿',
+      anchorZh: '坐在床邊',
+      headZh: '近鏡頭偏轉頭部',
+      expected: /head turned slightly off-axis near the lens/,
+    },
+  ];
+
+  for (const { baseZh, arrangementZh, anchorZh, headZh, expected } of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      poseBaseId: optionId('poseBaseId', baseZh),
+      poseArrangementId: optionId('poseArrangementId', arrangementZh),
+      poseHandId: optionId('poseHandId', '雙手自然垂放'),
+      poseAnchorId: optionId('poseAnchorId', anchorZh),
+      poseHeadId: optionId('poseHeadId', headZh),
+    });
+
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      assert.match(text, expected);
+    }
+  }
 });
 
 test('expressive hand interactions are preserved in all prompt versions', () => {
   const cases = [
     ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],
     ['單手把眼鏡拉下', /pulling the glasses slightly down the nose bridge/],
-    ['一手撐地一手放腿上', /one hand supporting on the ground, the other hand resting on the leg/],
+    ['一手撐地一手放腿上', /one hand supporting on the floor or nearby surface with the other hand resting on the leg/],
   ];
 
   for (const [handZh, expected] of cases) {

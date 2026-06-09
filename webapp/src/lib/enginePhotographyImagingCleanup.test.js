@@ -312,6 +312,7 @@ test('generated prompts expose rendering color grade as a single D-section rende
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     filmId: optionByLabel('filmId', '日系亮膚高彩濾鏡').id,
+    angleId: optionByLabel('angleId', '腰部高度鏡頭').id,
     lensId: optionByLabel('lensId', '35mm 廣角 (人文視角)').id,
     opticalEffectId: optionByLabel('opticalEffectId', '前景遮擋散景').id,
   });

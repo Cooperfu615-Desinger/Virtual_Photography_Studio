@@ -789,7 +789,7 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
     id: 'model-natural-body-arrangement',
     bases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
     zh: '模型自然決定',
-    en: 'let the image model choose a natural physically believable body arrangement within the selected pose base compatible with the wardrobe camera framing and environment',
+    en: 'let the image model choose a clearly varied non-default physically believable body arrangement within the selected pose base with distinct weight shift limb angles torso orientation and asymmetry compatible with the wardrobe camera framing and environment',
     desc: '讓影像模型依目前基底、服裝、鏡頭與場景自行決定自然肢體變化。',
   },
   { id: 'standing-natural', base: 'standing', zh: '自然站姿', en: 'natural relaxed standing arrangement' },
@@ -856,18 +856,18 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
 const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random hand pose', desc: '隨機選擇手部姿勢。', meta: { tags: ['random'] } },
-  { id: 'model-natural-hand-placement', zh: '模型自然決定', en: 'let the image model choose natural hand placement relaxed and physically compatible with the selected body pose', desc: '讓影像模型依目前身體姿勢自行決定自然手部位置。' },
-  { id: 'hands-relaxed-down', zh: '雙手自然垂放', en: 'both hands relaxed naturally at the sides' },
+  { id: 'model-natural-hand-placement', zh: '模型自然決定', en: 'let the image model choose natural varied hand placement fitted to the selected body pose support contact wardrobe and camera crop without defaulting to stiff arms at the sides', desc: '讓影像模型依目前身體姿勢自行決定自然手部位置。' },
+  { id: 'hands-relaxed-down', zh: '雙手自然垂放', en: 'both hands resting naturally along the body or on a nearby support surface' },
   { id: 'hands-in-pockets', zh: '雙手插口袋', en: 'both hands tucked into pockets' },
   { id: 'arms-crossed', zh: '雙臂交疊', en: 'arms crossed loosely in front of the body' },
-  { id: 'hands-on-waist', zh: '雙手撐腰', en: 'both hands placed on the waist' },
+  { id: 'hands-on-waist', zh: '雙手撐腰', en: 'both hands placed on the waist or hip line with elbows naturally adapted to the pose' },
   { id: 'one-hand-chin', zh: '單手摸下巴', en: 'one hand touching the chin' },
   { id: 'one-hand-forehead', zh: '單手扶額 / 摸頭', en: 'one hand touching the forehead or hair' },
-  { id: 'hands-behind-back', zh: '雙手背在身後', en: 'both hands held behind the back' },
+  { id: 'hands-behind-back', zh: '雙手背在身後', en: 'both hands drawn behind the back or torso only where physically plausible for the selected pose' },
   { id: 'one-hand-hair', zh: '單手撩髮', en: 'one hand brushing hair back from the side of the face, fingers visibly touching the hair near the temple or ear' },
-  { id: 'hands-on-thighs', zh: '雙手放在大腿上', en: 'both hands resting on the thighs' },
+  { id: 'hands-on-thighs', zh: '雙手放在大腿上', en: 'both hands resting on the thighs or nearest upper-leg surface' },
   { id: 'hands-on-cheeks', zh: '雙手扶臉頰', en: 'both hands gently holding the cheeks' },
-  { id: 'one-hand-chin-other-down', zh: '單手托下巴', en: 'one hand supporting the chin, the other hand relaxed' },
+  { id: 'one-hand-chin-other-down', zh: '單手托下巴', en: 'one hand supporting the chin with the other hand relaxed along the body or support surface' },
   { id: 'one-hand-adjust-glasses', zh: '單手扶眼鏡', en: 'one hand adjusting the glasses at the frame or bridge, fingertips visibly touching the eyewear' },
   { id: 'one-hand-pull-down-glasses', zh: '單手把眼鏡拉下', en: 'one hand pulling the glasses slightly down the nose bridge, eyes visible above the frame' },
   { id: 'one-hand-mouth-corner', zh: '單手碰嘴角', en: 'one hand lightly touching the corner of the mouth, fingertips near the lower lip' },
@@ -875,9 +875,9 @@ const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'both-hands-arrange-hair', zh: '雙手整理頭髮', en: 'both hands arranging the hair, fingers visibly gathering and shaping the hair near both sides of the head' },
   { id: 'one-hand-nape-hair-lift', zh: '單手撩起後頸頭髮', en: 'one hand lifting hair away from the nape of the neck, fingers placed behind the ear or lower hairline' },
   { id: 'one-hand-collarbone', zh: '單手搭在鎖骨', en: 'one hand resting across the collarbone, fingertips lightly touching the upper chest line' },
-  { id: 'one-hand-waist-one-down', zh: '一手扶腰一手自然放下', en: 'one hand on the waist, the other hand relaxed down along the body' },
-  { id: 'one-hand-ground-one-leg', zh: '一手撐地一手放腿上', en: 'one hand supporting on the ground, the other hand resting on the leg' },
-  { id: 'one-hand-knee-one-down', zh: '一手扶膝一手垂放', en: 'one hand holding the knee, the other hand hanging relaxed beside the body' },
+  { id: 'one-hand-waist-one-down', zh: '一手扶腰一手自然放下', en: 'one hand on the waist or hip line with the other hand relaxed along the body or nearby support surface' },
+  { id: 'one-hand-ground-one-leg', zh: '一手撐地一手放腿上', en: 'one hand supporting on the floor or nearby surface with the other hand resting on the leg' },
+  { id: 'one-hand-knee-one-down', zh: '一手扶膝一手垂放', en: 'one hand holding the knee with the other hand relaxed beside the body or support surface' },
   { id: 'hands-clasped-front', zh: '雙手在身前交握', en: 'both hands clasped loosely in front of the body' },
   { id: 'one-hand-shoulder', zh: '單手搭肩', en: 'one hand resting on the opposite shoulder, fingers visibly touching the shoulder line' },
   { id: 'both-hands-overhead', zh: '雙手舉過頭頂', en: 'both hands raised overhead, arms extended naturally without stiff symmetry' },
@@ -887,7 +887,7 @@ const POSE_COMPOSER_HAND_OPTIONS = [
 const POSE_COMPOSER_HEAD_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定頭部方向。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random head direction', desc: '隨機選擇頭部方向。', meta: { tags: ['random'] } },
-  { id: 'model-natural-head-angle', zh: '模型自然決定', en: 'let the image model choose a natural head angle compatible with the expression camera angle and body orientation', desc: '讓影像模型依表情、鏡頭與身體方向自行決定自然頭部角度。' },
+  { id: 'model-natural-head-angle', zh: '模型自然決定', en: 'let the image model choose a natural head angle and orientation compatible with the camera angle body orientation and selected pose', desc: '讓影像模型依鏡頭、身體方向與姿勢自行決定自然頭部角度。' },
   { id: 'head-camera-natural', zh: '頭部自然朝向鏡頭', en: 'head naturally facing the camera' },
   { id: 'head-slight-tilt', zh: '頭部微微側傾', en: 'head slightly tilted' },
   { id: 'chin-slightly-raised', zh: '下巴微抬', en: 'chin slightly raised' },
@@ -899,7 +899,11 @@ const POSE_COMPOSER_HEAD_OPTIONS = [
   { id: 'head-slightly-back', zh: '頭部微微後仰', en: 'head tilted slightly backward with the chin softly lifted' },
   { id: 'head-down-three-quarter', zh: '低頭三分之四側臉', en: 'head lowered into a three-quarter side angle' },
   { id: 'head-over-shoulder', zh: '越肩回望', en: 'head turned over one shoulder toward the camera' },
-  { id: 'head-away-profile', zh: '側臉看向遠方', en: 'head turned into a clean side profile looking away from the camera' },
+  { id: 'head-away-profile', zh: '側臉看向遠方', en: 'head turned into a clean side profile with the face oriented away from the camera' },
+  { id: 'chin-tucked-shoulder-line', zh: '下巴靠近肩線', en: 'chin tucked toward one shoulder line with the neck softly folded by the selected pose' },
+  { id: 'head-close-support-surface', zh: '頭部貼近支撐面', en: 'head angled close to a support surface or shoulder line with the cheek plane following the selected support contact' },
+  { id: 'head-close-lens-off-axis', zh: '近鏡頭偏轉頭部', en: 'head turned slightly off-axis near the lens with the face plane angled diagonally instead of flat to camera' },
+  { id: 'head-low-rim-support', zh: '頭靠近邊緣支撐', en: 'head angled low near a rim or support edge with cheek and jawline close to the supporting surface' },
 ];
 const POSE_COMPOSER_ANCHOR_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定接觸或支撐物。', meta: { tags: ['none'] } },
@@ -3877,14 +3881,41 @@ function getPoseComposerAnchorEffect(anchor, base) {
   return waterContactEffects[base.id] || '';
 }
 
+function isModelNaturalPoseComposerOption(option) {
+  return Boolean(option?.id?.startsWith('model-natural-'));
+}
+
+function toPoseComposerDirective(value) {
+  if (!value) return '';
+  const trimmed = value.trim();
+  return ensureTerminalPeriod(`${trimmed.charAt(0).toUpperCase()}${trimmed.slice(1)}`);
+}
+
 function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head }) {
   const anchorPhrase = getPoseComposerAnchorPhrase(anchor, base);
   const opening = anchorPhrase || getPoseComposerBasePhrase(base);
   const anchorEffect = getPoseComposerAnchorEffect(anchor, base);
-  const details = [arrangement?.en, anchorEffect, handPose?.en, head?.en].filter(Boolean);
+  const details = [];
+  const directives = [];
+  const addOptionDetail = (option) => {
+    if (!option?.en) return;
+    if (isModelNaturalPoseComposerOption(option)) {
+      directives.push(toPoseComposerDirective(option.en));
+      return;
+    }
+    details.push(option.en);
+  };
 
-  if (details.length === 0) return `She is ${opening}.`;
-  return `She is ${opening} with ${details.join(', ')}.`;
+  addOptionDetail(arrangement);
+  if (anchorEffect) details.push(anchorEffect);
+  addOptionDetail(handPose);
+  addOptionDetail(head);
+
+  const baseSentence = details.length === 0
+    ? `She is ${opening}.`
+    : `She is ${opening} with ${details.join('; ')}.`;
+
+  return [baseSentence, ...directives].filter(Boolean).join(' ');
 }
 
 function buildPoseComposerItem(context) {
