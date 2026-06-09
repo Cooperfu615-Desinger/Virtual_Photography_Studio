@@ -229,6 +229,40 @@ test('support surface head directions are preserved in all prompt versions', () 
   }
 });
 
+test('pose composer supports knees-together compact squat with hands gathered near lower abdomen', () => {
+  assertArrangementOption(
+    '雙膝合併低蹲',
+    'squatting',
+    /low compact squat with both knees pressed together/
+  );
+  assertHandOption(
+    '雙手收在腹前',
+    /both hands gathered close in front of the lower abdomen/
+  );
+  assertHandOption(
+    '雙手收在腹前',
+    /elbows tucked inward near the knees/
+  );
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '蹲姿'),
+    poseArrangementId: optionId('poseArrangementId', '雙膝合併低蹲'),
+    poseHandId: optionId('poseHandId', '雙手收在腹前'),
+    poseAnchorId: optionId('poseAnchorId', '蹲在地面'),
+    poseHeadId: optionId('poseHeadId', '頭部微微側傾'),
+  });
+
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /low compact squat with both knees pressed together/);
+    assert.match(text, /feet grounded close under the body/);
+    assert.match(text, /both hands gathered close in front of the lower abdomen/);
+    assert.match(text, /elbows tucked inward near the knees/);
+  }
+});
+
 test('expressive hand interactions are preserved in all prompt versions', () => {
   const cases = [
     ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],
