@@ -178,6 +178,47 @@ test('sporty ringer tee hot-pants outfit preserves key garment and accessory anc
   assert.equal(prompt.selection.outfitPresetId, outfit.id);
 });
 
+test('lightweight yukata outfit preserves wrap styling patterns and pouch', () => {
+  const outfit = optionByLabel('outfitPresetId', '套裝：輕盈浴衣');
+  const text = [outfit.en, outfit.desc].join(' ');
+
+  [
+    /crossed wrap front/i,
+    /wide kimono sleeves/i,
+    /lace inner collar/i,
+    /wide obi with floral-petal motif/i,
+    /pearl cord/i,
+    /seigaiha wave pattern/i,
+    /shippo floral lattice panels/i,
+    /drawstring kinchaku pouch/i,
+  ].forEach((pattern) => {
+    assert.match(text, pattern);
+  });
+
+  assert.match(text, /controlled by the outfit color selection/i);
+  assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: outfit.id,
+    topId: optionByLabel('topId', '全無').id,
+    dressId: optionByLabel('dressId', '全無').id,
+    pantsId: optionByLabel('pantsId', '全無').id,
+    skirtId: optionByLabel('skirtId', '全無').id,
+    outerwearId: optionByLabel('outerwearId', '全無').id,
+    topBottomPaletteId: optionByLabel('topBottomPaletteId', '全無').id,
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+
+  assert.match(promptText, /crossed wrap front/i);
+  assert.match(promptText, /wide obi with floral-petal motif/i);
+  assert.match(promptText, /seigaiha wave pattern/i);
+  assert.match(promptText, /shippo floral lattice panels/i);
+  assert.match(promptText, /drawstring kinchaku pouch/i);
+  assert.equal(prompt.selection.outfitPresetId, outfit.id);
+});
+
 test('street reference outfit presets 40 to 48 preserve full outfit accessories and footwear', () => {
   [
     [
