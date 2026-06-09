@@ -110,7 +110,7 @@ test('pose composer exposes expressive hand interaction batch', () => {
     ['單手把眼鏡拉下', /pulling the glasses slightly down the nose bridge/],
     ['單手碰嘴角', /one hand lightly touching the corner of the mouth/],
     ['單手遮住半邊臉', /partially covering one side of the face/],
-    ['雙手整理頭髮', /both hands arranging the hair/],
+    ['雙手整理頭髮', /both hands lifting and gathering the hair behind the head/],
     ['單手撩起後頸頭髮', /lifting hair away from the nape of the neck/],
     ['單手搭在鎖骨', /one hand resting across the collarbone/],
     ['一手扶腰一手自然放下', /one hand on the waist or hip line with the other hand relaxed along the body or nearby support surface/],
@@ -267,6 +267,7 @@ test('expressive hand interactions are preserved in all prompt versions', () => 
   const cases = [
     ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],
     ['單手把眼鏡拉下', /pulling the glasses slightly down the nose bridge/],
+    ['雙手整理頭髮', /preparing to tie it up with fingers visibly holding the hair together/],
     ['一手撐地一手放腿上', /one hand supporting on the floor or nearby surface with the other hand resting on the leg/],
   ];
 
