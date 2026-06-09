@@ -106,12 +106,12 @@ test('fixed composition set leaves PAGE1 aspect ratio out of photography summary
     ...createEmptyLocks(),
     fixedCompositionSetId: optionId('fixedCompositionSetId', '清水模牆面沙發棚'),
     aspectRatio: optionId('aspectRatio', '16:9 寬螢幕'),
-    styleId: optionId('styleId', 'Daido Moriyama（森山大道）'),
+    styleId: optionId('styleId', '森山大道｜噪訊黑白暗調'),
     filmId: optionId('filmId', '高銳利快照黑位'),
   }, controls);
 
   assert.match(summary.scene.summary, /清水模牆面沙發棚/);
   assert.doesNotMatch(summary.photography.summary, /16:9/);
-  assert.match(summary.photography.summary, /Daido Moriyama/);
+  assert.match(summary.photography.summary, /森山大道｜噪訊黑白暗調/);
   assert.match(summary.photography.summary, /高銳利快照黑位/);
 });

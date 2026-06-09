@@ -75,7 +75,7 @@ test('fixed composition set overrides normal location, PAGE3 import, camera geom
     opticalEffectId: optionId('opticalEffectId', '前景遮擋散景'),
     lightingId: optionId('lightingId', '室內暖光夜景'),
     lightDirectionId: optionId('lightDirectionId', '局部暖光'),
-    styleId: optionId('styleId', 'Daido Moriyama（森山大道）'),
+    styleId: optionId('styleId', '森山大道｜噪訊黑白暗調'),
     filmId: optionId('filmId', '高銳利快照黑位'),
   });
 

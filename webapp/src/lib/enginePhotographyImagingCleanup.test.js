@@ -90,7 +90,7 @@ test('framing options are ordered from closest face crop to full body with legac
 test('worm-eye angle forces photography style and lens optics to none', () => {
   const controls = getLockControls();
   const wormEye = optionByLabel('angleId', '蟲眼視角鏡頭');
-  const style = optionByLabel('styleId', 'Ellen von Unwerth（艾倫・馮・昂沃斯）');
+  const style = optionByLabel('styleId', '艾倫・馮・昂沃斯｜俏皮抓拍雜誌');
   const lens = optionByLabel('lensId', '105mm 中長焦');
   const opticalEffect = optionByLabel('opticalEffectId', '前景遮擋散景');
   const noneStyle = optionByLabel('styleId', '全無');
@@ -326,9 +326,24 @@ test('generated prompts expose rendering color grade as a single D-section rende
 });
 
 test('photography style prompts stay focused on image language', () => {
-  const ellen = optionByLabel('styleId', 'Ellen von Unwerth（艾倫・馮・昂沃斯）');
-  const leslie = optionByLabel('styleId', 'Leslie Kee（レスリー・キー）');
-  const eikoh = optionByLabel('styleId', 'Eikoh Hosoe（細江英公）');
+  const styleLabels = options('styleId').map((item) => item.zh);
+  assert.ok(styleLabels.includes('森山大道｜噪訊黑白暗調'));
+  assert.ok(styleLabels.includes('艾倫・馮・昂沃斯｜俏皮抓拍雜誌'));
+  assert.ok(styleLabels.includes('萊斯利・基｜華麗明星商業感'));
+  assert.ok(!styleLabels.includes('Daido Moriyama（森山大道）'));
+  assert.ok(!styleLabels.includes('Ellen von Unwerth（艾倫・馮・昂沃斯）'));
+
+  assert.equal(
+    optionById('styleId', normalizeLocks({
+      ...createEmptyLocks(),
+      styleId: 'regional:攝影風格:daido-moriyama-森山大道:15',
+    }).styleId).zh,
+    '森山大道｜噪訊黑白暗調'
+  );
+
+  const ellen = optionByLabel('styleId', '艾倫・馮・昂沃斯｜俏皮抓拍雜誌');
+  const leslie = optionByLabel('styleId', '萊斯利・基｜華麗明星商業感');
+  const eikoh = optionByLabel('styleId', '細江英公｜戲劇黑白藝術張力');
 
   assert.doesNotMatch(buildPhotographyStylePrompt(ellen), /sensual/i);
   assert.doesNotMatch(buildPhotographyStylePrompt(leslie), /skin rendering/i);

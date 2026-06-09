@@ -841,6 +841,7 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'squatting-raised-heels', base: 'squatting', zh: '腳跟抬起蹲姿', en: 'raised-heel squatting arrangement, heels lightly lifted, body balanced on the balls of the feet' },
   { id: 'squatting-forward-lean', base: 'squatting', zh: '蹲姿身體前傾', en: 'forward-leaning squatting arrangement, upper body angled toward the knees, grounded center of weight' },
   { id: 'squatting-compact-hug-knees-variant', base: 'squatting', zh: '緊湊抱膝蹲姿變體', en: 'compact knees-held squat variation, legs close together, body folded into a smaller grounded shape' },
+  { id: 'squatting-knees-together-low', base: 'squatting', zh: '雙膝合併低蹲', en: 'low compact squat with both knees pressed together and feet grounded close under the body with thighs close and parallel forming a compact front-facing lower-body shape' },
   { id: 'lying-natural', base: 'lying', zh: '自然躺姿', en: 'natural lying arrangement' },
   { id: 'lying-on-back', base: 'lying', zh: '仰躺', en: 'lying on the back, relaxed upward-facing body line' },
   { id: 'lying-side', base: 'lying', zh: '側躺', en: 'side-lying arrangement, body turned along one side' },
@@ -883,6 +884,7 @@ const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'both-hands-overhead', zh: '雙手舉過頭頂', en: 'both hands raised overhead, arms extended naturally without stiff symmetry' },
   { id: 'one-hand-ankle', zh: '單手扶腳踝', en: 'one hand holding the ankle, fingers visibly touching the ankle or shoe area' },
   { id: 'hands-behind-head', zh: '雙手放在頭後', en: 'both hands placed behind the head, elbows angled outward naturally' },
+  { id: 'hands-gathered-lower-abdomen', zh: '雙手收在腹前', en: 'both hands gathered close in front of the lower abdomen with wrists and fingers softly folded together and elbows tucked inward near the knees in a compact low pose' },
 ];
 const POSE_COMPOSER_HEAD_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定頭部方向。', meta: { tags: ['none'] } },
@@ -2504,10 +2506,40 @@ const WARDROBE_TOP_CATEGORY = '上身 (Tops)';
 const WARDROBE_EYEWEAR_CATEGORY = '眼鏡 (Eyewear)';
 const WARDROBE_EYEWEAR_COLOR_CATEGORY = '眼鏡配色 (Eyewear Color)';
 const WARDROBE_EYEWEAR_PLACEMENT_CATEGORY = '眼鏡配戴方式 (Eyewear Placement)';
+const REGIONAL_STYLE_CATEGORY = '攝影風格';
 const CAMERA_FRAMING_CATEGORY = '景別構圖 (Framing)';
 const CAMERA_ANGLE_CATEGORY = '相機視角 (Angle)';
 const CAMERA_ORBIT_CATEGORY = '拍攝方位 (Orbit Angle)';
 const CAMERA_FILM_CATEGORY = '底片與相機模擬 (Camera & Film Simulation)';
+
+const REGIONAL_STYLE_LEGACY_OPTION_MAP = [
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '蜷川實花｜濃烈色彩戲劇感', legacy: [['Mika Ninagawa（蜷川實花）', 0]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '上田義彥｜靜默自然暗調', legacy: [['Yoshihiko Ueda（上田義彥）', 1]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '橫浪修｜群像留白秩序', legacy: [['Osamu Yokonami（橫浪修）', 2]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '川內倫子｜輕盈日常微光', legacy: [['Rinko Kawauchi（川內倫子）', 3]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '石田真澄｜柔亮底片空氣感', legacy: [['Masumi Ishida（石田真澄）', 4]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '市橋織江｜透明自然低飽和', legacy: [['Orie Ichihashi（市橋織江）', 5]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '高橋洋子｜乾爽日光褪色', legacy: [['Yoko Takahashi（高橋ヨーコ）', 6]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '保羅・羅韋爾西｜柔霧高級時裝', legacy: [['Paolo Roversi（保羅・羅韋爾西）', 7]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '艾倫・馮・昂沃斯｜俏皮抓拍雜誌', legacy: [['Ellen von Unwerth（艾倫・馮・昂沃斯）', 8]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '南・戈爾丁｜私人相簿粗粒子', legacy: [['Nan Goldin（南・戈爾丁）', 9]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '尤爾根・特勒｜直閃反精緻', legacy: [['Juergen Teller（尤爾根・特勒）', 10]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '理察・阿維頓｜極簡留白肖像', legacy: [['Richard Avedon（理察・阿維頓）', 11]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '亞歷克・索斯｜寬鬆紀實敘事', legacy: [['Alec Soth（亞歷克・索斯）', 12]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '莎莉・曼｜古典濕版記憶感', legacy: [['Sally Mann（莎莉・曼）', 13]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '沃夫岡・提爾曼斯｜生活切片隨拍', legacy: [['Wolfgang Tillmans（沃夫岡・提爾曼斯）', 14]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '森山大道｜噪訊黑白暗調', legacy: [['Daido Moriyama（森山大道）', 15]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '荒木經惟｜私寫真親密', legacy: [['Nobuyoshi Araki（荒木經惟）', 16]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '篠山紀信｜經典寫真名人肖像', legacy: [['Kishin Shinoyama（篠山紀信）', 17]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '鈴木親｜年輕時尚生活感', legacy: [['Chikashi Suzuki（鈴木親）', 18]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '青山裕企｜青春寫真直接人像', legacy: [['Yuki Aoyama（青山裕企）', 19]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '奧山由之｜青春電影透明敘事', legacy: [['Yuhki Toyama（奧山由之）', 20]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '萊斯利・基｜華麗明星商業感', legacy: [['Leslie Kee（レスリー・キー）', 21]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '細江英公｜戲劇黑白藝術張力', legacy: [['Eikoh Hosoe（細江英公）', 22]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '蓋・布爾丁｜鮮豔敘事時裝', legacy: [['Guy Bourdin（蓋・布爾丁）', 23]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '邁爾斯・奧爾德里奇｜復古濃彩高製作', legacy: [['Miles Aldridge（邁爾斯・奧爾德里奇）', 24]] },
+  { category: REGIONAL_STYLE_CATEGORY, targetZh: '艾爾莎・布萊達｜霓虹低光孤寂', legacy: [['Elsa Bleda（艾爾莎·布萊達）', 25]] },
+];
 
 const CAMERA_FRAMING_LEGACY_OPTION_MAP = [
   { category: CAMERA_FRAMING_CATEGORY, targetZh: '特寫鏡頭 (Close-Up)', legacy: [['特寫鏡頭 (Close-Up)', 1]] },
@@ -2740,6 +2772,10 @@ function buildWardrobeLegacyIds(category, legacy) {
   ));
 }
 
+function buildRegionalLegacyIds(category, legacy) {
+  return legacy.map(([label, index]) => `regional:${slugify(category)}:${slugify(label)}:${index}`);
+}
+
 function buildCharacterLegacyIds(category, legacy) {
   return legacy.map(([label, index]) => `character:${slugify(category)}:${slugify(label)}:${index}`);
 }
@@ -2757,6 +2793,15 @@ function applyWardrobeLegacyOptionIds(catalog) {
       ...(target.legacyIds || []),
       ...buildWardrobeLegacyIds(category, legacy),
     ]));
+  });
+}
+
+function applyRegionalLegacyOptionIds(catalog) {
+  REGIONAL_STYLE_LEGACY_OPTION_MAP.forEach(({ category, targetZh, legacy }) => {
+    const target = getByKey(catalog.regional, category).find((item) => item.zh === targetZh);
+    if (!target) return;
+
+    target.legacyIds = Array.from(new Set([...(target.legacyIds || []), ...buildRegionalLegacyIds(category, legacy)]));
   });
 }
 
@@ -2880,6 +2925,7 @@ function buildCatalog(customLibrary = []) {
     character: buildEntries('character', mergedDatabase.Character || {}, inferCharacterMeta),
     negative: buildEntries('negative', mergedDatabase.Negative || {}, inferNegativeMeta),
   };
+  applyRegionalLegacyOptionIds(catalog);
   applyWardrobeLegacyOptionIds(catalog);
   applyCharacterIdentityLegacyOptionIds(catalog);
   applyCharacterExpressionPoseLegacyOptionIds(catalog);
@@ -5283,32 +5329,32 @@ function getLegacyCameraSystemFromImaging(imagingSimulation) {
 }
 
 const STYLE_PROMPT_INTROS = {
-  'Mika Ninagawa（蜷川實花）': 'Inspired by Mika Ninagawa, explosive hyper-saturated image language',
-  'Yoshihiko Ueda（上田義彥）': 'Inspired by Yoshihiko Ueda, quiet natural image language',
-  'Osamu Yokonami（橫浪修）': 'Inspired by Osamu Yokonami, high-key minimalist image language',
-  'Rinko Kawauchi（川內倫子）': 'Inspired by Rinko Kawauchi, airy high-key image language',
-  'Masumi Ishida（石田真澄）': 'Inspired by Masumi Ishida, luminous summer film image language',
-  'Orie Ichihashi（市橋織江）': 'Inspired by Orie Ichihashi, transparent natural-light image language',
-  'Yoko Takahashi（高橋ヨーコ）': 'Inspired by Yoko Takahashi, breezy sun-bleached image language',
-  'Paolo Roversi（保羅・羅韋爾西）': 'Inspired by Paolo Roversi, soft haze editorial image language',
-  'Ellen von Unwerth（艾倫・馮・昂沃斯）': 'Inspired by Ellen von Unwerth, playful editorial image language',
-  'Nan Goldin（南・戈爾丁）': 'Inspired by Nan Goldin, intimate diaristic image language',
-  'Juergen Teller（尤爾根・特勒）': 'Inspired by Juergen Teller, raw direct-flash image language',
-  'Richard Avedon（理察・阿維頓）': 'Inspired by Richard Avedon, stripped-down editorial image language',
-  'Alec Soth（亞歷克・索斯）': 'Inspired by Alec Soth, spacious documentary image language',
-  'Sally Mann（莎莉・曼）': 'Inspired by Sally Mann, antique wet-plate image language',
-  'Wolfgang Tillmans（沃夫岡・提爾曼斯）': 'Inspired by Wolfgang Tillmans, casual everyday image language',
-  'Daido Moriyama（森山大道）': 'Inspired by Daido Moriyama, gritty high-contrast monochrome image language',
-  'Nobuyoshi Araki（荒木經惟）': 'Inspired by Nobuyoshi Araki, raw intimate diaristic image language',
-  'Kishin Shinoyama（篠山紀信）': 'Inspired by Kishin Shinoyama, polished Japanese portrait image language',
-  'Chikashi Suzuki（鈴木親）': 'Inspired by Chikashi Suzuki, relaxed film-editorial image language',
-  'Yuki Aoyama（青山裕企）': 'Inspired by Yuki Aoyama, Japanese photobook image language',
-  'Yuhki Toyama（奧山由之）': 'Inspired by Yuhki Toyama, tender cinematic image language',
-  'Leslie Kee（レスリー・キー）': 'Inspired by Leslie Kee, polished commercial portrait image language',
-  'Eikoh Hosoe（細江英公）': 'Inspired by Eikoh Hosoe, dramatic monochrome art image language',
-  'Guy Bourdin（蓋・布爾丁）': 'Inspired by Guy Bourdin, bold narrative fashion image language',
-  'Miles Aldridge（邁爾斯・奧爾德里奇）': 'Inspired by Miles Aldridge, hyper-stylized fashion image language',
-  'Elsa Bleda（艾爾莎·布萊達）': 'Inspired by Elsa Bleda, nocturnal neon image language',
+  '蜷川實花｜濃烈色彩戲劇感': 'Inspired by Mika Ninagawa, explosive hyper-saturated image language',
+  '上田義彥｜靜默自然暗調': 'Inspired by Yoshihiko Ueda, quiet natural image language',
+  '橫浪修｜群像留白秩序': 'Inspired by Osamu Yokonami, high-key minimalist image language',
+  '川內倫子｜輕盈日常微光': 'Inspired by Rinko Kawauchi, airy high-key image language',
+  '石田真澄｜柔亮底片空氣感': 'Inspired by Masumi Ishida, luminous summer film image language',
+  '市橋織江｜透明自然低飽和': 'Inspired by Orie Ichihashi, transparent natural-light image language',
+  '高橋洋子｜乾爽日光褪色': 'Inspired by Yoko Takahashi, breezy sun-bleached image language',
+  '保羅・羅韋爾西｜柔霧高級時裝': 'Inspired by Paolo Roversi, soft haze editorial image language',
+  '艾倫・馮・昂沃斯｜俏皮抓拍雜誌': 'Inspired by Ellen von Unwerth, playful editorial image language',
+  '南・戈爾丁｜私人相簿粗粒子': 'Inspired by Nan Goldin, intimate diaristic image language',
+  '尤爾根・特勒｜直閃反精緻': 'Inspired by Juergen Teller, raw direct-flash image language',
+  '理察・阿維頓｜極簡留白肖像': 'Inspired by Richard Avedon, stripped-down editorial image language',
+  '亞歷克・索斯｜寬鬆紀實敘事': 'Inspired by Alec Soth, spacious documentary image language',
+  '莎莉・曼｜古典濕版記憶感': 'Inspired by Sally Mann, antique wet-plate image language',
+  '沃夫岡・提爾曼斯｜生活切片隨拍': 'Inspired by Wolfgang Tillmans, casual everyday image language',
+  '森山大道｜噪訊黑白暗調': 'Inspired by Daido Moriyama, gritty high-contrast monochrome image language',
+  '荒木經惟｜私寫真親密': 'Inspired by Nobuyoshi Araki, raw intimate diaristic image language',
+  '篠山紀信｜經典寫真名人肖像': 'Inspired by Kishin Shinoyama, polished Japanese portrait image language',
+  '鈴木親｜年輕時尚生活感': 'Inspired by Chikashi Suzuki, relaxed film-editorial image language',
+  '青山裕企｜青春寫真直接人像': 'Inspired by Yuki Aoyama, Japanese photobook image language',
+  '奧山由之｜青春電影透明敘事': 'Inspired by Yuhki Toyama, tender cinematic image language',
+  '萊斯利・基｜華麗明星商業感': 'Inspired by Leslie Kee, polished commercial portrait image language',
+  '細江英公｜戲劇黑白藝術張力': 'Inspired by Eikoh Hosoe, dramatic monochrome art image language',
+  '蓋・布爾丁｜鮮豔敘事時裝': 'Inspired by Guy Bourdin, bold narrative fashion image language',
+  '邁爾斯・奧爾德里奇｜復古濃彩高製作': 'Inspired by Miles Aldridge, hyper-stylized fashion image language',
+  '艾爾莎・布萊達｜霓虹低光孤寂': 'Inspired by Elsa Bleda, nocturnal neon image language',
 };
 
 export function buildPhotographyStylePrompt(style) {

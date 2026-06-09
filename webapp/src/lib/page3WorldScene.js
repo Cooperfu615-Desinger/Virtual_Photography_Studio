@@ -205,7 +205,7 @@ export function createEmptyPage3WorldSceneProfile() {
 }
 
 function findOption(options, id) {
-  return options.find((option) => option.id === id) || options[0] || null;
+  return options.find((option) => option.id === id || option.legacyIds?.includes(id)) || options[0] || null;
 }
 
 function isNoneOption(option) {

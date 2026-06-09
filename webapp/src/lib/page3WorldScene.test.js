@@ -119,7 +119,7 @@ test('photographer style adds PAGE1-style photographic language to PAGE3 prompts
   assert.match(prompt, /Daido Moriyama/i);
   assert.match(prompt, /gritty high-contrast monochrome image language/i);
   assert.match(prompt, /light behavior, framing rhythm, color contrast, texture, subject distance, and image atmosphere/i);
-  assert.match(summary, /Daido Moriyama/);
+  assert.match(summary, /森山大道｜噪訊黑白暗調/);
 });
 
 test('photographer style none disables photographer-inspired language', () => {
