@@ -102,6 +102,7 @@ test('simplified top prompts remain compact and usable in generated wardrobe out
   const top = optionByLabel('topId', '蕾絲胸罩');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     topId: top.id,
   });
 
@@ -114,6 +115,7 @@ test('cropped lace camisole matches the LENY-style lace cami construction', () =
   const top = optionByLabel('topId', '短版蕾絲背心');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     topId: top.id,
   });
 

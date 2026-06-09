@@ -147,6 +147,7 @@ test('reference outfit presets 27 to 38 preserve complete styling anchors and im
 
 test('sporty ringer tee hot-pants outfit preserves key garment and accessory anchors', () => {
   const outfit = optionByLabel('outfitPresetId', '套裝：短版運動T熱褲');
+  const fullBodyFramingId = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id;
   const text = [outfit.en, outfit.desc].join(' ');
 
   assert.match(text, /sporty ringer baby-tee and dolphin shorts outfit/i);
@@ -161,6 +162,7 @@ test('sporty ringer tee hot-pants outfit preserves key garment and accessory anc
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
     outfitPresetId: outfit.id,
     topId: optionByLabel('topId', '全無').id,
     dressId: optionByLabel('dressId', '全無').id,
@@ -180,6 +182,7 @@ test('sporty ringer tee hot-pants outfit preserves key garment and accessory anc
 
 test('lightweight yukata outfit preserves wrap styling patterns and pouch', () => {
   const outfit = optionByLabel('outfitPresetId', '套裝：輕盈浴衣');
+  const fullBodyFramingId = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id;
   const text = [outfit.en, outfit.desc].join(' ');
 
   [
@@ -200,6 +203,7 @@ test('lightweight yukata outfit preserves wrap styling patterns and pouch', () =
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
     outfitPresetId: outfit.id,
     topId: optionByLabel('topId', '全無').id,
     dressId: optionByLabel('dressId', '全無').id,
@@ -404,6 +408,7 @@ test('mirror chrome garment color applies scene-reflective material to the new c
   const mirrorChrome = optionByLabel('dressColorId', '鏡面鉻銀');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     outfitPresetId: optionByLabel('outfitPresetId', '全無').id,
     dressId: cutoutSwimsuit.id,
     dressColorId: mirrorChrome.id,
@@ -453,6 +458,7 @@ test('nurse uniform outfit prompt does not include apron-like panel wording', ()
 test('doctor and secretary outfit prompts include updated signature props and silhouettes', () => {
   const doctorOutfit = optionByLabel('outfitPresetId', '套裝：醫生診療袍');
   const secretaryOutfit = optionByLabel('outfitPresetId', '套裝：秘書短裙');
+  const fullBodyFramingId = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id;
 
   assert.match(doctorOutfit.en, /stethoscope/i);
   assert.match(doctorOutfit.en, /medical chart/i);
@@ -461,10 +467,12 @@ test('doctor and secretary outfit prompts include updated signature props and si
 
   const [doctorPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
     outfitPresetId: doctorOutfit.id,
   });
   const [secretaryPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
     outfitPresetId: secretaryOutfit.id,
   });
 
@@ -529,6 +537,7 @@ test('generated prompts keep outfit preset color separate from clothing structur
   const outfit = optionByLabel('outfitPresetId', '套裝：鏈條緞面內衣');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     outfitPresetId: outfit.id,
     outfitPresetPrimaryColorId: optionByLabel('outfitPresetPrimaryColorId', '紅色').id,
   });
@@ -545,19 +554,23 @@ test('complete look palette applies to special outfits, outfit presets, and dres
   const dress = optionByLabel('dressId', '連身：短版｜亮面乳膠迷你洋裝');
   const top = optionByLabel('topId', '短版 T 恤');
   const skirt = optionByLabel('skirtId', '百褶短裙');
+  const fullBodyFramingId = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id;
 
   const [specialPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
     specialOutfitId: specialOutfit.id,
     completeLookPaletteId: completePalette.id,
   });
   const [presetPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
     outfitPresetId: outfitPreset.id,
     completeLookPaletteId: completePalette.id,
   });
   const [dressPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
     dressId: dress.id,
     completeLookPaletteId: completePalette.id,
   });

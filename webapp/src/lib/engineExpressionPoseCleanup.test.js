@@ -97,6 +97,35 @@ test('social shooting special actions can compose with body poses', () => {
   assert.match(promptText, /男友視角拍攝|boyfriend-perspective candid portrait/);
 });
 
+test('close-up framing preserves explicit pose composer directives', () => {
+  const framing = optionByLabel('framingId', '胸上特寫');
+  const poseBase = optionByLabel('poseBaseId', '坐姿');
+  const poseHand = optionByLabel('poseHandId', '單手托下巴');
+  const poseHead = optionByLabel('poseHeadId', '頭部自然朝向鏡頭');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: framing.id,
+    poseBaseId: poseBase.id,
+    poseHandId: poseHand.id,
+    poseHeadId: poseHead.id,
+  });
+
+  const promptText = [
+    prompt.grokPrompt,
+    prompt.zImagePrompt,
+    prompt.midjourneyPrompt,
+    prompt.summary,
+  ].join('\n');
+
+  assert.equal(prompt.selection.framingId, framing.id);
+  assert.equal(prompt.selection.poseBaseId, poseBase.id);
+  assert.equal(prompt.selection.poseHandId, poseHand.id);
+  assert.equal(prompt.selection.poseHeadId, poseHead.id);
+  assert.match(promptText, /She is sitting\b/);
+  assert.match(promptText, /one hand supporting the chin/);
+  assert.match(promptText, /head naturally facing the camera/);
+});
+
 test('locked expression updates output even when the previous orbit conflicts', () => {
   const rearOrbit = optionByLabel('orbitId', '背面 180 度');
   const sideGlance = optionByLabel('expressionId', '回眸側看｜輕柔注意');

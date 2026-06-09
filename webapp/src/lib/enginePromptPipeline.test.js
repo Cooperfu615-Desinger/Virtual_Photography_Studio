@@ -13,6 +13,7 @@ function optionId(controlKey, zh) {
 test('Gpt prompt uses natural structured sections for GPT Image', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     locationId: optionId('locationId', '室內：深邃黑幕'),
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
@@ -35,6 +36,7 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
 test('Grok/Z-Image prompt remains natural language and AI is compacted from Gpt sections', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     locationId: optionId('locationId', '室內：深邃黑幕'),
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
     outerwearId: optionId('outerwearId', '全無'),
@@ -64,6 +66,7 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
   const importedWorldSceneArchitecture = 'world-scene architecture for the portrait: Shibuya Scramble Crossing remains visible around and behind the subject, large video billboards, station-front buildings, dense pedestrian crosswalk pattern, portrait subject remains the main subject, no no-human-subject restriction';
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     importedWorldSceneMode: 'architecture',
     importedWorldSceneLabel: '東京｜澀谷 Scramble Crossing',
     importedWorldSceneArchitectureText: importedWorldSceneArchitecture,

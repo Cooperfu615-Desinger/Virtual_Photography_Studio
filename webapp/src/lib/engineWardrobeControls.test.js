@@ -37,6 +37,7 @@ test('bottom rise controls include a slightly unbuttoned and unzipped pants stat
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     pantsId: jeans.id,
     bottomRiseId: unbuttonedRise.id,
   });
@@ -50,6 +51,7 @@ test('bottom rise controls include a slightly unbuttoned and unzipped pants stat
 test('bottom rise and fit appear before the bottom garment in generated wardrobe text', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
     bottomRiseId: optionId('bottomRiseId', '低腰'),
     bottomFitId: optionId('bottomFitId', '寬版'),
@@ -80,6 +82,7 @@ test('bottom rise and fit appear before the bottom garment in generated wardrobe
 test('pants-specific unbuttoned zipper waist state is not applied to skirts', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     skirtId: optionId('skirtId', '迷你裙'),
     bottomRiseId: optionId('bottomRiseId', '扣子解開拉鏈微開'),
   });
@@ -101,10 +104,12 @@ test('pants controls include dolphin micro shorts and knee-length fitted shorts'
 
   const [bootyPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     pantsId: bootyShorts.id,
   });
   const [rhythmicPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     pantsId: rhythmicShorts.id,
   });
 
@@ -130,6 +135,7 @@ test('lace thong prompt uses thin-strap minimal-coverage thong structure', () =>
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     pantsId: laceThong.id,
   });
 
@@ -140,6 +146,7 @@ test('lace thong prompt uses thin-strap minimal-coverage thong structure', () =>
 test('top fit and styling appear before the top garment in generated wardrobe text', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     topId: optionId('topId', '襯衫'),
     topFitId: optionId('topFitId', '緊身'),
     topStylingId: optionId('topStylingId', '下擺打結'),
@@ -170,6 +177,7 @@ test('top fit and styling appear before the top garment in generated wardrobe te
 test('outerwear styling appears after the outerwear garment in generated wardrobe text', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outerwearId: optionId('outerwearId', '運動連帽外套'),
     outerwearStylingId: optionId('outerwearStylingId', '正常穿著'),
     topId: optionId('topId', '襯衫'),
@@ -192,6 +200,7 @@ test('outerwear styling appears after the outerwear garment in generated wardrob
 test('outerwear and long shirt compose as explicit outer-over-inner layers', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outerwearId: optionId('outerwearId', '丹寧外套（敞開穿）'),
     outerwearColorId: optionId('outerwearColorId', '深灰色'),
     outerwearStylingId: optionId('outerwearStylingId', '正常穿著'),
@@ -214,6 +223,7 @@ test('outerwear and long shirt compose as explicit outer-over-inner layers', () 
 test('model-specific shoes stay concise while preserving signature accent details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     shoesId: optionId('shoesId', 'Samba OG'),
     shoesColorId: optionId('shoesColorId', '白色'),
   });
@@ -233,6 +243,7 @@ test('model-specific shoes stay concise while preserving signature accent detail
 test('generic shoe colors do not conflict with fixed color wording', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     shoesId: optionId('shoesId', '高跟鞋'),
     shoesColorId: optionId('shoesColorId', '白色'),
   });
@@ -354,6 +365,7 @@ test('special top and bottom palettes expose two hex swatches for the wardrobe p
 test('special top and bottom palettes apply separate colors to top and bottom garments', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     topId: optionId('topId', '棉質細肩背心'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
     topBottomPaletteId: optionId('topBottomPaletteId', '櫻花粉 × 奶油黃'),
@@ -400,6 +412,7 @@ test('special outfit controls expose approved complete looks and remove stale ex
 test('wardrobe layering logic keeps long tops untucked over shorts', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     topId: optionId('topId', '長版寬鬆麻花針織毛衣'),
     pantsId: optionId('pantsId', '超短運動短褲'),
   });
@@ -415,6 +428,7 @@ test('wardrobe layering logic keeps long tops untucked over shorts', () => {
 test('wardrobe layering logic preserves outerwear over strappy dresses', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outerwearId: optionId('outerwearId', '西裝外套（不扣扣子）'),
     dressId: optionId('dressId', '連身：短版｜細肩帶迷你洋裝'),
   });
@@ -455,6 +469,7 @@ test('bath towel outfit preset and sheer cover-up outerwear preserve requested g
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outfitPresetId: towelPreset.id,
     outerwearId: sheerCoverUp.id,
   });
@@ -469,6 +484,7 @@ test('bath towel outfit preset and sheer cover-up outerwear preserve requested g
 test('special top and bottom palette applies to outfit presets', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outfitPresetId: optionId('outfitPresetId', '套裝：春日巴黎亞麻長褲'),
     topBottomPaletteId: optionId('topBottomPaletteId', '櫻花粉 × 奶油黃'),
   });
@@ -484,6 +500,7 @@ test('special top and bottom palette applies to outfit presets', () => {
 test('special top and bottom palette applies to dress controls', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     dressId: optionId('dressId', '連身：短版｜無袖迷你洋裝'),
     topBottomPaletteId: optionId('topBottomPaletteId', '櫻花粉 × 奶油黃'),
   });
@@ -499,11 +516,13 @@ test('special top and bottom palette applies to dress controls', () => {
 test('wardrobe layering logic makes legwear secondary under long bottoms', () => {
   const [pantsPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
     legwearId: optionId('legwearId', '羅紋短襪'),
   });
   const [skirtPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     skirtId: optionId('skirtId', '長裙'),
     legwearId: optionId('legwearId', '羅紋短襪'),
   });
@@ -517,7 +536,7 @@ test('wardrobe layering logic makes legwear secondary under long bottoms', () =>
   assert.match(skirtText, /long bottom layer keeps its natural full length and drape/);
 });
 
-test('face close-up framing keeps wardrobe and location locks available as contextual inputs', () => {
+test('face close-up framing keeps wardrobe location and pose locks available as contextual inputs', () => {
   const controls = getLockControls();
   const faceCloseupId = optionId('framingId', '臉部特寫');
   const locks = {
@@ -527,6 +546,11 @@ test('face close-up framing keeps wardrobe and location locks available as conte
     topId: optionId('topId', '透膚刺繡襯衫'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
     shoesId: optionId('shoesId', '高跟鞋'),
+    poseId: optionId('poseId', '坐姿｜微微前傾'),
+    specialActionId: optionId('specialActionId', '男友視角拍攝'),
+    poseBaseId: optionId('poseBaseId', '坐姿'),
+    poseHandId: optionId('poseHandId', '單手托下巴'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
   };
 
   assert.equal(isWardrobeIncompatibleCloseupFramingId(faceCloseupId), false);
@@ -536,6 +560,11 @@ test('face close-up framing keeps wardrobe and location locks available as conte
   assert.equal(allowedKeys.has('topId'), true);
   assert.equal(allowedKeys.has('pantsId'), true);
   assert.equal(allowedKeys.has('shoesId'), true);
+  assert.equal(allowedKeys.has('poseId'), true);
+  assert.equal(allowedKeys.has('specialActionId'), true);
+  assert.equal(allowedKeys.has('poseBaseId'), true);
+  assert.equal(allowedKeys.has('poseHandId'), true);
+  assert.equal(allowedKeys.has('poseHeadId'), true);
 
   const sanitized = sanitizeLocksForCloseupMode(locks, controls);
   assert.equal(sanitized.framingId, locks.framingId);
@@ -543,9 +572,14 @@ test('face close-up framing keeps wardrobe and location locks available as conte
   assert.equal(sanitized.topId, locks.topId);
   assert.equal(sanitized.pantsId, locks.pantsId);
   assert.equal(sanitized.shoesId, locks.shoesId);
+  assert.equal(sanitized.poseId, locks.poseId);
+  assert.equal(sanitized.specialActionId, locks.specialActionId);
+  assert.equal(sanitized.poseBaseId, locks.poseBaseId);
+  assert.equal(sanitized.poseHandId, locks.poseHandId);
+  assert.equal(sanitized.poseHeadId, locks.poseHeadId);
 });
 
-test('face close-up prompts degrade selected wardrobe and scene into visible close-up context', () => {
+test('face close-up prompts project only visible upper-body wardrobe and scene context', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '臉部特寫'),
@@ -562,14 +596,42 @@ test('face close-up prompts degrade selected wardrobe and scene into visible clo
   assert.equal(prompt.selection.shoesId, optionId('shoesId', '高跟鞋'));
 
   assert.match(prompt.grokPrompt, /tight facial close-up portrait/);
-  assert.match(prompt.grokPrompt, /close-up wardrobe visibility/i);
-  assert.match(prompt.grokPrompt, /neckline, collar, shoulder, accessory, or fabric hints/i);
-  assert.match(prompt.grokPrompt, /close-up scene context/i);
-  assert.match(prompt.grokPrompt, /soft blurred background/i);
+  assert.match(prompt.grokPrompt, /show .*semi-sheer embroidered shirt only through/i);
+  assert.match(prompt.grokPrompt, /semi-sheer embroidered shirt/i);
+  assert.match(prompt.grokPrompt, /collar edge/i);
+  assert.match(prompt.grokPrompt, /partial shoulder line/i);
+  assert.match(prompt.grokPrompt, /render selected modern high-rise apartment living room only as soft background color/i);
+  assert.match(prompt.grokPrompt, /soft background color/i);
   assert.doesNotMatch(prompt.grokPrompt, /straight-leg jeans/);
   assert.doesNotMatch(prompt.grokPrompt, /glossy pointed-toe stiletto pumps/);
-  assert.match(prompt.zImagePrompt, /close-up wardrobe visibility/i);
-  assert.match(prompt.zImagePrompt, /close-up scene context/i);
+  assert.match(prompt.zImagePrompt, /show .*semi-sheer embroidered shirt only through/i);
+  assert.match(prompt.zImagePrompt, /semi-sheer embroidered shirt/i);
+  assert.match(prompt.zImagePrompt, /render selected modern high-rise apartment living room only as soft background color/i);
   assert.doesNotMatch(prompt.zImagePrompt, /straight-leg jeans/);
   assert.doesNotMatch(prompt.zImagePrompt, /glossy pointed-toe stiletto pumps/);
+});
+
+test('chest-up framing projects only visible upper-body cues for outfit presets', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '胸上特寫'),
+    locationId: optionId('locationId', '室內：現代高樓公寓客廳'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：輕盈浴衣'),
+  });
+
+  assert.equal(prompt.selection.framingId, optionId('framingId', '胸上特寫'));
+  assert.equal(prompt.selection.outfitPresetId, optionId('outfitPresetId', '套裝：輕盈浴衣'));
+  assert.match(prompt.grokPrompt, /show lightweight yukata outfit only through/i);
+  assert.match(prompt.grokPrompt, /lightweight yukata outfit/i);
+  assert.match(prompt.grokPrompt, /wrap front/i);
+  assert.match(prompt.grokPrompt, /sleeve edge/i);
+  assert.match(prompt.grokPrompt, /render selected modern high-rise apartment living room only through nearby surfaces/i);
+  assert.doesNotMatch(prompt.grokPrompt, /ankle-length straight fall/i);
+  assert.doesNotMatch(prompt.grokPrompt, /wide obi/i);
+  assert.doesNotMatch(prompt.grokPrompt, /kinchaku pouch/i);
+  assert.match(prompt.zImagePrompt, /show lightweight yukata outfit only through/i);
+  assert.match(prompt.zImagePrompt, /lightweight yukata outfit/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /ankle-length straight fall/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /wide obi/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /kinchaku pouch/i);
 });

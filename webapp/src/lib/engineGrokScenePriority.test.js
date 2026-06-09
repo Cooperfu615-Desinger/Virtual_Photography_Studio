@@ -13,6 +13,7 @@ function optionId(controlKey, zh) {
 test('Gpt prompt prioritizes scene before special outfit details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     specialOutfitId: optionId('specialOutfitId', '黑色波點頭巾透紗套裝'),
     locationId: optionId('locationId', '戶外：首爾聖水洞街區'),
   });
@@ -43,6 +44,7 @@ test('Gpt prompt keeps scene priority disabled for normal separates', () => {
 test('Z-Image prompt prioritizes scene before special outfit details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     specialOutfitId: optionId('specialOutfitId', '黑色波點頭巾透紗套裝'),
     locationId: optionId('locationId', '戶外：首爾聖水洞街區'),
   });

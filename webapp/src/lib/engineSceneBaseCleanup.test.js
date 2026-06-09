@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
 
 const locationOptions = () => getLockControls().find((control) => control.key === 'locationId').options;
+const framingOptions = () => getLockControls().find((control) => control.key === 'framingId').options;
 
 function optionByLabel(label) {
   const option = locationOptions().find((item) => item.zh === label);
@@ -13,6 +14,12 @@ function optionByLabel(label) {
 
 function optionId(label) {
   return optionByLabel(label).id;
+}
+
+function framingId(label) {
+  const option = framingOptions().find((item) => item.zh === label);
+  assert.ok(option, `Missing framing option: ${label}`);
+  return option.id;
 }
 
 const wordCount = (text) => text.split(/\s+/).filter(Boolean).length;
@@ -127,30 +134,37 @@ test('other dedicated scenes read as close scene bases instead of full environme
 test('generated prompts use stabilized scene base wording', () => {
   const [studioPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('室內：純藍背景'),
   });
   const [meguroPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('戶外：目黑川旁的櫻花隧道'),
   });
   const [hallstattPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('戶外：奧地利 Hallstatt 湖畔山村觀景欄杆'),
   });
   const [saltFlatPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('戶外：白色鹽湖乾裂荒漠'),
   });
   const [resortPoolPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('戶外：飯店度假村泳池露台'),
   });
   const [ryokanEngawaPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('戶外：日式旅館緣側木廊'),
   });
   const [luxuryHotelBalconyPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('戶外：高級飯店陽台城市河景'),
   });
 

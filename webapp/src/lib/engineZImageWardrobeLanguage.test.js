@@ -13,6 +13,7 @@ function optionId(controlKey, zh) {
 test('Z-Image describes outfit presets with natural wardrobe language', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outfitPresetId: optionId('outfitPresetId', '套裝：春日巴黎亞麻長褲'),
     outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '粉紅色'),
     outerwearId: optionId('outerwearId', '全無'),
@@ -28,6 +29,7 @@ test('Z-Image describes outfit presets with natural wardrobe language', () => {
 test('Z-Image keeps outerwear secondary when layered over an outfit preset', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outfitPresetId: optionId('outfitPresetId', '套裝：春日巴黎亞麻長褲'),
     outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '粉紅色'),
     outerwearId: optionId('outerwearId', '運動連帽外套'),

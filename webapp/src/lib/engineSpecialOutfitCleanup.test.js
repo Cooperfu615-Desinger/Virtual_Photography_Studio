@@ -233,6 +233,7 @@ test('selected special outfit stays the complete wardrobe priority', () => {
   const specialOutfit = optionByLabel('specialOutfitId', '黑色波點頭巾透紗套裝');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     specialOutfitId: specialOutfit.id,
     topId: optionByLabel('topId', '襯衫').id,
     pantsId: optionByLabel('pantsId', '直筒牛仔褲').id,
@@ -248,6 +249,7 @@ test('special outfit hairstyle applies when regular hairstyle is unset', () => {
   const hairstyleOutfit = optionByLabel('specialOutfitId', '棕色開襟外套細肩背心條紋工裝褲造型');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     specialOutfitId: hairstyleOutfit.id,
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
@@ -263,6 +265,7 @@ test('explicit hairstyle overrides special outfit hairstyle', () => {
   const hairColor = optionByLabel('hairColorId', '寶石藍');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     specialOutfitId: hairstyleOutfit.id,
     hairstyleId: hairstyle.id,
     hairColorId: hairColor.id,
@@ -296,6 +299,7 @@ test('special outfit hair accessories do not suppress regular hairstyle controls
 
   const [clawClipPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     specialOutfitId: clawClipOutfit.id,
     hairstyleId: optionByLabel('hairstyleId', '直髮：中分').id,
     hairColorId: optionByLabel('hairColorId', '寶石藍').id,
