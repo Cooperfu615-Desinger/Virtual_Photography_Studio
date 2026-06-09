@@ -927,6 +927,7 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
   { id: 'standing-lean-vending-machine', base: 'standing', zh: '側身靠自動販賣機', en: 'standing with one shoulder or side leaning against a vending machine, relaxed supported posture' },
   { id: 'standing-lean-scene-object', base: 'standing', zh: '倚靠現有場景物件', en: 'leaning against any suitable existing object within the current scene, body weight lightly supported by that existing scene object, using only a naturally available scene object for support' },
   { id: 'sitting-floor', base: 'sitting', zh: '坐在地板', en: 'sitting on the floor' },
+  { id: 'sitting-scene-appropriate-chair', base: 'sitting', zh: '坐在椅子上', en: 'sitting on a chair that naturally fits the current scene with the chair style material and scale chosen to match the environment' },
   { id: 'sitting-ornate-velvet-armchair', base: 'sitting', zh: '坐在單人雕花絨布椅', en: 'lounging on an ornate single velvet armchair' },
   { id: 'sitting-bed-edge', base: 'sitting', zh: '坐在床邊', en: 'sitting on the edge of a bed' },
   { id: 'sitting-table-edge', base: 'sitting', zh: '坐在桌面邊緣', en: 'sitting on the edge of a tabletop' },

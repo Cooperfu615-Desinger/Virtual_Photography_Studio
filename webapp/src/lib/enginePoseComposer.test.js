@@ -67,6 +67,33 @@ test('pose composer exposes standing lean support anchor options', () => {
   });
 });
 
+test('pose composer exposes scene-appropriate sitting chair anchor', () => {
+  assertAnchorOption('坐在椅子上', 'sitting', /chair that naturally fits the current scene/);
+  assertAnchorOption('坐在椅子上', 'sitting', /chosen to match the environment/);
+
+  const option = control('poseAnchorId').options.find((entry) => entry.zh === '坐在椅子上');
+  assert.doesNotMatch(option.en, /armchair|bar stool|high-back|velvet|ornate/i);
+});
+
+test('scene-appropriate sitting chair anchor is preserved in all prompt versions', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '坐姿'),
+    poseArrangementId: optionId('poseArrangementId', '椅緣端坐'),
+    poseHandId: optionId('poseHandId', '雙手放在大腿上'),
+    poseAnchorId: optionId('poseAnchorId', '坐在椅子上'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  });
+
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /chair that naturally fits the current scene/);
+    assert.match(text, /chosen to match the environment/);
+    assert.doesNotMatch(text, /ornate single velvet armchair|bar stool|high-back chair/);
+  }
+});
+
 test('pose composer exposes model natural decision options', () => {
   const arrangement = control('poseArrangementId').options.find((option) => option.zh === '模型自然決定');
   assert.ok(arrangement, 'Expected model natural arrangement option');
