@@ -39,10 +39,10 @@ const SPECIAL_SUBJECT_OPTIONS = [
   {
     id: 'sengoku-samurai',
     zh: '日本戰國武士',
-    en: 'a realistic female Japanese Sengoku-era samurai warrior as the single main subject, authentic layered lamellar armor reshaped for a feminine bust-waist-hip silhouette, sculpted cuirass, narrowed waist plates, hip-aware kusazuri armor skirt, shoulder guards, armored sleeves, weathered fabric ties, period waist sash, sheathed katana and wakizashi, worn lacquer and metal surfaces, practical physical construction, documentary-real material detail, live-action photographic realism, a historical warrior standing naturally in the present-day world',
+    en: 'a refined female Japanese Sengoku-era samurai warrior from a noble aristocratic house as the single main subject, well-groomed noble bearing, clean polished layered lamellar armor reshaped for a feminine bust-waist-hip silhouette, glossy lacquered plates with fine cord lacing, sculpted cuirass, narrowed waist plates, hip-aware kusazuri armor skirt, shoulder guards, armored sleeves, pristine silk lacing, elegant period waist sash, sheathed katana and wakizashi, ornate clan-quality metal fittings, meticulously maintained materials, practical physical construction, documentary-real armor detail, live-action photographic realism, a noble historical warrior standing naturally in the present-day world',
     count: 1,
     specialSubject: 'historical-warrior',
-    specialToneZh: '戰國女武士甲冑',
+    specialToneZh: '名門戰國女武士甲冑',
   },
   {
     id: 'european-knight',

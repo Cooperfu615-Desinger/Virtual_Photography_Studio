@@ -62,6 +62,18 @@ test('historical warrior special subjects disable wardrobe and preserve expressi
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:|not anime|not cosplay|battlefield presence/);
 });
 
+test('sengoku samurai reads as a polished noble-house warrior instead of a weathered ronin', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'sengoku-samurai',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.match(promptText, /noble aristocratic house|well-groomed noble bearing|clean polished layered lamellar armor/);
+  assert.match(promptText, /pristine silk lacing|meticulously maintained materials|documentary-real armor detail/);
+  assert.doesNotMatch(promptText, /weathered fabric ties|worn lacquer|ronin|fallen warrior|mud-stained|battle-worn/);
+});
+
 test('european knight special subject is female with feminine armor shaping', () => {
   const locks = {
     ...createEmptyLocks(),
