@@ -69,8 +69,10 @@ test('reference outfit presets 27 to 38 preserve complete styling anchors and im
     ],
     [
       '套裝：透視背心漆皮短褲長靴',
-      /sheer-panel fitted tank top/i,
-      /glossy micro shorts/i,
+      /cropped sheer fitted tank top/i,
+      /exposed navel and abdomen/i,
+      /strapless lace bra layer/i,
+      /low-rise glossy micro shorts/i,
       /knee-high leather boots/i,
       'reference/wardrobe/outfit-presets/30_透視背心漆皮短褲長靴.png',
     ],
@@ -140,6 +142,7 @@ test('reference outfit presets 27 to 38 preserve complete styling anchors and im
     });
 
     assert.match(text, /controlled by the outfit color selection/i);
+    assert.doesNotMatch(text, /side sash|側邊垂墜薄紗片|側邊腰帶/i);
     assert.equal(option.meta.referenceImage, referenceImage);
     assert.equal(option.meta.referenceImageFormat, 'png');
   });
