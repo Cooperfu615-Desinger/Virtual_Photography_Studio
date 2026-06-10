@@ -148,6 +148,56 @@ test('expression and pose remain available with special subjects', () => {
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
+test('non-social special actions apply to special subjects and replace normal body pose', () => {
+  const controls = getLockControls();
+  const pose = controls
+    .find((control) => control.key === 'poseId')
+    .options.find((option) => option.zh === '坐姿｜自然坐姿');
+  const specialAction = controls
+    .find((control) => control.key === 'specialActionId')
+    .options.find((option) => option.zh === '塗口紅');
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'sengoku-samurai',
+    poseId: pose.id,
+    specialActionId: specialAction.id,
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'sengoku-samurai');
+  assert.equal(prompt.selection.specialActionId, specialAction.id);
+  assert.equal(prompt.selection.poseId, '');
+  assert.match(promptText, /applying lipstick with the lipstick bullet pressed to the lips/);
+  assert.doesNotMatch(promptText, /natural seated posture/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+});
+
+test('social shooting special actions compose with special subject body poses', () => {
+  const controls = getLockControls();
+  const pose = controls
+    .find((control) => control.key === 'poseId')
+    .options.find((option) => option.zh === '站姿｜單腳重心');
+  const specialAction = controls
+    .find((control) => control.key === 'specialActionId')
+    .options.find((option) => option.zh === '男友視角拍攝');
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'european-knight',
+    poseId: pose.id,
+    specialActionId: specialAction.id,
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'european-knight');
+  assert.equal(prompt.selection.specialActionId, specialAction.id);
+  assert.equal(prompt.selection.poseId, pose.id);
+  assert.match(promptText, /boyfriend-perspective candid portrait/);
+  assert.match(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+});
+
 test('legacy skeleton subject count locks migrate into the special subject control', () => {
   const normalized = normalizeLocks({
     ...createEmptyLocks(),

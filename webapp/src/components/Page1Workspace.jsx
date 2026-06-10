@@ -170,7 +170,7 @@ const SECTION_SUBPANELS = {
     {
       id: 'special',
       label: '特殊角色',
-      description: '特殊角色會接管人物主體；神情眼神與姿勢動作請到 B 神情姿態調整。',
+      description: '特殊角色會接管人物主體；神情眼神、姿勢動作與特殊動作請到 B 神情姿態調整。',
       keys: [
         'specialSubjectId',
       ],
@@ -1043,8 +1043,8 @@ export default function Page1Workspace({
       {isSpecialSubjectMode ? (
         <div className="context-note">
           {isAndroidSubjectMode
-            ? '女性人形機器人會接管人物主體，但仍可套用髮型、髮色、神情眼神與姿勢動作；身份基底中的五官、體態與 B 穿搭設定會暫時停用。'
-            : '特殊角色會接管人物主體，只保留神情眼神與姿勢動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。'}
+            ? '女性人形機器人會接管人物主體，但仍可套用髮型、髮色、神情眼神、姿勢動作與特殊動作；身份基底中的五官、體態與 B 穿搭設定會暫時停用。'
+            : '特殊角色會接管人物主體，只保留神情眼神、姿勢動作與特殊動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。'}
         </div>
       ) : null}
       {isCloseupMode ? (

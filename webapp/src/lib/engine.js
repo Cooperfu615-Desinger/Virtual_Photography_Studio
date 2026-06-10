@@ -4162,6 +4162,7 @@ function buildCharacter(context, catalog) {
     const hairColorItems = getByKey(catalog.character, '髮色 (Hair Color)');
     const expressionItems = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
     const poseItems = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
+    const specialActionItems = getByKey(catalog.character, '特殊動作 (Special Actions)');
 
     if (isAndroidSubject(context.subject)) {
       const hairstyle = context.locks?.hairstyleId ? findById(hairstyleItems, context.locks.hairstyleId) : null;
@@ -4174,6 +4175,14 @@ function buildCharacter(context, catalog) {
     if (context.locks?.expressionId) {
       const expression = findById(expressionItems, context.locks.expressionId);
       if (expression && !isNoneLikeItem(expression)) character.push(expression);
+    }
+
+    if (context.locks?.specialActionId) {
+      const specialAction = findById(specialActionItems, context.locks.specialActionId);
+      if (specialAction && !isNoneLikeItem(specialAction)) {
+        character.push(specialAction);
+        if (!isSocialShootingAction(specialAction)) return character;
+      }
     }
 
     if (context.locks?.poseId) {
@@ -7967,7 +7976,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     (item) => locationMatchesSceneAttribute(item, sceneAttribute)
   );
   let style = pickWithLock(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
-  const lockedSpecialAction = !specialSubject && effectiveLocks.specialActionId
+  const lockedSpecialAction = effectiveLocks.specialActionId
     ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
     : null;
   const framing = pickWithLock(
