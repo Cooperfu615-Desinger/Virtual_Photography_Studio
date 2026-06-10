@@ -160,14 +160,14 @@ test('expression and pose remain available with special subjects', () => {
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
-test('non-social special actions apply to special subjects and replace normal body pose', () => {
+test('non-social special actions apply to special subjects in every output and replace normal body pose', () => {
   const controls = getLockControls();
   const pose = controls
     .find((control) => control.key === 'poseId')
     .options.find((option) => option.zh === '坐姿｜自然坐姿');
   const specialAction = controls
     .find((control) => control.key === 'specialActionId')
-    .options.find((option) => option.zh === '塗口紅');
+    .options.find((option) => option.zh === '抽煙');
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -180,7 +180,9 @@ test('non-social special actions apply to special subjects and replace normal bo
   assert.equal(prompt.selection.specialSubjectId, 'sengoku-samurai');
   assert.equal(prompt.selection.specialActionId, specialAction.id);
   assert.equal(prompt.selection.poseId, '');
-  assert.match(promptText, /applying lipstick with the lipstick bullet pressed to the lips/);
+  assert.match(prompt.grokPrompt, /holding a cigarette between the fingers near the lips/);
+  assert.match(prompt.zImagePrompt, /holding a cigarette between the fingers near the lips/);
+  assert.match(prompt.midjourneyPrompt, /holding a cigarette between the fingers near the lips/);
   assert.doesNotMatch(promptText, /natural seated posture/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });

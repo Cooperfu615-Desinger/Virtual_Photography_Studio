@@ -12,6 +12,7 @@ import {
   buildWorkspaceSummary,
   getControlOptionLabel,
 } from '../lib/page1WorkspaceSummary.js';
+import { resolvePage1ActiveSubpanel } from '../lib/page1WorkspacePanels.js';
 import { randomizeLockKeys, setLockKeysToNone } from '../lib/page1SectionRandom.js';
 
 const WARDROBE_PICKER_KEYS = new Set([
@@ -687,6 +688,7 @@ export default function Page1Workspace({
   const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
   const isAndroidSubjectMode = specialSubjectOption?.specialSubject === 'android';
+  const resolvedActiveSubpanel = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { isSpecialSubjectMode });
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
   const isOutfitPresetBActive = Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls);
@@ -982,7 +984,7 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Scene & Environment</div>
-          <p className="workspace-panel-copy">{activeSubpanel?.description || '先決定場景、環境與光線，右側會同步反映成目前可直接使用的 Gpt prompt。'}</p>
+          <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '先決定場景、環境與光線，右側會同步反映成目前可直接使用的 Gpt prompt。'}</p>
         </div>
         <div className="page1-section-header-actions">
           {renderSectionRandomButton()}
@@ -1009,7 +1011,7 @@ export default function Page1Workspace({
           ) : null}
         </div>
       </div>
-      {renderControlGrid(filterControlsByKeys(coreLockControls, activeSubpanel?.keys || []))}
+      {renderControlGrid(filterControlsByKeys(coreLockControls, resolvedActiveSubpanel?.keys || []))}
     </div>
   );
 
@@ -1018,11 +1020,11 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Photography & Rendering</div>
-          <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡整理攝影師語氣、構圖視角、鏡頭光學與成像模擬。'}</p>
+          <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '在這裡整理攝影師語氣、構圖視角、鏡頭光學與成像模擬。'}</p>
         </div>
         {renderSectionActionButtons()}
       </div>
-      {renderControlGrid(filterControlsByKeys(coreLockControls, activeSubpanel?.keys || []))}
+      {renderControlGrid(filterControlsByKeys(coreLockControls, resolvedActiveSubpanel?.keys || []))}
     </div>
   );
 
@@ -1031,7 +1033,7 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Character Setup</div>
-          <p className="workspace-panel-copy">{activeSubpanel?.description || '把人物身份與特殊角色先固定下來，後面換神情、穿搭與場景會更穩定。'}</p>
+          <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '把人物身份與特殊角色先固定下來，後面換神情、穿搭與場景會更穩定。'}</p>
         </div>
         {renderSectionActionButtons()}
       </div>
@@ -1052,7 +1054,7 @@ export default function Page1Workspace({
           目前為特寫模式，系統會自動收斂不必要欄位，保留與人物、主要服裝輪廓與構圖相關的設定，讓 prompt 更聚焦。
         </div>
       ) : null}
-      {renderControlGrid(filterControlsByKeys(characterLockControls, activeSubpanel?.keys || []))}
+      {renderControlGrid(filterControlsByKeys(characterLockControls, resolvedActiveSubpanel?.keys || []))}
     </div>
   );
 
@@ -1061,7 +1063,7 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Expression & Pose</div>
-          <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡整理神情眼神、姿勢動作與 Pose Composer。'}</p>
+          <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '在這裡整理神情眼神、姿勢動作與 Pose Composer。'}</p>
         </div>
         {renderSectionActionButtons()}
       </div>
@@ -1075,7 +1077,7 @@ export default function Page1Workspace({
           Pose Composer 目前僅支援單人；雙人模式請使用基礎設置中的雙人姿態與互動。
         </div>
       ) : null}
-      {renderControlGrid(filterControlsByKeys(characterLockControls, activeSubpanel?.keys || []))}
+      {renderControlGrid(filterControlsByKeys(characterLockControls, resolvedActiveSubpanel?.keys || []))}
     </div>
   );
 
@@ -1084,7 +1086,7 @@ export default function Page1Workspace({
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Style & Wardrobe</div>
-          <p className="workspace-panel-copy">{activeSubpanel?.description || '在這裡分段處理整體造型、單件、鞋襪與配件。'}</p>
+          <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '在這裡分段處理整體造型、單件、鞋襪與配件。'}</p>
         </div>
         {renderSectionActionButtons()}
       </div>
@@ -1104,7 +1106,7 @@ export default function Page1Workspace({
         </div>
       ) : null}
       <WardrobeLayerPanel insights={wardrobeLayerInsights} />
-      {renderControlGrid(filterControlsByKeys(wardrobeLockControls, activeSubpanel?.keys || []))}
+      {renderControlGrid(filterControlsByKeys(wardrobeLockControls, resolvedActiveSubpanel?.keys || []))}
     </div>
   );
 

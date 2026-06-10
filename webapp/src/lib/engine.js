@@ -7395,12 +7395,16 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   };
   const buildCharacterText = () => {
     if (specialSubjectMode) {
+      const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
+        ? (skeletonMode ? sanitizeSkeletonPromptText(characterSlots.specialAction.en) : characterSlots.specialAction.en)
+        : '';
       const parts = [
         skeletonMode ? sanitizeSkeletonPromptText(context.subject.en) : context.subject.en,
         buildSpecialSubjectIntegrationPrompt(context.subject),
         isAndroidSubject(context.subject) && characterSlots.hairstyle && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.en : '',
         isAndroidSubject(context.subject) && characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : '',
+        specialActionText,
         characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : '',
       ].filter(Boolean);
       return leadSentence('The image shows', parts);
