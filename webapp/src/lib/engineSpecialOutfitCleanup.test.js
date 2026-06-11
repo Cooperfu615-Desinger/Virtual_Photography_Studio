@@ -299,15 +299,15 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'sheer mint off-shoulder wrap crop top',
       'scalloped embroidered lace hem',
       'low-rise wide-leg blue jeans with rhinestone swirl embellishment',
-      'silver butterfly chain waist belt',
+      'silver butterfly belly chain draped around the exposed bare waist above the low-rise jeans',
       'crystal butterfly necklace',
       'reference/wardrobe/special-outfits/76_薄荷蕾絲短上衣水鑽牛仔.png',
     ],
     黑短T低腰黑牛仔造型: [
-      'fitted black cropped baby T-shirt',
+      'fitted black cropped baby T-shirt ending at the ribcage',
       'exposed midriff',
       'low-rise black straight-leg jeans',
-      'black leather belt with oversized silver western buckle',
+      'black leather belt with rhinestone horseshoe-shaped buckle',
       'black leather ankle boots',
       'reference/wardrobe/special-outfits/77_黑短T低腰黑牛仔.png',
     ],
@@ -366,6 +366,9 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
     }
 
     assert.doesNotMatch(option.en, omittedTerms, `${label} should omit bags and hairstyles`);
+    if (label === '薄荷蕾絲短上衣水鑽牛仔造型') {
+      assert.doesNotMatch(option.en, /chain waist belt/i, `${label} should not read as a denim waist belt`);
+    }
     assert.equal(option.meta.referenceImage, referenceImage);
     assert.equal(option.meta.referenceImageFormat, 'png');
   }
