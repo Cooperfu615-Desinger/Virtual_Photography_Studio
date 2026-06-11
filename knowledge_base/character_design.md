@@ -52,6 +52,9 @@
 | **髮型 (Hairstyle)** | 低包頭盤髮 | `low bun or low chignon, soft wispy face-framing strands, elegant tied-up silhouette` | 合併低包頭與低盤髮，優雅、成熟、乾淨。 |
 | **髮型 (Hairstyle)** | 半綁公主頭 | `half-up long hair, soft crown lift, loose face-framing strands` | 上半部輕束、下半部自然垂落，清純柔和。 |
 | **髮型 (Hairstyle)** | 柔和編髮造型 | `soft braided hairstyle, delicate woven detail, romantic natural texture` | 合併柔和編髮造型，保留編織細節但不過度複雜。 |
+| **髮型 (Hairstyle)** | 輕透齊瀏海內彎鮑伯 | `chin-length inward-curved bob, airy straight bangs, smooth face-framing rounded ends, clean salon shape` | 下巴到頸側的短鮑伯，搭配輕透齊瀏海與向內包臉的圓弧髮尾，貼近自然日韓寫真感。 |
+| **髮型 (Hairstyle)** | 韓系蓬鬆鎖骨柔波髮 | `voluminous Korean collarbone-length soft waves, airy layered volume, loose face-framing movement` | 鎖骨到肩下的中長柔波髮，髮量感較明顯，帶蓬鬆層次與臉側鬆散修飾，貼近韓系自然波浪。 |
+| **髮型 (Hairstyle)** | 輕透瀏海自然微彎長髮 | `long naturally slightly wavy hair with airy see-through bangs, soft side-draped face-framing strands` | 自然微彎長髮搭配輕透瀏海，部分髮絲自然偏向一側垂落，乾淨清爽且帶日系寫真感。 |
 | **髮色 (Hair Color)** | 全無 | `none` | 不指定髮色，讓模型自行決定髮色深淺與色調。 |
 | **髮色 (Hair Color)** | 自然黑 | `natural black hair, soft realistic shine, clean dark depth` | 最穩定百搭的自然黑髮，適合多數日韓女性人像。 |
 | **髮色 (Hair Color)** | 柔霧黑茶 | `soft black-tea brown hair, muted brown-black salon tone` | 黑中帶茶棕感，低調柔和。 |

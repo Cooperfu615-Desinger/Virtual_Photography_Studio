@@ -285,6 +285,7 @@ test('special outfit hair accessories do not suppress regular hairstyle controls
   const clawClipOutfit = optionByLabel('specialOutfitId', '粉紫蕾絲豹紋低腰喇叭褲造型');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     specialOutfitId: accessoryOutfit.id,
     hairstyleId: optionByLabel('hairstyleId', '直髮：中分').id,
     hairColorId: optionByLabel('hairColorId', '寶石藍').id,

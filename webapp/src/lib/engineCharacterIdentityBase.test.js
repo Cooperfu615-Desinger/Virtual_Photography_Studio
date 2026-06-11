@@ -70,6 +70,9 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
       '低包頭盤髮',
       '半綁公主頭',
       '柔和編髮造型',
+      '輕透齊瀏海內彎鮑伯',
+      '韓系蓬鬆鎖骨柔波髮',
+      '輕透瀏海自然微彎長髮',
     ]
   );
   assert.ok(!optionLabels('hairstyleId').includes('短髮｜精靈短髮'));
@@ -97,6 +100,63 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
   ['亮綠色', '亮黃色', '亮紫色', '銅紅髮', '霧感橄欖棕', '霧灰棕'].forEach((label) => {
     assert.ok(!optionLabels('hairColorId').includes(label), `Removed hair color should not appear: ${label}`);
   });
+});
+
+test('hairstyle prompt supports airy inward bob with see-through bangs', () => {
+  const airyBob = optionByLabel('hairstyleId', '輕透齊瀏海內彎鮑伯');
+
+  assert.match(airyBob.en, /chin-length inward-curved bob/);
+  assert.match(airyBob.en, /airy straight bangs/);
+  assert.match(airyBob.en, /face-framing rounded ends/);
+  assert.doesNotMatch(airyBob.en, /\bblack\b|\bbrown\b|\bblonde\b|\bhair color\b/i);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '全無').id,
+    hairstyleId: airyBob.id,
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  assert.match(promptText, /chin-length inward-curved bob/);
+  assert.match(promptText, /airy straight bangs/);
+  assert.equal(prompt.selection.hairstyleId, airyBob.id);
+});
+
+test('hairstyle prompt supports referenced soft-wave and airy-bang long hair options', () => {
+  const koreanWaves = optionByLabel('hairstyleId', '韓系蓬鬆鎖骨柔波髮');
+  const airyLongHair = optionByLabel('hairstyleId', '輕透瀏海自然微彎長髮');
+
+  assert.match(koreanWaves.en, /voluminous Korean collarbone-length soft waves/);
+  assert.match(koreanWaves.en, /airy layered volume/);
+  assert.match(koreanWaves.en, /loose face-framing movement/);
+  assert.match(airyLongHair.en, /long naturally slightly wavy hair/);
+  assert.match(airyLongHair.en, /airy see-through bangs/);
+  assert.match(airyLongHair.en, /soft side-draped face-framing strands/);
+  assert.doesNotMatch([koreanWaves.en, airyLongHair.en].join(' '), /\bblack\b|\bbrown\b|\bblonde\b|\bhair color\b/i);
+
+  const [wavePrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '全無').id,
+    hairstyleId: koreanWaves.id,
+  });
+  const [longHairPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '全無').id,
+    hairstyleId: airyLongHair.id,
+  });
+
+  const wavePromptText = [wavePrompt.grokPrompt, wavePrompt.zImagePrompt, wavePrompt.midjourneyPrompt].join('\n');
+  const longHairPromptText = [longHairPrompt.grokPrompt, longHairPrompt.zImagePrompt, longHairPrompt.midjourneyPrompt].join('\n');
+  assert.match(wavePromptText, /voluminous Korean collarbone-length soft waves/);
+  assert.match(longHairPromptText, /long naturally slightly wavy hair/);
+  assert.equal(wavePrompt.selection.hairstyleId, koreanWaves.id);
+  assert.equal(longHairPrompt.selection.hairstyleId, airyLongHair.id);
 });
 
 test('hairstyle prompt exposes straight wet and subtle bend options without over-curl wording', () => {
