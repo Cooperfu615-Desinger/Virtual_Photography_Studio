@@ -73,6 +73,19 @@ const EXPECTED_SPECIAL_OUTFITS = [
   '紅帽波點背心寬牛仔造型',
   '粉色愛心T黑寬褲造型',
   '白荷葉襯衫黑吊帶長裙波點包造型',
+  '白襯衫黑短褲西部靴造型',
+  '奶油掛脖棕紗裙軍靴造型',
+  '海軍T灰色工裝長裙造型',
+  '黑短外套牛仔短褲樂福造型',
+  '乳牛紋連身丹寧開洞褲造型',
+  '紅條紋毛衣拼接紗裙造型',
+  '薄荷蕾絲短上衣水鑽牛仔造型',
+  '黑短T低腰黑牛仔造型',
+  '白T紫格長裙灰球鞋造型',
+  '黑皮外套波點絲襪長靴造型',
+  '黃條紋Polo領帶寬牛仔造型',
+  '菱格背心黑寬短褲長襪造型',
+  '藍荷葉背心白紗長裙造型',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
@@ -86,7 +99,7 @@ const optionByLabel = (key, label) => {
 
 const wordCount = (text) => text.trim().split(/\s+/).filter(Boolean).length;
 
-test('special outfit controls expose exactly the approved 69 complete looks', () => {
+test('special outfit controls expose exactly the approved 82 complete looks', () => {
   assert.deepEqual(nonNoneSpecialOutfits().map((option) => option.zh), EXPECTED_SPECIAL_OUTFITS);
 });
 
@@ -224,6 +237,135 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
       assert.match(option.en, new RegExp(fragment, 'i'), `${label} should include "${fragment}"`);
     }
 
+    assert.equal(option.meta.referenceImage, referenceImage);
+    assert.equal(option.meta.referenceImageFormat, 'png');
+  }
+});
+
+test('special outfit street reference looks 70 to 82 omit bags and hairstyles while preserving outfit anchors', () => {
+  const expectedByLabel = {
+    白襯衫黑短褲西部靴造型: [
+      'oversized semi-sheer white button-up shirt worn open',
+      'black bandeau crop top',
+      'black satin boxer-style micro shorts',
+      'tan mid-calf western boots',
+      'blue oval sunglasses',
+      'reference/wardrobe/special-outfits/70_白襯衫黑短褲西部靴.png',
+    ],
+    奶油掛脖棕紗裙軍靴造型: [
+      'cream halter tube top',
+      'layered brown sheer asymmetrical midi skirt',
+      'black grommet utility waist belt',
+      'white slouch socks',
+      'black lace-up combat boots',
+      'visible arm tattoos',
+      'reference/wardrobe/special-outfits/71_奶油掛脖棕紗裙軍靴.png',
+    ],
+    海軍T灰色工裝長裙造型: [
+      'oversized navy short-sleeve T-shirt',
+      'gray full-length cargo maxi skirt',
+      'layered silver pendant necklaces',
+      'black leather wrist cuff',
+      'chunky black-gray sneakers',
+      'reference/wardrobe/special-outfits/72_海軍T灰色工裝長裙.png',
+    ],
+    黑短外套牛仔短褲樂福造型: [
+      'cropped black textured jacket with gold buttons',
+      'light blue frayed denim shorts',
+      'white ankle socks',
+      'black tabi-style loafers',
+      'layered pearl and gold necklaces',
+      'reference/wardrobe/special-outfits/73_黑短外套牛仔短褲樂福.png',
+    ],
+    乳牛紋連身丹寧開洞褲造型: [
+      'off-shoulder cow-print fitted romper',
+      'ruffled neckline and long bell sleeves',
+      'black waist belt with large silver buckle',
+      'dramatic blue denim chaps-style wide pants',
+      'large thigh cut-outs',
+      'denim cowboy hat',
+      'reference/wardrobe/special-outfits/74_乳牛紋連身丹寧開洞褲.png',
+    ],
+    紅條紋毛衣拼接紗裙造型: [
+      'burgundy paisley bandana',
+      'oversized red navy and white striped sweater',
+      'layered white lace ruffle skirt panel',
+      'pale blue draped sheer tie-dye skirt',
+      'blue slouchy suede knee boots',
+      'visible arm tattoos',
+      'reference/wardrobe/special-outfits/75_紅條紋毛衣拼接紗裙.png',
+    ],
+    薄荷蕾絲短上衣水鑽牛仔造型: [
+      'sheer mint off-shoulder wrap crop top',
+      'scalloped embroidered lace hem',
+      'low-rise wide-leg blue jeans with rhinestone swirl embellishment',
+      'silver butterfly chain waist belt',
+      'crystal butterfly necklace',
+      'reference/wardrobe/special-outfits/76_薄荷蕾絲短上衣水鑽牛仔.png',
+    ],
+    黑短T低腰黑牛仔造型: [
+      'fitted black cropped baby T-shirt',
+      'exposed midriff',
+      'low-rise black straight-leg jeans',
+      'black leather belt with oversized silver western buckle',
+      'black leather ankle boots',
+      'reference/wardrobe/special-outfits/77_黑短T低腰黑牛仔.png',
+    ],
+    白T紫格長裙灰球鞋造型: [
+      'white short-sleeve graphic T-shirt with pale purple print',
+      'lavender plaid semi-sheer maxi skirt',
+      'soft ruffled hem',
+      'white crew socks',
+      'gray low-top sneakers with cream laces',
+      'reference/wardrobe/special-outfits/78_白T紫格長裙灰球鞋.png',
+    ],
+    黑皮外套波點絲襪長靴造型: [
+      'oversized black leather blazer',
+      'black-and-cream striped knit top',
+      'short black mini bottom',
+      'sheer black polka-dot tights',
+      'tall black leather boots',
+      'reference/wardrobe/special-outfits/79_黑皮外套波點絲襪長靴.png',
+    ],
+    黃條紋Polo領帶寬牛仔造型: [
+      'red baseball cap',
+      'oversized yellow-and-white striped polo shirt with white collar',
+      'black necktie',
+      'light blue relaxed straight-leg jeans',
+      'silver wallet chain',
+      'black leather shoes',
+      'reference/wardrobe/special-outfits/80_黃條紋Polo領帶寬牛仔.png',
+    ],
+    菱格背心黑寬短褲長襪造型: [
+      'red baseball cap',
+      'white crew-neck T-shirt',
+      'red light-blue and white argyle knit vest',
+      'black wide knee-length denim shorts',
+      'white knee-high socks',
+      'visible arm tattoos',
+      'reference/wardrobe/special-outfits/81_菱格背心黑寬短褲長襪.png',
+    ],
+    藍荷葉背心白紗長裙造型: [
+      'sheer nude mesh upper layer',
+      'light blue pleated ruffle babydoll camisole',
+      'voluminous white tiered tulle maxi skirt',
+      'multiple ruffle bands',
+      'pale mint square-toe shoes',
+      'reference/wardrobe/special-outfits/82_藍荷葉背心白紗長裙.png',
+    ],
+  };
+  const omittedTerms = /\b(hair|hairstyle|bangs|bob|braid|blonde|brunette|bag|handbag|shoulder bag|tote|backpack|purse|clutch)\b/i;
+
+  for (const [label, expectations] of Object.entries(expectedByLabel)) {
+    const referenceImage = expectations.at(-1);
+    const fragments = expectations.slice(0, -1);
+    const option = optionByLabel('specialOutfitId', label);
+
+    for (const fragment of fragments) {
+      assert.match(option.en, new RegExp(fragment, 'i'), `${label} should include "${fragment}"`);
+    }
+
+    assert.doesNotMatch(option.en, omittedTerms, `${label} should omit bags and hairstyles`);
     assert.equal(option.meta.referenceImage, referenceImage);
     assert.equal(option.meta.referenceImageFormat, 'png');
   }

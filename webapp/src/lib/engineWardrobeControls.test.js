@@ -469,7 +469,10 @@ test('special outfit controls expose approved complete looks and remove stale ex
   assert.ok(optionLabels.includes('紫色佩斯利襯衫短褲軍靴造型'));
   assert.ok(optionLabels.includes('粉色愛心T黑寬褲造型'));
   assert.ok(optionLabels.includes('白荷葉襯衫黑吊帶長裙波點包造型'));
-  assert.equal(optionLabels.filter((label) => label !== '全無').length, 69);
+  assert.ok(optionLabels.includes('白襯衫黑短褲西部靴造型'));
+  assert.ok(optionLabels.includes('奶油掛脖棕紗裙軍靴造型'));
+  assert.ok(optionLabels.includes('藍荷葉背心白紗長裙造型'));
+  assert.equal(optionLabels.filter((label) => label !== '全無').length, 82);
   assert.ok(!optionLabels.includes('拼布絨呢外套塗鴉奶白工裝褲'));
   assert.ok(!optionLabels.includes('黑色鉚釘兜帽皮革迷你裙造型'));
 });

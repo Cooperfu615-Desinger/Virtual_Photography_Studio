@@ -760,6 +760,123 @@
           "referenceImage": "reference/wardrobe/special-outfits/69_白荷葉襯衫黑吊帶長裙波點包.png",
           "referenceImageFormat": "png"
         }
+      },
+      {
+        "zh": "白襯衫黑短褲西部靴造型",
+        "en": "complete outfit: relaxed city layered look. oversized semi-sheer white button-up shirt worn open over a black bandeau crop top, black satin boxer-style micro shorts with elastic waistband, blue oval sunglasses, silver rings, pink wrist scrunchie detail, tan mid-calf western boots, casual polished street styling.",
+        "desc": "完整特殊穿搭：白色半透寬襯衫敞開、黑抹胸短上衣、黑緞面 boxer 熱褲、藍橢圓墨鏡、銀戒、粉色手腕布圈細節與焦糖西部靴。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/70_白襯衫黑短褲西部靴.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "奶油掛脖棕紗裙軍靴造型",
+        "en": "complete outfit: earthy halter-and-sheer skirt street look. cream halter tube top with neck straps, layered brown sheer asymmetrical midi skirt with wrap-like panels and ruffled hem, black grommet utility waist belt, white slouch socks, black lace-up combat boots, gold choker, arm cuff, rings, visible arm tattoos.",
+        "desc": "完整特殊穿搭：奶油掛脖平口上衣、棕色透紗不對稱中長裙、黑孔眼機能腰帶、白皺襪、黑綁帶軍靴、金頸圈、手臂環、戒指與手臂刺青。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/71_奶油掛脖棕紗裙軍靴.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "海軍T灰色工裝長裙造型",
+        "en": "complete outfit: relaxed utility skirt streetwear. oversized navy short-sleeve T-shirt tucked loosely at the waist, gray full-length cargo maxi skirt with drawstring waist, front seam panels and large flap pockets, layered silver pendant necklaces, black leather wrist cuff, bracelets, visible small arm tattoo, chunky black-gray sneakers.",
+        "desc": "完整特殊穿搭：海軍藍寬短袖T、灰色抽繩工裝長裙、前片縫線與大翻蓋口袋、層次銀墜鍊、黑皮革手環、手鍊、小刺青與黑灰厚底球鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/72_海軍T灰色工裝長裙.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "黑短外套牛仔短褲樂福造型",
+        "en": "complete outfit: polished casual tweed street look. cropped black textured jacket with gold buttons, light blue frayed denim shorts, white ankle socks, black tabi-style loafers, slim black cat-eye sunglasses, layered pearl and gold necklaces, gold hoop earrings, stacked bracelets and watch, refined high-low city styling.",
+        "desc": "完整特殊穿搭：黑色短版紋理外套與金釦、淺藍毛邊牛仔短褲、白短襪、黑分趾樂福鞋、黑貓眼墨鏡、珍珠金鍊、金耳圈與疊戴手飾。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/73_黑短外套牛仔短褲樂福.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "乳牛紋連身丹寧開洞褲造型",
+        "en": "complete outfit: playful cow-print western look. off-shoulder cow-print fitted romper with ruffled neckline and long bell sleeves, black waist belt with large silver buckle, dramatic blue denim chaps-style wide pants with large thigh cut-outs and frayed edges, denim cowboy hat, cow-print pointed footwear, bold novelty street styling.",
+        "desc": "完整特殊穿搭：露肩乳牛紋貼身連身短褲、荷葉領與喇叭長袖、黑腰帶大銀扣、藍丹寧 chaps 風寬褲、大腿開洞毛邊、丹寧牛仔帽與乳牛紋尖頭鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/74_乳牛紋連身丹寧開洞褲.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "紅條紋毛衣拼接紗裙造型",
+        "en": "complete outfit: eclectic layered bohemian street look. burgundy paisley bandana, oversized red navy and white striped sweater, layered white lace ruffle skirt panel mixed with pale blue draped sheer tie-dye skirt, high side slit, blue slouchy suede knee boots, layered necklaces, hoop earrings, wired earphones, bracelets, visible arm tattoos.",
+        "desc": "完整特殊穿搭：酒紅佩斯利頭巾、紅藍白寬條紋毛衣、白蕾絲荷葉裙片拼淡藍垂墜紮染紗裙、高側開衩、藍色皺褶麂皮膝靴、層次飾品與手臂刺青。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/75_紅條紋毛衣拼接紗裙.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "薄荷蕾絲短上衣水鑽牛仔造型",
+        "en": "complete outfit: aqua embellished denim street look. sheer mint off-shoulder wrap crop top with scalloped embroidered lace hem, low-rise wide-leg blue jeans with rhinestone swirl embellishment, silver butterfly chain waist belt, blue mirrored sunglasses, crystal butterfly necklace, belly piercing, rings and bracelets, pointed blue footwear.",
+        "desc": "完整特殊穿搭：薄荷透紗露肩交疊短上衣、刺繡蕾絲波浪下襬、低腰水鑽旋紋寬牛仔褲、銀蝴蝶腰鍊、藍鏡片墨鏡、水晶蝴蝶項鍊、肚臍環與藍尖頭鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/76_薄荷蕾絲短上衣水鑽牛仔.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "黑短T低腰黑牛仔造型",
+        "en": "complete outfit: minimal black low-rise street look. fitted black cropped baby T-shirt, exposed midriff, low-rise black straight-leg jeans, black leather belt with oversized silver western buckle, black leather ankle boots, clean monochrome styling with sharp waist emphasis and understated accessories.",
+        "desc": "完整特殊穿搭：黑色合身短版 baby T、露出腹部、低腰黑直筒牛仔褲、黑皮帶與大型銀色西部扣、黑皮短靴，極簡黑色街頭輪廓。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/77_黑短T低腰黑牛仔.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "白T紫格長裙灰球鞋造型",
+        "en": "complete outfit: soft lavender casual look. white short-sleeve graphic T-shirt with pale purple print, lavender plaid semi-sheer maxi skirt with soft ruffled hem, white crew socks, gray low-top sneakers with cream laces, silver bracelet and ring, gentle pastel everyday styling.",
+        "desc": "完整特殊穿搭：白短袖淡紫圖像T、薰衣草紫格紋半透長裙、柔軟荷葉下襬、白中筒襪、灰低筒球鞋與奶油鞋帶、銀手鍊戒指。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/78_白T紫格長裙灰球鞋.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "黑皮外套波點絲襪長靴造型",
+        "en": "complete outfit: Parisian black leather layered look. oversized black leather blazer, black-and-cream striped knit top, short black mini bottom, sheer black polka-dot tights, tall black leather boots, sunglasses, hoop earrings, slim layered street styling with glossy leather contrast.",
+        "desc": "完整特殊穿搭：黑色寬皮革西裝外套、黑奶油條紋針織上衣、黑色迷你下身、黑透膚波點絲襪、黑色長皮靴、墨鏡與圈耳環。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/79_黑皮外套波點絲襪長靴.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "黃條紋Polo領帶寬牛仔造型",
+        "en": "complete outfit: sporty preppy denim look. red baseball cap, oversized yellow-and-white striped polo shirt with white collar, black necktie, light blue relaxed straight-leg jeans, white belt, silver wallet chain, silver watch and bracelet, black leather shoes, casual menswear-inspired street styling.",
+        "desc": "完整特殊穿搭：紅棒球帽、黃白條紋寬版 Polo 與白領、黑領帶、淺藍寬直筒牛仔褲、白皮帶、銀錢包鍊、銀錶手鍊與黑皮鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/80_黃條紋Polo領帶寬牛仔.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "菱格背心黑寬短褲長襪造型",
+        "en": "complete outfit: retro prep street look. red baseball cap, white crew-neck T-shirt, red light-blue and white argyle knit vest, black wide knee-length denim shorts with contrast stitching, brown belt with silver buckle, silver wallet chain and key charm, white knee-high socks, burgundy loafers, layered necklaces, wristwatch, visible arm tattoos.",
+        "desc": "完整特殊穿搭：紅棒球帽、白圓領T、紅淺藍白菱格針織背心、黑寬版及膝牛仔短褲、棕皮帶、銀錢包鍊鑰匙吊飾、白膝下長襪與酒紅樂福鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/81_菱格背心黑寬短褲長襪.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "藍荷葉背心白紗長裙造型",
+        "en": "complete outfit: airy romantic ruffle look. sheer nude mesh upper layer under a light blue pleated ruffle babydoll camisole, loose empire waist, voluminous white tiered tulle maxi skirt with multiple ruffle bands, white wrist wrap detail, pearl-like earrings, pale mint square-toe shoes, soft whimsical layered styling.",
+        "desc": "完整特殊穿搭：裸色透紗上層疊淺藍百褶荷葉娃娃背心、寬鬆高腰線、白色多層蛋糕紗長裙、多道荷葉邊、白手腕纏繞、珍珠感耳環與淡薄荷方頭鞋。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/special-outfits/82_藍荷葉背心白紗長裙.png",
+          "referenceImageFormat": "png"
+        }
       }
     ],
     "套裝 (Outfit Presets)": [
