@@ -1465,7 +1465,14 @@ export default function App() {
       return sortControls(
         lockControls.filter((control) => {
           if (isSpecialSubject) {
-            return ['specialSubjectId', 'expressionId', 'poseId', 'specialActionId', ...(isAndroidSubject ? ['hairstyleId', 'hairColorId'] : [])].includes(control.key);
+            return [
+              'specialSubjectId',
+              'expressionId',
+              'poseId',
+              'specialActionId',
+              ...POSE_COMPOSER_KEYS,
+              ...(isAndroidSubject ? ['hairstyleId', 'hairColorId'] : []),
+            ].includes(control.key);
           }
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
           if (control.key === 'specialSubjectId') return true;

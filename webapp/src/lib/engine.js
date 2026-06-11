@@ -3975,7 +3975,7 @@ function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head }
 }
 
 function buildPoseComposerItem(context) {
-  if (context.subject.count !== 1 || isSpecialSubject(context.subject)) return null;
+  if (context.subject.count !== 1) return null;
 
   const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId);
   if (!base) return null;
@@ -4175,6 +4175,12 @@ function buildCharacter(context, catalog) {
     if (context.locks?.expressionId) {
       const expression = findById(expressionItems, context.locks.expressionId);
       if (expression && !isNoneLikeItem(expression)) character.push(expression);
+    }
+
+    const poseComposer = buildPoseComposerItem(context);
+    if (poseComposer && !isNoneLikeItem(poseComposer)) {
+      character.push(poseComposer);
+      return character;
     }
 
     if (context.locks?.specialActionId) {
@@ -7398,12 +7404,16 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
         ? (skeletonMode ? sanitizeSkeletonPromptText(characterSlots.specialAction.en) : characterSlots.specialAction.en)
         : '';
+      const poseComposerText = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
+        ? (skeletonMode ? sanitizeSkeletonPromptText(characterSlots.poseComposer.en) : characterSlots.poseComposer.en)
+        : '';
       const parts = [
         skeletonMode ? sanitizeSkeletonPromptText(context.subject.en) : context.subject.en,
         buildSpecialSubjectIntegrationPrompt(context.subject),
         isAndroidSubject(context.subject) && characterSlots.hairstyle && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.en : '',
         isAndroidSubject(context.subject) && characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : '',
+        poseComposerText,
         specialActionText,
         characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : '',
       ].filter(Boolean);

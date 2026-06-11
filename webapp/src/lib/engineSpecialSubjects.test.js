@@ -3,6 +3,14 @@ import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 
+function optionId(controlKey, zh) {
+  const control = getLockControls().find((item) => item.key === controlKey);
+  assert.ok(control, `Expected control ${controlKey}`);
+  const option = control.options.find((entry) => entry.zh === zh);
+  assert.ok(option, `Expected option ${zh} in ${controlKey}`);
+  return option.id;
+}
+
 test('special subject control exposes dedicated character options', () => {
   const specialSubjectControl = getLockControls().find((control) => control.key === 'specialSubjectId');
   const specialSubjectOptions = specialSubjectControl.options.filter((option) => option.specialSubject);
@@ -209,6 +217,41 @@ test('social shooting special actions compose with special subject body poses', 
   assert.equal(prompt.selection.poseId, pose.id);
   assert.match(promptText, /boyfriend-perspective candid portrait/);
   assert.match(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+});
+
+test('pose composer applies to special subjects in every output and takes priority', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'sengoku-samurai',
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+    specialActionId: optionId('specialActionId', '塗口紅'),
+    poseBaseId: optionId('poseBaseId', '坐姿'),
+    poseArrangementId: optionId('poseArrangementId', '椅緣端坐'),
+    poseHandId: optionId('poseHandId', '雙手放在大腿上'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+    poseAnchorId: optionId('poseAnchorId', '坐在椅子上'),
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'sengoku-samurai');
+  assert.equal(prompt.selection.poseId, '');
+  assert.equal(prompt.selection.specialActionId, '');
+  assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '坐姿'));
+  assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '椅緣端坐'));
+  assert.equal(prompt.selection.poseHandId, optionId('poseHandId', '雙手放在大腿上'));
+  assert.equal(prompt.selection.poseHeadId, optionId('poseHeadId', '頭部自然朝向鏡頭'));
+  assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', '坐在椅子上'));
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /She is sitting/);
+    assert.match(text, /edge-of-seat poised seated arrangement/);
+    assert.match(text, /seated near the front edge with clear leg line/);
+    assert.match(text, /both hands resting on the thighs or nearest upper-leg surface/);
+    assert.match(text, /chair that naturally fits the current scene/);
+  }
+  assert.match(promptText, /日本戰國武士|female Japanese Sengoku-era samurai/);
+  assert.doesNotMatch(promptText, /loosely crossed arms/);
+  assert.doesNotMatch(promptText, /applying lipstick/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
