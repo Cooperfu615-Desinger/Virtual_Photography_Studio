@@ -201,7 +201,8 @@ test('outerwear and long shirt compose as explicit outer-over-inner layers', () 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
-    outerwearId: optionId('outerwearId', '丹寧外套（敞開穿）'),
+    outerwearId: optionId('outerwearId', '丹寧外套'),
+    outerwearOpeningId: optionId('outerwearOpeningId', '敞開穿'),
     outerwearColorId: optionId('outerwearColorId', '深灰色'),
     outerwearStylingId: optionId('outerwearStylingId', '正常穿著'),
     topId: optionId('topId', '長版襯衫'),
@@ -218,6 +219,44 @@ test('outerwear and long shirt compose as explicit outer-over-inner layers', () 
   assert.doesNotMatch(grokWardrobeLine, /She wears properly worn on both shoulders, dark grey denim jacket/);
   assert.match(grokWardrobeLine, /realistic outer-to-inner dressing order/);
   assert.match(prompt.zImagePrompt, /dark grey denim jacket[\s\S]*properly worn on both shoulders[\s\S]*layered over[\s\S]*off-white longline shirt/);
+});
+
+test('outerwear fit and opening compose before pattern and shoulder styling', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    outerwearId: optionId('outerwearId', '丹寧外套'),
+    outerwearFitId: optionId('outerwearFitId', '短版 Oversize'),
+    outerwearOpeningId: optionId('outerwearOpeningId', '敞開穿'),
+    outerwearPatternId: optionId('outerwearPatternId', '粗橫條紋'),
+    outerwearStylingId: optionId('outerwearStylingId', '滑落肩部'),
+    topId: optionId('topId', '襯衫'),
+  });
+
+  const wardrobeText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  const grokWardrobeLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
+  assert.ok(grokWardrobeLine);
+
+  assert.match(wardrobeText, /underbust-cropped oversized outerwear/);
+  assert.match(wardrobeText, /ending just below the bust/);
+  assert.match(wardrobeText, /worn open at the front/);
+  assert.match(wardrobeText, /jacket body hanging as an intact outer layer/);
+  assert.ok(
+    grokWardrobeLine.indexOf('underbust-cropped oversized outerwear') < grokWardrobeLine.indexOf('denim jacket'),
+    'outerwear fit should appear before the outerwear item'
+  );
+  assert.ok(
+    grokWardrobeLine.indexOf('denim jacket') < grokWardrobeLine.indexOf('bold horizontal stripe outerwear'),
+    'outerwear item should appear before outerwear pattern'
+  );
+  assert.ok(
+    grokWardrobeLine.indexOf('bold horizontal stripe outerwear') < grokWardrobeLine.indexOf('worn open at the front'),
+    'outerwear opening should appear after outerwear pattern'
+  );
+  assert.ok(
+    grokWardrobeLine.indexOf('worn open at the front') < grokWardrobeLine.indexOf('outerwear intentionally slipped below one or both shoulders'),
+    'outerwear opening should appear before shoulder styling'
+  );
 });
 
 test('model-specific shoes stay concise while preserving signature accent details', () => {
@@ -429,7 +468,7 @@ test('wardrobe layering logic preserves outerwear over strappy dresses', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
-    outerwearId: optionId('outerwearId', '西裝外套（不扣扣子）'),
+    outerwearId: optionId('outerwearId', '西裝外套'),
     dressId: optionId('dressId', '連身：短版｜細肩帶迷你洋裝'),
   });
 

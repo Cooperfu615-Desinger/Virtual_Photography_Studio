@@ -249,24 +249,30 @@ const STYLE_WARDROBE_CONTROL_ORDER = [
   'bottomAPatternId',
   'bottomBPatternId',
   'outerwearId',
+  'outerwearFitId',
   'outerwearColorId',
   'outerwearPatternId',
+  'outerwearOpeningId',
   'outerwearStylingId',
   'legwearId',
   'legwearColorId',
   'shoesId',
   'shoesColorId',
   'outerwearAId',
+  'outerwearAFitId',
   'outerwearAColorId',
   'outerwearAPatternId',
+  'outerwearAOpeningId',
   'outerwearAStylingId',
   'legwearAId',
   'legwearAColorId',
   'shoesAId',
   'shoesAColorId',
   'outerwearBId',
+  'outerwearBFitId',
   'outerwearBColorId',
   'outerwearBPatternId',
+  'outerwearBOpeningId',
   'outerwearBStylingId',
   'legwearBId',
   'legwearBColorId',
@@ -445,8 +451,10 @@ function buildImportedStructured(locks, controls) {
       'bottomAPatternId',
       'bottomBPatternId',
       'outerwearId',
+      'outerwearFitId',
       'outerwearColorId',
       'outerwearPatternId',
+      'outerwearOpeningId',
       'outerwearStylingId',
       'legwearId',
       'legwearColorId',
@@ -1509,8 +1517,8 @@ export default function App() {
             'bottomFitAId', 'bottomFitBId', 'bottomRiseAId', 'bottomRiseBId',
             'bottomAColorId', 'bottomBColorId', 'bottomAPatternId', 'bottomBPatternId',
           ];
-          const sharedLayerKeys = ['outerwearId', 'outerwearColorId', 'outerwearPatternId', 'outerwearStylingId', 'legwearId', 'legwearColorId', 'shoesId', 'shoesColorId'];
-          const duoLayerKeys = ['outerwearAId', 'outerwearAColorId', 'outerwearAPatternId', 'outerwearAStylingId', 'legwearAId', 'legwearAColorId', 'shoesAId', 'shoesAColorId', 'outerwearBId', 'outerwearBColorId', 'outerwearBPatternId', 'outerwearBStylingId', 'legwearBId', 'legwearBColorId', 'shoesBId', 'shoesBColorId'];
+          const sharedLayerKeys = ['outerwearId', 'outerwearFitId', 'outerwearColorId', 'outerwearPatternId', 'outerwearOpeningId', 'outerwearStylingId', 'legwearId', 'legwearColorId', 'shoesId', 'shoesColorId'];
+          const duoLayerKeys = ['outerwearAId', 'outerwearAFitId', 'outerwearAColorId', 'outerwearAPatternId', 'outerwearAOpeningId', 'outerwearAStylingId', 'legwearAId', 'legwearAColorId', 'shoesAId', 'shoesAColorId', 'outerwearBId', 'outerwearBFitId', 'outerwearBColorId', 'outerwearBPatternId', 'outerwearBOpeningId', 'outerwearBStylingId', 'legwearBId', 'legwearBColorId', 'shoesBId', 'shoesBColorId'];
           const sharedAccessoryKeys = ['headAccessoryId', 'eyewearId', 'earringsId', 'neckAccessoryId'];
           const duoAccessoryKeys = ['headAccessoryAId', 'eyewearAId', 'earringsAId', 'neckAccessoryAId', 'headAccessoryBId', 'eyewearBId', 'earringsBId', 'neckAccessoryBId'];
           if (control.section !== 'wardrobe') return false;

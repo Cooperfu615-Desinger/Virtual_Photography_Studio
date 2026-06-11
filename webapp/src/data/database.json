@@ -2481,6 +2481,58 @@
         "desc": "以膝下到膝高長度、平整襪面與清楚襪口線條為主。"
       }
     ],
+    "外套版型 (Outerwear Fit)": [
+      {
+        "zh": "全無",
+        "en": "no additional outerwear fit adjustment",
+        "desc": "不額外指定外套長度或鬆緊版型，保留外套本體原始輪廓。"
+      },
+      {
+        "zh": "合身",
+        "en": "fitted outerwear proportion",
+        "desc": "正常衣長的合身外套比例，僅強化剪裁貼合度，不改變外套長度。"
+      },
+      {
+        "zh": "緊身",
+        "en": "tight body-skimming outerwear fit",
+        "desc": "正常衣長的緊身外套比例，貼近身體線條但仍維持外套結構。"
+      },
+      {
+        "zh": "Oversize",
+        "en": "oversized outerwear proportion with roomy shoulders and body",
+        "desc": "正常衣長的 oversize 外套比例，肩線與衣身更寬鬆。"
+      },
+      {
+        "zh": "長版合身",
+        "en": "hip-length fitted outerwear, ending around the widest part of the hips",
+        "desc": "長版外套長度約到臀部最寬的位置，並保持合身剪裁。"
+      },
+      {
+        "zh": "短版合身",
+        "en": "underbust-cropped fitted outerwear, ending just below the bust",
+        "desc": "短版外套長度約到胸下位置，並保持合身剪裁。"
+      },
+      {
+        "zh": "長版緊身",
+        "en": "hip-length tight body-skimming outerwear, ending around the widest part of the hips",
+        "desc": "長版外套長度約到臀部最寬的位置，並貼近身體線條。"
+      },
+      {
+        "zh": "短版緊身",
+        "en": "underbust-cropped tight outerwear, ending just below the bust",
+        "desc": "短版外套長度約到胸下位置，並呈現緊身外層比例。"
+      },
+      {
+        "zh": "長版 Oversize",
+        "en": "hip-length oversized outerwear, roomy shoulders and body, ending around the widest part of the hips",
+        "desc": "長版外套長度約到臀部最寬的位置，同時保留寬鬆肩線與寬大衣身。"
+      },
+      {
+        "zh": "短版 Oversize",
+        "en": "underbust-cropped oversized outerwear, roomy shoulders, ending just below the bust",
+        "desc": "短版外套長度約到胸下位置，同時保留寬鬆肩線與短版寬鬆比例。"
+      }
+    ],
     "外套 (Outerwear)": [
       {
         "zh": "全無",
@@ -2488,7 +2540,7 @@
         "desc": "不加外套，保留上身與下身單品的主要輪廓。"
       },
       {
-        "zh": "西裝外套（不扣扣子）",
+        "zh": "西裝外套",
         "en": "blazer, tailored jacket structure, defined lapels, clean shoulder line, polished suiting fabric",
         "desc": "以西裝翻領、清楚肩線、挺版西裝布與乾淨剪裁為主，是最基礎的外層西裝輪廓。"
       },
@@ -2513,22 +2565,22 @@
         "desc": "以蓬鬆毛絨、柔軟刷毛表面與圓潤保暖外套份量為主。"
       },
       {
-        "zh": "飛行夾克（敞開穿）",
+        "zh": "飛行夾克",
         "en": "bomber jacket, flight jacket structure, ribbed collar cuffs and hem, rounded casual outerwear volume",
         "desc": "以飛行夾克結構、羅紋領口袖口下擺與圓潤短外套份量為主。"
       },
       {
-        "zh": "短版皮外套（不扣）",
+        "zh": "短版皮外套",
         "en": "cropped leather moto jacket, short hem, leather panels, zipper hardware, structured cropped outerwear shape",
         "desc": "以短版衣長、皮革拼片、拉鍊五金與騎士外套結構為主，外層比例更短更俐落。"
       },
       {
-        "zh": "丹寧外套（敞開穿）",
+        "zh": "丹寧外套",
         "en": "denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear",
         "desc": "以水洗丹寧、胸前口袋、金屬扣與牛仔外套的硬挺日常結構為主。"
       },
       {
-        "zh": "連帽拉鍊外套（不拉拉鍊）",
+        "zh": "連帽拉鍊外套",
         "en": "soft zip hoodie, hooded sweatshirt jacket, front zipper, relaxed knit body, ribbed cuffs and hem",
         "desc": "以柔軟連帽外套、前拉鍊、衛衣針織布與放鬆衣身為主，語氣比運動連帽外套更休閒。"
       },
@@ -2544,8 +2596,8 @@
       },
       {
         "zh": "短版合身西裝外套",
-        "en": "cropped fitted blazer, short tailored jacket, waist-defining cut, structured shoulders, slim sleeves, clean notched lapels, buttoned front, polished suiting fabric",
-        "desc": "以短版西裝衣長、收腰剪裁、俐落肩線、窄袖、翻領與前方扣合狀態為主，不綁定內搭、下身或姿勢。"
+        "en": "cropped fitted blazer, short tailored jacket, waist-defining cut, structured shoulders, slim sleeves, clean notched lapels, polished suiting fabric",
+        "desc": "以短版西裝衣長、收腰剪裁、俐落肩線、窄袖與翻領為主，不綁定開合狀態、內搭、下身或姿勢。"
       },
       {
         "zh": "人造毛皮草外套",
@@ -2556,6 +2608,28 @@
         "zh": "薄紗輕薄披衣外套",
         "en": "sheer lightweight cover-up jacket, translucent gauze mesh fabric, hooded zip-front layer, short sleeves, soft draped outerwear",
         "desc": "以半透明薄紗網布、連帽拉鍊、短袖與輕柔披掛感為主的輕薄外層。"
+      }
+    ],
+    "外套開合 (Outerwear Opening)": [
+      {
+        "zh": "全無",
+        "en": "no additional outerwear front-opening instruction",
+        "desc": "不額外指定外套前襟、扣子或拉鍊狀態，保留外套自然開合。"
+      },
+      {
+        "zh": "敞開穿",
+        "en": "worn open at the front, inner layer visible through the full front opening",
+        "desc": "外套正面敞開，讓內搭透過前襟開口自然可見。"
+      },
+      {
+        "zh": "不扣扣子",
+        "en": "button-front outerwear left unbuttoned, front panels open naturally",
+        "desc": "適用有扣子的外套，扣子不扣，前片自然打開。"
+      },
+      {
+        "zh": "不拉拉鍊",
+        "en": "zip-front outerwear left unzipped, zipper track open naturally",
+        "desc": "適用拉鍊外套，拉鍊不拉起，拉鍊軌道自然打開。"
       }
     ],
     "外套穿法 (Outerwear Styling)": [
@@ -2571,8 +2645,8 @@
       },
       {
         "zh": "滑落肩部",
-        "en": "slipped off the shoulder line",
-        "desc": "外套刻意滑落肩線，可呈現單邊或雙邊滑落的放鬆時裝感。"
+        "en": "outerwear intentionally slipped below one or both shoulders, sleeves still loosely on the arms, jacket body hanging as an intact outer layer",
+        "desc": "外套刻意滑到單邊或雙邊肩線下方，袖子仍自然套在手臂上，外套本體保持完整外層。"
       }
     ],
     "外套圖案 (Outerwear Surface Design)": [
