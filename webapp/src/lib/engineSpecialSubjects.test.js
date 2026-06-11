@@ -82,6 +82,20 @@ test('sengoku samurai reads as a polished noble-house warrior instead of a weath
   assert.doesNotMatch(promptText, /weathered fabric ties|worn lacquer|ronin|fallen warrior|mud-stained|battle-worn/);
 });
 
+test('sengoku samurai includes a model-decided helmet placement and vivid armor main color', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'sengoku-samurai',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.match(promptText, /kabuto helmet/);
+  assert.match(promptText, /worn on the head or held in one hand/);
+  assert.match(promptText, /let the image model decide/);
+  assert.match(promptText, /one model-decided vivid main armor color/);
+  assert.match(promptText, /brilliant red|royal blue|pure white|emerald green|glossy reflective lacquer black/);
+});
+
 test('european knight special subject is female with feminine armor shaping', () => {
   const locks = {
     ...createEmptyLocks(),
