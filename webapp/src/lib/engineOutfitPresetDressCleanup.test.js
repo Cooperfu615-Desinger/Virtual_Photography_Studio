@@ -23,6 +23,8 @@ test('outfit presets expose themed options and remove abstract style presets', (
     '套裝：鏈條緞面內衣',
     '套裝：玫瑰哥德蘿莉塔洋裝',
     '套裝：短版運動T熱褲',
+    '套裝：開扣短袖襯衫熱褲',
+    '套裝：開扣長袖襯衫包臀裙',
   ].forEach((label) => {
     assert.ok(labels.includes(label), `${label} should be available`);
   });
@@ -224,6 +226,123 @@ test('lightweight yukata outfit preserves wrap styling patterns and pouch', () =
   assert.match(promptText, /shippo floral lattice panels/i);
   assert.match(promptText, /drawstring kinchaku pouch/i);
   assert.equal(prompt.selection.outfitPresetId, outfit.id);
+});
+
+test('open-button fitted shirt outfit presets preserve shorts and skirt variants', () => {
+  [
+    [
+      '套裝：開扣短袖襯衫熱褲',
+      /body-contouring short-sleeve button-up shirt outfit/i,
+      /deliberately open button placket/i,
+      /fitted waist shaping/i,
+      /skin-tight ultra-short hot pants/i,
+      /curve-emphasizing silhouette/i,
+      'reference/wardrobe/outfit-presets/50_開扣短袖襯衫熱褲.png',
+    ],
+    [
+      '套裝：開扣長袖襯衫包臀裙',
+      /body-contouring long-sleeve button-up shirt outfit/i,
+      /deliberately open button placket/i,
+      /fitted waist shaping/i,
+      /tight bodycon mini skirt/i,
+      /hip-hugging silhouette/i,
+      'reference/wardrobe/outfit-presets/51_開扣長袖襯衫包臀裙.png',
+    ],
+  ].forEach(([label, ...expectations]) => {
+    const referenceImage = expectations.pop();
+    const option = optionByLabel('outfitPresetId', label);
+    const text = [option.en, option.desc].join(' ');
+
+    expectations.forEach((pattern) => {
+      assert.match(text, pattern);
+    });
+
+    assert.match(text, /controlled by the outfit color selection/i);
+    assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
+    assert.equal(option.meta.referenceImage, referenceImage);
+    assert.equal(option.meta.referenceImageFormat, 'png');
+  });
+
+  const fullBodyFramingId = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id;
+  const shortsOutfit = optionByLabel('outfitPresetId', '套裝：開扣短袖襯衫熱褲');
+  const skirtOutfit = optionByLabel('outfitPresetId', '套裝：開扣長袖襯衫包臀裙');
+
+  const sharedLocks = {
+    ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
+    topId: optionByLabel('topId', '全無').id,
+    dressId: optionByLabel('dressId', '全無').id,
+    pantsId: optionByLabel('pantsId', '全無').id,
+    skirtId: optionByLabel('skirtId', '全無').id,
+    outerwearId: optionByLabel('outerwearId', '全無').id,
+    topBottomPaletteId: optionByLabel('topBottomPaletteId', '全無').id,
+  };
+
+  const [shortsPrompt] = generatePrompts(1, {
+    ...sharedLocks,
+    outfitPresetId: shortsOutfit.id,
+  });
+  const [skirtPrompt] = generatePrompts(1, {
+    ...sharedLocks,
+    outfitPresetId: skirtOutfit.id,
+  });
+
+  assert.match([shortsPrompt.grokPrompt, shortsPrompt.zImagePrompt, shortsPrompt.midjourneyPrompt].join('\n'), /skin-tight ultra-short hot pants/i);
+  assert.match([skirtPrompt.grokPrompt, skirtPrompt.zImagePrompt, skirtPrompt.midjourneyPrompt].join('\n'), /tight bodycon mini skirt/i);
+  assert.equal(shortsPrompt.selection.outfitPresetId, shortsOutfit.id);
+  assert.equal(skirtPrompt.selection.outfitPresetId, skirtOutfit.id);
+});
+
+test('qipao outfit presets preserve updated mini and high-slit silhouettes', () => {
+  const solidQipao = optionByLabel('outfitPresetId', '套裝：素色緞面旗袍');
+  const embroideredQipao = optionByLabel('outfitPresetId', '套裝：精緻刺繡旗袍');
+  const fullBodyFramingId = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id;
+
+  [
+    [solidQipao, /solid satin cheongsam mini outfit/i],
+    [solidQipao, /body-contouring short-sleeve cut/i],
+    [solidQipao, /ultra-short mini hem/i],
+    [solidQipao, /high side slit/i],
+    [solidQipao, /curve-emphasizing silhouette/i],
+    [embroideredQipao, /embroidered sleeveless cheongsam outfit/i],
+    [embroideredQipao, /shoulder-baring armholes/i],
+    [embroideredQipao, /body-contouring cut/i],
+    [embroideredQipao, /waist-high side slit/i],
+    [embroideredQipao, /floral and dragon embroidery/i],
+  ].forEach(([option, pattern]) => {
+    const text = [option.en, option.desc].join(' ');
+    assert.match(text, pattern);
+  });
+
+  assert.match(solidQipao.en, /controlled by the outfit color selection/i);
+  assert.match(embroideredQipao.en, /controlled by outfit color selection/i);
+  assert.equal(solidQipao.meta.referenceImage, 'reference/wardrobe/outfit-presets/16_素面旗袍.png');
+  assert.equal(embroideredQipao.meta.referenceImage, 'reference/wardrobe/outfit-presets/17_緞面旗袍.png');
+
+  const sharedLocks = {
+    ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
+    topId: optionByLabel('topId', '全無').id,
+    dressId: optionByLabel('dressId', '全無').id,
+    pantsId: optionByLabel('pantsId', '全無').id,
+    skirtId: optionByLabel('skirtId', '全無').id,
+    outerwearId: optionByLabel('outerwearId', '全無').id,
+    topBottomPaletteId: optionByLabel('topBottomPaletteId', '全無').id,
+  };
+
+  const [solidPrompt] = generatePrompts(1, {
+    ...sharedLocks,
+    outfitPresetId: solidQipao.id,
+  });
+  const [embroideredPrompt] = generatePrompts(1, {
+    ...sharedLocks,
+    outfitPresetId: embroideredQipao.id,
+  });
+
+  assert.match([solidPrompt.grokPrompt, solidPrompt.zImagePrompt, solidPrompt.midjourneyPrompt].join('\n'), /ultra-short mini hem/i);
+  assert.match([solidPrompt.grokPrompt, solidPrompt.zImagePrompt, solidPrompt.midjourneyPrompt].join('\n'), /high side slit/i);
+  assert.match([embroideredPrompt.grokPrompt, embroideredPrompt.zImagePrompt, embroideredPrompt.midjourneyPrompt].join('\n'), /sleeveless cheongsam/i);
+  assert.match([embroideredPrompt.grokPrompt, embroideredPrompt.zImagePrompt, embroideredPrompt.midjourneyPrompt].join('\n'), /waist-high side slit/i);
 });
 
 test('street reference outfit presets 40 to 48 preserve full outfit accessories and footwear', () => {

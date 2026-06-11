@@ -1021,8 +1021,8 @@
       },
       {
         "zh": "素色緞面旗袍套裝",
-        "en": "solid-color satin cheongsam outfit, fitted full-body silhouette, mandarin collar, frog-button detail, smooth lustrous fabric, dominant satin color controlled by the outfit color selection",
-        "desc": "以素色緞面旗袍、貼身輪廓、立領與盤扣為核心的中式主題套裝；主色交由套裝配色控制。",
+        "en": "solid satin cheongsam mini outfit, body-contouring short-sleeve cut, mandarin collar, diagonal frog-button placket, ultra-short mini hem, high side slit, smooth curve-emphasizing silhouette, dominant satin color controlled by the outfit color selection",
+        "desc": "以素色緞面短袖旗袍、貼合身體曲線的剪裁、立領斜襟盤扣、超短迷你裙長與高側開衩為核心；主色交由套裝配色控制。",
         "meta": {
           "series": "signature",
           "colorMode": "primary",
@@ -1041,8 +1041,8 @@
       },
       {
         "zh": "精緻刺繡旗袍套裝",
-        "en": "embroidered cheongsam outfit, fitted full-body silhouette, mandarin collar, frog-button detail, intricate floral embroidery, refined traditional elegance, dominant base color controlled by the outfit color selection",
-        "desc": "以刺繡旗袍、貼身輪廓、立領、盤扣與花卉刺繡為核心的中式主題套裝；底色交由套裝配色控制。",
+        "en": "embroidered sleeveless cheongsam outfit, shoulder-baring armholes, mandarin collar, diagonal frog-button placket, body-contouring cut, waist-high side slit, ornate floral and dragon embroidery, dominant base color controlled by outfit color selection",
+        "desc": "以無袖刺繡旗袍、露肩袖窿、立領斜襟盤扣、貼合身體曲線的剪裁與接近腰部的高側開衩為核心，布面帶精緻花卉與龍紋刺繡；底色交由套裝配色控制。",
         "meta": {
           "series": "signature",
           "colorMode": "primary_contrast",
@@ -1490,6 +1490,24 @@
         "desc": "以厚實毛巾布包裹身體，上緣從胸部下半部開始包圍，長度到膝蓋上方，主色交由套裝配色控制。",
         "meta": {
           "referenceImage": "reference/wardrobe/outfit-presets/49_浴巾.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "開扣短袖襯衫熱褲",
+        "en": "body-contouring short-sleeve button-up shirt outfit, deliberately open button placket, fitted waist shaping, skin-tight ultra-short hot pants, polished curve-emphasizing silhouette, dominant fabric color controlled by the outfit color selection",
+        "desc": "以緊身短袖襯衫、故意不扣起的前排扣門襟、貼合腰身剪裁與緊身超短熱褲為核心，整體呈現身體曲線；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/50_開扣短袖襯衫熱褲.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "開扣長袖襯衫包臀裙",
+        "en": "body-contouring long-sleeve button-up shirt outfit, deliberately open button placket, fitted waist shaping, tight bodycon mini skirt, smooth hip-hugging silhouette, dominant fabric color controlled by the outfit color selection",
+        "desc": "以緊身長袖襯衫、故意不扣起的前排扣門襟、貼合腰身剪裁與包臀緊身迷你裙為核心，整體呈現身體曲線；主色交由套裝配色控制。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/51_開扣長袖襯衫包臀裙.png",
           "referenceImageFormat": "png"
         }
       }
