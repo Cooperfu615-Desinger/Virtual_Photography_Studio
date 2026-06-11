@@ -349,6 +349,7 @@ const COMPLETE_LOOK_PALETTE_OPTIONS = [
 const TOP_BOTTOM_PALETTE_SWATCH_HEX = {
   'arctic knight': '#f1f0e8',
   'berry red': '#b7133f',
+  black: '#000000',
   'black noir': '#151217',
   'black wave': '#18141d',
   'blackwater core': '#111719',
@@ -687,6 +688,13 @@ const TOP_BOTTOM_PALETTE_OPTIONS = [
     en: 'white top with indigo bottom',
     topColor: { zh: '白色', en: 'white' },
     bottomColor: { zh: '靛藍', en: 'indigo' },
+  },
+  {
+    id: 'white-black',
+    zh: '白色 × 黑色',
+    en: 'white top with black bottom',
+    topColor: { zh: '白色', en: 'white' },
+    bottomColor: { zh: '黑色', en: 'black' },
   },
   {
     id: 'light-blue-white',

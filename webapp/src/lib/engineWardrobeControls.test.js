@@ -376,6 +376,7 @@ test('special top and bottom palette controls include the new color-card pairing
     '宇宙港灣藍 × 櫻花粉',
     '虛空暗流 × 皮卡丘黃',
     '霜薄荷 × 黑水核心',
+    '白色 × 黑色',
   ];
 
   assert.ok(paletteControl);
@@ -385,6 +386,31 @@ test('special top and bottom palette controls include the new color-card pairing
       `topBottomPaletteId should include ${zh}`
     );
   }
+});
+
+test('classic white top and black bottom palette applies separate colors', () => {
+  const palette = optionByLabel('topBottomPaletteId', '白色 × 黑色');
+
+  assert.equal(palette.en, 'white top with black bottom');
+  assert.equal(palette.topColor.zh, '白色');
+  assert.equal(palette.topColor.en, 'white');
+  assert.equal(palette.bottomColor.zh, '黑色');
+  assert.equal(palette.bottomColor.en, 'black');
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    topId: optionId('topId', '棉質細肩背心'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    topBottomPaletteId: palette.id,
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
+
+  assert.match(promptText, /white cotton camisole/);
+  assert.match(promptText, /black straight-leg jeans/);
+  assert.doesNotMatch(promptText, /#[0-9A-Fa-f]{6}/);
+  assert.equal(prompt.selection.topBottomPaletteId, palette.id);
 });
 
 test('special top and bottom palettes expose two hex swatches for the wardrobe picker', () => {
