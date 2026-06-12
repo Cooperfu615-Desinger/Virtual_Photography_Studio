@@ -2630,6 +2630,7 @@ const CAMERA_FILM_LEGACY_OPTION_MAP = [
   { category: CAMERA_FILM_CATEGORY, targetZh: '高銳利快照黑位', legacy: [['高銳利快照黑位', 13], ['Ricoh GR 街頭快照感', 13]] },
   { category: CAMERA_FILM_CATEGORY, targetZh: '中片幅數位色深', legacy: [['中片幅數位色深', 14], ['中片幅數位單眼 (Medium Format DSLR)', 14]] },
   { category: CAMERA_FILM_CATEGORY, targetZh: 'VHS 錄影帶低畫質', legacy: [['VHS 錄影帶低畫質', 15]] },
+  { category: CAMERA_FILM_CATEGORY, targetZh: '日系高曝光奶油膚色', legacy: [['韓系冷白亮膚濾鏡', 23]] },
 ];
 
 const CAMERA_PROFILE_RENDERING_MIGRATIONS = {

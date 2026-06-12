@@ -256,8 +256,9 @@ test('imaging control exposes rendering and color-grade looks without camera bod
   assert.ok(labels.includes('日系夜景亮膚霓虹'));
   assert.ok(labels.includes('日系雜誌高彩銳利'));
   assert.ok(labels.includes('日系柔霧亮膚'));
-  assert.ok(labels.includes('韓系冷白亮膚濾鏡'));
+  assert.ok(labels.includes('跨沖霓虹剪影濾鏡'));
   assert.ok(labels.includes('高銳利快照黑位'));
+  assert.ok(!labels.includes('韓系冷白亮膚濾鏡'));
   assert.ok(!labels.includes('Ricoh GR 街頭快照感'));
 
   const leicaMono = optionByLabel('filmId', 'Leica 風格鹽粒黑白');
@@ -273,8 +274,13 @@ test('imaging control exposes rendering and color-grade looks without camera bod
   );
 
   const nightFilter = optionByLabel('filmId', '日系夜景亮膚霓虹');
-  assert.match(nightFilter.en, /neon bokeh color/);
-  assert.match(nightFilter.en, /bright protected skin tones/);
+  assert.match(nightFilter.en, /neon-tinted Japanese portrait color grade/);
+  assert.match(nightFilter.en, /warm-magenta highlights/);
+
+  const neonCrossProcess = optionByLabel('filmId', '跨沖霓虹剪影濾鏡');
+  assert.match(neonCrossProcess.en, /neon cross-processed rendering/);
+  assert.match(neonCrossProcess.en, /aggressively crushed black levels/);
+  assert.match(neonCrossProcess.en, /cold porcelain highlights/);
 });
 
 test('legacy camera profile locks migrate into rendering looks', () => {
@@ -289,6 +295,16 @@ test('legacy camera profile locks migrate into rendering looks', () => {
   assert.equal(
     optionById('filmId', normalizeLocks({ ...createEmptyLocks(), cameraSystemId: 'smartphone-documentary' }).filmId).zh,
     '手機 HDR 直出'
+  );
+  assert.equal(
+    optionById(
+      'filmId',
+      normalizeLocks({
+        ...createEmptyLocks(),
+        filmId: 'camera:底片與相機模擬-camera-film-simulation:韓系冷白亮膚濾鏡:23',
+      }).filmId
+    ).zh,
+    '日系高曝光奶油膚色'
   );
 });
 
@@ -318,7 +334,8 @@ test('generated prompts expose rendering color grade as a single D-section rende
   });
 
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*glossy Japanese portrait color grade/);
-  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*creamy pale skin highlights/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*lifted midtones/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*warm peach skin-tone protection/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*shot on 35mm lens/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*blurred foreground occlusion near the lens/);
   assert.match(prompt.zImagePrompt, /meaningful partial frame coverage/);

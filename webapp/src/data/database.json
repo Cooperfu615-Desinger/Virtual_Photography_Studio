@@ -3832,38 +3832,38 @@
       },
       {
         "zh": "日系亮膚高彩濾鏡",
-        "en": "glossy Japanese portrait color grade, lifted exposure, creamy pale skin highlights, warm skin protection, cyan-green shadows, saturated lights, clean deep blacks, polished finish",
-        "desc": "偏日系寫真的亮膚高彩調色：曝光與中間調被抬高，膚色奶油白但保留，高光乾淨，暗部偏青綠，黑色材質維持深黑。"
+        "en": "glossy Japanese portrait color grade, lifted midtones, creamy pale highlights, warm peach skin-tone protection, cyan-green shadows, vivid saturation, clean deep blacks",
+        "desc": "以日系高完成度亮膚高彩為核心，中間調明顯上提，亮部偏奶白，膚色維持暖桃色保護，陰影帶青綠偏色，彩度鮮明但黑位仍保持乾淨深黑。"
       },
       {
         "zh": "日系清透淡彩濾鏡",
-        "en": "transparent Japanese portrait color grade, airy pastel saturation, low contrast curve, clean milky whites, soft skin translucency, delicate shadow tint",
-        "desc": "偏清透淡彩的日系寫真調色，降低對比與飽和壓力，保留奶白亮部、透明膚色與淡淡陰影色。"
+        "en": "transparent Japanese portrait color grade, airy low-contrast tonality, milky white highlights, pastel saturation, neutral-clean skin tones, delicate cool shadow tint",
+        "desc": "以清透淡彩為核心，整體對比壓低、亮部偏奶白，彩度維持輕柔 pastel，膚色乾淨中性，陰影只帶很淡的冷色偏移。"
       },
       {
         "zh": "日系高曝光奶油膚色",
-        "en": "high-key Japanese portrait color grade, lifted exposure, creamy porcelain skin highlights, softened shadows, clean whites, protected black material density",
-        "desc": "比亮膚高彩更偏高曝光與奶油膚色，高光更明亮、陰影更柔，但深色材質仍保留黑位密度。"
+        "en": "high-key Japanese portrait color grade, elevated exposure, creamy porcelain highlights, softened shadow floor, restrained saturation, protected dark-material density",
+        "desc": "比亮膚高彩更偏 high-key 高曝光，亮部走奶油瓷白，陰影底被柔化，整體飽和度較克制，但深色服裝與黑色材質仍保留足夠密度。"
       },
       {
         "zh": "日系夜景亮膚霓虹",
-        "en": "Japanese night portrait color grade, bright protected skin tones, neon bokeh color, cyan-green shadows, warm city highlights, clean black levels",
-        "desc": "面向夜景人像的亮膚調色，保護膚色亮度，讓霓虹散景、青綠陰影、暖色高光與乾淨黑位同時存在。"
+        "en": "neon-tinted Japanese portrait color grade, protected bright skin tones, cool cyan shadow bias, warm-magenta highlights, clean black levels, controlled luminous saturation",
+        "desc": "以日系夜景亮膚霓虹為出發，但改寫為可跨場景套用的霓虹調色邏輯：膚色亮度受保護，陰影往冷青偏移，亮部混入暖洋紅霓虹感，黑位乾淨，彩色高光維持發亮但不失控。"
       },
       {
         "zh": "日系雜誌高彩銳利",
-        "en": "Japanese magazine color grade, vivid saturation, polished skin brightness, crisp edge clarity, clean deep blacks, high-contrast editorial finish",
-        "desc": "偏日系雜誌與偶像寫真的高完成度調色，色彩更鮮明、邊緣更清楚、黑位乾淨，整體更 editorial。"
+        "en": "Japanese magazine color grade, vivid editorial saturation, polished highlight brightness, crisp micro-contrast, sharp edge definition, clean dense blacks, print-finish contrast",
+        "desc": "偏日系雜誌與偶像寫真的高完成度調色，保留鮮明但受控的高彩，亮部帶拋光感，微對比與邊線清楚，黑位緊實乾淨，整體接近高級印刷輸出的商業完成度。"
       },
       {
         "zh": "日系柔霧亮膚",
-        "en": "soft-tonal Japanese portrait color grade, luminous pale skin, gentle highlight bloom, reduced clarity, airy contrast, pastel shadow softness",
-        "desc": "在亮膚基礎上加入柔霧式階調，降低 clarity 與硬邊感，讓高光更柔、陰影更淡、整體更夢幻。"
+        "en": "soft-tonal Japanese portrait color grade, luminous pale highlights, gentle bloom, lowered micro-contrast, airy contrast, pastel shadow softness",
+        "desc": "在亮膚基礎上加入柔霧式階調，亮部更柔更亮，伴隨輕微 bloom，微對比被壓低，整體對比更輕，陰影維持淡 pastel 柔軟感。"
       },
       {
-        "zh": "韓系冷白亮膚濾鏡",
-        "en": "Korean cool-white portrait color grade, porcelain skin brightness, cool neutral whites, restrained saturation, clean shadows, polished idol-style finish",
-        "desc": "偏韓系冷白人像調色，膚色更瓷白、白平衡更冷淨、飽和度更克制，適合乾淨偶像感成像。"
+        "zh": "跨沖霓虹剪影濾鏡",
+        "en": "neon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels, cold porcelain highlights",
+        "desc": "以跨沖式霓虹剪影為核心，整體色相向冷青藍偏移，紅黃等原色飽和被強力拉起，對比呈現海報式硬階調，中間調明顯壓暗、黑位積極收深，只保留冷白偏瓷感的亮部，整體形成強烈暗黑時裝感與數位化反轉片式成像。"
       }
     ],
     "光學效果 (Optical Effects)": [
