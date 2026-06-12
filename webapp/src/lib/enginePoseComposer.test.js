@@ -344,6 +344,7 @@ test('pose composer exposes kneeling and lying expansion batch', () => {
     ['單膝前跨跪姿', 'kneeling', /one-knee-forward kneeling arrangement/],
     ['手肘支撐跪姿', 'kneeling', /forearms supporting the upper body/],
     ['跪姿微後仰', 'kneeling', /slightly backward-arched kneeling arrangement/],
+    ['瑜伽小狗式交叉手托下巴', 'kneeling', /forearms crossed under the chin/],
     ['側躺屈膝', 'lying', /side-lying arrangement with both knees softly bent/],
     ['仰躺單手過頭', 'lying', /one arm extended overhead/],
     ['趴臥手肘撐起', 'lying', /elbows propping up the upper body/],
@@ -416,6 +417,20 @@ test('kneeling and lying expansion batch is preserved in all prompt versions', (
         /prone lying arrangement with elbows propping up/,
         /one hand holding the ankle/,
         /head turned over one shoulder toward the camera/,
+      ],
+    },
+    {
+      baseZh: '跪姿',
+      arrangementZh: '瑜伽小狗式交叉手托下巴',
+      handZh: '全無',
+      anchorZh: '跪在地面',
+      headZh: '頭部自然朝向鏡頭',
+      expected: [
+        /kneeling on the ground/,
+        /yoga extended puppy pose kneeling arrangement/,
+        /torso folded forward/,
+        /forearms crossed under the chin/,
+        /hands tucked below the jaw/,
       ],
     },
   ];
