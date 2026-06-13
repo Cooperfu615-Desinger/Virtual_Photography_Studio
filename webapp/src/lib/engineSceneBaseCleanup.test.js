@@ -27,11 +27,12 @@ const wordCount = (text) => text.split(/\s+/).filter(Boolean).length;
 test('scene base keeps indoor outdoor and other location options intact', () => {
   const labels = locationOptions().map((option) => option.zh);
 
-  assert.equal(labels.length, 153);
+  assert.equal(labels.length, 154);
   assert.ok(labels.includes('室內：純潔白幕'));
   assert.ok(labels.includes('室內：夜間家庭派對'));
   assert.ok(labels.includes('室內：古書二手書店'));
   assert.ok(labels.includes('室內：Y2K 復古房間'));
+  assert.ok(labels.includes('室內：英倫復古窗邊房間'));
   assert.ok(labels.includes('室內：地下月台電子看板與海報牆'));
   assert.ok(labels.includes('戶外：目黑川旁的櫻花隧道'));
   assert.ok(labels.includes('戶外：奧地利 Hallstatt 湖畔山村觀景欄杆'));
@@ -112,6 +113,17 @@ test('bookshop and Y2K room scenes keep flexible indoor anchors', () => {
   assert.match(y2kRoom.en, /Y2K retro bedroom interior/);
   assert.match(y2kRoom.en, /CRT TV setup vinyl-record wall poster cluster/);
   assert.match(y2kRoom.en, /compact nostalgic room clutter/);
+});
+
+test('British vintage window room keeps rich interior anchors', () => {
+  const britishVintageRoom = optionByLabel('室內：英倫復古窗邊房間');
+
+  assert.ok(wordCount(britishVintageRoom.en) <= 35);
+  assert.ok(britishVintageRoom.meta.tags.includes('indoor'));
+  assert.ok(britishVintageRoom.meta.tags.includes('heritage'));
+  assert.match(britishVintageRoom.en, /British vintage window-side room interior/);
+  assert.match(britishVintageRoom.en, /white lace curtain and sash window/);
+  assert.match(britishVintageRoom.en, /dresser mirror side table framed paintings wall clock porcelain trinkets/);
 });
 
 test('outdoor scene bases avoid symmetric avenue and centered corridor wording', () => {
@@ -230,6 +242,11 @@ test('generated prompts use stabilized scene base wording', () => {
     framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('室內：Y2K 復古房間'),
   });
+  const [britishVintageRoomPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
+    locationId: optionId('室內：英倫復古窗邊房間'),
+  });
   const [resortPoolPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: framingId('全身鏡頭 (Full Body Shot)'),
@@ -267,6 +284,8 @@ test('generated prompts use stabilized scene base wording', () => {
   assert.match(bookshopPrompt.zImagePrompt, /narrow bookshelf aisle reading table counter corner or window book stacks/);
   assert.match(y2kRoomPrompt.grokPrompt, /Y2K retro bedroom interior/);
   assert.match(y2kRoomPrompt.zImagePrompt, /CRT TV setup vinyl-record wall poster cluster/);
+  assert.match(britishVintageRoomPrompt.grokPrompt, /British vintage window-side room interior/);
+  assert.match(britishVintageRoomPrompt.zImagePrompt, /white lace curtain and sash window/);
   assert.match(resortPoolPrompt.grokPrompt, /hotel resort poolside terrace/);
   assert.match(resortPoolPrompt.zImagePrompt, /lounge chair corner/);
   assert.match(ryokanEngawaPrompt.grokPrompt, /traditional Japanese ryokan engawa veranda/i);

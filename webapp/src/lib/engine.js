@@ -1638,6 +1638,9 @@ function inferLocationMeta(category, item) {
   if (hasAny(haystack, ['opera house', 'mansion', 'library', 'old town', 'townhouse', '洋房', '歌劇院', '大宅', '老城'])) {
     tags.push('heritage');
   }
+  if (hasAny(haystack, ['british vintage', 'sash window', 'framed paintings', 'porcelain trinkets', '英倫復古', '古董鐘'])) {
+    tags.push('heritage', 'indoor');
+  }
   if (hasAny(haystack, ['ryokan', 'engawa', 'traditional japanese', 'washitsu', '緣側', '和室', '日式旅館'])) {
     tags.push('heritage');
   }
