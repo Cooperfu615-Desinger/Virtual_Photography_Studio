@@ -27,14 +27,19 @@ const wordCount = (text) => text.split(/\s+/).filter(Boolean).length;
 test('scene base keeps indoor outdoor and other location options intact', () => {
   const labels = locationOptions().map((option) => option.zh);
 
-  assert.equal(labels.length, 148);
+  assert.equal(labels.length, 153);
   assert.ok(labels.includes('室內：純潔白幕'));
+  assert.ok(labels.includes('室內：夜間家庭派對'));
+  assert.ok(labels.includes('室內：古書二手書店'));
+  assert.ok(labels.includes('室內：Y2K 復古房間'));
+  assert.ok(labels.includes('室內：地下月台電子看板與海報牆'));
   assert.ok(labels.includes('戶外：目黑川旁的櫻花隧道'));
   assert.ok(labels.includes('戶外：奧地利 Hallstatt 湖畔山村觀景欄杆'));
   assert.ok(labels.includes('戶外：白色鹽湖乾裂荒漠'));
   assert.ok(labels.includes('戶外：飯店度假村泳池露台'));
   assert.ok(labels.includes('戶外：日式旅館緣側木廊'));
   assert.ok(labels.includes('戶外：高級飯店陽台城市河景'));
+  assert.ok(labels.includes('戶外：森林營地帳篷營火'));
   assert.ok(labels.includes('其他：白色床鋪'));
 });
 
@@ -63,6 +68,50 @@ test('solid-color studio bases stay concise while blocking visible studio equipm
     assert.match(option.en, /no light stands/i);
     assert.match(option.en, /no studio equipment/i);
   }
+});
+
+test('subway signboard scene keeps transit and subterranean metadata', () => {
+  const subwaySignboard = optionByLabel('室內：地下月台電子看板與海報牆');
+
+  assert.ok(wordCount(subwaySignboard.en) <= 35);
+  assert.ok(subwaySignboard.meta.tags.includes('indoor'));
+  assert.ok(subwaySignboard.meta.tags.includes('transit'));
+  assert.ok(subwaySignboard.meta.tags.includes('urban'));
+  assert.ok(subwaySignboard.meta.tags.includes('subterranean'));
+  assert.match(subwaySignboard.en, /underground subway platform signboard corner/);
+  assert.match(subwaySignboard.en, /amber LED next-train display overhead/);
+  assert.match(subwaySignboard.en, /movie poster frame/);
+});
+
+test('night house-party scene keeps flexible home interior anchors', () => {
+  const houseParty = optionByLabel('室內：夜間家庭派對');
+
+  assert.ok(wordCount(houseParty.en) <= 35);
+  assert.ok(houseParty.meta.tags.includes('indoor'));
+  assert.ok(houseParty.meta.tags.includes('residential'));
+  assert.match(houseParty.en, /nighttime American house-party home interior/);
+  assert.match(houseParty.en, /living room dining area kitchen island hallway stair landing or bedroom doorway/);
+  assert.match(houseParty.en, /background guests chatting drinking and playing games/);
+});
+
+test('bookshop and Y2K room scenes keep flexible indoor anchors', () => {
+  const bookshop = optionByLabel('室內：古書二手書店');
+  const y2kRoom = optionByLabel('室內：Y2K 復古房間');
+
+  assert.ok(wordCount(bookshop.en) <= 35);
+  assert.ok(bookshop.meta.tags.includes('indoor'));
+  assert.ok(bookshop.meta.tags.includes('commercial'));
+  assert.ok(bookshop.meta.tags.includes('heritage'));
+  assert.match(bookshop.en, /antique used-book shop interior/);
+  assert.match(bookshop.en, /narrow bookshelf aisle reading table counter corner or window book stacks/);
+  assert.match(bookshop.en, /aged books, dark wood shelves/);
+
+  assert.ok(wordCount(y2kRoom.en) <= 35);
+  assert.ok(y2kRoom.meta.tags.includes('indoor'));
+  assert.ok(y2kRoom.meta.tags.includes('residential'));
+  assert.match(y2kRoom.en, /Y2K retro bedroom interior/);
+  assert.match(y2kRoom.en, /CRT TV setup vinyl-record wall poster cluster/);
+  assert.match(y2kRoom.en, /compact nostalgic room clutter/);
 });
 
 test('outdoor scene bases avoid symmetric avenue and centered corridor wording', () => {
@@ -119,6 +168,15 @@ test('outdoor scene bases avoid symmetric avenue and centered corridor wording',
   assert.match(luxuryHotelBalcony.en, /luxury hotel balcony river-view terrace/i);
   assert.match(luxuryHotelBalcony.en, /glass railing/);
   assert.match(luxuryHotelBalcony.en, /dense skyline towers/);
+
+  const forestCampsite = optionByLabel('戶外：森林營地帳篷營火');
+  assert.ok(wordCount(forestCampsite.en) <= 28);
+  assert.ok(forestCampsite.meta.tags.includes('outdoor'));
+  assert.ok(forestCampsite.meta.tags.includes('natural'));
+  assert.ok(forestCampsite.meta.tags.includes('green_space'));
+  assert.match(forestCampsite.en, /forest campsite clearing/);
+  assert.match(forestCampsite.en, /canvas tent edge/);
+  assert.match(forestCampsite.en, /asymmetric camp setup/);
 });
 
 test('other dedicated scenes read as close scene bases instead of full environments', () => {
@@ -152,6 +210,26 @@ test('generated prompts use stabilized scene base wording', () => {
     framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('戶外：白色鹽湖乾裂荒漠'),
   });
+  const [subwaySignboardPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
+    locationId: optionId('室內：地下月台電子看板與海報牆'),
+  });
+  const [housePartyPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
+    locationId: optionId('室內：夜間家庭派對'),
+  });
+  const [bookshopPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
+    locationId: optionId('室內：古書二手書店'),
+  });
+  const [y2kRoomPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
+    locationId: optionId('室內：Y2K 復古房間'),
+  });
   const [resortPoolPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: framingId('全身鏡頭 (Full Body Shot)'),
@@ -167,6 +245,11 @@ test('generated prompts use stabilized scene base wording', () => {
     framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('戶外：高級飯店陽台城市河景'),
   });
+  const [forestCampsitePrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
+    locationId: optionId('戶外：森林營地帳篷營火'),
+  });
 
   assert.match(studioPrompt.grokPrompt, /continuous vivid blue ground-and-background plane/);
   assert.match(studioPrompt.zImagePrompt, /no backdrop stand/);
@@ -176,10 +259,20 @@ test('generated prompts use stabilized scene base wording', () => {
   assert.match(hallstattPrompt.zImagePrompt, /church spire and steep mountain backdrop/);
   assert.match(saltFlatPrompt.grokPrompt, /white salt flat playa edge/);
   assert.match(saltFlatPrompt.zImagePrompt, /cracked salt crust ground/);
+  assert.match(subwaySignboardPrompt.grokPrompt, /underground subway platform signboard corner/);
+  assert.match(subwaySignboardPrompt.zImagePrompt, /amber LED next-train display overhead/);
+  assert.match(housePartyPrompt.grokPrompt, /nighttime American house-party home interior/);
+  assert.match(housePartyPrompt.zImagePrompt, /background guests chatting drinking and playing games/);
+  assert.match(bookshopPrompt.grokPrompt, /antique used-book shop interior/);
+  assert.match(bookshopPrompt.zImagePrompt, /narrow bookshelf aisle reading table counter corner or window book stacks/);
+  assert.match(y2kRoomPrompt.grokPrompt, /Y2K retro bedroom interior/);
+  assert.match(y2kRoomPrompt.zImagePrompt, /CRT TV setup vinyl-record wall poster cluster/);
   assert.match(resortPoolPrompt.grokPrompt, /hotel resort poolside terrace/);
   assert.match(resortPoolPrompt.zImagePrompt, /lounge chair corner/);
   assert.match(ryokanEngawaPrompt.grokPrompt, /traditional Japanese ryokan engawa veranda/i);
   assert.match(ryokanEngawaPrompt.zImagePrompt, /sliding door frames/i);
   assert.match(luxuryHotelBalconyPrompt.grokPrompt, /luxury hotel balcony river-view terrace/i);
   assert.match(luxuryHotelBalconyPrompt.zImagePrompt, /broad river below/i);
+  assert.match(forestCampsitePrompt.grokPrompt, /forest campsite clearing/);
+  assert.match(forestCampsitePrompt.zImagePrompt, /canvas tent edge/);
 });

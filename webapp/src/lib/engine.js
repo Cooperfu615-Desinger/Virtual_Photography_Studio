@@ -1627,6 +1627,9 @@ function inferLocationMeta(category, item) {
   if (hasAny(haystack, ['café', 'bar entrance', 'storefront', 'shopfront', 'night market', 'mall', 'laundromat', '咖啡', '夜市', '商場'])) {
     tags.push('commercial');
   }
+  if (hasAny(haystack, ['bookstore', 'bookshop', 'used-book', 'used book shop', 'antique book', '古書', '二手書店', '書店'])) {
+    tags.push('commercial', 'heritage', 'indoor');
+  }
   if (hasAny(haystack, ['subway', 'platform', 'station', 'train car', 'commuter train', 'carriage', 'railway carriage', 'grab poles', 'hand straps', '地鐵', '月台', '電車', '車廂', '吊環', '扶手柱'])) tags.push('transit', 'urban');
   if (hasAny(haystack, ['factory', 'control room', 'train yard', 'scaffolding', 'construction', '工廠', '工地', '機房'])) tags.push('industrial');
   if (hasAny(haystack, ['hospital', 'operating room', 'ward', 'classroom', 'music room', 'school', '病房', '診療室', '教室'])) {
@@ -1889,6 +1892,9 @@ function inferLightingMeta(category, item) {
     }
     if (hasAny(haystack, ['室內夜晚低照度暖光', 'indoor low-light warm night conditions'])) {
       tags.push('artificial_light', 'indoor', 'warm', 'dark', 'soft_light', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
+    }
+    if (hasAny(haystack, ['室內派對暖光夜景', 'indoor house-party night environment'])) {
+      tags.push('artificial_light', 'indoor', 'warm', 'dark', 'soft_light', 'supports_indoor', 'supports_residential');
     }
     if (hasAny(haystack, ['室內燭光', 'candlelit interior conditions'])) {
       tags.push('artificial_light', 'indoor', 'warm', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');

@@ -3567,6 +3567,11 @@
         "desc": "比一般室內暖光夜景更暗，像只開少量檯燈或床頭燈的夜晚房間，重點是低照度、暖色實用燈與暗角。"
       },
       {
+        "zh": "室內派對暖光夜景",
+        "en": "indoor house-party night environment, warm practical lamps and small decorative lights, dim social room glow, dark background corners, background guests if visible",
+        "desc": "夜間家庭派對或小型室內社交聚會的環境光，重點是暖色實用燈、小型裝飾燈、昏暗社交空間、暗部角落與可見的背景賓客。"
+      },
+      {
         "zh": "室內燭光",
         "en": "candlelit interior environment, flickering warm flame glow, low-light room, soft amber darkness, visible candle or firelight source if appropriate",
         "desc": "由燭光或火光主導的室內夜景，重點是低照度、暖色火光、可見燭光或火光來源。"
@@ -4024,6 +4029,21 @@
         "desc": "現代高樓住宅客廳，重點是落地窗、沙發邊、茶几、層架、地毯與窗外城市建築，以偏角室內構圖避免過度對稱。"
       },
       {
+        "zh": "室內：夜間家庭派對",
+        "en": "nighttime American house-party home interior, living room dining area kitchen island hallway stair landing or bedroom doorway, background guests chatting drinking and playing games, crowded casual party setting",
+        "desc": "美式夜間家庭派對的彈性室內場景，模型可在客廳、餐廳、廚房島台、走廊、樓梯平台或臥室門口等家中空間中選擇，背景有賓客聊天、喝酒與玩派對遊戲。"
+      },
+      {
+        "zh": "室內：古書二手書店",
+        "en": "antique used-book shop interior, narrow bookshelf aisle reading table counter corner or window book stacks, aged books, dark wood shelves, warm lamp fixtures, crowded literary surfaces",
+        "desc": "古書與二手書店的彈性室內場景，模型可在狹窄書架走道、閱讀桌、櫃台角落或窗邊書堆之間選擇，背景保留舊書、深色木架、暖色燈具與堆疊的文學空間感。"
+      },
+      {
+        "zh": "室內：Y2K 復古房間",
+        "en": "Y2K retro bedroom interior, bed edge desk corner CRT TV setup vinyl-record wall poster cluster window area or floor rug, compact nostalgic room clutter",
+        "desc": "Y2K 復古房間的彈性室內場景，模型可在床邊、桌角、CRT 電視、黑膠唱片牆、海報牆、窗邊或地毯地面之間選擇，保留懷舊小房間的密集生活物件。"
+      },
+      {
         "zh": "室內：臥室窗邊",
         "en": "bedroom window area, curtain panels, linen bedding near the window, pillow edges, small bedside surface, window frame, fabric textures around an offset corner of the room",
         "desc": "臥室窗邊區域，重點是窗框、窗簾、床品、枕頭邊緣、床邊小平面與布料材質，形成偏角的生活室內空間。"
@@ -4363,6 +4383,11 @@
         "desc": "聚焦於磁磚牆與金屬柱之間狹窄可站立的局部空間，重點是磁磚缺角、灰縫、刮痕柱面與牆面材質。"
       },
       {
+        "zh": "室內：地下月台電子看板與海報牆",
+        "en": "underground subway platform signboard corner, amber LED next-train display overhead, stained white tile wall, graffiti tags, movie poster frame, fluorescent ceiling tubes, dark tunnel edge",
+        "desc": "地下月台的電子到站看板與海報牆區域，重點是琥珀色 LED 看板、髒白磁磚、塗鴉、海報框、日光燈管與暗色隧道邊。"
+      },
+      {
         "zh": "室內：電車車廂正面長椅視角",
         "en": "Japanese commuter train car interior, slight offset view toward a blue fabric bench seat, window and sliding door panels behind the subject, stainless steel wall surfaces, overhead hand straps, route maps, small carriage posters, passing scenery glimpsed through windows",
         "desc": "指定為車廂內長椅視角，但以略偏側角度避免過度置中；背景包含車窗、滑門、金屬牆面、吊環、路線圖、車廂海報與窗外掠過景色。"
@@ -4643,6 +4668,11 @@
         "zh": "戶外：霧感森林步道",
         "en": "forest path edge, dark tree trunks at varied distances, uneven ground, mossy roots, leaf litter, partial trail curve, dense woodland background",
         "desc": "森林步道邊緣，重點是不同距離的樹幹、不平地面、苔蘚樹根、落葉、局部彎曲小徑與密林背景。"
+      },
+      {
+        "zh": "戶外：森林營地帳篷營火",
+        "en": "forest campsite clearing, canvas tent edge, campfire pit, hanging lantern stand, tree trunks at varied depths, leaf-litter ground, asymmetric camp setup",
+        "desc": "森林營地的局部戶外場景，重點是帆布帳篷邊、營火盆、吊掛油燈架、不同深度的樹幹、落葉地面與偏側營地配置。"
       },
       {
         "zh": "戶外：湖邊木棧道",

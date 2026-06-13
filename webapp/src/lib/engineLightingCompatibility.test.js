@@ -25,6 +25,7 @@ test('scene attribute filters ambient light conditions by indoor and outdoor sco
   }).lightingOptions);
 
   assert.ok(indoorOptions.includes('室內窗邊日光'));
+  assert.ok(indoorOptions.includes('室內派對暖光夜景'));
   assert.ok(indoorOptions.includes('高調純白攝影棚'));
   assert.ok(!indoorOptions.includes('晴朗白日'));
   assert.ok(!indoorOptions.includes('夜晚街燈'));
@@ -32,6 +33,7 @@ test('scene attribute filters ambient light conditions by indoor and outdoor sco
   assert.ok(outdoorOptions.includes('晴朗白日'));
   assert.ok(outdoorOptions.includes('夜晚街燈'));
   assert.ok(!outdoorOptions.includes('室內窗邊日光'));
+  assert.ok(!outdoorOptions.includes('室內派對暖光夜景'));
   assert.ok(!outdoorOptions.includes('高調純白攝影棚'));
 });
 

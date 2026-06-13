@@ -20,7 +20,7 @@ const wordCount = (text) => text.split(/\s+/).filter(Boolean).length;
 test('ambient light prompts stay compact and environment-scoped', () => {
   const ambientOptions = controlOptions('lightingId');
 
-  assert.equal(ambientOptions.length, 36);
+  assert.equal(ambientOptions.length, 37);
   for (const option of ambientOptions.filter((entry) => entry.zh !== '全無')) {
     assert.ok(wordCount(option.en) <= 24, `${option.zh} should stay compact`);
     assert.doesNotMatch(
@@ -34,6 +34,8 @@ test('ambient light prompts stay compact and environment-scoped', () => {
   assert.doesNotMatch(optionByLabel('lightingId', '正午烈日').en, /short hard shadows/i);
   assert.match(optionByLabel('lightingId', '雨前灰黑天空').en, /preserved cloud detail before rainfall/);
   assert.match(optionByLabel('lightingId', '陰雨將至').en, /charged damp air/);
+  assert.match(optionByLabel('lightingId', '室內派對暖光夜景').en, /indoor house-party night environment/);
+  assert.match(optionByLabel('lightingId', '室內派對暖光夜景').en, /background guests if visible/);
 });
 
 test('subject light prompts stay compact and subject-scoped', () => {
@@ -68,4 +70,21 @@ test('generated prompts keep ambient conditions separate from subject light styl
   assert.match(prompt.zImagePrompt, /deep azure summer sky/);
   assert.match(prompt.zImagePrompt, /warm golden-amber subject light color/);
   assert.match(prompt.summary, /光影：夏日深藍積雲 \/ 暖金黃昏色溫/);
+});
+
+test('generated house-party prompt keeps flexible scene and party ambient light', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    locationId: optionByLabel('locationId', '室內：夜間家庭派對').id,
+    lightingId: optionByLabel('lightingId', '室內派對暖光夜景').id,
+    lightDirectionId: optionByLabel('lightDirectionId', '局部暖光').id,
+  });
+
+  assert.match(prompt.grokPrompt, /Scene:\n[\s\S]*nighttime American house-party home interior/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*indoor house-party night environment/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*local warm practical-light pool on the subject/);
+  assert.match(prompt.zImagePrompt, /background guests chatting drinking and playing games/);
+  assert.match(prompt.zImagePrompt, /warm practical lamps and small decorative lights/);
+  assert.match(prompt.summary, /場景：室內：夜間家庭派對/);
+  assert.match(prompt.summary, /光影：室內派對暖光夜景 \/ 局部暖光/);
 });
