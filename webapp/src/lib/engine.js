@@ -980,12 +980,14 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
   },
 ];
 
+const FLEXIBLE_CAMERA_FIXED_SET_ID = 'concrete-wall-chesterfield-sofa';
+
 const FIXED_COMPOSITION_SET_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不使用固定構圖場景。', meta: { tags: ['none'] } },
   {
     id: 'concrete-wall-chesterfield-sofa',
     zh: '清水模牆面沙發棚',
-    en: 'The portrait takes place inside a real-scale compact living-room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: a raw concrete wall fills the back plane, a large brown vintage Chesterfield leather sofa occupies most of the lower set space, with thick rolled armrests, high tufted backrest, and deep adult-sized seat cushions clearly visible. Bare sculptural dry branches stand beside the sofa, and a normal-height coffee table sits in front with art books, a cup, a small lamp, and textured cushions as readable interaction props. Use an eye-level straight-on frontal camera, pulled back enough to show the subject inside the room',
+    en: 'The portrait takes place inside a real-scale compact living-room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: a raw concrete wall fills the back plane, a large brown vintage Chesterfield leather sofa occupies most of the lower set space, with thick rolled armrests, high tufted backrest, deep adult-sized seat cushions, worn leather texture, and believable adult-scale furniture clearly visible. Bare sculptural dry branches stand beside the sofa, and a normal-height low coffee table sits in front with art books, a cup, a small lamp, textured cushions, and quiet modern-retro interior props as readable interaction anchors. Use a medium-wide editorial camera position approximately 3 to 4 meters away from the sofa, pulled back enough to show the subject inside the room and preserve the subject-to-furniture scale. The selected camera angle and orbit may vary the viewpoint around the same fixed living-room set, but must not replace the set, collapse into a tight portrait, or lose the sofa, concrete wall, dry branches, and coffee table as recognizable anchors',
     integrityEn: 'fixed set integrity: preserve the raw concrete wall, large brown vintage Chesterfield leather sofa, and bare sculptural branches as the selected set anchors, with the low coffee table, books, lamp, cup, and cushions available as interaction props',
     scaleGuardEn: 'normal adult-scale furniture-to-body relationship: standard adult two-seat sofa and normal-height coffee table; subject fits naturally on the seat plane or floor plane; do not enlarge the subject or shrink the sofa or table',
     replacementGuardEn: 'do not replace the fixed set with a plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room',
@@ -1017,6 +1019,12 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
 
 const FIXED_SET_POSITION_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定固定場景內的人物位置。', meta: { tags: ['none'] } },
+  {
+    id: 'sofa-free-interaction',
+    setId: 'concrete-wall-chesterfield-sofa',
+    zh: '自由場景互動',
+    en: 'subject placement is flexible and chosen naturally as one primary spatial zone within the fixed sofa set: sofa seating plane, floor plane in front of the sofa, coffee-table foreground, rolled armrest edge, wall-side space, dry-branch side area, off-center negative space, or close foreground layer while keeping the sofa recognizable. The sofa does not always need to physically support the subject; it may remain a background architecture anchor. Choose only one secondary interaction anchor such as the coffee table edge, art book, cup, lamp light, cushion, armrest, concrete wall, dry branches, floor plane, or foreground negative space. Do not default every image to a centered seated sofa pose',
+  },
   {
     id: 'sofa-foreground',
     setId: 'concrete-wall-chesterfield-sofa',
@@ -3525,6 +3533,10 @@ function getFixedCompositionSetOption(id) {
 
 function isFixedCompositionSetActive(item) {
   return Boolean(item && !isNoneLikeItem(item));
+}
+
+function fixedCompositionSetAllowsCameraVariation(item) {
+  return item?.id === FLEXIBLE_CAMERA_FIXED_SET_ID;
 }
 
 function getFixedSetPositionOption(id, fixedSetId) {
@@ -7074,11 +7086,16 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   };
   const addFixedCompositionSetLines = () => {
     if (!fixedCompositionSetActive) return;
+    const allowCameraVariation = fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet);
     addContextLine('Fixed Composition Set', context.fixedCompositionSet, (item) => skeletonText(item.en));
     addContextLine('Fixed Set Position', context.fixedSetPosition, (item) => skeletonText(item.en));
     addContextLine('Fixed Set Capture Mode', context.fixedSetCaptureMode, (item) => skeletonText(item.en));
     addContextLine('Fixed Set Performance State', context.fixedSetPerformanceState, (item) => skeletonText(item.en));
     addLine('Fixed Set Integrity', skeletonText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)));
+    if (allowCameraVariation) {
+      addContextLine('Angle', context.angle, (item) => skeletonText(resolvePromptVariant(item, 'angle', context.subject.count)));
+      addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(resolvePromptVariant(item, 'orbit', context.subject.count)));
+    }
     addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
     addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
   };
@@ -7788,12 +7805,15 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   };
   const buildSceneText = () => {
     if (fixedCompositionSetActive) {
+      const allowCameraVariation = fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet);
       return leadSentence('The portrait uses', [
         skeletonMode ? sanitizeSkeletonPromptText(context.fixedCompositionSet.en) : context.fixedCompositionSet.en,
         context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPosition.en) : context.fixedSetPosition.en) : '',
         context.fixedSetCaptureMode && !isNoneLikeItem(context.fixedSetCaptureMode) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en) : '',
         context.fixedSetPerformanceState && !isNoneLikeItem(context.fixedSetPerformanceState) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPerformanceState.en) : context.fixedSetPerformanceState.en) : '',
         skeletonMode ? sanitizeSkeletonPromptText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)) : buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode),
+        allowCameraVariation && context.angle && !isNoneLikeItem(context.angle) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
+        allowCameraVariation && context.orbit && !isNoneLikeItem(context.orbit) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
         context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
         lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
       ]);
@@ -7884,10 +7904,10 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context) {
   } = buildPromptSectionSources(valuesByLabel, context);
   const parts = [
     compactAiSentence(imageType, 1),
-    sceneText ? (sceneUsesDirectSentence ? compactAiSentence(sceneText, fixedCompositionSetActive ? 32 : 2) : `The scene is ${compactAiSentence(sceneText, fixedCompositionSetActive ? 32 : 2)}`) : '',
+    sceneText ? (sceneUsesDirectSentence ? compactAiSentence(sceneText, fixedCompositionSetActive ? 72 : 2) : `The scene is ${compactAiSentence(sceneText, fixedCompositionSetActive ? 72 : 2)}`) : '',
     subjectText ? `${subjectLead} ${compactAiSentence(subjectText, 4)}` : '',
     wardrobeText ? (wardrobeUsesDirectSentence ? compactAiSentence(wardrobeText, 6) : `${wardrobeLead} ${compactAiSentence(wardrobeText, 6)}`) : '',
-    poseText ? `Pose and composition: ${compactAiSentence(poseText, 5)}` : '',
+    poseText ? `Pose and composition: ${compactAiSentence(poseText, fixedCompositionSetActive ? 10 : 5)}` : '',
     lightingText ? `Lighting: ${compactAiSentence(lightingText, 3)}` : '',
     cameraText ? `Camera look: ${compactAiSentence(cameraText, 3)}` : '',
     constraintsText ? `Keep ${compactAiSentence(constraintsText, 3)}` : '',
@@ -8101,16 +8121,23 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
   const selectedFixedCompositionSet = getFixedCompositionSetOption(effectiveLocks.fixedCompositionSetId);
   const fixedCompositionSetActive = isFixedCompositionSetActive(selectedFixedCompositionSet) && effectiveLocks.subjectCount !== '2';
+  const fixedSetCameraVariationActive = fixedCompositionSetActive && fixedCompositionSetAllowsCameraVariation(selectedFixedCompositionSet);
   if (fixedCompositionSetActive) {
     effectiveLocks.sceneAttributeId = '';
     effectiveLocks.importedWorldSceneMode = 'none';
     effectiveLocks.importedWorldSceneLabel = '';
     effectiveLocks.importedWorldSceneArchitectureText = '';
 
-    ['locationId', 'framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId'].forEach((key) => {
+    ['locationId', 'framingId', 'lensId', 'opticalEffectId'].forEach((key) => {
       const noneOption = getControlOptionByZh(lockControls, key, '全無');
       effectiveLocks[key] = noneOption?.id || '';
     });
+    if (!fixedSetCameraVariationActive) {
+      ['angleId', 'orbitId'].forEach((key) => {
+        const noneOption = getControlOptionByZh(lockControls, key, '全無');
+        effectiveLocks[key] = noneOption?.id || '';
+      });
+    }
 
     const requestedStyle = getControlOptionById(lockControls, 'styleId', locks.styleId);
     if (requestedStyle) effectiveLocks.styleId = requestedStyle.id;

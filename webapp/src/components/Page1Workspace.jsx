@@ -72,16 +72,16 @@ const WARDROBE_DRESS_PICKER_KEYS = new Set(['dressId', 'dressAId', 'dressBId']);
 const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'];
 const POSE_COMPOSER_CONTEXT_KEYS = new Set(['poseArrangementId', 'poseAnchorId']);
 const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting', 'lying']);
+const FLEXIBLE_CAMERA_FIXED_SET_ID = 'concrete-wall-chesterfield-sofa';
 const FIXED_SET_KEYS = ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'];
 const FIXED_SET_LOCKED_KEYS = [
   'sceneAttributeId',
   'locationId',
   'framingId',
-  'angleId',
-  'orbitId',
   'lensId',
   'opticalEffectId',
 ];
+const FIXED_SET_STRICT_CAMERA_KEYS = ['angleId', 'orbitId'];
 
 const NAMED_COLOR_SWATCHES = {
   black: ['#111111'],
@@ -712,6 +712,7 @@ export default function Page1Workspace({
     && Boolean(locks.fixedCompositionSetId)
     && !isNoneSelected('fixedCompositionSetId', locks.fixedCompositionSetId, lockControls);
   const selectedFixedCompositionSetId = fixedCompositionSetActive ? locks.fixedCompositionSetId : '';
+  const fixedSetAllowsCameraVariation = selectedFixedCompositionSetId === FLEXIBLE_CAMERA_FIXED_SET_ID;
   const wardrobeLayerInsights = useMemo(
     () => buildWardrobeLayerInsights(locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive),
     [locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive],
@@ -813,6 +814,7 @@ export default function Page1Workspace({
     || (isWormEyeAngle && ['styleId', 'lensId', 'opticalEffectId'].includes(control.key))
     || (FIXED_SET_KEYS.includes(control.key) && locks.subjectCount === '2')
     || (fixedCompositionSetActive && FIXED_SET_LOCKED_KEYS.includes(control.key))
+    || (fixedCompositionSetActive && !fixedSetAllowsCameraVariation && FIXED_SET_STRICT_CAMERA_KEYS.includes(control.key))
     || (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1')
     || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
     || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
@@ -837,10 +839,16 @@ export default function Page1Workspace({
           next.importedWorldSceneMode = 'none';
           next.importedWorldSceneLabel = '';
           next.importedWorldSceneArchitectureText = '';
-          ['framingId', 'angleId', 'orbitId', 'lensId', 'opticalEffectId'].forEach((key) => {
+          ['framingId', 'lensId', 'opticalEffectId'].forEach((key) => {
             const noneOption = lockControls.find((item) => item.key === key)?.options?.find((option) => option.zh === '全無');
             next[key] = noneOption?.id || '';
           });
+          if (value !== FLEXIBLE_CAMERA_FIXED_SET_ID) {
+            FIXED_SET_STRICT_CAMERA_KEYS.forEach((key) => {
+              const noneOption = lockControls.find((item) => item.key === key)?.options?.find((option) => option.zh === '全無');
+              next[key] = noneOption?.id || '';
+            });
+          }
           const selectedPosition = lockControls.find((item) => item.key === 'fixedSetPositionId')?.options?.find((option) => option.id === prev.fixedSetPositionId);
           if (selectedPosition?.setId && selectedPosition.setId !== value) {
             next.fixedSetPositionId = 'none';

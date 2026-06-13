@@ -22,6 +22,7 @@ test('fixed composition controls expose three sets and fixed-set-only option gro
   );
 
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發座面中央'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '自由場景互動'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '床邊靠窗'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '浴缸前景遮擋'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發扶手前景遮擋'));
@@ -55,11 +56,11 @@ test('fixed composition capture mode and performance state can be set to none', 
   assert.doesNotMatch(prompt.midjourneyPrompt, /photographer-shot fixed set portrait|self-shot social composition feeling|model natural performance/);
 });
 
-test('fixed composition set overrides normal location, PAGE3 import, camera geometry, and optical effect without binding aspect ratio', () => {
+test('sofa fixed composition keeps flexible camera angle and orbit while overriding normal location, PAGE3 import, framing, lens, and optical effect', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     fixedCompositionSetId: optionId('fixedCompositionSetId', '清水模牆面沙發棚'),
-    fixedSetPositionId: optionId('fixedSetPositionId', '沙發座面中央'),
+    fixedSetPositionId: optionId('fixedSetPositionId', '自由場景互動'),
     fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '攝影師拍攝'),
     fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '自信力量感'),
     importedWorldSceneMode: 'architecture',
@@ -69,8 +70,8 @@ test('fixed composition set overrides normal location, PAGE3 import, camera geom
     locationId: optionId('locationId', '戶外：首爾聖水洞街區'),
     aspectRatio: optionId('aspectRatio', '9:16 手機直式'),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
-    angleId: optionId('angleId', '蟲眼視角鏡頭'),
-    orbitId: optionId('orbitId', '背面 180 度'),
+    angleId: optionId('angleId', '肩部高度鏡頭'),
+    orbitId: optionId('orbitId', '右前 315 度'),
     lensId: optionId('lensId', '135mm 長焦壓縮'),
     opticalEffectId: optionId('opticalEffectId', '前景遮擋散景'),
     lightingId: optionId('lightingId', '室內暖光夜景'),
@@ -80,7 +81,7 @@ test('fixed composition set overrides normal location, PAGE3 import, camera geom
   });
 
   assert.equal(prompt.selection.fixedCompositionSetId, optionId('fixedCompositionSetId', '清水模牆面沙發棚'));
-  assert.equal(prompt.selection.fixedSetPositionId, optionId('fixedSetPositionId', '沙發座面中央'));
+  assert.equal(prompt.selection.fixedSetPositionId, optionId('fixedSetPositionId', '自由場景互動'));
   assert.equal(prompt.selection.fixedSetCaptureModeId, optionId('fixedSetCaptureModeId', '攝影師拍攝'));
   assert.equal(prompt.selection.fixedSetPerformanceStateId, optionId('fixedSetPerformanceStateId', '自信力量感'));
   assert.equal(prompt.selection.aspectRatio, optionId('aspectRatio', '9:16 手機直式'));
@@ -88,16 +89,21 @@ test('fixed composition set overrides normal location, PAGE3 import, camera geom
   assert.equal(prompt.selection.importedWorldSceneMode, 'none');
   assert.equal(prompt.selection.sceneAttributeId, '');
   assert.equal(prompt.selection.framingId, optionId('framingId', '全無'));
-  assert.equal(prompt.selection.angleId, optionId('angleId', '全無'));
-  assert.equal(prompt.selection.orbitId, optionId('orbitId', '全無'));
+  assert.equal(prompt.selection.angleId, optionId('angleId', '肩部高度鏡頭'));
+  assert.equal(prompt.selection.orbitId, optionId('orbitId', '右前 315 度'));
   assert.equal(prompt.selection.lensId, optionId('lensId', '全無'));
   assert.equal(prompt.selection.opticalEffectId, optionId('opticalEffectId', '全無'));
 
   assert.match(prompt.grokPrompt, /Fixed Composition Set:/);
   assert.match(prompt.grokPrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.grokPrompt, /large brown vintage Chesterfield leather sofa/);
+  assert.match(prompt.grokPrompt, /approximately 3 to 4 meters away from the sofa/);
+  assert.match(prompt.grokPrompt, /selected camera angle and orbit may vary/);
   assert.match(prompt.grokPrompt, /low coffee table/);
-  assert.match(prompt.grokPrompt, /subject placed on the sofa seat plane/);
+  assert.match(prompt.grokPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone/);
+  assert.match(prompt.grokPrompt, /Do not default every image to a centered seated sofa pose/);
+  assert.match(prompt.grokPrompt, /shoulder-level camera position/);
+  assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
   assert.match(prompt.grokPrompt, /photographer-shot fixed set portrait/);
   assert.match(prompt.grokPrompt, /confident powerful presence/);
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*indoor warm night environment/);
@@ -114,15 +120,38 @@ test('fixed composition set overrides normal location, PAGE3 import, camera geom
 
   assert.match(prompt.zImagePrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.zImagePrompt, /large brown vintage Chesterfield leather sofa/);
-  assert.match(prompt.zImagePrompt, /subject placed on the sofa seat plane/);
+  assert.match(prompt.zImagePrompt, /approximately 3 to 4 meters away from the sofa/);
+  assert.match(prompt.zImagePrompt, /subject placement is flexible and chosen naturally as one primary spatial zone/);
+  assert.match(prompt.zImagePrompt, /shoulder-level camera position/);
+  assert.match(prompt.zImagePrompt, /camera at the subject's front-right/);
   assert.doesNotMatch(prompt.zImagePrompt, /1:1 square|16:9|9:16|aspect ratio/i);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
 
   assert.match(prompt.midjourneyPrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.midjourneyPrompt, /large brown vintage Chesterfield leather sofa/);
-  assert.match(prompt.midjourneyPrompt, /subject placed on the sofa seat plane/);
+  assert.match(prompt.midjourneyPrompt, /approximately 3 to 4 meters away from the sofa/);
+  assert.match(prompt.midjourneyPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone/);
+  assert.match(prompt.midjourneyPrompt, /shoulder-level camera position/);
+  assert.match(prompt.midjourneyPrompt, /camera at the subject's front-right/);
   assert.match(prompt.midjourneyPrompt, /confident powerful presence/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
+});
+
+test('non-sofa fixed composition keeps strict camera angle and orbit locks', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '復古磁磚浴室浴缸'),
+    fixedSetPositionId: optionId('fixedSetPositionId', '浴缸內中央'),
+    angleId: optionId('angleId', '肩部高度鏡頭'),
+    orbitId: optionId('orbitId', '右前 315 度'),
+  });
+
+  assert.equal(prompt.selection.angleId, optionId('angleId', '全無'));
+  assert.equal(prompt.selection.orbitId, optionId('orbitId', '全無'));
+  assert.doesNotMatch(prompt.grokPrompt, /Angle:\nshoulder-level camera position/);
+  assert.doesNotMatch(prompt.grokPrompt, /Orbit Angle:\ncamera at the subject's front-right/);
+  assert.doesNotMatch(prompt.zImagePrompt, /shoulder-level camera position/);
+  assert.doesNotMatch(prompt.zImagePrompt, /camera at the subject's front-right/);
 });
 
 test('self-shot fixed composition mode relaxes set, focus, face, and wardrobe completeness guards', () => {
@@ -179,8 +208,8 @@ test('fixed composition prompts reinforce set anchors while allowing self-shot f
 
   assert.match(prompt.zImagePrompt, /at least one or two selected set anchors must remain recognizable/);
   assert.match(prompt.zImagePrompt, /normal adult-scale furniture-to-body relationship/);
-  assert.match(prompt.midjourneyPrompt, /do not replace the fixed set/);
-  assert.match(prompt.midjourneyPrompt, /normal adult-scale furniture-to-body relationship/);
+  assert.match(prompt.midjourneyPrompt, /must not replace the set/);
+  assert.match(prompt.midjourneyPrompt, /subject-to-furniture scale/);
 });
 
 test('bathtub fixed composition keeps a frontal wall plane and sink mirror interaction anchors', () => {
