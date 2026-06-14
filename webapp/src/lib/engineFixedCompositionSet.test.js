@@ -15,6 +15,12 @@ function optionId(controlKey, zh) {
   return option.id;
 }
 
+function optionIdByRawId(controlKey, id) {
+  const option = control(controlKey).options.find((entry) => entry.id === id);
+  assert.ok(option, `Expected option id ${id} in ${controlKey}`);
+  return option.id;
+}
+
 test('fixed composition controls expose three sets and fixed-set-only option groups', () => {
   assert.deepEqual(
     control('fixedCompositionSetId').options.map((entry) => entry.zh),
@@ -23,8 +29,10 @@ test('fixed composition controls expose three sets and fixed-set-only option gro
 
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發座面中央'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '自由場景互動'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.id === 'hotel-free-interaction'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '床邊靠窗'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '浴缸前景遮擋'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.id === 'bathtub-free-interaction'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發扶手前景遮擋'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '床單前景遮擋'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '泡泡前景遮擋'));
@@ -137,21 +145,88 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
 });
 
-test('non-sofa fixed composition keeps strict camera angle and orbit locks', () => {
+test('hotel and bathtub fixed compositions preserve camera angle and orbit locks', () => {
+  const cases = [
+    {
+      setZh: '高級飯店落地窗都市夜景',
+      positionId: 'hotel-free-interaction',
+      angleZh: '肩部高度鏡頭',
+      orbitZh: '右前 315 度',
+      angleText: /shoulder-level camera position/,
+      orbitText: /camera at the subject's front-right/,
+    },
+    {
+      setZh: '復古磁磚浴室浴缸',
+      positionId: 'bathtub-free-interaction',
+      angleZh: '高位俯視鏡頭',
+      orbitZh: '左前 45 度',
+      angleText: /high camera position above the subject's head/,
+      orbitText: /camera at the subject's front-left/,
+    },
+  ];
+
+  cases.forEach((cameraCase) => {
+    const angleId = optionId('angleId', cameraCase.angleZh);
+    const orbitId = optionId('orbitId', cameraCase.orbitZh);
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      fixedCompositionSetId: optionId('fixedCompositionSetId', cameraCase.setZh),
+      fixedSetPositionId: optionIdByRawId('fixedSetPositionId', cameraCase.positionId),
+      angleId,
+      orbitId,
+    });
+
+    assert.equal(prompt.selection.angleId, angleId);
+    assert.equal(prompt.selection.orbitId, orbitId);
+    assert.match(prompt.grokPrompt, cameraCase.angleText);
+    assert.match(prompt.grokPrompt, cameraCase.orbitText);
+    assert.match(prompt.zImagePrompt, cameraCase.angleText);
+    assert.match(prompt.zImagePrompt, cameraCase.orbitText);
+    assert.match(prompt.midjourneyPrompt, cameraCase.angleText);
+    assert.match(prompt.midjourneyPrompt, cameraCase.orbitText);
+  });
+});
+
+test('hotel window fixed composition uses shared real-scale set structure and free interaction placement', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    fixedCompositionSetId: optionId('fixedCompositionSetId', '復古磁磚浴室浴缸'),
-    fixedSetPositionId: optionId('fixedSetPositionId', '浴缸內中央'),
-    angleId: optionId('angleId', '肩部高度鏡頭'),
-    orbitId: optionId('orbitId', '右前 315 度'),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '高級飯店落地窗都市夜景'),
+    fixedSetPositionId: optionIdByRawId('fixedSetPositionId', 'hotel-free-interaction'),
+    fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '攝影師拍攝'),
+    fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '都市疲憊感'),
+    aspectRatio: optionId('aspectRatio', '9:16 手機直式'),
+    locationId: optionId('locationId', '室內：英倫復古窗邊房間'),
   });
 
-  assert.equal(prompt.selection.angleId, optionId('angleId', '全無'));
-  assert.equal(prompt.selection.orbitId, optionId('orbitId', '全無'));
-  assert.doesNotMatch(prompt.grokPrompt, /Angle:\nshoulder-level camera position/);
-  assert.doesNotMatch(prompt.grokPrompt, /Orbit Angle:\ncamera at the subject's front-right/);
-  assert.doesNotMatch(prompt.zImagePrompt, /shoulder-level camera position/);
-  assert.doesNotMatch(prompt.zImagePrompt, /camera at the subject's front-right/);
+  assert.equal(prompt.selection.fixedSetPositionId, 'hotel-free-interaction');
+  assert.equal(prompt.selection.aspectRatio, optionId('aspectRatio', '9:16 手機直式'));
+  assert.equal(prompt.selection.locationId, optionId('locationId', '全無'));
+
+  assert.match(prompt.grokPrompt, /real-scale luxury hotel room editorial set/);
+  assert.match(prompt.grokPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
+  assert.match(prompt.grokPrompt, /one broad mostly uninterrupted glass plane/);
+  assert.match(prompt.grokPrompt, /Avoid grid-like window panels, heavy black frames, boxed window sections/);
+  assert.match(prompt.grokPrompt, /approximately 3 to 5 meters away from the bed and glass wall/);
+  assert.match(prompt.grokPrompt, /subject-to-bed and subject-to-window scale/);
+  assert.match(prompt.grokPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed hotel-window set/);
+  assert.match(prompt.grokPrompt, /Do not default every image to a centered subject sitting on the bed/);
+  assert.match(prompt.grokPrompt, /fixed-scene shared structure/);
+  assert.match(prompt.grokPrompt, /normal adult-scale hotel furniture-to-body relationship/);
+  assert.match(prompt.grokPrompt, /urban fatigue presence/);
+  assert.doesNotMatch(prompt.grokPrompt, /British vintage room with window-side interior/);
+  assert.doesNotMatch(prompt.grokPrompt, /Aspect Ratio:/);
+  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+
+  assert.match(prompt.zImagePrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
+  assert.match(prompt.zImagePrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed hotel-window set/);
+  assert.match(prompt.zImagePrompt, /normal adult-scale hotel furniture-to-body relationship/);
+  assert.doesNotMatch(prompt.zImagePrompt, /1:1 square|16:9|9:16|aspect ratio/i);
+
+  assert.match(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set/);
+  assert.match(prompt.midjourneyPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
+  assert.match(prompt.midjourneyPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed hotel-window set/);
+  assert.match(prompt.midjourneyPrompt, /normal adult-scale hotel furniture-to-body relationship/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
 });
 
 test('self-shot fixed composition mode relaxes set, focus, face, and wardrobe completeness guards', () => {
@@ -167,8 +242,8 @@ test('self-shot fixed composition mode relaxes set, focus, face, and wardrobe co
     poseHandId: 'model-natural-hand-placement',
   });
 
-  assert.match(prompt.grokPrompt, /ultra-large panoramic floor-to-ceiling glass wall/);
-  assert.match(prompt.grokPrompt, /one continuous clear window surface/);
+  assert.match(prompt.grokPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
+  assert.match(prompt.grokPrompt, /one broad mostly uninterrupted glass plane/);
   assert.match(prompt.grokPrompt, /Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors/);
   assert.match(prompt.grokPrompt, /subject close to the camera or bed foreground/);
   assert.match(prompt.grokPrompt, /focus may fall on the background or set objects instead of the face/);
@@ -183,10 +258,10 @@ test('self-shot fixed composition mode relaxes set, focus, face, and wardrobe co
   assert.doesNotMatch(prompt.grokPrompt, /preserve the selected environment as a visible, recognizable background/);
 
   assert.match(prompt.zImagePrompt, /imperfect self-shot camera behavior/);
-  assert.match(prompt.zImagePrompt, /ultra-large panoramic floor-to-ceiling glass wall/);
+  assert.match(prompt.zImagePrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
   assert.match(prompt.zImagePrompt, /no visible phone required/);
   assert.match(prompt.midjourneyPrompt, /focus may fall on the background or set objects instead of the face/);
-  assert.match(prompt.midjourneyPrompt, /ultra-large panoramic floor-to-ceiling glass wall/);
+  assert.match(prompt.midjourneyPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
 });
 
 test('fixed composition prompts reinforce set anchors while allowing self-shot fragments', () => {
@@ -216,32 +291,49 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     fixedCompositionSetId: optionId('fixedCompositionSetId', '復古磁磚浴室浴缸'),
-    fixedSetPositionId: optionId('fixedSetPositionId', '浴缸前景遮擋'),
+    fixedSetPositionId: optionIdByRawId('fixedSetPositionId', 'bathtub-free-interaction'),
     fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '攝影師拍攝'),
     aspectRatio: optionId('aspectRatio', '9:16 手機直式'),
+    angleId: optionId('angleId', '全無'),
+    orbitId: optionId('orbitId', '全無'),
   });
 
   assert.equal(prompt.selection.aspectRatio, optionId('aspectRatio', '9:16 手機直式'));
-  assert.match(prompt.grokPrompt, /eye-level straight-on frontal camera/);
-  assert.match(prompt.grokPrompt, /bathtub shown broadside across the lower center/);
-  assert.match(prompt.grokPrompt, /wet vintage tile floor/);
-  assert.match(prompt.grokPrompt, /visible floor plane beneath and in front of the bathtub/);
-  assert.match(prompt.grokPrompt, /small puddles and water reflections/);
-  assert.match(prompt.grokPrompt, /subject fully soaked from head to toe/);
+  assert.equal(prompt.selection.fixedSetPositionId, 'bathtub-free-interaction');
+  assert.match(prompt.grokPrompt, /real-scale vintage bathroom editorial set/);
+  assert.match(prompt.grokPrompt, /freestanding clawfoot bathtub remains the main horizontal fixture across the lower room plane/);
+  assert.match(prompt.grokPrompt, /visible wet tile floor beneath and in front of the bathtub/);
+  assert.match(prompt.grokPrompt, /tub feet, tub rim, and full outer tub wall remaining readable/);
+  assert.match(prompt.grokPrompt, /small puddles, water trails, and floor reflections/);
+  assert.match(prompt.grokPrompt, /fully soaked from head to toe/);
   assert.match(prompt.grokPrompt, /wet hair, damp skin, and water-clinging wardrobe or bare skin/);
   assert.match(prompt.grokPrompt, /porcelain sink or vanity/);
   assert.match(prompt.grokPrompt, /mirror above it/);
-  assert.match(prompt.grokPrompt, /no diagonal corner view/);
-  assert.match(prompt.grokPrompt, /no 3\/4 bathroom angle/);
+  assert.match(prompt.grokPrompt, /approximately 2\.5 to 4 meters away from the bathtub/);
+  assert.match(prompt.grokPrompt, /subject-to-bathtub scale/);
+  assert.match(prompt.grokPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed bathtub set/);
+  assert.match(prompt.grokPrompt, /Do not default every image to a centered subject soaking in the tub/);
+  assert.match(prompt.grokPrompt, /selected camera angle and orbit may vary the viewpoint around the same fixed bathtub set/);
+  assert.match(prompt.grokPrompt, /fixed-scene shared structure/);
+  assert.match(prompt.grokPrompt, /normal adult-scale bathroom fixture-to-body relationship/);
+  assert.match(prompt.grokPrompt, /no camera from inside the tub/);
+  assert.match(prompt.grokPrompt, /no tight crop that removes the tub body or wet floor plane/);
+  assert.doesNotMatch(prompt.grokPrompt, /no diagonal corner view/);
+  assert.doesNotMatch(prompt.grokPrompt, /no 3\/4 bathroom angle/);
+  assert.doesNotMatch(prompt.grokPrompt, /no side-wall perspective/);
   assert.doesNotMatch(prompt.grokPrompt, /low horizontal camera view from the tub edge/);
   assert.doesNotMatch(prompt.grokPrompt, /camera near the tub edge or waterline/);
 
   assert.match(prompt.zImagePrompt, /porcelain sink or vanity/);
-  assert.match(prompt.zImagePrompt, /wet vintage tile floor/);
-  assert.match(prompt.zImagePrompt, /subject fully soaked from head to toe/);
-  assert.match(prompt.midjourneyPrompt, /mirror above it/);
-  assert.match(prompt.midjourneyPrompt, /wet vintage tile floor/);
-  assert.match(prompt.midjourneyPrompt, /subject fully soaked from head to toe/);
+  assert.match(prompt.zImagePrompt, /visible wet tile floor beneath and in front of the bathtub/);
+  assert.match(prompt.zImagePrompt, /fully soaked from head to toe/);
+  assert.match(prompt.zImagePrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed bathtub set/);
+  assert.match(prompt.zImagePrompt, /normal adult-scale bathroom fixture-to-body relationship/);
+  assert.match(prompt.midjourneyPrompt, /mirror above the sink/);
+  assert.match(prompt.midjourneyPrompt, /visible wet tile floor beneath and in front of the bathtub/);
+  assert.match(prompt.midjourneyPrompt, /fully soaked from head to toe/);
+  assert.match(prompt.midjourneyPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed bathtub set/);
+  assert.match(prompt.midjourneyPrompt, /normal adult-scale bathroom fixture-to-body relationship/);
 });
 
 test('fixed composition sets are ignored for duo mode in V1', () => {

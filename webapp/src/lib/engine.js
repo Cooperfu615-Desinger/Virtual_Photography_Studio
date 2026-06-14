@@ -980,7 +980,7 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
   },
 ];
 
-const FLEXIBLE_CAMERA_FIXED_SET_ID = 'concrete-wall-chesterfield-sofa';
+const FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-scene shared structure: describe the real-scale interior space and stable set anchors before the subject; treat the set as scene architecture, not a flat backdrop or face-only portrait; subject placement, pose, and crop may vary inside the same set while preserving believable adult body-to-furniture and body-to-prop scale';
 
 const FIXED_COMPOSITION_SET_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不使用固定構圖場景。', meta: { tags: ['none'] } },
@@ -998,8 +998,9 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
   {
     id: 'luxury-hotel-window-nyc',
     zh: '高級飯店落地窗都市夜景',
-    en: 'The portrait takes place inside a real-scale luxury hotel room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: an ultra-large panoramic floor-to-ceiling glass wall fills almost the entire back plane, like one continuous clear window surface overlooking a New York-style high-rise city skyline. The glass should feel broad, open, and mostly uninterrupted, with only minimal slim structural seams near the far edges if needed. Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors, or apartment-style segmented windows. A bed with soft white rumpled bedding occupies the lower part of the room, with pillows, a bedside table, wine glass, open book, warm hotel lamp, and subtle room-depth details as readable interaction props. Use an eye-level straight-on frontal camera, pulled back enough to show the subject inside the room',
+    en: 'The portrait takes place inside a real-scale luxury hotel room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: an oversized near-wall-to-wall panoramic floor-to-ceiling glass wall dominates the back plane as one broad mostly uninterrupted glass plane overlooking a New York-style high-rise skyline. The glass should feel open, expansive, and lightly reflective, with only a few slim structural seams near the far edges if needed. Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors, or apartment-style segmented windows. A hotel bed with soft white rumpled bedding occupies the lower room plane, with pillows, a bedside table, wine glass, open book, warm hotel lamp, curtain edges, and subtle room-depth props as readable interaction anchors. Use a medium-wide editorial camera position approximately 3 to 5 meters away from the bed and glass wall, pulled back enough to show the subject inside the room and preserve the subject-to-bed and subject-to-window scale. The viewpoint may vary around the same fixed hotel-window set, but must not replace the set, collapse into a tight portrait, or lose the panoramic glass wall, New York skyline, bed or bedding, and warm bedside lamp as recognizable anchors',
     integrityEn: 'fixed set integrity: preserve the oversized panoramic glass wall, New York-style skyline, bed or bedding foreground, pillows, bedside table, wine glass, book, and warm hotel lamp as the selected set anchors',
+    scaleGuardEn: 'normal adult-scale hotel furniture-to-body relationship: full-size hotel bed, normal-height bedside table, and room-height panoramic glass wall; subject fits naturally on the bed plane, floor plane, or window-side plane; do not enlarge the subject or shrink the bed, table, or window wall',
     replacementGuardEn: 'do not replace the fixed set with a generic bedroom, plain wall, cafe, outdoor street, studio backdrop, or unrelated hotel room',
     desc: '高級飯店房間、床面前景、超大片連續落地玻璃牆與紐約式高樓城市背景構成的窗景 set。',
     aspectRatioId: '1:1',
@@ -1008,10 +1009,11 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
   {
     id: 'retro-tile-bathtub',
     zh: '復古磁磚浴室浴缸',
-    en: 'fixed bathroom set, eye-level straight-on frontal camera, freestanding clawfoot bathtub shown broadside across the lower center of the frame and parallel to the camera, visible floor plane beneath and in front of the bathtub, wet vintage tile floor, small puddles and water reflections on the floor, flat frontal vintage tiled bathroom wall behind the bathtub, porcelain sink or vanity on one side with a mirror above it, chrome faucet hardware, wall lamp, folded towels, bath bottles, small wooden stool, foam or water surface, subtle steam, subject fully soaked from head to toe with wet hair, damp skin, and water-clinging wardrobe or bare skin',
-    integrityEn: 'fixed set integrity: preserve the broadside bathtub, visible wet vintage tile floor plane, flat frontal vintage tiled wall, porcelain sink or vanity, mirror above it, foam or water surface, chrome bath hardware, puddles, and water reflections as the selected set anchors',
-    replacementGuardEn: 'do not replace the fixed set with a shower room, bedroom, pool, plain studio backdrop, spa lobby, or unrelated bathroom; no diagonal corner view, no 3/4 bathroom angle, no side-wall perspective, no camera from inside the tub, no low tub-edge POV, no overhead angle, no dutch tilt',
-    desc: '復古磁磚浴室、正面橫置浴缸、洗臉台、鏡子、壁燈、毛巾與瓶罐構成的浴室 set。',
+    en: 'The portrait takes place inside a real-scale vintage bathroom editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: a freestanding clawfoot bathtub remains the main horizontal fixture across the lower room plane, with the visible wet tile floor beneath and in front of the bathtub, tub feet, tub rim, and full outer tub wall remaining readable from the selected camera angle. A flat aged tile-and-plaster bathroom wall fills the back plane, with a porcelain sink or vanity on one side, a mirror above the sink, chrome faucet and shower hardware, wall lamp, folded towels, bath bottles, a small wooden stool, foam or water surface, subtle steam, small puddles, water trails, and floor reflections as readable interaction anchors. Subject wetness condition: fully soaked from head to toe with wet hair, damp skin, and water-clinging wardrobe or bare skin, and the surrounding bathroom can also feel wet with puddles and reflected practical light. Use a medium-wide editorial camera position approximately 2.5 to 4 meters away from the bathtub, pulled back enough to keep the full bathtub body, tub feet, wet floor plane, sink or vanity, and mirror visible where possible while preserving subject-to-bathtub scale. The selected camera angle and orbit may vary the viewpoint around the same fixed bathtub set, but must not replace the set, collapse into a tight portrait, shoot from inside the tub, or lose the bathtub, wet floor, tiled wall, sink, and mirror as recognizable anchors',
+    integrityEn: 'fixed set integrity: preserve the clawfoot bathtub, visible wet vintage tile floor plane, full tub body and feet, aged tiled wall, porcelain sink or vanity, mirror above it, foam or water surface, chrome bath hardware, puddles, water trails, and floor reflections as the selected set anchors',
+    scaleGuardEn: 'normal adult-scale bathroom fixture-to-body relationship: full-size clawfoot bathtub, normal-height sink or vanity, readable mirror, and visible wet floor plane; subject fits naturally inside the tub, beside the tub, on the floor plane, or near the sink; do not enlarge the subject or shrink the bathtub, sink, mirror, stool, or floor plane',
+    replacementGuardEn: 'do not replace the fixed set with a shower room, bedroom, pool, plain studio backdrop, spa lobby, or unrelated bathroom; no camera from inside the tub, no low tub-edge POV, no dutch tilt, no tight crop that removes the tub body or wet floor plane',
+    desc: '真實比例復古磁磚浴室、正面橫置爪足浴缸、濕地板、洗臉台、鏡子、壁燈、毛巾與瓶罐構成的浴室 set。',
     aspectRatioId: '1:1',
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'bathtub_set', 'square_set'] },
   },
@@ -1056,6 +1058,12 @@ const FIXED_SET_POSITION_OPTIONS = [
     en: 'subject on the floor plane near the sofa but off center, allowing asymmetrical spacing, cropped limbs, or casual distance from the sofa without prescribing an exact pose',
   },
   {
+    id: 'hotel-free-interaction',
+    setId: 'luxury-hotel-window-nyc',
+    zh: '自由場景互動',
+    en: 'subject placement is flexible and chosen naturally as one primary spatial zone within the fixed hotel-window set: bed surface, bed edge, window-side floor plane, bedside-table side, curtain edge, pillow foreground, rumpled-bedding foreground, close foreground layer, or off-center negative space while keeping the panoramic glass wall and skyline recognizable. The bed does not always need to physically support the subject; it may remain a foreground or side architecture anchor. Choose only one secondary interaction anchor such as bedding, pillow, open book, wine glass, warm lamp, bedside table, curtain, glass reflection, skyline view, or room floor. Do not default every image to a centered subject sitting on the bed',
+  },
+  {
     id: 'hotel-bed-foreground',
     setId: 'luxury-hotel-window-nyc',
     zh: '近鏡頭床面前景',
@@ -1084,6 +1092,12 @@ const FIXED_SET_POSITION_OPTIONS = [
     setId: 'luxury-hotel-window-nyc',
     zh: '床單前景遮擋',
     en: 'soft bedding or pillow shapes become a foreground occlusion layer in front of the subject, with the body distance and exact interaction left to the image model',
+  },
+  {
+    id: 'bathtub-free-interaction',
+    setId: 'retro-tile-bathtub',
+    zh: '自由場景互動',
+    en: 'subject placement is flexible and chosen naturally as one primary spatial zone within the fixed bathtub set: inside the bathtub, on the bathtub rim, beside the tub on the wet floor, near the sink and mirror, by the chrome faucet hardware, stool-side foreground, towel foreground, foam-covered water surface, close foreground layer, or off-center negative space while keeping the broadside bathtub and wet tile floor recognizable. The bathtub does not always need to physically contain the subject; it may remain the central fixture anchor. Choose only one secondary interaction anchor such as tub rim, foam, water surface, puddle reflection, sink, mirror, faucet hardware, towel, bath bottle, stool, or wet floor. Do not default every image to a centered subject soaking in the tub',
   },
   {
     id: 'bathtub-center',
@@ -3536,7 +3550,7 @@ function isFixedCompositionSetActive(item) {
 }
 
 function fixedCompositionSetAllowsCameraVariation(item) {
-  return item?.id === FLEXIBLE_CAMERA_FIXED_SET_ID;
+  return isFixedCompositionSetActive(item);
 }
 
 function getFixedSetPositionOption(id, fixedSetId) {
@@ -3559,6 +3573,7 @@ function isFixedSetSelfShotMode(captureMode) {
 
 function buildFixedSetIntegrityText(fixedSet, captureMode) {
   if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
+  const sharedStructureText = fixedSet.sharedStructureEn || FIXED_COMPOSITION_SHARED_STRUCTURE_EN;
   const integrityText = fixedSet.integrityEn || '';
   const scaleGuardText = fixedSet.scaleGuardEn || '';
   const replacementGuardText = fixedSet.replacementGuardEn || 'do not replace the fixed set with an unrelated scene';
@@ -3566,7 +3581,7 @@ function buildFixedSetIntegrityText(fixedSet, captureMode) {
     ? 'self-shot crop may hide parts of the set, but at least one or two selected set anchors must remain recognizable'
     : 'keep the fixed set clearly readable as the stable scene architecture';
 
-  return [integrityText, scaleGuardText, readabilityText, replacementGuardText].filter(Boolean).join('; ');
+  return [sharedStructureText, scaleGuardText, integrityText, readabilityText, replacementGuardText].filter(Boolean).join('; ');
 }
 
 function getLightingEnvironmentFlags(lighting) {
@@ -7091,11 +7106,11 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addContextLine('Fixed Set Position', context.fixedSetPosition, (item) => skeletonText(item.en));
     addContextLine('Fixed Set Capture Mode', context.fixedSetCaptureMode, (item) => skeletonText(item.en));
     addContextLine('Fixed Set Performance State', context.fixedSetPerformanceState, (item) => skeletonText(item.en));
-    addLine('Fixed Set Integrity', skeletonText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)));
     if (allowCameraVariation) {
       addContextLine('Angle', context.angle, (item) => skeletonText(resolvePromptVariant(item, 'angle', context.subject.count)));
       addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(resolvePromptVariant(item, 'orbit', context.subject.count)));
     }
+    addLine('Fixed Set Integrity', skeletonText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)));
     addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
     addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
   };
@@ -7811,9 +7826,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPosition.en) : context.fixedSetPosition.en) : '',
         context.fixedSetCaptureMode && !isNoneLikeItem(context.fixedSetCaptureMode) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en) : '',
         context.fixedSetPerformanceState && !isNoneLikeItem(context.fixedSetPerformanceState) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPerformanceState.en) : context.fixedSetPerformanceState.en) : '',
-        skeletonMode ? sanitizeSkeletonPromptText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)) : buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode),
         allowCameraVariation && context.angle && !isNoneLikeItem(context.angle) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
         allowCameraVariation && context.orbit && !isNoneLikeItem(context.orbit) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
+        skeletonMode ? sanitizeSkeletonPromptText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)) : buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode),
         context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
         lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
       ]);
