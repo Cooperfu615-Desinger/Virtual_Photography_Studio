@@ -102,7 +102,9 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.equal(prompt.selection.lensId, optionId('lensId', '全無'));
   assert.equal(prompt.selection.opticalEffectId, optionId('opticalEffectId', '全無'));
 
-  assert.match(prompt.grokPrompt, /Fixed Composition Set:/);
+  assert.match(prompt.grokPrompt, /Scene:\nThe portrait takes place inside a real-scale compact living-room editorial set/);
+  assert.doesNotMatch(prompt.grokPrompt, /The portrait takes place in Fixed Composition Set/);
+  assert.doesNotMatch(prompt.grokPrompt, /Fixed Composition Set:|Fixed Set Position:|Fixed Set Capture Mode:|Fixed Set Performance State:|Fixed Set Integrity:/);
   assert.match(prompt.grokPrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.grokPrompt, /large brown vintage Chesterfield leather sofa/);
   assert.match(prompt.grokPrompt, /approximately 3 to 4 meters away from the sofa/);
@@ -273,7 +275,7 @@ test('fixed composition prompts reinforce set anchors while allowing self-shot f
     fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '夢遊恍神感'),
   });
 
-  assert.match(prompt.grokPrompt, /Fixed Set Integrity:/);
+  assert.doesNotMatch(prompt.grokPrompt, /Fixed Composition Set:|Fixed Set Position:|Fixed Set Capture Mode:|Fixed Set Performance State:|Fixed Set Integrity:/);
   assert.match(prompt.grokPrompt, /raw concrete wall, large brown vintage Chesterfield leather sofa, and bare sculptural branches/);
   assert.match(prompt.grokPrompt, /normal adult-scale furniture-to-body relationship/);
   assert.match(prompt.grokPrompt, /do not enlarge the subject or shrink the sofa/);
@@ -300,6 +302,9 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
 
   assert.equal(prompt.selection.aspectRatio, optionId('aspectRatio', '9:16 手機直式'));
   assert.equal(prompt.selection.fixedSetPositionId, 'bathtub-free-interaction');
+  assert.match(prompt.grokPrompt, /Scene:\nThe portrait takes place inside a real-scale vintage bathroom editorial set/);
+  assert.doesNotMatch(prompt.grokPrompt, /The portrait takes place in Fixed Composition Set/);
+  assert.doesNotMatch(prompt.grokPrompt, /Fixed Composition Set:|Fixed Set Position:|Fixed Set Integrity:/);
   assert.match(prompt.grokPrompt, /real-scale vintage bathroom editorial set/);
   assert.match(prompt.grokPrompt, /freestanding clawfoot bathtub remains the main horizontal fixture across the lower room plane/);
   assert.match(prompt.grokPrompt, /visible wet tile floor beneath and in front of the bathtub/);
@@ -324,6 +329,12 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.doesNotMatch(prompt.grokPrompt, /low horizontal camera view from the tub edge/);
   assert.doesNotMatch(prompt.grokPrompt, /camera near the tub edge or waterline/);
 
+  assert.ok(
+    prompt.zImagePrompt.indexOf('real-scale vintage bathroom editorial set') < prompt.zImagePrompt.indexOf('20-year-old Japanese or Korean female portrait subject'),
+    'Expected fixed bathtub scene to appear before subject description in Z-Image prompt'
+  );
+  assert.doesNotMatch(prompt.zImagePrompt, /The portrait uses The portrait takes place/);
+  assert.doesNotMatch(prompt.zImagePrompt, /Fixed Composition Set:|Fixed Set Position:|Fixed Set Integrity:/);
   assert.match(prompt.zImagePrompt, /porcelain sink or vanity/);
   assert.match(prompt.zImagePrompt, /visible wet tile floor beneath and in front of the bathtub/);
   assert.match(prompt.zImagePrompt, /fully soaked from head to toe/);

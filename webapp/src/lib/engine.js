@@ -7383,7 +7383,15 @@ function joinNaturalPromptValues(values) {
     .join(', ');
 }
 
+function joinPromptSentences(values) {
+  return values
+    .map((value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim()))
+    .filter(Boolean)
+    .join(' ');
+}
+
 function buildPromptSectionSources(valuesByLabel, context) {
+  const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
   const sceneContextValues = getStructuredValues(valuesByLabel, ['Scene Context']);
   const subjectValues = getStructuredValues(valuesByLabel, [
     'Duo Scene Anchor',
@@ -7408,14 +7416,20 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Woman 1 Head Accessory',
     'Woman 2 Head Accessory',
   ]);
+  const fixedSetSceneLabels = [
+    'Fixed Composition Set',
+    'Fixed Set Position',
+    'Fixed Set Capture Mode',
+    'Fixed Set Performance State',
+  ];
+  const fixedSetIntegrityLabels = ['Fixed Set Integrity'];
+  const fixedSetCameraLabels = ['Angle', 'Orbit Angle'];
   const sceneValues = [
-    ...getStructuredLabeledValues(valuesByLabel, [
-      'Fixed Composition Set',
-      'Fixed Set Position',
-      'Fixed Set Capture Mode',
-      'Fixed Set Performance State',
-      'Fixed Set Integrity',
-    ]),
+    ...(fixedCompositionSetActive
+      ? getStructuredValues(valuesByLabel, fixedSetSceneLabels)
+      : getStructuredLabeledValues(valuesByLabel, [...fixedSetSceneLabels, ...fixedSetIntegrityLabels])),
+    ...(fixedCompositionSetActive ? getStructuredValues(valuesByLabel, fixedSetCameraLabels) : []),
+    ...(fixedCompositionSetActive ? getStructuredValues(valuesByLabel, fixedSetIntegrityLabels) : []),
     ...getStructuredValues(valuesByLabel, [
       'World Scene Architecture',
       'Location',
@@ -7451,8 +7465,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Duo Interaction',
     'Framing',
     'Composition Priority',
-    'Angle',
-    'Orbit Angle',
+    ...(fixedCompositionSetActive ? [] : fixedSetCameraLabels),
   ]);
   const lightingValues = getStructuredValues(valuesByLabel, [
     'Ambient Light Conditions',
@@ -7469,7 +7482,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
     : 'Create a photorealistic editorial portrait';
   const subjectLead = context.subject?.count === 2 ? 'The subjects are' : 'The subject is';
   const wardrobeLead = context.subject?.count === 2 ? 'They wear' : 'She wears';
-  const sceneUsesDirectSentence = sceneContextValues.length > 0;
+  const sceneUsesDirectSentence = sceneContextValues.length > 0 || fixedCompositionSetActive;
   const wardrobeUsesDirectSentence = wardrobeVisibilityValues.length > 0;
   const constraints = [
     ...getStructuredValues(valuesByLabel, ['Wardrobe Integrity']),
@@ -7481,7 +7494,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
 
   return {
     imageType,
-    sceneText: joinNaturalPromptValues(sceneValues),
+    sceneText: fixedCompositionSetActive ? joinPromptSentences(sceneValues) : joinNaturalPromptValues(sceneValues),
     subjectText: joinNaturalPromptValues(subjectValues),
     wardrobeText: joinNaturalPromptValues(wardrobeValues),
     poseText: joinNaturalPromptValues(poseValues),
@@ -7821,7 +7834,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const buildSceneText = () => {
     if (fixedCompositionSetActive) {
       const allowCameraVariation = fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet);
-      return leadSentence('The portrait uses', [
+      return joinSentenceParts([
         skeletonMode ? sanitizeSkeletonPromptText(context.fixedCompositionSet.en) : context.fixedCompositionSet.en,
         context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPosition.en) : context.fixedSetPosition.en) : '',
         context.fixedSetCaptureMode && !isNoneLikeItem(context.fixedSetCaptureMode) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en) : '',
@@ -7877,6 +7890,16 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       : 'natural photographic detail, coherent fabric construction, clear facial readability, realistic spatial depth',
     'do not add visible text unless explicitly requested',
   ]);
+
+  if (fixedCompositionSetActive) {
+    return [
+      buildSceneText(),
+      buildCharacterText(),
+      buildWardrobeText(),
+      buildPhotographyStyleText(),
+      buildRenderingText(),
+    ].filter(Boolean).join(' ');
+  }
 
   return [
     buildCharacterText(),
