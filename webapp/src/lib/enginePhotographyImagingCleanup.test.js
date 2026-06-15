@@ -250,6 +250,8 @@ test('imaging control exposes rendering and color-grade looks without camera bod
   assert.ok(!labels.some((label) => label.startsWith('相機｜')));
   assert.ok(labels.includes('Leica 風格鹽粒黑白'));
   assert.ok(labels.includes('手機 HDR 直出'));
+  assert.ok(labels.includes('Y2K CCD 低清快照'));
+  assert.ok(labels.includes('復古 CCD 晃動快照'));
   assert.ok(labels.includes('日系亮膚高彩濾鏡'));
   assert.ok(labels.includes('日系清透淡彩濾鏡'));
   assert.ok(labels.includes('日系高曝光奶油膚色'));
@@ -281,6 +283,16 @@ test('imaging control exposes rendering and color-grade looks without camera bod
   assert.match(neonCrossProcess.en, /neon cross-processed rendering/);
   assert.match(neonCrossProcess.en, /aggressively crushed black levels/);
   assert.match(neonCrossProcess.en, /cold porcelain highlights/);
+
+  const y2kDigicam = optionByLabel('filmId', 'Y2K CCD 低清快照');
+  assert.match(y2kDigicam.en, /early-2000s compact-digital rendering/);
+  assert.match(y2kDigicam.en, /low-resolution CCD softness/);
+  assert.match(y2kDigicam.en, /cheap consumer JPEG texture/);
+
+  const shakyCcd = optionByLabel('filmId', '復古 CCD 晃動快照');
+  assert.match(shakyCcd.en, /retro CCD snapshot rendering/);
+  assert.match(shakyCcd.en, /visible handheld motion smear/);
+  assert.match(shakyCcd.en, /compressed low-end JPEG look/);
 });
 
 test('legacy camera profile locks migrate into rendering looks', () => {
