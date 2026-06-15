@@ -213,6 +213,52 @@ test('identity base prompt wording is controlled by selected DNA options', () =>
   assert.equal(prompt.selection.hairColorId, optionByLabel('hairColorId', '亮桃粉').id);
 });
 
+test('duo identity base supports separate body type and skin details per woman', () => {
+  const controls = getLockControls();
+  const bodyAControl = controls.find((control) => control.key === 'bodyTypeAId');
+  const bodyBControl = controls.find((control) => control.key === 'bodyTypeBId');
+  const skinAControl = controls.find((control) => control.key === 'skinDetailsAId');
+  const skinBControl = controls.find((control) => control.key === 'skinDetailsBId');
+
+  assert.ok(bodyAControl, 'Expected woman 1 body type control');
+  assert.ok(bodyBControl, 'Expected woman 2 body type control');
+  assert.ok(skinAControl, 'Expected woman 1 skin details control');
+  assert.ok(skinBControl, 'Expected woman 2 skin details control');
+  assert.deepEqual(bodyAControl.options.map((option) => option.zh), optionLabels('bodyTypeId'));
+  assert.deepEqual(bodyBControl.options.map((option) => option.zh), optionLabels('bodyTypeId'));
+  assert.deepEqual(skinAControl.options.map((option) => option.zh), optionLabels('skinDetailsId'));
+  assert.deepEqual(skinBControl.options.map((option) => option.zh), optionLabels('skinDetailsId'));
+
+  const bodyA = optionByLabel('bodyTypeAId', '高挑時裝模特');
+  const bodyB = optionByLabel('bodyTypeBId', '運動緊實身形');
+  const skinA = optionByLabel('skinDetailsAId', '玻璃水光肌');
+  const skinB = optionByLabel('skinDetailsBId', '自然雀斑');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    bodyTypeAId: bodyA.id,
+    bodyTypeBId: bodyB.id,
+    skinDetailsAId: skinA.id,
+    skinDetailsBId: skinB.id,
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
+  assert.match(promptText, new RegExp(`woman 1 has ${bodyA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
+  assert.match(promptText, new RegExp(`woman 2 has ${bodyB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
+  assert.match(promptText, new RegExp(`woman 1 has ${skinA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
+  assert.match(promptText, new RegExp(`woman 2 has ${skinB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
+  assert.match(prompt.midjourneyPrompt, new RegExp(`woman 1 has ${bodyA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
+  assert.match(prompt.midjourneyPrompt, new RegExp(`woman 2 has ${bodyB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
+  assert.match(prompt.midjourneyPrompt, new RegExp(`woman 1 has ${skinA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
+  assert.match(prompt.midjourneyPrompt, new RegExp(`woman 2 has ${skinB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
+  assert.equal(prompt.selection.bodyTypeAId, bodyA.id);
+  assert.equal(prompt.selection.bodyTypeBId, bodyB.id);
+  assert.equal(prompt.selection.skinDetailsAId, skinA.id);
+  assert.equal(prompt.selection.skinDetailsBId, skinB.id);
+  assert.equal(prompt.selection.bodyTypeId, '');
+  assert.equal(prompt.selection.skinDetailsId, '');
+});
+
 test('legacy identity base locks migrate into the merged options', () => {
   const locks = createEmptyLocks();
 

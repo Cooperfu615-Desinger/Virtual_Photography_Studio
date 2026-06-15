@@ -96,10 +96,15 @@ export function buildWorkspaceSummary(locks, controls) {
     ? specialSubjectOption?.zh || '特殊角色'
     : buildSummaryText([
         subjectTypeLabel === '上傳人物' ? subjectTypeLabel : '',
+        getControlOptionLabel(controls, 'bodyTypeId', locks.bodyTypeId),
+        getControlOptionLabel(controls, 'bodyTypeAId', locks.bodyTypeAId),
+        getControlOptionLabel(controls, 'bodyTypeBId', locks.bodyTypeBId),
         getControlOptionLabel(controls, 'facialFeaturesId', locks.facialFeaturesId),
         getControlOptionLabel(controls, 'facialFeaturesAId', locks.facialFeaturesAId),
         getControlOptionLabel(controls, 'facialFeaturesBId', locks.facialFeaturesBId),
-        getControlOptionLabel(controls, 'bodyTypeId', locks.bodyTypeId),
+        getControlOptionLabel(controls, 'skinDetailsId', locks.skinDetailsId),
+        getControlOptionLabel(controls, 'skinDetailsAId', locks.skinDetailsAId),
+        getControlOptionLabel(controls, 'skinDetailsBId', locks.skinDetailsBId),
         getControlOptionLabel(controls, 'hairstyleId', locks.hairstyleId),
         getControlOptionLabel(controls, 'hairstyleAId', locks.hairstyleAId),
         getControlOptionLabel(controls, 'hairstyleBId', locks.hairstyleBId),

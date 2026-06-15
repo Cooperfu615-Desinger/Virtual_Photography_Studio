@@ -1231,10 +1231,14 @@ const LOCK_DEFINITIONS = [
   { key: 'lightDirectionId', label: '光線表現', category: LIGHT_STYLE_CATEGORY, section: 'core' },
   { key: 'filmId', label: '成像模擬 / 調色', category: '底片與相機模擬 (Camera & Film Simulation)', section: 'core' },
   { key: 'bodyTypeId', label: '體態', category: '體態 (Body Type)', section: 'character' },
+  { key: 'bodyTypeAId', label: '人物 1 體態', category: '體態 (Body Type)', section: 'character' },
+  { key: 'bodyTypeBId', label: '人物 2 體態', category: '體態 (Body Type)', section: 'character' },
   { key: 'facialFeaturesId', label: '五官特徵', category: '五官特徵 (Facial Features)', section: 'character' },
   { key: 'facialFeaturesAId', label: '人物 1 五官', category: '五官特徵 (Facial Features)', section: 'character' },
   { key: 'facialFeaturesBId', label: '人物 2 五官', category: '五官特徵 (Facial Features)', section: 'character' },
   { key: 'skinDetailsId', label: '膚質特徵', category: '膚質特徵 (Skin Details)', section: 'character' },
+  { key: 'skinDetailsAId', label: '人物 1 膚質', category: '膚質特徵 (Skin Details)', section: 'character' },
+  { key: 'skinDetailsBId', label: '人物 2 膚質', category: '膚質特徵 (Skin Details)', section: 'character' },
   { key: 'hairstyleId', label: '髮型', category: '髮型 (Hairstyle)', section: 'character' },
   { key: 'hairstyleAId', label: '人物 1 髮型', category: '髮型 (Hairstyle)', section: 'character' },
   { key: 'hairstyleBId', label: '人物 2 髮型', category: '髮型 (Hairstyle)', section: 'character' },
@@ -1387,10 +1391,14 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'filmId', label: 'Rendering / Color Grade' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
   { key: 'bodyTypeId', label: 'Body Type' },
+  { key: 'bodyTypeAId', label: 'Woman 1 Body Type' },
+  { key: 'bodyTypeBId', label: 'Woman 2 Body Type' },
   { key: 'facialFeaturesId', label: 'Face' },
   { key: 'facialFeaturesAId', label: 'Woman 1 Facial Features' },
   { key: 'facialFeaturesBId', label: 'Woman 2 Facial Features' },
   { key: 'skinDetailsId', label: 'Skin' },
+  { key: 'skinDetailsAId', label: 'Woman 1 Skin' },
+  { key: 'skinDetailsBId', label: 'Woman 2 Skin' },
   { key: 'hairstyleId', label: 'Hair Style' },
   { key: 'hairstyleAId', label: 'Woman 1 Hairstyle' },
   { key: 'hairstyleBId', label: 'Woman 2 Hairstyle' },
@@ -2262,6 +2270,8 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'facialFeaturesAId',
   'facialFeaturesBId',
   'skinDetailsId',
+  'skinDetailsAId',
+  'skinDetailsBId',
   'hairstyleId',
   'hairstyleAId',
   'hairstyleBId',
@@ -3322,11 +3332,11 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'outfitPresetId') options = flatCatalog.outfitPresets;
       if (definition.key === 'outfitPresetAId') options = flatCatalog.outfitPresets;
       if (definition.key === 'outfitPresetBId') options = flatCatalog.outfitPresets;
-      if (definition.key === 'bodyTypeId') options = getByKey(catalog.character, '體態 (Body Type)');
+      if (['bodyTypeId', 'bodyTypeAId', 'bodyTypeBId'].includes(definition.key)) options = getByKey(catalog.character, '體態 (Body Type)');
       if (definition.key === 'facialFeaturesId') options = getByKey(catalog.character, '五官特徵 (Facial Features)');
       if (definition.key === 'facialFeaturesAId') options = getByKey(catalog.character, '五官特徵 (Facial Features)');
       if (definition.key === 'facialFeaturesBId') options = getByKey(catalog.character, '五官特徵 (Facial Features)');
-      if (definition.key === 'skinDetailsId') options = getByKey(catalog.character, '膚質特徵 (Skin Details)');
+      if (['skinDetailsId', 'skinDetailsAId', 'skinDetailsBId'].includes(definition.key)) options = getByKey(catalog.character, '膚質特徵 (Skin Details)');
       if (definition.key === 'hairstyleId') options = getByKey(catalog.character, '髮型 (Hairstyle)');
       if (definition.key === 'hairstyleAId') options = getByKey(catalog.character, '髮型 (Hairstyle)');
       if (definition.key === 'hairstyleBId') options = getByKey(catalog.character, '髮型 (Hairstyle)');
@@ -4398,7 +4408,13 @@ function buildCharacter(context, catalog) {
     return picked ? cloneCharacterRole(picked, role) : null;
   };
 
-  if (!isReferenceSubject || context.locks?.bodyTypeId) {
+  if (context.subject.count === 2) {
+    const sharedBodyTypeId = context.locks?.bodyTypeId;
+    const bodyA = pickDistinctForRole('體態 (Body Type)', 'a', context.locks?.bodyTypeAId || sharedBodyTypeId, [], sample, () => true);
+    const bodyB = pickDistinctForRole('體態 (Body Type)', 'b', context.locks?.bodyTypeBId || sharedBodyTypeId, sharedBodyTypeId ? [] : [bodyA], sample, () => true);
+    if (bodyA) character.push(bodyA);
+    if (bodyB) character.push(bodyB);
+  } else if (!isReferenceSubject || context.locks?.bodyTypeId) {
     pickCategory('體態 (Body Type)', context.locks, () => true, sample, false);
   }
 
@@ -4417,8 +4433,18 @@ function buildCharacter(context, catalog) {
     if (faceB) character.push(faceB);
   }
 
-  if (context.subject.count === 2 && (context.locks?.skinDetailsId || (visibilityAtLeast(visibility, 'portrait') && Math.random() < 0.45))) {
-    pickCategory('膚質特徵 (Skin Details)', context.locks);
+  if (context.subject.count === 2) {
+    const sharedSkinDetailsId = context.locks?.skinDetailsId;
+    const hasDuoSkinLock = Boolean(context.locks?.skinDetailsAId || context.locks?.skinDetailsBId || sharedSkinDetailsId);
+    const shouldRandomizeDuoSkin = !hasDuoSkinLock && visibilityAtLeast(visibility, 'portrait') && Math.random() < 0.45;
+    const pickDuoSkin = (role, lockedId, currentItems = []) => {
+      if (!lockedId && !shouldRandomizeDuoSkin) return null;
+      return pickDistinctForRole('膚質特徵 (Skin Details)', role, lockedId, currentItems, sample);
+    };
+    const skinA = pickDuoSkin('a', context.locks?.skinDetailsAId || sharedSkinDetailsId, []);
+    const skinB = pickDuoSkin('b', context.locks?.skinDetailsBId || sharedSkinDetailsId, sharedSkinDetailsId ? [] : [skinA]);
+    if (skinA) character.push(skinA);
+    if (skinB) character.push(skinB);
   }
 
   const suppressSingleHair = context.subject.count === 1
@@ -5356,13 +5382,15 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       characterSlots.pose?.zh && !isNoneLikeItem(characterSlots.pose) ? characterSlots.pose.zh : ''
     );
   };
-  const summarizeDuoRole = (face, hair, color) => {
+  const summarizeDuoRole = (body, face, skin, hair, color) => {
     const hairSummary = joinSummaryParts(
       hair?.zh && !isNoneLikeItem(hair) ? hair.zh : '',
       color?.zh && !isNoneLikeItem(color) ? color.zh : ''
     );
     const summary = joinSummaryParts(
+      body?.zh && !isNoneLikeItem(body) ? body.zh : '',
       face?.zh && !isNoneLikeItem(face) ? face.zh : '',
+      skin?.zh && !isNoneLikeItem(skin) ? skin.zh : '',
       hairSummary !== '-' ? hairSummary : ''
     );
     return summary === '-' ? '' : summary;
@@ -5471,11 +5499,11 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     character: context.subject.count === 2
       ? joinSummaryParts(
           subjectLabel,
-          summarizeDuoRole(characterSlots.facialFeaturesA, characterSlots.hairstyleA, characterSlots.hairColorA)
-            ? `人物 1：${summarizeDuoRole(characterSlots.facialFeaturesA, characterSlots.hairstyleA, characterSlots.hairColorA)}`
+          summarizeDuoRole(characterSlots.bodyTypeA, characterSlots.facialFeaturesA, characterSlots.skinDetailsA, characterSlots.hairstyleA, characterSlots.hairColorA)
+            ? `人物 1：${summarizeDuoRole(characterSlots.bodyTypeA, characterSlots.facialFeaturesA, characterSlots.skinDetailsA, characterSlots.hairstyleA, characterSlots.hairColorA)}`
             : '',
-          summarizeDuoRole(characterSlots.facialFeaturesB, characterSlots.hairstyleB, characterSlots.hairColorB)
-            ? `人物 2：${summarizeDuoRole(characterSlots.facialFeaturesB, characterSlots.hairstyleB, characterSlots.hairColorB)}`
+          summarizeDuoRole(characterSlots.bodyTypeB, characterSlots.facialFeaturesB, characterSlots.skinDetailsB, characterSlots.hairstyleB, characterSlots.hairColorB)
+            ? `人物 2：${summarizeDuoRole(characterSlots.bodyTypeB, characterSlots.facialFeaturesB, characterSlots.skinDetailsB, characterSlots.hairstyleB, characterSlots.hairColorB)}`
             : '',
           context.duoInteraction?.zh || '',
           characterSlots.duoPose?.zh && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.zh : ''
@@ -5647,15 +5675,24 @@ function buildRoleExpressionPrompt(item, label) {
   return `${label} ${item.en}`;
 }
 
+function buildRoleHasPrompt(item, label) {
+  if (!item || isNoneLikeItem(item)) return '';
+  return `${label} has ${item.en}`;
+}
+
 function extractCharacterSlots(character) {
   const findSlot = (token) => character.find((item) => item.id?.includes(token) && !item.meta?.characterRole);
   const findRoleSlot = (token, role) => character.find((item) => item.id?.includes(token) && item.meta?.characterRole === role);
   return {
     bodyType: findSlot('character:體態-body-type:'),
+    bodyTypeA: findRoleSlot('character:體態-body-type:', 'a'),
+    bodyTypeB: findRoleSlot('character:體態-body-type:', 'b'),
     facialFeatures: findSlot('character:五官特徵-facial-features:'),
     facialFeaturesA: findRoleSlot('character:五官特徵-facial-features:', 'a'),
     facialFeaturesB: findRoleSlot('character:五官特徵-facial-features:', 'b'),
     skinDetails: findSlot('character:膚質特徵-skin-details:'),
+    skinDetailsA: findRoleSlot('character:膚質特徵-skin-details:', 'a'),
+    skinDetailsB: findRoleSlot('character:膚質特徵-skin-details:', 'b'),
     hairstyle: findSlot('character:髮型-hairstyle:'),
     hairstyleA: findRoleSlot('character:髮型-hairstyle:', 'a'),
     hairstyleB: findRoleSlot('character:髮型-hairstyle:', 'b'),
@@ -7178,7 +7215,11 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
   }
-  if (!hasDuoSceneAnchor && !specialSubjectMode) addItemLine('Body Type', characterSlots.bodyType);
+  if (!hasDuoSceneAnchor && !specialSubjectMode && context.subject.count !== 2) addItemLine('Body Type', characterSlots.bodyType);
+  if (!specialSubjectMode && context.subject.count === 2) {
+    addLine('Woman 1 Body Type', buildRoleHasPrompt(characterSlots.bodyTypeA, 'woman 1'));
+    addLine('Woman 2 Body Type', buildRoleHasPrompt(characterSlots.bodyTypeB, 'woman 2'));
+  }
   if (!specialSubjectMode && context.subject.count === 2) {
     addLine('Woman 1 Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessoryA));
     addLine('Woman 2 Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessoryB));
@@ -7316,7 +7357,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addItemLine('Hairstyle', characterSlots.hairstyle);
     addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
   }
-  if (!specialSubjectMode && !useCharacterIdentityAnchor) addItemLine('Skin Details', characterSlots.skinDetails);
+  if (!specialSubjectMode && context.subject.count === 2) {
+    addLine('Woman 1 Skin Details', buildRoleHasPrompt(characterSlots.skinDetailsA, 'woman 1'));
+    addLine('Woman 2 Skin Details', buildRoleHasPrompt(characterSlots.skinDetailsB, 'woman 2'));
+  } else if (!specialSubjectMode && !useCharacterIdentityAnchor) {
+    addItemLine('Skin Details', characterSlots.skinDetails);
+  }
   if (!specialSubjectMode && context.subject.count === 2) {
     addLine('Woman 1 Expression', expressionAText);
     addLine('Woman 2 Expression', expressionBText);
@@ -7398,6 +7444,8 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Subject Count',
     'Reference Guidance',
     'Body Type',
+    'Woman 1 Body Type',
+    'Woman 2 Body Type',
     'Facial Features',
     'Woman 1 Facial Features',
     'Woman 2 Facial Features',
@@ -7408,6 +7456,8 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Woman 1 Hair Color',
     'Woman 2 Hair Color',
     'Skin Details',
+    'Woman 1 Skin Details',
+    'Woman 2 Skin Details',
     'Expression',
     'Woman 1 Expression',
     'Woman 2 Expression',
@@ -7631,7 +7681,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en,
         subjectAccessoryText
       ),
-      characterSlots.bodyType?.en,
+      context.subject.count === 2
+        ? [buildRoleHasPrompt(characterSlots.bodyTypeA, 'woman 1'), buildRoleHasPrompt(characterSlots.bodyTypeB, 'woman 2')].filter(Boolean).join(', ')
+        : characterSlots.bodyType?.en,
       context.subject.count === 2
         ? [
             characterSlots.facialFeaturesA && !isNoneLikeItem(characterSlots.facialFeaturesA)
@@ -7654,7 +7706,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
             characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
           ].filter(Boolean).join(', '),
       headAccessoryText,
-      !useCharacterIdentityAnchor ? characterSlots.skinDetails?.en : '',
+      context.subject.count === 2
+        ? [buildRoleHasPrompt(characterSlots.skinDetailsA, 'woman 1'), buildRoleHasPrompt(characterSlots.skinDetailsB, 'woman 2')].filter(Boolean).join(', ')
+        : (!useCharacterIdentityAnchor ? characterSlots.skinDetails?.en : ''),
       context.subject.count === 2
         ? [buildRoleExpressionPrompt(characterSlots.expressionA, 'woman 1'), buildRoleExpressionPrompt(characterSlots.expressionB, 'woman 2')].filter(Boolean).join(', ')
         : (characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : ''),
@@ -7940,10 +7994,22 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context) {
     wardrobeLead,
     wardrobeUsesDirectSentence,
   } = buildPromptSectionSources(valuesByLabel, context);
+  const selectedDuoIdentityLabels = context.subject?.count === 2
+    ? [
+        (context.locks?.bodyTypeAId || context.locks?.bodyTypeId) ? 'Woman 1 Body Type' : '',
+        (context.locks?.bodyTypeBId || context.locks?.bodyTypeId) ? 'Woman 2 Body Type' : '',
+        (context.locks?.skinDetailsAId || context.locks?.skinDetailsId) ? 'Woman 1 Skin Details' : '',
+        (context.locks?.skinDetailsBId || context.locks?.skinDetailsId) ? 'Woman 2 Skin Details' : '',
+      ].filter(Boolean)
+    : [];
+  const selectedDuoIdentityText = selectedDuoIdentityLabels.length > 0
+    ? joinPromptSentences(getStructuredValues(valuesByLabel, selectedDuoIdentityLabels))
+    : '';
   const parts = [
     compactAiSentence(imageType, 1),
     sceneText ? (sceneUsesDirectSentence ? compactAiSentence(sceneText, fixedCompositionSetActive ? 72 : 2) : `The scene is ${compactAiSentence(sceneText, fixedCompositionSetActive ? 72 : 2)}`) : '',
     subjectText ? `${subjectLead} ${compactAiSentence(subjectText, 4)}` : '',
+    selectedDuoIdentityText ? `Duo identity details: ${selectedDuoIdentityText}` : '',
     wardrobeText ? (wardrobeUsesDirectSentence ? compactAiSentence(wardrobeText, 6) : `${wardrobeLead} ${compactAiSentence(wardrobeText, 6)}`) : '',
     poseText ? `Pose and composition: ${compactAiSentence(poseText, fixedCompositionSetActive ? 10 : 5)}` : '',
     lightingText ? `Lighting: ${compactAiSentence(lightingText, 3)}` : '',
@@ -8027,10 +8093,14 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     outfitPresetBContrastColorId: normalizedSelection.outfitPresetBContrastColorId,
     outfitPresetBLockedPaletteId: normalizedSelection.outfitPresetBLockedPaletteId,
     bodyTypeId: characterSlots.bodyType?.id || '',
+    bodyTypeAId: characterSlots.bodyTypeA?.id?.replace(/:a$/, '') || '',
+    bodyTypeBId: characterSlots.bodyTypeB?.id?.replace(/:b$/, '') || '',
     facialFeaturesId: characterSlots.facialFeatures?.id || '',
     facialFeaturesAId: characterSlots.facialFeaturesA?.id?.replace(/:a$/, '') || '',
     facialFeaturesBId: characterSlots.facialFeaturesB?.id?.replace(/:b$/, '') || '',
     skinDetailsId: characterSlots.skinDetails?.id || '',
+    skinDetailsAId: characterSlots.skinDetailsA?.id?.replace(/:a$/, '') || '',
+    skinDetailsBId: characterSlots.skinDetailsB?.id?.replace(/:b$/, '') || '',
     hairstyleId: characterSlots.hairstyle?.id || '',
     hairstyleAId: characterSlots.hairstyleA?.id?.replace(/:a$/, '') || '',
     hairstyleBId: characterSlots.hairstyleB?.id?.replace(/:b$/, '') || '',

@@ -163,16 +163,20 @@ const CHARACTER_CONTROL_ORDER = [
   'subjectCount',
   'specialSubjectId',
   'bodyTypeId',
+  'bodyTypeAId',
+  'bodyTypeBId',
   'facialFeaturesId',
   'facialFeaturesAId',
   'facialFeaturesBId',
+  'skinDetailsId',
+  'skinDetailsAId',
+  'skinDetailsBId',
   'hairstyleId',
   'hairstyleAId',
   'hairstyleBId',
   'hairColorId',
   'hairColorAId',
   'hairColorBId',
-  'skinDetailsId',
   'duoInteractionId',
   'duoPoseId',
   'expressionId',
@@ -378,10 +382,14 @@ function buildImportedStructured(locks, controls) {
       'subjectCount',
       'specialSubjectId',
       'bodyTypeId',
+      'bodyTypeAId',
+      'bodyTypeBId',
       'facialFeaturesId',
       'facialFeaturesAId',
       'facialFeaturesBId',
       'skinDetailsId',
+      'skinDetailsAId',
+      'skinDetailsBId',
       'hairstyleId',
       'hairstyleAId',
       'hairstyleBId',
@@ -1487,8 +1495,8 @@ export default function App() {
           if (['duoInteractionId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;
           if (control.key === 'specialActionId' && locks.subjectCount !== '1') return false;
           if (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1') return false;
-          if (['facialFeaturesId', 'hairstyleId', 'hairColorId', 'expressionId', 'poseId'].includes(control.key) && locks.subjectCount === '2') return false;
-          if (['facialFeaturesAId', 'facialFeaturesBId', 'hairstyleAId', 'hairstyleBId', 'hairColorAId', 'hairColorBId', 'expressionAId', 'expressionBId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          if (['bodyTypeId', 'facialFeaturesId', 'skinDetailsId', 'hairstyleId', 'hairColorId', 'expressionId', 'poseId'].includes(control.key) && locks.subjectCount === '2') return false;
+          if (['bodyTypeAId', 'bodyTypeBId', 'facialFeaturesAId', 'facialFeaturesBId', 'skinDetailsAId', 'skinDetailsBId', 'hairstyleAId', 'hairstyleBId', 'hairColorAId', 'hairColorBId', 'expressionAId', 'expressionBId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;
           return true;
         }),
         CHARACTER_CONTROL_ORDER
