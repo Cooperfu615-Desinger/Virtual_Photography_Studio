@@ -177,7 +177,6 @@ const CHARACTER_CONTROL_ORDER = [
   'hairColorId',
   'hairColorAId',
   'hairColorBId',
-  'duoInteractionId',
   'duoPoseId',
   'expressionId',
   'expressionAId',
@@ -396,7 +395,6 @@ function buildImportedStructured(locks, controls) {
       'hairColorId',
       'hairColorAId',
       'hairColorBId',
-      'duoInteractionId',
       'duoPoseId',
       'expressionId',
       'expressionAId',
@@ -1492,7 +1490,7 @@ export default function App() {
           }
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
           if (control.key === 'specialSubjectId') return true;
-          if (['duoInteractionId', 'duoPoseId'].includes(control.key) && locks.subjectCount !== '2') return false;
+          if (control.key === 'duoPoseId' && locks.subjectCount !== '2') return false;
           if (control.key === 'specialActionId' && locks.subjectCount !== '1') return false;
           if (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1') return false;
           if (['bodyTypeId', 'facialFeaturesId', 'skinDetailsId', 'hairstyleId', 'hairColorId', 'expressionId', 'poseId'].includes(control.key) && locks.subjectCount === '2') return false;

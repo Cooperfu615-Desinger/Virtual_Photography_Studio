@@ -72,6 +72,62 @@ test('social shooting actions are available as special actions', () => {
   assert.ok(optionByLabel('specialActionId', '閨蜜視角拍攝'));
 });
 
+test('duo layout/contact replaces separate duo interaction and composition controls', () => {
+  const duoLayoutControl = getLockControls().find((control) => control.key === 'duoPoseId');
+  assert.equal(duoLayoutControl.label, '雙人佈局 / 接觸');
+  assert.deepEqual(
+    optionLabels('duoPoseId'),
+    [
+      '全無',
+      '輕微碰肩',
+      '彼此倚靠',
+      '一前一後',
+      '高低層次',
+      '親密近身',
+      '性感互動',
+    ]
+  );
+});
+
+test('duo sensual interaction outputs as one layout cue without legacy interaction lines', () => {
+  const duoLayout = optionByLabel('duoPoseId', '性感互動');
+  const oldInteraction = optionByLabel('duoInteractionId', '親密');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    duoPoseId: duoLayout.id,
+    duoInteractionId: oldInteraction.id,
+  });
+
+  const promptText = [
+    prompt.grokPrompt,
+    prompt.zImagePrompt,
+    prompt.midjourneyPrompt,
+  ].join('\n');
+
+  assert.equal(prompt.selection.duoPoseId, duoLayout.id);
+  assert.equal(prompt.selection.duoInteractionId, '');
+  assert.doesNotMatch(prompt.grokPrompt, /^Duo Interaction:/m);
+  assert.doesNotMatch(promptText, /both women sharing intimate natural closeness/);
+  assert.match(promptText, /teasing hand contact/);
+  assert.match(promptText, /thigh/);
+  assert.match(promptText, /hip/);
+  assert.match(promptText, /lower back/);
+  const sensualCue = promptText.match(/two women in a confident sensual editorial interaction[^.]+fashion-forward/i)?.[0] || '';
+  assert.ok(sensualCue, 'Expected sensual duo layout cue in prompt output');
+  assert.doesNotMatch(sensualCue, /collar|neckline|foot/i);
+});
+
+test('legacy duo interaction locks migrate into the merged duo layout control', () => {
+  const normalized = normalizeLocks({
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    duoInteractionId: optionByLabel('duoInteractionId', '性感擁抱').id,
+  });
+
+  assert.equal(normalized.duoPoseId, optionByLabel('duoPoseId', '性感互動').id);
+});
+
 test('social shooting special actions can compose with body poses', () => {
   const pose = optionByLabel('poseId', '坐姿｜微微前傾');
   const specialAction = optionByLabel('specialActionId', '男友視角拍攝');

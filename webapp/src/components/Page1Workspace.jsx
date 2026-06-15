@@ -185,9 +185,8 @@ const SECTION_SUBPANELS = {
     {
       id: 'basic',
       label: '基礎設置',
-      description: '快速設定神情眼神、雙人互動、姿勢動作與特殊動作，適合先抓整體人物狀態。',
+      description: '快速設定神情眼神、雙人佈局 / 接觸、姿勢動作與特殊動作，適合先抓整體人物狀態。',
       keys: [
-        'duoInteractionId',
         'duoPoseId',
         'expressionId',
         'expressionAId',

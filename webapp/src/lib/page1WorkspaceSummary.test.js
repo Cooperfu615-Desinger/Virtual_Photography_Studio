@@ -57,6 +57,18 @@ test('workspace pose summary is separate from character identity summary', () =>
   assert.match(summary.pose.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
 });
 
+test('workspace pose summary uses the merged duo layout/contact control', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    duoPoseId: optionId('duoPoseId', '性感互動'),
+    duoInteractionId: optionId('duoInteractionId', '親密'),
+  }, controls);
+
+  assert.match(summary.pose.summary, /性感互動/);
+  assert.doesNotMatch(summary.pose.summary, /親密/);
+});
+
 test('workspace summary omits PAGE1 aspect ratio from scene and photography summaries', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),

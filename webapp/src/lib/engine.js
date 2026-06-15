@@ -117,93 +117,76 @@ const DUO_POSE_OPTIONS = [
     id: 'none',
     zh: '全無',
     en: '',
-    desc: 'Do not specify duo composition pose, letting the model decide the shared staging.',
+    desc: 'Do not specify duo layout or contact, letting the model decide the shared staging.',
     meta: { tags: ['none'] },
   },
   {
-    id: 'side-by-side-standing',
-    zh: '並肩站立',
-    en: 'two women standing side by side, balanced shared framing, straightforward duo composition',
+    id: 'light-shoulder-touch',
+    zh: '輕微碰肩',
+    en: 'two women in a subtle close duo layout, shoulders lightly touching or nearly brushing, small natural contact points, relaxed social proximity, model decides exact posture and limb placement while keeping the scene editorial and believable',
+    legacyIds: [
+      'side-by-side-standing',
+      'side-by-side-walking',
+      'side-by-side-squat',
+      'side-by-side-kneeling',
+      'side-by-side-seated',
+      'split-wall-lean',
+      'shoulder-lean',
+      'leaning-shoulders',
+    ],
   },
   {
-    id: 'front-back-standing',
-    zh: '前後站立',
-    en: 'two women standing in a front-back arrangement, layered depth, staggered editorial duo composition',
-  },
-  {
-    id: 'side-by-side-walking',
-    zh: '並肩行進',
-    en: 'two women moving forward side by side, synchronized walking rhythm, clean shared motion composition',
-  },
-  {
-    id: 'front-back-walking',
-    zh: '前後行進',
-    en: 'two women moving in a front-back staggered walk, layered forward motion, dynamic editorial pacing',
-  },
-  {
-    id: 'leaning-on-each-other',
+    id: 'leaning-together',
     zh: '彼此倚靠',
-    en: 'two women leaning into each other for support, asymmetrical weight balance, close shared composition',
+    en: 'two women leaning into each other with shared weight and soft support, relaxed overlapping silhouettes, warm body-language closeness, model decides exact posture while keeping physical contact natural and photorealistic',
+    legacyIds: [
+      'leaning-on-each-other',
+    ],
   },
   {
-    id: 'split-wall-lean',
-    zh: '左右靠牆',
-    en: 'two women arranged against opposite or separated wall planes, left-right architectural balance, clean spatial framing',
+    id: 'front-back-layering',
+    zh: '一前一後',
+    en: 'two women arranged with one slightly forward and one slightly behind, layered depth, staggered eye lines, clear separation between both figures, model decides exact body positions and contact level naturally',
+    legacyIds: [
+      'front-back-standing',
+      'front-back-walking',
+      'distance',
+    ],
   },
   {
-    id: 'side-by-side-squat',
-    zh: '蹲姿',
-    en: 'two women squatting side by side, low grounded composition, close shared framing',
+    id: 'high-low-layering',
+    zh: '高低層次',
+    en: 'two women arranged with visible high-low level contrast, layered vertical rhythm, asymmetrical silhouettes, varied body heights, model decides the exact posture without forcing a fixed action category',
+    legacyIds: [
+      'stand-and-squat',
+      'kneel-and-squat',
+      'sit-and-squat',
+      'side-lying-and-seated',
+      'lying-on-back-and-side',
+    ],
   },
   {
-    id: 'stand-and-squat',
-    zh: '站＋蹲',
-    en: 'one woman standing while the other squats nearby, clear height contrast, layered duo composition',
+    id: 'intimate-close',
+    zh: '親密近身',
+    en: 'two women in an intimate close-body layout, minimal spacing, gentle hand or arm contact may appear at the shoulder, waist, arm, back, or hip, private near-contact chemistry, model chooses exact pose and contact naturally',
+    legacyIds: [
+      'intimate',
+      'arm-around-close',
+      'whispering-close',
+      'intimate-eye-contact',
+      'lying-on-back-together',
+      'side-lying',
+      'lying-on-back',
+      'prone',
+    ],
   },
   {
-    id: 'side-by-side-kneeling',
-    zh: '跪姿',
-    en: 'two women kneeling together, upright low composition, poised controlled body lines',
-  },
-  {
-    id: 'kneel-and-squat',
-    zh: '跪＋蹲',
-    en: 'one woman kneeling while the other squats, compact height contrast, stylized low duo composition',
-  },
-  {
-    id: 'side-by-side-seated',
-    zh: '坐姿',
-    en: 'two women seated together, stable grounded composition, calm shared staging',
-  },
-  {
-    id: 'sit-and-squat',
-    zh: '坐＋蹲',
-    en: 'one woman seated while the other squats nearby, layered low-height contrast, relaxed duo balance',
-  },
-  {
-    id: 'side-lying',
-    zh: '側躺',
-    en: 'two women lying on their sides, elongated lateral composition, soft reclined shared framing',
-  },
-  {
-    id: 'side-lying-and-seated',
-    zh: '側躺＋坐',
-    en: 'one woman side-lying while the other sits nearby, mixed-height reclined composition, editorial contrast',
-  },
-  {
-    id: 'lying-on-back',
-    zh: '仰躺',
-    en: 'two women lying on their backs, open low composition, calm reclined symmetry',
-  },
-  {
-    id: 'lying-on-back-and-side',
-    zh: '仰躺＋側躺',
-    en: 'one woman lying on her back while the other lies on her side, varied reclined body lines, soft asymmetrical low composition',
-  },
-  {
-    id: 'prone',
-    zh: '俯臥',
-    en: 'two women lying prone, low elongated composition, intimate grounded body arrangement',
+    id: 'sensual-interaction',
+    zh: '性感互動',
+    en: 'two women in a confident sensual editorial interaction, close body spacing, teasing hand contact and flirtatious gestures, one woman may lightly touch the other\'s shoulder, waist, arm, chin, hair, thigh, hip, lower back, or leg, seductive near-contact tension, magnetic eye-line chemistry, model decides exact pose and contact while keeping it photorealistic and fashion-forward',
+    legacyIds: [
+      'sensual-embrace',
+    ],
   },
 ];
 
@@ -1245,8 +1228,8 @@ const LOCK_DEFINITIONS = [
   { key: 'hairColorId', label: '髮色', category: '髮色 (Hair Color)', section: 'character' },
   { key: 'hairColorAId', label: '人物 1 髮色', category: '髮色 (Hair Color)', section: 'character' },
   { key: 'hairColorBId', label: '人物 2 髮色', category: '髮色 (Hair Color)', section: 'character' },
-  { key: 'duoInteractionId', label: '雙人互動', options: DUO_INTERACTION_OPTIONS, section: 'character' },
-  { key: 'duoPoseId', label: '雙人構圖姿態', options: DUO_POSE_OPTIONS, section: 'character' },
+  { key: 'duoInteractionId', label: '雙人互動', options: DUO_INTERACTION_OPTIONS, section: 'hidden' },
+  { key: 'duoPoseId', label: '雙人佈局 / 接觸', options: DUO_POSE_OPTIONS, section: 'character' },
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'expressionAId', label: '人物 1 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'expressionBId', label: '人物 2 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
@@ -1405,8 +1388,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'hairColorId', label: 'Hair Color' },
   { key: 'hairColorAId', label: 'Woman 1 Hair Color' },
   { key: 'hairColorBId', label: 'Woman 2 Hair Color' },
-  { key: 'duoInteractionId', label: 'Duo Interaction' },
-  { key: 'duoPoseId', label: 'Duo Composition Pose' },
+  { key: 'duoPoseId', label: 'Duo Layout / Contact' },
   { key: 'expressionId', label: 'Expression' },
   { key: 'expressionAId', label: 'Woman 1 Expression' },
   { key: 'expressionBId', label: 'Woman 2 Expression' },
@@ -3079,6 +3061,32 @@ function getControlOptionById(controls, key, id) {
   return controls.find((control) => control.key === key)?.options?.find((option) => option.id === id) || null;
 }
 
+function applyDuoInteractionLegacyLockMigration(normalizedLocks, rawLocks, controls) {
+  if (normalizedLocks.subjectCount !== '2') return;
+
+  const currentDuoLayout = getControlOptionById(controls, 'duoPoseId', normalizedLocks.duoPoseId);
+  if (currentDuoLayout && !isNoneLikeItem(currentDuoLayout)) return;
+
+  const legacyInteractionToLayout = {
+    editorial: '一前一後',
+    natural: '彼此倚靠',
+    distance: '一前一後',
+    'shoulder-lean': '輕微碰肩',
+    intimate: '親密近身',
+    'sensual-embrace': '性感互動',
+    'leaning-shoulders': '輕微碰肩',
+    'arm-around-close': '親密近身',
+    'whispering-close': '親密近身',
+    'intimate-eye-contact': '親密近身',
+    'lying-on-back-together': '親密近身',
+  };
+  const targetZh = legacyInteractionToLayout[rawLocks?.duoInteractionId];
+  if (!targetZh) return;
+
+  const targetLayout = getControlOptionByZh(controls, 'duoPoseId', targetZh);
+  if (targetLayout) normalizedLocks.duoPoseId = targetLayout.id;
+}
+
 function applyExpressionPoseLegacySocialLockMigration(normalizedLocks, rawLocks, controls) {
   const migration = CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS.find((entry) => entry.legacyId === rawLocks?.poseId);
   if (!migration) return;
@@ -3277,6 +3285,7 @@ export function normalizeLocks(rawLocks = {}) {
       : (control.defaultValue ?? '');
   });
 
+  applyDuoInteractionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyExpressionPoseLegacySocialLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOutfitPresetToDressLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyEyewearLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
@@ -3987,26 +3996,6 @@ function getAspectRatioOption(id) {
   const option = ASPECT_RATIO_OPTIONS.find((entry) => entry.id === id);
   if (option?.random) return sample(ASPECT_RATIO_POOL);
   return option || DEFAULT_ASPECT_RATIO;
-}
-
-function getDuoInteractionOption(id) {
-  if (id === 'editorial') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
-  if (id === 'natural') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'shoulder-lean') || null;
-  if (id === 'intimate') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'intimate') || null;
-  if (id === 'side-by-side-chatting') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
-  if (id === 'seated-chatting') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
-  if (id === 'eating-together') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
-  if (id === 'shopping-together') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
-  if (id === 'walking-together') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
-  if (id === 'looking-same-direction') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'strangers') || null;
-  if (id === 'one-looking-at-other') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
-  if (id === 'adjusting-hair-or-clothes') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'distance') || null;
-  if (id === 'leaning-shoulders') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'shoulder-lean') || null;
-  if (id === 'arm-around-close') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'intimate') || null;
-  if (id === 'whispering-close') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'intimate') || null;
-  if (id === 'intimate-eye-contact') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'intimate') || null;
-  if (id === 'lying-on-back-together') return DUO_INTERACTION_OPTIONS.find((option) => option.id === 'intimate') || null;
-  return DUO_INTERACTION_OPTIONS.find((option) => option.id === id) || null;
 }
 
 function getDuoPoseOption(id) {
@@ -5505,7 +5494,6 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
           summarizeDuoRole(characterSlots.bodyTypeB, characterSlots.facialFeaturesB, characterSlots.skinDetailsB, characterSlots.hairstyleB, characterSlots.hairColorB)
             ? `人物 2：${summarizeDuoRole(characterSlots.bodyTypeB, characterSlots.facialFeaturesB, characterSlots.skinDetailsB, characterSlots.hairstyleB, characterSlots.hairColorB)}`
             : '',
-          context.duoInteraction?.zh || '',
           characterSlots.duoPose?.zh && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.zh : ''
         )
       : summarizeSingleCharacter(),
@@ -7041,7 +7029,7 @@ function getImportedWorldSceneArchitectureText(context) {
     .trim();
 }
 
-function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction) {
+function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const specialSubjectMode = isSpecialSubject(context.subject);
@@ -7335,13 +7323,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
   addLine('Special Action', skeletonText(specialActionText));
-  addLine(context.subject.count === 2 ? 'Duo Pose' : 'Pose', skeletonText(poseText));
+  addLine(context.subject.count === 2 ? 'Duo Layout' : 'Pose', skeletonText(poseText));
   if (isAndroidSubject(context.subject)) {
     addItemLine('Hairstyle', characterSlots.hairstyle);
     addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
   }
   if (specialSubjectMode) addLine('Expression', skeletonText(expressionText));
-  if (!specialSubjectMode && context.subject.count === 2) addLine('Duo Interaction', duoInteraction?.en);
   if (!specialSubjectMode && context.subject.count === 2) {
     addItemLine('Woman 1 Facial Features', characterSlots.facialFeaturesA);
     addItemLine('Woman 2 Facial Features', characterSlots.facialFeaturesB);
@@ -7511,8 +7498,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
   const poseValues = getStructuredValues(valuesByLabel, [
     'Special Action',
     'Pose',
-    'Duo Pose',
-    'Duo Interaction',
+    'Duo Layout',
     'Framing',
     'Composition Priority',
     ...(fixedCompositionSetActive ? [] : fixedSetCameraLabels),
@@ -7592,7 +7578,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
   ].filter(Boolean).join('\n\n');
 }
 
-function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction) {
+function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
@@ -7718,7 +7704,6 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         : (characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
           ? characterSlots.poseComposer.en
           : (characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '')),
-      context.subject.count === 2 ? duoInteraction?.en : '',
     ].filter(Boolean);
 
     return leadSentence('Create a photorealistic editorial portrait of', parts);
@@ -8022,16 +8007,16 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context) {
   return [...new Set(parts)].join(' ');
 }
 
-function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction) {
-  const structuredPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, duoInteraction);
+function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
+  const structuredPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film);
   const grokPrompt = buildGptPromptFromStructuredPrompt(structuredPrompt, context);
-  const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction);
+  const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const midjourneyPrompt = buildAiPromptFromStructuredPrompt(structuredPrompt, context);
 
   return { midjourneyPrompt, grokPrompt, zImagePrompt };
 }
 
-function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film, duoInteraction) {
+function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const normalizedSelection = normalizeLegacyOutfitPresetColors({
@@ -8107,7 +8092,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     hairColorId: characterSlots.hairColor?.id || '',
     hairColorAId: characterSlots.hairColorA?.id?.replace(/:a$/, '') || '',
     hairColorBId: characterSlots.hairColorB?.id?.replace(/:b$/, '') || '',
-    duoInteractionId: duoInteraction?.id || '',
+    duoInteractionId: '',
     duoPoseId: characterSlots.duoPose?.id?.split(':').pop() || '',
     expressionId: characterSlots.expression?.id || '',
     expressionAId: characterSlots.expressionA?.id?.replace(/:a$/, '') || '',
@@ -8354,8 +8339,6 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const fixedSetPerformanceState = fixedCompositionSet
     ? getFixedSetPerformanceStateOption(effectiveLocks.fixedSetPerformanceStateId)
     : getFixedSetPerformanceStateOption('model-natural');
-  const duoInteraction = subject.count === 2 ? getDuoInteractionOption(effectiveLocks.duoInteractionId) || sampleNonNone(DUO_INTERACTION_OPTIONS) : null;
-
   const context = {
     subject,
     aspectRatio,
@@ -8376,7 +8359,6 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     lighting,
     lightDirection,
     locks: effectiveLocks,
-    duoInteraction,
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
   const character = buildCharacter(context, runtime.catalog);
@@ -8384,7 +8366,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks);
 
-  const { midjourneyPrompt, grokPrompt, zImagePrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect, duoInteraction);
+  const { midjourneyPrompt, grokPrompt, zImagePrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
   return {
@@ -8395,7 +8377,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     midjourneyPrompt,
     grokPrompt,
     zImagePrompt,
-    selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film, duoInteraction),
+    selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film),
     structured: {
       Style: [style],
       Character: character,
