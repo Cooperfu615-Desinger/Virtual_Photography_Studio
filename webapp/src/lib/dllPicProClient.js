@@ -1,25 +1,67 @@
 export const DLL_PIC_STORAGE_KEYS = {
   apiKey: 'dll_pic_pro_api_key',
+  googleApiKey: 'dll_pic_pro_google_api_key',
+  xaiApiKey: 'dll_pic_pro_xai_api_key',
   model: 'dll_pic_pro_model',
+  resolution: 'dll_pic_pro_resolution',
 };
 
 export const DLL_PIC_MODEL_CONFIG = {
   google: {
     label: 'Google Gemini',
+    provider: 'google',
     generationModel: 'gemini-2.5-flash-image',
     analysisModel: 'gemini-2.5-flash',
+    apiKeyStorageKey: DLL_PIC_STORAGE_KEYS.googleApiKey,
+    legacyApiKeyStorageKey: DLL_PIC_STORAGE_KEYS.apiKey,
+    apiKeyPlaceholder: '貼上 Google Gemini API Key',
   },
   google31image: {
     label: 'Google Gemini (實驗)',
+    provider: 'google',
     generationModel: 'gemini-3.1-flash-image-preview',
     analysisModel: 'gemini-2.5-flash',
+    apiKeyStorageKey: DLL_PIC_STORAGE_KEYS.googleApiKey,
+    legacyApiKeyStorageKey: DLL_PIC_STORAGE_KEYS.apiKey,
+    apiKeyPlaceholder: '貼上 Google Gemini API Key',
+  },
+  xaiGrokImagine: {
+    label: 'xAI Grok',
+    provider: 'xai',
+    generationModel: 'grok-imagine-image',
+    analysisModel: '',
+    apiKeyStorageKey: DLL_PIC_STORAGE_KEYS.xaiApiKey,
+    apiKeyPlaceholder: '貼上 xAI API Key',
+    supportsResolution: true,
+    defaultResolution: '1k',
+  },
+  xaiGrokImagineQuality: {
+    label: 'xAI Grok Quality',
+    provider: 'xai',
+    generationModel: 'grok-imagine-image-quality',
+    analysisModel: '',
+    apiKeyStorageKey: DLL_PIC_STORAGE_KEYS.xaiApiKey,
+    apiKeyPlaceholder: '貼上 xAI API Key',
+    supportsResolution: true,
+    defaultResolution: '1k',
   },
   grok: {
-    label: 'xAI Grok',
-    generationModel: '',
+    label: 'xAI Grok Quality',
+    provider: 'xai',
+    generationModel: 'grok-imagine-image-quality',
     analysisModel: '',
+    apiKeyStorageKey: DLL_PIC_STORAGE_KEYS.xaiApiKey,
+    apiKeyPlaceholder: '貼上 xAI API Key',
+    supportsResolution: true,
+    defaultResolution: '1k',
+    hidden: true,
   },
 };
+
+export const DLL_PIC_RESOLUTIONS = [
+  { value: '1k', label: '1K' },
+  { value: '2k', label: '2K' },
+];
 
 export const DLL_PIC_ASPECT_RATIOS = [
   { value: '16:9', label: '16:9' },
@@ -29,8 +71,19 @@ export const DLL_PIC_ASPECT_RATIOS = [
   { value: '3:4', label: '3:4' },
 ];
 
-function buildApiUrl(modelName, apiKey) {
+function buildGoogleApiUrl(modelName, apiKey) {
   return `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+}
+
+function buildXaiImageGenerationBody({ modelName, prompt, aspectRatio, count, resolution }) {
+  return JSON.stringify({
+    model: modelName,
+    prompt: prompt.trim(),
+    n: count,
+    aspect_ratio: aspectRatio,
+    resolution,
+    response_format: 'b64_json',
+  });
 }
 
 async function fetchWithTimeout(url, options, timeoutMs = 90000) {
@@ -67,21 +120,41 @@ export async function parseDllPicApiError(response) {
 }
 
 export function getDllPicModelConfig(modelKey) {
+  if (modelKey === 'grok') return DLL_PIC_MODEL_CONFIG.xaiGrokImagineQuality;
   return DLL_PIC_MODEL_CONFIG[modelKey] || DLL_PIC_MODEL_CONFIG.google;
 }
 
-export async function generateDllPicImages({
-  apiKey,
-  modelKey = 'google',
-  prompt,
-  aspectRatio = '9:16',
-  count = 1,
-}) {
-  const modelConfig = getDllPicModelConfig(modelKey);
-  if (!apiKey) throw new Error('請先設定 DLL_PIC Pro API Key');
-  if (!prompt?.trim()) throw new Error('請先選擇或輸入 Prompt');
-  if (!modelConfig.generationModel) throw new Error(`${modelConfig.label} 目前尚未接入生圖功能`);
+export function normalizeDllPicModelKey(modelKey, fallback = 'google') {
+  if (modelKey === 'grok') return 'xaiGrokImagineQuality';
+  const modelConfig = DLL_PIC_MODEL_CONFIG[modelKey];
+  return modelConfig && !modelConfig.hidden ? modelKey : fallback;
+}
 
+export function getDllPicSelectableModelEntries({ includeAnalysisOnly = false } = {}) {
+  return Object.entries(DLL_PIC_MODEL_CONFIG).filter(([, model]) => (
+    !model.hidden && (!includeAnalysisOnly || model.analysisModel)
+  ));
+}
+
+export function getDllPicApiKeyStorageKeys(modelKey) {
+  const modelConfig = getDllPicModelConfig(modelKey);
+  return [
+    modelConfig.apiKeyStorageKey,
+    modelConfig.legacyApiKeyStorageKey,
+  ].filter(Boolean);
+}
+
+export function getDllPicResolutionOption(resolution) {
+  return DLL_PIC_RESOLUTIONS.find((option) => option.value === resolution) || DLL_PIC_RESOLUTIONS[0];
+}
+
+async function generateGeminiImages({
+  apiKey,
+  modelConfig,
+  prompt,
+  aspectRatio,
+  count,
+}) {
   const body = JSON.stringify({
     contents: [{
       parts: [{ text: prompt.trim() }],
@@ -95,7 +168,7 @@ export async function generateDllPicImages({
   });
 
   const responses = await Promise.all(Array.from({ length: count }, () => (
-    fetchWithTimeout(buildApiUrl(modelConfig.generationModel, apiKey), {
+    fetchWithTimeout(buildGoogleApiUrl(modelConfig.generationModel, apiKey), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body,
@@ -128,11 +201,80 @@ export async function generateDllPicImages({
     }
   }
 
-  if (images.length === 0) {
-    throw new Error(errors[0] || 'API 回應中未包含圖像資料。');
+  return { images, errors };
+}
+
+async function generateXaiImages({
+  apiKey,
+  modelConfig,
+  prompt,
+  aspectRatio = '9:16',
+  count = 1,
+  resolution = '1k',
+}) {
+  const response = await fetchWithTimeout('https://api.x.ai/v1/images/generations', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: buildXaiImageGenerationBody({
+      modelName: modelConfig.generationModel,
+      prompt,
+      aspectRatio,
+      count,
+      resolution: getDllPicResolutionOption(resolution).value,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(await parseDllPicApiError(response));
   }
 
-  return { images, errors };
+  const data = await response.json();
+  const images = (data.data || []).flatMap((image) => {
+    if (image.b64_json) {
+      return [{
+        src: `data:${image.mime_type || 'image/jpeg'};base64,${image.b64_json}`,
+        mimeType: image.mime_type || 'image/jpeg',
+      }];
+    }
+
+    if (image.url) {
+      return [{
+        src: image.url,
+        mimeType: image.mime_type || 'image/jpeg',
+      }];
+    }
+
+    return [];
+  });
+
+  return { images, errors: [] };
+}
+
+export async function generateDllPicImages({
+  apiKey,
+  modelKey = 'google',
+  prompt,
+  aspectRatio = '9:16',
+  count = 1,
+  resolution = '1k',
+}) {
+  const modelConfig = getDllPicModelConfig(modelKey);
+  if (!apiKey) throw new Error('請先設定 DLL_PIC Pro API Key');
+  if (!prompt?.trim()) throw new Error('請先選擇或輸入 Prompt');
+  if (!modelConfig.generationModel) throw new Error(`${modelConfig.label} 目前尚未接入生圖功能`);
+
+  const result = modelConfig.provider === 'xai'
+    ? await generateXaiImages({ apiKey, modelConfig, prompt, aspectRatio, count, resolution })
+    : await generateGeminiImages({ apiKey, modelConfig, prompt, aspectRatio, count });
+
+  if (result.images.length === 0) {
+    throw new Error(result.errors[0] || 'API 回應中未包含圖像資料。');
+  }
+
+  return result;
 }
 
 function normalizeJsonText(text = '') {
@@ -206,7 +348,7 @@ export async function analyzeImageToPrompt({
 Do not include markdown, code fences, or commentary.${extraInstruction}`;
 
   const response = await fetchWithTimeout(
-    buildApiUrl(modelConfig.analysisModel, apiKey),
+    buildGoogleApiUrl(modelConfig.analysisModel, apiKey),
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

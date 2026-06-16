@@ -1,15 +1,38 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   DLL_PIC_ASPECT_RATIOS,
-  DLL_PIC_MODEL_CONFIG,
+  DLL_PIC_RESOLUTIONS,
   DLL_PIC_STORAGE_KEYS,
   generateDllPicImages,
+  getDllPicApiKeyStorageKeys,
   getDllPicModelConfig,
+  getDllPicResolutionOption,
+  getDllPicSelectableModelEntries,
+  normalizeDllPicModelKey,
 } from '../lib/dllPicProClient.js';
 
 function loadStoredValue(key, fallback = '') {
   if (typeof window === 'undefined') return fallback;
   return window.localStorage.getItem(key) || fallback;
+}
+
+function loadStoredModelKey(fallback = 'google') {
+  return normalizeDllPicModelKey(loadStoredValue(DLL_PIC_STORAGE_KEYS.model, fallback), fallback);
+}
+
+function loadStoredApiKey(modelKey) {
+  if (typeof window === 'undefined') return '';
+  for (const key of getDllPicApiKeyStorageKeys(modelKey)) {
+    const value = window.localStorage.getItem(key);
+    if (value) return value;
+  }
+  return '';
+}
+
+function saveStoredApiKey(modelKey, apiKey) {
+  getDllPicApiKeyStorageKeys(modelKey).forEach((key) => {
+    window.localStorage.setItem(key, apiKey.trim());
+  });
 }
 
 function saveImage(src, index) {
@@ -37,10 +60,13 @@ export default function DllPicProPanel({
 }) {
   const availableSources = promptSources.filter((source) => source?.value?.trim());
   const initialSourceId = defaultSourceId || availableSources[0]?.id || promptSources[0]?.id || '';
-  const [apiKey, setApiKey] = useState(() => loadStoredValue(DLL_PIC_STORAGE_KEYS.apiKey));
-  const [modelKey, setModelKey] = useState(() => loadStoredValue(DLL_PIC_STORAGE_KEYS.model, 'google'));
+  const [modelKey, setModelKey] = useState(loadStoredModelKey);
+  const [apiKey, setApiKey] = useState(() => loadStoredApiKey(loadStoredModelKey()));
   const [selectedSourceId, setSelectedSourceId] = useState(initialSourceId);
   const [aspectRatio, setAspectRatio] = useState('9:16');
+  const [resolution, setResolution] = useState(() => (
+    getDllPicResolutionOption(loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
+  ));
   const [count, setCount] = useState(1);
   const [images, setImages] = useState(loadDevPreviewImages);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -50,6 +76,9 @@ export default function DllPicProPanel({
   const [message, setMessage] = useState(() => (loadDevPreviewImages().length ? '已套用本地預覽圖' : ''));
 
   const activeModel = getDllPicModelConfig(modelKey);
+  const activeModelNote = activeModel.supportsResolution
+    ? `${activeModel.generationModel} / ${resolution.toUpperCase()}`
+    : activeModel.generationModel;
   const previewImage = previewImageIndex === null ? null : images[previewImageIndex] || null;
   const previewDisplaySize = previewImageSize ? {
     width: previewImageSize.width / 2,
@@ -62,8 +91,11 @@ export default function DllPicProPanel({
   const canGenerate = Boolean(apiKey.trim() && selectedPrompt && activeModel.generationModel && !isGenerating);
 
   const saveSettings = () => {
-    window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.apiKey, apiKey.trim());
+    saveStoredApiKey(modelKey, apiKey);
     window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.model, modelKey);
+    if (activeModel.supportsResolution) {
+      window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.resolution, resolution);
+    }
     setMessage('DLL_PIC Pro 設定已保存');
   };
 
@@ -87,14 +119,18 @@ export default function DllPicProPanel({
     setPreviewImageSize(null);
 
     try {
-      window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.apiKey, apiKey.trim());
+      saveStoredApiKey(modelKey, apiKey);
       window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.model, modelKey);
+      if (activeModel.supportsResolution) {
+        window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.resolution, resolution);
+      }
       const result = await generateDllPicImages({
         apiKey: apiKey.trim(),
         modelKey,
         prompt: selectedPrompt,
         aspectRatio,
         count,
+        resolution,
       });
       setImages(result.images);
       setMessage(result.errors.length > 0 ? result.errors[0] : `已生成 ${result.images.length} 張圖像`);
@@ -104,6 +140,10 @@ export default function DllPicProPanel({
       setIsGenerating(false);
     }
   };
+
+  useEffect(() => {
+    setApiKey(loadStoredApiKey(modelKey));
+  }, [modelKey]);
 
   useEffect(() => {
     if (!previewImage) return undefined;
@@ -145,7 +185,7 @@ export default function DllPicProPanel({
         <label className="field dll-pic-field">
           <span>模型</span>
           <select value={modelKey} onChange={(event) => setModelKey(event.target.value)}>
-            {Object.entries(DLL_PIC_MODEL_CONFIG).map(([key, model]) => (
+            {getDllPicSelectableModelEntries().map(([key, model]) => (
               <option key={key} value={key}>
                 {model.label}
               </option>
@@ -163,6 +203,19 @@ export default function DllPicProPanel({
             ))}
           </select>
         </label>
+
+        {activeModel.supportsResolution ? (
+          <label className="field dll-pic-field">
+            <span>解析度</span>
+            <select value={resolution} onChange={(event) => setResolution(event.target.value)}>
+              {DLL_PIC_RESOLUTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : null}
 
         <label className="field dll-pic-field">
           <span>張數</span>
@@ -184,7 +237,7 @@ export default function DllPicProPanel({
             type="password"
             value={apiKey}
             onChange={(event) => setApiKey(event.target.value)}
-            placeholder="貼上 Google Gemini API Key"
+            placeholder={activeModel.apiKeyPlaceholder || '貼上 API Key'}
           />
           <button className="secondary dll-pic-save-key-btn" type="button" onClick={saveSettings}>
             保存
@@ -196,7 +249,7 @@ export default function DllPicProPanel({
         <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
           {isGenerating ? '生成中...' : '生成圖像'}
         </button>
-        <span className="dll-pic-model-note">{activeModel.generationModel || '此 provider 尚未接入生圖'}</span>
+        <span className="dll-pic-model-note">{activeModelNote || '此 provider 尚未接入生圖'}</span>
       </div>
 
       {message ? <div className="dll-pic-message">{message}</div> : null}

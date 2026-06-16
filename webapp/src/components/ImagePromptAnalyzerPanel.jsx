@@ -1,14 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  DLL_PIC_MODEL_CONFIG,
   DLL_PIC_STORAGE_KEYS,
   analyzeImageToPrompt,
+  getDllPicApiKeyStorageKeys,
   getDllPicModelConfig,
+  getDllPicSelectableModelEntries,
+  normalizeDllPicModelKey,
 } from '../lib/dllPicProClient.js';
 
 function loadStoredValue(key, fallback = '') {
   if (typeof window === 'undefined') return fallback;
   return window.localStorage.getItem(key) || fallback;
+}
+
+function loadStoredAnalyzerModelKey() {
+  const modelKey = normalizeDllPicModelKey(loadStoredValue(DLL_PIC_STORAGE_KEYS.model, 'google'));
+  return getDllPicModelConfig(modelKey).analysisModel ? modelKey : 'google';
+}
+
+function loadStoredApiKey(modelKey) {
+  if (typeof window === 'undefined') return '';
+  for (const key of getDllPicApiKeyStorageKeys(modelKey)) {
+    const value = window.localStorage.getItem(key);
+    if (value) return value;
+  }
+  return '';
+}
+
+function saveStoredApiKey(modelKey, apiKey) {
+  getDllPicApiKeyStorageKeys(modelKey).forEach((key) => {
+    window.localStorage.setItem(key, apiKey.trim());
+  });
 }
 
 function readImageFile(file) {
@@ -21,8 +43,8 @@ function readImageFile(file) {
 }
 
 export default function ImagePromptAnalyzerPanel({ onCopyText }) {
-  const [apiKey, setApiKey] = useState(() => loadStoredValue(DLL_PIC_STORAGE_KEYS.apiKey));
-  const [modelKey, setModelKey] = useState(() => loadStoredValue(DLL_PIC_STORAGE_KEYS.model, 'google'));
+  const [modelKey, setModelKey] = useState(loadStoredAnalyzerModelKey);
+  const [apiKey, setApiKey] = useState(() => loadStoredApiKey(loadStoredAnalyzerModelKey()));
   const [imageDataUrl, setImageDataUrl] = useState('');
   const [instruction, setInstruction] = useState('');
   const [result, setResult] = useState({ shortPrompt: '', detailedPrompt: '', structuredPrompt: '' });
@@ -55,7 +77,7 @@ export default function ImagePromptAnalyzerPanel({ onCopyText }) {
     setMessage('');
 
     try {
-      window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.apiKey, apiKey.trim());
+      saveStoredApiKey(modelKey, apiKey);
       window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.model, modelKey);
       const nextResult = await analyzeImageToPrompt({
         apiKey: apiKey.trim(),
@@ -72,6 +94,10 @@ export default function ImagePromptAnalyzerPanel({ onCopyText }) {
       setIsAnalyzing(false);
     }
   };
+
+  useEffect(() => {
+    setApiKey(loadStoredApiKey(modelKey));
+  }, [modelKey]);
 
   const handleCopy = () => {
     if (!activeText?.trim()) {
@@ -103,7 +129,7 @@ export default function ImagePromptAnalyzerPanel({ onCopyText }) {
         <label className="field dll-pic-field">
           <span>模型</span>
           <select value={modelKey} onChange={(event) => setModelKey(event.target.value)}>
-            {Object.entries(DLL_PIC_MODEL_CONFIG).map(([key, model]) => (
+            {getDllPicSelectableModelEntries({ includeAnalysisOnly: true }).map(([key, model]) => (
               <option key={key} value={key}>
                 {model.label}
               </option>
@@ -117,7 +143,7 @@ export default function ImagePromptAnalyzerPanel({ onCopyText }) {
             type="password"
             value={apiKey}
             onChange={(event) => setApiKey(event.target.value)}
-            placeholder="Google Gemini API Key"
+            placeholder={activeModel.apiKeyPlaceholder || 'API Key'}
           />
         </label>
       </div>
