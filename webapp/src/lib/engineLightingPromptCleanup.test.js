@@ -83,7 +83,7 @@ test('generated house-party prompt keeps flexible scene and party ambient light'
   assert.match(prompt.grokPrompt, /Scene:\n[\s\S]*nighttime American house-party home interior/);
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*indoor house-party night environment/);
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*local warm practical-light pool on the subject/);
-  assert.match(prompt.zImagePrompt, /background guests chatting drinking and playing games/);
+  assert.match(prompt.zImagePrompt, /background guests (?:chatting drinking and playing games|if visible)/);
   assert.match(prompt.zImagePrompt, /warm practical lamps and small decorative lights/);
   assert.match(prompt.summary, /場景：室內：夜間家庭派對/);
   assert.match(prompt.summary, /光影：室內派對暖光夜景 \/ 局部暖光/);

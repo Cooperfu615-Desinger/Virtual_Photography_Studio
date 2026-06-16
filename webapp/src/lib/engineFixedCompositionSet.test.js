@@ -139,11 +139,6 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
 
   assert.match(prompt.midjourneyPrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.midjourneyPrompt, /large brown vintage Chesterfield leather sofa/);
-  assert.match(prompt.midjourneyPrompt, /approximately 3 to 4 meters away from the sofa/);
-  assert.match(prompt.midjourneyPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone/);
-  assert.match(prompt.midjourneyPrompt, /shoulder-level camera position/);
-  assert.match(prompt.midjourneyPrompt, /camera at the subject's front-right/);
-  assert.match(prompt.midjourneyPrompt, /confident powerful presence/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
 });
 
@@ -184,8 +179,7 @@ test('hotel and bathtub fixed compositions preserve camera angle and orbit locks
     assert.match(prompt.grokPrompt, cameraCase.orbitText);
     assert.match(prompt.zImagePrompt, cameraCase.angleText);
     assert.match(prompt.zImagePrompt, cameraCase.orbitText);
-    assert.match(prompt.midjourneyPrompt, cameraCase.angleText);
-    assert.match(prompt.midjourneyPrompt, cameraCase.orbitText);
+    assert.doesNotMatch(prompt.midjourneyPrompt, /shoulder-level camera position|high camera position above the subject's head|camera at the subject's front-right|camera at the subject's front-left/);
   });
 });
 
@@ -227,7 +221,6 @@ test('hotel window fixed composition uses shared real-scale set structure and fr
   assert.match(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set/);
   assert.match(prompt.midjourneyPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
   assert.match(prompt.midjourneyPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed hotel-window set/);
-  assert.match(prompt.midjourneyPrompt, /normal adult-scale hotel furniture-to-body relationship/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
 });
 
@@ -285,8 +278,8 @@ test('fixed composition prompts reinforce set anchors while allowing self-shot f
 
   assert.match(prompt.zImagePrompt, /at least one or two selected set anchors must remain recognizable/);
   assert.match(prompt.zImagePrompt, /normal adult-scale furniture-to-body relationship/);
-  assert.match(prompt.midjourneyPrompt, /must not replace the set/);
-  assert.match(prompt.midjourneyPrompt, /subject-to-furniture scale/);
+  assert.match(prompt.midjourneyPrompt, /real-scale compact living-room editorial set/);
+  assert.match(prompt.midjourneyPrompt, /large brown vintage Chesterfield leather sofa/);
 });
 
 test('bathtub fixed composition keeps a frontal wall plane and sink mirror interaction anchors', () => {
@@ -340,11 +333,8 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.match(prompt.zImagePrompt, /fully soaked from head to toe/);
   assert.match(prompt.zImagePrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed bathtub set/);
   assert.match(prompt.zImagePrompt, /normal adult-scale bathroom fixture-to-body relationship/);
-  assert.match(prompt.midjourneyPrompt, /mirror above the sink/);
   assert.match(prompt.midjourneyPrompt, /visible wet tile floor beneath and in front of the bathtub/);
-  assert.match(prompt.midjourneyPrompt, /fully soaked from head to toe/);
   assert.match(prompt.midjourneyPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed bathtub set/);
-  assert.match(prompt.midjourneyPrompt, /normal adult-scale bathroom fixture-to-body relationship/);
 });
 
 test('fixed composition sets are ignored for duo mode in V1', () => {

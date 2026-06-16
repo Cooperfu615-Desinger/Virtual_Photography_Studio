@@ -33,7 +33,7 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
 });
 
-test('Grok/Z-Image prompt remains natural language and AI is compacted from Gpt sections', () => {
+test('Grok/Z-Image prompt remains natural language and AI uses a legacy minimal paragraph', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -52,14 +52,39 @@ test('Grok/Z-Image prompt remains natural language and AI is compacted from Gpt 
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
-  assert.match(prompt.midjourneyPrompt, /^Create a photorealistic editorial portrait/);
+  assert.match(prompt.midjourneyPrompt, /^A seductive stunning 20-year-old Japanese or Korean woman/);
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
-  assert.match(prompt.midjourneyPrompt, /20-year-old Japanese or Korean/);
-  assert.match(prompt.midjourneyPrompt, /She wears .*flight attendant uniform outfit/);
+  assert.match(prompt.midjourneyPrompt, /wearing .*flight attendant uniform outfit/);
   assert.match(prompt.midjourneyPrompt, /standing pose with loosely crossed arms/);
-  assert.match(prompt.midjourneyPrompt, /Lighting: /);
-  assert.match(prompt.midjourneyPrompt, /Camera look: /);
+  assert.match(prompt.midjourneyPrompt, /captured (?:in film photography style|as a moody film still|as an editorial film still)/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
+});
+
+test('AI prompt uses a legacy minimal natural paragraph with wardrobe, pose, scene, and mood tail', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    locationId: optionId('locationId', '室內：九龍城寨內部狹窄走道'),
+    outfitPresetAId: optionId('outfitPresetAId', '套裝：BDSM 束縛'),
+    outfitPresetBId: optionId('outfitPresetBId', '套裝：泳裝度假'),
+    duoPoseId: optionId('duoPoseId', '性感互動'),
+    filmId: optionId('filmId', 'VHS 錄影帶低畫質'),
+    opticalEffectId: optionId('opticalEffectId', '漏光效果 Light Leaks'),
+  });
+
+  assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
+  assert.match(prompt.midjourneyPrompt, /^Two seductive stunning 20-year-old Japanese or Korean women\b/);
+  assert.match(prompt.midjourneyPrompt, /BDSM-inspired leather harness outfit/i);
+  assert.match(prompt.midjourneyPrompt, /bikini swimwear/i);
+  assert.match(prompt.midjourneyPrompt, /teasing hand contact/i);
+  assert.match(prompt.midjourneyPrompt, /Kowloon Walled City interior passage/i);
+  assert.match(prompt.midjourneyPrompt, /moody film still/i);
+  assert.match(prompt.midjourneyPrompt, /analog tape noise/i);
+  assert.match(prompt.midjourneyPrompt, /light leaks/i);
+  assert.ok(prompt.midjourneyPrompt.length < 650);
 });
 
 test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt outputs', () => {

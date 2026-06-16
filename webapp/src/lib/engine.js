@@ -7951,9 +7951,29 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   ].filter(Boolean).join(' ');
 }
 
-function compactAiSentence(sentenceText, limit = 3) {
-  return stripMarkdown(sentenceText || '')
+function cleanAiMinimalFragment(value) {
+  return stripMarkdown(value || '')
     .replace(/\s+/g, ' ')
+    .replace(/^The portrait takes place\s+(?:in|inside)\s+/i, '')
+    .replace(/^Treat the fixed set as the primary composition:\s*/i, '')
+    .replace(/^She is\s+/i, '')
+    .replace(/^world-scene architecture for the portrait:\s*/i, '')
+    .replace(/^complete outfit:\s*/i, '')
+    .replace(/Inspired by [^.]+,\s*/gi, '')
+    .replace(/\b(?:dominant|main|secondary|contrast)\s+[^,.]*?\s+controlled by\s+[^,.]+/gi, '')
+    .replace(/\bcolor controlled by\s+[^,.]+/gi, '')
+    .replace(/\bpreserve selected wardrobe identity through\s+[^,.]+/gi, '')
+    .replace(/\bcoordinated\s+[^,.]*?\s+styling\b/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/\s+\./g, '.')
+    .replace(/,\s*\./g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/,\s*$/g, '');
+}
+
+function compactAiMinimalFragment(value, limit = 4) {
+  return cleanAiMinimalFragment(value)
     .replace(/[.!?]+$/g, '')
     .split(/\s*,\s*/)
     .map((part) => part.trim())
@@ -7962,49 +7982,183 @@ function compactAiSentence(sentenceText, limit = 3) {
     .join(', ');
 }
 
+function firstStructuredValue(valuesByLabel, labels) {
+  return getStructuredValues(valuesByLabel, labels)[0] || '';
+}
+
+function buildAiMinimalSubjectLead(valuesByLabel, context) {
+  const subjectText = firstStructuredValue(valuesByLabel, ['Subject Count', 'Reference Guidance']);
+  if (isSpecialSubject(context.subject)) {
+    const cleaned = compactAiMinimalFragment(subjectText || context.subject?.en, 3);
+    return cleaned ? `A moody film still of ${cleaned}` : 'A moody film still';
+  }
+
+  if (context.subject?.reference) {
+    return 'A seductive stunning woman matching the attached reference person';
+  }
+
+  return context.subject?.count === 2
+    ? 'Two seductive stunning 20-year-old Japanese or Korean women'
+    : 'A seductive stunning 20-year-old Japanese or Korean woman';
+}
+
+function buildAiMinimalWardrobeClause(valuesByLabel, context) {
+  const roleA = firstStructuredValue(valuesByLabel, [
+    'Woman 1 Special Outfit',
+    'Woman 1 Outfit Preset',
+  ]);
+  const roleB = firstStructuredValue(valuesByLabel, [
+    'Woman 2 Special Outfit',
+    'Woman 2 Outfit Preset',
+  ]);
+  const roleAPhrase = compactAiMinimalFragment(roleA, 2);
+  const roleBPhrase = compactAiMinimalFragment(roleB, 2);
+
+  if (roleAPhrase || roleBPhrase) {
+    const duoParts = [
+      roleAPhrase ? `one wearing ${roleAPhrase}` : '',
+      roleBPhrase ? `the other wearing ${roleBPhrase}` : '',
+    ].filter(Boolean);
+    return `with ${duoParts.join(' and ')}`;
+  }
+
+  const duoSceneAnchor = firstStructuredValue(valuesByLabel, ['Duo Scene Anchor']);
+  if (duoSceneAnchor) {
+    const sceneAnchor = compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Location']), 1);
+    const woman1Token = 'woman 1 wears ';
+    const woman2Token = 'woman 2 wears ';
+    const woman1Start = duoSceneAnchor.toLowerCase().indexOf(woman1Token);
+    const woman2Start = duoSceneAnchor.toLowerCase().indexOf(woman2Token);
+    const roleAWear = woman1Start !== -1 && woman2Start !== -1
+      ? duoSceneAnchor.slice(woman1Start + woman1Token.length, woman2Start).replace(/,\s*$/g, '')
+      : '';
+    let roleBWear = woman2Start !== -1
+      ? duoSceneAnchor.slice(woman2Start + woman2Token.length)
+      : '';
+    if (roleBWear && sceneAnchor) {
+      const sceneIndex = roleBWear.toLowerCase().indexOf(` in ${sceneAnchor.toLowerCase()}`);
+      if (sceneIndex !== -1) roleBWear = roleBWear.slice(0, sceneIndex);
+    }
+    roleBWear = roleBWear.replace(/,\s*outfit-visible editorial duo composition.*$/i, '');
+    const anchorRoleAPhrase = compactAiMinimalFragment(roleAWear, 2);
+    const anchorRoleBPhrase = compactAiMinimalFragment(roleBWear, 2);
+    const anchorParts = [
+      anchorRoleAPhrase ? `one wearing ${anchorRoleAPhrase}` : '',
+      anchorRoleBPhrase ? `the other wearing ${anchorRoleBPhrase}` : '',
+    ].filter(Boolean);
+    if (anchorParts.length > 0) return `with ${anchorParts.join(' and ')}`;
+  }
+
+  const wardrobeValues = getStructuredValues(valuesByLabel, [
+    'Outerwear',
+    'Special Outfit',
+    'Outfit Preset',
+    'Dress',
+    'Top',
+    'Pants',
+    'Skirt',
+    'Legwear',
+    'Shoes',
+    'Duo Wardrobe',
+    'Wardrobe Visibility',
+  ]);
+  const wardrobePhrase = compactAiMinimalFragment(wardrobeValues.join(', '), context.subject?.count === 2 ? 6 : 5);
+
+  return wardrobePhrase ? `wearing ${wardrobePhrase}` : '';
+}
+
+function buildAiMinimalPoseClause(valuesByLabel, context) {
+  const poseText = firstStructuredValue(valuesByLabel, [
+    'Special Action',
+    context.subject?.count === 2 ? 'Duo Layout' : 'Pose',
+  ]);
+  const posePhrase = compactAiMinimalFragment(poseText, context.subject?.count === 2 ? 3 : 8)
+    .replace(/^two women\s+(?:in\s+)?/i, '')
+    .replace(/^both women\s+(?:in\s+)?/i, '')
+    .trim();
+
+  if (!posePhrase) return context.subject?.count === 2 ? 'pose for a photoshoot' : 'poses for a photoshoot';
+  if (context.subject?.count !== 2 && /^She is\b/i.test(stripMarkdown(poseText || '').trim())) {
+    return `She is ${posePhrase}`;
+  }
+  if (/^(standing|sitting|kneeling|squatting|lying|walking|holding|leaning|crouching|adjusting|looking|gazing)\b/i.test(posePhrase)) {
+    return posePhrase;
+  }
+
+  return `posing with ${posePhrase}`;
+}
+
+function buildAiMinimalSceneClause(valuesByLabel) {
+  const fixedSetValues = [
+    compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Composition Set']), 5),
+    compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Position']), 2),
+    compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Capture Mode']), 3),
+    compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Performance State']), 2),
+    compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Integrity']), 3),
+  ].filter(Boolean);
+  const sceneText = fixedSetValues.length > 0
+    ? fixedSetValues.join(', ')
+    : firstStructuredValue(valuesByLabel, [
+        'World Scene Architecture',
+        'Location',
+        'Scene Context',
+      ]);
+  const scenePhrase = fixedSetValues.length > 0 ? sceneText : compactAiMinimalFragment(sceneText, 2);
+  return scenePhrase ? `in ${scenePhrase}` : '';
+}
+
+function buildAiMinimalMoodTail(valuesByLabel) {
+  const cameraText = getStructuredValues(valuesByLabel, [
+    'Photography Style',
+    'Camera / Film',
+    'Optical Effect',
+  ]).join(', ');
+  const cleanedCameraText = cleanAiMinimalFragment(cameraText);
+  const artifacts = [];
+  const addArtifact = (value) => {
+    if (value && !artifacts.includes(value)) artifacts.push(value);
+  };
+
+  if (/vhs|tape/i.test(cleanedCameraText)) {
+    addArtifact('analog tape noise');
+    addArtifact('scanlines');
+    addArtifact('color bleeding');
+    addArtifact('tracking glitches');
+  }
+  if (/grain/i.test(cleanedCameraText)) addArtifact(/heavy grain/i.test(cleanedCameraText) ? 'heavy film grain' : 'film grain');
+  if (/noise/i.test(cleanedCameraText) && !/vhs|tape/i.test(cleanedCameraText)) addArtifact('visible image noise');
+  if (/scratch/i.test(cleanedCameraText)) addArtifact('simulated scratches');
+  if (/dust/i.test(cleanedCameraText)) addArtifact('dust specs');
+  if (/light leak|film-gate leak|exposure burn/i.test(cleanedCameraText)) addArtifact('prominent light leaks');
+  if (/vignette/i.test(cleanedCameraText)) addArtifact('corner vignetting');
+  if (/chromatic aberration|color bleeding/i.test(cleanedCameraText)) addArtifact('color fringing');
+
+  const moody = /moody|dark|nocturnal|melancholic|introspective|raw|diaristic|moriyama|nan goldin|araki|vhs|tape/i.test(cleanedCameraText);
+  const filmLike = /film|analog|kodak|fujifilm|leica|polaroid|ccd|vhs|grain/i.test(cleanedCameraText);
+  const base = moody
+    ? 'captured as a moody film still'
+    : filmLike
+      ? 'captured in film photography style'
+      : 'captured as an editorial film still';
+
+  if (artifacts.length > 0) return `${base} with ${artifacts.join(', ')}`;
+
+  const moodDetail = compactAiMinimalFragment(cleanedCameraText, 2);
+  return moodDetail ? `${base} with ${moodDetail}` : base;
+}
+
 function buildAiPromptFromStructuredPrompt(structuredPrompt, context) {
   const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
-  const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
-  const {
-    imageType,
-    sceneText,
-    subjectText,
-    wardrobeText,
-    poseText,
-    lightingText,
-    cameraText,
-    constraintsText,
-    subjectLead,
-    sceneUsesDirectSentence,
-    wardrobeLead,
-    wardrobeUsesDirectSentence,
-  } = buildPromptSectionSources(valuesByLabel, context);
-  const selectedDuoIdentityLabels = context.subject?.count === 2
-    ? [
-        (context.locks?.bodyTypeAId || context.locks?.bodyTypeId) ? 'Woman 1 Body Type' : '',
-        (context.locks?.bodyTypeBId || context.locks?.bodyTypeId) ? 'Woman 2 Body Type' : '',
-        (context.locks?.skinDetailsAId || context.locks?.skinDetailsId) ? 'Woman 1 Skin Details' : '',
-        (context.locks?.skinDetailsBId || context.locks?.skinDetailsId) ? 'Woman 2 Skin Details' : '',
-      ].filter(Boolean)
-    : [];
-  const selectedDuoIdentityText = selectedDuoIdentityLabels.length > 0
-    ? joinPromptSentences(getStructuredValues(valuesByLabel, selectedDuoIdentityLabels))
-    : '';
-  const parts = [
-    compactAiSentence(imageType, 1),
-    sceneText ? (sceneUsesDirectSentence ? compactAiSentence(sceneText, fixedCompositionSetActive ? 72 : 2) : `The scene is ${compactAiSentence(sceneText, fixedCompositionSetActive ? 72 : 2)}`) : '',
-    subjectText ? `${subjectLead} ${compactAiSentence(subjectText, 4)}` : '',
-    selectedDuoIdentityText ? `Duo identity details: ${selectedDuoIdentityText}` : '',
-    wardrobeText ? (wardrobeUsesDirectSentence ? compactAiSentence(wardrobeText, 6) : `${wardrobeLead} ${compactAiSentence(wardrobeText, 6)}`) : '',
-    poseText ? `Pose and composition: ${compactAiSentence(poseText, fixedCompositionSetActive ? 10 : 5)}` : '',
-    lightingText ? `Lighting: ${compactAiSentence(lightingText, 3)}` : '',
-    cameraText ? `Camera look: ${compactAiSentence(cameraText, 3)}` : '',
-    constraintsText ? `Keep ${compactAiSentence(constraintsText, 3)}` : '',
-  ]
-    .map((part) => ensureTerminalPeriod(part))
-    .filter(Boolean);
 
-  return [...new Set(parts)].join(' ');
+  const parts = [
+    buildAiMinimalSubjectLead(valuesByLabel, context),
+    buildAiMinimalWardrobeClause(valuesByLabel, context),
+    buildAiMinimalPoseClause(valuesByLabel, context),
+    buildAiMinimalSceneClause(valuesByLabel),
+  ].filter(Boolean);
+  const moodTail = buildAiMinimalMoodTail(valuesByLabel);
+
+  return ensureTerminalPeriod(`${parts.join(' ')}, ${moodTail}`);
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {

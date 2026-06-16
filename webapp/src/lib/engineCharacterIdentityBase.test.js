@@ -247,10 +247,8 @@ test('duo identity base supports separate body type and skin details per woman',
   assert.match(promptText, new RegExp(`woman 2 has ${bodyB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(promptText, new RegExp(`woman 1 has ${skinA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(promptText, new RegExp(`woman 2 has ${skinB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
-  assert.match(prompt.midjourneyPrompt, new RegExp(`woman 1 has ${bodyA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
-  assert.match(prompt.midjourneyPrompt, new RegExp(`woman 2 has ${bodyB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
-  assert.match(prompt.midjourneyPrompt, new RegExp(`woman 1 has ${skinA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
-  assert.match(prompt.midjourneyPrompt, new RegExp(`woman 2 has ${skinB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
+  assert.match(prompt.midjourneyPrompt, /^Two seductive stunning 20-year-old Japanese or Korean women\b/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /\bwoman [12] has\b/i);
   assert.equal(prompt.selection.bodyTypeAId, bodyA.id);
   assert.equal(prompt.selection.bodyTypeBId, bodyB.id);
   assert.equal(prompt.selection.skinDetailsAId, skinA.id);
