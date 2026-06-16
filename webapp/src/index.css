@@ -1415,6 +1415,13 @@ button:disabled {
   border-bottom: 1px solid rgba(111, 87, 60, 0.12);
 }
 
+.dll-pic-header-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
 .dll-pic-status {
   flex: 0 0 auto;
   padding: 5px 8px;
@@ -1424,6 +1431,13 @@ button:disabled {
   color: var(--text-secondary);
   font-size: 0.68rem;
   font-weight: 800;
+}
+
+.dll-pic-api-settings-btn {
+  min-height: 32px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 0.72rem;
 }
 
 .dll-pic-settings-grid {
@@ -1451,6 +1465,57 @@ button:disabled {
   padding: 8px 10px;
   border-radius: 10px;
   font-size: 0.76rem;
+}
+
+.modal-panel.dll-pic-api-modal {
+  width: min(560px, 100%);
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-color: rgba(111, 87, 60, 0.16);
+  border-radius: 18px;
+  background: #fffaf0;
+  color: var(--text-primary);
+}
+
+.dll-pic-api-modal-header {
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(111, 87, 60, 0.12);
+}
+
+.dll-pic-api-key-list {
+  display: grid;
+  gap: 12px;
+}
+
+.dll-pic-api-key-field {
+  padding: 12px;
+  border: 1px solid rgba(111, 87, 60, 0.12);
+  border-radius: 12px;
+  background: rgba(244, 234, 219, 0.56);
+}
+
+.dll-pic-api-key-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dll-pic-provider-pill {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: #efe5d4;
+  color: var(--text-secondary);
+  font-size: 0.66rem;
+  font-weight: 800;
+}
+
+.dll-pic-api-modal-actions {
+  justify-content: flex-end;
+  padding-top: 2px;
 }
 
 .dll-pic-save-key-btn,
@@ -2956,8 +3021,14 @@ button:disabled {
   .control-actions,
   .control-actions-main,
   .inline-actions,
+  .dll-pic-header,
+  .dll-pic-header-actions,
   .tab-row {
     flex-wrap: wrap;
+  }
+
+  .dll-pic-header-actions {
+    width: 100%;
   }
 
   .primary-action-row,

@@ -3,6 +3,7 @@ import {
   DLL_PIC_ASPECT_RATIOS,
   DLL_PIC_RESOLUTIONS,
   DLL_PIC_STORAGE_KEYS,
+  getDllPicApiKeyForModel,
   generateDllPicImages,
   getDllPicApiKeyStorageKeys,
   getDllPicModelConfig,
@@ -13,7 +14,11 @@ import {
 
 function loadStoredValue(key, fallback = '') {
   if (typeof window === 'undefined') return fallback;
-  return window.localStorage.getItem(key) || fallback;
+  try {
+    return window.localStorage.getItem(key) || fallback;
+  } catch {
+    return fallback;
+  }
 }
 
 function loadStoredModelKey(fallback = 'google') {
@@ -23,16 +28,62 @@ function loadStoredModelKey(fallback = 'google') {
 function loadStoredApiKey(modelKey) {
   if (typeof window === 'undefined') return '';
   for (const key of getDllPicApiKeyStorageKeys(modelKey)) {
-    const value = window.localStorage.getItem(key);
+    const value = loadStoredValue(key);
     if (value) return value;
   }
   return '';
 }
 
 function saveStoredApiKey(modelKey, apiKey) {
+  if (typeof window === 'undefined') return;
+  const normalizedApiKey = apiKey.trim();
   getDllPicApiKeyStorageKeys(modelKey).forEach((key) => {
-    window.localStorage.setItem(key, apiKey.trim());
+    try {
+      if (normalizedApiKey) {
+        window.localStorage.setItem(key, normalizedApiKey);
+      } else {
+        window.localStorage.removeItem(key);
+      }
+    } catch {
+      // Ignore unavailable storage; generation still uses in-memory keys.
+    }
   });
+}
+
+const DLL_PIC_API_KEY_FIELDS = [
+  {
+    provider: 'google',
+    modelKey: 'google',
+    label: 'Gemini API Key',
+    placeholder: '貼上 Google Gemini API Key',
+  },
+  {
+    provider: 'xai',
+    modelKey: 'xaiGrokImagineQuality',
+    label: 'xAI API Key',
+    placeholder: '貼上 xAI API Key',
+  },
+];
+
+function loadStoredProviderApiKeys() {
+  return DLL_PIC_API_KEY_FIELDS.reduce((keys, field) => ({
+    ...keys,
+    [field.provider]: loadStoredApiKey(field.modelKey),
+  }), {});
+}
+
+function saveStoredGenerationSettings(modelKey, resolution) {
+  if (typeof window === 'undefined') return;
+  const modelConfig = getDllPicModelConfig(modelKey);
+
+  try {
+    window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.model, modelKey);
+    if (modelConfig.supportsResolution) {
+      window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.resolution, resolution);
+    }
+  } catch {
+    // Ignore unavailable storage; current session state remains usable.
+  }
 }
 
 function saveImage(src, index) {
@@ -61,7 +112,9 @@ export default function DllPicProPanel({
   const availableSources = promptSources.filter((source) => source?.value?.trim());
   const initialSourceId = defaultSourceId || availableSources[0]?.id || promptSources[0]?.id || '';
   const [modelKey, setModelKey] = useState(loadStoredModelKey);
-  const [apiKey, setApiKey] = useState(() => loadStoredApiKey(loadStoredModelKey()));
+  const [apiKeys, setApiKeys] = useState(loadStoredProviderApiKeys);
+  const [apiKeyDrafts, setApiKeyDrafts] = useState(loadStoredProviderApiKeys);
+  const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
   const [selectedSourceId, setSelectedSourceId] = useState(initialSourceId);
   const [aspectRatio, setAspectRatio] = useState('9:16');
   const [resolution, setResolution] = useState(() => (
@@ -88,15 +141,34 @@ export default function DllPicProPanel({
     promptSources.find((source) => source.id === selectedSourceId) || availableSources[0] || promptSources[0] || null
   ), [availableSources, promptSources, selectedSourceId]);
   const selectedPrompt = selectedSource?.value?.trim() || '';
-  const canGenerate = Boolean(apiKey.trim() && selectedPrompt && activeModel.generationModel && !isGenerating);
+  const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
+  const activeProviderLabel = activeModel.provider === 'xai' ? 'xAI' : 'Gemini';
+  const canGenerate = Boolean(activeApiKey && selectedPrompt && activeModel.generationModel && !isGenerating);
 
-  const saveSettings = () => {
-    saveStoredApiKey(modelKey, apiKey);
-    window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.model, modelKey);
-    if (activeModel.supportsResolution) {
-      window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.resolution, resolution);
-    }
-    setMessage('DLL_PIC Pro 設定已保存');
+  const openApiKeyModal = () => {
+    setApiKeyDrafts(apiKeys);
+    setIsApiKeyModalOpen(true);
+  };
+
+  const closeApiKeyModal = () => {
+    setIsApiKeyModalOpen(false);
+    setApiKeyDrafts(apiKeys);
+  };
+
+  const saveApiKeys = () => {
+    const nextApiKeys = DLL_PIC_API_KEY_FIELDS.reduce((keys, field) => {
+      const normalizedApiKey = (apiKeyDrafts[field.provider] || '').trim();
+      saveStoredApiKey(field.modelKey, normalizedApiKey);
+      return {
+        ...keys,
+        [field.provider]: normalizedApiKey,
+      };
+    }, {});
+
+    setApiKeys(nextApiKeys);
+    setApiKeyDrafts(nextApiKeys);
+    setIsApiKeyModalOpen(false);
+    setMessage('DLL_PIC Pro API Keys 已保存');
   };
 
   const openImagePreview = (index) => {
@@ -111,6 +183,8 @@ export default function DllPicProPanel({
   };
 
   const handleGenerate = async () => {
+    const apiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
+
     setIsGenerating(true);
     setMessage('');
     setImages([]);
@@ -119,13 +193,9 @@ export default function DllPicProPanel({
     setPreviewImageSize(null);
 
     try {
-      saveStoredApiKey(modelKey, apiKey);
-      window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.model, modelKey);
-      if (activeModel.supportsResolution) {
-        window.localStorage.setItem(DLL_PIC_STORAGE_KEYS.resolution, resolution);
-      }
+      saveStoredGenerationSettings(modelKey, resolution);
       const result = await generateDllPicImages({
-        apiKey: apiKey.trim(),
+        apiKey,
         modelKey,
         prompt: selectedPrompt,
         aspectRatio,
@@ -142,10 +212,6 @@ export default function DllPicProPanel({
   };
 
   useEffect(() => {
-    setApiKey(loadStoredApiKey(modelKey));
-  }, [modelKey]);
-
-  useEffect(() => {
     if (!previewImage) return undefined;
 
     const handleKeyDown = (event) => {
@@ -156,6 +222,20 @@ export default function DllPicProPanel({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [previewImage]);
 
+  useEffect(() => {
+    if (!isApiKeyModalOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsApiKeyModalOpen(false);
+        setApiKeyDrafts(apiKeys);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [apiKeys, isApiKeyModalOpen]);
+
   return (
     <section className={`dll-pic-panel ${compact ? 'dll-pic-panel-compact' : ''}`}>
       <div className="dll-pic-header">
@@ -163,7 +243,14 @@ export default function DllPicProPanel({
           <div className="control-section-title">{title}</div>
           <p className="workspace-panel-copy">{description}</p>
         </div>
-        <span className="dll-pic-status">{apiKey ? 'Key 已設定' : '未設定 Key'}</span>
+        <div className="dll-pic-header-actions">
+          <span className="dll-pic-status">
+            {activeApiKey ? `${activeProviderLabel} Key 已設定` : `${activeProviderLabel} Key 未設定`}
+          </span>
+          <button className="secondary dll-pic-api-settings-btn" type="button" onClick={openApiKeyModal}>
+            API Keys
+          </button>
+        </div>
       </div>
 
       <div className="dll-pic-settings-grid">
@@ -184,7 +271,14 @@ export default function DllPicProPanel({
 
         <label className="field dll-pic-field">
           <span>模型</span>
-          <select value={modelKey} onChange={(event) => setModelKey(event.target.value)}>
+          <select
+            value={modelKey}
+            onChange={(event) => {
+              const nextModelKey = event.target.value;
+              setModelKey(nextModelKey);
+              saveStoredGenerationSettings(nextModelKey, resolution);
+            }}
+          >
             {getDllPicSelectableModelEntries().map(([key, model]) => (
               <option key={key} value={key}>
                 {model.label}
@@ -207,7 +301,14 @@ export default function DllPicProPanel({
         {activeModel.supportsResolution ? (
           <label className="field dll-pic-field">
             <span>解析度</span>
-            <select value={resolution} onChange={(event) => setResolution(event.target.value)}>
+            <select
+              value={resolution}
+              onChange={(event) => {
+                const nextResolution = event.target.value;
+                setResolution(nextResolution);
+                saveStoredGenerationSettings(modelKey, nextResolution);
+              }}
+            >
               {DLL_PIC_RESOLUTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -229,22 +330,6 @@ export default function DllPicProPanel({
         </label>
       </div>
 
-      <label className="field dll-pic-api-field">
-        <span>API Key</span>
-        <div className="dll-pic-key-row">
-          <input
-            className="text-input dll-pic-key-input"
-            type="password"
-            value={apiKey}
-            onChange={(event) => setApiKey(event.target.value)}
-            placeholder={activeModel.apiKeyPlaceholder || '貼上 API Key'}
-          />
-          <button className="secondary dll-pic-save-key-btn" type="button" onClick={saveSettings}>
-            保存
-          </button>
-        </div>
-      </label>
-
       <div className="dll-pic-actions">
         <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
           {isGenerating ? '生成中...' : '生成圖像'}
@@ -253,6 +338,62 @@ export default function DllPicProPanel({
       </div>
 
       {message ? <div className="dll-pic-message">{message}</div> : null}
+
+      {isApiKeyModalOpen ? (
+        <div className="modal-backdrop dll-pic-api-modal-backdrop" onClick={closeApiKeyModal}>
+          <div
+            className="modal-panel dll-pic-api-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="dll-pic-api-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="modal-header dll-pic-api-modal-header">
+              <div>
+                <div className="control-section-title" id="dll-pic-api-modal-title">DLL_PIC Pro API Keys</div>
+              </div>
+              <button type="button" className="secondary dll-pic-lightbox-close" onClick={closeApiKeyModal}>
+                關閉
+              </button>
+            </div>
+
+            <div className="dll-pic-api-key-list">
+              {DLL_PIC_API_KEY_FIELDS.map((field) => (
+                <label className="field dll-pic-api-key-field" key={field.provider}>
+                  <span className="dll-pic-api-key-label">
+                    <span>{field.label}</span>
+                    <span className="dll-pic-provider-pill">
+                      {apiKeys[field.provider] ? '已設定' : '未設定'}
+                    </span>
+                  </span>
+                  <input
+                    className="text-input dll-pic-key-input"
+                    type="password"
+                    value={apiKeyDrafts[field.provider] || ''}
+                    onChange={(event) => {
+                      const nextValue = event.target.value;
+                      setApiKeyDrafts((currentDrafts) => ({
+                        ...currentDrafts,
+                        [field.provider]: nextValue,
+                      }));
+                    }}
+                    placeholder={field.placeholder}
+                  />
+                </label>
+              ))}
+            </div>
+
+            <div className="modal-actions dll-pic-api-modal-actions">
+              <button type="button" className="secondary dll-pic-lightbox-close" onClick={closeApiKeyModal}>
+                取消
+              </button>
+              <button type="button" className="primary-copy-btn dll-pic-save-key-btn" onClick={saveApiKeys}>
+                更新並儲存
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <div className="dll-pic-preview-zone" style={{ '--dll-pic-preview-ratio': aspectRatio.replace(':', ' / ') }}>
         {images.length === 0 ? (

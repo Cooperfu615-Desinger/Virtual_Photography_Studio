@@ -144,6 +144,11 @@ export function getDllPicApiKeyStorageKeys(modelKey) {
   ].filter(Boolean);
 }
 
+export function getDllPicApiKeyForModel(modelKey, providerApiKeys = {}) {
+  const modelConfig = getDllPicModelConfig(modelKey);
+  return (providerApiKeys[modelConfig.provider] || '').trim();
+}
+
 export function getDllPicResolutionOption(resolution) {
   return DLL_PIC_RESOLUTIONS.find((option) => option.value === resolution) || DLL_PIC_RESOLUTIONS[0];
 }

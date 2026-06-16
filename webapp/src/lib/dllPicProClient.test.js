@@ -4,6 +4,7 @@ import { afterEach, beforeEach, test } from 'node:test';
 import {
   DLL_PIC_STORAGE_KEYS,
   generateDllPicImages,
+  getDllPicApiKeyForModel,
   getDllPicApiKeyStorageKeys,
   getDllPicSelectableModelEntries,
   normalizeDllPicModelKey,
@@ -76,6 +77,18 @@ test('xAI generation sends bearer auth, model, aspect ratio, count, and resoluti
 test('legacy Grok model key normalizes to the current xAI quality model', () => {
   assert.equal(normalizeDllPicModelKey('grok'), 'xaiGrokImagineQuality');
   assert.deepEqual(getDllPicApiKeyStorageKeys('xaiGrokImagine'), [DLL_PIC_STORAGE_KEYS.xaiApiKey]);
+});
+
+test('API key selection follows the active model provider', () => {
+  const providerApiKeys = {
+    google: ' gemini-key ',
+    xai: ' xai-key ',
+  };
+
+  assert.equal(getDllPicApiKeyForModel('google', providerApiKeys), 'gemini-key');
+  assert.equal(getDllPicApiKeyForModel('google31image', providerApiKeys), 'gemini-key');
+  assert.equal(getDllPicApiKeyForModel('xaiGrokImagine', providerApiKeys), 'xai-key');
+  assert.equal(getDllPicApiKeyForModel('xaiGrokImagineQuality', providerApiKeys), 'xai-key');
 });
 
 test('model option helpers hide legacy aliases and keep analyzer to analysis-capable models', () => {
