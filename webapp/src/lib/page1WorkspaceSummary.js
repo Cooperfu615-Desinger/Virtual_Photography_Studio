@@ -111,11 +111,10 @@ export function buildWorkspaceSummary(locks, controls) {
         getControlOptionLabel(controls, 'hairColorId', locks.hairColorId),
         getControlOptionLabel(controls, 'hairColorAId', locks.hairColorAId),
         getControlOptionLabel(controls, 'hairColorBId', locks.hairColorBId),
-      ]);
+  ]);
   const poseSummary = buildSummaryText([
     getControlOptionLabel(controls, 'expressionId', locks.expressionId),
-    getControlOptionLabel(controls, 'expressionAId', locks.expressionAId),
-    getControlOptionLabel(controls, 'expressionBId', locks.expressionBId),
+    getControlOptionLabel(controls, 'duoExpressionId', locks.duoExpressionId),
     getControlOptionLabel(controls, 'duoPoseId', locks.duoPoseId),
     getControlOptionLabel(controls, 'poseId', locks.poseId),
     getControlOptionLabel(controls, 'specialActionId', locks.specialActionId),

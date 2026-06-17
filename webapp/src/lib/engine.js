@@ -190,6 +190,70 @@ const DUO_POSE_OPTIONS = [
   },
 ];
 
+const DUO_EXPRESSION_OPTIONS = [
+  {
+    id: 'none',
+    zh: '全無',
+    en: '',
+    desc: 'Do not specify duo expression or shared gaze relationship.',
+    meta: { tags: ['none'] },
+  },
+  {
+    id: 'direct-cool-detached',
+    zh: '兩人直視鏡頭｜冷淡疏離',
+    en: 'both women look directly at the camera with cool detached expressions, restrained editorial distance, fashion magazine aloofness',
+    meta: { tags: ['direct_gaze'] },
+  },
+  {
+    id: 'direct-calm-natural',
+    zh: '兩人直視鏡頭｜平靜自然',
+    en: 'both women look directly at the camera with calm relaxed expressions, natural shared presence, understated chemistry',
+    meta: { tags: ['direct_gaze'] },
+  },
+  {
+    id: 'one-camera-one-away',
+    zh: '一人看鏡頭｜一人隨性離鏡',
+    en: 'one woman looks directly at the camera while the other casually looks away, asymmetrical gaze relationship, natural editorial spontaneity',
+    meta: { tags: ['direct_gaze'] },
+  },
+  {
+    id: 'same-direction-away',
+    zh: '兩人同向離鏡｜沉浸感',
+    en: 'both women look away in the same or similar direction, absorbed shared attention, cinematic off-camera mood',
+  },
+  {
+    id: 'mutual-gaze-intimate',
+    zh: '兩人相互凝視｜安靜親密',
+    en: 'both women quietly gaze at each other, intimate eye contact, soft emotional connection, calm private chemistry',
+  },
+  {
+    id: 'mutual-soft-smile',
+    zh: '彼此微笑｜柔和默契',
+    en: 'both women smile gently toward each other, warm mutual ease, soft shared rapport, relaxed closeness',
+  },
+  {
+    id: 'mutual-laughing',
+    zh: '彼此大笑｜自然開心',
+    en: 'both women laugh naturally with each other, candid joyful interaction, lively shared energy, spontaneous real emotion',
+  },
+  {
+    id: 'ambiguous-sensual-gaze',
+    zh: '曖昧對視｜性感張力',
+    en: 'both women share a flirtatious ambiguous gaze, seductive eye-line tension, magnetic attraction, confident sensual chemistry',
+  },
+  {
+    id: 'triangle-gaze',
+    zh: '一人凝視對方｜一人看鏡頭',
+    en: 'one woman gazes at the other while the other looks toward the camera, triangular gaze tension, editorial relationship drama',
+    meta: { tags: ['direct_gaze'] },
+  },
+  {
+    id: 'lowered-lazy-sensual',
+    zh: '低眼神互動｜慵懶性感',
+    en: 'both women use lowered or half-lidded gazes near each other, lazy sensual mood, private close-range eye-line tension',
+  },
+];
+
 const GARMENT_COLOR_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none' },
   { id: 'black', zh: '黑色', en: 'black' },
@@ -1230,9 +1294,10 @@ const LOCK_DEFINITIONS = [
   { key: 'hairColorBId', label: '人物 2 髮色', category: '髮色 (Hair Color)', section: 'character' },
   { key: 'duoInteractionId', label: '雙人互動', options: DUO_INTERACTION_OPTIONS, section: 'hidden' },
   { key: 'duoPoseId', label: '雙人佈局 / 接觸', options: DUO_POSE_OPTIONS, section: 'character' },
+  { key: 'duoExpressionId', label: '雙人神情眼神', options: DUO_EXPRESSION_OPTIONS, section: 'character' },
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
-  { key: 'expressionAId', label: '人物 1 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
-  { key: 'expressionBId', label: '人物 2 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
+  { key: 'expressionAId', label: '人物 1 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'hidden' },
+  { key: 'expressionBId', label: '人物 2 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'hidden' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
   { key: 'poseBaseId', label: '姿勢基底', options: POSE_COMPOSER_BASE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
@@ -1389,9 +1454,8 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'hairColorAId', label: 'Woman 1 Hair Color' },
   { key: 'hairColorBId', label: 'Woman 2 Hair Color' },
   { key: 'duoPoseId', label: 'Duo Layout / Contact' },
+  { key: 'duoExpressionId', label: 'Duo Expression' },
   { key: 'expressionId', label: 'Expression' },
-  { key: 'expressionAId', label: 'Woman 1 Expression' },
-  { key: 'expressionBId', label: 'Woman 2 Expression' },
   { key: 'poseId', label: 'Pose' },
   { key: 'specialActionId', label: 'Special Action' },
   { key: 'specialOutfitId', label: 'Special Outfit' },
@@ -2260,6 +2324,7 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'hairColorId',
   'hairColorAId',
   'hairColorBId',
+  'duoExpressionId',
   'expressionId',
   'expressionAId',
   'expressionBId',
@@ -3087,6 +3152,39 @@ function applyDuoInteractionLegacyLockMigration(normalizedLocks, rawLocks, contr
   if (targetLayout) normalizedLocks.duoPoseId = targetLayout.id;
 }
 
+function applyDuoExpressionLegacyLockMigration(normalizedLocks, rawLocks, controls) {
+  if (normalizedLocks.subjectCount !== '2') return;
+
+  const currentDuoExpression = getControlOptionById(controls, 'duoExpressionId', normalizedLocks.duoExpressionId);
+  if (currentDuoExpression && !isNoneLikeItem(currentDuoExpression)) return;
+
+  const oldExpressions = [
+    getControlOptionById(controls, 'expressionAId', rawLocks?.expressionAId),
+    getControlOptionById(controls, 'expressionBId', rawLocks?.expressionBId),
+    getControlOptionById(controls, 'expressionId', rawLocks?.expressionId),
+  ].filter((item) => item && !isNoneLikeItem(item));
+  if (oldExpressions.length === 0) return;
+
+  const oldLabels = oldExpressions.map((item) => item.zh).join(' ');
+  const directCount = oldExpressions.filter((item) => item.zh.includes('直視鏡頭')).length;
+  let targetZh = '兩人同向離鏡｜沉浸感';
+
+  if (/大笑/.test(oldLabels)) {
+    targetZh = '彼此大笑｜自然開心';
+  } else if (/微笑|抿唇忍笑|俏皮/.test(oldLabels)) {
+    targetZh = '彼此微笑｜柔和默契';
+  } else if (/低頭|閉眼/.test(oldLabels)) {
+    targetZh = '低眼神互動｜慵懶性感';
+  } else if (directCount === oldExpressions.length) {
+    targetZh = '兩人直視鏡頭｜平靜自然';
+  } else if (directCount > 0) {
+    targetZh = '一人看鏡頭｜一人隨性離鏡';
+  }
+
+  const targetExpression = getControlOptionByZh(controls, 'duoExpressionId', targetZh);
+  if (targetExpression) normalizedLocks.duoExpressionId = targetExpression.id;
+}
+
 function applyExpressionPoseLegacySocialLockMigration(normalizedLocks, rawLocks, controls) {
   const migration = CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS.find((entry) => entry.legacyId === rawLocks?.poseId);
   if (!migration) return;
@@ -3286,6 +3384,7 @@ export function normalizeLocks(rawLocks = {}) {
   });
 
   applyDuoInteractionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
+  applyDuoExpressionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyExpressionPoseLegacySocialLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOutfitPresetToDressLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyEyewearLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
@@ -3896,25 +3995,27 @@ function framingSupportsOrbit(framing, orbit) {
 }
 
 function expressionSupportsComposition(item, context) {
-  if (!visibilityAtLeast(context.framing.meta.visibility, item.meta.minVisibility)) return false;
-  if (item.meta.tags.includes('direct_gaze') && context.angle.meta.tags.includes('aerial')) return false;
-  if (item.meta.tags.includes('requires_aerial') && !context.angle.meta.tags.includes('aerial')) return false;
-  if (item.meta.tags.includes('direct_gaze') && context.orbit && !orbitSupportsExpression(context.orbit, item)) return false;
-  if (context.orbit?.meta.tags.includes('back_view') && (item.meta.tags.includes('side_gaze') || item.meta.tags.includes('distance_gaze'))) return false;
+  const expressionTags = item.meta?.tags || [];
+  if (!visibilityAtLeast(context.framing.meta.visibility, item.meta?.minVisibility || 'medium')) return false;
+  if (expressionTags.includes('direct_gaze') && context.angle.meta.tags.includes('aerial')) return false;
+  if (expressionTags.includes('requires_aerial') && !context.angle.meta.tags.includes('aerial')) return false;
+  if (expressionTags.includes('direct_gaze') && context.orbit && !orbitSupportsExpression(context.orbit, item)) return false;
+  if (context.orbit?.meta.tags.includes('back_view') && (expressionTags.includes('side_gaze') || expressionTags.includes('distance_gaze'))) return false;
   return true;
 }
 
 function angleSupportsExpression(angle, expression) {
   if (!expression) return true;
-  if (expression.meta.tags.includes('direct_gaze') && angle.meta.tags.includes('aerial')) return false;
-  if (expression.meta.tags.includes('requires_aerial') && !angle.meta.tags.includes('aerial')) return false;
+  const expressionTags = expression.meta?.tags || [];
+  if (expressionTags.includes('direct_gaze') && angle.meta.tags.includes('aerial')) return false;
+  if (expressionTags.includes('requires_aerial') && !angle.meta.tags.includes('aerial')) return false;
   return true;
 }
 
 function orbitSupportsExpression(orbit, expression) {
   if (!expression) return true;
-  const orbitTags = new Set(orbit.meta.tags || []);
-  const expressionTags = new Set(expression.meta.tags || []);
+  const orbitTags = new Set(orbit.meta?.tags || []);
+  const expressionTags = new Set(expression.meta?.tags || []);
 
   if (expressionTags.has('direct_gaze')) {
     if (orbitTags.has('back_view') || orbitTags.has('rear_three_quarter') || orbitTags.has('profile_view')) return false;
@@ -4000,6 +4101,10 @@ function getAspectRatioOption(id) {
 
 function getDuoPoseOption(id) {
   return DUO_POSE_OPTIONS.find((option) => option.id === id) || null;
+}
+
+function getDuoExpressionOption(id) {
+  return DUO_EXPRESSION_OPTIONS.find((option) => option.id === id) || null;
 }
 
 function getPoseComposerOption(options, id) {
@@ -4331,6 +4436,16 @@ function buildCharacter(context, catalog) {
       meta: { ...(option.meta || {}), minVisibility: 'medium', tags: withTags(option.meta?.tags || []) },
     };
   };
+  const buildDuoExpressionItem = (option) => {
+    if (!option) return null;
+    return {
+      id: `character:雙人神情眼神-duo-expression:${option.id}`,
+      zh: option.zh,
+      en: option.en,
+      desc: option.desc || '',
+      meta: { ...(option.meta || {}), minVisibility: 'medium', tags: withTags(option.meta?.tags || []) },
+    };
+  };
 
   const lockKeyByCategory = {
     '體態 (Body Type)': 'bodyTypeId',
@@ -4462,24 +4577,13 @@ function buildCharacter(context, catalog) {
 
   let expression = null;
   if (context.subject.count === 2) {
-    const expressionA = pickDistinctForRole(
-      '神情與眼神 (Expression & Gaze)',
-      'a',
-      context.locks?.expressionAId || context.locks?.expressionId,
-      [],
-      sample,
-      (item) => expressionSupportsComposition(item, context)
-    );
-    const expressionB = pickDistinctForRole(
-      '神情與眼神 (Expression & Gaze)',
-      'b',
-      context.locks?.expressionBId || context.locks?.expressionId,
-      [expressionA],
-      sample,
-      (item) => expressionSupportsComposition(item, context)
-    );
-    if (expressionA) character.push(expressionA);
-    if (expressionB) character.push(expressionB);
+    const duoExpressionOption = context.locks?.duoExpressionId
+      ? getDuoExpressionOption(context.locks.duoExpressionId)
+      : sampleNonNone(DUO_EXPRESSION_OPTIONS);
+    const duoExpressionItem = buildDuoExpressionItem(duoExpressionOption);
+    if (duoExpressionItem && !isNoneLikeItem(duoExpressionItem)) {
+      character.push(duoExpressionItem);
+    }
   } else {
     expression = pickCategory('神情與眼神 (Expression & Gaze)', context.locks, (item) => expressionSupportsComposition(item, context));
   }
@@ -5658,11 +5762,6 @@ function resolvePromptVariant(item, kind, subjectCount) {
   return DUO_PROMPT_OVERRIDES[kind]?.[item.zh] || item.en;
 }
 
-function buildRoleExpressionPrompt(item, label) {
-  if (!item || isNoneLikeItem(item)) return '';
-  return `${label} ${item.en}`;
-}
-
 function buildRoleHasPrompt(item, label) {
   if (!item || isNoneLikeItem(item)) return '';
   return `${label} has ${item.en}`;
@@ -5688,6 +5787,7 @@ function extractCharacterSlots(character) {
     hairColorA: findRoleSlot('character:髮色-hair-color:', 'a'),
     hairColorB: findRoleSlot('character:髮色-hair-color:', 'b'),
     expression: findSlot('character:神情與眼神-expression-gaze:'),
+    duoExpression: findSlot('character:雙人神情眼神-duo-expression:'),
     expressionA: findRoleSlot('character:神情與眼神-expression-gaze:', 'a'),
     expressionB: findRoleSlot('character:神情與眼神-expression-gaze:', 'b'),
     duoPose: findSlot('character:雙人構圖姿態-duo-pose:'),
@@ -7043,8 +7143,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const wardrobeLayeringLogicText = buildWardrobeLayeringLogicPrompt(wardrobeSlots);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
-  const expressionAText = buildRoleExpressionPrompt(characterSlots.expressionA, 'woman 1');
-  const expressionBText = buildRoleExpressionPrompt(characterSlots.expressionB, 'woman 2');
+  const duoExpressionText = characterSlots.duoExpression && !isNoneLikeItem(characterSlots.duoExpression) ? characterSlots.duoExpression.en : '';
   const poseText = context.subject.count === 2
     ? (characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.en : '')
     : characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
@@ -7351,8 +7450,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addItemLine('Skin Details', characterSlots.skinDetails);
   }
   if (!specialSubjectMode && context.subject.count === 2) {
-    addLine('Woman 1 Expression', expressionAText);
-    addLine('Woman 2 Expression', expressionBText);
+    addLine('Duo Expression', duoExpressionText);
   } else if (!specialSubjectMode) {
     addLine('Expression', expressionText);
   }
@@ -7446,6 +7544,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Woman 1 Skin Details',
     'Woman 2 Skin Details',
     'Expression',
+    'Duo Expression',
     'Woman 1 Expression',
     'Woman 2 Expression',
     'Character Identity',
@@ -7696,7 +7795,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         ? [buildRoleHasPrompt(characterSlots.skinDetailsA, 'woman 1'), buildRoleHasPrompt(characterSlots.skinDetailsB, 'woman 2')].filter(Boolean).join(', ')
         : (!useCharacterIdentityAnchor ? characterSlots.skinDetails?.en : ''),
       context.subject.count === 2
-        ? [buildRoleExpressionPrompt(characterSlots.expressionA, 'woman 1'), buildRoleExpressionPrompt(characterSlots.expressionB, 'woman 2')].filter(Boolean).join(', ')
+        ? (characterSlots.duoExpression && !isNoneLikeItem(characterSlots.duoExpression) ? characterSlots.duoExpression.en : '')
         : (characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : ''),
       characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
       context.subject.count === 2
@@ -8248,9 +8347,10 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     hairColorBId: characterSlots.hairColorB?.id?.replace(/:b$/, '') || '',
     duoInteractionId: '',
     duoPoseId: characterSlots.duoPose?.id?.split(':').pop() || '',
+    duoExpressionId: characterSlots.duoExpression?.id?.split(':').pop() || '',
     expressionId: characterSlots.expression?.id || '',
-    expressionAId: characterSlots.expressionA?.id?.replace(/:a$/, '') || '',
-    expressionBId: characterSlots.expressionB?.id?.replace(/:b$/, '') || '',
+    expressionAId: '',
+    expressionBId: '',
     poseId: characterSlots.pose?.id || '',
     specialActionId: characterSlots.specialAction?.id || '',
     poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || 'none',
@@ -8439,9 +8539,13 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     )
   );
   const expressionOptions = getByKey(runtime.catalog.character, '神情與眼神 (Expression & Gaze)');
+  const lockedDuoExpression = subject.count === 2 && effectiveLocks.duoExpressionId
+    ? getDuoExpressionOption(effectiveLocks.duoExpressionId)
+    : null;
   const lockedExpressions = [
-    subject.count === 2 && effectiveLocks.expressionAId ? findById(expressionOptions, effectiveLocks.expressionAId) : null,
-    subject.count === 2 && effectiveLocks.expressionBId ? findById(expressionOptions, effectiveLocks.expressionBId) : null,
+    lockedDuoExpression,
+    !lockedDuoExpression && subject.count === 2 && effectiveLocks.expressionAId ? findById(expressionOptions, effectiveLocks.expressionAId) : null,
+    !lockedDuoExpression && subject.count === 2 && effectiveLocks.expressionBId ? findById(expressionOptions, effectiveLocks.expressionBId) : null,
     effectiveLocks.expressionId ? findById(expressionOptions, effectiveLocks.expressionId) : null,
   ].filter(Boolean);
   const pickCameraWithExpressionLock = lockedExpressions.length > 0 ? pickWithCompatibleLock : pickWithLock;

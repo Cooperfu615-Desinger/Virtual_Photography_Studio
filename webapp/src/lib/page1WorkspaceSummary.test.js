@@ -69,6 +69,19 @@ test('workspace pose summary uses the merged duo layout/contact control', () => 
   assert.doesNotMatch(summary.pose.summary, /親密/);
 });
 
+test('workspace pose summary uses the merged duo expression control', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    duoExpressionId: optionId('duoExpressionId', '兩人相互凝視｜安靜親密'),
+    expressionAId: optionId('expressionAId', '直視鏡頭｜柔和微笑'),
+    expressionBId: optionId('expressionBId', '大笑｜自然喜悅'),
+  }, controls);
+
+  assert.match(summary.pose.summary, /兩人相互凝視｜安靜親密/);
+  assert.doesNotMatch(summary.pose.summary, /直視鏡頭｜柔和微笑|大笑｜自然喜悅/);
+});
+
 test('workspace summary omits PAGE1 aspect ratio from scene and photography summaries', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),

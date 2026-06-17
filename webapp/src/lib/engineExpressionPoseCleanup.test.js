@@ -3,7 +3,11 @@ import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 
-const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
+const controlOptions = (key) => {
+  const control = getLockControls().find((item) => item.key === key);
+  assert.ok(control, `Missing control ${key}`);
+  return control.options;
+};
 const optionLabels = (key) => controlOptions(key).map((option) => option.zh);
 const optionByLabel = (key, label) => {
   const option = controlOptions(key).find((item) => item.zh === label);
@@ -87,6 +91,58 @@ test('duo layout/contact replaces separate duo interaction and composition contr
       '性感互動',
     ]
   );
+});
+
+test('duo expression exposes shared gaze and mood options', () => {
+  const duoExpressionControl = getLockControls().find((control) => control.key === 'duoExpressionId');
+  assert.equal(duoExpressionControl.label, '雙人神情眼神');
+  assert.deepEqual(
+    optionLabels('duoExpressionId'),
+    [
+      '全無',
+      '兩人直視鏡頭｜冷淡疏離',
+      '兩人直視鏡頭｜平靜自然',
+      '一人看鏡頭｜一人隨性離鏡',
+      '兩人同向離鏡｜沉浸感',
+      '兩人相互凝視｜安靜親密',
+      '彼此微笑｜柔和默契',
+      '彼此大笑｜自然開心',
+      '曖昧對視｜性感張力',
+      '一人凝視對方｜一人看鏡頭',
+      '低眼神互動｜慵懶性感',
+    ]
+  );
+});
+
+test('duo expression outputs one shared relationship cue and ignores legacy per-person expressions', () => {
+  const duoExpression = optionByLabel('duoExpressionId', '兩人相互凝視｜安靜親密');
+  const expressionA = optionByLabel('expressionAId', '直視鏡頭｜柔和微笑');
+  const expressionB = optionByLabel('expressionBId', '大笑｜自然喜悅');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    duoExpressionId: duoExpression.id,
+    expressionAId: expressionA.id,
+    expressionBId: expressionB.id,
+  });
+
+  const promptText = [
+    prompt.grokPrompt,
+    prompt.zImagePrompt,
+    prompt.midjourneyPrompt,
+  ].join('\n');
+
+  assert.equal(prompt.selection.duoExpressionId, duoExpression.id);
+  assert.equal(prompt.selection.expressionAId, '');
+  assert.equal(prompt.selection.expressionBId, '');
+  assert.equal(prompt.structured.Character.filter((item) => item.id.includes('duo-expression')).length, 1);
+  assert.equal(prompt.structured.Character.filter((item) => item.meta?.characterRole && item.id.includes('expression-gaze')).length, 0);
+  assert.doesNotMatch(promptText, /^Woman 1 Expression:/m);
+  assert.doesNotMatch(promptText, /^Woman 2 Expression:/m);
+  assert.match(promptText, /quietly gaze at each other/);
+  assert.match(promptText, /soft emotional connection/);
+  assert.match(promptText, /calm private chemistry/);
+  assert.doesNotMatch(promptText, /woman 1 looking toward the camera|woman 2 laughing naturally/i);
 });
 
 test('duo sensual interaction outputs as one layout cue without legacy interaction lines', () => {
