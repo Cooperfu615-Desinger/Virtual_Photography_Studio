@@ -109,13 +109,40 @@ test('duo sensual interaction outputs as one layout cue without legacy interacti
   assert.equal(prompt.selection.duoInteractionId, '');
   assert.doesNotMatch(prompt.grokPrompt, /^Duo Interaction:/m);
   assert.doesNotMatch(promptText, /both women sharing intimate natural closeness/);
+  assert.match(promptText, /intertwined silhouettes/);
+  assert.match(promptText, /pressed-together body lines/);
+  assert.match(promptText, /tactile provocative chemistry/);
+  assert.match(promptText, /drape across/);
+  assert.match(promptText, /adult magazine-style erotic fashion energy/);
+  assert.match(promptText, /thigh/);
+  assert.match(promptText, /hip/);
+  assert.match(promptText, /lower back/);
+  const sensualCue = promptText.match(/two women in an intense sensual high-fashion editorial interaction[^.]+editorial/i)?.[0] || '';
+  assert.ok(sensualCue, 'Expected sensual duo layout cue in prompt output');
+  assert.doesNotMatch(sensualCue, /collar|neckline|foot|lingerie/i);
+});
+
+test('duo intimate close uses the previous lighter sensual contact level', () => {
+  const duoLayout = optionByLabel('duoPoseId', '親密近身');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    duoPoseId: duoLayout.id,
+  });
+
+  const promptText = [
+    prompt.grokPrompt,
+    prompt.zImagePrompt,
+    prompt.midjourneyPrompt,
+  ].join('\n');
+
+  assert.equal(prompt.selection.duoPoseId, duoLayout.id);
+  assert.match(promptText, /confident sensual editorial interaction/);
   assert.match(promptText, /teasing hand contact/);
   assert.match(promptText, /thigh/);
   assert.match(promptText, /hip/);
   assert.match(promptText, /lower back/);
-  const sensualCue = promptText.match(/two women in a confident sensual editorial interaction[^.]+fashion-forward/i)?.[0] || '';
-  assert.ok(sensualCue, 'Expected sensual duo layout cue in prompt output');
-  assert.doesNotMatch(sensualCue, /collar|neckline|foot/i);
+  assert.doesNotMatch(promptText, /adult magazine-style erotic fashion energy/);
 });
 
 test('legacy duo interaction locks migrate into the merged duo layout control', () => {

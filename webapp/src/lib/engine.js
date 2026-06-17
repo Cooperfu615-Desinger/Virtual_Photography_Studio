@@ -168,7 +168,7 @@ const DUO_POSE_OPTIONS = [
   {
     id: 'intimate-close',
     zh: '親密近身',
-    en: 'two women in an intimate close-body layout, minimal spacing, gentle hand or arm contact may appear at the shoulder, waist, arm, back, or hip, private near-contact chemistry, model chooses exact pose and contact naturally',
+    en: 'two women in a confident sensual editorial interaction, close body spacing, teasing hand contact and flirtatious gestures, one woman may lightly touch the other\'s shoulder, waist, arm, chin, hair, thigh, hip, lower back, or leg, seductive near-contact tension, magnetic eye-line chemistry, model decides exact pose and contact while keeping it photorealistic and fashion-forward',
     legacyIds: [
       'intimate',
       'arm-around-close',
@@ -183,7 +183,7 @@ const DUO_POSE_OPTIONS = [
   {
     id: 'sensual-interaction',
     zh: '性感互動',
-    en: 'two women in a confident sensual editorial interaction, close body spacing, teasing hand contact and flirtatious gestures, one woman may lightly touch the other\'s shoulder, waist, arm, chin, hair, thigh, hip, lower back, or leg, seductive near-contact tension, magnetic eye-line chemistry, model decides exact pose and contact while keeping it photorealistic and fashion-forward',
+    en: 'two women in an intense sensual high-fashion editorial interaction, bodies very close with intertwined silhouettes and pressed-together body lines, tactile provocative chemistry, teasing hand contact tracing the waist, hips, thighs, lower back, legs, arms, hair, or chin, one woman may lean into, drape across, or closely wrap around the other, seductive push-pull tension, adult magazine-style erotic fashion energy, magnetic eye-line chemistry, model decides the exact pose and contact while preserving the selected wardrobe and keeping it photorealistic, polished, and editorial',
     legacyIds: [
       'sensual-embrace',
     ],

@@ -79,7 +79,8 @@ test('AI prompt uses a legacy minimal natural paragraph with wardrobe, pose, sce
   assert.match(prompt.midjourneyPrompt, /^Two seductive stunning 20-year-old Japanese or Korean women\b/);
   assert.match(prompt.midjourneyPrompt, /BDSM-inspired leather harness outfit/i);
   assert.match(prompt.midjourneyPrompt, /bikini swimwear/i);
-  assert.match(prompt.midjourneyPrompt, /teasing hand contact/i);
+  assert.match(prompt.midjourneyPrompt, /intertwined silhouettes/i);
+  assert.match(prompt.midjourneyPrompt, /tactile provocative chemistry/i);
   assert.match(prompt.midjourneyPrompt, /Kowloon Walled City interior passage/i);
   assert.match(prompt.midjourneyPrompt, /moody film still/i);
   assert.match(prompt.midjourneyPrompt, /analog tape noise/i);
