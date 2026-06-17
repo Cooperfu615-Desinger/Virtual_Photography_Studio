@@ -295,12 +295,20 @@ looking away from the camera, distant sideward gaze, thoughtful quiet expression
 - 英文 prompt 以 8-24 words 為目標；複雜躺姿可略長，但要有測試保護。
 - 只描述 body structure、weight、limbs、motion state。
 - 不寫 `looking at camera`、`lowered gaze`、`over-the-shoulder gaze`，這些屬於神情。
-- 不新增自拍或鏡子自拍姿勢，這些屬於特殊動作。
+- 不新增自拍或鏡子自拍為一般 `poseId` 姿勢；自拍類屬於 Pose Composer 的 `手部姿勢`。
 - 新姿勢必須改變身體輪廓或構圖效果；單純手的位置小差異不建議新增。
+
+Pose Composer 手部姿勢中的自拍類規則：
+
+- `自然自拍`：右手拿著畫面外手機自拍；prompt 要寫右手往鏡頭方向伸直，手機不應強制可見。
+- `鏡子自拍`：可見手機對著鏡子自拍；手機可以遮到臉，也可以在臉旁，不強制臉完全露出。
+- `男友/閨蜜自拍`：單手或雙手對鏡頭做親近互動手勢，呈現親近的人拍攝或社群自拍互動感。
+- 自拍類手部姿勢必須加 `meta.tags` 的 `selfie_hand_pose` 與 `locks_orbit`。
+- 啟用自拍類手部姿勢時，`環繞角度` 必須鎖定/清空，避免背面、側後方等 orbit 與自拍構圖衝突。
 
 ### 6.3 特殊動作
 
-目前特殊動作全部保留，共 27 個非空選項：
+目前特殊動作全部保留，共 23 個非空選項：
 
 - `塗口紅`
 - `塗歪口紅`
@@ -325,10 +333,6 @@ looking away from the camera, distant sideward gaze, thoughtful quiet expression
 - `四足跪姿前傾`
 - `抱枕俯臥回眸`
 - `分腿跪坐仰視`
-- `自然自拍感`
-- `鏡子自拍`
-- `男友視角拍攝`
-- `閨蜜視角拍攝`
 
 新增規則：
 
@@ -341,17 +345,10 @@ looking away from the camera, distant sideward gaze, thoughtful quiet expression
 
 特殊動作類型：
 
-- 社群拍攝關係：`自然自拍感`、`鏡子自拍`、`男友視角拍攝`、`閨蜜視角拍攝`。
 - 道具或臉部互動：口紅、冰咖啡、波板糖、香菸。
 - 穿搭整理：整理絲襪、半脫上衣整理肩線。
 - 大型支撐物或場景物件：沙發、牆面、高背、抱枕。
 - 完整身體動作：趴臥、跪姿、四足跪姿、分腿跪坐等。
-
-社群拍攝動作規則：
-
-- 必須加 `meta.tags` 的 `social_shooting_action`。
-- 可以和一般 `poseId` 同時存在。
-- 不應取代身體姿勢。
 
 非社群特殊動作規則：
 

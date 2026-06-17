@@ -27,10 +27,6 @@ const EXPECTED_SPECIAL_ACTIONS = [
   '四足跪姿前傾',
   '抱枕俯臥回眸',
   '分腿跪坐仰視',
-  '自然自拍感',
-  '鏡子自拍',
-  '男友視角拍攝',
-  '閨蜜視角拍攝',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
@@ -44,7 +40,7 @@ const optionByLabel = (key, label) => {
 const wordCount = (text) => text.trim().split(/\s+/).filter(Boolean).length;
 const tagsFor = (label) => new Set(optionByLabel('specialActionId', label).meta.tags);
 
-test('special action controls expose exactly the existing 27 actions', () => {
+test('special action controls expose the non-selfie action set', () => {
   assert.deepEqual(nonNoneSpecialActions().map((option) => option.zh), EXPECTED_SPECIAL_ACTIONS);
 });
 
@@ -60,10 +56,6 @@ test('special action prompts stay compact and stable', () => {
 });
 
 test('special action metadata keeps intended behavior tags', () => {
-  for (const label of ['自然自拍感', '鏡子自拍', '男友視角拍攝', '閨蜜視角拍攝']) {
-    assert.ok(tagsFor(label).has('social_shooting_action'), `${label} should be a social shooting action`);
-  }
-
   for (const label of ['塗口紅', '喝冰咖啡', '咬著波板糖', '抽煙']) {
     const tags = tagsFor(label);
     assert.ok(tags.has('prop_action'), `${label} should be a prop action`);
@@ -78,22 +70,34 @@ test('special action metadata keeps intended behavior tags', () => {
   assert.ok(!tagsFor('靠牆站立').has('wardrobe_action'));
 });
 
-test('social shooting actions still compose with normal body poses', () => {
-  const pose = optionByLabel('poseId', '坐姿｜微微前傾');
-  const specialAction = optionByLabel('specialActionId', '男友視角拍攝');
+test('selfie shooting choices are no longer exposed as special actions', () => {
+  const labels = nonNoneSpecialActions().map((option) => option.zh).join(' ');
+
+  assert.doesNotMatch(labels, /自然自拍感|鏡子自拍|男友視角拍攝|閨蜜視角拍攝/);
+});
+
+test('selfie shooting choices are exposed as pose composer hand poses', () => {
+  assert.match(optionByLabel('poseHandId', '自然自拍').en, /right arm extended toward the lens/);
+  assert.match(optionByLabel('poseHandId', '鏡子自拍').en, /visible phone toward a mirror/);
+  assert.match(optionByLabel('poseHandId', '男友/閨蜜自拍').en, /interactive gestures toward the camera/);
+});
+
+test('selfie hand poses compose with pose composer body controls', () => {
   const framing = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: framing.id,
-    poseId: pose.id,
-    specialActionId: specialAction.id,
+    poseBaseId: optionByLabel('poseBaseId', '坐姿').id,
+    poseArrangementId: optionByLabel('poseArrangementId', '微微前傾').id,
+    poseHandId: optionByLabel('poseHandId', '男友/閨蜜自拍').id,
+    poseHeadId: optionByLabel('poseHeadId', '頭部自然朝向鏡頭').id,
   });
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
-  assert.equal(prompt.selection.poseId, pose.id);
-  assert.equal(prompt.selection.specialActionId, specialAction.id);
-  assert.match(promptText, /seated pose leaning slightly forward/);
-  assert.match(promptText, /boyfriend-perspective candid portrait/);
+  assert.equal(prompt.selection.poseBaseId, optionByLabel('poseBaseId', '坐姿').id);
+  assert.equal(prompt.selection.poseHandId, optionByLabel('poseHandId', '男友/閨蜜自拍').id);
+  assert.match(promptText, /slightly forward-leaning seated arrangement/);
+  assert.match(promptText, /close-companion social snapshot feeling/);
 });
 
 test('non-social special actions still replace the normal body pose', () => {

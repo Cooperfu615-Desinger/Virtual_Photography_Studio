@@ -914,6 +914,9 @@ const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random hand pose', desc: '隨機選擇手部姿勢。', meta: { tags: ['random'] } },
   { id: 'model-natural-hand-placement', zh: '模型自然決定', en: 'let the image model choose natural varied hand placement fitted to the selected body pose support contact wardrobe and camera crop without defaulting to stiff arms at the sides', desc: '讓影像模型依目前身體姿勢自行決定自然手部位置。' },
+  { id: 'selfie-natural-right-arm', zh: '自然自拍', en: 'right arm extended toward the lens with an off-frame phone implied, self-shot composition, only the extended right arm visible', desc: '右手往鏡頭方向伸直自拍，手機在畫面外不強制出現。', meta: { tags: ['selfie_hand_pose', 'locks_orbit'] } },
+  { id: 'selfie-mirror-phone-visible', zh: '鏡子自拍', en: 'holding a visible phone toward a mirror for a mirror selfie, phone may overlap the face or sit beside it in the reflection', desc: '拿著可見手機對鏡自拍，手機可遮到臉或在臉旁。', meta: { tags: ['selfie_hand_pose', 'visible_phone', 'mirror_selfie', 'locks_orbit'] } },
+  { id: 'selfie-companion-camera-interaction', zh: '男友/閨蜜自拍', en: 'one or both hands making casual interactive gestures toward the camera, close-companion social snapshot feeling, relaxed lens interaction', desc: '單手或雙手對鏡頭做親近互動，呈現男友或閨蜜拍攝的自拍感。', meta: { tags: ['selfie_hand_pose', 'companion_snapshot', 'locks_orbit'] } },
   { id: 'hands-relaxed-down', zh: '雙手自然垂放', en: 'both hands resting naturally along the body or on a nearby support surface' },
   { id: 'hands-in-pockets', zh: '雙手插口袋', en: 'both hands tucked into pockets' },
   { id: 'arms-crossed', zh: '雙臂交疊', en: 'arms crossed loosely in front of the body' },
@@ -2889,17 +2892,27 @@ const CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP = [
 ];
 
 const CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS = [
-  { legacy: ['站姿｜自然自拍姿勢', 9], poseZh: '站姿｜自然站姿', specialActionZh: '自然自拍感' },
-  { legacy: ['站姿｜鏡子自拍姿勢', 10], poseZh: '站姿｜自然站姿', specialActionZh: '鏡子自拍' },
-  { legacy: ['坐姿｜自然自拍姿勢', 21], poseZh: '坐姿｜自然坐姿', specialActionZh: '自然自拍感' },
-  { legacy: ['坐姿｜鏡子自拍姿勢', 22], poseZh: '坐姿｜自然坐姿', specialActionZh: '鏡子自拍' },
-  { legacy: ['半躺低姿態｜自然自拍姿勢', 32], poseZh: '半躺低姿態｜側身半躺', specialActionZh: '自然自拍感' },
-  { legacy: ['半躺低姿態｜鏡子自拍姿勢', 33], poseZh: '半躺低姿態｜側身半躺', specialActionZh: '鏡子自拍' },
-  { legacy: ['動態互動｜自然自拍姿勢', 46], poseZh: '動態｜輕步移動', specialActionZh: '自然自拍感' },
-  { legacy: ['動態互動｜鏡子自拍姿勢', 47], poseZh: '動態｜輕步移動', specialActionZh: '鏡子自拍' },
+  { legacy: ['站姿｜自然自拍姿勢', 9], baseZh: '站姿', arrangementZh: '自然站姿', handZh: '自然自拍' },
+  { legacy: ['站姿｜鏡子自拍姿勢', 10], baseZh: '站姿', arrangementZh: '自然站姿', handZh: '鏡子自拍' },
+  { legacy: ['坐姿｜自然自拍姿勢', 21], baseZh: '坐姿', arrangementZh: '自然坐姿', handZh: '自然自拍' },
+  { legacy: ['坐姿｜鏡子自拍姿勢', 22], baseZh: '坐姿', arrangementZh: '自然坐姿', handZh: '鏡子自拍' },
+  { legacy: ['半躺低姿態｜自然自拍姿勢', 32], baseZh: '躺姿', arrangementZh: '側躺', handZh: '自然自拍' },
+  { legacy: ['半躺低姿態｜鏡子自拍姿勢', 33], baseZh: '躺姿', arrangementZh: '側躺', handZh: '鏡子自拍' },
+  { legacy: ['動態互動｜自然自拍姿勢', 46], baseZh: '站姿', arrangementZh: '自然站姿', handZh: '自然自拍' },
+  { legacy: ['動態互動｜鏡子自拍姿勢', 47], baseZh: '站姿', arrangementZh: '自然站姿', handZh: '鏡子自拍' },
 ].map((entry) => ({
   ...entry,
   legacyId: `character:${slugify('姿勢與肢體語言 (Pose & Body Language)')}:${slugify(entry.legacy[0])}:${entry.legacy[1]}`,
+}));
+
+const CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS = [
+  { label: '自然自拍感', handZh: '自然自拍' },
+  { label: '鏡子自拍', handZh: '鏡子自拍' },
+  { label: '男友視角拍攝', handZh: '男友/閨蜜自拍' },
+  { label: '閨蜜視角拍攝', handZh: '男友/閨蜜自拍' },
+].map((entry, index) => ({
+  ...entry,
+  legacyId: `character:${slugify('特殊動作 (Special Actions)')}:${slugify(entry.label)}:${index + 24}`,
 }));
 
 const WARDROBE_LEGACY_OPTION_MAP = [
@@ -3203,6 +3216,21 @@ function getControlOptionById(controls, key, id) {
   return controls.find((control) => control.key === key)?.options?.find((option) => option.id === id) || null;
 }
 
+function setControlOptionByZhIfInactive(normalizedLocks, controls, key, zh) {
+  const option = getControlOptionByZh(controls, key, zh);
+  if (!option) return;
+
+  const current = getControlOptionById(controls, key, normalizedLocks[key]);
+  if (!normalizedLocks[key] || isNoneLikeItem(current)) {
+    normalizedLocks[key] = option.id;
+  }
+}
+
+function setControlToNone(normalizedLocks, controls, key) {
+  const noneOption = getControlOptionByZh(controls, key, '全無');
+  normalizedLocks[key] = noneOption?.id || '';
+}
+
 function applyDuoInteractionLegacyLockMigration(normalizedLocks, rawLocks, controls) {
   if (normalizedLocks.subjectCount !== '2') return;
 
@@ -3266,14 +3294,46 @@ function applyExpressionPoseLegacySocialLockMigration(normalizedLocks, rawLocks,
   const migration = CHARACTER_EXPRESSION_POSE_LEGACY_SOCIAL_POSE_MIGRATIONS.find((entry) => entry.legacyId === rawLocks?.poseId);
   if (!migration) return;
 
-  const pose = getControlOptionByZh(controls, 'poseId', migration.poseZh);
-  if (pose) normalizedLocks.poseId = pose.id;
+  setControlToNone(normalizedLocks, controls, 'poseId');
+  setControlToNone(normalizedLocks, controls, 'specialActionId');
+  setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseBaseId', migration.baseZh);
+  setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseArrangementId', migration.arrangementZh);
+  setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHandId', migration.handZh);
+}
 
-  const specialAction = getControlOptionByZh(controls, 'specialActionId', migration.specialActionZh);
-  const currentSpecialAction = getControlOptionById(controls, 'specialActionId', normalizedLocks.specialActionId);
-  if (specialAction && (!normalizedLocks.specialActionId || isNoneLikeItem(currentSpecialAction))) {
-    normalizedLocks.specialActionId = specialAction.id;
-  }
+function inferPoseComposerBaseZhFromLegacyPose(normalizedLocks, rawLocks, controls) {
+  const pose = getControlOptionById(controls, 'poseId', normalizedLocks.poseId)
+    || getControlOptionById(controls, 'poseId', rawLocks?.poseId);
+  const label = pose?.zh || '';
+
+  if (label.includes('坐姿')) return '坐姿';
+  if (label.includes('半躺') || label.includes('躺')) return '躺姿';
+  if (label.includes('蹲姿')) return '蹲姿';
+  if (label.includes('跪')) return '跪姿';
+  return '站姿';
+}
+
+function applyLegacySelfieSpecialActionMigration(normalizedLocks, rawLocks, controls) {
+  const rawSpecialActionId = rawLocks?.specialActionId || '';
+  const migration = CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS.find((entry) => (
+    entry.legacyId === rawSpecialActionId || rawSpecialActionId.includes(entry.label)
+  ));
+  if (!migration) return;
+
+  setControlToNone(normalizedLocks, controls, 'specialActionId');
+  setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseBaseId', inferPoseComposerBaseZhFromLegacyPose(normalizedLocks, rawLocks, controls));
+  setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHandId', migration.handZh);
+}
+
+function isSelfiePoseHandOption(option) {
+  return Boolean(option?.meta?.tags?.includes('selfie_hand_pose'));
+}
+
+function applySelfiePoseHandOrbitLock(normalizedLocks, controls) {
+  const poseHand = getControlOptionById(controls, 'poseHandId', normalizedLocks.poseHandId);
+  if (!isSelfiePoseHandOption(poseHand)) return;
+
+  setControlToNone(normalizedLocks, controls, 'orbitId');
 }
 
 function applyOutfitPresetToDressLegacyLockMigration(normalizedLocks, rawLocks, controls) {
@@ -3463,9 +3523,11 @@ export function normalizeLocks(rawLocks = {}) {
   applyDuoInteractionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyDuoExpressionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyExpressionPoseLegacySocialLockMigration(normalizedWithLegacyColors, rawLocks, controls);
+  applyLegacySelfieSpecialActionMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOutfitPresetToDressLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyEyewearLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOuterwearOpeningLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
+  applySelfiePoseHandOrbitLock(normalizedWithLegacyColors, controls);
 
   return normalizedWithLegacyColors;
 }

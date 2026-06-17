@@ -643,7 +643,7 @@ test('face close-up framing keeps wardrobe location and pose locks available as 
     pantsId: optionId('pantsId', '直筒牛仔褲'),
     shoesId: optionId('shoesId', '高跟鞋'),
     poseId: optionId('poseId', '坐姿｜微微前傾'),
-    specialActionId: optionId('specialActionId', '男友視角拍攝'),
+    specialActionId: optionId('specialActionId', '塗口紅'),
     poseBaseId: optionId('poseBaseId', '坐姿'),
     poseHandId: optionId('poseHandId', '單手托下巴'),
     poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),

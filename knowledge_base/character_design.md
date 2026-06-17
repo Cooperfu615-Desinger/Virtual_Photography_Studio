@@ -131,7 +131,3 @@
 | **特殊動作 (Special Actions)** | 四足跪姿前傾 | `on all fours with both hands and knees on the ground, torso leaning forward, arms extended, back arched, hips lifted, head angled downward` | 以四足跪姿前傾的誇張肢體張力為主，背部拱起、臀部抬高，需要大範圍肢體可見才能成立。 |
 | **特殊動作 (Special Actions)** | 抱枕俯臥回眸 | `lying prone with her torso propped on a large pillow, turning over the shoulder, hips lifted in an arched posture, knees grounded behind` | 以俯臥抱枕並回眸的姿勢為主，強調靠枕、拱起的身體曲線與帶點私密感的回望瞬間。 |
 | **特殊動作 (Special Actions)** | 分腿跪坐仰視 | `kneeling with legs spread and feet tucked under, torso sitting back toward the heels, palms planted between the thighs, head dipped with upward eyes` | 以分腿跪坐、雙手撐地、低頭抬眼的誇張肢體張力為主，重點在前挺胸口與壓低頭部形成的視線反差，需要清楚看到完整跪姿。 |
-| **特殊動作 (Special Actions)** | 自然自拍感 | `social-media self-portrait energy, close camera awareness, natural arm-angle feel, relaxed face-near-camera interaction, casual social snapshot mood` | 帶社群自拍感與近鏡頭互動，但不強制手機出現，方便搭配任何一般姿勢。 |
-| **特殊動作 (Special Actions)** | 鏡子自拍 | `mirror selfie action, phone visibly held in one hand, reflective self-portrait composition, face kept readable beside the phone` | 明確對鏡自拍，手機可見但不能遮住臉，場景可再另外決定鏡面位置。 |
-| **特殊動作 (Special Actions)** | 男友視角拍攝 | `boyfriend-perspective candid portrait, photographed by someone close to her, intimate relaxed camera awareness, affectionate natural lens interaction` | 像被親近的人拍下的自然人像，互動親密、放鬆，不等於特定姿勢。 |
-| **特殊動作 (Special Actions)** | 閨蜜視角拍攝 | `best-friend-perspective candid portrait, playful casual social snapshot, relaxed unposed energy, easy natural camera interaction` | 像被朋友拍下的社群感照片，輕鬆、俏皮、自然，不強制特定場景。 |

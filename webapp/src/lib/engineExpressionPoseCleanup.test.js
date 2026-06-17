@@ -69,11 +69,13 @@ test('expression and pose controls expose the cleaned option sets', () => {
   assert.doesNotMatch(optionLabels('poseId').join(' '), /自拍|鏡子自拍|回頭看鏡頭|低頭/);
 });
 
-test('social shooting actions are available as special actions', () => {
-  assert.ok(optionByLabel('specialActionId', '自然自拍感'));
-  assert.ok(optionByLabel('specialActionId', '鏡子自拍'));
-  assert.ok(optionByLabel('specialActionId', '男友視角拍攝'));
-  assert.ok(optionByLabel('specialActionId', '閨蜜視角拍攝'));
+test('selfie shooting actions moved from special actions to pose composer hand poses', () => {
+  const specialActionLabels = optionLabels('specialActionId').join(' ');
+
+  assert.doesNotMatch(specialActionLabels, /自然自拍感|鏡子自拍|男友視角拍攝|閨蜜視角拍攝/);
+  assert.ok(optionByLabel('poseHandId', '自然自拍'));
+  assert.ok(optionByLabel('poseHandId', '鏡子自拍'));
+  assert.ok(optionByLabel('poseHandId', '男友/閨蜜自拍'));
 });
 
 test('duo layout/contact replaces separate duo interaction and composition controls', () => {
@@ -211,17 +213,19 @@ test('legacy duo interaction locks migrate into the merged duo layout control', 
   assert.equal(normalized.duoPoseId, optionByLabel('duoPoseId', '性感互動').id);
 });
 
-test('social shooting special actions can compose with body poses', () => {
-  const pose = optionByLabel('poseId', '坐姿｜微微前傾');
-  const specialAction = optionByLabel('specialActionId', '男友視角拍攝');
+test('selfie hand poses compose with pose composer body controls', () => {
+  const poseBase = optionByLabel('poseBaseId', '坐姿');
+  const arrangement = optionByLabel('poseArrangementId', '微微前傾');
+  const poseHand = optionByLabel('poseHandId', '男友/閨蜜自拍');
   const expression = optionByLabel('expressionId', '直視鏡頭｜柔和微笑');
   const framing = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: framing.id,
     expressionId: expression.id,
-    poseId: pose.id,
-    specialActionId: specialAction.id,
+    poseBaseId: poseBase.id,
+    poseArrangementId: arrangement.id,
+    poseHandId: poseHand.id,
   });
 
   const promptText = [
@@ -230,10 +234,11 @@ test('social shooting special actions can compose with body poses', () => {
     prompt.summary,
   ].join('\n');
 
-  assert.equal(prompt.selection.poseId, pose.id);
-  assert.equal(prompt.selection.specialActionId, specialAction.id);
-  assert.match(promptText, /坐姿｜微微前傾|seated pose leaning slightly forward/);
-  assert.match(promptText, /男友視角拍攝|boyfriend-perspective candid portrait/);
+  assert.equal(prompt.selection.poseBaseId, poseBase.id);
+  assert.equal(prompt.selection.poseArrangementId, arrangement.id);
+  assert.equal(prompt.selection.poseHandId, poseHand.id);
+  assert.match(promptText, /坐姿｜微微前傾|slightly forward-leaning seated arrangement/);
+  assert.match(promptText, /男友\/閨蜜自拍|close-companion social snapshot feeling/);
 });
 
 test('close-up framing preserves explicit pose composer directives', () => {
@@ -306,13 +311,27 @@ test('legacy expression and selfie pose locks migrate into cleaned options', () 
     ...createEmptyLocks(),
     poseId: 'character:姿勢與肢體語言-pose-body-language:站姿-鏡子自拍姿勢:10',
   });
-  assert.equal(normalizedMirrorSelfie.poseId, optionByLabel('poseId', '站姿｜自然站姿').id);
-  assert.equal(normalizedMirrorSelfie.specialActionId, optionByLabel('specialActionId', '鏡子自拍').id);
+  assert.equal(normalizedMirrorSelfie.poseId, optionByLabel('poseId', '全無').id);
+  assert.equal(normalizedMirrorSelfie.specialActionId, optionByLabel('specialActionId', '全無').id);
+  assert.equal(normalizedMirrorSelfie.poseBaseId, optionByLabel('poseBaseId', '站姿').id);
+  assert.equal(normalizedMirrorSelfie.poseArrangementId, optionByLabel('poseArrangementId', '自然站姿').id);
+  assert.equal(normalizedMirrorSelfie.poseHandId, optionByLabel('poseHandId', '鏡子自拍').id);
 
   const normalizedMovingSelfie = normalizeLocks({
     ...createEmptyLocks(),
     poseId: 'character:姿勢與肢體語言-pose-body-language:動態互動-自然自拍姿勢:46',
   });
-  assert.equal(normalizedMovingSelfie.poseId, optionByLabel('poseId', '動態｜輕步移動').id);
-  assert.equal(normalizedMovingSelfie.specialActionId, optionByLabel('specialActionId', '自然自拍感').id);
+  assert.equal(normalizedMovingSelfie.poseId, optionByLabel('poseId', '全無').id);
+  assert.equal(normalizedMovingSelfie.specialActionId, optionByLabel('specialActionId', '全無').id);
+  assert.equal(normalizedMovingSelfie.poseBaseId, optionByLabel('poseBaseId', '站姿').id);
+  assert.equal(normalizedMovingSelfie.poseArrangementId, optionByLabel('poseArrangementId', '自然站姿').id);
+  assert.equal(normalizedMovingSelfie.poseHandId, optionByLabel('poseHandId', '自然自拍').id);
+
+  const normalizedLegacySpecialAction = normalizeLocks({
+    ...createEmptyLocks(),
+    specialActionId: 'character:特殊動作-special-actions:男友視角拍攝:26',
+  });
+  assert.equal(normalizedLegacySpecialAction.specialActionId, optionByLabel('specialActionId', '全無').id);
+  assert.equal(normalizedLegacySpecialAction.poseBaseId, optionByLabel('poseBaseId', '站姿').id);
+  assert.equal(normalizedLegacySpecialAction.poseHandId, optionByLabel('poseHandId', '男友/閨蜜自拍').id);
 });

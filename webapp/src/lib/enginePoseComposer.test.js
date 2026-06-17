@@ -47,6 +47,9 @@ test('pose composer controls expose base arrangement hand and anchor options', (
   assert.ok(control('poseArrangementId').options.some((option) => option.zh === '單腳重心' && option.base === 'standing'));
   assert.ok(control('poseArrangementId').options.some((option) => option.zh === '隨性慵懶' && option.base === 'lying'));
   assert.ok(control('poseHandId').options.some((option) => option.zh === '單手摸下巴'));
+  assert.ok(control('poseHandId').options.some((option) => option.zh === '自然自拍'));
+  assert.ok(control('poseHandId').options.some((option) => option.zh === '鏡子自拍'));
+  assert.ok(control('poseHandId').options.some((option) => option.zh === '男友/閨蜜自拍'));
   assert.ok(control('poseHeadId').options.some((option) => option.zh === '頭部微微側傾'));
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '站在門框邊' && option.base === 'standing'));
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '浴缸' && option.bases.includes('lying')));
@@ -149,6 +152,50 @@ test('pose composer exposes expressive hand interaction batch', () => {
 
   assertHandOption('單手撩髮', /brushing hair back from the side of the face/);
   assertHandOption('單手撩髮', /near the temple or ear/);
+});
+
+test('pose composer exposes selfie hand pose batch', () => {
+  [
+    ['自然自拍', /right arm extended toward the lens/],
+    ['自然自拍', /off-frame phone implied/],
+    ['鏡子自拍', /holding a visible phone toward a mirror/],
+    ['鏡子自拍', /phone may overlap the face or sit beside it in the reflection/],
+    ['男友/閨蜜自拍', /one or both hands making casual interactive gestures toward the camera/],
+    ['男友/閨蜜自拍', /close-companion social snapshot feeling/],
+  ].forEach(([zh, expectedEnglish]) => {
+    assertHandOption(zh, expectedEnglish);
+  });
+});
+
+test('selfie hand poses are preserved in all prompt versions and lock orbit to none', () => {
+  const rearOrbit = optionId('orbitId', '背面 180 度');
+  const noneOrbit = optionId('orbitId', '全無');
+  const selfieCases = [
+    ['自然自拍', /right arm extended toward the lens/, /off-frame phone implied/],
+    ['鏡子自拍', /visible phone toward a mirror/, /phone may overlap the face/],
+    ['男友/閨蜜自拍', /interactive gestures toward the camera/, /close-companion social snapshot feeling/],
+  ];
+
+  for (const [handZh, expectedA, expectedB] of selfieCases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      orbitId: rearOrbit,
+      poseBaseId: optionId('poseBaseId', '站姿'),
+      poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+      poseHandId: optionId('poseHandId', handZh),
+      poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+    });
+
+    assert.equal(prompt.selection.orbitId, noneOrbit);
+    assert.equal(prompt.selection.poseHandId, optionId('poseHandId', handZh));
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      assert.match(text, expectedA);
+      assert.match(text, expectedB);
+      assert.doesNotMatch(text, /rear view|back view|from behind/i);
+    }
+  }
 });
 
 test('generic hand poses adapt beyond standing bases', () => {

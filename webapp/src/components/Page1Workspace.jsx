@@ -722,10 +722,14 @@ export default function Page1Workspace({
   );
   const activeWardrobePickerControl = wardrobeLockControls.find((control) => control.key === activeWardrobePickerKey);
   const specialActionControl = characterLockControls.find((control) => control.key === 'specialActionId');
+  const poseHandControl = characterLockControls.find((control) => control.key === 'poseHandId');
   const getSpecialActionOption = (id) => specialActionControl?.options?.find((option) => option.id === id) || null;
   const isSocialShootingActionOption = (option) => Boolean(option?.meta?.tags?.includes('social_shooting_action'));
+  const isSelfiePoseHandOption = (option) => Boolean(option?.meta?.tags?.includes('selfie_hand_pose'));
   const selectedSpecialActionOption = getSpecialActionOption(locks.specialActionId);
   const selectedSpecialActionIsSocial = isSocialShootingActionOption(selectedSpecialActionOption);
+  const selectedPoseHandOption = poseHandControl?.options?.find((option) => option.id === locks.poseHandId) || null;
+  const selectedPoseHandLocksOrbit = isSelfiePoseHandOption(selectedPoseHandOption);
   const isPoseComposerValueActive = (key, value = locks[key]) => (
     Boolean(value) && !isNoneSelected(key, value, characterLockControls)
   );
@@ -754,6 +758,7 @@ export default function Page1Workspace({
       status: formatSelectionStatus(countEffectiveSelections('pose', locks, lockControls)),
       chips: [
         isPoseComposerActive ? 'Pose Composer' : '',
+        selectedPoseHandLocksOrbit ? '自拍手部鎖定環繞' : '',
         selectedSpecialActionIsSocial ? '社群拍攝動作' : '',
         isDuoMode ? '雙人姿態' : '',
         isCloseupMode ? '特寫收斂' : '',
@@ -819,6 +824,7 @@ export default function Page1Workspace({
     || (FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive)
     || (fixedCompositionSetActive && FIXED_SET_LOCKED_KEYS.includes(control.key))
     || (fixedCompositionSetActive && !fixedSetAllowsCameraVariation && FIXED_SET_STRICT_CAMERA_KEYS.includes(control.key))
+    || (selectedPoseHandLocksOrbit && control.key === 'orbitId')
     || (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1')
     || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
     || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
@@ -886,6 +892,13 @@ export default function Page1Workspace({
       if (POSE_COMPOSER_KEYS.includes(control.key) && value && !isNoneSelected(control.key, value, characterLockControls)) {
         next.poseId = '';
         next.specialActionId = '';
+      }
+      if (control.key === 'poseHandId') {
+        const nextPoseHand = poseHandControl?.options?.find((option) => option.id === value);
+        if (isSelfiePoseHandOption(nextPoseHand)) {
+          const noneOrbit = lockControls.find((item) => item.key === 'orbitId')?.options?.find((option) => option.zh === '全無');
+          next.orbitId = noneOrbit?.id || '';
+        }
       }
       if (control.key === 'locationId' && value) {
         next.importedWorldSceneMode = 'none';

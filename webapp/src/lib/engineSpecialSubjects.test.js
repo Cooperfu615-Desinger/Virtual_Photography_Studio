@@ -178,7 +178,7 @@ test('expression and pose remain available with special subjects', () => {
   assert.equal(prompt.selection.expressionId, expression.id);
   assert.equal(prompt.selection.poseId, pose.id);
   assert.match(promptText, /calm neutral expression|relaxed half-lidded ease/);
-  assert.match(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance/);
+  assert.match(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance|one-leg weight shift|relaxed asymmetrical body balance/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
@@ -209,28 +209,33 @@ test('non-social special actions apply to special subjects in every output and r
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
-test('social shooting special actions compose with special subject body poses', () => {
+test('selfie hand pose composer applies to special subjects', () => {
   const controls = getLockControls();
-  const pose = controls
-    .find((control) => control.key === 'poseId')
-    .options.find((option) => option.zh === '站姿｜單腳重心');
-  const specialAction = controls
-    .find((control) => control.key === 'specialActionId')
-    .options.find((option) => option.zh === '男友視角拍攝');
+  const poseBase = controls
+    .find((control) => control.key === 'poseBaseId')
+    .options.find((option) => option.zh === '站姿');
+  const arrangement = controls
+    .find((control) => control.key === 'poseArrangementId')
+    .options.find((option) => option.zh === '單腳重心');
+  const poseHand = controls
+    .find((control) => control.key === 'poseHandId')
+    .options.find((option) => option.zh === '男友/閨蜜自拍');
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     specialSubjectId: 'european-knight',
-    poseId: pose.id,
-    specialActionId: specialAction.id,
+    poseBaseId: poseBase.id,
+    poseArrangementId: arrangement.id,
+    poseHandId: poseHand.id,
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
 
   assert.equal(prompt.selection.specialSubjectId, 'european-knight');
-  assert.equal(prompt.selection.specialActionId, specialAction.id);
-  assert.equal(prompt.selection.poseId, pose.id);
-  assert.match(promptText, /boyfriend-perspective candid portrait/);
-  assert.match(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance/);
+  assert.equal(prompt.selection.poseBaseId, poseBase.id);
+  assert.equal(prompt.selection.poseArrangementId, arrangement.id);
+  assert.equal(prompt.selection.poseHandId, poseHand.id);
+  assert.match(promptText, /close-companion social snapshot feeling/);
+  assert.match(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance|one-leg weight shift|relaxed asymmetrical body balance/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
