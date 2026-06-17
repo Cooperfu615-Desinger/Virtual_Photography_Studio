@@ -8437,15 +8437,24 @@ function buildAiMinimalSceneClause(valuesByLabel) {
 }
 
 function buildAiMinimalMoodTail(valuesByLabel) {
-  const cameraText = getStructuredValues(valuesByLabel, [
-    'Photography Style',
-    'Camera / Film',
-    'Optical Effect',
-  ]).join(', ');
+  const styleText = getStructuredValues(valuesByLabel, ['Photography Style']).join(', ');
+  const imagingText = firstStructuredValue(valuesByLabel, ['Camera / Film']);
+  const opticalText = getStructuredValues(valuesByLabel, ['Optical Effect']).join(', ');
+  const cameraText = [styleText, imagingText, opticalText].filter(Boolean).join(', ');
   const cleanedCameraText = cleanAiMinimalFragment(cameraText);
+  const cleanedImagingText = cleanAiMinimalFragment(imagingText);
   const artifacts = [];
   const addArtifact = (value) => {
     if (value && !artifacts.includes(value)) artifacts.push(value);
+  };
+  const details = [];
+  const addDetail = (value) => {
+    const cleaned = cleanAiMinimalFragment(value);
+    if (!cleaned) return;
+    const lowerCleaned = cleaned.toLowerCase();
+    if (details.some((detail) => detail.toLowerCase() === lowerCleaned || detail.toLowerCase().includes(lowerCleaned))) return;
+    if (cleanedImagingText && cleanedImagingText.toLowerCase().includes(lowerCleaned)) return;
+    details.push(cleaned);
   };
 
   if (/vhs|tape/i.test(cleanedCameraText)) {
@@ -8470,7 +8479,9 @@ function buildAiMinimalMoodTail(valuesByLabel) {
       ? 'captured in film photography style'
       : 'captured as an editorial film still';
 
-  if (artifacts.length > 0) return `${base} with ${artifacts.join(', ')}`;
+  if (cleanedImagingText) details.push(cleanedImagingText);
+  artifacts.forEach(addDetail);
+  if (details.length > 0) return `${base} with ${details.join(', ')}`;
 
   const moodDetail = compactAiMinimalFragment(cleanedCameraText, 2);
   return moodDetail ? `${base} with ${moodDetail}` : base;

@@ -145,6 +145,22 @@ test('AI prompt converts recognizable separate pieces into a style shorthand', (
   assert.doesNotMatch(prompt.midjourneyPrompt, /slim halter strings|minimal sliding triangle cups|compact fitted seat/i);
 });
 
+test('AI prompt includes the complete imaging simulation description', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
+    outerwearId: optionId('outerwearId', '全無'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+    filmId: optionId('filmId', '高銳利快照黑位'),
+  });
+
+  assert.match(
+    prompt.midjourneyPrompt,
+    /high-acutance snapshot rendering, snap-focus clarity, contrasty black levels, crisp APS-C-like color response, candid compact-camera texture/i
+  );
+});
+
 test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt outputs', () => {
   const importedWorldSceneArchitecture = 'world-scene architecture for the portrait: Shibuya Scramble Crossing remains visible around and behind the subject, large video billboards, station-front buildings, dense pedestrian crosswalk pattern, portrait subject remains the main subject, no no-human-subject restriction';
   const [prompt] = generatePrompts(1, {
