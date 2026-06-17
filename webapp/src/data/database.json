@@ -3837,13 +3837,13 @@
       },
       {
         "zh": "Y2K CCD 低清快照",
-        "en": "early-2000s compact-digital rendering, low-resolution CCD softness, narrow dynamic range, clipped specular highlights, noisy compressed shadows, slight handheld smear, cheap consumer JPEG texture",
-        "desc": "以 2000 年代家用數位相機與 CCD 快照成像為核心，整體解析度偏低、細節略軟、動態範圍狹窄，亮部容易出現數位 clipping，暗部帶壓縮噪點與髒感，並保留輕微手持晃動 smear 與廉價 consumer JPEG 質地。"
+        "en": "early-2000s compact-digital rendering, on-camera flash glare, low-resolution CCD softness, narrow dynamic range, clipped highlights, crushed noisy shadows, magenta-green color cast, blocky JPEG artifacts",
+        "desc": "以 2000 年代家用 CCD 小型數位相機的低清快照為核心，強化機頂閃光眩光、低解析 CCD 柔化、狹窄動態範圍、亮部剪切、暗部壓黑噪點、粉綠白平衡偏色與方塊狀 JPEG 壓縮痕跡。"
       },
       {
         "zh": "復古 CCD 晃動快照",
-        "en": "retro CCD snapshot rendering, soft low-pixel detail, unstable highlight clipping, dirty shadow noise, visible handheld motion smear, compressed low-end JPEG look",
-        "desc": "以早期 CCD 消費型快照失真為核心，低像素細節更軟，亮部更容易不穩定溢白，暗部髒噪點更明顯，並保留可見的手持晃動 smear 與低階消費型 JPEG 壓縮質地，整體更接近失手但有味道的復古數位照片。"
+        "en": "retro CCD failure-snapshot rendering, heavy motion smear, soft low-pixel detail, blown unstable highlights, muddy chroma noise, purple edge fringing, banded gradients, low-end JPEG compression",
+        "desc": "以早期 CCD 失手快照的強烈成像失真為核心，保留明顯手持晃動拖影、低像素柔化、亮部爆白不穩、髒色彩噪點、邊緣紫邊、階調色帶斷裂與低階 JPEG 壓縮感。"
       },
       {
         "zh": "日系亮膚高彩濾鏡",

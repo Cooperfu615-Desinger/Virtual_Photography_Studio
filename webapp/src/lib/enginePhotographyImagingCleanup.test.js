@@ -287,12 +287,15 @@ test('imaging control exposes rendering and color-grade looks without camera bod
   const y2kDigicam = optionByLabel('filmId', 'Y2K CCD 低清快照');
   assert.match(y2kDigicam.en, /early-2000s compact-digital rendering/);
   assert.match(y2kDigicam.en, /low-resolution CCD softness/);
-  assert.match(y2kDigicam.en, /cheap consumer JPEG texture/);
+  assert.match(y2kDigicam.en, /on-camera flash glare/);
+  assert.match(y2kDigicam.en, /magenta-green color cast/);
+  assert.match(y2kDigicam.en, /blocky JPEG artifacts/);
 
   const shakyCcd = optionByLabel('filmId', '復古 CCD 晃動快照');
-  assert.match(shakyCcd.en, /retro CCD snapshot rendering/);
-  assert.match(shakyCcd.en, /visible handheld motion smear/);
-  assert.match(shakyCcd.en, /compressed low-end JPEG look/);
+  assert.match(shakyCcd.en, /retro CCD failure-snapshot rendering/);
+  assert.match(shakyCcd.en, /heavy motion smear/);
+  assert.match(shakyCcd.en, /purple edge fringing/);
+  assert.match(shakyCcd.en, /banded gradients/);
 });
 
 test('legacy camera profile locks migrate into rendering looks', () => {
