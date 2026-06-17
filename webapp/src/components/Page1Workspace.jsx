@@ -74,6 +74,7 @@ const POSE_COMPOSER_CONTEXT_KEYS = new Set(['poseArrangementId', 'poseAnchorId']
 const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting', 'lying']);
 const FLEXIBLE_CAMERA_FIXED_SET_ID = 'concrete-wall-chesterfield-sofa';
 const FIXED_SET_KEYS = ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'];
+const FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS = new Set(['fixedSetCaptureModeId', 'fixedSetPerformanceStateId']);
 const FIXED_SET_LOCKED_KEYS = [
   'sceneAttributeId',
   'locationId',
@@ -815,6 +816,7 @@ export default function Page1Workspace({
     (isCloseupMode && !closeupAllowedKeys.has(control.key))
     || (isWormEyeAngle && ['styleId', 'lensId', 'opticalEffectId'].includes(control.key))
     || (FIXED_SET_KEYS.includes(control.key) && locks.subjectCount === '2')
+    || (FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive)
     || (fixedCompositionSetActive && FIXED_SET_LOCKED_KEYS.includes(control.key))
     || (fixedCompositionSetActive && !fixedSetAllowsCameraVariation && FIXED_SET_STRICT_CAMERA_KEYS.includes(control.key))
     || (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1')
@@ -956,14 +958,16 @@ export default function Page1Workspace({
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
         const control = buildFixedSetControl(buildPoseComposerControl(rawControl));
+        const displayFixedSetDependentAsNone = FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive;
         const disabled = isControlDisabled(control);
+        const value = displayFixedSetDependentAsNone ? 'none' : locks[control.key];
         const dividerLabel = activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
           ? WARDROBE_GARMENT_CONTROL_DIVIDERS[control.key]
           : '';
         const field = activeSection === 'wardrobe' && WARDROBE_PICKER_KEYS.has(control.key) ? (
           <WardrobePickerField
             control={control}
-            value={locks[control.key]}
+            value={value}
             disabled={disabled}
             onOpen={() => openWardrobePicker(control)}
             onChange={(value) => applyControlValue(control, value)}
@@ -972,7 +976,7 @@ export default function Page1Workspace({
         ) : (
           <SelectControlField
             control={control}
-            value={locks[control.key]}
+            value={value}
             disabled={disabled}
             onChange={(value) => applyControlValue(control, value)}
             onCopy={(text) => handleCopyText(`${control.label} copied`, text)}

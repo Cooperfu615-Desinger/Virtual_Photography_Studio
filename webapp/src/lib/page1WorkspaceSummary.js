@@ -59,6 +59,10 @@ function buildSummaryText(parts) {
   return filtered.length > 0 ? filtered.join(' / ') : '尚未形成明確選項';
 }
 
+function isFixedCompositionSetActive(locks, controls) {
+  return Boolean(getControlOptionLabel(controls, 'fixedCompositionSetId', locks.fixedCompositionSetId));
+}
+
 function isOutfitPresetActive(locks, controls, key) {
   return Boolean(getControlOptionLabel(controls, key, locks[key]));
 }
@@ -172,13 +176,14 @@ export function buildWorkspaceSummary(locks, controls) {
   const importedWorldSceneLabel = locks.importedWorldSceneMode === 'architecture' && locks.importedWorldSceneLabel
     ? `PAGE3：${locks.importedWorldSceneLabel}`
     : '';
+  const fixedCompositionSetActive = isFixedCompositionSetActive(locks, controls);
   const sceneSummary = buildSummaryText([
     getControlOptionLabel(controls, 'sceneAttributeId', locks.sceneAttributeId),
     importedWorldSceneLabel,
     getControlOptionLabel(controls, 'fixedCompositionSetId', locks.fixedCompositionSetId),
-    getControlOptionLabel(controls, 'fixedSetPositionId', locks.fixedSetPositionId),
-    getControlOptionLabel(controls, 'fixedSetCaptureModeId', locks.fixedSetCaptureModeId),
-    getControlOptionLabel(controls, 'fixedSetPerformanceStateId', locks.fixedSetPerformanceStateId),
+    fixedCompositionSetActive ? getControlOptionLabel(controls, 'fixedSetPositionId', locks.fixedSetPositionId) : '',
+    fixedCompositionSetActive ? getControlOptionLabel(controls, 'fixedSetCaptureModeId', locks.fixedSetCaptureModeId) : '',
+    fixedCompositionSetActive ? getControlOptionLabel(controls, 'fixedSetPerformanceStateId', locks.fixedSetPerformanceStateId) : '',
     getControlOptionLabel(controls, 'locationId', locks.locationId),
     getControlOptionLabel(controls, 'lightingId', locks.lightingId),
     getControlOptionLabel(controls, 'lightDirectionId', locks.lightDirectionId),

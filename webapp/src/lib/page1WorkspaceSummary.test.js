@@ -126,6 +126,18 @@ test('workspace scene summary includes fixed composition set controls', () => {
   assert.match(summary.scene.summary, /慵懶無力感/);
 });
 
+test('workspace scene summary ignores fixed set dependent controls when fixed composition is none', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '全無'),
+    fixedSetPositionId: optionId('fixedSetPositionId', '全無'),
+    fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '自然自拍感'),
+    fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '模型自然發揮'),
+  }, controls);
+
+  assert.doesNotMatch(summary.scene.summary, /自然自拍感|模型自然發揮/);
+});
+
 test('fixed composition set leaves PAGE1 aspect ratio out of photography summary', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),
