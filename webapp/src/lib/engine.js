@@ -8216,6 +8216,96 @@ function compactAiMinimalFragment(value, limit = 4) {
     .join(', ');
 }
 
+function splitAiWardrobeFragments(value) {
+  return cleanAiMinimalFragment(value)
+    .replace(/\.\s+/g, ', ')
+    .split(/\s*,\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function withAiArticle(phrase) {
+  const cleaned = cleanAiMinimalFragment(phrase);
+  if (!cleaned || /^(?:a|an|the)\s+/i.test(cleaned)) return cleaned;
+  return /^[aeiou]/i.test(cleaned) ? `an ${cleaned}` : `a ${cleaned}`;
+}
+
+function buildAiMappedWardrobePhrase(value) {
+  const text = cleanAiMinimalFragment(value);
+  if (!text) return '';
+
+  const patterns = [
+    [/BDSM|bondage|leather harness/i, 'a BDSM-inspired leather harness outfit'],
+    [/nurse uniform/i, 'a nurse uniform'],
+    [/flight attendant uniform/i, 'a flight attendant uniform'],
+    [/doctor|medical coat|diagnosis coat/i, 'a doctor coat outfit'],
+    [/secretary/i, 'a secretary skirt suit'],
+    [/tailored suit|suit set|blazer.*trousers|suit trousers/i, 'a tailored suit set'],
+    [/maid-inspired ruffled bikini/i, 'a maid-inspired ruffled bikini outfit'],
+    [/\bmaid\b/i, 'a maid outfit'],
+    [/bunny/i, 'a bunny suit'],
+    [/triangle bikini|bikini swimwear|swimwear set|monokini swimsuit/i, 'bikini swimwear'],
+    [/Victorian|baroque/i, 'a Victorian baroque outfit'],
+    [/lolita/i, 'a lolita dress'],
+    [/qipao/i, /embroidered/i.test(text) ? 'an embroidered qipao dress' : 'a qipao dress'],
+    [/kimono/i, 'a kimono outfit'],
+    [/yukata/i, 'a lightweight yukata'],
+    [/glossy latex.*mini dress|latex mini dress|latex.*mini dress/i, 'a glossy latex mini dress'],
+    [/satin.*mini dress|spaghetti-strap satin|satin slip/i, 'a satin slip mini dress'],
+    [/cut-out monokini|monokini/i, 'a cut-out monokini swimsuit'],
+    [/mini dress/i, 'a mini dress'],
+    [/maxi dress|long dress/i, 'a long dress'],
+    [/schoolgirl|sailor uniform/i, 'a schoolgirl sailor uniform'],
+    [/lingerie/i, 'a lingerie outfit'],
+  ];
+
+  return patterns.find(([pattern]) => pattern.test(text))?.[1] || '';
+}
+
+function isAiAccessoryFragment(fragment) {
+  return /\b(?:bag|clutch|tote|sunglasses|glasses|eyeglasses|earrings?|necklace|bracelets?|rings?|choker|watch|headscarf|bandana|cap|hat|beret|hair clip|tattoo|earphones?|headphones?|pendant|wallet chain|shoulder strap|belt)\b/i.test(fragment);
+}
+
+function isAiClothingCoreFragment(fragment) {
+  return /\b(?:top|shirt|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|jeans|trousers|boots|shoes|sandals|loafers|sneakers|socks|tights|stockings|leg warmers|bikini|swimsuit|corset|bra|harness|bodysuit|hoodie|sweater|vest|blazer|uniform|yukata|qipao|kimono|cape|cloak|gown)\b/i.test(fragment);
+}
+
+function buildAiSpecialOutfitPhrase(value) {
+  const fragments = splitAiWardrobeFragments(value);
+  if (fragments.length === 0) return '';
+
+  const styleFragment = fragments.find((part) => /\b(?:look|styling|outfit)\b/i.test(part) && !isAiClothingCoreFragment(part)) || fragments[0];
+  const stylePhrase = withAiArticle(
+    styleFragment
+      .replace(/\b(?:look|styling)\b/gi, 'outfit')
+      .replace(/\boutfit outfit\b/gi, 'outfit')
+  );
+  const clothingFragments = fragments
+    .filter((part) => part !== styleFragment)
+    .filter((part) => isAiClothingCoreFragment(part) && !isAiAccessoryFragment(part))
+    .slice(0, 4);
+
+  if (clothingFragments.length === 0) return stylePhrase;
+  return `${stylePhrase} with ${joinNaturalList(clothingFragments)}`;
+}
+
+function buildAiSeparateStylePhrase(value) {
+  const text = cleanAiMinimalFragment(value);
+  if (!text) return '';
+
+  if (/bikini|swimwear/i.test(text) && /denim shorts|denim micro shorts|denim mini skirt|denim skirt/i.test(text)) {
+    return 'a summer bikini-and-denim look';
+  }
+  if (/punk|tartan|graffiti|leather jacket|fishnet|stud/i.test(text)) return 'a punk streetwear look';
+  if (/gothic|lace|corset|black sheer/i.test(text)) return 'a gothic lace street look';
+  if (/jersey|sport|athletic|track jacket|sneakers|running/i.test(text)) return 'a sporty athleisure look';
+  if (/blazer|suit|button-down shirt|blouse/i.test(text) && /trousers|pants|skirt/i.test(text)) return 'office casual separates';
+  if (/denim|jeans/i.test(text) && /camisole|tank top|cropped|tee|t-shirt/i.test(text)) return 'a Y2K denim casual look';
+
+  const fragments = splitAiWardrobeFragments(value).filter((part) => isAiClothingCoreFragment(part) && !isAiAccessoryFragment(part));
+  return fragments.length > 0 ? joinNaturalList(fragments.slice(0, 2)) : '';
+}
+
 function firstStructuredValue(valuesByLabel, labels) {
   return getStructuredValues(valuesByLabel, labels)[0] || '';
 }
@@ -8237,16 +8327,12 @@ function buildAiMinimalSubjectLead(valuesByLabel, context) {
 }
 
 function buildAiMinimalWardrobeClause(valuesByLabel, context) {
-  const roleA = firstStructuredValue(valuesByLabel, [
-    'Woman 1 Special Outfit',
-    'Woman 1 Outfit Preset',
-  ]);
-  const roleB = firstStructuredValue(valuesByLabel, [
-    'Woman 2 Special Outfit',
-    'Woman 2 Outfit Preset',
-  ]);
-  const roleAPhrase = compactAiMinimalFragment(roleA, 2);
-  const roleBPhrase = compactAiMinimalFragment(roleB, 2);
+  const roleSpecialA = firstStructuredValue(valuesByLabel, ['Woman 1 Special Outfit']);
+  const roleSpecialB = firstStructuredValue(valuesByLabel, ['Woman 2 Special Outfit']);
+  const rolePresetA = firstStructuredValue(valuesByLabel, ['Woman 1 Outfit Preset']);
+  const rolePresetB = firstStructuredValue(valuesByLabel, ['Woman 2 Outfit Preset']);
+  const roleAPhrase = buildAiSpecialOutfitPhrase(roleSpecialA) || buildAiMappedWardrobePhrase(rolePresetA) || compactAiMinimalFragment(rolePresetA, 2);
+  const roleBPhrase = buildAiSpecialOutfitPhrase(roleSpecialB) || buildAiMappedWardrobePhrase(rolePresetB) || compactAiMinimalFragment(rolePresetB, 2);
 
   if (roleAPhrase || roleBPhrase) {
     const duoParts = [
@@ -8274,8 +8360,8 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context) {
       if (sceneIndex !== -1) roleBWear = roleBWear.slice(0, sceneIndex);
     }
     roleBWear = roleBWear.replace(/,\s*outfit-visible editorial duo composition.*$/i, '');
-    const anchorRoleAPhrase = compactAiMinimalFragment(roleAWear, 2);
-    const anchorRoleBPhrase = compactAiMinimalFragment(roleBWear, 2);
+    const anchorRoleAPhrase = buildAiMappedWardrobePhrase(roleAWear) || buildAiSeparateStylePhrase(roleAWear) || compactAiMinimalFragment(roleAWear, 2);
+    const anchorRoleBPhrase = buildAiMappedWardrobePhrase(roleBWear) || buildAiSeparateStylePhrase(roleBWear) || compactAiMinimalFragment(roleBWear, 2);
     const anchorParts = [
       anchorRoleAPhrase ? `one wearing ${anchorRoleAPhrase}` : '',
       anchorRoleBPhrase ? `the other wearing ${anchorRoleBPhrase}` : '',
@@ -8283,11 +8369,17 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context) {
     if (anchorParts.length > 0) return `with ${anchorParts.join(' and ')}`;
   }
 
+  const specialOutfitPhrase = buildAiSpecialOutfitPhrase(firstStructuredValue(valuesByLabel, ['Special Outfit']));
+  if (specialOutfitPhrase) return `wearing ${specialOutfitPhrase}`;
+
+  const outfitPresetPhrase = buildAiMappedWardrobePhrase(firstStructuredValue(valuesByLabel, ['Outfit Preset']));
+  if (outfitPresetPhrase) return `wearing ${outfitPresetPhrase}`;
+
+  const dressPhrase = buildAiMappedWardrobePhrase(firstStructuredValue(valuesByLabel, ['Dress']));
+  if (dressPhrase) return `wearing ${dressPhrase}`;
+
   const wardrobeValues = getStructuredValues(valuesByLabel, [
     'Outerwear',
-    'Special Outfit',
-    'Outfit Preset',
-    'Dress',
     'Top',
     'Pants',
     'Skirt',
@@ -8296,6 +8388,9 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context) {
     'Duo Wardrobe',
     'Wardrobe Visibility',
   ]);
+  const separateStylePhrase = buildAiSeparateStylePhrase(wardrobeValues.join(', '));
+  if (separateStylePhrase) return `wearing ${separateStylePhrase}`;
+
   const wardrobePhrase = compactAiMinimalFragment(wardrobeValues.join(', '), context.subject?.count === 2 ? 6 : 5);
 
   return wardrobePhrase ? `wearing ${wardrobePhrase}` : '';

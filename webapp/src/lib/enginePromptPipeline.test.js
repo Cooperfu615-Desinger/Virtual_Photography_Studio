@@ -54,7 +54,7 @@ test('Grok/Z-Image prompt remains natural language and AI uses a legacy minimal 
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
   assert.match(prompt.midjourneyPrompt, /^A seductive stunning 20-year-old Japanese or Korean woman/);
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
-  assert.match(prompt.midjourneyPrompt, /wearing .*flight attendant uniform outfit/);
+  assert.match(prompt.midjourneyPrompt, /wearing a flight attendant uniform/);
   assert.match(prompt.midjourneyPrompt, /standing pose with loosely crossed arms/);
   assert.match(prompt.midjourneyPrompt, /captured (?:in film photography style|as a moody film still|as an editorial film still)/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
@@ -88,6 +88,63 @@ test('AI prompt uses a legacy minimal natural paragraph with wardrobe, pose, sce
   assert.ok(prompt.midjourneyPrompt.length < 650);
 });
 
+test('AI prompt keeps special outfit clothing core while dropping accessory-heavy styling', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialOutfitId: optionId('specialOutfitId', '黑色哥德蕾絲短袖熱褲長靴造型'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+  });
+
+  assert.match(prompt.midjourneyPrompt, /wearing a black gothic Y2K lace punk outfit/i);
+  assert.match(prompt.midjourneyPrompt, /fitted black short-sleeve top/i);
+  assert.match(prompt.midjourneyPrompt, /distressed black denim micro shorts/i);
+  assert.match(prompt.midjourneyPrompt, /black slouchy knee-high leather boots/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /snap choker|rosary|necklace|wrist cuffs|bracelets/i);
+});
+
+test('AI prompt compresses outfit presets and dresses into short wearable phrases', () => {
+  const [presetPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: optionId('outfitPresetId', '套裝：護士制服'),
+    outerwearId: optionId('outerwearId', '全無'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+  });
+  const [dressPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    dressId: optionId('dressId', '連身：短版｜亮面乳膠迷你洋裝'),
+    topId: optionId('topId', '全無'),
+    pantsId: optionId('pantsId', '全無'),
+    skirtId: optionId('skirtId', '全無'),
+    outerwearId: optionId('outerwearId', '全無'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+  });
+
+  assert.match(presetPrompt.midjourneyPrompt, /wearing a nurse uniform/i);
+  assert.doesNotMatch(presetPrompt.midjourneyPrompt, /short white nurse dress|medical apron|white cap/i);
+  assert.match(dressPrompt.midjourneyPrompt, /wearing a glossy latex mini dress/i);
+  assert.doesNotMatch(dressPrompt.midjourneyPrompt, /one-piece short mini silhouette|smooth glossy latex/i);
+});
+
+test('AI prompt converts recognizable separate pieces into a style shorthand', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '全無'),
+    topId: optionId('topId', '比基尼上身'),
+    pantsId: optionId('pantsId', '牛仔短褲'),
+    skirtId: optionId('skirtId', '全無'),
+    outerwearId: optionId('outerwearId', '全無'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+  });
+
+  assert.match(prompt.midjourneyPrompt, /wearing a summer bikini-and-denim look/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /slim halter strings|minimal sliding triangle cups|compact fitted seat/i);
+});
+
 test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt outputs', () => {
   const importedWorldSceneArchitecture = 'world-scene architecture for the portrait: Shibuya Scramble Crossing remains visible around and behind the subject, large video billboards, station-front buildings, dense pedestrian crosswalk pattern, portrait subject remains the main subject, no no-human-subject restriction';
   const [prompt] = generatePrompts(1, {
@@ -119,7 +176,7 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
 
   assert.match(prompt.midjourneyPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
-  assert.match(prompt.midjourneyPrompt, /flight attendant uniform outfit/i);
+  assert.match(prompt.midjourneyPrompt, /flight attendant uniform/i);
   assert.match(prompt.midjourneyPrompt, /standing pose with loosely crossed arms/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
   assert.equal(prompt.selection.locationId, optionId('locationId', '全無'));
