@@ -5752,7 +5752,7 @@ function getLegacyCameraSystemFromImaging(imagingSimulation) {
 }
 
 const STYLE_PROMPT_INTROS = {
-  '蜷川實花｜濃烈色彩戲劇感': 'Inspired by Mika Ninagawa, explosive hyper-saturated image language',
+  '蜷川實花｜濃烈色彩戲劇感': 'Inspired by Mika Ninagawa, explosive vivid complex color image language',
   '上田義彥｜靜默自然暗調': 'Inspired by Yoshihiko Ueda, quiet natural image language',
   '橫浪修｜群像留白秩序': 'Inspired by Osamu Yokonami, high-key minimalist image language',
   '川內倫子｜輕盈日常微光': 'Inspired by Rinko Kawauchi, airy high-key image language',

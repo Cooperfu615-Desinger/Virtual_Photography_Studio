@@ -2,7 +2,7 @@
 
 | 攝影風格 (Photography Style) | 靈感備註 (Inspiration Note) | 英文 Prompt 關鍵字 (Prompt Keywords) | 風格說明 (Style Description) |
 | :--- | :--- | :--- | :--- |
-| 蜷川實花｜濃烈色彩戲劇感 | 濃烈色彩與裝飾戲劇感 | `Inspired by Mika Ninagawa, hyper-saturated theatrical portraiture, vivid reds and hot pinks, cyan accents, glossy color surfaces, dense decorative color layers, surreal feminine intensity` | 強烈飽和、鮮豔紅粉與青色點綴、密集裝飾性色層與夢境張力；以色彩和表面光澤主導，不綁定具體空間或燈具。 |
+| 蜷川實花｜濃烈色彩戲劇感 | 鮮豔複雜色彩與非花卉裝飾色層 | `Inspired by Mika Ninagawa, hyper-saturated vivid-color portraiture, complex non-floral color layers, glossy reds hot pinks cyan accents and jewel-tone surfaces, no floral or botanical motifs` | 強烈飽和、鮮豔紅粉、青色與寶石色系交錯，形成複雜而密集的非花卉裝飾性色層；以色彩、表面光澤與圖像張力主導，不加入花朵或植物圖案元素。 |
 | 上田義彥｜靜默自然暗調 | 靜默自然影像語言 | `Inspired by Yoshihiko Ueda, quiet natural portraiture, deep velvety shadows, cool desaturated greens and charcoals, low-key tonal calm, subtle atmospheric depth` | 深色陰影、低調光、冷淡色盤、靜默情緒與細膩空氣層次，重點放在暗部質地與人物距離感。 |
 | 橫浪修｜群像留白秩序 | 群像秩序與安靜疏離感 | `Inspired by Osamu Yokonami, high-key minimalist portraiture, muted pastels, luminous whites, flat overcast softness, structured spacing, generous negative space` | 強調排列秩序、留白、安靜疏離、柔平光線與淡色調，可套用在單人或雙人構圖，不綁定具體空間。 |
 | 川內倫子｜輕盈日常微光 | 輕盈日常與微光語言 | `Inspired by Rinko Kawauchi, airy high-key photography, pale softly overexposed daylight glow, cool pastel tones, delicate everyday realism, fragile quiet details` | 輕盈、柔光、日常碎片、微過曝與細小感受性，讓畫面帶有透明而安靜的高調質感。 |

@@ -373,8 +373,11 @@ test('photography style prompts stay focused on image language', () => {
   const ellen = optionByLabel('styleId', '艾倫・馮・昂沃斯｜俏皮抓拍雜誌');
   const leslie = optionByLabel('styleId', '萊斯利・基｜華麗明星商業感');
   const eikoh = optionByLabel('styleId', '細江英公｜戲劇黑白藝術張力');
+  const mika = optionByLabel('styleId', '蜷川實花｜濃烈色彩戲劇感');
 
   assert.doesNotMatch(buildPhotographyStylePrompt(ellen), /sensual/i);
   assert.doesNotMatch(buildPhotographyStylePrompt(leslie), /skin rendering/i);
   assert.doesNotMatch(buildPhotographyStylePrompt(eikoh), /body tension/i);
+  assert.match(buildPhotographyStylePrompt(mika), /complex non-floral color layers/i);
+  assert.match(buildPhotographyStylePrompt(mika), /no floral or botanical motifs/i);
 });
