@@ -343,6 +343,34 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
   assert.match(prompt.zImagePrompt, /woman 2 with .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
 });
 
+test('duo random separates avoid duplicated top color styling', () => {
+  const originalRandom = Math.random;
+  Math.random = () => 0;
+
+  try {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '2',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      topAId: optionId('topAId', '棉質細肩背心'),
+      topBId: optionId('topBId', '襯衫'),
+      pantsAId: optionId('pantsAId', '直筒牛仔褲'),
+      pantsBId: optionId('pantsBId', '絲絨喇叭褲'),
+    });
+
+    assert.ok(prompt.selection.topAColorId);
+    assert.ok(prompt.selection.topBColorId);
+    assert.notEqual(prompt.selection.topAColorId, prompt.selection.topBColorId);
+
+    const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
+    assert.match(promptText, /coordinated but clearly distinct outfits/i);
+    assert.match(promptText, /avoid identical garment colors/i);
+    assert.match(promptText, /avoid matching top colors/i);
+  } finally {
+    Math.random = originalRandom;
+  }
+});
+
 test('special top and bottom palette controls include the new color-card pairings', () => {
   const controls = getLockControls();
   const paletteControl = controls.find((control) => control.key === 'topBottomPaletteId');
