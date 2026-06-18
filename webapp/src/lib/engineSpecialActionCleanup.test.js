@@ -77,9 +77,9 @@ test('selfie shooting choices are no longer exposed as special actions', () => {
 });
 
 test('selfie shooting choices are exposed as pose composer hand poses', () => {
-  assert.match(optionByLabel('poseHandId', '自然自拍').en, /right arm extended toward the lens/);
+  assert.match(optionByLabel('poseHandId', '自然自拍').en, /front-camera self-shot/);
   assert.match(optionByLabel('poseHandId', '鏡子自拍').en, /visible phone toward a mirror/);
-  assert.match(optionByLabel('poseHandId', '男友/閨蜜自拍').en, /interactive gestures toward the camera/);
+  assert.match(optionByLabel('poseHandId', '男友/閨蜜自拍').en, /naturally relaxed hand placement/);
 });
 
 test('selfie hand poses compose with pose composer body controls', () => {

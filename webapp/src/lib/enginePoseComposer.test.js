@@ -156,11 +156,12 @@ test('pose composer exposes expressive hand interaction batch', () => {
 
 test('pose composer exposes selfie hand pose batch', () => {
   [
-    ['自然自拍', /right arm extended toward the lens/],
-    ['自然自拍', /off-frame phone implied/],
+    ['自然自拍', /front-camera self-shot from the phone held in her own extended right hand/],
+    ['自然自拍', /phone and hand stay just beyond the frame edge/],
+    ['自然自拍', /no separate photographer feeling/],
     ['鏡子自拍', /holding a visible phone toward a mirror/],
     ['鏡子自拍', /phone may overlap the face or sit beside it in the reflection/],
-    ['男友/閨蜜自拍', /one or both hands making casual interactive gestures toward the camera/],
+    ['男友/閨蜜自拍', /let the image model choose casual naturally relaxed hand placement/],
     ['男友/閨蜜自拍', /close-companion social snapshot feeling/],
   ].forEach(([zh, expectedEnglish]) => {
     assertHandOption(zh, expectedEnglish);
@@ -171,9 +172,9 @@ test('selfie hand poses are preserved in all prompt versions and lock orbit to n
   const rearOrbit = optionId('orbitId', '背面 180 度');
   const noneOrbit = optionId('orbitId', '全無');
   const selfieCases = [
-    ['自然自拍', /right arm extended toward the lens/, /off-frame phone implied/],
+    ['自然自拍', /front-camera self-shot/, /no separate photographer feeling/],
     ['鏡子自拍', /visible phone toward a mirror/, /phone may overlap the face/],
-    ['男友/閨蜜自拍', /interactive gestures toward the camera/, /close-companion social snapshot feeling/],
+    ['男友/閨蜜自拍', /naturally relaxed hand placement/, /close-companion social snapshot feeling/],
   ];
 
   for (const [handZh, expectedA, expectedB] of selfieCases) {
