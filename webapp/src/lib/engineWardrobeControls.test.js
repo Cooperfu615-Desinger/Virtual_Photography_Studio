@@ -479,6 +479,8 @@ test('special outfit controls expose approved complete looks and remove stale ex
 
   assert.ok(specialOutfitControl);
   const optionLabels = specialOutfitControl.options.map((option) => option.zh);
+  assert.equal(specialOutfitControl.options[0].zh, '隨機');
+  assert.equal(specialOutfitControl.options[0].id, 'random');
   assert.ok(optionLabels.includes('黑色波點頭巾透紗套裝'));
   assert.ok(optionLabels.includes('金色貝雷帽皮草外套寬牛仔造型'));
   assert.ok(optionLabels.includes('黃色寬T條紋襯衫橄欖工裝褲造型'));
@@ -500,7 +502,7 @@ test('special outfit controls expose approved complete looks and remove stale ex
   assert.ok(optionLabels.includes('白襯衫黑短褲西部靴造型'));
   assert.ok(optionLabels.includes('奶油掛脖棕紗裙軍靴造型'));
   assert.ok(optionLabels.includes('藍荷葉背心白紗長裙造型'));
-  assert.equal(optionLabels.filter((label) => label !== '全無').length, 82);
+  assert.equal(optionLabels.filter((label) => !['全無', '隨機'].includes(label)).length, 82);
   assert.ok(!optionLabels.includes('拼布絨呢外套塗鴉奶白工裝褲'));
   assert.ok(!optionLabels.includes('黑色鉚釘兜帽皮革迷你裙造型'));
 });
@@ -542,6 +544,10 @@ test('outfit preset and dress option labels use unified prefixes without fixed c
   const outfitPresetControl = controls.find((control) => control.key === 'outfitPresetId');
   const dressControl = controls.find((control) => control.key === 'dressId');
 
+  assert.equal(outfitPresetControl.options[0].zh, '隨機');
+  assert.equal(outfitPresetControl.options[0].id, 'random');
+  assert.equal(dressControl.options[0].zh, '隨機');
+  assert.equal(dressControl.options[0].id, 'random');
   assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：春日巴黎亞麻長褲'));
   assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：西裝長褲'));
   assert.ok(outfitPresetControl.options.some((option) => option.zh === '套裝：鏈條緞面內衣'));
@@ -551,6 +557,47 @@ test('outfit preset and dress option labels use unified prefixes without fixed c
   assert.ok(!outfitPresetControl.options.some((option) => option.zh === '象牙白春日巴黎套裝'));
   assert.ok(dressControl.options.some((option) => option.zh === '連身：短版｜無袖迷你洋裝'));
   assert.ok(dressControl.options.some((option) => option.zh === '連身：短版｜細肩帶迷你洋裝'));
+});
+
+test('random complete-look controls resolve to concrete wardrobe selections', () => {
+  const fullBodyFramingId = optionId('framingId', '全身鏡頭 (Full Body Shot)');
+  const noneOutfitPresetId = optionId('outfitPresetId', '全無');
+  const noneDressId = optionId('dressId', '全無');
+  const originalRandom = Math.random;
+  Math.random = () => 0;
+
+  try {
+    const [specialPrompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      framingId: fullBodyFramingId,
+      specialOutfitId: 'random',
+    });
+    assert.ok(specialPrompt.selection.specialOutfitId);
+    assert.notEqual(specialPrompt.selection.specialOutfitId, 'random');
+    assert.doesNotMatch(specialPrompt.grokPrompt, /random special outfit/i);
+
+    const [outfitPrompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      framingId: fullBodyFramingId,
+      outfitPresetId: 'random',
+      dressId: noneDressId,
+    });
+    assert.ok(outfitPrompt.selection.outfitPresetId);
+    assert.notEqual(outfitPrompt.selection.outfitPresetId, 'random');
+    assert.doesNotMatch(outfitPrompt.grokPrompt, /random outfit preset/i);
+
+    const [dressPrompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      framingId: fullBodyFramingId,
+      outfitPresetId: noneOutfitPresetId,
+      dressId: 'random',
+    });
+    assert.ok(dressPrompt.selection.dressId);
+    assert.notEqual(dressPrompt.selection.dressId, 'random');
+    assert.doesNotMatch(dressPrompt.grokPrompt, /random dress/i);
+  } finally {
+    Math.random = originalRandom;
+  }
 });
 
 test('bath towel outfit preset and sheer cover-up outerwear preserve requested garment structure', () => {

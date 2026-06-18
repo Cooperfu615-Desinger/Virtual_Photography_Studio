@@ -446,7 +446,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
 
 test('dress controls expose short and long one-piece silhouettes only', () => {
   assert.deepEqual(
-    optionLabels('dressId'),
+    optionLabels('dressId').filter((label) => label !== '隨機'),
     [
       '全無',
       '連身：短版｜無袖迷你洋裝',

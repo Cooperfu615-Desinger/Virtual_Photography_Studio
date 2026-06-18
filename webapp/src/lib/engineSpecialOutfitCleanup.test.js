@@ -90,7 +90,7 @@ const EXPECTED_SPECIAL_OUTFITS = [
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
 const specialOutfitOptions = () => controlOptions('specialOutfitId');
-const nonNoneSpecialOutfits = () => specialOutfitOptions().filter((option) => option.zh !== '全無');
+const nonNoneSpecialOutfits = () => specialOutfitOptions().filter((option) => option.zh !== '全無' && option.id !== 'random');
 const optionByLabel = (key, label) => {
   const option = controlOptions(key).find((item) => item.zh === label);
   assert.ok(option, `Missing option ${label} for ${key}`);

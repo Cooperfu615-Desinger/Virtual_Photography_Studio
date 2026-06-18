@@ -1604,6 +1604,39 @@ const sampleNonNone = (arr) => {
   return sample(nonNone.length > 0 ? nonNone : arr);
 };
 const isRandomOption = (item) => item?.id === 'random';
+const isRandomLockValue = (value) => value === 'random';
+
+const WARDROBE_RANDOM_OPTIONS = {
+  specialOutfit: {
+    id: 'random',
+    zh: '隨機',
+    en: 'random special outfit',
+    desc: 'Randomly select one non-empty special outfit when generating.',
+    random: true,
+    meta: { tags: ['random'] },
+  },
+  outfitPreset: {
+    id: 'random',
+    zh: '隨機',
+    en: 'random outfit preset',
+    desc: 'Randomly select one non-empty outfit preset when generating.',
+    random: true,
+    meta: { tags: ['random'] },
+  },
+  dress: {
+    id: 'random',
+    zh: '隨機',
+    en: 'random dress',
+    desc: 'Randomly select one non-empty dress when generating.',
+    random: true,
+    meta: { tags: ['random'] },
+  },
+};
+
+const prependRandomOption = (options, randomOption) => {
+  const withoutRandom = (options || []).filter((option) => option.id !== randomOption.id);
+  return [randomOption, ...withoutRandom];
+};
 
 const withTags = (...parts) =>
   Array.from(
@@ -3573,12 +3606,12 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'lightingId') options = flatCatalog.lighting;
       if (definition.key === 'lightDirectionId') options = flatCatalog.lightDirection;
       if (definition.key === 'filmId') options = flatCatalog.film;
-      if (definition.key === 'specialOutfitId') options = flatCatalog.specialOutfits;
-      if (definition.key === 'specialOutfitAId') options = flatCatalog.specialOutfits;
-      if (definition.key === 'specialOutfitBId') options = flatCatalog.specialOutfits;
-      if (definition.key === 'outfitPresetId') options = flatCatalog.outfitPresets;
-      if (definition.key === 'outfitPresetAId') options = flatCatalog.outfitPresets;
-      if (definition.key === 'outfitPresetBId') options = flatCatalog.outfitPresets;
+      if (definition.key === 'specialOutfitId') options = prependRandomOption(flatCatalog.specialOutfits, WARDROBE_RANDOM_OPTIONS.specialOutfit);
+      if (definition.key === 'specialOutfitAId') options = prependRandomOption(flatCatalog.specialOutfits, WARDROBE_RANDOM_OPTIONS.specialOutfit);
+      if (definition.key === 'specialOutfitBId') options = prependRandomOption(flatCatalog.specialOutfits, WARDROBE_RANDOM_OPTIONS.specialOutfit);
+      if (definition.key === 'outfitPresetId') options = prependRandomOption(flatCatalog.outfitPresets, WARDROBE_RANDOM_OPTIONS.outfitPreset);
+      if (definition.key === 'outfitPresetAId') options = prependRandomOption(flatCatalog.outfitPresets, WARDROBE_RANDOM_OPTIONS.outfitPreset);
+      if (definition.key === 'outfitPresetBId') options = prependRandomOption(flatCatalog.outfitPresets, WARDROBE_RANDOM_OPTIONS.outfitPreset);
       if (['bodyTypeId', 'bodyTypeAId', 'bodyTypeBId'].includes(definition.key)) options = getByKey(catalog.character, '體態 (Body Type)');
       if (definition.key === 'facialFeaturesId') options = getByKey(catalog.character, '五官特徵 (Facial Features)');
       if (definition.key === 'facialFeaturesAId') options = getByKey(catalog.character, '五官特徵 (Facial Features)');
@@ -3597,7 +3630,7 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'specialActionId') options = getByKey(catalog.character, '特殊動作 (Special Actions)');
       if (['topId', 'topAId', 'topBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '上身 (Tops)');
       if (['topPatternId', 'topAPatternId', 'topBPatternId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '上身圖案 (Top Surface Design)');
-      if (['dressId', 'dressAId', 'dressBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '連身 (Dresses)');
+      if (['dressId', 'dressAId', 'dressBId'].includes(definition.key)) options = prependRandomOption(getByKey(catalog.wardrobe, '連身 (Dresses)'), WARDROBE_RANDOM_OPTIONS.dress);
       if (['pantsId', 'pantsAId', 'pantsBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '褲裝 (Pants)');
       if (['skirtId', 'skirtAId', 'skirtBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '裙裝 (Skirts)');
       if (['bottomPatternId', 'bottomAPatternId', 'bottomBPatternId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '下身圖案 (Bottom Surface Design)');
@@ -4795,15 +4828,32 @@ function buildWardrobe(context, locks, catalog) {
   });
   const presetPieces = [];
   const specialOutfitPieces = [];
+  const pickResolvedLockItem = (items, lockedValue, { excludeIds = [] } = {}) => {
+    if (!lockedValue) return null;
+    if (isRandomLockValue(lockedValue)) {
+      const excluded = new Set(excludeIds.filter(Boolean));
+      const candidates = items.filter((item) => !isNoneLikeItem(item) && !excluded.has(item.id) && wardrobeFitsLocation(item, context.location));
+      const fallbackCandidates = items.filter((item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location));
+      return sample(candidates.length > 0 ? candidates : fallbackCandidates);
+    }
+    return findById(items, lockedValue);
+  };
 
   if (context.subject.count === 2 && (locks.specialOutfitAId || locks.specialOutfitBId)) {
     const specialOutfits = catalog.flatCatalog.specialOutfits;
-    const specialA = locks.specialOutfitAId ? findById(specialOutfits, locks.specialOutfitAId) : null;
-    const specialB = locks.specialOutfitBId ? findById(specialOutfits, locks.specialOutfitBId) : null;
+    const explicitSpecialB = locks.specialOutfitBId && !isRandomLockValue(locks.specialOutfitBId)
+      ? findById(specialOutfits, locks.specialOutfitBId)
+      : null;
+    const specialA = pickResolvedLockItem(specialOutfits, locks.specialOutfitAId, {
+      excludeIds: explicitSpecialB && !isNoneLikeItem(explicitSpecialB) ? [explicitSpecialB.id] : [],
+    });
+    const specialB = pickResolvedLockItem(specialOutfits, locks.specialOutfitBId, {
+      excludeIds: specialA && !isNoneLikeItem(specialA) ? [specialA.id] : [],
+    });
     if (specialA && !isNoneLikeItem(specialA)) specialOutfitPieces.push(prepareSpecialOutfit(specialA, 'a'));
     if (specialB && !isNoneLikeItem(specialB)) specialOutfitPieces.push(prepareSpecialOutfit(specialB, 'b'));
   } else {
-    const specialOutfit = locks.specialOutfitId ? findById(catalog.flatCatalog.specialOutfits, locks.specialOutfitId) : null;
+    const specialOutfit = pickResolvedLockItem(catalog.flatCatalog.specialOutfits, locks.specialOutfitId);
     if (specialOutfit && !isNoneLikeItem(specialOutfit)) specialOutfitPieces.push(prepareSpecialOutfit(specialOutfit));
   }
 
@@ -4811,8 +4861,15 @@ function buildWardrobe(context, locks, catalog) {
 
   if (context.subject.count === 2 && (locks.outfitPresetAId || locks.outfitPresetBId)) {
     const presets = catalog.flatCatalog.outfitPresets;
-    const presetA = locks.outfitPresetAId ? findById(presets, locks.outfitPresetAId) : null;
-    const presetB = locks.outfitPresetBId ? findById(presets, locks.outfitPresetBId) : null;
+    const explicitPresetB = locks.outfitPresetBId && !isRandomLockValue(locks.outfitPresetBId)
+      ? findById(presets, locks.outfitPresetBId)
+      : null;
+    const presetA = pickResolvedLockItem(presets, locks.outfitPresetAId, {
+      excludeIds: explicitPresetB && !isNoneLikeItem(explicitPresetB) ? [explicitPresetB.id] : [],
+    });
+    const presetB = pickResolvedLockItem(presets, locks.outfitPresetBId, {
+      excludeIds: presetA && !isNoneLikeItem(presetA) ? [presetA.id] : [],
+    });
     const presetAIsNone = isNoneLikeItem(presetA);
     const presetBIsNone = isNoneLikeItem(presetB);
     const hasRolePreset = (presetA && !presetAIsNone) || (presetB && !presetBIsNone);
@@ -4830,7 +4887,7 @@ function buildWardrobe(context, locks, catalog) {
     }
   }
 
-  const outfitPreset = locks.outfitPresetId ? findById(catalog.flatCatalog.outfitPresets, locks.outfitPresetId) : null;
+  const outfitPreset = pickResolvedLockItem(catalog.flatCatalog.outfitPresets, locks.outfitPresetId);
   if (outfitPreset && !isNoneLikeItem(outfitPreset)) {
     presetPieces.push(outfitPreset);
   }
@@ -4948,11 +5005,13 @@ function buildWardrobe(context, locks, catalog) {
   const pantsItems = getByKey(catalog.catalog.wardrobe, '褲裝 (Pants)');
   const skirtItems = getByKey(catalog.catalog.wardrobe, '裙裝 (Skirts)');
   const resolveLockState = (items, lockedValue) => {
+    const isExplicitRandom = isRandomLockValue(lockedValue);
     const lockedItem = Array.isArray(lockedValue)
       ? lockedValue.map((id) => findById(items, id)).find(Boolean)
-      : (lockedValue ? findById(items, lockedValue) : null);
+      : (lockedValue && !isExplicitRandom ? findById(items, lockedValue) : null);
     return {
       lockedItem,
+      isExplicitRandom,
       isExplicitNone: Boolean(lockedItem && isNoneLikeItem(lockedItem)),
       specifiedItem: lockedItem && !isNoneLikeItem(lockedItem) ? lockedItem : null,
     };
@@ -5025,9 +5084,9 @@ function buildWardrobe(context, locks, catalog) {
   let dressPiece = null;
   let hasBottomPiece = false;
 
-  const firstSpecifiedMainLayer = outfitPresetState.specifiedItem
+  const firstSpecifiedMainLayer = (outfitPresetState.specifiedItem || outfitPresetState.isExplicitRandom)
     ? 'outfit'
-    : dressState.specifiedItem
+    : (dressState.specifiedItem || dressState.isExplicitRandom)
       ? 'dress'
       : topState.specifiedItem
         ? 'top'
@@ -5202,13 +5261,13 @@ function buildWardrobe(context, locks, catalog) {
 
     roleConfigs.forEach((config) => {
       const presetRoleState = resolveLockState(catalog.flatCatalog.outfitPresets, config.presetId);
-      if (presetRoleState.specifiedItem) return;
+      if (presetRoleState.specifiedItem || presetRoleState.isExplicitRandom) return;
 
       const dressRoleState = resolveLockState(dressItems, config.dressId);
       const topRoleState = resolveLockState(topItems, config.topId);
       const pantsRoleState = resolveLockState(pantsItems, config.pantsId);
       const skirtRoleState = resolveLockState(skirtItems, config.skirtId);
-      const firstSpecifiedRoleLayer = dressRoleState.specifiedItem
+      const firstSpecifiedRoleLayer = (dressRoleState.specifiedItem || dressRoleState.isExplicitRandom)
         ? 'dress'
         : topRoleState.specifiedItem
           ? 'top'
@@ -5267,7 +5326,11 @@ function buildWardrobe(context, locks, catalog) {
       };
 
       if (firstSpecifiedRoleLayer === 'dress') {
-        addLockedRoleWardrobeItem(dressItems, config.dressId, config.role, 'dress');
+        if (dressRoleState.isExplicitRandom) {
+          pickRoleWardrobeItem(dressItems, config.role, 'dress');
+        } else {
+          addLockedRoleWardrobeItem(dressItems, config.dressId, config.role, 'dress');
+        }
         roleHasDress = true;
       } else if (firstSpecifiedRoleLayer === 'top') {
         ensureRoleTop();
@@ -5305,9 +5368,15 @@ function buildWardrobe(context, locks, catalog) {
   } else if (hasOutfitPresetPiece) {
     // Duo preset pieces already define the main body styling.
   } else if (firstSpecifiedMainLayer === 'outfit') {
-    addPiece(outfitPresetState.specifiedItem);
+    if (outfitPresetState.isExplicitRandom) {
+      pickRandomWardrobeItem(catalog.flatCatalog.outfitPresets);
+    } else {
+      addPiece(outfitPresetState.specifiedItem);
+    }
   } else if (firstSpecifiedMainLayer === 'dress') {
-    dressPiece = dressState.specifiedItem;
+    dressPiece = dressState.isExplicitRandom
+      ? pickRandomWardrobeItem(dressItems)
+      : dressState.specifiedItem;
     addPiece(dressPiece);
   } else if (firstSpecifiedMainLayer === 'top') {
     ensureTopPiece();
