@@ -8616,6 +8616,19 @@ function withAiArticle(phrase) {
 function buildAiMappedWardrobePhrase(value) {
   const text = cleanAiMinimalFragment(value);
   if (!text) return '';
+  const cheongsamColor = text.match(/\b(?:cheongsam body|cheongsam base fabric)\s+in\s+([^,.]+)/i)?.[1] || '';
+
+  if (/cheongsam/i.test(text)) {
+    return withAiArticle([
+      cheongsamColor,
+      /embroidered|embroidery/i.test(text) ? 'embroidered' : '',
+      /satin/i.test(text) ? 'satin' : '',
+      /sleeveless/i.test(text) ? 'sleeveless' : '',
+      'cheongsam',
+      /mini/i.test(text) ? 'mini' : '',
+      'outfit',
+    ].filter(Boolean).join(' '));
+  }
 
   const patterns = [
     [/BDSM|bondage|leather harness/i, 'a BDSM-inspired leather harness outfit'],
@@ -8645,12 +8658,17 @@ function buildAiMappedWardrobePhrase(value) {
   return patterns.find(([pattern]) => pattern.test(text))?.[1] || '';
 }
 
+function buildAiFallbackWearablePhrase(value) {
+  const fallback = compactAiMinimalFragment(value, 1);
+  return fallback ? withAiArticle(fallback) : '';
+}
+
 function isAiAccessoryFragment(fragment) {
   return /\b(?:bag|clutch|tote|sunglasses|glasses|eyeglasses|earrings?|necklace|bracelets?|rings?|choker|watch|headscarf|bandana|cap|hat|beret|hair clip|tattoo|earphones?|headphones?|pendant|wallet chain|shoulder strap|belt)\b/i.test(fragment);
 }
 
 function isAiClothingCoreFragment(fragment) {
-  return /\b(?:top|shirt|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|sweatpants|jeans|trousers|boots|shoes|sandals|loafers|sneakers|socks|tights|stockings|leg warmers|bikini|swimsuit|corset|bra|harness|bodysuit|hood|hoodie|sweater|vest|blazer|uniform|yukata|qipao|kimono|cape|cloak|gown)\b/i.test(fragment);
+  return /\b(?:top|shirt|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|sweatpants|jeans|trousers|boots|shoes|sandals|loafers|sneakers|socks|tights|stockings|leg warmers|bikini|swimsuit|corset|bra|harness|bodysuit|hood|hoodie|sweater|vest|blazer|uniform|yukata|qipao|cheongsam|kimono|cape|cloak|gown)\b/i.test(fragment);
 }
 
 function buildAiSpecialOutfitPhrase(value) {
@@ -8771,10 +8789,12 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context) {
   const specialOutfitPhrase = buildAiSpecialOutfitPhrase(firstStructuredValue(valuesByLabel, ['Special Outfit']));
   if (specialOutfitPhrase) return `wearing ${specialOutfitPhrase}`;
 
-  const outfitPresetPhrase = buildAiMappedWardrobePhrase(firstStructuredValue(valuesByLabel, ['Outfit Preset']));
+  const outfitPresetValue = firstStructuredValue(valuesByLabel, ['Outfit Preset']);
+  const outfitPresetPhrase = buildAiMappedWardrobePhrase(outfitPresetValue) || buildAiFallbackWearablePhrase(outfitPresetValue);
   if (outfitPresetPhrase) return `wearing ${outfitPresetPhrase}`;
 
-  const dressPhrase = buildAiMappedWardrobePhrase(firstStructuredValue(valuesByLabel, ['Dress']));
+  const dressValue = firstStructuredValue(valuesByLabel, ['Dress']);
+  const dressPhrase = buildAiMappedWardrobePhrase(dressValue) || buildAiFallbackWearablePhrase(dressValue);
   if (dressPhrase) return `wearing ${dressPhrase}`;
 
   const wardrobeValues = getStructuredValues(valuesByLabel, [

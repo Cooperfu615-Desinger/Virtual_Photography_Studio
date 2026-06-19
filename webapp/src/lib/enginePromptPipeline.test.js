@@ -128,6 +128,20 @@ test('AI prompt compresses outfit presets and dresses into short wearable phrase
   assert.doesNotMatch(dressPrompt.midjourneyPrompt, /one-piece short mini silhouette|smooth glossy latex/i);
 });
 
+test('AI prompt keeps cheongsam outfit presets as a short wearable phrase', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: optionId('outfitPresetId', '套裝：素色緞面旗袍'),
+    outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '螢光黃色'),
+    outerwearId: optionId('outerwearId', '全無'),
+    framingId: optionId('framingId', '牛仔中景 (Cowboy Shot)'),
+    poseId: optionId('poseId', '坐姿｜單腿放鬆'),
+  });
+
+  assert.match(prompt.midjourneyPrompt, /wearing a neon yellow satin cheongsam mini outfit/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /diagonal frog-button placket|ultra-short mini hem|dominant satin color/i);
+});
+
 test('AI prompt converts recognizable separate pieces into a style shorthand', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
