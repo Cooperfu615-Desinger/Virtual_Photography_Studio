@@ -23,8 +23,75 @@ test('special subject control exposes dedicated character options', () => {
       ['sengoku-samurai', '日本戰國武士'],
       ['european-knight', '歐洲騎士'],
       ['female-android', '女性人形機器人'],
+      ['character-48g', '48G 灰帽黑髮角色'],
     ]
   );
+});
+
+test('special subject control exposes character profile cards', () => {
+  const specialSubjectControl = getLockControls().find((control) => control.key === 'specialSubjectId');
+  const characterCards = specialSubjectControl.options.filter((option) => option.specialSubject === 'character-profile');
+
+  assert.deepEqual(
+    characterCards.map((option) => [option.id, option.zh, option.specialToneZh]),
+    [['character-48g', '48G 灰帽黑髮角色', '48G 固定角色卡']]
+  );
+  assert.deepEqual(
+    characterCards[0].referenceImages.map((image) => [image.type, image.publicPath]),
+    [
+      ['face-turnaround', '/character-cards/48g/48_G_01.jpeg'],
+      ['full-body', '/character-cards/48g/48_G_02.jpeg'],
+      ['expression-sheet', '/character-cards/48g/48_G_03.jpeg'],
+    ]
+  );
+});
+
+test('character profile card replaces normal identity and wardrobe while preserving reference guidance', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'character-48g',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'character-48g');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /48G 灰帽黑髮角色|48G 固定角色卡/);
+  assert.match(promptText, /fixed original adult female character profile/);
+  assert.match(promptText, /preserve the same doll-like East Asian face identity/);
+  assert.match(promptText, /glossy black shoulder-length layered lob haircut with airy see-through bangs/);
+  assert.match(promptText, /soft smoky eye makeup/);
+  assert.match(promptText, /taupe-gray cropped hooded zip jacket worn open with the hood usually worn up/);
+  assert.match(promptText, /black lace bralette neckline/);
+  assert.match(promptText, /low-rise faded blue denim mini skirt/);
+  assert.match(promptText, /small off-white shoulder bag with thin black strap/);
+  assert.match(promptText, /black lace-up ankle boots with glossy rounded toes/);
+  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /unknown anomalous figure/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /taupe-gray cropped hooded zip jacket/);
+  assert.match(prompt.midjourneyPrompt, /low-rise faded blue denim mini skirt/);
+  assert.match(prompt.midjourneyPrompt, /black lace-up ankle boots/);
+});
+
+test('character profile card still composes with expression and pose composer', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'character-48g',
+    expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '單腳重心'),
+    poseHandId: optionId('poseHandId', '雙手在身前交握'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+    poseAnchorId: optionId('poseAnchorId', '全無'),
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'character-48g');
+  assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '站姿'));
+  assert.match(promptText, /calm neutral expression|relaxed half-lidded ease/);
+  assert.match(promptText, /She is standing/);
+  assert.match(promptText, /one-leg weight shift/);
+  assert.match(promptText, /both hands clasped loosely in front of the body/);
 });
 
 test('white skeleton uses skeleton generation path and ivory bone language', () => {

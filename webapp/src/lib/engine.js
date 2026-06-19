@@ -60,6 +60,34 @@ const SPECIAL_SUBJECT_OPTIONS = [
     specialSubject: 'android',
     specialToneZh: '近真人機械女性',
   },
+  {
+    id: 'character-48g',
+    zh: '48G 灰帽黑髮角色',
+    en: 'a fixed original adult female character profile based on the supplied character reference sheets, preserve the same doll-like East Asian face identity, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette, signature outfit locked as a taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt, visible black lace waistband detail, small off-white shoulder bag with thin black strap, black lace-up ankle boots with glossy rounded toes, contemporary street-fashion photographic realism',
+    count: 1,
+    specialSubject: 'character-profile',
+    specialToneZh: '48G 固定角色卡',
+    referenceImages: [
+      {
+        type: 'face-turnaround',
+        label: '臉部髮型四視圖',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/48_G_01.jpeg',
+        publicPath: '/character-cards/48g/48_G_01.jpeg',
+      },
+      {
+        type: 'full-body',
+        label: '全身標準穿搭',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/48_G_02.jpeg',
+        publicPath: '/character-cards/48g/48_G_02.jpeg',
+      },
+      {
+        type: 'expression-sheet',
+        label: '表情九宮格',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/48_G_03.jpeg',
+        publicPath: '/character-cards/48g/48_G_03.jpeg',
+      },
+    ],
+  },
 ];
 
 const ASPECT_RATIO_POOL = [
@@ -4259,8 +4287,15 @@ function isAndroidSubject(subject) {
   return subject?.specialSubject === 'android';
 }
 
+function isCharacterProfileSubject(subject) {
+  return subject?.specialSubject === 'character-profile';
+}
+
 function buildSpecialSubjectIntegrationPrompt(subject) {
   if (!isSpecialSubject(subject)) return '';
+  if (isCharacterProfileSubject(subject)) {
+    return 'use the supplied character reference sheets as identity and outfit anchors, preserve the same face, hairstyle, body proportions, signature outfit, and overall character continuity while adapting only pose, expression, lighting, camera, and scene context';
+  }
   const text = 'an unknown anomalous figure appearing naturally inside a real contemporary environment, photographed as if genuinely present in the same physical space, grounded by realistic scale, contact shadows, ambient light, and ordinary surroundings';
   return isSkeletonSubject(subject) ? sanitizeSkeletonPromptText(text) : text;
 }
@@ -8437,6 +8472,19 @@ function buildAiSeparateStylePhrase(value) {
   return fragments.length > 0 ? joinNaturalList(fragments.slice(0, 2)) : '';
 }
 
+function buildAiCharacterProfileWardrobePhrase(subject) {
+  if (!isCharacterProfileSubject(subject)) return '';
+
+  const text = cleanAiMinimalFragment(subject?.en || '');
+  const signatureMatch = text.match(/\bsignature outfit locked as\s+(.+?)(?:,\s*contemporary street-fashion photographic realism|,\s*use the supplied character reference sheets|$)/i);
+  const signatureText = signatureMatch?.[1] || '';
+  const fragments = splitAiWardrobeFragments(signatureText)
+    .filter((part) => isAiClothingCoreFragment(part) || /shoulder bag/i.test(part))
+    .slice(0, 5);
+
+  return fragments.length > 0 ? `wearing ${joinNaturalList(fragments)}` : '';
+}
+
 function firstStructuredValue(valuesByLabel, labels) {
   return getStructuredValues(valuesByLabel, labels)[0] || '';
 }
@@ -8458,6 +8506,9 @@ function buildAiMinimalSubjectLead(valuesByLabel, context) {
 }
 
 function buildAiMinimalWardrobeClause(valuesByLabel, context) {
+  const characterProfileWardrobe = buildAiCharacterProfileWardrobePhrase(context.subject);
+  if (characterProfileWardrobe) return characterProfileWardrobe;
+
   const roleSpecialA = firstStructuredValue(valuesByLabel, ['Woman 1 Special Outfit']);
   const roleSpecialB = firstStructuredValue(valuesByLabel, ['Woman 2 Special Outfit']);
   const rolePresetA = firstStructuredValue(valuesByLabel, ['Woman 1 Outfit Preset']);

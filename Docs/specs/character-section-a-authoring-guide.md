@@ -366,6 +366,7 @@ Pose Composer 手部姿勢中的自拍類規則：
 - `sengoku-samurai` / `日本戰國武士`
 - `european-knight` / `歐洲騎士`
 - `female-android` / `女性人形機器人`
+- `character-48g` / `48G 灰帽黑髮角色`
 
 行為規則：
 
@@ -375,6 +376,15 @@ Pose Composer 手部姿勢中的自拍類規則：
 - 女性人形機器人保留髮型與髮色控制。
 - 神情與姿勢仍可和特殊角色共存。
 - 場景、環境光、光線表現、攝影與成像仍由 B/C/D 區控制。
+
+角色卡 `character-profile` 規則：
+
+- 角色卡是特殊角色子類型，用於固定原創角色身份、臉、髮型、身形與招牌穿搭。
+- 角色卡會 suppress normal wardrobe output，避免一般穿搭稀釋角色設定。
+- 角色卡不保留一般髮型與髮色控制，髮型髮色寫在角色卡身份描述中。
+- 角色卡仍可使用 B 神情姿態、特殊動作與 Pose Composer。
+- 角色卡不應使用 `unknown anomalous figure` 共享融合句；應使用角色一致性與 reference sheet guidance。
+- 每張角色卡可包含 `referenceImages` metadata，記錄 face-turnaround、full-body、expression-sheet 等來源。
 
 創作方向：
 
@@ -447,6 +457,16 @@ an unknown anomalous figure appearing naturally inside a real contemporary envir
 4. 確認是否 suppress wardrobe、是否保留 hair controls。
 5. 更新 `engineSpecialSubjects.test.js`。
 6. 跑完整驗證。
+
+新增角色卡：
+
+1. 在 `SPECIAL_SUBJECT_OPTIONS` 新增固定 id、zh、en、count、`specialSubject: 'character-profile'`。
+2. `en` 需包含固定臉部身份、髮型、身形、招牌穿搭與寫實風格，不要包含固定場景。
+3. 若有設定圖，加入 `referenceImages`，至少標註 `type`、`label`、`sourcePath`、`publicPath`。
+4. 確認角色卡不輸出 normal wardrobe。
+5. 確認角色卡輸出使用 character reference guidance，不使用 anomalous special subject guidance。
+6. 更新 `engineSpecialSubjects.test.js`。
+7. 跑完整驗證。
 
 ## 10. 測試與驗證
 
