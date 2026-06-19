@@ -154,6 +154,74 @@ const CHARACTER_PROFILE_OPTIONS = [
       },
     ],
   },
+  {
+    id: 'character-hinata',
+    zh: 'Hinata 灰綠短髮藍針織角色',
+    en: 'a 20-year-old adult East Asian woman with refined mature-pretty facial features, luminous fair skin, softly sculpted oval face, clear hazel-gray eyes with gentle catlike eyeliner, softly arched ash-brown brows, slim straight nose, peach-rose blush, warm beige eye shadow, soft rose-pink lips with a polished satin sheen, calm confident street-style expression, smoky ash-gray hair with muted sage-green undertones, short wavy shoulder-grazing bob with a soft center part, airy outward-flipped layers around the cheeks and nape, tousled volume and delicate flyaway strands, slim tall fashion-model body proportions with a defined waist and long legs, signature outfit locked as a deep cobalt blue cable-knit turtleneck bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, high-cut hip openings exposing both side waist and upper hip, medium-wash skinny blue jeans with natural denim fading, black leather belt with small silver buckle, black leather ankle boots with rounded toes and low block heels, polished urban street-fashion photographic realism',
+    count: 1,
+    specialSubject: 'character-profile',
+    specialToneZh: 'Hinata 藍針織街拍角色卡',
+    referenceImages: [
+      {
+        type: 'portrait-closeup',
+        label: '臉部近照',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/06_Hinata_00.png',
+        publicPath: '/character-cards/hinata/06_Hinata_00.png',
+      },
+      {
+        type: 'full-body',
+        label: '全身標準穿搭',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/06_Hinata_03.png',
+        publicPath: '/character-cards/hinata/06_Hinata_03.png',
+      },
+      {
+        type: 'expression-sheet',
+        label: '表情九宮格',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/06_Hinata_01A.png',
+        publicPath: '/character-cards/hinata/06_Hinata_01A.png',
+      },
+      {
+        type: 'face-turnaround',
+        label: '臉部髮型四視圖',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/06_Hinata_01.png',
+        publicPath: '/character-cards/hinata/06_Hinata_01.png',
+      },
+    ],
+  },
+  {
+    id: 'character-rika',
+    zh: 'Rika 黑長髮白T牛仔角色',
+    en: 'a 20-year-old adult East Asian woman with soft doll-like indie-girl facial features, luminous fair skin, petite oval face with a gentle rounded jaw, large clear gray-brown eyes with soft lower-lash detail, straight natural brows, small delicate nose, peach blush, warm peach-beige eye makeup, glossy rose-pink lips with a slightly pouty shape, quiet dreamy gaze, glossy natural black long wavy hair falling past the shoulders, straight airy see-through bangs with slightly uneven wispy pieces across the forehead, face-framing side strands and loose layered waves through the lengths, slim petite casual-fashion body proportions with a narrow waist, signature outfit locked as a fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic, black fitted long arm sleeves worn under the tee, black-and-white beaded choker necklace, light-wash high-waisted straight-leg jeans with soft vintage fading, small silver ring keychain clipped to the front belt loop, clean white low-top sneakers, intimate warm indoor film-snapshot photographic realism',
+    count: 1,
+    specialSubject: 'character-profile',
+    specialToneZh: 'Rika 白T牛仔室內角色卡',
+    referenceImages: [
+      {
+        type: 'portrait-closeup',
+        label: '臉部近照',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/11_Rika_00.jpeg',
+        publicPath: '/character-cards/rika/11_Rika_00.jpeg',
+      },
+      {
+        type: 'portrait-scene',
+        label: '半身情境照',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/11_Rika_03.png',
+        publicPath: '/character-cards/rika/11_Rika_03.png',
+      },
+      {
+        type: 'full-body',
+        label: '全身標準穿搭',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/11_Rika_02.png',
+        publicPath: '/character-cards/rika/11_Rika_02.png',
+      },
+      {
+        type: 'face-turnaround',
+        label: '臉部髮型四視圖',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/11_Rika_01.png',
+        publicPath: '/character-cards/rika/11_Rika_01.png',
+      },
+    ],
+  },
 ];
 
 const ALL_DEDICATED_SUBJECT_OPTIONS = [

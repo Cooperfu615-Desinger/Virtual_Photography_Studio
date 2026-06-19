@@ -39,6 +39,8 @@ test('character profile control exposes character profile cards separately from 
       ['character-48g', '48G 灰帽黑髮角色', '48G 固定角色卡'],
       ['character-philippa', 'Philippa 黑白挑染蕾絲角色', 'Philippa 哥德蕾絲角色卡'],
       ['character-sakura', 'Sakura 白兔帽粉棕髮角色', 'Sakura 白兔帽日常角色卡'],
+      ['character-hinata', 'Hinata 灰綠短髮藍針織角色', 'Hinata 藍針織街拍角色卡'],
+      ['character-rika', 'Rika 黑長髮白T牛仔角色', 'Rika 白T牛仔室內角色卡'],
     ]
   );
   assert.deepEqual(
@@ -63,6 +65,24 @@ test('character profile control exposes character profile cards separately from 
       ['portrait-closeup', '/character-cards/sakura/12_Sakura_00.jpeg'],
       ['face-turnaround', '/character-cards/sakura/12_Sakura_01.png'],
       ['full-body', '/character-cards/sakura/12_Sakura_02.png'],
+    ]
+  );
+  assert.deepEqual(
+    characterCards.find((option) => option.id === 'character-hinata').referenceImages.map((image) => [image.type, image.publicPath]),
+    [
+      ['portrait-closeup', '/character-cards/hinata/06_Hinata_00.png'],
+      ['full-body', '/character-cards/hinata/06_Hinata_03.png'],
+      ['expression-sheet', '/character-cards/hinata/06_Hinata_01A.png'],
+      ['face-turnaround', '/character-cards/hinata/06_Hinata_01.png'],
+    ]
+  );
+  assert.deepEqual(
+    characterCards.find((option) => option.id === 'character-rika').referenceImages.map((image) => [image.type, image.publicPath]),
+    [
+      ['portrait-closeup', '/character-cards/rika/11_Rika_00.jpeg'],
+      ['portrait-scene', '/character-cards/rika/11_Rika_03.png'],
+      ['full-body', '/character-cards/rika/11_Rika_02.png'],
+      ['face-turnaround', '/character-cards/rika/11_Rika_01.png'],
     ]
   );
 });
@@ -175,6 +195,65 @@ test('sakura character profile card preserves blue eyes bunny hood and soft loun
   assert.match(prompt.midjourneyPrompt, /white plush bunny-eared hood/);
   assert.match(prompt.midjourneyPrompt, /oversized ivory-white fleece pullover hoodie/);
   assert.match(prompt.midjourneyPrompt, /relaxed beige oatmeal sweatpants/);
+});
+
+test('hinata character profile card preserves ash-gray bob and cobalt knit street outfit without plastic bag', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-hinata',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'none');
+  assert.equal(prompt.selection.characterProfileId, 'character-hinata');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /Hinata 灰綠短髮藍針織角色|Hinata 藍針織街拍角色卡/);
+  assert.match(promptText, /20-year-old adult East Asian woman with refined mature-pretty facial features/);
+  assert.match(promptText, /clear hazel-gray eyes/);
+  assert.match(promptText, /smoky ash-gray hair with muted sage-green undertones/);
+  assert.match(promptText, /short wavy shoulder-grazing bob/);
+  assert.match(promptText, /deep cobalt blue cable-knit turtleneck bodysuit sweater/);
+  assert.match(promptText, /high-cut hip openings exposing both side waist and upper hip/);
+  assert.match(promptText, /medium-wash skinny blue jeans/);
+  assert.match(promptText, /black leather belt/);
+  assert.match(promptText, /black leather ankle boots/);
+  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /plastic bag|shopping bag|grocery bag/);
+  assert.doesNotMatch(promptText, /unknown anomalous figure/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /deep cobalt blue cable-knit turtleneck bodysuit sweater/);
+  assert.match(prompt.midjourneyPrompt, /medium-wash skinny blue jeans/);
+  assert.match(prompt.midjourneyPrompt, /black leather ankle boots/);
+});
+
+test('rika character profile card preserves black wavy hair white tee and light denim styling', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-rika',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'none');
+  assert.equal(prompt.selection.characterProfileId, 'character-rika');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /Rika 黑長髮白T牛仔角色|Rika 白T牛仔室內角色卡/);
+  assert.match(promptText, /20-year-old adult East Asian woman with soft doll-like indie-girl facial features/);
+  assert.match(promptText, /large clear gray-brown eyes/);
+  assert.match(promptText, /glossy natural black long wavy hair/);
+  assert.match(promptText, /straight airy see-through bangs/);
+  assert.match(promptText, /fitted cropped white short-sleeve baby tee/);
+  assert.match(promptText, /small minimalist black line-art chest graphic/);
+  assert.match(promptText, /black fitted long arm sleeves/);
+  assert.match(promptText, /black-and-white beaded choker necklace/);
+  assert.match(promptText, /light-wash high-waisted straight-leg jeans/);
+  assert.match(promptText, /small silver ring keychain clipped to the front belt loop/);
+  assert.match(promptText, /clean white low-top sneakers/);
+  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /unknown anomalous figure/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /fitted cropped white short-sleeve baby tee/);
+  assert.match(prompt.midjourneyPrompt, /light-wash high-waisted straight-leg jeans/);
+  assert.match(prompt.midjourneyPrompt, /clean white low-top sneakers/);
 });
 
 test('white skeleton uses skeleton generation path and ivory bone language', () => {
