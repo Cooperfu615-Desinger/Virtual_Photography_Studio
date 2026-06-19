@@ -1,6 +1,6 @@
 # A 人物設定新增與維護規格
 
-Last updated: 2026-05-25
+Last updated: 2026-06-19
 
 這份文件定義 PAGE1 `A. 人物設定` 的新增、修改、合併與測試規則。後續新增五官、體態、髮型、髮色、神情、姿勢、特殊動作或特殊角色時，請先依照本規格檢查責任邊界與 prompt 寫法。
 
@@ -388,6 +388,9 @@ Pose Composer 手部姿勢中的自拍類規則：
 - `character-rika` / `Rika 黑長髮白T牛仔角色`
 - `character-rin` / `Rin 黑短捲髮眼鏡襯衫角色`
 - `character-lily` / `Lily 紅棕長髮黑絨外套角色`
+- `character-yuri` / `Yuri 黑長直髮眼鏡白露肩角色`
+- `character-sui` / `Sui 黑長波浪髮芥黃開襟角色`
+- `character-hina` / `Hina 銀紫短髮眼鏡薄荷套裝角色`
 
 角色卡 `character-profile` 規則：
 

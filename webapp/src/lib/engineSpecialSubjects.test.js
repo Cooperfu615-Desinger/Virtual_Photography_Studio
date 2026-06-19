@@ -43,6 +43,9 @@ test('character profile control exposes character profile cards separately from 
       ['character-rika', 'Rika 黑長髮白T牛仔角色', 'Rika 白T牛仔室內角色卡'],
       ['character-rin', 'Rin 黑短捲髮眼鏡襯衫角色', 'Rin 眼鏡白襯衫正裝角色卡'],
       ['character-lily', 'Lily 紅棕長髮黑絨外套角色', 'Lily 黑絨紅髮角色卡'],
+      ['character-yuri', 'Yuri 黑長直髮眼鏡白露肩角色', 'Yuri 白露肩牛仔角色卡'],
+      ['character-sui', 'Sui 黑長波浪髮芥黃開襟角色', 'Sui 芥黃針織牛仔角色卡'],
+      ['character-hina', 'Hina 銀紫短髮眼鏡薄荷套裝角色', 'Hina 薄荷無袖套裝角色卡'],
     ]
   );
   assert.deepEqual(
@@ -101,6 +104,31 @@ test('character profile control exposes character profile cards separately from 
       ['portrait-closeup', '/character-cards/lily/07_Lily_00.jpeg'],
       ['full-body', '/character-cards/lily/07_Lily_02.png'],
       ['face-turnaround', '/character-cards/lily/07_Lily_01.png'],
+    ]
+  );
+  assert.deepEqual(
+    characterCards.find((option) => option.id === 'character-yuri').referenceImages.map((image) => [image.type, image.publicPath]),
+    [
+      ['portrait-closeup', '/character-cards/yuri/02_Yuri_00.jpeg'],
+      ['face-turnaround', '/character-cards/yuri/02_Yuri_01.png'],
+      ['full-body', '/character-cards/yuri/02_Yuri_02.png'],
+    ]
+  );
+  assert.deepEqual(
+    characterCards.find((option) => option.id === 'character-sui').referenceImages.map((image) => [image.type, image.publicPath]),
+    [
+      ['portrait-closeup', '/character-cards/sui/03_Sui_00.jpeg'],
+      ['face-turnaround', '/character-cards/sui/03_Sui_01.png'],
+      ['full-body', '/character-cards/sui/03_Sui_02.png'],
+      ['expression-sheet', '/character-cards/sui/03_Sui_01A.png'],
+    ]
+  );
+  assert.deepEqual(
+    characterCards.find((option) => option.id === 'character-hina').referenceImages.map((image) => [image.type, image.publicPath]),
+    [
+      ['portrait-scene', '/character-cards/hina/37_Hina_00.jpeg'],
+      ['full-body', '/character-cards/hina/37_Hina_02.png'],
+      ['face-turnaround', '/character-cards/hina/37_Hina_01.png'],
     ]
   );
 });
@@ -296,7 +324,7 @@ test('rin character profile card preserves black curly bob glasses and white shi
   assert.match(promptText, /charcoal high-waisted tailored straight trousers/);
   assert.match(promptText, /black leather loafers/);
   assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
-  assert.doesNotMatch(promptText, /book|notebook|tablet|paper|document/);
+  assert.doesNotMatch(prompt.structured.Character.map((item) => item.en).join('\n'), /\b(?:book|notebook|tablet|paper|document)\b/i);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /crisp white oversized button-down shirt/);
@@ -328,6 +356,92 @@ test('lily character profile card preserves auburn waves black faux fur and ankl
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /black shaggy faux-fur off-shoulder mini coat/);
   assert.match(prompt.midjourneyPrompt, /black ankle-strap stiletto sandals/);
+});
+
+test('yuri character profile card preserves black straight hair glasses white off-shoulder top and flared denim', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-yuri',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'none');
+  assert.equal(prompt.selection.characterProfileId, 'character-yuri');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /Yuri 黑長直髮眼鏡白露肩角色|Yuri 白露肩牛仔角色卡/);
+  assert.match(promptText, /20-year-old adult East Asian woman with quiet intelligent doll-like facial features/);
+  assert.match(promptText, /clear dark brown eyes behind round translucent brown acetate eyeglasses/);
+  assert.match(promptText, /glossy natural black long straight hair/);
+  assert.match(promptText, /wispy see-through bangs/);
+  assert.match(promptText, /white ribbed off-shoulder cropped long-sleeve top/);
+  assert.match(promptText, /black choker necklace with small silver charm details/);
+  assert.match(promptText, /low-rise medium-wash blue flared jeans/);
+  assert.match(promptText, /large oval western-style belt buckle/);
+  assert.match(promptText, /brown low-top canvas sneakers with cream rubber soles/);
+  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /unknown anomalous figure/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /white ribbed off-shoulder cropped long-sleeve top/);
+  assert.match(prompt.midjourneyPrompt, /low-rise medium-wash blue flared jeans/);
+  assert.match(prompt.midjourneyPrompt, /brown low-top canvas sneakers/);
+});
+
+test('sui character profile card preserves black waves mustard cardigan cream knit top jeans and brown boots', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-sui',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'none');
+  assert.equal(prompt.selection.characterProfileId, 'character-sui');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /Sui 黑長波浪髮芥黃開襟角色|Sui 芥黃針織牛仔角色卡/);
+  assert.match(promptText, /20-year-old adult East Asian woman with soft delicate doll-like facial features/);
+  assert.match(promptText, /natural freckles across the cheeks and nose/);
+  assert.match(promptText, /clear warm brown eyes/);
+  assert.match(promptText, /glossy natural black long wavy hair/);
+  assert.match(promptText, /airy wispy see-through bangs/);
+  assert.match(promptText, /mustard yellow oversized knit cardigan/);
+  assert.match(promptText, /small white fuzzy floral embroidery/);
+  assert.match(promptText, /cream ribbed knit camisole/);
+  assert.match(promptText, /small red-orange oval pendant/);
+  assert.match(promptText, /high-waisted medium-dark blue straight-leg jeans/);
+  assert.match(promptText, /brown leather ankle boots with rounded toes/);
+  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /unknown anomalous figure/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /mustard yellow oversized knit cardigan/);
+  assert.match(prompt.midjourneyPrompt, /cream ribbed knit camisole/);
+  assert.match(prompt.midjourneyPrompt, /high-waisted medium-dark blue straight-leg jeans/);
+  assert.match(prompt.midjourneyPrompt, /brown leather ankle boots/);
+});
+
+test('hina character profile card preserves silver lilac bob round glasses mint sleeveless set and bare feet', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-hina',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'none');
+  assert.equal(prompt.selection.characterProfileId, 'character-hina');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /Hina 銀紫短髮眼鏡薄荷套裝角色|Hina 薄荷無袖套裝角色卡/);
+  assert.match(promptText, /20-year-old adult East Asian woman with soft intelligent doll-like facial features/);
+  assert.match(promptText, /clear warm gray-brown eyes behind round thin black metal eyeglasses/);
+  assert.match(promptText, /pale silver-lilac short bob/);
+  assert.match(promptText, /wispy airy bangs/);
+  assert.match(promptText, /loose sage-mint green sleeveless tunic tank top/);
+  assert.match(promptText, /wide armholes with a subtle black inner layer visible at the side/);
+  assert.match(promptText, /matching sage-mint green relaxed short shorts/);
+  assert.match(promptText, /bare feet as the locked footwear state/);
+  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /unknown anomalous figure/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /loose sage-mint green sleeveless tunic tank top/);
+  assert.match(prompt.midjourneyPrompt, /matching sage-mint green relaxed short shorts/);
+  assert.match(prompt.midjourneyPrompt, /bare feet/);
 });
 
 test('white skeleton uses skeleton generation path and ivory bone language', () => {

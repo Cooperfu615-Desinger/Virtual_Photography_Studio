@@ -278,6 +278,96 @@ const CHARACTER_PROFILE_OPTIONS = [
       },
     ],
   },
+  {
+    id: 'character-yuri',
+    zh: 'Yuri 黑長直髮眼鏡白露肩角色',
+    en: 'a 20-year-old adult East Asian woman with quiet intelligent doll-like facial features, luminous fair skin, soft oval face, clear dark brown eyes behind round translucent brown acetate eyeglasses with thin metal temples, straight natural brows, small refined nose, peach-beige blush, soft beige eye shadow, glossy muted rose lips with a calm slightly serious gaze, glossy natural black long straight hair falling past the chest, wispy see-through bangs across the forehead, tapered face-framing layers and softly inward-curved ends, slim petite casual-fashion body proportions with a narrow waist and long clean leg line, signature outfit locked as a white ribbed off-shoulder cropped long-sleeve top with exposed shoulders, fitted sleeves, small front buttons, vintage black graphic print across the chest and delicate lace trim along the cropped hem, black choker necklace with small silver charm details, stacked silver bangles and rings, low-rise medium-wash blue flared jeans with natural fading, decorated leather belt with large oval western-style belt buckle and metal-stud chain detail, brown low-top canvas sneakers with cream rubber soles and white laces, warm retro youth-fashion photographic realism',
+    count: 1,
+    specialSubject: 'character-profile',
+    specialToneZh: 'Yuri 白露肩牛仔角色卡',
+    referenceImages: [
+      {
+        type: 'portrait-closeup',
+        label: '臉部近照',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/02_Yuri_00.jpeg',
+        publicPath: '/character-cards/yuri/02_Yuri_00.jpeg',
+      },
+      {
+        type: 'face-turnaround',
+        label: '臉部髮型四視圖',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/02_Yuri_01.png',
+        publicPath: '/character-cards/yuri/02_Yuri_01.png',
+      },
+      {
+        type: 'full-body',
+        label: '全身標準穿搭',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/02_Yuri_02.png',
+        publicPath: '/character-cards/yuri/02_Yuri_02.png',
+      },
+    ],
+  },
+  {
+    id: 'character-sui',
+    zh: 'Sui 黑長波浪髮芥黃開襟角色',
+    en: 'a 20-year-old adult East Asian woman with soft delicate doll-like facial features, luminous fair skin with natural freckles across the cheeks and nose, soft oval heart-shaped face, clear warm brown eyes with glossy catchlights, straight natural dark brows, small refined nose, peach-pink blush, warm beige eye shadow, glossy coral-rose lips with a soft pout, gentle playful cozy-girl expression, glossy natural black long wavy hair falling past the chest and down the back, airy wispy see-through bangs across the forehead, loose layered waves, face-framing side strands and natural tousled flyaways, slim petite soft casual-fashion body proportions with a narrow waist, delicate shoulders and collarbones, signature outfit locked as a mustard yellow oversized knit cardigan with chunky fuzzy texture, deep V open front, wooden buttons, relaxed dropped shoulders, long loose sleeves with ribbed cuffs, small white fuzzy floral embroidery scattered on the cardigan, cream ribbed knit camisole with a scoop neckline underneath, delicate gold necklace with a small red-orange oval pendant, high-waisted medium-dark blue straight-leg jeans with natural denim fading, brown leather ankle boots with rounded toes and low stacked heels, soft cozy casual-fashion photographic realism',
+    count: 1,
+    specialSubject: 'character-profile',
+    specialToneZh: 'Sui 芥黃針織牛仔角色卡',
+    referenceImages: [
+      {
+        type: 'portrait-closeup',
+        label: '臉部近照',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/03_Sui_00.jpeg',
+        publicPath: '/character-cards/sui/03_Sui_00.jpeg',
+      },
+      {
+        type: 'face-turnaround',
+        label: '臉部髮型四視圖',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/03_Sui_01.png',
+        publicPath: '/character-cards/sui/03_Sui_01.png',
+      },
+      {
+        type: 'full-body',
+        label: '全身標準穿搭',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/03_Sui_02.png',
+        publicPath: '/character-cards/sui/03_Sui_02.png',
+      },
+      {
+        type: 'expression-sheet',
+        label: '表情九宮格',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/03_Sui_01A.png',
+        publicPath: '/character-cards/sui/03_Sui_01A.png',
+      },
+    ],
+  },
+  {
+    id: 'character-hina',
+    zh: 'Hina 銀紫短髮眼鏡薄荷套裝角色',
+    en: 'a 20-year-old adult East Asian woman with soft intelligent doll-like facial features, luminous fair skin, small oval face with gentle cheeks, clear warm gray-brown eyes behind round thin black metal eyeglasses, straight soft brows, small refined nose, pale peach blush, soft beige-pink eye makeup, natural glossy rose-pink lips with a calm quiet gaze, pale silver-lilac short bob with soft ash roots and realistic dyed-hair texture, wispy airy bangs lightly crossing the forehead, rounded cheek-length side layers, softly feathered ends around the jaw and nape, slim petite delicate casual body proportions with narrow shoulders, slender arms, long pale legs and a compact youthful adult silhouette, signature outfit locked as a loose sage-mint green sleeveless tunic tank top with soft washed cotton texture, round crew neckline, oversized A-line drape, wide armholes with a subtle black inner layer visible at the side, matching sage-mint green relaxed short shorts, bare feet as the locked footwear state, quiet minimalist loungewear photographic realism',
+    count: 1,
+    specialSubject: 'character-profile',
+    specialToneZh: 'Hina 薄荷無袖套裝角色卡',
+    referenceImages: [
+      {
+        type: 'portrait-scene',
+        label: '情境坐姿照',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/37_Hina_00.jpeg',
+        publicPath: '/character-cards/hina/37_Hina_00.jpeg',
+      },
+      {
+        type: 'full-body',
+        label: '全身標準穿搭',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/37_Hina_02.png',
+        publicPath: '/character-cards/hina/37_Hina_02.png',
+      },
+      {
+        type: 'face-turnaround',
+        label: '臉部髮型四視圖',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/37_Hina_01.png',
+        publicPath: '/character-cards/hina/37_Hina_01.png',
+      },
+    ],
+  },
 ];
 
 const ALL_DEDICATED_SUBJECT_OPTIONS = [
@@ -8714,7 +8804,7 @@ function buildAiCharacterProfileWardrobePhrase(subject) {
   const signatureMatch = text.match(/\bsignature outfit locked as\s+(.+?)(?:,\s*contemporary street-fashion photographic realism|,\s*use the supplied character reference sheets|$)/i);
   const signatureText = signatureMatch?.[1] || '';
   const fragments = splitAiWardrobeFragments(signatureText)
-    .filter((part) => isAiClothingCoreFragment(part) || /shoulder bag/i.test(part))
+    .filter((part) => isAiClothingCoreFragment(part) || /shoulder bag|bare feet|barefoot/i.test(part))
     .slice(0, 5);
 
   return fragments.length > 0 ? `wearing ${joinNaturalList(fragments)}` : '';
