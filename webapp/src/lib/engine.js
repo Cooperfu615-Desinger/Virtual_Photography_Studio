@@ -222,6 +222,34 @@ const CHARACTER_PROFILE_OPTIONS = [
       },
     ],
   },
+  {
+    id: 'character-rin',
+    zh: 'Rin 黑短捲髮眼鏡襯衫角色',
+    en: 'a 20-year-old adult East Asian woman with elegant intelligent doll-like facial features, porcelain fair skin with a subtle luminous sheen, slim oval face, clear warm brown eyes with soft defined lashes, straight natural brows, small refined nose, peach-beige blush, warm beige eye shadow, glossy muted rose lips, calm observant expression, glossy natural black short curly bob with soft volume around the ears and nape, loose S-wave curls, soft parted see-through bangs with a few curved strands falling across the forehead, slim refined fashion-model body proportions with a narrow waist and long neck, signature outfit locked as thin rectangular brown-gold metal frame eyeglasses with transparent lenses, small gold hoop earrings, layered delicate gold necklaces with tiny pendant charms, crisp white oversized button-down shirt with open collar, relaxed dropped shoulders, sleeves rolled to the forearms, slightly loose tucked-in fabric, charcoal high-waisted tailored straight trousers with pressed front crease and clean waistband, black leather loafers with low stacked heels, polished intellectual minimalist photographic realism',
+    count: 1,
+    specialSubject: 'character-profile',
+    specialToneZh: 'Rin 眼鏡白襯衫正裝角色卡',
+    referenceImages: [
+      {
+        type: 'face-turnaround',
+        label: '臉部髮型四視圖',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/38_Rin_01.png',
+        publicPath: '/character-cards/rin/38_Rin_01.png',
+      },
+      {
+        type: 'portrait-closeup',
+        label: '臉部近照',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/38_Rin_00.jpeg',
+        publicPath: '/character-cards/rin/38_Rin_00.jpeg',
+      },
+      {
+        type: 'full-body',
+        label: '全身標準穿搭',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/38_Rin_02.png',
+        publicPath: '/character-cards/rin/38_Rin_02.png',
+      },
+    ],
+  },
 ];
 
 const ALL_DEDICATED_SUBJECT_OPTIONS = [
