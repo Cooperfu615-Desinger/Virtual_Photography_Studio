@@ -38,6 +38,7 @@ test('character profile control exposes character profile cards separately from 
     [
       ['character-48g', '48G 灰帽黑髮角色', '48G 固定角色卡'],
       ['character-philippa', 'Philippa 黑白挑染蕾絲角色', 'Philippa 哥德蕾絲角色卡'],
+      ['character-sakura', 'Sakura 白兔帽粉棕髮角色', 'Sakura 白兔帽日常角色卡'],
     ]
   );
   assert.deepEqual(
@@ -56,6 +57,14 @@ test('character profile control exposes character profile cards separately from 
       ['full-body', '/character-cards/philippa/29_Philippa_02.jpeg'],
     ]
   );
+  assert.deepEqual(
+    characterCards.find((option) => option.id === 'character-sakura').referenceImages.map((image) => [image.type, image.publicPath]),
+    [
+      ['portrait-closeup', '/character-cards/sakura/12_Sakura_00.jpeg'],
+      ['face-turnaround', '/character-cards/sakura/12_Sakura_01.png'],
+      ['full-body', '/character-cards/sakura/12_Sakura_02.png'],
+    ]
+  );
 });
 
 test('character profile card replaces normal identity and wardrobe while preserving reference guidance', () => {
@@ -69,7 +78,7 @@ test('character profile card replaces normal identity and wardrobe while preserv
   assert.equal(prompt.selection.characterProfileId, 'character-48g');
   assert.equal(prompt.structured.Wardrobe.length, 0);
   assert.match(promptText, /48G 灰帽黑髮角色|48G 固定角色卡/);
-  assert.match(promptText, /adult East Asian woman with doll-like facial features/);
+  assert.match(promptText, /20-year-old adult East Asian woman with doll-like facial features/);
   assert.doesNotMatch(promptText, /fixed original adult female character profile based on the supplied character reference sheets/);
   assert.match(promptText, /glossy black shoulder-length layered lob haircut with airy see-through bangs/);
   assert.match(promptText, /soft smoky eye makeup/);
@@ -122,8 +131,12 @@ test('philippa character profile card preserves gothic lace identity and wardrob
   assert.equal(prompt.selection.characterProfileId, 'character-philippa');
   assert.equal(prompt.structured.Wardrobe.length, 0);
   assert.match(promptText, /Philippa 黑白挑染蕾絲角色|Philippa 哥德蕾絲角色卡/);
-  assert.match(promptText, /adult East Asian woman with pale gothic beauty/);
-  assert.match(promptText, /long wavy black hair with silver-white streaks/);
+  assert.match(promptText, /20-year-old adult East Asian woman with pale gothic beauty/);
+  assert.match(promptText, /clear pale gray-green eyes with a cool glassy gaze/);
+  assert.match(promptText, /long center-parted wavy black hair with clean black bangs/);
+  assert.match(promptText, /solid black front face-framing strands/);
+  assert.match(promptText, /silver-white dip-dye streaks concentrated only through the rear and lower trailing hair sections near the back hair tips/);
+  assert.match(promptText, /front bangs and front hair remain black without light streaks/);
   assert.match(promptText, /black high-neck gothic lace dress/);
   assert.match(promptText, /sheer mesh long sleeves/);
   assert.match(promptText, /black floral lace sleeve appliques/);
@@ -134,6 +147,34 @@ test('philippa character profile card preserves gothic lace identity and wardrob
   assert.match(prompt.midjourneyPrompt, /black high-neck gothic lace dress/);
   assert.match(prompt.midjourneyPrompt, /sheer mesh long sleeves/);
   assert.match(prompt.midjourneyPrompt, /floor-length translucent black tulle skirt overlay/);
+});
+
+test('sakura character profile card preserves blue eyes bunny hood and soft lounge outfit', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-sakura',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'none');
+  assert.equal(prompt.selection.characterProfileId, 'character-sakura');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /Sakura 白兔帽粉棕髮角色|Sakura 白兔帽日常角色卡/);
+  assert.match(promptText, /20-year-old adult East Asian woman with soft doll-like kawaii facial features/);
+  assert.match(promptText, /large vivid clear blue eyes/);
+  assert.match(promptText, /peach-pink blush/);
+  assert.match(promptText, /long loose wavy warm chestnut-brown hair with dusty rose-pink streaks/);
+  assert.match(promptText, /white plush bunny-eared hood/);
+  assert.match(promptText, /pink inner ears/);
+  assert.match(promptText, /oversized ivory-white fleece pullover hoodie/);
+  assert.match(promptText, /relaxed beige oatmeal sweatpants/);
+  assert.match(promptText, /clean white low-top sneakers/);
+  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /unknown anomalous figure/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /white plush bunny-eared hood/);
+  assert.match(prompt.midjourneyPrompt, /oversized ivory-white fleece pullover hoodie/);
+  assert.match(prompt.midjourneyPrompt, /relaxed beige oatmeal sweatpants/);
 });
 
 test('white skeleton uses skeleton generation path and ivory bone language', () => {

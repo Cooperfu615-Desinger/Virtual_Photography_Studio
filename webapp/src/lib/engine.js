@@ -73,7 +73,7 @@ const CHARACTER_PROFILE_OPTIONS = [
   {
     id: 'character-48g',
     zh: '48G 灰帽黑髮角色',
-    en: 'an adult East Asian woman with doll-like facial features, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette, signature outfit locked as a taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath, small off-white shoulder bag with thin black strap, black lace-up ankle boots with glossy rounded toes, contemporary street-fashion photographic realism',
+    en: 'a 20-year-old adult East Asian woman with doll-like facial features, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette, signature outfit locked as a taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath, small off-white shoulder bag with thin black strap, black lace-up ankle boots with glossy rounded toes, contemporary street-fashion photographic realism',
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '48G 固定角色卡',
@@ -101,7 +101,7 @@ const CHARACTER_PROFILE_OPTIONS = [
   {
     id: 'character-philippa',
     zh: 'Philippa 黑白挑染蕾絲角色',
-    en: 'an adult East Asian woman with pale gothic beauty, porcelain luminous skin, elegant oval face, clear pale gray-green eyes, softly arched brows, slim straight nose, muted red lips, refined melancholic expression, long wavy black hair with silver-white streaks and face-framing light strands, center-parted voluminous waves falling past the chest, slender fashion-model body proportions with a graceful narrow waist, signature outfit locked as a black high-neck gothic lace dress with sheer mesh long sleeves, black floral lace sleeve appliques across shoulders and arms, fitted black lace bodice with subtle beadwork, floor-length translucent black tulle skirt overlay with trailing hem, black elegant dress shoes, romantic dark couture photographic realism',
+    en: 'a 20-year-old adult East Asian woman with pale gothic beauty, porcelain luminous skin, elegant oval face, clear pale gray-green eyes with a cool glassy gaze, softly arched dark brows, slim straight nose, muted red matte lips, refined melancholic expression, long center-parted wavy black hair with clean black bangs and solid black front face-framing strands, silver-white dip-dye streaks concentrated only through the rear and lower trailing hair sections near the back hair tips, front bangs and front hair remain black without light streaks, voluminous waves falling past the chest, slender fashion-model body proportions with a graceful narrow waist, signature outfit locked as a black high-neck gothic lace dress with sheer mesh long sleeves, black floral lace sleeve appliques across shoulders and arms, fitted black lace bodice with subtle beadwork, floor-length translucent black tulle skirt overlay with trailing hem, black elegant dress shoes, romantic dark couture photographic realism',
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: 'Philippa 哥德蕾絲角色卡',
@@ -123,6 +123,34 @@ const CHARACTER_PROFILE_OPTIONS = [
         label: '全身標準穿搭',
         sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/29_Philippa_02.jpeg',
         publicPath: '/character-cards/philippa/29_Philippa_02.jpeg',
+      },
+    ],
+  },
+  {
+    id: 'character-sakura',
+    zh: 'Sakura 白兔帽粉棕髮角色',
+    en: 'a 20-year-old adult East Asian woman with soft doll-like kawaii facial features, luminous fair skin, delicate oval heart-shaped face, large vivid clear blue eyes with glossy catchlights and defined upper lashes, softly arched brown brows, small straight nose with gentle bridge, peach-pink blush across the cheeks and nose, warm peach eye shadow, subtle eyeliner, glossy peach-pink gradient lips slightly parted, long loose wavy warm chestnut-brown hair with dusty rose-pink streaks framing both sides of the face and flowing through the lengths, airy wispy see-through bangs, slim petite cozy-girl body proportions, signature outfit locked as a white plush bunny-eared hood with floppy long ears, pink inner ears, cute black cartoon eyes, small pink nose, soft white plush fur texture and tiny white fang-like teeth along the hood opening, oversized ivory-white fleece pullover hoodie with dropped shoulders, long loose sleeves, front kangaroo pocket and white drawstrings, relaxed beige oatmeal sweatpants with soft brushed knit texture and straight loose legs, clean white low-top sneakers, gentle cozy indoor lifestyle photographic realism',
+    count: 1,
+    specialSubject: 'character-profile',
+    specialToneZh: 'Sakura 白兔帽日常角色卡',
+    referenceImages: [
+      {
+        type: 'portrait-closeup',
+        label: '臉部近照',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/12_Sakura_00.jpeg',
+        publicPath: '/character-cards/sakura/12_Sakura_00.jpeg',
+      },
+      {
+        type: 'face-turnaround',
+        label: '臉部髮型四視圖',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/12_Sakura_01.png',
+        publicPath: '/character-cards/sakura/12_Sakura_01.png',
+      },
+      {
+        type: 'full-body',
+        label: '全身標準穿搭',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/12_Sakura_02.png',
+        publicPath: '/character-cards/sakura/12_Sakura_02.png',
       },
     ],
   },
@@ -8498,7 +8526,7 @@ function isAiAccessoryFragment(fragment) {
 }
 
 function isAiClothingCoreFragment(fragment) {
-  return /\b(?:top|shirt|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|jeans|trousers|boots|shoes|sandals|loafers|sneakers|socks|tights|stockings|leg warmers|bikini|swimsuit|corset|bra|harness|bodysuit|hoodie|sweater|vest|blazer|uniform|yukata|qipao|kimono|cape|cloak|gown)\b/i.test(fragment);
+  return /\b(?:top|shirt|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|sweatpants|jeans|trousers|boots|shoes|sandals|loafers|sneakers|socks|tights|stockings|leg warmers|bikini|swimsuit|corset|bra|harness|bodysuit|hood|hoodie|sweater|vest|blazer|uniform|yukata|qipao|kimono|cape|cloak|gown)\b/i.test(fragment);
 }
 
 function buildAiSpecialOutfitPhrase(value) {

@@ -383,6 +383,7 @@ Pose Composer 手部姿勢中的自拍類規則：
 
 - `character-48g` / `48G 灰帽黑髮角色`
 - `character-philippa` / `Philippa 黑白挑染蕾絲角色`
+- `character-sakura` / `Sakura 白兔帽粉棕髮角色`
 
 角色卡 `character-profile` 規則：
 
