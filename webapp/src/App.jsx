@@ -162,6 +162,7 @@ function createEmptyPage3Profile() {
 const CHARACTER_CONTROL_ORDER = [
   'subjectCount',
   'specialSubjectId',
+  'characterProfileId',
   'bodyTypeId',
   'bodyTypeAId',
   'bodyTypeBId',
@@ -379,6 +380,7 @@ function buildImportedStructured(locks, controls) {
     Character: buildSection([
       'subjectCount',
       'specialSubjectId',
+      'characterProfileId',
       'bodyTypeId',
       'bodyTypeAId',
       'bodyTypeBId',
@@ -597,6 +599,7 @@ function compactPromptSelection(selection) {
     Object.entries(normalized).filter(([key, value]) => {
       if (key === 'subjectCount' || key === 'aspectRatio') return true;
       if (key === 'specialSubjectId' && value === 'none') return false;
+      if (key === 'characterProfileId' && value === 'none') return false;
       if (key === 'importedWorldSceneMode' && value === 'none') return false;
       if (key === 'topBottomPaletteId' && value === 'none') return false;
       return Array.isArray(value) ? value.length > 0 : Boolean(value);
@@ -1471,14 +1474,19 @@ export default function App() {
     () => {
       const specialSubjectControl = lockControls.find((control) => control.key === 'specialSubjectId');
       const selectedSpecialSubject = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
+      const characterProfileControl = lockControls.find((control) => control.key === 'characterProfileId');
+      const selectedCharacterProfile = characterProfileControl?.options?.find((option) => option.id === locks.characterProfileId);
       const isSpecialSubject = Boolean(selectedSpecialSubject?.specialSubject);
+      const isCharacterProfile = Boolean(selectedCharacterProfile?.specialSubject);
+      const isDedicatedSubject = isSpecialSubject || isCharacterProfile;
       const isAndroidSubject = selectedSpecialSubject?.specialSubject === 'android';
 
       return sortControls(
         lockControls.filter((control) => {
-          if (isSpecialSubject) {
+          if (isDedicatedSubject) {
             return [
               'specialSubjectId',
+              'characterProfileId',
               'expressionId',
               'poseId',
               'specialActionId',
@@ -1487,7 +1495,7 @@ export default function App() {
             ].includes(control.key);
           }
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
-          if (control.key === 'specialSubjectId') return true;
+          if (['specialSubjectId', 'characterProfileId'].includes(control.key)) return true;
           if (['duoPoseId', 'duoExpressionId'].includes(control.key) && locks.subjectCount !== '2') return false;
           if (control.key === 'specialActionId' && locks.subjectCount !== '1') return false;
           if (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1') return false;
@@ -1498,17 +1506,20 @@ export default function App() {
         CHARACTER_CONTROL_ORDER
       );
     },
-    [lockControls, locks.specialSubjectId, locks.subjectCount]
+    [lockControls, locks.characterProfileId, locks.specialSubjectId, locks.subjectCount]
   );
   const wardrobeLockControls = useMemo(
     () => {
       const specialSubjectControl = lockControls.find((control) => control.key === 'specialSubjectId');
       const selectedSpecialSubject = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
+      const characterProfileControl = lockControls.find((control) => control.key === 'characterProfileId');
+      const selectedCharacterProfile = characterProfileControl?.options?.find((option) => option.id === locks.characterProfileId);
       const isSpecialSubject = Boolean(selectedSpecialSubject?.specialSubject);
+      const isCharacterProfile = Boolean(selectedCharacterProfile?.specialSubject);
 
       return sortControls(
         lockControls.filter((control) => {
-          if (isSpecialSubject) return false;
+          if (isSpecialSubject || isCharacterProfile) return false;
           const sharedGarmentKeys = [
             'topId', 'topFitId', 'topStylingId', 'topBottomPaletteId', 'topColorId', 'topPatternId',
             'dressId', 'dressColorId', 'pantsId', 'skirtId', 'bottomFitId', 'bottomRiseId', 'bottomColorId', 'bottomPatternId',
@@ -1638,6 +1649,18 @@ export default function App() {
       const poseIsActive = Boolean(next.poseId) && !isNoneSelected('poseId', next.poseId, lockControls);
       const specialActionIsActive = Boolean(next.specialActionId) && !isNoneSelected('specialActionId', next.specialActionId, lockControls);
       const poseComposerIsActive = POSE_COMPOSER_KEYS.some((key) => Boolean(next[key]) && !isNoneSelected(key, next[key], lockControls));
+      const specialSubjectIsActive = Boolean(next.specialSubjectId) && !isNoneSelected('specialSubjectId', next.specialSubjectId, lockControls);
+      const characterProfileIsActive = Boolean(next.characterProfileId) && !isNoneSelected('characterProfileId', next.characterProfileId, lockControls);
+      if (specialSubjectIsActive && characterProfileIsActive) {
+        if (next.specialSubjectId !== prev.specialSubjectId) {
+          next.characterProfileId = 'none';
+        } else {
+          next.specialSubjectId = 'none';
+        }
+      }
+      if (specialSubjectIsActive || characterProfileIsActive) {
+        next.subjectCount = '1';
+      }
       if (poseIsActive && specialActionIsActive) {
         next.specialActionId = '';
       }

@@ -22,6 +22,7 @@ Prompt 應使用短而準的英文片語，避免堆疊同義詞。中文描述�
 | --- | --- | --- |
 | 人物數量 `subjectCount` | `webapp/src/lib/engine.js` 的 `SUBJECT_COUNT_OPTIONS` | 只決定 1 位、2 位、上傳人物，不承擔美感或性感描述。 |
 | 特殊角色 `specialSubjectId` | `webapp/src/lib/engine.js` 的 `SPECIAL_SUBJECT_OPTIONS` | 直接 code-defined，不走 Markdown sync。 |
+| 角色卡 `characterProfileId` | `webapp/src/lib/engine.js` 的 `CHARACTER_PROFILE_OPTIONS` | 直接 code-defined，獨立於特殊角色；用來接管人物身份與固定穿搭。 |
 | 體態、五官、膚質、髮型、髮色 | `knowledge_base/character_design.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 神情、姿勢、特殊動作 | `knowledge_base/character_design.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 相容舊選項 | `webapp/src/lib/engine.js` | 合併、改名、移除時需加 legacy mapping。 |
@@ -32,7 +33,7 @@ Markdown 資料同步流程：
 python3 scripts/sync_to_json.py
 ```
 
-特殊角色與人物數量是直接寫在 `engine.js`，不需要跑 sync，但仍需要更新測試。
+特殊角色、角色卡與人物數量是直接寫在 `engine.js`，不需要跑 sync，但仍需要更新測試。
 
 ## 3. Prompt 寫法總則
 
@@ -357,7 +358,7 @@ Pose Composer 手部姿勢中的自拍類規則：
 
 ## 7. 特殊角色
 
-特殊角色是 A 區中唯一可以覆蓋身份基底與一般穿搭的欄位。它可以使用較長描述，因為它需要完整定義角色外觀、材質與真實世界融合方式。
+特殊角色可以覆蓋身份基底與一般穿搭。它可以使用較長描述，因為它需要完整定義角色外觀、材質與真實世界融合方式。
 
 目前固定選項與 id：
 
@@ -366,7 +367,6 @@ Pose Composer 手部姿勢中的自拍類規則：
 - `sengoku-samurai` / `日本戰國武士`
 - `european-knight` / `歐洲騎士`
 - `female-android` / `女性人形機器人`
-- `character-48g` / `48G 灰帽黑髮角色`
 
 行為規則：
 
@@ -377,9 +377,16 @@ Pose Composer 手部姿勢中的自拍類規則：
 - 神情與姿勢仍可和特殊角色共存。
 - 場景、環境光、光線表現、攝影與成像仍由 B/C/D 區控制。
 
+角色卡 `characterProfileId` 是 A 區第三個獨立入口，和特殊角色共用 dedicated subject 生成路徑，但不放在 `specialSubjectId` 選單中。
+
+目前固定角色卡與 id：
+
+- `character-48g` / `48G 灰帽黑髮角色`
+- `character-philippa` / `Philippa 黑白挑染蕾絲角色`
+
 角色卡 `character-profile` 規則：
 
-- 角色卡是特殊角色子類型，用於固定原創角色身份、臉、髮型、身形與招牌穿搭。
+- 角色卡用於固定原創角色身份、臉、髮型、身形與招牌穿搭。
 - 角色卡會 suppress normal wardrobe output，避免一般穿搭稀釋角色設定。
 - 角色卡不保留一般髮型與髮色控制，髮型髮色寫在角色卡身份描述中。
 - 角色卡仍可使用 B 神情姿態、特殊動作與 Pose Composer。
@@ -437,6 +444,16 @@ an unknown anomalous figure appearing naturally inside a real contemporary envir
 }
 ```
 
+舊版角色卡若曾存在於 `subjectCount` 或 `specialSubjectId`，需轉為：
+
+```js
+{
+  subjectCount: '1',
+  specialSubjectId: 'none',
+  characterProfileId: 'character-48g'
+}
+```
+
 ## 9. 新增選項流程
 
 新增一般 A 區選項：
@@ -460,13 +477,14 @@ an unknown anomalous figure appearing naturally inside a real contemporary envir
 
 新增角色卡：
 
-1. 在 `SPECIAL_SUBJECT_OPTIONS` 新增固定 id、zh、en、count、`specialSubject: 'character-profile'`。
+1. 在 `CHARACTER_PROFILE_OPTIONS` 新增固定 id、zh、en、count、`specialSubject: 'character-profile'`。
 2. `en` 需包含固定臉部身份、髮型、身形、招牌穿搭與寫實風格，不要包含固定場景。
 3. 若有設定圖，加入 `referenceImages`，至少標註 `type`、`label`、`sourcePath`、`publicPath`。
-4. 確認角色卡不輸出 normal wardrobe。
-5. 確認角色卡輸出使用 character reference guidance，不使用 anomalous special subject guidance。
-6. 更新 `engineSpecialSubjects.test.js`。
-7. 跑完整驗證。
+4. 確認角色卡由 `characterProfileId` 控制，不出現在 `specialSubjectId` 選項中。
+5. 確認角色卡不輸出 normal wardrobe。
+6. 確認角色卡輸出使用 character reference guidance，不使用 anomalous special subject guidance。
+7. 更新 `engineSpecialSubjects.test.js`。
+8. 跑完整驗證。
 
 ## 10. 測試與驗證
 

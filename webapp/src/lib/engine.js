@@ -60,6 +60,16 @@ const SPECIAL_SUBJECT_OPTIONS = [
     specialSubject: 'android',
     specialToneZh: '近真人機械女性',
   },
+];
+
+const CHARACTER_PROFILE_OPTIONS = [
+  {
+    id: 'none',
+    zh: '全無',
+    en: '',
+    desc: 'Use the normal character setup or special subject setup instead of a fixed character profile card.',
+    meta: { tags: ['none'] },
+  },
   {
     id: 'character-48g',
     zh: '48G 灰帽黑髮角色',
@@ -88,6 +98,39 @@ const SPECIAL_SUBJECT_OPTIONS = [
       },
     ],
   },
+  {
+    id: 'character-philippa',
+    zh: 'Philippa 黑白挑染蕾絲角色',
+    en: 'an adult East Asian woman with pale gothic beauty, porcelain luminous skin, elegant oval face, clear pale gray-green eyes, softly arched brows, slim straight nose, muted red lips, refined melancholic expression, long wavy black hair with silver-white streaks and face-framing light strands, center-parted voluminous waves falling past the chest, slender fashion-model body proportions with a graceful narrow waist, signature outfit locked as a black high-neck gothic lace dress with sheer mesh long sleeves, black floral lace sleeve appliques across shoulders and arms, fitted black lace bodice with subtle beadwork, floor-length translucent black tulle skirt overlay with trailing hem, black elegant dress shoes, romantic dark couture photographic realism',
+    count: 1,
+    specialSubject: 'character-profile',
+    specialToneZh: 'Philippa 哥德蕾絲角色卡',
+    referenceImages: [
+      {
+        type: 'face-turnaround',
+        label: '臉部髮型四視圖',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/29_Philippa_01.png',
+        publicPath: '/character-cards/philippa/29_Philippa_01.png',
+      },
+      {
+        type: 'portrait-scene',
+        label: '半身情境照',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/29_Philippa_00.jpeg',
+        publicPath: '/character-cards/philippa/29_Philippa_00.jpeg',
+      },
+      {
+        type: 'full-body',
+        label: '全身標準穿搭',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/29_Philippa_02.jpeg',
+        publicPath: '/character-cards/philippa/29_Philippa_02.jpeg',
+      },
+    ],
+  },
+];
+
+const ALL_DEDICATED_SUBJECT_OPTIONS = [
+  ...SPECIAL_SUBJECT_OPTIONS,
+  ...CHARACTER_PROFILE_OPTIONS.filter((option) => option.id !== 'none'),
 ];
 
 const ASPECT_RATIO_POOL = [
@@ -1288,6 +1331,7 @@ const FIXED_SET_PERFORMANCE_STATE_OPTIONS = [
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
   { key: 'specialSubjectId', label: '特殊角色', options: SPECIAL_SUBJECT_OPTIONS, defaultValue: 'none', section: 'character' },
+  { key: 'characterProfileId', label: '角色卡', options: CHARACTER_PROFILE_OPTIONS, defaultValue: 'none', section: 'character' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
   { key: 'cameraSystemId', label: '舊相機', options: CAMERA_SYSTEM_OPTIONS, section: 'hidden' },
@@ -1469,6 +1513,8 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'lightDirectionId', label: 'Subject Light Style' },
   { key: 'filmId', label: 'Rendering / Color Grade' },
   { key: 'outfitPresetId', label: 'Outfit Preset' },
+  { key: 'specialSubjectId', label: 'Special Subject' },
+  { key: 'characterProfileId', label: 'Character Profile Card' },
   { key: 'bodyTypeId', label: 'Body Type' },
   { key: 'bodyTypeAId', label: 'Woman 1 Body Type' },
   { key: 'bodyTypeBId', label: 'Woman 2 Body Type' },
@@ -3495,8 +3541,22 @@ export function normalizeLocks(rawLocks = {}) {
     normalized[key] = value;
   });
 
-  if (rawLocks?.subjectCount && SPECIAL_SUBJECT_OPTIONS.some((option) => option.id === rawLocks.subjectCount && !isNoneLikeItem(option))) {
-    normalized.specialSubjectId = rawLocks.subjectCount;
+  const legacyDedicatedSubject = ALL_DEDICATED_SUBJECT_OPTIONS.find((option) => option.id === rawLocks?.subjectCount && !isNoneLikeItem(option));
+  if (legacyDedicatedSubject) {
+    if (legacyDedicatedSubject.specialSubject === 'character-profile') {
+      normalized.characterProfileId = legacyDedicatedSubject.id;
+      normalized.specialSubjectId = 'none';
+    } else {
+      normalized.specialSubjectId = legacyDedicatedSubject.id;
+      normalized.characterProfileId = 'none';
+    }
+    normalized.subjectCount = '1';
+  }
+
+  const legacyCharacterProfile = getCharacterProfileOption(rawLocks?.specialSubjectId);
+  if (legacyCharacterProfile) {
+    normalized.characterProfileId = legacyCharacterProfile.id;
+    normalized.specialSubjectId = 'none';
     normalized.subjectCount = '1';
   }
 
@@ -4272,6 +4332,11 @@ function getSubjectOption(id) {
 
 function getSpecialSubjectOption(id) {
   const option = SPECIAL_SUBJECT_OPTIONS.find((entry) => entry.id === id);
+  return option && !isNoneLikeItem(option) ? option : null;
+}
+
+function getCharacterProfileOption(id) {
+  const option = CHARACTER_PROFILE_OPTIONS.find((entry) => entry.id === id);
   return option && !isNoneLikeItem(option) ? option : null;
 }
 
@@ -8711,7 +8776,8 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
   });
   return {
     subjectCount: isSpecialSubject(context.subject) ? '1' : context.subject.id,
-    specialSubjectId: isSpecialSubject(context.subject) ? context.subject.id : 'none',
+    specialSubjectId: isSpecialSubject(context.subject) && !isCharacterProfileSubject(context.subject) ? context.subject.id : 'none',
+    characterProfileId: isCharacterProfileSubject(context.subject) ? context.subject.id : 'none',
     aspectRatio: context.aspectRatio.id,
     styleId: context.style?.id || '',
     cameraSystemId: context.cameraSystem?.id || '',
@@ -8925,8 +8991,10 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     effectiveLocks.sceneAttributeId = '';
   }
   const specialSubject = getSpecialSubjectOption(effectiveLocks.specialSubjectId);
-  const subject = specialSubject || getSubjectOption(effectiveLocks.subjectCount);
-  const hasWardrobeLocks = !specialSubject && hasEffectiveWardrobeLocks(effectiveLocks, lockControls);
+  const characterProfile = getCharacterProfileOption(effectiveLocks.characterProfileId);
+  const dedicatedSubject = characterProfile || specialSubject;
+  const subject = dedicatedSubject || getSubjectOption(effectiveLocks.subjectCount);
+  const hasWardrobeLocks = !dedicatedSubject && hasEffectiveWardrobeLocks(effectiveLocks, lockControls);
   const hasSceneLocks = Boolean(effectiveLocks.locationId || effectiveLocks.sceneAttributeId);
   const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio);
   const sceneAttribute = getSceneAttributeOption(effectiveLocks.sceneAttributeId);

@@ -11,7 +11,7 @@ function optionId(controlKey, zh) {
   return option.id;
 }
 
-test('special subject control exposes dedicated character options', () => {
+test('special subject control exposes dedicated special subject options', () => {
   const specialSubjectControl = getLockControls().find((control) => control.key === 'specialSubjectId');
   const specialSubjectOptions = specialSubjectControl.options.filter((option) => option.specialSubject);
 
@@ -23,25 +23,37 @@ test('special subject control exposes dedicated character options', () => {
       ['sengoku-samurai', '日本戰國武士'],
       ['european-knight', '歐洲騎士'],
       ['female-android', '女性人形機器人'],
-      ['character-48g', '48G 灰帽黑髮角色'],
     ]
   );
 });
 
-test('special subject control exposes character profile cards', () => {
+test('character profile control exposes character profile cards separately from special subjects', () => {
   const specialSubjectControl = getLockControls().find((control) => control.key === 'specialSubjectId');
-  const characterCards = specialSubjectControl.options.filter((option) => option.specialSubject === 'character-profile');
+  const characterProfileControl = getLockControls().find((control) => control.key === 'characterProfileId');
+  const characterCards = characterProfileControl.options.filter((option) => option.specialSubject === 'character-profile');
 
+  assert.equal(specialSubjectControl.options.some((option) => option.specialSubject === 'character-profile'), false);
   assert.deepEqual(
     characterCards.map((option) => [option.id, option.zh, option.specialToneZh]),
-    [['character-48g', '48G 灰帽黑髮角色', '48G 固定角色卡']]
+    [
+      ['character-48g', '48G 灰帽黑髮角色', '48G 固定角色卡'],
+      ['character-philippa', 'Philippa 黑白挑染蕾絲角色', 'Philippa 哥德蕾絲角色卡'],
+    ]
   );
   assert.deepEqual(
-    characterCards[0].referenceImages.map((image) => [image.type, image.publicPath]),
+    characterCards.find((option) => option.id === 'character-48g').referenceImages.map((image) => [image.type, image.publicPath]),
     [
       ['face-turnaround', '/character-cards/48g/48_G_01.jpeg'],
       ['full-body', '/character-cards/48g/48_G_02.jpeg'],
       ['expression-sheet', '/character-cards/48g/48_G_03.jpeg'],
+    ]
+  );
+  assert.deepEqual(
+    characterCards.find((option) => option.id === 'character-philippa').referenceImages.map((image) => [image.type, image.publicPath]),
+    [
+      ['face-turnaround', '/character-cards/philippa/29_Philippa_01.png'],
+      ['portrait-scene', '/character-cards/philippa/29_Philippa_00.jpeg'],
+      ['full-body', '/character-cards/philippa/29_Philippa_02.jpeg'],
     ]
   );
 });
@@ -49,11 +61,12 @@ test('special subject control exposes character profile cards', () => {
 test('character profile card replaces normal identity and wardrobe while preserving reference guidance', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    specialSubjectId: 'character-48g',
+    characterProfileId: 'character-48g',
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
-  assert.equal(prompt.selection.specialSubjectId, 'character-48g');
+  assert.equal(prompt.selection.specialSubjectId, 'none');
+  assert.equal(prompt.selection.characterProfileId, 'character-48g');
   assert.equal(prompt.structured.Wardrobe.length, 0);
   assert.match(promptText, /48G 灰帽黑髮角色|48G 固定角色卡/);
   assert.match(promptText, /adult East Asian woman with doll-like facial features/);
@@ -79,7 +92,7 @@ test('character profile card replaces normal identity and wardrobe while preserv
 test('character profile card still composes with expression and pose composer', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    specialSubjectId: 'character-48g',
+    characterProfileId: 'character-48g',
     expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
     poseBaseId: optionId('poseBaseId', '站姿'),
     poseArrangementId: optionId('poseArrangementId', '單腳重心'),
@@ -89,12 +102,38 @@ test('character profile card still composes with expression and pose composer', 
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
 
-  assert.equal(prompt.selection.specialSubjectId, 'character-48g');
+  assert.equal(prompt.selection.specialSubjectId, 'none');
+  assert.equal(prompt.selection.characterProfileId, 'character-48g');
   assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '站姿'));
   assert.match(promptText, /calm neutral expression|relaxed half-lidded ease/);
   assert.match(promptText, /She is standing/);
   assert.match(promptText, /one-leg weight shift/);
   assert.match(promptText, /both hands clasped loosely in front of the body/);
+});
+
+test('philippa character profile card preserves gothic lace identity and wardrobe', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-philippa',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'none');
+  assert.equal(prompt.selection.characterProfileId, 'character-philippa');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /Philippa 黑白挑染蕾絲角色|Philippa 哥德蕾絲角色卡/);
+  assert.match(promptText, /adult East Asian woman with pale gothic beauty/);
+  assert.match(promptText, /long wavy black hair with silver-white streaks/);
+  assert.match(promptText, /black high-neck gothic lace dress/);
+  assert.match(promptText, /sheer mesh long sleeves/);
+  assert.match(promptText, /black floral lace sleeve appliques/);
+  assert.match(promptText, /floor-length translucent black tulle skirt overlay/);
+  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /unknown anomalous figure/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /black high-neck gothic lace dress/);
+  assert.match(prompt.midjourneyPrompt, /sheer mesh long sleeves/);
+  assert.match(prompt.midjourneyPrompt, /floor-length translucent black tulle skirt overlay/);
 });
 
 test('white skeleton uses skeleton generation path and ivory bone language', () => {
@@ -352,4 +391,22 @@ test('legacy skeleton subject count locks migrate into the special subject contr
 
   assert.equal(normalized.subjectCount, '1');
   assert.equal(normalized.specialSubjectId, 'white-skeleton');
+});
+
+test('legacy character card locks migrate into the character profile control', () => {
+  const normalizedFromSubjectCount = normalizeLocks({
+    ...createEmptyLocks(),
+    subjectCount: 'character-48g',
+  });
+  const normalizedFromSpecialSubject = normalizeLocks({
+    ...createEmptyLocks(),
+    specialSubjectId: 'character-philippa',
+  });
+
+  assert.equal(normalizedFromSubjectCount.subjectCount, '1');
+  assert.equal(normalizedFromSubjectCount.specialSubjectId, 'none');
+  assert.equal(normalizedFromSubjectCount.characterProfileId, 'character-48g');
+  assert.equal(normalizedFromSpecialSubject.subjectCount, '1');
+  assert.equal(normalizedFromSpecialSubject.specialSubjectId, 'none');
+  assert.equal(normalizedFromSpecialSubject.characterProfileId, 'character-philippa');
 });

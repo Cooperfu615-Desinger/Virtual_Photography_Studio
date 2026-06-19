@@ -92,13 +92,19 @@ export function buildWorkspaceSummary(locks, controls) {
   const subjectTypeLabel = getControlOptionLabel(controls, 'subjectCount', locks.subjectCount);
   const specialSubjectControl = controls.find((control) => control.key === 'specialSubjectId');
   const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
+  const characterProfileControl = controls.find((control) => control.key === 'characterProfileId');
+  const characterProfileOption = characterProfileControl?.options?.find((option) => option.id === locks.characterProfileId);
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
+  const isCharacterProfileMode = Boolean(characterProfileOption?.specialSubject);
+  const isDedicatedSubjectMode = isSpecialSubjectMode || isCharacterProfileMode;
   const activeOutfitPresets = getActiveOutfitPresets(locks, controls);
   const wardrobeLabel = (key) => getEffectiveWardrobeOptionLabel(controls, locks, key, activeOutfitPresets);
 
   const characterSummary = isSpecialSubjectMode
     ? specialSubjectOption?.zh || '特殊角色'
-    : buildSummaryText([
+    : isCharacterProfileMode
+      ? characterProfileOption?.zh || '角色卡'
+      : buildSummaryText([
         subjectTypeLabel === '上傳人物' ? subjectTypeLabel : '',
         getControlOptionLabel(controls, 'bodyTypeId', locks.bodyTypeId),
         getControlOptionLabel(controls, 'bodyTypeAId', locks.bodyTypeAId),
@@ -128,7 +134,7 @@ export function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
     getControlOptionLabel(controls, 'poseAnchorId', locks.poseAnchorId),
   ]);
-  const wardrobeSummary = buildSummaryText([
+  const wardrobeSummary = isDedicatedSubjectMode ? '' : buildSummaryText([
     wardrobeLabel('specialOutfitId'),
     wardrobeLabel('specialOutfitAId'),
     wardrobeLabel('specialOutfitBId'),

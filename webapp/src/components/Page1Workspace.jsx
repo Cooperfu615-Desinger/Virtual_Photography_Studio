@@ -181,6 +181,14 @@ const SECTION_SUBPANELS = {
         'specialSubjectId',
       ],
     },
+    {
+      id: 'character-profile',
+      label: '角色卡',
+      description: '角色卡會接管人物身份與固定穿搭；神情眼神、姿勢動作與特殊動作請到 B 神情姿態調整。',
+      keys: [
+        'characterProfileId',
+      ],
+    },
   ],
   pose: [
     {
@@ -695,9 +703,13 @@ export default function Page1Workspace({
   const activeSubpanel = sectionSubpanels.find((panel) => panel.id === activeSubpanelId) || sectionSubpanels[0] || null;
   const specialSubjectControl = lockControls.find((control) => control.key === 'specialSubjectId');
   const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
+  const characterProfileControl = lockControls.find((control) => control.key === 'characterProfileId');
+  const characterProfileOption = characterProfileControl?.options?.find((option) => option.id === locks.characterProfileId);
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
+  const isCharacterProfileMode = Boolean(characterProfileOption?.specialSubject);
+  const isDedicatedSubjectMode = isSpecialSubjectMode || isCharacterProfileMode;
   const isAndroidSubjectMode = specialSubjectOption?.specialSubject === 'android';
-  const resolvedActiveSubpanel = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { isSpecialSubjectMode });
+  const resolvedActiveSubpanel = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { isSpecialSubjectMode: isDedicatedSubjectMode });
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
   const isOutfitPresetBActive = Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls);
@@ -737,6 +749,7 @@ export default function Page1Workspace({
   const selectedPoseBaseId = POSE_COMPOSER_BASE_IDS.has(locks.poseBaseId) ? locks.poseBaseId : '';
   const currentModeBadges = [
     isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
+    isCharacterProfileMode ? (characterProfileOption?.zh || '角色卡') : '',
     isReferenceSubjectMode ? '上傳人物' : '',
     isDuoMode ? '雙人' : '',
     isCloseupMode ? '特寫模式' : '',
@@ -747,9 +760,10 @@ export default function Page1Workspace({
   ].filter(Boolean);
   const sectionDiagnostics = {
     character: {
-      status: isSpecialSubjectMode ? '接管中' : formatSelectionStatus(countEffectiveSelections('character', locks, lockControls)),
+      status: isDedicatedSubjectMode ? '接管中' : formatSelectionStatus(countEffectiveSelections('character', locks, lockControls)),
       chips: [
         isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
+        isCharacterProfileMode ? (characterProfileOption?.zh || '角色卡') : '',
         isReferenceSubjectMode ? '上傳人物' : '',
         isDuoMode ? '雙人設定' : '',
       ].filter(Boolean),
@@ -765,9 +779,10 @@ export default function Page1Workspace({
       ].filter(Boolean),
     },
     wardrobe: {
-      status: isSpecialSubjectMode ? '已停用' : (isAnyOutfitPresetActive || isSpecialOutfitActive ? '接管中' : formatSelectionStatus(countEffectiveSelections('wardrobe', locks, lockControls))),
+      status: isDedicatedSubjectMode ? '已停用' : (isAnyOutfitPresetActive || isSpecialOutfitActive ? '接管中' : formatSelectionStatus(countEffectiveSelections('wardrobe', locks, lockControls))),
       chips: [
         isSpecialSubjectMode ? '特殊角色停用穿搭' : '',
+        isCharacterProfileMode ? '角色卡停用穿搭' : '',
         isSpecialOutfitActive ? '特殊穿搭接管' : '',
         isAnyOutfitPresetActive ? '套裝接管單件' : '',
       ].filter(Boolean),
@@ -1082,6 +1097,11 @@ export default function Page1Workspace({
             : '特殊角色會接管人物主體，只保留神情眼神、姿勢動作與特殊動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。'}
         </div>
       ) : null}
+      {isCharacterProfileMode ? (
+        <div className="context-note">
+          角色卡會接管人物身份與固定穿搭，只保留神情眼神、姿勢動作與特殊動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。
+        </div>
+      ) : null}
       {isCloseupMode ? (
         <div className="context-note">
           目前為特寫模式，系統會自動收斂不必要欄位，保留與人物、主要服裝輪廓與構圖相關的設定，讓 prompt 更聚焦。
@@ -1133,9 +1153,11 @@ export default function Page1Workspace({
           特殊穿搭是完整從頭到腳造型，已接管所有服裝、鞋襪與配件欄位。
         </div>
       ) : null}
-      {isSpecialSubjectMode ? (
+      {isDedicatedSubjectMode ? (
         <div className="context-note">
-          特殊角色目前不使用服裝、鞋襪或配件欄位，這一區已暫時停用，請改用角色本身、場景、鏡頭、光線與風格去塑造作品氣氛。
+          {isCharacterProfileMode
+            ? '角色卡已內建固定穿搭，這一區已暫時停用，請改用角色卡、場景、鏡頭、光線與風格去塑造作品氣氛。'
+            : '特殊角色目前不使用服裝、鞋襪或配件欄位，這一區已暫時停用，請改用角色本身、場景、鏡頭、光線與風格去塑造作品氣氛。'}
         </div>
       ) : null}
       <WardrobeLayerPanel insights={wardrobeLayerInsights} />
