@@ -35,7 +35,7 @@ Add this entry to `SPECIAL_SUBJECT_OPTIONS` after `female-android`:
 {
   id: 'character-48g',
   zh: '48G 灰帽黑髮角色',
-  en: 'a fixed original adult female character profile based on the supplied character reference sheets, preserve the same doll-like East Asian face identity, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette, signature outfit locked as a taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt, visible black lace waistband detail, small off-white shoulder bag with thin black strap, black lace-up ankle boots with glossy rounded toes, contemporary street-fashion photographic realism',
+  en: 'an adult East Asian woman with doll-like facial features, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette, signature outfit locked as a taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath, small off-white shoulder bag with thin black strap, black lace-up ankle boots with glossy rounded toes, contemporary street-fashion photographic realism',
   count: 1,
   specialSubject: 'character-profile',
   specialToneZh: '48G 固定角色卡',
@@ -100,19 +100,24 @@ test('character profile card replaces normal identity and wardrobe while preserv
   assert.equal(prompt.selection.specialSubjectId, 'character-48g');
   assert.equal(prompt.structured.Wardrobe.length, 0);
   assert.match(promptText, /48G 灰帽黑髮角色|48G 固定角色卡/);
-  assert.match(promptText, /fixed original female character profile/);
-  assert.match(promptText, /preserve the same face identity/);
-  assert.match(promptText, /doll-like East Asian face identity/);
+  assert.match(promptText, /adult East Asian woman with doll-like facial features/);
+  assert.doesNotMatch(promptText, /fixed original adult female character profile based on the supplied character reference sheets/);
   assert.match(promptText, /glossy black shoulder-length layered lob haircut with airy see-through bangs/);
   assert.match(promptText, /soft smoky eye makeup/);
   assert.match(promptText, /taupe-gray cropped hooded zip jacket worn open with the hood usually worn up/);
   assert.match(promptText, /black lace bralette neckline/);
-  assert.match(promptText, /low-rise faded blue denim mini skirt/);
+  assert.match(promptText, /low-rise faded blue denim mini skirt worn unbuttoned/);
+  assert.match(promptText, /zipper slightly pulled down/);
+  assert.match(promptText, /visible thin-strap black lace thong waistband/);
   assert.match(promptText, /small off-white shoulder bag with thin black strap/);
   assert.match(promptText, /black lace-up ankle boots with glossy rounded toes/);
   assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /taupe-gray cropped hooded zip jacket/);
+  assert.match(prompt.midjourneyPrompt, /low-rise faded blue denim mini skirt worn unbuttoned/);
+  assert.match(prompt.midjourneyPrompt, /visible thin-strap black lace thong waistband/);
+  assert.match(prompt.midjourneyPrompt, /black lace-up ankle boots/);
 });
 
 test('character profile card still composes with expression pose composer and special actions', () => {
