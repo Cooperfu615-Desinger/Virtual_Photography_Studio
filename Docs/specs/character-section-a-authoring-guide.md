@@ -387,6 +387,7 @@ Pose Composer 手部姿勢中的自拍類規則：
 - `character-hinata` / `Hinata 灰綠短髮藍針織角色`
 - `character-rika` / `Rika 黑長髮白T牛仔角色`
 - `character-rin` / `Rin 黑短捲髮眼鏡襯衫角色`
+- `character-lily` / `Lily 紅棕長髮黑絨外套角色`
 
 角色卡 `character-profile` 規則：
 

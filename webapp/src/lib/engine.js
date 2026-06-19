@@ -250,6 +250,34 @@ const CHARACTER_PROFILE_OPTIONS = [
       },
     ],
   },
+  {
+    id: 'character-lily',
+    zh: 'Lily 紅棕長髮黑絨外套角色',
+    en: 'a 20-year-old adult East Asian woman with glamorous doll-like facial features, porcelain fair skin with a soft luminous glow, delicate oval heart-shaped face, clear warm hazel-brown eyes with glossy catchlights and long curled lashes, softly arched reddish-brown brows, small refined nose, peach-coral blush, warm champagne eye shadow, subtle eyeliner, glossy coral-rose lips with a softly parted pout, calm seductive fashion-editorial expression, long tousled copper-auburn red hair with darker natural roots, loose messy waves flowing past the chest and down the back, airy wispy see-through bangs falling softly across the forehead, face-framing side pieces and windswept layered texture, slim tall fashion-model body proportions with narrow waist, long legs, refined shoulders and collarbones, signature outfit locked as a black shaggy faux-fur off-shoulder mini coat worn as the main garment, plush high-pile texture, deep V neckline, bare shoulders and collarbones, oversized sleeves, mini-length hem, minimal black inner layer kept subtle under the coat, black ankle-strap stiletto sandals with thin straps and open toes, glamorous sunlit fashion portrait photographic realism',
+    count: 1,
+    specialSubject: 'character-profile',
+    specialToneZh: 'Lily 黑絨紅髮角色卡',
+    referenceImages: [
+      {
+        type: 'portrait-closeup',
+        label: '臉部近照',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/07_Lily_00.jpeg',
+        publicPath: '/character-cards/lily/07_Lily_00.jpeg',
+      },
+      {
+        type: 'full-body',
+        label: '全身標準穿搭',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/07_Lily_02.png',
+        publicPath: '/character-cards/lily/07_Lily_02.png',
+      },
+      {
+        type: 'face-turnaround',
+        label: '臉部髮型四視圖',
+        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/07_Lily_01.png',
+        publicPath: '/character-cards/lily/07_Lily_01.png',
+      },
+    ],
+  },
 ];
 
 const ALL_DEDICATED_SUBJECT_OPTIONS = [

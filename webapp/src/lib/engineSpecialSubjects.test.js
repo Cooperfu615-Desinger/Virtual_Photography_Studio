@@ -42,6 +42,7 @@ test('character profile control exposes character profile cards separately from 
       ['character-hinata', 'Hinata 灰綠短髮藍針織角色', 'Hinata 藍針織街拍角色卡'],
       ['character-rika', 'Rika 黑長髮白T牛仔角色', 'Rika 白T牛仔室內角色卡'],
       ['character-rin', 'Rin 黑短捲髮眼鏡襯衫角色', 'Rin 眼鏡白襯衫正裝角色卡'],
+      ['character-lily', 'Lily 紅棕長髮黑絨外套角色', 'Lily 黑絨紅髮角色卡'],
     ]
   );
   assert.deepEqual(
@@ -92,6 +93,14 @@ test('character profile control exposes character profile cards separately from 
       ['face-turnaround', '/character-cards/rin/38_Rin_01.png'],
       ['portrait-closeup', '/character-cards/rin/38_Rin_00.jpeg'],
       ['full-body', '/character-cards/rin/38_Rin_02.png'],
+    ]
+  );
+  assert.deepEqual(
+    characterCards.find((option) => option.id === 'character-lily').referenceImages.map((image) => [image.type, image.publicPath]),
+    [
+      ['portrait-closeup', '/character-cards/lily/07_Lily_00.jpeg'],
+      ['full-body', '/character-cards/lily/07_Lily_02.png'],
+      ['face-turnaround', '/character-cards/lily/07_Lily_01.png'],
     ]
   );
 });
@@ -293,6 +302,32 @@ test('rin character profile card preserves black curly bob glasses and white shi
   assert.match(prompt.midjourneyPrompt, /crisp white oversized button-down shirt/);
   assert.match(prompt.midjourneyPrompt, /charcoal high-waisted tailored straight trousers/);
   assert.match(prompt.midjourneyPrompt, /black leather loafers/);
+});
+
+test('lily character profile card preserves auburn waves black faux fur and ankle strap heels', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-lily',
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
+
+  assert.equal(prompt.selection.specialSubjectId, 'none');
+  assert.equal(prompt.selection.characterProfileId, 'character-lily');
+  assert.equal(prompt.structured.Wardrobe.length, 0);
+  assert.match(promptText, /Lily 紅棕長髮黑絨外套角色|Lily 黑絨紅髮角色卡/);
+  assert.match(promptText, /20-year-old adult East Asian woman with glamorous doll-like facial features/);
+  assert.match(promptText, /clear warm hazel-brown eyes/);
+  assert.match(promptText, /long tousled copper-auburn red hair/);
+  assert.match(promptText, /darker natural roots/);
+  assert.match(promptText, /airy wispy see-through bangs/);
+  assert.match(promptText, /black shaggy faux-fur off-shoulder mini coat/);
+  assert.match(promptText, /deep V neckline/);
+  assert.match(promptText, /black ankle-strap stiletto sandals/);
+  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /unknown anomalous figure/);
+  assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /black shaggy faux-fur off-shoulder mini coat/);
+  assert.match(prompt.midjourneyPrompt, /black ankle-strap stiletto sandals/);
 });
 
 test('white skeleton uses skeleton generation path and ivory bone language', () => {
