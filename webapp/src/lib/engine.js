@@ -7619,6 +7619,7 @@ function buildCloseupSceneContextPrompt(context) {
 const CLOSEUP_HIDDEN_WARDROBE_SEGMENT_PATTERN = /\b(jeans|trousers|pants|shorts|skirt|stockings|tights|hosiery|socks|legwear|shoes|boots|sandals|heels|feet|toes|ankle|calf|thigh|waist sash|obi|belt|bag|handbag|clutch|pouch|kinchaku|bracelet|bracelets|rings?|bangles?|waistband|hemline)\b/i;
 const CLOSEUP_ACCESSORY_SEGMENT_PATTERN = /\b(eyewear|glasses|sunglasses|earrings|necklace|pendant|choker|hair clip|hair clips|headpiece|headpieces)\b/i;
 const CLOSEUP_UPPER_WARDROBE_SEGMENT_PATTERN = /\b(collar|neckline|wrap|front|shirt|blouse|top|dress|bodice|corset|bustier|camisole|sleeve|shoulder|lapel|hood|jacket|coat|robe|kimono|yukata|mesh|lace|embroidery|fabric|panel|trim|frill|ruffle|cami|gown|button-front|cape sleeve)\b/i;
+const FACE_ONLY_DEFAULT_WARDROBE_TEXT = 'a thin spaghetti-strap straight-neck one-piece dress, secure narrow shoulder straps, straight horizontal neckline, covered upper-bodice fabric, complete one-piece dress identity, no bare torso';
 
 function normalizeCloseupWardrobeSegment(value = '') {
   return stripMarkdown(value)
@@ -7694,34 +7695,34 @@ function buildCloseupWardrobeVisibilityPrompt(context, wardrobeSlots = {}, wardr
   const isPartialFace = context?.framing?.meta?.tags?.includes('partial_face');
   const framingZh = context?.framing?.zh || '';
   const isFaceOnly = isPartialFace || framingZh === '局部五官特寫' || framingZh === '臉部特寫';
+  if (isFaceOnly) {
+    const cueText = joinNaturalList([
+      'visible shoulder straps',
+      'straight neckline edge',
+      'upper-bodice fabric at the collarbone',
+      'partial shoulder line',
+      'small accessory details near the face',
+      'eyewear',
+      'earrings',
+      context?.locks?.neckAccessoryId ? 'partial neck accessory detail' : '',
+    ].filter(Boolean));
+    return `anchor wardrobe as ${FACE_ONLY_DEFAULT_WARDROBE_TEXT}; show the dress only through ${cueText}; keep the lower dress body, torso clothing, lower-body garments, legwear, and shoes off-frame rather than widening the crop`;
+  }
+
   const identityText = buildCloseupWardrobeIdentityText(context, wardrobeSlots, wardrobeColors);
-  const cueText = isFaceOnly
-    ? joinNaturalList([
-        'collar edge',
-        'neckline fabric',
-        'partial shoulder line',
-        'small accessory details near the face',
-        'eyewear',
-        'earrings',
-        context?.locks?.neckAccessoryId ? 'partial neck accessory detail' : '',
-      ].filter(Boolean))
-    : joinNaturalList([
-        'neckline',
-        'collar',
-        'wrap front',
-        'shoulder line',
-        'upper-chest fabric',
-        'sleeve edge',
-        wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? 'outerwear edge' : '',
-        context?.locks?.neckAccessoryId ? 'neck accessory detail' : '',
-      ].filter(Boolean));
+  const cueText = joinNaturalList([
+    'neckline',
+    'collar',
+    'wrap front',
+    'shoulder line',
+    'upper-chest fabric',
+    'sleeve edge',
+    wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? 'outerwear edge' : '',
+    context?.locks?.neckAccessoryId ? 'neck accessory detail' : '',
+  ].filter(Boolean));
   const identityLead = identityText
     ? `show ${identityText} only through ${cueText}`
     : `show the selected styling only through ${cueText}`;
-
-  if (isFaceOnly) {
-    return `${identityLead}; keep torso clothing, lower-body garments, legwear, and shoes off-frame rather than widening the crop`;
-  }
 
   return `${identityLead}; keep lower-body garments, legwear, shoes, waist accessories, and large bags as off-frame context rather than required visible elements`;
 }

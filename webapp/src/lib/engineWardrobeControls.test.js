@@ -722,7 +722,7 @@ test('face close-up framing keeps wardrobe location and pose locks available as 
   assert.equal(sanitized.poseHeadId, locks.poseHeadId);
 });
 
-test('face close-up prompts project only visible upper-body wardrobe and scene context', () => {
+test('face-only close-up prompts anchor a default strap dress and scene context', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '臉部特寫'),
@@ -739,16 +739,21 @@ test('face close-up prompts project only visible upper-body wardrobe and scene c
   assert.equal(prompt.selection.shoesId, optionId('shoesId', '高跟鞋'));
 
   assert.match(prompt.grokPrompt, /tight facial close-up portrait/);
-  assert.match(prompt.grokPrompt, /show .*semi-sheer embroidered shirt only through/i);
-  assert.match(prompt.grokPrompt, /semi-sheer embroidered shirt/i);
-  assert.match(prompt.grokPrompt, /collar edge/i);
+  assert.match(prompt.grokPrompt, /thin spaghetti-strap straight-neck one-piece dress/i);
+  assert.match(prompt.grokPrompt, /secure narrow shoulder straps/i);
+  assert.match(prompt.grokPrompt, /straight horizontal neckline/i);
+  assert.match(prompt.grokPrompt, /no bare torso/i);
+  assert.doesNotMatch(prompt.grokPrompt, /semi-sheer embroidered shirt/i);
   assert.match(prompt.grokPrompt, /partial shoulder line/i);
   assert.match(prompt.grokPrompt, /render selected modern high-rise apartment living room only as soft background color/i);
   assert.match(prompt.grokPrompt, /soft background color/i);
   assert.doesNotMatch(prompt.grokPrompt, /straight-leg jeans/);
   assert.doesNotMatch(prompt.grokPrompt, /glossy pointed-toe stiletto pumps/);
-  assert.match(prompt.zImagePrompt, /show .*semi-sheer embroidered shirt only through/i);
-  assert.match(prompt.zImagePrompt, /semi-sheer embroidered shirt/i);
+  assert.match(prompt.zImagePrompt, /thin spaghetti-strap straight-neck one-piece dress/i);
+  assert.match(prompt.zImagePrompt, /secure narrow shoulder straps/i);
+  assert.match(prompt.zImagePrompt, /straight horizontal neckline/i);
+  assert.match(prompt.zImagePrompt, /no bare torso/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /semi-sheer embroidered shirt/i);
   assert.match(prompt.zImagePrompt, /render selected modern high-rise apartment living room only as soft background color/i);
   assert.doesNotMatch(prompt.zImagePrompt, /straight-leg jeans/);
   assert.doesNotMatch(prompt.zImagePrompt, /glossy pointed-toe stiletto pumps/);
