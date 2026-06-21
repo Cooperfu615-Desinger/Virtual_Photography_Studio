@@ -143,6 +143,19 @@ test('AI prompt keeps cheongsam outfit presets as a short wearable phrase', () =
   assert.doesNotMatch(prompt.midjourneyPrompt, /diagonal frog-button placket|ultra-short mini hem|dominant satin color/i);
 });
 
+test('AI prompt rewrites face-only default wardrobe as a concise dress phrase', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '臉部特寫'),
+    topId: optionId('topId', '透膚刺繡襯衫'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    shoesId: optionId('shoesId', '高跟鞋'),
+  });
+
+  assert.match(prompt.midjourneyPrompt, /身穿一件黑色或白色的細肩帶平口連身裙/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /wearing anchor wardrobe as|complete one-piece dress identity/i);
+});
+
 test('AI prompt converts recognizable separate pieces into a style shorthand', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

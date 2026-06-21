@@ -8692,6 +8692,17 @@ function compactAiMinimalFragment(value, limit = 4) {
     .join(', ');
 }
 
+function removeAiModelNaturalPoseDirectives(value) {
+  return stripMarkdown(value || '')
+    .replace(/\bLet the image model choose a clearly varied non-default physically believable body arrangement within the selected pose base with distinct weight shift limb angles torso orientation and asymmetry compatible with the wardrobe camera framing and environment\.?/gi, '')
+    .replace(/\bLet the image model choose natural varied hand placement fitted to the selected body pose support contact wardrobe and camera crop without defaulting to stiff arms at the sides\.?/gi, '')
+    .replace(/\bLet the image model choose a natural head angle and orientation compatible with the camera angle body orientation and selected pose\.?/gi, '')
+    .replace(/\s+\./g, '.')
+    .replace(/\.\s*\./g, '.')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function splitAiWardrobeFragments(value) {
   return cleanAiMinimalFragment(value)
     .replace(/\.\s+/g, ', ')
@@ -8800,6 +8811,14 @@ function buildAiSeparateStylePhrase(value) {
   return fragments.length > 0 ? joinNaturalList(fragments.slice(0, 2)) : '';
 }
 
+function buildAiWardrobeVisibilityPhrase(value) {
+  const text = cleanAiMinimalFragment(value);
+  if (/anchor wardrobe as .*spaghetti-strap straight-neck one-piece dress/i.test(text)) {
+    return '身穿一件黑色或白色的細肩帶平口連身裙';
+  }
+  return '';
+}
+
 function buildAiCharacterProfileWardrobePhrase(subject) {
   if (!isCharacterProfileSubject(subject)) return '';
 
@@ -8890,6 +8909,9 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context) {
   const dressPhrase = buildAiMappedWardrobePhrase(dressValue) || buildAiFallbackWearablePhrase(dressValue);
   if (dressPhrase) return `wearing ${dressPhrase}`;
 
+  const wardrobeVisibilityPhrase = buildAiWardrobeVisibilityPhrase(firstStructuredValue(valuesByLabel, ['Wardrobe Visibility']));
+  if (wardrobeVisibilityPhrase) return wardrobeVisibilityPhrase;
+
   const wardrobeValues = getStructuredValues(valuesByLabel, [
     'Outerwear',
     'Top',
@@ -8909,10 +8931,11 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context) {
 }
 
 function buildAiMinimalPoseClause(valuesByLabel, context) {
-  const poseText = firstStructuredValue(valuesByLabel, [
+  const rawPoseText = firstStructuredValue(valuesByLabel, [
     'Special Action',
     context.subject?.count === 2 ? 'Duo Layout' : 'Pose',
   ]);
+  const poseText = removeAiModelNaturalPoseDirectives(rawPoseText);
   const posePhrase = compactAiMinimalFragment(poseText, context.subject?.count === 2 ? 3 : 8)
     .replace(/^two women\s+(?:in\s+)?/i, '')
     .replace(/^both women\s+(?:in\s+)?/i, '')
