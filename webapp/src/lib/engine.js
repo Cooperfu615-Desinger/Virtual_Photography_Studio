@@ -8224,8 +8224,10 @@ function buildPromptSectionSources(valuesByLabel, context) {
   const wardrobeLead = context.subject?.count === 2 ? 'They wear' : 'She wears';
   const sceneUsesDirectSentence = sceneContextValues.length > 0 || fixedCompositionSetActive;
   const wardrobeUsesDirectSentence = wardrobeVisibilityValues.length > 0;
+  const wardrobeIntegrityConstraints = getStructuredValues(valuesByLabel, ['Wardrobe Integrity'])
+    .filter((value) => !/^preserve the selected wardrobe as complete, realistic clothing/i.test(value));
   const constraints = [
-    ...getStructuredValues(valuesByLabel, ['Wardrobe Integrity']),
+    ...wardrobeIntegrityConstraints,
     'Keep the specified outfit visible where the chosen framing allows',
     'natural body proportions',
     'no extra people unless specified',
