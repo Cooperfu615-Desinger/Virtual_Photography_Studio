@@ -1627,6 +1627,33 @@
           "referenceImage": "reference/wardrobe/outfit-presets/51_開扣長袖襯衫包臀裙.png",
           "referenceImageFormat": "png"
         }
+      },
+      {
+        "zh": "粉紅哥德兔耳吊帶束身",
+        "en": "soft pink gothic bunny corset outfit, white bunny-ear headband with black lace inner panels and white bow accents, pink fitted corset bodysuit, white lace neckline, black cross appliques, white ribbon and garter straps, matching pink garter lace thigh-high stockings, choker with cross pendant",
+        "desc": "以粉紅色哥德兔女郎束身衣為主體，搭配白色兔耳頭飾、白色蝴蝶結與蕾絲、白色緞帶吊帶，黑色十字架裝飾與頸圈十字墜飾；預設搭配主色粉紅吊帶蕾絲襪。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/52_粉紅哥德兔耳吊帶束身.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "米白緞面蕾絲馬甲短裙",
+        "en": "ivory satin corset mini outfit, strapless underwire cups, black lace bust trim and black lace micro-skirt hem, pink front lace-up cord, small ribbon accents, flared satin peplum overskirt, tiny black handbag, polished boudoir silhouette",
+        "desc": "以米白緞面馬甲與超短裙輪廓為主體，黑色蕾絲包覆胸口與裙口，粉紅裝飾繩帶在前中線交叉綁結，搭配緞面荷葉短裙擺與小黑手提包。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/53_米白緞面蕾絲馬甲短裙.png",
+          "referenceImageFormat": "png"
+        }
+      },
+      {
+        "zh": "白色哥德圖示包臀迷你裙",
+        "en": "white fitted gothic graphic mini-dress outfit, scoop neckline, short puff sleeves, black lace sleeve cuffs and hem trim, black cross and handwritten gothic icon graphics across the fabric, black choker with cross pendant, bodycon mini silhouette",
+        "desc": "以白色貼身包臀迷你裙裝為主體，胸前與裙身帶黑色哥德風十字架、手寫符號與圖示印花，裙口與袖口使用黑色蕾絲滾邊，搭配黑色頸圈十字墜飾。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/outfit-presets/54_白色哥德圖示包臀迷你裙.png",
+          "referenceImageFormat": "png"
+        }
       }
     ],
     "上身 (Tops)": [

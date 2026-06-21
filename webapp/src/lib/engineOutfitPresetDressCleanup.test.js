@@ -25,6 +25,9 @@ test('outfit presets expose themed options and remove abstract style presets', (
     '套裝：短版運動T熱褲',
     '套裝：開扣短袖襯衫熱褲',
     '套裝：開扣長袖襯衫包臀裙',
+    '套裝：粉紅哥德兔耳吊帶束身',
+    '套裝：米白緞面蕾絲馬甲短裙',
+    '套裝：哥德圖示包臀迷你裙',
   ].forEach((label) => {
     assert.ok(labels.includes(label), `${label} should be available`);
   });
@@ -291,6 +294,49 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
   assert.match([skirtPrompt.grokPrompt, skirtPrompt.zImagePrompt, skirtPrompt.midjourneyPrompt].join('\n'), /tight bodycon mini skirt/i);
   assert.equal(shortsPrompt.selection.outfitPresetId, shortsOutfit.id);
   assert.equal(skirtPrompt.selection.outfitPresetId, skirtOutfit.id);
+});
+
+test('gothic lingerie outfit presets 52 to 54 preserve color and trim anchors', () => {
+  [
+    [
+      '套裝：粉紅哥德兔耳吊帶束身',
+      /soft pink gothic bunny corset outfit/i,
+      /white bunny-ear headband/i,
+      /black lace inner panels/i,
+      /black cross appliques/i,
+      /matching pink garter lace thigh-high stockings/i,
+      'reference/wardrobe/outfit-presets/52_粉紅哥德兔耳吊帶束身.png',
+    ],
+    [
+      '套裝：米白緞面蕾絲馬甲短裙',
+      /ivory satin corset mini outfit/i,
+      /black lace bust trim/i,
+      /pink front lace-up cord/i,
+      /flared satin peplum overskirt/i,
+      /tiny black handbag/i,
+      'reference/wardrobe/outfit-presets/53_米白緞面蕾絲馬甲短裙.png',
+    ],
+    [
+      '套裝：哥德圖示包臀迷你裙',
+      /white fitted gothic graphic mini-dress outfit/i,
+      /black lace sleeve cuffs and hem trim/i,
+      /black cross and handwritten gothic icon graphics/i,
+      /black choker with cross pendant/i,
+      'reference/wardrobe/outfit-presets/54_白色哥德圖示包臀迷你裙.png',
+    ],
+  ].forEach(([label, ...expectations]) => {
+    const referenceImage = expectations.pop();
+    const option = optionByLabel('outfitPresetId', label);
+    const text = [option.en, option.desc].join(' ');
+
+    expectations.forEach((pattern) => {
+      assert.match(text, pattern);
+    });
+
+    assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
+    assert.equal(option.meta.referenceImage, referenceImage);
+    assert.equal(option.meta.referenceImageFormat, 'png');
+  });
 });
 
 test('qipao outfit presets preserve updated mini and high-slit silhouettes', () => {
