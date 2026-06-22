@@ -235,7 +235,9 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
   [
     [
       '套裝：開扣短袖襯衫熱褲',
-      /body-contouring short-sleeve button-up shirt outfit/i,
+      /second-skin short-sleeve button-up shirt outfit/i,
+      /ultra-tight short-sleeve button-up shirt in smooth elastic fabric with a skin-like surface/i,
+      /fabric clinging closely to the torso and waistline/i,
       /deliberately open button placket/i,
       /fitted waist shaping/i,
       /skin-tight ultra-short hot pants/i,
@@ -244,7 +246,9 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
     ],
     [
       '套裝：開扣長袖襯衫包臀裙',
-      /body-contouring long-sleeve button-up shirt outfit/i,
+      /second-skin long-sleeve button-up shirt outfit/i,
+      /ultra-tight long-sleeve button-up shirt in smooth elastic fabric with a skin-like surface/i,
+      /fabric clinging closely to the torso and waistline/i,
       /deliberately open button placket/i,
       /fitted waist shaping/i,
       /tight bodycon mini skirt/i,
