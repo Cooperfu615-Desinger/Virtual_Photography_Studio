@@ -416,5 +416,31 @@
       "contrast": ["lace_sleeve_cuffs", "lace_hem_trim", "hand_drawn_gothic_cross_graphics", "irregular_handwritten_icon_graphics", "choker"],
       "locked": []
     }
+  },
+  "網狀蕾絲馬甲短裙長靴": {
+    "series": "signature",
+    "colorMode": "primary",
+    "contrastBehavior": "soft",
+    "lockedOptional": false,
+    "colorTargets": {
+      "primary": [
+        "damaged_fishnet_lace_corset_top",
+        "lace_bodice_panels",
+        "lace_spaghetti_strap_bra",
+        "asymmetrical_deconstructed_lace_mini_skirt",
+        "tattered_lace_panels",
+        "lace_ribbon_choker",
+        "punk_gothic_waist_belt",
+        "tall_lace_up_boots"
+      ],
+      "contrast": [],
+      "locked": [
+        "grommets",
+        "chain_charms",
+        "dangling_metal_hardware",
+        "delicate_metal_necklace",
+        "metal_earrings"
+      ]
+    }
   }
 }

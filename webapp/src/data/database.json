@@ -1717,6 +1717,37 @@
           "referenceImage": "reference/wardrobe/outfit-presets/54_白色哥德圖示包臀迷你裙.png",
           "referenceImageFormat": "png"
         }
+      },
+      {
+        "zh": "網狀蕾絲馬甲短裙長靴",
+        "en": "monochrome gothic mesh lace corset outfit, damaged fishnet long-sleeve lace corset top with torn open-knit texture, fitted lace bodice panels, lace spaghetti-strap bra visible underneath, asymmetrical deconstructed lace mini skirt with high side slit and irregular tattered lace panels, punk gothic waist belt with grommets chain charms and dangling metal hardware, lace ribbon choker with delicate metal necklace, metal earrings, tall lace-up boots, all fabric garments and boots controlled by outfit primary color",
+        "desc": "以全身一致色系的哥德網狀蕾絲造型為主體，上身是網狀破損效果的長袖蕾絲馬甲上衣，帶魚網、破洞、抽絲與貼身蕾絲拼接，內層清楚露出蕾絲細肩帶胸罩。下身是不對稱解構蕾絲短裙，高側開衩、破布層次、垂墜蕾絲片與不規則裙襬；腰間有龐克哥德風格腰帶、孔眼、鏈條吊飾與金屬垂墜五金。搭配同色系長筒綁帶靴，脖子有蕾絲緞帶頸飾與細金屬項鍊，並有金屬耳環；所有布料服裝與靴子由套裝主色控制，整體保持單一主色的完整造型。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "damaged_fishnet_lace_corset_top",
+              "lace_bodice_panels",
+              "lace_spaghetti_strap_bra",
+              "asymmetrical_deconstructed_lace_mini_skirt",
+              "tattered_lace_panels",
+              "lace_ribbon_choker",
+              "punk_gothic_waist_belt",
+              "tall_lace_up_boots"
+            ],
+            "contrast": [],
+            "locked": [
+              "grommets",
+              "chain_charms",
+              "dangling_metal_hardware",
+              "delicate_metal_necklace",
+              "metal_earrings"
+            ]
+          }
+        }
       }
     ],
     "上身 (Tops)": [
