@@ -1343,7 +1343,7 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
   },
 ];
 
-const FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-scene shared structure: describe the real-scale interior space and stable set anchors before the subject; treat the set as scene architecture, not a flat backdrop or face-only portrait; subject placement, pose, and crop may vary inside the same set while preserving believable adult body-to-furniture and body-to-prop scale';
+const FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-scene shared structure: use the selected set blueprint as stable scene architecture before the subject; subject placement, pose, crop, camera distance, and camera orbit may vary only inside the same real-scale set; preserve believable adult body-to-furniture and body-to-prop scale';
 
 const FIXED_COMPOSITION_SET_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不使用固定構圖場景。', meta: { tags: ['none'] } },
@@ -1351,8 +1351,8 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
     id: 'concrete-wall-chesterfield-sofa',
     zh: '清水模牆面沙發棚',
     en: 'The portrait takes place inside a real-scale compact living-room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: a raw concrete wall fills the back plane, a large brown vintage Chesterfield leather sofa occupies most of the lower set space, with thick rolled armrests, high tufted backrest, deep adult-sized seat cushions, worn leather texture, and believable adult-scale furniture clearly visible. Bare sculptural dry branches stand beside the sofa, and a normal-height low coffee table sits in front with art books, a cup, a small lamp, textured cushions, and quiet modern-retro interior props as readable interaction anchors. Use a medium-wide editorial camera position approximately 3 to 4 meters away from the sofa, pulled back enough to show the subject inside the room and preserve the subject-to-furniture scale. The selected camera angle and orbit may vary the viewpoint around the same fixed living-room set, but must not replace the set, collapse into a tight portrait, or lose the sofa, concrete wall, dry branches, and coffee table as recognizable anchors',
-    integrityEn: 'fixed set integrity: preserve the raw concrete wall, large brown vintage Chesterfield leather sofa, and bare sculptural branches as the selected set anchors, with the low coffee table, books, lamp, cup, and cushions available as interaction props',
-    scaleGuardEn: 'normal adult-scale furniture-to-body relationship: standard adult two-seat sofa and normal-height coffee table; subject fits naturally on the seat plane or floor plane; do not enlarge the subject or shrink the sofa or table',
+    integrityEn: 'fixed set integrity: preserve the same raw-concrete wall, brown Chesterfield sofa, branch-side area, and coffee-table foreground as one stable set layout; keep their relative positions consistent across variations',
+    scaleGuardEn: 'real-scale guard: keep believable adult subject-to-sofa and subject-to-coffee-table proportions; do not enlarge the subject or shrink the sofa or table',
     replacementGuardEn: 'do not replace the fixed set with a plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room',
     desc: '灰色清水模牆、枯樹枝、棕色復古 Chesterfield 皮沙發、茶几書本與桌燈構成的固定 editorial set。',
     aspectRatioId: '1:1',
@@ -1362,8 +1362,8 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
     id: 'luxury-hotel-window-nyc',
     zh: '高級飯店落地窗都市夜景',
     en: 'The portrait takes place inside a real-scale luxury hotel room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: an oversized near-wall-to-wall panoramic floor-to-ceiling glass wall dominates the back plane as one broad mostly uninterrupted glass plane overlooking a New York-style high-rise skyline. The glass should feel open, expansive, and lightly reflective, with only a few slim structural seams near the far edges if needed. Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors, or apartment-style segmented windows. A hotel bed with soft white rumpled bedding occupies the lower room plane, with pillows, a bedside table, wine glass, open book, warm hotel lamp, curtain edges, and subtle room-depth props as readable interaction anchors. Use a medium-wide editorial camera position approximately 3 to 5 meters away from the bed and glass wall, pulled back enough to show the subject inside the room and preserve the subject-to-bed and subject-to-window scale. The viewpoint may vary around the same fixed hotel-window set, but must not replace the set, collapse into a tight portrait, or lose the panoramic glass wall, New York skyline, bed or bedding, and warm bedside lamp as recognizable anchors',
-    integrityEn: 'fixed set integrity: preserve the oversized panoramic glass wall, New York-style skyline, bed or bedding foreground, pillows, bedside table, wine glass, book, and warm hotel lamp as the selected set anchors',
-    scaleGuardEn: 'normal adult-scale hotel furniture-to-body relationship: full-size hotel bed, normal-height bedside table, and room-height panoramic glass wall; subject fits naturally on the bed plane, floor plane, or window-side plane; do not enlarge the subject or shrink the bed, table, or window wall',
+    integrityEn: 'fixed set integrity: preserve the same panoramic glass-wall backdrop, New York skyline depth, bed and bedding foreground, and bedside lamp/table zone as one stable set layout; keep their relative positions consistent across variations',
+    scaleGuardEn: 'real-scale guard: keep believable adult subject-to-bed, subject-to-bedside-table, and subject-to-glass-wall proportions; do not enlarge the subject or shrink the bed, table, or glass wall',
     replacementGuardEn: 'do not replace the fixed set with a generic bedroom, plain wall, cafe, outdoor street, studio backdrop, or unrelated hotel room',
     desc: '高級飯店房間、床面前景、超大片連續落地玻璃牆與紐約式高樓城市背景構成的窗景 set。',
     aspectRatioId: '1:1',
@@ -1373,8 +1373,8 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
     id: 'retro-tile-bathtub',
     zh: '復古磁磚浴室浴缸',
     en: 'The portrait takes place inside a real-scale vintage bathroom editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: a freestanding clawfoot bathtub remains the main horizontal fixture across the lower room plane, with the visible wet tile floor beneath and in front of the bathtub, tub feet, tub rim, and full outer tub wall remaining readable from the selected camera angle. A flat aged tile-and-plaster bathroom wall fills the back plane, with a porcelain sink or vanity on one side, a mirror above the sink, chrome faucet and shower hardware, wall lamp, folded towels, bath bottles, a small wooden stool, foam or water surface, subtle steam, small puddles, water trails, and floor reflections as readable interaction anchors. Subject wetness condition: fully soaked from head to toe with wet hair, damp skin, and water-clinging wardrobe or bare skin, and the surrounding bathroom can also feel wet with puddles and reflected practical light. Use a medium-wide editorial camera position approximately 2.5 to 4 meters away from the bathtub, pulled back enough to keep the full bathtub body, tub feet, wet floor plane, sink or vanity, and mirror visible where possible while preserving subject-to-bathtub scale. The selected camera angle and orbit may vary the viewpoint around the same fixed bathtub set, but must not replace the set, collapse into a tight portrait, shoot from inside the tub, or lose the bathtub, wet floor, tiled wall, sink, and mirror as recognizable anchors',
-    integrityEn: 'fixed set integrity: preserve the clawfoot bathtub, visible wet vintage tile floor plane, full tub body and feet, aged tiled wall, porcelain sink or vanity, mirror above it, foam or water surface, chrome bath hardware, puddles, water trails, and floor reflections as the selected set anchors',
-    scaleGuardEn: 'normal adult-scale bathroom fixture-to-body relationship: full-size clawfoot bathtub, normal-height sink or vanity, readable mirror, and visible wet floor plane; subject fits naturally inside the tub, beside the tub, on the floor plane, or near the sink; do not enlarge the subject or shrink the bathtub, sink, mirror, stool, or floor plane',
+    integrityEn: 'fixed set integrity: preserve the same horizontal clawfoot bathtub, wet floor plane, aged tile wall, sink-and-mirror side zone, and bath-prop foreground as one stable set layout; keep their relative positions consistent across variations',
+    scaleGuardEn: 'real-scale guard: keep believable adult subject-to-bathtub, sink, mirror, stool, and wet-floor proportions; do not enlarge the subject or shrink the bathtub, sink, mirror, stool, or floor plane',
     replacementGuardEn: 'do not replace the fixed set with a shower room, bedroom, pool, plain studio backdrop, spa lobby, or unrelated bathroom; no camera from inside the tub, no low tub-edge POV, no dutch tilt, no tight crop that removes the tub body or wet floor plane',
     desc: '真實比例復古磁磚浴室、正面橫置爪足浴缸、濕地板、洗臉台、鏡子、壁燈、毛巾與瓶罐構成的浴室 set。',
     aspectRatioId: '1:1',
@@ -1388,7 +1388,7 @@ const FIXED_SET_POSITION_OPTIONS = [
     id: 'sofa-free-interaction',
     setId: 'concrete-wall-chesterfield-sofa',
     zh: '自由場景互動',
-    en: 'subject placement is flexible and chosen naturally as one primary spatial zone within the fixed sofa set: sofa seating plane, floor plane in front of the sofa, coffee-table foreground, rolled armrest edge, wall-side space, dry-branch side area, off-center negative space, or close foreground layer while keeping the sofa recognizable. The sofa does not always need to physically support the subject; it may remain a background architecture anchor. Choose only one secondary interaction anchor such as the coffee table edge, art book, cup, lamp light, cushion, armrest, concrete wall, dry branches, floor plane, or foreground negative space. Do not default every image to a centered seated sofa pose',
+    en: 'subject placement can vary across one primary zone within the fixed sofa set: sofa seating plane, floor plane in front of the sofa, coffee-table foreground, rolled armrest edge, wall-side space, dry-branch side area, off-center negative space, or close foreground layer. The sofa can support the subject or remain a background architecture anchor. Choose one secondary interaction anchor such as the coffee table edge, art book, cup, lamp light, cushion, armrest, concrete wall, dry branches, floor plane, or foreground negative space. Avoid defaulting every result to a centered seated sofa pose',
   },
   {
     id: 'sofa-foreground',
@@ -1424,7 +1424,7 @@ const FIXED_SET_POSITION_OPTIONS = [
     id: 'hotel-free-interaction',
     setId: 'luxury-hotel-window-nyc',
     zh: '自由場景互動',
-    en: 'subject placement is flexible and chosen naturally as one primary spatial zone within the fixed hotel-window set: bed surface, bed edge, window-side floor plane, bedside-table side, curtain edge, pillow foreground, rumpled-bedding foreground, close foreground layer, or off-center negative space while keeping the panoramic glass wall and skyline recognizable. The bed does not always need to physically support the subject; it may remain a foreground or side architecture anchor. Choose only one secondary interaction anchor such as bedding, pillow, open book, wine glass, warm lamp, bedside table, curtain, glass reflection, skyline view, or room floor. Do not default every image to a centered subject sitting on the bed',
+    en: 'subject placement can vary across one primary zone within the fixed hotel-window set: bed surface, bed edge, window-side floor plane, bedside-table side, curtain edge, pillow foreground, rumpled-bedding foreground, close foreground layer, or off-center negative space. The bed can support the subject or remain a foreground or side architecture anchor. Choose one secondary interaction anchor such as bedding, pillow, open book, wine glass, warm lamp, bedside table, curtain, glass reflection, skyline view, or room floor. Avoid defaulting every result to a centered bed pose',
   },
   {
     id: 'hotel-bed-foreground',
@@ -1460,7 +1460,7 @@ const FIXED_SET_POSITION_OPTIONS = [
     id: 'bathtub-free-interaction',
     setId: 'retro-tile-bathtub',
     zh: '自由場景互動',
-    en: 'subject placement is flexible and chosen naturally as one primary spatial zone within the fixed bathtub set: inside the bathtub, on the bathtub rim, beside the tub on the wet floor, near the sink and mirror, by the chrome faucet hardware, stool-side foreground, towel foreground, foam-covered water surface, close foreground layer, or off-center negative space while keeping the broadside bathtub and wet tile floor recognizable. The bathtub does not always need to physically contain the subject; it may remain the central fixture anchor. Choose only one secondary interaction anchor such as tub rim, foam, water surface, puddle reflection, sink, mirror, faucet hardware, towel, bath bottle, stool, or wet floor. Do not default every image to a centered subject soaking in the tub',
+    en: 'subject placement can vary across one primary zone within the fixed bathtub set: inside the bathtub, on the bathtub rim, beside the tub on the wet floor, near the sink and mirror, by the chrome faucet hardware, stool-side foreground, towel foreground, foam-covered water surface, close foreground layer, or off-center negative space. The bathtub can contain the subject or remain the central fixture anchor. Choose one secondary interaction anchor such as tub rim, foam, water surface, puddle reflection, sink, mirror, faucet hardware, towel, bath bottle, stool, or wet floor. Avoid defaulting every result to a centered soaking pose',
   },
   {
     id: 'bathtub-center',
@@ -4201,7 +4201,7 @@ function buildFixedSetIntegrityText(fixedSet, captureMode) {
     ? 'self-shot crop may hide parts of the set, but at least one or two selected set anchors must remain recognizable'
     : 'keep the fixed set clearly readable as the stable scene architecture';
 
-  return [sharedStructureText, scaleGuardText, integrityText, readabilityText, replacementGuardText].filter(Boolean).join('; ');
+  return [sharedStructureText, integrityText, scaleGuardText, readabilityText, replacementGuardText].filter(Boolean).join('; ');
 }
 
 function getLightingEnvironmentFlags(lighting) {

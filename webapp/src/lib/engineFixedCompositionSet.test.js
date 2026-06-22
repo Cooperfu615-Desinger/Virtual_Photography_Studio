@@ -110,8 +110,9 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.grokPrompt, /approximately 3 to 4 meters away from the sofa/);
   assert.match(prompt.grokPrompt, /selected camera angle and orbit may vary/);
   assert.match(prompt.grokPrompt, /low coffee table/);
-  assert.match(prompt.grokPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone/);
-  assert.match(prompt.grokPrompt, /Do not default every image to a centered seated sofa pose/);
+  assert.match(prompt.grokPrompt, /subject placement can vary across one primary zone within the fixed sofa set/);
+  assert.match(prompt.grokPrompt, /The sofa can support the subject or remain a background architecture anchor/);
+  assert.match(prompt.grokPrompt, /Avoid defaulting every result to a centered seated sofa pose/);
   assert.match(prompt.grokPrompt, /shoulder-level camera position/);
   assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
   assert.match(prompt.grokPrompt, /photographer-shot fixed set portrait/);
@@ -131,7 +132,7 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.zImagePrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.zImagePrompt, /large brown vintage Chesterfield leather sofa/);
   assert.match(prompt.zImagePrompt, /approximately 3 to 4 meters away from the sofa/);
-  assert.match(prompt.zImagePrompt, /subject placement is flexible and chosen naturally as one primary spatial zone/);
+  assert.match(prompt.zImagePrompt, /subject placement can vary across one primary zone within the fixed sofa set/);
   assert.match(prompt.zImagePrompt, /shoulder-level camera position/);
   assert.match(prompt.zImagePrompt, /camera at the subject's front-right/);
   assert.doesNotMatch(prompt.zImagePrompt, /1:1 square|16:9|9:16|aspect ratio/i);
@@ -204,23 +205,32 @@ test('hotel window fixed composition uses shared real-scale set structure and fr
   assert.match(prompt.grokPrompt, /Avoid grid-like window panels, heavy black frames, boxed window sections/);
   assert.match(prompt.grokPrompt, /approximately 3 to 5 meters away from the bed and glass wall/);
   assert.match(prompt.grokPrompt, /subject-to-bed and subject-to-window scale/);
-  assert.match(prompt.grokPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed hotel-window set/);
-  assert.match(prompt.grokPrompt, /Do not default every image to a centered subject sitting on the bed/);
+  assert.match(prompt.grokPrompt, /subject placement can vary across one primary zone within the fixed hotel-window set/);
+  assert.match(prompt.grokPrompt, /The bed can support the subject or remain a foreground or side architecture anchor/);
+  assert.match(prompt.grokPrompt, /Avoid defaulting every result to a centered bed pose/);
   assert.match(prompt.grokPrompt, /fixed-scene shared structure/);
-  assert.match(prompt.grokPrompt, /normal adult-scale hotel furniture-to-body relationship/);
+  assert.match(prompt.grokPrompt, /use the selected set blueprint as stable scene architecture before the subject/);
+  assert.match(prompt.grokPrompt, /fixed set integrity: preserve the same panoramic glass-wall backdrop, New York skyline depth, bed and bedding foreground, and bedside lamp\/table zone as one stable set layout/);
+  assert.match(prompt.grokPrompt, /real-scale guard: keep believable adult subject-to-bed, subject-to-bedside-table, and subject-to-glass-wall proportions/);
+  assert.ok(
+    prompt.grokPrompt.indexOf('fixed set integrity: preserve the same panoramic glass-wall backdrop') <
+      prompt.grokPrompt.indexOf('real-scale guard: keep believable adult subject-to-bed'),
+    'Expected fixed set integrity to lead the scale guard'
+  );
   assert.match(prompt.grokPrompt, /urban fatigue presence/);
   assert.doesNotMatch(prompt.grokPrompt, /British vintage room with window-side interior/);
   assert.doesNotMatch(prompt.grokPrompt, /Aspect Ratio:/);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 
   assert.match(prompt.zImagePrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
-  assert.match(prompt.zImagePrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed hotel-window set/);
-  assert.match(prompt.zImagePrompt, /normal adult-scale hotel furniture-to-body relationship/);
+  assert.match(prompt.zImagePrompt, /subject placement can vary across one primary zone within the fixed hotel-window set/);
+  assert.match(prompt.zImagePrompt, /fixed set integrity: preserve the same panoramic glass-wall backdrop/);
+  assert.match(prompt.zImagePrompt, /real-scale guard: keep believable adult subject-to-bed/);
   assert.doesNotMatch(prompt.zImagePrompt, /1:1 square|16:9|9:16|aspect ratio/i);
 
   assert.match(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set/);
   assert.match(prompt.midjourneyPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
-  assert.match(prompt.midjourneyPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed hotel-window set/);
+  assert.match(prompt.midjourneyPrompt, /subject placement can vary across one primary zone within the fixed hotel-window set/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
 });
 
@@ -269,15 +279,15 @@ test('fixed composition prompts reinforce set anchors while allowing self-shot f
   });
 
   assert.doesNotMatch(prompt.grokPrompt, /Fixed Composition Set:|Fixed Set Position:|Fixed Set Capture Mode:|Fixed Set Performance State:|Fixed Set Integrity:/);
-  assert.match(prompt.grokPrompt, /raw concrete wall, large brown vintage Chesterfield leather sofa, and bare sculptural branches/);
-  assert.match(prompt.grokPrompt, /normal adult-scale furniture-to-body relationship/);
+  assert.match(prompt.grokPrompt, /fixed set integrity: preserve the same raw-concrete wall, brown Chesterfield sofa, branch-side area, and coffee-table foreground as one stable set layout/);
+  assert.match(prompt.grokPrompt, /real-scale guard: keep believable adult subject-to-sofa and subject-to-coffee-table proportions/);
   assert.match(prompt.grokPrompt, /do not enlarge the subject or shrink the sofa/);
   assert.match(prompt.grokPrompt, /at least one or two selected set anchors must remain recognizable/);
   assert.match(prompt.grokPrompt, /do not replace the fixed set with a plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room/);
   assert.match(prompt.grokPrompt, /dreamlike dazed presence/);
 
   assert.match(prompt.zImagePrompt, /at least one or two selected set anchors must remain recognizable/);
-  assert.match(prompt.zImagePrompt, /normal adult-scale furniture-to-body relationship/);
+  assert.match(prompt.zImagePrompt, /real-scale guard: keep believable adult subject-to-sofa and subject-to-coffee-table proportions/);
   assert.match(prompt.midjourneyPrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.midjourneyPrompt, /large brown vintage Chesterfield leather sofa/);
 });
@@ -306,14 +316,17 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.match(prompt.grokPrompt, /fully soaked from head to toe/);
   assert.match(prompt.grokPrompt, /wet hair, damp skin, and water-clinging wardrobe or bare skin/);
   assert.match(prompt.grokPrompt, /porcelain sink or vanity/);
-  assert.match(prompt.grokPrompt, /mirror above it/);
+  assert.match(prompt.grokPrompt, /mirror above the sink/);
   assert.match(prompt.grokPrompt, /approximately 2\.5 to 4 meters away from the bathtub/);
   assert.match(prompt.grokPrompt, /subject-to-bathtub scale/);
-  assert.match(prompt.grokPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed bathtub set/);
-  assert.match(prompt.grokPrompt, /Do not default every image to a centered subject soaking in the tub/);
+  assert.match(prompt.grokPrompt, /subject placement can vary across one primary zone within the fixed bathtub set/);
+  assert.match(prompt.grokPrompt, /The bathtub can contain the subject or remain the central fixture anchor/);
+  assert.match(prompt.grokPrompt, /Avoid defaulting every result to a centered soaking pose/);
   assert.match(prompt.grokPrompt, /selected camera angle and orbit may vary the viewpoint around the same fixed bathtub set/);
   assert.match(prompt.grokPrompt, /fixed-scene shared structure/);
-  assert.match(prompt.grokPrompt, /normal adult-scale bathroom fixture-to-body relationship/);
+  assert.match(prompt.grokPrompt, /use the selected set blueprint as stable scene architecture before the subject/);
+  assert.match(prompt.grokPrompt, /fixed set integrity: preserve the same horizontal clawfoot bathtub, wet floor plane, aged tile wall, sink-and-mirror side zone, and bath-prop foreground as one stable set layout/);
+  assert.match(prompt.grokPrompt, /real-scale guard: keep believable adult subject-to-bathtub, sink, mirror, stool, and wet-floor proportions/);
   assert.match(prompt.grokPrompt, /no camera from inside the tub/);
   assert.match(prompt.grokPrompt, /no tight crop that removes the tub body or wet floor plane/);
   assert.doesNotMatch(prompt.grokPrompt, /no diagonal corner view/);
@@ -331,10 +344,10 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.match(prompt.zImagePrompt, /porcelain sink or vanity/);
   assert.match(prompt.zImagePrompt, /visible wet tile floor beneath and in front of the bathtub/);
   assert.match(prompt.zImagePrompt, /fully soaked from head to toe/);
-  assert.match(prompt.zImagePrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed bathtub set/);
-  assert.match(prompt.zImagePrompt, /normal adult-scale bathroom fixture-to-body relationship/);
+  assert.match(prompt.zImagePrompt, /subject placement can vary across one primary zone within the fixed bathtub set/);
+  assert.match(prompt.zImagePrompt, /real-scale guard: keep believable adult subject-to-bathtub, sink, mirror, stool, and wet-floor proportions/);
   assert.match(prompt.midjourneyPrompt, /visible wet tile floor beneath and in front of the bathtub/);
-  assert.match(prompt.midjourneyPrompt, /subject placement is flexible and chosen naturally as one primary spatial zone within the fixed bathtub set/);
+  assert.match(prompt.midjourneyPrompt, /subject placement can vary across one primary zone within the fixed bathtub set/);
 });
 
 test('fixed composition sets are ignored for duo mode in V1', () => {
