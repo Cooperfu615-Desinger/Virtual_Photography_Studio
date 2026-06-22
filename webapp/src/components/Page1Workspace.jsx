@@ -400,8 +400,8 @@ const SECTION_SUBPANELS = {
     {
       id: 'optics',
       label: '鏡頭與光學',
-      description: '指定焦段與光學效果，控制透視、空間壓縮、景深、flare、暗角與鏡片瑕疵。',
-      keys: ['lensId', 'opticalEffectId'],
+      description: '指定焦段、光圈、快門與光學效果，控制透視、景深、動態殘影、flare、暗角與鏡片瑕疵。',
+      keys: ['lensId', 'apertureId', 'shutterId', 'opticalEffectId'],
     },
     {
       id: 'imaging',

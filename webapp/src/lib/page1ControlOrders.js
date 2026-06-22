@@ -13,6 +13,8 @@ export const SCENE_CAMERA_CONTROL_ORDER = [
   'angleId',
   'orbitId',
   'lensId',
+  'apertureId',
+  'shutterId',
   'opticalEffectId',
   'filmId',
 ];

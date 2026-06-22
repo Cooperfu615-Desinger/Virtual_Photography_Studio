@@ -47,6 +47,19 @@
 | **鏡頭焦段 (Focal Length)** | 魚眼鏡頭 Fisheye | `shot on fisheye lens, extreme hemispherical field of view, barrel distortion, curved straight lines near frame edges, exaggerated spatial wraparound, expanded peripheral visibility` | 魚眼鏡頭具有半球形超廣視野與明顯桶狀變形，直線靠近邊緣會彎曲，空間有包覆感。 |
 | **鏡頭焦段 (Focal Length)** | 移軸鏡頭 Tilt-Shift | `shot on tilt-shift lens, shifted perspective control, tilted focus plane, selective plane-of-focus effect, corrected vertical lines, controlled miniature-like depth compression` | 移軸鏡頭可控制透視與焦平面，能修正垂直線或讓焦點沿特定平面延伸，也可能造成局部模型化的景深壓縮。 |
 | **鏡頭焦段 (Focal Length)** | 變形寬銀幕鏡頭 Anamorphic | `shot on anamorphic lens, horizontally squeezed widescreen optics, oval bokeh rendering, horizontal flare behavior, widened field of view, edge character` | 變形鏡頭以水平壓縮成像與寬銀幕視野為核心，常帶橢圓散景、水平 flare 與邊緣光學個性。 |
+| **光圈 / 景深 (Aperture & Depth of Field)** | 全無 | `none` | 不指定光圈或景深傾向，讓模型依焦段、構圖與場景自行決定焦點深度。 |
+| **光圈 / 景深 (Aperture & Depth of Field)** | f/11 深焦清晰 | `f/11-style deep focus, broad depth of field, foreground subject and background held readable, crisp scenic detail` | 小光圈深焦語言，前景人物與背景資訊都維持可讀，適合希望環境細節清楚的畫面。 |
+| **光圈 / 景深 (Aperture & Depth of Field)** | f/5.6 中等景深 | `f/5.6-style balanced depth of field, subject cleanly readable, background gently softened but still recognizable, natural optical separation` | 中等景深，主體清楚，背景略柔但仍可辨識，適合人像與環境都要保留的平衡拍法。 |
+| **光圈 / 景深 (Aperture & Depth of Field)** | f/2.8 淺景深 | `f/2.8-style shallow depth of field, clear subject plane, soft background defocus, natural portrait separation` | 淺景深人像語言，主體焦平面明確，背景柔化並產生自然分離感。 |
+| **光圈 / 景深 (Aperture & Depth of Field)** | f/2.0 強背景分離 | `f/2.0-style large-aperture portrait depth, strong subject-background separation, creamy optical falloff, softened foreground and background planes` | 大光圈人像分離感，背景與前景明顯柔化，主體從空間中浮出。 |
+| **光圈 / 景深 (Aperture & Depth of Field)** | f/1.4 極淺景深散景 | `f/1.4-style ultra shallow depth of field, razor-thin focus plane, strong foreground and background defocus, large soft bokeh discs` | 超大光圈極淺景深，焦平面非常薄，前後景快速離焦，散景光斑更大且更柔。 |
+| **快門 / 動態殘影 (Shutter & Motion Blur)** | 全無 | `none` | 不指定快門速度或動態殘影，讓模型依場景自行決定是否有 motion blur。 |
+| **快門 / 動態殘影 (Shutter & Motion Blur)** | 1/1000s 凍結瞬間 | `1/1000s fast-shutter look, frozen movement, crisp subject edges, no motion blur, clean action stillness` | 超高速快門語言，動作被定格，邊緣清楚，不帶可見殘影。 |
+| **快門 / 動態殘影 (Shutter & Motion Blur)** | 1/250s 日常清晰 | `1/250s handheld shutter look, mostly sharp subject, minimal natural motion blur, stable everyday photographic clarity` | 日常手持清晰快門，主體大多銳利，只保留極少自然動態模糊。 |
+| **快門 / 動態殘影 (Shutter & Motion Blur)** | 1/60s 背景動態拖影 | `1/60s slow-shutter background smear, sharp central subject, moving surroundings softly blurred, subtle ambient motion trails` | 慢一點的快門感，中央主體保持清楚，周圍移動物件或背景帶輕微拖影。 |
+| **快門 / 動態殘影 (Shutter & Motion Blur)** | 1/30s 主體動態殘影 | `1/30s slow-shutter portrait blur, subject movement creates visible face and body smear, expressive photographic motion trail` | 主體本身也可被慢門拖出殘影，適合甩頭、轉身、手部動作或實驗肖像。 |
+| **快門 / 動態殘影 (Shutter & Motion Blur)** | 1/15s 全畫面慢門拖影 | `1/15s slow-shutter drag, subject and surroundings both carry motion smear, dreamy unstable photographic blur, stretched light traces` | 全畫面慢門拖影，主體與環境都帶不穩定殘影，可形成迷幻或 MV 感。 |
+| **快門 / 動態殘影 (Shutter & Motion Blur)** | 後簾同步閃光殘影 | `rear-curtain flash look, flash-frozen subject edge with trailing motion blur, sharp strobe imprint over slow-shutter drag` | 後簾同步閃光語言，主體邊緣有閃光定格，同時保留慢門拖出的移動殘影。 |
 | **環境光條件 (Ambient Light Conditions)** | 全無 | `none` | 不指定環境條件，讓模型自行決定天空、時段、空氣狀態與室內外明暗。 |
 | **環境光條件 (Ambient Light Conditions)** | 晴朗白日 | `clear daylight environment, bright daytime sky, clean distant visibility, neutral outdoor air` | 明亮乾淨的通用白天環境，若畫面有天空或遠景，應呈現清晰日間天空與高能見度空氣狀態。 |
 | **環境光條件 (Ambient Light Conditions)** | 藍天白雲 | `clear blue-sky daylight, saturated azure sky, brilliant white cloud shapes, open airy distance, crisp blue-and-white atmosphere` | 若畫面包含天空、窗外或遠景，強化藍天與白雲的色彩對比，藍色乾淨飽和、白雲明亮純白，空氣通透清澈。 |

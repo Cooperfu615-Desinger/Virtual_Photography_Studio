@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-25
 
-這份文件定義 PAGE1 `D. 攝影與成像` 的新增、修改、合併與測試規則。後續新增攝影師風格、構圖景別、相機視角、拍攝方位、相機 profile、鏡頭焦段、光學效果或底片 / 成像 rendering 時，請先依照本規格檢查責任邊界、prompt 寫法、舊資料相容性與測試覆蓋。
+這份文件定義 PAGE1 `D. 攝影與成像` 的新增、修改、合併與測試規則。後續新增攝影師風格、構圖景別、相機視角、拍攝方位、相機 profile、鏡頭焦段、光圈 / 景深、快門 / 動態殘影、光學效果或底片 / 成像 rendering 時，請先依照本規格檢查責任邊界、prompt 寫法、舊資料相容性與測試覆蓋。
 
 ## 1. 核心原則
 
@@ -14,6 +14,8 @@ D 區只負責「照片怎麼被拍、用什麼攝影語言與成像質感呈現
 - 構圖與視角負責裁切範圍、相機高度、俯仰、傾斜與人物相對鏡頭的方位。
 - 相機 profile 負責器材系統、常見視角、操作感、對焦反應與基礎捕捉特性。
 - 鏡頭焦段負責視角、透視、壓縮、變形、工作距離與焦平面特性。
+- 光圈 / 景深負責 f-stop 語言、焦平面厚薄、前後景離焦程度與主體背景分離。
+- 快門 / 動態殘影負責快門速度語言、動作凍結、背景拖影、主體拖影、全畫面慢門與後簾同步閃光殘影。
 - 光學效果負責鏡頭、濾鏡、散景、flare、暗角、色差、前景遮擋等可見光學現象。
 - 底片 / 成像 rendering 負責色彩、階調、顆粒、黑位、亮部 roll-off、動態範圍與低畫質媒介質地。
 
@@ -28,6 +30,8 @@ Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理�
 | 俯仰角度 `angleId` | `knowledge_base/camera_and_lighting.md` 的 `相機視角 (Angle)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 環繞角度 `orbitId` | `knowledge_base/camera_and_lighting.md` 的 `拍攝方位 (Orbit Angle)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 鏡頭焦段 `lensId` | `knowledge_base/camera_and_lighting.md` 的 `鏡頭焦段 (Focal Length)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 光圈 / 景深 `apertureId` | `knowledge_base/camera_and_lighting.md` 的 `光圈 / 景深 (Aperture & Depth of Field)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 快門 / 動態殘影 `shutterId` | `knowledge_base/camera_and_lighting.md` 的 `快門 / 動態殘影 (Shutter & Motion Blur)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 光學效果 `opticalEffectId` | `knowledge_base/camera_and_lighting.md` 的 `光學效果 (Optical Effects)` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 相機 profile | `webapp/src/lib/engine.js` 的 `CAMERA_SYSTEM_OPTIONS` | code-defined，併入 `filmId` 選項，不走 Markdown sync。 |
 | 相機 / 底片 `filmId` | `CAMERA_SYSTEM_OPTIONS` 加上 `底片與相機模擬 (Camera & Film Simulation)` | UI label 是 `相機 / 底片`，選項包含相機 profile 與 rendering look。 |
@@ -68,6 +72,18 @@ camera system profile, sensor or body trait, common lens perspective, shooting r
 shot on focal length or lens type, field of view, perspective or compression behavior, working distance or distortion cue
 ```
 
+光圈 / 景深英文 prompt 建議格式：
+
+```text
+f-stop-style depth cue, focus plane thickness, foreground or background defocus behavior, subject-background separation
+```
+
+快門 / 動態殘影英文 prompt 建議格式：
+
+```text
+shutter-speed look, frozen or smeared movement behavior, sharp subject or moving subject cue, motion trail or flash-drag result
+```
+
 光學效果英文 prompt 建議格式：
 
 ```text
@@ -102,6 +118,8 @@ film stock or rendering type, color response, contrast curve, grain or sharpness
 - 構圖景別、相機視角、拍攝方位：6-18 English words。
 - 相機 profile：12-24 English words。
 - 鏡頭焦段：12-24 English words。
+- 光圈 / 景深：10-22 English words。
+- 快門 / 動態殘影：10-24 English words。
 - 光學效果：10-26 English words。
 - 底片 / 成像 rendering：10-24 English words。
 
@@ -217,6 +235,28 @@ Ricoh GR compact APS-C camera profile, 28mm-equivalent snap perspective, fast st
 
 ```text
 shot on 135mm long telephoto lens, strong background compression, narrow field of view, flattened spatial layers, pronounced subject isolation
+```
+
+### 7.1 光圈 / 景深與快門 / 動態殘影
+
+光圈 / 景深與快門 / 動態殘影是獨立控制，不應取代鏡頭焦段或光學效果。焦段仍負責透視與視角；光圈負責焦平面與離焦深度；快門負責動作凍結或殘影方式。
+
+維護規則：
+
+- label 可以使用 f-stop 或 shutter speed，但英文 prompt 必須同時描述可見結果，例如 `f/1.4-style ultra shallow depth of field` 或 `1/30s slow-shutter portrait blur`。
+- 光圈不寫相機品牌、底片色彩、場景或人物情緒。
+- 快門可以描述主體清楚、背景拖影、主體拖影、全畫面拖影或後簾同步閃光，但不要指定場景必須是街道、車流或棚拍。
+- `主體動態殘影` 是合法的肖像拍法，不應被自動修正成主體清楚。
+- 這兩個控制預設應保持 `全無`，避免所有舊 prompt 在未明確選擇時突然加入強烈光圈或慢門語言。
+
+範例語氣：
+
+```text
+f/1.4-style ultra shallow depth of field, razor-thin focus plane, strong foreground and background defocus, large soft bokeh discs
+```
+
+```text
+rear-curtain flash look, flash-frozen subject edge with trailing motion blur, sharp strobe imprint over slow-shutter drag
 ```
 
 ## 8. 光學效果

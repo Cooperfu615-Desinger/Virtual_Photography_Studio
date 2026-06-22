@@ -339,6 +339,61 @@ test('lens and optical effects stay concise while foreground occlusion still blo
   assert.doesNotMatch(opticalMist.en, /no environmental fog/i);
 });
 
+test('aperture and shutter controls compose with lens optics in all prompt outputs', () => {
+  assert.equal(control('apertureId').label, '光圈 / 景深');
+  assert.equal(control('shutterId').label, '快門 / 動態殘影');
+
+  assert.deepEqual(
+    options('apertureId').map((item) => item.zh),
+    [
+      '全無',
+      'f/11 深焦清晰',
+      'f/5.6 中等景深',
+      'f/2.8 淺景深',
+      'f/2.0 強背景分離',
+      'f/1.4 極淺景深散景',
+    ]
+  );
+  assert.deepEqual(
+    options('shutterId').map((item) => item.zh),
+    [
+      '全無',
+      '1/1000s 凍結瞬間',
+      '1/250s 日常清晰',
+      '1/60s 背景動態拖影',
+      '1/30s 主體動態殘影',
+      '1/15s 全畫面慢門拖影',
+      '後簾同步閃光殘影',
+    ]
+  );
+
+  const aperture = optionByLabel('apertureId', 'f/1.4 極淺景深散景');
+  const shutter = optionByLabel('shutterId', '1/30s 主體動態殘影');
+  assert.match(aperture.en, /f\/1\.4-style ultra shallow depth of field/);
+  assert.match(aperture.en, /razor-thin focus plane/);
+  assert.match(shutter.en, /1\/30s slow-shutter portrait blur/);
+  assert.match(shutter.en, /visible face and body smear/);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    lensId: optionByLabel('lensId', '85mm 中長焦 (人像鏡皇)').id,
+    apertureId: aperture.id,
+    shutterId: shutter.id,
+    opticalEffectId: optionByLabel('opticalEffectId', '重散景光斑').id,
+  });
+
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*shot on 85mm short telephoto portrait lens/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*f\/1\.4-style ultra shallow depth of field/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*1\/30s slow-shutter portrait blur/);
+  assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*heavy bokeh rendering/);
+  assert.match(prompt.zImagePrompt, /f\/1\.4-style ultra shallow depth of field/);
+  assert.match(prompt.zImagePrompt, /1\/30s slow-shutter portrait blur/);
+  assert.match(prompt.midjourneyPrompt, /f\/1\.4-style ultra shallow depth of field/);
+  assert.match(prompt.midjourneyPrompt, /1\/30s slow-shutter portrait blur/);
+  assert.match(prompt.summary, /鏡頭：[^|]*f\/1\.4 極淺景深散景/);
+  assert.match(prompt.summary, /鏡頭：[^|]*1\/30s 主體動態殘影/);
+});
+
 test('generated prompts expose rendering color grade as a single D-section rendering layer', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

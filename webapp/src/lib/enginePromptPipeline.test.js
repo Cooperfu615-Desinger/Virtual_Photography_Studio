@@ -79,6 +79,7 @@ test('AI prompt uses a legacy minimal natural paragraph with wardrobe, pose, sce
     outfitPresetAId: optionId('outfitPresetAId', '套裝：BDSM 束縛'),
     outfitPresetBId: optionId('outfitPresetBId', '套裝：泳裝度假'),
     duoPoseId: optionId('duoPoseId', '性感互動'),
+    styleId: optionId('styleId', '南・戈爾丁｜私人相簿粗粒子'),
     filmId: optionId('filmId', 'VHS 錄影帶低畫質'),
     opticalEffectId: optionId('opticalEffectId', '漏光效果 Light Leaks'),
   });

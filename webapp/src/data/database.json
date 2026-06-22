@@ -3520,6 +3520,75 @@
         "desc": "變形鏡頭以水平壓縮成像與寬銀幕視野為核心，常帶橢圓散景、水平 flare 與邊緣光學個性。"
       }
     ],
+    "光圈 / 景深 (Aperture & Depth of Field)": [
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定光圈或景深傾向，讓模型依焦段、構圖與場景自行決定焦點深度。"
+      },
+      {
+        "zh": "f/11 深焦清晰",
+        "en": "f/11-style deep focus, broad depth of field, foreground subject and background held readable, crisp scenic detail",
+        "desc": "小光圈深焦語言，前景人物與背景資訊都維持可讀，適合希望環境細節清楚的畫面。"
+      },
+      {
+        "zh": "f/5.6 中等景深",
+        "en": "f/5.6-style balanced depth of field, subject cleanly readable, background gently softened but still recognizable, natural optical separation",
+        "desc": "中等景深，主體清楚，背景略柔但仍可辨識，適合人像與環境都要保留的平衡拍法。"
+      },
+      {
+        "zh": "f/2.8 淺景深",
+        "en": "f/2.8-style shallow depth of field, clear subject plane, soft background defocus, natural portrait separation",
+        "desc": "淺景深人像語言，主體焦平面明確，背景柔化並產生自然分離感。"
+      },
+      {
+        "zh": "f/2.0 強背景分離",
+        "en": "f/2.0-style large-aperture portrait depth, strong subject-background separation, creamy optical falloff, softened foreground and background planes",
+        "desc": "大光圈人像分離感，背景與前景明顯柔化，主體從空間中浮出。"
+      },
+      {
+        "zh": "f/1.4 極淺景深散景",
+        "en": "f/1.4-style ultra shallow depth of field, razor-thin focus plane, strong foreground and background defocus, large soft bokeh discs",
+        "desc": "超大光圈極淺景深，焦平面非常薄，前後景快速離焦，散景光斑更大且更柔。"
+      }
+    ],
+    "快門 / 動態殘影 (Shutter & Motion Blur)": [
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定快門速度或動態殘影，讓模型依場景自行決定是否有 motion blur。"
+      },
+      {
+        "zh": "1/1000s 凍結瞬間",
+        "en": "1/1000s fast-shutter look, frozen movement, crisp subject edges, no motion blur, clean action stillness",
+        "desc": "超高速快門語言，動作被定格，邊緣清楚，不帶可見殘影。"
+      },
+      {
+        "zh": "1/250s 日常清晰",
+        "en": "1/250s handheld shutter look, mostly sharp subject, minimal natural motion blur, stable everyday photographic clarity",
+        "desc": "日常手持清晰快門，主體大多銳利，只保留極少自然動態模糊。"
+      },
+      {
+        "zh": "1/60s 背景動態拖影",
+        "en": "1/60s slow-shutter background smear, sharp central subject, moving surroundings softly blurred, subtle ambient motion trails",
+        "desc": "慢一點的快門感，中央主體保持清楚，周圍移動物件或背景帶輕微拖影。"
+      },
+      {
+        "zh": "1/30s 主體動態殘影",
+        "en": "1/30s slow-shutter portrait blur, subject movement creates visible face and body smear, expressive photographic motion trail",
+        "desc": "主體本身也可被慢門拖出殘影，適合甩頭、轉身、手部動作或實驗肖像。"
+      },
+      {
+        "zh": "1/15s 全畫面慢門拖影",
+        "en": "1/15s slow-shutter drag, subject and surroundings both carry motion smear, dreamy unstable photographic blur, stretched light traces",
+        "desc": "全畫面慢門拖影，主體與環境都帶不穩定殘影，可形成迷幻或 MV 感。"
+      },
+      {
+        "zh": "後簾同步閃光殘影",
+        "en": "rear-curtain flash look, flash-frozen subject edge with trailing motion blur, sharp strobe imprint over slow-shutter drag",
+        "desc": "後簾同步閃光語言，主體邊緣有閃光定格，同時保留慢門拖出的移動殘影。"
+      }
+    ],
     "環境光條件 (Ambient Light Conditions)": [
       {
         "zh": "全無",

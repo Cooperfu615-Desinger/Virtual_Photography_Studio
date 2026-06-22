@@ -200,6 +200,8 @@ export function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'orbitId', locks.orbitId),
     getControlOptionLabel(controls, 'styleId', locks.styleId),
     getControlOptionLabel(controls, 'lensId', locks.lensId),
+    getControlOptionLabel(controls, 'apertureId', locks.apertureId),
+    getControlOptionLabel(controls, 'shutterId', locks.shutterId),
     getControlOptionLabel(controls, 'opticalEffectId', locks.opticalEffectId),
     getControlOptionLabel(controls, 'filmId', locks.filmId),
   ]);

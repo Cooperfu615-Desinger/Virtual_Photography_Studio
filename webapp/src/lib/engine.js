@@ -1122,6 +1122,8 @@ const LEGACY_ENVIRONMENT_MOOD_CATEGORY = '環境光氛 (Environment Mood)';
 const ENVIRONMENT_LIGHT_CATEGORIES = [AMBIENT_LIGHT_CONDITIONS_CATEGORY, LEGACY_ENVIRONMENT_MOOD_CATEGORY];
 const LIGHT_STYLE_CATEGORY = '光線表現 (Light Style)';
 const FOCAL_LENGTH_CATEGORY = '鏡頭焦段 (Focal Length)';
+const APERTURE_CATEGORY = '光圈 / 景深 (Aperture & Depth of Field)';
+const SHUTTER_CATEGORY = '快門 / 動態殘影 (Shutter & Motion Blur)';
 const OPTICAL_EFFECTS_CATEGORY = '光學效果 (Optical Effects)';
 const CAMERA_SYSTEM_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定相機系統，讓模型自行決定。', meta: { tags: ['none'] } },
@@ -1601,6 +1603,8 @@ const LOCK_DEFINITIONS = [
   { key: 'angleId', label: '俯仰角度', category: '相機視角 (Angle)', section: 'core' },
   { key: 'orbitId', label: '環繞角度', category: '拍攝方位 (Orbit Angle)', section: 'core' },
   { key: 'lensId', label: '鏡頭焦段', category: FOCAL_LENGTH_CATEGORY, section: 'core' },
+  { key: 'apertureId', label: '光圈 / 景深', category: APERTURE_CATEGORY, section: 'core' },
+  { key: 'shutterId', label: '快門 / 動態殘影', category: SHUTTER_CATEGORY, section: 'core' },
   { key: 'opticalEffectId', label: '光學效果', category: OPTICAL_EFFECTS_CATEGORY, section: 'core' },
   { key: 'lightingId', label: '環境光條件', category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, section: 'core' },
   { key: 'lightDirectionId', label: '光線表現', category: LIGHT_STYLE_CATEGORY, section: 'core' },
@@ -1761,6 +1765,8 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'angleId', label: 'Angle' },
   { key: 'orbitId', label: 'Orbit' },
   { key: 'lensId', label: 'Lens' },
+  { key: 'apertureId', label: 'Aperture / Depth of Field' },
+  { key: 'shutterId', label: 'Shutter / Motion Blur' },
   { key: 'opticalEffectId', label: 'Optical Effect' },
   { key: 'lightingId', label: 'Ambient Light Conditions' },
   { key: 'lightDirectionId', label: 'Subject Light Style' },
@@ -2748,6 +2754,8 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'angleId',
   'orbitId',
   'lensId',
+  'apertureId',
+  'shutterId',
   'opticalEffectId',
   'lightingId',
   'lightDirectionId',
@@ -3037,6 +3045,7 @@ function inferCameraMeta(category, item) {
   if (category === '相機視角 (Angle)') return inferAngleMeta(category, item);
   if (category === '拍攝方位 (Orbit Angle)') return inferOrbitMeta(category, item);
   if (category === FOCAL_LENGTH_CATEGORY) return inferLensMeta(category, item);
+  if (category === APERTURE_CATEGORY || category === SHUTTER_CATEGORY) return inferEffectMeta(category, item);
   if (ENVIRONMENT_LIGHT_CATEGORIES.includes(category) || category === LIGHT_STYLE_CATEGORY) {
     return inferLightingMeta(category, item);
   }
@@ -3532,6 +3541,8 @@ function buildCatalog(customLibrary = []) {
       angle: getByKey(catalog.camera, '相機視角 (Angle)'),
       orbit: getByKey(catalog.camera, '拍攝方位 (Orbit Angle)'),
       lens: getByKey(catalog.camera, FOCAL_LENGTH_CATEGORY),
+      aperture: getByKey(catalog.camera, APERTURE_CATEGORY),
+      shutter: getByKey(catalog.camera, SHUTTER_CATEGORY),
       lighting: getByKeys(catalog.camera, ENVIRONMENT_LIGHT_CATEGORIES),
       lightDirection: getByKey(catalog.camera, LIGHT_STYLE_CATEGORY),
       film: buildImagingSimulationOptions(getByKey(catalog.camera, CAMERA_FILM_CATEGORY)),
@@ -3943,6 +3954,8 @@ export function getLockControls(customLibrary = []) {
       if (definition.key === 'angleId') options = flatCatalog.angle;
       if (definition.key === 'orbitId') options = flatCatalog.orbit;
       if (definition.key === 'lensId') options = flatCatalog.lens;
+      if (definition.key === 'apertureId') options = flatCatalog.aperture;
+      if (definition.key === 'shutterId') options = flatCatalog.shutter;
       if (definition.key === 'opticalEffectId') options = flatCatalog.effects;
       if (definition.key === 'lightingId') options = flatCatalog.lighting;
       if (definition.key === 'lightDirectionId') options = flatCatalog.lightDirection;
@@ -6114,6 +6127,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const angleLabel = context.angle && !isNoneLikeItem(context.angle) ? context.angle.zh : '-';
   const orbitLabel = context.orbit && !isNoneLikeItem(context.orbit) ? context.orbit.zh : '-';
   const lensLabel = context.lens && !isNoneLikeItem(context.lens) ? context.lens.zh : '-';
+  const apertureLabel = context.aperture && !isNoneLikeItem(context.aperture) ? context.aperture.zh : '-';
+  const shutterLabel = context.shutter && !isNoneLikeItem(context.shutter) ? context.shutter.zh : '-';
   const filmLabel = context.film && !isNoneLikeItem(context.film) ? context.film.zh : '-';
   const lightingLabel = context.lighting && !isNoneLikeItem(context.lighting) ? context.lighting.zh : '-';
   const lightDirectionLabel = context.lightDirection && !isNoneLikeItem(context.lightDirection) ? context.lightDirection.zh : '-';
@@ -6280,7 +6295,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       : summarizeSingleCharacter(),
     wardrobe: summarizeWardrobe(),
     location: locationLabel,
-    camera: joinSummaryParts(framingLabel, angleLabel, orbitLabel, lensLabel, opticalEffectLabel, filmLabel),
+    camera: joinSummaryParts(framingLabel, angleLabel, orbitLabel, lensLabel, apertureLabel, shutterLabel, opticalEffectLabel, filmLabel),
     lighting: joinSummaryParts(lightingLabel, lightDirectionLabel),
   };
 }
@@ -8177,9 +8192,15 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addContextLine('Angle', context.angle, (item) => skeletonText(resolvePromptVariant(item, 'angle', context.subject.count)));
     addContextLine('Orbit Angle', context.orbit, (item) => skeletonText(resolvePromptVariant(item, 'orbit', context.subject.count)));
     addContextLine('Lens', context.lens);
+    addContextLine('Aperture / Depth of Field', context.aperture);
+    addContextLine('Shutter / Motion Blur', context.shutter);
     addContextLine('Optical Effect', context.opticalEffect, (item) => skeletonText(item.en));
   } else if (fixedSetSelfShotMode) {
     addLine('Composition Priority', 'allow imperfect self-shot framing, partial subject crop, close-lens body proximity, and incomplete set visibility when it makes the social snapshot feel real');
+  }
+  if (fixedCompositionSetActive) {
+    addContextLine('Aperture / Depth of Field', context.aperture);
+    addContextLine('Shutter / Motion Blur', context.shutter);
   }
   addContextLine('Camera / Film', film, (item) => skeletonText(item.en));
   if (!specialSubjectMode && !useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
@@ -8320,6 +8341,8 @@ function buildPromptSectionSources(valuesByLabel, context) {
   const cameraValues = getStructuredValues(valuesByLabel, [
     'Photography Style',
     'Lens',
+    'Aperture / Depth of Field',
+    'Shutter / Motion Blur',
     'Optical Effect',
     'Camera / Film',
   ]);
@@ -8722,7 +8745,10 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   };
   const buildCameraText = () => {
     if (fixedCompositionSetActive) {
-      return '';
+      return leadSentence('The camera treatment uses', [
+        context.aperture && !isNoneLikeItem(context.aperture) ? context.aperture.en : '',
+        context.shutter && !isNoneLikeItem(context.shutter) ? context.shutter.en : '',
+      ]);
     }
 
     return leadSentence('The composition uses', [
@@ -8730,6 +8756,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       context.angle && !isNoneLikeItem(context.angle) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
       context.orbit && !isNoneLikeItem(context.orbit) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
       context.lens && !isNoneLikeItem(context.lens) ? context.lens.en : '',
+      context.aperture && !isNoneLikeItem(context.aperture) ? context.aperture.en : '',
+      context.shutter && !isNoneLikeItem(context.shutter) ? context.shutter.en : '',
       opticalEffect && !isNoneLikeItem(opticalEffect) ? (skeletonMode ? sanitizeSkeletonPromptText(opticalEffect.en) : opticalEffect.en) : '',
     ]);
   };
@@ -9079,10 +9107,16 @@ function buildAiMinimalSceneClause(valuesByLabel) {
 
 function buildAiMinimalMoodTail(valuesByLabel) {
   const styleText = getStructuredValues(valuesByLabel, ['Photography Style']).join(', ');
+  const apertureText = getStructuredValues(valuesByLabel, ['Aperture / Depth of Field']).join(', ');
+  const shutterText = getStructuredValues(valuesByLabel, ['Shutter / Motion Blur']).join(', ');
   const imagingText = firstStructuredValue(valuesByLabel, ['Camera / Film']);
   const opticalText = getStructuredValues(valuesByLabel, ['Optical Effect']).join(', ');
-  const cameraText = [styleText, imagingText, opticalText].filter(Boolean).join(', ');
+  const cameraText = [styleText, apertureText, shutterText, imagingText, opticalText].filter(Boolean).join(', ');
+  const artifactSourceText = [apertureText, shutterText, imagingText, opticalText].filter(Boolean).join(', ');
   const cleanedCameraText = cleanAiMinimalFragment(cameraText);
+  const cleanedArtifactSourceText = cleanAiMinimalFragment(artifactSourceText);
+  const cleanedApertureText = cleanAiMinimalFragment(apertureText);
+  const cleanedShutterText = cleanAiMinimalFragment(shutterText);
   const cleanedImagingText = cleanAiMinimalFragment(imagingText);
   const artifacts = [];
   const addArtifact = (value) => {
@@ -9098,19 +9132,19 @@ function buildAiMinimalMoodTail(valuesByLabel) {
     details.push(cleaned);
   };
 
-  if (/vhs|tape/i.test(cleanedCameraText)) {
+  if (/vhs|tape/i.test(cleanedArtifactSourceText)) {
     addArtifact('analog tape noise');
     addArtifact('scanlines');
     addArtifact('color bleeding');
     addArtifact('tracking glitches');
   }
-  if (/grain/i.test(cleanedCameraText)) addArtifact(/heavy grain/i.test(cleanedCameraText) ? 'heavy film grain' : 'film grain');
-  if (/noise/i.test(cleanedCameraText) && !/vhs|tape/i.test(cleanedCameraText)) addArtifact('visible image noise');
-  if (/scratch/i.test(cleanedCameraText)) addArtifact('simulated scratches');
-  if (/dust/i.test(cleanedCameraText)) addArtifact('dust specs');
-  if (/light leak|film-gate leak|exposure burn/i.test(cleanedCameraText)) addArtifact('prominent light leaks');
-  if (/vignette/i.test(cleanedCameraText)) addArtifact('corner vignetting');
-  if (/chromatic aberration|color bleeding/i.test(cleanedCameraText)) addArtifact('color fringing');
+  if (/grain/i.test(cleanedArtifactSourceText)) addArtifact(/heavy grain/i.test(cleanedArtifactSourceText) ? 'heavy film grain' : 'film grain');
+  if (/noise/i.test(cleanedArtifactSourceText) && !/vhs|tape/i.test(cleanedArtifactSourceText)) addArtifact('visible image noise');
+  if (/scratch/i.test(cleanedArtifactSourceText)) addArtifact('simulated scratches');
+  if (/dust/i.test(cleanedArtifactSourceText)) addArtifact('dust specs');
+  if (/light leak|film-gate leak|exposure burn/i.test(cleanedArtifactSourceText)) addArtifact('prominent light leaks');
+  if (/vignette/i.test(cleanedArtifactSourceText)) addArtifact('corner vignetting');
+  if (/chromatic aberration|color bleeding/i.test(cleanedArtifactSourceText)) addArtifact('color fringing');
 
   const moody = /moody|dark|nocturnal|melancholic|introspective|raw|diaristic|moriyama|nan goldin|araki|vhs|tape/i.test(cleanedCameraText);
   const filmLike = /film|analog|kodak|fujifilm|leica|polaroid|ccd|vhs|grain/i.test(cleanedCameraText);
@@ -9121,6 +9155,8 @@ function buildAiMinimalMoodTail(valuesByLabel) {
       : 'captured as an editorial film still';
 
   if (cleanedImagingText) details.push(cleanedImagingText);
+  addDetail(compactAiMinimalFragment(cleanedApertureText, 1));
+  addDetail(compactAiMinimalFragment(cleanedShutterText, 1));
   artifacts.forEach(addDetail);
   if (details.length > 0) return `${base} with ${details.join(', ')}`;
 
@@ -9188,6 +9224,8 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     angleId: context.angle?.id || '',
     orbitId: context.orbit?.id || '',
     lensId: context.lens?.id || '',
+    apertureId: context.aperture?.id || '',
+    shutterId: context.shutter?.id || '',
     opticalEffectId: context.opticalEffect?.id || '',
     lightingId: context.lighting?.id || '',
     lightDirectionId: lightDirection?.id || '',
@@ -9455,6 +9493,10 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedSpecialAction)
   );
   const lens = pickWithLock(runtime.flatCatalog.lens, effectiveLocks.lensId);
+  const apertureLockId = effectiveLocks.apertureId || getControlOptionByZh(lockControls, 'apertureId', '全無')?.id || '';
+  const shutterLockId = effectiveLocks.shutterId || getControlOptionByZh(lockControls, 'shutterId', '全無')?.id || '';
+  const aperture = pickWithLock(runtime.flatCatalog.aperture, apertureLockId);
+  const shutter = pickWithLock(runtime.flatCatalog.shutter, shutterLockId);
   const locationForLightingCompatibility = hasImportedWorldSceneArchitecture ? null : location;
   const lighting = pickWithCompatibleLock(
     runtime.flatCatalog.lighting,
@@ -9493,6 +9535,8 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     angle,
     orbit,
     lens,
+    aperture,
+    shutter,
     opticalEffect,
     fixedCompositionSet,
     fixedSetPosition,
@@ -9528,7 +9572,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
       Location: [location],
       Framing: [framing, angle, orbit].filter(Boolean),
       Lighting: [lighting, lightDirection].filter(Boolean),
-      'Lens & Imaging': [lens, opticalEffect, film].filter(Boolean),
+      'Lens & Imaging': [lens, aperture, shutter, opticalEffect, film].filter(Boolean),
     },
   };
 }
