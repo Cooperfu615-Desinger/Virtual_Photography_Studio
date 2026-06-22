@@ -208,14 +208,17 @@ test('hotel window fixed composition uses shared real-scale set structure and fr
   assert.match(prompt.grokPrompt, /subject placement can vary across one primary zone within the fixed hotel-window set/);
   assert.match(prompt.grokPrompt, /The bed can support the subject or remain a foreground or side architecture anchor/);
   assert.match(prompt.grokPrompt, /Avoid defaulting every result to a centered bed pose/);
-  assert.match(prompt.grokPrompt, /fixed-scene shared structure/);
-  assert.match(prompt.grokPrompt, /use the selected set blueprint as stable scene architecture before the subject/);
-  assert.match(prompt.grokPrompt, /fixed set integrity: preserve the same panoramic glass-wall backdrop, New York skyline depth, bed and bedding foreground, and bedside lamp\/table zone as one stable set layout/);
-  assert.match(prompt.grokPrompt, /real-scale guard: keep believable adult subject-to-bed, subject-to-bedside-table, and subject-to-glass-wall proportions/);
+  assert.match(prompt.grokPrompt, /fixed-set rule: stable selected room architecture/);
+  assert.match(prompt.grokPrompt, /vary only subject placement, pose, crop, camera distance, camera orbit, lighting, and mood inside the same real-scale set/);
+  assert.match(prompt.grokPrompt, /keep adult scale believable against furniture, fixtures, and props/);
+  assert.match(prompt.grokPrompt, /avoid enlarging the subject or shrinking set anchors/);
+  assert.match(prompt.grokPrompt, /preserve anchors: broad panoramic glass wall, New York skyline depth, bed\/bedding foreground, bedside lamp\/table zone/);
+  assert.match(prompt.grokPrompt, /avoid heavy window grids, boxed panes, generic bedroom, plain wall, studio backdrop, outdoor scene, or unrelated hotel room/);
+  assert.doesNotMatch(prompt.grokPrompt, /fixed-scene shared structure|fixed set integrity:|real-scale guard:/);
   assert.ok(
-    prompt.grokPrompt.indexOf('fixed set integrity: preserve the same panoramic glass-wall backdrop') <
-      prompt.grokPrompt.indexOf('real-scale guard: keep believable adult subject-to-bed'),
-    'Expected fixed set integrity to lead the scale guard'
+    prompt.grokPrompt.indexOf('preserve anchors: broad panoramic glass wall') <
+      prompt.grokPrompt.indexOf('avoid heavy window grids'),
+    'Expected set-specific anchors to lead the replacement guard'
   );
   assert.match(prompt.grokPrompt, /urban fatigue presence/);
   assert.doesNotMatch(prompt.grokPrompt, /British vintage room with window-side interior/);
@@ -224,8 +227,9 @@ test('hotel window fixed composition uses shared real-scale set structure and fr
 
   assert.match(prompt.zImagePrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
   assert.match(prompt.zImagePrompt, /subject placement can vary across one primary zone within the fixed hotel-window set/);
-  assert.match(prompt.zImagePrompt, /fixed set integrity: preserve the same panoramic glass-wall backdrop/);
-  assert.match(prompt.zImagePrompt, /real-scale guard: keep believable adult subject-to-bed/);
+  assert.match(prompt.zImagePrompt, /fixed-set rule: stable selected room architecture/);
+  assert.match(prompt.zImagePrompt, /preserve anchors: broad panoramic glass wall/);
+  assert.doesNotMatch(prompt.zImagePrompt, /fixed-scene shared structure|real-scale guard:/);
   assert.doesNotMatch(prompt.zImagePrompt, /1:1 square|16:9|9:16|aspect ratio/i);
 
   assert.match(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set/);
@@ -280,15 +284,17 @@ test('fixed composition prompts reinforce set anchors while allowing self-shot f
   });
 
   assert.doesNotMatch(prompt.grokPrompt, /Fixed Composition Set:|Fixed Set Position:|Fixed Set Capture Mode:|Fixed Set Performance State:|Fixed Set Integrity:/);
-  assert.match(prompt.grokPrompt, /fixed set integrity: preserve the same raw-concrete wall, brown Chesterfield sofa, branch-side area, and coffee-table foreground as one stable set layout/);
-  assert.match(prompt.grokPrompt, /real-scale guard: keep believable adult subject-to-sofa and subject-to-coffee-table proportions/);
-  assert.match(prompt.grokPrompt, /do not enlarge the subject or shrink the sofa/);
-  assert.match(prompt.grokPrompt, /at least one or two selected set anchors must remain recognizable/);
-  assert.match(prompt.grokPrompt, /do not replace the fixed set with a plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room/);
+  assert.match(prompt.grokPrompt, /fixed-set rule: stable selected room architecture/);
+  assert.match(prompt.grokPrompt, /preserve anchors: raw-concrete wall, brown Chesterfield sofa, branch-side area, coffee-table foreground/);
+  assert.match(prompt.grokPrompt, /avoid enlarging the subject or shrinking set anchors/);
+  assert.match(prompt.grokPrompt, /self-shot crops may hide set parts, but at least one selected anchor must remain readable/);
+  assert.match(prompt.grokPrompt, /avoid plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room/);
+  assert.doesNotMatch(prompt.grokPrompt, /fixed set integrity:|real-scale guard:|at least one or two selected set anchors/);
   assert.match(prompt.grokPrompt, /dreamlike dazed presence/);
 
-  assert.match(prompt.zImagePrompt, /at least one or two selected set anchors must remain recognizable/);
-  assert.match(prompt.zImagePrompt, /real-scale guard: keep believable adult subject-to-sofa and subject-to-coffee-table proportions/);
+  assert.match(prompt.zImagePrompt, /self-shot crops may hide set parts, but at least one selected anchor must remain readable/);
+  assert.match(prompt.zImagePrompt, /preserve anchors: raw-concrete wall, brown Chesterfield sofa/);
+  assert.doesNotMatch(prompt.zImagePrompt, /real-scale guard:/);
   assert.match(prompt.midjourneyPrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.midjourneyPrompt, /large brown vintage Chesterfield leather sofa/);
 });
@@ -324,12 +330,12 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.match(prompt.grokPrompt, /The bathtub can contain the subject or remain the central fixture anchor/);
   assert.match(prompt.grokPrompt, /Avoid defaulting every result to a centered soaking pose/);
   assert.match(prompt.grokPrompt, /selected camera angle and orbit may vary the viewpoint around the same fixed bathtub set/);
-  assert.match(prompt.grokPrompt, /fixed-scene shared structure/);
-  assert.match(prompt.grokPrompt, /use the selected set blueprint as stable scene architecture before the subject/);
-  assert.match(prompt.grokPrompt, /fixed set integrity: preserve the same horizontal clawfoot bathtub, wet floor plane, aged tile wall, sink-and-mirror side zone, and bath-prop foreground as one stable set layout/);
-  assert.match(prompt.grokPrompt, /real-scale guard: keep believable adult subject-to-bathtub, sink, mirror, stool, and wet-floor proportions/);
-  assert.match(prompt.grokPrompt, /no camera from inside the tub/);
-  assert.match(prompt.grokPrompt, /no tight crop that removes the tub body or wet floor plane/);
+  assert.match(prompt.grokPrompt, /fixed-set rule: stable selected room architecture/);
+  assert.match(prompt.grokPrompt, /preserve anchors: horizontal clawfoot bathtub, visible wet floor, aged tile wall, sink\/mirror side zone, bath-prop foreground/);
+  assert.match(prompt.grokPrompt, /avoid shower room, pool, spa lobby, bedroom, plain studio backdrop, unrelated bathroom, inside-tub POV, low tub-edge POV, dutch tilt, or tight crop losing the tub body or wet floor/);
+  assert.doesNotMatch(prompt.grokPrompt, /fixed-scene shared structure|fixed set integrity:|real-scale guard:/);
+  assert.match(prompt.grokPrompt, /inside-tub POV/);
+  assert.match(prompt.grokPrompt, /tight crop losing the tub body or wet floor/);
   assert.doesNotMatch(prompt.grokPrompt, /no diagonal corner view/);
   assert.doesNotMatch(prompt.grokPrompt, /no 3\/4 bathroom angle/);
   assert.doesNotMatch(prompt.grokPrompt, /no side-wall perspective/);
@@ -346,7 +352,9 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.match(prompt.zImagePrompt, /visible wet tile floor beneath and in front of the bathtub/);
   assert.match(prompt.zImagePrompt, /fully soaked from head to toe/);
   assert.match(prompt.zImagePrompt, /subject placement can vary across one primary zone within the fixed bathtub set/);
-  assert.match(prompt.zImagePrompt, /real-scale guard: keep believable adult subject-to-bathtub, sink, mirror, stool, and wet-floor proportions/);
+  assert.match(prompt.zImagePrompt, /fixed-set rule: stable selected room architecture/);
+  assert.match(prompt.zImagePrompt, /preserve anchors: horizontal clawfoot bathtub, visible wet floor/);
+  assert.doesNotMatch(prompt.zImagePrompt, /real-scale guard:/);
   assert.match(prompt.midjourneyPrompt, /visible wet tile floor beneath and in front of the bathtub/);
   assert.match(prompt.midjourneyPrompt, /subject placement can vary across one primary zone within the fixed bathtub set/);
 });
