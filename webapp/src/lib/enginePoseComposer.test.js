@@ -111,7 +111,7 @@ test('pose composer exposes model natural decision options', () => {
   assertHeadOption('模型自然決定', /let the image model choose a natural head angle/);
 });
 
-test('model natural decision options stay directive-based outside the AI prompt', () => {
+test('model natural decision options are omitted from every prompt version', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '1',
@@ -122,19 +122,13 @@ test('model natural decision options stay directive-based outside the AI prompt'
     poseHeadId: optionId('poseHeadId', '模型自然決定'),
   });
 
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
-    assert.match(text, /She is standing\./);
-    assert.match(text, /Let the image model choose a clearly varied non-default physically believable body arrangement/);
-    assert.match(text, /within the selected pose base/);
-    assert.match(text, /distinct weight shift limb angles torso orientation and asymmetry/);
-    assert.match(text, /Let the image model choose natural varied hand placement/);
-    assert.match(text, /without defaulting to stiff arms at the sides/);
-    assert.match(text, /Let the image model choose a natural head angle/);
-    assert.doesNotMatch(text, /with let the image model choose/);
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /standing/i);
+    assert.doesNotMatch(text, /Let the image model choose/i);
+    assert.doesNotMatch(text, /within the selected pose base/i);
+    assert.doesNotMatch(text, /distinct weight shift limb angles torso orientation and asymmetry/i);
+    assert.doesNotMatch(text, /without defaulting to stiff arms at the sides/i);
   }
-  assert.match(prompt.midjourneyPrompt, /standing/);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /Let the image model choose/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /within the selected pose base/i);
 });
 
 test('pose composer exposes expressive hand interaction batch', () => {

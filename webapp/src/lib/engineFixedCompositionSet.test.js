@@ -256,8 +256,9 @@ test('self-shot fixed composition mode relaxes set, focus, face, and wardrobe co
   assert.match(prompt.grokPrompt, /fixed set may remain only as recognizable background fragments/);
   assert.match(prompt.grokPrompt, /lazy drained presence/);
   assert.match(prompt.grokPrompt, /flight attendant uniform outfit/);
-  assert.match(prompt.grokPrompt, /Let the image model choose a clearly varied non-default physically believable body arrangement/);
-  assert.match(prompt.grokPrompt, /distinct weight shift limb angles torso orientation and asymmetry/);
+  assert.match(prompt.grokPrompt, /She is sitting\./);
+  assert.doesNotMatch(prompt.grokPrompt, /Let the image model choose/i);
+  assert.doesNotMatch(prompt.grokPrompt, /distinct weight shift limb angles torso orientation and asymmetry/i);
   assert.doesNotMatch(prompt.grokPrompt, /avoid collapsing into a face-only crop/);
   assert.doesNotMatch(prompt.grokPrompt, /clear facial readability/);
   assert.doesNotMatch(prompt.grokPrompt, /preserve the selected environment as a visible, recognizable background/);

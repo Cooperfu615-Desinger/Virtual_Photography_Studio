@@ -10,6 +10,15 @@ function optionId(controlKey, zh) {
   return option.id;
 }
 
+function createAllNoneLocks() {
+  const locks = { ...createEmptyLocks() };
+  getLockControls().forEach((control) => {
+    const noneOption = control.options?.find((entry) => entry.zh === '全無');
+    if (noneOption) locks[control.key] = noneOption.id;
+  });
+  return locks;
+}
+
 test('Gpt prompt uses natural structured sections for GPT Image', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -187,6 +196,20 @@ test('AI prompt includes the complete imaging simulation description', () => {
     prompt.midjourneyPrompt,
     /high-acutance snapshot rendering, snap-focus clarity, contrasty black levels, crisp APS-C-like color response, candid compact-camera texture/i
   );
+});
+
+test('none selections stay silent across all final prompt outputs', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
+  });
+
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /flight attendant uniform/i);
+    assert.doesNotMatch(text, /\bnone\b/i);
+    assert.doesNotMatch(text, /全無/);
+  }
 });
 
 test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt outputs', () => {

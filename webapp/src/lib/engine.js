@@ -4677,24 +4677,14 @@ function isModelNaturalPoseComposerOption(option) {
   return Boolean(option?.id?.startsWith('model-natural-'));
 }
 
-function toPoseComposerDirective(value) {
-  if (!value) return '';
-  const trimmed = value.trim();
-  return ensureTerminalPeriod(`${trimmed.charAt(0).toUpperCase()}${trimmed.slice(1)}`);
-}
-
 function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head }) {
   const anchorPhrase = getPoseComposerAnchorPhrase(anchor, base);
   const opening = anchorPhrase || getPoseComposerBasePhrase(base);
   const anchorEffect = getPoseComposerAnchorEffect(anchor, base);
   const details = [];
-  const directives = [];
   const addOptionDetail = (option) => {
     if (!option?.en) return;
-    if (isModelNaturalPoseComposerOption(option)) {
-      directives.push(toPoseComposerDirective(option.en));
-      return;
-    }
+    if (isModelNaturalPoseComposerOption(option)) return;
     details.push(option.en);
   };
 
@@ -4707,7 +4697,7 @@ function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head }
     ? `She is ${opening}.`
     : `She is ${opening} with ${details.join('; ')}.`;
 
-  return [baseSentence, ...directives].filter(Boolean).join(' ');
+  return baseSentence;
 }
 
 function buildPoseComposerItem(context) {
@@ -6210,6 +6200,15 @@ function isNoneLikeItem(item) {
     en.includes('bare legs') ||
     en === 'none'
   );
+}
+
+function isNoneLikePromptText(value) {
+  const text = stripMarkdown(value || '')
+    .replace(/[.!?]+$/g, '')
+    .trim()
+    .toLowerCase();
+
+  return text === 'none' || text === '全無';
 }
 
 function buildImagingSimulationOptions(filmOptions = []) {
@@ -7797,7 +7796,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   };
   const lines = [];
   const addLine = (label, value) => {
-    if (!value) return;
+    if (!value || isNoneLikePromptText(value)) return;
     lines.push(`${label}: ${ensureTerminalPeriod(value)}`);
   };
   const addItemLine = (label, item) => {
@@ -8378,7 +8377,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       ),
       context.subject.count === 2
         ? [buildRoleHasPrompt(characterSlots.bodyTypeA, 'woman 1'), buildRoleHasPrompt(characterSlots.bodyTypeB, 'woman 2')].filter(Boolean).join(', ')
-        : characterSlots.bodyType?.en,
+        : (characterSlots.bodyType && !isNoneLikeItem(characterSlots.bodyType) ? characterSlots.bodyType.en : ''),
       context.subject.count === 2
         ? [
             characterSlots.facialFeaturesA && !isNoneLikeItem(characterSlots.facialFeaturesA)
@@ -8388,7 +8387,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
               ? `woman 2 has ${characterSlots.facialFeaturesB.en}`
               : '',
           ].filter(Boolean).join(', ')
-        : (!useCharacterIdentityAnchor ? characterSlots.facialFeatures?.en : ''),
+        : (!useCharacterIdentityAnchor && characterSlots.facialFeatures && !isNoneLikeItem(characterSlots.facialFeatures) ? characterSlots.facialFeatures.en : ''),
       context.subject.count === 2
         ? [
             characterSlots.hairstyleA && !isNoneLikeItem(characterSlots.hairstyleA) ? characterSlots.hairstyleA.en : '',
@@ -8403,10 +8402,10 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       headAccessoryText,
       context.subject.count === 2
         ? [buildRoleHasPrompt(characterSlots.skinDetailsA, 'woman 1'), buildRoleHasPrompt(characterSlots.skinDetailsB, 'woman 2')].filter(Boolean).join(', ')
-        : (!useCharacterIdentityAnchor ? characterSlots.skinDetails?.en : ''),
+        : (!useCharacterIdentityAnchor && characterSlots.skinDetails && !isNoneLikeItem(characterSlots.skinDetails) ? characterSlots.skinDetails.en : ''),
       context.subject.count === 2
         ? (characterSlots.duoExpression && !isNoneLikeItem(characterSlots.duoExpression) ? characterSlots.duoExpression.en : '')
-        : (characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : ''),
+        : (characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : ''),
       characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
       context.subject.count === 2
         ? (characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.en : '')
@@ -8620,18 +8619,18 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     }
 
     return leadSentence('The composition uses', [
-      context.framing ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : resolvePromptVariant(context.framing, 'framing', context.subject.count)) : '',
-      context.angle ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
-      context.orbit ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
-      context.lens?.en,
-      skeletonMode ? sanitizeSkeletonPromptText(opticalEffect?.en) : opticalEffect?.en,
+      context.framing && !isNoneLikeItem(context.framing) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : resolvePromptVariant(context.framing, 'framing', context.subject.count)) : '',
+      context.angle && !isNoneLikeItem(context.angle) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
+      context.orbit && !isNoneLikeItem(context.orbit) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
+      context.lens && !isNoneLikeItem(context.lens) ? context.lens.en : '',
+      opticalEffect && !isNoneLikeItem(opticalEffect) ? (skeletonMode ? sanitizeSkeletonPromptText(opticalEffect.en) : opticalEffect.en) : '',
     ]);
   };
   const buildPhotographyStyleText = () => joinSentenceParts([
     context.style && !isNoneLikeItem(context.style) ? (skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : buildPhotographyStylePrompt(context.style)) : '',
   ]);
   const buildRenderingText = () => joinSentenceParts([
-    skeletonMode ? sanitizeSkeletonPromptText(film?.en) : film?.en,
+    film && !isNoneLikeItem(film) ? (skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
     skeletonMode
       ? 'natural photographic detail, coherent anatomical structure, clear skeletal structure readability, realistic spatial depth'
       : specialSubjectMode
