@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
+import { createEmptyLocks, generatePrompts, getLockControls, getSceneDependentOptions } from './engine.js';
 
 function control(key) {
   const entry = getLockControls().find((item) => item.key === key);
@@ -39,6 +39,18 @@ function assertAnchorOption(zh, base, expectedEnglish) {
   assert.ok(option, `Expected anchor option ${zh}`);
   assert.equal(option.base, base);
   assert.match(option.en, expectedEnglish);
+}
+
+function assertAnchorOptionForBases(zh, bases, expectedEnglish) {
+  const option = control('poseAnchorId').options.find((entry) => entry.zh === zh);
+  assert.ok(option, `Expected anchor option ${zh}`);
+  bases.forEach((base) => assert.ok(option.bases.includes(base), `${zh} should support ${base}`));
+  assert.match(option.en, expectedEnglish);
+}
+
+function scenePoseAnchorOptions(locationZh) {
+  const locationId = locationZh ? optionId('locationId', locationZh) : '';
+  return getSceneDependentOptions([], { ...createEmptyLocks(), locationId }).poseAnchorOptions;
 }
 
 test('pose composer controls expose base arrangement hand and anchor options', () => {
@@ -94,6 +106,120 @@ test('scene-appropriate sitting chair anchor is preserved in all prompt versions
     assert.match(text, /chair that naturally fits the current scene/);
     assert.match(text, /chosen to match the environment/);
     assert.doesNotMatch(text, /ornate single velvet armchair|bar stool|high-back chair/);
+  }
+});
+
+test('pose composer exposes water-scene-only contact anchors', () => {
+  assertAnchorOptionForBases('在水中', ['standing', 'sitting', 'squatting', 'kneeling', 'lying'], /water contact pose/);
+  assertAnchorOptionForBases('靠在水邊支撐', ['standing', 'sitting', 'squatting', 'kneeling', 'lying'], /water edge support pose/);
+
+  const waterAnchorOptions = control('poseAnchorId').options
+    .filter((option) => ['在水中', '靠在水邊支撐'].includes(option.zh));
+  waterAnchorOptions.forEach((option) => {
+    assert.equal(option.meta.requiresWaterScene, true);
+  });
+});
+
+test('water contact anchors only appear for water-capable scenes', () => {
+  const waterSceneLabels = [
+    '戶外：飯店度假村泳池露台',
+    '戶外：金色海灘與浪線',
+    '戶外：清澈海灣岩岸',
+    '戶外：岩洞感海灣淺灘',
+  ];
+
+  for (const label of waterSceneLabels) {
+    const options = scenePoseAnchorOptions(label);
+    assert.ok(Array.isArray(options), 'Expected scene-dependent pose anchor options');
+    assert.ok(options.some((option) => option.zh === '在水中'), `${label} should show in-water anchor`);
+    assert.ok(options.some((option) => option.zh === '靠在水邊支撐'), `${label} should show water-edge support anchor`);
+  }
+
+  const noSceneOptions = scenePoseAnchorOptions('');
+  assert.ok(Array.isArray(noSceneOptions), 'Expected scene-dependent pose anchor options without a location');
+  assert.ok(!noSceneOptions.some((option) => option.zh === '在水中'));
+  assert.ok(!noSceneOptions.some((option) => option.zh === '靠在水邊支撐'));
+
+  const indoorOptions = scenePoseAnchorOptions('室內：純潔白幕');
+  assert.ok(!indoorOptions.some((option) => option.zh === '在水中'));
+  assert.ok(!indoorOptions.some((option) => option.zh === '靠在水邊支撐'));
+});
+
+test('water contact anchors adapt to pose base and selected water scene in all prompt versions', () => {
+  const cases = [
+    {
+      locationZh: '戶外：飯店度假村泳池露台',
+      baseZh: '站姿',
+      arrangementZh: '自然站姿',
+      anchorZh: '在水中',
+      expected: [/standing waist-deep in clear pool water/, /visible waterline across the body/],
+    },
+    {
+      locationZh: '戶外：飯店度假村泳池露台',
+      baseZh: '站姿',
+      arrangementZh: '自然站姿',
+      anchorZh: '靠在水邊支撐',
+      expected: [/tiled pool edge/, /forearms or hands supported on that edge/],
+    },
+    {
+      locationZh: '戶外：金色海灘與浪線',
+      baseZh: '蹲姿',
+      arrangementZh: '自然蹲姿',
+      anchorZh: '在水中',
+      expected: [/squatting low in clear shallow seawater/, /natural ripples around the torso and limbs/],
+    },
+    {
+      locationZh: '戶外：岩洞感海灣淺灘',
+      baseZh: '躺姿',
+      arrangementZh: '側躺屈膝',
+      anchorZh: '在水中',
+      expected: [/floating or half-floating on the clear shallow cove water surface/, /clothing remains complete and non-transparent/],
+    },
+    {
+      locationZh: '戶外：清澈海灣岩岸',
+      baseZh: '躺姿',
+      arrangementZh: '趴臥手肘撐起',
+      anchorZh: '靠在水邊支撐',
+      expected: [/wet rock ledge at the cove shoreline/, /lower body close to the water/],
+    },
+  ];
+
+  for (const { locationZh, baseZh, arrangementZh, anchorZh, expected } of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      locationId: optionId('locationId', locationZh),
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      poseBaseId: optionId('poseBaseId', baseZh),
+      poseArrangementId: optionId('poseArrangementId', arrangementZh),
+      poseHandId: optionId('poseHandId', '雙手自然垂放'),
+      poseAnchorId: optionId('poseAnchorId', anchorZh),
+      poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+    });
+
+    assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', anchorZh));
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      expected.forEach((pattern) => assert.match(text, pattern));
+    }
+  }
+});
+
+test('water contact anchors are ignored outside selected water scenes', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    locationId: optionId('locationId', '室內：純潔白幕'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '雙手自然垂放'),
+    poseAnchorId: optionId('poseAnchorId', '在水中'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  });
+
+  assert.equal(prompt.selection.poseAnchorId, 'none');
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.doesNotMatch(text, /clear pool water|clear shallow seawater|waterline across the body|floating or half-floating/);
   }
 });
 

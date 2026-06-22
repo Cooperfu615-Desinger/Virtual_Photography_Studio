@@ -1330,6 +1330,20 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
   { id: 'lying-rug', base: 'lying', zh: '躺在地毯上', en: 'lying on a rug' },
   { id: 'lying-bed-edge', base: 'lying', zh: '半躺在床邊', en: 'reclining along the edge of a bed' },
   {
+    id: 'water-immersed',
+    bases: ['standing', 'sitting', 'squatting', 'kneeling', 'lying'],
+    zh: '在水中',
+    en: 'scene-gated water contact pose',
+    meta: { tags: ['water_scene_anchor'], requiresWaterScene: true },
+  },
+  {
+    id: 'water-edge-support',
+    bases: ['standing', 'sitting', 'squatting', 'kneeling', 'lying'],
+    zh: '靠在水邊支撐',
+    en: 'scene-gated water edge support pose',
+    meta: { tags: ['water_scene_anchor'], requiresWaterScene: true },
+  },
+  {
     id: 'shared-bathtub',
     bases: ['standing', 'sitting', 'squatting', 'lying'],
     zh: '浴缸',
@@ -4411,6 +4425,48 @@ function lightDirectionSupportsScene(lightDirection, framing, location, lighting
   return true;
 }
 
+function getWaterPoseSceneType(location) {
+  if (!location || isNoneLikeItem(location)) return '';
+
+  const tags = new Set(location.meta?.tags || []);
+  const haystack = toHaystack(location.zh || '', location.en || '', location.desc || '');
+  const hasWaterfrontContext = tags.has('waterfront') || hasAny(haystack, [
+    'poolside',
+    'swimming pool',
+    'beach',
+    'shoreline',
+    'waterline',
+    'seawater',
+    'cove',
+    '泳池',
+    '海灘',
+    '海岸線',
+    '海灣',
+    '淺灘',
+    '水線',
+  ]);
+  if (!hasWaterfrontContext) return '';
+
+  if (hasAny(haystack, ['poolside', 'swimming pool', 'resort pool', 'pool edge', '泳池'])) return 'pool';
+  if (hasAny(haystack, ['rocky', 'cove', 'rock ledge', 'rock wall', 'cliff', 'coastal rock', '岩岸', '岩洞', '海灣', '淺灘'])) return 'cove';
+  if (hasAny(haystack, ['beach', 'sandy', 'wet sand', 'wave line', 'receding wave', '海灘', '沙灘', '浪線'])) return 'beach';
+  return '';
+}
+
+function isWaterPoseLocation(location) {
+  return Boolean(getWaterPoseSceneType(location));
+}
+
+function poseComposerAnchorAllowedByScene(option, location, lockedLocationId = '') {
+  if (!option?.meta?.requiresWaterScene) return true;
+  if (!lockedLocationId) return false;
+  return isWaterPoseLocation(location);
+}
+
+function getScenePoseAnchorOptions(location, lockedLocationId = '') {
+  return POSE_COMPOSER_ANCHOR_OPTIONS.filter((option) => poseComposerAnchorAllowedByScene(option, location, lockedLocationId));
+}
+
 export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
   const runtime = buildCatalog(customLibrary);
   const locks = normalizeLocks(rawLocks);
@@ -4435,7 +4491,9 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
     return lightDirectionSupportsScene(item, framing, location, lightingForDirection);
   });
 
-  return { locationOptions, lightingOptions, lightDirectionOptions };
+  const poseAnchorOptions = getScenePoseAnchorOptions(location, locks.locationId);
+
+  return { locationOptions, lightingOptions, lightDirectionOptions, poseAnchorOptions };
 }
 
 function styleFitsLocation(style, location) {
@@ -4642,8 +4700,50 @@ function poseComposerOptionMatchesBase(option, baseId) {
   return false;
 }
 
-function getPoseComposerAnchorPhrase(anchor, base) {
+function getWaterPoseBody(location) {
+  const sceneType = getWaterPoseSceneType(location);
+  if (sceneType === 'pool') return 'clear pool water';
+  if (sceneType === 'cove') return 'clear shallow cove water';
+  if (sceneType === 'beach') return 'clear shallow seawater';
+  return 'clear shallow water';
+}
+
+function getWaterPoseEdge(location) {
+  const sceneType = getWaterPoseSceneType(location);
+  if (sceneType === 'pool') return 'tiled pool edge';
+  if (sceneType === 'cove') return 'wet rock ledge at the cove shoreline';
+  if (sceneType === 'beach') return 'wet sand shoreline at the waterline';
+  return 'scene-appropriate water edge';
+}
+
+function getWaterImmersedAnchorPhrase(base, location) {
+  const waterBody = getWaterPoseBody(location);
+  const phrases = {
+    standing: `standing waist-deep in ${waterBody}`,
+    sitting: `sitting low in ${waterBody} with the water surface around the hips and waist`,
+    kneeling: `kneeling in ${waterBody} with the water surface around the thighs`,
+    squatting: `squatting low in ${waterBody}`,
+    lying: `floating or half-floating on the ${waterBody} surface`,
+  };
+  return phrases[base?.id] || `in ${waterBody}`;
+}
+
+function getWaterEdgeSupportAnchorPhrase(base, location) {
+  const waterEdge = getWaterPoseEdge(location);
+  const phrases = {
+    standing: `standing in shallow water beside the ${waterEdge} with forearms or hands supported on that edge`,
+    sitting: `sitting at the ${waterEdge} with hands or forearms supported on that edge`,
+    kneeling: `kneeling at the ${waterEdge} with forearms or hands supported on that edge`,
+    squatting: `squatting low at the ${waterEdge} with one or both hands supported on that edge`,
+    lying: `half-reclining at the ${waterEdge} with forearms supported on that edge and lower body close to the water`,
+  };
+  return phrases[base?.id] || `supported at the ${waterEdge}`;
+}
+
+function getPoseComposerAnchorPhrase(anchor, base, location) {
   if (!anchor || !base) return '';
+  if (anchor.id === 'water-immersed') return getWaterImmersedAnchorPhrase(base, location);
+  if (anchor.id === 'water-edge-support') return getWaterEdgeSupportAnchorPhrase(base, location);
   return anchor.phraseByBase?.[base.id] || anchor.en || '';
 }
 
@@ -4659,7 +4759,13 @@ function getPoseComposerBasePhrase(base) {
 }
 
 function getPoseComposerAnchorEffect(anchor, base) {
-  if (anchor?.id !== 'shared-bathtub' || !base) return '';
+  if (!anchor || !base) return '';
+
+  if (anchor.id === 'water-immersed' || anchor.id === 'water-edge-support') {
+    return 'water-contact realism with a visible waterline across the body, natural ripples around the torso and limbs, wet skin and damp fabric edges, clothing remains complete and non-transparent';
+  }
+
+  if (anchor.id !== 'shared-bathtub') return '';
 
   const waterContactEffects = {
     sitting: 'water-contact realism on the lower body and garment edges where they meet the bath water, clothing remains complete and non-transparent, visible water sheen and droplets, darker damp fabric tones, heavier wet folds',
@@ -4674,8 +4780,8 @@ function isModelNaturalPoseComposerOption(option) {
   return Boolean(option?.id?.startsWith('model-natural-'));
 }
 
-function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head }) {
-  const anchorPhrase = getPoseComposerAnchorPhrase(anchor, base);
+function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head, location }) {
+  const anchorPhrase = getPoseComposerAnchorPhrase(anchor, base, location);
   const opening = anchorPhrase || getPoseComposerBasePhrase(base);
   const anchorEffect = getPoseComposerAnchorEffect(anchor, base);
   const details = [];
@@ -4704,16 +4810,20 @@ function buildPoseComposerItem(context) {
   if (!base) return null;
 
   const matchesBase = (option) => poseComposerOptionMatchesBase(option, base.id);
+  const matchesAnchor = (option) => (
+    matchesBase(option)
+    && poseComposerAnchorAllowedByScene(option, context.location, context.locks?.locationId)
+  );
   const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase);
   const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
   const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
-  const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesBase);
+  const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesAnchor);
   const parts = [base, arrangement, handPose, head, anchor].filter(Boolean);
 
   return {
     id: `character:姿勢組合器-pose-composer:${parts.map((part) => part.id).join(':')}`,
     zh: parts.map((part) => part.zh).join(' + '),
-    en: buildPoseComposerSentence({ base, arrangement, handPose, anchor, head }),
+    en: buildPoseComposerSentence({ base, arrangement, handPose, anchor, head, location: context.location }),
     desc: '由姿勢組合器生成的組合姿勢。',
     meta: {
       tags: ['pose_composer'],

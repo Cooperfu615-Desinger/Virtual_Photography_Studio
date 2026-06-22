@@ -1472,9 +1472,16 @@ export default function App() {
   );
   const characterLockControls = useMemo(
     () => {
-      const specialSubjectControl = lockControls.find((control) => control.key === 'specialSubjectId');
+      const sceneAwareLockControls = lockControls.map((control) => {
+        if (control.key !== 'poseAnchorId') return control;
+        return {
+          ...control,
+          options: sceneDependentOptions.poseAnchorOptions || control.options,
+        };
+      });
+      const specialSubjectControl = sceneAwareLockControls.find((control) => control.key === 'specialSubjectId');
       const selectedSpecialSubject = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
-      const characterProfileControl = lockControls.find((control) => control.key === 'characterProfileId');
+      const characterProfileControl = sceneAwareLockControls.find((control) => control.key === 'characterProfileId');
       const selectedCharacterProfile = characterProfileControl?.options?.find((option) => option.id === locks.characterProfileId);
       const isSpecialSubject = Boolean(selectedSpecialSubject?.specialSubject);
       const isCharacterProfile = Boolean(selectedCharacterProfile?.specialSubject);
@@ -1482,7 +1489,7 @@ export default function App() {
       const isAndroidSubject = selectedSpecialSubject?.specialSubject === 'android';
 
       return sortControls(
-        lockControls.filter((control) => {
+        sceneAwareLockControls.filter((control) => {
           if (isDedicatedSubject) {
             return [
               'specialSubjectId',
@@ -1506,7 +1513,7 @@ export default function App() {
         CHARACTER_CONTROL_ORDER
       );
     },
-    [lockControls, locks.characterProfileId, locks.specialSubjectId, locks.subjectCount]
+    [lockControls, locks.characterProfileId, locks.specialSubjectId, locks.subjectCount, sceneDependentOptions.poseAnchorOptions]
   );
   const wardrobeLockControls = useMemo(
     () => {
@@ -1633,6 +1640,7 @@ export default function App() {
       const allowedLocationIds = new Set(nextSceneDependentOptions.locationOptions.map((option) => option.id));
       const allowedLightingIds = new Set(nextSceneDependentOptions.lightingOptions.map((option) => option.id));
       const allowedDirectionIds = new Set(nextSceneDependentOptions.lightDirectionOptions.map((option) => option.id));
+      const allowedPoseAnchorIds = new Set((nextSceneDependentOptions.poseAnchorOptions || []).map((option) => option.id));
 
       if (next.locationId && !allowedLocationIds.has(next.locationId)) {
         next.locationId = '';
@@ -1644,6 +1652,10 @@ export default function App() {
 
       if (next.lightDirectionId && !allowedDirectionIds.has(next.lightDirectionId)) {
         next.lightDirectionId = '';
+      }
+
+      if (next.poseAnchorId && !allowedPoseAnchorIds.has(next.poseAnchorId)) {
+        next.poseAnchorId = 'none';
       }
 
       const poseIsActive = Boolean(next.poseId) && !isNoneSelected('poseId', next.poseId, lockControls);
