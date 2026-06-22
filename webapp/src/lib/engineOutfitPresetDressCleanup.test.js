@@ -296,32 +296,49 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
   assert.equal(skirtPrompt.selection.outfitPresetId, skirtOutfit.id);
 });
 
-test('gothic lingerie outfit presets 52 to 54 preserve color and trim anchors', () => {
+test('gothic lingerie outfit presets 52 to 54 stay recolorable while preserving trim anchors', () => {
   [
     [
       '套裝：粉紅哥德兔耳吊帶束身',
-      /soft pink gothic bunny corset outfit/i,
-      /white bunny-ear headband/i,
-      /black lace inner panels/i,
-      /black cross appliques/i,
-      /matching pink garter lace thigh-high stockings/i,
+      /gothic bunny corset outfit/i,
+      /bunny-ear headband with lace inner panels/i,
+      /one bunny ear standing upright and the other half-drooping/i,
+      /bow accents placed clearly on both the left and right sides of the headband/i,
+      /shaped cup seams and vertical boning lines/i,
+      /cross appliques/i,
+      /matching main-color garter lace thigh-high stockings/i,
+      /leather neck choker with metal cross pendant/i,
+      /main fabric color controlled by outfit primary color/i,
+      /lace ribbons garter straps and trims controlled by outfit contrast color/i,
       'reference/wardrobe/outfit-presets/52_粉紅哥德兔耳吊帶束身.png',
     ],
     [
       '套裝：米白緞面蕾絲馬甲短裙',
-      /ivory satin corset mini outfit/i,
-      /black lace bust trim/i,
-      /pink front lace-up cord/i,
+      /satin corset mini outfit/i,
+      /strapless underwire cup corset with structured cup seams/i,
+      /vertical boning channels/i,
+      /lace bust trim/i,
+      /front center lace-up cord threaded through small eyelets/i,
+      /tiny bow accent at the lower lacing point/i,
       /flared satin peplum overskirt/i,
-      /tiny black handbag/i,
+      /lace micro-skirt layer visible underneath the peplum/i,
+      /scalloped lace mini hem/i,
+      /satin base controlled by outfit primary color/i,
+      /lace cord eyelet and bow details controlled by outfit contrast color/i,
       'reference/wardrobe/outfit-presets/53_米白緞面蕾絲馬甲短裙.png',
     ],
     [
       '套裝：哥德圖示包臀迷你裙',
-      /white fitted gothic graphic mini-dress outfit/i,
-      /black lace sleeve cuffs and hem trim/i,
-      /black cross and handwritten gothic icon graphics/i,
-      /black choker with cross pendant/i,
+      /second-skin gothic graphic mini-dress outfit/i,
+      /ultra-tight bodycon fit/i,
+      /smooth elastic fabric with a skin-like surface/i,
+      /fabric clinging closely to the torso waist hips and upper thighs/i,
+      /lace sleeve cuffs and hem trim/i,
+      /hand-drawn gothic cross symbols and handwritten icon graphics scattered irregularly/i,
+      /non-repeating imperfect marker-like placement/i,
+      /choker with cross pendant/i,
+      /dress base controlled by outfit primary color/i,
+      /lace trims and gothic hand-drawn graphics controlled by outfit contrast color/i,
       'reference/wardrobe/outfit-presets/54_白色哥德圖示包臀迷你裙.png',
     ],
   ].forEach(([label, ...expectations]) => {
@@ -334,6 +351,7 @@ test('gothic lingerie outfit presets 52 to 54 preserve color and trim anchors', 
     });
 
     assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
+    assert.doesNotMatch(text, /\bsoft pink\b|\bivory\b|\bwhite\b|\bblack\b|\bpink\b/i);
     assert.equal(option.meta.referenceImage, referenceImage);
     assert.equal(option.meta.referenceImageFormat, 'png');
   });

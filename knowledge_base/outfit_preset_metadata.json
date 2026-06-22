@@ -383,5 +383,38 @@
       "contrast": ["striped_bow", "ruffle_panels", "lace_inner_layer"],
       "locked": []
     }
+  },
+  "粉紅哥德兔耳吊帶束身": {
+    "series": "signature",
+    "colorMode": "primary_contrast_locked",
+    "contrastBehavior": "strong",
+    "lockedOptional": true,
+    "colorTargets": {
+      "primary": ["corset_bodysuit", "garter_lace_thigh_high_stockings"],
+      "contrast": ["bunny_ear_headband", "ear_inner_lace_panels", "left_and_right_headband_bows", "lace_panels", "ribbon_straps", "garter_straps", "trim"],
+      "locked": ["cross_appliques", "metal_cross_pendant", "leather_choker_hardware"]
+    }
+  },
+  "米白緞面蕾絲馬甲短裙": {
+    "series": "signature",
+    "colorMode": "primary_contrast",
+    "contrastBehavior": "strong",
+    "lockedOptional": false,
+    "colorTargets": {
+      "primary": ["satin_corset", "underwire_cup_panels", "satin_peplum_overskirt", "mini_skirt_base"],
+      "contrast": ["lace_bust_trim", "lace_micro_skirt_layer", "scalloped_lace_hem", "front_lace_up_cord", "eyelets", "lower_lacing_bow"],
+      "locked": []
+    }
+  },
+  "白色哥德圖示包臀迷你裙": {
+    "series": "signature",
+    "colorMode": "primary_contrast",
+    "contrastBehavior": "strong",
+    "lockedOptional": false,
+    "colorTargets": {
+      "primary": ["second_skin_mini_dress_body", "skin_like_elastic_fabric"],
+      "contrast": ["lace_sleeve_cuffs", "lace_hem_trim", "hand_drawn_gothic_cross_graphics", "irregular_handwritten_icon_graphics", "choker"],
+      "locked": []
+    }
   }
 }

@@ -1630,27 +1630,90 @@
       },
       {
         "zh": "粉紅哥德兔耳吊帶束身",
-        "en": "soft pink gothic bunny corset outfit, white bunny-ear headband with black lace inner panels and white bow accents, pink fitted corset bodysuit, white lace neckline, black cross appliques, white ribbon and garter straps, matching pink garter lace thigh-high stockings, choker with cross pendant",
-        "desc": "以粉紅色哥德兔女郎束身衣為主體，搭配白色兔耳頭飾、白色蝴蝶結與蕾絲、白色緞帶吊帶，黑色十字架裝飾與頸圈十字墜飾；預設搭配主色粉紅吊帶蕾絲襪。",
+        "en": "gothic bunny corset outfit, bunny-ear headband with lace inner panels, one bunny ear standing upright and the other half-drooping, bow accents placed clearly on both the left and right sides of the headband, fitted corset bodysuit with shaped cup seams and vertical boning lines, lace neckline, cross appliques, ribbon and garter straps, matching main-color garter lace thigh-high stockings, leather neck choker with metal cross pendant, main fabric color controlled by outfit primary color, lace ribbons garter straps and trims controlled by outfit contrast color, cross decorations controlled by contrast palette",
+        "desc": "以哥德兔女郎束身衣為主體，搭配兔耳髮箍，兔耳一邊直立、一邊半下垂，髮箍左右兩側明確各有蝴蝶結；束身衣強調罩杯接縫、縱向骨線、蕾絲領口、緞帶吊帶與十字架貼飾，脖子有皮製頸帶並掛金屬製十字架飾品；束身衣與吊帶蕾絲襪使用套裝主色，蕾絲、緞帶、吊帶、髮箍蝴蝶結與修邊使用套裝對比色，十字架裝飾跟隨對比或鎖定色方案。",
         "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast_locked",
+          "contrastBehavior": "strong",
+          "lockedOptional": true,
+          "colorTargets": {
+            "primary": [
+              "corset_bodysuit",
+              "garter_lace_thigh_high_stockings"
+            ],
+            "contrast": [
+              "bunny_ear_headband",
+              "ear_inner_lace_panels",
+              "left_and_right_headband_bows",
+              "lace_panels",
+              "ribbon_straps",
+              "garter_straps",
+              "trim"
+            ],
+            "locked": [
+              "cross_appliques",
+              "metal_cross_pendant",
+              "leather_choker_hardware"
+            ]
+          },
           "referenceImage": "reference/wardrobe/outfit-presets/52_粉紅哥德兔耳吊帶束身.png",
           "referenceImageFormat": "png"
         }
       },
       {
         "zh": "米白緞面蕾絲馬甲短裙",
-        "en": "ivory satin corset mini outfit, strapless underwire cups, black lace bust trim and black lace micro-skirt hem, pink front lace-up cord, small ribbon accents, flared satin peplum overskirt, tiny black handbag, polished boudoir silhouette",
-        "desc": "以米白緞面馬甲與超短裙輪廓為主體，黑色蕾絲包覆胸口與裙口，粉紅裝飾繩帶在前中線交叉綁結，搭配緞面荷葉短裙擺與小黑手提包。",
+        "en": "satin corset mini outfit, strapless underwire cup corset with structured cup seams, vertical boning channels, lace bust trim following the upper cup edge, front center lace-up cord threaded through small eyelets, tiny bow accent at the lower lacing point, fitted waistline, flared satin peplum overskirt, lace micro-skirt layer visible underneath the peplum, scalloped lace mini hem, tiny structured handbag, polished boudoir silhouette, satin base controlled by outfit primary color, lace cord eyelet and bow details controlled by outfit contrast color",
+        "desc": "以緞面馬甲與超短裙輪廓為主體，上身是無肩帶鋼圈杯馬甲，強調罩杯接縫、縱向骨線、貼合腰身與沿著罩杯上緣包覆的蕾絲；前中線有穿過小孔眼的交叉裝飾繩帶，綁帶下端帶小蝴蝶結。下身是外層緞面荷葉短裙擺，內層露出蕾絲微短裙與波浪蕾絲裙口，搭配小型結構感手提包；緞面主布由套裝主色控制，蕾絲、繩帶、孔眼與小蝴蝶結由套裝對比色控制。",
         "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "satin_corset",
+              "underwire_cup_panels",
+              "satin_peplum_overskirt",
+              "mini_skirt_base"
+            ],
+            "contrast": [
+              "lace_bust_trim",
+              "lace_micro_skirt_layer",
+              "scalloped_lace_hem",
+              "front_lace_up_cord",
+              "eyelets",
+              "lower_lacing_bow"
+            ],
+            "locked": []
+          },
           "referenceImage": "reference/wardrobe/outfit-presets/53_米白緞面蕾絲馬甲短裙.png",
           "referenceImageFormat": "png"
         }
       },
       {
         "zh": "白色哥德圖示包臀迷你裙",
-        "en": "white fitted gothic graphic mini-dress outfit, scoop neckline, short puff sleeves, black lace sleeve cuffs and hem trim, black cross and handwritten gothic icon graphics across the fabric, black choker with cross pendant, bodycon mini silhouette",
-        "desc": "以白色貼身包臀迷你裙裝為主體，胸前與裙身帶黑色哥德風十字架、手寫符號與圖示印花，裙口與袖口使用黑色蕾絲滾邊，搭配黑色頸圈十字墜飾。",
+        "en": "second-skin gothic graphic mini-dress outfit, ultra-tight bodycon fit, smooth elastic fabric with a skin-like surface, fabric clinging closely to the torso waist hips and upper thighs, scoop neckline, short puff sleeves, lace sleeve cuffs and hem trim, hand-drawn gothic cross symbols and handwritten icon graphics scattered irregularly across the fabric, non-repeating imperfect marker-like placement, choker with cross pendant, dress base controlled by outfit primary color, lace trims and gothic hand-drawn graphics controlled by outfit contrast color",
+        "desc": "以極貼身包臀迷你裙裝為主體，布料是彈性貼膚材質，表面平滑、幾乎像第二層皮膚一樣貼合身體，緊密包覆軀幹、腰線、臀部與大腿上緣；胸前與裙身帶手繪感哥德十字、手寫符號與圖示，分布要不規則、帶有筆跡差異與非重複排列感，避免整齊制式圖案。裙口與袖口使用蕾絲滾邊，搭配頸圈十字墜飾；裙身底色由套裝主色控制，蕾絲滾邊、哥德手繪圖示與十字元素由套裝對比色控制。",
         "meta": {
+          "series": "signature",
+          "colorMode": "primary_contrast",
+          "contrastBehavior": "strong",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "second_skin_mini_dress_body",
+              "skin_like_elastic_fabric"
+            ],
+            "contrast": [
+              "lace_sleeve_cuffs",
+              "lace_hem_trim",
+              "hand_drawn_gothic_cross_graphics",
+              "irregular_handwritten_icon_graphics",
+              "choker"
+            ],
+            "locked": []
+          },
           "referenceImage": "reference/wardrobe/outfit-presets/54_白色哥德圖示包臀迷你裙.png",
           "referenceImageFormat": "png"
         }
