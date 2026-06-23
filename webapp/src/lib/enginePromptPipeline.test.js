@@ -139,6 +139,23 @@ test('AI prompt compresses outfit presets and dresses into short wearable phrase
   assert.doesNotMatch(dressPrompt.midjourneyPrompt, /one-piece short mini silhouette|smooth glossy latex/i);
 });
 
+test('AI prompt keeps two-piece outfit preset garments while omitting palette colors', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    outfitPresetId: optionId('outfitPresetId', '套裝：開扣長袖襯衫包臀裙'),
+    outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '白色'),
+    outfitPresetContrastColorId: optionId('outfitPresetContrastColorId', '黑色'),
+    topBottomPaletteId: optionId('topBottomPaletteId', '白色 × 黑色'),
+    framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
+    poseId: optionId('poseId', '坐姿｜微微前傾'),
+  });
+
+  assert.match(prompt.midjourneyPrompt, /wearing a tight long-sleeve button-up shirt and bodycon mini skirt/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /wearing a (?:white|black) tight long-sleeve button-up shirt/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /tight long-sleeve button-up shirt and (?:white|black) bodycon mini skirt/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /coordinated top-to-bottom palette|upper\/main garment|lower or secondary garment/i);
+});
+
 test('AI prompt keeps cheongsam outfit presets as a short wearable phrase', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -149,7 +166,8 @@ test('AI prompt keeps cheongsam outfit presets as a short wearable phrase', () =
     poseId: optionId('poseId', '坐姿｜單腿放鬆'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /wearing a neon yellow satin cheongsam mini outfit/i);
+  assert.match(prompt.midjourneyPrompt, /wearing a satin cheongsam mini outfit/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /neon yellow/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /diagonal frog-button placket|ultra-short mini hem|dominant satin color/i);
 });
 

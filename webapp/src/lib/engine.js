@@ -8854,11 +8854,19 @@ function withAiArticle(phrase) {
 function buildAiMappedWardrobePhrase(value) {
   const text = cleanAiMinimalFragment(value);
   if (!text) return '';
-  const cheongsamColor = text.match(/\b(?:cheongsam body|cheongsam base fabric)\s+in\s+([^,.]+)/i)?.[1] || '';
+
+  if (/button-up shirt outfit/i.test(text) && /hot pants/i.test(text)) {
+    const sleeve = /long-sleeve/i.test(text) ? 'long-sleeve' : 'short-sleeve';
+    return withAiArticle(`tight ${sleeve} button-up shirt and hot pants`);
+  }
+
+  if (/button-up shirt outfit/i.test(text) && /bodycon mini skirt/i.test(text)) {
+    const sleeve = /long-sleeve/i.test(text) ? 'long-sleeve' : 'short-sleeve';
+    return withAiArticle(`tight ${sleeve} button-up shirt and bodycon mini skirt`);
+  }
 
   if (/cheongsam/i.test(text)) {
     return withAiArticle([
-      cheongsamColor,
       /embroidered|embroidery/i.test(text) ? 'embroidered' : '',
       /satin/i.test(text) ? 'satin' : '',
       /sleeveless/i.test(text) ? 'sleeveless' : '',
