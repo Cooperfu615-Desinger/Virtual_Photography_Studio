@@ -82,7 +82,7 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
     orbitId: optionId('orbitId', '右前 315 度'),
     lensId: optionId('lensId', '135mm 長焦壓縮'),
     opticalEffectId: optionId('opticalEffectId', '前景遮擋散景'),
-    lightingId: optionId('lightingId', '室內暖光夜景'),
+    lightingId: optionId('lightingId', '室內暖色夜景'),
     lightDirectionId: optionId('lightDirectionId', '局部暖光'),
     styleId: optionId('styleId', '森山大道｜噪訊黑白暗調'),
     filmId: optionId('filmId', '高銳利快照黑位'),
@@ -117,7 +117,7 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
   assert.match(prompt.grokPrompt, /photographer-shot fixed set portrait/);
   assert.match(prompt.grokPrompt, /confident powerful presence/);
-  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*indoor warm night environment/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*indoor warm night ambience/);
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*local warm practical-light pool on the subject/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Daido Moriyama/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*high-acutance snapshot rendering/);

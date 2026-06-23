@@ -195,10 +195,10 @@ horizonless seamless matte pure white color field, continuous white ground-and-b
 
 - 戶外日間與天空：晴朗白日、藍天白雲、夏日深藍積雲、正午烈日。
 - 陰天與濕度：雨前灰黑天空、陰天漫射、陰雨將至、雨天陰濕、雨後反光。
-- 時段與夜色：清晨薄霧、晨光日出、黃昏夕陽、藍調傍晚、夜晚街燈、月光夜色、霓虹夜色。
+- 時段與夜色：清晨薄霧、晨光日出、黃昏夕陽、藍調傍晚、城市夜間混合光、月光夜色、城市高彩度夜色。
 - 冬季環境：雪地冷光、冬季灰冷。
 - 室內自然光：室內窗邊日光、室內清晨冷白日光、室內午後柔亮日光、室內陰影日光、室內陰雨昏暗天光、室內黃昏微暖餘光。
-- 室內夜景與人造光：室內暖光夜景、室內夜晚低照度暖光、室內燭光、室內冷色人造光、室內冷白螢光日常、室內霓虹夜色、室內外光滲入微暗空間、室內深夜冷暗微光。
+- 室內夜景與人造光：室內暖色夜景、室內低照度暖色夜景、室內社交暖色夜景、室內極暖低照度、室內冷白環境光、室內冷白高亮日常、室內高彩度色光夜景、室內外光滲入微暗空間、室內深夜冷暗微光。
 - 攝影棚環境光：高調純白攝影棚、柔霧美妝攝影棚、舞台演出燈光。
 
 新增規則：
@@ -208,6 +208,7 @@ horizonless seamless matte pure white color field, continuous white ground-and-b
 - 可以描述雲層、天色、濕度、霧感、室內明暗、窗外狀態。
 - 不寫 `on the subject`、`subject lighting`、`key light`、`rim light`、`facial illumination`。
 - 不描述 skin、clothing、hair、body 上的亮暗效果。
+- 不命名會被生成成畫面物件的實體光源，例如 candle、lamp、streetlight、fluorescent、LED、visible source；改用色溫、亮度、對比、可見度與 ambient cast 描述。
 - 戶外環境光要避免直接變成人物受光，例如 `正午烈日` 描述高位太陽與熱空氣，不寫短硬人物陰影。
 - 室內環境光若提到窗外，應使用 `if visible`，避免強迫生成窗戶。
 

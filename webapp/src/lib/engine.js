@@ -2370,13 +2370,13 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['藍調傍晚', 'blue hour'])) {
       tags.push('natural_light', 'dusk', 'cool', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
-    if (hasAny(haystack, ['夜晚街燈', 'streetlit night'])) {
+    if (hasAny(haystack, ['城市夜間混合光', '夜晚街燈', 'urban night ambience', 'warm-cool mixed city glow'])) {
       tags.push('artificial_light', 'dark', 'night_ambient', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
     }
     if (hasAny(haystack, ['月光夜色', 'moonlit night'])) {
       tags.push('natural_light', 'dark', 'cool', 'night_ambient', 'supports_outdoor', 'supports_natural', 'supports_urban');
     }
-    if (item.zh === '霓虹夜色' || hasAny(haystack, ['neon night conditions'])) {
+    if (item.zh === '城市高彩度夜色' || item.zh === '霓虹夜色' || hasAny(haystack, ['saturated-color urban night ambience', 'neon night conditions'])) {
       tags.push('artificial_light', 'neon', 'dark', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
     }
     if (hasAny(haystack, ['陰雨將至', 'storm-brewing conditions'])) {
@@ -2412,22 +2412,22 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['室內黃昏微暖餘光', 'indoor dusk afterglow'])) {
       tags.push('window_light', 'natural_light', 'indoor', 'dusk', 'warm', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
-    if (hasAny(haystack, ['室內暖光夜景', 'indoor warm night'])) {
+    if (hasAny(haystack, ['室內暖色夜景', '室內暖光夜景', 'indoor warm night'])) {
       tags.push('artificial_light', 'indoor', 'warm', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_heritage');
     }
-    if (hasAny(haystack, ['室內夜晚低照度暖光', 'indoor low-light warm night conditions'])) {
+    if (hasAny(haystack, ['室內低照度暖色夜景', '室內夜晚低照度暖光', 'indoor low-light warm night ambience'])) {
       tags.push('artificial_light', 'indoor', 'warm', 'dark', 'soft_light', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
-    if (hasAny(haystack, ['室內派對暖光夜景', 'indoor house-party night environment'])) {
+    if (hasAny(haystack, ['室內社交暖色夜景', '室內派對暖光夜景', 'warm low-light social interior ambience'])) {
       tags.push('artificial_light', 'indoor', 'warm', 'dark', 'soft_light', 'supports_indoor', 'supports_residential');
     }
-    if (hasAny(haystack, ['室內燭光', 'candlelit interior conditions'])) {
+    if (hasAny(haystack, ['室內極暖低照度', '室內燭光', 'very warm low-light interior ambience'])) {
       tags.push('artificial_light', 'indoor', 'warm', 'dark', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
-    if (hasAny(haystack, ['室內冷色人造光', 'indoor cool artificial'])) {
+    if (hasAny(haystack, ['室內冷白環境光', '室內冷色人造光', 'indoor cool artificial'])) {
       tags.push('artificial_light', 'indoor', 'cool', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_heritage', 'supports_subterranean');
     }
-    if (hasAny(haystack, ['室內冷白螢光日常', 'indoor fluorescent everyday conditions'])) {
+    if (hasAny(haystack, ['室內冷白高亮日常', '室內冷白螢光日常', 'cool-white everyday interior ambience'])) {
       tags.push('artificial_light', 'indoor', 'cool', 'controlled', 'supports_indoor', 'supports_residential', 'supports_commercial', 'supports_hospitality', 'supports_subterranean');
     }
     if (hasAny(haystack, ['室內外光滲入微暗空間', 'dim interior lit mostly by exterior spill light'])) {
@@ -2436,7 +2436,7 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['室內深夜冷暗微光', 'very dark late-night interior'])) {
       tags.push('window_light', 'natural_light', 'indoor', 'dark', 'cool', 'night_ambient', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage', 'supports_subterranean');
     }
-    if (hasAny(haystack, ['室內霓虹夜色', 'indoor neon-lit conditions'])) {
+    if (hasAny(haystack, ['室內高彩度色光夜景', '室內霓虹夜色', 'indoor saturated-color night ambience'])) {
       tags.push('artificial_light', 'indoor', 'neon', 'dark', 'supports_indoor', 'supports_commercial', 'supports_hospitality', 'supports_subterranean');
     }
     if (hasAny(haystack, ['高調純白攝影棚', 'high-key white studio lighting'])) {
@@ -3152,6 +3152,18 @@ const CAMERA_ORBIT_LEGACY_OPTION_MAP = [
   { category: CAMERA_ORBIT_CATEGORY, targetZh: '右前 315 度', legacy: [['右前斜側', 8]] },
 ];
 
+const CAMERA_AMBIENT_LIGHT_RENAME_LEGACY_OPTION_MAP = [
+  { category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, targetZh: '城市夜間混合光', legacy: [['夜晚街燈', 11]] },
+  { category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, targetZh: '城市高彩度夜色', legacy: [['霓虹夜色', 13]] },
+  { category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, targetZh: '室內暖色夜景', legacy: [['室內暖光夜景', 25]] },
+  { category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, targetZh: '室內低照度暖色夜景', legacy: [['室內夜晚低照度暖光', 26]] },
+  { category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, targetZh: '室內社交暖色夜景', legacy: [['室內派對暖光夜景', 27]] },
+  { category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, targetZh: '室內極暖低照度', legacy: [['室內燭光', 28]] },
+  { category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, targetZh: '室內冷白環境光', legacy: [['室內冷色人造光', 29]] },
+  { category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, targetZh: '室內冷白高亮日常', legacy: [['室內冷白螢光日常', 30]] },
+  { category: AMBIENT_LIGHT_CONDITIONS_CATEGORY, targetZh: '室內高彩度色光夜景', legacy: [['室內霓虹夜色', 31]] },
+];
+
 const CAMERA_FILM_LEGACY_OPTION_MAP = [
   { category: CAMERA_FILM_CATEGORY, targetZh: '拍立得柔淡即時成像', legacy: [['拍立得效果 (Polaroid Style)', 1]] },
   { category: CAMERA_FILM_CATEGORY, targetZh: '柯達 Portra 暖膚底片', legacy: [['柯達 Portra 400 底片', 2]] },
@@ -3418,6 +3430,7 @@ function applyCameraLegacyOptionIds(catalog) {
     ...CAMERA_FRAMING_LEGACY_OPTION_MAP,
     ...CAMERA_ANGLE_LEGACY_OPTION_MAP,
     ...CAMERA_ORBIT_LEGACY_OPTION_MAP,
+    ...CAMERA_AMBIENT_LIGHT_RENAME_LEGACY_OPTION_MAP,
   ].forEach(({ category, targetZh, legacy }) => {
     const target = getByKey(catalog.camera, category).find((item) => item.zh === targetZh);
     if (!target) return;
@@ -7553,7 +7566,7 @@ function getSceneAccentMoodType(lighting) {
   const haystack = toHaystack(lighting.zh || '', lighting.en || '', lighting.desc || '');
   if (hasAny(haystack, ['月光夜色', 'moonlit night'])) return 'moonlit_night';
   if (hasAny(haystack, ['藍調傍晚', 'blue hour'])) return 'blue_hour';
-  if (hasAny(haystack, ['夜晚街燈', 'streetlit night'])) return 'streetlit_night';
+  if (hasAny(haystack, ['城市夜間混合光', '夜晚街燈', 'streetlit night', 'urban night ambience'])) return 'streetlit_night';
   return '';
 }
 
