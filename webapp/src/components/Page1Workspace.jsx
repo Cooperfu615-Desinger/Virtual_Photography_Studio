@@ -710,6 +710,7 @@ export default function Page1Workspace({
   const isDedicatedSubjectMode = isSpecialSubjectMode || isCharacterProfileMode;
   const isAndroidSubjectMode = specialSubjectOption?.specialSubject === 'android';
   const resolvedActiveSubpanel = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { isSpecialSubjectMode: isDedicatedSubjectMode });
+  const activeSubpanelKeys = resolvedActiveSubpanel?.keys || getSectionKeys(activeSection);
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
   const isOutfitPresetBActive = Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls);
@@ -942,11 +943,11 @@ export default function Page1Workspace({
   };
 
   const handleRandomizeActiveSection = () => {
-    updateLocks((prev) => randomizeLockKeys(prev, getSectionKeys(activeSection), createEmptyLocks()));
+    updateLocks((prev) => randomizeLockKeys(prev, activeSubpanelKeys, createEmptyLocks()));
   };
 
   const handleSetActiveSectionNone = () => {
-    updateLocks((prev) => setLockKeysToNone(prev, getSectionKeys(activeSection), lockControls));
+    updateLocks((prev) => setLockKeysToNone(prev, activeSubpanelKeys, lockControls));
   };
 
   const clearImportedWorldSceneArchitecture = () => {
