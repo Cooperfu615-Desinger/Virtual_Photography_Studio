@@ -679,7 +679,7 @@ test('wardrobe layering logic makes legwear secondary under long bottoms', () =>
   assert.match(skirtText, /long bottom layer keeps its natural full length and drape/);
 });
 
-test('face close-up framing keeps wardrobe location and pose locks available as contextual inputs', () => {
+test('face close-up framing locks wardrobe controls while keeping location and pose inputs available', () => {
   const controls = getLockControls();
   const faceCloseupId = optionId('framingId', '臉部特寫');
   const locks = {
@@ -700,9 +700,9 @@ test('face close-up framing keeps wardrobe location and pose locks available as 
 
   const allowedKeys = getCloseupAllowedKeys(faceCloseupId);
   assert.equal(allowedKeys.has('locationId'), true);
-  assert.equal(allowedKeys.has('topId'), true);
-  assert.equal(allowedKeys.has('pantsId'), true);
-  assert.equal(allowedKeys.has('shoesId'), true);
+  assert.equal(allowedKeys.has('topId'), false);
+  assert.equal(allowedKeys.has('pantsId'), false);
+  assert.equal(allowedKeys.has('shoesId'), false);
   assert.equal(allowedKeys.has('poseId'), true);
   assert.equal(allowedKeys.has('specialActionId'), true);
   assert.equal(allowedKeys.has('poseBaseId'), true);
@@ -712,9 +712,9 @@ test('face close-up framing keeps wardrobe location and pose locks available as 
   const sanitized = sanitizeLocksForCloseupMode(locks, controls);
   assert.equal(sanitized.framingId, locks.framingId);
   assert.equal(sanitized.locationId, locks.locationId);
-  assert.equal(sanitized.topId, locks.topId);
-  assert.equal(sanitized.pantsId, locks.pantsId);
-  assert.equal(sanitized.shoesId, locks.shoesId);
+  assert.equal(sanitized.topId, optionId('topId', '全無'));
+  assert.equal(sanitized.pantsId, optionId('pantsId', '全無'));
+  assert.equal(sanitized.shoesId, optionId('shoesId', '全無'));
   assert.equal(sanitized.poseId, locks.poseId);
   assert.equal(sanitized.specialActionId, locks.specialActionId);
   assert.equal(sanitized.poseBaseId, locks.poseBaseId);
@@ -722,7 +722,7 @@ test('face close-up framing keeps wardrobe location and pose locks available as 
   assert.equal(sanitized.poseHeadId, locks.poseHeadId);
 });
 
-test('face-only close-up prompts anchor a default strap dress and scene context', () => {
+test('face-only close-up prompts omit wardrobe text', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '臉部特寫'),
@@ -734,32 +734,25 @@ test('face-only close-up prompts anchor a default strap dress and scene context'
 
   assert.equal(prompt.selection.framingId, optionId('framingId', '臉部特寫'));
   assert.equal(prompt.selection.locationId, optionId('locationId', '室內：現代高樓公寓客廳'));
-  assert.equal(prompt.selection.topId, optionId('topId', '透膚刺繡襯衫'));
-  assert.equal(prompt.selection.pantsId, optionId('pantsId', '直筒牛仔褲'));
-  assert.equal(prompt.selection.shoesId, optionId('shoesId', '高跟鞋'));
+  assert.equal(prompt.selection.topId, '');
+  assert.equal(prompt.selection.pantsId, '');
+  assert.equal(prompt.selection.shoesId, '');
 
   assert.match(prompt.grokPrompt, /tight facial close-up portrait/);
-  assert.match(prompt.grokPrompt, /thin spaghetti-strap straight-neck one-piece dress/i);
-  assert.match(prompt.grokPrompt, /secure narrow shoulder straps/i);
-  assert.match(prompt.grokPrompt, /straight horizontal neckline/i);
-  assert.match(prompt.grokPrompt, /no bare torso/i);
+  assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Visibility:/);
+  assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Integrity:/);
+  assert.doesNotMatch(prompt.grokPrompt, /Keep the specified outfit visible where the chosen framing allows/i);
+  assert.doesNotMatch(prompt.grokPrompt, /thin spaghetti-strap straight-neck one-piece dress/i);
   assert.doesNotMatch(prompt.grokPrompt, /semi-sheer embroidered shirt/i);
-  assert.match(prompt.grokPrompt, /partial shoulder line/i);
-  assert.match(prompt.grokPrompt, /render selected modern high-rise apartment living room only as soft background color/i);
-  assert.match(prompt.grokPrompt, /soft background color/i);
   assert.doesNotMatch(prompt.grokPrompt, /straight-leg jeans/);
   assert.doesNotMatch(prompt.grokPrompt, /glossy pointed-toe stiletto pumps/);
-  assert.match(prompt.zImagePrompt, /thin spaghetti-strap straight-neck one-piece dress/i);
-  assert.match(prompt.zImagePrompt, /secure narrow shoulder straps/i);
-  assert.match(prompt.zImagePrompt, /straight horizontal neckline/i);
-  assert.match(prompt.zImagePrompt, /no bare torso/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /thin spaghetti-strap straight-neck one-piece dress/i);
   assert.doesNotMatch(prompt.zImagePrompt, /semi-sheer embroidered shirt/i);
-  assert.match(prompt.zImagePrompt, /render selected modern high-rise apartment living room only as soft background color/i);
   assert.doesNotMatch(prompt.zImagePrompt, /straight-leg jeans/);
   assert.doesNotMatch(prompt.zImagePrompt, /glossy pointed-toe stiletto pumps/);
 });
 
-test('chest-up framing projects only visible upper-body cues for outfit presets', () => {
+test('chest-up framing keeps full outfit-preset prompt active', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '胸上特寫'),
@@ -769,17 +762,29 @@ test('chest-up framing projects only visible upper-body cues for outfit presets'
 
   assert.equal(prompt.selection.framingId, optionId('framingId', '胸上特寫'));
   assert.equal(prompt.selection.outfitPresetId, optionId('outfitPresetId', '套裝：輕盈浴衣'));
-  assert.match(prompt.grokPrompt, /show lightweight yukata outfit only through/i);
   assert.match(prompt.grokPrompt, /lightweight yukata outfit/i);
-  assert.match(prompt.grokPrompt, /wrap front/i);
-  assert.match(prompt.grokPrompt, /sleeve edge/i);
-  assert.match(prompt.grokPrompt, /render selected modern high-rise apartment living room only through nearby surfaces/i);
-  assert.doesNotMatch(prompt.grokPrompt, /ankle-length straight fall/i);
-  assert.doesNotMatch(prompt.grokPrompt, /wide obi/i);
-  assert.doesNotMatch(prompt.grokPrompt, /kinchaku pouch/i);
-  assert.match(prompt.zImagePrompt, /show lightweight yukata outfit only through/i);
+  assert.match(prompt.grokPrompt, /ankle-length straight fall/i);
+  assert.match(prompt.grokPrompt, /wide obi/i);
+  assert.match(prompt.grokPrompt, /kinchaku pouch/i);
+  assert.doesNotMatch(prompt.grokPrompt, /show lightweight yukata outfit only through/i);
+  assert.doesNotMatch(prompt.grokPrompt, /only through nearby surfaces/i);
   assert.match(prompt.zImagePrompt, /lightweight yukata outfit/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /ankle-length straight fall/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /wide obi/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /kinchaku pouch/i);
+  assert.match(prompt.zImagePrompt, /ankle-length straight fall/i);
+  assert.match(prompt.zImagePrompt, /wide obi/i);
+  assert.match(prompt.zImagePrompt, /kinchaku pouch/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /show lightweight yukata outfit only through/i);
+});
+
+test('close-up framing keeps direct wardrobe prompt details available', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '特寫鏡頭 (Close-Up)'),
+    topId: optionId('topId', '透膚刺繡襯衫'),
+  });
+
+  assert.equal(prompt.selection.framingId, optionId('framingId', '特寫鏡頭 (Close-Up)'));
+  assert.match(prompt.grokPrompt, /close-up shot, head and shoulders framing/i);
+  assert.match(prompt.grokPrompt, /semi-sheer embroidered shirt/i);
+  assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Visibility:/);
+  assert.match(prompt.zImagePrompt, /semi-sheer embroidered shirt/i);
 });
