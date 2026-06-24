@@ -6418,7 +6418,7 @@ const DUO_PROMPT_OVERRIDES = {
     '腰部高度鏡頭': 'waist-level camera position, level lens axis, grounded fashion duo camera height, no upward or downward tilt',
     '膝蓋高度鏡頭': 'knee-level camera position, level lens axis, low fashion duo camera height, legs and shoes emphasized when visible',
     '地面高度鏡頭': 'floor-level camera position, low camera near the floor, upward view toward both women, elongated full-body duo perspective',
-    '蟲眼視角鏡頭': "worm's-eye view, ultra-low upward camera, ultra-wide lens perspective, strong near-far scale distortion, feet extremely close to the lens, intense spatial impact",
+    '蟲眼視角鏡頭': "worm's-eye view, ultra-low upward camera, ultra-wide lens perspective, strong near-far scale distortion, intense spatial impact",
     '荷蘭角/傾斜 (Dutch Angle)': 'dutch angle, tilted two-subject framing, diagonal horizon line, both women held in frame',
   },
   orbit: {

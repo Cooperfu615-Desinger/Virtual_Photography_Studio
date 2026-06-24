@@ -51,7 +51,7 @@ test('composition and angle prompts stay geometric instead of emotional', () => 
   assert.match(optionByLabel('angleId', '地面高度鏡頭').en, /floor-level camera position/);
   assert.match(optionByLabel('angleId', '蟲眼視角鏡頭').en, /ultra-low upward camera/);
   assert.match(optionByLabel('angleId', '蟲眼視角鏡頭').en, /ultra-wide lens perspective/);
-  assert.match(optionByLabel('angleId', '蟲眼視角鏡頭').en, /feet extremely close to the lens/);
+  assert.doesNotMatch(optionByLabel('angleId', '蟲眼視角鏡頭').en, /feet extremely close to the lens/);
   assert.match(optionByLabel('angleId', '高位俯視鏡頭').en, /looking downward/);
 });
 
@@ -183,7 +183,7 @@ test('duo angle overrides stay geometric after angle cleanup', () => {
 
   assert.match(wormEyePrompt, /ultra-low upward camera/);
   assert.match(wormEyePrompt, /ultra-wide lens perspective/);
-  assert.match(wormEyePrompt, /feet extremely close to the lens/);
+  assert.doesNotMatch(wormEyePrompt, /feet extremely close to the lens/);
 });
 
 test('orbit control uses degree-based body orientation with legacy lock migration', () => {
