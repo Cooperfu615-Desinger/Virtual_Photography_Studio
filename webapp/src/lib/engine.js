@@ -8969,7 +8969,7 @@ function buildAiSeparateStylePhrase(value) {
 function buildAiWardrobeVisibilityPhrase(value) {
   const text = cleanAiMinimalFragment(value);
   if (/anchor wardrobe as .*spaghetti-strap straight-neck one-piece dress/i.test(text)) {
-    return '身穿一件黑色或白色的細肩帶平口連身裙';
+    return 'wearing a thin spaghetti-strap straight-neck one-piece dress';
   }
   return '';
 }
