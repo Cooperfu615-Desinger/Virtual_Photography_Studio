@@ -333,7 +333,7 @@ test('rika character profile card preserves distinct black wavy hair face and lo
   assert.match(prompt.midjourneyPrompt, /clean white low-top sneakers/);
 });
 
-test('rin character profile card preserves black curly bob glasses and white shirt formal styling', () => {
+test('rin character profile card preserves refined glasses face curly bob double-hoop earrings and white shirt formal styling', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-rin',
@@ -344,12 +344,17 @@ test('rin character profile card preserves black curly bob glasses and white shi
   assert.equal(prompt.selection.characterProfileId, 'character-rin');
   assert.equal(prompt.structured.Wardrobe.length, 0);
   assert.match(promptText, /38_Rin|38_Rin 角色卡/);
-  assert.match(promptText, /20-year-old adult East Asian woman with elegant intelligent doll-like facial features/);
-  assert.match(promptText, /clear warm brown eyes/);
-  assert.match(promptText, /glossy natural black short curly bob/);
-  assert.match(promptText, /soft parted see-through bangs/);
+  assert.match(promptText, /20-year-old adult East Asian woman with refined intellectual East Asian editorial facial features/);
+  assert.match(promptText, /small porcelain oval face with a narrow softly tapered jaw and delicate pointed chin/);
+  assert.match(promptText, /large slender almond warm brown eyes behind glasses with a calm slightly sleepy gaze/);
+  assert.match(promptText, /soft aegyo-sal lower-eye fullness and fine lower lashes/);
+  assert.match(promptText, /straight delicate nose with a softly rounded glossy tip/);
+  assert.match(promptText, /glossy rose-beige lips with a defined cupid bow and fuller lower lip/);
+  assert.match(promptText, /glossy natural black chin-to-nape short curly bob/);
+  assert.match(promptText, /airy layered S-curls with outward-flipped ends around the ears and nape/);
+  assert.match(promptText, /separated curved see-through bangs forming comma-like strands over the forehead/);
   assert.match(promptText, /thin rectangular brown-gold metal frame eyeglasses/);
-  assert.match(promptText, /small gold hoop earrings/);
+  assert.match(promptText, /stacked twin gold hoop earrings on both ears/);
   assert.match(promptText, /layered delicate gold necklaces/);
   assert.match(promptText, /crisp white oversized button-down shirt/);
   assert.match(promptText, /charcoal high-waisted tailored straight trousers/);
@@ -358,6 +363,10 @@ test('rin character profile card preserves black curly bob glasses and white shi
   assert.doesNotMatch(prompt.structured.Character.map((item) => item.en).join('\n'), /\b(?:book|notebook|tablet|paper|document)\b/i);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /refined intellectual East Asian editorial facial features/);
+  assert.match(prompt.midjourneyPrompt, /large slender almond warm brown eyes/);
+  assert.match(prompt.midjourneyPrompt, /thin rectangular brown-gold metal frame eyeglasses/);
+  assert.match(prompt.midjourneyPrompt, /stacked twin gold hoop earrings/);
   assert.match(prompt.midjourneyPrompt, /crisp white oversized button-down shirt/);
   assert.match(prompt.midjourneyPrompt, /charcoal high-waisted tailored straight trousers/);
   assert.match(prompt.midjourneyPrompt, /black leather loafers/);
@@ -417,7 +426,7 @@ test('yuri character profile card preserves black straight hair glasses white of
   assert.match(prompt.midjourneyPrompt, /brown low-top canvas sneakers/);
 });
 
-test('sui character profile card preserves black waves mustard cardigan cream knit top jeans and brown boots', () => {
+test('sui character profile card preserves freckled wistful face black waves mustard cardigan cream knit top jeans and brown boots', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-sui',
@@ -428,9 +437,14 @@ test('sui character profile card preserves black waves mustard cardigan cream kn
   assert.equal(prompt.selection.characterProfileId, 'character-sui');
   assert.equal(prompt.structured.Wardrobe.length, 0);
   assert.match(promptText, /03_Sui|03_Sui 角色卡/);
-  assert.match(promptText, /20-year-old adult East Asian woman with soft delicate doll-like facial features/);
+  assert.match(promptText, /20-year-old adult East Asian woman with wistful delicate East Asian muse-like facial features/);
+  assert.match(promptText, /small long heart-oval face with softly tapered cheeks and a narrow pointed chin/);
   assert.match(promptText, /natural freckles across the cheeks and nose/);
-  assert.match(promptText, /clear warm brown eyes/);
+  assert.match(promptText, /large soft downturned almond warm amber-brown eyes/);
+  assert.match(promptText, /slightly heavy upper lids, visible aegyo-sal lower-eye softness, and long fine lower lashes/);
+  assert.match(promptText, /thin straight natural brows with a gentle downward softness/);
+  assert.match(promptText, /slim delicate nose with a softly rounded tip/);
+  assert.match(promptText, /small plush rose-coral lips with a defined cupid bow and slightly parted melancholic pout/);
   assert.match(promptText, /glossy natural black long wavy hair/);
   assert.match(promptText, /airy wispy see-through bangs/);
   assert.match(promptText, /mustard yellow oversized knit cardigan/);
@@ -442,6 +456,8 @@ test('sui character profile card preserves black waves mustard cardigan cream kn
   assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
+  assert.match(prompt.midjourneyPrompt, /wistful delicate East Asian muse-like facial features/);
+  assert.match(prompt.midjourneyPrompt, /large soft downturned almond warm amber-brown eyes/);
   assert.match(prompt.midjourneyPrompt, /mustard yellow oversized knit cardigan/);
   assert.match(prompt.midjourneyPrompt, /cream ribbed knit camisole/);
   assert.match(prompt.midjourneyPrompt, /high-waisted medium-dark blue straight-leg jeans/);
