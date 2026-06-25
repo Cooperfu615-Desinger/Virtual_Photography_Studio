@@ -24,7 +24,7 @@ function optionIdByRawId(controlKey, id) {
 test('fixed composition controls expose fixed sets and fixed-set-only option groups', () => {
   assert.deepEqual(
     control('fixedCompositionSetId').options.map((entry) => entry.zh),
-    ['全無', '清水模牆面沙發棚', '高級飯店落地窗都市夜景', '高級飯店落地窗富士山春景', '高級飯店落地窗富士山冬景', '復古磁磚浴室浴缸']
+    ['全無', '清水模牆面沙發棚', '暖灰泥黑絲絨工業沙發棚', '高級飯店落地窗都市夜景', '高級飯店落地窗富士山春景', '高級飯店落地窗富士山冬景', '復古磁磚浴室浴缸']
   );
 
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發座面中央'));
@@ -141,6 +141,56 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.midjourneyPrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.midjourneyPrompt, /large brown vintage Chesterfield leather sofa/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
+});
+
+test('black velvet industrial sofa fixed composition shares sofa placement controls with distinct set anchors', () => {
+  const sofaFloorPositionId = optionIdByRawId('fixedSetPositionId', 'sofa-floor-off-center');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '暖灰泥黑絲絨工業沙發棚'),
+    fixedSetPositionId: sofaFloorPositionId,
+    fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '全無'),
+    fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '全無'),
+    angleId: optionId('angleId', '肩部高度鏡頭'),
+    orbitId: optionId('orbitId', '右前 315 度'),
+    locationId: optionId('locationId', '室內：英倫復古窗邊房間'),
+  });
+
+  assert.equal(prompt.selection.fixedCompositionSetId, optionId('fixedCompositionSetId', '暖灰泥黑絲絨工業沙發棚'));
+  assert.equal(prompt.selection.fixedSetPositionId, sofaFloorPositionId);
+  assert.equal(prompt.selection.locationId, optionId('locationId', '全無'));
+  assert.match(prompt.grokPrompt, /Scene:\nThe portrait takes place inside a real-scale compact editorial lounge set/);
+  assert.match(prompt.grokPrompt, /warm ivory limewash plaster wall/);
+  assert.match(prompt.grokPrompt, /hand-troweled texture/);
+  assert.match(prompt.grokPrompt, /large black velvet sofa/);
+  assert.match(prompt.grokPrompt, /soft matte velvet upholstery/);
+  assert.match(prompt.grokPrompt, /visible velvet nap/);
+  assert.match(prompt.grokPrompt, /not leather or glossy vinyl/);
+  assert.match(prompt.grokPrompt, /industrial low coffee table/);
+  assert.match(prompt.grokPrompt, /black metal frame/);
+  assert.match(prompt.grokPrompt, /aged dark wood or dark metal tabletop/);
+  assert.match(prompt.grokPrompt, /compact brass or black-metal table lamp/);
+  assert.match(prompt.grokPrompt, /approximately 3 to 4 meters away from the sofa/);
+  assert.match(prompt.grokPrompt, /subject on the floor plane near the sofa but off center/);
+  assert.match(prompt.grokPrompt, /shoulder-level camera position/);
+  assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
+  assert.match(prompt.grokPrompt, /preserve anchors: warm limewash plaster wall, black velvet sofa, wall-art or mirror zone, industrial coffee-table foreground/);
+  assert.match(prompt.grokPrompt, /avoid raw concrete set, brown leather sofa, bare dry-branch decor, plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room/);
+  assert.doesNotMatch(prompt.grokPrompt, /large brown vintage Chesterfield leather sofa/);
+  assert.doesNotMatch(prompt.grokPrompt, /Bare sculptural dry branches/);
+  assert.doesNotMatch(prompt.grokPrompt, /raw concrete wall fills the back plane/);
+  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+
+  assert.ok(
+    prompt.zImagePrompt.indexOf('real-scale compact editorial lounge set') <
+      prompt.zImagePrompt.indexOf('20-year-old Japanese or Korean female portrait subject'),
+    'Expected black velvet sofa scene to appear before subject description in Z-Image prompt'
+  );
+  assert.match(prompt.zImagePrompt, /large black velvet sofa/);
+  assert.match(prompt.zImagePrompt, /industrial low coffee table/);
+  assert.match(prompt.zImagePrompt, /subject on the floor plane near the sofa but off center/);
+  assert.match(prompt.midjourneyPrompt, /large black velvet sofa/);
+  assert.match(prompt.midjourneyPrompt, /industrial low coffee table/);
 });
 
 test('hotel and bathtub fixed compositions preserve camera angle and orbit locks', () => {
