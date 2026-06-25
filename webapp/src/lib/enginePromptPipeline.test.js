@@ -171,7 +171,7 @@ test('AI prompt keeps cheongsam outfit presets as a short wearable phrase', () =
   assert.doesNotMatch(prompt.midjourneyPrompt, /diagonal frog-button placket|ultra-short mini hem|dominant satin color/i);
 });
 
-test('AI prompt rewrites face-only default wardrobe as a concise English dress phrase', () => {
+test('AI prompt omits face-only hidden wardrobe instead of injecting a default dress', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '臉部特寫'),
@@ -180,7 +180,8 @@ test('AI prompt rewrites face-only default wardrobe as a concise English dress p
     shoesId: optionId('shoesId', '高跟鞋'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /wearing a thin spaghetti-strap straight-neck one-piece dress/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /wearing a thin spaghetti-strap straight-neck one-piece dress/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /semi-sheer embroidered shirt|straight-leg jeans|stiletto pumps/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /[\u3400-\u9fff]/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /wearing anchor wardrobe as|complete one-piece dress identity/i);
 });

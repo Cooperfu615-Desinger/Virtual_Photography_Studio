@@ -7,7 +7,7 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
 - Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
 - App: Vite + React prompt generator
-- Latest pushed commit on `main`: `4d457ac Add Page1 pose composer`
+- Baseline commit before this QA update: `2426ad8 Update character profile card picker`
 - Normal working branch: `main`
 
 ## Validation
@@ -21,11 +21,13 @@ Run from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp` unless note
 - Optional dev server: `npm run dev -- --host 127.0.0.1 --port 5175`
 - Dev URL: `http://127.0.0.1:5175/Virtual_Photography_Studio/`
 
-Last full validation before this document was created:
+Last QA validation on 2026-06-25:
 
-- `npm test`: 109 / 109 passed
+- `python3 scripts/sync_to_json.py`: passed, with one known warning: `套裝 (Outfit Presets)` has 54 reference images for 55 items. Missing reference image: `網狀蕾絲馬甲短裙長靴`.
+- `npm test`: 246 / 246 passed
 - `npm run lint`: passed
 - `npm run build`: passed with the existing Vite chunk-size warning
+- Rendered smoke test on dev server: PAGE1 / PAGE2 / PAGE3 / SUNO / Saved Cards loaded without console errors; PAGE1 and SUNO random generation buttons updated prompt outputs; mobile 390x900 had no horizontal overflow.
 - `git diff --check`: passed
 
 ## Product Pages
@@ -182,6 +184,7 @@ Rules:
 
 - Close-up framing can disable or clear controls that cannot be visible.
 - Chest-up framing has special allowances for upper-body wardrobe.
+- Face-only close-up currently omits hidden wardrobe text instead of injecting a default strap-dress fallback. This applies to `AI` as well as `Gpt` and `Grok/Z-Image`.
 - Do not re-enable all wardrobe fields in tight close-up without checking existing close-up rules and tests.
 
 ## Key Files
@@ -226,6 +229,7 @@ Authoring guides:
 - `enginePromptPipeline.test.js`
 - `enginePoseComposer.test.js`
 - `engineExpressionPoseCleanup.test.js`
+- `engineSpecialSubjects.test.js`
 - `engineWardrobeControls.test.js`
 - `engineGrokScenePriority.test.js`
 - `engineZImageWardrobeLanguage.test.js`

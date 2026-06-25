@@ -25,7 +25,7 @@ Important legacy terminology warning:
 - Knowledge base source: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
 - Sync script: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
 - Synced data target: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
-- Latest pushed commit on `main` when this handoff was condensed: `4d457ac Add Page1 pose composer`
+- Baseline commit before this QA handoff update: `2426ad8 Update character profile card picker`
 
 ## Validation
 
@@ -37,17 +37,25 @@ Standard validation flow:
   - `npm run lint`
   - `npm run build`
 
-Last full validation before this handoff condensation:
+Last QA validation on 2026-06-25:
 
-- `npm test`: 109 / 109 passed
+- `python3 scripts/sync_to_json.py`: passed, with one known warning: `套裝 (Outfit Presets)` has 54 reference images for 55 items. Missing reference image: `網狀蕾絲馬甲短裙長靴`.
+- `npm test`: 246 / 246 passed
 - `npm run lint`: passed
 - `npm run build`: passed with the existing Vite chunk-size warning
+- Rendered smoke test on dev server: PAGE1 / PAGE2 / PAGE3 / SUNO / Saved Cards loaded without console errors; PAGE1 and SUNO random generation buttons updated prompt outputs; mobile 390x900 had no horizontal overflow.
 - `git diff --check`: passed
 
 Optional dev server:
 
 - `npm run dev -- --host 127.0.0.1 --port 5175`
 - URL: `http://127.0.0.1:5175/Virtual_Photography_Studio/`
+
+QA notes from 2026-06-25:
+
+- A stale `enginePromptPipeline.test.js` expectation was aligned with the current face-only close-up policy: `AI` should omit hidden wardrobe and should not inject the old default spaghetti-strap dress fallback.
+- In-app Browser rendered QA could not operate native `<select>` values through `selectOption`, keyboard, or coordinate fallback. Pose Composer select dependencies and prompt output remain covered by unit tests; rendered QA covered page load, buttons, prompt output updates, console health, and responsive layout.
+- Add `webapp/public/reference/wardrobe/outfit-presets/55_*.png` for `網狀蕾絲馬甲短裙長靴` to clear the current sync warning and restore full outfit-preset reference image coverage.
 
 ## Current Canonical State
 
@@ -75,6 +83,7 @@ Optional dev server:
   - Internal field: `midjourneyPrompt`
   - Compact natural paragraph derived from Gpt sections
   - Must preserve selected wardrobe, clothing, pose, and action details
+  - In face-only close-up, hidden wardrobe should be omitted instead of replaced by a default visible dress phrase
 
 Do not rename the internal fields casually. Many saved cards, import/export paths, and older helper names still rely on them.
 
