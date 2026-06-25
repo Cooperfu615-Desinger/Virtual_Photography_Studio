@@ -21,10 +21,10 @@ function optionIdByRawId(controlKey, id) {
   return option.id;
 }
 
-test('fixed composition controls expose three sets and fixed-set-only option groups', () => {
+test('fixed composition controls expose fixed sets and fixed-set-only option groups', () => {
   assert.deepEqual(
     control('fixedCompositionSetId').options.map((entry) => entry.zh),
-    ['全無', '清水模牆面沙發棚', '高級飯店落地窗都市夜景', '復古磁磚浴室浴缸']
+    ['全無', '清水模牆面沙發棚', '高級飯店落地窗都市夜景', '高級飯店落地窗富士山春景', '高級飯店落地窗富士山冬景', '復古磁磚浴室浴缸']
   );
 
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發座面中央'));
@@ -236,6 +236,71 @@ test('hotel window fixed composition uses shared real-scale set structure and fr
   assert.match(prompt.midjourneyPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
   assert.match(prompt.midjourneyPrompt, /subject placement can vary across one primary zone within the fixed hotel-window set/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
+});
+
+test('Fuji hotel fixed compositions share hotel placement controls and seasonal landscape anchors', () => {
+  const hotelWindowPositionId = optionIdByRawId('fixedSetPositionId', 'hotel-window-silhouette');
+  const phoneAspectId = optionId('aspectRatio', '9:16 手機直式');
+  const indoorLocationId = optionId('locationId', '室內：英倫復古窗邊房間');
+  const cases = [
+    {
+      setZh: '高級飯店落地窗富士山春景',
+      anchorText: /preserve anchors: broad panoramic glass wall, Mount Fuji spring landscape, bed\/bedding foreground, bedside lamp\/table zone/,
+      seasonText: /spring Mount Fuji landscape|residual snow on the summit|fresh green foothills|subtle cherry blossoms/,
+      replacementText: /avoid heavy window grids, boxed panes, generic city skyline, plain wall, studio backdrop, outdoor mountain scene, onsen ryokan, or unrelated hotel room/,
+    },
+    {
+      setZh: '高級飯店落地窗富士山冬景',
+      anchorText: /preserve anchors: broad panoramic glass wall, snow-covered Mount Fuji winter landscape, bed\/bedding foreground, bedside lamp\/table zone/,
+      seasonText: /snow-covered Mount Fuji|snowy foothills|cold clear air/,
+      replacementText: /avoid heavy window grids, boxed panes, generic city skyline, plain wall, studio backdrop, outdoor snowfield, ski resort, onsen ryokan, or unrelated hotel room/,
+    },
+  ];
+
+  cases.forEach((fixedSetCase) => {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      fixedCompositionSetId: optionId('fixedCompositionSetId', fixedSetCase.setZh),
+      fixedSetPositionId: hotelWindowPositionId,
+      fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '全無'),
+      fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '全無'),
+      aspectRatio: phoneAspectId,
+      locationId: indoorLocationId,
+      angleId: optionId('angleId', '肩部高度鏡頭'),
+      orbitId: optionId('orbitId', '右前 315 度'),
+    });
+
+    assert.equal(prompt.selection.fixedSetPositionId, hotelWindowPositionId);
+    assert.equal(prompt.selection.aspectRatio, phoneAspectId);
+    assert.equal(prompt.selection.locationId, optionId('locationId', '全無'));
+    assert.match(prompt.grokPrompt, /Scene:\nThe portrait takes place inside a real-scale luxury hotel room editorial set/);
+    assert.match(prompt.grokPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
+    assert.match(prompt.grokPrompt, /Mount Fuji/);
+    assert.match(prompt.grokPrompt, fixedSetCase.seasonText);
+    assert.match(prompt.grokPrompt, /subject near the floor-to-ceiling window/);
+    assert.match(prompt.grokPrompt, /shoulder-level camera position/);
+    assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
+    assert.match(prompt.grokPrompt, /fixed-set rule: stable selected room architecture/);
+    assert.match(prompt.grokPrompt, fixedSetCase.anchorText);
+    assert.match(prompt.grokPrompt, fixedSetCase.replacementText);
+    assert.doesNotMatch(prompt.grokPrompt, /New York skyline depth/);
+    assert.doesNotMatch(prompt.grokPrompt, /New York-style high-rise skyline/);
+    assert.doesNotMatch(prompt.grokPrompt, /city towers|city view|city depth|skyline view|city window/);
+    assert.doesNotMatch(prompt.grokPrompt, /British vintage room with window-side interior/);
+    assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+
+    assert.ok(
+      prompt.zImagePrompt.indexOf('real-scale luxury hotel room editorial set') <
+        prompt.zImagePrompt.indexOf('20-year-old Japanese or Korean female portrait subject'),
+      'Expected fixed Fuji hotel scene to appear before subject description in Z-Image prompt'
+    );
+    assert.match(prompt.zImagePrompt, /Mount Fuji/);
+    assert.match(prompt.zImagePrompt, /subject near the floor-to-ceiling window/);
+    assert.match(prompt.zImagePrompt, fixedSetCase.anchorText);
+    assert.match(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set/);
+    assert.match(prompt.midjourneyPrompt, /Mount Fuji/);
+    assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
+  });
 });
 
 test('self-shot fixed composition mode relaxes set, focus, face, and wardrobe completeness guards', () => {

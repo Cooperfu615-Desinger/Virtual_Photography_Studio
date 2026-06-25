@@ -728,6 +728,16 @@ export default function Page1Workspace({
     && Boolean(locks.fixedCompositionSetId)
     && !isNoneSelected('fixedCompositionSetId', locks.fixedCompositionSetId, lockControls);
   const selectedFixedCompositionSetId = fixedCompositionSetActive ? locks.fixedCompositionSetId : '';
+  const fixedCompositionSetControl = lockControls.find((control) => control.key === 'fixedCompositionSetId');
+  const getFixedCompositionSetOption = (id) => fixedCompositionSetControl?.options?.find((option) => option.id === id) || null;
+  const selectedFixedCompositionSetOption = fixedCompositionSetActive ? getFixedCompositionSetOption(selectedFixedCompositionSetId) : null;
+  const fixedSetPositionMatchesSet = (position, fixedSetOption) => {
+    if (!position || position.id === 'none') return true;
+    if (!fixedSetOption) return false;
+    if (position.setId === fixedSetOption.id) return true;
+    if (Array.isArray(position.setIds) && position.setIds.includes(fixedSetOption.id)) return true;
+    return Boolean(position.setGroupId && fixedSetOption.setGroupId && position.setGroupId === fixedSetOption.setGroupId);
+  };
   const fixedSetAllowsCameraVariation = selectedFixedCompositionSetId === FLEXIBLE_CAMERA_FIXED_SET_ID;
   const wardrobeLayerInsights = useMemo(
     () => buildWardrobeLayerInsights(locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive),
@@ -824,7 +834,7 @@ export default function Page1Workspace({
     if (control.key !== 'fixedSetPositionId') return control;
     return {
       ...control,
-      options: control.options.filter((option) => option.id === 'none' || option.setId === selectedFixedCompositionSetId),
+      options: control.options.filter((option) => fixedSetPositionMatchesSet(option, selectedFixedCompositionSetOption)),
     };
   };
   const resetPoseComposerLocks = (target) => {
@@ -876,7 +886,7 @@ export default function Page1Workspace({
             });
           }
           const selectedPosition = lockControls.find((item) => item.key === 'fixedSetPositionId')?.options?.find((option) => option.id === prev.fixedSetPositionId);
-          if (selectedPosition?.setId && selectedPosition.setId !== value) {
+          if (!fixedSetPositionMatchesSet(selectedPosition, getFixedCompositionSetOption(value))) {
             next.fixedSetPositionId = 'none';
           }
         } else {
@@ -887,7 +897,7 @@ export default function Page1Workspace({
       }
       if (control.key === 'fixedSetPositionId') {
         const selectedPosition = lockControls.find((item) => item.key === 'fixedSetPositionId')?.options?.find((option) => option.id === value);
-        if (selectedPosition?.setId && selectedPosition.setId !== prev.fixedCompositionSetId) {
+        if (!fixedSetPositionMatchesSet(selectedPosition, getFixedCompositionSetOption(prev.fixedCompositionSetId))) {
           next.fixedSetPositionId = 'none';
         }
       }

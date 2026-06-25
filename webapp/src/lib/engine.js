@@ -1376,12 +1376,35 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
   {
     id: 'luxury-hotel-window-nyc',
     zh: '高級飯店落地窗都市夜景',
+    setGroupId: 'hotel-window',
     en: 'The portrait takes place inside a real-scale luxury hotel room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: an oversized near-wall-to-wall panoramic floor-to-ceiling glass wall dominates the back plane as one broad mostly uninterrupted glass plane overlooking a New York-style high-rise skyline. The glass should feel open, expansive, and lightly reflective, with only a few slim structural seams near the far edges if needed. Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors, or apartment-style segmented windows. A hotel bed with soft white rumpled bedding occupies the lower room plane, with pillows, a bedside table, wine glass, open book, warm hotel lamp, curtain edges, and subtle room-depth props as readable interaction anchors. Use a medium-wide editorial camera position approximately 3 to 5 meters away from the bed and glass wall, pulled back enough to show the subject inside the room and preserve the subject-to-bed and subject-to-window scale. The viewpoint may vary around the same fixed hotel-window set, but must not replace the set, collapse into a tight portrait, or lose the panoramic glass wall, New York skyline, bed or bedding, and warm bedside lamp as recognizable anchors',
     integrityEn: 'preserve anchors: broad panoramic glass wall, New York skyline depth, bed/bedding foreground, bedside lamp/table zone; keep their relative positions stable',
     replacementGuardEn: 'avoid heavy window grids, boxed panes, generic bedroom, plain wall, studio backdrop, outdoor scene, or unrelated hotel room',
     desc: '高級飯店房間、床面前景、超大片連續落地玻璃牆與紐約式高樓城市背景構成的窗景 set。',
     aspectRatioId: '1:1',
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'hotel_window_set', 'square_set'] },
+  },
+  {
+    id: 'luxury-hotel-window-mount-fuji-spring',
+    zh: '高級飯店落地窗富士山春景',
+    setGroupId: 'hotel-window',
+    en: 'The portrait takes place inside a real-scale luxury hotel room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: an oversized near-wall-to-wall panoramic floor-to-ceiling glass wall dominates the back plane as one broad mostly uninterrupted glass plane overlooking a spring Mount Fuji landscape. The glass should feel open, expansive, and lightly reflective, with only a few slim structural seams near the far edges if needed. Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors, or apartment-style segmented windows. A hotel bed with soft white rumpled bedding occupies the lower room plane, with pillows, a bedside table, warm hotel lamp, curtain edges, and subtle room-depth props as readable interaction anchors. Outside the glass, Mount Fuji is the dominant distant landscape anchor, with residual snow on the summit, clean blue spring sky, fresh green foothills, small lakeside or town rooftops, and subtle cherry blossoms or spring foliage that never cover or replace the mountain. Use a medium-wide editorial camera position approximately 3 to 5 meters away from the bed and glass wall, pulled back enough to show the subject inside the room and preserve the subject-to-bed and subject-to-window scale. The viewpoint may vary around the same fixed Fuji hotel-window set, but must not replace the set, collapse into a tight portrait, or lose the panoramic glass wall, Mount Fuji, bed or bedding, and warm bedside lamp as recognizable anchors',
+    integrityEn: 'preserve anchors: broad panoramic glass wall, Mount Fuji spring landscape, bed/bedding foreground, bedside lamp/table zone; keep their relative positions stable',
+    replacementGuardEn: 'avoid heavy window grids, boxed panes, generic city skyline, plain wall, studio backdrop, outdoor mountain scene, onsen ryokan, or unrelated hotel room',
+    desc: '高級飯店房間、床面前景、超大片連續落地玻璃牆與春季富士山、綠意山麓、湖畔或小鎮屋頂構成的窗景 set。',
+    aspectRatioId: '1:1',
+    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'hotel_window_set', 'mount_fuji_view_set', 'spring_set', 'square_set'] },
+  },
+  {
+    id: 'luxury-hotel-window-mount-fuji-winter',
+    zh: '高級飯店落地窗富士山冬景',
+    setGroupId: 'hotel-window',
+    en: 'The portrait takes place inside a real-scale luxury hotel room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: an oversized near-wall-to-wall panoramic floor-to-ceiling glass wall dominates the back plane as one broad mostly uninterrupted glass plane overlooking a winter Mount Fuji landscape. The glass should feel open, expansive, and lightly reflective, with only a few slim structural seams near the far edges if needed. Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors, or apartment-style segmented windows. A hotel bed with soft white rumpled bedding occupies the lower room plane, with pillows, a bedside table, warm hotel lamp, curtain edges, and subtle room-depth props as readable interaction anchors. Outside the glass, snow-covered Mount Fuji is the dominant distant landscape anchor, with cold clear air, blue-white winter daylight, snowy foothills or village rooftops, and quiet pale sky depth while the warm hotel interior remains readable. Use a medium-wide editorial camera position approximately 3 to 5 meters away from the bed and glass wall, pulled back enough to show the subject inside the room and preserve the subject-to-bed and subject-to-window scale. The viewpoint may vary around the same fixed Fuji hotel-window set, but must not replace the set, collapse into a tight portrait, or lose the panoramic glass wall, snow-covered Mount Fuji, bed or bedding, and warm bedside lamp as recognizable anchors',
+    integrityEn: 'preserve anchors: broad panoramic glass wall, snow-covered Mount Fuji winter landscape, bed/bedding foreground, bedside lamp/table zone; keep their relative positions stable',
+    replacementGuardEn: 'avoid heavy window grids, boxed panes, generic city skyline, plain wall, studio backdrop, outdoor snowfield, ski resort, onsen ryokan, or unrelated hotel room',
+    desc: '高級飯店房間、床面前景、超大片連續落地玻璃牆與冬季積雪富士山、冷白空氣、雪地山麓或村落屋頂構成的窗景 set。',
+    aspectRatioId: '1:1',
+    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'hotel_window_set', 'mount_fuji_view_set', 'winter_set', 'square_set'] },
   },
   {
     id: 'retro-tile-bathtub',
@@ -1436,36 +1459,42 @@ const FIXED_SET_POSITION_OPTIONS = [
   {
     id: 'hotel-free-interaction',
     setId: 'luxury-hotel-window-nyc',
+    setGroupId: 'hotel-window',
     zh: '自由場景互動',
-    en: 'subject placement can vary across one primary zone within the fixed hotel-window set: bed surface, bed edge, window-side floor plane, bedside-table side, curtain edge, pillow foreground, rumpled-bedding foreground, close foreground layer, or off-center negative space. The bed can support the subject or remain a foreground or side architecture anchor. Choose one secondary interaction anchor such as bedding, pillow, open book, wine glass, warm lamp, bedside table, curtain, glass reflection, skyline view, or room floor. Avoid defaulting every result to a centered bed pose',
+    en: 'subject placement can vary across one primary zone within the fixed hotel-window set: bed surface, bed edge, window-side floor plane, bedside-table side, curtain edge, pillow foreground, rumpled-bedding foreground, close foreground layer, or off-center negative space. The bed can support the subject or remain a foreground or side architecture anchor. Choose one secondary interaction anchor such as bedding, pillow, open book, wine glass, warm lamp, bedside table, curtain, glass reflection, exterior window view, or room floor. Avoid defaulting every result to a centered bed pose',
   },
   {
     id: 'hotel-bed-foreground',
     setId: 'luxury-hotel-window-nyc',
+    setGroupId: 'hotel-window',
     zh: '近鏡頭床面前景',
-    en: 'subject close to the camera or bed foreground; the city view can be partially blocked or softened',
+    en: 'subject close to the camera or bed foreground; the exterior window view can be partially blocked or softened',
   },
   {
     id: 'hotel-bed-window-side',
     setId: 'luxury-hotel-window-nyc',
+    setGroupId: 'hotel-window',
     zh: '床邊靠窗',
-    en: 'subject around the bed edge or window-side mid-plane; body, bedding, glass, and city depth can all remain readable',
+    en: 'subject around the bed edge or window-side mid-plane; body, bedding, glass, and exterior view depth can all remain readable',
   },
   {
     id: 'hotel-window-silhouette',
     setId: 'luxury-hotel-window-nyc',
-    zh: '窗前城市剪影',
-    en: 'subject near the floor-to-ceiling window; city towers become the dominant background, allowing profile, back-view, window-gazing, or silhouette-like behavior',
+    setGroupId: 'hotel-window',
+    zh: '窗前景觀剪影',
+    en: 'subject near the floor-to-ceiling window; the exterior view becomes the dominant background, allowing profile, back-view, window-gazing, or silhouette-like behavior',
   },
   {
     id: 'hotel-window-frame-close',
     setId: 'luxury-hotel-window-nyc',
+    setGroupId: 'hotel-window',
     zh: '近鏡頭窗框邊緣',
-    en: 'subject very near the lens along the window-frame edge, allowing partial face, shoulder, hair, or half-body crop while the city window remains a recognizable layer',
+    en: 'subject very near the lens along the window-frame edge, allowing partial face, shoulder, hair, or half-body crop while the hotel window view remains a recognizable layer',
   },
   {
     id: 'hotel-bedding-foreground-occlusion',
     setId: 'luxury-hotel-window-nyc',
+    setGroupId: 'hotel-window',
     zh: '床單前景遮擋',
     en: 'soft bedding or pillow shapes become a foreground occlusion layer in front of the subject, with the body distance and exact interaction left to the image model',
   },
@@ -4094,10 +4123,18 @@ function fixedCompositionSetAllowsCameraVariation(item) {
   return isFixedCompositionSetActive(item);
 }
 
-function getFixedSetPositionOption(id, fixedSetId) {
+function fixedSetPositionMatchesSet(position, fixedSetRef) {
+  if (!fixedSetRef || position.id === 'none') return true;
+  const fixedSet = typeof fixedSetRef === 'string' ? getFixedCompositionSetOption(fixedSetRef) : fixedSetRef;
+  const fixedSetId = fixedSet?.id || (typeof fixedSetRef === 'string' ? fixedSetRef : '');
+  if (!fixedSetId || position.setId === fixedSetId) return true;
+  if (Array.isArray(position.setIds) && position.setIds.includes(fixedSetId)) return true;
+  return Boolean(position.setGroupId && fixedSet?.setGroupId && position.setGroupId === fixedSet.setGroupId);
+}
+
+function getFixedSetPositionOption(id, fixedSetRef) {
   const item = FIXED_SET_POSITION_OPTIONS.find((option) => option.id === id) || FIXED_SET_POSITION_OPTIONS[0];
-  if (!fixedSetId || item.id === 'none') return item;
-  return item.setId === fixedSetId ? item : FIXED_SET_POSITION_OPTIONS[0];
+  return fixedSetPositionMatchesSet(item, fixedSetRef) ? item : FIXED_SET_POSITION_OPTIONS[0];
 }
 
 function getFixedSetCaptureModeOption(id) {
@@ -9307,7 +9344,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const opticalEffect = pickWithLock(runtime.flatCatalog.effects, effectiveLocks.opticalEffectId);
   const fixedCompositionSet = fixedCompositionSetActive ? selectedFixedCompositionSet : null;
   const fixedSetPosition = fixedCompositionSet
-    ? getFixedSetPositionOption(effectiveLocks.fixedSetPositionId, fixedCompositionSet.id)
+    ? getFixedSetPositionOption(effectiveLocks.fixedSetPositionId, fixedCompositionSet)
     : getFixedSetPositionOption('none');
   const fixedSetCaptureMode = fixedCompositionSet
     ? getFixedSetCaptureModeOption(effectiveLocks.fixedSetCaptureModeId)
