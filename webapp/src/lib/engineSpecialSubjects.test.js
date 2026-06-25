@@ -148,7 +148,7 @@ test('character profile control exposes character profile cards separately from 
   );
 });
 
-test('character profile card replaces normal identity and wardrobe while preserving reference guidance', () => {
+test('character profile card replaces normal identity and wardrobe without extra reference guidance', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-48g',
@@ -170,7 +170,7 @@ test('character profile card replaces normal identity and wardrobe while preserv
   assert.match(promptText, /visible thin-strap black lace thong waistband/);
   assert.match(promptText, /small off-white shoulder bag with thin black strap/);
   assert.match(promptText, /black lace-up ankle boots with glossy rounded toes/);
-  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /taupe-gray cropped hooded zip jacket/);
@@ -222,7 +222,7 @@ test('philippa character profile card preserves gothic lace identity and wardrob
   assert.match(promptText, /sheer mesh long sleeves/);
   assert.match(promptText, /black floral lace sleeve appliques/);
   assert.match(promptText, /floor-length translucent black tulle skirt overlay/);
-  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /black high-neck gothic lace dress/);
@@ -250,7 +250,7 @@ test('sakura character profile card preserves blue eyes bunny hood and soft loun
   assert.match(promptText, /oversized ivory-white fleece pullover hoodie/);
   assert.match(promptText, /relaxed beige oatmeal sweatpants/);
   assert.match(promptText, /clean white low-top sneakers/);
-  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /white plush bunny-eared hood/);
@@ -278,7 +278,7 @@ test('hinata character profile card preserves ash-gray bob and cobalt knit stree
   assert.match(promptText, /medium-wash skinny blue jeans/);
   assert.match(promptText, /black leather belt/);
   assert.match(promptText, /black leather ankle boots/);
-  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /plastic bag|shopping bag|grocery bag/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
@@ -311,7 +311,7 @@ test('rika character profile card preserves distinct black wavy hair face and lo
   assert.match(promptText, /slightly loose low-rise light-wash blue jeans with relaxed straight legs/);
   assert.match(promptText, /small silver ring keychain clipped to the front belt loop/);
   assert.match(promptText, /clean white low-top sneakers/);
-  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /arm sleeves|sleeve covers|detached sleeves/i);
   assert.doesNotMatch(promptText, /high-waisted straight-leg jeans/i);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
@@ -342,7 +342,7 @@ test('rin character profile card preserves black curly bob glasses and white shi
   assert.match(promptText, /crisp white oversized button-down shirt/);
   assert.match(promptText, /charcoal high-waisted tailored straight trousers/);
   assert.match(promptText, /black leather loafers/);
-  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(prompt.structured.Character.map((item) => item.en).join('\n'), /\b(?:book|notebook|tablet|paper|document)\b/i);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
@@ -370,7 +370,7 @@ test('lily character profile card preserves auburn waves black faux fur and ankl
   assert.match(promptText, /black shaggy faux-fur off-shoulder mini coat/);
   assert.match(promptText, /deep V neckline/);
   assert.match(promptText, /black ankle-strap stiletto sandals/);
-  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /black shaggy faux-fur off-shoulder mini coat/);
@@ -397,7 +397,7 @@ test('yuri character profile card preserves black straight hair glasses white of
   assert.match(promptText, /low-rise medium-wash blue flared jeans/);
   assert.match(promptText, /large oval western-style belt buckle/);
   assert.match(promptText, /brown low-top canvas sneakers with cream rubber soles/);
-  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /white ribbed off-shoulder cropped long-sleeve top/);
@@ -427,7 +427,7 @@ test('sui character profile card preserves black waves mustard cardigan cream kn
   assert.match(promptText, /small red-orange oval pendant/);
   assert.match(promptText, /high-waisted medium-dark blue straight-leg jeans/);
   assert.match(promptText, /brown leather ankle boots with rounded toes/);
-  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /mustard yellow oversized knit cardigan/);
@@ -455,7 +455,7 @@ test('hina character profile card preserves silver lilac bob round glasses mint 
   assert.match(promptText, /wide armholes with a subtle black inner layer visible at the side/);
   assert.match(promptText, /matching sage-mint green relaxed short shorts/);
   assert.match(promptText, /bare feet as the locked footwear state/);
-  assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /loose sage-mint green sleeveless tunic tank top/);

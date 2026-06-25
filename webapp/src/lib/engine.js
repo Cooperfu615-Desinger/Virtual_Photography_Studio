@@ -4632,9 +4632,7 @@ function isCharacterProfileSubject(subject) {
 
 function buildSpecialSubjectIntegrationPrompt(subject) {
   if (!isSpecialSubject(subject)) return '';
-  if (isCharacterProfileSubject(subject)) {
-    return 'use the supplied character reference sheets as identity and outfit anchors, preserve the same face, hairstyle, body proportions, signature outfit, and overall character continuity while adapting only pose, expression, lighting, camera, and scene context';
-  }
+  if (isCharacterProfileSubject(subject)) return '';
   const text = 'an unknown anomalous figure appearing naturally inside a real contemporary environment, photographed as if genuinely present in the same physical space, grounded by realistic scale, contact shadows, ambient light, and ordinary surroundings';
   return isSkeletonSubject(subject) ? sanitizeSkeletonPromptText(text) : text;
 }
@@ -8203,15 +8201,6 @@ function buildPromptSectionSources(valuesByLabel, context) {
   const wardrobeLead = context.subject?.count === 2 ? 'They wear' : 'She wears';
   const sceneUsesDirectSentence = sceneContextValues.length > 0 || fixedCompositionSetActive;
   const wardrobeUsesDirectSentence = wardrobeVisibilityValues.length > 0;
-  const wardrobeIntegrityConstraints = getStructuredValues(valuesByLabel, ['Wardrobe Integrity'])
-    .filter((value) => !/^preserve the selected wardrobe as complete, realistic clothing/i.test(value));
-  const constraints = [
-    ...wardrobeIntegrityConstraints,
-    ...(isCloseupVisibilityContext(context) ? [] : ['Keep the specified outfit visible where the chosen framing allows']),
-    'natural body proportions',
-    'no extra people unless specified',
-    'no visible text or logos unless explicitly requested',
-  ];
 
   return {
     imageType,
@@ -8221,7 +8210,6 @@ function buildPromptSectionSources(valuesByLabel, context) {
     poseText: joinNaturalPromptValues(poseValues),
     lightingText: joinNaturalPromptValues(lightingValues),
     cameraText: joinNaturalPromptValues(cameraValues),
-    constraintsText: joinNaturalPromptValues(constraints),
     subjectLead,
     wardrobeLead,
     sceneUsesDirectSentence,
@@ -8243,7 +8231,6 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
     poseText,
     lightingText,
     cameraText,
-    constraintsText,
     subjectLead,
     wardrobeLead,
     sceneUsesDirectSentence,
@@ -8258,7 +8245,6 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
     section('Pose and Composition', poseText),
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
-    section('Constraints', constraintsText),
     'multi-cut sequence n=2',
   ].filter(Boolean).join('\n\n');
 }
@@ -8815,7 +8801,7 @@ function buildAiCharacterProfileWardrobePhrase(subject) {
   if (!isCharacterProfileSubject(subject)) return '';
 
   const text = cleanAiMinimalFragment(subject?.en || '');
-  const signatureMatch = text.match(/\bsignature outfit locked as\s+(.+?)(?:,\s*contemporary street-fashion photographic realism|,\s*use the supplied character reference sheets|$)/i);
+  const signatureMatch = text.match(/\bsignature outfit locked as\s+(.+?)(?:,\s*contemporary street-fashion photographic realism|$)/i);
   const signatureText = signatureMatch?.[1] || '';
   const fragments = splitAiWardrobeFragments(signatureText)
     .filter((part) => isAiClothingCoreFragment(part) || /shoulder bag|bare feet|barefoot/i.test(part))

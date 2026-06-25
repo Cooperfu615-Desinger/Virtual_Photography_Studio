@@ -35,9 +35,10 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.match(prompt.grokPrompt, /\nPose and Composition:\n/);
   assert.match(prompt.grokPrompt, /\nLighting:\n/);
   assert.match(prompt.grokPrompt, /\nCamera Look:\n/);
-  assert.match(prompt.grokPrompt, /\nConstraints:\n/);
+  assert.doesNotMatch(prompt.grokPrompt, /\nConstraints:\n/);
   assert.doesNotMatch(prompt.grokPrompt, /preserve the selected wardrobe as complete, realistic clothing/i);
-  assert.match(prompt.grokPrompt, /Keep the specified outfit visible where the chosen framing allows/i);
+  assert.doesNotMatch(prompt.grokPrompt, /Keep the specified outfit visible where the chosen framing allows/i);
+  assert.doesNotMatch(prompt.grokPrompt, /natural body proportions|no extra people unless specified|no visible text or logos/i);
   assert.doesNotMatch(prompt.grokPrompt, /no nudity|fully clothed|clothing covers the body/i);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
