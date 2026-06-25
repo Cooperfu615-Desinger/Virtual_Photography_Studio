@@ -160,7 +160,7 @@ const CHARACTER_PROFILE_OPTIONS = [
   {
     id: 'character-hinata',
     zh: '06_Hinata',
-    en: 'a 20-year-old adult East Asian woman with refined mature-pretty facial features, luminous fair skin, softly sculpted oval face, clear hazel-gray eyes with gentle catlike eyeliner, softly arched ash-brown brows, slim straight nose, peach-rose blush, warm beige eye shadow, soft rose-pink lips with a polished satin sheen, calm confident street-style expression, smoky ash-gray hair with muted sage-green undertones, short wavy shoulder-grazing bob with a soft center part, airy outward-flipped layers around the cheeks and nape, tousled volume and delicate flyaway strands, slim tall fashion-model body proportions with a defined waist and long legs, signature outfit locked as a deep cobalt blue cable-knit turtleneck bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, high-cut hip openings exposing both side waist and upper hip, medium-wash skinny blue jeans with natural denim fading, black leather belt with small silver buckle, black leather ankle boots with rounded toes and low block heels, polished urban street-fashion photographic realism',
+    en: 'a 20-year-old adult East Asian-European mixed-race woman with refined mature-pretty mixed-race facial features, luminous fair skin, softly sculpted oval face, clear hazel-gray eyes with gentle catlike eyeliner, softly arched ash-brown brows, slim straight nose with a delicate bridge, peach-rose blush, warm beige eye shadow, soft rose-pink lips with a polished satin sheen, calm confident street-style expression, smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume and delicate flyaway strands, tall Western-glamour hourglass body proportions, long slender limbs, long legs, high waist, fuller bust, wide hips, and narrow waist, signature outfit locked as a deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings on the bodysuit exposing both sides of the narrow waist and upper hips, visually emphasizing the wider hips, medium-wash skinny blue jeans with natural denim fading, black leather belt with small silver buckle, black leather ankle boots with rounded toes and low block heels, polished urban street-fashion photographic realism',
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '06_Hinata 角色卡',
@@ -169,25 +169,25 @@ const CHARACTER_PROFILE_OPTIONS = [
       {
         type: 'portrait-closeup',
         label: '臉部近照',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/06_Hinata_00.png',
+        sourcePath: '/Volumes/Extreme Pro/一致性設計架構/已加入/06_Hinata_00.png',
         publicPath: '/character-cards/hinata/06_Hinata_00.png',
       },
       {
         type: 'full-body',
         label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/06_Hinata_03.png',
+        sourcePath: '/Volumes/Extreme Pro/一致性設計架構/已加入/06_Hinata_03.png',
         publicPath: '/character-cards/hinata/06_Hinata_03.png',
       },
       {
         type: 'expression-sheet',
         label: '表情九宮格',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/06_Hinata_01A.png',
+        sourcePath: '/Volumes/Extreme Pro/一致性設計架構/已加入/06_Hinata_01A.png',
         publicPath: '/character-cards/hinata/06_Hinata_01A.png',
       },
       {
         type: 'face-turnaround',
         label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/06_Hinata_01.png',
+        sourcePath: '/Volumes/Extreme Pro/一致性設計架構/已加入/06_Hinata_01.png',
         publicPath: '/character-cards/hinata/06_Hinata_01.png',
       },
     ],

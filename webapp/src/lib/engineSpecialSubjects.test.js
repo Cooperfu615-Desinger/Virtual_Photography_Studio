@@ -258,7 +258,7 @@ test('sakura character profile card preserves blue eyes bunny hood and soft loun
   assert.match(prompt.midjourneyPrompt, /relaxed beige oatmeal sweatpants/);
 });
 
-test('hinata character profile card preserves ash-gray bob and cobalt knit street outfit without plastic bag', () => {
+test('hinata character profile card preserves mixed-race ash-sage wavy bob cutout cobalt bodysuit and hourglass styling', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-hinata',
@@ -269,12 +269,17 @@ test('hinata character profile card preserves ash-gray bob and cobalt knit stree
   assert.equal(prompt.selection.characterProfileId, 'character-hinata');
   assert.equal(prompt.structured.Wardrobe.length, 0);
   assert.match(promptText, /06_Hinata|06_Hinata 角色卡/);
-  assert.match(promptText, /20-year-old adult East Asian woman with refined mature-pretty facial features/);
+  assert.match(promptText, /20-year-old adult East Asian-European mixed-race woman/);
+  assert.match(promptText, /refined mature-pretty mixed-race facial features/);
   assert.match(promptText, /clear hazel-gray eyes/);
-  assert.match(promptText, /smoky ash-gray hair with muted sage-green undertones/);
-  assert.match(promptText, /short wavy shoulder-grazing bob/);
-  assert.match(promptText, /deep cobalt blue cable-knit turtleneck bodysuit sweater/);
-  assert.match(promptText, /high-cut hip openings exposing both side waist and upper hip/);
+  assert.match(promptText, /smoky ash-gray hair with muted sage-olive undertones and darker shadow roots/);
+  assert.match(promptText, /chin-to-shoulder length wavy bob with an open center part/);
+  assert.match(promptText, /loose tousled S-wave texture/);
+  assert.match(promptText, /tall Western-glamour hourglass body proportions/);
+  assert.match(promptText, /long slender limbs, long legs, high waist, fuller bust, wide hips, and narrow waist/);
+  assert.match(promptText, /deep cobalt blue cable-knit turtleneck cutout bodysuit sweater/);
+  assert.match(promptText, /large side-waist cutout openings on the bodysuit exposing both sides of the narrow waist/);
+  assert.match(promptText, /visually emphasizing the wider hips/);
   assert.match(promptText, /medium-wash skinny blue jeans/);
   assert.match(promptText, /black leather belt/);
   assert.match(promptText, /black leather ankle boots/);
@@ -282,7 +287,8 @@ test('hinata character profile card preserves ash-gray bob and cobalt knit stree
   assert.doesNotMatch(promptText, /plastic bag|shopping bag|grocery bag/);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
-  assert.match(prompt.midjourneyPrompt, /deep cobalt blue cable-knit turtleneck bodysuit sweater/);
+  assert.match(prompt.midjourneyPrompt, /deep cobalt blue cable-knit turtleneck cutout bodysuit sweater/);
+  assert.match(prompt.midjourneyPrompt, /large side-waist cutout openings/);
   assert.match(prompt.midjourneyPrompt, /medium-wash skinny blue jeans/);
   assert.match(prompt.midjourneyPrompt, /black leather ankle boots/);
 });
