@@ -36,16 +36,31 @@ test('character profile control exposes character profile cards separately from 
   assert.deepEqual(
     characterCards.map((option) => [option.id, option.zh, option.specialToneZh]),
     [
-      ['character-48g', '48G 灰帽黑髮角色', '48G 固定角色卡'],
-      ['character-philippa', 'Philippa 黑白挑染蕾絲角色', 'Philippa 哥德蕾絲角色卡'],
-      ['character-sakura', 'Sakura 白兔帽粉棕髮角色', 'Sakura 白兔帽日常角色卡'],
-      ['character-hinata', 'Hinata 灰綠短髮藍針織角色', 'Hinata 藍針織街拍角色卡'],
-      ['character-rika', 'Rika 黑長髮白T牛仔角色', 'Rika 白T牛仔室內角色卡'],
-      ['character-rin', 'Rin 黑短捲髮眼鏡襯衫角色', 'Rin 眼鏡白襯衫正裝角色卡'],
-      ['character-lily', 'Lily 紅棕長髮黑絨外套角色', 'Lily 黑絨紅髮角色卡'],
-      ['character-yuri', 'Yuri 黑長直髮眼鏡白露肩角色', 'Yuri 白露肩牛仔角色卡'],
-      ['character-sui', 'Sui 黑長波浪髮芥黃開襟角色', 'Sui 芥黃針織牛仔角色卡'],
-      ['character-hina', 'Hina 銀紫短髮眼鏡薄荷套裝角色', 'Hina 薄荷無袖套裝角色卡'],
+      ['character-rika', '11_Rika', '11_Rika 角色卡'],
+      ['character-48g', '48_G', '48_G 角色卡'],
+      ['character-philippa', '29_Philippa', '29_Philippa 角色卡'],
+      ['character-lily', '07_Lily', '07_Lily 角色卡'],
+      ['character-hinata', '06_Hinata', '06_Hinata 角色卡'],
+      ['character-rin', '38_Rin', '38_Rin 角色卡'],
+      ['character-sakura', '12_Sakura', '12_Sakura 角色卡'],
+      ['character-sui', '03_Sui', '03_Sui 角色卡'],
+      ['character-yuri', '02_Yuri', '02_Yuri 角色卡'],
+      ['character-hina', '37_Hina', '37_Hina 角色卡'],
+    ]
+  );
+  assert.deepEqual(
+    characterCards.map((option) => [option.zh, option.meta?.referenceImage, option.meta?.referenceImageFormat]),
+    [
+      ['11_Rika', 'character-cards/rika/11_Rika_00.jpeg', 'jpeg'],
+      ['48_G', 'character-cards/48g/48_G_00.jpeg', 'jpeg'],
+      ['29_Philippa', 'character-cards/philippa/29_Philippa_00.jpeg', 'jpeg'],
+      ['07_Lily', 'character-cards/lily/07_Lily_00.jpeg', 'jpeg'],
+      ['06_Hinata', 'character-cards/hinata/06_Hinata_00.png', 'png'],
+      ['38_Rin', 'character-cards/rin/38_Rin_00.jpeg', 'jpeg'],
+      ['12_Sakura', 'character-cards/sakura/12_Sakura_00.jpeg', 'jpeg'],
+      ['03_Sui', 'character-cards/sui/03_Sui_00.jpeg', 'jpeg'],
+      ['02_Yuri', 'character-cards/yuri/02_Yuri_00.jpeg', 'jpeg'],
+      ['37_Hina', 'character-cards/hina/37_Hina_00.jpeg', 'jpeg'],
     ]
   );
   assert.deepEqual(
@@ -143,7 +158,7 @@ test('character profile card replaces normal identity and wardrobe while preserv
   assert.equal(prompt.selection.specialSubjectId, 'none');
   assert.equal(prompt.selection.characterProfileId, 'character-48g');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /48G 灰帽黑髮角色|48G 固定角色卡/);
+  assert.match(promptText, /48_G|48_G 角色卡/);
   assert.match(promptText, /20-year-old adult East Asian woman with doll-like facial features/);
   assert.doesNotMatch(promptText, /fixed original adult female character profile based on the supplied character reference sheets/);
   assert.match(promptText, /glossy black shoulder-length layered lob haircut with airy see-through bangs/);
@@ -196,7 +211,7 @@ test('philippa character profile card preserves gothic lace identity and wardrob
   assert.equal(prompt.selection.specialSubjectId, 'none');
   assert.equal(prompt.selection.characterProfileId, 'character-philippa');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /Philippa 黑白挑染蕾絲角色|Philippa 哥德蕾絲角色卡/);
+  assert.match(promptText, /29_Philippa|29_Philippa 角色卡/);
   assert.match(promptText, /20-year-old adult East Asian woman with pale gothic beauty/);
   assert.match(promptText, /clear pale gray-green eyes with a cool glassy gaze/);
   assert.match(promptText, /long center-parted wavy black hair with clean black bangs/);
@@ -225,7 +240,7 @@ test('sakura character profile card preserves blue eyes bunny hood and soft loun
   assert.equal(prompt.selection.specialSubjectId, 'none');
   assert.equal(prompt.selection.characterProfileId, 'character-sakura');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /Sakura 白兔帽粉棕髮角色|Sakura 白兔帽日常角色卡/);
+  assert.match(promptText, /12_Sakura|12_Sakura 角色卡/);
   assert.match(promptText, /20-year-old adult East Asian woman with soft doll-like kawaii facial features/);
   assert.match(promptText, /large vivid clear blue eyes/);
   assert.match(promptText, /peach-pink blush/);
@@ -253,7 +268,7 @@ test('hinata character profile card preserves ash-gray bob and cobalt knit stree
   assert.equal(prompt.selection.specialSubjectId, 'none');
   assert.equal(prompt.selection.characterProfileId, 'character-hinata');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /Hinata 灰綠短髮藍針織角色|Hinata 藍針織街拍角色卡/);
+  assert.match(promptText, /06_Hinata|06_Hinata 角色卡/);
   assert.match(promptText, /20-year-old adult East Asian woman with refined mature-pretty facial features/);
   assert.match(promptText, /clear hazel-gray eyes/);
   assert.match(promptText, /smoky ash-gray hair with muted sage-green undertones/);
@@ -272,7 +287,7 @@ test('hinata character profile card preserves ash-gray bob and cobalt knit stree
   assert.match(prompt.midjourneyPrompt, /black leather ankle boots/);
 });
 
-test('rika character profile card preserves black wavy hair white tee and light denim styling', () => {
+test('rika character profile card preserves distinct black wavy hair face and low-rise denim styling', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-rika',
@@ -282,23 +297,27 @@ test('rika character profile card preserves black wavy hair white tee and light 
   assert.equal(prompt.selection.specialSubjectId, 'none');
   assert.equal(prompt.selection.characterProfileId, 'character-rika');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /Rika 黑長髮白T牛仔角色|Rika 白T牛仔室內角色卡/);
+  assert.match(promptText, /11_Rika|11_Rika 角色卡/);
   assert.match(promptText, /20-year-old adult East Asian woman with soft doll-like indie-girl facial features/);
-  assert.match(promptText, /large clear gray-brown eyes/);
+  assert.match(promptText, /softly full cheeks and a gentle rounded jaw/);
+  assert.match(promptText, /large rounded gray-brown eyes with glassy catchlights and soft lower-lash detail/);
+  assert.match(promptText, /tiny beauty mark near one outer cheek/);
+  assert.match(promptText, /soft rose-pink lips with a cushioned slightly parted pout/);
   assert.match(promptText, /glossy natural black long wavy hair/);
-  assert.match(promptText, /straight airy see-through bangs/);
+  assert.match(promptText, /airy see-through bangs with slightly uneven wispy pieces/);
   assert.match(promptText, /fitted cropped white short-sleeve baby tee/);
   assert.match(promptText, /small minimalist black line-art chest graphic/);
   assert.match(promptText, /black-and-white beaded choker necklace/);
-  assert.match(promptText, /light-wash high-waisted straight-leg jeans/);
+  assert.match(promptText, /slightly loose low-rise light-wash blue jeans with relaxed straight legs/);
   assert.match(promptText, /small silver ring keychain clipped to the front belt loop/);
   assert.match(promptText, /clean white low-top sneakers/);
   assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
   assert.doesNotMatch(promptText, /arm sleeves|sleeve covers|detached sleeves/i);
+  assert.doesNotMatch(promptText, /high-waisted straight-leg jeans/i);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /fitted cropped white short-sleeve baby tee/);
-  assert.match(prompt.midjourneyPrompt, /light-wash high-waisted straight-leg jeans/);
+  assert.match(prompt.midjourneyPrompt, /slightly loose low-rise light-wash blue jeans with relaxed straight legs/);
   assert.match(prompt.midjourneyPrompt, /clean white low-top sneakers/);
 });
 
@@ -312,7 +331,7 @@ test('rin character profile card preserves black curly bob glasses and white shi
   assert.equal(prompt.selection.specialSubjectId, 'none');
   assert.equal(prompt.selection.characterProfileId, 'character-rin');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /Rin 黑短捲髮眼鏡襯衫角色|Rin 眼鏡白襯衫正裝角色卡/);
+  assert.match(promptText, /38_Rin|38_Rin 角色卡/);
   assert.match(promptText, /20-year-old adult East Asian woman with elegant intelligent doll-like facial features/);
   assert.match(promptText, /clear warm brown eyes/);
   assert.match(promptText, /glossy natural black short curly bob/);
@@ -342,7 +361,7 @@ test('lily character profile card preserves auburn waves black faux fur and ankl
   assert.equal(prompt.selection.specialSubjectId, 'none');
   assert.equal(prompt.selection.characterProfileId, 'character-lily');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /Lily 紅棕長髮黑絨外套角色|Lily 黑絨紅髮角色卡/);
+  assert.match(promptText, /07_Lily|07_Lily 角色卡/);
   assert.match(promptText, /20-year-old adult East Asian woman with glamorous doll-like facial features/);
   assert.match(promptText, /clear warm hazel-brown eyes/);
   assert.match(promptText, /long tousled copper-auburn red hair/);
@@ -368,7 +387,7 @@ test('yuri character profile card preserves black straight hair glasses white of
   assert.equal(prompt.selection.specialSubjectId, 'none');
   assert.equal(prompt.selection.characterProfileId, 'character-yuri');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /Yuri 黑長直髮眼鏡白露肩角色|Yuri 白露肩牛仔角色卡/);
+  assert.match(promptText, /02_Yuri|02_Yuri 角色卡/);
   assert.match(promptText, /20-year-old adult East Asian woman with quiet intelligent doll-like facial features/);
   assert.match(promptText, /clear dark brown eyes behind round translucent brown acetate eyeglasses/);
   assert.match(promptText, /glossy natural black long straight hair/);
@@ -396,7 +415,7 @@ test('sui character profile card preserves black waves mustard cardigan cream kn
   assert.equal(prompt.selection.specialSubjectId, 'none');
   assert.equal(prompt.selection.characterProfileId, 'character-sui');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /Sui 黑長波浪髮芥黃開襟角色|Sui 芥黃針織牛仔角色卡/);
+  assert.match(promptText, /03_Sui|03_Sui 角色卡/);
   assert.match(promptText, /20-year-old adult East Asian woman with soft delicate doll-like facial features/);
   assert.match(promptText, /natural freckles across the cheeks and nose/);
   assert.match(promptText, /clear warm brown eyes/);
@@ -427,7 +446,7 @@ test('hina character profile card preserves silver lilac bob round glasses mint 
   assert.equal(prompt.selection.specialSubjectId, 'none');
   assert.equal(prompt.selection.characterProfileId, 'character-hina');
   assert.equal(prompt.structured.Wardrobe.length, 0);
-  assert.match(promptText, /Hina 銀紫短髮眼鏡薄荷套裝角色|Hina 薄荷無袖套裝角色卡/);
+  assert.match(promptText, /37_Hina|37_Hina 角色卡/);
   assert.match(promptText, /20-year-old adult East Asian woman with soft intelligent doll-like facial features/);
   assert.match(promptText, /clear warm gray-brown eyes behind round thin black metal eyeglasses/);
   assert.match(promptText, /pale silver-lilac short bob/);

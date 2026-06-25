@@ -72,11 +72,12 @@ const CHARACTER_PROFILE_OPTIONS = [
   },
   {
     id: 'character-48g',
-    zh: '48G 灰帽黑髮角色',
+    zh: '48_G',
     en: 'a 20-year-old adult East Asian woman with doll-like facial features, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette, signature outfit locked as a taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath, small off-white shoulder bag with thin black strap, black lace-up ankle boots with glossy rounded toes, contemporary street-fashion photographic realism',
     count: 1,
     specialSubject: 'character-profile',
-    specialToneZh: '48G 固定角色卡',
+    specialToneZh: '48_G 角色卡',
+    meta: { referenceImage: 'character-cards/48g/48_G_00.jpeg', referenceImageFormat: 'jpeg' },
     referenceImages: [
       {
         type: 'face-turnaround',
@@ -100,11 +101,12 @@ const CHARACTER_PROFILE_OPTIONS = [
   },
   {
     id: 'character-philippa',
-    zh: 'Philippa 黑白挑染蕾絲角色',
+    zh: '29_Philippa',
     en: 'a 20-year-old adult East Asian woman with pale gothic beauty, porcelain luminous skin, elegant oval face, clear pale gray-green eyes with a cool glassy gaze, softly arched dark brows, slim straight nose, muted red matte lips, refined melancholic expression, long center-parted wavy black hair with clean black bangs and solid black front face-framing strands, silver-white dip-dye streaks concentrated only through the rear and lower trailing hair sections near the back hair tips, front bangs and front hair remain black without light streaks, voluminous waves falling past the chest, slender fashion-model body proportions with a graceful narrow waist, signature outfit locked as a black high-neck gothic lace dress with sheer mesh long sleeves, black floral lace sleeve appliques across shoulders and arms, fitted black lace bodice with subtle beadwork, floor-length translucent black tulle skirt overlay with trailing hem, black elegant dress shoes, romantic dark couture photographic realism',
     count: 1,
     specialSubject: 'character-profile',
-    specialToneZh: 'Philippa 哥德蕾絲角色卡',
+    specialToneZh: '29_Philippa 角色卡',
+    meta: { referenceImage: 'character-cards/philippa/29_Philippa_00.jpeg', referenceImageFormat: 'jpeg' },
     referenceImages: [
       {
         type: 'face-turnaround',
@@ -128,11 +130,12 @@ const CHARACTER_PROFILE_OPTIONS = [
   },
   {
     id: 'character-sakura',
-    zh: 'Sakura 白兔帽粉棕髮角色',
+    zh: '12_Sakura',
     en: 'a 20-year-old adult East Asian woman with soft doll-like kawaii facial features, luminous fair skin, delicate oval heart-shaped face, large vivid clear blue eyes with glossy catchlights and defined upper lashes, softly arched brown brows, small straight nose with gentle bridge, peach-pink blush across the cheeks and nose, warm peach eye shadow, subtle eyeliner, glossy peach-pink gradient lips slightly parted, long loose wavy warm chestnut-brown hair with dusty rose-pink streaks framing both sides of the face and flowing through the lengths, airy wispy see-through bangs, slim petite cozy-girl body proportions, signature outfit locked as a white plush bunny-eared hood with floppy long ears, pink inner ears, cute black cartoon eyes, small pink nose, soft white plush fur texture and tiny white fang-like teeth along the hood opening, oversized ivory-white fleece pullover hoodie with dropped shoulders, long loose sleeves, front kangaroo pocket and white drawstrings, relaxed beige oatmeal sweatpants with soft brushed knit texture and straight loose legs, clean white low-top sneakers, gentle cozy indoor lifestyle photographic realism',
     count: 1,
     specialSubject: 'character-profile',
-    specialToneZh: 'Sakura 白兔帽日常角色卡',
+    specialToneZh: '12_Sakura 角色卡',
+    meta: { referenceImage: 'character-cards/sakura/12_Sakura_00.jpeg', referenceImageFormat: 'jpeg' },
     referenceImages: [
       {
         type: 'portrait-closeup',
@@ -156,11 +159,12 @@ const CHARACTER_PROFILE_OPTIONS = [
   },
   {
     id: 'character-hinata',
-    zh: 'Hinata 灰綠短髮藍針織角色',
+    zh: '06_Hinata',
     en: 'a 20-year-old adult East Asian woman with refined mature-pretty facial features, luminous fair skin, softly sculpted oval face, clear hazel-gray eyes with gentle catlike eyeliner, softly arched ash-brown brows, slim straight nose, peach-rose blush, warm beige eye shadow, soft rose-pink lips with a polished satin sheen, calm confident street-style expression, smoky ash-gray hair with muted sage-green undertones, short wavy shoulder-grazing bob with a soft center part, airy outward-flipped layers around the cheeks and nape, tousled volume and delicate flyaway strands, slim tall fashion-model body proportions with a defined waist and long legs, signature outfit locked as a deep cobalt blue cable-knit turtleneck bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, high-cut hip openings exposing both side waist and upper hip, medium-wash skinny blue jeans with natural denim fading, black leather belt with small silver buckle, black leather ankle boots with rounded toes and low block heels, polished urban street-fashion photographic realism',
     count: 1,
     specialSubject: 'character-profile',
-    specialToneZh: 'Hinata 藍針織街拍角色卡',
+    specialToneZh: '06_Hinata 角色卡',
+    meta: { referenceImage: 'character-cards/hinata/06_Hinata_00.png', referenceImageFormat: 'png' },
     referenceImages: [
       {
         type: 'portrait-closeup',
@@ -190,11 +194,12 @@ const CHARACTER_PROFILE_OPTIONS = [
   },
   {
     id: 'character-rika',
-    zh: 'Rika 黑長髮白T牛仔角色',
-    en: 'a 20-year-old adult East Asian woman with soft doll-like indie-girl facial features, luminous fair skin, petite oval face with a gentle rounded jaw, large clear gray-brown eyes with soft lower-lash detail, straight natural brows, small delicate nose, peach blush, warm peach-beige eye makeup, glossy rose-pink lips with a slightly pouty shape, quiet dreamy gaze, glossy natural black long wavy hair falling past the shoulders, straight airy see-through bangs with slightly uneven wispy pieces across the forehead, face-framing side strands and loose layered waves through the lengths, slim petite casual-fashion body proportions with a narrow waist, signature outfit locked as a fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic, black-and-white beaded choker necklace, light-wash high-waisted straight-leg jeans with soft vintage fading, small silver ring keychain clipped to the front belt loop, clean white low-top sneakers, intimate warm indoor film-snapshot photographic realism',
+    zh: '11_Rika',
+    en: 'a 20-year-old adult East Asian woman with soft doll-like indie-girl facial features, luminous fair skin, petite oval face with softly full cheeks and a gentle rounded jaw, large rounded gray-brown eyes with glassy catchlights and soft lower-lash detail, straight natural brows, small delicate straight nose with a smooth bridge, tiny beauty mark near one outer cheek, peach-pink blush, warm peach-beige eye makeup, soft rose-pink lips with a cushioned slightly parted pout, quiet dreamy gaze, glossy natural black long wavy hair falling past the shoulders, airy see-through bangs with slightly uneven wispy pieces across the forehead, face-framing side strands and loose layered waves through the lengths, slim petite casual-fashion body proportions with a narrow waist, signature outfit locked as a fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic, black-and-white beaded choker necklace, slightly loose low-rise light-wash blue jeans with relaxed straight legs and soft vintage fading, small silver ring keychain clipped to the front belt loop, clean white low-top sneakers, intimate warm indoor film-snapshot photographic realism',
     count: 1,
     specialSubject: 'character-profile',
-    specialToneZh: 'Rika 白T牛仔室內角色卡',
+    specialToneZh: '11_Rika 角色卡',
+    meta: { referenceImage: 'character-cards/rika/11_Rika_00.jpeg', referenceImageFormat: 'jpeg' },
     referenceImages: [
       {
         type: 'portrait-closeup',
@@ -217,18 +222,19 @@ const CHARACTER_PROFILE_OPTIONS = [
       {
         type: 'face-turnaround',
         label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/11_Rika_01.png',
+        sourcePath: '/Volumes/Extreme Pro/一致性設計架構/已加入/11_Rika_01.png',
         publicPath: '/character-cards/rika/11_Rika_01.png',
       },
     ],
   },
   {
     id: 'character-rin',
-    zh: 'Rin 黑短捲髮眼鏡襯衫角色',
+    zh: '38_Rin',
     en: 'a 20-year-old adult East Asian woman with elegant intelligent doll-like facial features, porcelain fair skin with a subtle luminous sheen, slim oval face, clear warm brown eyes with soft defined lashes, straight natural brows, small refined nose, peach-beige blush, warm beige eye shadow, glossy muted rose lips, calm observant expression, glossy natural black short curly bob with soft volume around the ears and nape, loose S-wave curls, soft parted see-through bangs with a few curved strands falling across the forehead, slim refined fashion-model body proportions with a narrow waist and long neck, signature outfit locked as thin rectangular brown-gold metal frame eyeglasses with transparent lenses, small gold hoop earrings, layered delicate gold necklaces with tiny pendant charms, crisp white oversized button-down shirt with open collar, relaxed dropped shoulders, sleeves rolled to the forearms, slightly loose tucked-in fabric, charcoal high-waisted tailored straight trousers with pressed front crease and clean waistband, black leather loafers with low stacked heels, polished intellectual minimalist photographic realism',
     count: 1,
     specialSubject: 'character-profile',
-    specialToneZh: 'Rin 眼鏡白襯衫正裝角色卡',
+    specialToneZh: '38_Rin 角色卡',
+    meta: { referenceImage: 'character-cards/rin/38_Rin_00.jpeg', referenceImageFormat: 'jpeg' },
     referenceImages: [
       {
         type: 'face-turnaround',
@@ -252,11 +258,12 @@ const CHARACTER_PROFILE_OPTIONS = [
   },
   {
     id: 'character-lily',
-    zh: 'Lily 紅棕長髮黑絨外套角色',
+    zh: '07_Lily',
     en: 'a 20-year-old adult East Asian woman with glamorous doll-like facial features, porcelain fair skin with a soft luminous glow, delicate oval heart-shaped face, clear warm hazel-brown eyes with glossy catchlights and long curled lashes, softly arched reddish-brown brows, small refined nose, peach-coral blush, warm champagne eye shadow, subtle eyeliner, glossy coral-rose lips with a softly parted pout, calm seductive fashion-editorial expression, long tousled copper-auburn red hair with darker natural roots, loose messy waves flowing past the chest and down the back, airy wispy see-through bangs falling softly across the forehead, face-framing side pieces and windswept layered texture, slim tall fashion-model body proportions with narrow waist, long legs, refined shoulders and collarbones, signature outfit locked as a black shaggy faux-fur off-shoulder mini coat worn as the main garment, plush high-pile texture, deep V neckline, bare shoulders and collarbones, oversized sleeves, mini-length hem, minimal black inner layer kept subtle under the coat, black ankle-strap stiletto sandals with thin straps and open toes, glamorous sunlit fashion portrait photographic realism',
     count: 1,
     specialSubject: 'character-profile',
-    specialToneZh: 'Lily 黑絨紅髮角色卡',
+    specialToneZh: '07_Lily 角色卡',
+    meta: { referenceImage: 'character-cards/lily/07_Lily_00.jpeg', referenceImageFormat: 'jpeg' },
     referenceImages: [
       {
         type: 'portrait-closeup',
@@ -280,11 +287,12 @@ const CHARACTER_PROFILE_OPTIONS = [
   },
   {
     id: 'character-yuri',
-    zh: 'Yuri 黑長直髮眼鏡白露肩角色',
+    zh: '02_Yuri',
     en: 'a 20-year-old adult East Asian woman with quiet intelligent doll-like facial features, luminous fair skin, soft oval face, clear dark brown eyes behind round translucent brown acetate eyeglasses with thin metal temples, straight natural brows, small refined nose, peach-beige blush, soft beige eye shadow, glossy muted rose lips with a calm slightly serious gaze, glossy natural black long straight hair falling past the chest, wispy see-through bangs across the forehead, tapered face-framing layers and softly inward-curved ends, slim petite casual-fashion body proportions with a narrow waist and long clean leg line, signature outfit locked as a white ribbed off-shoulder cropped long-sleeve top with exposed shoulders, fitted sleeves, small front buttons, vintage black graphic print across the chest and delicate lace trim along the cropped hem, black choker necklace with small silver charm details, stacked silver bangles and rings, low-rise medium-wash blue flared jeans with natural fading, decorated leather belt with large oval western-style belt buckle and metal-stud chain detail, brown low-top canvas sneakers with cream rubber soles and white laces, warm retro youth-fashion photographic realism',
     count: 1,
     specialSubject: 'character-profile',
-    specialToneZh: 'Yuri 白露肩牛仔角色卡',
+    specialToneZh: '02_Yuri 角色卡',
+    meta: { referenceImage: 'character-cards/yuri/02_Yuri_00.jpeg', referenceImageFormat: 'jpeg' },
     referenceImages: [
       {
         type: 'portrait-closeup',
@@ -308,11 +316,12 @@ const CHARACTER_PROFILE_OPTIONS = [
   },
   {
     id: 'character-sui',
-    zh: 'Sui 黑長波浪髮芥黃開襟角色',
+    zh: '03_Sui',
     en: 'a 20-year-old adult East Asian woman with soft delicate doll-like facial features, luminous fair skin with natural freckles across the cheeks and nose, soft oval heart-shaped face, clear warm brown eyes with glossy catchlights, straight natural dark brows, small refined nose, peach-pink blush, warm beige eye shadow, glossy coral-rose lips with a soft pout, gentle playful cozy-girl expression, glossy natural black long wavy hair falling past the chest and down the back, airy wispy see-through bangs across the forehead, loose layered waves, face-framing side strands and natural tousled flyaways, slim petite soft casual-fashion body proportions with a narrow waist, delicate shoulders and collarbones, signature outfit locked as a mustard yellow oversized knit cardigan with chunky fuzzy texture, deep V open front, wooden buttons, relaxed dropped shoulders, long loose sleeves with ribbed cuffs, small white fuzzy floral embroidery scattered on the cardigan, cream ribbed knit camisole with a scoop neckline underneath, delicate gold necklace with a small red-orange oval pendant, high-waisted medium-dark blue straight-leg jeans with natural denim fading, brown leather ankle boots with rounded toes and low stacked heels, soft cozy casual-fashion photographic realism',
     count: 1,
     specialSubject: 'character-profile',
-    specialToneZh: 'Sui 芥黃針織牛仔角色卡',
+    specialToneZh: '03_Sui 角色卡',
+    meta: { referenceImage: 'character-cards/sui/03_Sui_00.jpeg', referenceImageFormat: 'jpeg' },
     referenceImages: [
       {
         type: 'portrait-closeup',
@@ -342,11 +351,12 @@ const CHARACTER_PROFILE_OPTIONS = [
   },
   {
     id: 'character-hina',
-    zh: 'Hina 銀紫短髮眼鏡薄荷套裝角色',
+    zh: '37_Hina',
     en: 'a 20-year-old adult East Asian woman with soft intelligent doll-like facial features, luminous fair skin, small oval face with gentle cheeks, clear warm gray-brown eyes behind round thin black metal eyeglasses, straight soft brows, small refined nose, pale peach blush, soft beige-pink eye makeup, natural glossy rose-pink lips with a calm quiet gaze, pale silver-lilac short bob with soft ash roots and realistic dyed-hair texture, wispy airy bangs lightly crossing the forehead, rounded cheek-length side layers, softly feathered ends around the jaw and nape, slim petite delicate casual body proportions with narrow shoulders, slender arms, long pale legs and a compact youthful adult silhouette, signature outfit locked as a loose sage-mint green sleeveless tunic tank top with soft washed cotton texture, round crew neckline, oversized A-line drape, wide armholes with a subtle black inner layer visible at the side, matching sage-mint green relaxed short shorts, bare feet as the locked footwear state, quiet minimalist loungewear photographic realism',
     count: 1,
     specialSubject: 'character-profile',
-    specialToneZh: 'Hina 薄荷無袖套裝角色卡',
+    specialToneZh: '37_Hina 角色卡',
+    meta: { referenceImage: 'character-cards/hina/37_Hina_00.jpeg', referenceImageFormat: 'jpeg' },
     referenceImages: [
       {
         type: 'portrait-scene',
@@ -369,6 +379,26 @@ const CHARACTER_PROFILE_OPTIONS = [
     ],
   },
 ];
+
+const CHARACTER_PROFILE_CONTROL_ORDER = [
+  'character-rika',
+  'character-48g',
+  'character-philippa',
+  'character-lily',
+  'character-hinata',
+  'character-rin',
+  'character-sakura',
+  'character-sui',
+  'character-yuri',
+  'character-hina',
+];
+
+const CHARACTER_PROFILE_CONTROL_OPTIONS = [
+  CHARACTER_PROFILE_OPTIONS.find((option) => option.id === 'none'),
+  ...CHARACTER_PROFILE_CONTROL_ORDER
+    .map((id) => CHARACTER_PROFILE_OPTIONS.find((option) => option.id === id))
+    .filter(Boolean),
+].filter(Boolean);
 
 const ALL_DEDICATED_SUBJECT_OPTIONS = [
   ...SPECIAL_SUBJECT_OPTIONS,
@@ -1615,7 +1645,7 @@ const FIXED_SET_PERFORMANCE_STATE_OPTIONS = [
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
   { key: 'specialSubjectId', label: '特殊角色', options: SPECIAL_SUBJECT_OPTIONS, defaultValue: 'none', section: 'character' },
-  { key: 'characterProfileId', label: '角色卡', options: CHARACTER_PROFILE_OPTIONS, defaultValue: 'none', section: 'character' },
+  { key: 'characterProfileId', label: '角色卡', options: CHARACTER_PROFILE_CONTROL_OPTIONS, defaultValue: 'none', section: 'character' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
   { key: 'cameraSystemId', label: '舊相機', options: CAMERA_SYSTEM_OPTIONS, section: 'hidden' },

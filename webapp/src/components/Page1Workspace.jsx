@@ -16,6 +16,7 @@ import { resolvePage1ActiveSubpanel } from '../lib/page1WorkspacePanels.js';
 import { randomizeLockKeys, setLockKeysToNone } from '../lib/page1SectionRandom.js';
 
 const WARDROBE_PICKER_KEYS = new Set([
+  'characterProfileId',
   'specialOutfitId',
   'specialOutfitAId',
   'specialOutfitBId',
@@ -58,6 +59,7 @@ const WARDROBE_PICKER_KEYS = new Set([
 ]);
 
 const WARDROBE_IMAGE_ONLY_PICKER_KEYS = new Set([
+  'characterProfileId',
   'outfitPresetId',
   'outfitPresetAId',
   'outfitPresetBId',
@@ -465,6 +467,7 @@ function getOptionCategory(option, control) {
   const label = option?.zh || '';
   if (control?.label?.includes('配色') || control?.label?.includes('色')) return '配色';
   if (label.includes('全無')) return '全無';
+  if (control?.key === 'characterProfileId') return '角色卡';
   if (label.startsWith('套裝：')) return '套裝';
   if (label.startsWith('連身：')) return '連身';
   if (label.includes('配色') || option?.topColor || option?.bottomColor) return '配色';
@@ -743,7 +746,8 @@ export default function Page1Workspace({
     () => buildWardrobeLayerInsights(locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive),
     [locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive],
   );
-  const activeWardrobePickerControl = wardrobeLockControls.find((control) => control.key === activeWardrobePickerKey);
+  const activeWardrobePickerControl = [...characterLockControls, ...wardrobeLockControls]
+    .find((control) => control.key === activeWardrobePickerKey);
   const specialActionControl = characterLockControls.find((control) => control.key === 'specialActionId');
   const poseHandControl = characterLockControls.find((control) => control.key === 'poseHandId');
   const getSpecialActionOption = (id) => specialActionControl?.options?.find((option) => option.id === id) || null;
@@ -1003,7 +1007,7 @@ export default function Page1Workspace({
         const dividerLabel = activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
           ? WARDROBE_GARMENT_CONTROL_DIVIDERS[control.key]
           : '';
-        const field = activeSection === 'wardrobe' && WARDROBE_PICKER_KEYS.has(control.key) ? (
+        const field = WARDROBE_PICKER_KEYS.has(control.key) ? (
           <WardrobePickerField
             control={control}
             value={value}

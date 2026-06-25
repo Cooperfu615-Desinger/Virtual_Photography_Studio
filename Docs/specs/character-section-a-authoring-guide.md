@@ -381,16 +381,16 @@ Pose Composer 手部姿勢中的自拍類規則：
 
 目前固定角色卡與 id：
 
-- `character-48g` / `48G 灰帽黑髮角色`
-- `character-philippa` / `Philippa 黑白挑染蕾絲角色`
-- `character-sakura` / `Sakura 白兔帽粉棕髮角色`
-- `character-hinata` / `Hinata 灰綠短髮藍針織角色`
-- `character-rika` / `Rika 黑長髮白T牛仔角色`
-- `character-rin` / `Rin 黑短捲髮眼鏡襯衫角色`
-- `character-lily` / `Lily 紅棕長髮黑絨外套角色`
-- `character-yuri` / `Yuri 黑長直髮眼鏡白露肩角色`
-- `character-sui` / `Sui 黑長波浪髮芥黃開襟角色`
-- `character-hina` / `Hina 銀紫短髮眼鏡薄荷套裝角色`
+- `character-rika` / `11_Rika`
+- `character-48g` / `48_G`
+- `character-philippa` / `29_Philippa`
+- `character-lily` / `07_Lily`
+- `character-hinata` / `06_Hinata`
+- `character-rin` / `38_Rin`
+- `character-sakura` / `12_Sakura`
+- `character-sui` / `03_Sui`
+- `character-yuri` / `02_Yuri`
+- `character-hina` / `37_Hina`
 
 角色卡 `character-profile` 規則：
 
@@ -398,6 +398,7 @@ Pose Composer 手部姿勢中的自拍類規則：
 - 角色卡會 suppress normal wardrobe output，避免一般穿搭稀釋角色設定。
 - 角色卡不保留一般髮型與髮色控制，髮型髮色寫在角色卡身份描述中。
 - 角色卡仍可使用 B 神情姿態、特殊動作與 Pose Composer。
+- 角色卡選項使用圖片 picker 顯示，`meta.referenceImage` 應指定單張代表正面照 public path；完整 reference sheet 仍放在 `referenceImages` metadata。
 - 角色卡不應使用 `unknown anomalous figure` 共享融合句；應使用角色一致性與 reference sheet guidance。
 - 每張角色卡可包含 `referenceImages` metadata，記錄 face-turnaround、full-body、expression-sheet 等來源。
 
