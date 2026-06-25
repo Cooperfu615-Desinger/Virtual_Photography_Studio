@@ -289,12 +289,12 @@ test('rika character profile card preserves black wavy hair white tee and light 
   assert.match(promptText, /straight airy see-through bangs/);
   assert.match(promptText, /fitted cropped white short-sleeve baby tee/);
   assert.match(promptText, /small minimalist black line-art chest graphic/);
-  assert.match(promptText, /black fitted long arm sleeves/);
   assert.match(promptText, /black-and-white beaded choker necklace/);
   assert.match(promptText, /light-wash high-waisted straight-leg jeans/);
   assert.match(promptText, /small silver ring keychain clipped to the front belt loop/);
   assert.match(promptText, /clean white low-top sneakers/);
   assert.match(promptText, /use the supplied character reference sheets as identity and outfit anchors/);
+  assert.doesNotMatch(promptText, /arm sleeves|sleeve covers|detached sleeves/i);
   assert.doesNotMatch(promptText, /unknown anomalous figure/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
   assert.match(prompt.midjourneyPrompt, /fitted cropped white short-sleeve baby tee/);
