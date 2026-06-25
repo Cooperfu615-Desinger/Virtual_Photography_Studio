@@ -19,6 +19,30 @@ function createAllNoneLocks() {
   return locks;
 }
 
+function zImageParagraphs(prompt) {
+  return prompt.zImagePrompt
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+}
+
+function assertNaturalZImageParagraphs(prompt, caseName, minParagraphs = 4) {
+  const paragraphs = zImageParagraphs(prompt);
+
+  assert.match(prompt.zImagePrompt, /\n\n/, `${caseName} should use blank-line paragraph breaks`);
+  assert.ok(paragraphs.length >= minParagraphs, `${caseName} should have at least ${minParagraphs} paragraphs`);
+  assert.doesNotMatch(
+    prompt.zImagePrompt,
+    /^(?:Image Type|Scene|Subject|Wardrobe|Pose and Composition|Lighting|Camera Look|Constraints):/m,
+    `${caseName} should not use GPT-style section labels`
+  );
+  assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/, `${caseName} should not include Gpt multi-cut tail`);
+
+  for (const paragraph of paragraphs) {
+    assert.match(paragraph, /[.!?]$/, `${caseName} paragraph should end with sentence punctuation: ${paragraph}`);
+  }
+}
+
 test('Gpt prompt uses natural structured sections for GPT Image', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -44,7 +68,7 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
 });
 
-test('Grok/Z-Image prompt remains natural language and AI uses a legacy minimal paragraph', () => {
+test('Grok/Z-Image prompt remains natural language with blank-line paragraphs and AI uses a legacy minimal paragraph', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -59,6 +83,7 @@ test('Grok/Z-Image prompt remains natural language and AI uses a legacy minimal 
   });
 
   assert.match(prompt.zImagePrompt, /^Create a photorealistic editorial portrait /);
+  assertNaturalZImageParagraphs(prompt, 'outfit preset z-image prompt');
   assert.doesNotMatch(prompt.zImagePrompt, /^Subject Count:/m);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
@@ -70,6 +95,119 @@ test('Grok/Z-Image prompt remains natural language and AI uses a legacy minimal 
   assert.match(prompt.midjourneyPrompt, /captured (?:in film photography style|as a moody film still|as an editorial film still)/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
+});
+
+test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes', () => {
+  const cases = [
+    {
+      name: 'character profile card',
+      locks: {
+        ...createEmptyLocks(),
+        characterProfileId: 'character-yuri',
+        locationId: optionId('locationId', '室內：英倫復古窗邊房間'),
+      },
+      expected: [
+        /The image shows a 20-year-old adult East Asian woman/i,
+        /signature outfit locked as a white ribbed off-shoulder cropped long-sleeve top/i,
+        /The setting is/i,
+      ],
+      minParagraphs: 4,
+    },
+    {
+      name: 'fixed composition special setup',
+      locks: {
+        ...createEmptyLocks(),
+        fixedCompositionSetId: optionId('fixedCompositionSetId', '清水模牆面沙發棚'),
+        fixedSetPositionId: optionId('fixedSetPositionId', '自由場景互動'),
+        fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '自然自拍感'),
+        fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '慵懶無力感'),
+        angleId: optionId('angleId', '肩部高度鏡頭'),
+        orbitId: optionId('orbitId', '右前 315 度'),
+      },
+      expected: [
+        /real-scale compact living-room editorial set/i,
+        /large brown vintage Chesterfield leather sofa/i,
+        /self-shot social composition feeling/i,
+        /lazy drained presence/i,
+        /fixed-set rule: stable selected room architecture/i,
+      ],
+      minParagraphs: 5,
+    },
+    {
+      name: 'general scene with separate wardrobe basics',
+      locks: {
+        ...createEmptyLocks(),
+        outfitPresetId: optionId('outfitPresetId', '全無'),
+        dressId: optionId('dressId', '全無'),
+        topId: optionId('topId', '比基尼上身'),
+        pantsId: optionId('pantsId', '牛仔短褲'),
+        skirtId: optionId('skirtId', '全無'),
+        outerwearId: optionId('outerwearId', '全無'),
+        locationId: optionId('locationId', '室內：九龍城寨內部狹窄走道'),
+        poseId: optionId('poseId', '站姿｜雙臂交疊'),
+      },
+      expected: [
+        /triangle bikini top/i,
+        /denim shorts/i,
+        /Kowloon Walled City interior passage/i,
+        /standing pose with loosely crossed arms/i,
+      ],
+      minParagraphs: 5,
+    },
+    {
+      name: 'dress control',
+      locks: {
+        ...createEmptyLocks(),
+        dressId: optionId('dressId', '連身：短版｜亮面乳膠迷你洋裝'),
+        topId: optionId('topId', '全無'),
+        pantsId: optionId('pantsId', '全無'),
+        skirtId: optionId('skirtId', '全無'),
+        outerwearId: optionId('outerwearId', '全無'),
+        framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      },
+      expected: [
+        /glossy latex mini dress/i,
+        /one-piece bodycon silhouette/i,
+      ],
+      minParagraphs: 5,
+    },
+    {
+      name: 'special outfit priority',
+      locks: {
+        ...createEmptyLocks(),
+        specialOutfitId: optionId('specialOutfitId', '黑色哥德蕾絲短袖熱褲長靴造型'),
+        framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      },
+      expected: [
+        /She wears complete special outfit: black gothic Y2K lace punk look/i,
+        /distressed black denim micro shorts/i,
+        /black slouchy knee-high leather boots/i,
+      ],
+      minParagraphs: 5,
+    },
+    {
+      name: 'special action setup',
+      locks: {
+        ...createEmptyLocks(),
+        specialActionId: optionId('specialActionId', '塗口紅'),
+        framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
+      },
+      expected: [
+        /applying lipstick with the lipstick bullet pressed to the lips/i,
+        /visible hand-to-mouth contact/i,
+      ],
+      minParagraphs: 4,
+    },
+  ];
+
+  for (const promptCase of cases) {
+    const [prompt] = generatePrompts(1, promptCase.locks);
+    assertNaturalZImageParagraphs(prompt, promptCase.name, promptCase.minParagraphs);
+
+    for (const pattern of promptCase.expected) {
+      assert.match(prompt.zImagePrompt, pattern, `${promptCase.name} should preserve ${pattern}`);
+    }
+  }
 });
 
 test('AI prompt uses a legacy minimal natural paragraph with wardrobe, pose, scene, and mood tail', () => {

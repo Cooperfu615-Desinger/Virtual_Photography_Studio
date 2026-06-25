@@ -8545,21 +8545,46 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
 
     return parts.length > 0 ? sentence(parts.join(', ')) : '';
   };
+  const buildFixedSceneParagraphs = () => {
+    if (!fixedCompositionSetActive) return [];
+
+    const allowCameraVariation = fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet);
+    const fixedSetText = skeletonMode ? sanitizeSkeletonPromptText(context.fixedCompositionSet.en) : context.fixedCompositionSet.en;
+    const positionText = context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition)
+      ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPosition.en) : context.fixedSetPosition.en)
+      : '';
+    const captureText = context.fixedSetCaptureMode && !isNoneLikeItem(context.fixedSetCaptureMode)
+      ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en)
+      : '';
+    const performanceText = context.fixedSetPerformanceState && !isNoneLikeItem(context.fixedSetPerformanceState)
+      ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPerformanceState.en) : context.fixedSetPerformanceState.en)
+      : '';
+    const angleText = allowCameraVariation && context.angle && !isNoneLikeItem(context.angle)
+      ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count))
+      : '';
+    const orbitText = allowCameraVariation && context.orbit && !isNoneLikeItem(context.orbit)
+      ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count))
+      : '';
+    const integrityText = skeletonMode
+      ? sanitizeSkeletonPromptText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode))
+      : buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode);
+    const ambientText = context.lighting && !isNoneLikeItem(context.lighting)
+      ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en)
+      : '';
+    const subjectLightText = lightDirection && !isNoneLikeItem(lightDirection)
+      ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
+      : '';
+
+    return [
+      fixedSetText,
+      positionText,
+      joinSentenceParts([captureText, performanceText]),
+      joinSentenceParts([angleText, orbitText]),
+      joinSentenceParts([integrityText, ambientText, subjectLightText]),
+    ].filter(Boolean);
+  };
   const buildSceneText = () => {
-    if (fixedCompositionSetActive) {
-      const allowCameraVariation = fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet);
-      return joinSentenceParts([
-        skeletonMode ? sanitizeSkeletonPromptText(context.fixedCompositionSet.en) : context.fixedCompositionSet.en,
-        context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPosition.en) : context.fixedSetPosition.en) : '',
-        context.fixedSetCaptureMode && !isNoneLikeItem(context.fixedSetCaptureMode) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en) : '',
-        context.fixedSetPerformanceState && !isNoneLikeItem(context.fixedSetPerformanceState) ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPerformanceState.en) : context.fixedSetPerformanceState.en) : '',
-        allowCameraVariation && context.angle && !isNoneLikeItem(context.angle) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
-        allowCameraVariation && context.orbit && !isNoneLikeItem(context.orbit) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
-        skeletonMode ? sanitizeSkeletonPromptText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode)) : buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode),
-        context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
-        lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
-      ]);
-    }
+    if (fixedCompositionSetActive) return joinSentenceParts(buildFixedSceneParagraphs());
     if (isCloseupVisibility) {
       return sentence([
         skeletonMode ? sanitizeSkeletonPromptText(closeupSceneContextText) : closeupSceneContextText,
@@ -8609,18 +8634,22 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       : 'natural photographic detail, coherent fabric construction, clear facial readability, realistic spatial depth',
     'do not add visible text unless explicitly requested',
   ]);
+  const joinZImageParagraphs = (parts) => parts
+    .map((value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim()))
+    .filter(Boolean)
+    .join('\n\n');
 
   if (fixedCompositionSetActive) {
-    return [
-      buildSceneText(),
+    return joinZImageParagraphs([
+      ...buildFixedSceneParagraphs(),
       buildCharacterText(),
       buildWardrobeText(),
       buildPhotographyStyleText(),
       buildRenderingText(),
-    ].filter(Boolean).join(' ');
+    ]);
   }
 
-  return [
+  return joinZImageParagraphs([
     buildCharacterText(),
     sceneProtectedWardrobeMode ? buildSceneText() : '',
     buildWardrobeText(),
@@ -8628,7 +8657,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     buildPhotographyStyleText(),
     buildCameraText(),
     buildRenderingText(),
-  ].filter(Boolean).join(' ');
+  ]);
 }
 
 function cleanAiMinimalFragment(value) {
