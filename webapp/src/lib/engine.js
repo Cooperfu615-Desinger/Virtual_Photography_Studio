@@ -460,14 +460,20 @@ const DUO_POSE_OPTIONS = [
     id: 'none',
     zh: '全無',
     en: '',
-    desc: 'Do not specify duo layout or contact, letting the model decide the shared staging.',
+    desc: 'Do not specify a duo action scenario.',
     meta: { tags: ['none'] },
   },
   {
-    id: 'light-shoulder-touch',
-    zh: '輕微碰肩',
-    en: 'two women in a subtle close duo layout, shoulders lightly touching or nearly brushing, small natural contact points, relaxed social proximity, model decides exact posture and limb placement while keeping the scene editorial and believable',
+    id: 'model-natural',
+    zh: '模型自然決定',
+    en: 'two women in a model-decided natural two-person moment, spontaneous relationship energy, varied believable body language, the image model chooses the exact action and interaction',
+  },
+  {
+    id: 'fashion-editorial-models',
+    zh: '時尚雜誌雙人模特兒',
+    en: 'two women posing like fashion magazine models, polished editorial body language, confident coordinated presence, model-decided interaction and posture variety',
     legacyIds: [
+      'light-shoulder-touch',
       'side-by-side-standing',
       'side-by-side-walking',
       'side-by-side-squat',
@@ -479,28 +485,38 @@ const DUO_POSE_OPTIONS = [
     ],
   },
   {
-    id: 'leaning-together',
-    zh: '彼此倚靠',
-    en: 'two women leaning into each other with shared weight and soft support, relaxed overlapping silhouettes, warm body-language closeness, model decides exact posture while keeping physical contact natural and photorealistic',
+    id: 'strangers-passing',
+    zh: '相互不認識的兩人擦肩而過',
+    en: 'two women captured as strangers passing each other, detached everyday timing, brief near-crossing body language, no obvious intimacy, model-decided movement and spacing',
     legacyIds: [
-      'leaning-on-each-other',
-    ],
-  },
-  {
-    id: 'front-back-layering',
-    zh: '一前一後',
-    en: 'two women arranged with one slightly forward and one slightly behind, layered depth, staggered eye lines, clear separation between both figures, model decides exact body positions and contact level naturally',
-    legacyIds: [
-      'front-back-standing',
-      'front-back-walking',
+      'front-back-layering',
       'distance',
     ],
   },
   {
-    id: 'high-low-layering',
-    zh: '高低層次',
-    en: 'two women arranged with visible high-low level contrast, layered vertical rhythm, asymmetrical silhouettes, varied body heights, model decides the exact posture without forcing a fixed action category',
+    id: 'best-friends-selfie',
+    zh: '好朋友之間的親密自拍',
+    en: 'two women captured in an intimate best-friends selfie moment, casual affectionate body language, close social warmth, playful candid interaction, model-decided hand placement and crop',
     legacyIds: [
+      'leaning-together',
+      'leaning-on-each-other',
+      'shoulder-lean',
+      'leaning-shoulders',
+    ],
+  },
+  {
+    id: 'shopping-day',
+    zh: '購物逛街',
+    en: 'two women captured during a casual shopping-day outing, relaxed street-life energy, small spontaneous gestures, browsing-and-walking companionship, model-decided interaction',
+  },
+  {
+    id: 'daily-life-documentary',
+    zh: '日常生活紀錄拍照',
+    en: 'two women captured like a candid everyday life documentary photo, unforced realistic timing, natural imperfect body language, model-decided interaction and spacing',
+    legacyIds: [
+      'high-low-layering',
+      'front-back-standing',
+      'front-back-walking',
       'stand-and-squat',
       'kneel-and-squat',
       'sit-and-squat',
@@ -509,10 +525,26 @@ const DUO_POSE_OPTIONS = [
     ],
   },
   {
-    id: 'intimate-close',
-    zh: '親密近身',
-    en: 'two women in a confident sensual editorial interaction, close body spacing, teasing hand contact and flirtatious gestures, one woman may lightly touch the other\'s shoulder, waist, arm, chin, hair, thigh, hip, lower back, or leg, seductive near-contact tension, magnetic eye-line chemistry, model decides exact pose and contact while keeping it photorealistic and fashion-forward',
+    id: 'party-corner-candid',
+    zh: '派對角落即興合照',
+    en: 'two women captured in an improvised party-corner snapshot, relaxed nightlife closeness, casual social energy, candid off-guard body language, model-decided interaction',
+  },
+  {
+    id: 'behind-the-scenes',
+    zh: '片場花絮感',
+    en: 'two women captured in a behind-the-scenes editorial outtake, between-poses spontaneity, relaxed production-day body language, model-decided interaction and posture',
+  },
+  {
+    id: 'lazy-sensual-photo',
+    zh: '慵懶性感寫真',
+    en: 'two women captured in a lazy sensual photobook moment, languid relaxed chemistry, soft intimate body language, model-decided natural contact and posture',
+  },
+  {
+    id: 'intimate-sensual-interaction',
+    zh: '親密性感互動',
+    en: 'two women in an intimate sensual editorial interaction, close body spacing, teasing hand contact and flirtatious gestures, one woman may lightly touch the other\'s shoulder, waist, arm, chin, hair, thigh, hip, lower back, or leg, seductive near-contact tension, magnetic eye-line chemistry',
     legacyIds: [
+      'intimate-close',
       'intimate',
       'arm-around-close',
       'whispering-close',
@@ -524,12 +556,63 @@ const DUO_POSE_OPTIONS = [
     ],
   },
   {
-    id: 'sensual-interaction',
-    zh: '性感互動',
-    en: 'two women in an intense sensual high-fashion editorial interaction, bodies very close with intertwined silhouettes and pressed-together body lines, tactile provocative chemistry, teasing hand contact tracing the waist, hips, thighs, lower back, legs, arms, hair, or chin, one woman may lean into, drape across, or closely wrap around the other, seductive push-pull tension, adult magazine-style erotic fashion energy, magnetic eye-line chemistry, model decides the exact pose and contact while preserving the selected wardrobe and keeping it photorealistic, polished, and editorial',
+    id: 'erotic-fashion-photo',
+    zh: '充滿情慾的時尚寫真',
+    en: 'two women captured in an erotic high-fashion photo-story, intertwined silhouettes, tactile provocative chemistry, teasing hand contact tracing the waist, hips, thighs, lower back, legs, arms, hair, or chin, seductive push-pull tension, adult magazine-style erotic fashion energy, magnetic eye-line chemistry, photorealistic polished editorial tone',
     legacyIds: [
+      'sensual-interaction',
       'sensual-embrace',
     ],
+  },
+];
+
+const DUO_POSE_BASE_OPTIONS = [
+  {
+    id: 'none',
+    zh: '全無',
+    en: '',
+    desc: 'Do not specify a broad body posture base.',
+    meta: { tags: ['none'] },
+  },
+  {
+    id: 'model-natural',
+    zh: '模型自然決定',
+    en: 'model-decided, choosing the most natural body arrangement for the selected scenario',
+  },
+  {
+    id: 'standing',
+    zh: '站姿',
+    en: 'standing or naturally arranged around standing body language',
+  },
+  {
+    id: 'seated',
+    zh: '坐姿',
+    en: 'seated or naturally arranged around a seated position',
+  },
+  {
+    id: 'low-crouching',
+    zh: '蹲姿 / 低姿態',
+    en: 'low crouching, squatting, or grounded low body language',
+  },
+  {
+    id: 'reclining',
+    zh: '躺姿 / 半躺',
+    en: 'lying, reclining, or half-reclining with relaxed body weight',
+  },
+  {
+    id: 'walking',
+    zh: '行走中',
+    en: 'walking or mid-step with natural in-between motion',
+  },
+  {
+    id: 'leaning',
+    zh: '靠牆 / 倚靠物件',
+    en: 'leaning against a wall or existing scene object with relaxed support',
+  },
+  {
+    id: 'close-selfie',
+    zh: '近鏡頭自拍感',
+    en: 'clustered close to the camera with selfie-like body proximity',
   },
 ];
 
@@ -1819,7 +1902,8 @@ const LOCK_DEFINITIONS = [
   { key: 'hairColorAId', label: '人物 1 髮色', category: '髮色 (Hair Color)', section: 'character' },
   { key: 'hairColorBId', label: '人物 2 髮色', category: '髮色 (Hair Color)', section: 'character' },
   { key: 'duoInteractionId', label: '雙人互動', options: DUO_INTERACTION_OPTIONS, section: 'hidden' },
-  { key: 'duoPoseId', label: '雙人佈局 / 接觸', options: DUO_POSE_OPTIONS, section: 'character' },
+  { key: 'duoPoseId', label: '雙人動作情境', options: DUO_POSE_OPTIONS, section: 'character' },
+  { key: 'duoPoseBaseId', label: '雙人姿態基底', options: DUO_POSE_BASE_OPTIONS, section: 'character' },
   { key: 'duoExpressionId', label: '雙人神情眼神', options: DUO_EXPRESSION_OPTIONS, section: 'character' },
   { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
   { key: 'expressionAId', label: '人物 1 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'hidden' },
@@ -1984,7 +2068,8 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'hairColorId', label: 'Hair Color' },
   { key: 'hairColorAId', label: 'Woman 1 Hair Color' },
   { key: 'hairColorBId', label: 'Woman 2 Hair Color' },
-  { key: 'duoPoseId', label: 'Duo Layout / Contact' },
+  { key: 'duoPoseId', label: 'Duo Action Scenario' },
+  { key: 'duoPoseBaseId', label: 'Duo Posture Base' },
   { key: 'duoExpressionId', label: 'Duo Expression' },
   { key: 'expressionId', label: 'Expression' },
   { key: 'poseId', label: 'Pose' },
@@ -2974,6 +3059,7 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'poseId',
   'specialActionId',
   'duoPoseId',
+  'duoPoseBaseId',
   'duoInteractionId',
   'poseBaseId',
   'poseArrangementId',
@@ -3701,17 +3787,17 @@ function applyDuoInteractionLegacyLockMigration(normalizedLocks, rawLocks, contr
   if (currentDuoLayout && !isNoneLikeItem(currentDuoLayout)) return;
 
   const legacyInteractionToLayout = {
-    editorial: '一前一後',
-    natural: '彼此倚靠',
-    distance: '一前一後',
-    'shoulder-lean': '輕微碰肩',
-    intimate: '親密近身',
-    'sensual-embrace': '性感互動',
-    'leaning-shoulders': '輕微碰肩',
-    'arm-around-close': '親密近身',
-    'whispering-close': '親密近身',
-    'intimate-eye-contact': '親密近身',
-    'lying-on-back-together': '親密近身',
+    editorial: '時尚雜誌雙人模特兒',
+    natural: '日常生活紀錄拍照',
+    distance: '相互不認識的兩人擦肩而過',
+    'shoulder-lean': '好朋友之間的親密自拍',
+    intimate: '親密性感互動',
+    'sensual-embrace': '充滿情慾的時尚寫真',
+    'leaning-shoulders': '好朋友之間的親密自拍',
+    'arm-around-close': '親密性感互動',
+    'whispering-close': '親密性感互動',
+    'intimate-eye-contact': '親密性感互動',
+    'lying-on-back-together': '親密性感互動',
   };
   const targetZh = legacyInteractionToLayout[rawLocks?.duoInteractionId];
   if (!targetZh) return;
@@ -4792,6 +4878,10 @@ function getDuoPoseOption(id) {
   return DUO_POSE_OPTIONS.find((option) => option.id === id) || null;
 }
 
+function getDuoPoseBaseOption(id) {
+  return DUO_POSE_BASE_OPTIONS.find((option) => option.id === id) || null;
+}
+
 function getDuoExpressionOption(id) {
   return DUO_EXPRESSION_OPTIONS.find((option) => option.id === id) || null;
 }
@@ -5167,6 +5257,16 @@ function buildCharacter(context, catalog) {
       meta: { ...(option.meta || {}), minVisibility: 'medium', tags: withTags(option.meta?.tags || []) },
     };
   };
+  const buildDuoPoseBaseItem = (option) => {
+    if (!option) return null;
+    return {
+      id: `character:雙人姿態基底-duo-pose-base:${option.id}`,
+      zh: option.zh,
+      en: option.en,
+      desc: option.desc || '',
+      meta: { ...(option.meta || {}), minVisibility: 'medium', tags: withTags(option.meta?.tags || []) },
+    };
+  };
   const buildDuoExpressionItem = (option) => {
     if (!option) return null;
     return {
@@ -5323,11 +5423,18 @@ function buildCharacter(context, catalog) {
     const duoPoseOption = context.locks?.duoPoseId
       ? getDuoPoseOption(context.locks.duoPoseId)
       : sampleNonNone(DUO_POSE_OPTIONS);
+    const duoPoseBaseOption = context.locks?.duoPoseBaseId
+      ? getDuoPoseBaseOption(context.locks.duoPoseBaseId)
+      : sampleNonNone(DUO_POSE_BASE_OPTIONS);
     const duoPoseItem = buildDuoPoseItem(duoPoseOption);
     if (duoPoseItem && !isNoneLikeItem(duoPoseItem)) {
       character.push(duoPoseItem);
     } else {
       character.push(buildDuoPoseItem(DUO_POSE_OPTIONS[0]));
+    }
+    const duoPoseBaseItem = buildDuoPoseBaseItem(duoPoseBaseOption);
+    if (duoPoseBaseItem && !isNoneLikeItem(duoPoseBaseItem)) {
+      character.push(duoPoseBaseItem);
     }
     return character;
   }
@@ -6398,7 +6505,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
           summarizeDuoRole(characterSlots.bodyTypeB, characterSlots.facialFeaturesB, characterSlots.skinDetailsB, characterSlots.hairstyleB, characterSlots.hairColorB)
             ? `人物 2：${summarizeDuoRole(characterSlots.bodyTypeB, characterSlots.facialFeaturesB, characterSlots.skinDetailsB, characterSlots.hairstyleB, characterSlots.hairColorB)}`
             : '',
-          characterSlots.duoPose?.zh && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.zh : ''
+          characterSlots.duoPose?.zh && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.zh : '',
+          characterSlots.duoPoseBase?.zh && !isNoneLikeItem(characterSlots.duoPoseBase) ? characterSlots.duoPoseBase.zh : ''
         )
       : summarizeSingleCharacter(),
     wardrobe: summarizeWardrobe(),
@@ -6600,6 +6708,7 @@ function extractCharacterSlots(character) {
     expressionA: findRoleSlot('character:神情與眼神-expression-gaze:', 'a'),
     expressionB: findRoleSlot('character:神情與眼神-expression-gaze:', 'b'),
     duoPose: findSlot('character:雙人構圖姿態-duo-pose:'),
+    duoPoseBase: findSlot('character:雙人姿態基底-duo-pose-base:'),
     poseComposer: findSlot('character:姿勢組合器-pose-composer:'),
     pose: findSlot('character:姿勢與肢體語言-pose-body-language:'),
     specialAction: findSlot('character:特殊動作-special-actions:'),
@@ -7874,6 +7983,9 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
     ? characterSlots.specialAction.en
     : '';
+  const duoPoseBaseText = characterSlots.duoPoseBase && !isNoneLikeItem(characterSlots.duoPoseBase)
+    ? characterSlots.duoPoseBase.en
+    : '';
   const sceneAccentText = buildContextualSceneAccent(context);
   const importedWorldSceneArchitectureText = getImportedWorldSceneArchitectureText(context);
   const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
@@ -7991,7 +8103,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   };
   const buildGrokCompositionPriorityText = () => {
     if (context.subject.count === 2 && duoWardrobeText.clothingText) {
-      return 'preserve an outfit-visible editorial duo composition with both women in the same continuous frame, keep visible torso and wardrobe details, avoid collapsing into a headshot-only crop';
+      return 'let the two-person moment feel natural and candid; partial crop, overlapping bodies, wardrobe occlusion, and imperfect framing are acceptable when they support a believable photograph';
     }
     const visibility = context.framing?.meta?.visibility || '';
     if (isCloseupVisibility) {
@@ -8144,6 +8256,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
   addLine('Special Action', skeletonText(specialActionText));
   addLine(context.subject.count === 2 ? 'Duo Layout' : 'Pose', skeletonText(poseText));
+  if (context.subject.count === 2) addLine('Duo Pose Base', skeletonText(duoPoseBaseText));
   if (isAndroidSubject(context.subject)) {
     addItemLine('Hairstyle', characterSlots.hairstyle);
     addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
@@ -8326,6 +8439,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Special Action',
     'Pose',
     'Duo Layout',
+    'Duo Pose Base',
     'Framing',
     'Composition Priority',
     ...(fixedCompositionSetActive ? [] : fixedSetCameraLabels),
@@ -8469,6 +8583,31 @@ function buildGptDuoWardrobeText(context, wardrobeSlots, wardrobeColors) {
     .replace(/\bboth women\b/g, 'both women');
 }
 
+function buildGptDuoFlexibleFramingText(context) {
+  const visibility = context.framing?.meta?.visibility || '';
+  if (visibility === 'wide') return 'a loose wide environmental two-person composition';
+  if (visibility === 'full') return 'a loose full-body or wider two-person composition';
+  if (visibility === 'medium') return 'a natural medium two-person composition';
+  if (visibility === 'portrait') return 'a natural portrait-oriented two-person composition';
+  if (visibility === 'close') return 'a close two-person portrait crop';
+  return 'the selected two-person framing';
+}
+
+function buildGptDuoPoseAndCompositionText(valuesByLabel, context) {
+  const scenario = stripTerminalPromptPunctuation(firstStructuredValue(valuesByLabel, ['Duo Layout']));
+  const postureBase = stripTerminalPromptPunctuation(firstStructuredValue(valuesByLabel, ['Duo Pose Base']));
+  const angle = stripTerminalPromptPunctuation(firstStructuredValue(valuesByLabel, ['Angle']));
+  const orbit = stripTerminalPromptPunctuation(firstStructuredValue(valuesByLabel, ['Orbit Angle']));
+  const viewpoint = [angle, orbit].filter(Boolean).join(', ');
+  const framingText = buildGptDuoFlexibleFramingText(context);
+
+  return [
+    scenario ? ensureTerminalPeriod(capitalizePromptLead(scenario)) : '',
+    postureBase ? `Their body posture is ${ensureTerminalPeriod(postureBase)}` : '',
+    `Use ${framingText}${viewpoint ? ` with ${viewpoint}` : ''} as a loose photographic guide, allowing natural crop, overlap, body blocking, and partial occlusion when it makes the moment feel candid and real.`,
+  ].filter(Boolean).join(' ');
+}
+
 function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character = null, wardrobe = null, wardrobeColors = null) {
   const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
   const section = (title, sentence) => {
@@ -8505,6 +8644,9 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
     ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
     : subjectText;
   const resolvedSharedExpressionText = useRoleOrderedDuo ? buildGptDuoSharedExpressionText(duoCharacterSlots) : '';
+  const resolvedPoseText = useRoleOrderedDuo
+    ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
+    : poseText;
 
   if (useRoleOrderedDuo) {
     return [
@@ -8512,7 +8654,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
       resolvedSubjectText ? blockSection('Subject', resolvedSubjectText) : '',
       resolvedSharedExpressionText ? section('Shared Expression', resolvedSharedExpressionText) : '',
       sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
-      section('Pose and Composition', poseText),
+      section('Pose and Composition', resolvedPoseText),
       section('Lighting', lightingText),
       section('Camera Look', cameraText),
       'multi-cut sequence n=2',
@@ -8524,7 +8666,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
     sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
     resolvedSubjectText ? section('Subject', useRoleOrderedDuo ? resolvedSubjectText : `${subjectLead} ${resolvedSubjectText}`) : '',
     wardrobeText ? section('Wardrobe', wardrobeUsesDirectSentence ? wardrobeText : `${wardrobeLead} ${wardrobeText}`) : '',
-    section('Pose and Composition', poseText),
+    section('Pose and Composition', resolvedPoseText),
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
     'multi-cut sequence n=2',
@@ -9429,6 +9571,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     hairColorBId: characterSlots.hairColorB?.id?.replace(/:b$/, '') || '',
     duoInteractionId: '',
     duoPoseId: characterSlots.duoPose?.id?.split(':').pop() || '',
+    duoPoseBaseId: characterSlots.duoPoseBase?.id?.split(':').pop() || '',
     duoExpressionId: characterSlots.duoExpression?.id?.split(':').pop() || '',
     expressionId: characterSlots.expression?.id || '',
     expressionAId: '',

@@ -57,15 +57,17 @@ test('workspace pose summary is separate from character identity summary', () =>
   assert.match(summary.pose.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
 });
 
-test('workspace pose summary uses the merged duo layout/contact control', () => {
+test('workspace pose summary uses duo action scenario and posture base controls', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),
     subjectCount: '2',
-    duoPoseId: optionId('duoPoseId', '性感互動'),
+    duoPoseId: optionId('duoPoseId', '購物逛街'),
+    duoPoseBaseId: optionId('duoPoseBaseId', '行走中'),
     duoInteractionId: optionId('duoInteractionId', '親密'),
   }, controls);
 
-  assert.match(summary.pose.summary, /性感互動/);
+  assert.match(summary.pose.summary, /購物逛街/);
+  assert.match(summary.pose.summary, /行走中/);
   assert.doesNotMatch(summary.pose.summary, /親密/);
 });
 

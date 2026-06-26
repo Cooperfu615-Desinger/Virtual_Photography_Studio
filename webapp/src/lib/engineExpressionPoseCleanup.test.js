@@ -14,6 +14,9 @@ const optionByLabel = (key, label) => {
   assert.ok(option, `Missing option ${label} for ${key}`);
   return option;
 };
+const gptSection = (prompt, label) => (
+  prompt.grokPrompt.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?:\\n\\n(?:Image Type|Subject|Shared Expression|Scene|Wardrobe|Pose and Composition|Lighting|Camera Look):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || ''
+);
 
 test('expression and pose controls expose the cleaned option sets', () => {
   assert.deepEqual(
@@ -78,21 +81,43 @@ test('selfie shooting actions moved from special actions to pose composer hand p
   assert.ok(optionByLabel('poseHandId', '男友/閨蜜自拍'));
 });
 
-test('duo layout/contact replaces separate duo interaction and composition controls', () => {
+test('duo action scenario and posture base controls expose natural two-layer options', () => {
   const duoLayoutControl = getLockControls().find((control) => control.key === 'duoPoseId');
-  assert.equal(duoLayoutControl.label, '雙人佈局 / 接觸');
+  const duoPoseBaseControl = getLockControls().find((control) => control.key === 'duoPoseBaseId');
+  assert.equal(duoLayoutControl.label, '雙人動作情境');
+  assert.equal(duoPoseBaseControl.label, '雙人姿態基底');
   assert.deepEqual(
     optionLabels('duoPoseId'),
     [
       '全無',
-      '輕微碰肩',
-      '彼此倚靠',
-      '一前一後',
-      '高低層次',
-      '親密近身',
-      '性感互動',
+      '模型自然決定',
+      '時尚雜誌雙人模特兒',
+      '相互不認識的兩人擦肩而過',
+      '好朋友之間的親密自拍',
+      '購物逛街',
+      '日常生活紀錄拍照',
+      '派對角落即興合照',
+      '片場花絮感',
+      '慵懶性感寫真',
+      '親密性感互動',
+      '充滿情慾的時尚寫真',
     ]
   );
+  assert.deepEqual(
+    optionLabels('duoPoseBaseId'),
+    [
+      '全無',
+      '模型自然決定',
+      '站姿',
+      '坐姿',
+      '蹲姿 / 低姿態',
+      '躺姿 / 半躺',
+      '行走中',
+      '靠牆 / 倚靠物件',
+      '近鏡頭自拍感',
+    ]
+  );
+  assert.equal(createEmptyLocks().duoPoseBaseId, '');
 });
 
 test('duo expression exposes shared gaze and mood options', () => {
@@ -148,7 +173,7 @@ test('duo expression outputs one shared relationship cue and ignores legacy per-
 });
 
 test('duo sensual interaction outputs as one layout cue without legacy interaction lines', () => {
-  const duoLayout = optionByLabel('duoPoseId', '性感互動');
+  const duoLayout = optionByLabel('duoPoseId', '充滿情慾的時尚寫真');
   const oldInteraction = optionByLabel('duoInteractionId', '親密');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -167,21 +192,17 @@ test('duo sensual interaction outputs as one layout cue without legacy interacti
   assert.equal(prompt.selection.duoInteractionId, '');
   assert.doesNotMatch(prompt.grokPrompt, /^Duo Interaction:/m);
   assert.doesNotMatch(promptText, /both women sharing intimate natural closeness/);
+  assert.match(promptText, /erotic high-fashion photo-story/i);
   assert.match(promptText, /intertwined silhouettes/);
-  assert.match(promptText, /pressed-together body lines/);
   assert.match(promptText, /tactile provocative chemistry/);
-  assert.match(promptText, /drape across/);
   assert.match(promptText, /adult magazine-style erotic fashion energy/);
-  assert.match(promptText, /thigh/);
-  assert.match(promptText, /hip/);
-  assert.match(promptText, /lower back/);
-  const sensualCue = promptText.match(/two women in an intense sensual high-fashion editorial interaction[^.]+editorial/i)?.[0] || '';
+  const sensualCue = promptText.match(/two women captured in an erotic high-fashion photo-story[^.]+editorial/i)?.[0] || '';
   assert.ok(sensualCue, 'Expected sensual duo layout cue in prompt output');
   assert.doesNotMatch(sensualCue, /collar|neckline|foot|lingerie/i);
 });
 
 test('duo intimate close uses the previous lighter sensual contact level', () => {
-  const duoLayout = optionByLabel('duoPoseId', '親密近身');
+  const duoLayout = optionByLabel('duoPoseId', '親密性感互動');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
@@ -195,12 +216,33 @@ test('duo intimate close uses the previous lighter sensual contact level', () =>
   ].join('\n');
 
   assert.equal(prompt.selection.duoPoseId, duoLayout.id);
-  assert.match(promptText, /confident sensual editorial interaction/);
+  assert.match(promptText, /intimate sensual editorial interaction/);
   assert.match(promptText, /teasing hand contact/);
   assert.match(promptText, /thigh/);
   assert.match(promptText, /hip/);
   assert.match(promptText, /lower back/);
   assert.doesNotMatch(promptText, /adult magazine-style erotic fashion energy/);
+});
+
+test('Gpt duo pose and composition uses action scenario with posture base and natural crop freedom', () => {
+  const duoScenario = optionByLabel('duoPoseId', '購物逛街');
+  const duoPoseBase = optionByLabel('duoPoseBaseId', '行走中');
+  const framing = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    duoPoseId: duoScenario.id,
+    duoPoseBaseId: duoPoseBase.id,
+    framingId: framing.id,
+  });
+  const poseSection = gptSection(prompt, 'Pose and Composition');
+
+  assert.equal(prompt.selection.duoPoseId, duoScenario.id);
+  assert.equal(prompt.selection.duoPoseBaseId, duoPoseBase.id);
+  assert.match(poseSection, /two women captured during a casual shopping-day outing/i);
+  assert.match(poseSection, /Their body posture is walking or mid-step/i);
+  assert.match(poseSection, /allowing natural crop, overlap, body blocking, and partial occlusion/i);
+  assert.doesNotMatch(poseSection, /preserve an outfit-visible editorial duo composition|both women fully visible|avoid headshot-only crop/i);
 });
 
 test('legacy duo interaction locks migrate into the merged duo layout control', () => {
@@ -210,7 +252,7 @@ test('legacy duo interaction locks migrate into the merged duo layout control', 
     duoInteractionId: optionByLabel('duoInteractionId', '性感擁抱').id,
   });
 
-  assert.equal(normalized.duoPoseId, optionByLabel('duoPoseId', '性感互動').id);
+  assert.equal(normalized.duoPoseId, optionByLabel('duoPoseId', '充滿情慾的時尚寫真').id);
 });
 
 test('selfie hand poses compose with pose composer body controls', () => {

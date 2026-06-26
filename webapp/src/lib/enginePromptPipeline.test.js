@@ -99,7 +99,7 @@ test('Gpt duo prompt uses role cards with wardrobe inside each subject block', (
     outfitPresetBId: optionId('outfitPresetBId', '套裝：BDSM 束縛'),
     eyewearBId: optionId('eyewearBId', '細框眼鏡'),
     duoExpressionId: optionId('duoExpressionId', '曖昧對視｜性感張力'),
-    duoPoseId: optionId('duoPoseId', '性感互動'),
+    duoPoseId: optionId('duoPoseId', '充滿情慾的時尚寫真'),
   });
 
   const subject = gptSection(prompt, 'Subject');
@@ -294,7 +294,7 @@ test('AI prompt uses a legacy minimal natural paragraph with wardrobe, pose, sce
     locationId: optionId('locationId', '室內：九龍城寨內部狹窄走道'),
     outfitPresetAId: optionId('outfitPresetAId', '套裝：BDSM 束縛'),
     outfitPresetBId: optionId('outfitPresetBId', '套裝：泳裝度假'),
-    duoPoseId: optionId('duoPoseId', '性感互動'),
+    duoPoseId: optionId('duoPoseId', '充滿情慾的時尚寫真'),
     styleId: optionId('styleId', '南・戈爾丁｜私人相簿粗粒子'),
     filmId: optionId('filmId', 'VHS 錄影帶低畫質'),
     opticalEffectId: optionId('opticalEffectId', '漏光效果 Light Leaks'),
@@ -306,7 +306,7 @@ test('AI prompt uses a legacy minimal natural paragraph with wardrobe, pose, sce
   assert.match(prompt.midjourneyPrompt, /^Two seductive stunning 20-year-old Japanese or Korean women\b/);
   assert.match(prompt.midjourneyPrompt, /BDSM-inspired leather harness outfit/i);
   assert.match(prompt.midjourneyPrompt, /bikini swimwear/i);
-  assert.match(prompt.midjourneyPrompt, /intertwined silhouettes/i);
+  assert.match(prompt.midjourneyPrompt, /erotic high-fashion photo-story/i);
   assert.match(prompt.midjourneyPrompt, /tactile provocative chemistry/i);
   assert.match(prompt.midjourneyPrompt, /Kowloon Walled City interior passage/i);
   assert.match(prompt.midjourneyPrompt, /moody film still/i);
