@@ -270,6 +270,63 @@ test('Gpt single-subject prompt applies second-pass identity compression', () =>
   assert.doesNotMatch(athletic.subject, /firm silhouette|dimensional facial structure|romantic natural texture|dark moody green tone|healthy outdoor glow/i);
 });
 
+test('Gpt single-subject prompt compresses expression pose and special action wording', () => {
+  const baseLocks = {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  };
+  const buildSections = (locks) => {
+    const [prompt] = generatePrompts(1, { ...baseLocks, ...locks });
+    return {
+      prompt,
+      subject: gptSection(prompt, 'Subject'),
+      pose: gptSection(prompt, 'Pose and Composition'),
+    };
+  };
+
+  const crossedArms = buildSections({
+    expressionId: optionId('expressionId', '直視鏡頭｜柔和微笑'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+  });
+  assert.match(crossedArms.subject, /direct eye contact, soft natural smile, gentle confident expression/i);
+  assert.doesNotMatch(crossedArms.subject, /looking directly at the camera|bright approachable expression/i);
+  assert.match(crossedArms.pose, /standing pose with loosely crossed arms, relaxed composed posture/i);
+  assert.doesNotMatch(crossedArms.pose, /relaxed closed posture|cool composed body language|\.,/i);
+  assert.match(crossedArms.prompt.zImagePrompt, /looking directly at the camera, direct eye contact/i);
+  assert.match(crossedArms.prompt.zImagePrompt, /cool composed body language/i);
+
+  const downwardRecline = buildSections({
+    expressionId: optionId('expressionId', '低頭垂眼｜內斂'),
+    poseId: optionId('poseId', '半躺低姿態｜側身半躺'),
+  });
+  assert.match(downwardRecline.subject, /downward gaze, quiet inward expression/i);
+  assert.doesNotMatch(downwardRecline.subject, /eyes cast downward away from camera|restrained emotion/i);
+  assert.match(downwardRecline.pose, /side reclined pose, gently extended body, relaxed low posture/i);
+  assert.doesNotMatch(downwardRecline.pose, /soft flowing body line|\.,/i);
+
+  const supine = buildSections({
+    poseId: optionId('poseId', '半躺低姿態｜正面仰躺'),
+  });
+  assert.match(supine.pose, /relaxed supine pose, lying on her back, one arm above the head, other arm resting beside the body, legs softly bent, upright non-inverted orientation/i);
+  assert.doesNotMatch(supine.pose, /facing upward|raised loosely|resting casually|soft asymmetrical way|\.,/i);
+
+  const lipstick = buildSections({
+    poseId: optionId('poseId', '站姿｜自然站姿'),
+    specialActionId: optionId('specialActionId', '塗口紅'),
+  });
+  assert.match(lipstick.pose, /applying lipstick with the lipstick bullet pressed to the lips, visible hand-to-mouth contact, slight lip pressure/i);
+  assert.doesNotMatch(lipstick.pose, /polished beauty touch-up portrait moment|natural standing pose|\.,/i);
+  assert.match(lipstick.prompt.zImagePrompt, /polished beauty touch-up portrait moment/i);
+
+  const icedCoffee = buildSections({
+    specialActionId: optionId('specialActionId', '喝冰咖啡'),
+  });
+  assert.match(icedCoffee.pose, /holding a clear plastic iced coffee cup near the lips mid-sip, visible straw or cup rim/i);
+  assert.doesNotMatch(icedCoffee.pose, /takeaway cup|relaxed everyday cafe portrait moment|\.,/i);
+  assert.match(icedCoffee.prompt.zImagePrompt, /relaxed everyday cafe portrait moment/i);
+});
+
 test('Gpt single-subject prompt compresses footwear outerwear and layering details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

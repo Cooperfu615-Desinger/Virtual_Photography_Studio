@@ -8611,7 +8611,7 @@ function buildGptDuoPoseAndCompositionText(valuesByLabel, context) {
 function cleanGptSinglePromptText(value) {
   return stripMarkdown(value || '')
     .replace(/\s+/g, ' ')
-    .replace(/\.\s*,/g, ',')
+    .replace(/\.\s*,/g, '.')
     .replace(/\s*,\s*,+/g, ', ')
     .replace(/\s+,/g, ',')
     .replace(/,\s*\./g, '.')
@@ -8686,6 +8686,15 @@ function compressGptSingleSubjectText(value, context) {
     .replace(/\bseductive mature face,\s*magnetic facial balance,\s*defined eyes and lips\b/gi, 'seductive mature face, defined eyes and lips')
     .replace(/\bcool editorial face,\s*sharp facial balance,\s*calm high-fashion presence\b/gi, 'cool editorial face, sharp features, calm high-fashion presence')
     .replace(/\bmixed editorial face,\s*dimensional facial structure,\s*defined nose bridge and deep-set eyes\b/gi, 'mixed editorial face, defined nose bridge, deep-set eyes')
+    .replace(/\blooking directly at the camera,\s*direct eye contact,\s*soft natural smile,\s*gentle confidence,\s*bright approachable expression\b/gi, 'direct eye contact, soft natural smile, gentle confident expression')
+    .replace(/\blooking directly at the camera,\s*direct eye contact,\s*calm neutral expression,\s*relaxed half-lidded ease,\s*quiet composed presence\b/gi, 'direct eye contact, calm neutral expression, relaxed half-lidded eyes')
+    .replace(/\blooking directly at the camera,\s*direct eye contact,\s*innocent clear eyes,\s*delicate soft expression,\s*pure transparent mood\b/gi, 'direct eye contact, innocent clear eyes, delicate soft expression')
+    .replace(/\blooking toward the camera,\s*lips gently pressed with a barely contained smile,\s*playful relaxed expression\b/gi, 'lips gently pressed in a barely contained smile, playful expression')
+    .replace(/\blooking away from the camera,\s*distant sideward gaze,\s*thoughtful quiet expression,\s*reflective mood\b/gi, 'distant sideward gaze, thoughtful quiet expression')
+    .replace(/\beyes cast downward away from camera,\s*lowered gaze,\s*inward quiet expression,\s*restrained emotion\b/gi, 'downward gaze, quiet inward expression')
+    .replace(/\bglancing back over the shoulder,\s*soft sideward attention,\s*gentle alert expression\b/gi, 'glancing back over the shoulder, soft sideward attention')
+    .replace(/\beyes gently closed,\s*calm absorbed expression,\s*quiet immersive mood\b/gi, 'eyes gently closed, calm absorbed expression')
+    .replace(/\blooking toward the camera,\s*genuine laughing expression,\s*natural teeth smile,\s*candid joy\b/gi, 'genuine laugh, natural teeth smile')
     .replace(/\bglass skin,\s*dewy luminous skin texture,\s*hydrated reflective complexion\b/gi, 'dewy glass skin')
     .replace(/\bsoft matte skin texture,\s*refined pores,\s*velvety smooth finish\b/gi, 'soft matte skin, refined pores')
     .replace(/\bnatural freckles across nose and cheeks,\s*sun-kissed freckles,\s*authentic skin detail\b/gi, 'natural freckles across nose and cheeks')
@@ -8721,6 +8730,37 @@ function compressGptSingleSubjectText(value, context) {
     .trim();
 }
 
+function compressGptSinglePoseText(value, context) {
+  if (context.subject?.count !== 1) return value;
+
+  return cleanGptSinglePromptText(value)
+    .replace(/\bnatural standing pose,\s*relaxed balanced posture,\s*everyday body language,\s*unforced presence\b/gi, 'natural standing pose, relaxed balanced posture')
+    .replace(/\bweight-on-one-leg standing pose,\s*relaxed asymmetrical stance,\s*casual natural posture\b/gi, 'weight-on-one-leg standing pose, relaxed asymmetrical stance')
+    .replace(/\bstanding pose with arms naturally at sides,\s*simple clean posture,\s*unforced body line\b/gi, 'standing pose with arms naturally at sides, clean posture')
+    .replace(/\bstanding pose with loosely crossed arms,\s*relaxed closed posture,\s*cool composed body language\b/gi, 'standing pose with loosely crossed arms, relaxed composed posture')
+    .replace(/\bnatural seated pose,\s*relaxed upright sitting posture,\s*everyday calm body language\b/gi, 'natural seated pose, relaxed upright posture')
+    .replace(/\bseated pose leaning slightly forward,\s*engaged natural posture,\s*subtle interactive body language\b/gi, 'seated pose leaning slightly forward, engaged natural posture')
+    .replace(/\bseated pose with both hands placed behind for support,\s*open chest,\s*relaxed stretched posture\b/gi, 'seated pose with both hands behind for support, open chest')
+    .replace(/\basymmetrical seated pose with one leg relaxed,\s*casual uneven body rhythm,\s*natural sitting line\b/gi, 'asymmetrical seated pose with one leg relaxed')
+    .replace(/\bside reclined pose,\s*body gently extended,\s*relaxed low posture,\s*soft flowing body line\b/gi, 'side reclined pose, gently extended body, relaxed low posture')
+    .replace(/\brelaxed supine pose,\s*lying on her back facing upward,\s*one arm raised loosely above the head,\s*the other resting casually beside the body,\s*legs bent naturally in a soft asymmetrical way,\s*upright non-inverted body orientation\b/gi, 'relaxed supine pose, lying on her back, one arm above the head, other arm resting beside the body, legs softly bent, upright non-inverted orientation')
+    .replace(/\bslightly curled relaxed low pose,\s*soft compact body line,\s*intimate restful posture\b/gi, 'slightly curled low pose, compact body line')
+    .replace(/\blight stepping motion,\s*subtle body movement,\s*natural transitional pose,\s*candid rhythm\b/gi, 'light stepping motion, subtle body movement')
+    .replace(/\bjust-stopped movement pose,\s*stillness after motion,\s*balanced transitional body language\b/gi, 'just-stopped movement pose, balanced transitional posture')
+    .replace(/\bapplying lipstick with the lipstick bullet pressed to the lips,\s*visible hand-to-mouth contact,\s*slight lip pressure,\s*polished beauty touch-up portrait moment\b/gi, 'applying lipstick with the lipstick bullet pressed to the lips, visible hand-to-mouth contact, slight lip pressure')
+    .replace(/\bholding a clear plastic takeaway cup of iced coffee near the lips mid-sip,\s*visible straw or cup rim,\s*relaxed everyday cafe portrait moment\b/gi, 'holding a clear plastic iced coffee cup near the lips mid-sip, visible straw or cup rim')
+    .replace(/\bbiting a colorful whirly pop swirl lollipop at the lips,\s*candy prop clearly visible,\s*playful portrait interaction with crisp mouth contact\b/gi, 'biting a colorful whirly pop lollipop at the lips, candy prop visible, crisp mouth contact')
+    .replace(/\bcontrolled cinematic portrait gesture\b/gi, 'controlled cinematic gesture')
+    .replace(/\bpolished beauty touch-up portrait moment\b/gi, 'beauty touch-up gesture')
+    .replace(/\bportrait action\b/gi, 'action')
+    .replace(/\bportrait interaction\b/gi, 'interaction')
+    .replace(/\bbody language\b/gi, 'posture')
+    .replace(/\.\s*,/g, ',')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .trim();
+}
+
 function compressGptSingleWardrobeText(value, context) {
   if (context.subject?.count !== 1) return value;
 
@@ -8733,7 +8773,7 @@ function compressGptSingleWardrobeText(value, context) {
     .replace(/,\s*soft cotton texture(?=,|\.)/gi, '')
     .replace(/,\s*terrace football styling(?=,|\.)/gi, '')
     .replace(/realistic outer-to-inner dressing order:\s*outerwear is the complete outer layer,\s*properly worn with intact shoulders,\s*sleeves,\s*lapels and hem;\s*inner garment remains visible only where naturally exposed at the neckline,\s*front opening or hem/gi, 'outerwear stays intact; inner garment visible only at neckline, opening, or hem')
-    .replace(/,\s*realistic outer-to-inner dressing order:\s*long bottom layer keeps its natural full length and drape;\s*shoes can remain normally visible without distorting the pants or skirt\.?/gi, '')
+    .replace(/[,.]\s*realistic outer-to-inner dressing order:\s*long bottom layer keeps its natural full length and drape;\s*shoes can remain normally visible without distorting the pants or skirt\.?/gi, '')
     .replace(/\bclean compact upper-body line\b/gi, '')
     .replace(/\bbalanced leg line\b/gi, '')
     .replace(/\bclassic five-pocket construction\b/gi, '')
@@ -8784,7 +8824,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
   const resolvedSharedExpressionText = useRoleOrderedDuo ? buildGptDuoSharedExpressionText(duoCharacterSlots) : '';
   const resolvedPoseText = useRoleOrderedDuo
     ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
-    : poseText;
+    : compressGptSinglePoseText(poseText, context);
 
   if (useRoleOrderedDuo) {
     return [
