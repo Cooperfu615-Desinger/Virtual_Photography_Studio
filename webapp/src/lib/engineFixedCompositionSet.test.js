@@ -24,7 +24,7 @@ function optionIdByRawId(controlKey, id) {
 test('fixed composition controls expose fixed sets and fixed-set-only option groups', () => {
   assert.deepEqual(
     control('fixedCompositionSetId').options.map((entry) => entry.zh),
-    ['全無', '清水模牆面沙發棚', '暖灰泥黑絲絨工業沙發棚', '高級飯店落地窗都市夜景', '高級飯店落地窗富士山春景', '高級飯店落地窗富士山冬景', '復古磁磚浴室浴缸']
+    ['全無', '清水模牆面沙發棚', '暖灰泥黑絲絨工業沙發棚', '高級飯店落地窗都市夜景', '高級飯店落地窗富士山春景', '高級飯店落地窗富士山冬景', '復古磁磚浴室浴缸', '海邊坡道平交道', '海邊階梯小巷']
   );
 
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發座面中央'));
@@ -36,6 +36,15 @@ test('fixed composition controls expose fixed sets and fixed-set-only option gro
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '沙發扶手前景遮擋'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '床單前景遮擋'));
   assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '泡泡前景遮擋'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.id === 'crossing-road-free-interaction'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '坡道平交道旁'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.id === 'stair-alley-free-interaction'));
+  assert.ok(control('fixedSetPositionId').options.some((entry) => entry.zh === '階梯中段欄杆旁'));
+
+  assert.deepEqual(
+    control('fixedSetBackgroundStateId').options.map((entry) => entry.zh),
+    ['全無', '空無一人', '稀疏路人', '普通生活瞬間', '清空平交道', '電車經過中', '少量生活車輛']
+  );
 
   assert.deepEqual(
     control('fixedSetCaptureModeId').options.map((entry) => entry.zh),
@@ -45,6 +54,72 @@ test('fixed composition controls expose fixed sets and fixed-set-only option gro
     control('fixedSetPerformanceStateId').options.map((entry) => entry.zh),
     ['全無', '模型自然發揮', '自信力量感', '慵懶無力感', '冷淡疏離感', '俏皮挑釁感', '安靜脆弱感', '都市疲憊感', '夢遊恍神感', '優雅克制感', '失控隨性感']
   );
+});
+
+test('outdoor fixed compositions add locked coastal road and stair sets with background state control', () => {
+  const cases = [
+    {
+      setZh: '海邊坡道平交道',
+      positionId: 'crossing-road-free-interaction',
+      backgroundZh: '電車經過中',
+      setText: /within a real-scale outdoor coastal downhill-road fixed composition set/,
+      anchorText: /railway crossing gate cuts across the lower-middle frame/,
+      cameraText: /camera is positioned near the upper slope, looking downhill along the road plane toward the ocean horizon/,
+      backgroundText: /one local train may pass across the railway crossing/,
+      integrityText: /preserve anchors: downhill road plane, railway crossing gate, roadside poles and overhead wires, seaside town edges, ocean horizon/,
+      replacementText: /avoid generic beach, train station, train-dominant scene, city intersection, cafe, indoor set, or unrelated coastal road/,
+    },
+    {
+      setZh: '海邊階梯小巷',
+      positionId: 'stair-alley-free-interaction',
+      backgroundZh: '稀疏路人',
+      setText: /within a real-scale outdoor descending seaside stair-alley fixed composition set/,
+      anchorText: /Descending pale stairs form the foreground and midground path toward the sea/,
+      cameraText: /camera is positioned near the upper stairs, looking down the stair alley toward the ocean horizon/,
+      backgroundText: /a few distant pedestrians may appear as small background life details/,
+      integrityText: /preserve anchors: descending stairway, pale side walls, handrails, potted plants or hydrangeas, overhead wires, ocean horizon/,
+      replacementText: /avoid indoor staircase, generic beach, city alley without stairs, cafe, plain street, train crossing, or unrelated stairway/,
+    },
+  ];
+
+  cases.forEach((fixedSetCase) => {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      fixedCompositionSetId: optionId('fixedCompositionSetId', fixedSetCase.setZh),
+      fixedSetPositionId: optionIdByRawId('fixedSetPositionId', fixedSetCase.positionId),
+      fixedSetBackgroundStateId: optionId('fixedSetBackgroundStateId', fixedSetCase.backgroundZh),
+      fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '全無'),
+      fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '全無'),
+      angleId: optionId('angleId', '肩部高度鏡頭'),
+      orbitId: optionId('orbitId', '右前 315 度'),
+      locationId: optionId('locationId', '戶外：日本住宅外樓梯間'),
+      lightingId: optionId('lightingId', '室內暖色夜景'),
+      lightDirectionId: optionId('lightDirectionId', '局部暖光'),
+    });
+
+    assert.equal(prompt.selection.fixedSetBackgroundStateId, optionId('fixedSetBackgroundStateId', fixedSetCase.backgroundZh));
+    assert.equal(prompt.selection.locationId, optionId('locationId', '全無'));
+    assert.equal(prompt.selection.angleId, optionId('angleId', '全無'));
+    assert.equal(prompt.selection.orbitId, optionId('orbitId', '全無'));
+    assert.notEqual(prompt.selection.lightingId, optionId('lightingId', '室內暖色夜景'));
+    assert.notEqual(prompt.selection.lightDirectionId, optionId('lightDirectionId', '局部暖光'));
+    assert.match(prompt.grokPrompt, fixedSetCase.setText);
+    assert.match(prompt.grokPrompt, fixedSetCase.anchorText);
+    assert.match(prompt.grokPrompt, fixedSetCase.cameraText);
+    assert.match(prompt.grokPrompt, fixedSetCase.backgroundText);
+    assert.match(prompt.grokPrompt, fixedSetCase.integrityText);
+    assert.match(prompt.grokPrompt, fixedSetCase.replacementText);
+    assert.doesNotMatch(prompt.grokPrompt, /shoulder-level camera position|camera at the subject's front-right/);
+    assert.doesNotMatch(prompt.grokPrompt, /indoor warm night ambience|local warm practical-light pool/);
+    assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+
+    assert.match(prompt.zImagePrompt, fixedSetCase.setText);
+    assert.match(prompt.zImagePrompt, fixedSetCase.backgroundText);
+    assert.doesNotMatch(prompt.zImagePrompt, /shoulder-level camera position|camera at the subject's front-right/);
+
+    assert.match(prompt.midjourneyPrompt, fixedSetCase.setText);
+    assert.match(prompt.midjourneyPrompt, fixedSetCase.backgroundText);
+  });
 });
 
 test('fixed composition capture mode and performance state can be set to none', () => {

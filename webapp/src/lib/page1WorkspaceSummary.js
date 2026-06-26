@@ -188,6 +188,7 @@ export function buildWorkspaceSummary(locks, controls) {
     importedWorldSceneLabel,
     getControlOptionLabel(controls, 'fixedCompositionSetId', locks.fixedCompositionSetId),
     fixedCompositionSetActive ? getControlOptionLabel(controls, 'fixedSetPositionId', locks.fixedSetPositionId) : '',
+    fixedCompositionSetActive ? getControlOptionLabel(controls, 'fixedSetBackgroundStateId', locks.fixedSetBackgroundStateId) : '',
     fixedCompositionSetActive ? getControlOptionLabel(controls, 'fixedSetCaptureModeId', locks.fixedSetCaptureModeId) : '',
     fixedCompositionSetActive ? getControlOptionLabel(controls, 'fixedSetPerformanceStateId', locks.fixedSetPerformanceStateId) : '',
     getControlOptionLabel(controls, 'locationId', locks.locationId),

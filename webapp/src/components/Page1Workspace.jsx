@@ -74,9 +74,8 @@ const WARDROBE_DRESS_PICKER_KEYS = new Set(['dressId', 'dressAId', 'dressBId']);
 const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'];
 const POSE_COMPOSER_CONTEXT_KEYS = new Set(['poseArrangementId', 'poseAnchorId']);
 const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting', 'lying']);
-const FLEXIBLE_CAMERA_FIXED_SET_ID = 'concrete-wall-chesterfield-sofa';
-const FIXED_SET_KEYS = ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'];
-const FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS = new Set(['fixedSetCaptureModeId', 'fixedSetPerformanceStateId']);
+const FIXED_SET_KEYS = ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'];
+const FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS = new Set(['fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId']);
 const FIXED_SET_LOCKED_KEYS = [
   'sceneAttributeId',
   'locationId',
@@ -370,8 +369,8 @@ const SECTION_SUBPANELS = {
     {
       id: 'fixed',
       label: '固定構圖場景',
-      description: '選擇固定場景、場景內人物位置、拍攝型態與演出狀態；啟用後會接管普通場景與鏡頭幾何。',
-      keys: ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'],
+      description: '選擇固定場景、場景內人物位置、戶外背景狀態、拍攝型態與演出狀態；啟用後會接管普通場景與鏡頭幾何。',
+      keys: ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'],
     },
     {
       id: 'space',
@@ -734,14 +733,16 @@ export default function Page1Workspace({
   const fixedCompositionSetControl = lockControls.find((control) => control.key === 'fixedCompositionSetId');
   const getFixedCompositionSetOption = (id) => fixedCompositionSetControl?.options?.find((option) => option.id === id) || null;
   const selectedFixedCompositionSetOption = fixedCompositionSetActive ? getFixedCompositionSetOption(selectedFixedCompositionSetId) : null;
-  const fixedSetPositionMatchesSet = (position, fixedSetOption) => {
-    if (!position || position.id === 'none') return true;
+  const fixedSetScopedOptionMatchesSet = (option, fixedSetOption) => {
+    if (!option || option.id === 'none') return true;
     if (!fixedSetOption) return false;
-    if (position.setId === fixedSetOption.id) return true;
-    if (Array.isArray(position.setIds) && position.setIds.includes(fixedSetOption.id)) return true;
-    return Boolean(position.setGroupId && fixedSetOption.setGroupId && position.setGroupId === fixedSetOption.setGroupId);
+    if (option.setId === fixedSetOption.id) return true;
+    if (Array.isArray(option.setIds) && option.setIds.includes(fixedSetOption.id)) return true;
+    return Boolean(option.setGroupId && fixedSetOption.setGroupId && option.setGroupId === fixedSetOption.setGroupId);
   };
-  const fixedSetAllowsCameraVariation = selectedFixedCompositionSetId === FLEXIBLE_CAMERA_FIXED_SET_ID;
+  const fixedSetPositionMatchesSet = (position, fixedSetOption) => fixedSetScopedOptionMatchesSet(position, fixedSetOption);
+  const fixedSetBackgroundStateMatchesSet = (state, fixedSetOption) => fixedSetScopedOptionMatchesSet(state, fixedSetOption);
+  const fixedSetAllowsCameraVariation = Boolean(selectedFixedCompositionSetOption) && selectedFixedCompositionSetOption.allowsCameraVariation !== false;
   const wardrobeLayerInsights = useMemo(
     () => buildWardrobeLayerInsights(locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive),
     [locks, wardrobeLockControls, isSpecialOutfitActive, isAnyOutfitPresetActive],
@@ -835,10 +836,13 @@ export default function Page1Workspace({
     };
   };
   const buildFixedSetControl = (control) => {
-    if (control.key !== 'fixedSetPositionId') return control;
+    if (!['fixedSetPositionId', 'fixedSetBackgroundStateId'].includes(control.key)) return control;
+    const matchesSelectedSet = control.key === 'fixedSetPositionId'
+      ? fixedSetPositionMatchesSet
+      : fixedSetBackgroundStateMatchesSet;
     return {
       ...control,
-      options: control.options.filter((option) => fixedSetPositionMatchesSet(option, selectedFixedCompositionSetOption)),
+      options: control.options.filter((option) => matchesSelectedSet(option, selectedFixedCompositionSetOption)),
     };
   };
   const resetPoseComposerLocks = (target) => {
@@ -873,6 +877,7 @@ export default function Page1Workspace({
       const next = { ...prev, [control.key]: value };
       if (control.key === 'fixedCompositionSetId') {
         const nextFixedSetActive = Boolean(value) && !isNoneSelected('fixedCompositionSetId', value, lockControls);
+        const nextFixedSetOption = getFixedCompositionSetOption(value);
         if (nextFixedSetActive) {
           next.sceneAttributeId = '';
           next.locationId = '';
@@ -883,18 +888,23 @@ export default function Page1Workspace({
             const noneOption = lockControls.find((item) => item.key === key)?.options?.find((option) => option.zh === '全無');
             next[key] = noneOption?.id || '';
           });
-          if (value !== FLEXIBLE_CAMERA_FIXED_SET_ID) {
+          if (nextFixedSetOption?.allowsCameraVariation === false) {
             FIXED_SET_STRICT_CAMERA_KEYS.forEach((key) => {
               const noneOption = lockControls.find((item) => item.key === key)?.options?.find((option) => option.zh === '全無');
               next[key] = noneOption?.id || '';
             });
           }
           const selectedPosition = lockControls.find((item) => item.key === 'fixedSetPositionId')?.options?.find((option) => option.id === prev.fixedSetPositionId);
-          if (!fixedSetPositionMatchesSet(selectedPosition, getFixedCompositionSetOption(value))) {
+          if (!fixedSetPositionMatchesSet(selectedPosition, nextFixedSetOption)) {
             next.fixedSetPositionId = 'none';
+          }
+          const selectedBackgroundState = lockControls.find((item) => item.key === 'fixedSetBackgroundStateId')?.options?.find((option) => option.id === prev.fixedSetBackgroundStateId);
+          if (!fixedSetBackgroundStateMatchesSet(selectedBackgroundState, nextFixedSetOption)) {
+            next.fixedSetBackgroundStateId = 'none';
           }
         } else {
           next.fixedSetPositionId = 'none';
+          next.fixedSetBackgroundStateId = 'none';
           next.fixedSetCaptureModeId = 'photographer-shot';
           next.fixedSetPerformanceStateId = 'model-natural';
         }
@@ -903,6 +913,12 @@ export default function Page1Workspace({
         const selectedPosition = lockControls.find((item) => item.key === 'fixedSetPositionId')?.options?.find((option) => option.id === value);
         if (!fixedSetPositionMatchesSet(selectedPosition, getFixedCompositionSetOption(prev.fixedCompositionSetId))) {
           next.fixedSetPositionId = 'none';
+        }
+      }
+      if (control.key === 'fixedSetBackgroundStateId') {
+        const selectedBackgroundState = lockControls.find((item) => item.key === 'fixedSetBackgroundStateId')?.options?.find((option) => option.id === value);
+        if (!fixedSetBackgroundStateMatchesSet(selectedBackgroundState, getFixedCompositionSetOption(prev.fixedCompositionSetId))) {
+          next.fixedSetBackgroundStateId = 'none';
         }
       }
       if (control.key === 'poseId' && value && !isNoneSelected('poseId', value, characterLockControls)) {
@@ -936,6 +952,7 @@ export default function Page1Workspace({
         next.importedWorldSceneArchitectureText = '';
         next.fixedCompositionSetId = 'none';
         next.fixedSetPositionId = 'none';
+        next.fixedSetBackgroundStateId = 'none';
         next.fixedSetCaptureModeId = 'photographer-shot';
         next.fixedSetPerformanceStateId = 'model-natural';
       }

@@ -3,6 +3,7 @@ export const SCENE_CAMERA_CONTROL_ORDER = [
   'locationId',
   'fixedCompositionSetId',
   'fixedSetPositionId',
+  'fixedSetBackgroundStateId',
   'fixedSetCaptureModeId',
   'fixedSetPerformanceStateId',
   'lightingId',

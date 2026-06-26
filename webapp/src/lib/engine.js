@@ -1390,6 +1390,8 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
 ];
 
 const FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected room architecture; vary only subject placement, pose, crop, camera distance, camera orbit, lighting, and mood inside the same real-scale set; keep adult scale believable against furniture, fixtures, and props; avoid enlarging the subject or shrinking set anchors';
+const OUTDOOR_FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected outdoor architecture; vary only subject placement, pose, crop, lighting, mood, and selected background life state inside the same real-scale set; keep adult scale believable against roads, stairs, rails, poles, buildings, and distant background anchors; avoid enlarging the subject or shrinking set anchors';
+const OUTDOOR_FIXED_SET_GROUP_ID = 'outdoor-fixed-scene';
 
 const FIXED_COMPOSITION_SET_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不使用固定構圖場景。', meta: { tags: ['none'] } },
@@ -1457,6 +1459,32 @@ const FIXED_COMPOSITION_SET_OPTIONS = [
     desc: '真實比例復古磁磚浴室、正面橫置爪足浴缸、濕地板、洗臉台、鏡子、壁燈、毛巾與瓶罐構成的浴室 set。',
     aspectRatioId: '1:1',
     meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'bathtub_set', 'square_set'] },
+  },
+  {
+    id: 'seaside-slope-railway-crossing',
+    zh: '海邊坡道平交道',
+    setGroupId: OUTDOOR_FIXED_SET_GROUP_ID,
+    allowsCameraVariation: false,
+    sharedStructureEn: OUTDOOR_FIXED_COMPOSITION_SHARED_STRUCTURE_EN,
+    en: 'The portrait takes place within a real-scale outdoor coastal downhill-road fixed composition set, not a generic beach scene and not a tight subject portrait. Treat the fixed set as the primary composition: the camera is positioned near the upper slope, looking downhill along the road plane toward the ocean horizon. A railway crossing gate cuts across the lower-middle frame, with crossing arms, signal posts, striped warning signs, sloped asphalt, lane marks, roadside utility poles, overhead wires, seaside town rooftops, small building edges, distant shoreline, open sky area, and ocean horizon as stable anchors. Sky color, cloud shape, sun strength, water brightness, and weather mood are controlled by the selected ambient light and subject-light options, not by this fixed set. Keep the road, railway crossing, wires, town edges, and ocean depth readable even when the subject moves or crops into the foreground',
+    integrityEn: 'preserve anchors: downhill road plane, railway crossing gate, roadside poles and overhead wires, seaside town edges, ocean horizon; keep their relative positions stable',
+    replacementGuardEn: 'avoid generic beach, train station, train-dominant scene, city intersection, cafe, indoor set, or unrelated coastal road',
+    desc: '海邊坡道、道路平面、平交道柵欄與號誌、電線桿、架空線、遠方海平線構成的戶外固定取景 set。',
+    aspectRatioId: '9:16',
+    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'outdoor', 'coastal_set', 'railway_crossing_set', 'vertical_set'] },
+  },
+  {
+    id: 'seaside-stair-alley',
+    zh: '海邊階梯小巷',
+    setGroupId: OUTDOOR_FIXED_SET_GROUP_ID,
+    allowsCameraVariation: false,
+    sharedStructureEn: OUTDOOR_FIXED_COMPOSITION_SHARED_STRUCTURE_EN,
+    en: 'The portrait takes place within a real-scale outdoor descending seaside stair-alley fixed composition set, not a generic beach scene and not a tight subject portrait. Treat the fixed set as the primary composition: the camera is positioned near the upper stairs, looking down the stair alley toward the ocean horizon. Descending pale stairs form the foreground and midground path toward the sea, with white or light stucco side walls, narrow building edges, balcony fragments, handrails, potted plants or hydrangeas, overhead wires, distant shoreline, open sky area, and ocean horizon as stable anchors. Sky color, cloud shape, sun strength, water brightness, and weather mood are controlled by the selected ambient light and subject-light options, not by this fixed set. Keep the stair corridor, side walls, rails, plants, wires, and ocean depth readable even when the subject moves or crops into the foreground',
+    integrityEn: 'preserve anchors: descending stairway, pale side walls, handrails, potted plants or hydrangeas, overhead wires, ocean horizon; keep their relative positions stable',
+    replacementGuardEn: 'avoid indoor staircase, generic beach, city alley without stairs, cafe, plain street, train crossing, or unrelated stairway',
+    desc: '海邊階梯小巷、白色或淺色牆面、扶手、盆栽或繡球花、架空線與遠方海平線構成的戶外固定取景 set。',
+    aspectRatioId: '9:16',
+    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'outdoor', 'coastal_set', 'stair_alley_set', 'vertical_set'] },
   },
 ];
 
@@ -1582,6 +1610,94 @@ const FIXED_SET_POSITION_OPTIONS = [
     zh: '泡泡前景遮擋',
     en: 'foam bubbles and water surface create foreground occlusion around the subject, allowing parts of the body or face to be softened, hidden, or out of focus',
   },
+  {
+    id: 'crossing-road-free-interaction',
+    setId: 'seaside-slope-railway-crossing',
+    zh: '自由場景互動',
+    en: 'subject placement can vary within the fixed coastal crossing set: road foreground, crossing-gate side, slope midground, roadside edge, building-side margin, utility-pole side, or close foreground layer. Choose one interaction anchor such as the road markings, crossing barrier, signal post, guardrail, utility pole, wall edge, or ocean-facing downhill view while keeping the crossing and sea readable',
+  },
+  {
+    id: 'crossing-gate-side',
+    setId: 'seaside-slope-railway-crossing',
+    zh: '坡道平交道旁',
+    en: 'subject near the railway crossing gate or signal-side edge, with the downhill road, crossing arms, overhead wires, and ocean horizon still visible as the fixed composition',
+  },
+  {
+    id: 'crossing-road-foreground',
+    setId: 'seaside-slope-railway-crossing',
+    zh: '坡道路面前景',
+    en: 'subject on or near the upper road foreground, allowing closer body scale or partial crop while the crossing gate, sloping road, and ocean direction remain readable',
+  },
+  {
+    id: 'crossing-mid-slope',
+    setId: 'seaside-slope-railway-crossing',
+    zh: '坡道中段',
+    en: 'subject in the mid-slope road plane below the camera position, integrated with the downhill depth toward the crossing and ocean horizon without changing the fixed viewpoint',
+  },
+  {
+    id: 'stair-alley-free-interaction',
+    setId: 'seaside-stair-alley',
+    zh: '自由場景互動',
+    en: 'subject placement can vary within the fixed seaside stair-alley set: upper stair foreground, mid-stairs, railing side, wall-side edge, potted-plant side, lower alley depth, or close foreground layer. Choose one interaction anchor such as the handrail, stair edge, side wall, potted plant, hydrangeas, overhead wires, or ocean-facing downhill view while keeping the stair corridor and sea readable',
+  },
+  {
+    id: 'stair-upper-foreground',
+    setId: 'seaside-stair-alley',
+    zh: '階梯上方前景',
+    en: 'subject near the upper stair foreground close to the camera, allowing partial crop or casual foreground presence while the descending stairway and ocean horizon remain recognizable',
+  },
+  {
+    id: 'stair-mid-railing',
+    setId: 'seaside-stair-alley',
+    zh: '階梯中段欄杆旁',
+    en: 'subject around the mid-stairs near a handrail, with pale side walls, stair depth, overhead wires, and ocean horizon held in the same fixed composition',
+  },
+  {
+    id: 'stair-wall-side',
+    setId: 'seaside-stair-alley',
+    zh: '牆面小巷側邊',
+    en: 'subject beside the pale stucco wall or narrow building edge, letting the stairs and railings continue downhill toward the ocean in the background',
+  },
+];
+
+const FIXED_SET_BACKGROUND_STATE_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', meta: { tags: ['none'] } },
+  {
+    id: 'outdoor-empty',
+    setGroupId: OUTDOOR_FIXED_SET_GROUP_ID,
+    zh: '空無一人',
+    en: 'background life state: the outdoor fixed set is empty of pedestrians, vehicles, and extra activity, like a quiet location portrait with the scene architecture unobstructed',
+  },
+  {
+    id: 'outdoor-sparse-pedestrians',
+    setGroupId: OUTDOOR_FIXED_SET_GROUP_ID,
+    zh: '稀疏路人',
+    en: 'background life state: a few distant pedestrians may appear as small background life details, never competing with the main subject or changing the fixed scene layout',
+  },
+  {
+    id: 'outdoor-lived-in-moment',
+    setGroupId: OUTDOOR_FIXED_SET_GROUP_ID,
+    zh: '普通生活瞬間',
+    en: 'background life state: sparse distant people, subtle local movement, or tiny everyday traces may appear in the fixed outdoor set, keeping a normal life-photo feeling without crowding the frame',
+  },
+  {
+    id: 'crossing-clear',
+    setId: 'seaside-slope-railway-crossing',
+    zh: '清空平交道',
+    en: 'railway crossing state: the crossing is clear with no train passing, the barrier, rails, road plane, and ocean-facing downhill view remain unobstructed',
+  },
+  {
+    id: 'crossing-train-passing',
+    setId: 'seaside-slope-railway-crossing',
+    zh: '電車經過中',
+    en: 'railway crossing state: one local train may pass across the railway crossing as a middle-distance life event, but it must not become a train station scene, dominate the frame, or hide the road, crossing gate, wires, and ocean horizon',
+  },
+  {
+    id: 'crossing-light-traffic',
+    setId: 'seaside-slope-railway-crossing',
+    zh: '少量生活車輛',
+    en: 'background life state: one or two small distant cars, scooters, or bicycles may appear on the road or near the crossing, keeping a quiet everyday coastal-town feeling without crowding the scene',
+  },
 ];
 
 const FIXED_SET_CAPTURE_MODE_OPTIONS = [
@@ -1674,6 +1790,7 @@ const LOCK_DEFINITIONS = [
   { key: 'importedWorldSceneArchitectureText', label: '匯入世界場景架構', section: 'hidden' },
   { key: 'fixedCompositionSetId', label: '固定構圖場景', options: FIXED_COMPOSITION_SET_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'fixedSetPositionId', label: '固定場景人物位置', options: FIXED_SET_POSITION_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
+  { key: 'fixedSetBackgroundStateId', label: '固定場景背景狀態', options: FIXED_SET_BACKGROUND_STATE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'fixedSetCaptureModeId', label: '固定場景拍攝型態', options: FIXED_SET_CAPTURE_MODE_OPTIONS, defaultValue: 'photographer-shot', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'fixedSetPerformanceStateId', label: '固定場景演出狀態', options: FIXED_SET_PERFORMANCE_STATE_OPTIONS, defaultValue: 'model-natural', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'framingId', label: '構圖景別', category: '景別構圖 (Framing)', section: 'core' },
@@ -1836,6 +1953,7 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'locationId', label: 'Location' },
   { key: 'fixedCompositionSetId', label: 'Fixed Composition Set' },
   { key: 'fixedSetPositionId', label: 'Fixed Set Position' },
+  { key: 'fixedSetBackgroundStateId', label: 'Fixed Set Background State' },
   { key: 'fixedSetCaptureModeId', label: 'Fixed Set Capture Mode' },
   { key: 'fixedSetPerformanceStateId', label: 'Fixed Set Performance State' },
   { key: 'framingId', label: 'Framing' },
@@ -4168,21 +4286,30 @@ function isFixedCompositionSetActive(item) {
 }
 
 function fixedCompositionSetAllowsCameraVariation(item) {
-  return isFixedCompositionSetActive(item);
+  return isFixedCompositionSetActive(item) && item.allowsCameraVariation !== false;
+}
+
+function fixedSetScopedOptionMatchesSet(option, fixedSetRef) {
+  if (!fixedSetRef || option.id === 'none') return true;
+  const fixedSet = typeof fixedSetRef === 'string' ? getFixedCompositionSetOption(fixedSetRef) : fixedSetRef;
+  const fixedSetId = fixedSet?.id || (typeof fixedSetRef === 'string' ? fixedSetRef : '');
+  if (!fixedSetId || option.setId === fixedSetId) return true;
+  if (Array.isArray(option.setIds) && option.setIds.includes(fixedSetId)) return true;
+  return Boolean(option.setGroupId && fixedSet?.setGroupId && option.setGroupId === fixedSet.setGroupId);
 }
 
 function fixedSetPositionMatchesSet(position, fixedSetRef) {
-  if (!fixedSetRef || position.id === 'none') return true;
-  const fixedSet = typeof fixedSetRef === 'string' ? getFixedCompositionSetOption(fixedSetRef) : fixedSetRef;
-  const fixedSetId = fixedSet?.id || (typeof fixedSetRef === 'string' ? fixedSetRef : '');
-  if (!fixedSetId || position.setId === fixedSetId) return true;
-  if (Array.isArray(position.setIds) && position.setIds.includes(fixedSetId)) return true;
-  return Boolean(position.setGroupId && fixedSet?.setGroupId && position.setGroupId === fixedSet.setGroupId);
+  return fixedSetScopedOptionMatchesSet(position, fixedSetRef);
 }
 
 function getFixedSetPositionOption(id, fixedSetRef) {
   const item = FIXED_SET_POSITION_OPTIONS.find((option) => option.id === id) || FIXED_SET_POSITION_OPTIONS[0];
   return fixedSetPositionMatchesSet(item, fixedSetRef) ? item : FIXED_SET_POSITION_OPTIONS[0];
+}
+
+function getFixedSetBackgroundStateOption(id, fixedSetRef) {
+  const item = FIXED_SET_BACKGROUND_STATE_OPTIONS.find((option) => option.id === id) || FIXED_SET_BACKGROUND_STATE_OPTIONS[0];
+  return fixedSetScopedOptionMatchesSet(item, fixedSetRef) ? item : FIXED_SET_BACKGROUND_STATE_OPTIONS[0];
 }
 
 function getFixedSetCaptureModeOption(id) {
@@ -6094,6 +6221,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     ? joinSummaryParts(
         context.fixedCompositionSet.zh,
         context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition) ? context.fixedSetPosition.zh : '',
+        context.fixedSetBackgroundState && !isNoneLikeItem(context.fixedSetBackgroundState) ? context.fixedSetBackgroundState.zh : '',
         context.fixedSetCaptureMode && !isNoneLikeItem(context.fixedSetCaptureMode) ? context.fixedSetCaptureMode.zh : '',
         context.fixedSetPerformanceState && !isNoneLikeItem(context.fixedSetPerformanceState) ? context.fixedSetPerformanceState.zh : ''
       )
@@ -7820,6 +7948,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     const allowCameraVariation = fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet);
     addContextLine('Fixed Composition Set', context.fixedCompositionSet, (item) => skeletonText(item.en));
     addContextLine('Fixed Set Position', context.fixedSetPosition, (item) => skeletonText(item.en));
+    addContextLine('Fixed Set Background State', context.fixedSetBackgroundState, (item) => skeletonText(item.en));
     addContextLine('Fixed Set Capture Mode', context.fixedSetCaptureMode, (item) => skeletonText(item.en));
     addContextLine('Fixed Set Performance State', context.fixedSetPerformanceState, (item) => skeletonText(item.en));
     if (allowCameraVariation) {
@@ -8153,6 +8282,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
   const fixedSetSceneLabels = [
     'Fixed Composition Set',
     'Fixed Set Position',
+    'Fixed Set Background State',
     'Fixed Set Capture Mode',
     'Fixed Set Performance State',
   ];
@@ -8571,6 +8701,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     const positionText = context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition)
       ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPosition.en) : context.fixedSetPosition.en)
       : '';
+    const backgroundStateText = context.fixedSetBackgroundState && !isNoneLikeItem(context.fixedSetBackgroundState)
+      ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetBackgroundState.en) : context.fixedSetBackgroundState.en)
+      : '';
     const captureText = context.fixedSetCaptureMode && !isNoneLikeItem(context.fixedSetCaptureMode)
       ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en)
       : '';
@@ -8596,6 +8729,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     return [
       fixedSetText,
       positionText,
+      backgroundStateText,
       joinSentenceParts([captureText, performanceText]),
       joinSentenceParts([angleText, orbitText]),
       joinSentenceParts([integrityText, ambientText, subjectLightText]),
@@ -8981,6 +9115,7 @@ function buildAiMinimalSceneClause(valuesByLabel) {
   const fixedSetValues = [
     compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Composition Set']), 5),
     compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Position']), 2),
+    compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Background State']), 2),
     compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Capture Mode']), 3),
     compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Performance State']), 2),
     compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Integrity']), 3),
@@ -9109,6 +9244,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     importedWorldSceneArchitectureText: context.locks?.importedWorldSceneArchitectureText || '',
     fixedCompositionSetId: context.fixedCompositionSet?.id || 'none',
     fixedSetPositionId: context.fixedSetPosition?.id || 'none',
+    fixedSetBackgroundStateId: context.fixedSetBackgroundState?.id || 'none',
     fixedSetCaptureModeId: context.fixedSetCaptureMode?.id || 'photographer-shot',
     fixedSetPerformanceStateId: context.fixedSetPerformanceState?.id || 'model-natural',
     framingId: context.framing?.id || '',
@@ -9303,6 +9439,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   } else {
     effectiveLocks.fixedCompositionSetId = 'none';
     effectiveLocks.fixedSetPositionId = 'none';
+    effectiveLocks.fixedSetBackgroundStateId = 'none';
     effectiveLocks.fixedSetCaptureModeId = 'photographer-shot';
     effectiveLocks.fixedSetPerformanceStateId = 'model-natural';
   }
@@ -9388,7 +9525,11 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const shutterLockId = effectiveLocks.shutterId || getControlOptionByZh(lockControls, 'shutterId', '全無')?.id || '';
   const aperture = pickWithLock(runtime.flatCatalog.aperture, apertureLockId);
   const shutter = pickWithLock(runtime.flatCatalog.shutter, shutterLockId);
-  const locationForLightingCompatibility = hasImportedWorldSceneArchitecture ? null : location;
+  const fixedSetLightingCompatibilityAnchor = fixedCompositionSetActive
+    && selectedFixedCompositionSet?.meta?.tags?.includes('outdoor')
+    ? selectedFixedCompositionSet
+    : null;
+  const locationForLightingCompatibility = fixedSetLightingCompatibilityAnchor || (hasImportedWorldSceneArchitecture ? null : location);
   const lighting = pickWithCompatibleLock(
     runtime.flatCatalog.lighting,
     effectiveLocks.lightingId,
@@ -9409,6 +9550,9 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const fixedSetPosition = fixedCompositionSet
     ? getFixedSetPositionOption(effectiveLocks.fixedSetPositionId, fixedCompositionSet)
     : getFixedSetPositionOption('none');
+  const fixedSetBackgroundState = fixedCompositionSet
+    ? getFixedSetBackgroundStateOption(effectiveLocks.fixedSetBackgroundStateId, fixedCompositionSet)
+    : getFixedSetBackgroundStateOption('none');
   const fixedSetCaptureMode = fixedCompositionSet
     ? getFixedSetCaptureModeOption(effectiveLocks.fixedSetCaptureModeId)
     : getFixedSetCaptureModeOption('photographer-shot');
@@ -9431,6 +9575,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     opticalEffect,
     fixedCompositionSet,
     fixedSetPosition,
+    fixedSetBackgroundState,
     fixedSetCaptureMode,
     fixedSetPerformanceState,
     film,
