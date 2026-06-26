@@ -8763,10 +8763,10 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
 
   return [
     section('Image Type', imageType),
-    sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
     resolvedSubjectText ? section('Subject', useRoleOrderedDuo ? resolvedSubjectText : `${subjectLead} ${resolvedSubjectText}`) : '',
     resolvedWardrobeText ? section('Wardrobe', wardrobeUsesDirectSentence ? resolvedWardrobeText : `${wardrobeLead} ${resolvedWardrobeText}`) : '',
     section('Pose and Composition', resolvedPoseText),
+    sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
     'multi-cut sequence n=2',

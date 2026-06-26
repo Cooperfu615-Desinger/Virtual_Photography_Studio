@@ -10,7 +10,7 @@ function optionId(controlKey, zh) {
   return option.id;
 }
 
-test('Gpt prompt prioritizes scene before special outfit details', () => {
+test('Gpt prompt keeps scene priority guidance with special outfit details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -26,8 +26,8 @@ test('Gpt prompt prioritizes scene before special outfit details', () => {
   assert.notEqual(sceneIndex, -1);
   assert.notEqual(scenePriorityIndex, -1);
   assert.notEqual(specialOutfitIndex, -1);
-  assert.ok(sceneIndex < specialOutfitIndex);
-  assert.ok(scenePriorityIndex < specialOutfitIndex);
+  assert.ok(specialOutfitIndex < sceneIndex);
+  assert.ok(sceneIndex < scenePriorityIndex);
   assert.match(grok, /recognizable selected environment/);
 });
 
