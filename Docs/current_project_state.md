@@ -49,8 +49,9 @@ Current PAGE1 output labels:
   - More natural-language description
 - `AI`
   - Internal field: `midjourneyPrompt`
-  - Compact natural paragraph derived from Gpt sections
+  - Compact natural prompt derived from Gpt sections
   - Must not drop selected wardrobe, clothing, pose, or action details
+  - Duo mode uses a compact labeled format, not the older single-paragraph compression
 
 Important naming note:
 
@@ -149,6 +150,41 @@ Image Analyzer behavior:
   - `grokPrompt`
   - `zImagePrompt`
 
+Current duo prompt output contract:
+
+- Duo `Gpt` is role-ordered and sectioned:
+  - `Image Type`
+  - `Subject` containing the base subject sentence, then `Woman 1` and `Woman 2` role blocks
+  - `Shared Expression`
+  - `Pose and Composition`
+  - `Scene`
+  - `Lighting`
+  - `Camera Look`
+  - `multi-cut sequence n=2`
+- Duo `Gpt` should describe Woman 1 completely before Woman 2, including body, face, hair, hair color, wardrobe, and role-bound accessories where available.
+- Duo `Gpt` should keep `Shared Expression` separate from each woman's identity / wardrobe block.
+- Duo `Grok/Z-Image` uses the same broad section order but is more compact:
+  - `Image Type`
+  - `Subject`
+  - `Woman 1`
+  - `Woman 2`
+  - `Shared Expression`
+  - `Pose and Composition`
+  - `Scene`
+  - `Lighting`
+  - `Camera Look`
+- Duo `AI` uses an even shorter labeled format:
+  - opening sentence
+  - `Woman 1`
+  - `Woman 2`
+  - `Pose`
+  - `Scene`
+  - `Lighting`
+  - `Camera Look`
+- Duo `AI` may compress details, but must keep core wardrobe, pose/action scenario, scene, lighting, and camera look represented.
+- When no explicit garment color is selected, do not inject fallback phrases such as `dominant fabric color controlled by the outfit color selection`.
+- Duo public outputs should not include wardrobe guard text such as `coordinated but clearly distinct outfits, avoid identical garment colors...`; color / garment differentiation should happen during wardrobe resolution and random composition instead.
+
 ### Pose / Action / Pose Composer
 
 Existing controls remain:
@@ -162,16 +198,29 @@ New Pose Composer controls:
 - `poseArrangementId`
 - `poseHandId`
 - `poseAnchorId`
+- Duo-only controls:
+  - `duoPoseId`
+  - `duoPoseBaseId`
+  - `duoExpressionId`
 
 Rules:
 
 - Pose Composer is single-subject only.
-- Duo mode ignores Pose Composer and uses `duoPoseId` / `duoInteractionId`.
+- Duo mode ignores Pose Composer and uses `duoPoseId` / `duoPoseBaseId` / `duoExpressionId`.
 - In PAGE1 UI, Pose Composer is mutually exclusive with old `poseId` and `specialActionId`.
 - Existing social shooting action behavior is preserved where possible: social special actions can still compose with old `poseId`.
 - Engine priority: if Pose Composer resolves, it outputs instead of old `poseId` / `specialActionId`.
 - Scene conflict checking for Pose Composer is intentionally not implemented yet.
 - `Pose Modifier` is intentionally not implemented yet.
+
+Duo rules:
+
+- `duoPoseId` is the current `雙人動作情境` control.
+- `duoPoseBaseId` is the current `雙人姿態基底` control.
+- `duoExpressionId` is the current shared `雙人神情眼神` control.
+- Legacy `duoInteractionId` / separated A-B expression controls are hidden / migrated and should not be reintroduced.
+- Duo action scenario language should usually be one simple natural sentence that lets the image model decide exact contact, crop, hand placement, and movement.
+- Natural duo crops, partial occlusion, incomplete full-body visibility, and model-decided body language are acceptable when the selected scenario implies them.
 
 ### Wardrobe Priority
 
@@ -179,6 +228,8 @@ Rules:
 - Outfit presets / dresses remain explicit and can layer with outerwear.
 - AI and Grok/Z-Image must preserve clothing details; do not over-compress wardrobe.
 - Accessories such as eyewear, earrings, and neck accessories are generally bound into the subject/person description rather than emitted as separate prompt lines.
+- Duo wardrobe is resolved per role. Random A/B clothing and palette choices should avoid unintentional identical garments or same-color collisions where possible, while still respecting explicit user locks.
+- Duo role wardrobe text should end as clean sentences and should not expose internal fallback or guard phrases.
 
 ### Close-Up Mode
 

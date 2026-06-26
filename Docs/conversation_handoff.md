@@ -81,8 +81,9 @@ QA notes from 2026-06-25:
   - Natural-language prompt
 - `AI`
   - Internal field: `midjourneyPrompt`
-  - Compact natural paragraph derived from Gpt sections
+  - Compact natural prompt derived from Gpt sections
   - Must preserve selected wardrobe, clothing, pose, and action details
+  - Duo mode uses a compact labeled format; single mode remains a compact natural sentence
   - In face-only close-up, hidden wardrobe should be omitted instead of replaced by a default visible dress phrase
 
 Do not rename the internal fields casually. Many saved cards, import/export paths, and older helper names still rely on them.
@@ -167,15 +168,22 @@ Pose Composer controls:
 - `poseHandId`
 - `poseAnchorId`
 
+Duo-only controls:
+
+- `duoPoseId`
+- `duoPoseBaseId`
+- `duoExpressionId`
+
 Rules:
 
 - Pose Composer is single-subject only.
-- Duo mode ignores Pose Composer and uses `duoPoseId` / `duoInteractionId`.
+- Duo mode ignores Pose Composer and uses `duoPoseId` / `duoPoseBaseId` / `duoExpressionId`.
 - In PAGE1 UI, Pose Composer is mutually exclusive with old `poseId` and `specialActionId`.
 - Existing social shooting behavior is preserved where possible: social special actions can still compose with old `poseId`.
 - Engine priority: if Pose Composer resolves, it outputs instead of old `poseId` / `specialActionId`.
 - Pose Composer scene compatibility is intentionally not implemented yet. The user currently prefers free combination.
 - `Pose Modifier` is intentionally not implemented yet. Test base + arrangement + hand + anchor first.
+- Legacy `duoInteractionId` and separated A/B expression controls are hidden / migrated. Do not reintroduce them.
 
 ### Current Key Files
 
@@ -233,6 +241,19 @@ Important tests:
 - Primary target is ChatGPT Image / GPT Image.
 - Ends with `multi-cut sequence n=2`.
 - This multi-cut line is only for Gpt.
+- Duo `Gpt` uses role-ordered sections:
+  - `Image Type`
+  - `Subject` containing the base subject sentence, then `Woman 1` and `Woman 2` role blocks
+  - `Shared Expression`
+  - `Pose and Composition`
+  - `Scene`
+  - `Lighting`
+  - `Camera Look`
+  - `multi-cut sequence n=2`
+- Duo `Gpt` should fully describe Woman 1 before Woman 2. Each woman block can include body, face, skin details, hairstyle, hair color, wardrobe, and role-bound accessories.
+- Duo `Gpt` should keep shared gaze / mood in `Shared Expression` instead of burying it inside only one subject block.
+- Duo `Gpt` should not emit internal color fallback text such as `dominant fabric color controlled by the outfit color selection`.
+- Duo `Gpt` should not emit wardrobe guard text such as `coordinated but clearly distinct outfits, avoid identical garment colors...`.
 
 ### Grok/Z-Image
 
@@ -240,14 +261,47 @@ Important tests:
 - Primary target is Grok Imagine / Aurora and Z-Image.
 - Aurora is understood to prefer natural-language descriptions.
 - Avoid making this output too rigid or too field-list-like.
+- Duo `Grok/Z-Image` now uses compact labeled sections rather than one long mixed natural paragraph:
+  - `Image Type`
+  - `Subject`
+  - `Woman 1`
+  - `Woman 2`
+  - `Shared Expression`
+  - `Pose and Composition`
+  - `Scene`
+  - `Lighting`
+  - `Camera Look`
+- Duo `Grok/Z-Image` intentionally omits detailed body / face / hair identity blocks and focuses on subject type, per-role wardrobe, shared expression, pose scenario, scene, lighting, and camera look.
+- Role wardrobe lines should remain natural and concise. Keep selected garments and important accessories, but avoid exposing internal differentiation guard text.
 
 ### AI
 
-- Compact natural paragraph.
+- Compact natural prompt.
 - Source should be the Gpt structured sections.
 - Do not over-compress. Earlier over-compression caused clothing or wardrobe details to disappear.
 - Each major selected section should remain represented, especially wardrobe, pose, and action.
 - Pose/composition currently keeps enough comma-separated detail to preserve generated body state.
+- Duo `AI` uses the shortest labeled format:
+  - opening sentence
+  - `Woman 1`
+  - `Woman 2`
+  - `Pose`
+  - `Scene`
+  - `Lighting`
+  - `Camera Look`
+- Duo `AI` may drop secondary detail, but should not lose core garments, pose/action scenario, scene anchor, lighting, or camera look.
+- Duo `AI` removes palette-direction prose and internal guard phrases during compression.
+
+### Duo Prompt Format Decisions
+
+The current duo prompt direction came from real-generation testing:
+
+- Role ordering improved generation precision. The model performs better when Woman 1 is fully described before Woman 2 instead of interleaving wardrobe, body, hair, and accessories by source control order.
+- `Shared Expression` is separate because it describes the relationship between both women rather than either role alone.
+- `Pose and Composition` is now scenario-led. It should describe the two-person action in simple natural language and let the image model decide exact body contact, hand placement, movement, and crop.
+- Natural crop and occlusion are acceptable in duo mode. Do not force both women to be fully visible unless the selected framing/control explicitly requires it.
+- Duo wardrobe differentiation should happen in wardrobe selection / random composition, not by appending visible guard commands to the public prompt.
+- Missing explicit color should stay silent. Do not add fallback phrases that tell the model the fabric color is controlled by a selection.
 
 ### Paused Style Prefix Idea
 
@@ -587,8 +641,12 @@ The durable rule from that cleanup: each option should own one responsibility. A
 ### Duo Historical Lessons
 
 - Duo-specific wardrobe controls exist for A/B subjects.
-- Duo interaction and duo pose are separate concepts.
+- Duo body type and skin details are split into A/B role controls.
+- Duo action and broad posture are now split as `duoPoseId` / `duoPoseBaseId`.
+- Duo expression is a single shared `duoExpressionId` control.
+- Legacy `duoInteractionId` and legacy separate A/B expression controls were hidden / migrated and should not be added back.
 - Duo prompt output should keep accessories and clothing grouped by person when possible.
+- Duo public prompts should not expose internal wardrobe guard text or color fallback text.
 - Pose Composer is currently single-subject only and should not be applied to duo mode.
 
 ### PAGE3 Historical Lessons
