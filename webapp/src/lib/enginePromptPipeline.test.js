@@ -183,6 +183,93 @@ test('Gpt single-subject prompt compresses normal subject and wardrobe wording',
   assert.match(prompt.zImagePrompt, /body proportion anchor/i);
 });
 
+test('Gpt single-subject prompt applies second-pass identity compression', () => {
+  const baseLocks = {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  };
+  const buildSubject = (locks) => {
+    const [prompt] = generatePrompts(1, { ...baseLocks, ...locks });
+    return {
+      subject: gptSection(prompt, 'Subject'),
+      zImagePrompt: prompt.zImagePrompt,
+    };
+  };
+
+  const curvy = buildSubject({
+    bodyTypeId: optionId('bodyTypeId', '性感曲線身形'),
+    facialFeaturesId: optionId('facialFeaturesId', '成熟性感臉'),
+    hairstyleId: optionId('hairstyleId', '柔波：深側分'),
+    hairColorId: optionId('hairColorId', '銀灰白'),
+  });
+  assert.match(curvy.subject, /tall slim-curvy hourglass body, long legs, narrow waist, rounded hips/i);
+  assert.match(curvy.subject, /seductive mature face, defined eyes and lips/i);
+  assert.match(curvy.subject, /deep side-parted long soft waves/i);
+  assert.match(curvy.subject, /silver-gray white hair, cool pale tone, realistic dyed texture, natural eyebrows/i);
+  assert.doesNotMatch(curvy.subject, /lean hourglass curve|magnetic facial balance|face-framing flow|cool pale fashion color/i);
+  assert.match(curvy.zImagePrompt, /body proportion anchor/i);
+  assert.match(curvy.zImagePrompt, /magnetic feminine facial balance/i);
+
+  const idol = buildSubject({
+    bodyTypeId: optionId('bodyTypeId', '高挑時裝模特'),
+    facialFeaturesId: optionId('facialFeaturesId', '韓系偶像臉'),
+    skinDetailsId: optionId('skinDetailsId', '玻璃水光肌'),
+    hairstyleId: optionId('hairstyleId', '輕透齊瀏海內彎鮑伯'),
+    hairColorId: optionId('hairColorId', '自然黑'),
+  });
+  assert.match(idol.subject, /tall slim fashion body, long legs, high waistline/i);
+  assert.match(idol.subject, /Korean idol face, small refined face, clear bright eyes/i);
+  assert.match(idol.subject, /chin-length inward-curved bob, airy straight bangs, rounded face-framing ends/i);
+  assert.match(idol.subject, /natural black hair/i);
+  assert.match(idol.subject, /dewy glass skin/i);
+  assert.doesNotMatch(idol.subject, /clean editorial silhouette|polished K-pop portrait balance|clean salon shape|hydrated reflective complexion/i);
+  assert.match(idol.zImagePrompt, /clean editorial silhouette/i);
+  assert.match(idol.zImagePrompt, /hydrated reflective complexion/i);
+
+  const freckles = buildSubject({
+    bodyTypeId: optionId('bodyTypeId', '柔和沙漏身形'),
+    facialFeaturesId: optionId('facialFeaturesId', '甜美可愛臉'),
+    skinDetailsId: optionId('skinDetailsId', '自然雀斑'),
+    hairstyleId: optionId('hairstyleId', '直髮：濕感'),
+    hairColorId: optionId('hairColorId', '蜂蜜焦糖棕'),
+  });
+  assert.match(freckles.subject, /soft hourglass body, fuller bust, wider hips/i);
+  assert.match(freckles.subject, /sweet rounded face, bright friendly eyes/i);
+  assert.match(freckles.subject, /sleek wet straight medium-to-long hair, separated damp strands/i);
+  assert.match(freckles.subject, /honey caramel-brown hair/i);
+  assert.match(freckles.subject, /natural freckles across nose and cheeks/i);
+  assert.doesNotMatch(freckles.subject, /subtle abdomen contour|approachable portrait look|clean straight lengths|minimal wave|authentic skin detail/i);
+
+  const editorial = buildSubject({
+    bodyTypeId: optionId('bodyTypeId', '小隻精緻身形'),
+    facialFeaturesId: optionId('facialFeaturesId', '冷感高級臉'),
+    skinDetailsId: optionId('skinDetailsId', '淚痣／唇邊痣'),
+    hairstyleId: optionId('hairstyleId', '輕透瀏海自然微彎長髮'),
+    hairColorId: optionId('hairColorId', '寶石藍'),
+  });
+  assert.match(editorial.subject, /petite polished body, compact proportions/i);
+  assert.match(editorial.subject, /cool editorial face, sharp features, calm high-fashion presence/i);
+  assert.match(editorial.subject, /long slightly wavy hair, airy see-through bangs, side-draped face-framing strands/i);
+  assert.match(editorial.subject, /cobalt-blue fashion hair/i);
+  assert.match(editorial.subject, /small beauty mark under eye or near lips/i);
+  assert.doesNotMatch(editorial.subject, /small-frame presence|sharp facial balance|naturally slightly wavy|rich blue tone|delicate facial mole detail/i);
+
+  const athletic = buildSubject({
+    bodyTypeId: optionId('bodyTypeId', '運動緊實身形'),
+    facialFeaturesId: optionId('facialFeaturesId', '混血立體臉'),
+    skinDetailsId: optionId('skinDetailsId', '微曬陽光感膚質'),
+    hairstyleId: optionId('hairstyleId', '柔和編髮造型'),
+    hairColorId: optionId('hairColorId', '深森林綠'),
+  });
+  assert.match(athletic.subject, /toned athletic body, subtle muscle definition/i);
+  assert.match(athletic.subject, /mixed editorial face, defined nose bridge, deep-set eyes/i);
+  assert.match(athletic.subject, /soft braided hairstyle, delicate woven detail/i);
+  assert.match(athletic.subject, /deep forest-green hair/i);
+  assert.match(athletic.subject, /sun-kissed skin, subtle warm flush/i);
+  assert.doesNotMatch(athletic.subject, /firm silhouette|dimensional facial structure|romantic natural texture|dark moody green tone|healthy outdoor glow/i);
+});
+
 test('Gpt single-subject prompt compresses footwear outerwear and layering details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
