@@ -103,12 +103,32 @@ test('Gpt duo prompt separates subject identity from role-ordered wardrobe', () 
   assert.ok(wardrobe.indexOf('Woman 1 wears') < wardrobe.indexOf('Woman 2 wears'));
   assert.match(wardrobe, /satin lingerie set/i);
   assert.match(wardrobe, /BDSM-inspired leather harness outfit/i);
-  assert.match(wardrobe, /coordinated but clearly distinct outfits/i);
+  assert.doesNotMatch(wardrobe, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
+  assert.doesNotMatch(wardrobe, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
   assert.doesNotMatch(wardrobe, /modern high-rise apartment living room/i);
 
   assert.match(scene, /modern high-rise apartment living room/i);
   assert.doesNotMatch(scene, /Woman 1 wears|Woman 2 wears/i);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+});
+
+test('Gpt duo wardrobe removes color-control metadata and punctuates role sentences', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    outfitPresetAId: optionId('outfitPresetAId', '套裝：豹紋蕾絲抹胸喇叭牛仔'),
+    outfitPresetAColorId: optionId('outfitPresetAColorId', '金色'),
+    outfitPresetBId: optionId('outfitPresetBId', '套裝：網紗掛脖背心牛仔迷你裙'),
+    outfitPresetBColorId: optionId('outfitPresetBColorId', '深棕色'),
+  });
+
+  const wardrobe = gptSection(prompt, 'Wardrobe');
+
+  assert.match(wardrobe, /^Woman 1 wears gold leopard-pattern strapless corset top, lace bust cups, long front ribbon ties, low-rise flared jeans, platform sandals\./);
+  assert.match(wardrobe, /Woman 2 wears dark brown sheer mesh halter camisole, visible lace bra layer, denim micro mini skirt, stacked waist jewelry, platform sandals\./);
+  assert.doesNotMatch(wardrobe, /controlled by .*color selection|dominant .*color|main .*color|contrast .*controlled/i);
+  assert.doesNotMatch(wardrobe, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
+  assert.doesNotMatch(wardrobe, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
 });
 
 test('Grok/Z-Image prompt remains natural language with blank-line paragraphs and AI uses a legacy minimal paragraph', () => {

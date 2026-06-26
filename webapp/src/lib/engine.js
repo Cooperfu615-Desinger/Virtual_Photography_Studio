@@ -8411,6 +8411,18 @@ function buildGptDuoWardrobeText(context, wardrobeSlots, wardrobeColors) {
   const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors, context);
   const text = duoWardrobeText.stylingText || duoWardrobeText.clothingText || '';
   return capitalizePromptLead(text)
+    .replace(/\b(?:dominant|main|secondary|contrast|tonal)\s+[^,.]*?\s+controlled by\s+[^,.]+/gi, '')
+    .replace(/\bcolor controlled by\s+[^,.]+/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*woman 2 wears\b/gi, '. Woman 2 wears')
+    .replace(/,\s*(coordinated but clearly distinct outfits\b)/gi, '. Coordinated but clearly distinct outfits')
+    .replace(/,\s*(distinct outfit-visible editorial\b)/gi, '. Distinct outfit-visible editorial')
+    .replace(/\bCoordinated but clearly distinct outfits,\s*avoid identical garment colors,\s*avoid matching top colors,\s*keep each woman styling visually separate\.\s*/gi, '')
+    .replace(/\bDistinct outfit-visible editorial (?:duo composition|styling),\s*complete wardrobe visible on both women,\s*visible torso and wardrobe details,\s*no headshot-only crop\.?\s*/gi, '')
+    .replace(/\s+\./g, '.')
+    .replace(/,\s*\./g, '.')
+    .replace(/\s+/g, ' ')
+    .trim()
     .replace(/\bwoman 1\b/g, 'Woman 1')
     .replace(/\bwoman 2\b/g, 'Woman 2')
     .replace(/\bboth women\b/g, 'both women');
