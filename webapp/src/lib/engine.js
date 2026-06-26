@@ -8365,7 +8365,58 @@ function buildPromptSectionSources(valuesByLabel, context) {
   };
 }
 
-function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
+function capitalizePromptLead(value) {
+  const text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+  if (!text) return '';
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots) {
+  const suffix = role === 'a' ? 'A' : 'B';
+  const roleNumber = role === 'a' ? '1' : '2';
+  const parts = [
+    buildRoleHasPrompt(characterSlots[`bodyType${suffix}`], `woman ${roleNumber}`),
+    characterSlots[`facialFeatures${suffix}`] && !isNoneLikeItem(characterSlots[`facialFeatures${suffix}`])
+      ? characterSlots[`facialFeatures${suffix}`].en
+      : '',
+    buildRoleHasPrompt(characterSlots[`skinDetails${suffix}`], `woman ${roleNumber}`),
+    characterSlots[`hairstyle${suffix}`] && !isNoneLikeItem(characterSlots[`hairstyle${suffix}`])
+      ? characterSlots[`hairstyle${suffix}`].en
+      : '',
+    buildHairColorPrompt(characterSlots[`hairColor${suffix}`]),
+    buildRoleSubjectAccessoryPrompt(wardrobeSlots, role),
+  ].filter(Boolean);
+
+  return parts.length > 0 ? `Woman ${roleNumber}: ${parts.join(', ')}` : '';
+}
+
+function buildGptDuoSubjectText(context, characterSlots, wardrobeSlots) {
+  const baseSubject = stripMarkdown(context.subject?.en || 'two women').replace(/\s+/g, ' ').trim();
+  const roleTexts = [
+    buildGptDuoRoleSubjectText('a', characterSlots, wardrobeSlots),
+    buildGptDuoRoleSubjectText('b', characterSlots, wardrobeSlots),
+  ].filter(Boolean);
+  const sharedExpression = characterSlots.duoExpression && !isNoneLikeItem(characterSlots.duoExpression)
+    ? `Shared expression: ${characterSlots.duoExpression.en}`
+    : '';
+
+  return [
+    `The subjects are ${baseSubject}`,
+    ...roleTexts,
+    sharedExpression,
+  ].filter(Boolean).map(ensureTerminalPeriod).join(' ');
+}
+
+function buildGptDuoWardrobeText(context, wardrobeSlots, wardrobeColors) {
+  const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors, context);
+  const text = duoWardrobeText.stylingText || duoWardrobeText.clothingText || '';
+  return capitalizePromptLead(text)
+    .replace(/\bwoman 1\b/g, 'Woman 1')
+    .replace(/\bwoman 2\b/g, 'Woman 2')
+    .replace(/\bboth women\b/g, 'both women');
+}
+
+function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character = null, wardrobe = null, wardrobeColors = null) {
   const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
   const section = (title, sentence) => {
     const cleaned = ensureTerminalPeriod(stripMarkdown(sentence || '').replace(/\s+/g, ' ').trim());
@@ -8384,12 +8435,21 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context) {
     sceneUsesDirectSentence,
     wardrobeUsesDirectSentence,
   } = buildPromptSectionSources(valuesByLabel, context);
+  const useRoleOrderedDuo = context.subject?.count === 2 && character && wardrobe && wardrobeColors;
+  const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
+  const duoWardrobeSlots = useRoleOrderedDuo ? extractWardrobeSlots(wardrobe) : null;
+  const resolvedSubjectText = useRoleOrderedDuo
+    ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots)
+    : subjectText;
+  const resolvedWardrobeText = useRoleOrderedDuo
+    ? buildGptDuoWardrobeText(context, duoWardrobeSlots, wardrobeColors)
+    : wardrobeText;
 
   return [
     section('Image Type', imageType),
     sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
-    subjectText ? section('Subject', `${subjectLead} ${subjectText}`) : '',
-    wardrobeText ? section('Wardrobe', wardrobeUsesDirectSentence ? wardrobeText : `${wardrobeLead} ${wardrobeText}`) : '',
+    resolvedSubjectText ? section('Subject', useRoleOrderedDuo ? resolvedSubjectText : `${subjectLead} ${resolvedSubjectText}`) : '',
+    resolvedWardrobeText ? section('Wardrobe', useRoleOrderedDuo || wardrobeUsesDirectSentence ? resolvedWardrobeText : `${wardrobeLead} ${resolvedWardrobeText}`) : '',
     section('Pose and Composition', poseText),
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
@@ -9206,7 +9266,7 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context) {
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
   const structuredPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film);
-  const grokPrompt = buildGptPromptFromStructuredPrompt(structuredPrompt, context);
+  const grokPrompt = buildGptPromptFromStructuredPrompt(structuredPrompt, context, character, wardrobe, wardrobeColors);
   const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const midjourneyPrompt = buildAiPromptFromStructuredPrompt(structuredPrompt, context);
 

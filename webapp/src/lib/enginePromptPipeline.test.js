@@ -43,6 +43,10 @@ function assertNaturalZImageParagraphs(prompt, caseName, minParagraphs = 4) {
   }
 }
 
+function gptSection(prompt, label) {
+  return prompt.grokPrompt.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?:\\n\\n|$)`))?.[1] || '';
+}
+
 test('Gpt prompt uses natural structured sections for GPT Image', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -66,6 +70,45 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /no nudity|fully clothed|clothing covers the body/i);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
+});
+
+test('Gpt duo prompt separates subject identity from role-ordered wardrobe', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    locationId: optionId('locationId', '室內：現代高樓公寓客廳'),
+    outfitPresetAId: optionId('outfitPresetAId', '套裝：鏈條緞面內衣'),
+    outfitPresetBId: optionId('outfitPresetBId', '套裝：BDSM 束縛'),
+    eyewearBId: optionId('eyewearBId', '細框眼鏡'),
+    duoExpressionId: optionId('duoExpressionId', '曖昧對視｜性感張力'),
+    duoPoseId: optionId('duoPoseId', '性感互動'),
+  });
+
+  const subject = gptSection(prompt, 'Subject');
+  const wardrobe = gptSection(prompt, 'Wardrobe');
+  const scene = gptSection(prompt, 'Scene');
+
+  assert.match(subject, /^The subjects are two 20-year-old Japanese or Korean female portrait subjects\./);
+  assert.match(subject, /Woman 1:/);
+  assert.match(subject, /Woman 2:/);
+  assert.match(subject, /Shared expression:/);
+  assert.ok(subject.indexOf('Woman 1:') < subject.indexOf('Woman 2:'));
+  assert.ok(subject.indexOf('Woman 2:') < subject.indexOf('Shared expression:'));
+  assert.match(subject, /woman 2 with .*thin-frame glasses/i);
+  assert.doesNotMatch(subject, /woman 1 wears|woman 2 wears|BDSM-inspired leather harness outfit|satin lingerie set/i);
+  assert.doesNotMatch(subject, /modern high-rise apartment living room/i);
+
+  assert.match(wardrobe, /^Woman 1 wears /);
+  assert.match(wardrobe, /Woman 2 wears /);
+  assert.ok(wardrobe.indexOf('Woman 1 wears') < wardrobe.indexOf('Woman 2 wears'));
+  assert.match(wardrobe, /satin lingerie set/i);
+  assert.match(wardrobe, /BDSM-inspired leather harness outfit/i);
+  assert.match(wardrobe, /coordinated but clearly distinct outfits/i);
+  assert.doesNotMatch(wardrobe, /modern high-rise apartment living room/i);
+
+  assert.match(scene, /modern high-rise apartment living room/i);
+  assert.doesNotMatch(scene, /Woman 1 wears|Woman 2 wears/i);
+  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 });
 
 test('Grok/Z-Image prompt remains natural language with blank-line paragraphs and AI uses a legacy minimal paragraph', () => {
