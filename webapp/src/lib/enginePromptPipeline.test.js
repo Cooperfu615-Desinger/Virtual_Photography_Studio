@@ -43,8 +43,26 @@ function assertNaturalZImageParagraphs(prompt, caseName, minParagraphs = 4) {
   }
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function gptSection(prompt, label) {
-  return prompt.grokPrompt.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?:\\n\\n|$)`))?.[1] || '';
+  const sectionLabels = [
+    'Image Type',
+    'Subject',
+    'Shared Expression',
+    'Scene',
+    'Wardrobe',
+    'Pose and Composition',
+    'Lighting',
+    'Camera Look',
+  ];
+  const nextLabels = sectionLabels
+    .filter((entry) => entry !== label)
+    .map(escapeRegExp)
+    .join('|');
+  return prompt.grokPrompt.match(new RegExp(`${escapeRegExp(label)}:\\n([\\s\\S]*?)(?=\\n\\n(?:${nextLabels}):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || '';
 }
 
 test('Gpt prompt uses natural structured sections for GPT Image', () => {
@@ -72,7 +90,7 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
 });
 
-test('Gpt duo prompt separates subject identity from role-ordered wardrobe', () => {
+test('Gpt duo prompt uses role cards with wardrobe inside each subject block', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
@@ -85,34 +103,29 @@ test('Gpt duo prompt separates subject identity from role-ordered wardrobe', () 
   });
 
   const subject = gptSection(prompt, 'Subject');
-  const wardrobe = gptSection(prompt, 'Wardrobe');
+  const sharedExpression = gptSection(prompt, 'Shared Expression');
   const scene = gptSection(prompt, 'Scene');
 
-  assert.match(subject, /^The subjects are two 20-year-old Japanese or Korean female portrait subjects\./);
-  assert.match(subject, /Woman 1:/);
-  assert.match(subject, /Woman 2:/);
-  assert.match(subject, /Shared expression:/);
+  assert.match(subject, /^Two 20-year-old Japanese or Korean female portrait subjects\./);
+  assert.match(subject, /Woman 1:\nHas /);
+  assert.match(subject, /Woman 2:\nHas /);
   assert.ok(subject.indexOf('Woman 1:') < subject.indexOf('Woman 2:'));
-  assert.ok(subject.indexOf('Woman 2:') < subject.indexOf('Shared expression:'));
-  assert.match(subject, /woman 2 with .*thin-frame glasses/i);
-  assert.doesNotMatch(subject, /woman 1 wears|woman 2 wears|BDSM-inspired leather harness outfit|satin lingerie set/i);
+  assert.match(subject, /Woman 1:\nHas [\s\S]*\. Wears [\s\S]*satin lingerie set[\s\S]*\./i);
+  assert.match(subject, /Woman 2:\nHas [\s\S]*thin-frame glasses[\s\S]*\. Wears [\s\S]*BDSM-inspired leather harness outfit[\s\S]*\./i);
   assert.doesNotMatch(subject, /modern high-rise apartment living room/i);
+  assert.doesNotMatch(subject, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
+  assert.doesNotMatch(subject, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
 
-  assert.match(wardrobe, /^Woman 1 wears /);
-  assert.match(wardrobe, /Woman 2 wears /);
-  assert.ok(wardrobe.indexOf('Woman 1 wears') < wardrobe.indexOf('Woman 2 wears'));
-  assert.match(wardrobe, /satin lingerie set/i);
-  assert.match(wardrobe, /BDSM-inspired leather harness outfit/i);
-  assert.doesNotMatch(wardrobe, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
-  assert.doesNotMatch(wardrobe, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
-  assert.doesNotMatch(wardrobe, /modern high-rise apartment living room/i);
-
+  assert.equal(gptSection(prompt, 'Wardrobe'), '');
+  assert.match(sharedExpression, /^both women share a flirtatious ambiguous gaze/i);
+  assert.ok(prompt.grokPrompt.indexOf('\nSubject:\n') < prompt.grokPrompt.indexOf('\nScene:\n'));
+  assert.ok(prompt.grokPrompt.indexOf('\nScene:\n') < prompt.grokPrompt.indexOf('\nPose and Composition:\n'));
   assert.match(scene, /modern high-rise apartment living room/i);
   assert.doesNotMatch(scene, /Woman 1 wears|Woman 2 wears/i);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 });
 
-test('Gpt duo wardrobe removes color-control metadata and punctuates role sentences', () => {
+test('Gpt duo subject role wardrobes remove color-control metadata and punctuate sentences', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
@@ -122,13 +135,14 @@ test('Gpt duo wardrobe removes color-control metadata and punctuates role senten
     outfitPresetBColorId: optionId('outfitPresetBColorId', '深棕色'),
   });
 
-  const wardrobe = gptSection(prompt, 'Wardrobe');
+  const subject = gptSection(prompt, 'Subject');
 
-  assert.match(wardrobe, /^Woman 1 wears gold leopard-pattern strapless corset top, lace bust cups, long front ribbon ties, low-rise flared jeans, platform sandals\./);
-  assert.match(wardrobe, /Woman 2 wears dark brown sheer mesh halter camisole, visible lace bra layer, denim micro mini skirt, stacked waist jewelry, platform sandals\./);
-  assert.doesNotMatch(wardrobe, /controlled by .*color selection|dominant .*color|main .*color|contrast .*controlled/i);
-  assert.doesNotMatch(wardrobe, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
-  assert.doesNotMatch(wardrobe, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
+  assert.equal(gptSection(prompt, 'Wardrobe'), '');
+  assert.match(subject, /Woman 1:\nHas [\s\S]*\. Wears gold leopard-pattern strapless corset top, lace bust cups, long front ribbon ties, low-rise flared jeans, platform sandals\./);
+  assert.match(subject, /Woman 2:\nHas [\s\S]*\. Wears dark brown sheer mesh halter camisole, visible lace bra layer, denim micro mini skirt, stacked waist jewelry, platform sandals\./);
+  assert.doesNotMatch(subject, /controlled by .*color selection|dominant .*color|main .*color|contrast .*controlled/i);
+  assert.doesNotMatch(subject, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
+  assert.doesNotMatch(subject, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
 });
 
 test('Grok/Z-Image prompt remains natural language with blank-line paragraphs and AI uses a legacy minimal paragraph', () => {

@@ -8371,7 +8371,39 @@ function capitalizePromptLead(value) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots) {
+function stripTerminalPromptPunctuation(value) {
+  return stripMarkdown(value || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[.!?]+$/, '')
+    .trim();
+}
+
+function cleanGptDuoRoleSubjectPart(value, roleNumber) {
+  return stripTerminalPromptPunctuation(value)
+    .replace(new RegExp(`^woman ${roleNumber}\\s+has\\s+`, 'i'), '')
+    .replace(new RegExp(`^woman ${roleNumber}\\s+`, 'i'), '')
+    .trim();
+}
+
+function extractGptDuoWardrobeRoleText(text, roleNumber) {
+  const nextRoleBoundary = roleNumber === '1' ? '\\.\\s*Woman 2 wears\\b' : '$';
+  const match = stripMarkdown(text || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .match(new RegExp(`\\bWoman ${roleNumber} wears\\s+([\\s\\S]*?)(?=${nextRoleBoundary})`, 'i'));
+  return stripTerminalPromptPunctuation(match?.[1] || '');
+}
+
+function buildGptDuoWardrobeRoleTexts(context, wardrobeSlots, wardrobeColors) {
+  const text = buildGptDuoWardrobeText(context, wardrobeSlots, wardrobeColors);
+  return {
+    woman1: extractGptDuoWardrobeRoleText(text, '1'),
+    woman2: extractGptDuoWardrobeRoleText(text, '2'),
+  };
+}
+
+function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots, wardrobeRoleTexts) {
   const suffix = role === 'a' ? 'A' : 'B';
   const roleNumber = role === 'a' ? '1' : '2';
   const parts = [
@@ -8385,26 +8417,35 @@ function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots) {
       : '',
     buildHairColorPrompt(characterSlots[`hairColor${suffix}`]),
     buildRoleSubjectAccessoryPrompt(wardrobeSlots, role),
+  ].map((part) => cleanGptDuoRoleSubjectPart(part, roleNumber)).filter(Boolean);
+  const identityText = parts.join(', ');
+  const wardrobeText = role === 'a' ? wardrobeRoleTexts.woman1 : wardrobeRoleTexts.woman2;
+  const sentences = [
+    identityText ? `Has ${ensureTerminalPeriod(identityText)}` : '',
+    wardrobeText ? `Wears ${ensureTerminalPeriod(wardrobeText)}` : '',
   ].filter(Boolean);
 
-  return parts.length > 0 ? `Woman ${roleNumber}: ${parts.join(', ')}` : '';
+  return sentences.length > 0 ? `Woman ${roleNumber}:\n${sentences.join(' ')}` : '';
 }
 
-function buildGptDuoSubjectText(context, characterSlots, wardrobeSlots) {
-  const baseSubject = stripMarkdown(context.subject?.en || 'two women').replace(/\s+/g, ' ').trim();
-  const roleTexts = [
-    buildGptDuoRoleSubjectText('a', characterSlots, wardrobeSlots),
-    buildGptDuoRoleSubjectText('b', characterSlots, wardrobeSlots),
-  ].filter(Boolean);
-  const sharedExpression = characterSlots.duoExpression && !isNoneLikeItem(characterSlots.duoExpression)
-    ? `Shared expression: ${characterSlots.duoExpression.en}`
+function buildGptDuoSharedExpressionText(characterSlots) {
+  return characterSlots.duoExpression && !isNoneLikeItem(characterSlots.duoExpression)
+    ? characterSlots.duoExpression.en
     : '';
+}
+
+function buildGptDuoSubjectText(context, characterSlots, wardrobeSlots, wardrobeColors) {
+  const baseSubject = capitalizePromptLead(context.subject?.en || 'two women');
+  const wardrobeRoleTexts = buildGptDuoWardrobeRoleTexts(context, wardrobeSlots, wardrobeColors);
+  const roleTexts = [
+    buildGptDuoRoleSubjectText('a', characterSlots, wardrobeSlots, wardrobeRoleTexts),
+    buildGptDuoRoleSubjectText('b', characterSlots, wardrobeSlots, wardrobeRoleTexts),
+  ].filter(Boolean);
 
   return [
-    `The subjects are ${baseSubject}`,
+    ensureTerminalPeriod(baseSubject),
     ...roleTexts,
-    sharedExpression,
-  ].filter(Boolean).map(ensureTerminalPeriod).join(' ');
+  ].filter(Boolean).join('\n\n');
 }
 
 function buildGptDuoWardrobeText(context, wardrobeSlots, wardrobeColors) {
@@ -8434,6 +8475,16 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
     const cleaned = ensureTerminalPeriod(stripMarkdown(sentence || '').replace(/\s+/g, ' ').trim());
     return cleaned ? `${title}:\n${cleaned}` : '';
   };
+  const blockSection = (title, value) => {
+    const cleaned = String(value || '')
+      .replace(/[`*]/g, '')
+      .split('\n')
+      .map((line) => line.replace(/\s+/g, ' ').trim())
+      .join('\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    return cleaned ? `${title}:\n${cleaned}` : '';
+  };
   const {
     imageType,
     sceneText,
@@ -8451,17 +8502,28 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
   const duoWardrobeSlots = useRoleOrderedDuo ? extractWardrobeSlots(wardrobe) : null;
   const resolvedSubjectText = useRoleOrderedDuo
-    ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots)
+    ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
     : subjectText;
-  const resolvedWardrobeText = useRoleOrderedDuo
-    ? buildGptDuoWardrobeText(context, duoWardrobeSlots, wardrobeColors)
-    : wardrobeText;
+  const resolvedSharedExpressionText = useRoleOrderedDuo ? buildGptDuoSharedExpressionText(duoCharacterSlots) : '';
+
+  if (useRoleOrderedDuo) {
+    return [
+      section('Image Type', imageType),
+      resolvedSubjectText ? blockSection('Subject', resolvedSubjectText) : '',
+      resolvedSharedExpressionText ? section('Shared Expression', resolvedSharedExpressionText) : '',
+      sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
+      section('Pose and Composition', poseText),
+      section('Lighting', lightingText),
+      section('Camera Look', cameraText),
+      'multi-cut sequence n=2',
+    ].filter(Boolean).join('\n\n');
+  }
 
   return [
     section('Image Type', imageType),
     sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
     resolvedSubjectText ? section('Subject', useRoleOrderedDuo ? resolvedSubjectText : `${subjectLead} ${resolvedSubjectText}`) : '',
-    resolvedWardrobeText ? section('Wardrobe', useRoleOrderedDuo || wardrobeUsesDirectSentence ? resolvedWardrobeText : `${wardrobeLead} ${resolvedWardrobeText}`) : '',
+    wardrobeText ? section('Wardrobe', wardrobeUsesDirectSentence ? wardrobeText : `${wardrobeLead} ${wardrobeText}`) : '',
     section('Pose and Composition', poseText),
     section('Lighting', lightingText),
     section('Camera Look', cameraText),

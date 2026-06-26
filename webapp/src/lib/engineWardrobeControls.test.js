@@ -328,10 +328,10 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
     neckAccessoryBId: optionId('neckAccessoryBId', '皮質扣環頸鏈'),
   });
 
-  const subjectLine = prompt.grokPrompt.match(/Subject:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
+  const subjectLine = prompt.grokPrompt.match(/Subject:\n([\s\S]*?)(?=\n\n(?:Shared Expression|Scene|Wardrobe|Pose and Composition|Lighting|Camera Look):\n|$)/)?.[1] || '';
   assert.ok(subjectLine);
-  assert.match(subjectLine, /woman 1 with .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
-  assert.match(subjectLine, /woman 2 with .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
+  assert.match(subjectLine, /Woman 1:\nHas .*with .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
+  assert.match(subjectLine, /Woman 2:\nHas .*with .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Eyewear:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Earrings:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Neck Accessory:/m);
