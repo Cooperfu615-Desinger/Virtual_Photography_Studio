@@ -249,7 +249,7 @@ test('duo identity base supports separate body type and skin details per woman',
   assert.match(promptText, new RegExp(`Woman 2:\\nHas [\\s\\S]*${skinB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(prompt.zImagePrompt, /^Subject:\nTwo stunning seductive 20-year-old Japanese or Korean women\./m);
   assert.doesNotMatch(prompt.zImagePrompt, /\bwoman [12] has\b/i);
-  assert.match(prompt.midjourneyPrompt, /^Two seductive stunning 20-year-old Japanese or Korean women\b/);
+  assert.match(prompt.midjourneyPrompt, /^Create a photorealistic editorial portrait in a real-world photography style\. The main characters are two stunning seductive 20-year-old Japanese or Korean women\./);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\bwoman [12] has\b/i);
   assert.equal(prompt.selection.bodyTypeAId, bodyA.id);
   assert.equal(prompt.selection.bodyTypeBId, bodyB.id);
