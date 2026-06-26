@@ -183,6 +183,67 @@ test('Gpt single-subject prompt compresses normal subject and wardrobe wording',
   assert.match(prompt.zImagePrompt, /body proportion anchor/i);
 });
 
+test('Gpt single-subject prompt compresses footwear outerwear and layering details', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    specialOutfitId: optionId('specialOutfitId', '全無'),
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '全無'),
+    outerwearId: optionId('outerwearId', '丹寧外套'),
+    outerwearColorId: optionId('outerwearColorId', '深灰色'),
+    outerwearFitId: optionId('outerwearFitId', '短版 Oversize'),
+    outerwearPatternId: optionId('outerwearPatternId', '粗橫條紋'),
+    outerwearOpeningId: optionId('outerwearOpeningId', '敞開穿'),
+    outerwearStylingId: optionId('outerwearStylingId', '滑落肩部'),
+    topId: optionId('topId', '襯衫'),
+    topColorId: optionId('topColorId', '米白色'),
+    topFitId: optionId('topFitId', '全無'),
+    topStylingId: optionId('topStylingId', '全無'),
+    topPatternId: optionId('topPatternId', '全無'),
+    pantsId: optionId('pantsId', '全無'),
+    skirtId: optionId('skirtId', '百褶短裙'),
+    bottomRiseId: optionId('bottomRiseId', '全無'),
+    bottomFitId: optionId('bottomFitId', '全無'),
+    bottomPatternId: optionId('bottomPatternId', '全無'),
+    legwearId: optionId('legwearId', '羅紋短襪'),
+    legwearColorId: optionId('legwearColorId', '白色'),
+    shoesId: optionId('shoesId', 'Samba OG'),
+    shoesColorId: optionId('shoesColorId', '白色'),
+  });
+
+  const wardrobe = gptSection(prompt, 'Wardrobe');
+
+  assert.match(wardrobe, /dark grey washed denim jacket with chest pockets and metal buttons/i);
+  assert.match(wardrobe, /slipped below one or both shoulders, sleeves still on the arms, intact jacket body/i);
+  assert.match(wardrobe, /white ribbed ankle socks/i);
+  assert.match(wardrobe, /white adidas samba og sneakers, gum sole, three-stripe side detail/i);
+  assert.match(wardrobe, /outerwear stays intact; inner garment visible only at neckline, opening, or hem/i);
+  assert.doesNotMatch(wardrobe, /casual structured outerwear|terrace football styling|soft cotton texture/i);
+  assert.doesNotMatch(wardrobe, /sleeves still loosely on the arms, jacket body hanging as an intact outer layer/i);
+  assert.doesNotMatch(wardrobe, /properly worn with intact shoulders, sleeves, lapels and hem/i);
+
+  assert.match(prompt.zImagePrompt, /casual structured outerwear/i);
+  assert.match(prompt.zImagePrompt, /soft cotton texture/i);
+  assert.match(prompt.zImagePrompt, /terrace football styling/i);
+
+  const [normalOuterwearPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    specialOutfitId: optionId('specialOutfitId', '全無'),
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '全無'),
+    outerwearId: optionId('outerwearId', '西裝外套'),
+    outerwearStylingId: optionId('outerwearStylingId', '正常穿著'),
+    topId: optionId('topId', '襯衫'),
+    pantsId: optionId('pantsId', '全無'),
+    skirtId: optionId('skirtId', '全無'),
+  });
+
+  assert.doesNotMatch(gptSection(normalOuterwearPrompt, 'Wardrobe'), /properly worn on both shoulders/i);
+  assert.match(normalOuterwearPrompt.zImagePrompt, /properly worn on both shoulders/i);
+});
+
 test('Gpt duo prompt uses role cards with wardrobe inside each subject block', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

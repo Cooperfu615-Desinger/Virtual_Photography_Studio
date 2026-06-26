@@ -174,7 +174,7 @@ test('top fit and styling appear before the top garment in generated wardrobe te
   );
 });
 
-test('outerwear styling appears after the outerwear garment in generated wardrobe text', () => {
+test('outerwear styling appears after the outerwear garment while GPT omits normal-wear wording', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -185,10 +185,8 @@ test('outerwear styling appears after the outerwear garment in generated wardrob
 
   const grokOuterwearLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokOuterwearLine);
-  assert.ok(
-    grokOuterwearLine.indexOf('zip-up hoodie') < grokOuterwearLine.indexOf('properly worn on both shoulders'),
-    'outerwear item should appear before outerwear styling'
-  );
+  assert.match(grokOuterwearLine, /zip-up hoodie/);
+  assert.doesNotMatch(grokOuterwearLine, /properly worn on both shoulders/);
 
   const zImageText = prompt.zImagePrompt;
   assert.ok(
@@ -215,9 +213,11 @@ test('outerwear and long shirt compose as explicit outer-over-inner layers', () 
 
   const grokWardrobeLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokWardrobeLine);
-  assert.match(grokWardrobeLine, /dark grey denim jacket[\s\S]*properly worn on both shoulders[\s\S]*layered over[\s\S]*off-white longline shirt/);
+  assert.match(grokWardrobeLine, /dark grey washed denim jacket with chest pockets and metal buttons[\s\S]*layered over[\s\S]*off-white longline shirt/);
+  assert.doesNotMatch(grokWardrobeLine, /properly worn on both shoulders/);
   assert.doesNotMatch(grokWardrobeLine, /She wears properly worn on both shoulders, dark grey denim jacket/);
-  assert.match(grokWardrobeLine, /realistic outer-to-inner dressing order/);
+  assert.doesNotMatch(grokWardrobeLine, /realistic outer-to-inner dressing order/);
+  assert.match(grokWardrobeLine, /outerwear stays intact; inner garment visible only at neckline, opening, or hem/);
   assert.match(prompt.zImagePrompt, /dark grey denim jacket[\s\S]*properly worn on both shoulders[\s\S]*layered over[\s\S]*off-white longline shirt/);
 });
 
@@ -233,14 +233,14 @@ test('outerwear fit and opening compose before pattern and shoulder styling', ()
     topId: optionId('topId', '襯衫'),
   });
 
-  const wardrobeText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
   const grokWardrobeLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokWardrobeLine);
 
-  assert.match(wardrobeText, /underbust-cropped oversized outerwear/);
-  assert.match(wardrobeText, /ending just below the bust/);
-  assert.match(wardrobeText, /worn open at the front/);
-  assert.match(wardrobeText, /jacket body hanging as an intact outer layer/);
+  assert.match(grokWardrobeLine, /underbust-cropped oversized outerwear/);
+  assert.match(grokWardrobeLine, /ending just below the bust/);
+  assert.match(grokWardrobeLine, /worn open at the front/);
+  assert.match(grokWardrobeLine, /slipped below one or both shoulders, sleeves still on the arms, intact jacket body/);
+  assert.doesNotMatch(grokWardrobeLine, /jacket body hanging as an intact outer layer/);
   assert.ok(
     grokWardrobeLine.indexOf('underbust-cropped oversized outerwear') < grokWardrobeLine.indexOf('denim jacket'),
     'outerwear fit should appear before the outerwear item'
@@ -254,9 +254,11 @@ test('outerwear fit and opening compose before pattern and shoulder styling', ()
     'outerwear opening should appear after outerwear pattern'
   );
   assert.ok(
-    grokWardrobeLine.indexOf('worn open at the front') < grokWardrobeLine.indexOf('outerwear intentionally slipped below one or both shoulders'),
+    grokWardrobeLine.indexOf('worn open at the front') < grokWardrobeLine.indexOf('slipped below one or both shoulders'),
     'outerwear opening should appear before shoulder styling'
   );
+  assert.match(prompt.zImagePrompt, /outerwear intentionally slipped below one or both shoulders/);
+  assert.match(prompt.zImagePrompt, /jacket body hanging as an intact outer layer/);
 });
 
 test('model-specific shoes stay concise while preserving signature accent details', () => {
