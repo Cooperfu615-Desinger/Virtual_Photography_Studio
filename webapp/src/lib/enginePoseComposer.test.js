@@ -102,7 +102,9 @@ test('scene-appropriate sitting chair anchor is preserved in all prompt versions
     poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
   });
 
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+  assert.match(prompt.grokPrompt, /sitting on a scene-appropriate chair/);
+  assert.doesNotMatch(prompt.grokPrompt, /chair style material and scale chosen to match the environment/);
+  for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
     assert.match(text, /chair that naturally fits the current scene/);
     assert.match(text, /chosen to match the environment/);
     assert.doesNotMatch(text, /ornate single velvet armchair|bar stool|high-back chair/);
@@ -153,6 +155,7 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       arrangementZh: '自然站姿',
       anchorZh: '在水中',
       expected: [/standing waist-deep in clear pool water/, /visible waterline across the body/],
+      expectedGpt: [/standing waist-deep in clear pool water/, /water-contact realism, visible waterline/],
     },
     {
       locationZh: '戶外：飯店度假村泳池露台',
@@ -160,6 +163,7 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       arrangementZh: '自然站姿',
       anchorZh: '靠在水邊支撐',
       expected: [/tiled pool edge/, /forearms or hands supported on that edge/],
+      expectedGpt: [/tiled pool edge/, /forearms or hands supported on that edge/],
     },
     {
       locationZh: '戶外：金色海灘與浪線',
@@ -167,6 +171,7 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       arrangementZh: '自然蹲姿',
       anchorZh: '在水中',
       expected: [/squatting low in clear shallow seawater/, /natural ripples around the torso and limbs/],
+      expectedGpt: [/squatting low in clear shallow seawater/, /natural ripples/],
     },
     {
       locationZh: '戶外：岩洞感海灣淺灘',
@@ -174,6 +179,7 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       arrangementZh: '側躺屈膝',
       anchorZh: '在水中',
       expected: [/floating or half-floating on the clear shallow cove water surface/, /clothing remains complete and non-transparent/],
+      expectedGpt: [/floating or half-floating on the clear shallow cove water surface/, /clothing complete and non-transparent/],
     },
     {
       locationZh: '戶外：清澈海灣岩岸',
@@ -181,10 +187,11 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       arrangementZh: '趴臥手肘撐起',
       anchorZh: '靠在水邊支撐',
       expected: [/wet rock ledge at the cove shoreline/, /lower body close to the water/],
+      expectedGpt: [/wet rock ledge at the cove shoreline/, /lower body close to the water/],
     },
   ];
 
-  for (const { locationZh, baseZh, arrangementZh, anchorZh, expected } of cases) {
+  for (const { locationZh, baseZh, arrangementZh, anchorZh, expected, expectedGpt } of cases) {
     const [prompt] = generatePrompts(1, {
       ...createEmptyLocks(),
       subjectCount: '1',
@@ -198,7 +205,8 @@ test('water contact anchors adapt to pose base and selected water scene in all p
     });
 
     assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', anchorZh));
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    expectedGpt.forEach((pattern) => assert.match(prompt.grokPrompt, pattern));
+    for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       expected.forEach((pattern) => assert.match(text, pattern));
     }
   }
@@ -399,6 +407,7 @@ test('support surface head directions are preserved in all prompt versions', () 
       anchorZh: '躺在沙發上',
       headZh: '頭部貼近支撐面',
       expected: /head angled close to a support surface or shoulder line/,
+      expectedGpt: /head close to support surface or shoulder line/,
     },
     {
       baseZh: '坐姿',
@@ -406,10 +415,11 @@ test('support surface head directions are preserved in all prompt versions', () 
       anchorZh: '坐在床邊',
       headZh: '近鏡頭偏轉頭部',
       expected: /head turned slightly off-axis near the lens/,
+      expectedGpt: /head slightly off-axis near lens/,
     },
   ];
 
-  for (const { baseZh, arrangementZh, anchorZh, headZh, expected } of cases) {
+  for (const { baseZh, arrangementZh, anchorZh, headZh, expected, expectedGpt } of cases) {
     const [prompt] = generatePrompts(1, {
       ...createEmptyLocks(),
       subjectCount: '1',
@@ -421,7 +431,8 @@ test('support surface head directions are preserved in all prompt versions', () 
       poseHeadId: optionId('poseHeadId', headZh),
     });
 
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(prompt.grokPrompt, expectedGpt);
+    for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       assert.match(text, expected);
     }
   }
@@ -453,7 +464,11 @@ test('pose composer supports knees-together compact squat with hands gathered ne
     poseHeadId: optionId('poseHeadId', '頭部微微側傾'),
   });
 
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+  assert.match(prompt.grokPrompt, /low compact knees-together squat/);
+  assert.match(prompt.grokPrompt, /feet grounded close/);
+  assert.match(prompt.grokPrompt, /both hands gathered at lower abdomen/);
+  assert.match(prompt.grokPrompt, /elbows tucked inward/);
+  for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
     assert.match(text, /low compact squat with both knees pressed together/);
     assert.match(text, /feet grounded close under the body/);
     assert.match(text, /both hands gathered close in front of the lower abdomen/);
@@ -466,10 +481,10 @@ test('expressive hand interactions are preserved in all prompt versions', () => 
     ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],
     ['單手把眼鏡拉下', /pulling the glasses slightly down the nose bridge/],
     ['雙手整理頭髮', /preparing to tie it up with fingers visibly holding the hair together/],
-    ['一手撐地一手放腿上', /one hand supporting on the floor or nearby surface with the other hand resting on the leg/],
+    ['一手撐地一手放腿上', /one hand supporting on the floor or nearby surface with the other hand resting on the leg/, /one hand supporting on floor or nearby surface, other hand resting on the leg/],
   ];
 
-  for (const [handZh, expected] of cases) {
+  for (const [handZh, expected, expectedGpt = expected] of cases) {
     const [prompt] = generatePrompts(1, {
       ...createEmptyLocks(),
       subjectCount: '1',
@@ -480,7 +495,8 @@ test('expressive hand interactions are preserved in all prompt versions', () => 
       poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
     });
 
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(prompt.grokPrompt, expectedGpt);
+    for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       assert.match(text, expected);
     }
   }
@@ -603,10 +619,16 @@ test('kneeling and lying expansion batch is preserved in all prompt versions', (
         /forearms crossed under the chin/,
         /hands tucked below the jaw/,
       ],
+      expectedGpt: [
+        /kneeling on the ground/,
+        /extended puppy kneeling pose/,
+        /torso folded forward/,
+        /forearms crossed under chin/,
+      ],
     },
   ];
 
-  for (const { baseZh, arrangementZh, handZh, anchorZh, headZh, expected } of cases) {
+  for (const { baseZh, arrangementZh, handZh, anchorZh, headZh, expected, expectedGpt = expected } of cases) {
     const [prompt] = generatePrompts(1, {
       ...createEmptyLocks(),
       subjectCount: '1',
@@ -618,7 +640,8 @@ test('kneeling and lying expansion batch is preserved in all prompt versions', (
       poseHeadId: optionId('poseHeadId', headZh),
     });
 
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    expectedGpt.forEach((pattern) => assert.match(prompt.grokPrompt, pattern));
+    for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       expected.forEach((pattern) => assert.match(text, pattern));
     }
   }
@@ -656,8 +679,9 @@ test('standing lean scene-object anchor preserves supported body contact wording
     poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
   });
 
-  assert.match(prompt.grokPrompt, /leaning against any suitable existing object within the current scene/);
-  assert.match(prompt.grokPrompt, /body weight lightly supported by that existing scene object/);
+  assert.match(prompt.grokPrompt, /leaning against a suitable existing scene object/);
+  assert.match(prompt.grokPrompt, /body lightly supported/);
+  assert.match(prompt.zImagePrompt, /leaning against any suitable existing object within the current scene/);
   assert.match(prompt.zImagePrompt, /using only a naturally available scene object for support/);
   assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', '倚靠現有場景物件'));
 });
@@ -675,11 +699,11 @@ test('lying pose composer supports languid arrangement bathtub anchor and head d
   });
 
   assert.match(prompt.grokPrompt, /She is reclining inside a water-filled clawfoot vintage bathtub with/);
-  assert.match(prompt.grokPrompt, /casually languid lying arrangement/);
+  assert.match(prompt.grokPrompt, /languid lying arrangement, relaxed uneven limbs, soft settled weight/);
   assert.match(prompt.grokPrompt, /one hand supporting the chin/);
   assert.match(prompt.grokPrompt, /head turned back toward the camera/);
-  assert.match(prompt.grokPrompt, /the outfit and exposed skin are soaked by bath water/);
-  assert.match(prompt.grokPrompt, /clothing remains complete and non-transparent/);
+  assert.match(prompt.grokPrompt, /wet bath-water contact/);
+  assert.match(prompt.grokPrompt, /clothing complete and non-transparent/);
   assert.match(prompt.zImagePrompt, /reclining inside a water-filled clawfoot vintage bathtub/);
   assert.match(prompt.zImagePrompt, /the outfit and exposed skin are soaked by bath water/);
   assert.match(prompt.midjourneyPrompt, /casually languid lying arrangement/);
@@ -709,8 +733,8 @@ test('shared bathtub anchor phrases naturally for standing sitting and squatting
 
     assert.match(prompt.grokPrompt, expected);
     if (expectsWaterContact) {
-      assert.match(prompt.grokPrompt, /visible water sheen and droplets/);
-      assert.match(prompt.grokPrompt, /clothing remains complete and non-transparent/);
+      assert.match(prompt.grokPrompt, /wet sheen, droplets, darker damp folds/);
+      assert.match(prompt.grokPrompt, /clothing complete and non-transparent/);
     } else {
       assert.doesNotMatch(prompt.grokPrompt, /soaked by bath water/);
     }

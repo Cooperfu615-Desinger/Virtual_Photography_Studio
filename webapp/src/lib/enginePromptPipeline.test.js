@@ -327,6 +327,70 @@ test('Gpt single-subject prompt compresses expression pose and special action wo
   assert.match(icedCoffee.prompt.zImagePrompt, /relaxed everyday cafe portrait moment/i);
 });
 
+test('Gpt single-subject prompt compresses pose composer special-settings wording', () => {
+  const baseLocks = {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  };
+  const buildSections = (locks) => {
+    const [prompt] = generatePrompts(1, { ...baseLocks, ...locks });
+    return {
+      prompt,
+      pose: gptSection(prompt, 'Pose and Composition'),
+    };
+  };
+
+  const standingSceneObject = buildSections({
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '背對回身站姿'),
+    poseHandId: optionId('poseHandId', '單手撩髮'),
+    poseHeadId: optionId('poseHeadId', '越肩回望'),
+    poseAnchorId: optionId('poseAnchorId', '倚靠現有場景物件'),
+  });
+  assert.match(standingSceneObject.pose, /leaning against a suitable existing scene object, body lightly supported/i);
+  assert.match(standingSceneObject.pose, /one hand brushing hair back, fingers touching hair near temple or ear/i);
+  assert.doesNotMatch(standingSceneObject.pose, /any suitable existing object within the current scene|using only a naturally available scene object|fingers visibly touching the hair near the temple or ear/i);
+  assert.match(standingSceneObject.prompt.zImagePrompt, /using only a naturally available scene object for support/i);
+
+  const sittingChair = buildSections({
+    poseBaseId: optionId('poseBaseId', '坐姿'),
+    poseArrangementId: optionId('poseArrangementId', '開闊自信坐姿'),
+    poseHandId: optionId('poseHandId', '雙手撐腰'),
+    poseHeadId: optionId('poseHeadId', '近鏡頭偏轉頭部'),
+    poseAnchorId: optionId('poseAnchorId', '坐在椅子上'),
+  });
+  assert.match(sittingChair.pose, /sitting on a scene-appropriate chair with open confident seated arrangement, wider grounded knees, upright torso, strong presence/i);
+  assert.match(sittingChair.pose, /both hands on waist or hips, elbows naturally adapted/i);
+  assert.match(sittingChair.pose, /head slightly off-axis near lens, face angled diagonally/i);
+  assert.doesNotMatch(sittingChair.pose, /chair style material and scale chosen to match the environment|strong spatial presence|face plane angled diagonally instead of flat to camera/i);
+
+  const waterEdge = buildSections({
+    locationId: optionId('locationId', '戶外：飯店度假村泳池露台'),
+    poseBaseId: optionId('poseBaseId', '躺姿'),
+    poseArrangementId: optionId('poseArrangementId', '隨性慵懶'),
+    poseHandId: optionId('poseHandId', '一手撐地一手放腿上'),
+    poseHeadId: optionId('poseHeadId', '頭靠近邊緣支撐'),
+    poseAnchorId: optionId('poseAnchorId', '靠在水邊支撐'),
+  });
+  assert.match(waterEdge.pose, /water-contact realism, visible waterline, natural ripples, wet skin and damp fabric edges, clothing complete and non-transparent/i);
+  assert.match(waterEdge.pose, /one hand supporting on floor or nearby surface, other hand resting on the leg/i);
+  assert.match(waterEdge.pose, /head low near rim or support edge, cheek and jawline close to the surface/i);
+  assert.doesNotMatch(waterEdge.pose, /visible waterline across the body|around the torso and limbs|clothing remains complete|cheek and jawline close to the supporting surface/i);
+
+  const bathtubWet = buildSections({
+    poseBaseId: optionId('poseBaseId', '躺姿'),
+    poseArrangementId: optionId('poseArrangementId', '半躺倚靠'),
+    poseHandId: optionId('poseHandId', '雙手放在大腿上'),
+    poseHeadId: optionId('poseHeadId', '頭部貼近支撐面'),
+    poseAnchorId: optionId('poseAnchorId', '浴缸'),
+  });
+  assert.match(bathtubWet.pose, /wet bath-water contact, clothing complete and non-transparent, wet sheen, droplets, darker damp folds/i);
+  assert.match(bathtubWet.pose, /both hands resting on thighs or nearest upper-leg surface/i);
+  assert.match(bathtubWet.pose, /head close to support surface or shoulder line/i);
+  assert.doesNotMatch(bathtubWet.pose, /visible water sheen and droplets|heavier wet folds|cheek plane following the selected support contact/i);
+});
+
 test('Gpt single-subject prompt compresses footwear outerwear and layering details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
