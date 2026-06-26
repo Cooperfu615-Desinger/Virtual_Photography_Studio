@@ -8608,6 +8608,103 @@ function buildGptDuoPoseAndCompositionText(valuesByLabel, context) {
   ].filter(Boolean).join(' ');
 }
 
+function cleanGptSinglePromptText(value) {
+  return stripMarkdown(value || '')
+    .replace(/\s+/g, ' ')
+    .replace(/\.\s*,/g, ',')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/\s+,/g, ',')
+    .replace(/,\s*\./g, '.')
+    .trim();
+}
+
+function compressGptSingleSubjectText(value, context) {
+  if (context.subject?.count !== 1 || isSpecialSubject(context.subject) || context.characterProfilePrompt) {
+    return value;
+  }
+
+  return cleanGptSinglePromptText(value)
+    .replace(/\b(black|white|tortoiseshell|silver metal|gold metal|clear transparent) frame,\s+(bold thick-frame glasses|thin-frame glasses|retro round-frame glasses|narrow oval glasses|sunglasses with tinted lenses)\b/gi, '$1 $2')
+    .replace(/,\s*worn normally on the face,\s*lenses aligned over the eyes/gi, '')
+    .replace(
+      /sexy tall slim-curvy silhouette,\s*about 168-173 cm visual height and 53-58 kg lean visual weight,\s*94-58-92 body proportion anchor,\s*long legs with about 3\.8:6\.2 torso-to-leg balance,\s*full F-to-G-cup-scale bust,\s*narrow defined waist,\s*rounded hips,\s*flat abdomen,\s*dramatic but lean bust-waist-hip curve/gi,
+      'sexy tall slim-curvy silhouette, long legs, narrow defined waist, rounded hips, lean hourglass curve'
+    )
+    .replace(
+      /tall slim fashion body,\s*about 170-175 cm visual height,\s*80-58-88 body proportion anchor,\s*long legs with about 3\.5:6\.5 torso-to-leg balance,\s*shorter upper torso,\s*high waistline,\s*narrow ribcage,\s*gently wider hips,\s*clean editorial silhouette/gi,
+      'tall slim fashion body, long legs, high waistline, clean editorial silhouette'
+    )
+    .replace(
+      /soft natural hourglass body,\s*about 165-170 cm visual height,\s*90-62-94 body proportion anchor,\s*balanced torso-to-leg ratio around 4:6,\s*longer upper torso,\s*lower waistline,\s*fuller bust,\s*wider hips,\s*elongated abdomen with subtle contour lines/gi,
+      'soft natural hourglass body, fuller bust, wider hips, longer torso, subtle abdomen contour'
+    )
+    .replace(
+      /natural basic body,\s*about 160-165 cm visual height,\s*83-62-88 body proportion anchor,\s*balanced torso-to-leg ratio around 4:6,\s*low-contrast waist curve,\s*modest bust and hips,\s*smooth natural silhouette/gi,
+      'natural basic body, balanced proportions, soft natural silhouette'
+    )
+    .replace(
+      /fit toned athletic female body,\s*healthy firm silhouette,\s*subtle muscle definition,\s*energetic balanced proportions/gi,
+      'fit toned athletic body, firm silhouette, subtle muscle definition'
+    )
+    .replace(
+      /petite polished female body,\s*compact refined proportions,\s*delicate idol-like silhouette,\s*graceful small-frame presence/gi,
+      'petite polished body, compact refined proportions, small-frame presence'
+    )
+    .replace(
+      /young beautiful Korean idol face,\s*refined small face,\s*clear bright eyes,\s*polished youthful beauty,\s*photogenic K-pop portrait balance/gi,
+      'Korean idol face, refined small face, clear bright eyes, polished K-pop portrait balance'
+    )
+    .replace(
+      /young beautiful Japanese transparent face,\s*soft natural features,\s*clean gentle eyes,\s*airy fresh beauty,\s*subtle innocent portrait presence/gi,
+      'Japanese transparent face, soft natural features, clean gentle eyes, airy fresh presence'
+    )
+    .replace(
+      /young sweet pretty face,\s*soft rounded charm,\s*bright friendly eyes,\s*gentle cute beauty,\s*approachable youthful portrait look/gi,
+      'sweet pretty face, soft rounded charm, bright friendly eyes, approachable portrait look'
+    )
+    .replace(
+      /young seductive alluring beauty face,\s*magnetic feminine facial balance,\s*defined eyes and lips,\s*sensual captivating portrait presence/gi,
+      'seductive mature face, magnetic facial balance, defined eyes and lips'
+    )
+    .replace(
+      /young cool editorial beauty face,\s*refined sharp facial balance,\s*calm distant gaze-ready features,\s*high-fashion understated presence/gi,
+      'cool editorial face, sharp facial balance, calm high-fashion presence'
+    )
+    .replace(
+      /young mixed editorial face,\s*dimensional facial structure,\s*defined nose bridge and deep-set eyes,\s*international high-fashion beauty/gi,
+      'mixed editorial face, dimensional facial structure, defined nose bridge and deep-set eyes'
+    )
+    .replace(/\bpolished Korean-style face-framing flow\b/gi, 'face-framing flow')
+    .replace(/\bsleek clean vertical flow\b/gi, 'sleek vertical flow')
+    .replace(/\bsmooth clean silhouette\b/gi, 'smooth silhouette')
+    .replace(/\bnatural black hair,\s*soft realistic shine,\s*clean dark depth/gi, 'natural black hair')
+    .replace(/\bdeep coffee-brown hair,\s*rich brunette depth,\s*soft warm reflection/gi, 'deep coffee-brown hair')
+    .replace(/\bmilk-tea brown hair,\s*soft beige-brown muted salon color/gi, 'milk-tea brown hair')
+    .replace(/\bchestnut-brown hair,\s*warm natural brown salon color/gi, 'chestnut-brown hair')
+    .replace(/\brealistic dyed hair texture\b/gi, 'realistic dyed texture')
+    .replace(/,\s*hair color applies only to the scalp hair,\s*eyebrows remain natural and realistic,\s*not dyed to match the hair/gi, ', natural eyebrows')
+    .replace(/\.\s*,/g, ',')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .trim();
+}
+
+function compressGptSingleWardrobeText(value, context) {
+  if (context.subject?.count !== 1) return value;
+
+  return cleanGptSinglePromptText(value)
+    .replace(/tight body-skimming upper-body fit,\s*([^,]+?) cotton camisole top,\s*slim shoulder straps,\s*soft ribbed knit,\s*clean compact upper-body line/gi, 'tight $1 ribbed cotton camisole with slim straps')
+    .replace(/high-rise waistband sitting above the natural waist,\s*fitted lower-body line following the garment shape,\s*([^,]+?) straight-leg jeans,\s*clean denim texture,\s*balanced leg line,\s*classic five-pocket construction/gi, 'high-rise fitted $1 straight-leg jeans')
+    .replace(/,\s*realistic outer-to-inner dressing order:\s*long bottom layer keeps its natural full length and drape;\s*shoes can remain normally visible without distorting the pants or skirt\.?/gi, '')
+    .replace(/\bclean compact upper-body line\b/gi, '')
+    .replace(/\bbalanced leg line\b/gi, '')
+    .replace(/\bclassic five-pocket construction\b/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .replace(/\.\s*,/g, ',')
+    .trim();
+}
+
 function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character = null, wardrobe = null, wardrobeColors = null) {
   const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
   const section = (title, sentence) => {
@@ -8642,7 +8739,10 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
   const duoWardrobeSlots = useRoleOrderedDuo ? extractWardrobeSlots(wardrobe) : null;
   const resolvedSubjectText = useRoleOrderedDuo
     ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
-    : subjectText;
+    : compressGptSingleSubjectText(subjectText, context);
+  const resolvedWardrobeText = useRoleOrderedDuo
+    ? wardrobeText
+    : compressGptSingleWardrobeText(wardrobeText, context);
   const resolvedSharedExpressionText = useRoleOrderedDuo ? buildGptDuoSharedExpressionText(duoCharacterSlots) : '';
   const resolvedPoseText = useRoleOrderedDuo
     ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
@@ -8665,7 +8765,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
     section('Image Type', imageType),
     sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
     resolvedSubjectText ? section('Subject', useRoleOrderedDuo ? resolvedSubjectText : `${subjectLead} ${resolvedSubjectText}`) : '',
-    wardrobeText ? section('Wardrobe', wardrobeUsesDirectSentence ? wardrobeText : `${wardrobeLead} ${wardrobeText}`) : '',
+    resolvedWardrobeText ? section('Wardrobe', wardrobeUsesDirectSentence ? resolvedWardrobeText : `${wardrobeLead} ${resolvedWardrobeText}`) : '',
     section('Pose and Composition', resolvedPoseText),
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
@@ -9519,8 +9619,100 @@ function buildAiMinimalMoodTail(valuesByLabel) {
   return moodDetail ? `${base} with ${moodDetail}` : base;
 }
 
-function buildAiPromptFromStructuredPrompt(structuredPrompt, context) {
+function cleanAiDuoCompactText(value) {
+  return cleanAiMinimalFragment(value)
+    .replace(/\bcomplete outfit palette direction:\s*shift the complete outfit palette toward [^.]+?(?:multi-piece color variation|$)/gi, '')
+    .replace(/\b(?:dominant|main|secondary|contrast|tonal)\s+[^,.]*?\s+controlled by\s+[^,.]+/gi, '')
+    .replace(/\bcolor controlled by\s+[^,.]+/gi, '')
+    .replace(/\bcoordinated but clearly distinct outfits\b/gi, '')
+    .replace(/\bavoid identical garment colors\b/gi, '')
+    .replace(/\bavoid matching top colors\b/gi, '')
+    .replace(/\bkeep each woman styling visually separate\b/gi, '')
+    .replace(/\b(?:neon|bright|deep|dark|light|pale|muted)?\s*(?:red|blue|green|yellow|orange|pink|purple|gold|silver|brown|grey|gray|black|white)\s+and\s+(?=(?:long white|navy|white|black|light blue|brown|burgundy|silver|gold|cream|ivory|beige|denim|dark grey|dark gray|light grey|light gray)\b)/gi, '')
+    .replace(/\b(?:neon|bright|deep|dark|light|pale|muted)?\s*(?:red|blue|green|yellow|orange|pink|purple|gold|silver|brown|grey|gray|black|white)\s+(?=(?:long white|navy|white|black|light blue|brown|burgundy|silver|gold|cream|ivory|beige|denim|dark grey|dark gray|light grey|light gray)\b)/gi, '')
+    .replace(/\b(?:red|blue|green|yellow|orange|pink|purple|gold|silver|brown|grey|gray|black|white)\s+and(?=(?:long white|navy|white|black|light blue|brown|burgundy|silver|gold|cream|ivory|beige|denim|dark grey|dark gray|light grey|light gray)\b)/gi, '')
+    .replace(/\.\s*,/g, ',')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/^,\s*/, '')
+    .replace(/,\s*$/g, '')
+    .trim();
+}
+
+function splitAiDuoCompactFragments(value) {
+  return cleanAiDuoCompactText(value)
+    .replace(/\.\s+/g, ', ')
+    .split(/\s*,\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .filter((part) => !/^(?:preserving garment structure|accessory separation|material contrast|multi-piece color variation)$/i.test(part));
+}
+
+function buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role) {
+  const wardrobeSlots = wardrobe ? extractWardrobeSlots(wardrobe) : null;
+  if (!wardrobeSlots || !wardrobeColors) return '';
+
+  const roleTexts = buildGptDuoWardrobeRoleTexts(context, wardrobeSlots, wardrobeColors);
+  const roleText = role === 'a' ? roleTexts.woman1 : roleTexts.woman2;
+  const fragments = splitAiDuoCompactFragments(roleText).slice(0, 7);
+
+  return fragments.length > 0 ? `Wears ${fragments.join(', ')}` : '';
+}
+
+function buildAiDuoPoseText(valuesByLabel) {
+  const scenarioFragments = splitAiDuoCompactFragments(removeAiModelNaturalPoseDirectives(firstStructuredValue(valuesByLabel, ['Duo Layout'])))
+    .filter((part) => !/^model-decided\b/i.test(part))
+    .slice(0, 4);
+  const postureFragment = splitAiDuoCompactFragments(firstStructuredValue(valuesByLabel, ['Duo Pose Base']))[0] || '';
+  return [...scenarioFragments, postureFragment].filter(Boolean).join(', ');
+}
+
+function buildAiDuoSceneText(valuesByLabel) {
+  return splitAiDuoCompactFragments(firstStructuredValue(valuesByLabel, [
+    'World Scene Architecture',
+    'Location',
+    'Scene Context',
+  ])).slice(0, 5).join(', ');
+}
+
+function buildAiDuoLightingText(valuesByLabel) {
+  return splitAiDuoCompactFragments(getStructuredValues(valuesByLabel, [
+    'Ambient Light Conditions',
+    'Subject Light Style',
+  ]).join(', ')).slice(0, 7).join(', ');
+}
+
+function buildAiDuoCameraLookText(valuesByLabel) {
+  const styleFragments = splitAiDuoCompactFragments(getStructuredValues(valuesByLabel, ['Photography Style']).join(', ')).slice(0, 5);
+  const apertureFragments = splitAiDuoCompactFragments(getStructuredValues(valuesByLabel, ['Aperture / Depth of Field']).join(', ')).slice(0, 1);
+  const filmFragments = splitAiDuoCompactFragments(getStructuredValues(valuesByLabel, ['Camera / Film']).join(', ')).slice(0, 2);
+  const opticalFragments = splitAiDuoCompactFragments(getStructuredValues(valuesByLabel, ['Optical Effect']).join(', ')).slice(0, 1);
+
+  return [...styleFragments, ...apertureFragments, ...filmFragments, ...opticalFragments].filter(Boolean).join(', ');
+}
+
+function buildAiDuoSection(label, value) {
+  const cleaned = ensureTerminalPeriod(cleanAiDuoCompactText(value));
+  return cleaned ? `${label}: ${cleaned}` : '';
+}
+
+function buildAiDuoPromptFromStructuredPrompt(valuesByLabel, context, wardrobe, wardrobeColors) {
+  return [
+    'Create a photorealistic editorial portrait in a real-world photography style. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+    buildAiDuoSection('Woman 1', buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, 'a')),
+    buildAiDuoSection('Woman 2', buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, 'b')),
+    buildAiDuoSection('Pose', buildAiDuoPoseText(valuesByLabel)),
+    buildAiDuoSection('Scene', buildAiDuoSceneText(valuesByLabel)),
+    buildAiDuoSection('Lighting', buildAiDuoLightingText(valuesByLabel)),
+    buildAiDuoSection('Camera Look', buildAiDuoCameraLookText(valuesByLabel)),
+  ].filter(Boolean).join('\n\n');
+}
+
+function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe = null, wardrobeColors = null) {
   const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
+
+  if (context.subject?.count === 2 && !isSpecialSubject(context.subject)) {
+    return buildAiDuoPromptFromStructuredPrompt(valuesByLabel, context, wardrobe, wardrobeColors);
+  }
 
   const parts = [
     buildAiMinimalSubjectLead(valuesByLabel, context),
@@ -9537,7 +9729,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   const structuredPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film);
   const grokPrompt = buildGptPromptFromStructuredPrompt(structuredPrompt, context, character, wardrobe, wardrobeColors);
   const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
-  const midjourneyPrompt = buildAiPromptFromStructuredPrompt(structuredPrompt, context);
+  const midjourneyPrompt = buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe, wardrobeColors);
 
   return { midjourneyPrompt, grokPrompt, zImagePrompt };
 }

@@ -87,6 +87,22 @@ function zImageSection(prompt, label) {
   ]);
 }
 
+function aiSection(prompt, label) {
+  const sectionLabels = [
+    'Woman 1',
+    'Woman 2',
+    'Pose',
+    'Scene',
+    'Lighting',
+    'Camera Look',
+  ];
+  const nextLabels = sectionLabels
+    .filter((entry) => entry !== label)
+    .map(escapeRegExp)
+    .join('|');
+  return prompt.midjourneyPrompt.match(new RegExp(`${escapeRegExp(label)}:\\s*([\\s\\S]*?)(?=\\n\\n(?:${nextLabels}):\\s*|$)`))?.[1] || '';
+}
+
 test('Gpt prompt uses natural structured sections for GPT Image', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -110,6 +126,56 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /no nudity|fully clothed|clothing covers the body/i);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
+});
+
+test('Gpt single-subject prompt compresses normal subject and wardrobe wording', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    bodyTypeId: optionId('bodyTypeId', '性感曲線身形'),
+    facialFeaturesId: optionId('facialFeaturesId', '成熟性感臉'),
+    hairstyleId: optionId('hairstyleId', '柔波：深側分'),
+    hairColorId: optionId('hairColorId', '銀灰白'),
+    eyewearId: optionId('eyewearId', '粗框眼鏡'),
+    eyewearColorId: optionId('eyewearColorId', '黑色'),
+    eyewearPlacementId: optionId('eyewearPlacementId', '正常戴在臉上'),
+    skinDetailsId: optionId('skinDetailsId', '全無'),
+    specialOutfitId: optionId('specialOutfitId', '全無'),
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '全無'),
+    topId: optionId('topId', '棉質細肩背心'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    skirtId: optionId('skirtId', '全無'),
+    outerwearId: optionId('outerwearId', '全無'),
+    legwearId: optionId('legwearId', '全無'),
+    shoesId: optionId('shoesId', '全無'),
+    topBottomPaletteId: optionId('topBottomPaletteId', '白色 × 靛藍'),
+    topFitId: optionId('topFitId', '緊身'),
+    topStylingId: optionId('topStylingId', '全無'),
+    topPatternId: optionId('topPatternId', '全無'),
+    bottomRiseId: optionId('bottomRiseId', '高腰'),
+    bottomFitId: optionId('bottomFitId', '合身'),
+    bottomPatternId: optionId('bottomPatternId', '全無'),
+  });
+
+  const subject = gptSection(prompt, 'Subject');
+  const wardrobe = gptSection(prompt, 'Wardrobe');
+
+  assert.match(subject, /black bold thick-frame glasses/i);
+  assert.doesNotMatch(subject, /worn normally on the face|lenses aligned over the eyes/i);
+  assert.doesNotMatch(subject, /cm visual height|kg lean visual weight|body proportion anchor|torso-to-leg balance|F-to-G-cup-scale/i);
+  assert.doesNotMatch(subject, /hair color applies only to the scalp hair|eyebrows remain natural and realistic|not dyed to match/i);
+  assert.doesNotMatch(subject, /\.\s*,/);
+
+  assert.match(wardrobe, /tight white ribbed cotton camisole/i);
+  assert.match(wardrobe, /high-rise fitted indigo straight-leg jeans/i);
+  assert.doesNotMatch(wardrobe, /realistic outer-to-inner dressing order/i);
+  assert.doesNotMatch(wardrobe, /clean compact upper-body line|balanced leg line|classic five-pocket construction/i);
+  assert.doesNotMatch(wardrobe, /\.\s*,/);
+
+  assert.match(prompt.zImagePrompt, /worn normally on the face, lenses aligned over the eyes/i);
+  assert.match(prompt.zImagePrompt, /realistic outer-to-inner dressing order/i);
+  assert.match(prompt.zImagePrompt, /body proportion anchor/i);
 });
 
 test('Gpt duo prompt uses role cards with wardrobe inside each subject block', () => {
@@ -364,32 +430,47 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
   }
 });
 
-test('AI prompt uses a legacy minimal natural paragraph with wardrobe, pose, scene, and mood tail', () => {
+test('AI duo prompt uses compact labeled role sections', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
-    locationId: optionId('locationId', '室內：九龍城寨內部狹窄走道'),
-    outfitPresetAId: optionId('outfitPresetAId', '套裝：BDSM 束縛'),
-    outfitPresetBId: optionId('outfitPresetBId', '套裝：泳裝度假'),
-    duoPoseId: optionId('duoPoseId', '充滿情慾的時尚寫真'),
-    styleId: optionId('styleId', '南・戈爾丁｜私人相簿粗粒子'),
-    filmId: optionId('filmId', 'VHS 錄影帶低畫質'),
-    opticalEffectId: optionId('opticalEffectId', '漏光效果 Light Leaks'),
+    locationId: optionId('locationId', '戶外：大阪道頓堀心齋橋河道'),
+    outfitPresetAId: optionId('outfitPresetAId', '套裝：白蕾絲長罩衫牛仔褲'),
+    completeLookPaletteAId: optionId('completeLookPaletteAId', '深藍丹寧'),
+    outfitPresetBId: optionId('outfitPresetBId', '套裝：運動外套荷葉七分褲'),
+    completeLookPaletteBId: optionId('completeLookPaletteBId', '銀灰金屬'),
+    duoPoseId: optionId('duoPoseId', '好朋友之間的親密自拍'),
+    duoPoseBaseId: optionId('duoPoseBaseId', '行走中'),
+    framingId: optionId('framingId', '全無'),
+    angleId: optionId('angleId', '全無'),
+    orbitId: optionId('orbitId', '全無'),
+    lensId: optionId('lensId', '全無'),
+    apertureId: optionId('apertureId', 'f/2.0 強背景分離'),
+    shutterId: optionId('shutterId', '全無'),
+    opticalEffectId: optionId('opticalEffectId', '全無'),
+    lightingId: optionId('lightingId', '正午烈日'),
+    lightDirectionId: optionId('lightDirectionId', '頂部照明'),
+    styleId: optionId('styleId', '市橋織江｜透明自然低飽和'),
+    filmId: optionId('filmId', '柯達 Portra 暖膚底片'),
   });
 
-  assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
+  const aiPrompt = prompt.midjourneyPrompt;
+  assert.match(aiPrompt, /^Create a photorealistic editorial portrait in a real-world photography style\. The main characters are two stunning seductive 20-year-old Japanese or Korean women\./);
+  assert.ok(aiPrompt.indexOf('\n\nWoman 1:') < aiPrompt.indexOf('\n\nWoman 2:'));
+  assert.ok(aiPrompt.indexOf('\n\nWoman 2:') < aiPrompt.indexOf('\n\nPose:'));
+  assert.ok(aiPrompt.indexOf('\n\nPose:') < aiPrompt.indexOf('\n\nScene:'));
+  assert.ok(aiPrompt.indexOf('\n\nScene:') < aiPrompt.indexOf('\n\nLighting:'));
+  assert.ok(aiPrompt.indexOf('\n\nLighting:') < aiPrompt.indexOf('\n\nCamera Look:'));
+  assert.match(aiSection(prompt, 'Woman 1'), /^Wears .*long white lace robe cardigan[\s\S]*ripped light blue jeans[\s\S]*brown leather shoulder bag[\s\S]*burgundy ballet flats/i);
+  assert.match(aiSection(prompt, 'Woman 2'), /^Wears .*navy zip-up track jacket[\s\S]*white ruffled camisole[\s\S]*black cropped jogger pants[\s\S]*black ballet flats[\s\S]*silver shoulder bag\./i);
+  assert.match(aiSection(prompt, 'Pose'), /intimate best-friends selfie moment[\s\S]*casual affectionate body language[\s\S]*playful candid interaction[\s\S]*walking or mid-step/i);
+  assert.match(aiSection(prompt, 'Scene'), /Dotonbori Shinsaibashi riverside edge in Osaka[\s\S]*iconic billboard signage[\s\S]*canal water visible below/i);
+  assert.match(aiSection(prompt, 'Lighting'), /harsh midday environment[\s\S]*overhead summer sun position[\s\S]*downward facial shadows/i);
+  assert.match(aiSection(prompt, 'Camera Look'), /transparent natural-light image language[\s\S]*f\/2\.0-style large-aperture portrait depth[\s\S]*Kodak Portra film rendering/i);
+  assert.doesNotMatch(aiPrompt, /^Image Type:/m);
+  assert.doesNotMatch(aiPrompt, /^Subject:/m);
+  assert.doesNotMatch(aiPrompt, /complete outfit palette direction|multi-piece color variation/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
-  assert.match(prompt.midjourneyPrompt, /^Two seductive stunning 20-year-old Japanese or Korean women\b/);
-  assert.match(prompt.midjourneyPrompt, /BDSM-inspired leather harness outfit/i);
-  assert.match(prompt.midjourneyPrompt, /bikini swimwear/i);
-  assert.match(prompt.midjourneyPrompt, /erotic high-fashion photo-story/i);
-  assert.match(prompt.midjourneyPrompt, /tactile provocative chemistry/i);
-  assert.match(prompt.midjourneyPrompt, /Kowloon Walled City interior passage/i);
-  assert.match(prompt.midjourneyPrompt, /moody film still/i);
-  assert.match(prompt.midjourneyPrompt, /analog tape noise/i);
-  assert.match(prompt.midjourneyPrompt, /light leaks/i);
-  assert.ok(prompt.midjourneyPrompt.length < 650);
 });
 
 test('AI prompt keeps special outfit clothing core while dropping accessory-heavy styling', () => {
