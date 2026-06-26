@@ -452,6 +452,60 @@ test('Gpt single-subject prompt compresses footwear outerwear and layering detai
   assert.match(normalOuterwearPrompt.zImagePrompt, /properly worn on both shoulders/i);
 });
 
+test('Gpt single-subject prompt compresses outfit preset and dress wording without dropping design anchors', () => {
+  const baseLocks = {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    specialOutfitId: optionId('specialOutfitId', '全無'),
+  };
+  const buildWardrobe = (locks) => {
+    const [prompt] = generatePrompts(1, { ...baseLocks, ...locks });
+    return {
+      prompt,
+      wardrobe: gptSection(prompt, 'Wardrobe'),
+    };
+  };
+
+  const bunnyCorset = buildWardrobe({
+    outfitPresetId: optionId('outfitPresetId', '套裝：粉紅哥德兔耳吊帶束身'),
+    dressId: optionId('dressId', '全無'),
+  });
+  assert.match(bunnyCorset.wardrobe, /gothic bunny corset, bunny-ear headband with one upright ear and one half-drooping ear/i);
+  assert.match(bunnyCorset.wardrobe, /fitted corset bodysuit, shaped cup seams, vertical boning, lace neckline, cross appliques, ribbon and garter straps/i);
+  assert.match(bunnyCorset.wardrobe, /leather choker with metal cross pendant/i);
+  assert.doesNotMatch(bunnyCorset.wardrobe, /bow accents placed clearly on both the left and right sides|cross decorations controlled by contrast palette|cross appliques, metal cross pendant, and leather choker hardware kept in fixed metallic tones/i);
+  assert.match(bunnyCorset.prompt.zImagePrompt, /bow accents placed clearly on both the left and right sides/i);
+
+  const openButtonSet = buildWardrobe({
+    outfitPresetId: optionId('outfitPresetId', '套裝：開扣長袖襯衫包臀裙'),
+    dressId: optionId('dressId', '全無'),
+  });
+  assert.match(openButtonSet.wardrobe, /tight long-sleeve button-up shirt, opaque stretch cotton, structured collar and fitted sleeves/i);
+  assert.match(openButtonSet.wardrobe, /upper buttons open, front buttons under tension, placket pulling at chest and waist/i);
+  assert.match(openButtonSet.wardrobe, /tight bodycon mini skirt, smooth hip-hugging silhouette, selected fabric color/i);
+  assert.doesNotMatch(openButtonSet.wardrobe, /outfit, opaque stretch cotton shirting fabric|remaining front buttons fastened under tension|horizontal fabric wrinkles across the bust and midriff|dominant fabric color controlled by the outfit color selection/i);
+  assert.match(openButtonSet.prompt.zImagePrompt, /remaining front buttons fastened under tension/i);
+
+  const sleevelessDress = buildWardrobe({
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '連身：短版｜無袖迷你洋裝'),
+  });
+  assert.match(sleevelessDress.wardrobe, /sleeveless mini dress, clean shoulder line, short hem, selected main fabric color/i);
+  assert.doesNotMatch(sleevelessDress.wardrobe, /one-piece silhouette|compact short hem|main fabric color controlled by dress color selection/i);
+  assert.match(sleevelessDress.prompt.zImagePrompt, /one-piece silhouette/i);
+
+  const cutoutSwimsuit = buildWardrobe({
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '連身：短版｜高領挖腰連身泳裝'),
+  });
+  assert.match(cutoutSwimsuit.wardrobe, /high-neck extreme front cut-out monokini swimsuit/i);
+  assert.match(cutoutSwimsuit.wardrobe, /separate high-neck chest panel and high-cut bikini bottom connected by thin side straps/i);
+  assert.match(cutoutSwimsuit.wardrobe, /large open front torso gap exposing abdomen and navel/i);
+  assert.doesNotMatch(cutoutSwimsuit.wardrobe, /bikini-like one-piece construction|connected only by thin side straps|oversized open front torso gap exposing most of the abdomen and navel|main swim fabric color controlled by dress color selection/i);
+  assert.match(cutoutSwimsuit.prompt.zImagePrompt, /bikini-like one-piece construction/i);
+});
+
 test('Gpt duo prompt uses role cards with wardrobe inside each subject block', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
