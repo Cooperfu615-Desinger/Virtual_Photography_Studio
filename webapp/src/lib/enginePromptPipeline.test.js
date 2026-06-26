@@ -65,6 +65,28 @@ function gptSection(prompt, label) {
   return prompt.grokPrompt.match(new RegExp(`${escapeRegExp(label)}:\\n([\\s\\S]*?)(?=\\n\\n(?:${nextLabels}):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || '';
 }
 
+function promptSection(text, label, sectionLabels) {
+  const nextLabels = sectionLabels
+    .filter((entry) => entry !== label)
+    .map(escapeRegExp)
+    .join('|');
+  return text.match(new RegExp(`${escapeRegExp(label)}:\\n([\\s\\S]*?)(?=\\n\\n(?:${nextLabels}):\\n|$)`))?.[1] || '';
+}
+
+function zImageSection(prompt, label) {
+  return promptSection(prompt.zImagePrompt, label, [
+    'Image Type',
+    'Subject',
+    'Woman 1',
+    'Woman 2',
+    'Shared Expression',
+    'Pose and Composition',
+    'Scene',
+    'Lighting',
+    'Camera Look',
+  ]);
+}
+
 test('Gpt prompt uses natural structured sections for GPT Image', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -104,6 +126,7 @@ test('Gpt duo prompt uses role cards with wardrobe inside each subject block', (
 
   const subject = gptSection(prompt, 'Subject');
   const sharedExpression = gptSection(prompt, 'Shared Expression');
+  const pose = gptSection(prompt, 'Pose and Composition');
   const scene = gptSection(prompt, 'Scene');
 
   assert.match(subject, /^Two 20-year-old Japanese or Korean female portrait subjects\./);
@@ -118,8 +141,11 @@ test('Gpt duo prompt uses role cards with wardrobe inside each subject block', (
 
   assert.equal(gptSection(prompt, 'Wardrobe'), '');
   assert.match(sharedExpression, /^both women share a flirtatious ambiguous gaze/i);
-  assert.ok(prompt.grokPrompt.indexOf('\nSubject:\n') < prompt.grokPrompt.indexOf('\nScene:\n'));
-  assert.ok(prompt.grokPrompt.indexOf('\nScene:\n') < prompt.grokPrompt.indexOf('\nPose and Composition:\n'));
+  assert.ok(prompt.grokPrompt.indexOf('\nSubject:\n') < prompt.grokPrompt.indexOf('\nShared Expression:\n'));
+  assert.ok(prompt.grokPrompt.indexOf('\nShared Expression:\n') < prompt.grokPrompt.indexOf('\nPose and Composition:\n'));
+  assert.ok(prompt.grokPrompt.indexOf('\nPose and Composition:\n') < prompt.grokPrompt.indexOf('\nScene:\n'));
+  assert.ok(prompt.grokPrompt.indexOf('\nScene:\n') < prompt.grokPrompt.indexOf('\nLighting:\n'));
+  assert.match(pose, /erotic high-fashion photo-story/i);
   assert.match(scene, /modern high-rise apartment living room/i);
   assert.doesNotMatch(scene, /Woman 1 wears|Woman 2 wears/i);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
@@ -143,6 +169,57 @@ test('Gpt duo subject role wardrobes remove color-control metadata and punctuate
   assert.doesNotMatch(subject, /controlled by .*color selection|dominant .*color|main .*color|contrast .*controlled/i);
   assert.doesNotMatch(subject, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
   assert.doesNotMatch(subject, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
+});
+
+test('Grok/Z-Image duo prompt uses compact role sections', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    locationId: optionId('locationId', '戶外：社區自動販賣機旁'),
+    outfitPresetAId: optionId('outfitPresetAId', '套裝：深灰短背心氣球寬褲'),
+    completeLookPaletteAId: optionId('completeLookPaletteAId', '深藍丹寧'),
+    outfitPresetBId: optionId('outfitPresetBId', '套裝：網紗掛脖背心牛仔迷你裙'),
+    completeLookPaletteBId: optionId('completeLookPaletteBId', '銀灰金屬'),
+    duoExpressionId: optionId('duoExpressionId', '彼此大笑｜自然開心'),
+    duoPoseId: optionId('duoPoseId', '時尚雜誌雙人模特兒'),
+    framingId: optionId('framingId', '全無'),
+    angleId: optionId('angleId', '全無'),
+    orbitId: optionId('orbitId', '全無'),
+    lensId: optionId('lensId', '全無'),
+    apertureId: optionId('apertureId', '全無'),
+    shutterId: optionId('shutterId', '全無'),
+    opticalEffectId: optionId('opticalEffectId', '全無'),
+    lightingId: optionId('lightingId', '藍天白雲'),
+    lightDirectionId: optionId('lightDirectionId', '全無'),
+    styleId: optionId('styleId', '上田義彥｜靜默自然暗調'),
+    filmId: optionId('filmId', '富士 Superia 青綠陰影底片'),
+  });
+
+  const zPrompt = prompt.zImagePrompt;
+  const woman1 = zImageSection(prompt, 'Woman 1');
+  const woman2 = zImageSection(prompt, 'Woman 2');
+
+  assert.match(zPrompt, /^Image Type:\nCreate a photorealistic editorial portrait of two women/i);
+  assert.match(zImageSection(prompt, 'Subject'), /^Two stunning seductive 20-year-old Japanese or Korean women\./);
+  assert.ok(zPrompt.indexOf('\nSubject:\n') < zPrompt.indexOf('\nWoman 1:\n'));
+  assert.ok(zPrompt.indexOf('\nWoman 1:\n') < zPrompt.indexOf('\nWoman 2:\n'));
+  assert.ok(zPrompt.indexOf('\nWoman 2:\n') < zPrompt.indexOf('\nShared Expression:\n'));
+  assert.ok(zPrompt.indexOf('\nShared Expression:\n') < zPrompt.indexOf('\nPose and Composition:\n'));
+  assert.ok(zPrompt.indexOf('\nPose and Composition:\n') < zPrompt.indexOf('\nScene:\n'));
+  assert.ok(zPrompt.indexOf('\nScene:\n') < zPrompt.indexOf('\nLighting:\n'));
+  assert.ok(zPrompt.indexOf('\nLighting:\n') < zPrompt.indexOf('\nCamera Look:\n'));
+  assert.match(woman1, /^Wears /);
+  assert.match(woman1, /cropped sleeveless tank[\s\S]*balloon wide pants[\s\S]*deep indigo denim color family/i);
+  assert.match(woman2, /^Wears /);
+  assert.match(woman2, /sheer mesh halter camisole[\s\S]*denim micro mini skirt[\s\S]*silver, graphite, and metallic gray color family/i);
+  assert.match(zImageSection(prompt, 'Shared Expression'), /laugh naturally with each other/i);
+  assert.match(zImageSection(prompt, 'Pose and Composition'), /posing like fashion magazine models/i);
+  assert.match(zImageSection(prompt, 'Scene'), /Japanese residential vending-machine corner/i);
+  assert.match(zImageSection(prompt, 'Lighting'), /clear blue-sky daylight/i);
+  assert.match(zImageSection(prompt, 'Camera Look'), /Yoshihiko Ueda[\s\S]*Fujifilm Superia/i);
+  assert.doesNotMatch(zPrompt, /controlled by .*color selection|dominant .*color|main .*color|contrast .*controlled/i);
+  assert.doesNotMatch(zPrompt, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
+  assert.doesNotMatch(zPrompt, /natural photographic detail|do not add visible text/i);
 });
 
 test('Grok/Z-Image prompt remains natural language with blank-line paragraphs and AI uses a legacy minimal paragraph', () => {

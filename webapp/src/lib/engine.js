@@ -8653,8 +8653,8 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
       section('Image Type', imageType),
       resolvedSubjectText ? blockSection('Subject', resolvedSubjectText) : '',
       resolvedSharedExpressionText ? section('Shared Expression', resolvedSharedExpressionText) : '',
-      sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
       section('Pose and Composition', resolvedPoseText),
+      sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
       section('Lighting', lightingText),
       section('Camera Look', cameraText),
       'multi-cut sequence n=2',
@@ -9062,10 +9062,63 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       : 'natural photographic detail, coherent fabric construction, clear facial readability, realistic spatial depth',
     'do not add visible text unless explicitly requested',
   ]);
+  const buildZImageDuoSection = (title, value) => {
+    const cleaned = ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
+    return cleaned ? `${title}:\n${cleaned}` : '';
+  };
+  const buildZImageDuoSubjectText = () => 'Two stunning seductive 20-year-old Japanese or Korean women';
+  const buildZImageDuoRoleWardrobeText = (role) => {
+    const roleTexts = buildGptDuoWardrobeRoleTexts(context, wardrobeSlots, wardrobeColors);
+    const wardrobeText = role === 'a' ? roleTexts.woman1 : roleTexts.woman2;
+    const roleNumber = role === 'a' ? '1' : '2';
+    const accessoryText = cleanGptDuoRoleSubjectPart(buildRoleSubjectAccessoryPrompt(wardrobeSlots, role), roleNumber)
+      .replace(/^with\s+/i, '');
+    const parts = [wardrobeText, accessoryText].filter(Boolean);
+    return parts.length > 0 ? `Wears ${parts.join(', ')}` : '';
+  };
+  const buildZImageDuoPoseText = () => joinSentenceParts([
+    characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.en : '',
+    characterSlots.duoPoseBase && !isNoneLikeItem(characterSlots.duoPoseBase)
+      ? `body posture base: ${characterSlots.duoPoseBase.en}`
+      : '',
+  ]);
+  const buildZImageDuoSceneText = () => joinSentenceParts([
+    skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : importedWorldSceneArchitectureText,
+    context.location && !isNoneLikeItem(context.location) ? (skeletonMode ? sanitizeSkeletonPromptText(context.location.en) : context.location.en) : '',
+    skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : sceneAccentText,
+  ]);
+  const buildZImageDuoLightingText = () => joinSentenceParts([
+    context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
+    lightDirection && !isNoneLikeItem(lightDirection)
+      ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
+      : '',
+  ]);
+  const buildZImageDuoCameraLookText = () => joinSentenceParts([
+    context.style && !isNoneLikeItem(context.style) ? (skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : buildPhotographyStylePrompt(context.style)) : '',
+    context.lens && !isNoneLikeItem(context.lens) ? context.lens.en : '',
+    context.aperture && !isNoneLikeItem(context.aperture) ? context.aperture.en : '',
+    context.shutter && !isNoneLikeItem(context.shutter) ? context.shutter.en : '',
+    opticalEffect && !isNoneLikeItem(opticalEffect) ? (skeletonMode ? sanitizeSkeletonPromptText(opticalEffect.en) : opticalEffect.en) : '',
+    film && !isNoneLikeItem(film) ? (skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
+  ]);
   const joinZImageParagraphs = (parts) => parts
     .map((value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim()))
     .filter(Boolean)
     .join('\n\n');
+
+  if (context.subject.count === 2 && !specialSubjectMode) {
+    return [
+      buildZImageDuoSection('Image Type', 'Create a photorealistic editorial portrait of two women in a real-world photography style'),
+      buildZImageDuoSection('Subject', buildZImageDuoSubjectText()),
+      buildZImageDuoSection('Woman 1', buildZImageDuoRoleWardrobeText('a')),
+      buildZImageDuoSection('Woman 2', buildZImageDuoRoleWardrobeText('b')),
+      buildZImageDuoSection('Shared Expression', buildGptDuoSharedExpressionText(characterSlots)),
+      buildZImageDuoSection('Pose and Composition', buildZImageDuoPoseText()),
+      buildZImageDuoSection('Scene', buildZImageDuoSceneText()),
+      buildZImageDuoSection('Lighting', buildZImageDuoLightingText()),
+      buildZImageDuoSection('Camera Look', buildZImageDuoCameraLookText()),
+    ].filter(Boolean).join('\n\n');
+  }
 
   if (fixedCompositionSetActive) {
     return joinZImageParagraphs([

@@ -339,8 +339,8 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Earrings:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Neck Accessory:/m);
 
-  assert.match(prompt.zImagePrompt, /woman 1 with .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
-  assert.match(prompt.zImagePrompt, /woman 2 with .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
+  assert.match(prompt.zImagePrompt, /Woman 1:\nWears .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
+  assert.match(prompt.zImagePrompt, /Woman 2:\nWears .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
 });
 
 test('duo random separates avoid duplicated top color styling', () => {
@@ -363,9 +363,9 @@ test('duo random separates avoid duplicated top color styling', () => {
     assert.notEqual(prompt.selection.topAColorId, prompt.selection.topBColorId);
 
     const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
-    assert.match(promptText, /coordinated but clearly distinct outfits/i);
-    assert.match(promptText, /avoid identical garment colors/i);
-    assert.match(promptText, /avoid matching top colors/i);
+    assert.match(promptText, /Woman 1:\n(?:Has [\s\S]*?\. )?Wears black cotton camisole top/i);
+    assert.match(promptText, /Woman 2:\n(?:Has [\s\S]*?\. )?Wears white shirt/i);
+    assert.doesNotMatch(promptText, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors/i);
   } finally {
     Math.random = originalRandom;
   }
