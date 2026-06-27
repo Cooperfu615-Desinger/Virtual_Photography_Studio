@@ -15,6 +15,7 @@ Last updated: 2026-06-27
 - 不輸出 `Constraints`。
 - 結尾必須保留 `multi-cut sequence n=2`。
 - 單人特殊穿搭的 `Wardrobe` 可用子區塊幫助人工微調：`Hair and body details`、`Full outfit`、`Headwear, eyewear, and bag`。
+- 單人角色卡的 `Subject` 可用子區塊幫助人工微調：`Character Profile Card`、`Identity and body`、`Hair`、`Outfit`、`Accessories`、`Photographic direction`。
 
 ### Grok/Z-Image
 
@@ -225,9 +226,54 @@ Headwear, eyewear, and bag:
 
 ## 6. 欄位責任邊界
 
+### 角色卡 GPT 分組
+
+角色卡的 GPT 版以「同一人物穩定性」為優先目標，因此 `Subject` 內使用固定分組。新增或修改角色卡時，應優先補 `profile` 分組資料，不要只依賴自動拆分 fallback。
+
+Gpt 角色卡輸出格式：
+
+```text
+Subject:
+Character Profile Card:
+角色卡名稱
+
+Identity and body:
+...
+
+Hair:
+...
+
+Outfit:
+...
+
+Accessories:
+...
+
+Photographic direction:
+...
+```
+
+分組責任：
+
+- `Identity and body`: 五官、臉型、眼睛、眉毛、鼻子、嘴唇、膚質、妝容、體態比例。這組是角色穩定性的核心，可以比一般 A 人物設定更完整，但仍要避免空泛美感詞堆疊。
+- `Hair`: 髮色、髮型、瀏海、分線、髮尾、捲度、染髮層次。獨立出來方便後續衍生變化。
+- `Outfit`: 上身、下身、連身、外套、鞋襪、固定穿搭層次。完整保留角色卡的 signature outfit，不因壓縮改變造型方向。
+- `Accessories`: 眼鏡、耳環、項鍊、choker、戒指、手環、耳機、包包、鑰匙圈、腰帶等可被人工快速刪改的配件。
+- `Photographic direction`: 角色卡整體攝影質感與穩定性要求，例如 `photorealistic editorial portrait`、`coherent facial identity`、`realistic fabric construction`。
+
+角色卡壓縮規則：
+
+- Identity 不寫表情、眼神狀態或情緒控制，例如 `calm gaze`、`seductive expression`、`melancholic expression`。神情應交給 B 神情姿態控制。
+- 眼鏡類角色要把眼睛描述保留在 Identity，例如 `clear dark brown eyes`；眼鏡本體放進 Accessories。
+- 唇形可以保留可視覺化形狀，例如 `fuller lower lip`、`softly parted shape`；不要把情緒塞進嘴型，例如 `melancholic pout`。
+- Hair 不混入服裝或配件。若帽子或 hood 是服裝本體的一部分，可留在 Outfit；若是可拆配件，放 Accessories。
+- Outfit 不混入眼鏡、耳環、項鍊、包包等配件；但必須保留服裝設計核心、穿法、材質與鞋款。
+- Accessories 沒有內容時不要輸出空區塊。
+- `en` 原始描述可暫時保留給 Grok/Z-Image 與 AI；GPT 精修內容以 `profile` 為準。
+
 新增資料時先確認責任歸屬：
 
-- A 人物設定：體態、五官、膚質、髮型、髮色、神情、姿勢、特殊動作。
+- A 人物設定：體態、五官、膚質、髮型、髮色、神情、姿勢、特殊動作；角色卡需額外拆成 `Identity and body`、`Hair`、`Outfit`、`Accessories`。
 - C 穿搭設定：服裝、鞋襪、外套、配件、顏色、圖案、完整造型。
 - 場景設定：地點、場景物件、環境氛圍。
 - 攝影設定：構圖、鏡頭、光圈、快門、風格、成像。
@@ -245,6 +291,7 @@ Headwear, eyewear, and bag:
 - 一般單品沒有固定顏色，除非是不可拆的 signature detail。
 - 套裝/連身壓縮後仍保留原設計方向。
 - 特殊穿搭仍是完整造型包，且以 `complete outfit:` 開頭。
+- 角色卡已補 `profile` 分組，Identity 不含表情/眼神狀態，眼鏡與首飾等配件放在 Accessories。
 - AI 版可從資料壓縮成短 prompt，但不會漏掉核心服裝與姿勢。
 - Grok/Z-Image 可維持自然語言段落，不被 GPT 標籤化。
 - 修改 prompt 生成邏輯時先補測試，確認紅燈，再改程式。
@@ -256,6 +303,7 @@ Headwear, eyewear, and bag:
 ```bash
 cd webapp
 node --test src/lib/enginePromptPipeline.test.js
+node --test src/lib/engineSpecialSubjects.test.js
 node --test src/lib/engineSpecialOutfitCleanup.test.js
 node --test src/lib/engineOutfitPresetDressCleanup.test.js
 node --test src/lib/engineWardrobeControls.test.js

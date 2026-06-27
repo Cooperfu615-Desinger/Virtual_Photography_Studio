@@ -74,6 +74,13 @@ const CHARACTER_PROFILE_OPTIONS = [
     id: 'character-48g',
     zh: '48_G',
     en: 'a 20-year-old adult East Asian woman with doll-like facial features, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette, signature outfit locked as a taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath, small off-white shoulder bag with thin black strap, black lace-up ankle boots with glossy rounded toes, contemporary street-fashion photographic realism',
+    profile: {
+      identityAndBody: 'a 20-year-old adult East Asian woman with doll-like facial features, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette',
+      hair: 'glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands',
+      outfit: 'taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath, black lace-up ankle boots with glossy rounded toes',
+      accessories: 'small off-white shoulder bag with thin black strap',
+      photographicDirection: 'photorealistic editorial portrait, contemporary street-fashion photographic realism, coherent facial identity, realistic fabric construction',
+    },
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '48_G 角色卡',
@@ -103,6 +110,12 @@ const CHARACTER_PROFILE_OPTIONS = [
     id: 'character-philippa',
     zh: '29_Philippa',
     en: 'a 20-year-old adult East Asian woman with pale gothic beauty, porcelain luminous skin, elegant oval face, clear pale gray-green eyes with a cool glassy gaze, softly arched dark brows, slim straight nose, muted red matte lips, refined melancholic expression, long center-parted wavy black hair with clean black bangs and solid black front face-framing strands, silver-white dip-dye streaks concentrated only through the rear and lower trailing hair sections near the back hair tips, front bangs and front hair remain black without light streaks, voluminous waves falling past the chest, slender fashion-model body proportions with a graceful narrow waist, signature outfit locked as a black high-neck gothic lace dress with sheer mesh long sleeves, black floral lace sleeve appliques across shoulders and arms, fitted black lace bodice with subtle beadwork, floor-length translucent black tulle skirt overlay with trailing hem, black elegant dress shoes, romantic dark couture photographic realism',
+    profile: {
+      identityAndBody: 'a 20-year-old adult East Asian woman with pale gothic beauty, porcelain luminous skin, elegant oval face, clear pale gray-green eyes, softly arched dark brows, slim straight nose, muted red matte lips, slender fashion-model body proportions with a graceful narrow waist',
+      hair: 'long center-parted wavy black hair with clean black bangs and solid black front face-framing strands, silver-white dip-dye streaks concentrated only through the rear and lower trailing hair sections near the back hair tips, front bangs and front hair remain black without light streaks, voluminous waves falling past the chest',
+      outfit: 'black high-neck gothic lace dress with sheer mesh long sleeves, black floral lace sleeve appliques across shoulders and arms, fitted black lace bodice with subtle beadwork, floor-length translucent black tulle skirt overlay with trailing hem, black elegant dress shoes',
+      photographicDirection: 'photorealistic editorial portrait, romantic dark couture photographic realism, coherent facial identity, realistic lace and tulle construction',
+    },
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '29_Philippa 角色卡',
@@ -132,6 +145,12 @@ const CHARACTER_PROFILE_OPTIONS = [
     id: 'character-sakura',
     zh: '12_Sakura',
     en: 'a 20-year-old adult East Asian woman with soft doll-like kawaii facial features, luminous fair skin, delicate oval heart-shaped face, large vivid clear blue eyes with glossy catchlights and defined upper lashes, softly arched brown brows, small straight nose with gentle bridge, peach-pink blush across the cheeks and nose, warm peach eye shadow, subtle eyeliner, glossy peach-pink gradient lips slightly parted, long loose wavy warm chestnut-brown hair with dusty rose-pink streaks framing both sides of the face and flowing through the lengths, airy wispy see-through bangs, slim petite cozy-girl body proportions, signature outfit locked as a white plush bunny-eared hood with floppy long ears, pink inner ears, cute black cartoon eyes, small pink nose, soft white plush fur texture and tiny white fang-like teeth along the hood opening, oversized ivory-white fleece pullover hoodie with dropped shoulders, long loose sleeves, front kangaroo pocket and white drawstrings, relaxed beige oatmeal sweatpants with soft brushed knit texture and straight loose legs, clean white low-top sneakers, gentle cozy indoor lifestyle photographic realism',
+    profile: {
+      identityAndBody: 'a 20-year-old adult East Asian woman with soft doll-like kawaii facial features, luminous fair skin, delicate oval heart-shaped face, large vivid clear blue eyes with glossy catchlights and defined upper lashes, softly arched brown brows, small straight nose with gentle bridge, peach-pink blush across the cheeks and nose, warm peach eye shadow, subtle eyeliner, glossy peach-pink gradient lips slightly parted, slim petite cozy-girl body proportions',
+      hair: 'long loose wavy warm chestnut-brown hair with dusty rose-pink streaks framing both sides of the face and flowing through the lengths, airy wispy see-through bangs',
+      outfit: 'white plush bunny-eared hood with floppy long ears, pink inner ears, cute black cartoon eyes, small pink nose, soft white plush fur texture, tiny white fang-like teeth along the hood opening, oversized ivory-white fleece pullover hoodie with dropped shoulders, long loose sleeves, front kangaroo pocket, white drawstrings, relaxed beige oatmeal sweatpants with soft brushed knit texture and straight loose legs, clean white low-top sneakers',
+      photographicDirection: 'photorealistic editorial portrait, gentle cozy indoor lifestyle photographic realism, coherent facial identity, realistic plush fleece and knit texture',
+    },
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '12_Sakura 角色卡',
@@ -161,6 +180,13 @@ const CHARACTER_PROFILE_OPTIONS = [
     id: 'character-hinata',
     zh: '06_Hinata',
     en: 'a 20-year-old adult East Asian woman with mature refined East Asian fashion-model facial features, large almond-shaped gray-olive brown eyes with softly lifted outer corners, clear double eyelids and shallow natural eyelid depth, small elongated oval face with a soft jawline and delicate pointed chin, luminous fair skin, softly arched ash-brown brows, straight slim nose with a soft low-to-moderate bridge and small neat tip, peach-rose blush, subtle cool-beige eye shadow, thin gentle cat-eye liner, natural rose-pink lips with gentle fullness and a polished satin sheen, calm confident street-style expression, smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume and delicate flyaway strands, tall high-fashion hourglass body proportions, long slender limbs, long legs, high waist, fuller bust, wide hips, and narrow waist, signature outfit locked as a deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings on the bodysuit exposing both sides of the narrow waist and upper hips, visually emphasizing the wider hips, medium-wash skinny blue jeans with natural denim fading, black leather belt with small silver buckle, black leather ankle boots with rounded toes and low block heels, polished urban street-fashion photographic realism',
+    profile: {
+      identityAndBody: 'a 20-year-old adult East Asian woman with mature refined East Asian fashion-model facial features, large almond-shaped gray-olive brown eyes with softly lifted outer corners, clear double eyelids and shallow natural eyelid depth, small elongated oval face with a soft jawline and delicate pointed chin, luminous fair skin, softly arched ash-brown brows, straight slim nose with a soft low-to-moderate bridge and small neat tip, peach-rose blush, subtle cool-beige eye shadow, thin gentle cat-eye liner, natural rose-pink lips with gentle fullness and a polished satin sheen, tall high-fashion hourglass body proportions, long slender limbs, long legs, high waist, fuller bust, wide hips, narrow waist',
+      hair: 'smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands',
+      outfit: 'deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips, medium-wash skinny blue jeans with natural denim fading, black leather ankle boots with rounded toes and low block heels',
+      accessories: 'black leather belt with small silver buckle',
+      photographicDirection: 'photorealistic editorial portrait, polished urban street-fashion photographic realism, coherent facial identity, realistic knit and denim construction',
+    },
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '06_Hinata 角色卡',
@@ -196,6 +222,13 @@ const CHARACTER_PROFILE_OPTIONS = [
     id: 'character-rika',
     zh: '11_Rika',
     en: 'a 20-year-old adult East Asian woman with soft doll-like indie-girl facial features, luminous fair skin, petite oval face with softly full cheeks and a gentle rounded jaw, large rounded gray-brown eyes with glassy catchlights and soft lower-lash detail, straight natural brows, small delicate straight nose with a smooth bridge, tiny beauty mark near one outer cheek, peach-pink blush, warm peach-beige eye makeup, soft rose-pink lips with a cushioned slightly parted pout, quiet dreamy gaze, glossy natural black long wavy hair falling past the shoulders, airy see-through bangs with slightly uneven wispy pieces across the forehead, face-framing side strands and loose layered waves through the lengths, slim petite casual-fashion body proportions with a narrow waist, signature outfit locked as a fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic, black-and-white beaded choker necklace, slightly loose low-rise light-wash blue jeans with relaxed straight legs and soft vintage fading, small silver ring keychain clipped to the front belt loop, clean white low-top sneakers, intimate warm indoor film-snapshot photographic realism',
+    profile: {
+      identityAndBody: 'a 20-year-old adult East Asian woman with soft doll-like indie-girl facial features, luminous fair skin, petite oval face with softly full cheeks and a gentle rounded jaw, large rounded gray-brown eyes with glassy catchlights and soft lower-lash detail, straight natural brows, small delicate straight nose with a smooth bridge, tiny beauty mark near one outer cheek, peach-pink blush, warm peach-beige eye makeup, soft rose-pink lips with a cushioned slightly parted shape, slim petite casual-fashion body proportions with a narrow waist',
+      hair: 'glossy natural black long wavy hair falling past the shoulders, airy see-through bangs with slightly uneven wispy pieces across the forehead, face-framing side strands, loose layered waves through the lengths',
+      outfit: 'fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic, slightly loose low-rise light-wash blue jeans with relaxed straight legs and soft vintage fading, clean white low-top sneakers',
+      accessories: 'black-and-white beaded choker necklace, small silver ring keychain clipped to the front belt loop',
+      photographicDirection: 'photorealistic editorial portrait, intimate warm indoor film-snapshot photographic realism, coherent facial identity, realistic cotton and denim construction',
+    },
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '11_Rika 角色卡',
@@ -231,6 +264,13 @@ const CHARACTER_PROFILE_OPTIONS = [
     id: 'character-rin',
     zh: '38_Rin',
     en: 'a 20-year-old adult East Asian woman with refined intellectual East Asian editorial facial features and stacked twin gold hoop earrings on both ears, large slender almond warm brown eyes behind glasses with a calm slightly sleepy gaze, thin rectangular brown-gold metal frame eyeglasses with transparent lenses, small porcelain oval face with a narrow softly tapered jaw and delicate pointed chin, porcelain fair skin with a subtle luminous sheen, soft aegyo-sal lower-eye fullness and fine lower lashes, straight delicate nose with a softly rounded glossy tip, softly arched natural dark brows, peach-beige blush, warm beige eye shadow, glossy rose-beige lips with a defined cupid bow and fuller lower lip, calm observant expression, glossy natural black chin-to-nape short curly bob, airy layered S-curls with outward-flipped ends around the ears and nape, separated curved see-through bangs forming comma-like strands over the forehead, soft volume around the crown and back, slim refined fashion-model body proportions with a narrow waist and long neck, signature outfit locked as thin rectangular brown-gold metal frame eyeglasses with transparent lenses, stacked twin gold hoop earrings on both ears, layered delicate gold necklaces with tiny pendant charms, crisp white oversized button-down shirt with open collar, relaxed dropped shoulders, sleeves rolled to the forearms, slightly loose tucked-in fabric, charcoal high-waisted tailored straight trousers with pressed front crease and clean waistband, black leather loafers with low stacked heels, polished intellectual minimalist photographic realism',
+    profile: {
+      identityAndBody: 'a 20-year-old adult East Asian woman with refined intellectual editorial facial features, small porcelain oval face, narrow softly tapered jaw, delicate pointed chin, porcelain fair skin with a subtle luminous sheen, large slender almond warm-brown eyes, soft aegyo-sal lower-eye fullness, fine lower lashes, straight delicate nose with a softly rounded glossy tip, softly arched natural dark brows, peach-beige blush, warm beige eye shadow, glossy rose-beige lips with a defined cupid bow and fuller lower lip, slim refined fashion-model body proportions, narrow waist, long neck',
+      hair: 'glossy natural black chin-to-nape short curly bob, airy layered S-curls, outward-flipped ends around the ears and nape, separated curved see-through bangs forming comma-like strands over the forehead, soft volume around the crown and back',
+      outfit: 'crisp white oversized button-down shirt with open collar, relaxed dropped shoulders, sleeves rolled to the forearms, slightly loose tucked-in fabric, charcoal high-waisted tailored straight trousers with pressed front crease and clean waistband, black leather loafers with low stacked heels',
+      accessories: 'signature thin rectangular brown-gold metal frame eyeglasses with transparent lenses, stacked twin gold hoop earrings on both ears, layered delicate gold necklaces with tiny pendant charms',
+      photographicDirection: 'photorealistic editorial portrait, polished intellectual minimalist styling, natural photographic detail, coherent facial identity, realistic fabric construction',
+    },
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '38_Rin 角色卡',
@@ -260,6 +300,12 @@ const CHARACTER_PROFILE_OPTIONS = [
     id: 'character-lily',
     zh: '07_Lily',
     en: 'a 20-year-old adult East Asian woman with glamorous doll-like facial features, porcelain fair skin with a soft luminous glow, delicate oval heart-shaped face, clear warm hazel-brown eyes with glossy catchlights and long curled lashes, softly arched reddish-brown brows, small refined nose, peach-coral blush, warm champagne eye shadow, subtle eyeliner, glossy coral-rose lips with a softly parted pout, calm seductive fashion-editorial expression, long tousled copper-auburn red hair with darker natural roots, loose messy waves flowing past the chest and down the back, airy wispy see-through bangs falling softly across the forehead, face-framing side pieces and windswept layered texture, slim tall fashion-model body proportions with narrow waist, long legs, refined shoulders and collarbones, signature outfit locked as a black shaggy faux-fur off-shoulder mini coat worn as the main garment, plush high-pile texture, deep V neckline, bare shoulders and collarbones, oversized sleeves, mini-length hem, minimal black inner layer kept subtle under the coat, black ankle-strap stiletto sandals with thin straps and open toes, glamorous sunlit fashion portrait photographic realism',
+    profile: {
+      identityAndBody: 'a 20-year-old adult East Asian woman with glamorous doll-like facial features, porcelain fair skin with a soft luminous glow, delicate oval heart-shaped face, clear warm hazel-brown eyes with glossy catchlights and long curled lashes, softly arched reddish-brown brows, small refined nose, peach-coral blush, warm champagne eye shadow, subtle eyeliner, glossy coral-rose lips with a softly parted shape, slim tall fashion-model body proportions with narrow waist, long legs, refined shoulders and collarbones',
+      hair: 'long tousled copper-auburn red hair with darker natural roots, loose messy waves flowing past the chest and down the back, airy wispy see-through bangs falling softly across the forehead, face-framing side pieces, windswept layered texture',
+      outfit: 'black shaggy faux-fur off-shoulder mini coat worn as the main garment, plush high-pile texture, deep V neckline, bare shoulders and collarbones, oversized sleeves, mini-length hem, minimal black inner layer kept subtle under the coat, black ankle-strap stiletto sandals with thin straps and open toes',
+      photographicDirection: 'photorealistic editorial portrait, glamorous sunlit fashion portrait photographic realism, coherent facial identity, realistic faux-fur texture',
+    },
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '07_Lily 角色卡',
@@ -289,6 +335,13 @@ const CHARACTER_PROFILE_OPTIONS = [
     id: 'character-yuri',
     zh: '02_Yuri',
     en: 'a 20-year-old adult East Asian woman with quiet intelligent doll-like facial features, luminous fair skin, soft oval face, clear dark brown eyes behind round translucent brown acetate eyeglasses with thin metal temples, straight natural brows, small refined nose, peach-beige blush, soft beige eye shadow, glossy muted rose lips with a calm slightly serious gaze, glossy natural black long straight hair falling past the chest, wispy see-through bangs across the forehead, tapered face-framing layers and softly inward-curved ends, slim petite casual-fashion body proportions with a narrow waist and long clean leg line, signature outfit locked as a white ribbed off-shoulder cropped long-sleeve top with exposed shoulders, fitted sleeves, small front buttons, vintage black graphic print across the chest and delicate lace trim along the cropped hem, black choker necklace with small silver charm details, stacked silver bangles and rings, low-rise medium-wash blue flared jeans with natural fading, decorated leather belt with large oval western-style belt buckle and metal-stud chain detail, brown low-top canvas sneakers with cream rubber soles and white laces, warm retro youth-fashion photographic realism',
+    profile: {
+      identityAndBody: 'a 20-year-old adult East Asian woman with quiet intelligent doll-like facial features, luminous fair skin, soft oval face, clear dark brown eyes, straight natural brows, small refined nose, peach-beige blush, soft beige eye shadow, glossy muted rose lips, slim petite casual-fashion body proportions with a narrow waist and long clean leg line',
+      hair: 'glossy natural black long straight hair falling past the chest, wispy see-through bangs across the forehead, tapered face-framing layers, softly inward-curved ends',
+      outfit: 'white ribbed off-shoulder cropped long-sleeve top with exposed shoulders, fitted sleeves, small front buttons, vintage black graphic print across the chest, delicate lace trim along the cropped hem, low-rise medium-wash blue flared jeans with natural fading, decorated leather belt with large oval western-style belt buckle and metal-stud chain detail, brown low-top canvas sneakers with cream rubber soles and white laces',
+      accessories: 'round translucent brown acetate eyeglasses with thin metal temples, black choker necklace with small silver charm details, stacked silver bangles and rings',
+      photographicDirection: 'photorealistic editorial portrait, warm retro youth-fashion photographic realism, coherent facial identity, realistic ribbed cotton and denim construction',
+    },
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '02_Yuri 角色卡',
@@ -318,6 +371,13 @@ const CHARACTER_PROFILE_OPTIONS = [
     id: 'character-sui',
     zh: '03_Sui',
     en: 'a 20-year-old adult East Asian woman with wistful delicate East Asian muse-like facial features, small long heart-oval face with softly tapered cheeks and a narrow pointed chin, large soft downturned almond warm amber-brown eyes with glossy catchlights, slightly heavy upper lids, visible aegyo-sal lower-eye softness, and long fine lower lashes, luminous fair skin with natural freckles across the cheeks and nose, softly flushed cheeks and nose bridge, thin straight natural brows with a gentle downward softness, slim delicate nose with a softly rounded tip, warm beige eye shadow, small plush rose-coral lips with a defined cupid bow and slightly parted melancholic pout, quiet tender cozy-girl expression, glossy natural black long wavy hair falling past the chest and down the back, airy wispy see-through bangs across the forehead, loose layered waves, face-framing side strands and natural tousled flyaways, slim petite soft casual-fashion body proportions with a narrow waist, delicate shoulders and collarbones, signature outfit locked as a mustard yellow oversized knit cardigan with chunky fuzzy texture, deep V open front, wooden buttons, relaxed dropped shoulders, long loose sleeves with ribbed cuffs, small white fuzzy floral embroidery scattered on the cardigan, cream ribbed knit camisole with a scoop neckline underneath, delicate gold necklace with a small red-orange oval pendant, high-waisted medium-dark blue straight-leg jeans with natural denim fading, brown leather ankle boots with rounded toes and low stacked heels, soft cozy casual-fashion photographic realism',
+    profile: {
+      identityAndBody: 'a 20-year-old adult East Asian woman with wistful delicate East Asian muse-like facial features, small long heart-oval face with softly tapered cheeks and a narrow pointed chin, large soft downturned almond warm amber-brown eyes with glossy catchlights, slightly heavy upper lids, visible aegyo-sal lower-eye softness, long fine lower lashes, luminous fair skin with natural freckles across the cheeks and nose, softly flushed cheeks and nose bridge, thin straight natural brows with a gentle downward softness, slim delicate nose with a softly rounded tip, warm beige eye shadow, small plush rose-coral lips with a defined cupid bow and slightly parted shape, slim petite soft casual-fashion body proportions with a narrow waist, delicate shoulders and collarbones',
+      hair: 'glossy natural black long wavy hair falling past the chest and down the back, airy wispy see-through bangs across the forehead, loose layered waves, face-framing side strands, natural tousled flyaways',
+      outfit: 'mustard yellow oversized knit cardigan with chunky fuzzy texture, deep V open front, wooden buttons, relaxed dropped shoulders, long loose sleeves with ribbed cuffs, small white fuzzy floral embroidery scattered on the cardigan, cream ribbed knit camisole with a scoop neckline underneath, high-waisted medium-dark blue straight-leg jeans with natural denim fading, brown leather ankle boots with rounded toes and low stacked heels',
+      accessories: 'delicate gold necklace with a small red-orange oval pendant',
+      photographicDirection: 'photorealistic editorial portrait, soft cozy casual-fashion photographic realism, coherent facial identity, realistic knit and denim construction',
+    },
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '03_Sui 角色卡',
@@ -353,6 +413,13 @@ const CHARACTER_PROFILE_OPTIONS = [
     id: 'character-hina',
     zh: '37_Hina',
     en: 'a 20-year-old adult East Asian woman with soft intelligent doll-like facial features, luminous fair skin, small oval face with gentle cheeks, clear warm gray-brown eyes behind round thin black metal eyeglasses, straight soft brows, small refined nose, pale peach blush, soft beige-pink eye makeup, natural glossy rose-pink lips with a calm quiet gaze, pale silver-lilac short bob with soft ash roots and realistic dyed-hair texture, wispy airy bangs lightly crossing the forehead, rounded cheek-length side layers, softly feathered ends around the jaw and nape, slim petite delicate casual body proportions with narrow shoulders, slender arms, long pale legs and a compact youthful adult silhouette, signature outfit locked as a loose sage-mint green sleeveless tunic tank top with soft washed cotton texture, round crew neckline, oversized A-line drape, wide armholes with a subtle black inner layer visible at the side, matching sage-mint green relaxed short shorts, bare feet as the locked footwear state, quiet minimalist loungewear photographic realism',
+    profile: {
+      identityAndBody: 'a 20-year-old adult East Asian woman with soft intelligent doll-like facial features, luminous fair skin, small oval face with gentle cheeks, clear warm gray-brown eyes, straight soft brows, small refined nose, pale peach blush, soft beige-pink eye makeup, natural glossy rose-pink lips, slim petite delicate casual body proportions with narrow shoulders, slender arms, long pale legs and a compact youthful adult silhouette',
+      hair: 'pale silver-lilac short bob with soft ash roots and realistic dyed-hair texture, wispy airy bangs lightly crossing the forehead, rounded cheek-length side layers, softly feathered ends around the jaw and nape',
+      outfit: 'loose sage-mint green sleeveless tunic tank top with soft washed cotton texture, round crew neckline, oversized A-line drape, wide armholes with a subtle black inner layer visible at the side, matching sage-mint green relaxed short shorts, bare feet as the locked footwear state',
+      accessories: 'round thin black metal eyeglasses',
+      photographicDirection: 'photorealistic editorial portrait, quiet minimalist loungewear photographic realism, coherent facial identity, realistic washed cotton texture',
+    },
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '37_Hina 角色卡',
@@ -8690,6 +8757,103 @@ function buildGptSingleSpecialOutfitWardrobeBlock(specialOutfitText, additionalF
   return sections.join('\n\n');
 }
 
+function cleanCharacterProfileGroupText(value) {
+  return stripMarkdown(value || '')
+    .replace(/\s+/g, ' ')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/\s+,/g, ',')
+    .replace(/,\s*\./g, '.')
+    .trim()
+    .replace(/[.!?]+$/g, '');
+}
+
+function splitCharacterProfileFragments(value) {
+  return cleanCharacterProfileGroupText(value)
+    .split(/\s*,\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function isCharacterProfileAccessoryFragment(fragment) {
+  return /\b(?:eyeglasses|glasses|sunglasses|earrings?|necklaces?|choker|bangles?|bracelets?|rings?|pendant|shoulder bag|bag|handbag|keychain|earphones?|headphones?)\b/i.test(fragment);
+}
+
+function isCharacterProfileHairFragment(fragment) {
+  return /\b(?:hair|haircut|bob|lob|bangs?|waves?|wavy|curly|curls?|S-curls|streaks?|roots|flyaway|side strands|face-framing|nape|crown)\b/i.test(fragment);
+}
+
+function isCharacterProfileBodyFragment(fragment) {
+  return /\b(?:body proportions?|silhouette|waist|legs?|limbs?|hips?|bust|collarbones?|neck|arms?|petite|slim|tall|hourglass|fashion-model|casual body)\b/i.test(fragment);
+}
+
+function extractCharacterProfilePhotoDirection(value) {
+  const text = cleanCharacterProfileGroupText(value);
+  const match = text.match(/,\s*([^,]*photographic realism)$/i);
+  return {
+    text: match ? text.slice(0, match.index).trim() : text,
+    photographicDirection: match?.[1]?.trim() || '',
+  };
+}
+
+function buildFallbackCharacterProfileGroups(subject) {
+  const raw = cleanCharacterProfileGroupText(subject?.en || '');
+  const signatureMatch = raw.match(/\bsignature outfit locked as\s+/i);
+  const identityHairText = signatureMatch ? raw.slice(0, signatureMatch.index).replace(/,\s*$/g, '') : raw;
+  const signatureText = signatureMatch ? raw.slice(signatureMatch.index + signatureMatch[0].length) : '';
+  const { text: outfitText, photographicDirection } = extractCharacterProfilePhotoDirection(signatureText);
+
+  const identityHairFragments = splitCharacterProfileFragments(identityHairText);
+  const hairStart = identityHairFragments.findIndex((fragment) => isCharacterProfileHairFragment(fragment));
+  const identityFragments = (hairStart === -1 ? identityHairFragments : identityHairFragments.slice(0, hairStart))
+    .filter((fragment) => !isCharacterProfileAccessoryFragment(fragment));
+  const hairFragments = [];
+  if (hairStart !== -1) {
+    for (const fragment of identityHairFragments.slice(hairStart)) {
+      if (isCharacterProfileBodyFragment(fragment)) {
+        identityFragments.push(fragment);
+      } else {
+        hairFragments.push(fragment);
+      }
+    }
+  }
+
+  const outfitFragments = [];
+  const accessoryFragments = [];
+  for (const fragment of splitCharacterProfileFragments(outfitText)) {
+    if (isCharacterProfileAccessoryFragment(fragment)) {
+      accessoryFragments.push(fragment);
+    } else {
+      outfitFragments.push(fragment);
+    }
+  }
+
+  return {
+    identityAndBody: identityFragments.join(', '),
+    hair: hairFragments.join(', '),
+    outfit: outfitFragments.join(', '),
+    accessories: accessoryFragments.join(', '),
+    photographicDirection,
+  };
+}
+
+function buildGptCharacterProfileSubjectBlock(subject) {
+  if (!isCharacterProfileSubject(subject)) return '';
+  const groups = subject.profile || buildFallbackCharacterProfileGroups(subject);
+  const groupLine = (label, value) => {
+    const cleaned = ensureTerminalPeriod(cleanCharacterProfileGroupText(value));
+    return cleaned ? `${label}:\n${cleaned}` : '';
+  };
+
+  return [
+    groupLine('Character Profile Card', subject.zh || subject.specialToneZh || 'Character Profile'),
+    groupLine('Identity and body', groups.identityAndBody),
+    groupLine('Hair', groups.hair),
+    groupLine('Outfit', groups.outfit),
+    groupLine('Accessories', groups.accessories),
+    groupLine('Photographic direction', groups.photographicDirection || 'photorealistic editorial portrait, coherent facial identity, natural photographic detail'),
+  ].filter(Boolean).join('\n\n');
+}
+
 function compressGptSingleSubjectText(value, context) {
   if (context.subject?.count !== 1 || isSpecialSubject(context.subject) || context.characterProfilePrompt) {
     return value;
@@ -8942,8 +9106,13 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
   const useRoleOrderedDuo = context.subject?.count === 2 && character && wardrobe && wardrobeColors;
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
   const duoWardrobeSlots = useRoleOrderedDuo ? extractWardrobeSlots(wardrobe) : null;
+  const singleCharacterProfileSubjectBlock = !useRoleOrderedDuo && isCharacterProfileSubject(context.subject)
+    ? buildGptCharacterProfileSubjectBlock(context.subject)
+    : '';
   const resolvedSubjectText = useRoleOrderedDuo
     ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
+    : singleCharacterProfileSubjectBlock
+    ? singleCharacterProfileSubjectBlock
     : compressGptSingleSubjectText(subjectText, context);
   const singleSpecialOutfitText = !useRoleOrderedDuo && context.subject?.count === 1
     ? firstStructuredValue(valuesByLabel, ['Special Outfit'])
@@ -8964,6 +9133,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
     ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
     : compressGptSinglePoseText(poseText, context);
   const resolvedWardrobeUsesBlock = Boolean(singleSpecialOutfitWardrobeBlock);
+  const resolvedSubjectUsesBlock = Boolean(singleCharacterProfileSubjectBlock);
 
   if (useRoleOrderedDuo) {
     return [
@@ -8980,7 +9150,11 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
 
   return [
     section('Image Type', imageType),
-    resolvedSubjectText ? section('Subject', useRoleOrderedDuo ? resolvedSubjectText : `${subjectLead} ${resolvedSubjectText}`) : '',
+    resolvedSubjectText
+      ? resolvedSubjectUsesBlock
+        ? blockSection('Subject', resolvedSubjectText)
+        : section('Subject', useRoleOrderedDuo ? resolvedSubjectText : `${subjectLead} ${resolvedSubjectText}`)
+      : '',
     resolvedWardrobeText
       ? resolvedWardrobeUsesBlock
         ? blockSection('Wardrobe', resolvedWardrobeText)

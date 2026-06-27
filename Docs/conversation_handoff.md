@@ -245,6 +245,7 @@ Important tests:
 - This multi-cut line is only for Gpt.
 - Single `Gpt` keeps the main section order `Image Type`, `Subject`, `Wardrobe`, `Pose and Composition`, `Scene`, `Lighting`, `Camera Look`.
 - Single special outfits can be grouped inside `Wardrobe` as `Hair and body details`, `Full outfit`, and `Headwear, eyewear, and bag` so accessories are easy to inspect and edit.
+- Single character profile cards can be grouped inside `Subject` as `Character Profile Card`, `Identity and body`, `Hair`, `Outfit`, `Accessories`, and `Photographic direction`; current built-in cards should use explicit `profile` data instead of relying on fallback splitting.
 - Duo `Gpt` uses role-ordered sections:
   - `Image Type`
   - `Subject` containing the base subject sentence, then `Woman 1` and `Woman 2` role blocks

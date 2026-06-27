@@ -44,6 +44,7 @@ Current PAGE1 output labels:
   - Structured natural prompt
   - Must end with `multi-cut sequence n=2`
   - Single special outfits can be grouped inside `Wardrobe` as `Hair and body details`, `Full outfit`, and `Headwear, eyewear, and bag`
+  - Single character profile cards can be grouped inside `Subject` as `Character Profile Card`, `Identity and body`, `Hair`, `Outfit`, `Accessories`, and `Photographic direction`
 - `Grok/Z-Image`
   - Internal field: `zImagePrompt`
   - Target: Grok Imagine / Aurora and Z-Image

@@ -35,7 +35,7 @@ Markdown 資料同步流程：
 python3 scripts/sync_to_json.py
 ```
 
-特殊角色、角色卡與人物數量是直接寫在 `engine.js`，不需要跑 sync，但仍需要更新測試。
+特殊角色、角色卡與人物數量是直接寫在 `engine.js`，不需要跑 sync，但仍需要更新測試。角色卡新增或修改時，除原本 `en` 描述外，GPT 版應補 `profile` 分組資料，並依 `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md` 的角色卡 GPT 分組規範檢查 `Identity and body`、`Hair`、`Outfit`、`Accessories` 的邊界。
 
 ## 3. Prompt 寫法總則
 
