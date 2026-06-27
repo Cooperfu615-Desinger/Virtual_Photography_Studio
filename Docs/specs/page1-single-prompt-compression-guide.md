@@ -89,14 +89,15 @@ core category, 1-3 concrete visible traits
 - `long legs`, `narrow waist`, `rounded hips`
 - `small refined face`, `clear bright eyes`
 - `dewy glass skin`, `natural freckles`
-- `deep side-parted long soft waves`
-- `silver-gray white hair, realistic dyed texture`
+- `silver-gray white deep side-parted long soft waves, realistic dyed texture`
+- `natural black wet-look long wavy hair`
 
 應刪減：
 
 - 數值比例、身高體重、測量式 anchor。
 - `hair color applies only to scalp hair` 這類操作說明。
 - `eyebrows remain natural` 可壓成 `natural eyebrows`，只有特殊髮色需要時才保留。
+- Gpt 單人 Subject 中不要讓髮色獨立成短句，例如 `wet-look long wavy hair. natural black hair.`；應合併為 `natural black wet-look long wavy hair`。
 - 臉部美感同義詞堆疊。
 
 ## 4. B 神情姿態壓縮規則

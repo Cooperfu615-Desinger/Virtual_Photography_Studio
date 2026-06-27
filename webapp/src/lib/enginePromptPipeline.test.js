@@ -205,8 +205,8 @@ test('Gpt single-subject prompt applies second-pass identity compression', () =>
   });
   assert.match(curvy.subject, /tall slim-curvy hourglass body, long legs, narrow waist, rounded hips/i);
   assert.match(curvy.subject, /seductive mature face, defined eyes and lips/i);
-  assert.match(curvy.subject, /deep side-parted long soft waves/i);
-  assert.match(curvy.subject, /silver-gray white hair, cool pale tone, realistic dyed texture, natural eyebrows/i);
+  assert.match(curvy.subject, /silver-gray white deep side-parted long soft waves, cool pale tone, realistic dyed texture, natural eyebrows/i);
+  assert.doesNotMatch(curvy.subject, /\.\s+silver-gray white hair\b/i);
   assert.doesNotMatch(curvy.subject, /lean hourglass curve|magnetic facial balance|face-framing flow|cool pale fashion color/i);
   assert.match(curvy.zImagePrompt, /body proportion anchor/i);
   assert.match(curvy.zImagePrompt, /magnetic feminine facial balance/i);
@@ -220,8 +220,8 @@ test('Gpt single-subject prompt applies second-pass identity compression', () =>
   });
   assert.match(idol.subject, /tall slim fashion body, long legs, high waistline/i);
   assert.match(idol.subject, /Korean idol face, small refined face, clear bright eyes/i);
-  assert.match(idol.subject, /chin-length inward-curved bob, airy straight bangs, rounded face-framing ends/i);
-  assert.match(idol.subject, /natural black hair/i);
+  assert.match(idol.subject, /natural black chin-length inward-curved bob, airy straight bangs, rounded face-framing ends/i);
+  assert.doesNotMatch(idol.subject, /\.\s+natural black hair\b/i);
   assert.match(idol.subject, /dewy glass skin/i);
   assert.doesNotMatch(idol.subject, /clean editorial silhouette|polished K-pop portrait balance|clean salon shape|hydrated reflective complexion/i);
   assert.match(idol.zImagePrompt, /clean editorial silhouette/i);
@@ -236,8 +236,8 @@ test('Gpt single-subject prompt applies second-pass identity compression', () =>
   });
   assert.match(freckles.subject, /soft hourglass body, fuller bust, wider hips/i);
   assert.match(freckles.subject, /sweet rounded face, bright friendly eyes/i);
-  assert.match(freckles.subject, /sleek wet straight medium-to-long hair, separated damp strands/i);
-  assert.match(freckles.subject, /honey caramel-brown hair/i);
+  assert.match(freckles.subject, /honey caramel-brown sleek wet straight medium-to-long hair, separated damp strands/i);
+  assert.doesNotMatch(freckles.subject, /\.\s+honey caramel-brown hair\b/i);
   assert.match(freckles.subject, /natural freckles across nose and cheeks/i);
   assert.doesNotMatch(freckles.subject, /subtle abdomen contour|approachable portrait look|clean straight lengths|minimal wave|authentic skin detail/i);
 
@@ -250,8 +250,8 @@ test('Gpt single-subject prompt applies second-pass identity compression', () =>
   });
   assert.match(editorial.subject, /petite polished body, compact proportions/i);
   assert.match(editorial.subject, /cool editorial face, sharp features, calm high-fashion presence/i);
-  assert.match(editorial.subject, /long slightly wavy hair, airy see-through bangs, side-draped face-framing strands/i);
-  assert.match(editorial.subject, /cobalt-blue fashion hair/i);
+  assert.match(editorial.subject, /cobalt-blue fashion long slightly wavy hair, airy see-through bangs, side-draped face-framing strands/i);
+  assert.doesNotMatch(editorial.subject, /\.\s+cobalt-blue fashion hair\b/i);
   assert.match(editorial.subject, /small beauty mark under eye or near lips/i);
   assert.doesNotMatch(editorial.subject, /small-frame presence|sharp facial balance|naturally slightly wavy|rich blue tone|delicate facial mole detail/i);
 
@@ -264,10 +264,75 @@ test('Gpt single-subject prompt applies second-pass identity compression', () =>
   });
   assert.match(athletic.subject, /toned athletic body, subtle muscle definition/i);
   assert.match(athletic.subject, /mixed editorial face, defined nose bridge, deep-set eyes/i);
-  assert.match(athletic.subject, /soft braided hairstyle, delicate woven detail/i);
-  assert.match(athletic.subject, /deep forest-green hair/i);
+  assert.match(athletic.subject, /deep forest-green soft braided hairstyle, delicate woven detail/i);
+  assert.doesNotMatch(athletic.subject, /\.\s+deep forest-green hair\b/i);
   assert.match(athletic.subject, /sun-kissed skin, subtle warm flush/i);
   assert.doesNotMatch(athletic.subject, /firm silhouette|dimensional facial structure|romantic natural texture|dark moody green tone|healthy outdoor glow/i);
+});
+
+test('Gpt single-subject prompt merges hair color into hairstyle wording', () => {
+  const baseLocks = {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    bodyTypeId: optionId('bodyTypeId', '性感曲線身形'),
+    facialFeaturesId: optionId('facialFeaturesId', '成熟性感臉'),
+  };
+  const cases = [
+    {
+      name: 'natural black wet long waves',
+      hairstyle: '濕潤感長波浪',
+      hairColor: '自然黑',
+      merged: /natural black wet-look long wavy hair, damp separated strands, moody glossy texture/i,
+      standalone: /\.\s+natural black hair\b/i,
+      zImageColor: /natural black hair, soft realistic shine, clean dark depth/i,
+    },
+    {
+      name: 'silver-gray deep side waves',
+      hairstyle: '柔波：深側分',
+      hairColor: '銀灰白',
+      merged: /silver-gray white deep side-parted long soft waves, cool pale tone, realistic dyed texture, natural eyebrows/i,
+      standalone: /\.\s+silver-gray white hair\b/i,
+      zImageColor: /silver-gray white hair, cool pale fashion color/i,
+    },
+    {
+      name: 'honey caramel wet straight hair',
+      hairstyle: '直髮：濕感',
+      hairColor: '蜂蜜焦糖棕',
+      merged: /honey caramel-brown sleek wet straight medium-to-long hair, separated damp strands/i,
+      standalone: /\.\s+honey caramel-brown hair\b/i,
+      zImageColor: /honey caramel-brown hair, warm golden brown salon color/i,
+    },
+    {
+      name: 'cobalt-blue slight waves with bangs',
+      hairstyle: '輕透瀏海自然微彎長髮',
+      hairColor: '寶石藍',
+      merged: /cobalt-blue fashion long slightly wavy hair, airy see-through bangs, side-draped face-framing strands/i,
+      standalone: /\.\s+cobalt-blue fashion hair\b/i,
+      zImageColor: /jewel cobalt-blue fashion hair color, rich blue tone/i,
+    },
+    {
+      name: 'soft black-tea high ponytail',
+      hairstyle: '蓬鬆高馬尾',
+      hairColor: '柔霧黑茶',
+      merged: /soft black-tea brown voluminous high ponytail, loose natural strands, lifted active movement/i,
+      standalone: /\.\s+soft black-tea brown hair\b/i,
+      zImageColor: /soft black-tea brown hair, muted brown-black salon tone/i,
+    },
+  ];
+
+  for (const item of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...baseLocks,
+      hairstyleId: optionId('hairstyleId', item.hairstyle),
+      hairColorId: optionId('hairColorId', item.hairColor),
+    });
+    const subject = gptSection(prompt, 'Subject');
+
+    assert.match(subject, item.merged, `${item.name} should merge color into hairstyle`);
+    assert.doesNotMatch(subject, item.standalone, `${item.name} should not emit a standalone hair color sentence`);
+    assert.match(prompt.zImagePrompt, item.zImageColor, `${item.name} should leave Z-Image hair color wording unchanged for now`);
+  }
 });
 
 test('Gpt single-subject prompt compresses expression pose and special action wording', () => {

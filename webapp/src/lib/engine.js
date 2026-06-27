@@ -8686,12 +8686,13 @@ function cleanGptSinglePromptText(value) {
 }
 
 function splitGptSpecialOutfitFragments(value) {
-  return cleanGptSinglePromptText(value)
+  const compressed = cleanGptSinglePromptText(value)
     .replace(/^She wears\s+(?:complete special outfit:\s*)?/i, '')
     .replace(/^complete special outfit:\s*/i, '')
     .split(/\s*(?:\.\s+|,\s*)/)
     .map((part) => part.replace(/[.!?]+$/g, '').trim())
     .filter(Boolean);
+  return compressed;
 }
 
 function isGptSpecialOutfitHairOrBodyFragment(fragment) {
@@ -8854,12 +8855,46 @@ function buildGptCharacterProfileSubjectBlock(subject) {
   ].filter(Boolean).join('\n\n');
 }
 
+const GPT_SINGLE_HAIR_COLOR_MERGE_RULES = [
+  { phrase: 'natural black hair', modifier: 'natural black' },
+  { phrase: 'soft black-tea brown hair', modifier: 'soft black-tea brown' },
+  { phrase: 'deep coffee-brown hair', modifier: 'deep coffee-brown' },
+  { phrase: 'chestnut-brown hair', modifier: 'chestnut-brown' },
+  { phrase: 'milk-tea brown hair', modifier: 'milk-tea brown' },
+  { phrase: 'ashy beige-brown hair', modifier: 'ashy beige-brown' },
+  { phrase: 'honey caramel-brown hair', modifier: 'honey caramel-brown' },
+  { phrase: 'rose cocoa-brown hair', modifier: 'rose cocoa-brown' },
+  { phrase: 'light blonde hair, golden-beige tone, realistic dyed texture, natural eyebrows', modifier: 'light blonde', suffix: ', golden-beige tone, realistic dyed texture, natural eyebrows' },
+  { phrase: 'silver-gray white hair, cool pale tone, realistic dyed texture, natural eyebrows', modifier: 'silver-gray white', suffix: ', cool pale tone, realistic dyed texture, natural eyebrows' },
+  { phrase: 'hot-pink fashion hair', modifier: 'hot-pink fashion' },
+  { phrase: 'cobalt-blue fashion hair', modifier: 'cobalt-blue fashion' },
+  { phrase: 'deep forest-green hair', modifier: 'deep forest-green' },
+];
+
+function escapeRegExpPattern(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function mergeGptSingleHairColorIntoHairstyle(text) {
+  let output = text;
+  for (const rule of GPT_SINGLE_HAIR_COLOR_MERGE_RULES) {
+    const phrase = escapeRegExpPattern(rule.phrase);
+    const hairStylePattern = '[^.!?]*(?:hair|waves|bob|ponytail|pigtails|bun|chignon|hairstyle)[^.!?]*';
+    output = output.replace(new RegExp(`\\b(${hairStylePattern})\\.\\s+${phrase}`, 'gi'), (_, hairstyle) => {
+      const cleanedHairstyle = hairstyle.trim();
+      if (!cleanedHairstyle) return rule.phrase;
+      return `${rule.modifier} ${cleanedHairstyle}${rule.suffix || ''}`;
+    });
+  }
+  return output;
+}
+
 function compressGptSingleSubjectText(value, context) {
   if (context.subject?.count !== 1 || isSpecialSubject(context.subject) || context.characterProfilePrompt) {
     return value;
   }
 
-  return cleanGptSinglePromptText(value)
+  const compressed = cleanGptSinglePromptText(value)
     .replace(/\b(black|white|tortoiseshell|silver metal|gold metal|clear transparent) frame,\s+(bold thick-frame glasses|thin-frame glasses|retro round-frame glasses|narrow oval glasses|sunglasses with tinted lenses)\b/gi, '$1 $2')
     .replace(/,\s*worn normally on the face,\s*lenses aligned over the eyes/gi, '')
     .replace(
@@ -8964,6 +8999,8 @@ function compressGptSingleSubjectText(value, context) {
     .replace(/\s*,\s*,+/g, ', ')
     .replace(/,\s*\./g, '.')
     .trim();
+
+  return mergeGptSingleHairColorIntoHairstyle(compressed);
 }
 
 function compressGptSinglePoseText(value, context) {
