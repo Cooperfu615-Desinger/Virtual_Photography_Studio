@@ -908,8 +908,9 @@ test('pose composer applies to special subjects in every output and takes priori
   assert.match(prompt.grokPrompt, /seated near the front edge with clear leg line/);
   assert.match(prompt.grokPrompt, /both hands resting on thighs or nearest upper-leg surface/);
   assert.match(prompt.grokPrompt, /sitting on a scene-appropriate chair/);
+  assert.match(prompt.zImagePrompt, /She is sitting/);
+  assert.match(prompt.midjourneyPrompt, /sitting on a chair that naturally fits the current scene/);
   for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
-    assert.match(text, /She is sitting/);
     assert.match(text, /edge-of-seat poised seated arrangement/);
     assert.match(text, /seated near the front edge with clear leg line/);
     assert.match(text, /both hands resting on the thighs or nearest upper-leg surface/);

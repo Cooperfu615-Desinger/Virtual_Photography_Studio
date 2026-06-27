@@ -659,12 +659,16 @@ test('single-subject pose composer outputs natural base arrangement hand anchor 
     poseHeadId: optionId('poseHeadId', '頭部微微側傾'),
   });
 
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
     assert.match(text, /She is standing beside a doorway frame with/);
     assert.match(text, /one-leg weight shift/);
     assert.match(text, /one hand touching the chin/);
     assert.match(text, /head slightly tilted/);
   }
+  assert.match(prompt.midjourneyPrompt, /standing beside a doorway frame with/);
+  assert.match(prompt.midjourneyPrompt, /one-leg weight shift/);
+  assert.match(prompt.midjourneyPrompt, /one hand touching the chin/);
+  assert.match(prompt.midjourneyPrompt, /head slightly tilted/);
 });
 
 test('standing lean scene-object anchor preserves supported body contact wording', () => {

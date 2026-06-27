@@ -9873,6 +9873,14 @@ function compactAiMinimalFragment(value, limit = 4) {
     .join(', ');
 }
 
+function splitAiMinimalFragments(value) {
+  return cleanAiMinimalFragment(value)
+    .replace(/\.\s+/g, ', ')
+    .split(/\s*,\s*/)
+    .map((part) => part.trim().replace(/[.!?]+$/g, '').trim())
+    .filter(Boolean);
+}
+
 function removeAiModelNaturalPoseDirectives(value) {
   return stripMarkdown(value || '')
     .replace(/\bLet the image model choose a clearly varied non-default physically believable body arrangement within the selected pose base with distinct weight shift limb angles torso orientation and asymmetry compatible with the wardrobe camera framing and environment\.?/gi, '')
@@ -9885,11 +9893,7 @@ function removeAiModelNaturalPoseDirectives(value) {
 }
 
 function splitAiWardrobeFragments(value) {
-  return cleanAiMinimalFragment(value)
-    .replace(/\.\s+/g, ', ')
-    .split(/\s*,\s*/)
-    .map((part) => part.trim())
-    .filter(Boolean);
+  return splitAiMinimalFragments(value);
 }
 
 function withAiArticle(phrase) {
@@ -9990,6 +9994,13 @@ function buildAiSeparateStylePhrase(value) {
   if (/bikini|swimwear/i.test(text) && /denim shorts|denim micro shorts|denim mini skirt|denim skirt/i.test(text)) {
     return 'a summer bikini-and-denim look';
   }
+  if (/triangle bikini top/i.test(text) && /side-tie bikini bottoms/i.test(text)) {
+    const topColor = text.match(/(?:^|,\s*)([a-z][a-z -]*?)\s+triangle bikini top\b/i)?.[1] || '';
+    const bottomColor = text.match(/(?:^|,\s*)([a-z][a-z -]*?)\s+low-rise side-tie bikini bottoms\b/i)?.[1] || '';
+    const topPhrase = `${topColor} triangle bikini top`.trim();
+    const bottomPhrase = `${bottomColor ? `low-rise ${bottomColor} ` : 'low-rise '}side-tie bikini bottoms`;
+    return `${withAiArticle(topPhrase)} and ${bottomPhrase}`;
+  }
   if (/punk|tartan|graffiti|leather jacket|fishnet|stud/i.test(text)) return 'a punk streetwear look';
   if (/gothic|lace|corset|black sheer/i.test(text)) return 'a gothic lace street look';
   if (/jersey|sport|athletic|track jacket|sneakers|running/i.test(text)) return 'a sporty athleisure look';
@@ -10025,6 +10036,57 @@ function firstStructuredValue(valuesByLabel, labels) {
   return getStructuredValues(valuesByLabel, labels)[0] || '';
 }
 
+function normalizeAiSingleSubjectText(value) {
+  return cleanAiMinimalFragment(value)
+    .replace(/^one\s+20-year-old Japanese or Korean female portrait subject(?:\s+with)?\s*/i, '')
+    .replace(/\bnatural balanced body proportions\b/gi, 'natural body proportions')
+    .replace(/\btall slim-curvy hourglass body,\s*long legs,\s*narrow waist,\s*rounded hips\b/gi, 'slim-curvy hourglass body')
+    .replace(/\bseductive mature face,\s*defined eyes and lips\b/gi, 'defined eyes and lips')
+    .replace(/\bnatural black wet-look long wavy hair,\s*damp separated strands\b/gi, 'natural black wet wavy hair')
+    .replace(/\bwet-look long wavy hair,\s*damp separated strands\b/gi, 'wet wavy hair')
+    .replace(/\bbold thick-frame glasses\b/gi, 'bold-frame glasses')
+    .replace(/\bdirect eye contact,\s*soft natural smile\b/gi, 'soft smile')
+    .replace(/\bdirect eye contact,\s*/gi, '')
+    .replace(/\bsoft natural smile\b/gi, 'soft smile')
+    .replace(/,\s*(?:body proportion anchor|moody glossy texture|soft realistic shine|clean dark depth|bright approachable expression|worn normally on the face|lenses aligned over the eyes)\b/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/^,\s*/, '')
+    .replace(/,\s*$/g, '')
+    .trim();
+}
+
+function pickAiSingleSubjectDetails(subjectText) {
+  const fragments = splitAiMinimalFragments(subjectText)
+    .filter((part) => !/^(?:one )?20-year-old Japanese or Korean female portrait subject$/i.test(part))
+    .filter((part) => !/\b(?:long legs|narrow waist|rounded hips|damp separated strands|natural eyebrows)\b/i.test(part))
+    .filter((part) => !/\b(?:eyes unobstructed|pushed into the hair|lenses lifted|frame pushed)\b/i.test(part));
+  const picks = [];
+  const addPick = (pattern) => {
+    const match = fragments.find((part) => pattern.test(part) && !picks.includes(part));
+    if (match) picks.push(match);
+  };
+
+  addPick(/\bglasses\b/i);
+  addPick(/\b(?:body|hourglass|model|athletic|petite|curvy)\b/i);
+  addPick(/\b(?:face|eyes|lips|skin|freckles|mole)\b/i);
+  addPick(/\b(?:hair|waves|wavy|bob|ponytail|braid|bangs)\b/i);
+  addPick(/\b(?:smile|expression|gaze)\b/i);
+
+  if (picks.length === 0) return fragments.slice(0, 5);
+  return picks.slice(0, 5);
+}
+
+function buildAiSingleSubjectLead(valuesByLabel, context) {
+  if (context.subject?.count !== 1 || isSpecialSubject(context.subject) || isCharacterProfileSubject(context.subject)) return '';
+
+  const { subjectText } = buildPromptSectionSources(valuesByLabel, context);
+  const compressedSubject = normalizeAiSingleSubjectText(compressZImageSingleSubjectText(subjectText, context));
+  const detailText = joinNaturalList(pickAiSingleSubjectDetails(compressedSubject));
+  const base = 'A photorealistic editorial portrait of a 20-year-old Japanese or Korean woman';
+
+  return detailText ? `${base} with ${detailText}` : base;
+}
+
 function buildAiMinimalSubjectLead(valuesByLabel, context) {
   const subjectText = firstStructuredValue(valuesByLabel, ['Subject Count', 'Reference Guidance']);
   if (isSpecialSubject(context.subject)) {
@@ -10035,6 +10097,9 @@ function buildAiMinimalSubjectLead(valuesByLabel, context) {
   if (context.subject?.reference) {
     return 'A seductive stunning woman matching the attached reference person';
   }
+
+  const singleSubjectLead = buildAiSingleSubjectLead(valuesByLabel, context);
+  if (singleSubjectLead) return singleSubjectLead;
 
   return context.subject?.count === 2
     ? 'Two seductive stunning 20-year-old Japanese or Korean women'
@@ -10129,16 +10194,24 @@ function buildAiMinimalPoseClause(valuesByLabel, context) {
     .replace(/^two women\s+(?:in\s+)?/i, '')
     .replace(/^both women\s+(?:in\s+)?/i, '')
     .trim();
+  const naturalSinglePosePhrase = context.subject?.count === 1
+    ? posePhrase
+      .replace(/^sitting with natural seated arrangement;\s*head naturally facing the camera$/i, 'sitting naturally and facing the camera')
+      .replace(/^sitting with natural seated arrangement\b/i, 'sitting naturally')
+      .replace(/;\s*head naturally facing the camera\b/i, ' and facing the camera')
+      .replace(/^standing pose with\b/i, 'standing with')
+      .trim()
+    : posePhrase;
 
   if (!posePhrase) return context.subject?.count === 2 ? 'pose for a photoshoot' : 'poses for a photoshoot';
   if (context.subject?.count !== 2 && /^She is\b/i.test(stripMarkdown(poseText || '').trim())) {
-    return `She is ${posePhrase}`;
+    return naturalSinglePosePhrase;
   }
-  if (/^(standing|sitting|kneeling|squatting|lying|walking|holding|leaning|crouching|adjusting|looking|gazing)\b/i.test(posePhrase)) {
-    return posePhrase;
+  if (/^(standing|sitting|kneeling|squatting|lying|walking|holding|leaning|crouching|adjusting|looking|gazing)\b/i.test(naturalSinglePosePhrase)) {
+    return naturalSinglePosePhrase;
   }
 
-  return `posing with ${posePhrase}`;
+  return `posing with ${naturalSinglePosePhrase}`;
 }
 
 function buildAiMinimalSceneClause(valuesByLabel) {
@@ -10323,7 +10396,7 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
   ].filter(Boolean);
   const moodTail = buildAiMinimalMoodTail(valuesByLabel);
 
-  return ensureTerminalPeriod(`${parts.join(' ')}, ${moodTail}`);
+  return ensureTerminalPeriod(`${parts.join(', ')}, ${moodTail}`);
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {

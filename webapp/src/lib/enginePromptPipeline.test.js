@@ -222,6 +222,45 @@ test('Grok/Z-Image single-subject prompt uses compact natural subject wardrobe a
   assert.match(paragraphs[2], /^She is sitting naturally with her head facing the camera\.$/i);
 });
 
+test('AI single-subject prompt keeps core traits in one compact natural sentence', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    bodyTypeId: optionId('bodyTypeId', '性感曲線身形'),
+    facialFeaturesId: optionId('facialFeaturesId', '成熟性感臉'),
+    hairstyleId: optionId('hairstyleId', '濕潤感長波浪'),
+    hairColorId: optionId('hairColorId', '自然黑'),
+    eyewearId: optionId('eyewearId', '粗框眼鏡'),
+    eyewearColorId: optionId('eyewearColorId', '黑色'),
+    eyewearPlacementId: optionId('eyewearPlacementId', '正常戴在臉上'),
+    expressionId: optionId('expressionId', '直視鏡頭｜柔和微笑'),
+    topId: optionId('topId', '比基尼上身'),
+    topColorId: optionId('topColorId', '白色'),
+    pantsId: optionId('pantsId', '比基尼下身'),
+    bottomColorId: optionId('bottomColorId', '白色'),
+    poseBaseId: optionId('poseBaseId', '坐姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然坐姿'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  });
+  const aiPrompt = prompt.midjourneyPrompt;
+
+  assert.match(aiPrompt, /^A photorealistic editorial portrait of a 20-year-old Japanese or Korean woman with /);
+  assert.match(aiPrompt, /black bold-frame glasses/i);
+  assert.match(aiPrompt, /slim-curvy hourglass body/i);
+  assert.match(aiPrompt, /defined eyes and lips/i);
+  assert.match(aiPrompt, /natural black wet wavy hair/i);
+  assert.match(aiPrompt, /soft smile/i);
+  assert.match(aiPrompt, /wearing a white triangle bikini top and low-rise white side-tie bikini bottoms/i);
+  assert.match(aiPrompt, /sitting naturally and facing the camera/i);
+  assert.doesNotMatch(aiPrompt, /^(Image Type|Scene|Subject|Wardrobe|Pose and Composition):/m);
+  assert.doesNotMatch(aiPrompt, /A seductive stunning/i);
+  assert.doesNotMatch(aiPrompt, /worn normally|body proportion anchor|moody glossy texture|clean beachwear|top length extending|She is sitting with natural seated arrangement|bottoms She is/i);
+  assert.doesNotMatch(aiPrompt, /\bnone\b|[\u3400-\u9fff]/i);
+  assert.doesNotMatch(aiPrompt, /\n/);
+  assert.ok(aiPrompt.length < prompt.zImagePrompt.length);
+});
+
 test('Gpt single-subject prompt applies second-pass identity compression', () => {
   const baseLocks = {
     ...createAllNoneLocks(),
@@ -790,7 +829,7 @@ test('Grok/Z-Image duo prompt uses compact role sections', () => {
   assert.doesNotMatch(zPrompt, /natural photographic detail|do not add visible text/i);
 });
 
-test('Grok/Z-Image prompt remains natural language with blank-line paragraphs and AI uses a legacy minimal paragraph', () => {
+test('Grok/Z-Image prompt remains natural language with blank-line paragraphs and AI uses a compact natural sentence', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -810,10 +849,10 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
-  assert.match(prompt.midjourneyPrompt, /^A seductive stunning 20-year-old Japanese or Korean woman/);
+  assert.match(prompt.midjourneyPrompt, /^A photorealistic editorial portrait of a 20-year-old Japanese or Korean woman/);
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
   assert.match(prompt.midjourneyPrompt, /wearing a flight attendant uniform/);
-  assert.match(prompt.midjourneyPrompt, /standing pose with loosely crossed arms/);
+  assert.match(prompt.midjourneyPrompt, /standing with loosely crossed arms/);
   assert.match(prompt.midjourneyPrompt, /captured (?:in film photography style|as a moody film still|as an editorial film still)/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
@@ -1141,7 +1180,7 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
 
   assert.match(prompt.midjourneyPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.midjourneyPrompt, /flight attendant uniform/i);
-  assert.match(prompt.midjourneyPrompt, /standing pose with loosely crossed arms/i);
+  assert.match(prompt.midjourneyPrompt, /standing with loosely crossed arms/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
   assert.equal(prompt.selection.locationId, optionId('locationId', '全無'));
   assert.equal(prompt.selection.importedWorldSceneMode, 'architecture');
