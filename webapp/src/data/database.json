@@ -3388,52 +3388,52 @@
       },
       {
         "zh": "高位俯視鏡頭",
-        "en": "high camera position above the subject's head, looking downward, elevated portrait viewpoint, visible top planes",
+        "en": "high camera position, looking downward, visible top planes",
         "desc": "相機在人物頭部以上高度，從上方往下拍攝人物；仍以人像為主，不等同遠距離空拍或環境主導的鳥瞰視角。"
       },
       {
         "zh": "平視高度鏡頭",
-        "en": "eye-height camera position, level gaze toward the subject, neutral stable portrait viewpoint, natural perspective",
+        "en": "eye-height camera, level perspective, neutral portrait view",
         "desc": "相機高度在人物視線附近，維持平視與穩定人像視點，適合大多數日常、寫真與時裝構圖。"
       },
       {
         "zh": "肩部高度鏡頭",
-        "en": "shoulder-level camera position, level lens axis near the shoulder line, stable upper-body portrait viewpoint",
+        "en": "shoulder-level camera, level lens axis, upper-body portrait height",
         "desc": "相機高度約在肩線附近，略低於眼平但不做仰拍強化，適合胸上、中景與日常人像。"
       },
       {
         "zh": "腰部高度鏡頭",
-        "en": "waist-level camera position, level lens axis, grounded fashion portrait height, no upward or downward tilt",
+        "en": "waist-level camera, level lens axis, grounded portrait height",
         "desc": "相機高度落在腰部或髖部附近，以平視鏡頭軸拍攝，不做俯仰描述，適合全身、牛仔中景與下身穿搭。"
       },
       {
         "zh": "膝蓋高度鏡頭",
-        "en": "knee-level camera position, level lens axis, low fashion camera height, legs and shoes emphasized",
+        "en": "knee-level camera, level lens axis, legs and shoes emphasized",
         "desc": "相機高度接近膝蓋，以平視鏡頭軸拍攝，不做俯仰描述，強調低機位、腿部比例與鞋款存在感。"
       },
       {
         "zh": "地面高度鏡頭",
-        "en": "floor-level camera position, low camera near the floor, upward view, elongated full-body perspective",
+        "en": "floor-level camera position, upward view, elongated full-body perspective",
         "desc": "相機接近地面，低機位並明顯向上看，但仍保持可控的人像低角度透視，不強制近前景誇張放大。"
       },
       {
         "zh": "蟲眼視角鏡頭",
-        "en": "worm's-eye view, ultra-low upward camera, ultra-wide lens perspective, strong near-far scale distortion, intense spatial impact",
+        "en": "worm's-eye view, ultra-low upward camera, strong near-far scale distortion",
         "desc": "相機極低、貼近地面、強烈向上看，結合超廣角近大遠小透視；最近前景平面與背景之間形成巨大比例差，帶出強烈壓迫感與空間衝擊力。"
       },
       {
         "zh": "鳥瞰視角",
-        "en": "bird's-eye view, elevated overhead camera position, looking down from high above, small figure against the surrounding space",
+        "en": "bird's-eye view, elevated overhead camera, small figure in surrounding space",
         "desc": "從高處往下看，人物與環境關係更明顯，適合全身或廣一點的環境構圖，不適合需要眼神直視或臉部細節的近景。"
       },
       {
         "zh": "正上方俯視鏡頭",
-        "en": "top-down view, vertical overhead camera angle, camera directly above the subject, graphic flattened composition",
+        "en": "top-down view, camera directly above, flattened graphic composition",
         "desc": "相機幾乎在人物正上方垂直俯拍，畫面更平面化、圖像化，適合地面、床面、桌面或造型排列感強的畫面，屬於低頻特殊視角。"
       },
       {
         "zh": "荷蘭角/傾斜 (Dutch Angle)",
-        "en": "dutch angle, tilted camera axis, diagonal horizon line, off-balance frame geometry",
+        "en": "dutch angle, diagonal horizon, tilted frame geometry",
         "desc": "相機刻意傾斜，地平線或垂直線不再水平，形成偏移、斜向、非穩定的畫面幾何。"
       }
     ],

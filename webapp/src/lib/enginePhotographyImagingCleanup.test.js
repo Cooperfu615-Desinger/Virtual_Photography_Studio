@@ -50,7 +50,7 @@ test('composition and angle prompts stay geometric instead of emotional', () => 
 
   assert.match(optionByLabel('angleId', '地面高度鏡頭').en, /floor-level camera position/);
   assert.match(optionByLabel('angleId', '蟲眼視角鏡頭').en, /ultra-low upward camera/);
-  assert.match(optionByLabel('angleId', '蟲眼視角鏡頭').en, /ultra-wide lens perspective/);
+  assert.doesNotMatch(optionByLabel('angleId', '蟲眼視角鏡頭').en, /ultra-wide lens perspective/);
   assert.doesNotMatch(optionByLabel('angleId', '蟲眼視角鏡頭').en, /feet extremely close to the lens/);
   assert.match(optionByLabel('angleId', '高位俯視鏡頭').en, /looking downward/);
 });
@@ -185,6 +185,32 @@ test('camera angle control uses height-based definitions with legacy lock migrat
 
   assert.ok(!optionByLabel('angleId', '高位俯視鏡頭').meta.tags.includes('aerial'));
   assert.ok(optionByLabel('angleId', '鳥瞰視角').meta.tags.includes('aerial'));
+
+  const optimizedAnglePrompts = {
+    '高位俯視鏡頭': 'high camera position, looking downward, visible top planes',
+    '平視高度鏡頭': 'eye-height camera, level perspective, neutral portrait view',
+    '肩部高度鏡頭': 'shoulder-level camera, level lens axis, upper-body portrait height',
+    '腰部高度鏡頭': 'waist-level camera, level lens axis, grounded portrait height',
+    '膝蓋高度鏡頭': 'knee-level camera, level lens axis, legs and shoes emphasized',
+    '地面高度鏡頭': 'floor-level camera position, upward view, elongated full-body perspective',
+    '蟲眼視角鏡頭': "worm's-eye view, ultra-low upward camera, strong near-far scale distortion",
+    '鳥瞰視角': "bird's-eye view, elevated overhead camera, small figure in surrounding space",
+    '正上方俯視鏡頭': 'top-down view, camera directly above, flattened graphic composition',
+    '荷蘭角/傾斜 (Dutch Angle)': 'dutch angle, diagonal horizon, tilted frame geometry',
+  };
+
+  for (const [label, expectedPrompt] of Object.entries(optimizedAnglePrompts)) {
+    const angle = optionByLabel('angleId', label);
+    assert.equal(angle.en, expectedPrompt);
+    assert.ok(
+      angle.en.split(/\s+/).filter(Boolean).length <= 10,
+      `${label} should keep angle prompt compact`
+    );
+    assert.doesNotMatch(
+      angle.en,
+      /neutral stable|natural perspective|intense spatial impact|ultra-wide lens|elevated portrait viewpoint|grounded fashion/i
+    );
+  }
 });
 
 test('duo angle overrides stay geometric after angle cleanup', () => {
@@ -196,7 +222,7 @@ test('duo angle overrides stay geometric after angle cleanup', () => {
   })[0].grokPrompt;
 
   assert.doesNotMatch(prompt, /dominant|cinematic tension/i);
-  assert.match(prompt, /tilted two-subject framing/);
+  assert.match(prompt, /dutch angle, diagonal horizon, tilted two-subject frame/);
 
   const wormEye = optionByLabel('angleId', '蟲眼視角鏡頭');
   const wormEyePrompt = generatePrompts(1, {
@@ -206,8 +232,18 @@ test('duo angle overrides stay geometric after angle cleanup', () => {
   })[0].grokPrompt;
 
   assert.match(wormEyePrompt, /ultra-low upward camera/);
-  assert.match(wormEyePrompt, /ultra-wide lens perspective/);
+  assert.doesNotMatch(wormEyePrompt, /ultra-wide lens perspective/);
   assert.doesNotMatch(wormEyePrompt, /feet extremely close to the lens/);
+
+  const birdEye = optionByLabel('angleId', '鳥瞰視角');
+  const birdEyePrompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    angleId: birdEye.id,
+  })[0].grokPrompt;
+
+  assert.match(birdEyePrompt, /elevated bird's-eye duo view/);
+  assert.doesNotMatch(birdEyePrompt, /small figure against the surrounding space/i);
 });
 
 test('orbit control uses degree-based body orientation with legacy lock migration', () => {

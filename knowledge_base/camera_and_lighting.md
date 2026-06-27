@@ -15,16 +15,16 @@
 | **景別構圖 (Framing)** | 牛仔中景 (Cowboy Shot) | `cowboy shot, knee up figure framing, readable outfit proportions` | 從膝蓋上方截斷，保留上身、腰腿比例與大部分穿搭資訊，介於中景與全身之間。 |
 | **景別構圖 (Framing)** | 全身鏡頭 (Full Body Shot) | `full body shot, head-to-toe figure, environmental scale` | 完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。 |
 | **相機視角 (Angle)** | 全無 | `none` | 不指定俯仰角度，讓模型自行決定相機高低視角。 |
-| **相機視角 (Angle)** | 高位俯視鏡頭 | `high camera position above the subject's head, looking downward, elevated portrait viewpoint, visible top planes` | 相機在人物頭部以上高度，從上方往下拍攝人物；仍以人像為主，不等同遠距離空拍或環境主導的鳥瞰視角。 |
-| **相機視角 (Angle)** | 平視高度鏡頭 | `eye-height camera position, level gaze toward the subject, neutral stable portrait viewpoint, natural perspective` | 相機高度在人物視線附近，維持平視與穩定人像視點，適合大多數日常、寫真與時裝構圖。 |
-| **相機視角 (Angle)** | 肩部高度鏡頭 | `shoulder-level camera position, level lens axis near the shoulder line, stable upper-body portrait viewpoint` | 相機高度約在肩線附近，略低於眼平但不做仰拍強化，適合胸上、中景與日常人像。 |
-| **相機視角 (Angle)** | 腰部高度鏡頭 | `waist-level camera position, level lens axis, grounded fashion portrait height, no upward or downward tilt` | 相機高度落在腰部或髖部附近，以平視鏡頭軸拍攝，不做俯仰描述，適合全身、牛仔中景與下身穿搭。 |
-| **相機視角 (Angle)** | 膝蓋高度鏡頭 | `knee-level camera position, level lens axis, low fashion camera height, legs and shoes emphasized` | 相機高度接近膝蓋，以平視鏡頭軸拍攝，不做俯仰描述，強調低機位、腿部比例與鞋款存在感。 |
-| **相機視角 (Angle)** | 地面高度鏡頭 | `floor-level camera position, low camera near the floor, upward view, elongated full-body perspective` | 相機接近地面，低機位並明顯向上看，但仍保持可控的人像低角度透視，不強制近前景誇張放大。 |
-| **相機視角 (Angle)** | 蟲眼視角鏡頭 | `worm's-eye view, ultra-low upward camera, ultra-wide lens perspective, strong near-far scale distortion, intense spatial impact` | 相機極低、貼近地面、強烈向上看，結合超廣角近大遠小透視；最近前景平面與背景之間形成巨大比例差，帶出強烈壓迫感與空間衝擊力。 |
-| **相機視角 (Angle)** | 鳥瞰視角 | `bird's-eye view, elevated overhead camera position, looking down from high above, small figure against the surrounding space` | 從高處往下看，人物與環境關係更明顯，適合全身或廣一點的環境構圖，不適合需要眼神直視或臉部細節的近景。 |
-| **相機視角 (Angle)** | 正上方俯視鏡頭 | `top-down view, vertical overhead camera angle, camera directly above the subject, graphic flattened composition` | 相機幾乎在人物正上方垂直俯拍，畫面更平面化、圖像化，適合地面、床面、桌面或造型排列感強的畫面，屬於低頻特殊視角。 |
-| **相機視角 (Angle)** | 荷蘭角/傾斜 (Dutch Angle) | `dutch angle, tilted camera axis, diagonal horizon line, off-balance frame geometry` | 相機刻意傾斜，地平線或垂直線不再水平，形成偏移、斜向、非穩定的畫面幾何。 |
+| **相機視角 (Angle)** | 高位俯視鏡頭 | `high camera position, looking downward, visible top planes` | 相機在人物頭部以上高度，從上方往下拍攝人物；仍以人像為主，不等同遠距離空拍或環境主導的鳥瞰視角。 |
+| **相機視角 (Angle)** | 平視高度鏡頭 | `eye-height camera, level perspective, neutral portrait view` | 相機高度在人物視線附近，維持平視與穩定人像視點，適合大多數日常、寫真與時裝構圖。 |
+| **相機視角 (Angle)** | 肩部高度鏡頭 | `shoulder-level camera, level lens axis, upper-body portrait height` | 相機高度約在肩線附近，略低於眼平但不做仰拍強化，適合胸上、中景與日常人像。 |
+| **相機視角 (Angle)** | 腰部高度鏡頭 | `waist-level camera, level lens axis, grounded portrait height` | 相機高度落在腰部或髖部附近，以平視鏡頭軸拍攝，不做俯仰描述，適合全身、牛仔中景與下身穿搭。 |
+| **相機視角 (Angle)** | 膝蓋高度鏡頭 | `knee-level camera, level lens axis, legs and shoes emphasized` | 相機高度接近膝蓋，以平視鏡頭軸拍攝，不做俯仰描述，強調低機位、腿部比例與鞋款存在感。 |
+| **相機視角 (Angle)** | 地面高度鏡頭 | `floor-level camera position, upward view, elongated full-body perspective` | 相機接近地面，低機位並明顯向上看，但仍保持可控的人像低角度透視，不強制近前景誇張放大。 |
+| **相機視角 (Angle)** | 蟲眼視角鏡頭 | `worm's-eye view, ultra-low upward camera, strong near-far scale distortion` | 相機極低、貼近地面、強烈向上看，結合超廣角近大遠小透視；最近前景平面與背景之間形成巨大比例差，帶出強烈壓迫感與空間衝擊力。 |
+| **相機視角 (Angle)** | 鳥瞰視角 | `bird's-eye view, elevated overhead camera, small figure in surrounding space` | 從高處往下看，人物與環境關係更明顯，適合全身或廣一點的環境構圖，不適合需要眼神直視或臉部細節的近景。 |
+| **相機視角 (Angle)** | 正上方俯視鏡頭 | `top-down view, camera directly above, flattened graphic composition` | 相機幾乎在人物正上方垂直俯拍，畫面更平面化、圖像化，適合地面、床面、桌面或造型排列感強的畫面，屬於低頻特殊視角。 |
+| **相機視角 (Angle)** | 荷蘭角/傾斜 (Dutch Angle) | `dutch angle, diagonal horizon, tilted frame geometry` | 相機刻意傾斜，地平線或垂直線不再水平，形成偏移、斜向、非穩定的畫面幾何。 |
 | **拍攝方位 (Orbit Angle)** | 全無 | `none` | 不指定環繞角度，讓模型自行決定人物相對鏡頭的朝向。 |
 | **拍攝方位 (Orbit Angle)** | 正面 0 度 | `camera positioned directly in front of the subject, 0-degree front view, frontal torso orientation` | 鏡頭位於人物正前方，人物身體正面朝向鏡頭，臉部與身體資訊最完整。 |
 | **拍攝方位 (Orbit Angle)** | 左前 45 度 | `camera at the subject's front-left, 45-degree front three-quarter view, torso angled toward the lens` | 鏡頭位於人物左前方 45 度，呈現正面與側面兼具的前斜側身體方位。 |

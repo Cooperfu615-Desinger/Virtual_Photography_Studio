@@ -109,13 +109,13 @@ test('outdoor fixed compositions add locked coastal road and stair sets with bac
     assert.match(prompt.grokPrompt, fixedSetCase.backgroundText);
     assert.match(prompt.grokPrompt, fixedSetCase.integrityText);
     assert.match(prompt.grokPrompt, fixedSetCase.replacementText);
-    assert.doesNotMatch(prompt.grokPrompt, /shoulder-level camera position|camera at the subject's front-right/);
+    assert.doesNotMatch(prompt.grokPrompt, /shoulder-level camera|camera at the subject's front-right/);
     assert.doesNotMatch(prompt.grokPrompt, /indoor warm night ambience|local warm practical-light pool/);
     assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 
     assert.match(prompt.zImagePrompt, fixedSetCase.setText);
     assert.match(prompt.zImagePrompt, fixedSetCase.backgroundText);
-    assert.doesNotMatch(prompt.zImagePrompt, /shoulder-level camera position|camera at the subject's front-right/);
+    assert.doesNotMatch(prompt.zImagePrompt, /shoulder-level camera|camera at the subject's front-right/);
 
     assert.match(prompt.midjourneyPrompt, fixedSetCase.setText);
     assert.match(prompt.midjourneyPrompt, fixedSetCase.backgroundText);
@@ -188,7 +188,7 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.grokPrompt, /subject placement can vary across one primary zone within the fixed sofa set/);
   assert.match(prompt.grokPrompt, /The sofa can support the subject or remain a background architecture anchor/);
   assert.match(prompt.grokPrompt, /Avoid defaulting every result to a centered seated sofa pose/);
-  assert.match(prompt.grokPrompt, /shoulder-level camera position/);
+  assert.match(prompt.grokPrompt, /shoulder-level camera/);
   assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
   assert.match(prompt.grokPrompt, /photographer-shot fixed set portrait/);
   assert.match(prompt.grokPrompt, /confident powerful presence/);
@@ -208,7 +208,7 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.zImagePrompt, /large brown vintage Chesterfield leather sofa/);
   assert.match(prompt.zImagePrompt, /approximately 3 to 4 meters away from the sofa/);
   assert.match(prompt.zImagePrompt, /subject placement can vary across one primary zone within the fixed sofa set/);
-  assert.match(prompt.zImagePrompt, /shoulder-level camera position/);
+  assert.match(prompt.zImagePrompt, /shoulder-level camera/);
   assert.match(prompt.zImagePrompt, /camera at the subject's front-right/);
   assert.doesNotMatch(prompt.zImagePrompt, /1:1 square|16:9|9:16|aspect ratio/i);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
@@ -247,7 +247,7 @@ test('black velvet industrial sofa fixed composition shares sofa placement contr
   assert.match(prompt.grokPrompt, /compact brass or black-metal table lamp/);
   assert.match(prompt.grokPrompt, /approximately 3 to 4 meters away from the sofa/);
   assert.match(prompt.grokPrompt, /subject on the floor plane near the sofa but off center/);
-  assert.match(prompt.grokPrompt, /shoulder-level camera position/);
+  assert.match(prompt.grokPrompt, /shoulder-level camera/);
   assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
   assert.match(prompt.grokPrompt, /preserve anchors: warm limewash plaster wall, black velvet sofa, wall-art or mirror zone, industrial coffee-table foreground/);
   assert.match(prompt.grokPrompt, /avoid raw concrete set, brown leather sofa, bare dry-branch decor, plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room/);
@@ -275,7 +275,7 @@ test('hotel and bathtub fixed compositions preserve camera angle and orbit locks
       positionId: 'hotel-free-interaction',
       angleZh: '肩部高度鏡頭',
       orbitZh: '右前 315 度',
-      angleText: /shoulder-level camera position/,
+      angleText: /shoulder-level camera/,
       orbitText: /camera at the subject's front-right/,
     },
     {
@@ -283,7 +283,7 @@ test('hotel and bathtub fixed compositions preserve camera angle and orbit locks
       positionId: 'bathtub-free-interaction',
       angleZh: '高位俯視鏡頭',
       orbitZh: '左前 45 度',
-      angleText: /high camera position above the subject's head/,
+      angleText: /high camera position, looking downward/,
       orbitText: /camera at the subject's front-left/,
     },
   ];
@@ -305,7 +305,7 @@ test('hotel and bathtub fixed compositions preserve camera angle and orbit locks
     assert.match(prompt.grokPrompt, cameraCase.orbitText);
     assert.match(prompt.zImagePrompt, cameraCase.angleText);
     assert.match(prompt.zImagePrompt, cameraCase.orbitText);
-    assert.doesNotMatch(prompt.midjourneyPrompt, /shoulder-level camera position|high camera position above the subject's head|camera at the subject's front-right|camera at the subject's front-left/);
+    assert.doesNotMatch(prompt.midjourneyPrompt, /shoulder-level camera|high camera position|camera at the subject's front-right|camera at the subject's front-left/);
   });
 });
 
@@ -403,7 +403,7 @@ test('Fuji hotel fixed compositions share hotel placement controls and seasonal 
     assert.match(prompt.grokPrompt, /Mount Fuji/);
     assert.match(prompt.grokPrompt, fixedSetCase.seasonText);
     assert.match(prompt.grokPrompt, /subject near the floor-to-ceiling window/);
-    assert.match(prompt.grokPrompt, /shoulder-level camera position/);
+    assert.match(prompt.grokPrompt, /shoulder-level camera/);
     assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
     assert.match(prompt.grokPrompt, /fixed-set rule: stable selected room architecture/);
     assert.match(prompt.grokPrompt, fixedSetCase.anchorText);
