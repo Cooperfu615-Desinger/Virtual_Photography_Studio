@@ -8618,6 +8618,78 @@ function cleanGptSinglePromptText(value) {
     .trim();
 }
 
+function splitGptSpecialOutfitFragments(value) {
+  return cleanGptSinglePromptText(value)
+    .replace(/^She wears\s+(?:complete special outfit:\s*)?/i, '')
+    .replace(/^complete special outfit:\s*/i, '')
+    .split(/\s*(?:\.\s+|,\s*)/)
+    .map((part) => part.replace(/[.!?]+$/g, '').trim())
+    .filter(Boolean);
+}
+
+function isGptSpecialOutfitHairOrBodyFragment(fragment) {
+  if (/\btattoos?\b/i.test(fragment)) return true;
+
+  const hairAccessoryOnly = /\bhair\s+(?:clips?|claw clips?|pins?|barrettes?|accessories?)\b/i.test(fragment)
+    && !/\b(?:bangs?|braids?|side braid|twin-bun|pigtails?|ponytail|bob|shag|chignon|bun|updo|waves?|wavy|straight|pixie)\b/i.test(fragment);
+  if (hairAccessoryOnly) return false;
+
+  return /\b(?:hair|bangs?|braids?|side braid|twin-bun|pigtails?|ponytail|bob|shag|chignon|bun|updo|waves?|wavy|pixie)\b/i.test(fragment);
+}
+
+function isGptSpecialOutfitHeadwearEyewearBagFragment(fragment) {
+  return /\b(?:sunglasses|glasses|eyeglasses|bag|handbag|shoulder bag|tote|backpack|purse|clutch|cap|hat|beret|beanie|headscarf|bandana|headband|hair clips?|claw clip|barrettes?)\b/i.test(fragment);
+}
+
+function isGptSpecialOutfitGenericStylingFragment(fragment) {
+  return /\b(?:coordinated|bold novelty|downtown|street)\s+[^,.]*\bstyling\b/i.test(fragment)
+    && !/\b(?:shirt|top|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|jeans|trousers|boots|shoes|sandals|loafers|sneakers|socks|stockings|bag|hat|cap|glasses|sunglasses|necklace|bracelet|ring|belt)\b/i.test(fragment);
+}
+
+function joinGptSpecialOutfitGroupFragments(fragments, { lead = '' } = {}) {
+  const text = fragments
+    .map((fragment) => fragment.trim())
+    .filter(Boolean)
+    .join(', ');
+  return text ? ensureTerminalPeriod(`${lead}${text}`) : '';
+}
+
+function buildGptSingleSpecialOutfitWardrobeBlock(specialOutfitText, additionalFullTexts = []) {
+  const fragments = [
+    ...splitGptSpecialOutfitFragments(specialOutfitText),
+    ...additionalFullTexts.flatMap((value) => splitGptSpecialOutfitFragments(value)),
+  ];
+  if (fragments.length === 0) return '';
+
+  const hairAndBodyFragments = [];
+  const fullOutfitFragments = [];
+  const headwearEyewearBagFragments = [];
+
+  for (const fragment of fragments) {
+    if (isGptSpecialOutfitHairOrBodyFragment(fragment)) {
+      hairAndBodyFragments.push(fragment);
+    } else if (isGptSpecialOutfitHeadwearEyewearBagFragment(fragment)) {
+      headwearEyewearBagFragments.push(fragment);
+    } else if (!isGptSpecialOutfitGenericStylingFragment(fragment)) {
+      fullOutfitFragments.push(fragment);
+    }
+  }
+
+  const sections = [
+    hairAndBodyFragments.length > 0
+      ? `Hair and body details:\n${joinGptSpecialOutfitGroupFragments(hairAndBodyFragments)}`
+      : '',
+    fullOutfitFragments.length > 0
+      ? `Full outfit:\n${joinGptSpecialOutfitGroupFragments(fullOutfitFragments, { lead: 'She wears ' })}`
+      : '',
+    headwearEyewearBagFragments.length > 0
+      ? `Headwear, eyewear, and bag:\n${joinGptSpecialOutfitGroupFragments(headwearEyewearBagFragments)}`
+      : '',
+  ].filter(Boolean);
+
+  return sections.join('\n\n');
+}
+
 function compressGptSingleSubjectText(value, context) {
   if (context.subject?.count !== 1 || isSpecialSubject(context.subject) || context.characterProfilePrompt) {
     return value;
@@ -8873,13 +8945,25 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
   const resolvedSubjectText = useRoleOrderedDuo
     ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
     : compressGptSingleSubjectText(subjectText, context);
+  const singleSpecialOutfitText = !useRoleOrderedDuo && context.subject?.count === 1
+    ? firstStructuredValue(valuesByLabel, ['Special Outfit'])
+    : '';
+  const singleSpecialOutfitWardrobeBlock = singleSpecialOutfitText
+    ? buildGptSingleSpecialOutfitWardrobeBlock(
+        singleSpecialOutfitText,
+        getStructuredValues(valuesByLabel, ['Outerwear'])
+      )
+    : '';
   const resolvedWardrobeText = useRoleOrderedDuo
     ? wardrobeText
+    : singleSpecialOutfitWardrobeBlock
+    ? singleSpecialOutfitWardrobeBlock
     : compressGptSingleWardrobeText(wardrobeText, context);
   const resolvedSharedExpressionText = useRoleOrderedDuo ? buildGptDuoSharedExpressionText(duoCharacterSlots) : '';
   const resolvedPoseText = useRoleOrderedDuo
     ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
     : compressGptSinglePoseText(poseText, context);
+  const resolvedWardrobeUsesBlock = Boolean(singleSpecialOutfitWardrobeBlock);
 
   if (useRoleOrderedDuo) {
     return [
@@ -8897,7 +8981,11 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
   return [
     section('Image Type', imageType),
     resolvedSubjectText ? section('Subject', useRoleOrderedDuo ? resolvedSubjectText : `${subjectLead} ${resolvedSubjectText}`) : '',
-    resolvedWardrobeText ? section('Wardrobe', wardrobeUsesDirectSentence ? resolvedWardrobeText : `${wardrobeLead} ${resolvedWardrobeText}`) : '',
+    resolvedWardrobeText
+      ? resolvedWardrobeUsesBlock
+        ? blockSection('Wardrobe', resolvedWardrobeText)
+        : section('Wardrobe', wardrobeUsesDirectSentence ? resolvedWardrobeText : `${wardrobeLead} ${resolvedWardrobeText}`)
+      : '',
     section('Pose and Composition', resolvedPoseText),
     sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
     section('Lighting', lightingText),

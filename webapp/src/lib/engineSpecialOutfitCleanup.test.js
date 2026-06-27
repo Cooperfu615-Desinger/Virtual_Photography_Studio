@@ -98,6 +98,19 @@ const optionByLabel = (key, label) => {
 };
 
 const wordCount = (text) => text.trim().split(/\s+/).filter(Boolean).length;
+const gptSection = (prompt, label) => (
+  prompt.grokPrompt.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?=\\n\\n(?:Pose and Composition|Scene|Lighting|Camera Look):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || ''
+);
+const specialOutfitGptGroups = (prompt) => {
+  const wardrobe = gptSection(prompt, 'Wardrobe');
+  const group = (label) => wardrobe.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?=\\n\\n(?:Hair and body details|Full outfit|Headwear, eyewear, and bag):\\n|$)`))?.[1] || '';
+  return {
+    wardrobe,
+    hairAndBody: group('Hair and body details'),
+    fullOutfit: group('Full outfit'),
+    headwearEyewearBag: group('Headwear, eyewear, and bag'),
+  };
+};
 
 test('special outfit controls expose exactly the approved 82 complete looks', () => {
   assert.deepEqual(nonNoneSpecialOutfits().map((option) => option.zh), EXPECTED_SPECIAL_OUTFITS);
@@ -385,9 +398,80 @@ test('selected special outfit stays the complete wardrobe priority', () => {
     shoesId: optionByLabel('shoesId', '高跟鞋').id,
   });
 
-  assert.match(prompt.grokPrompt, /Wardrobe:\nShe wears black sheer polka-dot matching fashion set/);
+  const groups = specialOutfitGptGroups(prompt);
+  assert.match(groups.fullOutfit, /black sheer polka-dot matching fashion set/);
   assert.doesNotMatch(prompt.grokPrompt, /\nTop:|\nPants:|\nShoes:|\nOutfit Preset:|\nDress:/);
   assert.match(prompt.zImagePrompt, /She wears complete special outfit: black sheer polka-dot matching fashion set/);
+});
+
+test('single Gpt special outfit separates hair and bag from full outfit', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '白色短袖背心格紋迷你裙白蕾絲襪造型').id,
+  });
+  const groups = specialOutfitGptGroups(prompt);
+
+  assert.match(groups.hairAndBody, /long straight side-part black hair/i);
+  assert.match(groups.fullOutfit, /crisp Y2K schoolgirl-inspired styling/i);
+  assert.match(groups.fullOutfit, /cropped white short-sleeve button shirt/i);
+  assert.match(groups.fullOutfit, /ultra low-rise yellow plaid pleated mini skirt/i);
+  assert.match(groups.fullOutfit, /white lace thigh-high stockings/i);
+  assert.match(groups.fullOutfit, /white pointed heels/i);
+  assert.match(groups.fullOutfit, /delicate pendant necklace/i);
+  assert.match(groups.headwearEyewearBag, /brown monogram shoulder bag/i);
+  assert.doesNotMatch(groups.fullOutfit, /brown monogram shoulder bag/i);
+  assert.doesNotMatch(groups.headwearEyewearBag, /long straight side-part black hair|cropped white short-sleeve button shirt/i);
+  assert.match(prompt.zImagePrompt, /She wears complete special outfit: crisp Y2K schoolgirl-inspired styling\. long straight side-part black hair/i);
+});
+
+test('single Gpt special outfit creates an accessory group for hats without hair or bags', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '乳牛紋連身丹寧開洞褲造型').id,
+  });
+  const groups = specialOutfitGptGroups(prompt);
+
+  assert.equal(groups.hairAndBody, '');
+  assert.match(groups.fullOutfit, /playful cow-print western look/i);
+  assert.match(groups.fullOutfit, /off-shoulder cow-print fitted romper/i);
+  assert.match(groups.fullOutfit, /dramatic blue denim chaps-style wide pants/i);
+  assert.match(groups.fullOutfit, /cow-print pointed footwear/i);
+  assert.match(groups.headwearEyewearBag, /denim cowboy hat/i);
+  assert.doesNotMatch(groups.fullOutfit, /denim cowboy hat/i);
+});
+
+test('single Gpt special outfit omits accessory group when there are no hats glasses or bags', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '奶白透膚襯衫腰帶層裙短靴造型').id,
+  });
+  const groups = specialOutfitGptGroups(prompt);
+
+  assert.equal(groups.hairAndBody, '');
+  assert.equal(groups.headwearEyewearBag, '');
+  assert.match(groups.fullOutfit, /ivory sheer deconstructed gothic western look/i);
+  assert.match(groups.fullOutfit, /translucent cream short-sleeve button-front blouse/i);
+  assert.match(groups.fullOutfit, /black bead rosary necklace/i);
+  assert.match(groups.fullOutfit, /white wrapped fingerless hand bandage/i);
+  assert.match(groups.fullOutfit, /brown studded slouch boots/i);
+});
+
+test('single Gpt special outfit keeps tattoos with hair and body details', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '米色細肩背心蕾絲胸衣工裝寬褲造型').id,
+  });
+  const groups = specialOutfitGptGroups(prompt);
+
+  assert.match(groups.hairAndBody, /small cherry tattoo on the right chest/i);
+  assert.match(groups.fullOutfit, /cream cropped spaghetti-strap camisole/i);
+  assert.match(groups.fullOutfit, /visible black lace bra underneath/i);
+  assert.match(groups.fullOutfit, /low-rise light-wash oversized cargo jeans/i);
+  assert.doesNotMatch(groups.headwearEyewearBag, /small cherry tattoo/i);
 });
 
 test('special outfit hairstyle applies when regular hairstyle is unset', () => {
@@ -423,6 +507,11 @@ test('explicit hairstyle overrides special outfit hairstyle', () => {
   assert.match(promptText, /jewel cobalt-blue fashion hair color|寶石藍/);
   assert.match(promptText, /dark brown open knit cardigan/);
   assert.doesNotMatch(promptText, /long loose center-part brown hair/);
+
+  const groups = specialOutfitGptGroups(prompt);
+  assert.equal(groups.hairAndBody, '');
+  assert.match(groups.headwearEyewearBag, /black narrow oval sunglasses/i);
+  assert.doesNotMatch(groups.fullOutfit, /black narrow oval sunglasses|long loose center-part brown hair/i);
 });
 
 test('special outfit hair accessories do not suppress regular hairstyle controls', () => {
