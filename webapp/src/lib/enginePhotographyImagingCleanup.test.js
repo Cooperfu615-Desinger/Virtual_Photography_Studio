@@ -286,11 +286,35 @@ test('orbit control uses degree-based body orientation with legacy lock migratio
 
   const backView = optionByLabel('orbitId', '背面 180 度');
   assert.match(backView.en, /180-degree rear view/);
-  assert.match(backView.en, /body remains rear-facing even if the head turns/);
+  assert.match(backView.en, /rear-facing torso/);
   assert.doesNotMatch(backView.en, /no frontal face visible/i);
+
+  const optimizedOrbitPrompts = {
+    '正面 0 度': '0-degree front view, frontal torso toward camera',
+    '左前 45 度': '45-degree front-left view, front three-quarter torso angle',
+    '左側 90 度': '90-degree left profile view, lateral torso orientation',
+    '左後 135 度': '135-degree rear-left view, torso stays rear-facing if head turns',
+    '背面 180 度': '180-degree rear view, back to camera, rear-facing torso, head may turn',
+    '右後 225 度': '225-degree rear-right view, torso stays rear-facing if head turns',
+    '右側 270 度': '270-degree right profile view, lateral torso orientation',
+    '右前 315 度': '315-degree front-right view, front three-quarter torso angle',
+  };
+
+  for (const [label, expectedPrompt] of Object.entries(optimizedOrbitPrompts)) {
+    const orbit = optionByLabel('orbitId', label);
+    assert.equal(orbit.en, expectedPrompt);
+    assert.ok(
+      orbit.en.split(/\s+/).filter(Boolean).length <= 11,
+      `${label} should keep orbit prompt compact`
+    );
+    assert.doesNotMatch(
+      orbit.en,
+      /camera positioned|subject's|body remains|frontal torso orientation|lateral torso orientation, lateral/i
+    );
+  }
 });
 
-test('duo orbit overrides use current degree labels', () => {
+test('duo orbit overrides use compact current degree labels', () => {
   const rightFront = optionByLabel('orbitId', '右前 315 度');
   const prompt = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -298,8 +322,19 @@ test('duo orbit overrides use current degree labels', () => {
     orbitId: rightFront.id,
   })[0].grokPrompt;
 
-  assert.match(prompt, /315-degree front three-quarter duo view/);
+  assert.match(prompt, /315-degree front-right duo view, both torsos angled forward/);
   assert.doesNotMatch(prompt, /正面 315 度/);
+  assert.doesNotMatch(prompt, /camera at the duo front-right/);
+
+  const backView = optionByLabel('orbitId', '背面 180 度');
+  const backPrompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    orbitId: backView.id,
+  })[0].grokPrompt;
+
+  assert.match(backPrompt, /180-degree rear duo view, backs to camera, torsos rear-facing/);
+  assert.doesNotMatch(backPrompt, /bodies remain rear-facing if heads turn/);
 });
 
 test('imaging control exposes rendering and color-grade looks without camera body profiles', () => {

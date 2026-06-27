@@ -189,7 +189,7 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.grokPrompt, /The sofa can support the subject or remain a background architecture anchor/);
   assert.match(prompt.grokPrompt, /Avoid defaulting every result to a centered seated sofa pose/);
   assert.match(prompt.grokPrompt, /shoulder-level camera/);
-  assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
+  assert.match(prompt.grokPrompt, /315-degree front-right view, front three-quarter torso angle/);
   assert.match(prompt.grokPrompt, /photographer-shot fixed set portrait/);
   assert.match(prompt.grokPrompt, /confident powerful presence/);
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*indoor warm night ambience/);
@@ -209,7 +209,7 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.zImagePrompt, /approximately 3 to 4 meters away from the sofa/);
   assert.match(prompt.zImagePrompt, /subject placement can vary across one primary zone within the fixed sofa set/);
   assert.match(prompt.zImagePrompt, /shoulder-level camera/);
-  assert.match(prompt.zImagePrompt, /camera at the subject's front-right/);
+  assert.match(prompt.zImagePrompt, /315-degree front-right view, front three-quarter torso angle/);
   assert.doesNotMatch(prompt.zImagePrompt, /1:1 square|16:9|9:16|aspect ratio/i);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
 
@@ -248,7 +248,7 @@ test('black velvet industrial sofa fixed composition shares sofa placement contr
   assert.match(prompt.grokPrompt, /approximately 3 to 4 meters away from the sofa/);
   assert.match(prompt.grokPrompt, /subject on the floor plane near the sofa but off center/);
   assert.match(prompt.grokPrompt, /shoulder-level camera/);
-  assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
+  assert.match(prompt.grokPrompt, /315-degree front-right view, front three-quarter torso angle/);
   assert.match(prompt.grokPrompt, /preserve anchors: warm limewash plaster wall, black velvet sofa, wall-art or mirror zone, industrial coffee-table foreground/);
   assert.match(prompt.grokPrompt, /avoid raw concrete set, brown leather sofa, bare dry-branch decor, plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room/);
   assert.doesNotMatch(prompt.grokPrompt, /large brown vintage Chesterfield leather sofa/);
@@ -276,7 +276,7 @@ test('hotel and bathtub fixed compositions preserve camera angle and orbit locks
       angleZh: '肩部高度鏡頭',
       orbitZh: '右前 315 度',
       angleText: /shoulder-level camera/,
-      orbitText: /camera at the subject's front-right/,
+      orbitText: /315-degree front-right view, front three-quarter torso angle/,
     },
     {
       setZh: '復古磁磚浴室浴缸',
@@ -284,7 +284,7 @@ test('hotel and bathtub fixed compositions preserve camera angle and orbit locks
       angleZh: '高位俯視鏡頭',
       orbitZh: '左前 45 度',
       angleText: /high camera position, looking downward/,
-      orbitText: /camera at the subject's front-left/,
+      orbitText: /45-degree front-left view, front three-quarter torso angle/,
     },
   ];
 
@@ -305,7 +305,7 @@ test('hotel and bathtub fixed compositions preserve camera angle and orbit locks
     assert.match(prompt.grokPrompt, cameraCase.orbitText);
     assert.match(prompt.zImagePrompt, cameraCase.angleText);
     assert.match(prompt.zImagePrompt, cameraCase.orbitText);
-    assert.doesNotMatch(prompt.midjourneyPrompt, /shoulder-level camera|high camera position|camera at the subject's front-right|camera at the subject's front-left/);
+    assert.doesNotMatch(prompt.midjourneyPrompt, /shoulder-level camera|high camera position|315-degree front-right view|45-degree front-left view/);
   });
 });
 
@@ -404,7 +404,7 @@ test('Fuji hotel fixed compositions share hotel placement controls and seasonal 
     assert.match(prompt.grokPrompt, fixedSetCase.seasonText);
     assert.match(prompt.grokPrompt, /subject near the floor-to-ceiling window/);
     assert.match(prompt.grokPrompt, /shoulder-level camera/);
-    assert.match(prompt.grokPrompt, /camera at the subject's front-right/);
+    assert.match(prompt.grokPrompt, /315-degree front-right view, front three-quarter torso angle/);
     assert.match(prompt.grokPrompt, /fixed-set rule: stable selected room architecture/);
     assert.match(prompt.grokPrompt, fixedSetCase.anchorText);
     assert.match(prompt.grokPrompt, fixedSetCase.replacementText);

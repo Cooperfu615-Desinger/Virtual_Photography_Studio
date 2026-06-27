@@ -437,7 +437,7 @@ test('classic white top and black bottom palette applies separate colors', () =>
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
 
-  assert.match(promptText, /white cotton camisole/);
+  assert.match(promptText, /white .*cotton camisole/);
   assert.match(promptText, /black straight-leg jeans/);
   assert.doesNotMatch(promptText, /#[0-9A-Fa-f]{6}/);
   assert.equal(prompt.selection.topBottomPaletteId, palette.id);

@@ -3445,42 +3445,42 @@
       },
       {
         "zh": "正面 0 度",
-        "en": "camera positioned directly in front of the subject, 0-degree front view, frontal torso orientation",
+        "en": "0-degree front view, frontal torso toward camera",
         "desc": "鏡頭位於人物正前方，人物身體正面朝向鏡頭，臉部與身體資訊最完整。"
       },
       {
         "zh": "左前 45 度",
-        "en": "camera at the subject's front-left, 45-degree front three-quarter view, torso angled toward the lens",
+        "en": "45-degree front-left view, front three-quarter torso angle",
         "desc": "鏡頭位於人物左前方 45 度，呈現正面與側面兼具的前斜側身體方位。"
       },
       {
         "zh": "左側 90 度",
-        "en": "camera positioned on the subject's left side, 90-degree left profile view, lateral torso orientation",
+        "en": "90-degree left profile view, lateral torso orientation",
         "desc": "鏡頭位於人物左側 90 度，以左側臉與左側身體輪廓為主。"
       },
       {
         "zh": "左後 135 度",
-        "en": "camera behind-left at 135-degree orbit, rear three-quarter view, shoulder line visible, torso stays rear-facing if head turns",
+        "en": "135-degree rear-left view, torso stays rear-facing if head turns",
         "desc": "鏡頭位於人物左後方 135 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。"
       },
       {
         "zh": "背面 180 度",
-        "en": "camera positioned directly behind the subject, 180-degree rear view, subject's back facing the camera, rear body orientation, body remains rear-facing even if the head turns",
+        "en": "180-degree rear view, back to camera, rear-facing torso, head may turn",
         "desc": "鏡頭位於人物正後方 180 度，人物背部朝向鏡頭；可允許頭部回看，但身體方位仍保持背面。"
       },
       {
         "zh": "右後 225 度",
-        "en": "camera behind-right at 225-degree orbit, rear three-quarter view, shoulder line visible, torso stays rear-facing if head turns",
+        "en": "225-degree rear-right view, torso stays rear-facing if head turns",
         "desc": "鏡頭位於人物右後方 225 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。"
       },
       {
         "zh": "右側 270 度",
-        "en": "camera positioned on the subject's right side, 270-degree right profile view, lateral torso orientation",
+        "en": "270-degree right profile view, lateral torso orientation",
         "desc": "鏡頭位於人物右側 270 度，以右側臉與右側身體輪廓為主。"
       },
       {
         "zh": "右前 315 度",
-        "en": "camera at the subject's front-right, 315-degree front three-quarter view, torso angled toward the lens",
+        "en": "315-degree front-right view, front three-quarter torso angle",
         "desc": "鏡頭位於人物右前方 315 度，呈現正面與側面兼具的前斜側身體方位。"
       }
     ],

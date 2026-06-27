@@ -26,14 +26,14 @@
 | **相機視角 (Angle)** | 正上方俯視鏡頭 | `top-down view, camera directly above, flattened graphic composition` | 相機幾乎在人物正上方垂直俯拍，畫面更平面化、圖像化，適合地面、床面、桌面或造型排列感強的畫面，屬於低頻特殊視角。 |
 | **相機視角 (Angle)** | 荷蘭角/傾斜 (Dutch Angle) | `dutch angle, diagonal horizon, tilted frame geometry` | 相機刻意傾斜，地平線或垂直線不再水平，形成偏移、斜向、非穩定的畫面幾何。 |
 | **拍攝方位 (Orbit Angle)** | 全無 | `none` | 不指定環繞角度，讓模型自行決定人物相對鏡頭的朝向。 |
-| **拍攝方位 (Orbit Angle)** | 正面 0 度 | `camera positioned directly in front of the subject, 0-degree front view, frontal torso orientation` | 鏡頭位於人物正前方，人物身體正面朝向鏡頭，臉部與身體資訊最完整。 |
-| **拍攝方位 (Orbit Angle)** | 左前 45 度 | `camera at the subject's front-left, 45-degree front three-quarter view, torso angled toward the lens` | 鏡頭位於人物左前方 45 度，呈現正面與側面兼具的前斜側身體方位。 |
-| **拍攝方位 (Orbit Angle)** | 左側 90 度 | `camera positioned on the subject's left side, 90-degree left profile view, lateral torso orientation` | 鏡頭位於人物左側 90 度，以左側臉與左側身體輪廓為主。 |
-| **拍攝方位 (Orbit Angle)** | 左後 135 度 | `camera behind-left at 135-degree orbit, rear three-quarter view, shoulder line visible, torso stays rear-facing if head turns` | 鏡頭位於人物左後方 135 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。 |
-| **拍攝方位 (Orbit Angle)** | 背面 180 度 | `camera positioned directly behind the subject, 180-degree rear view, subject's back facing the camera, rear body orientation, body remains rear-facing even if the head turns` | 鏡頭位於人物正後方 180 度，人物背部朝向鏡頭；可允許頭部回看，但身體方位仍保持背面。 |
-| **拍攝方位 (Orbit Angle)** | 右後 225 度 | `camera behind-right at 225-degree orbit, rear three-quarter view, shoulder line visible, torso stays rear-facing if head turns` | 鏡頭位於人物右後方 225 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。 |
-| **拍攝方位 (Orbit Angle)** | 右側 270 度 | `camera positioned on the subject's right side, 270-degree right profile view, lateral torso orientation` | 鏡頭位於人物右側 270 度，以右側臉與右側身體輪廓為主。 |
-| **拍攝方位 (Orbit Angle)** | 右前 315 度 | `camera at the subject's front-right, 315-degree front three-quarter view, torso angled toward the lens` | 鏡頭位於人物右前方 315 度，呈現正面與側面兼具的前斜側身體方位。 |
+| **拍攝方位 (Orbit Angle)** | 正面 0 度 | `0-degree front view, frontal torso toward camera` | 鏡頭位於人物正前方，人物身體正面朝向鏡頭，臉部與身體資訊最完整。 |
+| **拍攝方位 (Orbit Angle)** | 左前 45 度 | `45-degree front-left view, front three-quarter torso angle` | 鏡頭位於人物左前方 45 度，呈現正面與側面兼具的前斜側身體方位。 |
+| **拍攝方位 (Orbit Angle)** | 左側 90 度 | `90-degree left profile view, lateral torso orientation` | 鏡頭位於人物左側 90 度，以左側臉與左側身體輪廓為主。 |
+| **拍攝方位 (Orbit Angle)** | 左後 135 度 | `135-degree rear-left view, torso stays rear-facing if head turns` | 鏡頭位於人物左後方 135 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。 |
+| **拍攝方位 (Orbit Angle)** | 背面 180 度 | `180-degree rear view, back to camera, rear-facing torso, head may turn` | 鏡頭位於人物正後方 180 度，人物背部朝向鏡頭；可允許頭部回看，但身體方位仍保持背面。 |
+| **拍攝方位 (Orbit Angle)** | 右後 225 度 | `225-degree rear-right view, torso stays rear-facing if head turns` | 鏡頭位於人物右後方 225 度，以背部、肩線與少量側面輪廓為主；即使頭部回看，身體仍維持背側方位。 |
+| **拍攝方位 (Orbit Angle)** | 右側 270 度 | `270-degree right profile view, lateral torso orientation` | 鏡頭位於人物右側 270 度，以右側臉與右側身體輪廓為主。 |
+| **拍攝方位 (Orbit Angle)** | 右前 315 度 | `315-degree front-right view, front three-quarter torso angle` | 鏡頭位於人物右前方 315 度，呈現正面與側面兼具的前斜側身體方位。 |
 | **鏡頭焦段 (Focal Length)** | 全無 | `none` | 不指定鏡頭焦段，讓模型自行決定視角、透視與空間壓縮感。 |
 | **鏡頭焦段 (Focal Length)** | 20mm 超廣角 | `shot on 20mm ultra-wide-angle lens, very wide field of view, strong perspective expansion, close foreground enlargement, visible edge stretching, deep subject-to-background spatial inclusion` | 極廣視角與明顯透視延展，近距離物體會被放大，畫面邊緣更容易拉伸，能讓人物與背景保持強烈空間關係。 |
 | **鏡頭焦段 (Focal Length)** | 24mm 廣角 | `shot on 24mm wide-angle lens, broad field of view, clear spatial context, moderate perspective stretch, close camera-to-subject distance, readable foreground-to-background depth` | 廣角視野保留大量周圍空間，透視延展比 20mm 溫和，但仍會強化前景到背景的距離感。 |
