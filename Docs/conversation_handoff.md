@@ -202,10 +202,12 @@ Rules:
 
 ## Authoring Guides
 
-Four spec files exist under `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs`:
+Five spec files exist under `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs`:
 
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/character-section-a-authoring-guide.md`
   - Use before adding or changing body type, face type, skin, hairstyle, hair color, expression, pose, special action, Pose Composer, or special subject.
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`
+  - Use before adding or changing PAGE1 single-subject prompt wording. It defines the current Gpt / Grok/Z-Image / AI compression rules and single Gpt special-outfit grouping rules.
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/wardrobe-section-b-authoring-guide.md`
   - Use before adding or changing tops, bottoms, outfit presets, dresses, special outfits, shoes, socks, outerwear, accessories, colors, patterns, or wardrobe composition logic.
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/scene-section-c-authoring-guide.md`
@@ -241,6 +243,8 @@ Important tests:
 - Primary target is ChatGPT Image / GPT Image.
 - Ends with `multi-cut sequence n=2`.
 - This multi-cut line is only for Gpt.
+- Single `Gpt` keeps the main section order `Image Type`, `Subject`, `Wardrobe`, `Pose and Composition`, `Scene`, `Lighting`, `Camera Look`.
+- Single special outfits can be grouped inside `Wardrobe` as `Hair and body details`, `Full outfit`, and `Headwear, eyewear, and bag` so accessories are easy to inspect and edit.
 - Duo `Gpt` uses role-ordered sections:
   - `Image Type`
   - `Subject` containing the base subject sentence, then `Woman 1` and `Woman 2` role blocks

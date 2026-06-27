@@ -1,8 +1,10 @@
 # A 人物設定新增與維護規格
 
-Last updated: 2026-06-19
+Last updated: 2026-06-27
 
 這份文件定義 PAGE1 `A. 人物設定` 的新增、修改、合併與測試規則。後續新增五官、體態、髮型、髮色、神情、姿勢、特殊動作或特殊角色時，請先依照本規格檢查責任邊界與 prompt 寫法。
+
+單人模式的 Gpt / Grok/Z-Image / AI 壓縮規則請同時參考 `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`。尤其是體態、五官、膚質、髮型、髮色、神情、姿勢與特殊動作，新增資料時應避免數值 anchor、正常狀態說明、同義詞堆疊與內部控制語言。
 
 ## 1. 核心原則
 

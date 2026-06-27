@@ -43,6 +43,7 @@ Current PAGE1 output labels:
   - Target: ChatGPT Image / GPT Image
   - Structured natural prompt
   - Must end with `multi-cut sequence n=2`
+  - Single special outfits can be grouped inside `Wardrobe` as `Hair and body details`, `Full outfit`, and `Headwear, eyewear, and bag`
 - `Grok/Z-Image`
   - Internal field: `zImagePrompt`
   - Target: Grok Imagine / Aurora and Z-Image
@@ -271,6 +272,7 @@ Knowledge base:
 Authoring guides:
 
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/character-section-a-authoring-guide.md`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/wardrobe-section-b-authoring-guide.md`
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/scene-section-c-authoring-guide.md`
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/photography-section-d-authoring-guide.md`
@@ -309,4 +311,5 @@ Prefer targeted tests first, then full `npm test`.
   - kneeling / squatting next
   - modifiers last
 - Continue database additions through the relevant authoring guide first.
+- For PAGE1 single-subject prompt wording, also use `Docs/specs/page1-single-prompt-compression-guide.md` to avoid redundant prompt prose before adding new database rows.
 - Keep prompt-output changes backed by tests because naming and source-field history are easy to confuse.
