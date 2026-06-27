@@ -71,6 +71,30 @@ test('framing options are ordered from closest face crop to full body with legac
     ]
   );
 
+  const optimizedFramingPrompts = {
+    '半臉傾斜特寫': 'asymmetrical half-face close-up, off-center crop, slight tilted frame',
+    '局部五官特寫': 'tight facial-detail close-up, cropped eyes and upper face, partial-feature framing',
+    '臉部特寫': 'tight facial close-up, face dominant in frame, minimal headroom',
+    '特寫鏡頭 (Close-Up)': 'head and shoulders close-up, tight portrait crop',
+    '胸上特寫': 'tight bust-up portrait, chest-up framing, shoulders and torso visible',
+    '中景鏡頭 (Medium Shot)': 'medium shot, waist up framing, moderate background presence',
+    '牛仔中景 (Cowboy Shot)': 'cowboy shot, knee up figure framing, readable outfit proportions',
+    '全身鏡頭 (Full Body Shot)': 'full body shot, head-to-toe figure, environmental scale',
+  };
+
+  for (const [label, expectedPrompt] of Object.entries(optimizedFramingPrompts)) {
+    const framing = optionByLabel('framingId', label);
+    assert.equal(framing.en, expectedPrompt);
+    assert.ok(
+      framing.en.split(/\s+/).filter(Boolean).length <= 10,
+      `${label} should keep framing prompt compact`
+    );
+    assert.doesNotMatch(
+      framing.en,
+      /strong visual tension|natural subject presence|detailed facial features|balanced proportions|clean frontal readability|wide framing/i
+    );
+  }
+
   assert.equal(
     optionById('framingId', normalizeLocks({
       ...createEmptyLocks(),

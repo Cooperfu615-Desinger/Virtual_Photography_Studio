@@ -6,14 +6,14 @@
 | 維度分類 (Dimension) | 參數名稱 (Parameter) | 英文 Prompt 關鍵字 (生成用的精準詞彙) | 視覺說明 (Visual Description) |
 | :--- | :--- | :--- | :--- |
 | **景別構圖 (Framing)** | 全無 | `none` | 不指定景別構圖，讓模型自行決定畫面距離與主體範圍。 |
-| **景別構圖 (Framing)** | 半臉傾斜特寫 | `asymmetrical half-face close-up portrait, one side of the face emphasized, off-center crop, slight dutch angle` | 只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，重點是刻意不完整的近距離臉部構圖。 |
-| **景別構圖 (Framing)** | 局部五官特寫 | `tight close-up focused on the eye area and upper facial structure, cropped editorial framing, strong visual tension` | 只保留局部五官，像是雙眼與眼鏡、眼睛與鼻子、鼻子與嘴巴等極近距離片段，強調壓迫感、細節與刻意裁切的臉部構圖。 |
-| **景別構圖 (Framing)** | 臉部特寫 | `tight facial close-up portrait, face dominant in frame, balanced proportions, clean frontal readability` | 整張臉幾乎塞滿畫面，額頭、下巴與左右臉只留極少空隙，適合五官辨識、妝容、神情與臉部存在感最強的拍法。 |
-| **景別構圖 (Framing)** | 特寫鏡頭 (Close-Up) | `close-up shot, head and shoulders framing, detailed facial features, tight subject crop` | 構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。 |
-| **景別構圖 (Framing)** | 胸上特寫 | `tight bust-up portrait, framed from the chest upward, face and upper torso clearly visible, compact portrait composition` | 構圖從胸口以上，保留臉部、肩頸與部分上身資訊，適合兼顧表情、髮型、頸部配件與少量穿搭。 |
-| **景別構圖 (Framing)** | 中景鏡頭 (Medium Shot) | `medium shot, waist up framing, natural subject presence, showing some background` | 構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。 |
-| **景別構圖 (Framing)** | 牛仔中景 (Cowboy Shot) | `cowboy shot, american shot, knee-up figure framing, lower-body crop line, readable outfit proportions` | 從膝蓋上方截斷，保留上身、腰腿比例與大部分穿搭資訊，介於中景與全身之間。 |
-| **景別構圖 (Framing)** | 全身鏡頭 (Full Body Shot) | `full body shot, full-length figure framing, wide framing, environmental scale, complete lower-body visibility` | 完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。 |
+| **景別構圖 (Framing)** | 半臉傾斜特寫 | `asymmetrical half-face close-up, off-center crop, slight tilted frame` | 只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，重點是刻意不完整的近距離臉部構圖。 |
+| **景別構圖 (Framing)** | 局部五官特寫 | `tight facial-detail close-up, cropped eyes and upper face, partial-feature framing` | 只保留局部五官，像是雙眼與眼鏡、眼睛與鼻子、鼻子與嘴巴等極近距離片段，強調壓迫感、細節與刻意裁切的臉部構圖。 |
+| **景別構圖 (Framing)** | 臉部特寫 | `tight facial close-up, face dominant in frame, minimal headroom` | 整張臉幾乎塞滿畫面，額頭、下巴與左右臉只留極少空隙，適合五官辨識、妝容、神情與臉部存在感最強的拍法。 |
+| **景別構圖 (Framing)** | 特寫鏡頭 (Close-Up) | `head and shoulders close-up, tight portrait crop` | 構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。 |
+| **景別構圖 (Framing)** | 胸上特寫 | `tight bust-up portrait, chest-up framing, shoulders and torso visible` | 構圖從胸口以上，保留臉部、肩頸與部分上身資訊，適合兼顧表情、髮型、頸部配件與少量穿搭。 |
+| **景別構圖 (Framing)** | 中景鏡頭 (Medium Shot) | `medium shot, waist up framing, moderate background presence` | 構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。 |
+| **景別構圖 (Framing)** | 牛仔中景 (Cowboy Shot) | `cowboy shot, knee up figure framing, readable outfit proportions` | 從膝蓋上方截斷，保留上身、腰腿比例與大部分穿搭資訊，介於中景與全身之間。 |
+| **景別構圖 (Framing)** | 全身鏡頭 (Full Body Shot) | `full body shot, head-to-toe figure, environmental scale` | 完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。 |
 | **相機視角 (Angle)** | 全無 | `none` | 不指定俯仰角度，讓模型自行決定相機高低視角。 |
 | **相機視角 (Angle)** | 高位俯視鏡頭 | `high camera position above the subject's head, looking downward, elevated portrait viewpoint, visible top planes` | 相機在人物頭部以上高度，從上方往下拍攝人物；仍以人像為主，不等同遠距離空拍或環境主導的鳥瞰視角。 |
 | **相機視角 (Angle)** | 平視高度鏡頭 | `eye-height camera position, level gaze toward the subject, neutral stable portrait viewpoint, natural perspective` | 相機高度在人物視線附近，維持平視與穩定人像視點，適合大多數日常、寫真與時裝構圖。 |

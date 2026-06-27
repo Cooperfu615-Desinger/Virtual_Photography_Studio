@@ -3341,42 +3341,42 @@
       },
       {
         "zh": "半臉傾斜特寫",
-        "en": "asymmetrical half-face close-up portrait, one side of the face emphasized, off-center crop, slight dutch angle",
+        "en": "asymmetrical half-face close-up, off-center crop, slight tilted frame",
         "desc": "只保留左半臉或右半臉，並帶明顯荷蘭角與偏移裁切，重點是刻意不完整的近距離臉部構圖。"
       },
       {
         "zh": "局部五官特寫",
-        "en": "tight close-up focused on the eye area and upper facial structure, cropped editorial framing, strong visual tension",
+        "en": "tight facial-detail close-up, cropped eyes and upper face, partial-feature framing",
         "desc": "只保留局部五官，像是雙眼與眼鏡、眼睛與鼻子、鼻子與嘴巴等極近距離片段，強調壓迫感、細節與刻意裁切的臉部構圖。"
       },
       {
         "zh": "臉部特寫",
-        "en": "tight facial close-up portrait, face dominant in frame, balanced proportions, clean frontal readability",
+        "en": "tight facial close-up, face dominant in frame, minimal headroom",
         "desc": "整張臉幾乎塞滿畫面，額頭、下巴與左右臉只留極少空隙，適合五官辨識、妝容、神情與臉部存在感最強的拍法。"
       },
       {
         "zh": "特寫鏡頭 (Close-Up)",
-        "en": "close-up shot, head and shoulders framing, detailed facial features, tight subject crop",
+        "en": "head and shoulders close-up, tight portrait crop",
         "desc": "構圖包含頭部至肩膀，適合展現人物神情與精緻妝容，為經典近距離構圖。"
       },
       {
         "zh": "胸上特寫",
-        "en": "tight bust-up portrait, framed from the chest upward, face and upper torso clearly visible, compact portrait composition",
+        "en": "tight bust-up portrait, chest-up framing, shoulders and torso visible",
         "desc": "構圖從胸口以上，保留臉部、肩頸與部分上身資訊，適合兼顧表情、髮型、頸部配件與少量穿搭。"
       },
       {
         "zh": "中景鏡頭 (Medium Shot)",
-        "en": "medium shot, waist up framing, natural subject presence, showing some background",
+        "en": "medium shot, waist up framing, moderate background presence",
         "desc": "構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。"
       },
       {
         "zh": "牛仔中景 (Cowboy Shot)",
-        "en": "cowboy shot, american shot, knee-up figure framing, lower-body crop line, readable outfit proportions",
+        "en": "cowboy shot, knee up figure framing, readable outfit proportions",
         "desc": "從膝蓋上方截斷，保留上身、腰腿比例與大部分穿搭資訊，介於中景與全身之間。"
       },
       {
         "zh": "全身鏡頭 (Full Body Shot)",
-        "en": "full body shot, full-length figure framing, wide framing, environmental scale, complete lower-body visibility",
+        "en": "full body shot, head-to-toe figure, environmental scale",
         "desc": "完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。"
       }
     ],

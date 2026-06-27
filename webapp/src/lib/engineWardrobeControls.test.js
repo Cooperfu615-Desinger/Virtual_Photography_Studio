@@ -739,7 +739,7 @@ test('face-only close-up prompts omit wardrobe text', () => {
   assert.equal(prompt.selection.pantsId, '');
   assert.equal(prompt.selection.shoesId, '');
 
-  assert.match(prompt.grokPrompt, /tight facial close-up portrait/);
+  assert.match(prompt.grokPrompt, /tight facial close-up, face dominant in frame, minimal headroom/);
   assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Visibility:/);
   assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Integrity:/);
   assert.doesNotMatch(prompt.grokPrompt, /Keep the specified outfit visible where the chosen framing allows/i);
@@ -784,7 +784,7 @@ test('close-up framing keeps direct wardrobe prompt details available', () => {
   });
 
   assert.equal(prompt.selection.framingId, optionId('framingId', '特寫鏡頭 (Close-Up)'));
-  assert.match(prompt.grokPrompt, /close-up shot, head and shoulders framing/i);
+  assert.match(prompt.grokPrompt, /head and shoulders close-up, tight portrait crop/i);
   assert.match(prompt.grokPrompt, /semi-sheer embroidered shirt/i);
   assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Visibility:/);
   assert.match(prompt.zImagePrompt, /semi-sheer embroidered shirt/i);
