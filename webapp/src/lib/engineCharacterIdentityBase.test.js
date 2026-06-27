@@ -154,7 +154,7 @@ test('hairstyle prompt supports referenced soft-wave and airy-bang long hair opt
   const wavePromptText = [wavePrompt.grokPrompt, wavePrompt.zImagePrompt, wavePrompt.midjourneyPrompt].join('\n');
   const longHairPromptText = [longHairPrompt.grokPrompt, longHairPrompt.zImagePrompt, longHairPrompt.midjourneyPrompt].join('\n');
   assert.match(wavePromptText, /voluminous Korean collarbone-length soft waves/);
-  assert.match(longHairPromptText, /long naturally slightly wavy hair/);
+  assert.match(longHairPromptText, /long (?:naturally )?slightly wavy hair/);
   assert.equal(wavePrompt.selection.hairstyleId, koreanWaves.id);
   assert.equal(longHairPrompt.selection.hairstyleId, airyLongHair.id);
 });

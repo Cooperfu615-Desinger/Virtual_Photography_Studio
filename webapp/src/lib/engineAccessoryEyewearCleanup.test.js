@@ -74,6 +74,6 @@ test('eyewear prompt composes frame color and placement', () => {
   });
 
   const text = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
-  assert.match(text, /tortoiseshell frame, bold thick-frame glasses, resting on top of the head/);
+  assert.match(text, /tortoiseshell (?:frame, )?bold thick-frame glasses, resting on top of the head/);
   assert.match(text, /eyes unobstructed/);
 });

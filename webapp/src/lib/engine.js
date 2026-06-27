@@ -9163,6 +9163,103 @@ function compressGptSingleWardrobeText(value, context) {
   return naturalizeGptSingleWardrobePaletteText(compressed);
 }
 
+function cleanZImageSinglePromptText(value) {
+  return cleanGptSinglePromptText(value)
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .replace(/\.\s*,/g, ',')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function compressZImageSingleSubjectText(value, context) {
+  if (context.subject?.count !== 1 || isSpecialSubject(context.subject)) return value;
+
+  return cleanZImageSinglePromptText(compressGptSingleSubjectText(value, {
+    ...context,
+    characterProfilePrompt: '',
+  }))
+    .replace(/\bwet-look long wavy hair,\s*damp separated strands,\s*moody glossy texture,\s*natural black hair\b/gi, 'natural black wet-look long wavy hair, damp separated strands')
+    .replace(/\bwet-look long wavy hair,\s*damp separated strands,\s*natural black hair\b/gi, 'natural black wet-look long wavy hair, damp separated strands')
+    .replace(/\bdeep side-parted long soft waves,\s*silver-gray white hair,\s*cool pale tone,\s*realistic dyed texture\b/gi, 'silver-gray white deep side-parted long soft waves, cool pale tone, realistic dyed texture')
+    .replace(/\bdeep side-parted long soft waves,\s*silver-gray white hair,\s*cool pale fashion color,\s*realistic dyed texture\b/gi, 'silver-gray white deep side-parted long soft waves, cool pale tone, realistic dyed texture')
+    .replace(/\bsleek wet straight medium-to-long hair,\s*separated damp strands,\s*honey caramel-brown hair\b/gi, 'honey caramel-brown sleek wet straight medium-to-long hair, separated damp strands')
+    .replace(/\blong slightly wavy hair,\s*airy see-through bangs,\s*side-draped face-framing strands,\s*cobalt-blue fashion hair\b/gi, 'cobalt-blue fashion long slightly wavy hair, airy see-through bangs, side-draped face-framing strands')
+    .replace(/\blong naturally slightly wavy hair with airy see-through bangs,\s*soft side-draped face-framing strands,\s*jewel cobalt-blue fashion hair color,\s*rich blue tone with realistic dyed texture\b/gi, 'cobalt-blue fashion long slightly wavy hair, airy see-through bangs, side-draped face-framing strands')
+    .replace(/\bvoluminous high ponytail,\s*loose natural strands,\s*lifted active movement,\s*soft black-tea brown hair\b/gi, 'soft black-tea brown voluminous high ponytail, loose natural strands, lifted active movement')
+    .replace(/\bdirect eye contact,\s*soft natural smile,\s*gentle confident expression\b/gi, 'direct eye contact, soft natural smile')
+    .replace(/\bwet-look long wavy hair,\s*damp separated strands,\s*moody glossy texture\b/gi, 'wet-look long wavy hair, damp separated strands')
+    .replace(/\bnatural black wet-look long wavy hair,\s*damp separated strands,\s*moody glossy texture\b/gi, 'natural black wet-look long wavy hair, damp separated strands')
+    .replace(/,\s*moody glossy texture/gi, '')
+    .replace(/,\s*soft realistic shine/gi, '')
+    .replace(/,\s*clean dark depth/gi, '')
+    .replace(/,\s*gentle confident expression/gi, '')
+    .replace(/,\s*bright approachable expression/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .trim();
+}
+
+function compressZImageSingleWardrobeText(value, context) {
+  if (context.subject?.count !== 1) return value;
+
+  let output = cleanZImageSinglePromptText(compressGptSingleWardrobeText(value, context))
+    .replace(/,\s*clean beachwear styling/gi, '')
+    .replace(/,\s*clean beachwear silhouette/gi, '')
+    .replace(/,\s*top length extending below the low-rise waistband,\s*abdomen covered,\s*not cropped into an unintended midriff reveal/gi, '')
+    .replace(/,\s*top properly tucked into the low-rise waistband with a natural low-rise proportion,\s*clean waist styling,\s*not cropped/gi, '')
+    .replace(/[,.]\s*realistic outer-to-inner dressing order:\s*long bottom layer keeps its natural full length and drape;\s*shoes can remain normally visible without distorting the pants or skirt\.?/gi, '')
+    .replace(/,\s*selected\s+(?:main\s+)?(?:fabric|uniform|satin|dress|latex|swim fabric|tonal palette|main fabric|main latex|main satin|main swim fabric)\s+color/gi, '')
+    .replace(/,\s*selected\s+(?:apron and ruffle contrast|contrast details|contrast trim|ruffle contrast|contrast panels|tonal palette)/gi, '')
+    .replace(/,\s*selected\s+lace,\s*ribbon,\s*garter strap,\s*and trim contrast/gi, '')
+    .replace(/,\s*selected\s+lace cord,\s*eyelet,\s*and bow contrast/gi, '')
+    .replace(/,\s*selected\s+lace trim and graphic contrast/gi, '')
+    .replace(/,\s*selected\s+main jersey color/gi, '')
+    .replace(/,\s*selected\s+main fabric color/gi, '')
+    .replace(/,\s*classic signature accents optional/gi, '')
+    .replace(/,\s*metal hardware in fixed metallic tones/gi, '')
+    .replace(/,\s*grommets,\s*buckles,\s*and rings in fixed metallic tones/gi, '')
+    .replace(/,\s*metal ring in fixed metallic tones,\s*rose print palette preserved/gi, '')
+    .replace(
+      /[,.]\s*complete outfit palette direction:\s*shift the complete outfit palette toward a\s+(.+?)\s+color family(?:\s+with\s+dark accent balance)?\s*,\s*preserving garment structure,\s*accessory separation,\s*material contrast,\s*and multi-piece color variation\.?/gi,
+      (_, palette) => {
+        const modifier = buildGptCompletePaletteModifier(palette);
+        return modifier ? `, ${modifier} palette` : '';
+      }
+    );
+
+  if (!/^She wears\b/i.test(output) && output) {
+    output = `She wears ${output}`;
+  }
+
+  output = output
+    .replace(
+      /^(She wears\s+[^.]*?\btriangle bikini top),\s+(slim halter strings,\s*minimal sliding triangle cups,\s*smooth stretch swim fabric),\s+([^.]*(?:bottoms)[^.]*)$/i,
+      '$1 with $2, paired with $3'
+    )
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .replace(/\.\s*,/g, ',')
+    .trim();
+
+  return output;
+}
+
+function compressZImageSinglePoseText(value, context) {
+  if (context.subject?.count !== 1) return value;
+
+  return cleanZImageSinglePromptText(compressGptSinglePoseText(value, context))
+    .replace(/^She is sitting with natural seated arrangement;\s*head naturally facing the camera\.?$/i, 'She is sitting naturally with her head facing the camera')
+    .replace(/\blooking directly at the camera,\s*/gi, '')
+    .replace(/\bcool composed body language\b/gi, 'relaxed composed posture')
+    .replace(/\bpolished beauty touch-up portrait moment\b/gi, 'beauty touch-up gesture')
+    .replace(/\brelaxed everyday cafe portrait moment\b/gi, 'relaxed cafe gesture')
+    .replace(/\busing only a naturally available scene object for support\b/gi, 'using an existing scene object for support')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .trim();
+}
+
 function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character = null, wardrobe = null, wardrobeColors = null) {
   const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
   const section = (title, sentence) => {
@@ -9380,20 +9477,38 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       context.subject.count === 2
         ? (characterSlots.duoExpression && !isNoneLikeItem(characterSlots.duoExpression) ? characterSlots.duoExpression.en : '')
         : (characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : ''),
-      characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
+      context.subject.count === 2 && characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
       context.subject.count === 2
         ? (characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.en : '')
-        : (characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
-          ? characterSlots.poseComposer.en
-          : (characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '')),
+        : '',
     ].filter(Boolean);
 
-    return leadSentence('Create a photorealistic editorial portrait of', parts);
+    const text = leadSentence('Create a photorealistic editorial portrait of', parts);
+    return context.subject.count === 1 ? compressZImageSingleSubjectText(text, context) : text;
+  };
+  const buildSinglePoseText = () => {
+    if (context.subject.count !== 1 || specialSubjectMode) return '';
+
+    const poseText = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
+      ? characterSlots.poseComposer.en
+      : (characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '');
+    const parts = [
+      characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
+      poseText,
+    ].filter(Boolean);
+
+    return parts.length > 0 ? compressZImageSinglePoseText(parts.join(', '), context) : '';
   };
   const buildWardrobeText = () => {
     const parts = [];
     const add = (value) => {
       if (value) parts.push(value);
+    };
+    const finish = (value) => {
+      const text = context.subject.count === 1 && !isCloseupVisibility
+        ? compressZImageSingleWardrobeText(value, context)
+        : value;
+      return sentence(text);
     };
     if (isCloseupVisibility) return sentence(closeupWardrobeVisibilityText);
     const buildSingleOutfitPresetText = () => buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
@@ -9415,11 +9530,11 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       const specialBText = buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB);
       add(specialAText ? `woman 1 wears complete special outfit: ${specialAText}` : '');
       add(specialBText ? `woman 2 wears complete special outfit: ${specialBText}` : '');
-      return parts.length > 0 ? sentence(parts.join(', ')) : '';
+      return parts.length > 0 ? finish(parts.join(', ')) : '';
     }
     if (wardrobeSlots.specialOutfit) {
       add(`She wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette)}`);
-      return parts.length > 0 ? sentence(parts.join(', ')) : '';
+      return parts.length > 0 ? finish(parts.join(', ')) : '';
     }
     const buildRoleLayerText = (role) => {
       const suffix = role === 'a' ? 'A' : 'B';
@@ -9551,7 +9666,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       add(buildRoleLayerText('b') ? `woman 2 additional styling includes ${buildRoleLayerText('b')}` : '');
     }
 
-    return parts.length > 0 ? sentence(parts.join(', ')) : '';
+    return parts.length > 0 ? finish(parts.join(', ')) : '';
   };
   const buildFixedSceneParagraphs = () => {
     if (!fixedCompositionSetActive) return [];
@@ -9709,6 +9824,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       ...buildFixedSceneParagraphs(),
       buildCharacterText(),
       buildWardrobeText(),
+      buildSinglePoseText(),
       buildPhotographyStyleText(),
       buildRenderingText(),
     ]);
@@ -9718,6 +9834,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     buildCharacterText(),
     sceneProtectedWardrobeMode ? buildSceneText() : '',
     buildWardrobeText(),
+    buildSinglePoseText(),
     sceneProtectedWardrobeMode ? '' : buildSceneText(),
     buildPhotographyStyleText(),
     buildCameraText(),

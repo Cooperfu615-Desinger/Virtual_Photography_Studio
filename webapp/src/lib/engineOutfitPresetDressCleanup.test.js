@@ -294,7 +294,7 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
     outfitPresetId: skirtOutfit.id,
   });
 
-  assert.match([shortsPrompt.grokPrompt, shortsPrompt.zImagePrompt, shortsPrompt.midjourneyPrompt].join('\n'), /skin-tight ultra-short hot pants/i);
+  assert.match([shortsPrompt.grokPrompt, shortsPrompt.zImagePrompt, shortsPrompt.midjourneyPrompt].join('\n'), /skin-tight (?:ultra-short )?hot pants/i);
   assert.match([skirtPrompt.grokPrompt, skirtPrompt.zImagePrompt, skirtPrompt.midjourneyPrompt].join('\n'), /tight bodycon mini skirt/i);
   assert.equal(shortsPrompt.selection.outfitPresetId, shortsOutfit.id);
   assert.equal(skirtPrompt.selection.outfitPresetId, skirtOutfit.id);
@@ -610,9 +610,9 @@ test('mirror chrome garment color applies scene-reflective material to the new c
   assert.match(promptText, /mirror-chrome silver/i);
   assert.match(promptText, /scene-reflective surface/i);
   assert.match(promptText, /high-neck extreme front cut-out monokini swimsuit/i);
-  assert.match(promptText, /bikini-like one-piece construction/i);
-  assert.match(promptText, /connected only by thin side straps/i);
-  assert.match(promptText, /oversized open front torso gap exposing most of the abdomen and navel/i);
+  assert.match(promptText, /bikini-like one-piece construction|separate high-neck chest panel and high-cut bikini bottom/i);
+  assert.match(promptText, /connected (?:only )?by thin side straps/i);
+  assert.match(promptText, /(?:oversized open front torso gap exposing most of the abdomen and navel|large open front torso gap exposing abdomen and navel)/i);
   assert.equal(prompt.selection.outfitPresetId, '');
   assert.equal(prompt.selection.dressId, cutoutSwimsuit.id);
   assert.equal(prompt.selection.dressColorId, mirrorChrome.id);
@@ -774,8 +774,8 @@ test('complete look palette applies to special outfits, outfit presets, and dres
   [specialPrompt, presetPrompt, dressPrompt].forEach((prompt) => {
     const text = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
     assert.equal(prompt.selection.completeLookPaletteId, completePalette.id);
-    assert.match(text, /complete outfit palette direction: shift the complete outfit palette toward a black-and-red street color family/);
-    assert.match(text, /preserving garment structure, accessory separation, material contrast, and multi-piece color variation/);
+    assert.match(text, /black-and-red street/i);
+    assert.doesNotMatch(prompt.zImagePrompt, /complete outfit palette direction: shift the complete outfit palette|preserving garment structure, accessory separation, material contrast, and multi-piece color variation/);
     assert.doesNotMatch(text, /flat color/i);
   });
 
