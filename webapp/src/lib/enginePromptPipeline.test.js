@@ -548,7 +548,8 @@ test('Gpt single-subject prompt compresses outfit preset and dress wording witho
   });
   assert.match(openButtonSet.wardrobe, /tight long-sleeve button-up shirt, opaque stretch cotton, structured collar and fitted sleeves/i);
   assert.match(openButtonSet.wardrobe, /upper buttons open, front buttons under tension, placket pulling at chest and waist/i);
-  assert.match(openButtonSet.wardrobe, /tight bodycon mini skirt, smooth hip-hugging silhouette, selected fabric color/i);
+  assert.match(openButtonSet.wardrobe, /tight bodycon mini skirt, smooth hip-hugging silhouette/i);
+  assert.doesNotMatch(openButtonSet.wardrobe, /selected fabric color/i);
   assert.doesNotMatch(openButtonSet.wardrobe, /outfit, opaque stretch cotton shirting fabric|remaining front buttons fastened under tension|horizontal fabric wrinkles across the bust and midriff|dominant fabric color controlled by the outfit color selection/i);
   assert.match(openButtonSet.prompt.zImagePrompt, /remaining front buttons fastened under tension/i);
 
@@ -556,7 +557,8 @@ test('Gpt single-subject prompt compresses outfit preset and dress wording witho
     outfitPresetId: optionId('outfitPresetId', '全無'),
     dressId: optionId('dressId', '連身：短版｜無袖迷你洋裝'),
   });
-  assert.match(sleevelessDress.wardrobe, /sleeveless mini dress, clean shoulder line, short hem, selected main fabric color/i);
+  assert.match(sleevelessDress.wardrobe, /sleeveless mini dress, clean shoulder line, short hem/i);
+  assert.doesNotMatch(sleevelessDress.wardrobe, /selected main fabric color/i);
   assert.doesNotMatch(sleevelessDress.wardrobe, /one-piece silhouette|compact short hem|main fabric color controlled by dress color selection/i);
   assert.match(sleevelessDress.prompt.zImagePrompt, /one-piece silhouette/i);
 
@@ -569,6 +571,74 @@ test('Gpt single-subject prompt compresses outfit preset and dress wording witho
   assert.match(cutoutSwimsuit.wardrobe, /large open front torso gap exposing abdomen and navel/i);
   assert.doesNotMatch(cutoutSwimsuit.wardrobe, /bikini-like one-piece construction|connected only by thin side straps|oversized open front torso gap exposing most of the abdomen and navel|main swim fabric color controlled by dress color selection/i);
   assert.match(cutoutSwimsuit.prompt.zImagePrompt, /bikini-like one-piece construction/i);
+});
+
+test('Gpt single-subject prompt naturalizes outfit preset and dress palette wording', () => {
+  const baseLocks = {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    specialOutfitId: optionId('specialOutfitId', '全無'),
+  };
+  const buildWardrobe = (locks) => {
+    const [prompt] = generatePrompts(1, { ...baseLocks, ...locks });
+    return {
+      prompt,
+      wardrobe: gptSection(prompt, 'Wardrobe'),
+    };
+  };
+  const controlPhrase = /selected (?:main |uniform |satin |dress |fabric |latex |swim fabric |tonal )?color|controlled by|complete outfit palette direction|shift the complete outfit palette|preserving garment structure|multi-piece color variation/i;
+
+  const cheongsam = buildWardrobe({
+    outfitPresetId: optionId('outfitPresetId', '套裝：素色緞面旗袍'),
+    dressId: optionId('dressId', '全無'),
+    completeLookPaletteId: optionId('completeLookPaletteId', '黑紅街頭'),
+  });
+  assert.match(cheongsam.wardrobe, /black-and-red street solid satin cheongsam mini outfit/i);
+  assert.doesNotMatch(cheongsam.wardrobe, controlPhrase);
+  assert.match(cheongsam.prompt.zImagePrompt, /complete outfit palette direction: shift the complete outfit palette toward a black-and-red street color family/i);
+
+  const lingerie = buildWardrobe({
+    outfitPresetId: optionId('outfitPresetId', '套裝：鏈條緞面內衣'),
+    dressId: optionId('dressId', '全無'),
+    completeLookPaletteId: optionId('completeLookPaletteId', '銀灰金屬'),
+  });
+  assert.match(lingerie.wardrobe, /silver graphite metallic satin lingerie set/i);
+  assert.doesNotMatch(lingerie.wardrobe, controlPhrase);
+
+  const maid = buildWardrobe({
+    outfitPresetId: optionId('outfitPresetId', '套裝：女僕'),
+    dressId: optionId('dressId', '全無'),
+    completeLookPaletteId: optionId('completeLookPaletteId', '粉色甜酷'),
+  });
+  assert.match(maid.wardrobe, /soft pink sweet-cool maid outfit/i);
+  assert.match(maid.wardrobe, /dark accent balance/i);
+  assert.doesNotMatch(maid.wardrobe, controlPhrase);
+
+  const laceDress = buildWardrobe({
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '連身：短版｜細肩帶蕾絲棉質迷你洋裝'),
+    completeLookPaletteId: optionId('completeLookPaletteId', '奶油米白'),
+  });
+  assert.match(laceDress.wardrobe, /cream ivory soft-neutral spaghetti-strap lace cotton mini dress/i);
+  assert.doesNotMatch(laceDress.wardrobe, controlPhrase);
+
+  const cutoutSwimsuit = buildWardrobe({
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '連身：短版｜高領挖腰連身泳裝'),
+    completeLookPaletteId: optionId('completeLookPaletteId', '黑紅街頭'),
+  });
+  assert.match(cutoutSwimsuit.wardrobe, /black-and-red street high-neck extreme front cut-out monokini swimsuit/i);
+  assert.doesNotMatch(cutoutSwimsuit.wardrobe, controlPhrase);
+
+  const halterDress = buildWardrobe({
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '連身：短版｜亮面深V掛脖迷你洋裝'),
+    topBottomPaletteId: optionId('topBottomPaletteId', '日蝕紫 × 萊姆低語'),
+  });
+  assert.match(halterDress.wardrobe, /eclipse violet glossy deep-V halter mini dress/i);
+  assert.match(halterDress.wardrobe, /lime whisper lower hem or skirt accent/i);
+  assert.doesNotMatch(halterDress.wardrobe, /controlled by|coordinated top-to-bottom palette|upper\/main dress area|lower hem or skirt area/i);
 });
 
 test('Gpt duo prompt uses role cards with wardrobe inside each subject block', () => {

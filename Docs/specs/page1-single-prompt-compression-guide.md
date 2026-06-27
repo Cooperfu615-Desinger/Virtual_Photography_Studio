@@ -174,11 +174,14 @@ fit or rise, color from palette if already composed, garment type, 1-2 concrete 
 - neckline、hem、fabric、trim、主要結構。
 - 套裝必要識別物，例如制服帽、apron、bunny-ear headband。
 - 配色控制所需的目標區域，但語氣要短。
+- 完整造型色系在 Gpt 中應融入服裝片語，例如 `black-and-red street solid satin cheongsam mini outfit`，不要保留 palette direction 操作句。
+- 特殊上下配色用短片語保留上下區域，例如 `lime whisper lower hem or skirt accent`，不要輸出 `coordinated top-to-bottom palette`。
 
 刪減：
 
 - `one-piece silhouette` 重複出現時可刪。
 - `main fabric color controlled by...` 可壓成 `selected main fabric color`。
+- Gpt 輸出中 `selected main fabric color`、`selected uniform color`、`controlled by...`、`complete outfit palette direction...` 應移除或融入服裝，不作為獨立控制語。
 - `metal hardware kept in fixed metallic tones` 可壓成 `metal hardware in fixed metallic tones`。
 - 泛用的 `complete styling`, `polished outfit`, `balanced silhouette`。
 

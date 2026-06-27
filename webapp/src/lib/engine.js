@@ -8889,6 +8889,56 @@ function mergeGptSingleHairColorIntoHairstyle(text) {
   return output;
 }
 
+function buildGptCompletePaletteModifier(value) {
+  return String(value || '')
+    .replace(/\s+color family(?:\s+with\s+dark accent balance)?/i, '')
+    .replace(/\bblack, white, and cool gray\b/i, 'black white cool-gray')
+    .replace(/\bblack-and-red street\b/i, 'black-and-red street')
+    .replace(/\bdeep indigo denim\b/i, 'deep indigo denim')
+    .replace(/\bcream, ivory, and soft neutral\b/i, 'cream ivory soft-neutral')
+    .replace(/\bsoft pink sweet-cool\b/i, 'soft pink sweet-cool')
+    .replace(/\bbrown, camel, and vintage tan\b/i, 'brown camel vintage-tan')
+    .replace(/\bsilver, graphite, and metallic gray\b/i, 'silver graphite metallic')
+    .replace(/\bolive green, sage, and utility gray\b/i, 'olive sage utility-gray')
+    .replace(/\byellow, orange, and bright warm\b/i, 'yellow orange bright-warm')
+    .replace(/\s*,\s*/g, ' ')
+    .replace(/\s+and\s+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function cleanGptPaletteWardrobeBase(value) {
+  return cleanGptSinglePromptText(value)
+    .replace(/,\s*(?:dominant|main|secondary|contrast|tonal)\s+[^,.]*?\s+controlled by\s+[^,.]+/gi, '')
+    .replace(/,\s*color controlled by\s+[^,.]+/gi, '')
+    .replace(/,\s*selected\s+(?:main\s+)?(?:fabric|uniform|satin|dress|latex|swim fabric|tonal palette|main fabric|main latex|main satin|main swim fabric)\s+color/gi, '')
+    .replace(/,\s*selected\s+(?:apron and ruffle contrast|contrast details|contrast trim|ruffle contrast|contrast panels|tonal palette)/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .trim();
+}
+
+function naturalizeGptSingleWardrobePaletteText(text) {
+  return cleanGptPaletteWardrobeBase(text)
+    .replace(
+      /(She wears\s+)?([^.]+?),\s*complete outfit palette direction:\s*shift the complete outfit palette toward a\s+(.+?),\s*preserving garment structure,\s*accessory separation,\s*material contrast,\s*and multi-piece color variation\.?/gi,
+      (_, lead = '', outfit, palette) => {
+        const modifier = buildGptCompletePaletteModifier(palette);
+        const darkAccent = /with\s+dark accent balance/i.test(palette) ? ', dark accent balance' : '';
+        const base = cleanGptPaletteWardrobeBase(outfit);
+        return base ? `${lead}${[modifier, base].filter(Boolean).join(' ')}${darkAccent}.` : '';
+      }
+    )
+    .replace(
+      /,\s*coordinated top-to-bottom palette:\s*upper\/main dress area in\s+([^,]+),\s*lower hem or skirt area in\s+([^,.]+)\.?/gi,
+      (_, _primary, secondary) => `, ${secondary.trim()} lower hem or skirt accent.`
+    )
+    .replace(
+      /,\s*coordinated top-to-bottom palette:\s*upper\/main garment area in\s+([^,]+),\s*lower or secondary garment area in\s+([^,.]+)\.?/gi,
+      (_, primary, secondary) => `, ${primary.trim()} upper/main garment color, ${secondary.trim()} lower or secondary garment color.`
+    );
+}
+
 function compressGptSingleSubjectText(value, context) {
   if (context.subject?.count !== 1 || isSpecialSubject(context.subject) || context.characterProfilePrompt) {
     return value;
@@ -9056,7 +9106,7 @@ function compressGptSinglePoseText(value, context) {
 function compressGptSingleWardrobeText(value, context) {
   if (context.subject?.count !== 1) return value;
 
-  return cleanGptSinglePromptText(value)
+  const compressed = cleanGptSinglePromptText(value)
     .replace(/\bgothic bunny corset outfit,\s*bunny-ear headband with lace inner panels,\s*one bunny ear standing upright and the other half-drooping,\s*bow accents placed clearly on both the left and right sides of the headband,\s*fitted corset bodysuit with shaped cup seams and vertical boning lines,\s*lace neckline,\s*cross appliques,\s*ribbon and garter straps,\s*matching main-color garter lace thigh-high stockings,\s*leather neck choker with metal cross pendant/gi, 'gothic bunny corset, bunny-ear headband with one upright ear and one half-drooping ear, side bow accents, fitted corset bodysuit, shaped cup seams, vertical boning, lace neckline, cross appliques, ribbon and garter straps, matching garter lace thigh-high stockings, leather choker with metal cross pendant')
     .replace(/\btight long-sleeve button-up shirt outfit,\s*opaque stretch cotton shirting fabric,\s*structured collar and long fitted sleeves,\s*upper buttons left open,\s*remaining front buttons fastened under tension,\s*visible button placket pulling at the chest and waist,\s*horizontal fabric wrinkles across the bust and midriff,\s*tight bodycon mini skirt,\s*smooth hip-hugging skirt silhouette/gi, 'tight long-sleeve button-up shirt, opaque stretch cotton, structured collar and fitted sleeves, upper buttons open, front buttons under tension, placket pulling at chest and waist, bust and midriff wrinkles, tight bodycon mini skirt, smooth hip-hugging silhouette')
     .replace(/\btight short-sleeve button-up shirt outfit,\s*opaque stretch cotton shirting fabric,\s*structured collar and short sleeves,\s*upper buttons left open,\s*remaining front buttons fastened under tension,\s*visible button placket pulling at the chest and waist,\s*horizontal fabric wrinkles across the bust and midriff,\s*skin-tight ultra-short hot pants/gi, 'tight short-sleeve button-up shirt, opaque stretch cotton, structured collar and short sleeves, upper buttons open, front buttons under tension, placket pulling at chest and waist, bust and midriff wrinkles, skin-tight hot pants')
@@ -9109,6 +9159,8 @@ function compressGptSingleWardrobeText(value, context) {
     .replace(/,\s*\./g, '.')
     .replace(/\.\s*,/g, ',')
     .trim();
+
+  return naturalizeGptSingleWardrobePaletteText(compressed);
 }
 
 function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character = null, wardrobe = null, wardrobeColors = null) {
