@@ -6,6 +6,13 @@ import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js'
 const locationOptions = () => getLockControls().find((control) => control.key === 'locationId').options;
 const framingOptions = () => getLockControls().find((control) => control.key === 'framingId').options;
 
+function controlOptionId(controlKey, label) {
+  const control = getLockControls().find((entry) => entry.key === controlKey);
+  const option = control?.options?.find((item) => item.zh === label);
+  assert.ok(option, `Missing option ${label} in ${controlKey}`);
+  return option.id;
+}
+
 function optionByLabel(label) {
   const option = locationOptions().find((item) => item.zh === label);
   assert.ok(option, `Missing location option: ${label}`);
@@ -23,6 +30,10 @@ function framingId(label) {
 }
 
 const wordCount = (text) => text.split(/\s+/).filter(Boolean).length;
+
+function gptSceneSection(prompt) {
+  return prompt.grokPrompt.match(/Scene:\n([\s\S]*?)(?=\n\n(?:Lighting|Camera Look):\n|\n\nmulti-cut sequence n=2$|$)/)?.[1] || '';
+}
 
 test('scene base keeps indoor outdoor and other location options intact', () => {
   const labels = locationOptions().map((option) => option.zh);
@@ -294,4 +305,32 @@ test('generated prompts use stabilized scene base wording', () => {
   assert.match(luxuryHotelBalconyPrompt.zImagePrompt, /broad river below/i);
   assert.match(forestCampsitePrompt.grokPrompt, /forest campsite clearing/);
   assert.match(forestCampsitePrompt.zImagePrompt, /canvas tent edge/);
+});
+
+test('Gpt scene priority does not duplicate location anchors or conflict with solid studio backgrounds', () => {
+  const [solidStudioPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
+    locationId: optionId('室內：純藍背景'),
+    outfitPresetId: controlOptionId('outfitPresetId', '套裝：空服員制服'),
+  });
+  const [bookshopPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
+    locationId: optionId('室內：古書二手書店'),
+    outfitPresetId: controlOptionId('outfitPresetId', '套裝：空服員制服'),
+  });
+
+  const solidStudioScene = gptSceneSection(solidStudioPrompt);
+  const bookshopScene = gptSceneSection(bookshopPrompt);
+
+  assert.match(solidStudioScene, /horizonless seamless matte saturated pure blue color field/);
+  assert.doesNotMatch(solidStudioScene, /avoid plain or empty background/i);
+  assert.doesNotMatch(solidStudioScene, /\([^)]*:1\.35\)/);
+  assert.doesNotMatch(solidStudioScene, /\.,\s*\(/);
+
+  assert.match(bookshopScene, /antique used-book shop interior/);
+  assert.match(bookshopScene, /keep the selected environment readable with clear spatial context/i);
+  assert.doesNotMatch(bookshopScene, /\(antique used-book shop interior[^)]*:1\.35\)/i);
+  assert.doesNotMatch(bookshopScene, /\.,\s*\(/);
 });

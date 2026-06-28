@@ -8133,6 +8133,29 @@ function buildContextualSceneAccent(context, { short = false } = {}) {
   return variants[profile]?.[moodType]?.[short ? 'short' : 'full'] || '';
 }
 
+function isSolidColorStudioLocation(location) {
+  const tags = new Set(location?.meta?.tags || []);
+  return tags.has('solid_color_studio');
+}
+
+function isOtherDedicatedSceneLocation(location) {
+  const tags = new Set(location?.meta?.tags || []);
+  return tags.has('other_scene');
+}
+
+function buildScenePriorityPrompt(context, { labeled = false } = {}) {
+  if (!context?.location || isNoneLikeItem(context.location)) return '';
+
+  let text = 'keep the selected environment readable with clear spatial context';
+  if (isSolidColorStudioLocation(context.location)) {
+    text = 'keep the selected seamless color field clean and visible around the subject';
+  } else if (isOtherDedicatedSceneLocation(context.location)) {
+    text = 'keep the selected close scene base readable around or beneath the subject';
+  }
+
+  return labeled ? `Scene priority: ${text}` : text;
+}
+
 function isCloseupVisibilityContext(context) {
   return isFaceOnlyCloseupFramingItem(context?.framing);
 }
@@ -8244,19 +8267,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
       return 'allow self-shot imperfection: partial face or half-body crop, off-center framing, close-lens proximity, imperfect focus, and incomplete fixed-set visibility are acceptable';
     }
     if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
-
-    const locationAnchor = stripMarkdown(context.location.en || context.location.zh || '')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[()]/g, '')
-      .split(',')
-      .map((part) => part.trim())
-      .filter(Boolean)
-      .slice(0, 2)
-      .join(', ');
-
-    if (!locationAnchor) return '';
-    return `(${locationAnchor}:1.35), keep the recognizable selected environment visible behind the subject, preserve clear spatial context and background details, avoid plain or empty background`;
+    return buildScenePriorityPrompt(context);
   };
   const addFixedCompositionSetLines = () => {
     if (!fixedCompositionSetActive) return;
@@ -8557,6 +8568,13 @@ function joinNaturalPromptValues(values) {
     .join(', ');
 }
 
+function joinScenePromptValues(values) {
+  return values
+    .map((value) => stripTerminalPromptPunctuation(value))
+    .filter(Boolean)
+    .join(', ');
+}
+
 function joinPromptSentences(values) {
   return values
     .map((value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim()))
@@ -8669,7 +8687,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
 
   return {
     imageType,
-    sceneText: fixedCompositionSetActive ? joinPromptSentences(sceneValues) : joinNaturalPromptValues(sceneValues),
+    sceneText: fixedCompositionSetActive ? joinPromptSentences(sceneValues) : joinScenePromptValues(sceneValues),
     subjectText: joinNaturalPromptValues(subjectValues),
     wardrobeText: joinNaturalPromptValues(wardrobeValues),
     poseText: joinNaturalPromptValues(poseValues),
@@ -9524,19 +9542,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
   const buildZImageScenePriorityText = () => {
     if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
-
-    const locationAnchor = stripMarkdown(context.location.en || context.location.zh || '')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[()]/g, '')
-      .split(',')
-      .map((part) => part.trim())
-      .filter(Boolean)
-      .slice(0, 2)
-      .join(', ');
-
-    if (!locationAnchor) return '';
-    return `Scene priority: (${locationAnchor}:1.35), keep the recognizable selected environment visible behind the subject, preserve clear spatial context and background details, avoid plain or empty background`;
+    return buildScenePriorityPrompt(context, { labeled: true });
   };
   const buildCharacterText = () => {
     if (specialSubjectMode) {

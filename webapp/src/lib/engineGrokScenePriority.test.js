@@ -20,7 +20,7 @@ test('Gpt prompt keeps scene priority guidance with special outfit details', () 
 
   const grok = prompt.grokPrompt;
   const sceneIndex = grok.indexOf('Scene:');
-  const scenePriorityIndex = grok.indexOf('(Seoul Seongsu-dong urban corner, industrial cafe frontage:1.35)');
+  const scenePriorityIndex = grok.indexOf('keep the selected environment readable with clear spatial context');
   const specialOutfitIndex = grok.indexOf('black sheer polka-dot matching fashion set');
 
   assert.notEqual(sceneIndex, -1);
@@ -28,7 +28,8 @@ test('Gpt prompt keeps scene priority guidance with special outfit details', () 
   assert.notEqual(specialOutfitIndex, -1);
   assert.ok(specialOutfitIndex < sceneIndex);
   assert.ok(sceneIndex < scenePriorityIndex);
-  assert.match(grok, /recognizable selected environment/);
+  assert.doesNotMatch(grok, /\(Seoul Seongsu-dong urban corner, industrial cafe frontage:1\.35\)/);
+  assert.doesNotMatch(grok, /avoid plain or empty background/);
 });
 
 test('Gpt prompt keeps scene priority disabled for normal separates', () => {
@@ -38,7 +39,7 @@ test('Gpt prompt keeps scene priority disabled for normal separates', () => {
     topId: optionId('topId', '棉質細肩背心'),
   });
 
-  assert.doesNotMatch(prompt.grokPrompt, /recognizable selected environment/);
+  assert.doesNotMatch(prompt.grokPrompt, /keep the selected environment readable/);
 });
 
 test('Z-Image prompt prioritizes scene before special outfit details', () => {
@@ -59,8 +60,9 @@ test('Z-Image prompt prioritizes scene before special outfit details', () => {
   assert.notEqual(wardrobeIndex, -1);
   assert.ok(settingIndex < wardrobeIndex);
   assert.ok(scenePriorityIndex < wardrobeIndex);
-  assert.match(zImage, /Scene priority: \(Seoul Seongsu-dong urban corner, industrial cafe frontage:1\.35\)/);
-  assert.match(zImage, /recognizable selected environment/);
+  assert.match(zImage, /Scene priority: keep the selected environment readable with clear spatial context/);
+  assert.doesNotMatch(zImage, /\(Seoul Seongsu-dong urban corner, industrial cafe frontage:1\.35\)/);
+  assert.doesNotMatch(zImage, /avoid plain or empty background/);
 });
 
 test('Z-Image prompt keeps scene priority disabled for normal separates', () => {
