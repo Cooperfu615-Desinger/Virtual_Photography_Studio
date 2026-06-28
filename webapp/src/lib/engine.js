@@ -1368,8 +1368,6 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'sitting-legs-to-side', base: 'sitting', zh: '雙腿側放坐姿', en: 'seated arrangement with both legs angled to one side, soft asymmetrical lower-body line' },
   { id: 'sitting-grounded-forward-lean', base: 'sitting', zh: '坐姿身體前傾', en: 'grounded forward-leaning seated arrangement, upper body angled forward with stable seated weight' },
   { id: 'sitting-open-confident', base: 'sitting', zh: '開闊自信坐姿', en: 'open confident seated arrangement, knees set wider with grounded posture, torso upright, strong spatial presence' },
-  { id: 'sitting-edge-poised', base: 'sitting', zh: '椅緣端坐', en: 'edge-of-seat poised seated arrangement, seated near the front edge with clear leg line' },
-  { id: 'sitting-wall-lean', base: 'sitting', zh: '靠牆坐姿', en: 'sitting on the floor with the back resting against a wall, legs extended forward, relaxed grounded wall-seated body line', meta: { tags: ['full_body_action'] } },
   { id: 'kneeling-seiza', base: 'kneeling', zh: '跪坐', en: 'seiza-style kneeling arrangement' },
   { id: 'kneeling-wide', base: 'kneeling', zh: '分腿跪坐', en: 'wide-knee kneeling arrangement' },
   { id: 'kneeling-forward-lean', base: 'kneeling', zh: '前傾跪姿', en: 'forward-leaning kneeling arrangement' },
@@ -1495,6 +1493,8 @@ const POSE_COMPOSER_ANCHOR_OPTIONS = [
   { id: 'standing-lean-scene-object', base: 'standing', zh: '倚靠現有場景物件', en: 'leaning against any suitable existing object within the current scene, body weight lightly supported by that existing scene object, using only a naturally available scene object for support' },
   { id: 'sitting-floor', base: 'sitting', zh: '坐在地板', en: 'sitting on the floor' },
   { id: 'sitting-scene-appropriate-chair', base: 'sitting', zh: '坐在椅子上', en: 'sitting on a chair that naturally fits the current scene with the chair style material and scale chosen to match the environment' },
+  { id: 'sitting-chair-edge', base: 'sitting', zh: '坐在椅緣', en: 'sitting on the front edge of a chair, seat-edge support with clear leg line' },
+  { id: 'sitting-wall-floor', base: 'sitting', zh: '背靠牆坐在地面', en: 'sitting on the floor with the back resting against a wall, wall-supported seated contact with legs naturally settled forward', meta: { tags: ['full_body_action'] } },
   { id: 'sitting-ornate-velvet-armchair', base: 'sitting', zh: '坐在單人雕花絨布椅', en: 'lounging on an ornate single velvet armchair' },
   { id: 'sitting-bed-edge', base: 'sitting', zh: '坐在床邊', en: 'sitting on the edge of a bed' },
   { id: 'sitting-table-edge', base: 'sitting', zh: '坐在桌面邊緣', en: 'sitting on the edge of a tabletop' },
@@ -3556,7 +3556,7 @@ const CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS = [
   { label: '隨性癱坐在雕花單人絨布沙發上', baseZh: '坐姿', arrangementZh: '隨性癱坐', anchorZh: '坐在單人雕花絨布椅' },
   { label: '趴臥滑手機', baseZh: '躺姿', arrangementZh: '趴臥手肘撐起', handZh: '滑手機' },
   { label: '靠牆站立', baseZh: '站姿', anchorZh: '靠牆' },
-  { label: '靠牆坐姿', baseZh: '坐姿', arrangementZh: '靠牆坐姿' },
+  { label: '靠牆坐姿', baseZh: '坐姿', arrangementZh: '雙腿自然伸展', anchorZh: '背靠牆坐在地面' },
   { label: '靠牆後仰站姿', baseZh: '站姿', arrangementZh: '身體微後仰', anchorZh: '靠牆' },
   { label: '靠牆仰躺抬腿', baseZh: '躺姿', arrangementZh: '靠牆仰躺抬腿' },
   { label: '側身斜躺伸腿', baseZh: '躺姿', arrangementZh: '側躺' },
@@ -3564,6 +3564,11 @@ const CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS = [
   { label: '四足跪姿前傾', baseZh: '跪姿', arrangementZh: '四足跪姿' },
   { label: '抱枕俯臥回眸', baseZh: '躺姿', arrangementZh: '抱枕俯臥回眸' },
   { label: '分腿跪坐仰視', baseZh: '跪姿', arrangementZh: '分腿跪坐', handZh: '一手撐地一手放腿上', headZh: '下巴微抬' },
+];
+
+const POSE_COMPOSER_ARRANGEMENT_TO_ANCHOR_MIGRATIONS = [
+  { arrangementId: 'sitting-edge-poised', baseZh: '坐姿', anchorZh: '坐在椅緣' },
+  { arrangementId: 'sitting-wall-lean', baseZh: '坐姿', arrangementZh: '雙腿自然伸展', anchorZh: '背靠牆坐在地面' },
 ];
 
 const WARDROBE_LEGACY_OPTION_MAP = [
@@ -3979,6 +3984,16 @@ function applyLegacySelfieSpecialActionMigration(normalizedLocks, rawLocks, cont
   setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHandId', migration.handZh);
 }
 
+function applyPoseArrangementAnchorMigration(normalizedLocks, rawLocks, controls) {
+  const migration = POSE_COMPOSER_ARRANGEMENT_TO_ANCHOR_MIGRATIONS.find((entry) => entry.arrangementId === rawLocks?.poseArrangementId);
+  if (!migration) return;
+
+  setControlToNone(normalizedLocks, controls, 'poseArrangementId');
+  if (migration.baseZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseBaseId', migration.baseZh);
+  if (migration.arrangementZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseArrangementId', migration.arrangementZh);
+  if (migration.anchorZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseAnchorId', migration.anchorZh);
+}
+
 function applySpecialActionPoseComposerMigration(normalizedLocks, rawLocks, controls) {
   const specialAction = getControlOptionById(controls, 'specialActionId', normalizedLocks.specialActionId)
     || getControlOptionById(controls, 'specialActionId', rawLocks?.specialActionId);
@@ -4210,6 +4225,7 @@ export function normalizeLocks(rawLocks = {}) {
   applyDuoExpressionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyExpressionPoseLegacySocialLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyLegacySelfieSpecialActionMigration(normalizedWithLegacyColors, rawLocks, controls);
+  applyPoseArrangementAnchorMigration(normalizedWithLegacyColors, rawLocks, controls);
   applySpecialActionPoseComposerMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOutfitPresetToDressLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyEyewearLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);

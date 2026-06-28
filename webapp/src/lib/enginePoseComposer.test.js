@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, generatePrompts, getLockControls, getSceneDependentOptions } from './engine.js';
+import { createEmptyLocks, generatePrompts, getLockControls, getSceneDependentOptions, normalizeLocks } from './engine.js';
 
 function control(key) {
   const entry = getLockControls().find((item) => item.key === key);
@@ -90,13 +90,23 @@ test('pose composer exposes scene-appropriate sitting chair anchor', () => {
   assert.doesNotMatch(option.en, /armchair|bar stool|high-back|velvet|ornate/i);
 });
 
+test('seat-edge and wall-seated poses live in contact support anchors', () => {
+  assert.equal(control('poseArrangementId').options.some((option) => option.zh === '椅緣端坐'), false);
+  assert.equal(control('poseArrangementId').options.some((option) => option.zh === '靠牆坐姿'), false);
+
+  assertAnchorOption('坐在椅緣', 'sitting', /front edge of a chair/);
+  assertAnchorOption('坐在椅緣', 'sitting', /seat-edge support/);
+  assertAnchorOption('背靠牆坐在地面', 'sitting', /back resting against a wall/);
+  assertAnchorOption('背靠牆坐在地面', 'sitting', /wall-supported seated contact/);
+});
+
 test('scene-appropriate sitting chair anchor is preserved in all prompt versions', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '1',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     poseBaseId: optionId('poseBaseId', '坐姿'),
-    poseArrangementId: optionId('poseArrangementId', '椅緣端坐'),
+    poseArrangementId: optionId('poseArrangementId', '自然坐姿'),
     poseHandId: optionId('poseHandId', '雙手放在大腿上'),
     poseAnchorId: optionId('poseAnchorId', '坐在椅子上'),
     poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
@@ -108,6 +118,25 @@ test('scene-appropriate sitting chair anchor is preserved in all prompt versions
     assert.match(text, /chair that naturally fits the current scene|scene-appropriate chair/);
     assert.match(text, /chosen to match the environment|scene-appropriate chair/);
     assert.doesNotMatch(text, /ornate single velvet armchair|bar stool|high-back chair/);
+  }
+});
+
+test('seat-edge sitting anchor is preserved in all prompt versions', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '坐姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然坐姿'),
+    poseHandId: optionId('poseHandId', '雙手放在大腿上'),
+    poseAnchorId: optionId('poseAnchorId', '坐在椅緣'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  });
+
+  assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', '坐在椅緣'));
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /front edge of a chair/);
+    assert.match(text, /seat-edge support/);
   }
 });
 
@@ -513,7 +542,6 @@ test('pose composer exposes new standing sitting and squatting arrangement batch
     ['雙腿側放坐姿', 'sitting', /both legs angled to one side/],
     ['坐姿身體前傾', 'sitting', /grounded forward-leaning seated arrangement/],
     ['開闊自信坐姿', 'sitting', /open confident seated arrangement/],
-    ['椅緣端坐', 'sitting', /edge-of-seat poised seated arrangement/],
     ['低蹲單腿前伸', 'squatting', /low squat with one leg extended forward/],
     ['側身低蹲', 'squatting', /side-facing low squat/],
     ['腳跟抬起蹲姿', 'squatting', /raised-heel squatting arrangement/],
@@ -522,6 +550,26 @@ test('pose composer exposes new standing sitting and squatting arrangement batch
   ].forEach(([zh, base, expectedEnglish]) => {
     assertArrangementOption(zh, base, expectedEnglish);
   });
+});
+
+test('legacy sitting arrangement locks migrate into contact support anchors', () => {
+  const normalizedSeatEdge = normalizeLocks({
+    ...createEmptyLocks(),
+    poseBaseId: optionId('poseBaseId', '坐姿'),
+    poseArrangementId: 'sitting-edge-poised',
+  });
+
+  assert.equal(normalizedSeatEdge.poseArrangementId, optionId('poseArrangementId', '全無'));
+  assert.equal(normalizedSeatEdge.poseAnchorId, optionId('poseAnchorId', '坐在椅緣'));
+
+  const normalizedWallSeated = normalizeLocks({
+    ...createEmptyLocks(),
+    poseBaseId: optionId('poseBaseId', '坐姿'),
+    poseArrangementId: 'sitting-wall-lean',
+  });
+
+  assert.equal(normalizedWallSeated.poseArrangementId, optionId('poseArrangementId', '雙腿自然伸展'));
+  assert.equal(normalizedWallSeated.poseAnchorId, optionId('poseAnchorId', '背靠牆坐在地面'));
 });
 
 test('pose composer exposes kneeling and lying expansion batch', () => {

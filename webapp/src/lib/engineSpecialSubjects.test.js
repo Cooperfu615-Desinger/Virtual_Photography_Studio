@@ -893,10 +893,10 @@ test('pose composer applies to special subjects in every output and takes priori
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
     specialActionId: optionId('specialActionId', '塗口紅'),
     poseBaseId: optionId('poseBaseId', '坐姿'),
-    poseArrangementId: optionId('poseArrangementId', '椅緣端坐'),
+    poseArrangementId: optionId('poseArrangementId', '自然坐姿'),
     poseHandId: optionId('poseHandId', '雙手放在大腿上'),
     poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
-    poseAnchorId: optionId('poseAnchorId', '坐在椅子上'),
+    poseAnchorId: optionId('poseAnchorId', '坐在椅緣'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
@@ -904,22 +904,21 @@ test('pose composer applies to special subjects in every output and takes priori
   assert.equal(prompt.selection.poseId, '');
   assert.equal(prompt.selection.specialActionId, '');
   assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '坐姿'));
-  assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '椅緣端坐'));
+  assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '自然坐姿'));
   assert.equal(prompt.selection.poseHandId, optionId('poseHandId', '雙手放在大腿上'));
   assert.equal(prompt.selection.poseHeadId, optionId('poseHeadId', '頭部自然朝向鏡頭'));
-  assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', '坐在椅子上'));
+  assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', '坐在椅緣'));
   assert.match(prompt.grokPrompt, /She is sitting/);
-  assert.match(prompt.grokPrompt, /edge-of-seat poised seated arrangement/);
-  assert.match(prompt.grokPrompt, /seated near the front edge with clear leg line/);
+  assert.match(prompt.grokPrompt, /natural seated arrangement/);
   assert.match(prompt.grokPrompt, /both hands resting on thighs or nearest upper-leg surface/);
-  assert.match(prompt.grokPrompt, /sitting on a scene-appropriate chair/);
+  assert.match(prompt.grokPrompt, /front edge of a chair/);
+  assert.match(prompt.grokPrompt, /seat-edge support/);
   assert.match(prompt.zImagePrompt, /She is sitting/);
-  assert.match(prompt.midjourneyPrompt, /sitting on a chair that naturally fits the current scene/);
+  assert.match(prompt.midjourneyPrompt, /sitting on the front edge of a chair/);
   for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
-    assert.match(text, /edge-of-seat poised seated arrangement/);
-    assert.match(text, /seated near the front edge with clear leg line/);
+    assert.match(text, /natural seated arrangement/);
     assert.match(text, /both hands resting on the thighs or nearest upper-leg surface/);
-    assert.match(text, /chair that naturally fits the current scene/);
+    assert.match(text, /seat-edge support/);
   }
   assert.match(promptText, /日本戰國武士|female Japanese Sengoku-era samurai/);
   assert.doesNotMatch(promptText, /loosely crossed arms/);

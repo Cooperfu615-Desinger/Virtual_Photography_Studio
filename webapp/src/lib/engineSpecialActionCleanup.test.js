@@ -156,10 +156,20 @@ test('pose composer lower-body hand actions keep random framing wide enough', ()
   }
 });
 
-test('wall and pillow legacy actions have pose composer body arrangements', () => {
-  assert.equal(optionByLabel('poseArrangementId', '靠牆坐姿').base, 'sitting');
+test('wall and pillow legacy actions have pose composer body arrangements and anchors', () => {
+  assert.equal(optionByLabel('poseAnchorId', '背靠牆坐在地面').base, 'sitting');
   assert.equal(optionByLabel('poseArrangementId', '靠牆仰躺抬腿').base, 'lying');
   assert.equal(optionByLabel('poseArrangementId', '抱枕俯臥回眸').base, 'lying');
+
+  const normalizedWallSeated = normalizeLocks({
+    ...createEmptyLocks(),
+    specialActionId: optionByLabel('specialActionId', '靠牆坐姿').id,
+  });
+
+  assert.equal(normalizedWallSeated.specialActionId, optionByLabel('specialActionId', '全無').id);
+  assert.equal(normalizedWallSeated.poseBaseId, optionByLabel('poseBaseId', '坐姿').id);
+  assert.equal(normalizedWallSeated.poseArrangementId, optionByLabel('poseArrangementId', '雙腿自然伸展').id);
+  assert.equal(normalizedWallSeated.poseAnchorId, optionByLabel('poseAnchorId', '背靠牆坐在地面').id);
 });
 
 test('selfie hand poses compose with pose composer body controls', () => {
