@@ -327,7 +327,7 @@ test('locked expression updates output even when the previous orbit conflicts', 
   assert.match(prompt.grokPrompt, /glancing back over the shoulder/);
 });
 
-test('non-social special actions still replace the body pose slot', () => {
+test('deprecated non-social special actions migrate away from the body pose slot', () => {
   const pose = optionByLabel('poseId', '坐姿｜自然坐姿');
   const specialAction = optionByLabel('specialActionId', '塗口紅');
   const framing = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)');
@@ -338,8 +338,9 @@ test('non-social special actions still replace the body pose slot', () => {
     specialActionId: specialAction.id,
   });
 
-  assert.equal(prompt.selection.specialActionId, specialAction.id);
+  assert.equal(prompt.selection.specialActionId, '');
   assert.equal(prompt.selection.poseId, '');
+  assert.equal(prompt.selection.poseHandId, optionByLabel('poseHandId', '塗口紅').id);
 });
 
 test('legacy expression and selfie pose locks migrate into cleaned options', () => {

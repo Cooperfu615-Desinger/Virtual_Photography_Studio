@@ -1345,6 +1345,7 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'standing-natural', base: 'standing', zh: '自然站姿', en: 'natural relaxed standing arrangement' },
   { id: 'standing-one-leg-weight', base: 'standing', zh: '單腳重心', en: 'one-leg weight shift, relaxed asymmetrical body balance' },
   { id: 'standing-forward-lean', base: 'standing', zh: '身體微前傾', en: 'slight forward-leaning standing arrangement' },
+  { id: 'standing-deep-forward-lean', base: 'standing', zh: '上身大幅度前傾', en: 'deep forward lean from the waist, shoulders angled forward, energetic close-interaction upper-body tilt' },
   { id: 'standing-back-lean', base: 'standing', zh: '身體微後仰', en: 'slight backward-leaning standing arrangement' },
   { id: 'standing-turn-back', base: 'standing', zh: '回身轉向', en: 'turning-back standing arrangement, torso subtly rotated' },
   { id: 'standing-contrapposto', base: 'standing', zh: '身體側傾', en: 'side-leaning contrapposto body arrangement' },
@@ -1368,6 +1369,7 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'sitting-grounded-forward-lean', base: 'sitting', zh: '坐姿身體前傾', en: 'grounded forward-leaning seated arrangement, upper body angled forward with stable seated weight' },
   { id: 'sitting-open-confident', base: 'sitting', zh: '開闊自信坐姿', en: 'open confident seated arrangement, knees set wider with grounded posture, torso upright, strong spatial presence' },
   { id: 'sitting-edge-poised', base: 'sitting', zh: '椅緣端坐', en: 'edge-of-seat poised seated arrangement, seated near the front edge with clear leg line' },
+  { id: 'sitting-wall-lean', base: 'sitting', zh: '靠牆坐姿', en: 'sitting on the floor with the back resting against a wall, legs extended forward, relaxed grounded wall-seated body line', meta: { tags: ['full_body_action'] } },
   { id: 'kneeling-seiza', base: 'kneeling', zh: '跪坐', en: 'seiza-style kneeling arrangement' },
   { id: 'kneeling-wide', base: 'kneeling', zh: '分腿跪坐', en: 'wide-knee kneeling arrangement' },
   { id: 'kneeling-forward-lean', base: 'kneeling', zh: '前傾跪姿', en: 'forward-leaning kneeling arrangement' },
@@ -1404,6 +1406,8 @@ const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'lying-prone-elbow-prop', base: 'lying', zh: '趴臥手肘撐起', en: 'prone lying arrangement with elbows propping up the upper body' },
   { id: 'lying-diagonal-recline', base: 'lying', zh: '斜向半躺', en: 'diagonal reclining arrangement, body angled across the support surface with relaxed limbs' },
   { id: 'lying-legs-bent-up', base: 'lying', zh: '躺姿雙腿屈起', en: 'lying arrangement with both legs bent upward, knees raised while the back stays supported' },
+  { id: 'lying-wall-raised-legs', base: 'lying', zh: '靠牆仰躺抬腿', en: 'reclining on the floor with upper body leaned against a wall, both legs lifted upward in staggered angles, compressed wall-supported raised-leg silhouette', meta: { tags: ['full_body_action'] } },
+  { id: 'lying-prone-pillow-lookback', base: 'lying', zh: '抱枕俯臥回眸', en: 'lying prone with the torso propped on a large pillow, turning over one shoulder, hips softly lifted, knees grounded behind', meta: { tags: ['full_body_action', 'large_prop_action'] } },
 ];
 const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
@@ -1412,6 +1416,15 @@ const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'selfie-natural-right-arm', zh: '自然自拍', en: 'front-camera self-shot from the phone held in her own extended right hand, phone and hand stay just beyond the frame edge, only a natural foreshortened right forearm may enter from the side, no separate photographer feeling', desc: '右手拿手機前鏡頭自拍，手機與手留在畫面邊緣外，只保留自然前臂裁切。', meta: { tags: ['selfie_hand_pose', 'locks_orbit'] } },
   { id: 'selfie-mirror-phone-visible', zh: '鏡子自拍', en: 'holding a visible phone toward a mirror for a mirror selfie, phone may overlap the face or sit beside it in the reflection', desc: '拿著可見手機對鏡自拍，手機可遮到臉或在臉旁。', meta: { tags: ['selfie_hand_pose', 'visible_phone', 'mirror_selfie', 'locks_orbit'] } },
   { id: 'selfie-companion-camera-interaction', zh: '男友/閨蜜自拍', en: 'let the image model choose casual naturally relaxed hand placement, close-companion social snapshot feeling, unforced candid body language without prescribed hand gestures', desc: '呈現男友或閨蜜拍攝的親近社群感，手部由模型自然放鬆發揮。', meta: { tags: ['selfie_hand_pose', 'companion_snapshot', 'locks_orbit'] } },
+  { id: 'hand-apply-lipstick', zh: '塗口紅', en: 'lipstick bullet pressed to the lips by one hand, visible hand-to-mouth contact, slight lip pressure', desc: '手持口紅接觸嘴唇，保留明確補妝接觸點。', meta: { tags: ['prop_action', 'face_action'] } },
+  { id: 'hand-messy-lipstick', zh: '塗歪口紅', en: 'messy lipstick application by one hand, lipstick color smudged beyond the lip line, visible hand-to-mouth contact', desc: '手持口紅塗出唇線外，保留不完美補妝效果。', meta: { tags: ['prop_action', 'face_action'] } },
+  { id: 'hand-hold-iced-coffee', zh: '手持冰咖啡', en: 'a clear plastic takeaway cup of iced coffee held naturally in one hand', desc: '手上拿著透明外帶冰咖啡，位置由模型自然決定。', meta: { tags: ['prop_action'] } },
+  { id: 'hand-hold-whirly-lollipop', zh: '手持波板糖', en: 'a colorful whirly pop swirl lollipop held naturally in one hand', desc: '手上拿著彩色波板糖，不綁定嘴部接觸。', meta: { tags: ['prop_action'] } },
+  { id: 'hand-hold-cigarette', zh: '手持香菸', en: 'a cigarette held naturally between the fingers in one hand, faint smoke around the hand', desc: '手指自然夾著香菸，位置由模型自然決定。', meta: { tags: ['prop_action'] } },
+  { id: 'hand-adjust-lower-body-garment', zh: '整理下身', en: 'one hand adjusting the lower-body garment or hosiery, fingers visibly touching the skirt pants waistband or stocking', desc: '整理裙、褲、腰頭或絲襪，依當前穿搭自然成立。', meta: { tags: ['wardrobe_action', 'leg_focus_action'] } },
+  { id: 'hand-adjust-off-shoulder-top', zh: '拉下肩線整理上衣', en: 'one hand pulling the top partially off one shoulder while adjusting the neckline fabric', desc: '單手拉下肩線並整理上衣布料。', meta: { tags: ['wardrobe_action'] } },
+  { id: 'hand-use-phone', zh: '滑手機', en: 'a cell phone held in one hand while scrolling or checking the screen', desc: '單手拿手機滑動或查看畫面。', meta: { tags: ['prop_action'] } },
+  { id: 'hands-grip-waistband', zh: '雙手抓住褲腰', en: 'both hands gripping the front waistband or belt loops, elbows angled outward', desc: '雙手抓住褲腰或皮帶環，形成明確腰部接觸。', meta: { tags: ['wardrobe_action'] } },
   { id: 'hands-relaxed-down', zh: '雙手自然垂放', en: 'both hands resting naturally along the body or on a nearby support surface' },
   { id: 'hands-in-pockets', zh: '雙手插口袋', en: 'both hands tucked into pockets' },
   { id: 'arms-crossed', zh: '雙臂交疊', en: 'arms crossed loosely in front of the body' },
@@ -1979,7 +1992,7 @@ const LOCK_DEFINITIONS = [
   { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
   { key: 'poseBaseId', label: '姿勢基底', options: POSE_COMPOSER_BASE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseArrangementId', label: '肢體變化', options: POSE_COMPOSER_ARRANGEMENT_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
-  { key: 'poseHandId', label: '手部姿勢', options: POSE_COMPOSER_HAND_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'poseHandId', label: '手部 / 道具動作', options: POSE_COMPOSER_HAND_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseHeadId', label: '頭部方向', options: POSE_COMPOSER_HEAD_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseAnchorId', label: '接觸 / 支撐', options: POSE_COMPOSER_ANCHOR_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'specialOutfitId', label: '特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
@@ -3124,7 +3137,6 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'expressionAId',
   'expressionBId',
   'poseId',
-  'specialActionId',
   'duoPoseId',
   'duoPoseBaseId',
   'duoInteractionId',
@@ -3527,6 +3539,32 @@ const CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS = [
   ...entry,
   legacyId: `character:${slugify('特殊動作 (Special Actions)')}:${slugify(entry.label)}:${index + 24}`,
 }));
+
+const CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS = [
+  { label: '塗口紅', baseZh: '站姿', handZh: '塗口紅' },
+  { label: '塗歪口紅', baseZh: '站姿', handZh: '塗歪口紅' },
+  { label: '喝冰咖啡', baseZh: '站姿', handZh: '手持冰咖啡' },
+  { label: '咬著波板糖', baseZh: '站姿', handZh: '手持波板糖' },
+  { label: '抽煙', baseZh: '站姿', handZh: '手持香菸' },
+  { label: '整理絲襪', baseZh: '站姿', handZh: '整理下身' },
+  { label: '前傾抓住褲腰', baseZh: '站姿', arrangementZh: '上身大幅度前傾', handZh: '雙手抓住褲腰' },
+  { label: '側坐單手後撐', baseZh: '坐姿', arrangementZh: '雙腿側放坐姿', handZh: '一手撐地一手放腿上' },
+  { label: '抱膝托腮坐姿', baseZh: '坐姿', arrangementZh: '抱膝坐姿', handZh: '雙手扶臉頰' },
+  { label: '仰躺雙手微抬', baseZh: '躺姿', arrangementZh: '仰躺', handZh: '雙手放在頭後' },
+  { label: '跪坐回眸撩髮', baseZh: '跪姿', arrangementZh: '跪坐', handZh: '單手撩髮', headZh: '越肩回望' },
+  { label: '半脫上衣整理肩線', baseZh: '站姿', handZh: '拉下肩線整理上衣' },
+  { label: '隨性癱坐在雕花單人絨布沙發上', baseZh: '坐姿', arrangementZh: '隨性癱坐', anchorZh: '坐在單人雕花絨布椅' },
+  { label: '趴臥滑手機', baseZh: '躺姿', arrangementZh: '趴臥手肘撐起', handZh: '滑手機' },
+  { label: '靠牆站立', baseZh: '站姿', anchorZh: '靠牆' },
+  { label: '靠牆坐姿', baseZh: '坐姿', arrangementZh: '靠牆坐姿' },
+  { label: '靠牆後仰站姿', baseZh: '站姿', arrangementZh: '身體微後仰', anchorZh: '靠牆' },
+  { label: '靠牆仰躺抬腿', baseZh: '躺姿', arrangementZh: '靠牆仰躺抬腿' },
+  { label: '側身斜躺伸腿', baseZh: '躺姿', arrangementZh: '側躺' },
+  { label: '跪姿前傾倚靠高背', baseZh: '跪姿', arrangementZh: '前傾跪姿', anchorZh: '倚靠高背椅' },
+  { label: '四足跪姿前傾', baseZh: '跪姿', arrangementZh: '四足跪姿' },
+  { label: '抱枕俯臥回眸', baseZh: '躺姿', arrangementZh: '抱枕俯臥回眸' },
+  { label: '分腿跪坐仰視', baseZh: '跪姿', arrangementZh: '分腿跪坐', handZh: '一手撐地一手放腿上', headZh: '下巴微抬' },
+];
 
 const WARDROBE_LEGACY_OPTION_MAP = [
   { category: WARDROBE_EYEWEAR_CATEGORY, targetZh: '粗框眼鏡', legacy: [['黑框眼鏡', 1], ['白色鏡框眼鏡', 2]] },
@@ -3941,6 +3979,24 @@ function applyLegacySelfieSpecialActionMigration(normalizedLocks, rawLocks, cont
   setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHandId', migration.handZh);
 }
 
+function applySpecialActionPoseComposerMigration(normalizedLocks, rawLocks, controls) {
+  const specialAction = getControlOptionById(controls, 'specialActionId', normalizedLocks.specialActionId)
+    || getControlOptionById(controls, 'specialActionId', rawLocks?.specialActionId);
+  if (!specialAction || isNoneLikeItem(specialAction)) return;
+
+  const migration = CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS.find((entry) => entry.label === specialAction.zh);
+  setControlToNone(normalizedLocks, controls, 'specialActionId');
+  setControlToNone(normalizedLocks, controls, 'poseId');
+
+  if (!migration) return;
+
+  if (migration.baseZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseBaseId', migration.baseZh);
+  if (migration.arrangementZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseArrangementId', migration.arrangementZh);
+  if (migration.handZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHandId', migration.handZh);
+  if (migration.headZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHeadId', migration.headZh);
+  if (migration.anchorZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseAnchorId', migration.anchorZh);
+}
+
 function isSelfiePoseHandOption(option) {
   return Boolean(option?.meta?.tags?.includes('selfie_hand_pose'));
 }
@@ -4154,6 +4210,7 @@ export function normalizeLocks(rawLocks = {}) {
   applyDuoExpressionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyExpressionPoseLegacySocialLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyLegacySelfieSpecialActionMigration(normalizedWithLegacyColors, rawLocks, controls);
+  applySpecialActionPoseComposerMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOutfitPresetToDressLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyEyewearLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOuterwearOpeningLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
@@ -4876,6 +4933,43 @@ function specialActionSupportsOrbit(orbit, action) {
   return true;
 }
 
+function getPoseComposerActionConstraint(locks = {}) {
+  const options = [
+    getPoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, locks.poseArrangementId),
+    getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, locks.poseHandId),
+    getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, locks.poseAnchorId),
+  ].filter((option) => option && isActivePoseComposerOption(option) && !isRandomOption(option));
+  const tags = withTags(options.flatMap((option) => option.meta?.tags || []));
+  const actionTags = tags.filter((tag) => (
+    tag === 'prop_action'
+    || tag === 'face_action'
+    || tag === 'leg_focus_action'
+    || tag === 'large_prop_action'
+    || tag === 'wardrobe_action'
+    || tag === 'full_body_action'
+    || tag === 'social_shooting_action'
+  ));
+
+  if (actionTags.length === 0) return null;
+
+  return {
+    zh: options.map((option) => option.zh).join(' + '),
+    en: options.map((option) => option.en).join(', '),
+    meta: { tags: actionTags },
+  };
+}
+
+function mergeActionConstraints(...actions) {
+  const activeActions = actions.filter((action) => action && !isNoneLikeItem(action));
+  if (activeActions.length === 0) return null;
+
+  return {
+    zh: activeActions.map((action) => action.zh).join(' + '),
+    en: activeActions.map((action) => action.en).join(', '),
+    meta: { tags: withTags(activeActions.flatMap((action) => action.meta?.tags || [])) },
+  };
+}
+
 function isSocialShootingAction(action) {
   return Boolean(action?.meta?.tags?.includes('social_shooting_action'));
 }
@@ -5073,6 +5167,10 @@ function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head, 
   addOptionDetail(handPose);
   addOptionDetail(head);
 
+  if (!base) {
+    return details.length > 0 ? `The pose includes ${details.join('; ')}.` : '';
+  }
+
   const baseSentence = details.length === 0
     ? `She is ${opening}.`
     : `She is ${opening} with ${details.join('; ')}.`;
@@ -5084,7 +5182,29 @@ function buildPoseComposerItem(context) {
   if (context.subject.count !== 1) return null;
 
   const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId);
-  if (!base) return null;
+  const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
+  const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
+
+  if (!base) {
+    const standaloneParts = [handPose, head].filter((option) => option && !isModelNaturalPoseComposerOption(option));
+    if (standaloneParts.length === 0) return null;
+
+    return {
+      id: `character:姿勢組合器-pose-composer:${standaloneParts.map((part) => part.id).join(':')}`,
+      zh: standaloneParts.map((part) => part.zh).join(' + '),
+      en: buildPoseComposerSentence({ handPose, head, location: context.location }),
+      desc: '由姿勢組合器生成的組合姿勢。',
+      meta: {
+        tags: ['pose_composer'],
+        minVisibility: 'medium',
+        poseBaseId: 'none',
+        poseArrangementId: 'none',
+        poseHandId: handPose?.id || 'none',
+        poseHeadId: head?.id || 'none',
+        poseAnchorId: 'none',
+      },
+    };
+  }
 
   const matchesBase = (option) => poseComposerOptionMatchesBase(option, base.id);
   const matchesAnchor = (option) => (
@@ -5092,8 +5212,6 @@ function buildPoseComposerItem(context) {
     && poseComposerAnchorAllowedByScene(option, context.location, context.locks?.locationId)
   );
   const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase);
-  const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
-  const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
   const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesAnchor);
   const parts = [base, arrangement, handPose, head, anchor].filter(Boolean);
 
@@ -10675,16 +10793,18 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const lockedSpecialAction = effectiveLocks.specialActionId
     ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
     : null;
+  const lockedPoseComposerAction = getPoseComposerActionConstraint(effectiveLocks);
+  const lockedActionConstraint = mergeActionConstraints(lockedSpecialAction, lockedPoseComposerAction);
   const framing = pickWithLock(
     runtime.flatCatalog.framing,
     effectiveLocks.framingId,
     (item) => (
-      (!lockedSpecialAction || item.zh !== '全無')
+      (!lockedActionConstraint || item.zh !== '全無')
       &&
       !(location.meta.tags.includes('club') && item.meta.visibility === 'close')
       && (effectiveLocks.framingId || (!hasWardrobeLocks && !hasSceneLocks) || item.meta.visibility !== 'close')
       && framingSupportsSubject(item, subject, aspectRatio)
-      && specialActionSupportsFraming(lockedSpecialAction, item)
+      && specialActionSupportsFraming(lockedActionConstraint, item)
     )
   );
   const expressionOptions = getByKey(runtime.catalog.character, '神情與眼神 (Expression & Gaze)');
@@ -10716,7 +10836,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const orbit = pickCameraWithExpressionLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,
-    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedSpecialAction)
+    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint)
   );
   const lens = pickWithLock(runtime.flatCatalog.lens, effectiveLocks.lensId);
   const apertureLockId = effectiveLocks.apertureId || getControlOptionByZh(lockControls, 'apertureId', '全無')?.id || '';

@@ -1,7 +1,20 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { resolvePage1ActiveSubpanel } from './page1WorkspacePanels.js';
+import { PAGE1_SECTION_SUBPANELS, resolvePage1ActiveSubpanel } from './page1WorkspacePanels.js';
+
+test('page1 pose panels hide the deprecated special action control', () => {
+  const posePanels = PAGE1_SECTION_SUBPANELS.pose;
+  const basicPanel = posePanels.find((panel) => panel.id === 'basic');
+  const composerPanel = posePanels.find((panel) => panel.id === 'composer');
+
+  assert.ok(basicPanel);
+  assert.ok(composerPanel);
+  assert.equal(basicPanel.keys.includes('specialActionId'), false);
+  assert.equal(composerPanel.keys.includes('specialActionId'), false);
+  assert.ok(composerPanel.keys.includes('poseHandId'));
+  assert.match(composerPanel.description, /手部 \/ 道具動作/);
+});
 
 test('special subject pose special-settings tab keeps pose composer controls', () => {
   const composerSubpanel = {

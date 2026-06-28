@@ -458,15 +458,15 @@ test('Gpt single-subject prompt compresses expression pose and special action wo
     poseId: optionId('poseId', '站姿｜自然站姿'),
     specialActionId: optionId('specialActionId', '塗口紅'),
   });
-  assert.match(lipstick.pose, /applying lipstick with the lipstick bullet pressed to the lips, visible hand-to-mouth contact, slight lip pressure/i);
-  assert.doesNotMatch(lipstick.pose, /polished beauty touch-up portrait moment|natural standing pose|\.,/i);
+  assert.match(lipstick.pose, /lipstick bullet pressed to the lips by one hand, visible hand-to-mouth contact, slight lip pressure/i);
+  assert.doesNotMatch(lipstick.pose, /polished beauty touch-up portrait moment|\.,/i);
   assert.doesNotMatch(lipstick.prompt.zImagePrompt, /polished beauty touch-up portrait moment/i);
 
   const icedCoffee = buildSections({
     specialActionId: optionId('specialActionId', '喝冰咖啡'),
   });
-  assert.match(icedCoffee.pose, /holding a clear plastic iced coffee cup near the lips mid-sip, visible straw or cup rim/i);
-  assert.doesNotMatch(icedCoffee.pose, /takeaway cup|relaxed everyday cafe portrait moment|\.,/i);
+  assert.match(icedCoffee.pose, /clear plastic takeaway cup of iced coffee held naturally in one hand/i);
+  assert.doesNotMatch(icedCoffee.pose, /near the lips|mid-sip|relaxed everyday cafe portrait moment|\.,/i);
   assert.doesNotMatch(icedCoffee.prompt.zImagePrompt, /relaxed everyday cafe portrait moment/i);
 });
 
@@ -954,7 +954,7 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
         framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
       },
       expected: [
-        /applying lipstick with the lipstick bullet pressed to the lips/i,
+        /lipstick bullet pressed to the lips by one hand/i,
         /visible hand-to-mouth contact/i,
       ],
       minParagraphs: 4,
@@ -972,28 +972,35 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
 });
 
 test('AI duo prompt uses compact labeled role sections', () => {
-  const [prompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    subjectCount: '2',
-    locationId: optionId('locationId', '戶外：大阪道頓堀心齋橋河道'),
-    outfitPresetAId: optionId('outfitPresetAId', '套裝：白蕾絲長罩衫牛仔褲'),
-    completeLookPaletteAId: optionId('completeLookPaletteAId', '深藍丹寧'),
-    outfitPresetBId: optionId('outfitPresetBId', '套裝：運動外套荷葉七分褲'),
-    completeLookPaletteBId: optionId('completeLookPaletteBId', '銀灰金屬'),
-    duoPoseId: optionId('duoPoseId', '好朋友之間的親密自拍'),
-    duoPoseBaseId: optionId('duoPoseBaseId', '行走中'),
-    framingId: optionId('framingId', '全無'),
-    angleId: optionId('angleId', '全無'),
-    orbitId: optionId('orbitId', '全無'),
-    lensId: optionId('lensId', '全無'),
-    apertureId: optionId('apertureId', 'f/2.0 強背景分離'),
-    shutterId: optionId('shutterId', '全無'),
-    opticalEffectId: optionId('opticalEffectId', '全無'),
-    lightingId: optionId('lightingId', '正午烈日'),
-    lightDirectionId: optionId('lightDirectionId', '頂部照明'),
-    styleId: optionId('styleId', '市橋織江｜透明自然低飽和'),
-    filmId: optionId('filmId', '柯達 Portra 暖膚底片'),
-  });
+  const originalRandom = Math.random;
+  Math.random = () => 0.5;
+  let prompt;
+  try {
+    [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '2',
+      locationId: optionId('locationId', '戶外：大阪道頓堀心齋橋河道'),
+      outfitPresetAId: optionId('outfitPresetAId', '套裝：白蕾絲長罩衫牛仔褲'),
+      completeLookPaletteAId: optionId('completeLookPaletteAId', '深藍丹寧'),
+      outfitPresetBId: optionId('outfitPresetBId', '套裝：運動外套荷葉七分褲'),
+      completeLookPaletteBId: optionId('completeLookPaletteBId', '銀灰金屬'),
+      duoPoseId: optionId('duoPoseId', '好朋友之間的親密自拍'),
+      duoPoseBaseId: optionId('duoPoseBaseId', '行走中'),
+      framingId: optionId('framingId', '全無'),
+      angleId: optionId('angleId', '全無'),
+      orbitId: optionId('orbitId', '全無'),
+      lensId: optionId('lensId', '全無'),
+      apertureId: optionId('apertureId', 'f/2.0 強背景分離'),
+      shutterId: optionId('shutterId', '全無'),
+      opticalEffectId: optionId('opticalEffectId', '全無'),
+      lightingId: optionId('lightingId', '正午烈日'),
+      lightDirectionId: optionId('lightDirectionId', '頂部照明'),
+      styleId: optionId('styleId', '市橋織江｜透明自然低飽和'),
+      filmId: optionId('filmId', '柯達 Portra 暖膚底片'),
+    });
+  } finally {
+    Math.random = originalRandom;
+  }
 
   const aiPrompt = prompt.midjourneyPrompt;
   assert.match(aiPrompt, /^Create a photorealistic editorial portrait in a real-world photography style\. The main characters are two stunning seductive 20-year-old Japanese or Korean women\./);

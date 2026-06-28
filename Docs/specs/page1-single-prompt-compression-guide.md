@@ -118,9 +118,9 @@ core category, 1-3 concrete visible traits
 - `body language` 可壓成 `posture`。
 - `portrait moment`, `portrait interaction`, `beauty touch-up portrait moment` 這類泛用尾巴。
 - `relaxed everyday...`, `polished...`, `controlled cinematic...` 若不影響畫面可刪。
-- 特殊動作保留接觸點與道具狀態，不保留多餘情緒敘述。
+- Pose Composer `手部 / 道具動作` 保留接觸點與道具狀態，不保留多餘情緒敘述。Legacy `特殊動作` 只作 restore 遷移參考，不作新增主路徑。
 
-Pose Composer 相關描述應保留實際身體結構，例如 base arrangement、hand placement、support anchor、head direction。不要新增 Pose Modifier，除非使用者明確要求。
+Pose Composer 相關描述應保留實際身體結構，例如 base arrangement、hand / prop placement、support anchor、head direction。不要新增 Pose Modifier，除非使用者明確要求。
 
 ## 5. C 穿搭設定壓縮規則
 

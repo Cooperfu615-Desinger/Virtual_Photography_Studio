@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
+import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 
 const EXPECTED_SPECIAL_ACTIONS = [
   '塗口紅',
@@ -82,6 +82,86 @@ test('selfie shooting choices are exposed as pose composer hand poses', () => {
   assert.match(optionByLabel('poseHandId', '男友/閨蜜自拍').en, /naturally relaxed hand placement/);
 });
 
+test('prop and wardrobe special actions move into pose composer hand controls', () => {
+  const handControl = getLockControls().find((control) => control.key === 'poseHandId');
+  assert.equal(handControl.label, '手部 / 道具動作');
+
+  [
+    '塗口紅',
+    '塗歪口紅',
+    '手持冰咖啡',
+    '手持波板糖',
+    '手持香菸',
+    '整理下身',
+    '拉下肩線整理上衣',
+    '滑手機',
+    '雙手抓住褲腰',
+  ].forEach((label) => {
+    assert.ok(optionByLabel('poseHandId', label));
+  });
+
+  assert.doesNotMatch(optionByLabel('poseHandId', '手持冰咖啡').en, /lips|mid-sip|near the lips/i);
+  assert.doesNotMatch(optionByLabel('poseHandId', '手持香菸').en, /lips|near the lips/i);
+  assert.doesNotMatch(optionByLabel('poseHandId', '手持波板糖').en, /biting|lips/i);
+});
+
+test('old special actions normalize into pose composer controls', () => {
+  const normalizedCoffee = normalizeLocks({
+    ...createEmptyLocks(),
+    specialActionId: optionByLabel('specialActionId', '喝冰咖啡').id,
+  });
+
+  assert.equal(normalizedCoffee.specialActionId, optionByLabel('specialActionId', '全無').id);
+  assert.equal(normalizedCoffee.poseBaseId, optionByLabel('poseBaseId', '站姿').id);
+  assert.equal(normalizedCoffee.poseHandId, optionByLabel('poseHandId', '手持冰咖啡').id);
+
+  const normalizedWaistband = normalizeLocks({
+    ...createEmptyLocks(),
+    specialActionId: optionByLabel('specialActionId', '前傾抓住褲腰').id,
+  });
+
+  assert.equal(normalizedWaistband.specialActionId, optionByLabel('specialActionId', '全無').id);
+  assert.equal(normalizedWaistband.poseBaseId, optionByLabel('poseBaseId', '站姿').id);
+  assert.equal(normalizedWaistband.poseArrangementId, optionByLabel('poseArrangementId', '上身大幅度前傾').id);
+  assert.equal(normalizedWaistband.poseHandId, optionByLabel('poseHandId', '雙手抓住褲腰').id);
+});
+
+test('pose composer hand-only prop actions enter prompt output', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    poseHandId: optionByLabel('poseHandId', '手持冰咖啡').id,
+  });
+
+  assert.equal(prompt.selection.poseHandId, optionByLabel('poseHandId', '手持冰咖啡').id);
+  assert.equal(prompt.selection.specialActionId, '');
+  assert.match(prompt.grokPrompt, /iced coffee/i);
+  assert.doesNotMatch(prompt.grokPrompt, /near the lips|mid-sip/i);
+});
+
+test('pose composer lower-body hand actions keep random framing wide enough', () => {
+  const originalRandom = Math.random;
+  Math.random = () => 0;
+  try {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      poseHandId: optionByLabel('poseHandId', '整理下身').id,
+    });
+    const framing = getLockControls()
+      .find((control) => control.key === 'framingId')
+      .options.find((option) => option.id === prompt.selection.framingId);
+
+    assert.ok(['full', 'wide'].includes(framing.meta.visibility));
+  } finally {
+    Math.random = originalRandom;
+  }
+});
+
+test('wall and pillow legacy actions have pose composer body arrangements', () => {
+  assert.equal(optionByLabel('poseArrangementId', '靠牆坐姿').base, 'sitting');
+  assert.equal(optionByLabel('poseArrangementId', '靠牆仰躺抬腿').base, 'lying');
+  assert.equal(optionByLabel('poseArrangementId', '抱枕俯臥回眸').base, 'lying');
+});
+
 test('selfie hand poses compose with pose composer body controls', () => {
   const framing = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)');
   const [prompt] = generatePrompts(1, {
@@ -100,7 +180,7 @@ test('selfie hand poses compose with pose composer body controls', () => {
   assert.match(promptText, /close-companion social snapshot feeling/);
 });
 
-test('non-social special actions still replace the normal body pose', () => {
+test('deprecated non-social special actions migrate away from the normal body pose', () => {
   const pose = optionByLabel('poseId', '坐姿｜自然坐姿');
   const specialAction = optionByLabel('specialActionId', '塗口紅');
   const framing = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)');
@@ -111,6 +191,7 @@ test('non-social special actions still replace the normal body pose', () => {
     specialActionId: specialAction.id,
   });
 
-  assert.equal(prompt.selection.specialActionId, specialAction.id);
+  assert.equal(prompt.selection.specialActionId, '');
   assert.equal(prompt.selection.poseId, '');
+  assert.equal(prompt.selection.poseHandId, optionByLabel('poseHandId', '塗口紅').id);
 });

@@ -824,7 +824,7 @@ test('expression and pose remain available with special subjects', () => {
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
-test('non-social special actions apply to special subjects in every output and replace normal body pose', () => {
+test('deprecated special actions migrate to pose composer hand actions for special subjects', () => {
   const controls = getLockControls();
   const pose = controls
     .find((control) => control.key === 'poseId')
@@ -832,6 +832,9 @@ test('non-social special actions apply to special subjects in every output and r
   const specialAction = controls
     .find((control) => control.key === 'specialActionId')
     .options.find((option) => option.zh === '抽煙');
+  const poseHand = controls
+    .find((control) => control.key === 'poseHandId')
+    .options.find((option) => option.zh === '手持香菸');
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -842,11 +845,13 @@ test('non-social special actions apply to special subjects in every output and r
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
 
   assert.equal(prompt.selection.specialSubjectId, 'sengoku-samurai');
-  assert.equal(prompt.selection.specialActionId, specialAction.id);
+  assert.equal(prompt.selection.specialActionId, '');
   assert.equal(prompt.selection.poseId, '');
-  assert.match(prompt.grokPrompt, /holding a cigarette between the fingers near the lips/);
-  assert.match(prompt.zImagePrompt, /holding a cigarette between the fingers near the lips/);
-  assert.match(prompt.midjourneyPrompt, /holding a cigarette between the fingers near the lips/);
+  assert.equal(prompt.selection.poseHandId, poseHand.id);
+  assert.match(prompt.grokPrompt, /cigarette held naturally between the fingers in one hand/);
+  assert.match(prompt.zImagePrompt, /cigarette held naturally between the fingers in one hand/);
+  assert.match(prompt.midjourneyPrompt, /cigarette held naturally between the fingers in one hand/);
+  assert.doesNotMatch(promptText, /near the lips/);
   assert.doesNotMatch(promptText, /natural seated posture/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });

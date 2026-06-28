@@ -160,6 +160,9 @@ Existing controls:
 
 - `poseId`
 - `specialActionId`
+  - Legacy hidden control after the special-action-to-Pose-Composer migration.
+  - PAGE1 no longer exposes it as an independent B 神情姿態 field.
+  - Existing saved cards / restore data are migrated into Pose Composer locks where possible.
 
 Pose Composer controls:
 
@@ -178,9 +181,9 @@ Rules:
 
 - Pose Composer is single-subject only.
 - Duo mode ignores Pose Composer and uses `duoPoseId` / `duoPoseBaseId` / `duoExpressionId`.
-- In PAGE1 UI, Pose Composer is mutually exclusive with old `poseId` and `specialActionId`.
-- Existing social shooting behavior is preserved where possible: social special actions can still compose with old `poseId`.
-- Engine priority: if Pose Composer resolves, it outputs instead of old `poseId` / `specialActionId`.
+- In PAGE1 UI, Pose Composer is mutually exclusive with old `poseId`; the old `specialActionId` field is hidden.
+- Legacy social shooting actions are migrated into Pose Composer hand poses.
+- Engine priority: if Pose Composer resolves, it outputs instead of old `poseId`; legacy `specialActionId` restores are normalized into Pose Composer locks and cleared.
 - Pose Composer scene compatibility is intentionally not implemented yet. The user currently prefers free combination.
 - `Pose Modifier` is intentionally not implemented yet. Test base + arrangement + hand + anchor first.
 - Legacy `duoInteractionId` and separated A/B expression controls are hidden / migrated. Do not reintroduce them.

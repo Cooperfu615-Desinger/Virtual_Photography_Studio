@@ -26,7 +26,8 @@ Prompt 應使用短而準的英文片語，避免堆疊同義詞。中文描述�
 | 特殊角色 `specialSubjectId` | `webapp/src/lib/engine.js` 的 `SPECIAL_SUBJECT_OPTIONS` | 直接 code-defined，不走 Markdown sync。 |
 | 角色卡 `characterProfileId` | `webapp/src/lib/engine.js` 的 `CHARACTER_PROFILE_OPTIONS` | 直接 code-defined，獨立於特殊角色；用來接管人物身份與固定穿搭。 |
 | 體態、五官、膚質、髮型、髮色 | `knowledge_base/character_design.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
-| 神情、姿勢、特殊動作 | `knowledge_base/character_design.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 神情、姿勢、特殊動作 | `knowledge_base/character_design.md` | `特殊動作` 目前保留為 legacy hidden 資料；一般新增請優先放入 Pose Composer。編輯 Markdown 後需同步到 `webapp/src/data/database.json`。 |
+| Pose Composer 姿勢基底、肢體變化、手部 / 道具動作、頭部方向、接觸 / 支撐 | `webapp/src/lib/engine.js` 的 `POSE_COMPOSER_*_OPTIONS` | 直接 code-defined，不走 Markdown sync。 |
 | 相容舊選項 | `webapp/src/lib/engine.js` | 合併、改名、移除時需加 legacy mapping。 |
 
 Markdown 資料同步流程：
@@ -231,7 +232,8 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 
 - `神情與眼神`: 臉、視線、嘴型、情緒強度。
 - `姿勢與肢體語言`: 身體結構、重心、肢體安排、動作狀態。
-- `特殊動作`: 明確行為、道具互動、社群拍攝關係或完整身體動作。
+- Pose Composer `手部 / 道具動作`: 手部位置、手持物、道具接觸、服裝整理、手機互動。
+- Legacy `特殊動作`: 舊資料保留給 saved cards / restore 遷移，不再作為 PAGE1 獨立 UI 欄位擴充。
 
 ### 6.1 神情與眼神
 
@@ -301,15 +303,27 @@ looking away from the camera, distant sideward gaze, thoughtful quiet expression
 - 不新增自拍或鏡子自拍為一般 `poseId` 姿勢；自拍類屬於 Pose Composer 的 `手部姿勢`。
 - 新姿勢必須改變身體輪廓或構圖效果；單純手的位置小差異不建議新增。
 
-Pose Composer 手部姿勢中的自拍類規則：
+Pose Composer `手部 / 道具動作` 規則：
 
 - `自然自拍`：右手拿自己的手機前鏡頭自拍；prompt 要明確寫畫面來自本人右手手機前鏡頭，手機與手留在畫面邊緣外，只允許自然前臂裁切，避免第二個人拍攝感。
 - `鏡子自拍`：可見手機對著鏡子自拍；手機可以遮到臉，也可以在臉旁，不強制臉完全露出。
 - `男友/閨蜜自拍`：呈現親近的人拍攝或社群自拍互動感，但不指定手部擺法；手部姿勢讓模型自然放鬆發揮。
 - 自拍類手部姿勢必須加 `meta.tags` 的 `selfie_hand_pose` 與 `locks_orbit`。
 - 啟用自拍類手部姿勢時，`環繞角度` 必須鎖定/清空，避免背面、側後方等 orbit 與自拍構圖衝突。
+- 手持道具類應描述手上有什麼，不要不必要地綁死道具位置。例如 `手持冰咖啡`、`手持香菸`、`手持波板糖` 由模型依姿勢與構圖自然決定位置。
+- 服裝整理類應使用相容當前穿搭的語氣，例如 `整理下身` 可涵蓋裙、褲、腰頭或絲襪，不應硬綁單一服裝。
+- 若手部 / 道具動作需要更寬構圖，應保留相容性 tags，例如 `prop_action`、`face_action`、`wardrobe_action`、`leg_focus_action`。
 
 ### 6.3 特殊動作
+
+狀態：`specialActionId` 目前已從 PAGE1 `B 神情姿態` 的獨立 UI 欄位隱藏。資料仍保留在 `knowledge_base/character_design.md` 與 `database.json`，用途是 legacy saved cards / restore 遷移與回溯相容；確認新 Pose Composer 路徑長期穩定後，可再評估移除舊資料。
+
+維護規則：
+
+- 不再新增新的 `特殊動作` 選項。
+- 道具、手機、口紅、飲料、香菸、服裝整理等手部互動，新增到 Pose Composer `手部 / 道具動作`。
+- 完整身體姿態新增到 Pose Composer `肢體變化`，必要支撐物則放入 `接觸 / 支撐`。
+- 舊 `特殊動作` 若需要保留 restore 行為，應在 `engine.js` 加 legacy migration，轉成 `poseBaseId`、`poseArrangementId`、`poseHandId`、`poseHeadId`、`poseAnchorId` 的組合，並清空 `specialActionId`。
 
 目前特殊動作全部保留，共 23 個非空選項：
 

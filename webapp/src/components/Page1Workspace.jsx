@@ -12,7 +12,7 @@ import {
   buildWorkspaceSummary,
   getControlOptionLabel,
 } from '../lib/page1WorkspaceSummary.js';
-import { resolvePage1ActiveSubpanel } from '../lib/page1WorkspacePanels.js';
+import { PAGE1_POSE_SUBPANELS, resolvePage1ActiveSubpanel } from '../lib/page1WorkspacePanels.js';
 import { randomizeLockKeys, setLockKeysToNone } from '../lib/page1SectionRandom.js';
 
 const WARDROBE_PICKER_KEYS = new Set([
@@ -191,33 +191,7 @@ const SECTION_SUBPANELS = {
       ],
     },
   ],
-  pose: [
-    {
-      id: 'basic',
-      label: '基礎設置',
-      description: '快速設定神情眼神、雙人動作情境、雙人姿態基底、姿勢動作與特殊動作，適合先抓整體人物狀態。',
-      keys: [
-        'duoPoseId',
-        'duoPoseBaseId',
-        'duoExpressionId',
-        'expressionId',
-        'poseId',
-        'specialActionId',
-      ],
-    },
-    {
-      id: 'composer',
-      label: '特殊設置',
-      description: '用 Pose Composer 精準組合姿勢基底、肢體變化、手部、頭部與接觸點；目前僅支援單人。',
-      keys: [
-        'poseBaseId',
-        'poseArrangementId',
-        'poseHandId',
-        'poseHeadId',
-        'poseAnchorId',
-      ],
-    },
-  ],
+  pose: PAGE1_POSE_SUBPANELS,
   wardrobe: [
     {
       id: 'overall',
