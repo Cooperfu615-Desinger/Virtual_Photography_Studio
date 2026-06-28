@@ -9542,7 +9542,21 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
   const buildZImageScenePriorityText = () => {
     if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
+    if (isSolidColorStudioLocation(context.location)) return '';
     return buildScenePriorityPrompt(context, { labeled: true });
+  };
+  const buildZImageLocationText = () => {
+    if (!context.location || isNoneLikeItem(context.location)) return '';
+
+    const locationText = skeletonMode ? sanitizeSkeletonPromptText(context.location.en) : context.location.en;
+    if (!isSolidColorStudioLocation(context.location)) return locationText;
+
+    return stripMarkdown(locationText)
+      .split(/\s*,\s*/)
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .filter((part) => !/^no\b/i.test(part))
+      .join(', ');
   };
   const buildCharacterText = () => {
     if (specialSubjectMode) {
@@ -9855,23 +9869,24 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const buildSceneText = () => {
     if (fixedCompositionSetActive) return joinSentenceParts(buildFixedSceneParagraphs());
     if (isCloseupVisibility) {
-      return sentence([
+      const closeupSceneParts = [
         skeletonMode ? sanitizeSkeletonPromptText(closeupSceneContextText) : closeupSceneContextText,
         context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
         lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
-      ].filter(Boolean).join(', '));
+      ].filter(Boolean);
+      return closeupSceneParts.length > 0 ? sentence(`Scene: ${closeupSceneParts.join(', ')}`) : '';
     }
 
     const sceneParts = [
       skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : importedWorldSceneArchitectureText,
-      context.location && !isNoneLikeItem(context.location) ? (skeletonMode ? sanitizeSkeletonPromptText(context.location.en) : context.location.en) : '',
+      buildZImageLocationText(),
       skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : sceneAccentText,
       context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
       lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
       skeletonMode ? sanitizeSkeletonPromptText(buildZImageScenePriorityText()) : buildZImageScenePriorityText(),
     ].filter(Boolean);
 
-    return leadSentence('The setting is', sceneParts);
+    return leadSentence('Scene: The portrait takes place in', sceneParts);
   };
   const buildCameraText = () => {
     if (fixedCompositionSetActive) {
@@ -10356,7 +10371,7 @@ function buildAiMinimalPoseClause(valuesByLabel, context) {
   return `posing with ${naturalSinglePosePhrase}`;
 }
 
-function buildAiMinimalSceneClause(valuesByLabel) {
+function buildAiMinimalSceneClause(valuesByLabel, context = {}) {
   const fixedSetValues = [
     compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Composition Set']), 5),
     compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Position']), 2),
@@ -10372,7 +10387,8 @@ function buildAiMinimalSceneClause(valuesByLabel) {
         'Location',
         'Scene Context',
       ]);
-  const scenePhrase = fixedSetValues.length > 0 ? sceneText : compactAiMinimalFragment(sceneText, 2);
+  const sceneLimit = isSolidColorStudioLocation(context.location) ? 1 : 2;
+  const scenePhrase = fixedSetValues.length > 0 ? sceneText : compactAiMinimalFragment(sceneText, sceneLimit);
   return scenePhrase ? `in ${scenePhrase}` : '';
 }
 
@@ -10534,7 +10550,7 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
     buildAiMinimalSubjectLead(valuesByLabel, context),
     buildAiMinimalWardrobeClause(valuesByLabel, context),
     buildAiMinimalPoseClause(valuesByLabel, context),
-    buildAiMinimalSceneClause(valuesByLabel),
+    buildAiMinimalSceneClause(valuesByLabel, context),
   ].filter(Boolean);
   const moodTail = buildAiMinimalMoodTail(valuesByLabel);
 

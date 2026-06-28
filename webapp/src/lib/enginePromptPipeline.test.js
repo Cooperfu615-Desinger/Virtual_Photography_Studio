@@ -33,8 +33,8 @@ function assertNaturalZImageParagraphs(prompt, caseName, minParagraphs = 4) {
   assert.ok(paragraphs.length >= minParagraphs, `${caseName} should have at least ${minParagraphs} paragraphs`);
   assert.doesNotMatch(
     prompt.zImagePrompt,
-    /^(?:Image Type|Scene|Subject|Wardrobe|Pose and Composition|Lighting|Camera Look|Constraints):/m,
-    `${caseName} should not use GPT-style section labels`
+    /^(?:Image Type|Subject|Wardrobe|Pose and Composition|Lighting|Camera Look|Constraints):/m,
+    `${caseName} should not use GPT-style section labels except the lightweight Scene label`
   );
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/, `${caseName} should not include Gpt multi-cut tail`);
 
@@ -845,6 +845,7 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
 
   assert.match(prompt.zImagePrompt, /^Create a photorealistic editorial portrait /);
   assertNaturalZImageParagraphs(prompt, 'outfit preset z-image prompt');
+  assert.match(prompt.zImagePrompt, /\n\nScene: The portrait takes place in horizonless seamless matte deep black color field/i);
   assert.doesNotMatch(prompt.zImagePrompt, /^Subject Count:/m);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
@@ -856,6 +857,36 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
   assert.match(prompt.midjourneyPrompt, /captured (?:in film photography style|as a moody film still|as an editorial film still)/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
+});
+
+test('Grok/Z-Image and AI use model-specific compact scene wording for solid color studio scenes', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    locationId: optionId('locationId', '室內：純潔白幕'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
+    outerwearId: optionId('outerwearId', '全無'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+    lightingId: optionId('lightingId', '全無'),
+    lightDirectionId: optionId('lightDirectionId', '全無'),
+    styleId: optionId('styleId', '全無'),
+    lensId: optionId('lensId', '全無'),
+    apertureId: optionId('apertureId', '全無'),
+    shutterId: optionId('shutterId', '全無'),
+    opticalEffectId: optionId('opticalEffectId', '全無'),
+    filmId: optionId('filmId', '全無'),
+  });
+
+  assert.match(
+    prompt.zImagePrompt,
+    /\n\nScene: The portrait takes place in horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface, subtle natural contact shadow under the subject\./
+  );
+  assert.doesNotMatch(prompt.zImagePrompt, /no paper roll|no backdrop stand|no light stands|no studio equipment/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /Scene priority:/i);
+
+  assert.match(prompt.midjourneyPrompt, /in horizonless seamless matte pure white color field,/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /^Scene:/m);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /continuous white ground-and-background plane|full-bleed white surface|no paper roll|no studio equipment/i);
 });
 
 test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes', () => {
@@ -870,7 +901,7 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
       expected: [
         /The image shows a 20-year-old adult East Asian woman/i,
         /signature outfit locked as a white ribbed off-shoulder cropped long-sleeve top/i,
-        /The setting is/i,
+        /Scene: The portrait takes place/i,
       ],
       minParagraphs: 4,
     },

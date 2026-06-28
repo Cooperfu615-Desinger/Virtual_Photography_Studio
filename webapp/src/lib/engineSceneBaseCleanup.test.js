@@ -280,7 +280,8 @@ test('generated prompts use stabilized scene base wording', () => {
   });
 
   assert.match(studioPrompt.grokPrompt, /continuous vivid blue ground-and-background plane/);
-  assert.match(studioPrompt.zImagePrompt, /no backdrop stand/);
+  assert.match(studioPrompt.zImagePrompt, /continuous vivid blue ground-and-background plane/);
+  assert.doesNotMatch(studioPrompt.zImagePrompt, /no backdrop stand|no studio equipment/i);
   assert.match(meguroPrompt.grokPrompt, /asymmetric riverside composition/);
   assert.doesNotMatch(meguroPrompt.zImagePrompt, /avoid symmetrical|central road/i);
   assert.match(hallstattPrompt.grokPrompt, /Hallstatt lakeside village overlook/);

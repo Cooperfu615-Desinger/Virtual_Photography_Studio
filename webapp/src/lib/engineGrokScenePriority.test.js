@@ -51,7 +51,7 @@ test('Z-Image prompt prioritizes scene before special outfit details', () => {
   });
 
   const zImage = prompt.zImagePrompt;
-  const settingIndex = zImage.indexOf('The setting is');
+  const settingIndex = zImage.indexOf('Scene: The portrait takes place in');
   const scenePriorityIndex = zImage.indexOf('Scene priority:');
   const wardrobeIndex = zImage.indexOf('She wears complete special outfit:');
 
