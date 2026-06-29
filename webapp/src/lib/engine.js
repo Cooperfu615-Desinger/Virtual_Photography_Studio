@@ -5105,26 +5105,28 @@ function getWaterPoseEdge(location) {
 
 function getWaterImmersedAnchorPhrase(base, location) {
   const waterBody = getWaterPoseBody(location);
+  const immersionDetail = 'with the whole lower body submerged and only the upper body above the water surface';
   const phrases = {
-    standing: `standing waist-deep in ${waterBody}`,
-    sitting: `sitting low in ${waterBody} with the water surface around the hips and waist`,
-    kneeling: `kneeling in ${waterBody} with the water surface around the thighs`,
-    squatting: `squatting low in ${waterBody}`,
-    lying: `floating or half-floating on the ${waterBody} surface`,
+    standing: `standing waist-deep in ${waterBody} ${immersionDetail}`,
+    sitting: `sitting low in ${waterBody} ${immersionDetail}`,
+    kneeling: `kneeling in ${waterBody} ${immersionDetail}`,
+    squatting: `squatting low in ${waterBody} ${immersionDetail}`,
+    lying: `floating or half-floating on the ${waterBody} surface ${immersionDetail}`,
   };
-  return phrases[base?.id] || `in ${waterBody}`;
+  return phrases[base?.id] || `in ${waterBody} ${immersionDetail}`;
 }
 
 function getWaterEdgeSupportAnchorPhrase(base, location) {
   const waterEdge = getWaterPoseEdge(location);
+  const immersionDetail = 'with the whole lower body submerged and only the upper body above the water surface';
   const phrases = {
-    standing: `standing in shallow water beside the ${waterEdge} with forearms or hands supported on that edge`,
-    sitting: `sitting at the ${waterEdge} with hands or forearms supported on that edge`,
-    kneeling: `kneeling at the ${waterEdge} with forearms or hands supported on that edge`,
-    squatting: `squatting low at the ${waterEdge} with one or both hands supported on that edge`,
-    lying: `half-reclining at the ${waterEdge} with forearms supported on that edge and lower body close to the water`,
+    standing: `standing in shallow water beside the ${waterEdge} ${immersionDetail} and forearms or hands supported on that edge`,
+    sitting: `sitting at the ${waterEdge} ${immersionDetail} and hands or forearms supported on that edge`,
+    kneeling: `kneeling at the ${waterEdge} ${immersionDetail} and forearms or hands supported on that edge`,
+    squatting: `squatting low at the ${waterEdge} ${immersionDetail} and one or both hands supported on that edge`,
+    lying: `half-reclining at the ${waterEdge} ${immersionDetail} and forearms supported on that edge`,
   };
-  return phrases[base?.id] || `supported at the ${waterEdge}`;
+  return phrases[base?.id] || `supported at the ${waterEdge} ${immersionDetail}`;
 }
 
 function getPoseComposerAnchorPhrase(anchor, base, location) {
@@ -5149,7 +5151,7 @@ function getPoseComposerAnchorEffect(anchor, base) {
   if (!anchor || !base) return '';
 
   if (anchor.id === 'water-immersed' || anchor.id === 'water-edge-support') {
-    return 'water-contact realism with a visible waterline across the body, natural ripples around the torso and limbs, wet skin and damp fabric edges, clothing remains complete and non-transparent';
+    return 'water-contact realism with the whole lower body submerged and only the upper body above the water surface, visible waterline across the body, natural ripples around the torso and limbs, wet skin and damp fabric edges, clothing remains complete and non-transparent';
   }
 
   if (anchor.id !== 'shared-bathtub') return '';
@@ -9344,6 +9346,7 @@ function compressGptSinglePoseText(value, context) {
     .replace(/\byoga extended puppy pose kneeling arrangement,\s*knees grounded,\s*torso folded forward,\s*forearms crossed under the chin,\s*hands tucked below the jaw\b/gi, 'extended puppy kneeling pose, knees grounded, torso folded forward, forearms crossed under chin')
     .replace(/\blow compact squat with both knees pressed together and feet grounded close under the body with thighs close and parallel forming a compact front-facing lower-body shape\b/gi, 'low compact knees-together squat, feet grounded close, front-facing lower-body shape')
     .replace(/\bcasually languid lying arrangement,\s*relaxed uneven limbs,\s*soft body weight settled into the surface\b/gi, 'languid lying arrangement, relaxed uneven limbs, soft settled weight')
+    .replace(/\bwater-contact realism with the whole lower body submerged and only the upper body above the water surface,\s*visible waterline across the body,\s*natural ripples around the torso and limbs,\s*wet skin and damp fabric edges,\s*clothing remains complete and non-transparent\b/gi, 'water-contact realism, whole lower body submerged, only the upper body above the water surface, visible waterline, natural ripples, wet skin and damp fabric edges, clothing complete and non-transparent')
     .replace(/\bwater-contact realism with a visible waterline across the body,\s*natural ripples around the torso and limbs,\s*wet skin and damp fabric edges,\s*clothing remains complete and non-transparent\b/gi, 'water-contact realism, visible waterline, natural ripples, wet skin and damp fabric edges, clothing complete and non-transparent')
     .replace(/\bwater-contact realism on the lower body and garment edges where they meet the bath water,\s*clothing remains complete and non-transparent,\s*visible water sheen and droplets,\s*darker damp fabric tones,\s*heavier wet folds\b/gi, 'wet bath-water contact, clothing complete and non-transparent, wet sheen, droplets, darker damp folds')
     .replace(/\bthe outfit and exposed skin are soaked by bath water,\s*clothing remains complete and non-transparent,\s*visible water sheen and droplets,\s*darker damp fabric tones,\s*heavier wet folds\b/gi, 'wet bath-water contact, clothing complete and non-transparent, wet sheen, droplets, darker damp folds')

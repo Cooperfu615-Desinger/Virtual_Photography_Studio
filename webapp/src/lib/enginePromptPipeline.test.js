@@ -516,7 +516,7 @@ test('Gpt single-subject prompt compresses pose composer special-settings wordin
     poseHeadId: optionId('poseHeadId', '頭靠近邊緣支撐'),
     poseAnchorId: optionId('poseAnchorId', '靠在水邊支撐'),
   });
-  assert.match(waterEdge.pose, /water-contact realism, visible waterline, natural ripples, wet skin and damp fabric edges, clothing complete and non-transparent/i);
+  assert.match(waterEdge.pose, /water-contact realism, whole lower body submerged, only the upper body above the water surface, visible waterline, natural ripples, wet skin and damp fabric edges, clothing complete and non-transparent/i);
   assert.match(waterEdge.pose, /one hand supporting on floor or nearby surface, other hand resting on the leg/i);
   assert.match(waterEdge.pose, /head low near rim or support edge, cheek and jawline close to the surface/i);
   assert.doesNotMatch(waterEdge.pose, /visible waterline across the body|around the torso and limbs|clothing remains complete|cheek and jawline close to the supporting surface/i);

@@ -177,6 +177,10 @@ test('water contact anchors only appear for water-capable scenes', () => {
 });
 
 test('water contact anchors adapt to pose base and selected water scene in all prompt versions', () => {
+  const lowerBodyImmersionPatterns = [
+    /whole lower body submerged/,
+    /only the upper body above the water surface/,
+  ];
   const cases = [
     {
       locationZh: '戶外：飯店度假村泳池露台',
@@ -184,7 +188,7 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       arrangementZh: '自然站姿',
       anchorZh: '在水中',
       expected: [/standing waist-deep in clear pool water/, /visible waterline(?: across the body)?/],
-      expectedGpt: [/standing waist-deep in clear pool water/, /water-contact realism, visible waterline/],
+      expectedGpt: [/standing waist-deep in clear pool water/, /water-contact realism, whole lower body submerged/],
     },
     {
       locationZh: '戶外：飯店度假村泳池露台',
@@ -215,8 +219,8 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       baseZh: '躺姿',
       arrangementZh: '趴臥手肘撐起',
       anchorZh: '靠在水邊支撐',
-      expected: [/wet rock ledge at the cove shoreline/, /lower body close to the water/],
-      expectedGpt: [/wet rock ledge at the cove shoreline/, /lower body close to the water/],
+      expected: [/wet rock ledge at the cove shoreline/, /whole lower body submerged/],
+      expectedGpt: [/wet rock ledge at the cove shoreline/, /whole lower body submerged/],
     },
   ];
 
@@ -235,8 +239,10 @@ test('water contact anchors adapt to pose base and selected water scene in all p
 
     assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', anchorZh));
     expectedGpt.forEach((pattern) => assert.match(prompt.grokPrompt, pattern));
+    lowerBodyImmersionPatterns.forEach((pattern) => assert.match(prompt.grokPrompt, pattern));
     for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       expected.forEach((pattern) => assert.match(text, pattern));
+      lowerBodyImmersionPatterns.forEach((pattern) => assert.match(text, pattern));
     }
   }
 });
