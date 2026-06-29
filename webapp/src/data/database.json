@@ -1746,7 +1746,9 @@
               "delicate_metal_necklace",
               "metal_earrings"
             ]
-          }
+          },
+          "referenceImage": "reference/wardrobe/outfit-presets/55_網狀蕾絲馬甲短裙長靴.png",
+          "referenceImageFormat": "png"
         }
       }
     ],
