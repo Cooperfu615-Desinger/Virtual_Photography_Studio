@@ -503,7 +503,8 @@ test('generated prompts expose rendering color grade as a single D-section rende
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*warm peach skin-tone protection/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*shot on 35mm lens/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*blurred foreground occlusion near the lens/);
-  assert.match(prompt.zImagePrompt, /meaningful partial frame coverage/);
+  assert.match(prompt.zImagePrompt, /clear opening toward the subject/);
+  assert.doesNotMatch(prompt.zImagePrompt, /meaningful partial frame coverage/);
   assert.match(prompt.summary, /鏡頭：[^|]*日系亮膚高彩濾鏡/);
 });
 

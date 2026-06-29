@@ -8714,6 +8714,120 @@ function stripTerminalPromptPunctuation(value) {
     .trim();
 }
 
+function splitPromptClauses(value) {
+  return stripMarkdown(value || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[.!?]+$/g, '')
+    .split(/\s*,\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function compactPromptClauses(value, limitOrIndexes = 2) {
+  const clauses = splitPromptClauses(value);
+  const picked = Array.isArray(limitOrIndexes)
+    ? limitOrIndexes.map((index) => clauses[index]).filter(Boolean)
+    : clauses.slice(0, limitOrIndexes);
+  return picked.join(', ');
+}
+
+function compactZImageAmbientLightText(value) {
+  return compactPromptClauses(value, 2);
+}
+
+function compactZImageSubjectLightText(value) {
+  const text = stripMarkdown(value || '');
+  if (/warm golden-amber subject light color/i.test(text)) {
+    return 'honey-amber subject light on skin and clothing';
+  }
+  return compactPromptClauses(text, 2);
+}
+
+function compactZImagePhotographyStyleText(styleOrText) {
+  if (!styleOrText || isNoneLikeItem(styleOrText)) return '';
+  if (typeof styleOrText === 'object') {
+    return STYLE_PROMPT_INTROS[styleOrText.zh] || compactPromptClauses(buildPhotographyStylePrompt(styleOrText), 1);
+  }
+  const text = stripMarkdown(styleOrText || '').replace(/\s+/g, ' ').trim();
+  return text.match(/Inspired by [^.]+? image language/i)?.[0] || text.split(/\.\s*/)[0] || '';
+}
+
+function compactZImageLensText(value) {
+  return compactPromptClauses(value, 3);
+}
+
+function compactZImageOpticalEffectText(value) {
+  const text = stripMarkdown(value || '');
+  if (/blurred foreground occlusion near the lens/i.test(text)) {
+    return compactPromptClauses(text, [0, 1, 3, 4]);
+  }
+  return compactPromptClauses(text, 3);
+}
+
+function compactZImageFilmText(value) {
+  return compactPromptClauses(value, 5);
+}
+
+function compactZImageCameraControlText(value) {
+  return compactPromptClauses(value, 2);
+}
+
+function compactAiAmbientLightText(value) {
+  return compactPromptClauses(value, 1);
+}
+
+function compactAiSubjectLightText(value) {
+  const text = stripMarkdown(value || '');
+  if (/warm golden-amber subject light color/i.test(text)) return 'warm honey-amber subject light';
+  return compactPromptClauses(text, 1);
+}
+
+function compactAiLightingText(ambientText, subjectLightText) {
+  const ambient = compactAiAmbientLightText(ambientText);
+  const subjectLight = compactAiSubjectLightText(subjectLightText);
+  if (ambient && subjectLight) return `${ambient} with ${subjectLight}`;
+  return ambient || subjectLight;
+}
+
+function compactAiStyleText(value) {
+  const text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+  return text.match(/Inspired by [^.]+? image language/i)?.[0] || compactPromptClauses(text, 1);
+}
+
+function compactAiLensText(value) {
+  const text = stripMarkdown(value || '');
+  const focal = text.match(/\b(\d+mm)\b/i)?.[1] || '';
+  if (focal && /telephoto|compression|long/i.test(text)) return `${focal} telephoto compression`;
+  if (focal && /wide/i.test(text)) return `${focal} wide-angle perspective`;
+  if (focal && /standard|neutral/i.test(text)) return `${focal} standard-lens perspective`;
+  if (/macro/i.test(text)) return 'macro close-focus detail';
+  if (/fisheye/i.test(text)) return 'fisheye distortion';
+  if (/tilt-shift/i.test(text)) return 'tilt-shift perspective control';
+  if (/anamorphic/i.test(text)) return 'anamorphic widescreen optics';
+  return compactPromptClauses(text, 1);
+}
+
+function compactAiOpticalEffectText(value) {
+  const text = stripMarkdown(value || '');
+  if (/blurred foreground occlusion near the lens/i.test(text)) return 'soft foreground occlusion';
+  if (/heavy bokeh/i.test(text)) return 'heavy bokeh rendering';
+  if (/soft focus/i.test(text)) return 'soft focus diffusion';
+  if (/edge blur|peripheral/i.test(text)) return 'soft edge blur';
+  return compactPromptClauses(text, 1);
+}
+
+function compactAiFilmText(value) {
+  const text = stripMarkdown(value || '');
+  if (/glossy Japanese portrait color grade/i.test(text)) {
+    return 'glossy Japanese color grade with creamy highlights, warm peach skin, and cyan-green shadows';
+  }
+  if (/high-acutance snapshot rendering/i.test(text)) {
+    return 'high-acutance snapshot rendering, snap-focus clarity, contrasty black levels';
+  }
+  return compactPromptClauses(text, 2);
+}
+
 function cleanGptDuoRoleSubjectPart(value, roleNumber) {
   return stripTerminalPromptPunctuation(value)
     .replace(new RegExp(`^woman ${roleNumber}\\s+has\\s+`, 'i'), '')
@@ -9851,10 +9965,10 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       ? sanitizeSkeletonPromptText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode))
       : buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode);
     const ambientText = context.lighting && !isNoneLikeItem(context.lighting)
-      ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en)
+      ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en)
       : '';
     const subjectLightText = lightDirection && !isNoneLikeItem(lightDirection)
-      ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
+      ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
       : '';
 
     return [
@@ -9871,8 +9985,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     if (isCloseupVisibility) {
       const closeupSceneParts = [
         skeletonMode ? sanitizeSkeletonPromptText(closeupSceneContextText) : closeupSceneContextText,
-        context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
-        lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
+        context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
+        lightDirection && !isNoneLikeItem(lightDirection) ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
       ].filter(Boolean);
       return closeupSceneParts.length > 0 ? sentence(`Scene: ${closeupSceneParts.join(', ')}`) : '';
     }
@@ -9881,8 +9995,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : importedWorldSceneArchitectureText,
       buildZImageLocationText(),
       skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : sceneAccentText,
-      context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
-      lightDirection && !isNoneLikeItem(lightDirection) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
+      context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
+      lightDirection && !isNoneLikeItem(lightDirection) ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
       skeletonMode ? sanitizeSkeletonPromptText(buildZImageScenePriorityText()) : buildZImageScenePriorityText(),
     ].filter(Boolean);
 
@@ -9900,17 +10014,17 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       context.framing && !isNoneLikeItem(context.framing) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : resolvePromptVariant(context.framing, 'framing', context.subject.count)) : '',
       context.angle && !isNoneLikeItem(context.angle) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
       context.orbit && !isNoneLikeItem(context.orbit) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
-      context.lens && !isNoneLikeItem(context.lens) ? context.lens.en : '',
-      context.aperture && !isNoneLikeItem(context.aperture) ? context.aperture.en : '',
-      context.shutter && !isNoneLikeItem(context.shutter) ? context.shutter.en : '',
-      opticalEffect && !isNoneLikeItem(opticalEffect) ? (skeletonMode ? sanitizeSkeletonPromptText(opticalEffect.en) : opticalEffect.en) : '',
+      context.lens && !isNoneLikeItem(context.lens) ? compactZImageLensText(context.lens.en) : '',
+      context.aperture && !isNoneLikeItem(context.aperture) ? compactZImageCameraControlText(context.aperture.en) : '',
+      context.shutter && !isNoneLikeItem(context.shutter) ? compactZImageCameraControlText(context.shutter.en) : '',
+      opticalEffect && !isNoneLikeItem(opticalEffect) ? compactZImageOpticalEffectText(skeletonMode ? sanitizeSkeletonPromptText(opticalEffect.en) : opticalEffect.en) : '',
     ]);
   };
   const buildPhotographyStyleText = () => joinSentenceParts([
-    context.style && !isNoneLikeItem(context.style) ? (skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : buildPhotographyStylePrompt(context.style)) : '',
+    context.style && !isNoneLikeItem(context.style) ? compactZImagePhotographyStyleText(skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : context.style) : '',
   ]);
   const buildRenderingText = () => joinSentenceParts([
-    film && !isNoneLikeItem(film) ? (skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
+    film && !isNoneLikeItem(film) ? compactZImageFilmText(skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
     skeletonMode
       ? 'natural photographic detail, coherent anatomical structure, clear skeletal structure readability, realistic spatial depth'
       : specialSubjectMode
@@ -9944,18 +10058,18 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : sceneAccentText,
   ]);
   const buildZImageDuoLightingText = () => joinSentenceParts([
-    context.lighting && !isNoneLikeItem(context.lighting) ? (skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
+    context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
     lightDirection && !isNoneLikeItem(lightDirection)
-      ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
+      ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
       : '',
   ]);
   const buildZImageDuoCameraLookText = () => joinSentenceParts([
-    context.style && !isNoneLikeItem(context.style) ? (skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : buildPhotographyStylePrompt(context.style)) : '',
-    context.lens && !isNoneLikeItem(context.lens) ? context.lens.en : '',
-    context.aperture && !isNoneLikeItem(context.aperture) ? context.aperture.en : '',
-    context.shutter && !isNoneLikeItem(context.shutter) ? context.shutter.en : '',
-    opticalEffect && !isNoneLikeItem(opticalEffect) ? (skeletonMode ? sanitizeSkeletonPromptText(opticalEffect.en) : opticalEffect.en) : '',
-    film && !isNoneLikeItem(film) ? (skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
+    context.style && !isNoneLikeItem(context.style) ? compactZImagePhotographyStyleText(skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : context.style) : '',
+    context.lens && !isNoneLikeItem(context.lens) ? compactZImageLensText(context.lens.en) : '',
+    context.aperture && !isNoneLikeItem(context.aperture) ? compactZImageCameraControlText(context.aperture.en) : '',
+    context.shutter && !isNoneLikeItem(context.shutter) ? compactZImageCameraControlText(context.shutter.en) : '',
+    opticalEffect && !isNoneLikeItem(opticalEffect) ? compactZImageOpticalEffectText(skeletonMode ? sanitizeSkeletonPromptText(opticalEffect.en) : opticalEffect.en) : '',
+    film && !isNoneLikeItem(film) ? compactZImageFilmText(skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
   ]);
   const joinZImageParagraphs = (parts) => parts
     .map((value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim()))
@@ -10392,30 +10506,36 @@ function buildAiMinimalSceneClause(valuesByLabel, context = {}) {
   return scenePhrase ? `in ${scenePhrase}` : '';
 }
 
+function buildAiMinimalLightingClause(valuesByLabel) {
+  const ambientText = firstStructuredValue(valuesByLabel, ['Ambient Light Conditions']);
+  const subjectLightText = firstStructuredValue(valuesByLabel, ['Subject Light Style']);
+  const lightingText = compactAiLightingText(ambientText, subjectLightText);
+  return lightingText ? `under ${lightingText}` : '';
+}
+
 function buildAiMinimalMoodTail(valuesByLabel) {
   const styleText = getStructuredValues(valuesByLabel, ['Photography Style']).join(', ');
+  const lensText = getStructuredValues(valuesByLabel, ['Lens']).join(', ');
   const apertureText = getStructuredValues(valuesByLabel, ['Aperture / Depth of Field']).join(', ');
   const shutterText = getStructuredValues(valuesByLabel, ['Shutter / Motion Blur']).join(', ');
   const imagingText = firstStructuredValue(valuesByLabel, ['Camera / Film']);
   const opticalText = getStructuredValues(valuesByLabel, ['Optical Effect']).join(', ');
-  const cameraText = [styleText, apertureText, shutterText, imagingText, opticalText].filter(Boolean).join(', ');
+  const cameraText = [styleText, lensText, apertureText, shutterText, imagingText, opticalText].filter(Boolean).join(', ');
   const artifactSourceText = [apertureText, shutterText, imagingText, opticalText].filter(Boolean).join(', ');
   const cleanedCameraText = cleanAiMinimalFragment(cameraText);
   const cleanedArtifactSourceText = cleanAiMinimalFragment(artifactSourceText);
   const cleanedApertureText = cleanAiMinimalFragment(apertureText);
   const cleanedShutterText = cleanAiMinimalFragment(shutterText);
-  const cleanedImagingText = cleanAiMinimalFragment(imagingText);
   const artifacts = [];
   const addArtifact = (value) => {
     if (value && !artifacts.includes(value)) artifacts.push(value);
   };
   const details = [];
   const addDetail = (value) => {
-    const cleaned = cleanAiMinimalFragment(value);
+    const cleaned = stripMarkdown(value || '').replace(/\s+/g, ' ').trim().replace(/[.!?]+$/g, '');
     if (!cleaned) return;
     const lowerCleaned = cleaned.toLowerCase();
     if (details.some((detail) => detail.toLowerCase() === lowerCleaned || detail.toLowerCase().includes(lowerCleaned))) return;
-    if (cleanedImagingText && cleanedImagingText.toLowerCase().includes(lowerCleaned)) return;
     details.push(cleaned);
   };
 
@@ -10441,9 +10561,12 @@ function buildAiMinimalMoodTail(valuesByLabel) {
       ? 'captured in film photography style'
       : 'captured as an editorial film still';
 
-  if (cleanedImagingText) details.push(cleanedImagingText);
+  addDetail(compactAiStyleText(styleText));
+  addDetail(compactAiLensText(lensText));
   addDetail(compactAiMinimalFragment(cleanedApertureText, 1));
   addDetail(compactAiMinimalFragment(cleanedShutterText, 1));
+  addDetail(compactAiOpticalEffectText(opticalText));
+  addDetail(compactAiFilmText(imagingText));
   artifacts.forEach(addDetail);
   if (details.length > 0) return `${base} with ${details.join(', ')}`;
 
@@ -10507,19 +10630,26 @@ function buildAiDuoSceneText(valuesByLabel) {
 }
 
 function buildAiDuoLightingText(valuesByLabel) {
-  return splitAiDuoCompactFragments(getStructuredValues(valuesByLabel, [
-    'Ambient Light Conditions',
-    'Subject Light Style',
-  ]).join(', ')).slice(0, 7).join(', ');
+  const ambientText = getStructuredValues(valuesByLabel, ['Ambient Light Conditions']).join(', ');
+  const subjectLightText = getStructuredValues(valuesByLabel, ['Subject Light Style']).join(', ');
+  return [
+    compactPromptClauses(ambientText, 2),
+    compactPromptClauses(subjectLightText, 2),
+  ].filter(Boolean).join(', ');
 }
 
-function buildAiDuoCameraLookText(valuesByLabel) {
-  const styleFragments = splitAiDuoCompactFragments(getStructuredValues(valuesByLabel, ['Photography Style']).join(', ')).slice(0, 5);
-  const apertureFragments = splitAiDuoCompactFragments(getStructuredValues(valuesByLabel, ['Aperture / Depth of Field']).join(', ')).slice(0, 1);
-  const filmFragments = splitAiDuoCompactFragments(getStructuredValues(valuesByLabel, ['Camera / Film']).join(', ')).slice(0, 2);
-  const opticalFragments = splitAiDuoCompactFragments(getStructuredValues(valuesByLabel, ['Optical Effect']).join(', ')).slice(0, 1);
+function buildAiDuoCameraLookText(valuesByLabel, context) {
+  const styleText = context.style && !isNoneLikeItem(context.style)
+    ? compactZImagePhotographyStyleText(context.style)
+    : compactAiStyleText(getStructuredValues(valuesByLabel, ['Photography Style']).join(', '));
+  const duoStyleText = styleText.replace(/^Inspired by [^,]+,\s*/i, '');
+  const lensText = compactAiLensText(getStructuredValues(valuesByLabel, ['Lens']).join(', '));
+  const apertureText = compactPromptClauses(getStructuredValues(valuesByLabel, ['Aperture / Depth of Field']).join(', '), 1);
+  const shutterText = compactPromptClauses(getStructuredValues(valuesByLabel, ['Shutter / Motion Blur']).join(', '), 1);
+  const opticalText = compactAiOpticalEffectText(getStructuredValues(valuesByLabel, ['Optical Effect']).join(', '));
+  const filmText = compactAiFilmText(getStructuredValues(valuesByLabel, ['Camera / Film']).join(', '));
 
-  return [...styleFragments, ...apertureFragments, ...filmFragments, ...opticalFragments].filter(Boolean).join(', ');
+  return [duoStyleText, lensText, apertureText, shutterText, opticalText, filmText].filter(Boolean).join(', ');
 }
 
 function buildAiDuoSection(label, value) {
@@ -10535,7 +10665,7 @@ function buildAiDuoPromptFromStructuredPrompt(valuesByLabel, context, wardrobe, 
     buildAiDuoSection('Pose', buildAiDuoPoseText(valuesByLabel)),
     buildAiDuoSection('Scene', buildAiDuoSceneText(valuesByLabel)),
     buildAiDuoSection('Lighting', buildAiDuoLightingText(valuesByLabel)),
-    buildAiDuoSection('Camera Look', buildAiDuoCameraLookText(valuesByLabel)),
+    buildAiDuoSection('Camera Look', buildAiDuoCameraLookText(valuesByLabel, context)),
   ].filter(Boolean).join('\n\n');
 }
 
@@ -10551,6 +10681,7 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
     buildAiMinimalWardrobeClause(valuesByLabel, context),
     buildAiMinimalPoseClause(valuesByLabel, context),
     buildAiMinimalSceneClause(valuesByLabel, context),
+    buildAiMinimalLightingClause(valuesByLabel),
   ].filter(Boolean);
   const moodTail = buildAiMinimalMoodTail(valuesByLabel);
 

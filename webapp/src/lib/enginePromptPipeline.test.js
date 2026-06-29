@@ -859,6 +859,43 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
 });
 
+test('Grok/Z-Image and AI keep selected lighting and camera controls with model-specific compression', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    locationId: optionId('locationId', '室內：深邃黑幕'),
+    lightingId: optionId('lightingId', '室內午後柔亮日光'),
+    lightDirectionId: optionId('lightDirectionId', '暖金黃昏色溫'),
+    styleId: optionId('styleId', '橫浪修｜群像留白秩序'),
+    lensId: optionId('lensId', '135mm 長焦壓縮'),
+    opticalEffectId: optionId('opticalEffectId', '前景遮擋散景'),
+    filmId: optionId('filmId', '日系亮膚高彩濾鏡'),
+  });
+
+  assert.match(gptSection(prompt, 'Lighting'), /indoor late-afternoon daylight environment[\s\S]*warm-neutral daylight spread[\s\S]*warm golden-amber subject light color[\s\S]*no sunset or sky cues/);
+  assert.match(gptSection(prompt, 'Camera Look'), /high-key minimalist portraiture[\s\S]*flattened spatial layers[\s\S]*meaningful partial frame coverage[\s\S]*vivid saturation[\s\S]*clean deep blacks/);
+
+  assertNaturalZImageParagraphs(prompt, 'compressed imaging z-image prompt');
+  assert.match(prompt.zImagePrompt, /indoor late-afternoon daylight environment, bright softened room illumination/i);
+  assert.match(prompt.zImagePrompt, /honey-amber subject light on skin and clothing/i);
+  assert.match(prompt.zImagePrompt, /Inspired by Osamu Yokonami, high-key minimalist image language/i);
+  assert.match(prompt.zImagePrompt, /shot on 135mm long telephoto lens, strong background compression, narrow field of view/i);
+  assert.match(prompt.zImagePrompt, /blurred foreground occlusion near the lens[\s\S]*thick near-field bokeh veil[\s\S]*clear opening toward the subject/i);
+  assert.match(prompt.zImagePrompt, /glossy Japanese portrait color grade[\s\S]*creamy pale highlights[\s\S]*warm peach skin-tone protection[\s\S]*cyan-green shadows/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /warm-neutral daylight spread|mellow exterior brightness|no sunset or sky cues/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /high-key minimalist portraiture|generous negative space|flattened spatial layers|distant working distance|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
+
+  assert.match(prompt.midjourneyPrompt, /indoor late-afternoon daylight/i);
+  assert.match(prompt.midjourneyPrompt, /warm honey-amber subject light/i);
+  assert.match(prompt.midjourneyPrompt, /Inspired by Osamu Yokonami, high-key minimalist image language/i);
+  assert.match(prompt.midjourneyPrompt, /135mm telephoto compression/i);
+  assert.match(prompt.midjourneyPrompt, /soft foreground occlusion/i);
+  assert.match(prompt.midjourneyPrompt, /glossy Japanese color grade with creamy highlights, warm peach skin, and cyan-green shadows/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /warm-neutral daylight spread|mellow exterior brightness|no sunset or sky cues/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /flattened spatial layers|pronounced subject isolation|distant working distance|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /[\u4e00-\u9fff]/);
+  assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
+});
+
 test('Grok/Z-Image and AI use model-specific compact scene wording for solid color studio scenes', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -1156,7 +1193,7 @@ test('AI prompt converts recognizable separate pieces into a style shorthand', (
   assert.doesNotMatch(prompt.midjourneyPrompt, /slim halter strings|minimal sliding triangle cups|compact fitted seat/i);
 });
 
-test('AI prompt includes the complete imaging simulation description', () => {
+test('AI prompt keeps a compact imaging simulation cue', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
@@ -1168,8 +1205,9 @@ test('AI prompt includes the complete imaging simulation description', () => {
 
   assert.match(
     prompt.midjourneyPrompt,
-    /high-acutance snapshot rendering, snap-focus clarity, contrasty black levels, crisp APS-C-like color response, candid compact-camera texture/i
+    /high-acutance snapshot rendering, snap-focus clarity, contrasty black levels/i
   );
+  assert.doesNotMatch(prompt.midjourneyPrompt, /crisp APS-C-like color response|candid compact-camera texture/i);
 });
 
 test('none selections stay silent across all final prompt outputs', () => {
