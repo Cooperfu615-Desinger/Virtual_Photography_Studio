@@ -45,6 +45,14 @@ export const DLL_PIC_MODEL_CONFIG = {
     supportsResolution: true,
     defaultResolution: '1k',
   },
+  magnificClassic: {
+    label: 'Magnific Classic',
+    provider: 'magnific',
+    generationModel: 'text-to-image',
+    analysisModel: '',
+    usesServerProxy: true,
+    apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
+  },
   grok: {
     label: 'xAI Grok Quality',
     provider: 'xai',
@@ -258,6 +266,26 @@ async function generateXaiImages({
   return { images, errors: [] };
 }
 
+async function generateMagnificImages({
+  magnificGenerate,
+  prompt,
+  aspectRatio = '9:16',
+  count = 1,
+}) {
+  if (!magnificGenerate) throw new Error('Magnific Firebase Proxy 尚未接入');
+
+  const result = await magnificGenerate({
+    prompt: prompt.trim(),
+    aspectRatio,
+    count,
+  });
+
+  return {
+    images: result?.images || [],
+    errors: result?.errors || [],
+  };
+}
+
 export async function generateDllPicImages({
   apiKey,
   modelKey = 'google',
@@ -265,15 +293,18 @@ export async function generateDllPicImages({
   aspectRatio = '9:16',
   count = 1,
   resolution = '1k',
+  magnificGenerate = null,
 }) {
   const modelConfig = getDllPicModelConfig(modelKey);
-  if (!apiKey) throw new Error('請先設定 DLL_PIC Pro API Key');
+  if (!apiKey && !modelConfig.usesServerProxy) throw new Error('請先設定 DLL_PIC Pro API Key');
   if (!prompt?.trim()) throw new Error('請先選擇或輸入 Prompt');
   if (!modelConfig.generationModel) throw new Error(`${modelConfig.label} 目前尚未接入生圖功能`);
 
-  const result = modelConfig.provider === 'xai'
-    ? await generateXaiImages({ apiKey, modelConfig, prompt, aspectRatio, count, resolution })
-    : await generateGeminiImages({ apiKey, modelConfig, prompt, aspectRatio, count });
+  const result = modelConfig.provider === 'magnific'
+    ? await generateMagnificImages({ magnificGenerate, prompt, aspectRatio, count })
+    : modelConfig.provider === 'xai'
+      ? await generateXaiImages({ apiKey, modelConfig, prompt, aspectRatio, count, resolution })
+      : await generateGeminiImages({ apiKey, modelConfig, prompt, aspectRatio, count });
 
   if (result.images.length === 0) {
     throw new Error(result.errors[0] || 'API 回應中未包含圖像資料。');

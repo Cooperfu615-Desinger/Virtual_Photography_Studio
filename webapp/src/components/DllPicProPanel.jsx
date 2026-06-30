@@ -11,6 +11,7 @@ import {
   getDllPicSelectableModelEntries,
   normalizeDllPicModelKey,
 } from '../lib/dllPicProClient.js';
+import { generateMagnificClassicViaFirebase } from '../lib/magnificProxyClient.js';
 
 function loadStoredValue(key, fallback = '') {
   if (typeof window === 'undefined') return fallback;
@@ -65,6 +66,15 @@ const DLL_PIC_API_KEY_FIELDS = [
   },
 ];
 
+const DLL_PIC_PROXY_FIELDS = [
+  {
+    provider: 'magnific',
+    label: 'Magnific API Key',
+    status: 'Firebase Secret',
+    description: '由 Firebase Functions proxy 使用伺服端 MAGNIFIC_API_KEY，不會儲存在瀏覽器。',
+  },
+];
+
 function loadStoredProviderApiKeys() {
   return DLL_PIC_API_KEY_FIELDS.reduce((keys, field) => ({
     ...keys,
@@ -84,6 +94,11 @@ function saveStoredGenerationSettings(modelKey, resolution) {
   } catch {
     // Ignore unavailable storage; current session state remains usable.
   }
+}
+
+function getGenerationErrorMessage(error) {
+  if (typeof error === 'string') return error;
+  return error?.message || error?.details || error?.code || '生成失敗';
 }
 
 function saveImage(src, index) {
@@ -142,8 +157,22 @@ export default function DllPicProPanel({
   ), [availableSources, promptSources, selectedSourceId]);
   const selectedPrompt = selectedSource?.value?.trim() || '';
   const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
-  const activeProviderLabel = activeModel.provider === 'xai' ? 'xAI' : 'Gemini';
-  const canGenerate = Boolean(activeApiKey && selectedPrompt && activeModel.generationModel && !isGenerating);
+  const activeProviderLabel = activeModel.provider === 'magnific'
+    ? 'Magnific'
+    : activeModel.provider === 'xai'
+      ? 'xAI'
+      : 'Gemini';
+  const activeKeyStatus = activeModel.usesServerProxy
+    ? `${activeProviderLabel} Proxy 已連接`
+    : activeApiKey
+      ? `${activeProviderLabel} Key 已設定`
+      : `${activeProviderLabel} Key 未設定`;
+  const canGenerate = Boolean(
+    (activeModel.usesServerProxy || activeApiKey)
+    && selectedPrompt
+    && activeModel.generationModel
+    && !isGenerating
+  );
 
   const openApiKeyModal = () => {
     setApiKeyDrafts(apiKeys);
@@ -201,11 +230,12 @@ export default function DllPicProPanel({
         aspectRatio,
         count,
         resolution,
+        magnificGenerate: generateMagnificClassicViaFirebase,
       });
       setImages(result.images);
       setMessage(result.errors.length > 0 ? result.errors[0] : `已生成 ${result.images.length} 張圖像`);
     } catch (error) {
-      setMessage(error.message || '生成失敗');
+      setMessage(getGenerationErrorMessage(error));
     } finally {
       setIsGenerating(false);
     }
@@ -244,9 +274,7 @@ export default function DllPicProPanel({
           <p className="workspace-panel-copy">{description}</p>
         </div>
         <div className="dll-pic-header-actions">
-          <span className="dll-pic-status">
-            {activeApiKey ? `${activeProviderLabel} Key 已設定` : `${activeProviderLabel} Key 未設定`}
-          </span>
+          <span className="dll-pic-status">{activeKeyStatus}</span>
           <button className="secondary dll-pic-api-settings-btn" type="button" onClick={openApiKeyModal}>
             API Keys
           </button>
@@ -380,6 +408,15 @@ export default function DllPicProPanel({
                     placeholder={field.placeholder}
                   />
                 </label>
+              ))}
+              {DLL_PIC_PROXY_FIELDS.map((field) => (
+                <div className="field dll-pic-api-key-field" key={field.provider}>
+                  <span className="dll-pic-api-key-label">
+                    <span>{field.label}</span>
+                    <span className="dll-pic-provider-pill">{field.status}</span>
+                  </span>
+                  <p className="dll-pic-proxy-note">{field.description}</p>
+                </div>
               ))}
             </div>
 
