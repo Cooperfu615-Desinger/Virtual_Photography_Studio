@@ -7,6 +7,7 @@ const {
   parseMagnificError,
   parseMagnificClassicResponse,
 } = require('./src/magnificGeneration');
+const { downloadRemoteImageAsDataUrl } = require('./src/imageDownloadProxy');
 
 const magnificApiKey = defineSecret('MAGNIFIC_API_KEY');
 const DEFAULT_ALLOWED_EMAILS = 'cooperfu.615@gmail.com';
@@ -134,5 +135,32 @@ exports.magnificGenerate = onCall({
       message: error?.message || String(error),
     });
     throw new HttpsError('internal', error?.message || 'Magnific 生成失敗');
+  }
+});
+
+exports.magnificDownloadImage = onCall({
+  region: 'us-central1',
+  timeoutSeconds: 120,
+  memory: '512MiB',
+}, async (request) => {
+  assertAllowedUser(request);
+
+  const imageUrl = String(request.data?.imageUrl || '').trim();
+  if (!imageUrl) {
+    throw new HttpsError('invalid-argument', '請提供要下載的圖片網址');
+  }
+
+  try {
+    const result = await downloadRemoteImageAsDataUrl({ imageUrl });
+    logger.info('Remote generated image downloaded', {
+      mimeType: result.mimeType,
+      bytes: result.bytes,
+    });
+    return result;
+  } catch (error) {
+    logger.warn('Remote generated image download failed', {
+      message: error?.message || String(error),
+    });
+    throw new HttpsError('internal', error?.message || '圖片下載失敗');
   }
 });

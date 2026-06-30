@@ -1,4 +1,4 @@
-async function getMagnificCallable() {
+async function getMagnificCallable(functionName = 'magnificGenerate', timeout = 240000) {
   const [{ getFunctions, httpsCallable }, { firebaseApp, firebaseAuth }] = await Promise.all([
     import('firebase/functions'),
     import('./firebase.js'),
@@ -14,7 +14,7 @@ async function getMagnificCallable() {
   }
 
   const firebaseFunctions = getFunctions(firebaseApp);
-  return httpsCallable(firebaseFunctions, 'magnificGenerate', { timeout: 240000 });
+  return httpsCallable(firebaseFunctions, functionName, { timeout });
 }
 
 export async function generateMagnificViaFirebase(payload) {
@@ -29,5 +29,11 @@ export async function generateMagnificClassicViaFirebase(payload) {
     ...payload,
     modelKey: 'classic',
   });
+  return response.data;
+}
+
+export async function downloadMagnificImageViaFirebase(payload) {
+  const downloadImage = await getMagnificCallable('magnificDownloadImage', 120000);
+  const response = await downloadImage(payload);
   return response.data;
 }

@@ -11,7 +11,8 @@ import {
   getDllPicSelectableModelEntries,
   normalizeDllPicModelKey,
 } from '../lib/dllPicProClient.js';
-import { generateMagnificViaFirebase } from '../lib/magnificProxyClient.js';
+import { downloadImageFile } from '../lib/imageDownload.js';
+import { downloadMagnificImageViaFirebase, generateMagnificViaFirebase } from '../lib/magnificProxyClient.js';
 
 function loadStoredValue(key, fallback = '') {
   if (typeof window === 'undefined') return fallback;
@@ -113,16 +114,6 @@ function formatGenerationMessage(result) {
   return `已生成 ${images.length} 張圖像`;
 }
 
-function saveImage(src, index) {
-  const extension = src.match(/^data:image\/([a-zA-Z0-9.+-]+);/)?.[1]
-    || src.split('?')[0].split('.').pop()
-    || 'png';
-  const link = document.createElement('a');
-  link.href = src;
-  link.download = `dll_pic_pro_${Date.now()}_${index + 1}.${extension.replace('jpeg', 'jpg')}`;
-  link.click();
-}
-
 function loadDevPreviewImages() {
   if (typeof window === 'undefined' || !import.meta.env.DEV) return [];
   const demoImageUrl = new URLSearchParams(window.location.search).get('dllPicDemoImage');
@@ -153,6 +144,7 @@ export default function DllPicProPanel({
   const [previewImageIndex, setPreviewImageIndex] = useState(null);
   const [previewImageSize, setPreviewImageSize] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [downloadingImageIndex, setDownloadingImageIndex] = useState(null);
   const [message, setMessage] = useState(() => (loadDevPreviewImages().length ? '已套用本地預覽圖' : ''));
 
   const activeModel = getDllPicModelConfig(modelKey);
@@ -250,6 +242,21 @@ export default function DllPicProPanel({
       setMessage(getGenerationErrorMessage(error));
     } finally {
       setIsGenerating(false);
+    }
+  };
+
+  const handleDownloadImage = async (src, index) => {
+    setDownloadingImageIndex(index);
+    try {
+      await downloadImageFile({
+        src,
+        index,
+        remoteDownload: downloadMagnificImageViaFirebase,
+      });
+    } catch (error) {
+      setMessage(getGenerationErrorMessage(error));
+    } finally {
+      setDownloadingImageIndex(null);
     }
   };
 
@@ -466,8 +473,13 @@ export default function DllPicProPanel({
                 </button>
                 <figcaption>
                   <span>#{index + 1}</span>
-                  <button type="button" className="secondary dll-pic-download-btn" onClick={() => saveImage(image.src, index)}>
-                    下載
+                  <button
+                    type="button"
+                    className="secondary dll-pic-download-btn"
+                    onClick={() => handleDownloadImage(image.src, index)}
+                    disabled={downloadingImageIndex === index}
+                  >
+                    {downloadingImageIndex === index ? '下載中...' : '下載'}
                   </button>
                 </figcaption>
               </figure>
@@ -497,9 +509,10 @@ export default function DllPicProPanel({
                 <button
                   type="button"
                   className="secondary dll-pic-download-btn"
-                  onClick={() => saveImage(previewImage.src, previewImageIndex)}
+                  onClick={() => handleDownloadImage(previewImage.src, previewImageIndex)}
+                  disabled={downloadingImageIndex === previewImageIndex}
                 >
-                  下載
+                  {downloadingImageIndex === previewImageIndex ? '下載中...' : '下載'}
                 </button>
                 <button type="button" className="secondary dll-pic-lightbox-close" onClick={closeImagePreview}>
                   關閉
