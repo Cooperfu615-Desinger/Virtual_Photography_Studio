@@ -101,6 +101,18 @@ function getGenerationErrorMessage(error) {
   return error?.message || error?.details || error?.code || '生成失敗';
 }
 
+function formatGenerationMessage(result) {
+  const images = result.images || [];
+  const nsfwCount = images.filter((image) => image.hasNsfw).length;
+
+  if (result.errors?.length > 0) return result.errors[0];
+  if (nsfwCount > 0) {
+    return `已生成 ${images.length} 張圖像，其中 ${nsfwCount} 張被 Magnific 標記為安全風險`;
+  }
+
+  return `已生成 ${images.length} 張圖像`;
+}
+
 function saveImage(src, index) {
   const extension = src.match(/^data:image\/([a-zA-Z0-9.+-]+);/)?.[1]
     || src.split('?')[0].split('.').pop()
@@ -233,7 +245,7 @@ export default function DllPicProPanel({
         magnificGenerate: generateMagnificClassicViaFirebase,
       });
       setImages(result.images);
-      setMessage(result.errors.length > 0 ? result.errors[0] : `已生成 ${result.images.length} 張圖像`);
+      setMessage(formatGenerationMessage(result));
     } catch (error) {
       setMessage(getGenerationErrorMessage(error));
     } finally {

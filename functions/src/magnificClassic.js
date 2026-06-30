@@ -16,6 +16,24 @@ function getMagnificClassicImageSize(aspectRatio = '9:16') {
   return MAGNIFIC_CLASSIC_ASPECT_SIZES[aspectRatio] || MAGNIFIC_CLASSIC_ASPECT_SIZES['9:16'];
 }
 
+function inferBase64ImageMimeType(base64 = '') {
+  const value = String(base64 || '').trim();
+  if (value.startsWith('iVBORw0KGgo')) return 'image/png';
+  if (value.startsWith('/9j/')) return 'image/jpeg';
+  if (value.startsWith('UklGR')) return 'image/webp';
+  if (value.startsWith('R0lGOD')) return 'image/gif';
+  return 'image/png';
+}
+
+function getMagnificImageMimeType(image = {}) {
+  const declaredMimeType = image.mime_type || image.mimeType;
+  if (typeof declaredMimeType === 'string' && declaredMimeType.startsWith('image/')) {
+    return declaredMimeType;
+  }
+
+  return inferBase64ImageMimeType(image.base64);
+}
+
 function buildMagnificClassicRequest({
   prompt,
   aspectRatio = '9:16',
@@ -46,9 +64,12 @@ function buildMagnificClassicRequest({
 function parseMagnificClassicResponse(payload) {
   const images = (payload?.data || []).flatMap((image) => {
     if (!image?.base64) return [];
+    const base64 = String(image.base64).trim();
+    const mimeType = getMagnificImageMimeType(image);
+
     return [{
-      src: `data:image/png;base64,${image.base64}`,
-      mimeType: 'image/png',
+      src: `data:${mimeType};base64,${base64}`,
+      mimeType,
       hasNsfw: Boolean(image.has_nsfw),
     }];
   });
@@ -64,5 +85,6 @@ module.exports = {
   buildMagnificClassicRequest,
   clampGenerationCount,
   getMagnificClassicImageSize,
+  inferBase64ImageMimeType,
   parseMagnificClassicResponse,
 };

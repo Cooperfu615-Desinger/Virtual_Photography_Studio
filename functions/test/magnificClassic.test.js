@@ -5,6 +5,7 @@ const {
   buildMagnificClassicRequest,
   clampGenerationCount,
   getMagnificClassicImageSize,
+  inferBase64ImageMimeType,
   parseMagnificClassicResponse,
 } = require('../src/magnificClassic');
 
@@ -64,4 +65,26 @@ test('parses Magnific Classic base64 images into DLL PIC image objects', () => {
       prompt: 'portrait',
     },
   });
+});
+
+test('infers Magnific Classic image MIME type from base64 magic bytes', () => {
+  assert.equal(inferBase64ImageMimeType('iVBORw0KGgoAAA'), 'image/png');
+  assert.equal(inferBase64ImageMimeType('/9j/4AAQSkZJRg'), 'image/jpeg');
+  assert.equal(inferBase64ImageMimeType('UklGRiIAAABXRUJQ'), 'image/webp');
+  assert.equal(inferBase64ImageMimeType('R0lGODlhAQABAIA'), 'image/gif');
+  assert.equal(inferBase64ImageMimeType('unknown'), 'image/png');
+});
+
+test('honors Magnific Classic declared image MIME type when present', () => {
+  assert.deepEqual(parseMagnificClassicResponse({
+    data: [{
+      base64: '/9j/jpeg-image',
+      mime_type: 'image/webp',
+      has_nsfw: true,
+    }],
+  }).images, [{
+    src: 'data:image/webp;base64,/9j/jpeg-image',
+    mimeType: 'image/webp',
+    hasNsfw: true,
+  }]);
 });

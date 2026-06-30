@@ -283,6 +283,7 @@ async function generateMagnificImages({
   return {
     images: result?.images || [],
     errors: result?.errors || [],
+    meta: result?.meta || null,
   };
 }
 

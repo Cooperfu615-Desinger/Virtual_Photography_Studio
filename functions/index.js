@@ -89,5 +89,12 @@ exports.magnificGenerateClassic = onCall({
     throw new HttpsError('internal', 'Magnific API 回應中未包含圖像資料');
   }
 
+  logger.info('Magnific Classic generation succeeded', {
+    imageSize: body.image?.size,
+    numImages: result.images.length,
+    mimeTypes: result.images.map((image) => image.mimeType),
+    nsfwCount: result.images.filter((image) => image.hasNsfw).length,
+  });
+
   return result;
 });

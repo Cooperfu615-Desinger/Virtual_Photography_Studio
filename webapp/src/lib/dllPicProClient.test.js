@@ -108,6 +108,9 @@ test('Magnific Classic generation uses the Firebase proxy without a local API ke
           mimeType: 'image/png',
         }],
         errors: [],
+        meta: {
+          prompt: 'cinematic portrait',
+        },
       };
     },
   });
@@ -123,6 +126,9 @@ test('Magnific Classic generation uses the Firebase proxy without a local API ke
       mimeType: 'image/png',
     }],
     errors: [],
+    meta: {
+      prompt: 'cinematic portrait',
+    },
   });
 });
 
