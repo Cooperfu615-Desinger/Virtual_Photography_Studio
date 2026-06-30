@@ -1,4 +1,4 @@
-export async function generateMagnificClassicViaFirebase(payload) {
+async function getMagnificCallable() {
   const [{ getFunctions, httpsCallable }, { firebaseApp, firebaseAuth }] = await Promise.all([
     import('firebase/functions'),
     import('./firebase.js'),
@@ -14,7 +14,20 @@ export async function generateMagnificClassicViaFirebase(payload) {
   }
 
   const firebaseFunctions = getFunctions(firebaseApp);
-  const generateClassic = httpsCallable(firebaseFunctions, 'magnificGenerateClassic');
-  const response = await generateClassic(payload);
+  return httpsCallable(firebaseFunctions, 'magnificGenerate', { timeout: 240000 });
+}
+
+export async function generateMagnificViaFirebase(payload) {
+  const generate = await getMagnificCallable();
+  const response = await generate(payload);
+  return response.data;
+}
+
+export async function generateMagnificClassicViaFirebase(payload) {
+  const generate = await getMagnificCallable();
+  const response = await generate({
+    ...payload,
+    modelKey: 'classic',
+  });
   return response.data;
 }

@@ -11,7 +11,7 @@ import {
   getDllPicSelectableModelEntries,
   normalizeDllPicModelKey,
 } from '../lib/dllPicProClient.js';
-import { generateMagnificClassicViaFirebase } from '../lib/magnificProxyClient.js';
+import { generateMagnificViaFirebase } from '../lib/magnificProxyClient.js';
 
 function loadStoredValue(key, fallback = '') {
   if (typeof window === 'undefined') return fallback;
@@ -242,7 +242,7 @@ export default function DllPicProPanel({
         aspectRatio,
         count,
         resolution,
-        magnificGenerate: generateMagnificClassicViaFirebase,
+        magnificGenerate: generateMagnificViaFirebase,
       });
       setImages(result.images);
       setMessage(formatGenerationMessage(result));

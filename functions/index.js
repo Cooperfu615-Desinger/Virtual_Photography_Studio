@@ -3,8 +3,10 @@ const { defineSecret } = require('firebase-functions/params');
 const logger = require('firebase-functions/logger');
 const {
   buildMagnificClassicRequest,
+  generateMagnificModelImages,
+  parseMagnificError,
   parseMagnificClassicResponse,
-} = require('./src/magnificClassic');
+} = require('./src/magnificGeneration');
 
 const magnificApiKey = defineSecret('MAGNIFIC_API_KEY');
 const DEFAULT_ALLOWED_EMAILS = 'cooperfu.615@gmail.com';
@@ -27,22 +29,6 @@ function assertAllowedUser(request) {
   if (allowedEmails.length > 0 && !allowedEmails.includes(String(email).toLowerCase())) {
     throw new HttpsError('permission-denied', '此帳號沒有使用 Magnific proxy 的權限');
   }
-}
-
-async function parseMagnificError(response) {
-  let payload = null;
-
-  try {
-    payload = await response.json();
-  } catch {
-    // Fall through to status text.
-  }
-
-  const invalidParams = payload?.problem?.invalid_params
-    ?.map((param) => `${param.name}: ${param.reason}`)
-    .join('; ');
-  const message = payload?.message || payload?.problem?.message || invalidParams || response.statusText;
-  return `Magnific API 錯誤 (${response.status}): ${message || 'Unknown error'}`;
 }
 
 exports.magnificGenerateClassic = onCall({
@@ -97,4 +83,56 @@ exports.magnificGenerateClassic = onCall({
   });
 
   return result;
+});
+
+exports.magnificGenerate = onCall({
+  region: 'us-central1',
+  secrets: [magnificApiKey],
+  timeoutSeconds: 240,
+  memory: '512MiB',
+}, async (request) => {
+  assertAllowedUser(request);
+
+  const payload = request.data || {};
+  const prompt = String(payload.prompt || '').trim();
+  if (prompt.length < 3) {
+    throw new HttpsError('invalid-argument', '請先提供至少 3 個字元的 Prompt');
+  }
+
+  const apiKey = magnificApiKey.value();
+  if (!apiKey) {
+    throw new HttpsError('failed-precondition', 'Magnific API Key 尚未設定');
+  }
+
+  try {
+    const result = await generateMagnificModelImages({
+      apiKey,
+      payload: {
+        ...payload,
+        prompt,
+      },
+    });
+
+    if (result.images.length === 0) {
+      throw new HttpsError('internal', 'Magnific API 回應中未包含圖像資料');
+    }
+
+    logger.info('Magnific generation succeeded', {
+      modelKey: payload.modelKey || 'classic',
+      numImages: result.images.length,
+      mimeTypes: result.images.map((image) => image.mimeType),
+      nsfwCount: result.images.filter((image) => image.hasNsfw).length,
+      taskCount: result.meta?.taskIds?.length || 0,
+    });
+
+    return result;
+  } catch (error) {
+    if (error instanceof HttpsError) throw error;
+
+    logger.warn('Magnific generation failed', {
+      modelKey: payload.modelKey || 'classic',
+      message: error?.message || String(error),
+    });
+    throw new HttpsError('internal', error?.message || 'Magnific 生成失敗');
+  }
 });

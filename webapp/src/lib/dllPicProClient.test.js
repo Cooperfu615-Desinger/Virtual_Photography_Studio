@@ -90,16 +90,18 @@ test('API key selection follows the active model provider', () => {
   assert.equal(getDllPicApiKeyForModel('xaiGrokImagine', providerApiKeys), 'xai-key');
   assert.equal(getDllPicApiKeyForModel('xaiGrokImagineQuality', providerApiKeys), 'xai-key');
   assert.equal(getDllPicApiKeyForModel('magnificClassic', providerApiKeys), '');
+  assert.equal(getDllPicApiKeyForModel('magnificZImageTurbo', providerApiKeys), '');
 });
 
-test('Magnific Classic generation uses the Firebase proxy without a local API key', async () => {
+test('Magnific generation uses the Firebase proxy without a local API key', async () => {
   let proxyPayload = null;
   const result = await generateDllPicImages({
     apiKey: '',
-    modelKey: 'magnificClassic',
+    modelKey: 'magnificZImageTurbo',
     prompt: '  cinematic portrait  ',
     aspectRatio: '16:9',
     count: 2,
+    resolution: '2k',
     magnificGenerate: async (payload) => {
       proxyPayload = payload;
       return {
@@ -116,9 +118,11 @@ test('Magnific Classic generation uses the Firebase proxy without a local API ke
   });
 
   assert.deepEqual(proxyPayload, {
+    modelKey: 'zImageTurbo',
     prompt: 'cinematic portrait',
     aspectRatio: '16:9',
     count: 2,
+    resolution: '2k',
   });
   assert.deepEqual(result, {
     images: [{
@@ -140,6 +144,11 @@ test('model option helpers hide legacy aliases and keep analyzer to analysis-cap
     'xaiGrokImagine',
     'xaiGrokImagineQuality',
     'magnificClassic',
+    'magnificZImageTurbo',
+    'magnificMystic',
+    'magnificNanoBananaProFlash',
+    'magnificGemini25FlashImagePreview',
+    'magnificSeedreamV5Lite',
   ]);
 
   const analysisModelKeys = getDllPicSelectableModelEntries({ includeAnalysisOnly: true }).map(([key]) => key);

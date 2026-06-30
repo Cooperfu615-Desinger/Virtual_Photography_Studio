@@ -49,6 +49,56 @@ export const DLL_PIC_MODEL_CONFIG = {
     label: 'Magnific Classic',
     provider: 'magnific',
     generationModel: 'text-to-image',
+    magnificModel: 'classic',
+    analysisModel: '',
+    usesServerProxy: true,
+    apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
+  },
+  magnificZImageTurbo: {
+    label: 'Magnific Z-Image Turbo',
+    provider: 'magnific',
+    generationModel: 'z-image-turbo',
+    magnificModel: 'zImageTurbo',
+    analysisModel: '',
+    usesServerProxy: true,
+    apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
+  },
+  magnificMystic: {
+    label: 'Magnific Mystic',
+    provider: 'magnific',
+    generationModel: 'mystic',
+    magnificModel: 'mystic',
+    analysisModel: '',
+    usesServerProxy: true,
+    supportsResolution: true,
+    defaultResolution: '1k',
+    apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
+  },
+  magnificNanoBananaProFlash: {
+    label: 'Magnific Nano Banana Pro Flash',
+    provider: 'magnific',
+    generationModel: 'nano-banana-pro-flash',
+    magnificModel: 'nanoBananaProFlash',
+    analysisModel: '',
+    usesServerProxy: true,
+    supportsResolution: true,
+    defaultResolution: '1k',
+    apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
+  },
+  magnificGemini25FlashImagePreview: {
+    label: 'Magnific Gemini 2.5 Flash Image Preview',
+    provider: 'magnific',
+    generationModel: 'gemini-2.5-flash-image-preview',
+    magnificModel: 'gemini25FlashImagePreview',
+    analysisModel: '',
+    usesServerProxy: true,
+    apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
+  },
+  magnificSeedreamV5Lite: {
+    label: 'Magnific Seedream V5 Lite',
+    provider: 'magnific',
+    generationModel: 'seedream-v5-lite',
+    magnificModel: 'seedreamV5Lite',
     analysisModel: '',
     usesServerProxy: true,
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
@@ -268,16 +318,20 @@ async function generateXaiImages({
 
 async function generateMagnificImages({
   magnificGenerate,
+  modelConfig,
   prompt,
   aspectRatio = '9:16',
   count = 1,
+  resolution = '1k',
 }) {
   if (!magnificGenerate) throw new Error('Magnific Firebase Proxy 尚未接入');
 
   const result = await magnificGenerate({
+    modelKey: modelConfig.magnificModel || 'classic',
     prompt: prompt.trim(),
     aspectRatio,
     count,
+    resolution: getDllPicResolutionOption(resolution).value,
   });
 
   return {
@@ -302,7 +356,7 @@ export async function generateDllPicImages({
   if (!modelConfig.generationModel) throw new Error(`${modelConfig.label} 目前尚未接入生圖功能`);
 
   const result = modelConfig.provider === 'magnific'
-    ? await generateMagnificImages({ magnificGenerate, prompt, aspectRatio, count })
+    ? await generateMagnificImages({ magnificGenerate, modelConfig, prompt, aspectRatio, count, resolution })
     : modelConfig.provider === 'xai'
       ? await generateXaiImages({ apiKey, modelConfig, prompt, aspectRatio, count, resolution })
       : await generateGeminiImages({ apiKey, modelConfig, prompt, aspectRatio, count });
