@@ -46,6 +46,21 @@ export const OUTFIT_PRESET_B_COVERED_KEYS = new Set([
   'bottomBPatternId',
 ]);
 
+const CHARACTER_CARD_LAYER_SUMMARY = {
+  top: '角色卡上身',
+  bottom: '角色卡下身',
+  dress: '角色卡連身',
+  outerwear: '角色卡外套',
+  shoes: '角色卡鞋子',
+  headAccessory: '角色卡頭飾',
+  eyewear: '角色卡眼鏡',
+  earrings: '角色卡耳環',
+  neckAccessory: '角色卡脖子飾品',
+  wristAccessory: '角色卡手部飾品',
+  ring: '角色卡戒指',
+  waistAccessory: '角色卡腰部飾品',
+};
+
 export function getControlOptionLabel(controls, key, value) {
   if (!value) return '';
   const control = controls.find((item) => item.key === key);
@@ -96,9 +111,11 @@ export function buildWorkspaceSummary(locks, controls) {
   const characterProfileOption = characterProfileControl?.options?.find((option) => option.id === locks.characterProfileId);
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
   const isCharacterProfileMode = Boolean(characterProfileOption?.specialSubject);
-  const isDedicatedSubjectMode = isSpecialSubjectMode || isCharacterProfileMode;
   const activeOutfitPresets = getActiveOutfitPresets(locks, controls);
   const wardrobeLabel = (key) => getEffectiveWardrobeOptionLabel(controls, locks, key, activeOutfitPresets);
+  const importedCharacterCardWardrobe = Array.isArray(locks.characterCardWardrobeLayerIds)
+    ? locks.characterCardWardrobeLayerIds.map((key) => CHARACTER_CARD_LAYER_SUMMARY[key]).filter(Boolean)
+    : [];
 
   const characterSummary = isSpecialSubjectMode
     ? specialSubjectOption?.zh || '特殊角色'
@@ -135,7 +152,8 @@ export function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
     getControlOptionLabel(controls, 'poseAnchorId', locks.poseAnchorId),
   ]);
-  const wardrobeSummary = isDedicatedSubjectMode ? '' : buildSummaryText([
+  const wardrobeSummary = isSpecialSubjectMode ? '' : buildSummaryText([
+    ...importedCharacterCardWardrobe,
     wardrobeLabel('specialOutfitId'),
     wardrobeLabel('specialOutfitAId'),
     wardrobeLabel('specialOutfitBId'),

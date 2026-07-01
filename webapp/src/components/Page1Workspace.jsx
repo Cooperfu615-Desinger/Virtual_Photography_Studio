@@ -141,6 +141,21 @@ const WARDROBE_GARMENT_CONTROL_DIVIDERS = {
   pantsAId: '下身單品',
 };
 
+const CHARACTER_CARD_LAYER_DISPLAY = {
+  top: '上身',
+  bottom: '下身',
+  dress: '連身',
+  outerwear: '外套',
+  shoes: '鞋子',
+  headAccessory: '頭飾',
+  eyewear: '眼鏡',
+  earrings: '耳環',
+  neckAccessory: '脖子飾品',
+  wristAccessory: '手部飾品',
+  ring: '戒指',
+  waistAccessory: '腰部飾品',
+};
+
 const WORKSPACE_SECTIONS = [
   { id: 'character', label: 'A 人物設定' },
   { id: 'pose', label: 'B 神情姿態' },
@@ -685,6 +700,9 @@ export default function Page1Workspace({
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
   const isCharacterProfileMode = Boolean(characterProfileOption?.specialSubject);
   const isDedicatedSubjectMode = isSpecialSubjectMode || isCharacterProfileMode;
+  const importedCharacterCardLayers = Array.isArray(locks.characterCardWardrobeLayerIds)
+    ? locks.characterCardWardrobeLayerIds
+    : [];
   const isAndroidSubjectMode = specialSubjectOption?.specialSubject === 'android';
   const resolvedActiveSubpanel = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { isSpecialSubjectMode: isDedicatedSubjectMode });
   const activeSubpanelKeys = resolvedActiveSubpanel?.keys || getSectionKeys(activeSection);
@@ -770,10 +788,10 @@ export default function Page1Workspace({
       ].filter(Boolean),
     },
     wardrobe: {
-      status: isDedicatedSubjectMode ? '已停用' : (isAnyOutfitPresetActive || isSpecialOutfitActive ? '接管中' : formatSelectionStatus(countEffectiveSelections('wardrobe', locks, lockControls))),
+      status: isSpecialSubjectMode ? '已停用' : (isAnyOutfitPresetActive || isSpecialOutfitActive || importedCharacterCardLayers.length > 0 ? '接管中' : formatSelectionStatus(countEffectiveSelections('wardrobe', locks, lockControls))),
       chips: [
         isSpecialSubjectMode ? '特殊角色停用穿搭' : '',
-        isCharacterProfileMode ? '角色卡停用穿搭' : '',
+        isCharacterProfileMode && importedCharacterCardLayers.length > 0 ? '角色卡服裝層' : '',
         isSpecialOutfitActive ? '特殊穿搭接管' : '',
         isAnyOutfitPresetActive ? '套裝接管單件' : '',
       ].filter(Boolean),
@@ -1160,14 +1178,21 @@ export default function Page1Workspace({
           特殊穿搭是完整從頭到腳造型，已接管所有服裝、鞋襪與配件欄位。
         </div>
       ) : null}
-      {isDedicatedSubjectMode ? (
+      {isSpecialSubjectMode ? (
         <div className="context-note">
-          {isCharacterProfileMode
-            ? '角色卡已內建固定穿搭，這一區已暫時停用，請改用角色卡、場景、鏡頭、光線與風格去塑造作品氣氛。'
-            : '特殊角色目前不使用服裝、鞋襪或配件欄位，這一區已暫時停用，請改用角色本身、場景、鏡頭、光線與風格去塑造作品氣氛。'}
+          特殊角色目前不使用服裝、鞋襪或配件欄位，這一區已暫時停用，請改用角色本身、場景、鏡頭、光線與風格去塑造作品氣氛。
         </div>
       ) : null}
       <WardrobeLayerPanel insights={wardrobeLayerInsights} />
+      {activeSection === 'wardrobe' && importedCharacterCardLayers.length > 0 ? (
+        <div className="character-card-imported-layers" aria-label="Imported character card wardrobe layers">
+          {importedCharacterCardLayers.map((layerKey) => (
+            <span key={layerKey} className="character-card-imported-layer">
+              來自角色卡｜{CHARACTER_CARD_LAYER_DISPLAY[layerKey] || layerKey}
+            </span>
+          ))}
+        </div>
+      ) : null}
       {renderControlGrid(filterControlsByKeys(wardrobeLockControls, resolvedActiveSubpanel?.keys || []))}
     </div>
   );
