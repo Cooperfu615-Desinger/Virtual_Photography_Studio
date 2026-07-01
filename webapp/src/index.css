@@ -3034,6 +3034,15 @@ button:disabled {
     flex-wrap: wrap;
   }
 
+  .saved-cards-library-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .saved-cards-density-control {
+    width: 100%;
+  }
+
   .dll-pic-header-actions {
     width: 100%;
   }
