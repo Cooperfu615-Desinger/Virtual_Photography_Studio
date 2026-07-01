@@ -284,3 +284,35 @@ test('saved card ignores malformed bundle variant fields over pure-character raw
   assert.equal(card.summaryFields.wardrobe, '純人物');
   assert.doesNotMatch(combined, /baby tee|jeans|sneakers|choker/i);
 });
+
+test('saved card ignores semantically invalid bundle character and hair ids', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const rawVariant = {
+    characterProfileId: 'character-hina',
+    hairVariantId: 'slicked-back-wet-look',
+    includedWardrobeLayers: [],
+    outputMode: 'pure-character',
+  };
+  const card = buildCharacterCardSavedCard(cards, rawVariant, {
+    variant: {
+      characterProfileId: 'missing-card',
+      hairVariantId: 'twin-tails',
+    },
+    outputs: 'not-an-array',
+  });
+  const combined = [
+    card.grokPrompt,
+    card.zImagePrompt,
+    card.midjourneyPrompt,
+    ...card.extraPrompts.map((output) => output.text),
+  ].join('\n');
+
+  assert.equal(card.profile.characterProfileId, 'character-hina');
+  assert.equal(card.profile.hairVariantId, 'slicked-back-wet-look');
+  assert.equal(card.profile.outputMode, 'pure-character');
+  assert.equal(card.summaryFields.characterDna, '37_Hina');
+  assert.equal(card.summaryFields.wardrobe, '純人物');
+  assert.match(combined, /37_Hina/i);
+  assert.match(combined, /sleek wet-look swept-back finish/i);
+  assert.doesNotMatch(combined, /11_Rika|keep the original character hair identity unchanged|sage-mint green|short shorts|bare feet/i);
+});

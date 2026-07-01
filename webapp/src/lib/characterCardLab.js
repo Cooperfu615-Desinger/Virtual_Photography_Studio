@@ -378,14 +378,22 @@ function buildWardrobeSummary(card, variant) {
   return layers.length ? layers.map((layer) => layer.label).join('、') : '純人物';
 }
 
-function mergeBundleVariantInput(rawVariant, bundleVariant) {
+function mergeBundleVariantInput(rawVariant, bundleVariant, cards) {
   const merged = { ...normalizeVariantInput(rawVariant) };
   if (!isPlainObject(bundleVariant)) return merged;
 
-  if (typeof bundleVariant.characterProfileId === 'string' && bundleVariant.characterProfileId.trim()) {
+  const bundleCharacterId = typeof bundleVariant.characterProfileId === 'string'
+    ? bundleVariant.characterProfileId.trim()
+    : '';
+  if (bundleCharacterId && resolveCharacterCard(cards, bundleCharacterId)?.id === bundleCharacterId) {
     merged.characterProfileId = bundleVariant.characterProfileId;
   }
-  if (typeof bundleVariant.hairVariantId === 'string' && bundleVariant.hairVariantId.trim()) {
+
+  const effectiveCard = resolveCharacterCard(cards, merged.characterProfileId);
+  const bundleHairId = typeof bundleVariant.hairVariantId === 'string'
+    ? bundleVariant.hairVariantId.trim()
+    : '';
+  if (bundleHairId && getCompatibleHairVariants(effectiveCard).some((hairVariant) => hairVariant.id === bundleHairId)) {
     merged.hairVariantId = bundleVariant.hairVariantId;
   }
   if (Array.isArray(bundleVariant.includedWardrobeLayers)) {
@@ -403,7 +411,7 @@ function mergeBundleVariantInput(rawVariant, bundleVariant) {
 
 export function buildCharacterCardSavedCard(cards = [], rawVariant = {}, bundle = null) {
   const inputBundle = isPlainObject(bundle) ? bundle : {};
-  const mergedRawVariant = mergeBundleVariantInput(rawVariant, inputBundle.variant);
+  const mergedRawVariant = mergeBundleVariantInput(rawVariant, inputBundle.variant, cards);
   const fallbackBundle = buildCharacterCardPromptBundle(cards, mergedRawVariant);
   const effectiveVariant = fallbackBundle.variant;
   const outputs = mergePromptOutputs(fallbackBundle.outputs, inputBundle.outputs);
