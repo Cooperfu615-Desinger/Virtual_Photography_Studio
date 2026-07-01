@@ -8808,32 +8808,35 @@ function cleanFixedSetOpeningSentence(fixedSet) {
     .trim();
 }
 
+const GPT_FIXED_SET_OPENING_PARAGRAPHS = {
+  'concrete-wall-chesterfield-sofa': 'The portrait takes place inside a real-scale compact living-room editorial set anchored by a raw concrete wall, a large brown vintage Chesterfield leather sofa, dry branches, and a low coffee table. The sofa reads as adult-scale worn leather furniture, with art books, cushions, a cup, and a small lamp as readable coffee-table props. Use a medium-wide camera position about 3 to 4 meters from the sofa so the subject remains visibly placed inside the room.',
+  'limewash-black-velvet-industrial-sofa': 'The portrait takes place inside a real-scale compact editorial lounge set anchored by a warm ivory limewash plaster wall, a large matte black velvet sofa, and a low industrial coffee table. The wall has subtle hand-troweled texture, the sofa reads as adult-scale matte velvet furniture, and the coffee table carries a few readable props such as art books, a cup, glassware, and a small brass or black-metal lamp. Use a medium-wide camera position about 3 to 4 meters from the sofa so the subject remains visibly placed inside the room.',
+  'luxury-hotel-window-nyc': 'The portrait takes place inside a real-scale luxury hotel room editorial set anchored by a broad panoramic floor-to-ceiling glass wall, a New York-style high-rise skyline, and a soft white hotel bed. The glass reads as one mostly uninterrupted, lightly reflective plane, with bedding, pillows, bedside table, lamp, curtain edges, wine glass, and open book as readable room props. Use a medium-wide camera position about 3 to 5 meters from the bed and glass wall so the subject remains visibly placed inside the room.',
+  'luxury-hotel-window-mount-fuji-spring': 'The portrait takes place inside a real-scale luxury hotel room editorial set anchored by a broad panoramic floor-to-ceiling glass wall, a spring Mount Fuji landscape, and a soft white hotel bed. The glass reads as one mostly uninterrupted, lightly reflective plane. Outside the glass, Mount Fuji remains the dominant distant anchor with residual summit snow, clean blue spring sky, fresh green foothills, small lakeside or town rooftops, and subtle cherry blossoms or spring foliage. Use a medium-wide camera position about 3 to 5 meters from the bed and glass wall so the subject remains visibly placed inside the room.',
+  'luxury-hotel-window-mount-fuji-winter': 'The portrait takes place inside a real-scale luxury hotel room editorial set anchored by a broad panoramic floor-to-ceiling glass wall, a snow-covered Mount Fuji winter landscape, and a soft white hotel bed. The glass reads as one mostly uninterrupted, lightly reflective plane. Outside the glass, Mount Fuji remains the dominant distant anchor with cold clear air, blue-white winter daylight, snowy foothills or village rooftops, and quiet pale sky depth. Use a medium-wide camera position about 3 to 5 meters from the bed and glass wall so the subject remains visibly placed inside the room.',
+  'retro-tile-bathtub': 'The portrait takes place inside a real-scale vintage bathroom editorial set anchored by a freestanding clawfoot bathtub, visible wet tile floor, aged tile wall, and porcelain sink or vanity with mirror above the sink. Keep the full bathtub body, tub feet, wet floor plane, sink or vanity, and mirror readable where possible, with chrome hardware, folded towels, bath bottles, a small wooden stool, foam or water surface, and subtle wet reflections as props. The subject reads fully soaked from head to toe with wet hair, damp skin, and water-clinging wardrobe or bare skin. Use a medium-wide camera position about 2.5 to 4 meters from the bathtub so the subject remains visibly placed inside the bathroom.',
+  'seaside-slope-railway-crossing': 'The portrait takes place within a real-scale outdoor coastal downhill-road fixed composition set anchored by a downhill road plane, railway crossing gate, roadside poles and overhead wires, seaside town edges, and ocean horizon. The camera is positioned near the upper slope, looking downhill along the road plane toward the ocean horizon. A railway crossing gate cuts across the lower-middle frame, while crossing arms, signal posts, sloped asphalt, lane marks, overhead wires, distant shoreline, and open sky remain readable as outdoor scene structure.',
+  'seaside-stair-alley': 'The portrait takes place within a real-scale outdoor descending seaside stair-alley fixed composition set anchored by descending pale stairs, light side walls, handrails, plants or hydrangeas, overhead wires, and ocean horizon. The camera is positioned near the upper stairs, looking down the stair alley toward the ocean horizon. Descending pale stairs form the foreground and midground path toward the sea, while side walls, rails, plants, narrow building edges, distant shoreline, and open sky remain readable as outdoor scene structure.',
+};
+
 function buildGptFixedSetOpeningParagraph(fixedSet) {
   if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
+
+  const summary = GPT_FIXED_SET_OPENING_PARAGRAPHS[fixedSet.id];
+  if (summary) return summary;
 
   const sentences = splitPromptSentences(fixedSet.en);
   const opening = cleanFixedSetOpeningSentence(fixedSet);
   const anchors = extractFixedSetAnchorText(fixedSet);
-  const detailSentences = sentences
-    .slice(1)
-    .filter((sentence) => !/^Use a medium-wide editorial camera position\b/i.test(sentence))
-    .filter((sentence) => !/\bcamera is positioned\b/i.test(sentence))
-    .filter((sentence) => !/\b(?:selected camera angle and orbit|viewpoint) may vary\b/i.test(sentence))
-    .map((sentence) => capitalizePromptLead(sentence.replace(/^Treat the fixed set as the primary composition:\s*/i, '')))
-    .filter(Boolean);
-  const anchorSentence = anchors && !/\banchors?\b/i.test(opening) && detailSentences.length === 0
-    ? `${opening} with ${anchors} as fixed anchors`
-    : opening;
   const setupSentence = sentences
     .find((sentence) => /^Use a medium-wide editorial camera position\b/i.test(sentence) || /\bcamera is positioned\b/i.test(sentence))
     ?.replace(/^Treat the fixed set as the primary composition:\s*/i, '')
     .trim() || '';
 
   return [
-    ensureTerminalPeriod(anchorSentence),
-    ...detailSentences.map((sentence) => ensureTerminalPeriod(sentence)),
+    ensureTerminalPeriod(opening),
+    anchors ? ensureTerminalPeriod(`Use ${anchors} as fixed anchors`) : '',
     setupSentence ? ensureTerminalPeriod(capitalizePromptLead(setupSentence)) : '',
-    'Keep the selected anchors readable as real-scale scene architecture, with believable subject-to-set scale.',
   ].filter(Boolean).join(' ');
 }
 
@@ -8927,17 +8930,11 @@ function buildGptFixedSetIntegrityParagraph(context) {
   const fixedSet = context.fixedCompositionSet;
   if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
 
-  const anchors = extractFixedSetAnchorText(fixedSet);
-  const replacementGuard = stripTerminalPromptPunctuation(fixedSet.replacementGuardEn || 'avoid unrelated scene');
-  const stableText = fixedSet.setGroupId === OUTDOOR_FIXED_SET_GROUP_ID
-    ? `Keep the ${getGptFixedSetArchitectureName(fixedSet)} stable; vary only subject placement, pose, crop, lighting, mood, and selected background life state.`
-    : `Keep the ${getGptFixedSetArchitectureName(fixedSet)} stable; vary only subject placement, pose, crop, lighting, and mood.`;
+  if (fixedSet.setGroupId === OUTDOOR_FIXED_SET_GROUP_ID) {
+    return `Keep the ${getGptFixedSetArchitectureName(fixedSet)} stable. Vary only subject placement, pose, crop, lighting, mood, and selected background life state. Do not replace it with a generic beach, indoor set, studio backdrop, or unrelated outdoor location.`;
+  }
 
-  return [
-    stableText,
-    anchors ? `preserve anchors: ${anchors}; keep their relative positions stable.` : '',
-    replacementGuard ? ensureTerminalPeriod(replacementGuard) : '',
-  ].filter(Boolean).join(' ');
+  return `Keep the ${getGptFixedSetArchitectureName(fixedSet)} stable. Vary only subject placement, pose, crop, lighting, and mood. Do not replace it with another room, studio backdrop, outdoor location, or unrelated set.`;
 }
 
 function buildGptFixedCompositionSceneText(context) {
