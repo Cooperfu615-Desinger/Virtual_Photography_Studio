@@ -14,8 +14,8 @@ function loadStoredValue(key, fallback = '') {
 }
 
 function loadStoredAnalyzerModelKey() {
-  const modelKey = normalizeDllPicModelKey(loadStoredValue(DLL_PIC_STORAGE_KEYS.model, 'google'));
-  return getDllPicModelConfig(modelKey).analysisModel ? modelKey : 'google';
+  const modelKey = normalizeDllPicModelKey(loadStoredValue(DLL_PIC_STORAGE_KEYS.model, 'google31FlashLiteImage'));
+  return getDllPicModelConfig(modelKey).analysisModel ? modelKey : 'google31FlashLiteImage';
 }
 
 function loadStoredApiKey(modelKey) {

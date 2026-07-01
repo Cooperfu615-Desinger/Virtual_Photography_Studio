@@ -15,6 +15,8 @@ export const DLL_PIC_MODEL_CONFIG = {
     apiKeyStorageKey: DLL_PIC_STORAGE_KEYS.googleApiKey,
     legacyApiKeyStorageKey: DLL_PIC_STORAGE_KEYS.apiKey,
     apiKeyPlaceholder: '貼上 Google Gemini API Key',
+    hidden: true,
+    redirectModelKey: 'google31FlashLiteImage',
   },
   google31image: {
     label: 'Google Gemini (實驗)',
@@ -24,6 +26,19 @@ export const DLL_PIC_MODEL_CONFIG = {
     apiKeyStorageKey: DLL_PIC_STORAGE_KEYS.googleApiKey,
     legacyApiKeyStorageKey: DLL_PIC_STORAGE_KEYS.apiKey,
     apiKeyPlaceholder: '貼上 Google Gemini API Key',
+    hidden: true,
+    redirectModelKey: 'google31FlashLiteImage',
+  },
+  google31FlashLiteImage: {
+    label: 'Google Gemini Nano Banana 2 Lite',
+    provider: 'google',
+    generationModel: 'gemini-3.1-flash-lite-image',
+    analysisModel: 'gemini-2.5-flash',
+    apiVersion: 'v1',
+    apiKeyStorageKey: DLL_PIC_STORAGE_KEYS.googleApiKey,
+    legacyApiKeyStorageKey: DLL_PIC_STORAGE_KEYS.apiKey,
+    apiKeyPlaceholder: '貼上 Google Gemini API Key',
+    imageSize: '1K',
   },
   xaiGrokImagine: {
     label: 'xAI Grok',
@@ -129,8 +144,8 @@ export const DLL_PIC_ASPECT_RATIOS = [
   { value: '3:4', label: '3:4' },
 ];
 
-function buildGoogleApiUrl(modelName, apiKey) {
-  return `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+function buildGoogleApiUrl(modelName, apiKey, apiVersion = 'v1beta') {
+  return `https://generativelanguage.googleapis.com/${apiVersion}/models/${modelName}:generateContent?key=${apiKey}`;
 }
 
 function buildXaiImageGenerationBody({ modelName, prompt, aspectRatio, count, resolution }) {
@@ -142,6 +157,29 @@ function buildXaiImageGenerationBody({ modelName, prompt, aspectRatio, count, re
     resolution,
     response_format: 'b64_json',
   });
+}
+
+function buildGeminiImageGenerationConfig({ modelConfig, aspectRatio }) {
+  const image = {
+    aspectRatio,
+  };
+
+  if (modelConfig.imageSize) {
+    image.imageSize = modelConfig.imageSize;
+    return {
+      responseModalities: ['TEXT', 'IMAGE'],
+      responseFormat: {
+        image,
+      },
+    };
+  }
+
+  return {
+    responseModalities: ['TEXT', 'IMAGE'],
+    imageConfig: {
+      aspectRatio,
+    },
+  };
 }
 
 async function fetchWithTimeout(url, options, timeoutMs = 90000) {
@@ -179,12 +217,15 @@ export async function parseDllPicApiError(response) {
 
 export function getDllPicModelConfig(modelKey) {
   if (modelKey === 'grok') return DLL_PIC_MODEL_CONFIG.xaiGrokImagineQuality;
-  return DLL_PIC_MODEL_CONFIG[modelKey] || DLL_PIC_MODEL_CONFIG.google;
+  const modelConfig = DLL_PIC_MODEL_CONFIG[modelKey];
+  if (modelConfig?.redirectModelKey) return DLL_PIC_MODEL_CONFIG[modelConfig.redirectModelKey];
+  return modelConfig || DLL_PIC_MODEL_CONFIG.google31FlashLiteImage;
 }
 
-export function normalizeDllPicModelKey(modelKey, fallback = 'google') {
+export function normalizeDllPicModelKey(modelKey, fallback = 'google31FlashLiteImage') {
   if (modelKey === 'grok') return 'xaiGrokImagineQuality';
   const modelConfig = DLL_PIC_MODEL_CONFIG[modelKey];
+  if (modelConfig?.redirectModelKey) return modelConfig.redirectModelKey;
   return modelConfig && !modelConfig.hidden ? modelKey : fallback;
 }
 
@@ -222,16 +263,11 @@ async function generateGeminiImages({
     contents: [{
       parts: [{ text: prompt.trim() }],
     }],
-    generationConfig: {
-      responseModalities: ['TEXT', 'IMAGE'],
-      imageConfig: {
-        aspectRatio,
-      },
-    },
+    generationConfig: buildGeminiImageGenerationConfig({ modelConfig, aspectRatio }),
   });
 
   const responses = await Promise.all(Array.from({ length: count }, () => (
-    fetchWithTimeout(buildGoogleApiUrl(modelConfig.generationModel, apiKey), {
+    fetchWithTimeout(buildGoogleApiUrl(modelConfig.generationModel, apiKey, modelConfig.apiVersion), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body,

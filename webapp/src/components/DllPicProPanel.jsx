@@ -23,7 +23,7 @@ function loadStoredValue(key, fallback = '') {
   }
 }
 
-function loadStoredModelKey(fallback = 'google') {
+function loadStoredModelKey(fallback = 'google31FlashLiteImage') {
   return normalizeDllPicModelKey(loadStoredValue(DLL_PIC_STORAGE_KEYS.model, fallback), fallback);
 }
 
@@ -55,7 +55,7 @@ function saveStoredApiKey(modelKey, apiKey) {
 const DLL_PIC_API_KEY_FIELDS = [
   {
     provider: 'google',
-    modelKey: 'google',
+    modelKey: 'google31FlashLiteImage',
     label: 'Gemini API Key',
     placeholder: '貼上 Google Gemini API Key',
   },
@@ -150,7 +150,9 @@ export default function DllPicProPanel({
   const activeModel = getDllPicModelConfig(modelKey);
   const activeModelNote = activeModel.supportsResolution
     ? `${activeModel.generationModel} / ${resolution.toUpperCase()}`
-    : activeModel.generationModel;
+    : activeModel.imageSize
+      ? `${activeModel.generationModel} / ${activeModel.imageSize}`
+      : activeModel.generationModel;
   const previewImage = previewImageIndex === null ? null : images[previewImageIndex] || null;
   const previewDisplaySize = previewImageSize ? {
     width: previewImageSize.width / 2,
