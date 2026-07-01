@@ -24,6 +24,7 @@ test('character card options are read from PAGE1 character profile control', () 
   assert.equal(cards[0].defaultWardrobeLayers.bottom.label, '下身');
   assert.match(cards[0].defaultWardrobeLayers.bottom.prompt, /low-rise light-wash blue jeans/i);
   assert.equal(cards[0].defaultWardrobeLayers.neckAccessory.label, '脖子飾品');
+  assert.match(cards[0].defaultWardrobeLayers.neckAccessory.prompt, /beaded choker necklace/i);
 });
 
 test('hair variants use shared compatibility plus per-card overrides', () => {
