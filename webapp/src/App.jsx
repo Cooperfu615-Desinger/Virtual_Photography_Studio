@@ -4,7 +4,6 @@ import { saveAs } from 'file-saver';
 import Page1Workspace from './components/Page1Workspace';
 import Page2Workspace from './components/Page2Workspace';
 import Page3Workspace from './components/Page3Workspace';
-import PageSunoWorkspace from './components/PageSunoWorkspace';
 import SavedCardsWorkspace from './components/SavedCardsWorkspace';
 import {
   createEmptyLocks,
@@ -19,15 +18,6 @@ import {
   normalizeLocks,
   sanitizeLocksForCloseupMode
 } from './lib/engine';
-import {
-  buildRandomSunoProfile,
-  buildSunoSavedCard,
-  buildSunoPromptBundle,
-  buildSunoStylesPrompt,
-  buildSunoSummary,
-  coerceSunoProfile,
-  createEmptySunoProfile,
-} from './lib/suno';
 import {
   PAGE3_WORLD_SCENE_FIELD_CONFIG,
   PAGE3_WORLD_SCENE_FIELD_OPTIONS,
@@ -57,7 +47,6 @@ const VIEW_MODE_KEY = 'vps.viewMode';
 const PAGE_MODE_KEY = 'vps.pageMode';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const PAGE3_PROFILE_KEY = 'vps.page3Profile';
-const PAGE5_PROFILE_KEY = 'vps.page5Profile';
 const FAVORITES_STORAGE_VERSION = 2;
 let favoriteCloudRepositoryPromise = null;
 const STORAGE_BUDGETS = {
@@ -84,10 +73,6 @@ const PAGE_MODE_COPY = {
   page4: {
     title: 'Saved Cards',
     subtitle: '集中查看已加入最愛的 Prompt 版本，保留三種輸出內容與一鍵複製流程。',
-  },
-  page5: {
-    title: 'SUNO Styles Builder',
-    subtitle: '用結構化欄位快速組裝 SUNO 專用 music styles prompt，集中測試曲風、樂器、律動與人聲方向。',
   },
 };
 
@@ -847,7 +832,10 @@ export default function App() {
   const storageWarningRef = useRef('');
   const [prompts, setPrompts] = useState(() => sanitizeStoredPromptCollection(loadJsonStorage(PROMPTS_KEY, [])));
   const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
-  const [pageMode, setPageMode] = useState(() => loadStringStorage(PAGE_MODE_KEY, 'page1'));
+  const [pageMode, setPageMode] = useState(() => {
+    const stored = loadStringStorage(PAGE_MODE_KEY, 'page1');
+    return stored === 'page5' ? 'page1' : stored;
+  });
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
   const [previewGenerationNonce, setPreviewGenerationNonce] = useState(0);
@@ -874,7 +862,6 @@ export default function App() {
   const normalizedPage2Profile = useMemo(() => normalizeCharacterCardVariant(page2Profile, characterCards), [page2Profile, characterCards]);
   const page2PromptBundle = useMemo(() => buildCharacterCardPromptBundle(characterCards, normalizedPage2Profile), [characterCards, normalizedPage2Profile]);
   const [page3Profile, setPage3Profile] = useState(() => loadJsonStorage(PAGE3_PROFILE_KEY, createEmptyPage3Profile()));
-  const [page5Profile, setPage5Profile] = useState(() => coerceSunoProfile(loadJsonStorage(PAGE5_PROFILE_KEY, createEmptySunoProfile())));
   const [copiedLabel, setCopiedLabel] = useState('');
   const [isImportPromptOpen, setIsImportPromptOpen] = useState(false);
   const [importPromptText, setImportPromptText] = useState('');
@@ -1187,10 +1174,6 @@ export default function App() {
     window.localStorage.setItem(PAGE3_PROFILE_KEY, JSON.stringify(page3Profile));
   }, [page3Profile]);
 
-  useEffect(() => {
-    window.localStorage.setItem(PAGE5_PROFILE_KEY, JSON.stringify(page5Profile));
-  }, [page5Profile]);
-
   const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
   const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
   const isWormEyeAngle = useMemo(() => isWormEyeAngleId(locks.angleId, activeLibrary), [locks.angleId, activeLibrary]);
@@ -1396,10 +1379,6 @@ export default function App() {
   const page3Prompt = useMemo(() => buildPage3WorldScenePrompt(page3Profile), [page3Profile]);
   const page3CinematicPrompt = useMemo(() => buildPage3WorldSceneCinematicPrompt(page3Profile), [page3Profile]);
   const page3WorldPrompt = useMemo(() => buildPage3WorldSceneWorldPrompt(page3Profile), [page3Profile]);
-  const normalizedPage5Profile = useMemo(() => coerceSunoProfile(page5Profile), [page5Profile]);
-  const page5Summary = useMemo(() => buildSunoSummary(normalizedPage5Profile), [normalizedPage5Profile]);
-  const page5StylesPrompt = useMemo(() => buildSunoStylesPrompt(normalizedPage5Profile), [normalizedPage5Profile]);
-  const page5PromptBundle = useMemo(() => buildSunoPromptBundle(normalizedPage5Profile), [normalizedPage5Profile]);
 
   useEffect(() => {
     setLocks((prev) => {
@@ -1712,23 +1691,6 @@ export default function App() {
     showToast('場景建模 Prompt 已加入 Saved Cards');
   }, [addFavoritePrompt, page3Anchor, page3CinematicPrompt, page3Profile, page3Prompt, page3Summary, page3WorldPrompt, showToast]);
 
-  const handleRandomizePage5Profile = useCallback(() => {
-    setPage5Profile(buildRandomSunoProfile());
-    showToast('已生成一組新的 SUNO 風格組合');
-  }, [showToast]);
-
-  const handleSavePage5Card = useCallback(() => {
-    if (!page5StylesPrompt) {
-      showToast('請先完成 SUNO 風格設定再加入 Saved Cards');
-      return;
-    }
-
-    const nextCard = buildSunoSavedCard(normalizedPage5Profile);
-    addFavoritePrompt(nextCard);
-    setViewMode('favorites');
-    setPageMode('page4');
-    showToast('SUNO Styles Prompt 已加入 Saved Cards');
-  }, [addFavoritePrompt, normalizedPage5Profile, page5StylesPrompt, showToast]);
   const pageHeaderCopy = PAGE_MODE_COPY[pageMode] || PAGE_MODE_COPY.page1;
 
   return (
@@ -1760,13 +1722,6 @@ export default function App() {
                 onClick={() => setPageMode('page3')}
               >
                 場景建模
-              </button>
-              <button
-                type="button"
-                className={pageMode === 'page5' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
-                onClick={() => setPageMode('page5')}
-              >
-                SUNO
               </button>
               <button
                 type="button"
@@ -1860,19 +1815,6 @@ export default function App() {
           onCopyText={handleCopyText}
           onSaveCard={handleSavePage3Card}
           createEmptyProfile={createEmptyPage3Profile}
-        />
-      ) : pageMode === 'page5' ? (
-        <PageSunoWorkspace
-          profile={normalizedPage5Profile}
-          setProfile={setPage5Profile}
-          summary={page5Summary}
-          stylesPrompt={page5StylesPrompt}
-          promptBundle={page5PromptBundle}
-          onCopyText={handleCopyText}
-          onSaveCard={handleSavePage5Card}
-          onRandomize={handleRandomizePage5Profile}
-          onNotice={showToast}
-          createEmptyProfile={createEmptySunoProfile}
         />
       ) : (
         <SavedCardsWorkspace
