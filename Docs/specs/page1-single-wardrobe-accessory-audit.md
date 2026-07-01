@@ -22,11 +22,27 @@
 3. 外套 opening / styling / layering guards 使用過強的「完整、只、不要、可見」語氣。
 4. 商品型鞋款、耳機與固定色細節需要明確標成 signature exception，否則會和配色控制衝突。
 5. `丹寧吊帶長褲 / 短褲` 實質是 one-piece/bib garment，放在 Pants 會和 Top 欄位產生穿法衝突。
+6. 領口、肩帶、開合狀態若同時出現互斥穿法，應優先修正；例如「領帶」不應搭配鬆開領口，「無肩帶」不應同時含掛脖或肩帶結構。
+
+## 追加審核：穿法語意矛盾
+
+依照「同一件單品內，兩個穿法是否能同時成立」的判斷條件重掃後，真正需要升級的穿法矛盾如下：
+
+| ID | 來源 | 判斷 | 建議 |
+| --- | --- | --- | --- |
+| W-01 | `wardrobe_and_styling.md:149` 領帶襯衫 | `shirt with a soft short tie` 搭配 `relaxed collar opening` 不合理；領帶若固定在領口，領口不應是鬆開狀態。 | 改成 `collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure`。 |
+| W-02 | `wardrobe_and_styling.md:162` 平口上衣 | `strapless tube top` 和 `halter-bandeau structure` 是互斥結構；無肩帶和平口掛脖不應混在同一個單品。 | 短期保留平口：`strapless tube top, clean upper edge, smooth stretch fabric, compact bandeau structure`。若需要掛脖，另拆獨立選項。 |
+| W-03 | `wardrobe_and_styling.md:177` 蕾絲胸罩 | `delicate straps or strapless structure` 讓同一選項同時代表有肩帶與無肩帶。 | 短期改成有肩帶版本：`lace bra top, delicate shoulder straps, floral lace, scalloped trim, refined lingerie detailing`；無肩帶胸罩另拆選項。 |
+| W-04 | `wardrobe_and_styling.md:224` 高領挖腰連身泳裝 | `one-piece construction` 搭配 `separate high-neck chest panel and high-cut bikini bottom` 不是完全錯，但 `separate` 容易讓模型誤判為兩件式。 | 改成 `two-panel monokini construction` 或 `visually separated chest and bottom panels connected by thin side straps`。 |
+| W-05 | `wardrobe_and_styling.md:337` 外套滑落肩部 | `one or both shoulders` 讓同一控制同時允許單肩與雙肩滑落，屬於穿法不確定，不是硬矛盾。 | 若需要穩定輸出，拆成「單肩滑落」與「雙肩滑落」；否則改成較中性的 `slipped below the shoulder line`。 |
+
+其餘候選，例如 `cuff or ruffle finish`、`floral or geometric prints`、`upper buttons left open, remaining buttons fastened`，是設計變體或合理局部開扣，不屬於穿法自相矛盾。
 
 ## 高優先問題與建議修正文案
 
 | ID | 來源 | 問題 | 風險 | 建議英文 prompt |
 | --- | --- | --- | --- | --- |
+| T-00 | `wardrobe_and_styling.md:149` 領帶襯衫 | `short tie` 與 `relaxed collar opening` 穿法互斥；打領帶時領口應整齊固定。 | 模型可能生成鬆開領口但又打領帶的混合狀態。 | `collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure` |
 | T-01 | `wardrobe_and_styling.md:163` 一字領上衣 | `visible white bra straps` 寫死白色內衣肩帶，且把內層/配件可見性放進上身單品。 | 會覆蓋上身配色，也可能在未選內衣/肩帶時生成額外內層。 | `off-shoulder top, soft neckline silhouette, open collarbone line, refined neckline detail` |
 | T-02 | `wardrobe_and_styling.md:162` 平口上衣 | `strapless tube top` 同時允許 `halter-bandeau structure`，無肩帶與掛脖結構語意互斥。 | 模型可能同時生成平口與掛脖帶。 | `strapless tube top, clean upper edge, smooth stretch fabric, compact bandeau structure` |
 | T-03 | `wardrobe_and_styling.md:177` 蕾絲胸罩 | `delicate straps or strapless structure` 同一選項包含有肩帶/無肩帶兩種結構。 | 和外套/細肩帶 layering guard 互相干擾。 | `lace bra top, delicate strap construction, floral lace, scalloped trim, refined lingerie detailing` |
@@ -98,7 +114,7 @@
 
 ## 建議後續執行順序
 
-1. 先修 T-01、T-04、T-05、B-01、B-06、B-07、L-01、O-01、O-02、O-03，這些最容易造成實際穿搭矛盾。
+1. 先修 T-00、T-01、T-02、T-03、T-04、T-05、B-01、B-06、B-07、L-01、O-01、O-02、O-03，這些最容易造成實際穿搭矛盾。
 2. 第二批處理品牌/固定色例外：鞋款、Marshall 耳機、紅黑/黑白圖案。
 3. 第三批再微調 engine guard 的語氣，優先把負向句改為短的正向 guard。
 4. 若改動 `knowledge_base/wardrobe_and_styling.md`，再跑 `python3 scripts/sync_to_json.py`，並補 PAGE1 prompt snapshot / engine tests，確認 Gpt / Grok-Z / AI 三段輸出沒有回歸。
