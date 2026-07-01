@@ -5044,8 +5044,12 @@ function getRuntimeCharacterCards() {
   return getCharacterCardOptions(getLockControls());
 }
 
+function normalizeCharacterCardWardrobeMode(value) {
+  return value === 'selected-layers' ? 'selected-layers' : 'full-default';
+}
+
 function getCharacterCardWardrobeMode(locks = {}) {
-  return locks?.characterCardWardrobeMode || 'full-default';
+  return normalizeCharacterCardWardrobeMode(locks?.characterCardWardrobeMode);
 }
 
 function shouldImportCharacterCardWardrobeLayers(locks = {}) {
@@ -5053,24 +5057,25 @@ function shouldImportCharacterCardWardrobeLayers(locks = {}) {
 }
 
 function getCharacterCardVariantFromLocks(locks) {
-  const card = getRuntimeCharacterCards().find((entry) => entry.id === locks.characterProfileId);
+  const runtimeCards = getRuntimeCharacterCards();
+  const card = runtimeCards.find((entry) => entry.id === locks.characterProfileId);
   const fullDefaultLayers = card ? Object.keys(card.defaultWardrobeLayers) : [];
-  const wardrobeMode = locks.characterCardWardrobeMode || 'full-default';
+  const wardrobeMode = getCharacterCardWardrobeMode(locks);
   return normalizeCharacterCardVariant({
     characterProfileId: locks.characterProfileId,
     hairVariantId: locks.characterCardHairVariantId,
     includedWardrobeLayers: wardrobeMode === 'full-default' ? fullDefaultLayers : locks.characterCardWardrobeLayerIds,
-    promptOverrideText: locks.characterCardPromptOverride,
+    promptOverrideText: String(locks.characterCardPromptOverride || '').trim(),
     outputMode: wardrobeMode === 'full-default' || (Array.isArray(locks.characterCardWardrobeLayerIds) && locks.characterCardWardrobeLayerIds.length > 0)
       ? 'included-wardrobe'
       : 'pure-character',
-  }, getRuntimeCharacterCards());
+  }, runtimeCards);
 }
 
 function buildCharacterCardHairVariantText(subject, locks) {
   if (!isCharacterProfileSubject(subject)) return '';
   const card = getRuntimeCharacterCards().find((entry) => entry.id === subject.id);
-  const variant = getCharacterCardVariantFromLocks(locks || {});
+  const variant = getCharacterCardVariantFromLocks({ ...(locks || {}), characterProfileId: subject.id });
   const hairVariant = getCompatibleHairVariants(card).find((entry) => entry.id === variant.hairVariantId);
   const promptOverride = String(variant.promptOverrideText || '').trim();
   const hairText = !hairVariant || hairVariant.id === 'default' ? '' : hairVariant.prompt;
@@ -5100,10 +5105,13 @@ function getCharacterCardImportedLayers(subject, locks) {
 
 function buildCharacterCardSubjectPrompt(subject, locks = {}) {
   if (!isCharacterProfileSubject(subject)) return subject?.en || '';
-  if (!shouldImportCharacterCardWardrobeLayers(locks)) return subject.en || '';
+  const hairVariantText = buildCharacterCardHairVariantText(subject, locks);
+  if (!shouldImportCharacterCardWardrobeLayers(locks)) {
+    return [subject.en, hairVariantText].filter(Boolean).join(', ');
+  }
 
   const groups = buildCharacterCardProfileGroups(subject, locks);
-  const hairText = [groups.hair, buildCharacterCardHairVariantText(subject, locks)].filter(Boolean).join(', ');
+  const hairText = [groups.hair, hairVariantText].filter(Boolean).join(', ');
   const outfitText = groups.outfit ? `selected character-card outfit layer: ${groups.outfit}` : '';
   return [
     groups.identityAndBody,
@@ -5112,6 +5120,101 @@ function buildCharacterCardSubjectPrompt(subject, locks = {}) {
     groups.accessories,
     groups.photographicDirection,
   ].filter(Boolean).join(', ');
+}
+
+const CHARACTER_CARD_WARDROBE_CONFLICT_TOKENS = {
+  top: [
+    'wardrobe:上身-tops:',
+    'wardrobe:上身版型-top-fit:',
+    'wardrobe:上身穿法-top-styling:',
+    'wardrobe:上身圖案-top-surface-design:',
+  ],
+  bottom: [
+    'wardrobe:褲裝-pants:',
+    'wardrobe:裙裝-skirts:',
+    'wardrobe:下身版型-bottom-fit:',
+    'wardrobe:下身腰線-bottom-rise:',
+    'wardrobe:下身圖案-bottom-surface-design:',
+  ],
+  dress: [
+    'wardrobe:連身-dresses:',
+    'wardrobe:上身-tops:',
+    'wardrobe:上身版型-top-fit:',
+    'wardrobe:上身穿法-top-styling:',
+    'wardrobe:上身圖案-top-surface-design:',
+    'wardrobe:褲裝-pants:',
+    'wardrobe:裙裝-skirts:',
+    'wardrobe:下身版型-bottom-fit:',
+    'wardrobe:下身腰線-bottom-rise:',
+    'wardrobe:下身圖案-bottom-surface-design:',
+  ],
+  outerwear: [
+    'wardrobe:外套-outerwear:',
+    'wardrobe:外套版型-outerwear-fit:',
+    'wardrobe:外套圖案-outerwear-surface-design:',
+    'wardrobe:外套開合-outerwear-opening:',
+    'wardrobe:外套穿法-outerwear-styling:',
+  ],
+  shoes: ['wardrobe:鞋款-shoes:'],
+  headAccessory: ['wardrobe:頭部配件-head-accessories:'],
+  eyewear: [
+    'wardrobe:眼鏡-eyewear:',
+    'wardrobe:眼鏡配色-eyewear-color:',
+    'wardrobe:眼鏡配戴方式-eyewear-placement:',
+  ],
+  earrings: ['wardrobe:耳環-earrings:'],
+  neckAccessory: ['wardrobe:頸部-neck-accessories:'],
+  wristAccessory: ['wardrobe:手部配件-wrist-accessories:'],
+  ring: ['wardrobe:戒指-rings:'],
+  waistAccessory: ['wardrobe:腰部配件-waist-accessories:'],
+};
+
+function filterPage1WardrobeForCharacterCardLayers(page1Wardrobe, cardLayers) {
+  if (!Array.isArray(page1Wardrobe) || !Array.isArray(cardLayers) || cardLayers.length === 0) return page1Wardrobe;
+  const conflictTokens = new Set(
+    cardLayers.flatMap((layer) => CHARACTER_CARD_WARDROBE_CONFLICT_TOKENS[layer.meta?.characterCardLayer] || [])
+  );
+  if (conflictTokens.size === 0) return page1Wardrobe;
+  return page1Wardrobe.filter((item) => ![...conflictTokens].some((token) => item.id?.includes(token)));
+}
+
+const CHARACTER_CARD_PAGE1_FILLER_LOCKS = [
+  { layer: 'headAccessory', key: 'headAccessoryId' },
+  { layer: 'eyewear', key: 'eyewearId' },
+  { layer: 'earrings', key: 'earringsId' },
+  { layer: 'neckAccessory', key: 'neckAccessoryId' },
+];
+
+function appendLockedPage1FillersForCharacterCardLayers(page1Wardrobe, cardLayers, locks, lockControls) {
+  if (!Array.isArray(page1Wardrobe) || !Array.isArray(cardLayers) || cardLayers.length === 0) return page1Wardrobe;
+  const importedLayers = new Set(cardLayers.map((layer) => layer.meta?.characterCardLayer).filter(Boolean));
+  const existingIds = new Set(page1Wardrobe.map((item) => item.id).filter(Boolean));
+  const fillers = CHARACTER_CARD_PAGE1_FILLER_LOCKS
+    .filter(({ layer }) => !importedLayers.has(layer))
+    .map(({ key }) => getControlOptionById(lockControls, key, locks?.[key]))
+    .filter((item) => item && !isNoneLikeItem(item) && !existingIds.has(item.id));
+
+  return fillers.length > 0 ? [...page1Wardrobe, ...fillers] : page1Wardrobe;
+}
+
+function getCharacterCardSelectionFields(subject, locks = {}) {
+  const mode = getCharacterCardWardrobeMode(locks);
+  if (!isCharacterProfileSubject(subject)) {
+    return {
+      characterCardHairVariantId: 'default',
+      characterCardWardrobeMode: 'full-default',
+      characterCardWardrobeLayerIds: [],
+      characterCardPromptOverride: '',
+    };
+  }
+
+  const variant = getCharacterCardVariantFromLocks({ ...locks, characterProfileId: subject.id });
+  return {
+    characterCardHairVariantId: variant.hairVariantId,
+    characterCardWardrobeMode: mode,
+    characterCardWardrobeLayerIds: mode === 'selected-layers' ? variant.includedWardrobeLayers : [],
+    characterCardPromptOverride: String(variant.promptOverrideText || '').trim(),
+  };
 }
 
 function isSpecialSubject(subject) {
@@ -7102,6 +7205,11 @@ function extractWardrobeSlots(wardrobe) {
   };
 }
 
+function isCharacterCardLayerSlot(item, key = '') {
+  if (!item?.meta?.characterCardLayer) return false;
+  return key ? item.meta.characterCardLayer === key : true;
+}
+
 function buildWardrobeColors(wardrobeSlots, locks) {
   const hasOutfitPreset = Boolean(
     (wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)) ||
@@ -7111,7 +7219,7 @@ function buildWardrobeColors(wardrobeSlots, locks) {
   const hasCompleteLook = Boolean(
     (wardrobeSlots.specialOutfit && !isNoneLikeItem(wardrobeSlots.specialOutfit)) ||
     (wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)) ||
-    (wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress))
+    (wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) && !isCharacterCardLayerSlot(wardrobeSlots.dress))
   );
   const hasCompleteLookA = Boolean(
     (wardrobeSlots.specialOutfitA && !isNoneLikeItem(wardrobeSlots.specialOutfitA)) ||
@@ -7188,10 +7296,10 @@ function buildWardrobeColors(wardrobeSlots, locks) {
   const outfitPresetBLockedPalette = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
     ? getOutfitPresetLockedPaletteOption(normalizedLocks.outfitPresetBLockedPaletteId)
     : null;
-  const hasBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants)) || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt));
+  const hasBottom = (wardrobeSlots.pants && !isNoneLikeItem(wardrobeSlots.pants) && !isCharacterCardLayerSlot(wardrobeSlots.pants)) || (wardrobeSlots.skirt && !isNoneLikeItem(wardrobeSlots.skirt) && !isCharacterCardLayerSlot(wardrobeSlots.skirt));
   const hasBottomA = (wardrobeSlots.pantsA && !isNoneLikeItem(wardrobeSlots.pantsA)) || (wardrobeSlots.skirtA && !isNoneLikeItem(wardrobeSlots.skirtA));
   const hasBottomB = (wardrobeSlots.pantsB && !isNoneLikeItem(wardrobeSlots.pantsB)) || (wardrobeSlots.skirtB && !isNoneLikeItem(wardrobeSlots.skirtB));
-  const topColor = !hasOutfitPreset && wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top)
+  const topColor = !hasOutfitPreset && wardrobeSlots.top && !isNoneLikeItem(wardrobeSlots.top) && !isCharacterCardLayerSlot(wardrobeSlots.top)
     ? topBottomPalette?.topColor || pickGarmentColor(normalizedLocks.topColorId)
     : null;
   const topAColor = !hasOutfitPreset && wardrobeSlots.topA && !isNoneLikeItem(wardrobeSlots.topA)
@@ -7200,15 +7308,15 @@ function buildWardrobeColors(wardrobeSlots, locks) {
   const topBColor = !hasOutfitPreset && wardrobeSlots.topB && !isNoneLikeItem(wardrobeSlots.topB)
     ? topBottomPaletteB?.topColor || lockedTopBColor || pickGarmentColor('', [topAColor])
     : null;
-  const dressColor = !hasOutfitPreset && wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) ? topBottomPalette?.topColor || pickGarmentColor(normalizedLocks.dressColorId) : null;
+  const dressColor = !hasOutfitPreset && wardrobeSlots.dress && !isNoneLikeItem(wardrobeSlots.dress) && !isCharacterCardLayerSlot(wardrobeSlots.dress) ? topBottomPalette?.topColor || pickGarmentColor(normalizedLocks.dressColorId) : null;
   const dressAColor = !hasOutfitPreset && wardrobeSlots.dressA && !isNoneLikeItem(wardrobeSlots.dressA) ? topBottomPaletteA?.topColor || lockedDressAColor || pickGarmentColor('', [topBottomPaletteB?.topColor, lockedDressBColor]) : null;
   const dressBColor = !hasOutfitPreset && wardrobeSlots.dressB && !isNoneLikeItem(wardrobeSlots.dressB) ? topBottomPaletteB?.topColor || lockedDressBColor || pickGarmentColor('', [dressAColor]) : null;
   const bottomColor = !hasOutfitPreset && hasBottom ? topBottomPalette?.bottomColor || pickGarmentColor(normalizedLocks.bottomColorId) : null;
   const bottomAColor = !hasOutfitPreset && hasBottomA ? topBottomPaletteA?.bottomColor || lockedBottomAColor || pickGarmentColor('', [topBottomPaletteB?.bottomColor, lockedBottomBColor]) : null;
   const bottomBColor = !hasOutfitPreset && hasBottomB ? topBottomPaletteB?.bottomColor || lockedBottomBColor || pickGarmentColor('', [bottomAColor]) : null;
   const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(normalizedLocks.legwearColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS) : null;
-  const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) ? getGarmentColorOption(normalizedLocks.outerwearColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
-  const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) ? getLayerColorOption(normalizedLocks.shoesColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
+  const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) && !isCharacterCardLayerSlot(wardrobeSlots.outerwear) ? getGarmentColorOption(normalizedLocks.outerwearColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
+  const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) && !isCharacterCardLayerSlot(wardrobeSlots.shoes) ? getLayerColorOption(normalizedLocks.shoesColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
   const legwearAColor = wardrobeSlots.legwearA && !isNoneLikeItem(wardrobeSlots.legwearA) ? getLegwearColorOption(normalizedLocks.legwearAColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS) : null;
   const outerwearAColor = wardrobeSlots.outerwearA && !isNoneLikeItem(wardrobeSlots.outerwearA) ? getGarmentColorOption(normalizedLocks.outerwearAColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
   const shoesAColor = wardrobeSlots.shoesA && !isNoneLikeItem(wardrobeSlots.shoesA) ? getLayerColorOption(normalizedLocks.shoesAColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
@@ -9207,11 +9315,12 @@ function buildFallbackCharacterProfileGroups(subject) {
   };
 }
 
-function buildCharacterCardProfileGroups(subject, locks = {}) {
+function buildCharacterCardProfileGroups(subject, locks = {}, wardrobe = null) {
   const baseGroups = subject.profile || buildFallbackCharacterProfileGroups(subject);
   if (!shouldImportCharacterCardWardrobeLayers(locks)) return baseGroups;
 
   const importedLayers = getCharacterCardImportedLayers(subject, locks);
+  const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
   const accessoryLayerKeys = new Set(['headAccessory', 'eyewear', 'earrings', 'neckAccessory', 'wristAccessory', 'ring', 'waistAccessory']);
   const outfitText = importedLayers
     .filter((layer) => !accessoryLayerKeys.has(layer.meta?.characterCardLayer))
@@ -9223,17 +9332,26 @@ function buildCharacterCardProfileGroups(subject, locks = {}) {
     .map((layer) => layer.en)
     .filter(Boolean)
     .join(', ');
+  const page1AccessoryText = wardrobeSlots
+    ? buildSubjectAccessoryPrompt({
+        eyewear: isCharacterCardLayerSlot(wardrobeSlots.eyewear) ? null : wardrobeSlots.eyewear,
+        eyewearColor: wardrobeSlots.eyewearColor,
+        eyewearPlacement: wardrobeSlots.eyewearPlacement,
+        earrings: isCharacterCardLayerSlot(wardrobeSlots.earrings) ? null : wardrobeSlots.earrings,
+        neckAccessory: isCharacterCardLayerSlot(wardrobeSlots.neckAccessory) ? null : wardrobeSlots.neckAccessory,
+      })
+    : '';
 
   return {
     ...baseGroups,
     outfit: outfitText,
-    accessories: accessoryText,
+    accessories: [accessoryText, page1AccessoryText].filter(Boolean).join(', '),
   };
 }
 
-function buildGptCharacterProfileSubjectBlock(subject, locks = {}) {
+function buildGptCharacterProfileSubjectBlock(subject, locks = {}, wardrobe = null) {
   if (!isCharacterProfileSubject(subject)) return '';
-  const groups = buildCharacterCardProfileGroups(subject, locks);
+  const groups = buildCharacterCardProfileGroups(subject, locks, wardrobe);
   const groupLine = (label, value) => {
     const cleaned = ensureTerminalPeriod(cleanCharacterProfileGroupText(value));
     return cleaned ? `${label}:\n${cleaned}` : '';
@@ -9688,7 +9806,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
   const duoWardrobeSlots = useRoleOrderedDuo ? extractWardrobeSlots(wardrobe) : null;
   const singleCharacterProfileSubjectBlock = !useRoleOrderedDuo && isCharacterProfileSubject(context.subject)
-    ? buildGptCharacterProfileSubjectBlock(context.subject, context.locks)
+    ? buildGptCharacterProfileSubjectBlock(context.subject, context.locks, wardrobe)
     : '';
   const resolvedSubjectText = useRoleOrderedDuo
     ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
@@ -10516,8 +10634,29 @@ function buildAiSingleSubjectLead(valuesByLabel, context) {
   return detailText ? `${base} with ${detailText}` : base;
 }
 
-function buildAiMinimalSubjectLead(valuesByLabel, context) {
+function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
   const subjectText = firstStructuredValue(valuesByLabel, ['Subject Count', 'Reference Guidance']);
+  if (isCharacterProfileSubject(context.subject)) {
+    const wardrobeSlots = wardrobe ? extractWardrobeSlots(wardrobe) : null;
+    const variantText = buildCharacterCardHairVariantText(context.subject, context.locks);
+    const subjectAccessoryText = wardrobeSlots
+      ? buildSubjectAccessoryPrompt({
+          eyewear: wardrobeSlots.eyewear,
+          eyewearColor: wardrobeSlots.eyewearColor,
+          eyewearPlacement: wardrobeSlots.eyewearPlacement,
+          earrings: wardrobeSlots.earrings,
+          neckAccessory: wardrobeSlots.neckAccessory,
+        })
+      : '';
+    const baseText = compactAiMinimalFragment(subjectText || buildCharacterCardSubjectPrompt(context.subject, context.locks), 5);
+    const parts = [
+      baseText,
+      variantText,
+      subjectAccessoryText,
+    ].filter(Boolean);
+    return parts.length > 0 ? `A moody film still of ${parts.join(', ')}` : 'A moody film still';
+  }
+
   if (isSpecialSubject(context.subject)) {
     const cleaned = compactAiMinimalFragment(subjectText || context.subject?.en, 3);
     return cleaned ? `A moody film still of ${cleaned}` : 'A moody film still';
@@ -10538,6 +10677,20 @@ function buildAiMinimalSubjectLead(valuesByLabel, context) {
 function buildAiMinimalWardrobeClause(valuesByLabel, context) {
   const characterProfileWardrobe = buildAiCharacterProfileWardrobePhrase(context.subject, context.locks);
   if (characterProfileWardrobe) return characterProfileWardrobe;
+
+  if (isCharacterProfileSubject(context.subject) && shouldImportCharacterCardWardrobeLayers(context.locks)) {
+    const wardrobeText = getStructuredValues(valuesByLabel, [
+      'Outerwear',
+      'Dress',
+      'Top',
+      'Pants',
+      'Skirt',
+      'Legwear',
+      'Shoes',
+      'Wardrobe Visibility',
+    ]).join(', ');
+    return wardrobeText ? `wearing ${wardrobeText}` : '';
+  }
 
   const roleSpecialA = firstStructuredValue(valuesByLabel, ['Woman 1 Special Outfit']);
   const roleSpecialB = firstStructuredValue(valuesByLabel, ['Woman 2 Special Outfit']);
@@ -10835,7 +10988,7 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
   }
 
   const parts = [
-    buildAiMinimalSubjectLead(valuesByLabel, context),
+    buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe),
     buildAiMinimalWardrobeClause(valuesByLabel, context),
     buildAiMinimalPoseClause(valuesByLabel, context),
     buildAiMinimalSceneClause(valuesByLabel, context),
@@ -10858,6 +11011,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
 function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const characterCardSelection = getCharacterCardSelectionFields(context.subject, context.locks);
   const normalizedSelection = normalizeLegacyOutfitPresetColors({
     outfitPresetColorId: wardrobeColors.outfitPresetColor?.id || wardrobeColors.outfitPresetPrimaryColor?.id || '',
     outfitPresetAColorId: wardrobeColors.outfitPresetAColor?.id || wardrobeColors.outfitPresetAPrimaryColor?.id || '',
@@ -10876,10 +11030,10 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     subjectCount: isSpecialSubject(context.subject) ? '1' : context.subject.id,
     specialSubjectId: isSpecialSubject(context.subject) && !isCharacterProfileSubject(context.subject) ? context.subject.id : 'none',
     characterProfileId: isCharacterProfileSubject(context.subject) ? context.subject.id : 'none',
-    characterCardHairVariantId: context.locks?.characterCardHairVariantId || 'default',
-    characterCardWardrobeMode: context.locks?.characterCardWardrobeMode || 'full-default',
-    characterCardWardrobeLayerIds: Array.isArray(context.locks?.characterCardWardrobeLayerIds) ? context.locks.characterCardWardrobeLayerIds : [],
-    characterCardPromptOverride: context.locks?.characterCardPromptOverride || '',
+    characterCardHairVariantId: characterCardSelection.characterCardHairVariantId,
+    characterCardWardrobeMode: characterCardSelection.characterCardWardrobeMode,
+    characterCardWardrobeLayerIds: characterCardSelection.characterCardWardrobeLayerIds,
+    characterCardPromptOverride: characterCardSelection.characterCardPromptOverride,
     aspectRatio: context.aspectRatio.id,
     styleId: context.style?.id || '',
     cameraSystemId: context.cameraSystem?.id || '',
@@ -11235,10 +11389,12 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   };
   const character = buildCharacter(context, runtime.catalog);
   const cardLayers = getCharacterCardImportedLayers(subject, effectiveLocks);
-  const cardWardrobeMode = effectiveLocks.characterCardWardrobeMode || 'full-default';
-  const page1Wardrobe = isDedicatedSpecialSubject(subject) || (isCharacterProfileSubject(subject) && cardWardrobeMode === 'full-default')
+  const cardWardrobeMode = getCharacterCardWardrobeMode(effectiveLocks);
+  const rawPage1Wardrobe = isDedicatedSpecialSubject(subject) || (isCharacterProfileSubject(subject) && cardWardrobeMode === 'full-default')
     ? []
     : buildWardrobe({ ...context }, effectiveLocks, runtime);
+  const filteredPage1Wardrobe = filterPage1WardrobeForCharacterCardLayers(rawPage1Wardrobe, cardLayers);
+  const page1Wardrobe = appendLockedPage1FillersForCharacterCardLayers(filteredPage1Wardrobe, cardLayers, effectiveLocks, lockControls);
   const wardrobe = [...cardLayers, ...page1Wardrobe];
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks);

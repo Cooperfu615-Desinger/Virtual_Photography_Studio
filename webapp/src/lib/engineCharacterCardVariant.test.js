@@ -3,12 +3,26 @@ import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 
+const PRIMARY_OUTPUT_KEYS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
+
 function optionId(controlKey, zh) {
   const control = getLockControls().find((entry) => entry.key === controlKey);
   assert.ok(control, `Expected control ${controlKey}`);
   const option = control.options.find((entry) => entry.zh === zh);
   assert.ok(option, `Expected option ${zh} in ${controlKey}`);
   return option.id;
+}
+
+function assertEveryPrimaryOutput(prompt, pattern, message) {
+  for (const key of PRIMARY_OUTPUT_KEYS) {
+    assert.match(prompt[key], pattern, `${key}: ${message}`);
+  }
+}
+
+function assertNoPrimaryOutput(prompt, pattern, message) {
+  for (const key of PRIMARY_OUTPUT_KEYS) {
+    assert.doesNotMatch(prompt[key], pattern, `${key}: ${message}`);
+  }
 }
 
 test('normalizeLocks preserves character card variant fields', () => {
@@ -47,6 +61,8 @@ test('character card variant can include selected card layers and PAGE1 missing 
     characterCardHairVariantId: 'low-ponytail',
     characterCardWardrobeMode: 'selected-layers',
     characterCardWardrobeLayerIds: ['top'],
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    pantsId: optionId('pantsId', '全無'),
     skirtId: optionId('skirtId', '牛仔短裙'),
     shoesId: optionId('shoesId', '高跟鞋'),
     neckAccessoryId: optionId('neckAccessoryId', '鎖骨細金屬鏈'),
@@ -64,4 +80,81 @@ test('character card variant can include selected card layers and PAGE1 missing 
   assert.doesNotMatch(text, /low-rise light-wash blue jeans/i);
   assert.doesNotMatch(text, /white low-top sneakers/i);
   assert.ok(prompt.structured.Wardrobe.length > 0);
+});
+
+test('full-default character card hair variant and override appear in every primary output', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-rika',
+    characterCardHairVariantId: 'low-ponytail',
+    characterCardPromptOverride: 'temporary override text',
+  });
+
+  assertEveryPrimaryOutput(prompt, /low ponytail/i, 'low ponytail should be preserved');
+  assertEveryPrimaryOutput(prompt, /temporary override text/i, 'prompt override should be preserved');
+});
+
+test('selected-layers character card hair override and missing PAGE1 layers appear in every primary output', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-rika',
+    characterCardHairVariantId: 'low-ponytail',
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: ['top'],
+    characterCardPromptOverride: 'temporary override text',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    pantsId: optionId('pantsId', '全無'),
+    skirtId: optionId('skirtId', '牛仔短裙'),
+    shoesId: optionId('shoesId', '高跟鞋'),
+    neckAccessoryId: optionId('neckAccessoryId', '鎖骨細金屬鏈'),
+  });
+
+  assertEveryPrimaryOutput(prompt, /low ponytail/i, 'low ponytail should be preserved');
+  assertEveryPrimaryOutput(prompt, /temporary override text/i, 'prompt override should be preserved');
+  assertEveryPrimaryOutput(prompt, /cropped white short-sleeve baby tee/i, 'selected card top should be preserved');
+  assertEveryPrimaryOutput(prompt, /denim short skirt|牛仔/i, 'PAGE1 skirt should fill the missing bottom layer');
+  assertEveryPrimaryOutput(prompt, /high heels|高跟鞋/i, 'PAGE1 shoes should fill the missing shoes layer');
+  assertEveryPrimaryOutput(prompt, /collarbone|鎖骨/i, 'PAGE1 neck accessory should fill the missing accessory layer');
+});
+
+test('selected card top blocks PAGE1 top garment modifiers and color', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-rika',
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: ['top'],
+    topId: optionId('topId', '襯衫'),
+    topFitId: optionId('topFitId', '緊身'),
+    topStylingId: optionId('topStylingId', '下擺打結'),
+    topPatternId: optionId('topPatternId', '粗橫條紋'),
+    topColorId: optionId('topColorId', '紅色'),
+    pantsId: optionId('pantsId', '全無'),
+    skirtId: optionId('skirtId', '牛仔短裙'),
+  });
+  const wardrobeIds = prompt.structured.Wardrobe.map((item) => item.id || '');
+
+  assert.ok(prompt.structured.Wardrobe.some((item) => item.meta?.characterCardLayer === 'top'));
+  assert.equal(wardrobeIds.some((id) => id.includes('wardrobe:上身-tops:')), false);
+  assert.equal(wardrobeIds.some((id) => id.includes('wardrobe:上身版型-top-fit:')), false);
+  assert.equal(wardrobeIds.some((id) => id.includes('wardrobe:上身穿法-top-styling:')), false);
+  assert.equal(wardrobeIds.some((id) => id.includes('wardrobe:上身圖案-top-surface-design:')), false);
+  assert.equal(prompt.selection.topColorId, '');
+  assertEveryPrimaryOutput(prompt, /cropped white short-sleeve baby tee/i, 'selected card top should stay visible');
+  assertNoPrimaryOutput(prompt, /crisp cotton poplin|clean placket|tight body-skimming upper-body fit|front hem tied|bold horizontal stripe top|red fitted cropped white/i, 'PAGE1 top details should not alter the card top');
+});
+
+test('selection stores normalized character card variant fields', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-rika',
+    characterCardHairVariantId: 'not-compatible',
+    characterCardWardrobeMode: 'invalid-mode',
+    characterCardWardrobeLayerIds: ['top', 'missing-layer', 'bottom'],
+    characterCardPromptOverride: '  trimmed override text  ',
+  });
+
+  assert.equal(prompt.selection.characterCardHairVariantId, 'default');
+  assert.equal(prompt.selection.characterCardWardrobeMode, 'full-default');
+  assert.deepEqual(prompt.selection.characterCardWardrobeLayerIds, []);
+  assert.equal(prompt.selection.characterCardPromptOverride, 'trimmed override text');
 });
