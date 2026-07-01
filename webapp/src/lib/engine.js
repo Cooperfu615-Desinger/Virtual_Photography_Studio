@@ -1,4 +1,10 @@
 import database from '../data/database.json' with { type: 'json' };
+import {
+  CHARACTER_CARD_LAYER_KEYS,
+  getCharacterCardOptions,
+  getCompatibleHairVariants,
+  normalizeCharacterCardVariant,
+} from './characterCardLab.js';
 
 const SUBJECT_COUNT_OPTIONS = [
   { id: '1', zh: '1 位', en: 'one 20-year-old Japanese or Korean female portrait subject', count: 1 },
@@ -1943,6 +1949,10 @@ const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
   { key: 'specialSubjectId', label: '特殊角色', options: SPECIAL_SUBJECT_OPTIONS, defaultValue: 'none', section: 'character' },
   { key: 'characterProfileId', label: '角色卡', options: CHARACTER_PROFILE_CONTROL_OPTIONS, defaultValue: 'none', section: 'character' },
+  { key: 'characterCardHairVariantId', label: '角色卡髮型變化', defaultValue: 'default', section: 'hidden' },
+  { key: 'characterCardWardrobeMode', label: '角色卡服裝模式', defaultValue: 'full-default', section: 'hidden' },
+  { key: 'characterCardWardrobeLayerIds', label: '角色卡服裝層', defaultValue: [], multi: true, section: 'hidden' },
+  { key: 'characterCardPromptOverride', label: '角色卡臨時覆寫', defaultValue: '', section: 'hidden' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
   { key: 'cameraSystemId', label: '舊相機', options: CAMERA_SYSTEM_OPTIONS, section: 'hidden' },
@@ -4388,6 +4398,14 @@ function normalizeWardrobePromptText(value) {
   return stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
 }
 
+function appendWardrobePromptSearchAlias(item, text) {
+  if (!text) return '';
+  const aliases = [];
+  if (item?.zh === '牛仔短裙' && !/denim short skirt/i.test(text)) aliases.push('denim short skirt');
+  if (item?.zh === '高跟鞋' && !/high heels/i.test(text)) aliases.push('high heels');
+  return aliases.length > 0 ? `${text}, ${aliases.join(', ')}` : text;
+}
+
 function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = null, styling = null } = {}) {
   if (!topItem || isNoneLikeItem(topItem)) return '';
   const base = normalizeWardrobePromptText(topItem.en);
@@ -4463,7 +4481,7 @@ function getApplicableBottomRise(bottomItem, rise) {
 
 function buildBottomColoredPrompt(bottomItem, color = null, { pattern = null, fit = null, rise = null } = {}) {
   if (!bottomItem || isNoneLikeItem(bottomItem)) return '';
-  const base = normalizeWardrobePromptText(bottomItem.en);
+  const base = appendWardrobePromptSearchAlias(bottomItem, normalizeWardrobePromptText(bottomItem.en));
   if (!base) return '';
 
   const riseText = normalizeWardrobePromptText(getApplicableBottomRise(bottomItem, rise)?.en);
@@ -5022,6 +5040,80 @@ function getCharacterProfileOption(id) {
   return option && !isNoneLikeItem(option) ? option : null;
 }
 
+function getRuntimeCharacterCards() {
+  return getCharacterCardOptions(getLockControls());
+}
+
+function getCharacterCardWardrobeMode(locks = {}) {
+  return locks?.characterCardWardrobeMode || 'full-default';
+}
+
+function shouldImportCharacterCardWardrobeLayers(locks = {}) {
+  return getCharacterCardWardrobeMode(locks) !== 'full-default';
+}
+
+function getCharacterCardVariantFromLocks(locks) {
+  const card = getRuntimeCharacterCards().find((entry) => entry.id === locks.characterProfileId);
+  const fullDefaultLayers = card ? Object.keys(card.defaultWardrobeLayers) : [];
+  const wardrobeMode = locks.characterCardWardrobeMode || 'full-default';
+  return normalizeCharacterCardVariant({
+    characterProfileId: locks.characterProfileId,
+    hairVariantId: locks.characterCardHairVariantId,
+    includedWardrobeLayers: wardrobeMode === 'full-default' ? fullDefaultLayers : locks.characterCardWardrobeLayerIds,
+    promptOverrideText: locks.characterCardPromptOverride,
+    outputMode: wardrobeMode === 'full-default' || (Array.isArray(locks.characterCardWardrobeLayerIds) && locks.characterCardWardrobeLayerIds.length > 0)
+      ? 'included-wardrobe'
+      : 'pure-character',
+  }, getRuntimeCharacterCards());
+}
+
+function buildCharacterCardHairVariantText(subject, locks) {
+  if (!isCharacterProfileSubject(subject)) return '';
+  const card = getRuntimeCharacterCards().find((entry) => entry.id === subject.id);
+  const variant = getCharacterCardVariantFromLocks(locks || {});
+  const hairVariant = getCompatibleHairVariants(card).find((entry) => entry.id === variant.hairVariantId);
+  const promptOverride = String(variant.promptOverrideText || '').trim();
+  const hairText = !hairVariant || hairVariant.id === 'default' ? '' : hairVariant.prompt;
+  return [hairText, promptOverride].filter(Boolean).join(', ');
+}
+
+function getCharacterCardImportedLayers(subject, locks) {
+  if (!isCharacterProfileSubject(subject)) return [];
+  if (!shouldImportCharacterCardWardrobeLayers(locks)) return [];
+  const card = getRuntimeCharacterCards().find((entry) => entry.id === subject.id);
+  if (!card) return [];
+  const variant = getCharacterCardVariantFromLocks(locks || {});
+  const included = new Set(variant.includedWardrobeLayers || []);
+  return CHARACTER_CARD_LAYER_KEYS
+    .filter((key) => included.has(key) && card.defaultWardrobeLayers[key])
+    .map((key) => {
+      const layer = card.defaultWardrobeLayers[key];
+      return {
+        id: `character-card-layer:${subject.id}:${key}`,
+        zh: `來自角色卡｜${layer.label}`,
+        en: layer.prompt,
+        desc: layer.prompt,
+        meta: { characterCardLayer: key },
+      };
+    });
+}
+
+function buildCharacterCardSubjectPrompt(subject, locks = {}) {
+  if (!isCharacterProfileSubject(subject)) return subject?.en || '';
+  if (!shouldImportCharacterCardWardrobeLayers(locks)) return subject.en || '';
+
+  const groups = buildCharacterCardProfileGroups(subject, locks);
+  const hairText = [groups.hair, buildCharacterCardHairVariantText(subject, locks)].filter(Boolean).join(', ');
+  const outfitText = groups.outfit ? `selected character-card outfit layer: ${groups.outfit}` : '';
+  return [
+    groups.identityAndBody,
+    hairText,
+    outfitText,
+    groups.accessories,
+    groups.photographicDirection,
+  ].filter(Boolean).join(', ');
+}
+
 function isSpecialSubject(subject) {
   return Boolean(subject?.specialSubject);
 }
@@ -5036,6 +5128,10 @@ function isAndroidSubject(subject) {
 
 function isCharacterProfileSubject(subject) {
   return subject?.specialSubject === 'character-profile';
+}
+
+function isDedicatedSpecialSubject(subject) {
+  return isSpecialSubject(subject) && !isCharacterProfileSubject(subject);
 }
 
 function buildSpecialSubjectIntegrationPrompt(subject) {
@@ -6925,6 +7021,8 @@ function extractWardrobeSlots(wardrobe) {
   const findRoleSlot = (token, role, layerSlot) => wardrobe.find((item) => item.id?.includes(token) && item.meta?.wardrobeRole === role && item.meta?.layerSlot === layerSlot);
   const specialOutfits = wardrobe.filter((item) => item.id?.includes('wardrobe:特殊穿搭-special-outfits:'));
   const outfitPresets = wardrobe.filter((item) => item.id?.includes('wardrobe:套裝-outfit-presets:'));
+  const characterCardLayers = wardrobe.filter((item) => item.meta?.characterCardLayer);
+  const findCharacterCardLayer = (key) => characterCardLayers.find((item) => item.meta?.characterCardLayer === key) || null;
   return {
     specialOutfit: specialOutfits.find((item) => !item.meta?.specialOutfitRole) || null,
     specialOutfitA: specialOutfits.find((item) => item.meta?.specialOutfitRole === 'a') || null,
@@ -6932,7 +7030,7 @@ function extractWardrobeSlots(wardrobe) {
     outfitPreset: outfitPresets.find((item) => !item.meta?.outfitRole) || null,
     outfitPresetA: outfitPresets.find((item) => item.meta?.outfitRole === 'a') || null,
     outfitPresetB: outfitPresets.find((item) => item.meta?.outfitRole === 'b') || null,
-    top: findSlot('wardrobe:上身-tops:'),
+    top: findCharacterCardLayer('top') || findSlot('wardrobe:上身-tops:'),
     topA: findRoleSlot('wardrobe:上身-tops:', 'a', 'top'),
     topB: findRoleSlot('wardrobe:上身-tops:', 'b', 'top'),
     topFit: findSlot('wardrobe:上身版型-top-fit:'),
@@ -6944,10 +7042,10 @@ function extractWardrobeSlots(wardrobe) {
     topPattern: findSlot('wardrobe:上身圖案-top-surface-design:'),
     topPatternA: findRoleSlot('wardrobe:上身圖案-top-surface-design:', 'a', 'topPattern'),
     topPatternB: findRoleSlot('wardrobe:上身圖案-top-surface-design:', 'b', 'topPattern'),
-    dress: findSlot('wardrobe:連身-dresses:'),
+    dress: findCharacterCardLayer('dress') || findSlot('wardrobe:連身-dresses:'),
     dressA: findRoleSlot('wardrobe:連身-dresses:', 'a', 'dress'),
     dressB: findRoleSlot('wardrobe:連身-dresses:', 'b', 'dress'),
-    pants: findSlot('wardrobe:褲裝-pants:'),
+    pants: findCharacterCardLayer('bottom') || findSlot('wardrobe:褲裝-pants:'),
     pantsA: findRoleSlot('wardrobe:褲裝-pants:', 'a', 'pants'),
     pantsB: findRoleSlot('wardrobe:褲裝-pants:', 'b', 'pants'),
     skirt: findSlot('wardrobe:裙裝-skirts:'),
@@ -6963,12 +7061,12 @@ function extractWardrobeSlots(wardrobe) {
     bottomPatternA: findRoleSlot('wardrobe:下身圖案-bottom-surface-design:', 'a', 'bottomPattern'),
     bottomPatternB: findRoleSlot('wardrobe:下身圖案-bottom-surface-design:', 'b', 'bottomPattern'),
     legwear: findSlot('wardrobe:襪類-legwear:'),
-    outerwear: findSlot('wardrobe:外套-outerwear:'),
+    outerwear: findCharacterCardLayer('outerwear') || findSlot('wardrobe:外套-outerwear:'),
     outerwearFit: findSlot('wardrobe:外套版型-outerwear-fit:'),
     outerwearPattern: findSlot('wardrobe:外套圖案-outerwear-surface-design:'),
     outerwearOpening: findSlot('wardrobe:外套開合-outerwear-opening:'),
     outerwearStyling: findSlot('wardrobe:外套穿法-outerwear-styling:'),
-    shoes: findSlot('wardrobe:鞋款-shoes:'),
+    shoes: findCharacterCardLayer('shoes') || findSlot('wardrobe:鞋款-shoes:'),
     legwearA: findRoleSlot('wardrobe:襪類-legwear:', 'a', 'legwear'),
     outerwearA: findRoleSlot('wardrobe:外套-outerwear:', 'a', 'outerwear'),
     outerwearAFit: findRoleSlot('wardrobe:外套版型-outerwear-fit:', 'a', 'outerwearFit'),
@@ -6983,12 +7081,12 @@ function extractWardrobeSlots(wardrobe) {
     outerwearBOpening: findRoleSlot('wardrobe:外套開合-outerwear-opening:', 'b', 'outerwearOpening'),
     outerwearBStyling: findRoleSlot('wardrobe:外套穿法-outerwear-styling:', 'b', 'outerwearStyling'),
     shoesB: findRoleSlot('wardrobe:鞋款-shoes:', 'b', 'shoes'),
-    headAccessory: findSlot('wardrobe:頭部配件-head-accessories:'),
-    eyewear: findSlot('wardrobe:眼鏡-eyewear:'),
+    headAccessory: findCharacterCardLayer('headAccessory') || findSlot('wardrobe:頭部配件-head-accessories:'),
+    eyewear: findCharacterCardLayer('eyewear') || findSlot('wardrobe:眼鏡-eyewear:'),
     eyewearColor: findSlot('wardrobe:眼鏡配色-eyewear-color:'),
     eyewearPlacement: findSlot('wardrobe:眼鏡配戴方式-eyewear-placement:'),
-    earrings: findSlot('wardrobe:耳環-earrings:'),
-    neckAccessory: findSlot('wardrobe:頸部-neck-accessories:'),
+    earrings: findCharacterCardLayer('earrings') || findSlot('wardrobe:耳環-earrings:'),
+    neckAccessory: findCharacterCardLayer('neckAccessory') || findSlot('wardrobe:頸部-neck-accessories:'),
     headAccessoryA: findRoleSlot('wardrobe:頭部配件-head-accessories:', 'a', 'headAccessory'),
     eyewearA: findRoleSlot('wardrobe:眼鏡-eyewear:', 'a', 'eyewear'),
     eyewearAColor: findRoleSlot('wardrobe:眼鏡配色-eyewear-color:', 'a', 'eyewearColor'),
@@ -7159,7 +7257,7 @@ function buildWardrobeColors(wardrobeSlots, locks) {
 
 function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = null, styling = null, fit = null, rise = null, secondaryColor = null } = {}) {
   if (!item || isNoneLikeItem(item)) return '';
-  const base = stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
+  const base = appendWardrobePromptSearchAlias(item, stripMarkdown(item.en).replace(/\s+/g, ' ').trim());
   if (!base) return '';
   if (item.zh === '赤腳' || /bare feet|visible toes/i.test(base)) return base;
   const isOuterwear = item.id?.includes('wardrobe:外套-outerwear:');
@@ -8189,7 +8287,8 @@ function getImportedWorldSceneArchitectureText(context) {
 function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
-  const specialSubjectMode = isSpecialSubject(context.subject);
+  const specialSubjectMode = isDedicatedSpecialSubject(context.subject);
+  const characterProfileMode = isCharacterProfileSubject(context.subject);
   const skeletonMode = isSkeletonSubject(context.subject);
   const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
   const fixedSetSelfShotMode = fixedCompositionSetActive && isFixedSetSelfShotMode(context.fixedSetCaptureMode);
@@ -8230,7 +8329,8 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
       || wardrobeSlots.outfitPresetB
     );
   const buildGrokSubjectText = () => {
-    const baseSubjectText = useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en;
+    const subjectText = buildCharacterCardSubjectPrompt(context.subject, context.locks);
+    const baseSubjectText = useCharacterIdentityAnchor ? `${subjectText} ${context.characterProfilePrompt}` : subjectText;
     if (specialSubjectMode) return [baseSubjectText, buildSpecialSubjectIntegrationPrompt(context.subject)].filter(Boolean).join(', ');
 
     if (context.subject.count === 2) {
@@ -8351,7 +8451,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (context.subject.reference) {
     addLine('Reference Guidance', 'use the attached reference image as the primary facial identity guide, keep the facial features and overall likeness consistent with the image');
   }
-  if (!hasDuoSceneAnchor && !specialSubjectMode && context.subject.count !== 2) addItemLine('Body Type', characterSlots.bodyType);
+  if (!hasDuoSceneAnchor && !specialSubjectMode && !characterProfileMode && context.subject.count !== 2) addItemLine('Body Type', characterSlots.bodyType);
   if (!specialSubjectMode && context.subject.count === 2) {
     addLine('Woman 1 Body Type', buildRoleHasPrompt(characterSlots.bodyTypeA, 'woman 1'));
     addLine('Woman 2 Body Type', buildRoleHasPrompt(characterSlots.bodyTypeB, 'woman 2'));
@@ -8481,7 +8581,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   if (!specialSubjectMode && context.subject.count === 2) {
     addItemLine('Woman 1 Facial Features', characterSlots.facialFeaturesA);
     addItemLine('Woman 2 Facial Features', characterSlots.facialFeaturesB);
-  } else if (!specialSubjectMode && !useCharacterIdentityAnchor) {
+  } else if (!specialSubjectMode && !characterProfileMode && !useCharacterIdentityAnchor) {
     addLine('Facial Features', buildFacialFeaturesPrompt(characterSlots.facialFeatures));
   }
   if (!specialSubjectMode && context.subject.count === 2) {
@@ -8489,14 +8589,14 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addItemLine('Woman 2 Hairstyle', characterSlots.hairstyleB);
     addLine('Woman 1 Hair Color', buildHairColorPrompt(characterSlots.hairColorA));
     addLine('Woman 2 Hair Color', buildHairColorPrompt(characterSlots.hairColorB));
-  } else if (!specialSubjectMode) {
+  } else if (!specialSubjectMode && !characterProfileMode) {
     addItemLine('Hairstyle', characterSlots.hairstyle);
     addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
   }
   if (!specialSubjectMode && context.subject.count === 2) {
     addLine('Woman 1 Skin Details', buildRoleHasPrompt(characterSlots.skinDetailsA, 'woman 1'));
     addLine('Woman 2 Skin Details', buildRoleHasPrompt(characterSlots.skinDetailsB, 'woman 2'));
-  } else if (!specialSubjectMode && !useCharacterIdentityAnchor) {
+  } else if (!specialSubjectMode && !characterProfileMode && !useCharacterIdentityAnchor) {
     addItemLine('Skin Details', characterSlots.skinDetails);
   }
   if (!specialSubjectMode && context.subject.count === 2) {
@@ -8527,7 +8627,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     addContextLine('Shutter / Motion Blur', context.shutter);
   }
   addContextLine('Camera / Film', film, (item) => skeletonText(item.en));
-  if (!specialSubjectMode && !useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
+  if (!specialSubjectMode && !characterProfileMode && !useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
 
   return lines.join('\n');
 }
@@ -9107,9 +9207,33 @@ function buildFallbackCharacterProfileGroups(subject) {
   };
 }
 
-function buildGptCharacterProfileSubjectBlock(subject) {
+function buildCharacterCardProfileGroups(subject, locks = {}) {
+  const baseGroups = subject.profile || buildFallbackCharacterProfileGroups(subject);
+  if (!shouldImportCharacterCardWardrobeLayers(locks)) return baseGroups;
+
+  const importedLayers = getCharacterCardImportedLayers(subject, locks);
+  const accessoryLayerKeys = new Set(['headAccessory', 'eyewear', 'earrings', 'neckAccessory', 'wristAccessory', 'ring', 'waistAccessory']);
+  const outfitText = importedLayers
+    .filter((layer) => !accessoryLayerKeys.has(layer.meta?.characterCardLayer))
+    .map((layer) => layer.en)
+    .filter(Boolean)
+    .join(', ');
+  const accessoryText = importedLayers
+    .filter((layer) => accessoryLayerKeys.has(layer.meta?.characterCardLayer))
+    .map((layer) => layer.en)
+    .filter(Boolean)
+    .join(', ');
+
+  return {
+    ...baseGroups,
+    outfit: outfitText,
+    accessories: accessoryText,
+  };
+}
+
+function buildGptCharacterProfileSubjectBlock(subject, locks = {}) {
   if (!isCharacterProfileSubject(subject)) return '';
-  const groups = subject.profile || buildFallbackCharacterProfileGroups(subject);
+  const groups = buildCharacterCardProfileGroups(subject, locks);
   const groupLine = (label, value) => {
     const cleaned = ensureTerminalPeriod(cleanCharacterProfileGroupText(value));
     return cleaned ? `${label}:\n${cleaned}` : '';
@@ -9118,7 +9242,7 @@ function buildGptCharacterProfileSubjectBlock(subject) {
   return [
     groupLine('Character Profile Card', subject.zh || subject.specialToneZh || 'Character Profile'),
     groupLine('Identity and body', groups.identityAndBody),
-    groupLine('Hair', groups.hair),
+    groupLine('Hair', [groups.hair, buildCharacterCardHairVariantText(subject, locks)].filter(Boolean).join(', ')),
     groupLine('Outfit', groups.outfit),
     groupLine('Accessories', groups.accessories),
     groupLine('Photographic direction', groups.photographicDirection || 'photorealistic editorial portrait, coherent facial identity, natural photographic detail'),
@@ -9564,7 +9688,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
   const duoWardrobeSlots = useRoleOrderedDuo ? extractWardrobeSlots(wardrobe) : null;
   const singleCharacterProfileSubjectBlock = !useRoleOrderedDuo && isCharacterProfileSubject(context.subject)
-    ? buildGptCharacterProfileSubjectBlock(context.subject)
+    ? buildGptCharacterProfileSubjectBlock(context.subject, context.locks)
     : '';
   const resolvedSubjectText = useRoleOrderedDuo
     ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
@@ -9630,7 +9754,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
   const wardrobeLayeringLogicText = buildWardrobeLayeringLogicPrompt(wardrobeSlots);
-  const specialSubjectMode = isSpecialSubject(context.subject);
+  const specialSubjectMode = isDedicatedSpecialSubject(context.subject);
+  const characterProfileMode = isCharacterProfileSubject(context.subject);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const sceneAccentText = buildContextualSceneAccent(context);
   const importedWorldSceneArchitectureText = getImportedWorldSceneArchitectureText(context);
@@ -9676,6 +9801,35 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       .join(', ');
   };
   const buildCharacterText = () => {
+    if (characterProfileMode) {
+      const subjectAccessoryText = buildSubjectAccessoryPrompt({
+        eyewear: wardrobeSlots.eyewear,
+        eyewearColor: wardrobeSlots.eyewearColor,
+        eyewearPlacement: wardrobeSlots.eyewearPlacement,
+        earrings: wardrobeSlots.earrings,
+        neckAccessory: wardrobeSlots.neckAccessory,
+      });
+      const baseSubjectText = buildCharacterCardSubjectPrompt(context.subject, context.locks);
+      const poseComposerText = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
+        ? characterSlots.poseComposer.en
+        : '';
+      const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
+        ? characterSlots.specialAction.en
+        : '';
+      const parts = [
+        appendSubjectAccessories(
+          useCharacterIdentityAnchor ? `${baseSubjectText} ${context.characterProfilePrompt}` : baseSubjectText,
+          subjectAccessoryText
+        ),
+        cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessory),
+        characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
+        poseComposerText,
+        specialActionText,
+        characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
+      ].filter(Boolean);
+      return leadSentence('The image shows', parts);
+    }
+
     if (specialSubjectMode) {
       const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
         ? (skeletonMode ? sanitizeSkeletonPromptText(characterSlots.specialAction.en) : characterSlots.specialAction.en)
@@ -9760,7 +9914,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
     return context.subject.count === 1 ? compressZImageSingleSubjectText(text, context) : text;
   };
   const buildSinglePoseText = () => {
-    if (context.subject.count !== 1 || specialSubjectMode) return '';
+    if (context.subject.count !== 1 || specialSubjectMode || characterProfileMode) return '';
 
     const poseText = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
       ? characterSlots.poseComposer.en
@@ -10293,8 +10447,9 @@ function buildAiWardrobeVisibilityPhrase(value) {
   return '';
 }
 
-function buildAiCharacterProfileWardrobePhrase(subject) {
+function buildAiCharacterProfileWardrobePhrase(subject, locks = {}) {
   if (!isCharacterProfileSubject(subject)) return '';
+  if (shouldImportCharacterCardWardrobeLayers(locks)) return '';
 
   const text = cleanAiMinimalFragment(subject?.en || '');
   const signatureMatch = text.match(/\bsignature outfit locked as\s+(.+?)(?:,\s*contemporary street-fashion photographic realism|$)/i);
@@ -10381,7 +10536,7 @@ function buildAiMinimalSubjectLead(valuesByLabel, context) {
 }
 
 function buildAiMinimalWardrobeClause(valuesByLabel, context) {
-  const characterProfileWardrobe = buildAiCharacterProfileWardrobePhrase(context.subject);
+  const characterProfileWardrobe = buildAiCharacterProfileWardrobePhrase(context.subject, context.locks);
   if (characterProfileWardrobe) return characterProfileWardrobe;
 
   const roleSpecialA = firstStructuredValue(valuesByLabel, ['Woman 1 Special Outfit']);
@@ -10721,6 +10876,10 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     subjectCount: isSpecialSubject(context.subject) ? '1' : context.subject.id,
     specialSubjectId: isSpecialSubject(context.subject) && !isCharacterProfileSubject(context.subject) ? context.subject.id : 'none',
     characterProfileId: isCharacterProfileSubject(context.subject) ? context.subject.id : 'none',
+    characterCardHairVariantId: context.locks?.characterCardHairVariantId || 'default',
+    characterCardWardrobeMode: context.locks?.characterCardWardrobeMode || 'full-default',
+    characterCardWardrobeLayerIds: Array.isArray(context.locks?.characterCardWardrobeLayerIds) ? context.locks.characterCardWardrobeLayerIds : [],
+    characterCardPromptOverride: context.locks?.characterCardPromptOverride || '',
     aspectRatio: context.aspectRatio.id,
     styleId: context.style?.id || '',
     cameraSystemId: context.cameraSystem?.id || '',
@@ -11075,7 +11234,12 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
   const character = buildCharacter(context, runtime.catalog);
-  const wardrobe = isSpecialSubject(subject) ? [] : buildWardrobe({ ...context }, effectiveLocks, runtime);
+  const cardLayers = getCharacterCardImportedLayers(subject, effectiveLocks);
+  const cardWardrobeMode = effectiveLocks.characterCardWardrobeMode || 'full-default';
+  const page1Wardrobe = isDedicatedSpecialSubject(subject) || (isCharacterProfileSubject(subject) && cardWardrobeMode === 'full-default')
+    ? []
+    : buildWardrobe({ ...context }, effectiveLocks, runtime);
+  const wardrobe = [...cardLayers, ...page1Wardrobe];
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks);
 
