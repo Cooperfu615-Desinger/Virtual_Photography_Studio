@@ -20,11 +20,19 @@ ${entry.text}
 }
 
 function getPromptEntries(data, labels) {
-  return [
+  const primaryEntries = [
     { key: 'grok', label: labels.grok, text: data.grokPrompt },
     { key: 'midjourney', label: labels.midjourney, text: data.midjourneyPrompt },
     { key: 'zImage', label: labels.zImage, text: data.zImagePrompt },
-  ].filter((entry) => entry.text);
+  ];
+  const extraEntries = Array.isArray(data.extraPrompts)
+    ? data.extraPrompts.map((entry) => ({
+      key: entry.id,
+      label: entry.label,
+      text: entry.text,
+    }))
+    : [];
+  return [...primaryEntries, ...extraEntries].filter((entry) => entry.text);
 }
 
 const SUMMARY_FIELD_LABELS = {

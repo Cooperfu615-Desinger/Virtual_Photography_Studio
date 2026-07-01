@@ -260,10 +260,14 @@ function buildMarkdownExport(data) {
     zImage: data.promptLabels?.zImage || 'Grok/Z-Image',
   };
   const structured = data.structured && typeof data.structured === 'object' ? data.structured : {};
+  const extraPromptEntries = Array.isArray(data.extraPrompts)
+    ? data.extraPrompts.map((entry) => ({ label: entry.label, text: entry.text }))
+    : [];
   const promptEntries = [
     { label: labels.midjourney, text: data.midjourneyPrompt },
     { label: labels.grok, text: data.grokPrompt },
     { label: labels.zImage, text: data.zImagePrompt },
+    ...extraPromptEntries,
   ].filter((entry) => entry.text);
 
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
@@ -576,6 +580,11 @@ function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
     midjourneyPrompt: String(prompt.midjourneyPrompt || ''),
     grokPrompt: String(prompt.grokPrompt || ''),
     zImagePrompt: String(prompt.zImagePrompt || ''),
+    extraPrompts: Array.isArray(prompt.extraPrompts)
+      ? prompt.extraPrompts
+        .filter((entry) => entry?.id && entry?.label && entry?.text)
+        .map((entry) => ({ id: String(entry.id), label: String(entry.label), text: String(entry.text) }))
+      : [],
     promptLabels: prompt.promptLabels && typeof prompt.promptLabels === 'object' ? prompt.promptLabels : null,
     selection,
     structured,
@@ -604,6 +613,7 @@ function serializeFavoritePrompt(prompt) {
     m: sanitized.midjourneyPrompt,
     g: sanitized.grokPrompt,
     z: sanitized.zImagePrompt,
+    e: sanitized.extraPrompts,
     y: sanitized.promptLabels,
     l: compactPromptSelection(sanitized.selection),
     p: sanitized.profile,
@@ -625,6 +635,7 @@ function deserializeFavoritePrompt(record) {
       midjourneyPrompt: record.m,
       grokPrompt: record.g,
       zImagePrompt: record.z,
+      extraPrompts: record.e,
       promptLabels: record.y,
       selection: record.l,
       profile: record.p,
