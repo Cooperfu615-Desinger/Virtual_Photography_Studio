@@ -3,6 +3,8 @@ import { test } from 'node:test';
 
 import { getLockControls } from './engine.js';
 import {
+  buildCharacterCardPromptBundle,
+  buildCharacterCardSavedCard,
   CHARACTER_CARD_LAYER_KEYS,
   createEmptyCharacterCardVariant,
   getCharacterCardOptions,
@@ -112,4 +114,67 @@ test('character card options return shallow copies of mutable arrays', () => {
   assert.equal(secondRead[0].hairTags.includes('mutated-tag'), false);
   assert.equal(secondRead[0].enabledHairVariants.includes('mutated-enabled'), false);
   assert.equal(secondRead[0].disabledHairVariants.includes('mutated-disabled'), false);
+});
+
+test('prompt bundle returns six copyable character-card outputs', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const variant = normalizeCharacterCardVariant({
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['top'],
+    outputMode: 'included-wardrobe',
+  }, cards);
+  const bundle = buildCharacterCardPromptBundle(cards, variant);
+
+  assert.deepEqual(bundle.outputs.map((output) => output.id), [
+    'gpt',
+    'grok-z-image',
+    'ai',
+    'headshot',
+    'four-view',
+    'full-body-reference',
+  ]);
+  assert.match(bundle.outputs[0].value, /Character Profile Card:\n11_Rika/i);
+  assert.match(bundle.outputs[0].value, /low ponytail/i);
+  assert.match(bundle.outputs[0].value, /cropped white short-sleeve baby tee/i);
+  assert.doesNotMatch(bundle.outputs[0].value, /low-rise light-wash blue jeans/i);
+  assert.match(bundle.outputs[3].value, /headshot reference/i);
+  assert.match(bundle.outputs[4].value, /front view/i);
+  assert.match(bundle.outputs[5].value, /full-body character reference/i);
+});
+
+test('pure-character prompt keeps hair variant and excludes wardrobe layers', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const variant = normalizeCharacterCardVariant({
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: [],
+    outputMode: 'pure-character',
+  }, cards);
+  const bundle = buildCharacterCardPromptBundle(cards, variant);
+  const combined = bundle.outputs.map((output) => output.value).join('\n');
+
+  assert.match(combined, /soft doll-like indie-girl facial features/i);
+  assert.match(combined, /low ponytail/i);
+  assert.doesNotMatch(combined, /baby tee|jeans|sneakers|choker/i);
+});
+
+test('PAGE2 character card saved card stores six outputs', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const variant = normalizeCharacterCardVariant({
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['top'],
+    outputMode: 'included-wardrobe',
+  }, cards);
+  const bundle = buildCharacterCardPromptBundle(cards, variant);
+  const card = buildCharacterCardSavedCard(cards, variant, bundle);
+
+  assert.equal(card.source, 'page2');
+  assert.equal(card.sourceLabel, '角色卡');
+  assert.equal(card.promptLabels.grok, 'GPT Prompt');
+  assert.equal(card.promptLabels.midjourney, 'AI Prompt');
+  assert.equal(card.promptLabels.zImage, 'Grok/Z-Image Prompt');
+  assert.equal(card.extraPrompts.length, 3);
+  assert.deepEqual(card.profile.includedWardrobeLayers, ['top']);
 });

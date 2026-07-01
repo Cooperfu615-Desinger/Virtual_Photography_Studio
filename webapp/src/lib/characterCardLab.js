@@ -242,3 +242,143 @@ export function normalizeCharacterCardVariant(rawVariant = {}, cards = []) {
     outputMode,
   };
 }
+
+function cleanSentence(value) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (!text) return '';
+  return /[.!?]$/.test(text) ? text : `${text}.`;
+}
+
+function selectedHairVariant(card, variant) {
+  return getCompatibleHairVariants(card).find((item) => item.id === variant.hairVariantId)
+    || HAIR_VARIANT_OPTIONS[0];
+}
+
+function selectedLayers(card, variant) {
+  const layerMap = card?.defaultWardrobeLayers || {};
+  const included = new Set(variant.includedWardrobeLayers || []);
+  if (variant.outputMode === 'pure-character') return [];
+  return CHARACTER_CARD_LAYER_KEYS
+    .filter((key) => included.has(key) && layerMap[key])
+    .map((key) => layerMap[key]);
+}
+
+function buildLayerText(layers) {
+  return layers.map((layer) => `${layer.label}: ${layer.prompt}`).join('\n');
+}
+
+function buildCharacterIdentityText(card, hairVariant) {
+  return [
+    `Character Profile Card:\n${card.label}`,
+    `Identity and body:\n${cleanSentence(card.identityAndBody)}`,
+    `Hair:\n${cleanSentence(`${card.baseHair}, ${hairVariant.prompt}`)}`,
+    `Photographic direction:\n${cleanSentence(card.photographicDirection || 'photorealistic editorial portrait, coherent facial identity, natural photographic detail')}`,
+  ].join('\n\n');
+}
+
+export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
+  const variant = normalizeCharacterCardVariant(rawVariant, cards);
+  const card = resolveCharacterCard(cards, variant.characterProfileId);
+  if (!card) return { card: null, variant, outputs: [], summary: '' };
+
+  const hairVariant = selectedHairVariant(card, variant);
+  const layers = selectedLayers(card, variant);
+  const wardrobeText = buildLayerText(layers);
+  const wardrobeBlock = wardrobeText ? `\n\nWardrobe layers:\n${wardrobeText}` : '';
+  const identityText = buildCharacterIdentityText(card, hairVariant);
+  const summary = `${card.label} / ${hairVariant.label}${layers.length ? ` / ${layers.map((layer) => layer.label).join('、')}` : ' / 純人物'}`;
+  const gpt = [
+    'Image Type:\nCreate a photorealistic character-card portrait reference.',
+    `Subject:\n${identityText}${wardrobeBlock}`,
+    'Camera Look:\nclean realistic character reference, neutral production-ready detail, consistent identity, realistic facial proportions',
+  ].join('\n\n');
+  const grokZImage = cleanSentence([
+    `Create a natural photorealistic character reference of ${card.label}`,
+    card.identityAndBody,
+    `${card.baseHair}, ${hairVariant.prompt}`,
+    layers.length ? `included wardrobe layers: ${layers.map((layer) => layer.prompt).join(', ')}` : 'no clothing layers included, focus on identity and hair',
+    card.photographicDirection,
+  ].filter(Boolean).join(', '));
+  const ai = cleanSentence([
+    `Photorealistic character reference of ${card.label}`,
+    card.identityAndBody,
+    `${card.baseHair}, ${hairVariant.prompt}`,
+    layers.length ? `wearing ${layers.map((layer) => layer.prompt).join(', ')}` : 'pure character identity and hair reference',
+  ].filter(Boolean).join(', '));
+  const headshot = cleanSentence([
+    `headshot reference of ${card.label}`,
+    'tight face-and-hair portrait, neutral clean background, consistent facial identity',
+    card.identityAndBody,
+    `${card.baseHair}, ${hairVariant.prompt}`,
+    'clear skin texture, makeup, eyes, nose, lips, jawline, and hairline',
+  ].join(', '));
+  const fourView = cleanSentence([
+    `four-view character reference sheet for ${card.label}`,
+    'one image containing front view, left 45-degree view, side profile view, and back view',
+    'same exact woman in every panel, matched facial proportions, consistent hair silhouette',
+    card.identityAndBody,
+    `${card.baseHair}, ${hairVariant.prompt}`,
+    layers.length ? `use the included wardrobe layers consistently: ${layers.map((layer) => layer.prompt).join(', ')}` : 'no clothing design emphasis, neutral shoulders and body reference',
+  ].join(', '));
+  const fullBody = cleanSentence([
+    `full-body character reference of ${card.label}`,
+    'neutral studio reference, clear standing full-body view, same exact identity',
+    card.identityAndBody,
+    `${card.baseHair}, ${hairVariant.prompt}`,
+    layers.length ? `included wardrobe layers: ${layers.map((layer) => layer.prompt).join(', ')}` : 'pure body and hair reference without fixed outfit design',
+  ].join(', '));
+
+  return {
+    card,
+    variant,
+    summary,
+    outputs: [
+      { id: 'gpt', label: 'GPT Prompt', value: gpt },
+      { id: 'grok-z-image', label: 'Grok/Z-Image Prompt', value: grokZImage },
+      { id: 'ai', label: 'AI Prompt', value: ai },
+      { id: 'headshot', label: 'Headshot Prompt', value: headshot },
+      { id: 'four-view', label: 'Four-View Prompt', value: fourView },
+      { id: 'full-body-reference', label: 'Full-Body Reference Prompt', value: fullBody },
+    ],
+  };
+}
+
+export function buildCharacterCardSavedCard(cards = [], rawVariant = {}, bundle = null) {
+  const resolvedBundle = bundle || buildCharacterCardPromptBundle(cards, rawVariant);
+  const gpt = resolvedBundle.outputs.find((output) => output.id === 'gpt')?.value || '';
+  const grokZImage = resolvedBundle.outputs.find((output) => output.id === 'grok-z-image')?.value || '';
+  const ai = resolvedBundle.outputs.find((output) => output.id === 'ai')?.value || '';
+  const extraPrompts = resolvedBundle.outputs
+    .filter((output) => !['gpt', 'grok-z-image', 'ai'].includes(output.id))
+    .map((output) => ({ id: output.id, label: output.label, text: output.value }));
+
+  return {
+    id: `page2-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    source: 'page2',
+    sourceLabel: '角色卡',
+    date: new Date().toISOString(),
+    summary: `角色卡｜${resolvedBundle.summary}`,
+    summaryFields: {
+      characterDna: resolvedBundle.card?.label || '-',
+      expressionPose: resolvedBundle.outputs.find((output) => output.id === 'headshot')?.label || '-',
+      wardrobe: resolvedBundle.variant.includedWardrobeLayers.join('、') || '純人物',
+      sceneLook: '-',
+    },
+    midjourneyPrompt: ai,
+    grokPrompt: gpt,
+    zImagePrompt: grokZImage,
+    promptLabels: {
+      midjourney: 'AI Prompt',
+      grok: 'GPT Prompt',
+      zImage: 'Grok/Z-Image Prompt',
+    },
+    extraPrompts,
+    selection: null,
+    structured: {
+      'Character Card': [
+        { zh: resolvedBundle.card?.label || '角色卡', en: resolvedBundle.summary },
+      ],
+    },
+    profile: { ...resolvedBundle.variant },
+  };
+}
