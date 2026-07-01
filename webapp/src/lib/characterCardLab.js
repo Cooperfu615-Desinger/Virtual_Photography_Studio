@@ -155,6 +155,14 @@ function normalizeLayerMap(layerMap = {}) {
   );
 }
 
+function copyArray(value) {
+  return Array.isArray(value) ? [...value] : [];
+}
+
+function normalizeVariantInput(rawVariant) {
+  return rawVariant && typeof rawVariant === 'object' && !Array.isArray(rawVariant) ? rawVariant : {};
+}
+
 export function getCharacterCardOptions(lockControls = []) {
   const control = lockControls.find((item) => item.key === 'characterProfileId');
   return (control?.options || [])
@@ -171,11 +179,11 @@ export function getCharacterCardOptions(lockControls = []) {
         makeup: option.profile?.identityAndBody || '',
         baseHair: option.profile?.hair || '',
         photographicDirection: option.profile?.photographicDirection || '',
-        referenceImages: option.referenceImages || [],
+        referenceImages: copyArray(option.referenceImages),
         primaryReferenceImage: option.meta?.referenceImage || '',
-        hairTags: extension.hairTags || [],
-        enabledHairVariants: extension.enabledHairVariants || [],
-        disabledHairVariants: extension.disabledHairVariants || [],
+        hairTags: copyArray(extension.hairTags),
+        enabledHairVariants: copyArray(extension.enabledHairVariants),
+        disabledHairVariants: copyArray(extension.disabledHairVariants),
         defaultWardrobeLayers: normalizeLayerMap(extension.wardrobeLayers),
       };
     });
@@ -209,24 +217,28 @@ export function createEmptyCharacterCardVariant(cards = []) {
 }
 
 export function normalizeCharacterCardVariant(rawVariant = {}, cards = []) {
+  const variant = normalizeVariantInput(rawVariant);
   const fallback = createEmptyCharacterCardVariant(cards);
-  const characterProfileId = resolveCharacterCard(cards, rawVariant.characterProfileId)?.id || fallback.characterProfileId;
+  const characterProfileId = resolveCharacterCard(cards, variant.characterProfileId)?.id || fallback.characterProfileId;
   const card = resolveCharacterCard(cards, characterProfileId);
   const hairVariants = getCompatibleHairVariants(card);
-  const hairVariantId = hairVariants.some((variant) => variant.id === rawVariant.hairVariantId)
-    ? rawVariant.hairVariantId
+  const hairVariantId = hairVariants.some((hairVariant) => hairVariant.id === variant.hairVariantId)
+    ? variant.hairVariantId
     : 'default';
   const validLayers = new Set(Object.keys(card?.defaultWardrobeLayers || {}));
-  const includedWardrobeLayers = Array.isArray(rawVariant.includedWardrobeLayers)
-    ? rawVariant.includedWardrobeLayers.filter((key) => validLayers.has(key))
-    : fallback.includedWardrobeLayers;
-  const outputMode = rawVariant.outputMode === 'pure-character' ? 'pure-character' : 'included-wardrobe';
+  const rawIncludedLayerSet = new Set(
+    Array.isArray(variant.includedWardrobeLayers)
+      ? variant.includedWardrobeLayers
+      : fallback.includedWardrobeLayers
+  );
+  const includedWardrobeLayers = CHARACTER_CARD_LAYER_KEYS.filter((key) => validLayers.has(key) && rawIncludedLayerSet.has(key));
+  const outputMode = variant.outputMode === 'pure-character' ? 'pure-character' : 'included-wardrobe';
 
   return {
     characterProfileId,
     hairVariantId,
     includedWardrobeLayers,
-    promptOverrideText: String(rawVariant.promptOverrideText || ''),
+    promptOverrideText: String(variant.promptOverrideText || ''),
     outputMode,
   };
 }

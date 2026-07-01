@@ -60,3 +60,56 @@ test('variant normalization keeps only valid card layers and hair variants', () 
   assert.equal(empty.hairVariantId, 'default');
   assert.deepEqual(empty.includedWardrobeLayers, CHARACTER_CARD_LAYER_KEYS.filter((key) => resolveCharacterCard(cards, 'character-rika').defaultWardrobeLayers[key]));
 });
+
+test('variant normalization treats null and malformed input as an empty variant', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const fallback = createEmptyCharacterCardVariant(cards);
+
+  assert.deepEqual(normalizeCharacterCardVariant(null, cards), fallback);
+  assert.deepEqual(normalizeCharacterCardVariant('not-a-variant', cards), fallback);
+});
+
+test('variant normalization de-dupes wardrobe layers into canonical card order', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const normalized = normalizeCharacterCardVariant({
+    characterProfileId: 'character-rika',
+    includedWardrobeLayers: ['neckAccessory', 'top', 'missing-layer', 'top', 'waistAccessory', 'bottom'],
+  }, cards);
+
+  assert.deepEqual(normalized.includedWardrobeLayers, ['top', 'bottom', 'neckAccessory', 'waistAccessory']);
+});
+
+test('variant normalization falls back from unknown card and incompatible hair variant ids', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const unknownCard = normalizeCharacterCardVariant({
+    characterProfileId: 'missing-card',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['top'],
+  }, cards);
+  const incompatibleHair = normalizeCharacterCardVariant({
+    characterProfileId: 'character-hina',
+    hairVariantId: 'twin-tails',
+    includedWardrobeLayers: ['top', 'bottom'],
+  }, cards);
+
+  assert.equal(unknownCard.characterProfileId, 'character-rika');
+  assert.equal(unknownCard.hairVariantId, 'low-ponytail');
+  assert.deepEqual(unknownCard.includedWardrobeLayers, ['top']);
+  assert.equal(incompatibleHair.characterProfileId, 'character-hina');
+  assert.equal(incompatibleHair.hairVariantId, 'default');
+  assert.deepEqual(incompatibleHair.includedWardrobeLayers, ['top', 'bottom']);
+});
+
+test('character card options return shallow copies of mutable arrays', () => {
+  const firstRead = getCharacterCardOptions(getLockControls());
+  firstRead[0].referenceImages.push('mutated-reference');
+  firstRead[0].hairTags.push('mutated-tag');
+  firstRead[0].enabledHairVariants.push('mutated-enabled');
+  firstRead[0].disabledHairVariants.push('mutated-disabled');
+
+  const secondRead = getCharacterCardOptions(getLockControls());
+  assert.equal(secondRead[0].referenceImages.includes('mutated-reference'), false);
+  assert.equal(secondRead[0].hairTags.includes('mutated-tag'), false);
+  assert.equal(secondRead[0].enabledHairVariants.includes('mutated-enabled'), false);
+  assert.equal(secondRead[0].disabledHairVariants.includes('mutated-disabled'), false);
+});
