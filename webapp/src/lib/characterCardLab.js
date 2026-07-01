@@ -529,13 +529,13 @@ const PAGE1_LAYER_CLEAR_KEYS = {
   dress: [...PAGE1_DRESS_CLEAR_KEYS, ...PAGE1_TOP_CLEAR_KEYS, ...PAGE1_BOTTOM_CLEAR_KEYS, ...PAGE1_FULL_LOOK_CLEAR_KEYS],
   outerwear: ['outerwearId', 'outerwearFitId', 'outerwearColorId', 'outerwearPatternId', 'outerwearOpeningId', 'outerwearStylingId', ...PAGE1_FULL_LOOK_CLEAR_KEYS],
   shoes: ['shoesId', 'shoesColorId', ...PAGE1_FULL_LOOK_CLEAR_KEYS],
-  headAccessory: ['headAccessoryId'],
-  eyewear: ['eyewearId', 'eyewearColorId', 'eyewearPlacementId'],
-  earrings: ['earringsId'],
-  neckAccessory: ['neckAccessoryId'],
-  wristAccessory: ['wristAccessoryId'],
-  ring: ['ringId'],
-  waistAccessory: ['waistAccessoryId'],
+  headAccessory: ['headAccessoryId', ...PAGE1_FULL_LOOK_CLEAR_KEYS],
+  eyewear: ['eyewearId', 'eyewearColorId', 'eyewearPlacementId', ...PAGE1_FULL_LOOK_CLEAR_KEYS],
+  earrings: ['earringsId', ...PAGE1_FULL_LOOK_CLEAR_KEYS],
+  neckAccessory: ['neckAccessoryId', ...PAGE1_FULL_LOOK_CLEAR_KEYS],
+  wristAccessory: ['wristAccessoryId', ...PAGE1_FULL_LOOK_CLEAR_KEYS],
+  ring: ['ringId', ...PAGE1_FULL_LOOK_CLEAR_KEYS],
+  waistAccessory: ['waistAccessoryId', ...PAGE1_FULL_LOOK_CLEAR_KEYS],
 };
 
 export function buildPage1LocksFromCharacterCardVariant(prevLocks = {}, rawVariant = {}, cards = []) {

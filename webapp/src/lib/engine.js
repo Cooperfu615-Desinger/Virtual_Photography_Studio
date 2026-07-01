@@ -10579,6 +10579,44 @@ function buildAiCharacterProfileWardrobePhrase(subject, locks = {}) {
   return fragments.length > 0 ? `wearing ${joinNaturalList(fragments)}` : '';
 }
 
+const AI_CHARACTER_CARD_SELECTED_WARDROBE_LABELS = [
+  'Outerwear',
+  'Dress',
+  'Top',
+  'Pants',
+  'Skirt',
+  'Legwear',
+  'Shoes',
+  'Head Accessory',
+  'Wardrobe Visibility',
+];
+
+const AI_CHARACTER_CARD_DIRECT_ACCESSORY_LAYERS = new Set([
+  'wristAccessory',
+  'ring',
+  'waistAccessory',
+]);
+
+function uniqueAiWardrobeValues(values) {
+  const seen = new Set();
+  return values
+    .map((value) => cleanAiMinimalFragment(value))
+    .filter(Boolean)
+    .filter((value) => {
+      const key = value.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+}
+
+function getAiCharacterCardDirectAccessoryValues(wardrobe) {
+  if (!Array.isArray(wardrobe)) return [];
+  return wardrobe
+    .filter((item) => AI_CHARACTER_CARD_DIRECT_ACCESSORY_LAYERS.has(item?.meta?.characterCardLayer))
+    .map((item) => buildAccessoryPrompt(item));
+}
+
 function firstStructuredValue(valuesByLabel, labels) {
   return getStructuredValues(valuesByLabel, labels)[0] || '';
 }
@@ -10674,20 +10712,14 @@ function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
     : 'A seductive stunning 20-year-old Japanese or Korean woman';
 }
 
-function buildAiMinimalWardrobeClause(valuesByLabel, context) {
+function buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe = null) {
   const characterProfileWardrobe = buildAiCharacterProfileWardrobePhrase(context.subject, context.locks);
   if (characterProfileWardrobe) return characterProfileWardrobe;
 
   if (isCharacterProfileSubject(context.subject) && shouldImportCharacterCardWardrobeLayers(context.locks)) {
-    const wardrobeText = getStructuredValues(valuesByLabel, [
-      'Outerwear',
-      'Dress',
-      'Top',
-      'Pants',
-      'Skirt',
-      'Legwear',
-      'Shoes',
-      'Wardrobe Visibility',
+    const wardrobeText = uniqueAiWardrobeValues([
+      ...getStructuredValues(valuesByLabel, AI_CHARACTER_CARD_SELECTED_WARDROBE_LABELS),
+      ...getAiCharacterCardDirectAccessoryValues(wardrobe),
     ]).join(', ');
     return wardrobeText ? `wearing ${wardrobeText}` : '';
   }
@@ -10989,7 +11021,7 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
 
   const parts = [
     buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe),
-    buildAiMinimalWardrobeClause(valuesByLabel, context),
+    buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe),
     buildAiMinimalPoseClause(valuesByLabel, context),
     buildAiMinimalSceneClause(valuesByLabel, context),
     buildAiMinimalLightingClause(valuesByLabel),

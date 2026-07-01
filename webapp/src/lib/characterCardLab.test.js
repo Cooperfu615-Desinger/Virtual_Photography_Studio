@@ -525,6 +525,46 @@ test('structured apply for top clears full-look and dress conflicts only', () =>
   assert.equal(nextLocks.poseId, 'pose:anything');
 });
 
+test('structured apply for accessory layers clears full-look conflicts and preserves non-conflicting PAGE1 choices', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const prevLocks = {
+    ...createEmptyLocks(),
+    specialOutfitId: nonNoneOptionId('specialOutfitId'),
+    outfitPresetId: nonNoneOptionId('outfitPresetId'),
+    outfitPresetColorId: 'color:black',
+    outfitPresetPrimaryColorId: 'color:white',
+    outfitPresetContrastColorId: 'color:red',
+    outfitPresetLockedPaletteId: 'palette:anything',
+    completeLookPaletteId: 'palette:complete-look',
+    topBottomPaletteId: 'palette:top-bottom',
+    topId: 'wardrobe:上身-tops:cropped-tee',
+    shoesId: 'wardrobe:鞋款-shoes:heels',
+    neckAccessoryId: 'wardrobe:頸部配件-neck-accessories:thin-necklace',
+    locationId: 'scene:anything',
+    poseId: 'pose:anything',
+  };
+  const nextLocks = buildPage1LocksFromCharacterCardVariant(prevLocks, {
+    characterProfileId: 'character-yuri',
+    hairVariantId: 'default',
+    includedWardrobeLayers: ['neckAccessory', 'waistAccessory'],
+  }, cards);
+
+  assert.deepEqual(nextLocks.characterCardWardrobeLayerIds, ['neckAccessory', 'waistAccessory']);
+  assert.equal(nextLocks.specialOutfitId, EXPECTED_NONE_LOCK_IDS.specialOutfitId);
+  assert.equal(nextLocks.outfitPresetId, EXPECTED_NONE_LOCK_IDS.outfitPresetId);
+  assert.equal(nextLocks.outfitPresetColorId, EXPECTED_NONE_LOCK_IDS.outfitPresetColorId);
+  assert.equal(nextLocks.outfitPresetPrimaryColorId, EXPECTED_NONE_LOCK_IDS.outfitPresetPrimaryColorId);
+  assert.equal(nextLocks.outfitPresetContrastColorId, EXPECTED_NONE_LOCK_IDS.outfitPresetContrastColorId);
+  assert.equal(nextLocks.outfitPresetLockedPaletteId, EXPECTED_NONE_LOCK_IDS.outfitPresetLockedPaletteId);
+  assert.equal(nextLocks.completeLookPaletteId, EXPECTED_NONE_LOCK_IDS.completeLookPaletteId);
+  assert.equal(nextLocks.topBottomPaletteId, EXPECTED_NONE_LOCK_IDS.topBottomPaletteId);
+  assert.equal(nextLocks.neckAccessoryId, EXPECTED_NONE_LOCK_IDS.neckAccessoryId);
+  assert.equal(nextLocks.topId, 'wardrobe:上身-tops:cropped-tee');
+  assert.equal(nextLocks.shoesId, 'wardrobe:鞋款-shoes:heels');
+  assert.equal(nextLocks.locationId, 'scene:anything');
+  assert.equal(nextLocks.poseId, 'pose:anything');
+});
+
 test('structured apply for dress clears top bottom and full-look conflicts', () => {
   const cards = getCharacterCardOptions(getLockControls());
   const prevLocks = {

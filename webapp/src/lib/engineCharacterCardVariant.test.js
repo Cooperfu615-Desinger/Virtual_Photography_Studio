@@ -25,6 +25,10 @@ function assertNoPrimaryOutput(prompt, pattern, message) {
   }
 }
 
+function countMatches(value, pattern) {
+  return [...String(value || '').matchAll(pattern)].length;
+}
+
 test('normalizeLocks preserves character card variant fields', () => {
   const locks = normalizeLocks({
     characterProfileId: 'character-rika',
@@ -115,6 +119,42 @@ test('selected-layers character card hair override and missing PAGE1 layers appe
   assertEveryPrimaryOutput(prompt, /denim short skirt|牛仔/i, 'PAGE1 skirt should fill the missing bottom layer');
   assertEveryPrimaryOutput(prompt, /high heels|高跟鞋/i, 'PAGE1 shoes should fill the missing shoes layer');
   assertEveryPrimaryOutput(prompt, /collarbone|鎖骨/i, 'PAGE1 neck accessory should fill the missing accessory layer');
+});
+
+test('selected-layers character card accessory layers appear in AI and remain in GPT and Grok outputs', () => {
+  const [sakuraPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-sakura',
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: ['headAccessory'],
+  });
+  const [rikaPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-rika',
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: ['waistAccessory'],
+  });
+  const [yuriPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-yuri',
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: ['wristAccessory', 'waistAccessory'],
+  });
+
+  assert.match(sakuraPrompt.midjourneyPrompt, /white plush bunny-eared hood/i);
+  assert.equal(countMatches(sakuraPrompt.midjourneyPrompt, /white plush bunny-eared hood/gi), 1);
+  assert.match(rikaPrompt.midjourneyPrompt, /silver ring keychain clipped to the front belt loop/i);
+  assert.match(yuriPrompt.midjourneyPrompt, /stacked silver bangles and rings/i);
+  assert.match(yuriPrompt.midjourneyPrompt, /western-style belt buckle and metal-stud chain detail/i);
+
+  assert.match(sakuraPrompt.grokPrompt, /white plush bunny-eared hood/i);
+  assert.match(sakuraPrompt.zImagePrompt, /white plush bunny-eared hood/i);
+  assert.match(rikaPrompt.grokPrompt, /silver ring keychain clipped to the front belt loop/i);
+  assert.match(rikaPrompt.zImagePrompt, /silver ring keychain clipped to the front belt loop/i);
+  assert.match(yuriPrompt.grokPrompt, /stacked silver bangles and rings/i);
+  assert.match(yuriPrompt.zImagePrompt, /stacked silver bangles and rings/i);
+  assert.match(yuriPrompt.grokPrompt, /western-style belt buckle and metal-stud chain detail/i);
+  assert.match(yuriPrompt.zImagePrompt, /western-style belt buckle and metal-stud chain detail/i);
 });
 
 test('selected card top blocks PAGE1 top garment modifiers and color', () => {
