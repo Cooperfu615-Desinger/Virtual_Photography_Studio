@@ -39,6 +39,13 @@ import {
   buildPage3WorldSceneWorldPrompt,
   createEmptyPage3WorldSceneProfile,
 } from './lib/page3WorldScene';
+import {
+  buildCharacterCardPromptBundle,
+  buildCharacterCardSavedCard,
+  createEmptyCharacterCardVariant,
+  getCharacterCardOptions,
+  normalizeCharacterCardVariant,
+} from './lib/characterCardLab';
 import { SCENE_CAMERA_CONTROL_ORDER } from './lib/page1ControlOrders';
 import './index.css';
 
@@ -66,8 +73,8 @@ const PAGE_MODE_COPY = {
     subtitle: '一個為個人創作流程設計的虛擬攝影 Prompt 生成工具，支援快速組合、批次生成與風格探索。',
   },
   page2: {
-    title: 'Character Builder',
-    subtitle: '建立固定角色的臉部與妝容設定，整理成可搬回 PAGE1 使用的角色 Prompt。',
+    title: 'Character Card Lab',
+    subtitle: '選擇內建角色卡，整理髮型變化、預設服裝 layer 與可複製的角色 reference prompt。',
   },
   page3: {
     title: 'World Street Scene Builder',
@@ -86,74 +93,6 @@ const PAGE_MODE_COPY = {
 function loadFavoriteCloudRepository() {
   favoriteCloudRepositoryPromise ||= import('./lib/favoritesRepository');
   return favoriteCloudRepositoryPromise;
-}
-
-const PAGE2_FIELD_OPTIONS = {
-  eyes: [
-    { id: '', zh: '未指定', en: '' },
-    { id: 'round-clear', zh: '圓眼清透感', en: 'clear round eyes with bright open gaze' },
-    { id: 'almond-soft', zh: '杏眼柔和感', en: 'soft almond-shaped eyes with gentle feminine balance' },
-    { id: 'phoenix-mono', zh: '單眼皮鳳眼', en: 'sleek monolid phoenix eyes with elegant lifted shape' },
-    { id: 'siren-mole', zh: '右眼角有痣的媚眼', en: 'siren-like eyes with a small beauty mark near the outer corner of the right eye' },
-    { id: 'cat-upturned', zh: '貓系上挑眼', en: 'slightly upturned cat-like eyes with sharp alluring definition' },
-  ],
-  brows: [
-    { id: '', zh: '未指定', en: '' },
-    { id: 'straight-soft', zh: '平直自然眉', en: 'soft straight brows with natural density' },
-    { id: 'arched-gentle', zh: '柔和微挑眉', en: 'gently arched brows with refined feminine lift' },
-    { id: 'cool-thin', zh: '細長冷感眉', en: 'long slim brows with cool composed sharpness' },
-    { id: 'dense-bold', zh: '濃密英氣眉', en: 'defined dense brows with quietly confident strength' },
-  ],
-  nose: [
-    { id: '', zh: '未指定', en: '' },
-    { id: 'small-straight', zh: '小巧直鼻', en: 'small straight nose with clean refined bridge' },
-    { id: 'upturned', zh: '精緻微翹鼻', en: 'delicate slightly upturned nose with refined tip' },
-    { id: 'high-bridge', zh: '細長高挺鼻', en: 'slender high-bridge nose with elegant definition' },
-    { id: 'soft-tip', zh: '柔和圓鼻尖', en: 'soft rounded nose tip with natural feminine shape' },
-  ],
-  lips: [
-    { id: '', zh: '未指定', en: '' },
-    { id: 'petal', zh: '小巧花瓣唇', en: 'small petal-shaped lips with delicate cupid bow' },
-    { id: 'full-soft', zh: '柔軟飽滿唇', en: 'soft full lips with smooth natural volume' },
-    { id: 'thin-cool', zh: '薄唇冷感型', en: 'slim lips with cool understated definition' },
-    { id: 'defined-cupid', zh: '唇峰明顯的精緻唇', en: 'refined lips with pronounced cupid bow and sculpted shape' },
-  ],
-  faceShape: [
-    { id: '', zh: '未指定', en: '' },
-    { id: 'oval-small', zh: '小巧鵝蛋臉', en: 'small oval face with smooth balanced proportions' },
-    { id: 'round-soft', zh: '柔和圓臉', en: 'soft round face with gentle youthful fullness' },
-    { id: 'long-narrow', zh: '窄長臉', en: 'narrow long face with elegant vertical balance' },
-    { id: 'heart', zh: '心形臉', en: 'heart-shaped face with softly tapered chin' },
-    { id: 'defined-small', zh: '線條分明的巴掌臉', en: 'small face with crisp contour lines and defined jaw balance' },
-  ],
-  skin: [
-    { id: '', zh: '未指定', en: '' },
-    { id: 'cool-matte', zh: '冷白霧面肌', en: 'cool fair matte skin with clean refined surface' },
-    { id: 'clear-natural', zh: '清透自然肌', en: 'clear natural skin with soft realistic translucency' },
-    { id: 'cream', zh: '細膩奶油肌', en: 'fine creamy skin with smooth soft-focus finish' },
-    { id: 'dewy', zh: '微光澤裸肌', en: 'subtle dewy bare skin with natural healthy sheen' },
-    { id: 'freckles', zh: '帶雀斑清新肌', en: 'fresh skin with soft natural freckles across the cheeks' },
-  ],
-  makeup: [
-    { id: '', zh: '未指定', en: '' },
-    { id: 'almost-none', zh: '幾乎無妝感', en: 'almost no-makeup look with understated enhancement' },
-    { id: 'korean-nude', zh: '清透韓系裸妝', en: 'clear Korean nude makeup with polished natural glow' },
-    { id: 'japanese-sweet', zh: '日系甜感眼妝', en: 'sweet Japanese eye makeup with soft feminine warmth' },
-    { id: 'rose-mature', zh: '成熟玫瑰調妝容', en: 'mature rose-toned makeup with elegant romantic depth' },
-    { id: 'cool-smoky', zh: '微煙燻冷感妝', en: 'subtle cool smoky makeup with restrained sharpness' },
-  ],
-};
-const PAGE2_FIELD_CONFIG = [
-  { key: 'eyes', label: '眼睛' },
-  { key: 'brows', label: '眉型' },
-  { key: 'nose', label: '鼻子' },
-  { key: 'lips', label: '嘴唇' },
-  { key: 'faceShape', label: '臉型' },
-  { key: 'skin', label: '皮膚' },
-  { key: 'makeup', label: '妝容' },
-];
-function createEmptyPage2Profile() {
-  return Object.fromEntries(PAGE2_FIELD_CONFIG.map((field) => [field.key, '']));
 }
 
 function createEmptyPage3Profile() {
@@ -784,178 +723,6 @@ function schedulePromptCollectionPersist(key, prompts, serializer, onResult) {
   };
 }
 
-function getPage2OptionLabel(fieldKey, optionId) {
-  return PAGE2_FIELD_OPTIONS[fieldKey]?.find((option) => option.id === optionId)?.zh || '';
-}
-
-function getPage2OptionPrompt(fieldKey, optionId) {
-  return PAGE2_FIELD_OPTIONS[fieldKey]?.find((option) => option.id === optionId)?.en || '';
-}
-
-function buildPage2ProfileSummary(profile) {
-  return PAGE2_FIELD_CONFIG
-    .map((field) => getPage2OptionLabel(field.key, profile[field.key]))
-    .filter(Boolean)
-    .join(' / ');
-}
-
-function buildPage2ProfileAnchor(profile) {
-  const anchorPriority = ['eyes', 'faceShape', 'makeup', 'skin', 'lips', 'brows', 'nose'];
-  const promptParts = anchorPriority
-    .map((fieldKey) => getPage2OptionPrompt(fieldKey, profile[fieldKey]))
-    .filter(Boolean)
-    .slice(0, 4);
-
-  if (promptParts.length === 0) return '';
-
-  return `reference face anchor, ${promptParts.join(', ')}`;
-}
-
-function buildPage2ViewPrompts(profile) {
-  const anchor = buildPage2ProfileAnchor(profile);
-  if (!anchor) return [];
-
-  const base =
-    'neutral studio reference portrait, plain seamless background, flat even lighting, passport-photo-like clarity, same exact woman in every image, consistent facial identity, matched facial proportions, no dramatic shadows, no cinematic styling, natural realistic skin rendering';
-
-  return [
-    {
-      key: 'four-angle-sheet',
-      label: '四角度合成一張',
-      prompt: `${base}, one image containing four standardized reference angles arranged as a clean identity sheet: exact front view, exact left three-quarter view, exact side profile view, and exact back view, same identity in every panel, neutral expression, direct head alignment, clear structural comparison across all four angles, no duplicated frontal views, ${anchor}`,
-    },
-    {
-      key: 'front',
-      label: '正面',
-      prompt: `${base}, exact front-facing reference portrait, direct symmetrical facial axis, centered head position, both ears evenly aligned if visible, both eyes fully visible, nose bridge centered, lips centered, neutral closed-mouth expression, balanced jawline visibility, ${anchor}`,
-    },
-    {
-      key: 'left-three-quarter',
-      label: '左前 45 度',
-      prompt: `${base}, exact left three-quarter reference portrait at roughly forty-five degrees, neutral head turn without dramatic tilt, clear separation of the front facial plane and side facial plane, both eyes still visible, nose bridge angle readable, cheekbone and jaw transition clearly defined, neutral closed-mouth expression, ${anchor}`,
-    },
-    {
-      key: 'profile',
-      label: '側面',
-      prompt: `${base}, exact ninety-degree side profile reference portrait, only one side of the face visible, head fully turned to profile, no partial front visibility, clean silhouette of forehead, nose bridge, lips, chin, and jawline, neck line readable, neutral closed-mouth expression, clear profile contour readability, ${anchor}`,
-    },
-    {
-      key: 'back',
-      label: '背面',
-      prompt: 'neutral studio reference back view, plain seamless background, flat even lighting, back-facing portrait showing head shape, hairstyle silhouette, and hair length clearly, no dramatic styling',
-    },
-  ];
-}
-
-function buildPage2IdentityPrompt(profile) {
-  const anchor = buildPage2ProfileAnchor(profile);
-  if (!anchor) return '';
-
-  return [
-    'same exact woman',
-    'consistent facial identity',
-    'same facial proportions across every image',
-    anchor,
-    'neutral studio reference portrait',
-    'plain seamless background',
-    'flat even lighting',
-    'passport-photo-like clarity',
-    'neutral closed-mouth expression',
-    'no cinematic styling',
-  ].join(', ');
-}
-
-function buildPage2MasterPrompt(profile) {
-  const anchor = buildPage2ProfileAnchor(profile);
-  if (!anchor) return '';
-
-  return [
-    'neutral studio character reference sheet',
-    'plain seamless background',
-    'flat even lighting',
-    'passport-photo-like clarity',
-    'same exact woman in every panel',
-    'one image containing four core identity views of the same person',
-    'exact front reference view',
-    'exact left three-quarter reference view',
-    'exact side profile reference view',
-    'exact back reference view',
-    'neutral expression in every panel',
-    'centered head alignment',
-    'matched proportions across all views including head shape and hairstyle silhouette continuity',
-    'clear structural comparison focused on front, three-quarter, profile, and back-view consistency',
-    buildPage2IdentityPrompt(profile),
-  ].join(', ');
-}
-
-function buildPage2CoreViewsBundle(viewPrompts) {
-  const coreKeys = new Set(['front', 'left-three-quarter', 'profile', 'back']);
-  const coreViews = viewPrompts.filter((item) => coreKeys.has(item.key));
-  if (coreViews.length === 0) return '';
-
-  return coreViews
-    .map((item) => `${item.label}: ${item.prompt}`)
-    .join('\n\n');
-}
-
-function buildPage2PromptBundle(profile, viewPrompts) {
-  const anchor = buildPage2ProfileAnchor(profile);
-  if (!anchor || viewPrompts.length === 0) return '';
-
-  const identityPrompt = buildPage2IdentityPrompt(profile);
-  const coreViewsBundle = buildPage2CoreViewsBundle(viewPrompts);
-  const lines = [
-    `Face Anchor: ${anchor}`,
-    '',
-    `Identity Prompt: ${identityPrompt}`,
-    '',
-    `Master Sheet: ${buildPage2MasterPrompt(profile)}`,
-    '',
-    'Core Views:',
-    coreViewsBundle,
-    '',
-    ...viewPrompts.flatMap((item) => [`${item.label}: ${item.prompt}`, '']),
-  ];
-
-  return lines.join('\n').trim();
-}
-
-function buildPage2SavedCard(profile, summary, anchor, masterPrompt, coreViewsBundle, promptBundle) {
-  const safeSummary = summary || '尚未選擇角色特徵';
-
-  return {
-    id: `page2-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-    source: 'page2',
-    sourceLabel: '角色建模',
-    date: new Date().toISOString(),
-    summary: `角色建模｜${safeSummary}`,
-    summaryFields: {
-      characterDna: safeSummary,
-      expressionPose: anchor || '-',
-      wardrobe: '-',
-      sceneLook: '-',
-    },
-    midjourneyPrompt: masterPrompt,
-    grokPrompt: promptBundle,
-    zImagePrompt: coreViewsBundle,
-    promptLabels: {
-      midjourney: 'Master Sheet',
-      grok: 'Prompt Bundle',
-      zImage: 'Core Views',
-    },
-    selection: null,
-    structured: {
-      'Page2 Character': [
-        {
-          zh: safeSummary,
-          en: anchor || 'character profile anchor',
-        },
-      ],
-    },
-    profile: { ...profile },
-  };
-}
-
 function buildPage3SavedCard(profile, summary, anchor, prompt, cinematicPrompt, worldPrompt) {
   const safeSummary = summary || '尚未選擇場景條件';
 
@@ -1072,7 +839,28 @@ export default function App() {
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
   const [previewGenerationNonce, setPreviewGenerationNonce] = useState(0);
-  const [page2Profile, setPage2Profile] = useState(() => loadJsonStorage(PAGE2_PROFILE_KEY, createEmptyPage2Profile()));
+  const activeLibrary = useMemo(() => [], []);
+  const rawLockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
+  const hasWardrobeLocks = useMemo(() => hasEffectiveWardrobeLocks(locks, rawLockControls), [locks, rawLockControls]);
+  const lockControls = useMemo(
+    () => rawLockControls.map((control) => {
+      if (control.key !== 'framingId' || !hasWardrobeLocks) return control;
+      return {
+        ...control,
+        options: control.options.map((option) => ({
+          ...option,
+          disabled: isWardrobeIncompatibleCloseupFramingId(option.id, activeLibrary),
+        })),
+      };
+    }),
+    [activeLibrary, hasWardrobeLocks, rawLockControls]
+  );
+  const characterCards = useMemo(() => getCharacterCardOptions(lockControls), [lockControls]);
+  const [page2Profile, setPage2Profile] = useState(() => (
+    normalizeCharacterCardVariant(loadJsonStorage(PAGE2_PROFILE_KEY, createEmptyCharacterCardVariant(characterCards)), characterCards)
+  ));
+  const normalizedPage2Profile = useMemo(() => normalizeCharacterCardVariant(page2Profile, characterCards), [page2Profile, characterCards]);
+  const page2PromptBundle = useMemo(() => buildCharacterCardPromptBundle(characterCards, normalizedPage2Profile), [characterCards, normalizedPage2Profile]);
   const [page3Profile, setPage3Profile] = useState(() => loadJsonStorage(PAGE3_PROFILE_KEY, createEmptyPage3Profile()));
   const [page5Profile, setPage5Profile] = useState(() => coerceSunoProfile(loadJsonStorage(PAGE5_PROFILE_KEY, createEmptySunoProfile())));
   const [copiedLabel, setCopiedLabel] = useState('');
@@ -1391,22 +1179,6 @@ export default function App() {
     window.localStorage.setItem(PAGE5_PROFILE_KEY, JSON.stringify(page5Profile));
   }, [page5Profile]);
 
-  const activeLibrary = useMemo(() => [], []);
-  const rawLockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
-  const hasWardrobeLocks = useMemo(() => hasEffectiveWardrobeLocks(locks, rawLockControls), [locks, rawLockControls]);
-  const lockControls = useMemo(
-    () => rawLockControls.map((control) => {
-      if (control.key !== 'framingId' || !hasWardrobeLocks) return control;
-      return {
-        ...control,
-        options: control.options.map((option) => ({
-          ...option,
-          disabled: isWardrobeIncompatibleCloseupFramingId(option.id, activeLibrary),
-        })),
-      };
-    }),
-    [activeLibrary, hasWardrobeLocks, rawLockControls]
-  );
   const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
   const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
   const isWormEyeAngle = useMemo(() => isWormEyeAngleId(locks.angleId, activeLibrary), [locks.angleId, activeLibrary]);
@@ -1609,13 +1381,6 @@ export default function App() {
     return 'Favorites 僅存本機';
   }, [favoriteCloudAuth, favoriteCloudSyncStatus]);
 
-  const page2ProfileSummary = useMemo(() => buildPage2ProfileSummary(page2Profile), [page2Profile]);
-  const page2ProfileAnchor = useMemo(() => buildPage2ProfileAnchor(page2Profile), [page2Profile]);
-  const page2ViewPrompts = useMemo(() => buildPage2ViewPrompts(page2Profile), [page2Profile]);
-  const page2IdentityPrompt = useMemo(() => buildPage2IdentityPrompt(page2Profile), [page2Profile]);
-  const page2MasterPrompt = useMemo(() => buildPage2MasterPrompt(page2Profile), [page2Profile]);
-  const page2CoreViewsBundle = useMemo(() => buildPage2CoreViewsBundle(page2ViewPrompts), [page2ViewPrompts]);
-  const page2PromptBundle = useMemo(() => buildPage2PromptBundle(page2Profile, page2ViewPrompts), [page2Profile, page2ViewPrompts]);
   const page3FieldOptions = PAGE3_WORLD_SCENE_FIELD_OPTIONS;
   const page3Summary = useMemo(() => buildPage3WorldSceneSummary(page3Profile), [page3Profile]);
   const page3Anchor = useMemo(() => buildPage3WorldSceneAnchor(page3Profile), [page3Profile]);
@@ -1896,25 +1661,23 @@ export default function App() {
     setIsImportPromptOpen(false);
     setImportPromptText('');
   };
+
+  const handleApplyPage2CharacterCard = useCallback(() => {
+    showToast('角色卡匯入 PAGE1 會在下一階段接上');
+  }, [showToast]);
+
   const handleSavePage2Card = useCallback(() => {
-    if (!page2PromptBundle) {
-      showToast('請先完成角色設定再加入 Saved Cards');
+    if (!page2PromptBundle.outputs.length) {
+      showToast('請先選擇角色卡再加入 Saved Cards');
       return;
     }
 
-    const nextCard = buildPage2SavedCard(
-      page2Profile,
-      page2ProfileSummary,
-      page2ProfileAnchor,
-      page2MasterPrompt,
-      page2CoreViewsBundle,
-      page2PromptBundle
-    );
+    const nextCard = buildCharacterCardSavedCard(characterCards, normalizedPage2Profile, page2PromptBundle);
     addFavoritePrompt(nextCard);
     setViewMode('favorites');
     setPageMode('page4');
-    showToast('角色建模 Prompt 已加入 Saved Cards');
-  }, [addFavoritePrompt, page2CoreViewsBundle, page2MasterPrompt, page2Profile, page2ProfileAnchor, page2ProfileSummary, page2PromptBundle, showToast]);
+    showToast('角色卡 Prompt 已加入 Saved Cards');
+  }, [addFavoritePrompt, characterCards, normalizedPage2Profile, page2PromptBundle, showToast]);
 
   const handleSavePage3Card = useCallback(() => {
     if (!page3Prompt) {
@@ -2062,20 +1825,13 @@ export default function App() {
         />
       ) : pageMode === 'page2' ? (
         <Page2Workspace
-          fieldConfig={PAGE2_FIELD_CONFIG}
-          fieldOptions={PAGE2_FIELD_OPTIONS}
-          profile={page2Profile}
+          characterCards={characterCards}
+          profile={normalizedPage2Profile}
           setProfile={setPage2Profile}
-          profileSummary={page2ProfileSummary}
-          profileAnchor={page2ProfileAnchor}
-          viewPrompts={page2ViewPrompts}
-          identityPrompt={page2IdentityPrompt}
-          masterPrompt={page2MasterPrompt}
-          coreViewsBundle={page2CoreViewsBundle}
           promptBundle={page2PromptBundle}
           onCopyText={handleCopyText}
           onSaveCard={handleSavePage2Card}
-          createEmptyProfile={createEmptyPage2Profile}
+          onApplyToPage1={handleApplyPage2CharacterCard}
         />
       ) : pageMode === 'page3' ? (
         <Page3Workspace

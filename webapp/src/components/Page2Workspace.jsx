@@ -1,118 +1,144 @@
-import PromptPreviewCard from './PromptPreviewCard';
+import { useMemo } from 'react';
 import DllPicProPanel from './DllPicProPanel';
+import PromptPreviewCard from './PromptPreviewCard';
+import {
+  CHARACTER_CARD_LAYER_KEYS,
+  getCompatibleHairVariants,
+  normalizeCharacterCardVariant,
+  resolveCharacterCard,
+} from '../lib/characterCardLab';
 
 export default function Page2Workspace({
-  fieldConfig,
-  fieldOptions,
+  characterCards,
   profile,
   setProfile,
-  profileSummary,
-  profileAnchor,
-  viewPrompts,
-  identityPrompt,
-  masterPrompt,
-  coreViewsBundle,
   promptBundle,
   onCopyText,
   onSaveCard,
+  onApplyToPage1,
 }) {
-  const promptCards = [
-    {
-      title: '角色摘要',
-      eyebrow: 'Summary',
-      value: profileSummary,
-      placeholder: '尚未選擇角色特徵。',
-      variant: 'summary',
-      description: '',
-      copyLabel: 'Character summary copied',
-    },
-    {
-      title: 'Face Anchor',
-      eyebrow: 'Anchor',
-      value: profileAnchor,
-      placeholder: '選擇五官與妝容後，這裡會生成角色鎖臉用的短錨點。',
-      description: '短版角色錨點，適合快速貼入其他 prompt 中穩定臉部與人物辨識。',
-      copyLabel: 'Face anchor copied',
-    },
-    {
-      title: 'Identity Prompt',
-      eyebrow: 'Reference',
-      value: identityPrompt,
-      placeholder: '這裡會生成強調同一人物身份一致性的 reference prompt。',
-      description: '強調同一人物身份、臉部特徵與妝容一致性，適合建立角色 reference。',
-      copyLabel: 'Identity prompt copied',
-    },
-    {
-      title: 'Master Sheet',
-      eyebrow: 'Sheet',
-      value: masterPrompt,
-      placeholder: '這裡會生成一張包含多視角的主 reference sheet prompt。',
-      description: '用多視角參考表整理角色外觀，適合先建立穩定可重複使用的角色基底。',
-      copyLabel: 'Master sheet prompt copied',
-    },
-    ...viewPrompts.map((item) => ({
-      title: item.label,
-      eyebrow: 'View',
-      value: item.prompt,
-      placeholder: `${item.label} reference prompt`,
-      description: '單一角度 reference prompt，可用來補強角色在特定視角下的穩定性。',
-      copyLabel: `${item.label} 參考 prompt 已複製`,
-    })),
-    {
-      title: 'Core Views Bundle',
-      eyebrow: 'Bundle',
-      value: coreViewsBundle,
-      placeholder: '這裡會整理正面、左右 45 度與正側面的核心角度 prompt。',
-      description: '集中整理核心角度，適合一次生成角色基礎 reference 組。',
-      copyLabel: 'Core views copied',
-    },
-    {
-      title: 'Prompt Bundle',
-      eyebrow: 'Complete',
-      value: promptBundle,
-      placeholder: '這裡會整理 Face Anchor、Master Sheet 與所有視角 prompt，方便一次複製。',
-      description: '完整角色建模 prompt 組合，適合保存或一次複製到外部流程。',
-      copyLabel: 'All Page2 prompts copied',
-    },
-  ];
+  const activeCard = resolveCharacterCard(characterCards, profile.characterProfileId);
+  const hairVariants = useMemo(() => getCompatibleHairVariants(activeCard), [activeCard]);
+  const layerEntries = CHARACTER_CARD_LAYER_KEYS
+    .map((key) => activeCard?.defaultWardrobeLayers?.[key])
+    .filter(Boolean);
+  const includedLayers = new Set(profile.includedWardrobeLayers || []);
+  const outputs = promptBundle.outputs || [];
+
+  const updateProfile = (patch) => {
+    setProfile((prev) => normalizeCharacterCardVariant({ ...prev, ...patch }, characterCards));
+  };
+
+  const toggleLayer = (layerKey) => {
+    const next = includedLayers.has(layerKey)
+      ? profile.includedWardrobeLayers.filter((key) => key !== layerKey)
+      : [...profile.includedWardrobeLayers, layerKey];
+    updateProfile({
+      includedWardrobeLayers: next,
+      outputMode: next.length > 0 ? 'included-wardrobe' : 'pure-character',
+    });
+  };
 
   return (
-    <section className="page2-shell">
-      <section className="lock-panel page2-panel">
+    <section className="page2-shell character-card-lab-shell">
+      <section className="lock-panel page2-panel character-card-lab-editor">
         <div className="lock-panel-header">
           <div>
-            <div className="lock-title">Page2 Character Profile</div>
-            <p className="lock-subtitle">用簡潔的五官與妝容選項，先建立穩定可重複使用的角色。</p>
+            <div className="lock-title">Character Card Lab</div>
+            <p className="lock-subtitle">選擇內建角色卡，設定髮型變化與要匯回 PAGE1 的預設服裝 layer。</p>
           </div>
         </div>
 
         <div className="control-section">
           <div className="control-section-header">
-            <div className="control-section-title">Face Builder</div>
+            <div className="control-section-title">角色卡</div>
           </div>
-          <div className="lock-grid detail-lock-grid">
-            {fieldConfig.map((field) => (
-              <label key={field.key} className="field">
-                <span>{field.label}</span>
-                <select
-                  className={!profile[field.key] ? 'select-muted' : ''}
-                  value={profile[field.key]}
-                  onChange={(event) => setProfile((prev) => ({ ...prev, [field.key]: event.target.value }))}
-                >
-                  {fieldOptions[field.key].map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.zh}
-                    </option>
-                  ))}
-                </select>
-              </label>
+          <div className="character-card-grid">
+            {characterCards.map((card) => (
+              <button
+                key={card.id}
+                type="button"
+                className={profile.characterProfileId === card.id ? 'character-card-option active' : 'character-card-option'}
+                onClick={() => updateProfile({
+                  characterProfileId: card.id,
+                  hairVariantId: 'default',
+                  includedWardrobeLayers: Object.keys(card.defaultWardrobeLayers),
+                  outputMode: 'included-wardrobe',
+                })}
+              >
+                {card.primaryReferenceImage ? (
+                  <img src={`${import.meta.env.BASE_URL}${card.primaryReferenceImage}`} alt={card.label} />
+                ) : null}
+                <span>{card.label}</span>
+              </button>
             ))}
           </div>
         </div>
 
+        {activeCard ? (
+          <>
+            <div className="control-section">
+              <div className="control-section-header">
+                <div className="control-section-title">人物與髮型</div>
+              </div>
+              <div className="character-card-summary">
+                <strong>{activeCard.label}</strong>
+                <p>{activeCard.identityAndBody}</p>
+                <p>{activeCard.baseHair}</p>
+              </div>
+              <label className="field">
+                <span>髮型變化</span>
+                <select value={profile.hairVariantId} onChange={(event) => updateProfile({ hairVariantId: event.target.value })}>
+                  {hairVariants.map((variant) => (
+                    <option key={variant.id} value={variant.id}>{variant.label}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            <div className="control-section">
+              <div className="control-section-header">
+                <div className="control-section-title">服裝帶入 PAGE1</div>
+              </div>
+              <div className="character-card-layer-list">
+                {layerEntries.map((layer) => (
+                  <button
+                    key={layer.key}
+                    type="button"
+                    className={includedLayers.has(layer.key) ? 'character-card-layer active' : 'character-card-layer'}
+                    onClick={() => toggleLayer(layer.key)}
+                  >
+                    <span>{layer.label}</span>
+                    <small>{layer.prompt}</small>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="control-section">
+              <div className="control-section-header">
+                <div className="control-section-title">進階 Prompt Override</div>
+              </div>
+              <label className="field">
+                <span>臨時角色描述</span>
+                <textarea
+                  className="text-input page2-prompt-textarea"
+                  rows={4}
+                  value={profile.promptOverrideText}
+                  onChange={(event) => updateProfile({ promptOverrideText: event.target.value })}
+                  placeholder="可留空。填寫後會作為本次角色卡變體的臨時補充描述匯回 PAGE1。"
+                />
+              </label>
+            </div>
+          </>
+        ) : null}
+
         <div className="control-actions">
           <div className="control-actions-main">
-            <button className="primary-cta" onClick={onSaveCard} disabled={!promptBundle}>
+            <button className="primary-cta" onClick={onApplyToPage1} disabled={!activeCard}>
+              匯回 PAGE1
+            </button>
+            <button className="secondary" onClick={onSaveCard} disabled={!outputs.length}>
               加入 Saved Cards
             </button>
           </div>
@@ -122,28 +148,31 @@ export default function Page2Workspace({
       <section className="lock-panel page2-output-panel reference-output-panel">
         <div className="reference-output-header">
           <div>
-            <div className="control-section-title">Reference Outputs</div>
-            <p className="workspace-panel-copy">右側集中整理可複製、可保存的角色 reference prompt。</p>
+            <div className="control-section-title">Character Card Outputs</div>
+            <p className="workspace-panel-copy">六組 prompt 可複製使用，也可交給 DLL PIC Pro 直接生成角色 reference。</p>
           </div>
-          <span className="reference-output-count">{promptCards.length} outputs</span>
+          <span className="reference-output-count">{outputs.length} outputs</span>
         </div>
         <div className="prompt-preview-grid">
-          {promptCards.map((card, index) => (
+          {outputs.map((card, index) => (
             <PromptPreviewCard
-              key={card.title}
-              {...card}
-              fullWidth={promptCards.length % 2 === 1 && index === promptCards.length - 1}
-              onCopy={(text) => onCopyText(card.copyLabel, text)}
+              key={card.id}
+              title={card.label}
+              eyebrow="Character"
+              value={card.value}
+              placeholder={`${card.label} 尚未生成`}
+              description=""
+              copyLabel={`${card.label} copied`}
+              fullWidth={outputs.length % 2 === 1 && index === outputs.length - 1}
+              onCopy={(text) => onCopyText(`${card.label} copied`, text)}
             />
           ))}
         </div>
         <DllPicProPanel
           title="DLL_PIC Pro"
-          description="用角色建模 prompt 直接生成 reference image。"
-          promptSources={promptCards
-            .filter((card) => card.value)
-            .map((card) => ({ id: card.title, label: card.title, value: card.value }))}
-          defaultSourceId="Master Sheet"
+          description="用角色卡 prompt 直接生成大頭照、四視圖或全身 reference。"
+          promptSources={outputs.map((output) => ({ id: output.id, label: output.label, value: output.value }))}
+          defaultSourceId="full-body-reference"
         />
       </section>
     </section>

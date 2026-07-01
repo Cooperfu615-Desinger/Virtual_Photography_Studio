@@ -3085,3 +3085,61 @@ button:disabled {
     width: auto;
   }
 }
+
+.character-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.character-card-option,
+.character-card-layer {
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: inherit;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: left;
+}
+
+.character-card-option.active,
+.character-card-layer.active {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.character-card-option img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.character-card-summary {
+  display: grid;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+.character-card-summary strong {
+  color: var(--text-primary);
+}
+
+.character-card-layer-list {
+  display: grid;
+  gap: 8px;
+}
+
+.character-card-layer span {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.character-card-layer small {
+  display: block;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
