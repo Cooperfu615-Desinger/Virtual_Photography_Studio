@@ -1661,11 +1661,12 @@ export default function App() {
   };
 
   const handleApplyPage2CharacterCard = useCallback(() => {
-    const nextLocks = buildPage1LocksFromCharacterCardVariant(locks, normalizedPage2Profile, characterCards);
-    updateLocks(() => normalizeLocks(nextLocks));
+    updateLocks((prevLocks) => normalizeLocks(
+      buildPage1LocksFromCharacterCardVariant(prevLocks, normalizedPage2Profile, characterCards)
+    ));
     setPageMode('page1');
     showToast('角色卡設定已匯回 PAGE1');
-  }, [characterCards, locks, normalizedPage2Profile, showToast, updateLocks]);
+  }, [characterCards, normalizedPage2Profile, showToast, updateLocks]);
 
   const handleSavePage2Card = useCallback(() => {
     if (!page2PromptBundle.outputs.length) {

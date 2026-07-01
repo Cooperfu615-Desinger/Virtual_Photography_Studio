@@ -397,3 +397,115 @@ test('structured apply clears PAGE1 same-layer choices only for included card la
   assert.equal(nextLocks.locationId, 'scene:anything');
   assert.equal(nextLocks.poseId, 'pose:anything');
 });
+
+test('structured apply treats pure-character variants as no wardrobe layers', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const prevLocks = {
+    ...createEmptyLocks(),
+    topId: 'wardrobe:上身-tops:cropped-tee',
+    pantsId: 'wardrobe:褲裝-pants:wide-jeans',
+    skirtId: 'wardrobe:裙裝-skirts:denim-mini',
+    specialOutfitId: 'wardrobe:特殊服裝-special-outfits:look-01',
+    locationId: 'scene:anything',
+    poseId: 'pose:anything',
+  };
+  const nextLocks = buildPage1LocksFromCharacterCardVariant(prevLocks, {
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['top', 'bottom'],
+    outputMode: 'pure-character',
+  }, cards);
+
+  assert.equal(nextLocks.characterProfileId, 'character-rika');
+  assert.deepEqual(nextLocks.characterCardWardrobeLayerIds, []);
+  assert.equal(nextLocks.topId, 'wardrobe:上身-tops:cropped-tee');
+  assert.equal(nextLocks.pantsId, 'wardrobe:褲裝-pants:wide-jeans');
+  assert.equal(nextLocks.skirtId, 'wardrobe:裙裝-skirts:denim-mini');
+  assert.equal(nextLocks.specialOutfitId, 'wardrobe:特殊服裝-special-outfits:look-01');
+  assert.equal(nextLocks.locationId, 'scene:anything');
+  assert.equal(nextLocks.poseId, 'pose:anything');
+});
+
+test('structured apply for top clears full-look and dress conflicts only', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const prevLocks = {
+    ...createEmptyLocks(),
+    topId: 'wardrobe:上身-tops:cropped-tee',
+    topFitId: 'wardrobe:上身版型-top-fit:slim',
+    dressId: 'wardrobe:洋裝-dresses:black-mini',
+    dressColorId: 'color:red',
+    specialOutfitId: 'wardrobe:特殊服裝-special-outfits:look-01',
+    outfitPresetId: 'wardrobe:套裝-outfit-presets:look-01',
+    outfitPresetColorId: 'color:black',
+    outfitPresetPrimaryColorId: 'color:white',
+    outfitPresetContrastColorId: 'color:red',
+    outfitPresetLockedPaletteId: 'palette:anything',
+    completeLookPaletteId: 'palette:complete-look',
+    topBottomPaletteId: 'palette:top-bottom',
+    shoesId: 'wardrobe:鞋款-shoes:heels',
+    neckAccessoryId: 'wardrobe:頸部配件-neck-accessories:thin-necklace',
+    locationId: 'scene:anything',
+    poseId: 'pose:anything',
+  };
+  const nextLocks = buildPage1LocksFromCharacterCardVariant(prevLocks, {
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['top'],
+  }, cards);
+
+  assert.deepEqual(nextLocks.characterCardWardrobeLayerIds, ['top']);
+  assert.equal(nextLocks.topId, '');
+  assert.equal(nextLocks.topFitId, '');
+  assert.equal(nextLocks.dressId, '');
+  assert.equal(nextLocks.dressColorId, '');
+  assert.equal(nextLocks.specialOutfitId, '');
+  assert.equal(nextLocks.outfitPresetId, '');
+  assert.equal(nextLocks.outfitPresetColorId, '');
+  assert.equal(nextLocks.outfitPresetPrimaryColorId, '');
+  assert.equal(nextLocks.outfitPresetContrastColorId, '');
+  assert.equal(nextLocks.outfitPresetLockedPaletteId, '');
+  assert.equal(nextLocks.completeLookPaletteId, '');
+  assert.equal(nextLocks.topBottomPaletteId, '');
+  assert.equal(nextLocks.shoesId, 'wardrobe:鞋款-shoes:heels');
+  assert.equal(nextLocks.neckAccessoryId, 'wardrobe:頸部配件-neck-accessories:thin-necklace');
+  assert.equal(nextLocks.locationId, 'scene:anything');
+  assert.equal(nextLocks.poseId, 'pose:anything');
+});
+
+test('structured apply for dress clears top bottom and full-look conflicts', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const prevLocks = {
+    ...createEmptyLocks(),
+    topId: 'wardrobe:上身-tops:cropped-tee',
+    topFitId: 'wardrobe:上身版型-top-fit:slim',
+    topColorId: 'color:white',
+    pantsId: 'wardrobe:褲裝-pants:wide-jeans',
+    skirtId: 'wardrobe:裙裝-skirts:denim-mini',
+    bottomFitId: 'wardrobe:下身版型-bottom-fit:relaxed',
+    bottomColorId: 'color:blue',
+    specialOutfitId: 'wardrobe:特殊服裝-special-outfits:look-01',
+    outfitPresetId: 'wardrobe:套裝-outfit-presets:look-01',
+    completeLookPaletteId: 'palette:complete-look',
+    topBottomPaletteId: 'palette:top-bottom',
+    shoesId: 'wardrobe:鞋款-shoes:heels',
+  };
+  const nextLocks = buildPage1LocksFromCharacterCardVariant(prevLocks, {
+    characterProfileId: 'character-philippa',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['dress'],
+  }, cards);
+
+  assert.deepEqual(nextLocks.characterCardWardrobeLayerIds, ['dress']);
+  assert.equal(nextLocks.topId, '');
+  assert.equal(nextLocks.topFitId, '');
+  assert.equal(nextLocks.topColorId, '');
+  assert.equal(nextLocks.pantsId, '');
+  assert.equal(nextLocks.skirtId, '');
+  assert.equal(nextLocks.bottomFitId, '');
+  assert.equal(nextLocks.bottomColorId, '');
+  assert.equal(nextLocks.specialOutfitId, '');
+  assert.equal(nextLocks.outfitPresetId, '');
+  assert.equal(nextLocks.completeLookPaletteId, '');
+  assert.equal(nextLocks.topBottomPaletteId, '');
+  assert.equal(nextLocks.shoesId, 'wardrobe:鞋款-shoes:heels');
+});
