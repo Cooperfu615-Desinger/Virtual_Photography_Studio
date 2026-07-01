@@ -316,3 +316,34 @@ test('saved card ignores semantically invalid bundle character and hair ids', ()
   assert.match(combined, /sleek wet-look swept-back finish/i);
   assert.doesNotMatch(combined, /11_Rika|keep the original character hair identity unchanged|sage-mint green|short shorts|bare feet/i);
 });
+
+test('saved card trims valid bundle character and hair ids before writing them back', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const rawVariant = {
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: [],
+    outputMode: 'pure-character',
+  };
+  const card = buildCharacterCardSavedCard(cards, rawVariant, {
+    variant: {
+      characterProfileId: ' character-hina ',
+      hairVariantId: ' slicked-back-wet-look ',
+    },
+    outputs: 'not-an-array',
+  });
+  const combined = [
+    card.grokPrompt,
+    card.zImagePrompt,
+    card.midjourneyPrompt,
+    ...card.extraPrompts.map((output) => output.text),
+  ].join('\n');
+
+  assert.equal(card.profile.characterProfileId, 'character-hina');
+  assert.equal(card.profile.hairVariantId, 'slicked-back-wet-look');
+  assert.equal(card.summaryFields.characterDna, '37_Hina');
+  assert.equal(card.summaryFields.wardrobe, '純人物');
+  assert.match(combined, /37_Hina/i);
+  assert.match(combined, /sleek wet-look swept-back finish/i);
+  assert.doesNotMatch(combined, /11_Rika|keep the original character hair identity unchanged|sage-mint green|short shorts|bare feet/i);
+});

@@ -386,7 +386,7 @@ function mergeBundleVariantInput(rawVariant, bundleVariant, cards) {
     ? bundleVariant.characterProfileId.trim()
     : '';
   if (bundleCharacterId && resolveCharacterCard(cards, bundleCharacterId)?.id === bundleCharacterId) {
-    merged.characterProfileId = bundleVariant.characterProfileId;
+    merged.characterProfileId = bundleCharacterId;
   }
 
   const effectiveCard = resolveCharacterCard(cards, merged.characterProfileId);
@@ -394,7 +394,7 @@ function mergeBundleVariantInput(rawVariant, bundleVariant, cards) {
     ? bundleVariant.hairVariantId.trim()
     : '';
   if (bundleHairId && getCompatibleHairVariants(effectiveCard).some((hairVariant) => hairVariant.id === bundleHairId)) {
-    merged.hairVariantId = bundleVariant.hairVariantId;
+    merged.hairVariantId = bundleHairId;
   }
   if (Array.isArray(bundleVariant.includedWardrobeLayers)) {
     merged.includedWardrobeLayers = bundleVariant.includedWardrobeLayers;
