@@ -1,8 +1,8 @@
 # PAGE1 單件服飾與配件資料庫 QA 審核
 
-審核日期：2026-07-01  
-審核角色：QA / 文案一致性檢查  
-最高現況依據：`Docs/current_project_state.md`  
+審核日期：2026-07-01
+審核角色：QA / 文案一致性檢查
+最高現況依據：`Docs/current_project_state.md`
 本次不直接修改 pipeline，也不直接改動 wardrobe source data；此文件只列出問題與建議修正文案。
 
 ## 審核範圍
