@@ -1,4 +1,5 @@
 .DS_Store
+.worktrees/
 webapp/dist
 webapp/node_modules
 functions/node_modules
