@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, getLockControls } from './engine.js';
+import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 import {
   buildCharacterCardPromptBundle,
   buildCharacterCardSavedCard,
@@ -13,6 +13,59 @@ import {
   normalizeCharacterCardVariant,
   resolveCharacterCard,
 } from './characterCardLab.js';
+
+const EXPECTED_NONE_LOCK_IDS = {
+  specialOutfitId: 'wardrobe:特殊穿搭-special-outfits:全無:0',
+  outfitPresetId: 'outfit-preset-none',
+  outfitPresetColorId: 'none',
+  outfitPresetPrimaryColorId: 'none',
+  outfitPresetContrastColorId: 'none',
+  outfitPresetLockedPaletteId: 'none',
+  completeLookPaletteId: 'none',
+  topBottomPaletteId: 'none',
+  dressId: 'wardrobe:連身-dresses:全無:0',
+  dressColorId: 'none',
+  topId: 'wardrobe:上身-tops:全無:0',
+  topFitId: 'none',
+  topStylingId: 'none',
+  topColorId: 'none',
+  topPatternId: 'wardrobe:上身圖案-top-surface-design:全無:0',
+  pantsId: 'wardrobe:褲裝-pants:全無:0',
+  skirtId: 'wardrobe:裙裝-skirts:全無:0',
+  bottomFitId: 'none',
+  bottomRiseId: 'none',
+  bottomColorId: 'none',
+  bottomPatternId: 'wardrobe:下身圖案-bottom-surface-design:全無:0',
+  outerwearId: 'wardrobe:外套-outerwear:全無:0',
+  outerwearFitId: 'wardrobe:外套版型-outerwear-fit:全無:0',
+  outerwearColorId: 'none',
+  outerwearPatternId: 'wardrobe:外套圖案-outerwear-surface-design:全無:0',
+  outerwearOpeningId: 'wardrobe:外套開合-outerwear-opening:全無:0',
+  outerwearStylingId: 'wardrobe:外套穿法-outerwear-styling:全無:0',
+  shoesId: 'wardrobe:鞋款-shoes:全無:0',
+  shoesColorId: 'none',
+  headAccessoryId: 'wardrobe:頭部配件-head-accessories:全無:0',
+  eyewearId: 'wardrobe:眼鏡-eyewear:全無:0',
+  eyewearColorId: 'wardrobe:眼鏡配色-eyewear-color:全無:0',
+  earringsId: 'wardrobe:耳環-earrings:全無:0',
+  neckAccessoryId: 'wardrobe:頸部-neck-accessories:全無:0',
+};
+
+function nonNoneOptionId(controlKey) {
+  const control = getLockControls().find((entry) => entry.key === controlKey);
+  assert.ok(control, `Expected control ${controlKey}`);
+  const option = control.options.find((entry) => entry.id !== 'random' && entry.zh !== '全無');
+  assert.ok(option, `Expected non-none option in ${controlKey}`);
+  return option.id;
+}
+
+function wardrobeIds(prompt) {
+  return prompt.structured.Wardrobe.map((item) => item.id || '');
+}
+
+function hasNonNoneWardrobePrefix(prompt, prefix) {
+  return wardrobeIds(prompt).some((id) => id.startsWith(prefix) && !id.includes(':全無:'));
+}
 
 test('character card options are read from PAGE1 character profile control', () => {
   const cards = getCharacterCardOptions(getLockControls());
@@ -389,9 +442,9 @@ test('structured apply clears PAGE1 same-layer choices only for included card la
   assert.equal(nextLocks.characterCardHairVariantId, 'low-ponytail');
   assert.equal(nextLocks.characterCardWardrobeMode, 'selected-layers');
   assert.deepEqual(nextLocks.characterCardWardrobeLayerIds, ['top', 'bottom']);
-  assert.equal(nextLocks.topId, '');
-  assert.equal(nextLocks.pantsId, '');
-  assert.equal(nextLocks.skirtId, '');
+  assert.equal(nextLocks.topId, EXPECTED_NONE_LOCK_IDS.topId);
+  assert.equal(nextLocks.pantsId, EXPECTED_NONE_LOCK_IDS.pantsId);
+  assert.equal(nextLocks.skirtId, EXPECTED_NONE_LOCK_IDS.skirtId);
   assert.equal(nextLocks.shoesId, 'wardrobe:鞋款-shoes:heels');
   assert.equal(nextLocks.neckAccessoryId, 'wardrobe:頸部配件-neck-accessories:thin-necklace');
   assert.equal(nextLocks.locationId, 'scene:anything');
@@ -405,7 +458,7 @@ test('structured apply treats pure-character variants as no wardrobe layers', ()
     topId: 'wardrobe:上身-tops:cropped-tee',
     pantsId: 'wardrobe:褲裝-pants:wide-jeans',
     skirtId: 'wardrobe:裙裝-skirts:denim-mini',
-    specialOutfitId: 'wardrobe:特殊服裝-special-outfits:look-01',
+    specialOutfitId: nonNoneOptionId('specialOutfitId'),
     locationId: 'scene:anything',
     poseId: 'pose:anything',
   };
@@ -421,7 +474,7 @@ test('structured apply treats pure-character variants as no wardrobe layers', ()
   assert.equal(nextLocks.topId, 'wardrobe:上身-tops:cropped-tee');
   assert.equal(nextLocks.pantsId, 'wardrobe:褲裝-pants:wide-jeans');
   assert.equal(nextLocks.skirtId, 'wardrobe:裙裝-skirts:denim-mini');
-  assert.equal(nextLocks.specialOutfitId, 'wardrobe:特殊服裝-special-outfits:look-01');
+  assert.equal(nextLocks.specialOutfitId, prevLocks.specialOutfitId);
   assert.equal(nextLocks.locationId, 'scene:anything');
   assert.equal(nextLocks.poseId, 'pose:anything');
 });
@@ -432,10 +485,10 @@ test('structured apply for top clears full-look and dress conflicts only', () =>
     ...createEmptyLocks(),
     topId: 'wardrobe:上身-tops:cropped-tee',
     topFitId: 'wardrobe:上身版型-top-fit:slim',
-    dressId: 'wardrobe:洋裝-dresses:black-mini',
+    dressId: nonNoneOptionId('dressId'),
     dressColorId: 'color:red',
-    specialOutfitId: 'wardrobe:特殊服裝-special-outfits:look-01',
-    outfitPresetId: 'wardrobe:套裝-outfit-presets:look-01',
+    specialOutfitId: nonNoneOptionId('specialOutfitId'),
+    outfitPresetId: nonNoneOptionId('outfitPresetId'),
     outfitPresetColorId: 'color:black',
     outfitPresetPrimaryColorId: 'color:white',
     outfitPresetContrastColorId: 'color:red',
@@ -454,18 +507,18 @@ test('structured apply for top clears full-look and dress conflicts only', () =>
   }, cards);
 
   assert.deepEqual(nextLocks.characterCardWardrobeLayerIds, ['top']);
-  assert.equal(nextLocks.topId, '');
-  assert.equal(nextLocks.topFitId, '');
-  assert.equal(nextLocks.dressId, '');
-  assert.equal(nextLocks.dressColorId, '');
-  assert.equal(nextLocks.specialOutfitId, '');
-  assert.equal(nextLocks.outfitPresetId, '');
-  assert.equal(nextLocks.outfitPresetColorId, '');
-  assert.equal(nextLocks.outfitPresetPrimaryColorId, '');
-  assert.equal(nextLocks.outfitPresetContrastColorId, '');
-  assert.equal(nextLocks.outfitPresetLockedPaletteId, '');
-  assert.equal(nextLocks.completeLookPaletteId, '');
-  assert.equal(nextLocks.topBottomPaletteId, '');
+  assert.equal(nextLocks.topId, EXPECTED_NONE_LOCK_IDS.topId);
+  assert.equal(nextLocks.topFitId, EXPECTED_NONE_LOCK_IDS.topFitId);
+  assert.equal(nextLocks.dressId, EXPECTED_NONE_LOCK_IDS.dressId);
+  assert.equal(nextLocks.dressColorId, EXPECTED_NONE_LOCK_IDS.dressColorId);
+  assert.equal(nextLocks.specialOutfitId, EXPECTED_NONE_LOCK_IDS.specialOutfitId);
+  assert.equal(nextLocks.outfitPresetId, EXPECTED_NONE_LOCK_IDS.outfitPresetId);
+  assert.equal(nextLocks.outfitPresetColorId, EXPECTED_NONE_LOCK_IDS.outfitPresetColorId);
+  assert.equal(nextLocks.outfitPresetPrimaryColorId, EXPECTED_NONE_LOCK_IDS.outfitPresetPrimaryColorId);
+  assert.equal(nextLocks.outfitPresetContrastColorId, EXPECTED_NONE_LOCK_IDS.outfitPresetContrastColorId);
+  assert.equal(nextLocks.outfitPresetLockedPaletteId, EXPECTED_NONE_LOCK_IDS.outfitPresetLockedPaletteId);
+  assert.equal(nextLocks.completeLookPaletteId, EXPECTED_NONE_LOCK_IDS.completeLookPaletteId);
+  assert.equal(nextLocks.topBottomPaletteId, EXPECTED_NONE_LOCK_IDS.topBottomPaletteId);
   assert.equal(nextLocks.shoesId, 'wardrobe:鞋款-shoes:heels');
   assert.equal(nextLocks.neckAccessoryId, 'wardrobe:頸部配件-neck-accessories:thin-necklace');
   assert.equal(nextLocks.locationId, 'scene:anything');
@@ -483,8 +536,8 @@ test('structured apply for dress clears top bottom and full-look conflicts', () 
     skirtId: 'wardrobe:裙裝-skirts:denim-mini',
     bottomFitId: 'wardrobe:下身版型-bottom-fit:relaxed',
     bottomColorId: 'color:blue',
-    specialOutfitId: 'wardrobe:特殊服裝-special-outfits:look-01',
-    outfitPresetId: 'wardrobe:套裝-outfit-presets:look-01',
+    specialOutfitId: nonNoneOptionId('specialOutfitId'),
+    outfitPresetId: nonNoneOptionId('outfitPresetId'),
     completeLookPaletteId: 'palette:complete-look',
     topBottomPaletteId: 'palette:top-bottom',
     shoesId: 'wardrobe:鞋款-shoes:heels',
@@ -496,16 +549,58 @@ test('structured apply for dress clears top bottom and full-look conflicts', () 
   }, cards);
 
   assert.deepEqual(nextLocks.characterCardWardrobeLayerIds, ['dress']);
-  assert.equal(nextLocks.topId, '');
-  assert.equal(nextLocks.topFitId, '');
-  assert.equal(nextLocks.topColorId, '');
-  assert.equal(nextLocks.pantsId, '');
-  assert.equal(nextLocks.skirtId, '');
-  assert.equal(nextLocks.bottomFitId, '');
-  assert.equal(nextLocks.bottomColorId, '');
-  assert.equal(nextLocks.specialOutfitId, '');
-  assert.equal(nextLocks.outfitPresetId, '');
-  assert.equal(nextLocks.completeLookPaletteId, '');
-  assert.equal(nextLocks.topBottomPaletteId, '');
+  assert.equal(nextLocks.topId, EXPECTED_NONE_LOCK_IDS.topId);
+  assert.equal(nextLocks.topFitId, EXPECTED_NONE_LOCK_IDS.topFitId);
+  assert.equal(nextLocks.topColorId, EXPECTED_NONE_LOCK_IDS.topColorId);
+  assert.equal(nextLocks.pantsId, EXPECTED_NONE_LOCK_IDS.pantsId);
+  assert.equal(nextLocks.skirtId, EXPECTED_NONE_LOCK_IDS.skirtId);
+  assert.equal(nextLocks.bottomFitId, EXPECTED_NONE_LOCK_IDS.bottomFitId);
+  assert.equal(nextLocks.bottomColorId, EXPECTED_NONE_LOCK_IDS.bottomColorId);
+  assert.equal(nextLocks.specialOutfitId, EXPECTED_NONE_LOCK_IDS.specialOutfitId);
+  assert.equal(nextLocks.outfitPresetId, EXPECTED_NONE_LOCK_IDS.outfitPresetId);
+  assert.equal(nextLocks.completeLookPaletteId, EXPECTED_NONE_LOCK_IDS.completeLookPaletteId);
+  assert.equal(nextLocks.topBottomPaletteId, EXPECTED_NONE_LOCK_IDS.topBottomPaletteId);
   assert.equal(nextLocks.shoesId, 'wardrobe:鞋款-shoes:heels');
+});
+
+test('structured apply none-locks prevent random full-look conflicts in generated prompts', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const rikaTopLocks = normalizeLocks(buildPage1LocksFromCharacterCardVariant({
+    ...createEmptyLocks(),
+    specialOutfitId: nonNoneOptionId('specialOutfitId'),
+    outfitPresetId: nonNoneOptionId('outfitPresetId'),
+    dressId: nonNoneOptionId('dressId'),
+    completeLookPaletteId: 'random',
+    topBottomPaletteId: 'random',
+  }, {
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['top'],
+  }, cards));
+  const rikaPrompts = generatePrompts(20, rikaTopLocks);
+
+  rikaPrompts.forEach((prompt) => {
+    assert.ok(wardrobeIds(prompt).includes('character-card-layer:character-rika:top'));
+    assert.equal(hasNonNoneWardrobePrefix(prompt, 'wardrobe:套裝-outfit-presets:'), false);
+    assert.equal(hasNonNoneWardrobePrefix(prompt, 'wardrobe:特殊穿搭-special-outfits:'), false);
+    assert.equal(hasNonNoneWardrobePrefix(prompt, 'wardrobe:連身-dresses:'), false);
+  });
+
+  const philippaDressLocks = normalizeLocks(buildPage1LocksFromCharacterCardVariant({
+    ...createEmptyLocks(),
+    specialOutfitId: nonNoneOptionId('specialOutfitId'),
+    outfitPresetId: nonNoneOptionId('outfitPresetId'),
+    completeLookPaletteId: 'random',
+  }, {
+    characterProfileId: 'character-philippa',
+    hairVariantId: 'default',
+    includedWardrobeLayers: ['dress'],
+  }, cards));
+  const philippaPrompts = generatePrompts(10, philippaDressLocks);
+
+  philippaPrompts.forEach((prompt) => {
+    assert.ok(wardrobeIds(prompt).includes('character-card-layer:character-philippa:dress'));
+    assert.equal(hasNonNoneWardrobePrefix(prompt, 'wardrobe:套裝-outfit-presets:'), false);
+    assert.equal(hasNonNoneWardrobePrefix(prompt, 'wardrobe:特殊穿搭-special-outfits:'), false);
+  });
 });

@@ -486,6 +486,43 @@ const PAGE1_TOP_CLEAR_KEYS = ['topId', 'topFitId', 'topStylingId', 'topColorId',
 const PAGE1_BOTTOM_CLEAR_KEYS = ['pantsId', 'skirtId', 'bottomFitId', 'bottomRiseId', 'bottomColorId', 'bottomPatternId'];
 const PAGE1_DRESS_CLEAR_KEYS = ['dressId', 'dressColorId'];
 
+const PAGE1_NONE_LOCK_IDS = {
+  specialOutfitId: 'wardrobe:特殊穿搭-special-outfits:全無:0',
+  outfitPresetId: 'outfit-preset-none',
+  outfitPresetColorId: 'none',
+  outfitPresetPrimaryColorId: 'none',
+  outfitPresetContrastColorId: 'none',
+  outfitPresetLockedPaletteId: 'none',
+  completeLookPaletteId: 'none',
+  topBottomPaletteId: 'none',
+  dressId: 'wardrobe:連身-dresses:全無:0',
+  dressColorId: 'none',
+  topId: 'wardrobe:上身-tops:全無:0',
+  topFitId: 'none',
+  topStylingId: 'none',
+  topColorId: 'none',
+  topPatternId: 'wardrobe:上身圖案-top-surface-design:全無:0',
+  pantsId: 'wardrobe:褲裝-pants:全無:0',
+  skirtId: 'wardrobe:裙裝-skirts:全無:0',
+  bottomFitId: 'none',
+  bottomRiseId: 'none',
+  bottomColorId: 'none',
+  bottomPatternId: 'wardrobe:下身圖案-bottom-surface-design:全無:0',
+  outerwearId: 'wardrobe:外套-outerwear:全無:0',
+  outerwearFitId: 'wardrobe:外套版型-outerwear-fit:全無:0',
+  outerwearColorId: 'none',
+  outerwearPatternId: 'wardrobe:外套圖案-outerwear-surface-design:全無:0',
+  outerwearOpeningId: 'wardrobe:外套開合-outerwear-opening:全無:0',
+  outerwearStylingId: 'wardrobe:外套穿法-outerwear-styling:全無:0',
+  shoesId: 'wardrobe:鞋款-shoes:全無:0',
+  shoesColorId: 'none',
+  headAccessoryId: 'wardrobe:頭部配件-head-accessories:全無:0',
+  eyewearId: 'wardrobe:眼鏡-eyewear:全無:0',
+  eyewearColorId: 'wardrobe:眼鏡配色-eyewear-color:全無:0',
+  earringsId: 'wardrobe:耳環-earrings:全無:0',
+  neckAccessoryId: 'wardrobe:頸部-neck-accessories:全無:0',
+};
+
 const PAGE1_LAYER_CLEAR_KEYS = {
   top: [...PAGE1_TOP_CLEAR_KEYS, ...PAGE1_DRESS_CLEAR_KEYS, ...PAGE1_FULL_LOOK_CLEAR_KEYS],
   bottom: [...PAGE1_BOTTOM_CLEAR_KEYS, ...PAGE1_DRESS_CLEAR_KEYS, ...PAGE1_FULL_LOOK_CLEAR_KEYS],
@@ -517,7 +554,7 @@ export function buildPage1LocksFromCharacterCardVariant(prevLocks = {}, rawVaria
 
   appliedLayerIds.forEach((layerKey) => {
     (PAGE1_LAYER_CLEAR_KEYS[layerKey] || []).forEach((lockKey) => {
-      next[lockKey] = Array.isArray(next[lockKey]) ? [] : '';
+      next[lockKey] = PAGE1_NONE_LOCK_IDS[lockKey] ?? (Array.isArray(next[lockKey]) ? [] : '');
     });
   });
 
