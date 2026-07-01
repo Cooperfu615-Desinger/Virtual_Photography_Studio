@@ -11,7 +11,9 @@ import {
   buildWardrobeLayerInsights,
   buildWorkspaceSummary,
   getControlOptionLabel,
+  normalizeCharacterCardLayerIds,
 } from '../lib/page1WorkspaceSummary.js';
+import { CHARACTER_CARD_LAYER_LABELS } from '../lib/characterCardLab.js';
 import { PAGE1_POSE_SUBPANELS, resolvePage1ActiveSubpanel } from '../lib/page1WorkspacePanels.js';
 import { randomizeLockKeys, setLockKeysToNone } from '../lib/page1SectionRandom.js';
 
@@ -139,21 +141,6 @@ const WARDROBE_GARMENT_CONTROL_DIVIDERS = {
   topAId: '上身單品',
   pantsId: '下身單品',
   pantsAId: '下身單品',
-};
-
-const CHARACTER_CARD_LAYER_DISPLAY = {
-  top: '上身',
-  bottom: '下身',
-  dress: '連身',
-  outerwear: '外套',
-  shoes: '鞋子',
-  headAccessory: '頭飾',
-  eyewear: '眼鏡',
-  earrings: '耳環',
-  neckAccessory: '脖子飾品',
-  wristAccessory: '手部飾品',
-  ring: '戒指',
-  waistAccessory: '腰部飾品',
 };
 
 const WORKSPACE_SECTIONS = [
@@ -700,8 +687,8 @@ export default function Page1Workspace({
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
   const isCharacterProfileMode = Boolean(characterProfileOption?.specialSubject);
   const isDedicatedSubjectMode = isSpecialSubjectMode || isCharacterProfileMode;
-  const importedCharacterCardLayers = Array.isArray(locks.characterCardWardrobeLayerIds)
-    ? locks.characterCardWardrobeLayerIds
+  const importedCharacterCardLayers = isCharacterProfileMode && !isSpecialSubjectMode
+    ? normalizeCharacterCardLayerIds(locks.characterCardWardrobeLayerIds)
     : [];
   const isAndroidSubjectMode = specialSubjectOption?.specialSubject === 'android';
   const resolvedActiveSubpanel = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { isSpecialSubjectMode: isDedicatedSubjectMode });
@@ -1185,10 +1172,10 @@ export default function Page1Workspace({
       ) : null}
       <WardrobeLayerPanel insights={wardrobeLayerInsights} />
       {activeSection === 'wardrobe' && importedCharacterCardLayers.length > 0 ? (
-        <div className="character-card-imported-layers" aria-label="Imported character card wardrobe layers">
+        <div className="character-card-imported-layers" aria-label="來自角色卡的穿搭層">
           {importedCharacterCardLayers.map((layerKey) => (
             <span key={layerKey} className="character-card-imported-layer">
-              來自角色卡｜{CHARACTER_CARD_LAYER_DISPLAY[layerKey] || layerKey}
+              來自角色卡｜{CHARACTER_CARD_LAYER_LABELS[layerKey]}
             </span>
           ))}
         </div>

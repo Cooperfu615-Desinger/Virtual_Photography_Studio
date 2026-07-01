@@ -113,6 +113,46 @@ test('workspace wardrobe summary and palette insights include complete look pale
   assert.match(insights.notes.join('\n'), /完整造型色系只調整/);
 });
 
+test('workspace wardrobe summary includes imported character-card layers when character profile is active', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    characterProfileId: 'character-rika',
+    characterCardWardrobeLayerIds: ['top', 'shoes'],
+  }, controls);
+
+  assert.equal(summary.wardrobe.summary, '角色卡上身 / 角色卡鞋子');
+});
+
+test('workspace wardrobe summary ignores stale character-card layers outside character profile mode', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    characterCardWardrobeLayerIds: ['top', 'bottom'],
+  }, controls);
+
+  assert.equal(summary.wardrobe.summary, '尚未形成明確選項');
+});
+
+test('workspace wardrobe summary suppresses character-card layers for true special subjects', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    specialSubjectId: 'white-skeleton',
+    characterProfileId: 'character-rika',
+    characterCardWardrobeLayerIds: ['top', 'bottom'],
+  }, controls);
+
+  assert.equal(summary.wardrobe.summary, '');
+});
+
+test('workspace wardrobe summary dedupes valid character-card layers in canonical order', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    characterProfileId: 'character-rika',
+    characterCardWardrobeLayerIds: ['bottom', 'unknown-layer', 'top', 'bottom', 'eyewear'],
+  }, controls);
+
+  assert.equal(summary.wardrobe.summary, '角色卡上身 / 角色卡下身 / 角色卡眼鏡');
+});
+
 test('workspace scene summary includes fixed composition set controls', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),

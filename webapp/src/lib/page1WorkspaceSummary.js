@@ -1,3 +1,5 @@
+import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
+
 export const OUTFIT_PRESET_COVERED_KEYS = new Set([
   'topId',
   'topFitId',
@@ -46,21 +48,6 @@ export const OUTFIT_PRESET_B_COVERED_KEYS = new Set([
   'bottomBPatternId',
 ]);
 
-const CHARACTER_CARD_LAYER_SUMMARY = {
-  top: '角色卡上身',
-  bottom: '角色卡下身',
-  dress: '角色卡連身',
-  outerwear: '角色卡外套',
-  shoes: '角色卡鞋子',
-  headAccessory: '角色卡頭飾',
-  eyewear: '角色卡眼鏡',
-  earrings: '角色卡耳環',
-  neckAccessory: '角色卡脖子飾品',
-  wristAccessory: '角色卡手部飾品',
-  ring: '角色卡戒指',
-  waistAccessory: '角色卡腰部飾品',
-};
-
 export function getControlOptionLabel(controls, key, value) {
   if (!value) return '';
   const control = controls.find((item) => item.key === key);
@@ -103,6 +90,12 @@ function getActiveOutfitPresets(locks, controls) {
   };
 }
 
+export function normalizeCharacterCardLayerIds(layerIds) {
+  if (!Array.isArray(layerIds)) return [];
+  const selectedLayers = new Set(layerIds);
+  return CHARACTER_CARD_LAYER_KEYS.filter((key) => selectedLayers.has(key));
+}
+
 export function buildWorkspaceSummary(locks, controls) {
   const subjectTypeLabel = getControlOptionLabel(controls, 'subjectCount', locks.subjectCount);
   const specialSubjectControl = controls.find((control) => control.key === 'specialSubjectId');
@@ -113,8 +106,8 @@ export function buildWorkspaceSummary(locks, controls) {
   const isCharacterProfileMode = Boolean(characterProfileOption?.specialSubject);
   const activeOutfitPresets = getActiveOutfitPresets(locks, controls);
   const wardrobeLabel = (key) => getEffectiveWardrobeOptionLabel(controls, locks, key, activeOutfitPresets);
-  const importedCharacterCardWardrobe = Array.isArray(locks.characterCardWardrobeLayerIds)
-    ? locks.characterCardWardrobeLayerIds.map((key) => CHARACTER_CARD_LAYER_SUMMARY[key]).filter(Boolean)
+  const importedCharacterCardWardrobe = isCharacterProfileMode && !isSpecialSubjectMode
+    ? normalizeCharacterCardLayerIds(locks.characterCardWardrobeLayerIds).map((key) => `角色卡${CHARACTER_CARD_LAYER_LABELS[key]}`)
     : [];
 
   const characterSummary = isSpecialSubjectMode
