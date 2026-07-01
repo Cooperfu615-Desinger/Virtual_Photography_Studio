@@ -21,6 +21,18 @@ function optionIdByRawId(controlKey, id) {
   return option.id;
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function gptSection(prompt, label) {
+  const sectionLabels = ['Image Type', 'Subject', 'Wardrobe', 'Pose and Composition', 'Scene', 'Lighting', 'Camera Look'];
+  const labelPattern = sectionLabels.map(escapeRegExp).join('|');
+  const match = prompt.grokPrompt.match(new RegExp(`(?:^|\\n\\n)${escapeRegExp(label)}:\\n([\\s\\S]*?)(?=\\n\\n(?:${labelPattern}):|\\n\\nmulti-cut sequence n=2|$)`));
+  assert.ok(match, `Expected ${label} section in Gpt prompt`);
+  return match[1].trim();
+}
+
 test('fixed composition controls expose fixed sets and fixed-set-only option groups', () => {
   assert.deepEqual(
     control('fixedCompositionSetId').options.map((entry) => entry.zh),
@@ -183,15 +195,12 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.grokPrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.grokPrompt, /large brown vintage Chesterfield leather sofa/);
   assert.match(prompt.grokPrompt, /approximately 3 to 4 meters away from the sofa/);
-  assert.match(prompt.grokPrompt, /selected camera angle and orbit may vary/);
   assert.match(prompt.grokPrompt, /low coffee table/);
-  assert.match(prompt.grokPrompt, /subject placement can vary across one primary zone within the fixed sofa set/);
-  assert.match(prompt.grokPrompt, /The sofa can support the subject or remain a background architecture anchor/);
-  assert.match(prompt.grokPrompt, /Avoid defaulting every result to a centered seated sofa pose/);
+  assert.match(prompt.grokPrompt, /The subject may interact with one primary zone such as sofa seating plane, floor plane in front of the sofa, coffee-table foreground, armrest edge, wall-side space, and decorative side area/);
   assert.match(prompt.grokPrompt, /shoulder-level camera/);
-  assert.match(prompt.grokPrompt, /315-degree front-right view, front three-quarter torso angle/);
-  assert.match(prompt.grokPrompt, /photographer-shot fixed set portrait/);
-  assert.match(prompt.grokPrompt, /confident powerful presence/);
+  assert.match(prompt.grokPrompt, /315-degree front-right view/);
+  assert.match(prompt.grokPrompt, /Photographer-shot fixed-set portrait/);
+  assert.match(prompt.grokPrompt, /Confident powerful presence/);
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*indoor warm night ambience/);
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*local warm practical-light pool on the subject/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Daido Moriyama/);
@@ -246,9 +255,9 @@ test('black velvet industrial sofa fixed composition shares sofa placement contr
   assert.match(prompt.grokPrompt, /aged dark wood or dark metal tabletop/);
   assert.match(prompt.grokPrompt, /compact brass or black-metal table lamp/);
   assert.match(prompt.grokPrompt, /approximately 3 to 4 meters away from the sofa/);
-  assert.match(prompt.grokPrompt, /subject on the floor plane near the sofa but off center/);
+  assert.match(prompt.grokPrompt, /Subject on the floor plane near the sofa but off center/);
   assert.match(prompt.grokPrompt, /shoulder-level camera/);
-  assert.match(prompt.grokPrompt, /315-degree front-right view, front three-quarter torso angle/);
+  assert.match(prompt.grokPrompt, /315-degree front-right view/);
   assert.match(prompt.grokPrompt, /preserve anchors: warm limewash plaster wall, black velvet sofa, wall-art or mirror zone, industrial coffee-table foreground/);
   assert.match(prompt.grokPrompt, /avoid raw concrete set, brown leather sofa, bare dry-branch decor, plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room/);
   assert.doesNotMatch(prompt.grokPrompt, /large brown vintage Chesterfield leather sofa/);
@@ -268,6 +277,41 @@ test('black velvet industrial sofa fixed composition shares sofa placement contr
   assert.match(prompt.midjourneyPrompt, /industrial low coffee table/);
 });
 
+test('Gpt fixed composition scene uses compact three-paragraph self-shot format', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '暖灰泥黑絲絨工業沙發棚'),
+    fixedSetPositionId: optionId('fixedSetPositionId', '自由場景互動'),
+    fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '自然自拍感'),
+    fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '模型自然發揮'),
+    angleId: optionId('angleId', '肩部高度鏡頭'),
+    orbitId: optionId('orbitId', '右側 270 度'),
+  });
+
+  const poseText = gptSection(prompt, 'Pose and Composition');
+  const sceneText = gptSection(prompt, 'Scene');
+  const sceneParagraphs = sceneText.split(/\n{2,}/).map((paragraph) => paragraph.trim()).filter(Boolean);
+
+  assert.equal(sceneParagraphs.length, 3);
+  assert.match(sceneParagraphs[0], /^The portrait takes place inside a real-scale compact editorial lounge set/);
+  assert.match(sceneParagraphs[0], /warm ivory limewash plaster wall/);
+  assert.match(sceneParagraphs[0], /large black velvet sofa/);
+  assert.match(sceneParagraphs[0], /industrial low coffee table/);
+  assert.match(sceneParagraphs[0], /3 to 4 meters away from the sofa/);
+
+  assert.match(sceneParagraphs[1], /The subject may interact with one primary zone such as sofa seating plane, floor plane in front of the sofa, coffee-table foreground, armrest edge, wall-side space, and decorative side area\./);
+  assert.match(sceneParagraphs[1], /For self-shot capture, allow close-lens proximity, off-center partial crop, and incomplete set visibility while keeping at least one selected anchor recognizable\./);
+  assert.match(sceneParagraphs[1], /Use shoulder-level camera and 270-degree right profile view within the fixed set\./);
+  assert.match(sceneParagraphs[1], /Natural body attitude and expression should align with the selected set position and capture mode\./);
+
+  assert.match(sceneParagraphs[2], /Keep the fixed lounge architecture stable; vary only subject placement, pose, crop, lighting, and mood\./);
+  assert.match(sceneParagraphs[2], /avoid raw concrete set, brown leather sofa, bare dry-branch decor, plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room\./);
+
+  assert.match(poseText, /allow imperfect self-shot framing/);
+  assert.doesNotMatch(sceneText, /Treat the fixed set as the primary composition|must not replace the set|collapse into a tight portrait|self-shot social composition feeling|let the image model choose/i);
+  assert.match(prompt.zImagePrompt, /self-shot social composition feeling/);
+});
+
 test('hotel and bathtub fixed compositions preserve camera angle and orbit locks', () => {
   const cases = [
     {
@@ -276,15 +320,15 @@ test('hotel and bathtub fixed compositions preserve camera angle and orbit locks
       angleZh: '肩部高度鏡頭',
       orbitZh: '右前 315 度',
       angleText: /shoulder-level camera/,
-      orbitText: /315-degree front-right view, front three-quarter torso angle/,
+      orbitText: /315-degree front-right view/,
     },
     {
       setZh: '復古磁磚浴室浴缸',
       positionId: 'bathtub-free-interaction',
       angleZh: '高位俯視鏡頭',
       orbitZh: '左前 45 度',
-      angleText: /high camera position, looking downward/,
-      orbitText: /45-degree front-left view, front three-quarter torso angle/,
+      angleText: /high camera position/,
+      orbitText: /45-degree front-left view/,
     },
   ];
 
@@ -330,13 +374,8 @@ test('hotel window fixed composition uses shared real-scale set structure and fr
   assert.match(prompt.grokPrompt, /Avoid grid-like window panels, heavy black frames, boxed window sections/);
   assert.match(prompt.grokPrompt, /approximately 3 to 5 meters away from the bed and glass wall/);
   assert.match(prompt.grokPrompt, /subject-to-bed and subject-to-window scale/);
-  assert.match(prompt.grokPrompt, /subject placement can vary across one primary zone within the fixed hotel-window set/);
-  assert.match(prompt.grokPrompt, /The bed can support the subject or remain a foreground or side architecture anchor/);
-  assert.match(prompt.grokPrompt, /Avoid defaulting every result to a centered bed pose/);
-  assert.match(prompt.grokPrompt, /fixed-set rule: stable selected room architecture/);
-  assert.match(prompt.grokPrompt, /vary only subject placement, pose, crop, camera distance, camera orbit, lighting, and mood inside the same real-scale set/);
-  assert.match(prompt.grokPrompt, /keep adult scale believable against furniture, fixtures, and props/);
-  assert.match(prompt.grokPrompt, /avoid enlarging the subject or shrinking set anchors/);
+  assert.match(prompt.grokPrompt, /The subject may interact with one primary zone such as bed surface, bed edge, window-side floor plane, bedside-table side, curtain edge, and pillow foreground/);
+  assert.match(prompt.grokPrompt, /Keep the fixed hotel-window architecture stable; vary only subject placement, pose, crop, lighting, and mood/);
   assert.match(prompt.grokPrompt, /preserve anchors: broad panoramic glass wall, New York skyline depth, bed\/bedding foreground, bedside lamp\/table zone/);
   assert.match(prompt.grokPrompt, /avoid heavy window grids, boxed panes, generic bedroom, plain wall, studio backdrop, outdoor scene, or unrelated hotel room/);
   assert.doesNotMatch(prompt.grokPrompt, /fixed-scene shared structure|fixed set integrity:|real-scale guard:/);
@@ -345,7 +384,7 @@ test('hotel window fixed composition uses shared real-scale set structure and fr
       prompt.grokPrompt.indexOf('avoid heavy window grids'),
     'Expected set-specific anchors to lead the replacement guard'
   );
-  assert.match(prompt.grokPrompt, /urban fatigue presence/);
+  assert.match(prompt.grokPrompt, /Urban fatigue presence/);
   assert.doesNotMatch(prompt.grokPrompt, /British vintage room with window-side interior/);
   assert.doesNotMatch(prompt.grokPrompt, /Aspect Ratio:/);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
@@ -402,10 +441,10 @@ test('Fuji hotel fixed compositions share hotel placement controls and seasonal 
     assert.match(prompt.grokPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
     assert.match(prompt.grokPrompt, /Mount Fuji/);
     assert.match(prompt.grokPrompt, fixedSetCase.seasonText);
-    assert.match(prompt.grokPrompt, /subject near the floor-to-ceiling window/);
+    assert.match(prompt.grokPrompt, /Subject near the floor-to-ceiling window/);
     assert.match(prompt.grokPrompt, /shoulder-level camera/);
-    assert.match(prompt.grokPrompt, /315-degree front-right view, front three-quarter torso angle/);
-    assert.match(prompt.grokPrompt, /fixed-set rule: stable selected room architecture/);
+    assert.match(prompt.grokPrompt, /315-degree front-right view/);
+    assert.match(prompt.grokPrompt, /Keep the fixed hotel-window architecture stable; vary only subject placement, pose, crop, lighting, and mood/);
     assert.match(prompt.grokPrompt, fixedSetCase.anchorText);
     assert.match(prompt.grokPrompt, fixedSetCase.replacementText);
     assert.doesNotMatch(prompt.grokPrompt, /New York skyline depth/);
@@ -444,11 +483,9 @@ test('self-shot fixed composition mode relaxes set, focus, face, and wardrobe co
   assert.match(prompt.grokPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
   assert.match(prompt.grokPrompt, /one broad mostly uninterrupted glass plane/);
   assert.match(prompt.grokPrompt, /Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors/);
-  assert.match(prompt.grokPrompt, /subject close to the camera or bed foreground/);
-  assert.match(prompt.grokPrompt, /focus may fall on the background or set objects instead of the face/);
-  assert.match(prompt.grokPrompt, /subject may be slightly blurred or partially cropped/);
-  assert.match(prompt.grokPrompt, /fixed set may remain only as recognizable background fragments/);
-  assert.match(prompt.grokPrompt, /lazy drained presence/);
+  assert.match(prompt.grokPrompt, /Subject close to the camera or bed foreground/);
+  assert.match(prompt.grokPrompt, /For imperfect self-shot capture, allow background-object focus, slight subject blur, partial crop, and incomplete set visibility/);
+  assert.match(prompt.grokPrompt, /Lazy drained presence/);
   assert.match(prompt.grokPrompt, /flight attendant uniform outfit/);
   assert.match(prompt.grokPrompt, /She is sitting\./);
   assert.doesNotMatch(prompt.grokPrompt, /Let the image model choose/i);
@@ -474,13 +511,12 @@ test('fixed composition prompts reinforce set anchors while allowing self-shot f
   });
 
   assert.doesNotMatch(prompt.grokPrompt, /Fixed Composition Set:|Fixed Set Position:|Fixed Set Capture Mode:|Fixed Set Performance State:|Fixed Set Integrity:/);
-  assert.match(prompt.grokPrompt, /fixed-set rule: stable selected room architecture/);
+  assert.match(prompt.grokPrompt, /Keep the fixed lounge architecture stable; vary only subject placement, pose, crop, lighting, and mood/);
   assert.match(prompt.grokPrompt, /preserve anchors: raw-concrete wall, brown Chesterfield sofa, branch-side area, coffee-table foreground/);
-  assert.match(prompt.grokPrompt, /avoid enlarging the subject or shrinking set anchors/);
-  assert.match(prompt.grokPrompt, /self-shot crops may hide set parts, but at least one selected anchor must remain readable/);
+  assert.match(prompt.grokPrompt, /For self-shot capture, allow close-lens proximity, off-center partial crop, and incomplete set visibility while keeping at least one selected anchor recognizable/);
   assert.match(prompt.grokPrompt, /avoid plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room/);
   assert.doesNotMatch(prompt.grokPrompt, /fixed set integrity:|real-scale guard:|at least one or two selected set anchors/);
-  assert.match(prompt.grokPrompt, /dreamlike dazed presence/);
+  assert.match(prompt.grokPrompt, /Dreamlike dazed presence/);
 
   assert.match(prompt.zImagePrompt, /self-shot crops may hide set parts, but at least one selected anchor must remain readable/);
   assert.match(prompt.zImagePrompt, /preserve anchors: raw-concrete wall, brown Chesterfield sofa/);
@@ -516,11 +552,9 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.match(prompt.grokPrompt, /mirror above the sink/);
   assert.match(prompt.grokPrompt, /approximately 2\.5 to 4 meters away from the bathtub/);
   assert.match(prompt.grokPrompt, /subject-to-bathtub scale/);
-  assert.match(prompt.grokPrompt, /subject placement can vary across one primary zone within the fixed bathtub set/);
-  assert.match(prompt.grokPrompt, /The bathtub can contain the subject or remain the central fixture anchor/);
-  assert.match(prompt.grokPrompt, /Avoid defaulting every result to a centered soaking pose/);
-  assert.match(prompt.grokPrompt, /selected camera angle and orbit may vary the viewpoint around the same fixed bathtub set/);
-  assert.match(prompt.grokPrompt, /fixed-set rule: stable selected room architecture/);
+  assert.match(prompt.grokPrompt, /The subject may interact with one primary zone such as inside the bathtub, on the bathtub rim, beside the tub on the wet floor, near the sink and mirror, by the chrome faucet hardware, and stool-side foreground/);
+  assert.match(prompt.grokPrompt, /Photographer-shot fixed-set portrait/);
+  assert.match(prompt.grokPrompt, /Keep the fixed bathroom architecture stable; vary only subject placement, pose, crop, lighting, and mood/);
   assert.match(prompt.grokPrompt, /preserve anchors: horizontal clawfoot bathtub, visible wet floor, aged tile wall, sink\/mirror side zone, bath-prop foreground/);
   assert.match(prompt.grokPrompt, /avoid shower room, pool, spa lobby, bedroom, plain studio backdrop, unrelated bathroom, inside-tub POV, low tub-edge POV, dutch tilt, or tight crop losing the tub body or wet floor/);
   assert.doesNotMatch(prompt.grokPrompt, /fixed-scene shared structure|fixed set integrity:|real-scale guard:/);

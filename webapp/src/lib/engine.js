@@ -8785,11 +8785,169 @@ function joinScenePromptValues(values) {
     .join(', ');
 }
 
-function joinPromptSentences(values) {
-  return values
-    .map((value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim()))
-    .filter(Boolean)
-    .join(' ');
+function splitPromptSentences(value) {
+  return stripMarkdown(value || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
+}
+
+function extractFixedSetAnchorText(fixedSet) {
+  return (fixedSet?.integrityEn || '').match(/\bpreserve anchors:\s*([^;]+)/i)?.[1]?.trim() || '';
+}
+
+function cleanFixedSetOpeningSentence(fixedSet) {
+  const firstSentence = splitPromptSentences(fixedSet?.en || '')[0] || '';
+  return firstSentence
+    .replace(/,\s*not a flat backdrop and not a tight subject portrait\b/i, '')
+    .replace(/,\s*not a generic beach scene and not a tight subject portrait\b/i, '')
+    .replace(/\s+and not a tight subject portrait\b/i, '')
+    .replace(/[.!?]+$/g, '')
+    .trim();
+}
+
+function buildGptFixedSetOpeningParagraph(fixedSet) {
+  if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
+
+  const sentences = splitPromptSentences(fixedSet.en);
+  const opening = cleanFixedSetOpeningSentence(fixedSet);
+  const anchors = extractFixedSetAnchorText(fixedSet);
+  const detailSentences = sentences
+    .slice(1)
+    .filter((sentence) => !/^Use a medium-wide editorial camera position\b/i.test(sentence))
+    .filter((sentence) => !/\bcamera is positioned\b/i.test(sentence))
+    .filter((sentence) => !/\b(?:selected camera angle and orbit|viewpoint) may vary\b/i.test(sentence))
+    .map((sentence) => capitalizePromptLead(sentence.replace(/^Treat the fixed set as the primary composition:\s*/i, '')))
+    .filter(Boolean);
+  const anchorSentence = anchors && !/\banchors?\b/i.test(opening) && detailSentences.length === 0
+    ? `${opening} with ${anchors} as fixed anchors`
+    : opening;
+  const setupSentence = sentences
+    .find((sentence) => /^Use a medium-wide editorial camera position\b/i.test(sentence) || /\bcamera is positioned\b/i.test(sentence))
+    ?.replace(/^Treat the fixed set as the primary composition:\s*/i, '')
+    .trim() || '';
+
+  return [
+    ensureTerminalPeriod(anchorSentence),
+    ...detailSentences.map((sentence) => ensureTerminalPeriod(sentence)),
+    setupSentence ? ensureTerminalPeriod(capitalizePromptLead(setupSentence)) : '',
+    'Keep the selected anchors readable as real-scale scene architecture, with believable subject-to-set scale.',
+  ].filter(Boolean).join(' ');
+}
+
+function compactGptFixedSetPositionText(position) {
+  if (!position || isNoneLikeItem(position)) return '';
+
+  const text = stripTerminalPromptPunctuation(position.en);
+  const listText = text.match(/^subject placement can vary[^:]*:\s*([^.]*)/i)?.[1] || '';
+  if (listText) {
+    const zones = listText
+      .split(/\s*,\s*/)
+      .map((zone) => zone.trim())
+      .filter(Boolean)
+      .slice(0, 6);
+    return zones.length > 0
+      ? `The subject may interact with one primary zone such as ${joinNaturalList(zones)}.`
+      : '';
+  }
+
+  return ensureTerminalPeriod(capitalizePromptLead(
+    text.replace(/\bcan be model-decided\b/gi, 'can remain flexible')
+  ));
+}
+
+function buildGptFixedSetCaptureText(captureMode) {
+  if (!captureMode || isNoneLikeItem(captureMode)) return '';
+
+  if (isFixedSetSelfShotMode(captureMode)) {
+    if (captureMode.meta?.tags?.includes('fixed_set_imperfect_focus')) {
+      return 'For imperfect self-shot capture, allow background-object focus, slight subject blur, partial crop, and incomplete set visibility while keeping at least one selected anchor recognizable.';
+    }
+    return 'For self-shot capture, allow close-lens proximity, off-center partial crop, and incomplete set visibility while keeping at least one selected anchor recognizable.';
+  }
+
+  return ensureTerminalPeriod(capitalizePromptLead(
+    stripTerminalPromptPunctuation(captureMode.en)
+      .replace(/^photographer-shot fixed set portrait\b/i, 'photographer-shot fixed-set portrait')
+      .replace(/\bfixed composition remains readable\b/i, 'fixed set remains readable')
+  ));
+}
+
+function buildGptFixedSetPerformanceText(performanceState) {
+  if (!performanceState || isNoneLikeItem(performanceState)) return '';
+
+  if (performanceState.id === 'model-natural') {
+    return 'Natural body attitude and expression should align with the selected set position and capture mode.';
+  }
+
+  return ensureTerminalPeriod(capitalizePromptLead(
+    stripTerminalPromptPunctuation(performanceState.en)
+      .replace(/\s+without specifying exact limb placement\b/i, '')
+  ));
+}
+
+function buildGptFixedSetViewText(context) {
+  if (!fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet)) return '';
+
+  const angle = context.angle && !isNoneLikeItem(context.angle)
+    ? compactPromptClauses(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1)
+    : '';
+  const orbit = context.orbit && !isNoneLikeItem(context.orbit)
+    ? compactPromptClauses(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1)
+    : '';
+  const viewText = [angle, orbit].filter(Boolean).join(' and ');
+
+  return viewText ? `Use ${viewText} within the fixed set.` : '';
+}
+
+function buildGptFixedSetInteractionParagraph(context) {
+  return [
+    compactGptFixedSetPositionText(context.fixedSetPosition),
+    context.fixedSetBackgroundState && !isNoneLikeItem(context.fixedSetBackgroundState)
+      ? ensureTerminalPeriod(capitalizePromptLead(stripTerminalPromptPunctuation(context.fixedSetBackgroundState.en)))
+      : '',
+    buildGptFixedSetCaptureText(context.fixedSetCaptureMode),
+    buildGptFixedSetViewText(context),
+    buildGptFixedSetPerformanceText(context.fixedSetPerformanceState),
+  ].filter(Boolean).join(' ');
+}
+
+function getGptFixedSetArchitectureName(fixedSet) {
+  const tags = new Set(fixedSet?.meta?.tags || []);
+  if (fixedSet?.setGroupId === 'sofa-lounge') return 'fixed lounge architecture';
+  if (fixedSet?.setGroupId === 'hotel-window') return 'fixed hotel-window architecture';
+  if (tags.has('bathtub_set')) return 'fixed bathroom architecture';
+  if (fixedSet?.setGroupId === OUTDOOR_FIXED_SET_GROUP_ID) return 'fixed outdoor architecture';
+  return 'fixed set architecture';
+}
+
+function buildGptFixedSetIntegrityParagraph(context) {
+  const fixedSet = context.fixedCompositionSet;
+  if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
+
+  const anchors = extractFixedSetAnchorText(fixedSet);
+  const replacementGuard = stripTerminalPromptPunctuation(fixedSet.replacementGuardEn || 'avoid unrelated scene');
+  const stableText = fixedSet.setGroupId === OUTDOOR_FIXED_SET_GROUP_ID
+    ? `Keep the ${getGptFixedSetArchitectureName(fixedSet)} stable; vary only subject placement, pose, crop, lighting, mood, and selected background life state.`
+    : `Keep the ${getGptFixedSetArchitectureName(fixedSet)} stable; vary only subject placement, pose, crop, lighting, and mood.`;
+
+  return [
+    stableText,
+    anchors ? `preserve anchors: ${anchors}; keep their relative positions stable.` : '',
+    replacementGuard ? ensureTerminalPeriod(replacementGuard) : '',
+  ].filter(Boolean).join(' ');
+}
+
+function buildGptFixedCompositionSceneText(context) {
+  if (!isFixedCompositionSetActive(context.fixedCompositionSet)) return '';
+
+  return [
+    buildGptFixedSetOpeningParagraph(context.fixedCompositionSet),
+    buildGptFixedSetInteractionParagraph(context),
+    buildGptFixedSetIntegrityParagraph(context),
+  ].filter(Boolean).join('\n\n');
 }
 
 function buildPromptSectionSources(valuesByLabel, context) {
@@ -8897,7 +9055,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
 
   return {
     imageType,
-    sceneText: fixedCompositionSetActive ? joinPromptSentences(sceneValues) : joinScenePromptValues(sceneValues),
+    sceneText: fixedCompositionSetActive ? buildGptFixedCompositionSceneText(context) : joinScenePromptValues(sceneValues),
     subjectText: joinNaturalPromptValues(subjectValues),
     wardrobeText: joinNaturalPromptValues(wardrobeValues),
     poseText: joinNaturalPromptValues(poseValues),
@@ -9833,6 +9991,11 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
     : compressGptSinglePoseText(poseText, context);
   const resolvedWardrobeUsesBlock = Boolean(singleSpecialOutfitWardrobeBlock);
   const resolvedSubjectUsesBlock = Boolean(singleCharacterProfileSubjectBlock);
+  const sceneSection = sceneText
+    ? sceneText.includes('\n')
+      ? blockSection('Scene', sceneText)
+      : section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`)
+    : '';
 
   if (useRoleOrderedDuo) {
     return [
@@ -9840,7 +10003,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
       resolvedSubjectText ? blockSection('Subject', resolvedSubjectText) : '',
       resolvedSharedExpressionText ? section('Shared Expression', resolvedSharedExpressionText) : '',
       section('Pose and Composition', resolvedPoseText),
-      sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
+      sceneSection,
       section('Lighting', lightingText),
       section('Camera Look', cameraText),
       'multi-cut sequence n=2',
@@ -9860,7 +10023,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
         : section('Wardrobe', wardrobeUsesDirectSentence ? resolvedWardrobeText : `${wardrobeLead} ${resolvedWardrobeText}`)
       : '',
     section('Pose and Composition', resolvedPoseText),
-    sceneText ? section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`) : '',
+    sceneSection,
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
     'multi-cut sequence n=2',
