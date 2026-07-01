@@ -143,6 +143,25 @@ test('prompt bundle returns six copyable character-card outputs', () => {
   assert.match(bundle.outputs[5].value, /full-body character reference/i);
 });
 
+test('prompt override text is appended to every character-card output', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const overrideText = 'temporary supplemental character direction: add a tiny crescent moon cheek sticker';
+  const variant = normalizeCharacterCardVariant({
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['top'],
+    outputMode: 'included-wardrobe',
+    promptOverrideText: overrideText,
+  }, cards);
+  const bundle = buildCharacterCardPromptBundle(cards, variant);
+
+  assert.equal(bundle.outputs.length, 6);
+  bundle.outputs.forEach((output) => {
+    assert.match(output.value, /temporary supplemental character direction/i);
+    assert.match(output.value, /tiny crescent moon cheek sticker/i);
+  });
+});
+
 test('pure-character prompt keeps hair variant and excludes wardrobe layers', () => {
   const cards = getCharacterCardOptions(getLockControls());
   const variant = normalizeCharacterCardVariant({

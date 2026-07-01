@@ -267,6 +267,10 @@ function buildLayerText(layers) {
   return layers.map((layer) => `${layer.label}: ${layer.prompt}`).join('\n');
 }
 
+function normalizePromptOverrideText(value) {
+  return String(value || '').replace(/\s+/g, ' ').trim();
+}
+
 function buildCharacterIdentityText(card, hairVariant) {
   return [
     `Character Profile Card:\n${card.label}`,
@@ -285,11 +289,18 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
   const layers = selectedLayers(card, variant);
   const wardrobeText = buildLayerText(layers);
   const wardrobeBlock = wardrobeText ? `\n\nWardrobe layers:\n${wardrobeText}` : '';
+  const promptOverrideText = normalizePromptOverrideText(variant.promptOverrideText);
+  const promptOverrideBlock = promptOverrideText
+    ? `\n\nTemporary character-card override:\n${cleanSentence(promptOverrideText)}`
+    : '';
+  const promptOverridePhrase = promptOverrideText
+    ? `temporary character-card override, supplemental character direction: ${promptOverrideText}`
+    : '';
   const identityText = buildCharacterIdentityText(card, hairVariant);
   const summary = `${card.label} / ${hairVariant.label}${layers.length ? ` / ${layers.map((layer) => layer.label).join('、')}` : ' / 純人物'}`;
   const gpt = [
     'Image Type:\nCreate a photorealistic character-card portrait reference.',
-    `Subject:\n${identityText}${wardrobeBlock}`,
+    `Subject:\n${identityText}${wardrobeBlock}${promptOverrideBlock}`,
     'Camera Look:\nclean realistic character reference, neutral production-ready detail, consistent identity, realistic facial proportions',
   ].join('\n\n');
   const grokZImage = cleanSentence([
@@ -297,6 +308,7 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
     card.identityAndBody,
     `${card.baseHair}, ${hairVariant.prompt}`,
     layers.length ? `included wardrobe layers: ${layers.map((layer) => layer.prompt).join(', ')}` : 'no clothing layers included, focus on identity and hair',
+    promptOverridePhrase,
     card.photographicDirection,
   ].filter(Boolean).join(', '));
   const ai = cleanSentence([
@@ -304,14 +316,16 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
     card.identityAndBody,
     `${card.baseHair}, ${hairVariant.prompt}`,
     layers.length ? `wearing ${layers.map((layer) => layer.prompt).join(', ')}` : 'pure character identity and hair reference',
+    promptOverridePhrase,
   ].filter(Boolean).join(', '));
   const headshot = cleanSentence([
     `headshot reference of ${card.label}`,
     'tight face-and-hair portrait, neutral clean background, consistent facial identity',
     card.identityAndBody,
     `${card.baseHair}, ${hairVariant.prompt}`,
+    promptOverridePhrase,
     'clear skin texture, makeup, eyes, nose, lips, jawline, and hairline',
-  ].join(', '));
+  ].filter(Boolean).join(', '));
   const fourView = cleanSentence([
     `four-view character reference sheet for ${card.label}`,
     'one image containing front view, left 45-degree view, side profile view, and back view',
@@ -319,14 +333,16 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
     card.identityAndBody,
     `${card.baseHair}, ${hairVariant.prompt}`,
     layers.length ? `use the included wardrobe layers consistently: ${layers.map((layer) => layer.prompt).join(', ')}` : 'no clothing design emphasis, neutral shoulders and body reference',
-  ].join(', '));
+    promptOverridePhrase,
+  ].filter(Boolean).join(', '));
   const fullBody = cleanSentence([
     `full-body character reference of ${card.label}`,
     'neutral studio reference, clear standing full-body view, same exact identity',
     card.identityAndBody,
     `${card.baseHair}, ${hairVariant.prompt}`,
     layers.length ? `included wardrobe layers: ${layers.map((layer) => layer.prompt).join(', ')}` : 'pure body and hair reference without fixed outfit design',
-  ].join(', '));
+    promptOverridePhrase,
+  ].filter(Boolean).join(', '));
 
   return {
     card,
