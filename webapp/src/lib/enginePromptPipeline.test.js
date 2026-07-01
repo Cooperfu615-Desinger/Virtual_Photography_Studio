@@ -956,9 +956,9 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
       expected: [
         /real-scale compact living-room editorial set/i,
         /large brown vintage Chesterfield leather sofa/i,
-        /self-shot social composition feeling/i,
+        /For self-shot capture, allow close-lens proximity, off-center crop, and incomplete set visibility/i,
         /lazy drained presence/i,
-        /fixed-set rule: stable selected room architecture/i,
+        /Keep the fixed lounge architecture stable\. Vary only subject placement, pose, crop, lighting, and mood/i,
       ],
       minParagraphs: 5,
     },

@@ -8819,6 +8819,154 @@ const GPT_FIXED_SET_OPENING_PARAGRAPHS = {
   'seaside-stair-alley': 'The portrait takes place within a real-scale outdoor descending seaside stair-alley fixed composition set anchored by descending pale stairs, light side walls, handrails, plants or hydrangeas, overhead wires, and ocean horizon. The camera is positioned near the upper stairs, looking down the stair alley toward the ocean horizon. Descending pale stairs form the foreground and midground path toward the sea, while side walls, rails, plants, narrow building edges, distant shoreline, and open sky remain readable as outdoor scene structure.',
 };
 
+const Z_IMAGE_FIXED_SET_OPENING_PARAGRAPHS = {
+  'concrete-wall-chesterfield-sofa': 'The portrait takes place inside a real-scale compact living-room editorial set anchored by a raw concrete wall, a large brown vintage Chesterfield leather sofa, dry branches, and a low coffee table. The sofa reads as adult-scale worn leather furniture, and the coffee table carries a few readable props such as art books, cushions, a cup, and a small lamp.',
+  'limewash-black-velvet-industrial-sofa': 'The portrait takes place inside a real-scale compact editorial lounge set anchored by a warm ivory limewash plaster wall, a large matte black velvet sofa, and a low industrial coffee table. The wall has subtle hand-troweled texture, the sofa reads as adult-scale matte velvet furniture, and the coffee table carries a few readable props such as art books, a cup, and glassware.',
+  'luxury-hotel-window-nyc': 'The portrait takes place inside a real-scale luxury hotel room editorial set anchored by a broad panoramic floor-to-ceiling glass wall, a New York-style high-rise skyline, and a soft white hotel bed. The glass reads as one mostly uninterrupted, lightly reflective plane, with bedding, pillows, bedside table, lamp, curtain edges, wine glass, and open book as readable room props.',
+  'luxury-hotel-window-mount-fuji-spring': 'The portrait takes place inside a real-scale luxury hotel room editorial set anchored by a broad panoramic floor-to-ceiling glass wall, a spring Mount Fuji landscape, and a soft white hotel bed. Outside the glass, Mount Fuji remains the dominant distant anchor with residual summit snow, clean blue spring sky, fresh green foothills, small lakeside or town rooftops, and subtle cherry blossoms or spring foliage.',
+  'luxury-hotel-window-mount-fuji-winter': 'The portrait takes place inside a real-scale luxury hotel room editorial set anchored by a broad panoramic floor-to-ceiling glass wall, a snow-covered Mount Fuji winter landscape, and a soft white hotel bed. Outside the glass, Mount Fuji remains the dominant distant anchor with cold clear air, blue-white winter daylight, snowy foothills or village rooftops, and quiet pale sky depth.',
+  'retro-tile-bathtub': 'The portrait takes place inside a real-scale vintage bathroom editorial set anchored by a freestanding clawfoot bathtub, visible wet tile floor, aged tile wall, and porcelain sink or vanity with mirror above the sink. Keep the full bathtub body, tub feet, wet floor plane, sink or vanity, and mirror readable where possible, with chrome hardware, folded towels, bath bottles, a small wooden stool, foam or water surface, and subtle wet reflections as props. The subject reads fully soaked from head to toe with wet hair, damp skin, and water-clinging wardrobe or bare skin.',
+  'seaside-slope-railway-crossing': 'The portrait takes place within a real-scale outdoor coastal downhill-road fixed composition set anchored by a downhill road plane, railway crossing gate, roadside poles and overhead wires, seaside town edges, and ocean horizon. The camera is positioned near the upper slope, looking downhill along the road plane toward the ocean horizon. A railway crossing gate cuts across the lower-middle frame while sloped asphalt, lane marks, overhead wires, distant shoreline, and open sky remain readable.',
+  'seaside-stair-alley': 'The portrait takes place within a real-scale outdoor descending seaside stair-alley fixed composition set anchored by descending pale stairs, light side walls, handrails, plants or hydrangeas, overhead wires, and ocean horizon. The camera is positioned near the upper stairs, looking down the stair alley toward the ocean horizon. Descending pale stairs form the foreground and midground path toward the sea while side walls, rails, plants, distant shoreline, and open sky remain readable.',
+};
+
+const AI_FIXED_SET_SCENE_PHRASES = {
+  'concrete-wall-chesterfield-sofa': 'The central scene is a raw concrete wall, a large brown Chesterfield leather sofa, dry branches, and a low coffee table with a few readable props.',
+  'limewash-black-velvet-industrial-sofa': 'The central scene is a warm ivory limewash wall, a large matte black velvet sofa, and a low industrial coffee table with a few readable props.',
+  'luxury-hotel-window-nyc': 'The central scene is a broad panoramic floor-to-ceiling glass wall, New York skyline, and soft white hotel bed with bedside props.',
+  'luxury-hotel-window-mount-fuji-spring': 'The central scene is a broad panoramic floor-to-ceiling glass wall, spring Mount Fuji view, and soft white hotel bed with bedside props.',
+  'luxury-hotel-window-mount-fuji-winter': 'The central scene is a broad panoramic floor-to-ceiling glass wall, snow-covered Mount Fuji winter view, and soft white hotel bed with bedside props.',
+  'retro-tile-bathtub': 'The central scene is a freestanding clawfoot bathtub, visible wet tile floor, aged tile wall, and sink or vanity with mirror.',
+  'seaside-slope-railway-crossing': 'The central scene is a coastal downhill road, railway crossing gate, roadside poles and wires, seaside town edges, and ocean horizon.',
+  'seaside-stair-alley': 'The central scene is a descending seaside stair alley, light side walls, handrails, plants, overhead wires, and ocean horizon.',
+};
+
+function getFixedSetFreeInteractionZones(fixedSet) {
+  const tags = new Set(fixedSet?.meta?.tags || []);
+  if (fixedSet?.setGroupId === 'sofa-lounge') return 'the sofa seat, floor, coffee table, sofa armrests, wall-side space, or side decor';
+  if (fixedSet?.setGroupId === 'hotel-window') return 'the bed, bed edge, window-side floor, bedside table, curtain edge, or pillow foreground';
+  if (tags.has('bathtub_set')) return 'the bathtub, bathtub rim, wet floor, sink and mirror area, chrome faucet hardware, or stool-side foreground';
+  if (fixedSet?.id === 'seaside-slope-railway-crossing') return 'the road foreground, crossing-gate side, slope midground, roadside edge, building-side margin, or utility-pole side';
+  if (fixedSet?.id === 'seaside-stair-alley') return 'the stairs, side walls, handrails, plants, building edges, or stair foreground';
+  return 'the fixed set anchors, floor plane, foreground, side area, or background architecture';
+}
+
+function isFreeInteractionFixedSetPosition(position) {
+  return /^subject placement can vary\b/i.test(stripTerminalPromptPunctuation(position?.en || ''));
+}
+
+function buildZImageFixedSetPositionText(context) {
+  const position = context.fixedSetPosition;
+  if (!position || isNoneLikeItem(position)) return '';
+
+  if (isFreeInteractionFixedSetPosition(position)) {
+    return `The subject can interact with ${getFixedSetFreeInteractionZones(context.fixedCompositionSet)} in any way.`;
+  }
+
+  return ensureTerminalPeriod(capitalizePromptLead(
+    stripTerminalPromptPunctuation(position.en)
+      .replace(/\bcan be model-decided\b/gi, 'can remain flexible')
+  ));
+}
+
+function buildZImageFixedSetCaptureText(captureMode) {
+  if (!captureMode || isNoneLikeItem(captureMode)) return '';
+
+  if (isFixedSetSelfShotMode(captureMode)) {
+    if (captureMode.meta?.tags?.includes('fixed_set_imperfect_focus')) {
+      return 'For imperfect self-shot capture, allow background-object focus, slight subject blur, off-center crop, and incomplete set visibility.';
+    }
+    return 'For self-shot capture, allow close-lens proximity, off-center crop, and incomplete set visibility.';
+  }
+
+  return 'Use photographer-shot fixed-set framing with clear face and wardrobe where framing allows.';
+}
+
+function buildZImageFixedSetPerformanceText(performanceState) {
+  if (!performanceState || isNoneLikeItem(performanceState) || performanceState.id === 'model-natural') return '';
+
+  return ensureTerminalPeriod(capitalizePromptLead(
+    stripTerminalPromptPunctuation(performanceState.en)
+      .replace(/\s+without specifying exact limb placement\b/i, '')
+  ));
+}
+
+function buildZImageFixedSetViewText(context) {
+  if (!fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet)) return '';
+
+  const angle = context.angle && !isNoneLikeItem(context.angle)
+    ? compactPromptClauses(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1)
+    : '';
+  const orbit = context.orbit && !isNoneLikeItem(context.orbit)
+    ? compactPromptClauses(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1)
+    : '';
+  const viewText = [angle, orbit].filter(Boolean).join(' and ');
+
+  return viewText ? `Use ${viewText} within the fixed set.` : '';
+}
+
+function buildZImageFixedSetInteractionParagraph(context) {
+  return [
+    buildZImageFixedSetPositionText(context),
+    context.fixedSetBackgroundState && !isNoneLikeItem(context.fixedSetBackgroundState)
+      ? ensureTerminalPeriod(capitalizePromptLead(stripTerminalPromptPunctuation(context.fixedSetBackgroundState.en)))
+      : '',
+    buildZImageFixedSetCaptureText(context.fixedSetCaptureMode),
+    buildZImageFixedSetViewText(context),
+    buildZImageFixedSetPerformanceText(context.fixedSetPerformanceState),
+  ].filter(Boolean).join(' ');
+}
+
+function buildZImageFixedSetStabilityParagraph(context) {
+  const fixedSet = context.fixedCompositionSet;
+  if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
+
+  if (fixedSet.setGroupId === OUTDOOR_FIXED_SET_GROUP_ID) {
+    return `Keep the ${getGptFixedSetArchitectureName(fixedSet)} stable. Vary only subject placement, pose, crop, lighting, mood, and selected background life state.`;
+  }
+
+  return `Keep the ${getGptFixedSetArchitectureName(fixedSet)} stable. Vary only subject placement, pose, crop, lighting, and mood.`;
+}
+
+function buildAiFixedSetInteractionSentence(context) {
+  const position = context.fixedSetPosition;
+  const fixedSet = context.fixedCompositionSet;
+  if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
+
+  const positionText = position && !isNoneLikeItem(position)
+    ? (isFreeInteractionFixedSetPosition(position)
+        ? `The subject can interact with ${getFixedSetFreeInteractionZones(fixedSet)} in any way`
+        : capitalizePromptLead(stripTerminalPromptPunctuation(position.en)
+          .replace(/\bcan be model-decided\b/gi, 'can remain flexible')))
+    : '';
+  const selfShotText = context.fixedSetCaptureMode && isFixedSetSelfShotMode(context.fixedSetCaptureMode)
+    ? 'close-lens self-shot framing'
+    : '';
+  const aiAngleText = context.angle && !isNoneLikeItem(context.angle)
+    ? compactPromptClauses(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1)
+      .replace(/\b(shoulder|waist)-level camera\b/i, '$1-level')
+    : '';
+  const aiOrbitText = context.orbit && !isNoneLikeItem(context.orbit)
+    ? compactPromptClauses(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1)
+    : '';
+  const viewText = fixedCompositionSetAllowsCameraVariation(fixedSet)
+    ? [aiAngleText, aiOrbitText].filter(Boolean).join(' ')
+    : '';
+  const modifiers = [selfShotText, viewText ? `a ${viewText}` : ''].filter(Boolean).join(' and ');
+
+  if (positionText && modifiers) return `${positionText}, with ${modifiers} inside the fixed set`;
+  if (positionText) return stripTerminalPromptPunctuation(positionText);
+  if (modifiers) return `Use ${modifiers} inside the fixed set`;
+  return '';
+}
+
+function buildAiFixedCompositionSceneClause(context) {
+  const scenePhrase = AI_FIXED_SET_SCENE_PHRASES[context.fixedCompositionSet?.id];
+  if (!scenePhrase) return '';
+
+  return [scenePhrase, buildAiFixedSetInteractionSentence(context)].filter(Boolean).join(' ');
+}
+
 function buildGptFixedSetOpeningParagraph(fixedSet) {
   if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
 
@@ -10376,43 +10524,20 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const buildFixedSceneParagraphs = () => {
     if (!fixedCompositionSetActive) return [];
 
-    const allowCameraVariation = fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet);
-    const fixedSetText = skeletonMode ? sanitizeSkeletonPromptText(context.fixedCompositionSet.en) : context.fixedCompositionSet.en;
-    const positionText = context.fixedSetPosition && !isNoneLikeItem(context.fixedSetPosition)
-      ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPosition.en) : context.fixedSetPosition.en)
-      : '';
-    const backgroundStateText = context.fixedSetBackgroundState && !isNoneLikeItem(context.fixedSetBackgroundState)
-      ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetBackgroundState.en) : context.fixedSetBackgroundState.en)
-      : '';
-    const captureText = context.fixedSetCaptureMode && !isNoneLikeItem(context.fixedSetCaptureMode)
-      ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetCaptureMode.en) : context.fixedSetCaptureMode.en)
-      : '';
-    const performanceText = context.fixedSetPerformanceState && !isNoneLikeItem(context.fixedSetPerformanceState)
-      ? (skeletonMode ? sanitizeSkeletonPromptText(context.fixedSetPerformanceState.en) : context.fixedSetPerformanceState.en)
-      : '';
-    const angleText = allowCameraVariation && context.angle && !isNoneLikeItem(context.angle)
-      ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count))
-      : '';
-    const orbitText = allowCameraVariation && context.orbit && !isNoneLikeItem(context.orbit)
-      ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count))
-      : '';
-    const integrityText = skeletonMode
-      ? sanitizeSkeletonPromptText(buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode))
-      : buildFixedSetIntegrityText(context.fixedCompositionSet, context.fixedSetCaptureMode);
+    const clean = (value) => skeletonMode ? sanitizeSkeletonPromptText(value) : value;
     const ambientText = context.lighting && !isNoneLikeItem(context.lighting)
       ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en)
       : '';
     const subjectLightText = lightDirection && !isNoneLikeItem(lightDirection)
       ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
       : '';
+    const lightingText = joinSentenceParts([ambientText, subjectLightText]);
 
     return [
-      fixedSetText,
-      positionText,
-      backgroundStateText,
-      joinSentenceParts([captureText, performanceText]),
-      joinSentenceParts([angleText, orbitText]),
-      joinSentenceParts([integrityText, ambientText, subjectLightText]),
+      clean(Z_IMAGE_FIXED_SET_OPENING_PARAGRAPHS[context.fixedCompositionSet.id] || buildGptFixedSetOpeningParagraph(context.fixedCompositionSet)),
+      clean(buildZImageFixedSetInteractionParagraph(context)),
+      clean(buildZImageFixedSetStabilityParagraph(context)),
+      clean(lightingText),
     ].filter(Boolean);
   };
   const buildSceneText = () => {
@@ -10989,6 +11114,10 @@ function buildAiMinimalPoseClause(valuesByLabel, context) {
 }
 
 function buildAiMinimalSceneClause(valuesByLabel, context = {}) {
+  if (isFixedCompositionSetActive(context.fixedCompositionSet)) {
+    return buildAiFixedCompositionSceneClause(context);
+  }
+
   const fixedSetValues = [
     compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Composition Set']), 5),
     compactAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Fixed Set Position']), 2),
@@ -11179,14 +11308,23 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
     return buildAiDuoPromptFromStructuredPrompt(valuesByLabel, context, wardrobe, wardrobeColors);
   }
 
-  const parts = [
-    buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe),
-    buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe),
-    buildAiMinimalPoseClause(valuesByLabel, context),
-    buildAiMinimalSceneClause(valuesByLabel, context),
-    buildAiMinimalLightingClause(valuesByLabel),
-  ].filter(Boolean);
+  const subjectPart = buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe);
+  const wardrobePart = buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe);
+  const posePart = buildAiMinimalPoseClause(valuesByLabel, context);
+  const scenePart = buildAiMinimalSceneClause(valuesByLabel, context);
+  const lightingPart = buildAiMinimalLightingClause(valuesByLabel);
   const moodTail = buildAiMinimalMoodTail(valuesByLabel);
+
+  if (isFixedCompositionSetActive(context.fixedCompositionSet)) {
+    const subjectSentence = [subjectPart, wardrobePart, posePart].filter(Boolean).join(', ');
+    const sceneSentence = [scenePart, lightingPart, moodTail].filter(Boolean).join(', ');
+    return ensureTerminalPeriod([
+      subjectSentence ? ensureTerminalPeriod(subjectSentence) : '',
+      sceneSentence,
+    ].filter(Boolean).join(' '));
+  }
+
+  const parts = [subjectPart, wardrobePart, posePart, scenePart, lightingPart].filter(Boolean);
 
   return ensureTerminalPeriod(`${parts.join(', ')}, ${moodTail}`);
 }

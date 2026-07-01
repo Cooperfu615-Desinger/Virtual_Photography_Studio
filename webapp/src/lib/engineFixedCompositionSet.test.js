@@ -33,6 +33,10 @@ function gptSection(prompt, label) {
   return match[1].trim();
 }
 
+function promptParagraphs(value) {
+  return value.split(/\n{2,}/).map((paragraph) => paragraph.trim()).filter(Boolean);
+}
+
 test('fixed composition controls expose fixed sets and fixed-set-only option groups', () => {
   assert.deepEqual(
     control('fixedCompositionSetId').options.map((entry) => entry.zh),
@@ -80,6 +84,7 @@ test('outdoor fixed compositions add locked coastal road and stair sets with bac
       backgroundText: /one local train may pass across the railway crossing/,
       integrityText: /Keep the fixed outdoor architecture stable\. Vary only subject placement, pose, crop, lighting, mood, and selected background life state\./,
       replacementText: /Do not replace it with a generic beach, indoor set, studio backdrop, or unrelated outdoor location\./,
+      aiText: /The central scene is a coastal downhill road, railway crossing gate, roadside poles and wires, seaside town edges, and ocean horizon/,
     },
     {
       setZh: '海邊階梯小巷',
@@ -91,6 +96,7 @@ test('outdoor fixed compositions add locked coastal road and stair sets with bac
       backgroundText: /a few distant pedestrians may appear as small background life details/,
       integrityText: /Keep the fixed outdoor architecture stable\. Vary only subject placement, pose, crop, lighting, mood, and selected background life state\./,
       replacementText: /Do not replace it with a generic beach, indoor set, studio backdrop, or unrelated outdoor location\./,
+      aiText: /The central scene is a descending seaside stair alley, light side walls, handrails, plants, overhead wires, and ocean horizon/,
     },
   ];
 
@@ -127,11 +133,15 @@ test('outdoor fixed compositions add locked coastal road and stair sets with bac
     assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 
     assert.match(prompt.zImagePrompt, fixedSetCase.setText);
+    assert.match(prompt.zImagePrompt, fixedSetCase.anchorText);
+    assert.match(prompt.zImagePrompt, fixedSetCase.cameraText);
     assert.match(prompt.zImagePrompt, fixedSetCase.backgroundText);
+    assert.match(prompt.zImagePrompt, fixedSetCase.integrityText);
+    assert.doesNotMatch(prompt.zImagePrompt, /fixed-set rule:|preserve anchors:|avoid generic beach|avoid indoor staircase/);
     assert.doesNotMatch(prompt.zImagePrompt, /shoulder-level camera|camera at the subject's front-right/);
 
-    assert.match(prompt.midjourneyPrompt, fixedSetCase.setText);
-    assert.match(prompt.midjourneyPrompt, fixedSetCase.backgroundText);
+    assert.match(prompt.midjourneyPrompt, fixedSetCase.aiText);
+    assert.doesNotMatch(prompt.midjourneyPrompt, /fixed-set rule:|preserve anchors:|generic beach scene|tight subject portrait/);
   });
 });
 
@@ -221,15 +231,16 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
 
   assert.match(prompt.zImagePrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.zImagePrompt, /large brown vintage Chesterfield leather sofa/);
-  assert.match(prompt.zImagePrompt, /approximately 3 to 4 meters away from the sofa/);
-  assert.match(prompt.zImagePrompt, /subject placement can vary across one primary zone within the fixed sofa set/);
-  assert.match(prompt.zImagePrompt, /shoulder-level camera/);
-  assert.match(prompt.zImagePrompt, /315-degree front-right view, front three-quarter torso angle/);
+  assert.match(prompt.zImagePrompt, /The subject can interact with the sofa seat, floor, coffee table, sofa armrests, wall-side space, or side decor in any way/);
+  assert.match(prompt.zImagePrompt, /Use shoulder-level camera and 315-degree front-right view within the fixed set/);
+  assert.match(prompt.zImagePrompt, /Keep the fixed lounge architecture stable\. Vary only subject placement, pose, crop, lighting, and mood/);
+  assert.doesNotMatch(prompt.zImagePrompt, /approximately 3 to 4 meters away from the sofa|subject placement can vary across one primary zone|fixed-set rule:|preserve anchors:/);
   assert.doesNotMatch(prompt.zImagePrompt, /1:1 square|16:9|9:16|aspect ratio/i);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
 
-  assert.match(prompt.midjourneyPrompt, /real-scale compact living-room editorial set/);
-  assert.match(prompt.midjourneyPrompt, /large brown vintage Chesterfield leather sofa/);
+  assert.match(prompt.midjourneyPrompt, /The central scene is a raw concrete wall, a large brown Chesterfield leather sofa, dry branches, and a low coffee table with a few readable props/);
+  assert.match(prompt.midjourneyPrompt, /The subject can interact with the sofa seat, floor, coffee table, sofa armrests, wall-side space, or side decor in any way, with a shoulder-level 315-degree front-right view inside the fixed set/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /real-scale compact living-room editorial set|fixed-set rule:|preserve anchors:/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
 });
 
@@ -273,11 +284,12 @@ test('black velvet industrial sofa fixed composition shares sofa placement contr
       prompt.zImagePrompt.indexOf('20-year-old Japanese or Korean female portrait subject'),
     'Expected black velvet sofa scene to appear before subject description in Z-Image prompt'
   );
-  assert.match(prompt.zImagePrompt, /large black velvet sofa/);
-  assert.match(prompt.zImagePrompt, /industrial low coffee table/);
-  assert.match(prompt.zImagePrompt, /subject on the floor plane near the sofa but off center/);
-  assert.match(prompt.midjourneyPrompt, /large black velvet sofa/);
-  assert.match(prompt.midjourneyPrompt, /industrial low coffee table/);
+  assert.match(prompt.zImagePrompt, /large matte black velvet sofa/);
+  assert.match(prompt.zImagePrompt, /low industrial coffee table/);
+  assert.match(prompt.zImagePrompt, /Subject on the floor plane near the sofa but off center/);
+  assert.doesNotMatch(prompt.zImagePrompt, /visible velvet nap|fixed-set rule:|preserve anchors:/);
+  assert.match(prompt.midjourneyPrompt, /The central scene is a warm ivory limewash wall, a large matte black velvet sofa, and a low industrial coffee table with a few readable props/);
+  assert.match(prompt.midjourneyPrompt, /Subject on the floor plane near the sofa but off center/);
 });
 
 test('Gpt fixed composition scene uses compact three-paragraph self-shot format', () => {
@@ -314,7 +326,46 @@ test('Gpt fixed composition scene uses compact three-paragraph self-shot format'
 
   assert.match(poseText, /allow imperfect self-shot framing/);
   assert.doesNotMatch(sceneText, /Treat the fixed set as the primary composition|must not replace the set|collapse into a tight portrait|self-shot social composition feeling|let the image model choose|preserve anchors:|avoid raw concrete set/i);
-  assert.match(prompt.zImagePrompt, /self-shot social composition feeling/);
+  assert.match(prompt.zImagePrompt, /For self-shot capture, allow close-lens proximity, off-center crop, and incomplete set visibility/);
+  assert.doesNotMatch(prompt.zImagePrompt, /self-shot social composition feeling|let the image model choose|fixed-set rule:|preserve anchors:/);
+});
+
+test('Grok Z-Image and AI fixed composition scene use compact model-specific wording', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    fixedCompositionSetId: optionId('fixedCompositionSetId', '暖灰泥黑絲絨工業沙發棚'),
+    fixedSetPositionId: optionId('fixedSetPositionId', '自由場景互動'),
+    fixedSetCaptureModeId: optionId('fixedSetCaptureModeId', '自然自拍感'),
+    fixedSetPerformanceStateId: optionId('fixedSetPerformanceStateId', '模型自然發揮'),
+    angleId: optionId('angleId', '肩部高度鏡頭'),
+    orbitId: optionId('orbitId', '右側 270 度'),
+  });
+
+  const zImageParagraphs = promptParagraphs(prompt.zImagePrompt);
+
+  assert.equal(
+    zImageParagraphs[0],
+    'The portrait takes place inside a real-scale compact editorial lounge set anchored by a warm ivory limewash plaster wall, a large matte black velvet sofa, and a low industrial coffee table. The wall has subtle hand-troweled texture, the sofa reads as adult-scale matte velvet furniture, and the coffee table carries a few readable props such as art books, a cup, and glassware.'
+  );
+  assert.equal(
+    zImageParagraphs[1],
+    'The subject can interact with the sofa seat, floor, coffee table, sofa armrests, wall-side space, or side decor in any way. For self-shot capture, allow close-lens proximity, off-center crop, and incomplete set visibility. Use shoulder-level camera and 270-degree right profile view within the fixed set.'
+  );
+  assert.equal(
+    zImageParagraphs[2],
+    'Keep the fixed lounge architecture stable. Vary only subject placement, pose, crop, lighting, and mood.'
+  );
+
+  assert.match(prompt.midjourneyPrompt, /The central scene is a warm ivory limewash wall, a large matte black velvet sofa, and a low industrial coffee table with a few readable props\./);
+  assert.match(prompt.midjourneyPrompt, /The subject can interact with the sofa seat, floor, coffee table, sofa armrests, wall-side space, or side decor in any way, with close-lens self-shot framing and a shoulder-level 270-degree right profile view inside the fixed set/);
+
+  assert.doesNotMatch(prompt.zImagePrompt, /Treat the fixed set|not a flat backdrop|fixed-set rule|preserve anchors:|avoid raw concrete set|let the image model choose|self-shot social composition feeling/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /Treat the fixed set|not a flat backdrop|fixed-set rule|preserve anchors:|avoid raw concrete set|let the image model choose|self-shot social composition feeling/i);
+  assert.match(prompt.midjourneyPrompt, /\.\s+The central scene is/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /,\s*The central scene/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /\.\s*,/);
+  assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /[\u3400-\u9fff]/);
 });
 
 test('hotel and bathtub fixed compositions preserve camera angle and orbit locks', () => {
@@ -354,7 +405,10 @@ test('hotel and bathtub fixed compositions preserve camera angle and orbit locks
     assert.match(prompt.grokPrompt, cameraCase.orbitText);
     assert.match(prompt.zImagePrompt, cameraCase.angleText);
     assert.match(prompt.zImagePrompt, cameraCase.orbitText);
-    assert.doesNotMatch(prompt.midjourneyPrompt, /shoulder-level camera|high camera position|315-degree front-right view|45-degree front-left view/);
+    assert.match(prompt.midjourneyPrompt, cameraCase.orbitText);
+    if (/shoulder-level/i.test(cameraCase.angleText.source)) {
+      assert.match(prompt.midjourneyPrompt, /shoulder-level/);
+    }
   });
 });
 
@@ -387,16 +441,15 @@ test('hotel window fixed composition uses shared real-scale set structure and fr
   assert.doesNotMatch(prompt.grokPrompt, /Aspect Ratio:/);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 
-  assert.match(prompt.zImagePrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
-  assert.match(prompt.zImagePrompt, /subject placement can vary across one primary zone within the fixed hotel-window set/);
-  assert.match(prompt.zImagePrompt, /fixed-set rule: stable selected room architecture/);
-  assert.match(prompt.zImagePrompt, /preserve anchors: broad panoramic glass wall/);
-  assert.doesNotMatch(prompt.zImagePrompt, /fixed-scene shared structure|real-scale guard:/);
+  assert.match(prompt.zImagePrompt, /broad panoramic floor-to-ceiling glass wall/);
+  assert.match(prompt.zImagePrompt, /The subject can interact with the bed, bed edge, window-side floor, bedside table, curtain edge, or pillow foreground in any way/);
+  assert.match(prompt.zImagePrompt, /Keep the fixed hotel-window architecture stable\. Vary only subject placement, pose, crop, lighting, and mood/);
+  assert.doesNotMatch(prompt.zImagePrompt, /oversized near-wall-to-wall|subject placement can vary across one primary zone|fixed-set rule:|preserve anchors:|fixed-scene shared structure|real-scale guard:/);
   assert.doesNotMatch(prompt.zImagePrompt, /1:1 square|16:9|9:16|aspect ratio/i);
 
-  assert.match(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set/);
-  assert.match(prompt.midjourneyPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
-  assert.match(prompt.midjourneyPrompt, /subject placement can vary across one primary zone within the fixed hotel-window set/);
+  assert.match(prompt.midjourneyPrompt, /The central scene is a broad panoramic floor-to-ceiling glass wall, New York skyline, and soft white hotel bed with bedside props/);
+  assert.match(prompt.midjourneyPrompt, /The subject can interact with the bed, bed edge, window-side floor, bedside table, curtain edge, or pillow foreground in any way/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set|subject placement can vary across one primary zone|fixed-set rule:|preserve anchors:/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
 });
 
@@ -457,10 +510,11 @@ test('Fuji hotel fixed compositions share hotel placement controls and seasonal 
       'Expected fixed Fuji hotel scene to appear before subject description in Z-Image prompt'
     );
     assert.match(prompt.zImagePrompt, /Mount Fuji/);
-    assert.match(prompt.zImagePrompt, /subject near the floor-to-ceiling window/);
-    assert.match(prompt.zImagePrompt, fixedSetCase.anchorText);
-    assert.match(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set/);
+    assert.match(prompt.zImagePrompt, /Subject near the floor-to-ceiling window/);
+    assert.doesNotMatch(prompt.zImagePrompt, /preserve anchors: broad panoramic glass wall|fixed-set rule:|avoid heavy window grids/);
+    assert.match(prompt.midjourneyPrompt, /The central scene is a broad panoramic floor-to-ceiling glass wall/);
     assert.match(prompt.midjourneyPrompt, /Mount Fuji/);
+    assert.doesNotMatch(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set|preserve anchors:|fixed-set rule:/);
     assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
   });
 });
@@ -492,11 +546,12 @@ test('self-shot fixed composition mode relaxes set, focus, face, and wardrobe co
   assert.doesNotMatch(prompt.grokPrompt, /clear facial readability/);
   assert.doesNotMatch(prompt.grokPrompt, /preserve the selected environment as a visible, recognizable background/);
 
-  assert.match(prompt.zImagePrompt, /imperfect self-shot camera behavior/);
-  assert.match(prompt.zImagePrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
-  assert.match(prompt.zImagePrompt, /no visible phone required/);
-  assert.match(prompt.midjourneyPrompt, /focus may fall on the background or set objects instead of the face/);
-  assert.match(prompt.midjourneyPrompt, /oversized near-wall-to-wall panoramic floor-to-ceiling glass wall/);
+  assert.match(prompt.zImagePrompt, /For imperfect self-shot capture, allow background-object focus, slight subject blur, off-center crop, and incomplete set visibility/);
+  assert.match(prompt.zImagePrompt, /broad panoramic floor-to-ceiling glass wall/);
+  assert.doesNotMatch(prompt.zImagePrompt, /imperfect self-shot camera behavior|no visible phone required|fixed-set rule:/);
+  assert.match(prompt.midjourneyPrompt, /The central scene is a broad panoramic floor-to-ceiling glass wall, New York skyline, and soft white hotel bed with bedside props/);
+  assert.match(prompt.midjourneyPrompt, /close-lens self-shot framing/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /focus may fall on the background|oversized near-wall-to-wall|fixed-set rule:/);
 });
 
 test('fixed composition prompts reinforce set anchors while allowing self-shot fragments', () => {
@@ -516,11 +571,12 @@ test('fixed composition prompts reinforce set anchors while allowing self-shot f
   assert.doesNotMatch(prompt.grokPrompt, /fixed set integrity:|real-scale guard:|at least one or two selected set anchors/);
   assert.match(prompt.grokPrompt, /Dreamlike dazed presence/);
 
-  assert.match(prompt.zImagePrompt, /self-shot crops may hide set parts, but at least one selected anchor must remain readable/);
-  assert.match(prompt.zImagePrompt, /preserve anchors: raw-concrete wall, brown Chesterfield sofa/);
-  assert.doesNotMatch(prompt.zImagePrompt, /real-scale guard:/);
-  assert.match(prompt.midjourneyPrompt, /real-scale compact living-room editorial set/);
-  assert.match(prompt.midjourneyPrompt, /large brown vintage Chesterfield leather sofa/);
+  assert.match(prompt.zImagePrompt, /For self-shot capture, allow close-lens proximity, off-center crop, and incomplete set visibility/);
+  assert.match(prompt.zImagePrompt, /large brown vintage Chesterfield leather sofa/);
+  assert.doesNotMatch(prompt.zImagePrompt, /self-shot crops may hide set parts|preserve anchors:|real-scale guard:/);
+  assert.match(prompt.midjourneyPrompt, /The central scene is a raw concrete wall, a large brown Chesterfield leather sofa, dry branches, and a low coffee table with a few readable props/);
+  assert.match(prompt.midjourneyPrompt, /close-lens self-shot framing/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /real-scale compact living-room editorial set|fixed-set rule:|preserve anchors:/);
 });
 
 test('bathtub fixed composition keeps a frontal wall plane and sink mirror interaction anchors', () => {
@@ -568,14 +624,14 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.doesNotMatch(prompt.zImagePrompt, /The portrait uses The portrait takes place/);
   assert.doesNotMatch(prompt.zImagePrompt, /Fixed Composition Set:|Fixed Set Position:|Fixed Set Integrity:/);
   assert.match(prompt.zImagePrompt, /porcelain sink or vanity/);
-  assert.match(prompt.zImagePrompt, /visible wet tile floor beneath and in front of the bathtub/);
+  assert.match(prompt.zImagePrompt, /visible wet tile floor/);
   assert.match(prompt.zImagePrompt, /fully soaked from head to toe/);
-  assert.match(prompt.zImagePrompt, /subject placement can vary across one primary zone within the fixed bathtub set/);
-  assert.match(prompt.zImagePrompt, /fixed-set rule: stable selected room architecture/);
-  assert.match(prompt.zImagePrompt, /preserve anchors: horizontal clawfoot bathtub, visible wet floor/);
-  assert.doesNotMatch(prompt.zImagePrompt, /real-scale guard:/);
-  assert.match(prompt.midjourneyPrompt, /visible wet tile floor beneath and in front of the bathtub/);
-  assert.match(prompt.midjourneyPrompt, /subject placement can vary across one primary zone within the fixed bathtub set/);
+  assert.match(prompt.zImagePrompt, /The subject can interact with the bathtub, bathtub rim, wet floor, sink and mirror area, chrome faucet hardware, or stool-side foreground in any way/);
+  assert.match(prompt.zImagePrompt, /Keep the fixed bathroom architecture stable\. Vary only subject placement, pose, crop, lighting, and mood/);
+  assert.doesNotMatch(prompt.zImagePrompt, /subject placement can vary across one primary zone|fixed-set rule:|preserve anchors:|real-scale guard:/);
+  assert.match(prompt.midjourneyPrompt, /The central scene is a freestanding clawfoot bathtub, visible wet tile floor, aged tile wall, and sink or vanity with mirror/);
+  assert.match(prompt.midjourneyPrompt, /The subject can interact with the bathtub, bathtub rim, wet floor, sink and mirror area, chrome faucet hardware, or stool-side foreground in any way/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /subject placement can vary across one primary zone|fixed-set rule:|preserve anchors:/);
 });
 
 test('fixed composition sets are ignored for duo mode in V1', () => {
