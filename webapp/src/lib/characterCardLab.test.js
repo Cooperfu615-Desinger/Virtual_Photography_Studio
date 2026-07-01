@@ -169,12 +169,90 @@ test('PAGE2 character card saved card stores six outputs', () => {
   }, cards);
   const bundle = buildCharacterCardPromptBundle(cards, variant);
   const card = buildCharacterCardSavedCard(cards, variant, bundle);
+  const outputById = Object.fromEntries(bundle.outputs.map((output) => [output.id, output]));
 
   assert.equal(card.source, 'page2');
   assert.equal(card.sourceLabel, '角色卡');
+  assert.equal(card.grokPrompt, outputById.gpt.value);
+  assert.equal(card.zImagePrompt, outputById['grok-z-image'].value);
+  assert.equal(card.midjourneyPrompt, outputById.ai.value);
   assert.equal(card.promptLabels.grok, 'GPT Prompt');
   assert.equal(card.promptLabels.midjourney, 'AI Prompt');
   assert.equal(card.promptLabels.zImage, 'Grok/Z-Image Prompt');
-  assert.equal(card.extraPrompts.length, 3);
+  assert.equal(card.summaryFields.wardrobe, '上身');
+  assert.deepEqual(card.extraPrompts, [
+    { id: 'headshot', label: 'Headshot Prompt', text: outputById.headshot.value },
+    { id: 'four-view', label: 'Four-View Prompt', text: outputById['four-view'].value },
+    { id: 'full-body-reference', label: 'Full-Body Reference Prompt', text: outputById['full-body-reference'].value },
+  ]);
   assert.deepEqual(card.profile.includedWardrobeLayers, ['top']);
+});
+
+test('PAGE2 character card saved card tolerates partial and malformed bundle input', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const rawVariant = {
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['top'],
+    outputMode: 'included-wardrobe',
+  };
+  const fallbackBundle = buildCharacterCardPromptBundle(cards, rawVariant);
+  const fallbackById = Object.fromEntries(fallbackBundle.outputs.map((output) => [output.id, output]));
+
+  let malformedCard = null;
+  assert.doesNotThrow(() => {
+    malformedCard = buildCharacterCardSavedCard(cards, rawVariant, {
+      summary: null,
+      variant: null,
+      outputs: 'not-an-array',
+    });
+  });
+
+  assert.equal(malformedCard.grokPrompt, fallbackById.gpt.value);
+  assert.equal(malformedCard.zImagePrompt, fallbackById['grok-z-image'].value);
+  assert.equal(malformedCard.midjourneyPrompt, fallbackById.ai.value);
+  assert.equal(malformedCard.summaryFields.wardrobe, '上身');
+
+  let partialCard = null;
+  assert.doesNotThrow(() => {
+    partialCard = buildCharacterCardSavedCard(cards, rawVariant, {
+      card: null,
+      summary: 'partial summary',
+      variant: null,
+      outputs: [
+        { id: 'gpt', label: 'Custom GPT', value: 'custom gpt prompt' },
+        { id: 'headshot', label: 'Custom Headshot', value: 'custom headshot prompt' },
+      ],
+    });
+  });
+
+  assert.equal(partialCard.grokPrompt, 'custom gpt prompt');
+  assert.equal(partialCard.zImagePrompt, fallbackById['grok-z-image'].value);
+  assert.equal(partialCard.midjourneyPrompt, fallbackById.ai.value);
+  assert.deepEqual(partialCard.extraPrompts, [
+    { id: 'headshot', label: 'Custom Headshot', text: 'custom headshot prompt' },
+    { id: 'four-view', label: 'Four-View Prompt', text: fallbackById['four-view'].value },
+    { id: 'full-body-reference', label: 'Full-Body Reference Prompt', text: fallbackById['full-body-reference'].value },
+  ]);
+});
+
+test('pure-character saved card reports no wardrobe metadata or prompt text', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const variant = normalizeCharacterCardVariant({
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['top', 'bottom', 'shoes', 'neckAccessory'],
+    outputMode: 'pure-character',
+  }, cards);
+  const bundle = buildCharacterCardPromptBundle(cards, variant);
+  const card = buildCharacterCardSavedCard(cards, variant, bundle);
+  const combined = [
+    card.grokPrompt,
+    card.zImagePrompt,
+    card.midjourneyPrompt,
+    ...card.extraPrompts.map((output) => output.text),
+  ].join('\n');
+
+  assert.equal(card.summaryFields.wardrobe, '純人物');
+  assert.doesNotMatch(combined, /baby tee|jeans|sneakers|choker/i);
 });

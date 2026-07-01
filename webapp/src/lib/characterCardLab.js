@@ -343,12 +343,56 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
   };
 }
 
+function isPlainObject(value) {
+  return value && typeof value === 'object' && !Array.isArray(value);
+}
+
+function normalizePromptOutput(output, fallbackOutput) {
+  const label = String(output?.label || fallbackOutput.label || '');
+  const value = String(output?.value || output?.text || fallbackOutput.value || '');
+  return { id: fallbackOutput.id, label, value };
+}
+
+function mergePromptOutputs(fallbackOutputs, rawOutputs) {
+  const outputMap = new Map(
+    Array.isArray(rawOutputs)
+      ? rawOutputs
+        .filter((output) => isPlainObject(output) && typeof output.id === 'string')
+        .map((output) => [output.id, output])
+      : []
+  );
+
+  return fallbackOutputs.map((fallbackOutput) => (
+    outputMap.has(fallbackOutput.id)
+      ? normalizePromptOutput(outputMap.get(fallbackOutput.id), fallbackOutput)
+      : fallbackOutput
+  ));
+}
+
+function promptOutputById(outputs, id) {
+  return outputs.find((output) => output.id === id) || null;
+}
+
+function buildWardrobeSummary(card, variant) {
+  const layers = selectedLayers(card, variant);
+  return layers.length ? layers.map((layer) => layer.label).join('、') : '純人物';
+}
+
 export function buildCharacterCardSavedCard(cards = [], rawVariant = {}, bundle = null) {
-  const resolvedBundle = bundle || buildCharacterCardPromptBundle(cards, rawVariant);
-  const gpt = resolvedBundle.outputs.find((output) => output.id === 'gpt')?.value || '';
-  const grokZImage = resolvedBundle.outputs.find((output) => output.id === 'grok-z-image')?.value || '';
-  const ai = resolvedBundle.outputs.find((output) => output.id === 'ai')?.value || '';
-  const extraPrompts = resolvedBundle.outputs
+  const inputBundle = isPlainObject(bundle) ? bundle : {};
+  const rawVariantInput = normalizeVariantInput(rawVariant);
+  const effectiveVariant = normalizeCharacterCardVariant(
+    isPlainObject(inputBundle.variant) ? { ...rawVariantInput, ...inputBundle.variant } : rawVariantInput,
+    cards
+  );
+  const fallbackBundle = buildCharacterCardPromptBundle(cards, effectiveVariant);
+  const outputs = mergePromptOutputs(fallbackBundle.outputs, inputBundle.outputs);
+  const card = fallbackBundle.card || (isPlainObject(inputBundle.card) ? inputBundle.card : null);
+  const summary = String(inputBundle.summary || fallbackBundle.summary || '');
+  const gpt = promptOutputById(outputs, 'gpt')?.value || '';
+  const grokZImage = promptOutputById(outputs, 'grok-z-image')?.value || '';
+  const ai = promptOutputById(outputs, 'ai')?.value || '';
+  const extraPrompts = outputs
     .filter((output) => !['gpt', 'grok-z-image', 'ai'].includes(output.id))
     .map((output) => ({ id: output.id, label: output.label, text: output.value }));
 
@@ -357,11 +401,11 @@ export function buildCharacterCardSavedCard(cards = [], rawVariant = {}, bundle 
     source: 'page2',
     sourceLabel: '角色卡',
     date: new Date().toISOString(),
-    summary: `角色卡｜${resolvedBundle.summary}`,
+    summary: `角色卡｜${summary}`,
     summaryFields: {
-      characterDna: resolvedBundle.card?.label || '-',
-      expressionPose: resolvedBundle.outputs.find((output) => output.id === 'headshot')?.label || '-',
-      wardrobe: resolvedBundle.variant.includedWardrobeLayers.join('、') || '純人物',
+      characterDna: card?.label || '-',
+      expressionPose: promptOutputById(outputs, 'headshot')?.label || '-',
+      wardrobe: buildWardrobeSummary(card, effectiveVariant),
       sceneLook: '-',
     },
     midjourneyPrompt: ai,
@@ -376,9 +420,9 @@ export function buildCharacterCardSavedCard(cards = [], rawVariant = {}, bundle 
     selection: null,
     structured: {
       'Character Card': [
-        { zh: resolvedBundle.card?.label || '角色卡', en: resolvedBundle.summary },
+        { zh: card?.label || '角色卡', en: summary },
       ],
     },
-    profile: { ...resolvedBundle.variant },
+    profile: { ...effectiveVariant },
   };
 }
