@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { getLockControls } from './engine.js';
+import { createEmptyLocks, getLockControls } from './engine.js';
 import {
   buildCharacterCardPromptBundle,
   buildCharacterCardSavedCard,
+  buildPage1LocksFromCharacterCardVariant,
   CHARACTER_CARD_LAYER_KEYS,
   createEmptyCharacterCardVariant,
   getCharacterCardOptions,
@@ -365,4 +366,34 @@ test('saved card trims valid bundle character and hair ids before writing them b
   assert.match(combined, /37_Hina/i);
   assert.match(combined, /sleek wet-look swept-back finish/i);
   assert.doesNotMatch(combined, /11_Rika|keep the original character hair identity unchanged|sage-mint green|short shorts|bare feet/i);
+});
+
+test('structured apply clears PAGE1 same-layer choices only for included card layers', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const prevLocks = {
+    ...createEmptyLocks(),
+    skirtId: 'wardrobe:裙裝-skirts:denim-mini',
+    shoesId: 'wardrobe:鞋款-shoes:heels',
+    neckAccessoryId: 'wardrobe:頸部配件-neck-accessories:thin-necklace',
+    locationId: 'scene:anything',
+    poseId: 'pose:anything',
+  };
+  const nextLocks = buildPage1LocksFromCharacterCardVariant(prevLocks, {
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: ['top', 'bottom'],
+  }, cards);
+
+  assert.equal(nextLocks.subjectCount, '1');
+  assert.equal(nextLocks.characterProfileId, 'character-rika');
+  assert.equal(nextLocks.characterCardHairVariantId, 'low-ponytail');
+  assert.equal(nextLocks.characterCardWardrobeMode, 'selected-layers');
+  assert.deepEqual(nextLocks.characterCardWardrobeLayerIds, ['top', 'bottom']);
+  assert.equal(nextLocks.topId, '');
+  assert.equal(nextLocks.pantsId, '');
+  assert.equal(nextLocks.skirtId, '');
+  assert.equal(nextLocks.shoesId, 'wardrobe:鞋款-shoes:heels');
+  assert.equal(nextLocks.neckAccessoryId, 'wardrobe:頸部配件-neck-accessories:thin-necklace');
+  assert.equal(nextLocks.locationId, 'scene:anything');
+  assert.equal(nextLocks.poseId, 'pose:anything');
 });

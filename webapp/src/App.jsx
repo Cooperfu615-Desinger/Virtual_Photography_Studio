@@ -42,6 +42,7 @@ import {
 import {
   buildCharacterCardPromptBundle,
   buildCharacterCardSavedCard,
+  buildPage1LocksFromCharacterCardVariant,
   createEmptyCharacterCardVariant,
   getCharacterCardOptions,
   normalizeCharacterCardVariant,
@@ -1293,14 +1294,11 @@ export default function App() {
     () => {
       const specialSubjectControl = lockControls.find((control) => control.key === 'specialSubjectId');
       const selectedSpecialSubject = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
-      const characterProfileControl = lockControls.find((control) => control.key === 'characterProfileId');
-      const selectedCharacterProfile = characterProfileControl?.options?.find((option) => option.id === locks.characterProfileId);
       const isSpecialSubject = Boolean(selectedSpecialSubject?.specialSubject);
-      const isCharacterProfile = Boolean(selectedCharacterProfile?.specialSubject);
 
       return sortControls(
         lockControls.filter((control) => {
-          if (isSpecialSubject || isCharacterProfile) return false;
+          if (isSpecialSubject) return false;
           const sharedGarmentKeys = [
             'topId', 'topFitId', 'topStylingId', 'topBottomPaletteId', 'topColorId', 'topPatternId',
             'dressId', 'dressColorId', 'pantsId', 'skirtId', 'bottomFitId', 'bottomRiseId', 'bottomColorId', 'bottomPatternId',
@@ -1663,8 +1661,11 @@ export default function App() {
   };
 
   const handleApplyPage2CharacterCard = useCallback(() => {
-    showToast('角色卡匯入 PAGE1 會在下一階段接上');
-  }, [showToast]);
+    const nextLocks = buildPage1LocksFromCharacterCardVariant(locks, normalizedPage2Profile, characterCards);
+    updateLocks(() => normalizeLocks(nextLocks));
+    setPageMode('page1');
+    showToast('角色卡設定已匯回 PAGE1');
+  }, [characterCards, locks, normalizedPage2Profile, showToast, updateLocks]);
 
   const handleSavePage2Card = useCallback(() => {
     if (!page2PromptBundle.outputs.length) {

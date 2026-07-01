@@ -470,3 +470,40 @@ export function buildCharacterCardSavedCard(cards = [], rawVariant = {}, bundle 
     profile: { ...effectiveVariant },
   };
 }
+
+const PAGE1_LAYER_CLEAR_KEYS = {
+  top: ['topId', 'topFitId', 'topStylingId', 'topColorId', 'topPatternId'],
+  bottom: ['pantsId', 'skirtId', 'bottomFitId', 'bottomRiseId', 'bottomColorId', 'bottomPatternId'],
+  dress: ['dressId', 'dressColorId', 'topId', 'pantsId', 'skirtId'],
+  outerwear: ['outerwearId', 'outerwearFitId', 'outerwearColorId', 'outerwearPatternId', 'outerwearOpeningId', 'outerwearStylingId'],
+  shoes: ['shoesId', 'shoesColorId'],
+  headAccessory: ['headAccessoryId'],
+  eyewear: ['eyewearId', 'eyewearColorId', 'eyewearPlacementId'],
+  earrings: ['earringsId'],
+  neckAccessory: ['neckAccessoryId'],
+  wristAccessory: ['wristAccessoryId'],
+  ring: ['ringId'],
+  waistAccessory: ['waistAccessoryId'],
+};
+
+export function buildPage1LocksFromCharacterCardVariant(prevLocks = {}, rawVariant = {}, cards = []) {
+  const variant = normalizeCharacterCardVariant(rawVariant, cards);
+  const next = {
+    ...prevLocks,
+    subjectCount: '1',
+    specialSubjectId: 'none',
+    characterProfileId: variant.characterProfileId,
+    characterCardHairVariantId: variant.hairVariantId,
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: [...variant.includedWardrobeLayers],
+    characterCardPromptOverride: variant.promptOverrideText,
+  };
+
+  variant.includedWardrobeLayers.forEach((layerKey) => {
+    (PAGE1_LAYER_CLEAR_KEYS[layerKey] || []).forEach((lockKey) => {
+      next[lockKey] = Array.isArray(next[lockKey]) ? [] : '';
+    });
+  });
+
+  return next;
+}
