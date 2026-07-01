@@ -378,14 +378,34 @@ function buildWardrobeSummary(card, variant) {
   return layers.length ? layers.map((layer) => layer.label).join('、') : '純人物';
 }
 
+function mergeBundleVariantInput(rawVariant, bundleVariant) {
+  const merged = { ...normalizeVariantInput(rawVariant) };
+  if (!isPlainObject(bundleVariant)) return merged;
+
+  if (typeof bundleVariant.characterProfileId === 'string' && bundleVariant.characterProfileId.trim()) {
+    merged.characterProfileId = bundleVariant.characterProfileId;
+  }
+  if (typeof bundleVariant.hairVariantId === 'string' && bundleVariant.hairVariantId.trim()) {
+    merged.hairVariantId = bundleVariant.hairVariantId;
+  }
+  if (Array.isArray(bundleVariant.includedWardrobeLayers)) {
+    merged.includedWardrobeLayers = bundleVariant.includedWardrobeLayers;
+  }
+  if (typeof bundleVariant.promptOverrideText === 'string') {
+    merged.promptOverrideText = bundleVariant.promptOverrideText;
+  }
+  if (bundleVariant.outputMode === 'pure-character' || bundleVariant.outputMode === 'included-wardrobe') {
+    merged.outputMode = bundleVariant.outputMode;
+  }
+
+  return merged;
+}
+
 export function buildCharacterCardSavedCard(cards = [], rawVariant = {}, bundle = null) {
   const inputBundle = isPlainObject(bundle) ? bundle : {};
-  const rawVariantInput = normalizeVariantInput(rawVariant);
-  const effectiveVariant = normalizeCharacterCardVariant(
-    isPlainObject(inputBundle.variant) ? { ...rawVariantInput, ...inputBundle.variant } : rawVariantInput,
-    cards
-  );
-  const fallbackBundle = buildCharacterCardPromptBundle(cards, effectiveVariant);
+  const mergedRawVariant = mergeBundleVariantInput(rawVariant, inputBundle.variant);
+  const fallbackBundle = buildCharacterCardPromptBundle(cards, mergedRawVariant);
+  const effectiveVariant = fallbackBundle.variant;
   const outputs = mergePromptOutputs(fallbackBundle.outputs, inputBundle.outputs);
   const card = fallbackBundle.card || (isPlainObject(inputBundle.card) ? inputBundle.card : null);
   const summary = String(inputBundle.summary || fallbackBundle.summary || '');

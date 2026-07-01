@@ -256,3 +256,31 @@ test('pure-character saved card reports no wardrobe metadata or prompt text', ()
   assert.equal(card.summaryFields.wardrobe, '純人物');
   assert.doesNotMatch(combined, /baby tee|jeans|sneakers|choker/i);
 });
+
+test('saved card ignores malformed bundle variant fields over pure-character raw variant', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const rawVariant = {
+    characterProfileId: 'character-rika',
+    hairVariantId: 'low-ponytail',
+    includedWardrobeLayers: [],
+    outputMode: 'pure-character',
+  };
+  const card = buildCharacterCardSavedCard(cards, rawVariant, {
+    variant: {
+      includedWardrobeLayers: null,
+      outputMode: '',
+    },
+    outputs: 'not-an-array',
+  });
+  const combined = [
+    card.grokPrompt,
+    card.zImagePrompt,
+    card.midjourneyPrompt,
+    ...card.extraPrompts.map((output) => output.text),
+  ].join('\n');
+
+  assert.equal(card.profile.outputMode, 'pure-character');
+  assert.deepEqual(card.profile.includedWardrobeLayers, []);
+  assert.equal(card.summaryFields.wardrobe, '純人物');
+  assert.doesNotMatch(combined, /baby tee|jeans|sneakers|choker/i);
+});
