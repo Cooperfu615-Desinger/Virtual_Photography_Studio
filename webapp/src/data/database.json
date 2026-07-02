@@ -1776,8 +1776,8 @@
       },
       {
         "zh": "領帶襯衫",
-        "en": "shirt with a soft short tie, relaxed collar opening, clean front placket, uniform-inspired upper-body structure",
-        "desc": "以短領帶、微鬆領口與制服式前襟為主，保留襯衫結構但不預設衣襬狀態。",
+        "en": "collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure",
+        "desc": "以短領帶固定在領口的制服感襯衫為主，領口保持整齊、門襟清楚，不預設衣襬狀態。",
         "legacyIds": [
           "wardrobe:上身-tops:緊身襯衫-領帶-紮入下身:12"
         ]
@@ -1879,8 +1879,8 @@
       },
       {
         "zh": "一字領上衣",
-        "en": "off-shoulder top, soft neckline silhouette, visible white bra straps along the shoulder line, refined layered styling detail",
-        "desc": "以露出鎖骨與肩線的一字領為主，可見白色內衣肩帶形成細緻層次，輪廓柔和且女性化。"
+        "en": "off-shoulder top, soft neckline silhouette, open collarbone line, refined neckline detail",
+        "desc": "以露出鎖骨與肩線的一字領為主，輪廓柔和且女性化，不在單品內寫死內層肩帶。"
       },
       {
         "zh": "絲綢緞面襯衫",
@@ -1936,13 +1936,13 @@
       },
       {
         "zh": "素色緞面旗袍上衣",
-        "en": "satin cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, smooth lustrous fabric, untucked hem worn loose over the waistline, refined Chinese-inspired styling",
-        "desc": "旗袍式剪裁的上衣版本，保留立領、盤扣與貼身上半身輪廓，但衣襬自然放出、不紮進下身，適合搭配長裙、寬褲或都會中式混搭造型。"
+        "en": "satin cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, smooth lustrous fabric, hip-grazing hem",
+        "desc": "旗袍式剪裁的上衣版本，保留立領、盤扣與貼身上半身輪廓，衣襬長度停在臀部附近，實際紮入或放出交由穿法控制。"
       },
       {
         "zh": "精緻刺繡旗袍上衣",
-        "en": "embroidered cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, intricate floral embroidery, untucked hem worn loose over the waistline, refined Chinese-inspired detail",
-        "desc": "在旗袍式上衣結構中加入細緻刺繡與盤扣細節，並強調衣襬自然放出、不紮進下身，裝飾感更強，適合更正式或更華麗的中式時裝搭配。"
+        "en": "embroidered cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, intricate floral embroidery, hip-grazing hem",
+        "desc": "在旗袍式上衣結構中加入細緻刺繡與盤扣細節，衣襬長度停在臀部附近，不預設紮衣或放出穿法。"
       },
       {
         "zh": "和服式上衣",
@@ -1956,18 +1956,18 @@
       },
       {
         "zh": "比基尼上身",
-        "en": "triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, clean beachwear styling",
-        "desc": "作為泳裝上身使用，重點是細繩肩帶、簡潔三角罩杯與俐落海邊感線條。"
+        "en": "triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric",
+        "desc": "作為泳裝上身使用，重點是細繩肩帶、簡潔三角罩杯與彈性泳裝布料，不把場景語氣寫進單品。"
       },
       {
         "zh": "蕾絲胸罩",
-        "en": "lace bra top, delicate straps or strapless structure, floral lace, scalloped trim, refined lingerie detailing",
-        "desc": "以蕾絲罩杯、細肩帶或無肩帶結構、波浪邊與完整內衣式上身線條為主。"
+        "en": "lace bra top, delicate shoulder straps, floral lace, scalloped trim, refined lingerie detailing",
+        "desc": "以蕾絲罩杯、細肩帶結構、波浪邊與完整內衣式上身線條為主。"
       },
       {
         "zh": "運動型內衣",
-        "en": "sports bra top, Calvin Klein-inspired clean elastic band, smooth technical jersey, minimal athletic seaming, refined activewear styling",
-        "desc": "以簡潔彈性下圍、機能針織面料與俐落運動車線為主的運動上衣語言，參考 Calvin Klein 式極簡運動內衣風格，但更偏服裝設計描述。"
+        "en": "sports bra top, clean elastic underband, smooth technical jersey, minimal athletic seaming",
+        "desc": "以簡潔彈性下圍、機能針織面料與俐落運動車線為主的運動上衣語言。"
       },
       {
         "zh": "蕾絲睡衣上身",
@@ -1976,8 +1976,8 @@
       },
       {
         "zh": "波西米亞風上衣",
-        "en": "bohemian draped blouse, crinkled gauze or washed rayon, deep relaxed neckline, loose untucked hem, layered sleeves, folk-woven trim",
-        "desc": "以皺感薄紗或水洗 rayon、鬆垂領口、寬鬆外放衣襬、層次袖型與民俗織帶細節為主，保留波西米亞上衣的垂墜結構。"
+        "en": "bohemian draped blouse, crinkled gauze or washed rayon, deep relaxed neckline, layered sleeves, folk-woven trim",
+        "desc": "以皺感薄紗或水洗 rayon、鬆垂領口、層次袖型與民俗織帶細節為主，保留波西米亞上衣的垂墜結構，不預設衣襬穿法。"
       }
     ],
     "上身圖案 (Top Surface Design)": [
@@ -2288,8 +2288,8 @@
       },
       {
         "zh": "低腰牛仔褲",
-        "en": "low-rise jeans, casual denim silhouette, exposed waist styling",
-        "desc": "千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。"
+        "en": "low-rise jeans, waistband sitting on the hips, casual denim silhouette, clean denim structure",
+        "desc": "千禧與街頭感很強的低腰褲型，重點在腰頭位置與丹寧褲身，不預設上身露腰效果。"
       },
       {
         "zh": "牛仔短褲",
@@ -2319,13 +2319,13 @@
       },
       {
         "zh": "蕾絲內褲",
-        "en": "low-rise lace panties, lingerie bottoms, delicate intimate styling, exposed hip line",
-        "desc": "以低腰位置貼合臀線與胯部，偏內衣與私密寫真風格，強調蕾絲質地與貼身感。"
+        "en": "low-rise lace panties, lingerie bottoms, delicate lace texture, close-fitting hip line, compact lower-body structure",
+        "desc": "以低腰蕾絲內褲本體為主，強調蕾絲質地、貼合臀線與精簡下身結構，不加入情境語氣。"
       },
       {
         "zh": "蕾絲丁字褲",
-        "en": "seamless lace thong bottoms, ultra-thin side straps, low-rise V-front, minimal rear coverage, exposed buttock curve",
-        "desc": "以無痕蕾絲丁字褲為主，低腰 V 字前片、極細側帶與極少後片覆蓋，讓臀部曲線明顯露出，和一般蕾絲內褲做出清楚區隔。"
+        "en": "seamless lace thong bottoms, ultra-thin side straps, low-rise V-front, minimal back panel",
+        "desc": "以無痕蕾絲丁字褲為主，低腰 V 字前片、極細側帶與極少後片結構，和一般蕾絲內褲做出清楚區隔。"
       },
       {
         "zh": "皮革短褲",
@@ -2429,13 +2429,13 @@
       },
       {
         "zh": "比基尼下身",
-        "en": "low-rise side-tie bikini bottoms, string-tied hips, minimal swimwear coverage, exposed hip line, clean beachwear silhouette",
-        "desc": "作為泳裝下身使用時，改成更接近兩側綁帶的低腰比基尼褲型，重點是髖部綁結、簡潔包覆與俐落直接的海邊泳裝輪廓。"
+        "en": "low-rise side-tie bikini bottoms, string-tied hips, minimal swimwear coverage, clean swim-bottom silhouette",
+        "desc": "作為泳裝下身使用時，改成更接近兩側綁帶的低腰比基尼褲型，重點是髖部綁結、簡潔包覆與俐落泳裝下身輪廓。"
       },
       {
         "zh": "波西米亞風長褲",
-        "en": "bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, earthy layered tones, gathered relaxed waist, folk-pattern panels and artisanal resort mood",
-        "desc": "褲身更寬鬆柔軟，帶自然堆疊與土色層次感，像度假地咖啡館裡常見的民俗風寬褲；整體不是俐落剪裁，而是強調鬆弛、垂墜與異國旅行感。"
+        "en": "bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, gathered relaxed waist, folk-pattern panels",
+        "desc": "褲身更寬鬆柔軟，帶自然堆疊與民俗圖案面料；整體不是俐落剪裁，而是強調鬆弛、垂墜與寬鬆份量。"
       },
       {
         "zh": "丹寧吊帶長褲",
@@ -2876,8 +2876,8 @@
       },
       {
         "zh": "敞開穿",
-        "en": "worn open at the front, inner layer visible through the full front opening",
-        "desc": "外套正面敞開，讓內搭透過前襟開口自然可見。"
+        "en": "outerwear worn open at the front, front panels parted naturally",
+        "desc": "外套正面敞開，前片自然分開，不強制內搭必須完整可見。"
       },
       {
         "zh": "不扣扣子",
@@ -2898,13 +2898,13 @@
       },
       {
         "zh": "正常穿著",
-        "en": "properly worn on both shoulders as a standard outer layer over the top, shoulder line fully covered",
-        "desc": "外套正常穿在雙肩上，作為完整覆蓋上衣肩線的外層，不帶滑肩或露肩效果。"
+        "en": "outerwear worn normally on both shoulders in a standard outer-layer position",
+        "desc": "外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。"
       },
       {
         "zh": "滑落肩部",
-        "en": "outerwear intentionally slipped below one or both shoulders, sleeves still loosely on the arms, jacket body hanging as an intact outer layer",
-        "desc": "外套刻意滑到單邊或雙邊肩線下方，袖子仍自然套在手臂上，外套本體保持完整外層。"
+        "en": "outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer",
+        "desc": "外套滑到肩線下方，袖子仍自然套在手臂上，外套本體仍能讀作外層。"
       }
     ],
     "外套圖案 (Outerwear Surface Design)": [
@@ -2957,8 +2957,8 @@
       },
       {
         "zh": "赤腳",
-        "en": "bare feet, visible toes, relaxed barefoot styling",
-        "desc": "明確要求不穿鞋並露出腳趾，保留自然腳部狀態。"
+        "en": "bare feet, natural barefoot state",
+        "desc": "明確要求不穿鞋，保留自然腳部狀態；腳趾是否可見交由構圖決定。"
       },
       {
         "zh": "低筒球鞋",
@@ -3274,8 +3274,8 @@
       },
       {
         "zh": "皮質扣環頸鏈",
-        "en": "thin leather buckle choker detail, narrow slim leather strap around the neck, subtle edgy neck accent, not a wide belt-like collar",
-        "desc": "保留冷感與地下風格，但指定為細窄皮革頸鏈，避免生成腰帶粗細或寬厚項圈。"
+        "en": "thin leather buckle choker detail, narrow slim leather strap around the neck, subtle edgy neck accent",
+        "desc": "保留冷感與地下風格，並以細窄皮革頸鏈控制尺寸與位置。"
       },
       {
         "zh": "緞帶頸圈",

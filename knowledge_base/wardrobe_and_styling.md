@@ -146,7 +146,7 @@
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 襯衫 | `shirt, crisp cotton poplin, clean placket construction, balanced collar line` | 以俐落門襟、清楚領型與乾淨肩線構成的基礎上身單品，重點在剪裁結構而不是情境語氣。 |
 | **上身 (Tops)** | 長版襯衫 | `longline shirt, extended hem length, relaxed sleeve volume, softened drape through the body` | 以較長衣襬、寬鬆袖量與柔垂布面為主，重點在長版比例與輪廓延伸，不預設特定穿法。 |
-| **上身 (Tops)** | 領帶襯衫 | `shirt with a soft short tie, relaxed collar opening, clean front placket, uniform-inspired upper-body structure` | 以短領帶、微鬆領口與制服式前襟為主，保留襯衫結構但不預設衣襬狀態。 |
+| **上身 (Tops)** | 領帶襯衫 | `collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure` | 以短領帶固定在領口的制服感襯衫為主，領口保持整齊、門襟清楚，不預設衣襬狀態。 |
 | **上身 (Tops)** | 短袖上衣 | `short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion` | 以俐落袖長、順身布面與簡潔上半身線條為主，適合作為中性基礎版型。 |
 | **上身 (Tops)** | 落肩 T 恤 | `dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion` | 以低肩線、寬鬆袖根與棉質 T 恤輪廓為主，上身比例放鬆但不指定衣長。 |
 | **上身 (Tops)** | 短版 T 恤 | `cropped t-shirt, concise hem length, compact torso block, casual knit structure` | 以短版衣長與精簡衣身比例為主，重點在裁短後的上半身輪廓，而非情境化描述。 |
@@ -160,7 +160,7 @@
 | **上身 (Tops)** | 短版針織背心 | `cropped knit camisole, compact hem length, ribbed knit texture, narrow shoulder strap construction` | 以短版長度、細肩帶與針織紋理為主，輪廓精簡且帶明確針織表面語言。 |
 | **上身 (Tops)** | 短版蕾絲背心 | `sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem` | 參考 LENY 蕾絲 cami 款式：透明花卉蕾絲、細可調肩帶、三角胸杯感上緣與短版波浪蕾絲下襬；顏色交由上身配色控制。 |
 | **上身 (Tops)** | 平口上衣 | `strapless tube top, clean upper edge, smooth stretch fabric, compact bandeau or halter-bandeau structure` | 以無肩帶或平口上緣、簡潔帶狀比例與貼身彈性布面為主，輪廓短而乾淨。 |
-| **上身 (Tops)** | 一字領上衣 | `off-shoulder top, soft neckline silhouette, visible white bra straps along the shoulder line, refined layered styling detail` | 以露出鎖骨與肩線的一字領為主，可見白色內衣肩帶形成細緻層次，輪廓柔和且女性化。 |
+| **上身 (Tops)** | 一字領上衣 | `off-shoulder top, soft neckline silhouette, open collarbone line, refined neckline detail` | 以露出鎖骨與肩線的一字領為主，輪廓柔和且女性化，不在單品內寫死內層肩帶。 |
 | **上身 (Tops)** | 絲綢緞面襯衫 | `silk satin blouse, luminous satin sheen, soft draping sleeves, refined cuff or ruffle finish, fluid blouse construction` | 以柔亮緞面、流動布感、柔垂袖型與細緻袖口為主，保留襯衫結構與高級布面光澤。 |
 | **上身 (Tops)** | 透膚刺繡襯衫 | `semi-sheer embroidered shirt, lightweight voile fabric, tonal floral embroidery, soft draped collar structure, translucent layered surface` | 以輕薄透膚布料、同色刺繡、柔垂領口與襯衫結構為主，表面有細緻層次。 |
 | **上身 (Tops)** | 網紗透視上衣 | `semi-sheer mesh or lace top, fine net texture, floral motif panels, lace-trim detailing, lightweight layered construction` | 以細網材質、蕾絲拼片、花卉紋理與輕透層次為主，保留清楚的透視上衣結構。 |
@@ -169,15 +169,15 @@
 | **上身 (Tops)** | 球衣 / 運動 jersey | `sports jersey top, athletic uniform feel, relaxed sporty silhouette` | 以運動制服感、寬鬆衣身與球衣式面料為主，輪廓清楚且偏休閒運動。 |
 | **上身 (Tops)** | 維多利亞高領蕾絲襯衫 | `Victorian high-neck lace blouse, ruffled collar, intricate lace detailing` | 以高領、荷葉領邊、細緻蕾絲與復古襯衫結構為主，領口與胸前細節較繁複。 |
 | **上身 (Tops)** | 雪紡荷葉蝴蝶結襯衫 | `sheer chiffon ruffle blouse, layered lace ruffles across the front, ribbon bow at the collar, soft gathered sleeves, romantic vintage styling` | 以雪紡薄料、前胸荷葉層次、領口蝴蝶結與柔軟抓褶袖為主，輪廓偏古典甜美。 |
-| **上身 (Tops)** | 素色緞面旗袍上衣 | `satin cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, smooth lustrous fabric, untucked hem worn loose over the waistline, refined Chinese-inspired styling` | 旗袍式剪裁的上衣版本，保留立領、盤扣與貼身上半身輪廓，但衣襬自然放出、不紮進下身，適合搭配長裙、寬褲或都會中式混搭造型。 |
-| **上身 (Tops)** | 精緻刺繡旗袍上衣 | `embroidered cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, intricate floral embroidery, untucked hem worn loose over the waistline, refined Chinese-inspired detail` | 在旗袍式上衣結構中加入細緻刺繡與盤扣細節，並強調衣襬自然放出、不紮進下身，裝飾感更強，適合更正式或更華麗的中式時裝搭配。 |
+| **上身 (Tops)** | 素色緞面旗袍上衣 | `satin cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, smooth lustrous fabric, hip-grazing hem` | 旗袍式剪裁的上衣版本，保留立領、盤扣與貼身上半身輪廓，衣襬長度停在臀部附近，實際紮入或放出交由穿法控制。 |
+| **上身 (Tops)** | 精緻刺繡旗袍上衣 | `embroidered cheongsam-style top, elegant mandarin collar, fitted upper-body silhouette, frog-button detail, intricate floral embroidery, hip-grazing hem` | 在旗袍式上衣結構中加入細緻刺繡與盤扣細節，衣襬長度停在臀部附近，不預設紮衣或放出穿法。 |
 | **上身 (Tops)** | 和服式上衣 | `kimono-style wrap top, layered crossover front, soft draped sleeves, woven floral or traditional motif accents, obi-inspired waist emphasis` | 以和服交疊包裹結構為靈感的上衣版本，保留寬鬆袖型、包裹式前襟、腰部強調與傳統圖樣裝飾。 |
 | **上身 (Tops)** | 浴衣式上衣 | `yukata-style wrap top, airy crossover front, relaxed draped sleeves, lightweight cotton gauze texture, delicate floral or geometric prints` | 以浴衣較輕鬆的包裹式結構為靈感，布料輕薄透氣，保留交疊前襟、寬鬆袖型與簡潔印花。 |
-| **上身 (Tops)** | 比基尼上身 | `triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric, clean beachwear styling` | 作為泳裝上身使用，重點是細繩肩帶、簡潔三角罩杯與俐落海邊感線條。 |
-| **上身 (Tops)** | 蕾絲胸罩 | `lace bra top, delicate straps or strapless structure, floral lace, scalloped trim, refined lingerie detailing` | 以蕾絲罩杯、細肩帶或無肩帶結構、波浪邊與完整內衣式上身線條為主。 |
-| **上身 (Tops)** | 運動型內衣 | `sports bra top, Calvin Klein-inspired clean elastic band, smooth technical jersey, minimal athletic seaming, refined activewear styling` | 以簡潔彈性下圍、機能針織面料與俐落運動車線為主的運動上衣語言，參考 Calvin Klein 式極簡運動內衣風格，但更偏服裝設計描述。 |
+| **上身 (Tops)** | 比基尼上身 | `triangle bikini top, slim halter strings, minimal sliding triangle cups, smooth stretch swim fabric` | 作為泳裝上身使用，重點是細繩肩帶、簡潔三角罩杯與彈性泳裝布料，不把場景語氣寫進單品。 |
+| **上身 (Tops)** | 蕾絲胸罩 | `lace bra top, delicate shoulder straps, floral lace, scalloped trim, refined lingerie detailing` | 以蕾絲罩杯、細肩帶結構、波浪邊與完整內衣式上身線條為主。 |
+| **上身 (Tops)** | 運動型內衣 | `sports bra top, clean elastic underband, smooth technical jersey, minimal athletic seaming` | 以簡潔彈性下圍、機能針織面料與俐落運動車線為主的運動上衣語言。 |
 | **上身 (Tops)** | 蕾絲睡衣上身 | `lace sleepwear top, delicate floral lace panels, scalloped trim, soft relaxed drape, refined sleepwear detailing` | 以蕾絲拼接、花卉蕾絲面、波浪收邊與柔軟垂墜為主，保留睡衣式上身結構。 |
-| **上身 (Tops)** | 波西米亞風上衣 | `bohemian draped blouse, crinkled gauze or washed rayon, deep relaxed neckline, loose untucked hem, layered sleeves, folk-woven trim` | 以皺感薄紗或水洗 rayon、鬆垂領口、寬鬆外放衣襬、層次袖型與民俗織帶細節為主，保留波西米亞上衣的垂墜結構。 |
+| **上身 (Tops)** | 波西米亞風上衣 | `bohemian draped blouse, crinkled gauze or washed rayon, deep relaxed neckline, layered sleeves, folk-woven trim` | 以皺感薄紗或水洗 rayon、鬆垂領口、層次袖型與民俗織帶細節為主，保留波西米亞上衣的垂墜結構，不預設衣襬穿法。 |
 | **上身圖案 (Top Surface Design)** | 全無 | `no added top pattern, clean solid-color surface styling` | 不額外加入上身表面圖案，保留單色與乾淨版型表現。 |
 | **上身圖案 (Top Surface Design)** | 粗橫條紋 | `bold horizontal stripe top, clearly defined stripe bands across the torso, strong Breton-style graphic rhythm` | 以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。 |
 | **上身圖案 (Top Surface Design)** | 細橫條紋 | `fine horizontal stripe top, narrow repeated stripe bands across the torso, delicate Breton-inspired surface rhythm` | 以細緻而連續的橫向條帶覆蓋整件上身，保留清楚的橫條紋識別，同時比粗條紋更日常、更輕盈。 |
@@ -224,13 +224,13 @@
 | **連身 (Dresses)** | 短版｜高領挖腰連身泳裝 | `high-neck extreme front cut-out monokini swimsuit, bikini-like one-piece construction, separate high-neck chest panel and high-cut bikini bottom connected only by thin side straps, oversized open front torso gap exposing most of the abdomen and navel, smooth stretch swim fabric, main swim fabric color controlled by dress color selection` | 短版高領挖空 monokini 泳裝，視覺接近比基尼但仍是連身結構；上方高領胸前布片與下方高衩比基尼底片只靠側邊細帶連接，前方軀幹大面積挖空，露出大部分腹部與肚臍，顏色由連身配色控制。 |
 | **褲裝 (Pants)** | 全無 | `no pants, lower-body styling omitted` | 不使用褲裝，方便和裙裝、泳裝或更簡化的造型邏輯搭配。 |
 | **褲裝 (Pants)** | 直筒牛仔褲 | `straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction` | 以直筒褲管、標準丹寧結構與清楚褲線比例為主，重點在穩定耐看的基礎版型。 |
-| **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, casual denim silhouette, exposed waist styling` | 千禧與街頭感很強的低腰褲型，適合露腰與休閒造型。 |
+| **褲裝 (Pants)** | 低腰牛仔褲 | `low-rise jeans, waistband sitting on the hips, casual denim silhouette, clean denim structure` | 千禧與街頭感很強的低腰褲型，重點在腰頭位置與丹寧褲身，不預設上身露腰效果。 |
 | **褲裝 (Pants)** | 牛仔短褲 | `denim shorts, short hemline, compact fitted seat, clean cut-off-inspired silhouette` | 以短褲長度、丹寧布面與俐落褲口比例為主，重點是簡潔直接的短版結構。 |
 | **褲裝 (Pants)** | 超短運動短褲 | `micro athletic shorts, compact sporty cut, minimal hem length, lightweight activewear structure` | 以超短褲長、運動褲口與輕量機能結構為主，整體偏精簡直接的 activewear 語言。 |
 | **褲裝 (Pants)** | 真理褲 | `low-rise dolphin micro shorts, contrast piping, contrast elastic waistband, front drawstring, side lace-up grommet detail, compact athletic hot-pants silhouette` | 以低腰 dolphin 熱褲為核心，包含撞色滾邊、對比鬆緊腰頭、前方抽繩與側邊綁孔細節，重點是短版運動熱褲比例。 |
 | **褲裝 (Pants)** | 韻律緊身短褲 | `knee-length stretch leggings shorts, fitted rhythmic dance shorts, elastic activewear fabric, streamlined mid-leg silhouette` | 以五分長度的緊身韻律短褲為主，像 leggings 的貼身彈性布料但長度停在膝上到膝位附近，不是長褲。 |
-| **褲裝 (Pants)** | 蕾絲內褲 | `low-rise lace panties, lingerie bottoms, delicate intimate styling, exposed hip line` | 以低腰位置貼合臀線與胯部，偏內衣與私密寫真風格，強調蕾絲質地與貼身感。 |
-| **褲裝 (Pants)** | 蕾絲丁字褲 | `seamless lace thong bottoms, ultra-thin side straps, low-rise V-front, minimal rear coverage, exposed buttock curve` | 以無痕蕾絲丁字褲為主，低腰 V 字前片、極細側帶與極少後片覆蓋，讓臀部曲線明顯露出，和一般蕾絲內褲做出清楚區隔。 |
+| **褲裝 (Pants)** | 蕾絲內褲 | `low-rise lace panties, lingerie bottoms, delicate lace texture, close-fitting hip line, compact lower-body structure` | 以低腰蕾絲內褲本體為主，強調蕾絲質地、貼合臀線與精簡下身結構，不加入情境語氣。 |
+| **褲裝 (Pants)** | 蕾絲丁字褲 | `seamless lace thong bottoms, ultra-thin side straps, low-rise V-front, minimal back panel` | 以無痕蕾絲丁字褲為主，低腰 V 字前片、極細側帶與極少後片結構，和一般蕾絲內褲做出清楚區隔。 |
 | **褲裝 (Pants)** | 皮革短褲 | `leather shorts, glossy leather surface, compact fitted seat, sharp short-bottom silhouette` | 以皮革表面、俐落短褲比例與較硬挺的下身結構為主，重點在材質與剪裁態度。 |
 | **褲裝 (Pants)** | 工裝長褲 | `cargo pants, structured utility silhouette, practical pocket detailing` | 工裝、街頭與機能感都很穩，輪廓偏直筒或微寬鬆。 |
 | **褲裝 (Pants)** | 西裝長褲 | `tailored trousers, sharp clean lines, polished formal drape` | 都會、正式與俐落感很強，適合極簡與成熟造型。 |
@@ -245,8 +245,8 @@
 | **褲裝 (Pants)** | 亮面皮革長褲 | `gloss-finish leather trousers, reflective surface treatment, elongated leg line, sharp lower-body structure` | 以亮面皮革、拉長褲身線條與更明確的表面反光處理為主，重點在材質態度。 |
 | **褲裝 (Pants)** | 乳膠長褲 | `latex trousers, high-shine latex surface, continuous leg contour, polished synthetic finish` | 以乳膠表面、高反光塗層與連續腿線為主，重點在材質與完整褲身結構。 |
 | **褲裝 (Pants)** | 乳膠短褲 | `latex shorts, high-shine latex surface, concise short-bottom block, polished synthetic finish` | 以乳膠表面、短褲比例與更直接的材質反光為主，重點在精簡下身結構。 |
-| **褲裝 (Pants)** | 比基尼下身 | `low-rise side-tie bikini bottoms, string-tied hips, minimal swimwear coverage, exposed hip line, clean beachwear silhouette` | 作為泳裝下身使用時，改成更接近兩側綁帶的低腰比基尼褲型，重點是髖部綁結、簡潔包覆與俐落直接的海邊泳裝輪廓。 |
-| **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, earthy layered tones, gathered relaxed waist, folk-pattern panels and artisanal resort mood` | 褲身更寬鬆柔軟，帶自然堆疊與土色層次感，像度假地咖啡館裡常見的民俗風寬褲；整體不是俐落剪裁，而是強調鬆弛、垂墜與異國旅行感。 |
+| **褲裝 (Pants)** | 比基尼下身 | `low-rise side-tie bikini bottoms, string-tied hips, minimal swimwear coverage, clean swim-bottom silhouette` | 作為泳裝下身使用時，改成更接近兩側綁帶的低腰比基尼褲型，重點是髖部綁結、簡潔包覆與俐落泳裝下身輪廓。 |
+| **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, gathered relaxed waist, folk-pattern panels` | 褲身更寬鬆柔軟，帶自然堆疊與民俗圖案面料；整體不是俐落剪裁，而是強調鬆弛、垂墜與寬鬆份量。 |
 | **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling` | 以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。 |
 | **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood` | 以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
@@ -329,12 +329,12 @@
 | **外套 (Outerwear)** | 人造毛皮草外套 | `faux fur coat, plush textured outerwear, voluminous soft pile, cold-weather fashion layer` | 以人造毛皮的厚實絨面、蓬鬆外層份量與柔軟大面積材質為主。 |
 | **外套 (Outerwear)** | 薄紗輕薄披衣外套 | `sheer lightweight cover-up jacket, translucent gauze mesh fabric, hooded zip-front layer, short sleeves, soft draped outerwear` | 以半透明薄紗網布、連帽拉鍊、短袖與輕柔披掛感為主的輕薄外層。 |
 | **外套開合 (Outerwear Opening)** | 全無 | `no additional outerwear front-opening instruction` | 不額外指定外套前襟、扣子或拉鍊狀態，保留外套自然開合。 |
-| **外套開合 (Outerwear Opening)** | 敞開穿 | `worn open at the front, inner layer visible through the full front opening` | 外套正面敞開，讓內搭透過前襟開口自然可見。 |
+| **外套開合 (Outerwear Opening)** | 敞開穿 | `outerwear worn open at the front, front panels parted naturally` | 外套正面敞開，前片自然分開，不強制內搭必須完整可見。 |
 | **外套開合 (Outerwear Opening)** | 不扣扣子 | `button-front outerwear left unbuttoned, front panels open naturally` | 適用有扣子的外套，扣子不扣，前片自然打開。 |
 | **外套開合 (Outerwear Opening)** | 不拉拉鍊 | `zip-front outerwear left unzipped, zipper track open naturally` | 適用拉鍊外套，拉鍊不拉起，拉鍊軌道自然打開。 |
 | **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
-| **外套穿法 (Outerwear Styling)** | 正常穿著 | `properly worn on both shoulders as a standard outer layer over the top, shoulder line fully covered` | 外套正常穿在雙肩上，作為完整覆蓋上衣肩線的外層，不帶滑肩或露肩效果。 |
-| **外套穿法 (Outerwear Styling)** | 滑落肩部 | `outerwear intentionally slipped below one or both shoulders, sleeves still loosely on the arms, jacket body hanging as an intact outer layer` | 外套刻意滑到單邊或雙邊肩線下方，袖子仍自然套在手臂上，外套本體保持完整外層。 |
+| **外套穿法 (Outerwear Styling)** | 正常穿著 | `outerwear worn normally on both shoulders in a standard outer-layer position` | 外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。 |
+| **外套穿法 (Outerwear Styling)** | 滑落肩部 | `outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer` | 外套滑到肩線下方，袖子仍自然套在手臂上，外套本體仍能讀作外層。 |
 | **外套圖案 (Outerwear Surface Design)** | 全無 | `no added outerwear pattern, clean solid-color outer layer styling` | 不額外加入外套圖案，保留外套本身的輪廓、材質與層次。 |
 | **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripe outerwear, clearly defined stripe bands across the jacket, strong graphic layering` | 以明顯橫向條帶覆蓋外套，讓外層單品更有經典條紋與圖形感。 |
 | **外套圖案 (Outerwear Surface Design)** | 細直條紋 | `clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket` | 以俐落直條紋覆蓋外套表面，形成結構化外層單品的線性節奏。 |
@@ -344,7 +344,7 @@
 | **外套圖案 (Outerwear Surface Design)** | 滿版卡通塗鴉印花 | `all-over cartoon doodle print across the outerwear, playful illustrated motifs, colorful youthful outer layer surface` | 以卡通塗鴉與插畫感圖樣覆蓋整件外套，整體更活潑且圖案存在感更高。 |
 | **外套圖案 (Outerwear Surface Design)** | 胸前復古標語印花 | `large vintage slogan graphic on the front of the outerwear, centered typographic statement, retro casual streetwear styling` | 以外套正面的大型復古標語或字樣圖像為主，形成置中的 graphic outerwear 主視覺。 |
 | **鞋款 (Shoes)** | 全無 | `no explicit shoe styling, footwear unspecified` | 不特別指定鞋款，讓畫面避免額外鞋部細節。 |
-| **鞋款 (Shoes)** | 赤腳 | `bare feet, visible toes, relaxed barefoot styling` | 明確要求不穿鞋並露出腳趾，保留自然腳部狀態。 |
+| **鞋款 (Shoes)** | 赤腳 | `bare feet, natural barefoot state` | 明確要求不穿鞋，保留自然腳部狀態；腳趾是否可見交由構圖決定。 |
 | **鞋款 (Shoes)** | 低筒球鞋 | `low-top sneakers, clean everyday casual shoe shape` | 以低筒鞋口、簡潔鞋面與日常球鞋輪廓為主。 |
 | **鞋款 (Shoes)** | ADIZERO EVO SL JS4506 | `adidas adizero evo sl js4506 running shoes, sleek speed-runner shape, contrast three-stripe side mark, lightweight athletic outsole` | 以速度型跑鞋輪廓、俐落鞋身、側邊三線標記與輕量運動鞋底為主。 |
 | **鞋款 (Shoes)** | Samba OG | `adidas samba og sneakers, gum sole, three-stripe side detail, terrace football styling` | 以薄底復古球鞋、膠底、側邊三線與足球訓練鞋輪廓為主。 |
@@ -405,7 +405,7 @@
 | **頸部 (Neck Accessories)** | 多條層疊的水晶項鍊與頸鏈 | `layered crystal necklace detail, subtle reflective neck accent` | 保留水晶反光，但降低 ornate 與誇張珠寶感。 |
 | **頸部 (Neck Accessories)** | 水滴寶石吊墜項鍊 | `small teardrop pendant necklace detail, delicate understated jewel accent` | 保留精緻主墜感，但縮小寶石主導畫面的機率。 |
 | **頸部 (Neck Accessories)** | 復古浮雕墜飾頸鍊 | `vintage cameo pendant detail, subtle antique-inspired neck accent` | 保留復古收藏感，但改為較輕的點綴描述。 |
-| **頸部 (Neck Accessories)** | 皮質扣環頸鏈 | `thin leather buckle choker detail, narrow slim leather strap around the neck, subtle edgy neck accent, not a wide belt-like collar` | 保留冷感與地下風格，但指定為細窄皮革頸鏈，避免生成腰帶粗細或寬厚項圈。 |
+| **頸部 (Neck Accessories)** | 皮質扣環頸鏈 | `thin leather buckle choker detail, narrow slim leather strap around the neck, subtle edgy neck accent` | 保留冷感與地下風格，並以細窄皮革頸鏈控制尺寸與位置。 |
 | **頸部 (Neck Accessories)** | 緞帶頸圈 | `ribbon choker detail, soft understated neck accent` | 緞帶材質讓頸圈更柔和，語氣調整為低存在感裝飾。 |
 | **頸部 (Neck Accessories)** | 蕾絲緞帶頸圈 | `lace ribbon choker detail, subtle romantic neck accent` | 保留浪漫風格，但不讓蕾絲頸圈過度搶戲。 |
 | **頸部 (Neck Accessories)** | 絲絨蝴蝶結頸圈 | `velvet bow choker detail, subtle vintage ribbon accent` | 保留復古甜感，但降低中央蝴蝶結的主視覺強度。 |

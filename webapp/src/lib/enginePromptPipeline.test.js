@@ -566,10 +566,10 @@ test('Gpt single-subject prompt compresses footwear outerwear and layering detai
   const wardrobe = gptSection(prompt, 'Wardrobe');
 
   assert.match(wardrobe, /dark grey washed denim jacket with chest pockets and metal buttons/i);
-  assert.match(wardrobe, /slipped below one or both shoulders, sleeves still on the arms, intact jacket body/i);
+  assert.match(wardrobe, /outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer/i);
   assert.match(wardrobe, /white ribbed ankle socks/i);
   assert.match(wardrobe, /white adidas samba og sneakers, gum sole, three-stripe side detail/i);
-  assert.match(wardrobe, /outerwear stays intact; inner garment visible only at neckline, opening, or hem/i);
+  assert.match(wardrobe, /outerwear remains a coherent outer layer; inner garment appears at natural openings/i);
   assert.doesNotMatch(wardrobe, /casual structured outerwear|terrace football styling|soft cotton texture/i);
   assert.doesNotMatch(wardrobe, /sleeves still loosely on the arms, jacket body hanging as an intact outer layer/i);
   assert.doesNotMatch(wardrobe, /properly worn with intact shoulders, sleeves, lapels and hem/i);
@@ -1191,6 +1191,43 @@ test('AI prompt converts recognizable separate pieces into a style shorthand', (
 
   assert.match(prompt.midjourneyPrompt, /wearing a summer bikini-and-denim look/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /slim halter strings|minimal sliding triangle cups|compact fitted seat/i);
+});
+
+test('AI prompt keeps top and bottom garments for arbitrary separates', () => {
+  const baseLocks = {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  };
+
+  const [tieShirtPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    topId: optionId('topId', '領帶襯衫'),
+    topColorId: optionId('topColorId', '白色'),
+    pantsId: optionId('pantsId', '皮革短褲'),
+    bottomColorId: optionId('bottomColorId', '螢光綠色'),
+    bottomRiseId: optionId('bottomRiseId', '低腰'),
+    bottomFitId: optionId('bottomFitId', '緊身'),
+  });
+
+  assert.match(tieShirtPrompt.midjourneyPrompt, /white collared shirt with a short soft necktie/i);
+  assert.match(tieShirtPrompt.midjourneyPrompt, /neon green leather shorts/i);
+  assert.doesNotMatch(tieShirtPrompt.midjourneyPrompt, /[\u3400-\u9fff]/);
+
+  const [sweaterPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    topId: optionId('topId', '長版寬鬆麻花針織毛衣'),
+    topColorId: optionId('topColorId', '白色'),
+    topStylingId: optionId('topStylingId', '自然放出'),
+    pantsId: optionId('pantsId', 'leggings'),
+    bottomColorId: optionId('bottomColorId', '螢光綠色'),
+    bottomRiseId: optionId('bottomRiseId', '低腰'),
+    bottomFitId: optionId('bottomFitId', '緊身'),
+  });
+
+  assert.match(sweaterPrompt.midjourneyPrompt, /white oversized cable-knit sweater/i);
+  assert.match(sweaterPrompt.midjourneyPrompt, /neon green leggings/i);
+  assert.doesNotMatch(sweaterPrompt.midjourneyPrompt, /[\u3400-\u9fff]/);
 });
 
 test('AI prompt keeps a compact imaging simulation cue', () => {

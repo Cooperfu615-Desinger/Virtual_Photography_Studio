@@ -7385,7 +7385,7 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
     ? stripMarkdown(styling.en).replace(/\s+/g, ' ').trim()
     : '';
   if (isOuterwear && styling?.zh === '正常穿著') {
-    stylingText = 'properly worn on both shoulders as a standard outer layer over the top, shoulder line fully covered';
+    stylingText = 'outerwear worn normally on both shoulders in a standard outer-layer position';
   }
   const detailText = [riseText, fitText, patternText, stylingText, secondaryColorText].filter(Boolean).join(', ');
   if (!color || isNoneLikeItem(color)) return detailText ? `${base}, ${detailText}` : base;
@@ -7614,10 +7614,10 @@ function buildSpecialOutfitPrompt(item, palette = null) {
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
   if (!styling || isNoneLikeItem(styling)) return '';
   if (styling.zh === '正常穿著') {
-    return minimal ? '' : 'properly worn on both shoulders';
+    return minimal ? '' : 'outerwear worn normally on both shoulders';
   }
   if (styling.zh === '滑落肩部') {
-    return 'outerwear intentionally slipped below one or both shoulders, sleeves still loosely on the arms, jacket body hanging as an intact outer layer';
+    return 'outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer';
   }
   return stripMarkdown(styling.en || '').replace(/\s+/g, ' ').trim();
 }
@@ -7910,14 +7910,14 @@ function buildWaistlineCompatibilityPrompt(wardrobeSlots) {
   if (!bottom || !top || !isLowRiseBottom || isCroppedTopItem(top)) return '';
 
   if (topStyling?.zh === '自然放出' || isUntuckedTopItem(top)) {
-    return 'top hem fully covering the low-rise waistband and abdomen, untucked shirt length extending below the waistband, no accidental midriff exposure';
+    return 'top hem overlaps the low-rise waistband, long untucked length covering the abdomen';
   }
 
   if (['紮入下身', '半紮'].includes(topStyling?.zh) || isTuckedTopItem(top)) {
-    return 'top properly tucked into the low-rise waistband with a natural low-rise proportion, clean waist styling, not cropped';
+    return 'top hem tucks into the low-rise waistband with a natural low-rise proportion';
   }
 
-  return 'top length extending below the low-rise waistband, abdomen covered, not cropped into an unintended midriff reveal';
+  return 'top length meets or slightly overlaps the low-rise waistband';
 }
 
 function hasWardrobeText(item, patterns = []) {
@@ -7995,27 +7995,27 @@ function buildWardrobeLayeringLogicPrompt(wardrobeSlots, role = '') {
   const rules = [];
 
   if (top && pants && isLongTopLayer(top) && isShortBottomLayer(pants)) {
-    rules.push('long top layer worn naturally untucked, covering the waist and partially covering the shorts; shorts only peek out naturally below the hem; do not tuck the long top into the shorts');
+    rules.push('long top falls over the waistband, with shorts partly visible below the hem');
   }
 
   if (hasOuterwear && (dress || top)) {
-    rules.push('outerwear is the complete outer layer, properly worn with intact shoulders, sleeves, lapels and hem; inner garment remains visible only where naturally exposed at the neckline, front opening or hem');
+    rules.push('outerwear remains a coherent outer layer; inner garment appears at natural openings');
   }
 
   if (hasOuterwear && dress && isStrappyInnerLayer(dress)) {
-    rules.push('thin straps belong to the inner dress only; do not turn the outerwear into slipped straps, broken shoulders or an off-shoulder jacket shape');
+    rules.push('thin straps read as the inner dress; outerwear keeps its own shoulder construction');
   }
 
   if (hasOuterwear && top && isStrappyInnerLayer(top)) {
-    rules.push('thin straps belong to the inner top only; keep the outerwear silhouette complete and structurally clean');
+    rules.push('thin straps read as the inner top; outerwear keeps its own shoulder construction');
   }
 
   if (legwear && bottom && isLongBottomLayer(bottom)) {
-    rules.push('legwear is secondary under the long bottom layer, visible only subtly near the shoe opening or through natural movement; do not force full socks or stockings to be completely displayed');
+    rules.push('legwear stays secondary, appearing near hems or openings when naturally visible');
   }
 
   if (bottom && isLongBottomLayer(bottom)) {
-    rules.push('long bottom layer keeps its natural full length and drape; shoes can remain normally visible without distorting the pants or skirt');
+    rules.push('long bottom keeps its natural drape while footwear remains normally readable');
   }
 
   if (rules.length === 0) return '';
@@ -8520,7 +8520,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     const isBarefoot = wardrobeSlots.shoes?.zh === '赤腳';
 
     if (skeletonMode) return skeletonText(`${base}, complete skeletal feet clearly visible`);
-    if (isBarefoot) return `${base}, bare feet and visible toes clearly shown`;
+    if (isBarefoot) return `${base}, bare feet clearly shown`;
     if (hasLegwear && hasShoes && !longBottom) return `${base}, legwear and shoes clearly visible`;
     if (hasShoes) return `${base}, shoes clearly visible`;
     return `${base}, full lower legs and feet clearly visible`;
@@ -9930,7 +9930,7 @@ function compressGptSingleWardrobeText(value, context) {
     .replace(/tight body-skimming upper-body fit,\s*([^,]+?) cotton camisole top,\s*slim shoulder straps,\s*soft ribbed knit,\s*clean compact upper-body line/gi, 'tight $1 ribbed cotton camisole with slim straps')
     .replace(/high-rise waistband sitting above the natural waist,\s*fitted lower-body line following the garment shape,\s*([^,]+?) straight-leg jeans,\s*clean denim texture,\s*balanced leg line,\s*classic five-pocket construction/gi, 'high-rise fitted $1 straight-leg jeans')
     .replace(/([^,]+?) denim jacket,\s*washed denim texture,\s*chest pockets,\s*metal buttons,\s*casual structured outerwear/gi, '$1 washed denim jacket with chest pockets and metal buttons')
-    .replace(/outerwear intentionally slipped below one or both shoulders,\s*sleeves still loosely on the arms,\s*jacket body hanging as an intact outer layer/gi, 'slipped below one or both shoulders, sleeves still on the arms, intact jacket body')
+    .replace(/outerwear intentionally slipped below one or both shoulders,\s*sleeves still loosely on the arms,\s*jacket body hanging as an intact outer layer/gi, 'outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer')
     .replace(/,\s*one-piece silhouette(?=,|\.)/gi, '')
     .replace(/\bone-piece body-skimming silhouette\b/gi, 'body-skimming silhouette')
     .replace(/\bone-piece fitted silhouette\b/gi, 'fitted silhouette')
@@ -9966,8 +9966,11 @@ function compressGptSingleWardrobeText(value, context) {
     .replace(/,\s*properly worn on both shoulders(?=,|\.)/gi, '')
     .replace(/,\s*soft cotton texture(?=,|\.)/gi, '')
     .replace(/,\s*terrace football styling(?=,|\.)/gi, '')
-    .replace(/realistic outer-to-inner dressing order:\s*outerwear is the complete outer layer,\s*properly worn with intact shoulders,\s*sleeves,\s*lapels and hem;\s*inner garment remains visible only where naturally exposed at the neckline,\s*front opening or hem/gi, 'outerwear stays intact; inner garment visible only at neckline, opening, or hem')
+    .replace(/realistic outer-to-inner dressing order:\s*outerwear is the complete outer layer,\s*properly worn with intact shoulders,\s*sleeves,\s*lapels and hem;\s*inner garment remains visible only where naturally exposed at the neckline,\s*front opening or hem/gi, 'outerwear remains a coherent outer layer; inner garment appears at natural openings')
+    .replace(/realistic outer-to-inner dressing order:\s*outerwear remains a coherent outer layer;\s*inner garment appears at natural openings/gi, 'outerwear remains a coherent outer layer; inner garment appears at natural openings')
     .replace(/[,.]\s*realistic outer-to-inner dressing order:\s*long bottom layer keeps its natural full length and drape;\s*shoes can remain normally visible without distorting the pants or skirt\.?/gi, '')
+    .replace(/[,.]\s*realistic outer-to-inner dressing order:\s*long bottom keeps its natural drape while footwear remains normally readable\.?/gi, '')
+    .replace(/\brealistic outer-to-inner dressing order:\s*/gi, '')
     .replace(/\bclean compact upper-body line\b/gi, '')
     .replace(/\bbalanced leg line\b/gi, '')
     .replace(/\bclassic five-pocket construction\b/gi, '')
@@ -10025,6 +10028,7 @@ function compressZImageSingleWardrobeText(value, context) {
     .replace(/,\s*top length extending below the low-rise waistband,\s*abdomen covered,\s*not cropped into an unintended midriff reveal/gi, '')
     .replace(/,\s*top properly tucked into the low-rise waistband with a natural low-rise proportion,\s*clean waist styling,\s*not cropped/gi, '')
     .replace(/[,.]\s*realistic outer-to-inner dressing order:\s*long bottom layer keeps its natural full length and drape;\s*shoes can remain normally visible without distorting the pants or skirt\.?/gi, '')
+    .replace(/[,.]\s*realistic outer-to-inner dressing order:\s*long bottom keeps its natural drape while footwear remains normally readable\.?/gi, '')
     .replace(/,\s*selected\s+(?:main\s+)?(?:fabric|uniform|satin|dress|latex|swim fabric|tonal palette|main fabric|main latex|main satin|main swim fabric)\s+color/gi, '')
     .replace(/,\s*selected\s+(?:apron and ruffle contrast|contrast details|contrast trim|ruffle contrast|contrast panels|tonal palette)/gi, '')
     .replace(/,\s*selected\s+lace,\s*ribbon,\s*garter strap,\s*and trim contrast/gi, '')
@@ -10796,7 +10800,37 @@ function isAiAccessoryFragment(fragment) {
 }
 
 function isAiClothingCoreFragment(fragment) {
-  return /\b(?:top|shirt|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|sweatpants|jeans|trousers|boots|shoes|sandals|loafers|sneakers|socks|tights|stockings|leg warmers|bikini|swimsuit|corset|bra|harness|bodysuit|hood|hoodie|sweater|vest|blazer|uniform|yukata|qipao|cheongsam|kimono|cape|cloak|gown)\b/i.test(fragment);
+  return /\b(?:top|shirt|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|sweatpants|jeans|trousers|leggings|boots|shoes|sandals|loafers|sneakers|socks|tights|stockings|pantyhose|leg warmers|bikini|swimsuit|corset|bra|harness|bodysuit|hood|hoodie|sweater|vest|blazer|uniform|yukata|qipao|cheongsam|kimono|cape|cloak|gown)\b/i.test(fragment);
+}
+
+function getAiGarmentRole(fragment) {
+  if (/\b(?:jacket|coat|cardigan|blazer|cape|cloak)\b/i.test(fragment)) return 'outerwear';
+  if (/\b(?:dress|gown|yukata|qipao|cheongsam|kimono|swimsuit|monokini|bodysuit)\b/i.test(fragment)) return 'dress';
+  if (/\b(?:shorts|hot pants|pants|sweatpants|jeans|trousers|skirt|leggings)\b/i.test(fragment)) return 'bottom';
+  if (/\b(?:socks|tights|stockings|leg warmers|pantyhose)\b/i.test(fragment)) return 'legwear';
+  if (/\b(?:boots|shoes|sandals|loafers|sneakers|heels|pumps|mary jane)\b/i.test(fragment)) return 'shoes';
+  if (/\b(?:top|shirt|tee|t-shirt|camisole|blouse|bikini|corset|bra|harness|hoodie|sweater|vest|jersey|uniform)\b/i.test(fragment)) return 'top';
+  return '';
+}
+
+function isAiGarmentControlFragment(fragment) {
+  return /^(?:top hem|top length|top worn|outerwear worn|front panels|low-rise waistband|high-rise waistband|tight body-skimming|fitted lower-body|loose lower-body|legwear stays|long bottom)\b/i.test(fragment);
+}
+
+function selectAiDistinctGarmentFragments(value, limit = 3) {
+  const picked = [];
+  const pickedRoles = new Set();
+
+  for (const fragment of splitAiWardrobeFragments(value)) {
+    if (!isAiClothingCoreFragment(fragment) || isAiAccessoryFragment(fragment) || isAiGarmentControlFragment(fragment)) continue;
+    const role = getAiGarmentRole(fragment);
+    if (!role || pickedRoles.has(role)) continue;
+    picked.push(fragment);
+    pickedRoles.add(role);
+    if (picked.length >= limit) break;
+  }
+
+  return picked;
 }
 
 function buildAiSpecialOutfitPhrase(value) {
@@ -10821,6 +10855,10 @@ function buildAiSpecialOutfitPhrase(value) {
 function buildAiSeparateStylePhrase(value) {
   const text = cleanAiMinimalFragment(value);
   if (!text) return '';
+  const coreFragments = selectAiDistinctGarmentFragments(value, 3);
+  const withCoreGarments = (stylePhrase) => (
+    coreFragments.length > 0 ? `${stylePhrase} with ${joinNaturalList(coreFragments)}` : stylePhrase
+  );
 
   if (/bikini|swimwear/i.test(text) && /denim shorts|denim micro shorts|denim mini skirt|denim skirt/i.test(text)) {
     return 'a summer bikini-and-denim look';
@@ -10832,14 +10870,13 @@ function buildAiSeparateStylePhrase(value) {
     const bottomPhrase = `${bottomColor ? `low-rise ${bottomColor} ` : 'low-rise '}side-tie bikini bottoms`;
     return `${withAiArticle(topPhrase)} and ${bottomPhrase}`;
   }
-  if (/punk|tartan|graffiti|leather jacket|fishnet|stud/i.test(text)) return 'a punk streetwear look';
-  if (/gothic|lace|corset|black sheer/i.test(text)) return 'a gothic lace street look';
-  if (/jersey|sport|athletic|track jacket|sneakers|running/i.test(text)) return 'a sporty athleisure look';
-  if (/blazer|suit|button-down shirt|blouse/i.test(text) && /trousers|pants|skirt/i.test(text)) return 'office casual separates';
-  if (/denim|jeans/i.test(text) && /camisole|tank top|cropped|tee|t-shirt/i.test(text)) return 'a Y2K denim casual look';
+  if (/punk|tartan|graffiti|leather jacket|fishnet|stud/i.test(text)) return withCoreGarments('a punk streetwear look');
+  if (/gothic|lace|corset|black sheer/i.test(text)) return withCoreGarments('a gothic lace street look');
+  if (/jersey|sport|athletic|track jacket|sneakers|running/i.test(text)) return withCoreGarments('a sporty athleisure look');
+  if (/blazer|suit|button-down shirt|blouse/i.test(text) && /trousers|pants|skirt/i.test(text)) return withCoreGarments('office casual separates');
+  if (/denim|jeans/i.test(text) && /camisole|tank top|cropped|tee|t-shirt/i.test(text)) return withCoreGarments('a Y2K denim casual look');
 
-  const fragments = splitAiWardrobeFragments(value).filter((part) => isAiClothingCoreFragment(part) && !isAiAccessoryFragment(part));
-  return fragments.length > 0 ? joinNaturalList(fragments.slice(0, 2)) : '';
+  return coreFragments.length > 0 ? joinNaturalList(coreFragments) : '';
 }
 
 function buildAiWardrobeVisibilityPhrase(value) {
