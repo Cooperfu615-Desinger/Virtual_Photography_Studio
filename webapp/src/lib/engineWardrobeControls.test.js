@@ -302,7 +302,8 @@ test('outerwear fit and opening compose before pattern and shoulder styling', ()
     'outerwear opening should appear before shoulder styling'
   );
   assert.match(prompt.zImagePrompt, /slipped below the shoulder line/);
-  assert.match(prompt.zImagePrompt, /jacket body still readable as an outer layer/);
+  assert.match(prompt.zImagePrompt, /sleeves loosely on the arms/);
+  assert.doesNotMatch(prompt.zImagePrompt, /jacket body still readable as an outer layer/);
 });
 
 test('model-specific shoes stay concise while preserving signature accent details', () => {

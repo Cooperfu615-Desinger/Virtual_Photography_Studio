@@ -26,6 +26,10 @@ function zImageParagraphs(prompt) {
     .filter(Boolean);
 }
 
+function zImageWardrobeParagraph(prompt) {
+  return zImageParagraphs(prompt).find((paragraph) => /^She wears\b/i.test(paragraph)) || '';
+}
+
 function assertNaturalZImageParagraphs(prompt, caseName, minParagraphs = 4) {
   const paragraphs = zImageParagraphs(prompt);
 
@@ -1228,6 +1232,112 @@ test('AI prompt keeps top and bottom garments for arbitrary separates', () => {
   assert.match(sweaterPrompt.midjourneyPrompt, /white oversized cable-knit sweater/i);
   assert.match(sweaterPrompt.midjourneyPrompt, /neon green leggings/i);
   assert.doesNotMatch(sweaterPrompt.midjourneyPrompt, /[\u3400-\u9fff]/);
+});
+
+test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for representative looks', () => {
+  const baseLocks = {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  };
+  const noZGuard = /top length meets|top hem overlaps|top hem worn naturally|waistband sitting on the hips|body-skimming lower-body fit|realistic outer-to-inner dressing order|outerwear remains a coherent outer layer|inner garment appears at natural openings|jacket body still readable|legwear stays secondary|long bottom keeps/i;
+
+  const [tieShirtPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    topId: optionId('topId', '領帶襯衫'),
+    topColorId: optionId('topColorId', '白色'),
+    pantsId: optionId('pantsId', '皮革短褲'),
+    bottomColorId: optionId('bottomColorId', '螢光綠色'),
+    bottomRiseId: optionId('bottomRiseId', '低腰'),
+    bottomFitId: optionId('bottomFitId', '緊身'),
+  });
+  assert.match(gptSection(tieShirtPrompt, 'Wardrobe'), /top length meets or slightly overlaps the low-rise waistband/i);
+  assert.match(zImageWardrobeParagraph(tieShirtPrompt), /white collared shirt with a short soft necktie fastened at the collar/i);
+  assert.match(zImageWardrobeParagraph(tieShirtPrompt), /tight low-rise neon green leather shorts/i);
+  assert.doesNotMatch(zImageWardrobeParagraph(tieShirtPrompt), noZGuard);
+
+  const [sweaterPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    topId: optionId('topId', '長版寬鬆麻花針織毛衣'),
+    topColorId: optionId('topColorId', '白色'),
+    topStylingId: optionId('topStylingId', '自然放出'),
+    pantsId: optionId('pantsId', 'leggings'),
+    bottomColorId: optionId('bottomColorId', '螢光綠色'),
+    bottomRiseId: optionId('bottomRiseId', '低腰'),
+    bottomFitId: optionId('bottomFitId', '緊身'),
+  });
+  assert.match(zImageWardrobeParagraph(sweaterPrompt), /white oversized cable-knit sweater/i);
+  assert.match(zImageWardrobeParagraph(sweaterPrompt), /tight low-rise neon green leggings/i);
+  assert.doesNotMatch(zImageWardrobeParagraph(sweaterPrompt), noZGuard);
+
+  const [outerwearPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    outerwearId: optionId('outerwearId', '丹寧外套'),
+    outerwearColorId: optionId('outerwearColorId', '深灰色'),
+    outerwearOpeningId: optionId('outerwearOpeningId', '敞開穿'),
+    outerwearStylingId: optionId('outerwearStylingId', '滑落肩部'),
+    topId: optionId('topId', '襯衫'),
+    topColorId: optionId('topColorId', '米白色'),
+    skirtId: optionId('skirtId', '百褶短裙'),
+    legwearId: optionId('legwearId', '羅紋短襪'),
+    legwearColorId: optionId('legwearColorId', '白色'),
+    shoesId: optionId('shoesId', 'Samba OG'),
+    shoesColorId: optionId('shoesColorId', '白色'),
+  });
+  assert.match(zImageWardrobeParagraph(outerwearPrompt), /dark grey washed denim jacket with chest pockets and metal buttons/i);
+  assert.match(zImageWardrobeParagraph(outerwearPrompt), /worn open at the front with front panels parted naturally/i);
+  assert.match(zImageWardrobeParagraph(outerwearPrompt), /slipped below the shoulder line with sleeves loosely on the arms/i);
+  assert.match(zImageWardrobeParagraph(outerwearPrompt), /layered over off-white shirt/i);
+  assert.match(zImageWardrobeParagraph(outerwearPrompt), /pleated mini skirt/i);
+  assert.doesNotMatch(zImageWardrobeParagraph(outerwearPrompt), noZGuard);
+
+  const [bikiniPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    topId: optionId('topId', '比基尼上身'),
+    topColorId: optionId('topColorId', '白色'),
+    pantsId: optionId('pantsId', '比基尼下身'),
+    bottomColorId: optionId('bottomColorId', '白色'),
+  });
+  assert.match(zImageWardrobeParagraph(bikiniPrompt), /white triangle bikini top with slim halter strings/i);
+  assert.match(zImageWardrobeParagraph(bikiniPrompt), /paired with white low-rise side-tie bikini bottoms/i);
+  assert.doesNotMatch(zImageWardrobeParagraph(bikiniPrompt), noZGuard);
+
+  const [lacePrompt] = generatePrompts(1, {
+    ...baseLocks,
+    topId: optionId('topId', '蕾絲胸罩'),
+    topColorId: optionId('topColorId', '黑色'),
+    pantsId: optionId('pantsId', '蕾絲內褲'),
+    bottomColorId: optionId('bottomColorId', '黑色'),
+  });
+  assert.match(zImageWardrobeParagraph(lacePrompt), /black lace bra top with delicate shoulder straps/i);
+  assert.match(zImageWardrobeParagraph(lacePrompt), /black low-rise lace panties/i);
+  assert.doesNotMatch(zImageWardrobeParagraph(lacePrompt), noZGuard);
+});
+
+test('AI prompt uses simplified X-prompt wardrobe wording for representative looks', () => {
+  const baseLocks = {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  };
+
+  const [lacePrompt] = generatePrompts(1, {
+    ...baseLocks,
+    topId: optionId('topId', '蕾絲胸罩'),
+    topColorId: optionId('topColorId', '黑色'),
+    pantsId: optionId('pantsId', '蕾絲內褲'),
+    bottomColorId: optionId('bottomColorId', '黑色'),
+  });
+  assert.match(lacePrompt.midjourneyPrompt, /wearing black lace bra top and black low-rise lace panties/i);
+  assert.doesNotMatch(lacePrompt.midjourneyPrompt, /gothic lace street look|top length|waistband|[\u3400-\u9fff]/i);
+
+  const [dressPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    dressId: optionId('dressId', '連身：短版｜細肩帶蕾絲棉質迷你洋裝'),
+    dressColorId: optionId('dressColorId', '米白色'),
+  });
+  assert.match(dressPrompt.midjourneyPrompt, /wearing an off-white spaghetti-strap lace cotton mini dress/i);
+  assert.doesNotMatch(dressPrompt.midjourneyPrompt, /delicate lace trim|short hem|one-piece|[\u3400-\u9fff]/i);
 });
 
 test('AI prompt keeps a compact imaging simulation cue', () => {

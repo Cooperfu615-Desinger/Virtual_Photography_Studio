@@ -9991,6 +9991,29 @@ function cleanZImageSinglePromptText(value) {
     .trim();
 }
 
+function naturalizeZImageXWardrobeText(value) {
+  return value
+    .replace(/^(She wears)\s+top hem worn naturally loose over the waistband,\s*/i, '$1 ')
+    .replace(/,\s*top hem worn naturally loose over the waistband/gi, '')
+    .replace(/,\s*top worn in a standard natural position/gi, '')
+    .replace(/,\s*top length meets or slightly overlaps the low-rise waistband/gi, '')
+    .replace(/,\s*top hem overlaps the low-rise waistband,\s*long untucked length covering the abdomen/gi, '')
+    .replace(/,\s*top hem tucks into the low-rise waistband with a natural low-rise proportion/gi, '')
+    .replace(/(?:,\s*|;\s*)outerwear remains a coherent outer layer;\s*inner garment appears at natural openings/gi, '')
+    .replace(/(?:,\s*|;\s*)legwear stays secondary,\s*appearing near hems or openings when naturally visible/gi, '')
+    .replace(/(?:,\s*|;\s*)long bottom keeps its natural drape while footwear remains normally readable/gi, '')
+    .replace(/\blow-rise waistband sitting on the hips,\s*tight body-skimming lower-body fit,\s*([^,.]+?\b(?:shorts|leggings|pants|jeans|trousers|skirt|bottoms|panties))/gi, 'tight low-rise $1')
+    .replace(/\blow-rise waistband sitting on the hips,\s*([^,.]+?\b(?:shorts|leggings|pants|jeans|trousers|skirt|bottoms|panties))/gi, 'low-rise $1')
+    .replace(/\btight body-skimming lower-body fit,\s*([^,.]+?\b(?:shorts|leggings|pants|jeans|trousers|skirt|bottoms|panties))/gi, 'tight $1')
+    .replace(/,\s*outerwear worn open at the front,\s*front panels parted naturally/gi, ', worn open at the front with front panels parted naturally')
+    .replace(/,\s*outerwear slipped below the shoulder line,\s*sleeves loosely on the arms,\s*jacket body still readable as an outer layer/gi, ', slipped below the shoulder line with sleeves loosely on the arms')
+    .replace(/\b(lace bra top),\s*delicate shoulder straps/gi, '$1 with delicate shoulder straps')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .replace(/\.\s*,/g, ',')
+    .trim();
+}
+
 function compressZImageSingleSubjectText(value, context) {
   if (context.subject?.count !== 1 || isSpecialSubject(context.subject)) return value;
 
@@ -10062,7 +10085,7 @@ function compressZImageSingleWardrobeText(value, context) {
     .replace(/\.\s*,/g, ',')
     .trim();
 
-  return output;
+  return naturalizeZImageXWardrobeText(output);
 }
 
 function compressZImageSinglePoseText(value, context) {
@@ -10741,6 +10764,11 @@ function buildAiMappedWardrobePhrase(value) {
   const text = cleanAiMinimalFragment(value);
   if (!text) return '';
 
+  if (/spaghetti-strap lace cotton mini dress/i.test(text)) {
+    const color = text.match(/(?:^|,\s*)([a-z][a-z -]*?)\s+spaghetti-strap lace cotton mini dress\b/i)?.[1] || '';
+    return withAiArticle(`${color} spaghetti-strap lace cotton mini dress`.trim());
+  }
+
   if (/button-up shirt outfit/i.test(text) && /hot pants/i.test(text)) {
     const sleeve = /long-sleeve/i.test(text) ? 'long-sleeve' : 'short-sleeve';
     return withAiArticle(`tight ${sleeve} button-up shirt and hot pants`);
@@ -10800,13 +10828,13 @@ function isAiAccessoryFragment(fragment) {
 }
 
 function isAiClothingCoreFragment(fragment) {
-  return /\b(?:top|shirt|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|sweatpants|jeans|trousers|leggings|boots|shoes|sandals|loafers|sneakers|socks|tights|stockings|pantyhose|leg warmers|bikini|swimsuit|corset|bra|harness|bodysuit|hood|hoodie|sweater|vest|blazer|uniform|yukata|qipao|cheongsam|kimono|cape|cloak|gown)\b/i.test(fragment);
+  return /\b(?:top|shirt|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|sweatpants|jeans|trousers|leggings|panties|bottoms|boots|shoes|sandals|loafers|sneakers|socks|tights|stockings|pantyhose|leg warmers|bikini|swimsuit|corset|bra|harness|bodysuit|hood|hoodie|sweater|vest|blazer|uniform|yukata|qipao|cheongsam|kimono|cape|cloak|gown)\b/i.test(fragment);
 }
 
 function getAiGarmentRole(fragment) {
   if (/\b(?:jacket|coat|cardigan|blazer|cape|cloak)\b/i.test(fragment)) return 'outerwear';
   if (/\b(?:dress|gown|yukata|qipao|cheongsam|kimono|swimsuit|monokini|bodysuit)\b/i.test(fragment)) return 'dress';
-  if (/\b(?:shorts|hot pants|pants|sweatpants|jeans|trousers|skirt|leggings)\b/i.test(fragment)) return 'bottom';
+  if (/\b(?:shorts|hot pants|pants|sweatpants|jeans|trousers|skirt|leggings|panties|bottoms)\b/i.test(fragment)) return 'bottom';
   if (/\b(?:socks|tights|stockings|leg warmers|pantyhose)\b/i.test(fragment)) return 'legwear';
   if (/\b(?:boots|shoes|sandals|loafers|sneakers|heels|pumps|mary jane)\b/i.test(fragment)) return 'shoes';
   if (/\b(?:top|shirt|tee|t-shirt|camisole|blouse|bikini|corset|bra|harness|hoodie|sweater|vest|jersey|uniform)\b/i.test(fragment)) return 'top';
@@ -10871,7 +10899,7 @@ function buildAiSeparateStylePhrase(value) {
     return `${withAiArticle(topPhrase)} and ${bottomPhrase}`;
   }
   if (/punk|tartan|graffiti|leather jacket|fishnet|stud/i.test(text)) return withCoreGarments('a punk streetwear look');
-  if (/gothic|lace|corset|black sheer/i.test(text)) return withCoreGarments('a gothic lace street look');
+  if (/gothic|corset|black sheer/i.test(text) || (/lace/i.test(text) && /\b(?:street|punk|jacket|boots|fishnet|slouchy)\b/i.test(text))) return withCoreGarments('a gothic lace street look');
   if (/jersey|sport|athletic|track jacket|sneakers|running/i.test(text)) return withCoreGarments('a sporty athleisure look');
   if (/blazer|suit|button-down shirt|blouse/i.test(text) && /trousers|pants|skirt/i.test(text)) return withCoreGarments('office casual separates');
   if (/denim|jeans/i.test(text) && /camisole|tank top|cropped|tee|t-shirt/i.test(text)) return withCoreGarments('a Y2K denim casual look');
