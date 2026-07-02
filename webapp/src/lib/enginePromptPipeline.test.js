@@ -226,7 +226,7 @@ test('Grok/Z-Image single-subject prompt uses compact natural subject wardrobe a
   assert.match(paragraphs[2], /^She is sitting naturally with her head facing the camera\.$/i);
 });
 
-test('AI single-subject prompt keeps core traits in one compact natural sentence', () => {
+test('AI single-subject prompt uses fixed subject lead while preserving eyewear and core prompt details', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -249,20 +249,49 @@ test('AI single-subject prompt keeps core traits in one compact natural sentence
   });
   const aiPrompt = prompt.midjourneyPrompt;
 
-  assert.match(aiPrompt, /^A photorealistic editorial portrait of a 20-year-old Japanese or Korean woman with /);
-  assert.match(aiPrompt, /black bold-frame glasses/i);
-  assert.match(aiPrompt, /slim-curvy hourglass body/i);
-  assert.match(aiPrompt, /defined eyes and lips/i);
-  assert.match(aiPrompt, /natural black wet wavy hair/i);
-  assert.match(aiPrompt, /soft smile/i);
+  assert.match(aiPrompt, /^A stunning mid-20s Japanese or Korean woman\. with black bold-frame glasses\. wearing /);
   assert.match(aiPrompt, /wearing a white triangle bikini top and low-rise white side-tie bikini bottoms/i);
   assert.match(aiPrompt, /sitting naturally and facing the camera/i);
   assert.doesNotMatch(aiPrompt, /^(Image Type|Scene|Subject|Wardrobe|Pose and Composition):/m);
   assert.doesNotMatch(aiPrompt, /A seductive stunning/i);
+  assert.doesNotMatch(aiPrompt, /photorealistic editorial portrait|20-year-old|slim-curvy hourglass body|defined eyes and lips|natural black wet wavy hair|soft smile/i);
   assert.doesNotMatch(aiPrompt, /worn normally|body proportion anchor|moody glossy texture|clean beachwear|top length extending|She is sitting with natural seated arrangement|bottoms She is/i);
   assert.doesNotMatch(aiPrompt, /\bnone\b|[\u3400-\u9fff]/i);
   assert.doesNotMatch(aiPrompt, /\n/);
   assert.ok(aiPrompt.length < prompt.zImagePrompt.length);
+});
+
+test('AI single-subject prompt orders eyewear and headphones before clothing', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    eyewearId: optionId('eyewearId', '粗框眼鏡'),
+    eyewearColorId: optionId('eyewearColorId', '黑色'),
+    eyewearPlacementId: optionId('eyewearPlacementId', '正常戴在臉上'),
+    headAccessoryId: optionId('headAccessoryId', '耳罩式耳機（掛在脖子上）'),
+    topId: optionId('topId', '短版蕾絲背心'),
+    topColorId: optionId('topColorId', '米白色'),
+    pantsId: optionId('pantsId', '牛仔短褲'),
+    bottomColorId: optionId('bottomColorId', '深藍色'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+  });
+
+  const aiPrompt = prompt.midjourneyPrompt;
+
+  assert.match(
+    aiPrompt,
+    /^A stunning mid-20s Japanese or Korean woman\. with black bold-frame glasses\. black Marshall Major V on-ear headphones resting around the neck, wearing /i
+  );
+  assert.match(aiPrompt, /wearing a Y2K denim casual look with off-white sheer floral lace cropped camisole and dark blue denim shorts/i);
+  assert.ok(
+    aiPrompt.indexOf('black bold-frame glasses') < aiPrompt.indexOf('black Marshall Major V on-ear headphones resting around the neck')
+  );
+  assert.ok(
+    aiPrompt.indexOf('black Marshall Major V on-ear headphones resting around the neck') < aiPrompt.indexOf('wearing a Y2K denim casual look')
+  );
+  assert.doesNotMatch(aiPrompt, /compact black earcups|slim structured headband|worn normally|lenses aligned/i);
+  assert.doesNotMatch(aiPrompt, /slim-curvy hourglass body|defined eyes and lips|hair|soft smile|[\u3400-\u9fff]/i);
 });
 
 test('Gpt single-subject prompt applies second-pass identity compression', () => {
@@ -854,7 +883,8 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
-  assert.match(prompt.midjourneyPrompt, /^A photorealistic editorial portrait of a 20-year-old Japanese or Korean woman/);
+  assert.match(prompt.midjourneyPrompt, /^A stunning mid-20s Japanese or Korean woman\./);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /photorealistic editorial portrait|20-year-old|slim-curvy hourglass body|defined eyes and lips/i);
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
   assert.match(prompt.midjourneyPrompt, /wearing a flight attendant uniform/);
   assert.match(prompt.midjourneyPrompt, /standing with loosely crossed arms/);

@@ -10971,55 +10971,80 @@ function firstStructuredValue(valuesByLabel, labels) {
   return getStructuredValues(valuesByLabel, labels)[0] || '';
 }
 
-function normalizeAiSingleSubjectText(value) {
-  return cleanAiMinimalFragment(value)
-    .replace(/^one\s+20-year-old Japanese or Korean female portrait subject(?:\s+with)?\s*/i, '')
-    .replace(/\bnatural balanced body proportions\b/gi, 'natural body proportions')
-    .replace(/\btall slim-curvy hourglass body,\s*long legs,\s*narrow waist,\s*rounded hips\b/gi, 'slim-curvy hourglass body')
-    .replace(/\bseductive mature face,\s*defined eyes and lips\b/gi, 'defined eyes and lips')
-    .replace(/\bnatural black wet-look long wavy hair,\s*damp separated strands\b/gi, 'natural black wet wavy hair')
-    .replace(/\bwet-look long wavy hair,\s*damp separated strands\b/gi, 'wet wavy hair')
-    .replace(/\bbold thick-frame glasses\b/gi, 'bold-frame glasses')
-    .replace(/\bdirect eye contact,\s*soft natural smile\b/gi, 'soft smile')
-    .replace(/\bdirect eye contact,\s*/gi, '')
-    .replace(/\bsoft natural smile\b/gi, 'soft smile')
-    .replace(/,\s*(?:body proportion anchor|moody glossy texture|soft realistic shine|clean dark depth|bright approachable expression|worn normally on the face|lenses aligned over the eyes)\b/gi, '')
-    .replace(/\s*,\s*,+/g, ', ')
-    .replace(/^,\s*/, '')
-    .replace(/,\s*$/g, '')
+function shouldUseFixedAiSingleSubjectLead(context) {
+  return context.subject?.count === 1
+    && !isSpecialSubject(context.subject)
+    && !isCharacterProfileSubject(context.subject)
+    && !context.subject?.reference;
+}
+
+function buildAiSingleSubjectLead(context) {
+  return shouldUseFixedAiSingleSubjectLead(context) ? 'A stunning mid-20s Japanese or Korean woman.' : '';
+}
+
+function compactAiEyewearAccessoryText(eyewear, color = null, placement = null) {
+  const frameText = cleanAiMinimalFragment(buildAccessoryPrompt(eyewear))
+    .replace(/\bbold thick-frame glasses\b/gi, 'bold-frame glasses');
+  if (!frameText || /^no eyewear\b/i.test(frameText)) return '';
+
+  const colorText = cleanAiMinimalFragment(buildAccessoryPrompt(color))
+    .replace(/^no specified eyewear frame color$/i, '')
+    .replace(/\s+frame$/i, '')
     .trim();
+  const placementText = /resting on top of the head/i.test(buildAccessoryPrompt(placement))
+    ? 'resting on top of the head'
+    : '';
+
+  return [colorText, frameText, placementText].filter(Boolean).join(' ');
 }
 
-function pickAiSingleSubjectDetails(subjectText) {
-  const fragments = splitAiMinimalFragments(subjectText)
-    .filter((part) => !/^(?:one )?20-year-old Japanese or Korean female portrait subject$/i.test(part))
-    .filter((part) => !/\b(?:long legs|narrow waist|rounded hips|damp separated strands|natural eyebrows)\b/i.test(part))
-    .filter((part) => !/\b(?:eyes unobstructed|pushed into the hair|lenses lifted|frame pushed)\b/i.test(part));
-  const picks = [];
-  const addPick = (pattern) => {
-    const match = fragments.find((part) => pattern.test(part) && !picks.includes(part));
-    if (match) picks.push(match);
+function compactAiHeadAudioAccessoryText(headAccessory) {
+  const text = cleanAiMinimalFragment(buildAccessoryPrompt(headAccessory));
+  if (!/\b(?:headphones?|earphones?)\b/i.test(text)) return '';
+  return text.split(/\s*,\s*/)[0] || '';
+}
+
+function buildAiSingleSubjectAccessoryParts(context, wardrobe) {
+  if (!shouldUseFixedAiSingleSubjectLead(context) || !Array.isArray(wardrobe)) {
+    return { eyewearText: '', headAudioText: '' };
+  }
+
+  const wardrobeSlots = extractWardrobeSlots(wardrobe);
+
+  return {
+    eyewearText: compactAiEyewearAccessoryText(
+      wardrobeSlots.eyewear,
+      wardrobeSlots.eyewearColor,
+      wardrobeSlots.eyewearPlacement
+    ),
+    headAudioText: compactAiHeadAudioAccessoryText(wardrobeSlots.headAccessory),
   };
-
-  addPick(/\bglasses\b/i);
-  addPick(/\b(?:body|hourglass|model|athletic|petite|curvy)\b/i);
-  addPick(/\b(?:face|eyes|lips|skin|freckles|mole)\b/i);
-  addPick(/\b(?:hair|waves|wavy|bob|ponytail|braid|bangs)\b/i);
-  addPick(/\b(?:smile|expression|gaze)\b/i);
-
-  if (picks.length === 0) return fragments.slice(0, 5);
-  return picks.slice(0, 5);
 }
 
-function buildAiSingleSubjectLead(valuesByLabel, context) {
-  if (context.subject?.count !== 1 || isSpecialSubject(context.subject) || isCharacterProfileSubject(context.subject)) return '';
+function buildAiSingleSubjectPromptText({
+  subjectPart,
+  eyewearText,
+  headAudioText,
+  wardrobePart,
+  posePart,
+  scenePart,
+  lightingPart,
+  moodTail,
+}) {
+  const openingText = [
+    subjectPart,
+    eyewearText ? `with ${eyewearText}.` : '',
+  ].filter(Boolean).join(' ');
+  const wardrobeLead = headAudioText
+    ? wardrobePart
+      ? `${headAudioText}, ${wardrobePart}`
+      : headAudioText
+    : wardrobePart;
+  const bodyText = [wardrobeLead, posePart, scenePart, lightingPart].filter(Boolean).join(', ');
+  const coreText = [openingText, bodyText].filter(Boolean).join(bodyText ? ' ' : '');
+  const fullText = moodTail ? `${coreText}${bodyText ? ', ' : ' '}${moodTail}` : coreText;
 
-  const { subjectText } = buildPromptSectionSources(valuesByLabel, context);
-  const compressedSubject = normalizeAiSingleSubjectText(compressZImageSingleSubjectText(subjectText, context));
-  const detailText = joinNaturalList(pickAiSingleSubjectDetails(compressedSubject));
-  const base = 'A photorealistic editorial portrait of a 20-year-old Japanese or Korean woman';
-
-  return detailText ? `${base} with ${detailText}` : base;
+  return ensureTerminalPeriod(fullText);
 }
 
 function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
@@ -11054,7 +11079,7 @@ function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
     return 'A seductive stunning woman matching the attached reference person';
   }
 
-  const singleSubjectLead = buildAiSingleSubjectLead(valuesByLabel, context);
+  const singleSubjectLead = buildAiSingleSubjectLead(context);
   if (singleSubjectLead) return singleSubjectLead;
 
   return context.subject?.count === 2
@@ -11379,14 +11404,37 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
   const scenePart = buildAiMinimalSceneClause(valuesByLabel, context);
   const lightingPart = buildAiMinimalLightingClause(valuesByLabel);
   const moodTail = buildAiMinimalMoodTail(valuesByLabel);
+  const singleSubjectAccessories = buildAiSingleSubjectAccessoryParts(context, wardrobe);
 
   if (isFixedCompositionSetActive(context.fixedCompositionSet)) {
-    const subjectSentence = [subjectPart, wardrobePart, posePart].filter(Boolean).join(', ');
+    const subjectSentence = shouldUseFixedAiSingleSubjectLead(context)
+      ? buildAiSingleSubjectPromptText({
+          subjectPart,
+          ...singleSubjectAccessories,
+          wardrobePart,
+          posePart,
+          scenePart: '',
+          lightingPart: '',
+          moodTail: '',
+        })
+      : [subjectPart, wardrobePart, posePart].filter(Boolean).join(', ');
     const sceneSentence = [scenePart, lightingPart, moodTail].filter(Boolean).join(', ');
     return ensureTerminalPeriod([
       subjectSentence ? ensureTerminalPeriod(subjectSentence) : '',
       sceneSentence,
     ].filter(Boolean).join(' '));
+  }
+
+  if (shouldUseFixedAiSingleSubjectLead(context)) {
+    return buildAiSingleSubjectPromptText({
+      subjectPart,
+      ...singleSubjectAccessories,
+      wardrobePart,
+      posePart,
+      scenePart,
+      lightingPart,
+      moodTail,
+    });
   }
 
   const parts = [subjectPart, wardrobePart, posePart, scenePart, lightingPart].filter(Boolean);
