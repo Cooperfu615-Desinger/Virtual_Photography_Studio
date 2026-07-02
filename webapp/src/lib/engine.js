@@ -1,4 +1,5 @@
 import database from '../data/database.json' with { type: 'json' };
+import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import {
   CHARACTER_CARD_LAYER_KEYS,
   getCharacterCardOptions,
@@ -1993,6 +1994,7 @@ const LOCK_DEFINITIONS = [
   { key: 'expressionBId', label: '人物 2 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'hidden' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
+  { key: 'actionPoseCardId', label: '動作姿勢卡', section: 'hidden' },
   { key: 'poseBaseId', label: '姿勢基底', options: POSE_COMPOSER_BASE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseArrangementId', label: '肢體變化', options: POSE_COMPOSER_ARRANGEMENT_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseHandId', label: '手部 / 道具動作', options: POSE_COMPOSER_HAND_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
@@ -5009,6 +5011,35 @@ function specialActionSupportsOrbit(orbit, action) {
   return true;
 }
 
+function getActiveActionPoseCard(context) {
+  if (!context?.locks?.actionPoseCardId) return null;
+  if (context.subject?.count !== 1 || isDedicatedSpecialSubject(context.subject)) return null;
+
+  const card = getActionPoseCardById(context.locks.actionPoseCardId);
+  return card?.mode === 'single' ? card : null;
+}
+
+function buildActionPoseItem(context) {
+  const card = getActiveActionPoseCard(context);
+  if (!card) return null;
+
+  return {
+    id: `character:動作姿勢-action-pose:${card.id}`,
+    zh: card.title,
+    en: card.actionPrompt,
+    desc: card.summary,
+    meta: {
+      ...(card.meta || {}),
+      tags: withTags(card.meta?.tags || ['action_pose', 'full_body_action']),
+      actionPoseCardId: card.id,
+      expressionPrompt: card.expressionPrompt,
+      negativePoseGuard: card.negativePoseGuard,
+      framingHint: card.framingHint,
+      minVisibility: card.meta?.minVisibility || 'full',
+    },
+  };
+}
+
 function getPoseComposerActionConstraint(locks = {}) {
   const options = [
     getPoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, locks.poseArrangementId),
@@ -5644,6 +5675,7 @@ function selectedSpecialOutfitHasHairstyle(context, catalog, role = null) {
 
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
+  const actionPose = buildActionPoseItem(context);
   if (isSpecialSubject(context.subject)) {
     const hairstyleItems = getByKey(catalog.character, '髮型 (Hairstyle)');
     const hairColorItems = getByKey(catalog.character, '髮色 (Hair Color)');
@@ -5657,6 +5689,11 @@ function buildCharacter(context, catalog) {
 
       const hairColor = context.locks?.hairColorId ? findById(hairColorItems, context.locks.hairColorId) : null;
       if (hairColor && !isNoneLikeItem(hairColor)) character.push(hairColor);
+    }
+
+    if (actionPose && !isNoneLikeItem(actionPose)) {
+      character.push(actionPose);
+      return character;
     }
 
     if (context.locks?.expressionId) {
@@ -5859,6 +5896,8 @@ function buildCharacter(context, catalog) {
     if (duoExpressionItem && !isNoneLikeItem(duoExpressionItem)) {
       character.push(duoExpressionItem);
     }
+  } else if (actionPose && !isNoneLikeItem(actionPose)) {
+    character.push(actionPose);
   } else {
     expression = pickCategory('神情與眼神 (Expression & Gaze)', context.locks, (item) => expressionSupportsComposition(item, context));
   }
@@ -5882,6 +5921,8 @@ function buildCharacter(context, catalog) {
     }
     return character;
   }
+
+  if (actionPose && !isNoneLikeItem(actionPose)) return character;
 
   const poseComposer = buildPoseComposerItem(context);
   if (poseComposer && !isNoneLikeItem(poseComposer)) {
@@ -6805,6 +6846,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
         isSkeletonSubject(context.subject) ? '超現實攝影裝置感' : '',
         isAndroidSubject(context.subject) && characterSlots.hairstyle?.zh && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.zh : '',
         isAndroidSubject(context.subject) && characterSlots.hairColor?.zh && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.zh : '',
+        characterSlots.actionPose?.zh && !isNoneLikeItem(characterSlots.actionPose) ? characterSlots.actionPose.zh : '',
         characterSlots.expression?.zh && !isNoneLikeItem(characterSlots.expression) ? characterSlots.expression.zh : '',
         characterSlots.pose?.zh && !isNoneLikeItem(characterSlots.pose) ? characterSlots.pose.zh : ''
       );
@@ -6821,6 +6863,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       characterSlots.facialFeatures?.zh && !isNoneLikeItem(characterSlots.facialFeatures) ? characterSlots.facialFeatures.zh : '',
       hairSummary !== '-' ? hairSummary : '',
       characterSlots.expression?.zh && !isNoneLikeItem(characterSlots.expression) ? characterSlots.expression.zh : '',
+      characterSlots.actionPose?.zh && !isNoneLikeItem(characterSlots.actionPose) ? characterSlots.actionPose.zh : '',
       characterSlots.specialAction?.zh && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.zh : '',
       characterSlots.poseComposer?.zh && !isNoneLikeItem(characterSlots.poseComposer) ? characterSlots.poseComposer.zh : '',
       characterSlots.pose?.zh && !isNoneLikeItem(characterSlots.pose) ? characterSlots.pose.zh : ''
@@ -7155,6 +7198,7 @@ function extractCharacterSlots(character) {
     expressionB: findRoleSlot('character:神情與眼神-expression-gaze:', 'b'),
     duoPose: findSlot('character:雙人構圖姿態-duo-pose:'),
     duoPoseBase: findSlot('character:雙人姿態基底-duo-pose-base:'),
+    actionPose: findSlot('character:動作姿勢-action-pose:'),
     poseComposer: findSlot('character:姿勢組合器-pose-composer:'),
     pose: findSlot('character:姿勢與肢體語言-pose-body-language:'),
     specialAction: findSlot('character:特殊動作-special-actions:'),
@@ -8450,8 +8494,13 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const expressionText = characterSlots.expression ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '';
   const duoExpressionText = characterSlots.duoExpression && !isNoneLikeItem(characterSlots.duoExpression) ? characterSlots.duoExpression.en : '';
+  const actionPoseText = characterSlots.actionPose && !isNoneLikeItem(characterSlots.actionPose)
+    ? characterSlots.actionPose.en
+    : '';
   const poseText = context.subject.count === 2
     ? (characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.en : '')
+    : actionPoseText
+    ? ''
     : characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
       ? characterSlots.poseComposer.en
       : characterSlots.pose && !isNoneLikeItem(characterSlots.pose)
@@ -8720,8 +8769,12 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     }
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
-  addLine('Special Action', skeletonText(specialActionText));
-  addLine(context.subject.count === 2 ? 'Duo Layout' : 'Pose', skeletonText(poseText));
+  if (actionPoseText) {
+    addLine('Action Pose', skeletonText(actionPoseText));
+  } else {
+    addLine('Special Action', skeletonText(specialActionText));
+    addLine(context.subject.count === 2 ? 'Duo Layout' : 'Pose', skeletonText(poseText));
+  }
   if (context.subject.count === 2) addLine('Duo Pose Base', skeletonText(duoPoseBaseText));
   if (isAndroidSubject(context.subject)) {
     addItemLine('Hairstyle', characterSlots.hairstyle);
@@ -9212,6 +9265,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
   ]);
   const wardrobeVisibilityValues = getStructuredValues(valuesByLabel, ['Wardrobe Visibility']);
   const poseValues = getStructuredValues(valuesByLabel, [
+    'Action Pose',
     'Special Action',
     'Pose',
     'Duo Layout',
@@ -10311,6 +10365,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
         ? characterSlots.specialAction.en
         : '';
+      const actionPoseText = characterSlots.actionPose && !isNoneLikeItem(characterSlots.actionPose)
+        ? characterSlots.actionPose.en
+        : '';
       const parts = [
         appendSubjectAccessories(
           useCharacterIdentityAnchor ? `${baseSubjectText} ${context.characterProfilePrompt}` : baseSubjectText,
@@ -10318,6 +10375,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         ),
         cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessory),
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
+        actionPoseText,
         poseComposerText,
         specialActionText,
         characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
@@ -10332,12 +10390,16 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       const poseComposerText = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
         ? (skeletonMode ? sanitizeSkeletonPromptText(characterSlots.poseComposer.en) : characterSlots.poseComposer.en)
         : '';
+      const actionPoseText = characterSlots.actionPose && !isNoneLikeItem(characterSlots.actionPose)
+        ? (skeletonMode ? sanitizeSkeletonPromptText(characterSlots.actionPose.en) : characterSlots.actionPose.en)
+        : '';
       const parts = [
         skeletonMode ? sanitizeSkeletonPromptText(context.subject.en) : context.subject.en,
         buildSpecialSubjectIntegrationPrompt(context.subject),
         isAndroidSubject(context.subject) && characterSlots.hairstyle && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.en : '',
         isAndroidSubject(context.subject) && characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : '',
+        actionPoseText,
         poseComposerText,
         specialActionText,
         characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : '',
@@ -10411,11 +10473,13 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const buildSinglePoseText = () => {
     if (context.subject.count !== 1 || specialSubjectMode || characterProfileMode) return '';
 
-    const poseText = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
+    const poseText = characterSlots.actionPose && !isNoneLikeItem(characterSlots.actionPose)
+      ? characterSlots.actionPose.en
+      : characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
       ? characterSlots.poseComposer.en
       : (characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '');
     const parts = [
-      characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
+      characterSlots.actionPose && !isNoneLikeItem(characterSlots.actionPose) ? '' : characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
       poseText,
     ].filter(Boolean);
 
@@ -11216,6 +11280,19 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe = null) {
 }
 
 function buildAiMinimalPoseClause(valuesByLabel, context) {
+  const actionPoseText = firstStructuredValue(valuesByLabel, ['Action Pose']);
+  if (actionPoseText) {
+    const cleanedActionPoseText = stripTerminalPromptPunctuation(actionPoseText);
+    const guardText = [
+      /not violent/i.test(cleanedActionPoseText) ? 'not violent' : '',
+      /not a dance stretch/i.test(cleanedActionPoseText) ? 'not a dance stretch' : '',
+      /not a yoga pose/i.test(cleanedActionPoseText) ? 'not a yoga pose' : '',
+      /not a high-leg flexibility display/i.test(cleanedActionPoseText) ? 'not a high-leg flexibility display' : '',
+    ].filter(Boolean).join(', ');
+    const coreAction = 'in a terrible mood, visibly fed up, making a forceful bratty mock-kick toward the camera as a playful emotional outburst';
+    return guardText ? `${coreAction}, ${guardText}` : coreAction;
+  }
+
   const rawPoseText = firstStructuredValue(valuesByLabel, [
     'Special Action',
     context.subject?.count === 2 ? 'Duo Layout' : 'Pose',
@@ -11585,6 +11662,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     expressionId: characterSlots.expression?.id || '',
     expressionAId: '',
     expressionBId: '',
+    actionPoseCardId: characterSlots.actionPose?.meta?.actionPoseCardId || '',
     poseId: characterSlots.pose?.id || '',
     specialActionId: characterSlots.specialAction?.id || '',
     poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || 'none',
@@ -11764,7 +11842,20 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
     : null;
   const lockedPoseComposerAction = getPoseComposerActionConstraint(effectiveLocks);
-  const lockedActionConstraint = mergeActionConstraints(lockedSpecialAction, lockedPoseComposerAction);
+  const lockedActionPoseCard = effectiveLocks.actionPoseCardId && subject.count === 1 && !isDedicatedSpecialSubject(subject)
+    ? getActionPoseCardById(effectiveLocks.actionPoseCardId)
+    : null;
+  const lockedActionPose = lockedActionPoseCard?.mode === 'single'
+    ? {
+        zh: lockedActionPoseCard.title,
+        en: lockedActionPoseCard.actionPrompt,
+        meta: {
+          ...(lockedActionPoseCard.meta || {}),
+          tags: withTags(lockedActionPoseCard.meta?.tags || ['action_pose', 'full_body_action']),
+        },
+      }
+    : null;
+  const lockedActionConstraint = mergeActionConstraints(lockedSpecialAction, lockedPoseComposerAction, lockedActionPose);
   const framing = pickWithLock(
     runtime.flatCatalog.framing,
     effectiveLocks.framingId,

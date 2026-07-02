@@ -14,6 +14,7 @@ import {
   normalizeCharacterCardLayerIds,
 } from '../lib/page1WorkspaceSummary.js';
 import { CHARACTER_CARD_LAYER_LABELS } from '../lib/characterCardLab.js';
+import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import {
   PAGE1_POSE_SUBPANELS,
   isPage1PoseSubpanelDisabled,
@@ -690,6 +691,7 @@ export default function Page1Workspace({
   const characterProfileOption = characterProfileControl?.options?.find((option) => option.id === locks.characterProfileId);
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
   const isCharacterProfileMode = Boolean(characterProfileOption?.specialSubject);
+  const isDedicatedSpecialSubjectMode = isSpecialSubjectMode && !isCharacterProfileMode;
   const isDedicatedSubjectMode = isSpecialSubjectMode || isCharacterProfileMode;
   const importedCharacterCardLayers = isCharacterProfileMode && !isSpecialSubjectMode
     ? normalizeCharacterCardLayerIds(locks.characterCardWardrobeLayerIds)
@@ -746,9 +748,13 @@ export default function Page1Workspace({
   );
   const isPoseComposerActive = POSE_COMPOSER_KEYS.some((key) => isPoseComposerValueActive(key));
   const selectedPoseBaseId = POSE_COMPOSER_BASE_IDS.has(locks.poseBaseId) ? locks.poseBaseId : '';
+  const activeActionPoseCard = locks.subjectCount !== '2' && !isDedicatedSpecialSubjectMode
+    ? getActionPoseCardById(locks.actionPoseCardId)
+    : null;
   const currentModeBadges = [
     isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
     isCharacterProfileMode ? (characterProfileOption?.zh || '角色卡') : '',
+    activeActionPoseCard ? `動作卡：${activeActionPoseCard.title}` : '',
     isDuoMode ? '雙人' : '',
     isCloseupMode ? '特寫模式' : '',
     isWormEyeAngle ? '蟲眼視角' : '',
@@ -766,8 +772,9 @@ export default function Page1Workspace({
       ].filter(Boolean),
     },
     pose: {
-      status: formatSelectionStatus(countEffectiveSelections('pose', locks, lockControls)),
+      status: activeActionPoseCard ? '動作卡接管' : formatSelectionStatus(countEffectiveSelections('pose', locks, lockControls)),
       chips: [
+        activeActionPoseCard ? activeActionPoseCard.title : '',
         isPoseComposerActive ? 'Pose Composer' : '',
         selectedPoseHandLocksOrbit ? '自拍手部鎖定環繞' : '',
         selectedSpecialActionIsSocial ? '社群拍攝動作' : '',
@@ -1128,6 +1135,18 @@ export default function Page1Workspace({
         </div>
         {renderSectionActionButtons()}
       </div>
+      {activeActionPoseCard ? (
+        <div className="context-note action-pose-context-note">
+          <span>動作卡「{activeActionPoseCard.title}」正在接管單人神情姿態輸出。</span>
+          <button
+            type="button"
+            className="secondary page1-section-random-btn"
+            onClick={() => updateLocks((prev) => ({ ...prev, actionPoseCardId: '' }))}
+          >
+            清除動作卡
+          </button>
+        </div>
+      ) : null}
       {isPoseComposerActive ? (
         <div className="context-note">
           單人姿勢已由 Pose Composer 組合輸出，舊姿勢動作與特殊動作會維持隱藏相容，不再作為可見控制來源。

@@ -97,6 +97,10 @@ function PromptCard({ data, density = 'compact', onDelete, onApplySelection }) {
   const shortId = `#${String(data.id).slice(-6).toUpperCase()}`;
   const sourceLabel = data.sourceLabel || 'Prompt 工作台';
   const cardClass = ['prompt-card', 'prompt-card-summary', `prompt-card-${density}`].join(' ');
+  const applySelectionLabel = data.source === 'actionPose' ? '套用動作卡' : '套用目前預覽';
+  const applySelectionTitle = data.source === 'actionPose'
+    ? '套用這張動作姿勢卡到 PAGE1'
+    : '套用這張卡片保存的選項設定';
 
   return (
     <article className={cardClass}>
@@ -142,9 +146,9 @@ function PromptCard({ data, density = 'compact', onDelete, onApplySelection }) {
             className="secondary primary-copy-btn"
             onClick={() => onApplySelection(data)}
             disabled={!data.selection}
-            title={data.selection ? '套用這張卡片保存的選項設定' : '這張卡片沒有可回填的選項設定'}
+            title={data.selection ? applySelectionTitle : '這張卡片沒有可回填的選項設定'}
           >
-            套用目前預覽
+            {applySelectionLabel}
           </button>
         ) : null}
         {promptEntries.map((entry) => (

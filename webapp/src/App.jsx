@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver';
 import Page1Workspace from './components/Page1Workspace';
 import Page2Workspace from './components/Page2Workspace';
 import Page3Workspace from './components/Page3Workspace';
+import ActionPoseWorkspace from './components/ActionPoseWorkspace';
 import SavedCardsWorkspace from './components/SavedCardsWorkspace';
 import {
   createEmptyLocks,
@@ -37,6 +38,15 @@ import {
   getCharacterCardOptions,
   normalizeCharacterCardVariant,
 } from './lib/characterCardLab';
+import {
+  ACTION_POSE_CARDS,
+  buildActionPosePromptBundle,
+  buildActionPoseSavedCard,
+  buildPage1LocksFromActionPoseCard,
+  createEmptyActionPoseProfile,
+  getActionPoseCardById,
+  normalizeActionPoseProfile,
+} from './lib/actionPoseLab';
 import { SCENE_CAMERA_CONTROL_ORDER } from './lib/page1ControlOrders';
 import './index.css';
 
@@ -47,6 +57,7 @@ const VIEW_MODE_KEY = 'vps.viewMode';
 const PAGE_MODE_KEY = 'vps.pageMode';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const PAGE3_PROFILE_KEY = 'vps.page3Profile';
+const ACTION_POSE_PROFILE_KEY = 'vps.actionPoseProfile';
 const FAVORITES_STORAGE_VERSION = 2;
 let favoriteCloudRepositoryPromise = null;
 const STORAGE_BUDGETS = {
@@ -65,6 +76,10 @@ const PAGE_MODE_COPY = {
   page2: {
     title: 'Character Card Lab',
     subtitle: '選擇內建角色卡，整理髮型變化、預設服裝 layer 與可複製的角色 reference prompt。',
+  },
+  actionPose: {
+    title: 'Action Pose Lab',
+    subtitle: '建立可保存、可回填的動作姿勢卡，讓 PAGE1 的神情姿態輸出由完整 action prompt 接管。',
   },
   page3: {
     title: 'World Street Scene Builder',
@@ -425,7 +440,32 @@ function buildImportedStructured(locks, controls) {
 
 function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) {
   const text = String(markdownText || '').replace(/\r\n/g, '\n');
+  const sourceMatch = text.match(/\*\*Source:\*\*\s*(.+)/);
   const summaryMatch = text.match(/\*\*Summary:\*\*\s*(.+)/);
+  const actionPromptMatch = text.match(/## Action Prompt\n```text\n([\s\S]*?)\n```/);
+  if (actionPromptMatch && /動作姿勢|Action Pose/i.test(sourceMatch?.[1] || text)) {
+    const actionPrompt = actionPromptMatch[1].trim();
+    const matchedCard = ACTION_POSE_CARDS.find((card) => normalizePromptText(card.actionPrompt) === normalizePromptText(actionPrompt));
+    if (!matchedCard) {
+      throw new Error('unknown action pose card');
+    }
+    const prompt = buildActionPoseSavedCard({ mode: matchedCard.mode, selectedCardId: matchedCard.id });
+    if (!prompt) {
+      throw new Error('invalid action pose card');
+    }
+    const importedPrompt = {
+      ...prompt,
+      id: fallbackId || prompt.id,
+      date: new Date().toISOString(),
+      summary: summaryMatch?.[1]?.trim() || prompt.summary,
+    };
+
+    return {
+      ...importedPrompt,
+      lineage: createLineage(importedPrompt),
+    };
+  }
+
   const midjourneyMatch = text.match(/## (?:AI Prompt|Midjourney Prompt)\n```text\n([\s\S]*?)\n```/);
   const grokMatch = text.match(/## (?:Gpt|Grok Structured Prompt)\n```text\n([\s\S]*?)\n```/);
   const zImageMatch = text.match(/## (?:Grok\/Z-Image|Z-Image Prompt)\n```text\n([\s\S]*?)\n```/);
@@ -541,7 +581,7 @@ function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
   const rawSelection = prompt.selection && typeof prompt.selection === 'object'
     ? prompt.selection
     : null;
-  const selection = source === 'page1' && rawSelection
+  const selection = ['page1', 'actionPose'].includes(source) && rawSelection
     ? normalizeLocks({ ...createEmptyLocks(), ...rawSelection })
     : null;
   const summaryFields = prompt.summaryFields && typeof prompt.summaryFields === 'object'
@@ -858,6 +898,11 @@ export default function App() {
   const normalizedPage2Profile = useMemo(() => normalizeCharacterCardVariant(page2Profile, characterCards), [page2Profile, characterCards]);
   const page2PromptBundle = useMemo(() => buildCharacterCardPromptBundle(characterCards, normalizedPage2Profile), [characterCards, normalizedPage2Profile]);
   const [page3Profile, setPage3Profile] = useState(() => loadJsonStorage(PAGE3_PROFILE_KEY, createEmptyPage3Profile()));
+  const [actionPoseProfile, setActionPoseProfile] = useState(() => (
+    normalizeActionPoseProfile(loadJsonStorage(ACTION_POSE_PROFILE_KEY, createEmptyActionPoseProfile()))
+  ));
+  const normalizedActionPoseProfile = useMemo(() => normalizeActionPoseProfile(actionPoseProfile), [actionPoseProfile]);
+  const actionPosePromptBundle = useMemo(() => buildActionPosePromptBundle(normalizedActionPoseProfile), [normalizedActionPoseProfile]);
   const [copiedLabel, setCopiedLabel] = useState('');
   const [isImportPromptOpen, setIsImportPromptOpen] = useState(false);
   const [importPromptText, setImportPromptText] = useState('');
@@ -1170,6 +1215,10 @@ export default function App() {
     window.localStorage.setItem(PAGE3_PROFILE_KEY, JSON.stringify(page3Profile));
   }, [page3Profile]);
 
+  useEffect(() => {
+    window.localStorage.setItem(ACTION_POSE_PROFILE_KEY, JSON.stringify(actionPoseProfile));
+  }, [actionPoseProfile]);
+
   const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
   const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
   const isWormEyeAngle = useMemo(() => isWormEyeAngleId(locks.angleId, activeLibrary), [locks.angleId, activeLibrary]);
@@ -1422,6 +1471,9 @@ export default function App() {
       if (specialSubjectIsActive || characterProfileIsActive) {
         next.subjectCount = '1';
       }
+      if (specialSubjectIsActive) {
+        next.actionPoseCardId = '';
+      }
       if (poseIsActive && specialActionIsActive) {
         next.specialActionId = '';
       }
@@ -1462,6 +1514,7 @@ export default function App() {
       }
 
       if (next.subjectCount !== '1') {
+        next.actionPoseCardId = '';
         next.specialActionId = '';
         POSE_COMPOSER_KEYS.forEach((key) => {
           next[key] = 'none';
@@ -1520,9 +1573,38 @@ export default function App() {
     showToast('已將目前預覽回填到所有選項');
   }, [lockControls, previewPrompt, showToast, updateLocks]);
 
+  const handleApplyActionPoseCardToPage1 = useCallback((cardId, successLabel = '') => {
+    const card = getActionPoseCardById(cardId);
+    if (!card || card.mode !== 'single') {
+      showToast('目前沒有可套用的單人動作卡');
+      return false;
+    }
+    if (locks.subjectCount === '2') {
+      showToast('單人動作卡暫不支援 PAGE1 雙人模式');
+      return false;
+    }
+    const selectedSpecialSubject = lockControls
+      .find((control) => control.key === 'specialSubjectId')
+      ?.options?.find((option) => option.id === locks.specialSubjectId);
+    if (selectedSpecialSubject?.specialSubject) {
+      showToast('專用特殊角色暫不套用動作姿勢卡');
+      return false;
+    }
+
+    updateLocks((prevLocks) => normalizeLocks(buildPage1LocksFromActionPoseCard(prevLocks, card.id)));
+    setPageMode('page1');
+    showToast(successLabel || `動作姿勢已套用到 PAGE1：${card.title}`);
+    return true;
+  }, [lockControls, locks.specialSubjectId, locks.subjectCount, showToast, updateLocks]);
+
   const handleApplySavedCardSelection = useCallback((prompt) => {
     if (!prompt?.selection) {
       showToast('這張卡片沒有可回填的選項設定');
+      return;
+    }
+
+    if (prompt.source === 'actionPose') {
+      handleApplyActionPoseCardToPage1(prompt.selection.actionPoseCardId, '已套用收藏動作卡到 PAGE1');
       return;
     }
 
@@ -1530,7 +1612,7 @@ export default function App() {
     updateLocks(() => normalizeLocks(restoredLocks));
     setPageMode('page1');
     showToast('已套用收藏卡片的預覽選項');
-  }, [lockControls, showToast, updateLocks]);
+  }, [handleApplyActionPoseCardToPage1, lockControls, showToast, updateLocks]);
 
   const handleDeletePrompt = useCallback((prompt) => {
     setPrompts((prev) => prev.filter((item) => item.id !== prompt.id));
@@ -1652,6 +1734,10 @@ export default function App() {
     showToast('角色卡設定已匯回 PAGE1');
   }, [characterCards, normalizedPage2Profile, showToast, updateLocks]);
 
+  const handleApplyActionPoseToPage1 = useCallback(() => {
+    handleApplyActionPoseCardToPage1(actionPosePromptBundle.card?.id);
+  }, [actionPosePromptBundle.card?.id, handleApplyActionPoseCardToPage1]);
+
   const handleSavePage2Card = useCallback(() => {
     if (!page2PromptBundle.outputs.length) {
       showToast('請先選擇角色卡再加入 Saved Cards');
@@ -1664,6 +1750,23 @@ export default function App() {
     setPageMode('page4');
     showToast('角色卡 Prompt 已加入 Saved Cards');
   }, [addFavoritePrompt, characterCards, normalizedPage2Profile, page2PromptBundle, showToast]);
+
+  const handleSaveActionPoseCard = useCallback(() => {
+    if (!actionPosePromptBundle.card) {
+      showToast('請先選擇動作卡再加入 Saved Cards');
+      return;
+    }
+
+    const nextCard = buildActionPoseSavedCard(normalizedActionPoseProfile);
+    if (!nextCard) {
+      showToast('目前沒有可保存的動作姿勢卡');
+      return;
+    }
+    addFavoritePrompt(nextCard);
+    setViewMode('favorites');
+    setPageMode('page4');
+    showToast('動作姿勢卡已加入 Saved Cards');
+  }, [actionPosePromptBundle.card, addFavoritePrompt, normalizedActionPoseProfile, showToast]);
 
   const handleSavePage3Card = useCallback(() => {
     if (!page3Prompt) {
@@ -1709,6 +1812,13 @@ export default function App() {
                 onClick={() => setPageMode('page2')}
               >
                 角色建模
+              </button>
+              <button
+                type="button"
+                className={pageMode === 'actionPose' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+                onClick={() => setPageMode('actionPose')}
+              >
+                動作姿勢
               </button>
               <button
                 type="button"
@@ -1794,6 +1904,16 @@ export default function App() {
           onCopyText={handleCopyText}
           onSaveCard={handleSavePage2Card}
           onApplyToPage1={handleApplyPage2CharacterCard}
+        />
+      ) : pageMode === 'actionPose' ? (
+        <ActionPoseWorkspace
+          profile={normalizedActionPoseProfile}
+          setProfile={setActionPoseProfile}
+          promptBundle={actionPosePromptBundle}
+          onCopyText={handleCopyText}
+          onSaveCard={handleSaveActionPoseCard}
+          onApplyToPage1={handleApplyActionPoseToPage1}
+          canApplyToPage1={locks.subjectCount !== '2'}
         />
       ) : pageMode === 'page3' ? (
         <Page3Workspace

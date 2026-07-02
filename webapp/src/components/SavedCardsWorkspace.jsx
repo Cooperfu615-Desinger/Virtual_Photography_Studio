@@ -5,6 +5,7 @@ const SOURCE_FILTERS = [
   { id: 'all', label: '全部來源' },
   { id: 'page1', label: 'Prompt 工作台' },
   { id: 'page2', label: '角色建模' },
+  { id: 'actionPose', label: '動作姿勢' },
   { id: 'page3', label: '場景建模' },
 ];
 
@@ -33,7 +34,7 @@ export default function SavedCardsWorkspace({
   const [visibleState, setVisibleState] = useState({ key: visibleKey, count: INITIAL_VISIBLE_CARDS });
   const visibleCount = visibleState.key === visibleKey ? visibleState.count : INITIAL_VISIBLE_CARDS;
   const sourceCounts = useMemo(() => {
-    const counts = { all: displayPrompts.length, page1: 0, page2: 0, page3: 0 };
+    const counts = { all: displayPrompts.length, page1: 0, page2: 0, actionPose: 0, page3: 0 };
     displayPrompts.forEach((prompt) => {
       const source = prompt.source || 'page1';
       if (counts[source] !== undefined) counts[source] += 1;

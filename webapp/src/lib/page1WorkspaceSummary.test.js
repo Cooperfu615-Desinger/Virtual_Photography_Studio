@@ -57,6 +57,19 @@ test('workspace pose summary is separate from character identity summary', () =>
   assert.match(summary.pose.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
 });
 
+test('workspace pose summary shows the active single action pose card as the B pose override', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    actionPoseCardId: 'bratty-frustration-mock-kick',
+    expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
+    poseBaseId: 'standing',
+    poseHandId: 'one-hand-waist-one-down',
+  }, controls);
+
+  assert.equal(summary.pose.summary, '動作卡：不爽發洩踢擊');
+  assert.doesNotMatch(summary.pose.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
+});
+
 test('workspace summary treats legacy reference subject count as single mode', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),

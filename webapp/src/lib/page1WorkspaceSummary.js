@@ -1,4 +1,5 @@
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
+import { getActionPoseCardById } from '../data/actionPoseCards.js';
 
 export const OUTFIT_PRESET_COVERED_KEYS = new Set([
   'topId',
@@ -103,11 +104,15 @@ export function buildWorkspaceSummary(locks, controls) {
   const characterProfileOption = characterProfileControl?.options?.find((option) => option.id === locks.characterProfileId);
   const isSpecialSubjectMode = Boolean(specialSubjectOption?.specialSubject);
   const isCharacterProfileMode = Boolean(characterProfileOption?.specialSubject);
+  const isDedicatedSpecialSubjectMode = isSpecialSubjectMode && !isCharacterProfileMode;
   const activeOutfitPresets = getActiveOutfitPresets(locks, controls);
   const wardrobeLabel = (key) => getEffectiveWardrobeOptionLabel(controls, locks, key, activeOutfitPresets);
   const importedCharacterCardWardrobe = isCharacterProfileMode && !isSpecialSubjectMode
     ? normalizeCharacterCardLayerIds(locks.characterCardWardrobeLayerIds).map((key) => `角色卡${CHARACTER_CARD_LAYER_LABELS[key]}`)
     : [];
+  const actionPoseCard = locks.subjectCount !== '2' && !isDedicatedSpecialSubjectMode
+    ? getActionPoseCardById(locks.actionPoseCardId)
+    : null;
 
   const characterSummary = isSpecialSubjectMode
     ? specialSubjectOption?.zh || '特殊角色'
@@ -130,17 +135,19 @@ export function buildWorkspaceSummary(locks, controls) {
         getControlOptionLabel(controls, 'hairColorAId', locks.hairColorAId),
         getControlOptionLabel(controls, 'hairColorBId', locks.hairColorBId),
   ]);
-  const poseSummary = buildSummaryText([
-    getControlOptionLabel(controls, 'expressionId', locks.expressionId),
-    getControlOptionLabel(controls, 'duoExpressionId', locks.duoExpressionId),
-    getControlOptionLabel(controls, 'duoPoseId', locks.duoPoseId),
-    getControlOptionLabel(controls, 'duoPoseBaseId', locks.duoPoseBaseId),
-    getControlOptionLabel(controls, 'poseBaseId', locks.poseBaseId),
-    getControlOptionLabel(controls, 'poseArrangementId', locks.poseArrangementId),
-    getControlOptionLabel(controls, 'poseHandId', locks.poseHandId),
-    getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
-    getControlOptionLabel(controls, 'poseAnchorId', locks.poseAnchorId),
-  ]);
+  const poseSummary = actionPoseCard
+    ? `動作卡：${actionPoseCard.title}`
+    : buildSummaryText([
+      getControlOptionLabel(controls, 'expressionId', locks.expressionId),
+      getControlOptionLabel(controls, 'duoExpressionId', locks.duoExpressionId),
+      getControlOptionLabel(controls, 'duoPoseId', locks.duoPoseId),
+      getControlOptionLabel(controls, 'duoPoseBaseId', locks.duoPoseBaseId),
+      getControlOptionLabel(controls, 'poseBaseId', locks.poseBaseId),
+      getControlOptionLabel(controls, 'poseArrangementId', locks.poseArrangementId),
+      getControlOptionLabel(controls, 'poseHandId', locks.poseHandId),
+      getControlOptionLabel(controls, 'poseHeadId', locks.poseHeadId),
+      getControlOptionLabel(controls, 'poseAnchorId', locks.poseAnchorId),
+    ]);
   const wardrobeSummary = isSpecialSubjectMode ? '' : buildSummaryText([
     ...importedCharacterCardWardrobe,
     wardrobeLabel('specialOutfitId'),
