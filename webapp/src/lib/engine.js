@@ -5027,7 +5027,6 @@ function buildActionPoseItem(context) {
     id: `character:動作姿勢-action-pose:${card.id}`,
     zh: card.title,
     en: card.actionPrompt,
-    desc: card.summary,
     meta: {
       ...(card.meta || {}),
       tags: withTags(card.meta?.tags || ['action_pose', 'full_body_action']),
@@ -11283,13 +11282,30 @@ function buildAiMinimalPoseClause(valuesByLabel, context) {
   const actionPoseText = firstStructuredValue(valuesByLabel, ['Action Pose']);
   if (actionPoseText) {
     const cleanedActionPoseText = stripTerminalPromptPunctuation(actionPoseText);
+    const actionPoseCard = getActiveActionPoseCard(context);
+    const guardSourceText = [cleanedActionPoseText, actionPoseCard?.negativePoseGuard].filter(Boolean).join(', ');
     const guardText = [
-      /not violent/i.test(cleanedActionPoseText) ? 'not violent' : '',
-      /not a dance stretch/i.test(cleanedActionPoseText) ? 'not a dance stretch' : '',
-      /not a yoga pose/i.test(cleanedActionPoseText) ? 'not a yoga pose' : '',
-      /not a high-leg flexibility display/i.test(cleanedActionPoseText) ? 'not a high-leg flexibility display' : '',
+      /not violent/i.test(guardSourceText) ? 'not violent' : '',
+      /not martial arts/i.test(guardSourceText) ? 'not martial arts' : '',
+      /not threatening/i.test(guardSourceText) ? 'not threatening' : '',
+      /not a punch/i.test(guardSourceText) ? 'not a punch' : '',
+      /not a dance stretch/i.test(guardSourceText) ? 'not a dance stretch' : '',
+      /not a dance pose|not a dance move/i.test(guardSourceText) ? 'not a dance pose' : '',
+      /not a yoga pose|not yoga/i.test(guardSourceText) ? 'not a yoga pose' : '',
+      /not a high-leg flexibility display/i.test(guardSourceText) ? 'not a high-leg flexibility display' : '',
+      /not glamour posing/i.test(guardSourceText) ? 'not glamour posing' : '',
+      /not seductive floor pose/i.test(guardSourceText) ? 'not seductive floor pose' : '',
+      /not symmetrical studio sitting pose/i.test(guardSourceText) ? 'not symmetrical studio sitting pose' : '',
+      /do not make the cats aggressive or surreal/i.test(guardSourceText) ? 'do not make the cats aggressive or surreal' : '',
     ].filter(Boolean).join(', ');
-    const coreAction = 'in a terrible mood, visibly fed up, making a forceful bratty mock-kick toward the camera as a playful emotional outburst';
+    const coreAction = (cleanedActionPoseText.match(/[^.!?]+[.!?]?/g) || [cleanedActionPoseText])
+      .map((sentence) => sentence.trim())
+      .filter(Boolean)
+      .slice(0, 3)
+      .join(' ')
+      .replace(/^She\s+is\s+/i, '')
+      .replace(/^She\s+/i, '')
+      .trim();
     return guardText ? `${coreAction}, ${guardText}` : coreAction;
   }
 

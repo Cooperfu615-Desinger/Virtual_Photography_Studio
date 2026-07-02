@@ -28,9 +28,9 @@ test('single action pose card overrides PAGE1 expression and pose composer outpu
   assert.equal(prompt.selection.actionPoseCardId, DEFAULT_ACTION_POSE_CARD_ID);
   assert.equal(prompt.selection.expressionId, '');
   assert.equal(prompt.selection.poseBaseId, 'none');
-  assert.match(prompt.grokPrompt, /forceful bratty mock-kick toward the camera/);
-  assert.match(prompt.zImagePrompt, /forceful bratty mock-kick toward the camera/);
-  assert.match(prompt.midjourneyPrompt, /mock-kick/);
+  assert.match(prompt.grokPrompt, /kicks one foot into a nearby object/);
+  assert.match(prompt.zImagePrompt, /kicks one foot into a nearby object/);
+  assert.match(prompt.midjourneyPrompt, /nearby object/);
   assert.match(prompt.midjourneyPrompt, /not violent/);
   assert.match(allPromptText, /not a yoga pose/);
   assert.doesNotMatch(allPromptText, /soft natural smile|one hand on the waist|standing with/);
@@ -73,5 +73,5 @@ test('single action pose card is ignored by duo mode', () => {
   assert.equal(prompt.selection.actionPoseCardId, '');
   assert.equal(prompt.selection.duoPoseId, optionId('duoPoseId', '購物逛街'));
   assert.match(allPromptText, /walking together|two women walking|shopping/);
-  assert.doesNotMatch(allPromptText, /mock-kick|fed up|not a yoga pose/);
+  assert.doesNotMatch(allPromptText, /nearby object|fed up|not a yoga pose/);
 });

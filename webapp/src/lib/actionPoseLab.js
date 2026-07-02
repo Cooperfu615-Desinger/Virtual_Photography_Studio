@@ -101,7 +101,7 @@ export function buildActionPoseSavedCard(profile, options = {}) {
     source: 'actionPose',
     sourceLabel: '動作姿勢',
     date: now,
-    summary: `動作姿勢｜${card.title}｜${card.summary}`,
+    summary: `動作姿勢｜${card.title}`,
     summaryFields: {
       characterDna: '-',
       expressionPose: card.title,

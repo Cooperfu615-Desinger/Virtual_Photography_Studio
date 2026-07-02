@@ -108,27 +108,10 @@ export default function ActionPoseWorkspace({
               >
                 <span className="action-pose-card-category">{card.category}</span>
                 <strong>{card.title}</strong>
-                <small>{card.summary}</small>
               </button>
             ))}
           </div>
         </div>
-
-        {selectedCard ? (
-          <div className="control-section">
-            <div className="control-section-header">
-              <div className="control-section-title">卡片摘要</div>
-            </div>
-            <div className="action-pose-summary">
-              <strong>{selectedCard.title}</strong>
-              <p>{selectedCard.summary}</p>
-              <div className="action-pose-chip-row">
-                <span>{selectedCard.category}</span>
-                <span>{selectedCard.mode === 'single' ? '單人' : '雙人'}</span>
-              </div>
-            </div>
-          </div>
-        ) : null}
 
         <div className="control-actions">
           <div className="control-actions-main">

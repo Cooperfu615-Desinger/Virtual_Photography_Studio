@@ -1424,49 +1424,6 @@ button:disabled {
   line-height: 1.35;
 }
 
-.action-pose-card small {
-  color: var(--text-secondary);
-  font-size: 0.84rem;
-  line-height: 1.45;
-}
-
-.action-pose-summary {
-  display: grid;
-  gap: 8px;
-  padding: 12px;
-  border: 1px solid rgba(111, 87, 60, 0.12);
-  border-radius: 8px;
-  background: rgba(255, 250, 240, 0.78);
-}
-
-.action-pose-summary strong {
-  color: var(--text-primary);
-}
-
-.action-pose-summary p {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.action-pose-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.action-pose-chip-row span {
-  min-height: 28px;
-  padding: 5px 9px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: #f2e8d9;
-  color: var(--text-secondary);
-  font-size: 0.76rem;
-  font-weight: 700;
-}
-
 .action-pose-context-note {
   display: flex;
   align-items: center;
