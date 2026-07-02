@@ -72,6 +72,38 @@ test('expression and pose controls expose the cleaned option sets', () => {
   assert.doesNotMatch(optionLabels('poseId').join(' '), /自拍|鏡子自拍|回頭看鏡頭|低頭/);
 });
 
+test('subject count control only exposes single and duo modes', () => {
+  assert.deepEqual(
+    optionLabels('subjectCount'),
+    [
+      '1 位',
+      '2 位',
+    ]
+  );
+});
+
+test('legacy reference subject locks normalize to single subject mode without reference guidance', () => {
+  const normalized = normalizeLocks({
+    ...createEmptyLocks(),
+    subjectCount: 'reference',
+  });
+  assert.equal(normalized.subjectCount, '1');
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: 'reference',
+  });
+  const promptText = [
+    prompt.grokPrompt,
+    prompt.zImagePrompt,
+    prompt.midjourneyPrompt,
+    prompt.summary,
+  ].join('\n');
+
+  assert.equal(prompt.selection.subjectCount, '1');
+  assert.doesNotMatch(promptText, /Reference Guidance|attached reference image|attached reference person|附圖人物|上傳人物/i);
+});
+
 test('selfie shooting actions moved from special actions to pose composer hand poses', () => {
   const specialActionLabels = optionLabels('specialActionId').join(' ');
 

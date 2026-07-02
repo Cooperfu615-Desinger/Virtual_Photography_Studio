@@ -578,6 +578,69 @@ test('legacy sitting arrangement locks migrate into contact support anchors', ()
   assert.equal(normalizedWallSeated.poseAnchorId, optionId('poseAnchorId', '背靠牆坐在地面'));
 });
 
+test('legacy poseId locks migrate into visible pose composer controls and clear poseId', () => {
+  const cases = [
+    {
+      poseZh: '坐姿｜側身坐姿',
+      baseZh: '坐姿',
+      arrangementZh: '雙腿側放坐姿',
+    },
+    {
+      poseZh: '半躺低姿態｜手撐半躺',
+      baseZh: '躺姿',
+      arrangementZh: '半躺倚靠',
+      handZh: '一手撐地一手放腿上',
+    },
+    {
+      poseZh: '半躺低姿態｜微蜷放鬆',
+      baseZh: '躺姿',
+      arrangementZh: '側躺屈膝',
+    },
+    {
+      poseZh: '動態｜輕步移動',
+      baseZh: '站姿',
+      arrangementZh: '一腳向前點地',
+    },
+    {
+      poseZh: '動態｜整理衣襬',
+      baseZh: '站姿',
+      arrangementZh: '自然站姿',
+      handZh: '整理下身',
+      headZh: '低頭看向手部',
+    },
+    {
+      poseZh: '動態｜抬手整理肩頸',
+      baseZh: '站姿',
+      arrangementZh: '自然站姿',
+      handZh: '單手搭肩',
+      headZh: '頭部微微側傾',
+    },
+    {
+      poseZh: '動態｜停步姿勢',
+      baseZh: '站姿',
+      arrangementZh: '膝蓋微彎站姿',
+    },
+  ];
+
+  for (const expected of cases) {
+    const normalized = normalizeLocks({
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      poseId: optionId('poseId', expected.poseZh),
+    });
+
+    assert.equal(normalized.poseId, optionId('poseId', '全無'), expected.poseZh);
+    assert.equal(normalized.poseBaseId, optionId('poseBaseId', expected.baseZh), expected.poseZh);
+    assert.equal(normalized.poseArrangementId, optionId('poseArrangementId', expected.arrangementZh), expected.poseZh);
+    if (expected.handZh) {
+      assert.equal(normalized.poseHandId, optionId('poseHandId', expected.handZh), expected.poseZh);
+    }
+    if (expected.headZh) {
+      assert.equal(normalized.poseHeadId, optionId('poseHeadId', expected.headZh), expected.poseZh);
+    }
+  }
+});
+
 test('pose composer exposes kneeling and lying expansion batch', () => {
   [
     ['直立端正跪姿', 'kneeling', /upright poised kneeling arrangement/],

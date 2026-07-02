@@ -9,13 +9,6 @@ import {
 const SUBJECT_COUNT_OPTIONS = [
   { id: '1', zh: '1 位', en: 'one 20-year-old Japanese or Korean female portrait subject', count: 1 },
   { id: '2', zh: '2 位', en: 'two 20-year-old Japanese or Korean female portrait subjects', count: 2 },
-  {
-    id: 'reference',
-    zh: '上傳人物',
-    en: 'a woman matching the attached reference person, preserve facial identity and overall likeness from the attached image',
-    count: 1,
-    reference: true,
-  },
 ];
 
 const SPECIAL_SUBJECT_OPTIONS = [
@@ -3146,7 +3139,6 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'expressionId',
   'expressionAId',
   'expressionBId',
-  'poseId',
   'duoPoseId',
   'duoPoseBaseId',
   'duoInteractionId',
@@ -3574,6 +3566,36 @@ const CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS = [
   { label: '四足跪姿前傾', baseZh: '跪姿', arrangementZh: '四足跪姿' },
   { label: '抱枕俯臥回眸', baseZh: '躺姿', arrangementZh: '抱枕俯臥回眸' },
   { label: '分腿跪坐仰視', baseZh: '跪姿', arrangementZh: '分腿跪坐', handZh: '一手撐地一手放腿上', headZh: '下巴微抬' },
+];
+
+const CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS = [
+  { label: '站姿｜自然站姿', baseZh: '站姿', arrangementZh: '自然站姿' },
+  { label: '站姿｜單腳重心', baseZh: '站姿', arrangementZh: '單腳重心' },
+  { label: '站姿｜雙手自然垂放', baseZh: '站姿', arrangementZh: '自然站姿', handZh: '雙手自然垂放' },
+  { label: '站姿｜雙臂交疊', baseZh: '站姿', arrangementZh: '自然站姿', handZh: '雙臂交疊' },
+  { label: '坐姿｜自然坐姿', baseZh: '坐姿', arrangementZh: '自然坐姿' },
+  { label: '坐姿｜微微前傾', baseZh: '坐姿', arrangementZh: '微微前傾' },
+  { label: '坐姿｜雙手後撐', baseZh: '坐姿', arrangementZh: '雙手後撐' },
+  { label: '坐姿｜單腿放鬆', baseZh: '坐姿', arrangementZh: '單腿放鬆' },
+  { label: '坐姿｜雙腿自然伸展', baseZh: '坐姿', arrangementZh: '雙腿自然伸展' },
+  { label: '坐姿｜盤腿坐姿', baseZh: '坐姿', arrangementZh: '盤腿坐姿' },
+  { label: '坐姿｜側身坐姿', baseZh: '坐姿', arrangementZh: '雙腿側放坐姿' },
+  { label: '坐姿｜抱膝坐姿', baseZh: '坐姿', arrangementZh: '抱膝坐姿' },
+  { label: '半躺低姿態｜側身半躺', baseZh: '躺姿', arrangementZh: '側躺' },
+  { label: '半躺低姿態｜正面仰躺', baseZh: '躺姿', arrangementZh: '仰躺' },
+  { label: '半躺低姿態｜手撐半躺', baseZh: '躺姿', arrangementZh: '半躺倚靠', handZh: '一手撐地一手放腿上' },
+  { label: '半躺低姿態｜微蜷放鬆', baseZh: '躺姿', arrangementZh: '側躺屈膝' },
+  { label: '半躺低姿態｜趴姿', baseZh: '躺姿', arrangementZh: '趴臥' },
+  { label: '半躺低姿態｜側躺延伸', baseZh: '躺姿', arrangementZh: '側躺' },
+  { label: '蹲姿｜自然蹲姿', baseZh: '蹲姿', arrangementZh: '自然蹲姿' },
+  { label: '蹲姿｜單膝蹲姿', baseZh: '蹲姿', arrangementZh: '單膝蹲姿' },
+  { label: '蹲姿｜手扶膝蓋蹲姿', baseZh: '蹲姿', arrangementZh: '手扶膝蓋蹲姿' },
+  { label: '動態｜輕步移動', baseZh: '站姿', arrangementZh: '一腳向前點地' },
+  { label: '動態｜整理頭髮', baseZh: '站姿', arrangementZh: '自然站姿', handZh: '單手撩髮' },
+  { label: '動態｜整理衣襬', baseZh: '站姿', arrangementZh: '自然站姿', handZh: '整理下身', headZh: '低頭看向手部' },
+  { label: '動態｜抬手整理肩頸', baseZh: '站姿', arrangementZh: '自然站姿', handZh: '單手搭肩', headZh: '頭部微微側傾' },
+  { label: '動態｜回身動作', baseZh: '站姿', arrangementZh: '回身轉向', headZh: '回頭朝向鏡頭' },
+  { label: '動態｜停步姿勢', baseZh: '站姿', arrangementZh: '膝蓋微彎站姿' },
 ];
 
 const POSE_COMPOSER_ARRANGEMENT_TO_ANCHOR_MIGRATIONS = [
@@ -4022,6 +4044,25 @@ function applySpecialActionPoseComposerMigration(normalizedLocks, rawLocks, cont
   if (migration.anchorZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseAnchorId', migration.anchorZh);
 }
 
+function applyPoseIdPoseComposerMigration(normalizedLocks, rawLocks, controls) {
+  const pose = getControlOptionById(controls, 'poseId', normalizedLocks.poseId)
+    || getControlOptionById(controls, 'poseId', rawLocks?.poseId);
+  if (!pose || isNoneLikeItem(pose)) return;
+
+  setControlToNone(normalizedLocks, controls, 'poseId');
+
+  if (normalizedLocks.subjectCount !== '1') return;
+
+  const migration = CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS.find((entry) => entry.label === pose.zh);
+  if (!migration) return;
+
+  if (migration.baseZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseBaseId', migration.baseZh);
+  if (migration.arrangementZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseArrangementId', migration.arrangementZh);
+  if (migration.handZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHandId', migration.handZh);
+  if (migration.headZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHeadId', migration.headZh);
+  if (migration.anchorZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseAnchorId', migration.anchorZh);
+}
+
 function isSelfiePoseHandOption(option) {
   return Boolean(option?.meta?.tags?.includes('selfie_hand_pose'));
 }
@@ -4237,6 +4278,7 @@ export function normalizeLocks(rawLocks = {}) {
   applyLegacySelfieSpecialActionMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyPoseArrangementAnchorMigration(normalizedWithLegacyColors, rawLocks, controls);
   applySpecialActionPoseComposerMigration(normalizedWithLegacyColors, rawLocks, controls);
+  applyPoseIdPoseComposerMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOutfitPresetToDressLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyEyewearLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOuterwearOpeningLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);

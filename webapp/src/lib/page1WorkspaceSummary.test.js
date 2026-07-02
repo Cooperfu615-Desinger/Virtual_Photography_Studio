@@ -57,6 +57,15 @@ test('workspace pose summary is separate from character identity summary', () =>
   assert.match(summary.pose.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
 });
 
+test('workspace summary treats legacy reference subject count as single mode', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    subjectCount: 'reference',
+  }, controls);
+
+  assert.doesNotMatch(summary.character.summary, /上傳人物|附圖人物/);
+});
+
 test('workspace pose summary uses duo action scenario and posture base controls', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),

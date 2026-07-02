@@ -1,44 +1,56 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { PAGE1_SECTION_SUBPANELS, resolvePage1ActiveSubpanel } from './page1WorkspacePanels.js';
+import {
+  PAGE1_SECTION_SUBPANELS,
+  isPage1PoseSubpanelDisabled,
+  resolvePage1ActiveSubpanel,
+} from './page1WorkspacePanels.js';
 
-test('page1 pose panels hide the deprecated special action control', () => {
+test('page1 pose panels split single and duo settings without legacy pose controls', () => {
   const posePanels = PAGE1_SECTION_SUBPANELS.pose;
-  const basicPanel = posePanels.find((panel) => panel.id === 'basic');
-  const composerPanel = posePanels.find((panel) => panel.id === 'composer');
+  const singlePanel = posePanels.find((panel) => panel.id === 'single');
+  const duoPanel = posePanels.find((panel) => panel.id === 'duo');
 
-  assert.ok(basicPanel);
-  assert.ok(composerPanel);
-  assert.equal(basicPanel.keys.includes('specialActionId'), false);
-  assert.equal(composerPanel.keys.includes('specialActionId'), false);
-  assert.ok(composerPanel.keys.includes('poseHandId'));
-  assert.match(composerPanel.description, /手部 \/ 道具動作/);
+  assert.ok(singlePanel);
+  assert.ok(duoPanel);
+  assert.equal(singlePanel.label, '單人設置');
+  assert.equal(duoPanel.label, '雙人設置');
+  assert.deepEqual(singlePanel.keys, [
+    'expressionId',
+    'poseBaseId',
+    'poseArrangementId',
+    'poseHandId',
+    'poseHeadId',
+    'poseAnchorId',
+  ]);
+  assert.deepEqual(duoPanel.keys, [
+    'duoPoseId',
+    'duoPoseBaseId',
+    'duoExpressionId',
+  ]);
+  assert.equal(singlePanel.keys.includes('poseId'), false);
+  assert.equal(duoPanel.keys.includes('poseId'), false);
+  assert.equal(singlePanel.keys.includes('specialActionId'), false);
+  assert.equal(duoPanel.keys.includes('specialActionId'), false);
 });
 
-test('special subject pose special-settings tab keeps pose composer controls', () => {
-  const composerSubpanel = {
-    id: 'composer',
-    description: '用 Pose Composer 精準組合姿勢基底、肢體變化、手部、頭部與接觸點；目前僅支援單人。',
-    keys: ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'],
-  };
+test('page1 pose panels disable the opposite subject-count mode', () => {
+  const [singlePanel, duoPanel] = PAGE1_SECTION_SUBPANELS.pose;
 
-  const resolved = resolvePage1ActiveSubpanel('pose', composerSubpanel, { isSpecialSubjectMode: true });
-
-  assert.deepEqual(resolved.keys, composerSubpanel.keys);
-  assert.equal(resolved.description, composerSubpanel.description);
-  assert.match(resolved.description, /Pose Composer/);
+  assert.equal(isPage1PoseSubpanelDisabled(singlePanel, '1'), false);
+  assert.equal(isPage1PoseSubpanelDisabled(duoPanel, '1'), true);
+  assert.equal(isPage1PoseSubpanelDisabled(singlePanel, '2'), true);
+  assert.equal(isPage1PoseSubpanelDisabled(duoPanel, '2'), false);
 });
 
-test('normal pose special-settings tab keeps pose composer controls', () => {
-  const composerSubpanel = {
-    id: 'composer',
-    description: '用 Pose Composer 精準組合姿勢基底、肢體變化、手部、頭部與接觸點；目前僅支援單人。',
-    keys: ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'],
-  };
+test('page1 pose active subpanel resolves to the enabled mode', () => {
+  const singlePanel = PAGE1_SECTION_SUBPANELS.pose.find((panel) => panel.id === 'single');
+  const duoPanel = PAGE1_SECTION_SUBPANELS.pose.find((panel) => panel.id === 'duo');
 
-  const resolved = resolvePage1ActiveSubpanel('pose', composerSubpanel, { isSpecialSubjectMode: false });
+  const resolvedSingle = resolvePage1ActiveSubpanel('pose', duoPanel, { subjectCount: '1' });
+  const resolvedDuo = resolvePage1ActiveSubpanel('pose', singlePanel, { subjectCount: '2' });
 
-  assert.deepEqual(resolved.keys, composerSubpanel.keys);
-  assert.equal(resolved.description, composerSubpanel.description);
+  assert.equal(resolvedSingle.id, 'single');
+  assert.equal(resolvedDuo.id, 'duo');
 });

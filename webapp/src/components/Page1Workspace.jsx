@@ -14,7 +14,11 @@ import {
   normalizeCharacterCardLayerIds,
 } from '../lib/page1WorkspaceSummary.js';
 import { CHARACTER_CARD_LAYER_LABELS } from '../lib/characterCardLab.js';
-import { PAGE1_POSE_SUBPANELS, resolvePage1ActiveSubpanel } from '../lib/page1WorkspacePanels.js';
+import {
+  PAGE1_POSE_SUBPANELS,
+  isPage1PoseSubpanelDisabled,
+  resolvePage1ActiveSubpanel,
+} from '../lib/page1WorkspacePanels.js';
 import { randomizeLockKeys, setLockKeysToNone } from '../lib/page1SectionRandom.js';
 
 const WARDROBE_PICKER_KEYS = new Set([
@@ -662,7 +666,7 @@ export default function Page1Workspace({
   const [activeSection, setActiveSection] = useState('character');
   const [activeSubpanels, setActiveSubpanels] = useState({
     character: 'identity',
-    pose: 'basic',
+    pose: 'single',
     wardrobe: 'overall',
     scene: 'fixed',
     photography: 'composition',
@@ -691,7 +695,7 @@ export default function Page1Workspace({
     ? normalizeCharacterCardLayerIds(locks.characterCardWardrobeLayerIds)
     : [];
   const isAndroidSubjectMode = specialSubjectOption?.specialSubject === 'android';
-  const resolvedActiveSubpanel = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { isSpecialSubjectMode: isDedicatedSubjectMode });
+  const resolvedActiveSubpanel = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { subjectCount: locks.subjectCount });
   const activeSubpanelKeys = resolvedActiveSubpanel?.keys || getSectionKeys(activeSection);
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
@@ -703,7 +707,6 @@ export default function Page1Workspace({
       )
     : Boolean(locks.specialOutfitId) && !isNoneSelected('specialOutfitId', locks.specialOutfitId, wardrobeLockControls);
   const isDuoMode = locks.subjectCount === '2';
-  const isReferenceSubjectMode = locks.subjectCount === 'reference';
   const isAnyOutfitPresetActive = isSingleOutfitPresetActive || isOutfitPresetAActive || isOutfitPresetBActive;
   const importedWorldSceneActive = locks.importedWorldSceneMode === 'architecture' && Boolean(locks.importedWorldSceneArchitectureText);
   const fixedCompositionSetActive = locks.subjectCount !== '2'
@@ -746,7 +749,6 @@ export default function Page1Workspace({
   const currentModeBadges = [
     isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
     isCharacterProfileMode ? (characterProfileOption?.zh || '角色卡') : '',
-    isReferenceSubjectMode ? '上傳人物' : '',
     isDuoMode ? '雙人' : '',
     isCloseupMode ? '特寫模式' : '',
     isWormEyeAngle ? '蟲眼視角' : '',
@@ -760,7 +762,6 @@ export default function Page1Workspace({
       chips: [
         isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
         isCharacterProfileMode ? (characterProfileOption?.zh || '角色卡') : '',
-        isReferenceSubjectMode ? '上傳人物' : '',
         isDuoMode ? '雙人設定' : '',
       ].filter(Boolean),
     },
@@ -1097,11 +1098,6 @@ export default function Page1Workspace({
         </div>
         {renderSectionActionButtons()}
       </div>
-      {locks.subjectCount === 'reference' ? (
-        <div className="context-note">
-          此模式不在 app 內上傳圖片；生成後請把同一張人物參考圖直接附給 Midjourney、Grok 或 Gemini，prompt 會以附圖人物五官與身份為主。
-        </div>
-      ) : null}
       {isSpecialSubjectMode ? (
         <div className="context-note">
           {isAndroidSubjectMode
@@ -1134,12 +1130,7 @@ export default function Page1Workspace({
       </div>
       {isPoseComposerActive ? (
         <div className="context-note">
-          Pose Composer 已接管姿勢輸出，基礎姿勢與非社群型特殊動作會暫時停用，避免同時出現兩套肢體指令。
-        </div>
-      ) : null}
-      {locks.subjectCount !== '1' && activeSubpanel?.id === 'composer' ? (
-        <div className="context-note">
-          Pose Composer 目前僅支援單人；雙人模式請使用基礎設置中的雙人姿態與互動。
+          單人姿勢已由 Pose Composer 組合輸出，舊姿勢動作與特殊動作會維持隱藏相容，不再作為可見控制來源。
         </div>
       ) : null}
       {renderControlGrid(filterControlsByKeys(characterLockControls, resolvedActiveSubpanel?.keys || []))}
@@ -1292,16 +1283,21 @@ export default function Page1Workspace({
             </div>
 
             <div className="page1-subpanel-tabs">
-              {sectionSubpanels.map((panel) => (
-                <button
-                  key={panel.id}
-                  type="button"
-                  className={`page1-subpanel-tab ${activeSubpanel?.id === panel.id ? 'page1-subpanel-tab-active' : ''}`}
-                  onClick={() => setActiveSubpanels((prev) => ({ ...prev, [activeSection]: panel.id }))}
-                >
-                  <span className="page1-subpanel-label">{panel.label}</span>
-                </button>
-              ))}
+              {sectionSubpanels.map((panel) => {
+                const disabled = activeSection === 'pose' && isPage1PoseSubpanelDisabled(panel, locks.subjectCount);
+                const isActive = resolvedActiveSubpanel?.id === panel.id;
+                return (
+                  <button
+                    key={panel.id}
+                    type="button"
+                    className={`page1-subpanel-tab ${isActive ? 'page1-subpanel-tab-active' : ''} ${disabled ? 'page1-subpanel-tab-disabled' : ''}`}
+                    disabled={disabled}
+                    onClick={() => setActiveSubpanels((prev) => ({ ...prev, [activeSection]: panel.id }))}
+                  >
+                    <span className="page1-subpanel-label">{panel.label}</span>
+                  </button>
+                );
+              })}
             </div>
             {renderEditorPanel()}
           </section>

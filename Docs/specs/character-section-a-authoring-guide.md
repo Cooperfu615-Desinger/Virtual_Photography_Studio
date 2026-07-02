@@ -22,7 +22,7 @@ Prompt 應使用短而準的英文片語，避免堆疊同義詞。中文描述�
 
 | 控制項 | 主要來源 | 備註 |
 | --- | --- | --- |
-| 人物數量 `subjectCount` | `webapp/src/lib/engine.js` 的 `SUBJECT_COUNT_OPTIONS` | 只決定 1 位、2 位、上傳人物，不承擔美感或性感描述。 |
+| 人物數量 `subjectCount` | `webapp/src/lib/engine.js` 的 `SUBJECT_COUNT_OPTIONS` | 只決定 1 位、2 位，不承擔美感或性感描述；舊 `reference` lock 會轉成 1 位。 |
 | 特殊角色 `specialSubjectId` | `webapp/src/lib/engine.js` 的 `SPECIAL_SUBJECT_OPTIONS` | 直接 code-defined，不走 Markdown sync。 |
 | 角色卡 `characterProfileId` | `webapp/src/lib/engine.js` 的 `CHARACTER_PROFILE_OPTIONS` | 直接 code-defined，獨立於特殊角色；用來接管人物身份與固定穿搭。 |
 | 體態、五官、膚質、髮型、髮色 | `knowledge_base/character_design.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
@@ -64,13 +64,17 @@ core identity phrase, 1-3 concrete visual traits, restrained style or realism cu
 
 ## 4. 人物數量
 
-責任：只決定人物數量或上傳人物參考。
+責任：只決定人物數量。
 
 目前選項：
 
 - `1 位`: one 20-year-old Japanese or Korean female portrait subject
 - `2 位`: two 20-year-old Japanese or Korean female portrait subjects
-- `上傳人物`: preserve attached reference identity and likeness
+
+舊資料相容：
+
+- 舊 saved card / import 若帶有 `subjectCount: "reference"`，restore / normalize 時會轉成 `subjectCount: "1"`。
+- PAGE1 不再輸出由 `subjectCount` 觸發的 attached-reference guidance。PAGE2 character reference prompt、角色卡 `referenceImages`、服裝 reference image picker、燈光 reference modal 與 `reference/wardrobe/...` 圖片路徑不受影響。
 
 維護規則：
 
@@ -301,6 +305,7 @@ looking away from the camera, distant sideward gaze, thoughtful quiet expression
 - 只描述 body structure、weight、limbs、motion state。
 - 不寫 `looking at camera`、`lowered gaze`、`over-the-shoulder gaze`，這些屬於神情。
 - 不新增自拍或鏡子自拍為一般 `poseId` 姿勢；自拍類屬於 Pose Composer 的 `手部姿勢`。
+- PAGE1 不再顯示一般 `poseId` 姿勢選單；舊 `poseId` restore / normalize 應轉成 `poseBaseId`、`poseArrangementId`、`poseHandId`、`poseHeadId`、`poseAnchorId` 的可見組合，並清空 `poseId`。
 - 新姿勢必須改變身體輪廓或構圖效果；單純手的位置小差異不建議新增。
 
 Pose Composer `手部 / 道具動作` 規則：

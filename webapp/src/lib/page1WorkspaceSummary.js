@@ -97,7 +97,6 @@ export function normalizeCharacterCardLayerIds(layerIds) {
 }
 
 export function buildWorkspaceSummary(locks, controls) {
-  const subjectTypeLabel = getControlOptionLabel(controls, 'subjectCount', locks.subjectCount);
   const specialSubjectControl = controls.find((control) => control.key === 'specialSubjectId');
   const specialSubjectOption = specialSubjectControl?.options?.find((option) => option.id === locks.specialSubjectId);
   const characterProfileControl = controls.find((control) => control.key === 'characterProfileId');
@@ -115,7 +114,6 @@ export function buildWorkspaceSummary(locks, controls) {
     : isCharacterProfileMode
       ? characterProfileOption?.zh || '角色卡'
       : buildSummaryText([
-        subjectTypeLabel === '上傳人物' ? subjectTypeLabel : '',
         getControlOptionLabel(controls, 'bodyTypeId', locks.bodyTypeId),
         getControlOptionLabel(controls, 'bodyTypeAId', locks.bodyTypeAId),
         getControlOptionLabel(controls, 'bodyTypeBId', locks.bodyTypeBId),
@@ -137,8 +135,6 @@ export function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'duoExpressionId', locks.duoExpressionId),
     getControlOptionLabel(controls, 'duoPoseId', locks.duoPoseId),
     getControlOptionLabel(controls, 'duoPoseBaseId', locks.duoPoseBaseId),
-    getControlOptionLabel(controls, 'poseId', locks.poseId),
-    getControlOptionLabel(controls, 'specialActionId', locks.specialActionId),
     getControlOptionLabel(controls, 'poseBaseId', locks.poseBaseId),
     getControlOptionLabel(controls, 'poseArrangementId', locks.poseArrangementId),
     getControlOptionLabel(controls, 'poseHandId', locks.poseHandId),

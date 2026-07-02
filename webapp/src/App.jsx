@@ -107,8 +107,6 @@ const CHARACTER_CONTROL_ORDER = [
   'duoPoseBaseId',
   'duoExpressionId',
   'expressionId',
-  'poseId',
-  'specialActionId',
   'poseBaseId',
   'poseArrangementId',
   'poseHandId',
@@ -330,8 +328,6 @@ function buildImportedStructured(locks, controls) {
       'duoPoseBaseId',
       'duoExpressionId',
       'expressionId',
-      'poseId',
-      'specialActionId',
       'poseBaseId',
       'poseArrangementId',
       'poseHandId',
@@ -1264,8 +1260,6 @@ export default function App() {
               'specialSubjectId',
               'characterProfileId',
               'expressionId',
-              'poseId',
-              'specialActionId',
               ...POSE_COMPOSER_KEYS,
               ...(isAndroidSubject ? ['hairstyleId', 'hairColorId'] : []),
             ].includes(control.key);
@@ -1273,9 +1267,9 @@ export default function App() {
           if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
           if (['specialSubjectId', 'characterProfileId'].includes(control.key)) return true;
           if (['duoPoseId', 'duoPoseBaseId', 'duoExpressionId'].includes(control.key) && locks.subjectCount !== '2') return false;
-          if (control.key === 'specialActionId' && locks.subjectCount !== '1') return false;
+          if (['poseId', 'specialActionId'].includes(control.key)) return false;
           if (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1') return false;
-          if (['bodyTypeId', 'facialFeaturesId', 'skinDetailsId', 'hairstyleId', 'hairColorId', 'expressionId', 'poseId'].includes(control.key) && locks.subjectCount === '2') return false;
+          if (['bodyTypeId', 'facialFeaturesId', 'skinDetailsId', 'hairstyleId', 'hairColorId', 'expressionId'].includes(control.key) && locks.subjectCount === '2') return false;
           if (['bodyTypeAId', 'bodyTypeBId', 'facialFeaturesAId', 'facialFeaturesBId', 'skinDetailsAId', 'skinDetailsBId', 'hairstyleAId', 'hairstyleBId', 'hairColorAId', 'hairColorBId', 'duoPoseId', 'duoPoseBaseId', 'duoExpressionId'].includes(control.key) && locks.subjectCount !== '2') return false;
           return true;
         }),

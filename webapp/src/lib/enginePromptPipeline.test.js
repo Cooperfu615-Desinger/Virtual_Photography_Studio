@@ -467,7 +467,7 @@ test('Gpt single-subject prompt compresses expression pose and special action wo
   });
   assert.match(crossedArms.subject, /direct eye contact, soft natural smile, gentle confident expression/i);
   assert.doesNotMatch(crossedArms.subject, /looking directly at the camera|bright approachable expression/i);
-  assert.match(crossedArms.pose, /standing pose with loosely crossed arms, relaxed composed posture/i);
+  assert.match(crossedArms.pose, /standing with natural relaxed standing arrangement; arms crossed loosely in front of the body/i);
   assert.doesNotMatch(crossedArms.pose, /relaxed closed posture|cool composed body language|\.,/i);
   assert.match(crossedArms.prompt.zImagePrompt, /direct eye contact/i);
   assert.doesNotMatch(crossedArms.prompt.zImagePrompt, /looking directly at the camera|cool composed body language/i);
@@ -478,13 +478,13 @@ test('Gpt single-subject prompt compresses expression pose and special action wo
   });
   assert.match(downwardRecline.subject, /downward gaze, quiet inward expression/i);
   assert.doesNotMatch(downwardRecline.subject, /eyes cast downward away from camera|restrained emotion/i);
-  assert.match(downwardRecline.pose, /side reclined pose, gently extended body, relaxed low posture/i);
+  assert.match(downwardRecline.pose, /lying down with side-lying arrangement/i);
   assert.doesNotMatch(downwardRecline.pose, /soft flowing body line|\.,/i);
 
   const supine = buildSections({
     poseId: optionId('poseId', '半躺低姿態｜正面仰躺'),
   });
-  assert.match(supine.pose, /relaxed supine pose, lying on her back, one arm above the head, other arm resting beside the body, legs softly bent, upright non-inverted orientation/i);
+  assert.match(supine.pose, /lying down with lying on the back, relaxed upward-facing body line/i);
   assert.doesNotMatch(supine.pose, /facing upward|raised loosely|resting casually|soft asymmetrical way|\.,/i);
 
   const lipstick = buildSections({
@@ -887,7 +887,7 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
   assert.doesNotMatch(prompt.midjourneyPrompt, /photorealistic editorial portrait|20-year-old|slim-curvy hourglass body|defined eyes and lips/i);
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
   assert.match(prompt.midjourneyPrompt, /wearing a flight attendant uniform/);
-  assert.match(prompt.midjourneyPrompt, /standing with loosely crossed arms/);
+  assert.match(prompt.midjourneyPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
   assert.match(prompt.midjourneyPrompt, /captured (?:in film photography style|as a moody film still|as an editorial film still)/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
@@ -1013,7 +1013,7 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
         /triangle bikini top/i,
         /denim shorts/i,
         /Kowloon Walled City interior passage/i,
-        /standing pose with loosely crossed arms/i,
+        /standing with natural relaxed standing arrangement; arms crossed loosely/i,
       ],
       minParagraphs: 5,
     },
@@ -1423,17 +1423,17 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
   assert.match(prompt.grokPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.grokPrompt, /large video billboards/i);
   assert.match(prompt.grokPrompt, /flight attendant uniform outfit/i);
-  assert.match(prompt.grokPrompt, /standing pose with loosely crossed arms/i);
+  assert.match(prompt.grokPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 
   assert.match(prompt.zImagePrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.zImagePrompt, /flight attendant uniform outfit/i);
-  assert.match(prompt.zImagePrompt, /standing pose with loosely crossed arms/i);
+  assert.match(prompt.zImagePrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
 
   assert.match(prompt.midjourneyPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.midjourneyPrompt, /flight attendant uniform/i);
-  assert.match(prompt.midjourneyPrompt, /standing with loosely crossed arms/i);
+  assert.match(prompt.midjourneyPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
   assert.equal(prompt.selection.locationId, optionId('locationId', '全無'));
   assert.equal(prompt.selection.importedWorldSceneMode, 'architecture');

@@ -748,9 +748,10 @@ test('face close-up framing locks wardrobe controls while keeping location and p
   assert.equal(allowedKeys.has('topId'), false);
   assert.equal(allowedKeys.has('pantsId'), false);
   assert.equal(allowedKeys.has('shoesId'), false);
-  assert.equal(allowedKeys.has('poseId'), true);
+  assert.equal(allowedKeys.has('poseId'), false);
   assert.equal(allowedKeys.has('specialActionId'), false);
   assert.equal(allowedKeys.has('poseBaseId'), true);
+  assert.equal(allowedKeys.has('poseArrangementId'), true);
   assert.equal(allowedKeys.has('poseHandId'), true);
   assert.equal(allowedKeys.has('poseHeadId'), true);
 
@@ -760,9 +761,10 @@ test('face close-up framing locks wardrobe controls while keeping location and p
   assert.equal(sanitized.topId, optionId('topId', '全無'));
   assert.equal(sanitized.pantsId, optionId('pantsId', '全無'));
   assert.equal(sanitized.shoesId, optionId('shoesId', '全無'));
-  assert.equal(sanitized.poseId, locks.poseId);
+  assert.equal(sanitized.poseId, optionId('poseId', '全無'));
   assert.equal(sanitized.specialActionId, optionId('specialActionId', '全無'));
   assert.equal(sanitized.poseBaseId, locks.poseBaseId);
+  assert.equal(sanitized.poseArrangementId, optionId('poseArrangementId', '微微前傾'));
   assert.equal(sanitized.poseHandId, locks.poseHandId);
   assert.equal(sanitized.poseHeadId, locks.poseHeadId);
 });

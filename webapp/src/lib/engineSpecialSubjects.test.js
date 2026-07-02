@@ -818,7 +818,9 @@ test('expression and pose remain available with special subjects', () => {
 
   assert.equal(prompt.selection.specialSubjectId, 'european-knight');
   assert.equal(prompt.selection.expressionId, expression.id);
-  assert.equal(prompt.selection.poseId, pose.id);
+  assert.equal(prompt.selection.poseId, '');
+  assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '站姿'));
+  assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '單腳重心'));
   assert.match(promptText, /calm neutral expression|relaxed half-lidded ease/);
   assert.match(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance|one-leg weight shift|relaxed asymmetrical body balance/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);

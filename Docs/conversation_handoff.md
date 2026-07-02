@@ -144,7 +144,7 @@ Image Analyzer behavior:
 - `subjectCount` controls normal subject count:
   - `1`
   - `2`
-  - `reference`
+- Legacy saved cards / imports with `subjectCount: "reference"` normalize to `subjectCount: "1"`.
 - Special characters are controlled by `specialSubjectId`, not `subjectCount`.
 - Current special subjects include:
   - `黑骷髏`
@@ -152,13 +152,16 @@ Image Analyzer behavior:
   - `日本戰國武士`
   - `歐洲騎士`
   - `女性人形機器人`
-- `上傳人物` is prompt-only reference guidance. The app does not upload an image; the user attaches the reference image in the target image tool.
+- PAGE1 no longer exposes `上傳人物` as a subject-count mode, and PAGE1 prompts no longer emit reference-guidance lines from `subjectCount`.
 
 ### Pose / Action / Pose Composer
 
 Existing controls:
 
 - `poseId`
+  - Legacy compatibility field only.
+  - PAGE1 no longer exposes it in B 神情姿態.
+  - Restore / normalize migrates old values into Pose Composer locks and clears `poseId`.
 - `specialActionId`
   - Legacy hidden control after the special-action-to-Pose-Composer migration.
   - PAGE1 no longer exposes it as an independent B 神情姿態 field.
@@ -169,6 +172,7 @@ Pose Composer controls:
 - `poseBaseId`
 - `poseArrangementId`
 - `poseHandId`
+- `poseHeadId`
 - `poseAnchorId`
 
 Duo-only controls:
@@ -181,9 +185,12 @@ Rules:
 
 - Pose Composer is single-subject only.
 - Duo mode ignores Pose Composer and uses `duoPoseId` / `duoPoseBaseId` / `duoExpressionId`.
-- In PAGE1 UI, Pose Composer is mutually exclusive with old `poseId`; the old `specialActionId` field is hidden.
+- PAGE1 `B 神情姿態` has two mutually exclusive panels:
+  - `單人設置`: `expressionId`, `poseBaseId`, `poseArrangementId`, `poseHandId`, `poseHeadId`, `poseAnchorId`
+  - `雙人設置`: `duoPoseId`, `duoPoseBaseId`, `duoExpressionId`
+- `單人設置` is enabled for `subjectCount === "1"` and disabled for duo mode; `雙人設置` is enabled for `subjectCount === "2"` and disabled for single mode.
 - Legacy social shooting actions are migrated into Pose Composer hand poses.
-- Engine priority: if Pose Composer resolves, it outputs instead of old `poseId`; legacy `specialActionId` restores are normalized into Pose Composer locks and cleared.
+- Engine priority: if Pose Composer resolves, it outputs instead of old `poseId`; legacy `poseId` and `specialActionId` restores are normalized into Pose Composer locks and cleared.
 - Pose Composer scene compatibility is intentionally not implemented yet. The user currently prefers free combination.
 - `Pose Modifier` is intentionally not implemented yet. Test base + arrangement + hand + anchor first.
 - Legacy `duoInteractionId` and separated A/B expression controls are hidden / migrated. Do not reintroduce them.
@@ -320,7 +327,7 @@ The user tested a lightweight style-prefix idea for oil painting / watercolor / 
 ### A. Character / Identity
 
 - User wants to preserve Japanese / Korean female identity direction because most generated subjects are Japanese / Korean women.
-- `subjectCount` should only decide subject quantity or reference mode.
+- `subjectCount` should only decide subject quantity.
 - Body types carry the strongest silhouette and sensuality differences.
 - Face types are intentionally simplified into a small number of clear directions.
 - Special subjects override normal A-person settings where appropriate.
@@ -369,9 +376,10 @@ Implementation locations:
   - `extractCharacterSlots()` includes `poseComposer`.
   - Gpt, Grok/Z-Image, AI, summary, and selection snapshot understand the Pose Composer slot.
 - `Page1Workspace.jsx`
-  - Adds Pose Composer controls under `神情姿態`.
+  - Splits `神情姿態` into `單人設置` and `雙人設置`.
+  - Adds Pose Composer controls under `單人設置`.
   - Filters arrangement / anchor options based on selected base.
-  - Handles UI-level mutual exclusion.
+  - Handles subject-count-based panel disabling.
 - `App.jsx`
   - Adds ordering, import/export structured display, character-control filtering, and lock sanitization for Pose Composer.
 - `enginePoseComposer.test.js`
