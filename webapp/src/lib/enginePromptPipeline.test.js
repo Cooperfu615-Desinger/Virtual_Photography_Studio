@@ -137,9 +137,10 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
 });
 
-test('Gpt single-subject prompt compresses normal subject and wardrobe wording', () => {
+test('Gpt single-subject prompt preserves full-fidelity normal subject and wardrobe wording', () => {
   const [prompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
+    ...createAllNoneLocks(),
+    subjectCount: '1',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     bodyTypeId: optionId('bodyTypeId', '性感曲線身形'),
     facialFeaturesId: optionId('facialFeaturesId', '成熟性感臉'),
@@ -148,38 +149,31 @@ test('Gpt single-subject prompt compresses normal subject and wardrobe wording',
     eyewearId: optionId('eyewearId', '粗框眼鏡'),
     eyewearColorId: optionId('eyewearColorId', '黑色'),
     eyewearPlacementId: optionId('eyewearPlacementId', '正常戴在臉上'),
-    skinDetailsId: optionId('skinDetailsId', '全無'),
-    specialOutfitId: optionId('specialOutfitId', '全無'),
-    outfitPresetId: optionId('outfitPresetId', '全無'),
-    dressId: optionId('dressId', '全無'),
     topId: optionId('topId', '棉質細肩背心'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
-    skirtId: optionId('skirtId', '全無'),
-    outerwearId: optionId('outerwearId', '全無'),
-    legwearId: optionId('legwearId', '全無'),
-    shoesId: optionId('shoesId', '全無'),
     topBottomPaletteId: optionId('topBottomPaletteId', '白色 × 靛藍'),
     topFitId: optionId('topFitId', '緊身'),
-    topStylingId: optionId('topStylingId', '全無'),
-    topPatternId: optionId('topPatternId', '全無'),
     bottomRiseId: optionId('bottomRiseId', '高腰'),
     bottomFitId: optionId('bottomFitId', '合身'),
-    bottomPatternId: optionId('bottomPatternId', '全無'),
   });
 
   const subject = gptSection(prompt, 'Subject');
   const wardrobe = gptSection(prompt, 'Wardrobe');
 
-  assert.match(subject, /black bold thick-frame glasses/i);
-  assert.doesNotMatch(subject, /worn normally on the face|lenses aligned over the eyes/i);
-  assert.doesNotMatch(subject, /cm visual height|kg lean visual weight|body proportion anchor|torso-to-leg balance|F-to-G-cup-scale/i);
-  assert.doesNotMatch(subject, /hair color applies only to the scalp hair|eyebrows remain natural and realistic|not dyed to match/i);
+  assert.match(subject, /black frame, bold thick-frame glasses, worn normally on the face, lenses aligned over the eyes/i);
+  assert.match(subject, /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
+  assert.match(subject, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
+  assert.match(subject, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i);
+  assert.match(subject, /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i);
+  assert.match(subject, /deep side-parted long soft waves, polished Korean-style face-framing flow/i);
+  assert.match(subject, /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i);
+  assert.doesNotMatch(subject, /tall slim-curvy hourglass body, long legs, narrow waist, rounded hips/i);
   assert.doesNotMatch(subject, /\.\s*,/);
 
-  assert.match(wardrobe, /tight white ribbed cotton camisole/i);
-  assert.match(wardrobe, /high-rise fitted indigo straight-leg jeans/i);
-  assert.doesNotMatch(wardrobe, /realistic outer-to-inner dressing order/i);
-  assert.doesNotMatch(wardrobe, /clean compact upper-body line|balanced leg line|classic five-pocket construction/i);
+  assert.match(wardrobe, /tight body-skimming upper-body fit, white cotton camisole top, slim shoulder straps, soft ribbed knit, clean compact upper-body line/i);
+  assert.match(wardrobe, /high-rise waistband sitting above the natural waist, fitted lower-body line following the garment shape/i);
+  assert.match(wardrobe, /indigo straight-leg jeans, clean denim texture, balanced leg line, classic five-pocket construction/i);
+  assert.doesNotMatch(wardrobe, /tight white ribbed cotton camisole with slim straps|high-rise fitted indigo straight-leg jeans/i);
   assert.doesNotMatch(wardrobe, /\.\s*,/);
 
   assert.doesNotMatch(prompt.zImagePrompt, /worn normally on the face|lenses aligned over the eyes/i);
@@ -294,7 +288,7 @@ test('AI single-subject prompt orders eyewear and headphones before clothing', (
   assert.doesNotMatch(aiPrompt, /slim-curvy hourglass body|defined eyes and lips|hair|soft smile|[\u3400-\u9fff]/i);
 });
 
-test('Gpt single-subject prompt applies second-pass identity compression', () => {
+test('Gpt single-subject prompt preserves full-fidelity identity descriptions', () => {
   const baseLocks = {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -308,80 +302,72 @@ test('Gpt single-subject prompt applies second-pass identity compression', () =>
     };
   };
 
-  const curvy = buildSubject({
-    bodyTypeId: optionId('bodyTypeId', '性感曲線身形'),
-    facialFeaturesId: optionId('facialFeaturesId', '成熟性感臉'),
-    hairstyleId: optionId('hairstyleId', '柔波：深側分'),
-    hairColorId: optionId('hairColorId', '銀灰白'),
-  });
-  assert.match(curvy.subject, /tall slim-curvy hourglass body, long legs, narrow waist, rounded hips/i);
-  assert.match(curvy.subject, /seductive mature face, defined eyes and lips/i);
-  assert.match(curvy.subject, /silver-gray white deep side-parted long soft waves, cool pale tone, realistic dyed texture, natural eyebrows/i);
-  assert.doesNotMatch(curvy.subject, /\.\s+silver-gray white hair\b/i);
-  assert.doesNotMatch(curvy.subject, /lean hourglass curve|magnetic facial balance|face-framing flow|cool pale fashion color/i);
-  assert.doesNotMatch(curvy.zImagePrompt, /body proportion anchor/i);
-  assert.doesNotMatch(curvy.zImagePrompt, /magnetic feminine facial balance/i);
+  const cases = [
+    {
+      name: 'curvy editorial dyed hair',
+      locks: {
+        bodyTypeId: optionId('bodyTypeId', '性感曲線身形'),
+        facialFeaturesId: optionId('facialFeaturesId', '成熟性感臉'),
+        hairstyleId: optionId('hairstyleId', '柔波：深側分'),
+        hairColorId: optionId('hairColorId', '銀灰白'),
+      },
+      gptKeeps: [
+        /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i,
+        /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i,
+        /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i,
+        /deep side-parted long soft waves, polished Korean-style face-framing flow/i,
+        /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i,
+      ],
+      zOmits: /body proportion anchor|magnetic feminine facial balance|polished Korean-style face-framing flow/i,
+    },
+    {
+      name: 'idol glass skin bob',
+      locks: {
+        bodyTypeId: optionId('bodyTypeId', '高挑時裝模特'),
+        facialFeaturesId: optionId('facialFeaturesId', '韓系偶像臉'),
+        skinDetailsId: optionId('skinDetailsId', '玻璃水光肌'),
+        hairstyleId: optionId('hairstyleId', '輕透齊瀏海內彎鮑伯'),
+        hairColorId: optionId('hairColorId', '自然黑'),
+      },
+      gptKeeps: [
+        /tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor/i,
+        /young beautiful Korean idol face, refined small face, clear bright eyes, polished youthful beauty, photogenic K-pop portrait balance/i,
+        /chin-length inward-curved bob, airy straight bangs, smooth face-framing rounded ends, clean salon shape/i,
+        /natural black hair, soft realistic shine, clean dark depth/i,
+        /glass skin, dewy luminous skin texture, hydrated reflective complexion/i,
+      ],
+      zOmits: /body proportion anchor|photogenic K-pop portrait balance|hydrated reflective complexion|clean salon shape/i,
+    },
+    {
+      name: 'freckles wet straight hair',
+      locks: {
+        bodyTypeId: optionId('bodyTypeId', '柔和沙漏身形'),
+        facialFeaturesId: optionId('facialFeaturesId', '甜美可愛臉'),
+        skinDetailsId: optionId('skinDetailsId', '自然雀斑'),
+        hairstyleId: optionId('hairstyleId', '直髮：濕感'),
+        hairColorId: optionId('hairColorId', '蜂蜜焦糖棕'),
+      },
+      gptKeeps: [
+        /soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor/i,
+        /young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look/i,
+        /straight medium-to-long hair with a sleek wet texture, clean straight lengths, separated damp strands, minimal wave/i,
+        /honey caramel-brown hair, warm golden brown salon color/i,
+        /natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail/i,
+      ],
+      zOmits: /body proportion anchor|approachable youthful portrait look|clean straight lengths|authentic skin detail/i,
+    },
+  ];
 
-  const idol = buildSubject({
-    bodyTypeId: optionId('bodyTypeId', '高挑時裝模特'),
-    facialFeaturesId: optionId('facialFeaturesId', '韓系偶像臉'),
-    skinDetailsId: optionId('skinDetailsId', '玻璃水光肌'),
-    hairstyleId: optionId('hairstyleId', '輕透齊瀏海內彎鮑伯'),
-    hairColorId: optionId('hairColorId', '自然黑'),
-  });
-  assert.match(idol.subject, /tall slim fashion body, long legs, high waistline/i);
-  assert.match(idol.subject, /Korean idol face, small refined face, clear bright eyes/i);
-  assert.match(idol.subject, /natural black chin-length inward-curved bob, airy straight bangs, rounded face-framing ends/i);
-  assert.doesNotMatch(idol.subject, /\.\s+natural black hair\b/i);
-  assert.match(idol.subject, /dewy glass skin/i);
-  assert.doesNotMatch(idol.subject, /clean editorial silhouette|polished K-pop portrait balance|clean salon shape|hydrated reflective complexion/i);
-  assert.doesNotMatch(idol.zImagePrompt, /clean editorial silhouette/i);
-  assert.doesNotMatch(idol.zImagePrompt, /hydrated reflective complexion/i);
-
-  const freckles = buildSubject({
-    bodyTypeId: optionId('bodyTypeId', '柔和沙漏身形'),
-    facialFeaturesId: optionId('facialFeaturesId', '甜美可愛臉'),
-    skinDetailsId: optionId('skinDetailsId', '自然雀斑'),
-    hairstyleId: optionId('hairstyleId', '直髮：濕感'),
-    hairColorId: optionId('hairColorId', '蜂蜜焦糖棕'),
-  });
-  assert.match(freckles.subject, /soft hourglass body, fuller bust, wider hips/i);
-  assert.match(freckles.subject, /sweet rounded face, bright friendly eyes/i);
-  assert.match(freckles.subject, /honey caramel-brown sleek wet straight medium-to-long hair, separated damp strands/i);
-  assert.doesNotMatch(freckles.subject, /\.\s+honey caramel-brown hair\b/i);
-  assert.match(freckles.subject, /natural freckles across nose and cheeks/i);
-  assert.doesNotMatch(freckles.subject, /subtle abdomen contour|approachable portrait look|clean straight lengths|minimal wave|authentic skin detail/i);
-
-  const editorial = buildSubject({
-    bodyTypeId: optionId('bodyTypeId', '小隻精緻身形'),
-    facialFeaturesId: optionId('facialFeaturesId', '冷感高級臉'),
-    skinDetailsId: optionId('skinDetailsId', '淚痣／唇邊痣'),
-    hairstyleId: optionId('hairstyleId', '輕透瀏海自然微彎長髮'),
-    hairColorId: optionId('hairColorId', '寶石藍'),
-  });
-  assert.match(editorial.subject, /petite polished body, compact proportions/i);
-  assert.match(editorial.subject, /cool editorial face, sharp features, calm high-fashion presence/i);
-  assert.match(editorial.subject, /cobalt-blue fashion long slightly wavy hair, airy see-through bangs, side-draped face-framing strands/i);
-  assert.doesNotMatch(editorial.subject, /\.\s+cobalt-blue fashion hair\b/i);
-  assert.match(editorial.subject, /small beauty mark under eye or near lips/i);
-  assert.doesNotMatch(editorial.subject, /small-frame presence|sharp facial balance|naturally slightly wavy|rich blue tone|delicate facial mole detail/i);
-
-  const athletic = buildSubject({
-    bodyTypeId: optionId('bodyTypeId', '運動緊實身形'),
-    facialFeaturesId: optionId('facialFeaturesId', '混血立體臉'),
-    skinDetailsId: optionId('skinDetailsId', '微曬陽光感膚質'),
-    hairstyleId: optionId('hairstyleId', '柔和編髮造型'),
-    hairColorId: optionId('hairColorId', '深森林綠'),
-  });
-  assert.match(athletic.subject, /toned athletic body, subtle muscle definition/i);
-  assert.match(athletic.subject, /mixed editorial face, defined nose bridge, deep-set eyes/i);
-  assert.match(athletic.subject, /deep forest-green soft braided hairstyle, delicate woven detail/i);
-  assert.doesNotMatch(athletic.subject, /\.\s+deep forest-green hair\b/i);
-  assert.match(athletic.subject, /sun-kissed skin, subtle warm flush/i);
-  assert.doesNotMatch(athletic.subject, /firm silhouette|dimensional facial structure|romantic natural texture|dark moody green tone|healthy outdoor glow/i);
+  for (const item of cases) {
+    const result = buildSubject(item.locks);
+    for (const pattern of item.gptKeeps) {
+      assert.match(result.subject, pattern, `${item.name} should preserve full GPT wording`);
+    }
+    assert.doesNotMatch(result.zImagePrompt, item.zOmits, `${item.name} should keep Z-Image compact`);
+  }
 });
 
-test('Gpt single-subject prompt merges hair color into hairstyle wording', () => {
+test('Gpt single-subject prompt preserves separate hairstyle and hair color wording', () => {
   const baseLocks = {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -394,40 +380,45 @@ test('Gpt single-subject prompt merges hair color into hairstyle wording', () =>
       name: 'natural black wet long waves',
       hairstyle: '濕潤感長波浪',
       hairColor: '自然黑',
-      merged: /natural black wet-look long wavy hair, damp separated strands, moody glossy texture/i,
-      standalone: /\.\s+natural black hair\b/i,
+      gptHairstyle: /wet-look long wavy hair, damp separated strands, moody glossy texture/i,
+      gptHairColor: /natural black hair, soft realistic shine, clean dark depth/i,
+      gptMerged: /natural black wet-look long wavy hair/i,
       zImageColor: /natural black wet-look long wavy hair, damp separated strands/i,
     },
     {
       name: 'silver-gray deep side waves',
       hairstyle: '柔波：深側分',
       hairColor: '銀灰白',
-      merged: /silver-gray white deep side-parted long soft waves, cool pale tone, realistic dyed texture, natural eyebrows/i,
-      standalone: /\.\s+silver-gray white hair\b/i,
+      gptHairstyle: /deep side-parted long soft waves, polished Korean-style face-framing flow/i,
+      gptHairColor: /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i,
+      gptMerged: /silver-gray white deep side-parted long soft waves/i,
       zImageColor: /silver-gray white deep side-parted long soft waves/i,
     },
     {
       name: 'honey caramel wet straight hair',
       hairstyle: '直髮：濕感',
       hairColor: '蜂蜜焦糖棕',
-      merged: /honey caramel-brown sleek wet straight medium-to-long hair, separated damp strands/i,
-      standalone: /\.\s+honey caramel-brown hair\b/i,
+      gptHairstyle: /straight medium-to-long hair with a sleek wet texture, clean straight lengths, separated damp strands, minimal wave/i,
+      gptHairColor: /honey caramel-brown hair, warm golden brown salon color/i,
+      gptMerged: /honey caramel-brown sleek wet straight medium-to-long hair/i,
       zImageColor: /honey caramel-brown sleek wet straight medium-to-long hair, separated damp strands/i,
     },
     {
       name: 'cobalt-blue slight waves with bangs',
       hairstyle: '輕透瀏海自然微彎長髮',
       hairColor: '寶石藍',
-      merged: /cobalt-blue fashion long slightly wavy hair, airy see-through bangs, side-draped face-framing strands/i,
-      standalone: /\.\s+cobalt-blue fashion hair\b/i,
+      gptHairstyle: /long naturally slightly wavy hair with airy see-through bangs, soft side-draped face-framing strands/i,
+      gptHairColor: /jewel cobalt-blue fashion hair color, rich blue tone with realistic dyed hair texture/i,
+      gptMerged: /cobalt-blue fashion long slightly wavy hair/i,
       zImageColor: /cobalt-blue fashion long slightly wavy hair/i,
     },
     {
       name: 'soft black-tea high ponytail',
       hairstyle: '蓬鬆高馬尾',
       hairColor: '柔霧黑茶',
-      merged: /soft black-tea brown voluminous high ponytail, loose natural strands, lifted active movement/i,
-      standalone: /\.\s+soft black-tea brown hair\b/i,
+      gptHairstyle: /voluminous high ponytail, loose natural strands, lifted active movement/i,
+      gptHairColor: /soft black-tea brown hair, muted brown-black salon tone/i,
+      gptMerged: /soft black-tea brown voluminous high ponytail/i,
       zImageColor: /soft black-tea brown voluminous high ponytail/i,
     },
   ];
@@ -440,13 +431,14 @@ test('Gpt single-subject prompt merges hair color into hairstyle wording', () =>
     });
     const subject = gptSection(prompt, 'Subject');
 
-    assert.match(subject, item.merged, `${item.name} should merge color into hairstyle`);
-    assert.doesNotMatch(subject, item.standalone, `${item.name} should not emit a standalone hair color sentence`);
+    assert.match(subject, item.gptHairstyle, `${item.name} should preserve the full hairstyle wording`);
+    assert.match(subject, item.gptHairColor, `${item.name} should preserve the full hair color wording`);
+    assert.doesNotMatch(subject, item.gptMerged, `${item.name} should not merge GPT hair color into hairstyle`);
     assert.match(prompt.zImagePrompt, item.zImageColor, `${item.name} should merge Z-Image hair color into hairstyle`);
   }
 });
 
-test('Gpt single-subject prompt compresses expression pose and special action wording', () => {
+test('Gpt single-subject prompt preserves full-fidelity expression and special action wording', () => {
   const baseLocks = {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -465,10 +457,9 @@ test('Gpt single-subject prompt compresses expression pose and special action wo
     expressionId: optionId('expressionId', '直視鏡頭｜柔和微笑'),
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
-  assert.match(crossedArms.subject, /direct eye contact, soft natural smile, gentle confident expression/i);
-  assert.doesNotMatch(crossedArms.subject, /looking directly at the camera|bright approachable expression/i);
+  assert.match(crossedArms.subject, /looking directly at the camera, direct eye contact, soft natural smile, gentle confidence, bright approachable expression/i);
   assert.match(crossedArms.pose, /standing with natural relaxed standing arrangement; arms crossed loosely in front of the body/i);
-  assert.doesNotMatch(crossedArms.pose, /relaxed closed posture|cool composed body language|\.,/i);
+  assert.doesNotMatch(crossedArms.pose, /\.,/i);
   assert.match(crossedArms.prompt.zImagePrompt, /direct eye contact/i);
   assert.doesNotMatch(crossedArms.prompt.zImagePrompt, /looking directly at the camera|cool composed body language/i);
 
@@ -476,8 +467,7 @@ test('Gpt single-subject prompt compresses expression pose and special action wo
     expressionId: optionId('expressionId', '低頭垂眼｜內斂'),
     poseId: optionId('poseId', '半躺低姿態｜側身半躺'),
   });
-  assert.match(downwardRecline.subject, /downward gaze, quiet inward expression/i);
-  assert.doesNotMatch(downwardRecline.subject, /eyes cast downward away from camera|restrained emotion/i);
+  assert.match(downwardRecline.subject, /eyes cast downward away from camera, lowered gaze, inward quiet expression, restrained emotion/i);
   assert.match(downwardRecline.pose, /lying down with side-lying arrangement/i);
   assert.doesNotMatch(downwardRecline.pose, /soft flowing body line|\.,/i);
 
@@ -492,18 +482,18 @@ test('Gpt single-subject prompt compresses expression pose and special action wo
     specialActionId: optionId('specialActionId', '塗口紅'),
   });
   assert.match(lipstick.pose, /lipstick bullet pressed to the lips by one hand, visible hand-to-mouth contact, slight lip pressure/i);
-  assert.doesNotMatch(lipstick.pose, /polished beauty touch-up portrait moment|\.,/i);
+  assert.doesNotMatch(lipstick.pose, /\.,/i);
   assert.doesNotMatch(lipstick.prompt.zImagePrompt, /polished beauty touch-up portrait moment/i);
 
   const icedCoffee = buildSections({
     specialActionId: optionId('specialActionId', '喝冰咖啡'),
   });
   assert.match(icedCoffee.pose, /clear plastic takeaway cup of iced coffee held naturally in one hand/i);
-  assert.doesNotMatch(icedCoffee.pose, /near the lips|mid-sip|relaxed everyday cafe portrait moment|\.,/i);
+  assert.doesNotMatch(icedCoffee.pose, /\.,/i);
   assert.doesNotMatch(icedCoffee.prompt.zImagePrompt, /relaxed everyday cafe portrait moment/i);
 });
 
-test('Gpt single-subject prompt compresses pose composer special-settings wording', () => {
+test('Gpt single-subject prompt preserves full-fidelity pose composer special-settings wording', () => {
   const baseLocks = {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -524,9 +514,9 @@ test('Gpt single-subject prompt compresses pose composer special-settings wordin
     poseHeadId: optionId('poseHeadId', '越肩回望'),
     poseAnchorId: optionId('poseAnchorId', '倚靠現有場景物件'),
   });
-  assert.match(standingSceneObject.pose, /leaning against a suitable existing scene object, body lightly supported/i);
-  assert.match(standingSceneObject.pose, /one hand brushing hair back, fingers touching hair near temple or ear/i);
-  assert.doesNotMatch(standingSceneObject.pose, /any suitable existing object within the current scene|using only a naturally available scene object|fingers visibly touching the hair near the temple or ear/i);
+  assert.match(standingSceneObject.pose, /leaning against any suitable existing object within the current scene/i);
+  assert.match(standingSceneObject.pose, /body weight lightly supported by that existing scene object, using only a naturally available scene object for support/i);
+  assert.match(standingSceneObject.pose, /one hand brushing hair back from the side of the face, fingers visibly touching the hair near the temple or ear/i);
   assert.doesNotMatch(standingSceneObject.prompt.zImagePrompt, /using only a naturally available scene object for support/i);
 
   const sittingChair = buildSections({
@@ -536,10 +526,10 @@ test('Gpt single-subject prompt compresses pose composer special-settings wordin
     poseHeadId: optionId('poseHeadId', '近鏡頭偏轉頭部'),
     poseAnchorId: optionId('poseAnchorId', '坐在椅子上'),
   });
-  assert.match(sittingChair.pose, /sitting on a scene-appropriate chair with open confident seated arrangement, wider grounded knees, upright torso, strong presence/i);
-  assert.match(sittingChair.pose, /both hands on waist or hips, elbows naturally adapted/i);
-  assert.match(sittingChair.pose, /head slightly off-axis near lens, face angled diagonally/i);
-  assert.doesNotMatch(sittingChair.pose, /chair style material and scale chosen to match the environment|strong spatial presence|face plane angled diagonally instead of flat to camera/i);
+  assert.match(sittingChair.pose, /sitting on a chair that naturally fits the current scene with the chair style material and scale chosen to match the environment/i);
+  assert.match(sittingChair.pose, /open confident seated arrangement, knees set wider with grounded posture, torso upright, strong spatial presence/i);
+  assert.match(sittingChair.pose, /both hands placed on the waist or hip line with elbows naturally adapted to the pose/i);
+  assert.match(sittingChair.pose, /head turned slightly off-axis near the lens with the face plane angled diagonally instead of flat to camera/i);
 
   const waterEdge = buildSections({
     locationId: optionId('locationId', '戶外：飯店度假村泳池露台'),
@@ -549,10 +539,10 @@ test('Gpt single-subject prompt compresses pose composer special-settings wordin
     poseHeadId: optionId('poseHeadId', '頭靠近邊緣支撐'),
     poseAnchorId: optionId('poseAnchorId', '靠在水邊支撐'),
   });
-  assert.match(waterEdge.pose, /water-contact realism, whole lower body submerged, only the upper body above the water surface, visible waterline, natural ripples, wet skin and damp fabric edges, clothing complete and non-transparent/i);
-  assert.match(waterEdge.pose, /one hand supporting on floor or nearby surface, other hand resting on the leg/i);
-  assert.match(waterEdge.pose, /head low near rim or support edge, cheek and jawline close to the surface/i);
-  assert.doesNotMatch(waterEdge.pose, /visible waterline across the body|around the torso and limbs|clothing remains complete|cheek and jawline close to the supporting surface/i);
+  assert.match(waterEdge.pose, /water-contact realism with the whole lower body submerged and only the upper body above the water surface/i);
+  assert.match(waterEdge.pose, /visible waterline across the body, natural ripples around the torso and limbs, wet skin and damp fabric edges, clothing remains complete and non-transparent/i);
+  assert.match(waterEdge.pose, /one hand supporting on the floor or nearby surface with the other hand resting on the leg/i);
+  assert.match(waterEdge.pose, /head angled low near a rim or support edge with cheek and jawline close to the supporting surface/i);
 
   const bathtubWet = buildSections({
     poseBaseId: optionId('poseBaseId', '躺姿'),
@@ -561,13 +551,13 @@ test('Gpt single-subject prompt compresses pose composer special-settings wordin
     poseHeadId: optionId('poseHeadId', '頭部貼近支撐面'),
     poseAnchorId: optionId('poseAnchorId', '浴缸'),
   });
-  assert.match(bathtubWet.pose, /wet bath-water contact, clothing complete and non-transparent, wet sheen, droplets, darker damp folds/i);
-  assert.match(bathtubWet.pose, /both hands resting on thighs or nearest upper-leg surface/i);
-  assert.match(bathtubWet.pose, /head close to support surface or shoulder line/i);
-  assert.doesNotMatch(bathtubWet.pose, /visible water sheen and droplets|heavier wet folds|cheek plane following the selected support contact/i);
+  assert.match(bathtubWet.pose, /the outfit and exposed skin are soaked by bath water/i);
+  assert.match(bathtubWet.pose, /visible water sheen and droplets, darker damp fabric tones, heavier wet folds/i);
+  assert.match(bathtubWet.pose, /both hands resting on the thighs or nearest upper-leg surface/i);
+  assert.match(bathtubWet.pose, /head angled close to a support surface or shoulder line with the cheek plane following the selected support contact/i);
 });
 
-test('Gpt single-subject prompt compresses footwear outerwear and layering details', () => {
+test('Gpt single-subject prompt preserves full-fidelity footwear outerwear and layering details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -598,13 +588,11 @@ test('Gpt single-subject prompt compresses footwear outerwear and layering detai
 
   const wardrobe = gptSection(prompt, 'Wardrobe');
 
-  assert.match(wardrobe, /dark grey washed denim jacket with chest pockets and metal buttons/i);
+  assert.match(wardrobe, /dark grey denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear/i);
   assert.match(wardrobe, /outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer/i);
-  assert.match(wardrobe, /white ribbed ankle socks/i);
-  assert.match(wardrobe, /white adidas samba og sneakers, gum sole, three-stripe side detail/i);
+  assert.match(wardrobe, /white ribbed ankle socks, soft cotton texture/i);
+  assert.match(wardrobe, /white adidas samba og sneakers, gum sole, three-stripe side detail, terrace football styling/i);
   assert.match(wardrobe, /outerwear remains a coherent outer layer; inner garment appears at natural openings/i);
-  assert.doesNotMatch(wardrobe, /casual structured outerwear|terrace football styling|soft cotton texture/i);
-  assert.doesNotMatch(wardrobe, /sleeves still loosely on the arms, jacket body hanging as an intact outer layer/i);
   assert.doesNotMatch(wardrobe, /properly worn with intact shoulders, sleeves, lapels and hem/i);
 
   assert.doesNotMatch(prompt.zImagePrompt, /casual structured outerwear/i);
@@ -624,11 +612,11 @@ test('Gpt single-subject prompt compresses footwear outerwear and layering detai
     skirtId: optionId('skirtId', '全無'),
   });
 
-  assert.doesNotMatch(gptSection(normalOuterwearPrompt, 'Wardrobe'), /properly worn on both shoulders/i);
+  assert.match(gptSection(normalOuterwearPrompt, 'Wardrobe'), /outerwear worn normally on both shoulders/i);
   assert.doesNotMatch(normalOuterwearPrompt.zImagePrompt, /properly worn on both shoulders/i);
 });
 
-test('Gpt single-subject prompt compresses outfit preset and dress wording without dropping design anchors', () => {
+test('Gpt single-subject prompt preserves full-fidelity outfit preset and dress wording', () => {
   const baseLocks = {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -647,30 +635,33 @@ test('Gpt single-subject prompt compresses outfit preset and dress wording witho
     outfitPresetId: optionId('outfitPresetId', '套裝：粉紅哥德兔耳吊帶束身'),
     dressId: optionId('dressId', '全無'),
   });
-  assert.match(bunnyCorset.wardrobe, /gothic bunny corset, bunny-ear headband with one upright ear and one half-drooping ear/i);
-  assert.match(bunnyCorset.wardrobe, /fitted corset bodysuit, shaped cup seams, vertical boning, lace neckline, cross appliques, ribbon and garter straps/i);
-  assert.match(bunnyCorset.wardrobe, /leather choker with metal cross pendant/i);
-  assert.doesNotMatch(bunnyCorset.wardrobe, /bow accents placed clearly on both the left and right sides|cross decorations controlled by contrast palette|cross appliques, metal cross pendant, and leather choker hardware kept in fixed metallic tones/i);
+  assert.match(bunnyCorset.wardrobe, /gothic bunny corset outfit, bunny-ear headband with lace inner panels/i);
+  assert.match(bunnyCorset.wardrobe, /one bunny ear standing upright and the other half-drooping/i);
+  assert.match(bunnyCorset.wardrobe, /bow accents placed clearly on both the left and right sides of the headband/i);
+  assert.match(bunnyCorset.wardrobe, /fitted corset bodysuit with shaped cup seams and vertical boning lines/i);
+  assert.match(bunnyCorset.wardrobe, /matching main-color garter lace thigh-high stockings, leather neck choker with metal cross pendant/i);
+  assert.doesNotMatch(bunnyCorset.wardrobe, /main fabric color controlled by|cross decorations controlled by/i);
   assert.doesNotMatch(bunnyCorset.prompt.zImagePrompt, /bow accents placed clearly on both the left and right sides/i);
 
   const openButtonSet = buildWardrobe({
     outfitPresetId: optionId('outfitPresetId', '套裝：開扣長袖襯衫包臀裙'),
     dressId: optionId('dressId', '全無'),
   });
-  assert.match(openButtonSet.wardrobe, /tight long-sleeve button-up shirt, opaque stretch cotton, structured collar and fitted sleeves/i);
-  assert.match(openButtonSet.wardrobe, /upper buttons open, front buttons under tension, placket pulling at chest and waist/i);
-  assert.match(openButtonSet.wardrobe, /tight bodycon mini skirt, smooth hip-hugging silhouette/i);
+  assert.match(openButtonSet.wardrobe, /tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves/i);
+  assert.match(openButtonSet.wardrobe, /upper buttons left open, remaining front buttons fastened under tension/i);
+  assert.match(openButtonSet.wardrobe, /visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff/i);
+  assert.match(openButtonSet.wardrobe, /tight bodycon mini skirt, smooth hip-hugging skirt silhouette/i);
   assert.doesNotMatch(openButtonSet.wardrobe, /selected fabric color/i);
-  assert.doesNotMatch(openButtonSet.wardrobe, /outfit, opaque stretch cotton shirting fabric|remaining front buttons fastened under tension|horizontal fabric wrinkles across the bust and midriff|dominant fabric color controlled by the outfit color selection/i);
+  assert.doesNotMatch(openButtonSet.wardrobe, /dominant fabric color controlled by the outfit color selection/i);
   assert.doesNotMatch(openButtonSet.prompt.zImagePrompt, /remaining front buttons fastened under tension/i);
 
   const sleevelessDress = buildWardrobe({
     outfitPresetId: optionId('outfitPresetId', '全無'),
     dressId: optionId('dressId', '連身：短版｜無袖迷你洋裝'),
   });
-  assert.match(sleevelessDress.wardrobe, /sleeveless mini dress, clean shoulder line, short hem/i);
+  assert.match(sleevelessDress.wardrobe, /sleeveless mini dress, one-piece silhouette, clean shoulder line, compact short hem/i);
   assert.doesNotMatch(sleevelessDress.wardrobe, /selected main fabric color/i);
-  assert.doesNotMatch(sleevelessDress.wardrobe, /one-piece silhouette|compact short hem|main fabric color controlled by dress color selection/i);
+  assert.doesNotMatch(sleevelessDress.wardrobe, /main fabric color controlled by dress color selection/i);
   assert.doesNotMatch(sleevelessDress.prompt.zImagePrompt, /one-piece silhouette/i);
 
   const cutoutSwimsuit = buildWardrobe({
@@ -678,9 +669,10 @@ test('Gpt single-subject prompt compresses outfit preset and dress wording witho
     dressId: optionId('dressId', '連身：短版｜高領挖腰連身泳裝'),
   });
   assert.match(cutoutSwimsuit.wardrobe, /high-neck extreme front cut-out monokini swimsuit/i);
-  assert.match(cutoutSwimsuit.wardrobe, /separate high-neck chest panel and high-cut bikini bottom connected by thin side straps/i);
-  assert.match(cutoutSwimsuit.wardrobe, /large open front torso gap exposing abdomen and navel/i);
-  assert.doesNotMatch(cutoutSwimsuit.wardrobe, /bikini-like one-piece construction|connected only by thin side straps|oversized open front torso gap exposing most of the abdomen and navel|main swim fabric color controlled by dress color selection/i);
+  assert.match(cutoutSwimsuit.wardrobe, /bikini-like one-piece construction/i);
+  assert.match(cutoutSwimsuit.wardrobe, /separate high-neck chest panel and high-cut bikini bottom connected only by thin side straps/i);
+  assert.match(cutoutSwimsuit.wardrobe, /oversized open front torso gap exposing most of the abdomen and navel/i);
+  assert.doesNotMatch(cutoutSwimsuit.wardrobe, /main swim fabric color controlled by dress color selection/i);
   assert.doesNotMatch(cutoutSwimsuit.prompt.zImagePrompt, /bikini-like one-piece construction/i);
 });
 

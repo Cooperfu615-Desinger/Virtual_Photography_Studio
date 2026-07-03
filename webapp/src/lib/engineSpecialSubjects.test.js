@@ -912,7 +912,7 @@ test('pose composer applies to special subjects in every output and takes priori
   assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', '坐在椅緣'));
   assert.match(prompt.grokPrompt, /She is sitting/);
   assert.match(prompt.grokPrompt, /natural seated arrangement/);
-  assert.match(prompt.grokPrompt, /both hands resting on thighs or nearest upper-leg surface/);
+  assert.match(prompt.grokPrompt, /both hands resting on the thighs or nearest upper-leg surface/);
   assert.match(prompt.grokPrompt, /front edge of a chair/);
   assert.match(prompt.grokPrompt, /seat-edge support/);
   assert.match(prompt.zImagePrompt, /She is sitting/);

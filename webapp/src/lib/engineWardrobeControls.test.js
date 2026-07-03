@@ -206,7 +206,7 @@ test('top fit and styling appear before the top garment in generated wardrobe te
   assert.doesNotMatch(zImageText, /paired with crisp cotton poplin/);
 });
 
-test('outerwear styling appears after the outerwear garment while GPT omits normal-wear wording', () => {
+test('outerwear styling appears after the outerwear garment while avoiding legacy normal-wear wording', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -243,10 +243,10 @@ test('outerwear and long shirt compose as explicit outer-over-inner layers', () 
 
   const grokWardrobeLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokWardrobeLine);
-  assert.match(grokWardrobeLine, /dark grey washed denim jacket with chest pockets and metal buttons[\s\S]*layered over[\s\S]*off-white longline shirt/);
-  assert.doesNotMatch(grokWardrobeLine, /properly worn on both shoulders/);
+  assert.match(grokWardrobeLine, /dark grey denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear[\s\S]*layered over[\s\S]*off-white longline shirt/);
+  assert.match(grokWardrobeLine, /outerwear worn normally on both shoulders/);
   assert.doesNotMatch(grokWardrobeLine, /She wears properly worn on both shoulders, dark grey denim jacket/);
-  assert.doesNotMatch(grokWardrobeLine, /realistic outer-to-inner dressing order/);
+  assert.match(grokWardrobeLine, /realistic outer-to-inner dressing order/);
   assert.match(grokWardrobeLine, /outerwear remains a coherent outer layer; inner garment appears at natural openings/);
   assert.match(prompt.zImagePrompt, /dark grey washed denim jacket[\s\S]*layered over[\s\S]*off-white longline shirt/);
   assert.doesNotMatch(prompt.zImagePrompt, /properly worn on both shoulders|paired with off-white longline shirt/);

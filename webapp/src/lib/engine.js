@@ -9561,6 +9561,14 @@ function cleanGptSinglePromptText(value) {
     .trim();
 }
 
+function buildGptSingleFullFidelityText(value) {
+  return cleanGptSinglePromptText(value);
+}
+
+function buildGptSingleFullFidelityWardrobeText(value) {
+  return naturalizeGptSingleWardrobePaletteText(value);
+}
+
 function splitGptSpecialOutfitFragments(value) {
   const compressed = cleanGptSinglePromptText(value)
     .replace(/^She wears\s+(?:complete special outfit:\s*)?/i, '')
@@ -9821,6 +9829,9 @@ function cleanGptPaletteWardrobeBase(value) {
   return cleanGptSinglePromptText(value)
     .replace(/,\s*(?:dominant|main|secondary|contrast|tonal)\s+[^,.]*?\s+controlled by\s+[^,.]+/gi, '')
     .replace(/,\s*color controlled by\s+[^,.]+/gi, '')
+    .replace(/,\s*[^,.]*?\bcontrolled by\s+(?:the\s+)?(?:outfit|dress|contrast)[^,.]*/gi, '')
+    .replace(/,\s*[^,.]*?\bkept in fixed [^,.]*/gi, '')
+    .replace(/,\s*optional [^,.]*?\bcan retain a classic signature color scheme/gi, '')
     .replace(/,\s*selected\s+(?:main\s+)?(?:fabric|uniform|satin|dress|latex|swim fabric|tonal palette|main fabric|main latex|main satin|main swim fabric)\s+color/gi, '')
     .replace(/,\s*selected\s+(?:apron and ruffle contrast|contrast details|contrast trim|ruffle contrast|contrast panels|tonal palette)/gi, '')
     .replace(/\s*,\s*,+/g, ', ')
@@ -10237,7 +10248,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
     ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
     : singleCharacterProfileSubjectBlock
     ? singleCharacterProfileSubjectBlock
-    : compressGptSingleSubjectText(subjectText, context);
+    : buildGptSingleFullFidelityText(subjectText);
   const singleSpecialOutfitText = !useRoleOrderedDuo && context.subject?.count === 1
     ? firstStructuredValue(valuesByLabel, ['Special Outfit'])
     : '';
@@ -10251,11 +10262,11 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
     ? wardrobeText
     : singleSpecialOutfitWardrobeBlock
     ? singleSpecialOutfitWardrobeBlock
-    : compressGptSingleWardrobeText(wardrobeText, context);
+    : buildGptSingleFullFidelityWardrobeText(wardrobeText);
   const resolvedSharedExpressionText = useRoleOrderedDuo ? buildGptDuoSharedExpressionText(duoCharacterSlots) : '';
   const resolvedPoseText = useRoleOrderedDuo
     ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
-    : compressGptSinglePoseText(poseText, context);
+    : buildGptSingleFullFidelityText(poseText);
   const resolvedWardrobeUsesBlock = Boolean(singleSpecialOutfitWardrobeBlock);
   const resolvedSubjectUsesBlock = Boolean(singleCharacterProfileSubjectBlock);
   const sceneSection = sceneText
