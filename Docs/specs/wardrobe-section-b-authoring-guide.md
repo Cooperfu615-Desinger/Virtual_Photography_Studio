@@ -1,10 +1,10 @@
 # B 穿搭設定新增與維護規格
 
-Last updated: 2026-06-27
+Last updated: 2026-07-03
 
 這份文件定義 PAGE1 `B. 穿搭設定` 的新增、修改、合併與測試規則。後續新增上身、下身、套裝、連身、鞋襪、外套、配件、顏色或圖案時，請先依照本規格檢查責任邊界、prompt 寫法、組合順序與舊資料相容性。
 
-單人模式的 Gpt / Grok/Z-Image / AI 壓縮規則請同時參考 `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`。尤其是一般上下身、鞋襪與外層、套裝、連身、特殊穿搭與配件，新增資料時應避免正常穿著狀態說明、泛用 styling 尾句、內部控制語言與不必要的同義詞堆疊。
+單人模式的 Gpt / Grok/Z-Image / AI 輸出規則請同時參考 `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`。目前 Gpt 版採完整保留型 Prompt，一般上下身、鞋襪與外層、套裝、連身、特殊穿搭與配件中的有效英文描述應完整保留；Grok/Z-Image 與 AI 才依各自模型需求壓縮。新增資料時仍需確認正常穿著狀態說明、泛用 styling 尾句、內部控制語言與同義詞堆疊是否真的有助於生成穩定或造型鎖定。
 
 ## 1. 核心原則
 

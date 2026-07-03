@@ -1,8 +1,8 @@
-# PAGE1 單人 Prompt 壓縮撰寫規範
+# PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-06-27
+Last updated: 2026-07-03
 
-這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫與壓縮規則。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範檢查英文 prompt 是否過度冗長。
+這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
 ## 1. 三組輸出定位
 
@@ -11,10 +11,14 @@ Last updated: 2026-06-27
 - Internal field: `grokPrompt`
 - Target: ChatGPT Image / GPT Image
 - 格式：結構化自然段落。
+- 新定位：`GPT Full-Fidelity Prompt` / `GPT 完整保留型 Prompt`。
+- 目標：完整保留 PAGE1 工作台中被選到的有效英文描述，優先保留生成穩定性、造型鎖定與細節完整度。
 - 固定主區塊順序：`Image Type`、`Subject`、`Wardrobe`、`Pose and Composition`、`Scene`、`Lighting`、`Camera Look`、`multi-cut sequence n=2`。
 - 不輸出 `Constraints`。
 - 結尾必須保留 `multi-cut sequence n=2`。
-- 單人特殊穿搭的 `Wardrobe` 可用子區塊幫助人工微調：`Hair and body details`、`Full outfit`、`Headwear, eyewear, and bag`。
+- 不做語意壓縮：不把長句縮成短片語，不刪除原本有視覺或控制意義的資訊。
+- 允許格式整理：清理空白、標點、markdown 符號、空值，並放入正確 section。
+- 單人特殊穿搭的 `Wardrobe` 可用子區塊幫助人工微調：`Hair and body details`、`Full outfit`、`Headwear, eyewear, and bag`。分類時只搬移內容，不應因壓縮而濾掉 fragment。
 - 單人角色卡的 `Subject` 可用子區塊幫助人工微調：`Character Profile Card`、`Identity and body`、`Hair`、`Outfit`、`Accessories`、`Photographic direction`。
 
 ### Grok/Z-Image
@@ -24,7 +28,8 @@ Last updated: 2026-06-27
 - 格式：自然語言空行段落。
 - 不使用 GPT 式英文段落標籤。
 - 不加入 `multi-cut sequence n=2`。
-- 可比 Gpt 多保留一些自然語氣，因為此輸出偏向直接給自然語言模型理解。
+- 可以比 `AI` 更完整，但不使用 GPT 標籤段落。
+- 可針對 Grok/Z-Image 的理解方式做自然語言壓縮與重排。
 
 ### AI
 
@@ -36,22 +41,48 @@ Last updated: 2026-06-27
 - 不加入「模型自然決定」類說明句。
 - 不過度詳細，但不能漏掉核心服裝、姿勢、動作、場景、光線與 camera look。
 
-## 2. 壓縮總原則
+## 2. GPT 完整保留與壓縮分流原則
 
-英文 prompt 應該先問三件事：
+### GPT 完整保留型原則
+
+`Gpt` 版現在以「完整保留」為主，不再以字數壓縮為目標。實作與資料維護時，應先問三件事：
 
 1. 這個詞是否帶來新的可視覺化資訊？
 2. 這個詞是否屬於目前欄位的責任？
-3. 移除後是否仍能維持服裝設計、人物特徵或姿勢意圖？
+3. 這個詞是否有助於生成穩定、造型鎖定或動作/場景可控？
 
-保留：
+如果答案是肯定的，`Gpt` 版應保留，不應為了縮短 prompt 而刪除。
+
+`Gpt` 版應保留：
 
 - 可被畫面辨識的結構、材質、版型、長度、穿法、位置。
 - 影響生成結果的 anchor，例如 `low-rise`, `thigh-high stockings`, `side-part`, `direct eye contact`。
 - 特殊穿搭、套裝、連身的造型核心與層次關係。
 - Pose Composer 的身體結構、支撐點、手部位置、頭部方向。
+- 人物體態、五官、膚質、髮型、髮色、表情中原始資料提供的有效細節。
+- 場景、燈光、鏡頭、成像模擬中的有效環境與攝影控制資訊。
 
-刪減：
+`Gpt` 版允許的清理範圍：
+
+- 移除 markdown 符號。
+- 清理重複空白與壞標點，例如 `.,`、`,.`。
+- 不輸出空值、`全無`、`none`、`random`。
+- 避免同一段完全重複出現兩次。
+- 加上必要 section lead，例如 `The subject is...`、`She wears...`。
+- 依 section 責任移動內容，例如特殊穿搭配件移到 `Headwear, eyewear, and bag`。
+
+`Gpt` 版不應做：
+
+- 把長描述縮成短片語。
+- 刪除數值、比例、支撐點、材質、層次、guard 或造型鎖定資訊。
+- 因為文字看似冗長就移除 `body proportion anchor`、`worn normally on the face`、`controlled by selection` 等原始控制語。這些是否保留應由資料庫 authoring 或後續專案決策處理，不在 Gpt 最終輸出層任意刪除。
+- 把多個選項的內容合併時遺失原始描述。
+
+### Grok/Z-Image 與 AI 壓縮原則
+
+`Grok/Z-Image` 與 `AI` 可以繼續壓縮，但只能在不破壞核心資訊的前提下進行。
+
+可刪減：
 
 - 同義詞堆疊，例如同時寫多個 `beautiful / polished / refined / elegant`。
 - 泛用結尾，例如 `coordinated styling`, `balanced look`, `fashionable presence`，除非它是唯一的風格 anchor。
@@ -61,16 +92,19 @@ Last updated: 2026-06-27
 
 避免：
 
+- 壓縮後遺失服裝、髮型、體態、姿勢支撐點或場景 anchor。
 - 負面堆疊：`not...`, `avoid...`, `without...`。
 - 把場景、光線、鏡頭、人物表情塞進服裝欄位。
 - 把完整穿搭塞進一般上身或下身單品。
 - 把顏色寫死在一般單品 prompt；顏色應交給配色欄位。
 
-## 3. A 人物設定壓縮規則
+## 3. A 人物設定輸出規則
 
-體態、五官、膚質、髮型、髮色都應使用短片語，避免描述成完整小說句。
+`Gpt` 版應完整保留被選到的體態、五官、膚質、髮型、髮色、神情與配件描述。不要在最終輸出層把長描述壓成短片語。
 
-建議長度：
+`Grok/Z-Image` 與 `AI` 可依模型需求壓縮，壓縮時仍須保留核心人物識別與造型特徵。
+
+資料庫 authoring 建議長度仍可作為新增資料時的品質參考：
 
 - 體態：8-16 words。
 - 五官：8-16 words。
@@ -84,7 +118,7 @@ Last updated: 2026-06-27
 core category, 1-3 concrete visible traits
 ```
 
-可保留：
+`Gpt` 版應完整保留，`Grok/Z-Image` / `AI` 壓縮時至少保留：
 
 - `long legs`, `narrow waist`, `rounded hips`
 - `small refined face`, `clear bright eyes`
@@ -92,19 +126,21 @@ core category, 1-3 concrete visible traits
 - `silver-gray white deep side-parted long soft waves, realistic dyed texture`
 - `natural black wet-look long wavy hair`
 
-應刪減：
+`Grok/Z-Image` / `AI` 壓縮時可刪減：
 
 - 數值比例、身高體重、測量式 anchor。
 - `hair color applies only to scalp hair` 這類操作說明。
 - `eyebrows remain natural` 可壓成 `natural eyebrows`，只有特殊髮色需要時才保留。
-- Gpt 單人 Subject 中不要讓髮色獨立成短句，例如 `wet-look long wavy hair. natural black hair.`；應合併為 `natural black wet-look long wavy hair`。
+- 壓縮版中不要讓髮色獨立成無意義短句，例如 `wet-look long wavy hair. natural black hair.`；可合併為 `natural black wet-look long wavy hair`。
 - 臉部美感同義詞堆疊。
 
-## 4. B 神情姿態壓縮規則
+## 4. B 神情姿態輸出規則
+
+`Gpt` 版應完整保留神情、特殊動作與 Pose Composer 的原始有效描述，尤其是身體安排、重心、支撐、手部位置、道具接觸、頭部方向與 framing/camera guide。不要在最終輸出層把 Pose Composer 的結構壓短。
 
 神情只寫臉、眼神、嘴型與情緒強度。姿態只寫身體安排、重心、支撐與動作狀態。
 
-可保留：
+`Gpt` 版應完整保留，`Grok/Z-Image` / `AI` 壓縮時至少保留：
 
 - `direct eye contact`
 - `soft natural smile`
@@ -113,22 +149,24 @@ core category, 1-3 concrete visible traits
 - `one hand brushing hair back`
 - `visible hand-to-mouth contact`
 
-應刪減：
+`Grok/Z-Image` / `AI` 壓縮時可刪減：
 
 - `body language` 可壓成 `posture`。
 - `portrait moment`, `portrait interaction`, `beauty touch-up portrait moment` 這類泛用尾巴。
 - `relaxed everyday...`, `polished...`, `controlled cinematic...` 若不影響畫面可刪。
 - Pose Composer `手部 / 道具動作` 保留接觸點與道具狀態，不保留多餘情緒敘述。Legacy `特殊動作` 只作 restore 遷移參考，不作新增主路徑。
 
-Pose Composer 相關描述應保留實際身體結構，例如 base arrangement、hand / prop placement、support anchor、head direction。不要新增 Pose Modifier，除非使用者明確要求。
+Pose Composer 相關描述應保留實際身體結構，例如 base arrangement、hand / prop placement、support anchor、head direction。`Gpt` 版完整保留，`Grok/Z-Image` / `AI` 只能在不丟失結構的前提下壓縮。不要新增 Pose Modifier，除非使用者明確要求。
 
-## 5. C 穿搭設定壓縮規則
+## 5. C 穿搭設定輸出規則
 
 ### 一般上下身與配色
 
-一般單品只描述本身，不描述完整穿搭。
+`Gpt` 版應完整保留被選到的一般單品、配色、版型、穿法、圖案、外層、鞋襪與 layering guard。一般單品仍只描述本身，不描述完整穿搭；但若組合器產生了必要 layering 或 waistline coordination 語句，`Gpt` 版不應因壓縮而刪除。
 
-建議格式：
+`Grok/Z-Image` / `AI` 可依模型需求壓縮一般單品。
+
+資料庫 authoring 建議格式：
 
 ```text
 fit or rise, color from palette if already composed, garment type, 1-2 concrete traits
@@ -140,7 +178,7 @@ fit or rise, color from palette if already composed, garment type, 1-2 concrete 
 - `high-rise fitted indigo straight-leg jeans`
 - `washed denim jacket with chest pockets and metal buttons`
 
-應刪減：
+`Grok/Z-Image` / `AI` 壓縮時可刪減：
 
 - `clean compact upper-body line`
 - `balanced leg line`
@@ -150,7 +188,7 @@ fit or rise, color from palette if already composed, garment type, 1-2 concrete 
 
 ### 鞋襪與外層
 
-鞋襪與外套要保留款式辨識點，但避免把正常穿著狀態寫得像特殊指令。
+`Gpt` 版應完整保留鞋襪與外層的款式辨識點、穿法、版型、開合、肩線、材質與必要正常穿著 guard。鞋襪與外套要保留款式辨識點，但避免在資料庫 authoring 時把正常穿著狀態寫得像特殊指令。
 
 保留：
 
@@ -158,16 +196,16 @@ fit or rise, color from palette if already composed, garment type, 1-2 concrete 
 - 襪長、材質、蕾絲、garter、ribbed texture。
 - 外套種類、長度、材質、開合、肩線或 hood。
 
-刪減：
+`Grok/Z-Image` / `AI` 壓縮時可刪減：
 
 - 正常穿著、自然可見、完整覆蓋這類預設狀態。
 - 過長的外層穿搭順序說明，除非該組合容易生成錯層。
 
 ### 套裝與連身
 
-套裝與連身的主要用途是鎖定服裝造型與穿搭方式。壓縮時不能改變服裝設計方向。
+套裝與連身的主要用途是鎖定服裝造型與穿搭方式。`Gpt` 版應完整保留套裝/連身描述與配色控制資訊；`Grok/Z-Image` / `AI` 若壓縮，不能改變服裝設計方向。
 
-保留：
+`Gpt` 版應完整保留，`Grok/Z-Image` / `AI` 壓縮時至少保留：
 
 - 主服裝類型。
 - one-piece 或 set 的核心輪廓。
@@ -177,17 +215,17 @@ fit or rise, color from palette if already composed, garment type, 1-2 concrete 
 - 完整造型色系在 Gpt 中應融入服裝片語，例如 `black-and-red street solid satin cheongsam mini outfit`，不要保留 palette direction 操作句。
 - 特殊上下配色用短片語保留上下區域，例如 `lime whisper lower hem or skirt accent`，不要輸出 `coordinated top-to-bottom palette`。
 
-刪減：
+`Grok/Z-Image` / `AI` 壓縮時可刪減：
 
 - `one-piece silhouette` 重複出現時可刪。
 - `main fabric color controlled by...` 可壓成 `selected main fabric color`。
-- Gpt 輸出中 `selected main fabric color`、`selected uniform color`、`controlled by...`、`complete outfit palette direction...` 應移除或融入服裝，不作為獨立控制語。
+- `selected main fabric color`、`selected uniform color`、`controlled by...`、`complete outfit palette direction...` 可移除或融入服裝，不作為獨立控制語。
 - `metal hardware kept in fixed metallic tones` 可壓成 `metal hardware in fixed metallic tones`。
 - 泛用的 `complete styling`, `polished outfit`, `balanced silhouette`。
 
 ### 特殊穿搭
 
-特殊穿搭是完整造型包，不能因壓縮而拆壞原始搭配。資料庫英文 prompt 仍必須以 `complete outfit:` 開頭。
+特殊穿搭是完整造型包，不能因壓縮而拆壞原始搭配。資料庫英文 prompt 仍必須以 `complete outfit:` 開頭。`Gpt` 版可維持人工易讀的分組，但新原則是「只分類，不刪除」。
 
 資料庫建議格式：
 
@@ -209,20 +247,20 @@ Headwear, eyewear, and bag:
 ...
 ```
 
-分類規則：
+Gpt 分類規則：
 
 - `Hair and body details`: 特殊穿搭內含的髮型、瀏海、髮色、刺青、身體小記憶點。
 - `Full outfit`: 上衣、下身、連身、外套、襪類、鞋款、皮帶、首飾、手套、耳機、穿搭層次。
 - `Headwear, eyewear, and bag`: 帽子、頭巾、髮夾、眼鏡、墨鏡、包包。
 
-保留：
+`Gpt` 版應完整保留，`Grok/Z-Image` / `AI` 壓縮時至少保留：
 
 - 固定造型的主風格短句，例如 `Y2K schoolgirl-inspired styling`。
 - 所有核心衣物層次。
 - 鞋襪、包包、帽子、眼鏡等可人工刪改的 accessory anchor。
 - image-reference outfits 的 hair、bags、accessories、footwear，除非該批資料明確要求 omit bags and hairstyles。
 
-刪減：
+`Grok/Z-Image` / `AI` 壓縮時可刪減：
 
 - 尾端純泛用 `coordinated ... styling`。
 - `complete special outfit` 這種輸出層重複前綴；資料庫仍保留 `complete outfit:`。
@@ -265,7 +303,7 @@ Photographic direction:
 - `Accessories`: 眼鏡、耳環、項鍊、choker、戒指、手環、耳機、包包、鑰匙圈、腰帶等可被人工快速刪改的配件。
 - `Photographic direction`: 角色卡整體攝影質感與穩定性要求，例如 `photorealistic editorial portrait`、`coherent facial identity`、`realistic fabric construction`。
 
-角色卡壓縮規則：
+角色卡 GPT 分組規則：
 
 - Identity 不寫表情、眼神狀態或情緒控制，例如 `calm gaze`、`seductive expression`、`melancholic expression`。神情應交給 B 神情姿態控制。
 - 眼鏡類角色要把眼睛描述保留在 Identity，例如 `clear dark brown eyes`；眼鏡本體放進 Accessories。
@@ -273,7 +311,7 @@ Photographic direction:
 - Hair 不混入服裝或配件。若帽子或 hood 是服裝本體的一部分，可留在 Outfit；若是可拆配件，放 Accessories。
 - Outfit 不混入眼鏡、耳環、項鍊、包包等配件；但必須保留服裝設計核心、穿法、材質與鞋款。
 - Accessories 沒有內容時不要輸出空區塊。
-- `en` 原始描述可暫時保留給 Grok/Z-Image 與 AI；GPT 精修內容以 `profile` 為準。
+- `en` 原始描述可保留給 Grok/Z-Image 與 AI；GPT 角色卡輸出以 `profile` 分組為準，`profile` 內容應完整保留角色穩定所需細節。
 
 新增資料時先確認責任歸屬：
 
@@ -290,11 +328,12 @@ Photographic direction:
 
 - 已閱讀對應 authoring guide。
 - 英文 prompt 每個片語都能回答「畫面上看得到什麼」。
-- 沒有正常狀態說明，例如正常戴眼鏡、正常穿外套。
-- 沒有內部控制語言或長 guard 句。
+- Gpt 版會完整保留有效英文描述；新增資料時若使用數值 anchor、正常狀態說明、內部控制語或長 guard 句，需確認它們確實有助於生成穩定或造型鎖定。
+- Grok/Z-Image 與 AI 壓縮後不得漏掉核心人物、服裝、姿勢、場景、燈光與 camera look。
 - 一般單品沒有固定顏色，除非是不可拆的 signature detail。
-- 套裝/連身壓縮後仍保留原設計方向。
+- 套裝/連身在 Gpt 版完整保留，在 Grok/Z-Image / AI 壓縮後仍保留原設計方向。
 - 特殊穿搭仍是完整造型包，且以 `complete outfit:` 開頭。
+- 特殊穿搭在 Gpt 版可分組，但只分類不刪除。
 - 角色卡已補 `profile` 分組，Identity 不含表情/眼神狀態，眼鏡與首飾等配件放在 Accessories。
 - AI 版可從資料壓縮成短 prompt，但不會漏掉核心服裝與姿勢。
 - Grok/Z-Image 可維持自然語言段落，不被 GPT 標籤化。

@@ -42,6 +42,8 @@ Current PAGE1 output labels:
   - Internal field: `grokPrompt`
   - Target: ChatGPT Image / GPT Image
   - Structured natural prompt
+  - Current rule as of 2026-07-03: `GPT Full-Fidelity Prompt` / `GPT 完整保留型 Prompt`
+  - Gpt should preserve selected effective English descriptions instead of semantically compressing them; only formatting cleanup, section organization, empty-value removal, and exact duplicate cleanup are allowed
   - Must end with `multi-cut sequence n=2`
   - Single special outfits can be grouped inside `Wardrobe` as `Hair and body details`, `Full outfit`, and `Headwear, eyewear, and bag`
   - Single character profile cards can be grouped inside `Subject` as `Character Profile Card`, `Identity and body`, `Hair`, `Outfit`, `Accessories`, and `Photographic direction`
@@ -322,5 +324,5 @@ Prefer targeted tests first, then full `npm test`.
   - kneeling / squatting next
   - modifiers last
 - Continue database additions through the relevant authoring guide first.
-- For PAGE1 single-subject prompt wording, also use `Docs/specs/page1-single-prompt-compression-guide.md` to avoid redundant prompt prose before adding new database rows.
+- For PAGE1 single-subject prompt wording, use `Docs/specs/page1-single-prompt-compression-guide.md`. Gpt is now full-fidelity; Grok/Z-Image and AI are the compact outputs.
 - Keep prompt-output changes backed by tests because naming and source-field history are easy to confuse.
