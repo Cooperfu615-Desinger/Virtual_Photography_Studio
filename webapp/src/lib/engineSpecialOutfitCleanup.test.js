@@ -101,14 +101,34 @@ const wordCount = (text) => text.trim().split(/\s+/).filter(Boolean).length;
 const gptSection = (prompt, label) => (
   prompt.grokPrompt.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?=\\n\\n(?:Pose and Composition|Scene|Lighting|Camera Look):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || ''
 );
+const SPECIAL_OUTFIT_GROUP_LABEL_PATTERN = /^(?:Hair and body details|Full outfit|Headwear, eyewear, and bag):$/m;
+const SPECIAL_OUTFIT_ACCESSORY_PATTERN = /\b(?:sunglasses|glasses|eyeglasses|bag|handbag|shoulder bag|tote|backpack|purse|clutch|cap|hat|beret|beanie|headscarf|bandana|headband|hair clips?|claw clip|barrettes?)\b/i;
+const SPECIAL_OUTFIT_HAIR_BODY_PATTERN = /\b(?:hair|bangs?|braids?|side braid|twin-bun|pigtails?|ponytail|bob|shag|chignon|bun|updo|waves?|wavy|pixie|tattoos?)\b/i;
+const stripSpecialOutfitGroupLabel = (paragraph) => paragraph
+  .replace(/^(?:Hair and body details|Full outfit|Headwear, eyewear, and bag):\n/, '')
+  .trim();
 const specialOutfitGptGroups = (prompt) => {
   const wardrobe = gptSection(prompt, 'Wardrobe');
-  const group = (label) => wardrobe.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?=\\n\\n(?:Hair and body details|Full outfit|Headwear, eyewear, and bag):\\n|$)`))?.[1] || '';
+  const paragraphs = wardrobe
+    .split(/\n{2,}/)
+    .map(stripSpecialOutfitGroupLabel)
+    .filter(Boolean);
+  const fullOutfit = paragraphs.find((paragraph) => /^She wears\b/i.test(paragraph)) || '';
+  const headwearEyewearBag = paragraphs.find(
+    (paragraph) => paragraph !== fullOutfit && SPECIAL_OUTFIT_ACCESSORY_PATTERN.test(paragraph)
+  ) || '';
+  const hairAndBody = paragraphs.find(
+    (paragraph) => (
+      paragraph !== fullOutfit
+      && paragraph !== headwearEyewearBag
+      && SPECIAL_OUTFIT_HAIR_BODY_PATTERN.test(paragraph)
+    )
+  ) || '';
   return {
     wardrobe,
-    hairAndBody: group('Hair and body details'),
-    fullOutfit: group('Full outfit'),
-    headwearEyewearBag: group('Headwear, eyewear, and bag'),
+    hairAndBody,
+    fullOutfit,
+    headwearEyewearBag,
   };
 };
 
@@ -404,7 +424,7 @@ test('selected special outfit stays the complete wardrobe priority', () => {
   assert.match(prompt.zImagePrompt, /She wears complete special outfit: black sheer polka-dot matching fashion set/);
 });
 
-test('single Gpt special outfit separates hair and bag from full outfit', () => {
+test('single Gpt special outfit separates hair and bag from full outfit without subsection labels', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
@@ -412,6 +432,7 @@ test('single Gpt special outfit separates hair and bag from full outfit', () => 
   });
   const groups = specialOutfitGptGroups(prompt);
 
+  assert.doesNotMatch(groups.wardrobe, SPECIAL_OUTFIT_GROUP_LABEL_PATTERN);
   assert.match(groups.hairAndBody, /long straight side-part black hair/i);
   assert.match(groups.fullOutfit, /crisp Y2K schoolgirl-inspired styling/i);
   assert.match(groups.fullOutfit, /cropped white short-sleeve button shirt/i);

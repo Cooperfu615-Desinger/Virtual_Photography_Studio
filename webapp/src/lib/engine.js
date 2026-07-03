@@ -9624,13 +9624,13 @@ function buildGptSingleSpecialOutfitWardrobeBlock(specialOutfitText, additionalF
 
   const sections = [
     hairAndBodyFragments.length > 0
-      ? `Hair and body details:\n${joinGptSpecialOutfitGroupFragments(hairAndBodyFragments)}`
+      ? joinGptSpecialOutfitGroupFragments(hairAndBodyFragments)
       : '',
     fullOutfitFragments.length > 0
-      ? `Full outfit:\n${joinGptSpecialOutfitGroupFragments(fullOutfitFragments, { lead: 'She wears ' })}`
+      ? joinGptSpecialOutfitGroupFragments(fullOutfitFragments, { lead: 'She wears ' })
       : '',
     headwearEyewearBagFragments.length > 0
-      ? `Headwear, eyewear, and bag:\n${joinGptSpecialOutfitGroupFragments(headwearEyewearBagFragments)}`
+      ? joinGptSpecialOutfitGroupFragments(headwearEyewearBagFragments)
       : '',
   ].filter(Boolean);
 
