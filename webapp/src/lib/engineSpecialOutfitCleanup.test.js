@@ -424,7 +424,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'large arched varsity lettering and number graphic',
       'white athletic shorts peeking underneath',
       'chunky white athletic sneakers',
-      'reference/wardrobe/special-outfits/83_紫橘籃球球衣球鞋.jpg',
+      'reference/wardrobe/special-outfits/83_紫橘籃球球衣球鞋.png',
     ],
     彩虹綁結上衣橘紅開衩長裙造型: [
       'multicolor tie-dye deep V cropped top',
@@ -433,7 +433,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'printed head scarf',
       'black crossbody bag',
       'olive chunky buckle ankle boots',
-      'reference/wardrobe/special-outfits/84_彩虹綁結上衣橘紅開衩長裙.jpg',
+      'reference/wardrobe/special-outfits/84_彩虹綁結上衣橘紅開衩長裙.png',
     ],
     紫色綁帶短上衣荷葉開衩長裙造型: [
       'pink-purple tie-dye halter crop top with center ring cutout',
@@ -441,7 +441,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'cascading ruffle panels and high slit',
       'tan crossbody saddle bag with tassel charms',
       'brown platform wedge sandals',
-      'reference/wardrobe/special-outfits/85_紫色綁帶短上衣荷葉開衩長裙.jpg',
+      'reference/wardrobe/special-outfits/85_紫色綁帶短上衣荷葉開衩長裙.png',
     ],
     橄欖西裝條紋寬褲咖啡袋造型: [
       'oversized olive blazer with rolled cuffs',
@@ -450,7 +450,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'red round eyeglasses',
       'burlap coffee-sack shoulder tote',
       'polished black leather shoes',
-      'reference/wardrobe/special-outfits/86_橄欖西裝條紋寬褲咖啡袋.jpg',
+      'reference/wardrobe/special-outfits/86_橄欖西裝條紋寬褲咖啡袋.png',
     ],
     白色馬甲黑色七分褲金飾造型: [
       'white strapless embroidered bustier with black stitch trim',
@@ -459,7 +459,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'red narrow oval sunglasses',
       'oversized gold chain necklace',
       'patterned white shoulder bag',
-      'reference/wardrobe/special-outfits/87_白色馬甲黑色七分褲金飾.jpg',
+      'reference/wardrobe/special-outfits/87_白色馬甲黑色七分褲金飾.png',
     ],
     白襯衫黑色氣球工裝褲造型: [
       'crisp white long-sleeve button-up shirt with buttoned collar',
@@ -468,7 +468,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'round eyeglasses',
       'white socks',
       'black lace-up leather shoes',
-      'reference/wardrobe/special-outfits/88_白襯衫黑色氣球工裝褲.jpg',
+      'reference/wardrobe/special-outfits/88_白襯衫黑色氣球工裝褲.png',
     ],
     白襯衫黑色長裙細領帶造型: [
       'white long-sleeve high-neck shirt tucked neatly',
@@ -476,15 +476,15 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'slim black scarf tie or lanyard',
       'black soft shoulder tote',
       'black lace-up leather shoes',
-      'reference/wardrobe/special-outfits/89_白襯衫黑色長裙細領帶.jpg',
+      'reference/wardrobe/special-outfits/89_白襯衫黑色長裙細領帶.png',
     ],
     紅色亮面膠帶束帶造型: [
-      'glossy red editorial tape-strap look',
-      'bright red latex-like adhesive strap bralette',
-      'multiple horizontal and diagonal shiny tape bands',
-      'matching high-cut strap bottom',
-      'red garter-like hip and thigh wrap bands',
-      'reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.jpg',
+      'glossy adhesive tape body-wrap look',
+      'palette-controlled latex-like tape strips stuck directly onto the skin',
+      'multiple horizontal and diagonal shiny bands tightly wrapping the body',
+      'strategic coverage over key areas',
+      'tape color follows complete-look palette selection',
+      'reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.png',
     ],
   };
 
@@ -498,7 +498,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
     }
 
     assert.equal(option.meta.referenceImage, referenceImage);
-    assert.equal(option.meta.referenceImageFormat, 'jpg');
+    assert.equal(option.meta.referenceImageFormat, referenceImage.endsWith('.png') ? 'png' : 'jpg');
   }
 });
 
