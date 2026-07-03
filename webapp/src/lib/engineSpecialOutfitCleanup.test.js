@@ -86,6 +86,14 @@ const EXPECTED_SPECIAL_OUTFITS = [
   '黃條紋Polo領帶寬牛仔造型',
   '菱格背心黑寬短褲長襪造型',
   '藍荷葉背心白紗長裙造型',
+  '紫橘籃球球衣球鞋造型',
+  '彩虹綁結上衣橘紅開衩長裙造型',
+  '紫色綁帶短上衣荷葉開衩長裙造型',
+  '橄欖西裝條紋寬褲咖啡袋造型',
+  '白色馬甲黑色七分褲金飾造型',
+  '白襯衫黑色氣球工裝褲造型',
+  '白襯衫黑色長裙細領帶造型',
+  '紅色亮面膠帶束帶造型',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
@@ -132,7 +140,7 @@ const specialOutfitGptGroups = (prompt) => {
   };
 };
 
-test('special outfit controls expose exactly the approved 82 complete looks', () => {
+test('special outfit controls expose exactly the approved 90 complete looks', () => {
   assert.deepEqual(nonNoneSpecialOutfits().map((option) => option.zh), EXPECTED_SPECIAL_OUTFITS);
 });
 
@@ -145,15 +153,16 @@ test('special outfit prompts keep complete outfit prefix and stay compact', () =
   }
 });
 
-test('special outfit popup reference metadata uses special outfit png paths', () => {
+test('special outfit popup reference metadata uses supported special outfit image paths', () => {
   for (const option of nonNoneSpecialOutfits()) {
     if (!option.meta?.referenceImage) continue;
+    const expectedFormat = option.meta.referenceImage.split('.').at(-1);
     assert.match(
       option.meta.referenceImage,
-      /^reference\/wardrobe\/special-outfits\/\d{2}_.+\.png$/,
+      /^reference\/wardrobe\/special-outfits\/\d{2}_.+\.(png|jpe?g|webp|avif)$/,
       `${option.zh} should have a special outfit popup reference image`,
     );
-    assert.equal(option.meta?.referenceImageFormat, 'png', `${option.zh} should declare png reference format`);
+    assert.equal(option.meta?.referenceImageFormat, expectedFormat, `${option.zh} should declare its reference image format`);
   }
 });
 
@@ -404,6 +413,92 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
     }
     assert.equal(option.meta.referenceImage, referenceImage);
     assert.equal(option.meta.referenceImageFormat, 'png');
+  }
+});
+
+test('special outfit reference looks 83 to 90 preserve outfit accessories and preview anchors', () => {
+  const expectedByLabel = {
+    紫橘籃球球衣球鞋造型: [
+      'oversized purple mesh sleeveless basketball jersey worn as a mini dress',
+      'orange-and-white ribbed neckline and armhole trim',
+      'large arched varsity lettering and number graphic',
+      'white athletic shorts peeking underneath',
+      'chunky white athletic sneakers',
+      'reference/wardrobe/special-outfits/83_紫橘籃球球衣球鞋.jpg',
+    ],
+    彩虹綁結上衣橘紅開衩長裙造型: [
+      'multicolor tie-dye deep V cropped top',
+      'front knot and long dangling ties',
+      'high-waisted burnt-orange patterned maxi skirt',
+      'printed head scarf',
+      'black crossbody bag',
+      'olive chunky buckle ankle boots',
+      'reference/wardrobe/special-outfits/84_彩虹綁結上衣橘紅開衩長裙.jpg',
+    ],
+    紫色綁帶短上衣荷葉開衩長裙造型: [
+      'pink-purple tie-dye halter crop top with center ring cutout',
+      'lavender high-waisted wrap maxi skirt',
+      'cascading ruffle panels and high slit',
+      'tan crossbody saddle bag with tassel charms',
+      'brown platform wedge sandals',
+      'reference/wardrobe/special-outfits/85_紫色綁帶短上衣荷葉開衩長裙.jpg',
+    ],
+    橄欖西裝條紋寬褲咖啡袋造型: [
+      'oversized olive blazer with rolled cuffs',
+      'ivory button-up shirt fastened to the collar',
+      'beige wide-leg trousers with thin brown vertical stripes',
+      'red round eyeglasses',
+      'burlap coffee-sack shoulder tote',
+      'polished black leather shoes',
+      'reference/wardrobe/special-outfits/86_橄欖西裝條紋寬褲咖啡袋.jpg',
+    ],
+    白色馬甲黑色七分褲金飾造型: [
+      'white strapless embroidered bustier with black stitch trim',
+      'white western waist belt with gold buckle hardware',
+      'tight black high-waisted capri leggings',
+      'red narrow oval sunglasses',
+      'oversized gold chain necklace',
+      'patterned white shoulder bag',
+      'reference/wardrobe/special-outfits/87_白色馬甲黑色七分褲金飾.jpg',
+    ],
+    白襯衫黑色氣球工裝褲造型: [
+      'crisp white long-sleeve button-up shirt with buttoned collar',
+      'black wide balloon cargo pants',
+      'cropped gathered hems',
+      'round eyeglasses',
+      'white socks',
+      'black lace-up leather shoes',
+      'reference/wardrobe/special-outfits/88_白襯衫黑色氣球工裝褲.jpg',
+    ],
+    白襯衫黑色長裙細領帶造型: [
+      'white long-sleeve high-neck shirt tucked neatly',
+      'voluminous black ankle-length skirt',
+      'slim black scarf tie or lanyard',
+      'black soft shoulder tote',
+      'black lace-up leather shoes',
+      'reference/wardrobe/special-outfits/89_白襯衫黑色長裙細領帶.jpg',
+    ],
+    紅色亮面膠帶束帶造型: [
+      'glossy red editorial tape-strap look',
+      'bright red latex-like adhesive strap bralette',
+      'multiple horizontal and diagonal shiny tape bands',
+      'matching high-cut strap bottom',
+      'red garter-like hip and thigh wrap bands',
+      'reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.jpg',
+    ],
+  };
+
+  for (const [label, expectations] of Object.entries(expectedByLabel)) {
+    const referenceImage = expectations.at(-1);
+    const fragments = expectations.slice(0, -1);
+    const option = optionByLabel('specialOutfitId', label);
+
+    for (const fragment of fragments) {
+      assert.match(option.en, new RegExp(fragment, 'i'), `${label} should include "${fragment}"`);
+    }
+
+    assert.equal(option.meta.referenceImage, referenceImage);
+    assert.equal(option.meta.referenceImageFormat, 'jpg');
   }
 });
 
