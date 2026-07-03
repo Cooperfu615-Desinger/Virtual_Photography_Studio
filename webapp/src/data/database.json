@@ -2270,6 +2270,60 @@
           "referenceImage": "reference/wardrobe/dresses/43_高領挖腰連身.png",
           "referenceImageFormat": "png"
         }
+      },
+      {
+        "zh": "短版｜格紋吊帶不規則傘襬洋裝",
+        "en": "plaid camisole handkerchief-hem dress, one-piece fit-and-flare silhouette, slim shoulder straps, fitted bodice, gathered waist, airy uneven pointed hem, main fabric color controlled by dress color selection",
+        "desc": "短版格紋吊帶洋裝，上身是細肩帶與貼合胸身，下身從腰線展開成輕盈傘襬，不規則尖角裙襬前短後長，顏色由連身配色控制；不包含包包元素。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/44_格紋吊帶不規則傘襬洋裝.jpg",
+          "referenceImageFormat": "jpg"
+        }
+      },
+      {
+        "zh": "短版｜波點方領泡袖迷你洋裝",
+        "en": "polka-dot square-neck mini dress, one-piece A-line silhouette, short puff sleeves, softly gathered neckline, sheer dotted overlay, short hem, main fabric color controlled by dress color selection",
+        "desc": "短版波點方領迷你洋裝，短泡袖、方形領口、微抓皺胸線與輕透波點外層清楚，裙身是簡潔 A 字短版輪廓，顏色由連身配色控制；不包含包包元素。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/45_波點方領泡袖迷你洋裝.jpg",
+          "referenceImageFormat": "jpg"
+        }
+      },
+      {
+        "zh": "短版｜波點無袖蓬裙迷你洋裝",
+        "en": "sleeveless polka-dot mini dress, one-piece fit-and-flare silhouette, round neckline, fitted bodice, full pleated skirt, sheer organza under-hem, main fabric color controlled by dress color selection",
+        "desc": "短版無袖波點迷你洋裝，圓領、貼合上身與蓬鬆摺裙形成 American college mood，裙口帶輕透歐根紗內層，顏色由連身配色控制；不包含包包元素。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/46_波點無袖蓬裙迷你洋裝.jpg",
+          "referenceImageFormat": "jpg"
+        }
+      },
+      {
+        "zh": "短版｜條紋荷葉吊帶罩衫迷你洋裝",
+        "en": "sheer striped camisole mini dress, one-piece babydoll overlay silhouette, slim straps, loose ruffled bodice, cascading front flounce panels, airy translucent short hem, main fabric color controlled by dress color selection",
+        "desc": "短版條紋薄紗吊帶迷你洋裝，以細肩帶、寬鬆娃娃裝罩衫輪廓、前身層疊荷葉與輕透短裙襬為主，布面有直向條紋紋理，顏色由連身配色控制；不包含包包元素。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/47_條紋荷葉吊帶罩衫迷你洋裝.jpg",
+          "referenceImageFormat": "jpg"
+        }
+      },
+      {
+        "zh": "短版｜流蘇細肩帶抓皺迷你洋裝",
+        "en": "fringed spaghetti-strap mini dress, one-piece body-skimming silhouette, slim straps, soft bust cup shaping, vertical fringe texture across the bodice, low draped hip wrap mini hem, main fabric color controlled by dress color selection",
+        "desc": "短版細肩帶流蘇迷你洋裝，細肩帶、柔軟罩杯線、貼身胸身與縱向流蘇質感明確，下方是低腰抓皺包覆的超短裙襬，顏色由連身配色控制；不包含包包元素。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/48_流蘇細肩帶抓皺迷你洋裝.jpg",
+          "referenceImageFormat": "jpg"
+        }
+      },
+      {
+        "zh": "短版｜蝴蝶結抹胸蕾絲荷葉迷你洋裝",
+        "en": "strapless bow-front lace mini dress, one-piece fitted silhouette, oversized chest bow with long hanging tails, lace bodice texture, low-waist tiered ruffle mini skirt, main fabric color controlled by dress color selection",
+        "desc": "短版蝴蝶結抹胸蕾絲迷你洋裝，胸前大型蝴蝶結與長垂帶是主視覺，胸身有蕾絲紋理與貼合腰線，下身是低腰層疊荷葉超短裙，顏色由連身配色控制；不包含包包元素。",
+        "meta": {
+          "referenceImage": "reference/wardrobe/dresses/49_蝴蝶結抹胸蕾絲荷葉迷你洋裝.jpg",
+          "referenceImageFormat": "jpg"
+        }
       }
     ],
     "褲裝 (Pants)": [
