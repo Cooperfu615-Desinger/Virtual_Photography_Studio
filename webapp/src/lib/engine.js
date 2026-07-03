@@ -9593,11 +9593,6 @@ function isGptSpecialOutfitHeadwearEyewearBagFragment(fragment) {
   return /\b(?:sunglasses|glasses|eyeglasses|bag|handbag|shoulder bag|tote|backpack|purse|clutch|cap|hat|beret|beanie|headscarf|bandana|headband|hair clips?|claw clip|barrettes?)\b/i.test(fragment);
 }
 
-function isGptSpecialOutfitGenericStylingFragment(fragment) {
-  return /\b(?:coordinated|bold novelty|downtown|street)\s+[^,.]*\bstyling\b/i.test(fragment)
-    && !/\b(?:shirt|top|tee|t-shirt|camisole|blouse|jacket|coat|cardigan|dress|skirt|shorts|pants|jeans|trousers|boots|shoes|sandals|loafers|sneakers|socks|stockings|bag|hat|cap|glasses|sunglasses|necklace|bracelet|ring|belt)\b/i.test(fragment);
-}
-
 function joinGptSpecialOutfitGroupFragments(fragments, { lead = '' } = {}) {
   const text = fragments
     .map((fragment) => fragment.trim())
@@ -9622,7 +9617,7 @@ function buildGptSingleSpecialOutfitWardrobeBlock(specialOutfitText, additionalF
       hairAndBodyFragments.push(fragment);
     } else if (isGptSpecialOutfitHeadwearEyewearBagFragment(fragment)) {
       headwearEyewearBagFragments.push(fragment);
-    } else if (!isGptSpecialOutfitGenericStylingFragment(fragment)) {
+    } else {
       fullOutfitFragments.push(fragment);
     }
   }

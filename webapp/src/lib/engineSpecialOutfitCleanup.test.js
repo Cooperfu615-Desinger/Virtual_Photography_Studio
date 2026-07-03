@@ -459,6 +459,19 @@ test('single Gpt special outfit omits accessory group when there are no hats gla
   assert.match(groups.fullOutfit, /brown studded slouch boots/i);
 });
 
+test('single Gpt special outfit keeps generic styling fragments inside full outfit', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '黑皮革騎士外套鉛筆裙套裝造型').id,
+  });
+  const groups = specialOutfitGptGroups(prompt);
+
+  assert.match(groups.hairAndBody, /long dark soft wavy hair with airy bangs/i);
+  assert.match(groups.fullOutfit, /fitted black leather moto jacket/i);
+  assert.match(groups.fullOutfit, /coordinated polished leather styling/i);
+});
+
 test('single Gpt special outfit keeps tattoos with hair and body details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
