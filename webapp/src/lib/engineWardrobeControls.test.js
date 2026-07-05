@@ -802,7 +802,7 @@ test('face-only close-up prompts omit wardrobe text', () => {
   assert.doesNotMatch(prompt.zImagePrompt, /glossy pointed-toe stiletto pumps/);
 });
 
-test('chest-up framing keeps full outfit-preset prompt active', () => {
+test('chest-up framing keeps visible outfit-preset prompt active while removing bags', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '胸上特寫'),
@@ -815,13 +815,13 @@ test('chest-up framing keeps full outfit-preset prompt active', () => {
   assert.match(prompt.grokPrompt, /lightweight yukata outfit/i);
   assert.match(prompt.grokPrompt, /ankle-length straight fall/i);
   assert.match(prompt.grokPrompt, /wide obi/i);
-  assert.match(prompt.grokPrompt, /kinchaku pouch/i);
+  assert.doesNotMatch(prompt.grokPrompt, /kinchaku pouch/i);
   assert.doesNotMatch(prompt.grokPrompt, /show lightweight yukata outfit only through/i);
   assert.doesNotMatch(prompt.grokPrompt, /only through nearby surfaces/i);
   assert.match(prompt.zImagePrompt, /lightweight yukata outfit/i);
   assert.match(prompt.zImagePrompt, /ankle-length straight fall/i);
   assert.match(prompt.zImagePrompt, /wide obi/i);
-  assert.match(prompt.zImagePrompt, /kinchaku pouch/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /kinchaku pouch/i);
   assert.doesNotMatch(prompt.zImagePrompt, /show lightweight yukata outfit only through/i);
 });
 

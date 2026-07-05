@@ -139,6 +139,7 @@ const specialOutfitGptGroups = (prompt) => {
     headwearEyewearBag,
   };
 };
+const allPromptOutputs = (prompt) => [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
 
 test('special outfit controls expose exactly the approved 90 complete looks', () => {
   assert.deepEqual(nonNoneSpecialOutfits().map((option) => option.zh), EXPECTED_SPECIAL_OUTFITS);
@@ -539,6 +540,54 @@ test('single Gpt special outfit separates hair and bag from full outfit without 
   assert.doesNotMatch(groups.fullOutfit, /brown monogram shoulder bag/i);
   assert.doesNotMatch(groups.headwearEyewearBag, /long straight side-part black hair|cropped white short-sleeve button shirt/i);
   assert.match(prompt.zImagePrompt, /She wears complete special outfit: crisp Y2K schoolgirl-inspired styling\. long straight side-part black hair/i);
+});
+
+test('portrait special outfit output keeps visible upper garments and removes hidden lower-body fragments', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '特寫鏡頭 (Close-Up)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '白色短袖背心格紋迷你裙白蕾絲襪造型').id,
+  });
+  const text = allPromptOutputs(prompt);
+
+  assert.match(text, /cropped white short-sleeve button shirt/i);
+  assert.match(text, /black lace bra and neckline/i);
+  assert.doesNotMatch(text, /ultra low-rise yellow plaid pleated mini skirt/i);
+  assert.doesNotMatch(text, /white lace thigh-high stockings/i);
+  assert.doesNotMatch(text, /white pointed heels/i);
+  assert.doesNotMatch(text, /brown monogram shoulder bag/i);
+});
+
+test('medium special outfit output keeps bottoms but removes socks shoes and bags', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '中景鏡頭 (Medium Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '白色短袖背心格紋迷你裙白蕾絲襪造型').id,
+  });
+  const text = allPromptOutputs(prompt);
+
+  assert.match(text, /cropped white short-sleeve button shirt/i);
+  assert.match(text, /ultra low-rise yellow plaid pleated mini skirt/i);
+  assert.doesNotMatch(text, /white lace thigh-high stockings/i);
+  assert.doesNotMatch(text, /white pointed heels/i);
+  assert.doesNotMatch(text, /brown monogram shoulder bag/i);
+});
+
+test('face-only special outfit keeps the selected complete-look lock while filtering invisible fragments', () => {
+  const specialOutfit = optionByLabel('specialOutfitId', '白色短袖背心格紋迷你裙白蕾絲襪造型');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '臉部特寫').id,
+    specialOutfitId: specialOutfit.id,
+  });
+  const text = allPromptOutputs(prompt);
+
+  assert.equal(prompt.selection.specialOutfitId, specialOutfit.id);
+  assert.match(text, /cropped white short-sleeve button shirt/i);
+  assert.doesNotMatch(text, /ultra low-rise yellow plaid pleated mini skirt/i);
+  assert.doesNotMatch(text, /white lace thigh-high stockings/i);
+  assert.doesNotMatch(text, /white pointed heels/i);
+  assert.doesNotMatch(text, /brown monogram shoulder bag/i);
 });
 
 test('single Gpt special outfit creates an accessory group for hats without hair or bags', () => {

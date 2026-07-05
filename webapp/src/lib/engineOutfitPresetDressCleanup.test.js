@@ -10,6 +10,7 @@ const optionByLabel = (key, label) => {
   assert.ok(option, `Missing option ${label} for ${key}`);
   return option;
 };
+const allPromptOutputs = (prompt) => [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
 
 test('outfit presets expose themed options and remove abstract style presets', () => {
   const labels = optionLabels('outfitPresetId');
@@ -741,6 +742,37 @@ test('generated prompts keep outfit preset color separate from clothing structur
   assert.equal(prompt.selection.outfitPresetId, outfit.id);
   assert.match(prompt.grokPrompt, /Wardrobe:\nShe wears [\s\S]*red satin lingerie set/);
   assert.match(prompt.grokPrompt, /satin lingerie set/);
+});
+
+test('portrait outfit preset output keeps visible upper garments and removes hidden lower-body fragments', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '胸上特寫').id,
+    outfitPresetId: optionByLabel('outfitPresetId', '套裝：透視背心漆皮短褲長靴').id,
+    outfitPresetPrimaryColorId: optionByLabel('outfitPresetPrimaryColorId', '白色').id,
+    outerwearId: optionByLabel('outerwearId', '全無').id,
+  });
+  const text = allPromptOutputs(prompt);
+
+  assert.match(text, /cropped sheer fitted tank top/i);
+  assert.match(text, /strapless lace bra layer/i);
+  assert.doesNotMatch(text, /low-rise glossy micro shorts/i);
+  assert.doesNotMatch(text, /knee-high leather boots/i);
+});
+
+test('cowboy outfit preset output keeps bottoms but removes shoes', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '牛仔中景 (Cowboy Shot)').id,
+    outfitPresetId: optionByLabel('outfitPresetId', '套裝：透視背心漆皮短褲長靴').id,
+    outfitPresetPrimaryColorId: optionByLabel('outfitPresetPrimaryColorId', '白色').id,
+    outerwearId: optionByLabel('outerwearId', '全無').id,
+  });
+  const text = allPromptOutputs(prompt);
+
+  assert.match(text, /cropped sheer fitted tank top/i);
+  assert.match(text, /low-rise glossy micro shorts/i);
+  assert.doesNotMatch(text, /knee-high leather boots/i);
 });
 
 test('complete look palette applies to special outfits, outfit presets, and dresses only', () => {

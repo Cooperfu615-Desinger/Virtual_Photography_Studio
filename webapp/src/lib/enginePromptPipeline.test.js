@@ -69,6 +69,10 @@ function gptSection(prompt, label) {
   return prompt.grokPrompt.match(new RegExp(`${escapeRegExp(label)}:\\n([\\s\\S]*?)(?=\\n\\n(?:${nextLabels}):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || '';
 }
 
+function gptDuoRoleCard(subject, roleNumber) {
+  return subject.match(new RegExp(`Woman ${roleNumber}:\\n([\\s\\S]*?)(?=\\n\\nWoman \\d:|$)`))?.[1] || '';
+}
+
 function promptSection(text, label, sectionLabels) {
   const nextLabels = sectionLabels
     .filter((entry) => entry !== label)
@@ -791,6 +795,7 @@ test('Gpt duo subject role wardrobes remove color-control metadata and punctuate
     outfitPresetAColorId: optionId('outfitPresetAColorId', '金色'),
     outfitPresetBId: optionId('outfitPresetBId', '套裝：網紗掛脖背心牛仔迷你裙'),
     outfitPresetBColorId: optionId('outfitPresetBColorId', '深棕色'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
 
   const subject = gptSection(prompt, 'Subject');
@@ -801,6 +806,50 @@ test('Gpt duo subject role wardrobes remove color-control metadata and punctuate
   assert.doesNotMatch(subject, /controlled by .*color selection|dominant .*color|main .*color|contrast .*controlled/i);
   assert.doesNotMatch(subject, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
   assert.doesNotMatch(subject, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
+});
+
+test('Gpt duo role cards include shared special outfit without output labels', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    specialOutfitId: optionId('specialOutfitId', '藍灰長外套蕾絲胸衣寬褲造型'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  });
+
+  const subject = gptSection(prompt, 'Subject');
+  const woman1 = gptDuoRoleCard(subject, 1);
+  const woman2 = gptDuoRoleCard(subject, 2);
+
+  assert.equal(gptSection(prompt, 'Wardrobe'), '');
+  assert.match(woman1, /Wears avant-garde blue-gray tailored street look/i);
+  assert.match(woman1, /oversized blue-gray long coat worn open/i);
+  assert.match(woman2, /Wears avant-garde blue-gray tailored street look/i);
+  assert.match(woman2, /round gold statement sunglasses/i);
+  assert.match(woman2, /pale blue sticker-patch handbag/i);
+  assert.doesNotMatch(subject, /complete special outfit:|complete wardrobe visible|no additional clothing or accessory overrides/i);
+});
+
+test('Gpt duo role cards keep role special outfits without guard text', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    specialOutfitAId: optionId('specialOutfitAId', '藍灰長外套蕾絲胸衣寬褲造型'),
+    specialOutfitBId: optionId('specialOutfitBId', '米色潑染破壞工裝套裝造型'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  });
+
+  const subject = gptSection(prompt, 'Subject');
+  const woman1 = gptDuoRoleCard(subject, 1);
+  const woman2 = gptDuoRoleCard(subject, 2);
+
+  assert.equal(gptSection(prompt, 'Wardrobe'), '');
+  assert.match(woman1, /Wears avant-garde blue-gray tailored street look/i);
+  assert.match(woman1, /round gold statement sunglasses/i);
+  assert.match(woman1, /coordinated editorial street-fashion styling/i);
+  assert.match(woman2, /Wears distressed painter-workwear street look/i);
+  assert.match(woman2, /fuzzy multicolor frayed bucket hat/i);
+  assert.match(woman2, /coordinated deconstructed workwear styling/i);
+  assert.doesNotMatch(subject, /complete special outfit:|complete wardrobe visible|no additional clothing or accessory overrides/i);
 });
 
 test('Grok/Z-Image duo prompt uses compact role sections', () => {

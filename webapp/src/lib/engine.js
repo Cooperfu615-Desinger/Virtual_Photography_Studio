@@ -3165,7 +3165,30 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'eyewearBPlacementId',
   'earringsBId',
 ]);
-const FACE_ONLY_CLOSEUP_ALLOWED_KEYS = new Set(['locationId']);
+const FACE_ONLY_CLOSEUP_ALLOWED_KEYS = new Set([
+  'locationId',
+  'specialOutfitId',
+  'specialOutfitAId',
+  'specialOutfitBId',
+  'completeLookPaletteId',
+  'completeLookPaletteAId',
+  'completeLookPaletteBId',
+  'outfitPresetId',
+  'outfitPresetColorId',
+  'outfitPresetPrimaryColorId',
+  'outfitPresetContrastColorId',
+  'outfitPresetLockedPaletteId',
+  'outfitPresetAId',
+  'outfitPresetAColorId',
+  'outfitPresetAPrimaryColorId',
+  'outfitPresetAContrastColorId',
+  'outfitPresetALockedPaletteId',
+  'outfitPresetBId',
+  'outfitPresetBColorId',
+  'outfitPresetBPrimaryColorId',
+  'outfitPresetBContrastColorId',
+  'outfitPresetBLockedPaletteId',
+]);
 
 function isCloseupModeFramingItem(framing) {
   return Boolean(framing?.zh && FACE_ONLY_CLOSEUP_ZH_LABELS.has(framing.zh));
@@ -7696,6 +7719,89 @@ function buildSpecialOutfitPrompt(item, palette = null) {
   return appendCompleteLookPaletteDirection(outfitText, palette);
 }
 
+function getCompleteLookVisibilityMode(context) {
+  if (!context?.framing || isNoneLikeItem(context.framing)) return 'full';
+  const visibility = context?.framing?.meta?.visibility || '';
+  if (visibility === 'close' || visibility === 'portrait') return 'upper';
+  if (visibility === 'medium') return 'medium';
+  return 'full';
+}
+
+function classifyCompleteLookWardrobeFragment(fragment) {
+  const text = stripMarkdown(fragment || '').replace(/\s+/g, ' ').trim();
+  if (!text) return '';
+
+  if (/\b(?:bag|handbag|shoulder bag|crossbody|tote|backpack|purse|clutch|satchel|pouch|kinchaku|wallet)\b/i.test(text)) return 'bag';
+  if (/\b(?:stockings?|socks?|tights|pantyhose|leg warmers?|hosiery|garter straps?)\b/i.test(text)) return 'legwear';
+  if (/\b(?:skirts?|shorts|hot pants|pants|trousers|jeans|leggings|bottoms?|panties|briefs|culottes|skorts?|sweatpants|chaps)\b/i.test(text)) return 'bottom';
+  if (/\b(?:boots?|shoes?|sandals?|sneakers?|heels?|pumps?|loafers?|mary janes?|slippers?|mules?|clogs?|footwear|bare feet|barefoot)\b/i.test(text)) return 'shoes';
+  if (/\b(?:jacket|coat|cardigan|blazer|cape|cloak|shawl|bolero|windbreaker|cover-up|outerwear|robe|haori|hooded zip-front layer|layered over)\b/i.test(text)) return 'outerwear';
+  if (/\b(?:tops?|shirt|tee|t-shirt|blouse|camisole|tank|bra|bralette|corset|bodice|bustier|sweater|pullover|hoodie|vest|halter|bikini top|tube top|crop(?:ped)?|bodysuit|romper|dress|gown|qipao|cheongsam|kimono|yukata|uniform|sailor blouse)\b/i.test(text)) return 'top';
+  return '';
+}
+
+function shouldKeepCompleteLookWardrobeRole(role, visibilityMode) {
+  if (visibilityMode === 'full') return true;
+  if (visibilityMode === 'upper') return role !== 'bottom' && role !== 'legwear' && role !== 'shoes' && role !== 'bag';
+  if (visibilityMode === 'medium') return role !== 'legwear' && role !== 'shoes' && role !== 'bag';
+  return true;
+}
+
+function filterCompleteLookPromptForFraming(value, context) {
+  const visibilityMode = getCompleteLookVisibilityMode(context);
+  const text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+  if (!text || visibilityMode === 'full') return text;
+
+  const buckets = {
+    style: [],
+    top: [],
+    bottom: [],
+    outerwear: [],
+    legwear: [],
+    shoes: [],
+    bag: [],
+    passthrough: [],
+  };
+
+  for (const fragment of splitGptSpecialOutfitFragments(text)) {
+    const role = classifyCompleteLookWardrobeFragment(fragment);
+    if (!role) {
+      buckets.passthrough.push(fragment);
+      continue;
+    }
+    if (!shouldKeepCompleteLookWardrobeRole(role, visibilityMode)) continue;
+    buckets[role].push(fragment);
+  }
+
+  buckets.passthrough = buckets.passthrough.filter((fragment) => {
+    if (/\b(?:controlled by|color selection|palette|coordinated top-to-bottom|selected\s+(?:main\s+)?(?:fabric|uniform|satin|dress|latex|swim fabric|tonal palette|color))\b/i.test(fragment)) return true;
+    if (!/\b(?:look|styling|outfit)\b/i.test(fragment)) return true;
+    buckets.style.push(fragment);
+    return false;
+  });
+
+  const orderedFragments = [
+    ...buckets.style,
+    ...buckets.top,
+    ...buckets.bottom,
+    ...buckets.outerwear,
+    ...buckets.legwear,
+    ...buckets.shoes,
+    ...buckets.bag,
+    ...buckets.passthrough,
+  ];
+
+  return orderedFragments.join(', ');
+}
+
+function buildVisibleSpecialOutfitPrompt(item, palette = null, context = null) {
+  return filterCompleteLookPromptForFraming(buildSpecialOutfitPrompt(item, palette), context);
+}
+
+function buildVisibleOutfitPresetPrompt(item, colorState = {}, context = null) {
+  return filterCompleteLookPromptForFraming(buildOutfitPresetPrompt(item, colorState), context);
+}
+
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
   if (!styling || isNoneLikeItem(styling)) return '';
   if (styling.zh === '正常穿著') {
@@ -7733,9 +7839,9 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, context = null) {
   const differentiationText = shouldAddDuoWardrobeDifferentiationPrompt(context, wardrobeSlots)
     ? DUO_WARDROBE_DIFFERENTIATION_PROMPT
     : '';
-  const specialAText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA));
-  const specialBText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB));
-  const specialSharedText = normalizeWearable(buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette));
+  const specialAText = normalizeWearable(buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA, context));
+  const specialBText = normalizeWearable(buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB, context));
+  const specialSharedText = normalizeWearable(buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context));
   if (specialAText || specialBText) {
     const roleParts = [
       specialAText ? `woman 1 wears complete special outfit: ${specialAText}` : '',
@@ -7778,13 +7884,13 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, context = null) {
     const suffix = role === 'a' ? 'A' : 'B';
     const preset = wardrobeSlots[`outfitPreset${suffix}`];
     if (preset && !isNoneLikeItem(preset)) {
-      return normalizeWearable(buildOutfitPresetPrompt(preset, {
+      return normalizeWearable(buildVisibleOutfitPresetPrompt(preset, {
         legacy: wardrobeColors[`outfitPreset${suffix}Color`],
         primary: wardrobeColors[`outfitPreset${suffix}PrimaryColor`],
         contrast: wardrobeColors[`outfitPreset${suffix}ContrastColor`],
         lockedPalette: wardrobeColors[`outfitPreset${suffix}LockedPalette`],
         completeLookPalette: wardrobeColors[`completeLookPalette${suffix}`],
-      }));
+      }, context));
     }
 
     const dressText = normalizeWearable(buildCompleteLookDressPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`], wardrobeColors[`completeLookPalette${suffix}`], { secondaryColor: wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor }));
@@ -7828,22 +7934,22 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, context = null) {
   }
 
   const presetAText = normalizeWearable(
-    buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
+    buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
       legacy: wardrobeColors.outfitPresetAColor,
       primary: wardrobeColors.outfitPresetAPrimaryColor,
       contrast: wardrobeColors.outfitPresetAContrastColor,
       lockedPalette: wardrobeColors.outfitPresetALockedPalette,
       completeLookPalette: wardrobeColors.completeLookPaletteA,
-    })
+    }, context)
   );
   const presetBText = normalizeWearable(
-    buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
+    buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
       legacy: wardrobeColors.outfitPresetBColor,
       primary: wardrobeColors.outfitPresetBPrimaryColor,
       contrast: wardrobeColors.outfitPresetBContrastColor,
       lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
       completeLookPalette: wardrobeColors.completeLookPaletteB,
-    })
+    }, context)
   );
   if (presetAText || presetBText) {
     const sharedAddonText = buildSharedAddonText();
@@ -7867,13 +7973,13 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, context = null) {
   }
 
   const presetText = normalizeWearable(
-    buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
+    buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
       legacy: wardrobeColors.outfitPresetColor,
       primary: wardrobeColors.outfitPresetPrimaryColor,
       contrast: wardrobeColors.outfitPresetContrastColor,
       lockedPalette: wardrobeColors.outfitPresetLockedPalette,
       completeLookPalette: wardrobeColors.completeLookPalette,
-    })
+    }, context)
   );
   if (presetText) {
     const sharedAddonText = buildSharedAddonText();
@@ -8670,15 +8776,15 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     if (isCloseupVisibility) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
-      addLine('Woman 1 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA));
-      addLine('Woman 2 Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB));
+      addLine('Woman 1 Special Outfit', buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA, context));
+      addLine('Woman 2 Special Outfit', buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB, context));
     }
   } else if (wardrobeSlots.specialOutfit && !hasDuoSceneAnchor) {
     addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
     if (isCloseupVisibility) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
-      addLine('Special Outfit', buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette));
+      addLine('Special Outfit', buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context));
     }
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor && (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
@@ -8686,33 +8792,33 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
     if (isCloseupVisibility) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
-      addLine('Woman 1 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
+      addLine('Woman 1 Outfit Preset', buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
         legacy: wardrobeColors.outfitPresetAColor,
         primary: wardrobeColors.outfitPresetAPrimaryColor,
         contrast: wardrobeColors.outfitPresetAContrastColor,
         lockedPalette: wardrobeColors.outfitPresetALockedPalette,
         completeLookPalette: wardrobeColors.completeLookPaletteA,
-      }));
-      addLine('Woman 2 Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
+      }, context));
+      addLine('Woman 2 Outfit Preset', buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPresetB, {
         legacy: wardrobeColors.outfitPresetBColor,
         primary: wardrobeColors.outfitPresetBPrimaryColor,
         contrast: wardrobeColors.outfitPresetBContrastColor,
         lockedPalette: wardrobeColors.outfitPresetBLockedPalette,
         completeLookPalette: wardrobeColors.completeLookPaletteB,
-      }));
+      }, context));
     }
   } else if (wardrobeSlots.outfitPreset && !hasDuoSceneAnchor) {
     addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
     if (isCloseupVisibility) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
-      addLine('Outfit Preset', buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
+      addLine('Outfit Preset', buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
         legacy: wardrobeColors.outfitPresetColor,
         primary: wardrobeColors.outfitPresetPrimaryColor,
         contrast: wardrobeColors.outfitPresetContrastColor,
         lockedPalette: wardrobeColors.outfitPresetLockedPalette,
         completeLookPalette: wardrobeColors.completeLookPalette,
-      }));
+      }, context));
     }
   }
   if (!specialSubjectMode && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && !wardrobeSlots.outfitPreset && !wardrobeSlots.outfitPresetA && !wardrobeSlots.outfitPresetB && !(context.subject.count === 2 && duoWardrobeText.clothingText)) {
@@ -9460,6 +9566,143 @@ function buildGptDuoWardrobeRoleTexts(context, wardrobeSlots, wardrobeColors) {
   };
 }
 
+function cleanGptDuoFullWardrobePart(value) {
+  return naturalizeGptSingleWardrobePaletteText(value)
+    .replace(/^She wears\s+/i, '')
+    .replace(/^wearing\s+/i, '')
+    .replace(/^complete special outfit:\s*/i, '')
+    .replace(/^complete outfit:\s*/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function joinGptDuoFullWardrobeParts(parts) {
+  return parts
+    .map(cleanGptDuoFullWardrobePart)
+    .filter(Boolean)
+    .join(', ');
+}
+
+function buildGptDuoSpecialOutfitText(item, palette, context = null) {
+  return cleanGptDuoFullWardrobePart(buildVisibleSpecialOutfitPrompt(item, palette, context));
+}
+
+function buildGptDuoSharedAddonText(wardrobeSlots, wardrobeColors) {
+  return joinGptDuoFullWardrobeParts([
+    buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors),
+    buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor),
+    buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor),
+  ]);
+}
+
+function buildGptDuoRoleAddonText(wardrobeSlots, wardrobeColors, role) {
+  const suffix = role === 'a' ? 'A' : 'B';
+  return joinGptDuoFullWardrobeParts([
+    buildRoleOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors, role),
+    buildColoredGrokPrompt(wardrobeSlots[`legwear${suffix}`], wardrobeColors[`legwear${suffix}Color`]),
+    buildColoredGrokPrompt(wardrobeSlots[`shoes${suffix}`], wardrobeColors[`shoes${suffix}Color`]),
+  ]);
+}
+
+function buildGptDuoSharedMainWardrobeText(wardrobeSlots, wardrobeColors, context = null) {
+  const specialText = buildGptDuoSpecialOutfitText(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context);
+  if (specialText) return specialText;
+
+  const presetText = cleanGptDuoFullWardrobePart(buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
+    legacy: wardrobeColors.outfitPresetColor,
+    primary: wardrobeColors.outfitPresetPrimaryColor,
+    contrast: wardrobeColors.outfitPresetContrastColor,
+    lockedPalette: wardrobeColors.outfitPresetLockedPalette,
+    completeLookPalette: wardrobeColors.completeLookPalette,
+  }, context));
+  if (presetText) return presetText;
+
+  const dressText = cleanGptDuoFullWardrobePart(
+    buildCompleteLookDressPrompt(
+      wardrobeSlots.dress,
+      wardrobeColors.dressColor,
+      wardrobeColors.completeLookPalette,
+      { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor }
+    )
+  );
+  if (dressText) return dressText;
+
+  return joinGptDuoFullWardrobeParts([
+    buildTopWardrobePrompt(wardrobeSlots, wardrobeColors),
+    buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors),
+    buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors),
+  ]);
+}
+
+function buildGptDuoRoleMainWardrobeText(wardrobeSlots, wardrobeColors, role, context = null) {
+  const suffix = role === 'a' ? 'A' : 'B';
+  const specialText = buildGptDuoSpecialOutfitText(
+    wardrobeSlots[`specialOutfit${suffix}`],
+    wardrobeColors[`completeLookPalette${suffix}`],
+    context
+  );
+  if (specialText) return specialText;
+
+  const presetText = cleanGptDuoFullWardrobePart(buildVisibleOutfitPresetPrompt(wardrobeSlots[`outfitPreset${suffix}`], {
+    legacy: wardrobeColors[`outfitPreset${suffix}Color`],
+    primary: wardrobeColors[`outfitPreset${suffix}PrimaryColor`],
+    contrast: wardrobeColors[`outfitPreset${suffix}ContrastColor`],
+    lockedPalette: wardrobeColors[`outfitPreset${suffix}LockedPalette`],
+    completeLookPalette: wardrobeColors[`completeLookPalette${suffix}`],
+  }, context));
+  if (presetText) return presetText;
+
+  const dressText = cleanGptDuoFullWardrobePart(
+    buildCompleteLookDressPrompt(
+      wardrobeSlots[`dress${suffix}`],
+      wardrobeColors[`dress${suffix}Color`],
+      wardrobeColors[`completeLookPalette${suffix}`],
+      { secondaryColor: wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor }
+    )
+  );
+  if (dressText) return dressText;
+
+  return joinGptDuoFullWardrobeParts([
+    buildRoleTopWardrobePrompt(wardrobeSlots, wardrobeColors, role),
+    buildRoleBottomWardrobePrompt(wardrobeSlots[`pants${suffix}`], wardrobeSlots, wardrobeColors, role),
+    buildRoleBottomWardrobePrompt(wardrobeSlots[`skirt${suffix}`], wardrobeSlots, wardrobeColors, role),
+  ]);
+}
+
+function buildGptDuoFullWardrobeRoleText(role, wardrobeSlots, wardrobeColors, context = null) {
+  const roleSpecialText = buildGptDuoSpecialOutfitText(
+    wardrobeSlots[`specialOutfit${role === 'a' ? 'A' : 'B'}`],
+    wardrobeColors[`completeLookPalette${role === 'a' ? 'A' : 'B'}`],
+    context
+  );
+  const sharedSpecialText = buildGptDuoSpecialOutfitText(
+    wardrobeSlots.specialOutfit,
+    wardrobeColors.completeLookPalette,
+    context
+  );
+  if (roleSpecialText || sharedSpecialText) return roleSpecialText || sharedSpecialText;
+
+  const mainText = buildGptDuoRoleMainWardrobeText(wardrobeSlots, wardrobeColors, role, context)
+    || buildGptDuoSharedMainWardrobeText(wardrobeSlots, wardrobeColors, context);
+  const roleAddonText = buildGptDuoRoleAddonText(wardrobeSlots, wardrobeColors, role);
+  const sharedAddonText = buildGptDuoSharedAddonText(wardrobeSlots, wardrobeColors);
+
+  if (!mainText) return joinGptDuoFullWardrobeParts([roleAddonText, sharedAddonText]);
+
+  return [
+    mainText,
+    roleAddonText ? `styled with ${roleAddonText}` : '',
+    sharedAddonText ? `styled with ${sharedAddonText}` : '',
+  ].filter(Boolean).join(', ');
+}
+
+function buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context = null) {
+  return {
+    woman1: buildGptDuoFullWardrobeRoleText('a', wardrobeSlots, wardrobeColors, context),
+    woman2: buildGptDuoFullWardrobeRoleText('b', wardrobeSlots, wardrobeColors, context),
+  };
+}
+
 function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots, wardrobeRoleTexts) {
   const suffix = role === 'a' ? 'A' : 'B';
   const roleNumber = role === 'a' ? '1' : '2';
@@ -9493,7 +9736,7 @@ function buildGptDuoSharedExpressionText(characterSlots) {
 
 function buildGptDuoSubjectText(context, characterSlots, wardrobeSlots, wardrobeColors) {
   const baseSubject = capitalizePromptLead(context.subject?.en || 'two women');
-  const wardrobeRoleTexts = buildGptDuoWardrobeRoleTexts(context, wardrobeSlots, wardrobeColors);
+  const wardrobeRoleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
   const roleTexts = [
     buildGptDuoRoleSubjectText('a', characterSlots, wardrobeSlots, wardrobeRoleTexts),
     buildGptDuoRoleSubjectText('b', characterSlots, wardrobeSlots, wardrobeRoleTexts),
@@ -10502,13 +10745,13 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       return sentence(text);
     };
     if (isCloseupVisibility) return sentence(closeupWardrobeVisibilityText);
-    const buildSingleOutfitPresetText = () => buildOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
+    const buildSingleOutfitPresetText = () => buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
       legacy: wardrobeColors.outfitPresetColor,
       primary: wardrobeColors.outfitPresetPrimaryColor,
       contrast: wardrobeColors.outfitPresetContrastColor,
       lockedPalette: wardrobeColors.outfitPresetLockedPalette,
       completeLookPalette: wardrobeColors.completeLookPalette,
-    });
+    }, context);
     const buildSingleOuterwearText = ({ minimalStyling = false } = {}) => buildOuterwearColoredPrompt(wardrobeSlots.outerwear, wardrobeColors.outerwearColor, {
       fit: wardrobeSlots.outerwearFit,
       pattern: wardrobeSlots.outerwearPattern,
@@ -10517,14 +10760,14 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       minimalStyling,
     });
     if (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB) {
-      const specialAText = buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA);
-      const specialBText = buildSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB);
+      const specialAText = buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA, context);
+      const specialBText = buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB, context);
       add(specialAText ? `woman 1 wears complete special outfit: ${specialAText}` : '');
       add(specialBText ? `woman 2 wears complete special outfit: ${specialBText}` : '');
       return parts.length > 0 ? finish(parts.join(', ')) : '';
     }
     if (wardrobeSlots.specialOutfit) {
-      add(`She wears complete special outfit: ${buildSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette)}`);
+      add(`She wears complete special outfit: ${buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context)}`);
       return parts.length > 0 ? finish(parts.join(', ')) : '';
     }
     const buildRoleLayerText = (role) => {
@@ -10539,13 +10782,13 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       const suffix = role === 'a' ? 'A' : 'B';
       const preset = wardrobeSlots[`outfitPreset${suffix}`];
       if (preset && !isNoneLikeItem(preset)) {
-        return buildOutfitPresetPrompt(preset, {
+        return buildVisibleOutfitPresetPrompt(preset, {
           legacy: wardrobeColors[`outfitPreset${suffix}Color`],
           primary: wardrobeColors[`outfitPreset${suffix}PrimaryColor`],
           contrast: wardrobeColors[`outfitPreset${suffix}ContrastColor`],
           lockedPalette: wardrobeColors[`outfitPreset${suffix}LockedPalette`],
           completeLookPalette: wardrobeColors[`completeLookPalette${suffix}`],
-        });
+        }, context);
       }
 
       const dressText = buildCompleteLookDressPrompt(wardrobeSlots[`dress${suffix}`], wardrobeColors[`dress${suffix}Color`], wardrobeColors[`completeLookPalette${suffix}`], { secondaryColor: wardrobeColors[`topBottomPalette${suffix}`]?.bottomColor });
@@ -10972,6 +11215,11 @@ function selectAiDistinctGarmentFragments(value, limit = 3) {
   return picked;
 }
 
+function buildAiCompleteLookGarmentPhrase(value) {
+  const fragments = selectAiDistinctGarmentFragments(value, 4);
+  return fragments.length > 0 ? withAiArticle(joinNaturalList(fragments)) : '';
+}
+
 function buildAiSpecialOutfitPhrase(value) {
   const fragments = splitAiWardrobeFragments(value);
   if (fragments.length === 0) return '';
@@ -11256,7 +11504,9 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe = null) {
   if (specialOutfitPhrase) return `wearing ${specialOutfitPhrase}`;
 
   const outfitPresetValue = firstStructuredValue(valuesByLabel, ['Outfit Preset']);
-  const outfitPresetPhrase = buildAiMappedWardrobePhrase(outfitPresetValue) || buildAiFallbackWearablePhrase(outfitPresetValue);
+  const outfitPresetPhrase = buildAiMappedWardrobePhrase(outfitPresetValue)
+    || buildAiCompleteLookGarmentPhrase(outfitPresetValue)
+    || buildAiFallbackWearablePhrase(outfitPresetValue);
   if (outfitPresetPhrase) return `wearing ${outfitPresetPhrase}`;
 
   const dressValue = firstStructuredValue(valuesByLabel, ['Dress']);
