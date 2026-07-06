@@ -369,6 +369,12 @@ const SECTION_SUBPANELS = {
   ],
   photography: [
     {
+      id: 'image-type',
+      label: '成品類型',
+      description: '先選成品媒材與企劃方向，決定這張圖是寫實攝影、時尚廣告或繪圖風格。',
+      keys: ['imageTypePresetId'],
+    },
+    {
       id: 'composition',
       label: '構圖與視角',
       description: '選景別、相機視角與拍攝方位，決定人物和場景在畫面中的關係。',

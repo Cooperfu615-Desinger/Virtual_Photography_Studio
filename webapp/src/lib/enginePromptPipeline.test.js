@@ -141,6 +141,38 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
 });
 
+test('image type presets expose six finished-image directions with photorealistic photography as default', () => {
+  const control = getLockControls().find((entry) => entry.key === 'imageTypePresetId');
+
+  assert.ok(control, 'Expected imageTypePresetId control');
+  assert.equal(control.label, '成品類型');
+  assert.equal(createEmptyLocks().imageTypePresetId, 'photorealistic-photo');
+  assert.deepEqual(
+    control.options.map((entry) => entry.zh),
+    ['寫實攝影', '時尚廣告', '水彩插畫', '油畫肖像', '時尚插畫', '粉彩插畫']
+  );
+});
+
+test('selected image type preset drives Gpt Grok/Z-Image and AI openings without losing selection state', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    imageTypePresetId: 'pastel-illustration',
+    subjectCount: '1',
+    topId: optionId('topId', '棉質細肩背心'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    poseBaseId: 'standing',
+    poseArrangementId: 'standing-one-leg-weight',
+  });
+
+  assert.match(gptSection(prompt, 'Image Type'), /^Create a pastel illustration portrait\b/i);
+  assert.match(prompt.zImagePrompt, /^Create a pastel illustration portrait of/i);
+  assert.match(prompt.midjourneyPrompt, /^Pastel illustration portrait of /i);
+  assert.match(prompt.midjourneyPrompt, /wearing /i);
+  assert.match(prompt.midjourneyPrompt, /standing/i);
+  assert.equal(prompt.selection.imageTypePresetId, 'pastel-illustration');
+  assert.equal(prompt.structured.Style[0].zh, '粉彩插畫');
+});
+
 test('Gpt single-subject prompt preserves full-fidelity normal subject and wardrobe wording', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),

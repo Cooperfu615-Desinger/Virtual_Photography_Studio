@@ -319,7 +319,7 @@ function buildImportedStructured(locks, controls) {
   const buildSection = (keys) => keys.map(getOption).filter(Boolean);
 
   return {
-    Style: buildSection(['styleId']),
+    Style: buildSection(['imageTypePresetId', 'styleId']),
     Character: buildSection([
       'subjectCount',
       'specialSubjectId',

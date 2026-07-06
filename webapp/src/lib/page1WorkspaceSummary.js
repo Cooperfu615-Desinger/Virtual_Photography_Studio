@@ -211,6 +211,7 @@ export function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'lightDirectionId', locks.lightDirectionId),
   ]);
   const photographySummary = buildSummaryText([
+    getControlOptionLabel(controls, 'imageTypePresetId', locks.imageTypePresetId),
     getControlOptionLabel(controls, 'framingId', locks.framingId),
     getControlOptionLabel(controls, 'angleId', locks.angleId),
     getControlOptionLabel(controls, 'orbitId', locks.orbitId),

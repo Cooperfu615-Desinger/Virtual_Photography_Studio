@@ -12,6 +12,69 @@ const SUBJECT_COUNT_OPTIONS = [
   { id: '2', zh: '2 位', en: 'two 20-year-old Japanese or Korean female portrait subjects', count: 2 },
 ];
 
+const IMAGE_TYPE_PRESET_OPTIONS = [
+  {
+    id: 'photorealistic-photo',
+    zh: '寫實攝影',
+    en: 'Create a photorealistic editorial portrait',
+    gptDuo: 'Create a photorealistic editorial portrait of two women in a real-world photography style',
+    zImageLead: 'Create a photorealistic editorial portrait of',
+    zImageDuo: 'Create a photorealistic editorial portrait of two women in a real-world photography style',
+    aiLead: '',
+    aiDuo: 'Create a photorealistic editorial portrait in a real-world photography style. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+  },
+  {
+    id: 'fashion-advertising',
+    zh: '時尚廣告',
+    en: 'Create a premium fashion advertising image with modern luxury art direction, refined styling presence, and polished commercial fashion finish',
+    gptDuo: 'Create a premium fashion advertising image of two women with modern luxury art direction, refined styling presence, and polished commercial fashion finish',
+    zImageLead: 'Create a premium fashion advertising image of',
+    zImageDuo: 'Create a premium fashion advertising image of two women with modern luxury art direction and polished commercial fashion finish',
+    aiLead: 'premium fashion advertising image',
+    aiDuo: 'Create a premium fashion advertising image in a polished commercial fashion style. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+  },
+  {
+    id: 'watercolor-illustration',
+    zh: '水彩插畫',
+    en: 'Create a watercolor portrait illustration with soft hand-painted washes, delicate pigment texture, refined editorial character styling, and finished illustration direction',
+    gptDuo: 'Create a watercolor portrait illustration of two women with soft hand-painted washes, delicate pigment texture, refined editorial character styling, and finished illustration direction',
+    zImageLead: 'Create a watercolor portrait illustration of',
+    zImageDuo: 'Create a watercolor portrait illustration of two women with soft hand-painted washes and refined editorial character styling',
+    aiLead: 'watercolor portrait illustration',
+    aiDuo: 'Create a watercolor portrait illustration with soft hand-painted washes. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+  },
+  {
+    id: 'oil-painting',
+    zh: '油畫肖像',
+    en: 'Create an oil painting portrait with layered brushwork, tactile painted surface, refined portrait styling, and gallery-quality finished image direction',
+    gptDuo: 'Create an oil painting portrait of two women with layered brushwork, tactile painted surface, refined portrait styling, and gallery-quality finished image direction',
+    zImageLead: 'Create an oil painting portrait of',
+    zImageDuo: 'Create an oil painting portrait of two women with layered brushwork and gallery-quality finished image direction',
+    aiLead: 'oil painting portrait',
+    aiDuo: 'Create an oil painting portrait with layered brushwork and tactile painted surface. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+  },
+  {
+    id: 'fashion-illustration',
+    zh: '時尚插畫',
+    en: 'Create a fashion illustration with elegant drawn lines, stylized editorial proportions, refined clothing presentation, and polished magazine illustration direction',
+    gptDuo: 'Create a fashion illustration of two women with elegant drawn lines, stylized editorial proportions, refined clothing presentation, and polished magazine illustration direction',
+    zImageLead: 'Create a fashion illustration of',
+    zImageDuo: 'Create a fashion illustration of two women with elegant drawn lines and refined clothing presentation',
+    aiLead: 'fashion illustration',
+    aiDuo: 'Create a fashion illustration with elegant drawn lines and refined clothing presentation. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+  },
+  {
+    id: 'pastel-illustration',
+    zh: '粉彩插畫',
+    en: 'Create a pastel illustration portrait with soft powdery color texture, gentle blended edges, delicate hand-rendered surface, and refined romantic character styling',
+    gptDuo: 'Create a pastel illustration portrait of two women with soft powdery color texture, gentle blended edges, delicate hand-rendered surface, and refined romantic character styling',
+    zImageLead: 'Create a pastel illustration portrait of',
+    zImageDuo: 'Create a pastel illustration portrait of two women with soft powdery color texture and refined romantic character styling',
+    aiLead: 'pastel illustration portrait',
+    aiDuo: 'Create a pastel illustration portrait with soft powdery color texture. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+  },
+];
+
 const SPECIAL_SUBJECT_OPTIONS = [
   {
     id: 'none',
@@ -1948,6 +2011,7 @@ const LOCK_DEFINITIONS = [
   { key: 'characterCardWardrobeLayerIds', label: '角色卡服裝層', defaultValue: [], multi: true, section: 'hidden' },
   { key: 'characterCardPromptOverride', label: '角色卡臨時覆寫', defaultValue: '', section: 'hidden' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
+  { key: 'imageTypePresetId', label: '成品類型', options: IMAGE_TYPE_PRESET_OPTIONS, defaultValue: 'photorealistic-photo', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
   { key: 'cameraSystemId', label: '舊相機', options: CAMERA_SYSTEM_OPTIONS, section: 'hidden' },
   { key: 'sceneAttributeId', label: '場景屬性', options: SCENE_ATTRIBUTE_OPTIONS, section: 'core' },
@@ -3113,6 +3177,7 @@ const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
 const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'subjectCount',
   'aspectRatio',
+  'imageTypePresetId',
   'styleId',
   'cameraSystemId',
   'framingId',
@@ -6827,7 +6892,11 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       : '一位性感驚豔的日系或韓系女性';
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
-  const styleLabel = context.style && !isNoneLikeItem(context.style) ? context.style.zh : '-';
+  const imageTypeLabel = context.imageTypePreset?.zh || IMAGE_TYPE_PRESET_OPTIONS[0].zh;
+  const styleLabel = joinSummaryParts(
+    imageTypeLabel,
+    context.style && !isNoneLikeItem(context.style) ? context.style.zh : ''
+  );
   const importedWorldSceneLabel = context.locks?.importedWorldSceneMode === 'architecture'
     ? String(context.locks.importedWorldSceneLabel || '').trim()
     : '';
@@ -9295,6 +9364,36 @@ function buildGptFixedCompositionSceneText(context) {
   ].filter(Boolean).join('\n\n');
 }
 
+function getImageTypePresetOption(id) {
+  return findById(IMAGE_TYPE_PRESET_OPTIONS, id) || IMAGE_TYPE_PRESET_OPTIONS[0];
+}
+
+function resolveImageTypePreset(context) {
+  return context.imageTypePreset || getImageTypePresetOption(context.locks?.imageTypePresetId);
+}
+
+function buildImageTypeText(context) {
+  const preset = resolveImageTypePreset(context);
+  return context.subject?.count === 2 ? preset.gptDuo : preset.en;
+}
+
+function buildZImageTypeText(context) {
+  const preset = resolveImageTypePreset(context);
+  return context.subject?.count === 2 ? preset.zImageDuo : preset.en;
+}
+
+function buildZImageSubjectLead(context) {
+  return resolveImageTypePreset(context).zImageLead || 'Create a photorealistic editorial portrait of';
+}
+
+function buildAiImageTypeLead(context) {
+  return resolveImageTypePreset(context).aiLead || '';
+}
+
+function buildAiDuoOpeningText(context) {
+  return resolveImageTypePreset(context).aiDuo || IMAGE_TYPE_PRESET_OPTIONS[0].aiDuo;
+}
+
 function buildPromptSectionSources(valuesByLabel, context) {
   const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
   const sceneContextValues = getStructuredValues(valuesByLabel, ['Scene Context']);
@@ -9391,9 +9490,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Optical Effect',
     'Camera / Film',
   ]);
-  const imageType = context.subject?.count === 2
-    ? 'Create a photorealistic editorial portrait of two women in a real-world photography style'
-    : 'Create a photorealistic editorial portrait';
+  const imageType = buildImageTypeText(context);
   const subjectLead = context.subject?.count === 2 ? 'The subjects are' : 'The subject is';
   const wardrobeLead = context.subject?.count === 2 ? 'They wear' : 'She wears';
   const sceneUsesDirectSentence = sceneContextValues.length > 0 || fixedCompositionSetActive;
@@ -10715,7 +10812,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         : '',
     ].filter(Boolean);
 
-    const text = leadSentence('Create a photorealistic editorial portrait of', parts);
+    const text = leadSentence(buildZImageSubjectLead(context), parts);
     return context.subject.count === 1 ? compressZImageSingleSubjectText(text, context) : text;
   };
   const buildSinglePoseText = () => {
@@ -11019,7 +11116,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
 
   if (context.subject.count === 2 && !specialSubjectMode) {
     return [
-      buildZImageDuoSection('Image Type', 'Create a photorealistic editorial portrait of two women in a real-world photography style'),
+      buildZImageDuoSection('Image Type', buildZImageTypeText(context)),
       buildZImageDuoSection('Subject', buildZImageDuoSubjectText()),
       buildZImageDuoSection('Woman 1', buildZImageDuoRoleWardrobeText('a')),
       buildZImageDuoSection('Woman 2', buildZImageDuoRoleWardrobeText('b')),
@@ -11381,6 +11478,7 @@ function buildAiSingleSubjectAccessoryParts(context, wardrobe) {
 }
 
 function buildAiSingleSubjectPromptText({
+  imageTypeLead = '',
   subjectPart,
   eyewearText,
   headAudioText,
@@ -11390,8 +11488,11 @@ function buildAiSingleSubjectPromptText({
   lightingPart,
   moodTail,
 }) {
+  const subjectOpening = imageTypeLead
+    ? `${capitalizePromptLead(imageTypeLead)} of ${subjectPart.replace(/^A\b/, 'a')}`
+    : subjectPart;
   const openingText = [
-    subjectPart,
+    subjectOpening,
     eyewearText ? `with ${eyewearText}.` : '',
   ].filter(Boolean).join(' ');
   const wardrobeLead = headAudioText
@@ -11772,7 +11873,7 @@ function buildAiDuoSection(label, value) {
 
 function buildAiDuoPromptFromStructuredPrompt(valuesByLabel, context, wardrobe, wardrobeColors) {
   return [
-    'Create a photorealistic editorial portrait in a real-world photography style. The main characters are two stunning seductive 20-year-old Japanese or Korean women.',
+    buildAiDuoOpeningText(context),
     buildAiDuoSection('Woman 1', buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, 'a')),
     buildAiDuoSection('Woman 2', buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, 'b')),
     buildAiDuoSection('Pose', buildAiDuoPoseText(valuesByLabel)),
@@ -11796,10 +11897,12 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
   const lightingPart = buildAiMinimalLightingClause(valuesByLabel);
   const moodTail = buildAiMinimalMoodTail(valuesByLabel);
   const singleSubjectAccessories = buildAiSingleSubjectAccessoryParts(context, wardrobe);
+  const imageTypeLead = buildAiImageTypeLead(context);
 
   if (isFixedCompositionSetActive(context.fixedCompositionSet)) {
     const subjectSentence = shouldUseFixedAiSingleSubjectLead(context)
       ? buildAiSingleSubjectPromptText({
+          imageTypeLead,
           subjectPart,
           ...singleSubjectAccessories,
           wardrobePart,
@@ -11818,6 +11921,7 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
 
   if (shouldUseFixedAiSingleSubjectLead(context)) {
     return buildAiSingleSubjectPromptText({
+      imageTypeLead,
       subjectPart,
       ...singleSubjectAccessories,
       wardrobePart,
@@ -11828,7 +11932,10 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
     });
   }
 
-  const parts = [subjectPart, wardrobePart, posePart, scenePart, lightingPart].filter(Boolean);
+  const subjectOpening = imageTypeLead
+    ? `${capitalizePromptLead(imageTypeLead)} of ${subjectPart.replace(/^A\b/, 'a')}`
+    : subjectPart;
+  const parts = [subjectOpening, wardrobePart, posePart, scenePart, lightingPart].filter(Boolean);
 
   return ensureTerminalPeriod(`${parts.join(', ')}, ${moodTail}`);
 }
@@ -11869,6 +11976,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     characterCardWardrobeLayerIds: characterCardSelection.characterCardWardrobeLayerIds,
     characterCardPromptOverride: characterCardSelection.characterCardPromptOverride,
     aspectRatio: context.aspectRatio.id,
+    imageTypePresetId: context.imageTypePreset?.id || 'photorealistic-photo',
     styleId: context.style?.id || '',
     cameraSystemId: context.cameraSystem?.id || '',
     sceneAttributeId: context.sceneAttribute?.id || '',
@@ -12090,6 +12198,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const characterProfile = getCharacterProfileOption(effectiveLocks.characterProfileId);
   const dedicatedSubject = characterProfile || specialSubject;
   const subject = dedicatedSubject || getSubjectOption(effectiveLocks.subjectCount);
+  const imageTypePreset = getImageTypePresetOption(effectiveLocks.imageTypePresetId);
   const hasWardrobeLocks = !dedicatedSubject && hasEffectiveWardrobeLocks(effectiveLocks, lockControls);
   const hasSceneLocks = Boolean(effectiveLocks.locationId || effectiveLocks.sceneAttributeId);
   const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio);
@@ -12212,6 +12321,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     : getFixedSetPerformanceStateOption('model-natural');
   const context = {
     subject,
+    imageTypePreset,
     aspectRatio,
     sceneAttribute,
     style,
@@ -12260,7 +12370,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     zImagePrompt,
     selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film),
     structured: {
-      Style: [style],
+      Style: [imageTypePreset, style].filter(Boolean),
       Character: character,
       Wardrobe: wardrobe,
       Location: [location],
