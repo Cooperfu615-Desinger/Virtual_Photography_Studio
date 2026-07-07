@@ -4211,9 +4211,39 @@
         "desc": "讓離焦高光形成大型光斑或光圈形狀，重點是散景形狀、尺寸與離焦高光的光學表現。"
       },
       {
+        "zh": "旋渦散景 Swirly Bokeh",
+        "en": "swirly bokeh rendering, curved out-of-focus background highlights circling around the subject, vintage edge swirl, rotational peripheral blur character",
+        "desc": "背景散景在畫面邊緣形成旋繞流動感，重點是復古鏡頭式的周邊旋渦散景，而不是單純背景模糊。"
+      },
+      {
+        "zh": "貓眼散景 Cat-eye Bokeh",
+        "en": "cat-eye bokeh rendering, oval edge highlights near the frame perimeter, lens-edge compression of blur discs, stretched off-axis background bokeh",
+        "desc": "畫面邊緣的散景光斑被拉成貓眼形橢圓，重點是離軸位置的鏡頭邊緣散景特徵。"
+      },
+      {
+        "zh": "肥皂泡散景 Soap-bubble Bokeh",
+        "en": "soap-bubble bokeh rendering, bright-rimmed blur circles, hollow-edged highlight discs, vintage triplet-lens background highlights, crisp bubble-like specular outlines",
+        "desc": "散景光斑邊緣有明亮輪廓、中央較空，形成像肥皂泡般的老鏡式高光圓圈。"
+      },
+      {
         "zh": "前景遮擋散景",
         "en": "blurred foreground occlusion near the lens, out-of-focus shapes crossing one or more frame edges, meaningful partial frame coverage, thick near-field bokeh veil, clear opening toward the subject",
         "desc": "鏡頭前方有失焦遮擋物形成近景模糊層，必須遮住部分畫面邊緣或局部視線，但保留能看清主體的開口與前景深度層次。"
+      },
+      {
+        "zh": "玻璃前景折射",
+        "en": "foreground glass refraction near the lens, transparent distorted shapes crossing the frame, warped highlights, refracted subject-edge fragments, clear central viewing opening",
+        "desc": "像隔著玻璃、透明板或水晶邊緣拍攝，畫面前景帶透明折射扭曲，但仍保留能看見主體的清楚開口。"
+      },
+      {
+        "zh": "稜鏡折射 Prism Refraction",
+        "en": "prism refraction effect, split-image fragments, rainbow spectral streaks, duplicated edge reflections, crystalline light scattering near the frame",
+        "desc": "利用稜鏡或折射介質讓畫面邊緣出現分裂影像、彩虹色譜與晶體式反射碎片。"
+      },
+      {
+        "zh": "星芒光圈 Starburst",
+        "en": "starburst diffraction spikes on bright point lights, crisp radiating light rays, stopped-down aperture sparkle, sharp multi-point highlight stars",
+        "desc": "明亮點光源產生清楚放射狀星芒，重點是光圈繞射形成的多角星形高光。"
       },
       {
         "zh": "鏡頭光斑 Lens Flare",
@@ -4224,6 +4254,11 @@
         "zh": "變形鏡頭光斑 Anamorphic Flare",
         "en": "anamorphic lens flare artifacts, horizontal flare streaks, cylindrical lens reflection behavior, oval bokeh response, stretched optical highlights",
         "desc": "變形鏡頭造成水平 flare、橢圓散景與被拉伸的高光反射，重點是柱面光學特徵。"
+      },
+      {
+        "zh": "局部炫光霧面反差",
+        "en": "localized veiling flare, partial low-contrast haze around strong light entry, washed highlight patching, matte glare bloom without full-frame fog",
+        "desc": "局部強光進入鏡頭後形成一塊對比下降的霧面炫光區，像鍍膜失守或半片式 glare，而不是整張都起霧。"
       },
       {
         "zh": "漏光效果 Light Leaks",
@@ -4254,6 +4289,11 @@
         "zh": "邊緣模糊",
         "en": "peripheral edge blur, center sharpness with soft frame edges, field curvature softness, reduced corner resolution, lens falloff away from the image center",
         "desc": "中心解析較高，越接近畫面邊緣越柔，模擬場曲、邊角解析下降或鏡頭周邊成像衰減。"
+      },
+      {
+        "zh": "中央清晰邊緣拉抹",
+        "en": "sharp center with smeared frame edges, radial edge stretching, directional peripheral blur, center-held subject clarity, warped outer image field",
+        "desc": "中央主體相對清楚，但畫面外圈有明顯方向性拉抹與扭曲，像低品質濾鏡或實驗鏡片造成的邊緣拖拽感。"
       },
       {
         "zh": "光學朦朧薄霧",

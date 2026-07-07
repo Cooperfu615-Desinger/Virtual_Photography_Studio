@@ -265,9 +265,10 @@ rear-curtain flash look, flash-frozen subject edge with trailing motion blur, sh
 
 目前主要選項：
 
-- 散景與前景光學層：重散景光斑、前景遮擋散景。
-- flare 與底片邊緣現象：鏡頭光斑、變形鏡頭光斑、漏光效果。
-- 濾鏡與成像衰減：柔焦濾鏡、霧化高光、暗角、色差、邊緣模糊、光學朦朧薄霧。
+- 散景與前景光學層：重散景光斑、旋渦散景、貓眼散景、肥皂泡散景、前景遮擋散景。
+- 折射與點光源現象：玻璃前景折射、稜鏡折射、星芒光圈。
+- flare 與底片邊緣現象：鏡頭光斑、變形鏡頭光斑、局部炫光霧面反差、漏光效果。
+- 濾鏡與成像衰減：柔焦濾鏡、霧化高光、暗角、色差、邊緣模糊、中央清晰邊緣拉抹、光學朦朧薄霧。
 
 新增規則：
 
@@ -275,6 +276,9 @@ rear-curtain flash look, flash-frozen subject edge with trailing motion blur, sh
 - 不描述天氣、天空、場景光線或人物受光方向。
 - 不用光學效果重複承接 `光圈 / 景深` 已經負責的淺景深、極淺景深或焦平面厚薄描述。
 - `前景遮擋散景` 必須保留「遮住部分畫面」的效果，但不要寫死固定比例。使用 `meaningful partial frame coverage`、`one or more frame edges`、`clear opening toward the subject`。
+- `玻璃前景折射` 與 `稜鏡折射` 應強調 transparent / refracted / split-image 等折射語言，不要誤寫成單純前景模糊。
+- `星芒光圈` 應聚焦 bright point lights 的繞射星芒，不要重複描述 flare、夜景天空或慢門拖線。
+- `中央清晰邊緣拉抹` 應維持中心主體可讀，只把扭曲與拉抹放在周邊外圈。
 - `光學朦朧薄霧` 必須強調 lens/filter，例如 `lens-only mist-filter haze`，不要變成環境霧或煙霧。
 - 光學效果可以和鏡頭焦段共存，但不要重複寫同一種現象到爆量。
 

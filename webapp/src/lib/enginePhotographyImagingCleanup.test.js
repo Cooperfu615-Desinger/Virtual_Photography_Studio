@@ -429,20 +429,40 @@ test('lens and optical effects stay concise while foreground occlusion still blo
     [
       '全無',
       '重散景光斑',
+      '旋渦散景 Swirly Bokeh',
+      '貓眼散景 Cat-eye Bokeh',
+      '肥皂泡散景 Soap-bubble Bokeh',
       '前景遮擋散景',
+      '玻璃前景折射',
+      '稜鏡折射 Prism Refraction',
+      '星芒光圈 Starburst',
       '鏡頭光斑 Lens Flare',
       '變形鏡頭光斑 Anamorphic Flare',
+      '局部炫光霧面反差',
       '漏光效果 Light Leaks',
       '柔焦濾鏡 Soft Focus',
       '霧化高光 Bloom',
       '暗角 Vignette',
       '色差 Chromatic Aberration',
       '邊緣模糊',
+      '中央清晰邊緣拉抹',
       '光學朦朧薄霧',
     ]
   );
   assert.ok(!options('opticalEffectId').some((item) => item.zh === '淺景深'));
   assert.ok(!options('opticalEffectId').some((item) => item.zh === '極淺景深'));
+
+  const swirlyBokeh = optionByLabel('opticalEffectId', '旋渦散景 Swirly Bokeh');
+  assert.match(swirlyBokeh.en, /swirly bokeh rendering/);
+  assert.match(swirlyBokeh.en, /rotational peripheral blur/);
+
+  const prismRefraction = optionByLabel('opticalEffectId', '稜鏡折射 Prism Refraction');
+  assert.match(prismRefraction.en, /split-image fragments/);
+  assert.match(prismRefraction.en, /rainbow spectral streaks/);
+
+  const starburst = optionByLabel('opticalEffectId', '星芒光圈 Starburst');
+  assert.match(starburst.en, /diffraction spikes/);
+  assert.match(starburst.en, /multi-point highlight stars/);
 
   const foregroundOcclusion = optionByLabel('opticalEffectId', '前景遮擋散景');
   assert.match(foregroundOcclusion.en, /meaningful partial frame coverage/);
