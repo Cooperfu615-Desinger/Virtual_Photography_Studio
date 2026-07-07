@@ -424,6 +424,26 @@ test('lens and optical effects stay concise while foreground occlusion still blo
     assert.ok(wordCount <= 24, `${option.zh} should stay compact`);
   }
 
+  assert.deepEqual(
+    options('opticalEffectId').map((item) => item.zh),
+    [
+      '全無',
+      '重散景光斑',
+      '前景遮擋散景',
+      '鏡頭光斑 Lens Flare',
+      '變形鏡頭光斑 Anamorphic Flare',
+      '漏光效果 Light Leaks',
+      '柔焦濾鏡 Soft Focus',
+      '霧化高光 Bloom',
+      '暗角 Vignette',
+      '色差 Chromatic Aberration',
+      '邊緣模糊',
+      '光學朦朧薄霧',
+    ]
+  );
+  assert.ok(!options('opticalEffectId').some((item) => item.zh === '淺景深'));
+  assert.ok(!options('opticalEffectId').some((item) => item.zh === '極淺景深'));
+
   const foregroundOcclusion = optionByLabel('opticalEffectId', '前景遮擋散景');
   assert.match(foregroundOcclusion.en, /meaningful partial frame coverage/);
   assert.match(foregroundOcclusion.en, /thick near-field bokeh veil/);

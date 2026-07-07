@@ -1,6 +1,6 @@
 # D 攝影與成像新增與維護規格
 
-Last updated: 2026-05-25
+Last updated: 2026-07-07
 
 這份文件定義 PAGE1 `D. 攝影與成像` 的新增、修改、合併與測試規則。後續新增攝影師風格、構圖景別、相機視角、拍攝方位、相機 profile、鏡頭焦段、光圈 / 景深、快門 / 動態殘影、光學效果或底片 / 成像 rendering 時，請先依照本規格檢查責任邊界、prompt 寫法、舊資料相容性與測試覆蓋。
 
@@ -16,7 +16,7 @@ D 區只負責「照片怎麼被拍、用什麼攝影語言與成像質感呈現
 - 鏡頭焦段負責視角、透視、壓縮、變形、工作距離與焦平面特性。
 - 光圈 / 景深負責 f-stop 語言、焦平面厚薄、前後景離焦程度與主體背景分離。
 - 快門 / 動態殘影負責快門速度語言、動作凍結、背景拖影、主體拖影、全畫面慢門與後簾同步閃光殘影。
-- 光學效果負責鏡頭、濾鏡、散景、flare、暗角、色差、前景遮擋等可見光學現象。
+- 光學效果負責鏡頭、濾鏡、散景光斑、flare、暗角、色差、前景遮擋等可見光學現象。
 - 底片 / 成像 rendering 負責色彩、階調、顆粒、黑位、亮部 roll-off、動態範圍與低畫質媒介質地。
 
 Prompt 應使用短而準的英文片語。中文描述用來幫助維護者理解攝影方向，英文 prompt 用來控制生成結果。
@@ -265,14 +265,15 @@ rear-curtain flash look, flash-frozen subject edge with trailing motion blur, sh
 
 目前主要選項：
 
-- 景深與散景：淺景深、極淺景深、重散景光斑、前景遮擋散景。
+- 散景與前景光學層：重散景光斑、前景遮擋散景。
 - flare 與底片邊緣現象：鏡頭光斑、變形鏡頭光斑、漏光效果。
 - 濾鏡與成像衰減：柔焦濾鏡、霧化高光、暗角、色差、邊緣模糊、光學朦朧薄霧。
 
 新增規則：
 
-- 描述 optical artifact、filter、focus falloff、frame edge behavior、highlight behavior。
+- 描述 optical artifact、filter、frame edge behavior、highlight behavior、散景形狀或遮擋層次。
 - 不描述天氣、天空、場景光線或人物受光方向。
+- 不用光學效果重複承接 `光圈 / 景深` 已經負責的淺景深、極淺景深或焦平面厚薄描述。
 - `前景遮擋散景` 必須保留「遮住部分畫面」的效果，但不要寫死固定比例。使用 `meaningful partial frame coverage`、`one or more frame edges`、`clear opening toward the subject`。
 - `光學朦朧薄霧` 必須強調 lens/filter，例如 `lens-only mist-filter haze`，不要變成環境霧或煙霧。
 - 光學效果可以和鏡頭焦段共存，但不要重複寫同一種現象到爆量。

@@ -3343,7 +3343,6 @@ function inferEffectMeta(_category, item) {
   const haystack = toHaystack(item.zh, item.en, item.desc);
   const tags = [];
 
-  if (hasAny(haystack, ['shallow depth of field', 'focus plane', 'focus falloff', '景深', '焦平面'])) tags.push('depth_of_field');
   if (hasAny(haystack, ['foreground occlusion', 'foreground obstruction', 'near-field bokeh', '前景遮擋'])) tags.push('foreground_occlusion', 'depth_layering');
   if (hasAny(haystack, ['lens flare', 'veiling flare', 'ghosting', 'internal lens reflections', '鏡頭光斑'])) tags.push('light_artifact', 'flare_artifact');
   if (hasAny(haystack, ['anamorphic lens flare', 'cylindrical lens', 'horizontal flare', '變形鏡頭光斑'])) tags.push('light_artifact', 'anamorphic_artifact');

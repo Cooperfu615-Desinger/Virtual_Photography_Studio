@@ -4206,16 +4206,6 @@
         "desc": "不指定光學效果，讓模型自行決定是否加入 flare、散景、柔焦、暗角等鏡頭特徵。"
       },
       {
-        "zh": "淺景深",
-        "en": "shallow depth of field, background defocus, controlled focus falloff behind the subject, clear subject plane separation, moderate optical blur gradient",
-        "desc": "使用較淺景深讓焦點平面外的背景逐漸柔化，重點是主體平面與背景的光學分離。"
-      },
-      {
-        "zh": "極淺景深",
-        "en": "ultra shallow depth of field, razor-thin focus plane, rapid foreground and background defocus, extremely narrow in-focus region, strong optical focus falloff",
-        "desc": "焦平面非常薄，前景與背景快速離焦，只有很窄的區域保持清楚。"
-      },
-      {
         "zh": "重散景光斑",
         "en": "heavy bokeh rendering, large out-of-focus highlight discs, aperture-shaped blur circles, pronounced background or foreground defocus highlights, optical blur balls",
         "desc": "讓離焦高光形成大型光斑或光圈形狀，重點是散景形狀、尺寸與離焦高光的光學表現。"
