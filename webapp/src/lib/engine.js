@@ -8330,20 +8330,6 @@ function hasWardrobeText(item, patterns = []) {
   return hasAny(haystack, patterns);
 }
 
-function isLongTopLayer(item) {
-  return hasWardrobeText(item, [
-    '長版',
-    'longline',
-    'oversized sweater',
-    'oversized cable-knit',
-    'long shirt',
-    'tunic',
-    'hanging hem',
-    'relaxed hemline',
-    'over the bottoms',
-  ]);
-}
-
 function isShortBottomLayer(item) {
   return hasWardrobeText(item, [
     '短褲',
@@ -8372,58 +8358,8 @@ function isLongBottomLayer(item) {
   ]);
 }
 
-function isStrappyInnerLayer(item) {
-  return hasWardrobeText(item, [
-    '細肩帶',
-    'camisole',
-    'spaghetti strap',
-    'thin strap',
-  ]);
-}
-
-function hasCompleteOuterwearLayer(wardrobeSlots, role = '') {
-  const suffix = role === 'a' ? 'A' : role === 'b' ? 'B' : '';
-  const outerwear = wardrobeSlots[`outerwear${suffix}`] || null;
-  return outerwear && !isNoneLikeItem(outerwear);
-}
-
-function buildWardrobeLayeringLogicPrompt(wardrobeSlots, role = '') {
-  const suffix = role === 'a' ? 'A' : role === 'b' ? 'B' : '';
-  const top = wardrobeSlots[`top${suffix}`] && !isNoneLikeItem(wardrobeSlots[`top${suffix}`]) ? wardrobeSlots[`top${suffix}`] : null;
-  const dress = wardrobeSlots[`dress${suffix}`] && !isNoneLikeItem(wardrobeSlots[`dress${suffix}`]) ? wardrobeSlots[`dress${suffix}`] : null;
-  const pants = wardrobeSlots[`pants${suffix}`] && !isNoneLikeItem(wardrobeSlots[`pants${suffix}`]) ? wardrobeSlots[`pants${suffix}`] : null;
-  const skirt = wardrobeSlots[`skirt${suffix}`] && !isNoneLikeItem(wardrobeSlots[`skirt${suffix}`]) ? wardrobeSlots[`skirt${suffix}`] : null;
-  const legwear = wardrobeSlots[`legwear${suffix}`] && !isNoneLikeItem(wardrobeSlots[`legwear${suffix}`]) ? wardrobeSlots[`legwear${suffix}`] : null;
-  const hasOuterwear = hasCompleteOuterwearLayer(wardrobeSlots, role);
-  const bottom = pants || skirt;
-  const rules = [];
-
-  if (top && pants && isLongTopLayer(top) && isShortBottomLayer(pants)) {
-    rules.push('long top falls over the waistband, with shorts partly visible below the hem');
-  }
-
-  if (hasOuterwear && (dress || top)) {
-    rules.push('outerwear remains a coherent outer layer; inner garment appears at natural openings');
-  }
-
-  if (hasOuterwear && dress && isStrappyInnerLayer(dress)) {
-    rules.push('thin straps read as the inner dress; outerwear keeps its own shoulder construction');
-  }
-
-  if (hasOuterwear && top && isStrappyInnerLayer(top)) {
-    rules.push('thin straps read as the inner top; outerwear keeps its own shoulder construction');
-  }
-
-  if (legwear && bottom && isLongBottomLayer(bottom)) {
-    rules.push('legwear stays secondary, appearing near hems or openings when naturally visible');
-  }
-
-  if (bottom && isLongBottomLayer(bottom)) {
-    rules.push('long bottom keeps its natural drape while footwear remains normally readable');
-  }
-
-  if (rules.length === 0) return '';
-  return `realistic outer-to-inner dressing order: ${rules.join('; ')}`;
+function buildWardrobeLayeringLogicPrompt() {
+  return '';
 }
 
 function buildHairColorPrompt(item) {

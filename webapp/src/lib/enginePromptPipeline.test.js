@@ -593,7 +593,7 @@ test('Gpt single-subject prompt preserves full-fidelity pose composer special-se
   assert.match(bathtubWet.pose, /head angled close to a support surface or shoulder line with the cheek plane following the selected support contact/i);
 });
 
-test('Gpt single-subject prompt preserves full-fidelity footwear outerwear and layering details', () => {
+test('Gpt single-subject prompt preserves full-fidelity footwear and outerwear details without guard text', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -628,12 +628,12 @@ test('Gpt single-subject prompt preserves full-fidelity footwear outerwear and l
   assert.match(wardrobe, /outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer/i);
   assert.match(wardrobe, /white ribbed ankle socks, soft cotton texture/i);
   assert.match(wardrobe, /white adidas samba og sneakers, gum sole, three-stripe side detail, terrace football styling/i);
-  assert.match(wardrobe, /outerwear remains a coherent outer layer; inner garment appears at natural openings/i);
+  assert.doesNotMatch(wardrobe, /outerwear remains a coherent outer layer; inner garment appears at natural openings/i);
   assert.doesNotMatch(wardrobe, /properly worn with intact shoulders, sleeves, lapels and hem/i);
 
   assert.doesNotMatch(prompt.zImagePrompt, /casual structured outerwear/i);
   assert.doesNotMatch(prompt.zImagePrompt, /soft cotton texture/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /terrace football styling/i);
+  assert.match(prompt.zImagePrompt, /terrace football styling/i);
 
   const [normalOuterwearPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -1385,7 +1385,7 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     subjectCount: '1',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   };
-  const noZGuard = /top length meets|top hem overlaps|top hem worn naturally|waistband sitting on the hips|body-skimming lower-body fit|realistic outer-to-inner dressing order|outerwear remains a coherent outer layer|inner garment appears at natural openings|jacket body still readable|legwear stays secondary|long bottom keeps/i;
+  const noZGuard = /top length meets|top hem overlaps|top hem worn naturally|waistband sitting on the hips|body-skimming lower-body fit|realistic outer-to-inner dressing order|outerwear remains a coherent outer layer|inner garment appears at natural openings|thin straps read as the inner|outerwear keeps its own shoulder construction|jacket body still readable|legwear stays secondary|long bottom keeps/i;
 
   const [tieShirtPrompt] = generatePrompts(1, {
     ...baseLocks,
@@ -1435,6 +1435,25 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /layered over off-white shirt/i);
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /pleated mini skirt/i);
   assert.doesNotMatch(zImageWardrobeParagraph(outerwearPrompt), noZGuard);
+
+  const [techwearPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    outerwearId: optionId('outerwearId', '賽博反光科技風衣'),
+    outerwearColorId: optionId('outerwearColorId', '淺灰色'),
+    outerwearPatternId: optionId('outerwearPatternId', '粗橫條紋'),
+    topId: optionId('topId', '棉質細肩背心'),
+    topColorId: optionId('topColorId', '粉紅色'),
+    skirtId: optionId('skirtId', '網紗長裙'),
+    bottomColorId: optionId('bottomColorId', '紅色'),
+  });
+  assert.match(gptSection(techwearPrompt, 'Wardrobe'), /light grey iridescent reflective techwear trench coat/i);
+  assert.doesNotMatch(gptSection(techwearPrompt, 'Wardrobe'), noZGuard);
+  assert.match(zImageWardrobeParagraph(techwearPrompt), /light grey iridescent reflective techwear trench coat, waterproof shell texture/i);
+  assert.match(zImageWardrobeParagraph(techwearPrompt), /bold horizontal stripes across the outerwear/i);
+  assert.match(zImageWardrobeParagraph(techwearPrompt), /layered over pink cotton camisole top/i);
+  assert.match(zImageWardrobeParagraph(techwearPrompt), /red mesh maxi skirt/i);
+  assert.doesNotMatch(zImageWardrobeParagraph(techwearPrompt), /futuristic long outerwear structure|bold horizontal stripe outerwear|clearly defined stripe bands across the jacket/i);
+  assert.doesNotMatch(zImageWardrobeParagraph(techwearPrompt), noZGuard);
 
   const [bikiniPrompt] = generatePrompts(1, {
     ...baseLocks,

@@ -331,7 +331,7 @@
 | **外套 (Outerwear)** | 西裝外套 | `blazer, tailored jacket structure, defined lapels, clean shoulder line, polished suiting fabric` | 以西裝翻領、清楚肩線、挺版西裝布與乾淨剪裁為主，是最基礎的外層西裝輪廓。 |
 | **外套 (Outerwear)** | 運動連帽外套 | `sport zip-up hoodie, athletic hooded jacket, ribbed cuffs and hem, casual performance knit structure` | 以運動感連帽、前拉鍊、羅紋袖口下擺與較俐落的機能針織結構為主。 |
 | **外套 (Outerwear)** | 龐克皮衣 | `punk leather jacket, moto-inspired leather outerwear, sharp lapels, zipper hardware, structured edgy silhouette` | 以皮革表面、騎士外套式翻領、拉鍊五金與硬挺短外層輪廓為主。 |
-| **外套 (Outerwear)** | 賽博反光科技風衣 | `iridescent reflective techwear trench coat, waterproof shell texture, futuristic long outerwear structure` | 以虹彩反光、防水機能布、長版風衣結構與俐落科技感材質為主。 |
+| **外套 (Outerwear)** | 賽博反光科技風衣 | `iridescent reflective techwear trench coat, waterproof shell texture` | 以虹彩反光、防水機能布與俐落科技感材質為主，風衣輪廓由單品名稱本身帶出。 |
 | **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `fluffy teddy fleece jacket, plush pile texture, rounded cozy outerwear structure` | 以蓬鬆毛絨、柔軟刷毛表面與圓潤保暖外套份量為主。 |
 | **外套 (Outerwear)** | 飛行夾克 | `bomber jacket, flight jacket structure, ribbed collar cuffs and hem, rounded casual outerwear volume` | 以飛行夾克結構、羅紋領口袖口下擺與圓潤短外套份量為主。 |
 | **外套 (Outerwear)** | 短版皮外套 | `cropped leather moto jacket, short hem, leather panels, zipper hardware, structured cropped outerwear shape` | 以短版衣長、皮革拼片、拉鍊五金與騎士外套結構為主，外層比例更短更俐落。 |
@@ -350,7 +350,7 @@
 | **外套穿法 (Outerwear Styling)** | 正常穿著 | `outerwear worn normally on both shoulders in a standard outer-layer position` | 外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。 |
 | **外套穿法 (Outerwear Styling)** | 滑落肩部 | `outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer` | 外套滑到肩線下方，袖子仍自然套在手臂上，外套本體仍能讀作外層。 |
 | **外套圖案 (Outerwear Surface Design)** | 全無 | `no added outerwear pattern, clean solid-color outer layer styling` | 不額外加入外套圖案，保留外套本身的輪廓、材質與層次。 |
-| **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripe outerwear, clearly defined stripe bands across the jacket, strong graphic layering` | 以明顯橫向條帶覆蓋外套，讓外層單品更有經典條紋與圖形感。 |
+| **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripes across the outerwear, strong graphic layering` | 以明顯橫向條帶覆蓋外套，使用中性的 outerwear 語言適配夾克、風衣與外層單品。 |
 | **外套圖案 (Outerwear Surface Design)** | 細直條紋 | `clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket` | 以俐落直條紋覆蓋外套表面，形成結構化外層單品的線性節奏。 |
 | **外套圖案 (Outerwear Surface Design)** | 胸前龐克塗鴉印花 | `large punk graffiti graphic on the front of the outerwear, bold statement artwork, rebellious streetwear focal point` | 以外套正面的大面積龐克塗鴉圖像為主，讓外層成為穿搭的主要視覺焦點。 |
 | **外套圖案 (Outerwear Surface Design)** | 滿版龐克塗鴉印花 | `all-over punk graffiti print across the outerwear, rebellious hand-drawn markings, dense graphic streetwear shell` | 以整件外套都覆蓋龐克塗鴉圖樣為重點，整體更街頭、更具次文化感。 |

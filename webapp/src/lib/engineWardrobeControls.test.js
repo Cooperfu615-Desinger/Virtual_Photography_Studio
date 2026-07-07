@@ -246,8 +246,8 @@ test('outerwear and long shirt compose as explicit outer-over-inner layers', () 
   assert.match(grokWardrobeLine, /dark grey denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear[\s\S]*layered over[\s\S]*off-white longline shirt/);
   assert.match(grokWardrobeLine, /outerwear worn normally on both shoulders/);
   assert.doesNotMatch(grokWardrobeLine, /She wears properly worn on both shoulders, dark grey denim jacket/);
-  assert.match(grokWardrobeLine, /realistic outer-to-inner dressing order/);
-  assert.match(grokWardrobeLine, /outerwear remains a coherent outer layer; inner garment appears at natural openings/);
+  assert.doesNotMatch(grokWardrobeLine, /realistic outer-to-inner dressing order/);
+  assert.doesNotMatch(grokWardrobeLine, /outerwear remains a coherent outer layer|inner garment appears at natural openings/);
   assert.match(prompt.zImagePrompt, /dark grey washed denim jacket[\s\S]*layered over[\s\S]*off-white longline shirt/);
   assert.doesNotMatch(prompt.zImagePrompt, /properly worn on both shoulders|paired with off-white longline shirt/);
 });
@@ -263,6 +263,17 @@ test('outerwear opening and styling prompts use positive flexible wording', () =
   assert.doesNotMatch(normalOuterwear.en, /properly worn|shoulder line fully covered/i);
   assert.match(slippedOuterwear.en, /slipped below the shoulder line/);
   assert.doesNotMatch(slippedOuterwear.en, /intentionally|one or both shoulders/i);
+});
+
+test('outerwear garment and pattern prompts avoid redundant structure and jacket-specific wording', () => {
+  const techwearTrench = optionByLabel('outerwearId', '賽博反光科技風衣');
+  const boldHorizontalStripe = optionByLabel('outerwearPatternId', '粗橫條紋');
+
+  assert.match(techwearTrench.en, /iridescent reflective techwear trench coat/);
+  assert.match(techwearTrench.en, /waterproof shell texture/);
+  assert.doesNotMatch(techwearTrench.en, /futuristic long outerwear structure/i);
+  assert.match(boldHorizontalStripe.en, /bold horizontal stripes across the outerwear/i);
+  assert.doesNotMatch(boldHorizontalStripe.en, /bold horizontal stripe outerwear|stripe bands across the jacket/i);
 });
 
 test('outerwear fit and opening compose before pattern and shoulder styling', () => {
@@ -290,11 +301,11 @@ test('outerwear fit and opening compose before pattern and shoulder styling', ()
     'outerwear fit should appear before the outerwear item'
   );
   assert.ok(
-    grokWardrobeLine.indexOf('denim jacket') < grokWardrobeLine.indexOf('bold horizontal stripe outerwear'),
+    grokWardrobeLine.indexOf('denim jacket') < grokWardrobeLine.indexOf('bold horizontal stripes across the outerwear'),
     'outerwear item should appear before outerwear pattern'
   );
   assert.ok(
-    grokWardrobeLine.indexOf('bold horizontal stripe outerwear') < grokWardrobeLine.indexOf('worn open at the front'),
+    grokWardrobeLine.indexOf('bold horizontal stripes across the outerwear') < grokWardrobeLine.indexOf('worn open at the front'),
     'outerwear opening should appear after outerwear pattern'
   );
   assert.ok(
@@ -557,7 +568,7 @@ test('special outfit controls expose approved complete looks and remove stale ex
   assert.ok(!optionLabels.includes('黑色鉚釘兜帽皮革迷你裙造型'));
 });
 
-test('wardrobe layering logic keeps long tops untucked over shorts', () => {
+test('final prompts omit long-top over short-bottom guard wording', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -567,13 +578,12 @@ test('wardrobe layering logic keeps long tops untucked over shorts', () => {
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
 
-  assert.match(promptText, /Wardrobe:\n[\s\S]*long top falls over the waistband/);
-  assert.match(promptText, /long top falls over the waistband/);
-  assert.match(promptText, /shorts partly visible below the hem/);
-  assert.doesNotMatch(promptText, /do not tuck the long top into the shorts/);
+  assert.match(promptText, /oversized cable-knit sweater/);
+  assert.match(promptText, /micro athletic shorts/);
+  assert.doesNotMatch(promptText, /long top falls over the waistband|shorts partly visible below the hem|do not tuck the long top into the shorts/);
 });
 
-test('wardrobe layering logic preserves outerwear over strappy dresses', () => {
+test('final prompts omit outerwear over strappy dress guard wording', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -583,9 +593,9 @@ test('wardrobe layering logic preserves outerwear over strappy dresses', () => {
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
 
-  assert.match(promptText, /outerwear remains a coherent outer layer; inner garment appears at natural openings/);
-  assert.match(promptText, /thin straps read as the inner dress; outerwear keeps its own shoulder construction/);
-  assert.doesNotMatch(promptText, /do not turn the outerwear into slipped straps/);
+  assert.match(promptText, /blazer/);
+  assert.match(promptText, /spaghetti-strap mini dress/);
+  assert.doesNotMatch(promptText, /outerwear remains a coherent outer layer|inner garment appears at natural openings|thin straps read as the inner dress|outerwear keeps its own shoulder construction|do not turn the outerwear into slipped straps/);
 });
 
 test('outfit preset and dress option labels use unified prefixes without fixed color wording', () => {
@@ -705,7 +715,7 @@ test('special top and bottom palette applies to dress controls', () => {
   assert.match(promptText, /lower hem or skirt accent/);
 });
 
-test('wardrobe layering logic makes legwear secondary under long bottoms', () => {
+test('final prompts omit legwear under long-bottom guard wording', () => {
   const [pantsPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -722,10 +732,10 @@ test('wardrobe layering logic makes legwear secondary under long bottoms', () =>
   const pantsText = [pantsPrompt.grokPrompt, pantsPrompt.zImagePrompt].join('\n');
   const skirtText = [skirtPrompt.grokPrompt, skirtPrompt.zImagePrompt].join('\n');
 
-  assert.match(pantsText, /legwear stays secondary, appearing near hems or openings when naturally visible/);
-  assert.doesNotMatch(pantsText, /do not force full socks or stockings to be completely displayed/);
-  assert.match(skirtText, /legwear stays secondary, appearing near hems or openings when naturally visible/);
-  assert.match(skirtText, /long bottom keeps its natural drape while footwear remains normally readable/);
+  assert.match(pantsText, /straight-leg jeans/);
+  assert.match(skirtText, /maxi skirt|long skirt/);
+  assert.doesNotMatch(pantsText, /legwear stays secondary|do not force full socks or stockings to be completely displayed/);
+  assert.doesNotMatch(skirtText, /legwear stays secondary|long bottom keeps its natural drape|do not force full socks or stockings to be completely displayed/);
 });
 
 test('face close-up framing locks wardrobe controls while keeping location and pose inputs available', () => {
