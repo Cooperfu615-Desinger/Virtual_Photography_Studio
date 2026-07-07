@@ -1081,6 +1081,7 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
         outerwearId: optionId('outerwearId', '全無'),
         locationId: optionId('locationId', '室內：九龍城寨內部狹窄走道'),
         poseId: optionId('poseId', '站姿｜雙臂交疊'),
+        framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
       },
       expected: [
         /triangle bikini top/i,
@@ -1144,6 +1145,47 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
       assert.match(prompt.zImagePrompt, pattern, `${promptCase.name} should preserve ${pattern}`);
     }
   }
+});
+
+test('Z-Image chest-up framing removes hidden body-shape descriptors', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '胸上特寫'),
+    bodyTypeId: optionId('bodyTypeId', '柔和沙漏身形'),
+    topId: optionId('topId', '棉質細肩背心'),
+  });
+
+  assert.match(prompt.zImagePrompt, /soft upper-body curves/i);
+  assert.match(prompt.zImagePrompt, /fuller bust/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /wider hips/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /longer torso/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /subtle abdomen/i);
+});
+
+test('Z-Image chest-up framing removes hidden pose camera and scene pressure', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '胸上特寫'),
+    locationId: optionId('locationId', '室內：狹小都會旅館房間'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：透視背心漆皮短褲長靴'),
+    poseBaseId: optionId('poseBaseId', '坐姿'),
+    poseArrangementId: optionId('poseArrangementId', '坐姿身體前傾'),
+    poseHandId: optionId('poseHandId', '一手撐地一手放腿上'),
+    poseHeadId: optionId('poseHeadId', '側臉看向遠方'),
+    angleId: optionId('angleId', '膝蓋高度鏡頭'),
+    expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
+  });
+
+  assert.match(prompt.zImagePrompt, /low seated posture with the upper body leaning forward/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /sitting on the floor/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /supporting on floor/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /resting on the leg/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /legs and shoes emphasized/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /face oriented away from the camera/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /clear spatial context/i);
+  assert.match(prompt.zImagePrompt, /without widening the portrait crop/i);
 });
 
 test('AI duo prompt uses compact labeled role sections', () => {

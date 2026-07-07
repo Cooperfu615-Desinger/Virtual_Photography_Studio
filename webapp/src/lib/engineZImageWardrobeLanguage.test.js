@@ -10,6 +10,15 @@ function optionId(controlKey, zh) {
   return option.id;
 }
 
+function createAllNoneLocks() {
+  const locks = { ...createEmptyLocks() };
+  getLockControls().forEach((control) => {
+    const noneOption = control.options?.find((entry) => entry.zh === '全無');
+    if (noneOption) locks[control.key] = noneOption.id;
+  });
+  return locks;
+}
+
 test('Z-Image describes outfit presets with natural wardrobe language', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -49,4 +58,58 @@ test('Z-Image keeps outerwear secondary when layered over an outfit preset', () 
   assert.doesNotMatch(wardrobeSentence, /open oversized zip-up hoodie/);
   assert.match(wardrobeSentence, /layered over pink Parisian linen trouser outfit/);
   assert.match(wardrobeSentence, /paired with black pointed-toe stiletto heels/);
+});
+
+test('Z-Image chest-up outfit preset deletes hidden legwear and shoes add-ons', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '胸上特寫'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：透視背心漆皮短褲長靴'),
+    outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '白色'),
+    legwearId: optionId('legwearId', '羅紋短襪'),
+    shoesId: optionId('shoesId', '尖頭細跟高跟鞋'),
+  });
+
+  assert.match(prompt.zImagePrompt, /cropped sheer fitted tank top/i);
+  assert.match(prompt.zImagePrompt, /strapless lace bra layer/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /exposed navel and abdomen/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /low-rise glossy micro shorts/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /knee-high leather boots/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /ribbed ankle socks/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /pointed-toe stiletto heels/i);
+});
+
+test('Z-Image chest-up normal separates keep upper garments and delete hidden lower wardrobe', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '胸上特寫'),
+    topId: optionId('topId', '棉質細肩背心'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    legwearId: optionId('legwearId', '羅紋短襪'),
+    shoesId: optionId('shoesId', '尖頭細跟高跟鞋'),
+  });
+
+  assert.match(prompt.zImagePrompt, /cotton camisole/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /straight-leg jeans/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /ribbed ankle socks/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /pointed-toe stiletto heels/i);
+});
+
+test('Z-Image cowboy framing keeps bottoms but deletes footwear details', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '牛仔中景 (Cowboy Shot)'),
+    topId: optionId('topId', '棉質細肩背心'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    legwearId: optionId('legwearId', '羅紋短襪'),
+    shoesId: optionId('shoesId', '尖頭細跟高跟鞋'),
+  });
+
+  assert.match(prompt.zImagePrompt, /cotton camisole/i);
+  assert.match(prompt.zImagePrompt, /straight-leg jeans/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /ribbed ankle socks/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /pointed-toe stiletto heels/i);
 });

@@ -7819,6 +7819,10 @@ function shouldKeepCompleteLookWardrobeRole(role, visibilityMode) {
   return true;
 }
 
+function isCompleteLookLowerTorsoFragment(fragment) {
+  return /\b(?:navel|abdomen|midriff|belly|stomach|lower torso|waistline|hipbones?|hips?)\b/i.test(fragment || '');
+}
+
 function filterCompleteLookPromptForFraming(value, context) {
   const visibilityMode = getCompleteLookVisibilityMode(context);
   const text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
@@ -7838,6 +7842,7 @@ function filterCompleteLookPromptForFraming(value, context) {
   for (const fragment of splitGptSpecialOutfitFragments(text)) {
     const role = classifyCompleteLookWardrobeFragment(fragment);
     if (!role) {
+      if (visibilityMode === 'upper' && isCompleteLookLowerTorsoFragment(fragment)) continue;
       buckets.passthrough.push(fragment);
       continue;
     }
@@ -7872,6 +7877,142 @@ function buildVisibleSpecialOutfitPrompt(item, palette = null, context = null) {
 
 function buildVisibleOutfitPresetPrompt(item, colorState = {}, context = null) {
   return filterCompleteLookPromptForFraming(buildOutfitPresetPrompt(item, colorState), context);
+}
+
+function getPromptVisibilityBucket(context) {
+  if (!context?.framing || isNoneLikeItem(context.framing)) return 'fullWide';
+  if (isFaceOnlyCloseupFramingItem(context.framing)) return 'faceClose';
+  const visibility = context.framing?.meta?.visibility || '';
+  if (visibility === 'close') return 'faceClose';
+  if (visibility === 'portrait') return 'portraitUpper';
+  if (visibility === 'medium') {
+    return /cowboy|牛仔/i.test(`${context.framing.zh || ''} ${context.framing.en || ''}`) ? 'cowboyKnee' : 'mediumUpper';
+  }
+  return 'fullWide';
+}
+
+function isUpperCropVisibilityBucket(bucket) {
+  return bucket === 'faceClose' || bucket === 'portraitUpper';
+}
+
+function shouldKeepWardrobeRoleForVisibility(role, bucket) {
+  if (!role || bucket === 'fullWide') return true;
+  if (isUpperCropVisibilityBucket(bucket)) {
+    return role !== 'bottom' && role !== 'legwear' && role !== 'shoes' && role !== 'bag';
+  }
+  if (bucket === 'mediumUpper' || bucket === 'cowboyKnee') {
+    return role !== 'legwear' && role !== 'shoes' && role !== 'bag';
+  }
+  return true;
+}
+
+function filterZImageWardrobeAddonForFraming(value, context, roleOverride = '') {
+  const text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+  if (!text) return '';
+  const bucket = getPromptVisibilityBucket(context);
+  if (bucket === 'fullWide') return text;
+  const role = roleOverride || classifyCompleteLookWardrobeFragment(text);
+  return shouldKeepWardrobeRoleForVisibility(role, bucket) ? text : '';
+}
+
+function cleanVisibilityFilteredText(value) {
+  return stripMarkdown(value || '')
+    .replace(/\s+/g, ' ')
+    .replace(/\s*;\s*/g, '; ')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*;/g, ';')
+    .replace(/;\s*,/g, ';')
+    .replace(/,\s*\./g, '.')
+    .replace(/;\s*\./g, '.')
+    .replace(/\.\s*,/g, ',')
+    .trim();
+}
+
+function filterZImageBodyTypeForFraming(value, context) {
+  const bucket = getPromptVisibilityBucket(context);
+  let text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+  if (!text || bucket === 'fullWide') return text;
+
+  if (isUpperCropVisibilityBucket(bucket)) {
+    text = text
+      .replace(
+        /\bsoft natural hourglass body,\s*about 165-170 cm visual height,\s*90-62-94 body proportion anchor,\s*balanced torso-to-leg ratio around 4:6,\s*longer upper torso,\s*lower waistline,\s*fuller bust,\s*wider hips,\s*elongated abdomen with subtle contour lines\b/gi,
+        'soft upper-body curves, fuller bust'
+      )
+      .replace(/\bsoft hourglass body,\s*fuller bust,\s*wider hips\b/gi, 'soft upper-body curves, fuller bust')
+      .replace(/\btall slim-curvy hourglass body,\s*long legs,\s*narrow waist,\s*rounded hips\b/gi, 'slim upper-body portrait silhouette, narrow waist')
+      .replace(/\btall slim fashion body,\s*long legs,\s*high waistline\b/gi, 'tall slim upper-body portrait silhouette')
+      .replace(/\bnatural balanced body proportions\b/gi, 'natural balanced upper-body proportions')
+      .replace(/\bpetite polished body,\s*compact proportions\b/gi, 'petite polished upper-body proportions');
+  }
+
+  return text
+    .split(/\s*,\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .filter((part) => {
+      if (bucket === 'fullWide') return true;
+      if (isUpperCropVisibilityBucket(bucket)) {
+        return !/\b(?:hips?|pelvis|hip line|long legs?|slender legs?|legs?|thighs?|lower legs?|calves|knees?|feet|foot|toes?|torso-to-leg|visual height|body proportion anchor|waistline|abdomen)\b/i.test(part);
+      }
+      return !/\b(?:feet|foot|toes?|lower legs?|calves)\b/i.test(part);
+    })
+    .join(', ');
+}
+
+function filterZImagePoseForFraming(value, context) {
+  const bucket = getPromptVisibilityBucket(context);
+  let text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+  if (!text || bucket === 'fullWide') return text;
+
+  if (isUpperCropVisibilityBucket(bucket)) {
+    text = text
+      .replace(/\bShe is sitting with grounded forward-leaning seated arrangement,\s*upper body angled forward with stable seated weight\b/gi, 'She holds a low seated posture with the upper body leaning forward')
+      .replace(/\bgrounded forward-leaning seated arrangement,\s*upper body angled forward with stable seated weight\b/gi, 'low seated posture with the upper body leaning forward')
+      .replace(/\bsitting on the floor with grounded forward-leaning seated arrangement\b/gi, 'low seated posture with the upper body leaning forward')
+      .replace(/\bhead turned into a clean side profile with the face oriented away from the camera\b/gi, 'head turned into a readable three-quarter profile with facial features still visible');
+  }
+
+  const lowerBodyPoseClause = (part) => {
+    if (isUpperCropVisibilityBucket(bucket)) {
+      return /\b(?:supporting on floor|supporting on the floor|resting on the leg|hands? on thighs?|upper-leg|hand holding the knee|near knees?|knees?|thighs?|ankles?|shoe|feet|foot|toes?|heels?|floor-seated|sitting on the floor|kneeling on floor|lying on floor|lower abdomen|one knee raised|legs? naturally|legs? extended|cross-legged|leg-cross|feet grounded)\b/i.test(part);
+    }
+    if (bucket === 'mediumUpper' || bucket === 'cowboyKnee') {
+      return /\b(?:shoe|feet|foot|toes?|heels?|ankles?)\b/i.test(part);
+    }
+    return false;
+  };
+
+  const parts = text
+    .split(/\s*;\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .filter((part) => !lowerBodyPoseClause(part));
+
+  return cleanVisibilityFilteredText(parts.join('; '));
+}
+
+function filterZImageCameraForFraming(value, context) {
+  const bucket = getPromptVisibilityBucket(context);
+  let text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+  if (!text || bucket === 'fullWide') return text;
+
+  if (isUpperCropVisibilityBucket(bucket)) {
+    text = text
+      .replace(/\bknee-level camera,\s*level lens axis,\s*legs and shoes emphasized\b/gi, 'low portrait camera angle, level lens axis')
+      .replace(/\bfloor-level camera position,\s*upward view,\s*elongated full-body perspective\b/gi, 'low portrait camera angle')
+      .replace(/,\s*(?:legs and shoes emphasized|full lower legs and feet clearly visible|legwear and shoes clearly visible|shoes clearly visible|bare feet clearly shown|full-body composition|head-to-toe|complete outfit visible|full figure|full wardrobe visible)\b/gi, '');
+  } else if (bucket === 'mediumUpper') {
+    text = text
+      .replace(/\blegs and shoes emphasized\b/gi, 'waist-up proportions readable')
+      .replace(/,\s*(?:full lower legs and feet clearly visible|legwear and shoes clearly visible|shoes clearly visible|bare feet clearly shown)\b/gi, '');
+  } else if (bucket === 'cowboyKnee') {
+    text = text
+      .replace(/\blegs and shoes emphasized\b/gi, 'knee-up proportions readable')
+      .replace(/,\s*(?:full lower legs and feet clearly visible|legwear and shoes clearly visible|shoes clearly visible|bare feet clearly shown)\b/gi, '');
+  }
+
+  return cleanVisibilityFilteredText(text);
 }
 
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
@@ -10682,6 +10823,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
   const buildZImageScenePriorityText = () => {
     if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
     if (isSolidColorStudioLocation(context.location)) return '';
+    if (isUpperCropVisibilityBucket(getPromptVisibilityBucket(context))) {
+      return 'Scene priority: keep the selected environment readable through close background cues without widening the portrait crop';
+    }
     return buildScenePriorityPrompt(context, { labeled: true });
   };
   const buildZImageLocationText = () => {
@@ -10780,7 +10924,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       ),
       context.subject.count === 2
         ? [buildRoleHasPrompt(characterSlots.bodyTypeA, 'woman 1'), buildRoleHasPrompt(characterSlots.bodyTypeB, 'woman 2')].filter(Boolean).join(', ')
-        : (characterSlots.bodyType && !isNoneLikeItem(characterSlots.bodyType) ? characterSlots.bodyType.en : ''),
+        : (characterSlots.bodyType && !isNoneLikeItem(characterSlots.bodyType) ? filterZImageBodyTypeForFraming(characterSlots.bodyType.en, context) : ''),
       context.subject.count === 2
         ? [
             characterSlots.facialFeaturesA && !isNoneLikeItem(characterSlots.facialFeaturesA)
@@ -10831,7 +10975,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       poseText,
     ].filter(Boolean);
 
-    return parts.length > 0 ? compressZImageSinglePoseText(parts.join(', '), context) : '';
+    if (parts.length === 0) return '';
+    return filterZImagePoseForFraming(compressZImageSinglePoseText(parts.join(', '), context), context);
   };
   const buildWardrobeText = () => {
     const parts = [];
@@ -10874,8 +11019,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       const suffix = role === 'a' ? 'A' : 'B';
       return [
         buildRoleOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors, role),
-        buildColoredGrokPrompt(wardrobeSlots[`legwear${suffix}`], wardrobeColors[`legwear${suffix}Color`]),
-        buildColoredGrokPrompt(wardrobeSlots[`shoes${suffix}`], wardrobeColors[`shoes${suffix}Color`]),
+        filterZImageWardrobeAddonForFraming(buildColoredGrokPrompt(wardrobeSlots[`legwear${suffix}`], wardrobeColors[`legwear${suffix}Color`]), context, 'legwear'),
+        filterZImageWardrobeAddonForFraming(buildColoredGrokPrompt(wardrobeSlots[`shoes${suffix}`], wardrobeColors[`shoes${suffix}Color`]), context, 'shoes'),
       ].filter(Boolean).join(', ');
     };
     const buildRoleMainText = (role) => {
@@ -10918,8 +11063,8 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
 
       return [
         outerwearFirstTopText || topText || fallbackOuterwearText,
-        buildRoleBottomWardrobePrompt(wardrobeSlots[`pants${suffix}`], wardrobeSlots, wardrobeColors, role),
-        buildRoleBottomWardrobePrompt(wardrobeSlots[`skirt${suffix}`], wardrobeSlots, wardrobeColors, role),
+        filterZImageWardrobeAddonForFraming(buildRoleBottomWardrobePrompt(wardrobeSlots[`pants${suffix}`], wardrobeSlots, wardrobeColors, role), context, 'bottom'),
+        filterZImageWardrobeAddonForFraming(buildRoleBottomWardrobePrompt(wardrobeSlots[`skirt${suffix}`], wardrobeSlots, wardrobeColors, role), context, 'bottom'),
       ].filter(Boolean).join(', ');
     };
 
@@ -10937,14 +11082,14 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       add(buildRoleLayerText('a') ? `woman 1 additional styling includes ${buildRoleLayerText('a')}` : '');
       add(buildRoleLayerText('b') ? `woman 2 additional styling includes ${buildRoleLayerText('b')}` : '');
       add(buildSingleOuterwearText());
-      add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
-      add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+      add(filterZImageWardrobeAddonForFraming(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), context, 'legwear'));
+      add(filterZImageWardrobeAddonForFraming(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), context, 'shoes'));
       add(duoWardrobeDifferentiationText);
     } else if (wardrobeSlots.outfitPreset) {
       const outfitPresetText = buildSingleOutfitPresetText();
       const outerwearText = buildSingleOuterwearText({ minimalStyling: true });
-      const legwearText = buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor);
-      const shoesText = buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor);
+      const legwearText = filterZImageWardrobeAddonForFraming(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), context, 'legwear');
+      const shoesText = filterZImageWardrobeAddonForFraming(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), context, 'shoes');
 
       if (outerwearText) {
         add(`She wears ${outerwearText}, layered over ${outfitPresetText}`);
@@ -10987,11 +11132,11 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       }
       add(mainWardrobeText);
       if (!dressText) {
-        add(buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors));
-        add(buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors));
+        add(filterZImageWardrobeAddonForFraming(buildBottomWardrobePrompt(wardrobeSlots.pants, wardrobeSlots, wardrobeColors), context, 'bottom'));
+        add(filterZImageWardrobeAddonForFraming(buildBottomWardrobePrompt(wardrobeSlots.skirt, wardrobeSlots, wardrobeColors), context, 'bottom'));
       }
-      add(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
-      add(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
+      add(filterZImageWardrobeAddonForFraming(buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor), context, 'legwear'));
+      add(filterZImageWardrobeAddonForFraming(buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor), context, 'shoes'));
       add(waistlineCompatibilityText);
       add(wardrobeLayeringLogicText);
     }
@@ -11051,7 +11196,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       ]);
     }
 
-    return leadSentence('The composition uses', [
+    return filterZImageCameraForFraming(leadSentence('The composition uses', [
       context.framing && !isNoneLikeItem(context.framing) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : resolvePromptVariant(context.framing, 'framing', context.subject.count)) : '',
       context.angle && !isNoneLikeItem(context.angle) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
       context.orbit && !isNoneLikeItem(context.orbit) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
@@ -11059,7 +11204,7 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
       context.aperture && !isNoneLikeItem(context.aperture) ? compactZImageCameraControlText(context.aperture.en) : '',
       context.shutter && !isNoneLikeItem(context.shutter) ? compactZImageCameraControlText(context.shutter.en) : '',
       opticalEffect && !isNoneLikeItem(opticalEffect) ? compactZImageOpticalEffectText(skeletonMode ? sanitizeSkeletonPromptText(opticalEffect.en) : opticalEffect.en) : '',
-    ]);
+    ]), context);
   };
   const buildPhotographyStyleText = () => joinSentenceParts([
     context.style && !isNoneLikeItem(context.style) ? compactZImagePhotographyStyleText(skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : context.style) : '',
