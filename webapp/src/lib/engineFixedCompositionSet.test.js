@@ -281,7 +281,7 @@ test('black velvet industrial sofa fixed composition shares sofa placement contr
 
   assert.ok(
     prompt.zImagePrompt.indexOf('real-scale compact editorial lounge set') <
-      prompt.zImagePrompt.indexOf('20-year-old Japanese or Korean female portrait subject'),
+      prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman'),
     'Expected black velvet sofa scene to appear before subject description in Z-Image prompt'
   );
   assert.match(prompt.zImagePrompt, /large matte black velvet sofa/);
@@ -506,7 +506,7 @@ test('Fuji hotel fixed compositions share hotel placement controls and seasonal 
 
     assert.ok(
       prompt.zImagePrompt.indexOf('real-scale luxury hotel room editorial set') <
-        prompt.zImagePrompt.indexOf('20-year-old Japanese or Korean female portrait subject'),
+        prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman'),
       'Expected fixed Fuji hotel scene to appear before subject description in Z-Image prompt'
     );
     assert.match(prompt.zImagePrompt, /Mount Fuji/);
@@ -618,7 +618,7 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.doesNotMatch(prompt.grokPrompt, /camera near the tub edge or waterline/);
 
   assert.ok(
-    prompt.zImagePrompt.indexOf('real-scale vintage bathroom editorial set') < prompt.zImagePrompt.indexOf('20-year-old Japanese or Korean female portrait subject'),
+    prompt.zImagePrompt.indexOf('real-scale vintage bathroom editorial set') < prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman'),
     'Expected fixed bathtub scene to appear before subject description in Z-Image prompt'
   );
   assert.doesNotMatch(prompt.zImagePrompt, /The portrait uses The portrait takes place/);

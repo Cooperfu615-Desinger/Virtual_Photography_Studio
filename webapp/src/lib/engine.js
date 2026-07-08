@@ -12,6 +12,8 @@ const SUBJECT_COUNT_OPTIONS = [
   { id: '2', zh: '2 位', en: 'two 20-year-old Japanese or Korean female portrait subjects', count: 2 },
 ];
 
+const FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE = 'A 20s seductive stunning Japanese or Korean woman.';
+
 const IMAGE_TYPE_PRESET_OPTIONS = [
   {
     id: 'photorealistic-photo',
@@ -7928,38 +7930,6 @@ function cleanVisibilityFilteredText(value) {
     .trim();
 }
 
-function filterZImageBodyTypeForFraming(value, context) {
-  const bucket = getPromptVisibilityBucket(context);
-  let text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
-  if (!text || bucket === 'fullWide') return text;
-
-  if (isUpperCropVisibilityBucket(bucket)) {
-    text = text
-      .replace(
-        /\bsoft natural hourglass body,\s*about 165-170 cm visual height,\s*90-62-94 body proportion anchor,\s*balanced torso-to-leg ratio around 4:6,\s*longer upper torso,\s*lower waistline,\s*fuller bust,\s*wider hips,\s*elongated abdomen with subtle contour lines\b/gi,
-        'soft upper-body curves, fuller bust'
-      )
-      .replace(/\bsoft hourglass body,\s*fuller bust,\s*wider hips\b/gi, 'soft upper-body curves, fuller bust')
-      .replace(/\btall slim-curvy hourglass body,\s*long legs,\s*narrow waist,\s*rounded hips\b/gi, 'slim upper-body portrait silhouette, narrow waist')
-      .replace(/\btall slim fashion body,\s*long legs,\s*high waistline\b/gi, 'tall slim upper-body portrait silhouette')
-      .replace(/\bnatural balanced body proportions\b/gi, 'natural balanced upper-body proportions')
-      .replace(/\bpetite polished body,\s*compact proportions\b/gi, 'petite polished upper-body proportions');
-  }
-
-  return text
-    .split(/\s*,\s*/)
-    .map((part) => part.trim())
-    .filter(Boolean)
-    .filter((part) => {
-      if (bucket === 'fullWide') return true;
-      if (isUpperCropVisibilityBucket(bucket)) {
-        return !/\b(?:hips?|pelvis|hip line|long legs?|slender legs?|legs?|thighs?|lower legs?|calves|knees?|feet|foot|toes?|torso-to-leg|visual height|body proportion anchor|waistline|abdomen)\b/i.test(part);
-      }
-      return !/\b(?:feet|foot|toes?|lower legs?|calves)\b/i.test(part);
-    })
-    .join(', ');
-}
-
 function filterZImagePoseForFraming(value, context) {
   const bucket = getPromptVisibilityBucket(context);
   let text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
@@ -9466,6 +9436,10 @@ function buildZImageSubjectLead(context) {
   return resolveImageTypePreset(context).zImageLead || 'Create a photorealistic editorial portrait of';
 }
 
+function buildZImageSubjectOpeningText(context) {
+  return buildZImageSubjectLead(context).replace(/\s+of$/i, '').trim();
+}
+
 function buildAiImageTypeLead(context) {
   return resolveImageTypePreset(context).aiLead || '';
 }
@@ -10204,6 +10178,33 @@ const GPT_SINGLE_HAIR_COLOR_MERGE_RULES = [
   { phrase: 'deep forest-green hair', modifier: 'deep forest-green' },
 ];
 
+const SINGLE_BODY_TYPE_ANCHOR_RULES = [
+  {
+    pattern: /sexy tall slim-curvy silhouette,\s*about 168-173 cm visual height and 53-58 kg lean visual weight,\s*94-58-92 body proportion anchor,\s*long legs with about 3\.8:6\.2 torso-to-leg balance,\s*full F-to-G-cup-scale bust,\s*narrow defined waist,\s*rounded hips,\s*flat abdomen,\s*dramatic but lean bust-waist-hip curve/i,
+    aiText: 'Sexy tall slim-curvy silhouette, 94-58-92 body proportion anchor, narrow defined waist, rounded hips, flat abdomen.',
+  },
+  {
+    pattern: /tall slim fashion body,\s*about 170-175 cm visual height,\s*80-58-88 body proportion anchor,\s*long legs with about 3\.5:6\.5 torso-to-leg balance,\s*shorter upper torso,\s*high waistline,\s*narrow ribcage,\s*gently wider hips,\s*clean editorial silhouette/i,
+    aiText: 'Tall slim fashion body, 80-58-88 body proportion anchor, long legs, high waistline, narrow ribcage, clean editorial silhouette.',
+  },
+  {
+    pattern: /soft natural hourglass body,\s*about 165-170 cm visual height,\s*90-62-94 body proportion anchor,\s*balanced torso-to-leg ratio around 4:6,\s*longer upper torso,\s*lower waistline,\s*fuller bust,\s*wider hips,\s*elongated abdomen with subtle contour lines/i,
+    aiText: 'Soft natural hourglass body, 90-62-94 body proportion anchor, fuller bust, wider hips, elongated abdomen with subtle contour lines.',
+  },
+  {
+    pattern: /natural basic body,\s*about 160-165 cm visual height,\s*83-62-88 body proportion anchor,\s*balanced torso-to-leg ratio around 4:6,\s*low-contrast waist curve,\s*modest bust and hips,\s*smooth natural silhouette/i,
+    aiText: 'Natural basic body, 83-62-88 body proportion anchor, low-contrast waist curve, modest bust and hips, smooth natural silhouette.',
+  },
+  {
+    pattern: /fit toned athletic female body,\s*healthy firm silhouette,\s*subtle muscle definition,\s*energetic balanced proportions/i,
+    aiText: 'Fit toned athletic body, firm silhouette, subtle muscle definition, energetic balanced proportions.',
+  },
+  {
+    pattern: /petite polished female body,\s*compact refined proportions,\s*delicate idol-like silhouette,\s*graceful small-frame presence/i,
+    aiText: 'Petite polished body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence.',
+  },
+];
+
 function escapeRegExpPattern(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -10535,10 +10536,33 @@ function naturalizeZImageXWardrobeText(value) {
     .trim();
 }
 
+function protectSingleBodyTypeAnchors(value) {
+  const anchors = [];
+  let output = value;
+
+  for (const rule of SINGLE_BODY_TYPE_ANCHOR_RULES) {
+    output = output.replace(new RegExp(rule.pattern.source, 'gi'), (match) => {
+      const token = `ZIMAGEBODYANCHOR${anchors.length}`;
+      anchors.push({ token, text: match });
+      return token;
+    });
+  }
+
+  return {
+    text: output,
+    restore(restoredValue) {
+      return anchors.reduce((result, anchor) => {
+        return result.replace(new RegExp(anchor.token, 'g'), anchor.text);
+      }, restoredValue);
+    },
+  };
+}
+
 function compressZImageSingleSubjectText(value, context) {
   if (context.subject?.count !== 1 || isSpecialSubject(context.subject)) return value;
 
-  return cleanZImageSinglePromptText(compressGptSingleSubjectText(value, {
+  const protectedBody = protectSingleBodyTypeAnchors(value);
+  const compressed = cleanZImageSinglePromptText(compressGptSingleSubjectText(protectedBody.text, {
     ...context,
     characterProfilePrompt: '',
   }))
@@ -10558,6 +10582,11 @@ function compressZImageSingleSubjectText(value, context) {
     .replace(/,\s*clean dark depth/gi, '')
     .replace(/,\s*gentle confident expression/gi, '')
     .replace(/,\s*bright approachable expression/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .trim();
+
+  return protectedBody.restore(compressed)
     .replace(/\s*,\s*,+/g, ', ')
     .replace(/,\s*\./g, '.')
     .trim();
@@ -10853,14 +10882,20 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
           buildAccessoryPrompt(wardrobeSlots.headAccessoryB) ? `woman 2 wearing ${cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessoryB)}` : '',
         ].filter(Boolean).join(', ')
       : cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessory);
+    const usesFixedSingleSubjectLead = context.subject.count === 1 && shouldUseFixedNormalSingleSubjectLead(context);
+    const subjectBaseText = usesFixedSingleSubjectLead
+      ? FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE
+      : useCharacterIdentityAnchor
+        ? `${context.subject.en} ${context.characterProfilePrompt}`
+        : context.subject.en;
     const parts = [
       appendSubjectAccessories(
-        useCharacterIdentityAnchor ? `${context.subject.en} ${context.characterProfilePrompt}` : context.subject.en,
+        subjectBaseText,
         subjectAccessoryText
       ),
       context.subject.count === 2
         ? [buildRoleHasPrompt(characterSlots.bodyTypeA, 'woman 1'), buildRoleHasPrompt(characterSlots.bodyTypeB, 'woman 2')].filter(Boolean).join(', ')
-        : (characterSlots.bodyType && !isNoneLikeItem(characterSlots.bodyType) ? filterZImageBodyTypeForFraming(characterSlots.bodyType.en, context) : ''),
+        : (characterSlots.bodyType && !isNoneLikeItem(characterSlots.bodyType) ? characterSlots.bodyType.en : ''),
       context.subject.count === 2
         ? [
             characterSlots.facialFeaturesA && !isNoneLikeItem(characterSlots.facialFeaturesA)
@@ -10895,7 +10930,9 @@ function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDi
         : '',
     ].filter(Boolean);
 
-    const text = leadSentence(buildZImageSubjectLead(context), parts);
+    const text = usesFixedSingleSubjectLead
+      ? sentence(`${buildZImageSubjectOpeningText(context)}. ${parts.join(', ')}`)
+      : leadSentence(buildZImageSubjectLead(context), parts);
     return context.subject.count === 1 ? compressZImageSingleSubjectText(text, context) : text;
   };
   const buildSinglePoseText = () => {
@@ -11266,6 +11303,18 @@ function compactAiMinimalFragment(value, limit = 4) {
     .join(', ');
 }
 
+function buildAiSingleBodyTypeAnchorText(valuesByLabel, context) {
+  if (!shouldUseFixedAiSingleSubjectLead(context)) return '';
+  const bodyTypeText = cleanAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Body Type']));
+  if (!bodyTypeText || /^none$/i.test(bodyTypeText)) return '';
+
+  const rule = SINGLE_BODY_TYPE_ANCHOR_RULES.find((entry) => {
+    return new RegExp(entry.pattern.source, 'i').test(bodyTypeText);
+  });
+
+  return rule ? rule.aiText : ensureTerminalPeriod(compactAiMinimalFragment(bodyTypeText, 4));
+}
+
 function splitAiMinimalFragments(value) {
   return cleanAiMinimalFragment(value)
     .replace(/\.\s+/g, ', ')
@@ -11511,15 +11560,19 @@ function firstStructuredValue(valuesByLabel, labels) {
   return getStructuredValues(valuesByLabel, labels)[0] || '';
 }
 
-function shouldUseFixedAiSingleSubjectLead(context) {
+function shouldUseFixedNormalSingleSubjectLead(context) {
   return context.subject?.count === 1
     && !isSpecialSubject(context.subject)
     && !isCharacterProfileSubject(context.subject)
     && !context.subject?.reference;
 }
 
+function shouldUseFixedAiSingleSubjectLead(context) {
+  return shouldUseFixedNormalSingleSubjectLead(context);
+}
+
 function buildAiSingleSubjectLead(context) {
-  return shouldUseFixedAiSingleSubjectLead(context) ? 'A stunning mid-20s Japanese or Korean woman.' : '';
+  return shouldUseFixedAiSingleSubjectLead(context) ? FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE : '';
 }
 
 function compactAiEyewearAccessoryText(eyewear, color = null, placement = null) {
@@ -11624,7 +11677,11 @@ function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
   }
 
   const singleSubjectLead = buildAiSingleSubjectLead(context);
-  if (singleSubjectLead) return singleSubjectLead;
+  if (singleSubjectLead) {
+    return [singleSubjectLead, buildAiSingleBodyTypeAnchorText(valuesByLabel, context)]
+      .filter(Boolean)
+      .join(' ');
+  }
 
   return context.subject?.count === 2
     ? 'Two seductive stunning 20-year-old Japanese or Korean women'
