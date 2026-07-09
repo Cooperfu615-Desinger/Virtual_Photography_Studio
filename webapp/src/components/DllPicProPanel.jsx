@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   DLL_PIC_ASPECT_RATIOS,
-  DLL_PIC_RESOLUTIONS,
   DLL_PIC_STORAGE_KEYS,
   getDllPicApiKeyForModel,
   generateDllPicImages,
   getDllPicApiKeyStorageKeys,
   getDllPicModelConfig,
   getDllPicResolutionOption,
+  getDllPicResolutionOptions,
   getDllPicSelectableModelEntries,
   normalizeDllPicModelKey,
 } from '../lib/dllPicProClient.js';
+import { generateBytePlusViaFirebase } from '../lib/bytePlusProxyClient.js';
 import { downloadImageFile } from '../lib/imageDownload.js';
 import { downloadMagnificImageViaFirebase, generateMagnificViaFirebase } from '../lib/magnificProxyClient.js';
 
@@ -68,6 +69,12 @@ const DLL_PIC_API_KEY_FIELDS = [
 ];
 
 const DLL_PIC_PROXY_FIELDS = [
+  {
+    provider: 'byteplus',
+    label: 'BytePlus ARK API Key',
+    status: 'Firebase Secret',
+    description: '由 Firebase Functions proxy 使用伺服端 BYTEPLUS_ARK_API_KEY，不會儲存在瀏覽器。',
+  },
   {
     provider: 'magnific',
     label: 'Magnific API Key',
@@ -136,7 +143,7 @@ export default function DllPicProPanel({
   const [selectedSourceId, setSelectedSourceId] = useState(initialSourceId);
   const [aspectRatio, setAspectRatio] = useState('9:16');
   const [resolution, setResolution] = useState(() => (
-    getDllPicResolutionOption(loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
+    getDllPicResolutionOption(loadStoredModelKey(), loadStoredValue(DLL_PIC_STORAGE_KEYS.resolution, '1k')).value
   ));
   const [count, setCount] = useState(1);
   const [images, setImages] = useState(loadDevPreviewImages);
@@ -148,8 +155,10 @@ export default function DllPicProPanel({
   const [message, setMessage] = useState(() => (loadDevPreviewImages().length ? '已套用本地預覽圖' : ''));
 
   const activeModel = getDllPicModelConfig(modelKey);
+  const activeResolution = getDllPicResolutionOption(modelKey, resolution).value;
+  const activeResolutionOptions = getDllPicResolutionOptions(modelKey);
   const activeModelNote = activeModel.supportsResolution
-    ? `${activeModel.generationModel} / ${resolution.toUpperCase()}`
+    ? `${activeModel.generationModel} / ${activeResolution.toUpperCase()}`
     : activeModel.imageSize
       ? `${activeModel.generationModel} / ${activeModel.imageSize}`
       : activeModel.generationModel;
@@ -165,9 +174,11 @@ export default function DllPicProPanel({
   const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
   const activeProviderLabel = activeModel.provider === 'magnific'
     ? 'Magnific'
-    : activeModel.provider === 'xai'
-      ? 'xAI'
-      : 'Gemini';
+    : activeModel.provider === 'byteplus'
+      ? 'BytePlus'
+      : activeModel.provider === 'xai'
+        ? 'xAI'
+        : 'Gemini';
   const activeKeyStatus = activeModel.usesServerProxy
     ? `${activeProviderLabel} Proxy 已連接`
     : activeApiKey
@@ -228,15 +239,16 @@ export default function DllPicProPanel({
     setPreviewImageSize(null);
 
     try {
-      saveStoredGenerationSettings(modelKey, resolution);
+      saveStoredGenerationSettings(modelKey, activeResolution);
       const result = await generateDllPicImages({
         apiKey,
         modelKey,
         prompt: selectedPrompt,
         aspectRatio,
         count,
-        resolution,
+        resolution: activeResolution,
         magnificGenerate: generateMagnificViaFirebase,
+        bytePlusGenerate: generateBytePlusViaFirebase,
       });
       setImages(result.images);
       setMessage(formatGenerationMessage(result));
@@ -324,8 +336,10 @@ export default function DllPicProPanel({
             value={modelKey}
             onChange={(event) => {
               const nextModelKey = event.target.value;
+              const nextResolution = getDllPicResolutionOption(nextModelKey, resolution).value;
               setModelKey(nextModelKey);
-              saveStoredGenerationSettings(nextModelKey, resolution);
+              setResolution(nextResolution);
+              saveStoredGenerationSettings(nextModelKey, nextResolution);
             }}
           >
             {getDllPicSelectableModelEntries().map(([key, model]) => (
@@ -351,14 +365,14 @@ export default function DllPicProPanel({
           <label className="field dll-pic-field">
             <span>解析度</span>
             <select
-              value={resolution}
+              value={activeResolution}
               onChange={(event) => {
                 const nextResolution = event.target.value;
                 setResolution(nextResolution);
                 saveStoredGenerationSettings(modelKey, nextResolution);
               }}
             >
-              {DLL_PIC_RESOLUTIONS.map((option) => (
+              {activeResolutionOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>

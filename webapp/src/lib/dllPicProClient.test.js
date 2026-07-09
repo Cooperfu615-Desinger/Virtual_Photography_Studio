@@ -6,6 +6,8 @@ import {
   generateDllPicImages,
   getDllPicApiKeyForModel,
   getDllPicApiKeyStorageKeys,
+  getDllPicResolutionOption,
+  getDllPicResolutionOptions,
   getDllPicSelectableModelEntries,
   normalizeDllPicModelKey,
 } from './dllPicProClient.js';
@@ -95,6 +97,8 @@ test('API key selection follows the active model provider', () => {
   assert.equal(getDllPicApiKeyForModel('google31FlashLiteImage', providerApiKeys), 'gemini-key');
   assert.equal(getDllPicApiKeyForModel('xaiGrokImagine', providerApiKeys), 'xai-key');
   assert.equal(getDllPicApiKeyForModel('xaiGrokImagineQuality', providerApiKeys), 'xai-key');
+  assert.equal(getDllPicApiKeyForModel('byteplusSeedream5Pro', providerApiKeys), '');
+  assert.equal(getDllPicApiKeyForModel('byteplusSeedream5Lite', providerApiKeys), '');
   assert.equal(getDllPicApiKeyForModel('magnificClassic', providerApiKeys), '');
   assert.equal(getDllPicApiKeyForModel('magnificZImageTurbo', providerApiKeys), '');
 });
@@ -255,12 +259,65 @@ test('Magnific generation uses the Firebase proxy without a local API key', asyn
   });
 });
 
+test('BytePlus generation uses the Firebase proxy and model-specific resolution', async () => {
+  let proxyPayload = null;
+  const result = await generateDllPicImages({
+    apiKey: '',
+    modelKey: 'byteplusSeedream5Pro',
+    prompt: '  cinematic portrait  ',
+    aspectRatio: '16:9',
+    count: 2,
+    resolution: '4k',
+    bytePlusGenerate: async (payload) => {
+      proxyPayload = payload;
+      return {
+        images: [{
+          src: 'data:image/png;base64,byteplus-image',
+          mimeType: 'image/png',
+        }],
+        errors: [],
+        meta: {
+          modelKey: 'seedream5Pro',
+        },
+      };
+    },
+  });
+
+  assert.deepEqual(proxyPayload, {
+    modelKey: 'seedream5Pro',
+    prompt: 'cinematic portrait',
+    aspectRatio: '16:9',
+    count: 2,
+    resolution: '2k',
+  });
+  assert.deepEqual(result, {
+    images: [{
+      src: 'data:image/png;base64,byteplus-image',
+      mimeType: 'image/png',
+    }],
+    errors: [],
+    meta: {
+      modelKey: 'seedream5Pro',
+    },
+  });
+});
+
+test('BytePlus resolution options follow Pro and Lite model support', () => {
+  assert.deepEqual(getDllPicResolutionOptions('byteplusSeedream5Pro').map((option) => option.value), ['1k', '2k']);
+  assert.deepEqual(getDllPicResolutionOptions('byteplusSeedream5Lite').map((option) => option.value), ['2k', '3k', '4k']);
+  assert.equal(getDllPicResolutionOption('byteplusSeedream5Pro', '4k').value, '2k');
+  assert.equal(getDllPicResolutionOption('byteplusSeedream5Lite', '1k').value, '2k');
+  assert.equal(getDllPicResolutionOption('byteplusSeedream5Lite', '4k').value, '4k');
+});
+
 test('model option helpers hide legacy aliases and keep analyzer to analysis-capable models', () => {
   const allModelKeys = getDllPicSelectableModelEntries().map(([key]) => key);
   assert.deepEqual(allModelKeys, [
     'google31FlashLiteImage',
     'xaiGrokImagine',
     'xaiGrokImagineQuality',
+    'byteplusSeedream5Pro',
+    'byteplusSeedream5Lite',
     'magnificClassic',
     'magnificZImageTurbo',
     'magnificMystic',

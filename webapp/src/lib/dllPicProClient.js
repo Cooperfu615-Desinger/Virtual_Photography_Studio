@@ -60,6 +60,30 @@ export const DLL_PIC_MODEL_CONFIG = {
     supportsResolution: true,
     defaultResolution: '1k',
   },
+  byteplusSeedream5Pro: {
+    label: 'BytePlus Seedream 5.0 Pro',
+    provider: 'byteplus',
+    generationModel: 'dola-seedream-5-0-pro-260628',
+    byteplusModel: 'seedream5Pro',
+    analysisModel: '',
+    usesServerProxy: true,
+    supportsResolution: true,
+    defaultResolution: '2k',
+    resolutionOptions: ['1k', '2k'],
+    apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 BytePlus ARK Secret',
+  },
+  byteplusSeedream5Lite: {
+    label: 'BytePlus Seedream 5.0 Lite',
+    provider: 'byteplus',
+    generationModel: 'seedream-5-0-260128',
+    byteplusModel: 'seedream5Lite',
+    analysisModel: '',
+    usesServerProxy: true,
+    supportsResolution: true,
+    defaultResolution: '2k',
+    resolutionOptions: ['2k', '3k', '4k'],
+    apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 BytePlus ARK Secret',
+  },
   magnificClassic: {
     label: 'Magnific Classic',
     provider: 'magnific',
@@ -134,7 +158,11 @@ export const DLL_PIC_MODEL_CONFIG = {
 export const DLL_PIC_RESOLUTIONS = [
   { value: '1k', label: '1K' },
   { value: '2k', label: '2K' },
+  { value: '3k', label: '3K' },
+  { value: '4k', label: '4K' },
 ];
+
+const DEFAULT_DLL_PIC_RESOLUTION_VALUES = ['1k', '2k'];
 
 export const DLL_PIC_ASPECT_RATIOS = [
   { value: '16:9', label: '16:9' },
@@ -248,8 +276,23 @@ export function getDllPicApiKeyForModel(modelKey, providerApiKeys = {}) {
   return (providerApiKeys[modelConfig.provider] || '').trim();
 }
 
-export function getDllPicResolutionOption(resolution) {
-  return DLL_PIC_RESOLUTIONS.find((option) => option.value === resolution) || DLL_PIC_RESOLUTIONS[0];
+export function getDllPicResolutionOptions(modelKey) {
+  const modelConfig = getDllPicModelConfig(modelKey);
+  const allowedValues = modelConfig.resolutionOptions || DEFAULT_DLL_PIC_RESOLUTION_VALUES;
+  return DLL_PIC_RESOLUTIONS.filter((option) => allowedValues.includes(option.value));
+}
+
+export function getDllPicResolutionOption(modelKeyOrResolution, resolution) {
+  const hasModelKey = resolution !== undefined;
+  const modelKey = hasModelKey ? modelKeyOrResolution : null;
+  const targetResolution = hasModelKey ? resolution : modelKeyOrResolution;
+  const fallbackModelKey = hasModelKey ? modelKey : 'google31FlashLiteImage';
+  const modelConfig = getDllPicModelConfig(fallbackModelKey);
+  const options = getDllPicResolutionOptions(fallbackModelKey);
+  const defaultResolution = modelConfig.defaultResolution || options[0]?.value;
+  return options.find((option) => option.value === targetResolution)
+    || options.find((option) => option.value === defaultResolution)
+    || options[0];
 }
 
 async function generateGeminiImages({
@@ -322,7 +365,7 @@ async function generateXaiImages({
       prompt,
       aspectRatio,
       count,
-      resolution: getDllPicResolutionOption(resolution).value,
+      resolution,
     }),
   });
 
@@ -367,7 +410,32 @@ async function generateMagnificImages({
     prompt: prompt.trim(),
     aspectRatio,
     count,
-    resolution: getDllPicResolutionOption(resolution).value,
+    resolution,
+  });
+
+  return {
+    images: result?.images || [],
+    errors: result?.errors || [],
+    meta: result?.meta || null,
+  };
+}
+
+async function generateBytePlusImages({
+  bytePlusGenerate,
+  modelConfig,
+  prompt,
+  aspectRatio = '9:16',
+  count = 1,
+  resolution = '2k',
+}) {
+  if (!bytePlusGenerate) throw new Error('BytePlus Firebase Proxy 尚未接入');
+
+  const result = await bytePlusGenerate({
+    modelKey: modelConfig.byteplusModel || 'seedream5Pro',
+    prompt: prompt.trim(),
+    aspectRatio,
+    count,
+    resolution,
   });
 
   return {
@@ -385,16 +453,20 @@ export async function generateDllPicImages({
   count = 1,
   resolution = '1k',
   magnificGenerate = null,
+  bytePlusGenerate = null,
 }) {
   const modelConfig = getDllPicModelConfig(modelKey);
   if (!apiKey && !modelConfig.usesServerProxy) throw new Error('請先設定 DLL_PIC Pro API Key');
   if (!prompt?.trim()) throw new Error('請先選擇或輸入 Prompt');
   if (!modelConfig.generationModel) throw new Error(`${modelConfig.label} 目前尚未接入生圖功能`);
 
+  const normalizedResolution = getDllPicResolutionOption(modelKey, resolution).value;
   const result = modelConfig.provider === 'magnific'
-    ? await generateMagnificImages({ magnificGenerate, modelConfig, prompt, aspectRatio, count, resolution })
+    ? await generateMagnificImages({ magnificGenerate, modelConfig, prompt, aspectRatio, count, resolution: normalizedResolution })
+    : modelConfig.provider === 'byteplus'
+      ? await generateBytePlusImages({ bytePlusGenerate, modelConfig, prompt, aspectRatio, count, resolution: normalizedResolution })
     : modelConfig.provider === 'xai'
-      ? await generateXaiImages({ apiKey, modelConfig, prompt, aspectRatio, count, resolution })
+      ? await generateXaiImages({ apiKey, modelConfig, prompt, aspectRatio, count, resolution: normalizedResolution })
       : await generateGeminiImages({ apiKey, modelConfig, prompt, aspectRatio, count });
 
   if (result.images.length === 0) {
