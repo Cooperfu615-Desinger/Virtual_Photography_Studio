@@ -875,6 +875,7 @@ export default function App() {
   const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
   const [previewGenerationNonce, setPreviewGenerationNonce] = useState(0);
+  const [previewRerollExclusion, setPreviewRerollExclusion] = useState(null);
   const activeLibrary = useMemo(() => [], []);
   const rawLockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
   const hasWardrobeLocks = useMemo(() => hasEffectiveWardrobeLocks(locks, rawLockControls), [locks, rawLockControls]);
@@ -1401,9 +1402,12 @@ export default function App() {
     return baseList;
   }, [favoritePrompts, prompts, viewMode]);
   const previewPrompt = useMemo(() => {
-    const [prompt] = generatePrompts(1, locks, activeLibrary, { previewGenerationNonce });
+    const [prompt] = generatePrompts(1, locks, activeLibrary, {
+      excludePreviousSelection: previewRerollExclusion,
+      previewGenerationNonce,
+    });
     return prompt || null;
-  }, [activeLibrary, locks, previewGenerationNonce]);
+  }, [activeLibrary, locks, previewGenerationNonce, previewRerollExclusion]);
   const favoriteCloudLabel = useMemo(() => {
     if (favoriteCloudAuth?.status === 'signed-in') {
       if (favoriteCloudSyncStatus === 'loading') return 'Firebase 載入中';
@@ -1429,6 +1433,10 @@ export default function App() {
       return JSON.stringify(prev) === JSON.stringify(sanitized) ? prev : sanitized;
     });
   }, [lockControls]);
+
+  useEffect(() => {
+    setPreviewRerollExclusion(null);
+  }, [locks]);
 
   const updateLocks = useCallback((updater) => {
     setLocks((prev) => {
@@ -1538,9 +1546,10 @@ export default function App() {
   }, [addFavoritePrompt, previewPrompt, showToast]);
 
   const handleRerollPreview = useCallback(() => {
+    setPreviewRerollExclusion(previewPrompt?.selection || null);
     setPreviewGenerationNonce((prev) => prev + 1);
     showToast('已依目前設定重新隨機生成');
-  }, [showToast]);
+  }, [previewPrompt, showToast]);
 
   const handleApplyPage3WorldSceneArchitecture = useCallback(() => {
     const architecture = buildPage1WorldSceneArchitecture(page3Profile);

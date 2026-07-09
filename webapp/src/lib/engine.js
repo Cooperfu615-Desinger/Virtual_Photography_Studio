@@ -2370,6 +2370,51 @@ const sampleNonNone = (arr) => {
 const isRandomOption = (item) => item?.id === 'random';
 const isRandomLockValue = (value) => value === 'random';
 
+function normalizePreviewExclusionId(value) {
+  if (typeof value !== 'string') return '';
+  const normalized = value.trim().replace(/:[ab]$/g, '');
+  if (!normalized || normalized === 'none' || normalized === 'random') return '';
+  return normalized;
+}
+
+function buildPreviewRerollExclusions(selection = null) {
+  const idByKey = new Map();
+
+  Object.entries(selection || {}).forEach(([key, value]) => {
+    const values = Array.isArray(value) ? value : [value];
+    const ids = values.map(normalizePreviewExclusionId).filter(Boolean);
+    if (ids.length > 0) idByKey.set(key, new Set(ids));
+  });
+
+  const getIds = (keys = []) => {
+    const ids = new Set();
+    keys.forEach((key) => {
+      idByKey.get(key)?.forEach((id) => ids.add(id));
+    });
+    return ids;
+  };
+
+  const excludes = (keys = [], itemOrId = null) => {
+    const ids = getIds(keys);
+    if (ids.size === 0) return false;
+    const normalizedId = normalizePreviewExclusionId(typeof itemOrId === 'string' ? itemOrId : itemOrId?.id);
+    if (normalizedId && ids.has(normalizedId)) return true;
+    const baseId = typeof itemOrId === 'string'
+      ? normalizePreviewExclusionId(itemOrId)
+      : normalizePreviewExclusionId(getBaseWardrobeItemId(itemOrId));
+    return Boolean(baseId && ids.has(baseId));
+  };
+
+  const filterCandidates = (candidates = [], keys = []) => {
+    const filtered = candidates.filter((item) => !excludes(keys, item));
+    return filtered.length > 0 ? filtered : candidates;
+  };
+
+  return { excludes, filterCandidates, getIds };
+}
+
+const EMPTY_PREVIEW_REROLL_EXCLUSIONS = buildPreviewRerollExclusions();
+
 const WARDROBE_RANDOM_OPTIONS = {
   specialOutfit: {
     id: 'random',
@@ -5435,12 +5480,12 @@ function isActivePoseComposerOption(option) {
   return Boolean(option && !isNoneLikeItem(option));
 }
 
-function resolvePoseComposerOption(options, id, predicate = () => true) {
+function resolvePoseComposerOption(options, id, predicate = () => true, exclusions = EMPTY_PREVIEW_REROLL_EXCLUSIONS, exclusionKeys = []) {
   const option = getPoseComposerOption(options, id);
   if (!isActivePoseComposerOption(option)) return null;
 
   const candidates = options.filter((item) => isActivePoseComposerOption(item) && !isRandomOption(item) && predicate(item));
-  if (isRandomOption(option)) return sample(candidates);
+  if (isRandomOption(option)) return sample(exclusions.filterCandidates(candidates, exclusionKeys));
   return predicate(option) ? option : null;
 }
 
@@ -5563,9 +5608,10 @@ function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head, 
 function buildPoseComposerItem(context) {
   if (context.subject.count !== 1) return null;
 
-  const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId);
-  const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
-  const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
+  const exclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
+  const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId, () => true, exclusions, ['poseBaseId']);
+  const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId']);
+  const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId']);
 
   if (!base) {
     const standaloneParts = [handPose, head].filter((option) => option && !isModelNaturalPoseComposerOption(option));
@@ -5593,8 +5639,8 @@ function buildPoseComposerItem(context) {
     matchesBase(option)
     && poseComposerAnchorAllowedByScene(option, context.location, context.locks?.locationId)
   );
-  const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase);
-  const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesAnchor);
+  const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase, exclusions, ['poseArrangementId']);
+  const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesAnchor, exclusions, ['poseAnchorId']);
   const parts = [base, arrangement, handPose, head, anchor].filter(Boolean);
 
   return {
@@ -5767,6 +5813,7 @@ function selectedSpecialOutfitHasHairstyle(context, catalog, role = null) {
 
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
+  const previewExclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
   const actionPose = buildActionPoseItem(context);
   if (isSpecialSubject(context.subject)) {
     const hairstyleItems = getByKey(catalog.character, '髮型 (Hairstyle)');
@@ -5861,6 +5908,10 @@ function buildCharacter(context, catalog) {
     '姿勢與肢體語言 (Pose & Body Language)': 'poseId',
     '特殊動作 (Special Actions)': 'specialActionId',
   };
+  const previewExclusionKeysByCategory = {
+    '姿勢與肢體語言 (Pose & Body Language)': ['poseId'],
+    '特殊動作 (Special Actions)': ['specialActionId'],
+  };
 
   const pickCategory = (categoryKey, locks, customPredicate = () => true, picker = sample, respectVisibility = true) => {
     const categoryItems = getByKey(catalog.character, categoryKey);
@@ -5877,10 +5928,23 @@ function buildCharacter(context, catalog) {
       (item) => (!respectVisibility || detailAllowed(item, context.framing)) && customPredicate(item)
     );
     if (candidates.length === 0) return null;
-    const picked = lockedId ? findById(candidates, lockedId) || picker(candidates) : picker(candidates);
+    const shouldExcludePrevious = !lockedId || isRandomLockValue(lockedId);
+    const sampleCandidates = shouldExcludePrevious
+      ? previewExclusions.filterCandidates(candidates, previewExclusionKeysByCategory[categoryKey] || [])
+      : candidates;
+    const picked = lockedId ? findById(candidates, lockedId) || picker(sampleCandidates) : picker(sampleCandidates);
     if (picked.meta.archetype && !lockedArchetype) lockedArchetype = picked.meta.archetype;
     character.push(picked);
     return picked;
+  };
+
+  const pickPreviewAwareOption = (options, lockedId, exclusionKeys) => {
+    const lockedOption = lockedId && !isRandomLockValue(lockedId)
+      ? options.find((option) => option.id === lockedId) || null
+      : null;
+    if (lockedOption) return lockedOption;
+    const candidates = options.filter((option) => !isNoneLikeItem(option));
+    return sample(previewExclusions.filterCandidates(candidates, exclusionKeys));
   };
 
   const pickHairColor = (candidates) => {
@@ -5995,12 +6059,8 @@ function buildCharacter(context, catalog) {
   }
 
   if (context.subject.count > 1) {
-    const duoPoseOption = context.locks?.duoPoseId
-      ? getDuoPoseOption(context.locks.duoPoseId)
-      : sampleNonNone(DUO_POSE_OPTIONS);
-    const duoPoseBaseOption = context.locks?.duoPoseBaseId
-      ? getDuoPoseBaseOption(context.locks.duoPoseBaseId)
-      : sampleNonNone(DUO_POSE_BASE_OPTIONS);
+    const duoPoseOption = pickPreviewAwareOption(DUO_POSE_OPTIONS, context.locks?.duoPoseId, ['duoPoseId']);
+    const duoPoseBaseOption = pickPreviewAwareOption(DUO_POSE_BASE_OPTIONS, context.locks?.duoPoseBaseId, ['duoPoseBaseId']);
     const duoPoseItem = buildDuoPoseItem(duoPoseOption);
     if (duoPoseItem && !isNoneLikeItem(duoPoseItem)) {
       character.push(duoPoseItem);
@@ -6047,6 +6107,7 @@ function buildCharacter(context, catalog) {
 }
 
 function buildWardrobe(context, locks, catalog) {
+  const previewExclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
   const prepareSpecialOutfit = (item, role = null) => {
     const meta = { ...(item.meta || {}) };
     if (role) meta.specialOutfitRole = role;
@@ -6071,10 +6132,11 @@ function buildWardrobe(context, locks, catalog) {
   });
   const presetPieces = [];
   const specialOutfitPieces = [];
-  const pickResolvedLockItem = (items, lockedValue, { excludeIds = [] } = {}) => {
+  const pickResolvedLockItem = (items, lockedValue, { excludeIds = [], previousSelectionKeys = [] } = {}) => {
     if (!lockedValue) return null;
     if (isRandomLockValue(lockedValue)) {
       const excluded = new Set(excludeIds.filter(Boolean));
+      previewExclusions.getIds(previousSelectionKeys).forEach((id) => excluded.add(id));
       const candidates = items.filter((item) => !isNoneLikeItem(item) && !excluded.has(item.id) && wardrobeFitsLocation(item, context.location));
       const fallbackCandidates = items.filter((item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location));
       return sample(candidates.length > 0 ? candidates : fallbackCandidates);
@@ -6089,14 +6151,18 @@ function buildWardrobe(context, locks, catalog) {
       : null;
     const specialA = pickResolvedLockItem(specialOutfits, locks.specialOutfitAId, {
       excludeIds: explicitSpecialB && !isNoneLikeItem(explicitSpecialB) ? [explicitSpecialB.id] : [],
+      previousSelectionKeys: ['specialOutfitAId'],
     });
     const specialB = pickResolvedLockItem(specialOutfits, locks.specialOutfitBId, {
       excludeIds: specialA && !isNoneLikeItem(specialA) ? [specialA.id] : [],
+      previousSelectionKeys: ['specialOutfitBId'],
     });
     if (specialA && !isNoneLikeItem(specialA)) specialOutfitPieces.push(prepareSpecialOutfit(specialA, 'a'));
     if (specialB && !isNoneLikeItem(specialB)) specialOutfitPieces.push(prepareSpecialOutfit(specialB, 'b'));
   } else {
-    const specialOutfit = pickResolvedLockItem(catalog.flatCatalog.specialOutfits, locks.specialOutfitId);
+    const specialOutfit = pickResolvedLockItem(catalog.flatCatalog.specialOutfits, locks.specialOutfitId, {
+      previousSelectionKeys: ['specialOutfitId'],
+    });
     if (specialOutfit && !isNoneLikeItem(specialOutfit)) specialOutfitPieces.push(prepareSpecialOutfit(specialOutfit));
   }
 
@@ -6109,28 +6175,33 @@ function buildWardrobe(context, locks, catalog) {
       : null;
     const presetA = pickResolvedLockItem(presets, locks.outfitPresetAId, {
       excludeIds: explicitPresetB && !isNoneLikeItem(explicitPresetB) ? [explicitPresetB.id] : [],
+      previousSelectionKeys: ['outfitPresetAId'],
     });
     const presetB = pickResolvedLockItem(presets, locks.outfitPresetBId, {
       excludeIds: presetA && !isNoneLikeItem(presetA) ? [presetA.id] : [],
+      previousSelectionKeys: ['outfitPresetBId'],
     });
     const presetAIsNone = isNoneLikeItem(presetA);
     const presetBIsNone = isNoneLikeItem(presetB);
     const hasRolePreset = (presetA && !presetAIsNone) || (presetB && !presetBIsNone);
 
     if (hasRolePreset) {
-      const randomDistinctPreset = (excludeId) => {
+      const randomDistinctPreset = (excludeId, previousSelectionKeys = []) => {
         const candidates = presets.filter((item) => !isNoneLikeItem(item) && item.id !== excludeId);
-        return sample(candidates.length > 0 ? candidates : presets);
+        const previewCandidates = previewExclusions.filterCandidates(candidates, previousSelectionKeys);
+        return sample(previewCandidates.length > 0 ? previewCandidates : candidates.length > 0 ? candidates : presets);
       };
 
-      const resolvedA = presetAIsNone ? null : presetA || (!locks.outfitPresetAId && presetB && !presetBIsNone ? randomDistinctPreset(presetB.id) : null);
-      const resolvedB = presetBIsNone ? null : presetB || (!locks.outfitPresetBId && resolvedA ? randomDistinctPreset(resolvedA.id) : null);
+      const resolvedA = presetAIsNone ? null : presetA || (!locks.outfitPresetAId && presetB && !presetBIsNone ? randomDistinctPreset(presetB.id, ['outfitPresetAId']) : null);
+      const resolvedB = presetBIsNone ? null : presetB || (!locks.outfitPresetBId && resolvedA ? randomDistinctPreset(resolvedA.id, ['outfitPresetBId']) : null);
 
       presetPieces.push(...[resolvedA ? clonePresetForRole(resolvedA, 'a') : null, resolvedB ? clonePresetForRole(resolvedB, 'b') : null].filter(Boolean));
     }
   }
 
-  const outfitPreset = pickResolvedLockItem(catalog.flatCatalog.outfitPresets, locks.outfitPresetId);
+  const outfitPreset = pickResolvedLockItem(catalog.flatCatalog.outfitPresets, locks.outfitPresetId, {
+    previousSelectionKeys: ['outfitPresetId'],
+  });
   if (outfitPreset && !isNoneLikeItem(outfitPreset)) {
     presetPieces.push(outfitPreset);
   }
@@ -6313,12 +6384,12 @@ function buildWardrobe(context, locks, catalog) {
   const hasDuoRoleWardrobeLock = context.subject.count === 2 && duoRoleWardrobeKeys.some((key) => Boolean(locks?.[key]));
   const hasSharedMainWardrobeLock = sharedMainWardrobeKeys.some((key) => Boolean(locks?.[key]));
   const useDuoRoleWardrobe = context.subject.count === 2 && (hasDuoRoleWardrobeLock || !hasSharedMainWardrobeLock);
-  const pickRandomWardrobeItem = (items, { allowNone = false, predicate = () => true } = {}) => {
+  const pickRandomWardrobeItem = (items, { allowNone = false, predicate = () => true, previousSelectionKeys = [] } = {}) => {
     const candidates = items.filter(
       (item) => (allowNone || !isNoneLikeItem(item)) && wardrobeFitsLocation(item, context.location) && predicate(item)
     );
     if (candidates.length === 0) return null;
-    const picked = sample(candidates);
+    const picked = sample(previewExclusions.filterCandidates(candidates, previousSelectionKeys));
     addPiece(picked);
     return picked;
   };
@@ -6350,7 +6421,7 @@ function buildWardrobe(context, locks, catalog) {
       addPiece(topPiece);
       return topPiece;
     }
-    topPiece = pickRandomWardrobeItem(topItems);
+    topPiece = pickRandomWardrobeItem(topItems, { previousSelectionKeys: ['topId'] });
     return topPiece;
   };
 
@@ -6365,7 +6436,7 @@ function buildWardrobe(context, locks, catalog) {
 
     const randomPants = pantsState.isExplicitNone
       ? null
-      : pickRandomWardrobeItem(pantsItems, { allowNone: true });
+      : pickRandomWardrobeItem(pantsItems, { allowNone: true, previousSelectionKeys: ['pantsId'] });
     if (randomPants && !isNoneLikeItem(randomPants)) {
       hasBottomPiece = true;
       return true;
@@ -6382,7 +6453,7 @@ function buildWardrobe(context, locks, catalog) {
       return false;
     }
 
-    const forcedSkirt = pickRandomWardrobeItem(skirtItems);
+    const forcedSkirt = pickRandomWardrobeItem(skirtItems, { previousSelectionKeys: ['skirtId'] });
     hasBottomPiece = Boolean(forcedSkirt && !isNoneLikeItem(forcedSkirt));
     return hasBottomPiece;
   };
@@ -6420,13 +6491,30 @@ function buildWardrobe(context, locks, catalog) {
     const baseId = getBaseWardrobeItemId(item);
     if (baseId) duoRoleMainPickedIds[layerSlot].add(baseId);
   };
+  const roleMainWardrobeSelectionKeys = {
+    a: {
+      dress: 'dressAId',
+      top: 'topAId',
+      pants: 'pantsAId',
+      skirt: 'skirtAId',
+    },
+    b: {
+      dress: 'dressBId',
+      top: 'topBId',
+      pants: 'pantsBId',
+      skirt: 'skirtBId',
+    },
+  };
 
   const pickRoleWardrobeItem = (items, role, layerSlot, { allowNone = false, excludeBaseIds = duoRoleMainPickedIds[layerSlot] } = {}) => {
     const candidates = items.filter((item) => (allowNone || !isNoneLikeItem(item)) && wardrobeFitsLocation(item, context.location));
     if (candidates.length === 0) return null;
+    const previousSelectionKeys = [roleMainWardrobeSelectionKeys[role]?.[layerSlot]].filter(Boolean);
+    const previousSelectionIds = previewExclusions.getIds(previousSelectionKeys);
     const distinctCandidates = candidates.filter((item) => {
       if (isNoneLikeItem(item)) return true;
-      return !excludeBaseIds?.has(getBaseWardrobeItemId(item));
+      const baseId = getBaseWardrobeItemId(item);
+      return !excludeBaseIds?.has(baseId) && !previousSelectionIds.has(baseId);
     });
     const picked = sample(distinctCandidates.length > 0 ? distinctCandidates : candidates);
     const clonedItem = cloneWardrobePieceForRole(picked, role, layerSlot);
@@ -6612,13 +6700,13 @@ function buildWardrobe(context, locks, catalog) {
     // Duo preset pieces already define the main body styling.
   } else if (firstSpecifiedMainLayer === 'outfit') {
     if (outfitPresetState.isExplicitRandom) {
-      pickRandomWardrobeItem(catalog.flatCatalog.outfitPresets);
+      pickRandomWardrobeItem(catalog.flatCatalog.outfitPresets, { previousSelectionKeys: ['outfitPresetId'] });
     } else {
       addPiece(outfitPresetState.specifiedItem);
     }
   } else if (firstSpecifiedMainLayer === 'dress') {
     dressPiece = dressState.isExplicitRandom
-      ? pickRandomWardrobeItem(dressItems)
+      ? pickRandomWardrobeItem(dressItems, { previousSelectionKeys: ['dressId'] })
       : dressState.specifiedItem;
     addPiece(dressPiece);
   } else if (firstSpecifiedMainLayer === 'top') {
@@ -6635,11 +6723,11 @@ function buildWardrobe(context, locks, catalog) {
   } else {
     const randomPreset = outfitPresetState.isExplicitNone
       ? null
-      : pickRandomWardrobeItem(catalog.flatCatalog.outfitPresets, { allowNone: true });
+      : pickRandomWardrobeItem(catalog.flatCatalog.outfitPresets, { allowNone: true, previousSelectionKeys: ['outfitPresetId'] });
     if (randomPreset && !isNoneLikeItem(randomPreset)) {
       // Main outfit resolved at the preset layer.
     } else {
-      const randomDress = dressState.isExplicitNone ? null : pickRandomWardrobeItem(dressItems);
+      const randomDress = dressState.isExplicitNone ? null : pickRandomWardrobeItem(dressItems, { previousSelectionKeys: ['dressId'] });
       if (randomDress && !isNoneLikeItem(randomDress)) {
         dressPiece = randomDress;
       } else {
@@ -12299,6 +12387,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const lockControls = getLockControls(customLibrary);
   const runtime = buildCatalog(customLibrary);
   const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
+  const previewRerollExclusions = buildPreviewRerollExclusions(runtimeOptions.excludePreviousSelection);
   const selectedFixedCompositionSet = getFixedCompositionSetOption(effectiveLocks.fixedCompositionSetId);
   const fixedCompositionSetActive = isFixedCompositionSetActive(selectedFixedCompositionSet) && effectiveLocks.subjectCount !== '2';
   const fixedSetCameraVariationActive = fixedCompositionSetActive && fixedCompositionSetAllowsCameraVariation(selectedFixedCompositionSet);
@@ -12484,6 +12573,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     lighting,
     lightDirection,
     locks: effectiveLocks,
+    previewRerollExclusions,
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
   const character = buildCharacter(context, runtime.catalog);
