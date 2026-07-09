@@ -1401,6 +1401,34 @@ test('AI prompt omits face-only hidden wardrobe instead of injecting a default d
   assert.doesNotMatch(prompt.midjourneyPrompt, /wearing anchor wardrobe as|complete one-piece dress identity/i);
 });
 
+test('face-only prompts keep close-up composition when wardrobe is visibility-filtered', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '臉部特寫'),
+    orbitId: optionId('orbitId', '左前 45 度'),
+    locationId: optionId('locationId', '室內：廢棄校舍體育器材室'),
+    lightingId: optionId('lightingId', '室內窗邊日光'),
+    lightDirectionId: optionId('lightDirectionId', '側逆光'),
+    earringsId: optionId('earringsId', '十字垂墜耳環'),
+    topId: optionId('topId', '透膚刺繡襯衫'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    shoesId: optionId('shoesId', '高跟鞋'),
+  });
+
+  assert.doesNotMatch(gptSection(prompt, 'Pose and Composition'), /front three-quarter torso angle|torso toward camera/i);
+  assert.match(gptSection(prompt, 'Pose and Composition'), /tight facial close-up, face dominant in frame, minimal headroom/i);
+
+  assert.match(prompt.zImagePrompt, /tight facial close-up, face dominant in frame, minimal headroom/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /\bwoman\. with\b/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /front three-quarter torso angle|torso toward camera/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /semi-sheer embroidered shirt|straight-leg jeans|stiletto pumps/i);
+
+  assert.match(prompt.midjourneyPrompt, /tight face close-up|face fills the frame/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /semi-sheer embroidered shirt|straight-leg jeans|stiletto pumps/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /[\u3400-\u9fff]/);
+});
+
 test('AI prompt converts recognizable separate pieces into a style shorthand', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

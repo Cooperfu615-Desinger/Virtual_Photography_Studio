@@ -5460,14 +5460,6 @@ function getAspectRatioOption(id) {
   return option || DEFAULT_ASPECT_RATIO;
 }
 
-function getDuoPoseOption(id) {
-  return DUO_POSE_OPTIONS.find((option) => option.id === id) || null;
-}
-
-function getDuoPoseBaseOption(id) {
-  return DUO_POSE_BASE_OPTIONS.find((option) => option.id === id) || null;
-}
-
 function getDuoExpressionOption(id) {
   return DUO_EXPRESSION_OPTIONS.find((option) => option.id === id) || null;
 }
@@ -8018,6 +8010,14 @@ function cleanVisibilityFilteredText(value) {
     .trim();
 }
 
+function filterFaceOnlyTorsoAngleText(value, context) {
+  if (!isFaceOnlyCloseupFramingItem(context?.framing)) return value;
+  return stripMarkdown(value || '')
+    .replace(/\bfront three-quarter torso angle\b/gi, 'front three-quarter face angle')
+    .replace(/\bfrontal torso toward camera\b/gi, 'frontal face toward camera')
+    .trim();
+}
+
 function filterZImagePoseForFraming(value, context) {
   const bucket = getPromptVisibilityBucket(context);
   let text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
@@ -8057,6 +8057,8 @@ function filterZImageCameraForFraming(value, context) {
 
   if (isUpperCropVisibilityBucket(bucket)) {
     text = text
+      .replace(/\bfront three-quarter torso angle\b/gi, bucket === 'faceClose' ? 'front three-quarter face angle' : 'front three-quarter upper-body angle')
+      .replace(/\bfrontal torso toward camera\b/gi, bucket === 'faceClose' ? 'frontal face toward camera' : 'frontal upper body toward camera')
       .replace(/\bknee-level camera,\s*level lens axis,\s*legs and shoes emphasized\b/gi, 'low portrait camera angle, level lens axis')
       .replace(/\bfloor-level camera position,\s*upward view,\s*elongated full-body perspective\b/gi, 'low portrait camera angle')
       .replace(/,\s*(?:legs and shoes emphasized|full lower legs and feet clearly visible|legwear and shoes clearly visible|shoes clearly visible|bare feet clearly shown|full-body composition|head-to-toe|complete outfit visible|full figure|full wardrobe visible)\b/gi, '');
@@ -10674,7 +10676,12 @@ function compressZImageSingleSubjectText(value, context) {
     .replace(/,\s*\./g, '.')
     .trim();
 
-  return protectedBody.restore(compressed)
+  const restored = protectedBody.restore(compressed);
+  const faceCloseupCleaned = isFaceOnlyCloseupFramingItem(context?.framing)
+    ? restored.replace(/\b(woman|women)\.\s+with\b/gi, '$1 with')
+    : restored;
+
+  return faceCloseupCleaned
     .replace(/\s*,\s*,+/g, ', ')
     .replace(/,\s*\./g, '.')
     .trim();
@@ -10798,7 +10805,7 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
   const resolvedSharedExpressionText = useRoleOrderedDuo ? buildGptDuoSharedExpressionText(duoCharacterSlots) : '';
   const resolvedPoseText = useRoleOrderedDuo
     ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
-    : buildGptSingleFullFidelityText(poseText);
+    : filterFaceOnlyTorsoAngleText(buildGptSingleFullFidelityText(poseText), context);
   const resolvedWardrobeUsesBlock = Boolean(singleSpecialOutfitWardrobeBlock);
   const resolvedSubjectUsesBlock = Boolean(singleCharacterProfileSubjectBlock);
   const sceneSection = sceneText
@@ -11865,6 +11872,10 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe = null) {
 }
 
 function buildAiMinimalPoseClause(valuesByLabel, context) {
+  const faceCloseupPhrase = isFaceOnlyCloseupFramingItem(context?.framing)
+    ? 'tight face close-up, face fills the frame'
+    : '';
+  const joinAiPoseParts = (...parts) => parts.filter(Boolean).join(', ');
   const actionPoseText = firstStructuredValue(valuesByLabel, ['Action Pose']);
   if (actionPoseText) {
     const cleanedActionPoseText = stripTerminalPromptPunctuation(actionPoseText);
@@ -11892,7 +11903,7 @@ function buildAiMinimalPoseClause(valuesByLabel, context) {
       .replace(/^She\s+is\s+/i, '')
       .replace(/^She\s+/i, '')
       .trim();
-    return guardText ? `${coreAction}, ${guardText}` : coreAction;
+    return joinAiPoseParts(faceCloseupPhrase, guardText ? `${coreAction}, ${guardText}` : coreAction);
   }
 
   const rawPoseText = firstStructuredValue(valuesByLabel, [
@@ -11913,15 +11924,15 @@ function buildAiMinimalPoseClause(valuesByLabel, context) {
       .trim()
     : posePhrase;
 
-  if (!posePhrase) return context.subject?.count === 2 ? 'pose for a photoshoot' : 'poses for a photoshoot';
+  if (!posePhrase) return faceCloseupPhrase || (context.subject?.count === 2 ? 'pose for a photoshoot' : 'poses for a photoshoot');
   if (context.subject?.count !== 2 && /^She is\b/i.test(stripMarkdown(poseText || '').trim())) {
-    return naturalSinglePosePhrase;
+    return joinAiPoseParts(faceCloseupPhrase, naturalSinglePosePhrase);
   }
   if (/^(standing|sitting|kneeling|squatting|lying|walking|holding|leaning|crouching|adjusting|looking|gazing)\b/i.test(naturalSinglePosePhrase)) {
-    return naturalSinglePosePhrase;
+    return joinAiPoseParts(faceCloseupPhrase, naturalSinglePosePhrase);
   }
 
-  return `posing with ${naturalSinglePosePhrase}`;
+  return joinAiPoseParts(faceCloseupPhrase, `posing with ${naturalSinglePosePhrase}`);
 }
 
 function buildAiMinimalSceneClause(valuesByLabel, context = {}) {
