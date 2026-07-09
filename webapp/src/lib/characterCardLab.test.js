@@ -47,6 +47,7 @@ const EXPECTED_NONE_LOCK_IDS = {
   headAccessoryId: 'wardrobe:頭部配件-head-accessories:全無:0',
   eyewearId: 'wardrobe:眼鏡-eyewear:全無:0',
   eyewearColorId: 'wardrobe:眼鏡配色-eyewear-color:全無:0',
+  eyewearPlacementId: 'none',
   earringsId: 'wardrobe:耳環-earrings:全無:0',
   neckAccessoryId: 'wardrobe:頸部-neck-accessories:全無:0',
 };
@@ -102,19 +103,47 @@ test('variant normalization keeps only valid card layers and hair variants', () 
   const normalized = normalizeCharacterCardVariant({
     characterProfileId: 'character-rika',
     hairVariantId: 'low-ponytail',
+    eyewearMode: 'glasses-on',
     includedWardrobeLayers: ['top', 'bottom', 'missing-layer'],
     outputMode: 'included-wardrobe',
   }, cards);
 
   assert.equal(normalized.characterProfileId, 'character-rika');
   assert.equal(normalized.hairVariantId, 'low-ponytail');
-  assert.deepEqual(normalized.includedWardrobeLayers, ['top', 'bottom']);
+  assert.equal(normalized.eyewearMode, 'glasses-on');
+  assert.deepEqual(normalized.includedWardrobeLayers, ['top', 'bottom', 'eyewear']);
   assert.equal(normalized.outputMode, 'included-wardrobe');
 
   const empty = createEmptyCharacterCardVariant(cards);
   assert.equal(empty.characterProfileId, 'character-rika');
   assert.equal(empty.hairVariantId, 'default');
+  assert.equal(empty.eyewearMode, 'default');
   assert.deepEqual(empty.includedWardrobeLayers, CHARACTER_CARD_LAYER_KEYS.filter((key) => resolveCharacterCard(cards, 'character-rika').defaultWardrobeLayers[key]));
+});
+
+test('eyewear mode can force or suppress character-card eyewear layers', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const forcedEyewear = normalizeCharacterCardVariant({
+    characterProfileId: 'character-rika',
+    eyewearMode: 'glasses-on',
+    includedWardrobeLayers: ['top'],
+  }, cards);
+  const suppressedEyewear = normalizeCharacterCardVariant({
+    characterProfileId: 'character-yuri',
+    eyewearMode: 'glasses-off',
+    includedWardrobeLayers: ['top', 'eyewear', 'neckAccessory'],
+  }, cards);
+  const forcedBundle = buildCharacterCardPromptBundle(cards, forcedEyewear);
+  const suppressedBundle = buildCharacterCardPromptBundle(cards, suppressedEyewear);
+  const forcedText = forcedBundle.outputs.map((output) => output.value).join('\n');
+  const suppressedText = suppressedBundle.outputs.map((output) => output.value).join('\n');
+
+  assert.equal(forcedEyewear.eyewearMode, 'glasses-on');
+  assert.ok(forcedEyewear.includedWardrobeLayers.includes('eyewear'));
+  assert.match(forcedText, /thin-frame eyeglasses|transparent lenses/i);
+  assert.equal(suppressedEyewear.eyewearMode, 'glasses-off');
+  assert.deepEqual(suppressedEyewear.includedWardrobeLayers, ['top', 'neckAccessory']);
+  assert.doesNotMatch(suppressedText, /round translucent brown acetate eyeglasses/i);
 });
 
 test('variant normalization treats null and malformed input as an empty variant', () => {
@@ -563,6 +592,47 @@ test('structured apply for accessory layers clears full-look conflicts and prese
   assert.equal(nextLocks.shoesId, 'wardrobe:鞋款-shoes:heels');
   assert.equal(nextLocks.locationId, 'scene:anything');
   assert.equal(nextLocks.poseId, 'pose:anything');
+});
+
+test('structured apply imports forced eyewear and clears PAGE1 eyewear when glasses are off', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const forcedLocks = buildPage1LocksFromCharacterCardVariant({
+    ...createEmptyLocks(),
+    eyewearId: 'wardrobe:眼鏡-eyewear:round-metal',
+    eyewearColorId: 'wardrobe:眼鏡配色-eyewear-color:black',
+    eyewearPlacementId: 'eyewear-placement:pushed-up',
+    topId: 'wardrobe:上身-tops:cropped-tee',
+  }, {
+    characterProfileId: 'character-rika',
+    hairVariantId: 'default',
+    eyewearMode: 'glasses-on',
+    includedWardrobeLayers: ['top'],
+  }, cards);
+  const noGlassesLocks = buildPage1LocksFromCharacterCardVariant({
+    ...createEmptyLocks(),
+    eyewearId: 'wardrobe:眼鏡-eyewear:round-metal',
+    eyewearColorId: 'wardrobe:眼鏡配色-eyewear-color:black',
+    eyewearPlacementId: 'eyewear-placement:pushed-up',
+    shoesId: 'wardrobe:鞋款-shoes:heels',
+  }, {
+    characterProfileId: 'character-yuri',
+    hairVariantId: 'default',
+    eyewearMode: 'glasses-off',
+    includedWardrobeLayers: ['top', 'eyewear'],
+  }, cards);
+
+  assert.equal(forcedLocks.characterCardEyewearMode, 'glasses-on');
+  assert.deepEqual(forcedLocks.characterCardWardrobeLayerIds, ['top', 'eyewear']);
+  assert.equal(forcedLocks.eyewearId, EXPECTED_NONE_LOCK_IDS.eyewearId);
+  assert.equal(forcedLocks.eyewearColorId, EXPECTED_NONE_LOCK_IDS.eyewearColorId);
+  assert.equal(forcedLocks.eyewearPlacementId, EXPECTED_NONE_LOCK_IDS.eyewearPlacementId);
+  assert.equal(forcedLocks.topId, EXPECTED_NONE_LOCK_IDS.topId);
+  assert.equal(noGlassesLocks.characterCardEyewearMode, 'glasses-off');
+  assert.deepEqual(noGlassesLocks.characterCardWardrobeLayerIds, ['top']);
+  assert.equal(noGlassesLocks.eyewearId, EXPECTED_NONE_LOCK_IDS.eyewearId);
+  assert.equal(noGlassesLocks.eyewearColorId, EXPECTED_NONE_LOCK_IDS.eyewearColorId);
+  assert.equal(noGlassesLocks.eyewearPlacementId, EXPECTED_NONE_LOCK_IDS.eyewearPlacementId);
+  assert.equal(noGlassesLocks.shoesId, 'wardrobe:鞋款-shoes:heels');
 });
 
 test('structured apply for dress clears top bottom and full-look conflicts', () => {

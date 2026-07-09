@@ -1,5 +1,6 @@
 import React, { memo, useState } from 'react';
 import { Download, Trash2 } from 'lucide-react';
+import { copyTextToClipboard } from '../lib/clipboard';
 
 function buildMarkdownExport(data) {
   const promptEntries = getPromptEntries(data, {
@@ -73,7 +74,7 @@ function PromptCard({ data, density = 'compact', onDelete, onApplySelection }) {
 
   const handleCopy = async (label, text) => {
     try {
-      await navigator.clipboard.writeText(text);
+      await copyTextToClipboard(text);
       setCopiedLabel(label);
       window.setTimeout(() => setCopiedLabel(''), 1800);
     } catch {

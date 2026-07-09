@@ -47,6 +47,7 @@ import {
   getActionPoseCardById,
   normalizeActionPoseProfile,
 } from './lib/actionPoseLab';
+import { copyTextToClipboard } from './lib/clipboard';
 import { SCENE_CAMERA_CONTROL_ORDER } from './lib/page1ControlOrders';
 import './index.css';
 
@@ -1708,7 +1709,7 @@ export default function App() {
   const handleCopyText = async (label, text) => {
     if (!text) return;
     try {
-      await navigator.clipboard.writeText(text);
+      await copyTextToClipboard(text);
       setCopiedLabel(label);
       window.setTimeout(() => setCopiedLabel(''), 1800);
     } catch {

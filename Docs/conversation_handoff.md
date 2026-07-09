@@ -25,7 +25,7 @@ Important legacy terminology warning:
 - Knowledge base source: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
 - Sync script: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
 - Synced data target: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
-- Baseline commit before this QA handoff update: `2426ad8 Update character profile card picker`
+- Current pushed main before this UIUX handoff update: `f5a363c Fix character card accessory prompt merging`
 
 ## Validation
 
@@ -37,14 +37,16 @@ Standard validation flow:
   - `npm run lint`
   - `npm run build`
 
-Last QA validation on 2026-06-25:
+Last implementation validation on 2026-07-09 after Character Card Lab v1 merge:
 
-- `python3 scripts/sync_to_json.py`: passed, with one known warning: `套裝 (Outfit Presets)` has 54 reference images for 55 items. Missing reference image: `網狀蕾絲馬甲短裙長靴`.
-- `npm test`: 246 / 246 passed
+- `node --test --test-reporter=dot src/**/*.test.js`: passed
 - `npm run lint`: passed
 - `npm run build`: passed with the existing Vite chunk-size warning
-- Rendered smoke test on dev server: PAGE1 / PAGE2 / PAGE3 / SUNO / Saved Cards loaded without console errors; PAGE1 and SUNO random generation buttons updated prompt outputs; mobile 390x900 had no horizontal overflow.
-- `git diff --check`: passed
+- Rendered smoke test on dev server: PAGE2 Character Card Lab six outputs loaded; PAGE2 saved a six-prompt card; PAGE2 import back to PAGE1 showed `來自角色卡` wardrobe badges; SUNO active navigation/filter were absent; mobile 390x900 had no horizontal overflow; console error/warn logs were empty.
+
+Historical validation note from 2026-06-25:
+
+- `python3 scripts/sync_to_json.py`: passed, with one known warning: `套裝 (Outfit Presets)` has 54 reference images for 55 items. Missing reference image: `網狀蕾絲馬甲短裙長靴`.
 
 Optional dev server:
 
@@ -91,9 +93,9 @@ Do not rename the internal fields casually. Many saved cards, import/export path
 ### Product Architecture
 
 - PAGE1 is the main full portrait prompt workspace.
-- PAGE2 is the character-reference prompt workspace.
+- PAGE2 is the Character Card Lab for PAGE1 `A 人物設定`.
 - PAGE3 is the world / scene prompt workspace.
-- SUNO is a music style prompt builder.
+- SUNO has been removed from active app navigation / workspace flow; the user plans a separate music prompt tool.
 - PAGE1 / PAGE2 / PAGE3 currently include DLL PIC Pro generation panels.
 - PAGE1 includes section-scoped random controls, prompt restore / backfill, saved cards, Favorites, lighting reference modal, and wardrobe reference image picker cards.
 
@@ -118,7 +120,7 @@ Generation panel behavior:
   - `Grok/Z-Image` from `previewPrompt.zImagePrompt`
   - `AI Prompt` from `previewPrompt.midjourneyPrompt`
 - PAGE1 default source is `Gpt`.
-- PAGE2 default source is `Master Sheet`.
+- PAGE2 prompt sources are the six Character Card Lab outputs.
 - PAGE3 default source is `Scene Prompt`.
 - Supported aspect ratios:
   - `16:9`, `9:16`, `1:1`, `4:3`, `3:4`
@@ -131,8 +133,7 @@ Generation panel behavior:
 
 Image Analyzer behavior:
 
-- SUNO page currently includes `ImagePromptAnalyzerPanel`.
-- It uses the same DLL PIC Pro API key / model storage.
+- The Image Analyzer panel was historically hosted on SUNO. SUNO is no longer in the active product flow, so do not assume Image Analyzer is reachable through active navigation.
 - It calls Gemini image analysis and returns:
   - short prompt
   - detailed GPT-image-style prompt
@@ -209,6 +210,7 @@ Rules:
 - Image Analyzer panel: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/ImagePromptAnalyzerPanel.jsx`
 - Section random helper: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/page1SectionRandom.js`
 - PAGE1 summary helper: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/page1WorkspaceSummary.js`
+- Character Card Lab helper: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/characterCardLab.js`
 
 ## Authoring Guides
 
@@ -524,12 +526,26 @@ PAGE1 is the main full portrait generator. It handles:
 
 ### PAGE2
 
-PAGE2 is a separate character-reference builder.
+PAGE2 is the Character Card Lab for PAGE1 `A 人物設定`.
 
-- Does not inject role text back into PAGE1.
-- Intended for identity-lock / reference prompts.
-- Emphasizes standard identity views rather than editorial portrait language.
-- Has its own prompt preview and DLL PIC Pro panel.
+- Selects existing built-in character cards.
+- Supports character-safe hair styling variants that preserve the base hair identity.
+- PAGE2 owns which character-card wardrobe layers are imported into PAGE1.
+- Imports structured character-card state back into PAGE1:
+  - `characterProfileId`
+  - hair variant
+  - selected character-card wardrobe layers
+  - prompt override text
+- PAGE1 displays imported wardrobe layers as `來自角色卡｜...` and can fill missing wardrobe layers normally.
+- Reimporting from PAGE2 only replaces same-layer PAGE1 choices for layers included by PAGE2.
+- PAGE2 produces six prompt outputs:
+  - `GPT Prompt`
+  - `Grok/Z-Image Prompt`
+  - `AI Prompt`
+  - `Headshot Prompt`
+  - `Four-View Prompt`
+  - `Full-Body Reference Prompt`
+- Has its own DLL PIC Pro panel using the six Character Card Lab outputs as prompt sources.
 
 ### PAGE3
 
@@ -542,11 +558,11 @@ PAGE3 is a pure scene / world / environment prompt builder.
 
 ### SUNO
 
-SUNO is a music style prompt builder.
+SUNO was removed from active app navigation / workspace flow because the user plans a separate music prompt tool.
 
-- Supports genre, instruments, BPM range, groove, vocal traits, texture, and atmosphere.
-- Saved Cards also support SUNO entries.
-- SUNO is not part of PAGE1 image prompt generation.
+- Legacy SUNO source files and old saved-card compatibility may still exist.
+- Do not re-add SUNO to active navigation unless explicitly requested.
+- Old `page5` saved cards should remain readable/copyable where compatibility still exists.
 
 ## Restore / Import / Favorites / Feed
 
@@ -676,8 +692,64 @@ The durable rule from that cleanup: each option should own one responsibility. A
 - SUNO is a separate music prompt builder.
 - It should remain separate from PAGE1 image generation logic.
 
+## UIUX Discussion Protocol
+
+The user confirmed on 2026-07-09 that the low-fidelity wireframe discussion process is useful for UIUX optimization.
+
+For future UIUX work:
+
+- Discuss direction before implementation when the change affects layout, operation flow, or visual hierarchy.
+- Use quick low-fidelity generated wireframes when helpful to align the mental picture.
+- Keep wireframes operational and product-like, not marketing pages.
+- Clearly separate:
+  - implemented current behavior
+  - agreed next UIUX direction
+  - open questions
+- Do not treat generated wireframes as exact visual specs unless the user explicitly approves that level of fidelity.
+
+### PAGE2 Character Card Lab UIUX Direction
+
+The next PAGE2 UIUX polish should preserve existing Character Card Lab v1 data and prompt behavior while improving operation flow.
+
+Agreed direction:
+
+- The interface should be split into two vertical blocks:
+  - top block: character-card selection and PAGE1 import controls
+  - bottom block: prompt copy actions and DLL PIC Pro
+- Top block:
+  - Character-card grid shows 10 large cards at a time, arranged 5 columns x 2 rows.
+  - Cards should be larger than the current v1 cards.
+  - Each card only needs preview image and character name.
+  - Remove long default character descriptions from the visible UI.
+  - Future growth target is at least 40 built-in characters, but the visible page should not show all 40 at once.
+  - Add eyewear/glasses control with `預設` / `戴眼鏡` / `不戴眼鏡`.
+  - Eyewear must be able to import back to PAGE1.
+  - Wardrobe-layer import choices should be compact buttons, not large cards/rows.
+- Bottom block:
+  - Six PAGE2 prompt outputs should be copy-only buttons by default.
+  - Do not show long prompt text by default in the main PAGE2 layout.
+  - The six buttons are:
+    - `Copy GPT`
+    - `Copy Grok/Z-Image`
+    - `Copy AI Prompt`
+    - `Copy 大頭照`
+    - `Copy 四視圖`
+    - `Copy 全身 Reference`
+  - DLL PIC Pro should use a dropdown prompt-source selector to choose from the six prompt outputs.
+  - Prompt copy buttons do not need to change DLL PIC Pro source.
+
+Open UI decisions for implementation planning:
+
+- How to navigate beyond the 10 visible cards: pagination, carousel, or internal scroll.
+- Exact rule for `不戴眼鏡` when PAGE1 already has eyewear selected: likely clear PAGE1 eyewear on import, but confirm before implementation.
+- Whether wardrobe import buttons show only active state or explicit `帶入` / `交給 PAGE1` text.
+
 ## Current Best Next Work
 
+- Character Card Lab UIUX polish is the recommended next phase.
+  - Start from the PAGE2 two-block layout described above.
+  - Do not rewrite the character-card data model unless the UI polish exposes a real limitation.
+  - Keep changes scoped and verify with rendered desktop/mobile QA.
 - Real-generation test Pose Composer before expanding it.
 - Expand Pose Composer options in batches only after stable outputs:
   - standing / sitting first

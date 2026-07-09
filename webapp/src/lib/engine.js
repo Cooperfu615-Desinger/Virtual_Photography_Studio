@@ -2,6 +2,7 @@ import database from '../data/database.json' with { type: 'json' };
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import {
   CHARACTER_CARD_LAYER_KEYS,
+  getEffectiveCharacterCardWardrobeLayers,
   getCharacterCardOptions,
   getCompatibleHairVariants,
   normalizeCharacterCardVariant,
@@ -2009,6 +2010,7 @@ const LOCK_DEFINITIONS = [
   { key: 'specialSubjectId', label: '特殊角色', options: SPECIAL_SUBJECT_OPTIONS, defaultValue: 'none', section: 'character' },
   { key: 'characterProfileId', label: '角色卡', options: CHARACTER_PROFILE_CONTROL_OPTIONS, defaultValue: 'none', section: 'character' },
   { key: 'characterCardHairVariantId', label: '角色卡髮型變化', defaultValue: 'default', section: 'hidden' },
+  { key: 'characterCardEyewearMode', label: '角色卡眼鏡模式', defaultValue: 'default', section: 'hidden' },
   { key: 'characterCardWardrobeMode', label: '角色卡服裝模式', defaultValue: 'full-default', section: 'hidden' },
   { key: 'characterCardWardrobeLayerIds', label: '角色卡服裝層', defaultValue: [], multi: true, section: 'hidden' },
   { key: 'characterCardPromptOverride', label: '角色卡臨時覆寫', defaultValue: '', section: 'hidden' },
@@ -5274,6 +5276,7 @@ function getCharacterCardVariantFromLocks(locks) {
   return normalizeCharacterCardVariant({
     characterProfileId: locks.characterProfileId,
     hairVariantId: locks.characterCardHairVariantId,
+    eyewearMode: locks.characterCardEyewearMode,
     includedWardrobeLayers: wardrobeMode === 'full-default' ? fullDefaultLayers : locks.characterCardWardrobeLayerIds,
     promptOverrideText: String(locks.characterCardPromptOverride || '').trim(),
     outputMode: wardrobeMode === 'full-default' || (Array.isArray(locks.characterCardWardrobeLayerIds) && locks.characterCardWardrobeLayerIds.length > 0)
@@ -5298,11 +5301,12 @@ function getCharacterCardImportedLayers(subject, locks) {
   const card = getRuntimeCharacterCards().find((entry) => entry.id === subject.id);
   if (!card) return [];
   const variant = getCharacterCardVariantFromLocks(locks || {});
+  const layerMap = getEffectiveCharacterCardWardrobeLayers(card, variant);
   const included = new Set(variant.includedWardrobeLayers || []);
   return CHARACTER_CARD_LAYER_KEYS
-    .filter((key) => included.has(key) && card.defaultWardrobeLayers[key])
+    .filter((key) => included.has(key) && layerMap[key])
     .map((key) => {
-      const layer = card.defaultWardrobeLayers[key];
+      const layer = layerMap[key];
       return {
         id: `character-card-layer:${subject.id}:${key}`,
         zh: `來自角色卡｜${layer.label}`,
@@ -5412,6 +5416,7 @@ function getCharacterCardSelectionFields(subject, locks = {}) {
   if (!isCharacterProfileSubject(subject)) {
     return {
       characterCardHairVariantId: 'default',
+      characterCardEyewearMode: 'default',
       characterCardWardrobeMode: 'full-default',
       characterCardWardrobeLayerIds: [],
       characterCardPromptOverride: '',
@@ -5421,6 +5426,7 @@ function getCharacterCardSelectionFields(subject, locks = {}) {
   const variant = getCharacterCardVariantFromLocks({ ...locks, characterProfileId: subject.id });
   return {
     characterCardHairVariantId: variant.hairVariantId,
+    characterCardEyewearMode: variant.eyewearMode,
     characterCardWardrobeMode: mode,
     characterCardWardrobeLayerIds: mode === 'selected-layers' ? variant.includedWardrobeLayers : [],
     characterCardPromptOverride: String(variant.promptOverrideText || '').trim(),
@@ -12241,6 +12247,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     specialSubjectId: isSpecialSubject(context.subject) && !isCharacterProfileSubject(context.subject) ? context.subject.id : 'none',
     characterProfileId: isCharacterProfileSubject(context.subject) ? context.subject.id : 'none',
     characterCardHairVariantId: characterCardSelection.characterCardHairVariantId,
+    characterCardEyewearMode: characterCardSelection.characterCardEyewearMode,
     characterCardWardrobeMode: characterCardSelection.characterCardWardrobeMode,
     characterCardWardrobeLayerIds: characterCardSelection.characterCardWardrobeLayerIds,
     characterCardPromptOverride: characterCardSelection.characterCardPromptOverride,

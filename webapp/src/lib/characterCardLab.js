@@ -28,6 +28,18 @@ export const CHARACTER_CARD_LAYER_LABELS = {
   waistAccessory: '腰部飾品',
 };
 
+export const EYEWEAR_MODE_OPTIONS = [
+  { id: 'default', label: '預設' },
+  { id: 'glasses-on', label: '戴眼鏡' },
+  { id: 'glasses-off', label: '不戴眼鏡' },
+];
+
+const DEFAULT_EYEWEAR_LAYER = {
+  key: 'eyewear',
+  label: CHARACTER_CARD_LAYER_LABELS.eyewear,
+  prompt: 'natural thin-frame eyeglasses with transparent lenses, worn normally on the face',
+};
+
 const CHARACTER_CARD_EXTENSIONS = {
   'character-rika': {
     hairTags: ['long', 'wavy', 'bangs', 'black-hair'],
@@ -163,6 +175,24 @@ function normalizeVariantInput(rawVariant) {
   return rawVariant && typeof rawVariant === 'object' && !Array.isArray(rawVariant) ? rawVariant : {};
 }
 
+function normalizeEyewearMode(value) {
+  return EYEWEAR_MODE_OPTIONS.some((option) => option.id === value) ? value : 'default';
+}
+
+export function getEffectiveCharacterCardWardrobeLayers(card, variant = {}) {
+  const layerMap = { ...(card?.defaultWardrobeLayers || {}) };
+  const eyewearMode = normalizeEyewearMode(variant.eyewearMode);
+
+  if (eyewearMode === 'glasses-on' && !layerMap.eyewear) {
+    layerMap.eyewear = { ...DEFAULT_EYEWEAR_LAYER };
+  }
+  if (eyewearMode === 'glasses-off') {
+    delete layerMap.eyewear;
+  }
+
+  return layerMap;
+}
+
 export function getCharacterCardOptions(lockControls = []) {
   const control = lockControls.find((item) => item.key === 'characterProfileId');
   return (control?.options || [])
@@ -207,10 +237,12 @@ export function getCompatibleHairVariants(card) {
 
 export function createEmptyCharacterCardVariant(cards = []) {
   const card = cards[0] || null;
+  const layerMap = getEffectiveCharacterCardWardrobeLayers(card, { eyewearMode: 'default' });
   return {
     characterProfileId: card?.id || '',
     hairVariantId: 'default',
-    includedWardrobeLayers: card ? Object.keys(card.defaultWardrobeLayers) : [],
+    eyewearMode: 'default',
+    includedWardrobeLayers: card ? Object.keys(layerMap) : [],
     promptOverrideText: '',
     outputMode: 'included-wardrobe',
   };
@@ -225,18 +257,27 @@ export function normalizeCharacterCardVariant(rawVariant = {}, cards = []) {
   const hairVariantId = hairVariants.some((hairVariant) => hairVariant.id === variant.hairVariantId)
     ? variant.hairVariantId
     : 'default';
-  const validLayers = new Set(Object.keys(card?.defaultWardrobeLayers || {}));
+  const eyewearMode = normalizeEyewearMode(variant.eyewearMode);
+  const effectiveLayerMap = getEffectiveCharacterCardWardrobeLayers(card, { eyewearMode });
+  const validLayers = new Set(Object.keys(effectiveLayerMap));
   const rawIncludedLayerSet = new Set(
-    Array.isArray(variant.includedWardrobeLayers)
-      ? variant.includedWardrobeLayers
-      : fallback.includedWardrobeLayers
+    variant.outputMode === 'pure-character'
+      ? []
+      : Array.isArray(variant.includedWardrobeLayers)
+        ? variant.includedWardrobeLayers
+        : fallback.includedWardrobeLayers
   );
+  if (eyewearMode === 'glasses-on') rawIncludedLayerSet.add('eyewear');
+  if (eyewearMode === 'glasses-off') rawIncludedLayerSet.delete('eyewear');
   const includedWardrobeLayers = CHARACTER_CARD_LAYER_KEYS.filter((key) => validLayers.has(key) && rawIncludedLayerSet.has(key));
-  const outputMode = variant.outputMode === 'pure-character' ? 'pure-character' : 'included-wardrobe';
+  const outputMode = variant.outputMode === 'pure-character' && includedWardrobeLayers.length === 0
+    ? 'pure-character'
+    : 'included-wardrobe';
 
   return {
     characterProfileId,
     hairVariantId,
+    eyewearMode,
     includedWardrobeLayers,
     promptOverrideText: String(variant.promptOverrideText || ''),
     outputMode,
@@ -255,7 +296,7 @@ function selectedHairVariant(card, variant) {
 }
 
 function selectedLayers(card, variant) {
-  const layerMap = card?.defaultWardrobeLayers || {};
+  const layerMap = getEffectiveCharacterCardWardrobeLayers(card, variant);
   const included = new Set(variant.includedWardrobeLayers || []);
   if (variant.outputMode === 'pure-character') return [];
   return CHARACTER_CARD_LAYER_KEYS
@@ -415,6 +456,9 @@ function mergeBundleVariantInput(rawVariant, bundleVariant, cards) {
   if (Array.isArray(bundleVariant.includedWardrobeLayers)) {
     merged.includedWardrobeLayers = bundleVariant.includedWardrobeLayers;
   }
+  if (typeof bundleVariant.eyewearMode === 'string') {
+    merged.eyewearMode = bundleVariant.eyewearMode;
+  }
   if (typeof bundleVariant.promptOverrideText === 'string') {
     merged.promptOverrideText = bundleVariant.promptOverrideText;
   }
@@ -519,6 +563,7 @@ const PAGE1_NONE_LOCK_IDS = {
   headAccessoryId: 'wardrobe:頭部配件-head-accessories:全無:0',
   eyewearId: 'wardrobe:眼鏡-eyewear:全無:0',
   eyewearColorId: 'wardrobe:眼鏡配色-eyewear-color:全無:0',
+  eyewearPlacementId: 'none',
   earringsId: 'wardrobe:耳環-earrings:全無:0',
   neckAccessoryId: 'wardrobe:頸部-neck-accessories:全無:0',
 };
@@ -538,6 +583,8 @@ const PAGE1_LAYER_CLEAR_KEYS = {
   waistAccessory: ['waistAccessoryId', ...PAGE1_FULL_LOOK_CLEAR_KEYS],
 };
 
+const PAGE1_EYEWEAR_CLEAR_KEYS = PAGE1_LAYER_CLEAR_KEYS.eyewear;
+
 export function buildPage1LocksFromCharacterCardVariant(prevLocks = {}, rawVariant = {}, cards = []) {
   const variant = normalizeCharacterCardVariant(rawVariant, cards);
   const appliedLayerIds = variant.outputMode === 'pure-character' ? [] : variant.includedWardrobeLayers;
@@ -547,6 +594,7 @@ export function buildPage1LocksFromCharacterCardVariant(prevLocks = {}, rawVaria
     specialSubjectId: 'none',
     characterProfileId: variant.characterProfileId,
     characterCardHairVariantId: variant.hairVariantId,
+    characterCardEyewearMode: variant.eyewearMode,
     characterCardWardrobeMode: 'selected-layers',
     characterCardWardrobeLayerIds: [...appliedLayerIds],
     characterCardPromptOverride: variant.promptOverrideText,
@@ -557,6 +605,12 @@ export function buildPage1LocksFromCharacterCardVariant(prevLocks = {}, rawVaria
       next[lockKey] = PAGE1_NONE_LOCK_IDS[lockKey] ?? (Array.isArray(next[lockKey]) ? [] : '');
     });
   });
+
+  if (variant.eyewearMode === 'glasses-off') {
+    PAGE1_EYEWEAR_CLEAR_KEYS.forEach((lockKey) => {
+      next[lockKey] = PAGE1_NONE_LOCK_IDS[lockKey] ?? (Array.isArray(next[lockKey]) ? [] : '');
+    });
+  }
 
   return next;
 }

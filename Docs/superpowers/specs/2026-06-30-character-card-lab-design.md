@@ -88,6 +88,7 @@ PAGE2 edits a temporary variant, not a new permanent card.
 characterCardVariant = {
   characterProfileId,
   hairVariantId,
+  eyewearMode,
   includedWardrobeLayers,
   promptOverrideText,
   outputMode
@@ -100,6 +101,14 @@ characterCardVariant = {
 
 - `pure-character`: identity, body, face, skin/makeup, and hair variant only
 - `included-wardrobe`: pure-character content plus the PAGE2-selected wardrobe layers
+
+`eyewearMode` is a planned v1.1 UIUX extension:
+
+- `default`: follow the character card's default eyewear state
+- `glasses-on`: force/import eyewear as part of the character-card variant
+- `glasses-off`: remove or suppress eyewear from the imported character-card variant
+
+Because eyewear must be able to import back to PAGE1, it should be treated as structured character-card variant state rather than a visual-only UI toggle.
 
 ## Hair Variants
 
@@ -156,9 +165,9 @@ If PAGE2 imports only Rika's top, PAGE1 receives only the top as a character-car
 
 ## PAGE2 UI
 
-PAGE2 should have three main regions.
+V1 PAGE2 has the required character-card editor controls and six prompt outputs. The next UIUX polish should reorganize the same behavior into a clearer two-block operational layout.
 
-### Character Card Selection
+### V1 Character Card Selection
 
 Show built-in character cards with:
 
@@ -193,9 +202,53 @@ Each row should show:
 
 PAGE2 is the only place to change which character-card wardrobe layers are imported. PAGE1 displays imported layers but does not directly clear or edit them.
 
+### V1.1 UIUX Polish Direction
+
+The user approved this direction on 2026-07-09 through low-fidelity wireframe discussion.
+
+The PAGE2 interface should be split into two vertical blocks.
+
+Top block: character-card setup and PAGE1 import controls.
+
+- Character-card grid shows 10 large cards at a time.
+- Arrange visible character cards as 5 columns x 2 rows on desktop.
+- Cards should be larger than the initial v1 cards.
+- Each character card only needs:
+  - preview image
+  - character name
+- Remove long default character descriptions from the visible UI.
+- Future capacity target is at least 40 built-in characters, but do not display all 40 at once.
+- Add a glasses / eyewear option:
+  - `預設`
+  - `戴眼鏡`
+  - `不戴眼鏡`
+- Eyewear must be able to import back to PAGE1.
+- Wardrobe import controls should be compact buttons rather than large rows/cards.
+- The primary PAGE1 action remains `匯回 PAGE1`.
+
+Bottom block: prompt actions and DLL PIC Pro.
+
+- Six prompt outputs should still be generated internally.
+- The main PAGE2 UI should show copy-only buttons by default instead of long prompt text boxes.
+- Copy buttons:
+  - `Copy GPT`
+  - `Copy Grok/Z-Image`
+  - `Copy AI Prompt`
+  - `Copy 大頭照`
+  - `Copy 四視圖`
+  - `Copy 全身 Reference`
+- DLL PIC Pro should use a dropdown prompt-source selector to choose from the six generated prompt outputs.
+- Clicking copy buttons does not need to change the DLL PIC Pro prompt source.
+
+Open implementation details:
+
+- Navigation beyond the 10 visible character cards: pagination, carousel, or internal scroll.
+- Exact import behavior for `不戴眼鏡` when PAGE1 already has eyewear selected.
+- Whether compact wardrobe import buttons should show explicit `帶入` / `交給 PAGE1` text or active state only.
+
 ## Six Prompt Outputs
 
-PAGE2 should use the same style of prompt preview grid as current PAGE2/PAGE3.
+PAGE2 produces six copyable outputs. V1 used prompt preview cards; the v1.1 UIUX direction is to keep the outputs but collapse the visible main UI to copy buttons, with long text hidden by default or available through detail/modal behavior if needed.
 
 It should produce six copyable outputs:
 

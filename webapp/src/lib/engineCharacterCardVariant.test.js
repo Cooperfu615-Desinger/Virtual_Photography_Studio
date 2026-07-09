@@ -33,6 +33,7 @@ test('normalizeLocks preserves character card variant fields', () => {
   const locks = normalizeLocks({
     characterProfileId: 'character-rika',
     characterCardHairVariantId: 'low-ponytail',
+    characterCardEyewearMode: 'glasses-on',
     characterCardWardrobeMode: 'selected-layers',
     characterCardWardrobeLayerIds: ['top', 'bottom'],
     characterCardPromptOverride: 'temporary override text',
@@ -40,6 +41,7 @@ test('normalizeLocks preserves character card variant fields', () => {
 
   assert.equal(locks.characterProfileId, 'character-rika');
   assert.equal(locks.characterCardHairVariantId, 'low-ponytail');
+  assert.equal(locks.characterCardEyewearMode, 'glasses-on');
   assert.equal(locks.characterCardWardrobeMode, 'selected-layers');
   assert.deepEqual(locks.characterCardWardrobeLayerIds, ['top', 'bottom']);
   assert.equal(locks.characterCardPromptOverride, 'temporary override text');
@@ -121,6 +123,39 @@ test('selected-layers character card hair override and missing PAGE1 layers appe
   assertEveryPrimaryOutput(prompt, /collarbone|鎖骨/i, 'PAGE1 neck accessory should fill the missing accessory layer');
 });
 
+test('selected-layers character card eyewear mode can force default glasses into PAGE1 prompts', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-rika',
+    characterCardEyewearMode: 'glasses-on',
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: ['top'],
+  });
+  const wardrobeLayerIds = prompt.structured.Wardrobe.map((item) => item.id || '');
+
+  assert.equal(prompt.selection.characterCardEyewearMode, 'glasses-on');
+  assert.deepEqual(prompt.selection.characterCardWardrobeLayerIds, ['top', 'eyewear']);
+  assert.ok(wardrobeLayerIds.includes('character-card-layer:character-rika:eyewear'));
+  assertEveryPrimaryOutput(prompt, /thin-frame eyeglasses|transparent lenses/i, 'forced glasses should be preserved');
+});
+
+test('selected-layers character card eyewear mode can suppress card glasses', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-yuri',
+    characterCardEyewearMode: 'glasses-off',
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: ['top', 'eyewear'],
+    eyewearId: optionId('eyewearId', '粗框眼鏡'),
+  });
+  const wardrobeLayerIds = prompt.structured.Wardrobe.map((item) => item.id || '');
+
+  assert.equal(prompt.selection.characterCardEyewearMode, 'glasses-off');
+  assert.deepEqual(prompt.selection.characterCardWardrobeLayerIds, ['top']);
+  assert.equal(wardrobeLayerIds.includes('character-card-layer:character-yuri:eyewear'), false);
+  assertNoPrimaryOutput(prompt, /round translucent brown acetate eyeglasses|thick-rimmed glasses/i, 'glasses-off should remove card and PAGE1 eyewear');
+});
+
 test('selected-layers character card accessory layers appear in AI and remain in GPT and Grok outputs', () => {
   const [sakuraPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -194,6 +229,7 @@ test('selection stores normalized character card variant fields', () => {
   });
 
   assert.equal(prompt.selection.characterCardHairVariantId, 'default');
+  assert.equal(prompt.selection.characterCardEyewearMode, 'default');
   assert.equal(prompt.selection.characterCardWardrobeMode, 'full-default');
   assert.deepEqual(prompt.selection.characterCardWardrobeLayerIds, []);
   assert.equal(prompt.selection.characterCardPromptOverride, 'trimmed override text');
