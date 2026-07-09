@@ -1350,8 +1350,26 @@ test('AI prompt compresses outfit presets and dresses into short wearable phrase
 
   assert.match(presetPrompt.midjourneyPrompt, /wearing a nurse uniform/i);
   assert.doesNotMatch(presetPrompt.midjourneyPrompt, /short white nurse dress|medical apron|white cap/i);
-  assert.match(dressPrompt.midjourneyPrompt, /wearing a glossy latex mini dress/i);
-  assert.doesNotMatch(dressPrompt.midjourneyPrompt, /one-piece short mini silhouette|smooth glossy latex/i);
+  assert.match(dressPrompt.midjourneyPrompt, /wearing [a-z -]*glossy latex mini dress/i);
+  assert.doesNotMatch(dressPrompt.midjourneyPrompt, /wearing a glossy latex mini dress|one-piece short mini silhouette|smooth glossy latex/i);
+});
+
+test('AI prompt keeps the first complete dress phrase without structural dress details', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    dressId: optionId('dressId', '連身：短版｜亮面深V掛脖迷你洋裝'),
+    dressColorId: optionId('dressColorId', '淡藍色'),
+    topId: optionId('topId', '全無'),
+    pantsId: optionId('pantsId', '全無'),
+    skirtId: optionId('skirtId', '全無'),
+    outerwearId: optionId('outerwearId', '全無'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+  });
+
+  assert.match(prompt.zImagePrompt, /She wears light blue glossy deep-V halter mini dress, bodycon silhouette, plunging neckline, open shoulder line, short hem/i);
+  assert.match(prompt.midjourneyPrompt, /wearing light blue glossy deep-V halter mini dress/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /wearing a mini dress|bodycon silhouette|plunging neckline|open shoulder line|short hem/i);
 });
 
 test('AI prompt keeps two-piece outfit preset garments while omitting palette colors', () => {
@@ -1604,7 +1622,7 @@ test('AI prompt uses simplified X-prompt wardrobe wording for representative loo
     dressId: optionId('dressId', '連身：短版｜細肩帶蕾絲棉質迷你洋裝'),
     dressColorId: optionId('dressColorId', '米白色'),
   });
-  assert.match(dressPrompt.midjourneyPrompt, /wearing an off-white spaghetti-strap lace cotton mini dress/i);
+  assert.match(dressPrompt.midjourneyPrompt, /wearing off-white spaghetti-strap lace cotton mini dress/i);
   assert.doesNotMatch(dressPrompt.midjourneyPrompt, /delicate lace trim|short hem|one-piece|[\u3400-\u9fff]/i);
 });
 

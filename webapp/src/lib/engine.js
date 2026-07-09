@@ -11515,6 +11515,22 @@ function buildAiFallbackWearablePhrase(value) {
   return fallback ? withAiArticle(fallback) : '';
 }
 
+function cleanAiDressFirstPhrase(value) {
+  return cleanAiMinimalFragment(value)
+    .replace(/\bone-piece\s+(?=(?:bodycon|short|long|mini|maxi|fitted|flowing|tailored|dress|gown|swimsuit|monokini)\b)/gi, '')
+    .replace(/\bshort mini\b/gi, 'mini')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function buildAiDressPhrase(value) {
+  const firstDressFragment = splitAiWardrobeFragments(value)
+    .map((part) => cleanAiDressFirstPhrase(part))
+    .find((part) => part && getAiGarmentRole(part) === 'dress');
+
+  return firstDressFragment || '';
+}
+
 function isAiAccessoryFragment(fragment) {
   return /\b(?:bag|clutch|tote|sunglasses|glasses|eyeglasses|earrings?|necklace|bracelets?|rings?|choker|watch|headscarf|bandana|cap|hat|beret|hair clip|tattoo|earphones?|headphones?|pendant|wallet chain|shoulder strap|belt)\b/i.test(fragment);
 }
@@ -11860,7 +11876,7 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe = null) {
   if (outfitPresetPhrase) return `wearing ${outfitPresetPhrase}`;
 
   const dressValue = firstStructuredValue(valuesByLabel, ['Dress']);
-  const dressPhrase = buildAiMappedWardrobePhrase(dressValue) || buildAiFallbackWearablePhrase(dressValue);
+  const dressPhrase = buildAiDressPhrase(dressValue) || buildAiMappedWardrobePhrase(dressValue) || buildAiFallbackWearablePhrase(dressValue);
   if (dressPhrase) return `wearing ${dressPhrase}`;
 
   const wardrobeVisibilityPhrase = buildAiWardrobeVisibilityPhrase(firstStructuredValue(valuesByLabel, ['Wardrobe Visibility']));
