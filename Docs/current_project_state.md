@@ -7,7 +7,7 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
 - Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
 - App: Vite + React prompt generator
-- Current pushed main before this architecture-hardening update: `6dc76cd Document prompt engine architecture`
+- Current pushed main before this architecture-hardening update: `b2b658c Harden project architecture and remove dead code`
 - Normal working branch: `main`
 
 ## Validation
@@ -18,23 +18,23 @@ Run from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp` unless note
 - `npm run lint`
 - `npm run build`
 - From repo root when knowledge base markdown changes: `python3 scripts/sync_to_json.py`
+- From repo root after syncing: `python3 scripts/sync_to_json.py --check`
+- Data sync unit tests: `python3 -m unittest discover -s scripts/tests`
+- Public asset budget: `python3 scripts/check_public_assets.py`
 - Optional dev server: `npm run dev -- --host 127.0.0.1 --port 5175`
 - Dev URL: `http://127.0.0.1:5175/Virtual_Photography_Studio/`
 
 Last implementation validation on 2026-07-10 after the architecture hardening and cleanup:
 
-- Frontend `npm test`: 380 tests passed. Two obsolete SUNO tests were removed with the unreachable SUNO runtime.
+- Frontend `npm test`: 383 tests passed.
 - Frontend `npm run lint`: passed.
 - Frontend `npm run build`: passed without the previous Vite chunk-size warning. Rollup now separates `prompt-catalog`, `prompt-engine`, `firebase`, and the main application bundle.
 - Functions `npm test`: 28 tests passed.
 - Functions `npm run lint`: passed with the repository ESLint configuration; this is now an active lint check instead of a placeholder command.
 - Browser smoke test passed for Prompt Control Deck, Character Card Lab, Action Pose Lab, World Street Scene Builder, and Saved Cards; console error/warn logs were empty.
 - Git reference validation passed with `git show-ref --head` and `git fsck --full --no-dangling` after removing stale synced-directory conflict copies.
+- Data sync unit tests, deterministic `--check`, and public asset budget validation passed. Public deployment assets are 178 files totaling 2,196,229 bytes.
 - Deterministic audit `node scripts/validate_prompt_logic.mjs 200 optimization-audit`: generated 200 prompts with seed `optimization-audit`; 11 prompts were flagged by the existing heuristics. The occurrence summary was 9 pants/legwear overlaps and 3 pants/skirt overlaps; one prompt can contain more than one finding. Treat these as prompt-quality follow-up items, not test failures or optimization regressions.
-
-Historical validation note from 2026-06-25:
-
-- `python3 scripts/sync_to_json.py`: passed, with one known warning: `套裝 (Outfit Presets)` has 54 reference images for 55 items. Missing reference image: `網狀蕾絲馬甲短裙長靴`.
 
 ## Product Pages
 
@@ -313,8 +313,13 @@ PAGE1 helpers:
 Knowledge base:
 
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/wardrobe_reference_manifest.json`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/item_metadata.json`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/source-assets`
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/build_image_previews.py`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/check_public_assets.py`
 
 Authoring guides:
 
@@ -383,6 +388,9 @@ Completed on 2026-07-10:
 - Hardened the image download proxy against private-network targets, private-address DNS resolution, and unsafe redirect chains; each redirect target is revalidated and redirects are capped.
 - Added conservative `maxInstances: 2` limits to public callable generation/download Functions to reduce accidental scaling exposure.
 - Removed unreachable SUNO runtime/test/CSS files, the unused Image Analyzer panel/CSS, and the remaining Vite starter assets.
+- Migrated the legacy read-only Feed collection into Favorites with ID de-duplication and success-gated removal of `vps.prompts` / `vps.viewMode`; Saved Cards now maintains one collection and one persistence path.
+- Replaced positional wardrobe image `zip()` matching and inherited database metadata with explicit versioned manifests. Missing, duplicate, unexpected, or stale inputs now fail; `--check` is read-only and runs in CI.
+- Moved 203 MiB of original reference images to `source-assets/` and generated 178 640px AVIF previews for deployment. `webapp/public` is about 2.5 MiB, and CI enforces a 15 MiB total / 512 KiB per-file budget.
 
 Remaining security follow-up:
 

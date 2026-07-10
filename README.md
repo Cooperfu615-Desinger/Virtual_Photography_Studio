@@ -14,7 +14,10 @@ Personal prompt operations tool for generating stable, high-volume prompts for M
 ## Project Structure
 
 - `knowledge_base/`: Markdown dictionaries used as the core source material
+- `source-assets/`: Original high-resolution reference images excluded from the Vite deployment artifact
 - `scripts/sync_to_json.py`: Converts markdown tables into frontend JSON data
+- `scripts/build_image_previews.py`: Rebuilds 640px AVIF deployment previews from source assets
+- `scripts/check_public_assets.py`: Enforces the public asset count and size budget
 - `scripts/validate_prompt_logic.mjs`: Runs deterministic prompt-quality heuristics with an optional seed
 - `webapp/`: React + Vite application
 - `webapp/src/lib/engine.js`: Prompt-engine integration and compatibility boundary
@@ -26,8 +29,11 @@ Personal prompt operations tool for generating stable, high-volume prompts for M
 
 1. Update or expand files in `knowledge_base/`
 2. Run `python3 scripts/sync_to_json.py`
-3. Start the app from `webapp/`
-4. Use locks, presets, custom library entries, and remix controls to generate prompt batches
+3. Run `python3 scripts/sync_to_json.py --check`
+4. When reference source images change, run `python3 scripts/build_image_previews.py`
+5. Run `python3 scripts/check_public_assets.py`
+6. Start the app from `webapp/`
+7. Use locks, presets, custom library entries, and remix controls to generate prompt batches
 
 ## Webapp Commands
 
@@ -48,6 +54,14 @@ node scripts/validate_prompt_logic.mjs 200 optimization-audit
 ```
 
 The optional second argument is the random seed. Reusing the same seed reproduces prompt content and selections; generated IDs and timestamps remain runtime metadata.
+
+## Data and Asset Integrity
+
+Wardrobe reference images are mapped through `knowledge_base/wardrobe_reference_manifest.json`, not by list position. The sync fails on missing files, duplicate IDs/names, unexpected files, or stale generated JSON. Item metadata that cannot live in Markdown is versioned in explicit JSON sources instead of being copied from the previous `database.json`.
+
+The browser receives AVIF previews from `webapp/public`; original images remain under `source-assets` and are not copied into the GitHub Pages artifact. CI runs the sync tests, `--check`, and the public asset budget check before the frontend quality gates.
+
+Saved Cards has one Favorites collection. Existing `vps.prompts` Feed records are migrated once into Favorites, de-duplicated by ID, and the legacy storage keys are removed only after the merged Favorites payload is written successfully.
 
 ## Prompt Engine Architecture
 

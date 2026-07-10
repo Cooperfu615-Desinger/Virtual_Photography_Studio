@@ -47,12 +47,17 @@ import {
 } from './lib/actionPoseLab';
 import { copyTextToClipboard } from './lib/clipboard';
 import { SCENE_CAMERA_CONTROL_ORDER } from './lib/page1ControlOrders';
+import {
+  LEGACY_FEED_STORAGE_KEY,
+  SAVED_CARDS_MIGRATION_KEY,
+  SAVED_CARDS_MIGRATION_VERSION,
+  finalizeLegacyFeedMigration,
+  mergeLegacyFeedPrompts,
+} from './lib/savedCardsMigration';
 import './index.css';
 
-const PROMPTS_KEY = 'vps.prompts';
 const FAVORITES_KEY = 'vps.favorites';
 const LOCKS_KEY = 'vps.locks';
-const VIEW_MODE_KEY = 'vps.viewMode';
 const PAGE_MODE_KEY = 'vps.pageMode';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const PAGE3_PROFILE_KEY = 'vps.page3Profile';
@@ -60,7 +65,6 @@ const ACTION_POSE_PROFILE_KEY = 'vps.actionPoseProfile';
 const FAVORITES_STORAGE_VERSION = 2;
 let favoriteCloudRepositoryPromise = null;
 const STORAGE_BUDGETS = {
-  [PROMPTS_KEY]: 2_250_000,
   [FAVORITES_KEY]: 2_250_000,
 };
 const STORAGE_PERSIST_DELAY_MS = 300;
@@ -803,11 +807,31 @@ function loadFavoritePrompts() {
   }
 
   // Legacy format: store only ids, recover from prompt cache if possible.
-  const promptCache = sanitizeStoredPromptCollection(loadJsonStorage(PROMPTS_KEY, []));
+  const promptCache = sanitizeStoredPromptCollection(loadJsonStorage(LEGACY_FEED_STORAGE_KEY, []));
   if (!Array.isArray(promptCache)) return [];
 
   const idSet = new Set(rawFavorites.filter(Boolean));
   return promptCache.filter((item) => item?.id && idSet.has(item.id));
+}
+
+function loadAndMigrateFavoritePrompts() {
+  const favorites = loadFavoritePrompts();
+  if (typeof window === 'undefined') return favorites;
+
+  const legacyFeed = sanitizeStoredPromptCollection(loadJsonStorage(LEGACY_FEED_STORAGE_KEY, []));
+  const completedMigration = loadStringStorage(SAVED_CARDS_MIGRATION_KEY, '') === SAVED_CARDS_MIGRATION_VERSION;
+  if (completedMigration && legacyFeed.length === 0) return favorites;
+
+  const mergedFavorites = mergeLegacyFeedPrompts(favorites, legacyFeed);
+  const migrationResult = persistPromptCollection(
+    FAVORITES_KEY,
+    mergedFavorites,
+    (items) => items.map(serializeFavoritePrompt).filter(Boolean),
+  );
+
+  finalizeLegacyFeedMigration(window.localStorage, migrationResult);
+
+  return mergedFavorites;
 }
 
 function normalizePromptText(text) {
@@ -863,15 +887,13 @@ function buildRestoreLocks(nextLocks, controls) {
 }
 
 export default function App() {
-  const importFeedInputRef = useRef(null);
+  const importSavedCardsInputRef = useRef(null);
   const storageWarningRef = useRef('');
-  const [prompts, setPrompts] = useState(() => sanitizeStoredPromptCollection(loadJsonStorage(PROMPTS_KEY, [])));
-  const [favoritePrompts, setFavoritePrompts] = useState(() => loadFavoritePrompts());
+  const [favoritePrompts, setFavoritePrompts] = useState(() => loadAndMigrateFavoritePrompts());
   const [pageMode, setPageMode] = useState(() => {
     const stored = loadStringStorage(PAGE_MODE_KEY, 'page1');
     return stored === 'page5' ? 'page1' : stored;
   });
-  const [viewMode, setViewMode] = useState(() => loadStringStorage(VIEW_MODE_KEY, 'feed'));
   const [locks, setLocks] = useState(() => normalizeLocks(loadJsonStorage(LOCKS_KEY, createEmptyLocks())));
   const [previewGenerationNonce, setPreviewGenerationNonce] = useState(0);
   const [previewRerollExclusion, setPreviewRerollExclusion] = useState(null);
@@ -896,7 +918,6 @@ export default function App() {
   const [favoriteCloudAuth, setFavoriteCloudAuth] = useState({ status: 'loading', user: null, error: null });
   const [favoriteCloudSyncStatus, setFavoriteCloudSyncStatus] = useState('local-only');
   const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false);
-  const promptsRef = useRef(prompts);
   const favoritePromptsRef = useRef(favoritePrompts);
   const favoriteCloudAuthRef = useRef(favoriteCloudAuth);
   const favoriteCloudSyncReadyRef = useRef(false);
@@ -918,18 +939,11 @@ export default function App() {
     showToast(label);
   }, [showToast]);
 
-  const clearStorageWarning = useCallback((channel) => {
-    if (channel === 'prompts' && storageWarningRef.current.includes('Feed')) {
-      storageWarningRef.current = '';
-    }
-    if (channel === 'favorites' && storageWarningRef.current.includes('Favorites')) {
+  const clearStorageWarning = useCallback(() => {
+    if (storageWarningRef.current.includes('Favorites')) {
       storageWarningRef.current = '';
     }
   }, []);
-
-  useEffect(() => {
-    promptsRef.current = prompts;
-  }, [prompts]);
 
   useEffect(() => {
     favoritePromptsRef.current = favoritePrompts;
@@ -1128,20 +1142,6 @@ export default function App() {
   }, [scheduleFavoriteCloudMutationFlush, showToast]);
 
   useEffect(() => {
-    return schedulePromptCollectionPersist(PROMPTS_KEY, prompts, sanitizeStoredPromptCollection, (result) => {
-      if (result.failed) {
-        showStorageWarning('提示：本機儲存空間已滿，新的 Feed 卡片這次無法完整保存。');
-        return;
-      }
-      if (result.truncatedCount > 0) {
-        showStorageWarning(`提示：為避免瀏覽器儲存爆滿，只保留最新 ${prompts.length - result.truncatedCount} 張 Feed 卡片到本機。`);
-        return;
-      }
-      clearStorageWarning('prompts');
-    });
-  }, [clearStorageWarning, prompts, showStorageWarning]);
-
-  useEffect(() => {
     return schedulePromptCollectionPersist(
       FAVORITES_KEY,
       favoritePrompts,
@@ -1155,14 +1155,13 @@ export default function App() {
           showStorageWarning(`提示：為避免瀏覽器儲存爆滿，只保留最新 ${favoritePrompts.length - result.truncatedCount} 張 Favorites 到本機。`);
           return;
         }
-        clearStorageWarning('favorites');
+        clearStorageWarning();
       }
     );
   }, [clearStorageWarning, favoritePrompts, showStorageWarning]);
 
   useEffect(() => {
     const flushPromptCollections = () => {
-      persistPromptCollection(PROMPTS_KEY, promptsRef.current);
       persistPromptCollection(FAVORITES_KEY, favoritePromptsRef.current, (items) =>
         items.map(serializeFavoritePrompt).filter(Boolean)
       );
@@ -1189,10 +1188,6 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(PAGE_MODE_KEY, pageMode);
   }, [pageMode]);
-
-  useEffect(() => {
-    window.localStorage.setItem(VIEW_MODE_KEY, viewMode);
-  }, [viewMode]);
 
   useEffect(() => {
     window.localStorage.setItem(PAGE2_PROFILE_KEY, JSON.stringify(page2Profile));
@@ -1383,10 +1378,7 @@ export default function App() {
       )
     : Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
 
-  const displayPrompts = useMemo(() => {
-    const baseList = viewMode === 'favorites' ? favoritePrompts : prompts;
-    return baseList;
-  }, [favoritePrompts, prompts, viewMode]);
+  const displayPrompts = favoritePrompts;
   const previewPrompt = useMemo(() => {
     const [prompt] = generatePrompts(1, locks, activeLibrary, {
       excludePreviousSelection: previewRerollExclusion,
@@ -1610,7 +1602,6 @@ export default function App() {
   }, [handleApplyActionPoseCardToPage1, lockControls, showToast, updateLocks]);
 
   const handleDeletePrompt = useCallback((prompt) => {
-    setPrompts((prev) => prev.filter((item) => item.id !== prompt.id));
     setFavoritePrompts((prev) => prev.filter((item) => item.id !== prompt.id));
     queueFavoriteCloudDelete(prompt.id);
   }, [queueFavoriteCloudDelete]);
@@ -1655,11 +1646,11 @@ export default function App() {
     }
   }, [showToast]);
 
-  const handleOpenImportFeed = () => {
-    importFeedInputRef.current?.click();
+  const handleOpenImportSavedCards = () => {
+    importSavedCardsInputRef.current?.click();
   };
 
-  const handleImportFeed = async (event) => {
+  const handleImportSavedCards = async (event) => {
     const file = event.target.files?.[0];
     event.target.value = '';
     if (!file) return;
@@ -1684,7 +1675,6 @@ export default function App() {
 
       setFavoritePrompts((prev) => mergeFavoritePrompts(prev, importedPrompts));
       queueFavoriteCloudUpserts(importedPrompts);
-      setViewMode('favorites');
       showToast(`已匯入 ${importedPrompts.length} 張最愛卡片`);
     } catch {
       showToast('ZIP 格式錯誤，無法匯入 Favorites');
@@ -1741,7 +1731,6 @@ export default function App() {
 
     const nextCard = buildCharacterCardSavedCard(characterCards, normalizedPage2Profile, page2PromptBundle);
     addFavoritePrompt(nextCard);
-    setViewMode('favorites');
     setPageMode('page4');
     showToast('角色卡 Prompt 已加入 Saved Cards');
   }, [addFavoritePrompt, characterCards, normalizedPage2Profile, page2PromptBundle, showToast]);
@@ -1758,7 +1747,6 @@ export default function App() {
       return;
     }
     addFavoritePrompt(nextCard);
-    setViewMode('favorites');
     setPageMode('page4');
     showToast('動作姿勢卡已加入 Saved Cards');
   }, [actionPosePromptBundle.card, addFavoritePrompt, normalizedActionPoseProfile, showToast]);
@@ -1778,7 +1766,6 @@ export default function App() {
       page3WorldPrompt
     );
     addFavoritePrompt(nextCard);
-    setViewMode('favorites');
     setPageMode('page4');
     showToast('場景建模 Prompt 已加入 Saved Cards');
   }, [addFavoritePrompt, page3Anchor, page3CinematicPrompt, page3Profile, page3Prompt, page3Summary, page3WorldPrompt, showToast]);
@@ -1927,17 +1914,13 @@ export default function App() {
         />
       ) : (
         <SavedCardsWorkspace
-          prompts={prompts}
-          setPrompts={setPrompts}
-          viewMode={viewMode}
-          setViewMode={setViewMode}
           favoritePrompts={favoritePrompts}
           displayPrompts={displayPrompts}
           handleDownloadAll={handleDownloadAll}
           handleClearFavorites={handleClearFavorites}
-          importFeedInputRef={importFeedInputRef}
-          handleOpenImportFeed={handleOpenImportFeed}
-          handleImportFeed={handleImportFeed}
+          importSavedCardsInputRef={importSavedCardsInputRef}
+          handleOpenImportSavedCards={handleOpenImportSavedCards}
+          handleImportSavedCards={handleImportSavedCards}
           handleDeletePrompt={handleDeletePrompt}
           handleApplySavedCardSelection={handleApplySavedCardSelection}
         />

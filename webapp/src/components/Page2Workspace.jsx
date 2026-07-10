@@ -166,7 +166,14 @@ export default function Page2Workspace({
                   onClick={() => selectCharacterCard(card)}
                 >
                   {card.primaryReferenceImage ? (
-                    <img src={`${import.meta.env.BASE_URL}${card.primaryReferenceImage}`} alt={card.label} />
+                    <img
+                      src={`${import.meta.env.BASE_URL}${card.primaryReferenceImage}`}
+                      alt={card.label}
+                      width="640"
+                      height="954"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   ) : null}
                   <span>{card.label}</span>
                 </button>
@@ -178,7 +185,14 @@ export default function Page2Workspace({
             <aside className="character-card-config-panel">
               <div className="character-card-selected-preview">
                 {activeCard.primaryReferenceImage ? (
-                  <img src={`${import.meta.env.BASE_URL}${activeCard.primaryReferenceImage}`} alt={activeCard.label} />
+                  <img
+                    src={`${import.meta.env.BASE_URL}${activeCard.primaryReferenceImage}`}
+                    alt={activeCard.label}
+                    width="640"
+                    height="954"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 ) : null}
                 <strong>{activeCard.label}</strong>
               </div>

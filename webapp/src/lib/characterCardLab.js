@@ -209,7 +209,6 @@ export function getCharacterCardOptions(lockControls = []) {
         makeup: option.profile?.identityAndBody || '',
         baseHair: option.profile?.hair || '',
         photographicDirection: option.profile?.photographicDirection || '',
-        referenceImages: copyArray(option.referenceImages),
         primaryReferenceImage: option.meta?.referenceImage || '',
         hairTags: copyArray(extension.hairTags),
         enabledHairVariants: copyArray(extension.enabledHairVariants),

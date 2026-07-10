@@ -25,13 +25,17 @@ Important legacy terminology warning:
 - Knowledge base source: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
 - Sync script: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
 - Synced data target: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
-- Current pushed main before this architecture-hardening update: `6dc76cd Document prompt engine architecture`
+- Current pushed main before this architecture-hardening update: `b2b658c Harden project architecture and remove dead code`
 
 ## Validation
 
 Standard validation flow:
 
 - From repo root when knowledge base markdown changes: `python3 scripts/sync_to_json.py`
+- From repo root after syncing: `python3 scripts/sync_to_json.py --check`
+- Data and asset checks:
+  - `python3 -m unittest discover -s scripts/tests`
+  - `python3 scripts/check_public_assets.py`
 - From `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`:
   - `npm test`
   - `npm run lint`
@@ -39,16 +43,13 @@ Standard validation flow:
 
 Last implementation validation on 2026-07-10 after architecture hardening and cleanup:
 
-- Frontend `npm test`: 380 tests passed.
+- Frontend `npm test`: 383 tests passed.
 - Frontend `npm run lint` and `npm run build`: passed without the previous Vite chunk-size warning.
 - Functions `npm test`: 28 tests passed.
 - Functions `npm run lint`: passed with the active repository ESLint configuration.
 - Browser smoke test passed for Prompt Control Deck, Character Card Lab, Action Pose Lab, World Street Scene Builder, and Saved Cards; console error/warn logs were empty.
 - Git reference and object validation passed after stale synced-directory conflict copies were removed.
-
-Historical validation note from 2026-06-25:
-
-- `python3 scripts/sync_to_json.py`: passed, with one known warning: `套裝 (Outfit Presets)` has 54 reference images for 55 items. Missing reference image: `網狀蕾絲馬甲短裙長靴`.
+- Data sync unit tests, deterministic `--check`, and public asset budget validation passed. The deployment-safe public references total about 2.1 MiB.
 
 Optional dev server:
 
@@ -59,7 +60,6 @@ QA notes from 2026-06-25:
 
 - A stale `enginePromptPipeline.test.js` expectation was aligned with the current face-only close-up policy: `AI` should omit hidden wardrobe and should not inject the old default spaghetti-strap dress fallback.
 - In-app Browser rendered QA could not operate native `<select>` values through `selectOption`, keyboard, or coordinate fallback. Pose Composer select dependencies and prompt output remain covered by unit tests; rendered QA covered page load, buttons, prompt output updates, console health, and responsive layout.
-- Add `webapp/public/reference/wardrobe/outfit-presets/55_*.png` for `網狀蕾絲馬甲短裙長靴` to clear the current sync warning and restore full outfit-preset reference image coverage.
 
 ## Current Canonical State
 
@@ -552,11 +552,11 @@ PAGE3 is a pure scene / world / environment prompt builder.
 
 SUNO was removed from active app navigation / workspace flow because the user plans a separate music prompt tool.
 
-- Legacy SUNO source files and old saved-card compatibility may still exist.
+- The unreachable SUNO source files were removed. Historical cards remain plain saved prompt data.
 - Do not re-add SUNO to active navigation unless explicitly requested.
 - Old `page5` saved cards should remain readable/copyable where compatibility still exists.
 
-## Restore / Import / Favorites / Feed
+## Restore / Import / Favorites
 
 Current behavior:
 
@@ -569,10 +569,19 @@ Current behavior:
 - Restore default rule:
   - if a control has `全無` and restore misses it, it becomes `全無`
   - otherwise it falls back to Random
-- Feed ZIP import accepts the app's own ZIP format only.
-- Feed import merges into current Favorites; duplicate ids are overwritten by imported entries.
+- Saved Cards ZIP import accepts the app's own ZIP format only.
+- ZIP import merges into current Favorites; duplicate ids are overwritten by imported entries.
 - Invalid ZIP format rejects the whole import.
-- Feed and Favorites no longer have the old 120-item cap.
+- Favorites no longer has the old 120-item cap.
+- On first launch after the 2026-07-10 migration, legacy `vps.prompts` Feed cards are appended to Favorites without replacing richer Favorites records. Legacy keys are deleted only after the merged payload is saved successfully.
+
+## Data and Reference Assets
+
+- `knowledge_base/wardrobe_reference_manifest.json` maps every wardrobe item name to a stable reference ID, original source filename, and AVIF preview filename.
+- `knowledge_base/item_metadata.json` and `outfit_preset_metadata.json` are explicit metadata sources; `database.json` is no longer used as an implicit metadata source.
+- `python3 scripts/sync_to_json.py --check` validates manifest coverage, duplicates, source files, previews, metadata targets, and exact generated JSON without writing.
+- Original wardrobe and character images live under `source-assets/`; only 640px AVIF previews live under `webapp/public` and enter the Vite deployment.
+- `python3 scripts/build_image_previews.py` rebuilds previews locally with ffmpeg. `python3 scripts/check_public_assets.py` enforces the deployment budget in CI.
 
 Firebase:
 

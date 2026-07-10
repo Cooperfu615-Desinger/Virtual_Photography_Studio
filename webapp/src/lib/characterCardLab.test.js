@@ -187,13 +187,11 @@ test('variant normalization falls back from unknown card and incompatible hair v
 
 test('character card options return shallow copies of mutable arrays', () => {
   const firstRead = getCharacterCardOptions(getLockControls());
-  firstRead[0].referenceImages.push('mutated-reference');
   firstRead[0].hairTags.push('mutated-tag');
   firstRead[0].enabledHairVariants.push('mutated-enabled');
   firstRead[0].disabledHairVariants.push('mutated-disabled');
 
   const secondRead = getCharacterCardOptions(getLockControls());
-  assert.equal(secondRead[0].referenceImages.includes('mutated-reference'), false);
   assert.equal(secondRead[0].hairTags.includes('mutated-tag'), false);
   assert.equal(secondRead[0].enabledHairVariants.includes('mutated-enabled'), false);
   assert.equal(secondRead[0].disabledHairVariants.includes('mutated-disabled'), false);

@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "character-48g",
+      "directory": "48g",
+      "source": "48_G_00.jpeg",
+      "preview": "48_G_00.avif"
+    },
+    {
+      "id": "character-philippa",
+      "directory": "philippa",
+      "source": "29_Philippa_00.jpeg",
+      "preview": "29_Philippa_00.avif"
+    },
+    {
+      "id": "character-sakura",
+      "directory": "sakura",
+      "source": "12_Sakura_00.jpeg",
+      "preview": "12_Sakura_00.avif"
+    },
+    {
+      "id": "character-hinata",
+      "directory": "hinata",
+      "source": "06_Hinata_00.png",
+      "preview": "06_Hinata_00.avif"
+    },
+    {
+      "id": "character-rika",
+      "directory": "rika",
+      "source": "11_Rika_00.jpeg",
+      "preview": "11_Rika_00.avif"
+    },
+    {
+      "id": "character-rin",
+      "directory": "rin",
+      "source": "38_Rin_00.jpeg",
+      "preview": "38_Rin_00.avif"
+    },
+    {
+      "id": "character-lily",
+      "directory": "lily",
+      "source": "07_Lily_00.jpeg",
+      "preview": "07_Lily_00.avif"
+    },
+    {
+      "id": "character-yuri",
+      "directory": "yuri",
+      "source": "02_Yuri_00.jpeg",
+      "preview": "02_Yuri_00.avif"
+    },
+    {
+      "id": "character-sui",
+      "directory": "sui",
+      "source": "03_Sui_00.jpeg",
+      "preview": "03_Sui_00.avif"
+    },
+    {
+      "id": "character-hina",
+      "directory": "hina",
+      "source": "37_Hina_00.jpeg",
+      "preview": "37_Hina_00.avif"
+    }
+  ]
+}

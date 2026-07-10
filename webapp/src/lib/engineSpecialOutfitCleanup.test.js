@@ -204,7 +204,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
       'large cobalt blue nylon shoulder bag',
       'white crew socks',
       'black three-stripe sneakers',
-      'reference/wardrobe/special-outfits/62_綠針織運動短褲藍包.png',
+      'reference/wardrobe/special-outfits/62_綠針織運動短褲藍包.avif',
     ],
     紅色圖像T格紋短褲長襪造型: [
       'short reddish pixie hair',
@@ -214,7 +214,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
       'dark gray thigh-high socks',
       'black chunky Mary Jane shoes',
       'tan structured handbag',
-      'reference/wardrobe/special-outfits/63_紅色圖像T格紋短褲長襪.png',
+      'reference/wardrobe/special-outfits/63_紅色圖像T格紋短褲長襪.avif',
     ],
     紫色佩斯利襯衫短褲軍靴造型: [
       'brown hair tucked under a green bandana headscarf',
@@ -223,7 +223,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
       'black mid-calf socks',
       'chunky black combat boots with yellow lace accents',
       'pearl choker necklace',
-      'reference/wardrobe/special-outfits/64_紫色佩斯利襯衫短褲軍靴.png',
+      'reference/wardrobe/special-outfits/64_紫色佩斯利襯衫短褲軍靴.avif',
     ],
     巴西色背心單肩吊帶牛仔造型: [
       'loose brown hair',
@@ -232,7 +232,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
       'navy shoulder bag',
       'wired white earphones',
       'dark low-profile sneakers',
-      'reference/wardrobe/special-outfits/65_巴西色背心單肩吊帶牛仔.png',
+      'reference/wardrobe/special-outfits/65_巴西色背心單肩吊帶牛仔.avif',
     ],
     紫條紋襯衫洋裝紅包造型: [
       'long straight dark hair with full bangs',
@@ -240,7 +240,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
       'red quilted chain-strap shoulder bag',
       'navy ankle socks',
       'red pointed flats with striped metallic toe detail',
-      'reference/wardrobe/special-outfits/66_紫條紋襯衫洋裝紅包.png',
+      'reference/wardrobe/special-outfits/66_紫條紋襯衫洋裝紅包.avif',
     ],
     紅帽波點背心寬牛仔造型: [
       'long wavy hair under a red baseball cap',
@@ -249,7 +249,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
       'black handbag with a dangling white star charm',
       'black sunglasses',
       'black sneakers',
-      'reference/wardrobe/special-outfits/67_紅帽波點背心寬牛仔.png',
+      'reference/wardrobe/special-outfits/67_紅帽波點背心寬牛仔.avif',
     ],
     粉色愛心T黑寬褲造型: [
       'long black wavy hair with wispy bangs',
@@ -258,7 +258,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
       'black shoulder bag with chain strap',
       'black heart pendant necklace',
       'black platform clogs',
-      'reference/wardrobe/special-outfits/68_粉色愛心T黑寬褲.png',
+      'reference/wardrobe/special-outfits/68_粉色愛心T黑寬褲.avif',
     ],
     白荷葉襯衫黑吊帶長裙波點包造型: [
       'long wavy platinum-blonde hair with braided side detail',
@@ -267,7 +267,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
       'oversized red tote bag with white polka dots',
       'silver pendant necklace',
       'black sneakers with white three-stripe detail',
-      'reference/wardrobe/special-outfits/69_白荷葉襯衫黑吊帶長裙波點包.png',
+      'reference/wardrobe/special-outfits/69_白荷葉襯衫黑吊帶長裙波點包.avif',
     ],
   };
 
@@ -281,7 +281,7 @@ test('special outfit street reference looks 62 to 69 preserve hair, bags, access
     }
 
     assert.equal(option.meta.referenceImage, referenceImage);
-    assert.equal(option.meta.referenceImageFormat, 'png');
+    assert.equal(option.meta.referenceImageFormat, 'avif');
   }
 });
 
@@ -293,7 +293,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'black satin boxer-style micro shorts',
       'tan mid-calf western boots',
       'blue oval sunglasses',
-      'reference/wardrobe/special-outfits/70_白襯衫黑短褲西部靴.png',
+      'reference/wardrobe/special-outfits/70_白襯衫黑短褲西部靴.avif',
     ],
     奶油掛脖棕紗裙軍靴造型: [
       'cream halter tube top',
@@ -302,7 +302,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'white slouch socks',
       'black lace-up combat boots',
       'visible arm tattoos',
-      'reference/wardrobe/special-outfits/71_奶油掛脖棕紗裙軍靴.png',
+      'reference/wardrobe/special-outfits/71_奶油掛脖棕紗裙軍靴.avif',
     ],
     海軍T灰色工裝長裙造型: [
       'oversized navy short-sleeve T-shirt',
@@ -310,7 +310,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'layered silver pendant necklaces',
       'black leather wrist cuff',
       'chunky black-gray sneakers',
-      'reference/wardrobe/special-outfits/72_海軍T灰色工裝長裙.png',
+      'reference/wardrobe/special-outfits/72_海軍T灰色工裝長裙.avif',
     ],
     黑短外套牛仔短褲樂福造型: [
       'cropped black textured jacket with gold buttons',
@@ -318,7 +318,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'white ankle socks',
       'black tabi-style loafers',
       'layered pearl and gold necklaces',
-      'reference/wardrobe/special-outfits/73_黑短外套牛仔短褲樂福.png',
+      'reference/wardrobe/special-outfits/73_黑短外套牛仔短褲樂福.avif',
     ],
     乳牛紋連身丹寧開洞褲造型: [
       'off-shoulder cow-print fitted romper',
@@ -327,7 +327,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'dramatic blue denim chaps-style wide pants',
       'large thigh cut-outs',
       'denim cowboy hat',
-      'reference/wardrobe/special-outfits/74_乳牛紋連身丹寧開洞褲.png',
+      'reference/wardrobe/special-outfits/74_乳牛紋連身丹寧開洞褲.avif',
     ],
     紅條紋毛衣拼接紗裙造型: [
       'burgundy paisley bandana',
@@ -336,7 +336,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'pale blue draped sheer tie-dye skirt',
       'blue slouchy suede knee boots',
       'visible arm tattoos',
-      'reference/wardrobe/special-outfits/75_紅條紋毛衣拼接紗裙.png',
+      'reference/wardrobe/special-outfits/75_紅條紋毛衣拼接紗裙.avif',
     ],
     薄荷蕾絲短上衣水鑽牛仔造型: [
       'sheer mint off-shoulder wrap crop top',
@@ -344,7 +344,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'low-rise wide-leg blue jeans with rhinestone swirl embellishment',
       'silver butterfly belly chain draped around the exposed bare waist above the low-rise jeans',
       'crystal butterfly necklace',
-      'reference/wardrobe/special-outfits/76_薄荷蕾絲短上衣水鑽牛仔.png',
+      'reference/wardrobe/special-outfits/76_薄荷蕾絲短上衣水鑽牛仔.avif',
     ],
     黑短T低腰黑牛仔造型: [
       'fitted black cropped baby T-shirt ending at the ribcage',
@@ -352,7 +352,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'low-rise black straight-leg jeans',
       'black leather belt with rhinestone horseshoe-shaped buckle',
       'black leather ankle boots',
-      'reference/wardrobe/special-outfits/77_黑短T低腰黑牛仔.png',
+      'reference/wardrobe/special-outfits/77_黑短T低腰黑牛仔.avif',
     ],
     白T紫格長裙灰球鞋造型: [
       'white short-sleeve graphic T-shirt with pale purple print',
@@ -360,7 +360,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'soft ruffled hem',
       'white crew socks',
       'gray low-top sneakers with cream laces',
-      'reference/wardrobe/special-outfits/78_白T紫格長裙灰球鞋.png',
+      'reference/wardrobe/special-outfits/78_白T紫格長裙灰球鞋.avif',
     ],
     黑皮外套波點絲襪長靴造型: [
       'oversized black leather blazer',
@@ -368,7 +368,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'short black mini bottom',
       'sheer black polka-dot tights',
       'tall black leather boots',
-      'reference/wardrobe/special-outfits/79_黑皮外套波點絲襪長靴.png',
+      'reference/wardrobe/special-outfits/79_黑皮外套波點絲襪長靴.avif',
     ],
     黃條紋Polo領帶寬牛仔造型: [
       'red baseball cap',
@@ -377,7 +377,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'light blue relaxed straight-leg jeans',
       'silver wallet chain',
       'black leather shoes',
-      'reference/wardrobe/special-outfits/80_黃條紋Polo領帶寬牛仔.png',
+      'reference/wardrobe/special-outfits/80_黃條紋Polo領帶寬牛仔.avif',
     ],
     菱格背心黑寬短褲長襪造型: [
       'red baseball cap',
@@ -386,7 +386,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'black wide knee-length denim shorts',
       'white knee-high socks',
       'visible arm tattoos',
-      'reference/wardrobe/special-outfits/81_菱格背心黑寬短褲長襪.png',
+      'reference/wardrobe/special-outfits/81_菱格背心黑寬短褲長襪.avif',
     ],
     藍荷葉背心白紗長裙造型: [
       'sheer nude mesh upper layer',
@@ -394,7 +394,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       'voluminous white tiered tulle maxi skirt',
       'multiple ruffle bands',
       'pale mint square-toe shoes',
-      'reference/wardrobe/special-outfits/82_藍荷葉背心白紗長裙.png',
+      'reference/wardrobe/special-outfits/82_藍荷葉背心白紗長裙.avif',
     ],
   };
   const omittedTerms = /\b(hair|hairstyle|bangs|bob|braid|blonde|brunette|bag|handbag|shoulder bag|tote|backpack|purse|clutch)\b/i;
@@ -413,7 +413,7 @@ test('special outfit street reference looks 70 to 82 omit bags and hairstyles wh
       assert.doesNotMatch(option.en, /chain waist belt/i, `${label} should not read as a denim waist belt`);
     }
     assert.equal(option.meta.referenceImage, referenceImage);
-    assert.equal(option.meta.referenceImageFormat, 'png');
+    assert.equal(option.meta.referenceImageFormat, 'avif');
   }
 });
 
@@ -425,7 +425,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'large arched varsity lettering and number graphic',
       'white athletic shorts peeking underneath',
       'chunky white athletic sneakers',
-      'reference/wardrobe/special-outfits/83_紫橘籃球球衣球鞋.png',
+      'reference/wardrobe/special-outfits/83_紫橘籃球球衣球鞋.avif',
     ],
     彩虹綁結上衣橘紅開衩長裙造型: [
       'multicolor tie-dye deep V cropped top',
@@ -434,7 +434,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'printed head scarf',
       'black crossbody bag',
       'olive chunky buckle ankle boots',
-      'reference/wardrobe/special-outfits/84_彩虹綁結上衣橘紅開衩長裙.png',
+      'reference/wardrobe/special-outfits/84_彩虹綁結上衣橘紅開衩長裙.avif',
     ],
     紫色綁帶短上衣荷葉開衩長裙造型: [
       'pink-purple tie-dye halter crop top with center ring cutout',
@@ -442,7 +442,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'cascading ruffle panels and high slit',
       'tan crossbody saddle bag with tassel charms',
       'brown platform wedge sandals',
-      'reference/wardrobe/special-outfits/85_紫色綁帶短上衣荷葉開衩長裙.png',
+      'reference/wardrobe/special-outfits/85_紫色綁帶短上衣荷葉開衩長裙.avif',
     ],
     橄欖西裝條紋寬褲咖啡袋造型: [
       'oversized olive blazer with rolled cuffs',
@@ -451,7 +451,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'red round eyeglasses',
       'burlap coffee-sack shoulder tote',
       'polished black leather shoes',
-      'reference/wardrobe/special-outfits/86_橄欖西裝條紋寬褲咖啡袋.png',
+      'reference/wardrobe/special-outfits/86_橄欖西裝條紋寬褲咖啡袋.avif',
     ],
     白色馬甲黑色七分褲金飾造型: [
       'white strapless embroidered bustier with black stitch trim',
@@ -460,7 +460,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'red narrow oval sunglasses',
       'oversized gold chain necklace',
       'patterned white shoulder bag',
-      'reference/wardrobe/special-outfits/87_白色馬甲黑色七分褲金飾.png',
+      'reference/wardrobe/special-outfits/87_白色馬甲黑色七分褲金飾.avif',
     ],
     白襯衫黑色氣球工裝褲造型: [
       'crisp white long-sleeve button-up shirt with buttoned collar',
@@ -469,7 +469,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'round eyeglasses',
       'white socks',
       'black lace-up leather shoes',
-      'reference/wardrobe/special-outfits/88_白襯衫黑色氣球工裝褲.png',
+      'reference/wardrobe/special-outfits/88_白襯衫黑色氣球工裝褲.avif',
     ],
     白襯衫黑色長裙細領帶造型: [
       'white long-sleeve high-neck shirt tucked neatly',
@@ -477,7 +477,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'slim black scarf tie or lanyard',
       'black soft shoulder tote',
       'black lace-up leather shoes',
-      'reference/wardrobe/special-outfits/89_白襯衫黑色長裙細領帶.png',
+      'reference/wardrobe/special-outfits/89_白襯衫黑色長裙細領帶.avif',
     ],
     紅色亮面膠帶束帶造型: [
       'glossy adhesive tape body-wrap look',
@@ -485,7 +485,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
       'multiple horizontal and diagonal shiny bands tightly wrapping the body',
       'strategic coverage over key areas',
       'tape color follows complete-look palette selection',
-      'reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.png',
+      'reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.avif',
     ],
   };
 
@@ -499,7 +499,7 @@ test('special outfit reference looks 83 to 90 preserve outfit accessories and pr
     }
 
     assert.equal(option.meta.referenceImage, referenceImage);
-    assert.equal(option.meta.referenceImageFormat, referenceImage.endsWith('.png') ? 'png' : 'jpg');
+    assert.equal(option.meta.referenceImageFormat, referenceImage.endsWith('.avif') ? 'avif' : 'jpg');
   }
 });
 

@@ -20,24 +20,7 @@ export const CHARACTER_PROFILE_OPTIONS = [
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '48_G 角色卡',
-    meta: { referenceImage: 'character-cards/48g/48_G_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        publicPath: '/character-cards/48g/48_G_01.jpeg',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        publicPath: '/character-cards/48g/48_G_02.jpeg',
-      },
-      {
-        type: 'expression-sheet',
-        label: '表情九宮格',
-        publicPath: '/character-cards/48g/48_G_03.jpeg',
-      },
-    ],
+    meta: { referenceImage: 'character-cards/48g/48_G_00.avif', referenceImageFormat: 'avif' },
   },
   {
     id: 'character-philippa',
@@ -52,24 +35,7 @@ export const CHARACTER_PROFILE_OPTIONS = [
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '29_Philippa 角色卡',
-    meta: { referenceImage: 'character-cards/philippa/29_Philippa_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        publicPath: '/character-cards/philippa/29_Philippa_01.png',
-      },
-      {
-        type: 'portrait-scene',
-        label: '半身情境照',
-        publicPath: '/character-cards/philippa/29_Philippa_00.jpeg',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        publicPath: '/character-cards/philippa/29_Philippa_02.jpeg',
-      },
-    ],
+    meta: { referenceImage: 'character-cards/philippa/29_Philippa_00.avif', referenceImageFormat: 'avif' },
   },
   {
     id: 'character-sakura',
@@ -84,24 +50,7 @@ export const CHARACTER_PROFILE_OPTIONS = [
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '12_Sakura 角色卡',
-    meta: { referenceImage: 'character-cards/sakura/12_Sakura_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        publicPath: '/character-cards/sakura/12_Sakura_00.jpeg',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        publicPath: '/character-cards/sakura/12_Sakura_01.png',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        publicPath: '/character-cards/sakura/12_Sakura_02.png',
-      },
-    ],
+    meta: { referenceImage: 'character-cards/sakura/12_Sakura_00.avif', referenceImageFormat: 'avif' },
   },
   {
     id: 'character-hinata',
@@ -117,29 +66,7 @@ export const CHARACTER_PROFILE_OPTIONS = [
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '06_Hinata 角色卡',
-    meta: { referenceImage: 'character-cards/hinata/06_Hinata_00.png', referenceImageFormat: 'png' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        publicPath: '/character-cards/hinata/06_Hinata_00.png',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        publicPath: '/character-cards/hinata/06_Hinata_03.png',
-      },
-      {
-        type: 'expression-sheet',
-        label: '表情九宮格',
-        publicPath: '/character-cards/hinata/06_Hinata_01A.png',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        publicPath: '/character-cards/hinata/06_Hinata_01.png',
-      },
-    ],
+    meta: { referenceImage: 'character-cards/hinata/06_Hinata_00.avif', referenceImageFormat: 'avif' },
   },
   {
     id: 'character-rika',
@@ -155,29 +82,7 @@ export const CHARACTER_PROFILE_OPTIONS = [
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '11_Rika 角色卡',
-    meta: { referenceImage: 'character-cards/rika/11_Rika_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        publicPath: '/character-cards/rika/11_Rika_00.jpeg',
-      },
-      {
-        type: 'portrait-scene',
-        label: '半身情境照',
-        publicPath: '/character-cards/rika/11_Rika_03.png',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        publicPath: '/character-cards/rika/11_Rika_02.png',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        publicPath: '/character-cards/rika/11_Rika_01.png',
-      },
-    ],
+    meta: { referenceImage: 'character-cards/rika/11_Rika_00.avif', referenceImageFormat: 'avif' },
   },
   {
     id: 'character-rin',
@@ -193,24 +98,7 @@ export const CHARACTER_PROFILE_OPTIONS = [
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '38_Rin 角色卡',
-    meta: { referenceImage: 'character-cards/rin/38_Rin_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        publicPath: '/character-cards/rin/38_Rin_01.png',
-      },
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        publicPath: '/character-cards/rin/38_Rin_00.jpeg',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        publicPath: '/character-cards/rin/38_Rin_02.png',
-      },
-    ],
+    meta: { referenceImage: 'character-cards/rin/38_Rin_00.avif', referenceImageFormat: 'avif' },
   },
   {
     id: 'character-lily',
@@ -225,24 +113,7 @@ export const CHARACTER_PROFILE_OPTIONS = [
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '07_Lily 角色卡',
-    meta: { referenceImage: 'character-cards/lily/07_Lily_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        publicPath: '/character-cards/lily/07_Lily_00.jpeg',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        publicPath: '/character-cards/lily/07_Lily_02.png',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        publicPath: '/character-cards/lily/07_Lily_01.png',
-      },
-    ],
+    meta: { referenceImage: 'character-cards/lily/07_Lily_00.avif', referenceImageFormat: 'avif' },
   },
   {
     id: 'character-yuri',
@@ -258,24 +129,7 @@ export const CHARACTER_PROFILE_OPTIONS = [
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '02_Yuri 角色卡',
-    meta: { referenceImage: 'character-cards/yuri/02_Yuri_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        publicPath: '/character-cards/yuri/02_Yuri_00.jpeg',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        publicPath: '/character-cards/yuri/02_Yuri_01.png',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        publicPath: '/character-cards/yuri/02_Yuri_02.png',
-      },
-    ],
+    meta: { referenceImage: 'character-cards/yuri/02_Yuri_00.avif', referenceImageFormat: 'avif' },
   },
   {
     id: 'character-sui',
@@ -291,29 +145,7 @@ export const CHARACTER_PROFILE_OPTIONS = [
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '03_Sui 角色卡',
-    meta: { referenceImage: 'character-cards/sui/03_Sui_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        publicPath: '/character-cards/sui/03_Sui_00.jpeg',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        publicPath: '/character-cards/sui/03_Sui_01.png',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        publicPath: '/character-cards/sui/03_Sui_02.png',
-      },
-      {
-        type: 'expression-sheet',
-        label: '表情九宮格',
-        publicPath: '/character-cards/sui/03_Sui_01A.png',
-      },
-    ],
+    meta: { referenceImage: 'character-cards/sui/03_Sui_00.avif', referenceImageFormat: 'avif' },
   },
   {
     id: 'character-hina',
@@ -329,23 +161,6 @@ export const CHARACTER_PROFILE_OPTIONS = [
     count: 1,
     specialSubject: 'character-profile',
     specialToneZh: '37_Hina 角色卡',
-    meta: { referenceImage: 'character-cards/hina/37_Hina_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-scene',
-        label: '情境坐姿照',
-        publicPath: '/character-cards/hina/37_Hina_00.jpeg',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        publicPath: '/character-cards/hina/37_Hina_02.png',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        publicPath: '/character-cards/hina/37_Hina_01.png',
-      },
-    ],
+    meta: { referenceImage: 'character-cards/hina/37_Hina_00.avif', referenceImageFormat: 'avif' },
   },
 ];

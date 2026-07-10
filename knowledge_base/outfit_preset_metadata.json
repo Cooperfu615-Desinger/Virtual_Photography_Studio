@@ -5,185 +5,72 @@
     "contrastBehavior": "strong",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["latex_bodysuit", "integrated_choker", "opera_gloves"],
-      "contrast": ["hip_straps", "thigh_harness_straps", "zip_front_trim"],
-      "locked": ["metal_hardware"]
+      "primary": [
+        "latex_bodysuit",
+        "integrated_choker",
+        "opera_gloves"
+      ],
+      "contrast": [
+        "hip_straps",
+        "thigh_harness_straps",
+        "zip_front_trim"
+      ],
+      "locked": [
+        "metal_hardware"
+      ]
     }
   },
+  "鏈條緞面內衣套裝": {},
   "皮革馬甲束腰套裝": {
     "series": "signature",
     "colorMode": "primary_contrast_locked",
     "contrastBehavior": "strong",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["corset_bodice", "main_leather_panels", "lower_half_base_panels"],
-      "contrast": ["lace_trims", "embroidery", "mesh_panel_accents", "ribbon_lacing"],
-      "locked": ["grommets", "buckles", "ring_hardware"]
+      "primary": [
+        "corset_bodice",
+        "main_leather_panels",
+        "lower_half_base_panels"
+      ],
+      "contrast": [
+        "lace_trims",
+        "embroidery",
+        "mesh_panel_accents",
+        "ribbon_lacing"
+      ],
+      "locked": [
+        "grommets",
+        "buckles",
+        "ring_hardware"
+      ]
     }
   },
-  "玫瑰粉乳膠迷你洋裝套裝": {
-    "series": "signature",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "balanced",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["latex_mini_dress"],
-      "contrast": ["minor_trim_accents", "panel_edges"],
-      "locked": []
-    }
-  },
-  "象牙白春日巴黎套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "soft",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["linen_shirt", "overall_tonal_palette"],
-      "contrast": ["silk_camisole", "wide_leg_trousers"],
-      "locked": []
-    }
-  },
-  "極簡高級套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "soft",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["main_outfit_body"],
-      "contrast": ["inner_layer", "subtle_structural_accents"],
-      "locked": []
-    }
-  },
-  "日系街頭套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "balanced",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["outer_layer", "largest_garment_block"],
-      "contrast": ["inner_layer", "bottoms", "graphic_accents"],
-      "locked": []
-    }
-  },
-  "居家慵懶套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "soft",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["main_loungewear_body"],
-      "contrast": ["inner_layer", "pants", "soft_trim_accents"],
-      "locked": []
-    }
-  },
-  "文青生活套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "soft",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["main_top_or_dress_layer"],
-      "contrast": ["bottoms", "outer_layer"],
-      "locked": []
-    }
-  },
-  "全黑長版襯衫百褶長裙套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "soft",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["long_shirt", "pleated_skirt"],
-      "contrast": ["inner_layer", "secondary_tonal_accents"],
-      "locked": []
-    }
-  },
-  "清爽運動套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "balanced",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["main_sportswear_pieces"],
-      "contrast": ["stripes", "paneling", "shorts_or_inner_layer"],
-      "locked": []
-    }
-  },
-  "甜辣街頭套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "balanced",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["main_outfit_body"],
-      "contrast": ["inner_layer", "bottoms", "accent_trims"],
-      "locked": []
-    }
-  },
-  "都會通勤套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "balanced",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["tailored_outer_layer", "main_suit_body"],
-      "contrast": ["shirt_layer", "skirt_or_trousers", "trim_accents"],
-      "locked": []
-    }
-  },
-  "旅行度假套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "soft",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["main_resortwear_body"],
-      "contrast": ["cover_up", "belt", "bottoms"],
-      "locked": []
-    }
-  },
-  "夜生活辣妹套裝": {
-    "series": "daily",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "strong",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["main_nightlife_garment"],
-      "contrast": ["panel_accents", "trim_accents"],
-      "locked": []
-    }
-  },
-  "黑色細節一字領哥德洋裝套裝": {
-    "series": "signature",
-    "colorMode": "primary_contrast_locked",
-    "contrastBehavior": "strong",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["dress_body"],
-      "contrast": ["optional_secondary_trim_areas"],
-      "locked": ["black_ribbons", "black_buttons", "black_bow", "black_choker", "black_sheer_underskirt", "black_straps"]
-    }
-  },
-  "銀色亮面深V掛脖迷你洋裝套裝": {
-    "series": "signature",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "balanced",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["halter_mini_dress"],
-      "contrast": ["minor_edge_accents"],
-      "locked": []
-    }
-  },
+  "春日巴黎亞麻長褲套裝": {},
+  "長版襯衫百褶長裙套裝": {},
+  "西裝長褲套裝": {},
+  "秘書短裙套裝": {},
+  "空服員制服套裝": {},
+  "護士制服套裝": {},
+  "醫生診療袍套裝": {},
   "BDSM 束縛套裝": {
     "series": "signature",
     "colorMode": "primary_contrast_locked",
     "contrastBehavior": "strong",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["main_outfit_body"],
-      "contrast": ["bondage_straps", "panel_accents", "latex_accent_areas"],
-      "locked": ["buckles", "chains", "metal_rings"]
+      "primary": [
+        "main_outfit_body"
+      ],
+      "contrast": [
+        "bondage_straps",
+        "panel_accents",
+        "latex_accent_areas"
+      ],
+      "locked": [
+        "buckles",
+        "chains",
+        "metal_rings"
+      ]
     }
   },
   "維多利亞古典套裝": {
@@ -192,8 +79,15 @@
     "contrastBehavior": "balanced",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["main_dress_body"],
-      "contrast": ["lace", "collar", "corset_lines", "ruffle_accents"],
+      "primary": [
+        "main_dress_body"
+      ],
+      "contrast": [
+        "lace",
+        "collar",
+        "corset_lines",
+        "ruffle_accents"
+      ],
       "locked": []
     }
   },
@@ -203,8 +97,14 @@
     "contrastBehavior": "strong",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["dress_main_fabric"],
-      "contrast": ["frills", "bows", "hem_trim"],
+      "primary": [
+        "dress_main_fabric"
+      ],
+      "contrast": [
+        "frills",
+        "bows",
+        "hem_trim"
+      ],
       "locked": []
     }
   },
@@ -214,8 +114,14 @@
     "contrastBehavior": "balanced",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["lingerie_base_fabric"],
-      "contrast": ["lace_panels", "ribbons", "scalloped_trim"],
+      "primary": [
+        "lingerie_base_fabric"
+      ],
+      "contrast": [
+        "lace_panels",
+        "ribbons",
+        "scalloped_trim"
+      ],
       "locked": []
     }
   },
@@ -225,8 +131,14 @@
     "contrastBehavior": "balanced",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["swimwear_body"],
-      "contrast": ["tie_details", "trim", "cover_up_layer"],
+      "primary": [
+        "swimwear_body"
+      ],
+      "contrast": [
+        "tie_details",
+        "trim",
+        "cover_up_layer"
+      ],
       "locked": []
     }
   },
@@ -236,7 +148,9 @@
     "contrastBehavior": "soft",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["cheongsam_body"],
+      "primary": [
+        "cheongsam_body"
+      ],
       "contrast": [],
       "locked": []
     }
@@ -247,8 +161,12 @@
     "contrastBehavior": "balanced",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["cheongsam_base_fabric"],
-      "contrast": ["embroidery"],
+      "primary": [
+        "cheongsam_base_fabric"
+      ],
+      "contrast": [
+        "embroidery"
+      ],
       "locked": []
     }
   },
@@ -258,8 +176,13 @@
     "contrastBehavior": "balanced",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["kimono_robe"],
-      "contrast": ["obi_sash", "collar_layers"],
+      "primary": [
+        "kimono_robe"
+      ],
+      "contrast": [
+        "obi_sash",
+        "collar_layers"
+      ],
       "locked": []
     }
   },
@@ -269,30 +192,12 @@
     "contrastBehavior": "soft",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["yukata_body"],
-      "contrast": ["obi_sash"],
-      "locked": []
-    }
-  },
-  "經典漢服套裝": {
-    "series": "signature",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "balanced",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["outer_robe"],
-      "contrast": ["inner_collar", "waist_sash"],
-      "locked": []
-    }
-  },
-  "改良漢服套裝": {
-    "series": "signature",
-    "colorMode": "primary_contrast",
-    "contrastBehavior": "balanced",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["main_hanfu_body"],
-      "contrast": ["collar", "sleeve_edge", "waist_line"],
+      "primary": [
+        "yukata_body"
+      ],
+      "contrast": [
+        "obi_sash"
+      ],
       "locked": []
     }
   },
@@ -302,9 +207,16 @@
     "contrastBehavior": "strong",
     "lockedOptional": true,
     "colorTargets": {
-      "primary": ["bodysuit_body"],
-      "contrast": ["cuffs", "collar"],
-      "locked": ["optional_classic_white_cuff_collar_scheme"]
+      "primary": [
+        "bodysuit_body"
+      ],
+      "contrast": [
+        "cuffs",
+        "collar"
+      ],
+      "locked": [
+        "optional_classic_white_cuff_collar_scheme"
+      ]
     }
   },
   "女僕套裝": {
@@ -313,9 +225,17 @@
     "contrastBehavior": "strong",
     "lockedOptional": true,
     "colorTargets": {
-      "primary": ["dress_body"],
-      "contrast": ["apron", "ruffles", "headpiece"],
-      "locked": ["optional_classic_white_apron_scheme"]
+      "primary": [
+        "dress_body"
+      ],
+      "contrast": [
+        "apron",
+        "ruffles",
+        "headpiece"
+      ],
+      "locked": [
+        "optional_classic_white_apron_scheme"
+      ]
     }
   },
   "女僕風荷葉比基尼套裝": {
@@ -324,8 +244,14 @@
     "contrastBehavior": "strong",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["bikini_base_fabric"],
-      "contrast": ["ruffles", "bows", "neck_collar"],
+      "primary": [
+        "bikini_base_fabric"
+      ],
+      "contrast": [
+        "ruffles",
+        "bows",
+        "neck_collar"
+      ],
       "locked": []
     }
   },
@@ -335,9 +261,17 @@
     "contrastBehavior": "balanced",
     "lockedOptional": true,
     "colorTargets": {
-      "primary": ["uniform_body", "skirt"],
-      "contrast": ["scarf", "sailor_trim_lines"],
-      "locked": ["optional_fixed_school_trim_colors"]
+      "primary": [
+        "uniform_body",
+        "skirt"
+      ],
+      "contrast": [
+        "scarf",
+        "sailor_trim_lines"
+      ],
+      "locked": [
+        "optional_fixed_school_trim_colors"
+      ]
     }
   },
   "長袖女高生水手服": {
@@ -346,20 +280,17 @@
     "contrastBehavior": "balanced",
     "lockedOptional": true,
     "colorTargets": {
-      "primary": ["uniform_body", "skirt"],
-      "contrast": ["scarf", "sailor_trim_lines"],
-      "locked": ["optional_fixed_school_trim_colors"]
-    }
-  },
-  "復古雙排釦洋裝套裝": {
-    "series": "signature",
-    "colorMode": "primary_contrast_locked",
-    "contrastBehavior": "balanced",
-    "lockedOptional": false,
-    "colorTargets": {
-      "primary": ["dress_body"],
-      "contrast": ["trim_accents", "neck_bow", "inner_accent_line", "lace_underskirt_accents"],
-      "locked": ["gold_buttons"]
+      "primary": [
+        "uniform_body",
+        "skirt"
+      ],
+      "contrast": [
+        "scarf",
+        "sailor_trim_lines"
+      ],
+      "locked": [
+        "optional_fixed_school_trim_colors"
+      ]
     }
   },
   "玫瑰哥德蘿莉塔洋裝套裝": {
@@ -368,9 +299,19 @@
     "contrastBehavior": "strong",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["main_dress_fabric"],
-      "contrast": ["contrast_trim", "lace_up_ribbon", "underskirt", "ruffle_accents"],
-      "locked": ["decorative_metal_ring", "optional_preserved_rose_print_palette"]
+      "primary": [
+        "main_dress_fabric"
+      ],
+      "contrast": [
+        "contrast_trim",
+        "lace_up_ribbon",
+        "underskirt",
+        "ruffle_accents"
+      ],
+      "locked": [
+        "decorative_metal_ring",
+        "optional_preserved_rose_print_palette"
+      ]
     }
   },
   "哥德休閒針織荷葉短裙套裝": {
@@ -379,20 +320,67 @@
     "contrastBehavior": "strong",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["knit_top", "main_skirt_fabric"],
-      "contrast": ["striped_bow", "ruffle_panels", "lace_inner_layer"],
+      "primary": [
+        "knit_top",
+        "main_skirt_fabric"
+      ],
+      "contrast": [
+        "striped_bow",
+        "ruffle_panels",
+        "lace_inner_layer"
+      ],
       "locked": []
     }
   },
+  "豹紋蕾絲抹胸喇叭牛仔": {},
+  "網紗掛脖背心牛仔迷你裙": {},
+  "天使翅膀三角比基尼": {},
+  "透視背心漆皮短褲長靴": {},
+  "馬甲吊帶喇叭褲": {},
+  "豹紋荷葉吊帶漆皮短褲": {},
+  "拼接掛脖長背心漆皮短褲": {},
+  "金屬三角比基尼": {},
+  "單肩短上衣印花圍裙短裙": {},
+  "垂墜背心腰鏈短裙": {},
+  "皮革掛脖背心短褲長靴": {},
+  "斑馬紋馬甲短褲長靴": {},
+  "短版運動T熱褲套裝": {},
+  "白蕾絲泡袖七分褲": {},
+  "粉針織罩衫寬牛仔": {},
+  "深灰短背心氣球寬褲": {},
+  "白襯衫緞面背心寬牛仔": {},
+  "西裝外套蕾絲迷你洋裝": {},
+  "球衣荷葉迷你裙": {},
+  "酒紅綁帶針織寬牛仔": {},
+  "運動外套荷葉七分褲": {},
+  "白蕾絲長罩衫牛仔褲": {},
+  "浴巾裹身": {},
+  "開扣短袖襯衫熱褲": {},
+  "開扣長袖襯衫包臀裙": {},
   "粉紅哥德兔耳吊帶束身": {
     "series": "signature",
     "colorMode": "primary_contrast_locked",
     "contrastBehavior": "strong",
     "lockedOptional": true,
     "colorTargets": {
-      "primary": ["corset_bodysuit", "garter_lace_thigh_high_stockings"],
-      "contrast": ["bunny_ear_headband", "ear_inner_lace_panels", "left_and_right_headband_bows", "lace_panels", "ribbon_straps", "garter_straps", "trim"],
-      "locked": ["cross_appliques", "metal_cross_pendant", "leather_choker_hardware"]
+      "primary": [
+        "corset_bodysuit",
+        "garter_lace_thigh_high_stockings"
+      ],
+      "contrast": [
+        "bunny_ear_headband",
+        "ear_inner_lace_panels",
+        "left_and_right_headband_bows",
+        "lace_panels",
+        "ribbon_straps",
+        "garter_straps",
+        "trim"
+      ],
+      "locked": [
+        "cross_appliques",
+        "metal_cross_pendant",
+        "leather_choker_hardware"
+      ]
     }
   },
   "米白緞面蕾絲馬甲短裙": {
@@ -401,8 +389,20 @@
     "contrastBehavior": "strong",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["satin_corset", "underwire_cup_panels", "satin_peplum_overskirt", "mini_skirt_base"],
-      "contrast": ["lace_bust_trim", "lace_micro_skirt_layer", "scalloped_lace_hem", "front_lace_up_cord", "eyelets", "lower_lacing_bow"],
+      "primary": [
+        "satin_corset",
+        "underwire_cup_panels",
+        "satin_peplum_overskirt",
+        "mini_skirt_base"
+      ],
+      "contrast": [
+        "lace_bust_trim",
+        "lace_micro_skirt_layer",
+        "scalloped_lace_hem",
+        "front_lace_up_cord",
+        "eyelets",
+        "lower_lacing_bow"
+      ],
       "locked": []
     }
   },
@@ -412,8 +412,17 @@
     "contrastBehavior": "strong",
     "lockedOptional": false,
     "colorTargets": {
-      "primary": ["second_skin_mini_dress_body", "skin_like_elastic_fabric"],
-      "contrast": ["lace_sleeve_cuffs", "lace_hem_trim", "hand_drawn_gothic_cross_graphics", "irregular_handwritten_icon_graphics", "choker"],
+      "primary": [
+        "second_skin_mini_dress_body",
+        "skin_like_elastic_fabric"
+      ],
+      "contrast": [
+        "lace_sleeve_cuffs",
+        "lace_hem_trim",
+        "hand_drawn_gothic_cross_graphics",
+        "irregular_handwritten_icon_graphics",
+        "choker"
+      ],
       "locked": []
     }
   },

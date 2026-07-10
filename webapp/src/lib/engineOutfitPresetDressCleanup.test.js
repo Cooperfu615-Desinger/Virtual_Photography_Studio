@@ -57,21 +57,21 @@ test('reference outfit presets 27 to 38 preserve complete styling anchors and im
       /leopard-pattern strapless corset top/i,
       /lace bust cups/i,
       /low-rise flared jeans/i,
-      'reference/wardrobe/outfit-presets/27_豹紋蕾絲抹胸喇叭牛仔.png',
+      'reference/wardrobe/outfit-presets/27_豹紋蕾絲抹胸喇叭牛仔.avif',
     ],
     [
       '套裝：網紗掛脖背心牛仔迷你裙',
       /sheer mesh halter camisole/i,
       /denim micro mini skirt/i,
       /platform sandals/i,
-      'reference/wardrobe/outfit-presets/28_網紗掛脖牛仔迷你裙.png',
+      'reference/wardrobe/outfit-presets/28_網紗掛脖牛仔迷你裙.avif',
     ],
     [
       '套裝：天使翅膀三角比基尼',
       /triangle bikini costume set/i,
       /feather angel wings/i,
       /layered body chains/i,
-      'reference/wardrobe/outfit-presets/29_天使翅膀比基尼.png',
+      'reference/wardrobe/outfit-presets/29_天使翅膀比基尼.avif',
     ],
     [
       '套裝：透視背心漆皮短褲長靴',
@@ -80,63 +80,63 @@ test('reference outfit presets 27 to 38 preserve complete styling anchors and im
       /strapless lace bra layer/i,
       /low-rise glossy micro shorts/i,
       /knee-high leather boots/i,
-      'reference/wardrobe/outfit-presets/30_透視背心漆皮短褲長靴.png',
+      'reference/wardrobe/outfit-presets/30_透視背心漆皮短褲長靴.avif',
     ],
     [
       '套裝：馬甲吊帶喇叭褲',
       /button-front corset camisole/i,
       /slim flared trousers/i,
       /lingerie-trim neckline/i,
-      'reference/wardrobe/outfit-presets/31_馬甲吊帶喇叭褲.png',
+      'reference/wardrobe/outfit-presets/31_馬甲吊帶喇叭褲.avif',
     ],
     [
       '套裝：豹紋荷葉吊帶漆皮短褲',
       /leopard-pattern ruffled camisole/i,
       /glossy micro shorts/i,
       /knee-high open-toe boots/i,
-      'reference/wardrobe/outfit-presets/32_豹紋荷葉吊帶漆皮短褲.png',
+      'reference/wardrobe/outfit-presets/32_豹紋荷葉吊帶漆皮短褲.avif',
     ],
     [
       '套裝：拼接掛脖長背心漆皮短褲',
       /patchwork halter scarf top/i,
       /glossy micro shorts/i,
       /lace-up ankle boots/i,
-      'reference/wardrobe/outfit-presets/33_拼接掛脖漆皮短褲.png',
+      'reference/wardrobe/outfit-presets/33_拼接掛脖漆皮短褲.avif',
     ],
     [
       '套裝：金屬三角比基尼',
       /metallic triangle bikini set/i,
       /side-tie bikini bottoms/i,
       /layered body chains/i,
-      'reference/wardrobe/outfit-presets/34_金屬三角比基尼.png',
+      'reference/wardrobe/outfit-presets/34_金屬三角比基尼.avif',
     ],
     [
       '套裝：單肩短上衣印花圍裙短裙',
       /one-shoulder cropped top/i,
       /printed scarf-wrap mini skirt/i,
       /lace-up heeled boots/i,
-      'reference/wardrobe/outfit-presets/35_單肩短上衣印花圍裙短裙.png',
+      'reference/wardrobe/outfit-presets/35_單肩短上衣印花圍裙短裙.avif',
     ],
     [
       '套裝：垂墜背心腰鏈短裙',
       /draped sleeveless top/i,
       /asymmetric wrap mini skirt/i,
       /chain belt/i,
-      'reference/wardrobe/outfit-presets/36_垂墜背心腰鏈短裙.png',
+      'reference/wardrobe/outfit-presets/36_垂墜背心腰鏈短裙.avif',
     ],
     [
       '套裝：皮革掛脖背心短褲長靴',
       /zip-front leather halter vest/i,
       /low-rise leather shorts/i,
       /knee-high leather boots/i,
-      'reference/wardrobe/outfit-presets/37_皮革掛脖短褲長靴.png',
+      'reference/wardrobe/outfit-presets/37_皮革掛脖短褲長靴.avif',
     ],
     [
       '套裝：斑馬紋馬甲短褲長靴',
       /zebra-pattern corset tank/i,
       /glossy micro shorts/i,
       /knee-high leather boots/i,
-      'reference/wardrobe/outfit-presets/38_斑馬紋馬甲短褲長靴.png',
+      'reference/wardrobe/outfit-presets/38_斑馬紋馬甲短褲長靴.avif',
     ],
   ].forEach(([label, ...expectations]) => {
     const referenceImage = expectations.pop();
@@ -150,7 +150,7 @@ test('reference outfit presets 27 to 38 preserve complete styling anchors and im
     assert.match(text, /controlled by the outfit color selection/i);
     assert.doesNotMatch(text, /side sash|側邊垂墜薄紗片|側邊腰帶/i);
     assert.equal(option.meta.referenceImage, referenceImage);
-    assert.equal(option.meta.referenceImageFormat, 'png');
+    assert.equal(option.meta.referenceImageFormat, 'avif');
   });
 });
 
@@ -166,8 +166,8 @@ test('sporty ringer tee hot-pants outfit preserves key garment and accessory anc
   assert.match(text, /knee-high athletic socks/i);
   assert.doesNotMatch(text, /shoulder bag|handbag/i);
   assert.match(text, /controlled by the outfit color selection/i);
-  assert.equal(outfit.meta.referenceImage, 'reference/wardrobe/outfit-presets/39_短版熱褲運動T.png');
-  assert.equal(outfit.meta.referenceImageFormat, 'png');
+  assert.equal(outfit.meta.referenceImage, 'reference/wardrobe/outfit-presets/39_短版熱褲運動T.avif');
+  assert.equal(outfit.meta.referenceImageFormat, 'avif');
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -243,7 +243,7 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
       /visible button placket pulling at the chest and waist/i,
       /skin-tight ultra-short hot pants/i,
       /dominant fabric color controlled by the outfit color selection/i,
-      'reference/wardrobe/outfit-presets/50_開扣短袖襯衫熱褲.png',
+      'reference/wardrobe/outfit-presets/50_開扣短袖襯衫熱褲.avif',
     ],
     [
       '套裝：開扣長袖襯衫包臀裙',
@@ -254,7 +254,7 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
       /visible button placket pulling at the chest and waist/i,
       /tight bodycon mini skirt/i,
       /smooth hip-hugging skirt silhouette/i,
-      'reference/wardrobe/outfit-presets/51_開扣長袖襯衫包臀裙.png',
+      'reference/wardrobe/outfit-presets/51_開扣長袖襯衫包臀裙.avif',
     ],
   ].forEach(([label, ...expectations]) => {
     const referenceImage = expectations.pop();
@@ -268,7 +268,7 @@ test('open-button fitted shirt outfit presets preserve shorts and skirt variants
     assert.match(text, /controlled by the outfit color selection/i);
     assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
     assert.equal(option.meta.referenceImage, referenceImage);
-    assert.equal(option.meta.referenceImageFormat, 'png');
+    assert.equal(option.meta.referenceImageFormat, 'avif');
   });
 
   const fullBodyFramingId = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id;
@@ -315,7 +315,7 @@ test('gothic lingerie outfit presets 52 to 54 stay recolorable while preserving 
       /leather neck choker with metal cross pendant/i,
       /main fabric color controlled by outfit primary color/i,
       /lace ribbons garter straps and trims controlled by outfit contrast color/i,
-      'reference/wardrobe/outfit-presets/52_粉紅哥德兔耳吊帶束身.png',
+      'reference/wardrobe/outfit-presets/52_粉紅哥德兔耳吊帶束身.avif',
     ],
     [
       '套裝：米白緞面蕾絲馬甲短裙',
@@ -330,7 +330,7 @@ test('gothic lingerie outfit presets 52 to 54 stay recolorable while preserving 
       /scalloped lace mini hem/i,
       /satin base controlled by outfit primary color/i,
       /lace cord eyelet and bow details controlled by outfit contrast color/i,
-      'reference/wardrobe/outfit-presets/53_米白緞面蕾絲馬甲短裙.png',
+      'reference/wardrobe/outfit-presets/53_米白緞面蕾絲馬甲短裙.avif',
     ],
     [
       '套裝：哥德圖示包臀迷你裙',
@@ -344,7 +344,7 @@ test('gothic lingerie outfit presets 52 to 54 stay recolorable while preserving 
       /choker with cross pendant/i,
       /dress base controlled by outfit primary color/i,
       /lace trims and gothic hand-drawn graphics controlled by outfit contrast color/i,
-      'reference/wardrobe/outfit-presets/54_白色哥德圖示包臀迷你裙.png',
+      'reference/wardrobe/outfit-presets/54_白色哥德圖示包臀迷你裙.avif',
     ],
   ].forEach(([label, ...expectations]) => {
     const referenceImage = expectations.pop();
@@ -358,7 +358,7 @@ test('gothic lingerie outfit presets 52 to 54 stay recolorable while preserving 
     assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
     assert.doesNotMatch(text, /\bsoft pink\b|\bivory\b|\bwhite\b|\bblack\b|\bpink\b/i);
     assert.equal(option.meta.referenceImage, referenceImage);
-    assert.equal(option.meta.referenceImageFormat, 'png');
+    assert.equal(option.meta.referenceImageFormat, 'avif');
   });
 });
 
@@ -385,8 +385,8 @@ test('qipao outfit presets preserve updated mini and high-slit silhouettes', () 
 
   assert.match(solidQipao.en, /controlled by the outfit color selection/i);
   assert.match(embroideredQipao.en, /controlled by outfit color selection/i);
-  assert.equal(solidQipao.meta.referenceImage, 'reference/wardrobe/outfit-presets/16_素面旗袍.png');
-  assert.equal(embroideredQipao.meta.referenceImage, 'reference/wardrobe/outfit-presets/17_緞面旗袍.png');
+  assert.equal(solidQipao.meta.referenceImage, 'reference/wardrobe/outfit-presets/16_素面旗袍.avif');
+  assert.equal(embroideredQipao.meta.referenceImage, 'reference/wardrobe/outfit-presets/17_緞面旗袍.avif');
 
   const sharedLocks = {
     ...createEmptyLocks(),
@@ -423,7 +423,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
       /white lace socks/i,
       /black patent Mary Jane shoes/i,
       /silver shoulder bag/i,
-      'reference/wardrobe/outfit-presets/40_白蕾絲泡袖七分褲.png',
+      'reference/wardrobe/outfit-presets/40_白蕾絲泡袖七分褲.avif',
     ],
     [
       '套裝：粉針織罩衫寬牛仔',
@@ -432,7 +432,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
       /light blue wide-leg jeans/i,
       /silver ballet flats/i,
       /silver shoulder bag/i,
-      'reference/wardrobe/outfit-presets/41_粉針織罩衫寬牛仔.png',
+      'reference/wardrobe/outfit-presets/41_粉針織罩衫寬牛仔.avif',
     ],
     [
       '套裝：深灰短背心氣球寬褲',
@@ -441,7 +441,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
       /white chunky sneakers/i,
       /silver shoulder bag/i,
       /small cross pendant/i,
-      'reference/wardrobe/outfit-presets/42_深灰短背心氣球寬褲.png',
+      'reference/wardrobe/outfit-presets/42_深灰短背心氣球寬褲.avif',
     ],
     [
       '套裝：白襯衫緞面背心寬牛仔',
@@ -450,7 +450,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
       /light blue wide-leg jeans/i,
       /white strappy heeled sandals/i,
       /silver mini shoulder bag/i,
-      'reference/wardrobe/outfit-presets/43_白襯衫緞面背心寬牛仔.png',
+      'reference/wardrobe/outfit-presets/43_白襯衫緞面背心寬牛仔.avif',
     ],
     [
       '套裝：西裝外套蕾絲迷你洋裝',
@@ -459,7 +459,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
       /white knee-high socks/i,
       /black chunky Mary Jane loafers/i,
       /black chain shoulder bag/i,
-      'reference/wardrobe/outfit-presets/44_西裝外套蕾絲迷你洋裝.png',
+      'reference/wardrobe/outfit-presets/44_西裝外套蕾絲迷你洋裝.avif',
     ],
     [
       '套裝：球衣荷葉迷你裙',
@@ -468,7 +468,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
       /red tiered ruffle mini skirt/i,
       /white crew socks/i,
       /black chunky Mary Jane shoes/i,
-      'reference/wardrobe/outfit-presets/45_球衣荷葉迷你裙.png',
+      'reference/wardrobe/outfit-presets/45_球衣荷葉迷你裙.avif',
     ],
     [
       '套裝：綁帶針織寬牛仔',
@@ -477,7 +477,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
       /distressed black wide-leg jeans/i,
       /red pointed shoes/i,
       /black grommet shoulder bag/i,
-      'reference/wardrobe/outfit-presets/46_酒紅綁帶針織寬牛仔.png',
+      'reference/wardrobe/outfit-presets/46_酒紅綁帶針織寬牛仔.avif',
     ],
     [
       '套裝：運動外套荷葉七分褲',
@@ -487,7 +487,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
       /black cropped jogger pants/i,
       /white crew socks/i,
       /black ballet flats/i,
-      'reference/wardrobe/outfit-presets/47_運動外套荷葉七分褲.png',
+      'reference/wardrobe/outfit-presets/47_運動外套荷葉七分褲.avif',
     ],
     [
       '套裝：白蕾絲長罩衫牛仔褲',
@@ -496,7 +496,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
       /ripped light blue jeans/i,
       /brown leather shoulder bag/i,
       /burgundy ballet flats/i,
-      'reference/wardrobe/outfit-presets/48_白蕾絲長罩衫牛仔褲.png',
+      'reference/wardrobe/outfit-presets/48_白蕾絲長罩衫牛仔褲.avif',
     ],
   ].forEach(([label, ...expectations]) => {
     const referenceImage = expectations.pop();
@@ -509,7 +509,7 @@ test('street reference outfit presets 40 to 48 preserve full outfit accessories 
 
     assert.doesNotMatch(text, /hair|hairstyle|髮型|頭髮/i);
     assert.equal(option.meta.referenceImage, referenceImage);
-    assert.equal(option.meta.referenceImageFormat, 'png');
+    assert.equal(option.meta.referenceImageFormat, 'avif');
   });
 });
 
@@ -623,8 +623,8 @@ test('mirror chrome garment color applies scene-reflective material to the new c
   assert.equal(prompt.selection.outfitPresetId, '');
   assert.equal(prompt.selection.dressId, cutoutSwimsuit.id);
   assert.equal(prompt.selection.dressColorId, mirrorChrome.id);
-  assert.equal(cutoutSwimsuit.meta.referenceImage, 'reference/wardrobe/dresses/43_高領挖腰連身.png');
-  assert.equal(cutoutSwimsuit.meta.referenceImageFormat, 'png');
+  assert.equal(cutoutSwimsuit.meta.referenceImage, 'reference/wardrobe/dresses/43_高領挖腰連身.avif');
+  assert.equal(cutoutSwimsuit.meta.referenceImageFormat, 'avif');
 });
 
 test('cleaned outfit and dress prompts avoid fixed color wording', () => {
@@ -683,17 +683,17 @@ test('wardrobe image metadata is available for outfit presets and dresses', () =
   const doctorOutfit = optionByLabel('outfitPresetId', '套裝：醫生診療袍');
   const halterDress = optionByLabel('dressId', '連身：短版｜亮面深V掛脖迷你洋裝');
 
-  assert.equal(doctorOutfit.meta.referenceImage, 'reference/wardrobe/outfit-presets/10_醫生.png');
-  assert.equal(doctorOutfit.meta.referenceImageFormat, 'png');
-  assert.equal(halterDress.meta.referenceImage, 'reference/wardrobe/dresses/31_深V掛脖迷你洋裝.png');
-  assert.equal(halterDress.meta.referenceImageFormat, 'png');
+  assert.equal(doctorOutfit.meta.referenceImage, 'reference/wardrobe/outfit-presets/10_醫生.avif');
+  assert.equal(doctorOutfit.meta.referenceImageFormat, 'avif');
+  assert.equal(halterDress.meta.referenceImage, 'reference/wardrobe/dresses/31_深V掛脖迷你洋裝.avif');
+  assert.equal(halterDress.meta.referenceImageFormat, 'avif');
 });
 
 test('wardrobe image metadata is available for special outfits', () => {
   const specialOutfit = optionByLabel('specialOutfitId', '粉紫蕾絲豹紋低腰喇叭褲造型');
 
-  assert.equal(specialOutfit.meta.referenceImage, 'reference/wardrobe/special-outfits/09_粉紫蕾絲豹紋.png');
-  assert.equal(specialOutfit.meta.referenceImageFormat, 'png');
+  assert.equal(specialOutfit.meta.referenceImage, 'reference/wardrobe/special-outfits/09_粉紫蕾絲豹紋.avif');
+  assert.equal(specialOutfit.meta.referenceImageFormat, 'avif');
 });
 
 test('moved and renamed outfit preset legacy locks normalize safely', () => {

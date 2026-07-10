@@ -1160,7 +1160,7 @@ button:disabled {
 
 .saved-cards-stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -1194,12 +1194,11 @@ button:disabled {
 
 .saved-cards-toolbar {
   display: grid;
-  grid-template-columns: minmax(260px, 0.45fr) minmax(420px, 1fr);
+  grid-template-columns: 1fr;
   gap: 14px;
   align-items: center;
 }
 
-.saved-cards-view-tabs,
 .saved-cards-actions,
 .saved-cards-source-tabs {
   display: grid;
@@ -1207,7 +1206,6 @@ button:disabled {
   width: 100%;
 }
 
-.saved-cards-view-tabs button,
 .saved-cards-actions button,
 .saved-cards-source-tabs button {
   width: 100%;

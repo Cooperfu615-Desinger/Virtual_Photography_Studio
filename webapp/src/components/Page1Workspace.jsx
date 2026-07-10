@@ -588,7 +588,7 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
               >
                 {hasReferenceImage ? (
                   <span className="wardrobe-picker-option-image-frame" aria-hidden="true">
-                    <img src={referenceImageUrl} alt="" loading="lazy" />
+                    <img src={referenceImageUrl} alt="" loading="lazy" decoding="async" />
                   </span>
                 ) : null}
                 <span className="wardrobe-picker-option-topline">

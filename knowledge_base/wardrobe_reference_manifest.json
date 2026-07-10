@@ -1,0 +1,1028 @@
+{
+  "version": 1,
+  "categories": {
+    "特殊穿搭 (Special Outfits)": {
+      "directory": "special-outfits",
+      "items": [
+        {
+          "id": "special-outfits-001",
+          "name": "黑色波點頭巾透紗套裝",
+          "source": "01_黑色波點頭巾.png",
+          "preview": "01_黑色波點頭巾.avif"
+        },
+        {
+          "id": "special-outfits-002",
+          "name": "藍灰長外套蕾絲胸衣寬褲造型",
+          "source": "02_灰藍長外套.png",
+          "preview": "02_灰藍長外套.avif"
+        },
+        {
+          "id": "special-outfits-003",
+          "name": "黑白條紋哥德蕾絲層次造型",
+          "source": "03_黑白條紋歌德.png",
+          "preview": "03_黑白條紋歌德.avif"
+        },
+        {
+          "id": "special-outfits-004",
+          "name": "黑色背心豹紋單車褲機能造型",
+          "source": "04_黑色背心豹紋.png",
+          "preview": "04_黑色背心豹紋.avif"
+        },
+        {
+          "id": "special-outfits-005",
+          "name": "迷彩透紗白蕾絲束胸裙裝",
+          "source": "05_迷彩透紗白蕾絲.png",
+          "preview": "05_迷彩透紗白蕾絲.avif"
+        },
+        {
+          "id": "special-outfits-006",
+          "name": "復古樂團寬版短褲街頭造型",
+          "source": "06_復古樂團短褲.png",
+          "preview": "06_復古樂團短褲.avif"
+        },
+        {
+          "id": "special-outfits-007",
+          "name": "Metallica 圖像T黑罩衫熱褲造型",
+          "source": "07_圖像T熱褲.png",
+          "preview": "07_圖像T熱褲.avif"
+        },
+        {
+          "id": "special-outfits-008",
+          "name": "酒紅格紋吊帶牛仔短裙長靴造型",
+          "source": "08_酒紅格紋吊帶.png",
+          "preview": "08_酒紅格紋吊帶.avif"
+        },
+        {
+          "id": "special-outfits-009",
+          "name": "粉紫蕾絲豹紋低腰喇叭褲造型",
+          "source": "09_粉紫蕾絲豹紋.png",
+          "preview": "09_粉紫蕾絲豹紋.avif"
+        },
+        {
+          "id": "special-outfits-010",
+          "name": "深色牛仔短外套條紋襯衫寬褲造型",
+          "source": "10_深色牛仔短外套.png",
+          "preview": "10_深色牛仔短外套.avif"
+        },
+        {
+          "id": "special-outfits-011",
+          "name": "淺色牛仔外套白粉T灰牛仔寬褲造型",
+          "source": "11_淺色牛仔外套.png",
+          "preview": "11_淺色牛仔外套.avif"
+        },
+        {
+          "id": "special-outfits-012",
+          "name": "黑色亮片花卉透膚套裝",
+          "source": "12_黑色亮片花卉.png",
+          "preview": "12_黑色亮片花卉.avif"
+        },
+        {
+          "id": "special-outfits-013",
+          "name": "白色花卉刺繡外套紅寬褲造型",
+          "source": "13_白色花卉刺繡.png",
+          "preview": "13_白色花卉刺繡.avif"
+        },
+        {
+          "id": "special-outfits-014",
+          "name": "灰格紋西裝短版背心破壞牛仔寬褲造型",
+          "source": "14_灰格紋西裝.png",
+          "preview": "14_灰格紋西裝.avif"
+        },
+        {
+          "id": "special-outfits-015",
+          "name": "棕格紋西裝絲巾白寬褲造型",
+          "source": "15_棕格紋西裝.png",
+          "preview": "15_棕格紋西裝.avif"
+        },
+        {
+          "id": "special-outfits-016",
+          "name": "白色短版背心垂墜牛仔寬褲造型",
+          "source": "16_白色短版背心.png",
+          "preview": "16_白色短版背心.avif"
+        },
+        {
+          "id": "special-outfits-017",
+          "name": "黑色運動外套抹胸寬版訓練褲造型",
+          "source": "17_黑色運動外套.png",
+          "preview": "17_黑色運動外套.avif"
+        },
+        {
+          "id": "special-outfits-018",
+          "name": "紅色棒球外套藍T格紋裙造型",
+          "source": "18_紅色棒球外套.png",
+          "preview": "18_紅色棒球外套.avif"
+        },
+        {
+          "id": "special-outfits-019",
+          "name": "棕色皮革飛行外套角色針織牛仔褲造型",
+          "source": "19_棕色皮革飛行外套.png",
+          "preview": "19_棕色皮革飛行外套.avif"
+        },
+        {
+          "id": "special-outfits-020",
+          "name": "黑粉透膚蕾絲流蘇長裙造型",
+          "source": "20_黑粉透膚蕾絲流蘇.png",
+          "preview": "20_黑粉透膚蕾絲流蘇.avif"
+        },
+        {
+          "id": "special-outfits-021",
+          "name": "米色潑染破壞工裝套裝造型",
+          "source": "21_米色潑染破壞.png",
+          "preview": "21_米色潑染破壞.avif"
+        },
+        {
+          "id": "special-outfits-022",
+          "name": "粉白絨格外套蕾絲胸衣黃紗裙造型",
+          "source": "22_粉白絨格外套.png",
+          "preview": "22_粉白絨格外套.avif"
+        },
+        {
+          "id": "special-outfits-023",
+          "name": "藍色束胸粉格裙白綁帶長襪造型",
+          "source": "23_藍色束胸粉格.png",
+          "preview": "23_藍色束胸粉格.avif"
+        },
+        {
+          "id": "special-outfits-024",
+          "name": "海軍針織背心條紋巨袋褲紅靴造型",
+          "source": "24_海軍針織背心.png",
+          "preview": "24_海軍針織背心.avif"
+        },
+        {
+          "id": "special-outfits-025",
+          "name": "橄欖亮面長外套奶油針織牛仔造型",
+          "source": "25_橄欖亮面長外套.png",
+          "preview": "25_橄欖亮面長外套.avif"
+        },
+        {
+          "id": "special-outfits-026",
+          "name": "白色寬簷帽丹寧抹胸開衩裙造型",
+          "source": "26_白色寬簷帽.png",
+          "preview": "26_白色寬簷帽.avif"
+        },
+        {
+          "id": "special-outfits-027",
+          "name": "鏽橘紮染工裝吊帶褲帽T造型",
+          "source": "27_鏽橘紮染工裝.png",
+          "preview": "27_鏽橘紮染工裝.avif"
+        },
+        {
+          "id": "special-outfits-028",
+          "name": "白色字母短T條紋蕾絲裙靴造型",
+          "source": "28_白色字母短T.png",
+          "preview": "28_白色字母短T.avif"
+        },
+        {
+          "id": "special-outfits-029",
+          "name": "金色貝雷帽皮草外套寬牛仔造型",
+          "source": "29_金色貝雷帽.png",
+          "preview": "29_金色貝雷帽.avif"
+        },
+        {
+          "id": "special-outfits-030",
+          "name": "棕色開襟外套細肩背心條紋工裝褲造型",
+          "source": "30_棕色開襟外套.png",
+          "preview": "30_棕色開襟外套.avif"
+        },
+        {
+          "id": "special-outfits-031",
+          "name": "黑毛帽白短背心鏈條工裝寬褲造型",
+          "source": "31_黑毛帽白短背心.png",
+          "preview": "31_黑毛帽白短背心.avif"
+        },
+        {
+          "id": "special-outfits-032",
+          "name": "粉色圖像背心格紋襯衫破壞寬褲造型",
+          "source": "32_粉色圖像背心.png",
+          "preview": "32_粉色圖像背心.avif"
+        },
+        {
+          "id": "special-outfits-033",
+          "name": "灰色長版圖像T腰帶短裙靴造型",
+          "source": "33_灰色長版圖像T.png",
+          "preview": "33_灰色長版圖像T.avif"
+        },
+        {
+          "id": "special-outfits-034",
+          "name": "黑色破壞圖像上衣紅格裙破壞牛仔造型",
+          "source": "34_黑色破壞圖像上衣.png",
+          "preview": "34_黑色破壞圖像上衣.avif"
+        },
+        {
+          "id": "special-outfits-035",
+          "name": "鼠尾草圖像T白蕾絲長裙靴造型",
+          "source": "35_鼠尾草圖像T.png",
+          "preview": "35_鼠尾草圖像T.avif"
+        },
+        {
+          "id": "special-outfits-036",
+          "name": "黃色寬T條紋襯衫橄欖工裝褲造型",
+          "source": "36_黃色寬T條紋.png",
+          "preview": "36_黃色寬T條紋.avif"
+        },
+        {
+          "id": "special-outfits-037",
+          "name": "黑皮革短外套佩斯利襯衫鉛筆裙造型",
+          "source": "37_黑皮革短外套.png",
+          "preview": "37_黑皮革短外套.avif"
+        },
+        {
+          "id": "special-outfits-038",
+          "name": "棕皮草披肩條紋西裝洋裝造型",
+          "source": "38_棕皮草披肩條紋.png",
+          "preview": "38_棕皮草披肩條紋.avif"
+        },
+        {
+          "id": "special-outfits-039",
+          "name": "黑皮革騎士外套鉛筆裙套裝造型",
+          "source": "39_黑皮革騎士外套.png",
+          "preview": "39_黑皮革騎士外套.avif"
+        },
+        {
+          "id": "special-outfits-040",
+          "name": "黑皮革短外套水鑽蛇紋喇叭褲造型",
+          "source": "40_黑皮革水鑽蛇紋.png",
+          "preview": "40_黑皮革水鑽蛇紋.avif"
+        },
+        {
+          "id": "special-outfits-041",
+          "name": "黃色皮革外套紅花洋裝銀靴造型",
+          "source": "41_黃皮革外套.png",
+          "preview": "41_黃皮革外套.avif"
+        },
+        {
+          "id": "special-outfits-042",
+          "name": "紅緞背心牛仔迷你裙騎士靴造型",
+          "source": "42_紅緞背心牛仔.png",
+          "preview": "42_紅緞背心牛仔.avif"
+        },
+        {
+          "id": "special-outfits-043",
+          "name": "米色細肩背心蕾絲胸衣工裝寬褲造型",
+          "source": "43_米色細肩背心.png",
+          "preview": "43_米色細肩背心.avif"
+        },
+        {
+          "id": "special-outfits-044",
+          "name": "粉色蝴蝶結背心牛仔短褲泡泡襪造型",
+          "source": "44_粉色蝴蝶結背心.png",
+          "preview": "44_粉色蝴蝶結背心.avif"
+        },
+        {
+          "id": "special-outfits-045",
+          "name": "白色短袖背心格紋迷你裙白蕾絲襪造型",
+          "source": "45_白色短袖背心.png",
+          "preview": "45_白色短袖背心.avif"
+        },
+        {
+          "id": "special-outfits-046",
+          "name": "黑色哥德蕾絲短袖熱褲長靴造型",
+          "source": "46_黑色哥德蕾絲短袖.png",
+          "preview": "46_黑色哥德蕾絲短袖.avif"
+        },
+        {
+          "id": "special-outfits-047",
+          "name": "灰透紗荷葉吊帶熱褲涼鞋造型",
+          "source": "47_灰透紗荷葉吊帶熱褲.png",
+          "preview": "47_灰透紗荷葉吊帶熱褲.avif"
+        },
+        {
+          "id": "special-outfits-048",
+          "name": "奶白蕾絲荷葉短裙高筒襪造型",
+          "source": "48_奶白蕾絲荷葉短裙高筒.png",
+          "preview": "48_奶白蕾絲荷葉短裙高筒.avif"
+        },
+        {
+          "id": "special-outfits-049",
+          "name": "米白高領荷葉背心短裙涼鞋造型",
+          "source": "49_米白高領荷葉背心.png",
+          "preview": "49_米白高領荷葉背心.avif"
+        },
+        {
+          "id": "special-outfits-050",
+          "name": "白色透紗綁帶洋裝長襪軍靴造型",
+          "source": "50_白色透紗綁帶洋裝.png",
+          "preview": "50_白色透紗綁帶洋裝.avif"
+        },
+        {
+          "id": "special-outfits-051",
+          "name": "奶白透膚襯衫腰帶層裙短靴造型",
+          "source": "51_奶白透膚襯衫腰帶.png",
+          "preview": "51_奶白透膚襯衫腰帶.avif"
+        },
+        {
+          "id": "special-outfits-052",
+          "name": "螢光綠熱帶襯衫短褲運動鞋造型",
+          "source": "52_螢光綠熱帶襯衫.png",
+          "preview": "52_螢光綠熱帶襯衫.avif"
+        },
+        {
+          "id": "special-outfits-053",
+          "name": "白橘圖案襯衫工裝寬褲帆布鞋造型",
+          "source": "53_白橘圖案襯衫.png",
+          "preview": "53_白橘圖案襯衫.avif"
+        },
+        {
+          "id": "special-outfits-054",
+          "name": "灰色圖案衛衣紅傘裙高跟鞋造型",
+          "source": "54_灰色圖案衛衣.png",
+          "preview": "54_灰色圖案衛衣.avif"
+        },
+        {
+          "id": "special-outfits-055",
+          "name": "黑透膚連帽流蘇短褲綁帶鞋造型",
+          "source": "55_黑透膚連帽流蘇.png",
+          "preview": "55_黑透膚連帽流蘇.avif"
+        },
+        {
+          "id": "special-outfits-056",
+          "name": "粉色花朵抹胸洋裝草帽拖鞋造型",
+          "source": "56_粉色花朵抹胸.png",
+          "preview": "56_粉色花朵抹胸.avif"
+        },
+        {
+          "id": "special-outfits-057",
+          "name": "格紋襯衫短褲條紋襪球鞋造型",
+          "source": "57_格紋襯衫短褲.png",
+          "preview": "57_格紋襯衫短褲.avif"
+        },
+        {
+          "id": "special-outfits-058",
+          "name": "藍白條紋寬襯衫白短裙球鞋造型",
+          "source": "58_藍白條紋寬襯衫.png",
+          "preview": "58_藍白條紋寬襯衫.avif"
+        },
+        {
+          "id": "special-outfits-059",
+          "name": "酒紅圖像T黑寬牛仔工裝靴造型",
+          "source": "59_酒紅圖像T黑寬牛仔.png",
+          "preview": "59_酒紅圖像T黑寬牛仔.avif"
+        },
+        {
+          "id": "special-outfits-060",
+          "name": "紅色短T低腰寬牛仔耳機造型",
+          "source": "60_紅色短T低腰寬牛仔.png",
+          "preview": "60_紅色短T低腰寬牛仔.avif"
+        },
+        {
+          "id": "special-outfits-061",
+          "name": "黃色圖像短T格紋喇叭褲分趾鞋造型",
+          "source": "61_黃色圖像短T格紋.png",
+          "preview": "61_黃色圖像短T格紋.avif"
+        },
+        {
+          "id": "special-outfits-062",
+          "name": "綠針織運動短褲藍包造型",
+          "source": "62_綠針織運動短褲藍包.png",
+          "preview": "62_綠針織運動短褲藍包.avif"
+        },
+        {
+          "id": "special-outfits-063",
+          "name": "紅色圖像T格紋短褲長襪造型",
+          "source": "63_紅色圖像T格紋短褲長襪.png",
+          "preview": "63_紅色圖像T格紋短褲長襪.avif"
+        },
+        {
+          "id": "special-outfits-064",
+          "name": "紫色佩斯利襯衫短褲軍靴造型",
+          "source": "64_紫色佩斯利襯衫短褲軍靴.png",
+          "preview": "64_紫色佩斯利襯衫短褲軍靴.avif"
+        },
+        {
+          "id": "special-outfits-065",
+          "name": "巴西色背心單肩吊帶牛仔造型",
+          "source": "65_巴西色背心單肩吊帶牛仔.png",
+          "preview": "65_巴西色背心單肩吊帶牛仔.avif"
+        },
+        {
+          "id": "special-outfits-066",
+          "name": "紫條紋襯衫洋裝紅包造型",
+          "source": "66_紫條紋襯衫洋裝紅包.png",
+          "preview": "66_紫條紋襯衫洋裝紅包.avif"
+        },
+        {
+          "id": "special-outfits-067",
+          "name": "紅帽波點背心寬牛仔造型",
+          "source": "67_紅帽波點背心寬牛仔.png",
+          "preview": "67_紅帽波點背心寬牛仔.avif"
+        },
+        {
+          "id": "special-outfits-068",
+          "name": "粉色愛心T黑寬褲造型",
+          "source": "68_粉色愛心T黑寬褲.png",
+          "preview": "68_粉色愛心T黑寬褲.avif"
+        },
+        {
+          "id": "special-outfits-069",
+          "name": "白荷葉襯衫黑吊帶長裙波點包造型",
+          "source": "69_白荷葉襯衫黑吊帶長裙波點包.png",
+          "preview": "69_白荷葉襯衫黑吊帶長裙波點包.avif"
+        },
+        {
+          "id": "special-outfits-070",
+          "name": "白襯衫黑短褲西部靴造型",
+          "source": "70_白襯衫黑短褲西部靴.png",
+          "preview": "70_白襯衫黑短褲西部靴.avif"
+        },
+        {
+          "id": "special-outfits-071",
+          "name": "奶油掛脖棕紗裙軍靴造型",
+          "source": "71_奶油掛脖棕紗裙軍靴.png",
+          "preview": "71_奶油掛脖棕紗裙軍靴.avif"
+        },
+        {
+          "id": "special-outfits-072",
+          "name": "海軍T灰色工裝長裙造型",
+          "source": "72_海軍T灰色工裝長裙.png",
+          "preview": "72_海軍T灰色工裝長裙.avif"
+        },
+        {
+          "id": "special-outfits-073",
+          "name": "黑短外套牛仔短褲樂福造型",
+          "source": "73_黑短外套牛仔短褲樂福.png",
+          "preview": "73_黑短外套牛仔短褲樂福.avif"
+        },
+        {
+          "id": "special-outfits-074",
+          "name": "乳牛紋連身丹寧開洞褲造型",
+          "source": "74_乳牛紋連身丹寧開洞褲.png",
+          "preview": "74_乳牛紋連身丹寧開洞褲.avif"
+        },
+        {
+          "id": "special-outfits-075",
+          "name": "紅條紋毛衣拼接紗裙造型",
+          "source": "75_紅條紋毛衣拼接紗裙.png",
+          "preview": "75_紅條紋毛衣拼接紗裙.avif"
+        },
+        {
+          "id": "special-outfits-076",
+          "name": "薄荷蕾絲短上衣水鑽牛仔造型",
+          "source": "76_薄荷蕾絲短上衣水鑽牛仔.png",
+          "preview": "76_薄荷蕾絲短上衣水鑽牛仔.avif"
+        },
+        {
+          "id": "special-outfits-077",
+          "name": "黑短T低腰黑牛仔造型",
+          "source": "77_黑短T低腰黑牛仔.png",
+          "preview": "77_黑短T低腰黑牛仔.avif"
+        },
+        {
+          "id": "special-outfits-078",
+          "name": "白T紫格長裙灰球鞋造型",
+          "source": "78_白T紫格長裙灰球鞋.png",
+          "preview": "78_白T紫格長裙灰球鞋.avif"
+        },
+        {
+          "id": "special-outfits-079",
+          "name": "黑皮外套波點絲襪長靴造型",
+          "source": "79_黑皮外套波點絲襪長靴.png",
+          "preview": "79_黑皮外套波點絲襪長靴.avif"
+        },
+        {
+          "id": "special-outfits-080",
+          "name": "黃條紋Polo領帶寬牛仔造型",
+          "source": "80_黃條紋Polo領帶寬牛仔.png",
+          "preview": "80_黃條紋Polo領帶寬牛仔.avif"
+        },
+        {
+          "id": "special-outfits-081",
+          "name": "菱格背心黑寬短褲長襪造型",
+          "source": "81_菱格背心黑寬短褲長襪.png",
+          "preview": "81_菱格背心黑寬短褲長襪.avif"
+        },
+        {
+          "id": "special-outfits-082",
+          "name": "藍荷葉背心白紗長裙造型",
+          "source": "82_藍荷葉背心白紗長裙.png",
+          "preview": "82_藍荷葉背心白紗長裙.avif"
+        },
+        {
+          "id": "special-outfits-083",
+          "name": "紫橘籃球球衣球鞋造型",
+          "source": "83_紫橘籃球球衣球鞋.png",
+          "preview": "83_紫橘籃球球衣球鞋.avif"
+        },
+        {
+          "id": "special-outfits-084",
+          "name": "彩虹綁結上衣橘紅開衩長裙造型",
+          "source": "84_彩虹綁結上衣橘紅開衩長裙.png",
+          "preview": "84_彩虹綁結上衣橘紅開衩長裙.avif"
+        },
+        {
+          "id": "special-outfits-085",
+          "name": "紫色綁帶短上衣荷葉開衩長裙造型",
+          "source": "85_紫色綁帶短上衣荷葉開衩長裙.png",
+          "preview": "85_紫色綁帶短上衣荷葉開衩長裙.avif"
+        },
+        {
+          "id": "special-outfits-086",
+          "name": "橄欖西裝條紋寬褲咖啡袋造型",
+          "source": "86_橄欖西裝條紋寬褲咖啡袋.png",
+          "preview": "86_橄欖西裝條紋寬褲咖啡袋.avif"
+        },
+        {
+          "id": "special-outfits-087",
+          "name": "白色馬甲黑色七分褲金飾造型",
+          "source": "87_白色馬甲黑色七分褲金飾.png",
+          "preview": "87_白色馬甲黑色七分褲金飾.avif"
+        },
+        {
+          "id": "special-outfits-088",
+          "name": "白襯衫黑色氣球工裝褲造型",
+          "source": "88_白襯衫黑色氣球工裝褲.png",
+          "preview": "88_白襯衫黑色氣球工裝褲.avif"
+        },
+        {
+          "id": "special-outfits-089",
+          "name": "白襯衫黑色長裙細領帶造型",
+          "source": "89_白襯衫黑色長裙細領帶.png",
+          "preview": "89_白襯衫黑色長裙細領帶.avif"
+        },
+        {
+          "id": "special-outfits-090",
+          "name": "紅色亮面膠帶束帶造型",
+          "source": "90_紅色亮面膠帶束帶.png",
+          "preview": "90_紅色亮面膠帶束帶.avif"
+        }
+      ]
+    },
+    "套裝 (Outfit Presets)": {
+      "directory": "outfit-presets",
+      "items": [
+        {
+          "id": "outfit-presets-001",
+          "name": "亮面乳膠束帶套裝",
+          "source": "01_亮面乳膠束帶.png",
+          "preview": "01_亮面乳膠束帶.avif"
+        },
+        {
+          "id": "outfit-presets-002",
+          "name": "鏈條緞面內衣套裝",
+          "source": "02_鏈條緞面內衣.png",
+          "preview": "02_鏈條緞面內衣.avif"
+        },
+        {
+          "id": "outfit-presets-003",
+          "name": "皮革馬甲束腰套裝",
+          "source": "03_皮革馬甲束腰.png",
+          "preview": "03_皮革馬甲束腰.avif"
+        },
+        {
+          "id": "outfit-presets-004",
+          "name": "春日巴黎亞麻長褲套裝",
+          "source": "04_春日巴黎亞麻.png",
+          "preview": "04_春日巴黎亞麻.avif"
+        },
+        {
+          "id": "outfit-presets-005",
+          "name": "長版襯衫百褶長裙套裝",
+          "source": "05_長版襯衫百褶長裙.png",
+          "preview": "05_長版襯衫百褶長裙.avif"
+        },
+        {
+          "id": "outfit-presets-006",
+          "name": "西裝長褲套裝",
+          "source": "06_西裝長褲.png",
+          "preview": "06_西裝長褲.avif"
+        },
+        {
+          "id": "outfit-presets-007",
+          "name": "秘書短裙套裝",
+          "source": "07_秘書.png",
+          "preview": "07_秘書.avif"
+        },
+        {
+          "id": "outfit-presets-008",
+          "name": "空服員制服套裝",
+          "source": "08_空服員.png",
+          "preview": "08_空服員.avif"
+        },
+        {
+          "id": "outfit-presets-009",
+          "name": "護士制服套裝",
+          "source": "09_護士.png",
+          "preview": "09_護士.avif"
+        },
+        {
+          "id": "outfit-presets-010",
+          "name": "醫生診療袍套裝",
+          "source": "10_醫生.png",
+          "preview": "10_醫生.avif"
+        },
+        {
+          "id": "outfit-presets-011",
+          "name": "BDSM 束縛套裝",
+          "source": "11_BDSM.png",
+          "preview": "11_BDSM.avif"
+        },
+        {
+          "id": "outfit-presets-012",
+          "name": "維多利亞古典套裝",
+          "source": "12_維多利亞.png",
+          "preview": "12_維多利亞.avif"
+        },
+        {
+          "id": "outfit-presets-013",
+          "name": "蘿莉塔套裝",
+          "source": "13_蘿莉塔.png",
+          "preview": "13_蘿莉塔.avif"
+        },
+        {
+          "id": "outfit-presets-014",
+          "name": "內衣寫真套裝",
+          "source": "14_內衣.png",
+          "preview": "14_內衣.avif"
+        },
+        {
+          "id": "outfit-presets-015",
+          "name": "泳裝度假套裝",
+          "source": "15_泳裝.png",
+          "preview": "15_泳裝.avif"
+        },
+        {
+          "id": "outfit-presets-016",
+          "name": "素色緞面旗袍套裝",
+          "source": "16_素面旗袍.png",
+          "preview": "16_素面旗袍.avif"
+        },
+        {
+          "id": "outfit-presets-017",
+          "name": "精緻刺繡旗袍套裝",
+          "source": "17_緞面旗袍.png",
+          "preview": "17_緞面旗袍.avif"
+        },
+        {
+          "id": "outfit-presets-018",
+          "name": "經典和服套裝",
+          "source": "18_經典和服.png",
+          "preview": "18_經典和服.avif"
+        },
+        {
+          "id": "outfit-presets-019",
+          "name": "輕盈浴衣套裝",
+          "source": "19_基本浴衣.png",
+          "preview": "19_基本浴衣.avif"
+        },
+        {
+          "id": "outfit-presets-020",
+          "name": "兔女郎套裝",
+          "source": "20_兔女郎.png",
+          "preview": "20_兔女郎.avif"
+        },
+        {
+          "id": "outfit-presets-021",
+          "name": "女僕套裝",
+          "source": "21_女僕.png",
+          "preview": "21_女僕.avif"
+        },
+        {
+          "id": "outfit-presets-022",
+          "name": "女僕風荷葉比基尼套裝",
+          "source": "22_女僕比基尼.png",
+          "preview": "22_女僕比基尼.avif"
+        },
+        {
+          "id": "outfit-presets-023",
+          "name": "短袖女高生水手服",
+          "source": "23_短袖水手服.png",
+          "preview": "23_短袖水手服.avif"
+        },
+        {
+          "id": "outfit-presets-024",
+          "name": "長袖女高生水手服",
+          "source": "24_長袖水手服.png",
+          "preview": "24_長袖水手服.avif"
+        },
+        {
+          "id": "outfit-presets-025",
+          "name": "玫瑰哥德蘿莉塔洋裝套裝",
+          "source": "25_玫瑰歌德.png",
+          "preview": "25_玫瑰歌德.avif"
+        },
+        {
+          "id": "outfit-presets-026",
+          "name": "哥德休閒針織荷葉短裙套裝",
+          "source": "26_歌德針織短裙.png",
+          "preview": "26_歌德針織短裙.avif"
+        },
+        {
+          "id": "outfit-presets-027",
+          "name": "豹紋蕾絲抹胸喇叭牛仔",
+          "source": "27_豹紋蕾絲抹胸喇叭牛仔.png",
+          "preview": "27_豹紋蕾絲抹胸喇叭牛仔.avif"
+        },
+        {
+          "id": "outfit-presets-028",
+          "name": "網紗掛脖背心牛仔迷你裙",
+          "source": "28_網紗掛脖牛仔迷你裙.png",
+          "preview": "28_網紗掛脖牛仔迷你裙.avif"
+        },
+        {
+          "id": "outfit-presets-029",
+          "name": "天使翅膀三角比基尼",
+          "source": "29_天使翅膀比基尼.png",
+          "preview": "29_天使翅膀比基尼.avif"
+        },
+        {
+          "id": "outfit-presets-030",
+          "name": "透視背心漆皮短褲長靴",
+          "source": "30_透視背心漆皮短褲長靴.png",
+          "preview": "30_透視背心漆皮短褲長靴.avif"
+        },
+        {
+          "id": "outfit-presets-031",
+          "name": "馬甲吊帶喇叭褲",
+          "source": "31_馬甲吊帶喇叭褲.png",
+          "preview": "31_馬甲吊帶喇叭褲.avif"
+        },
+        {
+          "id": "outfit-presets-032",
+          "name": "豹紋荷葉吊帶漆皮短褲",
+          "source": "32_豹紋荷葉吊帶漆皮短褲.png",
+          "preview": "32_豹紋荷葉吊帶漆皮短褲.avif"
+        },
+        {
+          "id": "outfit-presets-033",
+          "name": "拼接掛脖長背心漆皮短褲",
+          "source": "33_拼接掛脖漆皮短褲.png",
+          "preview": "33_拼接掛脖漆皮短褲.avif"
+        },
+        {
+          "id": "outfit-presets-034",
+          "name": "金屬三角比基尼",
+          "source": "34_金屬三角比基尼.png",
+          "preview": "34_金屬三角比基尼.avif"
+        },
+        {
+          "id": "outfit-presets-035",
+          "name": "單肩短上衣印花圍裙短裙",
+          "source": "35_單肩短上衣印花圍裙短裙.png",
+          "preview": "35_單肩短上衣印花圍裙短裙.avif"
+        },
+        {
+          "id": "outfit-presets-036",
+          "name": "垂墜背心腰鏈短裙",
+          "source": "36_垂墜背心腰鏈短裙.png",
+          "preview": "36_垂墜背心腰鏈短裙.avif"
+        },
+        {
+          "id": "outfit-presets-037",
+          "name": "皮革掛脖背心短褲長靴",
+          "source": "37_皮革掛脖短褲長靴.png",
+          "preview": "37_皮革掛脖短褲長靴.avif"
+        },
+        {
+          "id": "outfit-presets-038",
+          "name": "斑馬紋馬甲短褲長靴",
+          "source": "38_斑馬紋馬甲短褲長靴.png",
+          "preview": "38_斑馬紋馬甲短褲長靴.avif"
+        },
+        {
+          "id": "outfit-presets-039",
+          "name": "短版運動T熱褲套裝",
+          "source": "39_短版熱褲運動T.png",
+          "preview": "39_短版熱褲運動T.avif"
+        },
+        {
+          "id": "outfit-presets-040",
+          "name": "白蕾絲泡袖七分褲",
+          "source": "40_白蕾絲泡袖七分褲.png",
+          "preview": "40_白蕾絲泡袖七分褲.avif"
+        },
+        {
+          "id": "outfit-presets-041",
+          "name": "粉針織罩衫寬牛仔",
+          "source": "41_粉針織罩衫寬牛仔.png",
+          "preview": "41_粉針織罩衫寬牛仔.avif"
+        },
+        {
+          "id": "outfit-presets-042",
+          "name": "深灰短背心氣球寬褲",
+          "source": "42_深灰短背心氣球寬褲.png",
+          "preview": "42_深灰短背心氣球寬褲.avif"
+        },
+        {
+          "id": "outfit-presets-043",
+          "name": "白襯衫緞面背心寬牛仔",
+          "source": "43_白襯衫緞面背心寬牛仔.png",
+          "preview": "43_白襯衫緞面背心寬牛仔.avif"
+        },
+        {
+          "id": "outfit-presets-044",
+          "name": "西裝外套蕾絲迷你洋裝",
+          "source": "44_西裝外套蕾絲迷你洋裝.png",
+          "preview": "44_西裝外套蕾絲迷你洋裝.avif"
+        },
+        {
+          "id": "outfit-presets-045",
+          "name": "球衣荷葉迷你裙",
+          "source": "45_球衣荷葉迷你裙.png",
+          "preview": "45_球衣荷葉迷你裙.avif"
+        },
+        {
+          "id": "outfit-presets-046",
+          "name": "酒紅綁帶針織寬牛仔",
+          "source": "46_酒紅綁帶針織寬牛仔.png",
+          "preview": "46_酒紅綁帶針織寬牛仔.avif"
+        },
+        {
+          "id": "outfit-presets-047",
+          "name": "運動外套荷葉七分褲",
+          "source": "47_運動外套荷葉七分褲.png",
+          "preview": "47_運動外套荷葉七分褲.avif"
+        },
+        {
+          "id": "outfit-presets-048",
+          "name": "白蕾絲長罩衫牛仔褲",
+          "source": "48_白蕾絲長罩衫牛仔褲.png",
+          "preview": "48_白蕾絲長罩衫牛仔褲.avif"
+        },
+        {
+          "id": "outfit-presets-049",
+          "name": "浴巾裹身",
+          "source": "49_浴巾.png",
+          "preview": "49_浴巾.avif"
+        },
+        {
+          "id": "outfit-presets-050",
+          "name": "開扣短袖襯衫熱褲",
+          "source": "50_開扣短袖襯衫熱褲.png",
+          "preview": "50_開扣短袖襯衫熱褲.avif"
+        },
+        {
+          "id": "outfit-presets-051",
+          "name": "開扣長袖襯衫包臀裙",
+          "source": "51_開扣長袖襯衫包臀裙.png",
+          "preview": "51_開扣長袖襯衫包臀裙.avif"
+        },
+        {
+          "id": "outfit-presets-052",
+          "name": "粉紅哥德兔耳吊帶束身",
+          "source": "52_粉紅哥德兔耳吊帶束身.png",
+          "preview": "52_粉紅哥德兔耳吊帶束身.avif"
+        },
+        {
+          "id": "outfit-presets-053",
+          "name": "米白緞面蕾絲馬甲短裙",
+          "source": "53_米白緞面蕾絲馬甲短裙.png",
+          "preview": "53_米白緞面蕾絲馬甲短裙.avif"
+        },
+        {
+          "id": "outfit-presets-054",
+          "name": "白色哥德圖示包臀迷你裙",
+          "source": "54_白色哥德圖示包臀迷你裙.png",
+          "preview": "54_白色哥德圖示包臀迷你裙.avif"
+        },
+        {
+          "id": "outfit-presets-055",
+          "name": "網狀蕾絲馬甲短裙長靴",
+          "source": "55_網狀蕾絲馬甲短裙長靴.png",
+          "preview": "55_網狀蕾絲馬甲短裙長靴.avif"
+        }
+      ]
+    },
+    "連身 (Dresses)": {
+      "directory": "dresses",
+      "items": [
+        {
+          "id": "dresses-001",
+          "name": "短版｜無袖迷你洋裝",
+          "source": "27_無袖迷你洋裝.png",
+          "preview": "27_無袖迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-002",
+          "name": "短版｜細肩帶迷你洋裝",
+          "source": "28_細肩帶迷你洋裝.png",
+          "preview": "28_細肩帶迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-003",
+          "name": "短版｜細肩帶蕾絲棉質迷你洋裝",
+          "source": "29_細肩帶蕾絲棉洋裝.png",
+          "preview": "29_細肩帶蕾絲棉洋裝.avif"
+        },
+        {
+          "id": "dresses-004",
+          "name": "短版｜亮面乳膠迷你洋裝",
+          "source": "30_亮面乳膠迷你洋裝.png",
+          "preview": "30_亮面乳膠迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-005",
+          "name": "短版｜亮面深V掛脖迷你洋裝",
+          "source": "31_深V掛脖迷你洋裝.png",
+          "preview": "31_深V掛脖迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-006",
+          "name": "短版｜一字領哥德迷你洋裝",
+          "source": "32_一字領歌德迷你洋裝.png",
+          "preview": "32_一字領歌德迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-007",
+          "name": "短版｜復古雙排釦迷你洋裝",
+          "source": "33_復古雙扣迷你洋裝.png",
+          "preview": "33_復古雙扣迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-008",
+          "name": "長版｜無袖長洋裝",
+          "source": "34_無袖長洋裝.png",
+          "preview": "34_無袖長洋裝.avif"
+        },
+        {
+          "id": "dresses-009",
+          "name": "長版｜細肩帶緞面長洋裝",
+          "source": "35_細肩帶緞面長洋裝.png",
+          "preview": "35_細肩帶緞面長洋裝.avif"
+        },
+        {
+          "id": "dresses-010",
+          "name": "長版｜波希米亞罩衫洋裝",
+          "source": "36_波希米亞長洋裝.png",
+          "preview": "36_波希米亞長洋裝.avif"
+        },
+        {
+          "id": "dresses-011",
+          "name": "長版｜針織長洋裝",
+          "source": "37_針織長洋裝.png",
+          "preview": "37_針織長洋裝.avif"
+        },
+        {
+          "id": "dresses-012",
+          "name": "短版｜蝴蝶結抹胸迷你洋裝",
+          "source": "38_蝴蝶結抹胸百褶.png",
+          "preview": "38_蝴蝶結抹胸百褶.avif"
+        },
+        {
+          "id": "dresses-013",
+          "name": "長版｜細肩帶斜荷葉長洋裝",
+          "source": "39_細肩帶斜荷葉長洋裝.png",
+          "preview": "39_細肩帶斜荷葉長洋裝.avif"
+        },
+        {
+          "id": "dresses-014",
+          "name": "短版｜單肩披袖亮片迷你洋裝",
+          "source": "40_單肩披袖亮片.png",
+          "preview": "40_單肩披袖亮片.avif"
+        },
+        {
+          "id": "dresses-015",
+          "name": "短版｜格紋吊帶荷葉迷你洋裝",
+          "source": "41_格紋吊帶荷葉.png",
+          "preview": "41_格紋吊帶荷葉.avif"
+        },
+        {
+          "id": "dresses-016",
+          "name": "短版｜緞面細肩帶迷你洋裝",
+          "source": "42_緞面細肩帶迷你洋裝.png",
+          "preview": "42_緞面細肩帶迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-017",
+          "name": "短版｜高領挖腰連身泳裝",
+          "source": "43_高領挖腰連身.png",
+          "preview": "43_高領挖腰連身.avif"
+        },
+        {
+          "id": "dresses-018",
+          "name": "短版｜格紋吊帶不規則傘襬洋裝",
+          "source": "44_格紋吊帶不規則傘襬洋裝.png",
+          "preview": "44_格紋吊帶不規則傘襬洋裝.avif"
+        },
+        {
+          "id": "dresses-019",
+          "name": "短版｜波點方領泡袖迷你洋裝",
+          "source": "45_波點方領泡袖迷你洋裝.png",
+          "preview": "45_波點方領泡袖迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-020",
+          "name": "短版｜波點無袖蓬裙迷你洋裝",
+          "source": "46_波點無袖蓬裙迷你洋裝.png",
+          "preview": "46_波點無袖蓬裙迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-021",
+          "name": "短版｜條紋荷葉吊帶罩衫迷你洋裝",
+          "source": "47_條紋荷葉吊帶罩衫迷你洋裝.png",
+          "preview": "47_條紋荷葉吊帶罩衫迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-022",
+          "name": "短版｜流蘇細肩帶抓皺迷你洋裝",
+          "source": "48_流蘇細肩帶抓皺迷你洋裝.png",
+          "preview": "48_流蘇細肩帶抓皺迷你洋裝.avif"
+        },
+        {
+          "id": "dresses-023",
+          "name": "短版｜蝴蝶結抹胸蕾絲荷葉迷你洋裝",
+          "source": "49_蝴蝶結抹胸蕾絲荷葉迷你洋裝.png",
+          "preview": "49_蝴蝶結抹胸蕾絲荷葉迷你洋裝.avif"
+        }
+      ]
+    }
+  }
+}

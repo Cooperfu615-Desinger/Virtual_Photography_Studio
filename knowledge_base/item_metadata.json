@@ -1,0 +1,185 @@
+{
+  "Wardrobe": {
+    "上身 (Tops)": {
+      "襯衫": {
+        "legacyIds": [
+          "wardrobe:上身-tops:合身襯衫:1"
+        ]
+      },
+      "長版襯衫": {
+        "legacyIds": [
+          "wardrobe:上身-tops:寬鬆襯衫:10"
+        ]
+      },
+      "領帶襯衫": {
+        "legacyIds": [
+          "wardrobe:上身-tops:緊身襯衫-領帶-紮入下身:12"
+        ]
+      },
+      "短袖上衣": {
+        "legacyIds": [
+          "wardrobe:上身-tops:短袖貼身上衣:4"
+        ]
+      },
+      "落肩 T 恤": {
+        "legacyIds": [
+          "wardrobe:上身-tops:寬鬆落肩-t-恤-紮入下身:14"
+        ]
+      },
+      "短版 T 恤": {
+        "legacyIds": [
+          "wardrobe:上身-tops:短版緊身露臍-t-恤:16"
+        ]
+      },
+      "棉質細肩背心": {
+        "legacyIds": [
+          "wardrobe:上身-tops:短版棉質露臍小可愛:2"
+        ]
+      },
+      "削肩針織上衣": {
+        "legacyIds": [
+          "wardrobe:上身-tops:合身削肩針織上衣:3"
+        ]
+      },
+      "高領針織上衣": {
+        "legacyIds": [
+          "wardrobe:上身-tops:合身高領針織上衣:7"
+        ]
+      },
+      "高領連身上衣": {
+        "legacyIds": [
+          "wardrobe:上身-tops:高領高衩連身彈性上衣:8"
+        ]
+      },
+      "短版針織背心": {
+        "legacyIds": [
+          "wardrobe:上身-tops:短版針織露臍小可愛:17"
+        ]
+      },
+      "短版蕾絲背心": {
+        "legacyIds": [
+          "wardrobe:上身-tops:短版蕾絲露臍小可愛:18"
+        ]
+      },
+      "平口上衣": {
+        "legacyIds": [
+          "wardrobe:上身-tops:平口短版上衣:19"
+        ]
+      },
+      "絲綢緞面襯衫": {
+        "legacyIds": [
+          "wardrobe:上身-tops:絲綢緞面襯衫-紮入下身:22"
+        ]
+      },
+      "透膚刺繡襯衫": {
+        "legacyIds": [
+          "wardrobe:上身-tops:透膚刺繡襯衫-紮入下身:24"
+        ]
+      },
+      "網紗透視上衣": {
+        "legacyIds": [
+          "wardrobe:上身-tops:網紗透視上衣-紮入下身:26"
+        ]
+      },
+      "短版吊帶背心": {
+        "legacyIds": [
+          "wardrobe:上身-tops:短版緊身吊帶背心:28"
+        ]
+      }
+    },
+    "褲裝 (Pants)": {
+      "直筒牛仔褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:高腰直筒牛仔褲:1"
+        ]
+      },
+      "牛仔短褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:牛仔熱褲:3"
+        ]
+      },
+      "真理褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:真理褲:4"
+        ]
+      },
+      "皮革短褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:亮面緊身皮短褲:7"
+        ]
+      },
+      "寬褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:低腰寬褲:10"
+        ]
+      },
+      "leggings": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:貼身瑜珈褲-leggings:11"
+        ]
+      },
+      "運動棉褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:寬鬆運動棉褲:12"
+        ]
+      },
+      "短褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:超低腰短褲:13"
+        ]
+      },
+      "尼龍工裝褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:寬鬆尼龍工裝褲:15"
+        ]
+      },
+      "破壞牛仔寬褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:破壞抽鬚牛仔寬褲:16"
+        ]
+      },
+      "亮面皮革長褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:亮面貼身皮褲:18"
+        ]
+      },
+      "乳膠長褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:亮面乳膠緊身長褲:19"
+        ]
+      },
+      "乳膠短褲": {
+        "legacyIds": [
+          "wardrobe:褲裝-pants:亮面乳膠緊身短褲:20"
+        ]
+      }
+    },
+    "裙裝 (Skirts)": {
+      "迷你裙": {
+        "legacyIds": [
+          "wardrobe:裙裝-skirts:合身迷你裙:1"
+        ]
+      },
+      "皮革迷你裙": {
+        "legacyIds": [
+          "wardrobe:裙裝-skirts:緊身亮面皮裙:9"
+        ]
+      },
+      "窄身短裙": {
+        "legacyIds": [
+          "wardrobe:裙裝-skirts:包臀短裙:10"
+        ]
+      },
+      "長裙": {
+        "legacyIds": [
+          "wardrobe:裙裝-skirts:低腰長裙:14"
+        ]
+      },
+      "短窄裙": {
+        "legacyIds": [
+          "wardrobe:裙裝-skirts:高腰窄裙:22"
+        ]
+      }
+    }
+  }
+}

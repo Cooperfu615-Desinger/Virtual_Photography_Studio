@@ -145,8 +145,9 @@
         "en": "complete outfit: black sheer polka-dot matching fashion set. fitted black polka-dot headscarf, slim matching neck scarf, sleeveless sheer cropped top, layered under-bodice, low-rise asymmetrical sheer skirt, black slouchy knee-high boots, black thin-strap shoulder bag, subtle silver rings and wrist jewelry, coordinated modern street-fashion editorial styling.",
         "desc": "完整特殊穿搭：黑白波點頭巾與頸巾、透紗短上衣、不對稱透紗裙、黑靴、黑肩背包與銀色小飾品。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/01_黑色波點頭巾.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-001",
+          "referenceImage": "reference/wardrobe/special-outfits/01_黑色波點頭巾.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -154,8 +155,9 @@
         "en": "complete outfit: avant-garde blue-gray tailored street look. oversized blue-gray long coat worn open, black sheer lace bustier crop top, high-waisted gray wide-leg trousers with lace-up waist cords, round gold statement sunglasses, pale blue sticker-patch handbag, subtle rings and small jewelry, coordinated editorial street-fashion styling.",
         "desc": "完整特殊穿搭：藍灰長外套、黑蕾絲胸衣、灰色綁繩寬褲、金色圓框墨鏡、貼紙感小包與小飾品。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/02_灰藍長外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-002",
+          "referenceImage": "reference/wardrobe/special-outfits/02_灰藍長外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -163,8 +165,9 @@
         "en": "complete outfit: avant-garde gothic punk layered look. black-and-white vertical striped long coat, distressed gray graphic tee, thin metallic neck ring, black draped vest layer, translucent white lace apron overskirt, black sheer floral lace wide-leg trousers, black chunky platform boots, coordinated monochrome gothic couture styling.",
         "desc": "完整特殊穿搭：黑白條紋長外套、灰色破損圖像T、金屬頸圈、白蕾絲罩裙、黑蕾絲寬褲與厚底靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/03_黑白條紋歌德.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-003",
+          "referenceImage": "reference/wardrobe/special-outfits/03_黑白條紋歌德.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -172,8 +175,9 @@
         "en": "complete outfit: sporty bohemian festival street look. black wide-brim felt hat, black rectangular sunglasses, fitted black racerback crop tank, leopard-print high-waisted bike shorts, dark sweatshirt tied at the waist, tan tactical backpack, black crossbody sling bag, long pendant necklace, gold hoops, black ankle combat boots, coordinated urban outdoor styling.",
         "desc": "完整特殊穿搭：黑寬簷帽與墨鏡、黑色削肩背心、豹紋單車褲、腰綁衛衣、機能包、戰鬥靴與金色飾品。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/04_黑色背心豹紋.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-004",
+          "referenceImage": "reference/wardrobe/special-outfits/04_黑色背心豹紋.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -181,8 +185,9 @@
         "en": "complete outfit: layered camo lace downtown look. translucent camouflage long-sleeve mesh top, ivory white lace corset bustier over the mesh, black lace underlayer, black tiered lace mini skirt, clear amber rectangular sunglasses, small white hair clips, silver hoops, light textured handbag, white low-profile sneakers, coordinated camo-and-lace street styling.",
         "desc": "完整特殊穿搭：迷彩透膚上衣、白蕾絲馬甲、黑蕾絲短裙、琥珀眼鏡、白髮夾、小包與白色球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/05_迷彩透紗白蕾絲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-005",
+          "referenceImage": "reference/wardrobe/special-outfits/05_迷彩透紗白蕾絲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -190,8 +195,9 @@
         "en": "complete outfit: relaxed vintage band streetwear. faded brown oversized rock-band T-shirt, very wide dark washed denim knee-length shorts, black-and-white bandana tucked at the waistband, black mid-calf socks, black leather slip-on shoes, thin bracelet and small casual accessories, coordinated thrifted downtown styling.",
         "desc": "完整特殊穿搭：褪色棕色樂團寬T、深色寬版及膝牛仔短褲、腰頭方巾、黑中筒襪、黑皮便鞋與手鍊。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/06_復古樂團短褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-006",
+          "referenceImage": "reference/wardrobe/special-outfits/06_復古樂團短褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -199,8 +205,9 @@
         "en": "complete outfit: oversized grunge rock street look. faded gray Metallica-style graphic T-shirt, black open-knit cardigan or shrug, light blue frayed denim micro shorts visible below the tee, black chunky ankle boots with zipper-ring hardware, thin black choker, layered cross pendant necklaces, hoop earrings, gold bangles and rings, coordinated downtown rock styling.",
         "desc": "完整特殊穿搭：灰色 Metallica 風圖像寬T、黑針織罩衫、淺藍刷破熱褲、黑短靴、頸鏈與金屬飾品。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/07_圖像T熱褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-007",
+          "referenceImage": "reference/wardrobe/special-outfits/07_圖像T熱褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -208,8 +215,9 @@
         "en": "complete outfit: playful Y2K downtown vintage look. burgundy plaid handkerchief camisole with thin straps and pointed cropped hem, low-rise blue denim mini skirt with frayed edge, black slouchy shoulder bag, large silver hoop earrings, silver flower pendant necklace, delicate bracelet and rings, black knee-high leather boots, coordinated early-2000s street styling.",
         "desc": "完整特殊穿搭：酒紅格紋吊帶上衣、低腰牛仔迷你裙、黑肩背包、銀色耳環項鍊、手飾與黑色及膝靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/08_酒紅格紋吊帶.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-008",
+          "referenceImage": "reference/wardrobe/special-outfits/08_酒紅格紋吊帶.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -217,8 +225,9 @@
         "en": "complete outfit: feminine Y2K mall-girl street look. pale lavender lace bustier camisole, sheer leopard-print mesh torso layer, low-rise light blue bootcut jeans, wide white studded belt, black compact shoulder bag, silver hoop earrings, small pendant necklace, slim bracelets and rings, reddish hair claw clip, pink plaid low-profile sneakers, coordinated denim-lingerie styling.",
         "desc": "完整特殊穿搭：粉紫蕾絲束胸、豹紋透紗層、低腰淺藍喇叭褲、白鉚釘皮帶、黑包、紅髮夾與粉格球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/09_粉紫蕾絲豹紋.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-009",
+          "referenceImage": "reference/wardrobe/special-outfits/09_粉紫蕾絲豹紋.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -226,8 +235,9 @@
         "en": "complete outfit: soft grunge denim layering. dark indigo cropped denim jacket, blue-and-white striped button-down shirt worn open, white cropped tank top, faded gray-black wide-leg jeans, off-white canvas crossbody bag, layered pendant necklaces with turquoise and stone charms, silver hoop earrings, worn off-white low-top sneakers, coordinated thrifted city styling.",
         "desc": "完整特殊穿搭：深色短牛仔外套、藍白條紋開襯衫、白短背心、灰黑寬牛仔褲、帆布包、墜鍊與舊球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/10_深色牛仔短外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-010",
+          "referenceImage": "reference/wardrobe/special-outfits/10_深色牛仔短外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -235,8 +245,9 @@
         "en": "complete outfit: light denim-on-denim casual street look. pale blue cropped denim jacket, oversized white T-shirt lifted over a pale pink waist layer, faded gray wide-leg jeans with low relaxed waist, black compact shoulder bag, layered charm necklaces with pale pink stone pendant, silver hoop earrings, worn off-white low-top sneakers, coordinated relaxed city styling.",
         "desc": "完整特殊穿搭：淺藍短牛仔外套、白寬T與粉色腰層、灰色寬牛仔褲、黑肩背包、粉石項鍊與米白球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/11_淺色牛仔外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-011",
+          "referenceImage": "reference/wardrobe/special-outfits/11_淺色牛仔外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -244,8 +255,9 @@
         "en": "complete outfit: glamorous sheer floral sequin street-couture set. black high-neck inner top, matching black sheer floral sequin jacket, matching sheer sequin wide-leg trousers, rose-gold silver and champagne floral sparkle, black quilted structured handbag, pearl stud earrings, delicate minimal jewelry, off-white low-top sneakers, coordinated luxury casual contrast styling.",
         "desc": "完整特殊穿搭：黑高領內搭、黑透膚花卉亮片外套與寬褲、黑菱格手提包、珍珠耳釘與米白球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/12_黑色亮片花卉.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-012",
+          "referenceImage": "reference/wardrobe/special-outfits/12_黑色亮片花卉.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -253,8 +265,9 @@
         "en": "complete outfit: colorful bohemian maximal street look. cropped ivory jacket with red rose and gold floral embroidery, fuzzy moss-green cropped knit sweater, bright red high-waisted wide-leg trousers, wide metallic silver belt, layered chunky gold chain necklaces, cream shell statement earrings, brown fluffy fur slide shoes, coordinated ornate bohemian styling.",
         "desc": "完整特殊穿搭：白色花卉刺繡短外套、綠色毛絨短毛衣、紅寬褲、銀腰帶、金項鍊、貝殼耳環與毛毛拖鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/13_白色花卉刺繡.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-013",
+          "referenceImage": "reference/wardrobe/special-outfits/13_白色花卉刺繡.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -262,8 +275,9 @@
         "en": "complete outfit: luxury street-tailoring look. gray plaid oversized blazer draped over the shoulders, matching gray plaid cropped vest, high-waisted blue wide-leg jeans with heavy rips and crystal floral patches, small black quilted handbag, gold hoop earrings, rectangular eyeglasses, rings and bracelets, black platform open-toe shoes, coordinated sharp suiting-denim styling.",
         "desc": "完整特殊穿搭：灰格紋西裝披肩與短背心、破壞貼布寬牛仔褲、黑菱格小包、金耳環、眼鏡與厚底鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/14_灰格紋西裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-014",
+          "referenceImage": "reference/wardrobe/special-outfits/14_灰格紋西裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -271,8 +285,9 @@
         "en": "complete outfit: polished retro tailoring look. tan-brown plaid single-breasted blazer, white textured knit tank top, cream high-waisted wide-leg trousers, brown and blush patterned silk neck scarf, teal rectangular sunglasses, small hoop earrings, small brown monogram mini trunk handbag, white tabi-style ankle boots, coordinated refined vintage street styling.",
         "desc": "完整特殊穿搭：棕格紋西裝、白針織背心、奶白寬褲、棕粉絲巾、湖水綠墨鏡、小硬盒包與白分趾短靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/15_棕格紋西裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-015",
+          "referenceImage": "reference/wardrobe/special-outfits/15_棕格紋西裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -280,8 +295,9 @@
         "en": "complete outfit: clean Y2K oversized denim look. white scoop-neck cropped tank top, low-rise light-wash wide-leg jeans with slouchy full-length pooling, rolled white waistband detail, dangling silver cross charm chain, cream chain-strap shoulder bag, pale lavender rectangular eyeglasses, layered silver necklaces, delicate earrings and bracelets, white pointed-toe ankle boots, coordinated polished denim styling.",
         "desc": "完整特殊穿搭：白短背心、低腰淺藍垂墜寬牛仔褲、白腰頭、銀十字褲鏈、奶油鏈包、淡紫眼鏡與白尖頭短靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/16_白色短版背心.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-016",
+          "referenceImage": "reference/wardrobe/special-outfits/16_白色短版背心.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -289,8 +305,9 @@
         "en": "complete outfit: sporty black athleisure street look. black strapless bandeau crop top, black zip hoodie or track jacket worn open and off-shoulder, black wide-leg track pants with white side stripes, white chunky sneakers, white rectangular sunglasses, gold hoop earrings, layered delicate necklaces, pink scrunchie, small black shoulder bag, coordinated off-duty styling.",
         "desc": "完整特殊穿搭：黑抹胸、黑色敞開運動外套、黑白線條寬訓練褲、白厚底球鞋、白墨鏡、金耳環與黑包。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/17_黑色運動外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-017",
+          "referenceImage": "reference/wardrobe/special-outfits/17_黑色運動外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -298,8 +315,9 @@
         "en": "complete outfit: colorful indie varsity street look. oversized red varsity jacket with white stripe trim, bright blue graphic T-shirt, oversized red-blue-purple plaid knee-length skirt, gray canvas crossbody messenger bag, slim black oval sunglasses, layered silver chain necklaces with star and cross pendants, white ribbed crew socks, glossy red Mary Jane shoes, coordinated playful styling.",
         "desc": "完整特殊穿搭：紅 varsity 外套、藍色圖像T、紅藍紫格紋裙、灰帆布斜背包、黑墨鏡、銀項鍊、白襪與紅 Mary Jane。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/18_紅色棒球外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-018",
+          "referenceImage": "reference/wardrobe/special-outfits/18_紅色棒球外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -307,8 +325,9 @@
         "en": "complete outfit: eccentric retro leather street look. brown distressed leather bomber jacket, light blue fuzzy cartoon-character knit sweater, bright cobalt grommet belt, pale greenish light-wash jeans with rhinestone swirl stitching and blue-stud patches, brown embroidered baseball cap, black square sunglasses with amber lenses, chunky silver chain necklaces, black-and-white shoes with red piping, coordinated vintage styling.",
         "desc": "完整特殊穿搭：棕色皮革飛行外套、淺藍角色針織衫、亮藍腰帶、裝飾牛仔褲、棕棒球帽、黃片墨鏡與銀鍊。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/19_棕色皮革飛行外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-019",
+          "referenceImage": "reference/wardrobe/special-outfits/19_棕色皮革飛行外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -316,8 +335,9 @@
         "en": "complete outfit: dramatic sheer lace fringe evening look. black transparent long-sleeve lace dress with black bandeau and brief coverage, sculptural pink-and-black floral appliques across the torso, long black and dusty-rose fringe skirt extension, high side slit, hot pink structured clutch, delicate rings, black strappy lace-up flat sandals, coordinated sensual gothic styling.",
         "desc": "完整特殊穿搭：黑透膚蕾絲長袖洋裝、粉黑花卉貼花、黑粉長流蘇裙、高側開衩、桃粉手拿包與黑綁帶涼鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/20_黑粉透膚蕾絲流蘇.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-020",
+          "referenceImage": "reference/wardrobe/special-outfits/20_黑粉透膚蕾絲流蘇.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -325,8 +345,9 @@
         "en": "complete outfit: distressed painter-workwear street look. fuzzy multicolor frayed bucket hat, oversized beige paint-splattered canvas work jacket with torn edges, matching off-white cargo or painter pants with stained utility texture, beige and brown low-top sneakers, chunky silver rings and hand jewelry, coordinated deconstructed workwear styling.",
         "desc": "完整特殊穿搭：多色破壞漁夫帽、米色潑染破壞工裝外套、米白工裝褲、米棕低筒球鞋與銀戒指。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/21_米色潑染破壞.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-021",
+          "referenceImage": "reference/wardrobe/special-outfits/21_米色潑染破壞.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -334,8 +355,9 @@
         "en": "complete outfit: pastel romantic maximalist street look. cropped pink-and-white fuzzy houndstooth cardigan jacket, pale pink lace corset bustier, pale yellow tiered ruffle maxi skirt with sheer organza volume, layered pearl necklace with heart detail, delicate rings and bracelets, white platform slide sandals, coordinated sweet couture styling.",
         "desc": "完整特殊穿搭：粉白毛絨格紋短外套、粉色蕾絲胸衣、淡黃荷葉紗長裙、珍珠項鍊、手飾與白厚底拖鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/22_粉白絨格外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-022",
+          "referenceImage": "reference/wardrobe/special-outfits/22_粉白絨格外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -343,8 +365,9 @@
         "en": "complete outfit: playful pastel corset street look. aqua blue structured lace-up corset top, white off-shoulder puff-sleeve blouse, pink houndstooth mini skirt, white knee-high cutout lace-up legwear, pastel yellow-and-mint platform loafers with gold chain hardware, layered pearl and silver necklaces, hoop earrings and delicate bracelets, coordinated doll-like styling.",
         "desc": "完整特殊穿搭：湖水藍綁帶束胸、白露肩澎袖、粉千鳥格短裙、白綁帶長襪、黃綠厚底樂福鞋與珍珠銀飾。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/23_藍色束胸粉格.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-023",
+          "referenceImage": "reference/wardrobe/special-outfits/23_藍色束胸粉格.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -352,8 +375,9 @@
         "en": "complete outfit: preppy western oversized street look. navy sleeveless knit sweater vest layered over a white short-sleeve T-shirt, red paisley bandana at the neck, oversized light blue-and-white striped trousers with giant front cargo pockets, red western cowboy boots, thin round blue-tinted glasses, black graphic shoulder bag, stacked bracelets and wristwatch, coordinated playful styling.",
         "desc": "完整特殊穿搭：海軍針織背心、白T、紅領巾、藍白超寬大口袋褲、紅西部靴、藍片眼鏡與圖案肩包。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/24_海軍針織背心.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-024",
+          "referenceImage": "reference/wardrobe/special-outfits/24_海軍針織背心.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -361,8 +385,9 @@
         "en": "complete outfit: glossy retro menswear street tailoring. long olive-green glossy leather or vinyl trench coat, cream collared knit polo sweater, light blue straight-leg jeans, cream leather belt with silver buckle, clear brown rectangular eyeglasses, gold earrings and rings, tan pointed western boots, coordinated sleek vintage styling.",
         "desc": "完整特殊穿搭：橄欖亮面長風衣、奶油有領針織、淺藍直筒牛仔褲、奶油腰帶、棕透明眼鏡、金飾與尖頭靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/25_橄欖亮面長外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-025",
+          "referenceImage": "reference/wardrobe/special-outfits/25_橄欖亮面長外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -370,8 +395,9 @@
         "en": "complete outfit: denim western summer street look. ivory wide-brim felt hat, strapless blue denim midi dress with folded bandeau neckline, corset-like seam structure, asymmetrical wrap skirt and high front slit, burgundy leather jacket draped on one arm, large brown leather shoulder tote, delicate gold jewelry, white chunky sporty sneakers, coordinated casual western styling.",
         "desc": "完整特殊穿搭：白寬簷帽、無肩帶丹寧中長洋裝、高開衩、酒紅皮外套、棕大肩背包、金飾與白厚底球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/26_白色寬簷帽.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-026",
+          "referenceImage": "reference/wardrobe/special-outfits/26_白色寬簷帽.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -379,8 +405,9 @@
         "en": "complete outfit: rugged tie-dye workwear street look. black embroidered baseball cap, clear oversized aviator glasses, oversized beige-gray tie-dye hoodie, rust orange and smoky-gray workwear overalls with burgundy suspenders and brass hardware, large gray tote bag with off-white diagonal stripe, chunky rings, black-and-tan trail work shoes with orange laces, coordinated distressed utility styling.",
         "desc": "完整特殊穿搭：黑棒球帽、透明飛行員眼鏡、米灰紮染帽T、鏽橘灰工裝吊帶褲、灰白托特包與戶外工裝鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/27_鏽橘紮染工裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-027",
+          "referenceImage": "reference/wardrobe/special-outfits/27_鏽橘紮染工裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -388,8 +415,9 @@
         "en": "complete outfit: edgy Y2K punk street look. white cropped ringer baby tee with black trim and bold block-letter chest graphic, black pinstripe mini skirt or micro shorts with white lace hem, gray metallic slouchy shoulder bag, silver bracelets and rings, black floral lace knee-high socks, glossy black platform lace-up boots, coordinated downtown styling.",
         "desc": "完整特殊穿搭：白黑滾邊字母短T、黑細條紋迷你裙或短褲、白蕾絲下擺、灰金屬肩包、黑蕾絲襪與黑厚底靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/28_白色字母短T.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-028",
+          "referenceImage": "reference/wardrobe/special-outfits/28_白色字母短T.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -397,8 +425,9 @@
         "en": "complete outfit: playful retro glam street look. gold embellished knitted beret, cropped tan-brown faux-fur jacket, pink graphic fitted T-shirt, dark indigo oversized wide-leg jeans with deep pleats, chunky gold chain belt, small brown leather shoulder bag, gold hoop earrings and delicate necklace, red high-top canvas sneakers, coordinated glam casual styling.",
         "desc": "完整特殊穿搭：金色裝飾貝雷帽、棕色短仿皮草、粉色圖像T、深靛藍寬牛仔褲、粗金鏈腰帶、棕包與紅高筒鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/29_金色貝雷帽.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-029",
+          "referenceImage": "reference/wardrobe/special-outfits/29_金色貝雷帽.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -406,8 +435,9 @@
         "en": "complete outfit: layered Y2K city street look. long loose center-part brown hair, black narrow oval sunglasses, dark brown open knit cardigan, beige fitted camisole tank, low-rise blue-and-white pinstripe oversized cargo pants, black leather belt with oval gold buckle, layered chain and pendant necklaces, chunky dark sneakers, coordinated downtown styling.",
         "desc": "完整特殊穿搭：棕開襟外套、米色細肩背心、藍白條紋低腰工裝寬褲、黑皮帶、黑墨鏡、層次項鍊與厚底鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/30_棕色開襟外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-030",
+          "referenceImage": "reference/wardrobe/special-outfits/30_棕色開襟外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -415,8 +445,9 @@
         "en": "complete outfit: chain-heavy Y2K utility street look. long straight light-brown hair under a black knit beanie, white cropped ribbed tank top, black detached arm warmers, low-rise dark navy oversized cargo pants, layered brown and black belts with large ring buckle, draped chain waist charms, stacked pendant necklaces, black shoulder strap, chunky black boots, coordinated cyber utility styling.",
         "desc": "完整特殊穿搭：黑毛帽、白色短背心、黑袖套、低腰深色工裝寬褲、雙層皮帶、褲鏈、層次項鍊與黑厚靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/31_黑毛帽白短背心.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-031",
+          "referenceImage": "reference/wardrobe/special-outfits/31_黑毛帽白短背心.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -424,8 +455,9 @@
         "en": "complete outfit: cute punk layered street look. black messy twin-bun hair with face-framing strands and thin braids, pale pink graphic camisole tank, red-and-green plaid shirt tied around the waist, black shredded wide-leg pants with patched texture, black choker, black fingerless gloves and wrist cuffs, pale pink platform Mary Jane shoes, coordinated punk doll styling.",
         "desc": "完整特殊穿搭：雙丸子髮、粉色圖像背心、腰綁紅綠格紋襯衫、黑破壞寬褲、黑頸圈、露指手套與粉色厚底鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/32_粉色圖像背心.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-032",
+          "referenceImage": "reference/wardrobe/special-outfits/32_粉色圖像背心.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -433,8 +465,9 @@
         "en": "complete outfit: gothic graphic tee dress styling. shoulder-length wavy dark hair with full bangs, oversized charcoal-gray graphic T-shirt worn as a mini dress, black grommet belt harness wrapping the waist with long hanging straps, black choker, stacked bracelets, black lace-up leg straps, chunky black platform boots with buckle hardware, small black fuzzy charm bag, coordinated gothic street styling.",
         "desc": "完整特殊穿搭：灰色長版圖像T、黑孔眼腰帶與垂帶、黑頸圈、手鍊、腿部綁帶、黑厚底扣靴與毛絨小包。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/33_灰色長版圖像T.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-033",
+          "referenceImage": "reference/wardrobe/special-outfits/33_灰色長版圖像T.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -442,8 +475,9 @@
         "en": "complete outfit: oversized punk grunge layered look. tousled dark wavy hair with full bangs, black distressed off-shoulder long-sleeve graphic top with red skull print, red plaid ruffle mini skirt layer, gray heavily shredded wide-leg jeans with black patchwork texture, black grommet choker and strap details, black fluffy shoulder bag, chunky black platform shoes with metal hardware, coordinated punk styling.",
         "desc": "完整特殊穿搭：黑破壞露肩圖像長袖、紅格紋荷葉短裙層、灰黑重破壞寬牛仔褲、孔眼頸圈、黑毛絨包與厚底鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/34_黑色破壞圖像上衣.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-034",
+          "referenceImage": "reference/wardrobe/special-outfits/34_黑色破壞圖像上衣.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -451,8 +485,9 @@
         "en": "complete outfit: soft grunge lace layered look. messy spiky black shag hair with full bangs, oversized sage-green graphic T-shirt, white sheer lace midi skirt with soft volume, striped black-and-gray fingerless arm warmers, long black beaded pendant necklace, turquoise drop earrings, chunky black lace-up platform boots, coordinated thrifted romantic grunge styling.",
         "desc": "完整特殊穿搭：刺刺黑色 shag 髮、鼠尾草綠圖像寬T、白色透蕾絲中長裙、條紋露指袖套、長項鍊、綠耳墜與黑厚底靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/35_鼠尾草圖像T.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-035",
+          "referenceImage": "reference/wardrobe/special-outfits/35_鼠尾草圖像T.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -460,8 +495,9 @@
         "en": "complete outfit: playful layered casual utility look. long dark side braid under a pale blue embroidered baseball cap, oversized yellow graphic T-shirt layered over a pale blue striped button-down shirt, olive-gray wide cargo pants with drawcord details, small purple shirt clip, bright red mesh tote bag, red-and-cream low-top sneakers, coordinated relaxed street styling.",
         "desc": "完整特殊穿搭：藍棒球帽、側編髮、黃色寬T疊藍白條紋襯衫、橄欖灰工裝寬褲、紫色衣夾、紅網袋與紅白低筒鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/36_黃色寬T條紋.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-036",
+          "referenceImage": "reference/wardrobe/special-outfits/36_黃色寬T條紋.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -469,8 +505,9 @@
         "en": "complete outfit: polished leather tailoring look. long center-part strawberry-blonde soft hair, black narrow oval sunglasses, cropped black leather jacket, red paisley button shirt with pointed hem, charcoal pinstripe knee-length pencil skirt, beige monogram shoulder bag with black trim, glossy black pointed kitten heels, small earrings, coordinated sharp retro styling.",
         "desc": "完整特殊穿搭：草莓金中分長髮、黑窄墨鏡、黑皮革短外套、紅佩斯利襯衫、炭灰細條紋鉛筆裙、米色花紋肩包與黑尖頭鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/37_黑皮革短外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-037",
+          "referenceImage": "reference/wardrobe/special-outfits/37_黑皮革短外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -478,8 +515,9 @@
         "en": "complete outfit: dramatic fur-tailored glamour look. long dark straight hair with blunt bangs, silver hoop earrings, brown faux-fur jacket draped around the shoulders, black pinstripe double-breasted blazer dress with sharp lapels, sheer black tights, glossy black pointed pumps, black patent chain-strap shoulder bag, rings, coordinated luxury tailoring styling.",
         "desc": "完整特殊穿搭：黑長直髮與齊瀏海、棕色仿皮草披肩、黑細條紋雙排扣西裝洋裝、黑透膚絲襪、黑漆皮鍊包與尖頭鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/38_棕皮草披肩條紋.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-038",
+          "referenceImage": "reference/wardrobe/special-outfits/38_棕皮草披肩條紋.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -487,8 +525,9 @@
         "en": "complete outfit: sleek black leather city look. long dark soft wavy hair with airy bangs, fitted black leather moto jacket with asymmetrical zipper, matching black leather pencil skirt, black waist belt with silver buckle, sheer black tights, black mid-calf leather boots, delicate pendant necklace and small earrings, coordinated polished leather styling.",
         "desc": "完整特殊穿搭：深色柔波長髮、黑皮革騎士外套、黑皮革鉛筆裙、黑腰帶、黑絲襪、黑中筒靴、小墜鍊與耳飾。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/39_黑皮革騎士外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-039",
+          "referenceImage": "reference/wardrobe/special-outfits/39_黑皮革騎士外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -496,8 +535,9 @@
         "en": "complete outfit: high-glam leather and crystal look. slick center-part low bun, cropped black leather zip jacket, low-rise beige snakeskin flared trousers covered with dense rhinestone sparkle, black glossy pointed heels, black monogram shoulder bag with chain strap, silver earrings and rings, coordinated sharp luxury styling.",
         "desc": "完整特殊穿搭：光滑中分低包頭、黑皮革短外套、低腰米色蛇紋水鑽喇叭褲、黑尖頭高跟鞋、黑花紋鍊包與銀飾。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/40_黑皮革水鑽蛇紋.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-040",
+          "referenceImage": "reference/wardrobe/special-outfits/40_黑皮革水鑽蛇紋.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -505,8 +545,9 @@
         "en": "complete outfit: eclectic floral leather statement look. messy dark updo with short bangs, oversized bright yellow leather jacket worn loose, red plunging floral sleeveless dress, black floral skirt layer under silver ring-chain mesh overlay, chunky silver chain necklace, black ribbon choker, black hoop earrings, metallic silver knee-high boots, coordinated maximalist styling.",
         "desc": "完整特殊穿搭：凌亂黑色盤髮與短瀏海、黃色寬皮外套、紅色深V花洋裝、銀色圈鏈網罩裙、粗銀鍊、黑頸繩、黑耳環與銀長靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/41_黃皮革外套.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-041",
+          "referenceImage": "reference/wardrobe/special-outfits/41_黃皮革外套.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -514,8 +555,9 @@
         "en": "complete outfit: Y2K biker denim styling. long wavy black hair under a Gucci-inspired luxury patterned bandana headscarf wrapped in a pirate style, vintage rimless translucent blue sunglasses, red satin camisole, ultra low-rise faded denim mini skirt, low-slung red grommet belt, layered necklaces with a Baroque metal cross pendant, hoop earrings, stacked bracelets and rings, ivory crew socks, black knee-high biker boots with four side buckle straps, coordinated playful styling.",
         "desc": "完整特殊穿搭：GUGGI 風格奢華印花頭巾以海盜式包法包覆、黑長捲髮、復古無框藍色半透明墨鏡、紅緞面背心、超低腰牛仔迷你裙、低位紅孔眼皮帶、巴洛克金屬十字架項鍊、手飾、白襪與四條側扣帶騎士靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/42_紅緞背心牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-042",
+          "referenceImage": "reference/wardrobe/special-outfits/42_紅緞背心牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -523,8 +565,9 @@
         "en": "complete outfit: fitted camisole and oversized cargo contrast. long voluminous side-part black waves, cream cropped spaghetti-strap camisole with an ultra-low square neckline ending above the navel, visible black lace bra underneath, low-rise light-wash oversized cargo jeans with many flap pockets and utility seams, small cherry tattoo on the right chest, layered necklaces with a metal cross pendant, gold bracelets and rings, white chunky platform slide sandals, coordinated Y2K styling.",
         "desc": "完整特殊穿搭：側分黑色蓬鬆長捲髮、米色超低胸平口短版細肩背心露肚臍、內搭黑蕾絲胸罩、低腰淺色多袋工裝寬牛仔褲、右胸櫻桃刺青、金屬十字架項鍊、金手飾與白厚底拖鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/43_米色細肩背心.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-043",
+          "referenceImage": "reference/wardrobe/special-outfits/43_米色細肩背心.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -532,8 +575,9 @@
         "en": "complete outfit: soft doll-like casual styling. short blonde bob with full bangs and small pink bow hair clips, dusty pink striped babydoll camisole with satin center bow, dark blue fitted denim micro shorts, cream slouchy leg warmers, black chunky platform Mary Jane shoes, pearl heart necklace, brown shoulder bag with dangling charms, coordinated cute styling.",
         "desc": "完整特殊穿搭：金色短鮑伯與齊瀏海、粉蝴蝶結髮夾、粉色條紋蝴蝶結娃娃背心、深藍牛仔短褲、奶油泡泡襪、黑厚底 Mary Jane、珍珠心形項鍊與棕肩包。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/44_粉色蝴蝶結背心.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-044",
+          "referenceImage": "reference/wardrobe/special-outfits/44_粉色蝴蝶結背心.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -541,8 +585,9 @@
         "en": "complete outfit: crisp Y2K schoolgirl-inspired styling. long straight side-part black hair, cropped white short-sleeve button shirt with a slightly sheer gauze texture ending above the waistline, two chest buttons open revealing a black lace bra and neckline, bottom button open showing a small midriff gap, ultra low-rise yellow plaid pleated mini skirt with thin side ribbons hanging down, white lace thigh-high stockings with garter straps, white pointed heels, brown monogram shoulder bag, delicate pendant necklace.",
         "desc": "完整特殊穿搭：側分黑長直髮、微透短版白短袖襯衫、胸前兩扣與下擺開扣露黑蕾絲胸罩和少量腹部、超低腰黃格裙垂細絲帶、白蕾絲吊帶襪、白尖頭鞋、棕肩包與細項鍊。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/45_白色短袖背心.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-045",
+          "referenceImage": "reference/wardrobe/special-outfits/45_白色短袖背心.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -550,8 +595,9 @@
         "en": "complete outfit: black gothic Y2K lace punk look. fitted black short-sleeve top with square lace-trim neckline, puffed shoulders, glossy ornamental chest graphic, and ruffled peplum hem, distressed black denim micro shorts with flap pockets, side button straps, buckles, and frayed threads, black snap choker, layered black bead rosary cross necklace, studded wrist cuffs and bracelets, black slouchy knee-high leather boots with rugged soles.",
         "desc": "完整特殊穿搭：黑色短袖蕾絲領上衣、荷葉下襬、黑破壞牛仔熱褲、黑扣帶頸圈、黑珠十字長項鍊、鉚釘手環與黑色皺褶及膝長靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/46_黑色哥德蕾絲短袖.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-046",
+          "referenceImage": "reference/wardrobe/special-outfits/46_黑色哥德蕾絲短袖.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -559,8 +605,9 @@
         "en": "complete outfit: gray sheer layered Y2K punk camisole look. smoky gray translucent ruffle camisole with thin straps, lace-trim neckline, oversized front ring detail, asymmetrical cascading frills, and faded ornamental print, distressed black denim micro shorts with side button straps and frayed hems, olive-gray oversized shoulder tote, layered chain choker and black cross pendant necklace, stacked black studded cuffs, black thigh strap garter, ivory scrunched leg warmers, black chunky platform sandal boots with studded straps.",
         "desc": "完整特殊穿搭：灰色透紗荷葉吊帶背心、黑破壞牛仔熱褲、橄欖灰大肩包、層次頸鏈與黑十字項鍊、黑鉚釘手環、腿部綁帶、奶白堆堆襪與黑厚底鉚釘涼鞋靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/47_灰透紗荷葉吊帶熱褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-047",
+          "referenceImage": "reference/wardrobe/special-outfits/47_灰透紗荷葉吊帶熱褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -568,8 +615,9 @@
         "en": "complete outfit: ivory romantic gothic fairy street look. fitted ivory short-sleeve top with lace-trim sweetheart neckline, faded ornamental chest print, ruched side detail, and soft pleated fringe hem, layered ivory mini skirt with asymmetric ruffle tiers, sheer panels, embroidered scroll accents, and pleated fabric layers, ivory button choker, antique heart pendant necklace, silver upper-arm cuff, stacked metal bangles, ivory ribbed lace-up knee socks, cream platform sneakers with studded toe panels and handwritten graphic details.",
         "desc": "完整特殊穿搭：奶白蕾絲領短袖上衣、荷葉流蘇下襬、奶白不對稱多層荷葉短裙、白扣帶頸圈、古董心形項鍊、上臂金屬環、疊戴手鐲、白綁帶高筒襪與奶油厚底球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/48_奶白蕾絲荷葉短裙高筒.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-048",
+          "referenceImage": "reference/wardrobe/special-outfits/48_奶白蕾絲荷葉短裙高筒.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -577,8 +625,9 @@
         "en": "complete outfit: cream deconstructed gothic resort-punk look. sleeveless high-neck halter top in textured cream fabric with vertical stripe texture, faded script print, distressed smudged graphics, asymmetrical cascading ruffle panel along one side, and black bead rosary cross necklace, matching cream pleated mini skirt with layered beige under-hem and lace trim, olive-gray oversized shoulder tote with hanging fabric ties, wide stacked antique-gold cuff bracelet, black chunky platform sandal boots with studded straps and open toes.",
         "desc": "完整特殊穿搭：米白高領無袖掛脖上衣、直條紋肌理、舊化字母圖案、側邊不對稱荷葉片、黑珠十字項鍊、米白百褶短裙、米色內層蕾絲下襬、橄欖灰大肩包、寬版古金手環與黑厚底鉚釘露趾涼鞋靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/49_米白高領荷葉背心.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-049",
+          "referenceImage": "reference/wardrobe/special-outfits/49_米白高領荷葉背心.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -586,8 +635,9 @@
         "en": "complete outfit: white ethereal punk dress look. sheer ivory sleeveless mini dress with translucent layered panels, delicate embroidered vertical lace texture, asymmetrical ruffle tiers, raw trailing edges, and a structured white double-belt chest harness with silver eyelets and black buckle, sheer white neck wrap, delicate cross pendant necklace, white wrapped hand bandage glove, stacked silver bangles, white lace thigh-high socks, black oversized lace-up combat boots with folded collars and heavy soles, distressed white bow accessory.",
         "desc": "完整特殊穿搭：白色透紗無袖迷你洋裝、層疊透明面料、刺繡直紋蕾絲、不對稱荷葉與垂落毛邊、白色雙皮帶胸前 harness、白透紗頸巾、十字項鍊、白色纏繞手套、銀手鐲、白蕾絲大腿襪與黑色寬筒綁帶軍靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/50_白色透紗綁帶洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-050",
+          "referenceImage": "reference/wardrobe/special-outfits/50_白色透紗綁帶洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -595,8 +645,9 @@
         "en": "complete outfit: ivory sheer deconstructed gothic western look. translucent cream short-sleeve button-front blouse with dotted mesh sleeves, lace embroidery, vertical ruffle trim, visible pale underlayer, and round metal buttons, wide low-slung beige studded belt with large buckle, layered ivory asymmetrical skirt with torn handkerchief panels, lace underskirt, and ruffled mini-skirt section, black bead rosary necklace, white wrapped fingerless hand bandage, stacked bronze bangles, silver rings, white lace-up socks, brown studded slouch boots with black strap hardware.",
         "desc": "完整特殊穿搭：奶白透膚短袖排扣襯衫、點點網紗袖、蕾絲刺繡、直向荷葉飾邊、寬版低腰米色鉚釘皮帶、奶白不對稱破布層裙、蕾絲內裙、黑珠長項鍊、白色纏繞露指手套、古銅手鐲、銀戒、白綁帶襪與棕色鉚釘皺褶短靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/51_奶白透膚襯衫腰帶.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-051",
+          "referenceImage": "reference/wardrobe/special-outfits/51_奶白透膚襯衫腰帶.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -604,8 +655,9 @@
         "en": "complete outfit: neon tropical resort streetwear look. intentionally oversized lime-green short-sleeve camp shirt worn open, blue palm-tree island print, white ribbed tank top, matching bright green relaxed nylon shorts, fluffy pale-blue bucket hat, white narrow rectangular sunglasses, layered silver chain necklaces with dog-tag pendant, neon green crew socks, black-and-white chunky running sneakers, coordinated playful summer styling.",
         "desc": "完整特殊穿搭：螢光綠 oversize 熱帶印花大襯衫、白背心、亮綠尼龍短褲、淺藍毛絨漁夫帽、白窄墨鏡、銀鍊狗牌、亮綠襪與黑白厚底跑鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/52_螢光綠熱帶襯衫.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-052",
+          "referenceImage": "reference/wardrobe/special-outfits/52_螢光綠熱帶襯衫.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -613,8 +665,9 @@
         "en": "complete outfit: bright illustrated summer cargo look. boxy white short-sleeve camp shirt with randomly overlapped seashell and conch motif print in orange and brown, open resort collar, neon orange dyed-texture cargo trousers with large side pockets and relaxed pooling legs, small silver bracelet, orange low-top canvas sneakers with white toe caps, black foxing stripe, and white laces, coordinated casual color-block styling.",
         "desc": "完整特殊穿搭：白色短袖開領襯衫、橘棕貝類海螺隨機重疊圖樣、螢光橘染色質感工裝寬褲、大側袋、銀手鍊與橘色低筒帆布鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/53_白橘圖案襯衫.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-053",
+          "referenceImage": "reference/wardrobe/special-outfits/53_白橘圖案襯衫.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -622,8 +675,9 @@
         "en": "complete outfit: playful polished sweatshirt-and-skirt look. gray crewneck sweatshirt with rolled sleeves and cute stylized poodle applique on the chest, stiff structured pleated red midi skirt with deliberately wide puffed volume and full A-line shape, oversized black sunglasses, metallic silver clutch bag, stacked bracelets and wristwatch, delicate rings, red pointed-toe pumps, coordinated whimsical feminine street styling.",
         "desc": "完整特殊穿搭：灰色可愛貴賓犬圖案衛衣、捲袖、硬挺材質紅色蓬量摺裙、寬大 A 字輪廓、黑大墨鏡、銀手拿包、手飾與紅尖頭高跟鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/54_灰色圖案衛衣.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-054",
+          "referenceImage": "reference/wardrobe/special-outfits/54_灰色圖案衛衣.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -631,8 +685,9 @@
         "en": "complete outfit: black sheer gothic downtown look. transparent black hooded open-knit long-sleeve top with loose bell sleeves, distressed fringe hem, dangling tie cords, visible black inner layer, low-rise black micro shorts, oversized black wrap sunglasses, black grommet shoulder strap, long black leather fringe bag, black pointed ballet flats with crisscross ankle ties, coordinated dark bohemian punk styling.",
         "desc": "完整特殊穿搭：黑透膚連帽開織長袖上衣、喇叭袖、破壞流蘇下襬、黑低腰熱褲、黑包覆墨鏡、孔眼肩帶、黑長流蘇包與黑尖頭踝綁鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/55_黑透膚連帽流蘇.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-055",
+          "referenceImage": "reference/wardrobe/special-outfits/55_黑透膚連帽流蘇.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -640,8 +695,9 @@
         "en": "complete outfit: romantic pink resort mini dress look. pale pink strapless babydoll mini dress with single-panel waistless cut, airy gathered volume, one large central rosette and two smaller side rosettes across the bust, soft flared hem, woven straw wide-brim hat, round dark sunglasses, delicate necklace, woven bucket handbag with rope handles and blue tassel charms, light logo-lettered slide sandals, coordinated feminine vacation styling.",
         "desc": "完整特殊穿搭：淡粉抹胸一片式無腰身迷你洋裝、胸前中央一朵大花兩側小花、草編寬簷帽、圓墨鏡、細項鍊、草編水桶包與淺色字母拖鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/56_粉色花朵抹胸.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-056",
+          "referenceImage": "reference/wardrobe/special-outfits/56_粉色花朵抹胸.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -649,8 +705,9 @@
         "en": "complete outfit: relaxed preppy skater casual look. oversized blue-and-white gingham short-sleeve button shirt with bottom three buttons intentionally left undone, loose untucked fit, olive plaid knee-length shorts, beige embroidered baseball cap, black diagonal crossbody strap, cream canvas tote bag with printed patch detail, small snack pouch accessory, blue-and-white striped crew socks, black low-top sneakers, coordinated casual thrifted styling.",
         "desc": "完整特殊穿搭：藍白格紋寬短袖襯衫、下方三顆扣子故意不扣、橄欖格紋及膝短褲、米色棒球帽、帆布托特包、藍白條紋襪與黑球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/57_格紋襯衫短褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-057",
+          "referenceImage": "reference/wardrobe/special-outfits/57_格紋襯衫短褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -658,8 +715,9 @@
         "en": "complete outfit: clean oversized shirt casual look. oversized blue-and-white vertical striped button-down shirt with bottom three buttons intentionally left undone, long loose sleeves and asymmetrical untucked hem, short ivory mini skirt or shorts peeking below the shirt, beige baseball cap, small cream round shoulder bag with thin strap, white crew socks, white-and-gray chunky running sneakers with layered panels, coordinated minimal sporty street styling.",
         "desc": "完整特殊穿搭：藍白直條紋超寬長袖襯衫、下方三顆扣子故意不扣、不對稱外放下襬、象牙白短裙或短褲、米色棒球帽、小圓包、白襪與跑鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/58_藍白條紋寬襯衫.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-058",
+          "referenceImage": "reference/wardrobe/special-outfits/58_藍白條紋寬襯衫.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -667,8 +725,9 @@
         "en": "complete outfit: relaxed oversized denim workwear look. burgundy graphic T-shirt with cream retro lettering, star motif, and slightly cropped length revealing a small midriff gap, dark navy baseball cap with brown brim and front logo patch, extremely wide black denim carpenter jeans with contrast stitching, oversized rounded leg volume and large utility pockets, silver wrist jewelry, tan suede work boots with rugged soles, coordinated laid-back skate workwear styling.",
         "desc": "完整特殊穿搭：酒紅短版復古字母圖像T、微露腹、深海軍藍棕簷棒球帽、超寬黑牛仔工裝褲、對比縫線、大工具口袋、銀手飾與黃棕工裝靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/59_酒紅圖像T黑寬牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-059",
+          "referenceImage": "reference/wardrobe/special-outfits/59_酒紅圖像T黑寬牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -676,8 +735,9 @@
         "en": "complete outfit: Y2K sporty denim street look. black baseball cap with white front logo, black rectangular sunglasses clipped onto the cap brim, black over-ear headphones resting around the neck, fitted red cropped graphic baby tee, visible white logo waistband, low-rise light-wash oversized baggy jeans with worn fading and distressed knee details, red plaid shirt tied around the waist, leopard belt, brown shoulder bag, bracelets, brown rugged sneakers.",
         "desc": "完整特殊穿搭：黑棒球帽、黑矩形墨鏡掛在帽簷、黑耳罩耳機掛頸、紅色短版圖像T、白 logo 腰頭、低腰淺色超寬牛仔褲、紅格襯衫綁腰與棕鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/60_紅色短T低腰寬牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-060",
+          "referenceImage": "reference/wardrobe/special-outfits/60_紅色短T低腰寬牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -685,8 +745,9 @@
         "en": "complete outfit: retro punk graphic tee look. mustard yellow fitted cropped David Bowie-style graphic T-shirt with raw cropped hem, slim yellow-tinted oval sunglasses, red crochet skullcap, layered silver chain necklaces and charm pendants, hoop earrings, black shoulder bag, low-rise brown plaid slim flared trousers, dark belt, stacked silver bracelets and rings, black split-toe flat shoes, coordinated eclectic street styling.",
         "desc": "完整特殊穿搭：芥末黃短版圖像T、紅色鉤織小帽、黃片橢圓墨鏡、層次銀鍊與吊飾、圈耳環、黑肩包、低腰棕格紋微喇叭褲、深色皮帶、銀手飾與黑分趾平底鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/61_黃色圖像短T格紋.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-061",
+          "referenceImage": "reference/wardrobe/special-outfits/61_黃色圖像短T格紋.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -694,8 +755,9 @@
         "en": "complete outfit: sporty color-block travel street look. long blonde hair under a pale blue bandana headscarf, semi-transparent brown sunglasses, bright green fuzzy oversized V-neck sweater layered over a white T-shirt hem, black athletic three-stripe knee shorts, large cobalt blue nylon shoulder bag, white crew socks, black three-stripe sneakers, coordinated casual sporty styling.",
         "desc": "完整特殊穿搭：淺藍頭巾、長金髮、半透明褐色太陽眼鏡、綠色毛絨寬版V領針織、白T下襬、黑三線運動短褲、藍色大包、白襪與黑三線球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/62_綠針織運動短褲藍包.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-062",
+          "referenceImage": "reference/wardrobe/special-outfits/62_綠針織運動短褲藍包.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -703,8 +765,9 @@
         "en": "complete outfit: playful indie school street look. short reddish pixie hair, semi-transparent brown sunglasses, red fitted graphic T-shirt, gray-red plaid drawstring shorts, layered silver necklaces, hoop earrings, bracelets and rings, tan structured handbag, dark gray thigh-high socks, black chunky Mary Jane shoes with yellow welt stitching, coordinated casual retro styling.",
         "desc": "完整特殊穿搭：紅棕短髮、半透明褐色太陽眼鏡、紅色合身圖像T、灰紅格紋抽繩短褲、層次銀鍊、耳環手飾、焦糖手提包、深灰長襪與黑厚底 Mary Jane。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/63_紅色圖像T格紋短褲長襪.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-063",
+          "referenceImage": "reference/wardrobe/special-outfits/63_紅色圖像T格紋短褲長襪.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -712,8 +775,9 @@
         "en": "complete outfit: relaxed paisley combat street look. brown hair tucked under a green bandana headscarf, black rectangular sunglasses, pearl choker necklace, oversized purple paisley button-down shirt worn open over a white tank top, black leather-look knee-length shorts, black mid-calf socks, chunky black combat boots with yellow lace accents, coordinated bold casual styling.",
         "desc": "完整特殊穿搭：綠頭巾、棕髮、黑矩形墨鏡、珍珠頸鍊、紫色寬版佩斯利開襯衫、白背心、黑皮革感及膝短褲、黑襪與黃繫帶厚底軍靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/64_紫色佩斯利襯衫短褲軍靴.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-064",
+          "referenceImage": "reference/wardrobe/special-outfits/64_紫色佩斯利襯衫短褲軍靴.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -721,8 +785,9 @@
         "en": "complete outfit: sporty denim overall street look. loose brown hair, oval eyeglasses, wired white earphones, yellow-and-green Brazil flag sports bra top, blue denim overalls worn slouched with one bib strap undone and one shoulder strap attached, navy shoulder bag, small heart pendant necklace, gold watch and bracelets, dark low-profile sneakers, coordinated urban casual styling.",
         "desc": "完整特殊穿搭：鬆散棕髮、橢圓眼鏡、白有線耳機、巴西黃綠運動背心、單肩鬆垮吊帶牛仔褲、深藍肩包、心形項鍊、金錶手飾與深色球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/65_巴西色背心單肩吊帶牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-065",
+          "referenceImage": "reference/wardrobe/special-outfits/65_巴西色背心單肩吊帶牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -730,8 +795,9 @@
         "en": "complete outfit: oversized shirt-dress city look. long straight dark hair with full bangs, oversized purple-and-white vertical striped button-down shirt dress with loose rolled sleeves and tunic length, red quilted chain-strap shoulder bag held at the side, navy ankle socks, red pointed flats with striped metallic toe detail, coordinated minimal retro styling.",
         "desc": "完整特殊穿搭：長直黑髮厚瀏海、紫白直條紋超寬襯衫洋裝、鬆卷袖、紅色鏈帶包、深藍短襪與紅色尖頭平底鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/66_紫條紋襯衫洋裝紅包.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-066",
+          "referenceImage": "reference/wardrobe/special-outfits/66_紫條紋襯衫洋裝紅包.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -739,8 +805,9 @@
         "en": "complete outfit: seaside Y2K denim casual look. long wavy hair under a red baseball cap, black sunglasses, white camisole with black polka dots, dark belt peeking at the waist, very wide dark blue low-rise jeans with relaxed pooling legs, black handbag with a dangling white star charm, small pendant necklace, bracelets and rings, black sneakers.",
         "desc": "完整特殊穿搭：紅棒球帽、長波浪髮、黑墨鏡、白底黑波點細肩背心、低腰深藍超寬牛仔褲、黑包與白星星吊飾、項鍊手飾與黑球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/67_紅帽波點背心寬牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-067",
+          "referenceImage": "reference/wardrobe/special-outfits/67_紅帽波點背心寬牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -748,8 +815,9 @@
         "en": "complete outfit: cute oversized black-pants street look. long black wavy hair with wispy bangs, small earrings, pink fitted baby tee with I heart ME graphic and leopard heart, black wide-leg drawstring pants with long white waist cords, black shoulder bag with chain strap, black heart pendant necklace, stacked pearl and silver bracelets, black platform clogs, coordinated soft punk styling.",
         "desc": "完整特殊穿搭：黑色長波浪髮與輕薄瀏海、粉色合身愛心圖像T、黑色抽繩寬褲、黑鏈帶肩包、黑心形項鍊、珍珠銀手鍊與黑厚底拖鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/68_粉色愛心T黑寬褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-068",
+          "referenceImage": "reference/wardrobe/special-outfits/68_粉色愛心T黑寬褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -757,8 +825,9 @@
         "en": "complete outfit: romantic monochrome layered dress look. long wavy platinum-blonde hair with braided side detail, white sheer ruffled Victorian blouse with rounded collar and front frill panel, black long slip dress layered over the blouse, oversized red tote bag with white polka dots, silver pendant necklace, chunky silver bracelet, sheer striped socks, black sneakers with white three-stripe detail, coordinated whimsical styling.",
         "desc": "完整特殊穿搭：白金長波浪髮與側編細節、白色透膚荷葉維多利亞襯衫、黑吊帶長裙、紅白波點大托特、銀項鍊手鍊、透膚條紋襪與黑三線球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/69_白荷葉襯衫黑吊帶長裙波點包.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-069",
+          "referenceImage": "reference/wardrobe/special-outfits/69_白荷葉襯衫黑吊帶長裙波點包.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -766,8 +835,9 @@
         "en": "complete outfit: relaxed city layered look. oversized semi-sheer white button-up shirt worn open over a black bandeau crop top, black satin boxer-style micro shorts with elastic waistband, blue oval sunglasses, silver rings, pink wrist scrunchie detail, tan mid-calf western boots, casual polished street styling.",
         "desc": "完整特殊穿搭：白色半透寬襯衫敞開、黑抹胸短上衣、黑緞面 boxer 熱褲、藍橢圓墨鏡、銀戒、粉色手腕布圈細節與焦糖西部靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/70_白襯衫黑短褲西部靴.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-070",
+          "referenceImage": "reference/wardrobe/special-outfits/70_白襯衫黑短褲西部靴.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -775,8 +845,9 @@
         "en": "complete outfit: earthy halter-and-sheer skirt street look. cream halter tube top with neck straps, layered brown sheer asymmetrical midi skirt with wrap-like panels and ruffled hem, black grommet utility waist belt, white slouch socks, black lace-up combat boots, gold choker, arm cuff, rings, visible arm tattoos.",
         "desc": "完整特殊穿搭：奶油掛脖平口上衣、棕色透紗不對稱中長裙、黑孔眼機能腰帶、白皺襪、黑綁帶軍靴、金頸圈、手臂環、戒指與手臂刺青。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/71_奶油掛脖棕紗裙軍靴.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-071",
+          "referenceImage": "reference/wardrobe/special-outfits/71_奶油掛脖棕紗裙軍靴.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -784,8 +855,9 @@
         "en": "complete outfit: relaxed utility skirt streetwear. oversized navy short-sleeve T-shirt tucked loosely at the waist, gray full-length cargo maxi skirt with drawstring waist, front seam panels and large flap pockets, layered silver pendant necklaces, black leather wrist cuff, bracelets, visible small arm tattoo, chunky black-gray sneakers.",
         "desc": "完整特殊穿搭：海軍藍寬短袖T、灰色抽繩工裝長裙、前片縫線與大翻蓋口袋、層次銀墜鍊、黑皮革手環、手鍊、小刺青與黑灰厚底球鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/72_海軍T灰色工裝長裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-072",
+          "referenceImage": "reference/wardrobe/special-outfits/72_海軍T灰色工裝長裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -793,8 +865,9 @@
         "en": "complete outfit: polished casual tweed street look. cropped black textured jacket with gold buttons, light blue frayed denim shorts, white ankle socks, black tabi-style loafers, slim black cat-eye sunglasses, layered pearl and gold necklaces, gold hoop earrings, stacked bracelets and watch, refined high-low city styling.",
         "desc": "完整特殊穿搭：黑色短版紋理外套與金釦、淺藍毛邊牛仔短褲、白短襪、黑分趾樂福鞋、黑貓眼墨鏡、珍珠金鍊、金耳圈與疊戴手飾。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/73_黑短外套牛仔短褲樂福.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-073",
+          "referenceImage": "reference/wardrobe/special-outfits/73_黑短外套牛仔短褲樂福.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -802,8 +875,9 @@
         "en": "complete outfit: playful cow-print western look. off-shoulder cow-print fitted romper with ruffled neckline and long bell sleeves, black waist belt with large silver buckle, dramatic blue denim chaps-style wide pants with large thigh cut-outs and frayed edges, denim cowboy hat, cow-print pointed footwear, bold novelty street styling.",
         "desc": "完整特殊穿搭：露肩乳牛紋貼身連身短褲、荷葉領與喇叭長袖、黑腰帶大銀扣、藍丹寧 chaps 風寬褲、大腿開洞毛邊、丹寧牛仔帽與乳牛紋尖頭鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/74_乳牛紋連身丹寧開洞褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-074",
+          "referenceImage": "reference/wardrobe/special-outfits/74_乳牛紋連身丹寧開洞褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -811,8 +885,9 @@
         "en": "complete outfit: eclectic layered bohemian street look. burgundy paisley bandana, oversized red navy and white striped sweater, layered white lace ruffle skirt panel mixed with pale blue draped sheer tie-dye skirt, high side slit, blue slouchy suede knee boots, layered necklaces, hoop earrings, wired earphones, bracelets, visible arm tattoos.",
         "desc": "完整特殊穿搭：酒紅佩斯利頭巾、紅藍白寬條紋毛衣、白蕾絲荷葉裙片拼淡藍垂墜紮染紗裙、高側開衩、藍色皺褶麂皮膝靴、層次飾品與手臂刺青。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/75_紅條紋毛衣拼接紗裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-075",
+          "referenceImage": "reference/wardrobe/special-outfits/75_紅條紋毛衣拼接紗裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -820,8 +895,9 @@
         "en": "complete outfit: aqua embellished denim street look. sheer mint off-shoulder wrap crop top with scalloped embroidered lace hem, low-rise wide-leg blue jeans with rhinestone swirl embellishment, silver butterfly belly chain draped around the exposed bare waist above the low-rise jeans, blue mirrored sunglasses, crystal butterfly necklace, belly piercing, rings and bracelets, pointed blue footwear.",
         "desc": "完整特殊穿搭：薄荷透紗露肩交疊短上衣、刺繡蕾絲波浪下襬、低腰水鑽旋紋寬牛仔褲、銀色蝴蝶身體鏈掛在牛仔褲上方的裸露腰部、藍鏡片墨鏡、水晶蝴蝶項鍊、肚臍環與藍尖頭鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/76_薄荷蕾絲短上衣水鑽牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-076",
+          "referenceImage": "reference/wardrobe/special-outfits/76_薄荷蕾絲短上衣水鑽牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -829,8 +905,9 @@
         "en": "complete outfit: minimal black low-rise street look. fitted black cropped baby T-shirt ending at the ribcage, exposed midriff, low-rise black straight-leg jeans, black leather belt with rhinestone horseshoe-shaped buckle, black leather ankle boots, clean monochrome styling with sharp waist emphasis and understated accessories.",
         "desc": "完整特殊穿搭：黑色合身短版 baby T，長度到肋骨上、露出腹部、低腰黑直筒牛仔褲、黑皮帶與鑲鑽馬蹄鐵造型皮帶頭、黑皮短靴，極簡黑色街頭輪廓。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/77_黑短T低腰黑牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-077",
+          "referenceImage": "reference/wardrobe/special-outfits/77_黑短T低腰黑牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -838,8 +915,9 @@
         "en": "complete outfit: soft lavender casual look. white short-sleeve graphic T-shirt with pale purple print, lavender plaid semi-sheer maxi skirt with soft ruffled hem, white crew socks, gray low-top sneakers with cream laces, silver bracelet and ring, gentle pastel everyday styling.",
         "desc": "完整特殊穿搭：白短袖淡紫圖像T、薰衣草紫格紋半透長裙、柔軟荷葉下襬、白中筒襪、灰低筒球鞋與奶油鞋帶、銀手鍊戒指。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/78_白T紫格長裙灰球鞋.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-078",
+          "referenceImage": "reference/wardrobe/special-outfits/78_白T紫格長裙灰球鞋.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -847,8 +925,9 @@
         "en": "complete outfit: Parisian black leather layered look. oversized black leather blazer, black-and-cream striped knit top, short black mini bottom, sheer black polka-dot tights, tall black leather boots, sunglasses, hoop earrings, slim layered street styling with glossy leather contrast.",
         "desc": "完整特殊穿搭：黑色寬皮革西裝外套、黑奶油條紋針織上衣、黑色迷你下身、黑透膚波點絲襪、黑色長皮靴、墨鏡與圈耳環。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/79_黑皮外套波點絲襪長靴.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-079",
+          "referenceImage": "reference/wardrobe/special-outfits/79_黑皮外套波點絲襪長靴.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -856,8 +935,9 @@
         "en": "complete outfit: sporty preppy denim look. red baseball cap, oversized yellow-and-white striped polo shirt with white collar, black necktie, light blue relaxed straight-leg jeans, white belt, silver wallet chain, silver watch and bracelet, black leather shoes, casual menswear-inspired street styling.",
         "desc": "完整特殊穿搭：紅棒球帽、黃白條紋寬版 Polo 與白領、黑領帶、淺藍寬直筒牛仔褲、白皮帶、銀錢包鍊、銀錶手鍊與黑皮鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/80_黃條紋Polo領帶寬牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-080",
+          "referenceImage": "reference/wardrobe/special-outfits/80_黃條紋Polo領帶寬牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -865,8 +945,9 @@
         "en": "complete outfit: retro prep street look. red baseball cap, white crew-neck T-shirt, red light-blue and white argyle knit vest, black wide knee-length denim shorts with contrast stitching, brown belt with silver buckle, silver wallet chain and key charm, white knee-high socks, burgundy loafers, layered necklaces, wristwatch, visible arm tattoos.",
         "desc": "完整特殊穿搭：紅棒球帽、白圓領T、紅淺藍白菱格針織背心、黑寬版及膝牛仔短褲、棕皮帶、銀錢包鍊鑰匙吊飾、白膝下長襪與酒紅樂福鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/81_菱格背心黑寬短褲長襪.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-081",
+          "referenceImage": "reference/wardrobe/special-outfits/81_菱格背心黑寬短褲長襪.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -874,8 +955,9 @@
         "en": "complete outfit: airy romantic ruffle look. sheer nude mesh upper layer under a light blue pleated ruffle babydoll camisole, loose empire waist, voluminous white tiered tulle maxi skirt with multiple ruffle bands, white wrist wrap detail, pearl-like earrings, pale mint square-toe shoes, soft whimsical layered styling.",
         "desc": "完整特殊穿搭：裸色透紗上層疊淺藍百褶荷葉娃娃背心、寬鬆高腰線、白色多層蛋糕紗長裙、多道荷葉邊、白手腕纏繞、珍珠感耳環與淡薄荷方頭鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/82_藍荷葉背心白紗長裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-082",
+          "referenceImage": "reference/wardrobe/special-outfits/82_藍荷葉背心白紗長裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -883,8 +965,9 @@
         "en": "complete outfit: playful basketball jersey sport look. oversized purple mesh sleeveless basketball jersey worn as a mini dress, orange-and-white ribbed neckline and armhole trim, large arched varsity lettering and number graphic on the front, white athletic shorts peeking underneath, white low ankle socks, chunky white athletic sneakers, orange basketball accessory, clean sporty styling.",
         "desc": "完整特殊穿搭：紫色寬鬆網眼籃球背心球衣當迷你洋裝穿，橘白羅紋領口與袖口，大型白橘校隊字母與號碼圖樣，內露白色運動短褲，白短襪、白色厚底運動鞋與橘色籃球配件。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/83_紫橘籃球球衣球鞋.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-083",
+          "referenceImage": "reference/wardrobe/special-outfits/83_紫橘籃球球衣球鞋.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -892,8 +975,9 @@
         "en": "complete outfit: colorful bohemian festival look. multicolor tie-dye deep V cropped top with short sleeves, front knot and long dangling ties, high-waisted burnt-orange patterned maxi skirt with smocked waistband and high side slit, printed head scarf, beaded choker, earrings, stacked bracelets, black crossbody bag, beige socks, olive chunky buckle ankle boots.",
         "desc": "完整特殊穿搭：彩虹紮染短袖深V綁結短上衣，前胸打結並垂下長綁帶，高腰橘紅圖紋長裙，鬆緊皺褶腰頭與高側開衩，印花頭巾、串珠頸鍊、耳環、疊戴手環、黑斜背包、米色襪與橄欖厚底釦帶短靴。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/84_彩虹綁結上衣橘紅開衩長裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-084",
+          "referenceImage": "reference/wardrobe/special-outfits/84_彩虹綁結上衣橘紅開衩長裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -901,8 +985,9 @@
         "en": "complete outfit: soft bohemian purple layered look. pink-purple tie-dye halter crop top with center ring cutout and gathered bust, lavender high-waisted wrap maxi skirt with cascading ruffle panels and high slit, layered pendant necklaces, small hoop earrings, stacked bracelets, tan crossbody saddle bag with tassel charms, brown platform wedge sandals, airy coordinated styling.",
         "desc": "完整特殊穿搭：粉紫紮染掛脖短上衣，胸前抓皺並有中央圓環鏤空，薰衣草紫高腰裹身長裙帶層層荷葉片與高開衩，層次墜鍊、小圈耳環、疊戴手環、流蘇吊飾駝色斜背馬鞍包與棕色厚底楔形涼鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/85_紫色綁帶短上衣荷葉開衩長裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-085",
+          "referenceImage": "reference/wardrobe/special-outfits/85_紫色綁帶短上衣荷葉開衩長裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -910,8 +995,9 @@
         "en": "complete outfit: quirky vintage menswear street look. oversized olive blazer with rolled cuffs, ivory button-up shirt fastened to the collar, slim bolo-style string tie with metal tips, beige wide-leg trousers with thin brown vertical stripes and cuffed hems, black leather belt, red round eyeglasses, burlap coffee-sack shoulder tote, rings, polished black leather shoes.",
         "desc": "完整特殊穿搭：橄欖色寬版西裝外套捲袖，米白襯衫扣到領口，細繩波洛領帶與金屬尾端，米黃直條紋寬褲並反摺褲腳，黑皮帶、紅色圓框眼鏡、粗麻咖啡袋肩背包、戒指與黑色亮面皮鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/86_橄欖西裝條紋寬褲咖啡袋.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-086",
+          "referenceImage": "reference/wardrobe/special-outfits/86_橄欖西裝條紋寬褲咖啡袋.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -919,8 +1005,9 @@
         "en": "complete outfit: ornate corset capri street look. white strapless embroidered bustier with black stitch trim, front button placket and narrow black band across the bust, white western waist belt with gold buckle hardware, sculptural wide belt panels with studs and large irregular gold buckle, tight black high-waisted capri leggings, red narrow oval sunglasses, oversized gold chain necklace with huge stacked pendant charms, white hoop earrings, chunky gold bracelet on left arm, patterned white shoulder bag with gold chain-and-floral print, grommets, braided cords, eyelet-covered wide strap, black thong sandals.",
         "desc": "完整特殊穿搭：白刺繡馬甲配黑滾邊、前釦與胸前細黑帶；白色西部風寬腰封含大型不規則金扣、鉚釘。黑高腰七分褲，紅窄橢圓墨鏡，巨大多段金墜鍊、白圈耳環、左臂金粗手環，白圖紋肩背包有金鏈花葉印花、孔眼編繩與寬孔眼肩帶，黑夾腳涼鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/87_白色馬甲黑色七分褲金飾.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-087",
+          "referenceImage": "reference/wardrobe/special-outfits/87_白色馬甲黑色七分褲金飾.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -928,8 +1015,9 @@
         "en": "complete outfit: minimalist monochrome utility look. crisp white long-sleeve button-up shirt with buttoned collar and sleeves rolled to the forearms, black wide balloon cargo pants with large side pockets and cropped gathered hems, black leather belt with rectangular buckle, round eyeglasses, silver wristwatch, white socks, black lace-up leather shoes, restrained clean styling.",
         "desc": "完整特殊穿搭：乾淨白色長袖扣領襯衫，袖口捲到前臂，黑色寬版氣球工裝褲，大側口袋與收束九分褲腳，黑皮帶與方形扣，圓框眼鏡、銀色手錶、白襪與黑色綁帶皮鞋。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/88_白襯衫黑色氣球工裝褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-088",
+          "referenceImage": "reference/wardrobe/special-outfits/88_白襯衫黑色氣球工裝褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -937,8 +1025,9 @@
         "en": "complete outfit: minimalist monochrome skirt look. white long-sleeve high-neck shirt tucked neatly into a voluminous black ankle-length skirt, slim black scarf tie or lanyard hanging straight down the front, black soft shoulder tote, small earrings, black lace-up leather shoes, understated black-and-white styling with a calm tailored silhouette.",
         "desc": "完整特殊穿搭：白色長袖高領襯衫整齊紮入黑色大裙量及踝長裙，正面垂下一條黑色細領帶或掛繩，黑色柔軟肩背托特包、小耳飾、黑色綁帶皮鞋，整體為極簡黑白文藝輪廓。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/89_白襯衫黑色長裙細領帶.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-089",
+          "referenceImage": "reference/wardrobe/special-outfits/89_白襯衫黑色長裙細領帶.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -946,8 +1035,9 @@
         "en": "complete outfit: glossy adhesive tape body-wrap look. palette-controlled latex-like tape strips stuck directly onto the skin, crossing over the torso as a halter bralette, multiple horizontal and diagonal shiny bands tightly wrapping the body, strategic coverage over key areas, matching high-cut tape bottom, hip and thigh tape bands, exposed banded cutout structure, tape color follows complete-look palette selection, bold monochrome performance styling.",
         "desc": "完整特殊穿搭：亮面膠帶直接黏貼並纏繞身體，形成掛脖胸衣、高衩下身、臀側與大腿束帶，遮覆重點部位並呈現捆綁感；膠帶顏色由完整造型配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "special-outfits-090",
+          "referenceImage": "reference/wardrobe/special-outfits/90_紅色亮面膠帶束帶.avif",
+          "referenceImageFormat": "avif"
         }
       }
     ],
@@ -976,8 +1066,9 @@
               "metal_hardware"
             ]
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/01_亮面乳膠束帶.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-001",
+          "referenceImage": "reference/wardrobe/outfit-presets/01_亮面乳膠束帶.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -985,8 +1076,9 @@
         "en": "satin lingerie set, triangle bra top, high-cut string bottom, slim straps, chain connectors, small charm hardware, refined boudoir styling, dominant satin color controlled by the outfit color selection",
         "desc": "以緞面三角胸衣、高衩細帶下身、鏈條連接與小吊飾五金為核心的華麗內衣套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/02_鏈條緞面內衣.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-002",
+          "referenceImage": "reference/wardrobe/outfit-presets/02_鏈條緞面內衣.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1016,8 +1108,9 @@
               "ring_hardware"
             ]
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/03_皮革馬甲束腰.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-003",
+          "referenceImage": "reference/wardrobe/outfit-presets/03_皮革馬甲束腰.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1025,8 +1118,9 @@
         "en": "Parisian linen trouser outfit, silk camisole, oversized linen shirt worn open, high-waisted wide-leg trousers, airy relaxed tailoring, tonal palette controlled by the outfit color selection",
         "desc": "以絲質細肩帶、敞開亞麻襯衫與高腰寬褲構成的巴黎感長褲套裝；顏色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/04_春日巴黎亞麻.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-004",
+          "referenceImage": "reference/wardrobe/outfit-presets/04_春日巴黎亞麻.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1034,8 +1128,9 @@
         "en": "long shirt and pleated maxi skirt outfit, oversized button-up shirt, flowing pleated maxi skirt, elongated draped silhouette, understated editorial styling, dominant fabric color controlled by the outfit color selection",
         "desc": "以寬鬆長版襯衫與百褶長裙構成的修長垂墜套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/05_長版襯衫百褶長裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-005",
+          "referenceImage": "reference/wardrobe/outfit-presets/05_長版襯衫百褶長裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1043,8 +1138,9 @@
         "en": "tailored pantsuit outfit, structured blazer, neat blouse or inner top, high-waisted tailored trousers, polished office suiting silhouette, dominant suit color controlled by the outfit color selection",
         "desc": "以西裝外套、內搭與高腰西裝長褲為核心的上班套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/06_西裝長褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-006",
+          "referenceImage": "reference/wardrobe/outfit-presets/06_西裝長褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1052,8 +1148,9 @@
         "en": "secretary-style skirt suit outfit, body-hugging blazer, neat blouse, tight mini skirt, refined office-uniform silhouette, dominant suit color controlled by the outfit color selection",
         "desc": "以貼身西裝外套、襯衫與緊身迷你裙為核心的秘書感制服套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/07_秘書.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-007",
+          "referenceImage": "reference/wardrobe/outfit-presets/07_秘書.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1061,8 +1158,9 @@
         "en": "flight attendant uniform outfit, tailored jacket, fitted skirt or trousers, airline neck scarf, small pillbox-style cap, polished service-uniform silhouette, dominant uniform color controlled by the outfit color selection",
         "desc": "以空服員制服外套、裙裝或長褲、領巾與小帽為核心的職業制服套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/08_空服員.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-008",
+          "referenceImage": "reference/wardrobe/outfit-presets/08_空服員.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1070,8 +1168,9 @@
         "en": "nurse uniform outfit, clean tunic or uniform dress, neat collar, front placket, nurse cap, crisp medical-service silhouette, dominant uniform color controlled by the outfit color selection",
         "desc": "以護士制服洋裝或上衣、整潔領口、前襟與護士帽為核心的職業制服套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/09_護士.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-009",
+          "referenceImage": "reference/wardrobe/outfit-presets/09_護士.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1079,8 +1178,9 @@
         "en": "doctor consultation coat outfit, structured medical coat, stethoscope hanging around the neck, medical chart held in one hand, simple inner layer, clean professional clinical silhouette, dominant coat color controlled by the outfit color selection",
         "desc": "以醫師診療袍、掛在頸部的聽診器、手持病歷表與簡潔內搭為核心的專業職業套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/10_醫生.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-010",
+          "referenceImage": "reference/wardrobe/outfit-presets/10_醫生.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1107,8 +1207,9 @@
               "metal_rings"
             ]
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/11_BDSM.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-011",
+          "referenceImage": "reference/wardrobe/outfit-presets/11_BDSM.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1132,8 +1233,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/12_維多利亞.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-012",
+          "referenceImage": "reference/wardrobe/outfit-presets/12_維多利亞.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1156,8 +1258,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/13_蘿莉塔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-013",
+          "referenceImage": "reference/wardrobe/outfit-presets/13_蘿莉塔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1180,8 +1283,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/14_內衣.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-014",
+          "referenceImage": "reference/wardrobe/outfit-presets/14_內衣.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1204,8 +1308,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/15_泳裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-015",
+          "referenceImage": "reference/wardrobe/outfit-presets/15_泳裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1224,8 +1329,9 @@
             "contrast": [],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/16_素面旗袍.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-016",
+          "referenceImage": "reference/wardrobe/outfit-presets/16_素面旗袍.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1246,8 +1352,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/17_緞面旗袍.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-017",
+          "referenceImage": "reference/wardrobe/outfit-presets/17_緞面旗袍.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1269,8 +1376,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/18_經典和服.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-018",
+          "referenceImage": "reference/wardrobe/outfit-presets/18_經典和服.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1291,8 +1399,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/19_基本浴衣.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-019",
+          "referenceImage": "reference/wardrobe/outfit-presets/19_基本浴衣.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1316,8 +1425,9 @@
               "optional_classic_white_cuff_collar_scheme"
             ]
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/20_兔女郎.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-020",
+          "referenceImage": "reference/wardrobe/outfit-presets/20_兔女郎.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1342,8 +1452,9 @@
               "optional_classic_white_apron_scheme"
             ]
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/21_女僕.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-021",
+          "referenceImage": "reference/wardrobe/outfit-presets/21_女僕.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1366,8 +1477,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/22_女僕比基尼.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-022",
+          "referenceImage": "reference/wardrobe/outfit-presets/22_女僕比基尼.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1392,8 +1504,9 @@
               "optional_fixed_school_trim_colors"
             ]
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/23_短袖水手服.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-023",
+          "referenceImage": "reference/wardrobe/outfit-presets/23_短袖水手服.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1418,8 +1531,9 @@
               "optional_fixed_school_trim_colors"
             ]
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/24_長袖水手服.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-024",
+          "referenceImage": "reference/wardrobe/outfit-presets/24_長袖水手服.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1446,8 +1560,9 @@
               "optional_preserved_rose_print_palette"
             ]
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/25_玫瑰歌德.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-025",
+          "referenceImage": "reference/wardrobe/outfit-presets/25_玫瑰歌德.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1471,8 +1586,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/26_歌德針織短裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-026",
+          "referenceImage": "reference/wardrobe/outfit-presets/26_歌德針織短裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1480,8 +1596,9 @@
         "en": "leopard-pattern strapless corset top, lace bust cups, long front ribbon ties, low-rise flared jeans, platform sandals, dominant fabric color controlled by the outfit color selection",
         "desc": "以豹紋抹胸馬甲、蕾絲胸杯、長垂帶、低腰喇叭牛仔褲與厚底涼鞋為核心的性感套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/27_豹紋蕾絲抹胸喇叭牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-027",
+          "referenceImage": "reference/wardrobe/outfit-presets/27_豹紋蕾絲抹胸喇叭牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1489,8 +1606,9 @@
         "en": "sheer mesh halter camisole, visible lace bra layer, denim micro mini skirt, stacked waist jewelry, platform sandals, dominant fabric color controlled by the outfit color selection",
         "desc": "以透視網紗掛脖背心、內層蕾絲胸衣、牛仔超短迷你裙、腰部飾鍊與厚底涼鞋為核心的套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/28_網紗掛脖牛仔迷你裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-028",
+          "referenceImage": "reference/wardrobe/outfit-presets/28_網紗掛脖牛仔迷你裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1498,8 +1616,9 @@
         "en": "triangle bikini costume set, feather angel wings, layered body chains, matching string bikini bottoms, platform sandals, dominant swim fabric color controlled by the outfit color selection",
         "desc": "以三角比基尼、羽毛天使翅膀、身體鏈、細繩下身與厚底涼鞋構成的舞台感比基尼套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/29_天使翅膀比基尼.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-029",
+          "referenceImage": "reference/wardrobe/outfit-presets/29_天使翅膀比基尼.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1507,8 +1626,9 @@
         "en": "cropped sheer fitted tank top, exposed navel and abdomen, strapless lace bra layer, low-rise glossy micro shorts, knee-high leather boots, dominant fabric color controlled by the outfit color selection",
         "desc": "以短版透視緊身背心、露出肚臍與腹部、內搭無肩帶蕾絲胸罩、低腰亮面超短褲與膝上皮革長靴為核心，腰線保持乾淨俐落，主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/30_透視背心漆皮短褲長靴.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-030",
+          "referenceImage": "reference/wardrobe/outfit-presets/30_透視背心漆皮短褲長靴.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1516,8 +1636,9 @@
         "en": "button-front corset camisole, lingerie-trim neckline, low-rise slim flared trousers, open-toe heeled sandals, dominant fabric color controlled by the outfit color selection",
         "desc": "以排扣馬甲吊帶、內衣式蕾絲領口、低腰貼身喇叭褲與露趾高跟涼鞋為核心的套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/31_馬甲吊帶喇叭褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-031",
+          "referenceImage": "reference/wardrobe/outfit-presets/31_馬甲吊帶喇叭褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1525,8 +1646,9 @@
         "en": "leopard-pattern ruffled camisole, draped handkerchief hem, glossy micro shorts, knee-high open-toe boots, dominant fabric color controlled by the outfit color selection",
         "desc": "以豹紋荷葉吊帶上衣、垂墜手帕式衣襬、亮面超短褲與膝上露趾靴為核心的套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/32_豹紋荷葉吊帶漆皮短褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-032",
+          "referenceImage": "reference/wardrobe/outfit-presets/32_豹紋荷葉吊帶漆皮短褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1534,8 +1656,9 @@
         "en": "patchwork halter scarf top, long pointed drape, glossy micro shorts, lace-up ankle boots, dominant fabric color controlled by the outfit color selection",
         "desc": "以拼接印花掛脖長背心、尖角垂墜衣襬、亮面超短褲與綁帶短靴為核心的套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/33_拼接掛脖漆皮短褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-033",
+          "referenceImage": "reference/wardrobe/outfit-presets/33_拼接掛脖漆皮短褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1543,8 +1666,9 @@
         "en": "metallic triangle bikini set, slim halter straps, side-tie bikini bottoms, layered body chains, platform sandals, dominant metallic fabric color controlled by the outfit color selection",
         "desc": "以金屬感三角比基尼、細掛脖帶、側綁下身、身體鏈與厚底涼鞋為核心的比基尼套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/34_金屬三角比基尼.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-034",
+          "referenceImage": "reference/wardrobe/outfit-presets/34_金屬三角比基尼.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1552,8 +1676,9 @@
         "en": "one-shoulder cropped top, printed scarf-wrap mini skirt, asymmetric hip drape, lace-up heeled boots, dominant fabric color controlled by the outfit color selection",
         "desc": "以單肩短版上衣、印花圍裹迷你裙、不對稱臀側垂布與綁帶高跟短靴為核心的套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/35_單肩短上衣印花圍裙短裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-035",
+          "referenceImage": "reference/wardrobe/outfit-presets/35_單肩短上衣印花圍裙短裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1561,8 +1686,9 @@
         "en": "draped sleeveless top, asymmetric wrap mini skirt, chain belt layers, studded waist detail, heeled sandals, dominant fabric color controlled by the outfit color selection",
         "desc": "以垂墜無袖上衣、不對稱圍裹短裙、多層腰鏈、鉚釘腰部細節與高跟涼鞋為核心的套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/36_垂墜背心腰鏈短裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-036",
+          "referenceImage": "reference/wardrobe/outfit-presets/36_垂墜背心腰鏈短裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1570,8 +1696,9 @@
         "en": "zip-front leather halter vest, low-rise leather shorts, dangling side straps, knee-high leather boots, dominant leather color controlled by the outfit color selection",
         "desc": "以拉鍊皮革掛脖背心、低腰皮革短褲、側邊垂帶與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/37_皮革掛脖短褲長靴.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-037",
+          "referenceImage": "reference/wardrobe/outfit-presets/37_皮革掛脖短褲長靴.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1579,8 +1706,9 @@
         "en": "zebra-pattern corset tank, zip-front center panel, glossy micro shorts, knee-high leather boots, dominant fabric color controlled by the outfit color selection",
         "desc": "以斑馬紋馬甲背心、中線拉鍊拼片、亮面超短褲與膝上皮革長靴為核心的套裝；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/38_斑馬紋馬甲短褲長靴.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-038",
+          "referenceImage": "reference/wardrobe/outfit-presets/38_斑馬紋馬甲短褲長靴.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1588,8 +1716,9 @@
         "en": "sporty ringer baby-tee and dolphin shorts outfit, fitted cropped ringer T-shirt with contrast collar and sleeve binding, faint tonal chest graphic mark, low-rise dolphin micro shorts with contrast piping, contrast elastic waistband, front drawstring and side lace-up grommet detail, knee-high athletic socks, low-top sneakers, main jersey color controlled by the outfit color selection, contrast trim controlled by contrast palette",
         "desc": "以短版撞色圓領運動T、低腰抽繩 dolphin 熱褲、側邊綁孔細節、長筒運動襪與低筒球鞋構成的甜辣運動套裝；主色與撞色滾邊由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/39_短版熱褲運動T.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-039",
+          "referenceImage": "reference/wardrobe/outfit-presets/39_短版熱褲運動T.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1597,8 +1726,9 @@
         "en": "white lace puff-sleeve tie-front blouse, peplum hem, dark brown cropped capri pants, white lace socks, black patent Mary Jane shoes, silver shoulder bag, small cross pendant necklace",
         "desc": "以白色蕾絲泡袖綁帶上衣、荷葉下襬、深棕七分褲、白色蕾絲襪、黑色亮面 Mary Jane 鞋、銀色肩背包與小十字項鍊構成的甜美復古套裝。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/40_白蕾絲泡袖七分褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-040",
+          "referenceImage": "reference/wardrobe/outfit-presets/40_白蕾絲泡袖七分褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1606,8 +1736,9 @@
         "en": "pale pink sheer knit cardigan, white lace-trim camisole with front tie, light blue wide-leg jeans, silver ballet flats, silver shoulder bag, delicate necklace, pale fabric scrunchie accessory",
         "desc": "以淡粉薄針織開襟罩衫、白色蕾絲邊綁帶背心、淺藍寬版牛仔褲、銀色娃娃鞋、銀色肩背包、細項鍊與淡色布質髮圈配件構成的柔和日系套裝。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/41_粉針織罩衫寬牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-041",
+          "referenceImage": "reference/wardrobe/outfit-presets/41_粉針織罩衫寬牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1615,8 +1746,9 @@
         "en": "dark gray cropped sleeveless tank, light gray balloon wide pants with elastic drawstring waist, oversized pocket drape, white chunky sneakers, silver shoulder bag, small cross pendant, slim bracelet",
         "desc": "以深灰短版無袖背心、淺灰抽繩氣球寬褲、大口袋垂墜感、白色厚底運動鞋、銀色肩背包、小十字墜飾與細手鍊構成的鬆弛街頭套裝。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/42_深灰短背心氣球寬褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-042",
+          "referenceImage": "reference/wardrobe/outfit-presets/42_深灰短背心氣球寬褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1624,8 +1756,9 @@
         "en": "sheer white long shirt worn open, champagne satin camisole, light blue wide-leg jeans, white strappy heeled sandals, silver mini shoulder bag, delicate pendant necklace",
         "desc": "以透膚白色長襯衫敞開穿、香檳緞面細肩背心、淺藍寬牛仔褲、白色細帶高跟涼鞋、銀色迷你肩背包與細墜鍊構成的清爽層次套裝。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/43_白襯衫緞面背心寬牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-043",
+          "referenceImage": "reference/wardrobe/outfit-presets/43_白襯衫緞面背心寬牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1633,8 +1766,9 @@
         "en": "navy oversized blazer, white lace mini dress with layered scalloped hem, white knee-high socks, black chunky Mary Jane loafers, black chain shoulder bag, delicate pendant necklace",
         "desc": "以深藍寬版西裝外套、白色蕾絲迷你洋裝與層疊波浪裙襬、白色及膝襪、黑色厚底 Mary Jane 樂福鞋、黑色鏈條肩背包與細墜鍊構成的學院感套裝。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/44_西裝外套蕾絲迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-044",
+          "referenceImage": "reference/wardrobe/outfit-presets/44_西裝外套蕾絲迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1642,8 +1776,9 @@
         "en": "oversized white football jersey, large number 28 graphic, red and blue sleeve stripes, red tiered ruffle mini skirt, white crew socks, black chunky Mary Jane shoes, black shoulder bag",
         "desc": "以寬版白色 28 號球衣、紅藍袖口條紋、紅色層疊荷葉迷你裙、白色中筒襪、黑色厚底 Mary Jane 鞋與黑色肩背包構成的運動甜辣套裝。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/45_球衣荷葉迷你裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-045",
+          "referenceImage": "reference/wardrobe/outfit-presets/45_球衣荷葉迷你裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1651,8 +1786,9 @@
         "en": "burgundy lace-up cropped cardigan, ruffled neckline, white lace camisole layer, distressed black wide-leg jeans, red pointed shoes, black grommet shoulder bag, layered pendant necklaces",
         "desc": "以酒紅綁帶短版針織外套、荷葉領邊、白色蕾絲背心層次、刷破黑色寬牛仔褲、紅色尖頭鞋、黑色鉚孔肩背包與多層墜鍊構成的復古街頭套裝。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/46_酒紅綁帶針織寬牛仔.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-046",
+          "referenceImage": "reference/wardrobe/outfit-presets/46_酒紅綁帶針織寬牛仔.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1660,8 +1796,9 @@
         "en": "navy zip-up track jacket outer layer with white sleeve stripes, contrasting white ruffled camisole underlayer, skirt-like peplum hem peeking out below the jacket, black cropped jogger pants, white crew socks, black ballet flats, silver shoulder bag",
         "desc": "以深藍立領拉鍊運動外套作為外層，內搭與外套不同色的白色荷葉裙擺背心，荷葉下擺從外套下方露出，搭配黑色七分運動褲、白色中筒襪、黑色芭蕾平底鞋與銀色肩背包。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/47_運動外套荷葉七分褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-047",
+          "referenceImage": "reference/wardrobe/outfit-presets/47_運動外套荷葉七分褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1669,8 +1806,9 @@
         "en": "long white lace robe cardigan, ruffled lace hem, white tie-front camisole, ripped light blue jeans, brown leather shoulder bag, burgundy ballet flats, delicate pendant necklace",
         "desc": "以白色長版蕾絲罩衫、荷葉蕾絲下襬、白色綁帶背心、破洞淺藍牛仔褲、棕色皮革肩背包、酒紅芭蕾鞋與細墜鍊構成的復古蕾絲套裝。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/48_白蕾絲長罩衫牛仔褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-048",
+          "referenceImage": "reference/wardrobe/outfit-presets/48_白蕾絲長罩衫牛仔褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1678,8 +1816,9 @@
         "en": "bath towel wrap outfit, thick terry towel texture, strapless wrapped construction, upper edge wrapped across the lower bust line, secure coverage from chest to above-knee length, tucked overlap fold, dominant towel color controlled by the outfit color selection",
         "desc": "以厚實毛巾布包裹身體，上緣從胸部下半部開始包圍，長度到膝蓋上方，主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/49_浴巾.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-049",
+          "referenceImage": "reference/wardrobe/outfit-presets/49_浴巾.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1687,8 +1826,9 @@
         "en": "tight short-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and short sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, skin-tight ultra-short hot pants, dominant fabric color controlled by the outfit color selection",
         "desc": "以極貼身短袖襯衫與緊身超短熱褲為核心；襯衫本體要明確是有領子、短袖、前排扣與門襟的襯衫，使用不透膚的彈性棉質襯衫布。上方少量釦子開著，其餘前排釦子扣住並因貼身版型在胸部與腰部產生橫向拉扯皺褶、門襟張力與釦距細節，避免變成光滑貼膚衣；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/50_開扣短袖襯衫熱褲.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-050",
+          "referenceImage": "reference/wardrobe/outfit-presets/50_開扣短袖襯衫熱褲.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1696,8 +1836,9 @@
         "en": "tight long-sleeve button-up shirt outfit, opaque stretch cotton shirting fabric, structured collar and long fitted sleeves, upper buttons left open, remaining front buttons fastened under tension, visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff, tight bodycon mini skirt, smooth hip-hugging skirt silhouette, dominant fabric color controlled by the outfit color selection",
         "desc": "以極貼身長袖襯衫與包臀緊身迷你裙為核心；襯衫本體要明確是有領子、長袖、前排扣與門襟的襯衫，使用不透膚的彈性棉質襯衫布。上方少量釦子開著，其餘前排釦子扣住並因貼身版型在胸部與腰部產生橫向拉扯皺褶、門襟張力與釦距細節，搭配貼合臀線的迷你裙輪廓；主色交由套裝配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/outfit-presets/51_開扣長袖襯衫包臀裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-051",
+          "referenceImage": "reference/wardrobe/outfit-presets/51_開扣長袖襯衫包臀裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1729,8 +1870,9 @@
               "leather_choker_hardware"
             ]
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/52_粉紅哥德兔耳吊帶束身.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-052",
+          "referenceImage": "reference/wardrobe/outfit-presets/52_粉紅哥德兔耳吊帶束身.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1759,8 +1901,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/53_米白緞面蕾絲馬甲短裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-053",
+          "referenceImage": "reference/wardrobe/outfit-presets/53_米白緞面蕾絲馬甲短裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1786,8 +1929,9 @@
             ],
             "locked": []
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/54_白色哥德圖示包臀迷你裙.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-054",
+          "referenceImage": "reference/wardrobe/outfit-presets/54_白色哥德圖示包臀迷你裙.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -1819,8 +1963,9 @@
               "metal_earrings"
             ]
           },
-          "referenceImage": "reference/wardrobe/outfit-presets/55_網狀蕾絲馬甲短裙長靴.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "outfit-presets-055",
+          "referenceImage": "reference/wardrobe/outfit-presets/55_網狀蕾絲馬甲短裙長靴.avif",
+          "referenceImageFormat": "avif"
         }
       }
     ],
@@ -2195,8 +2340,9 @@
         "en": "sleeveless mini dress, one-piece silhouette, clean shoulder line, compact short hem, main fabric color controlled by dress color selection",
         "desc": "短版無袖迷你洋裝，輪廓簡潔，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/27_無袖迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-001",
+          "referenceImage": "reference/wardrobe/dresses/27_無袖迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2204,8 +2350,9 @@
         "en": "spaghetti-strap mini dress, one-piece silhouette, slim straps, fitted bodice, short hem, main fabric color controlled by dress color selection",
         "desc": "短版細肩帶迷你洋裝，適合清爽或性感寫真，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/28_細肩帶迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-002",
+          "referenceImage": "reference/wardrobe/dresses/28_細肩帶迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2213,8 +2360,9 @@
         "en": "spaghetti-strap lace cotton mini dress, one-piece silhouette, delicate lace trim, soft cotton texture, short hem, main fabric color controlled by dress color selection",
         "desc": "短版蕾絲棉質細肩帶迷你洋裝，材質柔和但不指定顏色。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/29_細肩帶蕾絲棉洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-003",
+          "referenceImage": "reference/wardrobe/dresses/29_細肩帶蕾絲棉洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2222,8 +2370,9 @@
         "en": "glossy latex mini dress, one-piece bodycon silhouette, smooth reflective surface, short hem, main latex color controlled by dress color selection",
         "desc": "短版亮面乳膠貼身迷你洋裝，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/30_亮面乳膠迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-004",
+          "referenceImage": "reference/wardrobe/dresses/30_亮面乳膠迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2231,8 +2380,9 @@
         "en": "glossy deep-V halter mini dress, one-piece bodycon silhouette, plunging neckline, open shoulder line, short hem, main glossy fabric color controlled by dress color selection",
         "desc": "短版亮面深V掛脖迷你洋裝，性感輪廓清楚，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/31_深V掛脖迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-005",
+          "referenceImage": "reference/wardrobe/dresses/31_深V掛脖迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2240,8 +2390,9 @@
         "en": "off-shoulder gothic mini dress, one-piece fitted silhouette, off-shoulder neckline, ruffle trim, short hem, main fabric color controlled by dress color selection, contrast trim controlled by contrast palette",
         "desc": "短版一字領哥德迷你洋裝，以領口與荷葉細節建立風格，顏色由配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/32_一字領歌德迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-006",
+          "referenceImage": "reference/wardrobe/dresses/32_一字領歌德迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2249,8 +2400,9 @@
         "en": "retro double-breasted mini dress, one-piece tailored silhouette, structured collar, button-front detail, short hem, main fabric color controlled by dress color selection",
         "desc": "短版復古雙排釦迷你洋裝，偏俐落復古，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/33_復古雙扣迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-007",
+          "referenceImage": "reference/wardrobe/dresses/33_復古雙扣迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2258,8 +2410,9 @@
         "en": "sleeveless maxi dress, one-piece elongated silhouette, clean shoulder line, long flowing hem, main fabric color controlled by dress color selection",
         "desc": "長版無袖長洋裝，輪廓乾淨修長，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/34_無袖長洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-008",
+          "referenceImage": "reference/wardrobe/dresses/34_無袖長洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2267,8 +2420,9 @@
         "en": "spaghetti-strap satin maxi dress, one-piece elongated silhouette, slim straps, smooth satin drape, long hem, main satin color controlled by dress color selection",
         "desc": "長版細肩帶緞面洋裝，重點是滑順垂墜與長版輪廓，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/35_細肩帶緞面長洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-009",
+          "referenceImage": "reference/wardrobe/dresses/35_細肩帶緞面長洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2276,8 +2430,9 @@
         "en": "bohemian kaftan maxi dress, one-piece loose silhouette, embroidered lace texture, relaxed drape, long hem, main fabric color controlled by dress color selection",
         "desc": "長版波希米亞罩衫洋裝，寬鬆飄逸，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/36_波希米亞長洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-010",
+          "referenceImage": "reference/wardrobe/dresses/36_波希米亞長洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2285,8 +2440,9 @@
         "en": "knit maxi dress, one-piece elongated silhouette, soft ribbed knit texture, close-to-body drape, long hem, main knit color controlled by dress color selection",
         "desc": "長版針織洋裝，貼身垂墜與針織材質明確，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/37_針織長洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-011",
+          "referenceImage": "reference/wardrobe/dresses/37_針織長洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2294,8 +2450,9 @@
         "en": "soft silk strapless mini dress, one-piece silhouette, tight cropped bodice ending above waistline, oversized front bow with long hanging ribbons, ultra-short mini skirt, main silk color controlled by dress color selection",
         "desc": "短版抹胸絲綢迷你洋裝，輕柔絲綢材質、緊身短版上身停在腰線上方，胸前大型蝴蝶結與長垂帶清楚，下身是超短迷你裙，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/38_蝴蝶結抹胸百褶.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-012",
+          "referenceImage": "reference/wardrobe/dresses/38_蝴蝶結抹胸百褶.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2303,8 +2460,9 @@
         "en": "sheer tulle spaghetti-strap maxi dress, one-piece flowing silhouette, soft vertical drape, diagonal draped waist panel, diagonal ruffle hem, main tulle color controlled by dress color selection",
         "desc": "長版細肩帶薄紗洋裝，以輕透薄紗營造柔軟垂墜感，斜向腰身垂墜片與斜向荷葉裙襬明確，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/39_細肩帶斜荷葉長洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-013",
+          "referenceImage": "reference/wardrobe/dresses/39_細肩帶斜荷葉長洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2312,8 +2470,9 @@
         "en": "one-shoulder sequined mini dress, one-piece asymmetric silhouette, draped cape sleeve, shimmering torso panel, low-slung hip wrap detail, main fabric color controlled by dress color selection",
         "desc": "短版單肩亮片迷你洋裝，非對稱肩線、披垂斗篷袖、閃亮胸身面板與低腰環繞細節明確，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/40_單肩披袖亮片.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-014",
+          "referenceImage": "reference/wardrobe/dresses/40_單肩披袖亮片.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2321,8 +2480,9 @@
         "en": "plaid spaghetti-strap mini dress, one-piece babydoll silhouette, ruched bust panel, layered waterfall ruffle panels, main fabric color controlled by dress color selection",
         "desc": "短版格紋細肩帶迷你洋裝，娃娃裝輪廓、抓皺胸片與前身瀑布式層疊荷葉片清楚，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/41_格紋吊帶荷葉.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-015",
+          "referenceImage": "reference/wardrobe/dresses/41_格紋吊帶荷葉.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2330,8 +2490,9 @@
         "en": "satin spaghetti-strap mini dress, one-piece body-skimming silhouette, inner lace bra detail at neckline, ruched satin torso, short draped hem, main satin color controlled by dress color selection",
         "desc": "短版緞面細肩帶迷你洋裝，領口內層蕾絲胸衣細節、抓皺緞面胸身與短版垂墜裙襬明確，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/42_緞面細肩帶迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-016",
+          "referenceImage": "reference/wardrobe/dresses/42_緞面細肩帶迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2339,8 +2500,9 @@
         "en": "high-neck extreme front cut-out monokini swimsuit, bikini-like one-piece construction, separate high-neck chest panel and high-cut bikini bottom connected only by thin side straps, oversized open front torso gap exposing most of the abdomen and navel, smooth stretch swim fabric, main swim fabric color controlled by dress color selection",
         "desc": "短版高領挖空 monokini 泳裝，視覺接近比基尼但仍是連身結構；上方高領胸前布片與下方高衩比基尼底片只靠側邊細帶連接，前方軀幹大面積挖空，露出大部分腹部與肚臍，顏色由連身配色控制。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/43_高領挖腰連身.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-017",
+          "referenceImage": "reference/wardrobe/dresses/43_高領挖腰連身.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2348,8 +2510,9 @@
         "en": "plaid camisole handkerchief-hem dress, one-piece fit-and-flare silhouette, slim shoulder straps, fitted bodice, gathered waist, airy uneven pointed hem, main fabric color controlled by dress color selection",
         "desc": "短版格紋吊帶洋裝，上身是細肩帶與貼合胸身，下身從腰線展開成輕盈傘襬，不規則尖角裙襬前短後長，顏色由連身配色控制；不包含包包元素。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/44_格紋吊帶不規則傘襬洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-018",
+          "referenceImage": "reference/wardrobe/dresses/44_格紋吊帶不規則傘襬洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2357,8 +2520,9 @@
         "en": "polka-dot square-neck mini dress, one-piece A-line silhouette, short puff sleeves, softly gathered neckline, sheer dotted overlay, short hem, main fabric color controlled by dress color selection",
         "desc": "短版波點方領迷你洋裝，短泡袖、方形領口、微抓皺胸線與輕透波點外層清楚，裙身是簡潔 A 字短版輪廓，顏色由連身配色控制；不包含包包元素。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/45_波點方領泡袖迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-019",
+          "referenceImage": "reference/wardrobe/dresses/45_波點方領泡袖迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2366,8 +2530,9 @@
         "en": "sleeveless polka-dot mini dress, one-piece fit-and-flare silhouette, round neckline, fitted bodice, full pleated skirt, sheer organza under-hem, main fabric color controlled by dress color selection",
         "desc": "短版無袖波點迷你洋裝，圓領、貼合上身與蓬鬆摺裙形成 American college mood，裙口帶輕透歐根紗內層，顏色由連身配色控制；不包含包包元素。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/46_波點無袖蓬裙迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-020",
+          "referenceImage": "reference/wardrobe/dresses/46_波點無袖蓬裙迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2375,8 +2540,9 @@
         "en": "sheer striped camisole mini dress, one-piece babydoll overlay silhouette, slim straps, loose ruffled bodice, cascading front flounce panels, airy translucent short hem, main fabric color controlled by dress color selection",
         "desc": "短版條紋薄紗吊帶迷你洋裝，以細肩帶、寬鬆娃娃裝罩衫輪廓、前身層疊荷葉與輕透短裙襬為主，布面有直向條紋紋理，顏色由連身配色控制；不包含包包元素。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/47_條紋荷葉吊帶罩衫迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-021",
+          "referenceImage": "reference/wardrobe/dresses/47_條紋荷葉吊帶罩衫迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2384,8 +2550,9 @@
         "en": "fringed spaghetti-strap mini dress, one-piece body-skimming silhouette, slim straps, soft bust cup shaping, vertical fringe texture across the bodice, low draped hip wrap mini hem, main fabric color controlled by dress color selection",
         "desc": "短版細肩帶流蘇迷你洋裝，細肩帶、柔軟罩杯線、貼身胸身與縱向流蘇質感明確，下方是低腰抓皺包覆的超短裙襬，顏色由連身配色控制；不包含包包元素。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/48_流蘇細肩帶抓皺迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-022",
+          "referenceImage": "reference/wardrobe/dresses/48_流蘇細肩帶抓皺迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       },
       {
@@ -2393,8 +2560,9 @@
         "en": "strapless bow-front lace mini dress, one-piece fitted silhouette, oversized chest bow with long hanging tails, lace bodice texture, low-waist tiered ruffle mini skirt, main fabric color controlled by dress color selection",
         "desc": "短版蝴蝶結抹胸蕾絲迷你洋裝，胸前大型蝴蝶結與長垂帶是主視覺，胸身有蕾絲紋理與貼合腰線，下身是低腰層疊荷葉超短裙，顏色由連身配色控制；不包含包包元素。",
         "meta": {
-          "referenceImage": "reference/wardrobe/dresses/49_蝴蝶結抹胸蕾絲荷葉迷你洋裝.png",
-          "referenceImageFormat": "png"
+          "referenceImageId": "dresses-023",
+          "referenceImage": "reference/wardrobe/dresses/49_蝴蝶結抹胸蕾絲荷葉迷你洋裝.avif",
+          "referenceImageFormat": "avif"
         }
       }
     ],

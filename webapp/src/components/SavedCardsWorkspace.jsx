@@ -13,24 +13,19 @@ const INITIAL_VISIBLE_CARDS = 40;
 const VISIBLE_CARD_INCREMENT = 40;
 
 export default function SavedCardsWorkspace({
-  prompts,
-  setPrompts,
-  viewMode,
-  setViewMode,
   favoritePrompts,
   displayPrompts,
   handleDownloadAll,
   handleClearFavorites,
-  importFeedInputRef,
-  handleOpenImportFeed,
-  handleImportFeed,
+  importSavedCardsInputRef,
+  handleOpenImportSavedCards,
+  handleImportSavedCards,
   handleDeletePrompt,
   handleApplySavedCardSelection,
 }) {
-  const isFavoritesView = viewMode === 'favorites';
   const [sourceFilter, setSourceFilter] = useState('all');
   const [cardDensity, setCardDensity] = useState('compact');
-  const visibleKey = `${viewMode}:${sourceFilter}`;
+  const visibleKey = sourceFilter;
   const [visibleState, setVisibleState] = useState({ key: visibleKey, count: INITIAL_VISIBLE_CARDS });
   const visibleCount = visibleState.key === visibleKey ? visibleState.count : INITIAL_VISIBLE_CARDS;
   const sourceCounts = useMemo(() => {
@@ -63,10 +58,6 @@ export default function SavedCardsWorkspace({
 
         <div className="saved-cards-stats" aria-label="Saved card counts">
           <div className="saved-cards-stat">
-            <span>Feed</span>
-            <strong>{prompts.length}</strong>
-          </div>
-          <div className="saved-cards-stat">
             <span>Favorites</span>
             <strong>{favoritePrompts.length}</strong>
           </div>
@@ -79,38 +70,23 @@ export default function SavedCardsWorkspace({
 
       <section className="saved-cards-panel lock-panel">
         <div className="saved-cards-toolbar">
-          <div className="tab-row saved-cards-view-tabs">
-            <button className={viewMode === 'feed' ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('feed')}>
-              Feed ({prompts.length})
-            </button>
-            <button className={isFavoritesView ? 'tab-primary-active' : 'secondary'} onClick={() => setViewMode('favorites')}>
-              Favorites ({favoritePrompts.length})
-            </button>
-          </div>
-
           <div className="tab-row saved-cards-actions">
             <button className="secondary" onClick={() => handleDownloadAll(filteredPrompts)} disabled={filteredPrompts.length === 0}>
               Download
             </button>
-            {isFavoritesView ? (
-              <button className="secondary danger" onClick={handleClearFavorites} disabled={favoritePrompts.length === 0}>
-                Clear Favorites
-              </button>
-            ) : (
-              <button className="secondary danger" onClick={() => setPrompts([])} disabled={prompts.length === 0}>
-                Clear Feed
-              </button>
-            )}
-            <button className="secondary" onClick={handleOpenImportFeed}>
+            <button className="secondary danger" onClick={handleClearFavorites} disabled={favoritePrompts.length === 0}>
+              Clear Favorites
+            </button>
+            <button className="secondary" onClick={handleOpenImportSavedCards}>
               Import
             </button>
           </div>
           <input
-            ref={importFeedInputRef}
+            ref={importSavedCardsInputRef}
             type="file"
             accept=".zip,application/zip"
             style={{ display: 'none' }}
-            onChange={handleImportFeed}
+            onChange={handleImportSavedCards}
           />
         </div>
 
@@ -129,7 +105,7 @@ export default function SavedCardsWorkspace({
 
         <div className="saved-cards-library-bar">
           <div className="saved-cards-results-meta">
-            {isFavoritesView ? 'Favorites' : 'Feed'} view currently showing {visiblePrompts.length} of {filteredPrompts.length} cards.
+            Favorites currently showing {visiblePrompts.length} of {filteredPrompts.length} cards.
           </div>
           <div className="segmented-control saved-cards-density-control" role="group" aria-label="Card density">
             <button
@@ -152,9 +128,7 @@ export default function SavedCardsWorkspace({
         <div className={`saved-cards-list saved-cards-list-${cardDensity}`}>
           {filteredPrompts.length === 0 ? (
             <div className="empty-state">
-              {isFavoritesView
-                ? '目前還沒有收藏卡片。回到 Prompt 工作台儲存或點愛心後，這裡會集中顯示。'
-                : '目前還沒有保存版本。回到 Prompt 工作台，用 Save 保存你想留下的 prompt。'}
+              目前還沒有收藏卡片。回到任一工作區儲存卡片後，這裡會集中顯示。
             </div>
           ) : (
             visiblePrompts.map((prompt) => (
@@ -163,7 +137,7 @@ export default function SavedCardsWorkspace({
                 data={prompt}
                 density={cardDensity}
                 onDelete={handleDeletePrompt}
-                onApplySelection={isFavoritesView ? handleApplySavedCardSelection : null}
+                onApplySelection={handleApplySavedCardSelection}
               />
             ))
           )}

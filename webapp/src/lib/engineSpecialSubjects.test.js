@@ -70,99 +70,16 @@ test('character profile control exposes character profile cards separately from 
   assert.deepEqual(
     characterCards.map((option) => [option.zh, option.meta?.referenceImage, option.meta?.referenceImageFormat]),
     [
-      ['11_Rika', 'character-cards/rika/11_Rika_00.jpeg', 'jpeg'],
-      ['48_G', 'character-cards/48g/48_G_00.jpeg', 'jpeg'],
-      ['29_Philippa', 'character-cards/philippa/29_Philippa_00.jpeg', 'jpeg'],
-      ['07_Lily', 'character-cards/lily/07_Lily_00.jpeg', 'jpeg'],
-      ['06_Hinata', 'character-cards/hinata/06_Hinata_00.png', 'png'],
-      ['38_Rin', 'character-cards/rin/38_Rin_00.jpeg', 'jpeg'],
-      ['12_Sakura', 'character-cards/sakura/12_Sakura_00.jpeg', 'jpeg'],
-      ['03_Sui', 'character-cards/sui/03_Sui_00.jpeg', 'jpeg'],
-      ['02_Yuri', 'character-cards/yuri/02_Yuri_00.jpeg', 'jpeg'],
-      ['37_Hina', 'character-cards/hina/37_Hina_00.jpeg', 'jpeg'],
-    ]
-  );
-  assert.deepEqual(
-    characterCards.find((option) => option.id === 'character-48g').referenceImages.map((image) => [image.type, image.publicPath]),
-    [
-      ['face-turnaround', '/character-cards/48g/48_G_01.jpeg'],
-      ['full-body', '/character-cards/48g/48_G_02.jpeg'],
-      ['expression-sheet', '/character-cards/48g/48_G_03.jpeg'],
-    ]
-  );
-  assert.deepEqual(
-    characterCards.find((option) => option.id === 'character-philippa').referenceImages.map((image) => [image.type, image.publicPath]),
-    [
-      ['face-turnaround', '/character-cards/philippa/29_Philippa_01.png'],
-      ['portrait-scene', '/character-cards/philippa/29_Philippa_00.jpeg'],
-      ['full-body', '/character-cards/philippa/29_Philippa_02.jpeg'],
-    ]
-  );
-  assert.deepEqual(
-    characterCards.find((option) => option.id === 'character-sakura').referenceImages.map((image) => [image.type, image.publicPath]),
-    [
-      ['portrait-closeup', '/character-cards/sakura/12_Sakura_00.jpeg'],
-      ['face-turnaround', '/character-cards/sakura/12_Sakura_01.png'],
-      ['full-body', '/character-cards/sakura/12_Sakura_02.png'],
-    ]
-  );
-  assert.deepEqual(
-    characterCards.find((option) => option.id === 'character-hinata').referenceImages.map((image) => [image.type, image.publicPath]),
-    [
-      ['portrait-closeup', '/character-cards/hinata/06_Hinata_00.png'],
-      ['full-body', '/character-cards/hinata/06_Hinata_03.png'],
-      ['expression-sheet', '/character-cards/hinata/06_Hinata_01A.png'],
-      ['face-turnaround', '/character-cards/hinata/06_Hinata_01.png'],
-    ]
-  );
-  assert.deepEqual(
-    characterCards.find((option) => option.id === 'character-rika').referenceImages.map((image) => [image.type, image.publicPath]),
-    [
-      ['portrait-closeup', '/character-cards/rika/11_Rika_00.jpeg'],
-      ['portrait-scene', '/character-cards/rika/11_Rika_03.png'],
-      ['full-body', '/character-cards/rika/11_Rika_02.png'],
-      ['face-turnaround', '/character-cards/rika/11_Rika_01.png'],
-    ]
-  );
-  assert.deepEqual(
-    characterCards.find((option) => option.id === 'character-rin').referenceImages.map((image) => [image.type, image.publicPath]),
-    [
-      ['face-turnaround', '/character-cards/rin/38_Rin_01.png'],
-      ['portrait-closeup', '/character-cards/rin/38_Rin_00.jpeg'],
-      ['full-body', '/character-cards/rin/38_Rin_02.png'],
-    ]
-  );
-  assert.deepEqual(
-    characterCards.find((option) => option.id === 'character-lily').referenceImages.map((image) => [image.type, image.publicPath]),
-    [
-      ['portrait-closeup', '/character-cards/lily/07_Lily_00.jpeg'],
-      ['full-body', '/character-cards/lily/07_Lily_02.png'],
-      ['face-turnaround', '/character-cards/lily/07_Lily_01.png'],
-    ]
-  );
-  assert.deepEqual(
-    characterCards.find((option) => option.id === 'character-yuri').referenceImages.map((image) => [image.type, image.publicPath]),
-    [
-      ['portrait-closeup', '/character-cards/yuri/02_Yuri_00.jpeg'],
-      ['face-turnaround', '/character-cards/yuri/02_Yuri_01.png'],
-      ['full-body', '/character-cards/yuri/02_Yuri_02.png'],
-    ]
-  );
-  assert.deepEqual(
-    characterCards.find((option) => option.id === 'character-sui').referenceImages.map((image) => [image.type, image.publicPath]),
-    [
-      ['portrait-closeup', '/character-cards/sui/03_Sui_00.jpeg'],
-      ['face-turnaround', '/character-cards/sui/03_Sui_01.png'],
-      ['full-body', '/character-cards/sui/03_Sui_02.png'],
-      ['expression-sheet', '/character-cards/sui/03_Sui_01A.png'],
-    ]
-  );
-  assert.deepEqual(
-    characterCards.find((option) => option.id === 'character-hina').referenceImages.map((image) => [image.type, image.publicPath]),
-    [
-      ['portrait-scene', '/character-cards/hina/37_Hina_00.jpeg'],
-      ['full-body', '/character-cards/hina/37_Hina_02.png'],
-      ['face-turnaround', '/character-cards/hina/37_Hina_01.png'],
+      ['11_Rika', 'character-cards/rika/11_Rika_00.avif', 'avif'],
+      ['48_G', 'character-cards/48g/48_G_00.avif', 'avif'],
+      ['29_Philippa', 'character-cards/philippa/29_Philippa_00.avif', 'avif'],
+      ['07_Lily', 'character-cards/lily/07_Lily_00.avif', 'avif'],
+      ['06_Hinata', 'character-cards/hinata/06_Hinata_00.avif', 'avif'],
+      ['38_Rin', 'character-cards/rin/38_Rin_00.avif', 'avif'],
+      ['12_Sakura', 'character-cards/sakura/12_Sakura_00.avif', 'avif'],
+      ['03_Sui', 'character-cards/sui/03_Sui_00.avif', 'avif'],
+      ['02_Yuri', 'character-cards/yuri/02_Yuri_00.avif', 'avif'],
+      ['37_Hina', 'character-cards/hina/37_Hina_00.avif', 'avif'],
     ]
   );
 });
