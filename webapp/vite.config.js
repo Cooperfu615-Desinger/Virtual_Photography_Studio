@@ -5,4 +5,15 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/Virtual_Photography_Studio/',
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.endsWith('/src/data/database.json')) return 'prompt-catalog'
+          if (id.includes('/src/lib/engine.js') || id.includes('/src/lib/engine/')) return 'prompt-engine'
+          return undefined
+        },
+      },
+    },
+  },
 })

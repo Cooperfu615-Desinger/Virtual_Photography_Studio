@@ -12,9 +12,7 @@ import {
   getCloseupAllowedKeys,
   getSceneDependentOptions,
   getLockControls,
-  hasEffectiveWardrobeLocks,
   isCloseupModeFramingId,
-  isWardrobeIncompatibleCloseupFramingId,
   isWormEyeAngleId,
   normalizeLocks,
   sanitizeLocksForCloseupMode
@@ -879,20 +877,7 @@ export default function App() {
   const [previewRerollExclusion, setPreviewRerollExclusion] = useState(null);
   const activeLibrary = useMemo(() => [], []);
   const rawLockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
-  const hasWardrobeLocks = useMemo(() => hasEffectiveWardrobeLocks(locks, rawLockControls), [locks, rawLockControls]);
-  const lockControls = useMemo(
-    () => rawLockControls.map((control) => {
-      if (control.key !== 'framingId' || !hasWardrobeLocks) return control;
-      return {
-        ...control,
-        options: control.options.map((option) => ({
-          ...option,
-          disabled: isWardrobeIncompatibleCloseupFramingId(option.id, activeLibrary),
-        })),
-      };
-    }),
-    [activeLibrary, hasWardrobeLocks, rawLockControls]
-  );
+  const lockControls = rawLockControls;
   const characterCards = useMemo(() => getCharacterCardOptions(lockControls), [lockControls]);
   const [page2Profile, setPage2Profile] = useState(() => (
     normalizeCharacterCardVariant(loadJsonStorage(PAGE2_PROFILE_KEY, createEmptyCharacterCardVariant(characterCards)), characterCards)
@@ -1222,9 +1207,9 @@ export default function App() {
   }, [actionPoseProfile]);
 
   const sceneDependentOptions = useMemo(() => getSceneDependentOptions(activeLibrary, locks), [activeLibrary, locks]);
-  const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
-  const isWormEyeAngle = useMemo(() => isWormEyeAngleId(locks.angleId, activeLibrary), [locks.angleId, activeLibrary]);
-  const closeupAllowedKeys = useMemo(() => getCloseupAllowedKeys(locks.framingId, activeLibrary), [locks.framingId, activeLibrary]);
+  const isCloseupMode = useMemo(() => isCloseupModeFramingId(locks.framingId, lockControls), [locks.framingId, lockControls]);
+  const isWormEyeAngle = useMemo(() => isWormEyeAngleId(locks.angleId, lockControls), [locks.angleId, lockControls]);
+  const closeupAllowedKeys = useMemo(() => getCloseupAllowedKeys(locks.framingId, lockControls), [locks.framingId, lockControls]);
   const outfitPresetControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetId') || null, [lockControls]);
   const outfitPresetAControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetAId') || null, [lockControls]);
   const outfitPresetBControl = useMemo(() => lockControls.find((control) => control.key === 'outfitPresetBId') || null, [lockControls]);

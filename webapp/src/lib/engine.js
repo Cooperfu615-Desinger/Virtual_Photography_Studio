@@ -7,6 +7,35 @@ import {
   getCompatibleHairVariants,
   normalizeCharacterCardVariant,
 } from './characterCardLab.js';
+import { normalizeRandom } from './engineRandom.js';
+import { CHARACTER_PROFILE_OPTIONS } from './engine/characterProfiles.js';
+import {
+  DUO_EXPRESSION_OPTIONS,
+  DUO_INTERACTION_OPTIONS,
+  DUO_POSE_BASE_OPTIONS,
+  DUO_POSE_OPTIONS,
+} from './engine/duoOptions.js';
+import {
+  FIXED_COMPOSITION_SHARED_STRUCTURE_EN,
+  FIXED_COMPOSITION_SET_OPTIONS,
+  FIXED_SET_BACKGROUND_STATE_OPTIONS,
+  FIXED_SET_CAPTURE_MODE_OPTIONS,
+  FIXED_SET_PERFORMANCE_STATE_OPTIONS,
+  FIXED_SET_POSITION_OPTIONS,
+  OUTDOOR_FIXED_SET_GROUP_ID,
+} from './engine/fixedCompositionOptions.js';
+import {
+  POSE_COMPOSER_ANCHOR_OPTIONS,
+  POSE_COMPOSER_ARRANGEMENT_OPTIONS,
+  POSE_COMPOSER_BASE_OPTIONS,
+  POSE_COMPOSER_HAND_OPTIONS,
+  POSE_COMPOSER_HEAD_OPTIONS,
+} from './engine/poseComposerOptions.js';
+import { createPromptSectionModel } from './engine/promptModel.js';
+import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
+import { createSelectionSnapshot } from './engine/selectionSchema.js';
+
+export { createSeededRandom } from './engineRandom.js';
 
 const SUBJECT_COUNT_OPTIONS = [
   { id: '1', zh: '1 位', en: 'one 20-year-old Japanese or Korean female portrait subject', count: 1 },
@@ -128,390 +157,6 @@ const SPECIAL_SUBJECT_OPTIONS = [
   },
 ];
 
-const CHARACTER_PROFILE_OPTIONS = [
-  {
-    id: 'none',
-    zh: '全無',
-    en: '',
-    desc: 'Use the normal character setup or special subject setup instead of a fixed character profile card.',
-    meta: { tags: ['none'] },
-  },
-  {
-    id: 'character-48g',
-    zh: '48_G',
-    en: 'a 20-year-old adult East Asian woman with doll-like facial features, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette, signature outfit locked as a taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath, small off-white shoulder bag with thin black strap, black lace-up ankle boots with glossy rounded toes, contemporary street-fashion photographic realism',
-    profile: {
-      identityAndBody: 'a 20-year-old adult East Asian woman with doll-like facial features, pale luminous skin, large clear gray-brown eyes, soft smoky eye makeup, subtle pink under-eye blush, small straight nose, softly rounded lips, slim petite fashion-model body proportions with a narrow waist and balanced curvy silhouette',
-      hair: 'glossy black shoulder-length layered lob haircut with airy see-through bangs and face-framing side strands',
-      outfit: 'taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair, black lace bralette neckline, low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath, black lace-up ankle boots with glossy rounded toes',
-      accessories: 'small off-white shoulder bag with thin black strap',
-      photographicDirection: 'photorealistic editorial portrait, contemporary street-fashion photographic realism, coherent facial identity, realistic fabric construction',
-    },
-    count: 1,
-    specialSubject: 'character-profile',
-    specialToneZh: '48_G 角色卡',
-    meta: { referenceImage: 'character-cards/48g/48_G_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/48_G_01.jpeg',
-        publicPath: '/character-cards/48g/48_G_01.jpeg',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/48_G_02.jpeg',
-        publicPath: '/character-cards/48g/48_G_02.jpeg',
-      },
-      {
-        type: 'expression-sheet',
-        label: '表情九宮格',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/48_G_03.jpeg',
-        publicPath: '/character-cards/48g/48_G_03.jpeg',
-      },
-    ],
-  },
-  {
-    id: 'character-philippa',
-    zh: '29_Philippa',
-    en: 'a 20-year-old adult East Asian woman with pale gothic beauty, porcelain luminous skin, elegant oval face, clear pale gray-green eyes with a cool glassy gaze, softly arched dark brows, slim straight nose, muted red matte lips, refined melancholic expression, long center-parted wavy black hair with clean black bangs and solid black front face-framing strands, silver-white dip-dye streaks concentrated only through the rear and lower trailing hair sections near the back hair tips, front bangs and front hair remain black without light streaks, voluminous waves falling past the chest, slender fashion-model body proportions with a graceful narrow waist, signature outfit locked as a black high-neck gothic lace dress with sheer mesh long sleeves, black floral lace sleeve appliques across shoulders and arms, fitted black lace bodice with subtle beadwork, floor-length translucent black tulle skirt overlay with trailing hem, black elegant dress shoes, romantic dark couture photographic realism',
-    profile: {
-      identityAndBody: 'a 20-year-old adult East Asian woman with pale gothic beauty, porcelain luminous skin, elegant oval face, clear pale gray-green eyes, softly arched dark brows, slim straight nose, muted red matte lips, slender fashion-model body proportions with a graceful narrow waist',
-      hair: 'long center-parted wavy black hair with clean black bangs and solid black front face-framing strands, silver-white dip-dye streaks concentrated only through the rear and lower trailing hair sections near the back hair tips, front bangs and front hair remain black without light streaks, voluminous waves falling past the chest',
-      outfit: 'black high-neck gothic lace dress with sheer mesh long sleeves, black floral lace sleeve appliques across shoulders and arms, fitted black lace bodice with subtle beadwork, floor-length translucent black tulle skirt overlay with trailing hem, black elegant dress shoes',
-      photographicDirection: 'photorealistic editorial portrait, romantic dark couture photographic realism, coherent facial identity, realistic lace and tulle construction',
-    },
-    count: 1,
-    specialSubject: 'character-profile',
-    specialToneZh: '29_Philippa 角色卡',
-    meta: { referenceImage: 'character-cards/philippa/29_Philippa_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/29_Philippa_01.png',
-        publicPath: '/character-cards/philippa/29_Philippa_01.png',
-      },
-      {
-        type: 'portrait-scene',
-        label: '半身情境照',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/29_Philippa_00.jpeg',
-        publicPath: '/character-cards/philippa/29_Philippa_00.jpeg',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/29_Philippa_02.jpeg',
-        publicPath: '/character-cards/philippa/29_Philippa_02.jpeg',
-      },
-    ],
-  },
-  {
-    id: 'character-sakura',
-    zh: '12_Sakura',
-    en: 'a 20-year-old adult East Asian woman with soft doll-like kawaii facial features, luminous fair skin, delicate oval heart-shaped face, large vivid clear blue eyes with glossy catchlights and defined upper lashes, softly arched brown brows, small straight nose with gentle bridge, peach-pink blush across the cheeks and nose, warm peach eye shadow, subtle eyeliner, glossy peach-pink gradient lips slightly parted, long loose wavy warm chestnut-brown hair with dusty rose-pink streaks framing both sides of the face and flowing through the lengths, airy wispy see-through bangs, slim petite cozy-girl body proportions, signature outfit locked as a white plush bunny-eared hood with floppy long ears, pink inner ears, cute black cartoon eyes, small pink nose, soft white plush fur texture and tiny white fang-like teeth along the hood opening, oversized ivory-white fleece pullover hoodie with dropped shoulders, long loose sleeves, front kangaroo pocket and white drawstrings, relaxed beige oatmeal sweatpants with soft brushed knit texture and straight loose legs, clean white low-top sneakers, gentle cozy indoor lifestyle photographic realism',
-    profile: {
-      identityAndBody: 'a 20-year-old adult East Asian woman with soft doll-like kawaii facial features, luminous fair skin, delicate oval heart-shaped face, large vivid clear blue eyes with glossy catchlights and defined upper lashes, softly arched brown brows, small straight nose with gentle bridge, peach-pink blush across the cheeks and nose, warm peach eye shadow, subtle eyeliner, glossy peach-pink gradient lips slightly parted, slim petite cozy-girl body proportions',
-      hair: 'long loose wavy warm chestnut-brown hair with dusty rose-pink streaks framing both sides of the face and flowing through the lengths, airy wispy see-through bangs',
-      outfit: 'white plush bunny-eared hood with floppy long ears, pink inner ears, cute black cartoon eyes, small pink nose, soft white plush fur texture, tiny white fang-like teeth along the hood opening, oversized ivory-white fleece pullover hoodie with dropped shoulders, long loose sleeves, front kangaroo pocket, white drawstrings, relaxed beige oatmeal sweatpants with soft brushed knit texture and straight loose legs, clean white low-top sneakers',
-      photographicDirection: 'photorealistic editorial portrait, gentle cozy indoor lifestyle photographic realism, coherent facial identity, realistic plush fleece and knit texture',
-    },
-    count: 1,
-    specialSubject: 'character-profile',
-    specialToneZh: '12_Sakura 角色卡',
-    meta: { referenceImage: 'character-cards/sakura/12_Sakura_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/12_Sakura_00.jpeg',
-        publicPath: '/character-cards/sakura/12_Sakura_00.jpeg',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/12_Sakura_01.png',
-        publicPath: '/character-cards/sakura/12_Sakura_01.png',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/12_Sakura_02.png',
-        publicPath: '/character-cards/sakura/12_Sakura_02.png',
-      },
-    ],
-  },
-  {
-    id: 'character-hinata',
-    zh: '06_Hinata',
-    en: 'a 20-year-old adult East Asian woman with mature refined East Asian fashion-model facial features, large almond-shaped gray-olive brown eyes with softly lifted outer corners, clear double eyelids and shallow natural eyelid depth, small elongated oval face with a soft jawline and delicate pointed chin, luminous fair skin, softly arched ash-brown brows, straight slim nose with a soft low-to-moderate bridge and small neat tip, peach-rose blush, subtle cool-beige eye shadow, thin gentle cat-eye liner, natural rose-pink lips with gentle fullness and a polished satin sheen, calm confident street-style expression, smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume and delicate flyaway strands, tall high-fashion hourglass body proportions, long slender limbs, long legs, high waist, fuller bust, wide hips, and narrow waist, signature outfit locked as a deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings on the bodysuit exposing both sides of the narrow waist and upper hips, visually emphasizing the wider hips, medium-wash skinny blue jeans with natural denim fading, black leather belt with small silver buckle, black leather ankle boots with rounded toes and low block heels, polished urban street-fashion photographic realism',
-    profile: {
-      identityAndBody: 'a 20-year-old adult East Asian woman with mature refined East Asian fashion-model facial features, large almond-shaped gray-olive brown eyes with softly lifted outer corners, clear double eyelids and shallow natural eyelid depth, small elongated oval face with a soft jawline and delicate pointed chin, luminous fair skin, softly arched ash-brown brows, straight slim nose with a soft low-to-moderate bridge and small neat tip, peach-rose blush, subtle cool-beige eye shadow, thin gentle cat-eye liner, natural rose-pink lips with gentle fullness and a polished satin sheen, tall high-fashion hourglass body proportions, long slender limbs, long legs, high waist, fuller bust, wide hips, narrow waist',
-      hair: 'smoky ash-gray hair with muted sage-olive undertones and darker shadow roots, chin-to-shoulder length wavy bob with an open center part, loose tousled S-wave texture, airy outward-flipped layers around the cheeks and nape, soft volume, delicate flyaway strands',
-      outfit: 'deep cobalt blue cable-knit turtleneck cutout bodysuit sweater with thick ribbed high collar, fitted long sleeves, vertical cable texture, sculpted bust-waist contour, large side-waist cutout openings exposing both sides of the narrow waist and upper hips, medium-wash skinny blue jeans with natural denim fading, black leather ankle boots with rounded toes and low block heels',
-      accessories: 'black leather belt with small silver buckle',
-      photographicDirection: 'photorealistic editorial portrait, polished urban street-fashion photographic realism, coherent facial identity, realistic knit and denim construction',
-    },
-    count: 1,
-    specialSubject: 'character-profile',
-    specialToneZh: '06_Hinata 角色卡',
-    meta: { referenceImage: 'character-cards/hinata/06_Hinata_00.png', referenceImageFormat: 'png' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        sourcePath: '/Volumes/Extreme Pro/一致性設計架構/已加入/06_Hinata_00.png',
-        publicPath: '/character-cards/hinata/06_Hinata_00.png',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/一致性設計架構/已加入/06_Hinata_03.png',
-        publicPath: '/character-cards/hinata/06_Hinata_03.png',
-      },
-      {
-        type: 'expression-sheet',
-        label: '表情九宮格',
-        sourcePath: '/Volumes/Extreme Pro/一致性設計架構/已加入/06_Hinata_01A.png',
-        publicPath: '/character-cards/hinata/06_Hinata_01A.png',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/一致性設計架構/已加入/06_Hinata_01.png',
-        publicPath: '/character-cards/hinata/06_Hinata_01.png',
-      },
-    ],
-  },
-  {
-    id: 'character-rika',
-    zh: '11_Rika',
-    en: 'a 20-year-old adult East Asian woman with soft doll-like indie-girl facial features, luminous fair skin, petite oval face with softly full cheeks and a gentle rounded jaw, large rounded gray-brown eyes with glassy catchlights and soft lower-lash detail, straight natural brows, small delicate straight nose with a smooth bridge, tiny beauty mark near one outer cheek, peach-pink blush, warm peach-beige eye makeup, soft rose-pink lips with a cushioned slightly parted pout, quiet dreamy gaze, glossy natural black long wavy hair falling past the shoulders, airy see-through bangs with slightly uneven wispy pieces across the forehead, face-framing side strands and loose layered waves through the lengths, slim petite casual-fashion body proportions with a narrow waist, signature outfit locked as a fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic, black-and-white beaded choker necklace, slightly loose low-rise light-wash blue jeans with relaxed straight legs and soft vintage fading, small silver ring keychain clipped to the front belt loop, clean white low-top sneakers, intimate warm indoor film-snapshot photographic realism',
-    profile: {
-      identityAndBody: 'a 20-year-old adult East Asian woman with soft doll-like indie-girl facial features, luminous fair skin, petite oval face with softly full cheeks and a gentle rounded jaw, large rounded gray-brown eyes with glassy catchlights and soft lower-lash detail, straight natural brows, small delicate straight nose with a smooth bridge, tiny beauty mark near one outer cheek, peach-pink blush, warm peach-beige eye makeup, soft rose-pink lips with a cushioned slightly parted shape, slim petite casual-fashion body proportions with a narrow waist',
-      hair: 'glossy natural black long wavy hair falling past the shoulders, airy see-through bangs with slightly uneven wispy pieces across the forehead, face-framing side strands, loose layered waves through the lengths',
-      outfit: 'fitted cropped white short-sleeve baby tee with a small minimalist black line-art chest graphic, slightly loose low-rise light-wash blue jeans with relaxed straight legs and soft vintage fading, clean white low-top sneakers',
-      accessories: 'black-and-white beaded choker necklace, small silver ring keychain clipped to the front belt loop',
-      photographicDirection: 'photorealistic editorial portrait, intimate warm indoor film-snapshot photographic realism, coherent facial identity, realistic cotton and denim construction',
-    },
-    count: 1,
-    specialSubject: 'character-profile',
-    specialToneZh: '11_Rika 角色卡',
-    meta: { referenceImage: 'character-cards/rika/11_Rika_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/11_Rika_00.jpeg',
-        publicPath: '/character-cards/rika/11_Rika_00.jpeg',
-      },
-      {
-        type: 'portrait-scene',
-        label: '半身情境照',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/11_Rika_03.png',
-        publicPath: '/character-cards/rika/11_Rika_03.png',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/11_Rika_02.png',
-        publicPath: '/character-cards/rika/11_Rika_02.png',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/一致性設計架構/已加入/11_Rika_01.png',
-        publicPath: '/character-cards/rika/11_Rika_01.png',
-      },
-    ],
-  },
-  {
-    id: 'character-rin',
-    zh: '38_Rin',
-    en: 'a 20-year-old adult East Asian woman with refined intellectual East Asian editorial facial features and stacked twin gold hoop earrings on both ears, large slender almond warm brown eyes behind glasses with a calm slightly sleepy gaze, thin rectangular brown-gold metal frame eyeglasses with transparent lenses, small porcelain oval face with a narrow softly tapered jaw and delicate pointed chin, porcelain fair skin with a subtle luminous sheen, soft aegyo-sal lower-eye fullness and fine lower lashes, straight delicate nose with a softly rounded glossy tip, softly arched natural dark brows, peach-beige blush, warm beige eye shadow, glossy rose-beige lips with a defined cupid bow and fuller lower lip, calm observant expression, glossy natural black chin-to-nape short curly bob, airy layered S-curls with outward-flipped ends around the ears and nape, separated curved see-through bangs forming comma-like strands over the forehead, soft volume around the crown and back, slim refined fashion-model body proportions with a narrow waist and long neck, signature outfit locked as thin rectangular brown-gold metal frame eyeglasses with transparent lenses, stacked twin gold hoop earrings on both ears, layered delicate gold necklaces with tiny pendant charms, crisp white oversized button-down shirt with open collar, relaxed dropped shoulders, sleeves rolled to the forearms, slightly loose tucked-in fabric, charcoal high-waisted tailored straight trousers with pressed front crease and clean waistband, black leather loafers with low stacked heels, polished intellectual minimalist photographic realism',
-    profile: {
-      identityAndBody: 'a 20-year-old adult East Asian woman with refined intellectual editorial facial features, small porcelain oval face, narrow softly tapered jaw, delicate pointed chin, porcelain fair skin with a subtle luminous sheen, large slender almond warm-brown eyes, soft aegyo-sal lower-eye fullness, fine lower lashes, straight delicate nose with a softly rounded glossy tip, softly arched natural dark brows, peach-beige blush, warm beige eye shadow, glossy rose-beige lips with a defined cupid bow and fuller lower lip, slim refined fashion-model body proportions, narrow waist, long neck',
-      hair: 'glossy natural black chin-to-nape short curly bob, airy layered S-curls, outward-flipped ends around the ears and nape, separated curved see-through bangs forming comma-like strands over the forehead, soft volume around the crown and back',
-      outfit: 'crisp white oversized button-down shirt with open collar, relaxed dropped shoulders, sleeves rolled to the forearms, slightly loose tucked-in fabric, charcoal high-waisted tailored straight trousers with pressed front crease and clean waistband, black leather loafers with low stacked heels',
-      accessories: 'signature thin rectangular brown-gold metal frame eyeglasses with transparent lenses, stacked twin gold hoop earrings on both ears, layered delicate gold necklaces with tiny pendant charms',
-      photographicDirection: 'photorealistic editorial portrait, polished intellectual minimalist styling, natural photographic detail, coherent facial identity, realistic fabric construction',
-    },
-    count: 1,
-    specialSubject: 'character-profile',
-    specialToneZh: '38_Rin 角色卡',
-    meta: { referenceImage: 'character-cards/rin/38_Rin_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/38_Rin_01.png',
-        publicPath: '/character-cards/rin/38_Rin_01.png',
-      },
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/38_Rin_00.jpeg',
-        publicPath: '/character-cards/rin/38_Rin_00.jpeg',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/38_Rin_02.png',
-        publicPath: '/character-cards/rin/38_Rin_02.png',
-      },
-    ],
-  },
-  {
-    id: 'character-lily',
-    zh: '07_Lily',
-    en: 'a 20-year-old adult East Asian woman with glamorous doll-like facial features, porcelain fair skin with a soft luminous glow, delicate oval heart-shaped face, clear warm hazel-brown eyes with glossy catchlights and long curled lashes, softly arched reddish-brown brows, small refined nose, peach-coral blush, warm champagne eye shadow, subtle eyeliner, glossy coral-rose lips with a softly parted pout, calm seductive fashion-editorial expression, long tousled copper-auburn red hair with darker natural roots, loose messy waves flowing past the chest and down the back, airy wispy see-through bangs falling softly across the forehead, face-framing side pieces and windswept layered texture, slim tall fashion-model body proportions with narrow waist, long legs, refined shoulders and collarbones, signature outfit locked as a black shaggy faux-fur off-shoulder mini coat worn as the main garment, plush high-pile texture, deep V neckline, bare shoulders and collarbones, oversized sleeves, mini-length hem, minimal black inner layer kept subtle under the coat, black ankle-strap stiletto sandals with thin straps and open toes, glamorous sunlit fashion portrait photographic realism',
-    profile: {
-      identityAndBody: 'a 20-year-old adult East Asian woman with glamorous doll-like facial features, porcelain fair skin with a soft luminous glow, delicate oval heart-shaped face, clear warm hazel-brown eyes with glossy catchlights and long curled lashes, softly arched reddish-brown brows, small refined nose, peach-coral blush, warm champagne eye shadow, subtle eyeliner, glossy coral-rose lips with a softly parted shape, slim tall fashion-model body proportions with narrow waist, long legs, refined shoulders and collarbones',
-      hair: 'long tousled copper-auburn red hair with darker natural roots, loose messy waves flowing past the chest and down the back, airy wispy see-through bangs falling softly across the forehead, face-framing side pieces, windswept layered texture',
-      outfit: 'black shaggy faux-fur off-shoulder mini coat worn as the main garment, plush high-pile texture, deep V neckline, bare shoulders and collarbones, oversized sleeves, mini-length hem, minimal black inner layer kept subtle under the coat, black ankle-strap stiletto sandals with thin straps and open toes',
-      photographicDirection: 'photorealistic editorial portrait, glamorous sunlit fashion portrait photographic realism, coherent facial identity, realistic faux-fur texture',
-    },
-    count: 1,
-    specialSubject: 'character-profile',
-    specialToneZh: '07_Lily 角色卡',
-    meta: { referenceImage: 'character-cards/lily/07_Lily_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/07_Lily_00.jpeg',
-        publicPath: '/character-cards/lily/07_Lily_00.jpeg',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/07_Lily_02.png',
-        publicPath: '/character-cards/lily/07_Lily_02.png',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/07_Lily_01.png',
-        publicPath: '/character-cards/lily/07_Lily_01.png',
-      },
-    ],
-  },
-  {
-    id: 'character-yuri',
-    zh: '02_Yuri',
-    en: 'a 20-year-old adult East Asian woman with quiet intelligent doll-like facial features, luminous fair skin, soft oval face, clear dark brown eyes behind round translucent brown acetate eyeglasses with thin metal temples, straight natural brows, small refined nose, peach-beige blush, soft beige eye shadow, glossy muted rose lips with a calm slightly serious gaze, glossy natural black long straight hair falling past the chest, wispy see-through bangs across the forehead, tapered face-framing layers and softly inward-curved ends, slim petite casual-fashion body proportions with a narrow waist and long clean leg line, signature outfit locked as a white ribbed off-shoulder cropped long-sleeve top with exposed shoulders, fitted sleeves, small front buttons, vintage black graphic print across the chest and delicate lace trim along the cropped hem, black choker necklace with small silver charm details, stacked silver bangles and rings, low-rise medium-wash blue flared jeans with natural fading, decorated leather belt with large oval western-style belt buckle and metal-stud chain detail, brown low-top canvas sneakers with cream rubber soles and white laces, warm retro youth-fashion photographic realism',
-    profile: {
-      identityAndBody: 'a 20-year-old adult East Asian woman with quiet intelligent doll-like facial features, luminous fair skin, soft oval face, clear dark brown eyes, straight natural brows, small refined nose, peach-beige blush, soft beige eye shadow, glossy muted rose lips, slim petite casual-fashion body proportions with a narrow waist and long clean leg line',
-      hair: 'glossy natural black long straight hair falling past the chest, wispy see-through bangs across the forehead, tapered face-framing layers, softly inward-curved ends',
-      outfit: 'white ribbed off-shoulder cropped long-sleeve top with exposed shoulders, fitted sleeves, small front buttons, vintage black graphic print across the chest, delicate lace trim along the cropped hem, low-rise medium-wash blue flared jeans with natural fading, decorated leather belt with large oval western-style belt buckle and metal-stud chain detail, brown low-top canvas sneakers with cream rubber soles and white laces',
-      accessories: 'round translucent brown acetate eyeglasses with thin metal temples, black choker necklace with small silver charm details, stacked silver bangles and rings',
-      photographicDirection: 'photorealistic editorial portrait, warm retro youth-fashion photographic realism, coherent facial identity, realistic ribbed cotton and denim construction',
-    },
-    count: 1,
-    specialSubject: 'character-profile',
-    specialToneZh: '02_Yuri 角色卡',
-    meta: { referenceImage: 'character-cards/yuri/02_Yuri_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/02_Yuri_00.jpeg',
-        publicPath: '/character-cards/yuri/02_Yuri_00.jpeg',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/02_Yuri_01.png',
-        publicPath: '/character-cards/yuri/02_Yuri_01.png',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/02_Yuri_02.png',
-        publicPath: '/character-cards/yuri/02_Yuri_02.png',
-      },
-    ],
-  },
-  {
-    id: 'character-sui',
-    zh: '03_Sui',
-    en: 'a 20-year-old adult East Asian woman with wistful delicate East Asian muse-like facial features, small long heart-oval face with softly tapered cheeks and a narrow pointed chin, large soft downturned almond warm amber-brown eyes with glossy catchlights, slightly heavy upper lids, visible aegyo-sal lower-eye softness, and long fine lower lashes, luminous fair skin with natural freckles across the cheeks and nose, softly flushed cheeks and nose bridge, thin straight natural brows with a gentle downward softness, slim delicate nose with a softly rounded tip, warm beige eye shadow, small plush rose-coral lips with a defined cupid bow and slightly parted melancholic pout, quiet tender cozy-girl expression, glossy natural black long wavy hair falling past the chest and down the back, airy wispy see-through bangs across the forehead, loose layered waves, face-framing side strands and natural tousled flyaways, slim petite soft casual-fashion body proportions with a narrow waist, delicate shoulders and collarbones, signature outfit locked as a mustard yellow oversized knit cardigan with chunky fuzzy texture, deep V open front, wooden buttons, relaxed dropped shoulders, long loose sleeves with ribbed cuffs, small white fuzzy floral embroidery scattered on the cardigan, cream ribbed knit camisole with a scoop neckline underneath, delicate gold necklace with a small red-orange oval pendant, high-waisted medium-dark blue straight-leg jeans with natural denim fading, brown leather ankle boots with rounded toes and low stacked heels, soft cozy casual-fashion photographic realism',
-    profile: {
-      identityAndBody: 'a 20-year-old adult East Asian woman with wistful delicate East Asian muse-like facial features, small long heart-oval face with softly tapered cheeks and a narrow pointed chin, large soft downturned almond warm amber-brown eyes with glossy catchlights, slightly heavy upper lids, visible aegyo-sal lower-eye softness, long fine lower lashes, luminous fair skin with natural freckles across the cheeks and nose, softly flushed cheeks and nose bridge, thin straight natural brows with a gentle downward softness, slim delicate nose with a softly rounded tip, warm beige eye shadow, small plush rose-coral lips with a defined cupid bow and slightly parted shape, slim petite soft casual-fashion body proportions with a narrow waist, delicate shoulders and collarbones',
-      hair: 'glossy natural black long wavy hair falling past the chest and down the back, airy wispy see-through bangs across the forehead, loose layered waves, face-framing side strands, natural tousled flyaways',
-      outfit: 'mustard yellow oversized knit cardigan with chunky fuzzy texture, deep V open front, wooden buttons, relaxed dropped shoulders, long loose sleeves with ribbed cuffs, small white fuzzy floral embroidery scattered on the cardigan, cream ribbed knit camisole with a scoop neckline underneath, high-waisted medium-dark blue straight-leg jeans with natural denim fading, brown leather ankle boots with rounded toes and low stacked heels',
-      accessories: 'delicate gold necklace with a small red-orange oval pendant',
-      photographicDirection: 'photorealistic editorial portrait, soft cozy casual-fashion photographic realism, coherent facial identity, realistic knit and denim construction',
-    },
-    count: 1,
-    specialSubject: 'character-profile',
-    specialToneZh: '03_Sui 角色卡',
-    meta: { referenceImage: 'character-cards/sui/03_Sui_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-closeup',
-        label: '臉部近照',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/03_Sui_00.jpeg',
-        publicPath: '/character-cards/sui/03_Sui_00.jpeg',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/03_Sui_01.png',
-        publicPath: '/character-cards/sui/03_Sui_01.png',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/03_Sui_02.png',
-        publicPath: '/character-cards/sui/03_Sui_02.png',
-      },
-      {
-        type: 'expression-sheet',
-        label: '表情九宮格',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/03_Sui_01A.png',
-        publicPath: '/character-cards/sui/03_Sui_01A.png',
-      },
-    ],
-  },
-  {
-    id: 'character-hina',
-    zh: '37_Hina',
-    en: 'a 20-year-old adult East Asian woman with soft intelligent doll-like facial features, luminous fair skin, small oval face with gentle cheeks, clear warm gray-brown eyes behind round thin black metal eyeglasses, straight soft brows, small refined nose, pale peach blush, soft beige-pink eye makeup, natural glossy rose-pink lips with a calm quiet gaze, pale silver-lilac short bob with soft ash roots and realistic dyed-hair texture, wispy airy bangs lightly crossing the forehead, rounded cheek-length side layers, softly feathered ends around the jaw and nape, slim petite delicate casual body proportions with narrow shoulders, slender arms, long pale legs and a compact youthful adult silhouette, signature outfit locked as a loose sage-mint green sleeveless tunic tank top with soft washed cotton texture, round crew neckline, oversized A-line drape, wide armholes with a subtle black inner layer visible at the side, matching sage-mint green relaxed short shorts, bare feet as the locked footwear state, quiet minimalist loungewear photographic realism',
-    profile: {
-      identityAndBody: 'a 20-year-old adult East Asian woman with soft intelligent doll-like facial features, luminous fair skin, small oval face with gentle cheeks, clear warm gray-brown eyes, straight soft brows, small refined nose, pale peach blush, soft beige-pink eye makeup, natural glossy rose-pink lips, slim petite delicate casual body proportions with narrow shoulders, slender arms, long pale legs and a compact youthful adult silhouette',
-      hair: 'pale silver-lilac short bob with soft ash roots and realistic dyed-hair texture, wispy airy bangs lightly crossing the forehead, rounded cheek-length side layers, softly feathered ends around the jaw and nape',
-      outfit: 'loose sage-mint green sleeveless tunic tank top with soft washed cotton texture, round crew neckline, oversized A-line drape, wide armholes with a subtle black inner layer visible at the side, matching sage-mint green relaxed short shorts, bare feet as the locked footwear state',
-      accessories: 'round thin black metal eyeglasses',
-      photographicDirection: 'photorealistic editorial portrait, quiet minimalist loungewear photographic realism, coherent facial identity, realistic washed cotton texture',
-    },
-    count: 1,
-    specialSubject: 'character-profile',
-    specialToneZh: '37_Hina 角色卡',
-    meta: { referenceImage: 'character-cards/hina/37_Hina_00.jpeg', referenceImageFormat: 'jpeg' },
-    referenceImages: [
-      {
-        type: 'portrait-scene',
-        label: '情境坐姿照',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/37_Hina_00.jpeg',
-        publicPath: '/character-cards/hina/37_Hina_00.jpeg',
-      },
-      {
-        type: 'full-body',
-        label: '全身標準穿搭',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/37_Hina_02.png',
-        publicPath: '/character-cards/hina/37_Hina_02.png',
-      },
-      {
-        type: 'face-turnaround',
-        label: '臉部髮型四視圖',
-        sourcePath: '/Volumes/Extreme Pro/00_隨身碟用檔案/一致性設計架構/37_Hina_01.png',
-        publicPath: '/character-cards/hina/37_Hina_01.png',
-      },
-    ],
-  },
-];
 
 const CHARACTER_PROFILE_CONTROL_ORDER = [
   'character-rika',
@@ -553,265 +198,6 @@ const ASPECT_RATIO_OPTIONS = [
   ...ASPECT_RATIO_POOL,
 ];
 
-const DUO_INTERACTION_OPTIONS = [
-  {
-    id: 'none',
-    zh: '全無',
-    en: '',
-    desc: 'Do not specify duo interaction, letting the model decide the shared action and chemistry.',
-    meta: { tags: ['none'] },
-  },
-  {
-    id: 'strangers',
-    zh: '陌生',
-    en: 'both women sharing the same frame with unfamiliar detached chemistry, no obvious intimacy, reserved social distance',
-  },
-  {
-    id: 'distance',
-    zh: '有距離',
-    en: 'both women maintaining a noticeable emotional and physical distance, restrained interaction, cool composed shared atmosphere',
-  },
-  {
-    id: 'shoulder-lean',
-    zh: '靠肩',
-    en: 'both women leaning shoulder to shoulder, soft physical closeness, relaxed affectionate interaction in the same frame',
-  },
-  {
-    id: 'intimate',
-    zh: '親密',
-    en: 'both women sharing intimate natural closeness, comfortable emotional connection, warm shared body language, restrained romantic chemistry',
-  },
-  {
-    id: 'sensual-embrace',
-    zh: '性感擁抱',
-    en: 'both women in a sensual embracing interaction, close body contact, confident seductive chemistry, fashion-forward intimate tension',
-  },
-];
-
-const DUO_POSE_OPTIONS = [
-  {
-    id: 'none',
-    zh: '全無',
-    en: '',
-    desc: 'Do not specify a duo action scenario.',
-    meta: { tags: ['none'] },
-  },
-  {
-    id: 'model-natural',
-    zh: '模型自然決定',
-    en: 'two women in a model-decided natural two-person moment, spontaneous relationship energy, varied believable body language, the image model chooses the exact action and interaction',
-  },
-  {
-    id: 'fashion-editorial-models',
-    zh: '時尚雜誌雙人模特兒',
-    en: 'two women posing like fashion magazine models, polished editorial body language, confident coordinated presence, model-decided interaction and posture variety',
-    legacyIds: [
-      'light-shoulder-touch',
-      'side-by-side-standing',
-      'side-by-side-walking',
-      'side-by-side-squat',
-      'side-by-side-kneeling',
-      'side-by-side-seated',
-      'split-wall-lean',
-      'shoulder-lean',
-      'leaning-shoulders',
-    ],
-  },
-  {
-    id: 'strangers-passing',
-    zh: '相互不認識的兩人擦肩而過',
-    en: 'two women captured as strangers passing each other, detached everyday timing, brief near-crossing body language, no obvious intimacy, model-decided movement and spacing',
-    legacyIds: [
-      'front-back-layering',
-      'distance',
-    ],
-  },
-  {
-    id: 'best-friends-selfie',
-    zh: '好朋友之間的親密自拍',
-    en: 'two women captured in an intimate best-friends selfie moment, casual affectionate body language, close social warmth, playful candid interaction, model-decided hand placement and crop',
-    legacyIds: [
-      'leaning-together',
-      'leaning-on-each-other',
-      'shoulder-lean',
-      'leaning-shoulders',
-    ],
-  },
-  {
-    id: 'shopping-day',
-    zh: '購物逛街',
-    en: 'two women captured during a casual shopping-day outing, relaxed street-life energy, small spontaneous gestures, browsing-and-walking companionship, model-decided interaction',
-  },
-  {
-    id: 'daily-life-documentary',
-    zh: '日常生活紀錄拍照',
-    en: 'two women captured like a candid everyday life documentary photo, unforced realistic timing, natural imperfect body language, model-decided interaction and spacing',
-    legacyIds: [
-      'high-low-layering',
-      'front-back-standing',
-      'front-back-walking',
-      'stand-and-squat',
-      'kneel-and-squat',
-      'sit-and-squat',
-      'side-lying-and-seated',
-      'lying-on-back-and-side',
-    ],
-  },
-  {
-    id: 'party-corner-candid',
-    zh: '派對角落即興合照',
-    en: 'two women captured in an improvised party-corner snapshot, relaxed nightlife closeness, casual social energy, candid off-guard body language, model-decided interaction',
-  },
-  {
-    id: 'behind-the-scenes',
-    zh: '片場花絮感',
-    en: 'two women captured in a behind-the-scenes editorial outtake, between-poses spontaneity, relaxed production-day body language, model-decided interaction and posture',
-  },
-  {
-    id: 'lazy-sensual-photo',
-    zh: '慵懶性感寫真',
-    en: 'two women captured in a lazy sensual photobook moment, languid relaxed chemistry, soft intimate body language, model-decided natural contact and posture',
-  },
-  {
-    id: 'intimate-sensual-interaction',
-    zh: '親密性感互動',
-    en: 'two women in an intimate sensual editorial interaction, close body spacing, teasing hand contact and flirtatious gestures, one woman may lightly touch the other\'s shoulder, waist, arm, chin, hair, thigh, hip, lower back, or leg, seductive near-contact tension, magnetic eye-line chemistry',
-    legacyIds: [
-      'intimate-close',
-      'intimate',
-      'arm-around-close',
-      'whispering-close',
-      'intimate-eye-contact',
-      'lying-on-back-together',
-      'side-lying',
-      'lying-on-back',
-      'prone',
-    ],
-  },
-  {
-    id: 'erotic-fashion-photo',
-    zh: '充滿情慾的時尚寫真',
-    en: 'two women captured in an erotic high-fashion photo-story, intertwined silhouettes, tactile provocative chemistry, teasing hand contact tracing the waist, hips, thighs, lower back, legs, arms, hair, or chin, seductive push-pull tension, adult magazine-style erotic fashion energy, magnetic eye-line chemistry, photorealistic polished editorial tone',
-    legacyIds: [
-      'sensual-interaction',
-      'sensual-embrace',
-    ],
-  },
-];
-
-const DUO_POSE_BASE_OPTIONS = [
-  {
-    id: 'none',
-    zh: '全無',
-    en: '',
-    desc: 'Do not specify a broad body posture base.',
-    meta: { tags: ['none'] },
-  },
-  {
-    id: 'model-natural',
-    zh: '模型自然決定',
-    en: 'model-decided, choosing the most natural body arrangement for the selected scenario',
-  },
-  {
-    id: 'standing',
-    zh: '站姿',
-    en: 'standing or naturally arranged around standing body language',
-  },
-  {
-    id: 'seated',
-    zh: '坐姿',
-    en: 'seated or naturally arranged around a seated position',
-  },
-  {
-    id: 'low-crouching',
-    zh: '蹲姿 / 低姿態',
-    en: 'low crouching, squatting, or grounded low body language',
-  },
-  {
-    id: 'reclining',
-    zh: '躺姿 / 半躺',
-    en: 'lying, reclining, or half-reclining with relaxed body weight',
-  },
-  {
-    id: 'walking',
-    zh: '行走中',
-    en: 'walking or mid-step with natural in-between motion',
-  },
-  {
-    id: 'leaning',
-    zh: '靠牆 / 倚靠物件',
-    en: 'leaning against a wall or existing scene object with relaxed support',
-  },
-  {
-    id: 'close-selfie',
-    zh: '近鏡頭自拍感',
-    en: 'clustered close to the camera with selfie-like body proximity',
-  },
-];
-
-const DUO_EXPRESSION_OPTIONS = [
-  {
-    id: 'none',
-    zh: '全無',
-    en: '',
-    desc: 'Do not specify duo expression or shared gaze relationship.',
-    meta: { tags: ['none'] },
-  },
-  {
-    id: 'direct-cool-detached',
-    zh: '兩人直視鏡頭｜冷淡疏離',
-    en: 'both women look directly at the camera with cool detached expressions, restrained editorial distance, fashion magazine aloofness',
-    meta: { tags: ['direct_gaze'] },
-  },
-  {
-    id: 'direct-calm-natural',
-    zh: '兩人直視鏡頭｜平靜自然',
-    en: 'both women look directly at the camera with calm relaxed expressions, natural shared presence, understated chemistry',
-    meta: { tags: ['direct_gaze'] },
-  },
-  {
-    id: 'one-camera-one-away',
-    zh: '一人看鏡頭｜一人隨性離鏡',
-    en: 'one woman looks directly at the camera while the other casually looks away, asymmetrical gaze relationship, natural editorial spontaneity',
-    meta: { tags: ['direct_gaze'] },
-  },
-  {
-    id: 'same-direction-away',
-    zh: '兩人同向離鏡｜沉浸感',
-    en: 'both women look away in the same or similar direction, absorbed shared attention, cinematic off-camera mood',
-  },
-  {
-    id: 'mutual-gaze-intimate',
-    zh: '兩人相互凝視｜安靜親密',
-    en: 'both women quietly gaze at each other, intimate eye contact, soft emotional connection, calm private chemistry',
-  },
-  {
-    id: 'mutual-soft-smile',
-    zh: '彼此微笑｜柔和默契',
-    en: 'both women smile gently toward each other, warm mutual ease, soft shared rapport, relaxed closeness',
-  },
-  {
-    id: 'mutual-laughing',
-    zh: '彼此大笑｜自然開心',
-    en: 'both women laugh naturally with each other, candid joyful interaction, lively shared energy, spontaneous real emotion',
-  },
-  {
-    id: 'ambiguous-sensual-gaze',
-    zh: '曖昧對視｜性感張力',
-    en: 'both women share a flirtatious ambiguous gaze, seductive eye-line tension, magnetic attraction, confident sensual chemistry',
-  },
-  {
-    id: 'triangle-gaze',
-    zh: '一人凝視對方｜一人看鏡頭',
-    en: 'one woman gazes at the other while the other looks toward the camera, triangular gaze tension, editorial relationship drama',
-    meta: { tags: ['direct_gaze'] },
-  },
-  {
-    id: 'lowered-lazy-sensual',
-    zh: '低眼神互動｜慵懶性感',
-    en: 'both women use lowered or half-lidded gazes near each other, lazy sensual mood, private close-range eye-line tension',
-  },
-];
 
 const GARMENT_COLOR_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none' },
@@ -1389,621 +775,7 @@ const SCENE_ATTRIBUTE_OPTIONS = [
   { id: 'outdoor', zh: '戶外', en: 'outdoor setting' },
   { id: 'other', zh: '其他', en: 'other dedicated setting' },
 ];
-const POSE_COMPOSER_BASE_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不使用姿勢組合器。', meta: { tags: ['none'] } },
-  { id: 'random', zh: '隨機', en: 'random pose base', desc: '由姿勢組合器隨機選擇姿勢基底。', meta: { tags: ['random'] } },
-  { id: 'standing', zh: '站姿', en: 'standing pose', desc: '以站立作為姿勢基底。' },
-  { id: 'sitting', zh: '坐姿', en: 'seated pose', desc: '以坐姿作為姿勢基底。' },
-  { id: 'kneeling', zh: '跪姿', en: 'kneeling pose', desc: '以跪姿作為姿勢基底。' },
-  { id: 'squatting', zh: '蹲姿', en: 'squatting pose', desc: '以蹲姿作為姿勢基底。' },
-  { id: 'lying', zh: '躺姿', en: 'lying pose', desc: '以躺臥作為姿勢基底。' },
-];
-const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不指定肢體變化。', meta: { tags: ['none'] } },
-  { id: 'random', zh: '隨機', en: 'random body arrangement', desc: '依姿勢基底隨機選擇肢體變化。', meta: { tags: ['random'] } },
-  {
-    id: 'model-natural-body-arrangement',
-    bases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
-    zh: '模型自然決定',
-    en: 'let the image model choose a clearly varied non-default physically believable body arrangement within the selected pose base with distinct weight shift limb angles torso orientation and asymmetry compatible with the wardrobe camera framing and environment',
-    desc: '讓影像模型依目前基底、服裝、鏡頭與場景自行決定自然肢體變化。',
-  },
-  { id: 'standing-natural', base: 'standing', zh: '自然站姿', en: 'natural relaxed standing arrangement' },
-  { id: 'standing-one-leg-weight', base: 'standing', zh: '單腳重心', en: 'one-leg weight shift, relaxed asymmetrical body balance' },
-  { id: 'standing-forward-lean', base: 'standing', zh: '身體微前傾', en: 'slight forward-leaning standing arrangement' },
-  { id: 'standing-deep-forward-lean', base: 'standing', zh: '上身大幅度前傾', en: 'deep forward lean from the waist, shoulders angled forward, energetic close-interaction upper-body tilt' },
-  { id: 'standing-back-lean', base: 'standing', zh: '身體微後仰', en: 'slight backward-leaning standing arrangement' },
-  { id: 'standing-turn-back', base: 'standing', zh: '回身轉向', en: 'turning-back standing arrangement, torso subtly rotated' },
-  { id: 'standing-contrapposto', base: 'standing', zh: '身體側傾', en: 'side-leaning contrapposto body arrangement' },
-  { id: 'standing-raised-foot', base: 'standing', zh: '單腳微抬', en: 'one foot slightly lifted, delicate balance pose' },
-  { id: 'standing-crossed-legs', base: 'standing', zh: '交叉腿站姿', en: 'crossed-leg standing arrangement, legs naturally crossed, one hip subtly shifted' },
-  { id: 'standing-soft-bent-knees', base: 'standing', zh: '膝蓋微彎站姿', en: 'soft bent-knee standing arrangement, relaxed knees with slight lower-body compression' },
-  { id: 'standing-back-facing-turn', base: 'standing', zh: '背對回身站姿', en: 'back-facing turn-back standing arrangement, torso rotated back toward the camera' },
-  { id: 'standing-narrow-side', base: 'standing', zh: '側身窄站姿', en: 'narrow side-facing standing arrangement, legs close together, clean elongated body line' },
-  { id: 'standing-forward-toe-point', base: 'standing', zh: '一腳向前點地', en: 'one foot pointed forward, rear leg holding the body weight, delicate extended stance' },
-  { id: 'sitting-natural', base: 'sitting', zh: '自然坐姿', en: 'natural seated arrangement' },
-  { id: 'sitting-forward-lean', base: 'sitting', zh: '微微前傾', en: 'slightly forward-leaning seated arrangement' },
-  { id: 'sitting-hands-behind-support', base: 'sitting', zh: '雙手後撐', en: 'seated arrangement with both hands supporting behind the body' },
-  { id: 'sitting-one-leg-relaxed', base: 'sitting', zh: '單腿放鬆', en: 'one leg relaxed in an easy seated arrangement' },
-  { id: 'sitting-legs-extended', base: 'sitting', zh: '雙腿自然伸展', en: 'both legs naturally extended in a seated pose' },
-  { id: 'sitting-cross-legged', base: 'sitting', zh: '盤腿坐姿', en: 'cross-legged seated arrangement' },
-  { id: 'sitting-hug-knees', base: 'sitting', zh: '抱膝坐姿', en: 'hugging-knees seated arrangement' },
-  { id: 'sitting-slouched', base: 'sitting', zh: '隨性癱坐', en: 'casually slouched seated arrangement, relaxed body weight' },
-  { id: 'sitting-leg-cross', base: 'sitting', zh: '翹二郎腿', en: 'leg-cross seated arrangement' },
-  { id: 'sitting-one-knee-up', base: 'sitting', zh: '單腿屈起坐姿', en: 'seated arrangement with one knee drawn up, the other leg relaxed' },
-  { id: 'sitting-legs-to-side', base: 'sitting', zh: '雙腿側放坐姿', en: 'seated arrangement with both legs angled to one side, soft asymmetrical lower-body line' },
-  { id: 'sitting-grounded-forward-lean', base: 'sitting', zh: '坐姿身體前傾', en: 'grounded forward-leaning seated arrangement, upper body angled forward with stable seated weight' },
-  { id: 'sitting-open-confident', base: 'sitting', zh: '開闊自信坐姿', en: 'open confident seated arrangement, knees set wider with grounded posture, torso upright, strong spatial presence' },
-  { id: 'kneeling-seiza', base: 'kneeling', zh: '跪坐', en: 'seiza-style kneeling arrangement' },
-  { id: 'kneeling-wide', base: 'kneeling', zh: '分腿跪坐', en: 'wide-knee kneeling arrangement' },
-  { id: 'kneeling-forward-lean', base: 'kneeling', zh: '前傾跪姿', en: 'forward-leaning kneeling arrangement' },
-  { id: 'kneeling-all-fours', base: 'kneeling', zh: '四足跪姿', en: 'all-fours kneeling arrangement with hands and knees supporting the body' },
-  { id: 'kneeling-puppy-crossed-hands-chin', base: 'kneeling', zh: '瑜伽小狗式交叉手托下巴', en: 'yoga extended puppy pose kneeling arrangement, knees grounded, torso folded forward, forearms crossed under the chin, hands tucked below the jaw' },
-  { id: 'kneeling-one-knee', base: 'kneeling', zh: '單膝跪地', en: 'one-knee kneeling arrangement' },
-  { id: 'kneeling-side', base: 'kneeling', zh: '跪姿側身', en: 'side-facing kneeling arrangement' },
-  { id: 'kneeling-upright-poised', base: 'kneeling', zh: '直立端正跪姿', en: 'upright poised kneeling arrangement, torso vertical with stable knee support' },
-  { id: 'kneeling-side-sit', base: 'kneeling', zh: '側坐跪姿', en: 'side-sitting kneeling arrangement, hips lowered beside the legs with a soft lateral body line' },
-  { id: 'kneeling-one-knee-forward', base: 'kneeling', zh: '單膝前跨跪姿', en: 'one-knee-forward kneeling arrangement, front knee bent with the other knee grounded' },
-  { id: 'kneeling-elbow-support', base: 'kneeling', zh: '手肘支撐跪姿', en: 'kneeling arrangement with elbows or forearms supporting the upper body on a nearby surface' },
-  { id: 'kneeling-back-arched', base: 'kneeling', zh: '跪姿微後仰', en: 'slightly backward-arched kneeling arrangement, torso leaning back with balanced knee support' },
-  { id: 'squatting-natural', base: 'squatting', zh: '自然蹲姿', en: 'natural squatting arrangement' },
-  { id: 'squatting-one-knee', base: 'squatting', zh: '單膝蹲姿', en: 'one-knee squatting arrangement' },
-  { id: 'squatting-hands-knees', base: 'squatting', zh: '手扶膝蓋蹲姿', en: 'squatting arrangement with hands resting on the knees' },
-  { id: 'squatting-compact', base: 'squatting', zh: '緊湊蹲姿', en: 'compact low squatting arrangement' },
-  { id: 'squatting-side', base: 'squatting', zh: '側身蹲姿', en: 'side-facing squatting arrangement' },
-  { id: 'squatting-hug-knees', base: 'squatting', zh: '抱膝蹲', en: 'hugging-knees squat, compact grounded body shape' },
-  { id: 'squatting-one-hand-ground', base: 'squatting', zh: '單手撐地蹲', en: 'squatting arrangement with one hand supporting on the ground' },
-  { id: 'squatting-low-one-leg-forward', base: 'squatting', zh: '低蹲單腿前伸', en: 'low squat with one leg extended forward, compact support leg, clear asymmetrical silhouette' },
-  { id: 'squatting-side-low', base: 'squatting', zh: '側身低蹲', en: 'side-facing low squat, torso and legs oriented laterally with readable profile line' },
-  { id: 'squatting-raised-heels', base: 'squatting', zh: '腳跟抬起蹲姿', en: 'raised-heel squatting arrangement, heels lightly lifted, body balanced on the balls of the feet' },
-  { id: 'squatting-forward-lean', base: 'squatting', zh: '蹲姿身體前傾', en: 'forward-leaning squatting arrangement, upper body angled toward the knees, grounded center of weight' },
-  { id: 'squatting-compact-hug-knees-variant', base: 'squatting', zh: '緊湊抱膝蹲姿變體', en: 'compact knees-held squat variation, legs close together, body folded into a smaller grounded shape' },
-  { id: 'squatting-knees-together-low', base: 'squatting', zh: '雙膝合併低蹲', en: 'low compact squat with both knees pressed together and feet grounded close under the body with thighs close and parallel forming a compact front-facing lower-body shape' },
-  { id: 'lying-natural', base: 'lying', zh: '自然躺姿', en: 'natural lying arrangement' },
-  { id: 'lying-on-back', base: 'lying', zh: '仰躺', en: 'lying on the back, relaxed upward-facing body line' },
-  { id: 'lying-side', base: 'lying', zh: '側躺', en: 'side-lying arrangement, body turned along one side' },
-  { id: 'lying-prone', base: 'lying', zh: '趴臥', en: 'prone lying arrangement, body resting forward on the surface' },
-  { id: 'lying-half-reclined', base: 'lying', zh: '半躺倚靠', en: 'half-reclined lying arrangement with the upper body softly supported' },
-  { id: 'lying-languid', base: 'lying', zh: '隨性慵懶', en: 'casually languid lying arrangement, relaxed uneven limbs, soft body weight settled into the surface' },
-  { id: 'lying-side-knees-bent', base: 'lying', zh: '側躺屈膝', en: 'side-lying arrangement with both knees softly bent, compact curved body line' },
-  { id: 'lying-on-back-one-arm-overhead', base: 'lying', zh: '仰躺單手過頭', en: 'lying on the back with one arm extended overhead, relaxed elongated body line' },
-  { id: 'lying-prone-elbow-prop', base: 'lying', zh: '趴臥手肘撐起', en: 'prone lying arrangement with elbows propping up the upper body' },
-  { id: 'lying-diagonal-recline', base: 'lying', zh: '斜向半躺', en: 'diagonal reclining arrangement, body angled across the support surface with relaxed limbs' },
-  { id: 'lying-legs-bent-up', base: 'lying', zh: '躺姿雙腿屈起', en: 'lying arrangement with both legs bent upward, knees raised while the back stays supported' },
-  { id: 'lying-wall-raised-legs', base: 'lying', zh: '靠牆仰躺抬腿', en: 'reclining on the floor with upper body leaned against a wall, both legs lifted upward in staggered angles, compressed wall-supported raised-leg silhouette', meta: { tags: ['full_body_action'] } },
-  { id: 'lying-prone-pillow-lookback', base: 'lying', zh: '抱枕俯臥回眸', en: 'lying prone with the torso propped on a large pillow, turning over one shoulder, hips softly lifted, knees grounded behind', meta: { tags: ['full_body_action', 'large_prop_action'] } },
-];
-const POSE_COMPOSER_HAND_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
-  { id: 'random', zh: '隨機', en: 'random hand pose', desc: '隨機選擇手部姿勢。', meta: { tags: ['random'] } },
-  { id: 'model-natural-hand-placement', zh: '模型自然決定', en: 'let the image model choose natural varied hand placement fitted to the selected body pose support contact wardrobe and camera crop without defaulting to stiff arms at the sides', desc: '讓影像模型依目前身體姿勢自行決定自然手部位置。' },
-  { id: 'selfie-natural-right-arm', zh: '自然自拍', en: 'front-camera self-shot from the phone held in her own extended right hand, phone and hand stay just beyond the frame edge, only a natural foreshortened right forearm may enter from the side, no separate photographer feeling', desc: '右手拿手機前鏡頭自拍，手機與手留在畫面邊緣外，只保留自然前臂裁切。', meta: { tags: ['selfie_hand_pose', 'locks_orbit'] } },
-  { id: 'selfie-mirror-phone-visible', zh: '鏡子自拍', en: 'holding a visible phone toward a mirror for a mirror selfie, phone may overlap the face or sit beside it in the reflection', desc: '拿著可見手機對鏡自拍，手機可遮到臉或在臉旁。', meta: { tags: ['selfie_hand_pose', 'visible_phone', 'mirror_selfie', 'locks_orbit'] } },
-  { id: 'selfie-companion-camera-interaction', zh: '男友/閨蜜自拍', en: 'let the image model choose casual naturally relaxed hand placement, close-companion social snapshot feeling, unforced candid body language without prescribed hand gestures', desc: '呈現男友或閨蜜拍攝的親近社群感，手部由模型自然放鬆發揮。', meta: { tags: ['selfie_hand_pose', 'companion_snapshot', 'locks_orbit'] } },
-  { id: 'hand-apply-lipstick', zh: '塗口紅', en: 'lipstick bullet pressed to the lips by one hand, visible hand-to-mouth contact, slight lip pressure', desc: '手持口紅接觸嘴唇，保留明確補妝接觸點。', meta: { tags: ['prop_action', 'face_action'] } },
-  { id: 'hand-messy-lipstick', zh: '塗歪口紅', en: 'messy lipstick application by one hand, lipstick color smudged beyond the lip line, visible hand-to-mouth contact', desc: '手持口紅塗出唇線外，保留不完美補妝效果。', meta: { tags: ['prop_action', 'face_action'] } },
-  { id: 'hand-hold-iced-coffee', zh: '手持冰咖啡', en: 'a clear plastic takeaway cup of iced coffee held naturally in one hand', desc: '手上拿著透明外帶冰咖啡，位置由模型自然決定。', meta: { tags: ['prop_action'] } },
-  { id: 'hand-hold-whirly-lollipop', zh: '手持波板糖', en: 'a colorful whirly pop swirl lollipop held naturally in one hand', desc: '手上拿著彩色波板糖，不綁定嘴部接觸。', meta: { tags: ['prop_action'] } },
-  { id: 'hand-hold-cigarette', zh: '手持香菸', en: 'a cigarette held naturally between the fingers in one hand, faint smoke around the hand', desc: '手指自然夾著香菸，位置由模型自然決定。', meta: { tags: ['prop_action'] } },
-  { id: 'hand-adjust-lower-body-garment', zh: '整理下身', en: 'one hand adjusting the lower-body garment or hosiery, fingers visibly touching the skirt pants waistband or stocking', desc: '整理裙、褲、腰頭或絲襪，依當前穿搭自然成立。', meta: { tags: ['wardrobe_action', 'leg_focus_action'] } },
-  { id: 'hand-adjust-off-shoulder-top', zh: '拉下肩線整理上衣', en: 'one hand pulling the top partially off one shoulder while adjusting the neckline fabric', desc: '單手拉下肩線並整理上衣布料。', meta: { tags: ['wardrobe_action'] } },
-  { id: 'hand-use-phone', zh: '滑手機', en: 'a cell phone held in one hand while scrolling or checking the screen', desc: '單手拿手機滑動或查看畫面。', meta: { tags: ['prop_action'] } },
-  { id: 'hands-grip-waistband', zh: '雙手抓住褲腰', en: 'both hands gripping the front waistband or belt loops, elbows angled outward', desc: '雙手抓住褲腰或皮帶環，形成明確腰部接觸。', meta: { tags: ['wardrobe_action'] } },
-  { id: 'hands-relaxed-down', zh: '雙手自然垂放', en: 'both hands resting naturally along the body or on a nearby support surface' },
-  { id: 'hands-in-pockets', zh: '雙手插口袋', en: 'both hands tucked into pockets' },
-  { id: 'arms-crossed', zh: '雙臂交疊', en: 'arms crossed loosely in front of the body' },
-  { id: 'hands-on-waist', zh: '雙手撐腰', en: 'both hands placed on the waist or hip line with elbows naturally adapted to the pose' },
-  { id: 'one-hand-chin', zh: '單手摸下巴', en: 'one hand touching the chin' },
-  { id: 'one-hand-forehead', zh: '單手扶額 / 摸頭', en: 'one hand touching the forehead or hair' },
-  { id: 'hands-behind-back', zh: '雙手背在身後', en: 'both hands drawn behind the back or torso only where physically plausible for the selected pose' },
-  { id: 'one-hand-hair', zh: '單手撩髮', en: 'one hand brushing hair back from the side of the face, fingers visibly touching the hair near the temple or ear' },
-  { id: 'hands-on-thighs', zh: '雙手放在大腿上', en: 'both hands resting on the thighs or nearest upper-leg surface' },
-  { id: 'hands-on-cheeks', zh: '雙手扶臉頰', en: 'both hands gently holding the cheeks' },
-  { id: 'one-hand-chin-other-down', zh: '單手托下巴', en: 'one hand supporting the chin with the other hand relaxed along the body or support surface' },
-  { id: 'one-hand-adjust-glasses', zh: '單手扶眼鏡', en: 'one hand adjusting the glasses at the frame or bridge, fingertips visibly touching the eyewear' },
-  { id: 'one-hand-pull-down-glasses', zh: '單手把眼鏡拉下', en: 'one hand pulling the glasses slightly down the nose bridge, eyes visible above the frame' },
-  { id: 'one-hand-mouth-corner', zh: '單手碰嘴角', en: 'one hand lightly touching the corner of the mouth, fingertips near the lower lip' },
-  { id: 'one-hand-half-face-cover', zh: '單手遮住半邊臉', en: 'one hand partially covering one side of the face, fingers framing the cheek and eye area' },
-  { id: 'both-hands-arrange-hair', zh: '雙手整理頭髮', en: 'both hands lifting and gathering the hair behind the head as if preparing to tie it up with fingers visibly holding the hair together' },
-  { id: 'one-hand-nape-hair-lift', zh: '單手撩起後頸頭髮', en: 'one hand lifting hair away from the nape of the neck, fingers placed behind the ear or lower hairline' },
-  { id: 'one-hand-collarbone', zh: '單手搭在鎖骨', en: 'one hand resting across the collarbone, fingertips lightly touching the upper chest line' },
-  { id: 'one-hand-waist-one-down', zh: '一手扶腰一手自然放下', en: 'one hand on the waist or hip line with the other hand relaxed along the body or nearby support surface' },
-  { id: 'one-hand-ground-one-leg', zh: '一手撐地一手放腿上', en: 'one hand supporting on the floor or nearby surface with the other hand resting on the leg' },
-  { id: 'one-hand-knee-one-down', zh: '一手扶膝一手垂放', en: 'one hand holding the knee with the other hand relaxed beside the body or support surface' },
-  { id: 'hands-clasped-front', zh: '雙手在身前交握', en: 'both hands clasped loosely in front of the body' },
-  { id: 'one-hand-shoulder', zh: '單手搭肩', en: 'one hand resting on the opposite shoulder, fingers visibly touching the shoulder line' },
-  { id: 'both-hands-overhead', zh: '雙手舉過頭頂', en: 'both hands raised overhead, arms extended naturally without stiff symmetry' },
-  { id: 'one-hand-ankle', zh: '單手扶腳踝', en: 'one hand holding the ankle, fingers visibly touching the ankle or shoe area' },
-  { id: 'hands-behind-head', zh: '雙手放在頭後', en: 'both hands placed behind the head, elbows angled outward naturally' },
-  { id: 'hands-gathered-lower-abdomen', zh: '雙手收在腹前', en: 'both hands gathered close in front of the lower abdomen with wrists and fingers softly folded together and elbows tucked inward near the knees in a compact low pose' },
-];
-const POSE_COMPOSER_HEAD_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不指定頭部方向。', meta: { tags: ['none'] } },
-  { id: 'random', zh: '隨機', en: 'random head direction', desc: '隨機選擇頭部方向。', meta: { tags: ['random'] } },
-  { id: 'model-natural-head-angle', zh: '模型自然決定', en: 'let the image model choose a natural head angle and orientation compatible with the camera angle body orientation and selected pose', desc: '讓影像模型依鏡頭、身體方向與姿勢自行決定自然頭部角度。' },
-  { id: 'head-camera-natural', zh: '頭部自然朝向鏡頭', en: 'head naturally facing the camera' },
-  { id: 'head-slight-tilt', zh: '頭部微微側傾', en: 'head slightly tilted' },
-  { id: 'chin-slightly-raised', zh: '下巴微抬', en: 'chin slightly raised' },
-  { id: 'chin-slightly-lowered', zh: '下巴微收', en: 'chin slightly lowered' },
-  { id: 'head-turned-away', zh: '側臉轉向畫面外', en: 'head turned into a three-quarter side profile facing out of frame' },
-  { id: 'head-turned-back-camera', zh: '回頭朝向鏡頭', en: 'head turned back toward the camera' },
-  { id: 'head-looking-down-hands', zh: '低頭看向手部', en: 'head lowered toward the hands' },
-  { id: 'head-near-shoulder', zh: '頭靠近肩膀', en: 'head angled close to one shoulder' },
-  { id: 'head-slightly-back', zh: '頭部微微後仰', en: 'head tilted slightly backward with the chin softly lifted' },
-  { id: 'head-down-three-quarter', zh: '低頭三分之四側臉', en: 'head lowered into a three-quarter side angle' },
-  { id: 'head-over-shoulder', zh: '越肩回望', en: 'head turned over one shoulder toward the camera' },
-  { id: 'head-away-profile', zh: '側臉看向遠方', en: 'head turned into a clean side profile with the face oriented away from the camera' },
-  { id: 'chin-tucked-shoulder-line', zh: '下巴靠近肩線', en: 'chin tucked toward one shoulder line with the neck softly folded by the selected pose' },
-  { id: 'head-close-support-surface', zh: '頭部貼近支撐面', en: 'head angled close to a support surface or shoulder line with the cheek plane following the selected support contact' },
-  { id: 'head-close-lens-off-axis', zh: '近鏡頭偏轉頭部', en: 'head turned slightly off-axis near the lens with the face plane angled diagonally instead of flat to camera' },
-  { id: 'head-low-rim-support', zh: '頭靠近邊緣支撐', en: 'head angled low near a rim or support edge with cheek and jawline close to the supporting surface' },
-];
-const POSE_COMPOSER_ANCHOR_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不指定接觸或支撐物。', meta: { tags: ['none'] } },
-  { id: 'random', zh: '隨機', en: 'random pose anchor', desc: '依姿勢基底隨機選擇接觸或支撐物。', meta: { tags: ['random'] } },
-  { id: 'standing-wall', base: 'standing', zh: '靠牆', en: 'leaning against a wall' },
-  { id: 'standing-doorway', base: 'standing', zh: '站在門框邊', en: 'standing beside a doorway frame' },
-  { id: 'standing-table-edge', base: 'standing', zh: '站在桌邊', en: 'standing beside a table edge' },
-  { id: 'standing-railing', base: 'standing', zh: '站在欄杆旁', en: 'standing beside a railing' },
-  { id: 'standing-chair-side', base: 'standing', zh: '站在椅子旁', en: 'standing beside a chair' },
-  { id: 'standing-window', base: 'standing', zh: '站在窗邊', en: 'standing beside a window' },
-  { id: 'standing-column', base: 'standing', zh: '站在柱子旁', en: 'standing beside a column' },
-  { id: 'standing-vending-machine', base: 'standing', zh: '站在自動販賣機旁', en: 'standing beside a vending machine' },
-  { id: 'standing-lean-railing', base: 'standing', zh: '靠在欄杆', en: 'leaning lightly against a railing, body weight partially supported by the railing' },
-  { id: 'standing-lean-table-edge', base: 'standing', zh: '倚靠桌邊', en: 'standing with one hip resting against a table edge, relaxed supported posture' },
-  { id: 'standing-lean-doorway-shoulder', base: 'standing', zh: '肩靠門框', en: 'standing with one shoulder leaning against a doorway frame, relaxed supported posture' },
-  { id: 'standing-lean-window-frame', base: 'standing', zh: '倚靠窗框', en: 'standing beside a window frame with the side of the body lightly supported by a window frame' },
-  { id: 'standing-lean-column-side', base: 'standing', zh: '側身靠柱', en: 'standing with the side or back lightly leaning against a column, body weight naturally supported' },
-  { id: 'standing-lean-chair-back', base: 'standing', zh: '倚著椅背', en: 'standing beside a chair with the body lightly leaning against the chair back' },
-  { id: 'standing-lean-vending-machine', base: 'standing', zh: '側身靠自動販賣機', en: 'standing with one shoulder or side leaning against a vending machine, relaxed supported posture' },
-  { id: 'standing-lean-scene-object', base: 'standing', zh: '倚靠現有場景物件', en: 'leaning against any suitable existing object within the current scene, body weight lightly supported by that existing scene object, using only a naturally available scene object for support' },
-  { id: 'sitting-floor', base: 'sitting', zh: '坐在地板', en: 'sitting on the floor' },
-  { id: 'sitting-scene-appropriate-chair', base: 'sitting', zh: '坐在椅子上', en: 'sitting on a chair that naturally fits the current scene with the chair style material and scale chosen to match the environment' },
-  { id: 'sitting-chair-edge', base: 'sitting', zh: '坐在椅緣', en: 'sitting on the front edge of a chair, seat-edge support with clear leg line' },
-  { id: 'sitting-wall-floor', base: 'sitting', zh: '背靠牆坐在地面', en: 'sitting on the floor with the back resting against a wall, wall-supported seated contact with legs naturally settled forward', meta: { tags: ['full_body_action'] } },
-  { id: 'sitting-ornate-velvet-armchair', base: 'sitting', zh: '坐在單人雕花絨布椅', en: 'lounging on an ornate single velvet armchair' },
-  { id: 'sitting-bed-edge', base: 'sitting', zh: '坐在床邊', en: 'sitting on the edge of a bed' },
-  { id: 'sitting-table-edge', base: 'sitting', zh: '坐在桌面邊緣', en: 'sitting on the edge of a tabletop' },
-  { id: 'sitting-stairs', base: 'sitting', zh: '坐在樓梯台階', en: 'sitting on stair steps' },
-  { id: 'sitting-bar-stool', base: 'sitting', zh: '坐在吧台高腳椅', en: 'sitting on a bar stool' },
-  { id: 'sitting-sofa-seat', base: 'sitting', zh: '坐在沙發座面', en: 'sitting on a sofa seat' },
-  { id: 'sitting-window-sill', base: 'sitting', zh: '坐在窗台', en: 'sitting on a window sill' },
-  { id: 'sitting-high-back-chair', base: 'sitting', zh: '坐在高背椅', en: 'sitting on a high-back chair' },
-  { id: 'kneeling-floor', base: 'kneeling', zh: '跪在地面', en: 'kneeling on the ground' },
-  { id: 'kneeling-bed', base: 'kneeling', zh: '跪在床上', en: 'kneeling on a bed' },
-  { id: 'kneeling-sofa-seat', base: 'kneeling', zh: '跪在沙發座面', en: 'kneeling on a sofa seat' },
-  { id: 'kneeling-chair-front', base: 'kneeling', zh: '跪在椅子前', en: 'kneeling in front of a chair' },
-  { id: 'kneeling-high-back-lean', base: 'kneeling', zh: '倚靠高背椅', en: 'leaning against a high-back chair' },
-  { id: 'kneeling-hands-ground', base: 'kneeling', zh: '雙手支撐在地面', en: 'both hands supporting on the ground' },
-  { id: 'kneeling-high-back-front', base: 'kneeling', zh: '跪在高背椅前', en: 'kneeling in front of a high-back chair' },
-  { id: 'kneeling-low-table-front', base: 'kneeling', zh: '跪在矮桌前', en: 'kneeling in front of a low table' },
-  { id: 'kneeling-bed-edge-lean', base: 'kneeling', zh: '跪在床邊倚靠', en: 'kneeling beside the edge of a bed with the upper body lightly supported' },
-  { id: 'squatting-ground', base: 'squatting', zh: '蹲在地面', en: 'squatting on the ground' },
-  { id: 'squatting-wall', base: 'squatting', zh: '蹲在牆邊', en: 'squatting beside a wall' },
-  { id: 'squatting-chair-front', base: 'squatting', zh: '蹲在椅子前', en: 'squatting in front of a chair' },
-  { id: 'squatting-low-step', base: 'squatting', zh: '蹲在低矮台階上', en: 'squatting on a low step' },
-  { id: 'squatting-railing', base: 'squatting', zh: '蹲在欄杆旁', en: 'squatting beside a railing' },
-  { id: 'squatting-vending-machine', base: 'squatting', zh: '蹲在自動販賣機旁', en: 'squatting beside a vending machine' },
-  { id: 'squatting-column', base: 'squatting', zh: '蹲在柱子旁', en: 'squatting beside a column' },
-  { id: 'lying-bed', base: 'lying', zh: '躺在床上', en: 'lying on a bed' },
-  { id: 'lying-sofa', base: 'lying', zh: '躺在沙發上', en: 'lying on a sofa' },
-  { id: 'lying-floor', base: 'lying', zh: '躺在地板', en: 'lying on the floor' },
-  { id: 'lying-rug', base: 'lying', zh: '躺在地毯上', en: 'lying on a rug' },
-  { id: 'lying-bed-edge', base: 'lying', zh: '半躺在床邊', en: 'reclining along the edge of a bed' },
-  {
-    id: 'water-immersed',
-    bases: ['standing', 'sitting', 'squatting', 'kneeling', 'lying'],
-    zh: '在水中',
-    en: 'scene-gated water contact pose',
-    meta: { tags: ['water_scene_anchor'], requiresWaterScene: true },
-  },
-  {
-    id: 'water-edge-support',
-    bases: ['standing', 'sitting', 'squatting', 'kneeling', 'lying'],
-    zh: '靠在水邊支撐',
-    en: 'scene-gated water edge support pose',
-    meta: { tags: ['water_scene_anchor'], requiresWaterScene: true },
-  },
-  {
-    id: 'shared-bathtub',
-    bases: ['standing', 'sitting', 'squatting', 'lying'],
-    zh: '浴缸',
-    en: 'near a water-filled clawfoot vintage bathtub',
-    phraseByBase: {
-      standing: 'standing beside a water-filled clawfoot vintage bathtub',
-      sitting: 'sitting on the edge of a water-filled clawfoot vintage bathtub',
-      squatting: 'squatting inside a water-filled clawfoot vintage bathtub',
-      lying: 'reclining inside a water-filled clawfoot vintage bathtub',
-    },
-  },
-];
 
-const FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected room architecture; vary only subject placement, pose, crop, camera distance, camera orbit, lighting, and mood inside the same real-scale set; keep adult scale believable against furniture, fixtures, and props; avoid enlarging the subject or shrinking set anchors';
-const OUTDOOR_FIXED_COMPOSITION_SHARED_STRUCTURE_EN = 'fixed-set rule: stable selected outdoor architecture; vary only subject placement, pose, crop, lighting, mood, and selected background life state inside the same real-scale set; keep adult scale believable against roads, stairs, rails, poles, buildings, and distant background anchors; avoid enlarging the subject or shrinking set anchors';
-const OUTDOOR_FIXED_SET_GROUP_ID = 'outdoor-fixed-scene';
-
-const FIXED_COMPOSITION_SET_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不使用固定構圖場景。', meta: { tags: ['none'] } },
-  {
-    id: 'concrete-wall-chesterfield-sofa',
-    zh: '清水模牆面沙發棚',
-    setGroupId: 'sofa-lounge',
-    en: 'The portrait takes place inside a real-scale compact living-room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: a raw concrete wall fills the back plane, a large brown vintage Chesterfield leather sofa occupies most of the lower set space, with thick rolled armrests, high tufted backrest, deep adult-sized seat cushions, worn leather texture, and believable adult-scale furniture clearly visible. Bare sculptural dry branches stand beside the sofa, and a normal-height low coffee table sits in front with art books, a cup, a small lamp, textured cushions, and quiet modern-retro interior props as readable interaction anchors. Use a medium-wide editorial camera position approximately 3 to 4 meters away from the sofa, pulled back enough to show the subject inside the room and preserve the subject-to-furniture scale. The selected camera angle and orbit may vary the viewpoint around the same fixed living-room set, but must not replace the set, collapse into a tight portrait, or lose the sofa, concrete wall, dry branches, and coffee table as recognizable anchors',
-    integrityEn: 'preserve anchors: raw-concrete wall, brown Chesterfield sofa, branch-side area, coffee-table foreground; keep their relative positions stable',
-    replacementGuardEn: 'avoid plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room',
-    desc: '灰色清水模牆、枯樹枝、棕色復古 Chesterfield 皮沙發、茶几書本與桌燈構成的固定 editorial set。',
-    aspectRatioId: '1:1',
-    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'sofa_set', 'square_set'] },
-  },
-  {
-    id: 'limewash-black-velvet-industrial-sofa',
-    zh: '暖灰泥黑絲絨工業沙發棚',
-    setGroupId: 'sofa-lounge',
-    en: 'The portrait takes place inside a real-scale compact editorial lounge set with a warm ivory limewash plaster wall, a large black velvet sofa, and an industrial low coffee table as the primary fixed anchors, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: the warm ivory limewash plaster wall fills the back plane, with subtle hand-troweled texture, soft tonal variation, and no form-tie holes or exposed aggregate. The large black velvet sofa occupies most of the lower set space, with rounded armrests, deep adult-sized seat cushions, soft matte velvet upholstery, visible velvet nap, subtle directional fabric sheen, and believable adult-scale furniture clearly visible, not leather or glossy vinyl. A simple black-framed abstract artwork or irregular antique-brass mirror sits on the wall as a vertical anchor. The industrial low coffee table sits in front, made of black metal frame and aged dark wood or dark metal tabletop, holding art books, a ceramic cup, a clear glass, and a compact brass or black-metal table lamp as readable interaction props. Use a medium-wide editorial camera position approximately 3 to 4 meters away from the sofa, pulled back enough to show the subject inside the room and preserve the subject-to-furniture scale. The selected camera angle and orbit may vary the viewpoint around the same fixed black-velvet lounge set, but must not replace the set, collapse into a tight portrait, or lose the limewash wall, black velvet sofa, wall-art or mirror zone, and industrial coffee table as recognizable anchors',
-    integrityEn: 'preserve anchors: warm limewash plaster wall, black velvet sofa, wall-art or mirror zone, industrial coffee-table foreground; keep their relative positions stable',
-    replacementGuardEn: 'avoid raw concrete set, brown leather sofa, bare dry-branch decor, plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room',
-    desc: '暖象牙灰泥牆、黑色絲絨沙發、牆面畫作或金屬鏡、黑鐵工業風茶几與桌燈構成的固定 editorial lounge set。',
-    aspectRatioId: '1:1',
-    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'sofa_set', 'black_velvet_sofa_set', 'industrial_lounge_set', 'square_set'] },
-  },
-  {
-    id: 'luxury-hotel-window-nyc',
-    zh: '高級飯店落地窗都市夜景',
-    setGroupId: 'hotel-window',
-    en: 'The portrait takes place inside a real-scale luxury hotel room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: an oversized near-wall-to-wall panoramic floor-to-ceiling glass wall dominates the back plane as one broad mostly uninterrupted glass plane overlooking a New York-style high-rise skyline. The glass should feel open, expansive, and lightly reflective, with only a few slim structural seams near the far edges if needed. Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors, or apartment-style segmented windows. A hotel bed with soft white rumpled bedding occupies the lower room plane, with pillows, a bedside table, wine glass, open book, warm hotel lamp, curtain edges, and subtle room-depth props as readable interaction anchors. Use a medium-wide editorial camera position approximately 3 to 5 meters away from the bed and glass wall, pulled back enough to show the subject inside the room and preserve the subject-to-bed and subject-to-window scale. The viewpoint may vary around the same fixed hotel-window set, but must not replace the set, collapse into a tight portrait, or lose the panoramic glass wall, New York skyline, bed or bedding, and warm bedside lamp as recognizable anchors',
-    integrityEn: 'preserve anchors: broad panoramic glass wall, New York skyline depth, bed/bedding foreground, bedside lamp/table zone; keep their relative positions stable',
-    replacementGuardEn: 'avoid heavy window grids, boxed panes, generic bedroom, plain wall, studio backdrop, outdoor scene, or unrelated hotel room',
-    desc: '高級飯店房間、床面前景、超大片連續落地玻璃牆與紐約式高樓城市背景構成的窗景 set。',
-    aspectRatioId: '1:1',
-    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'hotel_window_set', 'square_set'] },
-  },
-  {
-    id: 'luxury-hotel-window-mount-fuji-spring',
-    zh: '高級飯店落地窗富士山春景',
-    setGroupId: 'hotel-window',
-    en: 'The portrait takes place inside a real-scale luxury hotel room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: an oversized near-wall-to-wall panoramic floor-to-ceiling glass wall dominates the back plane as one broad mostly uninterrupted glass plane overlooking a spring Mount Fuji landscape. The glass should feel open, expansive, and lightly reflective, with only a few slim structural seams near the far edges if needed. Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors, or apartment-style segmented windows. A hotel bed with soft white rumpled bedding occupies the lower room plane, with pillows, a bedside table, warm hotel lamp, curtain edges, and subtle room-depth props as readable interaction anchors. Outside the glass, Mount Fuji is the dominant distant landscape anchor, with residual snow on the summit, clean blue spring sky, fresh green foothills, small lakeside or town rooftops, and subtle cherry blossoms or spring foliage that never cover or replace the mountain. Use a medium-wide editorial camera position approximately 3 to 5 meters away from the bed and glass wall, pulled back enough to show the subject inside the room and preserve the subject-to-bed and subject-to-window scale. The viewpoint may vary around the same fixed Fuji hotel-window set, but must not replace the set, collapse into a tight portrait, or lose the panoramic glass wall, Mount Fuji, bed or bedding, and warm bedside lamp as recognizable anchors',
-    integrityEn: 'preserve anchors: broad panoramic glass wall, Mount Fuji spring landscape, bed/bedding foreground, bedside lamp/table zone; keep their relative positions stable',
-    replacementGuardEn: 'avoid heavy window grids, boxed panes, generic city skyline, plain wall, studio backdrop, outdoor mountain scene, onsen ryokan, or unrelated hotel room',
-    desc: '高級飯店房間、床面前景、超大片連續落地玻璃牆與春季富士山、綠意山麓、湖畔或小鎮屋頂構成的窗景 set。',
-    aspectRatioId: '1:1',
-    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'hotel_window_set', 'mount_fuji_view_set', 'spring_set', 'square_set'] },
-  },
-  {
-    id: 'luxury-hotel-window-mount-fuji-winter',
-    zh: '高級飯店落地窗富士山冬景',
-    setGroupId: 'hotel-window',
-    en: 'The portrait takes place inside a real-scale luxury hotel room editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: an oversized near-wall-to-wall panoramic floor-to-ceiling glass wall dominates the back plane as one broad mostly uninterrupted glass plane overlooking a winter Mount Fuji landscape. The glass should feel open, expansive, and lightly reflective, with only a few slim structural seams near the far edges if needed. Avoid grid-like window panels, heavy black frames, boxed window sections, many repeated dividers, balcony doors, or apartment-style segmented windows. A hotel bed with soft white rumpled bedding occupies the lower room plane, with pillows, a bedside table, warm hotel lamp, curtain edges, and subtle room-depth props as readable interaction anchors. Outside the glass, snow-covered Mount Fuji is the dominant distant landscape anchor, with cold clear air, blue-white winter daylight, snowy foothills or village rooftops, and quiet pale sky depth while the warm hotel interior remains readable. Use a medium-wide editorial camera position approximately 3 to 5 meters away from the bed and glass wall, pulled back enough to show the subject inside the room and preserve the subject-to-bed and subject-to-window scale. The viewpoint may vary around the same fixed Fuji hotel-window set, but must not replace the set, collapse into a tight portrait, or lose the panoramic glass wall, snow-covered Mount Fuji, bed or bedding, and warm bedside lamp as recognizable anchors',
-    integrityEn: 'preserve anchors: broad panoramic glass wall, snow-covered Mount Fuji winter landscape, bed/bedding foreground, bedside lamp/table zone; keep their relative positions stable',
-    replacementGuardEn: 'avoid heavy window grids, boxed panes, generic city skyline, plain wall, studio backdrop, outdoor snowfield, ski resort, onsen ryokan, or unrelated hotel room',
-    desc: '高級飯店房間、床面前景、超大片連續落地玻璃牆與冬季積雪富士山、冷白空氣、雪地山麓或村落屋頂構成的窗景 set。',
-    aspectRatioId: '1:1',
-    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'hotel_window_set', 'mount_fuji_view_set', 'winter_set', 'square_set'] },
-  },
-  {
-    id: 'retro-tile-bathtub',
-    zh: '復古磁磚浴室浴缸',
-    en: 'The portrait takes place inside a real-scale vintage bathroom editorial set, not a flat backdrop and not a tight subject portrait. Treat the fixed set as the primary composition: a freestanding clawfoot bathtub remains the main horizontal fixture across the lower room plane, with the visible wet tile floor beneath and in front of the bathtub, tub feet, tub rim, and full outer tub wall remaining readable from the selected camera angle. A flat aged tile-and-plaster bathroom wall fills the back plane, with a porcelain sink or vanity on one side, a mirror above the sink, chrome faucet and shower hardware, wall lamp, folded towels, bath bottles, a small wooden stool, foam or water surface, subtle steam, small puddles, water trails, and floor reflections as readable interaction anchors. Subject wetness condition: fully soaked from head to toe with wet hair, damp skin, and water-clinging wardrobe or bare skin, and the surrounding bathroom can also feel wet with puddles and reflected practical light. Use a medium-wide editorial camera position approximately 2.5 to 4 meters away from the bathtub, pulled back enough to keep the full bathtub body, tub feet, wet floor plane, sink or vanity, and mirror visible where possible while preserving subject-to-bathtub scale. The selected camera angle and orbit may vary the viewpoint around the same fixed bathtub set, but must not replace the set, collapse into a tight portrait, shoot from inside the tub, or lose the bathtub, wet floor, tiled wall, sink, and mirror as recognizable anchors',
-    integrityEn: 'preserve anchors: horizontal clawfoot bathtub, visible wet floor, aged tile wall, sink/mirror side zone, bath-prop foreground; keep their relative positions stable',
-    replacementGuardEn: 'avoid shower room, pool, spa lobby, bedroom, plain studio backdrop, unrelated bathroom, inside-tub POV, low tub-edge POV, dutch tilt, or tight crop losing the tub body or wet floor',
-    desc: '真實比例復古磁磚浴室、正面橫置爪足浴缸、濕地板、洗臉台、鏡子、壁燈、毛巾與瓶罐構成的浴室 set。',
-    aspectRatioId: '1:1',
-    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'indoor', 'bathtub_set', 'square_set'] },
-  },
-  {
-    id: 'seaside-slope-railway-crossing',
-    zh: '海邊坡道平交道',
-    setGroupId: OUTDOOR_FIXED_SET_GROUP_ID,
-    allowsCameraVariation: false,
-    sharedStructureEn: OUTDOOR_FIXED_COMPOSITION_SHARED_STRUCTURE_EN,
-    en: 'The portrait takes place within a real-scale outdoor coastal downhill-road fixed composition set, not a generic beach scene and not a tight subject portrait. Treat the fixed set as the primary composition: the camera is positioned near the upper slope, looking downhill along the road plane toward the ocean horizon. A railway crossing gate cuts across the lower-middle frame, with crossing arms, signal posts, striped warning signs, sloped asphalt, lane marks, roadside utility poles, overhead wires, seaside town rooftops, small building edges, distant shoreline, open sky area, and ocean horizon as stable anchors. Sky color, cloud shape, sun strength, water brightness, and weather mood are controlled by the selected ambient light and subject-light options, not by this fixed set. Keep the road, railway crossing, wires, town edges, and ocean depth readable even when the subject moves or crops into the foreground',
-    integrityEn: 'preserve anchors: downhill road plane, railway crossing gate, roadside poles and overhead wires, seaside town edges, ocean horizon; keep their relative positions stable',
-    replacementGuardEn: 'avoid generic beach, train station, train-dominant scene, city intersection, cafe, indoor set, or unrelated coastal road',
-    desc: '海邊坡道、道路平面、平交道柵欄與號誌、電線桿、架空線、遠方海平線構成的戶外固定取景 set。',
-    aspectRatioId: '9:16',
-    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'outdoor', 'coastal_set', 'railway_crossing_set', 'vertical_set'] },
-  },
-  {
-    id: 'seaside-stair-alley',
-    zh: '海邊階梯小巷',
-    setGroupId: OUTDOOR_FIXED_SET_GROUP_ID,
-    allowsCameraVariation: false,
-    sharedStructureEn: OUTDOOR_FIXED_COMPOSITION_SHARED_STRUCTURE_EN,
-    en: 'The portrait takes place within a real-scale outdoor descending seaside stair-alley fixed composition set, not a generic beach scene and not a tight subject portrait. Treat the fixed set as the primary composition: the camera is positioned near the upper stairs, looking down the stair alley toward the ocean horizon. Descending pale stairs form the foreground and midground path toward the sea, with white or light stucco side walls, narrow building edges, balcony fragments, handrails, potted plants or hydrangeas, overhead wires, distant shoreline, open sky area, and ocean horizon as stable anchors. Sky color, cloud shape, sun strength, water brightness, and weather mood are controlled by the selected ambient light and subject-light options, not by this fixed set. Keep the stair corridor, side walls, rails, plants, wires, and ocean depth readable even when the subject moves or crops into the foreground',
-    integrityEn: 'preserve anchors: descending stairway, pale side walls, handrails, potted plants or hydrangeas, overhead wires, ocean horizon; keep their relative positions stable',
-    replacementGuardEn: 'avoid indoor staircase, generic beach, city alley without stairs, cafe, plain street, train crossing, or unrelated stairway',
-    desc: '海邊階梯小巷、白色或淺色牆面、扶手、盆栽或繡球花、架空線與遠方海平線構成的戶外固定取景 set。',
-    aspectRatioId: '9:16',
-    meta: { tags: ['fixed_composition_set', 'single_subject_only', 'outdoor', 'coastal_set', 'stair_alley_set', 'vertical_set'] },
-  },
-];
-
-const FIXED_SET_POSITION_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不指定固定場景內的人物位置。', meta: { tags: ['none'] } },
-  {
-    id: 'sofa-free-interaction',
-    setId: 'concrete-wall-chesterfield-sofa',
-    setGroupId: 'sofa-lounge',
-    zh: '自由場景互動',
-    en: 'subject placement can vary across one primary zone within the fixed sofa set: sofa seating plane, floor plane in front of the sofa, coffee-table foreground, armrest edge, wall-side space, decorative side area, off-center negative space, or close foreground layer. The sofa can support the subject or remain a background architecture anchor. Choose one secondary interaction anchor such as the coffee table edge, art book, cup, lamp light, cushion, armrest, wall surface, side decor, floor plane, or foreground negative space. Avoid defaulting every result to a centered seated sofa pose',
-  },
-  {
-    id: 'sofa-foreground',
-    setId: 'concrete-wall-chesterfield-sofa',
-    setGroupId: 'sofa-lounge',
-    zh: '近鏡頭沙發前方',
-    en: 'subject in the foreground in front of the sofa, with the sofa becoming a background layer; standing, crouching, floor sitting, or close-lens behavior can be model-decided',
-  },
-  {
-    id: 'sofa-seat-center',
-    setId: 'concrete-wall-chesterfield-sofa',
-    setGroupId: 'sofa-lounge',
-    zh: '沙發座面中央',
-    en: 'subject placed on the sofa seat plane; sitting, lounging, half-reclining, lying, or leaning on an armrest can be model-decided',
-  },
-  {
-    id: 'sofa-wall-back',
-    setId: 'concrete-wall-chesterfield-sofa',
-    setGroupId: 'sofa-lounge',
-    zh: '沙發後方靠牆',
-    en: 'subject near the wall behind or around the sofa, with the sofa as a horizontal foreground anchor; standing, wall-leaning, or forward-leaning behavior can be model-decided',
-  },
-  {
-    id: 'sofa-armrest-foreground-occlusion',
-    setId: 'concrete-wall-chesterfield-sofa',
-    setGroupId: 'sofa-lounge',
-    zh: '沙發扶手前景遮擋',
-    en: 'subject partly hidden by the sofa armrest or leather cushion edge in the foreground; foreground occlusion, partial body crop, or close-lens layering can be model-decided',
-  },
-  {
-    id: 'sofa-floor-off-center',
-    setId: 'concrete-wall-chesterfield-sofa',
-    setGroupId: 'sofa-lounge',
-    zh: '沙發地面偏離中心',
-    en: 'subject on the floor plane near the sofa but off center, allowing asymmetrical spacing, cropped limbs, or casual distance from the sofa without prescribing an exact pose',
-  },
-  {
-    id: 'hotel-free-interaction',
-    setId: 'luxury-hotel-window-nyc',
-    setGroupId: 'hotel-window',
-    zh: '自由場景互動',
-    en: 'subject placement can vary across one primary zone within the fixed hotel-window set: bed surface, bed edge, window-side floor plane, bedside-table side, curtain edge, pillow foreground, rumpled-bedding foreground, close foreground layer, or off-center negative space. The bed can support the subject or remain a foreground or side architecture anchor. Choose one secondary interaction anchor such as bedding, pillow, open book, wine glass, warm lamp, bedside table, curtain, glass reflection, exterior window view, or room floor. Avoid defaulting every result to a centered bed pose',
-  },
-  {
-    id: 'hotel-bed-foreground',
-    setId: 'luxury-hotel-window-nyc',
-    setGroupId: 'hotel-window',
-    zh: '近鏡頭床面前景',
-    en: 'subject close to the camera or bed foreground; the exterior window view can be partially blocked or softened',
-  },
-  {
-    id: 'hotel-bed-window-side',
-    setId: 'luxury-hotel-window-nyc',
-    setGroupId: 'hotel-window',
-    zh: '床邊靠窗',
-    en: 'subject around the bed edge or window-side mid-plane; body, bedding, glass, and exterior view depth can all remain readable',
-  },
-  {
-    id: 'hotel-window-silhouette',
-    setId: 'luxury-hotel-window-nyc',
-    setGroupId: 'hotel-window',
-    zh: '窗前景觀剪影',
-    en: 'subject near the floor-to-ceiling window; the exterior view becomes the dominant background, allowing profile, back-view, window-gazing, or silhouette-like behavior',
-  },
-  {
-    id: 'hotel-window-frame-close',
-    setId: 'luxury-hotel-window-nyc',
-    setGroupId: 'hotel-window',
-    zh: '近鏡頭窗框邊緣',
-    en: 'subject very near the lens along the window-frame edge, allowing partial face, shoulder, hair, or half-body crop while the hotel window view remains a recognizable layer',
-  },
-  {
-    id: 'hotel-bedding-foreground-occlusion',
-    setId: 'luxury-hotel-window-nyc',
-    setGroupId: 'hotel-window',
-    zh: '床單前景遮擋',
-    en: 'soft bedding or pillow shapes become a foreground occlusion layer in front of the subject, with the body distance and exact interaction left to the image model',
-  },
-  {
-    id: 'bathtub-free-interaction',
-    setId: 'retro-tile-bathtub',
-    zh: '自由場景互動',
-    en: 'subject placement can vary across one primary zone within the fixed bathtub set: inside the bathtub, on the bathtub rim, beside the tub on the wet floor, near the sink and mirror, by the chrome faucet hardware, stool-side foreground, towel foreground, foam-covered water surface, close foreground layer, or off-center negative space. The bathtub can contain the subject or remain the central fixture anchor. Choose one secondary interaction anchor such as tub rim, foam, water surface, puddle reflection, sink, mirror, faucet hardware, towel, bath bottle, stool, or wet floor. Avoid defaulting every result to a centered soaking pose',
-  },
-  {
-    id: 'bathtub-center',
-    setId: 'retro-tile-bathtub',
-    zh: '浴缸內中央',
-    en: 'subject in the middle of the bathtub, surrounded by foam and tub edges; face and upper body can remain the main portrait anchor',
-  },
-  {
-    id: 'bathtub-low-foreground',
-    setId: 'retro-tile-bathtub',
-    zh: '浴缸前景遮擋',
-    en: 'bathtub rim, foam, water surface, towels, bottles, or partial body forms may create lower foreground occlusion and focus variation while the camera remains eye-level and frontal',
-  },
-  {
-    id: 'bathtub-rim-edge',
-    setId: 'retro-tile-bathtub',
-    zh: '浴缸邊緣',
-    en: 'subject close to the bathtub edge; sitting on the rim, holding the rim, or leaning from inside the tub can be model-decided',
-  },
-  {
-    id: 'bathtub-rim-close-crop',
-    setId: 'retro-tile-bathtub',
-    zh: '浴缸邊近鏡頭裁切',
-    en: 'subject very close to the camera at the bathtub rim, allowing partial face, shoulder, knees, feet, or torso fragments to enter the foreground without prescribing exact pose',
-  },
-  {
-    id: 'bathtub-foam-foreground-occlusion',
-    setId: 'retro-tile-bathtub',
-    zh: '泡泡前景遮擋',
-    en: 'foam bubbles and water surface create foreground occlusion around the subject, allowing parts of the body or face to be softened, hidden, or out of focus',
-  },
-  {
-    id: 'crossing-road-free-interaction',
-    setId: 'seaside-slope-railway-crossing',
-    zh: '自由場景互動',
-    en: 'subject placement can vary within the fixed coastal crossing set: road foreground, crossing-gate side, slope midground, roadside edge, building-side margin, utility-pole side, or close foreground layer. Choose one interaction anchor such as the road markings, crossing barrier, signal post, guardrail, utility pole, wall edge, or ocean-facing downhill view while keeping the crossing and sea readable',
-  },
-  {
-    id: 'crossing-gate-side',
-    setId: 'seaside-slope-railway-crossing',
-    zh: '坡道平交道旁',
-    en: 'subject near the railway crossing gate or signal-side edge, with the downhill road, crossing arms, overhead wires, and ocean horizon still visible as the fixed composition',
-  },
-  {
-    id: 'crossing-road-foreground',
-    setId: 'seaside-slope-railway-crossing',
-    zh: '坡道路面前景',
-    en: 'subject on or near the upper road foreground, allowing closer body scale or partial crop while the crossing gate, sloping road, and ocean direction remain readable',
-  },
-  {
-    id: 'crossing-mid-slope',
-    setId: 'seaside-slope-railway-crossing',
-    zh: '坡道中段',
-    en: 'subject in the mid-slope road plane below the camera position, integrated with the downhill depth toward the crossing and ocean horizon without changing the fixed viewpoint',
-  },
-  {
-    id: 'stair-alley-free-interaction',
-    setId: 'seaside-stair-alley',
-    zh: '自由場景互動',
-    en: 'subject placement can vary within the fixed seaside stair-alley set: upper stair foreground, mid-stairs, railing side, wall-side edge, potted-plant side, lower alley depth, or close foreground layer. Choose one interaction anchor such as the handrail, stair edge, side wall, potted plant, hydrangeas, overhead wires, or ocean-facing downhill view while keeping the stair corridor and sea readable',
-  },
-  {
-    id: 'stair-upper-foreground',
-    setId: 'seaside-stair-alley',
-    zh: '階梯上方前景',
-    en: 'subject near the upper stair foreground close to the camera, allowing partial crop or casual foreground presence while the descending stairway and ocean horizon remain recognizable',
-  },
-  {
-    id: 'stair-mid-railing',
-    setId: 'seaside-stair-alley',
-    zh: '階梯中段欄杆旁',
-    en: 'subject around the mid-stairs near a handrail, with pale side walls, stair depth, overhead wires, and ocean horizon held in the same fixed composition',
-  },
-  {
-    id: 'stair-wall-side',
-    setId: 'seaside-stair-alley',
-    zh: '牆面小巷側邊',
-    en: 'subject beside the pale stucco wall or narrow building edge, letting the stairs and railings continue downhill toward the ocean in the background',
-  },
-];
-
-const FIXED_SET_BACKGROUND_STATE_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', meta: { tags: ['none'] } },
-  {
-    id: 'outdoor-empty',
-    setGroupId: OUTDOOR_FIXED_SET_GROUP_ID,
-    zh: '空無一人',
-    en: 'background life state: the outdoor fixed set is empty of pedestrians, vehicles, and extra activity, like a quiet location portrait with the scene architecture unobstructed',
-  },
-  {
-    id: 'outdoor-sparse-pedestrians',
-    setGroupId: OUTDOOR_FIXED_SET_GROUP_ID,
-    zh: '稀疏路人',
-    en: 'background life state: a few distant pedestrians may appear as small background life details, never competing with the main subject or changing the fixed scene layout',
-  },
-  {
-    id: 'outdoor-lived-in-moment',
-    setGroupId: OUTDOOR_FIXED_SET_GROUP_ID,
-    zh: '普通生活瞬間',
-    en: 'background life state: sparse distant people, subtle local movement, or tiny everyday traces may appear in the fixed outdoor set, keeping a normal life-photo feeling without crowding the frame',
-  },
-  {
-    id: 'crossing-clear',
-    setId: 'seaside-slope-railway-crossing',
-    zh: '清空平交道',
-    en: 'railway crossing state: the crossing is clear with no train passing, the barrier, rails, road plane, and ocean-facing downhill view remain unobstructed',
-  },
-  {
-    id: 'crossing-train-passing',
-    setId: 'seaside-slope-railway-crossing',
-    zh: '電車經過中',
-    en: 'railway crossing state: one local train may pass across the railway crossing as a middle-distance life event, but it must not become a train station scene, dominate the frame, or hide the road, crossing gate, wires, and ocean horizon',
-  },
-  {
-    id: 'crossing-light-traffic',
-    setId: 'seaside-slope-railway-crossing',
-    zh: '少量生活車輛',
-    en: 'background life state: one or two small distant cars, scooters, or bicycles may appear on the road or near the crossing, keeping a quiet everyday coastal-town feeling without crowding the scene',
-  },
-];
-
-const FIXED_SET_CAPTURE_MODE_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', meta: { tags: ['none'] } },
-  {
-    id: 'photographer-shot',
-    zh: '攝影師拍攝',
-    en: 'photographer-shot fixed set portrait, subject arranged within the selected set, fixed composition remains readable, face and wardrobe generally clear where framing allows',
-    meta: { tags: ['fixed_set_photographer_shot'] },
-  },
-  {
-    id: 'natural-self-shot',
-    zh: '自然自拍感',
-    en: 'self-shot social composition feeling, subject may move close to the lens, off-center partial face or half-body crop allowed, fixed set may remain only as recognizable background fragments, no visible phone required',
-    meta: { tags: ['fixed_set_self_shot'] },
-  },
-  {
-    id: 'imperfect-self-shot',
-    zh: '失控自拍感',
-    en: 'imperfect self-shot camera behavior, focus may fall on the background or set objects instead of the face, subject may be slightly blurred or partially cropped, fixed set may remain only as recognizable background fragments, casual accidental framing, real social snapshot imperfection, no visible phone required',
-    meta: { tags: ['fixed_set_self_shot', 'fixed_set_imperfect_focus'] },
-  },
-];
-
-const FIXED_SET_PERFORMANCE_STATE_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', meta: { tags: ['none'] } },
-  {
-    id: 'model-natural',
-    zh: '模型自然發揮',
-    en: 'let the image model choose a natural body attitude and expression that fits the selected fixed set position and capture mode',
-  },
-  {
-    id: 'confident-powerful',
-    zh: '自信力量感',
-    en: 'confident powerful presence, strong self-possessed attitude, assertive body energy, direct control of the frame without specifying exact limb placement',
-  },
-  {
-    id: 'lazy-drained',
-    zh: '慵懶無力感',
-    en: 'lazy drained presence, softened body energy, relaxed weight sinking into the set, unforced tired attitude without specifying exact limb placement',
-  },
-  {
-    id: 'detached-cool',
-    zh: '冷淡疏離感',
-    en: 'detached cool presence, emotionally distant attitude, minimal outward reaction, restrained body energy without specifying exact limb placement',
-  },
-  {
-    id: 'playful-provocative',
-    zh: '俏皮挑釁感',
-    en: 'playful provocative presence, teasing confidence, mischievous frame awareness, lively social energy without specifying exact limb placement',
-  },
-  {
-    id: 'quiet-vulnerable',
-    zh: '安靜脆弱感',
-    en: 'quiet vulnerable presence, softened guarded emotion, delicate inner tension, small protective body energy without specifying exact limb placement',
-  },
-  {
-    id: 'urban-fatigue',
-    zh: '都市疲憊感',
-    en: 'urban fatigue presence, late-night city exhaustion, heavy relaxed energy, candid tired attitude without specifying exact limb placement',
-  },
-  {
-    id: 'dreamlike-dazed',
-    zh: '夢遊恍神感',
-    en: 'dreamlike dazed presence, slightly absent focus, half-awake social snapshot mood, drifting body energy without specifying exact limb placement',
-  },
-  {
-    id: 'elegant-restrained',
-    zh: '優雅克制感',
-    en: 'elegant restrained presence, composed quiet poise, controlled emotion, refined low-key body energy without specifying exact limb placement',
-  },
-  {
-    id: 'chaotic-candid',
-    zh: '失控隨性感',
-    en: 'chaotic candid presence, accidental spontaneous attitude, loose unplanned body energy, imperfect social snapshot timing without specifying exact limb placement',
-  },
-];
 
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
@@ -2364,10 +1136,10 @@ const slugify = (text = '') =>
     .replace(/[^a-z0-9\u4e00-\u9fff]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
-const sample = (arr) => arr[Math.floor(Math.random() * arr.length)];
-const sampleNonNone = (arr) => {
+const sample = (arr, random = Math.random) => arr[Math.floor(random() * arr.length)];
+const sampleNonNone = (arr, random = Math.random) => {
   const nonNone = arr.filter((item) => !isNoneLikeItem(item));
-  return sample(nonNone.length > 0 ? nonNone : arr);
+  return sample(nonNone.length > 0 ? nonNone : arr, random);
 };
 const isRandomOption = (item) => item?.id === 'random';
 const isRandomLockValue = (value) => value === 'random';
@@ -2498,10 +1270,10 @@ function duoWardrobeColorsConflict(color, compareColor) {
   return Boolean(family && compareFamily && family === compareFamily);
 }
 
-function sampleColorAvoiding(options, avoidColors = [], colorGetter = (item) => item) {
+function sampleColorAvoiding(options, avoidColors = [], colorGetter = (item) => item, random = Math.random) {
   const nonNone = options.filter((item) => !isNoneLikeItem(item));
   const safeCandidates = nonNone.filter((item) => !avoidColors.some((color) => duoWardrobeColorsConflict(colorGetter(item), color)));
-  return sample(safeCandidates.length > 0 ? safeCandidates : nonNone.length > 0 ? nonNone : options);
+  return sample(safeCandidates.length > 0 ? safeCandidates : nonNone.length > 0 ? nonNone : options, random);
 }
 
 function getBaseWardrobeItemId(item) {
@@ -2796,7 +1568,7 @@ function normalizeLegacyOutfitPresetColors(locks = {}) {
   return next;
 }
 
-function getTopBottomPaletteOption(id, avoid = {}) {
+function getTopBottomPaletteOption(id, avoid = {}, random = Math.random) {
   const option = TOP_BOTTOM_PALETTE_OPTIONS.find((item) => item.id === id) || null;
   if (!option || option.id === 'none') return null;
   if (option.random) {
@@ -2806,7 +1578,7 @@ function getTopBottomPaletteOption(id, avoid = {}) {
       !topColors.some((color) => duoWardrobeColorsConflict(palette.topColor, color)) &&
       !bottomColors.some((color) => duoWardrobeColorsConflict(palette.bottomColor, color))
     ));
-    return sample(safeCandidates.length > 0 ? safeCandidates : TOP_BOTTOM_PALETTE_POOL);
+    return sample(safeCandidates.length > 0 ? safeCandidates : TOP_BOTTOM_PALETTE_POOL, random);
   }
   return option.topColor && option.bottomColor ? option : null;
 }
@@ -3320,16 +2092,22 @@ function isWardrobeIncompatibleCloseupFramingItem() {
   return false;
 }
 
-export function isWardrobeIncompatibleCloseupFramingId(framingId, customLibrary = []) {
+function resolveLockControls(controlsOrCustomLibrary = []) {
+  const looksLikeControls = Array.isArray(controlsOrCustomLibrary)
+    && controlsOrCustomLibrary.length > 0
+    && controlsOrCustomLibrary.every((control) => control && typeof control.key === 'string' && Array.isArray(control.options));
+  return looksLikeControls ? controlsOrCustomLibrary : getLockControls(controlsOrCustomLibrary);
+}
+
+export function isWardrobeIncompatibleCloseupFramingId(framingId, controlsOrCustomLibrary = []) {
   if (!framingId) return false;
-  const controls = getLockControls(customLibrary);
+  const controls = resolveLockControls(controlsOrCustomLibrary);
   const framingControl = controls.find((control) => control.key === 'framingId');
   const framing = findById(framingControl?.options || [], framingId);
   return isWardrobeIncompatibleCloseupFramingItem(framing);
 }
 
-export function hasEffectiveWardrobeLocks(rawLocks = {}, controls = getLockControls()) {
-  const locks = normalizeLocks(rawLocks);
+function hasEffectiveWardrobeLockValues(locks, controls) {
   return [...EFFECTIVE_WARDROBE_LOCK_KEYS].some((key) => {
     const value = locks[key];
     if (Array.isArray(value)) {
@@ -3346,24 +2124,29 @@ export function hasEffectiveWardrobeLocks(rawLocks = {}, controls = getLockContr
   });
 }
 
-export function isCloseupModeFramingId(framingId, customLibrary = []) {
+export function hasEffectiveWardrobeLocks(rawLocks = {}, controlsOrCustomLibrary = []) {
+  const controls = resolveLockControls(controlsOrCustomLibrary);
+  return hasEffectiveWardrobeLockValues(normalizeLocks(rawLocks, controls), controls);
+}
+
+export function isCloseupModeFramingId(framingId, controlsOrCustomLibrary = []) {
   if (!framingId) return false;
-  const controls = getLockControls(customLibrary);
+  const controls = resolveLockControls(controlsOrCustomLibrary);
   const framingControl = controls.find((control) => control.key === 'framingId');
   const framing = findById(framingControl?.options || [], framingId);
   return isCloseupModeFramingItem(framing);
 }
 
-export function isWormEyeAngleId(angleId, customLibrary = []) {
+export function isWormEyeAngleId(angleId, controlsOrCustomLibrary = []) {
   if (!angleId) return false;
-  const controls = getLockControls(customLibrary);
+  const controls = resolveLockControls(controlsOrCustomLibrary);
   const angleControl = controls.find((control) => control.key === 'angleId');
   const angle = findById(angleControl?.options || [], angleId);
   return isWormEyeAngleItem(angle);
 }
 
-export function getCloseupAllowedKeys(framingId, customLibrary = []) {
-  const controls = getLockControls(customLibrary);
+export function getCloseupAllowedKeys(framingId, controlsOrCustomLibrary = []) {
+  const controls = resolveLockControls(controlsOrCustomLibrary);
   const framingControl = controls.find((control) => control.key === 'framingId');
   const framing = findById(framingControl?.options || [], framingId);
   const allowed = new Set(CLOSEUP_ALWAYS_ALLOWED_KEYS);
@@ -4020,8 +2803,18 @@ function buildCatalog(customLibrary = []) {
   };
 }
 
+function compileEngineRuntime(customLibrary = []) {
+  const catalogRuntime = buildCatalog(customLibrary);
+  return deepFreezeRuntime({
+    ...catalogRuntime,
+    controls: buildLockControls(catalogRuntime),
+  });
+}
+
+const getEngineRuntime = createEngineRuntimeResolver(compileEngineRuntime);
+
 export function getKnowledgeBaseOptions(customLibrary = []) {
-  const { mergedDatabase } = buildCatalog(customLibrary);
+  const { mergedDatabase } = getEngineRuntime(customLibrary);
 
   return CUSTOM_GROUP_OPTIONS.map((groupOption) => ({
     ...groupOption,
@@ -4030,7 +2823,7 @@ export function getKnowledgeBaseOptions(customLibrary = []) {
 }
 
 export function getKnowledgeBaseSnapshot(customLibrary = []) {
-  const { mergedDatabase } = buildCatalog(customLibrary);
+  const { mergedDatabase } = getEngineRuntime(customLibrary);
   return cloneDatabase(mergedDatabase);
 }
 
@@ -4306,7 +3099,7 @@ function applyOuterwearOpeningLegacyLockMigration(normalizedLocks, rawLocks, con
   });
 }
 
-export function normalizeLocks(rawLocks = {}) {
+export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
   const normalized = createEmptyLocks();
 
   Object.entries(rawLocks || {}).forEach(([key, value]) => {
@@ -4339,7 +3132,7 @@ export function normalizeLocks(rawLocks = {}) {
 
   const migrateCameraProfileToRendering = (profileId) => {
     const targetZh = CAMERA_PROFILE_RENDERING_MIGRATIONS[profileId];
-    return targetZh ? getControlOptionByZh(getLockControls(), 'filmId', targetZh) : null;
+    return targetZh ? getControlOptionByZh(controls, 'filmId', targetZh) : null;
   };
   const migratedRendering = migrateCameraProfileToRendering(normalized.filmId);
   if (migratedRendering) {
@@ -4376,7 +3169,7 @@ export function normalizeLocks(rawLocks = {}) {
       '厚長圍巾': 'neckAccessoryId',
       '街頭風格金項鏈': 'neckAccessoryId',
     };
-    const { catalog } = buildCatalog();
+    const { catalog } = getEngineRuntime();
     legacyJewelry.forEach((legacyId) => {
       const legacyItem = Object.values(catalog.wardrobe).flat().find((item) => item.id === legacyId);
       const targetKey = legacyMap[legacyItem?.zh];
@@ -4386,8 +3179,6 @@ export function normalizeLocks(rawLocks = {}) {
   }
 
   const normalizedWithLegacyColors = normalizeLegacyOutfitPresetColors(normalized);
-  const controls = getLockControls();
-
   controls.forEach((control) => {
     if (!Array.isArray(control.options) || control.options.length === 0) return;
     const optionIds = new Set(control.options.map((option) => option.id));
@@ -4430,12 +3221,13 @@ export function normalizeLocks(rawLocks = {}) {
 }
 
 export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
-  const nextLocks = normalizeLocks(rawLocks);
-  const framing = nextLocks.framingId ? findById(controls.find((control) => control.key === 'framingId')?.options || [], nextLocks.framingId) : null;
-  const angle = nextLocks.angleId ? findById(controls.find((control) => control.key === 'angleId')?.options || [], nextLocks.angleId) : null;
+  const activeControls = controls.length > 0 ? controls : getLockControls();
+  const nextLocks = normalizeLocks(rawLocks, activeControls);
+  const framing = nextLocks.framingId ? findById(activeControls.find((control) => control.key === 'framingId')?.options || [], nextLocks.framingId) : null;
+  const angle = nextLocks.angleId ? findById(activeControls.find((control) => control.key === 'angleId')?.options || [], nextLocks.angleId) : null;
   if (isWormEyeAngleItem(angle)) {
     WORM_EYE_FORCED_NONE_KEYS.forEach((key) => {
-      const noneOption = controls.find((control) => control.key === key)?.options?.find((option) => option.zh === '全無');
+      const noneOption = activeControls.find((control) => control.key === key)?.options?.find((option) => option.zh === '全無');
       nextLocks[key] = noneOption ? noneOption.id : '';
     });
   }
@@ -4444,7 +3236,7 @@ export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
   const allowedKeys = new Set(CLOSEUP_ALWAYS_ALLOWED_KEYS);
   FACE_ONLY_CLOSEUP_ALLOWED_KEYS.forEach((key) => allowedKeys.add(key));
 
-  controls.forEach((control) => {
+  activeControls.forEach((control) => {
     if (allowedKeys.has(control.key) || control.key === 'framingId') return;
     const noneOption = control.options?.find((option) => option.zh === '全無');
     nextLocks[control.key] = noneOption ? noneOption.id : '';
@@ -4453,9 +3245,7 @@ export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
   return nextLocks;
 }
 
-export function getLockControls(customLibrary = []) {
-  const { flatCatalog, catalog } = buildCatalog(customLibrary);
-
+function buildLockControls({ flatCatalog, catalog }) {
   return LOCK_DEFINITIONS.map((definition) => {
     let options = definition.options || [];
 
@@ -4517,6 +3307,10 @@ export function getLockControls(customLibrary = []) {
 
     return { ...definition, options };
   });
+}
+
+export function getLockControls(customLibrary = []) {
+  return getEngineRuntime(customLibrary).controls;
 }
 
 export function getPartialRerollOptions() {
@@ -5018,7 +3812,7 @@ function getScenePoseAnchorOptions(location, lockedLocationId = '') {
 }
 
 export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
-  const runtime = buildCatalog(customLibrary);
+  const runtime = getEngineRuntime(customLibrary);
   const locks = normalizeLocks(rawLocks);
   const fallbackFraming = runtime.flatCatalog.framing.find((item) => item.en.includes('medium shot')) || runtime.flatCatalog.framing[0];
   const sceneAttribute = getSceneAttributeOption(locks.sceneAttributeId);
@@ -5460,9 +4254,9 @@ function buildSpecialSubjectIntegrationPrompt(subject) {
   return isSkeletonSubject(subject) ? sanitizeSkeletonPromptText(text) : text;
 }
 
-function getAspectRatioOption(id) {
+function getAspectRatioOption(id, random = Math.random) {
   const option = ASPECT_RATIO_OPTIONS.find((entry) => entry.id === id);
-  if (option?.random) return sample(ASPECT_RATIO_POOL);
+  if (option?.random) return sample(ASPECT_RATIO_POOL, random);
   return option || DEFAULT_ASPECT_RATIO;
 }
 
@@ -5478,12 +4272,12 @@ function isActivePoseComposerOption(option) {
   return Boolean(option && !isNoneLikeItem(option));
 }
 
-function resolvePoseComposerOption(options, id, predicate = () => true, exclusions = EMPTY_PREVIEW_REROLL_EXCLUSIONS, exclusionKeys = []) {
+function resolvePoseComposerOption(options, id, predicate = () => true, exclusions = EMPTY_PREVIEW_REROLL_EXCLUSIONS, exclusionKeys = [], random = Math.random) {
   const option = getPoseComposerOption(options, id);
   if (!isActivePoseComposerOption(option)) return null;
 
   const candidates = options.filter((item) => isActivePoseComposerOption(item) && !isRandomOption(item) && predicate(item));
-  if (isRandomOption(option)) return sample(exclusions.filterCandidates(candidates, exclusionKeys));
+  if (isRandomOption(option)) return sample(exclusions.filterCandidates(candidates, exclusionKeys), random);
   return predicate(option) ? option : null;
 }
 
@@ -5607,9 +4401,10 @@ function buildPoseComposerItem(context) {
   if (context.subject.count !== 1) return null;
 
   const exclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
-  const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId, () => true, exclusions, ['poseBaseId']);
-  const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId']);
-  const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId']);
+  const random = context.random || Math.random;
+  const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId, () => true, exclusions, ['poseBaseId'], random);
+  const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId'], random);
+  const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId'], random);
 
   if (!base) {
     const standaloneParts = [handPose, head].filter((option) => option && !isModelNaturalPoseComposerOption(option));
@@ -5637,8 +4432,8 @@ function buildPoseComposerItem(context) {
     matchesBase(option)
     && poseComposerAnchorAllowedByScene(option, context.location, context.locks?.locationId)
   );
-  const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase, exclusions, ['poseArrangementId']);
-  const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesAnchor, exclusions, ['poseAnchorId']);
+  const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase, exclusions, ['poseArrangementId'], random);
+  const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesAnchor, exclusions, ['poseAnchorId'], random);
   const parts = [base, arrangement, handPose, head, anchor].filter(Boolean);
 
   return {
@@ -5708,7 +4503,7 @@ function buildSubjectBase(subject) {
   };
 }
 
-function pickWithLock(list, lockedId, predicate = () => true, picker = sample) {
+function pickWithLock(list, lockedId, predicate = () => true, picker = sample, random = Math.random) {
   if (lockedId) {
     const locked = findById(list, lockedId);
     if (locked) return locked;
@@ -5716,14 +4511,14 @@ function pickWithLock(list, lockedId, predicate = () => true, picker = sample) {
 
   const matches = list.filter(predicate);
   const nonNoneMatches = matches.filter((item) => !isNoneLikeItem(item));
-  if (nonNoneMatches.length > 0) return picker(nonNoneMatches);
-  if (matches.length > 0) return picker(matches);
+  if (nonNoneMatches.length > 0) return picker(nonNoneMatches, random);
+  if (matches.length > 0) return picker(matches, random);
 
   const noneOption = list.find((item) => isNoneLikeItem(item));
   return noneOption || null;
 }
 
-function pickWithCompatibleLock(list, lockedId, predicate = () => true, picker = sample) {
+function pickWithCompatibleLock(list, lockedId, predicate = () => true, picker = sample, random = Math.random) {
   if (lockedId) {
     const locked = findById(list, lockedId);
     if (locked && isNoneLikeItem(locked)) return locked;
@@ -5732,8 +4527,8 @@ function pickWithCompatibleLock(list, lockedId, predicate = () => true, picker =
 
   const matches = list.filter(predicate);
   const nonNoneMatches = matches.filter((item) => !isNoneLikeItem(item));
-  if (nonNoneMatches.length > 0) return picker(nonNoneMatches);
-  if (matches.length > 0) return picker(matches);
+  if (nonNoneMatches.length > 0) return picker(nonNoneMatches, random);
+  if (matches.length > 0) return picker(matches, random);
 
   const noneOption = list.find((item) => isNoneLikeItem(item));
   return noneOption || null;
@@ -5812,6 +4607,8 @@ function selectedSpecialOutfitHasHairstyle(context, catalog, role = null) {
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
   const previewExclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
+  const random = context.random || Math.random;
+  const sampleItem = (items) => sample(items, random);
   const actionPose = buildActionPoseItem(context);
   if (isSpecialSubject(context.subject)) {
     const hairstyleItems = getByKey(catalog.character, '髮型 (Hairstyle)');
@@ -5911,7 +4708,7 @@ function buildCharacter(context, catalog) {
     '特殊動作 (Special Actions)': ['specialActionId'],
   };
 
-  const pickCategory = (categoryKey, locks, customPredicate = () => true, picker = sample, respectVisibility = true) => {
+  const pickCategory = (categoryKey, locks, customPredicate = () => true, picker = sampleItem, respectVisibility = true) => {
     const categoryItems = getByKey(catalog.character, categoryKey);
     const lockedId = locks?.[lockKeyByCategory[categoryKey]];
     const lockedItem = lockedId ? findById(categoryItems, lockedId) : null;
@@ -5942,18 +4739,18 @@ function buildCharacter(context, catalog) {
       : null;
     if (lockedOption) return lockedOption;
     const candidates = options.filter((option) => !isNoneLikeItem(option));
-    return sample(previewExclusions.filterCandidates(candidates, exclusionKeys));
+    return sampleItem(previewExclusions.filterCandidates(candidates, exclusionKeys));
   };
 
   const pickHairColor = (candidates) => {
     const mainstream = candidates.filter((item) => item.meta.tags.includes('mainstream_hair_color'));
     const special = candidates.filter((item) => item.meta.tags.includes('special_hair_color'));
 
-    if (mainstream.length > 0 && (special.length === 0 || Math.random() < 0.88)) {
-      return sample(mainstream);
+    if (mainstream.length > 0 && (special.length === 0 || random() < 0.88)) {
+      return sampleItem(mainstream);
     }
 
-    return sample(special.length > 0 ? special : candidates);
+    return sampleItem(special.length > 0 ? special : candidates);
   };
 
   const cloneCharacterRole = (item, role) => ({
@@ -5962,7 +4759,7 @@ function buildCharacter(context, catalog) {
     meta: { ...(item.meta || {}), characterRole: role },
   });
 
-  const pickDistinctForRole = (categoryKey, role, lockedId, currentItems = [], picker = sample, predicate = () => true) => {
+  const pickDistinctForRole = (categoryKey, role, lockedId, currentItems = [], picker = sampleItem, predicate = () => true) => {
     const categoryItems = getByKey(catalog.character, categoryKey);
     const locked = lockedId ? findById(categoryItems, lockedId) : null;
     if (locked && predicate(locked)) return cloneCharacterRole(locked, role);
@@ -5980,25 +4777,25 @@ function buildCharacter(context, catalog) {
 
   if (context.subject.count === 2) {
     const sharedBodyTypeId = context.locks?.bodyTypeId;
-    const bodyA = pickDistinctForRole('體態 (Body Type)', 'a', context.locks?.bodyTypeAId || sharedBodyTypeId, [], sample, () => true);
-    const bodyB = pickDistinctForRole('體態 (Body Type)', 'b', context.locks?.bodyTypeBId || sharedBodyTypeId, sharedBodyTypeId ? [] : [bodyA], sample, () => true);
+    const bodyA = pickDistinctForRole('體態 (Body Type)', 'a', context.locks?.bodyTypeAId || sharedBodyTypeId, [], sampleItem, () => true);
+    const bodyB = pickDistinctForRole('體態 (Body Type)', 'b', context.locks?.bodyTypeBId || sharedBodyTypeId, sharedBodyTypeId ? [] : [bodyA], sampleItem, () => true);
     if (bodyA) character.push(bodyA);
     if (bodyB) character.push(bodyB);
   } else if (!isReferenceSubject || context.locks?.bodyTypeId) {
-    pickCategory('體態 (Body Type)', context.locks, () => true, sample, false);
+    pickCategory('體態 (Body Type)', context.locks, () => true, sampleItem, false);
   }
 
   if (context.subject.count === 1 && (context.locks?.facialFeaturesId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium')))) {
     pickCategory('五官特徵 (Facial Features)', context.locks, (item) => !lockedArchetype || !item.meta.archetype || item.meta.archetype === lockedArchetype);
   }
 
-  if (context.subject.count === 1 && (context.locks?.skinDetailsId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium') && Math.random() < 0.55))) {
+  if (context.subject.count === 1 && (context.locks?.skinDetailsId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium') && random() < 0.55))) {
     pickCategory('膚質特徵 (Skin Details)', context.locks);
   }
 
   if (context.subject.count === 2 && (visibilityAtLeast(visibility, 'medium') || context.locks?.facialFeaturesAId || context.locks?.facialFeaturesBId)) {
-    const faceA = pickDistinctForRole('五官特徵 (Facial Features)', 'a', context.locks?.facialFeaturesAId, [], sample);
-    const faceB = pickDistinctForRole('五官特徵 (Facial Features)', 'b', context.locks?.facialFeaturesBId, [faceA], sample);
+    const faceA = pickDistinctForRole('五官特徵 (Facial Features)', 'a', context.locks?.facialFeaturesAId, [], sampleItem);
+    const faceB = pickDistinctForRole('五官特徵 (Facial Features)', 'b', context.locks?.facialFeaturesBId, [faceA], sampleItem);
     if (faceA) character.push(faceA);
     if (faceB) character.push(faceB);
   }
@@ -6006,10 +4803,10 @@ function buildCharacter(context, catalog) {
   if (context.subject.count === 2) {
     const sharedSkinDetailsId = context.locks?.skinDetailsId;
     const hasDuoSkinLock = Boolean(context.locks?.skinDetailsAId || context.locks?.skinDetailsBId || sharedSkinDetailsId);
-    const shouldRandomizeDuoSkin = !hasDuoSkinLock && visibilityAtLeast(visibility, 'portrait') && Math.random() < 0.45;
+    const shouldRandomizeDuoSkin = !hasDuoSkinLock && visibilityAtLeast(visibility, 'portrait') && random() < 0.45;
     const pickDuoSkin = (role, lockedId, currentItems = []) => {
       if (!lockedId && !shouldRandomizeDuoSkin) return null;
-      return pickDistinctForRole('膚質特徵 (Skin Details)', role, lockedId, currentItems, sample);
+      return pickDistinctForRole('膚質特徵 (Skin Details)', role, lockedId, currentItems, sampleItem);
     };
     const skinA = pickDuoSkin('a', context.locks?.skinDetailsAId || sharedSkinDetailsId, []);
     const skinB = pickDuoSkin('b', context.locks?.skinDetailsBId || sharedSkinDetailsId, sharedSkinDetailsId ? [] : [skinA]);
@@ -6030,8 +4827,8 @@ function buildCharacter(context, catalog) {
       && !hasExplicitHairstyleLock(context, catalog, 'a');
     const suppressHairB = selectedSpecialOutfitHasHairstyle(context, catalog, 'b')
       && !hasExplicitHairstyleLock(context, catalog, 'b');
-    const hairA = suppressHairA ? null : pickDistinctForRole('髮型 (Hairstyle)', 'a', context.locks?.hairstyleAId, [], sample);
-    const hairB = suppressHairB ? null : pickDistinctForRole('髮型 (Hairstyle)', 'b', context.locks?.hairstyleBId, [hairA], sample);
+    const hairA = suppressHairA ? null : pickDistinctForRole('髮型 (Hairstyle)', 'a', context.locks?.hairstyleAId, [], sampleItem);
+    const hairB = suppressHairB ? null : pickDistinctForRole('髮型 (Hairstyle)', 'b', context.locks?.hairstyleBId, [hairA], sampleItem);
     if (hairA) character.push(hairA);
     if (hairB) character.push(hairB);
 
@@ -6045,7 +4842,7 @@ function buildCharacter(context, catalog) {
   if (context.subject.count === 2) {
     const duoExpressionOption = context.locks?.duoExpressionId
       ? getDuoExpressionOption(context.locks.duoExpressionId)
-      : sampleNonNone(DUO_EXPRESSION_OPTIONS);
+      : sampleNonNone(DUO_EXPRESSION_OPTIONS, random);
     const duoExpressionItem = buildDuoExpressionItem(duoExpressionOption);
     if (duoExpressionItem && !isNoneLikeItem(duoExpressionItem)) {
       character.push(duoExpressionItem);
@@ -6081,12 +4878,12 @@ function buildCharacter(context, catalog) {
   }
 
   const specialAction = context.locks?.specialActionId
-    ? pickCategory('特殊動作 (Special Actions)', context.locks, () => true, sample, false)
+    ? pickCategory('特殊動作 (Special Actions)', context.locks, () => true, sampleItem, false)
     : null;
   if (specialAction && !isNoneLikeItem(specialAction) && !isSocialShootingAction(specialAction)) return character;
 
   if (context.locks?.poseId) {
-    pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, () => true, sample, false);
+    pickCategory('姿勢與肢體語言 (Pose & Body Language)', context.locks, () => true, sampleItem, false);
   } else if (visibility === 'close') {
     return character;
   } else if (visibilityAtLeast(visibility, 'full')) {
@@ -6096,7 +4893,7 @@ function buildCharacter(context, catalog) {
       '姿勢與肢體語言 (Pose & Body Language)',
       context.locks,
       (item) => detailAllowed(item, context.framing) && poseSupportsLocationContext(item, context),
-      sample,
+      sampleItem,
       false
     );
   }
@@ -6106,6 +4903,8 @@ function buildCharacter(context, catalog) {
 
 function buildWardrobe(context, locks, catalog) {
   const previewExclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
+  const random = context.random || Math.random;
+  const sampleItem = (items) => sample(items, random);
   const prepareSpecialOutfit = (item, role = null) => {
     const meta = { ...(item.meta || {}) };
     if (role) meta.specialOutfitRole = role;
@@ -6137,7 +4936,7 @@ function buildWardrobe(context, locks, catalog) {
       previewExclusions.getIds(previousSelectionKeys).forEach((id) => excluded.add(id));
       const candidates = items.filter((item) => !isNoneLikeItem(item) && !excluded.has(item.id) && wardrobeFitsLocation(item, context.location));
       const fallbackCandidates = items.filter((item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location));
-      return sample(candidates.length > 0 ? candidates : fallbackCandidates);
+      return sampleItem(candidates.length > 0 ? candidates : fallbackCandidates);
     }
     return findById(items, lockedValue);
   };
@@ -6187,7 +4986,7 @@ function buildWardrobe(context, locks, catalog) {
       const randomDistinctPreset = (excludeId, previousSelectionKeys = []) => {
         const candidates = presets.filter((item) => !isNoneLikeItem(item) && item.id !== excludeId);
         const previewCandidates = previewExclusions.filterCandidates(candidates, previousSelectionKeys);
-        return sample(previewCandidates.length > 0 ? previewCandidates : candidates.length > 0 ? candidates : presets);
+        return sampleItem(previewCandidates.length > 0 ? previewCandidates : candidates.length > 0 ? candidates : presets);
       };
 
       const resolvedA = presetAIsNone ? null : presetA || (!locks.outfitPresetAId && presetB && !presetBIsNone ? randomDistinctPreset(presetB.id, ['outfitPresetAId']) : null);
@@ -6288,7 +5087,7 @@ function buildWardrobe(context, locks, catalog) {
       return lockedItem;
     }
 
-    if (Math.random() > probability) return null;
+    if (random() > probability) return null;
 
     const candidates = categoryItems.filter(
       (item) =>
@@ -6297,7 +5096,7 @@ function buildWardrobe(context, locks, catalog) {
         extraPredicate(item)
     );
     if (candidates.length === 0) return null;
-    const picked = sample(candidates);
+    const picked = sampleItem(candidates);
     addPiece(picked);
     return picked;
   };
@@ -6387,7 +5186,7 @@ function buildWardrobe(context, locks, catalog) {
       (item) => (allowNone || !isNoneLikeItem(item)) && wardrobeFitsLocation(item, context.location) && predicate(item)
     );
     if (candidates.length === 0) return null;
-    const picked = sample(previewExclusions.filterCandidates(candidates, previousSelectionKeys));
+    const picked = sampleItem(previewExclusions.filterCandidates(candidates, previousSelectionKeys));
     addPiece(picked);
     return picked;
   };
@@ -6464,7 +5263,7 @@ function buildWardrobe(context, locks, catalog) {
 
     const candidates = options.filter((option) => allowNoneWhenUnlocked || !isNoneLikeItem(option));
     if (candidates.length === 0) return null;
-    const pickedOption = sample(candidates);
+    const pickedOption = sampleItem(candidates);
     return pickedOption && !isNoneLikeItem(pickedOption)
       ? createSyntheticWardrobeModifier(token, pickedOption)
       : null;
@@ -6514,7 +5313,7 @@ function buildWardrobe(context, locks, catalog) {
       const baseId = getBaseWardrobeItemId(item);
       return !excludeBaseIds?.has(baseId) && !previousSelectionIds.has(baseId);
     });
-    const picked = sample(distinctCandidates.length > 0 ? distinctCandidates : candidates);
+    const picked = sampleItem(distinctCandidates.length > 0 ? distinctCandidates : candidates);
     const clonedItem = cloneWardrobePieceForRole(picked, role, layerSlot);
     addPiece(clonedItem);
     rememberRoleMainWardrobeItem(clonedItem, layerSlot);
@@ -6538,7 +5337,7 @@ function buildWardrobe(context, locks, catalog) {
       addPiece(clonedItem);
       return clonedItem;
     }
-    if (Math.random() > probability) return null;
+    if (random() > probability) return null;
     return pickRoleWardrobeItem(items, role, layerSlot, { allowNone: false });
   };
 
@@ -7273,7 +6072,7 @@ export function buildPhotographyStylePrompt(style) {
 }
 
 export function getPhotographyStyleOptions(customLibrary = []) {
-  return buildCatalog(customLibrary).flatCatalog.regional;
+  return getEngineRuntime(customLibrary).flatCatalog.regional;
 }
 
 const DUO_PROMPT_OVERRIDES = {
@@ -7478,7 +6277,7 @@ function isCharacterCardLayerSlot(item, key = '') {
   return key ? item.meta.characterCardLayer === key : true;
 }
 
-function buildWardrobeColors(wardrobeSlots, locks) {
+function buildWardrobeColors(wardrobeSlots, locks, random = Math.random) {
   const hasOutfitPreset = Boolean(
     (wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)) ||
     (wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)) ||
@@ -7503,15 +6302,15 @@ function buildWardrobeColors(wardrobeSlots, locks) {
   const completeLookPalette = hasCompleteLook ? getCompleteLookPaletteOption(normalizedLocks.completeLookPaletteId) : null;
   const completeLookPaletteA = hasCompleteLookA ? getCompleteLookPaletteOption(normalizedLocks.completeLookPaletteAId) : null;
   const completeLookPaletteB = hasCompleteLookB ? getCompleteLookPaletteOption(normalizedLocks.completeLookPaletteBId) : null;
-  const topBottomPalette = getTopBottomPaletteOption(normalizedLocks.topBottomPaletteId);
-  const topBottomPaletteA = getTopBottomPaletteOption(normalizedLocks.topBottomPaletteAId);
+  const topBottomPalette = getTopBottomPaletteOption(normalizedLocks.topBottomPaletteId, {}, random);
+  const topBottomPaletteA = getTopBottomPaletteOption(normalizedLocks.topBottomPaletteAId, {}, random);
   const topBottomPaletteB = getTopBottomPaletteOption(normalizedLocks.topBottomPaletteBId, {
     topColors: [topBottomPaletteA?.topColor].filter(Boolean),
     bottomColors: [topBottomPaletteA?.bottomColor].filter(Boolean),
-  });
+  }, random);
   const pickGarmentColor = (lockedId, avoidColors = []) => {
     const lockedColor = getGarmentColorOption(lockedId);
-    return lockedColor || sampleColorAvoiding(GARMENT_COLOR_OPTIONS, avoidColors.filter(Boolean));
+    return lockedColor || sampleColorAvoiding(GARMENT_COLOR_OPTIONS, avoidColors.filter(Boolean), (item) => item, random);
   };
   const lockedTopAColor = getGarmentColorOption(normalizedLocks.topAColorId);
   const lockedTopBColor = getGarmentColorOption(normalizedLocks.topBColorId);
@@ -7520,19 +6319,19 @@ function buildWardrobeColors(wardrobeSlots, locks) {
   const lockedBottomAColor = getGarmentColorOption(normalizedLocks.bottomAColorId);
   const lockedBottomBColor = getGarmentColorOption(normalizedLocks.bottomBColorId);
   const outfitPresetColor = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
-    ? topBottomPalette?.topColor || getOutfitPresetColorOption(normalizedLocks.outfitPresetColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    ? topBottomPalette?.topColor || getOutfitPresetColorOption(normalizedLocks.outfitPresetColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS, random)
     : null;
   const outfitPresetAColor = wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)
-    ? topBottomPaletteA?.topColor || getOutfitPresetColorOption(normalizedLocks.outfitPresetAColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    ? topBottomPaletteA?.topColor || getOutfitPresetColorOption(normalizedLocks.outfitPresetAColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS, random)
     : null;
   const outfitPresetBColor = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
-    ? topBottomPaletteB?.topColor || getOutfitPresetColorOption(normalizedLocks.outfitPresetBColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+    ? topBottomPaletteB?.topColor || getOutfitPresetColorOption(normalizedLocks.outfitPresetBColorId) || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS, random)
     : null;
   const outfitPresetPrimaryColor = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
     ? topBottomPalette?.topColor
       || getOutfitPresetColorOption(normalizedLocks.outfitPresetPrimaryColorId)
       || getOutfitPresetColorOption(normalizedLocks.outfitPresetColorId)
-      || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+      || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS, random)
     : null;
   const outfitPresetContrastColor = wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)
     ? topBottomPalette?.bottomColor || getOutfitPresetColorOption(normalizedLocks.outfitPresetContrastColorId)
@@ -7544,7 +6343,7 @@ function buildWardrobeColors(wardrobeSlots, locks) {
     ? topBottomPaletteA?.topColor
       || getOutfitPresetColorOption(normalizedLocks.outfitPresetAPrimaryColorId)
       || getOutfitPresetColorOption(normalizedLocks.outfitPresetAColorId)
-      || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+      || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS, random)
     : null;
   const outfitPresetAContrastColor = wardrobeSlots.outfitPresetA && !isNoneLikeItem(wardrobeSlots.outfitPresetA)
     ? topBottomPaletteA?.bottomColor || getOutfitPresetColorOption(normalizedLocks.outfitPresetAContrastColorId)
@@ -7556,7 +6355,7 @@ function buildWardrobeColors(wardrobeSlots, locks) {
     ? topBottomPaletteB?.topColor
       || getOutfitPresetColorOption(normalizedLocks.outfitPresetBPrimaryColorId)
       || getOutfitPresetColorOption(normalizedLocks.outfitPresetBColorId)
-      || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS)
+      || sampleNonNone(OUTFIT_PRESET_COLOR_OPTIONS, random)
     : null;
   const outfitPresetBContrastColor = wardrobeSlots.outfitPresetB && !isNoneLikeItem(wardrobeSlots.outfitPresetB)
     ? topBottomPaletteB?.bottomColor || getOutfitPresetColorOption(normalizedLocks.outfitPresetBContrastColorId)
@@ -7582,15 +6381,15 @@ function buildWardrobeColors(wardrobeSlots, locks) {
   const bottomColor = !hasOutfitPreset && hasBottom ? topBottomPalette?.bottomColor || pickGarmentColor(normalizedLocks.bottomColorId) : null;
   const bottomAColor = !hasOutfitPreset && hasBottomA ? topBottomPaletteA?.bottomColor || lockedBottomAColor || pickGarmentColor('', [topBottomPaletteB?.bottomColor, lockedBottomBColor]) : null;
   const bottomBColor = !hasOutfitPreset && hasBottomB ? topBottomPaletteB?.bottomColor || lockedBottomBColor || pickGarmentColor('', [bottomAColor]) : null;
-  const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(normalizedLocks.legwearColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS) : null;
-  const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) && !isCharacterCardLayerSlot(wardrobeSlots.outerwear) ? getGarmentColorOption(normalizedLocks.outerwearColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
-  const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) && !isCharacterCardLayerSlot(wardrobeSlots.shoes) ? getLayerColorOption(normalizedLocks.shoesColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
-  const legwearAColor = wardrobeSlots.legwearA && !isNoneLikeItem(wardrobeSlots.legwearA) ? getLegwearColorOption(normalizedLocks.legwearAColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS) : null;
-  const outerwearAColor = wardrobeSlots.outerwearA && !isNoneLikeItem(wardrobeSlots.outerwearA) ? getGarmentColorOption(normalizedLocks.outerwearAColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
-  const shoesAColor = wardrobeSlots.shoesA && !isNoneLikeItem(wardrobeSlots.shoesA) ? getLayerColorOption(normalizedLocks.shoesAColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
-  const legwearBColor = wardrobeSlots.legwearB && !isNoneLikeItem(wardrobeSlots.legwearB) ? getLegwearColorOption(normalizedLocks.legwearBColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS) : null;
-  const outerwearBColor = wardrobeSlots.outerwearB && !isNoneLikeItem(wardrobeSlots.outerwearB) ? getGarmentColorOption(normalizedLocks.outerwearBColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS) : null;
-  const shoesBColor = wardrobeSlots.shoesB && !isNoneLikeItem(wardrobeSlots.shoesB) ? getLayerColorOption(normalizedLocks.shoesBColorId) || sampleNonNone(LAYER_COLOR_OPTIONS) : null;
+  const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(normalizedLocks.legwearColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS, random) : null;
+  const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) && !isCharacterCardLayerSlot(wardrobeSlots.outerwear) ? getGarmentColorOption(normalizedLocks.outerwearColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS, random) : null;
+  const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) && !isCharacterCardLayerSlot(wardrobeSlots.shoes) ? getLayerColorOption(normalizedLocks.shoesColorId) || sampleNonNone(LAYER_COLOR_OPTIONS, random) : null;
+  const legwearAColor = wardrobeSlots.legwearA && !isNoneLikeItem(wardrobeSlots.legwearA) ? getLegwearColorOption(normalizedLocks.legwearAColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS, random) : null;
+  const outerwearAColor = wardrobeSlots.outerwearA && !isNoneLikeItem(wardrobeSlots.outerwearA) ? getGarmentColorOption(normalizedLocks.outerwearAColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS, random) : null;
+  const shoesAColor = wardrobeSlots.shoesA && !isNoneLikeItem(wardrobeSlots.shoesA) ? getLayerColorOption(normalizedLocks.shoesAColorId) || sampleNonNone(LAYER_COLOR_OPTIONS, random) : null;
+  const legwearBColor = wardrobeSlots.legwearB && !isNoneLikeItem(wardrobeSlots.legwearB) ? getLegwearColorOption(normalizedLocks.legwearBColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS, random) : null;
+  const outerwearBColor = wardrobeSlots.outerwearB && !isNoneLikeItem(wardrobeSlots.outerwearB) ? getGarmentColorOption(normalizedLocks.outerwearBColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS, random) : null;
+  const shoesBColor = wardrobeSlots.shoesB && !isNoneLikeItem(wardrobeSlots.shoesB) ? getLayerColorOption(normalizedLocks.shoesBColorId) || sampleNonNone(LAYER_COLOR_OPTIONS, random) : null;
   return {
     completeLookPalette,
     completeLookPaletteA,
@@ -8798,7 +7597,7 @@ function getImportedWorldSceneArchitectureText(context) {
     .trim();
 }
 
-function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film) {
+function buildStructuredPromptSections(context, character, wardrobe, wardrobeColors, lightDirection, film) {
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const specialSubjectMode = isDedicatedSpecialSubject(context.subject);
@@ -8869,11 +7668,11 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
       neckAccessory: wardrobeSlots.neckAccessory,
     }));
   };
-  const lines = [];
-  const addLine = (label, value) => {
-    if (!value || isNoneLikePromptText(value)) return;
-    lines.push(`${label}: ${ensureTerminalPeriod(value)}`);
-  };
+  const sectionModel = createPromptSectionModel({
+    normalizeValue: ensureTerminalPeriod,
+    shouldInclude: (value) => Boolean(value) && !isNoneLikePromptText(value),
+  });
+  const addLine = sectionModel.addSection;
   const addItemLine = (label, item) => {
     if (!item || isNoneLikeItem(item)) return;
     addLine(label, item.en);
@@ -9152,28 +7951,7 @@ function buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors,
   addContextLine('Camera / Film', film, (item) => skeletonText(item.en));
   if (!specialSubjectMode && !characterProfileMode && !useCharacterIdentityAnchor) addLine('Character Identity', context.characterProfilePrompt);
 
-  return lines.join('\n');
-}
-
-function parseStructuredPromptLines(prompt) {
-  const valuesByLabel = new Map();
-
-  prompt
-    .split('\n')
-    .forEach((line) => {
-      const separatorIndex = line.indexOf(':');
-      if (separatorIndex === -1) return;
-
-      const label = line.slice(0, separatorIndex).trim();
-      const value = line.slice(separatorIndex + 1).trim();
-      if (!label || !value) return;
-
-      const current = valuesByLabel.get(label) || [];
-      current.push(value);
-      valuesByLabel.set(label, current);
-    });
-
-  return valuesByLabel;
+  return sectionModel.toModel();
 }
 
 function getStructuredValues(valuesByLabel, labels) {
@@ -10767,8 +9545,14 @@ function compressZImageSinglePoseText(value, context) {
     .trim();
 }
 
-function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character = null, wardrobe = null, wardrobeColors = null) {
-  const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
+function renderGptPrompt(promptModel) {
+  const {
+    valuesByLabel,
+    context,
+    character,
+    wardrobe,
+    wardrobeColors,
+  } = promptModel;
   const section = (title, sentence) => {
     const cleaned = ensureTerminalPeriod(stripMarkdown(sentence || '').replace(/\s+/g, ' ').trim());
     return cleaned ? `${title}:\n${cleaned}` : '';
@@ -10866,7 +9650,16 @@ function buildGptPromptFromStructuredPrompt(structuredPrompt, context, character
   ].filter(Boolean).join('\n\n');
 }
 
-function buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
+function renderZImagePrompt(promptModel) {
+  const {
+    context,
+    character,
+    wardrobe,
+    wardrobeColors,
+    lightDirection,
+    film,
+    opticalEffect,
+  } = promptModel;
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
@@ -12146,7 +10939,7 @@ function buildAiDuoSection(label, value) {
   return cleaned ? `${label}: ${cleaned}` : '';
 }
 
-function buildAiDuoPromptFromStructuredPrompt(valuesByLabel, context, wardrobe, wardrobeColors) {
+function renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors) {
   return [
     buildAiDuoOpeningText(context),
     buildAiDuoSection('Woman 1', buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, 'a')),
@@ -12158,11 +10951,16 @@ function buildAiDuoPromptFromStructuredPrompt(valuesByLabel, context, wardrobe, 
   ].filter(Boolean).join('\n\n');
 }
 
-function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe = null, wardrobeColors = null) {
-  const valuesByLabel = parseStructuredPromptLines(structuredPrompt);
+function renderAiPrompt(promptModel) {
+  const {
+    valuesByLabel,
+    context,
+    wardrobe,
+    wardrobeColors,
+  } = promptModel;
 
   if (context.subject?.count === 2 && !isSpecialSubject(context.subject)) {
-    return buildAiDuoPromptFromStructuredPrompt(valuesByLabel, context, wardrobe, wardrobeColors);
+    return renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors);
   }
 
   const subjectPart = buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe);
@@ -12216,10 +11014,19 @@ function buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe =
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
-  const structuredPrompt = buildStructuredGrokPrompt(context, character, wardrobe, wardrobeColors, lightDirection, film);
-  const grokPrompt = buildGptPromptFromStructuredPrompt(structuredPrompt, context, character, wardrobe, wardrobeColors);
-  const zImagePrompt = buildZImagePrompt(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
-  const midjourneyPrompt = buildAiPromptFromStructuredPrompt(structuredPrompt, context, wardrobe, wardrobeColors);
+  const promptModel = {
+    ...buildStructuredPromptSections(context, character, wardrobe, wardrobeColors, lightDirection, film),
+    context,
+    character,
+    wardrobe,
+    wardrobeColors,
+    lightDirection,
+    film,
+    opticalEffect,
+  };
+  const grokPrompt = renderGptPrompt(promptModel);
+  const zImagePrompt = renderZImagePrompt(promptModel);
+  const midjourneyPrompt = renderAiPrompt(promptModel);
 
   return { midjourneyPrompt, grokPrompt, zImagePrompt };
 }
@@ -12242,7 +11049,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     outfitPresetBContrastColorId: wardrobeColors.outfitPresetBContrastColor?.id || '',
     outfitPresetBLockedPaletteId: wardrobeColors.outfitPresetBLockedPalette?.id || '',
   });
-  return {
+  const resolvedSelection = {
     subjectCount: isSpecialSubject(context.subject) ? '1' : context.subject.id,
     specialSubjectId: isSpecialSubject(context.subject) && !isCharacterProfileSubject(context.subject) ? context.subject.id : 'none',
     characterProfileId: isCharacterProfileSubject(context.subject) ? context.subject.id : 'none',
@@ -12417,6 +11224,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     earringsBId: wardrobeSlots.earringsB?.id?.replace(/:b$/, '') || '',
     neckAccessoryBId: wardrobeSlots.neckAccessoryB?.id?.replace(/:b$/, '') || '',
   };
+  return createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
 }
 
 export function buildLocksFromPrompt(prompt, keepKeys = []) {
@@ -12430,9 +11238,15 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
   return base;
 }
 
-function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) {
-  const lockControls = getLockControls(customLibrary);
-  const runtime = buildCatalog(customLibrary);
+function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
+  const lockControls = runtime.controls;
+  const random = normalizeRandom(runtimeOptions.random);
+  const pickLocked = (list, lockedId, predicate = () => true, picker = sample) => (
+    pickWithLock(list, lockedId, predicate, picker, random)
+  );
+  const pickCompatible = (list, lockedId, predicate = () => true, picker = sample) => (
+    pickWithCompatibleLock(list, lockedId, predicate, picker, random)
+  );
   const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
   const previewRerollExclusions = buildPreviewRerollExclusions(runtimeOptions.excludePreviousSelection);
   const selectedFixedCompositionSet = getFixedCompositionSetOption(effectiveLocks.fixedCompositionSetId);
@@ -12476,26 +11290,26 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const dedicatedSubject = characterProfile || specialSubject;
   const subject = dedicatedSubject || getSubjectOption(effectiveLocks.subjectCount);
   const imageTypePreset = getImageTypePresetOption(effectiveLocks.imageTypePresetId);
-  const hasWardrobeLocks = !dedicatedSubject && hasEffectiveWardrobeLocks(effectiveLocks, lockControls);
+  const hasWardrobeLocks = !dedicatedSubject && hasEffectiveWardrobeLockValues(effectiveLocks, lockControls);
   const hasSceneLocks = Boolean(effectiveLocks.locationId || effectiveLocks.sceneAttributeId);
-  const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio);
+  const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio, random);
   const sceneAttribute = getSceneAttributeOption(effectiveLocks.sceneAttributeId);
   const lowFrequencyPicker = (tag) => (candidates) => {
     const regular = candidates.filter((item) => !item.meta.tags?.includes(tag));
     const lowFrequency = candidates.filter((item) => item.meta.tags?.includes(tag));
 
-    if (regular.length > 0 && (lowFrequency.length === 0 || Math.random() < 0.88)) {
-      return sample(regular);
+    if (regular.length > 0 && (lowFrequency.length === 0 || random() < 0.88)) {
+      return sample(regular, random);
     }
 
-    return sample(lowFrequency.length > 0 ? lowFrequency : candidates);
+    return sample(lowFrequency.length > 0 ? lowFrequency : candidates, random);
   };
-  const location = pickWithLock(
+  const location = pickLocked(
     runtime.flatCatalog.locations,
     effectiveLocks.locationId,
     (item) => locationMatchesSceneAttribute(item, sceneAttribute)
   );
-  let style = pickWithLock(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
+  let style = pickLocked(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
   const lockedSpecialAction = effectiveLocks.specialActionId
     ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
     : null;
@@ -12514,7 +11328,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
       }
     : null;
   const lockedActionConstraint = mergeActionConstraints(lockedSpecialAction, lockedPoseComposerAction, lockedActionPose);
-  const framing = pickWithLock(
+  const framing = pickLocked(
     runtime.flatCatalog.framing,
     effectiveLocks.framingId,
     (item) => (
@@ -12536,7 +11350,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     !lockedDuoExpression && subject.count === 2 && effectiveLocks.expressionBId ? findById(expressionOptions, effectiveLocks.expressionBId) : null,
     effectiveLocks.expressionId ? findById(expressionOptions, effectiveLocks.expressionId) : null,
   ].filter(Boolean);
-  const pickCameraWithExpressionLock = lockedExpressions.length > 0 ? pickWithCompatibleLock : pickWithLock;
+  const pickCameraWithExpressionLock = lockedExpressions.length > 0 ? pickCompatible : pickLocked;
   const angle = pickCameraWithExpressionLock(
     runtime.flatCatalog.angle,
     effectiveLocks.angleId,
@@ -12557,32 +11371,32 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     effectiveLocks.orbitId,
     (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint)
   );
-  const lens = pickWithLock(runtime.flatCatalog.lens, effectiveLocks.lensId);
+  const lens = pickLocked(runtime.flatCatalog.lens, effectiveLocks.lensId);
   const apertureLockId = effectiveLocks.apertureId || getControlOptionByZh(lockControls, 'apertureId', '全無')?.id || '';
   const shutterLockId = effectiveLocks.shutterId || getControlOptionByZh(lockControls, 'shutterId', '全無')?.id || '';
-  const aperture = pickWithLock(runtime.flatCatalog.aperture, apertureLockId);
-  const shutter = pickWithLock(runtime.flatCatalog.shutter, shutterLockId);
+  const aperture = pickLocked(runtime.flatCatalog.aperture, apertureLockId);
+  const shutter = pickLocked(runtime.flatCatalog.shutter, shutterLockId);
   const fixedSetLightingCompatibilityAnchor = fixedCompositionSetActive
     && selectedFixedCompositionSet?.meta?.tags?.includes('outdoor')
     ? selectedFixedCompositionSet
     : null;
   const locationForLightingCompatibility = fixedSetLightingCompatibilityAnchor || (hasImportedWorldSceneArchitecture ? null : location);
-  const lighting = pickWithCompatibleLock(
+  const lighting = pickCompatible(
     runtime.flatCatalog.lighting,
     effectiveLocks.lightingId,
     (item) => (locationForLightingCompatibility ? locationSupportsLighting(locationForLightingCompatibility, item) : true)
   );
   const lightDirection = !lighting
     ? null
-    : pickWithCompatibleLock(
+    : pickCompatible(
       runtime.flatCatalog.lightDirection,
       effectiveLocks.lightDirectionId,
       (item) => lightDirectionSupportsScene(item, framing, locationForLightingCompatibility, lighting)
     );
   const imagingLockId = effectiveLocks.filmId || (CAMERA_PROFILE_OPTION_IDS.has(effectiveLocks.cameraSystemId) ? effectiveLocks.cameraSystemId : '');
-  const film = pickWithLock(runtime.flatCatalog.film, imagingLockId, () => true, lowFrequencyPicker('low_frequency_film'));
+  const film = pickLocked(runtime.flatCatalog.film, imagingLockId, () => true, lowFrequencyPicker('low_frequency_film'));
   const cameraSystem = getLegacyCameraSystemFromImaging(film);
-  const opticalEffect = pickWithLock(runtime.flatCatalog.effects, effectiveLocks.opticalEffectId);
+  const opticalEffect = pickLocked(runtime.flatCatalog.effects, effectiveLocks.opticalEffectId);
   const fixedCompositionSet = fixedCompositionSetActive ? selectedFixedCompositionSet : null;
   const fixedSetPosition = fixedCompositionSet
     ? getFixedSetPositionOption(effectiveLocks.fixedSetPositionId, fixedCompositionSet)
@@ -12620,6 +11434,7 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
     lighting,
     lightDirection,
     locks: effectiveLocks,
+    random,
     previewRerollExclusions,
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
@@ -12633,13 +11448,13 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
   const page1Wardrobe = appendLockedPage1FillersForCharacterCardLayers(filteredPage1Wardrobe, cardLayers, effectiveLocks, lockControls);
   const wardrobe = [...cardLayers, ...page1Wardrobe];
   context.wardrobe = wardrobe;
-  const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks);
+  const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
 
   const { midjourneyPrompt, grokPrompt, zImagePrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
   return {
-    id: `${Date.now()}-${index}-${Math.random().toString(36).slice(2, 8)}`,
+    id: `${Date.now()}-${index}-${random().toString(36).slice(2, 8)}`,
     date: new Date().toISOString(),
     summary: buildSummary(summaryFields),
     summaryFields,
@@ -12660,5 +11475,6 @@ function generateSinglePrompt(index, locks, customLibrary, runtimeOptions = {}) 
 }
 
 export function generatePrompts(count = 1, locks = createEmptyLocks(), customLibrary = [], runtimeOptions = {}) {
-  return Array.from({ length: count }, (_, index) => generateSinglePrompt(index, locks, customLibrary, runtimeOptions));
+  const runtime = getEngineRuntime(customLibrary);
+  return Array.from({ length: count }, (_, index) => generateSinglePrompt(index, locks, runtime, runtimeOptions));
 }

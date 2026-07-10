@@ -1,4 +1,4 @@
-import { createEmptyLocks, generatePrompts } from '../webapp/src/lib/engine.js';
+import { createEmptyLocks, createSeededRandom, generatePrompts } from '../webapp/src/lib/engine.js';
 
 function hasText(items, matcher) {
   return items.some((item) => matcher(`${item.zh} ${item.en}`.toLowerCase()));
@@ -48,7 +48,10 @@ function validatePrompt(prompt) {
 }
 
 const count = Number(process.argv[2] || 200);
-const prompts = generatePrompts(count, createEmptyLocks(), []);
+const seed = process.argv[3] || 'prompt-logic-default';
+const prompts = generatePrompts(count, createEmptyLocks(), [], {
+  random: createSeededRandom(seed),
+});
 const findings = [];
 
 for (const prompt of prompts) {
@@ -57,6 +60,7 @@ for (const prompt of prompts) {
 }
 
 console.log(`Generated ${count} prompts`);
+console.log(`Seed: ${seed}`);
 console.log(`Prompts with issues: ${findings.length}`);
 
 const issueCounts = new Map();
