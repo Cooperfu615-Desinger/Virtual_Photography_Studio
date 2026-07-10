@@ -185,20 +185,6 @@ export default function Page2Workspace({
 
           {activeCard ? (
             <aside className="character-card-config-panel">
-              <div className="character-card-selected-preview">
-                {activeCard.primaryReferenceImage ? (
-                  <img
-                    src={`${import.meta.env.BASE_URL}${activeCard.primaryReferenceImage}`}
-                    alt={activeCard.label}
-                    width="640"
-                    height="954"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ) : null}
-                <strong>{activeCard.label}</strong>
-              </div>
-
               <div className="character-card-control-group">
                 <div className="control-section-title">髮型變化</div>
                 <div className="character-card-chip-grid character-card-hair-grid">

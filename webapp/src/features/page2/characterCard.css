@@ -1,4 +1,4 @@
-.character-card-lab-shell {
+.page2-shell.character-card-lab-shell {
   grid-template-columns: 1fr;
   align-items: start;
 }
@@ -115,33 +115,6 @@
   border: 1px solid rgba(111, 87, 60, 0.14);
   border-radius: 8px;
   background: rgba(255, 250, 240, 0.64);
-}
-
-.character-card-selected-preview {
-  display: grid;
-  grid-template-columns: 74px minmax(0, 1fr);
-  gap: 10px;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid rgba(111, 87, 60, 0.12);
-  border-radius: 8px;
-  background: rgba(247, 239, 227, 0.76);
-}
-
-.character-card-selected-preview img {
-  display: block;
-  width: 74px;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-.character-card-selected-preview strong {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  color: var(--text-primary);
-  font-size: 1rem;
-  line-height: 1.25;
 }
 
 .character-card-control-group {
@@ -324,14 +297,6 @@
 
   .character-card-grid-large {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .character-card-selected-preview {
-    grid-template-columns: 64px minmax(0, 1fr);
-  }
-
-  .character-card-selected-preview img {
-    width: 64px;
   }
 
   .character-card-output-actions {
