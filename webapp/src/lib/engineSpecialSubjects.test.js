@@ -65,6 +65,13 @@ test('character profile control exposes character profile cards separately from 
       ['character-sui', '03_Sui', '03_Sui 角色卡'],
       ['character-yuri', '02_Yuri', '02_Yuri 角色卡'],
       ['character-hina', '37_Hina', '37_Hina 角色卡'],
+      ['character-yuna', '26_Yuna', '26_Yuna 角色卡'],
+      ['character-eleanor', '41_Eleanor', '41_Eleanor 角色卡'],
+      ['character-olivia', '22_Olivia', '22_Olivia 角色卡'],
+      ['character-jiwoo', '08_Jiwoo', '08_Jiwoo 角色卡'],
+      ['character-chihiro', '05_Chihiro', '05_Chihiro 角色卡'],
+      ['character-koto', '04_Koto', '04_Koto 角色卡'],
+      ['character-mei', '00_Mei', '00_Mei 角色卡'],
     ]
   );
   assert.deepEqual(
@@ -80,6 +87,13 @@ test('character profile control exposes character profile cards separately from 
       ['03_Sui', 'character-cards/sui/03_Sui_00.avif', 'avif'],
       ['02_Yuri', 'character-cards/yuri/02_Yuri_00.avif', 'avif'],
       ['37_Hina', 'character-cards/hina/37_Hina_00.avif', 'avif'],
+      ['26_Yuna', 'character-cards/yuna/26_Yuna_00.avif', 'avif'],
+      ['41_Eleanor', 'character-cards/eleanor/41_Eleanor_00.avif', 'avif'],
+      ['22_Olivia', 'character-cards/olivia/22_Olivia_00.avif', 'avif'],
+      ['08_Jiwoo', 'character-cards/jiwoo/08_Jiwoo_00.avif', 'avif'],
+      ['05_Chihiro', 'character-cards/chihiro/05_Chihiro_00.avif', 'avif'],
+      ['04_Koto', 'character-cards/koto/04_Koto_00.avif', 'avif'],
+      ['00_Mei', 'character-cards/mei/00_Mei_00.avif', 'avif'],
     ]
   );
 });

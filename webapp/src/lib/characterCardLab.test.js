@@ -71,7 +71,7 @@ function hasNonNoneWardrobePrefix(prompt, prefix) {
 test('character card options are read from PAGE1 character profile control', () => {
   const cards = getCharacterCardOptions(getLockControls());
 
-  assert.ok(cards.length >= 10);
+  assert.equal(cards.length, 17);
   assert.equal(cards[0].id, 'character-rika');
   assert.equal(cards[0].label, '11_Rika');
   assert.match(cards[0].identityAndBody, /soft doll-like indie-girl facial features/i);
@@ -82,6 +82,43 @@ test('character card options are read from PAGE1 character profile control', () 
   assert.match(cards[0].defaultWardrobeLayers.bottom.prompt, /low-rise light-wash blue jeans/i);
   assert.equal(cards[0].defaultWardrobeLayers.neckAccessory.label, '脖子飾品');
   assert.match(cards[0].defaultWardrobeLayers.neckAccessory.prompt, /beaded choker necklace/i);
+});
+
+test('new character cards expose detailed identity hair and wardrobe layers', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const newCardIds = [
+    'character-yuna',
+    'character-eleanor',
+    'character-olivia',
+    'character-jiwoo',
+    'character-chihiro',
+    'character-koto',
+    'character-mei',
+  ];
+
+  for (const id of newCardIds) {
+    const card = cards.find((entry) => entry.id === id);
+    assert.ok(card, `Expected ${id}`);
+    assert.match(card.identityAndBody, /eyes/i);
+    assert.match(card.identityAndBody, /nose/i);
+    assert.match(card.identityAndBody, /lips/i);
+    assert.ok(card.identityAndBody.length > 500, `Expected detailed identity description for ${id}`);
+    assert.ok(card.baseHair.length > 100, `Expected detailed hair description for ${id}`);
+    assert.match(card.primaryReferenceImage, /\.avif$/i);
+  }
+
+  const yuna = cards.find((card) => card.id === 'character-yuna');
+  assert.match(yuna.identityAndBody, /rounded almond warm gray-brown eyes/i);
+  assert.match(yuna.defaultWardrobeLayers.neckAccessory.prompt, /over-ear headphones/i);
+
+  const eleanor = cards.find((card) => card.id === 'character-eleanor');
+  assert.match(eleanor.identityAndBody, /obsidian-black swept horns/i);
+  assert.match(eleanor.identityAndBody, /arcane linework tattoos/i);
+  assert.equal(eleanor.defaultWardrobeLayers.headAccessory, undefined);
+
+  const olivia = cards.find((card) => card.id === 'character-olivia');
+  assert.match(olivia.baseHair, /open center part/i);
+  assert.match(olivia.defaultWardrobeLayers.headAccessory.prompt, /black baseball cap/i);
 });
 
 test('hair variants use shared compatibility plus per-card overrides', () => {

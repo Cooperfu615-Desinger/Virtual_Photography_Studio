@@ -10,6 +10,7 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.endsWith('/src/data/database.json')) return 'prompt-catalog'
+          if (id.endsWith('/src/lib/engine/characterProfiles.js')) return 'prompt-catalog'
           if (id.includes('/src/lib/engine.js') || id.includes('/src/lib/engine/')) return 'prompt-engine'
           return undefined
         },

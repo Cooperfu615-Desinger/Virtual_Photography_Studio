@@ -60,6 +60,34 @@ test('plain PAGE1 character card keeps full default wardrobe for old behavior', 
   assert.match(text, /beaded choker/i);
 });
 
+test('new character cards keep permanent identity traits separate from removable wardrobe layers', () => {
+  const [oliviaPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-olivia',
+    characterCardHairVariantId: 'low-ponytail',
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: ['top', 'bottom', 'outerwear', 'shoes', 'earrings', 'neckAccessory'],
+    specialOutfitId: optionId('specialOutfitId', '全無'),
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '全無'),
+  });
+  const [eleanorPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-eleanor',
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: [],
+  });
+
+  assertEveryPrimaryOutput(oliviaPrompt, /long rich dark chestnut-brown hair/i, 'Olivia base hair should remain visible');
+  assertEveryPrimaryOutput(oliviaPrompt, /low ponytail/i, 'Olivia hair variation should be preserved');
+  assertEveryPrimaryOutput(oliviaPrompt, /glossy black patent triangle bikini top/i, 'Olivia selected top should be preserved');
+  assertNoPrimaryOutput(oliviaPrompt, /plain black baseball cap/i, 'Olivia omitted head accessory should stay removed');
+
+  assertEveryPrimaryOutput(eleanorPrompt, /obsidian-black swept horns/i, 'Eleanor horns should remain part of her identity');
+  assertEveryPrimaryOutput(eleanorPrompt, /arcane linework tattoos/i, 'Eleanor markings should remain part of her identity');
+  assertNoPrimaryOutput(eleanorPrompt, /gothic armored corset gown/i, 'Eleanor omitted dress layer should stay removed');
+});
+
 test('character card variant can include selected card layers and PAGE1 missing layers', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

@@ -25,7 +25,7 @@ Important legacy terminology warning:
 - Knowledge base source: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
 - Sync script: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
 - Synced data target: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
-- Current pushed main before the App/PAGE1 split: `6f3431b Migrate saved cards and optimize data assets`
+- Current pushed main before the seven-card expansion: `89bb9c8 Refine character card lab UI`
 
 ## Validation
 
@@ -41,15 +41,15 @@ Standard validation flow:
   - `npm run lint`
   - `npm run build`
 
-Last implementation validation on 2026-07-10 after the App/PAGE1 and delivery-architecture split:
+Last implementation validation on 2026-07-10 after the seven-card Character Card Lab expansion:
 
-- Frontend `npm test`: 397 tests passed.
-- Frontend `npm run lint` and `npm run build`: passed without the previous Vite chunk-size warning.
+- Frontend `npm test`: 399 tests passed.
+- Frontend `npm run lint` and `npm run build`: passed without a Vite chunk-size warning.
 - Functions `npm test`: 30 tests passed.
 - Functions `npm run lint`: passed with the active repository ESLint configuration.
-- Browser smoke test passed for Prompt Control Deck, Character Card Lab, Action Pose Lab, World Street Scene Builder, and Saved Cards; console error/warn logs were empty.
+- Browser QA confirmed PAGE2 pagination is `10 + 7`, all seven new previews load, Olivia's removable cap and hair variants render, the six copy outputs remain available, and the desktop five-column layout has no horizontal overflow.
 - Git reference and object validation passed after stale synced-directory conflict copies were removed.
-- Data sync unit tests, deterministic `--check`, and public asset budget validation passed. The deployment-safe public references total about 2.1 MiB.
+- Public asset budget validation passed with 185 deployment files totaling 2,378,672 bytes. Full-resolution character sources remain under `source-assets/`.
 
 Optional dev server:
 
@@ -95,7 +95,7 @@ Do not rename the internal fields casually. Many saved cards, import/export path
 ### Product Architecture
 
 - PAGE1 is the main full portrait prompt workspace.
-- PAGE2 is the Character Card Lab for PAGE1 `A 人物設定`.
+- PAGE2 is the Character Card Lab for PAGE1 `A 人物設定`, with 17 built-in cards across two pages.
 - PAGE3 is the world / scene prompt workspace.
 - SUNO has been removed from active app navigation / workspace flow; the user plans a separate music prompt tool.
 - The unreachable SUNO workspace, prompt builder, tests, and CSS were removed on 2026-07-10. Historical saved cards remain plain stored prompt records.
@@ -527,8 +527,9 @@ PAGE1 is the main full portrait generator. It handles:
 
 PAGE2 is the Character Card Lab for PAGE1 `A 人物設定`.
 
-- Selects existing built-in character cards.
+- Selects 17 built-in character cards. The first page contains the original 10 and the second page contains `26_Yuna`, `41_Eleanor`, `22_Olivia`, `08_Jiwoo`, `05_Chihiro`, `04_Koto`, and `00_Mei`.
 - Supports character-safe hair styling variants that preserve the base hair identity.
+- Supports `預設` / `戴眼鏡` / `不戴眼鏡`, including PAGE1 import behavior.
 - PAGE2 owns which character-card wardrobe layers are imported into PAGE1.
 - Imports structured character-card state back into PAGE1:
   - `characterProfileId`
@@ -545,6 +546,17 @@ PAGE2 is the Character Card Lab for PAGE1 `A 人物設定`.
   - `Four-View Prompt`
   - `Full-Body Reference Prompt`
 - Has its own DLL PIC Pro panel using the six Character Card Lab outputs as prompt sources.
+- Desktop layout uses two vertical blocks. The upper block has a 5-column, 10-card paged grid plus PAGE1 import controls; the lower block has six copy buttons plus DLL PIC Pro.
+
+Character-card authoring workflow:
+
+- Keep full-resolution sources and alternate views under `source-assets/character-cards/<lowercase-name>/`.
+- Generate one 640px AVIF deployment preview under `webapp/public/character-cards/<lowercase-name>/`.
+- Register the source/preview pair in `knowledge_base/character_reference_manifest.json`.
+- Add detailed identity/body, face, hair, outfit, accessories, photographic direction, and reference metadata in `webapp/src/lib/engine/characterProfiles.js`.
+- Add PAGE2 hair tags and removable wardrobe layers in `webapp/src/lib/characterCardLab.js`.
+- Permanent anatomy belongs in identity, not removable wardrobe. Eleanor's horns, glowing eyes, facial markings, and body tattoos are the current example.
+- A removable item that obscures hair still belongs in wardrobe. Olivia's black cap is a `headAccessory`; her uncovered center-parted chestnut waves remain the base hair identity.
 
 ### PAGE3
 
@@ -715,27 +727,26 @@ For future UIUX work:
   - open questions
 - Do not treat generated wireframes as exact visual specs unless the user explicitly approves that level of fidelity.
 
-### PAGE2 Character Card Lab UIUX Direction
+### PAGE2 Character Card Lab UIUX State
 
-The next PAGE2 UIUX polish should preserve existing Character Card Lab v1 data and prompt behavior while improving operation flow.
+The agreed PAGE2 UIUX polish is implemented.
 
-Agreed direction:
+Current behavior:
 
-- The interface should be split into two vertical blocks:
+- The interface is split into two vertical blocks:
   - top block: character-card selection and PAGE1 import controls
   - bottom block: prompt copy actions and DLL PIC Pro
 - Top block:
   - Character-card grid shows 10 large cards at a time, arranged 5 columns x 2 rows.
-  - Cards should be larger than the current v1 cards.
-  - Each card only needs preview image and character name.
-  - Remove long default character descriptions from the visible UI.
-  - Future growth target is at least 40 built-in characters, but the visible page should not show all 40 at once.
-  - Add eyewear/glasses control with `預設` / `戴眼鏡` / `不戴眼鏡`.
-  - Eyewear must be able to import back to PAGE1.
-  - Wardrobe-layer import choices should be compact buttons, not large cards/rows.
+  - Cards are larger than the original v1 cards.
+  - Each card shows only its preview image and character name.
+  - Long default character descriptions are removed from the visible UI.
+  - The catalog currently has 17 built-in characters and retains the future growth target of at least 40 without showing all cards at once.
+  - Eyewear/glasses uses `預設` / `戴眼鏡` / `不戴眼鏡` and imports back to PAGE1.
+  - Wardrobe-layer import choices are compact buttons instead of large cards/rows.
 - Bottom block:
-  - Six PAGE2 prompt outputs should be copy-only buttons by default.
-  - Do not show long prompt text by default in the main PAGE2 layout.
+  - Six PAGE2 prompt outputs are copy-only buttons by default.
+  - Long prompt text is not shown in the main PAGE2 layout.
   - The six buttons are:
     - `Copy GPT`
     - `Copy Grok/Z-Image`
@@ -743,21 +754,21 @@ Agreed direction:
     - `Copy 大頭照`
     - `Copy 四視圖`
     - `Copy 全身 Reference`
-  - DLL PIC Pro should use a dropdown prompt-source selector to choose from the six prompt outputs.
-  - Prompt copy buttons do not need to change DLL PIC Pro source.
+  - DLL PIC Pro uses a dropdown prompt-source selector for the six prompt outputs.
+  - Prompt copy buttons do not change the DLL PIC Pro source.
 
-Open UI decisions for implementation planning:
+Resolved decisions:
 
-- How to navigate beyond the 10 visible cards: pagination, carousel, or internal scroll.
-- Exact rule for `不戴眼鏡` when PAGE1 already has eyewear selected: likely clear PAGE1 eyewear on import, but confirm before implementation.
-- Whether wardrobe import buttons show only active state or explicit `帶入` / `交給 PAGE1` text.
+- Navigation beyond 10 visible cards uses previous/next pagination.
+- `不戴眼鏡` clears character-card and PAGE1 eyewear when imported.
+- Wardrobe import controls use compact active-state buttons.
+- CSS import order must keep `features/page2/characterCard.css` after the shared `styles/workspaceLabs.css`; otherwise the shared desktop grid overrides the intended vertical PAGE2 shell.
 
 ## Current Best Next Work
 
-- Character Card Lab UIUX polish is the recommended next phase.
-  - Start from the PAGE2 two-block layout described above.
-  - Do not rewrite the character-card data model unless the UI polish exposes a real limitation.
-  - Keep changes scoped and verify with rendered desktop/mobile QA.
+- Real-generation test the seven new character cards across Gpt, Grok/Z-Image, and AI before tuning descriptions from observed model drift.
+- Verify Eleanor's permanent anatomy, Olivia's removable cap, Jiwoo's white streak placement, and the visual separation among Chihiro, Koto, and Mei.
+- Continue future cards through the source/preview/manifest/profile/layer workflow; the current data model does not need another redesign.
 - Real-generation test Pose Composer before expanding it.
 - Expand Pose Composer options in batches only after stable outputs:
   - standing / sitting first

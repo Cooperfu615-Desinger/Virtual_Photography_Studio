@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import '../features/page2/characterCard.css';
 import '../styles/workspaceLabs.css';
+import '../features/page2/characterCard.css';
 import DllPicProPanel from './DllPicProPanel';
 import {
   CHARACTER_CARD_LAYER_KEYS,

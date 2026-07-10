@@ -60,6 +60,48 @@
       "directory": "hina",
       "source": "37_Hina_00.jpeg",
       "preview": "37_Hina_00.avif"
+    },
+    {
+      "id": "character-yuna",
+      "directory": "yuna",
+      "source": "26_Yuna_00.jpeg",
+      "preview": "26_Yuna_00.avif"
+    },
+    {
+      "id": "character-eleanor",
+      "directory": "eleanor",
+      "source": "41_Eleanor_00.jpeg",
+      "preview": "41_Eleanor_00.avif"
+    },
+    {
+      "id": "character-olivia",
+      "directory": "olivia",
+      "source": "22_Olivia_00.png",
+      "preview": "22_Olivia_00.avif"
+    },
+    {
+      "id": "character-jiwoo",
+      "directory": "jiwoo",
+      "source": "08_Jiwoo_00.jpeg",
+      "preview": "08_Jiwoo_00.avif"
+    },
+    {
+      "id": "character-chihiro",
+      "directory": "chihiro",
+      "source": "05_Chihiro_00.jpeg",
+      "preview": "05_Chihiro_00.avif"
+    },
+    {
+      "id": "character-koto",
+      "directory": "koto",
+      "source": "04_Koto_00.jpeg",
+      "preview": "04_Koto_00.avif"
+    },
+    {
+      "id": "character-mei",
+      "directory": "mei",
+      "source": "00_Mei_00.jpeg",
+      "preview": "00_Mei_00.avif"
     }
   ]
 }

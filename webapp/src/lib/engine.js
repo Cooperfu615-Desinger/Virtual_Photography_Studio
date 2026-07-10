@@ -169,6 +169,13 @@ const CHARACTER_PROFILE_CONTROL_ORDER = [
   'character-sui',
   'character-yuri',
   'character-hina',
+  'character-yuna',
+  'character-eleanor',
+  'character-olivia',
+  'character-jiwoo',
+  'character-chihiro',
+  'character-koto',
+  'character-mei',
 ];
 
 const CHARACTER_PROFILE_CONTROL_OPTIONS = [
@@ -10579,6 +10586,7 @@ function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
   const subjectText = firstStructuredValue(valuesByLabel, ['Subject Count', 'Reference Guidance']);
   if (isCharacterProfileSubject(context.subject)) {
     const wardrobeSlots = wardrobe ? extractWardrobeSlots(wardrobe) : null;
+    const profileGroups = buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe);
     const variantText = buildCharacterCardHairVariantText(context.subject, context.locks);
     const subjectAccessoryText = wardrobeSlots
       ? buildSubjectAccessoryPrompt({
@@ -10589,9 +10597,16 @@ function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
           neckAccessory: wardrobeSlots.neckAccessory,
         })
       : '';
-    const baseText = compactAiMinimalFragment(subjectText || buildCharacterCardSubjectPrompt(context.subject, context.locks), 5);
+    const baseText = compactAiMinimalFragment(
+      subjectText || profileGroups.identityAndBody || buildCharacterCardSubjectPrompt(context.subject, context.locks),
+      5
+    );
+    const distinctiveFeatureText = compactAiMinimalFragment(profileGroups.distinctiveFeatures, 4);
+    const baseHairText = compactAiMinimalFragment(profileGroups.hair, 3);
     const parts = [
       baseText,
+      distinctiveFeatureText,
+      baseHairText,
       variantText,
       subjectAccessoryText,
     ].filter(Boolean);

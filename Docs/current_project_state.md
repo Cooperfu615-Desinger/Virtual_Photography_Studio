@@ -7,7 +7,7 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
 - Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
 - App: Vite + React prompt generator
-- Current pushed main before the App/PAGE1 split: `6f3431b Migrate saved cards and optimize data assets`
+- Current pushed main before the seven-card expansion: `89bb9c8 Refine character card lab UI`
 - Normal working branch: `main`
 
 ## Validation
@@ -24,16 +24,16 @@ Run from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp` unless note
 - Optional dev server: `npm run dev -- --host 127.0.0.1 --port 5175`
 - Dev URL: `http://127.0.0.1:5175/Virtual_Photography_Studio/`
 
-Last implementation validation on 2026-07-10 after the App/PAGE1 and delivery-architecture split:
+Last implementation validation on 2026-07-10 after the seven-card Character Card Lab expansion:
 
-- Frontend `npm test`: 397 tests passed.
+- Frontend `npm test`: 399 tests passed.
 - Frontend `npm run lint`: passed.
-- Frontend `npm run build`: passed without the previous Vite chunk-size warning. Workspace JS/CSS and Saved Cards archive dependencies are now lazy chunks; the main application JS is about 304 kB before gzip.
+- Frontend `npm run build`: passed without a Vite chunk-size warning. Character profile data is grouped with the prompt catalog instead of inflating the prompt engine chunk.
 - Functions `npm test`: 30 tests passed.
 - Functions `npm run lint`: passed with the repository ESLint configuration; this is now an active lint check instead of a placeholder command.
-- Browser smoke test passed for Prompt Control Deck, Character Card Lab, Action Pose Lab, World Street Scene Builder, and Saved Cards; console error/warn logs were empty.
+- Browser QA confirmed PAGE2 shows 10 cards on page 1 and the seven new cards on page 2, all seven AVIF previews load, Olivia exposes removable headwear plus eight compatible hair choices, the six copy outputs remain available, and the desktop five-column layout has no horizontal overflow.
 - Git reference validation passed with `git show-ref --head` and `git fsck --full --no-dangling` after removing stale synced-directory conflict copies.
-- Data sync unit tests, deterministic `--check`, and public asset budget validation passed. Public deployment assets are 178 files totaling 2,196,229 bytes.
+- Data sync unit tests and deterministic `--check` remain unchanged. Public asset budget validation passed with 185 deployment files totaling 2,378,672 bytes.
 - Deterministic audit `node scripts/validate_prompt_logic.mjs 200 optimization-audit`: generated 200 prompts with seed `optimization-audit`; 11 prompts were flagged by the existing heuristics. The occurrence summary was 9 pants/legwear overlaps and 3 pants/skirt overlaps; one prompt can contain more than one finding. Treat these as prompt-quality follow-up items, not test failures or optimization regressions.
 
 ## Product Pages
@@ -84,8 +84,10 @@ PAGE2 is now the Character Card Lab for PAGE1 `A 人物設定`.
 
 Implemented v1 behavior:
 
-- Selects an existing built-in character card.
+- Selects one of 17 built-in character cards, paged as 10 cards followed by seven cards.
+- Current cards are `11_Rika`, `48_G`, `29_Philippa`, `07_Lily`, `06_Hinata`, `38_Rin`, `12_Sakura`, `03_Sui`, `02_Yuri`, `37_Hina`, `26_Yuna`, `41_Eleanor`, `22_Olivia`, `08_Jiwoo`, `05_Chihiro`, `04_Koto`, and `00_Mei`.
 - Supports character-safe hair styling variants that modify the card's base hair instead of replacing it.
+- Supports `預設` / `戴眼鏡` / `不戴眼鏡`, including PAGE1 import behavior.
 - Lets PAGE2 decide which default character-card wardrobe layers are imported into PAGE1.
 - Imports the selected character card, hair variant, prompt override, and selected wardrobe layers back into PAGE1.
 - PAGE1 displays imported wardrobe layers in C 穿搭設定 as `來自角色卡｜...` and can fill missing layers with normal PAGE1 controls.
@@ -98,6 +100,14 @@ Implemented v1 behavior:
   - `Four-View Prompt`
   - `Full-Body Reference Prompt`
 - Saved Cards supports PAGE2 six-output cards and PAGE1 imported character-card selection snapshots.
+
+Character-card authoring locations:
+
+- Full-resolution source images and alternate reference views: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/source-assets/character-cards/<lowercase-name>/`
+- Deployment preview: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/public/character-cards/<lowercase-name>/<number>_<Name>_00.avif`
+- Preview manifest: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/character_reference_manifest.json`
+- Identity, face, body, hair, outfit, and reference metadata: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/characterProfiles.js`
+- PAGE2 hair compatibility and removable wardrobe layers: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/characterCardLab.js`
 
 ### PAGE3 World Scene
 
@@ -415,17 +425,10 @@ Remaining security follow-up:
 
 ## Best Next Work
 
-- Character Card Lab UIUX polish is the current recommended next step.
-  - Preserve the existing v1 data/prompt behavior.
-  - Redesign PAGE2 as two vertical blocks:
-    - top: character-card selection and PAGE1 import controls
-    - bottom: six copy-only prompt buttons and DLL PIC Pro generation controls
-  - Character-card grid should show 10 large cards at a time, arranged 5 columns x 2 rows. Future 40-card capacity can use paging, scrolling, or another navigation pattern after UI review.
-  - Remove long default character description text from the PAGE2 UI; the card preview and name are enough.
-  - Add an eyewear/glasses option with `預設` / `戴眼鏡` / `不戴眼鏡`; eyewear must be able to import back to PAGE1.
-  - Wardrobe import choices should be compact buttons, not large rows/cards.
-  - Six PAGE2 prompts should not render long prompt text by default; show copy-only buttons.
-  - DLL PIC Pro should choose one of the six PAGE2 prompts through a dropdown source selector.
+- Character Card Lab UIUX polish and the first 17-card catalog are implemented.
+  - Real-generation test the seven new profiles across Gpt, Grok/Z-Image, and AI before tuning descriptions from observed model drift.
+  - Pay special attention to Eleanor's permanent horns/markings, Olivia's removable cap and exposed base hair, Jiwoo's white streak placement, and the visual separation between Chihiro, Koto, and Mei.
+  - Continue future built-in cards through the source/preview/manifest/profile/layer workflow documented above.
 - UIUX discussion process for future sessions:
   - Discuss wireframe direction before implementation.
   - Use low-fidelity generated wireframes when useful to align layout imagination.

@@ -139,6 +139,67 @@ const CHARACTER_CARD_EXTENSIONS = {
       eyewear: 'round thin black metal eyeglasses',
     },
   },
+  'character-yuna': {
+    hairTags: ['long', 'wavy', 'bangs', 'brown-hair'],
+    wardrobeLayers: {
+      top: 'fitted white ribbed scoop-neck cropped tank top',
+      bottom: 'slate-gray relaxed athletic shorts with a wide elastic waistband',
+      outerwear: 'oversized pale powder-blue zip hoodie worn open with the hood usually raised',
+      shoes: 'white crew socks and clean white low-top sneakers',
+      neckAccessory: 'matte white over-ear headphones worn around the neck',
+    },
+  },
+  'character-eleanor': {
+    hairTags: ['long', 'wavy', 'black-hair', 'center-part'],
+    wardrobeLayers: {
+      dress: 'elaborate black and aged-bronze gothic armored corset gown with structured lace cups, engraved metal framing, sheer black floral-lace torso panels, fitted waist armor and floor-length layered black skirt panels with a trailing hem',
+      shoes: 'black armored boots',
+      neckAccessory: 'ornate black lace high collar with a small bronze centerpiece',
+      wristAccessory: 'black lace gauntlets and engraved black-and-bronze forearm armor',
+    },
+  },
+  'character-olivia': {
+    hairTags: ['long', 'wavy', 'brown-hair', 'center-part'],
+    wardrobeLayers: {
+      top: 'glossy black patent triangle bikini top',
+      bottom: 'matching low-rise thin-strap black bikini bottom',
+      outerwear: 'oversized black varsity bomber jacket worn open with white striped ribbed trim and white script embroidery',
+      shoes: 'black ankle-strap open-toe stiletto sandals',
+      headAccessory: 'plain black baseball cap',
+      earrings: 'long slim rectangular silver drop earrings',
+      neckAccessory: 'delicate gold chain necklace with a small round pendant',
+    },
+  },
+  'character-jiwoo': {
+    hairTags: ['long', 'wavy', 'bangs', 'black-hair', 'dyed', 'highlight-streaks'],
+    wardrobeLayers: {
+      dress: 'fitted black off-shoulder gothic dress with a clean sweetheart neckline, short lace-trim sleeves, a defined waist and a flowing ankle-length A-line skirt',
+      shoes: 'black pointed-toe stiletto pumps',
+    },
+  },
+  'character-chihiro': {
+    hairTags: ['long', 'wavy', 'dyed', 'center-part'],
+    wardrobeLayers: {
+      dress: 'black deep-V embellished camisole gown under a sheer black mesh and floral-lace overlay with translucent long sleeves, lace cuffs, a fitted lace waist panel and a floor-length layered black tulle skirt',
+      shoes: 'black platform ankle boots',
+      neckAccessory: 'wide black floral-lace choker',
+    },
+  },
+  'character-koto': {
+    hairTags: ['long', 'wavy', 'bangs', 'black-hair'],
+    wardrobeLayers: {
+      dress: 'fitted black gothic lace mini dress with an ornate beaded bodice, sheer floral-lace short sleeves, asymmetric translucent lace cape panels and a long trailing high-low overskirt',
+      shoes: 'glossy black pointed-toe pumps',
+      neckAccessory: 'wide black jeweled choker with an ornate silver pendant',
+    },
+  },
+  'character-mei': {
+    hairTags: ['long', 'wavy', 'dyed', 'center-part', 'ombre'],
+    wardrobeLayers: {
+      dress: 'floor-length black off-shoulder gothic gown with fitted long sleeves, pointed lace cuffs, an ornate black lace-and-beaded chest panel, a close fitted waist and a layered asymmetric trailing skirt',
+      shoes: 'black lace-up platform combat ankle boots',
+    },
+  },
 };
 
 export const HAIR_VARIANT_OPTIONS = [
