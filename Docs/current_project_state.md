@@ -7,7 +7,7 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
 - Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
 - App: Vite + React prompt generator
-- Current pushed main before this UIUX note update: `f5a363c Fix character card accessory prompt merging`
+- Current pushed main before this documentation update: `7aed676 Optimize prompt engine runtime`
 - Normal working branch: `main`
 
 ## Validation
@@ -21,12 +21,14 @@ Run from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp` unless note
 - Optional dev server: `npm run dev -- --host 127.0.0.1 --port 5175`
 - Dev URL: `http://127.0.0.1:5175/Virtual_Photography_Studio/`
 
-Last implementation validation on 2026-07-09 after Character Card Lab v1 merge:
+Last implementation validation on 2026-07-10 after the prompt-engine runtime optimization:
 
-- `node --test --test-reporter=dot src/**/*.test.js`: passed
-- `npm run lint`: passed
-- `npm run build`: passed with the existing Vite chunk-size warning
-- Rendered smoke test on dev server: PAGE2 Character Card Lab six outputs loaded; PAGE2 saved a six-prompt card; PAGE2 import back to PAGE1 showed `來自角色卡` wardrobe badges; SUNO active navigation/filter were absent; mobile 390x900 had no horizontal overflow; console error/warn logs were empty.
+- Frontend `npm test`: 382 tests passed.
+- Frontend `npm run lint`: passed.
+- Frontend `npm run build`: passed without the previous Vite chunk-size warning. Rollup now separates `prompt-catalog`, `prompt-engine`, `firebase`, and the main application bundle.
+- Functions `npm test`: 24 tests passed.
+- Browser smoke test passed for Prompt Control Deck, Character Card Lab, Action Pose Lab, World Street Scene Builder, and Saved Cards; console error/warn logs were empty.
+- Deterministic audit `node scripts/validate_prompt_logic.mjs 200 optimization-audit`: generated 200 prompts with seed `optimization-audit`; 11 prompts were flagged by the existing heuristics. The occurrence summary was 9 pants/legwear overlaps and 3 pants/skirt overlaps; one prompt can contain more than one finding. Treat these as prompt-quality follow-up items, not test failures or optimization regressions.
 
 Historical validation note from 2026-06-25:
 
@@ -165,14 +167,22 @@ Image Analyzer behavior:
 
 ### Prompt Pipeline
 
-- `buildStructuredGrokPrompt()` creates the detailed structured source.
-- `buildGptPromptFromStructuredPrompt()` converts it into the current `Gpt` output.
-- `buildZImagePrompt()` creates the natural `Grok/Z-Image` output.
-- `buildAiPromptFromStructuredPrompt()` creates the compact `AI` output.
+- `buildStructuredPromptSections()` creates one ordered prompt-section model with both `sections` and `valuesByLabel` views.
+- `renderGptPrompt()` creates the current full-fidelity `Gpt` output.
+- `renderZImagePrompt()` creates the natural `Grok/Z-Image` output.
+- `renderAiPrompt()` creates the compact `AI` output.
 - `buildPrompts()` returns the three historical fields:
   - `midjourneyPrompt`
   - `grokPrompt`
   - `zImagePrompt`
+
+Runtime rules:
+
+- The default database catalog, flattened lookup lists, and lock controls are compiled once and deeply frozen.
+- A non-empty custom library is compiled per request so local overlay edits are immediately reflected.
+- `generatePrompts()` accepts `runtimeOptions.random`; production defaults to `Math.random`, while tests and audits can inject `createSeededRandom(seed)`.
+- Selection snapshots are created from `LOCK_DEFINITIONS`, retain schema order, fill declared defaults, and ignore undeclared fields.
+- Prompt renderer labels are internal integration keys. Renaming a section label can affect all three renderers and requires prompt-pipeline tests.
 
 Current duo prompt output contract:
 
@@ -277,6 +287,18 @@ Duo rules:
 Core prompt engine:
 
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engineRandom.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/runtimeCache.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/promptModel.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/selectionSchema.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/characterProfiles.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/duoOptions.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/fixedCompositionOptions.js`
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/poseComposerOptions.js`
+
+Engine architecture reference:
+
+- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/engine-architecture.md`
 
 PAGE1 app state and control filtering:
 
@@ -323,10 +345,42 @@ Authoring guides:
 - `engineCharacterCardVariant.test.js`
 - `characterCardLab.test.js`
 - `engineLightingCompatibility.test.js`
+- `engineRandom.test.js`
+- `engine/runtimeCache.test.js`
+- `engine/promptModel.test.js`
+- `engine/selectionSchema.test.js`
 - `page1SectionRandom.test.js`
 - `page1WorkspaceSummary.test.js`
 
 Prefer targeted tests first, then full `npm test`.
+
+## Engine Optimization Status
+
+Completed on 2026-07-10:
+
+- Cached and deeply froze the default compiled runtime instead of rebuilding the complete catalog and controls for every prompt request.
+- Added injected seeded randomness without changing the default production behavior.
+- Introduced a shared prompt-section model and explicit Gpt, Grok/Z-Image, and AI renderer boundaries.
+- Centralized selection snapshot construction around the lock schema.
+- Moved large static character, duo, fixed-composition, and Pose Composer option sets into focused modules.
+- Removed redundant PAGE1 calls that recomputed wardrobe lock/control information.
+- Split the production output into application, prompt-engine, prompt-catalog, and Firebase chunks.
+
+Local development measurements from 2026-07-10 on arm64, Node `v22.22.3`, npm `10.9.8`:
+
+- `getLockControls()`: approximately `23.75 ms/op` before and below `0.001 ms/op` after warm-cache reuse.
+- `generatePrompts(1)`: approximately `98.68 ms` before and `2.98 ms` after.
+- `generatePrompts(10)`: approximately `928.6 ms` before and `29.95 ms` after.
+- Frontend test duration: approximately `29.0 s` before and `3.23 s` after.
+
+These numbers are dated development measurements, not performance guarantees. Compare future measurements on the same machine, Node version, data set, command, and warm/cold-cache conditions.
+
+Remaining engine work should be incremental:
+
+- `buildCharacter()` and `buildWardrobe()` remain high-coupling orchestration areas inside `engine.js`.
+- Legacy saved-card and lock migration logic remains in the compatibility boundary.
+- Extract either area only with seeded regression fixtures and existing public-output field mappings preserved.
+- Do not cache arbitrary custom-library overlays without an explicit invalidation or versioning strategy.
 
 ## Paused Ideas
 
