@@ -25,7 +25,7 @@ Important legacy terminology warning:
 - Knowledge base source: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
 - Sync script: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
 - Synced data target: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
-- Current pushed main before the seven-card expansion: `89bb9c8 Refine character card lab UI`
+- Current pushed main before the deployment CI fix: `725675a Add seven character card profiles`
 
 ## Validation
 
@@ -47,6 +47,7 @@ Last implementation validation on 2026-07-10 after the seven-card Character Card
 - Frontend `npm run lint` and `npm run build`: passed without a Vite chunk-size warning.
 - Functions `npm test`: 30 tests passed.
 - Functions `npm run lint`: passed with the active repository ESLint configuration.
+- Functions test discovery uses `node --test test/*.test.js` for Node 20 CI compatibility. Do not restore `test/**/*.test.js` unless nested test directories are introduced and shell-independent discovery is added; the recursive pattern blocked GitHub Pages deployment on 2026-07-10.
 - Browser QA confirmed PAGE2 pagination is `10 + 7`, all seven new previews load, Olivia's removable cap and hair variants render, the six copy outputs remain available, and the desktop five-column layout has no horizontal overflow.
 - Git reference and object validation passed after stale synced-directory conflict copies were removed.
 - Public asset budget validation passed with 185 deployment files totaling 2,378,672 bytes. Full-resolution character sources remain under `source-assets/`.

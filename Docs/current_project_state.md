@@ -7,7 +7,7 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
 - Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
 - App: Vite + React prompt generator
-- Current pushed main before the seven-card expansion: `89bb9c8 Refine character card lab UI`
+- Current pushed main before the deployment CI fix: `725675a Add seven character card profiles`
 - Normal working branch: `main`
 
 ## Validation
@@ -31,6 +31,7 @@ Last implementation validation on 2026-07-10 after the seven-card Character Card
 - Frontend `npm run build`: passed without a Vite chunk-size warning. Character profile data is grouped with the prompt catalog instead of inflating the prompt engine chunk.
 - Functions `npm test`: 30 tests passed.
 - Functions `npm run lint`: passed with the repository ESLint configuration; this is now an active lint check instead of a placeholder command.
+- Functions tests use the Node 20-compatible single-level `test/*.test.js` pattern; the previous recursive glob required a subdirectory on the GitHub Actions shell and blocked Pages deployment even though local Node 25 tests passed.
 - Browser QA confirmed PAGE2 shows 10 cards on page 1 and the seven new cards on page 2, all seven AVIF previews load, Olivia exposes removable headwear plus eight compatible hair choices, the six copy outputs remain available, and the desktop five-column layout has no horizontal overflow.
 - Git reference validation passed with `git show-ref --head` and `git fsck --full --no-dangling` after removing stale synced-directory conflict copies.
 - Data sync unit tests and deterministic `--check` remain unchanged. Public asset budget validation passed with 185 deployment files totaling 2,378,672 bytes.
