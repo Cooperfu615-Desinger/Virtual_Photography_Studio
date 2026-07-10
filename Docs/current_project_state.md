@@ -7,7 +7,7 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
 - Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
 - App: Vite + React prompt generator
-- Current pushed main before this architecture-hardening update: `b2b658c Harden project architecture and remove dead code`
+- Current pushed main before the App/PAGE1 split: `6f3431b Migrate saved cards and optimize data assets`
 - Normal working branch: `main`
 
 ## Validation
@@ -24,12 +24,12 @@ Run from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp` unless note
 - Optional dev server: `npm run dev -- --host 127.0.0.1 --port 5175`
 - Dev URL: `http://127.0.0.1:5175/Virtual_Photography_Studio/`
 
-Last implementation validation on 2026-07-10 after the architecture hardening and cleanup:
+Last implementation validation on 2026-07-10 after the App/PAGE1 and delivery-architecture split:
 
-- Frontend `npm test`: 383 tests passed.
+- Frontend `npm test`: 397 tests passed.
 - Frontend `npm run lint`: passed.
-- Frontend `npm run build`: passed without the previous Vite chunk-size warning. Rollup now separates `prompt-catalog`, `prompt-engine`, `firebase`, and the main application bundle.
-- Functions `npm test`: 28 tests passed.
+- Frontend `npm run build`: passed without the previous Vite chunk-size warning. Workspace JS/CSS and Saved Cards archive dependencies are now lazy chunks; the main application JS is about 304 kB before gzip.
+- Functions `npm test`: 30 tests passed.
 - Functions `npm run lint`: passed with the repository ESLint configuration; this is now an active lint check instead of a placeholder command.
 - Browser smoke test passed for Prompt Control Deck, Character Card Lab, Action Pose Lab, World Street Scene Builder, and Saved Cards; console error/warn logs were empty.
 - Git reference validation passed with `git show-ref --head` and `git fsck --full --no-dangling` after removing stale synced-directory conflict copies.
@@ -389,6 +389,11 @@ Completed on 2026-07-10:
 - Added conservative `maxInstances: 2` limits to public callable generation/download Functions to reduce accidental scaling exposure.
 - Removed unreachable SUNO runtime/test/CSS files, the unused Image Analyzer panel/CSS, and the remaining Vite starter assets.
 - Migrated the legacy read-only Feed collection into Favorites with ID de-duplication and success-gated removal of `vps.prompts` / `vps.viewMode`; Saved Cards now maintains one collection and one persistence path.
+- Reduced `App.jsx` from 1,932 to 546 lines by extracting Saved Cards codec/local repository/cloud mutation sync, browser storage, PAGE1 workspace state, and PAGE3 card construction into feature modules.
+- Moved PAGE1 navigation schema, control selectors, and lock transitions into tested feature modules; `Page1Workspace.jsx` is now 1,184 lines and receives three grouped contracts instead of 24 independent props.
+- Lazy-loaded all five workspaces and the Saved Cards ZIP implementation. CSS is split into base, PAGE1, PAGE2 character-card, Saved Cards, shared lab, and generation-preview assets.
+- Added `functions/shared/imageProviderContract.json`; web proxy clients and Firebase Functions now share model keys, aspect ratios, resolution support, count bounds, prompt limits, and response-envelope normalization while keeping the contract inside the Firebase deployment source.
+- Expanded PAGE1 reroll exclusion from pose and primary outfit choices to the main unlocked aspect-ratio, scene, style, camera, lighting, imaging, and character dimensions. Explicit locks remain unchanged, and a previous choice is reused only when no compatible alternative exists.
 - Replaced positional wardrobe image `zip()` matching and inherited database metadata with explicit versioned manifests. Missing, duplicate, unexpected, or stale inputs now fail; `--check` is read-only and runs in CI.
 - Moved 203 MiB of original reference images to `source-assets/` and generated 178 640px AVIF previews for deployment. `webapp/public` is about 2.5 MiB, and CI enforces a 15 MiB total / 512 KiB per-file budget.
 

@@ -16,11 +16,19 @@ import {
 import { CHARACTER_CARD_LAYER_LABELS } from '../lib/characterCardLab.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import {
-  PAGE1_POSE_SUBPANELS,
   isPage1PoseSubpanelDisabled,
   resolvePage1ActiveSubpanel,
 } from '../lib/page1WorkspacePanels.js';
 import { randomizeLockKeys, setLockKeysToNone } from '../lib/page1SectionRandom.js';
+import { createEmptyLocks } from '../lib/engine.js';
+import {
+  POSE_COMPOSER_KEYS,
+  SECTION_SUBPANELS,
+  WORKSPACE_SECTIONS,
+  getSectionKeys,
+} from '../features/page1/page1Schema.js';
+import { buildAllNoneLocks, isNoneSelected } from '../features/page1/page1Selectors.js';
+import '../features/page1/page1.css';
 
 const WARDROBE_PICKER_KEYS = new Set([
   'characterProfileId',
@@ -78,7 +86,6 @@ const WARDROBE_IMAGE_ONLY_PICKER_KEYS = new Set([
 const WARDROBE_OUTFIT_PICKER_KEYS = new Set(['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId']);
 const WARDROBE_DRESS_PICKER_KEYS = new Set(['dressId', 'dressAId', 'dressBId']);
 
-const POSE_COMPOSER_KEYS = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'];
 const POSE_COMPOSER_CONTEXT_KEYS = new Set(['poseArrangementId', 'poseAnchorId']);
 const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting', 'lying']);
 const FIXED_SET_KEYS = ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'];
@@ -148,266 +155,9 @@ const WARDROBE_GARMENT_CONTROL_DIVIDERS = {
   pantsAId: '下身單品',
 };
 
-const WORKSPACE_SECTIONS = [
-  { id: 'character', label: 'A 人物設定' },
-  { id: 'pose', label: 'B 神情姿態' },
-  { id: 'wardrobe', label: 'C 穿搭設定' },
-  { id: 'scene', label: 'D 場景環境' },
-  { id: 'photography', label: 'E 攝影成像' },
-];
-
-const SECTION_SUBPANELS = {
-  character: [
-    {
-      id: 'identity',
-      label: '身份基底',
-      description: '確立人物數量、體態、五官、膚質與髮型髮色，讓角色身份基底先穩定下來。',
-      keys: [
-        'subjectCount',
-        'bodyTypeId',
-        'bodyTypeAId',
-        'bodyTypeBId',
-        'facialFeaturesId',
-        'facialFeaturesAId',
-        'facialFeaturesBId',
-        'skinDetailsId',
-        'skinDetailsAId',
-        'skinDetailsBId',
-        'hairstyleId',
-        'hairstyleAId',
-        'hairstyleBId',
-        'hairColorId',
-        'hairColorAId',
-        'hairColorBId',
-      ],
-    },
-    {
-      id: 'special',
-      label: '特殊角色',
-      description: '特殊角色會接管人物主體；神情眼神、姿勢動作與特殊動作請到 B 神情姿態調整。',
-      keys: [
-        'specialSubjectId',
-      ],
-    },
-    {
-      id: 'character-profile',
-      label: '角色卡',
-      description: '角色卡會接管人物身份與固定穿搭；神情眼神、姿勢動作與特殊動作請到 B 神情姿態調整。',
-      keys: [
-        'characterProfileId',
-      ],
-    },
-  ],
-  pose: PAGE1_POSE_SUBPANELS,
-  wardrobe: [
-    {
-      id: 'overall',
-      label: '完整造型',
-      description: '優先決定特殊穿搭、套裝或連身這類完整造型，它們會直接影響後續單件欄位。',
-      keys: [
-        'specialOutfitId',
-        'specialOutfitAId',
-        'specialOutfitBId',
-        'outfitPresetId',
-        'outfitPresetAId',
-        'outfitPresetBId',
-        'dressId',
-        'dressAId',
-        'dressBId',
-      ],
-    },
-    {
-      id: 'garments',
-      label: '上下身單件',
-      description: '當你不走整體造型時，這裡只處理上身、褲裝與裙裝的主體輪廓。',
-      keys: [
-        'topId',
-        'topAId',
-        'topBId',
-        'topFitId',
-        'topFitAId',
-        'topFitBId',
-        'topStylingId',
-        'topStylingAId',
-        'topStylingBId',
-        'pantsId',
-        'pantsAId',
-        'pantsBId',
-        'skirtId',
-        'skirtAId',
-        'skirtBId',
-        'bottomFitId',
-        'bottomFitAId',
-        'bottomFitBId',
-        'bottomRiseId',
-        'bottomRiseAId',
-        'bottomRiseBId',
-      ],
-    },
-    {
-      id: 'colors',
-      label: '造型配色',
-      description: '把特殊穿搭、套裝或連身與上下身單件的配色和圖案集中處理；完整造型色系只作用在完整造型上。',
-      keys: [
-        'completeLookPaletteId',
-        'completeLookPaletteAId',
-        'completeLookPaletteBId',
-        'outfitPresetPrimaryColorId',
-        'outfitPresetContrastColorId',
-        'outfitPresetLockedPaletteId',
-        'outfitPresetAPrimaryColorId',
-        'outfitPresetAContrastColorId',
-        'outfitPresetALockedPaletteId',
-        'outfitPresetBPrimaryColorId',
-        'outfitPresetBContrastColorId',
-        'outfitPresetBLockedPaletteId',
-        'topBottomPaletteId',
-        'topBottomPaletteAId',
-        'topBottomPaletteBId',
-        'topColorId',
-        'topAColorId',
-        'topBColorId',
-        'topPatternId',
-        'topAPatternId',
-        'topBPatternId',
-        'dressColorId',
-        'dressAColorId',
-        'dressBColorId',
-        'bottomColorId',
-        'bottomAColorId',
-        'bottomBColorId',
-        'bottomPatternId',
-        'bottomAPatternId',
-        'bottomBPatternId',
-      ],
-    },
-    {
-      id: 'layers',
-      label: '鞋襪與外層',
-      description: '補上外套、襪類與鞋款，建立完整造型的外層與腳部層次。',
-      keys: [
-        'outerwearId',
-        'outerwearFitId',
-        'outerwearColorId',
-        'outerwearPatternId',
-        'outerwearOpeningId',
-        'outerwearStylingId',
-        'legwearId',
-        'legwearColorId',
-        'shoesId',
-        'shoesColorId',
-        'outerwearAId',
-        'outerwearAFitId',
-        'outerwearAColorId',
-        'outerwearAPatternId',
-        'outerwearAOpeningId',
-        'outerwearAStylingId',
-        'legwearAId',
-        'legwearAColorId',
-        'shoesAId',
-        'shoesAColorId',
-        'outerwearBId',
-        'outerwearBFitId',
-        'outerwearBColorId',
-        'outerwearBPatternId',
-        'outerwearBOpeningId',
-        'outerwearBStylingId',
-        'legwearBId',
-        'legwearBColorId',
-        'shoesBId',
-        'shoesBColorId',
-      ],
-    },
-    {
-      id: 'accessories',
-      label: '配件細節',
-      description: '最後才加配件，避免太早被細節打散主造型方向。',
-      keys: [
-        'headAccessoryId',
-        'eyewearId',
-        'eyewearColorId',
-        'eyewearPlacementId',
-        'earringsId',
-        'neckAccessoryId',
-        'headAccessoryAId',
-        'eyewearAId',
-        'eyewearAColorId',
-        'eyewearAPlacementId',
-        'earringsAId',
-        'neckAccessoryAId',
-        'headAccessoryBId',
-        'eyewearBId',
-        'eyewearBColorId',
-        'eyewearBPlacementId',
-        'earringsBId',
-        'neckAccessoryBId',
-        'wristAccessoryId',
-        'ringId',
-        'waistAccessoryId',
-      ],
-    },
-  ],
-  scene: [
-    {
-      id: 'fixed',
-      label: '固定構圖場景',
-      description: '選擇固定場景、場景內人物位置、戶外背景狀態、拍攝型態與演出狀態；啟用後會接管普通場景與鏡頭幾何。',
-      keys: ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'],
-    },
-    {
-      id: 'space',
-      label: '場景基底',
-      description: '先定義場景屬性與具體地點，讓作品的空間錨點先成立。',
-      keys: ['sceneAttributeId', 'locationId'],
-    },
-    {
-      id: 'light',
-      label: '環境與光線',
-      description: '補上環境光條件與人物受光，決定空間氣候與主體光線關係。',
-      keys: ['lightingId', 'lightDirectionId'],
-    },
-  ],
-  photography: [
-    {
-      id: 'image-type',
-      label: '成品類型',
-      description: '先選成品媒材與企劃方向，決定這張圖是寫實攝影、時尚廣告或繪圖風格。',
-      keys: ['imageTypePresetId'],
-    },
-    {
-      id: 'composition',
-      label: '構圖與視角',
-      description: '選景別、相機視角與拍攝方位，決定人物和場景在畫面中的關係。',
-      keys: ['framingId', 'angleId', 'orbitId'],
-    },
-    {
-      id: 'style',
-      label: '攝影風格',
-      description: '選攝影師語氣，決定影像的觀看方式、人物距離、色彩節奏與整體作者語彙。',
-      keys: ['styleId'],
-    },
-    {
-      id: 'optics',
-      label: '鏡頭與光學',
-      description: '指定焦段、光圈、快門與光學效果，控制透視、景深、動態殘影、flare、暗角與鏡片瑕疵。',
-      keys: ['lensId', 'apertureId', 'shutterId', 'opticalEffectId'],
-    },
-    {
-      id: 'imaging',
-      label: '成像模擬',
-      description: '最後選相機、底片或數位色彩模擬，控制顆粒、色彩反應、動態範圍與輸出質地。',
-      keys: ['filmId'],
-    },
-  ],
-};
-
 function filterControlsByKeys(controls, keys) {
   const keySet = new Set(keys);
   return controls.filter((control) => keySet.has(control.key));
-}
-
-function getSectionKeys(sectionId) {
-  return (SECTION_SUBPANELS[sectionId] || []).flatMap((panel) => panel.keys);
 }
 
 function countEffectiveSelections(sectionId, locks, controls) {
@@ -641,32 +391,34 @@ function WardrobeLayerPanel({ insights }) {
   );
 }
 
-export default function Page1Workspace({
-  coreLockControls,
-  characterLockControls,
-  wardrobeLockControls,
-  locks,
-  isCloseupMode,
-  isWormEyeAngle,
-  closeupAllowedKeys,
-  isNoneSelected,
-  updateLocks,
-  handleCopyText,
-  isOutfitPresetActive,
-  handleGenerate,
-  handleRerollPreview,
-  handleApplyPreviewSelection,
-  createEmptyLocks,
-  buildAllNoneLocks,
-  lockControls,
-  previewPrompt,
-  isImportPromptOpen,
-  setIsImportPromptOpen,
-  importPromptText,
-  setImportPromptText,
-  handleApplyImportedPrompt,
-  onApplyPage3WorldSceneArchitecture,
-}) {
+export default function Page1Workspace({ workspace, actions, importDialog }) {
+  const {
+    coreLockControls,
+    characterLockControls,
+    wardrobeLockControls,
+    locks,
+    isCloseupMode,
+    isWormEyeAngle,
+    closeupAllowedKeys,
+    isOutfitPresetActive,
+    lockControls,
+    previewPrompt,
+  } = workspace;
+  const {
+    updateLocks,
+    handleCopyText,
+    handleGenerate,
+    handleRerollPreview,
+    handleApplyPreviewSelection,
+    onApplyPage3WorldSceneArchitecture,
+  } = actions;
+  const {
+    isOpen: isImportPromptOpen,
+    setIsOpen: setIsImportPromptOpen,
+    text: importPromptText,
+    setText: setImportPromptText,
+    handleApply: handleApplyImportedPrompt,
+  } = importDialog;
   const [isLightingReferenceOpen, setIsLightingReferenceOpen] = useState(false);
   const [activeWardrobePickerKey, setActiveWardrobePickerKey] = useState('');
   const [wardrobePickerQuery, setWardrobePickerQuery] = useState('');

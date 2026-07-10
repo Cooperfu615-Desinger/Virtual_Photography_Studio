@@ -49,3 +49,43 @@ test('preview reroll excludes the previous outfit preset for explicit random con
     assert.notEqual(secondPrompt.selection.outfitPresetId, firstPrompt.selection.outfitPresetId);
   });
 });
+
+test('preview reroll excludes previous unlocked scene camera and character choices', () => {
+  withFixedRandom(0, () => {
+    const locks = {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: 'camera:framing:full-body-shot',
+    };
+    const [firstPrompt] = generatePrompts(1, locks);
+    const [secondPrompt] = generatePrompts(1, locks, [], {
+      excludePreviousSelection: firstPrompt.selection,
+    });
+
+    assert.notEqual(secondPrompt.selection.locationId, firstPrompt.selection.locationId);
+    assert.notEqual(secondPrompt.selection.styleId, firstPrompt.selection.styleId);
+    assert.notEqual(secondPrompt.selection.angleId, firstPrompt.selection.angleId);
+    assert.notEqual(secondPrompt.selection.bodyTypeId, firstPrompt.selection.bodyTypeId);
+    assert.notEqual(secondPrompt.selection.hairstyleId, firstPrompt.selection.hairstyleId);
+  });
+});
+
+test('preview reroll preserves explicit locks while changing unlocked choices', () => {
+  withFixedRandom(0, () => {
+    const locks = {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: 'camera:framing:full-body-shot',
+    };
+    const [firstPrompt] = generatePrompts(1, locks);
+    const [secondPrompt] = generatePrompts(1, {
+      ...locks,
+      locationId: firstPrompt.selection.locationId,
+    }, [], {
+      excludePreviousSelection: firstPrompt.selection,
+    });
+
+    assert.equal(secondPrompt.selection.locationId, firstPrompt.selection.locationId);
+    assert.notEqual(secondPrompt.selection.styleId, firstPrompt.selection.styleId);
+  });
+});

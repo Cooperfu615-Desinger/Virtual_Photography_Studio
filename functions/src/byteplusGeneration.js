@@ -1,17 +1,24 @@
+const {
+  clampGenerationCount: clampContractGenerationCount,
+  getProviderContract,
+  normalizeAspectRatio,
+} = require('./providerContract');
+
 const BYTEPLUS_API_BASE_URL = 'https://ark.ap-southeast.bytepluses.com/api/v3';
+const BYTEPLUS_PROVIDER_CONTRACT = getProviderContract('byteplus');
 
 const BYTEPLUS_MODEL_CONFIGS = {
   seedream5Pro: {
     label: 'BytePlus Seedream 5.0 Pro',
     modelIds: ['dola-seedream-5-0-pro-260628', 'seedream-5-0-pro-260628'],
-    resolutions: ['1K', '2K'],
-    defaultResolution: '2K',
+    resolutions: BYTEPLUS_PROVIDER_CONTRACT.models.seedream5Pro.resolutions.map((value) => value.toUpperCase()),
+    defaultResolution: BYTEPLUS_PROVIDER_CONTRACT.models.seedream5Pro.defaultResolution.toUpperCase(),
   },
   seedream5Lite: {
     label: 'BytePlus Seedream 5.0 Lite',
     modelIds: ['seedream-5-0-260128', 'seedream-5-0-lite-260128'],
-    resolutions: ['2K', '3K', '4K'],
-    defaultResolution: '2K',
+    resolutions: BYTEPLUS_PROVIDER_CONTRACT.models.seedream5Lite.resolutions.map((value) => value.toUpperCase()),
+    defaultResolution: BYTEPLUS_PROVIDER_CONTRACT.models.seedream5Lite.defaultResolution.toUpperCase(),
     sequentialImageGeneration: 'disabled',
   },
 };
@@ -25,9 +32,7 @@ const BYTEPLUS_ASPECT_PROMPTS = {
 };
 
 function clampGenerationCount(count) {
-  const numericCount = Number(count);
-  if (!Number.isFinite(numericCount)) return 1;
-  return Math.max(1, Math.min(4, Math.trunc(numericCount)));
+  return clampContractGenerationCount(count);
 }
 
 function getBytePlusModelConfig(modelKey = 'seedream5Pro') {
@@ -44,7 +49,7 @@ function getBytePlusResolution(modelKey = 'seedream5Pro', resolution) {
 
 function buildBytePlusPrompt(prompt, aspectRatio = '9:16') {
   const normalizedPrompt = String(prompt || '').trim();
-  const aspectPrompt = BYTEPLUS_ASPECT_PROMPTS[aspectRatio] || BYTEPLUS_ASPECT_PROMPTS['9:16'];
+  const aspectPrompt = BYTEPLUS_ASPECT_PROMPTS[normalizeAspectRatio(aspectRatio)];
   return `${normalizedPrompt}\n\nComposition requirement: ${aspectPrompt}`;
 }
 

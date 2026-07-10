@@ -1,3 +1,9 @@
+const {
+  clampGenerationCount: clampContractGenerationCount,
+  getProviderModelContract,
+  normalizeAspectRatio,
+} = require('./providerContract');
+
 const MAGNIFIC_API_BASE_URL = 'https://api.magnific.com';
 
 const MAGNIFIC_ASPECT_SIZES = {
@@ -63,13 +69,11 @@ const MAGNIFIC_MODEL_CONFIGS = {
 };
 
 function clampGenerationCount(count) {
-  const numericCount = Number(count);
-  if (!Number.isFinite(numericCount)) return 1;
-  return Math.max(1, Math.min(4, Math.trunc(numericCount)));
+  return clampContractGenerationCount(count);
 }
 
 function getMagnificAspectSize(aspectRatio = '9:16') {
-  return MAGNIFIC_ASPECT_SIZES[aspectRatio] || MAGNIFIC_ASPECT_SIZES['9:16'];
+  return MAGNIFIC_ASPECT_SIZES[normalizeAspectRatio(aspectRatio)];
 }
 
 function getMagnificClassicImageSize(aspectRatio = '9:16') {
@@ -77,11 +81,11 @@ function getMagnificClassicImageSize(aspectRatio = '9:16') {
 }
 
 function getZImageSize(aspectRatio = '9:16') {
-  return Z_IMAGE_SIZES[aspectRatio] || Z_IMAGE_SIZES['9:16'];
+  return Z_IMAGE_SIZES[normalizeAspectRatio(aspectRatio)];
 }
 
 function getNanoAspectRatio(aspectRatio = '9:16') {
-  return NANO_ASPECT_RATIOS[aspectRatio] || NANO_ASPECT_RATIOS['9:16'];
+  return NANO_ASPECT_RATIOS[normalizeAspectRatio(aspectRatio)];
 }
 
 function getNanoResolution(resolution = '1k') {
@@ -204,7 +208,7 @@ function buildMagnificAsyncRequest({
 }
 
 function buildMagnificRequest(payload = {}) {
-  const modelKey = payload.modelKey || 'classic';
+  const { modelKey } = getProviderModelContract('magnific', payload.modelKey);
   const modelConfig = MAGNIFIC_MODEL_CONFIGS[modelKey];
   if (!modelConfig) throw new Error(`Unsupported Magnific model: ${modelKey}`);
 

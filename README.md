@@ -9,7 +9,7 @@ Personal prompt operations tool for generating stable, high-volume prompts for M
 - Batch generation for multiple prompt variations
 - Midjourney prompt, Grok Imagine prompt, and dynamic negative prompt output
 - Local custom library management for adding your own styles, locations, wardrobe items, camera ideas, and negative prompt entries
-- Saved presets and partial reroll workflow
+- Saved presets and last-result-aware reroll workflow that preserves locks while avoiding previous random choices
 
 ## Project Structure
 
@@ -19,7 +19,10 @@ Personal prompt operations tool for generating stable, high-volume prompts for M
 - `scripts/build_image_previews.py`: Rebuilds 640px AVIF deployment previews from source assets
 - `scripts/check_public_assets.py`: Enforces the public asset count and size budget
 - `scripts/validate_prompt_logic.mjs`: Runs deterministic prompt-quality heuristics with an optional seed
+- `functions/shared/imageProviderContract.json`: Versioned request/response contract shared by the webapp and Firebase Functions and packaged with deploys
 - `webapp/`: React + Vite application
+- `webapp/src/features/`: Saved Cards, PAGE1, PAGE2, and browser-storage feature boundaries
+- `webapp/src/styles/`: Shared generation and multi-workspace CSS loaded by feature chunks
 - `webapp/src/lib/engine.js`: Prompt-engine integration and compatibility boundary
 - `webapp/src/lib/engine/`: Focused engine data, runtime, prompt-model, and selection-schema modules
 - `output_prompts/`: Previously generated markdown prompt exports
@@ -62,6 +65,8 @@ Wardrobe reference images are mapped through `knowledge_base/wardrobe_reference_
 The browser receives AVIF previews from `webapp/public`; original images remain under `source-assets` and are not copied into the GitHub Pages artifact. CI runs the sync tests, `--check`, and the public asset budget check before the frontend quality gates.
 
 Saved Cards has one Favorites collection. Existing `vps.prompts` Feed records are migrated once into Favorites, de-duplicated by ID, and the legacy storage keys are removed only after the merged Favorites payload is written successfully.
+
+The app shell lazy-loads each workspace. Saved Cards archive dependencies and workspace CSS are split from the initial bundle; PAGE1 state, selectors, transitions, and Saved Cards persistence/cloud sync live outside `App.jsx`. Firebase proxy requests for Magnific and BytePlus are normalized against `functions/shared/imageProviderContract.json` on both the browser and Functions sides.
 
 ## Prompt Engine Architecture
 

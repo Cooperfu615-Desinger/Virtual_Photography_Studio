@@ -46,6 +46,7 @@ test('action pose card preserves non-pose PAGE1 selections in the generated snap
     locationId: optionId('locationId', '戶外：澀谷站前大型看板下穿越口'),
     lightingId: optionId('lightingId', '城市夜間混合光'),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    angleId: optionId('angleId', '平視高度鏡頭'),
     lensId: optionId('lensId', '35mm 廣角 (人文視角)'),
   };
   const [prompt] = generatePrompts(1, locks);

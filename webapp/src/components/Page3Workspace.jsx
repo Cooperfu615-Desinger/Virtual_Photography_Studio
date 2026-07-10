@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import DllPicProPanel from './DllPicProPanel';
+import '../styles/workspaceLabs.css';
 import PromptPreviewCard from './PromptPreviewCard';
 
 export default function Page3Workspace({

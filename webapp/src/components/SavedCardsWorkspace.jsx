@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import PromptCard from './PromptCard';
+import '../features/saved-cards/savedCards.css';
 
 const SOURCE_FILTERS = [
   { id: 'all', label: '全部來源' },

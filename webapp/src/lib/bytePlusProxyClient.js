@@ -1,3 +1,9 @@
+import {
+  getProviderContract,
+  normalizeProviderGenerationRequest,
+  normalizeProviderGenerationResponse,
+} from './providerContract.js';
+
 async function getBytePlusCallable(functionName = 'bytePlusGenerate', timeout = 240000) {
   const [{ getFunctions, httpsCallable }, { firebaseApp, firebaseAuth }] = await Promise.all([
     import('firebase/functions'),
@@ -18,7 +24,8 @@ async function getBytePlusCallable(functionName = 'bytePlusGenerate', timeout = 
 }
 
 export async function generateBytePlusViaFirebase(payload) {
-  const generate = await getBytePlusCallable();
-  const response = await generate(payload);
-  return response.data;
+  const provider = getProviderContract('byteplus');
+  const generate = await getBytePlusCallable(provider.functionName);
+  const response = await generate(normalizeProviderGenerationRequest('byteplus', payload));
+  return normalizeProviderGenerationResponse(response.data);
 }

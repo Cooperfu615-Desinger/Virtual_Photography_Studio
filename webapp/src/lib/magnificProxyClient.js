@@ -1,3 +1,9 @@
+import {
+  getProviderContract,
+  normalizeProviderGenerationRequest,
+  normalizeProviderGenerationResponse,
+} from './providerContract.js';
+
 async function getMagnificCallable(functionName = 'magnificGenerate', timeout = 240000) {
   const [{ getFunctions, httpsCallable }, { firebaseApp, firebaseAuth }] = await Promise.all([
     import('firebase/functions'),
@@ -18,18 +24,20 @@ async function getMagnificCallable(functionName = 'magnificGenerate', timeout = 
 }
 
 export async function generateMagnificViaFirebase(payload) {
-  const generate = await getMagnificCallable();
-  const response = await generate(payload);
-  return response.data;
+  const provider = getProviderContract('magnific');
+  const generate = await getMagnificCallable(provider.functionName);
+  const response = await generate(normalizeProviderGenerationRequest('magnific', payload));
+  return normalizeProviderGenerationResponse(response.data);
 }
 
 export async function generateMagnificClassicViaFirebase(payload) {
-  const generate = await getMagnificCallable();
-  const response = await generate({
+  const provider = getProviderContract('magnific');
+  const generate = await getMagnificCallable(provider.functionName);
+  const response = await generate(normalizeProviderGenerationRequest('magnific', {
     ...payload,
     modelKey: 'classic',
-  });
-  return response.data;
+  }));
+  return normalizeProviderGenerationResponse(response.data);
 }
 
 export async function downloadMagnificImageViaFirebase(payload) {

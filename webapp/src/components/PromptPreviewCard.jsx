@@ -1,4 +1,5 @@
 import { Copy } from 'lucide-react';
+import '../styles/generation.css';
 
 export default function PromptPreviewCard({
   title,

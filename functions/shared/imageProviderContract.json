@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "request": {
+    "prompt": {
+      "minLength": 3,
+      "maxLength": 30000
+    },
+    "count": {
+      "min": 1,
+      "max": 4,
+      "default": 1
+    },
+    "aspectRatios": ["1:1", "4:3", "3:4", "16:9", "9:16"],
+    "defaultAspectRatio": "9:16",
+    "resolutions": ["1k", "2k", "3k", "4k"]
+  },
+  "providers": {
+    "magnific": {
+      "functionName": "magnificGenerate",
+      "defaultModelKey": "classic",
+      "models": {
+        "classic": { "resolutions": ["1k", "2k"], "defaultResolution": "1k" },
+        "zImageTurbo": { "resolutions": ["1k", "2k"], "defaultResolution": "1k" },
+        "mystic": { "resolutions": ["1k", "2k", "4k"], "defaultResolution": "1k" },
+        "nanoBananaProFlash": { "resolutions": ["1k", "2k", "4k"], "defaultResolution": "1k" },
+        "gemini25FlashImagePreview": { "resolutions": ["1k"], "defaultResolution": "1k" },
+        "seedreamV5Lite": { "resolutions": ["1k"], "defaultResolution": "1k" }
+      }
+    },
+    "byteplus": {
+      "functionName": "bytePlusGenerate",
+      "defaultModelKey": "seedream5Pro",
+      "models": {
+        "seedream5Pro": { "resolutions": ["1k", "2k"], "defaultResolution": "2k" },
+        "seedream5Lite": { "resolutions": ["2k", "3k", "4k"], "defaultResolution": "2k" }
+      }
+    }
+  },
+  "response": {
+    "required": ["images", "errors"],
+    "imageRequired": ["src", "mimeType"],
+    "optional": ["meta"]
+  }
+}

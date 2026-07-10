@@ -1,3 +1,8 @@
+import { getProviderContract } from './providerContract.js';
+
+const MAGNIFIC_CONTRACT = getProviderContract('magnific');
+const BYTEPLUS_CONTRACT = getProviderContract('byteplus');
+
 export const DLL_PIC_STORAGE_KEYS = {
   apiKey: 'dll_pic_pro_api_key',
   googleApiKey: 'dll_pic_pro_google_api_key',
@@ -68,8 +73,8 @@ export const DLL_PIC_MODEL_CONFIG = {
     analysisModel: '',
     usesServerProxy: true,
     supportsResolution: true,
-    defaultResolution: '2k',
-    resolutionOptions: ['1k', '2k'],
+    defaultResolution: BYTEPLUS_CONTRACT.models.seedream5Pro.defaultResolution,
+    resolutionOptions: BYTEPLUS_CONTRACT.models.seedream5Pro.resolutions,
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 BytePlus ARK Secret',
   },
   byteplusSeedream5Lite: {
@@ -80,8 +85,8 @@ export const DLL_PIC_MODEL_CONFIG = {
     analysisModel: '',
     usesServerProxy: true,
     supportsResolution: true,
-    defaultResolution: '2k',
-    resolutionOptions: ['2k', '3k', '4k'],
+    defaultResolution: BYTEPLUS_CONTRACT.models.seedream5Lite.defaultResolution,
+    resolutionOptions: BYTEPLUS_CONTRACT.models.seedream5Lite.resolutions,
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 BytePlus ARK Secret',
   },
   magnificClassic: {
@@ -110,7 +115,8 @@ export const DLL_PIC_MODEL_CONFIG = {
     analysisModel: '',
     usesServerProxy: true,
     supportsResolution: true,
-    defaultResolution: '1k',
+    defaultResolution: MAGNIFIC_CONTRACT.models.mystic.defaultResolution,
+    resolutionOptions: MAGNIFIC_CONTRACT.models.mystic.resolutions,
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
   },
   magnificNanoBananaProFlash: {
@@ -121,7 +127,8 @@ export const DLL_PIC_MODEL_CONFIG = {
     analysisModel: '',
     usesServerProxy: true,
     supportsResolution: true,
-    defaultResolution: '1k',
+    defaultResolution: MAGNIFIC_CONTRACT.models.nanoBananaProFlash.defaultResolution,
+    resolutionOptions: MAGNIFIC_CONTRACT.models.nanoBananaProFlash.resolutions,
     apiKeyPlaceholder: 'Firebase Proxy 會使用伺服端 Magnific Secret',
   },
   magnificGemini25FlashImagePreview: {

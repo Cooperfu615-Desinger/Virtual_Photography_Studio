@@ -11,6 +11,7 @@ const {
   generateBytePlusImages,
 } = require('./src/byteplusGeneration');
 const { downloadRemoteImageAsDataUrl } = require('./src/imageDownloadProxy');
+const { normalizeGenerationRequest } = require('./src/providerContract');
 
 const magnificApiKey = defineSecret('MAGNIFIC_API_KEY');
 const bytePlusArkApiKey = defineSecret('BYTEPLUS_ARK_API_KEY');
@@ -36,6 +37,14 @@ function assertAllowedUser(request, serviceLabel = 'image generation proxy') {
   }
 }
 
+function normalizeCallableGenerationRequest(providerKey, data) {
+  try {
+    return normalizeGenerationRequest(providerKey, data || {});
+  } catch (error) {
+    throw new HttpsError('invalid-argument', error?.message || '生圖請求格式錯誤');
+  }
+}
+
 exports.magnificGenerateClassic = onCall({
   region: 'us-central1',
   secrets: [magnificApiKey],
@@ -45,10 +54,11 @@ exports.magnificGenerateClassic = onCall({
 }, async (request) => {
   assertAllowedUser(request, 'Magnific proxy');
 
-  const body = buildMagnificClassicRequest(request.data || {});
-  if (!body.prompt || body.prompt.length < 3) {
-    throw new HttpsError('invalid-argument', '請先提供至少 3 個字元的 Prompt');
-  }
+  const payload = normalizeCallableGenerationRequest('magnific', {
+    ...(request.data || {}),
+    modelKey: 'classic',
+  });
+  const body = buildMagnificClassicRequest(payload);
 
   const apiKey = magnificApiKey.value();
   if (!apiKey) {
@@ -74,8 +84,8 @@ exports.magnificGenerateClassic = onCall({
     throw new HttpsError('internal', message);
   }
 
-  const payload = await response.json();
-  const result = parseMagnificClassicResponse(payload);
+  const responsePayload = await response.json();
+  const result = parseMagnificClassicResponse(responsePayload);
 
   if (result.images.length === 0) {
     throw new HttpsError('internal', 'Magnific API 回應中未包含圖像資料');
@@ -100,11 +110,7 @@ exports.magnificGenerate = onCall({
 }, async (request) => {
   assertAllowedUser(request, 'Magnific proxy');
 
-  const payload = request.data || {};
-  const prompt = String(payload.prompt || '').trim();
-  if (prompt.length < 3) {
-    throw new HttpsError('invalid-argument', '請先提供至少 3 個字元的 Prompt');
-  }
+  const payload = normalizeCallableGenerationRequest('magnific', request.data);
 
   const apiKey = magnificApiKey.value();
   if (!apiKey) {
@@ -114,10 +120,7 @@ exports.magnificGenerate = onCall({
   try {
     const result = await generateMagnificModelImages({
       apiKey,
-      payload: {
-        ...payload,
-        prompt,
-      },
+      payload,
     });
 
     if (result.images.length === 0) {
@@ -153,11 +156,7 @@ exports.bytePlusGenerate = onCall({
 }, async (request) => {
   assertAllowedUser(request, 'BytePlus proxy');
 
-  const payload = request.data || {};
-  const prompt = String(payload.prompt || '').trim();
-  if (prompt.length < 3) {
-    throw new HttpsError('invalid-argument', '請先提供至少 3 個字元的 Prompt');
-  }
+  const payload = normalizeCallableGenerationRequest('byteplus', request.data);
 
   const apiKey = bytePlusArkApiKey.value();
   if (!apiKey) {
@@ -167,10 +166,7 @@ exports.bytePlusGenerate = onCall({
   try {
     const result = await generateBytePlusImages({
       apiKey,
-      payload: {
-        ...payload,
-        prompt,
-      },
+      payload,
     });
 
     if (result.images.length === 0) {

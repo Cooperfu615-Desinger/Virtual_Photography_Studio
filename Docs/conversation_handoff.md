@@ -25,7 +25,7 @@ Important legacy terminology warning:
 - Knowledge base source: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
 - Sync script: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
 - Synced data target: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
-- Current pushed main before this architecture-hardening update: `b2b658c Harden project architecture and remove dead code`
+- Current pushed main before the App/PAGE1 split: `6f3431b Migrate saved cards and optimize data assets`
 
 ## Validation
 
@@ -41,11 +41,11 @@ Standard validation flow:
   - `npm run lint`
   - `npm run build`
 
-Last implementation validation on 2026-07-10 after architecture hardening and cleanup:
+Last implementation validation on 2026-07-10 after the App/PAGE1 and delivery-architecture split:
 
-- Frontend `npm test`: 383 tests passed.
+- Frontend `npm test`: 397 tests passed.
 - Frontend `npm run lint` and `npm run build`: passed without the previous Vite chunk-size warning.
-- Functions `npm test`: 28 tests passed.
+- Functions `npm test`: 30 tests passed.
 - Functions `npm run lint`: passed with the active repository ESLint configuration.
 - Browser smoke test passed for Prompt Control Deck, Character Card Lab, Action Pose Lab, World Street Scene Builder, and Saved Cards; console error/warn logs were empty.
 - Git reference and object validation passed after stale synced-directory conflict copies were removed.
@@ -101,6 +101,10 @@ Do not rename the internal fields casually. Many saved cards, import/export path
 - The unreachable SUNO workspace, prompt builder, tests, and CSS were removed on 2026-07-10. Historical saved cards remain plain stored prompt records.
 - PAGE1 / PAGE2 / PAGE3 currently include DLL PIC Pro generation panels.
 - PAGE1 includes section-scoped random controls, prompt restore / backfill, saved cards, Favorites, lighting reference modal, and wardrobe reference image picker cards.
+- PAGE1 reroll is last-result-aware: unlocked scene, camera, lighting, imaging, character, pose, and main wardrobe choices exclude the previous selection when a compatible alternative exists; explicit locks are preserved.
+- `App.jsx` is a 546-line application shell. Saved Cards codec/storage/cloud sync, PAGE1 state/schema/selectors/transitions, and PAGE3 card construction are feature-owned modules.
+- All five workspaces are loaded with `React.lazy`; workspace CSS and the Saved Cards ZIP implementation are separate build chunks.
+- Magnific and BytePlus browser/Functions payloads share the versioned `/functions/shared/imageProviderContract.json` contract.
 
 ### DLL PIC Pro
 
@@ -192,7 +196,10 @@ Rules:
 ### Current Key Files
 
 - Prompt engine: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
-- App state / filtering: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/App.jsx`
+- App shell / cross-workspace orchestration: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/App.jsx`
+- PAGE1 state and derived controls: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/features/page1/`
+- Saved Cards codec, persistence, and cloud sync: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/features/saved-cards/`
+- Shared provider contract: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/functions/shared/imageProviderContract.json`
 - PAGE1 UI: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page1Workspace.jsx`
 - PAGE2 UI: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page2Workspace.jsx`
 - PAGE3 UI: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page3Workspace.jsx`

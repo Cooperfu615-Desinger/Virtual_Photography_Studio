@@ -4254,9 +4254,11 @@ function buildSpecialSubjectIntegrationPrompt(subject) {
   return isSkeletonSubject(subject) ? sanitizeSkeletonPromptText(text) : text;
 }
 
-function getAspectRatioOption(id, random = Math.random) {
+function getAspectRatioOption(id, random = Math.random, exclusions = EMPTY_PREVIEW_REROLL_EXCLUSIONS) {
   const option = ASPECT_RATIO_OPTIONS.find((entry) => entry.id === id);
-  if (option?.random) return sample(ASPECT_RATIO_POOL, random);
+  if (option?.random) {
+    return sample(exclusions.filterCandidates(ASPECT_RATIO_POOL, ['aspectRatio']), random);
+  }
   return option || DEFAULT_ASPECT_RATIO;
 }
 
@@ -4704,6 +4706,12 @@ function buildCharacter(context, catalog) {
     '特殊動作 (Special Actions)': 'specialActionId',
   };
   const previewExclusionKeysByCategory = {
+    '體態 (Body Type)': ['bodyTypeId'],
+    '五官特徵 (Facial Features)': ['facialFeaturesId'],
+    '膚質特徵 (Skin Details)': ['skinDetailsId'],
+    '髮型 (Hairstyle)': ['hairstyleId'],
+    '髮色 (Hair Color)': ['hairColorId'],
+    '神情與眼神 (Expression & Gaze)': ['expressionId'],
     '姿勢與肢體語言 (Pose & Body Language)': ['poseId'],
     '特殊動作 (Special Actions)': ['specialActionId'],
   };
@@ -11241,14 +11249,33 @@ export function buildLocksFromPrompt(prompt, keepKeys = []) {
 function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const lockControls = runtime.controls;
   const random = normalizeRandom(runtimeOptions.random);
-  const pickLocked = (list, lockedId, predicate = () => true, picker = sample) => (
-    pickWithLock(list, lockedId, predicate, picker, random)
+  const previewRerollExclusions = buildPreviewRerollExclusions(runtimeOptions.excludePreviousSelection);
+  const withPreviewExclusions = (picker, lockedId, exclusionKeys) => (candidates, pickerRandom) => {
+    const shouldExcludePrevious = !lockedId || isRandomLockValue(lockedId);
+    const eligibleCandidates = shouldExcludePrevious
+      ? previewRerollExclusions.filterCandidates(candidates, exclusionKeys)
+      : candidates;
+    return picker(eligibleCandidates, pickerRandom);
+  };
+  const pickLocked = (list, lockedId, predicate = () => true, picker = sample, exclusionKeys = []) => (
+    pickWithLock(
+      list,
+      lockedId,
+      predicate,
+      withPreviewExclusions(picker, lockedId, exclusionKeys),
+      random,
+    )
   );
-  const pickCompatible = (list, lockedId, predicate = () => true, picker = sample) => (
-    pickWithCompatibleLock(list, lockedId, predicate, picker, random)
+  const pickCompatible = (list, lockedId, predicate = () => true, picker = sample, exclusionKeys = []) => (
+    pickWithCompatibleLock(
+      list,
+      lockedId,
+      predicate,
+      withPreviewExclusions(picker, lockedId, exclusionKeys),
+      random,
+    )
   );
   const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
-  const previewRerollExclusions = buildPreviewRerollExclusions(runtimeOptions.excludePreviousSelection);
   const selectedFixedCompositionSet = getFixedCompositionSetOption(effectiveLocks.fixedCompositionSetId);
   const fixedCompositionSetActive = isFixedCompositionSetActive(selectedFixedCompositionSet) && effectiveLocks.subjectCount !== '2';
   const fixedSetCameraVariationActive = fixedCompositionSetActive && fixedCompositionSetAllowsCameraVariation(selectedFixedCompositionSet);
@@ -11292,7 +11319,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const imageTypePreset = getImageTypePresetOption(effectiveLocks.imageTypePresetId);
   const hasWardrobeLocks = !dedicatedSubject && hasEffectiveWardrobeLockValues(effectiveLocks, lockControls);
   const hasSceneLocks = Boolean(effectiveLocks.locationId || effectiveLocks.sceneAttributeId);
-  const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio, random);
+  const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio, random, previewRerollExclusions);
   const sceneAttribute = getSceneAttributeOption(effectiveLocks.sceneAttributeId);
   const lowFrequencyPicker = (tag) => (candidates) => {
     const regular = candidates.filter((item) => !item.meta.tags?.includes(tag));
@@ -11307,9 +11334,17 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const location = pickLocked(
     runtime.flatCatalog.locations,
     effectiveLocks.locationId,
-    (item) => locationMatchesSceneAttribute(item, sceneAttribute)
+    (item) => locationMatchesSceneAttribute(item, sceneAttribute),
+    sample,
+    ['locationId'],
   );
-  let style = pickLocked(runtime.flatCatalog.regional, effectiveLocks.styleId, (item) => styleFitsLocation(item, location));
+  let style = pickLocked(
+    runtime.flatCatalog.regional,
+    effectiveLocks.styleId,
+    (item) => styleFitsLocation(item, location),
+    sample,
+    ['styleId'],
+  );
   const lockedSpecialAction = effectiveLocks.specialActionId
     ? findById(getByKey(runtime.catalog.character, '特殊動作 (Special Actions)'), effectiveLocks.specialActionId)
     : null;
@@ -11338,7 +11373,9 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       && (effectiveLocks.framingId || (!hasWardrobeLocks && !hasSceneLocks) || item.meta.visibility !== 'close')
       && framingSupportsSubject(item, subject, aspectRatio)
       && specialActionSupportsFraming(lockedActionConstraint, item)
-    )
+    ),
+    sample,
+    ['framingId'],
   );
   const expressionOptions = getByKey(runtime.catalog.character, '神情與眼神 (Expression & Gaze)');
   const lockedDuoExpression = subject.count === 2 && effectiveLocks.duoExpressionId
@@ -11355,7 +11392,8 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     runtime.flatCatalog.angle,
     effectiveLocks.angleId,
     (item) => framingSupportsAngle(framing, item) && lockedExpressions.every((expression) => angleSupportsExpression(item, expression)),
-    lowFrequencyPicker('low_frequency_angle')
+    lowFrequencyPicker('low_frequency_angle'),
+    ['angleId'],
   );
   if (isWormEyeAngleItem(angle)) {
     const noneStyle = getControlOptionByZh(lockControls, 'styleId', '全無');
@@ -11369,13 +11407,15 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const orbit = pickCameraWithExpressionLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,
-    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint)
+    (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint),
+    sample,
+    ['orbitId'],
   );
-  const lens = pickLocked(runtime.flatCatalog.lens, effectiveLocks.lensId);
+  const lens = pickLocked(runtime.flatCatalog.lens, effectiveLocks.lensId, () => true, sample, ['lensId']);
   const apertureLockId = effectiveLocks.apertureId || getControlOptionByZh(lockControls, 'apertureId', '全無')?.id || '';
   const shutterLockId = effectiveLocks.shutterId || getControlOptionByZh(lockControls, 'shutterId', '全無')?.id || '';
-  const aperture = pickLocked(runtime.flatCatalog.aperture, apertureLockId);
-  const shutter = pickLocked(runtime.flatCatalog.shutter, shutterLockId);
+  const aperture = pickLocked(runtime.flatCatalog.aperture, apertureLockId, () => true, sample, ['apertureId']);
+  const shutter = pickLocked(runtime.flatCatalog.shutter, shutterLockId, () => true, sample, ['shutterId']);
   const fixedSetLightingCompatibilityAnchor = fixedCompositionSetActive
     && selectedFixedCompositionSet?.meta?.tags?.includes('outdoor')
     ? selectedFixedCompositionSet
@@ -11384,19 +11424,35 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const lighting = pickCompatible(
     runtime.flatCatalog.lighting,
     effectiveLocks.lightingId,
-    (item) => (locationForLightingCompatibility ? locationSupportsLighting(locationForLightingCompatibility, item) : true)
+    (item) => (locationForLightingCompatibility ? locationSupportsLighting(locationForLightingCompatibility, item) : true),
+    sample,
+    ['lightingId'],
   );
   const lightDirection = !lighting
     ? null
     : pickCompatible(
       runtime.flatCatalog.lightDirection,
       effectiveLocks.lightDirectionId,
-      (item) => lightDirectionSupportsScene(item, framing, locationForLightingCompatibility, lighting)
+      (item) => lightDirectionSupportsScene(item, framing, locationForLightingCompatibility, lighting),
+      sample,
+      ['lightDirectionId'],
     );
   const imagingLockId = effectiveLocks.filmId || (CAMERA_PROFILE_OPTION_IDS.has(effectiveLocks.cameraSystemId) ? effectiveLocks.cameraSystemId : '');
-  const film = pickLocked(runtime.flatCatalog.film, imagingLockId, () => true, lowFrequencyPicker('low_frequency_film'));
+  const film = pickLocked(
+    runtime.flatCatalog.film,
+    imagingLockId,
+    () => true,
+    lowFrequencyPicker('low_frequency_film'),
+    ['filmId', 'cameraSystemId'],
+  );
   const cameraSystem = getLegacyCameraSystemFromImaging(film);
-  const opticalEffect = pickLocked(runtime.flatCatalog.effects, effectiveLocks.opticalEffectId);
+  const opticalEffect = pickLocked(
+    runtime.flatCatalog.effects,
+    effectiveLocks.opticalEffectId,
+    () => true,
+    sample,
+    ['opticalEffectId'],
+  );
   const fixedCompositionSet = fixedCompositionSetActive ? selectedFixedCompositionSet : null;
   const fixedSetPosition = fixedCompositionSet
     ? getFixedSetPositionOption(effectiveLocks.fixedSetPositionId, fixedCompositionSet)

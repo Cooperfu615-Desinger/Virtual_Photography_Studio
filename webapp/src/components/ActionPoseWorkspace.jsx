@@ -1,4 +1,5 @@
 import DllPicProPanel from './DllPicProPanel';
+import '../styles/workspaceLabs.css';
 import PromptPreviewCard from './PromptPreviewCard';
 import {
   ACTION_POSE_MODES,

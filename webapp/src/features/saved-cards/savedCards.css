@@ -1,0 +1,139 @@
+.saved-cards-shell {
+  display: grid;
+  gap: 18px;
+}
+
+.saved-cards-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.58fr);
+  gap: 18px;
+  align-items: end;
+}
+
+.saved-cards-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.saved-cards-stat {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(111, 87, 60, 0.12);
+  background: rgba(255, 250, 240, 0.8);
+}
+
+.saved-cards-stat span {
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.saved-cards-stat strong {
+  color: var(--text-primary);
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.saved-cards-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.saved-cards-toolbar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.saved-cards-actions,
+.saved-cards-source-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  width: 100%;
+}
+
+.saved-cards-actions button,
+.saved-cards-source-tabs button {
+  width: 100%;
+}
+
+.saved-cards-source-tabs {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+
+.saved-cards-results-meta {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.saved-cards-library-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.saved-cards-density-control {
+  width: min(260px, 100%);
+  flex: 0 0 auto;
+}
+
+.saved-cards-density-control button {
+  min-height: 36px;
+  font-size: 0.78rem;
+}
+
+.saved-cards-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.saved-cards-list-compact {
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+}
+
+.saved-cards-list-detail {
+  grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+}
+
+.saved-cards-load-more {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0 2px;
+}
+
+.saved-cards-load-more button {
+  min-width: 220px;
+}
+
+
+@media (max-width: 1100px) {
+  .saved-cards-hero,
+  .saved-cards-toolbar {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 820px) {
+  .saved-cards-library-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .saved-cards-density-control {
+    width: 100%;
+  }
+
+  .saved-cards-list,
+  .saved-cards-stats {
+    grid-template-columns: 1fr;
+  }
+}
