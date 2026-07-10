@@ -7,7 +7,7 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
 - Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
 - App: Vite + React prompt generator
-- Current pushed main before this documentation update: `7aed676 Optimize prompt engine runtime`
+- Current pushed main before this architecture-hardening update: `6dc76cd Document prompt engine architecture`
 - Normal working branch: `main`
 
 ## Validation
@@ -21,13 +21,15 @@ Run from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp` unless note
 - Optional dev server: `npm run dev -- --host 127.0.0.1 --port 5175`
 - Dev URL: `http://127.0.0.1:5175/Virtual_Photography_Studio/`
 
-Last implementation validation on 2026-07-10 after the prompt-engine runtime optimization:
+Last implementation validation on 2026-07-10 after the architecture hardening and cleanup:
 
-- Frontend `npm test`: 382 tests passed.
+- Frontend `npm test`: 380 tests passed. Two obsolete SUNO tests were removed with the unreachable SUNO runtime.
 - Frontend `npm run lint`: passed.
 - Frontend `npm run build`: passed without the previous Vite chunk-size warning. Rollup now separates `prompt-catalog`, `prompt-engine`, `firebase`, and the main application bundle.
-- Functions `npm test`: 24 tests passed.
+- Functions `npm test`: 28 tests passed.
+- Functions `npm run lint`: passed with the repository ESLint configuration; this is now an active lint check instead of a placeholder command.
 - Browser smoke test passed for Prompt Control Deck, Character Card Lab, Action Pose Lab, World Street Scene Builder, and Saved Cards; console error/warn logs were empty.
+- Git reference validation passed with `git show-ref --head` and `git fsck --full --no-dangling` after removing stale synced-directory conflict copies.
 - Deterministic audit `node scripts/validate_prompt_logic.mjs 200 optimization-audit`: generated 200 prompts with seed `optimization-audit`; 11 prompts were flagged by the existing heuristics. The occurrence summary was 9 pants/legwear overlaps and 3 pants/skirt overlaps; one prompt can contain more than one finding. Treat these as prompt-quality follow-up items, not test failures or optimization regressions.
 
 Historical validation note from 2026-06-25:
@@ -105,9 +107,9 @@ PAGE3 is separate from PAGE1 and PAGE2. It builds scene / world / environment pr
 
 SUNO has been removed from the active app navigation / workspace flow. The user plans a separate music prompt tool.
 
-Legacy SUNO modules and old saved-card compatibility may still exist in source/data paths. Do not re-add SUNO to active navigation unless explicitly requested.
+The unreachable SUNO workspace, prompt builder, tests, and CSS were removed on 2026-07-10. Historical saved cards remain plain stored prompt records and do not require the SUNO builder at runtime. Do not re-add SUNO to active navigation unless explicitly requested.
 
-## DLL PIC Pro / Image Analyzer
+## DLL PIC Pro
 
 DLL PIC Pro is a local UI wrapper for direct image generation from current prompt outputs.
 
@@ -115,7 +117,6 @@ Main files:
 
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/ImagePromptAnalyzerPanel.jsx`
 
 Generation panel behavior:
 
@@ -138,15 +139,6 @@ Generation panel behavior:
   - `Google Gemini (實驗)`: `gemini-3.1-flash-image-preview`
   - `xAI Grok` is listed but has no generation model connected yet.
 - Returned inline image data is previewed as data URLs and can be downloaded as `dll_pic_pro_{timestamp}_{index}.png`.
-
-Image Analyzer behavior:
-
-- The Image Analyzer panel was historically hosted on SUNO. SUNO is no longer in the active product flow, so do not assume Image Analyzer is currently reachable through active navigation.
-- It calls Gemini image analysis and returns:
-  - short prompt
-  - detailed GPT-image-style prompt
-  - structured analysis
-- Current analysis model for Google options is `gemini-2.5-flash`.
 
 ## Current PAGE1 Control Rules
 
@@ -311,7 +303,6 @@ Shared PAGE UI / prompt display:
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptPreviewCard.jsx`
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page2Workspace.jsx`
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/ImagePromptAnalyzerPanel.jsx`
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
 
 PAGE1 helpers:
@@ -381,6 +372,22 @@ Remaining engine work should be incremental:
 - Legacy saved-card and lock migration logic remains in the compatibility boundary.
 - Extract either area only with seeded regression fixtures and existing public-output field mappings preserved.
 - Do not cache arbitrary custom-library overlays without an explicit invalidation or versioning strategy.
+
+## Architecture Hardening Status
+
+Completed on 2026-07-10:
+
+- Removed stale Git metadata and generated `dist` conflict copies created by synced-directory filename duplication. The repository now has one valid index and one `main` ref.
+- Expanded GitHub Actions into pull-request and `main` quality gates for frontend tests/lint, Functions tests/lint, and pull-request build validation before production deployment.
+- Added a version-controlled root `firestore.rules` file and connected it through `firebase.json`.
+- Hardened the image download proxy against private-network targets, private-address DNS resolution, and unsafe redirect chains; each redirect target is revalidated and redirects are capped.
+- Added conservative `maxInstances: 2` limits to public callable generation/download Functions to reduce accidental scaling exposure.
+- Removed unreachable SUNO runtime/test/CSS files, the unused Image Analyzer panel/CSS, and the remaining Vite starter assets.
+
+Remaining security follow-up:
+
+- Firebase App Check is not enforced yet. The frontend does not currently initialize an App Check provider or provide a production site key, so enabling enforcement now would break legitimate calls. Add the client provider and deployment secret first, verify production traffic, then enable enforcement on callable Functions.
+- Keep the repository outside folders managed by desktop sync software when practical. The stale conflict copies are gone, but relocation is an environment-level preventive action and was not performed automatically.
 
 ## Paused Ideas
 

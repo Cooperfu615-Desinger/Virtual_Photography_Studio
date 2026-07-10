@@ -25,7 +25,7 @@ Important legacy terminology warning:
 - Knowledge base source: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
 - Sync script: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
 - Synced data target: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
-- Current pushed main before this UIUX handoff update: `f5a363c Fix character card accessory prompt merging`
+- Current pushed main before this architecture-hardening update: `6dc76cd Document prompt engine architecture`
 
 ## Validation
 
@@ -37,12 +37,14 @@ Standard validation flow:
   - `npm run lint`
   - `npm run build`
 
-Last implementation validation on 2026-07-09 after Character Card Lab v1 merge:
+Last implementation validation on 2026-07-10 after architecture hardening and cleanup:
 
-- `node --test --test-reporter=dot src/**/*.test.js`: passed
-- `npm run lint`: passed
-- `npm run build`: passed with the existing Vite chunk-size warning
-- Rendered smoke test on dev server: PAGE2 Character Card Lab six outputs loaded; PAGE2 saved a six-prompt card; PAGE2 import back to PAGE1 showed `來自角色卡` wardrobe badges; SUNO active navigation/filter were absent; mobile 390x900 had no horizontal overflow; console error/warn logs were empty.
+- Frontend `npm test`: 380 tests passed.
+- Frontend `npm run lint` and `npm run build`: passed without the previous Vite chunk-size warning.
+- Functions `npm test`: 28 tests passed.
+- Functions `npm run lint`: passed with the active repository ESLint configuration.
+- Browser smoke test passed for Prompt Control Deck, Character Card Lab, Action Pose Lab, World Street Scene Builder, and Saved Cards; console error/warn logs were empty.
+- Git reference and object validation passed after stale synced-directory conflict copies were removed.
 
 Historical validation note from 2026-06-25:
 
@@ -96,10 +98,11 @@ Do not rename the internal fields casually. Many saved cards, import/export path
 - PAGE2 is the Character Card Lab for PAGE1 `A 人物設定`.
 - PAGE3 is the world / scene prompt workspace.
 - SUNO has been removed from active app navigation / workspace flow; the user plans a separate music prompt tool.
+- The unreachable SUNO workspace, prompt builder, tests, and CSS were removed on 2026-07-10. Historical saved cards remain plain stored prompt records.
 - PAGE1 / PAGE2 / PAGE3 currently include DLL PIC Pro generation panels.
 - PAGE1 includes section-scoped random controls, prompt restore / backfill, saved cards, Favorites, lighting reference modal, and wardrobe reference image picker cards.
 
-### DLL PIC Pro / Image Analyzer
+### DLL PIC Pro
 
 DLL PIC Pro is a local UI wrapper for direct image generation from current prompt outputs.
 
@@ -107,7 +110,6 @@ Main files:
 
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
 - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/ImagePromptAnalyzerPanel.jsx`
 
 Generation panel behavior:
 
@@ -130,15 +132,6 @@ Generation panel behavior:
   - `Google Gemini (實驗)`: `gemini-3.1-flash-image-preview`
   - `xAI Grok` is listed but has no generation model connected yet.
 - Returned inline image data is previewed as data URLs and can be downloaded as `dll_pic_pro_{timestamp}_{index}.png`.
-
-Image Analyzer behavior:
-
-- The Image Analyzer panel was historically hosted on SUNO. SUNO is no longer in the active product flow, so do not assume Image Analyzer is reachable through active navigation.
-- It calls Gemini image analysis and returns:
-  - short prompt
-  - detailed GPT-image-style prompt
-  - structured analysis
-- Current analysis model for Google options is `gemini-2.5-flash`.
 
 ### Subject Model
 
@@ -207,7 +200,6 @@ Rules:
 - Prompt preview cards: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptPreviewCard.jsx`
 - DLL PIC Pro panel: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
 - DLL PIC Pro client: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
-- Image Analyzer panel: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/ImagePromptAnalyzerPanel.jsx`
 - Section random helper: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/page1SectionRandom.js`
 - PAGE1 summary helper: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/page1WorkspaceSummary.js`
 - Character Card Lab helper: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/characterCardLab.js`

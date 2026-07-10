@@ -1,6 +1,14 @@
 # Firebase Favorites Rules
 
-Use these Firestore rules for Virtual Photography Studio Favorites sync.
+The version-controlled source of truth for Favorites access is `firestore.rules` at the repository root. `firebase.json` includes that file in Firebase deployment configuration.
+
+Deploy rule changes with:
+
+```bash
+firebase deploy --only firestore:rules
+```
+
+Current rules:
 
 ```txt
 rules_version = '2';

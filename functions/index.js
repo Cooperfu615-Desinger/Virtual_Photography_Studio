@@ -41,6 +41,7 @@ exports.magnificGenerateClassic = onCall({
   secrets: [magnificApiKey],
   timeoutSeconds: 120,
   memory: '512MiB',
+  maxInstances: 2,
 }, async (request) => {
   assertAllowedUser(request, 'Magnific proxy');
 
@@ -95,6 +96,7 @@ exports.magnificGenerate = onCall({
   secrets: [magnificApiKey],
   timeoutSeconds: 240,
   memory: '512MiB',
+  maxInstances: 2,
 }, async (request) => {
   assertAllowedUser(request, 'Magnific proxy');
 
@@ -147,6 +149,7 @@ exports.bytePlusGenerate = onCall({
   secrets: [bytePlusArkApiKey],
   timeoutSeconds: 240,
   memory: '512MiB',
+  maxInstances: 2,
 }, async (request) => {
   assertAllowedUser(request, 'BytePlus proxy');
 
@@ -197,6 +200,7 @@ exports.magnificDownloadImage = onCall({
   region: 'us-central1',
   timeoutSeconds: 120,
   memory: '512MiB',
+  maxInstances: 2,
 }, async (request) => {
   assertAllowedUser(request, 'image download proxy');
 
