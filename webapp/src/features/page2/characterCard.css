@@ -1,13 +1,15 @@
 .page2-shell.character-card-lab-shell {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1.38fr) minmax(360px, 0.72fr);
+  gap: 18px;
   align-items: start;
 }
 
-.character-card-lab-top-grid {
+.character-card-lab-side-column {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(286px, 360px);
-  gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
   align-items: start;
+  min-width: 0;
 }
 
 .character-card-picker-panel,
@@ -70,6 +72,7 @@
 }
 
 .character-card-option {
+  height: 650px;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   gap: 8px;
@@ -94,7 +97,8 @@
 .character-card-option img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  height: 100%;
+  min-height: 0;
   object-fit: cover;
   border-radius: 6px;
 }
@@ -130,7 +134,7 @@
 }
 
 .character-card-hair-grid {
-  max-height: 150px;
+  max-height: 122px;
   overflow: auto;
   padding-right: 2px;
 }
@@ -162,6 +166,7 @@
 
 .character-card-layer-list {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -169,6 +174,11 @@
   display: block;
   margin: 0;
   font-weight: 800;
+}
+
+.character-card-layer-list .character-card-layer {
+  width: 100%;
+  text-align: center;
 }
 
 .character-card-layer:disabled {
@@ -207,34 +217,41 @@
 
 .character-card-output-layout {
   display: grid;
-  grid-template-columns: minmax(260px, 0.44fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 16px;
   align-items: start;
 }
 
 .character-card-copy-board {
-  padding: 14px;
-  border: 1px solid rgba(111, 87, 60, 0.14);
-  border-radius: 8px;
-  background: rgba(255, 250, 240, 0.68);
+  gap: 10px;
 }
 
 .character-card-output-actions {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
 
 .character-card-copy-button {
   min-height: 42px;
   padding: 8px 10px;
-  border-radius: 10px;
+  border-radius: 8px;
+  color: #ffffff;
   font-size: 0.76rem;
   line-height: 1.2;
 }
 
-.character-card-save-button {
+.character-card-copy-board .character-card-save-button {
   width: 100%;
+  border-color: #f22626;
+  background: #f22626;
+  color: #ffffff;
+}
+
+.character-card-copy-board .character-card-save-button:hover:not(:disabled) {
+  border-color: #c91f1f;
+  background: #c91f1f;
+  color: #ffffff;
 }
 
 .character-card-copy-status {
@@ -278,7 +295,11 @@
 }
 
 @media (max-width: 1100px) {
-  .character-card-lab-top-grid,
+  .page2-shell.character-card-lab-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .character-card-lab-side-column,
   .character-card-output-layout {
     grid-template-columns: 1fr;
   }
@@ -297,6 +318,14 @@
 
   .character-card-grid-large {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .character-card-option {
+    height: 250px;
+  }
+
+  .character-card-layer-list {
+    grid-template-columns: 1fr;
   }
 
   .character-card-output-actions {
