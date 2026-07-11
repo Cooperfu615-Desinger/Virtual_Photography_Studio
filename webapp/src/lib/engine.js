@@ -9699,6 +9699,12 @@ function renderZImagePrompt(promptModel) {
       || wardrobeSlots.outfitPresetA
       || wardrobeSlots.outfitPresetB
     );
+  const sceneBeforeWardrobeMode = !specialSubjectMode
+    && Boolean(
+      wardrobeSlots.outfitPreset
+      || wardrobeSlots.outfitPresetA
+      || wardrobeSlots.outfitPresetB
+    );
   const sentence = (value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
   const joinSentenceParts = (parts) => sentence(parts.filter(Boolean).join(', '));
   const leadSentence = (lead, parts) => {
@@ -10184,10 +10190,10 @@ function renderZImagePrompt(promptModel) {
 
   return joinZImageParagraphs([
     buildCharacterText(),
-    sceneProtectedWardrobeMode ? buildSceneText() : '',
+    sceneBeforeWardrobeMode ? buildSceneText() : '',
     buildWardrobeText(),
     buildSinglePoseText(),
-    sceneProtectedWardrobeMode ? '' : buildSceneText(),
+    sceneBeforeWardrobeMode ? '' : buildSceneText(),
     buildPhotographyStyleText(),
     buildCameraText(),
     buildRenderingText(),

@@ -1221,6 +1221,29 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
   }
 });
 
+test('Grok/Z-Image special outfit places wardrobe and pose before scene', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialOutfitId: optionId('specialOutfitId', '黑色哥德蕾絲短袖熱褲長靴造型'),
+    locationId: optionId('locationId', '室內：英倫復古窗邊房間'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  });
+  const paragraphs = zImageParagraphs(prompt);
+  const subjectIndex = paragraphs.findIndex((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph));
+  const wardrobeIndex = paragraphs.findIndex((paragraph) => /^She wears complete special outfit:/i.test(paragraph));
+  const poseIndex = paragraphs.findIndex((paragraph) => /^She is standing with natural relaxed standing arrangement/i.test(paragraph));
+  const sceneIndex = paragraphs.findIndex((paragraph) => /^Scene: The portrait takes place/i.test(paragraph));
+
+  assert.ok(subjectIndex >= 0, 'Expected a subject paragraph');
+  assert.ok(wardrobeIndex >= 0, 'Expected a special-outfit wardrobe paragraph');
+  assert.ok(poseIndex >= 0, 'Expected a pose paragraph');
+  assert.ok(sceneIndex >= 0, 'Expected a scene paragraph');
+  assert.ok(subjectIndex < wardrobeIndex, 'Expected subject before wardrobe');
+  assert.ok(wardrobeIndex < poseIndex, 'Expected wardrobe before pose');
+  assert.ok(poseIndex < sceneIndex, 'Expected pose before scene');
+});
+
 test('Z-Image chest-up framing preserves body-shape anchor while wardrobe remains visibility-filtered', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
