@@ -52,7 +52,7 @@ Current PAGE1 output labels:
   - Current rule as of 2026-07-03: `GPT Full-Fidelity Prompt` / `GPT 完整保留型 Prompt`
   - Gpt should preserve selected effective English descriptions instead of semantically compressing them; only formatting cleanup, section organization, empty-value removal, and exact duplicate cleanup are allowed
   - Must end with `multi-cut sequence n=2`
-  - Single special outfits can be grouped inside `Wardrobe` as `Hair and body details`, `Full outfit`, and `Headwear, eyewear, and bag`
+  - Single special outfits place built-in hair, body, tattoo, and other person-detail fragments in `Subject` under `Hair and body details`; `Wardrobe` uses named `Full outfit` and `Headwear, eyewear, and bag` subsections
   - Single character profile cards use structured facial geometry, eye, nose, mouth, skin, makeup, body, permanent-anchor, hair, outfit, accessory, and photographic-direction groups inside `Subject`; the legacy `identityAndBody` paragraph is retained in data but not repeated by the full renderer
 - `Grok/Z-Image`
   - Internal field: `zImagePrompt`

@@ -8634,11 +8634,9 @@ function buildGptDuoWardrobeRoleTexts(context, wardrobeSlots, wardrobeColors) {
 }
 
 function cleanGptDuoFullWardrobePart(value) {
-  return naturalizeGptSingleWardrobePaletteText(value)
+  return cleanGptSinglePromptText(value)
     .replace(/^She wears\s+/i, '')
     .replace(/^wearing\s+/i, '')
-    .replace(/^complete special outfit:\s*/i, '')
-    .replace(/^complete outfit:\s*/i, '')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -8876,7 +8874,7 @@ function buildGptSingleFullFidelityText(value) {
 }
 
 function buildGptSingleFullFidelityWardrobeText(value) {
-  return naturalizeGptSingleWardrobePaletteText(value);
+  return cleanGptSinglePromptText(value);
 }
 
 function splitGptSpecialOutfitFragments(value) {
@@ -8911,7 +8909,7 @@ function joinGptSpecialOutfitGroupFragments(fragments, { lead = '' } = {}) {
   return text ? ensureTerminalPeriod(`${lead}${text}`) : '';
 }
 
-function buildGptSingleSpecialOutfitWardrobeBlock(specialOutfitText, additionalFullTexts = []) {
+function buildGptSingleSpecialOutfitGroups(specialOutfitText, additionalFullTexts = []) {
   const fragments = [
     ...splitGptSpecialOutfitFragments(specialOutfitText),
     ...additionalFullTexts.flatMap((value) => splitGptSpecialOutfitFragments(value)),
@@ -8932,19 +8930,21 @@ function buildGptSingleSpecialOutfitWardrobeBlock(specialOutfitText, additionalF
     }
   }
 
-  const sections = [
-    hairAndBodyFragments.length > 0
-      ? joinGptSpecialOutfitGroupFragments(hairAndBodyFragments)
-      : '',
+  const wardrobeSections = [
     fullOutfitFragments.length > 0
-      ? joinGptSpecialOutfitGroupFragments(fullOutfitFragments, { lead: 'She wears ' })
+      ? `Full outfit:\n${joinGptSpecialOutfitGroupFragments(fullOutfitFragments, { lead: 'She wears ' })}`
       : '',
     headwearEyewearBagFragments.length > 0
-      ? joinGptSpecialOutfitGroupFragments(headwearEyewearBagFragments)
+      ? `Headwear, eyewear, and bag:\n${joinGptSpecialOutfitGroupFragments(headwearEyewearBagFragments)}`
       : '',
   ].filter(Boolean);
 
-  return sections.join('\n\n');
+  return {
+    hairAndBodyText: hairAndBodyFragments.length > 0
+      ? joinGptSpecialOutfitGroupFragments(hairAndBodyFragments)
+      : '',
+    wardrobeText: wardrobeSections.join('\n\n'),
+  };
 }
 
 function cleanCharacterProfileGroupText(value) {
@@ -9633,7 +9633,7 @@ function renderGptPrompt(promptModel) {
     wardrobeColors,
   } = promptModel;
   const section = (title, sentence) => {
-    const cleaned = ensureTerminalPeriod(stripMarkdown(sentence || '').replace(/\s+/g, ' ').trim());
+    const cleaned = ensureTerminalPeriod(cleanGptSinglePromptText(sentence || ''));
     return cleaned ? `${title}:\n${cleaned}` : '';
   };
   const blockSection = (title, value) => {
@@ -9665,20 +9665,30 @@ function renderGptPrompt(promptModel) {
   const singleCharacterProfileSubjectBlock = !useRoleOrderedDuo && isCharacterProfileSubject(context.subject)
     ? buildGptCharacterProfileSubjectBlock(context.subject, context.locks, wardrobe)
     : '';
-  const resolvedSubjectText = useRoleOrderedDuo
+  const singleSpecialOutfitText = !useRoleOrderedDuo && context.subject?.count === 1
+    ? firstStructuredValue(valuesByLabel, ['Special Outfit'])
+    : '';
+  const singleSpecialOutfitGroups = singleSpecialOutfitText
+    ? buildGptSingleSpecialOutfitGroups(
+        singleSpecialOutfitText,
+        getStructuredValues(valuesByLabel, ['Outerwear'])
+      )
+    : { hairAndBodyText: '', wardrobeText: '' };
+  let resolvedSubjectText = useRoleOrderedDuo
     ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
     : singleCharacterProfileSubjectBlock
     ? singleCharacterProfileSubjectBlock
     : buildGptSingleFullFidelityText(subjectText);
-  const singleSpecialOutfitText = !useRoleOrderedDuo && context.subject?.count === 1
-    ? firstStructuredValue(valuesByLabel, ['Special Outfit'])
-    : '';
-  const singleSpecialOutfitWardrobeBlock = singleSpecialOutfitText
-    ? buildGptSingleSpecialOutfitWardrobeBlock(
-        singleSpecialOutfitText,
-        getStructuredValues(valuesByLabel, ['Outerwear'])
-      )
-    : '';
+  if (singleSpecialOutfitGroups.hairAndBodyText) {
+    const baseSubjectText = singleCharacterProfileSubjectBlock
+      ? resolvedSubjectText
+      : `${subjectLead} ${resolvedSubjectText}`.trim();
+    resolvedSubjectText = [
+      baseSubjectText,
+      `Hair and body details:\n${singleSpecialOutfitGroups.hairAndBodyText}`,
+    ].filter(Boolean).join('\n\n');
+  }
+  const singleSpecialOutfitWardrobeBlock = singleSpecialOutfitGroups.wardrobeText;
   const resolvedWardrobeText = useRoleOrderedDuo
     ? wardrobeText
     : singleSpecialOutfitWardrobeBlock
@@ -9689,7 +9699,7 @@ function renderGptPrompt(promptModel) {
     ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
     : filterFaceOnlyTorsoAngleText(buildGptSingleFullFidelityText(poseText), context);
   const resolvedWardrobeUsesBlock = Boolean(singleSpecialOutfitWardrobeBlock);
-  const resolvedSubjectUsesBlock = Boolean(singleCharacterProfileSubjectBlock);
+  const resolvedSubjectUsesBlock = Boolean(singleCharacterProfileSubjectBlock || singleSpecialOutfitGroups.hairAndBodyText);
   const sceneSection = sceneText
     ? sceneText.includes('\n')
       ? blockSection('Scene', sceneText)
@@ -9749,7 +9759,7 @@ function renderFullBodyCharacterPrompt(promptModel) {
   if (context.subject?.count !== 1) return '';
 
   const section = (title, value) => {
-    const cleaned = ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
+    const cleaned = ensureTerminalPeriod(cleanGptSinglePromptText(value || ''));
     return cleaned ? `${title}:\n${cleaned}` : '';
   };
   const blockSection = (title, value) => {
@@ -9775,15 +9785,25 @@ function renderFullBodyCharacterPrompt(promptModel) {
   const characterProfileGroups = isCharacterProfileSubject(context.subject)
     ? buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe)
     : null;
-  const resolvedSubjectText = characterProfileSubjectBlock
-    || buildGptSingleFullFidelityText(subjectText);
   const specialOutfitText = firstStructuredValue(valuesByLabel, ['Special Outfit']);
-  const specialOutfitWardrobeBlock = specialOutfitText
-    ? buildGptSingleSpecialOutfitWardrobeBlock(
+  const specialOutfitGroups = specialOutfitText
+    ? buildGptSingleSpecialOutfitGroups(
         specialOutfitText,
         getStructuredValues(valuesByLabel, ['Outerwear'])
       )
-    : '';
+    : { hairAndBodyText: '', wardrobeText: '' };
+  let resolvedSubjectText = characterProfileSubjectBlock
+    || buildGptSingleFullFidelityText(subjectText);
+  if (specialOutfitGroups.hairAndBodyText) {
+    const baseSubjectText = characterProfileSubjectBlock
+      ? resolvedSubjectText
+      : `${subjectLead} ${resolvedSubjectText}`.trim();
+    resolvedSubjectText = [
+      baseSubjectText,
+      `Hair and body details:\n${specialOutfitGroups.hairAndBodyText}`,
+    ].filter(Boolean).join('\n\n');
+  }
+  const specialOutfitWardrobeBlock = specialOutfitGroups.wardrobeText;
   const resolvedWardrobeText = specialOutfitWardrobeBlock
     || buildGptSingleFullFidelityWardrobeText(wardrobeText)
     || characterProfileGroups?.outfit
@@ -9792,7 +9812,7 @@ function renderFullBodyCharacterPrompt(promptModel) {
   return [
     section('Image Type', FULL_BODY_CHARACTER_IMAGE_TYPE),
     resolvedSubjectText
-      ? characterProfileSubjectBlock
+      ? characterProfileSubjectBlock || specialOutfitGroups.hairAndBodyText
         ? blockSection('Subject', resolvedSubjectText)
         : section('Subject', `${subjectLead} ${resolvedSubjectText}`)
       : '',

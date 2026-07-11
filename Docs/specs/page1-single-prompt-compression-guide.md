@@ -18,7 +18,7 @@ Last updated: 2026-07-03
 - 結尾必須保留 `multi-cut sequence n=2`。
 - 不做語意壓縮：不把長句縮成短片語，不刪除原本有視覺或控制意義的資訊。
 - 允許格式整理：清理空白、標點、markdown 符號、空值，並放入正確 section。
-- 單人特殊穿搭的 `Wardrobe` 可用子區塊幫助人工微調：`Hair and body details`、`Full outfit`、`Headwear, eyewear, and bag`。分類時只搬移內容，不應因壓縮而濾掉 fragment。
+- 單人特殊穿搭會把內建人物特徵移入 `Subject` 的 `Hair and body details` 子區塊；`Wardrobe` 則使用 `Full outfit` 與 `Headwear, eyewear, and bag` 子區塊。分類時只搬移內容，不應因壓縮而濾掉 fragment。
 - 單人角色卡的 `Subject` 可用子區塊幫助人工微調：`Character Profile Card`、`Identity and body`、`Hair`、`Outfit`、`Accessories`、`Photographic direction`。
 
 ### Grok/Z-Image
@@ -75,7 +75,7 @@ Last updated: 2026-07-03
 
 - 把長描述縮成短片語。
 - 刪除數值、比例、支撐點、材質、層次、guard 或造型鎖定資訊。
-- 因為文字看似冗長就移除 `body proportion anchor`、`worn normally on the face`、`controlled by selection` 等原始控制語。這些是否保留應由資料庫 authoring 或後續專案決策處理，不在 Gpt 最終輸出層任意刪除。
+- 因為文字看似冗長就移除 `body proportion anchor`、`worn normally on the face`、palette、`controlled by selection` 等原始控制語。這些是否保留應由資料庫 authoring 或後續專案決策處理，不在 Gpt 最終輸出層任意刪除或自然化改寫。
 - 把多個選項的內容合併時遺失原始描述。
 
 ### Grok/Z-Image 與 AI 壓縮原則
@@ -236,10 +236,13 @@ complete outfit: style direction. core top or one-piece, core bottom, outer laye
 Gpt 單人輸出會將特殊穿搭整理成：
 
 ```text
-Wardrobe:
+Subject:
+The subject is ...
+
 Hair and body details:
 ...
 
+Wardrobe:
 Full outfit:
 ...
 
@@ -249,7 +252,7 @@ Headwear, eyewear, and bag:
 
 Gpt 分類規則：
 
-- `Hair and body details`: 特殊穿搭內含的髮型、瀏海、髮色、刺青、身體小記憶點。
+- `Hair and body details`: 放在 `Subject`，收納特殊穿搭內含的髮型、瀏海、髮色、刺青、身體小記憶點。
 - `Full outfit`: 上衣、下身、連身、外套、襪類、鞋款、皮帶、首飾、手套、耳機、穿搭層次。
 - `Headwear, eyewear, and bag`: 帽子、頭巾、髮夾、眼鏡、墨鏡、包包。
 

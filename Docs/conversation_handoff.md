@@ -270,7 +270,7 @@ Important tests:
 - Ends with `multi-cut sequence n=2`.
 - This multi-cut line is only for Gpt.
 - Single `Gpt` keeps the main section order `Image Type`, `Subject`, `Wardrobe`, `Pose and Composition`, `Scene`, `Lighting`, `Camera Look`.
-- Single special outfits can be grouped inside `Wardrobe` as `Hair and body details`, `Full outfit`, and `Headwear, eyewear, and bag` so accessories are easy to inspect and edit.
+- Single special outfits place built-in hair, body, tattoo, and other person-detail fragments in `Subject` under `Hair and body details`; `Wardrobe` uses named `Full outfit` and `Headwear, eyewear, and bag` subsections so clothing and removable accessories remain easy to inspect and edit.
 - Single character profile cards use structured facial geometry, eye, nose, mouth, skin, makeup, body, permanent-anchor, hair, outfit, accessory, and photographic-direction groups inside `Subject`; the legacy `identityAndBody` paragraph stays available to compatibility consumers but is not repeated by the full renderer.
 - Duo `Gpt` uses role-ordered sections:
   - `Image Type`
