@@ -9064,6 +9064,22 @@ function buildGptCharacterProfileSubjectBlock(subject, locks = {}, wardrobe = nu
   ].filter(Boolean).join('\n\n');
 }
 
+function buildGptFullBodyCharacterProfileSubjectBlock(subject, locks = {}, wardrobe = null) {
+  if (!isCharacterProfileSubject(subject)) return '';
+  const groups = buildCharacterCardProfileGroups(subject, locks, wardrobe);
+  const groupLine = (label, value) => {
+    const cleaned = ensureTerminalPeriod(cleanCharacterProfileGroupText(value));
+    return cleaned ? `${label}:\n${cleaned}` : '';
+  };
+
+  return [
+    groupLine('Character Profile Card', subject.zh || subject.specialToneZh || 'Character Profile'),
+    groupLine('Identity and body', groups.identityAndBody),
+    groupLine('Hair', [groups.hair, buildCharacterCardHairVariantText(subject, locks)].filter(Boolean).join(', ')),
+    groupLine('Accessories', groups.accessories),
+  ].filter(Boolean).join('\n\n');
+}
+
 const GPT_SINGLE_HAIR_COLOR_MERGE_RULES = [
   { phrase: 'natural black hair', modifier: 'natural black' },
   { phrase: 'soft black-tea brown hair', modifier: 'soft black-tea brown' },
@@ -9662,6 +9678,83 @@ function renderGptPrompt(promptModel) {
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
     'multi-cut sequence n=2',
+  ].filter(Boolean).join('\n\n');
+}
+
+const FULL_BODY_CHARACTER_REFERENCE_FRAMING = Object.freeze({
+  id: 'full-body-character-reference',
+  zh: '全身鏡頭 (Full Body Shot)',
+  en: 'full body shot, full figure visible from head to toe',
+  meta: Object.freeze({ visibility: 'full' }),
+});
+
+const FULL_BODY_CHARACTER_IMAGE_TYPE = 'Create a photorealistic character reference portrait in a single 9:16 vertical image';
+const FULL_BODY_CHARACTER_LIGHTING = 'Clean even lighting with clear facial, body, fabric, and footwear readability';
+const FULL_BODY_CHARACTER_CAMERA_LOOK = 'Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text';
+
+function renderFullBodyCharacterPrompt(promptModel) {
+  const {
+    valuesByLabel,
+    context,
+    wardrobe,
+  } = promptModel;
+  if (context.subject?.count !== 1) return '';
+
+  const section = (title, value) => {
+    const cleaned = ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
+    return cleaned ? `${title}:\n${cleaned}` : '';
+  };
+  const blockSection = (title, value) => {
+    const cleaned = String(value || '')
+      .replace(/[`*]/g, '')
+      .split('\n')
+      .map((line) => line.replace(/\s+/g, ' ').trim())
+      .join('\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    return cleaned ? `${title}:\n${cleaned}` : '';
+  };
+  const {
+    subjectText,
+    wardrobeText,
+    subjectLead,
+    wardrobeLead,
+    wardrobeUsesDirectSentence,
+  } = buildPromptSectionSources(valuesByLabel, context);
+  const characterProfileSubjectBlock = isCharacterProfileSubject(context.subject)
+    ? buildGptFullBodyCharacterProfileSubjectBlock(context.subject, context.locks, wardrobe)
+    : '';
+  const characterProfileGroups = isCharacterProfileSubject(context.subject)
+    ? buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe)
+    : null;
+  const resolvedSubjectText = characterProfileSubjectBlock
+    || buildGptSingleFullFidelityText(subjectText);
+  const specialOutfitText = firstStructuredValue(valuesByLabel, ['Special Outfit']);
+  const specialOutfitWardrobeBlock = specialOutfitText
+    ? buildGptSingleSpecialOutfitWardrobeBlock(
+        specialOutfitText,
+        getStructuredValues(valuesByLabel, ['Outerwear'])
+      )
+    : '';
+  const resolvedWardrobeText = specialOutfitWardrobeBlock
+    || buildGptSingleFullFidelityWardrobeText(wardrobeText)
+    || characterProfileGroups?.outfit
+    || '';
+
+  return [
+    section('Image Type', FULL_BODY_CHARACTER_IMAGE_TYPE),
+    resolvedSubjectText
+      ? characterProfileSubjectBlock
+        ? blockSection('Subject', resolvedSubjectText)
+        : section('Subject', `${subjectLead} ${resolvedSubjectText}`)
+      : '',
+    resolvedWardrobeText
+      ? specialOutfitWardrobeBlock
+        ? blockSection('Wardrobe', resolvedWardrobeText)
+        : section('Wardrobe', wardrobeUsesDirectSentence ? resolvedWardrobeText : `${wardrobeLead} ${resolvedWardrobeText}`)
+      : '',
+    section('Lighting', FULL_BODY_CHARACTER_LIGHTING),
+    section('Camera Look', FULL_BODY_CHARACTER_CAMERA_LOOK),
   ].filter(Boolean).join('\n\n');
 }
 
@@ -11074,11 +11167,22 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     film,
     opticalEffect,
   };
+  const fullBodyCharacterContext = {
+    ...context,
+    framing: FULL_BODY_CHARACTER_REFERENCE_FRAMING,
+    fixedCompositionSet: null,
+  };
+  const fullBodyCharacterPromptModel = {
+    ...promptModel,
+    ...buildStructuredPromptSections(fullBodyCharacterContext, character, wardrobe, wardrobeColors, lightDirection, film),
+    context: fullBodyCharacterContext,
+  };
   const grokPrompt = renderGptPrompt(promptModel);
   const zImagePrompt = renderZImagePrompt(promptModel);
   const midjourneyPrompt = renderAiPrompt(promptModel);
+  const fullBodyCharacterPrompt = renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
 
-  return { midjourneyPrompt, grokPrompt, zImagePrompt };
+  return { midjourneyPrompt, grokPrompt, zImagePrompt, fullBodyCharacterPrompt };
 }
 
 function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film) {
@@ -11548,7 +11652,12 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   context.wardrobe = wardrobe;
   const wardrobeColors = buildWardrobeColors(extractWardrobeSlots(wardrobe), effectiveLocks, random);
 
-  const { midjourneyPrompt, grokPrompt, zImagePrompt } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
+  const {
+    midjourneyPrompt,
+    grokPrompt,
+    zImagePrompt,
+    fullBodyCharacterPrompt,
+  } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
 
   return {
@@ -11559,6 +11668,9 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     midjourneyPrompt,
     grokPrompt,
     zImagePrompt,
+    extraPrompts: fullBodyCharacterPrompt
+      ? [{ id: 'full-body-character', label: '全身角色照', text: fullBodyCharacterPrompt }]
+      : [],
     selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film),
     structured: {
       Style: [imageTypePreset, style].filter(Boolean),

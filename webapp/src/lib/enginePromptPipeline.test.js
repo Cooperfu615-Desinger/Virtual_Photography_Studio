@@ -30,6 +30,10 @@ function zImageWardrobeParagraph(prompt) {
   return zImageParagraphs(prompt).find((paragraph) => /^She wears\b/i.test(paragraph)) || '';
 }
 
+function extraPromptById(prompt, id) {
+  return prompt.extraPrompts?.find((entry) => entry.id === id)?.text || '';
+}
+
 function assertNaturalZImageParagraphs(prompt, caseName, minParagraphs = 4) {
   const paragraphs = zImageParagraphs(prompt);
 
@@ -139,6 +143,81 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /no nudity|fully clothed|clothing covers the body/i);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
+});
+
+test('full-body character prompt keeps complete separate wardrobe regardless of selected framing', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '胸上特寫'),
+    bodyTypeId: optionId('bodyTypeId', '柔和沙漏身形'),
+    hairstyleId: optionId('hairstyleId', '半綁公主頭'),
+    hairColorId: optionId('hairColorId', '深咖啡棕'),
+    eyewearId: optionId('eyewearId', '細框眼鏡'),
+    eyewearColorId: optionId('eyewearColorId', '黑色'),
+    topId: optionId('topId', '襯衫'),
+    topColorId: optionId('topColorId', '米白色'),
+    skirtId: optionId('skirtId', '百褶短裙'),
+    bottomColorId: optionId('bottomColorId', '深灰色'),
+    outerwearId: optionId('outerwearId', '丹寧外套'),
+    outerwearColorId: optionId('outerwearColorId', '深灰色'),
+    legwearId: optionId('legwearId', '羅紋短襪'),
+    legwearColorId: optionId('legwearColorId', '白色'),
+    shoesId: optionId('shoesId', 'Samba OG'),
+    shoesColorId: optionId('shoesColorId', '白色'),
+  });
+  const fullBodyPrompt = extraPromptById(prompt, 'full-body-character');
+
+  assert.match(fullBodyPrompt, /^Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image\./);
+  assert.match(fullBodyPrompt, /\n\nSubject:\nThe subject is /);
+  assert.match(fullBodyPrompt, /half-up long hair, soft crown lift, loose face-framing strands/i);
+  assert.match(fullBodyPrompt, /deep coffee-brown hair/i);
+  assert.match(fullBodyPrompt, /black .*glasses/i);
+  assert.match(fullBodyPrompt, /\n\nWardrobe:\nShe wears /);
+  assert.match(fullBodyPrompt, /off-white shirt/i);
+  assert.match(fullBodyPrompt, /dark grey .*pleated mini skirt/i);
+  assert.match(fullBodyPrompt, /dark grey denim jacket/i);
+  assert.match(fullBodyPrompt, /white ribbed ankle socks/i);
+  assert.match(fullBodyPrompt, /white adidas samba og sneakers/i);
+  assert.match(fullBodyPrompt, /\n\nLighting:\nClean even lighting with clear facial, body, fabric, and footwear readability\./);
+  assert.match(
+    fullBodyPrompt,
+    /\n\nCamera Look:\nFull-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text\.$/
+  );
+  assert.doesNotMatch(fullBodyPrompt, /^(?:Pose and Composition|Scene):/m);
+  assert.doesNotMatch(fullBodyPrompt, /multi-cut sequence n=2/);
+});
+
+test('full-body character prompt restores bags and footwear removed from cropped special-outfit prompts', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
+    specialOutfitId: optionId('specialOutfitId', '白襯衫黑色長裙細領帶造型'),
+  });
+  const fullBodyPrompt = extraPromptById(prompt, 'full-body-character');
+
+  assert.doesNotMatch(gptSection(prompt, 'Wardrobe'), /black soft shoulder tote|black lace-up leather shoes/i);
+  assert.match(fullBodyPrompt, /black soft shoulder tote/i);
+  assert.match(fullBodyPrompt, /black lace-up leather shoes/i);
+});
+
+test('full-body character prompt keeps character-card outfit out of the subject section', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    characterProfileId: 'character-rika',
+  });
+  const fullBodyPrompt = extraPromptById(prompt, 'full-body-character');
+  const subject = promptSection(fullBodyPrompt, 'Subject', ['Image Type', 'Subject', 'Wardrobe', 'Lighting', 'Camera Look']);
+  const wardrobe = promptSection(fullBodyPrompt, 'Wardrobe', ['Image Type', 'Subject', 'Wardrobe', 'Lighting', 'Camera Look']);
+
+  assert.match(subject, /Character Profile Card:\n11_Rika/i);
+  assert.match(subject, /Identity and body:/i);
+  assert.match(subject, /Hair:/i);
+  assert.doesNotMatch(subject, /^Outfit:|^Photographic direction:/mi);
+  assert.match(wardrobe, /cropped white short-sleeve baby tee/i);
+  assert.match(wardrobe, /low-rise light-wash blue jeans/i);
+  assert.match(wardrobe, /white low-top sneakers/i);
 });
 
 test('image type presets expose six finished-image directions with photorealistic photography as default', () => {

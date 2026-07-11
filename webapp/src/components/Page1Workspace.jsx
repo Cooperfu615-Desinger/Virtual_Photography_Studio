@@ -960,6 +960,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     return renderCharacterControls();
   };
 
+  const fullBodyCharacterPrompt = previewPrompt?.extraPrompts
+    ?.find((entry) => entry.id === 'full-body-character')?.text || '';
+
   const generationPromptCards = [
     {
       title: 'Gpt',
@@ -982,6 +985,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       description: '偏通用影像生成語氣，適合快速貼到外部工具測試視覺方向。',
       copyLabel: 'AI copied',
     },
+    ...(fullBodyCharacterPrompt ? [{
+      title: '全身角色照',
+      value: fullBodyCharacterPrompt,
+      placeholder: '目前尚無可顯示的全身角色照 Prompt。',
+      description: '固定 9:16 直式，完整呈現單人人物、穿搭、鞋襪與配件。',
+      copyLabel: '全身角色照 copied',
+    }] : []),
   ];
 
   return (
@@ -1083,7 +1093,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
             <div className="reference-output-header">
               <div>
                 <div className="control-section-title">Generation Outputs</div>
-                <p className="workspace-panel-copy">集中整理目前 工作台 的三種生成輸出。</p>
+                <p className="workspace-panel-copy">集中整理目前 工作台 的四種生成輸出。</p>
               </div>
             </div>
 
@@ -1126,6 +1136,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               { id: 'gpt', label: 'Gpt', value: previewPrompt?.grokPrompt || '' },
               { id: 'grok', label: 'Grok/Z-Image', value: previewPrompt?.zImagePrompt || '' },
               { id: 'ai', label: 'AI Prompt', value: previewPrompt?.midjourneyPrompt || '' },
+              {
+                id: 'full-body-character',
+                label: '全身角色照',
+                value: fullBodyCharacterPrompt,
+                aspectRatio: '9:16',
+                lockAspectRatio: true,
+              },
             ]}
             defaultSourceId="gpt"
           />

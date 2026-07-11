@@ -171,6 +171,7 @@ export default function DllPicProPanel({
     promptSources.find((source) => source.id === selectedSourceId) || availableSources[0] || promptSources[0] || null
   ), [availableSources, promptSources, selectedSourceId]);
   const selectedPrompt = selectedSource?.value?.trim() || '';
+  const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
   const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
   const activeProviderLabel = activeModel.provider === 'magnific'
     ? 'Magnific'
@@ -190,6 +191,10 @@ export default function DllPicProPanel({
     && activeModel.generationModel
     && !isGenerating
   );
+
+  useEffect(() => {
+    if (selectedSource?.aspectRatio) setAspectRatio(selectedSource.aspectRatio);
+  }, [selectedSource?.aspectRatio, selectedSource?.id]);
 
   const openApiKeyModal = () => {
     setApiKeyDrafts(apiKeys);
@@ -352,7 +357,11 @@ export default function DllPicProPanel({
 
         <label className="field dll-pic-field">
           <span>比例</span>
-          <select value={aspectRatio} onChange={(event) => setAspectRatio(event.target.value)}>
+          <select
+            value={aspectRatio}
+            onChange={(event) => setAspectRatio(event.target.value)}
+            disabled={isAspectRatioLocked}
+          >
             {DLL_PIC_ASPECT_RATIOS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}

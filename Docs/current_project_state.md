@@ -63,6 +63,12 @@ Current PAGE1 output labels:
   - Compact natural prompt derived from Gpt sections
   - Must not drop selected wardrobe, clothing, pose, or action details
   - Duo mode uses a compact labeled format, not the older single-paragraph compression
+- `全身角色照`
+  - Internal renderer output: `fullBodyCharacterPrompt`; exposed and stored through `extraPrompts` id `full-body-character`
+  - Single-subject-only full-body character reference prompt using Gpt-style `Image Type`, `Subject`, `Wardrobe`, `Lighting`, and `Camera Look` sections
+  - Fixed to one `9:16 vertical image`; DLL PIC locks the aspect ratio to `9:16` when this source is selected
+  - Rebuilds wardrobe with full-body visibility so current chest-up or medium framing cannot remove bottoms, outerwear, legwear, shoes, bags, or accessories
+  - Does not include `Pose and Composition`, `Scene`, or `multi-cut sequence n=2`
 
 Important naming note:
 
@@ -139,6 +145,7 @@ Generation panel behavior:
   - `Gpt` from `previewPrompt.grokPrompt`
   - `Grok/Z-Image` from `previewPrompt.zImagePrompt`
   - `AI Prompt` from `previewPrompt.midjourneyPrompt`
+  - `全身角色照` from `previewPrompt.extraPrompts` id `full-body-character`, fixed to `9:16`
 - PAGE1 default source is `Gpt`.
 - PAGE2 prompt sources are the six Character Card Lab outputs.
 - PAGE3 default source is `Scene Prompt`.
@@ -174,10 +181,12 @@ Generation panel behavior:
 - `renderGptPrompt()` creates the current full-fidelity `Gpt` output.
 - `renderZImagePrompt()` creates the natural `Grok/Z-Image` output.
 - `renderAiPrompt()` creates the compact `AI` output.
-- `buildPrompts()` returns the three historical fields:
+- `renderFullBodyCharacterPrompt()` creates the single-subject full-body character reference output.
+- `buildPrompts()` preserves the three historical fields:
   - `midjourneyPrompt`
   - `grokPrompt`
   - `zImagePrompt`
+  - It also returns `fullBodyCharacterPrompt`, which `generateSinglePrompt()` stores as the `full-body-character` extra prompt when available.
 
 Runtime rules:
 
