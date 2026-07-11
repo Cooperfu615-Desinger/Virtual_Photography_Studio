@@ -212,7 +212,9 @@ test('full-body character prompt keeps character-card outfit out of the subject 
   const wardrobe = promptSection(fullBodyPrompt, 'Wardrobe', ['Image Type', 'Subject', 'Wardrobe', 'Lighting', 'Camera Look']);
 
   assert.match(subject, /Character Profile Card:\n11_Rika/i);
-  assert.match(subject, /Identity and body:/i);
+  assert.match(subject, /Facial geometry:/i);
+  assert.match(subject, /Body:/i);
+  assert.doesNotMatch(subject, /Identity and body:/i);
   assert.match(subject, /Hair:/i);
   assert.doesNotMatch(subject, /^Outfit:|^Photographic direction:/mi);
   assert.match(wardrobe, /cropped white short-sleeve baby tee/i);

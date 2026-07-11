@@ -1,4 +1,4 @@
-export const CHARACTER_PROFILE_OPTIONS = [
+const LEGACY_CHARACTER_PROFILE_OPTIONS = [
   {
     id: 'none',
     zh: '全無',
@@ -275,3 +275,203 @@ export const CHARACTER_PROFILE_OPTIONS = [
     meta: { referenceImage: 'character-cards/mei/00_Mei_00.avif', referenceImageFormat: 'avif' },
   },
 ];
+
+// These fields are intentionally separated from the legacy identityAndBody string.
+// The legacy string remains a public compatibility surface for existing Saved Cards,
+// PAGE1 imports, and external prompt consumers; new renderers should use the
+// structured fields and distinctiveFeatures as the durable facial identity anchor.
+const FACIAL_IDENTITY_PROFILES = {
+  'character-48g': {
+    facialGeometry: 'small rounded oval face, softly full lower cheeks, a smooth narrow jaw and a short rounded chin',
+    eyeSignature: 'large round-set gray-brown eyes, level outer corners, visible soft lower-lid fullness and open double eyelids',
+    noseSignature: 'short straight nose with a low smooth bridge and a compact rounded tip',
+    mouthSignature: 'small softly rounded rose lips with a fuller lower lip and a shallow cupid bow',
+    skinSignature: 'pale luminous skin with an even smooth texture',
+    makeup: 'soft charcoal smoky lids and a restrained pink under-eye blush',
+    body: 'slim petite fashion-model proportions with a narrow waist and balanced curvy silhouette',
+    distinctiveFeatures: 'small rounded oval face with full lower cheeks, large level gray-brown eyes with soft lower-lid fullness, short straight low-bridge nose, small rounded lips with a fuller lower lip',
+  },
+  'character-philippa': {
+    facialGeometry: 'long elegant oval face, gently high cheekbones, a narrow tapered jaw and a refined pointed chin',
+    eyeSignature: 'pale gray-green almond eyes set slightly wide, relaxed level outer corners and light double eyelids',
+    noseSignature: 'long slim straight nose with a narrow bridge and a fine rounded tip',
+    mouthSignature: 'medium-full muted-red lips with a softly defined cupid bow and a fuller lower lip',
+    skinSignature: 'porcelain luminous skin with a cool even finish',
+    makeup: 'soft cool taupe eye definition and muted red satin lips',
+    body: 'slender fashion-model proportions with a graceful narrow waist',
+    distinctiveFeatures: 'long oval face with gently high cheekbones, pale gray-green wide-set almond eyes, long narrow straight nose, medium-full muted-red lips with a fuller lower lip',
+  },
+  'character-sakura': {
+    facialGeometry: 'delicate short heart-oval face, high rounded cheeks, a narrow soft jaw and a tiny pointed chin',
+    eyeSignature: 'very large round blue eyes set slightly wide, level outer corners, open double eyelids and prominent lower-lid fullness',
+    noseSignature: 'small straight nose with a low gentle bridge and a button-like rounded tip',
+    mouthSignature: 'small peach-pink lips with a soft cupid bow, a plush lower lip and a lightly parted center',
+    skinSignature: 'luminous fair skin with a smooth translucent finish',
+    makeup: 'warm peach eyelids and light peach blush across cheeks and nose',
+    body: 'slim petite cozy-girl proportions',
+    distinctiveFeatures: 'short heart-oval face with high rounded cheeks, very large wide-set blue round eyes, small low-bridge button nose, lightly parted peach lips with a plush lower lip',
+  },
+  'character-hinata': {
+    facialGeometry: 'small elongated oval face, subtly high cheekbones, a soft jawline and a delicate pointed chin',
+    eyeSignature: 'large gray-olive brown almond eyes, moderate spacing, softly lifted outer corners and shallow double eyelids',
+    noseSignature: 'straight slim nose with a low-to-medium bridge and a small neat tip',
+    mouthSignature: 'natural rose-pink lips with a gentle even fullness and a softly defined cupid bow',
+    skinSignature: 'luminous fair skin with a clean even satin texture',
+    makeup: 'peach-rose cheek color, cool beige lids and a thin gentle cat-eye line',
+    body: 'tall high-fashion hourglass proportions with long limbs, fuller bust, wide hips and a narrow waist',
+    distinctiveFeatures: 'elongated oval face with a pointed chin, gray-olive almond eyes with softly lifted corners, slim low-to-medium bridge nose, even rose-pink lips',
+  },
+  'character-rika': {
+    facialGeometry: 'petite oval face with softly full cheeks, a gentle rounded jaw and a short rounded chin',
+    eyeSignature: 'large round gray-brown eyes, slightly close set, level outer corners and soft lower-lash detail',
+    noseSignature: 'small delicate straight nose with a smooth low bridge and rounded tip',
+    mouthSignature: 'soft rose-pink lips with a cushioned fuller lower lip and a slightly parted pout',
+    skinSignature: 'luminous fair skin with a smooth natural finish',
+    makeup: 'warm peach-beige eyes and a light peach-pink cheek flush',
+    body: 'slim petite casual-fashion proportions with a narrow waist',
+    distinctiveFeatures: 'petite oval face with full cheeks, large slightly close-set round gray-brown eyes, tiny beauty mark near the outer cheek, cushioned slightly parted rose lips',
+  },
+  'character-rin': {
+    facialGeometry: 'small porcelain oval face, slim tapered jaw, delicate pointed chin and a long clean neck',
+    eyeSignature: 'slender warm-brown almond eyes, slightly wide set, soft lower-lid fullness and fine lower lashes',
+    noseSignature: 'straight delicate nose with a narrow bridge and a softly rounded glossy tip',
+    mouthSignature: 'rose-beige lips with a clear cupid bow and a visibly fuller lower lip',
+    skinSignature: 'porcelain fair skin with a subtle luminous texture',
+    makeup: 'soft beige eyelids and restrained peach-beige cheek color',
+    body: 'slim refined fashion-model proportions with a narrow waist and long neck',
+    distinctiveFeatures: 'small porcelain oval face with a tapered jaw, slender wide-set warm-brown almond eyes, narrow straight nose with a rounded tip, defined cupid bow with fuller lower lip',
+  },
+  'character-lily': {
+    facialGeometry: 'long heart-oval face, gently high cheekbones, a tapered jaw and a fine pointed chin',
+    eyeSignature: 'large warm hazel-brown almond eyes, moderate spacing, subtly lifted outer corners and long curled upper lashes',
+    noseSignature: 'slim straight nose with a medium bridge and a refined rounded tip',
+    mouthSignature: 'full coral-rose lips with a defined cupid bow and a noticeably plush lower lip',
+    skinSignature: 'porcelain fair skin with a softly luminous finish',
+    makeup: 'warm champagne lids and peach-coral cheek color',
+    body: 'slim tall fashion-model proportions with a narrow waist, long legs and refined shoulders',
+    distinctiveFeatures: 'long heart-oval face with high cheeks, warm hazel almond eyes with lifted corners, slim medium-bridge nose, full coral-rose lips with a plush lower lip',
+  },
+  'character-yuri': {
+    facialGeometry: 'soft broad oval face, low rounded cheeks, a gentle rounded jaw and a short rounded chin',
+    eyeSignature: 'large dark-brown round-almond eyes set moderately wide, level outer corners and soft natural double eyelids',
+    noseSignature: 'small straight nose with a low smooth bridge and a rounded tip',
+    mouthSignature: 'small muted-rose lips with a low soft cupid bow and a fuller lower lip',
+    skinSignature: 'luminous fair skin with a smooth natural finish',
+    makeup: 'soft beige lids and a light peach-beige cheek flush',
+    body: 'slim petite casual-fashion proportions with a narrow waist and long clean leg line',
+    distinctiveFeatures: 'broad soft oval face with a rounded jaw, large level dark-brown round-almond eyes, low-bridge rounded-tip nose, small muted-rose lips with fuller lower lip',
+  },
+  'character-sui': {
+    facialGeometry: 'long narrow heart-oval face, tapered cheeks, a slim jaw and a clearly pointed chin',
+    eyeSignature: 'large warm amber-brown almond eyes, slightly wide set, gently downturned outer corners, heavy upper lids and visible lower-lid softness',
+    noseSignature: 'slim delicate straight nose with a narrow bridge and a softly rounded tip',
+    mouthSignature: 'small rose-coral lips with a pronounced cupid bow and a soft parted center',
+    skinSignature: 'luminous fair skin with natural freckles across both cheeks and the nose bridge',
+    makeup: 'warm beige eyelids and a soft flush across cheeks and nose bridge',
+    body: 'slim petite proportions with delicate shoulders and collarbones',
+    distinctiveFeatures: 'long narrow heart-oval face with a pointed chin, downturned amber almond eyes with heavy upper lids, natural freckles across cheeks and nose bridge, small rose-coral cupid-bow lips',
+  },
+  'character-hina': {
+    facialGeometry: 'small near-round oval face, full low cheeks, a short soft jaw and a neat rounded chin',
+    eyeSignature: 'large round warm gray-brown eyes, moderate spacing, level outer corners and open natural double eyelids',
+    noseSignature: 'small short nose with a low bridge and a compact rounded tip',
+    mouthSignature: 'small glossy rose-pink lips with a soft upper contour and even lower lip',
+    skinSignature: 'luminous fair skin with a soft matte-satin finish',
+    makeup: 'pale peach cheek color and soft beige-pink eye definition',
+    body: 'slim petite delicate proportions with narrow shoulders, slender arms and long pale legs',
+    distinctiveFeatures: 'small near-round oval face with full low cheeks, large level warm gray-brown round eyes, short low-bridge nose, small even rose-pink lips',
+  },
+  'character-yuna': {
+    facialGeometry: 'small oval-heart face, full rounded cheeks, a tapered jaw and a short neat rounded chin',
+    eyeSignature: 'large warm gray-brown round-almond eyes, moderate spacing, level outer corners, clear double eyelids and subtle lower-lid fullness',
+    noseSignature: 'slim straight nose with a smooth medium bridge and a small rounded tip',
+    mouthSignature: 'softly full coral-rose lips with a defined cupid bow and a plush lower lip',
+    skinSignature: 'luminous fair ivory skin with a smooth polished texture',
+    makeup: 'warm taupe-peach lids, fine dark liner and peach-pink cheek color',
+    body: 'petite curvy athletic proportions with a fuller bust, narrow waist, rounded hips and toned legs',
+    distinctiveFeatures: 'small oval-heart face with full round cheeks and short rounded chin, large level warm gray-brown round-almond eyes, smooth medium-bridge nose, coral-rose lips with plush lower lip',
+  },
+  'character-eleanor': {
+    facialGeometry: 'long elegant oval-heart face, high sculpted cheekbones, a narrow angular jaw and a pointed chin',
+    eyeSignature: 'luminous crimson-red almond eyes, slightly wide set, sharply lifted outer corners and deep-set lids',
+    noseSignature: 'narrow straight nose with a high clean bridge and refined tip',
+    mouthSignature: 'full dark oxblood lips with a crisp cupid bow and a heavy lower lip',
+    skinSignature: 'cool porcelain-pale skin with faint natural freckles and visible fine dark markings',
+    makeup: 'smoky charcoal and burgundy eyes with heavy black lashes',
+    body: 'tall powerful hourglass proportions with broad elegant shoulders, full bust, narrow waist, rounded hips and long legs',
+    distinctiveFeatures: 'two permanent ridged obsidian-black swept horns, luminous crimson-red lifted almond eyes, symmetrical branching black marks beneath both eyes with a centered forehead sigil, fine black arcane linework tattoos across shoulders chest arms and torso',
+  },
+  'character-olivia': {
+    facialGeometry: 'elongated oval face, balanced high cheekbones, a firm softly angled jaw and a gently pointed chin',
+    eyeSignature: 'large deep-brown slender almond eyes, moderate spacing, softly lifted outer corners and clear double eyelids',
+    noseSignature: 'slim straight nose with a defined medium-high bridge and a softly rounded tip',
+    mouthSignature: 'muted rose lips with a clear cupid bow and a fuller lower lip',
+    skinSignature: 'smooth warm light-olive skin with an even satin texture',
+    makeup: 'subtle bronze contour, warm peach-brown lids and a precise winged liner',
+    body: 'tall athletic hourglass proportions with strong shoulders, full bust, narrow toned waist, rounded hips and long toned legs',
+    distinctiveFeatures: 'elongated oval face with a firm angled jaw, deep-brown slender lifted almond eyes, defined medium-high bridge nose, warm light-olive skin',
+  },
+  'character-jiwoo': {
+    facialGeometry: 'small heart-oval face, softly rounded upper cheeks, a narrow tapered jaw and a fine pointed chin',
+    eyeSignature: 'large gray-hazel almond eyes, slightly wide set, softly lifted outer corners, clear double eyelids and defined lower-lid fullness',
+    noseSignature: 'small straight nose with a narrow bridge and a softly rounded tip',
+    mouthSignature: 'softly full coral-brick lips with a defined cupid bow and a fuller lower lip',
+    skinSignature: 'cool porcelain fair skin with a luminous smooth finish',
+    makeup: 'muted taupe lids, pale rose cheek color and a thin black cat-eye line',
+    body: 'slim petite fashion-model proportions with delicate shoulders, narrow waist and long slender legs',
+    distinctiveFeatures: 'small heart-oval face with a fine pointed chin, wide-set gray-hazel almond eyes with lifted corners, narrow-bridge rounded-tip nose, full coral-brick cupid-bow lips',
+  },
+  'character-chihiro': {
+    facialGeometry: 'long refined oval-heart face, gentle cheek fullness, a narrow tapered jaw and a delicate rounded-pointed chin',
+    eyeSignature: 'large light hazel-gray almond eyes, slightly close set, level-to-softly lifted outer corners, clear double eyelids and fine long lashes',
+    noseSignature: 'slim straight nose with a smooth low-to-medium bridge and a small rounded tip',
+    mouthSignature: 'plush coral-peach lips with a soft cupid bow and an even rounded lower lip',
+    skinSignature: 'luminous fair ivory skin with a clear even finish',
+    makeup: 'champagne-beige lids, peach-beige cheek color and a fine brown-black liner',
+    body: 'slim tall fashion-model proportions with delicate shoulders, long neck, narrow waist and long legs',
+    distinctiveFeatures: 'long refined oval-heart face with a rounded-pointed chin, light hazel-gray slightly close-set almond eyes, slim low-to-medium bridge nose, plush coral-peach lips with even lower lip',
+  },
+  'character-koto': {
+    facialGeometry: 'small balanced oval face, smooth cheeks, a softly tapered jaw and a neat pointed chin',
+    eyeSignature: 'large cool-gray almond eyes, moderate spacing, subtly lifted outer corners, shallow double eyelids and precise upper lashes',
+    noseSignature: 'slim delicate nose with a clean narrow bridge and a small rounded tip',
+    mouthSignature: 'softly full muted-coral lips with a crisp cupid bow and a compact lower lip',
+    skinSignature: 'cool luminous pale skin with a porcelain smooth finish',
+    makeup: 'muted taupe-gray lids, subtle cool peach cheek color and precise black liner',
+    body: 'slim petite fashion-model proportions with a narrow waist and long pale legs',
+    distinctiveFeatures: 'small balanced oval face with smooth cheeks, cool-gray almond eyes with shallow double lids, clean narrow-bridge nose, muted-coral crisp cupid-bow lips',
+  },
+  'character-mei': {
+    facialGeometry: 'long sculpted heart-oval face, high cheekbones, a narrow angular jaw and a delicate pointed chin',
+    eyeSignature: 'large elongated dark-brown almond eyes, moderate spacing, sharply lifted outer corners, defined double eyelids and dense upper lashes',
+    noseSignature: 'slim straight nose with a refined high bridge and a narrow softly pointed tip',
+    mouthSignature: 'full dark brick-red lips with a sharply defined cupid bow and a plush lower lip',
+    skinSignature: 'cool porcelain luminous skin with a smooth high-contrast finish',
+    makeup: 'deep burgundy-plum smoky lids, extended black winged liner and sculpted rose contour',
+    body: 'tall slender hourglass proportions with sculpted shoulders, narrow waist, rounded hips and long legs',
+    distinctiveFeatures: 'long sculpted heart-oval face with high cheekbones and angular jaw, sharply lifted elongated dark-brown eyes, high-bridge pointed-tip nose, full dark brick-red sharply bowed lips',
+  },
+};
+
+function buildStructuredIdentityAndBody(profile, identity) {
+  // Do not mutate this legacy compatibility field. Structured consumers add the
+  // non-negotiable anchors explicitly so short output cannot silently drop them.
+  void identity;
+  return profile.identityAndBody;
+}
+
+export const CHARACTER_PROFILE_OPTIONS = LEGACY_CHARACTER_PROFILE_OPTIONS.map((option) => {
+  if (!option.profile) return option;
+  const identity = FACIAL_IDENTITY_PROFILES[option.id];
+  if (!identity) return option;
+  return {
+    ...option,
+    profile: {
+      ...option.profile,
+      ...identity,
+      // Kept verbatim for profile consumers that persisted the older schema.
+      legacyIdentityAndBody: option.profile.identityAndBody,
+      identityAndBody: buildStructuredIdentityAndBody(option.profile, identity),
+    },
+  };
+});

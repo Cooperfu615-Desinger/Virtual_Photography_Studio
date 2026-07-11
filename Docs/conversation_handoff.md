@@ -25,7 +25,7 @@ Important legacy terminology warning:
 - Knowledge base source: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
 - Sync script: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
 - Synced data target: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
-- Current pushed main before the deployment CI fix: `725675a Add seven character card profiles`
+- Baseline for the facial-identity optimization: `main` at `45ee3ea`
 
 ## Validation
 
@@ -41,9 +41,9 @@ Standard validation flow:
   - `npm run lint`
   - `npm run build`
 
-Last implementation validation on 2026-07-10 after the seven-card Character Card Lab expansion:
+Previous implementation validation on 2026-07-10 before the facial-identity optimization:
 
-- Frontend `npm test`: 399 tests passed.
+- Frontend test count was superseded by the 2026-07-11 result below.
 - Frontend `npm run lint` and `npm run build`: passed without a Vite chunk-size warning.
 - Functions `npm test`: 30 tests passed.
 - Functions `npm run lint`: passed with the active repository ESLint configuration.
@@ -92,6 +92,20 @@ QA notes from 2026-06-25:
   - In face-only close-up, hidden wardrobe should be omitted instead of replaced by a default visible dress phrase
 
 Do not rename the internal fields casually. Many saved cards, import/export paths, and older helper names still rely on them.
+
+### Character-card facial identity contract (2026-07-11)
+
+- The 17 formal cards use the structured profile fields `facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and `distinctiveFeatures` in addition to the historical `identityAndBody` string.
+- `webapp/src/lib/engine/characterProfiles.js` is the sole formal-card data source. It contains the 17 integrated IDs, structured identity fields, legacy string, hair, wardrobe, and preview metadata. Do not create a second profile dataset.
+- Original references live at `source-assets/character-cards/<character-folder>/`; manifest-backed deployment previews live at `webapp/public/character-cards/<character-folder>/<reference>.avif`. The complete approved roster and source folders are in [`specs/character-card-facial-identity.md`](specs/character-card-facial-identity.md).
+- Treat `identityAndBody` as a read-compatible legacy field: Saved Cards, PAGE1 selection snapshots, PAGE2 bundles, and old prompt consumers may still depend on it. Do not replace it with one of the facial subfields.
+- New full-fidelity renderers use the structured facial fields as the canonical prompt representation and do not repeat the complete legacy paragraph alongside them. Grok/Z-Image and compact outputs append all four identity anchors in both full-default and selected-layers modes.
+- `face`, `skin`, and `makeup` aliases emitted by Character Card Lab must resolve to separate schema fields, never the same mixed identity string.
+- The four comma-separated `distinctiveFeatures` fragments are mandatory identity anchors. Full Gpt / full-body blocks render all facial fields; PAGE1 compact AI and PAGE2 outputs must preserve all four fragments after compression.
+- Eleanor's horns, red eyes, facial marks/sigil, and arcane tattoos are permanent biological or supernatural identifiers, not removable styling.
+- The formal specification, matrix, compatibility contract, and future-change workflow are in [`specs/character-card-facial-identity.md`](specs/character-card-facial-identity.md). Do not use hair, outfit, eyewear, or makeup as the sole differentiator.
+- Validation: frontend 407 tests, frontend lint/build, Functions 30 tests/lint, and data sync checks pass. The public-asset budget check remains blocked by pre-existing untracked unintegrated image folders; leave them untouched. The 200-prompt deterministic audit reports nine pre-existing wardrobe heuristic findings and no facial-identity issue.
+- Before adding or changing a card: review every available original view, update only `characterProfiles.js` for identity facts, write exactly four anchors, update the matrix and pair tests, then run the documented validation flow. Amy, Emily, JiYoo, Manami, Minji, Nana, Natsuki, Rei, Shiori, and Yui remain untracked/unintegrated image folders and must not be counted as formal cards, added to the manifest, or edited during this work.
 
 ### Product Architecture
 
@@ -257,7 +271,7 @@ Important tests:
 - This multi-cut line is only for Gpt.
 - Single `Gpt` keeps the main section order `Image Type`, `Subject`, `Wardrobe`, `Pose and Composition`, `Scene`, `Lighting`, `Camera Look`.
 - Single special outfits can be grouped inside `Wardrobe` as `Hair and body details`, `Full outfit`, and `Headwear, eyewear, and bag` so accessories are easy to inspect and edit.
-- Single character profile cards can be grouped inside `Subject` as `Character Profile Card`, `Identity and body`, `Hair`, `Outfit`, `Accessories`, and `Photographic direction`; current built-in cards should use explicit `profile` data instead of relying on fallback splitting.
+- Single character profile cards use structured facial geometry, eye, nose, mouth, skin, makeup, body, permanent-anchor, hair, outfit, accessory, and photographic-direction groups inside `Subject`; the legacy `identityAndBody` paragraph stays available to compatibility consumers but is not repeated by the full renderer.
 - Duo `Gpt` uses role-ordered sections:
   - `Image Type`
   - `Subject` containing the base subject sentence, then `Woman 1` and `Woman 2` role blocks

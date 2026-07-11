@@ -4121,15 +4121,19 @@ function getCharacterCardImportedLayers(subject, locks) {
 function buildCharacterCardSubjectPrompt(subject, locks = {}) {
   if (!isCharacterProfileSubject(subject)) return subject?.en || '';
   const hairVariantText = buildCharacterCardHairVariantText(subject, locks);
+  const groups = buildCharacterCardProfileGroups(subject, locks);
+  const identityAnchors = groups.distinctiveFeatures
+    ? `permanent identity anchors: ${groups.distinctiveFeatures}`
+    : '';
   if (!shouldImportCharacterCardWardrobeLayers(locks)) {
-    return [subject.en, hairVariantText].filter(Boolean).join(', ');
+    return [subject.en, identityAnchors, hairVariantText].filter(Boolean).join(', ');
   }
 
-  const groups = buildCharacterCardProfileGroups(subject, locks);
   const hairText = [groups.hair, hairVariantText].filter(Boolean).join(', ');
   const outfitText = groups.outfit ? `selected character-card outfit layer: ${groups.outfit}` : '';
   return [
     groups.identityAndBody,
+    identityAnchors,
     hairText,
     outfitText,
     groups.accessories,
@@ -9005,6 +9009,14 @@ function buildFallbackCharacterProfileGroups(subject) {
 
   return {
     identityAndBody: identityFragments.join(', '),
+    facialGeometry: '',
+    eyeSignature: '',
+    noseSignature: '',
+    mouthSignature: '',
+    skinSignature: '',
+    makeup: '',
+    body: '',
+    distinctiveFeatures: '',
     hair: hairFragments.join(', '),
     outfit: outfitFragments.join(', '),
     accessories: accessoryFragments.join(', '),
@@ -9054,9 +9066,22 @@ function buildGptCharacterProfileSubjectBlock(subject, locks = {}, wardrobe = nu
     return cleaned ? `${label}:\n${cleaned}` : '';
   };
 
+  const structuredIdentityLines = [
+    groupLine('Facial geometry', groups.facialGeometry),
+    groupLine('Eye signature', groups.eyeSignature),
+    groupLine('Nose signature', groups.noseSignature),
+    groupLine('Mouth signature', groups.mouthSignature),
+    groupLine('Skin signature', groups.skinSignature),
+    groupLine('Makeup', groups.makeup),
+    groupLine('Body', groups.body),
+    groupLine('Permanent identity anchors', groups.distinctiveFeatures),
+  ].filter(Boolean);
+
   return [
     groupLine('Character Profile Card', subject.zh || subject.specialToneZh || 'Character Profile'),
-    groupLine('Identity and body', groups.identityAndBody),
+    ...(structuredIdentityLines.length > 0
+      ? structuredIdentityLines
+      : [groupLine('Identity and body', groups.identityAndBody)]),
     groupLine('Hair', [groups.hair, buildCharacterCardHairVariantText(subject, locks)].filter(Boolean).join(', ')),
     groupLine('Outfit', groups.outfit),
     groupLine('Accessories', groups.accessories),
@@ -9072,9 +9097,22 @@ function buildGptFullBodyCharacterProfileSubjectBlock(subject, locks = {}, wardr
     return cleaned ? `${label}:\n${cleaned}` : '';
   };
 
+  const structuredIdentityLines = [
+    groupLine('Facial geometry', groups.facialGeometry),
+    groupLine('Eye signature', groups.eyeSignature),
+    groupLine('Nose signature', groups.noseSignature),
+    groupLine('Mouth signature', groups.mouthSignature),
+    groupLine('Skin signature', groups.skinSignature),
+    groupLine('Makeup', groups.makeup),
+    groupLine('Body', groups.body),
+    groupLine('Permanent identity anchors', groups.distinctiveFeatures),
+  ].filter(Boolean);
+
   return [
     groupLine('Character Profile Card', subject.zh || subject.specialToneZh || 'Character Profile'),
-    groupLine('Identity and body', groups.identityAndBody),
+    ...(structuredIdentityLines.length > 0
+      ? structuredIdentityLines
+      : [groupLine('Identity and body', groups.identityAndBody)]),
     groupLine('Hair', [groups.hair, buildCharacterCardHairVariantText(subject, locks)].filter(Boolean).join(', ')),
     groupLine('Accessories', groups.accessories),
   ].filter(Boolean).join('\n\n');

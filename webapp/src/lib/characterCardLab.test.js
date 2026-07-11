@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
+import { CHARACTER_PROFILE_OPTIONS } from './engine/characterProfiles.js';
 import {
   buildCharacterCardPromptBundle,
   buildCharacterCardSavedCard,
@@ -82,6 +83,90 @@ test('character card options are read from PAGE1 character profile control', () 
   assert.match(cards[0].defaultWardrobeLayers.bottom.prompt, /low-rise light-wash blue jeans/i);
   assert.equal(cards[0].defaultWardrobeLayers.neckAccessory.label, '脖子飾品');
   assert.match(cards[0].defaultWardrobeLayers.neckAccessory.prompt, /beaded choker necklace/i);
+});
+
+test('all formal character profiles expose separated facial signatures and preserve the legacy identity field', () => {
+  const profiles = CHARACTER_PROFILE_OPTIONS.filter((option) => option.specialSubject === 'character-profile');
+  assert.equal(profiles.length, 17);
+
+  for (const option of profiles) {
+    const profile = option.profile;
+    for (const key of [
+      'facialGeometry',
+      'eyeSignature',
+      'noseSignature',
+      'mouthSignature',
+      'skinSignature',
+      'makeup',
+      'body',
+      'distinctiveFeatures',
+    ]) {
+      assert.ok(profile[key], `${option.id} must provide ${key}`);
+    }
+    assert.equal(profile.identityAndBody, profile.legacyIdentityAndBody, `${option.id} must retain the legacy identity string`);
+    assert.notEqual(profile.facialGeometry, profile.skinSignature, `${option.id} face and skin must be separate`);
+    assert.notEqual(profile.facialGeometry, profile.makeup, `${option.id} face and makeup must be separate`);
+    assert.notEqual(profile.skinSignature, profile.makeup, `${option.id} skin and makeup must be separate`);
+    assert.equal(profile.distinctiveFeatures.split(',').filter(Boolean).length, 4, `${option.id} must have four compact identity anchors`);
+  }
+});
+
+test('formal cards preserve permanent identity anchors in PAGE2 and compact PAGE1 prompts', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+
+  for (const card of cards) {
+    const anchors = card.distinctiveFeatures.split(',').map((value) => value.trim()).filter(Boolean);
+    const bundle = buildCharacterCardPromptBundle(cards, {
+      characterProfileId: card.id,
+      outputMode: 'pure-character',
+    });
+    const bundleText = bundle.outputs.map((output) => output.value).join('\n');
+
+    for (const anchor of anchors) {
+      assert.match(bundleText, new RegExp(anchor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), `${card.id} PAGE2 output lost ${anchor}`);
+    }
+
+    for (const wardrobeMode of ['full-default', 'selected-layers']) {
+      const [page1Prompt] = generatePrompts(1, {
+        ...createEmptyLocks(),
+        characterProfileId: card.id,
+        characterCardWardrobeMode: wardrobeMode,
+        characterCardWardrobeLayerIds: [],
+      });
+      const promptOutputs = {
+        Gpt: page1Prompt.grokPrompt,
+        AI: page1Prompt.midjourneyPrompt,
+        'Grok/Z-Image': page1Prompt.zImagePrompt,
+      };
+
+      for (const anchor of anchors) {
+        const anchorPattern = new RegExp(anchor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+        for (const [outputLabel, outputText] of Object.entries(promptOutputs)) {
+          assert.match(outputText, anchorPattern, `${card.id} ${wardrobeMode} ${outputLabel} prompt lost ${anchor}`);
+        }
+      }
+    }
+  }
+});
+
+test('high-similarity character pairs keep distinct facial geometry anchors', () => {
+  const profiles = Object.fromEntries(CHARACTER_PROFILE_OPTIONS
+    .filter((option) => option.profile)
+    .map((option) => [option.id, option.profile]));
+  const contrasts = [
+    ['character-jiwoo', 'character-koto', /heart-oval/i, /balanced oval|shallow double lids/i],
+    ['character-yuna', 'character-chihiro', /short rounded chin/i, /long refined oval-heart|slightly close-set/i],
+    ['character-sakura', 'character-lily', /very large wide-set blue round eyes/i, /long heart-oval|hazel almond/i],
+    ['character-yuri', 'character-hina', /broad soft oval|rounded jaw/i, /near-round oval|full low cheeks/i],
+    ['character-olivia', 'character-mei', /warm light-olive skin|firm angled jaw/i, /high cheekbones|angular jaw|brick-red/i],
+  ];
+
+  for (const [leftId, rightId, leftPattern, rightPattern] of contrasts) {
+    assert.match(profiles[leftId].distinctiveFeatures, leftPattern, `${leftId} should retain its contrast anchor`);
+    assert.match(profiles[rightId].distinctiveFeatures, rightPattern, `${rightId} should retain its contrast anchor`);
+    assert.notEqual(profiles[leftId].facialGeometry, profiles[rightId].facialGeometry);
+    assert.notEqual(profiles[leftId].eyeSignature, profiles[rightId].eyeSignature);
+  }
 });
 
 test('new character cards expose detailed identity hair and wardrobe layers', () => {

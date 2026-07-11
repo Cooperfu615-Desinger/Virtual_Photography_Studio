@@ -265,9 +265,18 @@ export function getCharacterCardOptions(lockControls = []) {
         label: option.zh,
         sourceOption: option,
         identityAndBody: option.profile?.identityAndBody || '',
-        face: option.profile?.identityAndBody || '',
-        skin: option.profile?.identityAndBody || '',
-        makeup: option.profile?.identityAndBody || '',
+        legacyIdentityAndBody: option.profile?.legacyIdentityAndBody || option.profile?.identityAndBody || '',
+        facialGeometry: option.profile?.facialGeometry || '',
+        eyeSignature: option.profile?.eyeSignature || '',
+        noseSignature: option.profile?.noseSignature || '',
+        mouthSignature: option.profile?.mouthSignature || '',
+        skinSignature: option.profile?.skinSignature || '',
+        makeup: option.profile?.makeup || '',
+        body: option.profile?.body || '',
+        distinctiveFeatures: option.profile?.distinctiveFeatures || '',
+        // Legacy aliases now point to their corresponding structured fields.
+        face: option.profile?.facialGeometry || '',
+        skin: option.profile?.skinSignature || '',
         baseHair: option.profile?.hair || '',
         photographicDirection: option.profile?.photographicDirection || '',
         primaryReferenceImage: option.meta?.referenceImage || '',
@@ -373,9 +382,22 @@ function normalizePromptOverrideText(value) {
 }
 
 function buildCharacterIdentityText(card, hairVariant) {
+  const structuredIdentityLines = [
+    `Facial geometry:\n${cleanSentence(card.facialGeometry)}`,
+    `Eye signature:\n${cleanSentence(card.eyeSignature)}`,
+    `Nose signature:\n${cleanSentence(card.noseSignature)}`,
+    `Mouth signature:\n${cleanSentence(card.mouthSignature)}`,
+    `Skin signature:\n${cleanSentence(card.skinSignature)}`,
+    `Makeup:\n${cleanSentence(card.makeup)}`,
+    `Body:\n${cleanSentence(card.body)}`,
+    `Permanent identity anchors:\n${cleanSentence(card.distinctiveFeatures)}`,
+  ].filter((line) => !line.endsWith(':\n'));
+
   return [
     `Character Profile Card:\n${card.label}`,
-    `Identity and body:\n${cleanSentence(card.identityAndBody)}`,
+    ...(structuredIdentityLines.length > 0
+      ? structuredIdentityLines
+      : [`Identity and body:\n${cleanSentence(card.identityAndBody)}`]),
     `Hair:\n${cleanSentence(`${card.baseHair}, ${hairVariant.prompt}`)}`,
     `Photographic direction:\n${cleanSentence(card.photographicDirection || 'photorealistic editorial portrait, coherent facial identity, natural photographic detail')}`,
   ].join('\n\n');
@@ -407,6 +429,7 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
   const grokZImage = cleanSentence([
     `Create a natural photorealistic character reference of ${card.label}`,
     card.identityAndBody,
+    `permanent identity anchors: ${card.distinctiveFeatures}`,
     `${card.baseHair}, ${hairVariant.prompt}`,
     layers.length ? `included wardrobe layers: ${layers.map((layer) => layer.prompt).join(', ')}` : 'no clothing layers included, focus on identity and hair',
     promptOverridePhrase,
@@ -415,6 +438,7 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
   const ai = cleanSentence([
     `Photorealistic character reference of ${card.label}`,
     card.identityAndBody,
+    `permanent identity anchors: ${card.distinctiveFeatures}`,
     `${card.baseHair}, ${hairVariant.prompt}`,
     layers.length ? `wearing ${layers.map((layer) => layer.prompt).join(', ')}` : 'pure character identity and hair reference',
     promptOverridePhrase,
@@ -423,6 +447,7 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
     `headshot reference of ${card.label}`,
     'tight face-and-hair portrait, neutral clean background, consistent facial identity',
     card.identityAndBody,
+    `permanent identity anchors: ${card.distinctiveFeatures}`,
     `${card.baseHair}, ${hairVariant.prompt}`,
     promptOverridePhrase,
     'clear skin texture, makeup, eyes, nose, lips, jawline, and hairline',
@@ -432,6 +457,7 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
     'one image containing front view, left 45-degree view, side profile view, and back view',
     'same exact woman in every panel, matched facial proportions, consistent hair silhouette',
     card.identityAndBody,
+    `permanent identity anchors: ${card.distinctiveFeatures}`,
     `${card.baseHair}, ${hairVariant.prompt}`,
     layers.length ? `use the included wardrobe layers consistently: ${layers.map((layer) => layer.prompt).join(', ')}` : 'no clothing design emphasis, neutral shoulders and body reference',
     promptOverridePhrase,
@@ -440,6 +466,7 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
     `full-body character reference of ${card.label}`,
     'neutral studio reference, clear standing full-body view, same exact identity',
     card.identityAndBody,
+    `permanent identity anchors: ${card.distinctiveFeatures}`,
     `${card.baseHair}, ${hairVariant.prompt}`,
     layers.length ? `included wardrobe layers: ${layers.map((layer) => layer.prompt).join(', ')}` : 'pure body and hair reference without fixed outfit design',
     promptOverridePhrase,

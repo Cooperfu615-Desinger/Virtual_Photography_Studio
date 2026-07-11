@@ -25,9 +25,40 @@ function gptSection(prompt, label) {
   return prompt.grokPrompt.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?=\\n\\n(?:${nextLabels}):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || '';
 }
 
+const CHARACTER_PROFILE_GROUP_LABELS = [
+  'Character Profile Card',
+  'Identity and body',
+  'Facial geometry',
+  'Eye signature',
+  'Nose signature',
+  'Mouth signature',
+  'Skin signature',
+  'Makeup',
+  'Body',
+  'Permanent identity anchors',
+  'Hair',
+  'Outfit',
+  'Accessories',
+  'Photographic direction',
+];
+
 function gptCharacterProfileGroup(prompt, label) {
   const subject = gptSection(prompt, 'Subject');
-  return subject.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?=\\n\\n(?:Character Profile Card|Identity and body|Hair|Outfit|Accessories|Photographic direction):\\n|$)`))?.[1] || '';
+  const nextLabels = CHARACTER_PROFILE_GROUP_LABELS.filter((entry) => entry !== label).join('|');
+  return subject.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?=\\n\\n(?:${nextLabels}):\\n|$)`))?.[1] || '';
+}
+
+function gptCharacterProfileIdentity(prompt) {
+  return [
+    'Facial geometry',
+    'Eye signature',
+    'Nose signature',
+    'Mouth signature',
+    'Skin signature',
+    'Makeup',
+    'Body',
+    'Permanent identity anchors',
+  ].map((label) => gptCharacterProfileGroup(prompt, label)).filter(Boolean).join('\n');
 }
 
 test('special subject control exposes dedicated special subject options', () => {
@@ -136,16 +167,16 @@ test('Gpt character profile card groups Rin identity hair outfit and accessories
   });
 
   const subject = gptSection(prompt, 'Subject');
-  const identity = gptCharacterProfileGroup(prompt, 'Identity and body');
+  const identity = gptCharacterProfileIdentity(prompt);
   const hair = gptCharacterProfileGroup(prompt, 'Hair');
   const outfit = gptCharacterProfileGroup(prompt, 'Outfit');
   const accessories = gptCharacterProfileGroup(prompt, 'Accessories');
   const photographic = gptCharacterProfileGroup(prompt, 'Photographic direction');
 
   assert.match(subject, /Character Profile Card:\n38_Rin/i);
-  assert.match(identity, /refined intellectual editorial facial features/i);
-  assert.match(identity, /large slender almond warm-brown eyes/i);
-  assert.match(identity, /slim refined fashion-model body proportions/i);
+  assert.match(identity, /small porcelain oval face/i);
+  assert.match(identity, /slender warm-brown almond eyes/i);
+  assert.match(identity, /slim refined fashion-model proportions/i);
   assert.doesNotMatch(identity, /calm slightly sleepy gaze|calm observant expression/i);
   assert.doesNotMatch(identity, /thin rectangular brown-gold metal frame eyeglasses|stacked twin gold hoop earrings|crisp white oversized button-down shirt/i);
   assert.match(hair, /glossy natural black chin-to-nape short curly bob/i);
@@ -171,13 +202,13 @@ test('Gpt character profile card groups 48G outfit and bag separately', () => {
     characterProfileId: 'character-48g',
   });
 
-  const identity = gptCharacterProfileGroup(prompt, 'Identity and body');
+  const identity = gptCharacterProfileIdentity(prompt);
   const hair = gptCharacterProfileGroup(prompt, 'Hair');
   const outfit = gptCharacterProfileGroup(prompt, 'Outfit');
   const accessories = gptCharacterProfileGroup(prompt, 'Accessories');
 
-  assert.match(identity, /doll-like facial features/i);
-  assert.match(identity, /slim petite fashion-model body proportions/i);
+  assert.match(identity, /small rounded oval face/i);
+  assert.match(identity, /slim petite fashion-model proportions/i);
   assert.doesNotMatch(identity, /haircut|hooded zip jacket|shoulder bag/i);
   assert.match(hair, /glossy black shoulder-length layered lob haircut/i);
   assert.match(hair, /airy see-through bangs/i);
@@ -193,7 +224,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
     {
       id: 'character-rika',
       card: '11_Rika',
-      identityIncludes: [/large rounded gray-brown eyes/i, /tiny beauty mark near one outer cheek/i, /slim petite casual-fashion body proportions/i],
+      identityIncludes: [/large round gray-brown eyes/i, /tiny beauty mark near the outer cheek/i, /slim petite casual-fashion proportions/i],
       identityExcludes: /quiet dreamy gaze|baby tee|beaded choker|keychain/i,
       hairIncludes: [/glossy natural black long wavy hair/i, /slightly uneven wispy pieces/i],
       outfitIncludes: [/cropped white short-sleeve baby tee/i, /low-rise light-wash blue jeans/i, /clean white low-top sneakers/i],
@@ -202,7 +233,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
     {
       id: 'character-philippa',
       card: '29_Philippa',
-      identityIncludes: [/clear pale gray-green eyes/i, /porcelain luminous skin/i, /slender fashion-model body proportions/i],
+      identityIncludes: [/pale gray-green almond eyes/i, /porcelain luminous skin/i, /slender fashion-model proportions/i],
       identityExcludes: /cool glassy gaze|refined melancholic expression|gothic lace dress/i,
       hairIncludes: [/center-parted wavy black hair/i, /silver-white dip-dye streaks/i],
       outfitIncludes: [/black high-neck gothic lace dress/i, /floor-length translucent black tulle skirt overlay/i, /black elegant dress shoes/i],
@@ -211,7 +242,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
     {
       id: 'character-sakura',
       card: '12_Sakura',
-      identityIncludes: [/large vivid clear blue eyes/i, /delicate oval heart-shaped face/i, /slim petite cozy-girl body proportions/i],
+      identityIncludes: [/very large round blue eyes/i, /short heart-oval face/i, /slim petite cozy-girl proportions/i],
       identityExcludes: /bunny-eared hood|fleece pullover hoodie|sweatpants/i,
       hairIncludes: [/warm chestnut-brown hair/i, /dusty rose-pink streaks/i],
       outfitIncludes: [/white plush bunny-eared hood/i, /oversized ivory-white fleece pullover hoodie/i, /relaxed beige oatmeal sweatpants/i],
@@ -220,7 +251,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
     {
       id: 'character-hinata',
       card: '06_Hinata',
-      identityIncludes: [/large almond-shaped gray-olive brown eyes/i, /small elongated oval face/i, /tall high-fashion hourglass body proportions/i],
+      identityIncludes: [/large gray-olive brown almond eyes/i, /small elongated oval face/i, /tall high-fashion hourglass proportions/i],
       identityExcludes: /calm confident street-style expression|wavy bob|cutout bodysuit/i,
       hairIncludes: [/smoky ash-gray hair/i, /chin-to-shoulder length wavy bob/i],
       outfitIncludes: [/deep cobalt blue cable-knit turtleneck cutout bodysuit sweater/i, /medium-wash skinny blue jeans/i, /black leather ankle boots/i],
@@ -229,7 +260,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
     {
       id: 'character-lily',
       card: '07_Lily',
-      identityIncludes: [/clear warm hazel-brown eyes/i, /delicate oval heart-shaped face/i, /slim tall fashion-model body proportions/i],
+      identityIncludes: [/large warm hazel-brown almond eyes/i, /long heart-oval face/i, /slim tall fashion-model proportions/i],
       identityExcludes: /calm seductive fashion-editorial expression|copper-auburn red hair|faux-fur/i,
       hairIncludes: [/long tousled copper-auburn red hair/i, /darker natural roots/i],
       outfitIncludes: [/black shaggy faux-fur off-shoulder mini coat/i, /minimal black inner layer/i, /black ankle-strap stiletto sandals/i],
@@ -238,7 +269,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
     {
       id: 'character-yuri',
       card: '02_Yuri',
-      identityIncludes: [/clear dark brown eyes/i, /soft oval face/i, /slim petite casual-fashion body proportions/i],
+      identityIncludes: [/large dark-brown round-almond eyes/i, /soft broad oval face/i, /slim petite casual-fashion proportions/i],
       identityExcludes: /calm slightly serious gaze|eyeglasses|off-shoulder cropped/i,
       hairIncludes: [/glossy natural black long straight hair/i, /wispy see-through bangs/i],
       outfitIncludes: [/white ribbed off-shoulder cropped long-sleeve top/i, /low-rise medium-wash blue flared jeans/i, /brown low-top canvas sneakers/i],
@@ -247,7 +278,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
     {
       id: 'character-sui',
       card: '03_Sui',
-      identityIncludes: [/large soft downturned almond warm amber-brown eyes/i, /natural freckles across the cheeks and nose/i, /slim petite soft casual-fashion body proportions/i],
+      identityIncludes: [/large warm amber-brown almond eyes/i, /natural freckles across both cheeks and the nose bridge/i, /slim petite proportions/i],
       identityExcludes: /quiet tender cozy-girl expression|melancholic pout|oversized knit cardigan/i,
       hairIncludes: [/glossy natural black long wavy hair/i, /natural tousled flyaways/i],
       outfitIncludes: [/mustard yellow oversized knit cardigan/i, /cream ribbed knit camisole/i, /high-waisted medium-dark blue straight-leg jeans/i],
@@ -256,7 +287,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
     {
       id: 'character-hina',
       card: '37_Hina',
-      identityIncludes: [/clear warm gray-brown eyes/i, /small oval face with gentle cheeks/i, /slim petite delicate casual body proportions/i],
+      identityIncludes: [/large round warm gray-brown eyes/i, /small near-round oval face/i, /slim petite delicate proportions/i],
       identityExcludes: /calm quiet gaze|eyeglasses|sage-mint green sleeveless/i,
       hairIncludes: [/pale silver-lilac short bob/i, /soft ash roots/i],
       outfitIncludes: [/loose sage-mint green sleeveless tunic tank top/i, /matching sage-mint green relaxed short shorts/i, /bare feet as the locked footwear state/i],
@@ -270,7 +301,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
       characterProfileId: item.id,
     });
     const subject = gptSection(prompt, 'Subject');
-    const identity = gptCharacterProfileGroup(prompt, 'Identity and body');
+    const identity = gptCharacterProfileIdentity(prompt);
     const hair = gptCharacterProfileGroup(prompt, 'Hair');
     const outfit = gptCharacterProfileGroup(prompt, 'Outfit');
     const accessories = gptCharacterProfileGroup(prompt, 'Accessories');

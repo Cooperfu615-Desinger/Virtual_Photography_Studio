@@ -25,6 +25,7 @@ Personal prompt operations tool for generating stable, high-volume prompts for M
 - `webapp/src/styles/`: Shared generation and multi-workspace CSS loaded by feature chunks
 - `webapp/src/lib/engine.js`: Prompt-engine integration and compatibility boundary
 - `webapp/src/lib/engine/`: Focused engine data, runtime, prompt-model, and selection-schema modules
+- `Docs/specs/character-card-facial-identity.md`: Formal Character Card facial identity schema, difference matrix, compatibility contract, and maintenance workflow
 - `output_prompts/`: Previously generated markdown prompt exports
 - `Docs/`: Creative role notes and early workflow documents
 
@@ -67,6 +68,10 @@ The browser receives AVIF previews from `webapp/public`; original images remain 
 Saved Cards has one Favorites collection. Existing `vps.prompts` Feed records are migrated once into Favorites, de-duplicated by ID, and the legacy storage keys are removed only after the merged Favorites payload is written successfully.
 
 The app shell lazy-loads each workspace. Saved Cards archive dependencies and workspace CSS are split from the initial bundle; PAGE1 state, selectors, transitions, and Saved Cards persistence/cloud sync live outside `App.jsx`. Firebase proxy requests for Magnific and BytePlus are normalized against `functions/shared/imageProviderContract.json` on both the browser and Functions sides.
+
+## Character-card facial identity
+
+The 17 built-in Character Card profiles preserve the historical `identityAndBody` field for existing Saved Cards and PAGE1/PAGE2 integrations. New profile fields (`facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and `distinctiveFeatures`) are rendered separately by full prompts. Every compact AI prompt also carries four non-negotiable facial identity anchors; changing hair, wardrobe, or makeup must not replace the character's face. See [`Docs/specs/character-card-facial-identity.md`](Docs/specs/character-card-facial-identity.md).
 
 ## Prompt Engine Architecture
 

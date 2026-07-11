@@ -7,7 +7,7 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
 - Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
 - App: Vite + React prompt generator
-- Current pushed main before the deployment CI fix: `725675a Add seven character card profiles`
+- Baseline for the facial-identity optimization: `main` at `45ee3ea`
 - Normal working branch: `main`
 
 ## Validation
@@ -24,9 +24,9 @@ Run from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp` unless note
 - Optional dev server: `npm run dev -- --host 127.0.0.1 --port 5175`
 - Dev URL: `http://127.0.0.1:5175/Virtual_Photography_Studio/`
 
-Last implementation validation on 2026-07-10 after the seven-card Character Card Lab expansion:
+Previous implementation validation on 2026-07-10 before the facial-identity optimization:
 
-- Frontend `npm test`: 399 tests passed.
+- Frontend test count was superseded by the 2026-07-11 result below.
 - Frontend `npm run lint`: passed.
 - Frontend `npm run build`: passed without a Vite chunk-size warning. Character profile data is grouped with the prompt catalog instead of inflating the prompt engine chunk.
 - Functions `npm test`: 30 tests passed.
@@ -53,7 +53,7 @@ Current PAGE1 output labels:
   - Gpt should preserve selected effective English descriptions instead of semantically compressing them; only formatting cleanup, section organization, empty-value removal, and exact duplicate cleanup are allowed
   - Must end with `multi-cut sequence n=2`
   - Single special outfits can be grouped inside `Wardrobe` as `Hair and body details`, `Full outfit`, and `Headwear, eyewear, and bag`
-  - Single character profile cards can be grouped inside `Subject` as `Character Profile Card`, `Identity and body`, `Hair`, `Outfit`, `Accessories`, and `Photographic direction`
+  - Single character profile cards use structured facial geometry, eye, nose, mouth, skin, makeup, body, permanent-anchor, hair, outfit, accessory, and photographic-direction groups inside `Subject`; the legacy `identityAndBody` paragraph is retained in data but not repeated by the full renderer
 - `Grok/Z-Image`
   - Internal field: `zImagePrompt`
   - Target: Grok Imagine / Aurora and Z-Image
@@ -107,6 +107,24 @@ Implemented v1 behavior:
   - `Four-View Prompt`
   - `Full-Body Reference Prompt`
 - Saved Cards supports PAGE2 six-output cards and PAGE1 imported character-card selection snapshots.
+
+Facial identity optimization (2026-07-11):
+
+- All 17 formal cards now expose `facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and four compact `distinctiveFeatures` anchors.
+- `identityAndBody` remains verbatim as a compatibility field for existing Saved Cards and legacy prompt consumers; new full renderers use the structured identity fields instead of repeating the legacy paragraph, and `face`, `skin`, and `makeup` no longer mirror one mixed string.
+- PAGE1 Gpt / full-body prompts render facial fields as separate labeled blocks. PAGE1 compact AI and every PAGE2 copy output retain all four permanent identity anchors, even when users switch hair, clothes, or makeup.
+- Eleanor's horns, red eyes, bilateral facial markings, forehead sigil, and arcane tattoos are explicit permanent anchors.
+- The high-similarity checks preserve Jiwoo/Koto (heart-oval wide-set eyes vs balanced oval shallow-lid eyes), Yuna/Chihiro (short rounded chin vs longer oval-heart/slightly close-set eyes), Sakura/Lily, Yuri/Hina, and Olivia/Mei contrasts.
+- The formal maintenance specification and source-image matrix live in [`specs/character-card-facial-identity.md`](specs/character-card-facial-identity.md).
+
+Validation for the facial identity optimization:
+
+- Frontend `npm test`: 407 passed.
+- Frontend `npm run lint` and `npm run build`: passed.
+- Functions `npm test`: 30 passed; Functions `npm run lint`: passed.
+- `python3 scripts/sync_to_json.py --check` and `python3 -m unittest discover -s scripts/tests`: passed.
+- `python3 scripts/check_public_assets.py` is currently blocked only by pre-existing untracked, unintegrated character image folders (Amy, Emily, JiYoo, Manami, Minji, Nana, Natsuki, Rei, Shiori, Yui). They are intentionally untouched and must not be added or removed as part of character-card work.
+- Deterministic audit `node scripts/validate_prompt_logic.mjs 200 facial-identity-audit`: 9 existing wardrobe-combination heuristic findings; no facial-identity finding.
 
 Character-card authoring locations:
 

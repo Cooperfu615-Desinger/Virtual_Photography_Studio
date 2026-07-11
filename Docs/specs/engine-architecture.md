@@ -2,7 +2,7 @@
 
 Status: implemented on `main` in `7aed676 Optimize prompt engine runtime`
 
-Last updated: 2026-07-10
+Last updated: 2026-07-11
 
 ## Purpose
 
@@ -45,6 +45,7 @@ The default-library path compiles the runtime once and reuses it. A custom-libra
 | `webapp/src/lib/engine/promptModel.js` | Ordered prompt sections plus grouped label lookup used by renderers |
 | `webapp/src/lib/engine/selectionSchema.js` | Schema-ordered selection snapshots and default filling |
 | `webapp/src/lib/engine/characterProfiles.js` | Built-in character profile data |
+| `webapp/src/lib/characterCardLab.js` | PAGE2 Character Card projection, removable layers, copy-output construction, and PAGE1 import payloads |
 | `webapp/src/lib/engine/duoOptions.js` | Duo pose, posture, and shared-expression option data |
 | `webapp/src/lib/engine/fixedCompositionOptions.js` | Fixed-composition set option data |
 | `webapp/src/lib/engine/poseComposerOptions.js` | Single-subject Pose Composer option data |
@@ -118,6 +119,21 @@ The renderers then apply format-specific rules:
 - `renderAiPrompt()`: compact AI output, including a specialized duo renderer.
 
 Section labels are not merely display text. Renderers query labels such as `Subject`, `Location`, `Ambient Light Conditions`, and `Camera / Film`; renaming or splitting them is a cross-renderer schema change and requires prompt-pipeline tests.
+
+## Character-card identity flow
+
+Formal Character Card identity data enters from `engine/characterProfiles.js`; this is the only source that may define a card's stable face, body, hair, locked wardrobe, and preview metadata. `getLockControls()` exposes each formal profile to PAGE1. `getCharacterCardOptions()` in `characterCardLab.js` projects the same profile into PAGE2, adds card-safe hair/layer controls, and preserves a selected card in Saved Card / PAGE1 import payloads.
+
+When a formal profile is selected, `engine.js` resolves its profile groups and uses them in both PAGE1 subject construction and the dedicated full-body renderer:
+
+- Full Gpt / full-body outputs render `facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and `distinctiveFeatures` as the canonical ordered identity blocks before mutable hair and wardrobe. They do not repeat the complete legacy paragraph.
+- Grok/Z-Image uses the resolved card subject with the permanent anchors included.
+- Compact AI uses a short base identity phrase but independently appends all four `distinctiveFeatures` fragments before hair variants and selected accessories. Compression must not remove an anchor.
+- PAGE2's six copy outputs use the same profile projection and explicitly include permanent identity anchors.
+
+Stable identity fields are facial geometry, eye/nose/mouth/skin signatures, body proportions, natural marks, and permanent supernatural anatomy. Hair, garments, removable glasses/accessories, makeup, pose, scene, lighting, camera, and rendering grade are replaceable styling or presentation. `distinctiveFeatures` must remain independent because it is the small, ordered set that survives compact rendering and prevents style changes from becoming identity changes.
+
+`identityAndBody` remains a historical compatibility string. Profiles retain it verbatim as `legacyIdentityAndBody`; do not derive it from or replace it in compatibility data. New full renderers use the structured fields instead of serializing both representations together. This protects Saved Cards, PAGE1/PAGE2 import and restore paths, legacy prompt consumers, and existing stored browser data without duplicating prompt instructions. Tests own the responsibility to verify both schemas, every prompt format, both wardrobe modes, and high-similarity pair contrasts. The full contract and matrix are in [`character-card-facial-identity.md`](character-card-facial-identity.md).
 
 ## Public Compatibility Contracts
 
