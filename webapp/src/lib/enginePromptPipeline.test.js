@@ -286,17 +286,36 @@ test('AI single-subject prompt uses fixed subject lead while preserving eyewear 
 
   assert.match(
     aiPrompt,
-    /^A 20s seductive stunning Japanese or Korean woman\. Sexy tall slim-curvy silhouette, 94-58-92 body proportion anchor, narrow defined waist, rounded hips, flat abdomen\. with black bold-frame glasses\. wearing /
+    /^A 20s seductive stunning Japanese or Korean woman\. Sexy tall slim-curvy silhouette, 94-58-92 body proportion anchor, narrow defined waist, rounded hips, flat abdomen\. natural black wet-look long wavy hair, damp separated strands\. with black bold-frame glasses\. wearing /i
   );
   assert.match(aiPrompt, /wearing a white triangle bikini top and low-rise white side-tie bikini bottoms/i);
   assert.match(aiPrompt, /sitting naturally and facing the camera/i);
   assert.doesNotMatch(aiPrompt, /^(Image Type|Scene|Subject|Wardrobe|Pose and Composition):/m);
   assert.doesNotMatch(aiPrompt, /A stunning mid-20s/i);
-  assert.doesNotMatch(aiPrompt, /photorealistic editorial portrait|20-year-old|defined eyes and lips|natural black wet wavy hair|soft smile/i);
+  assert.doesNotMatch(aiPrompt, /photorealistic editorial portrait|20-year-old|defined eyes and lips|moody glossy texture|soft realistic shine|clean dark depth|soft smile/i);
   assert.doesNotMatch(aiPrompt, /visual height|visual weight|torso-to-leg|F-to-G-cup-scale|worn normally|moody glossy texture|clean beachwear|top length extending|She is sitting with natural seated arrangement|bottoms She is/i);
   assert.doesNotMatch(aiPrompt, /\bnone\b|[\u3400-\u9fff]/i);
   assert.doesNotMatch(aiPrompt, /\n/);
   assert.ok(aiPrompt.length < prompt.zImagePrompt.length);
+});
+
+test('AI single-subject prompt keeps compact hairstyle and hair color before special outfit clothing', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    bodyTypeId: optionId('bodyTypeId', '性感曲線身形'),
+    hairstyleId: optionId('hairstyleId', '半綁公主頭'),
+    hairColorId: optionId('hairColorId', '深咖啡棕'),
+    specialOutfitId: optionId('specialOutfitId', '白襯衫黑色長裙細領帶造型'),
+    poseId: optionId('poseId', '站姿｜雙臂交疊'),
+  });
+  const aiPrompt = prompt.midjourneyPrompt;
+  const hairText = 'deep coffee-brown half-up long hair, soft crown lift, loose face-framing strands';
+
+  assert.match(aiPrompt, new RegExp(`${escapeRegExp(hairText)}\\. wearing `, 'i'));
+  assert.ok(aiPrompt.indexOf(hairText) < aiPrompt.indexOf('wearing an understated black-and-white outfit'));
+  assert.doesNotMatch(aiPrompt, /rich brunette depth|soft warm reflection/i);
+  assert.doesNotMatch(aiPrompt, /[\u3400-\u9fff]/);
 });
 
 test('AI single-subject prompt uses simplified body type anchors for each body selection', () => {

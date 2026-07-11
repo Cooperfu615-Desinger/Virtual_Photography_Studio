@@ -10243,6 +10243,23 @@ function buildAiSingleBodyTypeAnchorText(valuesByLabel, context) {
   return rule ? rule.aiText : ensureTerminalPeriod(compactAiMinimalFragment(bodyTypeText, 4));
 }
 
+function buildAiSingleHairAnchorText(valuesByLabel, context) {
+  if (!shouldUseFixedAiSingleSubjectLead(context)) return '';
+  const hairstyleText = firstStructuredValue(valuesByLabel, ['Hairstyle']);
+  const hairColorText = firstStructuredValue(valuesByLabel, ['Hair Color']);
+  const combinedHairText = [hairstyleText, hairColorText]
+    .filter((value) => value && !/^none$/i.test(value.trim()))
+    .map((value) => ensureTerminalPeriod(value))
+    .join(' ');
+
+  if (!combinedHairText) return '';
+  const compactHairText = compactAiMinimalFragment(
+    compressZImageSingleSubjectText(combinedHairText, context),
+    3
+  );
+  return compactHairText ? ensureTerminalPeriod(compactHairText) : '';
+}
+
 function splitAiMinimalFragments(value) {
   return cleanAiMinimalFragment(value)
     .replace(/\.\s+/g, ', ')
@@ -10630,7 +10647,11 @@ function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
 
   const singleSubjectLead = buildAiSingleSubjectLead(context);
   if (singleSubjectLead) {
-    return [singleSubjectLead, buildAiSingleBodyTypeAnchorText(valuesByLabel, context)]
+    return [
+      singleSubjectLead,
+      buildAiSingleBodyTypeAnchorText(valuesByLabel, context),
+      buildAiSingleHairAnchorText(valuesByLabel, context),
+    ]
       .filter(Boolean)
       .join(' ');
   }
