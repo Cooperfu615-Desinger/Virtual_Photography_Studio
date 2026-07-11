@@ -95,7 +95,7 @@ Do not rename the internal fields casually. Many saved cards, import/export path
 
 ### Character-card facial identity contract (2026-07-11)
 
-- The 17 formal cards use the structured profile fields `facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and `distinctiveFeatures` in addition to the historical `identityAndBody` string.
+- The 22 formal cards use the structured profile fields `facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and `distinctiveFeatures` in addition to the historical `identityAndBody` string.
 - `webapp/src/lib/engine/characterProfiles.js` is the sole formal-card data source. It contains the 17 integrated IDs, structured identity fields, legacy string, hair, wardrobe, and preview metadata. Do not create a second profile dataset.
 - Original references live at `source-assets/character-cards/<character-folder>/`; manifest-backed deployment previews live at `webapp/public/character-cards/<character-folder>/<reference>.avif`. The complete approved roster and source folders are in [`specs/character-card-facial-identity.md`](specs/character-card-facial-identity.md).
 - Treat `identityAndBody` as a read-compatible legacy field: Saved Cards, PAGE1 selection snapshots, PAGE2 bundles, and old prompt consumers may still depend on it. Do not replace it with one of the facial subfields.
@@ -110,7 +110,7 @@ Do not rename the internal fields casually. Many saved cards, import/export path
 ### Product Architecture
 
 - PAGE1 is the main full portrait prompt workspace.
-- PAGE2 is the Character Card Lab for PAGE1 `A 人物設定`, with 17 built-in cards across two pages.
+- PAGE2 is the Character Card Lab for PAGE1 `A 人物設定`, with 22 built-in cards across three pages (`10 / 10 / 2`).
 - PAGE3 is the world / scene prompt workspace.
 - SUNO has been removed from active app navigation / workspace flow; the user plans a separate music prompt tool.
 - The unreachable SUNO workspace, prompt builder, tests, and CSS were removed on 2026-07-10. Historical saved cards remain plain stored prompt records.
@@ -542,7 +542,7 @@ PAGE1 is the main full portrait generator. It handles:
 
 PAGE2 is the Character Card Lab for PAGE1 `A 人物設定`.
 
-- Selects 17 built-in character cards. The first page contains the original 10 and the second page contains `26_Yuna`, `41_Eleanor`, `22_Olivia`, `08_Jiwoo`, `05_Chihiro`, `04_Koto`, and `00_Mei`.
+- Selects 22 built-in character cards. The first page contains the original 10; the second page contains `26_Yuna`, `41_Eleanor`, `22_Olivia`, `08_Jiwoo`, `05_Chihiro`, `04_Koto`, `00_Mei`, `01_Rei`, `09_Amy`, and `10_Ji-Yoo`; the third page contains `13_Yui` and `14_Nana`.
 - Supports character-safe hair styling variants that preserve the base hair identity.
 - Supports `預設` / `戴眼鏡` / `不戴眼鏡`, including PAGE1 import behavior.
 - PAGE2 owns which character-card wardrobe layers are imported into PAGE1.
@@ -756,7 +756,7 @@ Current behavior:
   - Cards are larger than the original v1 cards.
   - Each card shows only its preview image and character name.
   - Long default character descriptions are removed from the visible UI.
-  - The catalog currently has 17 built-in characters and retains the future growth target of at least 40 without showing all cards at once.
+  - The catalog currently has 22 built-in characters and retains the future growth target of at least 40 without showing all cards at once.
   - Eyewear/glasses uses `預設` / `戴眼鏡` / `不戴眼鏡` and imports back to PAGE1.
   - Wardrobe-layer import choices are compact buttons instead of large cards/rows.
 - Bottom block:

@@ -102,6 +102,36 @@
       "directory": "mei",
       "source": "00_Mei_00.jpeg",
       "preview": "00_Mei_00.avif"
+    },
+    {
+      "id": "character-rei",
+      "directory": "rei",
+      "source": "01_Rei_00.png",
+      "preview": "01_Rei_00.avif"
+    },
+    {
+      "id": "character-amy",
+      "directory": "amy",
+      "source": "09_Amy_00.png",
+      "preview": "09_Amy_00.avif"
+    },
+    {
+      "id": "character-jiyoo",
+      "directory": "jiyoo",
+      "source": "10_Ji-Yoo_00.png",
+      "preview": "10_Ji-Yoo_00.avif"
+    },
+    {
+      "id": "character-yui",
+      "directory": "yui",
+      "source": "13_Yui_00.jpeg",
+      "preview": "13_Yui_00.avif"
+    },
+    {
+      "id": "character-nana",
+      "directory": "nana",
+      "source": "14_Nana_00.jpeg",
+      "preview": "14_Nana_00.avif"
     }
   ]
 }

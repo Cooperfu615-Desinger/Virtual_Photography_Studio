@@ -103,6 +103,11 @@ test('character profile control exposes character profile cards separately from 
       ['character-chihiro', '05_Chihiro', '05_Chihiro 角色卡'],
       ['character-koto', '04_Koto', '04_Koto 角色卡'],
       ['character-mei', '00_Mei', '00_Mei 角色卡'],
+      ['character-rei', '01_Rei', '01_Rei 角色卡'],
+      ['character-amy', '09_Amy', '09_Amy 角色卡'],
+      ['character-jiyoo', '10_Ji-Yoo', '10_Ji-Yoo 角色卡'],
+      ['character-yui', '13_Yui', '13_Yui 角色卡'],
+      ['character-nana', '14_Nana', '14_Nana 角色卡'],
     ]
   );
   assert.deepEqual(
@@ -125,6 +130,11 @@ test('character profile control exposes character profile cards separately from 
       ['05_Chihiro', 'character-cards/chihiro/05_Chihiro_00.avif', 'avif'],
       ['04_Koto', 'character-cards/koto/04_Koto_00.avif', 'avif'],
       ['00_Mei', 'character-cards/mei/00_Mei_00.avif', 'avif'],
+      ['01_Rei', 'character-cards/rei/01_Rei_00.avif', 'avif'],
+      ['09_Amy', 'character-cards/amy/09_Amy_00.avif', 'avif'],
+      ['10_Ji-Yoo', 'character-cards/jiyoo/10_Ji-Yoo_00.avif', 'avif'],
+      ['13_Yui', 'character-cards/yui/13_Yui_00.avif', 'avif'],
+      ['14_Nana', 'character-cards/nana/14_Nana_00.avif', 'avif'],
     ]
   );
 });

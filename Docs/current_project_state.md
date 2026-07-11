@@ -91,8 +91,8 @@ PAGE2 is now the Character Card Lab for PAGE1 `A 人物設定`.
 
 Implemented v1 behavior:
 
-- Selects one of 17 built-in character cards, paged as 10 cards followed by seven cards.
-- Current cards are `11_Rika`, `48_G`, `29_Philippa`, `07_Lily`, `06_Hinata`, `38_Rin`, `12_Sakura`, `03_Sui`, `02_Yuri`, `37_Hina`, `26_Yuna`, `41_Eleanor`, `22_Olivia`, `08_Jiwoo`, `05_Chihiro`, `04_Koto`, and `00_Mei`.
+- Selects one of 22 built-in character cards, paged as 10 cards, 10 cards, then two cards.
+- Current cards are `11_Rika`, `48_G`, `29_Philippa`, `07_Lily`, `06_Hinata`, `38_Rin`, `12_Sakura`, `03_Sui`, `02_Yuri`, `37_Hina`, `26_Yuna`, `41_Eleanor`, `22_Olivia`, `08_Jiwoo`, `05_Chihiro`, `04_Koto`, `00_Mei`, `01_Rei`, `09_Amy`, `10_Ji-Yoo`, `13_Yui`, and `14_Nana`.
 - Supports character-safe hair styling variants that modify the card's base hair instead of replacing it.
 - Supports `預設` / `戴眼鏡` / `不戴眼鏡`, including PAGE1 import behavior.
 - Lets PAGE2 decide which default character-card wardrobe layers are imported into PAGE1.
@@ -110,7 +110,7 @@ Implemented v1 behavior:
 
 Facial identity optimization (2026-07-11):
 
-- All 17 formal cards now expose `facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and four compact `distinctiveFeatures` anchors.
+- All 22 formal cards now expose `facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and four compact `distinctiveFeatures` anchors.
 - `identityAndBody` remains verbatim as a compatibility field for existing Saved Cards and legacy prompt consumers; new full renderers use the structured identity fields instead of repeating the legacy paragraph, and `face`, `skin`, and `makeup` no longer mirror one mixed string.
 - PAGE1 Gpt / full-body prompts render facial fields as separate labeled blocks. PAGE1 compact AI and every PAGE2 copy output retain all four permanent identity anchors, even when users switch hair, clothes, or makeup.
 - Eleanor's horns, red eyes, bilateral facial markings, forehead sigil, and arcane tattoos are explicit permanent anchors.
@@ -123,7 +123,7 @@ Validation for the facial identity optimization:
 - Frontend `npm run lint` and `npm run build`: passed.
 - Functions `npm test`: 30 passed; Functions `npm run lint`: passed.
 - `python3 scripts/sync_to_json.py --check` and `python3 -m unittest discover -s scripts/tests`: passed.
-- `python3 scripts/check_public_assets.py` is currently blocked only by pre-existing untracked, unintegrated character image folders (Amy, Emily, JiYoo, Manami, Minji, Nana, Natsuki, Rei, Shiori, Yui). They are intentionally untouched and must not be added or removed as part of character-card work.
+- `python3 scripts/check_public_assets.py` is currently blocked only by the phase-two untracked, unintegrated character image folders (Emily, Manami, Minji, Natsuki, Shiori). They remain intentionally untouched until their integration phase.
 - Deterministic audit `node scripts/validate_prompt_logic.mjs 200 facial-identity-audit`: 9 existing wardrobe-combination heuristic findings; no facial-identity finding.
 
 Character-card authoring locations:

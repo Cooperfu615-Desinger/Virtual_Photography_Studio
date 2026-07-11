@@ -200,6 +200,54 @@ const CHARACTER_CARD_EXTENSIONS = {
       shoes: 'black lace-up platform combat ankle boots',
     },
   },
+  'character-rei': {
+    hairTags: ['long', 'black-hair', 'center-part', 'updo'],
+    enabledHairVariants: ['low-ponytail', 'high-ponytail', 'half-up', 'loose-bun'],
+    wardrobeLayers: {
+      top: 'black ribbed high-neck cropped tank top',
+      outerwear: 'open black zip hoodie with relaxed sleeves',
+      bottom: 'faded charcoal distressed low-rise baggy jeans',
+      shoes: 'worn cream athletic sneakers',
+      earrings: 'small silver earrings',
+      neckAccessory: 'layered silver chain necklaces',
+    },
+  },
+  'character-amy': {
+    hairTags: ['long', 'straight', 'bangs', 'brown-hair'],
+    wardrobeLayers: {
+      top: 'oversized vivid red pullover hoodie with a front kangaroo pocket and matching drawstrings',
+      bottom: 'black sheer tights',
+      shoes: 'glossy red lace-up combat boots with black soles',
+      headAccessory: 'black ribbed knit beanie',
+    },
+  },
+  'character-jiyoo': {
+    hairTags: ['long', 'straight', 'black-hair', 'center-part'],
+    wardrobeLayers: {
+      top: 'black and crimson silk hanbok jeogori with a white crossover collar and ornate gold embroidery',
+      bottom: 'floor-length charcoal-black skirt with deep crimson and gold brocade hem panels',
+      shoes: 'black-and-gold embroidered flats',
+    },
+  },
+  'character-yui': {
+    hairTags: ['short', 'bob', 'bangs', 'blonde', 'center-part'],
+    enabledHairVariants: ['slicked-back-wet-look'],
+    wardrobeLayers: {
+      top: 'white strapless fitted tube top',
+      bottom: 'white fitted mini skirt',
+      shoes: 'bare feet as the locked footwear state',
+    },
+  },
+  'character-nana': {
+    hairTags: ['short', 'bob', 'bangs', 'black-hair'],
+    enabledHairVariants: ['slicked-back-wet-look'],
+    wardrobeLayers: {
+      top: 'crisp white short-sleeve button-up shirt with a navy plaid necktie',
+      bottom: 'navy pleated skirt',
+      shoes: 'navy ankle socks and brown leather loafers',
+      earrings: 'small silver hoop earrings',
+    },
+  },
 };
 
 export const HAIR_VARIANT_OPTIONS = [

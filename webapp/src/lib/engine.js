@@ -176,6 +176,11 @@ const CHARACTER_PROFILE_CONTROL_ORDER = [
   'character-chihiro',
   'character-koto',
   'character-mei',
+  'character-rei',
+  'character-amy',
+  'character-jiyoo',
+  'character-yui',
+  'character-nana',
 ];
 
 const CHARACTER_PROFILE_CONTROL_OPTIONS = [

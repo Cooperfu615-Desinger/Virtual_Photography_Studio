@@ -4,9 +4,9 @@ Status: implemented on `main` after the 2026-07-11 facial-identity optimization.
 
 ## Purpose and scope
 
-This specification keeps the 17 formal Character Card identities visually distinct when PAGE1 or PAGE2 changes hair, wardrobe, accessories, makeup, framing, or photographic treatment. It covers only formal built-in Character Cards, their prompt serialization, and their Saved Cards compatibility contract.
+This specification keeps the 22 formal Character Card identities visually distinct when PAGE1 or PAGE2 changes hair, wardrobe, accessories, makeup, framing, or photographic treatment. It covers only formal built-in Character Cards, their prompt serialization, and their Saved Cards compatibility contract.
 
-It does not add characters, does not govern generic PAGE1 identity controls, and does not authorize the unintegrated image folders for Amy, Emily, JiYoo, Manami, Minji, Nana, Natsuki, Rei, Shiori, or Yui.
+It does not govern generic PAGE1 identity controls, and does not authorize the still-unintegrated image folders for Emily, Manami, Minji, Natsuki, or Shiori.
 
 ## Sources of truth and paths
 
@@ -113,6 +113,11 @@ The table is a concise maintenance aid, not a duplicate prompt store. “None”
 | 05_Chihiro / `character-chihiro` | Long refined oval-heart, rounded-point chin | Slightly close-set light hazel-gray almonds | Slim low-to-medium bridge | Plush even coral-peach lips | Fair ivory clear | None | Yuna | Keep longer face and slightly close-set eyes | `source-assets/character-cards/chihiro/` |
 | 04_Koto / `character-koto` | Small balanced oval, smooth cheeks | Cool-gray almonds, shallow lids | Clean narrow bridge | Compact muted-coral crisp bow | Cool pale porcelain | None | Jiwoo, Philippa | Keep balanced oval and shallow lids; do not use blue-black hair as the distinction | `source-assets/character-cards/koto/` |
 | 00_Mei / `character-mei` | Long sculpted heart-oval, high cheeks, angular jaw | Elongated dark-brown sharply lifted almonds | High bridge, pointed tip | Full dark brick-red sharply bowed lips | Cool porcelain | None | Olivia, Eleanor, Lily | Keep angular high-cheek structure and high bridge; makeup alone is insufficient | `source-assets/character-cards/mei/` |
+| 01_Rei / `character-rei` | Compact oval-heart, full upper cheeks, petite rounded chin | Slightly wide-set warm-brown almonds, level corners | Narrow straight medium-low bridge, rounded tip | Muted rose lips, soft cupid bow | Fair neutral | None | Rika, Yuna | Keep the compact heart-oval and wider eye spacing; do not add Rika's cheek mole | `source-assets/character-cards/rei/` |
+| 09_Amy / `character-amy` | Slim soft oval, narrow gentle jaw | Level deep-brown round-almonds | Small low-bridge straight nose, rounded tip | Full muted-red lips, plush lower lip | Fair neutral porcelain | None | Rika, Hina | Keep the slim jaw and deep-brown eye read; beanie and red hoodie are removable | `source-assets/character-cards/amy/` |
+| 10_Ji-Yoo / `character-jiyoo` | Long refined oval, high cheeks, narrow jaw | Cool gray-brown almonds, softly downturned corners | Slim high bridge, fine pointed tip | Muted berry compact cupid bow | Light neutral porcelain | None | Philippa, Mei | Keep the downturned gray-brown eyes; do not rely on black-and-crimson hanbok styling | `source-assets/character-cards/jiyoo/` |
+| 13_Yui / `character-yui` | Short rounded oval, full lower cheeks | Wide-set pale hazel-gray round-almonds | Small short low-bridge rounded tip | Plush pale peach lips, shallow bow | Fair cool ivory | None | Sakura, Nana | Keep the pale hazel-gray eyes and compact round face; blonde bob is removable | `source-assets/character-cards/yui/` |
+| 14_Nana / `character-nana` | Short rounded oval, broad soft cheeks | Warm-brown round-almonds, level corners | Small low bridge, neat rounded tip | Wide coral-peach lips, fuller lower lip | Warm fair beige | None | Hina, Yui | Keep warm coloring and broad cheeks; uniform and short bob are removable | `source-assets/character-cards/nana/` |
 
 ## Authoring and change workflow
 
@@ -137,13 +142,13 @@ The table is a concise maintenance aid, not a duplicate prompt store. “None”
 
 At minimum, tests must verify:
 
-- exactly 17 formal cards and non-empty structured fields;
+- exactly 22 formal cards and non-empty structured fields;
 - face shape, eye signature, nose signature, mouth signature, and one unique/permanent anchor per card;
 - exactly four non-empty `distinctiveFeatures` fragments per formal card;
 - `identityAndBody === legacyIdentityAndBody` for formal profiles;
 - `face`, `skin`, and `makeup` resolve to distinct structured values;
 - PAGE2 all six outputs, PAGE1 Gpt/full-body output, and PAGE1 compact AI preserve every anchor;
-- high-similarity pair contrasts: Jiwoo/Koto, Yuna/Chihiro, Sakura/Lily, Yuri/Hina, and Olivia/Mei;
+- high-similarity pair contrasts: Jiwoo/Koto, Yuna/Chihiro, Sakura/Lily, Yuri/Hina, Olivia/Mei, Rei/Amy, and Yui/Nana;
 - Eleanor preserves all permanent supernatural identifiers;
 - legacy profile inputs and Saved Card PAGE1/PAGE2 flows still normalize and render correctly.
 

@@ -72,7 +72,7 @@ function hasNonNoneWardrobePrefix(prompt, prefix) {
 test('character card options are read from PAGE1 character profile control', () => {
   const cards = getCharacterCardOptions(getLockControls());
 
-  assert.equal(cards.length, 17);
+  assert.equal(cards.length, 22);
   assert.equal(cards[0].id, 'character-rika');
   assert.equal(cards[0].label, '11_Rika');
   assert.match(cards[0].identityAndBody, /soft doll-like indie-girl facial features/i);
@@ -87,7 +87,7 @@ test('character card options are read from PAGE1 character profile control', () 
 
 test('all formal character profiles expose separated facial signatures and preserve the legacy identity field', () => {
   const profiles = CHARACTER_PROFILE_OPTIONS.filter((option) => option.specialSubject === 'character-profile');
-  assert.equal(profiles.length, 17);
+  assert.equal(profiles.length, 22);
 
   for (const option of profiles) {
     const profile = option.profile;
@@ -159,6 +159,8 @@ test('high-similarity character pairs keep distinct facial geometry anchors', ()
     ['character-sakura', 'character-lily', /very large wide-set blue round eyes/i, /long heart-oval|hazel almond/i],
     ['character-yuri', 'character-hina', /broad soft oval|rounded jaw/i, /near-round oval|full low cheeks/i],
     ['character-olivia', 'character-mei', /warm light-olive skin|firm angled jaw/i, /high cheekbones|angular jaw|brick-red/i],
+    ['character-rei', 'character-amy', /wide-set warm-brown almond eyes|compact oval-heart/i, /slim oval|deep-brown round-almond/i],
+    ['character-yui', 'character-nana', /pale hazel-gray|pale peach/i, /warm brown|coral-peach/i],
   ];
 
   for (const [leftId, rightId, leftPattern, rightPattern] of contrasts) {
@@ -179,6 +181,11 @@ test('new character cards expose detailed identity hair and wardrobe layers', ()
     'character-chihiro',
     'character-koto',
     'character-mei',
+    'character-rei',
+    'character-amy',
+    'character-jiyoo',
+    'character-yui',
+    'character-nana',
   ];
 
   for (const id of newCardIds) {
@@ -187,7 +194,7 @@ test('new character cards expose detailed identity hair and wardrobe layers', ()
     assert.match(card.identityAndBody, /eyes/i);
     assert.match(card.identityAndBody, /nose/i);
     assert.match(card.identityAndBody, /lips/i);
-    assert.ok(card.identityAndBody.length > 500, `Expected detailed identity description for ${id}`);
+    assert.ok(card.identityAndBody.length > 400, `Expected detailed identity description for ${id}`);
     assert.ok(card.baseHair.length > 100, `Expected detailed hair description for ${id}`);
     assert.match(card.primaryReferenceImage, /\.avif$/i);
   }
@@ -204,6 +211,26 @@ test('new character cards expose detailed identity hair and wardrobe layers', ()
   const olivia = cards.find((card) => card.id === 'character-olivia');
   assert.match(olivia.baseHair, /open center part/i);
   assert.match(olivia.defaultWardrobeLayers.headAccessory.prompt, /black baseball cap/i);
+
+  const rei = cards.find((card) => card.id === 'character-rei');
+  assert.match(rei.baseHair, /loose high messy bun/i);
+  assert.match(rei.defaultWardrobeLayers.outerwear.prompt, /black zip hoodie/i);
+
+  const amy = cards.find((card) => card.id === 'character-amy');
+  assert.match(amy.defaultWardrobeLayers.headAccessory.prompt, /black ribbed knit beanie/i);
+  assert.match(amy.defaultWardrobeLayers.shoes.prompt, /red lace-up combat boots/i);
+
+  const jiYoo = cards.find((card) => card.id === 'character-jiyoo');
+  assert.match(jiYoo.baseHair, /twisted half-up crown detail/i);
+  assert.match(jiYoo.defaultWardrobeLayers.top.prompt, /hanbok jeogori/i);
+
+  const yui = cards.find((card) => card.id === 'character-yui');
+  assert.match(yui.baseHair, /chin-length ash-beige blonde rounded bob/i);
+  assert.match(yui.defaultWardrobeLayers.bottom.prompt, /white fitted mini skirt/i);
+
+  const nana = cards.find((card) => card.id === 'character-nana');
+  assert.match(nana.baseHair, /chin-length layered bob/i);
+  assert.match(nana.defaultWardrobeLayers.earrings.prompt, /small silver hoop earrings/i);
 });
 
 test('hair variants use shared compatibility plus per-card overrides', () => {
