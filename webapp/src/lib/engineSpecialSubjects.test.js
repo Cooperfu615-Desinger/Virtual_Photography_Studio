@@ -108,6 +108,11 @@ test('character profile control exposes character profile cards separately from 
       ['character-jiyoo', '10_Ji-Yoo', '10_Ji-Yoo 角色卡'],
       ['character-yui', '13_Yui', '13_Yui 角色卡'],
       ['character-nana', '14_Nana', '14_Nana 角色卡'],
+      ['character-emily', '15_Emily', '15_Emily 角色卡'],
+      ['character-shiori', '16_Shiori', '16_Shiori 角色卡'],
+      ['character-natsuki', '18_Natsuki', '18_Natsuki 角色卡'],
+      ['character-minji', '19_Minji', '19_Minji 角色卡'],
+      ['character-manami', '20_Manami', '20_Manami 角色卡'],
     ]
   );
   assert.deepEqual(
@@ -135,6 +140,11 @@ test('character profile control exposes character profile cards separately from 
       ['10_Ji-Yoo', 'character-cards/jiyoo/10_Ji-Yoo_00.avif', 'avif'],
       ['13_Yui', 'character-cards/yui/13_Yui_00.avif', 'avif'],
       ['14_Nana', 'character-cards/nana/14_Nana_00.avif', 'avif'],
+      ['15_Emily', 'character-cards/emily/15_Emily_00.avif', 'avif'],
+      ['16_Shiori', 'character-cards/shiori/16_Shiori_00.avif', 'avif'],
+      ['18_Natsuki', 'character-cards/natsuki/18_Natsuki_00.avif', 'avif'],
+      ['19_Minji', 'character-cards/minji/19_Minji_00.avif', 'avif'],
+      ['20_Manami', 'character-cards/manami/20_Manami_00.avif', 'avif'],
     ]
   );
 });

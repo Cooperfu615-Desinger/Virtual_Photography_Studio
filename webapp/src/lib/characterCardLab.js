@@ -248,6 +248,54 @@ const CHARACTER_CARD_EXTENSIONS = {
       earrings: 'small silver hoop earrings',
     },
   },
+  'character-emily': {
+    hairTags: ['long', 'black-hair', 'center-part', 'updo'],
+    enabledHairVariants: ['low-ponytail', 'high-ponytail', 'half-up', 'loose-bun'],
+    wardrobeLayers: {
+      top: 'oversized white mesh football jersey with a bold black number graphic',
+      bottom: 'dark washed baggy jeans',
+      shoes: 'black-and-white chunky athletic sneakers',
+      neckAccessory: 'black cord necklace with a silver cross pendant',
+    },
+  },
+  'character-shiori': {
+    hairTags: ['long', 'wavy', 'bangs', 'brown-hair'],
+    wardrobeLayers: {
+      top: 'black ribbed cropped camisole with thin straps',
+      bottom: 'light-blue denim bib overalls worn loosely',
+      shoes: 'black-and-white low-top canvas sneakers',
+    },
+  },
+  'character-natsuki': {
+    hairTags: ['short', 'bob', 'bangs', 'black-hair'],
+    enabledHairVariants: ['slicked-back-wet-look'],
+    wardrobeLayers: {
+      top: 'navy racerback athletic crop tank with white piping',
+      bottom: 'matching navy athletic shorts with white trim',
+      shoes: 'white lace-up athletic sneakers',
+    },
+  },
+  'character-minji': {
+    hairTags: ['short', 'bob', 'bangs', 'black-hair'],
+    enabledHairVariants: ['slicked-back-wet-look'],
+    wardrobeLayers: {
+      top: 'loose slate-blue camisole tank with thin straps',
+      bottom: 'light-wash distressed straight-leg jeans',
+      shoes: 'white athletic sneakers',
+    },
+  },
+  'character-manami': {
+    hairTags: ['short', 'bob', 'bangs', 'black-hair', 'dyed', 'highlight-streaks'],
+    enabledHairVariants: ['slicked-back-wet-look'],
+    wardrobeLayers: {
+      top: 'black floral-lace bralette',
+      bottom: 'black high-waisted floral-lace briefs',
+      outerwear: 'long white faux-fur coat worn open',
+      shoes: 'black pointed-toe pumps',
+      headAccessory: 'white lace headband',
+      earrings: 'small dark crystal earrings',
+    },
+  },
 };
 
 export const HAIR_VARIANT_OPTIONS = [

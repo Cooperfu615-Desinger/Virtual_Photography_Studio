@@ -181,6 +181,11 @@ const CHARACTER_PROFILE_CONTROL_ORDER = [
   'character-jiyoo',
   'character-yui',
   'character-nana',
+  'character-emily',
+  'character-shiori',
+  'character-natsuki',
+  'character-minji',
+  'character-manami',
 ];
 
 const CHARACTER_PROFILE_CONTROL_OPTIONS = [

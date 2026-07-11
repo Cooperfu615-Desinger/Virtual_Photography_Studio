@@ -4,9 +4,9 @@ Status: implemented on `main` after the 2026-07-11 facial-identity optimization.
 
 ## Purpose and scope
 
-This specification keeps the 22 formal Character Card identities visually distinct when PAGE1 or PAGE2 changes hair, wardrobe, accessories, makeup, framing, or photographic treatment. It covers only formal built-in Character Cards, their prompt serialization, and their Saved Cards compatibility contract.
+This specification keeps the 27 formal Character Card identities visually distinct when PAGE1 or PAGE2 changes hair, wardrobe, accessories, makeup, framing, or photographic treatment. It covers only formal built-in Character Cards, their prompt serialization, and their Saved Cards compatibility contract.
 
-It does not govern generic PAGE1 identity controls, and does not authorize the still-unintegrated image folders for Emily, Manami, Minji, Natsuki, or Shiori.
+It does not govern generic PAGE1 identity controls.
 
 ## Sources of truth and paths
 
@@ -118,6 +118,11 @@ The table is a concise maintenance aid, not a duplicate prompt store. “None”
 | 10_Ji-Yoo / `character-jiyoo` | Long refined oval, high cheeks, narrow jaw | Cool gray-brown almonds, softly downturned corners | Slim high bridge, fine pointed tip | Muted berry compact cupid bow | Light neutral porcelain | None | Philippa, Mei | Keep the downturned gray-brown eyes; do not rely on black-and-crimson hanbok styling | `source-assets/character-cards/jiyoo/` |
 | 13_Yui / `character-yui` | Short rounded oval, full lower cheeks | Wide-set pale hazel-gray round-almonds | Small short low-bridge rounded tip | Plush pale peach lips, shallow bow | Fair cool ivory | None | Sakura, Nana | Keep the pale hazel-gray eyes and compact round face; blonde bob is removable | `source-assets/character-cards/yui/` |
 | 14_Nana / `character-nana` | Short rounded oval, broad soft cheeks | Warm-brown round-almonds, level corners | Small low bridge, neat rounded tip | Wide coral-peach lips, fuller lower lip | Warm fair beige | None | Hina, Yui | Keep warm coloring and broad cheeks; uniform and short bob are removable | `source-assets/character-cards/nana/` |
+| 15_Emily / `character-emily` | Refined oval-heart, high cheeks, pointed chin | Cool gray-brown almonds, heavy upper lids | Slim medium-high bridge, rounded tip | Full muted-rose clean bow | Fair neutral satin | None | Rei, Sui | Keep higher cheeks and heavier lids; messy bun and cross necklace are removable | `source-assets/character-cards/emily/` |
+| 16_Shiori / `character-shiori` | Long soft heart-oval, high cheeks, rounded-point chin | Warm medium-brown almonds, soft lift | Slim medium bridge, rounded tip | Soft coral-rose defined bow | Fair warm-neutral | None | Amy, Lily | Keep longer heart-oval and warmer lifted eyes; chestnut waves are removable | `source-assets/character-cards/shiori/` |
+| 18_Natsuki / `character-natsuki` | Compact oval, rounded cheeks, tapered jaw | Large level dark-brown round-almonds | Small low bridge, rounded tip | Small soft rose lips, even lower lip | Fair neutral | None | Nana, Hina | Keep compact face and small even mouth; sportswear and bob are removable | `source-assets/character-cards/natsuki/` |
+| 19_Minji / `character-minji` | Long soft oval, tapered jaw, fine point chin | Slightly close-set deep-brown almonds | Slim medium bridge, rounded tip | Full muted-rose pronounced bow | Fair neutral matte | None | Natsuki, Chihiro | Keep longer taper and closer-set eyes; short bob is removable | `source-assets/character-cards/minji/` |
+| 20_Manami / `character-manami` | Soft oval-heart, high cheeks, narrow jaw | Pale gray-green wide-set lifted almonds | Slim medium-high bridge, rounded tip | Full muted-coral compact bow | Fair cool-neutral porcelain | None | Philippa, Lily | Keep pale gray-green lifted eyes and oval-heart geometry; green hair, headband and coat are removable | `source-assets/character-cards/manami/` |
 
 ## Authoring and change workflow
 
@@ -142,13 +147,13 @@ The table is a concise maintenance aid, not a duplicate prompt store. “None”
 
 At minimum, tests must verify:
 
-- exactly 22 formal cards and non-empty structured fields;
+- exactly 27 formal cards and non-empty structured fields;
 - face shape, eye signature, nose signature, mouth signature, and one unique/permanent anchor per card;
 - exactly four non-empty `distinctiveFeatures` fragments per formal card;
 - `identityAndBody === legacyIdentityAndBody` for formal profiles;
 - `face`, `skin`, and `makeup` resolve to distinct structured values;
 - PAGE2 all six outputs, PAGE1 Gpt/full-body output, and PAGE1 compact AI preserve every anchor;
-- high-similarity pair contrasts: Jiwoo/Koto, Yuna/Chihiro, Sakura/Lily, Yuri/Hina, Olivia/Mei, Rei/Amy, and Yui/Nana;
+- high-similarity pair contrasts: Jiwoo/Koto, Yuna/Chihiro, Sakura/Lily, Yuri/Hina, Olivia/Mei, Rei/Amy, Yui/Nana, Emily/Rei, and Natsuki/Minji;
 - Eleanor preserves all permanent supernatural identifiers;
 - legacy profile inputs and Saved Card PAGE1/PAGE2 flows still normalize and render correctly.
 

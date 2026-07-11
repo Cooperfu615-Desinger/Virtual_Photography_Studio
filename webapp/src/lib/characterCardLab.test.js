@@ -72,7 +72,7 @@ function hasNonNoneWardrobePrefix(prompt, prefix) {
 test('character card options are read from PAGE1 character profile control', () => {
   const cards = getCharacterCardOptions(getLockControls());
 
-  assert.equal(cards.length, 22);
+  assert.equal(cards.length, 27);
   assert.equal(cards[0].id, 'character-rika');
   assert.equal(cards[0].label, '11_Rika');
   assert.match(cards[0].identityAndBody, /soft doll-like indie-girl facial features/i);
@@ -87,7 +87,7 @@ test('character card options are read from PAGE1 character profile control', () 
 
 test('all formal character profiles expose separated facial signatures and preserve the legacy identity field', () => {
   const profiles = CHARACTER_PROFILE_OPTIONS.filter((option) => option.specialSubject === 'character-profile');
-  assert.equal(profiles.length, 22);
+  assert.equal(profiles.length, 27);
 
   for (const option of profiles) {
     const profile = option.profile;
@@ -161,6 +161,8 @@ test('high-similarity character pairs keep distinct facial geometry anchors', ()
     ['character-olivia', 'character-mei', /warm light-olive skin|firm angled jaw/i, /high cheekbones|angular jaw|brick-red/i],
     ['character-rei', 'character-amy', /wide-set warm-brown almond eyes|compact oval-heart/i, /slim oval|deep-brown round-almond/i],
     ['character-yui', 'character-nana', /pale hazel-gray|pale peach/i, /warm brown|coral-peach/i],
+    ['character-emily', 'character-rei', /softly high cheeks|heavy upper lids/i, /compact oval-heart|wide-set warm-brown/i],
+    ['character-natsuki', 'character-minji', /compact oval|large level dark-brown/i, /long soft oval|close-set deep-brown/i],
   ];
 
   for (const [leftId, rightId, leftPattern, rightPattern] of contrasts) {
@@ -186,6 +188,11 @@ test('new character cards expose detailed identity hair and wardrobe layers', ()
     'character-jiyoo',
     'character-yui',
     'character-nana',
+    'character-emily',
+    'character-shiori',
+    'character-natsuki',
+    'character-minji',
+    'character-manami',
   ];
 
   for (const id of newCardIds) {
@@ -231,6 +238,26 @@ test('new character cards expose detailed identity hair and wardrobe layers', ()
   const nana = cards.find((card) => card.id === 'character-nana');
   assert.match(nana.baseHair, /chin-length layered bob/i);
   assert.match(nana.defaultWardrobeLayers.earrings.prompt, /small silver hoop earrings/i);
+
+  const emily = cards.find((card) => card.id === 'character-emily');
+  assert.match(emily.baseHair, /high voluminous messy bun/i);
+  assert.match(emily.defaultWardrobeLayers.neckAccessory.prompt, /silver cross pendant/i);
+
+  const shiori = cards.find((card) => card.id === 'character-shiori');
+  assert.match(shiori.baseHair, /very long chestnut-brown loose waves/i);
+  assert.match(shiori.defaultWardrobeLayers.bottom.prompt, /denim bib overalls/i);
+
+  const natsuki = cards.find((card) => card.id === 'character-natsuki');
+  assert.match(natsuki.baseHair, /jaw-length rounded bob/i);
+  assert.match(natsuki.defaultWardrobeLayers.top.prompt, /navy racerback athletic crop tank/i);
+
+  const minji = cards.find((card) => card.id === 'character-minji');
+  assert.match(minji.baseHair, /chin-length blunt bob/i);
+  assert.match(minji.defaultWardrobeLayers.bottom.prompt, /distressed straight-leg jeans/i);
+
+  const manami = cards.find((card) => card.id === 'character-manami');
+  assert.match(manami.baseHair, /emerald-green underlayer ribbons/i);
+  assert.match(manami.defaultWardrobeLayers.headAccessory.prompt, /white lace headband/i);
 });
 
 test('hair variants use shared compatibility plus per-card overrides', () => {

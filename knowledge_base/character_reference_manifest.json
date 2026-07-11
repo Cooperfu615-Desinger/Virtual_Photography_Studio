@@ -132,6 +132,36 @@
       "directory": "nana",
       "source": "14_Nana_00.jpeg",
       "preview": "14_Nana_00.avif"
+    },
+    {
+      "id": "character-emily",
+      "directory": "emily",
+      "source": "15_Emily_00.jpeg",
+      "preview": "15_Emily_00.avif"
+    },
+    {
+      "id": "character-shiori",
+      "directory": "shiori",
+      "source": "16_Shiori_00.jpeg",
+      "preview": "16_Shiori_00.avif"
+    },
+    {
+      "id": "character-natsuki",
+      "directory": "natsuki",
+      "source": "18_Natsuki_00.jpeg",
+      "preview": "18_Natsuki_00.avif"
+    },
+    {
+      "id": "character-minji",
+      "directory": "minji",
+      "source": "19_Minji_00.jpeg",
+      "preview": "19_Minji_00.avif"
+    },
+    {
+      "id": "character-manami",
+      "directory": "manami",
+      "source": "20_Manami_00.jpeg",
+      "preview": "20_Manami_00.avif"
     }
   ]
 }
