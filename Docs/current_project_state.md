@@ -257,6 +257,13 @@ Current duo prompt output contract:
   - `Scene`
   - `Lighting`
   - `Camera Look`
+
+Shared composition opening (implemented 2026-07-12):
+
+- All three primary outputs can begin with the same short image-type sentence, followed by the same compact composition line and then the model-specific subject line.
+- The composition line combines framing, camera height/pitch, and orbit, for example `Chest-up portrait, eye-level view, front-left three-quarter view`.
+- Long framing / angle / orbit descriptions are removed from later camera sections to avoid dilution and duplicate instructions.
+- Page 1 orbit controls display `正面`、`左前`、`左側`、`左後`、`背面`、`右後`、`右側`、`右前`; legacy numeric IDs remain unchanged internally.
 - Duo `AI` may compress details, but must keep core wardrobe, pose/action scenario, scene, lighting, and camera look represented.
 - When no explicit garment color is selected, do not inject fallback phrases such as `dominant fabric color controlled by the outfit color selection`.
 - Duo public outputs should not include wardrobe guard text such as `coordinated but clearly distinct outfits, avoid identical garment colors...`; color / garment differentiation should happen during wardrobe resolution and random composition instead.
@@ -411,6 +418,13 @@ Completed on 2026-07-10:
 - Moved large static character, duo, fixed-composition, and Pose Composer option sets into focused modules.
 - Removed redundant PAGE1 calls that recomputed wardrobe lock/control information.
 - Split the production output into application, prompt-engine, prompt-catalog, and Firebase chunks.
+
+Completed on 2026-07-12:
+
+- Added the shared compact composition opening to Gpt, Grok/Z-Image, and AI renderers.
+- Removed duplicated long framing / angle / orbit clauses from the main Gpt and Z-Image camera sections.
+- Applied AI visibility filtering so chest-up prompts omit hidden pants, legwear, and shoes while preserving upper garments.
+- Added regression coverage for shared composition text and short orbit labels.
 
 Local development measurements from 2026-07-10 on arm64, Node `v22.22.3`, npm `10.9.8`:
 

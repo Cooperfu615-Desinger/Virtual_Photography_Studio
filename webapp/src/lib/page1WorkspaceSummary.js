@@ -1,5 +1,6 @@
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
+import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
 
 export const OUTFIT_PRESET_COVERED_KEYS = new Set([
   'topId',
@@ -54,7 +55,7 @@ export function getControlOptionLabel(controls, key, value) {
   const control = controls.find((item) => item.key === key);
   const option = control?.options?.find((item) => item.id === value);
   if (!option || option.zh === '全無' || option.zh === '隨機') return '';
-  return option.zh || '';
+  return getCameraControlDisplayLabel(key, option);
 }
 
 function buildSummaryText(parts) {

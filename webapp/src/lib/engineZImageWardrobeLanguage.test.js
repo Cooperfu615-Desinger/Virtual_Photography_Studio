@@ -68,7 +68,9 @@ test('Z-Image moves special-outfit hair and body traits into the subject paragra
     specialOutfitId: optionId('specialOutfitId', '米色細肩背心蕾絲胸衣工裝寬褲造型'),
   });
 
-  const [subjectParagraph = '', , wardrobeParagraph = ''] = prompt.zImagePrompt.split('\n\n');
+  const paragraphs = prompt.zImagePrompt.split('\n\n');
+  const subjectParagraph = paragraphs.find((value) => /long voluminous side-part black waves/i.test(value)) || '';
+  const wardrobeParagraph = paragraphs.find((value) => /^She wears /i.test(value)) || '';
 
   assert.match(subjectParagraph, /long voluminous side-part black waves/i);
   assert.match(subjectParagraph, /small cherry tattoo on the right chest/i);

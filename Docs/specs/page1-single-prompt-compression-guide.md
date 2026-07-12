@@ -21,6 +21,15 @@ Last updated: 2026-07-12
 - 單人特殊穿搭會把內建人物特徵移入 `Subject` 的 `Hair and body details` 子區塊；`Wardrobe` 則使用 `Full outfit` 與 `Headwear, eyewear, and bag` 子區塊。分類時只搬移內容，不應因壓縮而濾掉 fragment。
 - 單人角色卡的 `Subject` 可用子區塊幫助人工微調：`Character Profile Card`、`Identity and body`、`Hair`、`Outfit`、`Accessories`、`Photographic direction`。
 
+### 三組共用的構圖開頭（2026-07-12 已實作）
+
+- 成品類型先輸出一個短句，例如 `Create a photorealistic editorial portrait.`；會依 PAGE1 的成品類型切換為對應的廣告、插畫或油畫描述。
+- 三組輸出共用同一條精簡構圖句，格式為：`[景別], [俯仰角度], [環繞角度]`，例如 `Chest-up portrait, eye-level view, front-left three-quarter view`。
+- 構圖句位於人物主體句之前，讓模型先讀到畫面範圍、相機高度與人物朝向；未選擇的控制不輸出。
+- 構圖英文只保留幾何重點：`chest-up portrait`、`eye-level view`、`front-left three-quarter view` 等，不再重複完整資料庫長句。
+- `Gpt` 保留 `Image Type` 區塊；`Grok/Z-Image` 與 `AI` 使用自然空行段落，但三者的構圖句來源與內容一致。
+- UI 的環繞角度只顯示 `正面`、`左前`、`左側`、`左後`、`背面`、`右後`、`右側`、`右前`；內部 numeric ID 與舊儲存格式維持不變。
+
 ### Grok/Z-Image
 
 - Internal field: `zImagePrompt`
@@ -74,12 +83,14 @@ Grok/Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而�
 
 AI renderer 只可刪除、重排與使用最小語法連接既有內容；不得以關鍵字映射、風格 shorthand、攝影 mood tail、負面 guard 或預設 fallback 補寫新語意。不得以「取前 N 個 fragment」任意截斷選項內容；應按欄位責任挑選需要保留的核心。
 
-一般單人模式固定為最多四句：
+一般單人模式保留四個內容句，前面可先加成品類型與構圖開頭：
 
 1. **人物句**：主體、完整身材數值／比例 anchor、髮型／髮色、已選眼鏡與耳機。
 2. **穿搭句**：已選服裝、配色、外套、鞋襪與必要配件的極簡說明。
 3. **場景句**：地點、1–2 個代表性實體 anchor、必要時段或天氣。
 4. **成像句**：已選攝影風格、主要鏡頭／光學效果、底片或成像模擬。
+
+前置句依序為成品類型、共用構圖句；構圖控制皆為 `全無` 時，構圖句可省略。
 
 一般單人模式刻意不輸出五官、膚質、表情、姿勢／動作、環境光與人物光線；它們交由模型自由決定。
 

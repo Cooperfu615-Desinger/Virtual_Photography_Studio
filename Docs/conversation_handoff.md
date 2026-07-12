@@ -309,13 +309,15 @@ Important tests:
   - `Camera Look`
 - Duo `Grok/Z-Image` intentionally omits detailed body / face / hair identity blocks and focuses on subject type, per-role wardrobe, shared expression, pose scenario, scene, lighting, and camera look.
 - Role wardrobe lines should remain natural and concise. Keep selected garments and important accessories, but avoid exposing internal differentiation guard text.
+- 2026-07-12 已實作共用開頭：成品類型短句後，先輸出精簡的景別／俯仰角度／環繞角度句，再輸出人物句。構圖句使用 `Chest-up portrait, eye-level view, front-left three-quarter view` 這類幾何短語，並移除後段重複的完整 camera 描述。
 
 ### AI
 
 - Compact natural prompt.
 - Source should be the Gpt structured sections.
 - 已實作（先限單人）：使用和 Gpt／Grok-Z 相同 resolved selections，只做刪除、重排與最小語法連接；不使用關鍵字映射、風格 shorthand、mood tail、負面 guard 或 fallback 補寫語意。
-- 一般單人固定至多四句：人物（完整身材數值／比例、髮型髮色、眼鏡耳機）、極簡穿搭、場景（地點＋1–2 anchor＋必要時段／天氣）、成像（風格＋主要鏡頭／光學＋成像模擬）。五官、膚質、表情、姿勢／動作與光線交由模型自由決定。
+- 2026-07-12 已實作共用開頭：成品類型短句後，先輸出同一條精簡景別／俯仰角度／環繞角度句，再進入 AI 的人物句；構圖句不再留在成像段落末端。
+- 一般單人保留四個內容句：人物（完整身材數值／比例、髮型髮色、眼鏡耳機）、極簡穿搭、場景（地點＋1–2 anchor＋必要時段／天氣）、成像（風格＋主要鏡頭／光學＋成像模擬）。五官、膚質、表情、姿勢／動作與光線交由模型自由決定。
 - 角色卡單人模式完整保留結構化五官、膚質、永久特徵、身形、髮型髮色與有效眼鏡／耳機；服裝仍極簡，且不得與目前 PAGE1 服裝重複。
 - 特殊穿搭、套裝與連身服只保留主服裝／主風格、關鍵衣物結構、外套、鞋襪與一項必要配件；特殊穿搭內建髮型、髮色、刺青與身體記憶點移入人物句。
 - Duo `AI` uses the shortest labeled format:
@@ -518,6 +520,7 @@ Framing / viewpoint:
 
 - Geometry should describe crop, camera height, tilt, orbit, and body visibility.
 - It should not describe emotional pose, story mood, or character personality.
+- PAGE1 的構圖開頭使用固定短語：景別（crop）、俯仰角度（camera height / pitch）、環繞角度（orbit）。UI 環繞角度顯示兩字方向標籤，數字只留在內部相容性資料。
 
 Optical effects:
 

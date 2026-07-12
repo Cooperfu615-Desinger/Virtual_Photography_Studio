@@ -41,17 +41,16 @@ test('AI normal single prompt keeps only the agreed freedom-oriented sections', 
     filmId: optionId('filmId', '富士 Provia 清透明亮'),
   });
 
-  const lines = prompt.midjourneyPrompt.split('\n');
-
-  assert.equal(lines.length, 4);
-  assert.match(lines[0], /about 160-165 cm visual height|83-62-88 body proportion anchor/i);
-  assert.match(lines[0], /deep side-parted long soft waves|chestnut-brown hair/i);
-  assert.match(lines[0], /black bold-frame glasses|black frame, bold thick-frame glasses/i);
-  assert.match(lines[0], /Marshall Major V/i);
-  assert.match(lines[1], /white collared shirt with a short soft necktie/i);
-  assert.match(lines[1], /black a-line mini skirt/i);
-  assert.match(lines[2], /Seoul Seongsu-dong urban corner/i);
-  assert.match(lines[3], /Inspired by Yoshihiko Ueda|50mm standard lens|Fujifilm Provia/i);
+  const paragraphs = prompt.midjourneyPrompt.split('\n\n');
+  assert.match(paragraphs[0], /^Create a photorealistic editorial portrait\./i);
+  assert.match(paragraphs[2], /about 160-165 cm visual height|83-62-88 body proportion anchor/i);
+  assert.match(paragraphs[2], /deep side-parted long soft waves|chestnut-brown hair/i);
+  assert.match(paragraphs[2], /black bold-frame glasses|black frame, bold thick-frame glasses/i);
+  assert.match(paragraphs[2], /Marshall Major V/i);
+  assert.match(paragraphs[3], /white collared shirt with a short soft necktie/i);
+  assert.match(paragraphs[3], /black a-line mini skirt/i);
+  assert.match(paragraphs[4], /Seoul Seongsu-dong urban corner/i);
+  assert.match(paragraphs[5], /Inspired by Yoshihiko Ueda|50mm standard lens|Fujifilm Provia/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /standing|sitting|kneeling|captured as|captured in|\bnot\b/i);
 });
 
@@ -65,16 +64,16 @@ test('AI character-card prompt keeps structured identity while simplifying wardr
     filmId: optionId('filmId', '富士 Provia 清透明亮'),
   });
 
-  const lines = prompt.midjourneyPrompt.split('\n');
+  const paragraphs = prompt.midjourneyPrompt.split('\n\n');
 
-  assert.equal(lines.length, 4);
-  assert.match(lines[0], /soft broad oval face|large dark-brown round-almond eyes/i);
-  assert.match(lines[0], /slim petite casual-fashion proportions/i);
-  assert.match(lines[0], /glossy natural black long straight hair/i);
-  assert.match(lines[0], /round translucent brown acetate eyeglasses/i);
-  assert.match(lines[1], /white ribbed off-shoulder cropped long-sleeve top/i);
-  assert.match(lines[1], /low-rise medium-wash blue flared jeans/i);
-  assert.match(lines[1], /brown low-top canvas sneakers/i);
+  assert.match(paragraphs[0], /^Create a photorealistic editorial portrait\./i);
+  assert.match(paragraphs[1], /soft broad oval face|large dark-brown round-almond eyes/i);
+  assert.match(paragraphs[1], /slim petite casual-fashion proportions/i);
+  assert.match(paragraphs[1], /glossy natural black long straight hair/i);
+  assert.match(paragraphs[1], /round translucent brown acetate eyeglasses/i);
+  assert.match(paragraphs[2], /white ribbed off-shoulder cropped long-sleeve top/i);
+  assert.match(paragraphs[2], /low-rise medium-wash blue flared jeans/i);
+  assert.match(paragraphs[2], /brown low-top canvas sneakers/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /A moody film still|captured as|\bnot\b/i);
 });
 
@@ -87,7 +86,9 @@ test('AI special-outfit prompt moves built-in hair and tattoo details into the s
     locationId: optionId('locationId', '室內：英倫復古窗邊房間'),
   });
 
-  const [subjectLine, wardrobeLine] = prompt.midjourneyPrompt.split('\n');
+  const paragraphs = prompt.midjourneyPrompt.split('\n\n');
+  const subjectLine = paragraphs.find((value) => /long voluminous side-part black waves/i.test(value)) || '';
+  const wardrobeLine = paragraphs.find((value) => /^Wearing /i.test(value)) || '';
 
   assert.match(subjectLine, /long voluminous side-part black waves/i);
   assert.match(subjectLine, /small cherry tattoo on the right chest/i);

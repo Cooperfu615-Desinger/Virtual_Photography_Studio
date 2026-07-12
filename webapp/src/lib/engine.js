@@ -8,6 +8,7 @@ import {
   normalizeCharacterCardVariant,
 } from './characterCardLab.js';
 import { normalizeRandom } from './engineRandom.js';
+import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
 import { CHARACTER_PROFILE_OPTIONS } from './engine/characterProfiles.js';
 import {
   DUO_EXPRESSION_OPTIONS,
@@ -5835,7 +5836,9 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     : context.location && !isNoneLikeItem(context.location) ? context.location.zh : '-';
   const framingLabel = context.framing && !isNoneLikeItem(context.framing) ? context.framing.zh : '-';
   const angleLabel = context.angle && !isNoneLikeItem(context.angle) ? context.angle.zh : '-';
-  const orbitLabel = context.orbit && !isNoneLikeItem(context.orbit) ? context.orbit.zh : '-';
+  const orbitLabel = context.orbit && !isNoneLikeItem(context.orbit)
+    ? getCameraControlDisplayLabel('orbitId', context.orbit)
+    : '-';
   const lensLabel = context.lens && !isNoneLikeItem(context.lens) ? context.lens.zh : '-';
   const apertureLabel = context.aperture && !isNoneLikeItem(context.aperture) ? context.aperture.zh : '-';
   const shutterLabel = context.shutter && !isNoneLikeItem(context.shutter) ? context.shutter.zh : '-';
@@ -6882,31 +6885,6 @@ function filterZImagePoseForFraming(value, context) {
     .filter((part) => !lowerBodyPoseClause(part));
 
   return cleanVisibilityFilteredText(parts.join('; '));
-}
-
-function filterZImageCameraForFraming(value, context) {
-  const bucket = getPromptVisibilityBucket(context);
-  let text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
-  if (!text || bucket === 'fullWide') return text;
-
-  if (isUpperCropVisibilityBucket(bucket)) {
-    text = text
-      .replace(/\bfront three-quarter torso angle\b/gi, bucket === 'faceClose' ? 'front three-quarter face angle' : 'front three-quarter upper-body angle')
-      .replace(/\bfrontal torso toward camera\b/gi, bucket === 'faceClose' ? 'frontal face toward camera' : 'frontal upper body toward camera')
-      .replace(/\bknee-level camera,\s*level lens axis,\s*legs and shoes emphasized\b/gi, 'low portrait camera angle, level lens axis')
-      .replace(/\bfloor-level camera position,\s*upward view,\s*elongated full-body perspective\b/gi, 'low portrait camera angle')
-      .replace(/,\s*(?:legs and shoes emphasized|full lower legs and feet clearly visible|legwear and shoes clearly visible|shoes clearly visible|bare feet clearly shown|full-body composition|head-to-toe|complete outfit visible|full figure|full wardrobe visible)\b/gi, '');
-  } else if (bucket === 'mediumUpper') {
-    text = text
-      .replace(/\blegs and shoes emphasized\b/gi, 'waist-up proportions readable')
-      .replace(/,\s*(?:full lower legs and feet clearly visible|legwear and shoes clearly visible|shoes clearly visible|bare feet clearly shown)\b/gi, '');
-  } else if (bucket === 'cowboyKnee') {
-    text = text
-      .replace(/\blegs and shoes emphasized\b/gi, 'knee-up proportions readable')
-      .replace(/,\s*(?:full lower legs and feet clearly visible|legwear and shoes clearly visible|shoes clearly visible|bare feet clearly shown)\b/gi, '');
-  }
-
-  return cleanVisibilityFilteredText(text);
 }
 
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
@@ -8106,10 +8084,10 @@ function buildZImageFixedSetViewText(context) {
   if (!fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet)) return '';
 
   const angle = context.angle && !isNoneLikeItem(context.angle)
-    ? compactPromptClauses(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1)
+    ? compactCameraDescriptor(context.angle, 'angle')
     : '';
   const orbit = context.orbit && !isNoneLikeItem(context.orbit)
-    ? compactPromptClauses(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1)
+    ? compactCameraDescriptor(context.orbit, 'orbit')
     : '';
   const viewText = [angle, orbit].filter(Boolean).join(' and ');
 
@@ -8154,11 +8132,11 @@ function buildAiFixedSetInteractionSentence(context) {
     ? 'close-lens self-shot framing'
     : '';
   const aiAngleText = context.angle && !isNoneLikeItem(context.angle)
-    ? compactPromptClauses(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1)
+    ? compactCameraDescriptor(context.angle, 'angle')
       .replace(/\b(shoulder|waist)-level camera\b/i, '$1-level')
     : '';
   const aiOrbitText = context.orbit && !isNoneLikeItem(context.orbit)
-    ? compactPromptClauses(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1)
+    ? compactCameraDescriptor(context.orbit, 'orbit')
     : '';
   const viewText = fixedCompositionSetAllowsCameraVariation(fixedSet)
     ? [aiAngleText, aiOrbitText].filter(Boolean).join(' ')
@@ -8242,10 +8220,10 @@ function buildGptFixedSetViewText(context) {
   if (!fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet)) return '';
 
   const angle = context.angle && !isNoneLikeItem(context.angle)
-    ? compactPromptClauses(resolvePromptVariant(context.angle, 'angle', context.subject.count), 1)
+    ? compactCameraDescriptor(context.angle, 'angle')
     : '';
   const orbit = context.orbit && !isNoneLikeItem(context.orbit)
-    ? compactPromptClauses(resolvePromptVariant(context.orbit, 'orbit', context.subject.count), 1)
+    ? compactCameraDescriptor(context.orbit, 'orbit')
     : '';
   const viewText = [angle, orbit].filter(Boolean).join(' and ');
 
@@ -8352,16 +8330,70 @@ function buildZImageSubjectLead(context) {
   return resolveImageTypePreset(context).zImageLead || 'Create a photorealistic editorial portrait of';
 }
 
-function buildZImageSubjectOpeningText(context) {
-  return buildZImageSubjectLead(context).replace(/\s+of$/i, '').trim();
-}
-
 function buildAiImageTypeLead(context) {
   return resolveImageTypePreset(context).aiLead || '';
 }
 
-function buildAiDuoOpeningText(context) {
-  return resolveImageTypePreset(context).aiDuo || IMAGE_TYPE_PRESET_OPTIONS[0].aiDuo;
+function buildImageTypePromptLine(context) {
+  const preset = resolveImageTypePreset(context);
+  const source = preset.aiLead ? `Create a ${preset.aiLead}` : preset.en;
+  return ensureTerminalPeriod(stripTerminalPromptPunctuation(source || ''));
+}
+
+function compactCameraDescriptor(item, kind) {
+  if (!item || isNoneLikeItem(item)) return '';
+
+  const label = String(item.zh || '').toLowerCase();
+  if (kind === 'framing') {
+    if (label.includes('半臉')) return 'half-face close-up, tilted crop';
+    if (label.includes('局部五官')) return 'facial-detail close-up';
+    if (label.includes('臉部特寫')) return 'tight face close-up';
+    if (label.includes('特寫')) return label.includes('胸上') ? 'chest-up portrait' : 'head-and-shoulders portrait';
+    if (label.includes('中景')) return 'waist-up portrait';
+    if (label.includes('牛仔')) return 'knee-up cowboy shot';
+    if (label.includes('全身')) return 'full-body portrait';
+  }
+
+  if (kind === 'angle') {
+    if (label.includes('高位') || label.includes('鳥瞰') || label.includes('正上方')) {
+      if (label.includes('鳥瞰')) return "bird's-eye view";
+      if (label.includes('正上方')) return 'top-down view';
+      return 'high angle, looking down';
+    }
+    if (label.includes('蟲眼')) return "worm's-eye view";
+    if (label.includes('地面')) return 'low angle from floor level';
+    if (label.includes('膝蓋')) return 'knee-level view';
+    if (label.includes('腰部')) return 'waist-level view';
+    if (label.includes('肩部')) return 'shoulder-level view';
+    if (label.includes('平視')) return 'eye-level view';
+    if (label.includes('荷蘭') || label.includes('傾斜')) return 'tilted frame';
+  }
+
+  if (kind === 'orbit') {
+    if (label.startsWith('正面')) return 'front view';
+    if (label.startsWith('左前')) return 'front-left three-quarter view';
+    if (label.startsWith('左側')) return 'left profile view';
+    if (label.startsWith('左後')) return 'rear-left three-quarter view';
+    if (label.startsWith('背面')) return 'back view';
+    if (label.startsWith('右後')) return 'rear-right three-quarter view';
+    if (label.startsWith('右側')) return 'right profile view';
+    if (label.startsWith('右前')) return 'front-right three-quarter view';
+  }
+
+  return compactPromptClauses(item.en, 1)
+    .replace(/\b(?:camera|view|shot|portrait)\b/gi, (match) => match.toLowerCase())
+    .trim();
+}
+
+function buildCompositionPromptLine(context) {
+  const parts = [
+    compactCameraDescriptor(context?.framing, 'framing'),
+    compactCameraDescriptor(context?.angle, 'angle'),
+    compactCameraDescriptor(context?.orbit, 'orbit'),
+  ].filter(Boolean);
+  if (parts.length === 0) return '';
+  parts[0] = `${parts[0].charAt(0).toUpperCase()}${parts[0].slice(1)}`;
+  return parts.join(', ');
 }
 
 function buildPromptSectionSources(valuesByLabel, context) {
@@ -8444,9 +8476,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Pose',
     'Duo Layout',
     'Duo Pose Base',
-    'Framing',
     'Composition Priority',
-    ...(fixedCompositionSetActive ? [] : fixedSetCameraLabels),
   ]);
   const lightingValues = getStructuredValues(valuesByLabel, [
     'Ambient Light Conditions',
@@ -9564,10 +9594,6 @@ function compactZImageCameraText(value) {
     .trim();
 }
 
-function compactZImageCameraSelectionText(value, limit = 2) {
-  return compactZImageCameraText(compactPromptClauses(value, limit));
-}
-
 function splitZImageSpecialOutfitContent(value) {
   const personFragments = [];
   const wardrobeFragments = [];
@@ -9725,6 +9751,8 @@ function renderGptPrompt(promptModel) {
     sceneUsesDirectSentence,
     wardrobeUsesDirectSentence,
   } = buildPromptSectionSources(valuesByLabel, context);
+  const imageTypeLine = buildImageTypePromptLine(context) || imageType;
+  const compositionLine = buildCompositionPromptLine(context);
   const useRoleOrderedDuo = context.subject?.count === 2 && character && wardrobe && wardrobeColors;
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
   const duoWardrobeSlots = useRoleOrderedDuo ? extractWardrobeSlots(wardrobe) : null;
@@ -9774,7 +9802,8 @@ function renderGptPrompt(promptModel) {
 
   if (useRoleOrderedDuo) {
     return [
-      section('Image Type', imageType),
+      section('Image Type', imageTypeLine),
+      compositionLine,
       resolvedSubjectText ? blockSection('Subject', resolvedSubjectText) : '',
       resolvedSharedExpressionText ? section('Shared Expression', resolvedSharedExpressionText) : '',
       section('Pose and Composition', resolvedPoseText),
@@ -9786,7 +9815,8 @@ function renderGptPrompt(promptModel) {
   }
 
   return [
-    section('Image Type', imageType),
+    section('Image Type', imageTypeLine),
+    compositionLine,
     resolvedSubjectText
       ? resolvedSubjectUsesBlock
         ? blockSection('Subject', resolvedSubjectText)
@@ -10093,8 +10123,8 @@ function renderZImagePrompt(promptModel) {
         : '',
     ].filter(Boolean);
 
-    const text = usesFixedSingleSubjectLead
-      ? sentence(`${buildZImageSubjectOpeningText(context)}. ${parts.join(', ')}`)
+    const text = context.subject.count === 1
+      ? sentence(parts.join(', '))
       : leadSentence(buildZImageSubjectLead(context), parts);
     return context.subject.count === 1 ? compressZImageSingleSubjectText(text, context) : text;
   };
@@ -10332,15 +10362,12 @@ function renderZImagePrompt(promptModel) {
       ]);
     }
 
-    return filterZImageCameraForFraming(leadSentence('The composition uses', [
-      context.framing && !isNoneLikeItem(context.framing) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : compactZImageCameraSelectionText(resolvePromptVariant(context.framing, 'framing', context.subject.count))) : '',
-      context.angle && !isNoneLikeItem(context.angle) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : compactZImageCameraSelectionText(resolvePromptVariant(context.angle, 'angle', context.subject.count))) : '',
-      context.orbit && !isNoneLikeItem(context.orbit) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : compactZImageCameraSelectionText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count))) : '',
+    return leadSentence('The camera treatment uses', [
       context.lens && !isNoneLikeItem(context.lens) ? compactZImageLensText(context.lens.en) : '',
       context.aperture && !isNoneLikeItem(context.aperture) ? compactZImageCameraControlText(context.aperture.en) : '',
       context.shutter && !isNoneLikeItem(context.shutter) ? compactZImageCameraControlText(context.shutter.en) : '',
       opticalEffect && !isNoneLikeItem(opticalEffect) ? compactZImageOpticalEffectText(skeletonMode ? sanitizeSkeletonPromptText(opticalEffect.en) : opticalEffect.en) : '',
-    ]), context);
+    ]);
   };
   const buildPhotographyStyleText = () => joinSentenceParts([
     context.style && !isNoneLikeItem(context.style) ? compactZImagePhotographyStyleText(skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : context.style) : '',
@@ -10348,6 +10375,8 @@ function renderZImagePrompt(promptModel) {
   const buildRenderingText = () => joinSentenceParts([
     film && !isNoneLikeItem(film) ? compactZImageFilmText(skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
   ]);
+  const imageTypeLine = buildImageTypePromptLine(context);
+  const compositionLine = buildCompositionPromptLine(context);
   const buildZImageDuoSection = (title, value) => {
     const cleaned = ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
     return cleaned ? `${title}:\n${cleaned}` : '';
@@ -10388,13 +10417,17 @@ function renderZImagePrompt(promptModel) {
     film && !isNoneLikeItem(film) ? compactZImageFilmText(skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
   ]);
   const joinZImageParagraphs = (parts) => parts
-    .map((value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim()))
+    .map((value) => {
+      const cleaned = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+      return cleaned === compositionLine ? cleaned : ensureTerminalPeriod(cleaned);
+    })
     .filter(Boolean)
     .join('\n\n');
 
   if (context.subject.count === 2 && !specialSubjectMode) {
     return [
-      buildZImageDuoSection('Image Type', buildZImageTypeText(context)),
+      buildZImageDuoSection('Image Type', imageTypeLine || buildZImageTypeText(context)),
+      compositionLine,
       buildZImageDuoSection('Subject', buildZImageDuoSubjectText()),
       buildZImageDuoSection('Woman 1', buildZImageDuoRoleWardrobeText('a')),
       buildZImageDuoSection('Woman 2', buildZImageDuoRoleWardrobeText('b')),
@@ -10408,6 +10441,8 @@ function renderZImagePrompt(promptModel) {
 
   if (fixedCompositionSetActive) {
     return joinZImageParagraphs([
+      imageTypeLine,
+      compositionLine,
       ...buildFixedSceneParagraphs(),
       buildCharacterText(),
       buildWardrobeText(),
@@ -10418,6 +10453,8 @@ function renderZImagePrompt(promptModel) {
   }
 
   return joinZImageParagraphs([
+    imageTypeLine,
+    compositionLine,
     buildCharacterText(),
     sceneBeforeWardrobeMode ? buildSceneText() : '',
     buildWardrobeText(),
@@ -11220,7 +11257,8 @@ function buildAiDuoSection(label, value) {
 
 function renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors) {
   return [
-    buildAiDuoOpeningText(context),
+    buildImageTypePromptLine(context),
+    buildCompositionPromptLine(context),
     buildAiDuoSection('Woman 1', buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, 'a')),
     buildAiDuoSection('Woman 2', buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, 'b')),
     buildAiDuoSection('Pose', buildAiDuoPoseText(valuesByLabel)),
@@ -11284,10 +11322,11 @@ function compactAiGarmentValue(value) {
   return [primary, structuralDetail].filter(Boolean).join(', ');
 }
 
-function buildAiCompleteLookCoreText(value) {
+function buildAiCompleteLookCoreText(value, context = null) {
   let styleFragment = '';
   const roleFragments = new Map();
   let accessoryFragment = '';
+  const visibilityBucket = getPromptVisibilityBucket(context);
 
   for (const fragment of splitAiSourceFragments(value)) {
     if (isAiSpecialPersonFragment(fragment)) continue;
@@ -11298,6 +11337,7 @@ function buildAiCompleteLookCoreText(value) {
       styleFragment = fragment;
       continue;
     }
+    if (role && !shouldKeepWardrobeRoleForVisibility(role, visibilityBucket)) continue;
     if (role && !roleFragments.has(role)) {
       roleFragments.set(role, fragment);
       continue;
@@ -11317,24 +11357,30 @@ function buildAiCompleteLookCoreText(value) {
   ].filter(Boolean).join(', ');
 }
 
-function buildAiNormalWardrobeText(valuesByLabel) {
+function buildAiNormalWardrobeText(valuesByLabel, context) {
   const specialOutfit = firstStructuredValue(valuesByLabel, ['Special Outfit']);
-  if (specialOutfit) return buildAiCompleteLookCoreText(specialOutfit);
+  if (specialOutfit) return buildAiCompleteLookCoreText(specialOutfit, context);
 
   const outfitPreset = firstStructuredValue(valuesByLabel, ['Outfit Preset']);
-  if (outfitPreset) return buildAiCompleteLookCoreText(outfitPreset);
+  if (outfitPreset) return buildAiCompleteLookCoreText(outfitPreset, context);
 
   const dress = firstStructuredValue(valuesByLabel, ['Dress']);
-  if (dress) return buildAiCompleteLookCoreText(dress);
+  if (dress) return buildAiCompleteLookCoreText(dress, context);
 
-  return getStructuredValues(valuesByLabel, [
-    'Outerwear',
-    'Top',
-    'Pants',
-    'Skirt',
-    'Legwear',
-    'Shoes',
-  ]).map((value) => compactAiGarmentValue(value)).filter(Boolean).join(', ');
+  const visibilityBucket = getPromptVisibilityBucket(context);
+  const roleByLabel = {
+    Outerwear: 'outerwear',
+    Top: 'top',
+    Pants: 'bottom',
+    Skirt: 'bottom',
+    Legwear: 'legwear',
+    Shoes: 'shoes',
+  };
+  return Object.entries(roleByLabel)
+    .filter(([, role]) => shouldKeepWardrobeRoleForVisibility(role, visibilityBucket))
+    .map(([label]) => compactAiGarmentValue(firstStructuredValue(valuesByLabel, [label])))
+    .filter(Boolean)
+    .join(', ');
 }
 
 function buildAiCharacterCardIdentityText(context, wardrobe) {
@@ -11404,8 +11450,8 @@ function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) {
     ? buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe).outfit
     : '';
   const wardrobeText = characterWardrobe
-    ? buildAiCompleteLookCoreText(characterWardrobe)
-    : buildAiNormalWardrobeText(valuesByLabel);
+    ? buildAiCompleteLookCoreText(characterWardrobe, context)
+    : buildAiNormalWardrobeText(valuesByLabel, context);
   return wardrobeText ? ensureTerminalPeriod(`Wearing ${compactAiSourceText(wardrobeText)}`) : '';
 }
 
@@ -11468,11 +11514,13 @@ function renderAiPrompt(promptModel) {
   }
 
   return [
+    buildImageTypePromptLine(context),
+    buildCompositionPromptLine(context),
     buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe),
     buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe),
     buildAiFreedomSceneSentence(valuesByLabel, context),
     buildAiFreedomImagingSentence(valuesByLabel),
-  ].filter(Boolean).join('\n');
+  ].filter(Boolean).join('\n\n');
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
