@@ -292,6 +292,9 @@ Important tests:
 - Primary target is Grok Imagine / Aurora and Z-Image.
 - Aurora is understood to prefer natural-language descriptions.
 - Avoid making this output too rigid or too field-list-like.
+- 已實作：Grok/Z-Image 以和 Gpt 相同的 resolved selections／完整語意內容為來源，做來源可追溯的刪減式重組；renderer 不補寫新的視覺描述、穿搭關係或氣氛詞。
+- 已實作：只刪除冗詞、一般正常狀態、內部控制語與重複描述，並用 `with`、`and`、`She wears`、逗號與句號等最小語法連接既有片段。完整身材數值／比例 anchor、已選服裝與配色、動作核心、場景 anchor、光線方向與主要攝影設定必須保留。
+- 已實作：特殊穿搭內建的髮型、髮色、刺青與身體記憶點屬於人物資訊，移入人物句，不在 `She wears complete special outfit` 句。
 - Duo `Grok/Z-Image` now uses compact labeled sections rather than one long mixed natural paragraph:
   - `Image Type`
   - `Subject`

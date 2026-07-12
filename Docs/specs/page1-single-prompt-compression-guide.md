@@ -1,6 +1,6 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-07-03
+Last updated: 2026-07-12
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
@@ -30,6 +30,34 @@ Last updated: 2026-07-03
 - 不加入 `multi-cut sequence n=2`。
 - 可以比 `AI` 更完整，但不使用 GPT 標籤段落。
 - 可針對 Grok/Z-Image 的理解方式做自然語言壓縮與重排。
+
+#### 已實作：來源可追溯的刪減式重組
+
+Grok/Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而不是另一套獨立的 prompt 組裝結果。它應從和 Gpt 相同的完整語意模型／已解析選項取得內容；不得反向解析 Gpt 的 Markdown 成品，也不得自行補寫新的畫面資訊。
+
+壓縮只允許三種操作：
+
+- 刪除不會改變畫面的重複形容、一般正常狀態、內部控制語與純氣氛填充語。
+- 在同一責任區塊中重新排序既有片段，讓自然句先出現主體、物件與結構。
+- 以最小、無視覺意義的語法連接既有內容，例如 `with`、`and`、`She wears`、逗號與句號。
+
+不得由 renderer 新增未被選擇資料或既有組裝規則支持的視覺描述、關係或氣氛詞。`layered over`、`paired with`、`styled with`、`natural`、`candid`、`editorial` 等詞，只有在選擇資料或明確組裝規則本來就提供時才可輸出。
+
+保留與刪減規則：
+
+| 區塊 | 必須保留 | 可刪減 |
+| --- | --- | --- |
+| 人物 | 主體、已選配件、完整身材數值／比例 anchor、五官方向、髮型、髮色、膚質、表情、角色卡永久身分錨點 | 重複美感詞、重複 silhouette 詞、無新結構資訊的髮絲或氣質形容 |
+| 穿搭 | 已選衣物、配色、材質、剪裁、可見層次、鞋襪與重要配件 | 正常穿著說明、重複衣領／門襟／比例描述、`coordinated styling` 等泛用結尾 |
+| 動作 | 姿勢基底、肢體關係、手部接觸、道具、支撐點、頭部方向 | 未增加動作資訊的 moment、mood 或 body-language 填充語 |
+| 場景／光線 | 地點、必要實體 anchor、時段／天氣、人物光線方向、主色溫、必要投影或反射、scene priority | 重複的空間、亮度或可讀性語句 |
+| 攝影 | 已選攝影風格、構圖、視角、鏡頭、主要光學效果、成像結果 | 同義的 editorial／cinematic／photographic 修飾與重複技術結果 |
+
+人物身材的數值與比例 anchor 屬於不可刪除內容。壓縮可移除例如 `smooth natural silhouette`、`calm high-fashion presence` 等不增加結構資訊的片段，但不可刪除 `about 160-165 cm visual height`、`83-62-88 body proportion anchor`、比例、腰臀／胸部或其他已選身形關鍵資訊。
+
+特殊穿搭內建的髮型、髮色、刺青與身體記憶點在 Grok/Z-Image 中也屬於人物資訊，應進入人物句，而非 `She wears complete special outfit` 句。雙人模式可維持輕量標籤以確保角色與服裝歸屬；單人模式維持自然空行段落，既有 `Scene:` 輕量錨點可保留。
+
+驗收時必須確認 Gpt 與 Grok/Z-Image 的 selections 一致，且 Grok/Z-Image 沒有遺失身材 anchor、已選服裝與顏色、動作核心、場景 anchor、光線方向或主要攝影設定。
 
 ### AI
 
@@ -80,14 +108,14 @@ Last updated: 2026-07-03
 
 ### Grok/Z-Image 與 AI 壓縮原則
 
-`Grok/Z-Image` 與 `AI` 可以繼續壓縮，但只能在不破壞核心資訊的前提下進行。
+`Grok/Z-Image` 與 `AI` 可以繼續壓縮，但只能在不破壞核心資訊的前提下進行。Grok/Z-Image 必須遵守前節的來源可追溯規則；AI 可使用更激進的極簡化策略。
 
 可刪減：
 
 - 同義詞堆疊，例如同時寫多個 `beautiful / polished / refined / elegant`。
 - 泛用結尾，例如 `coordinated styling`, `balanced look`, `fashionable presence`，除非它是唯一的風格 anchor。
 - 正常狀態說明，例如眼鏡正常戴在臉上時不需要 `worn normally on the face`。
-- 內部控制語言，例如 `controlled by selection`, `preserve selected wardrobe identity`, `body proportion anchor`。
+- 內部控制語言，例如 `controlled by selection`, `preserve selected wardrobe identity`。`body proportion anchor` 與完整身材數值／比例不可由 Grok/Z-Image 刪除。
 - 過長解釋句，例如「模型自然決定姿勢」或「服裝按正常穿著順序」這類操作說明。
 
 避免：
@@ -126,7 +154,7 @@ core category, 1-3 concrete visible traits
 - `silver-gray white deep side-parted long soft waves, realistic dyed texture`
 - `natural black wet-look long wavy hair`
 
-`Grok/Z-Image` / `AI` 壓縮時可刪減：
+`AI` 壓縮時可刪減；Grok/Z-Image 不可刪除完整身材數值與比例 anchor：
 
 - 數值比例、身高體重、測量式 anchor。
 - `hair color applies only to scalp hair` 這類操作說明。

@@ -57,7 +57,24 @@ test('Z-Image keeps outerwear secondary when layered over an outfit preset', () 
   assert.match(wardrobeSentence, /^She wears white sport zip-up hoodie/);
   assert.doesNotMatch(wardrobeSentence, /open oversized zip-up hoodie/);
   assert.match(wardrobeSentence, /layered over pink Parisian linen trouser outfit/);
-  assert.match(wardrobeSentence, /paired with black pointed-toe stiletto heels/);
+  assert.match(wardrobeSentence, /black pointed-toe stiletto heels/);
+  assert.doesNotMatch(wardrobeSentence, /paired with/i);
+});
+
+test('Z-Image moves special-outfit hair and body traits into the subject paragraph', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    specialOutfitId: optionId('specialOutfitId', '米色細肩背心蕾絲胸衣工裝寬褲造型'),
+  });
+
+  const [subjectParagraph = '', , wardrobeParagraph = ''] = prompt.zImagePrompt.split('\n\n');
+
+  assert.match(subjectParagraph, /long voluminous side-part black waves/i);
+  assert.match(subjectParagraph, /small cherry tattoo on the right chest/i);
+  assert.doesNotMatch(wardrobeParagraph, /long voluminous side-part black waves|small cherry tattoo/i);
+  assert.match(wardrobeParagraph, /^She wears /i);
+  assert.doesNotMatch(wardrobeParagraph, /complete special outfit:/i);
 });
 
 test('Z-Image chest-up outfit preset deletes hidden legwear and shoes add-ons', () => {

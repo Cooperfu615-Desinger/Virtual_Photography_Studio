@@ -58,6 +58,8 @@ Current PAGE1 output labels:
   - Internal field: `zImagePrompt`
   - Target: Grok Imagine / Aurora and Z-Image
   - More natural-language description
+  - 已實作：與 Gpt 使用相同 resolved selections 的「來源可追溯刪減式重組」；只刪除冗詞、內部控制語與重複描述，只用最小語法連接既有內容，不補寫新的視覺描述。完整身材數值／比例 anchor、已選服裝與配色、動作、場景、光線及攝影設定不可遺失。
+  - 已實作：特殊穿搭內建的髮型、髮色、刺青與身體記憶點進入人物句，不留在 `She wears complete special outfit` 句。
 - `AI`
   - Internal field: `midjourneyPrompt`
   - Compact natural prompt derived from Gpt sections

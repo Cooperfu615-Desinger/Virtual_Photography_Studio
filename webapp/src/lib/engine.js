@@ -8514,15 +8514,11 @@ function compactPromptClauses(value, limitOrIndexes = 2) {
 }
 
 function compactZImageAmbientLightText(value) {
-  return compactPromptClauses(value, 2);
+  return compactZImageSourceText(compactPromptClauses(value, 2));
 }
 
 function compactZImageSubjectLightText(value) {
-  const text = stripMarkdown(value || '');
-  if (/warm golden-amber subject light color/i.test(text)) {
-    return 'honey-amber subject light on skin and clothing';
-  }
-  return compactPromptClauses(text, 2);
+  return compactZImageSourceText(compactPromptClauses(value, 2));
 }
 
 function compactZImagePhotographyStyleText(styleOrText) {
@@ -8535,23 +8531,23 @@ function compactZImagePhotographyStyleText(styleOrText) {
 }
 
 function compactZImageLensText(value) {
-  return compactPromptClauses(value, 3);
+  return compactZImageCameraText(compactPromptClauses(value, 3));
 }
 
 function compactZImageOpticalEffectText(value) {
   const text = stripMarkdown(value || '');
   if (/blurred foreground occlusion near the lens/i.test(text)) {
-    return compactPromptClauses(text, [0, 1, 3, 4]);
+    return compactZImageCameraText(compactPromptClauses(text, [0, 1, 3, 4]));
   }
-  return compactPromptClauses(text, 3);
+  return compactZImageCameraText(compactPromptClauses(text, 3));
 }
 
 function compactZImageFilmText(value) {
-  return compactPromptClauses(value, 5);
+  return compactZImageSourceText(compactPromptClauses(value, 5));
 }
 
 function compactZImageCameraControlText(value) {
-  return compactPromptClauses(value, 2);
+  return compactZImageCameraText(compactPromptClauses(value, 2));
 }
 
 function compactAiAmbientLightText(value) {
@@ -9242,7 +9238,9 @@ function naturalizeGptSingleWardrobePaletteText(text) {
     );
 }
 
-function compressGptSingleSubjectText(value, context) {
+// Kept temporarily as a migration reference for existing prompt-data maintenance.
+// The Grok/Z-Image renderer must not call this semantic rewrite path.
+function DEPRECATED_GPT_SINGLE_SUBJECT_COMPACTOR(value, context) {
   if (context.subject?.count !== 1 || isSpecialSubject(context.subject) || context.characterProfilePrompt) {
     return value;
   }
@@ -9356,7 +9354,7 @@ function compressGptSingleSubjectText(value, context) {
   return mergeGptSingleHairColorIntoHairstyle(compressed);
 }
 
-function compressGptSinglePoseText(value, context) {
+function DEPRECATED_GPT_SINGLE_POSE_COMPACTOR(value, context) {
   if (context.subject?.count !== 1) return value;
 
   return cleanGptSinglePromptText(value)
@@ -9407,7 +9405,7 @@ function compressGptSinglePoseText(value, context) {
     .trim();
 }
 
-function compressGptSingleWardrobeText(value, context) {
+function DEPRECATED_GPT_SINGLE_WARDROBE_COMPACTOR(value, context) {
   if (context.subject?.count !== 1) return value;
 
   const compressed = cleanGptSinglePromptText(value)
@@ -9479,27 +9477,113 @@ function cleanZImageSinglePromptText(value) {
     .trim();
 }
 
-function naturalizeZImageXWardrobeText(value) {
-  return value
-    .replace(/^(She wears)\s+top hem worn naturally loose over the waistband,\s*/i, '$1 ')
-    .replace(/,\s*top hem worn naturally loose over the waistband/gi, '')
-    .replace(/,\s*top worn in a standard natural position/gi, '')
-    .replace(/,\s*top length meets or slightly overlaps the low-rise waistband/gi, '')
-    .replace(/,\s*top hem overlaps the low-rise waistband,\s*long untucked length covering the abdomen/gi, '')
-    .replace(/,\s*top hem tucks into the low-rise waistband with a natural low-rise proportion/gi, '')
-    .replace(/(?:,\s*|;\s*)outerwear remains a coherent outer layer;\s*inner garment appears at natural openings/gi, '')
-    .replace(/(?:,\s*|;\s*)legwear stays secondary,\s*appearing near hems or openings when naturally visible/gi, '')
-    .replace(/(?:,\s*|;\s*)long bottom keeps its natural drape while footwear remains normally readable/gi, '')
-    .replace(/\blow-rise waistband sitting on the hips,\s*tight body-skimming lower-body fit,\s*([^,.]+?\b(?:shorts|leggings|pants|jeans|trousers|skirt|bottoms|panties))/gi, 'tight low-rise $1')
-    .replace(/\blow-rise waistband sitting on the hips,\s*([^,.]+?\b(?:shorts|leggings|pants|jeans|trousers|skirt|bottoms|panties))/gi, 'low-rise $1')
-    .replace(/\btight body-skimming lower-body fit,\s*([^,.]+?\b(?:shorts|leggings|pants|jeans|trousers|skirt|bottoms|panties))/gi, 'tight $1')
-    .replace(/,\s*outerwear worn open at the front,\s*front panels parted naturally/gi, ', worn open at the front with front panels parted naturally')
-    .replace(/,\s*outerwear slipped below the shoulder line,\s*sleeves loosely on the arms,\s*jacket body still readable as an outer layer/gi, ', slipped below the shoulder line with sleeves loosely on the arms')
-    .replace(/\b(lace bra top),\s*delicate shoulder straps/gi, '$1 with delicate shoulder straps')
+const Z_IMAGE_REDUNDANT_SOURCE_FRAGMENTS = [
+  /top worn in a standard natural position/gi,
+  /bottom worn in a standard natural position/gi,
+  /top hem worn naturally loose over the waistband/gi,
+  /top length meets or slightly overlaps the low-rise waistband/gi,
+  /top hem tucks into the low-rise waistband with a natural low-rise proportion/gi,
+  /top hem overlaps the low-rise waistband,\s*long untucked length covering the abdomen/gi,
+  /tight body-skimming upper-body fit/gi,
+  /low-rise waistband sitting on the hips/gi,
+  /tight body-skimming lower-body fit/gi,
+  /compact fitted seat/gi,
+  /sharp short-bottom silhouette/gi,
+  /jacket body still readable as an outer layer/gi,
+  /polished(?:\s+[^,.]+)? silhouette/gi,
+  /neat collar line/gi,
+  /clean front placket/gi,
+  /uniform-inspired shirt structure/gi,
+  /clean compact upper-body line/gi,
+  /balanced leg line/gi,
+  /classic five-pocket construction/gi,
+  /properly worn on both shoulders/gi,
+  /worn normally on the face/gi,
+  /lenses aligned over the eyes/gi,
+  /graceful small-frame presence/gi,
+  /smooth natural silhouette/gi,
+  /clean editorial silhouette/gi,
+  /subtle innocent portrait presence/gi,
+  /high-fashion understated presence/gi,
+  /international high-fashion beauty/gi,
+  /polished youthful beauty/gi,
+  /photogenic K-pop portrait balance/gi,
+  /moody glossy texture/gi,
+  /soft realistic shine/gi,
+  /clean dark depth/gi,
+  /gentle confident expression/gi,
+  /bright approachable expression/gi,
+  /balanced feminine silhouette/gi,
+  /coordinated(?:\s+[^,.]+)?\s+styling/gi,
+  /balanced look/gi,
+  /fashionable presence/gi,
+];
+
+function compactZImageSourceText(value) {
+  let output = cleanZImageSinglePromptText(value);
+  for (const pattern of Z_IMAGE_REDUNDANT_SOURCE_FRAGMENTS) {
+    output = output.replace(pattern, '');
+  }
+  return output
+    .replace(/\b(short|long|soft) necktie fastened at the collar\b/gi, '$1 necktie')
+    .replace(/\bouterwear remains a coherent outer layer;\s*inner garment appears at natural openings\b/gi, '')
+    .replace(/\blegwear stays secondary,\s*appearing near hems or openings when naturally visible\b/gi, '')
+    .replace(/\blong bottom keeps its natural drape while footwear remains normally readable\b/gi, '')
+    .replace(/\b(?:dominant|main|secondary|contrast|tonal)\s+[^,.]*?\s+controlled by\s+[^,.]*/gi, '')
+    .replace(/\bcolor controlled by\s+[^,.]*/gi, '')
+    .replace(/\bselected\s+(?:main\s+)?(?:fabric|uniform|satin|dress|latex|swim fabric|tonal palette|main fabric|main latex|main satin|main swim fabric)\s+color/gi, '')
+    .replace(/\b(woman|women)\.\s+with\b/gi, '$1 with')
     .replace(/\s*,\s*,+/g, ', ')
-    .replace(/,\s*\./g, '.')
+    .replace(/\s*,\s*\./g, '.')
     .replace(/\.\s*,/g, ',')
+    .replace(/,\s*$/g, '')
     .trim();
+}
+
+function compactZImageLocationText(value) {
+  const clauses = splitPromptClauses(value);
+  const condition = /\b(?:rain|snow|storm|fog|mist|wind|night|dusk|dawn|sunset|sunrise|daylight|overcast|cloudy|golden hour|post-rain|winter|summer|spring|autumn|late-afternoon|early-morning)\b/i;
+  const selected = [];
+
+  for (const clause of clauses) {
+    if (selected.length < 3 || condition.test(clause)) selected.push(clause);
+    if (selected.length >= 4) break;
+  }
+
+  return compactZImageSourceText(selected.join(', '));
+}
+
+function compactZImageCameraText(value) {
+  return compactZImageSourceText(value)
+    .replace(/,\s*environmental scale/gi, '')
+    .replace(/,\s*upper-body portrait height/gi, '')
+    .replace(/,\s*level lens axis/gi, '')
+    .replace(/,\s*neutral perspective/gi, '')
+    .replace(/,\s*minimal geometric distortion/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .trim();
+}
+
+function compactZImageCameraSelectionText(value, limit = 2) {
+  return compactZImageCameraText(compactPromptClauses(value, limit));
+}
+
+function splitZImageSpecialOutfitContent(value) {
+  const personFragments = [];
+  const wardrobeFragments = [];
+
+  for (const fragment of splitGptSpecialOutfitFragments(value)) {
+    if (isGptSpecialOutfitHairOrBodyFragment(fragment)) {
+      personFragments.push(fragment);
+    } else {
+      wardrobeFragments.push(fragment);
+    }
+  }
+
+  return {
+    personText: compactZImageSourceText(personFragments.join(', ')),
+    wardrobeText: compactZImageSourceText(wardrobeFragments.join(', ')),
+  };
 }
 
 function protectSingleBodyTypeAnchors(value) {
@@ -9528,31 +9612,9 @@ function compressZImageSingleSubjectText(value, context) {
   if (context.subject?.count !== 1 || isSpecialSubject(context.subject)) return value;
 
   const protectedBody = protectSingleBodyTypeAnchors(value);
-  const compressed = cleanZImageSinglePromptText(compressGptSingleSubjectText(protectedBody.text, {
-    ...context,
-    characterProfilePrompt: '',
-  }))
-    .replace(/\bwet-look long wavy hair,\s*damp separated strands,\s*moody glossy texture,\s*natural black hair\b/gi, 'natural black wet-look long wavy hair, damp separated strands')
-    .replace(/\bwet-look long wavy hair,\s*damp separated strands,\s*natural black hair\b/gi, 'natural black wet-look long wavy hair, damp separated strands')
-    .replace(/\bdeep side-parted long soft waves,\s*silver-gray white hair,\s*cool pale tone,\s*realistic dyed texture\b/gi, 'silver-gray white deep side-parted long soft waves, cool pale tone, realistic dyed texture')
-    .replace(/\bdeep side-parted long soft waves,\s*silver-gray white hair,\s*cool pale fashion color,\s*realistic dyed texture\b/gi, 'silver-gray white deep side-parted long soft waves, cool pale tone, realistic dyed texture')
-    .replace(/\bsleek wet straight medium-to-long hair,\s*separated damp strands,\s*honey caramel-brown hair\b/gi, 'honey caramel-brown sleek wet straight medium-to-long hair, separated damp strands')
-    .replace(/\blong slightly wavy hair,\s*airy see-through bangs,\s*side-draped face-framing strands,\s*cobalt-blue fashion hair\b/gi, 'cobalt-blue fashion long slightly wavy hair, airy see-through bangs, side-draped face-framing strands')
-    .replace(/\blong naturally slightly wavy hair with airy see-through bangs,\s*soft side-draped face-framing strands,\s*jewel cobalt-blue fashion hair color,\s*rich blue tone with realistic dyed texture\b/gi, 'cobalt-blue fashion long slightly wavy hair, airy see-through bangs, side-draped face-framing strands')
-    .replace(/\bvoluminous high ponytail,\s*loose natural strands,\s*lifted active movement,\s*soft black-tea brown hair\b/gi, 'soft black-tea brown voluminous high ponytail, loose natural strands, lifted active movement')
-    .replace(/\bdirect eye contact,\s*soft natural smile,\s*gentle confident expression\b/gi, 'direct eye contact, soft natural smile')
-    .replace(/\bwet-look long wavy hair,\s*damp separated strands,\s*moody glossy texture\b/gi, 'wet-look long wavy hair, damp separated strands')
-    .replace(/\bnatural black wet-look long wavy hair,\s*damp separated strands,\s*moody glossy texture\b/gi, 'natural black wet-look long wavy hair, damp separated strands')
-    .replace(/,\s*moody glossy texture/gi, '')
-    .replace(/,\s*soft realistic shine/gi, '')
-    .replace(/,\s*clean dark depth/gi, '')
-    .replace(/,\s*gentle confident expression/gi, '')
-    .replace(/,\s*bright approachable expression/gi, '')
-    .replace(/\s*,\s*,+/g, ', ')
-    .replace(/,\s*\./g, '.')
-    .trim();
+  const compressed = compactZImageSourceText(protectedBody.text);
 
-  const restored = protectedBody.restore(compressed);
+  const restored = compactZImageSourceText(protectedBody.restore(compressed));
   const faceCloseupCleaned = isFaceOnlyCloseupFramingItem(context?.framing)
     ? restored.replace(/\b(woman|women)\.\s+with\b/gi, '$1 with')
     : restored;
@@ -9566,7 +9628,10 @@ function compressZImageSingleSubjectText(value, context) {
 function compressZImageSingleWardrobeText(value, context) {
   if (context.subject?.count !== 1) return value;
 
-  let output = cleanZImageSinglePromptText(compressGptSingleWardrobeText(value, context))
+  let output = compactZImageSourceText(value)
+    .replace(/\bone-piece bodycon silhouette\b/gi, 'bodycon silhouette')
+    .replace(/\bone-piece fitted silhouette\b/gi, 'fitted silhouette')
+    .replace(/\bone-piece body-skimming silhouette\b/gi, 'body-skimming silhouette')
     .replace(/,\s*clean beachwear styling/gi, '')
     .replace(/,\s*clean beachwear silhouette/gi, '')
     .replace(/,\s*top length extending below the low-rise waistband,\s*abdomen covered,\s*not cropped into an unintended midriff reveal/gi, '')
@@ -9606,13 +9671,14 @@ function compressZImageSingleWardrobeText(value, context) {
     .replace(/\.\s*,/g, ',')
     .trim();
 
-  return naturalizeZImageXWardrobeText(output);
+  return compactZImageSourceText(output);
 }
 
 function compressZImageSinglePoseText(value, context) {
   if (context.subject?.count !== 1) return value;
 
-  return cleanZImageSinglePromptText(compressGptSinglePoseText(value, context))
+  return compactZImageSourceText(value)
+    .replace(/\bShe is standing with natural relaxed standing arrangement;\s*arms crossed loosely in front of the body\b/gi, 'She is standing with arms crossed loosely in front of the body')
     .replace(/^She is sitting with natural seated arrangement;\s*head naturally facing the camera\.?$/i, 'She is sitting naturally with her head facing the camera')
     .replace(/\blooking directly at the camera,\s*/gi, '')
     .replace(/\bcool composed body language\b/gi, 'relaxed composed posture')
@@ -9845,6 +9911,12 @@ function renderZImagePrompt(promptModel) {
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
   const sceneAccentText = buildContextualSceneAccent(context);
   const importedWorldSceneArchitectureText = getImportedWorldSceneArchitectureText(context);
+  const singleSpecialOutfitText = context.subject.count === 1 && wardrobeSlots.specialOutfit
+    ? buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context)
+    : '';
+  const singleSpecialOutfitContent = singleSpecialOutfitText
+    ? splitZImageSpecialOutfitContent(singleSpecialOutfitText)
+    : { personText: '', wardrobeText: '' };
   const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
   const closeupWardrobeVisibilityText = buildCloseupWardrobeVisibilityPrompt(context, wardrobeSlots, wardrobeColors);
   const isCloseupVisibility = Boolean(closeupWardrobeVisibilityText);
@@ -9862,6 +9934,7 @@ function renderZImagePrompt(promptModel) {
     );
   const sceneBeforeWardrobeMode = !specialSubjectMode
     && Boolean(
+      wardrobeSlots.specialOutfit ||
       wardrobeSlots.outfitPreset
       || wardrobeSlots.outfitPresetA
       || wardrobeSlots.outfitPresetB
@@ -10006,6 +10079,7 @@ function renderZImagePrompt(promptModel) {
             characterSlots.hairstyle && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.en : '',
             characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
           ].filter(Boolean).join(', '),
+      context.subject.count === 1 ? singleSpecialOutfitContent.personText : '',
       headAccessoryText,
       context.subject.count === 2
         ? [buildRoleHasPrompt(characterSlots.skinDetailsA, 'woman 1'), buildRoleHasPrompt(characterSlots.skinDetailsB, 'woman 2')].filter(Boolean).join(', ')
@@ -10074,7 +10148,7 @@ function renderZImagePrompt(promptModel) {
       return parts.length > 0 ? finish(parts.join(', ')) : '';
     }
     if (wardrobeSlots.specialOutfit) {
-      add(`She wears complete special outfit: ${buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context)}`);
+      add(singleSpecialOutfitContent.wardrobeText ? `She wears ${singleSpecialOutfitContent.wardrobeText}` : '');
       return parts.length > 0 ? finish(parts.join(', ')) : '';
     }
     const buildRoleLayerText = (role) => {
@@ -10158,8 +10232,8 @@ function renderZImagePrompt(promptModel) {
       } else {
         add(`She wears ${outfitPresetText}`);
       }
-      if (legwearText) add(`paired with ${legwearText}`);
-      if (shoesText) add(`paired with ${shoesText}`);
+      if (legwearText) add(legwearText);
+      if (shoesText) add(shoesText);
     } else {
       const dressText = buildCompleteLookDressPrompt(wardrobeSlots.dress, wardrobeColors.dressColor, wardrobeColors.completeLookPalette, { secondaryColor: wardrobeColors.topBottomPalette?.bottomColor });
       const topText = buildTopWardrobePrompt(wardrobeSlots, wardrobeColors);
@@ -10232,7 +10306,7 @@ function renderZImagePrompt(promptModel) {
     if (fixedCompositionSetActive) return joinSentenceParts(buildFixedSceneParagraphs());
     if (isCloseupVisibility) {
       const closeupSceneParts = [
-        skeletonMode ? sanitizeSkeletonPromptText(closeupSceneContextText) : closeupSceneContextText,
+        skeletonMode ? sanitizeSkeletonPromptText(closeupSceneContextText) : compactZImageLocationText(closeupSceneContextText),
         context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
         lightDirection && !isNoneLikeItem(lightDirection) ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
       ].filter(Boolean);
@@ -10240,9 +10314,9 @@ function renderZImagePrompt(promptModel) {
     }
 
     const sceneParts = [
-      skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : importedWorldSceneArchitectureText,
-      buildZImageLocationText(),
-      skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : sceneAccentText,
+      skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : compactZImageLocationText(importedWorldSceneArchitectureText),
+      compactZImageLocationText(buildZImageLocationText()),
+      skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : compactZImageSourceText(sceneAccentText),
       context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
       lightDirection && !isNoneLikeItem(lightDirection) ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
       skeletonMode ? sanitizeSkeletonPromptText(buildZImageScenePriorityText()) : buildZImageScenePriorityText(),
@@ -10259,9 +10333,9 @@ function renderZImagePrompt(promptModel) {
     }
 
     return filterZImageCameraForFraming(leadSentence('The composition uses', [
-      context.framing && !isNoneLikeItem(context.framing) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : resolvePromptVariant(context.framing, 'framing', context.subject.count)) : '',
-      context.angle && !isNoneLikeItem(context.angle) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : resolvePromptVariant(context.angle, 'angle', context.subject.count)) : '',
-      context.orbit && !isNoneLikeItem(context.orbit) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : '',
+      context.framing && !isNoneLikeItem(context.framing) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.framing, 'framing', context.subject.count)) : compactZImageCameraSelectionText(resolvePromptVariant(context.framing, 'framing', context.subject.count))) : '',
+      context.angle && !isNoneLikeItem(context.angle) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.angle, 'angle', context.subject.count)) : compactZImageCameraSelectionText(resolvePromptVariant(context.angle, 'angle', context.subject.count))) : '',
+      context.orbit && !isNoneLikeItem(context.orbit) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count)) : compactZImageCameraSelectionText(resolvePromptVariant(context.orbit, 'orbit', context.subject.count))) : '',
       context.lens && !isNoneLikeItem(context.lens) ? compactZImageLensText(context.lens.en) : '',
       context.aperture && !isNoneLikeItem(context.aperture) ? compactZImageCameraControlText(context.aperture.en) : '',
       context.shutter && !isNoneLikeItem(context.shutter) ? compactZImageCameraControlText(context.shutter.en) : '',
@@ -10273,12 +10347,6 @@ function renderZImagePrompt(promptModel) {
   ]);
   const buildRenderingText = () => joinSentenceParts([
     film && !isNoneLikeItem(film) ? compactZImageFilmText(skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
-    skeletonMode
-      ? 'natural photographic detail, coherent anatomical structure, clear skeletal structure readability, realistic spatial depth'
-      : specialSubjectMode
-        ? 'natural photographic detail, coherent subject construction, clear material readability, realistic spatial depth'
-      : 'natural photographic detail, coherent fabric construction, clear facial readability, realistic spatial depth',
-    'do not add visible text unless explicitly requested',
   ]);
   const buildZImageDuoSection = (title, value) => {
     const cleaned = ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
@@ -10291,19 +10359,19 @@ function renderZImagePrompt(promptModel) {
     const roleNumber = role === 'a' ? '1' : '2';
     const accessoryText = cleanGptDuoRoleSubjectPart(buildRoleSubjectAccessoryPrompt(wardrobeSlots, role), roleNumber)
       .replace(/^with\s+/i, '');
-    const parts = [wardrobeText, accessoryText].filter(Boolean);
+    const parts = [compactZImageSourceText(wardrobeText), compactZImageSourceText(accessoryText)].filter(Boolean);
     return parts.length > 0 ? `Wears ${parts.join(', ')}` : '';
   };
   const buildZImageDuoPoseText = () => joinSentenceParts([
-    characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.en : '',
+    characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? compactZImageSourceText(characterSlots.duoPose.en) : '',
     characterSlots.duoPoseBase && !isNoneLikeItem(characterSlots.duoPoseBase)
-      ? `body posture base: ${characterSlots.duoPoseBase.en}`
+      ? `body posture base: ${compactZImageSourceText(characterSlots.duoPoseBase.en)}`
       : '',
   ]);
   const buildZImageDuoSceneText = () => joinSentenceParts([
-    skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : importedWorldSceneArchitectureText,
-    context.location && !isNoneLikeItem(context.location) ? (skeletonMode ? sanitizeSkeletonPromptText(context.location.en) : context.location.en) : '',
-    skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : sceneAccentText,
+    skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : compactZImageLocationText(importedWorldSceneArchitectureText),
+    context.location && !isNoneLikeItem(context.location) ? (skeletonMode ? sanitizeSkeletonPromptText(context.location.en) : compactZImageLocationText(context.location.en)) : '',
+    skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : compactZImageSourceText(sceneAccentText),
   ]);
   const buildZImageDuoLightingText = () => joinSentenceParts([
     context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
