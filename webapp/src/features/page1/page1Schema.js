@@ -121,6 +121,7 @@ export const SECTION_SUBPANELS = {
     {
       id: 'special',
       label: '特殊角色',
+      randomActionLabel: '重設為未指定',
       description: '特殊角色會接管人物主體；神情眼神、姿勢動作與特殊動作請到 B 神情姿態調整。',
       keys: [
         'specialSubjectId',
@@ -129,6 +130,7 @@ export const SECTION_SUBPANELS = {
     {
       id: 'character-profile',
       label: '角色卡',
+      randomActionLabel: '重設為未指定',
       description: '角色卡會接管人物身份與固定穿搭；神情眼神、姿勢動作與特殊動作請到 B 神情姿態調整。',
       keys: [
         'characterProfileId',
@@ -184,6 +186,7 @@ export const SECTION_SUBPANELS = {
     {
       id: 'colors',
       label: '造型配色',
+      randomActionLabel: '隨機可用配色',
       description: '把特殊穿搭、套裝或連身與上下身單件的配色和圖案集中處理；完整造型色系只作用在完整造型上。',
       keys: [
         'completeLookPaletteId',
@@ -288,6 +291,7 @@ export const SECTION_SUBPANELS = {
     {
       id: 'fixed',
       label: '固定構圖場景',
+      randomActionLabel: '重設固定場景',
       description: '選擇固定場景、場景內人物位置、戶外背景狀態、拍攝型態與演出狀態；啟用後會接管普通場景與鏡頭幾何。',
       keys: ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'],
     },
@@ -308,6 +312,7 @@ export const SECTION_SUBPANELS = {
     {
       id: 'image-type',
       label: '成品類型',
+      randomActionLabel: '重設為預設',
       description: '先選成品媒材與企劃方向，決定這張圖是寫實攝影、時尚廣告或繪圖風格。',
       keys: ['imageTypePresetId'],
     },

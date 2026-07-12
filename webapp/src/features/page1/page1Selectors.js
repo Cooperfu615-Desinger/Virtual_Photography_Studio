@@ -35,7 +35,9 @@ export function buildAllNoneLocks(controls, currentLocks) {
     const noneOption = control.options?.find((option) => option.zh === '全無');
     nextLocks[control.key] = noneOption
       ? noneOption.id
-      : (Array.isArray(nextLocks[control.key]) ? [] : '');
+      : (control.defaultValue !== undefined
+        ? control.defaultValue
+        : (Array.isArray(nextLocks[control.key]) ? [] : ''));
   });
   return nextLocks;
 }

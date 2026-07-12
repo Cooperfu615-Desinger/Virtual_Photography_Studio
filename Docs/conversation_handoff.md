@@ -634,6 +634,10 @@ Firebase:
 Random and lock handling are important because many controls are data-driven.
 
 - Section-scoped random exists in PAGE1.
+- PAGE1 random and clear behavior is defined in specs/page1-random-none-control-contract.md.
+- Batch random preserves subjectCount and does not auto-enable special subjects, character cards, fixed-composition sets, or image-type takeover.
+- Single-subject Pose Composer randomizes all five composer locks as one engine-resolved compatible bundle.
+- The UI action is labelled 清空可清除項目 because required controls keep their declared defaults instead of pretending to support 全無.
 - When adding controls, update section keys / ordering / sanitize logic as needed.
 - Close-up mode can disable or clear fields that cannot be visible.
 - Chest-up framing has special upper-clothing allowances.

@@ -26,6 +26,7 @@ Personal prompt operations tool for generating stable, high-volume prompts for M
 - `webapp/src/lib/engine.js`: Prompt-engine integration and compatibility boundary
 - `webapp/src/lib/engine/`: Focused engine data, runtime, prompt-model, and selection-schema modules
 - `Docs/specs/character-card-facial-identity.md`: Formal Character Card facial identity schema, difference matrix, compatibility contract, and maintenance workflow
+- `Docs/specs/page1-random-none-control-contract.md`: PAGE1 batch-random and clear-action capability contract, Pose Composer randomization, and regression rules
 - `output_prompts/`: Previously generated markdown prompt exports
 - `Docs/`: Creative role notes and early workflow documents
 

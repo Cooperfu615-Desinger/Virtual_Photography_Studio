@@ -79,6 +79,7 @@ Important naming note:
 PAGE1 also includes:
 
 - Section-scoped random controls
+- Random / clear actions follow the contract in [specs/page1-random-none-control-contract.md](specs/page1-random-none-control-contract.md): randomizable controls clear their locks, takeover and required controls keep explicit defaults, and the clear action is labelled 清空可清除項目.
 - Standard prompt backfill / restore
 - Favorites and saved cards
 - DLL PIC Pro generation panel
@@ -213,6 +214,13 @@ Runtime rules:
 - `generatePrompts()` accepts `runtimeOptions.random`; production defaults to `Math.random`, while tests and audits can inject `createSeededRandom(seed)`.
 - Selection snapshots are created from `LOCK_DEFINITIONS`, retain schema order, fill declared defaults, and ignore undeclared fields.
 - Prompt renderer labels are internal integration keys. Renaming a section label can affect all three renderers and requires prompt-pipeline tests.
+
+Batch random / clear actions are capability-aware:
+
+- Global and section random actions preserve subjectCount, do not auto-enable special subjects, character cards, fixed-composition sets, or image-type takeover, and reset those controls to explicit defaults.
+- Single-subject Pose Composer randomizes all five composer locks so the engine can resolve one compatible pose bundle; it must not leave only expression randomized while the pose fields stay 全無.
+- Clear actions remove only fields with an explicit 全無 option. Required controls keep their declared defaultValue.
+- PAGE1 button labels and tooltips are part of this compatibility contract. See specs/page1-random-none-control-contract.md.
 
 Current duo prompt output contract:
 

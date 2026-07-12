@@ -19,7 +19,11 @@ import {
   isPage1PoseSubpanelDisabled,
   resolvePage1ActiveSubpanel,
 } from '../lib/page1WorkspacePanels.js';
-import { randomizeLockKeys, setLockKeysToNone } from '../lib/page1SectionRandom.js';
+import {
+  getPage1SectionActionLabels,
+  randomizeLockKeys,
+  setLockKeysToNone,
+} from '../lib/page1SectionRandom.js';
 import { createEmptyLocks } from '../lib/engine.js';
 import {
   POSE_COMPOSER_KEYS,
@@ -720,7 +724,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const handleRandomizeActiveSection = () => {
-    updateLocks((prev) => randomizeLockKeys(prev, activeSubpanelKeys, createEmptyLocks()));
+    updateLocks((prev) => randomizeLockKeys(prev, activeSubpanelKeys, createEmptyLocks(), lockControls));
   };
 
   const handleSetActiveSectionNone = () => {
@@ -736,15 +740,27 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     }));
   };
 
+  const activeSectionActionLabels = getPage1SectionActionLabels(resolvedActiveSubpanel, lockControls);
+
   const renderSectionRandomButton = () => (
-    <button className="secondary page1-section-random-btn" type="button" onClick={handleRandomizeActiveSection}>
-      全部隨機
+    <button
+      className="secondary page1-section-random-btn"
+      type="button"
+      title="只隨機化可隨機欄位；必要欄位與接管型欄位會保留預設狀態。"
+      onClick={handleRandomizeActiveSection}
+    >
+      {activeSectionActionLabels.random}
     </button>
   );
 
   const renderSectionNoneButton = () => (
-    <button className="secondary subtle-action page1-section-random-btn" type="button" onClick={handleSetActiveSectionNone}>
-      全部全無
+    <button
+      className="secondary subtle-action page1-section-random-btn"
+      type="button"
+      title="清空可清除欄位；必要欄位會保留預設值。"
+      onClick={handleSetActiveSectionNone}
+    >
+      {activeSectionActionLabels.none}
     </button>
   );
 
@@ -1049,11 +1065,24 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
             <button className="secondary danger" onClick={() => updateLocks(createEmptyLocks())}>
               清除已選
             </button>
-            <button className="secondary" onClick={() => updateLocks(createEmptyLocks())}>
+            <button
+              className="secondary"
+              title="只隨機化可隨機欄位；必要欄位與接管型欄位會保留預設狀態。"
+              onClick={() => updateLocks((prev) => randomizeLockKeys(
+                prev,
+                lockControls.map((control) => control.key),
+                createEmptyLocks(),
+                lockControls,
+              ))}
+            >
               全部隨機
             </button>
-            <button className="secondary subtle-action" onClick={() => updateLocks(buildAllNoneLocks(lockControls, locks))}>
-              全部全無
+            <button
+              className="secondary subtle-action"
+              title="清空可清除欄位；必要欄位會保留預設值。"
+              onClick={() => updateLocks(buildAllNoneLocks(lockControls, locks))}
+            >
+              清空可清除項目
             </button>
             <button className="secondary" onClick={() => setIsImportPromptOpen(true)}>
               回填 Prompt
