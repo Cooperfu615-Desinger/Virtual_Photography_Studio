@@ -174,6 +174,19 @@ function formatSelectionStatus(count) {
   return count > 0 ? `已選 ${count}` : '未設定';
 }
 
+function areLocksEqual(left, right) {
+  const keys = new Set([...Object.keys(left || {}), ...Object.keys(right || {})]);
+  return Array.from(keys).every((key) => JSON.stringify(left?.[key]) === JSON.stringify(right?.[key]));
+}
+
+function formatSectionStatus(sectionId, count, isCleared) {
+  if (!isCleared) return formatSelectionStatus(count);
+  if (sectionId === 'character') return '保留必要預設';
+  if (sectionId === 'scene') return '隨機／保留預設';
+  if (sectionId === 'photography') return '保留預設';
+  return '隨機';
+}
+
 function findControlOption(control, value) {
   if (!value) return null;
   return control?.options?.find((option) => option.id === value) || null;
@@ -415,6 +428,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     handleRerollPreview,
     handleApplyPreviewSelection,
     onApplyPage3WorldSceneArchitecture,
+    showToast,
   } = actions;
   const {
     isOpen: isImportPromptOpen,
@@ -435,6 +449,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     photography: 'composition',
   });
 
+  const clearedLocks = useMemo(() => createEmptyLocks(), []);
+  const isClearedLockState = areLocksEqual(locks, clearedLocks);
   const workspaceSummary = useMemo(() => buildWorkspaceSummary(locks, lockControls), [locks, lockControls]);
   const generationSummary = [
     workspaceSummary.character.summary,
@@ -526,7 +542,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   ].filter(Boolean);
   const sectionDiagnostics = {
     character: {
-      status: isDedicatedSubjectMode ? '接管中' : formatSelectionStatus(countEffectiveSelections('character', locks, lockControls)),
+      status: isDedicatedSubjectMode ? '接管中' : formatSectionStatus('character', countEffectiveSelections('character', locks, lockControls), isClearedLockState),
       chips: [
         isSpecialSubjectMode ? (specialSubjectOption?.zh || '特殊角色') : '',
         isCharacterProfileMode ? (characterProfileOption?.zh || '角色卡') : '',
@@ -534,7 +550,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       ].filter(Boolean),
     },
     pose: {
-      status: activeActionPoseCard ? '動作卡接管' : formatSelectionStatus(countEffectiveSelections('pose', locks, lockControls)),
+      status: activeActionPoseCard ? '動作卡接管' : formatSectionStatus('pose', countEffectiveSelections('pose', locks, lockControls), isClearedLockState),
       chips: [
         activeActionPoseCard ? activeActionPoseCard.title : '',
         isPoseComposerActive ? 'Pose Composer' : '',
@@ -545,7 +561,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       ].filter(Boolean),
     },
     wardrobe: {
-      status: isSpecialSubjectMode ? '已停用' : (isAnyOutfitPresetActive || isSpecialOutfitActive || importedCharacterCardLayers.length > 0 ? '接管中' : formatSelectionStatus(countEffectiveSelections('wardrobe', locks, lockControls))),
+      status: isSpecialSubjectMode ? '已停用' : (isAnyOutfitPresetActive || isSpecialOutfitActive || importedCharacterCardLayers.length > 0 ? '接管中' : formatSectionStatus('wardrobe', countEffectiveSelections('wardrobe', locks, lockControls), isClearedLockState)),
       chips: [
         isSpecialSubjectMode ? '特殊角色停用穿搭' : '',
         isCharacterProfileMode && importedCharacterCardLayers.length > 0 ? '角色卡服裝層' : '',
@@ -554,7 +570,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       ].filter(Boolean),
     },
     scene: {
-      status: isCloseupMode ? '特寫中' : formatSelectionStatus(countEffectiveSelections('scene', locks, lockControls)),
+      status: isCloseupMode ? '特寫中' : formatSectionStatus('scene', countEffectiveSelections('scene', locks, lockControls), isClearedLockState),
       chips: [
         fixedCompositionSetActive ? '固定構圖場景' : '',
         getControlOptionLabel(lockControls, 'locationId', locks.locationId) ? '場景錨點' : '',
@@ -562,7 +578,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       ].filter(Boolean),
     },
     photography: {
-      status: isCloseupMode ? '特寫中' : formatSelectionStatus(countEffectiveSelections('photography', locks, lockControls)),
+      status: isCloseupMode ? '特寫中' : formatSectionStatus('photography', countEffectiveSelections('photography', locks, lockControls), isClearedLockState),
       chips: [
         fixedCompositionSetActive ? '固定場景接管構圖' : '',
         isCloseupMode ? '收斂構圖欄位' : '',
@@ -1010,6 +1026,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     }] : []),
   ];
 
+  const handleClearSelected = () => {
+    updateLocks(clearedLocks);
+    showToast?.('已清除可選欄位，必要欄位保留預設值');
+  };
+
   return (
     <>
       <section className="page1-workspace-shell">
@@ -1062,8 +1083,12 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           </div>
 
           <div className="page1-sidebar-actions">
-            <button className="secondary danger" onClick={() => updateLocks(createEmptyLocks())}>
-              清除已選
+            <button
+              className="secondary danger"
+              title="清除可選欄位；人物數量、成品類型等必要欄位會保留預設值。"
+              onClick={handleClearSelected}
+            >
+              清除可選欄位
             </button>
             <button
               className="secondary"

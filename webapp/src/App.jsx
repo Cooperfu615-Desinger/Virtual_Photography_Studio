@@ -481,6 +481,7 @@ export default function App() {
               handleRerollPreview,
               handleApplyPreviewSelection,
               onApplyPage3WorldSceneArchitecture: handleApplyPage3WorldSceneArchitecture,
+              showToast,
             }}
             importDialog={{
               isOpen: isImportPromptOpen,
@@ -540,7 +541,11 @@ export default function App() {
         )}
       </Suspense>
 
-      {copiedLabel ? <div className="toast">{copiedLabel}</div> : null}
+      {copiedLabel ? (
+        <div className="toast" role="status" aria-live="polite" aria-atomic="true">
+          {copiedLabel}
+        </div>
+      ) : null}
     </div>
   );
 }
