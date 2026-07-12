@@ -87,7 +87,9 @@ QA notes from 2026-06-25:
 - `AI`
   - Internal field: `midjourneyPrompt`
   - Compact natural prompt derived from Gpt sections
-  - Must preserve selected wardrobe, clothing, pose, and action details
+  - 已實作（單人）：同源自由導向的極簡版；一般模式只保留完整身材數值／比例、髮型髮色、眼鏡耳機、極簡服裝、場景與成像，刻意省略五官、表情、姿勢／動作與光線
+  - 已實作（角色卡）：完整保留結構化五官、膚質、永久特徵、身形與髮型髮色，服裝極簡化且避免與 PAGE1 服裝重複
+  - 已實作（特殊穿搭／套裝／連身服）：保留主服裝／主風格、關鍵衣物、外套、鞋襪與必要配件；內建髮型、髮色、刺青與身體記憶點移入人物句
   - Duo mode uses a compact labeled format; single mode remains a compact natural sentence
   - In face-only close-up, hidden wardrobe should be omitted instead of replaced by a default visible dress phrase
 
@@ -312,9 +314,10 @@ Important tests:
 
 - Compact natural prompt.
 - Source should be the Gpt structured sections.
-- Do not over-compress. Earlier over-compression caused clothing or wardrobe details to disappear.
-- Each major selected section should remain represented, especially wardrobe, pose, and action.
-- Pose/composition currently keeps enough comma-separated detail to preserve generated body state.
+- 已實作（先限單人）：使用和 Gpt／Grok-Z 相同 resolved selections，只做刪除、重排與最小語法連接；不使用關鍵字映射、風格 shorthand、mood tail、負面 guard 或 fallback 補寫語意。
+- 一般單人固定至多四句：人物（完整身材數值／比例、髮型髮色、眼鏡耳機）、極簡穿搭、場景（地點＋1–2 anchor＋必要時段／天氣）、成像（風格＋主要鏡頭／光學＋成像模擬）。五官、膚質、表情、姿勢／動作與光線交由模型自由決定。
+- 角色卡單人模式完整保留結構化五官、膚質、永久特徵、身形、髮型髮色與有效眼鏡／耳機；服裝仍極簡，且不得與目前 PAGE1 服裝重複。
+- 特殊穿搭、套裝與連身服只保留主服裝／主風格、關鍵衣物結構、外套、鞋襪與一項必要配件；特殊穿搭內建髮型、髮色、刺青與身體記憶點移入人物句。
 - Duo `AI` uses the shortest labeled format:
   - opening sentence
   - `Woman 1`

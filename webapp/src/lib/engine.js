@@ -11230,6 +11230,231 @@ function renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors) {
   ].filter(Boolean).join('\n\n');
 }
 
+function compactAiSourceText(value) {
+  return compactZImageSourceText(value)
+    .replace(/\bcomplete outfit:\s*/gi, '')
+    .replace(/\bcomplete special outfit:\s*/gi, '')
+    .replace(/\btop hem overlaps the low-rise waistband,\s*long untucked length covering the abdomen\b/gi, '')
+    .replace(/\btop properly tucked into the low-rise waistband with a natural low-rise proportion,\s*clean waist styling,\s*not cropped\b/gi, '')
+    .replace(/\brealistic outer-to-inner dressing order:[^.]*/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .replace(/^\s*,\s*/g, '')
+    .replace(/\s*,\s*$/g, '')
+    .replace(/[.!?]+$/g, '')
+    .trim();
+}
+
+function splitAiSourceFragments(value) {
+  return splitGptSpecialOutfitFragments(value)
+    .map((fragment) => compactAiSourceText(fragment))
+    .filter(Boolean);
+}
+
+function isAiCoreAccessoryFragment(fragment) {
+  return /\b(?:headband|headscarf|bandana|cap|hat|beret|bag|handbag|shoulder bag|tote|choker|necklace|pendant|earrings?|bracelets?|rings?|belt)\b/i.test(fragment);
+}
+
+function isAiSpecialPersonFragment(fragment) {
+  return isGptSpecialOutfitHairOrBodyFragment(fragment)
+    && !classifyCompleteLookWardrobeFragment(fragment);
+}
+
+function extractAiSpecialPersonFragments(value) {
+  const personFragments = [];
+  for (const fragment of splitAiSourceFragments(value)) {
+    if (/\btattoos?\b/i.test(fragment) && !classifyCompleteLookWardrobeFragment(fragment)) {
+      personFragments.push(fragment);
+      continue;
+    }
+    if (isAiSpecialPersonFragment(fragment)) {
+      personFragments.push(fragment);
+      continue;
+    }
+    const embeddedHair = fragment.match(/\b(?:long|short|medium(?:-to-long)?|chin-length|shoulder-length|voluminous|sleek|straight|wavy|curly|braided|half-up|high|low)?[^,.]*?\b(?:hair|waves?|bob|ponytail|pigtails?|bun|chignon|braids?)\b/i)?.[0];
+    if (embeddedHair) personFragments.push(embeddedHair);
+  }
+  return personFragments;
+}
+
+function compactAiGarmentValue(value) {
+  const fragments = splitAiSourceFragments(value);
+  const primary = fragments.find((fragment) => classifyCompleteLookWardrobeFragment(fragment)) || fragments[0] || '';
+  const structuralDetail = fragments.find((fragment) => /\b(?:neckline|flare|pleated|ruffled|slit|hem|boning|lace trim|garter|cut-out|open shoulder|high-cut|wide-leg|straight-leg)\b/i.test(fragment) && fragment !== primary) || '';
+  return [primary, structuralDetail].filter(Boolean).join(', ');
+}
+
+function buildAiCompleteLookCoreText(value) {
+  let styleFragment = '';
+  const roleFragments = new Map();
+  let accessoryFragment = '';
+
+  for (const fragment of splitAiSourceFragments(value)) {
+    if (isAiSpecialPersonFragment(fragment)) continue;
+    if (/\b(?:controlled by|color selection|palette direction|preserving garment structure|accessory separation|material contrast|multi-piece color variation)\b/i.test(fragment)) continue;
+
+    const role = classifyCompleteLookWardrobeFragment(fragment);
+    if (/\b(?:look|styling|outfit)\b/i.test(fragment) && !styleFragment) {
+      styleFragment = fragment;
+      continue;
+    }
+    if (role && !roleFragments.has(role)) {
+      roleFragments.set(role, fragment);
+      continue;
+    }
+    if (!accessoryFragment && isAiCoreAccessoryFragment(fragment)) accessoryFragment = fragment;
+  }
+
+  return [
+    styleFragment,
+    roleFragments.get('top'),
+    roleFragments.get('bottom'),
+    roleFragments.get('outerwear'),
+    roleFragments.get('legwear'),
+    roleFragments.get('shoes'),
+    roleFragments.get('bag'),
+    accessoryFragment,
+  ].filter(Boolean).join(', ');
+}
+
+function buildAiNormalWardrobeText(valuesByLabel) {
+  const specialOutfit = firstStructuredValue(valuesByLabel, ['Special Outfit']);
+  if (specialOutfit) return buildAiCompleteLookCoreText(specialOutfit);
+
+  const outfitPreset = firstStructuredValue(valuesByLabel, ['Outfit Preset']);
+  if (outfitPreset) return buildAiCompleteLookCoreText(outfitPreset);
+
+  const dress = firstStructuredValue(valuesByLabel, ['Dress']);
+  if (dress) return buildAiCompleteLookCoreText(dress);
+
+  return getStructuredValues(valuesByLabel, [
+    'Outerwear',
+    'Top',
+    'Pants',
+    'Skirt',
+    'Legwear',
+    'Shoes',
+  ]).map((value) => compactAiGarmentValue(value)).filter(Boolean).join(', ');
+}
+
+function buildAiCharacterCardIdentityText(context, wardrobe) {
+  const groups = buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe);
+  const detailedIdentity = [
+    groups.facialGeometry,
+    groups.eyeSignature,
+    groups.noseSignature,
+    groups.mouthSignature,
+    groups.skinSignature,
+    groups.makeup,
+    groups.body,
+  ].filter(Boolean);
+  const structuredIdentity = [
+    ...detailedIdentity,
+    detailedIdentity.length === 0 ? groups.distinctiveFeatures : '',
+  ].filter(Boolean);
+  const identityText = structuredIdentity.length > 0
+    ? structuredIdentity.join(', ')
+    : groups.identityAndBody;
+  const hairText = [groups.hair, buildCharacterCardHairVariantText(context.subject, context.locks)].filter(Boolean).join(', ');
+  const eyewearText = splitAiSourceFragments(groups.accessories)
+    .filter((fragment) => /\b(?:glasses|eyeglasses|sunglasses|headphones?|earphones?)\b/i.test(fragment))
+    .join(', ');
+
+  return [
+    'A 20-year-old adult East Asian woman',
+    compactAiSourceText(identityText),
+    compactAiSourceText(hairText),
+    eyewearText,
+  ].filter(Boolean).join(', ');
+}
+
+function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) {
+  if (isCharacterProfileSubject(context.subject)) {
+    return ensureTerminalPeriod(buildAiCharacterCardIdentityText(context, wardrobe));
+  }
+
+  const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
+  const specialOutfitText = firstStructuredValue(valuesByLabel, ['Special Outfit']);
+  const specialPersonText = specialOutfitText
+    ? extractAiSpecialPersonFragments(specialOutfitText).join(', ')
+    : '';
+  const eyewearText = wardrobeSlots
+    ? compactAiEyewearAccessoryText(wardrobeSlots.eyewear, wardrobeSlots.eyewearColor, wardrobeSlots.eyewearPlacement)
+    : '';
+  const headphoneText = wardrobeSlots ? compactAiHeadAudioAccessoryText(wardrobeSlots.headAccessory) : '';
+  const subjectLead = shouldUseFixedAiSingleSubjectLead(context)
+    ? FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE
+    : context.subject?.en || 'A 20-year-old adult East Asian woman';
+
+  return ensureTerminalPeriod([
+    stripTerminalPromptPunctuation(subjectLead),
+    compactAiSourceText(firstStructuredValue(valuesByLabel, ['Body Type'])),
+    compactAiSourceText([
+      firstStructuredValue(valuesByLabel, ['Hairstyle']),
+      firstStructuredValue(valuesByLabel, ['Hair Color']),
+    ].filter(Boolean).join(', ')),
+    specialPersonText,
+    eyewearText,
+    headphoneText,
+  ].filter(Boolean).join(', '));
+}
+
+function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) {
+  const characterWardrobe = isCharacterProfileSubject(context.subject)
+    ? buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe).outfit
+    : '';
+  const wardrobeText = characterWardrobe
+    ? buildAiCompleteLookCoreText(characterWardrobe)
+    : buildAiNormalWardrobeText(valuesByLabel);
+  return wardrobeText ? ensureTerminalPeriod(`Wearing ${compactAiSourceText(wardrobeText)}`) : '';
+}
+
+function buildAiFreedomSceneSentence(valuesByLabel, context) {
+  const sceneSource = isFixedCompositionSetActive(context?.fixedCompositionSet)
+    ? [
+        firstStructuredValue(valuesByLabel, ['Fixed Composition Set']),
+        firstStructuredValue(valuesByLabel, ['Fixed Set Background State']),
+      ].filter(Boolean).join(', ')
+    : firstStructuredValue(valuesByLabel, ['World Scene Architecture'])
+      || firstStructuredValue(valuesByLabel, ['Location'])
+      || firstStructuredValue(valuesByLabel, ['Scene Context']);
+  const clauses = splitAiSourceFragments(sceneSource);
+  const conditionPattern = /\b(?:rain|snow|storm|fog|mist|wind|night|dusk|dawn|sunset|sunrise|daylight|overcast|cloudy|golden hour|post-rain|winter|summer|spring|autumn|late-afternoon|early-morning)\b/i;
+  const selected = [];
+
+  for (const clause of clauses) {
+    if (selected.length < 3 || conditionPattern.test(clause)) selected.push(clause);
+    if (selected.length >= 4) break;
+  }
+
+  const sceneText = selected.join(', ');
+  return sceneText ? ensureTerminalPeriod(`In ${sceneText}`) : '';
+}
+
+function buildAiFreedomImagingSentence(valuesByLabel) {
+  const styleText = firstStructuredValue(valuesByLabel, ['Photography Style']);
+  const style = styleText.match(/Inspired by [^.]+? image language/i)?.[0] || compactPromptClauses(styleText, 1);
+  const parts = [
+    style,
+    compactPromptClauses(firstStructuredValue(valuesByLabel, ['Lens']), 2),
+    compactPromptClauses(firstStructuredValue(valuesByLabel, ['Optical Effect']), 1),
+    compactPromptClauses(firstStructuredValue(valuesByLabel, ['Camera / Film']), 2),
+  ].map((value) => compactAiSourceText(value)).filter(Boolean);
+  return parts.length > 0 ? ensureTerminalPeriod(parts.join(', ')) : '';
+}
+
+const AI_LEGACY_SINGLE_RENDERER_HELPERS = [
+  buildAiImageTypeLead,
+  buildAiSingleSubjectAccessoryParts,
+  buildAiSingleSubjectPromptText,
+  buildAiMinimalSubjectLead,
+  buildAiMinimalWardrobeClause,
+  buildAiMinimalPoseClause,
+  buildAiMinimalSceneClause,
+  buildAiMinimalLightingClause,
+  buildAiMinimalMoodTail,
+];
+
 function renderAiPrompt(promptModel) {
   const {
     valuesByLabel,
@@ -11242,54 +11467,12 @@ function renderAiPrompt(promptModel) {
     return renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors);
   }
 
-  const subjectPart = buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe);
-  const wardrobePart = buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe);
-  const posePart = buildAiMinimalPoseClause(valuesByLabel, context);
-  const scenePart = buildAiMinimalSceneClause(valuesByLabel, context);
-  const lightingPart = buildAiMinimalLightingClause(valuesByLabel);
-  const moodTail = buildAiMinimalMoodTail(valuesByLabel);
-  const singleSubjectAccessories = buildAiSingleSubjectAccessoryParts(context, wardrobe);
-  const imageTypeLead = buildAiImageTypeLead(context);
-
-  if (isFixedCompositionSetActive(context.fixedCompositionSet)) {
-    const subjectSentence = shouldUseFixedAiSingleSubjectLead(context)
-      ? buildAiSingleSubjectPromptText({
-          imageTypeLead,
-          subjectPart,
-          ...singleSubjectAccessories,
-          wardrobePart,
-          posePart,
-          scenePart: '',
-          lightingPart: '',
-          moodTail: '',
-        })
-      : [subjectPart, wardrobePart, posePart].filter(Boolean).join(', ');
-    const sceneSentence = [scenePart, lightingPart, moodTail].filter(Boolean).join(', ');
-    return ensureTerminalPeriod([
-      subjectSentence ? ensureTerminalPeriod(subjectSentence) : '',
-      sceneSentence,
-    ].filter(Boolean).join(' '));
-  }
-
-  if (shouldUseFixedAiSingleSubjectLead(context)) {
-    return buildAiSingleSubjectPromptText({
-      imageTypeLead,
-      subjectPart,
-      ...singleSubjectAccessories,
-      wardrobePart,
-      posePart,
-      scenePart,
-      lightingPart,
-      moodTail,
-    });
-  }
-
-  const subjectOpening = imageTypeLead
-    ? `${capitalizePromptLead(imageTypeLead)} of ${subjectPart.replace(/^A\b/, 'a')}`
-    : subjectPart;
-  const parts = [subjectOpening, wardrobePart, posePart, scenePart, lightingPart].filter(Boolean);
-
-  return ensureTerminalPeriod(`${parts.join(', ')}, ${moodTail}`);
+  return [
+    buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe),
+    buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe),
+    buildAiFreedomSceneSentence(valuesByLabel, context),
+    buildAiFreedomImagingSentence(valuesByLabel),
+  ].filter(Boolean).join('\n');
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {

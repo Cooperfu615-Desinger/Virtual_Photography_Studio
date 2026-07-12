@@ -63,7 +63,9 @@ Current PAGE1 output labels:
 - `AI`
   - Internal field: `midjourneyPrompt`
   - Compact natural prompt derived from Gpt sections
-  - Must not drop selected wardrobe, clothing, pose, or action details
+  - 已實作（單人）：同源自由導向的極簡版；一般模式只保留完整身材數值／比例、髮型髮色、眼鏡耳機、極簡服裝、場景與成像，刻意省略五官、表情、姿勢／動作與光線
+  - 已實作（角色卡）：完整保留結構化五官、膚質、永久特徵、身形與髮型髮色，服裝極簡化且避免與 PAGE1 服裝重複
+  - 已實作（特殊穿搭／套裝／連身服）：保留主服裝／主風格、關鍵衣物、外套、鞋襪與必要配件；內建髮型、髮色、刺青與身體記憶點移入人物句
   - Duo mode uses a compact labeled format, not the older single-paragraph compression
 - `全身角色照`
   - Internal renderer output: `fullBodyCharacterPrompt`; exposed and stored through `extraPrompts` id `full-body-character`
