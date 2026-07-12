@@ -146,8 +146,8 @@ test('selected-layers character card hair override and missing PAGE1 layers appe
   assertEveryPrimaryOutput(prompt, /low ponytail/i, 'low ponytail should be preserved');
   assertEveryPrimaryOutput(prompt, /temporary override text/i, 'prompt override should be preserved');
   assertEveryPrimaryOutput(prompt, /cropped white short-sleeve baby tee/i, 'selected card top should be preserved');
-  assertEveryPrimaryOutput(prompt, /denim short skirt|牛仔/i, 'PAGE1 skirt should fill the missing bottom layer');
-  assertEveryPrimaryOutput(prompt, /high heels|高跟鞋/i, 'PAGE1 shoes should fill the missing shoes layer');
+  assertEveryPrimaryOutput(prompt, /denim (?:mini|short) skirt|牛仔/i, 'PAGE1 skirt should fill the missing bottom layer');
+  assertEveryPrimaryOutput(prompt, /stiletto pumps|high heels|高跟鞋/i, 'PAGE1 shoes should fill the missing shoes layer');
   assertEveryPrimaryOutput(prompt, /collarbone|鎖骨/i, 'PAGE1 neck accessory should fill the missing accessory layer');
 });
 

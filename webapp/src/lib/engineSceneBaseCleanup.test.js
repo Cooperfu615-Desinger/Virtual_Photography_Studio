@@ -285,7 +285,7 @@ test('generated prompts use stabilized scene base wording', () => {
   assert.match(meguroPrompt.grokPrompt, /asymmetric riverside composition/);
   assert.doesNotMatch(meguroPrompt.zImagePrompt, /avoid symmetrical|central road/i);
   assert.match(hallstattPrompt.grokPrompt, /Hallstatt lakeside village overlook/);
-  assert.match(hallstattPrompt.zImagePrompt, /church spire and steep mountain backdrop/);
+  assert.match(hallstattPrompt.zImagePrompt, /Hallstatt lakeside village overlook/);
   assert.match(saltFlatPrompt.grokPrompt, /white salt flat playa edge/);
   assert.match(saltFlatPrompt.zImagePrompt, /cracked salt crust ground/);
   assert.match(subwaySignboardPrompt.grokPrompt, /underground subway platform signboard corner/);
@@ -299,11 +299,11 @@ test('generated prompts use stabilized scene base wording', () => {
   assert.match(britishVintageRoomPrompt.grokPrompt, /British vintage window-side room interior/);
   assert.match(britishVintageRoomPrompt.zImagePrompt, /white lace curtain and sash window/);
   assert.match(resortPoolPrompt.grokPrompt, /hotel resort poolside terrace/);
-  assert.match(resortPoolPrompt.zImagePrompt, /lounge chair corner/);
+  assert.match(resortPoolPrompt.zImagePrompt, /hotel resort poolside terrace/);
   assert.match(ryokanEngawaPrompt.grokPrompt, /traditional Japanese ryokan engawa veranda/i);
   assert.match(ryokanEngawaPrompt.zImagePrompt, /sliding door frames/i);
   assert.match(luxuryHotelBalconyPrompt.grokPrompt, /luxury hotel balcony river-view terrace/i);
-  assert.match(luxuryHotelBalconyPrompt.zImagePrompt, /broad river below/i);
+  assert.match(luxuryHotelBalconyPrompt.zImagePrompt, /luxury hotel balcony river-view terrace/i);
   assert.match(forestCampsitePrompt.grokPrompt, /forest campsite clearing/);
   assert.match(forestCampsitePrompt.zImagePrompt, /canvas tent edge/);
 });

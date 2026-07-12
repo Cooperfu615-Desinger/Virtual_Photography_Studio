@@ -30,9 +30,8 @@ test('single action pose card overrides PAGE1 expression and pose composer outpu
   assert.equal(prompt.selection.poseBaseId, 'none');
   assert.match(prompt.grokPrompt, /kicks one foot into a nearby object/);
   assert.match(prompt.zImagePrompt, /kicks one foot into a nearby object/);
-  assert.match(prompt.midjourneyPrompt, /nearby object/);
-  assert.match(prompt.midjourneyPrompt, /not violent/);
-  assert.match(allPromptText, /not a yoga pose/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /nearby object|not violent|not a yoga pose/i);
+  assert.doesNotMatch(allPromptText, /not a yoga pose/);
   assert.doesNotMatch(allPromptText, /soft natural smile|one hand on the waist|standing with/);
 });
 

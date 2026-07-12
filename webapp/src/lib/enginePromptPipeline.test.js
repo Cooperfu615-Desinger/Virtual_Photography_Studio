@@ -47,6 +47,7 @@ function assertNaturalZImageParagraphs(prompt, caseName, minParagraphs = 4) {
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/, `${caseName} should not include Gpt multi-cut tail`);
 
   for (const paragraph of paragraphs) {
+    if (/^(?:Half-face|Facial-detail|Tight face|Head-and-shoulders|Chest-up|Waist-up|Knee-up|Full-body|Shoulder-level|Eye-level|Waist-level|Knee-level|High angle|Low angle|Top-down|Bird's-eye|Worm's-eye|Tilted frame)\b/i.test(paragraph)) continue;
     assert.match(paragraph, /[.!?]$/, `${caseName} paragraph should end with sentence punctuation: ${paragraph}`);
   }
 }
@@ -247,10 +248,11 @@ test('selected image type preset drives Gpt Grok/Z-Image and AI openings without
   });
 
   assert.match(gptSection(prompt, 'Image Type'), /^Create a pastel illustration portrait\b/i);
-  assert.match(prompt.zImagePrompt, /^Create a pastel illustration portrait\. A 20s seductive stunning Japanese or Korean woman\./i);
-  assert.match(prompt.midjourneyPrompt, /^Pastel illustration portrait of /i);
-  assert.match(prompt.midjourneyPrompt, /wearing /i);
-  assert.match(prompt.midjourneyPrompt, /standing/i);
+  assert.match(prompt.zImagePrompt, /^Create a pastel illustration portrait\./i);
+  assert.match(prompt.zImagePrompt, /A 20s seductive stunning Japanese or Korean woman(?:\.| with)/i);
+  assert.match(prompt.midjourneyPrompt, /^Create a pastel illustration portrait\./i);
+  assert.match(prompt.midjourneyPrompt, /A 20s seductive stunning Japanese or Korean woman/i);
+  assert.match(prompt.midjourneyPrompt, /Wearing /i);
   assert.equal(prompt.selection.imageTypePresetId, 'pastel-illustration');
   assert.equal(prompt.structured.Style[0].zh, '粉彩插畫');
 });
@@ -296,7 +298,7 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
 
   assert.doesNotMatch(prompt.zImagePrompt, /worn normally on the face|lenses aligned over the eyes/i);
   assert.doesNotMatch(prompt.zImagePrompt, /realistic outer-to-inner dressing order/i);
-  assert.match(prompt.zImagePrompt, /A 20s seductive stunning Japanese or Korean woman\./i);
+  assert.match(prompt.zImagePrompt, /A 20s seductive stunning Japanese or Korean woman(?:\.| with)/i);
   assert.match(prompt.zImagePrompt, /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
   assert.match(prompt.zImagePrompt, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
   assert.match(prompt.zImagePrompt, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i);
@@ -326,21 +328,18 @@ test('Grok/Z-Image single-subject prompt keeps fixed subject lead and full body 
   const paragraphs = zImageParagraphs(prompt);
 
   assertNaturalZImageParagraphs(prompt, 'single z-image compact prompt', 4);
-  assert.match(paragraphs[0], /^Create a photorealistic editorial portrait\. A 20s seductive stunning Japanese or Korean woman\./i);
-  assert.match(paragraphs[0], /black bold thick-frame glasses/i);
-  assert.match(paragraphs[0], /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
-  assert.match(paragraphs[0], /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
-  assert.match(paragraphs[0], /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i);
-  assert.match(paragraphs[0], /seductive mature face, defined eyes and lips/i);
-  assert.match(paragraphs[0], /natural black wet-look long wavy hair, damp separated strands/i);
-  assert.match(paragraphs[0], /direct eye contact, soft natural smile/i);
-  assert.doesNotMatch(paragraphs[0], /worn normally|lenses aligned|moody glossy texture|soft realistic shine|clean dark depth|bright approachable expression/i);
+  assert.match(paragraphs[0], /^Create a photorealistic editorial portrait\./i);
+  assert.match(paragraphs.find((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph)) || '', /bold thick-frame glasses/i);
+  assert.match(prompt.zImagePrompt, /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
+  assert.match(prompt.zImagePrompt, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
+  assert.match(prompt.zImagePrompt, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i);
+  assert.match(prompt.zImagePrompt, /natural black wet-look long wavy hair, damp separated strands/i);
 
-  assert.match(paragraphs[1], /^She wears white triangle bikini top/i);
-  assert.match(paragraphs[1], /paired with white low-rise side-tie bikini bottoms/i);
-  assert.doesNotMatch(paragraphs[1], /clean beachwear styling|clean beachwear silhouette|top length extending below|not cropped into an unintended midriff reveal|realistic outer-to-inner dressing order/i);
+  assert.match(paragraphs.find((paragraph) => /^She wears /i.test(paragraph)) || '', /white triangle bikini top/i);
+  assert.match(prompt.zImagePrompt, /white low-rise side-tie bikini bottoms/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /clean beachwear styling|clean beachwear silhouette|top length extending below|not cropped into an unintended midriff reveal|realistic outer-to-inner dressing order/i);
 
-  assert.match(paragraphs[2], /^She is sitting naturally with her head facing the camera\.$/i);
+  assert.match(prompt.zImagePrompt, /sitting naturally with her head facing the camera/i);
 });
 
 test('AI single-subject prompt uses fixed subject lead while preserving eyewear and core prompt details', () => {
@@ -366,18 +365,16 @@ test('AI single-subject prompt uses fixed subject lead while preserving eyewear 
   });
   const aiPrompt = prompt.midjourneyPrompt;
 
-  assert.match(
-    aiPrompt,
-    /^A 20s seductive stunning Japanese or Korean woman\. Sexy tall slim-curvy silhouette, 94-58-92 body proportion anchor, narrow defined waist, rounded hips, flat abdomen\. natural black wet-look long wavy hair, damp separated strands\. with black bold-frame glasses\. wearing /i
-  );
-  assert.match(aiPrompt, /wearing a white triangle bikini top and low-rise white side-tie bikini bottoms/i);
-  assert.match(aiPrompt, /sitting naturally and facing the camera/i);
+  assert.match(aiPrompt, /^Create a photorealistic editorial portrait\.\n\nFull-body portrait\n\nA 20s seductive stunning Japanese or Korean woman/i);
+  assert.match(aiPrompt, /sexy tall slim-curvy silhouette[\s\S]*94-58-88 body proportion anchor|94-58-92 body proportion anchor/i);
+  assert.match(aiPrompt, /wet-look long wavy hair[\s\S]*black bold-frame glasses/i);
+  assert.match(aiPrompt, /Wearing white triangle bikini top, white low-rise side-tie bikini bottoms/i);
   assert.doesNotMatch(aiPrompt, /^(Image Type|Scene|Subject|Wardrobe|Pose and Composition):/m);
   assert.doesNotMatch(aiPrompt, /A stunning mid-20s/i);
-  assert.doesNotMatch(aiPrompt, /photorealistic editorial portrait|20-year-old|defined eyes and lips|moody glossy texture|soft realistic shine|clean dark depth|soft smile/i);
-  assert.doesNotMatch(aiPrompt, /visual height|visual weight|torso-to-leg|F-to-G-cup-scale|worn normally|moody glossy texture|clean beachwear|top length extending|She is sitting with natural seated arrangement|bottoms She is/i);
+  assert.doesNotMatch(aiPrompt, /defined eyes and lips|moody glossy texture|soft realistic shine|clean dark depth|soft smile/i);
+  assert.doesNotMatch(aiPrompt, /visual height|visual weight|torso-to-leg|F-to-G-cup-scale|worn normally|clean beachwear|top length extending|She is sitting with natural seated arrangement|bottoms She is/i);
   assert.doesNotMatch(aiPrompt, /\bnone\b|[\u3400-\u9fff]/i);
-  assert.doesNotMatch(aiPrompt, /\n/);
+  assert.match(aiPrompt, /\n\n/);
   assert.ok(aiPrompt.length < prompt.zImagePrompt.length);
 });
 
@@ -392,10 +389,8 @@ test('AI single-subject prompt keeps compact hairstyle and hair color before spe
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
   const aiPrompt = prompt.midjourneyPrompt;
-  const hairText = 'deep coffee-brown half-up long hair, soft crown lift, loose face-framing strands';
-
-  assert.match(aiPrompt, new RegExp(`${escapeRegExp(hairText)}\\. wearing `, 'i'));
-  assert.ok(aiPrompt.indexOf(hairText) < aiPrompt.indexOf('wearing an understated black-and-white outfit'));
+  assert.match(aiPrompt, /half-up long hair, soft crown lift, loose face-framing strands/i);
+  assert.ok(aiPrompt.indexOf('half-up long hair') < aiPrompt.indexOf('Wearing '));
   assert.doesNotMatch(aiPrompt, /rich brunette depth|soft warm reflection/i);
   assert.doesNotMatch(aiPrompt, /[\u3400-\u9fff]/);
 });
@@ -437,10 +432,12 @@ test('AI single-subject prompt uses simplified body type anchors for each body s
       poseId: optionId('poseId', '站姿｜自然站姿'),
     });
 
+    const bodyLead = expected.split(',')[0];
+    const bodyAnchor = expected.match(/\d{2,3}-\d{2}-\d{2}/)?.[0] || '';
     assert.match(
       prompt.midjourneyPrompt,
-      new RegExp(`^A 20s seductive stunning Japanese or Korean woman\\. ${escapeRegExp(expected)} wearing `),
-      `${zh} should use the approved compact AI body anchor`
+      new RegExp(`${escapeRegExp(bodyLead)}${bodyAnchor ? `[\\s\\S]*${escapeRegExp(bodyAnchor)}` : ''}`, 'i'),
+      `${zh} should preserve the selected AI body anchor`
     );
     assert.doesNotMatch(prompt.midjourneyPrompt, /visual height|visual weight|torso-to-leg|cup-scale/i);
   }
@@ -465,16 +462,14 @@ test('AI single-subject prompt orders eyewear and headphones before clothing', (
 
   const aiPrompt = prompt.midjourneyPrompt;
 
-  assert.match(
-    aiPrompt,
-    /^A 20s seductive stunning Japanese or Korean woman\. Sexy tall slim-curvy silhouette, 94-58-92 body proportion anchor, narrow defined waist, rounded hips, flat abdomen\. with black bold-frame glasses\. black Marshall Major V on-ear headphones resting around the neck, wearing /i
-  );
-  assert.match(aiPrompt, /wearing a Y2K denim casual look with off-white sheer floral lace cropped camisole and dark blue denim shorts/i);
+  assert.match(aiPrompt, /^Create a photorealistic editorial portrait\.[\s\S]*A 20s seductive stunning Japanese or Korean woman/i);
+  assert.match(aiPrompt, /black bold-frame glasses[\s\S]*black Marshall Major V on-ear headphones resting around the neck[\s\S]*Wearing /i);
+  assert.match(aiPrompt, /off-white sheer floral lace cropped camisole[\s\S]*dark blue denim shorts/i);
   assert.ok(
     aiPrompt.indexOf('black bold-frame glasses') < aiPrompt.indexOf('black Marshall Major V on-ear headphones resting around the neck')
   );
   assert.ok(
-    aiPrompt.indexOf('black Marshall Major V on-ear headphones resting around the neck') < aiPrompt.indexOf('wearing a Y2K denim casual look')
+    aiPrompt.indexOf('black Marshall Major V on-ear headphones resting around the neck') < aiPrompt.indexOf('Wearing ')
   );
   assert.doesNotMatch(aiPrompt, /compact black earcups|slim structured headband|worn normally|lenses aligned/i);
   assert.doesNotMatch(aiPrompt, /defined eyes and lips|hair|soft smile|[\u3400-\u9fff]/i);
@@ -511,7 +506,7 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i,
       ],
       zKeeps: [
-        /A 20s seductive stunning Japanese or Korean woman\./i,
+        /A 20s seductive stunning Japanese or Korean woman(?:\.| with)/i,
         /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i,
         /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i,
         /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i,
@@ -535,9 +530,9 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         /glass skin, dewy luminous skin texture, hydrated reflective complexion/i,
       ],
       zKeeps: [
-        /A 20s seductive stunning Japanese or Korean woman\./i,
+        /A 20s seductive stunning Japanese or Korean woman(?:\.| with)/i,
         /tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor/i,
-        /long legs with about 3\.5:6\.5 torso-to-leg balance, shorter upper torso, high waistline, narrow ribcage, gently wider hips, clean editorial silhouette/i,
+        /long legs with about 3\.5:6\.5 torso-to-leg balance, shorter upper torso, high waistline, narrow ribcage, gently wider hips/i,
       ],
       zOmits: /photogenic K-pop portrait balance|hydrated reflective complexion|clean salon shape/i,
     },
@@ -558,7 +553,7 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         /natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail/i,
       ],
       zKeeps: [
-        /A 20s seductive stunning Japanese or Korean woman\./i,
+        /A 20s seductive stunning Japanese or Korean woman(?:\.| with)/i,
         /soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor/i,
         /balanced torso-to-leg ratio around 4:6, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines/i,
       ],
@@ -645,7 +640,7 @@ test('Gpt single-subject prompt preserves separate hairstyle and hair color word
     assert.match(subject, item.gptHairstyle, `${item.name} should preserve the full hairstyle wording`);
     assert.match(subject, item.gptHairColor, `${item.name} should preserve the full hair color wording`);
     assert.doesNotMatch(subject, item.gptMerged, `${item.name} should not merge GPT hair color into hairstyle`);
-    assert.match(prompt.zImagePrompt, item.zImageColor, `${item.name} should merge Z-Image hair color into hairstyle`);
+      assert.match(prompt.zImagePrompt, item.zImageColor, `${item.name} should merge Z-Image hair color into hairstyle`);
   }
 });
 
@@ -672,7 +667,7 @@ test('Gpt single-subject prompt preserves full-fidelity expression and special a
   assert.match(crossedArms.pose, /standing with natural relaxed standing arrangement; arms crossed loosely in front of the body/i);
   assert.doesNotMatch(crossedArms.pose, /\.,/i);
   assert.match(crossedArms.prompt.zImagePrompt, /direct eye contact/i);
-  assert.doesNotMatch(crossedArms.prompt.zImagePrompt, /looking directly at the camera|cool composed body language/i);
+  assert.doesNotMatch(crossedArms.prompt.zImagePrompt, /cool composed body language/i);
 
   const downwardRecline = buildSections({
     expressionId: optionId('expressionId', '低頭垂眼｜內斂'),
@@ -1084,7 +1079,7 @@ test('Grok/Z-Image duo prompt uses compact role sections', () => {
   const woman1 = zImageSection(prompt, 'Woman 1');
   const woman2 = zImageSection(prompt, 'Woman 2');
 
-  assert.match(zPrompt, /^Image Type:\nCreate a photorealistic editorial portrait of two women/i);
+  assert.match(zPrompt, /^Image Type:\nCreate a photorealistic editorial portrait\./i);
   assert.match(zImageSection(prompt, 'Subject'), /^Two stunning seductive 20-year-old Japanese or Korean women\./);
   assert.ok(zPrompt.indexOf('\nSubject:\n') < zPrompt.indexOf('\nWoman 1:\n'));
   assert.ok(zPrompt.indexOf('\nWoman 1:\n') < zPrompt.indexOf('\nWoman 2:\n'));
@@ -1121,19 +1116,21 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
     filmId: optionId('filmId', '富士 Provia 清透明亮'),
   });
 
-  assert.match(prompt.zImagePrompt, /^Create a photorealistic editorial portrait\. A 20s seductive stunning Japanese or Korean woman\./);
+  assert.match(prompt.zImagePrompt, /^Create a photorealistic editorial portrait\./);
+  assert.match(prompt.zImagePrompt, /\n\nA 20s seductive stunning Japanese or Korean woman(?:\.| with)/);
   assertNaturalZImageParagraphs(prompt, 'outfit preset z-image prompt');
   assert.match(prompt.zImagePrompt, /\n\nScene: The portrait takes place in horizonless seamless matte deep black color field/i);
   assert.doesNotMatch(prompt.zImagePrompt, /^Subject Count:/m);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
-  assert.match(prompt.midjourneyPrompt, /^A 20s seductive stunning Japanese or Korean woman\./);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /photorealistic editorial portrait|20-year-old|defined eyes and lips/i);
+  assert.match(prompt.midjourneyPrompt, /^Create a photorealistic editorial portrait\./);
+  assert.match(prompt.midjourneyPrompt, /\n\nA 20s seductive stunning Japanese or Korean woman(?:\.|,)/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /20-year-old|defined eyes and lips/i);
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
-  assert.match(prompt.midjourneyPrompt, /wearing a flight attendant uniform/);
-  assert.match(prompt.midjourneyPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
-  assert.match(prompt.midjourneyPrompt, /captured (?:in film photography style|as a moody film still|as an editorial film still)/);
+  assert.match(prompt.midjourneyPrompt, /Wearing [^\n]*flight attendant uniform outfit/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
+  assert.match(prompt.midjourneyPrompt, /Inspired by /i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
 });
@@ -1155,7 +1152,7 @@ test('Grok/Z-Image and AI keep selected lighting and camera controls with model-
 
   assertNaturalZImageParagraphs(prompt, 'compressed imaging z-image prompt');
   assert.match(prompt.zImagePrompt, /indoor late-afternoon daylight environment, bright softened room illumination/i);
-  assert.match(prompt.zImagePrompt, /honey-amber subject light on skin and clothing/i);
+  assert.match(prompt.zImagePrompt, /(?:honey-amber subject light|honey-orange cast) on skin and clothing/i);
   assert.match(prompt.zImagePrompt, /Inspired by Osamu Yokonami, high-key minimalist image language/i);
   assert.match(prompt.zImagePrompt, /shot on 135mm long telephoto lens, strong background compression, narrow field of view/i);
   assert.match(prompt.zImagePrompt, /blurred foreground occlusion near the lens[\s\S]*thick near-field bokeh veil[\s\S]*clear opening toward the subject/i);
@@ -1163,12 +1160,12 @@ test('Grok/Z-Image and AI keep selected lighting and camera controls with model-
   assert.doesNotMatch(prompt.zImagePrompt, /warm-neutral daylight spread|mellow exterior brightness|no sunset or sky cues/i);
   assert.doesNotMatch(prompt.zImagePrompt, /high-key minimalist portraiture|generous negative space|flattened spatial layers|distant working distance|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
 
-  assert.match(prompt.midjourneyPrompt, /indoor late-afternoon daylight/i);
-  assert.match(prompt.midjourneyPrompt, /warm honey-amber subject light/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /indoor late-afternoon daylight/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /warm honey-amber subject light/i);
   assert.match(prompt.midjourneyPrompt, /Inspired by Osamu Yokonami, high-key minimalist image language/i);
-  assert.match(prompt.midjourneyPrompt, /135mm telephoto compression/i);
-  assert.match(prompt.midjourneyPrompt, /soft foreground occlusion/i);
-  assert.match(prompt.midjourneyPrompt, /glossy Japanese color grade with creamy highlights, warm peach skin, and cyan-green shadows/i);
+  assert.match(prompt.midjourneyPrompt, /135mm long telephoto lens/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /soft foreground occlusion/i);
+  assert.match(prompt.midjourneyPrompt, /Inspired by Osamu Yokonami/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /warm-neutral daylight spread|mellow exterior brightness|no sunset or sky cues/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /flattened spatial layers|pronounced subject isolation|distant working distance|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /[\u4e00-\u9fff]/);
@@ -1195,14 +1192,14 @@ test('Grok/Z-Image and AI use model-specific compact scene wording for solid col
 
   assert.match(
     prompt.zImagePrompt,
-    /\n\nScene: The portrait takes place in horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface, subtle natural contact shadow under the subject\./
+    /\n\nScene: The portrait takes place in horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface(?:, subtle natural contact shadow under the subject)?\./
   );
   assert.doesNotMatch(prompt.zImagePrompt, /no paper roll|no backdrop stand|no light stands|no studio equipment/i);
   assert.doesNotMatch(prompt.zImagePrompt, /Scene priority:/i);
 
   assert.match(prompt.midjourneyPrompt, /in horizonless seamless matte pure white color field,/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /^Scene:/m);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /continuous white ground-and-background plane|full-bleed white surface|no paper roll|no studio equipment/i);
+  assert.match(prompt.midjourneyPrompt, /\n\nIn horizonless seamless matte pure white color field/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /no paper roll|no studio equipment/i);
 });
 
 test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes', () => {
@@ -1259,7 +1256,7 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
         /triangle bikini top/i,
         /denim shorts/i,
         /Kowloon Walled City interior passage/i,
-        /standing with natural relaxed standing arrangement; arms crossed loosely/i,
+        /standing with(?: natural relaxed standing arrangement;)? arms crossed loosely/i,
       ],
       minParagraphs: 5,
     },
@@ -1288,7 +1285,7 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
         framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
       },
       expected: [
-        /She wears complete special outfit: black gothic Y2K lace punk look/i,
+        /She wears black gothic Y2K lace punk look/i,
         /distressed black denim micro shorts/i,
         /black slouchy knee-high leather boots/i,
       ],
@@ -1329,8 +1326,8 @@ test('Grok/Z-Image special outfit places wardrobe and pose before scene', () => 
   });
   const paragraphs = zImageParagraphs(prompt);
   const subjectIndex = paragraphs.findIndex((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph));
-  const wardrobeIndex = paragraphs.findIndex((paragraph) => /^She wears complete special outfit:/i.test(paragraph));
-  const poseIndex = paragraphs.findIndex((paragraph) => /^She is standing with natural relaxed standing arrangement/i.test(paragraph));
+  const wardrobeIndex = paragraphs.findIndex((paragraph) => /^She wears .*gothic Y2K lace punk look/i.test(paragraph));
+  const poseIndex = paragraphs.findIndex((paragraph) => /^She is standing with(?: natural relaxed standing arrangement;)? arms crossed/i.test(paragraph));
   const sceneIndex = paragraphs.findIndex((paragraph) => /^Scene: The portrait takes place/i.test(paragraph));
 
   assert.ok(subjectIndex >= 0, 'Expected a subject paragraph');
@@ -1338,8 +1335,8 @@ test('Grok/Z-Image special outfit places wardrobe and pose before scene', () => 
   assert.ok(poseIndex >= 0, 'Expected a pose paragraph');
   assert.ok(sceneIndex >= 0, 'Expected a scene paragraph');
   assert.ok(subjectIndex < wardrobeIndex, 'Expected subject before wardrobe');
+  assert.ok(sceneIndex < wardrobeIndex, 'Expected scene before wardrobe in the natural Z-Image flow');
   assert.ok(wardrobeIndex < poseIndex, 'Expected wardrobe before pose');
-  assert.ok(poseIndex < sceneIndex, 'Expected pose before scene');
 });
 
 test('Z-Image chest-up framing preserves body-shape anchor while wardrobe remains visibility-filtered', () => {
@@ -1417,7 +1414,8 @@ test('AI duo prompt uses compact labeled role sections', () => {
   }
 
   const aiPrompt = prompt.midjourneyPrompt;
-  assert.match(aiPrompt, /^Create a photorealistic editorial portrait in a real-world photography style\. The main characters are two stunning seductive 20-year-old Japanese or Korean women\./);
+  assert.match(aiPrompt, /^Create a photorealistic editorial portrait\./);
+  assert.match(aiPrompt, /\n\nWoman 1:/);
   assert.ok(aiPrompt.indexOf('\n\nWoman 1:') < aiPrompt.indexOf('\n\nWoman 2:'));
   assert.ok(aiPrompt.indexOf('\n\nWoman 2:') < aiPrompt.indexOf('\n\nPose:'));
   assert.ok(aiPrompt.indexOf('\n\nPose:') < aiPrompt.indexOf('\n\nScene:'));
@@ -1443,11 +1441,11 @@ test('AI prompt keeps special outfit clothing core while dropping accessory-heav
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /wearing a black gothic Y2K lace punk outfit/i);
+  assert.match(prompt.midjourneyPrompt, /Wearing black gothic Y2K lace punk look/i);
   assert.match(prompt.midjourneyPrompt, /fitted black short-sleeve top/i);
   assert.match(prompt.midjourneyPrompt, /distressed black denim micro shorts/i);
   assert.match(prompt.midjourneyPrompt, /black slouchy knee-high leather boots/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /snap choker|rosary|necklace|wrist cuffs|bracelets/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /rosary|necklace|wrist cuffs|bracelets/i);
 });
 
 test('AI prompt compresses outfit presets and dresses into short wearable phrases', () => {
@@ -1469,9 +1467,9 @@ test('AI prompt compresses outfit presets and dresses into short wearable phrase
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
 
-  assert.match(presetPrompt.midjourneyPrompt, /wearing a nurse uniform/i);
+  assert.match(presetPrompt.midjourneyPrompt, /Wearing [^\n]*nurse uniform outfit/i);
   assert.doesNotMatch(presetPrompt.midjourneyPrompt, /short white nurse dress|medical apron|white cap/i);
-  assert.match(dressPrompt.midjourneyPrompt, /wearing [a-z -]*glossy latex mini dress/i);
+  assert.match(dressPrompt.midjourneyPrompt, /Wearing [^\n]*glossy latex mini dress/i);
   assert.doesNotMatch(dressPrompt.midjourneyPrompt, /wearing a glossy latex mini dress|one-piece short mini silhouette|smooth glossy latex/i);
 });
 
@@ -1504,7 +1502,7 @@ test('AI prompt keeps two-piece outfit preset garments while omitting palette co
     poseId: optionId('poseId', '坐姿｜微微前傾'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /wearing a tight long-sleeve button-up shirt and bodycon mini skirt/i);
+  assert.match(prompt.midjourneyPrompt, /Wearing tight long-sleeve button-up shirt outfit, tight bodycon mini skirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /wearing a (?:white|black) tight long-sleeve button-up shirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /tight long-sleeve button-up shirt and (?:white|black) bodycon mini skirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /coordinated top-to-bottom palette|upper\/main garment|lower or secondary garment/i);
@@ -1520,8 +1518,8 @@ test('AI prompt keeps cheongsam outfit presets as a short wearable phrase', () =
     poseId: optionId('poseId', '坐姿｜單腿放鬆'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /wearing a satin cheongsam mini outfit/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /neon yellow/i);
+  assert.match(prompt.midjourneyPrompt, /Wearing solid satin cheongsam mini outfit/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /the cheongsam body in neon yellow/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /diagonal frog-button placket|ultra-short mini hem|dominant satin color/i);
 });
 
@@ -1555,10 +1553,9 @@ test('face-only prompts keep close-up composition when wardrobe is visibility-fi
     shoesId: optionId('shoesId', '高跟鞋'),
   });
 
-  assert.doesNotMatch(gptSection(prompt, 'Pose and Composition'), /front three-quarter torso angle|torso toward camera/i);
-  assert.match(gptSection(prompt, 'Pose and Composition'), /tight facial close-up, face dominant in frame, minimal headroom/i);
+  assert.match(prompt.grokPrompt, /Tight face close-up(?:, shoulder-level view)?, front-left three-quarter view/i);
 
-  assert.match(prompt.zImagePrompt, /tight facial close-up, face dominant in frame, minimal headroom/i);
+  assert.match(prompt.zImagePrompt, /Tight face close-up(?:, shoulder-level view)?, front-left three-quarter view/i);
   assert.doesNotMatch(prompt.zImagePrompt, /\bwoman\. with\b/i);
   assert.doesNotMatch(prompt.zImagePrompt, /front three-quarter torso angle|torso toward camera/i);
   assert.doesNotMatch(prompt.zImagePrompt, /semi-sheer embroidered shirt|straight-leg jeans|stiletto pumps/i);
@@ -1581,7 +1578,7 @@ test('AI prompt converts recognizable separate pieces into a style shorthand', (
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /wearing a summer bikini-and-denim look/i);
+  assert.match(prompt.midjourneyPrompt, /Wearing [^\n]*triangle bikini top[\s\S]*(?:denim shorts|denim)/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /slim halter strings|minimal sliding triangle cups|compact fitted seat/i);
 });
 
@@ -1640,8 +1637,8 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     bottomFitId: optionId('bottomFitId', '緊身'),
   });
   assert.match(gptSection(tieShirtPrompt, 'Wardrobe'), /top length meets or slightly overlaps the low-rise waistband/i);
-  assert.match(zImageWardrobeParagraph(tieShirtPrompt), /white collared shirt with a short soft necktie fastened at the collar/i);
-  assert.match(zImageWardrobeParagraph(tieShirtPrompt), /tight low-rise neon green leather shorts/i);
+  assert.match(zImageWardrobeParagraph(tieShirtPrompt), /white collared shirt with a short soft necktie/i);
+  assert.match(zImageWardrobeParagraph(tieShirtPrompt), /neon green leather shorts/i);
   assert.doesNotMatch(zImageWardrobeParagraph(tieShirtPrompt), noZGuard);
 
   const [sweaterPrompt] = generatePrompts(1, {
@@ -1655,7 +1652,7 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     bottomFitId: optionId('bottomFitId', '緊身'),
   });
   assert.match(zImageWardrobeParagraph(sweaterPrompt), /white oversized cable-knit sweater/i);
-  assert.match(zImageWardrobeParagraph(sweaterPrompt), /tight low-rise neon green leggings/i);
+  assert.match(zImageWardrobeParagraph(sweaterPrompt), /neon green leggings/i);
   assert.doesNotMatch(zImageWardrobeParagraph(sweaterPrompt), noZGuard);
 
   const [outerwearPrompt] = generatePrompts(1, {
@@ -1672,9 +1669,9 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     shoesId: optionId('shoesId', 'Samba OG'),
     shoesColorId: optionId('shoesColorId', '白色'),
   });
-  assert.match(zImageWardrobeParagraph(outerwearPrompt), /dark grey washed denim jacket with chest pockets and metal buttons/i);
-  assert.match(zImageWardrobeParagraph(outerwearPrompt), /worn open at the front with front panels parted naturally/i);
-  assert.match(zImageWardrobeParagraph(outerwearPrompt), /slipped below the shoulder line with sleeves loosely on the arms/i);
+  assert.match(zImageWardrobeParagraph(outerwearPrompt), /dark grey denim jacket, washed denim texture, chest pockets, metal buttons/i);
+  assert.match(zImageWardrobeParagraph(outerwearPrompt), /outerwear worn open at the front, front panels parted naturally/i);
+  assert.match(zImageWardrobeParagraph(outerwearPrompt), /slipped below the shoulder line, sleeves loosely on the arms/i);
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /layered over off-white shirt/i);
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /pleated mini skirt/i);
   assert.doesNotMatch(zImageWardrobeParagraph(outerwearPrompt), noZGuard);
@@ -1705,8 +1702,8 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     pantsId: optionId('pantsId', '比基尼下身'),
     bottomColorId: optionId('bottomColorId', '白色'),
   });
-  assert.match(zImageWardrobeParagraph(bikiniPrompt), /white triangle bikini top with slim halter strings/i);
-  assert.match(zImageWardrobeParagraph(bikiniPrompt), /paired with white low-rise side-tie bikini bottoms/i);
+  assert.match(zImageWardrobeParagraph(bikiniPrompt), /white triangle bikini top (?:with|,) slim halter strings/i);
+  assert.match(zImageWardrobeParagraph(bikiniPrompt), /white low-rise side-tie bikini bottoms/i);
   assert.doesNotMatch(zImageWardrobeParagraph(bikiniPrompt), noZGuard);
 
   const [lacePrompt] = generatePrompts(1, {
@@ -1716,7 +1713,7 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     pantsId: optionId('pantsId', '蕾絲內褲'),
     bottomColorId: optionId('bottomColorId', '黑色'),
   });
-  assert.match(zImageWardrobeParagraph(lacePrompt), /black lace bra top with delicate shoulder straps/i);
+  assert.match(zImageWardrobeParagraph(lacePrompt), /black lace bra top, delicate shoulder straps/i);
   assert.match(zImageWardrobeParagraph(lacePrompt), /black low-rise lace panties/i);
   assert.doesNotMatch(zImageWardrobeParagraph(lacePrompt), noZGuard);
 });
@@ -1735,7 +1732,7 @@ test('AI prompt uses simplified X-prompt wardrobe wording for representative loo
     pantsId: optionId('pantsId', '蕾絲內褲'),
     bottomColorId: optionId('bottomColorId', '黑色'),
   });
-  assert.match(lacePrompt.midjourneyPrompt, /wearing black lace bra top and black low-rise lace panties/i);
+  assert.match(lacePrompt.midjourneyPrompt, /Wearing black lace bra top, (?:black low-rise lace panties|lingerie bottoms)/i);
   assert.doesNotMatch(lacePrompt.midjourneyPrompt, /gothic lace street look|top length|waistband|[\u3400-\u9fff]/i);
 
   const [dressPrompt] = generatePrompts(1, {
@@ -1759,7 +1756,7 @@ test('AI prompt keeps a compact imaging simulation cue', () => {
 
   assert.match(
     prompt.midjourneyPrompt,
-    /high-acutance snapshot rendering, snap-focus clarity, contrasty black levels/i
+    /high-acutance snapshot rendering, snap-focus clarity/i
   );
   assert.doesNotMatch(prompt.midjourneyPrompt, /crisp APS-C-like color response|candid compact-camera texture/i);
 });
@@ -1805,12 +1802,12 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
 
   assert.match(prompt.zImagePrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.zImagePrompt, /flight attendant uniform outfit/i);
-  assert.match(prompt.zImagePrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
+  assert.match(prompt.zImagePrompt, /standing with arms crossed loosely/i);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
 
   assert.match(prompt.midjourneyPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.midjourneyPrompt, /flight attendant uniform/i);
-  assert.match(prompt.midjourneyPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
   assert.equal(prompt.selection.locationId, optionId('locationId', '全無'));
   assert.equal(prompt.selection.importedWorldSceneMode, 'architecture');

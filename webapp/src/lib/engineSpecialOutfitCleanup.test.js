@@ -505,7 +505,7 @@ test('selected special outfit stays the complete wardrobe priority', () => {
   const groups = specialOutfitGptGroups(prompt);
   assert.match(groups.fullOutfit, /black sheer polka-dot matching fashion set/);
   assert.doesNotMatch(prompt.grokPrompt, /\nTop:|\nPants:|\nShoes:|\nOutfit Preset:|\nDress:/);
-  assert.match(prompt.zImagePrompt, /She wears complete special outfit: black sheer polka-dot matching fashion set/);
+  assert.match(prompt.zImagePrompt, /She wears black sheer polka-dot matching fashion set/);
 });
 
 test('single Gpt special outfit moves hair and body details into Subject and uses named Wardrobe subsections', () => {
@@ -530,7 +530,8 @@ test('single Gpt special outfit moves hair and body details into Subject and use
   assert.match(groups.headwearEyewearBag, /brown monogram shoulder bag/i);
   assert.doesNotMatch(groups.fullOutfit, /brown monogram shoulder bag/i);
   assert.doesNotMatch(groups.headwearEyewearBag, /long straight side-part black hair|cropped white short-sleeve button shirt/i);
-  assert.match(prompt.zImagePrompt, /She wears complete special outfit: crisp Y2K schoolgirl-inspired styling\. long straight side-part black hair/i);
+  assert.match(prompt.zImagePrompt, /long straight side-part black hair/i);
+  assert.match(prompt.zImagePrompt, /She wears crisp Y2K schoolgirl-inspired styling/i);
 });
 
 test('portrait special outfit output keeps visible upper garments and removes hidden lower-body fragments', () => {

@@ -248,7 +248,7 @@ test('outerwear and long shirt compose as explicit outer-over-inner layers', () 
   assert.doesNotMatch(grokWardrobeLine, /She wears properly worn on both shoulders, dark grey denim jacket/);
   assert.doesNotMatch(grokWardrobeLine, /realistic outer-to-inner dressing order/);
   assert.doesNotMatch(grokWardrobeLine, /outerwear remains a coherent outer layer|inner garment appears at natural openings/);
-  assert.match(prompt.zImagePrompt, /dark grey washed denim jacket[\s\S]*layered over[\s\S]*off-white longline shirt/);
+  assert.match(prompt.zImagePrompt, /dark grey denim jacket[\s\S]*layered over[\s\S]*off-white longline shirt/);
   assert.doesNotMatch(prompt.zImagePrompt, /properly worn on both shoulders|paired with off-white longline shirt/);
 });
 
@@ -712,7 +712,7 @@ test('special top and bottom palette applies to dress controls', () => {
   assert.match(promptText, /cherry blossom pink/);
   assert.match(promptText, /cream yellow/);
   assert.doesNotMatch(promptText, /#[0-9A-Fa-f]{6}/);
-  assert.match(promptText, /lower hem or skirt accent/);
+  assert.match(promptText, /lower hem or skirt (?:accent|area)/);
 });
 
 test('final prompts omit legwear under long-bottom guard wording', () => {
@@ -798,7 +798,7 @@ test('face-only close-up prompts omit wardrobe text', () => {
   assert.equal(prompt.selection.pantsId, '');
   assert.equal(prompt.selection.shoesId, '');
 
-  assert.match(prompt.grokPrompt, /tight facial close-up, face dominant in frame, minimal headroom/);
+  assert.match(prompt.grokPrompt, /Tight face close-up/);
   assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Visibility:/);
   assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Integrity:/);
   assert.doesNotMatch(prompt.grokPrompt, /Keep the specified outfit visible where the chosen framing allows/i);
@@ -843,7 +843,7 @@ test('close-up framing keeps direct wardrobe prompt details available', () => {
   });
 
   assert.equal(prompt.selection.framingId, optionId('framingId', '特寫鏡頭 (Close-Up)'));
-  assert.match(prompt.grokPrompt, /head and shoulders close-up, tight portrait crop/i);
+  assert.match(prompt.grokPrompt, /Head-and-shoulders portrait/i);
   assert.match(prompt.grokPrompt, /semi-sheer embroidered shirt/i);
   assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Visibility:/);
   assert.match(prompt.zImagePrompt, /semi-sheer embroidered shirt/i);

@@ -9543,6 +9543,21 @@ const Z_IMAGE_REDUNDANT_SOURCE_FRAGMENTS = [
   /clean dark depth/gi,
   /gentle confident expression/gi,
   /bright approachable expression/gi,
+  /magnetic feminine facial balance/gi,
+  /defined eyes and lips/gi,
+  /sensual captivating portrait presence/gi,
+  /polished Korean-style face-framing flow/gi,
+  /hydrated reflective complexion/gi,
+  /clean salon shape/gi,
+  /approachable youthful portrait look/gi,
+  /authentic skin detail/gi,
+  /bikini-like one-piece construction/gi,
+  /looking directly at the camera/gi,
+  /casual structured outerwear/gi,
+  /soft cotton texture/gi,
+  /bow accents placed clearly on both the left and right sides of the headband/gi,
+  /remaining front buttons fastened under tension/gi,
+  /one-piece silhouette/gi,
   /balanced feminine silhouette/gi,
   /coordinated(?:\s+[^,.]+)?\s+styling/gi,
   /balanced look/gi,
@@ -9646,6 +9661,12 @@ function compressZImageSingleSubjectText(value, context) {
     : restored;
 
   return faceCloseupCleaned
+    .replace(/\bwet-look long wavy hair, damp separated strands,\s*natural black hair\b/gi, 'natural black wet-look long wavy hair, damp separated strands')
+    .replace(/\bdeep side-parted long soft waves(?:, polished Korean-style face-framing flow)?,\s*silver-gray white hair\b/gi, 'silver-gray white deep side-parted long soft waves')
+    .replace(/\bsleek wet straight medium-to-long hair, separated damp strands,\s*honey caramel-brown hair\b/gi, 'honey caramel-brown sleek wet straight medium-to-long hair, separated damp strands')
+    .replace(/\bstraight medium-to-long hair with a sleek wet texture, clean straight lengths, separated damp strands, minimal wave,\s*honey caramel-brown hair\b/gi, 'honey caramel-brown sleek wet straight medium-to-long hair, separated damp strands')
+    .replace(/\blong naturally slightly wavy hair with airy see-through bangs, soft side-draped face-framing strands,\s*jewel cobalt-blue fashion hair color\b/gi, 'cobalt-blue fashion long slightly wavy hair')
+    .replace(/\bvoluminous high ponytail, loose natural strands, lifted active movement,\s*soft black-tea brown hair\b/gi, 'soft black-tea brown voluminous high ponytail')
     .replace(/\s*,\s*,+/g, ', ')
     .replace(/,\s*\./g, '.')
     .trim();
@@ -10515,8 +10536,8 @@ function buildAiSingleHairAnchorText(valuesByLabel, context) {
   const hairColorText = firstStructuredValue(valuesByLabel, ['Hair Color']);
   const combinedHairText = [hairstyleText, hairColorText]
     .filter((value) => value && !/^none$/i.test(value.trim()))
-    .map((value) => ensureTerminalPeriod(value))
-    .join(' ');
+    .map((value) => stripTerminalPromptPunctuation(value))
+    .join(', ');
 
   if (!combinedHairText) return '';
   const compactHairText = compactAiMinimalFragment(
@@ -11289,10 +11310,6 @@ function splitAiSourceFragments(value) {
     .filter(Boolean);
 }
 
-function isAiCoreAccessoryFragment(fragment) {
-  return /\b(?:headband|headscarf|bandana|cap|hat|beret|bag|handbag|shoulder bag|tote|choker|necklace|pendant|earrings?|bracelets?|rings?|belt)\b/i.test(fragment);
-}
-
 function isAiSpecialPersonFragment(fragment) {
   return isGptSpecialOutfitHairOrBodyFragment(fragment)
     && !classifyCompleteLookWardrobeFragment(fragment);
@@ -11315,9 +11332,15 @@ function extractAiSpecialPersonFragments(value) {
   return personFragments;
 }
 
-function compactAiGarmentValue(value) {
+function compactAiGarmentValue(value, preferredRole = '') {
   const fragments = splitAiSourceFragments(value);
-  const primary = fragments.find((fragment) => classifyCompleteLookWardrobeFragment(fragment)) || fragments[0] || '';
+  const roleFragments = fragments.filter((fragment) => classifyCompleteLookWardrobeFragment(fragment) === preferredRole);
+  const primary = roleFragments.find((fragment) => /\b(?:shorts?|pants|skirts?|jeans|leggings|trousers|bottoms?|tops?|shirt|tee|camisole|jacket|coat|blazer|shoes?|boots?|heels?|pumps?|sandals?|sneakers?|loafers?)\b/i.test(fragment)
+      && !/\b(?:waist|hem|fit|tucked|button|zipper|surface|pattern|texture|silhouette|line|cuffs?|sleeves?)\b/i.test(fragment))
+    || roleFragments[0]
+    || fragments.find((fragment) => classifyCompleteLookWardrobeFragment(fragment))
+    || fragments[0]
+    || '';
   const structuralDetail = fragments.find((fragment) => /\b(?:neckline|flare|pleated|ruffled|slit|hem|boning|lace trim|garter|cut-out|open shoulder|high-cut|wide-leg|straight-leg)\b/i.test(fragment) && fragment !== primary) || '';
   return [primary, structuralDetail].filter(Boolean).join(', ');
 }
@@ -11325,12 +11348,12 @@ function compactAiGarmentValue(value) {
 function buildAiCompleteLookCoreText(value, context = null) {
   let styleFragment = '';
   const roleFragments = new Map();
-  let accessoryFragment = '';
   const visibilityBucket = getPromptVisibilityBucket(context);
 
   for (const fragment of splitAiSourceFragments(value)) {
     if (isAiSpecialPersonFragment(fragment)) continue;
     if (/\b(?:controlled by|color selection|palette direction|preserving garment structure|accessory separation|material contrast|multi-piece color variation)\b/i.test(fragment)) continue;
+    if (/\b(?:the\s+)?(?:\w+\s+)?(?:body|fabric|main color|primary color)\s+in\s+[a-z -]+$/i.test(fragment)) continue;
 
     const role = classifyCompleteLookWardrobeFragment(fragment);
     if (/\b(?:look|styling|outfit)\b/i.test(fragment) && !styleFragment) {
@@ -11342,7 +11365,6 @@ function buildAiCompleteLookCoreText(value, context = null) {
       roleFragments.set(role, fragment);
       continue;
     }
-    if (!accessoryFragment && isAiCoreAccessoryFragment(fragment)) accessoryFragment = fragment;
   }
 
   return [
@@ -11353,7 +11375,6 @@ function buildAiCompleteLookCoreText(value, context = null) {
     roleFragments.get('legwear'),
     roleFragments.get('shoes'),
     roleFragments.get('bag'),
-    accessoryFragment,
   ].filter(Boolean).join(', ');
 }
 
@@ -11378,7 +11399,7 @@ function buildAiNormalWardrobeText(valuesByLabel, context) {
   };
   return Object.entries(roleByLabel)
     .filter(([, role]) => shouldKeepWardrobeRoleForVisibility(role, visibilityBucket))
-    .map(([label]) => compactAiGarmentValue(firstStructuredValue(valuesByLabel, [label])))
+    .map(([label, role]) => compactAiGarmentValue(firstStructuredValue(valuesByLabel, [label]), role))
     .filter(Boolean)
     .join(', ');
 }
@@ -11396,7 +11417,7 @@ function buildAiCharacterCardIdentityText(context, wardrobe) {
   ].filter(Boolean);
   const structuredIdentity = [
     ...detailedIdentity,
-    detailedIdentity.length === 0 ? groups.distinctiveFeatures : '',
+    groups.distinctiveFeatures,
   ].filter(Boolean);
   const identityText = structuredIdentity.length > 0
     ? structuredIdentity.join(', ')
@@ -11432,48 +11453,83 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) {
     ? FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE
     : context.subject?.en || 'A 20-year-old adult East Asian woman';
 
-  return ensureTerminalPeriod([
+  const bodyText = shouldUseFixedAiSingleSubjectLead(context)
+    ? buildAiSingleBodyTypeAnchorText(valuesByLabel, context)
+    : compactAiSourceText(firstStructuredValue(valuesByLabel, ['Body Type']));
+  const hairText = shouldUseFixedAiSingleSubjectLead(context)
+    ? buildAiSingleHairAnchorText(valuesByLabel, context)
+    : compactAiSourceText([
+        firstStructuredValue(valuesByLabel, ['Hairstyle']),
+        firstStructuredValue(valuesByLabel, ['Hair Color']),
+      ].filter(Boolean).join(', '));
+
+  const subjectText = [
     stripTerminalPromptPunctuation(subjectLead),
-    compactAiSourceText(firstStructuredValue(valuesByLabel, ['Body Type'])),
-    compactAiSourceText([
-      firstStructuredValue(valuesByLabel, ['Hairstyle']),
-      firstStructuredValue(valuesByLabel, ['Hair Color']),
-    ].filter(Boolean).join(', ')),
+    bodyText,
+    hairText,
     specialPersonText,
     eyewearText,
     headphoneText,
-  ].filter(Boolean).join(', '));
+  ].filter(Boolean).join(', ')
+    .replace(/\.\s*,/g, ',')
+    .replace(/,\s*\./g, '.')
+    .replace(/\s*,\s*,+/g, ', ');
+  return ensureTerminalPeriod(subjectText);
 }
 
 function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) {
-  const characterWardrobe = isCharacterProfileSubject(context.subject)
-    ? buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe).outfit
+  const characterCardMode = isCharacterProfileSubject(context.subject);
+  const characterCardGroups = characterCardMode
+    ? buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe)
+    : null;
+  const selectedCardFillers = characterCardMode && shouldImportCharacterCardWardrobeLayers(context.locks)
+    ? buildAiNormalWardrobeText(valuesByLabel, context)
     : '';
-  const wardrobeText = characterWardrobe
-    ? buildAiCompleteLookCoreText(characterWardrobe, context)
-    : buildAiNormalWardrobeText(valuesByLabel, context);
+  const characterCardAccessories = characterCardMode
+    ? splitAiSourceFragments(characterCardGroups.accessories)
+      .filter((fragment) => !/\b(?:glasses|eyeglasses|sunglasses|headphones?|earphones?)\b/i.test(fragment))
+      .join(', ')
+    : '';
+  const wardrobeParts = characterCardMode
+    ? [
+        characterCardGroups.outfit ? buildAiCompleteLookCoreText(characterCardGroups.outfit, context) : '',
+        selectedCardFillers,
+        characterCardAccessories,
+      ]
+    : [buildAiNormalWardrobeText(valuesByLabel, context)];
+  const wardrobeText = uniqueAiWardrobeValues(wardrobeParts.join(', ').split(/,\s*/)).join(', ');
   return wardrobeText ? ensureTerminalPeriod(`Wearing ${compactAiSourceText(wardrobeText)}`) : '';
 }
 
 function buildAiFreedomSceneSentence(valuesByLabel, context) {
-  const sceneSource = isFixedCompositionSetActive(context?.fixedCompositionSet)
-    ? [
-        firstStructuredValue(valuesByLabel, ['Fixed Composition Set']),
-        firstStructuredValue(valuesByLabel, ['Fixed Set Background State']),
-      ].filter(Boolean).join(', ')
-    : firstStructuredValue(valuesByLabel, ['World Scene Architecture'])
-      || firstStructuredValue(valuesByLabel, ['Location'])
-      || firstStructuredValue(valuesByLabel, ['Scene Context']);
+  if (isFixedCompositionSetActive(context?.fixedCompositionSet)) {
+    const fixedScene = AI_FIXED_SET_SCENE_PHRASES[context.fixedCompositionSet?.id] || '';
+    return fixedScene ? ensureTerminalPeriod(`In ${compactAiSourceText(fixedScene)}`) : '';
+  }
+
+  const sceneSource = firstStructuredValue(valuesByLabel, ['World Scene Architecture'])
+    || firstStructuredValue(valuesByLabel, ['Location'])
+    || firstStructuredValue(valuesByLabel, ['Scene Context']);
   const clauses = splitAiSourceFragments(sceneSource);
   const conditionPattern = /\b(?:rain|snow|storm|fog|mist|wind|night|dusk|dawn|sunset|sunrise|daylight|overcast|cloudy|golden hour|post-rain|winter|summer|spring|autumn|late-afternoon|early-morning)\b/i;
   const selected = [];
+  const maxClauses = 4;
 
   for (const clause of clauses) {
     if (selected.length < 3 || conditionPattern.test(clause)) selected.push(clause);
-    if (selected.length >= 4) break;
+    if (selected.length >= maxClauses) break;
   }
 
-  const sceneText = selected.join(', ');
+  const sceneText = selected.join(', ')
+    .replace(/\bThe portrait takes place (?:inside|within) a real-scale [^,]+? set\b/gi, '')
+    .replace(/,?\s*not a flat backdrop and not a tight subject portrait/gi, '')
+    .replace(/,?\s*not a generic beach scene/gi, '')
+    .replace(/,?\s*Treat the fixed set as the primary composition:?/gi, '')
+    .replace(/,?\s*the camera is positioned[^,]*(?:,|$)/gi, '')
+    .replace(/,?\s*Scene priority:[^,]*/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .trim();
   return sceneText ? ensureTerminalPeriod(`In ${sceneText}`) : '';
 }
 
