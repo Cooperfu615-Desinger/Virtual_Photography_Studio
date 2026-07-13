@@ -339,7 +339,7 @@ test('Grok/Z-Image single-subject prompt keeps fixed subject lead and full body 
   assert.match(prompt.zImagePrompt, /white low-rise side-tie bikini bottoms/i);
   assert.doesNotMatch(prompt.zImagePrompt, /clean beachwear styling|clean beachwear silhouette|top length extending below|not cropped into an unintended midriff reveal|realistic outer-to-inner dressing order/i);
 
-  assert.match(prompt.zImagePrompt, /sitting naturally with her head facing the camera/i);
+  assert.match(prompt.zImagePrompt, /head naturally facing the camera[\s\S]*presents a natural seated pose/i);
 });
 
 test('AI single-subject prompt uses fixed subject lead while preserving eyewear and core prompt details', () => {
@@ -664,7 +664,7 @@ test('Gpt single-subject prompt preserves full-fidelity expression and special a
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
   assert.match(crossedArms.subject, /looking directly at the camera, direct eye contact, soft natural smile, gentle confidence, bright approachable expression/i);
-  assert.match(crossedArms.pose, /standing with natural relaxed standing arrangement; arms crossed loosely in front of the body/i);
+  assert.match(crossedArms.pose, /arms crossed loosely in front of the body[\s\S]*presents a natural relaxed standing pose/i);
   assert.doesNotMatch(crossedArms.pose, /\.,/i);
   assert.match(crossedArms.prompt.zImagePrompt, /direct eye contact/i);
   assert.doesNotMatch(crossedArms.prompt.zImagePrompt, /cool composed body language/i);
@@ -674,13 +674,13 @@ test('Gpt single-subject prompt preserves full-fidelity expression and special a
     poseId: optionId('poseId', '半躺低姿態｜側身半躺'),
   });
   assert.match(downwardRecline.subject, /eyes cast downward away from camera, lowered gaze, inward quiet expression, restrained emotion/i);
-  assert.match(downwardRecline.pose, /lying down with side-lying arrangement/i);
+  assert.match(downwardRecline.pose, /side-lying pose/i);
   assert.doesNotMatch(downwardRecline.pose, /soft flowing body line|\.,/i);
 
   const supine = buildSections({
     poseId: optionId('poseId', '半躺低姿態｜正面仰躺'),
   });
-  assert.match(supine.pose, /lying down with lying on the back, relaxed upward-facing body line/i);
+  assert.match(supine.pose, /lying on the back, relaxed upward-facing body line/i);
   assert.doesNotMatch(supine.pose, /facing upward|raised loosely|resting casually|soft asymmetrical way|\.,/i);
 
   const lipstick = buildSections({
@@ -723,7 +723,7 @@ test('Gpt single-subject prompt preserves full-fidelity pose composer special-se
   assert.match(standingSceneObject.pose, /leaning against any suitable existing object within the current scene/i);
   assert.match(standingSceneObject.pose, /body weight lightly supported by that existing scene object, using only a naturally available scene object for support/i);
   assert.match(standingSceneObject.pose, /one hand brushing hair back from the side of the face, fingers visibly touching the hair near the temple or ear/i);
-  assert.doesNotMatch(standingSceneObject.prompt.zImagePrompt, /using only a naturally available scene object for support/i);
+  assert.match(standingSceneObject.prompt.zImagePrompt, /using only a naturally available scene object for support/i);
 
   const sittingChair = buildSections({
     poseBaseId: optionId('poseBaseId', '坐姿'),
@@ -732,8 +732,8 @@ test('Gpt single-subject prompt preserves full-fidelity pose composer special-se
     poseHeadId: optionId('poseHeadId', '近鏡頭偏轉頭部'),
     poseAnchorId: optionId('poseAnchorId', '坐在椅子上'),
   });
-  assert.match(sittingChair.pose, /sitting on a chair that naturally fits the current scene with the chair style material and scale chosen to match the environment/i);
-  assert.match(sittingChair.pose, /open confident seated arrangement, knees set wider with grounded posture, torso upright, strong spatial presence/i);
+  assert.match(sittingChair.pose, /on a chair that naturally fits the current scene with the chair style material and scale chosen to match the environment/i);
+  assert.match(sittingChair.pose, /open confident seated pose, knees set wider with grounded posture, torso upright, strong spatial presence/i);
   assert.match(sittingChair.pose, /both hands placed on the waist or hip line with elbows naturally adapted to the pose/i);
   assert.match(sittingChair.pose, /head turned slightly off-axis near the lens with the face plane angled diagonally instead of flat to camera/i);
 
@@ -1256,7 +1256,7 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
         /triangle bikini top/i,
         /denim shorts/i,
         /Kowloon Walled City interior passage/i,
-        /standing with(?: natural relaxed standing arrangement;)? arms crossed loosely/i,
+        /arms crossed loosely[\s\S]*presents a natural relaxed standing pose/i,
       ],
       minParagraphs: 5,
     },
@@ -1327,7 +1327,7 @@ test('Grok/Z-Image special outfit places wardrobe and pose before scene', () => 
   const paragraphs = zImageParagraphs(prompt);
   const subjectIndex = paragraphs.findIndex((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph));
   const wardrobeIndex = paragraphs.findIndex((paragraph) => /^She wears .*gothic Y2K lace punk look/i.test(paragraph));
-  const poseIndex = paragraphs.findIndex((paragraph) => /^She is standing with(?: natural relaxed standing arrangement;)? arms crossed/i.test(paragraph));
+  const poseIndex = paragraphs.findIndex((paragraph) => /presents .*standing pose/i.test(paragraph));
   const sceneIndex = paragraphs.findIndex((paragraph) => /^Scene: The portrait takes place/i.test(paragraph));
 
   assert.ok(subjectIndex >= 0, 'Expected a subject paragraph');
@@ -1372,12 +1372,12 @@ test('Z-Image chest-up framing removes hidden pose camera and scene pressure', (
     expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
   });
 
-  assert.match(prompt.zImagePrompt, /low seated posture with the upper body leaning forward/i);
+  assert.match(prompt.zImagePrompt, /grounded forward-leaning seated pose/i);
   assert.doesNotMatch(prompt.zImagePrompt, /sitting on the floor/i);
   assert.doesNotMatch(prompt.zImagePrompt, /supporting on floor/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /resting on the leg/i);
+  assert.match(prompt.zImagePrompt, /resting on the leg/i);
   assert.doesNotMatch(prompt.zImagePrompt, /legs and shoes emphasized/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /face oriented away from the camera/i);
+  assert.match(prompt.zImagePrompt, /face oriented away from the camera/i);
   assert.doesNotMatch(prompt.zImagePrompt, /clear spatial context/i);
   assert.match(prompt.zImagePrompt, /without widening the portrait crop/i);
 });
@@ -1797,12 +1797,12 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
   assert.match(prompt.grokPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.grokPrompt, /large video billboards/i);
   assert.match(prompt.grokPrompt, /flight attendant uniform outfit/i);
-  assert.match(prompt.grokPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
+  assert.match(prompt.grokPrompt, /arms crossed loosely[\s\S]*presents a natural relaxed standing pose/i);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 
   assert.match(prompt.zImagePrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.zImagePrompt, /flight attendant uniform outfit/i);
-  assert.match(prompt.zImagePrompt, /standing with arms crossed loosely/i);
+  assert.match(prompt.zImagePrompt, /arms crossed loosely[\s\S]*presents a natural relaxed standing pose/i);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
 
   assert.match(prompt.midjourneyPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);

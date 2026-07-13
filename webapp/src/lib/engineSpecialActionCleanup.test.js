@@ -186,7 +186,7 @@ test('selfie hand poses compose with pose composer body controls', () => {
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.summary].join('\n');
   assert.equal(prompt.selection.poseBaseId, optionByLabel('poseBaseId', '坐姿').id);
   assert.equal(prompt.selection.poseHandId, optionByLabel('poseHandId', '男友/閨蜜自拍').id);
-  assert.match(promptText, /slightly forward-leaning seated arrangement/);
+  assert.match(promptText, /slightly forward-leaning seated pose/);
   assert.match(promptText, /close-companion social snapshot feeling/);
 });
 

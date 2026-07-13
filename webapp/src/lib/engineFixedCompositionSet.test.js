@@ -643,7 +643,7 @@ test('self-shot fixed composition mode relaxes set, focus, face, and wardrobe co
   assert.match(prompt.grokPrompt, /Imperfect self-shot camera behavior, focus may fall on the background or set objects instead of the face, subject may be slightly blurred or partially cropped/);
   assert.match(prompt.grokPrompt, /Lazy drained presence/);
   assert.match(prompt.grokPrompt, /flight attendant uniform outfit/);
-  assert.match(prompt.grokPrompt, /She is sitting\./);
+  assert.match(prompt.grokPrompt, /presents a casual, relaxed, and natural sitting pose/);
   assert.doesNotMatch(prompt.grokPrompt, /Let the image model choose/i);
   assert.doesNotMatch(prompt.grokPrompt, /distinct weight shift limb angles torso orientation and asymmetry/i);
   assert.doesNotMatch(prompt.grokPrompt, /avoid collapsing into a face-only crop/);

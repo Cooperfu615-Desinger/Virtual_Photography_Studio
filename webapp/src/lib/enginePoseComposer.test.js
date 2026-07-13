@@ -120,9 +120,9 @@ test('scene-appropriate sitting chair anchor is preserved in all prompt versions
     poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
   });
 
-  assert.match(prompt.grokPrompt, /sitting on a chair that naturally fits the current scene/);
+  assert.match(prompt.grokPrompt, /natural seated pose on a chair that naturally fits the current scene/);
   assert.match(prompt.grokPrompt, /chair style material and scale chosen to match the environment/);
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
     assert.match(text, /chair that naturally fits the current scene|scene-appropriate chair/);
     assert.match(text, /chosen to match the environment|scene-appropriate chair/);
     assert.doesNotMatch(text, /ornate single velvet armchair|bar stool|high-back chair/);
@@ -142,7 +142,7 @@ test('seat-edge sitting anchor is preserved in all prompt versions', () => {
   });
 
   assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', '坐在椅緣'));
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
     assert.match(text, /front edge of a chair/);
     assert.match(text, /seat-edge support/);
   }
@@ -195,8 +195,8 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       baseZh: '站姿',
       arrangementZh: '自然站姿',
       anchorZh: '在水中',
-      expected: [/standing waist-deep in clear pool water/, /visible waterline(?: across the body)?/],
-      expectedGpt: [/standing waist-deep in clear pool water/, /water-contact realism with the whole lower body submerged/],
+      expected: [/standing pose waist-deep in clear pool water/, /visible waterline(?: across the body)?/],
+      expectedGpt: [/standing pose waist-deep in clear pool water/, /water-contact realism with the whole lower body submerged/],
     },
     {
       locationZh: '戶外：飯店度假村泳池露台',
@@ -211,8 +211,8 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       baseZh: '蹲姿',
       arrangementZh: '自然蹲姿',
       anchorZh: '在水中',
-      expected: [/squatting low in clear shallow seawater/, /natural ripples(?: around the torso and limbs)?/],
-      expectedGpt: [/squatting low in clear shallow seawater/, /natural ripples/],
+      expected: [/squatting pose low in clear shallow seawater/, /natural ripples(?: around the torso and limbs)?/],
+      expectedGpt: [/squatting pose low in clear shallow seawater/, /natural ripples/],
     },
     {
       locationZh: '戶外：岩洞感海灣淺灘',
@@ -269,43 +269,42 @@ test('water contact anchors are ignored outside selected water scenes', () => {
   });
 
   assert.equal(prompt.selection.poseAnchorId, 'none');
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
     assert.doesNotMatch(text, /clear pool water|clear shallow seawater|waterline across the body|floating or half-floating/);
   }
 });
 
-test('pose composer exposes model natural decision options', () => {
-  const arrangement = control('poseArrangementId').options.find((option) => option.zh === '模型自然決定');
-  assert.ok(arrangement, 'Expected model natural arrangement option');
+test('pose composer exposes any decision options', () => {
+  const arrangement = control('poseArrangementId').options.find((option) => option.zh === '任意');
+  assert.ok(arrangement, 'Expected any arrangement option');
   assert.ok(arrangement.bases.includes('standing'));
   assert.ok(arrangement.bases.includes('lying'));
-  assert.match(arrangement.en, /let the image model choose a clearly varied non-default physically believable body arrangement/);
-  assert.match(arrangement.en, /within the selected pose base/);
-  assert.match(arrangement.en, /distinct weight shift limb angles torso orientation and asymmetry/);
+  assert.match(arrangement.en, /any natural body arrangement fitted to the selected pose base/);
+  assert.match(arrangement.desc, /不指定具體肢體變化/);
 
-  assertHandOption('模型自然決定', /let the image model choose natural varied hand placement/);
-  assertHandOption('模型自然決定', /without defaulting to stiff arms at the sides/);
-  assertHeadOption('模型自然決定', /let the image model choose a natural head angle/);
+  assertHandOption('任意', /any natural hand placement fitted to the selected body pose/);
+  assertHeadOption('任意', /any natural head direction fitted to the camera angle/);
 });
 
-test('model natural decision options are omitted from every prompt version', () => {
+test('any pose options add one shared natural qualifier without fixed directives', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '1',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     poseBaseId: optionId('poseBaseId', '站姿'),
-    poseArrangementId: optionId('poseArrangementId', '模型自然決定'),
-    poseHandId: optionId('poseHandId', '模型自然決定'),
-    poseHeadId: optionId('poseHeadId', '模型自然決定'),
+    poseArrangementId: optionId('poseArrangementId', '任意'),
+    poseHandId: optionId('poseHandId', '任意'),
+    poseHeadId: optionId('poseHeadId', '任意'),
   });
 
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
-    assert.match(text, /standing/i);
-    assert.doesNotMatch(text, /Let the image model choose/i);
-    assert.doesNotMatch(text, /within the selected pose base/i);
-    assert.doesNotMatch(text, /distinct weight shift limb angles torso orientation and asymmetry/i);
-    assert.doesNotMatch(text, /without defaulting to stiff arms at the sides/i);
-  }
+  const poseTexts = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]
+    .map((text) => text.match(/She (?:has|presents)[^.]+\./)?.[0] || '');
+  poseTexts.forEach((text) => {
+    assert.match(text, /casual, relaxed, and natural standing pose/i);
+    assert.equal((text.match(/casual, relaxed, and natural/gi) || []).length, 1);
+    assert.doesNotMatch(text, /any natural|let the image model choose/i);
+  });
+  assert.equal(new Set(poseTexts).size, 1);
 });
 
 test('pose composer exposes expressive hand interaction batch', () => {
@@ -681,8 +680,8 @@ test('pose composer exposes kneeling and lying expansion batch', () => {
 
 test('new arrangement batch is preserved in all prompt versions', () => {
   const cases = [
-    ['站姿', '交叉腿站姿', /crossed-leg standing arrangement/],
-    ['坐姿', '開闊自信坐姿', /open confident seated arrangement/],
+    ['站姿', '交叉腿站姿', /crossed-leg standing pose/],
+    ['坐姿', '開闊自信坐姿', /open confident seated pose/],
     ['蹲姿', '側身低蹲', /side-facing low squat/],
   ];
 
@@ -697,7 +696,7 @@ test('new arrangement batch is preserved in all prompt versions', () => {
       poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
     });
 
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       assert.match(text, expected);
     }
   }
@@ -712,8 +711,8 @@ test('kneeling and lying expansion batch is preserved in all prompt versions', (
       anchorZh: '跪在矮桌前',
       headZh: '低頭三分之四側臉',
       expected: [
-        /kneeling in front of a low table/,
-        /side-sitting kneeling arrangement/,
+        /side-sitting kneeling pose[\s\S]*in front of a low table/,
+        /side-sitting kneeling pose/,
         /both hands clasped loosely in front of the body/,
         /head lowered into a three-quarter side angle/,
       ],
@@ -725,8 +724,8 @@ test('kneeling and lying expansion batch is preserved in all prompt versions', (
       anchorZh: '躺在床上',
       headZh: '越肩回望',
       expected: [
-        /lying on a bed/,
-        /prone lying arrangement with elbows propping up/,
+        /prone lying pose[\s\S]*on a bed/,
+        /prone lying pose with elbows propping up/,
         /one hand holding the ankle/,
         /head turned over one shoulder toward the camera/,
       ],
@@ -738,15 +737,15 @@ test('kneeling and lying expansion batch is preserved in all prompt versions', (
       anchorZh: '跪在地面',
       headZh: '頭部自然朝向鏡頭',
       expected: [
-        /kneeling on the ground/,
-        /yoga extended puppy pose kneeling arrangement|extended puppy kneeling pose/,
+        /kneeling pose[\s\S]*on the ground/,
+        /yoga extended puppy pose kneeling pose/,
         /torso folded forward/,
         /forearms crossed under(?: the)? chin/,
         /hands tucked below the jaw|forearms crossed under chin/,
       ],
       expectedGpt: [
-        /kneeling on the ground/,
-        /yoga extended puppy pose kneeling arrangement/,
+        /kneeling pose[\s\S]*on the ground/,
+        /yoga extended puppy pose kneeling pose/,
         /knees grounded/,
         /torso folded forward/,
         /forearms crossed under the chin/,
@@ -768,7 +767,7 @@ test('kneeling and lying expansion batch is preserved in all prompt versions', (
     });
 
     expectedGpt.forEach((pattern) => assert.match(prompt.grokPrompt, pattern));
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       expected.forEach((pattern) => assert.match(text, pattern));
     }
   }
@@ -786,13 +785,15 @@ test('single-subject pose composer outputs natural base arrangement hand anchor 
     poseHeadId: optionId('poseHeadId', '頭部微微側傾'),
   });
 
-  for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
-    assert.match(text, /She is standing beside a doorway frame with/);
+  const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /She has her head slightly tilted, one hand touching the chin, and presents a one-leg weight shift, relaxed asymmetrical body balance beside a doorway frame/);
     assert.match(text, /one-leg weight shift/);
     assert.match(text, /one hand touching the chin/);
     assert.match(text, /head slightly tilted/);
   }
-  assert.doesNotMatch(prompt.midjourneyPrompt, /standing beside a doorway frame|one-leg weight shift|one hand touching the chin|head slightly tilted/);
+  assert.equal(canonicalPose, prompt.zImagePrompt.match(/She has[^\n]+/)?.[0]);
+  assert.equal(canonicalPose, prompt.midjourneyPrompt.match(/She has[^\n]+/)?.[0]);
 });
 
 test('standing lean scene-object anchor preserves supported body contact wording', () => {
@@ -825,24 +826,25 @@ test('lying pose composer supports languid arrangement bathtub anchor and head d
     poseHeadId: optionId('poseHeadId', '回頭朝向鏡頭'),
   });
 
-  assert.match(prompt.grokPrompt, /She is reclining inside a water-filled clawfoot vintage bathtub with/);
-  assert.match(prompt.grokPrompt, /casually languid lying arrangement, relaxed uneven limbs, soft body weight settled into the surface/);
+  assert.match(prompt.grokPrompt, /presents a casually languid lying pose, relaxed uneven limbs, soft body weight settled into the surface inside a water-filled clawfoot vintage bathtub/);
   assert.match(prompt.grokPrompt, /one hand supporting the chin/);
   assert.match(prompt.grokPrompt, /head turned back toward the camera/);
   assert.match(prompt.grokPrompt, /the outfit and exposed skin are soaked by bath water/);
   assert.match(prompt.grokPrompt, /clothing remains complete and non-transparent/);
-  assert.match(prompt.zImagePrompt, /reclining inside a water-filled clawfoot vintage bathtub/);
-  assert.match(prompt.zImagePrompt, /reclining inside a water-filled clawfoot vintage bathtub/);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /casually languid lying arrangement|clothing remains complete and non-transparent/);
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /casually languid lying pose/);
+    assert.match(text, /inside a water-filled clawfoot vintage bathtub/);
+    assert.match(text, /clothing remains complete and non-transparent/);
+  }
   assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '躺姿'));
   assert.equal(prompt.selection.poseHeadId, optionId('poseHeadId', '回頭朝向鏡頭'));
 });
 
 test('shared bathtub anchor phrases naturally for standing sitting and squatting bases', () => {
   const cases = [
-    ['站姿', '自然站姿', /She is standing beside a water-filled clawfoot vintage bathtub with/, false],
-    ['坐姿', '自然坐姿', /She is sitting on the edge of a water-filled clawfoot vintage bathtub with/, true],
-    ['蹲姿', '自然蹲姿', /She is squatting inside a water-filled clawfoot vintage bathtub with/, true],
+    ['站姿', '自然站姿', /presents a natural relaxed standing pose beside a water-filled clawfoot vintage bathtub/, false],
+    ['坐姿', '自然坐姿', /presents a natural seated pose on the edge of a water-filled clawfoot vintage bathtub/, true],
+    ['蹲姿', '自然蹲姿', /presents a natural squatting pose inside a water-filled clawfoot vintage bathtub/, true],
   ];
 
   for (const [baseZh, arrangementZh, expected, expectsWaterContact] of cases) {
@@ -857,10 +859,12 @@ test('shared bathtub anchor phrases naturally for standing sitting and squatting
       poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
     });
 
-    assert.match(prompt.grokPrompt, expected);
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) assert.match(text, expected);
     if (expectsWaterContact) {
-      assert.match(prompt.grokPrompt, /visible water sheen and droplets, darker damp fabric tones, heavier wet folds/);
-      assert.match(prompt.grokPrompt, /clothing remains complete and non-transparent/);
+      for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+        assert.match(text, /visible water sheen and droplets, darker damp fabric tones, heavier wet folds/);
+        assert.match(text, /clothing remains complete and non-transparent/);
+      }
     } else {
       assert.doesNotMatch(prompt.grokPrompt, /soaked by bath water/);
     }
@@ -880,7 +884,7 @@ test('pose composer takes priority over single-subject pose and non-social speci
     poseAnchorId: optionId('poseAnchorId', '坐在單人雕花絨布椅'),
   });
 
-  assert.match(prompt.grokPrompt, /She is lounging on an ornate single velvet armchair with/);
+  assert.match(prompt.grokPrompt, /presents a casually slouched seated pose/);
   assert.match(prompt.grokPrompt, /casually slouched/);
   assert.match(prompt.grokPrompt, /ornate single velvet armchair/);
   assert.doesNotMatch(prompt.grokPrompt, /loosely crossed arms/);

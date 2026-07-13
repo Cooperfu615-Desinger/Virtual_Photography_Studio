@@ -1,6 +1,6 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-07-12
+Last updated: 2026-07-13
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
@@ -92,7 +92,7 @@ AI renderer 只可刪除、重排與使用最小語法連接既有內容；不�
 
 前置句依序為成品類型、共用構圖句；構圖控制皆為 `全無` 時，構圖句可省略。
 
-一般單人模式刻意不輸出五官、膚質、表情、姿勢／動作、環境光與人物光線；它們交由模型自由決定。
+一般單人模式仍可省略非核心五官、膚質、表情與光線細節，但只要 PAGE1 使用 Pose Composer，姿勢內容必須保留共用 canonical pose sentence；AI 不得省略或自行改寫這段姿勢語意。
 
 角色卡單人模式採「身份穩定、畫面自由」規則：人物句完整保留角色卡的結構化五官、膚質、永久特徵、身形、髮型與髮色，以及有效的眼鏡／耳機；穿搭句仍採極簡化。角色身份須從角色卡的結構化 profile fields 組裝，不可重複舊版完整 `identityAndBody` 段落，也不可將角色卡原始服裝與目前 PAGE1 選擇的服裝重複輸出。
 
@@ -195,7 +195,7 @@ core category, 1-3 concrete visible traits
 
 ## 4. B 神情姿態輸出規則
 
-`Gpt` 版應完整保留神情、特殊動作與 Pose Composer 的原始有效描述，尤其是身體安排、重心、支撐、手部位置、道具接觸、頭部方向與 framing/camera guide。不要在最終輸出層把 Pose Composer 的結構壓短。
+`Gpt`、`Grok/Z-Image`、`AI` 在 Pose Composer 啟用時共用同一段 canonical pose prompt，完整保留身體安排、重心、支撐、手部位置、道具接觸與頭部方向；只允許外層段落標題或排版不同，不得在 renderer 層壓縮、刪減或改寫姿勢語意。
 
 神情只寫臉、眼神、嘴型與情緒強度。姿態只寫身體安排、重心、支撐與動作狀態。
 
@@ -215,7 +215,19 @@ core category, 1-3 concrete visible traits
 - `relaxed everyday...`, `polished...`, `controlled cinematic...` 若不影響畫面可刪。
 - Pose Composer `手部 / 道具動作` 保留接觸點與道具狀態，不保留多餘情緒敘述。Legacy `特殊動作` 只作 restore 遷移參考，不作新增主路徑。
 
-Pose Composer 相關描述應保留實際身體結構，例如 base arrangement、hand / prop placement、support anchor、head direction。`Gpt` 版完整保留，`Grok/Z-Image` / `AI` 只能在不丟失結構的前提下壓縮。不要新增 Pose Modifier，除非使用者明確要求。
+Pose Composer 相關描述應保留實際身體結構，例如 base arrangement、hand / prop placement、support anchor、head direction。三組輸出都直接使用 canonical pose prompt。不要新增 Pose Modifier，除非使用者明確要求。
+
+### Pose Composer「任意」與 canonical pose 規則
+
+`poseArrangementId`、`poseHandId`、`poseHeadId` 的顯示名稱統一為 `任意`；既有 option ID 不變。`任意` 不是隨機抽選，而是不輸出該組固定描述，讓模型依姿勢基底、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。
+
+- 具體選項輸出具體英文描述；`全無` 完全不輸出該組內容。
+- `隨機` 只解析為一個具體選項，永遠不解析為 `任意`。
+- canonical 順序固定為：`She` + 具體頭部描述 + 具體手部描述 + 姿勢結果。
+- 三組中任一組為 `任意` 時，在姿勢結果前加入一次 `a casual, relaxed, and natural`；三組同時為任意也只能出現一次。
+- 肢體具體選項使用具體姿勢名稱；肢體為任意時退回姿勢基底名稱。
+- `poseAnchorId` 的接觸／支撐屬於姿勢結果，例如 `... presents a wide-knee kneeling pose leaning against a high-back chair.`
+- 啟用 Pose Composer 時，GPT、Grok/Z-Image、AI 三者必須逐字共用同一段 canonical pose prompt，只能不同外層標題或排版。
 
 ## 5. C 穿搭設定輸出規則
 

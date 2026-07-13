@@ -305,6 +305,11 @@ Rules:
 - Engine priority: if Pose Composer resolves, it outputs instead of old `poseId`; legacy `poseId` and `specialActionId` restores are normalized into Pose Composer locks and cleared.
 - Scene conflict checking for Pose Composer is intentionally not implemented yet.
 - `Pose Modifier` is intentionally not implemented yet.
+- `poseArrangementId`, `poseHandId`, and `poseHeadId` use the visible option name `任意` (legacy option IDs remain unchanged). `任意` means the group supplies no fixed description and lets the model choose a casual, relaxed, natural result from the selected base pose, wardrobe, camera, and scene; it is not random selection.
+- `隨機` resolves to one concrete option and never to `任意`; `全無` contributes no text.
+- The shared canonical pose sentence orders concrete head text, concrete hand text, then the pose result. If any of the three groups is `任意`, the natural qualifier is appended once only. A concrete arrangement uses its concrete pose name; an `任意` arrangement falls back to the base pose name.
+- Support/contact (`poseAnchorId`) is part of the pose result, for example `... presents a wide-knee kneeling pose leaning against a high-back chair.`
+- When Pose Composer is active, GPT, Grok/Z-Image, and AI all reuse the exact same canonical pose text. Model-specific renderers may change only the surrounding section label or paragraph layout; they must not compress or rewrite pose semantics.
 
 Duo rules:
 

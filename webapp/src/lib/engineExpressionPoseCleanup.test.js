@@ -311,7 +311,7 @@ test('selfie hand poses compose with pose composer body controls', () => {
   assert.equal(prompt.selection.poseBaseId, poseBase.id);
   assert.equal(prompt.selection.poseArrangementId, arrangement.id);
   assert.equal(prompt.selection.poseHandId, poseHand.id);
-  assert.match(promptText, /坐姿｜微微前傾|slightly forward-leaning seated arrangement/);
+  assert.match(promptText, /坐姿｜微微前傾|slightly forward-leaning seated pose/);
   assert.match(promptText, /男友\/閨蜜自拍|close-companion social snapshot feeling/);
 });
 
@@ -339,7 +339,7 @@ test('close-up framing preserves explicit pose composer directives', () => {
   assert.equal(prompt.selection.poseBaseId, poseBase.id);
   assert.equal(prompt.selection.poseHandId, poseHand.id);
   assert.equal(prompt.selection.poseHeadId, poseHead.id);
-  assert.match(promptText, /She is sitting\b/);
+  assert.match(promptText, /presents a sitting pose/);
   assert.match(promptText, /one hand supporting the chin/);
   assert.match(promptText, /head naturally facing the camera/);
 });

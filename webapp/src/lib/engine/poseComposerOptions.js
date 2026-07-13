@@ -13,9 +13,10 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   {
     id: 'model-natural-body-arrangement',
     bases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
-    zh: '模型自然決定',
-    en: 'let the image model choose a clearly varied non-default physically believable body arrangement within the selected pose base with distinct weight shift limb angles torso orientation and asymmetry compatible with the wardrobe camera framing and environment',
-    desc: '讓影像模型依目前基底、服裝、鏡頭與場景自行決定自然肢體變化。',
+    zh: '任意',
+    en: 'any natural body arrangement fitted to the selected pose base, wardrobe, camera, and environment',
+    desc: '不指定具體肢體變化，讓模型依姿勢基底、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。',
+    meta: { tags: ['any'] },
   },
   { id: 'standing-natural', base: 'standing', zh: '自然站姿', en: 'natural relaxed standing arrangement' },
   { id: 'standing-one-leg-weight', base: 'standing', zh: '單腳重心', en: 'one-leg weight shift, relaxed asymmetrical body balance' },
@@ -85,7 +86,7 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
 export const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random hand pose', desc: '隨機選擇手部姿勢。', meta: { tags: ['random'] } },
-  { id: 'model-natural-hand-placement', zh: '模型自然決定', en: 'let the image model choose natural varied hand placement fitted to the selected body pose support contact wardrobe and camera crop without defaulting to stiff arms at the sides', desc: '讓影像模型依目前身體姿勢自行決定自然手部位置。' },
+  { id: 'model-natural-hand-placement', zh: '任意', en: 'any natural hand placement fitted to the selected body pose, support contact, wardrobe, and camera crop', desc: '不指定具體手部動作，讓模型依姿勢、支撐、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。', meta: { tags: ['any'] } },
   { id: 'selfie-natural-right-arm', zh: '自然自拍', en: 'front-camera self-shot from the phone held in her own extended right hand, phone and hand stay just beyond the frame edge, only a natural foreshortened right forearm may enter from the side, no separate photographer feeling', desc: '右手拿手機前鏡頭自拍，手機與手留在畫面邊緣外，只保留自然前臂裁切。', meta: { tags: ['selfie_hand_pose', 'locks_orbit'] } },
   { id: 'selfie-mirror-phone-visible', zh: '鏡子自拍', en: 'holding a visible phone toward a mirror for a mirror selfie, phone may overlap the face or sit beside it in the reflection', desc: '拿著可見手機對鏡自拍，手機可遮到臉或在臉旁。', meta: { tags: ['selfie_hand_pose', 'visible_phone', 'mirror_selfie', 'locks_orbit'] } },
   { id: 'selfie-companion-camera-interaction', zh: '男友/閨蜜自拍', en: 'let the image model choose casual naturally relaxed hand placement, close-companion social snapshot feeling, unforced candid body language without prescribed hand gestures', desc: '呈現男友或閨蜜拍攝的親近社群感，手部由模型自然放鬆發揮。', meta: { tags: ['selfie_hand_pose', 'companion_snapshot', 'locks_orbit'] } },
@@ -129,7 +130,7 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
 export const POSE_COMPOSER_HEAD_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定頭部方向。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random head direction', desc: '隨機選擇頭部方向。', meta: { tags: ['random'] } },
-  { id: 'model-natural-head-angle', zh: '模型自然決定', en: 'let the image model choose a natural head angle and orientation compatible with the camera angle body orientation and selected pose', desc: '讓影像模型依鏡頭、身體方向與姿勢自行決定自然頭部角度。' },
+  { id: 'model-natural-head-angle', zh: '任意', en: 'any natural head direction fitted to the camera angle, body orientation, and selected pose', desc: '不指定具體頭部方向，讓模型依鏡頭、身體方向與姿勢自由產生隨意、放鬆且自然的結果。', meta: { tags: ['any'] } },
   { id: 'head-camera-natural', zh: '頭部自然朝向鏡頭', en: 'head naturally facing the camera' },
   { id: 'head-slight-tilt', zh: '頭部微微側傾', en: 'head slightly tilted' },
   { id: 'chin-slightly-raised', zh: '下巴微抬', en: 'chin slightly raised' },

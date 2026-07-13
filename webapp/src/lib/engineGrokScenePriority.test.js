@@ -56,7 +56,7 @@ test('Z-Image keeps scene priority guidance before a special outfit while preser
   const settingIndex = zImage.indexOf('Scene: The portrait takes place in');
   const scenePriorityIndex = zImage.indexOf('Scene priority:');
   const wardrobeIndex = zImage.indexOf('She wears black sheer polka-dot matching fashion set');
-  const poseIndex = zImage.indexOf('She is standing with arms crossed loosely in front of the body');
+  const poseIndex = zImage.search(/presents .*standing pose/);
 
   assert.notEqual(subjectIndex, -1);
   assert.notEqual(settingIndex, -1);

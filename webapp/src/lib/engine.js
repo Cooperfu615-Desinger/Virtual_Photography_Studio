@@ -4300,7 +4300,12 @@ function resolvePoseComposerOption(options, id, predicate = () => true, exclusio
   const option = getPoseComposerOption(options, id);
   if (!isActivePoseComposerOption(option)) return null;
 
-  const candidates = options.filter((item) => isActivePoseComposerOption(item) && !isRandomOption(item) && predicate(item));
+  const candidates = options.filter((item) => (
+    isActivePoseComposerOption(item)
+    && !isRandomOption(item)
+    && !isModelNaturalPoseComposerOption(item)
+    && predicate(item)
+  ));
   if (isRandomOption(option)) return sample(exclusions.filterCandidates(candidates, exclusionKeys), random);
   return predicate(option) ? option : null;
 }
@@ -4363,11 +4368,11 @@ function getPoseComposerAnchorPhrase(anchor, base, location) {
 
 function getPoseComposerBasePhrase(base) {
   const phrases = {
-    standing: 'standing',
-    sitting: 'sitting',
-    kneeling: 'kneeling',
-    squatting: 'squatting',
-    lying: 'lying down',
+    standing: 'standing pose',
+    sitting: 'sitting pose',
+    kneeling: 'kneeling pose',
+    squatting: 'squatting pose',
+    lying: 'lying pose',
   };
   return phrases[base?.id] || base?.en || '';
 }
@@ -4391,34 +4396,77 @@ function getPoseComposerAnchorEffect(anchor, base) {
 }
 
 function isModelNaturalPoseComposerOption(option) {
-  return Boolean(option?.id?.startsWith('model-natural-'));
+  return Boolean(
+    option?.id?.startsWith('model-natural-')
+    || option?.meta?.tags?.includes('any')
+  );
+}
+
+function normalizePoseComposerArrangementPhrase(arrangement) {
+  return stripTerminalPromptPunctuation(arrangement?.en || '')
+    .replace(/\barrangement\b/gi, 'pose')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function normalizePoseComposerHeadPhrase(head) {
+  const text = stripTerminalPromptPunctuation(head?.en || '');
+  if (!text) return '';
+  if (/^(?:head|chin)\b/i.test(text)) return `her ${text}`;
+  return text;
+}
+
+function normalizePoseComposerHandPhrase(handPose) {
+  const text = stripTerminalPromptPunctuation(handPose?.en || '');
+  if (!text) return '';
+  if (/^front-camera\b/i.test(text)) return `a ${text}`;
+  return text;
+}
+
+function buildPoseComposerResultPhrase({ base, arrangement, anchor, location }) {
+  const arrangementPhrase = arrangement && !isModelNaturalPoseComposerOption(arrangement)
+    ? normalizePoseComposerArrangementPhrase(arrangement)
+    : getPoseComposerBasePhrase(base);
+  const anchorPhrase = stripTerminalPromptPunctuation(getPoseComposerAnchorPhrase(anchor, base, location));
+
+  if (!arrangementPhrase) return anchorPhrase;
+  if (!anchorPhrase) return arrangementPhrase;
+
+  const anchorTail = anchorPhrase
+    .replace(/^(?:standing|sitting|kneeling|squatting|lying(?: down)?|reclining)\s+/i, '')
+    .trim();
+  if (anchorTail && anchorTail !== anchorPhrase) return `${arrangementPhrase} ${anchorTail}`;
+  if (/^(?:leaning|reclining|on|in|at|beside|by|against|near|with)\b/i.test(anchorPhrase)) {
+    return `${arrangementPhrase} ${anchorPhrase}`;
+  }
+  return `${arrangementPhrase} with ${anchorPhrase}`;
 }
 
 function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head, location }) {
-  const anchorPhrase = getPoseComposerAnchorPhrase(anchor, base, location);
-  const opening = anchorPhrase || getPoseComposerBasePhrase(base);
   const anchorEffect = getPoseComposerAnchorEffect(anchor, base);
-  const details = [];
-  const addOptionDetail = (option) => {
-    if (!option?.en) return;
-    if (isModelNaturalPoseComposerOption(option)) return;
-    details.push(option.en);
-  };
+  const naturalChoiceSelected = [arrangement, handPose, head].some(isModelNaturalPoseComposerOption);
+  const headPhrase = head && !isModelNaturalPoseComposerOption(head)
+    ? normalizePoseComposerHeadPhrase(head)
+    : '';
+  const handPhrase = handPose && !isModelNaturalPoseComposerOption(handPose)
+    ? normalizePoseComposerHandPhrase(handPose)
+    : '';
+  const poseResult = buildPoseComposerResultPhrase({ base, arrangement, anchor, location })
+    || (naturalChoiceSelected ? 'natural posture' : '');
+  const poseResultWithAnchorEffect = [poseResult, anchorEffect]
+    .filter(Boolean)
+    .join(', ');
+  const posturePhrase = poseResultWithAnchorEffect
+    ? `${naturalChoiceSelected ? 'a casual, relaxed, and natural ' : 'a '}${poseResultWithAnchorEffect}`
+    : '';
+  const details = [headPhrase, handPhrase].filter(Boolean);
 
-  addOptionDetail(arrangement);
-  if (anchorEffect) details.push(anchorEffect);
-  addOptionDetail(handPose);
-  addOptionDetail(head);
-
-  if (!base) {
-    return details.length > 0 ? `The pose includes ${details.join('; ')}.` : '';
+  if (!posturePhrase) {
+    return details.length > 0 ? `She has ${details.join(', ')}.` : '';
   }
 
-  const baseSentence = details.length === 0
-    ? `She is ${opening}.`
-    : `She is ${opening} with ${details.join('; ')}.`;
-
-  return baseSentence;
+  if (details.length === 0) return `She presents ${posturePhrase}.`;
+  return `She has ${details.join(', ')}, and presents ${posturePhrase}.`;
 }
 
 function buildPoseComposerItem(context) {
@@ -4431,7 +4479,7 @@ function buildPoseComposerItem(context) {
   const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId'], random);
 
   if (!base) {
-    const standaloneParts = [handPose, head].filter((option) => option && !isModelNaturalPoseComposerOption(option));
+    const standaloneParts = [handPose, head].filter(isActivePoseComposerOption);
     if (standaloneParts.length === 0) return null;
 
     return {
@@ -9775,6 +9823,7 @@ function renderGptPrompt(promptModel) {
   const imageTypeLine = buildImageTypePromptLine(context) || imageType;
   const compositionLine = buildCompositionPromptLine(context);
   const useRoleOrderedDuo = context.subject?.count === 2 && character && wardrobe && wardrobeColors;
+  const characterSlots = character ? extractCharacterSlots(character) : {};
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
   const duoWardrobeSlots = useRoleOrderedDuo ? extractWardrobeSlots(wardrobe) : null;
   const singleCharacterProfileSubjectBlock = !useRoleOrderedDuo && isCharacterProfileSubject(context.subject)
@@ -9810,9 +9859,15 @@ function renderGptPrompt(promptModel) {
     ? singleSpecialOutfitWardrobeBlock
     : buildGptSingleFullFidelityWardrobeText(wardrobeText);
   const resolvedSharedExpressionText = useRoleOrderedDuo ? buildGptDuoSharedExpressionText(duoCharacterSlots) : '';
+  const canonicalPoseText = !useRoleOrderedDuo
+    && characterSlots.poseComposer
+    && !isNoneLikeItem(characterSlots.poseComposer)
+    ? characterSlots.poseComposer.en
+    : '';
   const resolvedPoseText = useRoleOrderedDuo
     ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
-    : filterFaceOnlyTorsoAngleText(buildGptSingleFullFidelityText(poseText), context);
+    : canonicalPoseText
+      || filterFaceOnlyTorsoAngleText(buildGptSingleFullFidelityText(poseText), context);
   const resolvedWardrobeUsesBlock = Boolean(singleSpecialOutfitWardrobeBlock);
   const resolvedSubjectUsesBlock = Boolean(singleCharacterProfileSubjectBlock || singleSpecialOutfitGroups.hairAndBodyText);
   const sceneSection = sceneText
@@ -10152,10 +10207,13 @@ function renderZImagePrompt(promptModel) {
   const buildSinglePoseText = () => {
     if (context.subject.count !== 1 || specialSubjectMode || characterProfileMode) return '';
 
+    const poseComposerText = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
+      ? characterSlots.poseComposer.en
+      : '';
+    if (poseComposerText) return poseComposerText;
+
     const poseText = characterSlots.actionPose && !isNoneLikeItem(characterSlots.actionPose)
       ? characterSlots.actionPose.en
-      : characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
-      ? characterSlots.poseComposer.en
       : (characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '');
     const parts = [
       characterSlots.actionPose && !isNoneLikeItem(characterSlots.actionPose) ? '' : characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction) ? characterSlots.specialAction.en : '',
@@ -11501,6 +11559,14 @@ function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) {
   return wardrobeText ? ensureTerminalPeriod(`Wearing ${compactAiSourceText(wardrobeText)}`) : '';
 }
 
+function buildAiFreedomPoseSentence(context, character) {
+  if (context.subject?.count !== 1) return '';
+  const characterSlots = extractCharacterSlots(character);
+  const poseComposer = characterSlots.poseComposer;
+  if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
+  return ensureTerminalPeriod(stripMarkdown(poseComposer.en || '').replace(/\s+/g, ' ').trim());
+}
+
 function buildAiFreedomSceneSentence(valuesByLabel, context) {
   if (isFixedCompositionSetActive(context?.fixedCompositionSet)) {
     const fixedScene = AI_FIXED_SET_SCENE_PHRASES[context.fixedCompositionSet?.id] || '';
@@ -11561,6 +11627,7 @@ function renderAiPrompt(promptModel) {
   const {
     valuesByLabel,
     context,
+    character,
     wardrobe,
     wardrobeColors,
   } = promptModel;
@@ -11574,6 +11641,7 @@ function renderAiPrompt(promptModel) {
     buildCompositionPromptLine(context),
     buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe),
     buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe),
+    buildAiFreedomPoseSentence(context, character),
     buildAiFreedomSceneSentence(valuesByLabel, context),
     buildAiFreedomImagingSentence(valuesByLabel),
   ].filter(Boolean).join('\n\n');

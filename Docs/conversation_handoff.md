@@ -15,7 +15,15 @@ Important legacy terminology warning:
 - Current source fields still use historical names:
   - `grokPrompt` = current `Gpt`
   - `zImagePrompt` = current `Grok/Z-Image`
-  - `midjourneyPrompt` = current `AI`
+- `midjourneyPrompt` = current `AI`
+
+### 2026-07-13 Pose Composer canonical prompt update
+
+- `poseArrangementId`、`poseHandId`、`poseHeadId` 的顯示名稱為 `任意`，但沿用既有 option ID；`任意`代表不指定固定描述，讓模型依基底姿勢、服裝、鏡頭與場景產生隨意、放鬆且自然的結果，不代表隨機抽選。
+- `隨機` 只會解析為具體選項，`全無` 則完全省略該組文字。
+- 三組姿勢選項共用 canonical 順序：具體頭部描述 → 具體手部描述 → 姿勢結果；任一組為 `任意` 時只加入一次自然語意。
+- 接觸／支撐（`poseAnchorId`）整合在姿勢結果內，例如 `... presents a wide-knee kneeling pose leaning against a high-back chair.`
+- Pose Composer 啟用時，GPT、Grok/Z-Image、AI 直接共用完全相同的 canonical pose prompt；不得因模型而刪減、壓縮或改寫姿勢語意，僅可有不同外層標題或排版。
 
 ## Snapshot
 

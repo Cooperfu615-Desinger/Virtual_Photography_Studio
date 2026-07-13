@@ -356,7 +356,7 @@ test('character profile card still composes with expression and pose composer', 
   assert.equal(prompt.selection.characterProfileId, 'character-48g');
   assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '站姿'));
   assert.match(promptText, /calm neutral expression|relaxed half-lidded ease/);
-  assert.match(promptText, /She is standing/);
+  assert.match(promptText, /presents a one-leg weight shift/);
   assert.match(promptText, /one-leg weight shift/);
   assert.match(promptText, /both hands clasped loosely in front of the body/);
 });
@@ -892,15 +892,14 @@ test('pose composer applies to special subjects in every output and takes priori
   assert.equal(prompt.selection.poseHandId, optionId('poseHandId', '雙手放在大腿上'));
   assert.equal(prompt.selection.poseHeadId, optionId('poseHeadId', '頭部自然朝向鏡頭'));
   assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', '坐在椅緣'));
-  assert.match(prompt.grokPrompt, /She is sitting/);
-  assert.match(prompt.grokPrompt, /natural seated arrangement/);
+  assert.match(prompt.grokPrompt, /presents .*seated pose/);
   assert.match(prompt.grokPrompt, /both hands resting on the thighs or nearest upper-leg surface/);
   assert.match(prompt.grokPrompt, /front edge of a chair/);
   assert.match(prompt.grokPrompt, /seat-edge support/);
-  assert.match(prompt.zImagePrompt, /She is sitting/);
-  assert.match(prompt.grokPrompt, /sitting on the front edge of a chair/);
+  assert.match(prompt.zImagePrompt, /presents .*seated pose/);
+  assert.match(prompt.grokPrompt, /natural seated pose on the front edge of a chair/);
   for (const text of [prompt.zImagePrompt]) {
-    assert.match(text, /natural seated arrangement/);
+    assert.match(text, /presents .*seated pose/);
     assert.match(text, /both hands resting on the thighs or nearest upper-leg surface/);
     assert.match(text, /seat-edge support/);
   }
