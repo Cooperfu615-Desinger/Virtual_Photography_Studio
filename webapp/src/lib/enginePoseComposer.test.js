@@ -67,6 +67,14 @@ test('pose composer controls expose base arrangement hand and anchor options', (
   assert.ok(control('poseAnchorId').options.some((option) => option.zh === '浴缸' && option.bases.includes('lying')));
 });
 
+test('pose composer controls keep only the explicit random option', () => {
+  ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'].forEach((key) => {
+    const poseControl = control(key);
+    assert.equal(poseControl.suppressDefaultRandomOption, true);
+    assert.equal(poseControl.options.filter((option) => option.zh === '隨機').length, 1);
+  });
+});
+
 test('pose composer exposes standing lean support anchor options', () => {
   [
     ['靠在欄杆', /leaning lightly against a railing/],
