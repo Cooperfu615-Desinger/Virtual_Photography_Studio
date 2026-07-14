@@ -147,6 +147,7 @@ export function buildActionPoseSavedCard(profile, options = {}) {
       ],
     },
     profile: normalizedProfile,
+    sourceTags: Array.isArray(card.meta?.tags) ? card.meta.tags : [],
   };
 }
 

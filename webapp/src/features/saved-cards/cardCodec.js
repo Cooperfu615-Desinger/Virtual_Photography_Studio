@@ -5,7 +5,7 @@ import {
 } from '../../lib/engine.js';
 import { ACTION_POSE_CARDS, buildActionPoseSavedCard } from '../../lib/actionPoseLab.js';
 
-export const FAVORITES_STORAGE_VERSION = 2;
+export const FAVORITES_STORAGE_VERSION = 3;
 
 const STRUCTURED_CONTROL_KEYS = {
   Style: ['imageTypePresetId', 'styleId'],
@@ -90,6 +90,131 @@ ${Object.entries(structured)
   })
   .join('\n')}
 `;
+}
+
+const STRUCTURED_TAG_CATEGORIES = {
+  Style: '風格',
+  Character: '主體',
+  Wardrobe: '服裝',
+  Location: '場景',
+  Framing: '構圖',
+  Lighting: '光影',
+  'Lens & Imaging': '鏡頭',
+  'Camera & Film': '鏡頭',
+  'Action Pose': '動作',
+  'Negative Pose Guard': '動作',
+  'Framing Hint': '構圖',
+  'Page3 Scene': '場景',
+};
+
+const SOURCE_TAG_CATEGORIES = {
+  page1: '來源',
+  page2: '角色',
+  page3: '場景',
+  actionPose: '動作',
+};
+
+const MANIFEST_SUMMARY_KEYS = ['style', 'character', 'wardrobe', 'location', 'camera', 'lighting'];
+
+const MANIFEST_SUMMARY_ALIASES = {
+  style: ['style'],
+  character: ['character', 'characterDna'],
+  wardrobe: ['wardrobe'],
+  location: ['location', 'sceneLook'],
+  camera: ['camera'],
+  lighting: ['lighting'],
+};
+
+function humanizeTagId(tagId) {
+  const text = String(tagId || '').trim();
+  if (!text) return '';
+  if (/[^a-z0-9_-]/i.test(text)) return text;
+  return text
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .map((word) => word ? `${word.charAt(0).toUpperCase()}${word.slice(1)}` : '')
+    .join(' ');
+}
+
+function normalizeManifestValue(value) {
+  const text = String(value ?? '').trim();
+  return text === '-' || text === '全無' ? '' : text;
+}
+
+function getSourceTagCategory(source) {
+  return SOURCE_TAG_CATEGORIES[source] || '來源';
+}
+
+function normalizeSourceTag(tag, category = '來源') {
+  if (typeof tag === 'string') {
+    const id = tag.trim();
+    return id ? { id, category, label: humanizeTagId(id) || id } : null;
+  }
+  if (!tag || typeof tag !== 'object') return null;
+
+  const id = String(tag.id || tag.key || tag.label || tag.zh || '').trim();
+  if (!id) return null;
+  return {
+    id,
+    category: String(tag.category || category || '來源').trim() || '來源',
+    label: String(tag.label || tag.zh || humanizeTagId(id) || id).trim() || id,
+  };
+}
+
+export function collectSourceTags(data) {
+  const tags = [];
+  const seenTagIds = new Set();
+  const sourceCategory = getSourceTagCategory(data?.source);
+  const addTag = (tag, category) => {
+    const normalized = normalizeSourceTag(tag, category);
+    if (!normalized || ['none', 'random'].includes(normalized.id)) return;
+    if (seenTagIds.has(normalized.id)) return;
+    seenTagIds.add(normalized.id);
+    tags.push(normalized);
+  };
+
+  (Array.isArray(data?.sourceTags) ? data.sourceTags : []).forEach((tag) => addTag(tag, tag?.category || sourceCategory));
+  (Array.isArray(data?.tags) ? data.tags : []).forEach((tag) => addTag(tag, tag?.category || sourceCategory));
+
+  Object.entries(data?.structured || {}).forEach(([section, items]) => {
+    const category = STRUCTURED_TAG_CATEGORIES[section] || section;
+    (Array.isArray(items) ? items : []).forEach((item) => {
+      (Array.isArray(item?.meta?.tags) ? item.meta.tags : []).forEach((tag) => addTag(tag, category));
+    });
+  });
+
+  return tags;
+}
+
+export function normalizeManifestSummaryFields(data) {
+  const sourceFields = data?.summaryFields && typeof data.summaryFields === 'object'
+    ? data.summaryFields
+    : {};
+  const parsedFields = parseSummaryFields(data?.summary);
+
+  return Object.fromEntries(MANIFEST_SUMMARY_KEYS.map((key) => {
+    const value = MANIFEST_SUMMARY_ALIASES[key]
+      .map((alias) => sourceFields[alias])
+      .concat(parsedFields[key])
+      .map(normalizeManifestValue)
+      .find(Boolean) || '';
+    return [key, value];
+  }));
+}
+
+export function buildSavedCardManifestItem(data, file) {
+  return {
+    sourceId: String(data?.id || ''),
+    file: String(file || ''),
+    title: String(data?.title || data?.summary || data?.sourceLabel || '').trim(),
+    source: String(data?.source || 'page1'),
+    sourceLabel: String(data?.sourceLabel || 'Prompt 工作台'),
+    summary: String(data?.summary || ''),
+    summaryFields: normalizeManifestSummaryFields(data),
+    tags: collectSourceTags(data),
+  };
 }
 
 export function parseSummaryFields(summary) {
@@ -299,6 +424,14 @@ export function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
     profile: prompt.profile && typeof prompt.profile === 'object' ? prompt.profile : null,
     lineage: prompt.lineage && typeof prompt.lineage === 'object' ? prompt.lineage : null,
     remixMeta: prompt.remixMeta && typeof prompt.remixMeta === 'object' ? prompt.remixMeta : null,
+    sourceProject: String(prompt.sourceProject || ''),
+    sourceId: String(prompt.sourceId || ''),
+    sourceFileName: String(prompt.sourceFileName || ''),
+    sourceTags: Array.isArray(prompt.sourceTags)
+      ? prompt.sourceTags
+        .map((tag) => normalizeSourceTag(tag, tag?.category || getSourceTagCategory(source)))
+        .filter(Boolean)
+      : [],
   };
 }
 
@@ -326,13 +459,17 @@ export function serializeFavoritePrompt(prompt) {
     p: sanitized.profile,
     n: sanitized.lineage,
     r: sanitized.remixMeta,
+    q: sanitized.sourceProject,
+    u: sanitized.sourceId,
+    f: sanitized.sourceFileName,
+    t: sanitized.sourceTags,
   };
 }
 
 export function deserializeFavoritePrompt(record) {
   if (!record || typeof record !== 'object') return null;
 
-  if (record.v === FAVORITES_STORAGE_VERSION && record.i) {
+  if ([2, FAVORITES_STORAGE_VERSION].includes(record.v) && record.i) {
     return sanitizeStoredPrompt({
       id: record.i,
       source: record.o,
@@ -348,6 +485,10 @@ export function deserializeFavoritePrompt(record) {
       profile: record.p,
       lineage: record.n,
       remixMeta: record.r,
+      sourceProject: record.q,
+      sourceId: record.u,
+      sourceFileName: record.f,
+      sourceTags: record.t,
     });
   }
 
