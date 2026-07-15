@@ -37,6 +37,18 @@ Previous implementation validation on 2026-07-10 before the facial-identity opti
 - Data sync unit tests and deterministic `--check` remain unchanged. Public asset budget validation passed with 185 deployment files totaling 2,378,672 bytes.
 - Deterministic audit `node scripts/validate_prompt_logic.mjs 200 optimization-audit`: generated 200 prompts with seed `optimization-audit`; 11 prompts were flagged by the existing heuristics. The occurrence summary was 9 pants/legwear overlaps and 3 pants/skirt overlaps; one prompt can contain more than one finding. Treat these as prompt-quality follow-up items, not test failures or optimization regressions.
 
+Prompt-quality governance added on 2026-07-15:
+
+- Root `AGENTS.md` is the durable repository instruction surface. New and resumed sessions must read it with this current-state file, preserve unrelated dirty work, and use its validation matrix.
+- `webapp/src/lib/engine/promptOutputContracts.js` defines machine-readable contracts for `grokPrompt`, `zImagePrompt`, `midjourneyPrompt`, and the single-subject `full-body-character` extra prompt.
+- `webapp/src/lib/engine/representativePromptFixtures.js` owns seven deterministic regression scenarios: normal single, Character Card, special outfit, duo, fixed composition, face close-up, and full-body reference.
+- `npm run test:prompt-quality` runs the contract, representative-fixture, and conservative deduplication gates. The 2026-07-15 result is 13 passed.
+- `npm run audit:prompts:strict` runs 200 prompts with seed `prompt-quality-baseline`. The 2026-07-15 baseline has zero contract errors, exact/near duplicate signals, public control-language leakage, contradictory constraints, and strict blocking signals. It retains 13 diagnostic-only findings: seven pants/legwear, four pants/skirt, and two swimwear/location combinations.
+- Prompt output fixes made with the new gate: selected outfit colors replace `controlled by ... selection` wording when the control can be materialized; repeated identical accessory fragments are emitted once; Z-Image scene-priority guidance is natural text without its internal label; duo Z-Image/AI special-outfit role text no longer inherits internal guard clauses.
+- Frontend completion criteria are formalized in `Docs/specs/frontend-visual-validation.md`, including desktop/mobile rendering, five-workspace navigation smoke, console/page-error checks, overflow checks, interactions, and evidence reporting.
+- Frontend `npm test`: 438 passed. Frontend `npm run lint` and `npm run build`: passed. Prompt-audit unit tests: 12 passed.
+- Browser smoke at 1440×1000 and 390×900 passed across Prompt 工作台, 角色建模, 動作姿勢, 場景建模, and Saved Cards: no document-level horizontal overflow, broken images, browser errors, or public prompt control-language leakage; PAGE1 random generation also completed successfully.
+
 ## Product Pages
 
 ### PAGE1 Prompt Workspace

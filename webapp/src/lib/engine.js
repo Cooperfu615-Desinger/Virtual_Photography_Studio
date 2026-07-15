@@ -9,6 +9,10 @@ import {
 } from './characterCardLab.js';
 import { normalizeRandom } from './engineRandom.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
+import {
+  dedupeRepeatedCommaFragments,
+  materializeOutfitColorControls,
+} from './engine/promptTextDeduplication.js';
 import { CHARACTER_PROFILE_OPTIONS } from './engine/characterProfiles.js';
 import {
   DUO_EXPRESSION_OPTIONS,
@@ -6723,17 +6727,21 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
     return appendCompleteLookPaletteDirection(primaryColor && !isNoneLikeItem(primaryColor) ? `${primaryColor.en} ${base}` : base, completeLookPalette);
   }
 
+  const materializedBase = materializeOutfitColorControls(base, {
+    primaryColorText: primaryColor && !isNoneLikeItem(primaryColor) ? primaryColor.en : '',
+    contrastColorText: contrastColor && !isNoneLikeItem(contrastColor) ? contrastColor.en : '',
+  });
   const details = [];
   const primaryTargets = colorTargets.primary || [];
   const contrastTargets = colorTargets.contrast || [];
   const lockedTargets = colorTargets.locked || [];
 
-  if (primaryColor && !isNoneLikeItem(primaryColor)) {
+  if (primaryColor && !isNoneLikeItem(primaryColor) && !materializedBase.consumedPrimary) {
     const targetText = describeOutfitColorTargets(primaryTargets);
     details.push(targetText ? `${targetText} in ${primaryColor.en}` : `main outfit color in ${primaryColor.en}`);
   }
 
-  if (colorMode !== 'primary' && contrastColor && !isNoneLikeItem(contrastColor) && contrastTargets.length > 0) {
+  if (colorMode !== 'primary' && contrastColor && !isNoneLikeItem(contrastColor) && contrastTargets.length > 0 && !materializedBase.consumedContrast) {
     const contrastText = describeOutfitColorTargets(contrastTargets);
     if (contrastText) details.push(`${contrastText} in ${contrastColor.en}`);
   }
@@ -6743,7 +6751,8 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
     if (lockedText) details.push(lockedText);
   }
 
-  return appendCompleteLookPaletteDirection(details.length > 0 ? `${base}, ${details.join(', ')}` : base, completeLookPalette);
+  const coloredBase = materializedBase.text || base;
+  return appendCompleteLookPaletteDirection(details.length > 0 ? `${coloredBase}, ${details.join(', ')}` : coloredBase, completeLookPalette);
 }
 
 function buildSpecialOutfitPrompt(item, palette = null) {
@@ -7326,7 +7335,8 @@ function buildSubjectAccessoryPrompt({ eyewear, eyewearColor, eyewearPlacement, 
     cleanSubjectAccessoryPrompt(neckAccessory),
   ].filter(Boolean);
 
-  return parts.length > 0 ? `with ${joinNaturalList(parts)}` : '';
+  const dedupedParts = dedupeRepeatedCommaFragments(parts);
+  return dedupedParts.length > 0 ? `with ${joinNaturalList(dedupedParts)}` : '';
 }
 
 function appendSubjectAccessories(subjectText, accessoryText) {
@@ -8690,23 +8700,6 @@ function cleanGptDuoRoleSubjectPart(value, roleNumber) {
     .trim();
 }
 
-function extractGptDuoWardrobeRoleText(text, roleNumber) {
-  const nextRoleBoundary = roleNumber === '1' ? '\\.\\s*Woman 2 wears\\b' : '$';
-  const match = stripMarkdown(text || '')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .match(new RegExp(`\\bWoman ${roleNumber} wears\\s+([\\s\\S]*?)(?=${nextRoleBoundary})`, 'i'));
-  return stripTerminalPromptPunctuation(match?.[1] || '');
-}
-
-function buildGptDuoWardrobeRoleTexts(context, wardrobeSlots, wardrobeColors) {
-  const text = buildGptDuoWardrobeText(context, wardrobeSlots, wardrobeColors);
-  return {
-    woman1: extractGptDuoWardrobeRoleText(text, '1'),
-    woman2: extractGptDuoWardrobeRoleText(text, '2'),
-  };
-}
-
 function cleanGptDuoFullWardrobePart(value) {
   return cleanGptSinglePromptText(value)
     .replace(/^She wears\s+/i, '')
@@ -8885,27 +8878,6 @@ function buildGptDuoSubjectText(context, characterSlots, wardrobeSlots, wardrobe
     ensureTerminalPeriod(baseSubject),
     ...roleTexts,
   ].filter(Boolean).join('\n\n');
-}
-
-function buildGptDuoWardrobeText(context, wardrobeSlots, wardrobeColors) {
-  const duoWardrobeText = buildDuoWardrobeText(wardrobeSlots, wardrobeColors, context);
-  const text = duoWardrobeText.stylingText || duoWardrobeText.clothingText || '';
-  return capitalizePromptLead(text)
-    .replace(/\b(?:dominant|main|secondary|contrast|tonal)\s+[^,.]*?\s+controlled by\s+[^,.]+/gi, '')
-    .replace(/\bcolor controlled by\s+[^,.]+/gi, '')
-    .replace(/\s*,\s*,+/g, ', ')
-    .replace(/,\s*woman 2 wears\b/gi, '. Woman 2 wears')
-    .replace(/,\s*(coordinated but clearly distinct outfits\b)/gi, '. Coordinated but clearly distinct outfits')
-    .replace(/,\s*(distinct outfit-visible editorial\b)/gi, '. Distinct outfit-visible editorial')
-    .replace(/\bCoordinated but clearly distinct outfits,\s*avoid identical garment colors,\s*avoid matching top colors,\s*keep each woman styling visually separate\.\s*/gi, '')
-    .replace(/\bDistinct outfit-visible editorial (?:duo composition|styling),\s*complete wardrobe visible on both women,\s*visible torso and wardrobe details,\s*no headshot-only crop\.?\s*/gi, '')
-    .replace(/\s+\./g, '.')
-    .replace(/,\s*\./g, '.')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .replace(/\bwoman 1\b/g, 'Woman 1')
-    .replace(/\bwoman 2\b/g, 'Woman 2')
-    .replace(/\bboth women\b/g, 'both women');
 }
 
 function buildGptDuoFlexibleFramingText(context) {
@@ -9624,6 +9596,7 @@ function compactZImageSourceText(value) {
     .replace(/\blong bottom keeps its natural drape while footwear remains normally readable\b/gi, '')
     .replace(/\b(?:dominant|main|secondary|contrast|tonal)\s+[^,.]*?\s+controlled by\s+[^,.]*/gi, '')
     .replace(/\bcolor controlled by\s+[^,.]*/gi, '')
+    .replace(/\boptional [^,.]*? can retain a classic signature color scheme\b/gi, '')
     .replace(/\bselected\s+(?:main\s+)?(?:fabric|uniform|satin|dress|latex|swim fabric|tonal palette|main fabric|main latex|main satin|main swim fabric)\s+color/gi, '')
     .replace(/\b(woman|women)\.\s+with\b/gi, '$1 with')
     .replace(/\s*,\s*,+/g, ', ')
@@ -10057,9 +10030,9 @@ function renderZImagePrompt(promptModel) {
     if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
     if (isSolidColorStudioLocation(context.location)) return '';
     if (isUpperCropVisibilityBucket(getPromptVisibilityBucket(context))) {
-      return 'Scene priority: keep the selected environment readable through close background cues without widening the portrait crop';
+      return 'keep the selected environment readable through close background cues without widening the portrait crop';
     }
-    return buildScenePriorityPrompt(context, { labeled: true });
+    return buildScenePriorityPrompt(context);
   };
   const buildZImageLocationText = () => {
     if (!context.location || isNoneLikeItem(context.location)) return '';
@@ -10462,7 +10435,7 @@ function renderZImagePrompt(promptModel) {
   };
   const buildZImageDuoSubjectText = () => 'Two stunning seductive 20-year-old Japanese or Korean women';
   const buildZImageDuoRoleWardrobeText = (role) => {
-    const roleTexts = buildGptDuoWardrobeRoleTexts(context, wardrobeSlots, wardrobeColors);
+    const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
     const wardrobeText = role === 'a' ? roleTexts.woman1 : roleTexts.woman2;
     const roleNumber = role === 'a' ? '1' : '2';
     const accessoryText = cleanGptDuoRoleSubjectPart(buildRoleSubjectAccessoryPrompt(wardrobeSlots, role), roleNumber)
@@ -11283,7 +11256,7 @@ function buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role) {
   const wardrobeSlots = wardrobe ? extractWardrobeSlots(wardrobe) : null;
   if (!wardrobeSlots || !wardrobeColors) return '';
 
-  const roleTexts = buildGptDuoWardrobeRoleTexts(context, wardrobeSlots, wardrobeColors);
+  const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
   const roleText = role === 'a' ? roleTexts.woman1 : roleTexts.woman2;
   const fragments = splitAiDuoCompactFragments(roleText).slice(0, 7);
 

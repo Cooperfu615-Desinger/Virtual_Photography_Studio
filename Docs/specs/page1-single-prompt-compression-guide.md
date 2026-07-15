@@ -36,6 +36,7 @@ Last updated: 2026-07-13
 - Target: Grok Imagine / Aurora / Z-Image
 - 格式：自然語言空行段落。
 - 不使用 GPT 式英文段落標籤。
+- 場景仍可使用既有 `Scene:` 輕量錨點，但不可輸出 `Scene Priority:`、`Fixed Set Integrity:` 或其他 renderer 內部控制標籤。
 - 不加入 `multi-cut sequence n=2`。
 - 可以比 `AI` 更完整，但不使用 GPT 標籤段落。
 - 可針對 Grok/Z-Image 的理解方式做自然語言壓縮與重排。
@@ -51,6 +52,8 @@ Grok/Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而�
 - 以最小、無視覺意義的語法連接既有內容，例如 `with`、`and`、`She wears`、逗號與句號。
 
 不得由 renderer 新增未被選擇資料或既有組裝規則支持的視覺描述、關係或氣氛詞。`layered over`、`paired with`、`styled with`、`natural`、`candid`、`editorial` 等詞，只有在選擇資料或明確組裝規則本來就提供時才可輸出。
+
+套裝配色若原始資料使用 `controlled by ... selection`，renderer 應把它實體化為實際選色，例如 `main fabric color set to red`，不可在 Grok/Z-Image 或 AI 成品中保留 selection-control 語言。完全相同的配件描述片段只保留一次；近似描述只有在較完整片段已包含全部視覺資訊時才可刪減。
 
 保留與刪減規則：
 

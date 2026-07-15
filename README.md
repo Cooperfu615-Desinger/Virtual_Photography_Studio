@@ -13,6 +13,7 @@ Personal prompt operations tool for generating stable, high-volume prompts for M
 
 ## Project Structure
 
+- `AGENTS.md`: Repository-wide development, compatibility, evaluation, visual-QA, and session-synchronization rules
 - `knowledge_base/`: Markdown dictionaries used as the core source material
 - `source-assets/`: Original high-resolution reference images excluded from the Vite deployment artifact
 - `scripts/sync_to_json.py`: Converts markdown tables into frontend JSON data
@@ -25,6 +26,9 @@ Personal prompt operations tool for generating stable, high-volume prompts for M
 - `webapp/src/styles/`: Shared generation and multi-workspace CSS loaded by feature chunks
 - `webapp/src/lib/engine.js`: Prompt-engine integration and compatibility boundary
 - `webapp/src/lib/engine/`: Focused engine data, runtime, prompt-model, and selection-schema modules
+- `webapp/src/lib/engine/promptOutputContracts.js`: Machine-readable contracts and validator for the four PAGE1 prompt outputs
+- `webapp/src/lib/engine/representativePromptFixtures.js`: Deterministic representative scenarios for prompt regression evaluation
+- `Docs/specs/frontend-visual-validation.md`: Required render-and-inspect workflow for browser-visible changes
 - `Docs/specs/character-card-facial-identity.md`: Formal Character Card facial identity schema, difference matrix, compatibility contract, and maintenance workflow
 - `Docs/specs/page1-random-none-control-contract.md`: PAGE1 batch-random and clear-action capability contract, Pose Composer randomization, and regression rules
 - `output_prompts/`: Previously generated markdown prompt exports
@@ -48,6 +52,9 @@ From `webapp/`:
 npm install
 npm run dev
 npm test
+npm run test:prompt-quality
+npm run audit:prompts
+npm run audit:prompts:strict
 npm run lint
 npm run build
 ```
@@ -59,6 +66,8 @@ node scripts/validate_prompt_logic.mjs 200 optimization-audit
 ```
 
 The optional second argument is the random seed. Reusing the same seed reproduces prompt content and selections; generated IDs and timestamps remain runtime metadata.
+
+The default prompt audit is diagnostic. `npm run audit:prompts:strict` fails only on output-contract violations, exact duplicates, public control-language leakage, or contradictory constraints. Existing wardrobe/scene compatibility heuristics and near-duplicate signals remain diagnostic so they can be reviewed without hiding a contract regression.
 
 ## Data and Asset Integrity
 
@@ -77,6 +86,8 @@ The 27 built-in Character Card profiles are paged in PAGE2 as `10 / 10 / 7` and 
 ## Prompt Engine Architecture
 
 The engine compiles the default prompt catalog and lock controls once, injects randomness for reproducible tests, builds one ordered prompt-section model, and renders the three public prompt formats from that shared model. Default runtime data is deeply frozen; custom-library overlays are compiled per request so browser-local changes do not become stale.
+
+Prompt changes must also pass the machine-readable four-output contracts and the fixed representative fixtures. Gpt remains full fidelity; Grok/Z-Image and AI must not leak internal renderer labels or approval/control language; the single-subject full-body output remains a separate fixed `9:16` compatibility surface.
 
 See [`Docs/specs/engine-architecture.md`](Docs/specs/engine-architecture.md) for module ownership, compatibility contracts, validation guidance, and dated performance measurements.
 

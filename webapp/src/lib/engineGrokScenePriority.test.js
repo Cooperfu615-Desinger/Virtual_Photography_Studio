@@ -54,7 +54,7 @@ test('Z-Image keeps scene priority guidance before a special outfit while preser
   const zImage = prompt.zImagePrompt;
   const subjectIndex = zImage.indexOf('A 20s seductive stunning Japanese or Korean woman');
   const settingIndex = zImage.indexOf('Scene: The portrait takes place in');
-  const scenePriorityIndex = zImage.indexOf('Scene priority:');
+  const scenePriorityIndex = zImage.indexOf('keep the selected environment readable with clear spatial context');
   const wardrobeIndex = zImage.indexOf('She wears black sheer polka-dot matching fashion set');
   const poseIndex = zImage.search(/presents .*standing pose/);
 
@@ -67,7 +67,8 @@ test('Z-Image keeps scene priority guidance before a special outfit while preser
   assert.ok(settingIndex < scenePriorityIndex);
   assert.ok(scenePriorityIndex < wardrobeIndex);
   assert.ok(wardrobeIndex < poseIndex);
-  assert.match(zImage, /Scene priority: keep the selected environment readable with clear spatial context/);
+  assert.match(zImage, /keep the selected environment readable with clear spatial context/);
+  assert.doesNotMatch(zImage, /Scene priority:/i);
   assert.doesNotMatch(zImage, /\(Seoul Seongsu-dong urban corner, industrial cafe frontage:1\.35\)/);
   assert.doesNotMatch(zImage, /avoid plain or empty background/);
 });

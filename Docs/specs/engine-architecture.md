@@ -43,6 +43,9 @@ The default-library path compiles the runtime once and reuses it. A custom-libra
 | `webapp/src/lib/engineRandom.js` | Seed hashing, deterministic PRNG creation, and production fallback to `Math.random` |
 | `webapp/src/lib/engine/runtimeCache.js` | Default-runtime memoization and recursive freezing |
 | `webapp/src/lib/engine/promptModel.js` | Ordered prompt sections plus grouped label lookup used by renderers |
+| `webapp/src/lib/engine/promptOutputContracts.js` | Machine-readable public contracts and validation for Gpt, Grok/Z-Image, AI, and full-body character outputs |
+| `webapp/src/lib/engine/representativePromptFixtures.js` | Seeded normal, character-card, special-outfit, duo, fixed-set, close-up, and full-body regression scenarios |
+| `webapp/src/lib/engine/promptTextDeduplication.js` | Conservative exact-fragment cleanup and explicit outfit-color materialization |
 | `webapp/src/lib/engine/selectionSchema.js` | Schema-ordered selection snapshots and default filling |
 | `webapp/src/lib/engine/characterProfiles.js` | Built-in character profile data |
 | `webapp/src/lib/characterCardLab.js` | PAGE2 Character Card projection, removable layers, copy-output construction, and PAGE1 import payloads |
@@ -102,7 +105,7 @@ Run the repository-level heuristic audit with:
 node scripts/validate_prompt_logic.mjs 200 optimization-audit
 ```
 
-Arguments are prompt count followed by seed. A heuristic finding is diagnostic output, not a failing automated test.
+Arguments are prompt count followed by seed. Add `--json` for a machine-readable report or `--strict` for the blocking contract gate. Strict mode fails on output-contract errors, exact duplicates, public control-language leakage, or contradictory constraints. Legacy wardrobe/scene heuristics and near-duplicate signals stay diagnostic.
 
 ## Prompt Model and Renderers
 
@@ -212,10 +215,20 @@ Relevant focused tests include:
 - `src/lib/engine/runtimeCache.test.js`;
 - `src/lib/engine/promptModel.test.js`;
 - `src/lib/engine/selectionSchema.test.js`;
+- `src/lib/engine/promptOutputContracts.test.js`;
+- `src/lib/enginePromptDeduplication.test.js`;
 - `src/lib/enginePromptPipeline.test.js`;
 - the feature-specific engine tests for wardrobe, character cards, Pose Composer, lighting, close-up, duo, and saved-card behavior.
 
 When prompt wording or compatibility logic changes, also run a seeded heuristic sample and a browser smoke test across all five active pages.
+
+The standard prompt-quality entry points from `webapp/` are:
+
+```bash
+npm run test:prompt-quality
+npm run audit:prompts
+npm run audit:prompts:strict
+```
 
 ## Safe Follow-Up Sequence
 
