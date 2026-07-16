@@ -68,7 +68,9 @@ export function randomizeLockKeys(locks, keys, defaultLocks = {}, controls = [])
       next[key] = getNoneOrDefaultValue(control, defaultLocks[key] ?? '');
       return;
     }
-    next[key] = '';
+    next[key] = POSE_COMPOSER_KEYS.includes(key)
+      ? (control?.options?.find((option) => option.id === 'random')?.id || 'random')
+      : '';
   });
 
   return next;

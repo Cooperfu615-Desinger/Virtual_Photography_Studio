@@ -4427,6 +4427,17 @@ function normalizePoseComposerHandPhrase(handPose) {
   return text;
 }
 
+function withIndefiniteArticle(phrase) {
+  const text = stripTerminalPromptPunctuation(phrase || '');
+  if (!text || /^(?:a|an)\b/i.test(text)) return text;
+
+  const consonantSoundException = /^(?:one(?:\b|-)|euro\b|ufo\b|uniform\b|unique\b|unit\b|university\b|use\b|user\b|usual\b)/i;
+  const article = /^[aeiou]/i.test(text) && !consonantSoundException.test(text)
+    ? 'an'
+    : 'a';
+  return `${article} ${text}`;
+}
+
 function buildPoseComposerResultPhrase({ base, arrangement, anchor, location }) {
   const arrangementPhrase = arrangement && !isModelNaturalPoseComposerOption(arrangement)
     ? normalizePoseComposerArrangementPhrase(arrangement)
@@ -4461,7 +4472,9 @@ function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head, 
     .filter(Boolean)
     .join(', ');
   const posturePhrase = poseResultWithAnchorEffect
-    ? `${naturalChoiceSelected ? 'a casual, relaxed, and natural ' : 'a '}${poseResultWithAnchorEffect}`
+    ? (naturalChoiceSelected
+      ? `a casual, relaxed, and natural ${poseResultWithAnchorEffect}`
+      : withIndefiniteArticle(poseResultWithAnchorEffect))
     : '';
   const details = [headPhrase, handPhrase].filter(Boolean);
 

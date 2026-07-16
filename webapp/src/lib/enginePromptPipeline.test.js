@@ -680,14 +680,14 @@ test('Gpt single-subject prompt preserves full-fidelity expression and special a
   const supine = buildSections({
     poseId: optionId('poseId', '半躺低姿態｜正面仰躺'),
   });
-  assert.match(supine.pose, /lying on the back, relaxed upward-facing body line/i);
+  assert.match(supine.pose, /supine lying pose with a relaxed upward-facing body line/i);
   assert.doesNotMatch(supine.pose, /facing upward|raised loosely|resting casually|soft asymmetrical way|\.,/i);
 
   const lipstick = buildSections({
     poseId: optionId('poseId', '站姿｜自然站姿'),
     specialActionId: optionId('specialActionId', '塗口紅'),
   });
-  assert.match(lipstick.pose, /lipstick bullet pressed to the lips by one hand, visible hand-to-mouth contact, slight lip pressure/i);
+  assert.match(lipstick.pose, /one hand pressing a lipstick bullet to the lips, with visible hand-to-mouth contact and slight lip pressure/i);
   assert.doesNotMatch(lipstick.pose, /\.,/i);
   assert.doesNotMatch(lipstick.prompt.zImagePrompt, /polished beauty touch-up portrait moment/i);
 
@@ -733,7 +733,7 @@ test('Gpt single-subject prompt preserves full-fidelity pose composer special-se
     poseAnchorId: optionId('poseAnchorId', '坐在椅子上'),
   });
   assert.match(sittingChair.pose, /on a chair that naturally fits the current scene with the chair style material and scale chosen to match the environment/i);
-  assert.match(sittingChair.pose, /open confident seated pose, knees set wider with grounded posture, torso upright, strong spatial presence/i);
+  assert.match(sittingChair.pose, /open, confident seated pose with knees set wider in a grounded posture, torso upright, and strong spatial presence/i);
   assert.match(sittingChair.pose, /both hands placed on the waist or hip line with elbows naturally adapted to the pose/i);
   assert.match(sittingChair.pose, /head turned slightly off-axis near the lens with the face plane angled diagonally instead of flat to camera/i);
 
@@ -747,7 +747,7 @@ test('Gpt single-subject prompt preserves full-fidelity pose composer special-se
   });
   assert.match(waterEdge.pose, /water-contact realism with the whole lower body submerged and only the upper body above the water surface/i);
   assert.match(waterEdge.pose, /visible waterline across the body, natural ripples around the torso and limbs, wet skin and damp fabric edges, clothing remains complete and non-transparent/i);
-  assert.match(waterEdge.pose, /one hand supporting on the floor or nearby surface with the other hand resting on the leg/i);
+  assert.match(waterEdge.pose, /one hand planted on the floor or a nearby surface for support, with the other hand resting on the leg/i);
   assert.match(waterEdge.pose, /head angled low near a rim or support edge with cheek and jawline close to the supporting surface/i);
 
   const bathtubWet = buildSections({
@@ -1299,7 +1299,7 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
         framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
       },
       expected: [
-        /lipstick bullet pressed to the lips by one hand/i,
+        /one hand pressing a lipstick bullet to the lips/i,
         /visible hand-to-mouth contact/i,
       ],
       minParagraphs: 4,

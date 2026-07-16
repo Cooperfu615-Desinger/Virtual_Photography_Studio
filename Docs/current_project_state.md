@@ -41,10 +41,12 @@ Prompt-quality governance added on 2026-07-15:
 
 - Root `AGENTS.md` is the durable repository instruction surface. New and resumed sessions must read it with this current-state file, preserve unrelated dirty work, and use its validation matrix.
 - `webapp/src/lib/engine/promptOutputContracts.js` defines machine-readable contracts for `grokPrompt`, `zImagePrompt`, `midjourneyPrompt`, and the single-subject `full-body-character` extra prompt.
-- `webapp/src/lib/engine/representativePromptFixtures.js` owns seven deterministic regression scenarios: normal single, Character Card, special outfit, duo, fixed composition, face close-up, and full-body reference.
-- `npm run test:prompt-quality` runs the contract, representative-fixture, and conservative deduplication gates. The 2026-07-15 result is 13 passed.
+- `webapp/src/lib/engine/representativePromptFixtures.js` owns eight deterministic regression scenarios: normal single, Pose Composer canonical grammar, Character Card, special outfit, duo, fixed composition, face close-up, and full-body reference.
+- `npm run test:prompt-quality` runs the contract, representative-fixture, and conservative deduplication gates. The 2026-07-15 result is 14 passed.
 - `npm run audit:prompts:strict` runs 200 prompts with seed `prompt-quality-baseline`. The 2026-07-15 baseline has zero contract errors, exact/near duplicate signals, public control-language leakage, contradictory constraints, and strict blocking signals. It retains 13 diagnostic-only findings: seven pants/legwear, four pants/skirt, and two swimwear/location combinations.
 - Prompt output fixes made with the new gate: selected outfit colors replace `controlled by ... selection` wording when the control can be materialized; repeated identical accessory fragments are emitted once; Z-Image scene-priority guidance is natural text without its internal label; duo Z-Image/AI special-outfit role text no longer inherits internal guard clauses.
+- PAGE1 Pose Composer P0 repair: section/global batch random now writes the five explicit `random` lock values instead of clearing the complete pose; canonical assembly chooses `a` / `an` from the resolved posture phrase, and high-risk arrangement, hand/action, selfie, and support fragments are normalized into grammatical positive phrases shared exactly by Gpt, Grok/Z-Image, and AI.
+- Pose Composer P0 validation on 2026-07-15: focused prompt/pose/random tests 98 passed; frontend `npm test` 441 passed; `npm run test:prompt-quality` 14 passed; lint and build passed; the same-seed strict audit retained zero blocking signals and the same 13 pre-existing diagnostics. Desktop 1440×1000 and mobile 390×900 browser smoke passed all five workspaces with PAGE1 batch-random interaction, exact shared canonical output, no overflow, broken images, app page errors, or failed declared app assets. Desktop Chrome still makes an automatic request for the undeclared `/favicon.ico` and receives the existing 404; this P0 work does not add or change favicon assets.
 - Frontend completion criteria are formalized in `Docs/specs/frontend-visual-validation.md`, including desktop/mobile rendering, five-workspace navigation smoke, console/page-error checks, overflow checks, interactions, and evidence reporting.
 - Frontend `npm test`: 438 passed. Frontend `npm run lint` and `npm run build`: passed. Prompt-audit unit tests: 12 passed.
 - Browser smoke at 1440×1000 and 390×900 passed across Prompt 工作台, 角色建模, 動作姿勢, 場景建模, and Saved Cards: no document-level horizontal overflow, broken images, browser errors, or public prompt control-language leakage; PAGE1 random generation also completed successfully.
@@ -320,6 +322,7 @@ Rules:
 - `poseArrangementId`, `poseHandId`, and `poseHeadId` use the visible option name `任意` (legacy option IDs remain unchanged). `任意` means the group supplies no fixed description and lets the model choose a casual, relaxed, natural result from the selected base pose, wardrobe, camera, and scene; it is not random selection.
 - `隨機` resolves to one concrete option and never to `任意`; `全無` contributes no text.
 - The shared canonical pose sentence orders concrete head text, concrete hand text, then the pose result. If any of the three groups is `任意`, the natural qualifier is appended once only. A concrete arrangement uses its concrete pose name; an `任意` arrangement falls back to the base pose name.
+- Concrete posture results use grammar-aware indefinite articles, and option English must remain a predicate-compatible noun/action phrase rather than renderer instructions or negative control language.
 - Support/contact (`poseAnchorId`) is part of the pose result, for example `... presents a wide-knee kneeling pose leaning against a high-back chair.`
 - When Pose Composer is active, GPT, Grok/Z-Image, and AI all reuse the exact same canonical pose text. Model-specific renderers may change only the surrounding section label or paragraph layout; they must not compress or rewrite pose semantics.
 
@@ -505,6 +508,8 @@ Remaining security follow-up:
   - Use low-fidelity generated wireframes when useful to align layout imagination.
   - Record decisions as current-state vs planned-next-work so future sessions do not confuse sketches with implemented behavior.
 - Real-generation test Pose Composer with fixed combinations before expanding the database.
+- Follow up separately on the existing random-selfie camera edge: when `poseHandId` resolves from `random` to a selfie after raw orbit handling, a locked rear orbit can remain in the same result. Do not fold this camera-compatibility change into unrelated Pose Composer wording work because it changes seeded selection behavior.
+- Reconcile the documented Pose Composer sampling order with the current engine order only as a dedicated deterministic-seed migration; changing the order will alter seeded prompt results.
 - Expand Pose Composer options in batches only after stable results:
   - standing / sitting first
   - kneeling / squatting next

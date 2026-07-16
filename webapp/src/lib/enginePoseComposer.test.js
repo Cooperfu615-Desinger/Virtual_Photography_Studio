@@ -53,6 +53,13 @@ function scenePoseAnchorOptions(locationZh) {
   return getSceneDependentOptions([], { ...createEmptyLocks(), locationId }).poseAnchorOptions;
 }
 
+function assertSharedCanonicalPose(prompt, expected) {
+  const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  assert.equal(canonicalPose, expected);
+  assert.ok(prompt.zImagePrompt.includes(expected), 'Grok/Z-Image should reuse the exact canonical pose');
+  assert.ok(prompt.midjourneyPrompt.includes(expected), 'AI should reuse the exact canonical pose');
+}
+
 test('pose composer controls expose base arrangement hand and anchor options', () => {
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '站姿'));
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '躺姿'));
@@ -307,6 +314,108 @@ test('any pose options add one shared natural qualifier without fixed directives
   assert.equal(new Set(poseTexts).size, 1);
 });
 
+test('pose composer canonical grammar handles articles, action phrases, and support anchors', () => {
+  const fullBodyFraming = optionId('framingId', '全身鏡頭 (Full Body Shot)');
+  const cases = [
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '站姿'),
+        poseArrangementId: optionId('poseArrangementId', '單腳微抬'),
+      },
+      expected: 'She presents a delicate standing balance pose with one foot slightly lifted.',
+    },
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '坐姿'),
+        poseArrangementId: optionId('poseArrangementId', '開闊自信坐姿'),
+      },
+      expected: 'She presents an open, confident seated pose with knees set wider in a grounded posture, torso upright, and strong spatial presence.',
+    },
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '跪姿'),
+        poseArrangementId: optionId('poseArrangementId', '四足跪姿'),
+      },
+      expected: 'She presents an all-fours kneeling pose with hands and knees supporting the body.',
+    },
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '躺姿'),
+        poseArrangementId: optionId('poseArrangementId', '仰躺單手過頭'),
+      },
+      expected: 'She presents a supine lying pose with one arm extended overhead and a relaxed elongated body line.',
+    },
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '坐姿'),
+        poseArrangementId: optionId('poseArrangementId', '自然坐姿'),
+        poseHandId: optionId('poseHandId', '鏡子自拍'),
+        poseHeadId: optionId('poseHeadId', '頭部微微側傾'),
+        poseAnchorId: optionId('poseAnchorId', '坐在單人雕花絨布椅'),
+      },
+      expected: 'She has her head slightly tilted, one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection, and presents a natural seated pose on an ornate single velvet armchair in a relaxed lounging posture.',
+    },
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '站姿'),
+        poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+        poseHandId: optionId('poseHandId', '男友/閨蜜自拍'),
+      },
+      expected: 'She has casual, naturally relaxed hand placement in a close-companion social snapshot, with unforced candid body language, and presents a natural relaxed standing pose.',
+    },
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '站姿'),
+        poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+        poseHandId: optionId('poseHandId', '塗口紅'),
+      },
+      expected: 'She has one hand pressing a lipstick bullet to the lips, with visible hand-to-mouth contact and slight lip pressure, and presents a natural relaxed standing pose.',
+    },
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '坐姿'),
+        poseArrangementId: optionId('poseArrangementId', '雙手後撐'),
+      },
+      expected: 'She presents a seated pose with both hands planted behind the body for support.',
+    },
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '蹲姿'),
+        poseArrangementId: optionId('poseArrangementId', '單手撐地蹲'),
+      },
+      expected: 'She presents a squatting pose with one hand planted on the ground for support.',
+    },
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '站姿'),
+        poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+        poseHandId: optionId('poseHandId', '整理下身'),
+      },
+      expected: 'She has one hand adjusting the lower-body garment or hosiery, with the fingers visibly touching a skirt, pants waistband, or stocking, and presents a natural relaxed standing pose.',
+    },
+    {
+      locks: {
+        poseBaseId: optionId('poseBaseId', '站姿'),
+        poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+        poseHandId: optionId('poseHandId', '一手撐地一手放腿上'),
+      },
+      expected: 'She has one hand planted on the floor or a nearby surface for support, with the other hand resting on the leg, and presents a natural relaxed standing pose.',
+    },
+  ];
+
+  for (const { locks, expected } of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: fullBodyFraming,
+      ...locks,
+    });
+
+    assertSharedCanonicalPose(prompt, expected);
+    assert.doesNotMatch(expected, /let the image model|no separate photographer|without prescribed/i);
+  }
+});
+
 test('pose composer exposes expressive hand interaction batch', () => {
   [
     ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],
@@ -317,7 +426,7 @@ test('pose composer exposes expressive hand interaction batch', () => {
     ['單手撩起後頸頭髮', /lifting hair away from the nape of the neck/],
     ['單手搭在鎖骨', /one hand resting across the collarbone/],
     ['一手扶腰一手自然放下', /one hand on the waist or hip line with the other hand relaxed along the body or nearby support surface/],
-    ['一手撐地一手放腿上', /one hand supporting on the floor or nearby surface with the other hand resting on the leg/],
+    ['一手撐地一手放腿上', /one hand planted on the floor or a nearby surface for support, with the other hand resting on the leg/],
     ['一手扶膝一手垂放', /one hand holding the knee with the other hand relaxed beside the body or support surface/],
   ].forEach(([zh, expectedEnglish]) => {
     assertHandOption(zh, expectedEnglish);
@@ -329,13 +438,13 @@ test('pose composer exposes expressive hand interaction batch', () => {
 
 test('pose composer exposes selfie hand pose batch', () => {
   [
-    ['自然自拍', /front-camera self-shot from the phone held in her own extended right hand/],
-    ['自然自拍', /phone and hand stay just beyond the frame edge/],
-    ['自然自拍', /no separate photographer feeling/],
-    ['鏡子自拍', /holding a visible phone toward a mirror/],
-    ['鏡子自拍', /phone may overlap the face or sit beside it in the reflection/],
-    ['男友/閨蜜自拍', /let the image model choose casual naturally relaxed hand placement/],
-    ['男友/閨蜜自拍', /close-companion social snapshot feeling/],
+    ['自然自拍', /front-camera self-shot with her right arm extended to hold the phone/],
+    ['自然自拍', /phone just beyond the frame edge/],
+    ['自然自拍', /naturally foreshortened right forearm entering from the side/],
+    ['鏡子自拍', /one hand holding a visible phone toward a mirror/],
+    ['鏡子自拍', /phone overlapping the face or positioned beside it in the reflection/],
+    ['男友/閨蜜自拍', /casual, naturally relaxed hand placement/],
+    ['男友/閨蜜自拍', /close-companion social snapshot/],
   ].forEach(([zh, expectedEnglish]) => {
     assertHandOption(zh, expectedEnglish);
   });
@@ -345,9 +454,9 @@ test('selfie hand poses are preserved in all prompt versions and lock orbit to n
   const rearOrbit = optionId('orbitId', '背面 180 度');
   const noneOrbit = optionId('orbitId', '全無');
   const selfieCases = [
-    ['自然自拍', /front-camera self-shot/, /no separate photographer feeling/],
-    ['鏡子自拍', /visible phone toward a mirror/, /phone may overlap the face/],
-    ['男友/閨蜜自拍', /naturally relaxed hand placement/, /close-companion social snapshot feeling/],
+    ['自然自拍', /front-camera self-shot/, /phone just beyond the frame edge/],
+    ['鏡子自拍', /visible phone toward a mirror/, /phone overlapping the face/],
+    ['男友/閨蜜自拍', /naturally relaxed hand placement/, /close-companion social snapshot/],
   ];
 
   for (const [handZh, expectedA, expectedB] of selfieCases) {
@@ -364,10 +473,11 @@ test('selfie hand poses are preserved in all prompt versions and lock orbit to n
 
     assert.equal(prompt.selection.orbitId, noneOrbit);
     assert.equal(prompt.selection.poseHandId, optionId('poseHandId', handZh));
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       assert.match(text, expectedA);
       assert.match(text, expectedB);
       assert.doesNotMatch(text, /rear view|back view|from behind/i);
+      assert.doesNotMatch(text, /let the image model|no separate photographer|without prescribed/i);
     }
   }
 });
@@ -523,7 +633,7 @@ test('expressive hand interactions are preserved in all prompt versions', () => 
     ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],
     ['單手把眼鏡拉下', /pulling the glasses slightly down the nose bridge/],
     ['雙手整理頭髮', /preparing to tie it up with fingers visibly holding the hair together/],
-    ['一手撐地一手放腿上', /one hand supporting on (?:the )?floor or nearby surface(?: with the)?[,]? other hand resting on the leg/],
+    ['一手撐地一手放腿上', /one hand planted on the floor or a nearby surface for support, with the other hand resting on the leg/],
   ];
 
   for (const [handZh, expected, expectedGpt = expected] of cases) {
@@ -538,7 +648,7 @@ test('expressive hand interactions are preserved in all prompt versions', () => 
     });
 
     assert.match(prompt.grokPrompt, expectedGpt);
-    for (const text of [prompt.grokPrompt, prompt.zImagePrompt]) {
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
       assert.match(text, expected);
     }
   }
@@ -554,7 +664,7 @@ test('pose composer exposes new standing sitting and squatting arrangement batch
     ['單腿屈起坐姿', 'sitting', /one knee drawn up/],
     ['雙腿側放坐姿', 'sitting', /both legs angled to one side/],
     ['坐姿身體前傾', 'sitting', /grounded forward-leaning seated arrangement/],
-    ['開闊自信坐姿', 'sitting', /open confident seated arrangement/],
+    ['開闊自信坐姿', 'sitting', /open, confident seated pose/],
     ['低蹲單腿前伸', 'squatting', /low squat with one leg extended forward/],
     ['側身低蹲', 'squatting', /side-facing low squat/],
     ['腳跟抬起蹲姿', 'squatting', /raised-heel squatting arrangement/],
@@ -681,7 +791,7 @@ test('pose composer exposes kneeling and lying expansion batch', () => {
 test('new arrangement batch is preserved in all prompt versions', () => {
   const cases = [
     ['站姿', '交叉腿站姿', /crossed-leg standing pose/],
-    ['坐姿', '開闊自信坐姿', /open confident seated pose/],
+    ['坐姿', '開闊自信坐姿', /open, confident seated pose/],
     ['蹲姿', '側身低蹲', /side-facing low squat/],
   ];
 
@@ -737,15 +847,15 @@ test('kneeling and lying expansion batch is preserved in all prompt versions', (
       anchorZh: '跪在地面',
       headZh: '頭部自然朝向鏡頭',
       expected: [
-        /kneeling pose[\s\S]*on the ground/,
-        /yoga extended puppy pose kneeling pose/,
+        /extended puppy kneeling pose[\s\S]*on the ground/,
+        /extended puppy kneeling pose/,
         /torso folded forward/,
         /forearms crossed under(?: the)? chin/,
         /hands tucked below the jaw|forearms crossed under chin/,
       ],
       expectedGpt: [
-        /kneeling pose[\s\S]*on the ground/,
-        /yoga extended puppy pose kneeling pose/,
+        /extended puppy kneeling pose[\s\S]*on the ground/,
+        /extended puppy kneeling pose/,
         /knees grounded/,
         /torso folded forward/,
         /forearms crossed under the chin/,

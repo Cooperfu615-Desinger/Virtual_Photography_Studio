@@ -1,13 +1,20 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks } from './engine.js';
+import {
+  createEmptyLocks,
+  createSeededRandom,
+  generatePrompts,
+  getLockControls,
+} from './engine.js';
 import {
   getPage1ControlActionMode,
   getPage1SectionActionLabels,
   randomizeLockKeys,
   setLockKeysToNone,
 } from './page1SectionRandom.js';
+import { PAGE1_POSE_SUBPANELS } from './page1WorkspacePanels.js';
+import { POSE_COMPOSER_KEYS } from '../features/page1/page1Schema.js';
 
 test('randomizeLockKeys resets only the requested page1 section fields', () => {
   const defaults = createEmptyLocks();
@@ -85,7 +92,12 @@ test('randomizeLockKeys preserves required fields and resets non-random takeover
     {
       key: 'poseBaseId',
       defaultValue: 'none',
-      options: [{ id: 'none', zh: '全無' }, { id: 'standing', zh: '站姿' }],
+      suppressDefaultRandomOption: true,
+      options: [
+        { id: 'none', zh: '全無' },
+        { id: 'random', zh: '隨機', meta: { tags: ['random'] } },
+        { id: 'standing', zh: '站姿' },
+      ],
     },
     {
       key: 'imageTypePresetId',
@@ -118,9 +130,51 @@ test('randomizeLockKeys preserves required fields and resets non-random takeover
   assert.equal(next.subjectCount, '2');
   assert.equal(next.specialSubjectId, 'none');
   assert.equal(next.characterProfileId, 'none');
-  assert.equal(next.poseBaseId, '');
+  assert.equal(next.poseBaseId, 'random');
   assert.equal(next.imageTypePresetId, 'photorealistic-photo');
   assert.equal(next.topId, '');
+});
+
+test('single pose panel randomizes every Pose Composer lock and resolves a concrete compatible bundle', () => {
+  const controls = getLockControls();
+  const defaults = createEmptyLocks();
+  const singlePosePanel = PAGE1_POSE_SUBPANELS.find((panel) => panel.id === 'single');
+  assert.ok(singlePosePanel, 'Expected the single-subject pose panel');
+
+  const randomized = randomizeLockKeys(
+    { ...defaults, subjectCount: '1' },
+    singlePosePanel.keys,
+    defaults,
+    controls,
+  );
+
+  for (const key of POSE_COMPOSER_KEYS) {
+    const control = controls.find((entry) => entry.key === key);
+    const explicitRandom = control?.options?.find((option) => option.meta?.tags?.includes('random'));
+    assert.ok(explicitRandom, `Expected an explicit random option for ${key}`);
+    assert.equal(randomized[key], explicitRandom.id, `${key} should enter explicit random mode`);
+  }
+
+  const [prompt] = generatePrompts(1, randomized, [], {
+    random: createSeededRandom('pose-panel-random-contract-v1'),
+  });
+
+  for (const key of POSE_COMPOSER_KEYS) {
+    assert.notEqual(prompt.selection[key], 'none', `${key} should resolve to a concrete selection`);
+    assert.notEqual(prompt.selection[key], 'random', `${key} should not expose the random sentinel`);
+  }
+
+  const arrangement = controls
+    .find((entry) => entry.key === 'poseArrangementId')
+    ?.options.find((option) => option.id === prompt.selection.poseArrangementId);
+  const anchor = controls
+    .find((entry) => entry.key === 'poseAnchorId')
+    ?.options.find((option) => option.id === prompt.selection.poseAnchorId);
+  const supportsBase = (option) => option?.base === prompt.selection.poseBaseId
+    || option?.bases?.includes(prompt.selection.poseBaseId);
+
+  assert.equal(supportsBase(arrangement), true, 'Resolved arrangement should match the resolved base');
+  assert.equal(supportsBase(anchor), true, 'Resolved anchor should match the resolved base');
 });
 
 test('section action labels explain panels without randomizable fields', () => {

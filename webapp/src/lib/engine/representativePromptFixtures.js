@@ -43,6 +43,36 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'pose-composer-canonical',
+    title: 'Pose Composer canonical grammar shared by all public outputs',
+    mode: 'single',
+    seed: 'prompt-contract-pose-composer-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      poseBaseId: { byZh: '坐姿' },
+      poseArrangementId: { byZh: '自然坐姿' },
+      poseHandId: { byZh: '鏡子自拍' },
+      poseHeadId: { byZh: '頭部微微側傾' },
+      poseAnchorId: { byZh: '坐在單人雕花絨布椅' },
+      locationId: { byZh: '室內：英倫復古窗邊房間' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['She has her head slightly tilted, one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection, and presents a natural seated pose on an ornate single velvet armchair in a relaxed lounging posture.'],
+        excludes: ['She has holding', 'with lounging', 'let the image model choose'],
+      },
+      zImagePrompt: {
+        includes: ['She has her head slightly tilted, one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection, and presents a natural seated pose on an ornate single velvet armchair in a relaxed lounging posture.'],
+        excludes: ['She has holding', 'with lounging', 'let the image model choose'],
+      },
+      midjourneyPrompt: {
+        includes: ['She has her head slightly tilted, one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection, and presents a natural seated pose on an ornate single velvet armchair in a relaxed lounging posture.'],
+        excludes: ['She has holding', 'with lounging', 'let the image model choose'],
+      },
+    },
+  },
+  {
     id: 'character-card',
     title: 'Formal character card identity and wardrobe',
     mode: 'single',

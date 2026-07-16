@@ -187,7 +187,7 @@ test('selfie hand poses compose with pose composer body controls', () => {
   assert.equal(prompt.selection.poseBaseId, optionByLabel('poseBaseId', '坐姿').id);
   assert.equal(prompt.selection.poseHandId, optionByLabel('poseHandId', '男友/閨蜜自拍').id);
   assert.match(promptText, /slightly forward-leaning seated pose/);
-  assert.match(promptText, /close-companion social snapshot feeling/);
+  assert.match(promptText, /close-companion social snapshot/);
 });
 
 test('deprecated non-social special actions migrate away from the normal body pose', () => {
