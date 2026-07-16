@@ -3031,6 +3031,12 @@ function applySelfiePoseHandOrbitLock(normalizedLocks, controls) {
   setControlToNone(normalizedLocks, controls, 'orbitId');
 }
 
+function characterUsesResolvedSelfiePoseHand(character = []) {
+  const poseComposer = character.find((item) => item?.meta?.tags?.includes('pose_composer'));
+  const poseHand = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer?.meta?.poseHandId);
+  return isSelfiePoseHandOption(poseHand);
+}
+
 function applyOutfitPresetToDressLegacyLockMigration(normalizedLocks, rawLocks, controls) {
   const mappings = [
     { outfitKey: 'outfitPresetId', dressKey: 'dressId' },
@@ -4492,10 +4498,10 @@ function buildPoseComposerItem(context) {
   const exclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
   const random = context.random || Math.random;
   const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId, () => true, exclusions, ['poseBaseId'], random);
-  const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId'], random);
-  const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId'], random);
 
   if (!base) {
+    const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId'], random);
+    const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId'], random);
     const standaloneParts = [handPose, head].filter(isActivePoseComposerOption);
     if (standaloneParts.length === 0) return null;
 
@@ -4522,6 +4528,8 @@ function buildPoseComposerItem(context) {
     && poseComposerAnchorAllowedByScene(option, context.location, context.locks?.locationId)
   );
   const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase, exclusions, ['poseArrangementId'], random);
+  const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId'], random);
+  const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId'], random);
   const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesAnchor, exclusions, ['poseAnchorId'], random);
   const parts = [base, arrangement, handPose, head, anchor].filter(Boolean);
 
@@ -12027,7 +12035,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     effectiveLocks.lensId = noneLens?.id || '';
     effectiveLocks.opticalEffectId = noneOpticalEffect?.id || '';
   }
-  const orbit = pickCameraWithExpressionLock(
+  let orbit = pickCameraWithExpressionLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,
     (item) => framingSupportsOrbit(framing, item) && lockedExpressions.every((expression) => orbitSupportsExpression(item, expression)) && specialActionSupportsOrbit(item, lockedActionConstraint),
@@ -12118,6 +12126,12 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     characterProfilePrompt: String(runtimeOptions.characterProfilePrompt || '').trim(),
   };
   const character = buildCharacter(context, runtime.catalog);
+  if (characterUsesResolvedSelfiePoseHand(character)) {
+    const noneOrbit = getControlOptionByZh(lockControls, 'orbitId', '全無');
+    orbit = noneOrbit || null;
+    context.orbit = orbit;
+    effectiveLocks.orbitId = noneOrbit?.id || '';
+  }
   const cardLayers = getCharacterCardImportedLayers(subject, effectiveLocks);
   const cardWardrobeMode = getCharacterCardWardrobeMode(effectiveLocks);
   const rawPage1Wardrobe = isDedicatedSpecialSubject(subject) || (isCharacterProfileSubject(subject) && cardWardrobeMode === 'full-default')

@@ -248,6 +248,18 @@ export function buildWorkspaceSummary(locks, controls) {
   };
 }
 
+export function buildPage1GenerationSummary(locks, previewPrompt, controls) {
+  const resolvedLocks = previewPrompt?.selection || locks;
+  const summary = buildWorkspaceSummary(resolvedLocks, controls);
+  return [
+    summary.character.summary,
+    summary.pose.summary,
+    summary.wardrobe.summary,
+    summary.scene.summary,
+    summary.photography.summary,
+  ].filter(Boolean).join(' / ');
+}
+
 export function buildWardrobeLayerInsights(locks, controls, isSpecialOutfitActive, isAnyOutfitPresetActive) {
   const activeOutfitPresets = getActiveOutfitPresets(locks, controls);
   const selected = (key) => getEffectiveWardrobeOptionLabel(controls, locks, key, activeOutfitPresets);

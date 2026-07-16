@@ -73,6 +73,37 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'pose-composer-random-selfie-orbit',
+    title: 'Random selfie hand clears an incompatible locked rear orbit',
+    mode: 'single',
+    seed: 'prompt-contract-random-selfie-orbit-p1-22',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      angleId: { byZh: '平視高度鏡頭' },
+      orbitId: { byZh: '背面 180 度' },
+      bodyTypeId: { byZh: '一般基本體型' },
+      poseBaseId: { byZh: '站姿' },
+      poseArrangementId: { byZh: '自然站姿' },
+      poseHandId: { byZh: '隨機' },
+      poseHeadId: { byZh: '頭部自然朝向鏡頭' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['front-camera self-shot with her right arm extended to hold the phone'],
+        excludes: ['back view', 'rear view', 'from behind'],
+      },
+      zImagePrompt: {
+        includes: ['front-camera self-shot with her right arm extended to hold the phone'],
+        excludes: ['back view', 'rear view', 'from behind'],
+      },
+      midjourneyPrompt: {
+        includes: ['front-camera self-shot with her right arm extended to hold the phone'],
+        excludes: ['back view', 'rear view', 'from behind'],
+      },
+    },
+  },
+  {
     id: 'character-card',
     title: 'Formal character card identity and wardrobe',
     mode: 'single',

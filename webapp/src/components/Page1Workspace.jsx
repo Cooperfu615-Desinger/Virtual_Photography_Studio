@@ -8,6 +8,7 @@ import {
   OUTFIT_PRESET_A_COVERED_KEYS,
   OUTFIT_PRESET_B_COVERED_KEYS,
   OUTFIT_PRESET_COVERED_KEYS,
+  buildPage1GenerationSummary,
   buildWardrobeLayerInsights,
   buildWorkspaceSummary,
   getControlOptionLabel,
@@ -452,13 +453,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const clearedLocks = useMemo(() => createEmptyLocks(), []);
   const isClearedLockState = areLocksEqual(locks, clearedLocks);
   const workspaceSummary = useMemo(() => buildWorkspaceSummary(locks, lockControls), [locks, lockControls]);
-  const generationSummary = [
-    workspaceSummary.character.summary,
-    workspaceSummary.pose.summary,
-    workspaceSummary.wardrobe.summary,
-    workspaceSummary.scene.summary,
-    workspaceSummary.photography.summary,
-  ].filter(Boolean).join(' / ');
+  const generationSummary = useMemo(
+    () => buildPage1GenerationSummary(locks, previewPrompt, lockControls),
+    [locks, previewPrompt, lockControls]
+  );
   const activeSectionConfig = WORKSPACE_SECTIONS.find((section) => section.id === activeSection) || WORKSPACE_SECTIONS[0];
   const sectionSubpanels = SECTION_SUBPANELS[activeSection] || [];
   const activeSubpanelId = activeSubpanels[activeSection] || sectionSubpanels[0]?.id || '';

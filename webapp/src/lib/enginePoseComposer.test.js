@@ -60,6 +60,32 @@ function assertSharedCanonicalPose(prompt, expected) {
   assert.ok(prompt.midjourneyPrompt.includes(expected), 'AI should reuse the exact canonical pose');
 }
 
+function createFullySpecifiedLocks(overrides = {}) {
+  const locks = { ...createEmptyLocks() };
+
+  for (const entry of getLockControls()) {
+    if (!Array.isArray(entry.options) || entry.options.length === 0) continue;
+    const concreteOption = entry.options.find((option) => option.zh === '全無')
+      || entry.options.find((option) => option.id === entry.defaultValue)
+      || entry.options.find((option) => (
+        option.zh !== '隨機'
+        && option.random !== true
+        && !option.meta?.tags?.includes('random')
+      ));
+    if (concreteOption) locks[entry.key] = concreteOption.id;
+  }
+
+  return { ...locks, subjectCount: '1', ...overrides };
+}
+
+function generateWithRandomSequence(locks, values) {
+  let calls = 0;
+  const [prompt] = generatePrompts(1, locks, [], {
+    random: () => values[calls++] ?? 0,
+  });
+  return { prompt, calls };
+}
+
 test('pose composer controls expose base arrangement hand and anchor options', () => {
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '站姿'));
   assert.ok(control('poseBaseId').options.some((option) => option.zh === '躺姿'));
@@ -80,6 +106,42 @@ test('pose composer controls keep only the explicit random option', () => {
     assert.equal(poseControl.suppressDefaultRandomOption, true);
     assert.equal(poseControl.options.filter((option) => option.zh === '隨機').length, 1);
   });
+});
+
+test('pose composer samples base arrangement hand head and anchor in documented order', () => {
+  const poseKeys = ['poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'];
+  const values = [0.05, 0.15, 0.25, 0.35, 0.45];
+  const fixedLocks = createFullySpecifiedLocks();
+  const resolveSingleRandom = (key, value, resolvedBaseId = 'none') => {
+    const locks = {
+      ...fixedLocks,
+      poseBaseId: resolvedBaseId,
+      poseArrangementId: 'none',
+      poseHandId: 'none',
+      poseHeadId: 'none',
+      poseAnchorId: 'none',
+      [key]: 'random',
+    };
+    return generateWithRandomSequence(locks, [value]).prompt.selection[key];
+  };
+
+  const expectedBaseId = resolveSingleRandom('poseBaseId', values[0]);
+  const expectedSelection = {
+    poseBaseId: expectedBaseId,
+    poseArrangementId: resolveSingleRandom('poseArrangementId', values[1], expectedBaseId),
+    poseHandId: resolveSingleRandom('poseHandId', values[2], expectedBaseId),
+    poseHeadId: resolveSingleRandom('poseHeadId', values[3], expectedBaseId),
+    poseAnchorId: resolveSingleRandom('poseAnchorId', values[4], expectedBaseId),
+  };
+  const allRandomLocks = {
+    ...fixedLocks,
+    ...Object.fromEntries(poseKeys.map((key) => [key, 'random'])),
+  };
+  const { prompt, calls } = generateWithRandomSequence(allRandomLocks, values);
+  const actualSelection = Object.fromEntries(poseKeys.map((key) => [key, prompt.selection[key]]));
+
+  assert.deepEqual(actualSelection, expectedSelection);
+  assert.equal(calls, 6, 'Five Pose Composer samples plus the runtime prompt id should consume six values');
 });
 
 test('pose composer exposes standing lean support anchor options', () => {
@@ -479,6 +541,56 @@ test('selfie hand poses are preserved in all prompt versions and lock orbit to n
       assert.doesNotMatch(text, /rear view|back view|from behind/i);
       assert.doesNotMatch(text, /let the image model|no separate photographer|without prescribed/i);
     }
+  }
+});
+
+test('a random hand resolved to a selfie clears an already locked rear orbit', () => {
+  const rearOrbit = optionId('orbitId', '背面 180 度');
+  const noneOrbit = optionId('orbitId', '全無');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    orbitId: rearOrbit,
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '隨機'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  }, [], { random: () => 0 });
+
+  assert.equal(prompt.selection.poseHandId, optionId('poseHandId', '自然自拍'));
+  assert.equal(prompt.selection.orbitId, noneOrbit);
+  assert.equal(prompt.structured.Framing.some((item) => item.id === rearOrbit), false);
+  assert.doesNotMatch(prompt.summary, /背面/);
+
+  const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  assert.match(canonicalPose, /front-camera self-shot/);
+  assertSharedCanonicalPose(prompt, canonicalPose);
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.doesNotMatch(text, /rear view|back view|from behind/i);
+  }
+});
+
+test('a random hand resolved to a non-selfie preserves an explicitly locked rear orbit', () => {
+  const rearOrbit = optionId('orbitId', '背面 180 度');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    orbitId: rearOrbit,
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '隨機'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  }, [], { random: () => 0.5 });
+
+  const selfieHandIds = ['自然自拍', '鏡子自拍', '男友/閨蜜自拍']
+    .map((label) => optionId('poseHandId', label));
+  assert.equal(selfieHandIds.includes(prompt.selection.poseHandId), false);
+  assert.equal(prompt.selection.orbitId, rearOrbit);
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /back view/i);
+    assert.doesNotMatch(text, /front-camera self-shot|mirror selfie|close-companion social snapshot/i);
   }
 });
 

@@ -2,7 +2,11 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, getLockControls } from './engine.js';
-import { buildWardrobeLayerInsights, buildWorkspaceSummary } from './page1WorkspaceSummary.js';
+import {
+  buildPage1GenerationSummary,
+  buildWardrobeLayerInsights,
+  buildWorkspaceSummary,
+} from './page1WorkspaceSummary.js';
 
 const controls = getLockControls();
 
@@ -55,6 +59,34 @@ test('workspace pose summary is separate from character identity summary', () =>
   assert.match(summary.character.summary, /性感曲線身形/);
   assert.doesNotMatch(summary.character.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
   assert.match(summary.pose.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
+});
+
+test('generation summary follows the resolved preview selection instead of conflicting raw locks', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    orbitId: optionId('orbitId', '背面 180 度'),
+    poseBaseId: 'random',
+    poseArrangementId: 'random',
+    poseHandId: 'random',
+    poseHeadId: 'random',
+    poseAnchorId: 'random',
+  };
+  const previewPrompt = {
+    selection: {
+      ...locks,
+      orbitId: optionId('orbitId', '全無'),
+      poseBaseId: 'standing',
+      poseArrangementId: 'standing-natural',
+      poseHandId: 'selfie-natural-right-arm',
+      poseHeadId: 'head-camera-natural',
+      poseAnchorId: 'standing-wall',
+    },
+  };
+
+  const resolvedSummary = buildPage1GenerationSummary(locks, previewPrompt, controls);
+  assert.match(resolvedSummary, /站姿|自然站姿|自然自拍|頭部自然朝向鏡頭|靠牆站立/);
+  assert.doesNotMatch(resolvedSummary, /背面/);
+  assert.match(buildPage1GenerationSummary(locks, null, controls), /背面/);
 });
 
 test('workspace pose summary shows the active single action pose card as the B pose override', () => {

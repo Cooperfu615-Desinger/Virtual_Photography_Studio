@@ -164,6 +164,18 @@ test('single pose panel randomizes every Pose Composer lock and resolves a concr
     assert.notEqual(prompt.selection[key], 'random', `${key} should not expose the random sentinel`);
   }
 
+  assert.deepEqual(
+    Object.fromEntries(POSE_COMPOSER_KEYS.map((key) => [key, prompt.selection[key]])),
+    {
+      poseBaseId: 'standing',
+      poseArrangementId: 'standing-deep-forward-lean',
+      poseHandId: 'hand-hold-cigarette',
+      poseHeadId: 'head-low-rim-support',
+      poseAnchorId: 'standing-lean-vending-machine',
+    },
+    'The migration seed should follow base, arrangement, hand, head, then anchor sampling order',
+  );
+
   const arrangement = controls
     .find((entry) => entry.key === 'poseArrangementId')
     ?.options.find((option) => option.id === prompt.selection.poseArrangementId);
