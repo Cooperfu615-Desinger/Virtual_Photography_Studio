@@ -27,7 +27,7 @@ import {
 } from '../lib/page1SectionRandom.js';
 import { createEmptyLocks } from '../lib/engine.js';
 import {
-  POSE_COMPOSER_KEYS,
+  POSE_COMPOSER_CONTROL_KEYS,
   SECTION_SUBPANELS,
   WORKSPACE_SECTIONS,
   getSectionKeys,
@@ -522,7 +522,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const isPoseComposerValueActive = (key, value = locks[key]) => (
     Boolean(value) && !isNoneSelected(key, value, characterLockControls)
   );
-  const isPoseComposerActive = POSE_COMPOSER_KEYS.some((key) => isPoseComposerValueActive(key));
+  const isPoseComposerActive = POSE_COMPOSER_CONTROL_KEYS.some((key) => isPoseComposerValueActive(key));
   const selectedPoseBaseId = POSE_COMPOSER_BASE_IDS.has(locks.poseBaseId) ? locks.poseBaseId : '';
   const activeActionPoseCard = locks.subjectCount !== '2' && !isDedicatedSpecialSubjectMode
     ? getActionPoseCardById(locks.actionPoseCardId)
@@ -610,7 +610,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     };
   };
   const resetPoseComposerLocks = (target) => {
-    POSE_COMPOSER_KEYS.forEach((key) => {
+    POSE_COMPOSER_CONTROL_KEYS.forEach((key) => {
       target[key] = 'none';
     });
   };
@@ -623,9 +623,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     || (fixedCompositionSetActive && FIXED_SET_LOCKED_KEYS.includes(control.key))
     || (fixedCompositionSetActive && !fixedSetAllowsCameraVariation && FIXED_SET_STRICT_CAMERA_KEYS.includes(control.key))
     || (selectedPoseHandLocksOrbit && control.key === 'orbitId')
-    || (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1')
-    || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
-    || (POSE_COMPOSER_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
+    || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1')
+    || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.poseId) && !isNoneSelected('poseId', locks.poseId, characterLockControls)))
+    || (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && (Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls)))
     || (['poseId', 'specialActionId'].includes(control.key) && isPoseComposerActive)
     || (control.key === 'poseId' && Boolean(locks.specialActionId) && !isNoneSelected('specialActionId', locks.specialActionId, characterLockControls) && !selectedSpecialActionIsSocial)
     || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
@@ -699,9 +699,15 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         }
         resetPoseComposerLocks(next);
       }
-      if (POSE_COMPOSER_KEYS.includes(control.key) && value && !isNoneSelected(control.key, value, characterLockControls)) {
+      if (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && value && !isNoneSelected(control.key, value, characterLockControls)) {
         next.poseId = '';
         next.specialActionId = '';
+      }
+      if (control.key === 'posePropId' && value && !isNoneSelected('posePropId', value, characterLockControls)) {
+        next.poseHandId = 'none';
+      }
+      if (control.key === 'poseHandId' && value && !isNoneSelected('poseHandId', value, characterLockControls)) {
+        next.posePropId = 'none';
       }
       if (control.key === 'poseHandId') {
         const nextPoseHand = poseHandControl?.options?.find((option) => option.id === value);

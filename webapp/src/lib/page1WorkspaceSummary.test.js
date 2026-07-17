@@ -61,6 +61,15 @@ test('workspace pose summary is separate from character identity summary', () =>
   assert.match(summary.pose.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
 });
 
+test('workspace pose summary includes the independent prop action', () => {
+  const summary = buildWorkspaceSummary({
+    ...createEmptyLocks(),
+    posePropId: optionId('posePropId', '手持冰咖啡'),
+  }, controls);
+
+  assert.match(summary.pose.summary, /手持冰咖啡/);
+});
+
 test('generation summary follows the resolved preview selection instead of conflicting raw locks', () => {
   const locks = {
     ...createEmptyLocks(),

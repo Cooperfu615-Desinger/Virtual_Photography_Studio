@@ -6,7 +6,7 @@ import {
   DUO_GARMENT_KEYS,
   DUO_LAYER_KEYS,
   OUTFIT_PRESET_COLOR_KEYS,
-  POSE_COMPOSER_KEYS,
+  POSE_COMPOSER_CONTROL_KEYS,
   SHARED_ACCESSORY_KEYS,
   SHARED_GARMENT_KEYS,
   SHARED_LAYER_KEYS,
@@ -92,9 +92,16 @@ function buildCoreControls(lockControls, sceneDependentOptions) {
 }
 
 function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
-  const sceneAware = lockControls.map((control) => control.key === 'poseAnchorId'
-    ? { ...control, options: sceneDependentOptions.poseAnchorOptions || control.options }
-    : control);
+  const sceneAware = lockControls.map((control) => {
+    if (control.key !== 'poseAnchorId') return control;
+    const sceneOptions = sceneDependentOptions.poseAnchorOptions || control.options;
+    return {
+      ...control,
+      options: sceneOptions.filter((option) => (
+        option.meta?.uiHidden !== true || option.id === locks.poseAnchorId
+      )),
+    };
+  });
   const specialSubject = getSelectedOption(sceneAware, 'specialSubjectId', locks.specialSubjectId);
   const characterProfile = getSelectedOption(sceneAware, 'characterProfileId', locks.characterProfileId);
   const isSpecialSubject = Boolean(specialSubject?.specialSubject);
@@ -105,7 +112,7 @@ function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
   return sortControls(sceneAware.filter((control) => {
     if (isDedicatedSubject) {
       return [
-        'specialSubjectId', 'characterProfileId', 'expressionId', ...POSE_COMPOSER_KEYS,
+        'specialSubjectId', 'characterProfileId', 'expressionId', ...POSE_COMPOSER_CONTROL_KEYS,
         ...(isAndroidSubject ? ['hairstyleId', 'hairColorId'] : []),
       ].includes(control.key);
     }
@@ -113,7 +120,7 @@ function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
     if (['specialSubjectId', 'characterProfileId'].includes(control.key)) return true;
     if (['duoPoseId', 'duoPoseBaseId', 'duoExpressionId'].includes(control.key) && locks.subjectCount !== '2') return false;
     if (['poseId', 'specialActionId'].includes(control.key)) return false;
-    if (POSE_COMPOSER_KEYS.includes(control.key) && locks.subjectCount !== '1') return false;
+    if (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1') return false;
     if (['bodyTypeId', 'facialFeaturesId', 'skinDetailsId', 'hairstyleId', 'hairColorId', 'expressionId'].includes(control.key) && locks.subjectCount === '2') return false;
     if ([
       'bodyTypeAId', 'bodyTypeBId', 'facialFeaturesAId', 'facialFeaturesBId',

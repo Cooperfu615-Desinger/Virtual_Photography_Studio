@@ -2,7 +2,7 @@ import {
   getSceneDependentOptions,
   sanitizeLocksForCloseupMode,
 } from '../../lib/engine.js';
-import { POSE_COMPOSER_KEYS } from './page1Schema.js';
+import { POSE_COMPOSER_CONTROL_KEYS } from './page1Schema.js';
 import { isNoneSelected } from './page1Selectors.js';
 
 function clearUnavailableSelection(locks, key, options, fallback = '') {
@@ -28,7 +28,7 @@ export function transitionPage1Locks({
   const poseIsActive = Boolean(next.poseId) && !isNoneSelected('poseId', next.poseId, lockControls);
   const specialActionIsActive = Boolean(next.specialActionId)
     && !isNoneSelected('specialActionId', next.specialActionId, lockControls);
-  const poseComposerIsActive = POSE_COMPOSER_KEYS.some((key) => (
+  const poseComposerIsActive = POSE_COMPOSER_CONTROL_KEYS.some((key) => (
     Boolean(next[key]) && !isNoneSelected(key, next[key], lockControls)
   ));
   const specialSubjectIsActive = Boolean(next.specialSubjectId)
@@ -77,7 +77,7 @@ export function transitionPage1Locks({
   if (next.subjectCount !== '1') {
     next.actionPoseCardId = '';
     next.specialActionId = '';
-    POSE_COMPOSER_KEYS.forEach((key) => { next[key] = 'none'; });
+    POSE_COMPOSER_CONTROL_KEYS.forEach((key) => { next[key] = 'none'; });
   }
 
   return next;

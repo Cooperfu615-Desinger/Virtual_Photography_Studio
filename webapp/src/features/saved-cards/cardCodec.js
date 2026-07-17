@@ -17,7 +17,7 @@ const STRUCTURED_CONTROL_KEYS = {
     'hairstyleId', 'hairstyleAId', 'hairstyleBId',
     'hairColorId', 'hairColorAId', 'hairColorBId',
     'duoPoseId', 'duoPoseBaseId', 'duoExpressionId', 'expressionId',
-    'poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId',
+    'poseBaseId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseHeadId', 'poseAnchorId',
   ],
   Wardrobe: [
     'outfitPresetId', 'outfitPresetColorId',
@@ -259,8 +259,11 @@ export function normalizePromptText(text) {
 export function findBestOptionMatch(options, normalizedPrompt) {
   return [...(options || [])]
     .filter((option) => option?.id && option?.en && option.zh !== '全無')
-    .sort((a, b) => b.en.length - a.en.length)
-    .find((option) => normalizedPrompt.includes(normalizePromptText(option.en))) || null;
+    .flatMap((option) => [option.en, ...(option.meta?.legacyPromptAliases || [])]
+      .map((promptText) => ({ option, normalizedText: normalizePromptText(promptText) })))
+    .filter((entry) => entry.normalizedText)
+    .sort((a, b) => b.normalizedText.length - a.normalizedText.length)
+    .find((entry) => normalizedPrompt.includes(entry.normalizedText))?.option || null;
 }
 
 export function parseLocksFromStandardPrompt(promptText, controls) {

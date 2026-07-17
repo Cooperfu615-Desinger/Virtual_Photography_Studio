@@ -1,6 +1,6 @@
 # PAGE1 隨機與清空控制契約
 
-Last updated: 2026-07-12
+Last updated: 2026-07-17
 
 這份規範定義 PAGE1 全域與分區「全部隨機」及「清空可清除項目」的行為。按鈕文字、lock state、相容性清理與最終 Prompt 必須遵守同一套能力分級，避免使用者看到「隨機」但實際仍是「全無」，或看到「全無」但必要欄位偷偷回到隨機。
 
@@ -10,7 +10,7 @@ Last updated: 2026-07-12
 
 - random：清空 lock，讓 engine 在生成時依相容性規則隨機解析。
 - reset：回到明確的「全無」或 defaultValue；不自動啟用特殊角色、角色卡、固定構圖或色系接管。
-- preserve：保留目前值。人物數量是必要欄位，不由批次隨機或清空操作改變。
+- preserve：保留目前值。人物數量是必要欄位；獨立 `posePropId` 也不由姿勢批次隨機覆蓋。
 
 能力判斷集中在 webapp/src/lib/page1SectionRandom.js 的 getPage1ControlActionMode()。不要在 UI component 內自行以欄位名稱推測行為。
 
@@ -24,6 +24,7 @@ Last updated: 2026-07-12
 - specialSubjectId、characterProfileId 回到 none，不會隨機套用特殊角色或角色卡。
 - fixedCompositionSetId 及其 dependent controls 回到固定場景未啟用的預設。
 - imageTypePresetId 保留寫實攝影預設。
+- posePropId 保留目前明確道具或 `全無`；使用者需在道具欄位自行選擇其 `隨機`。
 - hidden migration、import 與接管狀態回到各自 defaultValue，避免批次隨機留下與新選擇衝突的舊狀態。
 
 ### 清空可清除項目
@@ -51,9 +52,13 @@ Last updated: 2026-07-12
 
 1. 姿勢基底
 2. 與基底相容的肢體變化
-3. 手部／道具動作
+3. 手部動作
 4. 頭部方向
 5. 與基底、場景相容的接觸／支撐
+
+`posePropId` 是獨立的第六個控制，不加入上述五層批次取樣，也不增加該流程的 RNG 呼叫。姿勢「全部隨機」會保留其目前值；若明確道具有效，V1 由道具接管手部層，因此 normalize 會把 `poseHandId` 清為 `全無`，其餘基底、肢體、頭部與接觸層照常隨機。道具自己的 `隨機` 只在使用者明確選擇時解析。
+
+接觸／支撐的隨機是唯一可自然解析為 `全無` 的 Pose Composer 隨機層，避免每張圖都被強制加入支撐物；解析為具體項目時，仍只能從相容且 `randomEligible !== false` 的公開候選抽取。其餘四層中的基底、肢體、手部與頭部隨機仍需解析為具體選項，且都不得解析為 `任意`。
 
 欄位仍可由使用者個別選擇「全無」，但批次隨機不得產生「只有神情隨機、姿勢全部全無」的假隨機狀態。雙人模式仍使用 duoPoseId、duoPoseBaseId、duoExpressionId，不套用單人 Pose Composer。
 
@@ -71,7 +76,8 @@ Last updated: 2026-07-12
 - randomizeLockKeys() 只修改指定 keys，並遵守 random／reset／preserve 分級。
 - setLockKeysToNone() 與 buildAllNoneLocks() 對沒有「全無」的欄位保留 defaultValue。
 - 每個 PAGE1 子面板的 action label 與能力一致。
-- 單人 Pose Composer 的批次隨機會讓五個 Composer lock 都進入隨機狀態，且 engine 產出完整相容組合。
+- `posePropId` 為 preserve；明確道具在姿勢批次隨機後仍保留並接管手部，`全無` 也維持 `全無`。
+- 無明確道具時，單人 Pose Composer 的批次隨機會讓五個 Composer lock 都進入隨機狀態；接觸可解析為 `全無`，其餘層產出具體相容組合。
 - 特殊角色、角色卡、固定構圖與成品類型批次操作不會自動接管。
 - 全域批次操作不會改變 subjectCount。
 

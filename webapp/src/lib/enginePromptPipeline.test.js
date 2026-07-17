@@ -687,7 +687,8 @@ test('Gpt single-subject prompt preserves full-fidelity expression and special a
     poseId: optionId('poseId', '站姿｜自然站姿'),
     specialActionId: optionId('specialActionId', '塗口紅'),
   });
-  assert.match(lipstick.pose, /one hand pressing a lipstick bullet to the lips, with visible hand-to-mouth contact and slight lip pressure/i);
+  assert.match(lipstick.pose, /one hand applying lipstick directly to the lips with visible hand-to-mouth contact/i);
+  assert.match(lipstick.pose, /finish varying naturally between clean application and a slightly smudged lip line/i);
   assert.doesNotMatch(lipstick.pose, /\.,/i);
   assert.doesNotMatch(lipstick.prompt.zImagePrompt, /polished beauty touch-up portrait moment/i);
 
@@ -1299,8 +1300,9 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
         framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
       },
       expected: [
-        /one hand pressing a lipstick bullet to the lips/i,
+        /one hand applying lipstick directly to the lips/i,
         /visible hand-to-mouth contact/i,
+        /clean application and a slightly smudged lip line/i,
       ],
       minParagraphs: 4,
     },

@@ -429,9 +429,9 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
       locks: {
         poseBaseId: optionId('poseBaseId', '站姿'),
         poseArrangementId: optionId('poseArrangementId', '自然站姿'),
-        poseHandId: optionId('poseHandId', '塗口紅'),
+        posePropId: optionId('posePropId', '塗口紅｜自由妝感'),
       },
-      expected: 'She has one hand pressing a lipstick bullet to the lips, with visible hand-to-mouth contact and slight lip pressure, and presents a natural relaxed standing pose.',
+      expected: 'She has one hand applying lipstick directly to the lips with visible hand-to-mouth contact, with the finish varying naturally between clean application and a slightly smudged lip line, and presents a natural relaxed standing pose.',
     },
     {
       locks: {

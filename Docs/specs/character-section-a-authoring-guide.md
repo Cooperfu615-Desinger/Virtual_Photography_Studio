@@ -1,6 +1,6 @@
 # A 人物設定新增與維護規格
 
-Last updated: 2026-07-03
+Last updated: 2026-07-17
 
 這份文件定義 PAGE1 `A. 人物設定` 的新增、修改、合併與測試規則。後續新增五官、體態、髮型、髮色、神情、姿勢、特殊動作或特殊角色時，請先依照本規格檢查責任邊界與 prompt 寫法。
 
@@ -27,7 +27,7 @@ Prompt 應使用短而準的英文片語，避免堆疊同義詞。中文描述�
 | 角色卡 `characterProfileId` | `webapp/src/lib/engine.js` 的 `CHARACTER_PROFILE_OPTIONS` | 直接 code-defined，獨立於特殊角色；用來接管人物身份與固定穿搭。 |
 | 體態、五官、膚質、髮型、髮色 | `knowledge_base/character_design.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 神情、姿勢、特殊動作 | `knowledge_base/character_design.md` | `特殊動作` 目前保留為 legacy hidden 資料；一般新增請優先放入 Pose Composer。編輯 Markdown 後需同步到 `webapp/src/data/database.json`。 |
-| Pose Composer 姿勢基底、肢體變化、手部 / 道具動作、頭部方向、接觸 / 支撐 | `webapp/src/lib/engine.js` 的 `POSE_COMPOSER_*_OPTIONS` | 直接 code-defined，不走 Markdown sync。 |
+| Pose Composer 姿勢基底、肢體變化、手部動作、道具動作、頭部方向、接觸 / 支撐 | `webapp/src/lib/engine/poseComposerOptions.js` 的 `POSE_COMPOSER_*_OPTIONS` | 直接 code-defined，不走 Markdown sync。 |
 | 相容舊選項 | `webapp/src/lib/engine.js` | 合併、改名、移除時需加 legacy mapping。 |
 
 Markdown 資料同步流程：
@@ -236,7 +236,8 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 
 - `神情與眼神`: 臉、視線、嘴型、情緒強度。
 - `姿勢與肢體語言`: 身體結構、重心、肢體安排、動作狀態。
-- Pose Composer `手部 / 道具動作`: 手部位置、手持物、道具接觸、服裝整理、手機互動。
+- Pose Composer `手部動作`: 不依賴特定道具的手臂、手掌與手指位置，以及身體或服裝接觸。
+- Pose Composer `道具動作`: 手持物、道具接觸與手機等物件互動；由獨立 `posePropId` 控制。
 - Legacy `特殊動作`: 舊資料保留給 saved cards / restore 遷移，不再作為 PAGE1 獨立 UI 欄位擴充。
 
 ### 6.1 神情與眼神
@@ -305,10 +306,14 @@ looking away from the camera, distant sideward gaze, thoughtful quiet expression
 - 只描述 body structure、weight、limbs、motion state。
 - 不寫 `looking at camera`、`lowered gaze`、`over-the-shoulder gaze`，這些屬於神情。
 - 不新增自拍或鏡子自拍為一般 `poseId` 姿勢；自拍類屬於 Pose Composer 的 `手部姿勢`。
-- PAGE1 不再顯示一般 `poseId` 姿勢選單；舊 `poseId` restore / normalize 應轉成 `poseBaseId`、`poseArrangementId`、`poseHandId`、`poseHeadId`、`poseAnchorId` 的可見組合，並清空 `poseId`。
+- PAGE1 不再顯示一般 `poseId` 姿勢選單；舊 `poseId` restore / normalize 應轉成 `poseBaseId`、`poseArrangementId`、`poseHandId`、`posePropId`、`poseHeadId`、`poseAnchorId` 的可見組合，並清空 `poseId`。
 - 新姿勢必須改變身體輪廓或構圖效果；單純手的位置小差異不建議新增。
 
-Pose Composer `手部 / 道具動作` 規則：
+Pose Composer `手部動作` / `道具動作` 規則：
+
+- `poseHandId` 只承擔不依賴特定道具的手部姿態；手持或使用具體物件改由獨立儲存與顯示的 `posePropId` 承擔。V1 不同時合成手部與道具層：有效道具會接管手部層，選擇道具時必須清空 `poseHandId`。
+- 舊 saved card / import 若把既有道具 option ID 存在 `poseHandId`，normalize 應將該 ID 遷移至 `posePropId` 並清空舊手部 lock；若 payload 已有有效的明確 `posePropId`，不得用 legacy 值覆蓋，且同樣由明確道具接管並清空 `poseHandId`。
+- 合併或改寫道具英文時，若舊 Markdown import 可能只留下舊 prompt 文字，應在 option `meta.legacyPromptAliases` 保留舊英文，讓標準 prompt parser 能映射至目前 option ID。
 
 - `自然自拍`：右手拿自己的手機前鏡頭自拍；prompt 要明確寫畫面來自本人右手手機前鏡頭，手機與手留在畫面邊緣外，只允許自然前臂裁切，避免第二個人拍攝感。
 - `鏡子自拍`：可見手機對著鏡子自拍；手機可以遮到臉，也可以在臉旁，不強制臉完全露出。
@@ -319,6 +324,11 @@ Pose Composer `手部 / 道具動作` 規則：
 - 服裝整理類應使用相容當前穿搭的語氣，例如 `整理下身` 可涵蓋裙、褲、腰頭或絲襪，不應硬綁單一服裝。
 - 若手部 / 道具動作需要更寬構圖，應保留相容性 tags，例如 `prop_action`、`face_action`、`wardrobe_action`、`leg_focus_action`。
 
+Pose Composer `接觸 / 支撐` legacy policy：
+
+- 低泛用、場景綁定或已被新版泛用 anchor 取代的舊選項不得直接刪除；設為 `uiHidden: true`、`randomEligible: false`，使其不出現在新 UI、也不進入隨機候選。
+- 這類 hidden anchor 的既有 ID 仍須能由 saved card / import / normalize 明確還原並產生原本 prompt；只有另有相容 migration 時才可改映射。
+
 ### 6.3 特殊動作
 
 狀態：`specialActionId` 目前已從 PAGE1 `B 神情姿態` 的獨立 UI 欄位隱藏。資料仍保留在 `knowledge_base/character_design.md` 與 `database.json`，用途是 legacy saved cards / restore 遷移與回溯相容；確認新 Pose Composer 路徑長期穩定後，可再評估移除舊資料。
@@ -326,9 +336,9 @@ Pose Composer `手部 / 道具動作` 規則：
 維護規則：
 
 - 不再新增新的 `特殊動作` 選項。
-- 道具、手機、口紅、飲料、香菸、服裝整理等手部互動，新增到 Pose Composer `手部 / 道具動作`。
+- 道具、手機、口紅、飲料、香菸等物件互動新增到 Pose Composer `道具動作`；不依賴道具的手部姿態與服裝整理新增到 `手部動作`。
 - 完整身體姿態新增到 Pose Composer `肢體變化`，必要支撐物則放入 `接觸 / 支撐`。
-- 舊 `特殊動作` 若需要保留 restore 行為，應在 `engine.js` 加 legacy migration，轉成 `poseBaseId`、`poseArrangementId`、`poseHandId`、`poseHeadId`、`poseAnchorId` 的組合，並清空 `specialActionId`。
+- 舊 `特殊動作` 若需要保留 restore 行為，應在 `engine.js` 加 legacy migration，轉成 `poseBaseId`、`poseArrangementId`、`poseHandId`、`posePropId`、`poseHeadId`、`poseAnchorId` 的組合，並清空 `specialActionId`。
 
 目前特殊動作全部保留，共 23 個非空選項：
 
@@ -457,6 +467,7 @@ an unknown anomalous figure appearing naturally inside a real contemporary envir
 - 優先 append 新選項，不任意插入中間。
 - 改名、合併、移除時必須加入 legacy mapping。
 - 舊選項應 map 到最接近的新選項，不要掉回 `全無`。
+- 舊 `poseHandId` 道具 lock 必須遷移到 `posePropId`；legacy anchor 則依 `uiHidden` / `randomEligible` policy 保留可還原性。
 - 社群自拍類舊姿勢若被拆分，應同時保留身體姿勢與 `specialActionId`。
 
 目前相關 mapping 區域：

@@ -21,6 +21,7 @@ test('page1 pose panels split single and duo settings without legacy pose contro
     'poseBaseId',
     'poseArrangementId',
     'poseHandId',
+    'posePropId',
     'poseHeadId',
     'poseAnchorId',
   ]);

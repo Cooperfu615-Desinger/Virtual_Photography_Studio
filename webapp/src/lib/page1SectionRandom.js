@@ -18,7 +18,7 @@ const RESET_TO_DEFAULT_KEYS = new Set([
   'topBottomPaletteBId',
 ]);
 
-const PRESERVE_KEYS = new Set(['subjectCount']);
+const PRESERVE_KEYS = new Set(['subjectCount', 'posePropId']);
 
 function getControlByKey(controls, key) {
   return controls.find((control) => control.key === key) || null;

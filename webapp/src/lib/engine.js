@@ -35,6 +35,7 @@ import {
   POSE_COMPOSER_BASE_OPTIONS,
   POSE_COMPOSER_HAND_OPTIONS,
   POSE_COMPOSER_HEAD_OPTIONS,
+  POSE_COMPOSER_PROP_OPTIONS,
 } from './engine/poseComposerOptions.js';
 import { createPromptSectionModel } from './engine/promptModel.js';
 import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
@@ -859,7 +860,8 @@ const LOCK_DEFINITIONS = [
   { key: 'actionPoseCardId', label: '動作姿勢卡', section: 'hidden' },
   { key: 'poseBaseId', label: '姿勢基底', options: POSE_COMPOSER_BASE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseArrangementId', label: '肢體變化', options: POSE_COMPOSER_ARRANGEMENT_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
-  { key: 'poseHandId', label: '手部 / 道具動作', options: POSE_COMPOSER_HAND_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'poseHandId', label: '手部動作', options: POSE_COMPOSER_HAND_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'posePropId', label: '道具動作', options: POSE_COMPOSER_PROP_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseHeadId', label: '頭部方向', options: POSE_COMPOSER_HEAD_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseAnchorId', label: '接觸 / 支撐', options: POSE_COMPOSER_ANCHOR_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'specialOutfitId', label: '特殊穿搭', category: '特殊穿搭 (Special Outfits)', section: 'wardrobe' },
@@ -2055,6 +2057,7 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'poseBaseId',
   'poseArrangementId',
   'poseHandId',
+  'posePropId',
   'poseHeadId',
   'poseAnchorId',
   'headAccessoryId',
@@ -2490,11 +2493,11 @@ const CHARACTER_LEGACY_SELFIE_SPECIAL_ACTION_MIGRATIONS = [
 }));
 
 const CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS = [
-  { label: '塗口紅', baseZh: '站姿', handZh: '塗口紅' },
-  { label: '塗歪口紅', baseZh: '站姿', handZh: '塗歪口紅' },
-  { label: '喝冰咖啡', baseZh: '站姿', handZh: '手持冰咖啡' },
-  { label: '咬著波板糖', baseZh: '站姿', handZh: '手持波板糖' },
-  { label: '抽煙', baseZh: '站姿', handZh: '手持香菸' },
+  { label: '塗口紅', baseZh: '站姿', propZh: '塗口紅｜自由妝感' },
+  { label: '塗歪口紅', baseZh: '站姿', propZh: '塗口紅｜自由妝感' },
+  { label: '喝冰咖啡', baseZh: '站姿', propZh: '手持冰咖啡' },
+  { label: '咬著波板糖', baseZh: '站姿', propZh: '手持波板糖' },
+  { label: '抽煙', baseZh: '站姿', propZh: '手持香菸' },
   { label: '整理絲襪', baseZh: '站姿', handZh: '整理下身' },
   { label: '前傾抓住褲腰', baseZh: '站姿', arrangementZh: '上身大幅度前傾', handZh: '雙手抓住褲腰' },
   { label: '側坐單手後撐', baseZh: '坐姿', arrangementZh: '雙腿側放坐姿', handZh: '一手撐地一手放腿上' },
@@ -2503,7 +2506,7 @@ const CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS = [
   { label: '跪坐回眸撩髮', baseZh: '跪姿', arrangementZh: '跪坐', handZh: '單手撩髮', headZh: '越肩回望' },
   { label: '半脫上衣整理肩線', baseZh: '站姿', handZh: '拉下肩線整理上衣' },
   { label: '隨性癱坐在雕花單人絨布沙發上', baseZh: '坐姿', arrangementZh: '隨性癱坐', anchorZh: '坐在單人雕花絨布椅' },
-  { label: '趴臥滑手機', baseZh: '躺姿', arrangementZh: '趴臥手肘撐起', handZh: '滑手機' },
+  { label: '趴臥滑手機', baseZh: '躺姿', arrangementZh: '趴臥手肘撐起', propZh: '滑手機' },
   { label: '靠牆站立', baseZh: '站姿', anchorZh: '靠牆' },
   { label: '靠牆坐姿', baseZh: '坐姿', arrangementZh: '雙腿自然伸展', anchorZh: '背靠牆坐在地面' },
   { label: '靠牆後仰站姿', baseZh: '站姿', arrangementZh: '身體微後仰', anchorZh: '靠牆' },
@@ -2514,6 +2517,15 @@ const CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS = [
   { label: '抱枕俯臥回眸', baseZh: '躺姿', arrangementZh: '抱枕俯臥回眸' },
   { label: '分腿跪坐仰視', baseZh: '跪姿', arrangementZh: '分腿跪坐', handZh: '一手撐地一手放腿上', headZh: '下巴微抬' },
 ];
+
+const LEGACY_POSE_HAND_TO_PROP_ID = new Map([
+  ['hand-apply-lipstick', 'hand-apply-lipstick'],
+  ['hand-messy-lipstick', 'hand-apply-lipstick'],
+  ['hand-hold-iced-coffee', 'hand-hold-iced-coffee'],
+  ['hand-hold-whirly-lollipop', 'hand-hold-whirly-lollipop'],
+  ['hand-hold-cigarette', 'hand-hold-cigarette'],
+  ['hand-use-phone', 'hand-use-phone'],
+]);
 
 const CHARACTER_POSE_TO_POSE_COMPOSER_MIGRATIONS = [
   { label: '站姿｜自然站姿', baseZh: '站姿', arrangementZh: '自然站姿' },
@@ -2993,12 +3005,39 @@ function applySpecialActionPoseComposerMigration(normalizedLocks, rawLocks, cont
   setControlToNone(normalizedLocks, controls, 'poseId');
 
   if (!migration) return;
+  const poseComposerAlreadyActive = [
+    'poseArrangementId',
+    'poseHandId',
+    'posePropId',
+    'poseHeadId',
+    'poseAnchorId',
+  ].some((key) => isActivePoseComposerOption(getControlOptionById(controls, key, normalizedLocks[key])));
+  if (poseComposerAlreadyActive) return;
 
   if (migration.baseZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseBaseId', migration.baseZh);
   if (migration.arrangementZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseArrangementId', migration.arrangementZh);
   if (migration.handZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHandId', migration.handZh);
+  if (migration.propZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'posePropId', migration.propZh);
   if (migration.headZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseHeadId', migration.headZh);
   if (migration.anchorZh) setControlOptionByZhIfInactive(normalizedLocks, controls, 'poseAnchorId', migration.anchorZh);
+}
+
+function applyLegacyPoseHandPropMigration(normalizedLocks, rawLocks, controls) {
+  const targetPropId = LEGACY_POSE_HAND_TO_PROP_ID.get(rawLocks?.poseHandId);
+  if (!targetPropId) return;
+
+  const selectedProp = getControlOptionById(controls, 'posePropId', normalizedLocks.posePropId);
+  if (!isActivePoseComposerOption(selectedProp)) {
+    const targetProp = getControlOptionById(controls, 'posePropId', targetPropId);
+    if (targetProp) normalizedLocks.posePropId = targetProp.id;
+  }
+  setControlToNone(normalizedLocks, controls, 'poseHandId');
+}
+
+function applyPosePropHandExclusivity(normalizedLocks, controls) {
+  const selectedProp = getControlOptionById(controls, 'posePropId', normalizedLocks.posePropId);
+  if (!isActivePoseComposerOption(selectedProp)) return;
+  setControlToNone(normalizedLocks, controls, 'poseHandId');
 }
 
 function applyPoseIdPoseComposerMigration(normalizedLocks, rawLocks, controls) {
@@ -3240,6 +3279,8 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
   applyPoseArrangementAnchorMigration(normalizedWithLegacyColors, rawLocks, controls);
   applySpecialActionPoseComposerMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyPoseIdPoseComposerMigration(normalizedWithLegacyColors, rawLocks, controls);
+  applyLegacyPoseHandPropMigration(normalizedWithLegacyColors, rawLocks, controls);
+  applyPosePropHandExclusivity(normalizedWithLegacyColors, controls);
   applyOutfitPresetToDressLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyEyewearLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOuterwearOpeningLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
@@ -4005,6 +4046,7 @@ function getPoseComposerActionConstraint(locks = {}) {
   const options = [
     getPoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, locks.poseArrangementId),
     getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, locks.poseHandId),
+    getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, locks.posePropId),
     getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, locks.poseAnchorId),
   ].filter((option) => option && isActivePoseComposerOption(option) && !isRandomOption(option));
   const tags = withTags(options.flatMap((option) => option.meta?.tags || []));
@@ -4314,10 +4356,37 @@ function resolvePoseComposerOption(options, id, predicate = () => true, exclusio
     isActivePoseComposerOption(item)
     && !isRandomOption(item)
     && !isModelNaturalPoseComposerOption(item)
+    && item.meta?.randomEligible !== false
     && predicate(item)
   ));
   if (isRandomOption(option)) return sample(exclusions.filterCandidates(candidates, exclusionKeys), random);
   return predicate(option) ? option : null;
+}
+
+const POSE_ANCHOR_RANDOM_NONE_RATE = 1 / 3;
+
+function resolvePoseComposerAnchorOption(id, predicate, exclusions, random = Math.random) {
+  const option = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, id);
+  if (!isActivePoseComposerOption(option)) return null;
+  if (!isRandomOption(option)) return predicate(option) ? option : null;
+
+  const candidates = POSE_COMPOSER_ANCHOR_OPTIONS.filter((item) => (
+    isActivePoseComposerOption(item)
+    && !isRandomOption(item)
+    && !isModelNaturalPoseComposerOption(item)
+    && item.meta?.randomEligible !== false
+    && predicate(item)
+  ));
+  const filteredCandidates = exclusions.filterCandidates(candidates, ['poseAnchorId']);
+  if (filteredCandidates.length === 0) return null;
+
+  const roll = random();
+  if (roll < POSE_ANCHOR_RANDOM_NONE_RATE) return null;
+  const concreteRoll = (roll - POSE_ANCHOR_RANDOM_NONE_RATE) / (1 - POSE_ANCHOR_RANDOM_NONE_RATE);
+  return filteredCandidates[Math.min(
+    filteredCandidates.length - 1,
+    Math.floor(concreteRoll * filteredCandidates.length),
+  )];
 }
 
 function poseComposerOptionMatchesBase(option, baseId) {
@@ -4433,6 +4502,10 @@ function normalizePoseComposerHandPhrase(handPose) {
   return text;
 }
 
+function normalizePoseComposerPropPhrase(propAction) {
+  return stripTerminalPromptPunctuation(propAction?.en || '');
+}
+
 function withIndefiniteArticle(phrase) {
   const text = stripTerminalPromptPunctuation(phrase || '');
   if (!text || /^(?:a|an)\b/i.test(text)) return text;
@@ -4463,7 +4536,7 @@ function buildPoseComposerResultPhrase({ base, arrangement, anchor, location }) 
   return `${arrangementPhrase} with ${anchorPhrase}`;
 }
 
-function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head, location }) {
+function buildPoseComposerSentence({ base, arrangement, handPose, propAction, anchor, head, location }) {
   const anchorEffect = getPoseComposerAnchorEffect(anchor, base);
   const naturalChoiceSelected = [arrangement, handPose, head].some(isModelNaturalPoseComposerOption);
   const headPhrase = head && !isModelNaturalPoseComposerOption(head)
@@ -4471,6 +4544,9 @@ function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head, 
     : '';
   const handPhrase = handPose && !isModelNaturalPoseComposerOption(handPose)
     ? normalizePoseComposerHandPhrase(handPose)
+    : '';
+  const propPhrase = propAction
+    ? normalizePoseComposerPropPhrase(propAction)
     : '';
   const poseResult = buildPoseComposerResultPhrase({ base, arrangement, anchor, location })
     || (naturalChoiceSelected ? 'natural posture' : '');
@@ -4482,7 +4558,7 @@ function buildPoseComposerSentence({ base, arrangement, handPose, anchor, head, 
       ? `a casual, relaxed, and natural ${poseResultWithAnchorEffect}`
       : withIndefiniteArticle(poseResultWithAnchorEffect))
     : '';
-  const details = [headPhrase, handPhrase].filter(Boolean);
+  const details = [headPhrase, propPhrase || handPhrase].filter(Boolean);
 
   if (!posturePhrase) {
     return details.length > 0 ? `She has ${details.join(', ')}.` : '';
@@ -4502,13 +4578,14 @@ function buildPoseComposerItem(context) {
   if (!base) {
     const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId'], random);
     const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId'], random);
-    const standaloneParts = [handPose, head].filter(isActivePoseComposerOption);
+    const propAction = resolvePoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId, () => true, exclusions, ['posePropId'], random);
+    const standaloneParts = [handPose, propAction, head].filter(isActivePoseComposerOption);
     if (standaloneParts.length === 0) return null;
 
     return {
       id: `character:姿勢組合器-pose-composer:${standaloneParts.map((part) => part.id).join(':')}`,
       zh: standaloneParts.map((part) => part.zh).join(' + '),
-      en: buildPoseComposerSentence({ handPose, head, location: context.location }),
+      en: buildPoseComposerSentence({ handPose, propAction, head, location: context.location }),
       desc: '由姿勢組合器生成的組合姿勢。',
       meta: {
         tags: ['pose_composer'],
@@ -4516,6 +4593,7 @@ function buildPoseComposerItem(context) {
         poseBaseId: 'none',
         poseArrangementId: 'none',
         poseHandId: handPose?.id || 'none',
+        posePropId: propAction?.id || 'none',
         poseHeadId: head?.id || 'none',
         poseAnchorId: 'none',
       },
@@ -4530,13 +4608,14 @@ function buildPoseComposerItem(context) {
   const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase, exclusions, ['poseArrangementId'], random);
   const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId'], random);
   const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId'], random);
-  const anchor = resolvePoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId, matchesAnchor, exclusions, ['poseAnchorId'], random);
-  const parts = [base, arrangement, handPose, head, anchor].filter(Boolean);
+  const anchor = resolvePoseComposerAnchorOption(context.locks?.poseAnchorId, matchesAnchor, exclusions, random);
+  const propAction = resolvePoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId, () => true, exclusions, ['posePropId'], random);
+  const parts = [base, arrangement, handPose, propAction, head, anchor].filter(Boolean);
 
   return {
     id: `character:姿勢組合器-pose-composer:${parts.map((part) => part.id).join(':')}`,
     zh: parts.map((part) => part.zh).join(' + '),
-    en: buildPoseComposerSentence({ base, arrangement, handPose, anchor, head, location: context.location }),
+    en: buildPoseComposerSentence({ base, arrangement, handPose, propAction, anchor, head, location: context.location }),
     desc: '由姿勢組合器生成的組合姿勢。',
     meta: {
       tags: ['pose_composer'],
@@ -4544,6 +4623,7 @@ function buildPoseComposerItem(context) {
       poseBaseId: base.id,
       poseArrangementId: arrangement?.id || 'none',
       poseHandId: handPose?.id || 'none',
+      posePropId: propAction?.id || 'none',
       poseHeadId: head?.id || 'none',
       poseAnchorId: anchor?.id || 'none',
     },
@@ -11770,6 +11850,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || 'none',
     poseArrangementId: characterSlots.poseComposer?.meta?.poseArrangementId || 'none',
     poseHandId: characterSlots.poseComposer?.meta?.poseHandId || 'none',
+    posePropId: characterSlots.poseComposer?.meta?.posePropId || 'none',
     poseHeadId: characterSlots.poseComposer?.meta?.poseHeadId || 'none',
     poseAnchorId: characterSlots.poseComposer?.meta?.poseAnchorId || 'none',
     topId: wardrobeSlots.top?.id || '',

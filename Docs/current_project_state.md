@@ -49,6 +49,9 @@ Prompt-quality governance added on 2026-07-15:
 - Pose Composer P0 validation on 2026-07-15: focused prompt/pose/random tests 98 passed; frontend `npm test` 441 passed; `npm run test:prompt-quality` 14 passed; lint and build passed; the same-seed strict audit retained zero blocking signals and the same 13 pre-existing diagnostics. Desktop 1440×1000 and mobile 390×900 browser smoke passed all five workspaces with PAGE1 batch-random interaction, exact shared canonical output, no overflow, broken images, app page errors, or failed declared app assets. Desktop Chrome still makes an automatic request for the undeclared `/favicon.ico` and receives the existing 404; this P0 work does not add or change favicon assets.
 - PAGE1 Pose Composer P1 repair: seeded random resolution now follows the documented `base -> arrangement -> hand -> head -> anchor` order. When a random hand resolves to a selfie, the final resolved selection clears an incompatible orbit even if the raw orbit lock was explicit; renderer context, saved/applied selection, and Generation Outputs summary all use that same resolved state. Non-selfie random results retain compatible explicit orbit locks, and standalone hand/head behavior remains unchanged.
 - Pose Composer P1 validation on 2026-07-16: focused PAGE1 summary/prompt/pose/random tests passed 73 tests; frontend `npm test` passed 446 tests; `npm run test:prompt-quality` passed 15 tests; lint and build passed. The same-seed strict audit (`200`, seed `prompt-quality-baseline`) retained zero blocking, contract, duplicate, control-leakage, and contradiction signals, with the unchanged 13 diagnostic-only wardrobe/scene findings. Desktop 1440×1000 and mobile 390×900 browser smoke exercised all five workspaces, PAGE1 random-selfie generation, exact shared canonical output, DLL PIC source switching, apply-preview, and Saved Cards save/restore without broken images or browser errors. The active PAGE1 E editor still exposes a pre-existing mobile grid min-content overflow (`399px` document width at a `390px` emulated viewport); hiding Generation Outputs leaves it unchanged, so this unrelated CSS issue was not modified in the P1 prompt repair.
+- Pose Composer contact/prop redesign: `posePropId` is now an independent saved/UI control. Six legacy prop-action IDs move out of `poseHandId` and become five public options; the two lipstick variants converge on `hand-apply-lipstick` with model-decided clean-to-slightly-smudged finish. V1 keeps hand and prop mutually exclusive, preserves an explicit prop during five-layer pose batch random, migrates old hand-stored prop IDs and both legacy lipstick Markdown descriptions, and carries the resolved prop through canonical prompt text, selection snapshots, summaries, Saved Cards, and Markdown restore.
+- Contact/support now exposes six generic relationship anchors, retains the ornate velvet armchair, bathtub, water anchors, and adds mirrored stainless-steel and transparent acrylic cube plinths for editorial use. Lower-generality legacy anchors keep their exact IDs and prompt behavior but are `uiHidden`, excluded from random, and shown only while restoring their selected legacy value. Contact random may resolve to `全無` so it does not force a support object into every generated image.
+- Pose Composer contact/prop validation on 2026-07-17: focused pose, prompt, restore, random, selector, and summary tests passed 190 tests, and the follow-up legacy Markdown parser suites passed 14 targeted tests; frontend `npm test` passed 459 tests; `npm run test:prompt-quality` passed 15 tests; lint and build passed. The same-seed strict audit (`200`, seed `prompt-quality-baseline`) retained zero blocking, contract, duplicate, control-leakage, and contradiction signals, with the unchanged 13 diagnostic-only wardrobe/scene findings. Desktop 1440×1000 and mobile 390×900 browser smoke exercised all five workspaces, hand/prop last-action takeover, explicit-prop batch-random preservation, generic and editorial anchor visibility, exact lipstick/cube prompt output, and Saved Cards restore with no document overflow, clipped controls, broken images, console/page errors, or failed declared app assets.
 - Frontend completion criteria are formalized in `Docs/specs/frontend-visual-validation.md`, including desktop/mobile rendering, five-workspace navigation smoke, console/page-error checks, overflow checks, interactions, and evidence reporting.
 - Frontend `npm test`: 438 passed. Frontend `npm run lint` and `npm run build`: passed. Prompt-audit unit tests: 12 passed.
 - Browser smoke at 1440×1000 and 390×900 passed across Prompt 工作台, 角色建模, 動作姿勢, 場景建模, and Saved Cards: no document-level horizontal overflow, broken images, browser errors, or public prompt control-language leakage; PAGE1 random generation also completed successfully.
@@ -239,6 +242,7 @@ Batch random / clear actions are capability-aware:
 
 - Global and section random actions preserve subjectCount, do not auto-enable special subjects, character cards, fixed-composition sets, or image-type takeover, and reset those controls to explicit defaults.
 - Single-subject Pose Composer randomizes all five composer locks so the engine can resolve one compatible pose bundle; it must not leave only expression randomized while the pose fields stay 全無.
+- `posePropId` remains independent from those five locks. Batch random preserves its current value; an active prop takes over and clears the hand layer, while manual prop `隨機` resolves after the five-layer sequence.
 - Clear actions remove only fields with an explicit 全無 option. Required controls keep their declared defaultValue.
 - PAGE1 button labels and tooltips are part of this compatibility contract. See specs/page1-random-none-control-contract.md.
 
@@ -302,6 +306,7 @@ New Pose Composer controls:
 - `poseBaseId`
 - `poseArrangementId`
 - `poseHandId`
+- `posePropId`
 - `poseHeadId`
 - `poseAnchorId`
 - Duo-only controls:
@@ -314,18 +319,20 @@ Rules:
 - Pose Composer is single-subject only.
 - Duo mode ignores Pose Composer and uses `duoPoseId` / `duoPoseBaseId` / `duoExpressionId`.
 - PAGE1 `B 神情姿態` has two mutually exclusive panels:
-  - `單人設置`: `expressionId`, `poseBaseId`, `poseArrangementId`, `poseHandId`, `poseHeadId`, `poseAnchorId`
+  - `單人設置`: `expressionId`, `poseBaseId`, `poseArrangementId`, `poseHandId`, `posePropId`, `poseHeadId`, `poseAnchorId`
   - `雙人設置`: `duoPoseId`, `duoPoseBaseId`, `duoExpressionId`
 - `單人設置` is enabled for `subjectCount === "1"` and disabled for duo mode; `雙人設置` is enabled for `subjectCount === "2"` and disabled for single mode.
 - Legacy social shooting actions are migrated into Pose Composer hand poses.
+- Legacy hand-stored prop actions migrate into `posePropId`; an active V1 prop clears `poseHandId`, and the merged lipstick option lets the image model choose a clean or slightly smudged finish.
 - Engine priority: if Pose Composer resolves, it outputs instead of old `poseId`; legacy `poseId` and `specialActionId` restores are normalized into Pose Composer locks and cleared.
 - Scene conflict checking for Pose Composer is intentionally not implemented yet.
 - `Pose Modifier` is intentionally not implemented yet.
 - `poseArrangementId`, `poseHandId`, and `poseHeadId` use the visible option name `任意` (legacy option IDs remain unchanged). `任意` means the group supplies no fixed description and lets the model choose a casual, relaxed, natural result from the selected base pose, wardrobe, camera, and scene; it is not random selection.
-- `隨機` resolves to one concrete option and never to `任意`; `全無` contributes no text.
-- The shared canonical pose sentence orders concrete head text, concrete hand text, then the pose result. If any of the three groups is `任意`, the natural qualifier is appended once only. A concrete arrangement uses its concrete pose name; an `任意` arrangement falls back to the base pose name.
+- `隨機` never resolves to `任意`; base, arrangement, hand, prop, and head random resolve to concrete options, while anchor random alone may resolve to `全無`. `全無` contributes no text.
+- The shared canonical pose sentence orders concrete head text, active prop text (otherwise concrete hand text), then the pose result. If arrangement, hand, or head is `任意`, the natural qualifier is appended once only. A concrete arrangement uses its concrete pose name; an `任意` arrangement falls back to the base pose name.
 - Concrete posture results use grammar-aware indefinite articles, and option English must remain a predicate-compatible noun/action phrase rather than renderer instructions or negative control language.
 - Support/contact (`poseAnchorId`) is part of the pose result, for example `... presents a wide-knee kneeling pose leaning against a high-back chair.`
+- New anchor authoring is relationship-first and code-defined in `webapp/src/lib/engine/poseComposerOptions.js`. Deprecated scene-bound anchors stay restorable but do not appear in the normal picker or random pool.
 - When Pose Composer is active, GPT, Grok/Z-Image, and AI all reuse the exact same canonical pose text. Model-specific renderers may change only the surrounding section label or paragraph layout; they must not compress or rewrite pose semantics.
 
 Duo rules:

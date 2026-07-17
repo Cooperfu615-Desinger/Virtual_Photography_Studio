@@ -45,3 +45,28 @@ test('page1 transition makes pose composer override legacy pose and special acti
   assert.equal(next.specialActionId, '');
   assert.notEqual(next.poseBaseId, 'none');
 });
+
+test('page1 transition lets an explicit prop take over hand and clears props in duo mode', () => {
+  const controls = getLockControls();
+  const previousLocks = createEmptyLocks();
+  const handId = optionId(controls, 'poseHandId', '單手摸下巴');
+  const propId = optionId(controls, 'posePropId', '手持冰咖啡');
+  const propNext = transitionPage1Locks({
+    previousLocks,
+    candidateLocks: {
+      ...previousLocks,
+      poseHandId: handId,
+      posePropId: propId,
+    },
+    lockControls: controls,
+  });
+  assert.equal(propNext.poseHandId, 'none');
+  assert.equal(propNext.posePropId, propId);
+
+  const duoNext = transitionPage1Locks({
+    previousLocks: propNext,
+    candidateLocks: { ...propNext, subjectCount: '2' },
+    lockControls: controls,
+  });
+  assert.equal(duoNext.posePropId, 'none');
+});

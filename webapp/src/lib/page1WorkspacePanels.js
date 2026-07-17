@@ -2,12 +2,13 @@ export const PAGE1_POSE_SUBPANELS = [
   {
     id: 'single',
     label: '單人設置',
-    description: '設定單人神情眼神，並用 Pose Composer 組合姿勢基底、肢體變化、手部 / 道具動作、頭部方向與接觸支撐。',
+    description: '設定單人神情眼神，並用 Pose Composer 組合姿勢基底、肢體變化、手部動作、獨立道具動作、頭部方向與接觸支撐。道具預設全無，不會跟著這一區的全部隨機啟用。',
     keys: [
       'expressionId',
       'poseBaseId',
       'poseArrangementId',
       'poseHandId',
+      'posePropId',
       'poseHeadId',
       'poseAnchorId',
     ],

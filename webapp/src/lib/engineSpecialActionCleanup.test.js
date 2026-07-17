@@ -82,27 +82,33 @@ test('selfie shooting choices are exposed as pose composer hand poses', () => {
   assert.match(optionByLabel('poseHandId', '男友/閨蜜自拍').en, /naturally relaxed hand placement/);
 });
 
-test('prop and wardrobe special actions move into pose composer hand controls', () => {
+test('prop actions split from pose composer hand controls while wardrobe actions remain', () => {
   const handControl = getLockControls().find((control) => control.key === 'poseHandId');
-  assert.equal(handControl.label, '手部 / 道具動作');
+  const propControl = getLockControls().find((control) => control.key === 'posePropId');
+  assert.equal(handControl.label, '手部動作');
+  assert.equal(propControl.label, '道具動作');
 
   [
-    '塗口紅',
-    '塗歪口紅',
-    '手持冰咖啡',
-    '手持波板糖',
-    '手持香菸',
     '整理下身',
     '拉下肩線整理上衣',
-    '滑手機',
     '雙手抓住褲腰',
   ].forEach((label) => {
     assert.ok(optionByLabel('poseHandId', label));
   });
 
-  assert.doesNotMatch(optionByLabel('poseHandId', '手持冰咖啡').en, /lips|mid-sip|near the lips/i);
-  assert.doesNotMatch(optionByLabel('poseHandId', '手持香菸').en, /lips|near the lips/i);
-  assert.doesNotMatch(optionByLabel('poseHandId', '手持波板糖').en, /biting|lips/i);
+  [
+    '塗口紅｜自由妝感',
+    '手持冰咖啡',
+    '手持波板糖',
+    '手持香菸',
+    '滑手機',
+  ].forEach((label) => {
+    assert.ok(optionByLabel('posePropId', label));
+  });
+
+  assert.doesNotMatch(optionByLabel('posePropId', '手持冰咖啡').en, /lips|mid-sip|near the lips/i);
+  assert.doesNotMatch(optionByLabel('posePropId', '手持香菸').en, /lips|near the lips/i);
+  assert.doesNotMatch(optionByLabel('posePropId', '手持波板糖').en, /biting|lips/i);
 });
 
 test('old special actions normalize into pose composer controls', () => {
@@ -113,7 +119,8 @@ test('old special actions normalize into pose composer controls', () => {
 
   assert.equal(normalizedCoffee.specialActionId, optionByLabel('specialActionId', '全無').id);
   assert.equal(normalizedCoffee.poseBaseId, optionByLabel('poseBaseId', '站姿').id);
-  assert.equal(normalizedCoffee.poseHandId, optionByLabel('poseHandId', '手持冰咖啡').id);
+  assert.equal(normalizedCoffee.poseHandId, 'none');
+  assert.equal(normalizedCoffee.posePropId, optionByLabel('posePropId', '手持冰咖啡').id);
 
   const normalizedWaistband = normalizeLocks({
     ...createEmptyLocks(),
@@ -126,13 +133,14 @@ test('old special actions normalize into pose composer controls', () => {
   assert.equal(normalizedWaistband.poseHandId, optionByLabel('poseHandId', '雙手抓住褲腰').id);
 });
 
-test('pose composer hand-only prop actions enter prompt output', () => {
+test('pose composer prop actions enter prompt output through posePropId', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
-    poseHandId: optionByLabel('poseHandId', '手持冰咖啡').id,
+    posePropId: optionByLabel('posePropId', '手持冰咖啡').id,
   });
 
-  assert.equal(prompt.selection.poseHandId, optionByLabel('poseHandId', '手持冰咖啡').id);
+  assert.equal(prompt.selection.poseHandId, 'none');
+  assert.equal(prompt.selection.posePropId, optionByLabel('posePropId', '手持冰咖啡').id);
   assert.equal(prompt.selection.specialActionId, '');
   assert.match(prompt.grokPrompt, /iced coffee/i);
   assert.doesNotMatch(prompt.grokPrompt, /near the lips|mid-sip/i);
@@ -203,5 +211,6 @@ test('deprecated non-social special actions migrate away from the normal body po
 
   assert.equal(prompt.selection.specialActionId, '');
   assert.equal(prompt.selection.poseId, '');
-  assert.equal(prompt.selection.poseHandId, optionByLabel('poseHandId', '塗口紅').id);
+  assert.equal(prompt.selection.poseHandId, 'none');
+  assert.equal(prompt.selection.posePropId, optionByLabel('posePropId', '塗口紅｜自由妝感').id);
 });

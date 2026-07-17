@@ -15,6 +15,9 @@ import {
 test('favorite codec preserves card identity, prompts, selection, and lineage', () => {
   const locks = createEmptyLocks();
   locks.subjectCount = '1';
+  locks.posePropId = getLockControls()
+    .find((control) => control.key === 'posePropId')
+    .options.find((option) => option.zh === '手持冰咖啡').id;
   const prompt = {
     id: 'prompt-123456',
     source: 'page1',
@@ -31,7 +34,33 @@ test('favorite codec preserves card identity, prompts, selection, and lineage', 
   assert.equal(restored.id, prompt.id);
   assert.equal(restored.midjourneyPrompt, prompt.midjourneyPrompt);
   assert.equal(restored.selection.subjectCount, '1');
+  assert.equal(restored.selection.posePropId, locks.posePropId);
   assert.equal(restored.lineage.rootShortId, '#123456');
+});
+
+test('standard prompt parser restores prop actions only into posePropId', () => {
+  const controls = getLockControls();
+  const prop = controls
+    .find((control) => control.key === 'posePropId')
+    .options.find((option) => option.zh === '手持冰咖啡');
+  const parsed = parseLocksFromStandardPrompt(`portrait, ${prop.en}`, controls);
+
+  assert.equal(parsed.locks.posePropId, prop.id);
+  assert.equal(parsed.locks.poseHandId, 'none');
+});
+
+test('standard prompt parser migrates both legacy lipstick descriptions into the merged prop action', () => {
+  const controls = getLockControls();
+  const legacyLipstickPrompts = [
+    'one hand pressing a lipstick bullet to the lips, with visible hand-to-mouth contact and slight lip pressure',
+    'one hand applying lipstick messily beyond the lip line, with visible hand-to-mouth contact',
+  ];
+
+  legacyLipstickPrompts.forEach((legacyPrompt) => {
+    const parsed = parseLocksFromStandardPrompt(`portrait, ${legacyPrompt}`, controls);
+    assert.equal(parsed.locks.posePropId, 'hand-apply-lipstick', legacyPrompt);
+    assert.equal(parsed.locks.poseHandId, 'none', legacyPrompt);
+  });
 });
 
 test('standard prompt parser prefers the longest matching option text', () => {

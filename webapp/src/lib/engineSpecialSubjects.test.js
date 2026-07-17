@@ -808,7 +808,7 @@ test('expression and pose remain available with special subjects', () => {
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
-test('deprecated special actions migrate to pose composer hand actions for special subjects', () => {
+test('deprecated prop special actions migrate to posePropId for special subjects', () => {
   const controls = getLockControls();
   const pose = controls
     .find((control) => control.key === 'poseId')
@@ -816,8 +816,8 @@ test('deprecated special actions migrate to pose composer hand actions for speci
   const specialAction = controls
     .find((control) => control.key === 'specialActionId')
     .options.find((option) => option.zh === '抽煙');
-  const poseHand = controls
-    .find((control) => control.key === 'poseHandId')
+  const poseProp = controls
+    .find((control) => control.key === 'posePropId')
     .options.find((option) => option.zh === '手持香菸');
 
   const [prompt] = generatePrompts(1, {
@@ -831,7 +831,8 @@ test('deprecated special actions migrate to pose composer hand actions for speci
   assert.equal(prompt.selection.specialSubjectId, 'sengoku-samurai');
   assert.equal(prompt.selection.specialActionId, '');
   assert.equal(prompt.selection.poseId, '');
-  assert.equal(prompt.selection.poseHandId, poseHand.id);
+  assert.equal(prompt.selection.poseHandId, 'none');
+  assert.equal(prompt.selection.posePropId, poseProp.id);
   assert.match(prompt.grokPrompt, /cigarette held naturally between the fingers in one hand/);
   assert.match(prompt.zImagePrompt, /cigarette held naturally between the fingers in one hand/);
   assert.match(prompt.grokPrompt, /cigarette held naturally between the fingers in one hand/);

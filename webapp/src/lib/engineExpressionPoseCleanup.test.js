@@ -372,7 +372,8 @@ test('deprecated non-social special actions migrate away from the body pose slot
 
   assert.equal(prompt.selection.specialActionId, '');
   assert.equal(prompt.selection.poseId, '');
-  assert.equal(prompt.selection.poseHandId, optionByLabel('poseHandId', '塗口紅').id);
+  assert.equal(prompt.selection.poseHandId, 'none');
+  assert.equal(prompt.selection.posePropId, optionByLabel('posePropId', '塗口紅｜自由妝感').id);
 });
 
 test('legacy expression and selfie pose locks migrate into cleaned options', () => {

@@ -8,6 +8,15 @@ export const POSE_COMPOSER_KEYS = [
   'poseAnchorId',
 ];
 
+export const POSE_COMPOSER_CONTROL_KEYS = [
+  'poseBaseId',
+  'poseArrangementId',
+  'poseHandId',
+  'posePropId',
+  'poseHeadId',
+  'poseAnchorId',
+];
+
 export const CHARACTER_CONTROL_ORDER = [
   'subjectCount', 'specialSubjectId', 'characterProfileId',
   'bodyTypeId', 'bodyTypeAId', 'bodyTypeBId',
@@ -16,7 +25,7 @@ export const CHARACTER_CONTROL_ORDER = [
   'hairstyleId', 'hairstyleAId', 'hairstyleBId',
   'hairColorId', 'hairColorAId', 'hairColorBId',
   'duoPoseId', 'duoPoseBaseId', 'duoExpressionId', 'expressionId',
-  ...POSE_COMPOSER_KEYS,
+  ...POSE_COMPOSER_CONTROL_KEYS,
 ];
 
 export const STYLE_WARDROBE_CONTROL_ORDER = [

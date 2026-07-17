@@ -135,7 +135,7 @@ test('randomizeLockKeys preserves required fields and resets non-random takeover
   assert.equal(next.topId, '');
 });
 
-test('single pose panel randomizes every Pose Composer lock and resolves a concrete compatible bundle', () => {
+test('single pose panel randomizes the five Pose Composer layers and leaves props independent', () => {
   const controls = getLockControls();
   const defaults = createEmptyLocks();
   const singlePosePanel = PAGE1_POSE_SUBPANELS.find((panel) => panel.id === 'single');
@@ -154,14 +154,17 @@ test('single pose panel randomizes every Pose Composer lock and resolves a concr
     assert.ok(explicitRandom, `Expected an explicit random option for ${key}`);
     assert.equal(randomized[key], explicitRandom.id, `${key} should enter explicit random mode`);
   }
+  assert.equal(randomized.posePropId, 'none', 'The independent prop layer should keep its current none value');
 
   const [prompt] = generatePrompts(1, randomized, [], {
     random: createSeededRandom('pose-panel-random-contract-v1'),
   });
 
   for (const key of POSE_COMPOSER_KEYS) {
-    assert.notEqual(prompt.selection[key], 'none', `${key} should resolve to a concrete selection`);
     assert.notEqual(prompt.selection[key], 'random', `${key} should not expose the random sentinel`);
+    if (key !== 'poseAnchorId') {
+      assert.notEqual(prompt.selection[key], 'none', `${key} should resolve to a concrete selection`);
+    }
   }
 
   assert.deepEqual(
@@ -169,9 +172,9 @@ test('single pose panel randomizes every Pose Composer lock and resolves a concr
     {
       poseBaseId: 'standing',
       poseArrangementId: 'standing-deep-forward-lean',
-      poseHandId: 'hand-hold-cigarette',
+      poseHandId: 'hands-relaxed-down',
       poseHeadId: 'head-low-rim-support',
-      poseAnchorId: 'standing-lean-vending-machine',
+      poseAnchorId: 'shared-clear-acrylic-cube',
     },
     'The migration seed should follow base, arrangement, hand, head, then anchor sampling order',
   );
@@ -187,6 +190,34 @@ test('single pose panel randomizes every Pose Composer lock and resolves a concr
 
   assert.equal(supportsBase(arrangement), true, 'Resolved arrangement should match the resolved base');
   assert.equal(supportsBase(anchor), true, 'Resolved anchor should match the resolved base');
+});
+
+test('single pose panel preserves an explicit prop while rerandomizing compatible pose layers', () => {
+  const controls = getLockControls();
+  const defaults = createEmptyLocks();
+  const singlePosePanel = PAGE1_POSE_SUBPANELS.find((panel) => panel.id === 'single');
+  const propId = controls
+    .find((entry) => entry.key === 'posePropId')
+    ?.options.find((option) => option.zh === '手持冰咖啡')?.id;
+  assert.ok(propId);
+
+  const randomized = randomizeLockKeys(
+    { ...defaults, subjectCount: '1', posePropId: propId },
+    singlePosePanel.keys,
+    defaults,
+    controls,
+  );
+  assert.equal(randomized.posePropId, propId);
+
+  const [prompt] = generatePrompts(1, randomized, [], {
+    random: createSeededRandom('pose-panel-fixed-prop-contract-v1'),
+  });
+  assert.equal(prompt.selection.posePropId, propId);
+  assert.equal(prompt.selection.poseHandId, 'none', 'The fixed prop should take over the hand layer');
+  assert.notEqual(prompt.selection.poseBaseId, 'random');
+  assert.notEqual(prompt.selection.poseArrangementId, 'random');
+  assert.notEqual(prompt.selection.poseHeadId, 'random');
+  assert.notEqual(prompt.selection.poseAnchorId, 'random');
 });
 
 test('section action labels explain panels without randomizable fields', () => {

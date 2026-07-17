@@ -216,7 +216,7 @@ core category, 1-3 concrete visible traits
 - `body language` 可壓成 `posture`。
 - `portrait moment`, `portrait interaction`, `beauty touch-up portrait moment` 這類泛用尾巴。
 - `relaxed everyday...`, `polished...`, `controlled cinematic...` 若不影響畫面可刪。
-- Pose Composer `手部 / 道具動作` 保留接觸點與道具狀態，不保留多餘情緒敘述。Legacy `特殊動作` 只作 restore 遷移參考，不作新增主路徑。
+- Pose Composer `手部動作` 保留手部位置與接觸點；獨立 `道具動作` 保留物件、持握方式與必要接觸狀態。Legacy `特殊動作` 只作 restore 遷移參考，不作新增主路徑。
 
 Pose Composer 相關描述應保留實際身體結構，例如 base arrangement、hand / prop placement、support anchor、head direction。三組輸出都直接使用 canonical pose prompt。不要新增 Pose Modifier，除非使用者明確要求。
 
@@ -225,8 +225,8 @@ Pose Composer 相關描述應保留實際身體結構，例如 base arrangement�
 `poseArrangementId`、`poseHandId`、`poseHeadId` 的顯示名稱統一為 `任意`；既有 option ID 不變。`任意` 不是隨機抽選，而是不輸出該組固定描述，讓模型依姿勢基底、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。
 
 - 具體選項輸出具體英文描述；`全無` 完全不輸出該組內容。
-- `隨機` 只解析為一個具體選項，永遠不解析為 `任意`。
-- canonical 順序固定為：`She` + 具體頭部描述 + 具體手部描述 + 姿勢結果。
+- `隨機` 永遠不解析為 `任意`；姿勢基底、肢體、手部、道具與頭部會解析為具體選項，只有接觸／支撐的隨機允許自然解析為 `全無`。
+- canonical 順序固定為：`She` + 具體頭部描述 + 有效道具描述（否則為具體手部描述）+ 姿勢結果。V1 有效道具接管手部層，不同時輸出兩者。
 - 三組中任一組為 `任意` 時，在姿勢結果前加入一次 `a casual, relaxed, and natural`；三組同時為任意也只能出現一次。
 - 肢體具體選項使用具體姿勢名稱；肢體為任意時退回姿勢基底名稱。
 - `poseAnchorId` 的接觸／支撐屬於姿勢結果，例如 `... presents a wide-knee kneeling pose leaning against a high-back chair.`
