@@ -6,15 +6,16 @@
     "lockedOptional": false,
     "colorTargets": {
       "primary": [
-        "latex_bodysuit"
+        "full_body_latex_catsuit"
       ],
       "contrast": [
-        "hip_straps",
-        "thigh_harness_straps",
-        "zip_front_trim"
+        "center_front_zipper_trim",
+        "decorative_strap_tabs"
       ],
       "locked": [
-        "metal_hardware"
+        "zipper_pull",
+        "buckles",
+        "metal_o_rings"
       ]
     }
   },

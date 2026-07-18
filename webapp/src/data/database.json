@@ -1044,8 +1044,8 @@
     "套裝 (Outfit Presets)": [
       {
         "zh": "亮面乳膠束帶套裝",
-        "en": "opaque high-gloss latex cutout bodysuit with symmetrical waist cut-outs exposing the abdomen and navel and sharply high-cut hips, tightly sculpted body-hugging fit, halter neckline with molded underwire cups, deep zip-front plunge, narrow hip straps and upper-thigh garter straps anchored with metallic O-rings and buckles, liquid-shine fetish couture finish",
-        "desc": "以不透膚高光乳膠鏤空連身衣為主體，採緊密雕塑身形的貼身版型、鋼圈塑形罩杯掛脖領與深開拉鍊前襟；腰部有左右對稱鏤空，露出腹部與肚臍，臀線高衩，窄版臀帶與大腿上緣吊帶以金屬 O 環和扣具固定。乳膠衣身由套裝主色控制，束帶與拉鍊滾邊由對比色控制，五金維持金屬色。",
+        "en": "opaque mirror-polished latex full-body catsuit with a highly reflective wet-look surface producing sharp mirror reflections and bright specular highlights across every body contour while maintaining a vacuum-tight second-skin fit that provides continuous unbroken coverage from the fitted collar and long sleeves through the torso and hips to the full-length legs, short center-front zipper, sparse slim decorative strap tabs with tiny buckles and small metallic O-rings placed at the collar, waist and hips as surface-mounted jewelry-like accents over the uninterrupted latex",
+        "desc": "以不透膚鏡面拋光乳膠全身衣為主體，從貼頸領口、長袖、軀幹、臀部到完整長褲管保持連續包覆；真空般超緊身的第二層肌膚版型緊密勾勒全身曲線。乳膠表面呈現濕潤鏡面光澤、清晰倒影與沿輪廓流動的高亮反射。短版前中拉鍊、少量窄束帶扣片與小型金屬 O 環只覆在領口、腰部和臀側作珠寶式點綴，保持乳膠衣身完整連續。乳膠全身衣由套裝主色控制，拉鍊滾邊與裝飾束帶由對比色控制，五金維持金屬色。",
         "meta": {
           "series": "signature",
           "colorMode": "primary_contrast_locked",
@@ -1053,15 +1053,16 @@
           "lockedOptional": false,
           "colorTargets": {
             "primary": [
-              "latex_bodysuit"
+              "full_body_latex_catsuit"
             ],
             "contrast": [
-              "hip_straps",
-              "thigh_harness_straps",
-              "zip_front_trim"
+              "center_front_zipper_trim",
+              "decorative_strap_tabs"
             ],
             "locked": [
-              "metal_hardware"
+              "zipper_pull",
+              "buckles",
+              "metal_o_rings"
             ]
           },
           "referenceImageId": "outfit-presets-001",

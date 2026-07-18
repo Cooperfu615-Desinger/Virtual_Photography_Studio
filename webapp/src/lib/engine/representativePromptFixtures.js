@@ -43,10 +43,10 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
-    id: 'latex-cutout-outfit-preset',
-    title: 'Latex outfit preset preserves intentional cut-outs and anchored straps',
+    id: 'latex-mirror-catsuit-outfit-preset',
+    title: 'Latex outfit preset preserves mirror gloss and uninterrupted second-skin coverage',
     mode: 'single',
-    seed: 'prompt-contract-latex-cutout-outfit-v1',
+    seed: 'prompt-contract-latex-mirror-catsuit-v2',
     locks: {
       subjectCount: '1',
       framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
@@ -58,16 +58,28 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     expectedOutputs: {
       grokPrompt: {
         includes: [
-          'opaque high-gloss latex cutout bodysuit',
-          'symmetrical waist cut-outs exposing the abdomen and navel',
-          'upper-thigh garter straps anchored with metallic O-rings and buckles',
+          'opaque mirror-polished latex full-body catsuit',
+          'vacuum-tight second-skin fit',
+          'continuous unbroken coverage from the fitted collar and long sleeves through the torso and hips to the full-length legs',
+          'sharp mirror reflections and bright specular highlights',
+          'surface-mounted jewelry-like accents over the uninterrupted latex',
         ],
       },
       zImagePrompt: {
-        includes: ['latex cutout bodysuit', 'waist cut-outs', 'upper-thigh garter straps'],
+        includes: [
+          'mirror-polished latex full-body catsuit',
+          'sharp mirror reflections',
+          'vacuum-tight second-skin fit',
+          'full-length legs',
+        ],
       },
       midjourneyPrompt: {
-        includes: ['latex cutout bodysuit', 'waist cut-outs', 'high-cut hips'],
+        includes: [
+          'mirror-polished latex full-body catsuit',
+          'sharp mirror reflections',
+          'vacuum-tight second-skin fit',
+          'full-length legs',
+        ],
       },
     },
   },
