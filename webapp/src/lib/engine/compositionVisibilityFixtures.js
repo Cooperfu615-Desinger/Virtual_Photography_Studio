@@ -1,9 +1,9 @@
 /**
- * Phase-1 desired-output fixtures for the PAGE1 composition visibility work.
+ * Canonical PAGE1 composition-visibility regression fixtures.
  *
- * These cases intentionally do not run through the current renderers yet. They
- * pin the approved wardrobe, pose, scene, raw-selection, and full-body-reference
- * outcomes so later phases can activate one behavior group at a time.
+ * These cases run through the public renderers and pin the approved wardrobe,
+ * pose, scene, raw-selection, and full-body-reference outcomes across all
+ * composition buckets.
  */
 export const COMPOSITION_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
   {

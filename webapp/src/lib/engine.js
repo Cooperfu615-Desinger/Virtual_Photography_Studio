@@ -4188,7 +4188,7 @@ function buildCharacterCardSubjectPrompt(subject, locks = {}, context = null, wa
   const projectedOutfit = filterCompleteLookPromptForFraming(groups.outfit, context);
   const projectedAccessories = filterCompleteLookPromptForFraming(groups.accessories, context);
   if (!shouldImportCharacterCardWardrobeLayers(locks)) {
-    if (isCompleteWardrobeProjection(getWardrobeVisibilityProjection(context))) {
+    if (isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))) {
       return [subject.en, identityAnchors, hairVariantText].filter(Boolean).join(', ');
     }
     return [
@@ -7141,7 +7141,7 @@ function buildSpecialOutfitPrompt(item, palette = null) {
   return appendCompleteLookPaletteDirection(outfitText, palette);
 }
 
-function getWardrobeVisibilityProjection(context) {
+function getCompositionVisibilityProjection(context) {
   return context?.compositionVisibility || createCompositionVisibilityProjection(context?.framing);
 }
 
@@ -7172,7 +7172,7 @@ function classifyCompleteLookWardrobeFragment(fragment) {
 }
 
 function shouldKeepWardrobeRoleForContext(role, context, text = '') {
-  return shouldProjectWardrobeRole(getWardrobeVisibilityProjection(context), role, text);
+  return shouldProjectWardrobeRole(getCompositionVisibilityProjection(context), role, text);
 }
 
 function isCompleteLookLowerTorsoFragment(fragment) {
@@ -7198,7 +7198,7 @@ function projectDressIdentityFragment(fragment, projection) {
 }
 
 function filterCompleteLookPromptForFraming(value, context) {
-  const projection = getWardrobeVisibilityProjection(context);
+  const projection = getCompositionVisibilityProjection(context);
   const text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
   if (!text || isCompleteWardrobeProjection(projection)) return text;
 
@@ -7272,20 +7272,10 @@ function buildVisibleOutfitPresetPrompt(item, colorState = {}, context = null) {
   return filterCompleteLookPromptForFraming(buildOutfitPresetPrompt(item, colorState), context);
 }
 
-function getPromptVisibilityBucket(context) {
-  if (!context?.framing || isNoneLikeItem(context.framing)) return 'fullWide';
-  if (isFaceOnlyCloseupFramingItem(context.framing)) return 'faceClose';
-  const visibility = context.framing?.meta?.visibility || '';
-  if (visibility === 'close') return 'faceClose';
-  if (visibility === 'portrait') return 'portraitUpper';
-  if (visibility === 'medium') {
-    return /cowboy|牛仔/i.test(`${context.framing.zh || ''} ${context.framing.en || ''}`) ? 'cowboyKnee' : 'mediumUpper';
-  }
-  return 'fullWide';
-}
-
 function isUpperCropVisibilityBucket(bucket) {
-  return bucket === 'faceClose' || bucket === 'portraitUpper';
+  return bucket === COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL
+    || bucket === COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS
+    || bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP;
 }
 
 function filterZImageWardrobeAddonForFraming(value, context, roleOverride = '') {
@@ -7317,9 +7307,13 @@ function filterFaceOnlyTorsoAngleText(value, context) {
 }
 
 function filterZImagePoseForFraming(value, context) {
-  const bucket = getPromptVisibilityBucket(context);
+  const bucket = getCompositionVisibilityProjection(context).bucket;
   let text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
-  if (!text || bucket === 'fullWide') return text;
+  if (
+    !text
+    || bucket === COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED
+    || bucket === COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY
+  ) return text;
 
   if (isUpperCropVisibilityBucket(bucket)) {
     text = text
@@ -7333,7 +7327,10 @@ function filterZImagePoseForFraming(value, context) {
     if (isUpperCropVisibilityBucket(bucket)) {
       return /\b(?:supporting on floor|supporting on the floor|resting on the leg|hands? on thighs?|upper-leg|hand holding the knee|near knees?|knees?|thighs?|ankles?|shoe|feet|foot|toes?|heels?|floor-seated|sitting on the floor|kneeling on floor|lying on floor|lower abdomen|one knee raised|legs? naturally|legs? extended|cross-legged|leg-cross|feet grounded)\b/i.test(part);
     }
-    if (bucket === 'mediumUpper' || bucket === 'cowboyKnee') {
+    if (
+      bucket === COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST
+      || bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE
+    ) {
       return /\b(?:shoe|feet|foot|toes?|heels?|ankles?)\b/i.test(part);
     }
     return false;
@@ -8019,21 +8016,6 @@ function isSolidColorStudioLocation(location) {
   return tags.has('solid_color_studio');
 }
 
-function isCloseupVisibilityContext(context) {
-  return isFaceOnlyCloseupFramingItem(context?.framing);
-}
-
-function buildCloseupSceneContextPrompt(context) {
-  if (!isCloseupVisibilityContext(context) || !context.location || isNoneLikeItem(context.location)) return '';
-  return context.projectedScene?.locationText
-    || projectSceneSourceText(context.location.en || context.location.zh || '', 'compactSource');
-}
-
-function buildCloseupWardrobeVisibilityPrompt(context) {
-  if (!isCloseupVisibilityContext(context)) return '';
-  return '';
-}
-
 function getImportedWorldSceneArchitectureText(context) {
   if (context?.locks?.importedWorldSceneMode !== 'architecture') return '';
   return stripMarkdown(context?.locks?.importedWorldSceneArchitectureText || '')
@@ -8078,14 +8060,11 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   const projectedScene = context.projectedScene || buildProjectedScene(context);
   const sceneAccentText = projectedScene.sceneAccentText;
   const importedWorldSceneArchitectureText = projectedScene.worldSceneText;
-  const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
-  const closeupWardrobeVisibilityText = buildCloseupWardrobeVisibilityPrompt(context, wardrobeSlots, wardrobeColors);
-  const isCloseupVisibility = Boolean(closeupWardrobeVisibilityText);
-  const hideWardrobeForFaceDetail = isCloseupVisibilityContext(context);
-  const wardrobeVisibilityProjection = getWardrobeVisibilityProjection(context);
-  const usesPartialWardrobeProjection = !isCompleteWardrobeProjection(wardrobeVisibilityProjection);
+  const compositionVisibilityProjection = getCompositionVisibilityProjection(context);
+  const hideWardrobeForFaceDetail = compositionVisibilityProjection.bucket === COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL;
+  const usesPartialWardrobeProjection = !isCompleteWardrobeProjection(compositionVisibilityProjection);
   const projectWardrobeRole = (role, value) => (
-    value && shouldProjectWardrobeRole(wardrobeVisibilityProjection, role, value) ? value : ''
+    value && shouldProjectWardrobeRole(compositionVisibilityProjection, role, value) ? value : ''
   );
   const sceneProtectedWardrobeMode = !specialSubjectMode
     && !hasDuoSceneAnchor
@@ -8150,12 +8129,6 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
     addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
   };
   const addGrokSceneLines = () => {
-    if (isCloseupVisibility) {
-      addLine('Scene Context', skeletonText(closeupSceneContextText));
-      addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
-      addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
-      return;
-    }
     addLine('World Scene Architecture', skeletonText(importedWorldSceneArchitectureText));
     addLine('Location', skeletonText(projectedScene.locationText));
     addLine('Scene Accent', skeletonText(sceneAccentText));
@@ -8183,7 +8156,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       return 'let the two-person moment feel natural and candid; partial crop, overlapping bodies, wardrobe occlusion, and imperfect framing are acceptable when they support a believable photograph';
     }
     const visibility = context.framing?.meta?.visibility || '';
-    if (isCloseupVisibility || sceneProtectedWardrobeMode) return '';
+    if (sceneProtectedWardrobeMode) return '';
     if (!context.characterProfilePrompt || context.subject.count !== 1) return '';
     if (visibility === 'portrait') return '';
     if (visibility === 'full') {
@@ -8224,26 +8197,20 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
     addGrokSceneLines();
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor && (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB)) {
-    if (!hideWardrobeForFaceDetail) addLine('Outerwear', projectWardrobeRole('outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors)));
-    if (hideWardrobeForFaceDetail) {
-      addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
-    } else {
+    if (!hideWardrobeForFaceDetail) {
+      addLine('Outerwear', projectWardrobeRole('outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors)));
       addLine('Woman 1 Special Outfit', buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA, context));
       addLine('Woman 2 Special Outfit', buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB, context));
     }
   } else if (wardrobeSlots.specialOutfit && !hasDuoSceneAnchor) {
-    if (!hideWardrobeForFaceDetail) addLine('Outerwear', projectWardrobeRole('outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors)));
-    if (hideWardrobeForFaceDetail) {
-      addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
-    } else {
+    if (!hideWardrobeForFaceDetail) {
+      addLine('Outerwear', projectWardrobeRole('outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors)));
       addLine('Special Outfit', buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context));
     }
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor && (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
-    if (!hideWardrobeForFaceDetail) addLine('Outerwear', projectWardrobeRole('outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors)));
-    if (hideWardrobeForFaceDetail) {
-      addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
-    } else {
+    if (!hideWardrobeForFaceDetail) {
+      addLine('Outerwear', projectWardrobeRole('outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors)));
       addLine('Woman 1 Outfit Preset', buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
         legacy: wardrobeColors.outfitPresetAColor,
         primary: wardrobeColors.outfitPresetAPrimaryColor,
@@ -8260,10 +8227,8 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       }, context));
     }
   } else if (wardrobeSlots.outfitPreset && !hasDuoSceneAnchor) {
-    if (!hideWardrobeForFaceDetail) addLine('Outerwear', projectWardrobeRole('outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors)));
-    if (hideWardrobeForFaceDetail) {
-      addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
-    } else {
+    if (!hideWardrobeForFaceDetail) {
+      addLine('Outerwear', projectWardrobeRole('outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors)));
       addLine('Outfit Preset', buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
         legacy: wardrobeColors.outfitPresetColor,
         primary: wardrobeColors.outfitPresetPrimaryColor,
@@ -8301,9 +8266,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       (completeDressText && outerwearFirstDressText) ||
       (!completeDressText && outerwearFirstTopText)
     );
-    if (hideWardrobeForFaceDetail) {
-      addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
-    } else {
+    if (!hideWardrobeForFaceDetail) {
       const outerwearText = buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors);
       if (usesPartialWardrobeProjection) {
         addLine('Outerwear', projectWardrobeRole('outerwear', outerwearText));
@@ -8841,7 +8804,6 @@ function buildCompositionPromptLine(context) {
 
 function buildPromptSectionSources(valuesByLabel, context) {
   const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
-  const sceneContextValues = getStructuredValues(valuesByLabel, ['Scene Context']);
   const subjectValues = getStructuredValues(valuesByLabel, [
     'Duo Scene Anchor',
     'Subject Count',
@@ -8889,8 +8851,6 @@ function buildPromptSectionSources(valuesByLabel, context) {
       'World Scene Architecture',
       'Location',
       'Scene Accent',
-      'Scene Context',
-      'Scene Priority',
     ]),
   ];
   const wardrobeValues = getStructuredValues(valuesByLabel, [
@@ -8908,11 +8868,9 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Legwear',
     'Shoes',
     'Duo Wardrobe',
-    'Wardrobe Visibility',
     'Waistline Coordination',
     'Wardrobe Layering Logic',
   ]);
-  const wardrobeVisibilityValues = getStructuredValues(valuesByLabel, ['Wardrobe Visibility']);
   const poseValues = getStructuredValues(valuesByLabel, [
     'Action Pose',
     'Special Action',
@@ -8936,8 +8894,7 @@ function buildPromptSectionSources(valuesByLabel, context) {
   const imageType = buildImageTypeText(context);
   const subjectLead = context.subject?.count === 2 ? 'The subjects are' : 'The subject is';
   const wardrobeLead = context.subject?.count === 2 ? 'They wear' : 'She wears';
-  const sceneUsesDirectSentence = sceneContextValues.length > 0 || fixedCompositionSetActive;
-  const wardrobeUsesDirectSentence = wardrobeVisibilityValues.length > 0;
+  const sceneUsesDirectSentence = fixedCompositionSetActive;
 
   return {
     imageType,
@@ -8950,7 +8907,6 @@ function buildPromptSectionSources(valuesByLabel, context) {
     subjectLead,
     wardrobeLead,
     sceneUsesDirectSentence,
-    wardrobeUsesDirectSentence,
   };
 }
 
@@ -10188,7 +10144,6 @@ function renderGptPrompt(promptModel) {
     subjectLead,
     wardrobeLead,
     sceneUsesDirectSentence,
-    wardrobeUsesDirectSentence,
   } = buildPromptSectionSources(valuesByLabel, context);
   const imageTypeLine = buildImageTypePromptLine(context) || imageType;
   const compositionLine = buildCompositionPromptLine(context);
@@ -10273,7 +10228,7 @@ function renderGptPrompt(promptModel) {
     resolvedWardrobeText
       ? resolvedWardrobeUsesBlock
         ? blockSection('Wardrobe', resolvedWardrobeText)
-        : section('Wardrobe', wardrobeUsesDirectSentence ? resolvedWardrobeText : `${wardrobeLead} ${resolvedWardrobeText}`)
+        : section('Wardrobe', `${wardrobeLead} ${resolvedWardrobeText}`)
       : '',
     section('Pose and Composition', resolvedPoseText),
     sceneSection,
@@ -10321,7 +10276,6 @@ function renderFullBodyCharacterPrompt(promptModel) {
     wardrobeText,
     subjectLead,
     wardrobeLead,
-    wardrobeUsesDirectSentence,
   } = buildPromptSectionSources(valuesByLabel, context);
   const characterProfileSubjectBlock = isCharacterProfileSubject(context.subject)
     ? buildGptFullBodyCharacterProfileSubjectBlock(context.subject, context.locks, wardrobe)
@@ -10363,7 +10317,7 @@ function renderFullBodyCharacterPrompt(promptModel) {
     resolvedWardrobeText
       ? specialOutfitWardrobeBlock
         ? blockSection('Wardrobe', resolvedWardrobeText)
-        : section('Wardrobe', wardrobeUsesDirectSentence ? resolvedWardrobeText : `${wardrobeLead} ${resolvedWardrobeText}`)
+        : section('Wardrobe', `${wardrobeLead} ${resolvedWardrobeText}`)
       : '',
     section('Lighting', FULL_BODY_CHARACTER_LIGHTING),
     section('Camera Look', FULL_BODY_CHARACTER_CAMERA_LOOK),
@@ -10396,10 +10350,8 @@ function renderZImagePrompt(promptModel) {
   const singleSpecialOutfitContent = singleSpecialOutfitText
     ? splitZImageSpecialOutfitContent(singleSpecialOutfitText)
     : { personText: '', wardrobeText: '' };
-  const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
-  const closeupWardrobeVisibilityText = buildCloseupWardrobeVisibilityPrompt(context, wardrobeSlots, wardrobeColors);
-  const isCloseupVisibility = Boolean(closeupWardrobeVisibilityText);
-  const hideWardrobeForFaceDetail = isCloseupVisibilityContext(context);
+  const compositionVisibilityProjection = getCompositionVisibilityProjection(context);
+  const hideWardrobeForFaceDetail = compositionVisibilityProjection.bucket === COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL;
   const duoWardrobeDifferentiationText = shouldAddDuoWardrobeDifferentiationPrompt(context, wardrobeSlots)
     ? DUO_WARDROBE_DIFFERENTIATION_PROMPT
     : '';
@@ -10584,7 +10536,7 @@ function renderZImagePrompt(promptModel) {
         : value;
       return sentence(text);
     };
-    if (hideWardrobeForFaceDetail) return sentence(closeupWardrobeVisibilityText);
+    if (hideWardrobeForFaceDetail) return '';
     const buildSingleOutfitPresetText = () => buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
       legacy: wardrobeColors.outfitPresetColor,
       primary: wardrobeColors.outfitPresetPrimaryColor,
@@ -10769,15 +10721,6 @@ function renderZImagePrompt(promptModel) {
   };
   const buildSceneText = () => {
     if (fixedCompositionSetActive) return joinSentenceParts(buildFixedSceneParagraphs());
-    if (isCloseupVisibility) {
-      const closeupSceneParts = [
-        skeletonMode ? sanitizeSkeletonPromptText(closeupSceneContextText) : compactZImageLocationText(closeupSceneContextText),
-        context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
-        lightDirection && !isNoneLikeItem(lightDirection) ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
-      ].filter(Boolean);
-      return closeupSceneParts.length > 0 ? sentence(`Scene: ${closeupSceneParts.join(', ')}`) : '';
-    }
-
     const sceneParts = [
       skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : compactZImageLocationText(importedWorldSceneArchitectureText),
       compactZImageLocationText(buildZImageLocationText()),
@@ -11159,14 +11102,6 @@ function buildAiSeparateStylePhrase(value) {
   return coreFragments.length > 0 ? joinNaturalList(coreFragments) : '';
 }
 
-function buildAiWardrobeVisibilityPhrase(value) {
-  const text = cleanAiMinimalFragment(value);
-  if (/anchor wardrobe as .*spaghetti-strap straight-neck one-piece dress/i.test(text)) {
-    return 'wearing a thin spaghetti-strap straight-neck one-piece dress';
-  }
-  return '';
-}
-
 function buildAiCharacterProfileWardrobePhrase(subject, locks = {}) {
   if (!isCharacterProfileSubject(subject)) return '';
   if (shouldImportCharacterCardWardrobeLayers(locks)) return '';
@@ -11190,7 +11125,6 @@ const AI_CHARACTER_CARD_SELECTED_WARDROBE_LABELS = [
   'Legwear',
   'Shoes',
   'Head Accessory',
-  'Wardrobe Visibility',
 ];
 
 const AI_CHARACTER_CARD_DIRECT_ACCESSORY_LAYERS = new Set([
@@ -11430,9 +11364,6 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe = null) {
   const dressPhrase = buildAiDressPhrase(dressValue) || buildAiMappedWardrobePhrase(dressValue) || buildAiFallbackWearablePhrase(dressValue);
   if (dressPhrase) return `wearing ${dressPhrase}`;
 
-  const wardrobeVisibilityPhrase = buildAiWardrobeVisibilityPhrase(firstStructuredValue(valuesByLabel, ['Wardrobe Visibility']));
-  if (wardrobeVisibilityPhrase) return wardrobeVisibilityPhrase;
-
   const wardrobeValues = getStructuredValues(valuesByLabel, [
     'Outerwear',
     'Top',
@@ -11441,7 +11372,6 @@ function buildAiMinimalWardrobeClause(valuesByLabel, context, wardrobe = null) {
     'Legwear',
     'Shoes',
     'Duo Wardrobe',
-    'Wardrobe Visibility',
   ]);
   const separateStylePhrase = buildAiSeparateStylePhrase(wardrobeValues.join(', '));
   if (separateStylePhrase) return `wearing ${separateStylePhrase}`;
@@ -11533,7 +11463,6 @@ function buildAiMinimalSceneClause(valuesByLabel, context = {}) {
     : firstStructuredValue(valuesByLabel, [
         'World Scene Architecture',
         'Location',
-        'Scene Context',
       ]);
   const sceneLimit = isSolidColorStudioLocation(context.location) ? 1 : 2;
   const scenePhrase = fixedSetValues.length > 0 ? sceneText : compactAiMinimalFragment(sceneText, sceneLimit);
@@ -11642,7 +11571,7 @@ function buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role) {
 
   const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
   const roleText = role === 'a' ? roleTexts.woman1 : roleTexts.woman2;
-  const fragments = isCompleteWardrobeProjection(getWardrobeVisibilityProjection(context))
+  const fragments = isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))
     ? splitAiDuoCompactFragments(roleText).slice(0, 7)
     : splitAiDuoCompactFragments(buildAiCompleteLookCoreText(roleText, context));
 
@@ -11661,7 +11590,6 @@ function buildAiDuoSceneText(valuesByLabel) {
   return splitAiDuoCompactFragments(firstStructuredValue(valuesByLabel, [
     'World Scene Architecture',
     'Location',
-    'Scene Context',
   ])).slice(0, 5).join(', ');
 }
 
@@ -11765,7 +11693,7 @@ function compactAiGarmentValue(value, preferredRole = '') {
 function buildAiCompleteLookCoreText(value, context = null) {
   let styleFragment = '';
   const roleFragments = new Map();
-  const includeVisibleAccessoryRoles = !isCompleteWardrobeProjection(getWardrobeVisibilityProjection(context));
+  const includeVisibleAccessoryRoles = !isCompleteWardrobeProjection(getCompositionVisibilityProjection(context));
 
   for (const fragment of splitAiSourceFragments(value)) {
     if (isAiSpecialPersonFragment(fragment)) continue;
@@ -11801,7 +11729,7 @@ function buildAiCompleteLookCoreText(value, context = null) {
 }
 
 function buildAiCharacterCardAccessoryText(value, context) {
-  const projection = getWardrobeVisibilityProjection(context);
+  const projection = getCompositionVisibilityProjection(context);
   return splitAiSourceFragments(value)
     .filter((fragment) => {
       const role = classifyCompleteLookWardrobeFragment(fragment);
@@ -11958,8 +11886,7 @@ function buildAiFreedomSceneSentence(valuesByLabel, context) {
   const sceneSource = context.projectedScene?.worldSceneText
     || context.projectedScene?.locationText
     || firstStructuredValue(valuesByLabel, ['World Scene Architecture'])
-    || firstStructuredValue(valuesByLabel, ['Location'])
-    || firstStructuredValue(valuesByLabel, ['Scene Context']);
+    || firstStructuredValue(valuesByLabel, ['Location']);
   const clauses = splitAiSourceFragments(sceneSource);
   const conditionPattern = /\b(?:rain|snow|storm|fog|mist|wind|night|dusk|dawn|sunset|sunrise|daylight|overcast|cloudy|golden hour|post-rain|winter|summer|spring|autumn|late-afternoon|early-morning)\b/i;
   const selected = [];
