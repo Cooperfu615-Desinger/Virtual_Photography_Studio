@@ -26,6 +26,13 @@ const COMMON_CONTROL_LEAKAGE = [
   'complete wardrobe visible on both women',
   'visible torso and wardrobe details',
   'no headshot-only crop',
+  'keep the selected environment readable with clear spatial context',
+  'keep the selected environment readable through close background cues',
+  'moderate depth of field when needed',
+  'background softly separated but still readable',
+  'avoid collapsing into a plain backdrop',
+  'do not widen the frame just to reveal the full room',
+  'faint spatial shapes behind the face',
 ];
 
 const GPT_SINGLE_LABELS = [

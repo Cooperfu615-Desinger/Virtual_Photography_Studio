@@ -4867,6 +4867,42 @@ function buildProjectedCanonicalPoseText(context, poseComposer) {
   });
 }
 
+const SCENE_SOURCE_CLAUSE_LIMITS = Object.freeze({
+  compactSource: 3,
+  conciseSource: 5,
+});
+
+const NON_VISUAL_SCENE_CONTROL_PATTERN = /^(?:keep|avoid|do not|don't|render|scene priority|no\b|not\b)/i;
+
+function projectSceneSourceText(value, mode) {
+  const source = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+  if (!source) return '';
+  if (mode === 'fullSource') return source;
+
+  const limit = SCENE_SOURCE_CLAUSE_LIMITS[mode] || SCENE_SOURCE_CLAUSE_LIMITS.compactSource;
+  return splitPromptClauses(source)
+    .filter((clause) => !NON_VISUAL_SCENE_CONTROL_PATTERN.test(clause))
+    .slice(0, limit)
+    .join(', ');
+}
+
+function buildProjectedScene(context) {
+  const projection = context?.compositionVisibility || createCompositionVisibilityProjection(context?.framing);
+  const mode = projection.scene?.mode || 'fullSource';
+  const locationSource = context?.location && !isNoneLikeItem(context.location) ? context.location.en : '';
+  const worldSceneSource = getImportedWorldSceneArchitectureText(context);
+  const sceneAccentSource = buildContextualSceneAccent(context);
+
+  return Object.freeze({
+    mode,
+    locationText: projectSceneSourceText(locationSource, mode),
+    worldSceneText: projectSceneSourceText(worldSceneSource, mode),
+    sceneAccentText: mode === 'compactSource'
+      ? ''
+      : projectSceneSourceText(sceneAccentSource, mode === 'fullSource' ? 'fullSource' : 'compactSource'),
+  });
+}
+
 function framingSupportsSubject(framing, subject, aspectRatio) {
   const visibility = framing.meta.visibility;
 
@@ -7549,10 +7585,9 @@ function buildDuoSceneAnchorText(context, wardrobeSlots, wardrobeColors) {
     buildRoleSubjectAccessoryPrompt(wardrobeSlots, 'b'),
   ].filter(Boolean).join(', ');
   const subjectText = roleAccessoryText ? `${subjectBaseText}, ${roleAccessoryText}` : subjectBaseText;
-  const sceneAccentText = buildContextualSceneAccent(context);
-  const locationText = context.location && !isNoneLikeItem(context.location)
-    ? stripMarkdown(context.location.en).replace(/\s+/g, ' ').trim()
-    : '';
+  const projectedScene = context.projectedScene || buildProjectedScene(context);
+  const sceneAccentText = projectedScene.sceneAccentText;
+  const locationText = projectedScene.locationText;
   const locationDetail = [locationText, sceneAccentText].filter(Boolean).join(', ');
   const locationClause = locationDetail ? ` in ${locationDetail}` : '';
   return `an editorial film still of ${subjectText} ${duoWardrobeText.clothingText}${locationClause}, ${[
@@ -7984,38 +8019,14 @@ function isSolidColorStudioLocation(location) {
   return tags.has('solid_color_studio');
 }
 
-function isOtherDedicatedSceneLocation(location) {
-  const tags = new Set(location?.meta?.tags || []);
-  return tags.has('other_scene');
-}
-
-function buildScenePriorityPrompt(context, { labeled = false } = {}) {
-  if (!context?.location || isNoneLikeItem(context.location)) return '';
-
-  let text = 'keep the selected environment readable with clear spatial context';
-  if (isSolidColorStudioLocation(context.location)) {
-    text = 'keep the selected seamless color field clean and visible around the subject';
-  } else if (isOtherDedicatedSceneLocation(context.location)) {
-    text = 'keep the selected close scene base readable around or beneath the subject';
-  }
-
-  return labeled ? `Scene priority: ${text}` : text;
-}
-
 function isCloseupVisibilityContext(context) {
   return isFaceOnlyCloseupFramingItem(context?.framing);
 }
 
 function buildCloseupSceneContextPrompt(context) {
   if (!isCloseupVisibilityContext(context) || !context.location || isNoneLikeItem(context.location)) return '';
-
-  const locationAnchor = stripMarkdown(context.location.en || context.location.zh || '')
-    .split(',')
-    .map((part) => part.trim())
-    .filter(Boolean)[0];
-
-  const selectedContext = locationAnchor ? `selected ${locationAnchor}` : 'the selected scene';
-  return `render ${selectedContext} only as soft background color, environmental light, atmosphere, and faint spatial shapes behind the face; do not widen the frame just to reveal the full room or complete environment`;
+  return context.projectedScene?.locationText
+    || projectSceneSourceText(context.location.en || context.location.zh || '', 'compactSource');
 }
 
 function buildCloseupWardrobeVisibilityPrompt(context) {
@@ -8064,8 +8075,9 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   const duoPoseBaseText = characterSlots.duoPoseBase && !isNoneLikeItem(characterSlots.duoPoseBase)
     ? characterSlots.duoPoseBase.en
     : '';
-  const sceneAccentText = buildContextualSceneAccent(context);
-  const importedWorldSceneArchitectureText = getImportedWorldSceneArchitectureText(context);
+  const projectedScene = context.projectedScene || buildProjectedScene(context);
+  const sceneAccentText = projectedScene.sceneAccentText;
+  const importedWorldSceneArchitectureText = projectedScene.worldSceneText;
   const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
   const closeupWardrobeVisibilityText = buildCloseupWardrobeVisibilityPrompt(context, wardrobeSlots, wardrobeColors);
   const isCloseupVisibility = Boolean(closeupWardrobeVisibilityText);
@@ -8121,13 +8133,6 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
     addLine(label, formatter(item));
   };
   const skeletonText = (value) => (skeletonMode ? sanitizeSkeletonPromptText(value) : value);
-  const buildGrokScenePriorityText = () => {
-    if (fixedSetSelfShotMode) {
-      return 'allow self-shot imperfection: partial face or half-body crop, off-center framing, close-lens proximity, imperfect focus, and incomplete fixed-set visibility are acceptable';
-    }
-    if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
-    return buildScenePriorityPrompt(context);
-  };
   const addFixedCompositionSetLines = () => {
     if (!fixedCompositionSetActive) return;
     const allowCameraVariation = fixedCompositionSetAllowsCameraVariation(context.fixedCompositionSet);
@@ -8152,11 +8157,10 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       return;
     }
     addLine('World Scene Architecture', skeletonText(importedWorldSceneArchitectureText));
-    addContextLine('Location', context.location, (item) => skeletonText(item.en));
+    addLine('Location', skeletonText(projectedScene.locationText));
     addLine('Scene Accent', skeletonText(sceneAccentText));
     addContextLine('Ambient Light Conditions', context.lighting, (item) => skeletonText(item.en));
     addContextLine('Subject Light Style', lightDirection, (item) => skeletonText(resolvePromptVariant(item, 'lightDirection', context.subject.count)));
-    addLine('Scene Priority', skeletonText(buildGrokScenePriorityText()));
   };
   const buildGrokFramingText = () => {
     const base = context.framing ? resolvePromptVariant(context.framing, 'framing', context.subject.count) : '';
@@ -8179,12 +8183,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       return 'let the two-person moment feel natural and candid; partial crop, overlapping bodies, wardrobe occlusion, and imperfect framing are acceptable when they support a believable photograph';
     }
     const visibility = context.framing?.meta?.visibility || '';
-    if (isCloseupVisibility) {
-      return 'honor the selected face-focused portrait crop; keep the image concentrated on facial detail and avoid widening the frame just to reveal the outfit or room';
-    }
-    if (sceneProtectedWardrobeMode) {
-      return 'preserve the selected environment as a visible, recognizable background with moderate depth of field when needed, background softly separated but still readable, avoid collapsing into a plain backdrop or overly tight crop';
-    }
+    if (isCloseupVisibility || sceneProtectedWardrobeMode) return '';
     if (!context.characterProfilePrompt || context.subject.count !== 1) return '';
     if (visibility === 'portrait') return '';
     if (visibility === 'full') {
@@ -10388,8 +10387,9 @@ function renderZImagePrompt(promptModel) {
   const specialSubjectMode = isDedicatedSpecialSubject(context.subject);
   const characterProfileMode = isCharacterProfileSubject(context.subject);
   const useCharacterIdentityAnchor = Boolean(context.characterProfilePrompt) && context.subject.count === 1 && !specialSubjectMode;
-  const sceneAccentText = buildContextualSceneAccent(context);
-  const importedWorldSceneArchitectureText = getImportedWorldSceneArchitectureText(context);
+  const projectedScene = context.projectedScene || buildProjectedScene(context);
+  const sceneAccentText = projectedScene.sceneAccentText;
+  const importedWorldSceneArchitectureText = projectedScene.worldSceneText;
   const singleSpecialOutfitText = context.subject.count === 1 && wardrobeSlots.specialOutfit
     ? buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context)
     : '';
@@ -10403,15 +10403,6 @@ function renderZImagePrompt(promptModel) {
   const duoWardrobeDifferentiationText = shouldAddDuoWardrobeDifferentiationPrompt(context, wardrobeSlots)
     ? DUO_WARDROBE_DIFFERENTIATION_PROMPT
     : '';
-  const sceneProtectedWardrobeMode = !specialSubjectMode
-    && Boolean(
-      wardrobeSlots.specialOutfit
-      || wardrobeSlots.specialOutfitA
-      || wardrobeSlots.specialOutfitB
-      || wardrobeSlots.outfitPreset
-      || wardrobeSlots.outfitPresetA
-      || wardrobeSlots.outfitPresetB
-    );
   const sceneBeforeWardrobeMode = !specialSubjectMode
     && Boolean(
       wardrobeSlots.specialOutfit ||
@@ -10427,18 +10418,12 @@ function renderZImagePrompt(promptModel) {
   };
   const skeletonMode = isSkeletonSubject(context.subject);
   const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
-  const buildZImageScenePriorityText = () => {
-    if (!sceneProtectedWardrobeMode || !context.location || isNoneLikeItem(context.location)) return '';
-    if (isSolidColorStudioLocation(context.location)) return '';
-    if (isUpperCropVisibilityBucket(getPromptVisibilityBucket(context))) {
-      return 'keep the selected environment readable through close background cues without widening the portrait crop';
-    }
-    return buildScenePriorityPrompt(context);
-  };
   const buildZImageLocationText = () => {
     if (!context.location || isNoneLikeItem(context.location)) return '';
 
-    const locationText = skeletonMode ? sanitizeSkeletonPromptText(context.location.en) : context.location.en;
+    const locationText = skeletonMode
+      ? sanitizeSkeletonPromptText(projectedScene.locationText)
+      : projectedScene.locationText;
     if (!isSolidColorStudioLocation(context.location)) return locationText;
 
     return stripMarkdown(locationText)
@@ -10799,7 +10784,6 @@ function renderZImagePrompt(promptModel) {
       skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : compactZImageSourceText(sceneAccentText),
       context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
       lightDirection && !isNoneLikeItem(lightDirection) ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
-      skeletonMode ? sanitizeSkeletonPromptText(buildZImageScenePriorityText()) : buildZImageScenePriorityText(),
     ].filter(Boolean);
 
     return leadSentence('Scene: The portrait takes place in', sceneParts);
@@ -10849,7 +10833,9 @@ function renderZImagePrompt(promptModel) {
   ]);
   const buildZImageDuoSceneText = () => joinSentenceParts([
     skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : compactZImageLocationText(importedWorldSceneArchitectureText),
-    context.location && !isNoneLikeItem(context.location) ? (skeletonMode ? sanitizeSkeletonPromptText(context.location.en) : compactZImageLocationText(context.location.en)) : '',
+    projectedScene.locationText
+      ? (skeletonMode ? sanitizeSkeletonPromptText(projectedScene.locationText) : compactZImageLocationText(projectedScene.locationText))
+      : '',
     skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : compactZImageSourceText(sceneAccentText),
   ]);
   const buildZImageDuoLightingText = () => joinSentenceParts([
@@ -11969,7 +11955,9 @@ function buildAiFreedomSceneSentence(valuesByLabel, context) {
     return fixedScene ? ensureTerminalPeriod(`In ${compactAiSourceText(fixedScene)}`) : '';
   }
 
-  const sceneSource = firstStructuredValue(valuesByLabel, ['World Scene Architecture'])
+  const sceneSource = context.projectedScene?.worldSceneText
+    || context.projectedScene?.locationText
+    || firstStructuredValue(valuesByLabel, ['World Scene Architecture'])
     || firstStructuredValue(valuesByLabel, ['Location'])
     || firstStructuredValue(valuesByLabel, ['Scene Context']);
   const clauses = splitAiSourceFragments(sceneSource);
@@ -12053,6 +12041,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   const mainContext = {
     ...projectionContext,
     projectedCanonicalPoseText: buildProjectedCanonicalPoseText(projectionContext, poseComposer),
+    projectedScene: buildProjectedScene(projectionContext),
   };
   const promptModel = {
     ...buildStructuredPromptSections(mainContext, character, wardrobe, wardrobeColors, lightDirection, film),

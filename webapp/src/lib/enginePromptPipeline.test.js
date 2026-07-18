@@ -1383,7 +1383,9 @@ test('chest-up framing shares visible pose fragments while Z-Image removes camer
   assert.doesNotMatch(prompt.zImagePrompt, /legs and shoes emphasized/i);
   assert.match(prompt.zImagePrompt, /face oriented away from the camera/i);
   assert.doesNotMatch(prompt.zImagePrompt, /clear spatial context/i);
-  assert.match(prompt.zImagePrompt, /without widening the portrait crop/i);
+  assert.match(prompt.zImagePrompt, /small urban hotel room, compact bedding, practical lamp fixtures/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /narrow bedside table|close wall surfaces|luggage corner|enclosed room layout/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /without widening the portrait crop|softly blurred|faint spatial shapes/i);
 });
 
 test('AI duo prompt uses compact labeled role sections', () => {

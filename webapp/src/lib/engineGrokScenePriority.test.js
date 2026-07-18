@@ -10,7 +10,7 @@ function optionId(controlKey, zh) {
   return option.id;
 }
 
-test('Gpt prompt keeps scene priority guidance with special outfit details', () => {
+test('Gpt prompt preserves the selected scene with special outfit details without public scene-control guidance', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -20,14 +20,18 @@ test('Gpt prompt keeps scene priority guidance with special outfit details', () 
 
   const grok = prompt.grokPrompt;
   const sceneIndex = grok.indexOf('Scene:');
-  const scenePriorityIndex = grok.indexOf('keep the selected environment readable with clear spatial context');
+  const locationIndex = grok.indexOf('Seoul Seongsu-dong urban corner');
   const specialOutfitIndex = grok.indexOf('black sheer polka-dot matching fashion set');
 
   assert.notEqual(sceneIndex, -1);
-  assert.notEqual(scenePriorityIndex, -1);
+  assert.notEqual(locationIndex, -1);
   assert.notEqual(specialOutfitIndex, -1);
   assert.ok(specialOutfitIndex < sceneIndex);
-  assert.ok(sceneIndex < scenePriorityIndex);
+  assert.ok(sceneIndex < locationIndex);
+  assert.doesNotMatch(grok, /keep the selected environment readable/i);
+  assert.doesNotMatch(grok, /moderate depth of field when needed/i);
+  assert.doesNotMatch(grok, /background softly separated/i);
+  assert.doesNotMatch(grok, /avoid collapsing into a plain backdrop/i);
   assert.doesNotMatch(grok, /\(Seoul Seongsu-dong urban corner, industrial cafe frontage:1\.35\)/);
   assert.doesNotMatch(grok, /avoid plain or empty background/);
 });
@@ -42,7 +46,7 @@ test('Gpt prompt keeps scene priority disabled for normal separates', () => {
   assert.doesNotMatch(prompt.grokPrompt, /keep the selected environment readable/);
 });
 
-test('Z-Image keeps scene priority guidance before a special outfit while preserving the selected outfit', () => {
+test('Z-Image preserves the selected scene and special outfit without public scene-control guidance', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
@@ -54,20 +58,23 @@ test('Z-Image keeps scene priority guidance before a special outfit while preser
   const zImage = prompt.zImagePrompt;
   const subjectIndex = zImage.indexOf('A 20s seductive stunning Japanese or Korean woman');
   const settingIndex = zImage.indexOf('Scene: The portrait takes place in');
-  const scenePriorityIndex = zImage.indexOf('keep the selected environment readable with clear spatial context');
+  const locationIndex = zImage.indexOf('Seoul Seongsu-dong urban corner');
   const wardrobeIndex = zImage.indexOf('She wears black sheer polka-dot matching fashion set');
   const poseIndex = zImage.search(/presents .*standing pose/);
 
   assert.notEqual(subjectIndex, -1);
   assert.notEqual(settingIndex, -1);
-  assert.notEqual(scenePriorityIndex, -1);
+  assert.notEqual(locationIndex, -1);
   assert.notEqual(wardrobeIndex, -1);
   assert.notEqual(poseIndex, -1);
   assert.ok(subjectIndex < settingIndex);
-  assert.ok(settingIndex < scenePriorityIndex);
-  assert.ok(scenePriorityIndex < wardrobeIndex);
+  assert.ok(settingIndex < locationIndex);
+  assert.ok(locationIndex < wardrobeIndex);
   assert.ok(wardrobeIndex < poseIndex);
-  assert.match(zImage, /keep the selected environment readable with clear spatial context/);
+  assert.doesNotMatch(zImage, /keep the selected environment readable/i);
+  assert.doesNotMatch(zImage, /moderate depth of field when needed/i);
+  assert.doesNotMatch(zImage, /background softly separated/i);
+  assert.doesNotMatch(zImage, /avoid collapsing into a plain backdrop/i);
   assert.doesNotMatch(zImage, /Scene priority:/i);
   assert.doesNotMatch(zImage, /\(Seoul Seongsu-dong urban corner, industrial cafe frontage:1\.35\)/);
   assert.doesNotMatch(zImage, /avoid plain or empty background/);

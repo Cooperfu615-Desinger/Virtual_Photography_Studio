@@ -308,7 +308,7 @@ test('generated prompts use stabilized scene base wording', () => {
   assert.match(forestCampsitePrompt.zImagePrompt, /canvas tent edge/);
 });
 
-test('Gpt scene priority does not duplicate location anchors or conflict with solid studio backgrounds', () => {
+test('Gpt projected scenes preserve source anchors without public control guidance or solid-studio conflicts', () => {
   const [solidStudioPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: framingId('全身鏡頭 (Full Body Shot)'),
@@ -331,7 +331,9 @@ test('Gpt scene priority does not duplicate location anchors or conflict with so
   assert.doesNotMatch(solidStudioScene, /\.,\s*\(/);
 
   assert.match(bookshopScene, /antique used-book shop interior/);
-  assert.match(bookshopScene, /keep the selected environment readable with clear spatial context/i);
+  assert.match(bookshopScene, /narrow bookshelf aisle reading table counter corner or window book stacks/i);
+  assert.doesNotMatch(bookshopScene, /keep the selected environment readable/i);
+  assert.doesNotMatch(bookshopScene, /moderate depth of field when needed|background softly separated/i);
   assert.doesNotMatch(bookshopScene, /\(antique used-book shop interior[^)]*:1\.35\)/i);
   assert.doesNotMatch(bookshopScene, /\.,\s*\(/);
 });

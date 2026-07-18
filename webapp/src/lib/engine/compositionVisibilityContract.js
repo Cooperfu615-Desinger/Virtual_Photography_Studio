@@ -209,6 +209,7 @@ export function createCompositionVisibilityProjection(framing) {
     bucket,
     wardrobe: policy.wardrobe,
     pose: policy.pose,
+    scene: policy.scene,
   });
 }
 

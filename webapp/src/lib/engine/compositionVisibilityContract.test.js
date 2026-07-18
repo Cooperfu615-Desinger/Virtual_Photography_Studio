@@ -110,6 +110,25 @@ test('pose projection exposes only the approved direct and conditional parts for
   assert.equal(shouldProjectPosePart(cowboy, 'foot'), false);
 });
 
+test('scene projection exposes the approved source mode without adding depth treatment', () => {
+  const face = createCompositionVisibilityProjection({ zh: '臉部特寫', meta: { visibility: 'close' } });
+  assert.equal(face.scene.mode, 'compactSource');
+  assert.equal(face.scene.interactionGeometry, 'omit');
+  assert.equal(face.scene.supportObjects, 'omit');
+  assert.equal(face.scene.addDepthEffect, false);
+
+  const medium = createCompositionVisibilityProjection({ zh: '中景鏡頭 (Medium Shot)', meta: { visibility: 'medium' } });
+  assert.equal(medium.scene.mode, 'conciseSource');
+  assert.equal(medium.scene.interactionGeometry, 'visibleOnly');
+  assert.equal(medium.scene.supportObjects, 'visibleOnly');
+  assert.equal(medium.scene.addDepthEffect, false);
+
+  const full = createCompositionVisibilityProjection({ zh: '全身鏡頭 (Full Body Shot)', meta: { visibility: 'full' } });
+  assert.equal(full.scene.mode, 'fullSource');
+  assert.equal(full.scene.interactionGeometry, 'full');
+  assert.equal(full.scene.supportObjects, 'full');
+});
+
 test('phase-1 visibility fixtures resolve public controls and cover every approved behavior group', () => {
   const ids = new Set();
   const coverage = new Set();
