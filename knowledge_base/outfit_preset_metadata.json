@@ -6,9 +6,7 @@
     "lockedOptional": false,
     "colorTargets": {
       "primary": [
-        "latex_bodysuit",
-        "integrated_choker",
-        "opera_gloves"
+        "latex_bodysuit"
       ],
       "contrast": [
         "hip_straps",
@@ -34,7 +32,6 @@
       ],
       "contrast": [
         "lace_trims",
-        "embroidery",
         "mesh_panel_accents",
         "ribbon_lacing"
       ],
@@ -63,8 +60,7 @@
       ],
       "contrast": [
         "bondage_straps",
-        "panel_accents",
-        "latex_accent_areas"
+        "panel_accents"
       ],
       "locked": [
         "buckles",

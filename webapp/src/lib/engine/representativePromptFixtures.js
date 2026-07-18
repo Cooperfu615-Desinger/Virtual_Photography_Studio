@@ -43,6 +43,99 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'latex-cutout-outfit-preset',
+    title: 'Latex outfit preset preserves intentional cut-outs and anchored straps',
+    mode: 'single',
+    seed: 'prompt-contract-latex-cutout-outfit-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '套裝：亮面乳膠束帶' },
+      outfitPresetPrimaryColorId: { byZh: '黑色' },
+      outfitPresetContrastColorId: { byZh: '紅色' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: [
+          'opaque high-gloss latex cutout bodysuit',
+          'symmetrical waist cut-outs exposing the abdomen and navel',
+          'upper-thigh garter straps anchored with metallic O-rings and buckles',
+        ],
+      },
+      zImagePrompt: {
+        includes: ['latex cutout bodysuit', 'waist cut-outs', 'upper-thigh garter straps'],
+      },
+      midjourneyPrompt: {
+        includes: ['latex cutout bodysuit', 'waist cut-outs', 'high-cut hips'],
+      },
+    },
+  },
+  {
+    id: 'bdsm-leather-harness-outfit-preset',
+    title: 'BDSM outfit preset preserves its leather lingerie base and harness map',
+    mode: 'single',
+    seed: 'prompt-contract-bdsm-leather-harness-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '套裝：BDSM 束縛' },
+      outfitPresetPrimaryColorId: { byZh: '深棕色' },
+      outfitPresetContrastColorId: { byZh: '黑色' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: [
+          'BDSM-inspired leather lingerie harness set',
+          'structured underwire leather bra with a deep demi-cup neckline',
+          'matching low-rise high-cut leather briefs',
+          'shoulders, underbust, waist, hips and upper thighs',
+        ],
+      },
+      zImagePrompt: {
+        includes: ['leather lingerie harness set', 'low-rise high-cut leather briefs'],
+      },
+      midjourneyPrompt: {
+        includes: [
+          'structured underwire leather bra with a deep demi-cup neckline',
+          'vertical side straps linking the bra to hip and garter bands',
+          'matching low-rise high-cut leather briefs',
+        ],
+      },
+    },
+  },
+  {
+    id: 'leather-corset-outfit-preset',
+    title: 'Leather corset outfit preset preserves corsetry and matching bottoms',
+    mode: 'single',
+    seed: 'prompt-contract-leather-corset-outfit-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '套裝：皮革馬甲束腰' },
+      outfitPresetPrimaryColorId: { byZh: '紅色' },
+      outfitPresetContrastColorId: { byZh: '黑色' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: [
+          'structured opaque leather corset lingerie set',
+          'sculpted underwire cups and a low sweetheart neckline',
+          'sheer lace or mesh side inserts revealing deliberate skin panels',
+          'matching low-rise high-cut leather briefs with small lace insets',
+        ],
+      },
+      zImagePrompt: {
+        includes: ['leather corset lingerie set', 'low sweetheart neckline', 'low-rise high-cut leather briefs'],
+      },
+      midjourneyPrompt: {
+        includes: ['leather corset lingerie set', 'low sweetheart neckline', 'low-rise high-cut leather briefs'],
+      },
+    },
+  },
+  {
     id: 'pose-composer-canonical',
     title: 'Pose Composer canonical grammar shared by all public outputs',
     mode: 'single',

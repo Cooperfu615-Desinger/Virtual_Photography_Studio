@@ -971,7 +971,7 @@ test('Gpt duo prompt uses role cards with wardrobe inside each subject block', (
   assert.match(subject, /Woman 2:\nHas /);
   assert.ok(subject.indexOf('Woman 1:') < subject.indexOf('Woman 2:'));
   assert.match(subject, /Woman 1:\nHas [\s\S]*\. Wears [\s\S]*satin lingerie set[\s\S]*\./i);
-  assert.match(subject, /Woman 2:\nHas [\s\S]*thin-frame glasses[\s\S]*\. Wears [\s\S]*BDSM-inspired leather harness outfit[\s\S]*\./i);
+  assert.match(subject, /Woman 2:\nHas [\s\S]*thin-frame glasses[\s\S]*\. Wears [\s\S]*BDSM-inspired leather lingerie harness set[\s\S]*\./i);
   assert.doesNotMatch(subject, /modern high-rise apartment living room/i);
   assert.doesNotMatch(subject, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
   assert.doesNotMatch(subject, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);

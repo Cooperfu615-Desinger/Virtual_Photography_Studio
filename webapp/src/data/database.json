@@ -1044,8 +1044,8 @@
     "套裝 (Outfit Presets)": [
       {
         "zh": "亮面乳膠束帶套裝",
-        "en": "glossy latex strappy outfit, sculpted one-piece or coordinated set, halter neckline, zip-front plunge, torso cut-outs, high-cut leg line, harness straps, metallic buckle hardware, liquid-shine fetish couture finish, dominant fabric color controlled by the outfit color selection",
-        "desc": "以亮面乳膠、鏤空、高衩、束帶與金屬扣具為核心的 fetish couture 套裝；主色交由套裝配色控制。",
+        "en": "opaque high-gloss latex cutout bodysuit with symmetrical waist cut-outs exposing the abdomen and navel and sharply high-cut hips, tightly sculpted body-hugging fit, halter neckline with molded underwire cups, deep zip-front plunge, narrow hip straps and upper-thigh garter straps anchored with metallic O-rings and buckles, liquid-shine fetish couture finish",
+        "desc": "以不透膚高光乳膠鏤空連身衣為主體，採緊密雕塑身形的貼身版型、鋼圈塑形罩杯掛脖領與深開拉鍊前襟；腰部有左右對稱鏤空，露出腹部與肚臍，臀線高衩，窄版臀帶與大腿上緣吊帶以金屬 O 環和扣具固定。乳膠衣身由套裝主色控制，束帶與拉鍊滾邊由對比色控制，五金維持金屬色。",
         "meta": {
           "series": "signature",
           "colorMode": "primary_contrast_locked",
@@ -1053,9 +1053,7 @@
           "lockedOptional": false,
           "colorTargets": {
             "primary": [
-              "latex_bodysuit",
-              "integrated_choker",
-              "opera_gloves"
+              "latex_bodysuit"
             ],
             "contrast": [
               "hip_straps",
@@ -1083,8 +1081,8 @@
       },
       {
         "zh": "皮革馬甲束腰套裝",
-        "en": "structured leather corset outfit, cinched waist, sculpted overbust cups, boned panels, lace-up closure, grommet and ring hardware, lace or mesh accent panels, refined corset boudoir finish, dominant leather color controlled by the outfit color selection",
-        "desc": "以皮革馬甲、束腰、胸杯、骨架、綁帶與五金為核心的 corset boudoir 套裝；主色交由套裝配色控制。",
+        "en": "structured opaque leather corset lingerie set, rigid overbust corset with sculpted underwire cups and a low sweetheart neckline, tightly cinched hourglass waist, visible boned panels, front busk and rear lace-up closure, sheer lace or mesh side inserts revealing deliberate skin panels, matching low-rise high-cut leather briefs with small lace insets, grommets, ribbon lacing and ring hardware, curve-hugging corset boudoir silhouette",
+        "desc": "以不透膚結構式皮革馬甲內衣套裝為主體，上身為硬挺 overbust 馬甲，帶鋼圈塑形罩杯、低甜心領、明顯骨線、前中 busk 扣與後背綁帶，緊束出沙漏腰線；側邊拼接透膚蕾絲或網紗，形成刻意露膚區域。下身搭配低腰高衩皮革內褲與小面積蕾絲拼片，並有孔眼、緞帶綁繩與金屬環。皮革拼片與下身由套裝主色控制，蕾絲、網紗與綁帶由對比色控制，五金維持金屬色。",
         "meta": {
           "series": "signature",
           "colorMode": "primary_contrast_locked",
@@ -1098,7 +1096,6 @@
             ],
             "contrast": [
               "lace_trims",
-              "embroidery",
               "mesh_panel_accents",
               "ribbon_lacing"
             ],
@@ -1185,8 +1182,8 @@
       },
       {
         "zh": "BDSM 束縛套裝",
-        "en": "BDSM-inspired leather harness outfit, bondage straps, buckle closures, metal rings, body-framing restraint structure, dominant leather color controlled by the outfit color selection",
-        "desc": "以皮革 harness、束縛帶、扣具與金屬環為核心的束縛風套裝；避免與乳膠套裝重疊，主色交由套裝配色控制。",
+        "en": "BDSM-inspired leather lingerie harness set, structured underwire leather bra with a deep demi-cup neckline, matching low-rise high-cut leather briefs, fully exposed midriff and navel, adjustable bondage straps positioned around the shoulders, underbust, waist, hips and upper thighs, vertical side straps linking the bra to hip and garter bands, metallic O-rings, buckles and short chain connectors, close body-framing restraint silhouette",
+        "desc": "以皮革內衣與完整束縛 harness 結構為主體，上身是深 demi-cup 領口的鋼圈皮革胸罩，下身搭配低腰高衩皮革內褲，腹部與肚臍完整露出；可調式束縛帶分布於肩部、下胸圍、腰部、臀部與大腿上緣，側邊縱向束帶連接胸罩、臀帶與吊帶環，搭配金屬 O 環、扣具及短鏈連接件。皮革內衣主體由套裝主色控制，harness 束帶與拼片由對比色控制，五金維持金屬色。",
         "meta": {
           "series": "signature",
           "colorMode": "primary_contrast_locked",
@@ -1198,8 +1195,7 @@
             ],
             "contrast": [
               "bondage_straps",
-              "panel_accents",
-              "latex_accent_areas"
+              "panel_accents"
             ],
             "locked": [
               "buckles",
