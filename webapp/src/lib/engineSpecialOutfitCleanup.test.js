@@ -575,11 +575,18 @@ test('face-only special outfit keeps the selected complete-look lock while filte
   const text = allPromptOutputs(prompt);
 
   assert.equal(prompt.selection.specialOutfitId, specialOutfit.id);
-  assert.match(text, /cropped white short-sleeve button shirt/i);
+  assert.doesNotMatch(text, /cropped white short-sleeve button shirt/i);
   assert.doesNotMatch(text, /ultra low-rise yellow plaid pleated mini skirt/i);
   assert.doesNotMatch(text, /white lace thigh-high stockings/i);
   assert.doesNotMatch(text, /white pointed heels/i);
   assert.doesNotMatch(text, /brown monogram shoulder bag/i);
+
+  const fullBodyPrompt = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
+  assert.match(fullBodyPrompt, /cropped white short-sleeve button shirt/i);
+  assert.match(fullBodyPrompt, /ultra low-rise yellow plaid pleated mini skirt/i);
+  assert.match(fullBodyPrompt, /white lace thigh-high stockings/i);
+  assert.match(fullBodyPrompt, /white pointed heels/i);
+  assert.match(fullBodyPrompt, /brown monogram shoulder bag/i);
 });
 
 test('single Gpt special outfit creates an accessory group for hats without hair or bags', () => {

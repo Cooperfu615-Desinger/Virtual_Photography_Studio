@@ -137,7 +137,9 @@ The contract owns these future projection boundaries:
 - compact near-crop scene text remains source-traceable and never invents blur, bokeh, or shallow depth of field;
 - the full-body character output uses complete resolved wardrobe data, not the main crop projection.
 
-Phase 1 adds the contract, desired-output fixtures, and structural tests only. It does not connect the contract to `engine.js`, change lock transitions, or change public Prompt text. Later phases must activate the fixtures one behavior group at a time before removing the existing visibility branches.
+Phase 1 added the contract, desired-output fixtures, and structural tests only. Phase 2 makes PAGE1 close-up state non-destructive: UI availability may disable controls, but normalization, `vps.locks`, generated `selection`, Saved Cards restore, Character Card selection, body settings, wardrobe, Pose Composer, contact/support, and scene locks retain their source values. Returning to a wider crop restores the same selections without reconstructing them from Prompt text.
+
+Phase 2 also establishes the first runtime projection boundary for `faceDetail`: the three main outputs omit normal and complete-look wardrobe text while the single-subject full-body character output continues to render the complete resolved wardrobe. This boundary covers state preservation and face-detail wardrobe hiding only. Head-and-shoulders through cowboy wardrobe fragments, projected canonical pose, and source-traceable scene compression remain later phases and must be activated from the same fixtures one behavior group at a time.
 
 ## Character-card identity flow
 

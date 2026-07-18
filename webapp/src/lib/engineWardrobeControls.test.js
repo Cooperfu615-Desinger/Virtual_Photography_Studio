@@ -738,7 +738,7 @@ test('final prompts omit legwear under long-bottom guard wording', () => {
   assert.doesNotMatch(skirtText, /legwear stays secondary|long bottom keeps its natural drape|do not force full socks or stockings to be completely displayed/);
 });
 
-test('face close-up framing locks wardrobe controls while keeping location and pose inputs available', () => {
+test('face close-up framing disables hidden controls without deleting their selections', () => {
   const controls = getLockControls();
   const faceCloseupId = optionId('framingId', '臉部特寫');
   const locks = {
@@ -771,11 +771,9 @@ test('face close-up framing locks wardrobe controls while keeping location and p
   const sanitized = sanitizeLocksForCloseupMode(locks, controls);
   assert.equal(sanitized.framingId, locks.framingId);
   assert.equal(sanitized.locationId, locks.locationId);
-  assert.equal(sanitized.topId, optionId('topId', '全無'));
-  assert.equal(sanitized.pantsId, optionId('pantsId', '全無'));
-  assert.equal(sanitized.shoesId, optionId('shoesId', '全無'));
-  assert.equal(sanitized.poseId, optionId('poseId', '全無'));
-  assert.equal(sanitized.specialActionId, optionId('specialActionId', '全無'));
+  assert.equal(sanitized.topId, locks.topId);
+  assert.equal(sanitized.pantsId, locks.pantsId);
+  assert.equal(sanitized.shoesId, locks.shoesId);
   assert.equal(sanitized.poseBaseId, locks.poseBaseId);
   assert.equal(sanitized.poseArrangementId, optionId('poseArrangementId', '微微前傾'));
   assert.equal(sanitized.poseHandId, locks.poseHandId);
@@ -794,9 +792,9 @@ test('face-only close-up prompts omit wardrobe text', () => {
 
   assert.equal(prompt.selection.framingId, optionId('framingId', '臉部特寫'));
   assert.equal(prompt.selection.locationId, optionId('locationId', '室內：現代高樓公寓客廳'));
-  assert.equal(prompt.selection.topId, '');
-  assert.equal(prompt.selection.pantsId, '');
-  assert.equal(prompt.selection.shoesId, '');
+  assert.equal(prompt.selection.topId, optionId('topId', '透膚刺繡襯衫'));
+  assert.equal(prompt.selection.pantsId, optionId('pantsId', '直筒牛仔褲'));
+  assert.equal(prompt.selection.shoesId, optionId('shoesId', '高跟鞋'));
 
   assert.match(prompt.grokPrompt, /Tight face close-up/);
   assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Visibility:/);
@@ -810,6 +808,11 @@ test('face-only close-up prompts omit wardrobe text', () => {
   assert.doesNotMatch(prompt.zImagePrompt, /semi-sheer embroidered shirt/i);
   assert.doesNotMatch(prompt.zImagePrompt, /straight-leg jeans/);
   assert.doesNotMatch(prompt.zImagePrompt, /glossy pointed-toe stiletto pumps/);
+
+  const fullBodyPrompt = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
+  assert.match(fullBodyPrompt, /semi-sheer embroidered shirt/i);
+  assert.match(fullBodyPrompt, /straight-leg jeans/i);
+  assert.match(fullBodyPrompt, /glossy pointed-toe stiletto pumps/i);
 });
 
 test('chest-up framing keeps visible outfit-preset prompt active while removing bags', () => {

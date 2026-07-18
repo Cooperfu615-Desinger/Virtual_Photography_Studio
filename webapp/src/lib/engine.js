@@ -3291,8 +3291,10 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
 
 export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
   const activeControls = controls.length > 0 ? controls : getLockControls();
+  // Compatibility export: close-up controls may be disabled in the UI, but
+  // their normalized source values must remain available to storage, restore,
+  // selection snapshots, and the uncropped full-body reference renderer.
   const nextLocks = normalizeLocks(rawLocks, activeControls);
-  const framing = nextLocks.framingId ? findById(activeControls.find((control) => control.key === 'framingId')?.options || [], nextLocks.framingId) : null;
   const angle = nextLocks.angleId ? findById(activeControls.find((control) => control.key === 'angleId')?.options || [], nextLocks.angleId) : null;
   if (isWormEyeAngleItem(angle)) {
     WORM_EYE_FORCED_NONE_KEYS.forEach((key) => {
@@ -3300,17 +3302,6 @@ export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
       nextLocks[key] = noneOption ? noneOption.id : '';
     });
   }
-  if (!isCloseupModeFramingItem(framing)) return nextLocks;
-
-  const allowedKeys = new Set(CLOSEUP_ALWAYS_ALLOWED_KEYS);
-  FACE_ONLY_CLOSEUP_ALLOWED_KEYS.forEach((key) => allowedKeys.add(key));
-
-  activeControls.forEach((control) => {
-    if (allowedKeys.has(control.key) || control.key === 'framingId') return;
-    const noneOption = control.options?.find((option) => option.zh === '全無');
-    nextLocks[control.key] = noneOption ? noneOption.id : '';
-  });
-
   return nextLocks;
 }
 
@@ -5414,16 +5405,16 @@ function buildWardrobe(context, locks, catalog) {
       return true;
     }
 
-    const randomPants = pantsState.isExplicitNone
-      ? null
-      : pickRandomWardrobeItem(pantsItems, { allowNone: true, previousSelectionKeys: ['pantsId'] });
-    if (randomPants && !isNoneLikeItem(randomPants)) {
+    if (skirtState.specifiedItem) {
+      addPiece(skirtState.specifiedItem);
       hasBottomPiece = true;
       return true;
     }
 
-    if (skirtState.specifiedItem) {
-      addPiece(skirtState.specifiedItem);
+    const randomPants = pantsState.isExplicitNone
+      ? null
+      : pickRandomWardrobeItem(pantsItems, { allowNone: true, previousSelectionKeys: ['pantsId'] });
+    if (randomPants && !isNoneLikeItem(randomPants)) {
       hasBottomPiece = true;
       return true;
     }
@@ -5612,16 +5603,16 @@ function buildWardrobe(context, locks, catalog) {
           return true;
         }
 
-        const randomPants = pantsRoleState.isExplicitNone
-          ? null
-          : pickRoleWardrobeItem(pantsItems, config.role, 'pants', { allowNone: true });
-        if (randomPants && !isNoneLikeItem(randomPants)) {
+        if (skirtRoleState.specifiedItem) {
+          addLockedRoleWardrobeItem(skirtItems, config.skirtId, config.role, 'skirt');
           roleHasBottom = true;
           return true;
         }
 
-        if (skirtRoleState.specifiedItem) {
-          addLockedRoleWardrobeItem(skirtItems, config.skirtId, config.role, 'skirt');
+        const randomPants = pantsRoleState.isExplicitNone
+          ? null
+          : pickRoleWardrobeItem(pantsItems, config.role, 'pants', { allowNone: true });
+        if (randomPants && !isNoneLikeItem(randomPants)) {
           roleHasBottom = true;
           return true;
         }
@@ -7802,6 +7793,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
   const closeupWardrobeVisibilityText = buildCloseupWardrobeVisibilityPrompt(context, wardrobeSlots, wardrobeColors);
   const isCloseupVisibility = Boolean(closeupWardrobeVisibilityText);
+  const hideWardrobeForFaceDetail = isCloseupVisibilityContext(context);
   const sceneProtectedWardrobeMode = !specialSubjectMode
     && !hasDuoSceneAnchor
     && Boolean(
@@ -7952,24 +7944,24 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
     addGrokSceneLines();
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor && (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB)) {
-    addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-    if (isCloseupVisibility) {
+    if (!hideWardrobeForFaceDetail) addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
+    if (hideWardrobeForFaceDetail) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
       addLine('Woman 1 Special Outfit', buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA, context));
       addLine('Woman 2 Special Outfit', buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB, context));
     }
   } else if (wardrobeSlots.specialOutfit && !hasDuoSceneAnchor) {
-    addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-    if (isCloseupVisibility) {
+    if (!hideWardrobeForFaceDetail) addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
+    if (hideWardrobeForFaceDetail) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
       addLine('Special Outfit', buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context));
     }
   }
   if (context.subject.count === 2 && !hasDuoSceneAnchor && (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
-    addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-    if (isCloseupVisibility) {
+    if (!hideWardrobeForFaceDetail) addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
+    if (hideWardrobeForFaceDetail) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
       addLine('Woman 1 Outfit Preset', buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPresetA, {
@@ -7988,8 +7980,8 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       }, context));
     }
   } else if (wardrobeSlots.outfitPreset && !hasDuoSceneAnchor) {
-    addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
-    if (isCloseupVisibility) {
+    if (!hideWardrobeForFaceDetail) addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
+    if (hideWardrobeForFaceDetail) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
       addLine('Outfit Preset', buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
@@ -8028,7 +8020,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       (dressText && outerwearFirstDressText) ||
       (!dressText && outerwearFirstTopText)
     );
-    if (isCloseupVisibility) {
+    if (hideWardrobeForFaceDetail) {
       addLine('Wardrobe Visibility', skeletonText(closeupWardrobeVisibilityText));
     } else {
       if (!usedOuterwearInMain) addLine('Outerwear', buildOuterwearWardrobePrompt(wardrobeSlots, wardrobeColors));
@@ -8041,19 +8033,19 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
     }
   }
   if (!specialSubjectMode && !hasDuoSceneAnchor && !wardrobeSlots.specialOutfit && !wardrobeSlots.specialOutfitA && !wardrobeSlots.specialOutfitB && (wardrobeSlots.outfitPreset || wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB)) {
-    if (!isCloseupVisibility) {
+    if (!hideWardrobeForFaceDetail) {
       addLine('Legwear', buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors.legwearColor));
       addLine('Shoes', buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors.shoesColor));
     }
   }
   if (!specialSubjectMode && !hasDuoSceneAnchor) {
-    if (!isCloseupVisibility) {
+    if (!hideWardrobeForFaceDetail) {
       addLine('Waistline Coordination', waistlineCompatibilityText);
       addLine('Wardrobe Layering Logic', wardrobeLayeringLogicText);
       addLine('Wardrobe Integrity', buildGrokWardrobeIntegrityText());
     }
   }
-  if (context.subject.count === 2 && !hasDuoSceneAnchor) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
+  if (context.subject.count === 2 && !hasDuoSceneAnchor && !hideWardrobeForFaceDetail) addLine('Duo Wardrobe', duoWardrobeText.stylingText);
   if (actionPoseText) {
     addLine('Action Pose', skeletonText(actionPoseText));
   } else {
@@ -10100,6 +10092,7 @@ function renderZImagePrompt(promptModel) {
   const closeupSceneContextText = buildCloseupSceneContextPrompt(context);
   const closeupWardrobeVisibilityText = buildCloseupWardrobeVisibilityPrompt(context, wardrobeSlots, wardrobeColors);
   const isCloseupVisibility = Boolean(closeupWardrobeVisibilityText);
+  const hideWardrobeForFaceDetail = isCloseupVisibilityContext(context);
   const duoWardrobeDifferentiationText = shouldAddDuoWardrobeDifferentiationPrompt(context, wardrobeSlots)
     ? DUO_WARDROBE_DIFFERENTIATION_PROMPT
     : '';
@@ -10303,12 +10296,12 @@ function renderZImagePrompt(promptModel) {
       if (value) parts.push(value);
     };
     const finish = (value) => {
-      const text = context.subject.count === 1 && !isCloseupVisibility
+      const text = context.subject.count === 1 && !hideWardrobeForFaceDetail
         ? compressZImageSingleWardrobeText(value, context)
         : value;
       return sentence(text);
     };
-    if (isCloseupVisibility) return sentence(closeupWardrobeVisibilityText);
+    if (hideWardrobeForFaceDetail) return sentence(closeupWardrobeVisibilityText);
     const buildSingleOutfitPresetText = () => buildVisibleOutfitPresetPrompt(wardrobeSlots.outfitPreset, {
       legacy: wardrobeColors.outfitPresetColor,
       primary: wardrobeColors.outfitPresetPrimaryColor,

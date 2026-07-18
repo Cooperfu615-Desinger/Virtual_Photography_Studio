@@ -70,3 +70,65 @@ test('page1 transition lets an explicit prop take over hand and clears props in 
   });
   assert.equal(duoNext.posePropId, 'none');
 });
+
+test('page1 close-up transitions preserve hidden selections and restore them at full body', () => {
+  const controls = getLockControls();
+  const previousLocks = {
+    ...createEmptyLocks(),
+    framingId: optionId(controls, 'framingId', '全身鏡頭 (Full Body Shot)'),
+    characterProfileId: 'character-rika',
+    bodyTypeId: optionId(controls, 'bodyTypeId', '小隻精緻身形'),
+    topId: optionId(controls, 'topId', '襯衫'),
+    skirtId: optionId(controls, 'skirtId', '百褶短裙'),
+    outerwearId: optionId(controls, 'outerwearId', '丹寧外套'),
+    legwearId: optionId(controls, 'legwearId', '羅紋短襪'),
+    shoesId: optionId(controls, 'shoesId', 'Samba OG'),
+    poseBaseId: optionId(controls, 'poseBaseId', '站姿'),
+    poseArrangementId: optionId(controls, 'poseArrangementId', '一腳向前點地'),
+    poseHandId: optionId(controls, 'poseHandId', '一手扶腰一手自然放下'),
+    poseHeadId: optionId(controls, 'poseHeadId', '頭部微微側傾'),
+    poseAnchorId: optionId(controls, 'poseAnchorId', '鏡面不鏽鋼立方台'),
+    locationId: optionId(controls, 'locationId', '室內：復古美式 Diner'),
+  };
+  const preservedKeys = [
+    'characterProfileId',
+    'bodyTypeId',
+    'topId',
+    'skirtId',
+    'outerwearId',
+    'legwearId',
+    'shoesId',
+    'poseBaseId',
+    'poseArrangementId',
+    'poseHandId',
+    'poseHeadId',
+    'poseAnchorId',
+    'locationId',
+  ];
+
+  const closeupLocks = transitionPage1Locks({
+    previousLocks,
+    candidateLocks: {
+      ...previousLocks,
+      framingId: optionId(controls, 'framingId', '臉部特寫'),
+    },
+    lockControls: controls,
+  });
+
+  for (const key of preservedKeys) {
+    assert.equal(closeupLocks[key], previousLocks[key], `${key} should survive the close-up transition`);
+  }
+
+  const restoredLocks = transitionPage1Locks({
+    previousLocks: closeupLocks,
+    candidateLocks: {
+      ...closeupLocks,
+      framingId: optionId(controls, 'framingId', '全身鏡頭 (Full Body Shot)'),
+    },
+    lockControls: controls,
+  });
+
+  for (const key of preservedKeys) {
+    assert.equal(restoredLocks[key], previousLocks[key], `${key} should return unchanged at full body`);
+  }
+});

@@ -30,9 +30,9 @@ Last updated: 2026-07-18
 - `Gpt` 保留 `Image Type` 區塊；`Grok/Z-Image` 與 `AI` 使用自然空行段落，但三者的構圖句來源與內容一致。
 - UI 的環繞角度只顯示 `正面`、`左前`、`左側`、`左後`、`背面`、`右後`、`右側`、`右前`；內部 numeric ID 與舊儲存格式維持不變。
 
-### 共用構圖可見性契約（2026-07-18 第一階段）
+### 共用構圖可見性契約（2026-07-18 第一、第二階段）
 
-第一階段先把構圖可見性定義為機器可讀契約與 deterministic regression fixtures，尚未改變目前 renderer、lock transition 或公開 Prompt 行為。後續階段必須從同一份完整 resolved selections 建立 `visibleProjection`，再讓 `Gpt`、`Grok/Z-Image`、`AI` 三組主 Prompt 共同使用；`全身角色照` 則使用未裁切的完整人物與服裝資料。
+第一階段先把構圖可見性定義為機器可讀契約與 deterministic regression fixtures。第二階段已將 PAGE1 景別切換改為非破壞性狀態：近景可停用畫面外控制項，但不得清空 UI locks、`vps.locks`、generated selection 或 Saved Cards restore 需要的來源值；`全身角色照` 直接使用完整 resolved wardrobe。第二階段同時啟用 `faceDetail` 的第一個 runtime 邊界，三組主 Prompt 不輸出一般服裝、套裝或特殊穿搭的衣物文字，而完整服裝仍保留於 selection 與全身角色照。其餘景別穿搭、姿勢與場景投影仍待後續階段接上同一份 `visibleProjection`。
 
 | 公開景別 | 內部 bucket | 穿搭可見性 | 姿勢可見性 | 場景可見性 |
 | --- | --- | --- | --- | --- |
@@ -60,6 +60,11 @@ Last updated: 2026-07-18
 - `webapp/src/lib/engine/compositionVisibilityContract.js`
 - `webapp/src/lib/engine/compositionVisibilityFixtures.js`
 - `webapp/src/lib/engine/compositionVisibilityContract.test.js`
+
+第二階段回歸基準另位於：
+
+- `webapp/src/lib/engine/compositionVisibilityState.test.js`
+- `webapp/src/features/page1/lockTransitions.test.js`
 
 ### Grok/Z-Image
 
