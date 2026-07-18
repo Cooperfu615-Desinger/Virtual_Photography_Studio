@@ -42,6 +42,9 @@ Prompt-quality governance added on 2026-07-15:
 - Root `AGENTS.md` is the durable repository instruction surface. New and resumed sessions must read it with this current-state file, preserve unrelated dirty work, and use its validation matrix.
 - `webapp/src/lib/engine/promptOutputContracts.js` defines machine-readable contracts for `grokPrompt`, `zImagePrompt`, `midjourneyPrompt`, and the single-subject `full-body-character` extra prompt.
 - `webapp/src/lib/engine/representativePromptFixtures.js` owns nine deterministic regression scenarios: normal single, Pose Composer canonical grammar, random Pose Composer selfie with an incompatible rear orbit, Character Card, special outfit, duo, fixed composition, face close-up, and full-body reference.
+- Composition visibility phase 1 is recorded in `webapp/src/lib/engine/compositionVisibilityContract.js`: it separates `faceDetail`, `headShoulders`, `chestUp`, `mediumWaist`, `cowboyKnee`, `fullBody`, and `unconstrained`, requires raw selection preservation, and defines source-traceable scene compression without renderer-invented depth effects. `compositionVisibilityFixtures.js` owns ten desired regression cases spanning normal layers, dress, preset, special outfit, Character Card, duo, pose/support pressure, scene anchors, selection preservation, and full-body restoration.
+- Phase 1 is behavior-neutral: the new contract is not connected to `engine.js` or PAGE1 lock transitions yet, and the desired fixtures are not part of the public-output blocking gate. Existing close-up sanitization and renderer-specific wardrobe/pose/scene filtering remain current behavior until later phases activate the contract one behavior group at a time.
+- Composition visibility phase-1 validation on 2026-07-18: focused contract tests passed 5 tests; frontend `npm test` passed 464 tests; `npm run test:prompt-quality` passed 15 tests; lint and build passed. The same-seed strict audit (`200`, seed `prompt-quality-baseline`) retained zero blocking, contract, duplicate, control-leakage, and contradiction signals, with the unchanged 13 diagnostic-only wardrobe/scene findings. Browser validation was not required because phase 1 changes no runtime or user-visible behavior.
 - `npm run test:prompt-quality` runs the contract, representative-fixture, and conservative deduplication gates. The 2026-07-16 result is 15 passed.
 - `npm run audit:prompts:strict` runs 200 prompts with seed `prompt-quality-baseline`. The 2026-07-15 baseline has zero contract errors, exact/near duplicate signals, public control-language leakage, contradictory constraints, and strict blocking signals. It retains 13 diagnostic-only findings: seven pants/legwear, four pants/skirt, and two swimwear/location combinations.
 - Prompt output fixes made with the new gate: selected outfit colors replace `controlled by ... selection` wording when the control can be materialized; repeated identical accessory fragments are emitted once; Z-Image scene-priority guidance is natural text without its internal label; duo Z-Image/AI special-outfit role text no longer inherits internal guard clauses.
@@ -82,7 +85,7 @@ Current PAGE1 output labels:
 - `AI`
   - Internal field: `midjourneyPrompt`
   - Compact natural prompt derived from Gpt sections
-  - 已實作（單人）：同源自由導向的極簡版；一般模式只保留完整身材數值／比例、髮型髮色、眼鏡耳機、極簡服裝、場景與成像，刻意省略五官、表情、姿勢／動作與光線
+  - 已實作（單人）：同源自由導向的極簡版；一般模式保留完整身材數值／比例、髮型髮色、眼鏡耳機、極簡服裝、場景與成像；非 Pose Composer 路徑可省略五官、表情、姿勢／動作與光線，Pose Composer 啟用時目前仍使用三組共用 canonical pose
   - 已實作（角色卡）：完整保留結構化五官、膚質、永久特徵、身形與髮型髮色，服裝極簡化且避免與 PAGE1 服裝重複
   - 已實作（特殊穿搭／套裝／連身服）：保留主服裝／主風格、關鍵衣物、外套、鞋襪與必要配件；內建髮型、髮色、刺青與身體記憶點移入人物句
   - Duo mode uses a compact labeled format, not the older single-paragraph compression

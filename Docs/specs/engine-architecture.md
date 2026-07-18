@@ -2,7 +2,7 @@
 
 Status: implemented on `main` in `7aed676 Optimize prompt engine runtime`
 
-Last updated: 2026-07-11
+Last updated: 2026-07-18
 
 ## Purpose
 
@@ -45,6 +45,8 @@ The default-library path compiles the runtime once and reuses it. A custom-libra
 | `webapp/src/lib/engine/promptModel.js` | Ordered prompt sections plus grouped label lookup used by renderers |
 | `webapp/src/lib/engine/promptOutputContracts.js` | Machine-readable public contracts and validation for Gpt, Grok/Z-Image, AI, and full-body character outputs |
 | `webapp/src/lib/engine/representativePromptFixtures.js` | Seeded normal, character-card, special-outfit, duo, fixed-set, close-up, and full-body regression scenarios |
+| `webapp/src/lib/engine/compositionVisibilityContract.js` | Phase-1 canonical framing buckets and wardrobe, pose, scene, selection-preservation policies; behavior-neutral until the projection stage is connected |
+| `webapp/src/lib/engine/compositionVisibilityFixtures.js` | Desired deterministic cases for normal wardrobe, dresses, presets, special outfits, Character Cards, duo, pose/support, scene, and full-body restoration |
 | `webapp/src/lib/engine/promptTextDeduplication.js` | Conservative exact-fragment cleanup and explicit outfit-color materialization |
 | `webapp/src/lib/engine/selectionSchema.js` | Schema-ordered selection snapshots and default filling |
 | `webapp/src/lib/engine/characterProfiles.js` | Built-in character profile data |
@@ -122,6 +124,20 @@ The renderers then apply format-specific rules:
 - `renderAiPrompt()`: compact AI output, including a specialized duo renderer.
 
 Section labels are not merely display text. Renderers query labels such as `Subject`, `Location`, `Ambient Light Conditions`, and `Camera / Film`; renaming or splitting them is a cross-renderer schema change and requires prompt-pipeline tests.
+
+## Composition Visibility Contract
+
+`engine/compositionVisibilityContract.js` records the approved PAGE1 crop policy separately from renderer formatting. Version 1 distinguishes `faceDetail`, `headShoulders`, `chestUp`, `mediumWaist`, `cowboyKnee`, `fullBody`, and `unconstrained`; the distinction between Head-and-shoulders and Chest-up must not be collapsed back into one generic portrait bucket.
+
+The contract owns these future projection boundaries:
+
+- raw wardrobe, Pose Composer, scene, Character Card, and body selections remain preserved regardless of framing;
+- the three primary outputs consume one shared visible projection rather than applying renderer-specific crop filters;
+- projected canonical pose text is exact across Gpt, Grok/Z-Image, and AI, while `faceDetail` and `headShoulders` intentionally project it to empty;
+- compact near-crop scene text remains source-traceable and never invents blur, bokeh, or shallow depth of field;
+- the full-body character output uses complete resolved wardrobe data, not the main crop projection.
+
+Phase 1 adds the contract, desired-output fixtures, and structural tests only. It does not connect the contract to `engine.js`, change lock transitions, or change public Prompt text. Later phases must activate the fixtures one behavior group at a time before removing the existing visibility branches.
 
 ## Character-card identity flow
 
@@ -216,6 +232,7 @@ Relevant focused tests include:
 - `src/lib/engine/promptModel.test.js`;
 - `src/lib/engine/selectionSchema.test.js`;
 - `src/lib/engine/promptOutputContracts.test.js`;
+- `src/lib/engine/compositionVisibilityContract.test.js`;
 - `src/lib/enginePromptDeduplication.test.js`;
 - `src/lib/enginePromptPipeline.test.js`;
 - the feature-specific engine tests for wardrobe, character cards, Pose Composer, lighting, close-up, duo, and saved-card behavior.

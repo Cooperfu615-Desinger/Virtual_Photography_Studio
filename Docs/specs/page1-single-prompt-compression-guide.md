@@ -1,6 +1,6 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-07-13
+Last updated: 2026-07-18
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
@@ -12,13 +12,13 @@ Last updated: 2026-07-13
 - Target: ChatGPT Image / GPT Image
 - 格式：結構化自然段落。
 - 新定位：`GPT Full-Fidelity Prompt` / `GPT 完整保留型 Prompt`。
-- 目標：完整保留 PAGE1 工作台中被選到的有效英文描述，優先保留生成穩定性、造型鎖定與細節完整度。
+- 目標：完整保留 PAGE1 工作台中被選到、並經共用構圖可見性投影判定為有效的英文描述，優先保留生成穩定性、造型鎖定與細節完整度。原始選擇必須完整保存，不可用景別裁切覆寫或清空。
 - 固定主區塊順序：`Image Type`、`Subject`、`Wardrobe`、`Pose and Composition`、`Scene`、`Lighting`、`Camera Look`、`multi-cut sequence n=2`。
 - 不輸出 `Constraints`。
 - 結尾必須保留 `multi-cut sequence n=2`。
 - 不做語意壓縮：不把長句縮成短片語，不刪除原本有視覺或控制意義的資訊。
 - 允許格式整理：清理空白、標點、markdown 符號、空值，並放入正確 section。
-- 單人特殊穿搭會把內建人物特徵移入 `Subject` 的 `Hair and body details` 子區塊；`Wardrobe` 則使用 `Full outfit` 與 `Headwear, eyewear, and bag` 子區塊。分類時只搬移內容，不應因壓縮而濾掉 fragment。
+- 單人特殊穿搭會把內建人物特徵移入 `Subject` 的 `Hair and body details` 子區塊；`Wardrobe` 則使用 `Full outfit` 與 `Headwear, eyewear, and bag` 子區塊。分類時只搬移內容；只有共用構圖可見性投影可排除畫面外 fragment，各 renderer 不可再自行判斷一次。
 - 單人角色卡的 `Subject` 可用子區塊幫助人工微調：`Character Profile Card`、`Identity and body`、`Hair`、`Outfit`、`Accessories`、`Photographic direction`。
 
 ### 三組共用的構圖開頭（2026-07-12 已實作）
@@ -29,6 +29,37 @@ Last updated: 2026-07-13
 - 構圖英文只保留幾何重點：`chest-up portrait`、`eye-level view`、`front-left three-quarter view` 等，不再重複完整資料庫長句。
 - `Gpt` 保留 `Image Type` 區塊；`Grok/Z-Image` 與 `AI` 使用自然空行段落，但三者的構圖句來源與內容一致。
 - UI 的環繞角度只顯示 `正面`、`左前`、`左側`、`左後`、`背面`、`右後`、`右側`、`右前`；內部 numeric ID 與舊儲存格式維持不變。
+
+### 共用構圖可見性契約（2026-07-18 第一階段）
+
+第一階段先把構圖可見性定義為機器可讀契約與 deterministic regression fixtures，尚未改變目前 renderer、lock transition 或公開 Prompt 行為。後續階段必須從同一份完整 resolved selections 建立 `visibleProjection`，再讓 `Gpt`、`Grok/Z-Image`、`AI` 三組主 Prompt 共同使用；`全身角色照` 則使用未裁切的完整人物與服裝資料。
+
+| 公開景別 | 內部 bucket | 穿搭可見性 | 姿勢可見性 | 場景可見性 |
+| --- | --- | --- | --- | --- |
+| `半臉傾斜特寫`、`局部五官特寫`、`臉部特寫` | `faceDetail` | 頭部配件、眼鏡、耳環 | 完全省略 canonical pose | 原場景來源可追溯地壓成一句，不加景深效果 |
+| `特寫鏡頭 (Close-Up)` | `headShoulders` | 上衣／連身服的領口與肩部、外套肩部、頭頸配件 | 完全省略 canonical pose | 原場景來源可追溯地壓成一句，不輸出互動幾何或支撐物 |
+| `胸上特寫` | `chestUp` | 上衣、連身服上半部、外套與頭頸配件 | 只保留頭、肩、上半身；手、道具、支撐只在畫面可見時保留 | 原場景來源可追溯地壓成一句，只保留畫面內支撐物 |
+| `中景鏡頭 (Medium Shot)` | `mediumWaist` | 上衣、外套、褲裙身分與腰部細節 | 保留上身、手、道具與坐／站基底；支撐只在畫面可見時保留 | 使用原場景的精簡描述與可見空間關係 |
+| `牛仔中景 (Cowboy Shot)` | `cowboyKnee` | 上衣、外套、褲裙；大腿襪依實際可見區域保留；鞋子移除 | 保留至膝部的姿勢；支撐與承重只保留可見部分 | 使用原場景的精簡描述與可見支撐物 |
+| `全身鏡頭 (Full Body Shot)` | `fullBody` | 完整服裝、鞋襪、包與配件 | 完整 canonical pose | 完整原場景描述 |
+| `全無` 或沒有景別 | `unconstrained` | 不做構圖裁切 | 不做構圖裁切 | 不做構圖裁切 |
+
+構圖投影的共同規則：
+
+- 景別只影響公開 Prompt 的有效內容，不得改寫 `locks`、Saved Cards、restore payload 或瀏覽器儲存的原始選擇。切回較寬景別時，先前服裝、姿勢、接觸／支撐、場景、角色卡與身形都必須仍在。
+- `Gpt` 的完整保留定義為「完整保留投影後的有效內容」，不是在近景中輸出畫面外的腿部、鞋子、低處支撐或空間幾何。
+- Pose Composer 先依景別產生 projected canonical pose。只要姿勢仍有效，三組主 Prompt 必須逐字共用；`faceDetail` 與 `headShoulders` 的 projected canonical pose 為空，因此三組都省略姿勢段落。
+- 接觸／支撐物與接觸動作視為同一組語意。若支撐點不在畫面內，物件、接觸位置、承重描述與相關場景幾何必須一起移除，不可留下迫使模型擴大構圖的殘句。
+- 連身服、長裙、長外套與完整套裝需分離「服裝身分」和「區域細節」。近景可以保留可見的領口、上衣或裙裝身分，但不可保留 `short hem`、`ankle-length`、鞋襪等畫面外細節。
+- 場景壓縮只能刪減或合成原始場景描述，必須保留地點身分與代表性來源 anchor；不可新增 `softly blurred`、`bokeh`、`shallow depth of field`、`faint shapes` 等未選擇的景深或模糊描述。
+- 背景是否淺景深由光圈／景深、焦段、光學效果與拍攝距離等攝影控制決定，不屬於場景投影責任。
+- `fullBodyCharacterPrompt` 永遠使用完整服裝資料，不得沿用主 Prompt 的 `visibleProjection`；它仍不輸出 Pose、Scene 或 `multi-cut sequence n=2`。
+
+第一階段程式基準位於：
+
+- `webapp/src/lib/engine/compositionVisibilityContract.js`
+- `webapp/src/lib/engine/compositionVisibilityFixtures.js`
+- `webapp/src/lib/engine/compositionVisibilityContract.test.js`
 
 ### Grok/Z-Image
 
@@ -61,15 +92,15 @@ Grok/Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而�
 | --- | --- | --- |
 | 人物 | 主體、已選配件、完整身材數值／比例 anchor、五官方向、髮型、髮色、膚質、表情、角色卡永久身分錨點 | 重複美感詞、重複 silhouette 詞、無新結構資訊的髮絲或氣質形容 |
 | 穿搭 | 已選衣物、配色、材質、剪裁、可見層次、鞋襪與重要配件 | 正常穿著說明、重複衣領／門襟／比例描述、`coordinated styling` 等泛用結尾 |
-| 動作 | 姿勢基底、肢體關係、手部接觸、道具、支撐點、頭部方向 | 未增加動作資訊的 moment、mood 或 body-language 填充語 |
-| 場景／光線 | 地點、必要實體 anchor、時段／天氣、人物光線方向、主色溫、必要投影或反射、scene priority | 重複的空間、亮度或可讀性語句 |
+| 動作 | 構圖投影後仍可見的姿勢基底、肢體關係、手部接觸、道具、支撐點、頭部方向 | 畫面外姿勢 fragment，以及未增加動作資訊的 moment、mood 或 body-language 填充語 |
+| 場景／光線 | 原場景的地點、構圖投影後需要的實體 anchor、時段／天氣、人物光線方向、主色溫、必要投影或反射 | 畫面外互動幾何、重複空間／亮度語句，以及未由攝影控制提供的景深效果 |
 | 攝影 | 已選攝影風格、構圖、視角、鏡頭、主要光學效果、成像結果 | 同義的 editorial／cinematic／photographic 修飾與重複技術結果 |
 
 人物身材的數值與比例 anchor 屬於不可刪除內容。壓縮可移除例如 `smooth natural silhouette`、`calm high-fashion presence` 等不增加結構資訊的片段，但不可刪除 `about 160-165 cm visual height`、`83-62-88 body proportion anchor`、比例、腰臀／胸部或其他已選身形關鍵資訊。
 
 特殊穿搭內建的髮型、髮色、刺青與身體記憶點在 Grok/Z-Image 中也屬於人物資訊，應進入人物句，而非 `She wears complete special outfit` 句。雙人模式可維持輕量標籤以確保角色與服裝歸屬；單人模式維持自然空行段落，既有 `Scene:` 輕量錨點可保留。
 
-驗收時必須確認 Gpt 與 Grok/Z-Image 的 selections 一致，且 Grok/Z-Image 沒有遺失身材 anchor、已選服裝與顏色、動作核心、場景 anchor、光線方向或主要攝影設定。
+驗收時必須確認 Gpt 與 Grok/Z-Image 的 selections 一致，且 Grok/Z-Image 沒有遺失構圖投影後仍有效的身材 anchor、服裝與顏色、動作核心、場景 anchor、光線方向或主要攝影設定。
 
 ### AI
 
@@ -86,16 +117,16 @@ Grok/Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而�
 
 AI renderer 只可刪除、重排與使用最小語法連接既有內容；不得以關鍵字映射、風格 shorthand、攝影 mood tail、負面 guard 或預設 fallback 補寫新語意。不得以「取前 N 個 fragment」任意截斷選項內容；應按欄位責任挑選需要保留的核心。
 
-一般單人模式保留四個內容句，前面可先加成品類型與構圖開頭：
+一般單人模式保留四個核心內容句，並在構圖投影仍有有效姿勢時加入一個 projected canonical pose 句；前面可先加成品類型與構圖開頭：
 
 1. **人物句**：主體、完整身材數值／比例 anchor、髮型／髮色、已選眼鏡與耳機。
 2. **穿搭句**：已選服裝、配色、外套、鞋襪與必要配件的極簡說明。
-3. **場景句**：地點、1–2 個代表性實體 anchor、必要時段或天氣。
+3. **場景句**：使用原場景描述的地點、代表性實體 anchor、必要時段或天氣；近景可精簡成一句，但不得自行加入模糊或景深效果。
 4. **成像句**：已選攝影風格、主要鏡頭／光學效果、底片或成像模擬。
 
 前置句依序為成品類型、共用構圖句；構圖控制皆為 `全無` 時，構圖句可省略。
 
-一般單人模式仍可省略非核心五官、膚質、表情與光線細節，但只要 PAGE1 使用 Pose Composer，姿勢內容必須保留共用 canonical pose sentence；AI 不得省略或自行改寫這段姿勢語意。
+一般單人模式仍可省略非核心五官、膚質、表情與光線細節。PAGE1 使用 Pose Composer 時，先依共用構圖契約產生 projected canonical pose；若結果非空，AI 不得省略或自行改寫，若景別為 `faceDetail` 或 `headShoulders`，三組輸出都省略姿勢。
 
 角色卡單人模式採「身份穩定、畫面自由」規則：人物句完整保留角色卡的結構化五官、膚質、永久特徵、身形、髮型與髮色，以及有效的眼鏡／耳機；穿搭句仍採極簡化。角色身份須從角色卡的結構化 profile fields 組裝，不可重複舊版完整 `identityAndBody` 段落，也不可將角色卡原始服裝與目前 PAGE1 選擇的服裝重複輸出。
 
@@ -117,10 +148,10 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 `Gpt` 版應保留：
 
-- 可被畫面辨識的結構、材質、版型、長度、穿法、位置。
+- 可被目前構圖辨識的結構、材質、版型、長度、穿法、位置。
 - 影響生成結果的 anchor，例如 `low-rise`, `thigh-high stockings`, `side-part`, `direct eye contact`。
 - 特殊穿搭、套裝、連身的造型核心與層次關係。
-- Pose Composer 的身體結構、支撐點、手部位置、頭部方向。
+- 構圖投影後仍有效的 Pose Composer 身體結構、支撐點、手部位置、頭部方向。
 - 人物體態、五官、膚質、髮型、髮色、表情中原始資料提供的有效細節。
 - 場景、燈光、鏡頭、成像模擬中的有效環境與攝影控制資訊。
 
@@ -136,7 +167,7 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 `Gpt` 版不應做：
 
 - 把長描述縮成短片語。
-- 刪除數值、比例、支撐點、材質、層次、guard 或造型鎖定資訊。
+- 在構圖投影仍判定有效時刪除數值、比例、支撐點、材質、層次、guard 或造型鎖定資訊。
 - 因為文字看似冗長就移除 `body proportion anchor`、`worn normally on the face`、palette、`controlled by selection` 等原始控制語。這些是否保留應由資料庫 authoring 或後續專案決策處理，不在 Gpt 最終輸出層任意刪除或自然化改寫。
 - 把多個選項的內容合併時遺失原始描述。
 
@@ -154,7 +185,7 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 避免：
 
-- 壓縮後遺失服裝、髮型、體態、姿勢支撐點或場景 anchor。
+- 壓縮後遺失構圖投影仍保留的服裝、髮型、體態、姿勢支撐點或場景 anchor。
 - 負面堆疊：`not...`, `avoid...`, `without...`。
 - 把場景、光線、鏡頭、人物表情塞進服裝欄位。
 - 把完整穿搭塞進一般上身或下身單品。
@@ -198,7 +229,7 @@ core category, 1-3 concrete visible traits
 
 ## 4. B 神情姿態輸出規則
 
-`Gpt`、`Grok/Z-Image`、`AI` 在 Pose Composer 啟用時共用同一段 canonical pose prompt，完整保留身體安排、重心、支撐、手部位置、道具接觸與頭部方向；只允許外層段落標題或排版不同，不得在 renderer 層壓縮、刪減或改寫姿勢語意。
+`Gpt`、`Grok/Z-Image`、`AI` 在 Pose Composer 啟用時先共用同一個 resolved pose，再依共用構圖契約產生 projected canonical pose。只要投影結果非空，三組必須逐字共用，完整保留投影後仍可見的身體安排、重心、支撐、手部位置、道具接觸與頭部方向；只允許外層段落標題或排版不同，不得在 renderer 層再次壓縮、刪減或改寫。`faceDetail` 與 `headShoulders` 的結果為空，三組都不輸出姿勢段落。
 
 神情只寫臉、眼神、嘴型與情緒強度。姿態只寫身體安排、重心、支撐與動作狀態。
 
@@ -218,7 +249,7 @@ core category, 1-3 concrete visible traits
 - `relaxed everyday...`, `polished...`, `controlled cinematic...` 若不影響畫面可刪。
 - Pose Composer `手部動作` 保留手部位置與接觸點；獨立 `道具動作` 保留物件、持握方式與必要接觸狀態。Legacy `特殊動作` 只作 restore 遷移參考，不作新增主路徑。
 
-Pose Composer 相關描述應保留實際身體結構，例如 base arrangement、hand / prop placement、support anchor、head direction。三組輸出都直接使用 canonical pose prompt。不要新增 Pose Modifier，除非使用者明確要求。
+Pose Composer 相關描述在構圖可見時應保留實際身體結構，例如 base arrangement、hand / prop placement、support anchor、head direction。三組輸出都直接使用同一段 projected canonical pose prompt。不要新增 Pose Modifier，除非使用者明確要求。
 
 ### Pose Composer「任意」與 canonical pose 規則
 
@@ -230,7 +261,7 @@ Pose Composer 相關描述應保留實際身體結構，例如 base arrangement�
 - 三組中任一組為 `任意` 時，在姿勢結果前加入一次 `a casual, relaxed, and natural`；三組同時為任意也只能出現一次。
 - 肢體具體選項使用具體姿勢名稱；肢體為任意時退回姿勢基底名稱。
 - `poseAnchorId` 的接觸／支撐屬於姿勢結果，例如 `... presents a wide-knee kneeling pose leaning against a high-back chair.`
-- 啟用 Pose Composer 時，GPT、Grok/Z-Image、AI 三者必須逐字共用同一段 canonical pose prompt，只能不同外層標題或排版。
+- 啟用 Pose Composer 時，GPT、Grok/Z-Image、AI 三者必須逐字共用同一段 projected canonical pose prompt，只能不同外層標題或排版；近景契約若投影為空，三者必須一致省略。
 
 ## 5. C 穿搭設定輸出規則
 
