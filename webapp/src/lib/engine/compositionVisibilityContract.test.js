@@ -8,8 +8,10 @@ import {
   COMPOSITION_VISIBILITY_CONTRACT,
   COMPOSITION_WARDROBE_ROLES,
   FRAMING_VISIBILITY_BUCKET_BY_ZH,
+  createCompositionVisibilityProjection,
   getCompositionVisibilityPolicy,
   resolveCompositionVisibilityBucket,
+  shouldProjectWardrobeRole,
 } from './compositionVisibilityContract.js';
 import { COMPOSITION_VISIBILITY_REGRESSION_FIXTURES } from './compositionVisibilityFixtures.js';
 
@@ -75,6 +77,17 @@ test('unknown framing items use visibility metadata without changing known frami
     getCompositionVisibilityPolicy(null),
     COMPOSITION_VISIBILITY_CONTRACT[COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED]
   );
+});
+
+test('wardrobe projection shares role decisions and keeps only cowboy-visible legwear', () => {
+  const chestUp = createCompositionVisibilityProjection({ zh: '胸上特寫', meta: { visibility: 'portrait' } });
+  assert.equal(shouldProjectWardrobeRole(chestUp, 'top', 'cotton camisole'), true);
+  assert.equal(shouldProjectWardrobeRole(chestUp, 'bottom', 'straight-leg jeans'), false);
+
+  const cowboy = createCompositionVisibilityProjection({ zh: '牛仔中景 (Cowboy Shot)', meta: { visibility: 'medium' } });
+  assert.equal(shouldProjectWardrobeRole(cowboy, 'legwear', 'lace-top thigh-high stockings'), true);
+  assert.equal(shouldProjectWardrobeRole(cowboy, 'legwear', 'ribbed ankle socks'), false);
+  assert.equal(shouldProjectWardrobeRole(cowboy, 'shoes', 'stiletto pumps'), false);
 });
 
 test('phase-1 visibility fixtures resolve public controls and cover every approved behavior group', () => {

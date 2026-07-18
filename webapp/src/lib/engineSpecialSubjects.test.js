@@ -153,6 +153,7 @@ test('character profile card replaces normal identity and wardrobe without extra
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-48g',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
@@ -184,6 +185,7 @@ test('Gpt character profile card groups Rin identity hair outfit and accessories
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-rin',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
 
   const subject = gptSection(prompt, 'Subject');
@@ -220,6 +222,7 @@ test('Gpt character profile card groups 48G outfit and bag separately', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-48g',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
 
   const identity = gptCharacterProfileIdentity(prompt);
@@ -319,6 +322,7 @@ test('Gpt character profile cards use curated identity hair outfit and accessory
     const [prompt] = generatePrompts(1, {
       ...createEmptyLocks(),
       characterProfileId: item.id,
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     });
     const subject = gptSection(prompt, 'Subject');
     const identity = gptCharacterProfileIdentity(prompt);
@@ -365,6 +369,7 @@ test('philippa character profile card preserves gothic lace identity and wardrob
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-philippa',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
@@ -394,6 +399,7 @@ test('sakura character profile card preserves blue eyes bunny hood and soft loun
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-sakura',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
@@ -422,6 +428,7 @@ test('hinata character profile card preserves East Asian face-turnaround feature
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-hinata',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
@@ -463,6 +470,7 @@ test('rika character profile card preserves distinct black wavy hair face and lo
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-rika',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
@@ -497,6 +505,7 @@ test('rin character profile card preserves refined glasses face curly bob double
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-rin',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
@@ -536,6 +545,7 @@ test('lily character profile card preserves auburn waves black faux fur and ankl
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-lily',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
@@ -562,6 +572,7 @@ test('yuri character profile card preserves black straight hair glasses white of
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-yuri',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
@@ -590,6 +601,7 @@ test('sui character profile card preserves freckled wistful face black waves mus
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-sui',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 
@@ -628,6 +640,7 @@ test('hina character profile card preserves silver lilac bob round glasses mint 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-hina',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, prompt.summary].join('\n');
 

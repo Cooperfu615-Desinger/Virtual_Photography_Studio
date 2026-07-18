@@ -47,10 +47,11 @@ test('normalizeLocks preserves character card variant fields', () => {
   assert.equal(locks.characterCardPromptOverride, 'temporary override text');
 });
 
-test('plain PAGE1 character card keeps full default wardrobe for old behavior', () => {
+test('plain PAGE1 character card keeps the complete default wardrobe in full-body framing', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-rika',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const text = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
 
@@ -67,6 +68,7 @@ test('new character cards keep permanent identity traits separate from removable
     characterCardHairVariantId: 'low-ponytail',
     characterCardWardrobeMode: 'selected-layers',
     characterCardWardrobeLayerIds: ['top', 'bottom', 'outerwear', 'shoes', 'earrings', 'neckAccessory'],
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     specialOutfitId: optionId('specialOutfitId', '全無'),
     outfitPresetId: optionId('outfitPresetId', '全無'),
     dressId: optionId('dressId', '全無'),
@@ -76,6 +78,7 @@ test('new character cards keep permanent identity traits separate from removable
     characterProfileId: 'character-eleanor',
     characterCardWardrobeMode: 'selected-layers',
     characterCardWardrobeLayerIds: [],
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
 
   assertEveryPrimaryOutput(oliviaPrompt, /long rich dark chestnut-brown hair/i, 'Olivia base hair should remain visible');
@@ -190,18 +193,21 @@ test('selected-layers character card accessory layers appear in AI and remain in
     characterProfileId: 'character-sakura',
     characterCardWardrobeMode: 'selected-layers',
     characterCardWardrobeLayerIds: ['headAccessory'],
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const [rikaPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-rika',
     characterCardWardrobeMode: 'selected-layers',
     characterCardWardrobeLayerIds: ['waistAccessory'],
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const [yuriPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-yuri',
     characterCardWardrobeMode: 'selected-layers',
     characterCardWardrobeLayerIds: ['wristAccessory', 'waistAccessory'],
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
 
   assert.match(sakuraPrompt.midjourneyPrompt, /white plush bunny-eared hood/i);
@@ -226,6 +232,7 @@ test('selected card top blocks PAGE1 top garment modifiers and color', () => {
     characterProfileId: 'character-rika',
     characterCardWardrobeMode: 'selected-layers',
     characterCardWardrobeLayerIds: ['top'],
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     topId: optionId('topId', '襯衫'),
     topFitId: optionId('topFitId', '緊身'),
     topStylingId: optionId('topStylingId', '下擺打結'),

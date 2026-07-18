@@ -199,3 +199,22 @@ export function resolveCompositionVisibilityBucket(framing) {
 export function getCompositionVisibilityPolicy(framing) {
   return COMPOSITION_VISIBILITY_CONTRACT[resolveCompositionVisibilityBucket(framing)];
 }
+
+const COWBOY_VISIBLE_LEGWEAR_PATTERN = /\b(?:thigh-high|over-the-knee|knee-high|pantyhose|tights|stockings?|hosiery)\b/i;
+
+export function createCompositionVisibilityProjection(framing) {
+  const bucket = resolveCompositionVisibilityBucket(framing);
+  const policy = COMPOSITION_VISIBILITY_CONTRACT[bucket];
+  return Object.freeze({
+    bucket,
+    wardrobe: policy.wardrobe,
+  });
+}
+
+export function shouldProjectWardrobeRole(projection, role, text = '') {
+  if (!projection?.wardrobe || !role) return false;
+  if (projection.wardrobe.roles.includes(role)) return true;
+  if (!projection.wardrobe.conditionalRoles.includes(role)) return false;
+  if (role === 'legwear') return COWBOY_VISIBLE_LEGWEAR_PATTERN.test(text);
+  return false;
+}

@@ -46,6 +46,9 @@ export const COMPOSITION_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
         sceneMode: 'compactSource',
         addDepthEffect: false,
       },
+      fullBodyCharacterPrompt: {
+        includes: ['off-white off-shoulder gothic mini dress', 'short hem'],
+      },
     },
   },
   {
@@ -71,6 +74,9 @@ export const COMPOSITION_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
         sceneMode: 'compactSource',
         addDepthEffect: false,
       },
+      fullBodyCharacterPrompt: {
+        includes: ['straight-leg jeans', 'ribbed ankle socks', 'pointed-toe stiletto heels'],
+      },
     },
   },
   {
@@ -92,6 +98,9 @@ export const COMPOSITION_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
         poseMode: 'visibleFragments',
         sceneMode: 'conciseSource',
         addDepthEffect: false,
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['off-white off-shoulder gothic mini dress', 'short hem'],
       },
     },
   },
@@ -118,6 +127,9 @@ export const COMPOSITION_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
         sceneMode: 'conciseSource',
         addDepthEffect: false,
       },
+      fullBodyCharacterPrompt: {
+        includes: ['lace-top thigh-high stockings', 'stiletto pumps'],
+      },
     },
   },
   {
@@ -140,6 +152,9 @@ export const COMPOSITION_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
         sceneMode: 'compactSource',
         addDepthEffect: false,
       },
+      fullBodyCharacterPrompt: {
+        includes: ['exposed navel and abdomen', 'low-rise glossy micro shorts', 'knee-high leather boots'],
+      },
     },
   },
   {
@@ -160,6 +175,9 @@ export const COMPOSITION_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
         poseMode: 'visibleFragments',
         sceneMode: 'compactSource',
         addDepthEffect: false,
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['voluminous black ankle-length skirt', 'black soft shoulder tote', 'black lace-up leather shoes'],
       },
     },
   },
