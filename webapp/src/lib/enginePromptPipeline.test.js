@@ -1318,27 +1318,63 @@ test('Grok/Z-Image prompt keeps natural paragraphs across major selection modes'
   }
 });
 
-test('Grok/Z-Image special outfit places wardrobe and pose before scene', () => {
-  const [prompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    specialOutfitId: optionId('specialOutfitId', '黑色哥德蕾絲短袖熱褲長靴造型'),
-    locationId: optionId('locationId', '室內：英倫復古窗邊房間'),
-    poseId: optionId('poseId', '站姿｜雙臂交疊'),
-    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
-  });
-  const paragraphs = zImageParagraphs(prompt);
-  const subjectIndex = paragraphs.findIndex((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph));
-  const wardrobeIndex = paragraphs.findIndex((paragraph) => /^She wears .*gothic Y2K lace punk look/i.test(paragraph));
-  const poseIndex = paragraphs.findIndex((paragraph) => /presents .*standing pose/i.test(paragraph));
-  const sceneIndex = paragraphs.findIndex((paragraph) => /^Scene: The portrait takes place/i.test(paragraph));
+test('Grok/Z-Image keeps subject, wardrobe, pose, and scene order across single wardrobe modes', () => {
+  const wardrobeCases = [
+    {
+      name: 'outfit preset',
+      locks: {
+        outfitPresetId: optionId('outfitPresetId', '套裝：透視背心漆皮短褲長靴'),
+      },
+      wardrobePattern: /^She wears .*cropped sheer fitted tank top/i,
+    },
+    {
+      name: 'special outfit',
+      locks: {
+        specialOutfitId: optionId('specialOutfitId', '黑色哥德蕾絲短袖熱褲長靴造型'),
+      },
+      wardrobePattern: /^She wears .*gothic Y2K lace punk look/i,
+    },
+    {
+      name: 'dress',
+      locks: {
+        dressId: optionId('dressId', '連身：短版｜一字領哥德迷你洋裝'),
+      },
+      wardrobePattern: /^She wears .*off-shoulder gothic mini dress/i,
+    },
+    {
+      name: 'separates',
+      locks: {
+        topId: optionId('topId', '棉質細肩背心'),
+        pantsId: optionId('pantsId', '直筒牛仔褲'),
+      },
+      wardrobePattern: /^She wears .*cotton camisole top/i,
+    },
+  ];
 
-  assert.ok(subjectIndex >= 0, 'Expected a subject paragraph');
-  assert.ok(wardrobeIndex >= 0, 'Expected a special-outfit wardrobe paragraph');
-  assert.ok(poseIndex >= 0, 'Expected a pose paragraph');
-  assert.ok(sceneIndex >= 0, 'Expected a scene paragraph');
-  assert.ok(subjectIndex < wardrobeIndex, 'Expected subject before wardrobe');
-  assert.ok(sceneIndex < wardrobeIndex, 'Expected scene before wardrobe in the natural Z-Image flow');
-  assert.ok(wardrobeIndex < poseIndex, 'Expected wardrobe before pose');
+  for (const wardrobeCase of wardrobeCases) {
+    const [prompt] = generatePrompts(1, {
+      ...createAllNoneLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      locationId: optionId('locationId', '室內：英倫復古窗邊房間'),
+      poseBaseId: optionId('poseBaseId', '站姿'),
+      ...wardrobeCase.locks,
+    });
+    const paragraphs = zImageParagraphs(prompt);
+    const canonicalPose = gptSection(prompt, 'Pose and Composition');
+    const subjectIndex = paragraphs.findIndex((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph));
+    const wardrobeIndex = paragraphs.findIndex((paragraph) => wardrobeCase.wardrobePattern.test(paragraph));
+    const poseIndex = paragraphs.findIndex((paragraph) => paragraph === canonicalPose);
+    const sceneIndex = paragraphs.findIndex((paragraph) => /^Scene: The portrait takes place/i.test(paragraph));
+
+    assert.ok(subjectIndex >= 0, `${wardrobeCase.name}: expected a subject paragraph`);
+    assert.ok(wardrobeIndex >= 0, `${wardrobeCase.name}: expected a wardrobe paragraph`);
+    assert.ok(poseIndex >= 0, `${wardrobeCase.name}: expected the canonical pose paragraph`);
+    assert.ok(sceneIndex >= 0, `${wardrobeCase.name}: expected a scene paragraph`);
+    assert.ok(subjectIndex < wardrobeIndex, `${wardrobeCase.name}: expected subject before wardrobe`);
+    assert.ok(wardrobeIndex < poseIndex, `${wardrobeCase.name}: expected wardrobe before pose`);
+    assert.ok(poseIndex < sceneIndex, `${wardrobeCase.name}: expected pose before scene`);
+  }
 });
 
 test('Z-Image chest-up framing preserves body-shape anchor while wardrobe remains visibility-filtered', () => {

@@ -10355,13 +10355,6 @@ function renderZImagePrompt(promptModel) {
   const duoWardrobeDifferentiationText = shouldAddDuoWardrobeDifferentiationPrompt(context, wardrobeSlots)
     ? DUO_WARDROBE_DIFFERENTIATION_PROMPT
     : '';
-  const sceneBeforeWardrobeMode = !specialSubjectMode
-    && Boolean(
-      wardrobeSlots.specialOutfit ||
-      wardrobeSlots.outfitPreset
-      || wardrobeSlots.outfitPresetA
-      || wardrobeSlots.outfitPresetB
-    );
   const sentence = (value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
   const joinSentenceParts = (parts) => sentence(parts.filter(Boolean).join(', '));
   const leadSentence = (lead, parts) => {
@@ -10835,10 +10828,9 @@ function renderZImagePrompt(promptModel) {
     imageTypeLine,
     compositionLine,
     buildCharacterText(),
-    sceneBeforeWardrobeMode ? buildSceneText() : '',
     buildWardrobeText(),
     buildSinglePoseText(),
-    sceneBeforeWardrobeMode ? '' : buildSceneText(),
+    buildSceneText(),
     buildPhotographyStyleText(),
     buildCameraText(),
     buildRenderingText(),
