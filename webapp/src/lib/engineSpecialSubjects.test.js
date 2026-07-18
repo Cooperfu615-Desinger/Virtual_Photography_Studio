@@ -347,6 +347,7 @@ test('character profile card still composes with expression and pose composer', 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     characterProfileId: 'character-48g',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
     poseBaseId: optionId('poseBaseId', '站姿'),
     poseArrangementId: optionId('poseArrangementId', '單腳重心'),
@@ -795,7 +796,7 @@ test('black skeleton keeps dark tone and uses physical photographic presence', (
   assert.doesNotMatch(promptText, /warm ivory bone tone/);
 });
 
-test('expression and pose remain available with special subjects', () => {
+test('expression and composition-projected pose remain available with special subjects', () => {
   const expression = getLockControls()
     .find((control) => control.key === 'expressionId')
     .options.find((option) => option.zh === '直視鏡頭｜平靜淡然');
@@ -806,6 +807,7 @@ test('expression and pose remain available with special subjects', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     specialSubjectId: 'european-knight',
+    framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
     expressionId: expression.id,
     poseId: pose.id,
   });
@@ -817,7 +819,10 @@ test('expression and pose remain available with special subjects', () => {
   assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '站姿'));
   assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '單腳重心'));
   assert.match(promptText, /calm neutral expression|relaxed half-lidded ease/);
-  assert.match(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance|one-leg weight shift|relaxed asymmetrical body balance/);
+  const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  assert.match(canonicalPose, /presents a standing pose/);
+  assert.doesNotMatch(canonicalPose, /weight-on-one-leg standing pose|relaxed asymmetrical stance|one-leg weight shift|relaxed asymmetrical body balance/);
+  assert.equal(prompt.zImagePrompt.split(canonicalPose).length - 1, 1);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
@@ -836,6 +841,7 @@ test('deprecated prop special actions migrate to posePropId for special subjects
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     specialSubjectId: 'sengoku-samurai',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     poseId: pose.id,
     specialActionId: specialAction.id,
   });
@@ -869,6 +875,7 @@ test('selfie hand pose composer applies to special subjects', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     specialSubjectId: 'european-knight',
+    framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
     poseBaseId: poseBase.id,
     poseArrangementId: arrangement.id,
     poseHandId: poseHand.id,
@@ -880,7 +887,8 @@ test('selfie hand pose composer applies to special subjects', () => {
   assert.equal(prompt.selection.poseArrangementId, arrangement.id);
   assert.equal(prompt.selection.poseHandId, poseHand.id);
   assert.match(promptText, /close-companion social snapshot/);
-  assert.match(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance|one-leg weight shift|relaxed asymmetrical body balance/);
+  assert.match(promptText, /presents a standing pose/);
+  assert.doesNotMatch(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance|one-leg weight shift|relaxed asymmetrical body balance/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });
 
@@ -888,6 +896,7 @@ test('pose composer applies to special subjects in every output and takes priori
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     specialSubjectId: 'sengoku-samurai',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
     specialActionId: optionId('specialActionId', '塗口紅'),
     poseBaseId: optionId('poseBaseId', '坐姿'),

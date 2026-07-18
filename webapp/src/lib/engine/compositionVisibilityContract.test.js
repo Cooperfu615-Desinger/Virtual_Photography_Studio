@@ -11,6 +11,7 @@ import {
   createCompositionVisibilityProjection,
   getCompositionVisibilityPolicy,
   resolveCompositionVisibilityBucket,
+  shouldProjectPosePart,
   shouldProjectWardrobeRole,
 } from './compositionVisibilityContract.js';
 import { COMPOSITION_VISIBILITY_REGRESSION_FIXTURES } from './compositionVisibilityFixtures.js';
@@ -88,6 +89,25 @@ test('wardrobe projection shares role decisions and keeps only cowboy-visible le
   assert.equal(shouldProjectWardrobeRole(cowboy, 'legwear', 'lace-top thigh-high stockings'), true);
   assert.equal(shouldProjectWardrobeRole(cowboy, 'legwear', 'ribbed ankle socks'), false);
   assert.equal(shouldProjectWardrobeRole(cowboy, 'shoes', 'stiletto pumps'), false);
+});
+
+test('pose projection exposes only the approved direct and conditional parts for each crop', () => {
+  const headShoulders = createCompositionVisibilityProjection({ zh: '特寫鏡頭 (Close-Up)', meta: { visibility: 'close' } });
+  assert.equal(shouldProjectPosePart(headShoulders, 'head'), false);
+
+  const chestUp = createCompositionVisibilityProjection({ zh: '胸上特寫', meta: { visibility: 'portrait' } });
+  assert.equal(shouldProjectPosePart(chestUp, 'head'), true);
+  assert.equal(shouldProjectPosePart(chestUp, 'postureBase'), false);
+  assert.equal(shouldProjectPosePart(chestUp, 'hand'), false);
+  assert.equal(shouldProjectPosePart(chestUp, 'hand', { conditional: true }), true);
+
+  const medium = createCompositionVisibilityProjection({ zh: '中景鏡頭 (Medium Shot)', meta: { visibility: 'medium' } });
+  assert.equal(shouldProjectPosePart(medium, 'postureBase'), true);
+  assert.equal(shouldProjectPosePart(medium, 'lowerBody'), false);
+
+  const cowboy = createCompositionVisibilityProjection({ zh: '牛仔中景 (Cowboy Shot)', meta: { visibility: 'medium' } });
+  assert.equal(shouldProjectPosePart(cowboy, 'lowerBody'), true);
+  assert.equal(shouldProjectPosePart(cowboy, 'foot'), false);
 });
 
 test('phase-1 visibility fixtures resolve public controls and cover every approved behavior group', () => {

@@ -208,6 +208,7 @@ export function createCompositionVisibilityProjection(framing) {
   return Object.freeze({
     bucket,
     wardrobe: policy.wardrobe,
+    pose: policy.pose,
   });
 }
 
@@ -217,4 +218,10 @@ export function shouldProjectWardrobeRole(projection, role, text = '') {
   if (!projection.wardrobe.conditionalRoles.includes(role)) return false;
   if (role === 'legwear') return COWBOY_VISIBLE_LEGWEAR_PATTERN.test(text);
   return false;
+}
+
+export function shouldProjectPosePart(projection, part, { conditional = false } = {}) {
+  if (!projection?.pose || !part || projection.pose.mode === 'omit') return false;
+  if (projection.pose.parts.includes(part)) return true;
+  return conditional && projection.pose.conditionalParts.includes(part);
 }

@@ -136,6 +136,7 @@ test('old special actions normalize into pose composer controls', () => {
 test('pose composer prop actions enter prompt output through posePropId', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '胸上特寫').id,
     posePropId: optionByLabel('posePropId', '手持冰咖啡').id,
   });
 

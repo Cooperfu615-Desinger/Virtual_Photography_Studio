@@ -315,7 +315,7 @@ test('selfie hand poses compose with pose composer body controls', () => {
   assert.match(promptText, /男友\/閨蜜自拍|close-companion social snapshot/);
 });
 
-test('close-up framing preserves explicit pose composer directives', () => {
+test('chest-up framing preserves only visible pose composer directives', () => {
   const framing = optionByLabel('framingId', '胸上特寫');
   const poseBase = optionByLabel('poseBaseId', '坐姿');
   const poseHand = optionByLabel('poseHandId', '單手托下巴');
@@ -339,9 +339,12 @@ test('close-up framing preserves explicit pose composer directives', () => {
   assert.equal(prompt.selection.poseBaseId, poseBase.id);
   assert.equal(prompt.selection.poseHandId, poseHand.id);
   assert.equal(prompt.selection.poseHeadId, poseHead.id);
-  assert.match(promptText, /presents a sitting pose/);
+  const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  assert.doesNotMatch(canonicalPose, /presents a sitting pose/);
   assert.match(promptText, /one hand supporting the chin/);
   assert.match(promptText, /head naturally facing the camera/);
+  assert.equal(prompt.zImagePrompt.split(canonicalPose).length - 1, 1);
+  assert.equal(prompt.midjourneyPrompt.split(canonicalPose).length - 1, 1);
 });
 
 test('locked expression updates output even when the previous orbit conflicts', () => {

@@ -104,6 +104,7 @@ test('prop action is emitted once in the shared canonical pose across all three 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '1',
+    framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id,
     poseBaseId: option('poseBaseId', '站姿').id,
     poseArrangementId: option('poseArrangementId', '自然站姿').id,
     poseHandId: option('poseHandId', '單手摸下巴').id,

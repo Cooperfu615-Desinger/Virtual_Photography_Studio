@@ -12,6 +12,7 @@ import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
 import {
   COMPOSITION_VISIBILITY_BUCKETS,
   createCompositionVisibilityProjection,
+  shouldProjectPosePart,
   shouldProjectWardrobeRole,
 } from './engine/compositionVisibilityContract.js';
 import {
@@ -4637,6 +4638,233 @@ function buildPoseComposerItem(context) {
       poseAnchorId: anchor?.id || 'none',
     },
   };
+}
+
+const CHEST_VISIBLE_HAND_IDS = new Set([
+  'selfie-natural-right-arm',
+  'selfie-mirror-phone-visible',
+  'selfie-companion-camera-interaction',
+  'hand-adjust-off-shoulder-top',
+  'arms-crossed',
+  'one-hand-chin',
+  'one-hand-forehead',
+  'one-hand-hair',
+  'hands-on-cheeks',
+  'one-hand-chin-other-down',
+  'one-hand-adjust-glasses',
+  'one-hand-pull-down-glasses',
+  'one-hand-mouth-corner',
+  'one-hand-half-face-cover',
+  'both-hands-arrange-hair',
+  'one-hand-nape-hair-lift',
+  'one-hand-collarbone',
+  'one-hand-shoulder',
+  'both-hands-overhead',
+  'hands-behind-head',
+]);
+
+const MEDIUM_HIDDEN_HAND_IDS = new Set([
+  'hands-on-thighs',
+  'one-hand-ground-one-leg',
+  'one-hand-knee-one-down',
+  'one-hand-ankle',
+  'hands-gathered-lower-abdomen',
+]);
+
+const COWBOY_HIDDEN_HAND_IDS = new Set([
+  'one-hand-ground-one-leg',
+  'one-hand-ankle',
+]);
+
+const PROJECTED_HAND_PHRASES = Object.freeze({
+  'one-hand-chin-other-down': 'one hand supporting the chin',
+  'one-hand-waist-one-down': 'one hand on the waist or hip line',
+  'hand-adjust-lower-body-garment': 'one hand adjusting the lower-body garment at the waistband',
+});
+
+const UPPER_BODY_ARRANGEMENT_PHRASES = Object.freeze({
+  'standing-forward-lean': 'a slight forward lean',
+  'standing-deep-forward-lean': 'a deep forward lean from the waist, shoulders angled forward',
+  'standing-back-lean': 'a slight backward lean',
+  'standing-turn-back': 'the torso subtly rotated',
+  'standing-contrapposto': 'the upper body leaning to one side',
+  'standing-back-facing-turn': 'the torso rotated back toward the camera',
+  'sitting-forward-lean': 'the upper body leaning slightly forward',
+  'sitting-grounded-forward-lean': 'the upper body angled forward',
+  'sitting-open-confident': 'the torso upright',
+  'kneeling-forward-lean': 'the upper body leaning forward',
+  'kneeling-puppy-crossed-hands-chin': 'the torso folded forward, forearms crossed under the chin, and hands tucked below the jaw',
+  'kneeling-upright-poised': 'the torso vertical',
+  'kneeling-elbow-support': 'the elbows or forearms supporting the upper body on a nearby surface',
+  'kneeling-back-arched': 'the torso leaning slightly backward',
+  'squatting-forward-lean': 'the upper body angled forward',
+  'lying-half-reclined': 'the upper body softly supported',
+  'lying-on-back-one-arm-overhead': 'one arm extended overhead',
+  'lying-prone-elbow-prop': 'the elbows propping up the upper body',
+  'lying-wall-raised-legs': 'the upper body leaning against a wall',
+  'lying-prone-pillow-lookback': 'the torso propped on a large pillow with the head turned over one shoulder',
+});
+
+const COWBOY_HIDDEN_ARRANGEMENT_IDS = new Set([
+  'standing-raised-foot',
+  'standing-forward-toe-point',
+  'squatting-one-hand-ground',
+  'squatting-raised-heels',
+]);
+
+const COWBOY_PROJECTED_ARRANGEMENT_PHRASES = Object.freeze({
+  'squatting-knees-together-low': 'low compact squat with both knees pressed together, thighs close and parallel forming a compact front-facing lower-body shape',
+});
+
+const FULL_ONLY_ANCHOR_IDS = new Set([
+  'shared-ground-support',
+  'water-immersed',
+  'water-edge-support',
+]);
+
+function cloneProjectedPoseOption(option, en) {
+  if (!option || !en) return null;
+  return { ...option, en };
+}
+
+function projectPoseComposerHand(handPose, bucket) {
+  if (!handPose) return null;
+  if (isModelNaturalPoseComposerOption(handPose)) return handPose;
+  if (bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP && !CHEST_VISIBLE_HAND_IDS.has(handPose.id)) return null;
+  if (bucket === COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST && MEDIUM_HIDDEN_HAND_IDS.has(handPose.id)) return null;
+  if (bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE && COWBOY_HIDDEN_HAND_IDS.has(handPose.id)) return null;
+  const projectedPhrase = PROJECTED_HAND_PHRASES[handPose.id];
+  return projectedPhrase ? cloneProjectedPoseOption(handPose, projectedPhrase) : handPose;
+}
+
+function projectPoseComposerArrangement(arrangement, bucket) {
+  if (!arrangement || isModelNaturalPoseComposerOption(arrangement)) return arrangement;
+  if (bucket === COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) {
+    return UPPER_BODY_ARRANGEMENT_PHRASES[arrangement.id] ? arrangement : null;
+  }
+  if (bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) {
+    if (COWBOY_HIDDEN_ARRANGEMENT_IDS.has(arrangement.id)) return null;
+    const projectedPhrase = COWBOY_PROJECTED_ARRANGEMENT_PHRASES[arrangement.id];
+    return projectedPhrase ? cloneProjectedPoseOption(arrangement, projectedPhrase) : arrangement;
+  }
+  return arrangement;
+}
+
+function isChestVisibleAnchor(anchor, base) {
+  if (!anchor || !base) return false;
+  if (anchor.id === 'shared-vertical-surface-support') return true;
+  if (anchor.id === 'shared-mirrored-steel-cube' || anchor.id === 'shared-clear-acrylic-cube') {
+    return base.id === 'kneeling' || base.id === 'squatting';
+  }
+  return false;
+}
+
+function buildChestVisibleAnchorFragment(anchor, base) {
+  if (!isChestVisibleAnchor(anchor, base)) return '';
+  if (anchor.id === 'shared-vertical-surface-support') {
+    return base.id === 'standing' || base.id === 'kneeling'
+      ? 'one shoulder and the upper back resting against an existing vertical surface in the scene, with clear shoulder-to-surface contact'
+      : 'the upper back resting against an existing vertical surface in the scene, with clear back-to-surface contact';
+  }
+
+  const support = anchor.id === 'shared-mirrored-steel-cube'
+    ? 'a mirrored stainless-steel cube plinth'
+    : 'a transparent acrylic cube plinth';
+  const material = anchor.id === 'shared-mirrored-steel-cube' ? 'metal' : 'acrylic';
+  return base.id === 'kneeling'
+    ? `one shoulder resting against the upper edge of ${support}, with clear shoulder-to-${material} contact`
+    : `the upper back resting against one side of ${support}, with clear back-to-${material} contact`;
+}
+
+function projectPoseComposerAnchor(anchor, base, bucket) {
+  if (!anchor || !base || FULL_ONLY_ANCHOR_IDS.has(anchor.id)) return null;
+  if (bucket === COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) {
+    return isChestVisibleAnchor(anchor, base) ? anchor : null;
+  }
+  if (bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) {
+    const phrase = getPoseComposerAnchorPhrase(anchor, base, null);
+    if (/\b(?:on the ground|on the floor|ground plane|low step)\b/i.test(phrase)) return null;
+    return anchor;
+  }
+  return anchor;
+}
+
+function joinProjectedPoseFragments(fragments) {
+  const values = fragments.filter(Boolean);
+  if (values.length <= 1) return values[0] || '';
+  return `${values.slice(0, -1).join(', ')}, and ${values.at(-1)}`;
+}
+
+function buildChestUpPoseComposerSentence({ arrangement, handPose, propAction, anchor, head, base, location }) {
+  const naturalChoiceSelected = [arrangement, handPose, head].some(isModelNaturalPoseComposerOption);
+  const projectedHead = head && !isModelNaturalPoseComposerOption(head) ? head : null;
+  const projectedHand = handPose && !isModelNaturalPoseComposerOption(handPose)
+    ? projectPoseComposerHand(handPose, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
+    : null;
+  const upperBodyFragment = arrangement && !isModelNaturalPoseComposerOption(arrangement)
+    ? UPPER_BODY_ARRANGEMENT_PHRASES[arrangement.id] || ''
+    : '';
+  const anchorFragment = buildChestVisibleAnchorFragment(anchor, base);
+  const visibleBodyFragments = joinProjectedPoseFragments([upperBodyFragment, anchorFragment]);
+  const projectedArrangementPhrase = naturalChoiceSelected
+    ? `casual, relaxed, and natural upper-body pose${visibleBodyFragments ? ` with ${visibleBodyFragments}` : ''}`
+    : visibleBodyFragments
+      ? `upper-body pose with ${visibleBodyFragments}`
+      : '';
+  const projectedArrangement = projectedArrangementPhrase
+    ? cloneProjectedPoseOption(arrangement || base || { id: 'projected-upper-body' }, projectedArrangementPhrase)
+    : null;
+
+  return buildPoseComposerSentence({
+    arrangement: projectedArrangement,
+    handPose: projectedHand,
+    propAction,
+    head: projectedHead,
+    location,
+  });
+}
+
+function buildProjectedCanonicalPoseText(context, poseComposer) {
+  if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
+  const projection = context?.compositionVisibility || createCompositionVisibilityProjection(context?.framing);
+  if (projection.pose?.mode === 'omit') return '';
+  if (projection.pose?.mode === 'fullCanonical') return poseComposer.en || '';
+
+  const activeOption = (options, id) => {
+    const option = getPoseComposerOption(options, id);
+    return isActivePoseComposerOption(option) ? option : null;
+  };
+  const base = activeOption(POSE_COMPOSER_BASE_OPTIONS, poseComposer.meta?.poseBaseId);
+  const arrangement = activeOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, poseComposer.meta?.poseArrangementId);
+  const handPose = activeOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer.meta?.poseHandId);
+  const propAction = activeOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer.meta?.posePropId);
+  const head = activeOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
+  const anchor = activeOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer.meta?.poseAnchorId);
+  const bucket = projection.bucket;
+
+  if (bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP) {
+    return buildChestUpPoseComposerSentence({
+      arrangement,
+      handPose: shouldProjectPosePart(projection, 'hand', { conditional: true }) ? handPose : null,
+      propAction: shouldProjectPosePart(projection, 'prop', { conditional: true }) ? propAction : null,
+      anchor: shouldProjectPosePart(projection, 'anchor', { conditional: true }) ? anchor : null,
+      head: shouldProjectPosePart(projection, 'head') ? head : null,
+      base,
+      location: context.location,
+    });
+  }
+
+  return buildPoseComposerSentence({
+    base: shouldProjectPosePart(projection, 'postureBase') ? base : null,
+    arrangement: projectPoseComposerArrangement(arrangement, bucket),
+    handPose: shouldProjectPosePart(projection, 'hand') ? projectPoseComposerHand(handPose, bucket) : null,
+    propAction: shouldProjectPosePart(projection, 'prop') ? propAction : null,
+    anchor: shouldProjectPosePart(projection, 'anchor', { conditional: true })
+      ? projectPoseComposerAnchor(anchor, base, bucket)
+      : null,
+    head: shouldProjectPosePart(projection, 'head') ? head : null,
+    location: context.location,
+  });
 }
 
 function framingSupportsSubject(framing, subject, aspectRatio) {
@@ -10002,15 +10230,17 @@ function renderGptPrompt(promptModel) {
     ? singleSpecialOutfitWardrobeBlock
     : buildGptSingleFullFidelityWardrobeText(wardrobeText);
   const resolvedSharedExpressionText = useRoleOrderedDuo ? buildGptDuoSharedExpressionText(duoCharacterSlots) : '';
-  const canonicalPoseText = !useRoleOrderedDuo
+  const hasCanonicalPose = !useRoleOrderedDuo
     && characterSlots.poseComposer
-    && !isNoneLikeItem(characterSlots.poseComposer)
-    ? characterSlots.poseComposer.en
-    : '';
+    && !isNoneLikeItem(characterSlots.poseComposer);
+  const canonicalPoseText = hasCanonicalPose ? context.projectedCanonicalPoseText || '' : '';
   const resolvedPoseText = useRoleOrderedDuo
     ? buildGptDuoPoseAndCompositionText(valuesByLabel, context)
-    : canonicalPoseText
-      || filterFaceOnlyTorsoAngleText(buildGptSingleFullFidelityText(poseText), context);
+    : hasCanonicalPose
+      ? canonicalPoseText
+      : context.compositionVisibility?.pose?.mode === 'omit'
+        ? ''
+        : filterFaceOnlyTorsoAngleText(buildGptSingleFullFidelityText(poseText), context);
   const resolvedWardrobeUsesBlock = Boolean(singleSpecialOutfitWardrobeBlock);
   const resolvedSubjectUsesBlock = Boolean(singleCharacterProfileSubjectBlock || singleSpecialOutfitGroups.hairAndBodyText);
   const sceneSection = sceneText
@@ -10228,9 +10458,6 @@ function renderZImagePrompt(promptModel) {
         neckAccessory: wardrobeSlots.neckAccessory,
       });
       const baseSubjectText = buildCharacterCardSubjectPrompt(context.subject, context.locks, context, wardrobe);
-      const poseComposerText = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
-        ? characterSlots.poseComposer.en
-        : '';
       const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
         ? characterSlots.specialAction.en
         : '';
@@ -10245,7 +10472,6 @@ function renderZImagePrompt(promptModel) {
         cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessory),
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
         actionPoseText,
-        poseComposerText,
         specialActionText,
         characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
       ].filter(Boolean);
@@ -10255,9 +10481,6 @@ function renderZImagePrompt(promptModel) {
     if (specialSubjectMode) {
       const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
         ? (skeletonMode ? sanitizeSkeletonPromptText(characterSlots.specialAction.en) : characterSlots.specialAction.en)
-        : '';
-      const poseComposerText = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
-        ? (skeletonMode ? sanitizeSkeletonPromptText(characterSlots.poseComposer.en) : characterSlots.poseComposer.en)
         : '';
       const actionPoseText = characterSlots.actionPose && !isNoneLikeItem(characterSlots.actionPose)
         ? (skeletonMode ? sanitizeSkeletonPromptText(characterSlots.actionPose.en) : characterSlots.actionPose.en)
@@ -10269,7 +10492,6 @@ function renderZImagePrompt(promptModel) {
         isAndroidSubject(context.subject) && characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : '',
         actionPoseText,
-        poseComposerText,
         specialActionText,
         characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : '',
       ].filter(Boolean);
@@ -10349,12 +10571,11 @@ function renderZImagePrompt(promptModel) {
     return context.subject.count === 1 ? compressZImageSingleSubjectText(text, context) : text;
   };
   const buildSinglePoseText = () => {
-    if (context.subject.count !== 1 || specialSubjectMode || characterProfileMode) return '';
+    if (context.subject.count !== 1) return '';
 
-    const poseComposerText = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer)
-      ? characterSlots.poseComposer.en
-      : '';
-    if (poseComposerText) return poseComposerText;
+    const hasPoseComposer = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer);
+    if (hasPoseComposer) return context.projectedCanonicalPoseText || '';
+    if (specialSubjectMode || characterProfileMode || context.compositionVisibility?.pose?.mode === 'omit') return '';
 
     const poseText = characterSlots.actionPose && !isNoneLikeItem(characterSlots.actionPose)
       ? characterSlots.actionPose.en
@@ -11739,7 +11960,7 @@ function buildAiFreedomPoseSentence(context, character) {
   const characterSlots = extractCharacterSlots(character);
   const poseComposer = characterSlots.poseComposer;
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
-  return ensureTerminalPeriod(stripMarkdown(poseComposer.en || '').replace(/\s+/g, ' ').trim());
+  return ensureTerminalPeriod(stripMarkdown(context.projectedCanonicalPoseText || '').replace(/\s+/g, ' ').trim());
 }
 
 function buildAiFreedomSceneSentence(valuesByLabel, context) {
@@ -11823,9 +12044,15 @@ function renderAiPrompt(promptModel) {
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
-  const mainContext = {
+  const compositionVisibility = createCompositionVisibilityProjection(context.framing);
+  const poseComposer = extractCharacterSlots(character).poseComposer;
+  const projectionContext = {
     ...context,
-    compositionVisibility: createCompositionVisibilityProjection(context.framing),
+    compositionVisibility,
+  };
+  const mainContext = {
+    ...projectionContext,
+    projectedCanonicalPoseText: buildProjectedCanonicalPoseText(projectionContext, poseComposer),
   };
   const promptModel = {
     ...buildStructuredPromptSections(mainContext, character, wardrobe, wardrobeColors, lightDirection, film),

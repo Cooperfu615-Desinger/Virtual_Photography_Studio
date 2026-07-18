@@ -22,7 +22,8 @@ flowchart LR
     F --> G[Resolve compatible selections]
     R[Injected random function] --> G
     G --> H[Build context, character, wardrobe]
-    H --> I[Ordered prompt-section model]
+    H --> V[Project wardrobe and canonical pose by framing]
+    V --> I[Ordered prompt-section model]
     I --> J[renderGptPrompt]
     I --> K[renderZImagePrompt]
     I --> L[renderAiPrompt]
@@ -45,7 +46,7 @@ The default-library path compiles the runtime once and reuses it. A custom-libra
 | `webapp/src/lib/engine/promptModel.js` | Ordered prompt sections plus grouped label lookup used by renderers |
 | `webapp/src/lib/engine/promptOutputContracts.js` | Machine-readable public contracts and validation for Gpt, Grok/Z-Image, AI, and full-body character outputs |
 | `webapp/src/lib/engine/representativePromptFixtures.js` | Seeded normal, character-card, special-outfit, duo, fixed-set, close-up, and full-body regression scenarios |
-| `webapp/src/lib/engine/compositionVisibilityContract.js` | Phase-1 canonical framing buckets and wardrobe, pose, scene, selection-preservation policies; behavior-neutral until the projection stage is connected |
+| `webapp/src/lib/engine/compositionVisibilityContract.js` | Canonical framing buckets plus shared wardrobe, pose, scene, and selection-preservation projection policies |
 | `webapp/src/lib/engine/compositionVisibilityFixtures.js` | Desired deterministic cases for normal wardrobe, dresses, presets, special outfits, Character Cards, duo, pose/support, scene, and full-body restoration |
 | `webapp/src/lib/engine/promptTextDeduplication.js` | Conservative exact-fragment cleanup and explicit outfit-color materialization |
 | `webapp/src/lib/engine/selectionSchema.js` | Schema-ordered selection snapshots and default filling |
@@ -129,7 +130,7 @@ Section labels are not merely display text. Renderers query labels such as `Subj
 
 `engine/compositionVisibilityContract.js` records the approved PAGE1 crop policy separately from renderer formatting. Version 1 distinguishes `faceDetail`, `headShoulders`, `chestUp`, `mediumWaist`, `cowboyKnee`, `fullBody`, and `unconstrained`; the distinction between Head-and-shoulders and Chest-up must not be collapsed back into one generic portrait bucket.
 
-The contract owns these future projection boundaries:
+The contract owns these projection boundaries:
 
 - raw wardrobe, Pose Composer, scene, Character Card, and body selections remain preserved regardless of framing;
 - the three primary outputs consume one shared visible projection rather than applying renderer-specific crop filters;
@@ -141,7 +142,9 @@ Phase 1 added the contract, desired-output fixtures, and structural tests only. 
 
 Phase 2 also established the first runtime projection boundary for `faceDetail`: the three main outputs omit normal and complete-look wardrobe text while the single-subject full-body character output continues to render the complete resolved wardrobe.
 
-Phase 3 creates one canonical wardrobe projection from the selected framing and attaches it to the shared renderer context. Gpt, Grok/Z-Image, and AI now reuse its role decisions for `headShoulders`, `chestUp`, `mediumWaist`, and `cowboyKnee`, including normal separates, dresses, outfit presets, mixed-fragment special outfits, Character Card layers/accessories, and duo role wardrobes. Long complete-look descriptions split garment identity from out-of-frame regional details; cowboy framing conditionally retains thigh-/knee-visible legwear but not shoes. Raw selections remain untouched, and the dedicated full-body character context creates a separate `fullBody` projection so it restores the complete outfit. Projected canonical pose and source-traceable scene compression remain later phases and must still be activated one behavior group at a time.
+Phase 3 creates one canonical wardrobe projection from the selected framing and attaches it to the shared renderer context. Gpt, Grok/Z-Image, and AI now reuse its role decisions for `headShoulders`, `chestUp`, `mediumWaist`, and `cowboyKnee`, including normal separates, dresses, outfit presets, mixed-fragment special outfits, Character Card layers/accessories, and duo role wardrobes. Long complete-look descriptions split garment identity from out-of-frame regional details; cowboy framing conditionally retains thigh-/knee-visible legwear but not shoes. Raw selections remain untouched, and the dedicated full-body character context creates a separate `fullBody` projection so it restores the complete outfit.
+
+Phase 4 resolves a single projected canonical Pose Composer sentence before renderer formatting. `faceDetail` and `headShoulders` return an empty pose; `chestUp` retains only head, visible upper-body motion, crop-compatible hand/prop action, and high shoulder/back support; `mediumWaist` retains head, crop-compatible hands/props, upper-body motion, and the pose base while dropping lower-body arrangements and low support; `cowboyKnee` retains the pose through knee level while replacing foot-only arrangements with the pose base; `fullBody` and `unconstrained` reuse the original canonical sentence byte-for-byte. Gpt, Grok/Z-Image, and AI read the same projected string, including Character Card and dedicated special-subject routes, so no renderer may independently compress or reinsert the source pose. Selection snapshots keep every resolved Pose Composer ID, and widening the framing reconstructs the full canonical sentence from those preserved IDs. Source-traceable scene compression remains a later phase.
 
 ## Character-card identity flow
 

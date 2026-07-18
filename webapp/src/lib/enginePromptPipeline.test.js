@@ -1359,7 +1359,7 @@ test('Z-Image chest-up framing preserves body-shape anchor while wardrobe remain
   assert.match(prompt.zImagePrompt, /cotton camisole top/i);
 });
 
-test('Z-Image chest-up framing removes hidden pose camera and scene pressure', () => {
+test('chest-up framing shares visible pose fragments while Z-Image removes camera and scene pressure', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -1374,10 +1374,12 @@ test('Z-Image chest-up framing removes hidden pose camera and scene pressure', (
     expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
   });
 
-  assert.match(prompt.zImagePrompt, /grounded forward-leaning seated pose/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /sitting on the floor/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /supporting on floor/i);
-  assert.match(prompt.zImagePrompt, /resting on the leg/i);
+  const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  assert.match(canonicalPose, /upper-body pose with the upper body angled forward/i);
+  assert.match(canonicalPose, /head turned into a clean side profile/i);
+  assert.doesNotMatch(canonicalPose, /grounded forward-leaning seated pose|sitting on the floor|supporting on floor|resting on the leg/i);
+  assert.equal(prompt.zImagePrompt.split(canonicalPose).length - 1, 1);
+  assert.equal(prompt.midjourneyPrompt.split(canonicalPose).length - 1, 1);
   assert.doesNotMatch(prompt.zImagePrompt, /legs and shoes emphasized/i);
   assert.match(prompt.zImagePrompt, /face oriented away from the camera/i);
   assert.doesNotMatch(prompt.zImagePrompt, /clear spatial context/i);
