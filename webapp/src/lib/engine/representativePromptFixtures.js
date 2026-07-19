@@ -6,6 +6,14 @@
  * Expectations use case-insensitive literal fragments on purpose: they pin
  * important public behavior without snapshotting every punctuation choice.
  */
+const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
+  subjectCount: '1',
+  fixedCompositionSetId: { byZh: '暖灰泥黑絲絨工業沙發棚' },
+  fixedSetPositionId: { byZh: '自由場景互動' },
+  fixedSetCaptureModeId: { byZh: '攝影師拍攝' },
+  fixedSetPerformanceStateId: { byZh: '模型自然發揮' },
+});
+
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   {
     id: 'normal-single',
@@ -292,7 +300,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   },
   {
     id: 'fixed-composition',
-    title: 'Fixed composition set with compact derivative outputs',
+    title: 'Fixed composition set preserves separate top and bottom wardrobe across primary outputs',
     mode: 'single',
     seed: 'prompt-contract-fixed-composition-v1',
     locks: {
@@ -308,15 +316,92 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: {
       grokPrompt: {
-        includes: ['real-scale compact editorial lounge set', 'black velvet sofa'],
+        includes: [
+          'cotton camisole top',
+          'straight-leg jeans',
+          'real-scale compact editorial lounge set',
+          'black velvet sofa',
+        ],
         excludes: ['fixed-set rule:', 'preserve anchors:'],
       },
       zImagePrompt: {
-        includes: ['real-scale compact editorial lounge set', 'black velvet sofa'],
+        includes: ['cotton camisole top', 'straight-leg jeans', 'real-scale compact editorial lounge set', 'black velvet sofa'],
         excludes: ['fixed-set rule:', 'preserve anchors:'],
       },
       midjourneyPrompt: {
-        includes: ['black velvet sofa'],
+        includes: ['cotton camisole top', 'straight-leg jeans', 'black velvet sofa'],
+        excludes: ['fixed-set rule:', 'preserve anchors:'],
+      },
+    },
+  },
+  {
+    id: 'fixed-composition-special-outfit',
+    title: 'Fixed composition set preserves a complete special outfit across primary outputs',
+    mode: 'single',
+    seed: 'prompt-contract-fixed-composition-special-outfit-v1',
+    locks: {
+      ...FIXED_COMPOSITION_WARDROBE_BASE_LOCKS,
+      specialOutfitId: { byZh: '酒紅格紋吊帶牛仔短裙長靴造型' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['burgundy plaid handkerchief camisole', 'low-rise blue denim mini skirt', 'black knee-high leather boots', 'black velvet sofa'],
+        excludes: ['fixed-set rule:', 'preserve anchors:'],
+      },
+      zImagePrompt: {
+        includes: ['burgundy plaid handkerchief camisole', 'low-rise blue denim mini skirt', 'black knee-high leather boots', 'black velvet sofa'],
+        excludes: ['fixed-set rule:', 'preserve anchors:'],
+      },
+      midjourneyPrompt: {
+        includes: ['burgundy plaid handkerchief camisole', 'low-rise blue denim mini skirt', 'black knee-high leather boots', 'black velvet sofa'],
+        excludes: ['fixed-set rule:', 'preserve anchors:'],
+      },
+    },
+  },
+  {
+    id: 'fixed-composition-outfit-preset',
+    title: 'Fixed composition set preserves an outfit preset across primary outputs',
+    mode: 'single',
+    seed: 'prompt-contract-fixed-composition-outfit-preset-v1',
+    locks: {
+      ...FIXED_COMPOSITION_WARDROBE_BASE_LOCKS,
+      outfitPresetId: { byZh: '套裝：春日巴黎亞麻長褲' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['Parisian linen trouser outfit', 'silk camisole', 'high-waisted wide-leg trousers', 'black velvet sofa'],
+        excludes: ['fixed-set rule:', 'preserve anchors:'],
+      },
+      zImagePrompt: {
+        includes: ['Parisian linen trouser outfit', 'silk camisole', 'high-waisted wide-leg trousers', 'black velvet sofa'],
+        excludes: ['fixed-set rule:', 'preserve anchors:'],
+      },
+      midjourneyPrompt: {
+        includes: ['Parisian linen trouser outfit', 'silk camisole', 'high-waisted wide-leg trousers', 'black velvet sofa'],
+        excludes: ['fixed-set rule:', 'preserve anchors:'],
+      },
+    },
+  },
+  {
+    id: 'fixed-composition-dress',
+    title: 'Fixed composition set preserves a one-piece dress across primary outputs',
+    mode: 'single',
+    seed: 'prompt-contract-fixed-composition-dress-v1',
+    locks: {
+      ...FIXED_COMPOSITION_WARDROBE_BASE_LOCKS,
+      dressId: { byZh: '連身：短版｜一字領哥德迷你洋裝' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['off-shoulder gothic mini dress', 'one-piece fitted silhouette', 'ruffle trim', 'black velvet sofa'],
+        excludes: ['fixed-set rule:', 'preserve anchors:'],
+      },
+      zImagePrompt: {
+        includes: ['off-shoulder gothic mini dress', 'fitted silhouette', 'ruffle trim', 'black velvet sofa'],
+        excludes: ['fixed-set rule:', 'preserve anchors:'],
+      },
+      midjourneyPrompt: {
+        includes: ['off-shoulder gothic mini dress', 'black velvet sofa'],
         excludes: ['fixed-set rule:', 'preserve anchors:'],
       },
     },

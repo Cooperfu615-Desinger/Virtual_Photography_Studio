@@ -88,6 +88,12 @@ Last updated: 2026-07-18
 - `webapp/src/lib/engine/compositionVisibilityIntegration.test.js`
 - `webapp/package.json` 的 `test:prompt-quality`
 
+### 固定構圖場景可見性優化（2026-07-19 第一階段）
+
+固定構圖場景的產品目的，是在固定鏡頭距離與固定場景架構中，讓人物以不同姿勢、動態與支撐關係和場景互動。啟用固定構圖場景時，一般 `framingId` 控制維持停用，不開放使用者另行調整；後續 runtime 必須由固定構圖場景自己的有效 composition context 決定服裝、姿勢與場景內容，不可把 UI 的 `全無` 直接等同一般 `unconstrained` 景別。
+
+第一階段只建立不改變 runtime 的 deterministic regression baseline：固定構圖搭配上下身、特殊穿搭、套裝與連身四種服裝模式時，`Gpt`、`Grok/Z-Image`、`AI` 三種主 Prompt 都必須保留可辨識的服裝核心與固定場景錨點。基準位於 `webapp/src/lib/engine/representativePromptFixtures.js`，並由 `npm run test:prompt-quality` 執行。固定構圖專用 composition context、共用結構化投影與 renderer 順序調整仍屬後續階段；第一階段不可把目前 Grok/Z-Image 的場景優先順序固化為目標規格。
+
 ### Grok/Z-Image
 
 - Internal field: `zImagePrompt`
