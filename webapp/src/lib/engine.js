@@ -35,6 +35,7 @@ import {
   FIXED_SET_POSITION_OPTIONS,
   OUTDOOR_FIXED_SET_GROUP_ID,
 } from './engine/fixedCompositionOptions.js';
+import { createFixedCompositionPromptProjection } from './engine/fixedCompositionPromptProjection.js';
 import {
   POSE_COMPOSER_ANCHOR_OPTIONS,
   POSE_COMPOSER_ARRANGEMENT_OPTIONS,
@@ -11961,17 +11962,50 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     ...context,
     compositionVisibility,
   };
-  const mainContext = {
-    ...projectionContext,
-    projectedCanonicalPoseText: buildProjectedCanonicalPoseText(projectionContext, poseComposer),
-    projectedScene: buildProjectedScene(projectionContext),
-  };
-  const promptModel = {
-    ...buildStructuredPromptSections(mainContext, character, wardrobe, wardrobeColors, lightDirection, film),
-    context: mainContext,
-    character,
+  const projectedCanonicalPoseText = buildProjectedCanonicalPoseText(projectionContext, poseComposer);
+  const fixedCompositionPromptProjection = createFixedCompositionPromptProjection({
+    compositionVisibility,
     wardrobe,
     wardrobeColors,
+    projectedCanonicalPoseText,
+    fixedCompositionSet: projectionContext.fixedCompositionSet,
+    fixedSetPosition: projectionContext.fixedSetPosition,
+    fixedSetBackgroundState: projectionContext.fixedSetBackgroundState,
+    fixedSetCaptureMode: projectionContext.fixedSetCaptureMode,
+    fixedSetPerformanceState: projectionContext.fixedSetPerformanceState,
+    angle: projectionContext.angle,
+    orbit: projectionContext.orbit,
+  });
+  const fixedScene = fixedCompositionPromptProjection?.scene;
+  const rendererContext = {
+    ...projectionContext,
+    ...(fixedScene
+      ? {
+          fixedCompositionSet: fixedScene.fixedCompositionSet,
+          fixedSetPosition: fixedScene.fixedSetPosition,
+          fixedSetBackgroundState: fixedScene.fixedSetBackgroundState,
+          fixedSetCaptureMode: fixedScene.fixedSetCaptureMode,
+          fixedSetPerformanceState: fixedScene.fixedSetPerformanceState,
+          angle: fixedScene.angle,
+          orbit: fixedScene.orbit,
+        }
+      : {}),
+    projectedCanonicalPoseText: fixedCompositionPromptProjection?.pose.canonicalText
+      ?? projectedCanonicalPoseText,
+    fixedCompositionPromptProjection,
+  };
+  const mainContext = {
+    ...rendererContext,
+    projectedScene: buildProjectedScene(rendererContext),
+  };
+  const rendererWardrobe = fixedCompositionPromptProjection?.wardrobe.items || wardrobe;
+  const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
+  const promptModel = {
+    ...buildStructuredPromptSections(mainContext, character, rendererWardrobe, rendererWardrobeColors, lightDirection, film),
+    context: mainContext,
+    character,
+    wardrobe: rendererWardrobe,
+    wardrobeColors: rendererWardrobeColors,
     lightDirection,
     film,
     opticalEffect,
@@ -11986,6 +12020,8 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     ...promptModel,
     ...buildStructuredPromptSections(fullBodyCharacterContext, character, wardrobe, wardrobeColors, lightDirection, film),
     context: fullBodyCharacterContext,
+    wardrobe,
+    wardrobeColors,
   };
   const grokPrompt = renderGptPrompt(promptModel);
   const zImagePrompt = renderZImagePrompt(promptModel);

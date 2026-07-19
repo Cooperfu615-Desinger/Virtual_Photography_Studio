@@ -96,6 +96,8 @@ Last updated: 2026-07-19
 
 第二階段已將 `compositionVisibilityContract` 升級為 version 2，新增獨立的 `fixedComposition` bucket。這個 bucket 明確標示 composition source 為固定構圖場景、一般景別不可手動調整、鏡頭距離由固定 set 定義；服裝使用完整角色集合、姿勢使用完整 canonical pose、場景使用 `fixedSetContract` 專用語意。引擎在人物與服裝解析前建立這份 context，後續 projection 與 renderer fallback 都重用同一物件。第二階段不修改公開 Prompt 排版與文字，也不改變固定場景 ID、一般景別選項或 Saved Cards 映射；共用內容投影與 Grok/Z-Image 段落順序仍留在後續階段。
 
+第三階段新增 `fixedCompositionPromptProjection`，在服裝、配色與 canonical pose 都解析完成後，集中保存固定構圖的 composition metadata、resolved wardrobe items／colors、canonical pose text，以及固定場景、人物位置、背景狀態、拍攝型態、演出狀態、角度與環繞角度等 resolved scene selections。`buildPrompts()` 讓 Gpt、Grok/Z-Image、AI 三者都從這一份 projection 建立 renderer context；`全身角色照` 則明確回到未裁切的完整 wardrobe source。第三階段只統一資料來源，不修改公開 Prompt 文字與段落順序，因此 Grok/Z-Image 現有的固定場景先於人物／服裝的暫時順序仍留給下一階段修正。
+
 ### Grok/Z-Image
 
 - Internal field: `zImagePrompt`
