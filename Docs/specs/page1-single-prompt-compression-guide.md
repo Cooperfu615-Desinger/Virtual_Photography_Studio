@@ -1,6 +1,6 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-07-18
+Last updated: 2026-07-19
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
@@ -93,6 +93,8 @@ Last updated: 2026-07-18
 固定構圖場景的產品目的，是在固定鏡頭距離與固定場景架構中，讓人物以不同姿勢、動態與支撐關係和場景互動。啟用固定構圖場景時，一般 `framingId` 控制維持停用，不開放使用者另行調整；後續 runtime 必須由固定構圖場景自己的有效 composition context 決定服裝、姿勢與場景內容，不可把 UI 的 `全無` 直接等同一般 `unconstrained` 景別。
 
 第一階段只建立不改變 runtime 的 deterministic regression baseline：固定構圖搭配上下身、特殊穿搭、套裝與連身四種服裝模式時，`Gpt`、`Grok/Z-Image`、`AI` 三種主 Prompt 都必須保留可辨識的服裝核心與固定場景錨點。基準位於 `webapp/src/lib/engine/representativePromptFixtures.js`，並由 `npm run test:prompt-quality` 執行。固定構圖專用 composition context、共用結構化投影與 renderer 順序調整仍屬後續階段；第一階段不可把目前 Grok/Z-Image 的場景優先順序固化為目標規格。
+
+第二階段已將 `compositionVisibilityContract` 升級為 version 2，新增獨立的 `fixedComposition` bucket。這個 bucket 明確標示 composition source 為固定構圖場景、一般景別不可手動調整、鏡頭距離由固定 set 定義；服裝使用完整角色集合、姿勢使用完整 canonical pose、場景使用 `fixedSetContract` 專用語意。引擎在人物與服裝解析前建立這份 context，後續 projection 與 renderer fallback 都重用同一物件。第二階段不修改公開 Prompt 排版與文字，也不改變固定場景 ID、一般景別選項或 Saved Cards 映射；共用內容投影與 Grok/Z-Image 段落順序仍留在後續階段。
 
 ### Grok/Z-Image
 

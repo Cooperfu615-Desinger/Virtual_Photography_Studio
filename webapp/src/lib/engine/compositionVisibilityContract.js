@@ -1,15 +1,16 @@
 /**
  * Canonical PAGE1 composition-visibility contract.
  *
- * Phase 1 records the product policy without changing renderer behavior. Later
- * phases must project resolved wardrobe, pose, and scene data through this
- * contract before any public prompt renderer formats the result.
+ * The contract projects resolved wardrobe, pose, and scene data before public
+ * renderer formatting. Version 2 separates fixed-composition camera distance
+ * from the ordinary unconstrained framing bucket.
  */
 
-export const COMPOSITION_VISIBILITY_CONTRACT_VERSION = 1;
+export const COMPOSITION_VISIBILITY_CONTRACT_VERSION = 2;
 
 export const COMPOSITION_VISIBILITY_BUCKETS = Object.freeze({
   UNCONSTRAINED: 'unconstrained',
+  FIXED_COMPOSITION: 'fixedComposition',
   FACE_DETAIL: 'faceDetail',
   HEAD_SHOULDERS: 'headShoulders',
   CHEST_UP: 'chestUp',
@@ -59,8 +60,16 @@ function createVisibilityPolicy({
   sceneMode,
   sceneInteractionGeometry,
   sceneSupportObjects,
+  compositionSource = 'framingId',
+  manualFraming = true,
+  cameraDistanceMode = 'framingDefined',
 }) {
   return Object.freeze({
+    composition: Object.freeze({
+      source: compositionSource,
+      manualFraming,
+      cameraDistanceMode,
+    }),
     selection: Object.freeze({ preserveRawSelections: true }),
     wardrobe: Object.freeze({
       roles: freezeList(wardrobeRoles),
@@ -109,6 +118,18 @@ export const COMPOSITION_VISIBILITY_CONTRACT = Object.freeze({
     sceneMode: 'fullSource',
     sceneInteractionGeometry: 'full',
     sceneSupportObjects: 'full',
+  }),
+  [COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]: createVisibilityPolicy({
+    wardrobeRoles: COMPOSITION_WARDROBE_ROLES,
+    wardrobeDetailZones: ['head', 'face', 'upperBody', 'waist', 'hip', 'thigh', 'lowerLeg', 'foot'],
+    poseMode: 'fullCanonical',
+    poseParts: COMPOSITION_POSE_PARTS,
+    sceneMode: 'fixedSetContract',
+    sceneInteractionGeometry: 'fixedSetContract',
+    sceneSupportObjects: 'fixedSetContract',
+    compositionSource: 'fixedCompositionSet',
+    manualFraming: false,
+    cameraDistanceMode: 'fixedSetDefined',
   }),
   [COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL]: createVisibilityPolicy({
     wardrobeRoles: FACE_ACCESSORY_ROLES,
@@ -188,7 +209,8 @@ const FALLBACK_BUCKET_BY_VISIBILITY = Object.freeze({
   wide: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
 });
 
-export function resolveCompositionVisibilityBucket(framing) {
+export function resolveCompositionVisibilityBucket(framing, { fixedCompositionActive = false } = {}) {
+  if (fixedCompositionActive) return COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION;
   if (!framing) return COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED;
   const exactBucket = FRAMING_VISIBILITY_BUCKET_BY_ZH[framing.zh];
   if (exactBucket) return exactBucket;
@@ -196,17 +218,18 @@ export function resolveCompositionVisibilityBucket(framing) {
     || COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED;
 }
 
-export function getCompositionVisibilityPolicy(framing) {
-  return COMPOSITION_VISIBILITY_CONTRACT[resolveCompositionVisibilityBucket(framing)];
+export function getCompositionVisibilityPolicy(framing, options = {}) {
+  return COMPOSITION_VISIBILITY_CONTRACT[resolveCompositionVisibilityBucket(framing, options)];
 }
 
 const COWBOY_VISIBLE_LEGWEAR_PATTERN = /\b(?:thigh-high|over-the-knee|knee-high|pantyhose|tights|stockings?|hosiery)\b/i;
 
-export function createCompositionVisibilityProjection(framing) {
-  const bucket = resolveCompositionVisibilityBucket(framing);
+export function createCompositionVisibilityProjection(framing, options = {}) {
+  const bucket = resolveCompositionVisibilityBucket(framing, options);
   const policy = COMPOSITION_VISIBILITY_CONTRACT[bucket];
   return Object.freeze({
     bucket,
+    composition: policy.composition,
     wardrobe: policy.wardrobe,
     pose: policy.pose,
     scene: policy.scene,

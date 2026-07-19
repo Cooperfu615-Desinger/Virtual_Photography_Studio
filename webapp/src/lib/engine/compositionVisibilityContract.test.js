@@ -6,6 +6,7 @@ import {
   COMPOSITION_POSE_PARTS,
   COMPOSITION_VISIBILITY_BUCKETS,
   COMPOSITION_VISIBILITY_CONTRACT,
+  COMPOSITION_VISIBILITY_CONTRACT_VERSION,
   COMPOSITION_WARDROBE_ROLES,
   FRAMING_VISIBILITY_BUCKET_BY_ZH,
   createCompositionVisibilityProjection,
@@ -18,6 +19,11 @@ import { COMPOSITION_VISIBILITY_REGRESSION_FIXTURES } from './compositionVisibil
 
 const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
+
+test('composition visibility contract version includes the fixed-composition context', () => {
+  assert.equal(COMPOSITION_VISIBILITY_CONTRACT_VERSION, 2);
+  assert.ok(COMPOSITION_VISIBILITY_CONTRACT[COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]);
+});
 
 test('every public framing maps to the approved composition visibility bucket', () => {
   const framingControl = controlsByKey.get('framingId');
@@ -37,12 +43,39 @@ test('every public framing maps to the approved composition visibility bucket', 
 
 test('composition visibility policies preserve raw selections and never invent depth effects', () => {
   for (const [bucket, policy] of Object.entries(COMPOSITION_VISIBILITY_CONTRACT)) {
+    assert.equal(typeof policy.composition.source, 'string', bucket);
+    assert.equal(typeof policy.composition.manualFraming, 'boolean', bucket);
+    assert.equal(typeof policy.composition.cameraDistanceMode, 'string', bucket);
     assert.equal(policy.selection.preserveRawSelections, true, bucket);
     assert.equal(policy.scene.preserveLocationIdentity, true, bucket);
     assert.equal(policy.scene.preserveSourceAnchors, true, bucket);
     assert.equal(policy.scene.addDepthEffect, false, bucket);
     assert.equal(policy.pose.shareCanonicalTextAcrossPrimaryOutputs, true, bucket);
   }
+});
+
+test('fixed composition uses its own non-adjustable camera-distance context instead of unconstrained framing', () => {
+  const fixed = createCompositionVisibilityProjection(
+    { zh: '胸上特寫', meta: { visibility: 'portrait' } },
+    { fixedCompositionActive: true }
+  );
+
+  assert.equal(fixed.bucket, COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION);
+  assert.equal(fixed.composition.source, 'fixedCompositionSet');
+  assert.equal(fixed.composition.manualFraming, false);
+  assert.equal(fixed.composition.cameraDistanceMode, 'fixedSetDefined');
+  assert.deepEqual(fixed.wardrobe.roles, COMPOSITION_WARDROBE_ROLES);
+  assert.deepEqual(fixed.pose.parts, COMPOSITION_POSE_PARTS);
+  assert.equal(fixed.pose.mode, 'fullCanonical');
+  assert.equal(fixed.scene.mode, 'fixedSetContract');
+  assert.equal(fixed.scene.interactionGeometry, 'fixedSetContract');
+  assert.equal(fixed.scene.supportObjects, 'fixedSetContract');
+  assert.equal(fixed.scene.addDepthEffect, false);
+
+  const ordinaryNone = createCompositionVisibilityProjection(null);
+  assert.equal(ordinaryNone.bucket, COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED);
+  assert.equal(ordinaryNone.composition.source, 'framingId');
+  assert.equal(ordinaryNone.composition.manualFraming, true);
 });
 
 test('near crops omit full-body pressure while wider crops progressively restore visible content', () => {

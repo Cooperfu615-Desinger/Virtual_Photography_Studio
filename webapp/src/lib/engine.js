@@ -4826,7 +4826,7 @@ function buildChestUpPoseComposerSentence({ arrangement, handPose, propAction, a
 
 function buildProjectedCanonicalPoseText(context, poseComposer) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
-  const projection = context?.compositionVisibility || createCompositionVisibilityProjection(context?.framing);
+  const projection = getCompositionVisibilityProjection(context);
   if (projection.pose?.mode === 'omit') return '';
   if (projection.pose?.mode === 'fullCanonical') return poseComposer.en || '';
 
@@ -4887,7 +4887,7 @@ function projectSceneSourceText(value, mode) {
 }
 
 function buildProjectedScene(context) {
-  const projection = context?.compositionVisibility || createCompositionVisibilityProjection(context?.framing);
+  const projection = getCompositionVisibilityProjection(context);
   const mode = projection.scene?.mode || 'fullSource';
   const locationSource = context?.location && !isNoneLikeItem(context.location) ? context.location.en : '';
   const worldSceneSource = getImportedWorldSceneArchitectureText(context);
@@ -7142,11 +7142,14 @@ function buildSpecialOutfitPrompt(item, palette = null) {
 }
 
 function getCompositionVisibilityProjection(context) {
-  return context?.compositionVisibility || createCompositionVisibilityProjection(context?.framing);
+  return context?.compositionVisibility || createCompositionVisibilityProjection(context?.framing, {
+    fixedCompositionActive: isFixedCompositionSetActive(context?.fixedCompositionSet),
+  });
 }
 
 function isCompleteWardrobeProjection(projection) {
   return projection?.bucket === COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED
+    || projection?.bucket === COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION
     || projection?.bucket === COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY;
 }
 
@@ -7312,6 +7315,7 @@ function filterZImagePoseForFraming(value, context) {
   if (
     !text
     || bucket === COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED
+    || bucket === COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION
     || bucket === COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY
   ) return text;
 
@@ -11951,7 +11955,7 @@ function renderAiPrompt(promptModel) {
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
-  const compositionVisibility = createCompositionVisibilityProjection(context.framing);
+  const compositionVisibility = getCompositionVisibilityProjection(context);
   const poseComposer = extractCharacterSlots(character).poseComposer;
   const projectionContext = {
     ...context,
@@ -12419,6 +12423,9 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const fixedSetPerformanceState = fixedCompositionSet
     ? getFixedSetPerformanceStateOption(effectiveLocks.fixedSetPerformanceStateId)
     : getFixedSetPerformanceStateOption('model-natural');
+  const compositionVisibility = createCompositionVisibilityProjection(framing, {
+    fixedCompositionActive: Boolean(fixedCompositionSet),
+  });
   const context = {
     subject,
     imageTypePreset,
@@ -12439,6 +12446,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     fixedSetBackgroundState,
     fixedSetCaptureMode,
     fixedSetPerformanceState,
+    compositionVisibility,
     film,
     lighting,
     lightDirection,
