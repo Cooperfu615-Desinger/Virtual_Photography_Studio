@@ -285,9 +285,9 @@ test('black velvet industrial sofa fixed composition shares sofa placement contr
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 
   assert.ok(
-    prompt.zImagePrompt.indexOf('real-scale compact editorial lounge set') <
-      prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman'),
-    'Expected black velvet sofa scene to appear before subject description in Z-Image prompt'
+    prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman') <
+      prompt.zImagePrompt.indexOf('real-scale compact editorial lounge set'),
+    'Expected subject description to appear before the black velvet sofa scene in Z-Image prompt'
   );
   assert.match(prompt.zImagePrompt, /large matte black velvet sofa/);
   assert.match(prompt.zImagePrompt, /low industrial coffee table/);
@@ -608,9 +608,9 @@ test('Fuji hotel fixed compositions share hotel placement controls and seasonal 
     assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 
     assert.ok(
-      prompt.zImagePrompt.indexOf('real-scale luxury hotel room editorial set') <
-        prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman'),
-      'Expected fixed Fuji hotel scene to appear before subject description in Z-Image prompt'
+      prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman') <
+        prompt.zImagePrompt.indexOf('real-scale luxury hotel room editorial set'),
+      'Expected subject description to appear before the fixed Fuji hotel scene in Z-Image prompt'
     );
     assert.match(prompt.zImagePrompt, /Mount Fuji/);
     assert.match(prompt.zImagePrompt, /Subject near the floor-to-ceiling window/);
@@ -722,8 +722,8 @@ test('bathtub fixed composition keeps a frontal wall plane and sink mirror inter
   assert.doesNotMatch(prompt.grokPrompt, /camera near the tub edge or waterline/);
 
   assert.ok(
-    prompt.zImagePrompt.indexOf('real-scale vintage bathroom editorial set') < prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman'),
-    'Expected fixed bathtub scene to appear before subject description in Z-Image prompt'
+    prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman') < prompt.zImagePrompt.indexOf('real-scale vintage bathroom editorial set'),
+    'Expected subject description to appear before the fixed bathtub scene in Z-Image prompt'
   );
   assert.doesNotMatch(prompt.zImagePrompt, /The portrait uses The portrait takes place/);
   assert.doesNotMatch(prompt.zImagePrompt, /Fixed Composition Set:|Fixed Set Position:|Fixed Set Integrity:/);

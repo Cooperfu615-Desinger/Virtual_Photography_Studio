@@ -86,6 +86,19 @@ function assertLiteralExpectations(text, expectations, fixtureId, field) {
       `${fixtureId}.${field} should exclude ${JSON.stringify(fragment)}`
     );
   }
+  let previousIndex = -1;
+  for (const fragment of expectations.ordered || []) {
+    const currentIndex = lowerText.indexOf(fragment.toLowerCase());
+    assert.ok(
+      currentIndex >= 0,
+      `${fixtureId}.${field} ordered fragment should exist: ${JSON.stringify(fragment)}`
+    );
+    assert.ok(
+      currentIndex > previousIndex,
+      `${fixtureId}.${field} should place ${JSON.stringify(fragment)} after the previous ordered fragment`
+    );
+    previousIndex = currentIndex;
+  }
 }
 
 test('prompt output contracts are frozen serializable data with stable public fields', () => {

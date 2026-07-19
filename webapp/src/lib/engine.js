@@ -10820,10 +10820,10 @@ function renderZImagePrompt(promptModel) {
     return joinZImageParagraphs([
       imageTypeLine,
       compositionLine,
-      ...buildFixedSceneParagraphs(),
       buildCharacterText(),
       buildWardrobeText(),
       buildSinglePoseText(),
+      ...buildFixedSceneParagraphs(),
       buildPhotographyStyleText(),
       buildRenderingText(),
     ]);

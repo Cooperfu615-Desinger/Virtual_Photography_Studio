@@ -313,6 +313,8 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       orbitId: { byZh: '右側 270 度' },
       topId: { byZh: '棉質細肩背心' },
       pantsId: { byZh: '直筒牛仔褲' },
+      poseBaseId: { byZh: '站姿' },
+      poseArrangementId: { byZh: '自然站姿' },
     },
     expectedOutputs: {
       grokPrompt: {
@@ -325,7 +327,19 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         excludes: ['fixed-set rule:', 'preserve anchors:'],
       },
       zImagePrompt: {
-        includes: ['cotton camisole top', 'straight-leg jeans', 'real-scale compact editorial lounge set', 'black velvet sofa'],
+        includes: [
+          'cotton camisole top',
+          'straight-leg jeans',
+          'She presents a natural relaxed standing pose.',
+          'real-scale compact editorial lounge set',
+          'black velvet sofa',
+        ],
+        ordered: [
+          'A 20s seductive stunning Japanese or Korean woman',
+          'cotton camisole top',
+          'She presents a natural relaxed standing pose.',
+          'real-scale compact editorial lounge set',
+        ],
         excludes: ['fixed-set rule:', 'preserve anchors:'],
       },
       midjourneyPrompt: {
@@ -350,6 +364,11 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       },
       zImagePrompt: {
         includes: ['burgundy plaid handkerchief camisole', 'low-rise blue denim mini skirt', 'black knee-high leather boots', 'black velvet sofa'],
+        ordered: [
+          'A 20s seductive stunning Japanese or Korean woman',
+          'burgundy plaid handkerchief camisole',
+          'real-scale compact editorial lounge set',
+        ],
         excludes: ['fixed-set rule:', 'preserve anchors:'],
       },
       midjourneyPrompt: {
@@ -374,6 +393,11 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       },
       zImagePrompt: {
         includes: ['Parisian linen trouser outfit', 'silk camisole', 'high-waisted wide-leg trousers', 'black velvet sofa'],
+        ordered: [
+          'A 20s seductive stunning Japanese or Korean woman',
+          'Parisian linen trouser outfit',
+          'real-scale compact editorial lounge set',
+        ],
         excludes: ['fixed-set rule:', 'preserve anchors:'],
       },
       midjourneyPrompt: {
@@ -398,6 +422,11 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       },
       zImagePrompt: {
         includes: ['off-shoulder gothic mini dress', 'fitted silhouette', 'ruffle trim', 'black velvet sofa'],
+        ordered: [
+          'A 20s seductive stunning Japanese or Korean woman',
+          'off-shoulder gothic mini dress',
+          'real-scale compact editorial lounge set',
+        ],
         excludes: ['fixed-set rule:', 'preserve anchors:'],
       },
       midjourneyPrompt: {
