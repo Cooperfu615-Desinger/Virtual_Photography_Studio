@@ -88,7 +88,7 @@ Last updated: 2026-07-19
 - `webapp/src/lib/engine/compositionVisibilityIntegration.test.js`
 - `webapp/package.json` 的 `test:prompt-quality`
 
-### 固定構圖場景可見性優化（2026-07-19 第一至第四階段）
+### 固定構圖場景可見性優化（2026-07-19 第一至第五階段）
 
 固定構圖場景的產品目的，是在固定鏡頭距離與固定場景架構中，讓人物以不同姿勢、動態與支撐關係和場景互動。啟用固定構圖場景時，一般 `framingId` 控制維持停用，不開放使用者另行調整；後續 runtime 必須由固定構圖場景自己的有效 composition context 決定服裝、姿勢與場景內容，不可把 UI 的 `全無` 直接等同一般 `unconstrained` 景別。
 
@@ -99,6 +99,13 @@ Last updated: 2026-07-19
 第三階段新增 `fixedCompositionPromptProjection`，在服裝、配色與 canonical pose 都解析完成後，集中保存固定構圖的 composition metadata、resolved wardrobe items／colors、canonical pose text，以及固定場景、人物位置、背景狀態、拍攝型態、演出狀態、角度與環繞角度等 resolved scene selections。`buildPrompts()` 讓 Gpt、Grok/Z-Image、AI 三者都從這一份 projection 建立 renderer context；`全身角色照` 則明確回到未裁切的完整 wardrobe source。第三階段只統一資料來源，不修改公開 Prompt 文字與段落順序，因此 Grok/Z-Image 現有的固定場景先於人物／服裝的暫時順序仍留給下一階段修正。
 
 第四階段將固定構圖的 Grok/Z-Image 單人輸出順序統一為：成品類型、可用的構圖開頭、人物、服裝、projected canonical pose（若有）、固定場景、攝影風格、成像模擬。這次只重排原有 paragraph producer，不增刪或改寫固定場景、服裝、姿勢、光線、角度與成像內容。上下身、特殊穿搭、套裝與連身四種 deterministic fixtures 都必須確認人物先於服裝、服裝先於姿勢／場景；沙發、飯店與浴室固定場景測試也不得再保留舊版場景優先順序。Gpt 與 AI 原本已是人物／服裝先行，因此第四階段不改其文字或排序。
+
+第五階段新增 `fixedCompositionPromptIntegration.test.js` 作為跨輸出阻擋式整合契約，並接入 `npm run test:prompt-quality`。上下身、特殊穿搭、套裝與連身四個案例都從固定場景與全無基底建立，逐一驗證 Gpt、Grok/Z-Image、AI 保留相同已選服裝、逐字共用 Gpt 的 canonical pose、包含相同固定場景 anchor，且遵守人物 → 服裝 → 姿勢 → 場景順序；同時確認固定場景與服裝 selection ID 不會失效，而一般 `framingId` 仍維持固定構圖模式的 `全無`。第五階段只增加測試與品質閘門，不修改 production renderer 或公開 Prompt。
+
+固定構圖第五階段回歸基準位於：
+
+- `webapp/src/lib/engine/fixedCompositionPromptIntegration.test.js`
+- `webapp/package.json` 的 `test:prompt-quality`
 
 ### Grok/Z-Image
 
