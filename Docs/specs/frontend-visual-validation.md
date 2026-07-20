@@ -134,7 +134,7 @@ Run the scenarios affected by the change. For shell/global changes, run at least
 ### 角色建模
 
 - **Open the card catalog, change pages, select a character, and inspect the configuration and output columns.**
-- Confirm `10 / 10 / 7` pagination remains coherent for the current 27-card catalog.
+- Confirm `10 / 10 / 10 / 3` pagination remains coherent for the current 33-card catalog.
 - Confirm visible previews load and preserve intentional crops.
 - When relevant, exercise hair, eyewear, wardrobe-layer choices, all six copy outputs, PAGE1 import, and the DLL PIC Pro prompt-source selector.
 - Desktop should preserve the intended five-card grid where the layout has room; mobile should collapse without document overflow.

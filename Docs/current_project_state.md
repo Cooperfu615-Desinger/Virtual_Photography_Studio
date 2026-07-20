@@ -138,8 +138,8 @@ PAGE2 is now the Character Card Lab for PAGE1 `A 人物設定`.
 
 Implemented v1 behavior:
 
-- Selects one of 27 built-in character cards, paged as 10 cards, 10 cards, then seven cards.
-- Current cards are `11_Rika`, `48_G`, `29_Philippa`, `07_Lily`, `06_Hinata`, `38_Rin`, `12_Sakura`, `03_Sui`, `02_Yuri`, `37_Hina`, `26_Yuna`, `41_Eleanor`, `22_Olivia`, `08_Jiwoo`, `05_Chihiro`, `04_Koto`, `00_Mei`, `01_Rei`, `09_Amy`, `10_Ji-Yoo`, `13_Yui`, `14_Nana`, `15_Emily`, `16_Shiori`, `18_Natsuki`, `19_Minji`, and `20_Manami`.
+- Selects one of 33 built-in character cards, paged as 10 cards, 10 cards, 10 cards, then three cards.
+- Current cards are `11_Rika`, `48_G`, `29_Philippa`, `07_Lily`, `06_Hinata`, `38_Rin`, `12_Sakura`, `03_Sui`, `02_Yuri`, `37_Hina`, `26_Yuna`, `41_Eleanor`, `22_Olivia`, `08_Jiwoo`, `05_Chihiro`, `04_Koto`, `00_Mei`, `01_Rei`, `09_Amy`, `10_Ji-Yoo`, `13_Yui`, `14_Nana`, `15_Emily`, `16_Shiori`, `18_Natsuki`, `19_Minji`, `20_Manami`, `25_Grace`, `30_Kaori`, `32_Soyeon`, `33_Bora`, `34_Seulgi`, and `36_Miku`.
 - Supports character-safe hair styling variants that modify the card's base hair instead of replacing it.
 - Supports `預設` / `戴眼鏡` / `不戴眼鏡`, including PAGE1 import behavior.
 - Lets PAGE2 decide which default character-card wardrobe layers are imported into PAGE1.
@@ -157,11 +157,11 @@ Implemented v1 behavior:
 
 Facial identity optimization (2026-07-11):
 
-- All 27 formal cards now expose `facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and four compact `distinctiveFeatures` anchors.
+- All 33 formal cards now expose `facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and four compact `distinctiveFeatures` anchors.
 - `identityAndBody` remains verbatim as a compatibility field for existing Saved Cards and legacy prompt consumers; new full renderers use the structured identity fields instead of repeating the legacy paragraph, and `face`, `skin`, and `makeup` no longer mirror one mixed string.
 - PAGE1 Gpt / full-body prompts render facial fields as separate labeled blocks. PAGE1 compact AI and every PAGE2 copy output retain all four permanent identity anchors, even when users switch hair, clothes, or makeup.
 - Eleanor's horns, red eyes, bilateral facial markings, forehead sigil, and arcane tattoos are explicit permanent anchors.
-- The high-similarity checks preserve Jiwoo/Koto (heart-oval wide-set eyes vs balanced oval shallow-lid eyes), Yuna/Chihiro (short rounded chin vs longer oval-heart/slightly close-set eyes), Sakura/Lily, Yuri/Hina, and Olivia/Mei contrasts.
+- The high-similarity checks preserve Jiwoo/Koto (heart-oval wide-set eyes vs balanced oval shallow-lid eyes), Yuna/Chihiro (short rounded chin vs longer oval-heart/slightly close-set eyes), Sakura/Lily, Yuri/Hina, Olivia/Mei, Bora/Seulgi, Grace/Soyeon, Kaori/Olivia, and Miku/Nana contrasts.
 - The formal maintenance specification and source-image matrix live in [`specs/character-card-facial-identity.md`](specs/character-card-facial-identity.md).
 
 Validation for the facial identity optimization:
@@ -170,7 +170,7 @@ Validation for the facial identity optimization:
 - Frontend `npm run lint` and `npm run build`: passed.
 - Functions `npm test`: 30 passed; Functions `npm run lint`: passed.
 - `python3 scripts/sync_to_json.py --check` and `python3 -m unittest discover -s scripts/tests`: passed.
-- `python3 scripts/check_public_assets.py` passes with all 27 formal cards using manifest-backed AVIF deployment previews; full-resolution source images remain outside the deployment public directory.
+- `python3 scripts/check_public_assets.py` covers all 33 formal cards using manifest-backed AVIF deployment previews; full-resolution source images remain outside the deployment public directory.
 - Deterministic audit `node scripts/validate_prompt_logic.mjs 200 facial-identity-audit`: 9 existing wardrobe-combination heuristic findings; no facial-identity finding.
 
 Character-card authoring locations:

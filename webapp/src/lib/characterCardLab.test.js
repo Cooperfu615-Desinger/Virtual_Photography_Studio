@@ -72,7 +72,7 @@ function hasNonNoneWardrobePrefix(prompt, prefix) {
 test('character card options are read from PAGE1 character profile control', () => {
   const cards = getCharacterCardOptions(getLockControls());
 
-  assert.equal(cards.length, 27);
+  assert.equal(cards.length, 33);
   assert.equal(cards[0].id, 'character-rika');
   assert.equal(cards[0].label, '11_Rika');
   assert.match(cards[0].identityAndBody, /soft doll-like indie-girl facial features/i);
@@ -87,7 +87,7 @@ test('character card options are read from PAGE1 character profile control', () 
 
 test('all formal character profiles expose separated facial signatures and preserve the legacy identity field', () => {
   const profiles = CHARACTER_PROFILE_OPTIONS.filter((option) => option.specialSubject === 'character-profile');
-  assert.equal(profiles.length, 27);
+  assert.equal(profiles.length, 33);
 
   for (const option of profiles) {
     const profile = option.profile;
@@ -163,6 +163,10 @@ test('high-similarity character pairs keep distinct facial geometry anchors', ()
     ['character-yui', 'character-nana', /pale hazel-gray|pale peach/i, /warm brown|coral-peach/i],
     ['character-emily', 'character-rei', /softly high cheeks|heavy upper lids/i, /compact oval-heart|wide-set warm-brown/i],
     ['character-natsuki', 'character-minji', /compact oval|large level dark-brown/i, /long soft oval|close-set deep-brown/i],
+    ['character-bora', 'character-seulgi', /long narrow oval-heart|wide-set gray-brown/i, /short heart-oval|wide-set hazel-brown/i],
+    ['character-grace', 'character-soyeon', /long oval-heart|hazel-gray round-almond/i, /small rounded heart-oval|large wide-set dark-brown/i],
+    ['character-kaori', 'character-olivia', /long angular oval|sharply lifted/i, /warm light-olive skin|firm angled jaw/i],
+    ['character-miku', 'character-nana', /compact soft oval|wide-set dark-brown/i, /warm brown|broad cheeks/i],
   ];
 
   for (const [leftId, rightId, leftPattern, rightPattern] of contrasts) {
@@ -193,6 +197,12 @@ test('new character cards expose detailed identity hair and wardrobe layers', ()
     'character-natsuki',
     'character-minji',
     'character-manami',
+    'character-grace',
+    'character-kaori',
+    'character-soyeon',
+    'character-bora',
+    'character-seulgi',
+    'character-miku',
   ];
 
   for (const id of newCardIds) {
@@ -258,6 +268,30 @@ test('new character cards expose detailed identity hair and wardrobe layers', ()
   const manami = cards.find((card) => card.id === 'character-manami');
   assert.match(manami.baseHair, /emerald-green underlayer ribbons/i);
   assert.match(manami.defaultWardrobeLayers.headAccessory.prompt, /white lace headband/i);
+
+  const grace = cards.find((card) => card.id === 'character-grace');
+  assert.match(grace.baseHair, /high twin ponytails/i);
+  assert.match(grace.defaultWardrobeLayers.bottom.prompt, /denim mini skirt/i);
+
+  const kaori = cards.find((card) => card.id === 'character-kaori');
+  assert.match(kaori.baseHair, /shoulder-length blunt bob/i);
+  assert.match(kaori.defaultWardrobeLayers.outerwear.prompt, /leather biker jacket/i);
+
+  const soyeon = cards.find((card) => card.id === 'character-soyeon');
+  assert.match(soyeon.baseHair, /twin loop buns/i);
+  assert.match(soyeon.defaultWardrobeLayers.top.prompt, /gold dragon embroidery/i);
+
+  const bora = cards.find((card) => card.id === 'character-bora');
+  assert.match(bora.baseHair, /loose low updo/i);
+  assert.match(bora.defaultWardrobeLayers.top.prompt, /sheer black floral-lace/i);
+
+  const seulgi = cards.find((card) => card.id === 'character-seulgi');
+  assert.match(seulgi.baseHair, /shoulder-length chestnut-brown layered waves/i);
+  assert.match(seulgi.defaultWardrobeLayers.bottom.prompt, /wide-leg tailored trousers/i);
+
+  const miku = cards.find((card) => card.id === 'character-miku');
+  assert.match(miku.baseHair, /braided looped bun/i);
+  assert.match(miku.defaultWardrobeLayers.neckAccessory.prompt, /striped navy bow tie/i);
 });
 
 test('hair variants use shared compatibility plus per-card overrides', () => {

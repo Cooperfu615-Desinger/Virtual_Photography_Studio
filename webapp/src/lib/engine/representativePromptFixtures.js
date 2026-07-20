@@ -244,6 +244,33 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'character-card-new-batch',
+    title: 'New-batch formal character card preserves identity anchors and full wardrobe',
+    mode: 'single',
+    seed: 'prompt-contract-character-card-new-batch-v1',
+    locks: {
+      subjectCount: '1',
+      characterProfileId: 'character-kaori',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['Character Profile Card:\n30_Kaori', 'long angular oval face with high cheekbones', 'black leather biker jacket'],
+        excludes: ['Identity and body:'],
+      },
+      zImagePrompt: {
+        includes: ['elongated dark-brown sharply lifted almond eyes', 'black leather biker jacket', 'black high-rise leather skinny pants'],
+      },
+      midjourneyPrompt: {
+        includes: ['high narrow straight nose', 'black leather biker jacket', 'black lace-up combat boots'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['Character Profile Card:\n30_Kaori', 'complete figure visible from head to toe', 'black lace-up combat boots'],
+      },
+    },
+  },
+  {
     id: 'special-outfit',
     title: 'Single subject with a complete special outfit',
     mode: 'single',

@@ -199,6 +199,12 @@ const CHARACTER_PROFILE_CONTROL_ORDER = [
   'character-natsuki',
   'character-minji',
   'character-manami',
+  'character-grace',
+  'character-kaori',
+  'character-soyeon',
+  'character-bora',
+  'character-seulgi',
+  'character-miku',
 ];
 
 const CHARACTER_PROFILE_CONTROL_OPTIONS = [

@@ -296,6 +296,64 @@ const CHARACTER_CARD_EXTENSIONS = {
       earrings: 'small dark crystal earrings',
     },
   },
+  'character-grace': {
+    hairTags: ['long', 'straight', 'bangs', 'black-hair', 'updo'],
+    wardrobeLayers: {
+      top: 'fitted white ribbed spaghetti-strap cropped camisole',
+      bottom: 'low-rise light-wash denim mini skirt with a raw frayed hem',
+      shoes: 'bare feet as the locked footwear state',
+    },
+  },
+  'character-kaori': {
+    hairTags: ['medium', 'bob', 'straight', 'black-hair', 'center-part'],
+    enabledHairVariants: ['slicked-back-wet-look'],
+    wardrobeLayers: {
+      top: 'fitted white graffiti-print cropped tank',
+      bottom: 'black high-rise leather skinny pants',
+      outerwear: 'black leather biker jacket with silver hardware',
+      shoes: 'black lace-up combat boots',
+      neckAccessory: 'black studded choker and layered silver chain necklaces',
+      wristAccessory: 'spiked black wrist cuffs',
+      ring: 'stacked silver rings',
+    },
+  },
+  'character-soyeon': {
+    hairTags: ['medium', 'bob', 'straight', 'bangs', 'black-hair', 'updo'],
+    wardrobeLayers: {
+      top: 'red satin Chinese-inspired halter bikini top with a standing mandarin collar, black piping and gold dragon embroidery',
+      bottom: 'matching red high-cut bikini bottom with black edging',
+      shoes: 'glossy red pointed-toe stiletto pumps',
+    },
+  },
+  'character-bora': {
+    hairTags: ['medium-long', 'medium', 'wavy', 'bangs', 'brown-hair', 'updo'],
+    enabledHairVariants: ['low-ponytail', 'half-up', 'loose-bun'],
+    wardrobeLayers: {
+      top: 'sleeveless high-neck sheer black floral-lace cropped blouse layered over a black triangle bralette',
+      bottom: 'black high-waisted pleated wide-leg tailored trousers',
+      shoes: 'black lace-up platform ankle boots',
+    },
+  },
+  'character-seulgi': {
+    hairTags: ['medium', 'wavy', 'bangs', 'brown-hair'],
+    enabledHairVariants: ['half-up', 'loose-bun'],
+    wardrobeLayers: {
+      top: 'sleeveless high-neck sheer black floral-lace cropped blouse layered over a black lace triangle bralette',
+      bottom: 'black high-waisted pleated wide-leg tailored trousers',
+      shoes: 'black low-platform lace-up shoes',
+    },
+  },
+  'character-miku': {
+    hairTags: ['long', 'wavy', 'bangs', 'black-hair', 'updo'],
+    enabledHairVariants: ['low-ponytail', 'high-ponytail', 'twin-tails', 'half-up', 'loose-bun'],
+    wardrobeLayers: {
+      top: 'navy oversized V-neck cardigan over a crisp white collared shirt',
+      bottom: 'navy pleated mini skirt',
+      shoes: 'navy ankle socks and black leather penny loafers',
+      neckAccessory: 'striped navy bow tie',
+      waistAccessory: 'black nylon school backpack with a small plush teddy-bear charm',
+    },
+  },
 };
 
 export const HAIR_VARIANT_OPTIONS = [

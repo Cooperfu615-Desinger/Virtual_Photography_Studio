@@ -162,6 +162,42 @@
       "directory": "manami",
       "source": "20_Manami_00.jpeg",
       "preview": "20_Manami_00.avif"
+    },
+    {
+      "id": "character-grace",
+      "directory": "grace",
+      "source": "25_Grace_00.jpeg",
+      "preview": "25_Grace_00.avif"
+    },
+    {
+      "id": "character-kaori",
+      "directory": "kaori",
+      "source": "30_Kaori_00.png",
+      "preview": "30_Kaori_00.avif"
+    },
+    {
+      "id": "character-soyeon",
+      "directory": "soyeon",
+      "source": "32_Soyeon_00.jpeg",
+      "preview": "32_Soyeon_00.avif"
+    },
+    {
+      "id": "character-bora",
+      "directory": "bora",
+      "source": "33_Bora_00.jpeg",
+      "preview": "33_Bora_00.avif"
+    },
+    {
+      "id": "character-seulgi",
+      "directory": "seulgi",
+      "source": "34_Seulgi_00.jpeg",
+      "preview": "34_Seulgi_00.avif"
+    },
+    {
+      "id": "character-miku",
+      "directory": "miku",
+      "source": "36_Miku_00.jpeg",
+      "preview": "36_Miku_00.avif"
     }
   ]
 }

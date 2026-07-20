@@ -113,6 +113,12 @@ test('character profile control exposes character profile cards separately from 
       ['character-natsuki', '18_Natsuki', '18_Natsuki 角色卡'],
       ['character-minji', '19_Minji', '19_Minji 角色卡'],
       ['character-manami', '20_Manami', '20_Manami 角色卡'],
+      ['character-grace', '25_Grace', '25_Grace 角色卡'],
+      ['character-kaori', '30_Kaori', '30_Kaori 角色卡'],
+      ['character-soyeon', '32_Soyeon', '32_Soyeon 角色卡'],
+      ['character-bora', '33_Bora', '33_Bora 角色卡'],
+      ['character-seulgi', '34_Seulgi', '34_Seulgi 角色卡'],
+      ['character-miku', '36_Miku', '36_Miku 角色卡'],
     ]
   );
   assert.deepEqual(
@@ -145,6 +151,12 @@ test('character profile control exposes character profile cards separately from 
       ['18_Natsuki', 'character-cards/natsuki/18_Natsuki_00.avif', 'avif'],
       ['19_Minji', 'character-cards/minji/19_Minji_00.avif', 'avif'],
       ['20_Manami', 'character-cards/manami/20_Manami_00.avif', 'avif'],
+      ['25_Grace', 'character-cards/grace/25_Grace_00.avif', 'avif'],
+      ['30_Kaori', 'character-cards/kaori/30_Kaori_00.avif', 'avif'],
+      ['32_Soyeon', 'character-cards/soyeon/32_Soyeon_00.avif', 'avif'],
+      ['33_Bora', 'character-cards/bora/33_Bora_00.avif', 'avif'],
+      ['34_Seulgi', 'character-cards/seulgi/34_Seulgi_00.avif', 'avif'],
+      ['36_Miku', 'character-cards/miku/36_Miku_00.avif', 'avif'],
     ]
   );
 });

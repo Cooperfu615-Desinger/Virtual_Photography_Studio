@@ -81,7 +81,7 @@ The app shell lazy-loads each workspace. Saved Cards archive dependencies and wo
 
 ## Character-card facial identity
 
-The 27 built-in Character Card profiles are paged in PAGE2 as `10 / 10 / 7` and preserve the historical `identityAndBody` field for existing Saved Cards and PAGE1/PAGE2 integrations. New profile fields (`facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and `distinctiveFeatures`) are rendered separately by full prompts. Every compact AI prompt also carries four non-negotiable facial identity anchors; changing hair, wardrobe, or makeup must not replace the character's face. See [`Docs/specs/character-card-facial-identity.md`](Docs/specs/character-card-facial-identity.md).
+The 33 built-in Character Card profiles are paged in PAGE2 as `10 / 10 / 10 / 3` and preserve the historical `identityAndBody` field for existing Saved Cards and PAGE1/PAGE2 integrations. New profile fields (`facialGeometry`, `eyeSignature`, `noseSignature`, `mouthSignature`, `skinSignature`, `makeup`, `body`, and `distinctiveFeatures`) are rendered separately by full prompts. Every compact AI prompt also carries four non-negotiable facial identity anchors; changing hair, wardrobe, or makeup must not replace the character's face. See [`Docs/specs/character-card-facial-identity.md`](Docs/specs/character-card-facial-identity.md).
 
 ## Prompt Engine Architecture
 
