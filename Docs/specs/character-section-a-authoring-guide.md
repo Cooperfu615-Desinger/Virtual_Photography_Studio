@@ -116,6 +116,7 @@ core identity phrase, 1-3 concrete visual traits, restrained style or realism cu
 - `mediumWaist` 可加入軀幹、腰線與腹部；`cowboyKnee` 可再加入臀部與胸腰臀比例；只有 `fullBody`、`unconstrained` 與目前的 `fixedComposition` 使用完整原始體態。
 - 新增或修改正式 Character Card 時，除了 canonical `profile.body`，也必須維護 `profile.bodyProjection` 的 `chestUp`、`mediumWaist`、`cowboyKnee` authored source。`identityAndBody` 相容欄位與四個 permanent identity anchors 不得刪除或由 projection 改寫。
 - 景別省略只影響公開 Prompt，不得清除 body locks、Saved Cards、restore payload 或 generated selection；全身角色照必須恢復完整 body source。
+- 體態 visibility phase 4 的 `compositionBodyPromptIntegration.test.js` 會自動遍歷所有公開 Body Type、正式 Character Card 與公開景別。新增選項若缺少 crop-specific source、破壞 identity anchors、讓三組輸出讀回隱藏 body，或無法由 `full-body-character` 還原，必須視為阻擋式回歸。
 
 範例語氣：
 

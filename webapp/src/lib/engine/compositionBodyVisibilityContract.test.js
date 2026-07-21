@@ -3,8 +3,12 @@ import { test } from 'node:test';
 
 import { getLockControls } from '../engine.js';
 import { CHARACTER_PROFILE_OPTIONS } from './characterProfiles.js';
-import { COMPOSITION_VISIBILITY_CONTRACT } from './compositionVisibilityContract.js';
 import {
+  COMPOSITION_VISIBILITY_CONTRACT,
+  FRAMING_VISIBILITY_BUCKET_BY_ZH,
+} from './compositionVisibilityContract.js';
+import {
+  BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX,
   BODY_TYPE_VISIBILITY_PROFILES,
   COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES,
   COMPOSITION_BODY_VISIBILITY_ZONES,
@@ -185,5 +189,32 @@ test('compatibility character cards author explicit crop-specific body sources',
       assert.equal(Object.hasOwn(bodyProjection, bucket), true, `${card.id}: ${bucket}`);
       assert.doesNotMatch(bodyProjection[bucket], forbiddenByBucket[bucket], `${card.id}: ${bucket} boundary`);
     }
+  }
+});
+
+test('phase-4 integration matrix covers every public framing alias and compatibility source', () => {
+  const publicFramingOptions = controlsByKey.get('framingId')?.options
+    .filter((option) => !option.random)
+    .map((option) => option.zh);
+  const matrixFramingLabels = BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX.publicFramings
+    .map((entry) => entry.framingZh);
+
+  assert.deepEqual(matrixFramingLabels, publicFramingOptions);
+  for (const entry of BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX.publicFramings) {
+    assert.equal(FRAMING_VISIBILITY_BUCKET_BY_ZH[entry.framingZh], entry.bucket, entry.framingZh);
+    assert.ok(EXPECTED_BODY_VISIBILITY_POLICY_BY_BUCKET[entry.bucket], `${entry.framingZh}: body policy`);
+  }
+
+  assert.equal(BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX.fixedComposition.bucket, 'fixedComposition');
+  assert.ok(
+    controlsByKey.get('fixedCompositionSetId')?.options.some((option) => (
+      option.zh === BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX.fixedComposition.fixedSetZh
+    )),
+    'fixed composition fixture'
+  );
+  assert.equal(BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX.characterCards, 'all-formal');
+  assert.equal(BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX.specialOutfitPersonDetailPattern, 'tattoos?');
+  for (const profileZh of Object.values(BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX.duoProfiles)) {
+    assert.ok(BODY_TYPE_VISIBILITY_PROFILES.some((profile) => profile.bodyTypeZh === profileZh), profileZh);
   }
 });

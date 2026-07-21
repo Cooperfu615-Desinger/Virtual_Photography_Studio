@@ -2,8 +2,9 @@
  * Desired PAGE1 body-visibility behavior.
  *
  * Phase 1 established these target records. Phase 2 activated normal-single
- * projection, and phase 3 activates the same shared policy for duo roles,
- * Character Cards, and special-outfit person details before public formatting.
+ * projection, phase 3 activated the same shared policy for compatibility
+ * sources, and phase 4 promotes the complete behavior to a blocking public
+ * framing matrix without changing renderer output.
  */
 
 export const COMPOSITION_BODY_VISIBILITY_ZONES = Object.freeze([
@@ -29,6 +30,35 @@ export const EXPECTED_BODY_VISIBILITY_POLICY_BY_BUCKET = Object.freeze({
   fullBody: Object.freeze({ mode: 'fullSource', zones: Object.freeze(['all']) }),
   unconstrained: Object.freeze({ mode: 'fullSource', zones: Object.freeze(['all']) }),
   fixedComposition: Object.freeze({ mode: 'fullSource', zones: Object.freeze(['all']) }),
+});
+
+/**
+ * Phase 4 promotes the completed runtime behavior to one blocking public
+ * framing matrix. Keep every user-facing framing label here so aliases that
+ * share a bucket cannot silently drift apart.
+ */
+export const BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX = Object.freeze({
+  publicFramings: Object.freeze([
+    Object.freeze({ framingZh: '全無', bucket: 'unconstrained' }),
+    Object.freeze({ framingZh: '半臉傾斜特寫', bucket: 'faceDetail' }),
+    Object.freeze({ framingZh: '局部五官特寫', bucket: 'faceDetail' }),
+    Object.freeze({ framingZh: '臉部特寫', bucket: 'faceDetail' }),
+    Object.freeze({ framingZh: '特寫鏡頭 (Close-Up)', bucket: 'headShoulders' }),
+    Object.freeze({ framingZh: '胸上特寫', bucket: 'chestUp' }),
+    Object.freeze({ framingZh: '中景鏡頭 (Medium Shot)', bucket: 'mediumWaist' }),
+    Object.freeze({ framingZh: '牛仔中景 (Cowboy Shot)', bucket: 'cowboyKnee' }),
+    Object.freeze({ framingZh: '全身鏡頭 (Full Body Shot)', bucket: 'fullBody' }),
+  ]),
+  fixedComposition: Object.freeze({
+    fixedSetZh: '暖灰泥黑絲絨工業沙發棚',
+    bucket: 'fixedComposition',
+  }),
+  duoProfiles: Object.freeze({
+    a: '高挑時裝模特',
+    b: '柔和沙漏身形',
+  }),
+  characterCards: 'all-formal',
+  specialOutfitPersonDetailPattern: 'tattoos?',
 });
 
 function createBodyTypeProfile({

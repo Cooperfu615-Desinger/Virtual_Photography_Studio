@@ -55,13 +55,15 @@ Last updated: 2026-07-21
 - 背景是否淺景深由光圈／景深、焦段、光學效果與拍攝距離等攝影控制決定，不屬於場景投影責任。
 - `fullBodyCharacterPrompt` 永遠使用完整服裝資料，不得沿用主 Prompt 的 `visibleProjection`；它仍不輸出 Pose、Scene 或 `multi-cut sequence n=2`。
 
-### 體態構圖可見性優化（2026-07-21 第一至三階段）
+### 體態構圖可見性優化（2026-07-21 第一至四階段）
 
 第一階段建立目標規格與 deterministic regression fixtures。`webapp/src/lib/engine/compositionBodyVisibilityFixtures.js` 固定六種正式 Body Type 在各景別的共享 projected body source；`compositionBodyVisibilityContract.test.js` 驗證來源完整性、區域邊界、單人／雙人／角色卡／特殊穿搭 coverage，以及 raw selection preservation。
 
 第二階段把 `compositionVisibilityContract` 升級為 version 3，並將 shared body projection 接到正常單人的六種正式 Body Type。`compositionBodyProjection.js` 在三個 renderer 排版前，依同一個 composition bucket 產生一次投影後 Body Type；Gpt 完整保留該來源，Grok/Z-Image 與 AI 只能依既有契約做可追溯壓縮。原始 `bodyTypeId`、generated selection、Saved Cards 與 restore 資料不變；`full-body-character` 仍明確使用完整原始 Body Type。第二階段沒有改動服裝、姿勢、場景、攝影控制或 UI，也尚未處理雙人 A/B、角色卡結構化 `body` 與特殊穿搭 person-detail 內的體態片段。
 
 第三階段將相同 projection 接到雙人 A/B Body Type、正式角色卡結構化 `profile.body`，以及特殊穿搭 person-detail 的身體位置刺青。雙人三組輸出都從投影後的角色 Body Type 建立各自的 `Woman 1`／`Woman 2` 區塊；角色卡在 `characterProfiles.js` 為每張正式卡提供 authored `bodyProjection`，近景不再回讀混合式 `identityAndBody`，但該相容欄位、五官結構、四個 permanent identity anchors、髮型與配件仍保留。特殊穿搭內建髮型不受景別影響，胸部／手臂刺青在臉部與頭肩景別省略、從胸上景別恢復。原始選擇與獨立 `full-body-character` 仍使用完整來源；服裝、姿勢、場景、攝影控制、UI 與公開欄位映射不變。
+
+第四階段不再修改 renderer，而是把完成後行為提升為 `compositionBodyPromptIntegration.test.js` 的阻擋式整合契約並接入 `npm run test:prompt-quality`。矩陣涵蓋全部公開景別別名、六種 Body Type、固定構圖的完整來源邊界、雙人 A/B、全部正式 Character Card，以及所有含身體位置刺青的特殊穿搭；逐一確認三組歷史輸出欄位只使用投影後 body source、raw selection 保留、角色 identity anchors 不受影響，且單人 `full-body-character` 還原完整來源。第四階段沒有新增 Prompt 文字、改變壓縮規則或影響服裝、姿勢、場景與 E 攝影成像。
 
 | 公開景別 | 內部 bucket | 目標體態可見性 |
 | --- | --- | --- |
@@ -90,6 +92,7 @@ Last updated: 2026-07-21
 - `webapp/src/lib/engine/compositionBodyVisibilityFixtures.js`
 - `webapp/src/lib/engine/compositionBodyVisibilityContract.test.js`
 - `webapp/src/lib/engine/compositionBodyVisibilityIntegration.test.js`
+- `webapp/src/lib/engine/compositionBodyPromptIntegration.test.js`
 
 體態構圖可見性第一階段基準另位於：
 
