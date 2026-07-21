@@ -15,6 +15,7 @@ import {
   shouldProjectPosePart,
   shouldProjectWardrobeRole,
 } from './engine/compositionVisibilityContract.js';
+import { projectNormalBodyTypeItem } from './engine/compositionBodyProjection.js';
 import {
   dedupeRepeatedCommaFragments,
   materializeOutfitColorControls,
@@ -6651,6 +6652,19 @@ function extractCharacterSlots(character) {
   };
 }
 
+function projectNormalSingleBodyTypeCharacter(character, context) {
+  if (!Array.isArray(character) || context?.subject?.count !== 1) return character;
+  if (isSpecialSubject(context.subject) || isCharacterProfileSubject(context.subject)) return character;
+
+  const bodyType = extractCharacterSlots(character).bodyType;
+  if (!bodyType) return character;
+
+  const projectedBodyType = projectNormalBodyTypeItem(bodyType, getCompositionVisibilityProjection(context));
+  if (projectedBodyType === bodyType) return character;
+  if (!projectedBodyType) return character.filter((item) => item !== bodyType);
+  return character.map((item) => (item === bodyType ? projectedBodyType : item));
+}
+
 function extractWardrobeSlots(wardrobe) {
   const findSlot = (token) => wardrobe.find((item) => item.id?.includes(token) && !item.meta?.wardrobeRole);
   const findRoleSlot = (token, role, layerSlot) => wardrobe.find((item) => item.id?.includes(token) && item.meta?.wardrobeRole === role && item.meta?.layerSlot === layerSlot);
@@ -12004,12 +12018,13 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     ...rendererContext,
     projectedScene: buildProjectedScene(rendererContext),
   };
+  const projectedCharacter = projectNormalSingleBodyTypeCharacter(character, mainContext);
   const rendererWardrobe = fixedCompositionPromptProjection?.wardrobe.items || wardrobe;
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {
-    ...buildStructuredPromptSections(mainContext, character, rendererWardrobe, rendererWardrobeColors, lightDirection, film),
+    ...buildStructuredPromptSections(mainContext, projectedCharacter, rendererWardrobe, rendererWardrobeColors, lightDirection, film),
     context: mainContext,
-    character,
+    character: projectedCharacter,
     wardrobe: rendererWardrobe,
     wardrobeColors: rendererWardrobeColors,
     lightDirection,
@@ -12026,6 +12041,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     ...promptModel,
     ...buildStructuredPromptSections(fullBodyCharacterContext, character, wardrobe, wardrobeColors, lightDirection, film),
     context: fullBodyCharacterContext,
+    character,
     wardrobe,
     wardrobeColors,
   };

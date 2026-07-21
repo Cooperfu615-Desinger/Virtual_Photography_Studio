@@ -20,8 +20,8 @@ import { COMPOSITION_VISIBILITY_REGRESSION_FIXTURES } from './compositionVisibil
 const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
 
-test('composition visibility contract version includes the fixed-composition context', () => {
-  assert.equal(COMPOSITION_VISIBILITY_CONTRACT_VERSION, 2);
+test('composition visibility contract version includes body and fixed-composition contexts', () => {
+  assert.equal(COMPOSITION_VISIBILITY_CONTRACT_VERSION, 3);
   assert.ok(COMPOSITION_VISIBILITY_CONTRACT[COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]);
 });
 
@@ -47,6 +47,8 @@ test('composition visibility policies preserve raw selections and never invent d
     assert.equal(typeof policy.composition.manualFraming, 'boolean', bucket);
     assert.equal(typeof policy.composition.cameraDistanceMode, 'string', bucket);
     assert.equal(policy.selection.preserveRawSelections, true, bucket);
+    assert.equal(typeof policy.body.mode, 'string', bucket);
+    assert.equal(Array.isArray(policy.body.zones), true, bucket);
     assert.equal(policy.scene.preserveLocationIdentity, true, bucket);
     assert.equal(policy.scene.preserveSourceAnchors, true, bucket);
     assert.equal(policy.scene.addDepthEffect, false, bucket);
@@ -64,6 +66,8 @@ test('fixed composition uses its own non-adjustable camera-distance context inst
   assert.equal(fixed.composition.source, 'fixedCompositionSet');
   assert.equal(fixed.composition.manualFraming, false);
   assert.equal(fixed.composition.cameraDistanceMode, 'fixedSetDefined');
+  assert.equal(fixed.body.mode, 'fullSource');
+  assert.deepEqual(fixed.body.zones, ['all']);
   assert.deepEqual(fixed.wardrobe.roles, COMPOSITION_WARDROBE_ROLES);
   assert.deepEqual(fixed.pose.parts, COMPOSITION_POSE_PARTS);
   assert.equal(fixed.pose.mode, 'fullCanonical');
@@ -87,15 +91,21 @@ test('near crops omit full-body pressure while wider crops progressively restore
   const full = COMPOSITION_VISIBILITY_CONTRACT[COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY];
 
   assert.equal(face.pose.mode, 'omit');
+  assert.equal(face.body.mode, 'omit');
   assert.equal(headShoulders.pose.mode, 'omit');
+  assert.equal(headShoulders.body.mode, 'omit');
   assert.deepEqual(headShoulders.pose.parts, []);
   assert.equal(chestUp.pose.mode, 'visibleFragments');
+  assert.deepEqual(chestUp.body.zones, ['chest']);
+  assert.deepEqual(medium.body.zones, ['chest', 'torso', 'waist', 'abdomen']);
+  assert.deepEqual(cowboy.body.zones, ['chest', 'torso', 'waist', 'abdomen', 'hips']);
   assert.equal(medium.wardrobe.roles.includes('bottom'), true);
   assert.equal(cowboy.wardrobe.conditionalRoles.includes('legwear'), true);
   assert.equal(cowboy.wardrobe.roles.includes('shoes'), false);
   assert.deepEqual(full.wardrobe.roles, COMPOSITION_WARDROBE_ROLES);
   assert.deepEqual(full.pose.parts, COMPOSITION_POSE_PARTS);
   assert.equal(full.pose.mode, 'fullCanonical');
+  assert.equal(full.body.mode, 'fullSource');
 });
 
 test('unknown framing items use visibility metadata without changing known framing distinctions', () => {

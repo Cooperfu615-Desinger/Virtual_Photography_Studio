@@ -1,12 +1,13 @@
 /**
  * Canonical PAGE1 composition-visibility contract.
  *
- * The contract projects resolved wardrobe, pose, and scene data before public
- * renderer formatting. Version 2 separates fixed-composition camera distance
- * from the ordinary unconstrained framing bucket.
+ * The contract projects resolved body, wardrobe, pose, and scene data before
+ * public renderer formatting. Version 2 separates fixed-composition camera
+ * distance from the ordinary unconstrained framing bucket; version 3 adds the
+ * shared body-visibility boundary.
  */
 
-export const COMPOSITION_VISIBILITY_CONTRACT_VERSION = 2;
+export const COMPOSITION_VISIBILITY_CONTRACT_VERSION = 3;
 
 export const COMPOSITION_VISIBILITY_BUCKETS = Object.freeze({
   UNCONSTRAINED: 'unconstrained',
@@ -51,6 +52,8 @@ export const COMPOSITION_POSE_PARTS = Object.freeze([
 const freezeList = (values = []) => Object.freeze([...values]);
 
 function createVisibilityPolicy({
+  bodyMode,
+  bodyZones = [],
   wardrobeRoles,
   conditionalWardrobeRoles = [],
   wardrobeDetailZones,
@@ -71,6 +74,10 @@ function createVisibilityPolicy({
       cameraDistanceMode,
     }),
     selection: Object.freeze({ preserveRawSelections: true }),
+    body: Object.freeze({
+      mode: bodyMode,
+      zones: freezeList(bodyZones),
+    }),
     wardrobe: Object.freeze({
       roles: freezeList(wardrobeRoles),
       conditionalRoles: freezeList(conditionalWardrobeRoles),
@@ -111,6 +118,8 @@ const MEDIUM_WARDROBE_ROLES = [
 
 export const COMPOSITION_VISIBILITY_CONTRACT = Object.freeze({
   [COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED]: createVisibilityPolicy({
+    bodyMode: 'fullSource',
+    bodyZones: ['all'],
     wardrobeRoles: COMPOSITION_WARDROBE_ROLES,
     wardrobeDetailZones: ['head', 'face', 'upperBody', 'waist', 'hip', 'thigh', 'lowerLeg', 'foot'],
     poseMode: 'fullCanonical',
@@ -120,6 +129,8 @@ export const COMPOSITION_VISIBILITY_CONTRACT = Object.freeze({
     sceneSupportObjects: 'full',
   }),
   [COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]: createVisibilityPolicy({
+    bodyMode: 'fullSource',
+    bodyZones: ['all'],
     wardrobeRoles: COMPOSITION_WARDROBE_ROLES,
     wardrobeDetailZones: ['head', 'face', 'upperBody', 'waist', 'hip', 'thigh', 'lowerLeg', 'foot'],
     poseMode: 'fullCanonical',
@@ -132,6 +143,7 @@ export const COMPOSITION_VISIBILITY_CONTRACT = Object.freeze({
     cameraDistanceMode: 'fixedSetDefined',
   }),
   [COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL]: createVisibilityPolicy({
+    bodyMode: 'omit',
     wardrobeRoles: FACE_ACCESSORY_ROLES,
     wardrobeDetailZones: ['head', 'face'],
     poseMode: 'omit',
@@ -140,6 +152,7 @@ export const COMPOSITION_VISIBILITY_CONTRACT = Object.freeze({
     sceneSupportObjects: 'omit',
   }),
   [COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS]: createVisibilityPolicy({
+    bodyMode: 'omit',
     wardrobeRoles: UPPER_WARDROBE_ROLES,
     wardrobeDetailZones: ['head', 'face', 'shoulder', 'neckline'],
     poseMode: 'omit',
@@ -148,6 +161,8 @@ export const COMPOSITION_VISIBILITY_CONTRACT = Object.freeze({
     sceneSupportObjects: 'omit',
   }),
   [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: createVisibilityPolicy({
+    bodyMode: 'visibleZones',
+    bodyZones: ['chest'],
     wardrobeRoles: UPPER_WARDROBE_ROLES,
     wardrobeDetailZones: ['head', 'face', 'shoulder', 'neckline', 'upperBody'],
     poseMode: 'visibleFragments',
@@ -158,6 +173,8 @@ export const COMPOSITION_VISIBILITY_CONTRACT = Object.freeze({
     sceneSupportObjects: 'visibleOnly',
   }),
   [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: createVisibilityPolicy({
+    bodyMode: 'visibleZones',
+    bodyZones: ['chest', 'torso', 'waist', 'abdomen'],
     wardrobeRoles: MEDIUM_WARDROBE_ROLES,
     wardrobeDetailZones: ['head', 'face', 'shoulder', 'neckline', 'upperBody', 'waist'],
     poseMode: 'visibleFragments',
@@ -168,6 +185,8 @@ export const COMPOSITION_VISIBILITY_CONTRACT = Object.freeze({
     sceneSupportObjects: 'visibleOnly',
   }),
   [COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE]: createVisibilityPolicy({
+    bodyMode: 'visibleZones',
+    bodyZones: ['chest', 'torso', 'waist', 'abdomen', 'hips'],
     wardrobeRoles: MEDIUM_WARDROBE_ROLES,
     conditionalWardrobeRoles: ['legwear'],
     wardrobeDetailZones: ['head', 'face', 'shoulder', 'neckline', 'upperBody', 'waist', 'hip', 'thigh', 'knee'],
@@ -179,6 +198,8 @@ export const COMPOSITION_VISIBILITY_CONTRACT = Object.freeze({
     sceneSupportObjects: 'visibleOnly',
   }),
   [COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY]: createVisibilityPolicy({
+    bodyMode: 'fullSource',
+    bodyZones: ['all'],
     wardrobeRoles: COMPOSITION_WARDROBE_ROLES,
     wardrobeDetailZones: ['head', 'face', 'upperBody', 'waist', 'hip', 'thigh', 'lowerLeg', 'foot'],
     poseMode: 'fullCanonical',
@@ -230,6 +251,7 @@ export function createCompositionVisibilityProjection(framing, options = {}) {
   return Object.freeze({
     bucket,
     composition: policy.composition,
+    body: policy.body,
     wardrobe: policy.wardrobe,
     pose: policy.pose,
     scene: policy.scene,

@@ -1,6 +1,6 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-07-19
+Last updated: 2026-07-21
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
@@ -55,9 +55,11 @@ Last updated: 2026-07-19
 - 背景是否淺景深由光圈／景深、焦段、光學效果與拍攝距離等攝影控制決定，不屬於場景投影責任。
 - `fullBodyCharacterPrompt` 永遠使用完整服裝資料，不得沿用主 Prompt 的 `visibleProjection`；它仍不輸出 Pose、Scene 或 `multi-cut sequence n=2`。
 
-### 體態構圖可見性優化（2026-07-21 第一階段基準）
+### 體態構圖可見性優化（2026-07-21 第一、二階段）
 
-第一階段只建立目標規格與 deterministic regression fixtures，尚未改變 runtime。`webapp/src/lib/engine/compositionBodyVisibilityFixtures.js` 固定六種正式 Body Type 在各景別的共享 projected body source；`compositionBodyVisibilityContract.test.js` 驗證來源完整性、區域邊界、單人／雙人／角色卡／特殊穿搭 coverage，以及 raw selection preservation。現行 renderer 在第二階段接入 shared body projection 前，仍維持完整 Body Type 的 legacy baseline。
+第一階段建立目標規格與 deterministic regression fixtures。`webapp/src/lib/engine/compositionBodyVisibilityFixtures.js` 固定六種正式 Body Type 在各景別的共享 projected body source；`compositionBodyVisibilityContract.test.js` 驗證來源完整性、區域邊界、單人／雙人／角色卡／特殊穿搭 coverage，以及 raw selection preservation。
+
+第二階段把 `compositionVisibilityContract` 升級為 version 3，並將 shared body projection 接到正常單人的六種正式 Body Type。`compositionBodyProjection.js` 在三個 renderer 排版前，依同一個 composition bucket 產生一次投影後 Body Type；Gpt 完整保留該來源，Grok/Z-Image 與 AI 只能依既有契約做可追溯壓縮。原始 `bodyTypeId`、generated selection、Saved Cards 與 restore 資料不變；`full-body-character` 仍明確使用完整原始 Body Type。第二階段沒有改動服裝、姿勢、場景、攝影控制或 UI，也尚未處理雙人 A/B、角色卡結構化 `body` 與特殊穿搭 person-detail 內的體態片段。
 
 | 公開景別 | 內部 bucket | 目標體態可見性 |
 | --- | --- | --- |
@@ -79,11 +81,13 @@ Last updated: 2026-07-19
 - 胸上與中景不得直接保留混合胸腰臀的三數值 anchor。牛仔景已能看到臀部，可保留胸腰臀比例，但仍不得帶入身高、視覺體重、長腿或腿身比。
 - 體態資料是混合全身句，runtime 不應用 renderer-specific 正規表示式即時猜測；應使用已編寫、可追溯的區域 body source。
 
-第一階段程式基準位於：
+主要程式與 regression 基準位於：
 
 - `webapp/src/lib/engine/compositionVisibilityContract.js`
-- `webapp/src/lib/engine/compositionVisibilityFixtures.js`
-- `webapp/src/lib/engine/compositionVisibilityContract.test.js`
+- `webapp/src/lib/engine/compositionBodyProjection.js`
+- `webapp/src/lib/engine/compositionBodyVisibilityFixtures.js`
+- `webapp/src/lib/engine/compositionBodyVisibilityContract.test.js`
+- `webapp/src/lib/engine/compositionBodyVisibilityIntegration.test.js`
 
 體態構圖可見性第一階段基準另位於：
 

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { getLockControls } from '../engine.js';
+import { COMPOSITION_VISIBILITY_CONTRACT } from './compositionVisibilityContract.js';
 import {
   BODY_TYPE_VISIBILITY_PROFILES,
   COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES,
@@ -41,6 +42,10 @@ test('phase-1 body visibility policy records the approved progressive crop zones
       mode: 'fullSource',
       zones: ['all'],
     });
+  }
+
+  for (const [bucket, expectedBodyPolicy] of Object.entries(EXPECTED_BODY_VISIBILITY_POLICY_BY_BUCKET)) {
+    assert.deepEqual(COMPOSITION_VISIBILITY_CONTRACT[bucket]?.body, expectedBodyPolicy, `${bucket}: runtime policy`);
   }
 });
 

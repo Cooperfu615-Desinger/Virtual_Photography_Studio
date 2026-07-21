@@ -1,9 +1,10 @@
 /**
  * Desired PAGE1 body-visibility behavior.
  *
- * Phase 1 is fixture-only: these records define the body source that later
- * runtime phases must project before Gpt, Grok/Z-Image, and AI formatting.
- * They intentionally do not call the current renderers yet.
+ * Phase 1 established these target records. Phase 2 uses them as independent
+ * regression expectations for the normal-single runtime projection before
+ * Gpt, Grok/Z-Image, and AI formatting. Later phases retain the compatibility
+ * scenarios for duo, Character Card, and special-outfit body sources.
  */
 
 export const COMPOSITION_BODY_VISIBILITY_ZONES = Object.freeze([
@@ -60,7 +61,7 @@ export const BODY_TYPE_VISIBILITY_PROFILES = Object.freeze([
     fullSource: 'tall slim fashion body, about 170-175 cm visual height, 80-58-88 body proportion anchor, long legs with about 3.5:6.5 torso-to-leg balance, shorter upper torso, high waistline, narrow ribcage, gently wider hips, clean editorial silhouette',
     chestUp: 'narrow ribcage',
     mediumWaist: 'shorter upper torso, high waistline, narrow ribcage',
-    cowboyKnee: '80-58-88 body proportion anchor, shorter upper torso, high waistline, narrow ribcage, gently wider hips',
+    cowboyKnee: '80-58-88 body proportion anchor, high waistline, narrow ribcage, gently wider hips, shorter upper torso',
   }),
   createBodyTypeProfile({
     bodyTypeZh: '一般基本體型',
@@ -74,7 +75,7 @@ export const BODY_TYPE_VISIBILITY_PROFILES = Object.freeze([
     fullSource: 'soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor, balanced torso-to-leg ratio around 4:6, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines',
     chestUp: 'fuller bust',
     mediumWaist: 'longer upper torso, lower waistline, fuller bust, elongated abdomen with subtle contour lines',
-    cowboyKnee: '90-62-94 body proportion anchor, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines',
+    cowboyKnee: '90-62-94 body proportion anchor, fuller bust, lower waistline, wider hips, longer upper torso, elongated abdomen with subtle contour lines',
   }),
   createBodyTypeProfile({
     bodyTypeZh: '性感曲線身形',
@@ -188,7 +189,7 @@ export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
     expectedProjection: {
       bucket: 'cowboyKnee',
       profileZh: '柔和沙漏身形',
-      bodyText: '90-62-94 body proportion anchor, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines',
+      bodyText: '90-62-94 body proportion anchor, fuller bust, lower waistline, wider hips, longer upper torso, elongated abdomen with subtle contour lines',
       preserveRawLockKeys: ['bodyTypeId'],
       preserveNonBodyGroups: ['faceIdentity', 'skin', 'makeup', 'hair', 'faceAccessories'],
       fullBodyCharacterUsesFullSource: true,

@@ -1377,10 +1377,7 @@ test('Grok/Z-Image keeps subject, wardrobe, pose, and scene order across single 
   }
 });
 
-// Legacy runtime baseline only. Body-visibility phase 1 records the replacement
-// chest-only target in compositionBodyVisibilityFixtures.js; phase 2 will
-// reverse these assertions when the shared body projection is connected.
-test('legacy baseline: Z-Image chest-up framing still preserves the full body-shape anchor', () => {
+test('chest-up framing keeps only the visible Body Type chest anchor', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -1389,12 +1386,12 @@ test('legacy baseline: Z-Image chest-up framing still preserves the full body-sh
     topId: optionId('topId', '棉質細肩背心'),
   });
 
-  assert.match(prompt.zImagePrompt, /soft natural hourglass body, about 165-170 cm visual height/i);
-  assert.match(prompt.zImagePrompt, /90-62-94 body proportion anchor/i);
-  assert.match(prompt.zImagePrompt, /fuller bust/i);
-  assert.match(prompt.zImagePrompt, /wider hips/i);
-  assert.match(prompt.zImagePrompt, /longer upper torso/i);
-  assert.match(prompt.zImagePrompt, /elongated abdomen with subtle contour lines/i);
+  for (const output of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(output, /fuller bust/i);
+    assert.doesNotMatch(output, /soft natural hourglass body/i);
+    assert.doesNotMatch(output, /visual height|90-62-94 body proportion anchor|torso-to-leg ratio/i);
+    assert.doesNotMatch(output, /wider hips|longer upper torso|lower waistline|elongated abdomen/i);
+  }
   assert.match(prompt.zImagePrompt, /cotton camisole top/i);
 });
 
