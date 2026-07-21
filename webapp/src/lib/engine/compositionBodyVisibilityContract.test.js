@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { getLockControls } from '../engine.js';
+import { CHARACTER_PROFILE_OPTIONS } from './characterProfiles.js';
 import { COMPOSITION_VISIBILITY_CONTRACT } from './compositionVisibilityContract.js';
 import {
   BODY_TYPE_VISIBILITY_PROFILES,
@@ -118,8 +119,14 @@ test('phase-1 body fixtures resolve public controls and cover compatibility sour
     }
 
     if (fixture.expectedProjection.roleProfiles) {
-      for (const profileZh of Object.values(fixture.expectedProjection.roleProfiles)) {
-        assert.ok(profileByZh.has(profileZh), `${fixture.id}: missing duo profile ${profileZh}`);
+      for (const [role, profileZh] of Object.entries(fixture.expectedProjection.roleProfiles)) {
+        const profile = profileByZh.get(profileZh);
+        assert.ok(profile, `${fixture.id}: missing duo profile ${profileZh}`);
+        assert.equal(
+          fixture.expectedProjection.roleBodyText?.[role],
+          profile.expectedTextByBucket[fixture.expectedProjection.bucket],
+          `${fixture.id}: role ${role} expected shared body source`
+        );
       }
     }
   }
@@ -159,5 +166,24 @@ test('phase-1 fixtures preserve face identity while only body content is project
       true,
       `${fixture.id}: face identity`
     );
+  }
+});
+
+test('compatibility character cards author explicit crop-specific body sources', () => {
+  const characterCards = CHARACTER_PROFILE_OPTIONS.filter((option) => option.specialSubject === 'character-profile');
+  const forbiddenByBucket = {
+    chestUp: /\b(?:height|weight|body proportion anchor|torso-to-leg|waist|abdomen|hips?|legs?|limbs?|thighs?)\b/i,
+    mediumWaist: /\b(?:height|weight|body proportion anchor|torso-to-leg|hips?|legs?|limbs?|thighs?)\b/i,
+    cowboyKnee: /\b(?:height|weight|torso-to-leg|long legs?|long limbs?|thighs?)\b/i,
+  };
+
+  assert.ok(characterCards.length > 0);
+  for (const card of characterCards) {
+    const bodyProjection = card.profile?.bodyProjection;
+    assert.ok(bodyProjection, `${card.id}: bodyProjection`);
+    for (const bucket of ['chestUp', 'mediumWaist', 'cowboyKnee']) {
+      assert.equal(Object.hasOwn(bodyProjection, bucket), true, `${card.id}: ${bucket}`);
+      assert.doesNotMatch(bodyProjection[bucket], forbiddenByBucket[bucket], `${card.id}: ${bucket} boundary`);
+    }
   }
 });

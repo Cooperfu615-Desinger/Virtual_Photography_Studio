@@ -1089,9 +1089,9 @@ test('Grok/Z-Image duo prompt uses compact role sections', () => {
   assert.ok(zPrompt.indexOf('\nPose and Composition:\n') < zPrompt.indexOf('\nScene:\n'));
   assert.ok(zPrompt.indexOf('\nScene:\n') < zPrompt.indexOf('\nLighting:\n'));
   assert.ok(zPrompt.indexOf('\nLighting:\n') < zPrompt.indexOf('\nCamera Look:\n'));
-  assert.match(woman1, /^Wears /);
+  assert.match(woman1, /^Has [\s\S]+\bWears /);
   assert.match(woman1, /cropped sleeveless tank[\s\S]*balloon wide pants[\s\S]*deep indigo denim color family/i);
-  assert.match(woman2, /^Wears /);
+  assert.match(woman2, /^Has [\s\S]+\bWears /);
   assert.match(woman2, /sheer mesh halter camisole[\s\S]*denim micro mini skirt[\s\S]*silver, graphite, and metallic gray color family/i);
   assert.match(zImageSection(prompt, 'Shared Expression'), /laugh naturally with each other/i);
   assert.match(zImageSection(prompt, 'Pose and Composition'), /posing like fashion magazine models/i);
@@ -1463,8 +1463,8 @@ test('AI duo prompt uses compact labeled role sections', () => {
   assert.ok(aiPrompt.indexOf('\n\nPose:') < aiPrompt.indexOf('\n\nScene:'));
   assert.ok(aiPrompt.indexOf('\n\nScene:') < aiPrompt.indexOf('\n\nLighting:'));
   assert.ok(aiPrompt.indexOf('\n\nLighting:') < aiPrompt.indexOf('\n\nCamera Look:'));
-  assert.match(aiSection(prompt, 'Woman 1'), /^Wears .*long white lace robe cardigan[\s\S]*ripped light blue jeans[\s\S]*brown leather shoulder bag[\s\S]*burgundy ballet flats/i);
-  assert.match(aiSection(prompt, 'Woman 2'), /^Wears .*navy zip-up track jacket[\s\S]*white ruffled camisole[\s\S]*black cropped jogger pants[\s\S]*black ballet flats[\s\S]*silver shoulder bag\./i);
+  assert.match(aiSection(prompt, 'Woman 1'), /^Has [\s\S]+\bWears .*long white lace robe cardigan[\s\S]*ripped light blue jeans[\s\S]*brown leather shoulder bag[\s\S]*burgundy ballet flats/i);
+  assert.match(aiSection(prompt, 'Woman 2'), /^Has [\s\S]+\bWears .*navy zip-up track jacket[\s\S]*white ruffled camisole[\s\S]*black cropped jogger pants[\s\S]*black ballet flats[\s\S]*silver shoulder bag\./i);
   assert.match(aiSection(prompt, 'Pose'), /intimate best-friends selfie moment[\s\S]*casual affectionate body language[\s\S]*playful candid interaction[\s\S]*walking or mid-step/i);
   assert.match(aiSection(prompt, 'Scene'), /Dotonbori Shinsaibashi riverside edge in Osaka[\s\S]*iconic billboard signage[\s\S]*canal water visible below/i);
   assert.match(aiSection(prompt, 'Lighting'), /harsh midday environment[\s\S]*overhead summer sun position[\s\S]*downward facial shadows/i);

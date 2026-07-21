@@ -1,10 +1,9 @@
 /**
  * Desired PAGE1 body-visibility behavior.
  *
- * Phase 1 established these target records. Phase 2 uses them as independent
- * regression expectations for the normal-single runtime projection before
- * Gpt, Grok/Z-Image, and AI formatting. Later phases retain the compatibility
- * scenarios for duo, Character Card, and special-outfit body sources.
+ * Phase 1 established these target records. Phase 2 activated normal-single
+ * projection, and phase 3 activates the same shared policy for duo roles,
+ * Character Cards, and special-outfit person details before public formatting.
  */
 
 export const COMPOSITION_BODY_VISIBILITY_ZONES = Object.freeze([
@@ -226,6 +225,10 @@ export const COMPOSITION_BODY_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
     expectedProjection: {
       bucket: 'mediumWaist',
       roleProfiles: Object.freeze({ a: '高挑時裝模特', b: '一般基本體型' }),
+      roleBodyText: Object.freeze({
+        a: 'shorter upper torso, high waistline, narrow ribcage',
+        b: 'modest bust, low-contrast waist curve',
+      }),
       preserveRawLockKeys: ['bodyTypeAId', 'bodyTypeBId'],
       preserveNonBodyGroups: ['faceIdentity', 'skin', 'makeup', 'hair', 'faceAccessories'],
       fullBodyCharacterUsesFullSource: false,

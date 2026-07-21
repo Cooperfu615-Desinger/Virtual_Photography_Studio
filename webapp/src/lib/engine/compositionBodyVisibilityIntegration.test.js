@@ -7,6 +7,7 @@ import {
   generatePrompts,
   getLockControls,
 } from '../engine.js';
+import { CHARACTER_PROFILE_OPTIONS } from './characterProfiles.js';
 import { BODY_TYPE_VISIBILITY_PROFILES } from './compositionBodyVisibilityFixtures.js';
 
 const MAIN_OUTPUT_FIELDS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
@@ -143,4 +144,149 @@ test('normal single partial Body Type output excludes hidden full-body regions',
       }
     }
   }
+});
+
+test('duo role Body Types reuse the shared projected body source without changing selections', () => {
+  const bodyTypeAId = optionId(controlsByKey.get('bodyTypeAId'), '高挑時裝模特');
+  const bodyTypeBId = optionId(controlsByKey.get('bodyTypeBId'), '一般基本體型');
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '2',
+    framingId: optionId(framingControl, '中景鏡頭 (Medium Shot)'),
+    bodyTypeAId,
+    bodyTypeBId,
+  }, [], {
+    random: createSeededRandom('composition-body-duo-runtime-v1'),
+  });
+
+  assert.equal(prompt.selection.bodyTypeAId, bodyTypeAId);
+  assert.equal(prompt.selection.bodyTypeBId, bodyTypeBId);
+  for (const field of MAIN_OUTPUT_FIELDS) {
+    assertIncludes(prompt[field], 'shorter upper torso', `${field}: woman 1 projected body`);
+    assertIncludes(prompt[field], 'modest bust', `${field}: woman 2 projected body`);
+    assertExcludes(prompt[field], 'about 170-175 cm visual height', `${field}: woman 1 height`);
+    assertExcludes(prompt[field], 'long legs with about 3.5:6.5 torso-to-leg balance', `${field}: woman 1 legs`);
+    assertExcludes(prompt[field], 'about 160-165 cm visual height', `${field}: woman 2 height`);
+    assertExcludes(prompt[field], 'balanced torso-to-leg ratio around 4:6', `${field}: woman 2 legs`);
+  }
+});
+
+test('Character Card body projection removes only body text and full-body output restores its source', () => {
+  const characterProfileControl = controlsByKey.get('characterProfileId');
+  const characterProfileId = optionId(characterProfileControl, '11_Rika');
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    characterProfileId,
+    framingId: optionId(framingControl, '臉部特寫'),
+  }, [], {
+    random: createSeededRandom('composition-body-character-card-runtime-v1'),
+  });
+
+  assert.equal(prompt.selection.characterProfileId, characterProfileId);
+  for (const field of MAIN_OUTPUT_FIELDS) {
+    assertExcludes(prompt[field], 'slim petite casual-fashion proportions with a narrow waist', `${field}: card body`);
+    assertIncludes(prompt[field], 'tiny beauty mark near the outer cheek', `${field}: permanent identity anchor`);
+    assertIncludes(prompt[field], 'cushioned', `${field}: mouth identity`);
+    assertIncludes(prompt[field], 'glossy natural black long wavy hair', `${field}: hair`);
+  }
+
+  const fullBodyText = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
+  assertIncludes(fullBodyText, 'slim petite casual-fashion proportions with a narrow waist', 'full-body card source');
+});
+
+test('face crop removes the structured body source from every formal Character Card', () => {
+  const cards = CHARACTER_PROFILE_OPTIONS.filter((option) => option.specialSubject === 'character-profile');
+
+  for (const card of cards) {
+    const [prompt] = generatePrompts(1, {
+      ...createAllNoneLocks(),
+      subjectCount: '1',
+      characterProfileId: card.id,
+      framingId: optionId(framingControl, '臉部特寫'),
+    }, [], {
+      random: createSeededRandom(`composition-body-card-face-${card.id}-v1`),
+    });
+
+    assert.equal(prompt.selection.characterProfileId, card.id, `${card.id}: selection`);
+    for (const field of MAIN_OUTPUT_FIELDS) {
+      assertExcludes(prompt[field], card.profile.body, `${card.id}/${field}: body`);
+    }
+    const fullBodyText = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
+    assertIncludes(fullBodyText, card.profile.body, `${card.id}: full-body restoration`);
+  }
+});
+
+test('Character Card partial crops use authored chest, waist, and hip sources', () => {
+  const expectedByFraming = {
+    '胸上特寫': 'fuller bust',
+    '中景鏡頭 (Medium Shot)': 'fuller bust, narrow waist',
+    '牛仔中景 (Cowboy Shot)': 'high-fashion hourglass proportions, fuller bust, wide hips, narrow waist',
+  };
+
+  for (const [framingZh, expectedBodyText] of Object.entries(expectedByFraming)) {
+    const [prompt] = generatePrompts(1, {
+      ...createAllNoneLocks(),
+      subjectCount: '1',
+      characterProfileId: optionId(controlsByKey.get('characterProfileId'), '06_Hinata'),
+      framingId: optionId(framingControl, framingZh),
+    }, [], {
+      random: createSeededRandom(`composition-body-character-card-${framingZh}-v1`),
+    });
+
+    for (const field of MAIN_OUTPUT_FIELDS) {
+      for (const fragment of bodyFragments(expectedBodyText)) {
+        assertIncludes(prompt[field], fragment, `${framingZh}/${field}: ${fragment}`);
+      }
+      assertExcludes(prompt[field], 'tall high-fashion hourglass proportions with long limbs', `${framingZh}/${field}: tall/limbs`);
+    }
+  }
+});
+
+test('special-outfit hair and tattoo details remain while its normal Body Type is projected', () => {
+  const bodyTypeId = optionId(bodyTypeControl, '運動緊實身形');
+  const specialOutfitId = optionId(controlsByKey.get('specialOutfitId'), '米色細肩背心蕾絲胸衣工裝寬褲造型');
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId(framingControl, '胸上特寫'),
+    bodyTypeId,
+    specialOutfitId,
+  }, [], {
+    random: createSeededRandom('composition-body-special-outfit-runtime-v1'),
+  });
+
+  assert.equal(prompt.selection.bodyTypeId, bodyTypeId);
+  assert.equal(prompt.selection.specialOutfitId, specialOutfitId);
+  for (const field of MAIN_OUTPUT_FIELDS) {
+    assertIncludes(prompt[field], 'fit toned athletic upper body', `${field}: projected body`);
+    assertIncludes(prompt[field], 'long voluminous side-part black waves', `${field}: outfit hair`);
+    assertIncludes(prompt[field], 'small cherry tattoo on the right chest', `${field}: outfit tattoo`);
+    assertIncludes(prompt[field], 'cream cropped spaghetti-strap camisole', `${field}: visible outfit`);
+    assertExcludes(prompt[field], 'energetic balanced proportions', `${field}: hidden full body`);
+  }
+});
+
+test('face crop keeps special-outfit hair, removes body-position tattoos, and restores them for full-body output', () => {
+  const bodyTypeId = optionId(bodyTypeControl, '運動緊實身形');
+  const specialOutfitId = optionId(controlsByKey.get('specialOutfitId'), '米色細肩背心蕾絲胸衣工裝寬褲造型');
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId(framingControl, '臉部特寫'),
+    bodyTypeId,
+    specialOutfitId,
+  }, [], {
+    random: createSeededRandom('composition-body-special-outfit-face-runtime-v1'),
+  });
+
+  for (const field of MAIN_OUTPUT_FIELDS) {
+    assertIncludes(prompt[field], 'long voluminous side-part black waves', `${field}: outfit hair`);
+    assertExcludes(prompt[field], 'small cherry tattoo on the right chest', `${field}: chest tattoo`);
+    assertExcludes(prompt[field], 'fit toned athletic female body', `${field}: full body source`);
+  }
+
+  const fullBodyText = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
+  assertIncludes(fullBodyText, 'small cherry tattoo on the right chest', 'full-body tattoo restoration');
+  assertIncludes(fullBodyText, 'fit toned athletic female body', 'full-body Body Type restoration');
 });

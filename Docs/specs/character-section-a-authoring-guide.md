@@ -109,12 +109,12 @@ core identity phrase, 1-3 concrete visual traits, restrained style or realism cu
 
 構圖可見性目標規則：
 
-- 體態 visibility phase 2 已將六種正式 Body Type 接到正常單人 runtime；完整 `en` 仍是 canonical full-body source，近景使用 `compositionBodyProjection.js` 中可追溯的區域來源。雙人 A/B、Character Card 結構化 `body` 與特殊穿搭 person-detail 體態片段仍待後續相容性階段接入。
+- 體態 visibility phase 3 已讓正常單人、雙人 A/B、Character Card 結構化 `body` 與特殊穿搭 person-detail 共用 `compositionBodyProjection.js` 的 composition body policy。完整 `en`／`profile.body` 仍是 canonical full-body source，近景只使用 authored、可追溯的區域來源。
 - 新增或修改 Body Type 時，必須同時提供可追溯的 `chestUp`、`mediumWaist`、`cowboyKnee` 區域描述，並更新 `compositionBodyVisibilityFixtures.js`。不得只依 renderer 正規表示式從混合全身句猜測區域。
 - `faceDetail` 與 `headShoulders` 的目標 projected body 為空；臉、膚質、妝容、髮型、神情與臉部配件不得因此消失。
 - `chestUp` 只描述胸部、胸廓、上半身緊實度等實際可見特徵，不輸出身高、體重、完整三圍、腰腹、臀腿、腿身比或 cup-scale 數值。
 - `mediumWaist` 可加入軀幹、腰線與腹部；`cowboyKnee` 可再加入臀部與胸腰臀比例；只有 `fullBody`、`unconstrained` 與目前的 `fixedComposition` 使用完整原始體態。
-- 一般單人已走共用 body projection；後續接入雙人 A/B、Character Card 結構化 `profile.body` 與特殊穿搭 body fragment 時，也必須沿用同一份 composition body policy。`identityAndBody` 相容欄位與四個 permanent identity anchors 不得刪除。
+- 新增或修改正式 Character Card 時，除了 canonical `profile.body`，也必須維護 `profile.bodyProjection` 的 `chestUp`、`mediumWaist`、`cowboyKnee` authored source。`identityAndBody` 相容欄位與四個 permanent identity anchors 不得刪除或由 projection 改寫。
 - 景別省略只影響公開 Prompt，不得清除 body locks、Saved Cards、restore payload 或 generated selection；全身角色照必須恢復完整 body source。
 
 範例語氣：

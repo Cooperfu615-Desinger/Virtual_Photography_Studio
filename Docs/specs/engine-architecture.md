@@ -157,6 +157,8 @@ Phase 2 upgrades `compositionVisibilityContract` to version 3 and activates the 
 
 Phase 2 is intentionally limited to normal single-subject Body Types. Duo A/B Body Types, structured Character Card `body`, and body fragments embedded in special-outfit person details remain on their existing behavior until the compatibility-source phase. Wardrobe projection, Pose Composer, scene projection, fixed-composition behavior, public field mappings, storage keys, and UI disabled-state rules are unchanged.
 
+Phase 3 is the compatibility-source phase. Duo A/B items now reuse the same canonical Body Type projector before all three role renderers, including the previously wardrobe-only Grok/Z-Image and AI role blocks. Every formal Character Card owns authored `profile.bodyProjection` text beside its canonical structured `body`; cropped renderers consume the projected structured identity and never parse `identityAndBody`, which remains unchanged for storage and legacy consumers. Special-outfit built-in hair remains a person detail at every crop, while chest/arm tattoo fragments follow body visibility and are restored by chest-up or wider compositions. The independent full-body character model still receives the original subject, character, and special-outfit sources. No wardrobe role, pose, scene, imaging, UI, storage, or public output-field contract changes in this phase.
+
 The approved target body policy is:
 
 | Composition bucket | Body mode | Visible body source |

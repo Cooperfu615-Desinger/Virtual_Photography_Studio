@@ -860,6 +860,181 @@ const FACIAL_IDENTITY_PROFILES = {
   },
 };
 
+function createCharacterBodyProjection(chestUp, mediumWaist, cowboyKnee) {
+  return Object.freeze({ chestUp, mediumWaist, cowboyKnee });
+}
+
+// Authored crop-specific sources for the structured Character Card body field.
+// These stay beside the formal profile source so renderers never need to parse
+// the legacy mixed identityAndBody string or infer visible regions at runtime.
+const CHARACTER_BODY_PROJECTIONS = Object.freeze({
+  'character-48g': createCharacterBodyProjection(
+    '',
+    'slim petite upper-body proportions with a narrow waist',
+    'slim petite fashion-model proportions with a narrow waist and balanced curvy silhouette'
+  ),
+  'character-philippa': createCharacterBodyProjection(
+    '',
+    'slender upper-body proportions with a graceful narrow waist',
+    'slender fashion-model proportions with a graceful narrow waist'
+  ),
+  'character-sakura': createCharacterBodyProjection(
+    '',
+    'slim petite upper-body proportions',
+    'slim petite cozy-girl proportions'
+  ),
+  'character-hinata': createCharacterBodyProjection(
+    'fuller bust',
+    'fuller bust, narrow waist',
+    'high-fashion hourglass proportions, fuller bust, wide hips, narrow waist'
+  ),
+  'character-rika': createCharacterBodyProjection(
+    '',
+    'slim petite upper-body proportions with a narrow waist',
+    'slim petite casual-fashion proportions with a narrow waist'
+  ),
+  'character-rin': createCharacterBodyProjection(
+    'long neck',
+    'slim refined upper-body proportions with a narrow waist and long neck',
+    'slim refined fashion-model proportions with a narrow waist and long neck'
+  ),
+  'character-lily': createCharacterBodyProjection(
+    'refined shoulders',
+    'refined shoulders, narrow waist',
+    'slim fashion-model proportions with refined shoulders and a narrow waist'
+  ),
+  'character-yuri': createCharacterBodyProjection(
+    '',
+    'slim petite upper-body proportions with a narrow waist',
+    'slim petite casual-fashion proportions with a narrow waist'
+  ),
+  'character-sui': createCharacterBodyProjection(
+    'delicate shoulders and collarbones',
+    'slim petite upper-body proportions with delicate shoulders and collarbones',
+    'slim petite proportions with delicate shoulders and collarbones'
+  ),
+  'character-hina': createCharacterBodyProjection(
+    'narrow shoulders and slender arms',
+    'slim petite upper-body proportions with narrow shoulders and slender arms',
+    'slim petite delicate proportions with narrow shoulders and slender arms'
+  ),
+  'character-yuna': createCharacterBodyProjection(
+    'fuller bust',
+    'petite curvy athletic upper-body proportions with a fuller bust and narrow waist',
+    'petite curvy athletic proportions with a fuller bust, narrow waist and rounded hips'
+  ),
+  'character-eleanor': createCharacterBodyProjection(
+    'broad elegant shoulders and full bust',
+    'powerful hourglass upper-body proportions with broad elegant shoulders, full bust and narrow waist',
+    'powerful hourglass proportions with broad elegant shoulders, full bust, narrow waist and rounded hips'
+  ),
+  'character-olivia': createCharacterBodyProjection(
+    'strong shoulders and full bust',
+    'athletic hourglass upper-body proportions with strong shoulders, full bust and narrow toned waist',
+    'athletic hourglass proportions with strong shoulders, full bust, narrow toned waist and rounded hips'
+  ),
+  'character-jiwoo': createCharacterBodyProjection(
+    'delicate shoulders',
+    'slim petite upper-body proportions with delicate shoulders and narrow waist',
+    'slim petite fashion-model proportions with delicate shoulders and narrow waist'
+  ),
+  'character-chihiro': createCharacterBodyProjection(
+    'delicate shoulders and long neck',
+    'slim upper-body proportions with delicate shoulders, long neck and narrow waist',
+    'slim fashion-model proportions with delicate shoulders, long neck and narrow waist'
+  ),
+  'character-koto': createCharacterBodyProjection(
+    '',
+    'slim petite upper-body proportions with a narrow waist',
+    'slim petite fashion-model proportions with a narrow waist'
+  ),
+  'character-mei': createCharacterBodyProjection(
+    'sculpted shoulders',
+    'slender hourglass upper-body proportions with sculpted shoulders and narrow waist',
+    'slender hourglass proportions with sculpted shoulders, narrow waist and rounded hips'
+  ),
+  'character-rei': createCharacterBodyProjection(
+    'delicate shoulders',
+    'slim petite upper-body proportions with delicate shoulders and a narrow waist',
+    'slim petite proportions with delicate shoulders and a narrow waist'
+  ),
+  'character-amy': createCharacterBodyProjection(
+    'narrow shoulders',
+    'slim petite upper-body proportions with narrow shoulders',
+    'slim petite proportions with narrow shoulders'
+  ),
+  'character-jiyoo': createCharacterBodyProjection(
+    'long neck',
+    'slender upper-body proportions with a long neck and narrow waist',
+    'slender proportions with a long neck and narrow waist'
+  ),
+  'character-yui': createCharacterBodyProjection(
+    'narrow shoulders',
+    'petite slender upper-body proportions with narrow shoulders and a defined waist',
+    'petite slender proportions with narrow shoulders and a defined waist'
+  ),
+  'character-nana': createCharacterBodyProjection(
+    'narrow shoulders',
+    'slim petite upper-body proportions with narrow shoulders and a natural waist',
+    'slim petite proportions with narrow shoulders and a natural waist'
+  ),
+  'character-emily': createCharacterBodyProjection(
+    'narrow shoulders and a long neck',
+    'slender upper-body proportions with narrow shoulders and a long neck',
+    'slender proportions with narrow shoulders and a long neck'
+  ),
+  'character-shiori': createCharacterBodyProjection(
+    'long neck',
+    'slender upper-body proportions with a long neck and narrow waist',
+    'slender proportions with a long neck and narrow waist'
+  ),
+  'character-natsuki': createCharacterBodyProjection(
+    'balanced shoulders',
+    'petite athletic upper-body proportions with balanced shoulders and a narrow waist',
+    'petite athletic proportions with balanced shoulders and a narrow waist'
+  ),
+  'character-minji': createCharacterBodyProjection(
+    'narrow shoulders',
+    'slender petite upper-body proportions with narrow shoulders and a straight waist',
+    'slender petite proportions with narrow shoulders and a straight waist'
+  ),
+  'character-manami': createCharacterBodyProjection(
+    'narrow shoulders and a long neck',
+    'elegant upper-body proportions with narrow shoulders and a long neck',
+    'slim elegant proportions with narrow shoulders and a long neck'
+  ),
+  'character-grace': createCharacterBodyProjection(
+    'gently sloped shoulders and a full bust',
+    'curvy hourglass upper-body proportions with gently sloped shoulders, a full bust and a narrow waist',
+    'curvy hourglass proportions with gently sloped shoulders, a full bust, a narrow waist and rounded hips'
+  ),
+  'character-kaori': createCharacterBodyProjection(
+    'straight shoulders',
+    'lean athletic upper-body proportions with straight shoulders, a long torso and a defined waist',
+    'lean athletic proportions with straight shoulders, a long torso and a defined waist'
+  ),
+  'character-soyeon': createCharacterBodyProjection(
+    'full bust',
+    'compact curvy hourglass upper-body proportions with a full bust and narrow waist',
+    'compact curvy hourglass proportions with a full bust, narrow waist and rounded hips'
+  ),
+  'character-bora': createCharacterBodyProjection(
+    'narrow shoulders and a long neck',
+    'slender upper-body proportions with narrow shoulders, a long neck and a defined waist',
+    'slender proportions with narrow shoulders, a long neck and a defined waist'
+  ),
+  'character-seulgi': createCharacterBodyProjection(
+    'delicate shoulders',
+    'slim petite upper-body proportions with delicate shoulders and a narrow waist',
+    'slim petite proportions with delicate shoulders, a narrow waist and softly rounded hips'
+  ),
+  'character-miku': createCharacterBodyProjection(
+    'narrow shoulders',
+    'petite upper-body proportions with narrow shoulders and a defined waist',
+    'petite balanced proportions with narrow shoulders and a defined waist'
+  ),
+});
+
 function buildStructuredIdentityAndBody(profile, identity) {
   // Do not mutate this legacy compatibility field. Structured consumers add the
   // non-negotiable anchors explicitly so short output cannot silently drop them.
@@ -876,6 +1051,7 @@ export const CHARACTER_PROFILE_OPTIONS = LEGACY_CHARACTER_PROFILE_OPTIONS.map((o
     profile: {
       ...option.profile,
       ...identity,
+      bodyProjection: CHARACTER_BODY_PROJECTIONS[option.id],
       // Kept verbatim for profile consumers that persisted the older schema.
       legacyIdentityAndBody: option.profile.identityAndBody,
       identityAndBody: buildStructuredIdentityAndBody(option.profile, identity),

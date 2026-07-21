@@ -236,6 +236,7 @@ test('duo identity base supports separate body type and skin details per woman',
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
     bodyTypeAId: bodyA.id,
     bodyTypeBId: bodyB.id,
     skinDetailsAId: skinA.id,

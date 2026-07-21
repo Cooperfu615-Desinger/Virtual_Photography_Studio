@@ -15,7 +15,11 @@ import {
   shouldProjectPosePart,
   shouldProjectWardrobeRole,
 } from './engine/compositionVisibilityContract.js';
-import { projectNormalBodyTypeItem } from './engine/compositionBodyProjection.js';
+import {
+  projectCharacterProfileSubject,
+  projectNormalBodyTypeItem,
+  projectSpecialOutfitPersonFragment,
+} from './engine/compositionBodyProjection.js';
 import {
   dedupeRepeatedCommaFragments,
   materializeOutfitColorControls,
@@ -4195,12 +4199,26 @@ function buildCharacterCardSubjectPrompt(subject, locks = {}, context = null, wa
     : '';
   const projectedOutfit = filterCompleteLookPromptForFraming(groups.outfit, context);
   const projectedAccessories = filterCompleteLookPromptForFraming(groups.accessories, context);
+  const structuredIdentity = [
+    groups.facialGeometry,
+    groups.eyeSignature,
+    groups.noseSignature,
+    groups.mouthSignature,
+    groups.skinSignature,
+    groups.makeup,
+    groups.body,
+  ].filter(Boolean).join(', ');
+  const identityLead = cleanCharacterProfileGroupText(groups.identityAndBody)
+    .match(/^a\s+20-year-old\s+adult\s+[^,]*?\bwoman\b/i)?.[0] || '';
+  const projectedIdentity = structuredIdentity
+    ? [identityLead, structuredIdentity].filter(Boolean).join(' with ')
+    : groups.identityAndBody;
   if (!shouldImportCharacterCardWardrobeLayers(locks)) {
     if (isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))) {
       return [subject.en, identityAnchors, hairVariantText].filter(Boolean).join(', ');
     }
     return [
-      groups.identityAndBody,
+      projectedIdentity,
       identityAnchors,
       groups.hair,
       hairVariantText,
@@ -4213,7 +4231,7 @@ function buildCharacterCardSubjectPrompt(subject, locks = {}, context = null, wa
   const hairText = [groups.hair, hairVariantText].filter(Boolean).join(', ');
   const outfitText = projectedOutfit ? `selected character-card outfit layer: ${projectedOutfit}` : '';
   return [
-    groups.identityAndBody,
+    projectedIdentity,
     identityAnchors,
     hairText,
     outfitText,
@@ -6652,17 +6670,27 @@ function extractCharacterSlots(character) {
   };
 }
 
-function projectNormalSingleBodyTypeCharacter(character, context) {
-  if (!Array.isArray(character) || context?.subject?.count !== 1) return character;
+function projectBodyTypeCharacter(character, context) {
+  if (!Array.isArray(character)) return character;
   if (isSpecialSubject(context.subject) || isCharacterProfileSubject(context.subject)) return character;
 
-  const bodyType = extractCharacterSlots(character).bodyType;
-  if (!bodyType) return character;
+  const characterSlots = extractCharacterSlots(character);
+  const bodyTypes = context?.subject?.count === 2
+    ? [characterSlots.bodyTypeA, characterSlots.bodyTypeB].filter(Boolean)
+    : [characterSlots.bodyType].filter(Boolean);
+  if (bodyTypes.length === 0) return character;
 
-  const projectedBodyType = projectNormalBodyTypeItem(bodyType, getCompositionVisibilityProjection(context));
-  if (projectedBodyType === bodyType) return character;
-  if (!projectedBodyType) return character.filter((item) => item !== bodyType);
-  return character.map((item) => (item === bodyType ? projectedBodyType : item));
+  const compositionVisibility = getCompositionVisibilityProjection(context);
+  const projectedBySource = new Map(bodyTypes.map((bodyType) => [
+    bodyType,
+    projectNormalBodyTypeItem(bodyType, compositionVisibility),
+  ]));
+  if ([...projectedBySource].every(([source, projected]) => source === projected)) return character;
+  return character.flatMap((item) => {
+    if (!projectedBySource.has(item)) return [item];
+    const projected = projectedBySource.get(item);
+    return projected ? [projected] : [];
+  });
 }
 
 function extractWardrobeSlots(wardrobe) {
@@ -9333,7 +9361,7 @@ function joinGptSpecialOutfitGroupFragments(fragments, { lead = '' } = {}) {
   return text ? ensureTerminalPeriod(`${lead}${text}`) : '';
 }
 
-function buildGptSingleSpecialOutfitGroups(specialOutfitText, additionalFullTexts = []) {
+function buildGptSingleSpecialOutfitGroups(specialOutfitText, additionalFullTexts = [], context = null) {
   const fragments = [
     ...splitGptSpecialOutfitFragments(specialOutfitText),
     ...additionalFullTexts.flatMap((value) => splitGptSpecialOutfitFragments(value)),
@@ -9346,7 +9374,11 @@ function buildGptSingleSpecialOutfitGroups(specialOutfitText, additionalFullText
 
   for (const fragment of fragments) {
     if (isGptSpecialOutfitHairOrBodyFragment(fragment)) {
-      hairAndBodyFragments.push(fragment);
+      const projectedFragment = projectSpecialOutfitPersonFragment(
+        fragment,
+        getCompositionVisibilityProjection(context)
+      );
+      if (projectedFragment) hairAndBodyFragments.push(projectedFragment);
     } else if (isGptSpecialOutfitHeadwearEyewearBagFragment(fragment)) {
       headwearEyewearBagFragments.push(fragment);
     } else {
@@ -10008,13 +10040,17 @@ function compactZImageCameraText(value) {
     .trim();
 }
 
-function splitZImageSpecialOutfitContent(value) {
+function splitZImageSpecialOutfitContent(value, context = null) {
   const personFragments = [];
   const wardrobeFragments = [];
 
   for (const fragment of splitGptSpecialOutfitFragments(value)) {
     if (isGptSpecialOutfitHairOrBodyFragment(fragment)) {
-      personFragments.push(fragment);
+      const projectedFragment = projectSpecialOutfitPersonFragment(
+        fragment,
+        getCompositionVisibilityProjection(context)
+      );
+      if (projectedFragment) personFragments.push(projectedFragment);
     } else {
       wardrobeFragments.push(fragment);
     }
@@ -10179,15 +10215,21 @@ function renderGptPrompt(promptModel) {
   const singleCharacterProfileSubjectBlock = !useRoleOrderedDuo && isCharacterProfileSubject(context.subject)
     ? buildGptCharacterProfileSubjectBlock(context.subject, context.locks, wardrobe, context)
     : '';
-  const singleSpecialOutfitText = !useRoleOrderedDuo && context.subject?.count === 1
+  const structuredSingleSpecialOutfitText = !useRoleOrderedDuo && context.subject?.count === 1
     ? firstStructuredValue(valuesByLabel, ['Special Outfit'])
     : '';
+  const fallbackSingleSpecialOutfitText = !structuredSingleSpecialOutfitText && !useRoleOrderedDuo && context.subject?.count === 1
+    ? buildSpecialOutfitPrompt(extractWardrobeSlots(wardrobe).specialOutfit, wardrobeColors.completeLookPalette)
+    : '';
+  const singleSpecialOutfitText = structuredSingleSpecialOutfitText || fallbackSingleSpecialOutfitText;
   const singleSpecialOutfitGroups = singleSpecialOutfitText
     ? buildGptSingleSpecialOutfitGroups(
         singleSpecialOutfitText,
-        getStructuredValues(valuesByLabel, ['Outerwear'])
+        getStructuredValues(valuesByLabel, ['Outerwear']),
+        context
       )
     : { hairAndBodyText: '', wardrobeText: '' };
+  if (fallbackSingleSpecialOutfitText) singleSpecialOutfitGroups.wardrobeText = '';
   let resolvedSubjectText = useRoleOrderedDuo
     ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
     : singleCharacterProfileSubjectBlock
@@ -10312,7 +10354,8 @@ function renderFullBodyCharacterPrompt(promptModel) {
   const specialOutfitGroups = specialOutfitText
     ? buildGptSingleSpecialOutfitGroups(
         specialOutfitText,
-        getStructuredValues(valuesByLabel, ['Outerwear'])
+        getStructuredValues(valuesByLabel, ['Outerwear']),
+        context
       )
     : { hairAndBodyText: '', wardrobeText: '' };
   let resolvedSubjectText = characterProfileSubjectBlock
@@ -10373,7 +10416,7 @@ function renderZImagePrompt(promptModel) {
     ? buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context)
     : '';
   const singleSpecialOutfitContent = singleSpecialOutfitText
-    ? splitZImageSpecialOutfitContent(singleSpecialOutfitText)
+    ? splitZImageSpecialOutfitContent(singleSpecialOutfitText, context)
     : { personText: '', wardrobeText: '' };
   const compositionVisibilityProjection = getCompositionVisibilityProjection(context);
   const hideWardrobeForFaceDetail = compositionVisibilityProjection.bucket === COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL;
@@ -10777,14 +10820,21 @@ function renderZImagePrompt(promptModel) {
     return cleaned ? `${title}:\n${cleaned}` : '';
   };
   const buildZImageDuoSubjectText = () => 'Two stunning seductive 20-year-old Japanese or Korean women';
-  const buildZImageDuoRoleWardrobeText = (role) => {
+  const buildZImageDuoRoleSubjectText = (role) => {
     const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
     const wardrobeText = role === 'a' ? roleTexts.woman1 : roleTexts.woman2;
     const roleNumber = role === 'a' ? '1' : '2';
+    const suffix = role === 'a' ? 'A' : 'B';
+    const bodyText = characterSlots[`bodyType${suffix}`] && !isNoneLikeItem(characterSlots[`bodyType${suffix}`])
+      ? compactZImageSourceText(characterSlots[`bodyType${suffix}`].en)
+      : '';
     const accessoryText = cleanGptDuoRoleSubjectPart(buildRoleSubjectAccessoryPrompt(wardrobeSlots, role), roleNumber)
       .replace(/^with\s+/i, '');
     const parts = [compactZImageSourceText(wardrobeText), compactZImageSourceText(accessoryText)].filter(Boolean);
-    return parts.length > 0 ? `Wears ${parts.join(', ')}` : '';
+    return [
+      bodyText ? `Has ${bodyText}` : '',
+      parts.length > 0 ? `Wears ${parts.join(', ')}` : '',
+    ].filter(Boolean).join(' ');
   };
   const buildZImageDuoPoseText = () => joinSentenceParts([
     characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? compactZImageSourceText(characterSlots.duoPose.en) : '',
@@ -10826,8 +10876,8 @@ function renderZImagePrompt(promptModel) {
       buildZImageDuoSection('Image Type', imageTypeLine || buildZImageTypeText(context)),
       compositionLine,
       buildZImageDuoSection('Subject', buildZImageDuoSubjectText()),
-      buildZImageDuoSection('Woman 1', buildZImageDuoRoleWardrobeText('a')),
-      buildZImageDuoSection('Woman 2', buildZImageDuoRoleWardrobeText('b')),
+      buildZImageDuoSection('Woman 1', buildZImageDuoRoleSubjectText('a')),
+      buildZImageDuoSection('Woman 2', buildZImageDuoRoleSubjectText('b')),
       buildZImageDuoSection('Shared Expression', buildGptDuoSharedExpressionText(characterSlots)),
       buildZImageDuoSection('Pose and Composition', buildZImageDuoPoseText()),
       buildZImageDuoSection('Scene', buildZImageDuoSceneText()),
@@ -11595,6 +11645,16 @@ function buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role) {
   return fragments.length > 0 ? `Wears ${fragments.join(', ')}` : '';
 }
 
+function buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, role) {
+  const roleNumber = role === 'a' ? '1' : '2';
+  const bodyText = cleanAiDuoCompactText(firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Body Type`]))
+    .replace(new RegExp(`^woman ${roleNumber} has\\s+`, 'i'), '');
+  return [
+    bodyText ? `Has ${bodyText}` : '',
+    buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role),
+  ].filter(Boolean).join(' ');
+}
+
 function buildAiDuoPoseText(valuesByLabel) {
   const scenarioFragments = splitAiDuoCompactFragments(removeAiModelNaturalPoseDirectives(firstStructuredValue(valuesByLabel, ['Duo Layout'])))
     .filter((part) => !/^model-decided\b/i.test(part))
@@ -11642,8 +11702,8 @@ function renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors) {
   return [
     buildImageTypePromptLine(context),
     buildCompositionPromptLine(context),
-    buildAiDuoSection('Woman 1', buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, 'a')),
-    buildAiDuoSection('Woman 2', buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, 'b')),
+    buildAiDuoSection('Woman 1', buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, 'a')),
+    buildAiDuoSection('Woman 2', buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, 'b')),
     buildAiDuoSection('Pose', buildAiDuoPoseText(valuesByLabel)),
     buildAiDuoSection('Scene', buildAiDuoSceneText(valuesByLabel)),
     buildAiDuoSection('Lighting', buildAiDuoLightingText(valuesByLabel)),
@@ -11677,11 +11737,15 @@ function isAiSpecialPersonFragment(fragment) {
     && !classifyCompleteLookWardrobeFragment(fragment);
 }
 
-function extractAiSpecialPersonFragments(value) {
+function extractAiSpecialPersonFragments(value, context = null) {
   const personFragments = [];
   for (const fragment of splitAiSourceFragments(value)) {
     if (/\btattoos?\b/i.test(fragment) && !classifyCompleteLookWardrobeFragment(fragment)) {
-      personFragments.push(fragment);
+      const projectedFragment = projectSpecialOutfitPersonFragment(
+        fragment,
+        getCompositionVisibilityProjection(context)
+      );
+      if (projectedFragment) personFragments.push(projectedFragment);
       continue;
     }
     if (isAiSpecialPersonFragment(fragment)) {
@@ -11823,9 +11887,10 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) {
   }
 
   const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
-  const specialOutfitText = firstStructuredValue(valuesByLabel, ['Special Outfit']);
+  const specialOutfitText = firstStructuredValue(valuesByLabel, ['Special Outfit'])
+    || buildSpecialOutfitPrompt(wardrobeSlots?.specialOutfit);
   const specialPersonText = specialOutfitText
-    ? extractAiSpecialPersonFragments(specialOutfitText).join(', ')
+    ? extractAiSpecialPersonFragments(specialOutfitText, context).join(', ')
     : '';
   const eyewearText = wardrobeSlots
     ? compactAiEyewearAccessoryText(wardrobeSlots.eyewear, wardrobeSlots.eyewearColor, wardrobeSlots.eyewearPlacement)
@@ -12016,9 +12081,12 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   };
   const mainContext = {
     ...rendererContext,
+    subject: isCharacterProfileSubject(rendererContext.subject)
+      ? projectCharacterProfileSubject(rendererContext.subject, compositionVisibility)
+      : rendererContext.subject,
     projectedScene: buildProjectedScene(rendererContext),
   };
-  const projectedCharacter = projectNormalSingleBodyTypeCharacter(character, mainContext);
+  const projectedCharacter = projectBodyTypeCharacter(character, mainContext);
   const rendererWardrobe = fixedCompositionPromptProjection?.wardrobe.items || wardrobe;
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {
