@@ -149,6 +149,25 @@ Phase 4 resolves a single projected canonical Pose Composer sentence before rend
 
 Phase 5 resolves a shared `projectedScene` from the same composition-visibility projection before renderer formatting. `compactSource` retains the first three visual clauses from the selected location or imported world-scene source, `conciseSource` retains the first five, and `fullSource` preserves the complete cleaned source. Compact crops omit optional contextual scene accents; concise and full crops may restore only source-traceable accent clauses. Gpt, Grok/Z-Image, and AI consume that same structured projection and may apply only their existing outer grammar or model-specific source reduction. Scene projection must not invent blur, bokeh, shallow depth of field, faint background shapes, framing-expansion requests, or public scene-priority guidance. Raw `locationId` and imported-scene selections remain unchanged so a wider crop restores all source anchors. Dedicated fixed composition sets continue through their specialized renderer contract and are intentionally not rewritten by this projection.
 
+### Body visibility optimization
+
+Body-visibility optimization phase 1 is a behavior-neutral specification and regression-baseline phase. `engine/compositionBodyVisibilityFixtures.js` records the desired shared body source for every public Body Type and the deterministic single, duo, Character Card, special-outfit, selection-preservation, and full-body-reference scenarios. `engine/compositionBodyVisibilityContract.test.js` blocks incomplete or out-of-source fixture changes, but phase 1 does not yet connect body projection to `engine.js` or the public renderers. The existing runtime still emits the legacy complete Body Type source until the shared body projection is activated in phase 2.
+
+The approved target body policy is:
+
+| Composition bucket | Body mode | Visible body source |
+| --- | --- | --- |
+| `faceDetail` | `omit` | No Body Type or Character Card `body`; face identity, skin, makeup, hair, expression, and face accessories remain available. |
+| `headShoulders` | `omit` | No Body Type or Character Card `body`; the same non-body identity groups remain available. |
+| `chestUp` | `visibleZones` | Chest and visible upper-body morphology only; no height, weight, three-number body anchor, waist, abdomen, hips, legs, or torso-to-leg ratio. |
+| `mediumWaist` | `visibleZones` | Chest, torso, waist, and abdomen; no height, weight, hips, legs, torso-to-leg ratio, or complete body anchor. |
+| `cowboyKnee` | `visibleZones` | Chest, torso, waist, abdomen, and hips; no visual height/weight, long-leg pressure, or torso-to-leg ratio. |
+| `fullBody` | `fullSource` | Complete canonical body source. |
+| `unconstrained` | `fullSource` | Complete canonical body source. |
+| `fixedComposition` | `fullSource` | Preserve the current fixed-set contract until fixed sets define their own body-distance metadata. |
+
+The eventual runtime projection must occur once before renderer formatting. Gpt may preserve the complete projected source, while Grok/Z-Image and AI may reduce only that projected source and must not read the hidden full-body source as a fallback. Raw body locks, Saved Cards, restore payloads, and generated selections remain unchanged. The single-subject full-body character output always restores the complete body source. `identityAndBody` remains a compatibility field; structured Character Card `body` is the preferred projection surface, and permanent face identity anchors must never be removed with body text.
+
 Fixed-composition visibility phase 2 upgrades the contract to version 2 and adds the `fixedComposition` bucket. A fixed set does not inherit the ordinary `unconstrained` meaning from its UI-level `framingId = 全無`; its composition source is the selected fixed set, its camera distance is fixed-set-defined, and manual framing remains disabled. The bucket exposes complete wardrobe roles, full canonical pose parts, and `fixedSetContract` scene semantics so downstream phases can consume one explicit context without reopening normal framing controls. `generateSinglePrompt()` resolves this projection before character and wardrobe construction, and all renderer fallbacks reuse it. Public Prompt text, fixed-set option IDs, selection mappings, and the dedicated fixed-set scene renderer remain unchanged in this phase.
 
 Fixed-composition visibility phase 3 creates one `fixedCompositionPromptProjection` after wardrobe, color, and canonical pose resolution. It freezes a renderer-neutral wrapper around the shared composition metadata, resolved wardrobe items and colors, canonical pose text, and fixed-set scene selections. `buildPrompts()` reconstructs the fixed renderer context and supplies Gpt, Grok/Z-Image, and AI with the same projected wardrobe and scene option references; the independent full-body character model explicitly returns to the original complete wardrobe source. This phase changes no public wording or paragraph order. In particular, the existing Grok/Z-Image fixed-scene-first layout remains temporary and is corrected only in the renderer-order phase.

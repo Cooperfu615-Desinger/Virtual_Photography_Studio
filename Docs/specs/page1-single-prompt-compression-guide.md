@@ -55,11 +55,40 @@ Last updated: 2026-07-19
 - 背景是否淺景深由光圈／景深、焦段、光學效果與拍攝距離等攝影控制決定，不屬於場景投影責任。
 - `fullBodyCharacterPrompt` 永遠使用完整服裝資料，不得沿用主 Prompt 的 `visibleProjection`；它仍不輸出 Pose、Scene 或 `multi-cut sequence n=2`。
 
+### 體態構圖可見性優化（2026-07-21 第一階段基準）
+
+第一階段只建立目標規格與 deterministic regression fixtures，尚未改變 runtime。`webapp/src/lib/engine/compositionBodyVisibilityFixtures.js` 固定六種正式 Body Type 在各景別的共享 projected body source；`compositionBodyVisibilityContract.test.js` 驗證來源完整性、區域邊界、單人／雙人／角色卡／特殊穿搭 coverage，以及 raw selection preservation。現行 renderer 在第二階段接入 shared body projection 前，仍維持完整 Body Type 的 legacy baseline。
+
+| 公開景別 | 內部 bucket | 目標體態可見性 |
+| --- | --- | --- |
+| `半臉傾斜特寫`、`局部五官特寫`、`臉部特寫` | `faceDetail` | 完全省略 Body Type 與 Character Card `body`；五官、膚質、妝容、髮型、神情與臉部配件不受影響。 |
+| `特寫鏡頭 (Close-Up)` | `headShoulders` | 完全省略 Body Type 與 Character Card `body`；非體態身份資料不受影響。 |
+| `胸上特寫` | `chestUp` | 只保留胸部、胸廓與可見上半身體態；移除身高、體重、完整三圍、腰腹、臀腿與腿身比。 |
+| `中景鏡頭 (Medium Shot)` | `mediumWaist` | 保留胸部、軀幹、腰線與腹部；移除身高、體重、臀腿、腿身比與完整三圍 anchor。 |
+| `牛仔中景 (Cowboy Shot)` | `cowboyKnee` | 保留胸部、軀幹、腰腹與臀部；移除身高、體重、長腿與腿身比壓力。 |
+| `全身鏡頭 (Full Body Shot)` | `fullBody` | 完整保留原始體態。 |
+| `全無` 或沒有景別 | `unconstrained` | 完整保留原始體態。 |
+| 固定構圖場景 | `fixedComposition` | 第一階段維持完整體態，後續由固定構圖自己的距離 metadata 決定，不套用一般 framing 推測。 |
+
+體態投影共同規則：
+
+- 「省略」只影響三組主 Prompt，不得清除 `bodyTypeId`、`bodyTypeAId`、`bodyTypeBId`、Character Card、Saved Cards、restore payload、generated selection 或瀏覽器儲存值。
+- 三組主輸出必須先共用同一份 projected body source。Gpt 完整保留投影後有效內容；Grok/Z-Image 與 AI 只能從該來源做可追溯壓縮，不得回讀完整 Body Type。
+- `fullBodyCharacterPrompt` 使用完整 body source，不繼承主 Prompt 的近景體態投影。
+- 正式角色卡優先投影結構化 `profile.body`；`identityAndBody` 繼續作為相容欄位，四個 permanent identity anchors 與五官、膚質、妝容、髮型不得隨 body 一起移除。
+- 胸上與中景不得直接保留混合胸腰臀的三數值 anchor。牛仔景已能看到臀部，可保留胸腰臀比例，但仍不得帶入身高、視覺體重、長腿或腿身比。
+- 體態資料是混合全身句，runtime 不應用 renderer-specific 正規表示式即時猜測；應使用已編寫、可追溯的區域 body source。
+
 第一階段程式基準位於：
 
 - `webapp/src/lib/engine/compositionVisibilityContract.js`
 - `webapp/src/lib/engine/compositionVisibilityFixtures.js`
 - `webapp/src/lib/engine/compositionVisibilityContract.test.js`
+
+體態構圖可見性第一階段基準另位於：
+
+- `webapp/src/lib/engine/compositionBodyVisibilityFixtures.js`
+- `webapp/src/lib/engine/compositionBodyVisibilityContract.test.js`
 
 第二階段回歸基準另位於：
 

@@ -1377,7 +1377,10 @@ test('Grok/Z-Image keeps subject, wardrobe, pose, and scene order across single 
   }
 });
 
-test('Z-Image chest-up framing preserves body-shape anchor while wardrobe remains visibility-filtered', () => {
+// Legacy runtime baseline only. Body-visibility phase 1 records the replacement
+// chest-only target in compositionBodyVisibilityFixtures.js; phase 2 will
+// reverse these assertions when the shared body projection is connected.
+test('legacy baseline: Z-Image chest-up framing still preserves the full body-shape anchor', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
