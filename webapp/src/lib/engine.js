@@ -42,6 +42,10 @@ import {
 } from './engine/fixedCompositionOptions.js';
 import { createFixedCompositionPromptProjection } from './engine/fixedCompositionPromptProjection.js';
 import {
+  createFixedFramingDerivedContext,
+  FIXED_FRAMING_DERIVED_PROMPT_PRESETS,
+} from './engine/fixedFramingDerivedPrompt.js';
+import {
   POSE_COMPOSER_ANCHOR_OPTIONS,
   POSE_COMPOSER_ARRANGEMENT_OPTIONS,
   POSE_COMPOSER_BASE_OPTIONS,
@@ -10305,13 +10309,6 @@ function renderGptPrompt(promptModel) {
   ].filter(Boolean).join('\n\n');
 }
 
-const FULL_BODY_CHARACTER_REFERENCE_FRAMING = Object.freeze({
-  id: 'full-body-character-reference',
-  zh: '全身鏡頭 (Full Body Shot)',
-  en: 'full body shot, full figure visible from head to toe',
-  meta: Object.freeze({ visibility: 'full' }),
-});
-
 const FULL_BODY_CHARACTER_IMAGE_TYPE = 'Create a photorealistic character reference portrait in a single 9:16 vertical image';
 const FULL_BODY_CHARACTER_LIGHTING = 'Clean even lighting with clear facial, body, fabric, and footwear readability';
 const FULL_BODY_CHARACTER_CAMERA_LOOK = 'Full-body view of the subject standing naturally, centered vertical framing, complete figure visible from head to toe, both hands and both feet completely visible, comfortable space above the hair and below the shoes, natural body proportions, no crop, no hidden limbs, clean realistic character-reference photography, clear facial and garment detail, no visible text';
@@ -10390,6 +10387,35 @@ function renderFullBodyCharacterPrompt(promptModel) {
     section('Lighting', FULL_BODY_CHARACTER_LIGHTING),
     section('Camera Look', FULL_BODY_CHARACTER_CAMERA_LOOK),
   ].filter(Boolean).join('\n\n');
+}
+
+function buildFixedFramingDerivedPromptModel({
+  sourcePromptModel,
+  sourceContext,
+  preset,
+  character,
+  wardrobe,
+  wardrobeColors,
+  lightDirection,
+  film,
+}) {
+  const derivedContext = createFixedFramingDerivedContext(sourceContext, preset);
+
+  return {
+    ...sourcePromptModel,
+    ...buildStructuredPromptSections(
+      derivedContext,
+      character,
+      wardrobe,
+      wardrobeColors,
+      lightDirection,
+      film,
+    ),
+    context: derivedContext,
+    character,
+    wardrobe,
+    wardrobeColors,
+  };
 }
 
 function renderZImagePrompt(promptModel) {
@@ -12099,20 +12125,16 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     film,
     opticalEffect,
   };
-  const fullBodyCharacterContext = {
-    ...context,
-    framing: FULL_BODY_CHARACTER_REFERENCE_FRAMING,
-    fixedCompositionSet: null,
-    compositionVisibility: createCompositionVisibilityProjection(FULL_BODY_CHARACTER_REFERENCE_FRAMING),
-  };
-  const fullBodyCharacterPromptModel = {
-    ...promptModel,
-    ...buildStructuredPromptSections(fullBodyCharacterContext, character, wardrobe, wardrobeColors, lightDirection, film),
-    context: fullBodyCharacterContext,
+  const fullBodyCharacterPromptModel = buildFixedFramingDerivedPromptModel({
+    sourcePromptModel: promptModel,
+    sourceContext: context,
+    preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.fullBodyCharacter,
     character,
     wardrobe,
     wardrobeColors,
-  };
+    lightDirection,
+    film,
+  });
   const grokPrompt = renderGptPrompt(promptModel);
   const zImagePrompt = renderZImagePrompt(promptModel);
   const midjourneyPrompt = renderAiPrompt(promptModel);

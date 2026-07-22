@@ -126,18 +126,20 @@ Last updated: 2026-07-22
 - `webapp/src/lib/engine/compositionVisibilityIntegration.test.js`
 - `webapp/package.json` 的 `test:prompt-quality`
 
-### 固定景別派生 Prompt（2026-07-22 第一階段）
+### 固定景別派生 Prompt（2026-07-22 第一至二階段）
 
-「固定景別派生 Prompt」和「固定構圖場景」是兩套不同功能。固定景別輸出從同一個 PAGE1 生成結果取得已解析人物、服裝、配色、姿勢、場景、光線與攝影成像，只替換輸出用途所指定的景別投影；不可重新解析或隨機抽選來源資料。第一階段只建立 frozen target contract、deterministic fixtures 與結構測試，不接上 runtime，不改公開 Prompt、`extraPrompts`、UI、Saved Cards、DLL PIC Pro 或隨機池。
+「固定景別派生 Prompt」和「固定構圖場景」是兩套不同功能。固定景別輸出從同一個 PAGE1 生成結果取得已解析人物、服裝、配色、姿勢、場景、光線與攝影成像，只替換輸出用途所指定的景別投影；不可重新解析或隨機抽選來源資料。第一階段建立 frozen target contract、deterministic fixtures 與結構測試；第二階段新增共用 preset／derived context 核心，並只把既有 `full-body-character` 接入，以逐 byte 回歸保證輸出不變。五官與胸上輸出仍未接上 runtime，也不改 UI、Saved Cards、DLL PIC Pro 或隨機池。
 
 預定新增兩組只支援單人的 `extraPrompts`：
 
 - `facial-closeup-portrait`／`五官特寫照`：固定 `1:1`。人物採 `faceDetail`，省略 Body Type 與姿勢，但必須保留完整五官、膚質、妝容、髮型、永久身份錨點、頭部／臉部／頸部配件，以及所選上衣、洋裝、套裝、特殊穿搭、外套或 Character Card 的肩部與領口。若所有來源都沒有有效上身服裝，使用正向 fallback `a simple opaque crew-neck top`，不輸出裸體防護或其他負面 guard。保留來源可追溯的精簡場景、光線及攝影成像；後方 orbit 只在派生輸出內改用正面，raw selection 不變。
 - `chest-up-portrait`／`胸上特寫照`：固定 `4:5`。採既有 `chestUp` 投影，保留胸部可見體態、上身服裝、頭部與上半身動作、可見手部／道具、高位支撐和接觸，以及精簡原始場景、光線、攝影風格、鏡頭、光學效果與成像模擬。canonical pose 必須先投影再輸出，不得把畫面外下半身動作重新加入。
 
-兩組派生輸出遇到固定構圖場景時，保留固定場景身份與來源 anchor，但移除和指定五官／胸上景別衝突的固定鏡頭距離敘述；這不會修改 `fixedCompositionSetId` 或其他儲存值。既有 `full-body-character` 在共用架構階段前必須維持原文字、單人限制與固定 `9:16`。
+兩組派生輸出遇到固定構圖場景時，保留固定場景身份與來源 anchor，但移除和指定五官／胸上景別衝突的固定鏡頭距離敘述；這不會修改 `fixedCompositionSetId` 或其他儲存值。既有 `full-body-character` 已在第二階段接入共用架構，並維持原文字、單人限制、完整體態與服裝來源，以及固定 `9:16`。
 
-未來主 Prompt 的新選單與隨機池只使用 `半臉傾斜特寫`、`中景鏡頭 (Medium Shot)`、`牛仔中景 (Cowboy Shot)`、`全身鏡頭 (Full Body Shot)`，並保留 `全無`。`局部五官特寫`、`臉部特寫`、`特寫鏡頭 (Close-Up)`、`胸上特寫` 的既有 option ID 不得刪除或改名；舊 Saved Cards 和 restore payload 仍可解析並保存原值，但新 UI 與隨機結果不再選取。第一階段尚未啟用隱藏與隨機過濾。
+第二階段的共用核心由 `webapp/src/lib/engine/fixedFramingDerivedPrompt.js` 負責：preset 定義輸出 ID、UI 名稱、比例、支援模式、固定構圖處理與派生 framing；context builder 只替換 framing、composition visibility 與該 preset 明定的固定構圖狀態，其餘已解析資料沿用父結果。`engine.js` 再以相同人物、服裝、配色、光線與底片來源重建結構化 sections，不得呼叫任何 selection resolver。`fixedFramingDerivedPromptInfrastructure.test.js` 固定四種來源案例的全文長度與 SHA-256，同時要求 raw selection 不變且 `extraPrompts` 仍只有 `full-body-character`。
+
+未來主 Prompt 的新選單與隨機池只使用 `半臉傾斜特寫`、`中景鏡頭 (Medium Shot)`、`牛仔中景 (Cowboy Shot)`、`全身鏡頭 (Full Body Shot)`，並保留 `全無`。`局部五官特寫`、`臉部特寫`、`特寫鏡頭 (Close-Up)`、`胸上特寫` 的既有 option ID 不得刪除或改名；舊 Saved Cards 和 restore payload 仍可解析並保存原值，但新 UI 與隨機結果不再選取。第一至二階段尚未啟用隱藏與隨機過濾。
 
 半臉斜構圖未來不再只輸出 `off-center crop`。每個生成結果以同一 seed 明確解析左或右其中一側，Gpt、Grok/Z-Image、AI 共用同一段構圖開頭：人物貼近該側畫面邊緣、該側垂直邊界裁切臉部外半側、對側保留大面積負空間，且頸部、肩膀與上半身仍可見。不得輸出含糊的 `left or right`，也不得讓三個 renderer 各自抽選不同側。
 
