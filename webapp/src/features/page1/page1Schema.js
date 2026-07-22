@@ -50,9 +50,9 @@ export const STYLE_WARDROBE_CONTROL_ORDER = [
   'outerwearAOpeningId', 'outerwearAStylingId', 'legwearAId', 'legwearAColorId', 'shoesAId', 'shoesAColorId',
   'outerwearBId', 'outerwearBFitId', 'outerwearBColorId', 'outerwearBPatternId',
   'outerwearBOpeningId', 'outerwearBStylingId', 'legwearBId', 'legwearBColorId', 'shoesBId', 'shoesBColorId',
-  'headAccessoryId', 'eyewearId', 'earringsId', 'neckAccessoryId',
-  'headAccessoryAId', 'eyewearAId', 'earringsAId', 'neckAccessoryAId',
-  'headAccessoryBId', 'eyewearBId', 'earringsBId', 'neckAccessoryBId',
+  'headAccessoryId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
+  'headAccessoryAId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
+  'headAccessoryBId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
   'wristAccessoryId', 'ringId', 'waistAccessoryId',
 ];
 
@@ -83,10 +83,12 @@ export const DUO_LAYER_KEYS = [
   'outerwearBOpeningId', 'outerwearBStylingId', 'legwearBId', 'legwearBColorId', 'shoesBId', 'shoesBColorId',
 ];
 
-export const SHARED_ACCESSORY_KEYS = ['headAccessoryId', 'eyewearId', 'earringsId', 'neckAccessoryId'];
+export const SHARED_ACCESSORY_KEYS = [
+  'headAccessoryId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
+];
 export const DUO_ACCESSORY_KEYS = [
-  'headAccessoryAId', 'eyewearAId', 'earringsAId', 'neckAccessoryAId',
-  'headAccessoryBId', 'eyewearBId', 'earringsBId', 'neckAccessoryBId',
+  'headAccessoryAId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
+  'headAccessoryBId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
 ];
 
 export const OUTFIT_PRESET_COLOR_KEYS = [

@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { buildAllNoneLocks } from './page1Selectors.js';
+import { createEmptyLocks, getLockControls, getSceneDependentOptions } from '../../lib/engine.js';
+import { buildAllNoneLocks, buildPage1ControlGroups } from './page1Selectors.js';
 
 test('buildAllNoneLocks preserves required defaults when a control has no none option', () => {
   const controls = [
@@ -32,4 +33,31 @@ test('buildAllNoneLocks preserves required defaults when a control has no none o
   assert.equal(next.subjectCount, '2');
   assert.equal(next.imageTypePresetId, 'photorealistic-photo');
   assert.equal(next.topId, 'top-none');
+});
+
+test('eyewear frame color and placement controls follow single and duo subject modes together', () => {
+  const lockControls = getLockControls();
+  const wardrobeControlKeys = (subjectCount) => {
+    const locks = { ...createEmptyLocks(), subjectCount };
+    const { wardrobeLockControls } = buildPage1ControlGroups({
+      lockControls,
+      locks,
+      sceneDependentOptions: getSceneDependentOptions([], locks),
+    });
+    return new Set(wardrobeLockControls.map((control) => control.key));
+  };
+
+  const singleKeys = wardrobeControlKeys('1');
+  ['eyewearId', 'eyewearColorId', 'eyewearPlacementId'].forEach((key) => assert.ok(singleKeys.has(key), `single mode should show ${key}`));
+  [
+    'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId',
+    'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId',
+  ].forEach((key) => assert.equal(singleKeys.has(key), false, `single mode should hide ${key}`));
+
+  const duoKeys = wardrobeControlKeys('2');
+  ['eyewearId', 'eyewearColorId', 'eyewearPlacementId'].forEach((key) => assert.equal(duoKeys.has(key), false, `duo mode should hide ${key}`));
+  [
+    'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId',
+    'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId',
+  ].forEach((key) => assert.ok(duoKeys.has(key), `duo mode should show ${key}`));
 });
