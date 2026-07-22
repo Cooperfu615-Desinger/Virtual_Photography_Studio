@@ -46,6 +46,10 @@ import {
   FIXED_FRAMING_DERIVED_PROMPT_PRESETS,
 } from './engine/fixedFramingDerivedPrompt.js';
 import {
+  getRandomMainFramingOptions,
+  resolveHalfFaceCompositionOpening,
+} from './engine/fixedFramingMainPrompt.js';
+import {
   POSE_COMPOSER_ANCHOR_OPTIONS,
   POSE_COMPOSER_ARRANGEMENT_OPTIONS,
   POSE_COMPOSER_BASE_OPTIONS,
@@ -1985,7 +1989,7 @@ function inferFilmMeta(_category, item) {
   return { tags: withTags(tags) };
 }
 
-const FACE_ONLY_CLOSEUP_ZH_LABELS = new Set(['臉部特寫', '局部五官特寫', '半臉傾斜特寫']);
+const FACE_ONLY_CLOSEUP_ZH_LABELS = new Set(['臉部特寫', '局部五官特寫']);
 const WORM_EYE_ANGLE_LABEL = '蟲眼視角鏡頭';
 const WORM_EYE_FORCED_NONE_KEYS = ['styleId', 'lensId', 'opticalEffectId'];
 const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
@@ -12595,8 +12599,11 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
       }
     : null;
   const lockedActionConstraint = mergeActionConstraints(lockedSpecialAction, lockedPoseComposerAction, lockedActionPose);
+  const framingOptions = effectiveLocks.framingId
+    ? runtime.flatCatalog.framing
+    : getRandomMainFramingOptions(runtime.flatCatalog.framing);
   const framing = pickLocked(
-    runtime.flatCatalog.framing,
+    framingOptions,
     effectiveLocks.framingId,
     (item) => (
       (!lockedActionConstraint || item.zh !== '全無')
@@ -12609,6 +12616,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     sample,
     ['framingId'],
   );
+  const fixedFramingCompositionOpening = resolveHalfFaceCompositionOpening(framing, random);
   const expressionOptions = getByKey(runtime.catalog.character, '神情與眼神 (Expression & Gaze)');
   const lockedDuoExpression = subject.count === 2 && effectiveLocks.duoExpressionId
     ? getDuoExpressionOption(effectiveLocks.duoExpressionId)
@@ -12710,6 +12718,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     cameraSystem,
     location,
     framing,
+    fixedFramingCompositionOpening,
     angle,
     orbit,
     lens,

@@ -41,7 +41,7 @@ function materializeLocks(fixture) {
   return locks;
 }
 
-test('fixed-framing contract is frozen serializable target data and records runtime plus consumer activation', () => {
+test('fixed-framing contract is frozen serializable target data and records runtime plus consumer and main framing activation', () => {
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION, 1);
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimeConnected, true);
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimePhase, 3);
@@ -68,6 +68,15 @@ test('fixed-framing contract is frozen serializable target data and records runt
       fullBodyCharacter: '9:16',
     },
     unsupportedModeBehavior: 'absent',
+  });
+  assert.deepEqual(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.mainFramingIntegration, {
+    phase: 5,
+    page1SelectorUsesVisiblePolicy: true,
+    unlockedResolutionUsesRandomCandidates: true,
+    legacyOptionsAreRestoreOnly: true,
+    halfFacePlacementResolvedOnce: true,
+    halfFaceOpeningSharedAcrossPrimaryOutputs: true,
+    halfFaceVisibilityBucket: 'headShoulders',
   });
 });
 

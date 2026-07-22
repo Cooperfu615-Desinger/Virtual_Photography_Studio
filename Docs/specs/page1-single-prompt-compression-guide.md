@@ -36,8 +36,8 @@ Last updated: 2026-07-22
 
 | 公開景別 | 內部 bucket | 穿搭可見性 | 姿勢可見性 | 場景可見性 |
 | --- | --- | --- | --- | --- |
-| `半臉傾斜特寫`、`局部五官特寫`、`臉部特寫` | `faceDetail` | 頭部配件、眼鏡、耳環 | 完全省略 canonical pose | 原場景來源可追溯地壓成一句，不加景深效果 |
-| `特寫鏡頭 (Close-Up)` | `headShoulders` | 上衣／連身服的領口與肩部、外套肩部、頭頸配件 | 完全省略 canonical pose | 原場景來源可追溯地壓成一句，不輸出互動幾何或支撐物 |
+| `局部五官特寫`、`臉部特寫` | `faceDetail` | 頭部配件、眼鏡、耳環 | 完全省略 canonical pose | 原場景來源可追溯地壓成一句，不加景深效果 |
+| `半臉傾斜特寫`、`特寫鏡頭 (Close-Up)` | `headShoulders` | 上衣／連身服的領口與肩部、外套肩部、頭頸配件 | 完全省略 canonical pose | 原場景來源可追溯地壓成一句，不輸出互動幾何或支撐物 |
 | `胸上特寫` | `chestUp` | 上衣、連身服上半部、外套與頭頸配件 | 只保留頭、肩、上半身；手、道具、支撐只在畫面可見時保留 | 原場景來源可追溯地壓成一句，只保留畫面內支撐物 |
 | `中景鏡頭 (Medium Shot)` | `mediumWaist` | 上衣、外套、褲裙身分與腰部細節 | 保留上身、手、道具與坐／站基底；支撐只在畫面可見時保留 | 使用原場景的精簡描述與可見空間關係 |
 | `牛仔中景 (Cowboy Shot)` | `cowboyKnee` | 上衣、外套、褲裙；大腿襪依實際可見區域保留；鞋子移除 | 保留至膝部的姿勢；支撐與承重只保留可見部分 | 使用原場景的精簡描述與可見支撐物 |
@@ -67,8 +67,8 @@ Last updated: 2026-07-22
 
 | 公開景別 | 內部 bucket | 目標體態可見性 |
 | --- | --- | --- |
-| `半臉傾斜特寫`、`局部五官特寫`、`臉部特寫` | `faceDetail` | 完全省略 Body Type 與 Character Card `body`；五官、膚質、妝容、髮型、神情與臉部配件不受影響。 |
-| `特寫鏡頭 (Close-Up)` | `headShoulders` | 完全省略 Body Type 與 Character Card `body`；非體態身份資料不受影響。 |
+| `局部五官特寫`、`臉部特寫` | `faceDetail` | 完全省略 Body Type 與 Character Card `body`；五官、膚質、妝容、髮型、神情與臉部配件不受影響。 |
+| `半臉傾斜特寫`、`特寫鏡頭 (Close-Up)` | `headShoulders` | 完全省略 Body Type 與 Character Card `body`；非體態身份資料不受影響。 |
 | `胸上特寫` | `chestUp` | 只保留胸部、胸廓與可見上半身體態；移除身高、體重、完整三圍、腰腹、臀腿與腿身比。 |
 | `中景鏡頭 (Medium Shot)` | `mediumWaist` | 保留胸部、軀幹、腰線與腹部；移除身高、體重、臀腿、腿身比與完整三圍 anchor。 |
 | `牛仔中景 (Cowboy Shot)` | `cowboyKnee` | 保留胸部、軀幹、腰腹與臀部；移除身高、體重、長腿與腿身比壓力。 |
@@ -126,9 +126,9 @@ Last updated: 2026-07-22
 - `webapp/src/lib/engine/compositionVisibilityIntegration.test.js`
 - `webapp/package.json` 的 `test:prompt-quality`
 
-### 固定景別派生 Prompt（2026-07-22 第一至四階段）
+### 固定景別派生 Prompt（2026-07-22 第一至五階段）
 
-「固定景別派生 Prompt」和「固定構圖場景」是兩套不同功能。固定景別輸出從同一個 PAGE1 生成結果取得已解析人物、服裝、配色、姿勢、場景、光線與攝影成像，只替換輸出用途所指定的景別投影；不可重新解析或隨機抽選來源資料。第一階段建立 frozen target contract、deterministic fixtures 與結構測試；第二階段新增共用 preset／derived context 核心，並只把既有 `full-body-character` 接入，以逐 byte 回歸保證輸出不變；第三階段已把五官與胸上輸出接上 runtime 與公開 output contract；第四階段把三組固定景別輸出接到 PAGE1 即時 Prompt 卡與 DLL PIC Pro。主景別 UI 與隨機池仍留在後續階段。
+「固定景別派生 Prompt」和「固定構圖場景」是兩套不同功能。固定景別輸出從同一個 PAGE1 生成結果取得已解析人物、服裝、配色、姿勢、場景、光線與攝影成像，只替換輸出用途所指定的景別投影；不可重新解析或隨機抽選來源資料。第一階段建立 frozen target contract、deterministic fixtures 與結構測試；第二階段新增共用 preset／derived context 核心，並只把既有 `full-body-character` 接入，以逐 byte 回歸保證輸出不變；第三階段已把五官與胸上輸出接上 runtime 與公開 output contract；第四階段把三組固定景別輸出接到 PAGE1 即時 Prompt 卡與 DLL PIC Pro；第五階段收斂主景別 UI、隨機池與半臉構圖 runtime。
 
 已新增兩組只支援單人的 `extraPrompts`：
 
@@ -143,9 +143,9 @@ Last updated: 2026-07-22
 
 第四階段新增 `page1PromptOutputs.js` 作為 PAGE1 共用 consumer projection。單人 Generation Outputs 與 DLL PIC Pro 的順序統一為 Gpt、Grok/Z-Image、AI、五官特寫照、胸上特寫照、全身角色照；DLL PIC Pro 對後三者分別鎖定 `1:1`、`4:5`、`9:16`。`4:5` 已加入 DLL 比例選項，但目前只將直接 Google Gemini 路徑列為已驗證支援；若胸上來源搭配其他模型，生成按鈕維持停用並顯示相容性提示，不可靜默改成 `3:4` 或 `9:16`。雙人因沒有 `extraPrompts`，兩個介面都只顯示三組主 Prompt。consumer 必須直接使用 engine 已生成的 text，不得重新組裝、刪減或改寫派生 Prompt。Saved Cards 仍沿用第三階段既有的 generic `extraPrompts` 流程。
 
-未來主 Prompt 的新選單與隨機池只使用 `半臉傾斜特寫`、`中景鏡頭 (Medium Shot)`、`牛仔中景 (Cowboy Shot)`、`全身鏡頭 (Full Body Shot)`，並保留 `全無`。`局部五官特寫`、`臉部特寫`、`特寫鏡頭 (Close-Up)`、`胸上特寫` 的既有 option ID 不得刪除或改名；舊 Saved Cards 和 restore payload 仍可解析並保存原值，但新 UI 與隨機結果不再選取。第一至四階段尚未啟用隱藏與隨機過濾。
+第五階段後，主 Prompt 的新選單與隨機池只使用 `半臉傾斜特寫`、`中景鏡頭 (Medium Shot)`、`牛仔中景 (Cowboy Shot)`、`全身鏡頭 (Full Body Shot)`，並保留可明確選取的 `全無`。`局部五官特寫`、`臉部特寫`、`特寫鏡頭 (Close-Up)`、`胸上特寫` 的既有 option ID 不刪除或改名；舊 Saved Cards、瀏覽器儲存與 restore payload 仍可解析並保存原值。還原舊值時，PAGE1 暫時顯示該值為 disabled restore-only option，使用者改選新版景別後即不再出現在選單，新隨機結果也不會抽中舊值。
 
-半臉斜構圖未來不再只輸出 `off-center crop`。每個生成結果以同一 seed 明確解析左或右其中一側，Gpt、Grok/Z-Image、AI 共用同一段構圖開頭：人物貼近該側畫面邊緣、該側垂直邊界裁切臉部外半側、對側保留大面積負空間，且頸部、肩膀與上半身仍可見。不得輸出含糊的 `left or right`，也不得讓三個 renderer 各自抽選不同側。
+第五階段讓半臉斜構圖不再只輸出 `off-center crop`。每個生成結果以同一 seed 明確解析左或右其中一側，Gpt、Grok/Z-Image、AI 共用同一段構圖開頭：人物貼近該側畫面邊緣、該側垂直邊界裁切臉部外半側、對側保留大面積負空間，且頸部、肩膀與上半身仍可見。不得輸出含糊的 `left or right`，也不得讓三個 renderer 各自抽選不同側。因為構圖明確包含肩膀與上半身，半臉使用 `headShoulders` 投影，保留所選上衣／連身服領肩、外套肩部與頭頸配件，但仍省略 Body Type 與 canonical pose；它不再觸發只適用五官／純臉部特寫的 UI 控制收斂。
 
 第一階段基準位於：
 
@@ -153,6 +153,12 @@ Last updated: 2026-07-22
 - `webapp/src/lib/engine/fixedFramingDerivedPromptFixtures.js`
 - `webapp/src/lib/engine/fixedFramingDerivedPromptContract.test.js`
 - `webapp/package.json` 的 `test:prompt-quality`
+
+第五階段主景別與半臉 runtime 回歸基準位於：
+
+- `webapp/src/lib/engine/fixedFramingMainPrompt.js`
+- `webapp/src/lib/engine/fixedFramingMainPrompt.test.js`
+- `webapp/src/features/page1/page1Selectors.js`
 
 ### 固定構圖場景可見性優化（2026-07-19 第一至第五階段）
 

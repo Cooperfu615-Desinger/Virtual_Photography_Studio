@@ -68,6 +68,15 @@ export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT = deepFreeze({
     },
     unsupportedModeBehavior: 'absent',
   },
+  mainFramingIntegration: {
+    phase: 5,
+    page1SelectorUsesVisiblePolicy: true,
+    unlockedResolutionUsesRandomCandidates: true,
+    legacyOptionsAreRestoreOnly: true,
+    halfFacePlacementResolvedOnce: true,
+    halfFaceOpeningSharedAcrossPrimaryOutputs: true,
+    halfFaceVisibilityBucket: 'headShoulders',
+  },
   shared: SHARED_DERIVED_OUTPUT_POLICY,
   outputs: {
     facialCloseupPortrait: {

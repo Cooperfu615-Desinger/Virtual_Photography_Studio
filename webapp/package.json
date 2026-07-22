@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "test": "node --test src/lib/*.test.js src/lib/engine/*.test.js src/features/*/*.test.js",
-    "test:prompt-quality": "node --test src/lib/engine/promptOutputContracts.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/page1PromptOutputs.test.js",
+    "test:prompt-quality": "node --test src/lib/engine/promptOutputContracts.test.js src/lib/enginePromptDeduplication.test.js src/lib/engine/compositionBodyVisibilityContract.test.js src/lib/engine/compositionBodyVisibilityIntegration.test.js src/lib/engine/compositionBodyPromptIntegration.test.js src/lib/engine/compositionVisibilityIntegration.test.js src/lib/engine/fixedCompositionPromptIntegration.test.js src/lib/engine/fixedFramingDerivedPromptContract.test.js src/lib/engine/fixedFramingDerivedPromptInfrastructure.test.js src/lib/engine/fixedFramingDerivedPromptRuntime.test.js src/lib/engine/fixedFramingMainPrompt.test.js src/lib/page1PromptOutputs.test.js",
     "audit:prompts": "node ../scripts/validate_prompt_logic.mjs 200 prompt-quality-baseline",
     "audit:prompts:strict": "node ../scripts/validate_prompt_logic.mjs 200 prompt-quality-baseline --strict",
     "preview": "vite preview"

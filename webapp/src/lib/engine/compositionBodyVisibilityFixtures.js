@@ -40,7 +40,7 @@ export const EXPECTED_BODY_VISIBILITY_POLICY_BY_BUCKET = Object.freeze({
 export const BODY_VISIBILITY_PHASE4_INTEGRATION_MATRIX = Object.freeze({
   publicFramings: Object.freeze([
     Object.freeze({ framingZh: '全無', bucket: 'unconstrained' }),
-    Object.freeze({ framingZh: '半臉傾斜特寫', bucket: 'faceDetail' }),
+    Object.freeze({ framingZh: '半臉傾斜特寫', bucket: 'headShoulders' }),
     Object.freeze({ framingZh: '局部五官特寫', bucket: 'faceDetail' }),
     Object.freeze({ framingZh: '臉部特寫', bucket: 'faceDetail' }),
     Object.freeze({ framingZh: '特寫鏡頭 (Close-Up)', bucket: 'headShoulders' }),

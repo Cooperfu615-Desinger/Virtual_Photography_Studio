@@ -207,7 +207,7 @@ export const HALF_FACE_COMPOSITION_REGRESSION_FIXTURES = Object.freeze([
   }),
   Object.freeze({
     id: 'half-face-right-edge',
-    seed: 'half-face-right-edge-v1',
+    seed: 'half-face-right-edge-v5',
     resolvedPlacementId: 'right-edge',
     framingZh: '半臉傾斜特寫',
   }),

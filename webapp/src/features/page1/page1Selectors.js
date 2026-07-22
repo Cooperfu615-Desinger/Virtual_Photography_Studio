@@ -1,5 +1,6 @@
 import { createEmptyLocks } from '../../lib/engine.js';
 import { SCENE_CAMERA_CONTROL_ORDER } from '../../lib/page1ControlOrders.js';
+import { buildPage1MainFramingControl } from '../../lib/engine/fixedFramingMainPrompt.js';
 import {
   CHARACTER_CONTROL_ORDER,
   DUO_ACCESSORY_KEYS,
@@ -78,11 +79,12 @@ export function createPresetColorVisibility(controls, locks) {
   };
 }
 
-function buildCoreControls(lockControls, sceneDependentOptions) {
+function buildCoreControls(lockControls, sceneDependentOptions, locks) {
   const sceneAware = lockControls.map((control) => {
     if (control.key === 'locationId') return { ...control, options: sceneDependentOptions.locationOptions };
     if (control.key === 'lightingId') return { ...control, options: sceneDependentOptions.lightingOptions };
     if (control.key === 'lightDirectionId') return { ...control, options: sceneDependentOptions.lightDirectionOptions };
+    if (control.key === 'framingId') return buildPage1MainFramingControl(control, locks.framingId);
     return control;
   });
   return sortControls(
@@ -176,7 +178,7 @@ function buildWardrobeControls(lockControls, locks) {
 }
 
 export function buildPage1ControlGroups({ lockControls, locks, sceneDependentOptions }) {
-  const coreLockControls = buildCoreControls(lockControls, sceneDependentOptions);
+  const coreLockControls = buildCoreControls(lockControls, sceneDependentOptions, locks);
   const characterLockControls = buildCharacterControls(lockControls, locks, sceneDependentOptions);
   const wardrobeLockControls = buildWardrobeControls(lockControls, locks);
   const isOutfitPresetActive = locks.subjectCount === '2'
