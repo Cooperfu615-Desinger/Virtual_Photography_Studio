@@ -1,6 +1,6 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-07-21
+Last updated: 2026-07-22
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
@@ -124,6 +124,28 @@ Last updated: 2026-07-21
 第六階段整合回歸基準另位於：
 
 - `webapp/src/lib/engine/compositionVisibilityIntegration.test.js`
+- `webapp/package.json` 的 `test:prompt-quality`
+
+### 固定景別派生 Prompt（2026-07-22 第一階段）
+
+「固定景別派生 Prompt」和「固定構圖場景」是兩套不同功能。固定景別輸出從同一個 PAGE1 生成結果取得已解析人物、服裝、配色、姿勢、場景、光線與攝影成像，只替換輸出用途所指定的景別投影；不可重新解析或隨機抽選來源資料。第一階段只建立 frozen target contract、deterministic fixtures 與結構測試，不接上 runtime，不改公開 Prompt、`extraPrompts`、UI、Saved Cards、DLL PIC Pro 或隨機池。
+
+預定新增兩組只支援單人的 `extraPrompts`：
+
+- `facial-closeup-portrait`／`五官特寫照`：固定 `1:1`。人物採 `faceDetail`，省略 Body Type 與姿勢，但必須保留完整五官、膚質、妝容、髮型、永久身份錨點、頭部／臉部／頸部配件，以及所選上衣、洋裝、套裝、特殊穿搭、外套或 Character Card 的肩部與領口。若所有來源都沒有有效上身服裝，使用正向 fallback `a simple opaque crew-neck top`，不輸出裸體防護或其他負面 guard。保留來源可追溯的精簡場景、光線及攝影成像；後方 orbit 只在派生輸出內改用正面，raw selection 不變。
+- `chest-up-portrait`／`胸上特寫照`：固定 `4:5`。採既有 `chestUp` 投影，保留胸部可見體態、上身服裝、頭部與上半身動作、可見手部／道具、高位支撐和接觸，以及精簡原始場景、光線、攝影風格、鏡頭、光學效果與成像模擬。canonical pose 必須先投影再輸出，不得把畫面外下半身動作重新加入。
+
+兩組派生輸出遇到固定構圖場景時，保留固定場景身份與來源 anchor，但移除和指定五官／胸上景別衝突的固定鏡頭距離敘述；這不會修改 `fixedCompositionSetId` 或其他儲存值。既有 `full-body-character` 在共用架構階段前必須維持原文字、單人限制與固定 `9:16`。
+
+未來主 Prompt 的新選單與隨機池只使用 `半臉傾斜特寫`、`中景鏡頭 (Medium Shot)`、`牛仔中景 (Cowboy Shot)`、`全身鏡頭 (Full Body Shot)`，並保留 `全無`。`局部五官特寫`、`臉部特寫`、`特寫鏡頭 (Close-Up)`、`胸上特寫` 的既有 option ID 不得刪除或改名；舊 Saved Cards 和 restore payload 仍可解析並保存原值，但新 UI 與隨機結果不再選取。第一階段尚未啟用隱藏與隨機過濾。
+
+半臉斜構圖未來不再只輸出 `off-center crop`。每個生成結果以同一 seed 明確解析左或右其中一側，Gpt、Grok/Z-Image、AI 共用同一段構圖開頭：人物貼近該側畫面邊緣、該側垂直邊界裁切臉部外半側、對側保留大面積負空間，且頸部、肩膀與上半身仍可見。不得輸出含糊的 `left or right`，也不得讓三個 renderer 各自抽選不同側。
+
+第一階段基準位於：
+
+- `webapp/src/lib/engine/fixedFramingDerivedPromptContract.js`
+- `webapp/src/lib/engine/fixedFramingDerivedPromptFixtures.js`
+- `webapp/src/lib/engine/fixedFramingDerivedPromptContract.test.js`
 - `webapp/package.json` 的 `test:prompt-quality`
 
 ### 固定構圖場景可見性優化（2026-07-19 第一至第五階段）

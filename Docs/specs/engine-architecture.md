@@ -2,7 +2,7 @@
 
 Status: implemented on `main` in `7aed676 Optimize prompt engine runtime`
 
-Last updated: 2026-07-18
+Last updated: 2026-07-22
 
 ## Purpose
 
@@ -49,6 +49,8 @@ The default-library path compiles the runtime once and reuses it. A custom-libra
 | `webapp/src/lib/engine/compositionVisibilityContract.js` | Canonical framing buckets plus shared wardrobe, pose, scene, and selection-preservation projection policies |
 | `webapp/src/lib/engine/fixedCompositionPromptProjection.js` | Renderer-neutral fixed-composition projection containing resolved wardrobe/colors, canonical pose text, composition metadata, and fixed-set scene selections |
 | `webapp/src/lib/engine/compositionVisibilityFixtures.js` | Desired deterministic cases for normal wardrobe, dresses, presets, special outfits, Character Cards, duo, pose/support, scene, and full-body restoration |
+| `webapp/src/lib/engine/fixedFramingDerivedPromptContract.js` | Behavior-neutral target contract for facial-closeup and chest-up derived outputs, simplified main-framing visibility, legacy ID preservation, and half-face edge placement |
+| `webapp/src/lib/engine/fixedFramingDerivedPromptFixtures.js` | Seeded target cases for separates, special outfits, presets, dresses, Character Cards, upper-garment fallback, fixed-set scene sources, viewpoint compatibility, duo absence, and half-face placement |
 | `webapp/src/lib/engine/promptTextDeduplication.js` | Conservative exact-fragment cleanup and explicit outfit-color materialization |
 | `webapp/src/lib/engine/selectionSchema.js` | Schema-ordered selection snapshots and default filling |
 | `webapp/src/lib/engine/characterProfiles.js` | Built-in character profile data |
@@ -175,6 +177,18 @@ The approved target body policy is:
 | `fixedComposition` | `fullSource` | Preserve the current fixed-set contract until fixed sets define their own body-distance metadata. |
 
 Every activated runtime projection must occur once before renderer formatting. Gpt may preserve the complete projected source, while Grok/Z-Image and AI may reduce only that projected source and must not read the hidden full-body source as a fallback. Raw body locks, Saved Cards, restore payloads, and generated selections remain unchanged. The single-subject full-body character output always restores the complete body source. `identityAndBody` remains a compatibility field; structured Character Card `body` is the preferred projection surface for its later compatibility phase, and permanent face identity anchors must never be removed with body text.
+
+### Fixed-framing derived Prompt outputs
+
+Fixed-framing derived Prompt phase 1 is behavior-neutral. `engine/fixedFramingDerivedPromptContract.js` records two future single-subject `extraPrompts`: `facial-closeup-portrait` (`五官特寫照`, fixed `1:1`) and `chest-up-portrait` (`胸上特寫照`, fixed `4:5`). They are distinct from the existing fixed-composition scene feature. A derived output reuses the exact same resolved subject, wardrobe, color, pose, scene, lighting, and imaging sources as its parent PAGE1 result; it must never call selection resolution again or reroll any source value.
+
+The facial-closeup target uses the `faceDetail` body and pose boundary but extends visible wardrobe to the selected top, dress bodice, outerwear neckline, headwear, eyewear, earrings, and neck accessory. A visible upper garment is required; when none of the selected, complete-look, or Character Card sources provides one, the authored positive fallback is `a simple opaque crew-neck top`. The output omits pose, retains a compact source-traceable scene, preserves selected lighting and imaging, and substitutes a front view only inside the derived output when the raw orbit is rear-facing. Raw locks remain unchanged.
+
+The chest-up target uses the existing `chestUp` body, wardrobe, pose, and compact-scene projection. It preserves the projected canonical head and upper-body pose, crop-compatible hand or prop action, high support/contact, selected scene, lighting, photography style, lens, optical effects, and rendering simulation. When a fixed-composition set is selected, both derived outputs preserve its scene identity and source anchors while omitting the fixed-set camera-distance statement that conflicts with the explicit derived crop. The existing `full-body-character` output remains unchanged while the later shared-infrastructure phase is developed.
+
+The future main-framing selector exposes only `全無`, `半臉傾斜特寫`, `中景鏡頭 (Medium Shot)`, `牛仔中景 (Cowboy Shot)`, and `全身鏡頭 (Full Body Shot)`. The existing IDs for `局部五官特寫`, `臉部特寫`, `特寫鏡頭 (Close-Up)`, and `胸上特寫` remain catalog-resolvable and restorable but are excluded from new UI selection and random candidates. Phase 1 does not activate that filtering. The half-face target resolves one seeded placement, left or right, once per generated result and shares the exact opening across Gpt, Grok/Z-Image, and AI. Its geometry places the subject flush against one frame edge, crops the outer half of the face with that vertical boundary, preserves broad negative space on the opposite side, and keeps the neck, shoulders, and upper torso visible.
+
+The phase-1 structural gate is `engine/fixedFramingDerivedPromptContract.test.js`, included in `npm run test:prompt-quality`. It verifies frozen serializable policy data, the exact current IDs and complete active/legacy partition, all target wardrobe and compatibility fixtures, both half-face sides, and the intentionally disconnected runtime baseline. Public Prompt text, output contracts, `extraPrompts`, UI, random pools, Saved Cards, and DLL PIC Pro are unchanged in this phase.
 
 Fixed-composition visibility phase 2 upgrades the contract to version 2 and adds the `fixedComposition` bucket. A fixed set does not inherit the ordinary `unconstrained` meaning from its UI-level `framingId = 全無`; its composition source is the selected fixed set, its camera distance is fixed-set-defined, and manual framing remains disabled. The bucket exposes complete wardrobe roles, full canonical pose parts, and `fixedSetContract` scene semantics so downstream phases can consume one explicit context without reopening normal framing controls. `generateSinglePrompt()` resolves this projection before character and wardrobe construction, and all renderer fallbacks reuse it. Public Prompt text, fixed-set option IDs, selection mappings, and the dedicated fixed-set scene renderer remain unchanged in this phase.
 
