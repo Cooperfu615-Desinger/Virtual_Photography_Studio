@@ -177,7 +177,10 @@ export const DLL_PIC_ASPECT_RATIOS = [
   { value: '1:1', label: '1:1' },
   { value: '4:3', label: '4:3' },
   { value: '3:4', label: '3:4' },
+  { value: '4:5', label: '4:5' },
 ];
+
+const DLL_PIC_VERIFIED_FOUR_BY_FIVE_MODELS = new Set(['google31FlashLiteImage']);
 
 function buildGoogleApiUrl(modelName, apiKey, apiVersion = 'v1beta') {
   return `https://generativelanguage.googleapis.com/${apiVersion}/models/${modelName}:generateContent?key=${apiKey}`;
@@ -262,6 +265,12 @@ export function normalizeDllPicModelKey(modelKey, fallback = 'google31FlashLiteI
   const modelConfig = DLL_PIC_MODEL_CONFIG[modelKey];
   if (modelConfig?.redirectModelKey) return modelConfig.redirectModelKey;
   return modelConfig && !modelConfig.hidden ? modelKey : fallback;
+}
+
+export function isDllPicAspectRatioSupported(modelKey, aspectRatio) {
+  if (!DLL_PIC_ASPECT_RATIOS.some((option) => option.value === aspectRatio)) return false;
+  if (aspectRatio !== '4:5') return true;
+  return DLL_PIC_VERIFIED_FOUR_BY_FIVE_MODELS.has(normalizeDllPicModelKey(modelKey));
 }
 
 export function getDllPicSelectableModelEntries({ includeAnalysisOnly = false } = {}) {

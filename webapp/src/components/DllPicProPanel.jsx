@@ -9,6 +9,7 @@ import {
   getDllPicResolutionOption,
   getDllPicResolutionOptions,
   getDllPicSelectableModelEntries,
+  isDllPicAspectRatioSupported,
   normalizeDllPicModelKey,
 } from '../lib/dllPicProClient.js';
 import { generateBytePlusViaFirebase } from '../lib/bytePlusProxyClient.js';
@@ -172,6 +173,7 @@ export default function DllPicProPanel({
   ), [availableSources, promptSources, selectedSourceId]);
   const selectedPrompt = selectedSource?.value?.trim() || '';
   const isAspectRatioLocked = Boolean(selectedSource?.lockAspectRatio && selectedSource?.aspectRatio);
+  const isAspectRatioSupported = isDllPicAspectRatioSupported(modelKey, aspectRatio);
   const activeApiKey = getDllPicApiKeyForModel(modelKey, apiKeys);
   const activeProviderLabel = activeModel.provider === 'magnific'
     ? 'Magnific'
@@ -189,8 +191,12 @@ export default function DllPicProPanel({
     (activeModel.usesServerProxy || activeApiKey)
     && selectedPrompt
     && activeModel.generationModel
+    && isAspectRatioSupported
     && !isGenerating
   );
+  const modelCompatibilityNote = isAspectRatioSupported
+    ? ''
+    : `目前模型不支援固定 ${aspectRatio}，請改用 Google Gemini Nano Banana 2 Lite`;
 
   useEffect(() => {
     if (selectedSource?.aspectRatio) setAspectRatio(selectedSource.aspectRatio);
@@ -406,7 +412,9 @@ export default function DllPicProPanel({
         <button className="primary-copy-btn dll-pic-generate-btn" type="button" onClick={handleGenerate} disabled={!canGenerate}>
           {isGenerating ? '生成中...' : '生成圖像'}
         </button>
-        <span className="dll-pic-model-note">{activeModelNote || '此 provider 尚未接入生圖'}</span>
+        <span className="dll-pic-model-note">
+          {modelCompatibilityNote || activeModelNote || '此 provider 尚未接入生圖'}
+        </span>
       </div>
 
       {message ? <div className="dll-pic-message">{message}</div> : null}

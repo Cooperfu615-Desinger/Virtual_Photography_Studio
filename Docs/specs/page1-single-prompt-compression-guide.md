@@ -126,9 +126,9 @@ Last updated: 2026-07-22
 - `webapp/src/lib/engine/compositionVisibilityIntegration.test.js`
 - `webapp/package.json` 的 `test:prompt-quality`
 
-### 固定景別派生 Prompt（2026-07-22 第一至三階段）
+### 固定景別派生 Prompt（2026-07-22 第一至四階段）
 
-「固定景別派生 Prompt」和「固定構圖場景」是兩套不同功能。固定景別輸出從同一個 PAGE1 生成結果取得已解析人物、服裝、配色、姿勢、場景、光線與攝影成像，只替換輸出用途所指定的景別投影；不可重新解析或隨機抽選來源資料。第一階段建立 frozen target contract、deterministic fixtures 與結構測試；第二階段新增共用 preset／derived context 核心，並只把既有 `full-body-character` 接入，以逐 byte 回歸保證輸出不變；第三階段已把五官與胸上輸出接上 runtime 與公開 output contract。PAGE1 即時 Prompt 卡、DLL PIC Pro 來源、主景別 UI 與隨機池仍留在後續 UI 階段。
+「固定景別派生 Prompt」和「固定構圖場景」是兩套不同功能。固定景別輸出從同一個 PAGE1 生成結果取得已解析人物、服裝、配色、姿勢、場景、光線與攝影成像，只替換輸出用途所指定的景別投影；不可重新解析或隨機抽選來源資料。第一階段建立 frozen target contract、deterministic fixtures 與結構測試；第二階段新增共用 preset／derived context 核心，並只把既有 `full-body-character` 接入，以逐 byte 回歸保證輸出不變；第三階段已把五官與胸上輸出接上 runtime 與公開 output contract；第四階段把三組固定景別輸出接到 PAGE1 即時 Prompt 卡與 DLL PIC Pro。主景別 UI 與隨機池仍留在後續階段。
 
 已新增兩組只支援單人的 `extraPrompts`：
 
@@ -141,7 +141,9 @@ Last updated: 2026-07-22
 
 第三階段讓單人結果的 `extraPrompts` 依序包含 `facial-closeup-portrait`、`chest-up-portrait`、`full-body-character`。五官 preset 保持 `faceDetail` 的 Body Type／pose 省略邊界，但以明確 wardrobe override 保留上衣、洋裝上身、外套領肩與頭頸配件；角色卡的 Outfit 會移到 Wardrobe，不與 Subject 重複。胸上 preset 重新投影同一份 canonical pose。兩者都使用完整保留型 section renderer，不使用 `multi-cut sequence n=2`。固定構圖來源先轉為精簡場景身份與錨點，不能輸出原本 2.5–5 公尺的固定鏡頭距離、internal fixed-set label 或 integrity guard。後方 orbit 只在五官衍生 context 變為 front view，原始 `orbitId` 不變。
 
-未來主 Prompt 的新選單與隨機池只使用 `半臉傾斜特寫`、`中景鏡頭 (Medium Shot)`、`牛仔中景 (Cowboy Shot)`、`全身鏡頭 (Full Body Shot)`，並保留 `全無`。`局部五官特寫`、`臉部特寫`、`特寫鏡頭 (Close-Up)`、`胸上特寫` 的既有 option ID 不得刪除或改名；舊 Saved Cards 和 restore payload 仍可解析並保存原值，但新 UI 與隨機結果不再選取。第一至三階段尚未啟用隱藏與隨機過濾。
+第四階段新增 `page1PromptOutputs.js` 作為 PAGE1 共用 consumer projection。單人 Generation Outputs 與 DLL PIC Pro 的順序統一為 Gpt、Grok/Z-Image、AI、五官特寫照、胸上特寫照、全身角色照；DLL PIC Pro 對後三者分別鎖定 `1:1`、`4:5`、`9:16`。`4:5` 已加入 DLL 比例選項，但目前只將直接 Google Gemini 路徑列為已驗證支援；若胸上來源搭配其他模型，生成按鈕維持停用並顯示相容性提示，不可靜默改成 `3:4` 或 `9:16`。雙人因沒有 `extraPrompts`，兩個介面都只顯示三組主 Prompt。consumer 必須直接使用 engine 已生成的 text，不得重新組裝、刪減或改寫派生 Prompt。Saved Cards 仍沿用第三階段既有的 generic `extraPrompts` 流程。
+
+未來主 Prompt 的新選單與隨機池只使用 `半臉傾斜特寫`、`中景鏡頭 (Medium Shot)`、`牛仔中景 (Cowboy Shot)`、`全身鏡頭 (Full Body Shot)`，並保留 `全無`。`局部五官特寫`、`臉部特寫`、`特寫鏡頭 (Close-Up)`、`胸上特寫` 的既有 option ID 不得刪除或改名；舊 Saved Cards 和 restore payload 仍可解析並保存原值，但新 UI 與隨機結果不再選取。第一至四階段尚未啟用隱藏與隨機過濾。
 
 半臉斜構圖未來不再只輸出 `off-center crop`。每個生成結果以同一 seed 明確解析左或右其中一側，Gpt、Grok/Z-Image、AI 共用同一段構圖開頭：人物貼近該側畫面邊緣、該側垂直邊界裁切臉部外半側、對側保留大面積負空間，且頸部、肩膀與上半身仍可見。不得輸出含糊的 `left or right`，也不得讓三個 renderer 各自抽選不同側。
 

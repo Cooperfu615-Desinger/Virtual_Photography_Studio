@@ -41,7 +41,7 @@ function materializeLocks(fixture) {
   return locks;
 }
 
-test('fixed-framing contract is frozen serializable target data and records phase-3 runtime activation', () => {
+test('fixed-framing contract is frozen serializable target data and records runtime plus consumer activation', () => {
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION, 1);
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimeConnected, true);
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimePhase, 3);
@@ -58,6 +58,17 @@ test('fixed-framing contract is frozen serializable target data and records phas
     FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.outputs.fullBodyCharacterCompatibility.id,
     PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt.source.id,
   );
+  assert.deepEqual(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.consumerIntegration, {
+    phase: 4,
+    page1GenerationOutputs: true,
+    dllPicProPromptSources: true,
+    fixedAspectRatios: {
+      facialCloseupPortrait: '1:1',
+      chestUpPortrait: '4:5',
+      fullBodyCharacter: '9:16',
+    },
+    unsupportedModeBehavior: 'absent',
+  });
 });
 
 test('phase-1 main framing policy partitions every existing option without changing legacy ids', () => {

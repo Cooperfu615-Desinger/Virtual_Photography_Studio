@@ -21,6 +21,10 @@ import {
   resolvePage1ActiveSubpanel,
 } from '../lib/page1WorkspacePanels.js';
 import {
+  buildPage1DllPromptSources,
+  buildPage1GenerationPromptCards,
+} from '../lib/page1PromptOutputs.js';
+import {
   getPage1SectionActionLabels,
   randomizeLockKeys,
   setLockKeysToNone,
@@ -996,39 +1000,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     return renderCharacterControls();
   };
 
-  const fullBodyCharacterPrompt = previewPrompt?.extraPrompts
-    ?.find((entry) => entry.id === 'full-body-character')?.text || '';
-
-  const generationPromptCards = [
-    {
-      title: 'Gpt',
-      value: previewPrompt?.grokPrompt || '',
-      placeholder: '目前尚無可顯示的 Gpt prompt。',
-      description: '分段自然語言主 prompt，主要給 ChatGPT-Image-2 / GPT Image 使用。',
-      copyLabel: 'Gpt copied',
-    },
-    {
-      title: 'Grok/Z-Image',
-      value: previewPrompt?.zImagePrompt || '',
-      placeholder: '目前尚無可顯示的 Grok/Z-Image prompt。',
-      description: '更自然的完整段落描述，主要給 Grok Imagine / Z-Image 使用。',
-      copyLabel: 'Grok/Z-Image copied',
-    },
-    {
-      title: 'AI Prompt',
-      value: previewPrompt?.midjourneyPrompt || '',
-      placeholder: '目前尚無可顯示的 AI Prompt。',
-      description: '偏通用影像生成語氣，適合快速貼到外部工具測試視覺方向。',
-      copyLabel: 'AI copied',
-    },
-    ...(fullBodyCharacterPrompt ? [{
-      title: '全身角色照',
-      value: fullBodyCharacterPrompt,
-      placeholder: '目前尚無可顯示的全身角色照 Prompt。',
-      description: '固定 9:16 直式，完整呈現單人人物、穿搭、鞋襪與配件。',
-      copyLabel: '全身角色照 copied',
-    }] : []),
-  ];
+  const generationPromptCards = buildPage1GenerationPromptCards(previewPrompt);
+  const dllPromptSources = buildPage1DllPromptSources(previewPrompt);
 
   const handleClearSelected = () => {
     updateLocks(clearedLocks);
@@ -1151,7 +1124,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
             <div className="reference-output-header">
               <div>
                 <div className="control-section-title">Generation Outputs</div>
-                <p className="workspace-panel-copy">集中整理目前 工作台 的四種生成輸出。</p>
+                <p className="workspace-panel-copy">集中整理目前工作台可用的主 Prompt 與固定景別輸出。</p>
               </div>
             </div>
 
@@ -1177,7 +1150,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               />
               {generationPromptCards.map((card) => (
                 <PromptPreviewCard
-                  key={card.title}
+                  key={card.id}
                   {...card}
                   onCopy={(text) => handleCopyText(card.copyLabel, text)}
                 />
@@ -1190,18 +1163,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           <DllPicProPanel
             title="DLL_PIC Pro"
             description="使用目前 prompt 直接生成圖像預覽。"
-            promptSources={[
-              { id: 'gpt', label: 'Gpt', value: previewPrompt?.grokPrompt || '' },
-              { id: 'grok', label: 'Grok/Z-Image', value: previewPrompt?.zImagePrompt || '' },
-              { id: 'ai', label: 'AI Prompt', value: previewPrompt?.midjourneyPrompt || '' },
-              {
-                id: 'full-body-character',
-                label: '全身角色照',
-                value: fullBodyCharacterPrompt,
-                aspectRatio: '9:16',
-                lockAspectRatio: true,
-              },
-            ]}
+            promptSources={dllPromptSources}
             defaultSourceId="gpt"
           />
 

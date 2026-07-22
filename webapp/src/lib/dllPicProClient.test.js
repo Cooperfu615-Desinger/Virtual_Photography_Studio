@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { afterEach, beforeEach, test } from 'node:test';
 
 import {
+  DLL_PIC_ASPECT_RATIOS,
   DLL_PIC_STORAGE_KEYS,
   generateDllPicImages,
   getDllPicApiKeyForModel,
@@ -9,6 +10,7 @@ import {
   getDllPicResolutionOption,
   getDllPicResolutionOptions,
   getDllPicSelectableModelEntries,
+  isDllPicAspectRatioSupported,
   normalizeDllPicModelKey,
 } from './dllPicProClient.js';
 
@@ -84,6 +86,16 @@ test('legacy Grok model key normalizes to the current xAI quality model', () => 
 test('legacy Gemini model keys normalize to Nano Banana 2 Lite', () => {
   assert.equal(normalizeDllPicModelKey('google'), 'google31FlashLiteImage');
   assert.equal(normalizeDllPicModelKey('google31image'), 'google31FlashLiteImage');
+});
+
+test('fixed chest-up 4:5 ratio stays selectable only for a verified supporting model', () => {
+  assert.equal(DLL_PIC_ASPECT_RATIOS.some((option) => option.value === '4:5'), true);
+  assert.equal(isDllPicAspectRatioSupported('google31FlashLiteImage', '4:5'), true);
+  assert.equal(isDllPicAspectRatioSupported('google', '4:5'), true);
+  assert.equal(isDllPicAspectRatioSupported('xaiGrokImagineQuality', '4:5'), false);
+  assert.equal(isDllPicAspectRatioSupported('magnificNanoBananaProFlash', '4:5'), false);
+  assert.equal(isDllPicAspectRatioSupported('byteplusSeedream5Pro', '4:5'), false);
+  assert.equal(isDllPicAspectRatioSupported('xaiGrokImagineQuality', '3:4'), true);
 });
 
 test('API key selection follows the active model provider', () => {
