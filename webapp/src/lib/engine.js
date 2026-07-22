@@ -7206,6 +7206,10 @@ function isCompleteWardrobeProjection(projection) {
     || projection?.bucket === COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY;
 }
 
+function shouldHideWardrobeSectionForProjection(projection) {
+  return !['top', 'dress', 'outerwear'].some((role) => projection?.wardrobe?.roles?.includes(role));
+}
+
 function classifyCompleteLookWardrobeFragment(fragment) {
   const text = stripMarkdown(fragment || '').replace(/\s+/g, ' ').trim();
   if (!text) return '';
@@ -8118,7 +8122,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   const sceneAccentText = projectedScene.sceneAccentText;
   const importedWorldSceneArchitectureText = projectedScene.worldSceneText;
   const compositionVisibilityProjection = getCompositionVisibilityProjection(context);
-  const hideWardrobeForFaceDetail = compositionVisibilityProjection.bucket === COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL;
+  const hideWardrobeForFaceDetail = shouldHideWardrobeSectionForProjection(compositionVisibilityProjection);
   const usesPartialWardrobeProjection = !isCompleteWardrobeProjection(compositionVisibilityProjection);
   const projectWardrobeRole = (role, value) => (
     value && shouldProjectWardrobeRole(compositionVisibilityProjection, role, value) ? value : ''
@@ -8850,7 +8854,7 @@ function compactCameraDescriptor(item, kind) {
 
 function buildCompositionPromptLine(context) {
   const parts = [
-    compactCameraDescriptor(context?.framing, 'framing'),
+    context?.fixedFramingCompositionOpening || compactCameraDescriptor(context?.framing, 'framing'),
     compactCameraDescriptor(context?.angle, 'angle'),
     compactCameraDescriptor(context?.orbit, 'orbit'),
   ].filter(Boolean);
@@ -9528,7 +9532,13 @@ function buildCharacterCardProfileGroups(subject, locks = {}, wardrobe = null) {
   };
 }
 
-function buildGptCharacterProfileSubjectBlock(subject, locks = {}, wardrobe = null, context = null) {
+function buildGptCharacterProfileSubjectBlock(
+  subject,
+  locks = {},
+  wardrobe = null,
+  context = null,
+  { includeOutfit = true } = {},
+) {
   if (!isCharacterProfileSubject(subject)) return '';
   const groups = buildCharacterCardProfileGroups(subject, locks, wardrobe);
   const groupLine = (label, value) => {
@@ -9553,7 +9563,7 @@ function buildGptCharacterProfileSubjectBlock(subject, locks = {}, wardrobe = nu
       ? structuredIdentityLines
       : [groupLine('Identity and body', groups.identityAndBody)]),
     groupLine('Hair', [groups.hair, buildCharacterCardHairVariantText(subject, locks)].filter(Boolean).join(', ')),
-    groupLine('Outfit', filterCompleteLookPromptForFraming(groups.outfit, context)),
+    includeOutfit ? groupLine('Outfit', filterCompleteLookPromptForFraming(groups.outfit, context)) : '',
     groupLine('Accessories', filterCompleteLookPromptForFraming(groups.accessories, context)),
     groupLine('Photographic direction', groups.photographicDirection || 'photorealistic editorial portrait, coherent facial identity, natural photographic detail'),
   ].filter(Boolean).join('\n\n');
@@ -10176,7 +10186,12 @@ function compressZImageSinglePoseText(value, context) {
     .trim();
 }
 
-function renderGptPrompt(promptModel) {
+function renderGptPrompt(promptModel, {
+  includeMultiCut = true,
+  compositionSection = false,
+  characterProfileWardrobeSection = false,
+  wardrobeFallbackText = '',
+} = {}) {
   const {
     valuesByLabel,
     context,
@@ -10217,8 +10232,13 @@ function renderGptPrompt(promptModel) {
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
   const duoWardrobeSlots = useRoleOrderedDuo ? extractWardrobeSlots(wardrobe) : null;
   const singleCharacterProfileSubjectBlock = !useRoleOrderedDuo && isCharacterProfileSubject(context.subject)
-    ? buildGptCharacterProfileSubjectBlock(context.subject, context.locks, wardrobe, context)
+    ? buildGptCharacterProfileSubjectBlock(context.subject, context.locks, wardrobe, context, {
+        includeOutfit: !characterProfileWardrobeSection,
+      })
     : '';
+  const singleCharacterProfileGroups = !useRoleOrderedDuo && isCharacterProfileSubject(context.subject)
+    ? buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe)
+    : null;
   const structuredSingleSpecialOutfitText = !useRoleOrderedDuo && context.subject?.count === 1
     ? firstStructuredValue(valuesByLabel, ['Special Outfit'])
     : '';
@@ -10253,7 +10273,11 @@ function renderGptPrompt(promptModel) {
     ? wardrobeText
     : singleSpecialOutfitWardrobeBlock
     ? singleSpecialOutfitWardrobeBlock
-    : buildGptSingleFullFidelityWardrobeText(wardrobeText);
+    : buildGptSingleFullFidelityWardrobeText(wardrobeText)
+      || (characterProfileWardrobeSection
+        ? filterCompleteLookPromptForFraming(singleCharacterProfileGroups?.outfit, context)
+        : '')
+      || wardrobeFallbackText;
   const resolvedSharedExpressionText = useRoleOrderedDuo ? buildGptDuoSharedExpressionText(duoCharacterSlots) : '';
   const hasCanonicalPose = !useRoleOrderedDuo
     && characterSlots.poseComposer
@@ -10273,24 +10297,27 @@ function renderGptPrompt(promptModel) {
       ? blockSection('Scene', sceneText)
       : section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`)
     : '';
+  const compositionOutput = compositionSection
+    ? section('Composition', compositionLine)
+    : compositionLine;
 
   if (useRoleOrderedDuo) {
     return [
       section('Image Type', imageTypeLine),
-      compositionLine,
+      compositionOutput,
       resolvedSubjectText ? blockSection('Subject', resolvedSubjectText) : '',
       resolvedSharedExpressionText ? section('Shared Expression', resolvedSharedExpressionText) : '',
       section('Pose and Composition', resolvedPoseText),
       sceneSection,
       section('Lighting', lightingText),
       section('Camera Look', cameraText),
-      'multi-cut sequence n=2',
+      includeMultiCut ? 'multi-cut sequence n=2' : '',
     ].filter(Boolean).join('\n\n');
   }
 
   return [
     section('Image Type', imageTypeLine),
-    compositionLine,
+    compositionOutput,
     resolvedSubjectText
       ? resolvedSubjectUsesBlock
         ? blockSection('Subject', resolvedSubjectText)
@@ -10305,7 +10332,7 @@ function renderGptPrompt(promptModel) {
     sceneSection,
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
-    'multi-cut sequence n=2',
+    includeMultiCut ? 'multi-cut sequence n=2' : '',
   ].filter(Boolean).join('\n\n');
 }
 
@@ -10389,6 +10416,29 @@ function renderFullBodyCharacterPrompt(promptModel) {
   ].filter(Boolean).join('\n\n');
 }
 
+function buildFixedFramingDerivedProjectedScene(sourceContext, derivedContext, preset) {
+  if (
+    preset.fixedCompositionHandling === 'projectScene'
+    && isFixedCompositionSetActive(sourceContext.fixedCompositionSet)
+  ) {
+    const authoredScene = AI_FIXED_SET_SCENE_PHRASES[sourceContext.fixedCompositionSet.id]
+      || cleanFixedSetOpeningSentence(sourceContext.fixedCompositionSet);
+    const locationText = projectSceneSourceText(
+      authoredScene.replace(/^The central scene is\s+/i, ''),
+      'compactSource',
+    );
+
+    return Object.freeze({
+      mode: 'compactSource',
+      locationText,
+      worldSceneText: '',
+      sceneAccentText: '',
+    });
+  }
+
+  return buildProjectedScene(derivedContext);
+}
+
 function buildFixedFramingDerivedPromptModel({
   sourcePromptModel,
   sourceContext,
@@ -10399,23 +10449,65 @@ function buildFixedFramingDerivedPromptModel({
   lightDirection,
   film,
 }) {
-  const derivedContext = createFixedFramingDerivedContext(sourceContext, preset);
+  const baseDerivedContext = createFixedFramingDerivedContext(sourceContext, preset);
+
+  if (!preset.projectResolvedSources) {
+    return {
+      ...sourcePromptModel,
+      ...buildStructuredPromptSections(
+        baseDerivedContext,
+        character,
+        wardrobe,
+        wardrobeColors,
+        lightDirection,
+        film,
+      ),
+      context: baseDerivedContext,
+      character,
+      wardrobe,
+      wardrobeColors,
+    };
+  }
+
+  const compositionVisibility = baseDerivedContext.compositionVisibility;
+  const poseComposer = extractCharacterSlots(character).poseComposer;
+  const projectedCanonicalPoseText = buildProjectedCanonicalPoseText(baseDerivedContext, poseComposer);
+  const derivedContext = {
+    ...baseDerivedContext,
+    subject: isCharacterProfileSubject(baseDerivedContext.subject)
+      ? projectCharacterProfileSubject(baseDerivedContext.subject, compositionVisibility)
+      : baseDerivedContext.subject,
+    projectedCanonicalPoseText,
+    projectedScene: buildFixedFramingDerivedProjectedScene(sourceContext, baseDerivedContext, preset),
+  };
+  const projectedCharacter = projectBodyTypeCharacter(character, derivedContext);
 
   return {
     ...sourcePromptModel,
     ...buildStructuredPromptSections(
       derivedContext,
-      character,
+      projectedCharacter,
       wardrobe,
       wardrobeColors,
       lightDirection,
       film,
     ),
     context: derivedContext,
-    character,
+    character: projectedCharacter,
     wardrobe,
     wardrobeColors,
   };
+}
+
+function renderFixedFramingDerivedPrompt(promptModel, preset) {
+  if (promptModel.context.subject?.count !== 1) return '';
+
+  return renderGptPrompt(promptModel, {
+    includeMultiCut: false,
+    compositionSection: true,
+    characterProfileWardrobeSection: true,
+    wardrobeFallbackText: preset.wardrobeFallbackText || '',
+  });
 }
 
 function renderZImagePrompt(promptModel) {
@@ -10445,7 +10537,7 @@ function renderZImagePrompt(promptModel) {
     ? splitZImageSpecialOutfitContent(singleSpecialOutfitText, context)
     : { personText: '', wardrobeText: '' };
   const compositionVisibilityProjection = getCompositionVisibilityProjection(context);
-  const hideWardrobeForFaceDetail = compositionVisibilityProjection.bucket === COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL;
+  const hideWardrobeForFaceDetail = shouldHideWardrobeSectionForProjection(compositionVisibilityProjection);
   const duoWardrobeDifferentiationText = shouldAddDuoWardrobeDifferentiationPrompt(context, wardrobeSlots)
     ? DUO_WARDROBE_DIFFERENTIATION_PROMPT
     : '';
@@ -12135,12 +12227,47 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     lightDirection,
     film,
   });
+  const facialCloseupPortraitPromptModel = buildFixedFramingDerivedPromptModel({
+    sourcePromptModel: promptModel,
+    sourceContext: context,
+    preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.facialCloseupPortrait,
+    character,
+    wardrobe,
+    wardrobeColors,
+    lightDirection,
+    film,
+  });
+  const chestUpPortraitPromptModel = buildFixedFramingDerivedPromptModel({
+    sourcePromptModel: promptModel,
+    sourceContext: context,
+    preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
+    character,
+    wardrobe,
+    wardrobeColors,
+    lightDirection,
+    film,
+  });
   const grokPrompt = renderGptPrompt(promptModel);
   const zImagePrompt = renderZImagePrompt(promptModel);
   const midjourneyPrompt = renderAiPrompt(promptModel);
+  const facialCloseupPortraitPrompt = renderFixedFramingDerivedPrompt(
+    facialCloseupPortraitPromptModel,
+    FIXED_FRAMING_DERIVED_PROMPT_PRESETS.facialCloseupPortrait,
+  );
+  const chestUpPortraitPrompt = renderFixedFramingDerivedPrompt(
+    chestUpPortraitPromptModel,
+    FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
+  );
   const fullBodyCharacterPrompt = renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
 
-  return { midjourneyPrompt, grokPrompt, zImagePrompt, fullBodyCharacterPrompt };
+  return {
+    midjourneyPrompt,
+    grokPrompt,
+    zImagePrompt,
+    facialCloseupPortraitPrompt,
+    chestUpPortraitPrompt,
+    fullBodyCharacterPrompt,
+  };
 }
 
 function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film) {
@@ -12625,6 +12752,8 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     midjourneyPrompt,
     grokPrompt,
     zImagePrompt,
+    facialCloseupPortraitPrompt,
+    chestUpPortraitPrompt,
     fullBodyCharacterPrompt,
   } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
@@ -12637,9 +12766,24 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     midjourneyPrompt,
     grokPrompt,
     zImagePrompt,
-    extraPrompts: fullBodyCharacterPrompt
-      ? [{ id: 'full-body-character', label: '全身角色照', text: fullBodyCharacterPrompt }]
-      : [],
+    extraPrompts: [
+      {
+        preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.facialCloseupPortrait,
+        text: facialCloseupPortraitPrompt,
+      },
+      {
+        preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
+        text: chestUpPortraitPrompt,
+      },
+      {
+        preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.fullBodyCharacter,
+        text: fullBodyCharacterPrompt,
+      },
+    ].filter((entry) => entry.text).map(({ preset, text }) => ({
+      id: preset.id,
+      label: preset.uiLabel,
+      text,
+    })),
     selection: buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, lightDirection, film),
     structured: {
       Style: [imageTypePreset, style].filter(Boolean),

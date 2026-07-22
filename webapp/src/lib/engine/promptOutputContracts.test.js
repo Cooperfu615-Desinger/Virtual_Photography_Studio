@@ -66,6 +66,8 @@ function stablePromptResult(prompt) {
     grokPrompt: prompt.grokPrompt,
     zImagePrompt: prompt.zImagePrompt,
     midjourneyPrompt: prompt.midjourneyPrompt,
+    facialCloseupPortraitPrompt: readContractOutput(prompt, PROMPT_OUTPUT_CONTRACTS.facialCloseupPortraitPrompt),
+    chestUpPortraitPrompt: readContractOutput(prompt, PROMPT_OUTPUT_CONTRACTS.chestUpPortraitPrompt),
     fullBodyCharacterPrompt: readContractOutput(prompt, PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt),
     selection: prompt.selection,
   };
@@ -102,11 +104,13 @@ function assertLiteralExpectations(text, expectations, fixtureId, field) {
 }
 
 test('prompt output contracts are frozen serializable data with stable public fields', () => {
-  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.0.0');
+  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.1.0');
   assert.deepEqual(Object.keys(PROMPT_OUTPUT_CONTRACTS), [
     'grokPrompt',
     'zImagePrompt',
     'midjourneyPrompt',
+    'facialCloseupPortraitPrompt',
+    'chestUpPortraitPrompt',
     'fullBodyCharacterPrompt',
   ]);
   assert.ok(Object.isFrozen(PROMPT_OUTPUT_CONTRACTS));
@@ -115,6 +119,8 @@ test('prompt output contracts are frozen serializable data with stable public fi
   assert.equal(PROMPT_OUTPUT_CONTRACTS.grokPrompt.uiLabel, 'Gpt');
   assert.equal(PROMPT_OUTPUT_CONTRACTS.zImagePrompt.uiLabel, 'Grok/Z-Image');
   assert.equal(PROMPT_OUTPUT_CONTRACTS.midjourneyPrompt.uiLabel, 'AI');
+  assert.equal(PROMPT_OUTPUT_CONTRACTS.facialCloseupPortraitPrompt.source.id, 'facial-closeup-portrait');
+  assert.equal(PROMPT_OUTPUT_CONTRACTS.chestUpPortraitPrompt.source.id, 'chest-up-portrait');
   assert.deepEqual(PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt.applicability.supportedModes, ['single']);
 });
 

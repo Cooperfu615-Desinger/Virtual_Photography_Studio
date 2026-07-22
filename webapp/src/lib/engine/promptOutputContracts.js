@@ -85,7 +85,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.0.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.1.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -263,6 +263,76 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
         'controlled by the outfit color selection',
         'can retain a classic signature color scheme',
       ],
+    },
+  },
+
+  facialCloseupPortraitPrompt: {
+    field: 'facialCloseupPortraitPrompt',
+    uiLabel: '五官特寫照',
+    target: 'Single-subject 1:1 facial close-up portrait',
+    source: { kind: 'extraPrompt', id: 'facial-closeup-portrait' },
+    applicability: {
+      supportedModes: ['single'],
+      unsupportedBehavior: 'absent',
+    },
+    language: {
+      primary: 'en',
+      forbiddenUnicodeBlocks: [CJK_UNIFIED_IDEOGRAPHS],
+    },
+    shape: {
+      paragraphSeparator: 'blank-line',
+      minimumParagraphs: 4,
+      modes: {
+        single: {
+          requiredPrefix: 'Image Type:\n',
+          requiredLabels: ['Image Type', 'Composition', 'Subject', 'Wardrobe'],
+          optionalLabels: ['Scene', 'Lighting', 'Camera Look'],
+          forbiddenLabels: ['Woman 1', 'Woman 2', 'Shared Expression', 'Pose and Composition', 'Pose', 'Constraints'],
+          orderedLabels: ['Image Type', 'Composition', 'Subject', 'Wardrobe', 'Scene', 'Lighting', 'Camera Look'],
+        },
+      },
+    },
+    tail: {
+      requiredExactLine: '',
+      forbiddenSubstrings: ['multi-cut sequence n=2'],
+    },
+    controlLeakage: {
+      forbiddenCaseInsensitive: COMMON_CONTROL_LEAKAGE,
+    },
+  },
+
+  chestUpPortraitPrompt: {
+    field: 'chestUpPortraitPrompt',
+    uiLabel: '胸上特寫照',
+    target: 'Single-subject 4:5 chest-up portrait',
+    source: { kind: 'extraPrompt', id: 'chest-up-portrait' },
+    applicability: {
+      supportedModes: ['single'],
+      unsupportedBehavior: 'absent',
+    },
+    language: {
+      primary: 'en',
+      forbiddenUnicodeBlocks: [CJK_UNIFIED_IDEOGRAPHS],
+    },
+    shape: {
+      paragraphSeparator: 'blank-line',
+      minimumParagraphs: 3,
+      modes: {
+        single: {
+          requiredPrefix: 'Image Type:\n',
+          requiredLabels: ['Image Type', 'Composition', 'Subject'],
+          optionalLabels: ['Wardrobe', 'Pose and Composition', 'Scene', 'Lighting', 'Camera Look'],
+          forbiddenLabels: ['Woman 1', 'Woman 2', 'Shared Expression', 'Pose', 'Constraints'],
+          orderedLabels: ['Image Type', 'Composition', 'Subject', 'Wardrobe', 'Pose and Composition', 'Scene', 'Lighting', 'Camera Look'],
+        },
+      },
+    },
+    tail: {
+      requiredExactLine: '',
+      forbiddenSubstrings: ['multi-cut sequence n=2'],
+    },
+    controlLeakage: {
+      forbiddenCaseInsensitive: COMMON_CONTROL_LEAKAGE,
     },
   },
 

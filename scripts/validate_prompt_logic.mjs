@@ -2,7 +2,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { createEmptyLocks, createSeededRandom, generatePrompts } from '../webapp/src/lib/engine.js';
-import { validatePromptOutputContract } from '../webapp/src/lib/engine/promptOutputContracts.js';
+import {
+  PROMPT_OUTPUT_CONTRACTS,
+  validatePromptOutputContract,
+} from '../webapp/src/lib/engine/promptOutputContracts.js';
 
 export const MAIN_OUTPUTS = Object.freeze([
   Object.freeze({ key: 'gpt', label: 'Gpt', field: 'grokPrompt' }),
@@ -396,17 +399,36 @@ export function validateOutputContracts(prompt) {
     }
   }
 
-  const fullBodyEntries = Array.isArray(prompt?.extraPrompts)
-    ? prompt.extraPrompts.filter((entry) => entry?.id === 'full-body-character' || entry?.label === '全身角色照')
-    : [];
-  const fullBodyText = typeof fullBodyEntries[0]?.text === 'string' ? fullBodyEntries[0].text.trim() : '';
-  for (const contractIssue of validatePromptOutputContract('fullBodyCharacterPrompt', fullBodyText, { mode })) {
-    issues.push({
-      output: '全身角色照',
-      ...contractIssue,
-      category: contractIssue.code === 'control-leakage' ? 'control-leakage' : 'contract',
-    });
+  const extraPromptEntries = Array.isArray(prompt?.extraPrompts) ? prompt.extraPrompts : [];
+  for (const field of [
+    'facialCloseupPortraitPrompt',
+    'chestUpPortraitPrompt',
+    'fullBodyCharacterPrompt',
+  ]) {
+    const contract = PROMPT_OUTPUT_CONTRACTS[field];
+    const matchingEntries = extraPromptEntries.filter((entry) => entry?.id === contract.source.id);
+    const text = typeof matchingEntries[0]?.text === 'string' ? matchingEntries[0].text.trim() : '';
+    for (const contractIssue of validatePromptOutputContract(field, text, { mode })) {
+      issues.push({
+        output: contract.uiLabel,
+        ...contractIssue,
+        category: contractIssue.code === 'control-leakage' ? 'control-leakage' : 'contract',
+      });
+    }
+    const expectedCount = mode === 'single' ? 1 : 0;
+    if (matchingEntries.length !== expectedCount) {
+      addContractIssue(
+        issues,
+        contract.uiLabel,
+        'invalid-extra-output-count',
+        `${contract.uiLabel} must contain ${expectedCount} entries in ${mode} mode (found ${matchingEntries.length})`,
+      );
+    }
   }
+
+  const fullBodyEntries = extraPromptEntries
+    .filter((entry) => entry?.id === 'full-body-character' || entry?.label === '全身角色照');
+  const fullBodyText = typeof fullBodyEntries[0]?.text === 'string' ? fullBodyEntries[0].text.trim() : '';
   if (subjectCount === '1' && fullBodyEntries.length > 1) {
     addContractIssue(issues, '全身角色照', 'invalid-full-body-output-count', `single-subject output must contain exactly one 全身角色照 entry (found ${fullBodyEntries.length})`);
   }

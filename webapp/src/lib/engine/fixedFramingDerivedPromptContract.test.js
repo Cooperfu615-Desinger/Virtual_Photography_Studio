@@ -41,9 +41,10 @@ function materializeLocks(fixture) {
   return locks;
 }
 
-test('phase-1 fixed-framing contract is frozen serializable target data', () => {
+test('fixed-framing contract is frozen serializable target data and records phase-3 runtime activation', () => {
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION, 1);
-  assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimeConnected, false);
+  assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimeConnected, true);
+  assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimePhase, 3);
   assert.ok(Object.isFrozen(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT));
   assert.ok(Object.isFrozen(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.outputs.facialCloseupPortrait.wardrobe.roles));
   assert.deepEqual(
@@ -51,6 +52,8 @@ test('phase-1 fixed-framing contract is frozen serializable target data', () => 
     FIXED_FRAMING_DERIVED_PROMPT_CONTRACT,
   );
   assert.equal(PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt.source.id, 'full-body-character');
+  assert.equal(PROMPT_OUTPUT_CONTRACTS.facialCloseupPortraitPrompt.source.id, 'facial-closeup-portrait');
+  assert.equal(PROMPT_OUTPUT_CONTRACTS.chestUpPortraitPrompt.source.id, 'chest-up-portrait');
   assert.equal(
     FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.outputs.fullBodyCharacterCompatibility.id,
     PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt.source.id,
@@ -179,7 +182,7 @@ test('phase-1 half-face target resolves one explicit edge with opposite negative
   }
 });
 
-test('phase-1 remains behavior-neutral until the derived renderer phase', () => {
+test('phase-3 connects single derived outputs while preserving the raw framing selection', () => {
   const fixture = FIXED_FRAMING_DERIVED_PROMPT_FIXTURES.find((entry) => entry.id === 'chest-up-normal-separates-pose-scene-imaging');
   const locks = materializeLocks(fixture);
   const [prompt] = generatePrompts(1, locks, [], {
@@ -188,7 +191,7 @@ test('phase-1 remains behavior-neutral until the derived renderer phase', () => 
   const extraIds = prompt.extraPrompts.map((entry) => entry.id);
 
   assert.equal(extraIds.includes('full-body-character'), true);
-  assert.equal(extraIds.includes('facial-closeup-portrait'), false);
-  assert.equal(extraIds.includes('chest-up-portrait'), false);
+  assert.equal(extraIds.includes('facial-closeup-portrait'), true);
+  assert.equal(extraIds.includes('chest-up-portrait'), true);
   assert.equal(prompt.selection.framingId, locks.framingId);
 });

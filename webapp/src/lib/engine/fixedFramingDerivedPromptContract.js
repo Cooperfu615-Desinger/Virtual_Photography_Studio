@@ -55,7 +55,8 @@ const SHARED_DERIVED_OUTPUT_POLICY = {
 };
 
 export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT = deepFreeze({
-  runtimeConnected: false,
+  runtimeConnected: true,
+  runtimePhase: 3,
   shared: SHARED_DERIVED_OUTPUT_POLICY,
   outputs: {
     facialCloseupPortrait: {
