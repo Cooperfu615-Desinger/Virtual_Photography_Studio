@@ -126,9 +126,9 @@ Last updated: 2026-07-22
 - `webapp/src/lib/engine/compositionVisibilityIntegration.test.js`
 - `webapp/package.json` 的 `test:prompt-quality`
 
-### 固定景別派生 Prompt（2026-07-22 第一至五階段）
+### 固定景別派生 Prompt（2026-07-23 第一至六階段）
 
-「固定景別派生 Prompt」和「固定構圖場景」是兩套不同功能。固定景別輸出從同一個 PAGE1 生成結果取得已解析人物、服裝、配色、姿勢、場景、光線與攝影成像，只替換輸出用途所指定的景別投影；不可重新解析或隨機抽選來源資料。第一階段建立 frozen target contract、deterministic fixtures 與結構測試；第二階段新增共用 preset／derived context 核心，並只把既有 `full-body-character` 接入，以逐 byte 回歸保證輸出不變；第三階段已把五官與胸上輸出接上 runtime 與公開 output contract；第四階段把三組固定景別輸出接到 PAGE1 即時 Prompt 卡與 DLL PIC Pro；第五階段收斂主景別 UI、隨機池與半臉構圖 runtime。
+「固定景別派生 Prompt」和「固定構圖場景」是兩套不同功能。固定景別輸出從同一個 PAGE1 生成結果取得已解析人物、服裝、配色、姿勢、場景、光線與攝影成像，只替換輸出用途所指定的景別投影；不可重新解析或隨機抽選來源資料。第一階段建立 frozen target contract、deterministic fixtures 與結構測試；第二階段新增共用 preset／derived context 核心，並只把既有 `full-body-character` 接入，以逐 byte 回歸保證輸出不變；第三階段已把五官與胸上輸出接上 runtime 與公開 output contract；第四階段把三組固定景別輸出接到 PAGE1 即時 Prompt 卡與 DLL PIC Pro；第五階段收斂主景別 UI、隨機池與半臉構圖 runtime；第六階段以跨輸出整合矩陣完成相容性收尾。
 
 已新增兩組只支援單人的 `extraPrompts`：
 
@@ -147,6 +147,8 @@ Last updated: 2026-07-22
 
 第五階段讓半臉斜構圖不再只輸出 `off-center crop`。每個生成結果以同一 seed 明確解析左或右其中一側，Gpt、Grok/Z-Image、AI 共用同一段構圖開頭：人物貼近該側畫面邊緣、該側垂直邊界裁切臉部外半側、對側保留大面積負空間，且頸部、肩膀與上半身仍可見。不得輸出含糊的 `left or right`，也不得讓三個 renderer 各自抽選不同側。因為構圖明確包含肩膀與上半身，半臉使用 `headShoulders` 投影，保留所選上衣／連身服領肩、外套肩部與頭頸配件，但仍省略 Body Type 與 canonical pose；它不再觸發只適用五官／純臉部特寫的 UI 控制收斂。
 
+第六階段不再改寫 renderer，而是新增 `fixedFramingPromptIntegration.test.js` 作為阻擋式完成閘門。四個現行主景別分別搭配上下身、特殊穿搭、套裝與連身服，從同一 resolved selection 驗證三組主 Prompt、五官特寫照、胸上特寫照、全身角色照與 PAGE1／DLL consumer；四個舊景別逐一驗證 restore-only UI、原 ID 生成能力與六輸出契約。未鎖定的單人、Character Card 與雙人結果都不得重新抽中舊景別；固定構圖場景與雙人模式仍維持各自既有的 `全無`／三主輸出邊界。此階段只增加 fixture、契約資料、品質閘門與文件，不修改 production Prompt 文字。
+
 第一階段基準位於：
 
 - `webapp/src/lib/engine/fixedFramingDerivedPromptContract.js`
@@ -159,6 +161,12 @@ Last updated: 2026-07-22
 - `webapp/src/lib/engine/fixedFramingMainPrompt.js`
 - `webapp/src/lib/engine/fixedFramingMainPrompt.test.js`
 - `webapp/src/features/page1/page1Selectors.js`
+
+第六階段整合回歸基準位於：
+
+- `webapp/src/lib/engine/fixedFramingPromptIntegrationFixtures.js`
+- `webapp/src/lib/engine/fixedFramingPromptIntegration.test.js`
+- `webapp/package.json` 的 `test:prompt-quality`
 
 ### 固定構圖場景可見性優化（2026-07-19 第一至第五階段）
 

@@ -77,6 +77,14 @@ export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT = deepFreeze({
     halfFaceOpeningSharedAcrossPrimaryOutputs: true,
     halfFaceVisibilityBucket: 'headShoulders',
   },
+  completionIntegration: {
+    phase: 6,
+    currentFramingsShareResolvedSourcesAcrossSixOutputs: true,
+    legacyFramingsRemainRestoreOnlyAndGeneratable: true,
+    unlockedSingleCharacterCardAndDuoExcludeLegacy: true,
+    fixedCompositionAndDuoBoundariesPreserved: true,
+    blockingQualityGate: 'fixedFramingPromptIntegration.test.js',
+  },
   shared: SHARED_DERIVED_OUTPUT_POLICY,
   outputs: {
     facialCloseupPortrait: {

@@ -78,6 +78,14 @@ test('fixed-framing contract is frozen serializable target data and records runt
     halfFaceOpeningSharedAcrossPrimaryOutputs: true,
     halfFaceVisibilityBucket: 'headShoulders',
   });
+  assert.deepEqual(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.completionIntegration, {
+    phase: 6,
+    currentFramingsShareResolvedSourcesAcrossSixOutputs: true,
+    legacyFramingsRemainRestoreOnlyAndGeneratable: true,
+    unlockedSingleCharacterCardAndDuoExcludeLegacy: true,
+    fixedCompositionAndDuoBoundariesPreserved: true,
+    blockingQualityGate: 'fixedFramingPromptIntegration.test.js',
+  });
 });
 
 test('phase-1 main framing policy partitions every existing option without changing legacy ids', () => {
