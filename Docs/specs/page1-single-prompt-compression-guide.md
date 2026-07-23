@@ -284,6 +284,8 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 第五階段啟用 section-aware soft-max arbitration。只有完整組裝後超過對應 soft max 的單人 AI Prompt 才進行跨段落刪減，已合規輸出必須逐 byte 不變。順序固定先刪成像的次要說明，再刪 eligible cropped scene 的次要來源 anchor；成像仍須保留攝影風格／攝影者、鏡頭身份、所選光學效果與 film／rendering 身份，場景仍須保留原始地點身份與至少一個代表性 anchor。全身、未限制與固定構圖的完整 projected scene 不可參與場景刪減。成品類型、共用構圖句與 projected canonical pose 永遠不可壓縮；不得使用字元截斷、word truncation 或不完整句尾。
 
+第六階段不再修改 renderer，而是將十組 deterministic fixtures 升級為 `aiPromptLengthIntegration.test.js` 阻擋式完成閘門。每組必須同時通過三個歷史主輸出欄位契約、resolved selection、必要 AI anchors 與對應 soft max；Pose Composer fixture 另驗證三種 Prompt 逐字共用 canonical pose，雙人 fixture 驗證不進入單人字數政策。此 gate 納入 `npm run test:prompt-quality`，後續改動若影響欄位映射、角色身份、服裝、場景、成像、構圖、姿勢或雙人邊界，必須明確更新 fixture 與契約，不得以放寬字數測試掩蓋回歸。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則
