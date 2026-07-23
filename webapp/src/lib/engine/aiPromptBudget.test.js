@@ -14,6 +14,10 @@ import {
   renderAiPromptSectionModel,
   resolveAiPromptPolicyKey,
 } from './aiPromptBudget.js';
+import {
+  AI_PROMPT_LENGTH_CONTRACT,
+  countAiPromptWords,
+} from './aiPromptLengthContract.js';
 import { AI_PROMPT_LENGTH_FIXTURES } from './aiPromptLengthFixtures.js';
 
 const controls = getLockControls();
@@ -90,11 +94,28 @@ test('budget policy selection keeps Character Card precedence and complete-look 
   );
 });
 
-test('phase-2 section boundary preserves every phase-1 AI output byte-for-byte', () => {
-  for (const fixture of AI_PROMPT_LENGTH_FIXTURES) {
+test('phase-3 keeps Character Card and excluded duo outputs outside its behavior change', () => {
+  for (const fixture of AI_PROMPT_LENGTH_FIXTURES.filter((entry) => {
+    return entry.policy === 'characterCard' || entry.excludedFromBudget;
+  })) {
     const output = generateFixture(fixture).midjourneyPrompt;
     const hash = createHash('sha256').update(output).digest('hex');
     assert.equal(hash, PHASE_1_BASELINE_HASHES[fixture.id], fixture.id);
   }
 });
 
+test('phase-3 normal and complete-look outputs meet their budget and preserve fixture anchors', () => {
+  for (const fixture of AI_PROMPT_LENGTH_FIXTURES.filter((entry) => {
+    return entry.policy === 'normal' || entry.policy === 'completeLook';
+  })) {
+    const output = generateFixture(fixture).midjourneyPrompt;
+    const budget = AI_PROMPT_LENGTH_CONTRACT.budgets[fixture.policy];
+    assert.ok(
+      countAiPromptWords(output) <= budget.softMaxWords,
+      `${fixture.id} exceeds ${budget.softMaxWords} words:\n${output}`
+    );
+    for (const fragment of fixture.requiredFragments || []) {
+      assert.match(output, new RegExp(fragment, 'i'), `${fixture.id}: ${fragment}`);
+    }
+  }
+});

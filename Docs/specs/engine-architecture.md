@@ -134,6 +134,8 @@ AI length optimization phase 1 is behavior-neutral. It records separate normal, 
 
 AI length optimization phase 2 is also behavior-neutral. `renderAiPrompt()` now names its seven single-subject producer outputs and passes them through `createAiPromptSectionModel()`, which orders sections, marks immutable content, selects the normal／complete-look／Character Card budget, and measures over-target words before recomposing the original strings. Duo AI remains on its existing renderer. The deterministic phase-1 outputs are locked by SHA-256 so infrastructure changes cannot silently alter punctuation, paragraph spacing, selection semantics, or public Prompt text.
 
+AI length optimization phase 3 activates source-local reduction in the existing normal-subject and complete-look producers. Normal Body Type text drops generic silhouette endings while retaining authored proportion and regional body anchors; hairstyle fragments remain intact and hair color keeps its primary source phrase. Complete looks are grouped by the shared visible wardrobe roles, then retain the style identity, up to two primary garment fragments per major role, one legwear and footwear fragment, and one necessary accessory. Long fragments reduce to their source garment head plus explicitly recognized source signature phrases. Character Card identity／wardrobe, scene, imaging, duo, canonical pose, raw selections, and the other public outputs are unchanged.
+
 Section labels are not merely display text. Renderers query labels such as `Subject`, `Location`, `Ambient Light Conditions`, and `Camera / Film`; renaming or splitting them is a cross-renderer schema change and requires prompt-pipeline tests.
 
 ## Composition Visibility Contract

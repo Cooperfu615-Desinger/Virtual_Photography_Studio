@@ -9656,7 +9656,7 @@ const SINGLE_BODY_TYPE_ANCHOR_RULES = [
   },
   {
     pattern: /tall slim fashion body,\s*about 170-175 cm visual height,\s*80-58-88 body proportion anchor,\s*long legs with about 3\.5:6\.5 torso-to-leg balance,\s*shorter upper torso,\s*high waistline,\s*narrow ribcage,\s*gently wider hips,\s*clean editorial silhouette/i,
-    aiText: 'Tall slim fashion body, 80-58-88 body proportion anchor, long legs, high waistline, narrow ribcage, clean editorial silhouette.',
+    aiText: 'Tall slim fashion body, 80-58-88 body proportion anchor, long legs, high waistline, narrow ribcage.',
   },
   {
     pattern: /soft natural hourglass body,\s*about 165-170 cm visual height,\s*90-62-94 body proportion anchor,\s*balanced torso-to-leg ratio around 4:6,\s*longer upper torso,\s*lower waistline,\s*fuller bust,\s*wider hips,\s*elongated abdomen with subtle contour lines/i,
@@ -9664,15 +9664,15 @@ const SINGLE_BODY_TYPE_ANCHOR_RULES = [
   },
   {
     pattern: /natural basic body,\s*about 160-165 cm visual height,\s*83-62-88 body proportion anchor,\s*balanced torso-to-leg ratio around 4:6,\s*low-contrast waist curve,\s*modest bust and hips,\s*smooth natural silhouette/i,
-    aiText: 'Natural basic body, 83-62-88 body proportion anchor, low-contrast waist curve, modest bust and hips, smooth natural silhouette.',
+    aiText: 'Natural basic body, 83-62-88 body proportion anchor, low-contrast waist curve, modest bust and hips.',
   },
   {
     pattern: /fit toned athletic female body,\s*healthy firm silhouette,\s*subtle muscle definition,\s*energetic balanced proportions/i,
-    aiText: 'Fit toned athletic body, firm silhouette, subtle muscle definition, energetic balanced proportions.',
+    aiText: 'Fit toned athletic body, firm silhouette, subtle muscle definition.',
   },
   {
     pattern: /petite polished female body,\s*compact refined proportions,\s*delicate idol-like silhouette,\s*graceful small-frame presence/i,
-    aiText: 'Petite polished body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence.',
+    aiText: 'Petite polished body, compact refined proportions, delicate idol-like silhouette.',
   },
 ];
 
@@ -11112,16 +11112,17 @@ function buildAiSingleHairAnchorText(valuesByLabel, context) {
   if (!shouldUseFixedAiSingleSubjectLead(context)) return '';
   const hairstyleText = firstStructuredValue(valuesByLabel, ['Hairstyle']);
   const hairColorText = firstStructuredValue(valuesByLabel, ['Hair Color']);
-  const combinedHairText = [hairstyleText, hairColorText]
-    .filter((value) => value && !/^none$/i.test(value.trim()))
-    .map((value) => stripTerminalPromptPunctuation(value))
-    .join(', ');
-
-  if (!combinedHairText) return '';
-  const compactHairText = compactAiMinimalFragment(
-    compressZImageSingleSubjectText(combinedHairText, context),
+  const compactHairstyle = compactAiMinimalFragment(
+    compressZImageSingleSubjectText(hairstyleText, context),
     3
   );
+  const compactHairColor = compactAiMinimalFragment(
+    compressZImageSingleSubjectText(hairColorText, context),
+    1
+  );
+  const compactHairText = [compactHairstyle, compactHairColor]
+    .filter((value) => value && !/^none$/i.test(value.trim()))
+    .join(', ');
   return compactHairText ? ensureTerminalPeriod(compactHairText) : '';
 }
 
@@ -11924,6 +11925,53 @@ function compactAiGarmentValue(value, preferredRole = '') {
   return [primary, structuralDetail].filter(Boolean).join(', ');
 }
 
+const AI_COMPLETE_LOOK_SIGNATURE_PATTERNS = [
+  /\bsharp mirror reflections\b/i,
+  /\bvacuum-tight second-skin fit\b/i,
+  /\bfull-length legs\b/i,
+  /\bdeep demi-cup neckline\b/i,
+  /\blow sweetheart neckline\b/i,
+  /\blow-rise high-cut leather briefs\b/i,
+  /\bvertical side straps linking the bra to hip and garter bands\b/i,
+  /\bblack lace bra\b/i,
+  /\bgarter straps\b/i,
+];
+
+function compactAiCompleteLookFragment(value) {
+  const source = compactAiSourceText(value);
+  const wordCount = source.match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g)?.length || 0;
+  const signaturePhrases = AI_COMPLETE_LOOK_SIGNATURE_PATTERNS
+    .map((pattern) => source.match(pattern)?.[0] || '')
+    .filter(Boolean);
+  if (/^(?:bottom|top)\s+button\b/i.test(source) && signaturePhrases.length === 0) return '';
+  if (/^(?:two|three|four)\s+chest buttons?\b/i.test(source) && signaturePhrases.length > 0) {
+    return signaturePhrases[0];
+  }
+  if (wordCount <= 12) return source;
+
+  const connectorIndex = source.search(/\b(?:with|featuring|ending|revealing|showing|producing|while|that|providing)\b/i);
+  const connectorLead = connectorIndex > 0 ? source.slice(0, connectorIndex).trim() : source;
+  const nounLead = source.match(
+    /^.*?\b(?:catsuit|bodysuit|dress|gown|shirt|top|tee|camisole|bra|corset|jacket|coat|blazer|cardigan|robe|skirt|shorts|pants|jeans|trousers|briefs|stockings|tights|socks|boots|heels|pumps|sandals|sneakers|loafers|bag|pouch|hat|cap)\b/i
+  )?.[0];
+  const lead = (connectorLead.match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g)?.length || 0) <= 18
+    ? connectorLead
+    : (nounLead || connectorLead);
+  const additionalSignatures = signaturePhrases
+    .filter((phrase) => !lead.toLowerCase().includes(phrase.toLowerCase()))
+    .slice(0, 3);
+
+  return [lead, ...additionalSignatures].filter(Boolean).join(', ');
+}
+
+function compactAiCompleteLookRoleFragments(fragments, role) {
+  const limit = ['top', 'dress', 'bottom', 'outerwear'].includes(role) ? 2 : 1;
+  return fragments
+    .map(compactAiCompleteLookFragment)
+    .filter(Boolean)
+    .slice(0, limit);
+}
+
 function buildAiCompleteLookCoreText(value, context = null) {
   let styleFragment = '';
   const roleFragments = new Map();
@@ -11932,10 +11980,13 @@ function buildAiCompleteLookCoreText(value, context = null) {
   for (const fragment of splitAiSourceFragments(value)) {
     if (isAiSpecialPersonFragment(fragment)) continue;
     if (/\b(?:controlled by|color selection|palette direction|coordinated top-to-bottom palette|upper\/main garment|lower or secondary garment|preserving garment structure|accessory separation|material contrast|multi-piece color variation)\b/i.test(fragment)) continue;
-    if (/\b(?:the\s+)?(?:\w+\s+)?(?:body|fabric|main color|primary color)\s+in\s+[a-z -]+$/i.test(fragment)) continue;
+    if (/\b(?:the\s+)?(?:\w+\s+)?(?:body|fabric|main color|primary color|catsuit|bodysuit|dress)\s+in\s+[a-z -]+$/i.test(fragment)) continue;
 
-    const role = classifyCompleteLookWardrobeFragment(fragment);
-    if (/\b(?:look|styling|outfit)\b/i.test(fragment) && !styleFragment) {
+    let role = classifyCompleteLookWardrobeFragment(fragment);
+    if (!role && /\b(?:catsuit|bodysuit|jumpsuit|romper)\b/i.test(fragment)) role = 'dress';
+    const isStyleFragment = /\b(?:styling|outfit)\b/i.test(fragment)
+      || (/\blook\b/i.test(fragment) && !/\bwet-look\b/i.test(fragment));
+    if (isStyleFragment && !styleFragment) {
       styleFragment = fragment;
       continue;
     }
@@ -11943,22 +11994,26 @@ function buildAiCompleteLookCoreText(value, context = null) {
     if (role) roleFragments.set(role, [...(roleFragments.get(role) || []), fragment]);
   }
 
-  return [
-    styleFragment,
-    ...(roleFragments.get('top') || []),
-    ...(roleFragments.get('dress') || []),
-    ...(roleFragments.get('bottom') || []),
-    ...(roleFragments.get('outerwear') || []),
-    ...(roleFragments.get('legwear') || []),
-    ...(roleFragments.get('shoes') || []),
-    ...(roleFragments.get('bag') || []),
+  const accessoryFragment = [
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('headAccessory') || []) : []),
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('eyewear') || []) : []),
-    ...(includeVisibleAccessoryRoles ? (roleFragments.get('earrings') || []) : []),
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('neckAccessory') || []) : []),
+    ...(roleFragments.get('bag') || []),
+    ...(includeVisibleAccessoryRoles ? (roleFragments.get('earrings') || []) : []),
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('wristAccessory') || []) : []),
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('ring') || []) : []),
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('waistAccessory') || []) : []),
+  ].map(compactAiCompleteLookFragment).find(Boolean) || '';
+
+  return [
+    styleFragment,
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('top') || [], 'top'),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('dress') || [], 'dress'),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('bottom') || [], 'bottom'),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('outerwear') || [], 'outerwear'),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('legwear') || [], 'legwear'),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('shoes') || [], 'shoes'),
+    accessoryFragment,
   ].filter(Boolean).join(', ');
 }
 

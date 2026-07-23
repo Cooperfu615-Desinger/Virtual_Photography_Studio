@@ -276,6 +276,10 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 第二階段建立 `aiPromptBudget.js` 的 section-aware 組裝邊界。單人 AI 的七個 producer 固定映射為 `imageType`、`composition`、`subject`、`wardrobe`、`projectedCanonicalPose`、`scene`、`imaging`，每段各自記錄 words、是否不可壓縮及整體超出 target／soft max 的診斷量。一般、完整造型與 Character Card 由 resolved structured model 選擇對應 policy；雙人仍走原 renderer。本階段只以同樣的空行規則重新組合原文字，九組基準 Prompt 的 SHA-256 必須逐字維持第一階段結果。
 
+第三階段啟用一般人物與服裝的來源可追溯壓縮。一般 Body Type 移除不增加身材結構的 `smooth natural silhouette`、`clean editorial silhouette` 等結尾，但保留體型名稱、數值／比例及腰、胸、臀等核心 anchor；髮型可保留至三個原始片段，髮色只保留主要色名，省略重複 salon／texture 解釋。
+
+完整造型按可見 role 重組：保留造型身分、上身／連身／下身／外套、襪、鞋及至多一項必要配件；每個主要服裝 role 最多保留兩個含實際衣物身分的來源片段，襪、鞋與配件各一個。超長單一衣物描述保留主件名與必要辨識結構，例如乳膠連身衣保留 `mirror-polished latex full-body catsuit`、`sharp mirror reflections`、`vacuum-tight second-skin fit` 與 `full-length legs`，不再保留同義的表面、覆蓋與輪廓解釋。Character Card、場景、成像、雙人及 projected canonical pose 在第三階段不得改寫。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則
