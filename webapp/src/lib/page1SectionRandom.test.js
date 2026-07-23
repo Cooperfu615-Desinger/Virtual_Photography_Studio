@@ -174,7 +174,7 @@ test('single pose panel randomizes the five Pose Composer layers and leaves prop
       poseArrangementId: 'standing-deep-forward-lean',
       poseHandId: 'hands-relaxed-down',
       poseHeadId: 'head-low-rim-support',
-      poseAnchorId: 'shared-clear-acrylic-cube',
+      poseAnchorId: 'standing-edge-hip-support',
     },
     'The migration seed should follow base, arrangement, hand, head, then anchor sampling order',
   );

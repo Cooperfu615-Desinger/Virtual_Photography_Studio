@@ -133,8 +133,6 @@ test('generic and editorial anchors are public while legacy anchors stay restora
     '由現有柔軟平面承托',
     '坐在單人雕花絨布椅',
     '浴缸',
-    '鏡面不鏽鋼立方台',
-    '透明壓克力立方台',
   ];
   for (const label of publicLabels) {
     assert.notEqual(option('poseAnchorId', label).meta?.uiHidden, true, label);
@@ -161,6 +159,68 @@ test('generic and editorial anchors are public while legacy anchors stay restora
   const pickerAnchors = groups.characterLockControls.find((item) => item.key === 'poseAnchorId').options;
   assert.equal(pickerAnchors.some((item) => item.id === legacyDoorway.id), true);
   assert.equal(pickerAnchors.some((item) => item.meta?.uiHidden && item.id !== legacyDoorway.id), false);
+});
+
+test('cube plinth anchors stay restorable but leave the public picker and random pool', () => {
+  const cubeAnchors = [
+    option('poseAnchorId', '鏡面不鏽鋼立方台'),
+    option('poseAnchorId', '透明壓克力立方台'),
+  ];
+
+  for (const cubeAnchor of cubeAnchors) {
+    assert.equal(cubeAnchor.meta?.uiHidden, true, cubeAnchor.zh);
+    assert.equal(cubeAnchor.meta?.randomEligible, false, cubeAnchor.zh);
+    assert.equal(cubeAnchor.meta?.deprecated, true, cubeAnchor.zh);
+
+    const locks = {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id,
+      poseBaseId: 'lying',
+      poseArrangementId: 'lying-natural-half-recline',
+      poseAnchorId: cubeAnchor.id,
+    };
+    assert.equal(normalizeLocks(locks).poseAnchorId, cubeAnchor.id);
+
+    const groups = buildPage1ControlGroups({
+      lockControls: getLockControls(),
+      locks,
+      sceneDependentOptions: getSceneDependentOptions([], locks),
+    });
+    const pickerAnchors = groups.characterLockControls.find((item) => item.key === 'poseAnchorId').options;
+    assert.equal(pickerAnchors.some((item) => item.id === cubeAnchor.id), true);
+    assert.equal(pickerAnchors.some((item) => item.meta?.uiHidden && item.id !== cubeAnchor.id), false);
+
+    const [prompt] = generatePrompts(1, locks);
+    assert.equal(prompt.selection.poseAnchorId, cubeAnchor.id);
+    assert.match(prompt.grokPrompt, /cube plinth/);
+  }
+
+  const hiddenIds = new Set(cubeAnchors.map((anchor) => anchor.id));
+  assert.equal(option('poseAnchorId', '自然受支撐').meta?.randomWeight, 3);
+  for (const baseId of ['standing', 'sitting', 'kneeling', 'squatting', 'lying']) {
+    const locks = {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      poseBaseId: baseId,
+      poseAnchorId: 'random',
+    };
+    const [naturalSupportPrompt] = generatePrompts(1, locks, [], { random: () => 0.34 });
+    assert.equal(naturalSupportPrompt.selection.poseAnchorId, 'shared-natural-support', baseId);
+
+    for (let index = 0; index < 100; index += 1) {
+      const [prompt] = generatePrompts(1, locks, [], { random: () => index / 100 });
+      assert.equal(hiddenIds.has(prompt.selection.poseAnchorId), false, `${baseId}:${index}`);
+    }
+  }
+
+  const [weightedStandingPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: 'standing',
+    poseAnchorId: 'random',
+  }, [], { random: () => 0.65 });
+  assert.equal(weightedStandingPrompt.selection.poseAnchorId, 'shared-natural-support');
 });
 
 test('natural half-recline is public while the previous combined arrangement stays restorable but hidden', () => {

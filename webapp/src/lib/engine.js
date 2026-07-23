@@ -4409,6 +4409,24 @@ function resolvePoseComposerOption(options, id, predicate = () => true, exclusio
 
 const POSE_ANCHOR_RANDOM_NONE_RATE = 1 / 3;
 
+function sampleWeightedPoseAnchor(candidates, normalizedRoll) {
+  if (candidates.length === 0) return null;
+  const weightedCandidates = candidates.map((candidate) => ({
+    candidate,
+    weight: Number.isFinite(candidate.meta?.randomWeight) && candidate.meta.randomWeight > 0
+      ? candidate.meta.randomWeight
+      : 1,
+  }));
+  const totalWeight = weightedCandidates.reduce((total, entry) => total + entry.weight, 0);
+  let targetWeight = normalizedRoll * totalWeight;
+
+  for (const entry of weightedCandidates) {
+    if (targetWeight < entry.weight) return entry.candidate;
+    targetWeight -= entry.weight;
+  }
+  return weightedCandidates.at(-1)?.candidate || null;
+}
+
 function resolvePoseComposerAnchorOption(id, predicate, exclusions, random = Math.random) {
   const option = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, id);
   if (!isActivePoseComposerOption(option)) return null;
@@ -4427,10 +4445,7 @@ function resolvePoseComposerAnchorOption(id, predicate, exclusions, random = Mat
   const roll = random();
   if (roll < POSE_ANCHOR_RANDOM_NONE_RATE) return null;
   const concreteRoll = (roll - POSE_ANCHOR_RANDOM_NONE_RATE) / (1 - POSE_ANCHOR_RANDOM_NONE_RATE);
-  return filteredCandidates[Math.min(
-    filteredCandidates.length - 1,
-    Math.floor(concreteRoll * filteredCandidates.length),
-  )];
+  return sampleWeightedPoseAnchor(filteredCandidates, concreteRoll);
 }
 
 function poseComposerOptionMatchesBase(option, baseId) {

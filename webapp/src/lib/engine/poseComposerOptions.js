@@ -195,6 +195,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     zh: '自然受支撐',
     en: 'body naturally supported in a relaxed pose',
     desc: '只指定人物自然獲得支撐，不指定牆面、地面、家具或其他具體支撐物件。',
+    meta: { randomWeight: 3 },
     phraseByBase: {
       standing: 'standing with the body naturally supported',
       sitting: 'sitting with the seated body naturally supported',
@@ -255,7 +256,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       lying: 'lying on an existing soft horizontal surface in the scene, torso and hips settling into the surface with continuous body-to-surface contact',
     },
   },
-  {
+  deprecatedPoseAnchor({
     id: 'shared-mirrored-steel-cube',
     bases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
     zh: '鏡面不鏽鋼立方台',
@@ -267,8 +268,8 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       squatting: 'squatting beside a mirrored stainless-steel cube plinth with the upper back resting against one side, clear back-to-metal contact with light body-weight support',
       lying: 'reclining across the top surface of a mirrored stainless-steel cube plinth, back and hips in continuous contact with the reflective metal top and fully supported by it',
     },
-  },
-  {
+  }),
+  deprecatedPoseAnchor({
     id: 'shared-clear-acrylic-cube',
     bases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
     zh: '透明壓克力立方台',
@@ -280,7 +281,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       squatting: 'squatting beside a transparent acrylic cube plinth with the upper back resting against one side, clear back-to-acrylic contact with light body-weight support',
       lying: 'reclining across the top surface of a transparent acrylic cube plinth, back and hips in continuous contact with the clear top and fully supported by it',
     },
-  },
+  }),
   { id: 'sitting-ornate-velvet-armchair', base: 'sitting', zh: '坐在單人雕花絨布椅', en: 'on an ornate single velvet armchair in a relaxed lounging posture' },
   deprecatedPoseAnchor({ id: 'standing-wall', base: 'standing', zh: '靠牆', en: 'leaning against a wall' }),
   deprecatedPoseAnchor({ id: 'standing-doorway', base: 'standing', zh: '站在門框邊', en: 'standing beside a doorway frame' }),
