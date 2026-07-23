@@ -11964,15 +11964,27 @@ function compactAiCompleteLookFragment(value) {
   return [lead, ...additionalSignatures].filter(Boolean).join(', ');
 }
 
-function compactAiCompleteLookRoleFragments(fragments, role) {
-  const limit = ['top', 'dress', 'bottom', 'outerwear'].includes(role) ? 2 : 1;
+function compactAiCompleteLookRoleFragments(
+  fragments,
+  role,
+  majorRoleLimit = 2,
+  fragmentCompactor = compactAiCompleteLookFragment
+) {
+  const limit = ['top', 'dress', 'bottom', 'outerwear'].includes(role) ? majorRoleLimit : 1;
   return fragments
-    .map(compactAiCompleteLookFragment)
+    .map(fragmentCompactor)
     .filter(Boolean)
     .slice(0, limit);
 }
 
-function buildAiCompleteLookCoreText(value, context = null) {
+function buildAiCompleteLookCoreText(
+  value,
+  context = null,
+  {
+    majorRoleLimit = 2,
+    fragmentCompactor = compactAiCompleteLookFragment,
+  } = {}
+) {
   let styleFragment = '';
   const roleFragments = new Map();
   const includeVisibleAccessoryRoles = !isCompleteWardrobeProjection(getCompositionVisibilityProjection(context));
@@ -12003,18 +12015,61 @@ function buildAiCompleteLookCoreText(value, context = null) {
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('wristAccessory') || []) : []),
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('ring') || []) : []),
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('waistAccessory') || []) : []),
-  ].map(compactAiCompleteLookFragment).find(Boolean) || '';
+  ].map(fragmentCompactor).find(Boolean) || '';
 
   return [
     styleFragment,
-    ...compactAiCompleteLookRoleFragments(roleFragments.get('top') || [], 'top'),
-    ...compactAiCompleteLookRoleFragments(roleFragments.get('dress') || [], 'dress'),
-    ...compactAiCompleteLookRoleFragments(roleFragments.get('bottom') || [], 'bottom'),
-    ...compactAiCompleteLookRoleFragments(roleFragments.get('outerwear') || [], 'outerwear'),
-    ...compactAiCompleteLookRoleFragments(roleFragments.get('legwear') || [], 'legwear'),
-    ...compactAiCompleteLookRoleFragments(roleFragments.get('shoes') || [], 'shoes'),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('top') || [], 'top', majorRoleLimit, fragmentCompactor),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('dress') || [], 'dress', majorRoleLimit, fragmentCompactor),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('bottom') || [], 'bottom', majorRoleLimit, fragmentCompactor),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('outerwear') || [], 'outerwear', majorRoleLimit, fragmentCompactor),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('legwear') || [], 'legwear', 1, fragmentCompactor),
+    ...compactAiCompleteLookRoleFragments(roleFragments.get('shoes') || [], 'shoes', 1, fragmentCompactor),
     accessoryFragment,
   ].filter(Boolean).join(', ');
+}
+
+function compactAiCharacterCardHairText(baseHair, variantHair = '') {
+  const guardPattern = /\b(?:never|avoid|do not|must not|locked|controlled by)\b/i;
+  const baseFragments = splitAiSourceFragments(baseHair).filter((fragment) => !guardPattern.test(fragment));
+  const signatureStreak = compactAiSourceText(baseHair).match(
+    /\bone dominant broad [^,;:.]*?face-framing streak\b/i
+  )?.[0] || '';
+  const dominantBase = compactAiSourceText(baseHair).match(
+    /\b(?:the\s+)?(?:black|brown|blonde|silver|red|auburn|chestnut|raven-black)\s+base remains dominant\b/i
+  )?.[0] || '';
+  const variantFragments = splitAiSourceFragments(variantHair);
+
+  return uniqueAiWardrobeValues([
+    ...baseFragments.slice(0, 2),
+    signatureStreak,
+    dominantBase,
+    ...variantFragments,
+  ]).join(', ');
+}
+
+function compactAiCharacterCardSkinText(value) {
+  const source = compactAiSourceText(value);
+  const textureIndex = source.search(/\bwith\b/i);
+  return textureIndex > 0 ? source.slice(0, textureIndex).trim() : source;
+}
+
+function compactAiCharacterCardMakeupText(value) {
+  return compactAiMinimalFragment(value, 1).split(/\s+and\s+/i)[0].trim();
+}
+
+function compactAiCharacterCardGarmentFragment(value) {
+  const source = compactAiSourceText(value);
+  return source.match(
+    /^.*?\b(?:catsuit|bodysuit|dress|gown|shirt|(?<!-)top|tee|camisole|bra|corset|jacket|coat|blazer|cardigan|robe|skirt|shorts|pants|jeans|trousers|briefs|stockings|tights|socks|boots|shoes|heels|pumps|sandals|sneakers|loafers|bag|pouch|hat|cap|glasses|earrings|necklace|choker|pendant|bracelet|ring)\b/i
+  )?.[0] || compactAiCompleteLookFragment(source);
+}
+
+function buildAiCharacterCardOutfitCoreText(value, context = null) {
+  return buildAiCompleteLookCoreText(value, context, {
+    majorRoleLimit: 1,
+    fragmentCompactor: compactAiCharacterCardGarmentFragment,
+  });
 }
 
 function buildAiCharacterCardAccessoryText(value, context) {
@@ -12060,31 +12115,35 @@ function buildAiNormalWardrobeText(valuesByLabel, context) {
 
 function buildAiCharacterCardIdentityText(context, wardrobe) {
   const groups = buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe);
-  const detailedIdentity = [
+  const detailedFace = [
     groups.facialGeometry,
     groups.eyeSignature,
     groups.noseSignature,
     groups.mouthSignature,
-    groups.skinSignature,
-    groups.makeup,
+  ].filter(Boolean);
+  const faceText = groups.distinctiveFeatures
+    || detailedFace.join(', ');
+  const identityText = [
+    faceText,
+    compactAiCharacterCardSkinText(groups.skinSignature),
+    compactAiCharacterCardMakeupText(groups.makeup),
     groups.body,
-  ].filter(Boolean);
-  const structuredIdentity = [
-    ...detailedIdentity,
-    groups.distinctiveFeatures,
-  ].filter(Boolean);
-  const identityText = structuredIdentity.length > 0
-    ? structuredIdentity.join(', ')
+  ].filter(Boolean).join(', ');
+  const fallbackIdentityText = identityText
+    ? identityText
     : groups.identityAndBody;
-  const hairText = [groups.hair, buildCharacterCardHairVariantText(context.subject, context.locks)].filter(Boolean).join(', ');
+  const hairText = compactAiCharacterCardHairText(
+    groups.hair,
+    buildCharacterCardHairVariantText(context.subject, context.locks)
+  );
   const eyewearText = splitAiSourceFragments(groups.accessories)
     .filter((fragment) => /\b(?:glasses|eyeglasses|sunglasses|headphones?|earphones?)\b/i.test(fragment))
     .join(', ');
 
   return [
     'A 20-year-old adult East Asian woman',
-    compactAiSourceText(identityText),
-    compactAiSourceText(hairText),
+    compactAiSourceText(fallbackIdentityText),
+    hairText,
     eyewearText,
   ].filter(Boolean).join(', ');
 }
@@ -12150,7 +12209,7 @@ function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) {
     : '';
   const wardrobeParts = characterCardMode
     ? [
-        characterCardGroups.outfit ? buildAiCompleteLookCoreText(characterCardGroups.outfit, context) : '',
+        characterCardGroups.outfit ? buildAiCharacterCardOutfitCoreText(characterCardGroups.outfit, context) : '',
         selectedCardFillers,
         characterCardAccessories,
       ]

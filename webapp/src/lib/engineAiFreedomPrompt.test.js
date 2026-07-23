@@ -67,7 +67,8 @@ test('AI character-card prompt keeps structured identity while simplifying wardr
   const paragraphs = prompt.midjourneyPrompt.split('\n\n');
 
   assert.match(paragraphs[0], /^Create a photorealistic editorial portrait\./i);
-  assert.match(paragraphs[1], /soft broad oval face|large dark-brown round-almond eyes/i);
+  assert.match(paragraphs[1], /broad soft oval face with a rounded jaw/i);
+  assert.match(paragraphs[1], /large level dark-brown round-almond eyes/i);
   assert.match(paragraphs[1], /slim petite casual-fashion proportions/i);
   assert.match(paragraphs[1], /glossy natural black long straight hair/i);
   assert.match(paragraphs[1], /round translucent brown acetate eyeglasses/i);

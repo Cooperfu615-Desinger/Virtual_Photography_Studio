@@ -106,7 +106,7 @@ test('phase-1 AI fixtures are deterministic, contract-valid, and preserve requir
   }
 });
 
-test('phase-3 resolves complete-look pressure while Character Card remains reserved for phase 4', () => {
+test('phase-4 resolves complete-look and Character Card pressure within their soft limits', () => {
   const measurements = Object.fromEntries(
     AI_PROMPT_LENGTH_FIXTURES
       .filter((fixture) => fixture.policy)
@@ -118,12 +118,6 @@ test('phase-3 resolves complete-look pressure while Character Card remains reser
 
   assert.ok(measurements['complete-look-latex'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.completeLook.softMaxWords);
   assert.ok(measurements['complete-look-special'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.completeLook.softMaxWords);
-  assert.ok(
-    measurements['character-card-jiwoo'] > AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords,
-    `Expected Jiwoo baseline above soft max, received ${measurements['character-card-jiwoo']}`
-  );
-  assert.ok(
-    measurements['character-card-sui'] > AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords,
-    `Expected Sui baseline above soft max, received ${measurements['character-card-sui']}`
-  );
+  assert.ok(measurements['character-card-jiwoo'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords);
+  assert.ok(measurements['character-card-sui'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords);
 });

@@ -280,6 +280,8 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 完整造型按可見 role 重組：保留造型身分、上身／連身／下身／外套、襪、鞋及至多一項必要配件；每個主要服裝 role 最多保留兩個含實際衣物身分的來源片段，襪、鞋與配件各一個。超長單一衣物描述保留主件名與必要辨識結構，例如乳膠連身衣保留 `mirror-polished latex full-body catsuit`、`sharp mirror reflections`、`vacuum-tight second-skin fit` 與 `full-length legs`，不再保留同義的表面、覆蓋與輪廓解釋。Character Card、場景、成像、雙人及 projected canonical pose 在第三階段不得改寫。
 
+第四階段只啟用 Character Card 壓縮。AI 必須完整保留四個 `distinctiveFeatures` 永久身份錨點，並以它們作為五官的 canonical 精簡表示，不再重複輸出同義的 `facialGeometry`、`eyeSignature`、`noseSignature` 與 `mouthSignature` 長版。另保留膚色／膚質主錨點、一項妝容錨點、構圖投影後身形、主要髮型與 signature 色彩處理、有效眼鏡／耳機，以及使用者選擇的髮型變體與 prompt override。預設服裝每個可見 wardrobe role 保留一件具名主衣物，選用角色卡配件仍完整保留來源描述。此階段不得改寫一般人物、一般完整造型、場景、成像、雙人或 canonical pose。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

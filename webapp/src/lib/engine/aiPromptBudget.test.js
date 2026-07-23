@@ -94,9 +94,9 @@ test('budget policy selection keeps Character Card precedence and complete-look 
   );
 });
 
-test('phase-3 keeps Character Card and excluded duo outputs outside its behavior change', () => {
+test('phase-4 keeps the excluded duo output outside its behavior change', () => {
   for (const fixture of AI_PROMPT_LENGTH_FIXTURES.filter((entry) => {
-    return entry.policy === 'characterCard' || entry.excludedFromBudget;
+    return entry.excludedFromBudget;
   })) {
     const output = generateFixture(fixture).midjourneyPrompt;
     const hash = createHash('sha256').update(output).digest('hex');
@@ -110,6 +110,22 @@ test('phase-3 normal and complete-look outputs meet their budget and preserve fi
   })) {
     const output = generateFixture(fixture).midjourneyPrompt;
     const budget = AI_PROMPT_LENGTH_CONTRACT.budgets[fixture.policy];
+    assert.ok(
+      countAiPromptWords(output) <= budget.softMaxWords,
+      `${fixture.id} exceeds ${budget.softMaxWords} words:\n${output}`
+    );
+    for (const fragment of fixture.requiredFragments || []) {
+      assert.match(output, new RegExp(fragment, 'i'), `${fixture.id}: ${fragment}`);
+    }
+  }
+});
+
+test('phase-4 Character Card outputs meet their budget and preserve permanent identity and wardrobe anchors', () => {
+  for (const fixture of AI_PROMPT_LENGTH_FIXTURES.filter((entry) => {
+    return entry.policy === 'characterCard';
+  })) {
+    const output = generateFixture(fixture).midjourneyPrompt;
+    const budget = AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard;
     assert.ok(
       countAiPromptWords(output) <= budget.softMaxWords,
       `${fixture.id} exceeds ${budget.softMaxWords} words:\n${output}`
