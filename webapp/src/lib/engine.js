@@ -21,7 +21,7 @@ import {
   projectSpecialOutfitPersonFragment,
 } from './engine/compositionBodyProjection.js';
 import {
-  createAiPromptSectionModel,
+  createBudgetedAiPromptSectionModel,
   renderAiPromptSectionModel,
   resolveAiPromptPolicyKey,
 } from './engine/aiPromptBudget.js';
@@ -12226,7 +12226,7 @@ function buildAiFreedomPoseSentence(context, character) {
   return ensureTerminalPeriod(stripMarkdown(context.projectedCanonicalPoseText || '').replace(/\s+/g, ' ').trim());
 }
 
-function buildAiFreedomSceneSentence(valuesByLabel, context) {
+function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 4 } = {}) {
   if (isFixedCompositionSetActive(context?.fixedCompositionSet)) {
     const fixedScene = AI_FIXED_SET_SCENE_PHRASES[context.fixedCompositionSet?.id] || '';
     return fixedScene ? ensureTerminalPeriod(`In ${compactAiSourceText(fixedScene)}`) : '';
@@ -12239,10 +12239,8 @@ function buildAiFreedomSceneSentence(valuesByLabel, context) {
   const clauses = splitAiSourceFragments(sceneSource);
   const conditionPattern = /\b(?:rain|snow|storm|fog|mist|wind|night|dusk|dawn|sunset|sunrise|daylight|overcast|cloudy|golden hour|post-rain|winter|summer|spring|autumn|late-afternoon|early-morning)\b/i;
   const selected = [];
-  const maxClauses = 4;
-
   for (const clause of clauses) {
-    if (selected.length < 3 || conditionPattern.test(clause)) selected.push(clause);
+    if (selected.length < Math.min(3, maxClauses) || conditionPattern.test(clause)) selected.push(clause);
     if (selected.length >= maxClauses) break;
   }
 
@@ -12259,14 +12257,14 @@ function buildAiFreedomSceneSentence(valuesByLabel, context) {
   return sceneText ? ensureTerminalPeriod(`In ${sceneText}`) : '';
 }
 
-function buildAiFreedomImagingSentence(valuesByLabel) {
+function buildAiFreedomImagingSentence(valuesByLabel, { compact = false } = {}) {
   const styleText = firstStructuredValue(valuesByLabel, ['Photography Style']);
   const style = styleText.match(/Inspired by [^.]+? image language/i)?.[0] || compactPromptClauses(styleText, 1);
   const parts = [
     style,
-    compactPromptClauses(firstStructuredValue(valuesByLabel, ['Lens']), 2),
+    compactPromptClauses(firstStructuredValue(valuesByLabel, ['Lens']), compact ? 1 : 2),
     compactPromptClauses(firstStructuredValue(valuesByLabel, ['Optical Effect']), 1),
-    compactPromptClauses(firstStructuredValue(valuesByLabel, ['Camera / Film']), 2),
+    compactPromptClauses(firstStructuredValue(valuesByLabel, ['Camera / Film']), compact ? 1 : 2),
   ].map((value) => compactAiSourceText(value)).filter(Boolean);
   return parts.length > 0 ? ensureTerminalPeriod(parts.join(', ')) : '';
 }
@@ -12304,7 +12302,15 @@ function renderAiPrompt(promptModel) {
       || firstStructuredValue(valuesByLabel, ['Dress'])
     ),
   });
-  const sectionModel = createAiPromptSectionModel({
+  const fullSceneText = buildAiFreedomSceneSentence(valuesByLabel, context);
+  const compactSceneText = buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses: 2 });
+  const minimalSceneText = buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses: 1 });
+  const fullImagingText = buildAiFreedomImagingSentence(valuesByLabel);
+  const compactImagingText = buildAiFreedomImagingSentence(valuesByLabel, { compact: true });
+  const sceneReductions = isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))
+    ? []
+    : [compactSceneText, minimalSceneText];
+  const sectionModel = createBudgetedAiPromptSectionModel({
     policyKey,
     sections: [
       { id: 'imageType', text: buildImageTypePromptLine(context) },
@@ -12312,8 +12318,16 @@ function renderAiPrompt(promptModel) {
       { id: 'subject', text: buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) },
       { id: 'wardrobe', text: buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) },
       { id: 'projectedCanonicalPose', text: buildAiFreedomPoseSentence(context, character) },
-      { id: 'scene', text: buildAiFreedomSceneSentence(valuesByLabel, context) },
-      { id: 'imaging', text: buildAiFreedomImagingSentence(valuesByLabel) },
+      {
+        id: 'scene',
+        text: fullSceneText,
+        reductions: sceneReductions,
+      },
+      {
+        id: 'imaging',
+        text: fullImagingText,
+        reductions: [compactImagingText],
+      },
     ],
   });
   return renderAiPromptSectionModel(sectionModel);

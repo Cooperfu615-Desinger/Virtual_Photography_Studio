@@ -9,7 +9,9 @@ import {
   getLockControls,
 } from '../engine.js';
 import {
+  AI_PROMPT_REDUCTION_SECTION_ORDER,
   AI_PROMPT_SECTION_ORDER,
+  createBudgetedAiPromptSectionModel,
   createAiPromptSectionModel,
   renderAiPromptSectionModel,
   resolveAiPromptPolicyKey,
@@ -29,6 +31,17 @@ const PHASE_1_BASELINE_HASHES = Object.freeze({
   'character-card-jiwoo': '42f8c161396a7291177c1f3f55ffb6856d31822741689393ff65684698a2a555',
   'character-card-sui': 'b51b74e0321481106bf1c6954877999130a6742f3649f7648612a3ca9a69481b',
   'canonical-pose-pressure': 'ee02c180444f0157d5db0150318b7e7e4b1828e21e18ef0533da45b7694b7523',
+  'half-face-boundary': 'b4e518c6db82b58752fb1c375298244d7ea661016f875bc310f260194dbd1d76',
+  'duo-excluded-boundary': 'c35f99593547205dff8bf4c1640d1e07c057adb12524c26b03ec7b6484322703',
+});
+const PHASE_4_STABLE_HASHES = Object.freeze({
+  'normal-separates': '9a1216027ae7b41bc0dc0a7e41b1452212572ee2184280d7e177ccdda4a798a3',
+  'complete-look-latex': '6fd71b7b04242febb732465df623a0dea715c35d9268aaffff689bc0535cb0bd',
+  'complete-look-special': '0468607e12816b3c698e10bcff2dcd174a547c69b8b6fbcab32b33299e0119ad',
+  'complete-look-dress': '54a7d2d17d9c16da17a4eaea2394b1c70b8a2fb4aa8878e6e90d3c55cf0819cd',
+  'character-card-jiwoo': '0d3b9446582d0f8c8ea396e0a8ce616793d4412ec9351163760c5fa04b1845ba',
+  'character-card-sui': '8a770e5dcf92b91856acbeb47f426d4777cdfcb23da9e9b83fe6afae16b64221',
+  'canonical-pose-pressure': '97873140a6cd746c15f2772b197bbefdcd6fa6525dee02c2da59515264428927',
   'half-face-boundary': 'b4e518c6db82b58752fb1c375298244d7ea661016f875bc310f260194dbd1d76',
   'duo-excluded-boundary': 'c35f99593547205dff8bf4c1640d1e07c057adb12524c26b03ec7b6484322703',
 });
@@ -84,6 +97,41 @@ test('section-aware budget model records stable order, immutable sections, and d
   assert.ok(Object.isFrozen(model.sections[0]));
 });
 
+test('global arbitration reduces complete imaging then scene alternatives without touching immutable sections', () => {
+  const words = (prefix, count) => Array.from({ length: count }, (_, index) => `${prefix}${index}`).join(' ');
+  const model = createBudgetedAiPromptSectionModel({
+    policyKey: 'normal',
+    sections: [
+      {
+        id: 'composition',
+        text: words('composition', 20),
+        reductions: ['short composition'],
+      },
+      { id: 'subject', text: words('subject', 90) },
+      {
+        id: 'scene',
+        text: words('scene', 15),
+        reductions: [words('scene', 8)],
+      },
+      {
+        id: 'imaging',
+        text: words('imaging', 15),
+        reductions: [words('imaging', 5)],
+      },
+    ],
+  });
+
+  assert.deepEqual(AI_PROMPT_REDUCTION_SECTION_ORDER, ['imaging', 'scene', 'wardrobe', 'subject']);
+  assert.equal(model.measurement.totalWords, 130);
+  assert.equal(model.measurement.withinSoftMax, true);
+  assert.equal(model.sections.find((section) => section.id === 'composition').wordCount, 20);
+  assert.deepEqual(model.arbitration.reductionsApplied, [{
+    sectionId: 'imaging',
+    fromWords: 15,
+    toWords: 5,
+  }]);
+});
+
 test('budget policy selection keeps Character Card precedence and complete-look isolation', () => {
   assert.equal(resolveAiPromptPolicyKey(), 'normal');
   assert.equal(resolveAiPromptPolicyKey({ completeLook: true }), 'completeLook');
@@ -134,4 +182,29 @@ test('phase-4 Character Card outputs meet their budget and preserve permanent id
       assert.match(output, new RegExp(fragment, 'i'), `${fixture.id}: ${fragment}`);
     }
   }
+});
+
+test('phase-5 leaves every already-compliant fixture byte-stable', () => {
+  for (const [fixtureId, expectedHash] of Object.entries(PHASE_4_STABLE_HASHES)) {
+    const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => entry.id === fixtureId);
+    const output = generateFixture(fixture).midjourneyPrompt;
+    assert.equal(createHash('sha256').update(output).digest('hex'), expectedHash, fixtureId);
+  }
+});
+
+test('phase-5 resolves cross-section pressure without dropping source identities', () => {
+  const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => {
+    return entry.id === 'character-card-half-face-pressure';
+  });
+  const output = generateFixture(fixture).midjourneyPrompt;
+  const budget = AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard;
+
+  assert.ok(
+    countAiPromptWords(output) <= budget.softMaxWords,
+    `${fixture.id} exceeds ${budget.softMaxWords} words:\n${output}`
+  );
+  for (const fragment of fixture.requiredFragments) {
+    assert.match(output, new RegExp(fragment, 'i'), `${fixture.id}: ${fragment}`);
+  }
+  assert.doesNotMatch(output, /broad field of view|balcony ledge/i);
 });

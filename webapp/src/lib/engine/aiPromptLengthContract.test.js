@@ -73,13 +73,14 @@ test('AI Prompt length fixtures cover every approved pressure boundary', () => {
     'complete-look-dress',
     'character-card-jiwoo',
     'character-card-sui',
+    'character-card-half-face-pressure',
     'canonical-pose-pressure',
     'half-face-boundary',
     'duo-excluded-boundary',
   ]);
   assert.equal(AI_PROMPT_LENGTH_FIXTURES.filter((fixture) => fixture.policy === 'normal').length, 3);
   assert.equal(AI_PROMPT_LENGTH_FIXTURES.filter((fixture) => fixture.policy === 'completeLook').length, 3);
-  assert.equal(AI_PROMPT_LENGTH_FIXTURES.filter((fixture) => fixture.policy === 'characterCard').length, 2);
+  assert.equal(AI_PROMPT_LENGTH_FIXTURES.filter((fixture) => fixture.policy === 'characterCard').length, 3);
   assert.equal(AI_PROMPT_LENGTH_FIXTURES.filter((fixture) => fixture.excludedFromBudget).length, 1);
 });
 

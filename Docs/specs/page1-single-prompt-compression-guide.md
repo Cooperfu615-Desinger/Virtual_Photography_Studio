@@ -282,6 +282,8 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 第四階段只啟用 Character Card 壓縮。AI 必須完整保留四個 `distinctiveFeatures` 永久身份錨點，並以它們作為五官的 canonical 精簡表示，不再重複輸出同義的 `facialGeometry`、`eyeSignature`、`noseSignature` 與 `mouthSignature` 長版。另保留膚色／膚質主錨點、一項妝容錨點、構圖投影後身形、主要髮型與 signature 色彩處理、有效眼鏡／耳機，以及使用者選擇的髮型變體與 prompt override。預設服裝每個可見 wardrobe role 保留一件具名主衣物，選用角色卡配件仍完整保留來源描述。此階段不得改寫一般人物、一般完整造型、場景、成像、雙人或 canonical pose。
 
+第五階段啟用 section-aware soft-max arbitration。只有完整組裝後超過對應 soft max 的單人 AI Prompt 才進行跨段落刪減，已合規輸出必須逐 byte 不變。順序固定先刪成像的次要說明，再刪 eligible cropped scene 的次要來源 anchor；成像仍須保留攝影風格／攝影者、鏡頭身份、所選光學效果與 film／rendering 身份，場景仍須保留原始地點身份與至少一個代表性 anchor。全身、未限制與固定構圖的完整 projected scene 不可參與場景刪減。成品類型、共用構圖句與 projected canonical pose 永遠不可壓縮；不得使用字元截斷、word truncation 或不完整句尾。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則
