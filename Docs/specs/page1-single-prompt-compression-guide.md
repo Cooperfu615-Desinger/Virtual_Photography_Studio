@@ -274,6 +274,8 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 機器可讀來源為 `webapp/src/lib/engine/aiPromptLengthContract.js`；壓力案例位於 `webapp/src/lib/engine/aiPromptLengthFixtures.js`。
 
+第二階段建立 `aiPromptBudget.js` 的 section-aware 組裝邊界。單人 AI 的七個 producer 固定映射為 `imageType`、`composition`、`subject`、`wardrobe`、`projectedCanonicalPose`、`scene`、`imaging`，每段各自記錄 words、是否不可壓縮及整體超出 target／soft max 的診斷量。一般、完整造型與 Character Card 由 resolved structured model 選擇對應 policy；雙人仍走原 renderer。本階段只以同樣的空行規則重新組合原文字，九組基準 Prompt 的 SHA-256 必須逐字維持第一階段結果。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

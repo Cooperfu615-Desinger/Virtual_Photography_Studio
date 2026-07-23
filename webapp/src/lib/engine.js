@@ -21,6 +21,11 @@ import {
   projectSpecialOutfitPersonFragment,
 } from './engine/compositionBodyProjection.js';
 import {
+  createAiPromptSectionModel,
+  renderAiPromptSectionModel,
+  resolveAiPromptPolicyKey,
+} from './engine/aiPromptBudget.js';
+import {
   dedupeRepeatedCommaFragments,
   materializeOutfitColorControls,
 } from './engine/promptTextDeduplication.js';
@@ -12177,15 +12182,27 @@ function renderAiPrompt(promptModel) {
     return renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors);
   }
 
-  return [
-    buildImageTypePromptLine(context),
-    buildCompositionPromptLine(context),
-    buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe),
-    buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe),
-    buildAiFreedomPoseSentence(context, character),
-    buildAiFreedomSceneSentence(valuesByLabel, context),
-    buildAiFreedomImagingSentence(valuesByLabel),
-  ].filter(Boolean).join('\n\n');
+  const policyKey = resolveAiPromptPolicyKey({
+    characterCard: isCharacterProfileSubject(context.subject),
+    completeLook: Boolean(
+      firstStructuredValue(valuesByLabel, ['Special Outfit'])
+      || firstStructuredValue(valuesByLabel, ['Outfit Preset'])
+      || firstStructuredValue(valuesByLabel, ['Dress'])
+    ),
+  });
+  const sectionModel = createAiPromptSectionModel({
+    policyKey,
+    sections: [
+      { id: 'imageType', text: buildImageTypePromptLine(context) },
+      { id: 'composition', text: buildCompositionPromptLine(context) },
+      { id: 'subject', text: buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) },
+      { id: 'wardrobe', text: buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) },
+      { id: 'projectedCanonicalPose', text: buildAiFreedomPoseSentence(context, character) },
+      { id: 'scene', text: buildAiFreedomSceneSentence(valuesByLabel, context) },
+      { id: 'imaging', text: buildAiFreedomImagingSentence(valuesByLabel) },
+    ],
+  });
+  return renderAiPromptSectionModel(sectionModel);
 }
 
 function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect) {
