@@ -478,6 +478,51 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
   }
 });
 
+test('natural support anchor adapts one object-free canonical pose across all five bases', () => {
+  const fullBodyFraming = optionId('framingId', '全身鏡頭 (Full Body Shot)');
+  const cases = [
+    {
+      baseZh: '站姿',
+      arrangementZh: '自然站姿',
+      expected: 'She presents a natural relaxed standing pose with the body naturally supported.',
+    },
+    {
+      baseZh: '坐姿',
+      arrangementZh: '自然坐姿',
+      expected: 'She presents a natural seated pose with the seated body naturally supported.',
+    },
+    {
+      baseZh: '跪姿',
+      arrangementZh: '單膝跪地',
+      expected: 'She presents a one-knee kneeling pose with the upper body naturally supported.',
+    },
+    {
+      baseZh: '蹲姿',
+      arrangementZh: '自然蹲姿',
+      expected: 'She presents a natural squatting pose with the body naturally supported.',
+    },
+    {
+      baseZh: '躺姿',
+      arrangementZh: '自然半躺',
+      expected: 'She presents a relaxed half-reclining pose with the upper body naturally supported.',
+    },
+  ];
+
+  for (const { baseZh, arrangementZh, expected } of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: fullBodyFraming,
+      poseBaseId: optionId('poseBaseId', baseZh),
+      poseArrangementId: optionId('poseArrangementId', arrangementZh),
+      poseAnchorId: optionId('poseAnchorId', '自然受支撐'),
+    });
+
+    assertSharedCanonicalPose(prompt, expected);
+    assert.doesNotMatch(expected, /wall|floor|ground|chair|cube|plinth|surface|object/i);
+  }
+});
+
 test('pose composer exposes expressive hand interaction batch', () => {
   [
     ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],

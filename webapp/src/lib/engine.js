@@ -4717,12 +4717,14 @@ const PROJECTED_HAND_PHRASES = Object.freeze({
 });
 
 const UPPER_BODY_ARRANGEMENT_PHRASES = Object.freeze({
+  'standing-natural': 'a relaxed upright posture',
   'standing-forward-lean': 'a slight forward lean',
   'standing-deep-forward-lean': 'a deep forward lean from the waist, shoulders angled forward',
   'standing-back-lean': 'a slight backward lean',
   'standing-turn-back': 'the torso subtly rotated',
   'standing-contrapposto': 'the upper body leaning to one side',
   'standing-back-facing-turn': 'the torso rotated back toward the camera',
+  'sitting-natural': 'a relaxed seated upper-body posture',
   'sitting-forward-lean': 'the upper body leaning slightly forward',
   'sitting-grounded-forward-lean': 'the upper body angled forward',
   'sitting-open-confident': 'the torso upright',
@@ -4731,8 +4733,10 @@ const UPPER_BODY_ARRANGEMENT_PHRASES = Object.freeze({
   'kneeling-upright-poised': 'the torso vertical',
   'kneeling-elbow-support': 'the elbows or forearms supporting the upper body on a nearby surface',
   'kneeling-back-arched': 'the torso leaning slightly backward',
+  'squatting-natural': 'a relaxed compact upper-body posture',
   'squatting-forward-lean': 'the upper body angled forward',
-  'lying-half-reclined': 'the upper body softly supported',
+  'lying-natural-half-recline': 'a relaxed backward recline through the shoulders and torso',
+  'lying-half-reclined': 'the upper body naturally supported',
   'lying-on-back-one-arm-overhead': 'one arm extended overhead',
   'lying-prone-elbow-prop': 'the elbows propping up the upper body',
   'lying-wall-raised-legs': 'the upper body leaning against a wall',
@@ -4786,6 +4790,7 @@ function projectPoseComposerArrangement(arrangement, bucket) {
 
 function isChestVisibleAnchor(anchor, base) {
   if (!anchor || !base) return false;
+  if (anchor.id === 'shared-natural-support') return true;
   if (anchor.id === 'shared-vertical-surface-support') return true;
   if (anchor.id === 'shared-mirrored-steel-cube' || anchor.id === 'shared-clear-acrylic-cube') {
     return base.id === 'kneeling' || base.id === 'squatting';
@@ -4795,6 +4800,9 @@ function isChestVisibleAnchor(anchor, base) {
 
 function buildChestVisibleAnchorFragment(anchor, base) {
   if (!isChestVisibleAnchor(anchor, base)) return '';
+  if (anchor.id === 'shared-natural-support') {
+    return 'natural support through the shoulders and upper torso';
+  }
   if (anchor.id === 'shared-vertical-surface-support') {
     return base.id === 'standing' || base.id === 'kneeling'
       ? 'one shoulder and the upper back resting against an existing vertical surface in the scene, with clear shoulder-to-surface contact'
@@ -4813,7 +4821,10 @@ function buildChestVisibleAnchorFragment(anchor, base) {
 function projectPoseComposerAnchor(anchor, base, bucket) {
   if (!anchor || !base || FULL_ONLY_ANCHOR_IDS.has(anchor.id)) return null;
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) {
-    return isChestVisibleAnchor(anchor, base) ? anchor : null;
+    if (!isChestVisibleAnchor(anchor, base)) return null;
+    return anchor.id === 'shared-natural-support'
+      ? cloneProjectedPoseOption(anchor, getPoseComposerAnchorPhrase(anchor, base, null))
+      : anchor;
   }
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) {
     const phrase = getPoseComposerAnchorPhrase(anchor, base, null);

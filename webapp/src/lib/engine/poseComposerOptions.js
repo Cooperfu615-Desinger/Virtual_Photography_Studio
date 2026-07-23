@@ -7,6 +7,17 @@ export const POSE_COMPOSER_BASE_OPTIONS = [
   { id: 'squatting', zh: '蹲姿', en: 'squatting pose', desc: '以蹲姿作為姿勢基底。' },
   { id: 'lying', zh: '躺姿', en: 'lying pose', desc: '以躺臥作為姿勢基底。' },
 ];
+
+const deprecatedPoseArrangement = (option) => ({
+  ...option,
+  meta: {
+    ...(option.meta || {}),
+    uiHidden: true,
+    randomEligible: false,
+    deprecated: true,
+  },
+});
+
 export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定肢體變化。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random body arrangement', desc: '依姿勢基底隨機選擇肢體變化。', meta: { tags: ['random'] } },
@@ -73,7 +84,8 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'lying-on-back', base: 'lying', zh: '仰躺', en: 'supine lying pose with a relaxed upward-facing body line' },
   { id: 'lying-side', base: 'lying', zh: '側躺', en: 'side-lying arrangement, body turned along one side' },
   { id: 'lying-prone', base: 'lying', zh: '趴臥', en: 'prone lying arrangement, body resting forward on the surface' },
-  { id: 'lying-half-reclined', base: 'lying', zh: '半躺倚靠', en: 'half-reclined lying arrangement with the upper body softly supported' },
+  { id: 'lying-natural-half-recline', base: 'lying', zh: '自然半躺', en: 'relaxed half-reclining arrangement' },
+  deprecatedPoseArrangement({ id: 'lying-half-reclined', base: 'lying', zh: '半躺倚靠', en: 'relaxed half-reclining arrangement with the upper body naturally supported' }),
   { id: 'lying-languid', base: 'lying', zh: '隨性慵懶', en: 'casually languid lying arrangement, relaxed uneven limbs, soft body weight settled into the surface' },
   { id: 'lying-side-knees-bent', base: 'lying', zh: '側躺屈膝', en: 'side-lying arrangement with both knees softly bent, compact curved body line' },
   { id: 'lying-on-back-one-arm-overhead', base: 'lying', zh: '仰躺單手過頭', en: 'supine lying pose with one arm extended overhead and a relaxed elongated body line' },
@@ -177,6 +189,20 @@ const deprecatedPoseAnchor = (option) => ({
 export const POSE_COMPOSER_ANCHOR_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定接觸或支撐物。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random pose anchor', desc: '依姿勢基底隨機選擇接觸或支撐物。', meta: { tags: ['random'] } },
+  {
+    id: 'shared-natural-support',
+    bases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
+    zh: '自然受支撐',
+    en: 'body naturally supported in a relaxed pose',
+    desc: '只指定人物自然獲得支撐，不指定牆面、地面、家具或其他具體支撐物件。',
+    phraseByBase: {
+      standing: 'standing with the body naturally supported',
+      sitting: 'sitting with the seated body naturally supported',
+      kneeling: 'kneeling with the upper body naturally supported',
+      squatting: 'squatting with the body naturally supported',
+      lying: 'reclining with the upper body naturally supported',
+    },
+  },
   {
     id: 'shared-vertical-surface-support',
     bases: ['standing', 'sitting', 'kneeling', 'squatting'],

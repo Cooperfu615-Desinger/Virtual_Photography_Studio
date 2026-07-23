@@ -186,6 +186,36 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'pose-composer-half-reclining-b2',
+    title: 'Medium half-reclining pose keeps natural support without naming a support object',
+    mode: 'single',
+    seed: 'prompt-contract-pose-half-reclining-b2-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' },
+      poseBaseId: { byZh: '躺姿' },
+      poseArrangementId: { byZh: '自然半躺' },
+      poseHandId: { byZh: '整理下身' },
+      poseHeadId: { byZh: '頭部微微後仰' },
+      poseAnchorId: { byZh: '自然受支撐' },
+      locationId: { byZh: '戶外：台北西門町街頭' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['She has her head tilted slightly backward with the chin softly lifted, one hand adjusting the lower-body garment at the waistband, and presents a relaxed half-reclining pose with the upper body naturally supported.'],
+        excludes: ['half-reclined lying pose', 'transparent acrylic cube plinth', 'mirrored stainless-steel cube plinth'],
+      },
+      zImagePrompt: {
+        includes: ['She has her head tilted slightly backward with the chin softly lifted, one hand adjusting the lower-body garment at the waistband, and presents a relaxed half-reclining pose with the upper body naturally supported.'],
+        excludes: ['half-reclined lying pose', 'transparent acrylic cube plinth', 'mirrored stainless-steel cube plinth'],
+      },
+      midjourneyPrompt: {
+        includes: ['She has her head tilted slightly backward with the chin softly lifted, one hand adjusting the lower-body garment at the waistband, and presents a relaxed half-reclining pose with the upper body naturally supported.'],
+        excludes: ['half-reclined lying pose', 'transparent acrylic cube plinth', 'mirrored stainless-steel cube plinth'],
+      },
+    },
+  },
+  {
     id: 'pose-composer-random-selfie-orbit',
     title: 'Random selfie hand clears an incompatible locked rear orbit',
     mode: 'single',

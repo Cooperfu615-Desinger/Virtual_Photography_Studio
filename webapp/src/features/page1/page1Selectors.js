@@ -95,12 +95,14 @@ function buildCoreControls(lockControls, sceneDependentOptions, locks) {
 
 function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
   const sceneAware = lockControls.map((control) => {
-    if (control.key !== 'poseAnchorId') return control;
-    const sceneOptions = sceneDependentOptions.poseAnchorOptions || control.options;
+    if (!['poseArrangementId', 'poseAnchorId'].includes(control.key)) return control;
+    const sceneOptions = control.key === 'poseAnchorId'
+      ? sceneDependentOptions.poseAnchorOptions || control.options
+      : control.options;
     return {
       ...control,
       options: sceneOptions.filter((option) => (
-        option.meta?.uiHidden !== true || option.id === locks.poseAnchorId
+        option.meta?.uiHidden !== true || option.id === locks[control.key]
       )),
     };
   });

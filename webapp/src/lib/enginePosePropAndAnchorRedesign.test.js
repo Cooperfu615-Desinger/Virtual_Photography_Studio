@@ -124,6 +124,7 @@ test('prop action is emitted once in the shared canonical pose across all three 
 
 test('generic and editorial anchors are public while legacy anchors stay restorable', () => {
   const publicLabels = [
+    '自然受支撐',
     '肩背倚靠現有垂直面',
     '髖側倚靠現有邊緣',
     '坐在現有場景座面',
@@ -160,6 +161,32 @@ test('generic and editorial anchors are public while legacy anchors stay restora
   const pickerAnchors = groups.characterLockControls.find((item) => item.key === 'poseAnchorId').options;
   assert.equal(pickerAnchors.some((item) => item.id === legacyDoorway.id), true);
   assert.equal(pickerAnchors.some((item) => item.meta?.uiHidden && item.id !== legacyDoorway.id), false);
+});
+
+test('natural half-recline is public while the previous combined arrangement stays restorable but hidden', () => {
+  const publicArrangement = option('poseArrangementId', '自然半躺');
+  const legacyArrangement = option('poseArrangementId', '半躺倚靠');
+  assert.notEqual(publicArrangement.meta?.uiHidden, true);
+  assert.equal(legacyArrangement.meta?.uiHidden, true);
+  assert.equal(legacyArrangement.meta?.randomEligible, false);
+  assert.equal(legacyArrangement.meta?.deprecated, true);
+
+  const locks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: 'lying',
+    poseArrangementId: legacyArrangement.id,
+  };
+  assert.equal(normalizeLocks(locks).poseArrangementId, legacyArrangement.id);
+
+  const groups = buildPage1ControlGroups({
+    lockControls: getLockControls(),
+    locks,
+    sceneDependentOptions: getSceneDependentOptions([], locks),
+  });
+  const pickerArrangements = groups.characterLockControls.find((item) => item.key === 'poseArrangementId').options;
+  assert.equal(pickerArrangements.some((item) => item.id === legacyArrangement.id), true);
+  assert.equal(pickerArrangements.some((item) => item.meta?.uiHidden && item.id !== legacyArrangement.id), false);
 });
 
 test('random anchors can resolve to none and never sample hidden legacy anchors', () => {
