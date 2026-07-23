@@ -260,6 +260,20 @@ AI renderer 只可刪除、重排與使用最小語法連接既有內容；不�
 
 AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景與成像；不得出現未選擇資料衍生的 `Y2K ... look`、`captured as ... film still`、`not ...` guard 或其他 renderer 自行補寫的描述。
 
+#### AI Prompt 長度優化（第一階段契約）
+
+第一階段只建立機器可讀長度契約、deterministic 最壞案例 fixtures 與基準測試，不修改公開 Prompt。契約只適用 PAGE1 單人 `midjourneyPrompt`；雙人 AI 維持既有輕量標籤格式，不納入本輪字數預算。
+
+- 一般單人目標 110 words，soft max 130。
+- 套裝、特殊穿搭與連身服目標 115 words，soft max 130。
+- Character Card 目標 150 words，soft max 170。
+- 成品類型、共用構圖句與 projected canonical pose 是不可壓縮區塊；Pose Composer 文字必須繼續和 Gpt／Grok-Z 完全一致。
+- 不可用字元截斷、單純取前 N words 或留下殘句。後續只能按完整語意片段進行來源可追溯的刪減。
+- Character Card 的結構化五官、身形、髮型、有效眼鏡／耳機與四個永久身份錨點仍是必要內容；字數預算不能取代身份穩定契約。
+- 後續壓縮順序固定為：次要成像細節、次要場景 anchor、服裝次要結構細節、一般人物修飾詞。每一階段需先更新 fixture，再改 runtime。
+
+機器可讀來源為 `webapp/src/lib/engine/aiPromptLengthContract.js`；壓力案例位於 `webapp/src/lib/engine/aiPromptLengthFixtures.js`。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

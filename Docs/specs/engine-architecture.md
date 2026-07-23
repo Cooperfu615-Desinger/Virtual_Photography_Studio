@@ -46,6 +46,8 @@ The default-library path compiles the runtime once and reuses it. A custom-libra
 | `webapp/src/lib/engine/promptModel.js` | Ordered prompt sections plus grouped label lookup used by renderers |
 | `webapp/src/lib/engine/promptOutputContracts.js` | Machine-readable public contracts and validation for Gpt, Grok/Z-Image, AI, and full-body character outputs |
 | `webapp/src/lib/engine/representativePromptFixtures.js` | Seeded normal, character-card, special-outfit, duo, fixed-set, close-up, and full-body regression scenarios |
+| `webapp/src/lib/engine/aiPromptLengthContract.js` | Single-subject AI word budgets, immutable sections, preservation anchors, and ordered reduction policy |
+| `webapp/src/lib/engine/aiPromptLengthFixtures.js` | Deterministic AI length-pressure cases for normal separates, complete looks, Character Cards, pose, crop, and duo exclusion |
 | `webapp/src/lib/engine/compositionVisibilityContract.js` | Canonical framing buckets plus shared wardrobe, pose, scene, and selection-preservation projection policies |
 | `webapp/src/lib/engine/fixedCompositionPromptProjection.js` | Renderer-neutral fixed-composition projection containing resolved wardrobe/colors, canonical pose text, composition metadata, and fixed-set scene selections |
 | `webapp/src/lib/engine/compositionVisibilityFixtures.js` | Desired deterministic cases for normal wardrobe, dresses, presets, special outfits, Character Cards, duo, pose/support, scene, and full-body restoration |
@@ -126,6 +128,8 @@ The renderers then apply format-specific rules:
 - `renderGptPrompt()`: detailed, structured, full-fidelity output;
 - `renderZImagePrompt()`: natural-language Grok/Z-Image output;
 - `renderAiPrompt()`: compact AI output, including a specialized duo renderer.
+
+AI length optimization phase 1 is behavior-neutral. It records separate normal, complete-look, and Character Card word budgets, plus the immutable image-type, composition, and projected canonical-pose sections. Deterministic fixtures capture the longest known outfit-preset, special-outfit, Character Card, pose, and crop pressure without changing `renderAiPrompt()`. The contract explicitly excludes duo AI, prohibits hard string/word truncation, and fixes the future semantic reduction order so later phases cannot shorten identity or canonical pose merely to satisfy a numeric target.
 
 Section labels are not merely display text. Renderers query labels such as `Subject`, `Location`, `Ambient Light Conditions`, and `Camera / Film`; renaming or splitting them is a cross-renderer schema change and requires prompt-pipeline tests.
 
