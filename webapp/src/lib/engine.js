@@ -1676,13 +1676,13 @@ function inferLightingMeta(category, item) {
       tags.push('natural_light', 'dusk', 'cool', 'supports_outdoor', 'supports_urban', 'supports_natural');
     }
     if (hasAny(haystack, ['城市夜間混合光', '夜晚街燈', 'urban night ambience', 'warm-cool mixed city glow'])) {
-      tags.push('artificial_light', 'dark', 'night_ambient', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
+      tags.push('artificial_light', 'dark', 'night_ambient', 'requires_urban_context', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
     }
     if (hasAny(haystack, ['月光夜色', 'moonlit night'])) {
       tags.push('natural_light', 'dark', 'cool', 'night_ambient', 'supports_outdoor', 'supports_natural', 'supports_urban');
     }
     if (item.zh === '城市高彩度夜色' || item.zh === '霓虹夜色' || hasAny(haystack, ['saturated-color urban night ambience', 'neon night conditions'])) {
-      tags.push('artificial_light', 'neon', 'dark', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
+      tags.push('artificial_light', 'neon', 'dark', 'requires_urban_context', 'supports_outdoor', 'supports_urban', 'supports_commercial', 'supports_subterranean');
     }
     if (hasAny(haystack, ['陰雨將至', 'storm-brewing conditions'])) {
       tags.push('natural_light', 'cloudy', 'dark', 'dramatic', 'supports_outdoor', 'supports_urban', 'supports_natural');
@@ -1990,6 +1990,9 @@ function inferFilmMeta(_category, item) {
   if (hasAny(haystack, ['black and white', 'ilford'])) tags.push('monochrome');
   if (hasAny(haystack, ['medium format'])) tags.push('detail_heavy');
   if (hasAny(haystack, ['vhs'])) tags.push('low_frequency_film');
+  if (hasAny(haystack, ['high-acutance', 'snap-focus', 'contrasty black levels', 'high-contrast black levels'])) {
+    tags.push('high_acutance', 'hard_black_levels');
+  }
 
   return { tags: withTags(tags) };
 }
@@ -2244,7 +2247,7 @@ function inferEffectMeta(_category, item) {
   if (hasAny(haystack, ['vignette', 'vignetting', 'frame corners', '暗角'])) tags.push('vignette');
   if (hasAny(haystack, ['chromatic aberration', 'rgb edge fringing', 'color separation', '色差'])) tags.push('chromatic_aberration');
   if (hasAny(haystack, ['edge blur', 'peripheral edge blur', 'field curvature', '邊緣模糊', 'smeared frame edges', 'radial edge stretching', '中央清晰邊緣拉抹'])) tags.push('edge_blur');
-  if (hasAny(haystack, ['optical haze', 'lens mist', 'veiling glare', '光學朦朧'])) tags.push('optical_haze', 'diffusion_filter');
+  if (hasAny(haystack, ['optical haze', 'lens mist', 'veiling glare', '光學朦朧'])) tags.push('optical_haze', 'diffusion_filter', 'softened_black_levels');
   if (hasAny(haystack, ['motion blur', 'light trails'])) tags.push('motion');
   if (hasAny(haystack, ['double exposure'])) tags.push('surreal');
   if (hasAny(haystack, ['bokeh', 'blur circles', 'out-of-focus highlight'])) tags.push('bokeh');
@@ -3488,6 +3491,29 @@ function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = nu
   return [fitText, stylingText, coloredBase, patternText].filter(Boolean).join(', ');
 }
 
+function getOuterwearFastenerTypes(outerwearItem) {
+  if (!outerwearItem || isNoneLikeItem(outerwearItem)) return new Set();
+  const haystack = toHaystack(outerwearItem.zh, outerwearItem.en, outerwearItem.desc);
+  const fasteners = new Set();
+  if (hasAny(haystack, ['zip-front', 'zip-up', 'zipper', '拉鍊'])) fasteners.add('zip');
+  if (hasAny(haystack, ['button-front', 'buttons', 'button closure', '扣子', '鈕扣'])) fasteners.add('button');
+  return fasteners;
+}
+
+function getOuterwearOpeningFastenerRequirement(opening) {
+  if (!opening || isNoneLikeItem(opening)) return '';
+  const haystack = toHaystack(opening.zh, opening.en, opening.desc);
+  if (hasAny(haystack, ['zip-front', 'unzipped', '拉鍊'])) return 'zip';
+  if (hasAny(haystack, ['button-front', 'unbuttoned', '扣子', '鈕扣'])) return 'button';
+  return '';
+}
+
+function outerwearSupportsOpening(outerwearItem, opening) {
+  const requiredFastener = getOuterwearOpeningFastenerRequirement(opening);
+  if (!requiredFastener) return true;
+  return getOuterwearFastenerTypes(outerwearItem).has(requiredFastener);
+}
+
 function buildOuterwearColoredPrompt(outerwearItem, color = null, { fit = null, pattern = null, opening = null, styling = null, minimalStyling = false } = {}) {
   if (!outerwearItem || isNoneLikeItem(outerwearItem)) return '';
   const base = normalizeWardrobePromptText(outerwearItem.en);
@@ -3742,6 +3768,18 @@ function locationSupportsLighting(location, lighting) {
   const locationEnvironment = getLocationEnvironmentFlags(location);
   const lightingEnvironment = getLightingEnvironmentFlags(lighting);
 
+  // City-glow and neon-night ambience describe a built urban source, not just
+  // an outdoor time of day. Keep those options out of natural locations such
+  // as salt flats even though both sides are technically outdoors.
+  if (lightTags.has('requires_urban_context') && ![
+    'urban',
+    'commercial',
+    'transit',
+    'industrial',
+  ].some((tag) => locTags.has(tag))) {
+    return false;
+  }
+
   // Hard-stop obviously invalid combinations before the broader support matrix
   // has a chance to allow them through via generic indoor tags.
   if ((locTags.has('ruin') || locTags.has('underground') || locTags.has('subterranean')) && lightTags.has('studio_light')) {
@@ -3786,6 +3824,26 @@ function locationSupportsLighting(location, lighting) {
   if (locTags.has('subterranean') || locTags.has('underground')) return lightTags.has('artificial_light') || lightTags.has('window_light');
   if (locTags.has('indoor')) return !lightTags.has('sunlight') || lightTags.has('window_light') || lightTags.has('soft_light');
   if (locTags.has('outdoor') || locTags.has('natural')) return !lightTags.has('studio_light') || lightTags.has('flash') || lightTags.has('soft_light');
+
+  return true;
+}
+
+function opticalEffectSupportsFilm(opticalEffect, film) {
+  if (!opticalEffect || isNoneLikeItem(opticalEffect) || !film || isNoneLikeItem(film)) return true;
+
+  const effectTags = new Set(opticalEffect.meta?.tags || []);
+  const filmTags = new Set(film.meta?.tags || []);
+
+  // Do not randomly combine a global contrast-softening filter with an
+  // explicitly hard-black, high-acutance rendering. Explicit locks still win
+  // so users can intentionally request the tension.
+  if (filmTags.has('hard_black_levels') && (
+    effectTags.has('optical_haze')
+    || effectTags.has('soft_focus')
+    || effectTags.has('softened_black_levels')
+  )) {
+    return false;
+  }
 
   return true;
 }
@@ -3984,6 +4042,13 @@ function framingSupportsOrbit(framing, orbit) {
   if (framingTags.has('full_face_tight') && (orbitTags.has('back_view') || orbitTags.has('rear_three_quarter'))) return false;
 
   return true;
+}
+
+function poseHeadSupportsOrbit(head, orbit) {
+  if (!head || isNoneLikeItem(head) || !orbit || isNoneLikeItem(orbit)) return true;
+  const headTags = new Set(head.meta?.tags || []);
+  const orbitTags = new Set(orbit.meta?.tags || []);
+  return !(orbitTags.has('back_view') && headTags.has('requires_face_visibility'));
 }
 
 function expressionSupportsComposition(item, context) {
@@ -4637,11 +4702,27 @@ function buildPoseComposerItem(context) {
 
   const exclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
   const random = context.random || Math.random;
+  const resolveHead = () => {
+    const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
+    // Compatibility constrains only the random pool. A concrete user lock is
+    // intentional and must remain visible rather than being silently replaced.
+    const predicate = isRandomOption(requestedHead)
+      ? (option) => poseHeadSupportsOrbit(option, context.orbit)
+      : () => true;
+    return resolvePoseComposerOption(
+      POSE_COMPOSER_HEAD_OPTIONS,
+      context.locks?.poseHeadId,
+      predicate,
+      exclusions,
+      ['poseHeadId'],
+      random
+    );
+  };
   const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId, () => true, exclusions, ['poseBaseId'], random);
 
   if (!base) {
     const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId'], random);
-    const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId'], random);
+    const head = resolveHead();
     const propAction = resolvePoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId, () => true, exclusions, ['posePropId'], random);
     const standaloneParts = [handPose, propAction, head].filter(isActivePoseComposerOption);
     if (standaloneParts.length === 0) return null;
@@ -4671,7 +4752,7 @@ function buildPoseComposerItem(context) {
   );
   const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase, exclusions, ['poseArrangementId'], random);
   const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId'], random);
-  const head = resolvePoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId, () => true, exclusions, ['poseHeadId'], random);
+  const head = resolveHead();
   const anchor = resolvePoseComposerAnchorOption(context.locks?.poseAnchorId, matchesAnchor, exclusions, random);
   const propAction = resolvePoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId, () => true, exclusions, ['posePropId'], random);
   const parts = [base, arrangement, handPose, propAction, head, anchor].filter(Boolean);
@@ -6135,9 +6216,12 @@ function buildWardrobe(context, locks, catalog) {
         ? closeupOuterwearPiece.some((item) => item && !isNoneLikeItem(item))
         : Boolean(closeupOuterwearPiece && !isNoneLikeItem(closeupOuterwearPiece));
       if (hasCloseupOuterwearPiece) {
+        const selectedOuterwear = Array.isArray(closeupOuterwearPiece)
+          ? closeupOuterwearPiece.find((item) => item && !isNoneLikeItem(item))
+          : closeupOuterwearPiece;
         if (locks?.outerwearFitId) maybePick('外套版型 (Outerwear Fit)', 1, () => true, { allowNoneWhenUnlocked: true });
         if (locks?.outerwearPatternId) maybePick('外套圖案 (Outerwear Surface Design)', 1, () => true, { allowNoneWhenUnlocked: true });
-        if (locks?.outerwearOpeningId) maybePick('外套開合 (Outerwear Opening)', 1, () => true, { allowNoneWhenUnlocked: true });
+        if (locks?.outerwearOpeningId) maybePick('外套開合 (Outerwear Opening)', 1, (opening) => outerwearSupportsOpening(selectedOuterwear, opening), { allowNoneWhenUnlocked: true });
         if (locks?.outerwearStylingId) maybePick('外套穿法 (Outerwear Styling)', 1, () => true, { allowNoneWhenUnlocked: true });
       }
       if (locks?.legwearId) maybePick('襪類 (Legwear)', 1, () => true, { allowNoneWhenUnlocked: true });
@@ -6201,9 +6285,12 @@ function buildWardrobe(context, locks, catalog) {
       : Boolean(outerwearPiece && !isNoneLikeItem(outerwearPiece));
 
     if (hasOuterwearPiece) {
+      const selectedOuterwear = Array.isArray(outerwearPiece)
+        ? outerwearPiece.find((item) => item && !isNoneLikeItem(item))
+        : outerwearPiece;
       maybePick('外套版型 (Outerwear Fit)', locks?.outerwearFitId ? 1 : 0.55, () => true, { allowNoneWhenUnlocked: true });
       maybePick('外套圖案 (Outerwear Surface Design)', locks?.outerwearPatternId ? 1 : 0.3, () => true, { allowNoneWhenUnlocked: true });
-      maybePick('外套開合 (Outerwear Opening)', locks?.outerwearOpeningId ? 1 : 0.55, () => true, { allowNoneWhenUnlocked: true });
+      maybePick('外套開合 (Outerwear Opening)', locks?.outerwearOpeningId ? 1 : 0.55, (opening) => outerwearSupportsOpening(selectedOuterwear, opening), { allowNoneWhenUnlocked: true });
       maybePick('外套穿法 (Outerwear Styling)', locks?.outerwearStylingId ? 1 : 0.55, () => true, { allowNoneWhenUnlocked: true });
     }
   }
@@ -6229,9 +6316,12 @@ function buildWardrobe(context, locks, catalog) {
       ? outerwearPiece.some((item) => item && !isNoneLikeItem(item))
       : Boolean(outerwearPiece && !isNoneLikeItem(outerwearPiece));
     if (hasOuterwearPiece) {
+      const selectedOuterwear = Array.isArray(outerwearPiece)
+        ? outerwearPiece.find((item) => item && !isNoneLikeItem(item))
+        : outerwearPiece;
       maybePick('外套版型 (Outerwear Fit)', 1, () => true, { allowNoneWhenUnlocked: true });
       maybePick('外套圖案 (Outerwear Surface Design)', 1, () => true, { allowNoneWhenUnlocked: true });
-      maybePick('外套開合 (Outerwear Opening)', 1, () => true, { allowNoneWhenUnlocked: true });
+      maybePick('外套開合 (Outerwear Opening)', 1, (opening) => outerwearSupportsOpening(selectedOuterwear, opening), { allowNoneWhenUnlocked: true });
       maybePick('外套穿法 (Outerwear Styling)', 1, () => true, { allowNoneWhenUnlocked: true });
     }
   }
@@ -7166,6 +7256,15 @@ function describeLockedPalette(lockedPalette, targets = [], lockedOptional = fal
   return `${targetText} kept in fixed signature colors`;
 }
 
+function stripOutfitColorSelectionControls(value) {
+  return String(value || '')
+    .replace(/,?\s*\b(?:dominant|main|primary)?\s*(?:satin|swim|metallic|textile|uniform|coat|leather|jersey|towel|fabric)?\s*color\s+controlled\s+by\s+the\s+outfit\s+color\s+selection\b/gi, '')
+    .replace(/,?\s*\btonal\s+palette\s+controlled\s+by\s+the\s+outfit\s+color\s+selection\b/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/\s*,\s*$/g, '')
+    .trim();
+}
+
 function buildOutfitPresetPrompt(item, colorState = {}) {
   if (!item || isNoneLikeItem(item)) return '';
 
@@ -7183,10 +7282,11 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
   const completeLookPalette = colorState.completeLookPalette || null;
 
   if (!meta.colorMode || !colorTargets || Object.keys(colorTargets).length === 0) {
+    const visualBase = stripOutfitColorSelectionControls(base);
     if (primaryColor && contrastColor && !isNoneLikeItem(primaryColor) && !isNoneLikeItem(contrastColor)) {
-      return appendCompleteLookPaletteDirection(`${base}, coordinated top-to-bottom palette: upper/main garment area in ${primaryColor.en}, lower or secondary garment area in ${contrastColor.en}`, completeLookPalette);
+      return appendCompleteLookPaletteDirection(`${visualBase}, primary garment color ${primaryColor.en}, secondary garment color ${contrastColor.en}`, completeLookPalette);
     }
-    return appendCompleteLookPaletteDirection(primaryColor && !isNoneLikeItem(primaryColor) ? `${primaryColor.en} ${base}` : base, completeLookPalette);
+    return appendCompleteLookPaletteDirection(primaryColor && !isNoneLikeItem(primaryColor) ? `${primaryColor.en} ${visualBase}` : visualBase, completeLookPalette);
   }
 
   const materializedBase = materializeOutfitColorControls(base, {
@@ -7292,6 +7392,13 @@ function projectDressIdentityFragment(fragment, projection) {
     .trim();
 }
 
+function projectBottomIdentityFragment(fragment, projection) {
+  if (!fragment || projection?.bucket !== COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) return fragment;
+  const normalized = stripMarkdown(fragment).replace(/\s+/g, ' ').trim();
+  if (!normalized || /\b(?:lower crop edge|lower edge of the crop)\b/i.test(normalized)) return normalized;
+  return `${normalized} at the lower crop edge`;
+}
+
 function filterCompleteLookPromptForFraming(value, context) {
   const projection = getCompositionVisibilityProjection(context);
   const text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
@@ -7326,7 +7433,13 @@ function filterCompleteLookPromptForFraming(value, context) {
         continue;
       }
       if (!shouldProjectWardrobeRole(projection, role, fragment)) continue;
-      buckets[role].push(role === 'dress' ? projectDressIdentityFragment(fragment, projection) : fragment);
+      buckets[role].push(
+        role === 'dress'
+          ? projectDressIdentityFragment(fragment, projection)
+          : role === 'bottom'
+            ? projectBottomIdentityFragment(fragment, projection)
+            : fragment
+      );
     }
   }
 
@@ -7377,7 +7490,9 @@ function filterZImageWardrobeAddonForFraming(value, context, roleOverride = '') 
   const text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
   if (!text) return '';
   const role = roleOverride || classifyCompleteLookWardrobeFragment(text);
-  return shouldKeepWardrobeRoleForContext(role, context, text) ? text : '';
+  return shouldKeepWardrobeRoleForContext(role, context, text)
+    ? (role === 'bottom' ? projectBottomIdentityFragment(text, getCompositionVisibilityProjection(context)) : text)
+    : '';
 }
 
 function cleanVisibilityFilteredText(value) {
@@ -8159,9 +8274,12 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   const compositionVisibilityProjection = getCompositionVisibilityProjection(context);
   const hideWardrobeForFaceDetail = shouldHideWardrobeSectionForProjection(compositionVisibilityProjection);
   const usesPartialWardrobeProjection = !isCompleteWardrobeProjection(compositionVisibilityProjection);
-  const projectWardrobeRole = (role, value) => (
-    value && shouldProjectWardrobeRole(compositionVisibilityProjection, role, value) ? value : ''
-  );
+  const projectWardrobeRole = (role, value) => {
+    if (!value || !shouldProjectWardrobeRole(compositionVisibilityProjection, role, value)) return '';
+    return role === 'bottom'
+      ? projectBottomIdentityFragment(value, compositionVisibilityProjection)
+      : value;
+  };
   const sceneProtectedWardrobeMode = !specialSubjectMode
     && !hasDuoSceneAnchor
     && Boolean(
@@ -12085,14 +12203,23 @@ function buildAiCharacterCardAccessoryText(value, context) {
 }
 
 function buildAiNormalWardrobeText(valuesByLabel, context) {
+  const outerwear = firstStructuredValue(valuesByLabel, ['Outerwear']);
+  const visibleOuterwear = shouldKeepWardrobeRoleForContext('outerwear', context, outerwear)
+    ? compactAiGarmentValue(outerwear, 'outerwear')
+    : '';
+  const withVisibleOuterwear = (mainWardrobe) => uniqueAiWardrobeValues([
+    visibleOuterwear,
+    mainWardrobe,
+  ]).join(', ');
+
   const specialOutfit = firstStructuredValue(valuesByLabel, ['Special Outfit']);
-  if (specialOutfit) return buildAiCompleteLookCoreText(specialOutfit, context);
+  if (specialOutfit) return withVisibleOuterwear(buildAiCompleteLookCoreText(specialOutfit, context));
 
   const outfitPreset = firstStructuredValue(valuesByLabel, ['Outfit Preset']);
-  if (outfitPreset) return buildAiCompleteLookCoreText(outfitPreset, context);
+  if (outfitPreset) return withVisibleOuterwear(buildAiCompleteLookCoreText(outfitPreset, context));
 
   const dress = firstStructuredValue(valuesByLabel, ['Dress']);
-  if (dress) return buildAiCompleteLookCoreText(dress, context);
+  if (dress) return withVisibleOuterwear(buildAiCompleteLookCoreText(dress, context));
 
   const roleByLabel = {
     Outerwear: 'outerwear',
@@ -12257,6 +12384,30 @@ function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 4 } 
   return sceneText ? ensureTerminalPeriod(`In ${sceneText}`) : '';
 }
 
+function buildAiFreedomLightingText(valuesByLabel, { compact = false } = {}) {
+  const ambient = compactAiSourceText(compactPromptClauses(
+    firstStructuredValue(valuesByLabel, ['Ambient Light Conditions']),
+    compact ? 1 : 2
+  ));
+  const subjectLight = compactAiSourceText(compactPromptClauses(
+    firstStructuredValue(valuesByLabel, ['Subject Light Style']),
+    compact ? 1 : 3
+  ));
+  return [ambient, subjectLight].filter(Boolean).join(', ');
+}
+
+function buildAiFreedomSceneWithLightingSentence(
+  valuesByLabel,
+  context,
+  { maxSceneClauses = 4, compactLighting = false } = {}
+) {
+  const scene = buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses: maxSceneClauses });
+  const lighting = buildAiFreedomLightingText(valuesByLabel, { compact: compactLighting });
+  if (!scene) return lighting ? ensureTerminalPeriod(lighting) : '';
+  if (!lighting) return scene;
+  return ensureTerminalPeriod(`${scene.replace(/[.!?]+$/g, '')}, lit by ${lighting}`);
+}
+
 function buildAiFreedomImagingSentence(valuesByLabel, { compact = false } = {}) {
   const styleText = firstStructuredValue(valuesByLabel, ['Photography Style']);
   const style = styleText.match(/Inspired by [^.]+? image language/i)?.[0] || compactPromptClauses(styleText, 1);
@@ -12302,9 +12453,15 @@ function renderAiPrompt(promptModel) {
       || firstStructuredValue(valuesByLabel, ['Dress'])
     ),
   });
-  const fullSceneText = buildAiFreedomSceneSentence(valuesByLabel, context);
-  const compactSceneText = buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses: 2 });
-  const minimalSceneText = buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses: 1 });
+  const fullSceneText = buildAiFreedomSceneWithLightingSentence(valuesByLabel, context);
+  const compactSceneText = buildAiFreedomSceneWithLightingSentence(valuesByLabel, context, {
+    maxSceneClauses: 2,
+    compactLighting: true,
+  });
+  const minimalSceneText = buildAiFreedomSceneWithLightingSentence(valuesByLabel, context, {
+    maxSceneClauses: 1,
+    compactLighting: true,
+  });
   const fullImagingText = buildAiFreedomImagingSentence(valuesByLabel);
   const compactImagingText = buildAiFreedomImagingSentence(valuesByLabel, { compact: true });
   const sceneReductions = isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))
@@ -12832,16 +12989,25 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     ? selectedFixedCompositionSet
     : null;
   const locationForLightingCompatibility = fixedSetLightingCompatibilityAnchor || (hasImportedWorldSceneArchitecture ? null : location);
-  const lighting = pickCompatible(
+  // A fixed composition set owns its environment contract. Outside that
+  // explicit mode, preserve a concrete user lighting lock and use the
+  // compatibility predicate only for random resolution.
+  const pickLighting = !fixedCompositionSetActive && effectiveLocks.lightingId && !isRandomLockValue(effectiveLocks.lightingId)
+    ? pickLocked
+    : pickCompatible;
+  const lighting = pickLighting(
     runtime.flatCatalog.lighting,
     effectiveLocks.lightingId,
     (item) => (locationForLightingCompatibility ? locationSupportsLighting(locationForLightingCompatibility, item) : true),
     sample,
     ['lightingId'],
   );
+  const pickLightDirection = !fixedCompositionSetActive && effectiveLocks.lightDirectionId && !isRandomLockValue(effectiveLocks.lightDirectionId)
+    ? pickLocked
+    : pickCompatible;
   const lightDirection = !lighting
     ? null
-    : pickCompatible(
+    : pickLightDirection(
       runtime.flatCatalog.lightDirection,
       effectiveLocks.lightDirectionId,
       (item) => lightDirectionSupportsScene(item, framing, locationForLightingCompatibility, lighting),
@@ -12857,10 +13023,13 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     ['filmId', 'cameraSystemId'],
   );
   const cameraSystem = getLegacyCameraSystemFromImaging(film);
-  const opticalEffect = pickLocked(
+  const pickOpticalEffect = effectiveLocks.opticalEffectId && !isRandomLockValue(effectiveLocks.opticalEffectId)
+    ? pickLocked
+    : pickCompatible;
+  const opticalEffect = pickOpticalEffect(
     runtime.flatCatalog.effects,
     effectiveLocks.opticalEffectId,
-    () => true,
+    (item) => opticalEffectSupportsFilm(item, film),
     sample,
     ['opticalEffectId'],
   );

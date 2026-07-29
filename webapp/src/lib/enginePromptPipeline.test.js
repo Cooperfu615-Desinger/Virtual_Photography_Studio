@@ -859,7 +859,7 @@ test('Gpt single-subject prompt preserves full-fidelity outfit preset and dress 
   assert.match(openButtonSet.wardrobe, /upper buttons left open, remaining front buttons fastened under tension/i);
   assert.match(openButtonSet.wardrobe, /visible button placket pulling at the chest and waist, horizontal fabric wrinkles across the bust and midriff/i);
   assert.match(openButtonSet.wardrobe, /tight bodycon mini skirt, smooth hip-hugging skirt silhouette/i);
-  assert.match(openButtonSet.wardrobe, /dominant fabric color controlled by the outfit color selection/i);
+  assert.doesNotMatch(openButtonSet.wardrobe, /controlled by the outfit color selection/i);
   assert.doesNotMatch(openButtonSet.prompt.zImagePrompt, /remaining front buttons fastened under tension/i);
 
   const sleevelessDress = buildWardrobe({
@@ -1002,8 +1002,9 @@ test('Gpt duo subject role wardrobes preserve color-control metadata and punctua
   const subject = gptSection(prompt, 'Subject');
 
   assert.equal(gptSection(prompt, 'Wardrobe'), '');
-  assert.match(subject, /Woman 1:\nHas [\s\S]*\. Wears gold leopard-pattern strapless corset top, lace bust cups, long front ribbon ties, low-rise flared jeans, platform sandals, dominant fabric color controlled by the outfit color selection\./);
-  assert.match(subject, /Woman 2:\nHas [\s\S]*\. Wears dark brown sheer mesh halter camisole, visible lace bra layer, denim micro mini skirt, stacked waist jewelry, platform sandals, dominant fabric color controlled by the outfit color selection\./);
+  assert.match(subject, /Woman 1:\nHas [\s\S]*\. Wears gold leopard-pattern strapless corset top, lace bust cups, long front ribbon ties, low-rise flared jeans, platform sandals\./);
+  assert.match(subject, /Woman 2:\nHas [\s\S]*\. Wears dark brown sheer mesh halter camisole, visible lace bra layer, denim micro mini skirt, stacked waist jewelry, platform sandals\./);
+  assert.doesNotMatch(subject, /controlled by the outfit color selection/i);
   assert.doesNotMatch(subject, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors|keep each woman styling visually separate/i);
   assert.doesNotMatch(subject, /distinct outfit-visible editorial|complete wardrobe visible on both women|visible torso and wardrobe details|no headshot-only crop/i);
 });
@@ -1161,8 +1162,8 @@ test('Grok/Z-Image and AI keep selected lighting and camera controls with model-
   assert.doesNotMatch(prompt.zImagePrompt, /warm-neutral daylight spread|mellow exterior brightness|no sunset or sky cues/i);
   assert.doesNotMatch(prompt.zImagePrompt, /high-key minimalist portraiture|generous negative space|flattened spatial layers|distant working distance|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
 
-  assert.doesNotMatch(prompt.midjourneyPrompt, /indoor late-afternoon daylight/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /warm honey-amber subject light/i);
+  assert.match(prompt.midjourneyPrompt, /indoor late-afternoon daylight environment/i);
+  assert.match(prompt.midjourneyPrompt, /warm golden-amber subject light color/i);
   assert.match(prompt.midjourneyPrompt, /Inspired by Osamu Yokonami, high-key minimalist image language/i);
   assert.match(prompt.midjourneyPrompt, /135mm long telephoto lens/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /soft foreground occlusion/i);
@@ -1544,7 +1545,7 @@ test('AI prompt keeps two-piece outfit preset garments while omitting palette co
     poseId: optionId('poseId', '坐姿｜微微前傾'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /Wearing tight long-sleeve button-up shirt outfit, tight bodycon mini skirt/i);
+  assert.match(prompt.midjourneyPrompt, /Wearing tight long-sleeve button-up shirt outfit, tight bodycon mini skirt at the lower crop edge/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /wearing a (?:white|black) tight long-sleeve button-up shirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /tight long-sleeve button-up shirt and (?:white|black) bodycon mini skirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /coordinated top-to-bottom palette|upper\/main garment|lower or secondary garment/i);

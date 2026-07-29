@@ -147,7 +147,12 @@ test('reference outfit presets 27 to 38 preserve complete styling anchors and im
       assert.match(text, pattern);
     });
 
-    assert.match(text, /controlled by the outfit color selection/i);
+    if (label === '套裝：拼接掛脖長背心漆皮短褲') {
+      assert.match(text, /long pointed draped hem/i);
+      assert.doesNotMatch(text, /controlled by the outfit color selection/i);
+    } else {
+      assert.match(text, /controlled by the outfit color selection/i);
+    }
     assert.doesNotMatch(text, /side sash|側邊垂墜薄紗片|側邊腰帶/i);
     assert.equal(option.meta.referenceImage, referenceImage);
     assert.equal(option.meta.referenceImageFormat, 'avif');

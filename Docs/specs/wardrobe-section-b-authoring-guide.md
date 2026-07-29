@@ -142,7 +142,7 @@ complete outfit: relaxed vintage band streetwear. faded oversized graphic T-shir
 
 Prompt 規則：
 
-- 不寫死主色，使用 `dominant fabric color controlled by the outfit color selection` 或相近語氣。
+- 不寫死主色，也不要把 `controlled by the outfit color selection` 這類內部控制語寫進公開 prompt。資料只描述服裝本體；runtime 會依已選色票輸出實際色彩，未選色時不補控制語。
 - 可以描述輪廓、材質、職業制服元素、帽子或核心識別物。
 - 工作套裝可以包含對應帽子、領口、裙褲形式或制服結構。
 - 不自帶人物身份、場景、工作場所或職業行為。
