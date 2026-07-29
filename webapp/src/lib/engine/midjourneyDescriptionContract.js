@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.4.0';
+export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.5.0';
 
 /**
  * Target contract for the Midjourney-native descriptive content that appears
@@ -76,6 +76,23 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
     wardrobeVisibility: 'reuse composition projection',
     fixedComposition: 'reuse fixed-set source projection',
     derivedPromptParameters: 'forbidden',
+  },
+  completion: {
+    blockingGate: 'midjourneyCompletionGate.test.js',
+    requiredConsumers: [
+      'engine',
+      'promptOutputContracts',
+      'page1GenerationCards',
+      'dllPromptSources',
+      'standardPromptImport',
+      'favoritesV3',
+      'savedCardsMarkdown',
+    ],
+    historicalPrimaryFields: {
+      Gpt: 'grokPrompt',
+      'Grok/Z-Image': 'zImagePrompt',
+      AI: 'midjourneyPrompt',
+    },
   },
   rollout: {
     phase1: {

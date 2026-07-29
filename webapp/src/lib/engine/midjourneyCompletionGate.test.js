@@ -19,6 +19,15 @@ import {
   generatePrompts,
   getLockControls,
 } from '../engine.js';
+import {
+  AI_PROMPT_LENGTH_CONTRACT,
+  countAiPromptWords,
+} from './aiPromptLengthContract.js';
+import {
+  MIDJOURNEY_DESCRIPTION_CONTRACT,
+  MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION,
+} from './midjourneyDescriptionContract.js';
+import { MIDJOURNEY_DESCRIPTION_FIXTURES } from './midjourneyDescriptionFixtures.js';
 import { MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES } from './midjourneyNativeStructureFixtures.js';
 import { MIDJOURNEY_PARAMETER_CONTRACT } from './midjourneyParameterContract.js';
 import { MIDJOURNEY_PARAMETER_FIXTURES } from './midjourneyParameterFixtures.js';
@@ -242,4 +251,69 @@ test('phase 6 keeps the canonical pose verbatim in all three primary outputs', (
     MIDJOURNEY_PARAMETER_CONTRACT.compatibility.preserveCanonicalPoseVerbatim,
     true
   );
+});
+
+test('description phase 6 freezes direct syntax, budgets, mappings, and downstream consumers', () => {
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.5.0');
+  assert.equal(
+    MIDJOURNEY_DESCRIPTION_CONTRACT.completion.blockingGate,
+    'midjourneyCompletionGate.test.js'
+  );
+  assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.completion.requiredConsumers, [
+    'engine',
+    'promptOutputContracts',
+    'page1GenerationCards',
+    'dllPromptSources',
+    'standardPromptImport',
+    'favoritesV3',
+    'savedCardsMarkdown',
+  ]);
+  assert.deepEqual(
+    MIDJOURNEY_DESCRIPTION_CONTRACT.completion.historicalPrimaryFields,
+    {
+      Gpt: 'grokPrompt',
+      'Grok/Z-Image': 'zImagePrompt',
+      AI: 'midjourneyPrompt',
+    }
+  );
+
+  for (const parameterFixture of MIDJOURNEY_PARAMETER_FIXTURES) {
+    const { prompt } = generateFixture(parameterFixture);
+    const target = MIDJOURNEY_DESCRIPTION_FIXTURES.find(
+      (fixture) => fixture.id === parameterFixture.id
+    );
+    assert.ok(target, `${parameterFixture.id}: description target`);
+
+    const description = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
+    assert.equal(
+      hashPrompt(description),
+      target.phase5DescriptionHash,
+      `${parameterFixture.id}: accepted description`
+    );
+    assert.ok(
+      description.startsWith(target.phase2Opening),
+      `${parameterFixture.id}: direct image identity`
+    );
+    assert.doesNotMatch(description, /^Create an? /, `${parameterFixture.id}: imperative opening`);
+    assert.doesNotMatch(description, /\n/, `${parameterFixture.id}: one text block`);
+    assert.doesNotMatch(
+      description,
+      /\b(?:Woman 1|Woman 2|Pose|Scene|Lighting|Camera Look):/,
+      `${parameterFixture.id}: no AI section labels`
+    );
+
+    const budgetKey = parameterFixture.id === 'duo-balanced'
+      ? 'duo'
+      : parameterFixture.id === 'character-card-hd'
+        ? 'characterCard'
+        : parameterFixture.id.startsWith('complete-look')
+          || parameterFixture.id.startsWith('fixed-')
+          ? 'completeLook'
+          : 'normal';
+    assert.ok(
+      countAiPromptWords(prompt.midjourneyPrompt)
+        <= AI_PROMPT_LENGTH_CONTRACT.budgets[budgetKey].softMaxWords,
+      `${parameterFixture.id}: ${budgetKey} soft max`
+    );
+  }
 });

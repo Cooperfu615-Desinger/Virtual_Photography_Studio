@@ -335,6 +335,8 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 雙人 AI 不再使用 `Woman 1:`、`Woman 2:`、`Pose:`、`Scene:`、`Lighting:` 或 `Camera Look:` 標籤，固定改為 `Two 20-year-old Japanese or Korean women.`、`First woman, ...`、`Second woman, ...` 與後續直接句。角色與服裝仍必須一一綁定，Gpt 與 Grok/Z-Image 的既有雙人標籤不變。AI 長度契約新增雙人目標 160 words／soft max 180 words；一般、完整造型與 Character Card 預算不變。固定構圖仍按人物、服裝、姿勢、場景與成像順序輸出，且不得洩漏 fixed-set 控制語。
 
+第六階段不再改寫 renderer。`midjourneyCompletionGate.test.js` 將七組 deterministic 描述 target 升級為阻擋式完成閘門，逐一驗證直接成品身份、單一文字區塊、禁止 AI section labels、對應長度政策、歷史三欄位映射、六組公開輸出契約、PAGE1 Generation Cards、DLL Prompt Sources、Standard Prompt 匯入、Favorites v3 與 Saved Cards Markdown。Pose Composer 仍逐字共用 canonical pose，三組固定景別輸出仍不附加 MJ 參數。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

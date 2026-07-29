@@ -66,7 +66,7 @@ function generateFixture(target) {
 }
 
 test('Midjourney description contract freezes the approved six-phase target', () => {
-  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.4.0');
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.5.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_DESCRIPTION_CONTRACT));
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt']);
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.structure.sectionOrder, [
