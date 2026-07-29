@@ -66,7 +66,7 @@ function generateFixture(target) {
 }
 
 test('Midjourney description contract freezes the approved six-phase target', () => {
-  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.3.0');
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.4.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_DESCRIPTION_CONTRACT));
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt']);
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.structure.sectionOrder, [
@@ -113,7 +113,7 @@ test('phase-1 targets cover every image type and representative compatibility mo
   }
 });
 
-test('phase 4 freezes the direct pose, scene, lighting, and imaging structure', () => {
+test('phase 5 freezes direct special modes and the accepted compact structure', () => {
   for (const target of MIDJOURNEY_DESCRIPTION_FIXTURES) {
     const prompt = generateFixture(target);
     const description = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
@@ -121,7 +121,8 @@ test('phase 4 freezes the direct pose, scene, lighting, and imaging structure', 
     assert.match(target.phase1DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: legacy baseline`);
     assert.match(target.phase2DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: phase 2`);
     assert.match(target.phase3DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: phase 3`);
-    assert.equal(hashPrompt(description), target.phase4DescriptionHash, `${target.id}: phase 4`);
+    assert.match(target.phase4DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: phase 4`);
+    assert.equal(hashPrompt(description), target.phase5DescriptionHash, `${target.id}: phase 5`);
     assert.ok(description.startsWith(target.phase2Opening), `${target.id}: direct opening`);
     assert.doesNotMatch(description, /^Create an? /, `${target.id}: no imperative opening`);
   }

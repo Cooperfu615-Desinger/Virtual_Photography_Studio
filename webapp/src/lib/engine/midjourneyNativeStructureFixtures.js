@@ -1,8 +1,9 @@
 /**
  * Current Midjourney-native structure targets.
  *
- * Phase 4 uses direct scene, lighting, style, and lens phrases while preserving
- * the canonical pose verbatim. The parameter tail remains outside the hash.
+ * Phase 5 also freezes direct Character Card and duo descriptions while
+ * preserving the canonical pose verbatim. The parameter tail remains outside
+ * the hash.
  */
 export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   {
@@ -22,13 +23,13 @@ export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   },
   {
     id: 'character-card-hd',
-    expectedDescriptionHash: '5b3787d8dc58674009a21a9e3b2ca5a00073a722fabd51c661cf003c35c6d1aa',
-    expectedWords: 122,
+    expectedDescriptionHash: '511fedb11f40cb6c2cd0ba4a99496a6b623744e01cd5fa3278871b3374277758',
+    expectedWords: 120,
   },
   {
     id: 'duo-balanced',
-    expectedDescriptionHash: '77db41da7c8d0f8dffbab6602d8166a5d285501ee41aa382e81974a834d3f69f',
-    expectedWords: 182,
+    expectedDescriptionHash: '867409b4519f05ecef9e4f87456f85303936e53f1d0d1318e43878f07ec23baf',
+    expectedWords: 179,
   },
   {
     id: 'fixed-special-creative',

@@ -99,8 +99,8 @@ test('phase-6 integration gate preserves mappings, selections, contracts, anchor
 
 test('phase-6 gate records the approved single/duo and immutable-section boundaries', () => {
   assert.deepEqual(AI_PROMPT_LENGTH_CONTRACT.applicability, {
-    supportedModes: ['single'],
-    excludedModes: ['duo'],
+    supportedModes: ['single', 'duo'],
+    excludedModes: [],
   });
   assert.deepEqual(AI_PROMPT_LENGTH_CONTRACT.immutableSections, [
     'imageType',

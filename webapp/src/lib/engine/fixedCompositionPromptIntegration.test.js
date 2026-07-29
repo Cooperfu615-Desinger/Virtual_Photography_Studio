@@ -39,6 +39,7 @@ const WARDROBE_CASES = [
     },
     selectedKeys: ['outfitPresetId'],
     wardrobeAnchor: /Parisian linen trouser outfit/i,
+    aiWardrobeAnchor: /Parisian linen trouser/i,
   },
   {
     id: 'dress',
@@ -149,7 +150,7 @@ for (const promptCase of WARDROBE_CASES) {
     assertNaturalOutputOrder(
       prompt.midjourneyPrompt,
       MIDJOURNEY_SUBJECT_ANCHOR,
-      promptCase.wardrobeAnchor,
+      promptCase.aiWardrobeAnchor || promptCase.wardrobeAnchor,
       canonicalPose,
       'midjourneyPrompt',
       promptCase.id

@@ -239,7 +239,7 @@ Grok/Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而�
 
 #### 已實作：AI 自由導向的來源可追溯極簡版
 
-本規則先適用於 PAGE1 單人模式；雙人 AI 維持既有輕量標籤格式，待另行討論。AI 必須使用和 Gpt／Grok-Z 相同的 resolved selections，但它的目的不是保留所有控制，而是在大方向不變下保留更多模型自由度。
+本規則適用於 PAGE1 單人與雙人模式。AI 必須使用和 Gpt／Grok-Z 相同的 resolved selections，但它的目的不是保留所有控制，而是在大方向不變下保留更多模型自由度。雙人使用 `First woman`／`Second woman` 直接句維持角色歸屬，不使用區塊標籤。
 
 AI renderer 只可刪除、重排與使用最小語法連接既有內容；不得以關鍵字映射、風格 shorthand、攝影 mood tail、負面 guard 或預設 fallback 補寫新語意。不得以「取前 N 個 fragment」任意截斷選項內容；應按欄位責任挑選需要保留的核心。
 
@@ -262,11 +262,12 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 #### AI Prompt 長度優化（第一階段契約）
 
-第一階段只建立機器可讀長度契約、deterministic 最壞案例 fixtures 與基準測試，不修改公開 Prompt。契約只適用 PAGE1 單人 `midjourneyPrompt`；雙人 AI 維持既有輕量標籤格式，不納入本輪字數預算。
+第一階段只建立機器可讀長度契約、deterministic 最壞案例 fixtures 與基準測試，不修改公開 Prompt。後續 Midjourney 描述優化第五階段已將雙人 AI 納入獨立字數政策。
 
 - 一般單人目標 110 words，soft max 130。
 - 套裝、特殊穿搭與連身服目標 115 words，soft max 130。
 - Character Card 目標 150 words，soft max 170。
+- 雙人目標 160 words，soft max 180。
 - 成品類型、共用構圖句與 projected canonical pose 是不可壓縮區塊；Pose Composer 文字必須繼續和 Gpt／Grok-Z 完全一致。
 - 不可用字元截斷、單純取前 N words 或留下殘句。後續只能按完整語意片段進行來源可追溯的刪減。
 - Character Card 的結構化五官、身形、髮型、有效眼鏡／耳機與四個永久身份錨點仍是必要內容；字數預算不能取代身份穩定契約。
@@ -329,6 +330,10 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 第三階段將一般單人的 AI 人物開頭改為直接視覺身份 `20s Japanese or Korean woman, seductive editorial presence`，不再沿用 Grok/Z-Image 的 `A 20s seductive stunning...` 跨模型固定句。Body Type 的數值與區域錨點、髮型、髮色、眼鏡及耳機仍依同一 resolved selection 保留；Gpt 與 Grok/Z-Image 的人物文字不變。服裝繼續沿用共用構圖可見性投影，但同一服裝句中的 `at the lower crop edge` 只能出現一次，避免可見邊界重複搶權重。角色卡、雙人及特殊模式的專屬壓縮規則留在第五階段處理。
 
 第四階段保持 projected canonical pose 逐字不變，並把 AI 的場景、光線與成像改為直接視覺描述。場景句不再加 `In`，場景與光線分成相鄰完整句，避免 `In ..., lit by ...` 長鏈；攝影風格使用 `<photographer>-inspired <image language>`，鏡頭移除 `shot on` 後直接輸出焦段／鏡頭身份。所有文字仍須可追溯到原 resolved selection，不得新增景深或其他未選視覺事實；Gpt、Grok/Z-Image 與固定景別輸出維持原本連接語法。
+
+第五階段將相同直接式結構套用到 Character Card、套裝／特殊穿搭／連身服、雙人與固定構圖。Character Card 以 `20-year-old East Asian woman` 作為直接主體，完整保留四個 permanent identity anchors、投影後身形、髮型與有效配件；髮型變體移除 `keep／add／without changing` 等內部操作句，只輸出實際可見變化。完整造型只移除片語末端多餘的類別字 `outfit`，不得刪除具名服裝或穿著結構。
+
+雙人 AI 不再使用 `Woman 1:`、`Woman 2:`、`Pose:`、`Scene:`、`Lighting:` 或 `Camera Look:` 標籤，固定改為 `Two 20-year-old Japanese or Korean women.`、`First woman, ...`、`Second woman, ...` 與後續直接句。角色與服裝仍必須一一綁定，Gpt 與 Grok/Z-Image 的既有雙人標籤不變。AI 長度契約新增雙人目標 160 words／soft max 180 words；一般、完整造型與 Character Card 預算不變。固定構圖仍按人物、服裝、姿勢、場景與成像順序輸出，且不得洩漏 fixed-set 控制語。
 
 ## 2. GPT 完整保留與壓縮分流原則
 

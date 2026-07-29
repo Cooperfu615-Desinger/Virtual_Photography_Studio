@@ -51,6 +51,7 @@ export const FIXED_FRAMING_PHASE6_SINGLE_MATRIX = deepFreeze([
       locationId: '室內：Y2K 復古房間',
     },
     primaryIncludes: ['Parisian linen trouser outfit', 'high-waisted wide-leg trousers'],
+    aiPrimaryIncludes: ['Parisian linen trouser', 'high-waisted wide-leg trousers'],
     primaryExcludes: [],
     facialIncludes: ['silk camisole'],
     facialExcludes: ['high-waisted wide-leg trousers'],

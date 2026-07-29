@@ -65,6 +65,8 @@ test('phase 2 applies the same direct opening and sentence boundary to duo AI', 
   assert.ok(description.startsWith(fixture.expected));
   assert.doesNotMatch(description, /^Create an? /);
   assert.match(description, /Waist-up portrait, high angle, looking down, front view\./);
-  assert.match(description, /Woman 1:/);
-  assert.match(description, /Woman 2:/);
+  assert.match(description, /Two 20-year-old Japanese or Korean women\./);
+  assert.match(description, /First woman,/);
+  assert.match(description, /Second woman,/);
+  assert.doesNotMatch(description, /\bWoman [12]:/);
 });

@@ -71,15 +71,6 @@ const DUO_Z_IMAGE_LABELS = [
   'Camera Look',
 ];
 
-const DUO_AI_LABELS = [
-  'Woman 1',
-  'Woman 2',
-  'Pose',
-  'Scene',
-  'Lighting',
-  'Camera Look',
-];
-
 function deepFreeze(value) {
   if (!value || typeof value !== 'object' || Object.isFrozen(value)) return value;
   Object.freeze(value);
@@ -87,7 +78,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.3.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.4.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -251,10 +242,23 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
         duo: {
           requiredPrefix: '',
           requiredPrefixes: Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings),
-          requiredLabels: ['Woman 1', 'Woman 2', 'Pose'],
-          optionalLabels: DUO_AI_LABELS.filter((label) => !['Woman 1', 'Woman 2', 'Pose'].includes(label)),
-          forbiddenLabels: ['Image Type', 'Subject', 'Wardrobe', 'Shared Expression', 'Pose and Composition', 'Constraints'],
-          orderedLabels: DUO_AI_LABELS,
+          requiredLabels: [],
+          optionalLabels: [],
+          forbiddenLabels: [
+            'Image Type',
+            'Subject',
+            'Wardrobe',
+            'Woman 1',
+            'Woman 2',
+            'Shared Expression',
+            'Pose and Composition',
+            'Pose',
+            'Scene',
+            'Lighting',
+            'Camera Look',
+            'Constraints',
+          ],
+          orderedLabels: [],
         },
       },
     },

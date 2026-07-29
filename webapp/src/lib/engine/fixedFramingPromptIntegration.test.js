@@ -125,7 +125,10 @@ test('phase-6 current main framings preserve one resolved source across all six 
     );
 
     for (const field of PRIMARY_FIELDS) {
-      assertFragments(prompt[field], fixture.primaryIncludes, true, `${fixture.id}.${field}`);
+      const primaryIncludes = field === 'midjourneyPrompt'
+        ? fixture.aiPrimaryIncludes || fixture.primaryIncludes
+        : fixture.primaryIncludes;
+      assertFragments(prompt[field], primaryIncludes, true, `${fixture.id}.${field}`);
       assertFragments(prompt[field], fixture.primaryExcludes, false, `${fixture.id}.${field}`);
     }
     assertFragments(extraText(prompt, 'facial-closeup-portrait'), fixture.facialIncludes, true, `${fixture.id}.facial`);

@@ -11960,20 +11960,23 @@ function buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role) {
   const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
   const roleText = role === 'a' ? roleTexts.woman1 : roleTexts.woman2;
   const fragments = isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))
-    ? splitAiDuoCompactFragments(roleText).slice(0, 7)
+    ? splitAiDuoCompactFragments(roleText).slice(0, 6)
     : splitAiDuoCompactFragments(buildAiCompleteLookCoreText(roleText, context));
 
-  return fragments.length > 0 ? `Wears ${fragments.join(', ')}` : '';
+  return fragments.join(', ');
 }
 
 function buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, role) {
   const roleNumber = role === 'a' ? '1' : '2';
-  const bodyText = cleanAiDuoCompactText(firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Body Type`]))
-    .replace(new RegExp(`^woman ${roleNumber} has\\s+`, 'i'), '');
+  const bodyText = stripTerminalPromptPunctuation(
+    cleanAiDuoCompactText(firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Body Type`]))
+      .replace(new RegExp(`^woman ${roleNumber} has\\s+`, 'i'), '')
+  );
+  const wardrobeText = buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role);
   return [
-    bodyText ? `Has ${bodyText}` : '',
-    buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role),
-  ].filter(Boolean).join(' ');
+    bodyText,
+    wardrobeText ? `wearing ${wardrobeText}` : '',
+  ].filter(Boolean).join(', ');
 }
 
 function buildAiDuoPoseText(valuesByLabel) {
@@ -12004,7 +12007,7 @@ function buildAiDuoCameraLookText(valuesByLabel, context) {
   const styleText = context.style && !isNoneLikeItem(context.style)
     ? compactZImagePhotographyStyleText(context.style)
     : compactAiStyleText(getStructuredValues(valuesByLabel, ['Photography Style']).join(', '));
-  const duoStyleText = styleText.replace(/^Inspired by [^,]+,\s*/i, '');
+  const duoStyleText = styleText.replace(/^Inspired by ([^,]+),\s*/i, '$1-inspired ');
   const lensText = compactAiLensText(getStructuredValues(valuesByLabel, ['Lens']).join(', '));
   const apertureText = compactPromptClauses(getStructuredValues(valuesByLabel, ['Aperture / Depth of Field']).join(', '), 1);
   const shutterText = compactPromptClauses(getStructuredValues(valuesByLabel, ['Shutter / Motion Blur']).join(', '), 1);
@@ -12014,21 +12017,24 @@ function buildAiDuoCameraLookText(valuesByLabel, context) {
   return [duoStyleText, lensText, apertureText, shutterText, opticalText, filmText].filter(Boolean).join(', ');
 }
 
-function buildAiDuoSection(label, value) {
-  const cleaned = ensureTerminalPeriod(cleanAiDuoCompactText(value));
-  return cleaned ? `${label}: ${cleaned}` : '';
+function buildAiDuoDirectSentence(value) {
+  const cleaned = cleanAiDuoCompactText(value);
+  return cleaned ? ensureTerminalPeriod(capitalizePromptLead(cleaned)) : '';
 }
 
 function renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors) {
+  const woman1 = buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, 'a');
+  const woman2 = buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, 'b');
   return [
     buildMidjourneyImageTypePromptLine(context),
     ensureTerminalPeriod(buildCompositionPromptLine(context)),
-    buildAiDuoSection('Woman 1', buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, 'a')),
-    buildAiDuoSection('Woman 2', buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, 'b')),
-    buildAiDuoSection('Pose', buildAiDuoPoseText(valuesByLabel)),
-    buildAiDuoSection('Scene', buildAiDuoSceneText(valuesByLabel)),
-    buildAiDuoSection('Lighting', buildAiDuoLightingText(valuesByLabel)),
-    buildAiDuoSection('Camera Look', buildAiDuoCameraLookText(valuesByLabel, context)),
+    'Two 20-year-old Japanese or Korean women.',
+    woman1 ? ensureTerminalPeriod(`First woman, ${woman1}`) : '',
+    woman2 ? ensureTerminalPeriod(`Second woman, ${woman2}`) : '',
+    buildAiDuoDirectSentence(buildAiDuoPoseText(valuesByLabel)),
+    buildAiDuoDirectSentence(buildAiDuoSceneText(valuesByLabel)),
+    buildAiDuoDirectSentence(buildAiDuoLightingText(valuesByLabel)),
+    buildAiDuoDirectSentence(buildAiDuoCameraLookText(valuesByLabel, context)),
   ].filter(Boolean).join('\n\n');
 }
 
@@ -12166,7 +12172,7 @@ function buildAiCompleteLookCoreText(
     const isStyleFragment = /\b(?:styling|outfit)\b/i.test(fragment)
       || (/\blook\b/i.test(fragment) && !/\bwet-look\b/i.test(fragment));
     if (isStyleFragment && !styleFragment) {
-      styleFragment = fragment;
+      styleFragment = fragment.replace(/\s+outfit$/i, '');
       continue;
     }
     if (role && !shouldKeepWardrobeRoleForContext(role, context, fragment)) continue;
@@ -12205,7 +12211,13 @@ function compactAiCharacterCardHairText(baseHair, variantHair = '') {
   const dominantBase = compactAiSourceText(baseHair).match(
     /\b(?:the\s+)?(?:black|brown|blonde|silver|red|auburn|chestnut|raven-black)\s+base remains dominant\b/i
   )?.[0] || '';
-  const variantFragments = splitAiSourceFragments(variantHair);
+  const variantFragments = splitAiSourceFragments(variantHair)
+    .map((fragment) => fragment
+      .replace(/^keep the original hair identity$/i, '')
+      .replace(/^add\s+/i, '')
+      .replace(/\s+without changing the base hair color or haircut$/i, '')
+      .trim())
+    .filter(Boolean);
 
   return uniqueAiWardrobeValues([
     ...baseFragments.slice(0, 2),
@@ -12317,7 +12329,7 @@ function buildAiCharacterCardIdentityText(context, wardrobe) {
     .join(', ');
 
   return [
-    'A 20-year-old adult East Asian woman',
+    '20-year-old East Asian woman',
     compactAiSourceText(fallbackIdentityText),
     hairText,
     eyewearText,

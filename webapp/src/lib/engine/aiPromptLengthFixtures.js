@@ -72,7 +72,7 @@ export const AI_PROMPT_LENGTH_FIXTURES = Object.freeze([
       characterProfileId: 'character-jiwoo',
     },
     requiredFragments: [
-      'A 20-year-old adult East Asian woman',
+      '20-year-old East Asian woman',
       'small heart-oval face with a fine pointed chin',
       'wide-set gray-hazel almond eyes with lifted corners',
       'narrow-bridge rounded-tip nose',
@@ -91,7 +91,7 @@ export const AI_PROMPT_LENGTH_FIXTURES = Object.freeze([
       characterProfileId: 'character-sui',
     },
     requiredFragments: [
-      'A 20-year-old adult East Asian woman',
+      '20-year-old East Asian woman',
       'long narrow heart-oval face with a pointed chin',
       'downturned amber almond eyes with heavy upper lids',
       'natural freckles across cheeks and nose bridge',
@@ -123,7 +123,7 @@ export const AI_PROMPT_LENGTH_FIXTURES = Object.freeze([
     },
     requiredFragments: [
       'small heart-oval face with a fine pointed chin',
-      'keep the original hair identity',
+      'subtle localized highlight streaks',
       'black off-shoulder gothic dress',
       'luxury hotel balcony river-view terrace',
       'glass railing',
@@ -160,8 +160,8 @@ export const AI_PROMPT_LENGTH_FIXTURES = Object.freeze([
     requiredFragments: ['collared shirt'],
   },
   {
-    id: 'duo-excluded-boundary',
-    policy: null,
+    id: 'duo-direct-boundary',
+    policy: 'duo',
     seed: 'ai-length-duo-boundary-v1',
     mode: 'duo',
     locks: {
@@ -171,6 +171,10 @@ export const AI_PROMPT_LENGTH_FIXTURES = Object.freeze([
       duoPoseBaseId: { byZh: '站姿' },
       locationId: { byZh: '室內：英倫復古窗邊房間' },
     },
-    excludedFromBudget: true,
+    requiredFragments: [
+      'Two 20-year-old Japanese or Korean women',
+      'First woman',
+      'Second woman',
+    ],
   },
 ]);

@@ -351,7 +351,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: ['Woman 1:', 'Woman 2:', 'avant-garde blue-gray tailored street look', 'distressed painter-workwear street look'],
       },
       midjourneyPrompt: {
-        includes: ['Woman 1:', 'Woman 2:', 'blue-gray', 'painter-workwear'],
+        includes: ['First woman', 'Second woman', 'blue-gray', 'painter-workwear'],
       },
     },
   },
@@ -458,7 +458,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         excludes: ['fixed-set rule:', 'preserve anchors:'],
       },
       midjourneyPrompt: {
-        includes: ['Parisian linen trouser outfit', 'silk camisole', 'high-waisted wide-leg trousers', 'black velvet sofa'],
+        includes: ['Parisian linen trouser', 'silk camisole', 'high-waisted wide-leg trousers', 'black velvet sofa'],
         excludes: ['fixed-set rule:', 'preserve anchors:'],
       },
     },

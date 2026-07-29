@@ -46,15 +46,15 @@ function generateFixture(fixture) {
 }
 
 test('AI Prompt length contract is frozen serializable policy data', () => {
-  assert.equal(AI_PROMPT_LENGTH_CONTRACT_VERSION, '1.0.0');
+  assert.equal(AI_PROMPT_LENGTH_CONTRACT_VERSION, '1.1.0');
   assert.ok(Object.isFrozen(AI_PROMPT_LENGTH_CONTRACT));
   assert.ok(Object.isFrozen(AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard));
   assert.deepEqual(
     JSON.parse(JSON.stringify(AI_PROMPT_LENGTH_CONTRACT)),
     AI_PROMPT_LENGTH_CONTRACT
   );
-  assert.deepEqual(AI_PROMPT_LENGTH_CONTRACT.applicability.supportedModes, ['single']);
-  assert.deepEqual(AI_PROMPT_LENGTH_CONTRACT.applicability.excludedModes, ['duo']);
+  assert.deepEqual(AI_PROMPT_LENGTH_CONTRACT.applicability.supportedModes, ['single', 'duo']);
+  assert.deepEqual(AI_PROMPT_LENGTH_CONTRACT.applicability.excludedModes, []);
   assert.deepEqual(AI_PROMPT_LENGTH_CONTRACT.immutableSections, [
     'imageType',
     'composition',
@@ -76,12 +76,12 @@ test('AI Prompt length fixtures cover every approved pressure boundary', () => {
     'character-card-half-face-pressure',
     'canonical-pose-pressure',
     'half-face-boundary',
-    'duo-excluded-boundary',
+    'duo-direct-boundary',
   ]);
   assert.equal(AI_PROMPT_LENGTH_FIXTURES.filter((fixture) => fixture.policy === 'normal').length, 3);
   assert.equal(AI_PROMPT_LENGTH_FIXTURES.filter((fixture) => fixture.policy === 'completeLook').length, 3);
   assert.equal(AI_PROMPT_LENGTH_FIXTURES.filter((fixture) => fixture.policy === 'characterCard').length, 3);
-  assert.equal(AI_PROMPT_LENGTH_FIXTURES.filter((fixture) => fixture.excludedFromBudget).length, 1);
+  assert.equal(AI_PROMPT_LENGTH_FIXTURES.filter((fixture) => fixture.policy === 'duo').length, 1);
 });
 
 test('phase-1 AI fixtures are deterministic, contract-valid, and preserve required anchors', () => {
@@ -121,4 +121,5 @@ test('phase-4 resolves complete-look and Character Card pressure within their so
   assert.ok(measurements['complete-look-special'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.completeLook.softMaxWords);
   assert.ok(measurements['character-card-jiwoo'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords);
   assert.ok(measurements['character-card-sui'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords);
+  assert.ok(measurements['duo-direct-boundary'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.duo.softMaxWords);
 });

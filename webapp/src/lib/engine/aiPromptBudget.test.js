@@ -29,12 +29,12 @@ const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
   'complete-look-latex': 'aff7561a0d027d69aa202f9b70741087dd2854786e84c0f9243c4ba0066445c0',
   'complete-look-special': '827a6ca05feb6c12bd4aa599b3f0d74e7002288ae7af90f354c375d61b4e41b1',
   'complete-look-dress': '39876ec22d9a5dea8b131073f32e3537296fbe7c3c147f09762b962c79b924fb',
-  'character-card-jiwoo': 'b8c4fa19eab7c82c474cc3b65231178ab67e203467406384be758016b184940b',
-  'character-card-sui': 'dbdaebc84aa6dd88532a9bf437eba1150613f7b51843ca27608ea3c45807ee22',
-  'character-card-half-face-pressure': 'c51caed5ccc8c0ec481958335b25a3a8b174a276d115e1f362732236e838a3bc',
+  'character-card-jiwoo': '0ad31bbd5ff874b5f1fab33ca33d14d1cbbf2be2f8049bad3381f292f100557c',
+  'character-card-sui': '8eed128c59475d3c5a79fe62c4f6df8803fcd9ae1b7f7a61c66a7a82181d8a90',
+  'character-card-half-face-pressure': '059533d4f8a21e77f600d02773ae53248c8a54ee59a04698ba0b9c37f9b3ddd8',
   'canonical-pose-pressure': 'cc8f5553b28d716056246d8ea7089ff6ffa1d4a6a4175462c68d771efa98f435',
   'half-face-boundary': '670a27fc44f75f93eff869a4e32952c4e5d247c34c6b3cb4f720195737145331',
-  'duo-excluded-boundary': 'b44a8ac1ee3b38d1a6c6bc8a2fb93da305100f18886d5d5437d2c47172df5157',
+  'duo-direct-boundary': 'ef3ac81ee49cfd478477990624a1442a0b083d662fa066663450c5fab4226b41',
 });
 
 function createAllNoneLocks() {
@@ -133,11 +133,13 @@ test('budget policy selection keeps Character Card precedence and complete-look 
   );
 });
 
-test('Midjourney native structure keeps duo outside the single-subject budget policy', () => {
-  for (const fixture of AI_PROMPT_LENGTH_FIXTURES.filter((entry) => {
-    return entry.excludedFromBudget;
-  })) {
+test('Midjourney native structure applies an explicit budget to duo prompts', () => {
+  for (const fixture of AI_PROMPT_LENGTH_FIXTURES.filter((entry) => entry.policy === 'duo')) {
     const output = generateFixture(fixture).midjourneyPrompt;
+    assert.ok(
+      countAiPromptWords(output) <= AI_PROMPT_LENGTH_CONTRACT.budgets.duo.softMaxWords,
+      `${fixture.id} exceeds the duo budget`
+    );
     const hash = createHash('sha256').update(stripMidjourneyParameterTail(output)).digest('hex');
     assert.equal(hash, MIDJOURNEY_NATIVE_DESCRIPTION_HASHES[fixture.id], fixture.id);
   }

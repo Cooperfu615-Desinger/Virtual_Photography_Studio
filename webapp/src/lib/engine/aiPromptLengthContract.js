@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const AI_PROMPT_LENGTH_CONTRACT_VERSION = '1.0.0';
+export const AI_PROMPT_LENGTH_CONTRACT_VERSION = '1.1.0';
 
 /**
  * Machine-readable budget and preservation policy for the single-subject AI
@@ -16,8 +16,8 @@ export const AI_PROMPT_LENGTH_CONTRACT = deepFreeze({
   field: 'midjourneyPrompt',
   uiLabel: 'AI',
   applicability: {
-    supportedModes: ['single'],
-    excludedModes: ['duo'],
+    supportedModes: ['single', 'duo'],
+    excludedModes: [],
   },
   measurement: {
     unit: 'english-word',
@@ -36,6 +36,10 @@ export const AI_PROMPT_LENGTH_CONTRACT = deepFreeze({
     characterCard: {
       targetWords: 150,
       softMaxWords: 170,
+    },
+    duo: {
+      targetWords: 160,
+      softMaxWords: 180,
     },
   },
   immutableSections: [
@@ -108,4 +112,3 @@ export function countAiPromptWords(value) {
     .match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g)?.length || 0;
 }
 import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
-
