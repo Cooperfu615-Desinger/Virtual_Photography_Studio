@@ -127,7 +127,7 @@ export const AI_PROMPT_LENGTH_FIXTURES = Object.freeze([
       'black off-shoulder gothic dress',
       'luxury hotel balcony river-view terrace',
       'glass railing',
-      'Inspired by Nobuyoshi Araki',
+      'Nobuyoshi Araki-inspired',
       '24mm wide-angle lens',
       'soap-bubble bokeh rendering',
       'high-acutance snapshot rendering',

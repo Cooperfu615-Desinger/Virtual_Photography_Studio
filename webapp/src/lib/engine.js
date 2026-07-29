@@ -12405,7 +12405,7 @@ function buildAiFreedomPoseSentence(context, character) {
 function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 4 } = {}) {
   if (isFixedCompositionSetActive(context?.fixedCompositionSet)) {
     const fixedScene = AI_FIXED_SET_SCENE_PHRASES[context.fixedCompositionSet?.id] || '';
-    return fixedScene ? ensureTerminalPeriod(`In ${compactAiSourceText(fixedScene)}`) : '';
+    return fixedScene ? ensureTerminalPeriod(capitalizePromptLead(compactAiSourceText(fixedScene))) : '';
   }
 
   const sceneSource = context.projectedScene?.worldSceneText
@@ -12430,7 +12430,7 @@ function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 4 } 
     .replace(/\s*,\s*,+/g, ', ')
     .replace(/,\s*\./g, '.')
     .trim();
-  return sceneText ? ensureTerminalPeriod(`In ${sceneText}`) : '';
+  return sceneText ? ensureTerminalPeriod(capitalizePromptLead(sceneText)) : '';
 }
 
 function buildAiFreedomLightingText(valuesByLabel, { compact = false } = {}) {
@@ -12452,17 +12452,27 @@ function buildAiFreedomSceneWithLightingSentence(
 ) {
   const scene = buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses: maxSceneClauses });
   const lighting = buildAiFreedomLightingText(valuesByLabel, { compact: compactLighting });
-  if (!scene) return lighting ? ensureTerminalPeriod(lighting) : '';
+  const lightingSentence = lighting
+    ? ensureTerminalPeriod(capitalizePromptLead(lighting))
+    : '';
+  if (!scene) return lightingSentence;
   if (!lighting) return scene;
-  return ensureTerminalPeriod(`${scene.replace(/[.!?]+$/g, '')}, lit by ${lighting}`);
+  return `${scene} ${lightingSentence}`;
 }
 
 function buildAiFreedomImagingSentence(valuesByLabel, { compact = false } = {}) {
   const styleText = firstStructuredValue(valuesByLabel, ['Photography Style']);
-  const style = styleText.match(/Inspired by [^.]+? image language/i)?.[0] || compactPromptClauses(styleText, 1);
+  const style = (
+    styleText.match(/Inspired by [^.]+? image language/i)?.[0]
+    || compactPromptClauses(styleText, 1)
+  ).replace(/^Inspired by ([^,]+),\s*/i, '$1-inspired ');
+  const lens = compactPromptClauses(
+    firstStructuredValue(valuesByLabel, ['Lens']),
+    compact ? 1 : 2
+  ).replace(/^shot on\s+/i, '');
   const parts = [
     style,
-    compactPromptClauses(firstStructuredValue(valuesByLabel, ['Lens']), compact ? 1 : 2),
+    lens,
     compactPromptClauses(firstStructuredValue(valuesByLabel, ['Optical Effect']), 1),
     compactPromptClauses(firstStructuredValue(valuesByLabel, ['Camera / Film']), compact ? 1 : 2),
   ].map((value) => compactAiSourceText(value)).filter(Boolean);

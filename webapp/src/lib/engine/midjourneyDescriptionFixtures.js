@@ -7,6 +7,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2Opening: 'Photorealistic editorial portrait.',
     phase2DescriptionHash: 'fe5e1bc07ac6e7ea7ba21d04c4ab7f33e002330a0e824ed98200da018a922722',
     phase3DescriptionHash: '32c26bfd9484808a9f930a1338dcbb22880eaa7e20405d1e58791b2acd372444',
+    phase4DescriptionHash: '2ff91c2810fe2ea7bfe2f0ed3df4d63153b8920b61b28561e6ccf7e2b7d03779',
   },
   {
     id: 'complete-look-balanced',
@@ -16,6 +17,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2Opening: 'Photorealistic editorial portrait.',
     phase2DescriptionHash: 'f1584acded9eb5aefa6eaff67faf9a83a3d724cf1a1681aaba7fc2b55b58c3e5',
     phase3DescriptionHash: 'b5583e36cddaf8fb1a93db7a80e75c5ce6ec990c641686e4fa1a6cc6e9ee623a',
+    phase4DescriptionHash: '27d202c7e820d9681ee96f158f065a9891c016931333da42bec06528ff345041',
   },
   {
     id: 'canonical-pose-precise',
@@ -25,6 +27,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2Opening: 'Photorealistic editorial portrait.',
     phase2DescriptionHash: '7423b5ca695b91e88e20b2337df49a0444c2a15b44cef4f0c14c1ea082ec53bf',
     phase3DescriptionHash: '2e7ce1eddae8384d1fdcc1d78e69531fd508d0d8aee47e6ab0589a5007037571',
+    phase4DescriptionHash: '216c391dc7bc618a1e40cfaf2aa0beddae176d1f8cc6fe9798fde790c5149f85',
   },
   {
     id: 'character-card-hd',
@@ -34,6 +37,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2Opening: 'Photorealistic editorial portrait.',
     phase2DescriptionHash: '13713fde7e18f88b22c98c74b5089b08ebd0addfb7fa1aeaad75b8ad077c2dc8',
     phase3DescriptionHash: '13713fde7e18f88b22c98c74b5089b08ebd0addfb7fa1aeaad75b8ad077c2dc8',
+    phase4DescriptionHash: '5b3787d8dc58674009a21a9e3b2ca5a00073a722fabd51c661cf003c35c6d1aa',
   },
   {
     id: 'duo-balanced',
@@ -43,6 +47,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2Opening: 'Photorealistic editorial portrait.',
     phase2DescriptionHash: '77db41da7c8d0f8dffbab6602d8166a5d285501ee41aa382e81974a834d3f69f',
     phase3DescriptionHash: '77db41da7c8d0f8dffbab6602d8166a5d285501ee41aa382e81974a834d3f69f',
+    phase4DescriptionHash: '77db41da7c8d0f8dffbab6602d8166a5d285501ee41aa382e81974a834d3f69f',
   },
   {
     id: 'fixed-special-creative',
@@ -52,6 +57,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2Opening: 'Photorealistic editorial portrait.',
     phase2DescriptionHash: 'ffce0700a504aef15367a8576bc1b9970632687a5bd12856013e5db3e9bc4337',
     phase3DescriptionHash: '19ca8ed3670d9506e712f73184c3c6549cd916d0a50312022ff9b1c5c00a3c55',
+    phase4DescriptionHash: '76aac9542697c39fc97724b2c04416439d89e5bbfad233ad6719d10154b2b497',
   },
   {
     id: 'fixed-dress-v81',
@@ -61,6 +67,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2Opening: 'Photorealistic editorial portrait.',
     phase2DescriptionHash: 'f5cddb3a29259b15400aefacd260d823175a52e07d40bd30d07bc67144eb84e1',
     phase3DescriptionHash: 'ddfd388a7e9116948c063592967ab4ec6c034570c77a302d71480c4a9f2e0d3f',
+    phase4DescriptionHash: '01fadd3ecbc49b44e23dceeb21ef003ef3c6d84c33053fcb0d9dfcce348b4da7',
   },
 ]);
 

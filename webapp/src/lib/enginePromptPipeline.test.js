@@ -1133,7 +1133,7 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
   assert.match(prompt.midjourneyPrompt, /Wearing [^\n]*flight attendant uniform outfit/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
-  assert.match(prompt.midjourneyPrompt, /Inspired by /i);
+  assert.match(prompt.midjourneyPrompt, /-inspired /i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
 });
@@ -1165,10 +1165,10 @@ test('Grok/Z-Image and AI keep selected lighting and camera controls with model-
 
   assert.match(prompt.midjourneyPrompt, /indoor late-afternoon daylight environment/i);
   assert.match(prompt.midjourneyPrompt, /warm golden-amber subject light color/i);
-  assert.match(prompt.midjourneyPrompt, /Inspired by Osamu Yokonami, high-key minimalist image language/i);
+  assert.match(prompt.midjourneyPrompt, /Osamu Yokonami-inspired high-key minimalist image language/i);
   assert.match(prompt.midjourneyPrompt, /135mm long telephoto lens/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /soft foreground occlusion/i);
-  assert.match(prompt.midjourneyPrompt, /Inspired by Osamu Yokonami/i);
+  assert.match(prompt.midjourneyPrompt, /Osamu Yokonami-inspired/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /warm-neutral daylight spread|mellow exterior brightness|no sunset or sky cues/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /flattened spatial layers|pronounced subject isolation|distant working distance|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /[\u4e00-\u9fff]/);
@@ -1200,8 +1200,8 @@ test('Grok/Z-Image and AI use model-specific compact scene wording for solid col
   assert.doesNotMatch(prompt.zImagePrompt, /no paper roll|no backdrop stand|no light stands|no studio equipment/i);
   assert.doesNotMatch(prompt.zImagePrompt, /Scene priority:/i);
 
-  assert.match(prompt.midjourneyPrompt, /in horizonless seamless matte pure white color field,/i);
-  assert.match(prompt.midjourneyPrompt, / In horizonless seamless matte pure white color field/i);
+  assert.match(prompt.midjourneyPrompt, /Horizonless seamless matte pure white color field,/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, / In horizonless seamless matte pure white color field/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /no paper roll|no studio equipment/i);
 });
 

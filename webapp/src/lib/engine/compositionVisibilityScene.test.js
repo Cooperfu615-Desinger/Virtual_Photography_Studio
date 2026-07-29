@@ -57,11 +57,15 @@ function zImageScene(prompt) {
 
 function aiScene(prompt) {
   const text = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
-  const labeled = text.match(
-    /(?:^|\s)Scene:\s*([\s\S]*?)(?=\s+(?:Lighting|Camera Look):\s*|$)/
-  )?.[1];
-  if (labeled) return labeled;
-  return text.match(/(?:^|\s)(In [\s\S]*?)(?=\s+Inspired by\s|$)/)?.[1] || '';
+  const imagingStart = text.search(
+    /\b[A-Z][A-Za-z'-]+(?:\s+[A-Z][A-Za-z'-]+){1,3}-inspired\b/
+  );
+  const beforeImaging = imagingStart >= 0 ? text.slice(0, imagingStart) : text;
+  return (beforeImaging.match(/[^.]+(?:\.|$)/g) || [])
+    .map((sentence) => sentence.trim())
+    .filter(Boolean)
+    .slice(-2)
+    .join(' ');
 }
 
 function assertIncludes(text, fragment, message) {

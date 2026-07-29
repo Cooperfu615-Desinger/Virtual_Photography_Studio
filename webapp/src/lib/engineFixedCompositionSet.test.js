@@ -464,7 +464,7 @@ test('Grok Z-Image and AI fixed composition scene use compact model-specific wor
 
   assert.doesNotMatch(prompt.zImagePrompt, /Treat the fixed set|not a flat backdrop|fixed-set rule|preserve anchors:|avoid raw concrete set|let the image model choose|self-shot social composition feeling/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /Treat the fixed set|not a flat backdrop|fixed-set rule|preserve anchors:|avoid raw concrete set|let the image model choose|self-shot social composition feeling/i);
-  assert.match(prompt.midjourneyPrompt, / In /);
+  assert.doesNotMatch(prompt.midjourneyPrompt, / In /);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\.\s*,/);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /[\u3400-\u9fff]/);

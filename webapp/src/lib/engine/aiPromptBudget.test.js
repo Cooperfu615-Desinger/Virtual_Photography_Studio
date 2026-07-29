@@ -25,15 +25,15 @@ import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controls = getLockControls();
 const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
-  'normal-separates': 'c10f6e3b53e84d1ba470ebf944d841945da0fe43c18359da639e52a67e0776db',
-  'complete-look-latex': '1e1a37858d210b296e6c0e76bb8268ec40eb1591d427cf8bc8a0e42caf49e5f0',
-  'complete-look-special': '8b9a2dcac3dfb8297b644398cf732f6e6bf944700c75b80984131f903fe95e37',
-  'complete-look-dress': '40c3231fd8591963b522cccec4acd7089b8a8f1e5ca04eb1568d11f9227100ac',
-  'character-card-jiwoo': '662f1609dc1590a40521c78026b541a2c93aecac39959d888d295ccd20145144',
-  'character-card-sui': '5c637dd35f141e90355e6880647989ef778787427f3790b8c5bb5d8e84637b51',
-  'character-card-half-face-pressure': '433079ea341c1eb9004c7548d967492128bb0d077924a17aaf8fe6a4fbad3079',
-  'canonical-pose-pressure': 'e7314f9d387d522b69b7922cfc3556e86bf415abf51f5da5f20fd84ad84072a6',
-  'half-face-boundary': '41bc579c09e80dcd1d3c3e90cae06eb502da10ca1ef98298935da3f68994c763',
+  'normal-separates': '4169d68983bea38150f54f2bc530f6bccb9c84a94a040cac26a200ac6824e075',
+  'complete-look-latex': 'aff7561a0d027d69aa202f9b70741087dd2854786e84c0f9243c4ba0066445c0',
+  'complete-look-special': '827a6ca05feb6c12bd4aa599b3f0d74e7002288ae7af90f354c375d61b4e41b1',
+  'complete-look-dress': '39876ec22d9a5dea8b131073f32e3537296fbe7c3c147f09762b962c79b924fb',
+  'character-card-jiwoo': 'b8c4fa19eab7c82c474cc3b65231178ab67e203467406384be758016b184940b',
+  'character-card-sui': 'dbdaebc84aa6dd88532a9bf437eba1150613f7b51843ca27608ea3c45807ee22',
+  'character-card-half-face-pressure': 'c51caed5ccc8c0ec481958335b25a3a8b174a276d115e1f362732236e838a3bc',
+  'canonical-pose-pressure': 'cc8f5553b28d716056246d8ea7089ff6ffa1d4a6a4175462c68d771efa98f435',
+  'half-face-boundary': '670a27fc44f75f93eff869a4e32952c4e5d247c34c6b3cb4f720195737145331',
   'duo-excluded-boundary': 'b44a8ac1ee3b38d1a6c6bc8a2fb93da305100f18886d5d5437d2c47172df5157',
 });
 
@@ -201,5 +201,5 @@ test('phase-5 resolves cross-section pressure without dropping source identities
   for (const fragment of fixture.requiredFragments) {
     assert.match(output, new RegExp(fragment, 'i'), `${fixture.id}: ${fragment}`);
   }
-  assert.doesNotMatch(output, /broad field of view/i);
+  assert.match(output, /broad field of view/i);
 });

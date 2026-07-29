@@ -328,6 +328,8 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 第三階段將一般單人的 AI 人物開頭改為直接視覺身份 `20s Japanese or Korean woman, seductive editorial presence`，不再沿用 Grok/Z-Image 的 `A 20s seductive stunning...` 跨模型固定句。Body Type 的數值與區域錨點、髮型、髮色、眼鏡及耳機仍依同一 resolved selection 保留；Gpt 與 Grok/Z-Image 的人物文字不變。服裝繼續沿用共用構圖可見性投影，但同一服裝句中的 `at the lower crop edge` 只能出現一次，避免可見邊界重複搶權重。角色卡、雙人及特殊模式的專屬壓縮規則留在第五階段處理。
 
+第四階段保持 projected canonical pose 逐字不變，並把 AI 的場景、光線與成像改為直接視覺描述。場景句不再加 `In`，場景與光線分成相鄰完整句，避免 `In ..., lit by ...` 長鏈；攝影風格使用 `<photographer>-inspired <image language>`，鏡頭移除 `shot on` 後直接輸出焦段／鏡頭身份。所有文字仍須可追溯到原 resolved selection，不得新增景深或其他未選視覺事實；Gpt、Grok/Z-Image 與固定景別輸出維持原本連接語法。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則
