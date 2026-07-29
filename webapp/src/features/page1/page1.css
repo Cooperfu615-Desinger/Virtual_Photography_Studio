@@ -247,6 +247,126 @@
   white-space: nowrap;
 }
 
+.mj-parameter-section {
+  gap: 18px;
+}
+
+.mj-parameter-grid,
+.mj-parameter-slider-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.mj-parameter-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mj-parameter-slider-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mj-parameter-block,
+.mj-parameter-numeric-field,
+.mj-parameter-aspect-note {
+  padding: 14px;
+  border: 1px solid rgba(111, 87, 60, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 250, 240, 0.72);
+}
+
+.mj-parameter-block,
+.mj-parameter-numeric-field {
+  display: grid;
+  gap: 12px;
+}
+
+.mj-parameter-block-heading {
+  display: grid;
+  gap: 4px;
+}
+
+.mj-parameter-block-heading strong,
+.mj-parameter-field-heading strong,
+.mj-parameter-aspect-note strong {
+  color: var(--text-primary);
+  font-size: 0.8rem;
+}
+
+.mj-parameter-block-heading span,
+.mj-parameter-field-heading small,
+.mj-parameter-aspect-note span {
+  color: var(--text-secondary);
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.mj-parameter-preset-grid,
+.mj-parameter-option-row {
+  display: grid;
+  gap: 8px;
+}
+
+.mj-parameter-preset-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mj-parameter-option-row {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mj-parameter-preset,
+.mj-parameter-option {
+  min-height: 38px;
+  padding: 8px 10px;
+}
+
+.mj-parameter-option-active,
+.mj-parameter-option-active:hover {
+  border-color: var(--accent);
+  background: #f3dfc9;
+  color: #5b3920;
+  box-shadow: inset 0 0 0 1px rgba(201, 124, 67, 0.18);
+}
+
+.mj-parameter-field-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mj-parameter-field-heading > span:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.mj-parameter-number-input {
+  width: 82px;
+  min-width: 82px;
+  padding: 8px 9px;
+  text-align: right;
+}
+
+.mj-parameter-range {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.mj-parameter-range-bounds,
+.mj-parameter-aspect-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mj-parameter-range-bounds {
+  color: var(--text-secondary);
+  font-family: Arial, sans-serif;
+  font-size: 0.68rem;
+}
+
 .page1-editor .workspace-panel-copy {
   margin-top: 1px;
   font-family: Arial, sans-serif;
@@ -424,6 +544,11 @@
 }
 
 @media (max-width: 820px) {
+  .mj-parameter-grid,
+  .mj-parameter-slider-grid {
+    grid-template-columns: 1fr;
+  }
+
   .page1-feed-list {
     grid-template-columns: 1fr;
   }

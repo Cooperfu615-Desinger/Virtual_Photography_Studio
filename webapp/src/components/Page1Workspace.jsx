@@ -3,6 +3,7 @@ import { Copy } from 'lucide-react';
 import DllPicProPanel from './DllPicProPanel';
 import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
+import MidjourneyParameterControls from './MidjourneyParameterControls';
 import PromptPreviewCard from './PromptPreviewCard';
 import {
   OUTFIT_PRESET_A_COVERED_KEYS,
@@ -37,6 +38,10 @@ import {
   getSectionKeys,
 } from '../features/page1/page1Schema.js';
 import { buildAllNoneLocks, isNoneSelected } from '../features/page1/page1Selectors.js';
+import {
+  buildMidjourneyParameterSummary,
+  createMidjourneyParameterDraft,
+} from '../features/page1/midjourneyParameterUi.js';
 import '../features/page1/page1.css';
 
 const WARDROBE_PICKER_KEYS = new Set([
@@ -452,11 +457,16 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     wardrobe: 'overall',
     scene: 'fixed',
     photography: 'composition',
+    midjourney: 'generation',
   });
+  const [midjourneyParameterDraft, setMidjourneyParameterDraft] = useState(createMidjourneyParameterDraft);
 
   const clearedLocks = useMemo(() => createEmptyLocks(), []);
   const isClearedLockState = areLocksEqual(locks, clearedLocks);
-  const workspaceSummary = useMemo(() => buildWorkspaceSummary(locks, lockControls), [locks, lockControls]);
+  const workspaceSummary = useMemo(() => ({
+    ...buildWorkspaceSummary(locks, lockControls),
+    midjourney: buildMidjourneyParameterSummary(midjourneyParameterDraft),
+  }), [locks, lockControls, midjourneyParameterDraft]);
   const generationSummary = useMemo(
     () => buildPage1GenerationSummary(locks, previewPrompt, lockControls),
     [locks, previewPrompt, lockControls]
@@ -588,6 +598,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         getControlOptionLabel(lockControls, 'styleId', locks.styleId) ? '攝影風格' : '',
         getControlOptionLabel(lockControls, 'filmId', locks.filmId) ? '成像模擬' : '',
       ].filter(Boolean),
+    },
+    midjourney: {
+      status: '獨立設定',
+      chips: [
+        midjourneyParameterDraft.mjRawMode === 'raw' ? 'Raw' : 'Standard',
+        midjourneyParameterDraft.mjResolution.toUpperCase(),
+      ],
     },
   };
 
@@ -993,6 +1010,14 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   );
 
   const renderEditorPanel = () => {
+    if (activeSection === 'midjourney') {
+      return (
+        <MidjourneyParameterControls
+          settings={midjourneyParameterDraft}
+          onChange={setMidjourneyParameterDraft}
+        />
+      );
+    }
     if (activeSection === 'photography') return renderPhotographyControls();
     if (activeSection === 'scene') return renderSceneControls();
     if (activeSection === 'wardrobe') return renderWardrobeControls();

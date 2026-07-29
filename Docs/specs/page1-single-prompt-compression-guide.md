@@ -296,6 +296,10 @@ F 第一版預定提供 Midjourney V8.2／V8.1、Standard／Raw、Stylize 0–10
 
 機器可讀來源為 `webapp/src/lib/engine/midjourneyParameterContract.js`；七組基準位於 `webapp/src/lib/engine/midjourneyParameterFixtures.js`，涵蓋一般單人、Body Type、完整套裝、canonical pose、Character Card、雙人、固定構圖、特殊穿搭、連身服、V8.1 相容值與 SD／HD。第一階段以 SHA-256 驗證三個歷史主輸出逐 byte 不變，並明確確認目前 `midjourneyPrompt` 尚未出現任何 MJ 參數尾段。
 
+第二階段新增 PAGE1 `F MJ 參數設定` 工作區與 contract-backed draft model。介面提供模型版本、Standard／Raw、SD／HD、Stylize／Chaos／Weirdness slider 與數值輸入，以及精準寫實、平衡、創意三組預設；數值必須依契約取整並限制在合法範圍，預設不得覆寫模型版本或解析度。F 不得出現一般區塊的隨機／全無操作，也不得被全域「全部隨機」、「清除可選欄位」或「清空可清除項目」改動。
+
+本階段的 F 值只存在目前 PAGE1 component draft；重新載入頁面後回到契約預設。它尚未註冊為 engine lock、尚未進入 `vps.locks`／Saved Cards／匯入還原，也尚未附加到 `midjourneyPrompt`。因此切換任何 F 控制後，Gpt、Grok/Z-Image、AI 與三組固定構圖 Prompt 必須逐字不變；第三階段才處理 selection、儲存與還原相容性，第四階段才允許輸出參數尾段。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

@@ -16,6 +16,7 @@ test('PAGE1 workspace schema defines every navigation section and unique panel i
     'wardrobe',
     'scene',
     'photography',
+    'midjourney',
   ]);
 
   WORKSPACE_SECTIONS.forEach(({ id }) => {
@@ -24,6 +25,18 @@ test('PAGE1 workspace schema defines every navigation section and unique panel i
     assert.equal(new Set(panelIds).size, panelIds.length);
     assert.ok(getSectionKeys(id).length > 0);
   });
+});
+
+test('MJ parameters have a dedicated F section and stay outside engine random controls', () => {
+  assert.deepEqual(getSectionKeys('midjourney'), [
+    'mjVersionId',
+    'mjRawMode',
+    'mjStylize',
+    'mjChaos',
+    'mjWeirdness',
+    'mjResolution',
+  ]);
+  assert.equal(SECTION_SUBPANELS.midjourney[0].randomization, 'excluded');
 });
 
 test('Pose Composer keeps the independent prop control outside the five-layer batch random keys', () => {

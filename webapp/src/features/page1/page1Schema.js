@@ -102,6 +102,7 @@ export const WORKSPACE_SECTIONS = [
   { id: 'wardrobe', label: 'C 穿搭設定' },
   { id: 'scene', label: 'D 場景環境' },
   { id: 'photography', label: 'E 攝影成像' },
+  { id: 'midjourney', label: 'F MJ 參數設定' },
 ];
 
 export const SECTION_SUBPANELS = {
@@ -350,6 +351,22 @@ export const SECTION_SUBPANELS = {
       label: '成像模擬',
       description: '最後選相機、底片或數位色彩模擬，控制顆粒、色彩反應、動態範圍與輸出質地。',
       keys: ['filmId'],
+    },
+  ],
+  midjourney: [
+    {
+      id: 'generation',
+      label: '生成參數',
+      description: '設定 Midjourney V8 模型版本、解讀模式、風格化、變化幅度、非常規程度與輸出解析度。',
+      randomization: 'excluded',
+      keys: [
+        'mjVersionId',
+        'mjRawMode',
+        'mjStylize',
+        'mjChaos',
+        'mjWeirdness',
+        'mjResolution',
+      ],
     },
   ],
 };
