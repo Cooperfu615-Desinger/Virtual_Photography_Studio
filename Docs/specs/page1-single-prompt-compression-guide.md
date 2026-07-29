@@ -318,6 +318,12 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 第六階段不再修改 production renderer 或公開 Prompt，而是以 `midjourneyCompletionGate.test.js` 建立跨消費端阻擋式完成閘門。七組 deterministic fixtures 必須從同一份 resolved selection 通過引擎三個歷史主欄位、六種公開輸出契約、PAGE1 六張 Prompt 卡、DLL Prompt sources、Standard Prompt 回填、Favorites v3 codec 與 Saved Cards Markdown 匯入。閘門同時凍結 Gpt／Grok-Z baseline、第五階段單區塊 AI description hash、canonical parameter tail、F／aspect ratio 還原、固定景別輸出不含 MJ 參數，以及 Pose Composer 三組主 Prompt 逐字共用 canonical pose。此測試納入 `npm run test:prompt-quality`；UI、renderer、storage ID 與歷史公開映射保持第五階段結果。
 
+#### Midjourney 描述結構優化（新版第一階段契約）
+
+使用者已解除「不得重寫既有 AI 描述」限制；新的六階段工作只作用於歷史公開欄位 `AI` → `midjourneyPrompt`。第一階段先由 `midjourneyDescriptionContract.js` 定義單行、多語意句的固定順序：成品類型、構圖、人物、服裝、projected canonical pose、場景／光線、攝影成像，最後才由既有 assembler 附加 MJ 參數。語意區塊以完整句界分隔，區塊內來源細節使用逗號；不得把不同語意直接黏成 `front view A 20s...`。
+
+第二階段起，AI 成品類型不得再使用 `Create a／an` 命令式開頭，六種成品類型分別使用直接視覺身份，例如 `Photorealistic editorial portrait.`、`Premium fashion advertising image.` 與 `Watercolor portrait illustration.`。第一階段只建立契約、六種成品類型 target 和七組 deterministic baseline；現有 Prompt bytes、renderer、參數尾段、Body Type、canonical pose、Gpt、Grok/Z-Image 與三組固定景別輸出均不變。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則
