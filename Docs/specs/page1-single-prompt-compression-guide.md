@@ -286,6 +286,16 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 第六階段不再修改 renderer，而是將十組 deterministic fixtures 升級為 `aiPromptLengthIntegration.test.js` 阻擋式完成閘門。每組必須同時通過三個歷史主輸出欄位契約、resolved selection、必要 AI anchors 與對應 soft max；Pose Composer fixture 另驗證三種 Prompt 逐字共用 canonical pose，雙人 fixture 驗證不進入單人字數政策。此 gate 納入 `npm run test:prompt-quality`，後續改動若影響欄位映射、角色身份、服裝、場景、成像、構圖、姿勢或雙人邊界，必須明確更新 fixture 與契約，不得以放寬字數測試掩蓋回歸。
 
+#### Midjourney V8 專屬參數改造（第一階段契約）
+
+第一階段只建立未來 PAGE1 `F｜MJ 參數設定` 的機器可讀契約、deterministic fixtures 與逐 byte 基準，不註冊新控制、不修改 UI、不附加參數，也不重寫目前 AI Prompt。歷史公開映射仍為 `AI` → `midjourneyPrompt`；Gpt、Grok/Z-Image、五官特寫照、胸上特寫照與全身角色照都在 F 影響範圍之外。
+
+F 第一版預定提供 Midjourney V8.2／V8.1、Standard／Raw、Stylize 0–1000、Variety／Chaos 0–100、Weirdness 0–3000、SD／HD，以及精準寫實、平衡與創意三組快速預設。這些值不參與 PAGE1 一般隨機。畫面比例不在 F 重複設置；未來 `--ar` 必須只讀既有 resolved `selection.aspectRatio`。參數尾段固定在所有描述文字之後，依 version、aspect ratio、Raw、Stylize、Chaos、Weirdness、resolution 排序，且不計入 AI 文字字數預算。
+
+本輪明確凍結現有人物與 Body Type 描述；Midjourney 專屬參數先用於實測，不得順帶重寫 `slim`、`lean`、`petite`、身材數值或其他既有來源。Pose Composer 的 projected canonical pose 仍須和 Gpt、Grok/Z-Image 逐字一致。V8 不支援或不納入第一版的 `--q`／`--quality`、`--draft`、`--oref`／`--ow` 與 `--turbo` 不得由未來 assembler 輸出。
+
+機器可讀來源為 `webapp/src/lib/engine/midjourneyParameterContract.js`；七組基準位於 `webapp/src/lib/engine/midjourneyParameterFixtures.js`，涵蓋一般單人、Body Type、完整套裝、canonical pose、Character Card、雙人、固定構圖、特殊穿搭、連身服、V8.1 相容值與 SD／HD。第一階段以 SHA-256 驗證三個歷史主輸出逐 byte 不變，並明確確認目前 `midjourneyPrompt` 尚未出現任何 MJ 參數尾段。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則
