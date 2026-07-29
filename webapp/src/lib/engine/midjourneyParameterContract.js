@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.2.0';
+export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.3.0';
 
 export const MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE =
   '--v (?:8\\.2|8\\.1)(?: --ar \\d+:\\d+)?(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)';
@@ -173,6 +173,31 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
       '--ow',
       '--turbo',
     ],
+  },
+  completionGate: {
+    behaviorNeutral: true,
+    fixtureSource: 'MIDJOURNEY_PARAMETER_FIXTURES',
+    requiredConsumers: [
+      'engine',
+      'page1GenerationPromptCards',
+      'page1DllPromptSources',
+      'standardPromptImport',
+      'savedCardsFavoriteCodec',
+      'savedCardsMarkdownImport',
+    ],
+    requiredPublicOutputs: [
+      'grokPrompt',
+      'zImagePrompt',
+      'midjourneyPrompt',
+      'facialCloseupPortraitPrompt',
+      'chestUpPortraitPrompt',
+      'fullBodyCharacterPrompt',
+    ],
+    preservesHistoricalMappings: {
+      Gpt: 'grokPrompt',
+      'Grok/Z-Image': 'zImagePrompt',
+      AI: 'midjourneyPrompt',
+    },
   },
   rollout: {
     phase1: {

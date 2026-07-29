@@ -69,7 +69,7 @@ function generateFixture(parameterFixture) {
 }
 
 test('Midjourney parameter contract is frozen serializable rollout policy data', () => {
-  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.2.0');
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.3.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT));
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT.controls.version.options));
   assert.deepEqual(
@@ -80,6 +80,20 @@ test('Midjourney parameter contract is frozen serializable rollout policy data',
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.derivedParameters.aspectRatio.controlOwner, 'existing PAGE1 aspectRatio');
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.compatibility.preserveCanonicalPoseVerbatim, true);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.compatibility.preserveCurrentBodyTypeDescriptions, true);
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.completionGate.behaviorNeutral, true);
+  assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.completionGate.preservesHistoricalMappings, {
+    Gpt: 'grokPrompt',
+    'Grok/Z-Image': 'zImagePrompt',
+    AI: 'midjourneyPrompt',
+  });
+  assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.completionGate.requiredConsumers, [
+    'engine',
+    'page1GenerationPromptCards',
+    'page1DllPromptSources',
+    'standardPromptImport',
+    'savedCardsFavoriteCodec',
+    'savedCardsMarkdownImport',
+  ]);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase4.behaviorNeutral, false);
   assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.assembly.descriptionStructure, {

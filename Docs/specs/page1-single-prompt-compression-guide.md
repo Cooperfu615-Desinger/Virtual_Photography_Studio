@@ -316,6 +316,8 @@ PAGE1 live preview 保留第三階段的 generation signature 隔離：F-only �
 
 Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace projection。第五階段 fixtures 以七組 phase-4 代表案例凍結單區塊 description hash、原字數與既有參數尾段，同時驗證非 AI baseline、Body Type 與 canonical pose；此 gate 納入 `npm run test:prompt-quality`。目前仍不進行任何 Midjourney 專屬描述詞重寫，Body Type 與人物體型語意繼續等待使用者實測後另行討論。
 
+第六階段不再修改 production renderer 或公開 Prompt，而是以 `midjourneyCompletionGate.test.js` 建立跨消費端阻擋式完成閘門。七組 deterministic fixtures 必須從同一份 resolved selection 通過引擎三個歷史主欄位、六種公開輸出契約、PAGE1 六張 Prompt 卡、DLL Prompt sources、Standard Prompt 回填、Favorites v3 codec 與 Saved Cards Markdown 匯入。閘門同時凍結 Gpt／Grok-Z baseline、第五階段單區塊 AI description hash、canonical parameter tail、F／aspect ratio 還原、固定景別輸出不含 MJ 參數，以及 Pose Composer 三組主 Prompt 逐字共用 canonical pose。此測試納入 `npm run test:prompt-quality`；UI、renderer、storage ID 與歷史公開映射保持第五階段結果。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則
