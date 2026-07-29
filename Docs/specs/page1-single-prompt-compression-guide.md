@@ -324,6 +324,8 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 第二階段起，AI 成品類型不得再使用 `Create a／an` 命令式開頭，六種成品類型分別使用直接視覺身份，例如 `Photorealistic editorial portrait.`、`Premium fashion advertising image.` 與 `Watercolor portrait illustration.`。第一階段只建立契約、六種成品類型 target 和七組 deterministic baseline；現有 Prompt bytes、renderer、參數尾段、Body Type、canonical pose、Gpt、Grok/Z-Image 與三組固定景別輸出均不變。
 
+第二階段已啟用上述直接開頭。AI 的 image type 由 contract-owned mapping 輸出，不再回讀共用 `Create a...` 句子；構圖區塊固定以完整句點結束後才接人物，因此 `front view A 20s...` 類黏接不可再出現。單人與雙人共用此規則。Gpt、Grok/Z-Image 與三組固定景別輸出仍使用原本格式，strict audit 會把三組不同長度的成品類型描述正規化成同一個 resolved image identity 再檢查 drift。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

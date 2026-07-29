@@ -1,3 +1,5 @@
+import { MIDJOURNEY_DESCRIPTION_CONTRACT } from './midjourneyDescriptionContract.js';
+
 const CJK_UNIFIED_IDEOGRAPHS = 'CJK_UNIFIED_IDEOGRAPHS';
 
 const COMMON_CONTROL_LEAKAGE = [
@@ -226,7 +228,8 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
       labelPlacement: 'inline',
       modes: {
         single: {
-          requiredPrefix: 'Create a ',
+          requiredPrefix: '',
+          requiredPrefixes: Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings),
           requiredLabels: [],
           optionalLabels: [],
           forbiddenLabels: [
@@ -246,7 +249,8 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
           orderedLabels: [],
         },
         duo: {
-          requiredPrefix: 'Create a ',
+          requiredPrefix: '',
+          requiredPrefixes: Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings),
           requiredLabels: ['Woman 1', 'Woman 2', 'Pose'],
           optionalLabels: DUO_AI_LABELS.filter((label) => !['Woman 1', 'Woman 2', 'Pose'].includes(label)),
           forbiddenLabels: ['Image Type', 'Subject', 'Wardrobe', 'Shared Expression', 'Pose and Composition', 'Constraints'],
@@ -437,6 +441,17 @@ export function validatePromptOutputContract(field, text, { mode = 'single' } = 
       field,
       mode,
       expected: modeShape.requiredPrefix,
+    }));
+  }
+
+  if (
+    Array.isArray(modeShape.requiredPrefixes)
+    && !modeShape.requiredPrefixes.some((prefix) => value.startsWith(prefix))
+  ) {
+    issues.push(issue('prefix-mismatch', `${field} must start with an approved ${mode} prefix.`, {
+      field,
+      mode,
+      expected: modeShape.requiredPrefixes,
     }));
   }
 

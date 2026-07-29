@@ -6,6 +6,7 @@ import {
   PROMPT_OUTPUT_CONTRACTS,
   validatePromptOutputContract,
 } from '../webapp/src/lib/engine/promptOutputContracts.js';
+import { MIDJOURNEY_DESCRIPTION_CONTRACT } from '../webapp/src/lib/engine/midjourneyDescriptionContract.js';
 import { stripMidjourneyParameterTail } from '../webapp/src/lib/engine/midjourneyParameterTail.js';
 
 export const MAIN_OUTPUTS = Object.freeze([
@@ -341,7 +342,18 @@ export function detectContradictions(text, { subjectCount = '' } = {}) {
 }
 
 function extractImageTypeInstruction(text) {
-  return String(text || '').match(/\bCreate an? [^.\n]+[.]/i)?.[0] || '';
+  const value = String(text || '');
+  const directOpening = Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings)
+    .find((opening) => value.startsWith(opening));
+  return directOpening || value.match(/\bCreate an? [^.\n]+[.]/i)?.[0] || '';
+}
+
+function normalizeImageTypeIdentity(value) {
+  const normalized = normalizeForComparison(value).replace(/^create (?:a|an) /, '');
+  const directOpenings = Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings)
+    .map((opening) => normalizeForComparison(opening))
+    .sort((a, b) => b.length - a.length);
+  return directOpenings.find((opening) => normalized.startsWith(opening)) || normalized;
 }
 
 function extractCompositionInstruction(text) {
@@ -385,10 +397,10 @@ export function validateOutputContracts(prompt) {
   }));
   for (const instruction of imageTypeInstructions) {
     if (!instruction.value) {
-      addContractIssue(issues, instruction.output, 'missing-image-type-instruction', `${instruction.output} has no Create an image-type instruction`);
+      addContractIssue(issues, instruction.output, 'missing-image-type-instruction', `${instruction.output} has no image-type identity`);
     }
   }
-  const resolvedImageTypes = new Set(imageTypeInstructions.map((item) => normalizeForComparison(item.value)).filter(Boolean));
+  const resolvedImageTypes = new Set(imageTypeInstructions.map((item) => normalizeImageTypeIdentity(item.value)).filter(Boolean));
   if (resolvedImageTypes.size > 1) {
     addContractIssue(issues, 'Cross-output', 'image-type-drift', 'Gpt, Grok/Z-Image, and AI do not share the same resolved image-type instruction');
   }

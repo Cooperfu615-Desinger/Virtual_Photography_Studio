@@ -42,7 +42,7 @@ test('AI normal single prompt keeps only the agreed freedom-oriented sections', 
   });
 
   const text = prompt.midjourneyPrompt;
-  assert.match(text, /^Create a photorealistic editorial portrait\./i);
+  assert.match(text, /^Photorealistic editorial portrait\./i);
   assert.match(text, /about 160-165 cm visual height|83-62-88 body proportion anchor/i);
   assert.match(text, /deep side-parted long soft waves|chestnut-brown hair/i);
   assert.match(text, /black bold-frame glasses|black frame, bold thick-frame glasses/i);
@@ -67,7 +67,7 @@ test('AI character-card prompt keeps structured identity while simplifying wardr
 
   const text = prompt.midjourneyPrompt;
 
-  assert.match(text, /^Create a photorealistic editorial portrait\./i);
+  assert.match(text, /^Photorealistic editorial portrait\./i);
   assert.match(text, /broad soft oval face with a rounded jaw/i);
   assert.match(text, /large level dark-brown round-almond eyes/i);
   assert.match(text, /slim petite casual-fashion proportions/i);

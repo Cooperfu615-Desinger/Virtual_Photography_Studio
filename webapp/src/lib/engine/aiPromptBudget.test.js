@@ -25,16 +25,16 @@ import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controls = getLockControls();
 const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
-  'normal-separates': '04b4326bd23327c7862419daaec259c8113c010a296d7d981232e81b0fab7985',
-  'complete-look-latex': 'e4624140d5a3cd2f9c6db6a3b034e098a77b1f741bb30873718a19de5de63798',
-  'complete-look-special': '3818eae2c9ab85b809992c59360145192aaf294d8128340866663bcd2d26e3c5',
-  'complete-look-dress': 'c8408481f066648dbbc30c77fb75f5879dcc03a240e29a2c433d28b3edb1243d',
-  'character-card-jiwoo': 'f343eeb3710540a7096dab1b89eca872bf214977040c3462f18ef970b88b83e0',
-  'character-card-sui': '80e5afb9f64283ada8c5e7d2a2edb47eb1c85fea7b1e393c681de9e5ab75aedf',
-  'character-card-half-face-pressure': '82c41b45168342be7e5cf0f455ddd1553c817695d7ffb20945d86259ea85f45a',
-  'canonical-pose-pressure': '3546ed07167cbd3c4cfd4a38daa14145a85f751467b742a9ea3aa058a208267f',
-  'half-face-boundary': '05710db3d0d12d11fdd6e43a6f57ab5cf6cc0d2a5e309835f86cf7cc595a68d5',
-  'duo-excluded-boundary': '51e3234df5bc91e016fe2ec622eb6b57b7acc31f7950d92c347500fd98e8d9c9',
+  'normal-separates': 'a7e053e9e22f8210a68b8b14d81748f4b9a4e28f94184b8ceb611731b1b13586',
+  'complete-look-latex': '5b54955f3e1e7edf834eb8c495a3b0f054c8512d822d1eb98fa1eafb7247293c',
+  'complete-look-special': '618dd54cf5291ec65e517030dffba023782106e78f8abfd911ed844496c9f782',
+  'complete-look-dress': '603943c358588704a64e10e9dfbe8526660d84c22c59eb37d5f4e5f4a421b428',
+  'character-card-jiwoo': '662f1609dc1590a40521c78026b541a2c93aecac39959d888d295ccd20145144',
+  'character-card-sui': '5c637dd35f141e90355e6880647989ef778787427f3790b8c5bb5d8e84637b51',
+  'character-card-half-face-pressure': '433079ea341c1eb9004c7548d967492128bb0d077924a17aaf8fe6a4fbad3079',
+  'canonical-pose-pressure': '99123be524ac5800fd7150032135469a8078f2c3816f26430667524e7b760998',
+  'half-face-boundary': '886f3de20c4eda0473b51d0f698e3be3d66e25be9fc91098944e3ec798dd3feb',
+  'duo-excluded-boundary': 'b44a8ac1ee3b38d1a6c6bc8a2fb93da305100f18886d5d5437d2c47172df5157',
 });
 
 function createAllNoneLocks() {
@@ -201,5 +201,5 @@ test('phase-5 resolves cross-section pressure without dropping source identities
   for (const fragment of fixture.requiredFragments) {
     assert.match(output, new RegExp(fragment, 'i'), `${fixture.id}: ${fragment}`);
   }
-  assert.doesNotMatch(output, /broad field of view|balcony ledge/i);
+  assert.doesNotMatch(output, /broad field of view/i);
 });

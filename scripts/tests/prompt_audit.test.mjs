@@ -43,7 +43,7 @@ function validPromptFixture() {
       'One adult portrait subject in a clean portrait studio.',
     ].join('\n\n'),
     midjourneyPrompt: [
-      imageType,
+      'Photorealistic editorial portrait.',
       composition,
       'One adult portrait subject in a clean portrait studio. --v 8.2 --ar 4:5 --s 100 --c 0 --w 0 --sd',
     ].join('\n\n'),

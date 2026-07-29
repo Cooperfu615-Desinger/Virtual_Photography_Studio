@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.0.0';
+export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.1.0';
 
 /**
  * Target contract for the Midjourney-native descriptive content that appears
@@ -44,7 +44,8 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
     ],
     labels: 'forbidden',
     imperativeOpening: {
-      currentPhase1: 'preserved baseline',
+      current: 'forbidden',
+      phase1LegacyBaseline: 'preserved',
       phase2Target: 'forbidden',
       forbiddenPrefixes: ['Create a ', 'Create an '],
     },

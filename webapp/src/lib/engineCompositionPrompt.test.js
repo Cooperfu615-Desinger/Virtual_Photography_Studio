@@ -36,7 +36,7 @@ test('all three primary prompts share the compact composition opening', () => {
   });
 
   assert.match(prompt.zImagePrompt, /^Create a photorealistic editorial portrait\.\n\nChest-up portrait, eye-level view, front-left three-quarter view\n\n/);
-  assert.match(prompt.midjourneyPrompt, /^Create a photorealistic editorial portrait\. Chest-up portrait, eye-level view, front-left three-quarter view /);
+  assert.match(prompt.midjourneyPrompt, /^Photorealistic editorial portrait\. Chest-up portrait, eye-level view, front-left three-quarter view\. /);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\n/);
 });
 

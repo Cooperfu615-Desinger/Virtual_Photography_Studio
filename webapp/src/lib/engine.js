@@ -33,6 +33,7 @@ import {
   MIDJOURNEY_PARAMETER_CONTRACT,
   normalizeMidjourneyParameterSettings,
 } from './engine/midjourneyParameterContract.js';
+import { MIDJOURNEY_DESCRIPTION_CONTRACT } from './engine/midjourneyDescriptionContract.js';
 import { renderMidjourneyNativeDescription } from './engine/midjourneyNativeStructure.js';
 import { appendMidjourneyParameterTail } from './engine/midjourneyParameterTail.js';
 import { CHARACTER_PROFILE_OPTIONS } from './engine/characterProfiles.js';
@@ -8987,6 +8988,12 @@ function buildImageTypePromptLine(context) {
   return ensureTerminalPeriod(stripTerminalPromptPunctuation(source || ''));
 }
 
+function buildMidjourneyImageTypePromptLine(context) {
+  const preset = resolveImageTypePreset(context);
+  return MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings[preset.id]
+    || MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings['photorealistic-photo'];
+}
+
 function compactCameraDescriptor(item, kind) {
   if (!item || isNoneLikeItem(item)) return '';
 
@@ -11999,8 +12006,8 @@ function buildAiDuoSection(label, value) {
 
 function renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors) {
   return [
-    buildImageTypePromptLine(context),
-    buildCompositionPromptLine(context),
+    buildMidjourneyImageTypePromptLine(context),
+    ensureTerminalPeriod(buildCompositionPromptLine(context)),
     buildAiDuoSection('Woman 1', buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, 'a')),
     buildAiDuoSection('Woman 2', buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, 'b')),
     buildAiDuoSection('Pose', buildAiDuoPoseText(valuesByLabel)),
@@ -12497,8 +12504,8 @@ function renderAiPrompt(promptModel) {
   const sectionModel = createBudgetedAiPromptSectionModel({
     policyKey,
     sections: [
-      { id: 'imageType', text: buildImageTypePromptLine(context) },
-      { id: 'composition', text: buildCompositionPromptLine(context) },
+      { id: 'imageType', text: buildMidjourneyImageTypePromptLine(context) },
+      { id: 'composition', text: ensureTerminalPeriod(buildCompositionPromptLine(context)) },
       { id: 'subject', text: buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) },
       { id: 'wardrobe', text: buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) },
       { id: 'projectedCanonicalPose', text: buildAiFreedomPoseSentence(context, character) },

@@ -66,7 +66,7 @@ function generateFixture(target) {
 }
 
 test('Midjourney description contract freezes the approved six-phase target', () => {
-  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.0.0');
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.1.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_DESCRIPTION_CONTRACT));
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt']);
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.structure.sectionOrder, [
@@ -79,6 +79,7 @@ test('Midjourney description contract freezes the approved six-phase target', ()
     'imaging',
   ]);
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.sourceIntegrity.exactCanonicalPoseReuse, true);
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.structure.imperativeOpening.current, 'forbidden');
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.rollout.phase2.behaviorNeutral, false);
 });
@@ -112,13 +113,14 @@ test('phase-1 targets cover every image type and representative compatibility mo
   }
 });
 
-test('phase 1 is byte-stable and only records the future direct opening', () => {
+test('phase 2 replaces only the recorded legacy opening and adds the sentence boundary', () => {
   for (const target of MIDJOURNEY_DESCRIPTION_FIXTURES) {
     const prompt = generateFixture(target);
     const description = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
 
-    assert.equal(hashPrompt(description), target.phase1DescriptionHash, `${target.id}: baseline`);
-    assert.match(description, /^Create an? /, `${target.id}: current imperative baseline`);
-    assert.doesNotMatch(description, new RegExp(`^${target.phase2Opening.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`));
+    assert.match(target.phase1DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: legacy baseline`);
+    assert.equal(hashPrompt(description), target.phase2DescriptionHash, `${target.id}: phase 2`);
+    assert.ok(description.startsWith(target.phase2Opening), `${target.id}: direct opening`);
+    assert.doesNotMatch(description, /^Create an? /, `${target.id}: no imperative opening`);
   }
 });
