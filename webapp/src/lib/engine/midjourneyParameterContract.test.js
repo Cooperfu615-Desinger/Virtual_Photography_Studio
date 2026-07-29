@@ -15,6 +15,7 @@ import {
   validateMidjourneyParameterSettings,
 } from './midjourneyParameterContract.js';
 import { MIDJOURNEY_PARAMETER_FIXTURES } from './midjourneyParameterFixtures.js';
+import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 import {
   PROMPT_OUTPUT_CONTRACTS,
   validatePromptOutputContract,
@@ -56,6 +57,7 @@ function generateFixture(parameterFixture) {
     locks[key] = resolveLock(key, selector, sourceFixture.id);
   }
   locks.aspectRatio = parameterFixture.aspectRatio;
+  Object.assign(locks, parameterFixture.futureSettings);
 
   return {
     mode: sourceFixture.mode,
@@ -65,8 +67,8 @@ function generateFixture(parameterFixture) {
   };
 }
 
-test('Midjourney parameter contract is frozen serializable phase-1 policy data', () => {
-  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.0.0');
+test('Midjourney parameter contract is frozen serializable rollout policy data', () => {
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.1.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT));
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT.controls.version.options));
   assert.deepEqual(
@@ -79,6 +81,10 @@ test('Midjourney parameter contract is frozen serializable phase-1 policy data',
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.compatibility.preserveCurrentBodyTypeDescriptions, true);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase4.behaviorNeutral, false);
+  assert.equal(
+    MIDJOURNEY_PARAMETER_CONTRACT.assembly.tailPatternSource,
+    '--v (?:8\\.2|8\\.1)(?: --ar \\d+:\\d+)?(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)'
+  );
 });
 
 test('Midjourney parameter defaults, ranges, presets, and ordering are valid', () => {
@@ -149,13 +155,13 @@ test('Midjourney phase-1 fixtures cover the approved parameter and prompt bounda
   }
 });
 
-test('phase 1 leaves every representative public prompt byte-stable and parameter-free', () => {
+test('phase 4 preserves representative content while adding only the approved AI tail', () => {
   for (const fixture of MIDJOURNEY_PARAMETER_FIXTURES) {
     const first = generateFixture(fixture);
     const repeated = generateFixture(fixture);
 
     assert.equal(first.prompt.selection.aspectRatio, fixture.aspectRatio, `${fixture.id}: aspect ratio`);
-    for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+    for (const field of ['grokPrompt', 'zImagePrompt']) {
       assert.equal(repeated.prompt[field], first.prompt[field], `${fixture.id}.${field}: deterministic`);
       assert.equal(
         hashPrompt(first.prompt[field]),
@@ -169,10 +175,23 @@ test('phase 1 leaves every representative public prompt byte-stable and paramete
       );
     }
 
-    assert.doesNotMatch(
-      first.prompt.midjourneyPrompt,
-      /(?:^|\s)--(?:v|ar|raw|s|c|w|sd|hd)(?:\s|$)/,
-      `${fixture.id}: phase 1 must not append MJ parameters`
+    assert.equal(repeated.prompt.midjourneyPrompt, first.prompt.midjourneyPrompt);
+    assert.equal(
+      hashPrompt(stripMidjourneyParameterTail(first.prompt.midjourneyPrompt)),
+      fixture.baselineHashes.midjourneyPrompt,
+      `${fixture.id}.midjourneyPrompt: descriptive baseline`
+    );
+    assert.equal(
+      first.prompt.midjourneyPrompt.endsWith(fixture.expectedTail),
+      true,
+      `${fixture.id}: parameter tail`
+    );
+    assert.deepEqual(
+      validatePromptOutputContract('midjourneyPrompt', first.prompt.midjourneyPrompt, {
+        mode: first.mode,
+      }),
+      [],
+      `${fixture.id}.midjourneyPrompt: public contract`
     );
   }
 });

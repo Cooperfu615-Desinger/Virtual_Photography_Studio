@@ -22,6 +22,10 @@ import {
   MIDJOURNEY_PARAMETER_SELECTION_KEYS,
   getDefaultMidjourneyParameterSettings,
 } from './midjourneyParameterContract.js';
+import {
+  buildMidjourneyParameterTail,
+  stripMidjourneyParameterTail,
+} from './midjourneyParameterTail.js';
 
 const CUSTOM_SETTINGS = Object.freeze({
   mjVersionId: 'v8-1',
@@ -68,7 +72,7 @@ test('phase 3 registers normalized MJ settings in empty and legacy PAGE1 locks',
   })), defaults);
 });
 
-test('phase 3 copies MJ settings into resolved selection without changing prompt text', () => {
+test('phase 4 changes only the AI parameter tail while preserving resolved selection', () => {
   const baselineLocks = createEmptyLocks();
   const customLocks = { ...baselineLocks, ...CUSTOM_SETTINGS };
   const baseline = generatePrompts(1, baselineLocks, [], {
@@ -81,13 +85,20 @@ test('phase 3 copies MJ settings into resolved selection without changing prompt
   [
     'grokPrompt',
     'zImagePrompt',
-    'midjourneyPrompt',
   ].forEach((field) => assert.equal(customized[field], baseline[field], field));
+  assert.equal(
+    stripMidjourneyParameterTail(customized.midjourneyPrompt),
+    stripMidjourneyParameterTail(baseline.midjourneyPrompt)
+  );
+  assert.equal(
+    customized.midjourneyPrompt.endsWith(buildMidjourneyParameterTail(customized.selection)),
+    true
+  );
   assert.deepEqual(customized.extraPrompts, baseline.extraPrompts);
   assert.deepEqual(pickSettings(customized.selection), CUSTOM_SETTINGS);
 });
 
-test('phase 3 isolates F-only changes from live preview regeneration', () => {
+test('phase 4 isolates F-only changes to the live preview parameter tail', () => {
   const locks = {
     ...createEmptyLocks(),
     ...CUSTOM_SETTINGS,
@@ -101,12 +112,16 @@ test('phase 3 isolates F-only changes from live preview regeneration', () => {
   const preview = {
     id: 'stable-preview',
     midjourneyPrompt: 'unchanged AI text',
-    selection: { subjectCount: '1' },
+    selection: { subjectCount: '1', aspectRatio: '4:5' },
   };
   const attached = attachMidjourneySettingsToPrompt(preview, locks);
   assert.notEqual(attached, preview);
   assert.equal(attached.id, preview.id);
-  assert.equal(attached.midjourneyPrompt, preview.midjourneyPrompt);
+  assert.equal(stripMidjourneyParameterTail(attached.midjourneyPrompt), preview.midjourneyPrompt);
+  assert.equal(
+    attached.midjourneyPrompt.endsWith('--v 8.1 --ar 4:5 --raw --s 333 --c 18 --w 47 --hd'),
+    true
+  );
   assert.deepEqual(pickSettings(attached.selection), CUSTOM_SETTINGS);
 });
 

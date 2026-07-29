@@ -306,6 +306,12 @@ F 值現在必須進入 `vps.locks`、每次生成的 resolved selection、Favor
 
 第三階段仍不得改動 `midjourneyPrompt` 或其他五組 Prompt 文字。所有公開輸出、AI 字數預算、canonical pose 與歷史欄位映射必須保持第二階段基準；第四階段才可把 selection 中的 F 值組裝成 AI 專屬參數尾段。
 
+第四階段由 `webapp/src/lib/engine/midjourneyParameterTail.js` 啟用單一 canonical assembler。`midjourneyPrompt` 的 descriptive content 必須先完成既有 section budget 與壓縮，再於最後一個描述句之後加入一個空格和參數尾段；尾段順序固定為 `--v`、可用時的 `--ar`、選用的 `--raw`、`--s`、`--c`、`--w`、`--sd`／`--hd`，參數之後不得再有標點或描述文字。`--ar` 只讀 resolved `selection.aspectRatio`；空值、`none`、`random` 或非比例格式不得輸出。
+
+參數尾段只允許出現在歷史公開欄位 `AI` → `midjourneyPrompt`，單人與雙人模式使用相同 assembler。Gpt、Grok/Z-Image、五官特寫照、胸上特寫照與全身角色照都不得繼承任何 MJ 參數。現有 Body Type、人物、服裝、場景、成像與 projected canonical pose 描述保持原文；七組 phase-1 baseline hash 在移除尾段後必須逐 byte 相同。AI 字數預算和 same-seed audit 的統計、重複與控制語檢查只評估 descriptive content，不計算已驗證的參數尾段。
+
+PAGE1 live preview 保留第三階段的 generation signature 隔離：F-only 變更不得重跑 renderer，而是移除舊尾段後以同一段 description 和 resolved aspect ratio 重建新尾段。標準 Prompt 回填與 Saved Cards Markdown 匯入只接受位於 AI 文字最後的完整 canonical tail；成功解析時回填六個 F locks 與 `aspectRatio`，沒有合法尾段時維持目前 F 設定。`--q`／`--quality`、`--draft`、`--oref`／`--ow` 與 `--turbo` 仍屬禁止輸出範圍。第五階段才可討論 Midjourney-native descriptive structure，不得在第四階段順帶改寫 Body Type 或現有 AI 內容。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

@@ -45,18 +45,39 @@ function validPromptFixture() {
     midjourneyPrompt: [
       imageType,
       composition,
-      'One adult portrait subject in a clean portrait studio.',
+      'One adult portrait subject in a clean portrait studio. --v 8.2 --ar 4:5 --s 100 --c 0 --w 0 --sd',
     ].join('\n\n'),
-    extraPrompts: [{
-      id: 'full-body-character',
-      label: '全身角色照',
-      text: [
-        'Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.',
-        'Subject:\nOne adult portrait subject.',
-        'Lighting:\nClean even lighting.',
-        'Camera Look:\nFull-body view, complete figure visible from head to toe, both hands and both feet completely visible, no crop.',
-      ].join('\n\n'),
-    }],
+    extraPrompts: [
+      {
+        id: 'facial-closeup-portrait',
+        label: '五官特寫照',
+        text: [
+          'Image Type:\nCreate a photorealistic editorial portrait.',
+          'Composition:\nTight face close-up.',
+          'Subject:\nOne adult portrait subject.',
+          'Wardrobe:\nBlack dress neckline.',
+        ].join('\n\n'),
+      },
+      {
+        id: 'chest-up-portrait',
+        label: '胸上特寫照',
+        text: [
+          'Image Type:\nCreate a photorealistic editorial portrait.',
+          'Composition:\nChest-up portrait.',
+          'Subject:\nOne adult portrait subject.',
+        ].join('\n\n'),
+      },
+      {
+        id: 'full-body-character',
+        label: '全身角色照',
+        text: [
+          'Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image.',
+          'Subject:\nOne adult portrait subject.',
+          'Lighting:\nClean even lighting.',
+          'Camera Look:\nFull-body view, complete figure visible from head to toe, both hands and both feet completely visible, no crop.',
+        ].join('\n\n'),
+      },
+    ],
   };
 }
 

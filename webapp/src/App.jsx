@@ -1,6 +1,9 @@
 import React, { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeLocks } from './lib/engine';
-import { normalizeMidjourneyParameterSettings } from './lib/engine/midjourneyParameterContract.js';
+import {
+  MIDJOURNEY_PARAMETER_SELECTION_KEYS,
+  normalizeMidjourneyParameterSettings,
+} from './lib/engine/midjourneyParameterContract.js';
 import {
   PAGE3_WORLD_SCENE_FIELD_CONFIG,
   PAGE3_WORLD_SCENE_FIELD_OPTIONS,
@@ -303,12 +306,20 @@ export default function App() {
     }
   };
 
-  const applyLocksToConsole = useCallback((nextLocks, successLabel) => {
+  const applyLocksToConsole = useCallback((
+    nextLocks,
+    successLabel,
+    { preserveMidjourneySettings = true } = {},
+  ) => {
     const restoredLocks = buildRestoreLocks(nextLocks, lockControls);
-    updateLocks((previousLocks) => normalizeLocks({
-      ...restoredLocks,
-      ...normalizeMidjourneyParameterSettings(previousLocks),
-    }));
+    updateLocks((previousLocks) => normalizeLocks(
+      preserveMidjourneySettings
+        ? {
+            ...restoredLocks,
+            ...normalizeMidjourneyParameterSettings(previousLocks),
+          }
+        : restoredLocks
+    ));
     setPageMode('page1');
     showToast(successLabel);
   }, [lockControls, showToast, updateLocks]);
@@ -319,7 +330,14 @@ export default function App() {
       showToast('沒有解析到可回填的標準欄位');
       return;
     }
-    applyLocksToConsole(parsedLocks, `已回填 ${matchedControls.length} 個欄位到主控台`);
+    const includesMidjourneyTail = matchedControls.some(
+      ({ key }) => MIDJOURNEY_PARAMETER_SELECTION_KEYS.includes(key)
+    );
+    applyLocksToConsole(
+      parsedLocks,
+      `已回填 ${matchedControls.length} 個欄位到主控台`,
+      { preserveMidjourneySettings: !includesMidjourneyTail },
+    );
     setIsImportPromptOpen(false);
     setImportPromptText('');
   };

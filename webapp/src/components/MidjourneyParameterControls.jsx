@@ -74,7 +74,7 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
       </div>
 
       <div className="context-note">
-        設定會保存在 PAGE1、隨生成 selection 進入 Saved Cards 並可回填；目前仍不附加到 Prompt，也不參與「全部隨機」或「清空」。
+        設定會保存在 PAGE1、隨生成 selection 進入 Saved Cards 並可回填，並自動附加在 AI Prompt 尾端；不參與「全部隨機」或「清空」。
       </div>
 
       <div className="mj-parameter-block">
@@ -163,7 +163,7 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
 
       <div className="mj-parameter-aspect-note">
         <strong>畫面比例</strong>
-        <span>不重複新增控制；後續由目前 AI 輸出的既有比例自動帶入。</span>
+        <span>不重複新增控制；由目前 AI 輸出實際解析後的既有比例自動帶入。</span>
       </div>
     </div>
   );

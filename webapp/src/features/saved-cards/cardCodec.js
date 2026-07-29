@@ -3,6 +3,8 @@ import {
   getLockControls,
   normalizeLocks,
 } from '../../lib/engine.js';
+import { MIDJOURNEY_PARAMETER_CONTRACT } from '../../lib/engine/midjourneyParameterContract.js';
+import { parseMidjourneyParameterTail } from '../../lib/engine/midjourneyParameterTail.js';
 import { ACTION_POSE_CARDS, buildActionPoseSavedCard } from '../../lib/actionPoseLab.js';
 
 export const FAVORITES_STORAGE_VERSION = 3;
@@ -267,18 +269,48 @@ export function findBestOptionMatch(options, normalizedPrompt) {
 }
 
 export function parseLocksFromStandardPrompt(promptText, controls) {
-  const normalizedPrompt = normalizePromptText(promptText);
+  const parsedMidjourneyTail = parseMidjourneyParameterTail(promptText);
+  const normalizedPrompt = normalizePromptText(parsedMidjourneyTail.content);
   const locks = createEmptyLocks();
   const matchedControls = [];
+  const controlMap = new Map(controls.map((control) => [control.key, control]));
 
-  if (!normalizedPrompt) return { locks, matchedControls };
+  if (normalizedPrompt) {
+    controls.forEach((control) => {
+      const option = findBestOptionMatch(control.options, normalizedPrompt);
+      if (!option) return;
+      locks[control.key] = option.id;
+      matchedControls.push({ key: control.key, label: control.label, option });
+    });
+  }
 
-  controls.forEach((control) => {
-    const option = findBestOptionMatch(control.options, normalizedPrompt);
-    if (!option) return;
-    locks[control.key] = option.id;
-    matchedControls.push({ key: control.key, label: control.label, option });
-  });
+  if (parsedMidjourneyTail.matched) {
+    const tailValues = {
+      ...parsedMidjourneyTail.settings,
+      ...(parsedMidjourneyTail.aspectRatio
+        ? { aspectRatio: parsedMidjourneyTail.aspectRatio }
+        : {}),
+    };
+    for (const parameterId of MIDJOURNEY_PARAMETER_CONTRACT.assembly.parameterOrder) {
+      const key = parameterId === 'aspectRatio'
+        ? 'aspectRatio'
+        : MIDJOURNEY_PARAMETER_CONTRACT.controls[parameterId].selectionKey;
+      if (!Object.hasOwn(tailValues, key)) continue;
+      const value = tailValues[key];
+      locks[key] = value;
+      const control = controlMap.get(key);
+      const option = control?.options?.find((entry) => entry.id === value) || {
+        id: String(value),
+        zh: String(value),
+        en: '',
+      };
+      matchedControls.push({
+        key,
+        label: control?.label || key,
+        option,
+      });
+    }
+  }
 
   return { locks, matchedControls };
 }
@@ -356,7 +388,7 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
   const grokPrompt = grokMatch[1].trim();
   const zImagePrompt = zImageMatch?.[1]?.trim() || '';
   const parsed = parseLocksFromStandardPrompt(
-    `${midjourneyPrompt}\n${grokPrompt}\n${zImagePrompt}`,
+    `${grokPrompt}\n${zImagePrompt}\n${midjourneyPrompt}`,
     controls,
   );
   if (parsed.matchedControls.length === 0) {

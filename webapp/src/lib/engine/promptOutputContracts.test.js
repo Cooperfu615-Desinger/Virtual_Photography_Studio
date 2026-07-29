@@ -104,7 +104,7 @@ function assertLiteralExpectations(text, expectations, fixtureId, field) {
 }
 
 test('prompt output contracts are frozen serializable data with stable public fields', () => {
-  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.1.0');
+  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.2.0');
   assert.deepEqual(Object.keys(PROMPT_OUTPUT_CONTRACTS), [
     'grokPrompt',
     'zImagePrompt',
@@ -119,6 +119,10 @@ test('prompt output contracts are frozen serializable data with stable public fi
   assert.equal(PROMPT_OUTPUT_CONTRACTS.grokPrompt.uiLabel, 'Gpt');
   assert.equal(PROMPT_OUTPUT_CONTRACTS.zImagePrompt.uiLabel, 'Grok/Z-Image');
   assert.equal(PROMPT_OUTPUT_CONTRACTS.midjourneyPrompt.uiLabel, 'AI');
+  assert.match(
+    PROMPT_OUTPUT_CONTRACTS.midjourneyPrompt.tail.requiredPatternSource,
+    /--v/
+  );
   assert.equal(PROMPT_OUTPUT_CONTRACTS.facialCloseupPortraitPrompt.source.id, 'facial-closeup-portrait');
   assert.equal(PROMPT_OUTPUT_CONTRACTS.chestUpPortraitPrompt.source.id, 'chest-up-portrait');
   assert.deepEqual(PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt.applicability.supportedModes, ['single']);
@@ -146,6 +150,16 @@ test('contract validator reports unknown, unsupported, tail, language, and contr
   assert.ok(issueCodes.includes('missing-tail'));
   assert.ok(issueCodes.includes('language-range'));
   assert.ok(issueCodes.includes('control-leakage'));
+
+  const invalidMidjourney = [
+    'Create a photorealistic editorial portrait.',
+    '',
+    'One adult portrait subject.',
+  ].join('\n');
+  assert.ok(
+    validatePromptOutputContract('midjourneyPrompt', invalidMidjourney, { mode: 'single' })
+      .some((entry) => entry.code === 'tail-pattern')
+  );
 });
 
 for (const fixture of REPRESENTATIVE_PROMPT_FIXTURES) {

@@ -80,3 +80,43 @@ test('manifest sourceId restores safe-filename exports while old markdown-only a
   assert.equal(importedLegacy.length, 1);
   assert.equal(importedLegacy[0].id, 'legacy-card');
 });
+
+test('markdown archive import restores Midjourney tail settings and aspect ratio', async () => {
+  const locks = {
+    ...createEmptyLocks(),
+    aspectRatio: '3:4',
+    mjVersionId: 'v8-1',
+    mjRawMode: 'raw',
+    mjStylize: 333,
+    mjChaos: 18,
+    mjWeirdness: 47,
+    mjResolution: 'hd',
+  };
+  const [generated] = generatePrompts(1, locks, [], { random: () => 0.123456 });
+  const prompt = {
+    ...generated,
+    id: 'midjourney-tail-archive',
+    date: '2026-07-29T00:00:00.000Z',
+  };
+  const bytes = await createSavedCardsArchive([prompt], 3, 'uint8array');
+  const [restored] = await parseSavedCardsArchive(bytes, getLockControls());
+
+  assert.equal(restored.midjourneyPrompt, prompt.midjourneyPrompt);
+  assert.deepEqual({
+    aspectRatio: restored.selection.aspectRatio,
+    mjVersionId: restored.selection.mjVersionId,
+    mjRawMode: restored.selection.mjRawMode,
+    mjStylize: restored.selection.mjStylize,
+    mjChaos: restored.selection.mjChaos,
+    mjWeirdness: restored.selection.mjWeirdness,
+    mjResolution: restored.selection.mjResolution,
+  }, {
+    aspectRatio: '3:4',
+    mjVersionId: 'v8-1',
+    mjRawMode: 'raw',
+    mjStylize: 333,
+    mjChaos: 18,
+    mjWeirdness: 47,
+    mjResolution: 'hd',
+  });
+});

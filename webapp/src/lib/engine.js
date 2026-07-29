@@ -33,6 +33,7 @@ import {
   MIDJOURNEY_PARAMETER_CONTRACT,
   normalizeMidjourneyParameterSettings,
 } from './engine/midjourneyParameterContract.js';
+import { appendMidjourneyParameterTail } from './engine/midjourneyParameterTail.js';
 import { CHARACTER_PROFILE_OPTIONS } from './engine/characterProfiles.js';
 import {
   DUO_EXPRESSION_OPTIONS,
@@ -12606,7 +12607,13 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   });
   const grokPrompt = renderGptPrompt(promptModel);
   const zImagePrompt = renderZImagePrompt(promptModel);
-  const midjourneyPrompt = renderAiPrompt(promptModel);
+  const midjourneyPrompt = appendMidjourneyParameterTail(
+    renderAiPrompt(promptModel),
+    {
+      ...context.locks,
+      aspectRatio: context.aspectRatio.id,
+    },
+  );
   const facialCloseupPortraitPrompt = renderFixedFramingDerivedPrompt(
     facialCloseupPortraitPromptModel,
     FIXED_FRAMING_DERIVED_PROMPT_PRESETS.facialCloseupPortrait,

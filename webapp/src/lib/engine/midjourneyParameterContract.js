@@ -5,14 +5,17 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.0.0';
+export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.1.0';
+
+export const MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE =
+  '--v (?:8\\.2|8\\.1)(?: --ar \\d+:\\d+)?(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)';
 
 /**
- * Machine-readable target for the future PAGE1 "F | MJ parameters" controls.
+ * Machine-readable contract for the PAGE1 "F | MJ parameters" controls.
  *
- * Phase 1 is behavior-neutral: these values are not registered as locks and
- * are not appended to the public midjourneyPrompt yet. Later phases must use
- * this contract instead of mixing Midjourney syntax into the AI text budget.
+ * Phase 4 appends the contract-owned parameter tail after the already-budgeted
+ * AI descriptive content. Renderers and importers must use this data instead
+ * of mixing Midjourney syntax into the AI text budget.
  */
 export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
   publicField: 'midjourneyPrompt',
@@ -135,6 +138,7 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
   },
   assembly: {
     contentBudgetExcludesParameters: true,
+    tailPatternSource: MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE,
     parameterOrder: [
       'version',
       'aspectRatio',

@@ -6,6 +6,7 @@ import {
   PROMPT_OUTPUT_CONTRACTS,
   validatePromptOutputContract,
 } from '../webapp/src/lib/engine/promptOutputContracts.js';
+import { stripMidjourneyParameterTail } from '../webapp/src/lib/engine/midjourneyParameterTail.js';
 
 export const MAIN_OUTPUTS = Object.freeze([
   Object.freeze({ key: 'gpt', label: 'Gpt', field: 'grokPrompt' }),
@@ -189,7 +190,11 @@ export function summarizeOutputWordLengths(prompts) {
       const text = typeof prompt?.[descriptor.field] === 'string' ? prompt[descriptor.field].trim() : '';
       const bucket = buckets.get(descriptor.key);
       if (!text) bucket.missing += 1;
-      else bucket.values.push(countWords(text));
+      else bucket.values.push(countWords(
+        descriptor.field === 'midjourneyPrompt'
+          ? stripMidjourneyParameterTail(text)
+          : text
+      ));
     }
 
     for (const output of getPromptOutputs(prompt, { includeMissingMain: false }).filter((item) => item.extra)) {
@@ -525,15 +530,18 @@ export function auditPrompt(prompt, index = 0) {
   }
 
   for (const output of getPromptOutputs(prompt, { includeMissingMain: false })) {
-    for (const signal of findDuplicateSegments(output.text)) {
+    const auditableText = output.field === 'midjourneyPrompt'
+      ? stripMidjourneyParameterTail(output.text)
+      : output.text;
+    for (const signal of findDuplicateSegments(auditableText)) {
       duplicateSignals.push({ output: output.label, ...signal });
     }
     if (output.field === 'zImagePrompt' || output.field === 'midjourneyPrompt') {
-      for (const signal of detectControlLanguage(output.text)) {
+      for (const signal of detectControlLanguage(auditableText)) {
         leakageSignals.push({ output: output.label, ...signal });
       }
     }
-    for (const signal of detectContradictions(output.text, { subjectCount })) {
+    for (const signal of detectContradictions(auditableText, { subjectCount })) {
       contradictionSignals.push({ output: output.label, ...signal });
     }
   }

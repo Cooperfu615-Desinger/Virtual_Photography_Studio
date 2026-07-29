@@ -85,7 +85,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.1.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.2.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -210,7 +210,7 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
   midjourneyPrompt: {
     field: 'midjourneyPrompt',
     uiLabel: 'AI',
-    target: 'Compact general image-model prompt',
+    target: 'Compact Midjourney V8 prompt',
     source: { kind: 'field', key: 'midjourneyPrompt' },
     applicability: {
       supportedModes: ['single', 'duo'],
@@ -255,7 +255,16 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     },
     tail: {
       requiredExactLine: '',
-      forbiddenSubstrings: ['multi-cut sequence n=2'],
+      requiredPatternSource: `${MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE}$`,
+      forbiddenSubstrings: [
+        'multi-cut sequence n=2',
+        '--q',
+        '--quality',
+        '--draft',
+        '--oref',
+        '--ow',
+        '--turbo',
+      ],
     },
     controlLeakage: {
       forbiddenCaseInsensitive: [
@@ -477,6 +486,17 @@ export function validatePromptOutputContract(field, text, { mode = 'single' } = 
     }
   }
 
+  if (
+    contract.tail.requiredPatternSource
+    && !new RegExp(contract.tail.requiredPatternSource).test(value)
+  ) {
+    issues.push(issue('tail-pattern', `${field} must end with its required parameter tail.`, {
+      field,
+      mode,
+      expected: contract.tail.requiredPatternSource,
+    }));
+  }
+
   for (const forbiddenTail of contract.tail.forbiddenSubstrings) {
     if (value.toLowerCase().includes(forbiddenTail.toLowerCase())) {
       issues.push(issue('forbidden-tail', `${field} contains forbidden tail ${forbiddenTail}.`, {
@@ -511,3 +531,4 @@ export function validatePromptOutputContract(field, text, { mode = 'single' } = 
 
   return issues;
 }
+import { MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE } from './midjourneyParameterContract.js';

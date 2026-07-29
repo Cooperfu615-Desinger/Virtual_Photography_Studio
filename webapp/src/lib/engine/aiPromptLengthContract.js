@@ -104,7 +104,8 @@ export const AI_PROMPT_LENGTH_CONTRACT = deepFreeze({
 });
 
 export function countAiPromptWords(value) {
-  return String(value || '')
+  return stripMidjourneyParameterTail(value)
     .match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g)?.length || 0;
 }
+import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 

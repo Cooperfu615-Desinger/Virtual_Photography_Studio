@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
+import { stripMidjourneyParameterTail } from './engine/midjourneyParameterTail.js';
 
 function control(key) {
   const found = getLockControls().find((entry) => entry.key === key);
@@ -244,7 +245,10 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.midjourneyPrompt, /(?:The central scene is|In(?: The portrait takes place)?)[\s\S]*(?:raw concrete wall|compact living-room editorial set)/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /The subject can interact with the sofa seat/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /real-scale compact living-room editorial set|fixed-set rule:|preserve anchors:/);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
+  assert.doesNotMatch(
+    stripMidjourneyParameterTail(prompt.midjourneyPrompt),
+    /1:1 square|16:9|9:16|aspect ratio/i
+  );
 });
 
 test('black velvet industrial sofa fixed composition shares sofa placement controls with distinct set anchors', () => {
@@ -552,7 +556,10 @@ test('hotel window fixed composition uses shared real-scale set structure and fr
   assert.match(prompt.midjourneyPrompt, /(?:The central scene is|In(?: The portrait takes place)?)[\s\S]*panoramic floor-to-ceiling glass wall[\s\S]*New York(?:-style high-rise)? skyline/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /The subject can interact with the bed/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set|subject placement can vary across one primary zone|fixed-set rule:|preserve anchors:/);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
+  assert.doesNotMatch(
+    stripMidjourneyParameterTail(prompt.midjourneyPrompt),
+    /1:1 square|16:9|9:16|aspect ratio/i
+  );
 });
 
 test('Fuji hotel fixed compositions share hotel placement controls and seasonal landscape anchors', () => {
@@ -618,7 +625,10 @@ test('Fuji hotel fixed compositions share hotel placement controls and seasonal 
     assert.match(prompt.midjourneyPrompt, /(?:The central scene is|In(?: The portrait takes place)?)[\s\S]*panoramic floor-to-ceiling glass wall/i);
     assert.match(prompt.midjourneyPrompt, /Mount Fuji/);
     assert.doesNotMatch(prompt.midjourneyPrompt, /real-scale luxury hotel room editorial set|preserve anchors:|fixed-set rule:/);
-    assert.doesNotMatch(prompt.midjourneyPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
+    assert.doesNotMatch(
+      stripMidjourneyParameterTail(prompt.midjourneyPrompt),
+      /1:1 square|16:9|9:16|aspect ratio/i
+    );
   });
 });
 

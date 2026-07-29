@@ -21,6 +21,7 @@ import {
   countAiPromptWords,
 } from './aiPromptLengthContract.js';
 import { AI_PROMPT_LENGTH_FIXTURES } from './aiPromptLengthFixtures.js';
+import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controls = getLockControls();
 const PHASE_1_BASELINE_HASHES = Object.freeze({
@@ -147,7 +148,7 @@ test('phase-4 keeps the excluded duo output outside its behavior change', () => 
     return entry.excludedFromBudget;
   })) {
     const output = generateFixture(fixture).midjourneyPrompt;
-    const hash = createHash('sha256').update(output).digest('hex');
+    const hash = createHash('sha256').update(stripMidjourneyParameterTail(output)).digest('hex');
     assert.equal(hash, PHASE_1_BASELINE_HASHES[fixture.id], fixture.id);
   }
 });
@@ -188,7 +189,11 @@ test('phase-5 leaves every already-compliant fixture byte-stable', () => {
   for (const [fixtureId, expectedHash] of Object.entries(PHASE_4_STABLE_HASHES)) {
     const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => entry.id === fixtureId);
     const output = generateFixture(fixture).midjourneyPrompt;
-    assert.equal(createHash('sha256').update(output).digest('hex'), expectedHash, fixtureId);
+    assert.equal(
+      createHash('sha256').update(stripMidjourneyParameterTail(output)).digest('hex'),
+      expectedHash,
+      fixtureId
+    );
   }
 });
 
