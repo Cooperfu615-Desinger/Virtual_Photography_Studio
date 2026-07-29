@@ -36,7 +36,7 @@ function createOpeningLocks(imageTypePresetId, subjectCount = '1') {
   };
 }
 
-test('phase 2 emits direct image-type openings for every Midjourney output type', () => {
+test('phase 3 keeps direct image-type openings before the normal subject lead', () => {
   for (const fixture of MIDJOURNEY_IMAGE_TYPE_OPENING_FIXTURES) {
     const prompt = generatePrompts(1, createOpeningLocks(fixture.id), [], {
       random: createSeededRandom(`mj-opening-${fixture.id}`),
@@ -47,7 +47,7 @@ test('phase 2 emits direct image-type openings for every Midjourney output type'
     assert.doesNotMatch(description, /^Create an? /, fixture.id);
     assert.match(
       description,
-      /Waist-up portrait, high angle, looking down, front view\. A 20s /,
+      /Waist-up portrait, high angle, looking down, front view\. 20s Japanese or Korean woman, seductive editorial presence/,
       `${fixture.id}: composition-to-subject boundary`
     );
   }

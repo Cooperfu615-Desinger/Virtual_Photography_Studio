@@ -11,7 +11,8 @@ import {
 const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
 const FIXED_SET_SCENE_ANCHOR = /black velvet sofa/i;
-const SUBJECT_ANCHOR = /A 20s seductive stunning Japanese or Korean woman/i;
+const Z_IMAGE_SUBJECT_ANCHOR = /A 20s seductive stunning Japanese or Korean woman/i;
+const MIDJOURNEY_SUBJECT_ANCHOR = /20s Japanese or Korean woman, seductive editorial presence/i;
 
 const WARDROBE_CASES = [
   {
@@ -97,8 +98,8 @@ function contentIndex(text, pattern) {
   return text.indexOf(pattern);
 }
 
-function assertNaturalOutputOrder(text, wardrobeAnchor, canonicalPose, field, caseId) {
-  const subjectIndex = contentIndex(text, SUBJECT_ANCHOR);
+function assertNaturalOutputOrder(text, subjectAnchor, wardrobeAnchor, canonicalPose, field, caseId) {
+  const subjectIndex = contentIndex(text, subjectAnchor);
   const wardrobeIndex = contentIndex(text, wardrobeAnchor);
   const poseIndex = contentIndex(text, canonicalPose);
   const sceneIndex = contentIndex(text, FIXED_SET_SCENE_ANCHOR);
@@ -137,7 +138,21 @@ for (const promptCase of WARDROBE_CASES) {
     assert.match(prompt.grokPrompt, promptCase.wardrobeAnchor);
     assert.match(prompt.grokPrompt, FIXED_SET_SCENE_ANCHOR);
 
-    assertNaturalOutputOrder(prompt.zImagePrompt, promptCase.wardrobeAnchor, canonicalPose, 'zImagePrompt', promptCase.id);
-    assertNaturalOutputOrder(prompt.midjourneyPrompt, promptCase.wardrobeAnchor, canonicalPose, 'midjourneyPrompt', promptCase.id);
+    assertNaturalOutputOrder(
+      prompt.zImagePrompt,
+      Z_IMAGE_SUBJECT_ANCHOR,
+      promptCase.wardrobeAnchor,
+      canonicalPose,
+      'zImagePrompt',
+      promptCase.id
+    );
+    assertNaturalOutputOrder(
+      prompt.midjourneyPrompt,
+      MIDJOURNEY_SUBJECT_ANCHOR,
+      promptCase.wardrobeAnchor,
+      canonicalPose,
+      'midjourneyPrompt',
+      promptCase.id
+    );
   });
 }

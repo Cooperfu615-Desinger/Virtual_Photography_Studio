@@ -251,7 +251,7 @@ test('selected image type preset drives Gpt Grok/Z-Image and AI openings without
   assert.match(prompt.zImagePrompt, /^Create a pastel illustration portrait\./i);
   assert.match(prompt.zImagePrompt, /A 20s seductive stunning Japanese or Korean woman(?:\.| with)/i);
   assert.match(prompt.midjourneyPrompt, /^Pastel illustration portrait\./i);
-  assert.match(prompt.midjourneyPrompt, /A 20s seductive stunning Japanese or Korean woman/i);
+  assert.match(prompt.midjourneyPrompt, /20s Japanese or Korean woman, seductive editorial presence/i);
   assert.match(prompt.midjourneyPrompt, /Wearing /i);
   assert.equal(prompt.selection.imageTypePresetId, 'pastel-illustration');
   assert.equal(prompt.structured.Style[0].zh, '粉彩插畫');
@@ -365,7 +365,7 @@ test('AI single-subject prompt uses fixed subject lead while preserving eyewear 
   });
   const aiPrompt = prompt.midjourneyPrompt;
 
-  assert.match(aiPrompt, /^Photorealistic editorial portrait\. Full-body portrait\. A 20s seductive stunning Japanese or Korean woman/i);
+  assert.match(aiPrompt, /^Photorealistic editorial portrait\. Full-body portrait\. 20s Japanese or Korean woman, seductive editorial presence/i);
   assert.match(aiPrompt, /sexy tall slim-curvy silhouette[\s\S]*94-58-88 body proportion anchor|94-58-92 body proportion anchor/i);
   assert.match(aiPrompt, /wet-look long wavy hair[\s\S]*black bold-frame glasses/i);
   assert.match(aiPrompt, /Wearing white triangle bikini top, white low-rise side-tie bikini bottoms/i);
@@ -462,7 +462,7 @@ test('AI single-subject prompt orders eyewear and headphones before clothing', (
 
   const aiPrompt = prompt.midjourneyPrompt;
 
-  assert.match(aiPrompt, /^Photorealistic editorial portrait\.[\s\S]*A 20s seductive stunning Japanese or Korean woman/i);
+  assert.match(aiPrompt, /^Photorealistic editorial portrait\.[\s\S]*20s Japanese or Korean woman, seductive editorial presence/i);
   assert.match(aiPrompt, /black bold-frame glasses[\s\S]*black Marshall Major V on-ear headphones resting around the neck[\s\S]*Wearing /i);
   assert.match(aiPrompt, /off-white sheer floral lace cropped camisole[\s\S]*dark blue denim shorts/i);
   assert.ok(
@@ -1127,7 +1127,7 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
   assert.match(prompt.midjourneyPrompt, /^Photorealistic editorial portrait\./);
-  assert.match(prompt.midjourneyPrompt, / A 20s seductive stunning Japanese or Korean woman(?:\.|,)/);
+  assert.match(prompt.midjourneyPrompt, / 20s Japanese or Korean woman, seductive editorial presence(?:\.|,)/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\n/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /20-year-old|defined eyes and lips/i);
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
@@ -1547,7 +1547,7 @@ test('AI prompt keeps two-piece outfit preset garments while omitting palette co
     poseId: optionId('poseId', '坐姿｜微微前傾'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /Wearing tight long-sleeve button-up shirt outfit, tight bodycon mini skirt at the lower crop edge/i);
+  assert.match(prompt.midjourneyPrompt, /Wearing tight long-sleeve button-up shirt outfit, tight bodycon mini skirt, smooth hip-hugging skirt silhouette at the lower crop edge/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /wearing a (?:white|black) tight long-sleeve button-up shirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /tight long-sleeve button-up shirt and (?:white|black) bodycon mini skirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /coordinated top-to-bottom palette|upper\/main garment|lower or secondary garment/i);

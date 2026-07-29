@@ -326,6 +326,8 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 第二階段已啟用上述直接開頭。AI 的 image type 由 contract-owned mapping 輸出，不再回讀共用 `Create a...` 句子；構圖區塊固定以完整句點結束後才接人物，因此 `front view A 20s...` 類黏接不可再出現。單人與雙人共用此規則。Gpt、Grok/Z-Image 與三組固定景別輸出仍使用原本格式，strict audit 會把三組不同長度的成品類型描述正規化成同一個 resolved image identity 再檢查 drift。
 
+第三階段將一般單人的 AI 人物開頭改為直接視覺身份 `20s Japanese or Korean woman, seductive editorial presence`，不再沿用 Grok/Z-Image 的 `A 20s seductive stunning...` 跨模型固定句。Body Type 的數值與區域錨點、髮型、髮色、眼鏡及耳機仍依同一 resolved selection 保留；Gpt 與 Grok/Z-Image 的人物文字不變。服裝繼續沿用共用構圖可見性投影，但同一服裝句中的 `at the lower crop edge` 只能出現一次，避免可見邊界重複搶權重。角色卡、雙人及特殊模式的專屬壓縮規則留在第五階段處理。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

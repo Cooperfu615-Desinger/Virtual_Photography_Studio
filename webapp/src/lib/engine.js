@@ -81,6 +81,7 @@ const SUBJECT_COUNT_OPTIONS = [
 ];
 
 const FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE = 'A 20s seductive stunning Japanese or Korean woman.';
+const MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD = '20s Japanese or Korean woman, seductive editorial presence';
 
 const IMAGE_TYPE_PRESET_OPTIONS = [
   {
@@ -11519,6 +11520,20 @@ function uniqueAiWardrobeValues(values) {
     });
 }
 
+function dedupeAiLowerCropBoundary(value) {
+  const source = compactAiSourceText(value);
+  const boundaryPattern = /\s+at the lower crop edge/gi;
+  const matches = [...source.matchAll(boundaryPattern)];
+  if (matches.length <= 1) return source;
+
+  const finalBoundaryIndex = matches.at(-1).index;
+  return source
+    .replace(boundaryPattern, (match, offset) => (offset === finalBoundaryIndex ? match : ''))
+    .replace(/\s+,/g, ',')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
 function getAiCharacterCardDirectAccessoryValues(wardrobe) {
   if (!Array.isArray(wardrobe)) return [];
   return wardrobe
@@ -12325,7 +12340,7 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) {
     : '';
   const headphoneText = wardrobeSlots ? compactAiHeadAudioAccessoryText(wardrobeSlots.headAccessory) : '';
   const subjectLead = shouldUseFixedAiSingleSubjectLead(context)
-    ? FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE
+    ? MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD
     : context.subject?.en || 'A 20-year-old adult East Asian woman';
 
   const bodyText = shouldUseFixedAiSingleSubjectLead(context)
@@ -12376,7 +12391,7 @@ function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) {
       ]
     : [buildAiNormalWardrobeText(valuesByLabel, context)];
   const wardrobeText = uniqueAiWardrobeValues(wardrobeParts.join(', ').split(/,\s*/)).join(', ');
-  return wardrobeText ? ensureTerminalPeriod(`Wearing ${compactAiSourceText(wardrobeText)}`) : '';
+  return wardrobeText ? ensureTerminalPeriod(`Wearing ${dedupeAiLowerCropBoundary(wardrobeText)}`) : '';
 }
 
 function buildAiFreedomPoseSentence(context, character) {

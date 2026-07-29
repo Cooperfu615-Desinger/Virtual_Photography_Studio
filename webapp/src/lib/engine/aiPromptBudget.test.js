@@ -25,15 +25,15 @@ import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controls = getLockControls();
 const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
-  'normal-separates': 'a7e053e9e22f8210a68b8b14d81748f4b9a4e28f94184b8ceb611731b1b13586',
-  'complete-look-latex': '5b54955f3e1e7edf834eb8c495a3b0f054c8512d822d1eb98fa1eafb7247293c',
-  'complete-look-special': '618dd54cf5291ec65e517030dffba023782106e78f8abfd911ed844496c9f782',
-  'complete-look-dress': '603943c358588704a64e10e9dfbe8526660d84c22c59eb37d5f4e5f4a421b428',
+  'normal-separates': 'c10f6e3b53e84d1ba470ebf944d841945da0fe43c18359da639e52a67e0776db',
+  'complete-look-latex': '1e1a37858d210b296e6c0e76bb8268ec40eb1591d427cf8bc8a0e42caf49e5f0',
+  'complete-look-special': '8b9a2dcac3dfb8297b644398cf732f6e6bf944700c75b80984131f903fe95e37',
+  'complete-look-dress': '40c3231fd8591963b522cccec4acd7089b8a8f1e5ca04eb1568d11f9227100ac',
   'character-card-jiwoo': '662f1609dc1590a40521c78026b541a2c93aecac39959d888d295ccd20145144',
   'character-card-sui': '5c637dd35f141e90355e6880647989ef778787427f3790b8c5bb5d8e84637b51',
   'character-card-half-face-pressure': '433079ea341c1eb9004c7548d967492128bb0d077924a17aaf8fe6a4fbad3079',
-  'canonical-pose-pressure': '99123be524ac5800fd7150032135469a8078f2c3816f26430667524e7b760998',
-  'half-face-boundary': '886f3de20c4eda0473b51d0f698e3be3d66e25be9fc91098944e3ec798dd3feb',
+  'canonical-pose-pressure': 'e7314f9d387d522b69b7922cfc3556e86bf415abf51f5da5f20fd84ad84072a6',
+  'half-face-boundary': '41bc579c09e80dcd1d3c3e90cae06eb502da10ca1ef98298935da3f68994c763',
   'duo-excluded-boundary': 'b44a8ac1ee3b38d1a6c6bc8a2fb93da305100f18886d5d5437d2c47172df5157',
 });
 

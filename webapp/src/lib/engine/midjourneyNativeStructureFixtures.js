@@ -1,24 +1,24 @@
 /**
  * Current Midjourney-native structure targets.
  *
- * Phase 2 of the description optimization replaces the imperative image-type
- * opening and adds the composition-to-subject sentence boundary. The canonical
- * parameter tail remains outside the hashed description.
+ * Phase 3 adds the Midjourney-native normal-subject lead and removes repeated
+ * lower-crop wardrobe boundaries. The canonical parameter tail remains outside
+ * the hashed description.
  */
 export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   {
     id: 'normal-single-precise',
-    expectedDescriptionHash: 'fe5e1bc07ac6e7ea7ba21d04c4ab7f33e002330a0e824ed98200da018a922722',
+    expectedDescriptionHash: '32c26bfd9484808a9f930a1338dcbb22880eaa7e20405d1e58791b2acd372444',
     expectedWords: 101,
   },
   {
     id: 'complete-look-balanced',
-    expectedDescriptionHash: 'f1584acded9eb5aefa6eaff67faf9a83a3d724cf1a1681aaba7fc2b55b58c3e5',
+    expectedDescriptionHash: 'b5583e36cddaf8fb1a93db7a80e75c5ce6ec990c641686e4fa1a6cc6e9ee623a',
     expectedWords: 57,
   },
   {
     id: 'canonical-pose-precise',
-    expectedDescriptionHash: '7423b5ca695b91e88e20b2337df49a0444c2a15b44cef4f0c14c1ea082ec53bf',
+    expectedDescriptionHash: '2e7ce1eddae8384d1fdcc1d78e69531fd508d0d8aee47e6ab0589a5007037571',
     expectedWords: 98,
   },
   {
@@ -33,12 +33,12 @@ export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   },
   {
     id: 'fixed-special-creative',
-    expectedDescriptionHash: 'ffce0700a504aef15367a8576bc1b9970632687a5bd12856013e5db3e9bc4337',
+    expectedDescriptionHash: '19ca8ed3670d9506e712f73184c3c6549cd916d0a50312022ff9b1c5c00a3c55',
     expectedWords: 85,
   },
   {
     id: 'fixed-dress-v81',
-    expectedDescriptionHash: 'f5cddb3a29259b15400aefacd260d823175a52e07d40bd30d07bc67144eb84e1',
+    expectedDescriptionHash: 'ddfd388a7e9116948c063592967ab4ec6c034570c77a302d71480c4a9f2e0d3f',
     expectedWords: 52,
   },
 ]);

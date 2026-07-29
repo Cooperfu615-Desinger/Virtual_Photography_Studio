@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.1.0';
+export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.2.0';
 
 /**
  * Target contract for the Midjourney-native descriptive content that appears
