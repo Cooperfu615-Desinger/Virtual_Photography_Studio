@@ -29,6 +29,10 @@ import {
   dedupeRepeatedCommaFragments,
   materializeOutfitColorControls,
 } from './engine/promptTextDeduplication.js';
+import {
+  MIDJOURNEY_PARAMETER_CONTRACT,
+  normalizeMidjourneyParameterSettings,
+} from './engine/midjourneyParameterContract.js';
 import { CHARACTER_PROFILE_OPTIONS } from './engine/characterProfiles.js';
 import {
   DUO_EXPRESSION_OPTIONS,
@@ -830,6 +834,22 @@ const SCENE_ATTRIBUTE_OPTIONS = [
   { id: 'other', zh: '其他', en: 'other dedicated setting' },
 ];
 
+const MIDJOURNEY_PARAMETER_LOCK_DEFINITIONS = Object.entries(
+  MIDJOURNEY_PARAMETER_CONTRACT.controls
+).map(([controlId, control]) => ({
+  key: control.selectionKey,
+  label: `MJ ${controlId}`,
+  defaultValue: control.defaultValue,
+  options: control.type === 'enum'
+    ? control.options.map((option) => ({
+      id: option.id,
+      zh: option.label,
+      en: '',
+    }))
+    : [],
+  section: 'midjourney',
+  randomization: 'excluded',
+}));
 
 const LOCK_DEFINITIONS = [
   { key: 'subjectCount', label: '人物數量', options: SUBJECT_COUNT_OPTIONS, required: true, defaultValue: '1', section: 'core' },
@@ -841,6 +861,7 @@ const LOCK_DEFINITIONS = [
   { key: 'characterCardWardrobeLayerIds', label: '角色卡服裝層', defaultValue: [], multi: true, section: 'hidden' },
   { key: 'characterCardPromptOverride', label: '角色卡臨時覆寫', defaultValue: '', section: 'hidden' },
   { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
+  ...MIDJOURNEY_PARAMETER_LOCK_DEFINITIONS,
   { key: 'imageTypePresetId', label: '成品類型', options: IMAGE_TYPE_PRESET_OPTIONS, defaultValue: 'photorealistic-photo', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
   { key: 'cameraSystemId', label: '舊相機', options: CAMERA_SYSTEM_OPTIONS, section: 'hidden' },
@@ -3319,6 +3340,10 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
   applyEyewearLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyOuterwearOpeningLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applySelfiePoseHandOrbitLock(normalizedWithLegacyColors, controls);
+  Object.assign(
+    normalizedWithLegacyColors,
+    normalizeMidjourneyParameterSettings(normalizedWithLegacyColors),
+  );
 
   return normalizedWithLegacyColors;
 }
@@ -12630,6 +12655,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     characterCardWardrobeLayerIds: characterCardSelection.characterCardWardrobeLayerIds,
     characterCardPromptOverride: characterCardSelection.characterCardPromptOverride,
     aspectRatio: context.aspectRatio.id,
+    ...normalizeMidjourneyParameterSettings(context.locks),
     imageTypePresetId: context.imageTypePreset?.id || 'photorealistic-photo',
     styleId: context.style?.id || '',
     cameraSystemId: context.cameraSystem?.id || '',

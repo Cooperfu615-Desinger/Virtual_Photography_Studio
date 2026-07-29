@@ -40,8 +40,9 @@ import {
 import { buildAllNoneLocks, isNoneSelected } from '../features/page1/page1Selectors.js';
 import {
   buildMidjourneyParameterSummary,
-  createMidjourneyParameterDraft,
+  normalizeMidjourneyParameterDraft,
 } from '../features/page1/midjourneyParameterUi.js';
+import { createPromptGenerationLocks } from '../features/page1/midjourneyParameterState.js';
 import '../features/page1/page1.css';
 
 const WARDROBE_PICKER_KEYS = new Set([
@@ -459,14 +460,20 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     photography: 'composition',
     midjourney: 'generation',
   });
-  const [midjourneyParameterDraft, setMidjourneyParameterDraft] = useState(createMidjourneyParameterDraft);
 
   const clearedLocks = useMemo(() => createEmptyLocks(), []);
-  const isClearedLockState = areLocksEqual(locks, clearedLocks);
+  const midjourneyParameterSettings = useMemo(
+    () => normalizeMidjourneyParameterDraft(locks),
+    [locks],
+  );
+  const isClearedLockState = areLocksEqual(
+    createPromptGenerationLocks(locks),
+    createPromptGenerationLocks(clearedLocks),
+  );
   const workspaceSummary = useMemo(() => ({
     ...buildWorkspaceSummary(locks, lockControls),
-    midjourney: buildMidjourneyParameterSummary(midjourneyParameterDraft),
-  }), [locks, lockControls, midjourneyParameterDraft]);
+    midjourney: buildMidjourneyParameterSummary(midjourneyParameterSettings),
+  }), [locks, lockControls, midjourneyParameterSettings]);
   const generationSummary = useMemo(
     () => buildPage1GenerationSummary(locks, previewPrompt, lockControls),
     [locks, previewPrompt, lockControls]
@@ -602,8 +609,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     midjourney: {
       status: '獨立設定',
       chips: [
-        midjourneyParameterDraft.mjRawMode === 'raw' ? 'Raw' : 'Standard',
-        midjourneyParameterDraft.mjResolution.toUpperCase(),
+        midjourneyParameterSettings.mjRawMode === 'raw' ? 'Raw' : 'Standard',
+        midjourneyParameterSettings.mjResolution.toUpperCase(),
       ],
     },
   };
@@ -1013,8 +1020,17 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     if (activeSection === 'midjourney') {
       return (
         <MidjourneyParameterControls
-          settings={midjourneyParameterDraft}
-          onChange={setMidjourneyParameterDraft}
+          settings={midjourneyParameterSettings}
+          onChange={(updater) => updateLocks((previousLocks) => {
+            const currentSettings = normalizeMidjourneyParameterDraft(previousLocks);
+            const nextSettings = typeof updater === 'function'
+              ? updater(currentSettings)
+              : updater;
+            return {
+              ...previousLocks,
+              ...normalizeMidjourneyParameterDraft(nextSettings),
+            };
+          })}
         />
       );
     }
@@ -1029,7 +1045,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const dllPromptSources = buildPage1DllPromptSources(previewPrompt);
 
   const handleClearSelected = () => {
-    updateLocks(clearedLocks);
+    updateLocks((previousLocks) => ({
+      ...clearedLocks,
+      ...normalizeMidjourneyParameterDraft(previousLocks),
+    }));
     showToast?.('已清除可選欄位，必要欄位保留預設值');
   };
 

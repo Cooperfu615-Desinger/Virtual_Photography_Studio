@@ -199,6 +199,34 @@ export function getDefaultMidjourneyParameterSettings() {
   );
 }
 
+export const MIDJOURNEY_PARAMETER_SELECTION_KEYS = Object.freeze(
+  Object.values(MIDJOURNEY_PARAMETER_CONTRACT.controls)
+    .map((control) => control.selectionKey)
+);
+
+function normalizeMidjourneyParameterValue(control, value) {
+  if (control.type === 'enum') {
+    return control.options.some((option) => option.id === value)
+      ? value
+      : control.defaultValue;
+  }
+
+  if (value === undefined || value === null || value === '') return control.defaultValue;
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return control.defaultValue;
+  return Math.min(control.max, Math.max(control.min, Math.round(numeric)));
+}
+
+export function normalizeMidjourneyParameterSettings(settings = {}) {
+  return Object.fromEntries(
+    Object.values(MIDJOURNEY_PARAMETER_CONTRACT.controls)
+      .map((control) => [
+        control.selectionKey,
+        normalizeMidjourneyParameterValue(control, settings[control.selectionKey]),
+      ])
+  );
+}
+
 export function validateMidjourneyParameterSettings(settings = {}) {
   const issues = [];
 

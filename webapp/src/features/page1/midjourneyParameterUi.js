@@ -1,27 +1,13 @@
 import {
   MIDJOURNEY_PARAMETER_CONTRACT,
   getDefaultMidjourneyParameterSettings,
+  normalizeMidjourneyParameterSettings,
 } from '../../lib/engine/midjourneyParameterContract.js';
 
-const CONTROL_ENTRIES = Object.entries(MIDJOURNEY_PARAMETER_CONTRACT.controls);
 const CONTROL_BY_SELECTION_KEY = new Map(
-  CONTROL_ENTRIES.map(([id, control]) => [control.selectionKey, { id, ...control }])
+  Object.entries(MIDJOURNEY_PARAMETER_CONTRACT.controls)
+    .map(([id, control]) => [control.selectionKey, { id, ...control }])
 );
-
-function clampInteger(value, control) {
-  const numeric = Number(value);
-  if (!Number.isFinite(numeric)) return control.defaultValue;
-  return Math.min(control.max, Math.max(control.min, Math.round(numeric)));
-}
-
-function normalizeControlValue(control, value) {
-  if (control.type === 'enum') {
-    return control.options.some((option) => option.id === value)
-      ? value
-      : control.defaultValue;
-  }
-  return clampInteger(value, control);
-}
 
 function getOptionLabel(controlId, value) {
   const control = MIDJOURNEY_PARAMETER_CONTRACT.controls[controlId];
@@ -33,21 +19,16 @@ export function createMidjourneyParameterDraft() {
 }
 
 export function normalizeMidjourneyParameterDraft(settings = {}) {
-  return Object.fromEntries(
-    CONTROL_ENTRIES.map(([, control]) => [
-      control.selectionKey,
-      normalizeControlValue(control, settings[control.selectionKey]),
-    ])
-  );
+  return normalizeMidjourneyParameterSettings(settings);
 }
 
 export function updateMidjourneyParameterDraft(settings, selectionKey, value) {
   const control = CONTROL_BY_SELECTION_KEY.get(selectionKey);
   if (!control) return normalizeMidjourneyParameterDraft(settings);
-  return {
-    ...normalizeMidjourneyParameterDraft(settings),
-    [selectionKey]: normalizeControlValue(control, value),
-  };
+  return normalizeMidjourneyParameterDraft({
+    ...settings,
+    [selectionKey]: value,
+  });
 }
 export function applyMidjourneyParameterPreset(settings, presetId) {
   const preset = MIDJOURNEY_PARAMETER_CONTRACT.presets[presetId];

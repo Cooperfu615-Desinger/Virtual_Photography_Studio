@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeLocks } from './lib/engine';
+import { normalizeMidjourneyParameterSettings } from './lib/engine/midjourneyParameterContract.js';
 import {
   PAGE3_WORLD_SCENE_FIELD_CONFIG,
   PAGE3_WORLD_SCENE_FIELD_OPTIONS,
@@ -304,7 +305,10 @@ export default function App() {
 
   const applyLocksToConsole = useCallback((nextLocks, successLabel) => {
     const restoredLocks = buildRestoreLocks(nextLocks, lockControls);
-    updateLocks(() => normalizeLocks(restoredLocks));
+    updateLocks((previousLocks) => normalizeLocks({
+      ...restoredLocks,
+      ...normalizeMidjourneyParameterSettings(previousLocks),
+    }));
     setPageMode('page1');
     showToast(successLabel);
   }, [lockControls, showToast, updateLocks]);

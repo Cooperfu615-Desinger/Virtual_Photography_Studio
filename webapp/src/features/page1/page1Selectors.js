@@ -32,6 +32,10 @@ export function buildAllNoneLocks(controls, currentLocks) {
   nextLocks.subjectCount = currentLocks.subjectCount || nextLocks.subjectCount;
 
   controls.forEach((control) => {
+    if (control.section === 'midjourney' || control.randomization === 'excluded') {
+      nextLocks[control.key] = currentLocks[control.key] ?? nextLocks[control.key];
+      return;
+    }
     if (control.key === 'subjectCount') return;
     const noneOption = control.options?.find((option) => option.zh === '全無');
     nextLocks[control.key] = noneOption

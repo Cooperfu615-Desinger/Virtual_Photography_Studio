@@ -300,6 +300,12 @@ F 第一版預定提供 Midjourney V8.2／V8.1、Standard／Raw、Stylize 0–10
 
 本階段的 F 值只存在目前 PAGE1 component draft；重新載入頁面後回到契約預設。它尚未註冊為 engine lock、尚未進入 `vps.locks`／Saved Cards／匯入還原，也尚未附加到 `midjourneyPrompt`。因此切換任何 F 控制後，Gpt、Grok/Z-Image、AI 與三組固定構圖 Prompt 必須逐字不變；第三階段才處理 selection、儲存與還原相容性，第四階段才允許輸出參數尾段。
 
+第三階段以既有欄位名稱把六個 F 值註冊到 engine Lock schema 的獨立 `midjourney` section。這些 Lock 使用契約預設與正規化規則：enum 非法值退回預設，數值轉成整數並限制在合法範圍，缺少、空字串、`null` 或非數字資料退回預設。舊版 `vps.locks`、舊 Favorites v2／v3 selection 與匯入收藏不需升版 migration；缺少 F 欄位時由 `normalizeLocks()` 自動補齊。
+
+F 值現在必須進入 `vps.locks`、每次生成的 resolved selection、Favorites 本機／Firebase compact payload，以及預覽與 Saved Cards 回填。一般「全部隨機」、「清除可選欄位」與「清空可清除項目」均須保留目前 F 值。由於第三階段仍禁止參數尾段，F-only 更新不得觸發 live Prompt reroll：preview generation signature 必須排除六個 F key，完成生成後只把正規化設定合併回 selection。標準 Prompt 文字在第四階段前尚無可解析參數，因此文字回填應保留使用者當前 F 值；Saved Cards selection 則以卡片內保存值為準完整還原。
+
+第三階段仍不得改動 `midjourneyPrompt` 或其他五組 Prompt 文字。所有公開輸出、AI 字數預算、canonical pose 與歷史欄位映射必須保持第二階段基準；第四階段才可把 selection 中的 F 值組裝成 AI 專屬參數尾段。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

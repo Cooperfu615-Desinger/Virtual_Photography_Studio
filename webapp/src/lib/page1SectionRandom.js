@@ -30,6 +30,7 @@ export function getPage1ControlActionMode(controlOrKey, controls = []) {
     : controlOrKey;
   const key = control?.key || controlOrKey;
 
+  if (control?.section === 'midjourney' || control?.randomization === 'excluded') return 'preserve';
   if (PRESERVE_KEYS.has(key) || control?.required) return 'preserve';
   if (POSE_COMPOSER_KEYS.includes(key)) return 'random';
   if (RESET_TO_DEFAULT_KEYS.has(key) || control?.section === 'hidden') return 'reset';

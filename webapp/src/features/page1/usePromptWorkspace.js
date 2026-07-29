@@ -13,6 +13,10 @@ import {
 } from '../../lib/engine.js';
 import { loadJsonStorage, saveJsonStorage } from '../storage/browserStorage.js';
 import { transitionPage1Locks } from './lockTransitions.js';
+import {
+  attachMidjourneySettingsToPrompt,
+  createPromptGenerationLocks,
+} from './midjourneyParameterState.js';
 import { buildPage1ControlGroups } from './page1Selectors.js';
 
 export const LOCKS_STORAGE_KEY = 'vps.locks';
@@ -48,13 +52,22 @@ export function usePromptWorkspace() {
     () => buildPage1ControlGroups({ lockControls, locks, sceneDependentOptions }),
     [lockControls, locks, sceneDependentOptions],
   );
-  const previewPrompt = useMemo(() => {
-    const [prompt] = generatePrompts(1, locks, activeLibrary, {
+  const promptGenerationLockSignature = useMemo(
+    () => JSON.stringify(createPromptGenerationLocks(locks)),
+    [locks],
+  );
+  const previewPromptBase = useMemo(() => {
+    const promptGenerationLocks = JSON.parse(promptGenerationLockSignature);
+    const [prompt] = generatePrompts(1, promptGenerationLocks, activeLibrary, {
       excludePreviousSelection: previewRerollExclusion,
       previewGenerationNonce,
     });
     return prompt || null;
-  }, [activeLibrary, locks, previewGenerationNonce, previewRerollExclusion]);
+  }, [activeLibrary, promptGenerationLockSignature, previewGenerationNonce, previewRerollExclusion]);
+  const previewPrompt = useMemo(
+    () => attachMidjourneySettingsToPrompt(previewPromptBase, locks),
+    [locks, previewPromptBase],
+  );
 
   useEffect(() => {
     saveJsonStorage(LOCKS_STORAGE_KEY, locks);

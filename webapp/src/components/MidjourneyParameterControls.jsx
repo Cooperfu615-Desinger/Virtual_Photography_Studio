@@ -74,7 +74,7 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
       </div>
 
       <div className="context-note">
-        第二階段先完成控制介面。設定目前不附加到 Prompt，也不參與「全部隨機」或「清空」；後續會依契約接入儲存與 AI 參數尾段。
+        設定會保存在 PAGE1、隨生成 selection 進入 Saved Cards 並可回填；目前仍不附加到 Prompt，也不參與「全部隨機」或「清空」。
       </div>
 
       <div className="mj-parameter-block">
