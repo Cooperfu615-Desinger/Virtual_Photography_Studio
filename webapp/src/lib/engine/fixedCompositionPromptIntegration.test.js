@@ -82,10 +82,6 @@ function materializeLocks(promptCase) {
   return locks;
 }
 
-function paragraphs(text) {
-  return text.split(/\n{2,}/).map((paragraph) => paragraph.trim()).filter(Boolean);
-}
-
 function poseSection(gptPrompt) {
   const marker = 'Pose and Composition:\n';
   const start = gptPrompt.indexOf(marker);
@@ -96,23 +92,21 @@ function poseSection(gptPrompt) {
   return gptPrompt.slice(valueStart, sceneStart).trim();
 }
 
-function paragraphIndex(items, pattern) {
-  return items.findIndex((paragraph) => pattern instanceof RegExp
-    ? pattern.test(paragraph)
-    : paragraph === pattern);
+function contentIndex(text, pattern) {
+  if (pattern instanceof RegExp) return text.search(pattern);
+  return text.indexOf(pattern);
 }
 
 function assertNaturalOutputOrder(text, wardrobeAnchor, canonicalPose, field, caseId) {
-  const items = paragraphs(text);
-  const subjectIndex = paragraphIndex(items, SUBJECT_ANCHOR);
-  const wardrobeIndex = paragraphIndex(items, wardrobeAnchor);
-  const poseIndex = paragraphIndex(items, canonicalPose);
-  const sceneIndex = paragraphIndex(items, FIXED_SET_SCENE_ANCHOR);
+  const subjectIndex = contentIndex(text, SUBJECT_ANCHOR);
+  const wardrobeIndex = contentIndex(text, wardrobeAnchor);
+  const poseIndex = contentIndex(text, canonicalPose);
+  const sceneIndex = contentIndex(text, FIXED_SET_SCENE_ANCHOR);
 
-  assert.ok(subjectIndex >= 0, `${caseId}.${field} should contain the subject paragraph`);
-  assert.ok(wardrobeIndex >= 0, `${caseId}.${field} should contain the wardrobe paragraph`);
-  assert.ok(poseIndex >= 0, `${caseId}.${field} should reuse the canonical pose paragraph`);
-  assert.ok(sceneIndex >= 0, `${caseId}.${field} should contain the fixed-set scene paragraph`);
+  assert.ok(subjectIndex >= 0, `${caseId}.${field} should contain the subject`);
+  assert.ok(wardrobeIndex >= 0, `${caseId}.${field} should contain the wardrobe`);
+  assert.ok(poseIndex >= 0, `${caseId}.${field} should reuse the canonical pose`);
+  assert.ok(sceneIndex >= 0, `${caseId}.${field} should contain the fixed-set scene`);
   assert.ok(subjectIndex < wardrobeIndex, `${caseId}.${field} should place subject before wardrobe`);
   assert.ok(wardrobeIndex < poseIndex, `${caseId}.${field} should place wardrobe before pose`);
   assert.ok(poseIndex < sceneIndex, `${caseId}.${field} should place pose before fixed-set scene`);

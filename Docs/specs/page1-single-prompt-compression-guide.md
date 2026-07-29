@@ -312,6 +312,10 @@ F 值現在必須進入 `vps.locks`、每次生成的 resolved selection、Favor
 
 PAGE1 live preview 保留第三階段的 generation signature 隔離：F-only 變更不得重跑 renderer，而是移除舊尾段後以同一段 description 和 resolved aspect ratio 重建新尾段。標準 Prompt 回填與 Saved Cards Markdown 匯入只接受位於 AI 文字最後的完整 canonical tail；成功解析時回填六個 F locks 與 `aspectRatio`，沒有合法尾段時維持目前 F 設定。`--q`／`--quality`、`--draft`、`--oref`／`--ow` 與 `--turbo` 仍屬禁止輸出範圍。第五階段才可討論 Midjourney-native descriptive structure，不得在第四階段順帶改寫 Body Type 或現有 AI 內容。
 
+第五階段由 `webapp/src/lib/engine/midjourneyNativeStructure.js` 將既有 AI section 組裝結果投影為一個 Midjourney-native text-prompt block，再交給第四階段 assembler 附加 canonical tail。投影只把 section 間空白正規化為單一空格；所有已撰寫句子、詞彙、標點、資訊順序及字數保持不變。不得藉此移除 `Create a ...`、改寫 Body Type、改寫服裝／場景／成像內容、重排 section，或變更 projected canonical pose。單人與雙人都使用相同單區塊規則；雙人的 `Woman 1`、`Woman 2`、`Pose` 等既有標示仍保留在原位置。
+
+Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace projection。第五階段 fixtures 以七組 phase-4 代表案例凍結單區塊 description hash、原字數與既有參數尾段，同時驗證非 AI baseline、Body Type 與 canonical pose；此 gate 納入 `npm run test:prompt-quality`。目前仍不進行任何 Midjourney 專屬描述詞重寫，Body Type 與人物體型語意繼續等待使用者實測後另行討論。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

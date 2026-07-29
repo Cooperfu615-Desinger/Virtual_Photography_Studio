@@ -10,6 +10,7 @@ import {
 } from '../engine.js';
 import { parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
 import { countAiPromptWords } from './aiPromptLengthContract.js';
+import { MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES } from './midjourneyNativeStructureFixtures.js';
 import { MIDJOURNEY_PARAMETER_FIXTURES } from './midjourneyParameterFixtures.js';
 import {
   appendMidjourneyParameterTail,
@@ -129,9 +130,13 @@ test('phase 4 appends parameters only to AI while preserving descriptive baselin
   for (const fixture of MIDJOURNEY_PARAMETER_FIXTURES) {
     const prompt = generateFixture(fixture);
     const content = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
+    const nativeTarget = MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES.find(
+      (target) => target.id === fixture.id
+    );
 
     assert.equal(prompt.midjourneyPrompt.endsWith(fixture.expectedTail), true, fixture.id);
-    assert.equal(hashPrompt(content), fixture.baselineHashes.midjourneyPrompt, `${fixture.id}: AI content`);
+    assert.ok(nativeTarget, `${fixture.id}: native structure fixture`);
+    assert.equal(hashPrompt(content), nativeTarget.expectedDescriptionHash, `${fixture.id}: AI content`);
     assert.equal(hashPrompt(prompt.grokPrompt), fixture.baselineHashes.grokPrompt, `${fixture.id}: Gpt`);
     assert.equal(hashPrompt(prompt.zImagePrompt), fixture.baselineHashes.zImagePrompt, `${fixture.id}: Grok/Z`);
     assert.doesNotMatch(

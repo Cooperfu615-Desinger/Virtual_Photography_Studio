@@ -36,7 +36,8 @@ test('all three primary prompts share the compact composition opening', () => {
   });
 
   assert.match(prompt.zImagePrompt, /^Create a photorealistic editorial portrait\.\n\nChest-up portrait, eye-level view, front-left three-quarter view\n\n/);
-  assert.match(prompt.midjourneyPrompt, /^Create a photorealistic editorial portrait\.\n\nChest-up portrait, eye-level view, front-left three-quarter view\n\n/);
+  assert.match(prompt.midjourneyPrompt, /^Create a photorealistic editorial portrait\. Chest-up portrait, eye-level view, front-left three-quarter view /);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /\n/);
 });
 
 test('orbit controls display short direction labels while preserving stored numeric options', () => {
@@ -59,7 +60,7 @@ test('AI chest-up framing removes lower wardrobe details after the shared openin
     shoesId: optionId('shoesId', '尖頭細跟高跟鞋'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /^Chest-up portrait$/m);
+  assert.match(prompt.midjourneyPrompt, /Chest-up portrait/);
   assert.match(prompt.midjourneyPrompt, /cotton camisole/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /straight-leg jeans|ribbed ankle socks|pointed-toe stiletto heels/i);
 });

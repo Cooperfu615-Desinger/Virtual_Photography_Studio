@@ -85,7 +85,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.2.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.3.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -221,8 +221,9 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
       forbiddenUnicodeBlocks: [CJK_UNIFIED_IDEOGRAPHS],
     },
     shape: {
-      paragraphSeparator: 'blank-line',
-      minimumParagraphs: 2,
+      paragraphSeparator: 'single-block',
+      minimumParagraphs: 1,
+      labelPlacement: 'inline',
       modes: {
         single: {
           requiredPrefix: 'Create a ',
@@ -389,8 +390,9 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function labelIndex(text, label) {
-  const pattern = new RegExp(`(?:^|\\n)${escapeRegExp(label)}:(?:\\n|[ \\t])`);
+function labelIndex(text, label, { inline = false } = {}) {
+  const boundary = inline ? '(?:^|\\s)' : '(?:^|\\n)';
+  const pattern = new RegExp(`${boundary}${escapeRegExp(label)}:(?:\\n|[ \\t])`);
   const match = pattern.exec(text);
   return match ? match.index : -1;
 }
@@ -449,20 +451,21 @@ export function validatePromptOutputContract(field, text, { mode = 'single' } = 
     }
   }
 
+  const inlineLabels = contract.shape.labelPlacement === 'inline';
   for (const label of modeShape.requiredLabels) {
-    if (labelIndex(value, label) < 0) {
+    if (labelIndex(value, label, { inline: inlineLabels }) < 0) {
       issues.push(issue('missing-label', `${field} is missing required label ${label}.`, { field, mode, label }));
     }
   }
 
   for (const label of modeShape.forbiddenLabels) {
-    if (labelIndex(value, label) >= 0) {
+    if (labelIndex(value, label, { inline: inlineLabels }) >= 0) {
       issues.push(issue('forbidden-label', `${field} contains forbidden label ${label}.`, { field, mode, label }));
     }
   }
 
   const presentOrderedLabels = modeShape.orderedLabels
-    .map((label) => ({ label, index: labelIndex(value, label) }))
+    .map((label) => ({ label, index: labelIndex(value, label, { inline: inlineLabels }) }))
     .filter(({ index }) => index >= 0);
   for (let index = 1; index < presentOrderedLabels.length; index += 1) {
     if (presentOrderedLabels[index - 1].index > presentOrderedLabels[index].index) {

@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.1.0';
+export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.2.0';
 
 export const MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE =
   '--v (?:8\\.2|8\\.1)(?: --ar \\d+:\\d+)?(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)';
@@ -138,6 +138,12 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
   },
   assembly: {
     contentBudgetExcludesParameters: true,
+    descriptionStructure: {
+      blockCount: 1,
+      sectionSeparator: 'single-space',
+      preserveAuthoredTokens: true,
+      preserveSectionOrder: true,
+    },
     tailPatternSource: MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE,
     parameterOrder: [
       'version',
@@ -187,7 +193,7 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
     },
     phase5: {
       behaviorNeutral: false,
-      purpose: 'Midjourney-native AI text structure without Body Type reauthoring',
+      purpose: 'one Midjourney-native description block without authored-token or Body Type reauthoring',
     },
     phase6: {
       behaviorNeutral: true,

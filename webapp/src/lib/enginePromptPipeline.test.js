@@ -113,7 +113,7 @@ function aiSection(prompt, label) {
     .filter((entry) => entry !== label)
     .map(escapeRegExp)
     .join('|');
-  return prompt.midjourneyPrompt.match(new RegExp(`${escapeRegExp(label)}:\\s*([\\s\\S]*?)(?=\\n\\n(?:${nextLabels}):\\s*|$)`))?.[1] || '';
+  return prompt.midjourneyPrompt.match(new RegExp(`${escapeRegExp(label)}:\\s*([\\s\\S]*?)(?=\\s+(?:${nextLabels}):\\s*|\\s+--v\\s|$)`))?.[1] || '';
 }
 
 test('Gpt prompt uses natural structured sections for GPT Image', () => {
@@ -365,7 +365,7 @@ test('AI single-subject prompt uses fixed subject lead while preserving eyewear 
   });
   const aiPrompt = prompt.midjourneyPrompt;
 
-  assert.match(aiPrompt, /^Create a photorealistic editorial portrait\.\n\nFull-body portrait\n\nA 20s seductive stunning Japanese or Korean woman/i);
+  assert.match(aiPrompt, /^Create a photorealistic editorial portrait\. Full-body portrait A 20s seductive stunning Japanese or Korean woman/i);
   assert.match(aiPrompt, /sexy tall slim-curvy silhouette[\s\S]*94-58-88 body proportion anchor|94-58-92 body proportion anchor/i);
   assert.match(aiPrompt, /wet-look long wavy hair[\s\S]*black bold-frame glasses/i);
   assert.match(aiPrompt, /Wearing white triangle bikini top, white low-rise side-tie bikini bottoms/i);
@@ -374,7 +374,7 @@ test('AI single-subject prompt uses fixed subject lead while preserving eyewear 
   assert.doesNotMatch(aiPrompt, /defined eyes and lips|moody glossy texture|soft realistic shine|clean dark depth|soft smile/i);
   assert.doesNotMatch(aiPrompt, /visual height|visual weight|torso-to-leg|F-to-G-cup-scale|worn normally|clean beachwear|top length extending|She is sitting with natural seated arrangement|bottoms She is/i);
   assert.doesNotMatch(aiPrompt, /\bnone\b|[\u3400-\u9fff]/i);
-  assert.match(aiPrompt, /\n\n/);
+  assert.doesNotMatch(aiPrompt, /\n/);
   assert.ok(aiPrompt.length < prompt.zImagePrompt.length);
 });
 
@@ -1127,7 +1127,8 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
   assert.doesNotMatch(prompt.midjourneyPrompt, /multi-cut sequence n=2/);
   assert.match(prompt.midjourneyPrompt, /^Create a photorealistic editorial portrait\./);
-  assert.match(prompt.midjourneyPrompt, /\n\nA 20s seductive stunning Japanese or Korean woman(?:\.|,)/);
+  assert.match(prompt.midjourneyPrompt, / A 20s seductive stunning Japanese or Korean woman(?:\.|,)/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /\n/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /20-year-old|defined eyes and lips/i);
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
   assert.match(prompt.midjourneyPrompt, /Wearing [^\n]*flight attendant uniform outfit/i);
@@ -1200,7 +1201,7 @@ test('Grok/Z-Image and AI use model-specific compact scene wording for solid col
   assert.doesNotMatch(prompt.zImagePrompt, /Scene priority:/i);
 
   assert.match(prompt.midjourneyPrompt, /in horizonless seamless matte pure white color field,/i);
-  assert.match(prompt.midjourneyPrompt, /\n\nIn horizonless seamless matte pure white color field/i);
+  assert.match(prompt.midjourneyPrompt, / In horizonless seamless matte pure white color field/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /no paper roll|no studio equipment/i);
 });
 
@@ -1458,12 +1459,13 @@ test('AI duo prompt uses compact labeled role sections', () => {
 
   const aiPrompt = prompt.midjourneyPrompt;
   assert.match(aiPrompt, /^Create a photorealistic editorial portrait\./);
-  assert.match(aiPrompt, /\n\nWoman 1:/);
-  assert.ok(aiPrompt.indexOf('\n\nWoman 1:') < aiPrompt.indexOf('\n\nWoman 2:'));
-  assert.ok(aiPrompt.indexOf('\n\nWoman 2:') < aiPrompt.indexOf('\n\nPose:'));
-  assert.ok(aiPrompt.indexOf('\n\nPose:') < aiPrompt.indexOf('\n\nScene:'));
-  assert.ok(aiPrompt.indexOf('\n\nScene:') < aiPrompt.indexOf('\n\nLighting:'));
-  assert.ok(aiPrompt.indexOf('\n\nLighting:') < aiPrompt.indexOf('\n\nCamera Look:'));
+  assert.match(aiPrompt, / Woman 1:/);
+  assert.ok(aiPrompt.indexOf(' Woman 1:') < aiPrompt.indexOf(' Woman 2:'));
+  assert.ok(aiPrompt.indexOf(' Woman 2:') < aiPrompt.indexOf(' Pose:'));
+  assert.ok(aiPrompt.indexOf(' Pose:') < aiPrompt.indexOf(' Scene:'));
+  assert.ok(aiPrompt.indexOf(' Scene:') < aiPrompt.indexOf(' Lighting:'));
+  assert.ok(aiPrompt.indexOf(' Lighting:') < aiPrompt.indexOf(' Camera Look:'));
+  assert.doesNotMatch(aiPrompt, /\n/);
   assert.match(aiSection(prompt, 'Woman 1'), /^Has [\s\S]+\bWears .*long white lace robe cardigan[\s\S]*ripped light blue jeans[\s\S]*brown leather shoulder bag[\s\S]*burgundy ballet flats/i);
   assert.match(aiSection(prompt, 'Woman 2'), /^Has [\s\S]+\bWears .*navy zip-up track jacket[\s\S]*white ruffled camisole[\s\S]*black cropped jogger pants[\s\S]*black ballet flats[\s\S]*silver shoulder bag\./i);
   assert.match(aiSection(prompt, 'Pose'), /intimate best-friends selfie moment[\s\S]*casual affectionate body language[\s\S]*playful candid interaction[\s\S]*walking or mid-step/i);

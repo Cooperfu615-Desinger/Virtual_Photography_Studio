@@ -14,6 +14,7 @@ import {
   MIDJOURNEY_PARAMETER_CONTRACT_VERSION,
   validateMidjourneyParameterSettings,
 } from './midjourneyParameterContract.js';
+import { MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES } from './midjourneyNativeStructureFixtures.js';
 import { MIDJOURNEY_PARAMETER_FIXTURES } from './midjourneyParameterFixtures.js';
 import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 import {
@@ -68,7 +69,7 @@ function generateFixture(parameterFixture) {
 }
 
 test('Midjourney parameter contract is frozen serializable rollout policy data', () => {
-  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.1.0');
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.2.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT));
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT.controls.version.options));
   assert.deepEqual(
@@ -81,6 +82,12 @@ test('Midjourney parameter contract is frozen serializable rollout policy data',
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.compatibility.preserveCurrentBodyTypeDescriptions, true);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase4.behaviorNeutral, false);
+  assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.assembly.descriptionStructure, {
+    blockCount: 1,
+    sectionSeparator: 'single-space',
+    preserveAuthoredTokens: true,
+    preserveSectionOrder: true,
+  });
   assert.equal(
     MIDJOURNEY_PARAMETER_CONTRACT.assembly.tailPatternSource,
     '--v (?:8\\.2|8\\.1)(?: --ar \\d+:\\d+)?(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)'
@@ -176,10 +183,14 @@ test('phase 4 preserves representative content while adding only the approved AI
     }
 
     assert.equal(repeated.prompt.midjourneyPrompt, first.prompt.midjourneyPrompt);
+    const nativeTarget = MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES.find(
+      (target) => target.id === fixture.id
+    );
+    assert.ok(nativeTarget, `${fixture.id}: native structure fixture`);
     assert.equal(
       hashPrompt(stripMidjourneyParameterTail(first.prompt.midjourneyPrompt)),
-      fixture.baselineHashes.midjourneyPrompt,
-      `${fixture.id}.midjourneyPrompt: descriptive baseline`
+      nativeTarget.expectedDescriptionHash,
+      `${fixture.id}.midjourneyPrompt: native descriptive baseline`
     );
     assert.equal(
       first.prompt.midjourneyPrompt.endsWith(fixture.expectedTail),

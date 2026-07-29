@@ -24,27 +24,17 @@ import { AI_PROMPT_LENGTH_FIXTURES } from './aiPromptLengthFixtures.js';
 import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controls = getLockControls();
-const PHASE_1_BASELINE_HASHES = Object.freeze({
-  'normal-separates': '322a322efad6e07408cc32c5d3a9e29955ab7a0c91bf31b1c7f64437ddea2f75',
-  'complete-look-latex': 'dc8b9b6bba14ede6eb7ab947e3d12f45962a37dfd25e1382e2df153d435b341e',
-  'complete-look-special': '00608387af8f83ee2e62f56e05d80c3abb176ee0dfddc7fb7d6a06881ca65ae9',
-  'complete-look-dress': '54a7d2d17d9c16da17a4eaea2394b1c70b8a2fb4aa8878e6e90d3c55cf0819cd',
-  'character-card-jiwoo': '42f8c161396a7291177c1f3f55ffb6856d31822741689393ff65684698a2a555',
-  'character-card-sui': 'b51b74e0321481106bf1c6954877999130a6742f3649f7648612a3ca9a69481b',
-  'canonical-pose-pressure': 'ee02c180444f0157d5db0150318b7e7e4b1828e21e18ef0533da45b7694b7523',
-  'half-face-boundary': 'b4e518c6db82b58752fb1c375298244d7ea661016f875bc310f260194dbd1d76',
-  'duo-excluded-boundary': 'c35f99593547205dff8bf4c1640d1e07c057adb12524c26b03ec7b6484322703',
-});
-const PHASE_4_STABLE_HASHES = Object.freeze({
-  'normal-separates': '9a1216027ae7b41bc0dc0a7e41b1452212572ee2184280d7e177ccdda4a798a3',
-  'complete-look-latex': '6fd71b7b04242febb732465df623a0dea715c35d9268aaffff689bc0535cb0bd',
-  'complete-look-special': '0468607e12816b3c698e10bcff2dcd174a547c69b8b6fbcab32b33299e0119ad',
-  'complete-look-dress': '54a7d2d17d9c16da17a4eaea2394b1c70b8a2fb4aa8878e6e90d3c55cf0819cd',
-  'character-card-jiwoo': '0d3b9446582d0f8c8ea396e0a8ce616793d4412ec9351163760c5fa04b1845ba',
-  'character-card-sui': '8a770e5dcf92b91856acbeb47f426d4777cdfcb23da9e9b83fe6afae16b64221',
-  'canonical-pose-pressure': '97873140a6cd746c15f2772b197bbefdcd6fa6525dee02c2da59515264428927',
-  'half-face-boundary': 'b4e518c6db82b58752fb1c375298244d7ea661016f875bc310f260194dbd1d76',
-  'duo-excluded-boundary': 'c35f99593547205dff8bf4c1640d1e07c057adb12524c26b03ec7b6484322703',
+const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
+  'normal-separates': '04b4326bd23327c7862419daaec259c8113c010a296d7d981232e81b0fab7985',
+  'complete-look-latex': 'e4624140d5a3cd2f9c6db6a3b034e098a77b1f741bb30873718a19de5de63798',
+  'complete-look-special': '3818eae2c9ab85b809992c59360145192aaf294d8128340866663bcd2d26e3c5',
+  'complete-look-dress': 'c8408481f066648dbbc30c77fb75f5879dcc03a240e29a2c433d28b3edb1243d',
+  'character-card-jiwoo': 'f343eeb3710540a7096dab1b89eca872bf214977040c3462f18ef970b88b83e0',
+  'character-card-sui': '80e5afb9f64283ada8c5e7d2a2edb47eb1c85fea7b1e393c681de9e5ab75aedf',
+  'character-card-half-face-pressure': '82c41b45168342be7e5cf0f455ddd1553c817695d7ffb20945d86259ea85f45a',
+  'canonical-pose-pressure': '3546ed07167cbd3c4cfd4a38daa14145a85f751467b742a9ea3aa058a208267f',
+  'half-face-boundary': '05710db3d0d12d11fdd6e43a6f57ab5cf6cc0d2a5e309835f86cf7cc595a68d5',
+  'duo-excluded-boundary': '51e3234df5bc91e016fe2ec622eb6b57b7acc31f7950d92c347500fd98e8d9c9',
 });
 
 function createAllNoneLocks() {
@@ -143,13 +133,13 @@ test('budget policy selection keeps Character Card precedence and complete-look 
   );
 });
 
-test('phase-4 keeps the excluded duo output outside its behavior change', () => {
+test('Midjourney native structure keeps duo outside the single-subject budget policy', () => {
   for (const fixture of AI_PROMPT_LENGTH_FIXTURES.filter((entry) => {
     return entry.excludedFromBudget;
   })) {
     const output = generateFixture(fixture).midjourneyPrompt;
     const hash = createHash('sha256').update(stripMidjourneyParameterTail(output)).digest('hex');
-    assert.equal(hash, PHASE_1_BASELINE_HASHES[fixture.id], fixture.id);
+    assert.equal(hash, MIDJOURNEY_NATIVE_DESCRIPTION_HASHES[fixture.id], fixture.id);
   }
 });
 
@@ -185,8 +175,8 @@ test('phase-4 Character Card outputs meet their budget and preserve permanent id
   }
 });
 
-test('phase-5 leaves every already-compliant fixture byte-stable', () => {
-  for (const [fixtureId, expectedHash] of Object.entries(PHASE_4_STABLE_HASHES)) {
+test('Midjourney native structure freezes every accepted AI description', () => {
+  for (const [fixtureId, expectedHash] of Object.entries(MIDJOURNEY_NATIVE_DESCRIPTION_HASHES)) {
     const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => entry.id === fixtureId);
     const output = generateFixture(fixture).midjourneyPrompt;
     assert.equal(

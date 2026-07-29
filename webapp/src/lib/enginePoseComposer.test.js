@@ -1059,8 +1059,8 @@ test('single-subject pose composer outputs natural base arrangement hand anchor 
     assert.match(text, /one hand touching the chin/);
     assert.match(text, /head slightly tilted/);
   }
-  assert.equal(canonicalPose, prompt.zImagePrompt.match(/She has[^\n]+/)?.[0]);
-  assert.equal(canonicalPose, prompt.midjourneyPrompt.match(/She has[^\n]+/)?.[0]);
+  assert.equal(prompt.zImagePrompt.split(canonicalPose).length - 1, 1);
+  assert.equal(prompt.midjourneyPrompt.split(canonicalPose).length - 1, 1);
 });
 
 test('standing lean scene-object anchor preserves supported body contact wording', () => {

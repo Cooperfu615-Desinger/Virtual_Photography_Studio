@@ -8,6 +8,7 @@ import {
   getLockControls,
 } from '../engine.js';
 import { COMPOSITION_VISIBILITY_REGRESSION_FIXTURES } from './compositionVisibilityFixtures.js';
+import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controlsByKey = new Map(getLockControls().map((control) => [control.key, control]));
 const PHASE_FIVE_FIXTURE_IDS = [
@@ -55,10 +56,12 @@ function zImageScene(prompt) {
 }
 
 function aiScene(prompt) {
-  const paragraphs = prompt.midjourneyPrompt.split(/\n{2,}/);
-  return paragraphs.find((paragraph) => paragraph.startsWith('Scene:'))
-    || paragraphs.find((paragraph) => paragraph.startsWith('In '))
-    || '';
+  const text = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
+  const labeled = text.match(
+    /(?:^|\s)Scene:\s*([\s\S]*?)(?=\s+(?:Lighting|Camera Look):\s*|$)/
+  )?.[1];
+  if (labeled) return labeled;
+  return text.match(/(?:^|\s)(In [\s\S]*?)(?=\s+Inspired by\s|$)/)?.[1] || '';
 }
 
 function assertIncludes(text, fragment, message) {

@@ -33,6 +33,7 @@ import {
   MIDJOURNEY_PARAMETER_CONTRACT,
   normalizeMidjourneyParameterSettings,
 } from './engine/midjourneyParameterContract.js';
+import { renderMidjourneyNativeDescription } from './engine/midjourneyNativeStructure.js';
 import { appendMidjourneyParameterTail } from './engine/midjourneyParameterTail.js';
 import { CHARACTER_PROFILE_OPTIONS } from './engine/characterProfiles.js';
 import {
@@ -12608,7 +12609,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   const grokPrompt = renderGptPrompt(promptModel);
   const zImagePrompt = renderZImagePrompt(promptModel);
   const midjourneyPrompt = appendMidjourneyParameterTail(
-    renderAiPrompt(promptModel),
+    renderMidjourneyNativeDescription(renderAiPrompt(promptModel)),
     {
       ...context.locks,
       aspectRatio: context.aspectRatio.id,

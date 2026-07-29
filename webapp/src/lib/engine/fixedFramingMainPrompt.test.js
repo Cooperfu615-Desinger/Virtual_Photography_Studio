@@ -114,20 +114,17 @@ test('phase-5 half-face framing resolves one edge placement shared exactly by al
       random: createSeededRandom(fixture.seed),
     });
     const expectedVariant = variantsById.get(fixture.resolvedPlacementId);
-    const compositionBlocks = [
-      getCompositionBlock(prompt.grokPrompt),
-      getCompositionBlock(prompt.zImagePrompt),
-      getCompositionBlock(prompt.midjourneyPrompt),
-    ];
-
     assert.ok(expectedVariant, fixture.id);
-    assert.deepEqual(new Set(compositionBlocks).size, 1, `${fixture.id}: shared composition block`);
+    const compositionBlock = getCompositionBlock(prompt.grokPrompt);
+
     assert.equal(
-      compositionBlocks[0].startsWith(expectedVariant.opening),
+      compositionBlock.startsWith(expectedVariant.opening),
       true,
-      `${fixture.id}: ${compositionBlocks[0]}`,
+      `${fixture.id}: ${compositionBlock}`,
     );
-    assert.equal(compositionBlocks[0].includes('left or right'), false, fixture.id);
+    assert.ok(prompt.zImagePrompt.includes(compositionBlock), `${fixture.id}: Grok/Z composition`);
+    assert.ok(prompt.midjourneyPrompt.includes(compositionBlock), `${fixture.id}: AI composition`);
+    assert.equal(compositionBlock.includes('left or right'), false, fixture.id);
     assert.equal(prompt.selection.framingId, framingId, `${fixture.id}: raw framing selection`);
   }
 });
