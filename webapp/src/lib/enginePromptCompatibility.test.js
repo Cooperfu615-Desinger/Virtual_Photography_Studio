@@ -113,6 +113,67 @@ test('random outerwear opening follows the selected garment fastener while an ex
   assert.match(explicitPrompt.grokPrompt, /zip-front outerwear left unzipped/i);
 });
 
+test('outfit presets with embedded outerwear suppress a random second layer but preserve explicit outerwear overrides', () => {
+  const embeddedOuterwearPresetLabels = [
+    '套裝：西裝長褲',
+    '套裝：秘書短裙',
+    '套裝：空服員制服',
+    '套裝：醫生診療袍',
+    '套裝：粉針織罩衫寬牛仔',
+    '套裝：西裝外套蕾絲迷你洋裝',
+    '套裝：綁帶針織寬牛仔',
+    '套裝：運動外套荷葉七分褲',
+    '套裝：白蕾絲長罩衫牛仔褲',
+  ];
+  const outdoorBaseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    locationId: optionId('locationId', '戶外：金色海灘與浪線'),
+    outerwearId: '',
+    outerwearFitId: '',
+    outerwearPatternId: '',
+    outerwearOpeningId: '',
+    outerwearStylingId: '',
+  };
+
+  embeddedOuterwearPresetLabels.forEach((label) => {
+    const presetId = optionId('outfitPresetId', label);
+    const preset = controls.find((control) => control.key === 'outfitPresetId')?.options.find((item) => item.id === presetId);
+    assert.equal(preset?.meta?.embeddedOuterwear, true, `${label} must declare its embedded outer layer`);
+
+    for (let index = 0; index < 24; index += 1) {
+      const [prompt] = generatePrompts(1, {
+        ...outdoorBaseLocks,
+        outfitPresetId: presetId,
+      }, [], {
+        random: createSeededRandom(`embedded-outerwear-${label}-${index}`),
+      });
+      assert.equal(prompt.selection.outerwearId, '', `${label} should not receive a random second outerwear layer`);
+    }
+  });
+
+  const unlayeredPresetId = optionId('outfitPresetId', '套裝：拼接掛脖長背心漆皮短褲');
+  const [unlayeredPrompt] = generatePrompts(1, {
+    ...outdoorBaseLocks,
+    outfitPresetId: unlayeredPresetId,
+  }, [], {
+    random: createSeededRandom('embedded-outerwear-1'),
+  });
+  assert.notEqual(unlayeredPrompt.selection.outerwearId, '', 'presets without an embedded layer retain random outerwear behavior');
+
+  const [explicitPrompt] = generatePrompts(1, {
+    ...outdoorBaseLocks,
+    outfitPresetId: optionId('outfitPresetId', '套裝：西裝外套蕾絲迷你洋裝'),
+    outerwearId: optionId('outerwearId', '龐克皮衣'),
+  }, [], {
+    random: createSeededRandom('embedded-outerwear-explicit-override'),
+  });
+  assert.equal(explicitPrompt.selection.outerwearId, optionId('outerwearId', '龐克皮衣'));
+  assert.match(explicitPrompt.grokPrompt, /navy oversized blazer/i);
+  assert.match(explicitPrompt.grokPrompt, /punk leather jacket/i);
+});
+
 test('random optical effects avoid global diffusion with high-acutance black levels while an explicit effect stays intact', () => {
   const highAcutanceFilmId = optionId('filmId', '高銳利快照黑位');
   const incompatibleEffectIds = new Set([

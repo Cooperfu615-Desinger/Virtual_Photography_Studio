@@ -84,7 +84,7 @@ B 區不是平面清單，而是有層級的服裝組裝系統。
 
 - `特殊角色` 來自 A 區。特殊角色啟用時，通常會 suppress normal wardrobe output。
 - `特殊穿搭` 是完整造型包，選中時優先輸出完整穿搭。
-- `套裝/連身` 是明確風格方向或 one-piece 主體，可再搭配外套、鞋襪與配件。
+- `套裝/連身` 是明確風格方向或 one-piece 主體，可再搭配外套、鞋襪與配件；但套裝本身已包含明確外層時，隨機流程不得再加第二件外套。
 - 一般上下身由上身、下身、版型、穿法、配色、圖案共同組裝。
 - 外套是外層，應在 outfit 或 top 之前成為清楚的 outer layer。
 - 鞋襪與配件是補充層，不應覆蓋主要服裝。
@@ -133,6 +133,12 @@ complete outfit: relaxed vintage band streetwear. faded oversized graphic T-shir
 ### 6.1 套裝
 
 責任：定義一個可被配色控制的完整服裝方向，但不一定包含鞋襪、外套或配件。
+
+隨機外套規則：
+
+- 套裝若已包含 blazer、jacket、coat、cardigan、robe 或其他明確外層，必須在 `knowledge_base/outfit_preset_metadata.json` 為該名稱設為 `"embeddedOuterwear": true`。
+- 這個 metadata 只阻止未鎖定狀態的額外外套抽選；使用者明確選擇外套或任何外套 modifier 時，保留作為有意識的外層覆寫。
+- 不得在 renderer 或 engine 以英文關鍵字推測套裝是否含外套；新增或修改套裝時應依資料與參考圖做明確標記。
 
 命名規則：
 

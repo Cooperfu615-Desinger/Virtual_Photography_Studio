@@ -6301,8 +6301,16 @@ function buildWardrobe(context, locks, catalog) {
     locks?.outerwearOpeningId ||
     locks?.outerwearStylingId
   );
+  const hasEmbeddedOuterwearPreset = hasOutfitPresetPieceResolved && pieces.some(
+    (piece) => piece.meta?.embeddedOuterwear
+  );
+  const allowsAutomaticOuterwear = !hasEmbeddedOuterwearPreset || hasSingleOuterwearLock;
 
-  if (!useDuoRoleWardrobe && ((hasOutfitPresetPieceResolved && !hasDuoLayerLock) || hasDressPiece || hasBottomPiece || hasSingleOuterwearLock)) {
+  if (
+    !useDuoRoleWardrobe &&
+    allowsAutomaticOuterwear &&
+    ((hasOutfitPresetPieceResolved && !hasDuoLayerLock) || hasDressPiece || hasBottomPiece || hasSingleOuterwearLock)
+  ) {
     const outerwearProbability = locks?.outerwearId
       ? 1
       : context.location.meta.tags.includes('outdoor')

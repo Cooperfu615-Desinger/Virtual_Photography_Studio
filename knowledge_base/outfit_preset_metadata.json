@@ -45,11 +45,19 @@
   },
   "春日巴黎亞麻長褲套裝": {},
   "長版襯衫百褶長裙套裝": {},
-  "西裝長褲套裝": {},
-  "秘書短裙套裝": {},
-  "空服員制服套裝": {},
+  "西裝長褲套裝": {
+    "embeddedOuterwear": true
+  },
+  "秘書短裙套裝": {
+    "embeddedOuterwear": true
+  },
+  "空服員制服套裝": {
+    "embeddedOuterwear": true
+  },
   "護士制服套裝": {},
-  "醫生診療袍套裝": {},
+  "醫生診療袍套裝": {
+    "embeddedOuterwear": true
+  },
   "BDSM 束縛套裝": {
     "series": "signature",
     "colorMode": "primary_contrast_locked",
@@ -343,14 +351,24 @@
   "斑馬紋馬甲短褲長靴": {},
   "短版運動T熱褲套裝": {},
   "白蕾絲泡袖七分褲": {},
-  "粉針織罩衫寬牛仔": {},
+  "粉針織罩衫寬牛仔": {
+    "embeddedOuterwear": true
+  },
   "深灰短背心氣球寬褲": {},
   "白襯衫緞面背心寬牛仔": {},
-  "西裝外套蕾絲迷你洋裝": {},
+  "西裝外套蕾絲迷你洋裝": {
+    "embeddedOuterwear": true
+  },
   "球衣荷葉迷你裙": {},
-  "酒紅綁帶針織寬牛仔": {},
-  "運動外套荷葉七分褲": {},
-  "白蕾絲長罩衫牛仔褲": {},
+  "酒紅綁帶針織寬牛仔": {
+    "embeddedOuterwear": true
+  },
+  "運動外套荷葉七分褲": {
+    "embeddedOuterwear": true
+  },
+  "白蕾絲長罩衫牛仔褲": {
+    "embeddedOuterwear": true
+  },
   "浴巾裹身": {},
   "開扣短袖襯衫熱褲": {},
   "開扣長袖襯衫包臀裙": {},
