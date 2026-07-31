@@ -12,6 +12,7 @@ import {
 test('Midjourney parameter draft starts from the contract defaults', () => {
   assert.deepEqual(createMidjourneyParameterDraft(), {
     mjVersionId: 'v8-2',
+    mjAspectRatio: 'page1',
     mjRawMode: 'standard',
     mjStylize: 100,
     mjChaos: 0,
@@ -23,6 +24,7 @@ test('Midjourney parameter draft starts from the contract defaults', () => {
 test('Midjourney parameter draft normalizes invalid enums and clamps integer ranges', () => {
   assert.deepEqual(normalizeMidjourneyParameterDraft({
     mjVersionId: 'unsupported',
+    mjAspectRatio: 'unsupported',
     mjRawMode: 'raw',
     mjStylize: 2000,
     mjChaos: -5,
@@ -30,6 +32,7 @@ test('Midjourney parameter draft normalizes invalid enums and clamps integer ran
     mjResolution: 'invalid',
   }), {
     mjVersionId: 'v8-2',
+    mjAspectRatio: 'page1',
     mjRawMode: 'raw',
     mjStylize: 1000,
     mjChaos: 0,
@@ -57,6 +60,7 @@ test('Midjourney presets only replace their declared creative controls', () => {
 
   assert.deepEqual(precise, {
     mjVersionId: 'v8-1',
+    mjAspectRatio: 'page1',
     mjRawMode: 'raw',
     mjStylize: 25,
     mjChaos: 0,
@@ -75,7 +79,7 @@ test('Midjourney summary stays compact and exposes every visible setting', () =>
     mjWeirdness: 40,
     mjResolution: 'hd',
   }), {
-    summary: 'V8.1 / Raw / S25 / C10 / W40 / HD',
+    summary: 'V8.1 / AR 跟隨 PAGE1 / Raw / S25 / C10 / W40 / HD',
     meta: '僅影響 AI Prompt；不參與隨機',
   });
 });

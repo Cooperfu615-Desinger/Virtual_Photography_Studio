@@ -291,7 +291,7 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 第一階段只建立未來 PAGE1 `F｜MJ 參數設定` 的機器可讀契約、deterministic fixtures 與逐 byte 基準，不註冊新控制、不修改 UI、不附加參數，也不重寫目前 AI Prompt。歷史公開映射仍為 `AI` → `midjourneyPrompt`；Gpt、Grok/Z-Image、五官特寫照、胸上特寫照與全身角色照都在 F 影響範圍之外。
 
-F 第一版預定提供 Midjourney V8.2／V8.1、Standard／Raw、Stylize 0–1000、Variety／Chaos 0–100、Weirdness 0–3000、SD／HD，以及精準寫實、平衡與創意三組快速預設。這些值不參與 PAGE1 一般隨機。畫面比例不在 F 重複設置；未來 `--ar` 必須只讀既有 resolved `selection.aspectRatio`。參數尾段固定在所有描述文字之後，依 version、aspect ratio、Raw、Stylize、Chaos、Weirdness、resolution 排序，且不計入 AI 文字字數預算。
+F 第一版預定提供 Midjourney V8.2／V8.1、Standard／Raw、Stylize 0–1000、Variety／Chaos 0–100、Weirdness 0–3000、SD／HD，以及精準寫實、平衡與創意三組快速預設。這些值不參與 PAGE1 一般隨機。第七階段新增獨立 `mjAspectRatio`，以 `跟隨 PAGE1` 保留既有 resolved `selection.aspectRatio` fallback，並提供常用 MJ `--ar` 比例直接選擇（包含 `21:9` 超寬與 `1:2` 超高）；明確選取的 F 比例只作用於 `midjourneyPrompt`，不改動 PAGE1 構圖比例。參數尾段固定在所有描述文字之後，依 version、aspect ratio、Raw、Stylize、Chaos、Weirdness、resolution 排序，且不計入 AI 文字字數預算。
 
 本輪明確凍結現有人物與 Body Type 描述；Midjourney 專屬參數先用於實測，不得順帶重寫 `slim`、`lean`、`petite`、身材數值或其他既有來源。Pose Composer 的 projected canonical pose 仍須和 Gpt、Grok/Z-Image 逐字一致。V8 不支援或不納入第一版的 `--q`／`--quality`、`--draft`、`--oref`／`--ow` 與 `--turbo` 不得由未來 assembler 輸出。
 
@@ -307,17 +307,19 @@ F 值現在必須進入 `vps.locks`、每次生成的 resolved selection、Favor
 
 第三階段仍不得改動 `midjourneyPrompt` 或其他五組 Prompt 文字。所有公開輸出、AI 字數預算、canonical pose 與歷史欄位映射必須保持第二階段基準；第四階段才可把 selection 中的 F 值組裝成 AI 專屬參數尾段。
 
-第四階段由 `webapp/src/lib/engine/midjourneyParameterTail.js` 啟用單一 canonical assembler。`midjourneyPrompt` 的 descriptive content 必須先完成既有 section budget 與壓縮，再於最後一個描述句之後加入一個空格和參數尾段；尾段順序固定為 `--v`、可用時的 `--ar`、選用的 `--raw`、`--s`、`--c`、`--w`、`--sd`／`--hd`，參數之後不得再有標點或描述文字。`--ar` 只讀 resolved `selection.aspectRatio`；空值、`none`、`random` 或非比例格式不得輸出。
+第四階段由 `webapp/src/lib/engine/midjourneyParameterTail.js` 啟用單一 canonical assembler。`midjourneyPrompt` 的 descriptive content 必須先完成既有 section budget 與壓縮，再於最後一個描述句之後加入一個空格和參數尾段；尾段順序固定為 `--v`、可用時的 `--ar`、選用的 `--raw`、`--s`、`--c`、`--w`、`--sd`／`--hd`，參數之後不得再有標點或描述文字。第四階段的 `--ar` 仍由 resolved `selection.aspectRatio` 投影；第七階段改由 `selection.mjAspectRatio` 優先，選擇 `page1` 時才 fallback 到既有 PAGE1 比例。空值、`none`、`random` 或非比例格式不得輸出。
 
 參數尾段只允許出現在歷史公開欄位 `AI` → `midjourneyPrompt`，單人與雙人模式使用相同 assembler。Gpt、Grok/Z-Image、五官特寫照、胸上特寫照與全身角色照都不得繼承任何 MJ 參數。現有 Body Type、人物、服裝、場景、成像與 projected canonical pose 描述保持原文；七組 phase-1 baseline hash 在移除尾段後必須逐 byte 相同。AI 字數預算和 same-seed audit 的統計、重複與控制語檢查只評估 descriptive content，不計算已驗證的參數尾段。
 
-PAGE1 live preview 保留第三階段的 generation signature 隔離：F-only 變更不得重跑 renderer，而是移除舊尾段後以同一段 description 和 resolved aspect ratio 重建新尾段。標準 Prompt 回填與 Saved Cards Markdown 匯入只接受位於 AI 文字最後的完整 canonical tail；成功解析時回填六個 F locks 與 `aspectRatio`，沒有合法尾段時維持目前 F 設定。`--q`／`--quality`、`--draft`、`--oref`／`--ow` 與 `--turbo` 仍屬禁止輸出範圍。第五階段才可討論 Midjourney-native descriptive structure，不得在第四階段順帶改寫 Body Type 或現有 AI 內容。
+PAGE1 live preview 保留第三階段的 generation signature 隔離：F-only 變更不得重跑 renderer，而是移除舊尾段後以同一段 description 和 `mjAspectRatio`（`page1` 時 fallback 到 resolved PAGE1 比例）重建新尾段。標準 Prompt 回填與 Saved Cards Markdown 匯入只接受位於 AI 文字最後的完整 canonical tail；成功解析時回填新的 `mjAspectRatio` 與歷史 `aspectRatio` 相容欄位，沒有合法尾段時維持目前 F 設定。`--q`／`--quality`、`--draft`、`--oref`／`--ow` 與 `--turbo` 仍屬禁止輸出範圍。第五階段才可討論 Midjourney-native descriptive structure，不得在第四階段順帶改寫 Body Type 或現有 AI 內容。
 
 第五階段由 `webapp/src/lib/engine/midjourneyNativeStructure.js` 將既有 AI section 組裝結果投影為一個 Midjourney-native text-prompt block，再交給第四階段 assembler 附加 canonical tail。投影只把 section 間空白正規化為單一空格；所有已撰寫句子、詞彙、標點、資訊順序及字數保持不變。不得藉此移除 `Create a ...`、改寫 Body Type、改寫服裝／場景／成像內容、重排 section，或變更 projected canonical pose。單人與雙人都使用相同單區塊規則；雙人的 `Woman 1`、`Woman 2`、`Pose` 等既有標示仍保留在原位置。
 
 Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace projection。第五階段 fixtures 以七組 phase-4 代表案例凍結單區塊 description hash、原字數與既有參數尾段，同時驗證非 AI baseline、Body Type 與 canonical pose；此 gate 納入 `npm run test:prompt-quality`。目前仍不進行任何 Midjourney 專屬描述詞重寫，Body Type 與人物體型語意繼續等待使用者實測後另行討論。
 
 第六階段不再修改 production renderer 或公開 Prompt，而是以 `midjourneyCompletionGate.test.js` 建立跨消費端阻擋式完成閘門。七組 deterministic fixtures 必須從同一份 resolved selection 通過引擎三個歷史主欄位、六種公開輸出契約、PAGE1 六張 Prompt 卡、DLL Prompt sources、Standard Prompt 回填、Favorites v3 codec 與 Saved Cards Markdown 匯入。閘門同時凍結 Gpt／Grok-Z baseline、第五階段單區塊 AI description hash、canonical parameter tail、F／aspect ratio 還原、固定景別輸出不含 MJ 參數，以及 Pose Composer 三組主 Prompt 逐字共用 canonical pose。此測試納入 `npm run test:prompt-quality`；UI、renderer、storage ID 與歷史公開映射保持第五階段結果。
+
+第七階段新增 F 專屬 `mjAspectRatio` enum。選項直接以 Midjourney `--ar` 常用整數比例呈現，另保留 `page1` 相容選項；它只改變 AI 尾段，不加入描述壓縮器、不影響 Gpt／Grok-Z／固定景別輸出，也不參與 PAGE1 一般隨機／清除或 generation signature。舊版只有 `aspectRatio` 的 selection 與尾段仍可還原，已知比例會同時回填 F 值與歷史 PAGE1 欄位，未知自訂比例則以 `page1` F fallback 搭配歷史欄位保留原值。
 
 #### Midjourney 描述結構優化（新版第一階段契約）
 

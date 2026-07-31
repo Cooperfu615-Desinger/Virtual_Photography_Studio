@@ -285,16 +285,21 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
   }
 
   if (parsedMidjourneyTail.matched) {
+    if (parsedMidjourneyTail.aspectRatio) {
+      // Keep the historical PAGE1 ratio restoration while also restoring the
+      // new AI-only F control. Unknown/custom ratios continue to flow through
+      // the legacy PAGE1 field and therefore remain renderable.
+      locks.aspectRatio = parsedMidjourneyTail.aspectRatio;
+    }
     const tailValues = {
       ...parsedMidjourneyTail.settings,
-      ...(parsedMidjourneyTail.aspectRatio
-        ? { aspectRatio: parsedMidjourneyTail.aspectRatio }
+      ...(parsedMidjourneyTail.aspectRatio && !parsedMidjourneyTail.settings?.mjAspectRatio
+        ? { mjAspectRatio: parsedMidjourneyTail.aspectRatio }
         : {}),
     };
     for (const parameterId of MIDJOURNEY_PARAMETER_CONTRACT.assembly.parameterOrder) {
-      const key = parameterId === 'aspectRatio'
-        ? 'aspectRatio'
-        : MIDJOURNEY_PARAMETER_CONTRACT.controls[parameterId].selectionKey;
+      const key = MIDJOURNEY_PARAMETER_CONTRACT.controls[parameterId]?.selectionKey
+        || (parameterId === 'aspectRatio' ? 'aspectRatio' : parameterId);
       if (!Object.hasOwn(tailValues, key)) continue;
       const value = tailValues[key];
       locks[key] = value;

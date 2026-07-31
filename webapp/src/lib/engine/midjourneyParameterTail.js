@@ -21,11 +21,18 @@ function normalizeAspectRatio(value) {
   return /^\d+:\d+$/.test(normalized) ? normalized : '';
 }
 
+function resolveAspectRatio(selection, settings) {
+  if (settings.mjAspectRatio !== 'page1') {
+    return normalizeAspectRatio(settings.mjAspectRatio);
+  }
+  return normalizeAspectRatio(selection.aspectRatio);
+}
+
 export function buildMidjourneyParameterTail(selection = {}) {
   const settings = normalizeMidjourneyParameterSettings(selection);
   const version = getEnumOption('version', settings.mjVersionId);
   const resolution = getEnumOption('resolution', settings.mjResolution);
-  const aspectRatio = normalizeAspectRatio(selection.aspectRatio);
+  const aspectRatio = resolveAspectRatio(selection, settings);
   const parts = [
     MIDJOURNEY_PARAMETER_CONTRACT.controls.version.parameter,
     version.value,
@@ -68,6 +75,7 @@ export function parseMidjourneyParameterTail(value) {
 
   const settings = normalizeMidjourneyParameterSettings({
     mjVersionId: match[2] === '8.1' ? 'v8-1' : 'v8-2',
+    mjAspectRatio: match[3] || 'page1',
     mjRawMode: match[4] ? 'raw' : 'standard',
     mjStylize: match[5],
     mjChaos: match[6],

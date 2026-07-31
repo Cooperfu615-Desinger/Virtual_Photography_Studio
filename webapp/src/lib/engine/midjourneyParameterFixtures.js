@@ -1,5 +1,5 @@
 /**
- * Phase-1 descriptive baselines and phase-4 parameter-tail expectations.
+ * Descriptive baselines and parameter-tail expectations.
  * Each entry reuses a representative prompt fixture and records the original
  * public-output hashes before the tail existed. Phase 4 must preserve those
  * content hashes after stripping the contract-owned Midjourney tail.
@@ -12,6 +12,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     aspectRatio: '4:5',
     futureSettings: {
       mjVersionId: 'v8-2',
+      mjAspectRatio: '4:5',
       mjRawMode: 'raw',
       mjStylize: 25,
       mjChaos: 0,
@@ -32,6 +33,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     aspectRatio: '9:16',
     futureSettings: {
       mjVersionId: 'v8-2',
+      mjAspectRatio: '9:16',
       mjRawMode: 'standard',
       mjStylize: 100,
       mjChaos: 0,
@@ -52,6 +54,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     aspectRatio: '4:5',
     futureSettings: {
       mjVersionId: 'v8-2',
+      mjAspectRatio: '4:5',
       mjRawMode: 'raw',
       mjStylize: 50,
       mjChaos: 0,
@@ -72,6 +75,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     aspectRatio: '4:5',
     futureSettings: {
       mjVersionId: 'v8-2',
+      mjAspectRatio: '4:5',
       mjRawMode: 'raw',
       mjStylize: 50,
       mjChaos: 0,
@@ -92,6 +96,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     aspectRatio: '3:4',
     futureSettings: {
       mjVersionId: 'v8-2',
+      mjAspectRatio: '3:4',
       mjRawMode: 'standard',
       mjStylize: 100,
       mjChaos: 0,
@@ -112,6 +117,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     aspectRatio: '4:5',
     futureSettings: {
       mjVersionId: 'v8-2',
+      mjAspectRatio: '4:5',
       mjRawMode: 'standard',
       mjStylize: 250,
       mjChaos: 10,
@@ -132,6 +138,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     aspectRatio: '9:16',
     futureSettings: {
       mjVersionId: 'v8-1',
+      mjAspectRatio: '9:16',
       mjRawMode: 'standard',
       mjStylize: 100,
       mjChaos: 0,
@@ -144,5 +151,26 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
       zImagePrompt: 'a35e8039443e98f6c596dd047ee7fc9b2ad1b3d8f5b0d4e10a57f172c7f01ee3',
       midjourneyPrompt: '16edaab8bed4c4427bb194458ea63feac14142d6094a870f586920dca527ce11',
     },
+  },
+]);
+
+export const MIDJOURNEY_ASPECT_RATIO_FIXTURES = Object.freeze([
+  {
+    id: 'independent-ai-ratio',
+    page1AspectRatio: '4:5',
+    mjAspectRatio: '1:1',
+    expectedTail: '--v 8.2 --ar 1:1 --s 100 --c 0 --w 0 --sd',
+  },
+  {
+    id: 'ultrawide-ai-ratio',
+    page1AspectRatio: '4:5',
+    mjAspectRatio: '21:9',
+    expectedTail: '--v 8.2 --ar 21:9 --s 100 --c 0 --w 0 --sd',
+  },
+  {
+    id: 'tall-ai-ratio',
+    page1AspectRatio: '4:5',
+    mjAspectRatio: '1:2',
+    expectedTail: '--v 8.2 --ar 1:2 --s 100 --c 0 --w 0 --sd',
   },
 ]);

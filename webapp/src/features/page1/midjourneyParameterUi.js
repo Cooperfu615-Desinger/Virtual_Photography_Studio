@@ -42,9 +42,11 @@ export function applyMidjourneyParameterPreset(settings, presetId) {
 export function buildMidjourneyParameterSummary(settings) {
   const normalized = normalizeMidjourneyParameterDraft(settings);
   const modeLabel = normalized.mjRawMode === 'raw' ? 'Raw' : 'Standard';
+  const aspectRatioLabel = getOptionLabel('aspectRatio', normalized.mjAspectRatio);
   return {
     summary: [
       getOptionLabel('version', normalized.mjVersionId),
+      `AR ${aspectRatioLabel}`,
       modeLabel,
       `S${normalized.mjStylize}`,
       `C${normalized.mjChaos}`,

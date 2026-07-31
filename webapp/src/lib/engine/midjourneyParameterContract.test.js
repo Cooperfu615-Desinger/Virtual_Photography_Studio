@@ -69,7 +69,7 @@ function generateFixture(parameterFixture) {
 }
 
 test('Midjourney parameter contract is frozen serializable rollout policy data', () => {
-  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.3.0');
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.4.1');
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT));
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT.controls.version.options));
   assert.deepEqual(
@@ -77,7 +77,12 @@ test('Midjourney parameter contract is frozen serializable rollout policy data',
     MIDJOURNEY_PARAMETER_CONTRACT
   );
   assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt']);
-  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.derivedParameters.aspectRatio.controlOwner, 'existing PAGE1 aspectRatio');
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.derivedParameters.aspectRatio.controlOwner, 'F｜MJ 參數設定');
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.controls.aspectRatio.selectionKey, 'mjAspectRatio');
+  assert.deepEqual(
+    MIDJOURNEY_PARAMETER_CONTRACT.controls.aspectRatio.options.map((option) => option.id),
+    ['page1', '1:1', '4:3', '3:2', '16:9', '21:9', '2:3', '3:4', '9:16', '1:2', '4:5', '5:4']
+  );
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.compatibility.preserveCanonicalPoseVerbatim, true);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.compatibility.preserveCurrentBodyTypeDescriptions, true);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.completionGate.behaviorNeutral, true);
@@ -112,6 +117,7 @@ test('Midjourney parameter defaults, ranges, presets, and ordering are valid', (
   const defaults = getDefaultMidjourneyParameterSettings();
   assert.deepEqual(defaults, {
     mjVersionId: 'v8-2',
+    mjAspectRatio: 'page1',
     mjRawMode: 'standard',
     mjStylize: 100,
     mjChaos: 0,

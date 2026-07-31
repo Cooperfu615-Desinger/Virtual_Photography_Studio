@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.3.0';
+export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.4.1';
 
 export const MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE =
   '--v (?:8\\.2|8\\.1)(?: --ar \\d+:\\d+)?(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)';
@@ -49,6 +49,27 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
         { id: 'v8-1', label: 'V8.1', value: '8.1' },
       ],
       emission: 'always',
+    },
+    aspectRatio: {
+      selectionKey: 'mjAspectRatio',
+      parameter: '--ar',
+      type: 'enum',
+      defaultValue: 'page1',
+      options: [
+        { id: 'page1', label: '跟隨 PAGE1', value: '' },
+        { id: '1:1', label: '1:1', value: '1:1' },
+        { id: '4:3', label: '4:3', value: '4:3' },
+        { id: '3:2', label: '3:2', value: '3:2' },
+        { id: '16:9', label: '16:9', value: '16:9' },
+        { id: '21:9', label: '21:9', value: '21:9' },
+        { id: '2:3', label: '2:3', value: '2:3' },
+        { id: '3:4', label: '3:4', value: '3:4' },
+        { id: '9:16', label: '9:16', value: '9:16' },
+        { id: '1:2', label: '1:2', value: '1:2' },
+        { id: '4:5', label: '4:5', value: '4:5' },
+        { id: '5:4', label: '5:4', value: '5:4' },
+      ],
+      emission: 'when-explicit-or-page1',
     },
     rawMode: {
       selectionKey: 'mjRawMode',
@@ -102,8 +123,9 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
   derivedParameters: {
     aspectRatio: {
       parameter: '--ar',
-      source: 'resolved selection.aspectRatio',
-      controlOwner: 'existing PAGE1 aspectRatio',
+      source: 'selection.mjAspectRatio, falling back to resolved selection.aspectRatio',
+      controlOwner: 'F｜MJ 參數設定',
+      legacySource: 'existing PAGE1 aspectRatio',
       omitValues: ['', 'none'],
     },
   },
@@ -223,6 +245,10 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
     phase6: {
       behaviorNeutral: true,
       purpose: 'downstream consumer integration, full validation, and documentation',
+    },
+    phase7: {
+      behaviorNeutral: false,
+      purpose: 'independent AI-only --ar control with PAGE1 fallback compatibility',
     },
   },
 });

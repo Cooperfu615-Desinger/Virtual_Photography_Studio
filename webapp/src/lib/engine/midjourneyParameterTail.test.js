@@ -11,7 +11,10 @@ import {
 import { parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
 import { countAiPromptWords } from './aiPromptLengthContract.js';
 import { MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES } from './midjourneyNativeStructureFixtures.js';
-import { MIDJOURNEY_PARAMETER_FIXTURES } from './midjourneyParameterFixtures.js';
+import {
+  MIDJOURNEY_ASPECT_RATIO_FIXTURES,
+  MIDJOURNEY_PARAMETER_FIXTURES,
+} from './midjourneyParameterFixtures.js';
 import {
   appendMidjourneyParameterTail,
   buildMidjourneyParameterTail,
@@ -66,7 +69,7 @@ function generateFixture(parameterFixture) {
 test('phase 4 assembles one normalized Midjourney tail in contract order', () => {
   assert.equal(buildMidjourneyParameterTail({
     mjVersionId: 'v8-1',
-    aspectRatio: '4:5',
+    mjAspectRatio: '4:5',
     mjRawMode: 'raw',
     mjStylize: 49.6,
     mjChaos: 18,
@@ -76,6 +79,7 @@ test('phase 4 assembles one normalized Midjourney tail in contract order', () =>
 
   assert.equal(buildMidjourneyParameterTail({
     mjVersionId: 'invalid',
+    mjAspectRatio: 'page1',
     aspectRatio: 'none',
     mjRawMode: 'invalid',
     mjStylize: 5000,
@@ -85,11 +89,25 @@ test('phase 4 assembles one normalized Midjourney tail in contract order', () =>
   }), '--v 8.2 --s 1000 --c 0 --w 0 --sd');
 });
 
+test('phase 7 allows the F AI ratio to differ from the PAGE1 composition ratio', () => {
+  for (const fixture of MIDJOURNEY_ASPECT_RATIO_FIXTURES) {
+    assert.equal(
+      buildMidjourneyParameterTail({
+        aspectRatio: fixture.page1AspectRatio,
+        mjAspectRatio: fixture.mjAspectRatio,
+      }),
+      fixture.expectedTail,
+      fixture.id,
+    );
+  }
+});
+
 test('phase 4 appends, parses, and replaces only the final parameter tail', () => {
   const content = 'Create a photorealistic editorial portrait.\n\nA compact description.';
   const settings = {
     mjVersionId: 'v8-1',
-    aspectRatio: '9:16',
+    mjAspectRatio: '9:16',
+    aspectRatio: '4:5',
     mjRawMode: 'raw',
     mjStylize: 333,
     mjChaos: 18,
@@ -109,6 +127,7 @@ test('phase 4 appends, parses, and replaces only the final parameter tail', () =
     aspectRatio: '9:16',
     settings: {
       mjVersionId: 'v8-1',
+      mjAspectRatio: '9:16',
       mjRawMode: 'raw',
       mjStylize: 333,
       mjChaos: 18,
@@ -156,6 +175,7 @@ test('phase 4 restores F settings and aspect ratio from a standard AI Prompt tai
 
   assert.deepEqual({
     mjVersionId: parsed.locks.mjVersionId,
+    mjAspectRatio: parsed.locks.mjAspectRatio,
     mjRawMode: parsed.locks.mjRawMode,
     mjStylize: parsed.locks.mjStylize,
     mjChaos: parsed.locks.mjChaos,
@@ -164,6 +184,7 @@ test('phase 4 restores F settings and aspect ratio from a standard AI Prompt tai
     aspectRatio: parsed.locks.aspectRatio,
   }, {
     mjVersionId: 'v8-1',
+    mjAspectRatio: '3:4',
     mjRawMode: 'raw',
     mjStylize: 333,
     mjChaos: 18,
@@ -177,7 +198,7 @@ test('phase 4 restores F settings and aspect ratio from a standard AI Prompt tai
       .map((entry) => entry.key),
     [
       'mjVersionId',
-      'aspectRatio',
+      'mjAspectRatio',
       'mjRawMode',
       'mjStylize',
       'mjChaos',

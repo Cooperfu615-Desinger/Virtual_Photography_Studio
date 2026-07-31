@@ -29,6 +29,7 @@ import {
 
 const CUSTOM_SETTINGS = Object.freeze({
   mjVersionId: 'v8-1',
+  mjAspectRatio: '1:1',
   mjRawMode: 'raw',
   mjStylize: 333,
   mjChaos: 18,
@@ -50,6 +51,7 @@ test('phase 3 registers normalized MJ settings in empty and legacy PAGE1 locks',
   assert.deepEqual(pickSettings(normalizeLocks({
     subjectCount: '1',
     mjVersionId: 'unsupported',
+    mjAspectRatio: 'unsupported',
     mjRawMode: 'raw',
     mjStylize: 5000,
     mjChaos: -8,
@@ -57,6 +59,7 @@ test('phase 3 registers normalized MJ settings in empty and legacy PAGE1 locks',
     mjResolution: 'invalid',
   })), {
     mjVersionId: 'v8-2',
+    mjAspectRatio: 'page1',
     mjRawMode: 'raw',
     mjStylize: 1000,
     mjChaos: 0,
@@ -119,7 +122,7 @@ test('phase 4 isolates F-only changes to the live preview parameter tail', () =>
   assert.equal(attached.id, preview.id);
   assert.equal(stripMidjourneyParameterTail(attached.midjourneyPrompt), preview.midjourneyPrompt);
   assert.equal(
-    attached.midjourneyPrompt.endsWith('--v 8.1 --ar 4:5 --raw --s 333 --c 18 --w 47 --hd'),
+    attached.midjourneyPrompt.endsWith('--v 8.1 --ar 1:1 --raw --s 333 --c 18 --w 47 --hd'),
     true
   );
   assert.deepEqual(pickSettings(attached.selection), CUSTOM_SETTINGS);

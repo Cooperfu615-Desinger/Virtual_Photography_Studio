@@ -105,6 +105,7 @@ test('markdown archive import restores Midjourney tail settings and aspect ratio
   assert.deepEqual({
     aspectRatio: restored.selection.aspectRatio,
     mjVersionId: restored.selection.mjVersionId,
+    mjAspectRatio: restored.selection.mjAspectRatio,
     mjRawMode: restored.selection.mjRawMode,
     mjStylize: restored.selection.mjStylize,
     mjChaos: restored.selection.mjChaos,
@@ -113,6 +114,7 @@ test('markdown archive import restores Midjourney tail settings and aspect ratio
   }, {
     aspectRatio: '3:4',
     mjVersionId: 'v8-1',
+    mjAspectRatio: '3:4',
     mjRawMode: 'raw',
     mjStylize: 333,
     mjChaos: 18,

@@ -30,6 +30,7 @@ test('PAGE1 workspace schema defines every navigation section and unique panel i
 test('MJ parameters have a dedicated F section and stay outside engine random controls', () => {
   assert.deepEqual(getSectionKeys('midjourney'), [
     'mjVersionId',
+    'mjAspectRatio',
     'mjRawMode',
     'mjStylize',
     'mjChaos',

@@ -357,10 +357,11 @@ export const SECTION_SUBPANELS = {
     {
       id: 'generation',
       label: '生成參數',
-      description: '設定 Midjourney V8 模型版本、解讀模式、風格化、變化幅度、非常規程度與輸出解析度。',
+      description: '設定 Midjourney V8 模型版本、畫面比例、解讀模式、風格化、變化幅度、非常規程度與輸出解析度。',
       randomization: 'excluded',
       keys: [
         'mjVersionId',
+        'mjAspectRatio',
         'mjRawMode',
         'mjStylize',
         'mjChaos',

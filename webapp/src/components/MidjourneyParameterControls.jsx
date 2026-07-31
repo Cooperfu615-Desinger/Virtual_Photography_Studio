@@ -125,6 +125,19 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
 
         <div className="mj-parameter-block">
           <div className="mj-parameter-block-heading">
+            <strong>畫面比例（--ar）</strong>
+            <span>只作用於 AI Prompt；不改動 PAGE1 畫面比例</span>
+          </div>
+          <OptionButtons
+            ariaLabel="Midjourney 畫面比例"
+            control={controls.aspectRatio}
+            value={settings.mjAspectRatio}
+            onChange={(value) => updateSetting('mjAspectRatio', value)}
+          />
+        </div>
+
+        <div className="mj-parameter-block">
+          <div className="mj-parameter-block-heading">
             <strong>輸出解析度</strong>
             <span>SD／HD 只作用於 AI Prompt</span>
           </div>
@@ -162,8 +175,8 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
       </div>
 
       <div className="mj-parameter-aspect-note">
-        <strong>畫面比例</strong>
-        <span>不重複新增控制；由目前 AI 輸出實際解析後的既有比例自動帶入。</span>
+        <strong>參數尾段</strong>
+        <span>--ar 會與其他 MJ 參數一起附加在 AI Prompt 尾端；選擇「跟隨 PAGE1」時沿用目前已解析的 PAGE1 比例。</span>
       </div>
     </div>
   );
