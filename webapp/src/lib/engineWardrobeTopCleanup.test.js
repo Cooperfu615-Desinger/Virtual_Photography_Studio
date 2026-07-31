@@ -39,6 +39,11 @@ const EXPECTED_TOP_LABELS = [
   '運動型內衣',
   '蕾絲睡衣上身',
   '波西米亞風上衣',
+  '長袖上衣',
+  '馬甲上衣',
+  '掛脖上衣',
+  '泡袖上衣',
+  '針織背心',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;

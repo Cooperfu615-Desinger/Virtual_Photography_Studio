@@ -186,6 +186,11 @@
 | **上身 (Tops)** | 運動型內衣 | `sports bra top, clean elastic underband, smooth technical jersey, minimal athletic seaming` | 以簡潔彈性下圍、機能針織面料與俐落運動車線為主的運動上衣語言。 |
 | **上身 (Tops)** | 蕾絲睡衣上身 | `lace sleepwear top, delicate floral lace panels, scalloped trim, soft relaxed drape, refined sleepwear detailing` | 以蕾絲拼接、花卉蕾絲面、波浪收邊與柔軟垂墜為主，保留睡衣式上身結構。 |
 | **上身 (Tops)** | 波西米亞風上衣 | `bohemian draped blouse, crinkled gauze or washed rayon, deep relaxed neckline, layered sleeves, folk-woven trim` | 以皺感薄紗或水洗 rayon、鬆垂領口、層次袖型與民俗織帶細節為主，保留波西米亞上衣的垂墜結構，不預設衣襬穿法。 |
+| **上身 (Tops)** | 長袖上衣 | `long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure` | 以完整長袖、乾淨肩線與簡潔上身結構為主，不預設領口、材質或穿法。 |
+| **上身 (Tops)** | 馬甲上衣 | `structured corset top, shaped cup seams, visible boning channels, fitted waist` | 以胸衣式結構、分割線、骨條通道與收腰輪廓為主，不預設內搭或下身。 |
+| **上身 (Tops)** | 掛脖上衣 | `halter top, neck-tie or halter straps, open shoulder line, fitted upper-body silhouette` | 以繞頸或掛脖肩帶、露肩線與合身上身輪廓為主。 |
+| **上身 (Tops)** | 泡袖上衣 | `puff-sleeve blouse, gathered sleeve volume, defined shoulder shape, soft woven fabric` | 以集褶澎袖、明確肩部份量與柔軟梭織布料為主。 |
+| **上身 (Tops)** | 針織背心 | `knit sweater vest, sleeveless layered construction, ribbed knit texture, relaxed upper-body shape` | 以無袖針織背心、羅紋或紋理針織表面與放鬆上身比例為主。 |
 | **上身圖案 (Top Surface Design)** | 全無 | `no added top pattern, clean solid-color surface styling` | 不額外加入上身表面圖案，保留單色與乾淨版型表現。 |
 | **上身圖案 (Top Surface Design)** | 粗橫條紋 | `bold horizontal stripe top, clearly defined stripe bands across the torso, strong Breton-style graphic rhythm` | 以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。 |
 | **上身圖案 (Top Surface Design)** | 細橫條紋 | `fine horizontal stripe top, narrow repeated stripe bands across the torso, delicate Breton-inspired surface rhythm` | 以細緻而連續的橫向條帶覆蓋整件上身，保留清楚的橫條紋識別，同時比粗條紋更日常、更輕盈。 |
@@ -263,6 +268,10 @@
 | **褲裝 (Pants)** | 波西米亞風長褲 | `bohemian draped trousers, loose soft volume, washed rayon or crinkled cotton fabric, gathered relaxed waist, folk-pattern panels` | 褲身更寬鬆柔軟，帶自然堆疊與民俗圖案面料；整體不是俐落剪裁，而是強調鬆弛、垂墜與寬鬆份量。 |
 | **褲裝 (Pants)** | 丹寧吊帶長褲 | `denim overalls, full-length wide-legged silhouette, casual utility straps, relaxed vintage styling` | 以丹寧吊帶與長褲輪廓為主的休閒單品，帶有復古、工裝與青春感。 |
 | **褲裝 (Pants)** | 丹寧吊帶短褲 | `denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood` | 以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。 |
+| **褲裝 (Pants)** | 喇叭褲 | `flared trousers, fitted through the hips, widening from the knees, elongated leg line` | 以臀部至大腿合身、膝下逐漸放寬與拉長腿部線條為主。 |
+| **褲裝 (Pants)** | 工裝短褲 | `cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette` | 以短褲長度、側邊工裝口袋與硬挺休閒輪廓為主。 |
+| **褲裝 (Pants)** | 氣球工裝褲 | `balloon cargo pants, high-volume barrel legs, deep knee shaping, large bellows side pockets, tapered cuffs` | 以高份量氣球褲管、膝部立體剪裁、大型風箱口袋與收束褲口為主。 |
+| **褲裝 (Pants)** | 七分褲 | `cropped capri pants, straight or fitted leg, hem ending below the knee, clean cropped silhouette` | 以膝下截短褲長、直筒或合身褲管與乾淨七分比例為主。 |
 | **裙裝 (Skirts)** | 全無 | `no skirt, skirt styling omitted` | 不使用裙裝，方便保留褲裝、泳裝或更乾淨的下身結構。 |
 | **裙裝 (Skirts)** | 迷你裙 | `mini skirt, concise hem length, clean tailored finish, compact lower-body proportion` | 以短裙長度、乾淨下擺與簡潔裙身比例為主，是最基礎的迷你裙結構。 |
 | **裙裝 (Skirts)** | A 字短裙 | `a-line mini skirt, structured flare, balanced feminine silhouette` | 腰部收合、裙擺自然展開的短裙版本，實用且好搭配。 |
@@ -291,6 +300,8 @@
 | **裙裝 (Skirts)** | 蘿莉塔鐘形澎裙 | `Lolita bell-shaped skirt, extreme volume, ruffled tiers, petticoat underneath` | 由裙撐撐起的鐘形裙襬，風格非常鮮明。 |
 | **裙裝 (Skirts)** | 短窄裙 | `narrow mini skirt, slim pencil-like proportion, compact hemline, clean tapered skirt shape` | 以窄版裙身、短裙長度與收斂下擺線條為主，整體偏俐落精簡的窄裙結構。 |
 | **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian layered maxi skirt, soft tiered panels, washed earth-tone fabric, crinkled drape, folk-pattern borders, relaxed gathered movement, artisanal resort elegance` | 長裙改成更貼近圖片裡那種土色拼接與層次裙片的方向，布料帶洗舊感與自然皺褶，行走或坐下時會形成柔軟堆疊，整體更像異國度假、手作感強的成熟波西米亞風。 |
+| **裙裝 (Skirts)** | 鉛筆裙 | `pencil skirt, narrow hip-skimming silhouette, knee-length or midi hem, clean tailored line` | 以貼合臀胯、膝長或中長裙襬與乾淨剪裁線條為主。 |
+| **裙裝 (Skirts)** | 工裝長裙 | `cargo maxi skirt, full-length straight drape, drawstring waist, large flap utility pockets` | 以全長直落裙身、抽繩腰頭與大型翻蓋工裝口袋為主。 |
 | **下身圖案 (Bottom Surface Design)** | 全無 | `no added bottom pattern, clean solid-color lower-body styling` | 不額外加入下身圖案，保留褲裝或裙裝本身的材質與輪廓。 |
 | **下身圖案 (Bottom Surface Design)** | 粗橫條紋 | `bold horizontal stripe pattern across the lower garment, clearly defined stripe bands, graphic statement styling` | 以明顯橫向條帶覆蓋下身單品，整體更有視覺節奏與強烈圖案存在感。 |
 | **下身圖案 (Bottom Surface Design)** | 細直條紋 | `clear vertical stripe pattern running through the lower garment, narrow repeated stripe lines, elongated linear rhythm` | 以清楚直條紋延伸整件下身單品，能讓輪廓更俐落，也更接近真正條紋褲或條紋裙。 |
@@ -317,6 +328,7 @@
 | **襪類 (Legwear)** | 羅紋短襪 | `ribbed ankle socks, soft cotton texture` | 以腳踝高度、棉質羅紋與柔軟襪口為主。 |
 | **襪類 (Legwear)** | 短襪 | `ankle socks, clean casual cotton legwear` | 以腳踝高度、乾淨棉質表面與簡潔襪口為主。 |
 | **襪類 (Legwear)** | 長筒襪 | `knee-high socks, clean youthful legwear` | 以膝下到膝高長度、平整襪面與清楚襪口線條為主。 |
+| **襪類 (Legwear)** | 泡泡襪 | `slouchy leg warmers, soft gathered texture, scrunched lower-leg styling` | 以柔軟堆疊、聚皺襪面與小腿處的泡泡感為主。 |
 | **外套版型 (Outerwear Fit)** | 全無 | `no additional outerwear fit adjustment` | 不額外指定外套長度或鬆緊版型，保留外套本體原始輪廓。 |
 | **外套版型 (Outerwear Fit)** | 合身 | `fitted outerwear proportion` | 正常衣長的合身外套比例，僅強化剪裁貼合度，不改變外套長度。 |
 | **外套版型 (Outerwear Fit)** | 緊身 | `tight body-skimming outerwear fit` | 正常衣長的緊身外套比例，貼近身體線條但仍維持外套結構。 |
@@ -342,6 +354,12 @@
 | **外套 (Outerwear)** | 短版合身西裝外套 | `cropped fitted blazer, short tailored jacket, waist-defining cut, structured shoulders, slim sleeves, clean notched lapels, polished suiting fabric` | 以短版西裝衣長、收腰剪裁、俐落肩線、窄袖與翻領為主，不綁定開合狀態、內搭、下身或姿勢。 |
 | **外套 (Outerwear)** | 人造毛皮草外套 | `faux fur coat, plush textured outerwear, voluminous soft pile, cold-weather fashion layer` | 以人造毛皮的厚實絨面、蓬鬆外層份量與柔軟大面積材質為主。 |
 | **外套 (Outerwear)** | 薄紗輕薄披衣外套 | `sheer lightweight cover-up jacket, translucent gauze mesh fabric, hooded zip-front layer, short sleeves, soft draped outerwear` | 以半透明薄紗網布、連帽拉鍊、短袖與輕柔披掛感為主的輕薄外層。 |
+| **外套 (Outerwear)** | 長版外套 | `long coat, elongated outer layer, structured shoulders, full-length or below-knee hem` | 以延長外層比例、結構肩線與全長或膝下衣襬為主。 |
+| **外套 (Outerwear)** | 風衣 | `trench coat, long structured outer layer, lapel collar, belted waist or storm-flap detailing` | 以長版結構外層、翻領、腰帶或防風片細節為主。 |
+| **外套 (Outerwear)** | 針織開襟外套 | `knit cardigan, open-front knit layer, soft drape, ribbed or textured knit surface` | 以開襟針織層、柔軟垂墜與羅紋或紋理針織表面為主。 |
+| **外套 (Outerwear)** | 棒球外套 | `varsity jacket, ribbed collar and cuffs, contrast stripe trim, structured sporty outer layer` | 以羅紋領口袖口、撞色條紋滾邊與運動感結構外層為主。 |
+| **外套 (Outerwear)** | 短版粗花呢外套 | `cropped tweed jacket, textured woven surface, structured short silhouette, polished button front` | 以短版衣長、粗花呢織紋、硬挺輪廓與整齊排釦為主。 |
+| **外套 (Outerwear)** | 蕾絲罩衫 | `lace robe cardigan, long open-front silhouette, lightweight lace texture, ruffled or scalloped hem` | 以長版開襟罩衫、輕薄蕾絲表面與荷葉或波浪下襬為主。 |
 | **外套開合 (Outerwear Opening)** | 全無 | `no additional outerwear front-opening instruction` | 不額外指定外套前襟、扣子或拉鍊狀態，保留外套自然開合。 |
 | **外套開合 (Outerwear Opening)** | 敞開穿 | `outerwear worn open at the front, front panels parted naturally` | 外套正面敞開，前片自然分開，不強制內搭必須完整可見。 |
 | **外套開合 (Outerwear Opening)** | 不扣扣子 | `button-front outerwear left unbuttoned, front panels open naturally` | 適用有扣子的外套，扣子不扣，前片自然打開。 |
@@ -385,16 +403,40 @@
 | **鞋款 (Shoes)** | 合身過膝長靴 | `fitted over-the-knee boots, sleek leg-hugging shaft` | 以過膝高度、貼腿靴筒與順直長靴線條為主。 |
 | **鞋款 (Shoes)** | 尖頭短靴 | `pointed ankle boots, sharp toe, sleek ankle-height shape` | 以尖頭鞋楦、踝高靴筒與俐落短靴輪廓為主。 |
 | **鞋款 (Shoes)** | 漆皮過膝長靴 | `patent leather thigh-high boots, glossy leg-hugging shaft` | 以亮面漆皮、過膝到大腿高度與貼腿靴筒為主。 |
+| **鞋款 (Shoes)** | 戰鬥靴 | `combat boots, chunky lace-up shaft, rugged sole, utility punk silhouette` | 以粗綁帶靴筒、厚實耐磨鞋底與機能龐克輪廓為主。 |
+| **鞋款 (Shoes)** | 西部靴 | `western boots, pointed or almond toe, stacked heel, western shaft detailing` | 以尖頭或杏仁頭、粗跟與西部靴筒裝飾為主。 |
+| **鞋款 (Shoes)** | 騎士靴 | `knee-high biker boots, structured shaft, multiple buckle straps, flat or low heel` | 以膝高硬挺靴筒、多重扣帶與低跟或平底為主。 |
+| **鞋款 (Shoes)** | 帆布鞋 | `canvas sneakers, low-top casual shape, woven canvas upper, rubber toe cap` | 以低筒休閒鞋型、帆布鞋面與橡膠鞋頭為主。 |
+| **鞋款 (Shoes)** | 尖頭平底鞋 | `pointed flats, sleek pointed toe, low flat sole, polished feminine shape` | 以尖頭鞋楦、低平鞋底與俐落女性化鞋型為主。 |
+| **鞋款 (Shoes)** | 分趾鞋 | `tabi shoes, split-toe front, low-profile Japanese-inspired shape` | 以分趾鞋頭、低輪廓鞋身與日系鞋型為主。 |
+| **鞋款 (Shoes)** | 厚底拖鞋 | `platform slide sandals, open slip-on upper, elevated chunky sole` | 以開口套入式鞋面與加厚粗底為主。 |
+| **鞋款 (Shoes)** | 厚底楔形涼鞋 | `platform wedge sandals, open-toe straps, elevated wedge sole` | 以露趾鞋帶、加高楔形鞋底與夏日涼鞋輪廓為主。 |
 | **頭部配件 (Head Accessories)** | 全無 | `no head accessories, clean head styling` | 不加頭部配件，讓髮型與頭部輪廓維持乾淨俐落。 |
 | **頭部配件 (Head Accessories)** | 耳罩式耳機（戴在頭上） | `black Marshall Major V on-ear headphones worn on the head, compact black earcups, slim structured headband` | 以黑色 Marshall Major V 耳罩式耳機為主，清楚呈現小巧黑色耳罩、細窄頭帶與頭戴位置。 |
 | **頭部配件 (Head Accessories)** | 耳罩式耳機（掛在脖子上） | `black Marshall Major V on-ear headphones resting around the neck, compact black earcups, slim structured headband visible at the collar` | 以同款黑色 Marshall Major V 掛在脖子上為主，耳罩落在領口附近，頭帶自然跨過後頸。 |
 | **頭部配件 (Head Accessories)** | 有線耳機 | `wired earphones with visible cable, lightweight in-ear audio accessory` | 以入耳式耳機、細線材與可見垂落線條為主。 |
+| **頭部配件 (Head Accessories)** | 棒球帽 | `baseball cap, curved brim, adjustable back closure, structured casual crown` | 以彎帽簷、可調後扣與休閒硬挺帽冠為主。 |
+| **頭部配件 (Head Accessories)** | 漁夫帽 | `bucket hat, soft downward brim, rounded crown, casual fabric construction` | 以柔軟下垂帽簷、圓帽冠與休閒布料結構為主。 |
+| **頭部配件 (Head Accessories)** | 寬簷帽 | `wide-brim hat, broad structured brim, defined crown, statement head silhouette` | 以寬大硬挺帽簷、明確帽冠與醒目頭部輪廓為主。 |
+| **頭部配件 (Head Accessories)** | 毛帽 | `knit beanie, close-fitting ribbed crown, soft folded brim` | 以貼頭羅紋針織帽冠與柔軟翻折帽緣為主。 |
+| **頭部配件 (Head Accessories)** | 貝雷帽 | `beret, soft rounded crown, compact flat-hat silhouette` | 以柔軟圓帽冠與緊湊平頂帽型為主。 |
+| **頭部配件 (Head Accessories)** | 頭巾 | `headscarf or bandana, wrapped hair covering, tied fabric ends` | 以包覆頭髮的頭巾或方巾、綁結與垂落布端為主。 |
+| **頭部配件 (Head Accessories)** | 牛仔帽 | `denim cowboy hat, structured western crown, curved brim, western hat silhouette` | 以西部硬挺帽冠、彎帽簷與牛仔帽輪廓為主。 |
+| **頭部配件 (Head Accessories)** | 兔耳髮箍 | `bunny-ear headband, upright or softly drooping ears, compact headband base` | 以兔耳造型、直立或柔軟下垂耳朵與緊湊髮箍底座為主。 |
+| **頭部配件 (Head Accessories)** | 女僕頭飾 | `ruffled maid headpiece, compact lace-trimmed headband, neat service-style accessory` | 以荷葉邊女僕頭飾、蕾絲滾邊髮箍與整齊服務風格為主。 |
+| **頭部配件 (Head Accessories)** | 小禮帽 | `pillbox hat, compact structured crown, short brimless formal hat silhouette` | 以緊湊硬挺帽冠與無帽簷正式小禮帽輪廓為主。 |
+| **頭部配件 (Head Accessories)** | 護士帽 | `nurse cap, compact structured medical headpiece, clean folded crown` | 以緊湊硬挺的醫護頭飾、乾淨折疊帽冠與制服配件輪廓為主。 |
+| **頭部配件 (Head Accessories)** | 蝴蝶結髮夾 | `bow hair clip, compact ribbon bow secured into the hair` | 以固定在髮絲中的緊湊緞帶蝴蝶結為主。 |
 | **眼鏡 (Eyewear)** | 全無 | `no eyewear, clean face styling` | 不加眼鏡，讓臉部與五官維持乾淨俐落。 |
 | **眼鏡 (Eyewear)** | 粗框眼鏡 | `bold thick-frame glasses` | 以較厚、辨識度高的鏡框本體為主。 |
 | **眼鏡 (Eyewear)** | 細框眼鏡 | `thin-frame glasses` | 以細窄輕量鏡框本體為主。 |
 | **眼鏡 (Eyewear)** | 復古圓框眼鏡 | `retro round-frame glasses` | 以圓形鏡框與復古比例為主。 |
 | **眼鏡 (Eyewear)** | 窄版橢圓眼鏡 | `narrow oval glasses` | 以窄版橢圓鏡框與細長橫向比例為主。 |
 | **眼鏡 (Eyewear)** | 太陽眼鏡 | `sunglasses with tinted lenses` | 以深色或染色鏡片與太陽眼鏡本體為主。 |
+| **眼鏡 (Eyewear)** | 矩形眼鏡 | `rectangular-frame glasses` | 以水平矩形鏡框與俐落直線比例為主。 |
+| **眼鏡 (Eyewear)** | 飛行員眼鏡 | `aviator-frame glasses` | 以飛行員鏡框的下垂水滴比例與金屬框架輪廓為主。 |
+| **眼鏡 (Eyewear)** | 貓眼眼鏡 | `cat-eye glasses` | 以外側上揚的貓眼鏡框比例為主。 |
+| **眼鏡 (Eyewear)** | 無框眼鏡 | `rimless glasses` | 以無明顯鏡框、鏡片直接連接鼻橋與鏡腳的輕量結構為主。 |
 | **眼鏡配色 (Eyewear Color)** | 全無 | `no specified eyewear frame color` | 不指定眼鏡顏色或材質，保留眼鏡本體輪廓。 |
 | **眼鏡配色 (Eyewear Color)** | 黑色 | `black frame` | 以黑色鏡框表面為主。 |
 | **眼鏡配色 (Eyewear Color)** | 白色 | `white frame` | 以白色鏡框表面為主。 |
@@ -402,6 +444,12 @@
 | **眼鏡配色 (Eyewear Color)** | 金屬銀 | `silver metal frame` | 以銀色金屬鏡框材質為主。 |
 | **眼鏡配色 (Eyewear Color)** | 金屬金 | `gold metal frame` | 以金色金屬鏡框材質為主。 |
 | **眼鏡配色 (Eyewear Color)** | 透明框 | `clear transparent frame` | 以透明或半透明膠框材質為主。 |
+| **眼鏡配色 (Eyewear Color)** | 棕色 | `brown frame` | 以棕色鏡框表面為主。 |
+| **眼鏡配色 (Eyewear Color)** | 琥珀色 | `amber translucent frame` | 以琥珀色半透明鏡框材質為主。 |
+| **眼鏡配色 (Eyewear Color)** | 藍色 | `blue frame` | 以藍色鏡框表面為主。 |
+| **眼鏡配色 (Eyewear Color)** | 紅色 | `red frame` | 以紅色鏡框表面為主。 |
+| **眼鏡配色 (Eyewear Color)** | 紫色 | `purple frame` | 以紫色鏡框表面為主。 |
+| **眼鏡配色 (Eyewear Color)** | 粉色 | `pink frame` | 以粉色鏡框表面為主。 |
 | **眼鏡配戴方式 (Eyewear Placement)** | 正常戴在臉上 | `worn normally on the face, lenses aligned over the eyes` | 眼鏡正常戴在臉上，鏡片對齊雙眼。 |
 | **眼鏡配戴方式 (Eyewear Placement)** | 戴在頭頂 | `resting on top of the head, pushed into the hair, eyes unobstructed` | 眼鏡推到頭頂並卡在髮絲上方，臉部與眼睛保持清楚可見。 |
 | **耳環 (Earrings)** | 全無 | `no earrings, clean ear styling` | 不加耳環，讓耳側與臉部輪廓保持乾淨。 |
@@ -431,3 +479,6 @@
 | **頸部 (Neck Accessories)** | 薄長圍巾 | `thin long scarf detail, lightweight draped neck accent` | 輕薄長圍巾適合層次穿搭與動態畫面，但控制在配角層級。 |
 | **頸部 (Neck Accessories)** | 厚長圍巾 | `thick long scarf detail, soft wrapped neck layering` | 厚實長圍巾更偏秋冬保暖，但語氣改得更不搶戲。 |
 | **頸部 (Neck Accessories)** | 街頭風格金項鏈 | `street-style gold chain detail, subtle urban neck accent` | 保留街頭與都會感，但降低 bold chain 的強烈存在。 |
+| **頸部 (Neck Accessories)** | 細領帶 | `slim necktie detail, narrow straight tie hanging from the collar` | 以窄版直落領帶與衣領下方的整齊垂墜為主。 |
+| **頸部 (Neck Accessories)** | 波洛領帶 | `bolo tie detail, slim cord necktie with small metal tips` | 以細繩領帶、滑扣與小型金屬繩頭為主。 |
+| **頸部 (Neck Accessories)** | 串珠頸鏈 | `beaded choker detail, short strand of small beads fitted around the neck` | 以貼合頸部的短串小珠與輕量頸鏈輪廓為主。 |

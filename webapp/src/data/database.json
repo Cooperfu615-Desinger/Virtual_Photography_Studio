@@ -2201,6 +2201,31 @@
         "zh": "波西米亞風上衣",
         "en": "bohemian draped blouse, crinkled gauze or washed rayon, deep relaxed neckline, layered sleeves, folk-woven trim",
         "desc": "以皺感薄紗或水洗 rayon、鬆垂領口、層次袖型與民俗織帶細節為主，保留波西米亞上衣的垂墜結構，不預設衣襬穿法。"
+      },
+      {
+        "zh": "長袖上衣",
+        "en": "long-sleeve top, fitted or relaxed sleeve length, clean shoulder line, simple upper-body structure",
+        "desc": "以完整長袖、乾淨肩線與簡潔上身結構為主，不預設領口、材質或穿法。"
+      },
+      {
+        "zh": "馬甲上衣",
+        "en": "structured corset top, shaped cup seams, visible boning channels, fitted waist",
+        "desc": "以胸衣式結構、分割線、骨條通道與收腰輪廓為主，不預設內搭或下身。"
+      },
+      {
+        "zh": "掛脖上衣",
+        "en": "halter top, neck-tie or halter straps, open shoulder line, fitted upper-body silhouette",
+        "desc": "以繞頸或掛脖肩帶、露肩線與合身上身輪廓為主。"
+      },
+      {
+        "zh": "泡袖上衣",
+        "en": "puff-sleeve blouse, gathered sleeve volume, defined shoulder shape, soft woven fabric",
+        "desc": "以集褶澎袖、明確肩部份量與柔軟梭織布料為主。"
+      },
+      {
+        "zh": "針織背心",
+        "en": "knit sweater vest, sleeveless layered construction, ribbed knit texture, relaxed upper-body shape",
+        "desc": "以無袖針織背心、羅紋或紋理針織表面與放鬆上身比例為主。"
       }
     ],
     "上身圖案 (Top Surface Design)": [
@@ -2746,6 +2771,26 @@
         "zh": "丹寧吊帶短褲",
         "en": "denim short overalls, casual bib-front silhouette, youthful utility styling, relaxed summer mood",
         "desc": "以丹寧吊帶短褲為核心的夏日單品，整體更輕鬆、可愛，也更生活化。"
+      },
+      {
+        "zh": "喇叭褲",
+        "en": "flared trousers, fitted through the hips, widening from the knees, elongated leg line",
+        "desc": "以臀部至大腿合身、膝下逐漸放寬與拉長腿部線條為主。"
+      },
+      {
+        "zh": "工裝短褲",
+        "en": "cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette",
+        "desc": "以短褲長度、側邊工裝口袋與硬挺休閒輪廓為主。"
+      },
+      {
+        "zh": "氣球工裝褲",
+        "en": "balloon cargo pants, high-volume barrel legs, deep knee shaping, large bellows side pockets, tapered cuffs",
+        "desc": "以高份量氣球褲管、膝部立體剪裁、大型風箱口袋與收束褲口為主。"
+      },
+      {
+        "zh": "七分褲",
+        "en": "cropped capri pants, straight or fitted leg, hem ending below the knee, clean cropped silhouette",
+        "desc": "以膝下截短褲長、直筒或合身褲管與乾淨七分比例為主。"
       }
     ],
     "裙裝 (Skirts)": [
@@ -2903,6 +2948,16 @@
         "zh": "波西米亞風長裙",
         "en": "bohemian layered maxi skirt, soft tiered panels, washed earth-tone fabric, crinkled drape, folk-pattern borders, relaxed gathered movement, artisanal resort elegance",
         "desc": "長裙改成更貼近圖片裡那種土色拼接與層次裙片的方向，布料帶洗舊感與自然皺褶，行走或坐下時會形成柔軟堆疊，整體更像異國度假、手作感強的成熟波西米亞風。"
+      },
+      {
+        "zh": "鉛筆裙",
+        "en": "pencil skirt, narrow hip-skimming silhouette, knee-length or midi hem, clean tailored line",
+        "desc": "以貼合臀胯、膝長或中長裙襬與乾淨剪裁線條為主。"
+      },
+      {
+        "zh": "工裝長裙",
+        "en": "cargo maxi skirt, full-length straight drape, drawstring waist, large flap utility pockets",
+        "desc": "以全長直落裙身、抽繩腰頭與大型翻蓋工裝口袋為主。"
       }
     ],
     "下身圖案 (Bottom Surface Design)": [
@@ -3037,6 +3092,11 @@
         "zh": "長筒襪",
         "en": "knee-high socks, clean youthful legwear",
         "desc": "以膝下到膝高長度、平整襪面與清楚襪口線條為主。"
+      },
+      {
+        "zh": "泡泡襪",
+        "en": "slouchy leg warmers, soft gathered texture, scrunched lower-leg styling",
+        "desc": "以柔軟堆疊、聚皺襪面與小腿處的泡泡感為主。"
       }
     ],
     "外套版型 (Outerwear Fit)": [
@@ -3166,6 +3226,36 @@
         "zh": "薄紗輕薄披衣外套",
         "en": "sheer lightweight cover-up jacket, translucent gauze mesh fabric, hooded zip-front layer, short sleeves, soft draped outerwear",
         "desc": "以半透明薄紗網布、連帽拉鍊、短袖與輕柔披掛感為主的輕薄外層。"
+      },
+      {
+        "zh": "長版外套",
+        "en": "long coat, elongated outer layer, structured shoulders, full-length or below-knee hem",
+        "desc": "以延長外層比例、結構肩線與全長或膝下衣襬為主。"
+      },
+      {
+        "zh": "風衣",
+        "en": "trench coat, long structured outer layer, lapel collar, belted waist or storm-flap detailing",
+        "desc": "以長版結構外層、翻領、腰帶或防風片細節為主。"
+      },
+      {
+        "zh": "針織開襟外套",
+        "en": "knit cardigan, open-front knit layer, soft drape, ribbed or textured knit surface",
+        "desc": "以開襟針織層、柔軟垂墜與羅紋或紋理針織表面為主。"
+      },
+      {
+        "zh": "棒球外套",
+        "en": "varsity jacket, ribbed collar and cuffs, contrast stripe trim, structured sporty outer layer",
+        "desc": "以羅紋領口袖口、撞色條紋滾邊與運動感結構外層為主。"
+      },
+      {
+        "zh": "短版粗花呢外套",
+        "en": "cropped tweed jacket, textured woven surface, structured short silhouette, polished button front",
+        "desc": "以短版衣長、粗花呢織紋、硬挺輪廓與整齊排釦為主。"
+      },
+      {
+        "zh": "蕾絲罩衫",
+        "en": "lace robe cardigan, long open-front silhouette, lightweight lace texture, ruffled or scalloped hem",
+        "desc": "以長版開襟罩衫、輕薄蕾絲表面與荷葉或波浪下襬為主。"
       }
     ],
     "外套開合 (Outerwear Opening)": [
@@ -3389,6 +3479,46 @@
         "zh": "漆皮過膝長靴",
         "en": "patent leather thigh-high boots, glossy leg-hugging shaft",
         "desc": "以亮面漆皮、過膝到大腿高度與貼腿靴筒為主。"
+      },
+      {
+        "zh": "戰鬥靴",
+        "en": "combat boots, chunky lace-up shaft, rugged sole, utility punk silhouette",
+        "desc": "以粗綁帶靴筒、厚實耐磨鞋底與機能龐克輪廓為主。"
+      },
+      {
+        "zh": "西部靴",
+        "en": "western boots, pointed or almond toe, stacked heel, western shaft detailing",
+        "desc": "以尖頭或杏仁頭、粗跟與西部靴筒裝飾為主。"
+      },
+      {
+        "zh": "騎士靴",
+        "en": "knee-high biker boots, structured shaft, multiple buckle straps, flat or low heel",
+        "desc": "以膝高硬挺靴筒、多重扣帶與低跟或平底為主。"
+      },
+      {
+        "zh": "帆布鞋",
+        "en": "canvas sneakers, low-top casual shape, woven canvas upper, rubber toe cap",
+        "desc": "以低筒休閒鞋型、帆布鞋面與橡膠鞋頭為主。"
+      },
+      {
+        "zh": "尖頭平底鞋",
+        "en": "pointed flats, sleek pointed toe, low flat sole, polished feminine shape",
+        "desc": "以尖頭鞋楦、低平鞋底與俐落女性化鞋型為主。"
+      },
+      {
+        "zh": "分趾鞋",
+        "en": "tabi shoes, split-toe front, low-profile Japanese-inspired shape",
+        "desc": "以分趾鞋頭、低輪廓鞋身與日系鞋型為主。"
+      },
+      {
+        "zh": "厚底拖鞋",
+        "en": "platform slide sandals, open slip-on upper, elevated chunky sole",
+        "desc": "以開口套入式鞋面與加厚粗底為主。"
+      },
+      {
+        "zh": "厚底楔形涼鞋",
+        "en": "platform wedge sandals, open-toe straps, elevated wedge sole",
+        "desc": "以露趾鞋帶、加高楔形鞋底與夏日涼鞋輪廓為主。"
       }
     ],
     "頭部配件 (Head Accessories)": [
@@ -3411,6 +3541,66 @@
         "zh": "有線耳機",
         "en": "wired earphones with visible cable, lightweight in-ear audio accessory",
         "desc": "以入耳式耳機、細線材與可見垂落線條為主。"
+      },
+      {
+        "zh": "棒球帽",
+        "en": "baseball cap, curved brim, adjustable back closure, structured casual crown",
+        "desc": "以彎帽簷、可調後扣與休閒硬挺帽冠為主。"
+      },
+      {
+        "zh": "漁夫帽",
+        "en": "bucket hat, soft downward brim, rounded crown, casual fabric construction",
+        "desc": "以柔軟下垂帽簷、圓帽冠與休閒布料結構為主。"
+      },
+      {
+        "zh": "寬簷帽",
+        "en": "wide-brim hat, broad structured brim, defined crown, statement head silhouette",
+        "desc": "以寬大硬挺帽簷、明確帽冠與醒目頭部輪廓為主。"
+      },
+      {
+        "zh": "毛帽",
+        "en": "knit beanie, close-fitting ribbed crown, soft folded brim",
+        "desc": "以貼頭羅紋針織帽冠與柔軟翻折帽緣為主。"
+      },
+      {
+        "zh": "貝雷帽",
+        "en": "beret, soft rounded crown, compact flat-hat silhouette",
+        "desc": "以柔軟圓帽冠與緊湊平頂帽型為主。"
+      },
+      {
+        "zh": "頭巾",
+        "en": "headscarf or bandana, wrapped hair covering, tied fabric ends",
+        "desc": "以包覆頭髮的頭巾或方巾、綁結與垂落布端為主。"
+      },
+      {
+        "zh": "牛仔帽",
+        "en": "denim cowboy hat, structured western crown, curved brim, western hat silhouette",
+        "desc": "以西部硬挺帽冠、彎帽簷與牛仔帽輪廓為主。"
+      },
+      {
+        "zh": "兔耳髮箍",
+        "en": "bunny-ear headband, upright or softly drooping ears, compact headband base",
+        "desc": "以兔耳造型、直立或柔軟下垂耳朵與緊湊髮箍底座為主。"
+      },
+      {
+        "zh": "女僕頭飾",
+        "en": "ruffled maid headpiece, compact lace-trimmed headband, neat service-style accessory",
+        "desc": "以荷葉邊女僕頭飾、蕾絲滾邊髮箍與整齊服務風格為主。"
+      },
+      {
+        "zh": "小禮帽",
+        "en": "pillbox hat, compact structured crown, short brimless formal hat silhouette",
+        "desc": "以緊湊硬挺帽冠與無帽簷正式小禮帽輪廓為主。"
+      },
+      {
+        "zh": "護士帽",
+        "en": "nurse cap, compact structured medical headpiece, clean folded crown",
+        "desc": "以緊湊硬挺的醫護頭飾、乾淨折疊帽冠與制服配件輪廓為主。"
+      },
+      {
+        "zh": "蝴蝶結髮夾",
+        "en": "bow hair clip, compact ribbon bow secured into the hair",
+        "desc": "以固定在髮絲中的緊湊緞帶蝴蝶結為主。"
       }
     ],
     "眼鏡 (Eyewear)": [
@@ -3443,6 +3633,26 @@
         "zh": "太陽眼鏡",
         "en": "sunglasses with tinted lenses",
         "desc": "以深色或染色鏡片與太陽眼鏡本體為主。"
+      },
+      {
+        "zh": "矩形眼鏡",
+        "en": "rectangular-frame glasses",
+        "desc": "以水平矩形鏡框與俐落直線比例為主。"
+      },
+      {
+        "zh": "飛行員眼鏡",
+        "en": "aviator-frame glasses",
+        "desc": "以飛行員鏡框的下垂水滴比例與金屬框架輪廓為主。"
+      },
+      {
+        "zh": "貓眼眼鏡",
+        "en": "cat-eye glasses",
+        "desc": "以外側上揚的貓眼鏡框比例為主。"
+      },
+      {
+        "zh": "無框眼鏡",
+        "en": "rimless glasses",
+        "desc": "以無明顯鏡框、鏡片直接連接鼻橋與鏡腳的輕量結構為主。"
       }
     ],
     "眼鏡配色 (Eyewear Color)": [
@@ -3480,6 +3690,36 @@
         "zh": "透明框",
         "en": "clear transparent frame",
         "desc": "以透明或半透明膠框材質為主。"
+      },
+      {
+        "zh": "棕色",
+        "en": "brown frame",
+        "desc": "以棕色鏡框表面為主。"
+      },
+      {
+        "zh": "琥珀色",
+        "en": "amber translucent frame",
+        "desc": "以琥珀色半透明鏡框材質為主。"
+      },
+      {
+        "zh": "藍色",
+        "en": "blue frame",
+        "desc": "以藍色鏡框表面為主。"
+      },
+      {
+        "zh": "紅色",
+        "en": "red frame",
+        "desc": "以紅色鏡框表面為主。"
+      },
+      {
+        "zh": "紫色",
+        "en": "purple frame",
+        "desc": "以紫色鏡框表面為主。"
+      },
+      {
+        "zh": "粉色",
+        "en": "pink frame",
+        "desc": "以粉色鏡框表面為主。"
       }
     ],
     "眼鏡配戴方式 (Eyewear Placement)": [
@@ -3631,6 +3871,21 @@
         "zh": "街頭風格金項鏈",
         "en": "street-style gold chain detail, subtle urban neck accent",
         "desc": "保留街頭與都會感，但降低 bold chain 的強烈存在。"
+      },
+      {
+        "zh": "細領帶",
+        "en": "slim necktie detail, narrow straight tie hanging from the collar",
+        "desc": "以窄版直落領帶與衣領下方的整齊垂墜為主。"
+      },
+      {
+        "zh": "波洛領帶",
+        "en": "bolo tie detail, slim cord necktie with small metal tips",
+        "desc": "以細繩領帶、滑扣與小型金屬繩頭為主。"
+      },
+      {
+        "zh": "串珠頸鏈",
+        "en": "beaded choker detail, short strand of small beads fitted around the neck",
+        "desc": "以貼合頸部的短串小珠與輕量頸鏈輪廓為主。"
       }
     ]
   },

@@ -32,6 +32,10 @@ test('eyewear controls split frame, color, and placement dimensions', () => {
     '復古圓框眼鏡',
     '窄版橢圓眼鏡',
     '太陽眼鏡',
+    '矩形眼鏡',
+    '飛行員眼鏡',
+    '貓眼眼鏡',
+    '無框眼鏡',
   ]);
 
   assert.deepEqual(optionLabels('eyewearColorId'), [
@@ -42,6 +46,12 @@ test('eyewear controls split frame, color, and placement dimensions', () => {
     '金屬銀',
     '金屬金',
     '透明框',
+    '棕色',
+    '琥珀色',
+    '藍色',
+    '紅色',
+    '紫色',
+    '粉色',
   ]);
 
   assert.deepEqual(optionLabels('eyewearPlacementId'), ['正常戴在臉上', '戴在頭頂']);
