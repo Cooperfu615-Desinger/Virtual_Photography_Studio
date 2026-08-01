@@ -293,7 +293,6 @@
 }
 
 .mj-parameter-block-heading span,
-.mj-parameter-field-heading small,
 .mj-parameter-tail-note-copy span {
   color: var(--text-secondary);
   font-family: Arial, sans-serif;

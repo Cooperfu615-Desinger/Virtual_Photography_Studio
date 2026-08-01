@@ -23,13 +23,12 @@ function OptionButtons({ ariaLabel, control, value, onChange }) {
     </div>
   );
 }
-function NumericParameterField({ label, hint, control, value, onChange }) {
+function NumericParameterField({ label, control, value, onChange }) {
   return (
     <label className="mj-parameter-numeric-field">
       <span className="mj-parameter-field-heading">
         <span>
           <strong>{label}</strong>
-          <small>{hint}</small>
         </span>
         <input
           className="text-input mj-parameter-number-input"
@@ -58,7 +57,7 @@ function NumericParameterField({ label, hint, control, value, onChange }) {
   );
 }
 
-function AspectRatioParameterField({ label, hint, control, value, onChange }) {
+function AspectRatioParameterField({ label, control, value, onChange }) {
   const optionIndex = getMidjourneyAspectRatioOptionIndex(value);
   const currentOption = control.options[optionIndex];
 
@@ -67,7 +66,6 @@ function AspectRatioParameterField({ label, hint, control, value, onChange }) {
       <span className="mj-parameter-field-heading">
         <span>
           <strong>{label}</strong>
-          <small>{hint}</small>
         </span>
         <input
           className="text-input mj-parameter-number-input mj-parameter-discrete-input"
@@ -140,7 +138,6 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
         <div className="mj-parameter-block">
           <div className="mj-parameter-block-heading">
             <strong>模型版本</strong>
-            <span>指定 Midjourney V8 子版本</span>
           </div>
           <OptionButtons
             ariaLabel="Midjourney 模型版本"
@@ -153,7 +150,6 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
         <div className="mj-parameter-block">
           <div className="mj-parameter-block-heading">
             <strong>解讀模式</strong>
-            <span>Raw 會降低預設美化介入</span>
           </div>
           <OptionButtons
             ariaLabel="Midjourney 解讀模式"
@@ -166,7 +162,6 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
         <div className="mj-parameter-block">
           <div className="mj-parameter-block-heading">
             <strong>輸出解析度</strong>
-            <span>SD／HD 只作用於 AI Prompt</span>
           </div>
           <OptionButtons
             ariaLabel="Midjourney 輸出解析度"
@@ -180,28 +175,24 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
       <div className="mj-parameter-slider-grid">
         <AspectRatioParameterField
           label="畫面比例（--ar）"
-          hint="每格是一種比例；不改動 PAGE1 畫面比例"
           control={controls.aspectRatio}
           value={settings.mjAspectRatio}
           onChange={(value) => updateSetting('mjAspectRatio', value)}
         />
         <NumericParameterField
           label="Stylize"
-          hint="風格化強度"
           control={controls.stylize}
           value={settings.mjStylize}
           onChange={(value) => updateSetting('mjStylize', value)}
         />
         <NumericParameterField
           label="Chaos"
-          hint="結果差異幅度"
           control={controls.chaos}
           value={settings.mjChaos}
           onChange={(value) => updateSetting('mjChaos', value)}
         />
         <NumericParameterField
           label="Weirdness"
-          hint="非常規視覺程度"
           control={controls.weirdness}
           value={settings.mjWeirdness}
           onChange={(value) => updateSetting('mjWeirdness', value)}
