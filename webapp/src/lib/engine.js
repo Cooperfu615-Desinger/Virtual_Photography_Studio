@@ -9893,27 +9893,27 @@ const GPT_SINGLE_HAIR_COLOR_MERGE_RULES = [
 const SINGLE_BODY_TYPE_ANCHOR_RULES = [
   {
     pattern: /sexy tall slim-curvy silhouette,\s*about 168-173 cm visual height and 53-58 kg lean visual weight,\s*94-58-92 body proportion anchor,\s*long legs with about 3\.8:6\.2 torso-to-leg balance,\s*full F-to-G-cup-scale bust,\s*narrow defined waist,\s*rounded hips,\s*flat abdomen,\s*dramatic but lean bust-waist-hip curve/i,
-    aiText: 'Sexy tall slim-curvy silhouette, 94-58-92 body proportion anchor, narrow defined waist, rounded hips, flat abdomen.',
+    aiText: 'Curvy hourglass silhouette, fuller bust, defined waist, rounded hips.',
   },
   {
     pattern: /tall slim fashion body,\s*about 170-175 cm visual height,\s*80-58-88 body proportion anchor,\s*long legs with about 3\.5:6\.5 torso-to-leg balance,\s*shorter upper torso,\s*high waistline,\s*narrow ribcage,\s*gently wider hips,\s*clean editorial silhouette/i,
-    aiText: 'Tall slim fashion body, 80-58-88 body proportion anchor, long legs, high waistline, narrow ribcage.',
+    aiText: 'Tall fashion-model silhouette, long legs, high waistline.',
   },
   {
     pattern: /soft natural hourglass body,\s*about 165-170 cm visual height,\s*90-62-94 body proportion anchor,\s*balanced torso-to-leg ratio around 4:6,\s*longer upper torso,\s*lower waistline,\s*fuller bust,\s*wider hips,\s*elongated abdomen with subtle contour lines/i,
-    aiText: 'Soft natural hourglass body, 90-62-94 body proportion anchor, fuller bust, wider hips, elongated abdomen with subtle contour lines.',
+    aiText: 'Soft hourglass silhouette, fuller bust, wider hips.',
   },
   {
     pattern: /natural basic body,\s*about 160-165 cm visual height,\s*83-62-88 body proportion anchor,\s*balanced torso-to-leg ratio around 4:6,\s*low-contrast waist curve,\s*modest bust and hips,\s*smooth natural silhouette/i,
-    aiText: 'Natural basic body, 83-62-88 body proportion anchor, low-contrast waist curve, modest bust and hips.',
+    aiText: 'Natural balanced silhouette, gentle waist curve, natural bust and hips.',
   },
   {
     pattern: /fit toned athletic female body,\s*healthy firm silhouette,\s*subtle muscle definition,\s*energetic balanced proportions/i,
-    aiText: 'Fit toned athletic body, firm silhouette, subtle muscle definition.',
+    aiText: 'Fit athletic silhouette, firm build, subtle muscle definition.',
   },
   {
     pattern: /petite polished female body,\s*compact refined proportions,\s*delicate idol-like silhouette,\s*graceful small-frame presence/i,
-    aiText: 'Petite polished body, compact refined proportions, delicate idol-like silhouette.',
+    aiText: 'Petite refined silhouette, compact frame, delicate proportions.',
   },
 ];
 
@@ -11337,16 +11337,36 @@ function compactAiMinimalFragment(value, limit = 4) {
     .join(', ');
 }
 
-function buildAiSingleBodyTypeAnchorText(valuesByLabel, context) {
-  if (!shouldUseFixedAiSingleSubjectLead(context)) return '';
-  const bodyTypeText = cleanAiMinimalFragment(firstStructuredValue(valuesByLabel, ['Body Type']));
+function compactAiBodyTypeAnchorText(value) {
+  const bodyTypeText = cleanAiMinimalFragment(value);
   if (!bodyTypeText || /^none$/i.test(bodyTypeText)) return '';
 
   const rule = SINGLE_BODY_TYPE_ANCHOR_RULES.find((entry) => {
     return new RegExp(entry.pattern.source, 'i').test(bodyTypeText);
   });
+  if (rule) return rule.aiText.replace(/[.!?]+$/g, '');
 
-  return rule ? rule.aiText : ensureTerminalPeriod(compactAiMinimalFragment(bodyTypeText, 4));
+  const measurementFreeText = bodyTypeText
+    .replace(
+      /\babout\s+\d{2,3}(?:-\d{2,3})?\s*cm(?:\s+visual height)?(?:\s+and\s+\d{2,3}(?:-\d{2,3})?\s*kg(?:\s+lean visual weight)?)?/gi,
+      ''
+    )
+    .replace(/\b\d{2,3}(?:-\d{2,3}){2}\s+body proportion anchor\b/gi, '')
+    .replace(/\b(?:balanced\s+)?torso-to-leg ratio(?:\s+around)?\s+\d+(?:\.\d+)?:\d+(?:\.\d+)?\b/gi, '')
+    .replace(/\b\d+(?:\.\d+)?:\d+(?:\.\d+)?\b/gi, '')
+    .replace(/\b[A-Z]-to-[A-Z]-cup-scale\b/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/^\s*,\s*|\s*,\s*$/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return compactAiMinimalFragment(measurementFreeText, 4);
+}
+
+function buildAiSingleBodyTypeAnchorText(valuesByLabel, context) {
+  if (!shouldUseFixedAiSingleSubjectLead(context)) return '';
+  const bodyTypeText = compactAiBodyTypeAnchorText(firstStructuredValue(valuesByLabel, ['Body Type']));
+  return bodyTypeText ? ensureTerminalPeriod(bodyTypeText) : '';
 }
 
 function buildAiSingleHairAnchorText(valuesByLabel, context) {
@@ -12056,7 +12076,7 @@ function buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role) {
 
 function buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, role) {
   const roleNumber = role === 'a' ? '1' : '2';
-  const bodyText = stripTerminalPromptPunctuation(
+  const bodyText = compactAiBodyTypeAnchorText(
     cleanAiDuoCompactText(firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Body Type`]))
       .replace(new RegExp(`^woman ${roleNumber} has\\s+`, 'i'), '')
   );
@@ -12445,7 +12465,7 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) {
 
   const bodyText = shouldUseFixedAiSingleSubjectLead(context)
     ? buildAiSingleBodyTypeAnchorText(valuesByLabel, context)
-    : compactAiSourceText(firstStructuredValue(valuesByLabel, ['Body Type']));
+    : compactAiBodyTypeAnchorText(firstStructuredValue(valuesByLabel, ['Body Type']));
   const hairText = shouldUseFixedAiSingleSubjectLead(context)
     ? buildAiSingleHairAnchorText(valuesByLabel, context)
     : compactAiSourceText([

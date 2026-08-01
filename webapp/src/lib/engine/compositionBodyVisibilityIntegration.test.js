@@ -26,16 +26,19 @@ const FRAMING_ZH_BY_BUCKET = Object.freeze({
 });
 
 const AI_FULL_BODY_ANCHOR_BY_ZH = Object.freeze({
+  高挑時裝模特: 'tall fashion-model silhouette, long legs, high waistline',
+  一般基本體型: 'natural balanced silhouette, gentle waist curve, natural bust and hips',
+  柔和沙漏身形: 'soft hourglass silhouette, fuller bust, wider hips',
+  性感曲線身形: 'curvy hourglass silhouette, fuller bust, defined waist, rounded hips',
+  運動緊實身形: 'fit athletic silhouette, firm build, subtle muscle definition',
+  小隻精緻身形: 'petite refined silhouette, compact frame, delicate proportions',
+});
+
+const Z_FULL_BODY_ANCHOR_BY_ZH = Object.freeze({
   高挑時裝模特: 'tall slim fashion body',
   一般基本體型: 'natural basic body',
   柔和沙漏身形: 'soft natural hourglass body',
   性感曲線身形: 'sexy tall slim-curvy silhouette',
-  運動緊實身形: 'fit toned athletic body',
-  小隻精緻身形: 'petite polished body',
-});
-
-const Z_FULL_BODY_ANCHOR_BY_ZH = Object.freeze({
-  ...AI_FULL_BODY_ANCHOR_BY_ZH,
   運動緊實身形: 'fit toned athletic female body',
   小隻精緻身形: 'petite polished female body',
 });
@@ -110,7 +113,9 @@ test('normal single Body Types use one composition-projected source across all m
           bodyFragments(expectedBodyText)[0],
           `${profile.bodyTypeZh}/${bucket}: Grok/Z traceable projected anchor`
         );
-        for (const fragment of bodyFragments(expectedBodyText).slice(0, 4)) {
+        for (const fragment of bodyFragments(expectedBodyText)
+          .filter((part) => !/visual height|visual weight|body proportion anchor|torso-to-leg|cup-scale|\b\d{2,3}-\d{2,3}-\d{2,3}\b/i.test(part))
+          .slice(0, 4)) {
           assertIncludes(prompt.midjourneyPrompt, fragment, `${profile.bodyTypeZh}/${bucket}: AI projected ${fragment}`);
         }
       }

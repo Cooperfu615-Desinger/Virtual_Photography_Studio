@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.5.0';
+export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.6.0';
 
 /**
  * Target contract for the Midjourney-native descriptive content that appears
@@ -72,7 +72,7 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
   },
   compatibility: {
     parameterTailOwner: 'MIDJOURNEY_PARAMETER_CONTRACT',
-    bodyTypeAnchors: 'retain source-traceable visual anchors',
+    bodyTypeAnchors: 'use short positive source-derived anchors without measurement strings',
     wardrobeVisibility: 'reuse composition projection',
     fixedComposition: 'reuse fixed-set source projection',
     derivedPromptParameters: 'forbidden',

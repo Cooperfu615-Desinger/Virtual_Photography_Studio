@@ -66,7 +66,7 @@ function generateFixture(target) {
 }
 
 test('Midjourney description contract freezes the approved six-phase target', () => {
-  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.5.0');
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.6.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_DESCRIPTION_CONTRACT));
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt']);
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.structure.sectionOrder, [
@@ -79,6 +79,10 @@ test('Midjourney description contract freezes the approved six-phase target', ()
     'imaging',
   ]);
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.sourceIntegrity.exactCanonicalPoseReuse, true);
+  assert.equal(
+    MIDJOURNEY_DESCRIPTION_CONTRACT.compatibility.bodyTypeAnchors,
+    'use short positive source-derived anchors without measurement strings'
+  );
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.structure.imperativeOpening.current, 'forbidden');
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.rollout.phase2.behaviorNeutral, false);

@@ -27,6 +27,17 @@ const FULL_BODY_ANCHOR_BY_ZH = Object.freeze({
   小隻精緻身形: 'petite polished',
 });
 
+const AI_BODY_TYPE_ANCHOR_BY_ZH = Object.freeze({
+  高挑時裝模特: 'Tall fashion-model silhouette, long legs, high waistline',
+  一般基本體型: 'Natural balanced silhouette, gentle waist curve, natural bust and hips',
+  柔和沙漏身形: 'Soft hourglass silhouette, fuller bust, wider hips',
+  性感曲線身形: 'Curvy hourglass silhouette, fuller bust, defined waist, rounded hips',
+  運動緊實身形: 'Fit athletic silhouette, firm build, subtle muscle definition',
+  小隻精緻身形: 'Petite refined silhouette, compact frame, delicate proportions',
+});
+
+const AI_BODY_MEASUREMENT_FRAGMENT = /visual height|visual weight|body proportion anchor|torso-to-leg|cup-scale|\b\d{2,3}-\d{2,3}-\d{2,3}\b/i;
+
 function optionId(key, zh) {
   const option = controlsByKey.get(key)?.options.find((entry) => entry.zh === zh);
   assert.ok(option, `Missing ${key} option ${zh}`);
@@ -95,21 +106,13 @@ test('phase-4 gate covers every public framing alias for every normal Body Type'
         }
       } else if (['fullBody', 'unconstrained'].includes(bucket)) {
         assertIncludes(prompt.grokPrompt, profile.fullSource, `${profile.bodyTypeZh}/${framingZh}: Gpt full source`);
-        for (const field of ['zImagePrompt', 'midjourneyPrompt']) {
-          assertIncludes(
-            prompt[field],
-            FULL_BODY_ANCHOR_BY_ZH[profile.bodyTypeZh],
-            `${profile.bodyTypeZh}/${framingZh}/${field}: full anchor`
-          );
-        }
+        assertIncludes(prompt.zImagePrompt, FULL_BODY_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/${framingZh}/zImagePrompt: full anchor`);
+        assertIncludes(prompt.midjourneyPrompt, AI_BODY_TYPE_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/${framingZh}/midjourneyPrompt: positive anchor`);
       } else {
         assertIncludes(prompt.grokPrompt, expectedBodyText, `${profile.bodyTypeZh}/${framingZh}: Gpt projection`);
-        for (const field of ['zImagePrompt', 'midjourneyPrompt']) {
-          assertIncludes(
-            prompt[field],
-            bodyFragments(expectedBodyText)[0],
-            `${profile.bodyTypeZh}/${framingZh}/${field}: projected anchor`
-          );
+        assertIncludes(prompt.zImagePrompt, bodyFragments(expectedBodyText)[0], `${profile.bodyTypeZh}/${framingZh}/zImagePrompt: projected anchor`);
+        for (const fragment of bodyFragments(expectedBodyText).filter((part) => !AI_BODY_MEASUREMENT_FRAGMENT.test(part)).slice(0, 4)) {
+          assertIncludes(prompt.midjourneyPrompt, fragment, `${profile.bodyTypeZh}/${framingZh}/midjourneyPrompt: positive projected anchor ${fragment}`);
         }
       }
 
@@ -143,9 +146,8 @@ test('phase-4 gate keeps fixed composition full-source and projects duo A/B acro
     assert.equal(prompt.selection.fixedCompositionSetId, fixedSetId, `${profile.bodyTypeZh}: fixed set`);
     assert.equal(prompt.selection.bodyTypeId, bodyTypeId, `${profile.bodyTypeZh}: fixed body selection`);
     assertIncludes(prompt.grokPrompt, profile.fullSource, `${profile.bodyTypeZh}: fixed Gpt full source`);
-    for (const field of ['zImagePrompt', 'midjourneyPrompt']) {
-      assertIncludes(prompt[field], FULL_BODY_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/${field}`);
-    }
+    assertIncludes(prompt.zImagePrompt, FULL_BODY_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/zImagePrompt`);
+    assertIncludes(prompt.midjourneyPrompt, AI_BODY_TYPE_ANCHOR_BY_ZH[profile.bodyTypeZh], `${profile.bodyTypeZh}/midjourneyPrompt`);
     assertIncludes(fullBodyCharacterText(prompt), profile.fullSource, `${profile.bodyTypeZh}: fixed restoration`);
     assertOutputContracts(prompt, 'single');
   }
@@ -181,12 +183,14 @@ test('phase-4 gate keeps fixed composition full-source and projects duo A/B acro
           for (const fragment of bodyFragments(profile.fullSource)) {
             assertExcludes(prompt[field], fragment, `${framingZh}/${field}/${role}: ${fragment}`);
           }
+        } else if (field === 'midjourneyPrompt' && ['fullBody', 'unconstrained'].includes(bucket)) {
+          assertIncludes(prompt[field], AI_BODY_TYPE_ANCHOR_BY_ZH[profile.bodyTypeZh], `${framingZh}/${field}/${role}: positive full anchor`);
+        } else if (field === 'midjourneyPrompt') {
+          for (const fragment of bodyFragments(expectedBodyText).filter((part) => !AI_BODY_MEASUREMENT_FRAGMENT.test(part)).slice(0, 4)) {
+            assertIncludes(prompt[field], fragment, `${framingZh}/${field}/${role}: positive projected anchor ${fragment}`);
+          }
         } else {
-          assertIncludes(
-            prompt[field],
-            bodyFragments(expectedBodyText)[0],
-            `${framingZh}/${field}/${role}: projected source`
-          );
+          assertIncludes(prompt[field], bodyFragments(expectedBodyText)[0], `${framingZh}/${field}/${role}: projected source`);
         }
       }
     }

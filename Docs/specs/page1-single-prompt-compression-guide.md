@@ -245,7 +245,7 @@ AI renderer 只可刪除、重排與使用最小語法連接既有內容；不�
 
 一般單人模式保留四個核心內容句，並在構圖投影仍有有效姿勢時加入一個 projected canonical pose 句；前面可先加成品類型與構圖開頭：
 
-1. **人物句**：主體、完整身材數值／比例 anchor、髮型／髮色、已選眼鏡與耳機。
+1. **人物句**：主體、模型專用身形 anchor、髮型／髮色、已選眼鏡與耳機；Grok/Z-Image 保留完整身材數值／比例，AI/MJ 使用短正向身形 anchor。
 2. **穿搭句**：已選服裝、配色、外套、鞋襪與必要配件的極簡說明。
 3. **場景句**：使用原場景描述的地點、代表性實體 anchor、必要時段或天氣；近景可精簡成一句，但不得自行加入模糊或景深效果。
 4. **成像句**：已選攝影風格、主要鏡頭／光學效果、底片或成像模擬。
@@ -277,7 +277,7 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 第二階段建立 `aiPromptBudget.js` 的 section-aware 組裝邊界。單人 AI 的七個 producer 固定映射為 `imageType`、`composition`、`subject`、`wardrobe`、`projectedCanonicalPose`、`scene`、`imaging`，每段各自記錄 words、是否不可壓縮及整體超出 target／soft max 的診斷量。一般、完整造型與 Character Card 由 resolved structured model 選擇對應 policy；雙人仍走原 renderer。本階段只以同樣的空行規則重新組合原文字，九組基準 Prompt 的 SHA-256 必須逐字維持第一階段結果。
 
-第三階段啟用一般人物與服裝的來源可追溯壓縮。一般 Body Type 移除不增加身材結構的 `smooth natural silhouette`、`clean editorial silhouette` 等結尾，但保留體型名稱、數值／比例及腰、胸、臀等核心 anchor；髮型可保留至三個原始片段，髮色只保留主要色名，省略重複 salon／texture 解釋。
+第三階段啟用一般人物與服裝的來源可追溯壓縮。一般 Body Type 移除不增加身材結構的 `smooth natural silhouette`、`clean editorial silhouette` 等結尾；Grok/Z-Image 保留體型名稱、數值／比例及腰、胸、臀等核心 anchor，AI/MJ 的短正向 Body Type anchor 則由後續專屬規則負責。髮型可保留至三個原始片段，髮色只保留主要色名，省略重複 salon／texture 解釋。
 
 完整造型按可見 role 重組：保留造型身分、上身／連身／下身／外套、襪、鞋及至多一項必要配件；每個主要服裝 role 最多保留兩個含實際衣物身分的來源片段，襪、鞋與配件各一個。超長單一衣物描述保留主件名與必要辨識結構，例如乳膠連身衣保留 `mirror-polished latex full-body catsuit`、`sharp mirror reflections`、`vacuum-tight second-skin fit` 與 `full-length legs`，不再保留同義的表面、覆蓋與輪廓解釋。Character Card、場景、成像、雙人及 projected canonical pose 在第三階段不得改寫。
 
@@ -331,7 +331,7 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 第二階段已啟用上述直接開頭。AI 的 image type 由 contract-owned mapping 輸出，不再回讀共用 `Create a...` 句子；構圖區塊固定以完整句點結束後才接人物，因此 `front view A 20s...` 類黏接不可再出現。單人與雙人共用此規則。Gpt、Grok/Z-Image 與三組固定景別輸出仍使用原本格式，strict audit 會把三組不同長度的成品類型描述正規化成同一個 resolved image identity 再檢查 drift。
 
-第三階段將一般單人的 AI 人物開頭改為直接視覺身份 `20s Japanese or Korean woman, seductive editorial presence`，不再沿用 Grok/Z-Image 的 `A 20s seductive stunning...` 跨模型固定句。Body Type 的數值與區域錨點、髮型、髮色、眼鏡及耳機仍依同一 resolved selection 保留；Gpt 與 Grok/Z-Image 的人物文字不變。服裝繼續沿用共用構圖可見性投影，但同一服裝句中的 `at the lower crop edge` 只能出現一次，避免可見邊界重複搶權重。角色卡、雙人及特殊模式的專屬壓縮規則留在第五階段處理。
+第三階段將一般單人的 AI 人物開頭改為直接視覺身份 `20s Japanese or Korean woman, seductive editorial presence`，不再沿用 Grok/Z-Image 的 `A 20s seductive stunning...` 跨模型固定句。Grok/Z-Image 保留 Body Type 的完整數值與區域錨點；AI/MJ 改由後續 Body Type anchor 規則輸出短正向身形片語。髮型、髮色、眼鏡及耳機仍依同一 resolved selection 保留；Gpt 與 Grok/Z-Image 的人物文字不變。服裝繼續沿用共用構圖可見性投影，但同一服裝句中的 `at the lower crop edge` 只能出現一次，避免可見邊界重複搶權重。角色卡、雙人及特殊模式的專屬壓縮規則留在第五階段處理。
 
 第四階段保持 projected canonical pose 逐字不變，並把 AI 的場景、光線與成像改為直接視覺描述。場景句不再加 `In`，場景與光線分成相鄰完整句，避免 `In ..., lit by ...` 長鏈；攝影風格使用 `<photographer>-inspired <image language>`，鏡頭移除 `shot on` 後直接輸出焦段／鏡頭身份。所有文字仍須可追溯到原 resolved selection，不得新增景深或其他未選視覺事實；Gpt、Grok/Z-Image 與固定景別輸出維持原本連接語法。
 
@@ -340,6 +340,19 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 雙人 AI 不再使用 `Woman 1:`、`Woman 2:`、`Pose:`、`Scene:`、`Lighting:` 或 `Camera Look:` 標籤，固定改為 `Two 20-year-old Japanese or Korean women.`、`First woman, ...`、`Second woman, ...` 與後續直接句。角色與服裝仍必須一一綁定，Gpt 與 Grok/Z-Image 的既有雙人標籤不變。AI 長度契約新增雙人目標 160 words／soft max 180 words；一般、完整造型與 Character Card 預算不變。固定構圖仍按人物、服裝、姿勢、場景與成像順序輸出，且不得洩漏 fixed-set 控制語。
 
 第六階段不再改寫 renderer。`midjourneyCompletionGate.test.js` 將七組 deterministic 描述 target 升級為阻擋式完成閘門，逐一驗證直接成品身份、單一文字區塊、禁止 AI section labels、對應長度政策、歷史三欄位映射、六組公開輸出契約、PAGE1 Generation Cards、DLL Prompt Sources、Standard Prompt 匯入、Favorites v3 與 Saved Cards Markdown。Pose Composer 仍逐字共用 canonical pose，三組固定景別輸出仍不附加 MJ 參數。
+
+#### 已啟用：AI/MJ Body Type 短正向 anchor
+
+這組規則只作用於歷史公開欄位 `AI` → `midjourneyPrompt`，包含一般單人與雙人角色的 Body Type 片語。它使用同一份 resolved Body Type source 做來源衍生，但移除身高、體重、三圍、胸杯級距與 torso-to-leg ratio 等測量字串，改成短而可視化的正向 anchor：
+
+- `高挑時裝模特` → `Tall fashion-model silhouette, long legs, high waistline.`
+- `一般基本體型` → `Natural balanced silhouette, gentle waist curve, natural bust and hips.`
+- `柔和沙漏身形` → `Soft hourglass silhouette, fuller bust, wider hips.`
+- `性感曲線身形` → `Curvy hourglass silhouette, fuller bust, defined waist, rounded hips.`
+- `運動緊實身形` → `Fit athletic silhouette, firm build, subtle muscle definition.`
+- `小隻精緻身形` → `Petite refined silhouette, compact frame, delicate proportions.`
+
+`Gpt`（`grokPrompt`）、`Grok/Z-Image`（`zImagePrompt`）、資料庫原始英文描述、resolved selection、Character Card 結構化身份與 canonical pose 不受這組壓縮影響；MJ 參數尾段也維持原有 assembler 與字數計算邊界。契約版本為 `MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = 1.6.0`。
 
 ## 2. GPT 完整保留與壓縮分流原則
 

@@ -8,18 +8,18 @@
 export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   {
     id: 'normal-single-precise',
-    expectedDescriptionHash: '2ff91c2810fe2ea7bfe2f0ed3df4d63153b8920b61b28561e6ccf7e2b7d03779',
-    expectedWords: 98,
+    expectedDescriptionHash: '1bcfd9002d1e91a50ffa2d813cb6ae1f9e25fb0827871ab3f893c94a529d0859',
+    expectedWords: 92,
   },
   {
     id: 'complete-look-balanced',
-    expectedDescriptionHash: '27d202c7e820d9681ee96f158f065a9891c016931333da42bec06528ff345041',
-    expectedWords: 56,
+    expectedDescriptionHash: '03d6ea982bb7c76d81be194f76c43b959ba0f37d049d023604f624daca88af75',
+    expectedWords: 55,
   },
   {
     id: 'canonical-pose-precise',
-    expectedDescriptionHash: '216c391dc7bc618a1e40cfaf2aa0beddae176d1f8cc6fe9798fde790c5149f85',
-    expectedWords: 97,
+    expectedDescriptionHash: 'ba681136efdf86db3cb441f51558420c66bd5f0ad8346e3705e15f92d99b50e3',
+    expectedWords: 93,
   },
   {
     id: 'character-card-hd',
@@ -28,17 +28,17 @@ export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   },
   {
     id: 'duo-balanced',
-    expectedDescriptionHash: '867409b4519f05ecef9e4f87456f85303936e53f1d0d1318e43878f07ec23baf',
-    expectedWords: 179,
+    expectedDescriptionHash: '8e4d2c6cafeb6f964d4f8f2460038fb50a1ce941edfbaaf29fbc31d3f3e9108c',
+    expectedWords: 146,
   },
   {
     id: 'fixed-special-creative',
-    expectedDescriptionHash: '76aac9542697c39fc97724b2c04416439d89e5bbfad233ad6719d10154b2b497',
-    expectedWords: 84,
+    expectedDescriptionHash: '2ec80b532dd1ae1c6380ac08dc40b29d104bf4d77666f966a40f949ad2fbbc7f',
+    expectedWords: 77,
   },
   {
     id: 'fixed-dress-v81',
-    expectedDescriptionHash: '01fadd3ecbc49b44e23dceeb21ef003ef3c6d84c33053fcb0d9dfcce348b4da7',
-    expectedWords: 51,
+    expectedDescriptionHash: '9952df3eadabf71725e9a8d5f72da9758ef4614cec53df094cd3792f37df1032',
+    expectedWords: 50,
   },
 ]);

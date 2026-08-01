@@ -43,7 +43,8 @@ test('AI normal single prompt keeps only the agreed freedom-oriented sections', 
 
   const text = prompt.midjourneyPrompt;
   assert.match(text, /^Photorealistic editorial portrait\./i);
-  assert.match(text, /about 160-165 cm visual height|83-62-88 body proportion anchor/i);
+  assert.match(text, /natural balanced silhouette, gentle waist curve, natural bust and hips/i);
+  assert.doesNotMatch(text, /about 160-165 cm visual height|83-62-88 body proportion anchor|torso-to-leg/i);
   assert.match(text, /deep side-parted long soft waves|chestnut-brown hair/i);
   assert.match(text, /black bold-frame glasses|black frame, bold thick-frame glasses/i);
   assert.match(text, /Marshall Major V/i);

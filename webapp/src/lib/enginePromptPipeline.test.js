@@ -350,11 +350,12 @@ test('AI single-subject prompt uses fixed subject lead while preserving eyewear 
   const aiPrompt = prompt.midjourneyPrompt;
 
   assert.match(aiPrompt, /^Photorealistic editorial portrait\. Full-body portrait\. 20s Japanese or Korean woman, seductive editorial presence/i);
-  assert.match(aiPrompt, /sexy tall slim-curvy silhouette[\s\S]*94-58-88 body proportion anchor|94-58-92 body proportion anchor/i);
+  assert.match(aiPrompt, /curvy hourglass silhouette, fuller bust, defined waist, rounded hips/i);
   assert.match(aiPrompt, /wet-look long wavy hair[\s\S]*black bold-frame glasses/i);
   assert.match(aiPrompt, /Wearing white triangle bikini top, white low-rise side-tie bikini bottoms/i);
   assert.doesNotMatch(aiPrompt, /^(Image Type|Scene|Subject|Wardrobe|Pose and Composition):/m);
   assert.doesNotMatch(aiPrompt, /A stunning mid-20s/i);
+  assert.doesNotMatch(aiPrompt, /(?:visual height|visual weight|body proportion anchor|torso-to-leg|cup-scale|\b\d{2,3}-\d{2,3}-\d{2,3}\b)/i);
   assert.doesNotMatch(aiPrompt, /defined eyes and lips|moody glossy texture|soft realistic shine|clean dark depth|soft smile/i);
   assert.doesNotMatch(aiPrompt, /visual height|visual weight|torso-to-leg|F-to-G-cup-scale|worn normally|clean beachwear|top length extending|She is sitting with natural seated arrangement|bottoms She is/i);
   assert.doesNotMatch(aiPrompt, /\bnone\b|[\u3400-\u9fff]/i);
@@ -383,27 +384,27 @@ test('AI single-subject prompt uses simplified body type anchors for each body s
   const cases = [
     {
       zh: '高挑時裝模特',
-      expected: 'Tall slim fashion body, 80-58-88 body proportion anchor, long legs, high waistline, narrow ribcage, clean editorial silhouette.',
+      expected: 'Tall fashion-model silhouette, long legs, high waistline.',
     },
     {
       zh: '一般基本體型',
-      expected: 'Natural basic body, 83-62-88 body proportion anchor, low-contrast waist curve, modest bust and hips, smooth natural silhouette.',
+      expected: 'Natural balanced silhouette, gentle waist curve, natural bust and hips.',
     },
     {
       zh: '柔和沙漏身形',
-      expected: 'Soft natural hourglass body, 90-62-94 body proportion anchor, fuller bust, wider hips, elongated abdomen with subtle contour lines.',
+      expected: 'Soft hourglass silhouette, fuller bust, wider hips.',
     },
     {
       zh: '性感曲線身形',
-      expected: 'Sexy tall slim-curvy silhouette, 94-58-92 body proportion anchor, narrow defined waist, rounded hips, flat abdomen.',
+      expected: 'Curvy hourglass silhouette, fuller bust, defined waist, rounded hips.',
     },
     {
       zh: '運動緊實身形',
-      expected: 'Fit toned athletic body, firm silhouette, subtle muscle definition, energetic balanced proportions.',
+      expected: 'Fit athletic silhouette, firm build, subtle muscle definition.',
     },
     {
       zh: '小隻精緻身形',
-      expected: 'Petite polished body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence.',
+      expected: 'Petite refined silhouette, compact frame, delicate proportions.',
     },
   ];
 
@@ -416,14 +417,15 @@ test('AI single-subject prompt uses simplified body type anchors for each body s
       poseId: optionId('poseId', '站姿｜自然站姿'),
     });
 
-    const bodyLead = expected.split(',')[0];
-    const bodyAnchor = expected.match(/\d{2,3}-\d{2}-\d{2}/)?.[0] || '';
     assert.match(
       prompt.midjourneyPrompt,
-      new RegExp(`${escapeRegExp(bodyLead)}${bodyAnchor ? `[\\s\\S]*${escapeRegExp(bodyAnchor)}` : ''}`, 'i'),
+      new RegExp(escapeRegExp(expected), 'i'),
       `${zh} should preserve the selected AI body anchor`
     );
-    assert.doesNotMatch(prompt.midjourneyPrompt, /visual height|visual weight|torso-to-leg|cup-scale/i);
+    assert.doesNotMatch(
+      prompt.midjourneyPrompt,
+      /visual height|visual weight|body proportion anchor|torso-to-leg|cup-scale|\b\d{2,3}-\d{2,3}-\d{2,3}\b/i
+    );
   }
 });
 

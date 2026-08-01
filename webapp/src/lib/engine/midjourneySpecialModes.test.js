@@ -73,9 +73,9 @@ test('phase 5 renders duo AI as direct role sentences without section labels', (
     prompt.midjourneyPrompt,
     /^Photorealistic editorial portrait\. Full-body portrait\. Two 20-year-old Japanese or Korean women\./
   );
-  assert.match(prompt.midjourneyPrompt, /First woman, fit toned athletic female body/i);
+  assert.match(prompt.midjourneyPrompt, /First woman, fit athletic silhouette, firm build, subtle muscle definition/i);
   assert.match(prompt.midjourneyPrompt, /wearing avant-garde blue-gray tailored street look/i);
-  assert.match(prompt.midjourneyPrompt, /Second woman, soft natural hourglass body/i);
+  assert.match(prompt.midjourneyPrompt, /Second woman, soft hourglass silhouette, fuller bust, wider hips/i);
   assert.match(prompt.midjourneyPrompt, /wearing distressed painter-workwear street look/i);
   assert.match(prompt.midjourneyPrompt, /Modern high-rise apartment living room/i);
   assert.doesNotMatch(

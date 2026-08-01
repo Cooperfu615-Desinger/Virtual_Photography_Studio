@@ -234,7 +234,7 @@ test('phase 4 preserves representative content while adding only the approved AI
   }
 });
 
-test('phase 1 preserves current Body Type wording and exact canonical pose reuse', () => {
+test('phase 1 preserves source-derived positive Body Type anchors and exact canonical pose reuse', () => {
   const normalFixture = MIDJOURNEY_PARAMETER_FIXTURES.find(
     (fixture) => fixture.id === 'normal-single-precise'
   );
@@ -246,8 +246,9 @@ test('phase 1 preserves current Body Type wording and exact canonical pose reuse
 
   assert.match(
     normalPrompt.midjourneyPrompt,
-    /Sexy tall slim-curvy silhouette, 94-58-92 body proportion anchor, narrow defined waist, rounded hips, flat abdomen/
+    /Curvy hourglass silhouette, fuller bust, defined waist, rounded hips/
   );
+  assert.doesNotMatch(normalPrompt.midjourneyPrompt, /visual height|visual weight|body proportion anchor|torso-to-leg|\b94-58-92\b/);
 
   const canonicalPose = posePrompt.grokPrompt
     .match(/Pose and Composition:\n([\s\S]*?)(?:\n\n|$)/)?.[1]

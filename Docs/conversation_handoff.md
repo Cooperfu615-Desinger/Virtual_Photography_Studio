@@ -32,6 +32,13 @@ Important legacy terminology warning:
 - Upper crops exclude lower-body-only random hand placements, and rear-view random pools exclude face-contact props. Explicit locks remain authoritative and can intentionally preserve a contradictory combination.
 - This is a crop／angle／orbit／pose compatibility layer shared by Gpt, Grok/Z-Image, AI, and the canonical projected pose. Scene-object geometry compatibility remains paused.
 
+### 2026-08-01 MJ Body Type short positive anchors
+
+- `webapp/src/lib/engine.js` now keeps the full Body Type source rules for Gpt and Grok/Z-Image, while `midjourneyPrompt` uses six short positive anchors for normal single and duo AI outputs.
+- MJ anchors omit height, weight, three-number measurements, torso-to-leg ratios, and cup-scale strings. Examples include `Curvy hourglass silhouette, fuller bust, defined waist, rounded hips.` and `Natural balanced silhouette, gentle waist curve, natural bust and hips.`
+- Raw Body Type `en`, resolved selection IDs, Character Card identity data, Gpt (`grokPrompt`), Grok/Z-Image (`zImagePrompt`), canonical pose reuse, and the MJ parameter tail remain compatibility surfaces and are unchanged.
+- Contract version: `MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = 1.6.0`. Focused regression coverage is in `enginePromptPipeline.test.js`, `engineAiFreedomPrompt.test.js`, `engineCharacterIdentityBase.test.js`, and the Midjourney contract/native fixture suites.
+
 ## Snapshot
 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
@@ -333,7 +340,7 @@ Important tests:
 - Source should be the Gpt structured sections.
 - 已實作（先限單人）：使用和 Gpt／Grok-Z 相同 resolved selections，只做刪除、重排與最小語法連接；不使用關鍵字映射、風格 shorthand、mood tail、負面 guard 或 fallback 補寫語意。
 - 2026-07-12 已實作共用開頭：成品類型短句後，先輸出同一條精簡景別／俯仰角度／環繞角度句，再進入 AI 的人物句；構圖句不再留在成像段落末端。
-- 一般單人保留四個內容句：人物（完整身材數值／比例、髮型髮色、眼鏡耳機）、極簡穿搭、場景（地點＋1–2 anchor＋必要時段／天氣）、成像（風格＋主要鏡頭／光學＋成像模擬）。五官、膚質、表情、姿勢／動作與光線交由模型自由決定。
+- 一般單人保留四個內容句：人物（AI/MJ 使用短正向身形 anchor；髮型髮色、眼鏡耳機）、極簡穿搭、場景（地點＋1–2 anchor＋必要時段／天氣）、成像（風格＋主要鏡頭／光學＋成像模擬）。五官、膚質、表情、姿勢／動作與光線交由模型自由決定；Gpt 與 Grok/Z-Image 仍保留完整身材數值／比例來源。
 - 角色卡單人模式完整保留結構化五官、膚質、永久特徵、身形、髮型髮色與有效眼鏡／耳機；服裝仍極簡，且不得與目前 PAGE1 服裝重複。
 - 特殊穿搭、套裝與連身服只保留主服裝／主風格、關鍵衣物結構、外套、鞋襪與一項必要配件；特殊穿搭內建髮型、髮色、刺青與身體記憶點移入人物句。
 - Duo `AI` uses the shortest labeled format:

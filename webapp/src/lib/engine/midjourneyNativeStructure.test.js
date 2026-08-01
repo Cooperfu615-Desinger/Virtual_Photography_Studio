@@ -113,7 +113,7 @@ test('phase 5 changes only AI structure and preserves every non-AI baseline', ()
   }
 });
 
-test('phase 5 preserves Body Type wording and canonical pose verbatim', () => {
+test('phase 5 preserves positive Body Type anchors and canonical pose verbatim', () => {
   const normalFixture = MIDJOURNEY_PARAMETER_FIXTURES.find(
     (fixture) => fixture.id === 'normal-single-precise'
   );
@@ -125,8 +125,9 @@ test('phase 5 preserves Body Type wording and canonical pose verbatim', () => {
 
   assert.match(
     normalPrompt.midjourneyPrompt,
-    /Sexy tall slim-curvy silhouette, 94-58-92 body proportion anchor, narrow defined waist, rounded hips, flat abdomen/
+    /Curvy hourglass silhouette, fuller bust, defined waist, rounded hips/
   );
+  assert.doesNotMatch(normalPrompt.midjourneyPrompt, /visual height|visual weight|body proportion anchor|torso-to-leg|\b94-58-92\b/);
 
   const canonicalPose = posePrompt.grokPrompt
     .match(/Pose and Composition:\n([\s\S]*?)(?:\n\n|$)/)?.[1]

@@ -253,6 +253,9 @@ test('duo identity base supports separate body type and skin details per woman',
   assert.match(prompt.midjourneyPrompt, /^Photorealistic editorial portrait\./);
   assert.doesNotMatch(prompt.midjourneyPrompt, /The main characters are two stunning seductive 20-year-old Japanese or Korean women/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\bwoman [12] has\b/i);
+  assert.match(prompt.midjourneyPrompt, /First woman, tall fashion-model silhouette, long legs, high waistline/i);
+  assert.match(prompt.midjourneyPrompt, /Second woman, fit athletic silhouette, firm build, subtle muscle definition/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /visual height|visual weight|body proportion anchor|torso-to-leg|\b\d{2,3}-\d{2,3}-\d{2,3}\b/i);
   assert.equal(prompt.selection.bodyTypeAId, bodyA.id);
   assert.equal(prompt.selection.bodyTypeBId, bodyB.id);
   assert.equal(prompt.selection.skinDetailsAId, skinA.id);
