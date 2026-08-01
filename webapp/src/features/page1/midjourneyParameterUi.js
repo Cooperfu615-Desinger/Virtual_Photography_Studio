@@ -14,6 +14,20 @@ function getOptionLabel(controlId, value) {
   return control.options.find((option) => option.id === value)?.label || '';
 }
 
+export function getMidjourneyAspectRatioOptionIndex(value) {
+  const options = MIDJOURNEY_PARAMETER_CONTRACT.controls.aspectRatio.options;
+  const index = options.findIndex((option) => option.id === value);
+  return index >= 0 ? index : 0;
+}
+
+export function getMidjourneyAspectRatioIdByIndex(value) {
+  const options = MIDJOURNEY_PARAMETER_CONTRACT.controls.aspectRatio.options;
+  const numericValue = Number(value);
+  const index = Number.isFinite(numericValue) ? Math.round(numericValue) : 0;
+  const boundedIndex = Math.min(options.length - 1, Math.max(0, index));
+  return options[boundedIndex].id;
+}
+
 export function createMidjourneyParameterDraft() {
   return getDefaultMidjourneyParameterSettings();
 }

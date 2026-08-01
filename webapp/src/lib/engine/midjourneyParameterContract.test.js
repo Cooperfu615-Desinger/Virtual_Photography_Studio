@@ -69,13 +69,20 @@ function generateFixture(parameterFixture) {
 }
 
 test('Midjourney parameter contract is frozen serializable rollout policy data', () => {
-  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.4.1');
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.4.2');
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT));
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT.controls.version.options));
   assert.deepEqual(
     JSON.parse(JSON.stringify(MIDJOURNEY_PARAMETER_CONTRACT)),
     MIDJOURNEY_PARAMETER_CONTRACT
   );
+
+  assert.deepEqual(
+    MIDJOURNEY_PARAMETER_CONTRACT.parameterHelp.map((help) => help.parameter),
+    ['--v', '--ar', '--raw', '--s', '--c', '--w', '--sd', '--hd'],
+  );
+  assert.match(MIDJOURNEY_PARAMETER_CONTRACT.parameterHelp.find((help) => help.parameter === '--s').description, /越小/);
+  assert.match(MIDJOURNEY_PARAMETER_CONTRACT.parameterHelp.find((help) => help.parameter === '--s').description, /越大/);
   assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt']);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.derivedParameters.aspectRatio.controlOwner, 'F｜MJ 參數設定');
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.controls.aspectRatio.selectionKey, 'mjAspectRatio');

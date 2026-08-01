@@ -267,7 +267,7 @@
 
 .mj-parameter-block,
 .mj-parameter-numeric-field,
-.mj-parameter-aspect-note {
+.mj-parameter-tail-note {
   padding: 14px;
   border: 1px solid rgba(111, 87, 60, 0.14);
   border-radius: 14px;
@@ -287,14 +287,14 @@
 
 .mj-parameter-block-heading strong,
 .mj-parameter-field-heading strong,
-.mj-parameter-aspect-note strong {
+.mj-parameter-tail-note strong {
   color: var(--text-primary);
   font-size: 0.8rem;
 }
 
 .mj-parameter-block-heading span,
 .mj-parameter-field-heading small,
-.mj-parameter-aspect-note span {
+.mj-parameter-tail-note-copy span {
   color: var(--text-secondary);
   font-family: Arial, sans-serif;
   font-size: 0.72rem;
@@ -348,13 +348,18 @@
   text-align: right;
 }
 
+.mj-parameter-discrete-input {
+  width: 112px;
+  min-width: 112px;
+  text-align: center;
+}
+
 .mj-parameter-range {
   width: 100%;
   accent-color: var(--accent);
 }
 
-.mj-parameter-range-bounds,
-.mj-parameter-aspect-note {
+.mj-parameter-range-bounds {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -365,6 +370,46 @@
   color: var(--text-secondary);
   font-family: Arial, sans-serif;
   font-size: 0.68rem;
+}
+
+.mj-parameter-tail-note {
+  display: grid;
+  gap: 10px;
+}
+
+.mj-parameter-tail-note-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.mj-parameter-tail-help {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mj-parameter-tail-help li {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 6px;
+  color: var(--text-secondary);
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.mj-parameter-tail-help code {
+  color: var(--text-primary);
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.68rem;
+}
+
+.mj-parameter-tail-help strong {
+  color: var(--text-primary);
+  font-size: 0.72rem;
 }
 
 .page1-editor .workspace-panel-copy {

@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.4.1';
+export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.4.2';
 
 export const MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE =
   '--v (?:8\\.2|8\\.1)(?: --ar \\d+:\\d+)?(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)';
@@ -129,6 +129,48 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
       omitValues: ['', 'none'],
     },
   },
+  parameterHelp: [
+    {
+      parameter: '--v',
+      label: '模型版本',
+      description: 'V8.2／V8.1 是不同模型版本，不是數值越大越強。',
+    },
+    {
+      parameter: '--ar',
+      label: '畫面比例',
+      description: '第一個數字越大越寬，第二個數字越大越高；跟隨 PAGE1 會沿用 PAGE1 比例。',
+    },
+    {
+      parameter: '--raw',
+      label: '解讀模式',
+      description: 'Raw 減少預設風格介入；Standard 保留較多自動美化。',
+    },
+    {
+      parameter: '--s',
+      label: 'Stylize／風格化強度',
+      description: '數值越小越貼近 Prompt；越大越有藝術化與自由發揮。',
+    },
+    {
+      parameter: '--c',
+      label: 'Chaos／變化幅度',
+      description: '數值越小各結果越接近；越大差異越大，也較可能偏離 Prompt。',
+    },
+    {
+      parameter: '--w',
+      label: 'Weirdness／非常規程度',
+      description: '數值越小越常規；越大越實驗性、奇特。',
+    },
+    {
+      parameter: '--sd',
+      label: '標準解析度',
+      description: '使用標準解析度與像素量，生成速度與資源需求較低。',
+    },
+    {
+      parameter: '--hd',
+      label: '高解析度',
+      description: '使用較高解析度與像素量，細節更多但資源需求較高。',
+    },
+  ],
   presets: {
     preciseRealistic: {
       label: '精準寫實',

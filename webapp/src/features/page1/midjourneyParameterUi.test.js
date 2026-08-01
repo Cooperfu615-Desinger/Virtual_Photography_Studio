@@ -5,9 +5,22 @@ import {
   applyMidjourneyParameterPreset,
   buildMidjourneyParameterSummary,
   createMidjourneyParameterDraft,
+  getMidjourneyAspectRatioIdByIndex,
+  getMidjourneyAspectRatioOptionIndex,
   normalizeMidjourneyParameterDraft,
   updateMidjourneyParameterDraft,
 } from './midjourneyParameterUi.js';
+
+test('Midjourney aspect ratio slider maps discrete options without changing their ids', () => {
+  assert.equal(getMidjourneyAspectRatioOptionIndex('page1'), 0);
+  assert.equal(getMidjourneyAspectRatioOptionIndex('21:9'), 5);
+  assert.equal(getMidjourneyAspectRatioOptionIndex('1:2'), 9);
+  assert.equal(getMidjourneyAspectRatioOptionIndex('unsupported'), 0);
+  assert.equal(getMidjourneyAspectRatioIdByIndex(5), '21:9');
+  assert.equal(getMidjourneyAspectRatioIdByIndex(9), '1:2');
+  assert.equal(getMidjourneyAspectRatioIdByIndex(-10), 'page1');
+  assert.equal(getMidjourneyAspectRatioIdByIndex(999), '5:4');
+});
 
 test('Midjourney parameter draft starts from the contract defaults', () => {
   assert.deepEqual(createMidjourneyParameterDraft(), {

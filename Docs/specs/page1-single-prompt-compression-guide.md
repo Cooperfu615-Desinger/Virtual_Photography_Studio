@@ -321,6 +321,8 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 第七階段新增 F 專屬 `mjAspectRatio` enum。選項直接以 Midjourney `--ar` 常用整數比例呈現，另保留 `page1` 相容選項；它只改變 AI 尾段，不加入描述壓縮器、不影響 Gpt／Grok-Z／固定景別輸出，也不參與 PAGE1 一般隨機／清除或 generation signature。舊版只有 `aspectRatio` 的 selection 與尾段仍可還原，已知比例會同時回填 F 值與歷史 PAGE1 欄位，未知自訂比例則以 `page1` F fallback 搭配歷史欄位保留原值。
 
+目前 F 介面將 `--ar` 以離散滑桿呈現，滑桿每一格對應一個既有比例選項，包含 `跟隨 PAGE1`、`21:9` 與 `1:2`，不接受任意文字比例輸入；如此可維持既有 option ID、正規化、儲存與尾段還原相容性。`參數尾段`下方的逐項說明由同一份 contract-owned `parameterHelp` 提供，解釋 `--v`、`--ar`、`--raw`、`--s`、`--c`、`--w`、`--sd` 與 `--hd` 的作用及數值大小方向；說明只屬 UI 輔助文字，不會寫入任何 Prompt 或改變 assembler 輸出。
+
 #### Midjourney 描述結構優化（新版第一階段契約）
 
 使用者已解除「不得重寫既有 AI 描述」限制；新的六階段工作只作用於歷史公開欄位 `AI` → `midjourneyPrompt`。第一階段先由 `midjourneyDescriptionContract.js` 定義單行、多語意句的固定順序：成品類型、構圖、人物、服裝、projected canonical pose、場景／光線、攝影成像，最後才由既有 assembler 附加 MJ 參數。語意區塊以完整句界分隔，區塊內來源細節使用逗號；不得把不同語意直接黏成 `front view A 20s...`。

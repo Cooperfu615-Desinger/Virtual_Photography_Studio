@@ -1,6 +1,8 @@
 import { MIDJOURNEY_PARAMETER_CONTRACT } from '../lib/engine/midjourneyParameterContract.js';
 import {
   applyMidjourneyParameterPreset,
+  getMidjourneyAspectRatioIdByIndex,
+  getMidjourneyAspectRatioOptionIndex,
   updateMidjourneyParameterDraft,
 } from '../features/page1/midjourneyParameterUi.js';
 
@@ -56,8 +58,46 @@ function NumericParameterField({ label, hint, control, value, onChange }) {
   );
 }
 
+function AspectRatioParameterField({ label, hint, control, value, onChange }) {
+  const optionIndex = getMidjourneyAspectRatioOptionIndex(value);
+  const currentOption = control.options[optionIndex];
+
+  return (
+    <label className="mj-parameter-numeric-field">
+      <span className="mj-parameter-field-heading">
+        <span>
+          <strong>{label}</strong>
+          <small>{hint}</small>
+        </span>
+        <input
+          className="text-input mj-parameter-number-input mj-parameter-discrete-input"
+          type="text"
+          value={currentOption.label}
+          aria-label={`${label}目前值`}
+          readOnly
+        />
+      </span>
+      <input
+        className="mj-parameter-range"
+        type="range"
+        min="0"
+        max={control.options.length - 1}
+        step="1"
+        value={optionIndex}
+        aria-label={label}
+        aria-valuetext={currentOption.label}
+        onChange={(event) => onChange(getMidjourneyAspectRatioIdByIndex(event.target.value))}
+      />
+      <span className="mj-parameter-range-bounds" aria-hidden="true">
+        <span>{control.options[0].label}</span>
+        <span>{control.options[control.options.length - 1].label}</span>
+      </span>
+    </label>
+  );
+}
+
 export default function MidjourneyParameterControls({ settings, onChange }) {
-  const { controls, presets } = MIDJOURNEY_PARAMETER_CONTRACT;
+  const { controls, parameterHelp, presets } = MIDJOURNEY_PARAMETER_CONTRACT;
   const updateSetting = (selectionKey, value) => {
     onChange((previous) => updateMidjourneyParameterDraft(previous, selectionKey, value));
   };
@@ -125,19 +165,6 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
 
         <div className="mj-parameter-block">
           <div className="mj-parameter-block-heading">
-            <strong>畫面比例（--ar）</strong>
-            <span>只作用於 AI Prompt；不改動 PAGE1 畫面比例</span>
-          </div>
-          <OptionButtons
-            ariaLabel="Midjourney 畫面比例"
-            control={controls.aspectRatio}
-            value={settings.mjAspectRatio}
-            onChange={(value) => updateSetting('mjAspectRatio', value)}
-          />
-        </div>
-
-        <div className="mj-parameter-block">
-          <div className="mj-parameter-block-heading">
             <strong>輸出解析度</strong>
             <span>SD／HD 只作用於 AI Prompt</span>
           </div>
@@ -151,6 +178,13 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
       </div>
 
       <div className="mj-parameter-slider-grid">
+        <AspectRatioParameterField
+          label="畫面比例（--ar）"
+          hint="每格是一種比例；不改動 PAGE1 畫面比例"
+          control={controls.aspectRatio}
+          value={settings.mjAspectRatio}
+          onChange={(value) => updateSetting('mjAspectRatio', value)}
+        />
         <NumericParameterField
           label="Stylize"
           hint="風格化強度"
@@ -174,9 +208,20 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
         />
       </div>
 
-      <div className="mj-parameter-aspect-note">
-        <strong>參數尾段</strong>
-        <span>--ar 會與其他 MJ 參數一起附加在 AI Prompt 尾端；選擇「跟隨 PAGE1」時沿用目前已解析的 PAGE1 比例。</span>
+      <div className="mj-parameter-tail-note">
+        <div className="mj-parameter-tail-note-copy">
+          <strong>參數尾段</strong>
+          <span>以下說明只供設定參考，不會寫入 Prompt；參數仍會依固定順序附加在 AI Prompt 尾端。</span>
+        </div>
+        <ul className="mj-parameter-tail-help">
+          {parameterHelp.map((help) => (
+            <li key={help.parameter}>
+              <code>{help.parameter}</code>
+              <strong>{help.label}</strong>
+              <span>{help.description}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
