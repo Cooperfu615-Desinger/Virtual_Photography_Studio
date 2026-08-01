@@ -86,7 +86,7 @@ test('phase 4 assembles one normalized Midjourney tail in contract order', () =>
     mjChaos: -1,
     mjWeirdness: '',
     mjResolution: 'invalid',
-  }), '--v 8.2 --s 1000 --c 0 --w 0 --sd');
+  }), '--v 8.2 --raw --s 1000 --c 0 --w 0 --sd');
 });
 
 test('phase 7 allows the F AI ratio to differ from the PAGE1 composition ratio', () => {

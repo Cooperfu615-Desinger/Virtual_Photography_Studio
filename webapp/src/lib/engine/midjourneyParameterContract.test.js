@@ -69,7 +69,7 @@ function generateFixture(parameterFixture) {
 }
 
 test('Midjourney parameter contract is frozen serializable rollout policy data', () => {
-  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.4.2');
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.5.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT));
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT.controls.version.options));
   assert.deepEqual(
@@ -108,6 +108,7 @@ test('Midjourney parameter contract is frozen serializable rollout policy data',
   ]);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase4.behaviorNeutral, false);
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase8.behaviorNeutral, false);
   assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.assembly.descriptionStructure, {
     blockCount: 1,
     sectionSeparator: 'single-space',
@@ -125,12 +126,21 @@ test('Midjourney parameter defaults, ranges, presets, and ordering are valid', (
   assert.deepEqual(defaults, {
     mjVersionId: 'v8-2',
     mjAspectRatio: 'page1',
-    mjRawMode: 'standard',
-    mjStylize: 100,
+    mjRawMode: 'raw',
+    mjStylize: 25,
     mjChaos: 0,
     mjWeirdness: 0,
     mjResolution: 'sd',
   });
+  assert.deepEqual(
+    {
+      mjRawMode: defaults.mjRawMode,
+      mjStylize: defaults.mjStylize,
+      mjChaos: defaults.mjChaos,
+      mjWeirdness: defaults.mjWeirdness,
+    },
+    MIDJOURNEY_PARAMETER_CONTRACT.presets.preciseRealistic.values,
+  );
   assert.deepEqual(validateMidjourneyParameterSettings(defaults), []);
   assert.deepEqual(
     MIDJOURNEY_PARAMETER_CONTRACT.assembly.parameterOrder,

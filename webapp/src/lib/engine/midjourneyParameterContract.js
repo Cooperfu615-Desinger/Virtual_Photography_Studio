@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.4.2';
+export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.5.0';
 
 export const MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE =
   '--v (?:8\\.2|8\\.1)(?: --ar \\d+:\\d+)?(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)';
@@ -75,7 +75,7 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
       selectionKey: 'mjRawMode',
       parameter: '--raw',
       type: 'enum',
-      defaultValue: 'standard',
+      defaultValue: 'raw',
       options: [
         { id: 'standard', label: '標準模式', value: false },
         { id: 'raw', label: 'Raw 模式', value: true },
@@ -86,7 +86,7 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
       selectionKey: 'mjStylize',
       parameter: '--s',
       type: 'integer',
-      defaultValue: 100,
+      defaultValue: 25,
       min: 0,
       max: 1000,
       emission: 'always',
@@ -291,6 +291,10 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
     phase7: {
       behaviorNeutral: false,
       purpose: 'independent AI-only --ar control with PAGE1 fallback compatibility',
+    },
+    phase8: {
+      behaviorNeutral: false,
+      purpose: 'low-freedom default profile for Raw, Stylize, Chaos, and Weirdness',
     },
   },
 });

@@ -354,6 +354,14 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 `Gpt`（`grokPrompt`）、`Grok/Z-Image`（`zImagePrompt`）、資料庫原始英文描述、resolved selection、Character Card 結構化身份與 canonical pose 不受這組壓縮影響；MJ 參數尾段也維持原有 assembler 與字數計算邊界。契約版本為 `MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = 1.6.0`。
 
+#### 已啟用：MJ 低自由度預設
+
+`F｜MJ 參數設定` 的契約預設現在採用現有「精準寫實」preset 的低自由度組合：`V8.2`、`跟隨 PAGE1`、`Raw`、`--s 25`、`--c 0`、`--w 0`、`SD`。這會讓新建 PAGE1、缺少 MJ 欄位的舊鎖與舊收藏，在未明確指定時使用較貼近描述、較少風格偏移的 AI 尾段。
+
+這組變更只改「缺少值時的契約 fallback」；已保存且明確指定 `Standard`、Stylize、Chaos、Weirdness 或 HD 的資料必須原值還原。F 仍排除 PAGE1 一般隨機、清除與生成 reroll，仍只作用於 `AI` → `midjourneyPrompt`，不改動 Gpt、Grok/Z-Image、固定景別輸出、PAGE1 構圖比例或既有 storage ID。契約版本為 `MIDJOURNEY_PARAMETER_CONTRACT_VERSION = 1.5.0`。
+
+專案把 `--raw` 與低 `--s` 視為低自由度控制；Midjourney 官方說明亦將 Raw 描述為減少自動創意介入，低 Stylize 描述為更貼近 Prompt。此處的 `--s 25` 是本專案比官方設定面板 `Stylize Low = 50` 更保守的實測起點，不宣稱是 MJ 官方 preset 名稱。
+
 ## 2. GPT 完整保留與壓縮分流原則
 
 ### GPT 完整保留型原則

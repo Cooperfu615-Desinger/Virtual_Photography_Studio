@@ -159,18 +159,18 @@ export const MIDJOURNEY_ASPECT_RATIO_FIXTURES = Object.freeze([
     id: 'independent-ai-ratio',
     page1AspectRatio: '4:5',
     mjAspectRatio: '1:1',
-    expectedTail: '--v 8.2 --ar 1:1 --s 100 --c 0 --w 0 --sd',
+    expectedTail: '--v 8.2 --ar 1:1 --raw --s 25 --c 0 --w 0 --sd',
   },
   {
     id: 'ultrawide-ai-ratio',
     page1AspectRatio: '4:5',
     mjAspectRatio: '21:9',
-    expectedTail: '--v 8.2 --ar 21:9 --s 100 --c 0 --w 0 --sd',
+    expectedTail: '--v 8.2 --ar 21:9 --raw --s 25 --c 0 --w 0 --sd',
   },
   {
     id: 'tall-ai-ratio',
     page1AspectRatio: '4:5',
     mjAspectRatio: '1:2',
-    expectedTail: '--v 8.2 --ar 1:2 --s 100 --c 0 --w 0 --sd',
+    expectedTail: '--v 8.2 --ar 1:2 --raw --s 25 --c 0 --w 0 --sd',
   },
 ]);

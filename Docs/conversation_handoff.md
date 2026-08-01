@@ -39,6 +39,13 @@ Important legacy terminology warning:
 - Raw Body Type `en`, resolved selection IDs, Character Card identity data, Gpt (`grokPrompt`), Grok/Z-Image (`zImagePrompt`), canonical pose reuse, and the MJ parameter tail remain compatibility surfaces and are unchanged.
 - Contract version: `MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = 1.6.0`. Focused regression coverage is in `enginePromptPipeline.test.js`, `engineAiFreedomPrompt.test.js`, `engineCharacterIdentityBase.test.js`, and the Midjourney contract/native fixture suites.
 
+### 2026-08-01 MJ low-freedom default parameters
+
+- `webapp/src/lib/engine/midjourneyParameterContract.js` now defaults missing F values to the existing precise-realistic profile: `V8.2`, `跟隨 PAGE1`, `Raw`, `--s 25`, `--c 0`, `--w 0`, `SD`.
+- This changes only contract fallback for new PAGE1 state, legacy locks, and old Favorites/Saved Cards that do not contain explicit MJ fields. Explicitly saved Standard／Stylize／Chaos／Weirdness／HD values remain authoritative and restore unchanged.
+- F remains outside PAGE1 random／clear and generation rerolls; only `AI` → `midjourneyPrompt` receives the changed default tail. Gpt／Grok-Z, fixed framing outputs, PAGE1 composition ratio, storage IDs, and historical mappings remain unchanged.
+- Contract version: `MIDJOURNEY_PARAMETER_CONTRACT_VERSION = 1.5.0`. The existing `preciseRealistic` preset is now also the default profile. Official reference: [Raw](https://docs.midjourney.com/hc/en-us/articles/32634113811853-Raw), [Stylize](https://docs.midjourney.com/hc/en-us/articles/32196176868109-Stylize).
+
 ## Snapshot
 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`

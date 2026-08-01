@@ -26,8 +26,8 @@ test('Midjourney parameter draft starts from the contract defaults', () => {
   assert.deepEqual(createMidjourneyParameterDraft(), {
     mjVersionId: 'v8-2',
     mjAspectRatio: 'page1',
-    mjRawMode: 'standard',
-    mjStylize: 100,
+    mjRawMode: 'raw',
+    mjStylize: 25,
     mjChaos: 0,
     mjWeirdness: 0,
     mjResolution: 'sd',
