@@ -10786,6 +10786,17 @@ function renderFixedFramingDerivedPrompt(promptModel, preset) {
   });
 }
 
+function renderMidjourneyFixedFramingPrompt(promptModel, preset) {
+  if (promptModel.context.subject?.count !== 1) return '';
+
+  const description = renderMidjourneyNativeDescription(renderAiPrompt(promptModel));
+  return appendMidjourneyParameterTail(description, {
+    ...promptModel.context.locks,
+    aspectRatio: preset.aspectRatio,
+    mjAspectRatio: preset.aspectRatio,
+  });
+}
+
 function renderZImagePrompt(promptModel) {
   const {
     context,
@@ -12738,20 +12749,20 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     lightDirection,
     film,
   });
-  const facialCloseupPortraitPromptModel = buildFixedFramingDerivedPromptModel({
+  const chestUpPortraitPromptModel = buildFixedFramingDerivedPromptModel({
     sourcePromptModel: promptModel,
     sourceContext: context,
-    preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.facialCloseupPortrait,
+    preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
     character,
     wardrobe,
     wardrobeColors,
     lightDirection,
     film,
   });
-  const chestUpPortraitPromptModel = buildFixedFramingDerivedPromptModel({
+  const chestUpMjPortraitPromptModel = buildFixedFramingDerivedPromptModel({
     sourcePromptModel: promptModel,
     sourceContext: context,
-    preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
+    preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpMjPortrait,
     character,
     wardrobe,
     wardrobeColors,
@@ -12767,13 +12778,13 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
       aspectRatio: context.aspectRatio.id,
     },
   );
-  const facialCloseupPortraitPrompt = renderFixedFramingDerivedPrompt(
-    facialCloseupPortraitPromptModel,
-    FIXED_FRAMING_DERIVED_PROMPT_PRESETS.facialCloseupPortrait,
-  );
   const chestUpPortraitPrompt = renderFixedFramingDerivedPrompt(
     chestUpPortraitPromptModel,
     FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
+  );
+  const chestUpMjPortraitPrompt = renderMidjourneyFixedFramingPrompt(
+    chestUpMjPortraitPromptModel,
+    FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpMjPortrait,
   );
   const fullBodyCharacterPrompt = renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
 
@@ -12781,8 +12792,8 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     midjourneyPrompt,
     grokPrompt,
     zImagePrompt,
-    facialCloseupPortraitPrompt,
     chestUpPortraitPrompt,
+    chestUpMjPortraitPrompt,
     fullBodyCharacterPrompt,
   };
 }
@@ -13287,8 +13298,8 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     midjourneyPrompt,
     grokPrompt,
     zImagePrompt,
-    facialCloseupPortraitPrompt,
     chestUpPortraitPrompt,
+    chestUpMjPortraitPrompt,
     fullBodyCharacterPrompt,
   } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
@@ -13303,12 +13314,12 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     zImagePrompt,
     extraPrompts: [
       {
-        preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.facialCloseupPortrait,
-        text: facialCloseupPortraitPrompt,
-      },
-      {
         preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
         text: chestUpPortraitPrompt,
+      },
+      {
+        preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpMjPortrait,
+        text: chestUpMjPortraitPrompt,
       },
       {
         preset: FIXED_FRAMING_DERIVED_PROMPT_PRESETS.fullBodyCharacter,

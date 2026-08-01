@@ -69,7 +69,7 @@ function generateFixture(parameterFixture) {
 }
 
 test('Midjourney parameter contract is frozen serializable rollout policy data', () => {
-  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.5.0');
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT_VERSION, '1.6.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT));
   assert.ok(Object.isFrozen(MIDJOURNEY_PARAMETER_CONTRACT.controls.version.options));
   assert.deepEqual(
@@ -83,7 +83,7 @@ test('Midjourney parameter contract is frozen serializable rollout policy data',
   );
   assert.match(MIDJOURNEY_PARAMETER_CONTRACT.parameterHelp.find((help) => help.parameter === '--s').description, /越小/);
   assert.match(MIDJOURNEY_PARAMETER_CONTRACT.parameterHelp.find((help) => help.parameter === '--s').description, /越大/);
-  assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt']);
+  assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt', 'chestUpMjPortraitPrompt']);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.derivedParameters.aspectRatio.controlOwner, 'F｜MJ 參數設定');
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.controls.aspectRatio.selectionKey, 'mjAspectRatio');
   assert.deepEqual(
@@ -109,6 +109,7 @@ test('Midjourney parameter contract is frozen serializable rollout policy data',
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase4.behaviorNeutral, false);
   assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase8.behaviorNeutral, false);
+  assert.equal(MIDJOURNEY_PARAMETER_CONTRACT.rollout.phase9.behaviorNeutral, false);
   assert.deepEqual(MIDJOURNEY_PARAMETER_CONTRACT.assembly.descriptionStructure, {
     blockCount: 1,
     sectionSeparator: 'single-space',

@@ -93,7 +93,7 @@ test('phase 5 emits one Midjourney-native description block before the canonical
 
 test('phase 5 changes only AI structure and preserves every non-AI baseline', () => {
   for (const parameterFixture of MIDJOURNEY_PARAMETER_FIXTURES) {
-    const { prompt } = generateFixture(parameterFixture);
+    const { mode, prompt } = generateFixture(parameterFixture);
 
     assert.equal(
       hashPrompt(prompt.grokPrompt),
@@ -106,10 +106,23 @@ test('phase 5 changes only AI structure and preserves every non-AI baseline', ()
       `${parameterFixture.id}: Grok/Z-Image`
     );
     assert.doesNotMatch(
-      prompt.extraPrompts.map((entry) => entry.text).join('\n'),
+      prompt.extraPrompts
+        .filter((entry) => entry.id !== 'chest-up-mj-portrait')
+        .map((entry) => entry.text)
+        .join('\n'),
       /(?:^|\s)--(?:v|ar|raw|s|c|w|sd|hd)(?:\s|$)/,
       `${parameterFixture.id}: fixed-framing outputs`
     );
+    if (mode === 'single') {
+      const mjChest = prompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
+      assert.match(mjChest, /^\S[\s\S]* --v (?:8\.2|8\.1) --ar 4:5/);
+      assert.doesNotMatch(mjChest, /\n\s*\n|(?:^|\s)(?:Image Type|Subject|Wardrobe|Pose and Composition|Scene|Lighting|Camera Look):/);
+      assert.deepEqual(
+        validatePromptOutputContract('chestUpMjPortraitPrompt', mjChest, { mode: 'single' }),
+        [],
+        `${parameterFixture.id}: MJ chest output contract`
+      );
+    }
   }
 });
 

@@ -31,8 +31,8 @@ const SIX_OUTPUT_IDS = [
   'gpt',
   'grok',
   'ai',
-  'facial-closeup-portrait',
   'chest-up-portrait',
+  'chest-up-mj-portrait',
   'full-body-character',
 ];
 
@@ -131,11 +131,12 @@ test('phase-6 current main framings preserve one resolved source across all six 
       assertFragments(prompt[field], primaryIncludes, true, `${fixture.id}.${field}`);
       assertFragments(prompt[field], fixture.primaryExcludes, false, `${fixture.id}.${field}`);
     }
-    assertFragments(extraText(prompt, 'facial-closeup-portrait'), fixture.facialIncludes, true, `${fixture.id}.facial`);
-    assertFragments(extraText(prompt, 'facial-closeup-portrait'), fixture.facialExcludes, false, `${fixture.id}.facial`);
     assertFragments(extraText(prompt, 'chest-up-portrait'), fixture.chestIncludes, true, `${fixture.id}.chest`);
     assertFragments(extraText(prompt, 'chest-up-portrait'), fixture.chestExcludes, false, `${fixture.id}.chest`);
+    assertFragments(extraText(prompt, 'chest-up-mj-portrait'), fixture.chestIncludes, true, `${fixture.id}.mjChest`);
+    assertFragments(extraText(prompt, 'chest-up-mj-portrait'), fixture.chestExcludes, false, `${fixture.id}.mjChest`);
     assertFragments(extraText(prompt, 'full-body-character'), fixture.fullBodyIncludes, true, `${fixture.id}.fullBody`);
+    assert.equal(extraText(prompt, 'facial-closeup-portrait'), '', `${fixture.id}: retired face output`);
   }
 });
 

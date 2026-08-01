@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.5.0';
+export const MIDJOURNEY_PARAMETER_CONTRACT_VERSION = '1.6.0';
 
 export const MIDJOURNEY_PARAMETER_TAIL_PATTERN_SOURCE =
   '--v (?:8\\.2|8\\.1)(?: --ar \\d+:\\d+)?(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)';
@@ -23,11 +23,10 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
   targetModel: 'Midjourney V8',
   applicability: {
     supportedModes: ['single', 'duo'],
-    affectsOnly: ['midjourneyPrompt'],
+    affectsOnly: ['midjourneyPrompt', 'chestUpMjPortraitPrompt'],
     unaffectedOutputs: [
       'grokPrompt',
       'zImagePrompt',
-      'facialCloseupPortraitPrompt',
       'chestUpPortraitPrompt',
       'fullBodyCharacterPrompt',
     ],
@@ -253,8 +252,8 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
       'grokPrompt',
       'zImagePrompt',
       'midjourneyPrompt',
-      'facialCloseupPortraitPrompt',
       'chestUpPortraitPrompt',
+      'chestUpMjPortraitPrompt',
       'fullBodyCharacterPrompt',
     ],
     preservesHistoricalMappings: {
@@ -295,6 +294,10 @@ export const MIDJOURNEY_PARAMETER_CONTRACT = deepFreeze({
     phase8: {
       behaviorNeutral: false,
       purpose: 'low-freedom default profile for Raw, Stylize, Chaos, and Weirdness',
+    },
+    phase9: {
+      behaviorNeutral: false,
+      purpose: 'native MJ chest-up output with fixed 4:5 framing and inherited F settings',
     },
   },
 });

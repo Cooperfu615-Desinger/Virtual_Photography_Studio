@@ -27,20 +27,20 @@ const PRIMARY_PROMPT_OUTPUTS = Object.freeze([
 
 const FIXED_FRAMING_PROMPT_OUTPUTS = Object.freeze([
   Object.freeze({
-    id: 'facial-closeup-portrait',
-    title: '五官特寫照',
-    aspectRatio: '1:1',
-    placeholder: '目前尚無可顯示的五官特寫照 Prompt。',
-    description: '固定 1:1 方形，保留五官、髮型、上身領口、場景與攝影設定。',
-    copyLabel: '五官特寫照 copied',
-  }),
-  Object.freeze({
     id: 'chest-up-portrait',
     title: '胸上特寫照',
     aspectRatio: '4:5',
     placeholder: '目前尚無可顯示的胸上特寫照 Prompt。',
     description: '固定 4:5 直式，保留胸上人物、上身服裝、可見姿勢、場景與攝影設定。',
     copyLabel: '胸上特寫照 copied',
+  }),
+  Object.freeze({
+    id: 'chest-up-mj-portrait',
+    title: 'MJ 胸上特寫照',
+    aspectRatio: '4:5',
+    placeholder: '目前尚無可顯示的 MJ 胸上特寫照 Prompt。',
+    description: '固定 4:5 直式，使用 Midjourney 原生單行格式，保留胸上構圖、姿勢、場景與攝影設定。',
+    copyLabel: 'MJ 胸上特寫照 copied',
   }),
   Object.freeze({
     id: 'full-body-character',

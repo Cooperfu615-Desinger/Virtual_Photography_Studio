@@ -49,16 +49,6 @@ function validPromptFixture() {
     ].join('\n\n'),
     extraPrompts: [
       {
-        id: 'facial-closeup-portrait',
-        label: '五官特寫照',
-        text: [
-          'Image Type:\nCreate a photorealistic editorial portrait.',
-          'Composition:\nTight face close-up.',
-          'Subject:\nOne adult portrait subject.',
-          'Wardrobe:\nBlack dress neckline.',
-        ].join('\n\n'),
-      },
-      {
         id: 'chest-up-portrait',
         label: '胸上特寫照',
         text: [
@@ -66,6 +56,11 @@ function validPromptFixture() {
           'Composition:\nChest-up portrait.',
           'Subject:\nOne adult portrait subject.',
         ].join('\n\n'),
+      },
+      {
+        id: 'chest-up-mj-portrait',
+        label: 'MJ 胸上特寫照',
+        text: 'Photorealistic editorial portrait. Chest-up editorial portrait, one adult portrait subject, wearing a black dress neckline, soft even light, natural photographic detail. --v 8.2 --ar 4:5 --s 25 --c 0 --w 0 --sd',
       },
       {
         id: 'full-body-character',
@@ -138,7 +133,7 @@ test('validateOutputContracts requires both duo roles and omits the single extra
   prompt.selection.subjectCount = '2';
   prompt.extraPrompts = [];
   const issues = validateOutputContracts(prompt);
-  assert.equal(issues.filter((issue) => issue.code === 'missing-label' && /^Woman [12]$/.test(issue.label)).length, 6);
+  assert.equal(issues.filter((issue) => issue.code === 'missing-label' && /^Woman [12]$/.test(issue.label)).length, 4);
   assert.ok(!issues.some((issue) => issue.code === 'output-empty' && issue.field === 'fullBodyCharacterPrompt'));
 });
 

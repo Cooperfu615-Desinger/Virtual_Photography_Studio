@@ -15,6 +15,16 @@ export const MAIN_OUTPUTS = Object.freeze([
   Object.freeze({ key: 'ai', label: 'AI', field: 'midjourneyPrompt' }),
 ]);
 
+const EXTRA_OUTPUT_FIELDS = Object.freeze({
+  'chest-up-portrait': 'chestUpPortraitPrompt',
+  'chest-up-mj-portrait': 'chestUpMjPortraitPrompt',
+  'full-body-character': 'fullBodyCharacterPrompt',
+});
+
+function isMidjourneyNativeField(field) {
+  return field === 'midjourneyPrompt' || field === 'chestUpMjPortraitPrompt';
+}
+
 const CONTROL_LANGUAGE_RULES = Object.freeze([
   Object.freeze({
     code: 'fixed-set-integrity-label',
@@ -169,7 +179,7 @@ export function getPromptOutputs(prompt, { includeMissingMain = true } = {}) {
     ? prompt.extraPrompts.map((extra, index) => ({
         key: extra?.id || `extra-${index + 1}`,
         label: extra?.label || `Extra ${index + 1}`,
-        field: `extraPrompts[${index}]`,
+        field: EXTRA_OUTPUT_FIELDS[extra?.id] || `extraPrompts[${index}]`,
         text: typeof extra?.text === 'string' ? extra.text : '',
         extra: true,
       }))
@@ -192,7 +202,7 @@ export function summarizeOutputWordLengths(prompts) {
       const bucket = buckets.get(descriptor.key);
       if (!text) bucket.missing += 1;
       else bucket.values.push(countWords(
-        descriptor.field === 'midjourneyPrompt'
+        isMidjourneyNativeField(descriptor.field)
           ? stripMidjourneyParameterTail(text)
           : text
       ));
@@ -418,8 +428,8 @@ export function validateOutputContracts(prompt) {
 
   const extraPromptEntries = Array.isArray(prompt?.extraPrompts) ? prompt.extraPrompts : [];
   for (const field of [
-    'facialCloseupPortraitPrompt',
     'chestUpPortraitPrompt',
+    'chestUpMjPortraitPrompt',
     'fullBodyCharacterPrompt',
   ]) {
     const contract = PROMPT_OUTPUT_CONTRACTS[field];
@@ -542,13 +552,13 @@ export function auditPrompt(prompt, index = 0) {
   }
 
   for (const output of getPromptOutputs(prompt, { includeMissingMain: false })) {
-    const auditableText = output.field === 'midjourneyPrompt'
+    const auditableText = isMidjourneyNativeField(output.field)
       ? stripMidjourneyParameterTail(output.text)
       : output.text;
     for (const signal of findDuplicateSegments(auditableText)) {
       duplicateSignals.push({ output: output.label, ...signal });
     }
-    if (output.field === 'zImagePrompt' || output.field === 'midjourneyPrompt') {
+    if (output.field === 'zImagePrompt' || isMidjourneyNativeField(output.field)) {
       for (const signal of detectControlLanguage(auditableText)) {
         leakageSignals.push({ output: output.label, ...signal });
       }

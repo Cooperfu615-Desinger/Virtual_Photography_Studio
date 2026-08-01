@@ -66,8 +66,8 @@ function stablePromptResult(prompt) {
     grokPrompt: prompt.grokPrompt,
     zImagePrompt: prompt.zImagePrompt,
     midjourneyPrompt: prompt.midjourneyPrompt,
-    facialCloseupPortraitPrompt: readContractOutput(prompt, PROMPT_OUTPUT_CONTRACTS.facialCloseupPortraitPrompt),
     chestUpPortraitPrompt: readContractOutput(prompt, PROMPT_OUTPUT_CONTRACTS.chestUpPortraitPrompt),
+    chestUpMjPortraitPrompt: readContractOutput(prompt, PROMPT_OUTPUT_CONTRACTS.chestUpMjPortraitPrompt),
     fullBodyCharacterPrompt: readContractOutput(prompt, PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt),
     selection: prompt.selection,
   };
@@ -104,13 +104,13 @@ function assertLiteralExpectations(text, expectations, fixtureId, field) {
 }
 
 test('prompt output contracts are frozen serializable data with stable public fields', () => {
-  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.4.0');
+  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.5.0');
   assert.deepEqual(Object.keys(PROMPT_OUTPUT_CONTRACTS), [
     'grokPrompt',
     'zImagePrompt',
     'midjourneyPrompt',
-    'facialCloseupPortraitPrompt',
     'chestUpPortraitPrompt',
+    'chestUpMjPortraitPrompt',
     'fullBodyCharacterPrompt',
   ]);
   assert.ok(Object.isFrozen(PROMPT_OUTPUT_CONTRACTS));
@@ -126,8 +126,9 @@ test('prompt output contracts are frozen serializable data with stable public fi
     PROMPT_OUTPUT_CONTRACTS.midjourneyPrompt.tail.requiredPatternSource,
     /--v/
   );
-  assert.equal(PROMPT_OUTPUT_CONTRACTS.facialCloseupPortraitPrompt.source.id, 'facial-closeup-portrait');
   assert.equal(PROMPT_OUTPUT_CONTRACTS.chestUpPortraitPrompt.source.id, 'chest-up-portrait');
+  assert.equal(PROMPT_OUTPUT_CONTRACTS.chestUpMjPortraitPrompt.source.id, 'chest-up-mj-portrait');
+  assert.match(PROMPT_OUTPUT_CONTRACTS.chestUpMjPortraitPrompt.tail.requiredPatternSource, /--ar 4:5/);
   assert.deepEqual(PROMPT_OUTPUT_CONTRACTS.fullBodyCharacterPrompt.applicability.supportedModes, ['single']);
 });
 
@@ -162,6 +163,13 @@ test('contract validator reports unknown, unsupported, tail, language, and contr
   assert.ok(
     validatePromptOutputContract('midjourneyPrompt', invalidMidjourney, { mode: 'single' })
       .some((entry) => entry.code === 'tail-pattern')
+  );
+  assert.ok(
+    validatePromptOutputContract(
+      'chestUpMjPortraitPrompt',
+      'Photorealistic editorial portrait. --v 8.2 --ar 1:1 --raw --s 25 --c 0 --w 0 --sd',
+      { mode: 'single' },
+    ).some((entry) => entry.code === 'tail-pattern')
   );
 });
 

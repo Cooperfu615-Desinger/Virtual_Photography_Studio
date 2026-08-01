@@ -97,7 +97,19 @@ test('phase 4 changes only the AI parameter tail while preserving resolved selec
     customized.midjourneyPrompt.endsWith(buildMidjourneyParameterTail(customized.selection)),
     true
   );
-  assert.deepEqual(customized.extraPrompts, baseline.extraPrompts);
+  const baselineExtras = new Map(baseline.extraPrompts.map((entry) => [entry.id, entry.text]));
+  const customizedExtras = new Map(customized.extraPrompts.map((entry) => [entry.id, entry.text]));
+  for (const id of ['chest-up-portrait', 'full-body-character']) {
+    assert.equal(customizedExtras.get(id), baselineExtras.get(id), id);
+  }
+  assert.equal(
+    stripMidjourneyParameterTail(customizedExtras.get('chest-up-mj-portrait')),
+    stripMidjourneyParameterTail(baselineExtras.get('chest-up-mj-portrait')),
+  );
+  assert.equal(
+    customizedExtras.get('chest-up-mj-portrait').endsWith('--v 8.1 --ar 4:5 --raw --s 333 --c 18 --w 47 --hd'),
+    true,
+  );
   assert.deepEqual(pickSettings(customized.selection), CUSTOM_SETTINGS);
 });
 
@@ -152,6 +164,35 @@ test('phase 3 preserves MJ settings through Saved Cards and defaults old cards',
     pickSettings(restoredLegacy.selection),
     getDefaultMidjourneyParameterSettings()
   );
+});
+
+test('legacy saved cards retain retired facial extra prompts without reactivating them in PAGE1 consumers', () => {
+  const prompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+  }, [], {
+    random: createSeededRandom('legacy-facial-extra-compatibility'),
+  })[0];
+  const legacyPrompt = {
+    ...prompt,
+    id: 'legacy-facial-extra',
+    source: 'page1',
+    extraPrompts: [
+      {
+        id: 'facial-closeup-portrait',
+        label: '五官特寫照',
+        text: 'Image Type:\nLegacy facial close-up prompt.',
+      },
+      ...prompt.extraPrompts,
+    ],
+  };
+
+  const restored = deserializeFavoritePrompt(serializeFavoritePrompt(legacyPrompt));
+  assert.deepEqual(
+    restored.extraPrompts.find((entry) => entry.id === 'facial-closeup-portrait'),
+    legacyPrompt.extraPrompts[0],
+  );
+  assert.equal(prompt.extraPrompts.some((entry) => entry.id === 'facial-closeup-portrait'), false);
 });
 
 test('phase 3 excludes MJ settings from global random and clear operations', () => {

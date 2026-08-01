@@ -12,6 +12,14 @@ Last updated: 2026-08-01
 - Baseline for the facial-identity optimization: `main` at `45ee3ea`
 - Normal working branch: `main`
 
+## Current PAGE1 prompt outputs
+
+- Single-subject output order is fixed as: `Gpt` (`grokPrompt`), `Grok/Z-Image` (`zImagePrompt`), `AI Prompt` (`midjourneyPrompt`), `胸上特寫照`, `MJ 胸上特寫照`, `全身角色照`.
+- `胸上特寫照` remains the GPT structured `4:5` output. `MJ 胸上特寫照` uses the same resolved chest-up projection and canonical pose, but renders one Midjourney-native line with a contract-owned `--ar 4:5` tail and inherited F settings.
+- `五官特寫照` is retired from active generation, PAGE1 cards, and DLL sources. The legacy preset metadata and saved-card `facial-closeup-portrait` entries remain readable for restore/serialization compatibility; old data is not deleted or rewritten.
+- F parameter changes affect `midjourneyPrompt` and `chestUpMjPortraitPrompt`; the Gpt, Grok/Z-Image, structured chest-up, and full-body outputs remain parameter-free.
+- Final validation passed on 2026-08-01: frontend `npm test` 635/635, `npm run test:prompt-quality` 116/116, lint, build, root prompt-audit tests 12/12, Python unit tests 2/2, `git diff --check`, and the 200-seed strict audit with zero blocking findings. Browser QA exercised the Prompt 工作台 at the default desktop viewport and 390×844 mobile viewport; all six outputs and six DLL sources were present, the MJ chest output used one native `--ar 4:5` line, and browser warnings/errors were empty.
+
 ## Validation
 
 Run from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp` unless noted:

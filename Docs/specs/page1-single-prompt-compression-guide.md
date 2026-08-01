@@ -135,6 +135,8 @@ Last updated: 2026-08-01
 - `facial-closeup-portrait`／`五官特寫照`：固定 `1:1`。人物採 `faceDetail`，省略 Body Type 與姿勢，但必須保留完整五官、膚質、妝容、髮型、永久身份錨點、頭部／臉部／頸部配件，以及所選上衣、洋裝、套裝、特殊穿搭、外套或 Character Card 的肩部與領口。若所有來源都沒有有效上身服裝，使用正向 fallback `a simple opaque crew-neck top`，不輸出裸體防護或其他負面 guard。保留來源可追溯的精簡場景、光線及攝影成像；後方 orbit 只在派生輸出內改用正面，raw selection 不變。
 - `chest-up-portrait`／`胸上特寫照`：固定 `4:5`。採既有 `chestUp` 投影，保留胸部可見體態、上身服裝、頭部與上半身動作、可見手部／道具、高位支撐和接觸，以及精簡原始場景、光線、攝影風格、鏡頭、光學效果與成像模擬。canonical pose 必須先投影再輸出，不得把畫面外下半身動作重新加入。
 
+目前 active runtime 已移除五官特寫的生成與 consumer 展示；上面的 `facial-closeup-portrait` 定義只作為歷史契約與舊資料語意參照。新增 `chest-up-mj-portrait`／`MJ 胸上特寫照`：固定 `4:5`，沿用完全相同的 `chestUp` body／wardrobe／pose／compact-scene projection，使用原生 MJ 單行順序（image type、composition、subject、wardrobe、projected canonical pose、scene／lighting、imaging），最後附加 F 參數尾段並強制 `--ar 4:5`。F 的 version、Raw、Stylize、Chaos、Weirdness、SD／HD 仍由同一份 selection 繼承；一般結構化胸上與全身輸出不附加 MJ 尾段。舊 Saved Cards 中的五官 extra prompt 仍由通用 codec 保留，不做刪除或改寫。
+
 兩組派生輸出遇到固定構圖場景時，保留固定場景身份與來源 anchor，但移除和指定五官／胸上景別衝突的固定鏡頭距離敘述；這不會修改 `fixedCompositionSetId` 或其他儲存值。既有 `full-body-character` 已在第二階段接入共用架構，並維持原文字、單人限制、完整體態與服裝來源，以及固定 `9:16`。
 
 第二階段的共用核心由 `webapp/src/lib/engine/fixedFramingDerivedPrompt.js` 負責：preset 定義輸出 ID、UI 名稱、比例、支援模式、固定構圖處理與派生 framing；context builder 只替換 framing、composition visibility 與該 preset 明定的固定構圖狀態，其餘已解析資料沿用父結果。`engine.js` 再以相同人物、服裝、配色、光線與底片來源重建結構化 sections，不得呼叫任何 selection resolver。`fixedFramingDerivedPromptInfrastructure.test.js` 固定四種來源案例的全文長度與 SHA-256，第三階段加入新 extras 後仍要求 `full-body-character` 本文完全相同。
@@ -358,9 +360,15 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 `F｜MJ 參數設定` 的契約預設現在採用現有「精準寫實」preset 的低自由度組合：`V8.2`、`跟隨 PAGE1`、`Raw`、`--s 25`、`--c 0`、`--w 0`、`SD`。這會讓新建 PAGE1、缺少 MJ 欄位的舊鎖與舊收藏，在未明確指定時使用較貼近描述、較少風格偏移的 AI 尾段。
 
-這組變更只改「缺少值時的契約 fallback」；已保存且明確指定 `Standard`、Stylize、Chaos、Weirdness 或 HD 的資料必須原值還原。F 仍排除 PAGE1 一般隨機、清除與生成 reroll，仍只作用於 `AI` → `midjourneyPrompt`，不改動 Gpt、Grok/Z-Image、固定景別輸出、PAGE1 構圖比例或既有 storage ID。契約版本為 `MIDJOURNEY_PARAMETER_CONTRACT_VERSION = 1.5.0`。
+這組變更只改「缺少值時的契約 fallback」；已保存且明確指定 `Standard`、Stylize、Chaos、Weirdness 或 HD 的資料必須原值還原。F 仍排除 PAGE1 一般隨機、清除與生成 reroll，現在作用於 `AI` → `midjourneyPrompt` 與 `MJ 胸上特寫照` 的 MJ 尾段；Gpt、Grok/Z-Image、一般結構化胸上、全身輸出、PAGE1 構圖比例與既有 storage ID 不受影響。契約版本為 `MIDJOURNEY_PARAMETER_CONTRACT_VERSION = 1.6.0`。
 
 專案把 `--raw` 與低 `--s` 視為低自由度控制；Midjourney 官方說明亦將 Raw 描述為減少自動創意介入，低 Stylize 描述為更貼近 Prompt。此處的 `--s 25` 是本專案比官方設定面板 `Stylize Low = 50` 更保守的實測起點，不宣稱是 MJ 官方 preset 名稱。
+
+#### 已啟用：MJ 胸上特寫與五官特寫退役
+
+PAGE1 單人輸出固定為 `Gpt`、`Grok/Z-Image`、`AI Prompt`、`胸上特寫照`、`MJ 胸上特寫照`、`全身角色照`。`facial-closeup-portrait`／`五官特寫照` 不再進入新生成結果、Generation Cards 或 DLL Prompt Sources；它的 preset 與相容性 metadata 仍保留，Saved Cards 舊資料中的 extra prompt 仍可讀取、序列化與匯出。
+
+`chest-up-mj-portrait` 是獨立的 native MJ extra output，不會把 MJ labels 或 `multi-cut sequence n=2` 帶入文字。它與一般胸上輸出共享同一 resolved selection、胸上可見性、canonical pose、場景與成像來源；只有外層格式改為單行，並在尾端使用固定 `--ar 4:5`。F 的其他設定由同一份 contract assembler 繼承，因此可與主 `AI` 輸出同步測試，但不會改變 PAGE1 的構圖比例。
 
 ## 2. GPT 完整保留與壓縮分流原則
 

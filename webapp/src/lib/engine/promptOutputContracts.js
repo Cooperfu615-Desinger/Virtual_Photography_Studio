@@ -78,7 +78,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.4.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.5.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -284,41 +284,6 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     },
   },
 
-  facialCloseupPortraitPrompt: {
-    field: 'facialCloseupPortraitPrompt',
-    uiLabel: '五官特寫照',
-    target: 'Single-subject 1:1 facial close-up portrait',
-    source: { kind: 'extraPrompt', id: 'facial-closeup-portrait' },
-    applicability: {
-      supportedModes: ['single'],
-      unsupportedBehavior: 'absent',
-    },
-    language: {
-      primary: 'en',
-      forbiddenUnicodeBlocks: [CJK_UNIFIED_IDEOGRAPHS],
-    },
-    shape: {
-      paragraphSeparator: 'blank-line',
-      minimumParagraphs: 4,
-      modes: {
-        single: {
-          requiredPrefix: 'Image Type:\n',
-          requiredLabels: ['Image Type', 'Composition', 'Subject', 'Wardrobe'],
-          optionalLabels: ['Scene', 'Lighting', 'Camera Look'],
-          forbiddenLabels: ['Woman 1', 'Woman 2', 'Shared Expression', 'Pose and Composition', 'Pose', 'Constraints'],
-          orderedLabels: ['Image Type', 'Composition', 'Subject', 'Wardrobe', 'Scene', 'Lighting', 'Camera Look'],
-        },
-      },
-    },
-    tail: {
-      requiredExactLine: '',
-      forbiddenSubstrings: ['multi-cut sequence n=2'],
-    },
-    controlLeakage: {
-      forbiddenCaseInsensitive: COMMON_CONTROL_LEAKAGE,
-    },
-  },
-
   chestUpPortraitPrompt: {
     field: 'chestUpPortraitPrompt',
     uiLabel: '胸上特寫照',
@@ -351,6 +316,69 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     },
     controlLeakage: {
       forbiddenCaseInsensitive: COMMON_CONTROL_LEAKAGE,
+    },
+  },
+
+  chestUpMjPortraitPrompt: {
+    field: 'chestUpMjPortraitPrompt',
+    uiLabel: 'MJ 胸上特寫照',
+    target: 'Single-subject 4:5 Midjourney-native chest-up portrait',
+    source: { kind: 'extraPrompt', id: 'chest-up-mj-portrait' },
+    applicability: {
+      supportedModes: ['single'],
+      unsupportedBehavior: 'absent',
+    },
+    language: {
+      primary: 'en',
+      forbiddenUnicodeBlocks: [CJK_UNIFIED_IDEOGRAPHS],
+    },
+    shape: {
+      paragraphSeparator: 'single-block',
+      minimumParagraphs: 1,
+      labelPlacement: 'inline',
+      modes: {
+        single: {
+          requiredPrefix: '',
+          requiredPrefixes: Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings),
+          requiredLabels: [],
+          optionalLabels: [],
+          forbiddenLabels: [
+            'Image Type',
+            'Subject',
+            'Wardrobe',
+            'Woman 1',
+            'Woman 2',
+            'Shared Expression',
+            'Pose and Composition',
+            'Pose',
+            'Scene',
+            'Lighting',
+            'Camera Look',
+            'Constraints',
+          ],
+          orderedLabels: [],
+        },
+      },
+    },
+    tail: {
+      requiredExactLine: '',
+      requiredPatternSource: '--v (?:8\\.2|8\\.1) --ar 4:5(?: --raw)? --s \\d+ --c \\d+ --w \\d+ --(?:sd|hd)$',
+      forbiddenSubstrings: [
+        'multi-cut sequence n=2',
+        '--q',
+        '--quality',
+        '--draft',
+        '--oref',
+        '--ow',
+        '--turbo',
+      ],
+    },
+    controlLeakage: {
+      forbiddenCaseInsensitive: [
+        ...COMMON_CONTROL_LEAKAGE,
+        'controlled by the outfit color selection',
+        'can retain a classic signature color scheme',
+      ],
     },
   },
 
@@ -387,6 +415,20 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     controlLeakage: {
       forbiddenCaseInsensitive: COMMON_CONTROL_LEAKAGE,
     },
+  },
+});
+
+/**
+ * Compatibility metadata for old saved cards that still contain the retired
+ * facial close-up entry. It is intentionally excluded from active validation
+ * and generation output lists.
+ */
+export const LEGACY_PROMPT_OUTPUT_CONTRACTS = deepFreeze({
+  facialCloseupPortraitPrompt: {
+    field: 'facialCloseupPortraitPrompt',
+    uiLabel: '五官特寫照',
+    source: { kind: 'extraPrompt', id: 'facial-closeup-portrait' },
+    compatibilityOnly: true,
   },
 });
 

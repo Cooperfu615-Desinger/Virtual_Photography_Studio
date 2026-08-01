@@ -44,7 +44,7 @@ The default-library path compiles the runtime once and reuses it. A custom-libra
 | `webapp/src/lib/engineRandom.js` | Seed hashing, deterministic PRNG creation, and production fallback to `Math.random` |
 | `webapp/src/lib/engine/runtimeCache.js` | Default-runtime memoization and recursive freezing |
 | `webapp/src/lib/engine/promptModel.js` | Ordered prompt sections plus grouped label lookup used by renderers |
-| `webapp/src/lib/engine/promptOutputContracts.js` | Machine-readable public contracts and validation for Gpt, Grok/Z-Image, AI, and full-body character outputs |
+| `webapp/src/lib/engine/promptOutputContracts.js` | Machine-readable public contracts and validation for Gpt, Grok/Z-Image, AI, structured chest-up, native MJ chest-up, and full-body character outputs; retired facial metadata remains compatibility-only |
 | `webapp/src/lib/engine/representativePromptFixtures.js` | Seeded normal, character-card, special-outfit, duo, fixed-set, close-up, and full-body regression scenarios |
 | `webapp/src/lib/engine/aiPromptLengthContract.js` | Single-subject AI word budgets, immutable sections, preservation anchors, and ordered reduction policy |
 | `webapp/src/lib/engine/aiPromptLengthFixtures.js` | Deterministic AI length-pressure cases for normal separates, complete looks, Character Cards, pose, crop, and duo exclusion |
@@ -220,6 +220,10 @@ The approved target body policy is:
 | `fixedComposition` | `fullSource` | Preserve the current fixed-set contract until fixed sets define their own body-distance metadata. |
 
 Every activated runtime projection must occur once before renderer formatting. Gpt may preserve the complete projected source, while Grok/Z-Image and AI may reduce only that projected source and must not read the hidden full-body source as a fallback. Raw body locks, Saved Cards, restore payloads, and generated selections remain unchanged. The single-subject full-body character output always restores the complete body source. `identityAndBody` remains a compatibility field; structured Character Card `body` is the preferred projection surface for its later compatibility phase, and permanent face identity anchors must never be removed with body text.
+
+### Current active fixed-framing output state (2026-08-01)
+
+The active single-subject PAGE1 output order is `Gpt` (`grokPrompt`), `Grok/Z-Image` (`zImagePrompt`), `AI Prompt` (`midjourneyPrompt`), `胸上特寫照`, `MJ 胸上特寫照`, and `全身角色照`. The structured chest-up output keeps the existing GPT contract and fixed `4:5`; `chest-up-mj-portrait` uses the same resolved chest-up projection and canonical pose, renders one native Midjourney line, and appends the contract-owned F settings with a forced `--ar 4:5`. The retired `facial-closeup-portrait`／`五官特寫照` is excluded from new generation and active consumer lists, while old saved-card entries remain readable through the generic extra-prompt codec.
 
 ### Fixed-framing derived Prompt outputs
 

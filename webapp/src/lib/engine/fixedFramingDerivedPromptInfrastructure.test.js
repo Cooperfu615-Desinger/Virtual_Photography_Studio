@@ -144,8 +144,8 @@ test('phase-2 full-body migration preserves exact output bytes for representativ
     assert.equal(fullBodyPrompt.text.length, promptCase.length, `${promptCase.id}: exact length`);
     assert.equal(sha256(fullBodyPrompt.text), promptCase.sha256, `${promptCase.id}: exact bytes`);
     assert.deepEqual(prompt.extraPrompts.map((entry) => entry.id), [
-      'facial-closeup-portrait',
       'chest-up-portrait',
+      'chest-up-mj-portrait',
       'full-body-character',
     ]);
     for (const key of Object.keys(promptCase.locks)) {

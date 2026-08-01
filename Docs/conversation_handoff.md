@@ -46,6 +46,14 @@ Important legacy terminology warning:
 - F remains outside PAGE1 random／clear and generation rerolls; only `AI` → `midjourneyPrompt` receives the changed default tail. Gpt／Grok-Z, fixed framing outputs, PAGE1 composition ratio, storage IDs, and historical mappings remain unchanged.
 - Contract version: `MIDJOURNEY_PARAMETER_CONTRACT_VERSION = 1.5.0`. The existing `preciseRealistic` preset is now also the default profile. Official reference: [Raw](https://docs.midjourney.com/hc/en-us/articles/32634113811853-Raw), [Stylize](https://docs.midjourney.com/hc/en-us/articles/32196176868109-Stylize).
 
+### 2026-08-01 Active fixed-framing output revision
+
+- PAGE1 single-subject outputs now use the active order `Gpt` → `Grok/Z-Image` → `AI Prompt` → `胸上特寫照` → `MJ 胸上特寫照` → `全身角色照`.
+- `chest-up-portrait` remains the structured GPT-style `4:5` output. The new `chest-up-mj-portrait` reuses the same resolved chest-up body／wardrobe／scene projection and canonical pose, then emits a single Midjourney-native line with a fixed `--ar 4:5` tail while inheriting the current F settings.
+- `facial-closeup-portrait`／`五官特寫照` is no longer generated or exposed by the active PAGE1 Generation Outputs／DLL source projection. The legacy preset metadata and saved-card extra entry shape remain available so old cards can still be restored and serialized without data loss.
+- `MIDJOURNEY_PARAMETER_CONTRACT_VERSION` is now `1.6.0`; F changes affect `midjourneyPrompt` and `chestUpMjPortraitPrompt`, while structured chest-up and full-body outputs remain parameter-free. Focused coverage is in the fixed-framing, prompt-output-contract, parameter-tail/state, and completion-gate suites.
+- Final validation passed on 2026-08-01: frontend `npm test` 635/635, prompt-quality 116/116, lint/build, root prompt-audit 12/12, Python unit tests 2/2, strict 200-seed audit with zero blocking findings, and desktop/mobile browser QA with empty warning/error logs.
+
 ## Snapshot
 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`

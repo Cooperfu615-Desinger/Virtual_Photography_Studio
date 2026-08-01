@@ -26,6 +26,7 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
       'zImagePrompt',
       'facialCloseupPortraitPrompt',
       'chestUpPortraitPrompt',
+      'chestUpMjPortraitPrompt',
       'fullBodyCharacterPrompt',
     ],
   },

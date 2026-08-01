@@ -29,8 +29,8 @@ test('PAGE1 single output consumers expose three primary and three fixed-framing
     'gpt',
     'grok',
     'ai',
-    'facial-closeup-portrait',
     'chest-up-portrait',
+    'chest-up-mj-portrait',
     'full-body-character',
   ]);
   assert.deepEqual(dllSources.map((entry) => entry.id), cards.map((entry) => entry.id));
@@ -38,8 +38,8 @@ test('PAGE1 single output consumers expose three primary and three fixed-framing
     'Gpt',
     'Grok/Z-Image',
     'AI Prompt',
-    '五官特寫照',
     '胸上特寫照',
+    'MJ 胸上特寫照',
     '全身角色照',
   ]);
 
@@ -51,8 +51,8 @@ test('PAGE1 single output consumers expose three primary and three fixed-framing
   assert.deepEqual(
     dllSources.slice(3).map(({ id, aspectRatio, lockAspectRatio }) => ({ id, aspectRatio, lockAspectRatio })),
     [
-      { id: 'facial-closeup-portrait', aspectRatio: '1:1', lockAspectRatio: true },
       { id: 'chest-up-portrait', aspectRatio: '4:5', lockAspectRatio: true },
+      { id: 'chest-up-mj-portrait', aspectRatio: '4:5', lockAspectRatio: true },
       { id: 'full-body-character', aspectRatio: '9:16', lockAspectRatio: true },
     ],
   );

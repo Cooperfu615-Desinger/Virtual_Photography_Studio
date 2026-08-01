@@ -57,62 +57,21 @@ function assertExcludes(text, fragment, message) {
   assert.equal(text.toLowerCase().includes(fragment.toLowerCase()), false, message || fragment);
 }
 
-test('phase-3 single runtime emits the two fixed-framing outputs from the same preserved selections', () => {
+test('phase-3 single runtime emits the active fixed-framing outputs from the same preserved selections', () => {
   for (const fixture of FIXED_FRAMING_DERIVED_PROMPT_FIXTURES.filter((entry) => entry.locks.subjectCount === '1')) {
     const { locks, prompt } = generateFixture(fixture.id);
     assert.deepEqual(
       prompt.extraPrompts.map((entry) => entry.id),
-      ['facial-closeup-portrait', 'chest-up-portrait', 'full-body-character'],
+      ['chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character'],
       fixture.id,
     );
-    assert.ok(extraText(prompt, 'facial-closeup-portrait'), `${fixture.id}: face output`);
     assert.ok(extraText(prompt, 'chest-up-portrait'), `${fixture.id}: chest output`);
+    assert.ok(extraText(prompt, 'chest-up-mj-portrait'), `${fixture.id}: MJ chest output`);
+    assert.equal(extraText(prompt, 'facial-closeup-portrait'), '', `${fixture.id}: retired face output`);
     for (const key of fixture.expected.preserveRawLockKeys || []) {
       assert.equal(prompt.selection[key], locks[key], `${fixture.id}: preserve ${key}`);
     }
   }
-});
-
-test('phase-3 facial output keeps upper garments and face identity while omitting body, pose, and lower wardrobe', () => {
-  const special = extraText(generateFixture('face-special-outfit-visible-neckline').prompt, 'facial-closeup-portrait');
-  assertIncludes(special, 'Face-dominant close-up');
-  assertIncludes(special, 'burgundy plaid handkerchief camisole');
-  assertIncludes(special, 'large silver hoop earrings');
-  assertIncludes(special, 'silver flower pendant necklace');
-  assertExcludes(special, 'low-rise blue denim mini skirt');
-  assertExcludes(special, 'black knee-high leather boots');
-  assertExcludes(special, 'Pose and Composition:');
-  assertExcludes(special, 'Body Type:');
-
-  const dress = extraText(generateFixture('face-dress-neckline-source').prompt, 'facial-closeup-portrait');
-  assertIncludes(dress, 'off-shoulder gothic dress');
-  assertIncludes(dress, 'off-shoulder neckline');
-  assertExcludes(dress, 'short hem');
-
-  const fallback = extraText(generateFixture('face-no-upper-garment-positive-fallback').prompt, 'facial-closeup-portrait');
-  assertIncludes(fallback, 'a simple opaque crew-neck top');
-  assertExcludes(fallback, 'guard');
-  assertExcludes(fallback, 'nude');
-});
-
-test('phase-3 Character Card facial output preserves permanent face anchors and an upper outfit source', () => {
-  const face = extraText(generateFixture('face-character-card-identity-and-outfit').prompt, 'facial-closeup-portrait');
-
-  for (const anchor of [
-    'long angular oval face',
-    'elongated deep brown almond eyes',
-    'long straight nose with a high narrow bridge',
-    'medium-full muted coral-beige lips',
-    'Permanent identity anchors',
-    'sleek natural black shoulder-length blunt bob hair',
-    'black leather biker jacket',
-    'fitted white graffiti-print cropped tank',
-  ]) {
-    assertIncludes(face, anchor);
-  }
-  assertExcludes(face, 'Body:');
-  assertExcludes(face, 'black high-rise leather skinny pants');
-  assertExcludes(face, 'black lace-up combat boots');
 });
 
 test('phase-3 chest output uses the projected canonical upper-body pose and compact source scene', () => {
@@ -130,9 +89,26 @@ test('phase-3 chest output uses the projected canonical upper-body pose and comp
   assertIncludes(chest, 'shot on 85mm short telephoto portrait lens');
 });
 
+test('phase-3 MJ chest output uses the same projected content in one native block with fixed 4:5', () => {
+  const { prompt } = generateFixture('chest-up-normal-separates-pose-scene-imaging');
+  const chest = extraText(prompt, 'chest-up-mj-portrait');
+
+  assertIncludes(chest, 'Chest-up editorial portrait with the head, both shoulders, upper chest, and neckline clearly visible');
+  assertIncludes(chest, 'full bust');
+  assertIncludes(chest, 'cotton camisole top');
+  assertIncludes(chest, 'head slightly tilted');
+  assertIncludes(chest, 'one hand touching the chin');
+  assertIncludes(chest, 'British vintage window-side room interior');
+  assertIncludes(chest, 'Orie Ichihashi-inspired');
+  assertIncludes(chest, '--ar 4:5');
+  assertExcludes(chest, 'Image Type:');
+  assertExcludes(chest, 'Pose and Composition:');
+  assertExcludes(chest, '\n\n');
+});
+
 test('phase-3 derived outputs retain fixed-set anchors without the conflicting fixed camera distance', () => {
   const { prompt } = generateFixture('chest-up-fixed-composition-scene-source');
-  for (const id of ['facial-closeup-portrait', 'chest-up-portrait']) {
+  for (const id of ['chest-up-portrait', 'chest-up-mj-portrait']) {
     const text = extraText(prompt, id);
     assertIncludes(text, 'warm ivory limewash');
     assertIncludes(text, 'black velvet sofa');
@@ -143,13 +119,10 @@ test('phase-3 derived outputs retain fixed-set anchors without the conflicting f
   }
 });
 
-test('phase-3 facial output replaces only its incompatible rear orbit and duo stays unsupported', () => {
+test('phase-3 retired facial output is absent and duo stays unsupported', () => {
   const { prompt, locks } = generateFixture('face-rear-orbit-derived-view-fallback');
-  const face = extraText(prompt, 'facial-closeup-portrait');
-
-  assertIncludes(face, 'front view');
-  assertExcludes(face, 'back view');
-  assertExcludes(face, 'rear view');
+  assert.equal(extraText(prompt, 'facial-closeup-portrait'), '');
+  assert.ok(extraText(prompt, 'chest-up-mj-portrait'));
   assert.equal(prompt.selection.orbitId, locks.orbitId);
 
   const duo = generateFixture('duo-fixed-framing-outputs-absent').prompt;

@@ -93,6 +93,6 @@ test('Midjourney summary stays compact and exposes every visible setting', () =>
     mjResolution: 'hd',
   }), {
     summary: 'V8.1 / AR 跟隨 PAGE1 / Raw / S25 / C10 / W40 / HD',
-    meta: '僅影響 AI Prompt；不參與隨機',
+    meta: '僅影響 AI Prompt 與 MJ 胸上特寫照；不參與隨機',
   });
 });

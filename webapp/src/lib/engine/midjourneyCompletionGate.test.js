@@ -40,8 +40,8 @@ import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.j
 
 const controls = getLockControls();
 const extraPromptFields = Object.freeze({
-  'facial-closeup-portrait': 'facialCloseupPortraitPrompt',
   'chest-up-portrait': 'chestUpPortraitPrompt',
+  'chest-up-mj-portrait': 'chestUpMjPortraitPrompt',
   'full-body-character': 'fullBodyCharacterPrompt',
 });
 const primaryPromptFields = Object.freeze({
@@ -152,11 +152,15 @@ test('phase 6 blocks any engine or public-contract drift across all Midjourney f
         [],
         `${parameterFixture.id}: ${field} contract`
       );
-      assert.doesNotMatch(
-        text,
-        /(?:^|\s)--(?:v|ar|raw|s|c|w|sd|hd)(?:\s|$)/,
-        `${parameterFixture.id}: ${id} remains parameter-free`
-      );
+      if (id === 'chest-up-mj-portrait' && mode === 'single') {
+        assert.match(text, /--ar 4:5/, `${parameterFixture.id}: ${id} fixed aspect ratio`);
+      } else {
+        assert.doesNotMatch(
+          text,
+          /(?:^|\s)--(?:v|ar|raw|s|c|w|sd|hd)(?:\s|$)/,
+          `${parameterFixture.id}: ${id} remains parameter-free`
+        );
+      }
     }
   }
 });

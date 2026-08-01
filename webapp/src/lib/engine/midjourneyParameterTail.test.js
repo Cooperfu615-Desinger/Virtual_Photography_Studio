@@ -159,10 +159,20 @@ test('phase 4 appends parameters only to AI while preserving descriptive baselin
     assert.equal(hashPrompt(prompt.grokPrompt), fixture.baselineHashes.grokPrompt, `${fixture.id}: Gpt`);
     assert.equal(hashPrompt(prompt.zImagePrompt), fixture.baselineHashes.zImagePrompt, `${fixture.id}: Grok/Z`);
     assert.doesNotMatch(
-      prompt.extraPrompts.map((entry) => entry.text).join('\n'),
+      prompt.extraPrompts
+        .filter((entry) => entry.id !== 'chest-up-mj-portrait')
+        .map((entry) => entry.text)
+        .join('\n'),
       /(?:^|\s)--(?:v|ar|raw|s|c|w|sd|hd)(?:\s|$)/,
       `${fixture.id}: derived outputs`
     );
+    const mjChestText = prompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
+    if (mjChestText) {
+      assert.match(
+        mjChestText,
+        /--ar 4:5(?: --raw)? --s \d+ --c \d+ --w \d+ --(?:sd|hd)$/,
+      );
+    }
     assert.equal(countAiPromptWords(prompt.midjourneyPrompt), countAiPromptWords(content), fixture.id);
   }
 });
