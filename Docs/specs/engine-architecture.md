@@ -2,7 +2,7 @@
 
 Status: implemented on `main` in `7aed676 Optimize prompt engine runtime`
 
-Last updated: 2026-07-22
+Last updated: 2026-08-01
 
 ## Purpose
 
@@ -62,10 +62,17 @@ The default-library path compiles the runtime once and reuses it. A custom-libra
 | `webapp/src/lib/engine/duoOptions.js` | Duo pose, posture, and shared-expression option data |
 | `webapp/src/lib/engine/fixedCompositionOptions.js` | Fixed-composition set option data |
 | `webapp/src/lib/engine/poseComposerOptions.js` | Single-subject Pose Composer option data |
+| `webapp/src/lib/engine/poseComposerCompatibility.js` | Renderer-neutral random Pose Composer compatibility predicates for crop, angle, orbit, head direction, hand placement, and face props; explicit locks remain authoritative |
 | `webapp/src/data/database.json` | Synced base prompt catalog generated from the markdown knowledge base |
 | `webapp/src/App.jsx` | PAGE1 state and UI-level control filtering; it should consume engine helpers instead of rebuilding control state |
 
 Static option modules should remain data-focused. Compatibility migrations, cross-category resolution, and public API behavior stay at the engine boundary until a later extraction has sufficient regression coverage.
+
+### Shared random Pose Composer compatibility
+
+`poseComposerCompatibility.js` is the shared pre-render resolver boundary for random single-subject pose combinations. It receives the already-resolved composition bucket, camera angle, and orbit, then filters only random candidate pools. The current rules keep upper crops on standing/sitting bases, keep cowboy crops away from lying bases, reject body-orbit direction conflicts, reject aerial face-visibility conflicts, and remove lower-body-only hand placements or rear-view face props when those details cannot be represented coherently. Explicit locks bypass these predicates and remain part of the resolved selection.
+
+The module is intentionally separate from `poseComposerOptions.js` so option data stays data-focused and from the three renderer functions so Gpt, Grok/Z-Image, and AI cannot drift into different pose safety behavior. Scene-object geometry remains a separate, paused compatibility scope.
 
 ## Runtime Cache Contract
 

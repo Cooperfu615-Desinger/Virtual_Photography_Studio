@@ -25,6 +25,13 @@ Important legacy terminology warning:
 - 接觸／支撐（`poseAnchorId`）整合在姿勢結果內，例如 `... presents a wide-knee kneeling pose leaning against a high-back chair.`
 - Pose Composer 啟用時，GPT、Grok/Z-Image、AI 直接共用完全相同的 canonical pose prompt；不得因模型而刪減、壓縮或改寫姿勢語意，僅可有不同外層標題或排版。
 
+### 2026-08-01 Shared random Pose Composer compatibility
+
+- `webapp/src/lib/engine/poseComposerCompatibility.js` now owns the shared random-pose compatibility predicates (version 1) before renderer formatting.
+- Upper crops resolve random bases toward standing/sitting; cowboy crops exclude lying. Front-view random arrangements exclude side/rear-facing variants, while random heads avoid a camera-facing head on a side/rear body and face-visibility heads under aerial angles.
+- Upper crops exclude lower-body-only random hand placements, and rear-view random pools exclude face-contact props. Explicit locks remain authoritative and can intentionally preserve a contradictory combination.
+- This is a crop／angle／orbit／pose compatibility layer shared by Gpt, Grok/Z-Image, AI, and the canonical projected pose. Scene-object geometry compatibility remains paused.
+
 ## Snapshot
 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
@@ -214,7 +221,7 @@ Rules:
 - `單人設置` is enabled for `subjectCount === "1"` and disabled for duo mode; `雙人設置` is enabled for `subjectCount === "2"` and disabled for single mode.
 - Legacy social shooting actions are migrated into Pose Composer hand poses.
 - Engine priority: if Pose Composer resolves, it outputs instead of old `poseId`; legacy `poseId` and `specialActionId` restores are normalized into Pose Composer locks and cleared.
-- Pose Composer scene compatibility is intentionally not implemented yet. The user currently prefers free combination.
+- Pose Composer scene-object compatibility is intentionally not implemented yet. Camera orbit, angle, and crop compatibility for random combinations is active; location/object compatibility remains free combination.
 - `Pose Modifier` is intentionally not implemented yet. Test base + arrangement + hand + anchor first.
 - Legacy `duoInteractionId` and separated A/B expression controls are hidden / migrated. Do not reintroduce them.
 
@@ -229,6 +236,7 @@ Rules:
 - PAGE2 UI: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page2Workspace.jsx`
 - PAGE3 UI: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page3Workspace.jsx`
 - Prompt cards: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptCard.jsx`
+- Random Pose Composer compatibility: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/poseComposerCompatibility.js`
 - Prompt preview cards: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptPreviewCard.jsx`
 - DLL PIC Pro panel: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
 - DLL PIC Pro client: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
@@ -654,6 +662,7 @@ Random and lock handling are important because many controls are data-driven.
 - PAGE1 random and clear behavior is defined in specs/page1-random-none-control-contract.md.
 - Batch random preserves subjectCount and does not auto-enable special subjects, character cards, fixed-composition sets, or image-type takeover.
 - Single-subject Pose Composer randomizes all five composer locks as one engine-resolved compatible bundle.
+- Random Pose Composer compatibility is resolved before the three primary renderers: upper crops prefer standing/sitting, front orbit rejects side/rear arrangements, aerial angles reject face-visibility head choices, and explicit locks are preserved.
 - The UI action is labelled 清空可清除項目 because required controls keep their declared defaults instead of pretending to support 全無.
 - When adding controls, update section keys / ordering / sanitize logic as needed.
 - Close-up mode can disable or clear fields that cannot be visible.
@@ -805,7 +814,7 @@ Resolved decisions:
 - Real-generation test the seven new character cards across Gpt, Grok/Z-Image, and AI before tuning descriptions from observed model drift.
 - Verify Eleanor's permanent anatomy, Olivia's removable cap, Jiwoo's white streak placement, and the visual separation among Chihiro, Koto, and Mei.
 - Continue future cards through the source/preview/manifest/profile/layer workflow; the current data model does not need another redesign.
-- Real-generation test Pose Composer before expanding it.
+- Real-generation test fixed and random-compatible Pose Composer bundles across Gpt, Grok/Z-Image, and AI before expanding it.
 - Expand Pose Composer options in batches only after stable outputs:
   - standing / sitting first
   - kneeling / squatting next

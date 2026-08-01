@@ -1,6 +1,6 @@
 # PAGE1 隨機與清空控制契約
 
-Last updated: 2026-07-17
+Last updated: 2026-08-01
 
 這份規範定義 PAGE1 全域與分區「全部隨機」及「清空可清除項目」的行為。按鈕文字、lock state、相容性清理與最終 Prompt 必須遵守同一套能力分級，避免使用者看到「隨機」但實際仍是「全無」，或看到「全無」但必要欄位偷偷回到隨機。
 
@@ -58,6 +58,18 @@ Last updated: 2026-07-17
 
 `posePropId` 是獨立的第六個控制，不加入上述五層批次取樣，也不增加該流程的 RNG 呼叫。姿勢「全部隨機」會保留其目前值；若明確道具有效，V1 由道具接管手部層，因此 normalize 會把 `poseHandId` 清為 `全無`，其餘基底、肢體、頭部與接觸層照常隨機。道具自己的 `隨機` 只在使用者明確選擇時解析。
 
+### 隨機姿勢相容性
+
+`buildPoseComposerItem()` 在解析單人姿勢時，使用 `webapp/src/lib/engine/poseComposerCompatibility.js` 的共用規範（version 1）過濾隨機候選；這個規範位於 renderer 之前，因此 Gpt、Grok/Z-Image、AI 與其他共用 canonical pose 的輸出不會各自採用不同的姿勢安全邏輯：
+
+1. `胸上特寫`、`中景鏡頭` 等上半身裁切只從站姿／坐姿基底隨機；`牛仔中景` 排除躺姿，避免裁切語意和低位姿勢不一致。
+2. 正面方位的隨機肢體不選側身或背向變體；背面／後三分之四方位不選明確正面下半身變體。
+3. 隨機頭部方向會避開側／背向肢體搭配「頭部自然朝向鏡頭」，也會避開鳥瞰／正上方俯視搭配需要正面臉孔可見的頭部選項。
+4. 上半身裁切不抽取只在大腿、膝蓋、腳踝或地面支撐成立的手部選項；背面視角不抽取臉部接觸型道具。
+5. 這些規則只過濾 `隨機` 候選，不改寫明確 lock。使用者明確選擇的衝突組合仍會保留，讓 lock 具備可預期的優先權。
+
+這是姿勢／鏡頭／裁切的相容性，不是場景物件相容性；`poseAnchorId` 仍依姿勢基底與場景水域規則處理，完整的場景幾何判斷維持暫停。
+
 接觸／支撐的隨機是唯一可自然解析為 `全無` 的 Pose Composer 隨機層，避免每張圖都被強制加入支撐物；解析為具體項目時，仍只能從相容且 `randomEligible !== false` 的公開候選抽取。其餘四層中的基底、肢體、手部與頭部隨機仍需解析為具體選項，且都不得解析為 `任意`。
 
 欄位仍可由使用者個別選擇「全無」，但批次隨機不得產生「只有神情隨機、姿勢全部全無」的假隨機狀態。雙人模式仍使用 duoPoseId、duoPoseBaseId、duoExpressionId，不套用單人 Pose Composer。
@@ -78,6 +90,7 @@ Last updated: 2026-07-17
 - 每個 PAGE1 子面板的 action label 與能力一致。
 - `posePropId` 為 preserve；明確道具在姿勢批次隨機後仍保留並接管手部，`全無` 也維持 `全無`。
 - 無明確道具時，單人 Pose Composer 的批次隨機會讓五個 Composer lock 都進入隨機狀態；接觸可解析為 `全無`，其餘層產出具體相容組合。
+- 隨機 Pose Composer 在上半身裁切、正面／背面方位、鳥瞰角度下遵守共用相容性規範；明確衝突 lock 仍保留。
 - 特殊角色、角色卡、固定構圖與成品類型批次操作不會自動接管。
 - 全域批次操作不會改變 subjectCount。
 
@@ -87,4 +100,5 @@ Last updated: 2026-07-17
 - webapp/src/features/page1/page1Schema.test.js
 - webapp/src/features/page1/lockTransitions.test.js
 - webapp/src/lib/enginePoseComposer.test.js
+- webapp/src/lib/engine/poseComposerCompatibility.test.js
 - webapp/src/lib/enginePreviewRerollExclusion.test.js

@@ -1,6 +1,6 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-07-22
+Last updated: 2026-08-01
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
@@ -469,6 +469,18 @@ Pose Composer 相關描述在構圖可見時應保留實際身體結構，例如
 - 肢體具體選項使用具體姿勢名稱；肢體為任意時退回姿勢基底名稱。
 - `poseAnchorId` 的接觸／支撐屬於姿勢結果，例如 `... presents a wide-knee kneeling pose leaning against a high-back chair.`
 - 啟用 Pose Composer 時，GPT、Grok/Z-Image、AI 三者必須逐字共用同一段 projected canonical pose prompt，只能不同外層標題或排版；近景契約若投影為空，三者必須一致省略。
+
+### 隨機姿勢相容性（共用解析規範）
+
+隨機姿勢的安全性在 renderer 前的 `buildPoseComposerItem()` 統一處理，規範實作於 `webapp/src/lib/engine/poseComposerCompatibility.js`。三種主要輸出以及未來共用 canonical pose 的 renderer 都接收同一組 resolved pose，不得在各自輸出層另加互相不一致的姿勢修正。
+
+- 上半身裁切優先使用站姿／坐姿基底；牛仔中景排除躺姿，讓可見裁切和姿勢重心一致。
+- 正面方位的隨機肢體排除側身／背向變體；隨機頭部會避免與側／背向身體同時使用「頭部自然朝向鏡頭」。
+- 鳥瞰／正上方俯視時，隨機頭部排除需要正面臉孔可見的方向；上半身裁切排除只依賴腿部或地面接觸的手部動作。
+- 背面視角的隨機道具排除臉部接觸型道具；自拍手勢仍沿用既有的方位接管規則。
+- 相容性只限制 `隨機` 候選，不替換明確 lock。若使用者刻意選擇衝突方向，resolved pose 與三組 canonical prompt 仍照實保留。
+
+這套規範只處理鏡頭裁切、角度、方位與姿勢層的可組合性；場景物件是否真的能提供支撐，仍由既有 anchor／水域規則處理，完整場景幾何相容性不在本階段範圍。
 
 ## 5. C 穿搭設定輸出規則
 

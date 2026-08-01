@@ -144,6 +144,46 @@ test('pose composer samples base arrangement hand head and anchor in documented 
   assert.equal(calls, 6, 'Five Pose Composer samples plus the runtime prompt id should consume six values');
 });
 
+test('random pose composer respects crop and front-orbit compatibility', () => {
+  const locks = {
+    ...createFullySpecifiedLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
+    angleId: optionId('angleId', '高位俯視鏡頭'),
+    orbitId: optionId('orbitId', '正面 0 度'),
+    poseBaseId: optionId('poseBaseId', '隨機'),
+    poseArrangementId: optionId('poseArrangementId', '隨機'),
+    poseHandId: optionId('poseHandId', '隨機'),
+    poseHeadId: optionId('poseHeadId', '隨機'),
+    poseAnchorId: optionId('poseAnchorId', '隨機'),
+  };
+  const { prompt } = generateWithRandomSequence(locks, [0.99, 0.99, 0.99, 0.99, 0.99, 0.99]);
+
+  assert.ok(['standing', 'sitting'].includes(prompt.selection.poseBaseId));
+  assert.notEqual(prompt.selection.poseArrangementId, optionId('poseArrangementId', '側身蹲姿'));
+  assert.notEqual(prompt.selection.poseArrangementId, optionId('poseArrangementId', '側身低蹲'));
+  assert.doesNotMatch(prompt.grokPrompt, /side-facing squatting|back-facing turn-back/i);
+  assertSharedCanonicalPose(prompt, prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '');
+});
+
+test('explicit pose locks remain visible even when they intentionally conflict', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    orbitId: optionId('orbitId', '正面 0 度'),
+    poseBaseId: optionId('poseBaseId', '蹲姿'),
+    poseArrangementId: optionId('poseArrangementId', '側身蹲姿'),
+    poseHandId: optionId('poseHandId', '雙手自然垂放'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  });
+
+  assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '側身蹲姿'));
+  assert.equal(prompt.selection.poseHeadId, optionId('poseHeadId', '頭部自然朝向鏡頭'));
+  assert.match(prompt.grokPrompt, /head naturally facing the camera/);
+  assert.match(prompt.grokPrompt, /side-facing squatting pose/);
+});
+
 test('pose composer exposes standing lean support anchor options', () => {
   [
     ['靠在欄杆', /leaning lightly against a railing/],

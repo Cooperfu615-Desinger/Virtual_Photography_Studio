@@ -69,6 +69,14 @@ import {
   POSE_COMPOSER_HEAD_OPTIONS,
   POSE_COMPOSER_PROP_OPTIONS,
 } from './engine/poseComposerOptions.js';
+import {
+  createPoseComposerCompatibilityContext,
+  poseComposerArrangementSupportsRandomContext,
+  poseComposerBaseSupportsRandomContext,
+  poseComposerHandSupportsRandomContext,
+  poseComposerHeadSupportsRandomContext,
+  poseComposerPropSupportsRandomContext,
+} from './engine/poseComposerCompatibility.js';
 import { createPromptSectionModel } from './engine/promptModel.js';
 import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
 import { createSelectionSnapshot } from './engine/selectionSchema.js';
@@ -4731,12 +4739,26 @@ function buildPoseComposerItem(context) {
 
   const exclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
   const random = context.random || Math.random;
-  const resolveHead = () => {
-    const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
+  const compatibilityContext = createPoseComposerCompatibilityContext({
+    bucket: context.compositionVisibility?.bucket,
+    angle: context.angle,
+    orbit: context.orbit,
+  });
+  const requestedBase = getPoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId);
+  const requestedArrangement = getPoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId);
+  const requestedHand = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
+  const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
+  const requestedProp = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId);
+
+  const resolveHead = (arrangementForHead = null) => {
     // Compatibility constrains only the random pool. A concrete user lock is
     // intentional and must remain visible rather than being silently replaced.
     const predicate = isRandomOption(requestedHead)
       ? (option) => poseHeadSupportsOrbit(option, context.orbit)
+        && poseComposerHeadSupportsRandomContext(option, {
+          ...compatibilityContext,
+          arrangement: arrangementForHead,
+        })
       : () => true;
     return resolvePoseComposerOption(
       POSE_COMPOSER_HEAD_OPTIONS,
@@ -4747,12 +4769,39 @@ function buildPoseComposerItem(context) {
       random
     );
   };
-  const base = resolvePoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId, () => true, exclusions, ['poseBaseId'], random);
+  const base = resolvePoseComposerOption(
+    POSE_COMPOSER_BASE_OPTIONS,
+    context.locks?.poseBaseId,
+    isRandomOption(requestedBase)
+      ? (option) => poseComposerBaseSupportsRandomContext(option, compatibilityContext)
+      : () => true,
+    exclusions,
+    ['poseBaseId'],
+    random
+  );
 
   if (!base) {
-    const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId'], random);
+    const handPose = resolvePoseComposerOption(
+      POSE_COMPOSER_HAND_OPTIONS,
+      context.locks?.poseHandId,
+      isRandomOption(requestedHand)
+        ? (option) => poseComposerHandSupportsRandomContext(option, compatibilityContext)
+        : () => true,
+      exclusions,
+      ['poseHandId'],
+      random
+    );
     const head = resolveHead();
-    const propAction = resolvePoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId, () => true, exclusions, ['posePropId'], random);
+    const propAction = resolvePoseComposerOption(
+      POSE_COMPOSER_PROP_OPTIONS,
+      context.locks?.posePropId,
+      isRandomOption(requestedProp)
+        ? (option) => poseComposerPropSupportsRandomContext(option, compatibilityContext)
+        : () => true,
+      exclusions,
+      ['posePropId'],
+      random
+    );
     const standaloneParts = [handPose, propAction, head].filter(isActivePoseComposerOption);
     if (standaloneParts.length === 0) return null;
 
@@ -4775,15 +4824,46 @@ function buildPoseComposerItem(context) {
   }
 
   const matchesBase = (option) => poseComposerOptionMatchesBase(option, base.id);
+  const arrangementCompatibility = (option) => poseComposerArrangementSupportsRandomContext(option, {
+    ...compatibilityContext,
+    requestedHead,
+  });
   const matchesAnchor = (option) => (
     matchesBase(option)
     && poseComposerAnchorAllowedByScene(option, context.location, context.locks?.locationId)
   );
-  const arrangement = resolvePoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId, matchesBase, exclusions, ['poseArrangementId'], random);
-  const handPose = resolvePoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId, () => true, exclusions, ['poseHandId'], random);
-  const head = resolveHead();
+  const arrangement = resolvePoseComposerOption(
+    POSE_COMPOSER_ARRANGEMENT_OPTIONS,
+    context.locks?.poseArrangementId,
+    isRandomOption(requestedArrangement)
+      ? (option) => matchesBase(option) && arrangementCompatibility(option)
+      : matchesBase,
+    exclusions,
+    ['poseArrangementId'],
+    random
+  );
+  const handPose = resolvePoseComposerOption(
+    POSE_COMPOSER_HAND_OPTIONS,
+    context.locks?.poseHandId,
+    isRandomOption(requestedHand)
+      ? (option) => poseComposerHandSupportsRandomContext(option, compatibilityContext)
+      : () => true,
+    exclusions,
+    ['poseHandId'],
+    random
+  );
+  const head = resolveHead(arrangement);
   const anchor = resolvePoseComposerAnchorOption(context.locks?.poseAnchorId, matchesAnchor, exclusions, random);
-  const propAction = resolvePoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId, () => true, exclusions, ['posePropId'], random);
+  const propAction = resolvePoseComposerOption(
+    POSE_COMPOSER_PROP_OPTIONS,
+    context.locks?.posePropId,
+    isRandomOption(requestedProp)
+      ? (option) => poseComposerPropSupportsRandomContext(option, compatibilityContext)
+      : () => true,
+    exclusions,
+    ['posePropId'],
+    random
+  );
   const parts = [base, arrangement, handPose, propAction, head, anchor].filter(Boolean);
 
   return {

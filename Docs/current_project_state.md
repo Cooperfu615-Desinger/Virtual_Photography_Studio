@@ -2,6 +2,8 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
+Last updated: 2026-08-01
+
 ## Snapshot
 
 - Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
@@ -409,10 +411,12 @@ Rules:
 - Legacy social shooting actions are migrated into Pose Composer hand poses.
 - Legacy hand-stored prop actions migrate into `posePropId`; an active V1 prop clears `poseHandId`, and the merged lipstick option lets the image model choose a clean or slightly smudged finish.
 - Engine priority: if Pose Composer resolves, it outputs instead of old `poseId`; legacy `poseId` and `specialActionId` restores are normalized into Pose Composer locks and cleared.
-- Scene conflict checking for Pose Composer is intentionally not implemented yet.
+- Scene-object compatibility checking for Pose Composer is intentionally not implemented yet. Camera orbit, camera angle, and crop compatibility for random Pose Composer combinations are implemented separately in the shared resolver.
 - `Pose Modifier` is intentionally not implemented yet.
 - `poseArrangementId`, `poseHandId`, and `poseHeadId` use the visible option name `任意` (legacy option IDs remain unchanged). `任意` means the group supplies no fixed description and lets the model choose a casual, relaxed, natural result from the selected base pose, wardrobe, camera, and scene; it is not random selection.
 - `隨機` never resolves to `任意`; base, arrangement, hand, prop, and head random resolve to concrete options, while anchor random alone may resolve to `全無`. `全無` contributes no text.
+- Random Pose Composer resolution uses `webapp/src/lib/engine/poseComposerCompatibility.js` (version 1): upper crops prefer standing/sitting bases; cowboy crops exclude lying; front-view random body arrangements exclude side/rear-facing variants; random head directions avoid a camera-facing head on a side/rear body or an aerial face-visibility conflict; random face props avoid rear-view contact. Upper crops also exclude lower-body-only hand placements.
+- These compatibility predicates filter random pools only. Explicit base, arrangement, hand, prop, or head locks remain visible even when the user intentionally chooses a contradictory combination.
 - The shared canonical pose sentence orders concrete head text, active prop text (otherwise concrete hand text), then the pose result. If arrangement, hand, or head is `任意`, the natural qualifier is appended once only. A concrete arrangement uses its concrete pose name; an `任意` arrangement falls back to the base pose name.
 - Concrete posture results use grammar-aware indefinite articles, and option English must remain a predicate-compatible noun/action phrase rather than renderer instructions or negative control language.
 - Support/contact (`poseAnchorId`) is part of the pose result, for example `... presents a wide-knee kneeling pose leaning against a high-back chair.`
@@ -587,8 +591,8 @@ Remaining security follow-up:
   - Do not implement until the user asks to revisit model-specific style handling.
 - Pose Modifier is paused.
   - First verify base + arrangement + hand + anchor generation quality.
-- Pose Composer scene compatibility is paused.
-  - User currently prefers free combination.
+- Pose Composer scene-object compatibility is paused.
+  - Camera orbit, angle, and crop compatibility is active for random combinations; location/object compatibility remains free combination for now.
 
 ## Best Next Work
 
@@ -600,7 +604,7 @@ Remaining security follow-up:
   - Discuss wireframe direction before implementation.
   - Use low-fidelity generated wireframes when useful to align layout imagination.
   - Record decisions as current-state vs planned-next-work so future sessions do not confuse sketches with implemented behavior.
-- Real-generation test Pose Composer with fixed combinations before expanding the database.
+- Real-generation test Pose Composer with fixed combinations and random compatible bundles across Gpt, Grok/Z-Image, and AI before expanding the database.
 - Follow up separately on the pre-existing PAGE1 mobile E-editor grid min-content overflow; it is independent of Pose Composer prompt resolution and should be handled as a focused frontend layout change.
 - Expand Pose Composer options in batches only after stable results:
   - standing / sitting first
