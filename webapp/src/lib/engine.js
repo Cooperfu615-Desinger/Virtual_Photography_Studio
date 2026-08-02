@@ -154,6 +154,28 @@ const IMAGE_TYPE_PRESET_OPTIONS = [
   },
 ];
 
+const SENGOKU_SAMURAI_MJ_PROMPT_BY_BUCKET = Object.freeze({
+  [COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED]: 'a refined female Japanese Sengoku-era samurai warrior, vivid polished lacquered lamellar armor with fine cord lacing, sculpted cuirass, narrowed waist plates, layered kusazuri armor skirt, shoulder guards, wearing an elegant kabuto helmet, sheathed katana and wakizashi, documentary-real material detail, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]: 'a refined female Japanese Sengoku-era samurai warrior, vivid polished lacquered lamellar armor with fine cord lacing, sculpted cuirass, narrowed waist plates, layered kusazuri armor skirt, shoulder guards, wearing an elegant kabuto helmet, sheathed katana and wakizashi, documentary-real material detail, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL]: 'a refined female Japanese Sengoku-era samurai warrior, noble bearing, vivid polished lacquered lamellar armor, sculpted upper cuirass, wearing an elegant kabuto helmet, refined metal fittings, documentary-real live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS]: 'a refined female Japanese Sengoku-era samurai warrior, noble bearing, vivid polished lacquered lamellar armor, sculpted upper cuirass, wearing an elegant kabuto helmet, refined metal fittings, documentary-real live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: 'a refined female Japanese Sengoku-era samurai warrior, vivid polished lacquered lamellar armor with fine cord lacing, sculpted upper cuirass, shoulder guards, wearing an elegant kabuto helmet, refined clan-quality metal fittings, documentary-real live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: 'a refined female Japanese Sengoku-era samurai warrior, vivid polished lacquered lamellar armor with fine cord lacing, sculpted cuirass, narrowed waist plates, shoulder guards, wearing an elegant kabuto helmet, sheathed katana, documentary-real material detail, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE]: 'a refined female Japanese Sengoku-era samurai warrior, vivid polished lacquered lamellar armor with fine cord lacing, sculpted cuirass, narrowed waist plates, layered kusazuri armor skirt, shoulder guards, wearing an elegant kabuto helmet, sheathed katana, documentary-real material detail, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY]: 'a refined female Japanese Sengoku-era samurai warrior, vivid polished lacquered lamellar armor with fine cord lacing, sculpted cuirass, narrowed waist plates, layered kusazuri armor skirt, shoulder guards, wearing an elegant kabuto helmet, sheathed katana and wakizashi, documentary-real material detail, live-action photographic realism',
+});
+
+const FEMALE_ANDROID_MJ_PROMPT_BY_BUCKET = Object.freeze({
+  [COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED]: 'a near-human female android, realistic human face with subtle facial panel seams, pale synthetic skin-like shell, glossy white and champagne-gold mechanical plates, elegant mechanical linework, black precision joints, fine micro-panel divisions, selective luminous circuit accents, sensual high-fashion cyborg presence, realistic robotics and live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]: 'a near-human female android, realistic human face with subtle facial panel seams, pale synthetic skin-like shell, glossy white and champagne-gold mechanical plates, elegant mechanical linework, black precision joints, fine micro-panel divisions, selective luminous circuit accents, sensual high-fashion cyborg presence, realistic robotics and live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL]: 'a near-human female android, realistic human face with subtle facial panel seams across the cheeks and temples, pale synthetic skin-like shell, refined white and champagne-gold facial and neck details, realistic robotics and live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS]: 'a near-human female android, realistic human face with subtle facial panel seams, pale synthetic skin-like shell, glossy white and champagne-gold shoulder plates, black precision shoulder joints, refined mechanical linework, high-fashion cyborg presence, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: 'a near-human female android, realistic human face with subtle facial panel seams, pale synthetic skin-like shell, glossy white and champagne-gold shoulder and chest plates, black precision joints at the shoulders and elbows, refined mechanical linework, selective luminous circuit accents, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: 'a near-human female android, realistic human face with subtle facial panel seams, pale synthetic skin-like shell, glossy white and champagne-gold torso plates, black precision joints at the shoulders, elbows, and waist, fine micro-panel divisions, selective luminous circuit accents, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE]: 'a near-human female android, realistic human face with subtle facial panel seams, pale synthetic skin-like shell, glossy white and champagne-gold torso and hip plates, black precision joints at the shoulders, elbows, waist, hips, and knees, fine micro-panel divisions, selective luminous circuit accents, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY]: 'a near-human female android, realistic human face with subtle facial panel seams, pale synthetic skin-like shell, glossy white and champagne-gold mechanical plates, elegant mechanical linework, black precision joints from neck to ankles, fine micro-panel divisions, selective luminous circuit accents, sensual high-fashion cyborg presence, realistic robotics and live-action photographic realism',
+});
+
 const SPECIAL_SUBJECT_OPTIONS = [
   {
     id: 'none',
@@ -185,6 +207,7 @@ const SPECIAL_SUBJECT_OPTIONS = [
     count: 1,
     specialSubject: 'historical-warrior',
     specialToneZh: '名門戰國女武士甲冑',
+    mjPromptByBucket: SENGOKU_SAMURAI_MJ_PROMPT_BY_BUCKET,
   },
   {
     id: 'european-knight',
@@ -201,6 +224,7 @@ const SPECIAL_SUBJECT_OPTIONS = [
     count: 1,
     specialSubject: 'android',
     specialToneZh: '近真人機械女性',
+    mjPromptByBucket: FEMALE_ANDROID_MJ_PROMPT_BY_BUCKET,
   },
 ];
 
@@ -4477,6 +4501,17 @@ function buildSpecialSubjectIntegrationPrompt(subject) {
   if (isCharacterProfileSubject(subject)) return '';
   const text = 'an unknown anomalous figure appearing naturally inside a real contemporary environment, photographed as if genuinely present in the same physical space, grounded by realistic scale, contact shadows, ambient light, and ordinary surroundings';
   return isSkeletonSubject(subject) ? sanitizeSkeletonPromptText(text) : text;
+}
+
+function buildMidjourneySpecialSubjectPrompt(subject, context) {
+  const promptByBucket = subject?.mjPromptByBucket;
+  if (!promptByBucket) return subject?.en || '';
+
+  const bucket = context?.compositionVisibility?.bucket || COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED;
+  return promptByBucket[bucket]
+    || promptByBucket[COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED]
+    || subject.en
+    || '';
 }
 
 function getAspectRatioOption(id, random = Math.random, exclusions = EMPTY_PREVIEW_REROLL_EXCLUSIONS) {
@@ -12472,7 +12507,7 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) {
   const headphoneText = wardrobeSlots ? compactAiHeadAudioAccessoryText(wardrobeSlots.headAccessory) : '';
   const subjectLead = shouldUseFixedAiSingleSubjectLead(context)
     ? MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD
-    : context.subject?.en || 'A 20-year-old adult East Asian woman';
+    : buildMidjourneySpecialSubjectPrompt(context.subject, context) || 'A 20-year-old adult East Asian woman';
 
   const bodyText = shouldUseFixedAiSingleSubjectLead(context)
     ? buildAiSingleBodyTypeAnchorText(valuesByLabel, context)

@@ -463,6 +463,14 @@ an unknown anomalous figure appearing naturally inside a real contemporary envir
 - 女性人形機器人：100-160 English words。
 - 共享融合句：25-45 English words。
 
+MJ 專用投影規則：
+
+- `en` 是 Gpt／Grok-Z 的完整特殊角色來源；不要為了 MJ 字數直接刪改它。
+- 需要 MJ 優化的特殊角色，可以在同一個 option 增加 `mjPromptByBucket`，由 `compositionVisibility.bucket` 選擇 `faceDetail`、`headShoulders`、`chestUp`、`mediumWaist`、`cowboyKnee` 或 `fullBody` 描述。
+- MJ 投影只保留角色身份、主要材質與少量可辨識標誌；不得帶入與目前裁切不相容的 `full-body`、手腳、下半身或武器描述。
+- MJ 版本不得使用 `model-decided`、`let the image model decide` 或多組互斥選項清單；需要穩定的畫面結果時，應在投影中選定單一正向視覺錨點。
+- 目前 `日本戰國武士` 與 `女性人形機器人` 已使用上述規則；Gpt／Grok-Z 仍保留完整甲冑、顏色選項、頭盔位置與機械關節來源，只有 AI／MJ 與 `MJ 胸上特寫照` 使用裁切相容的精簡版本。
+
 負面詞規則：
 
 - 避免 `not anime`、`not cosplay`、`not fantasy armor`、`not toy-like`。

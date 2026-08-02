@@ -746,6 +746,36 @@ test('sengoku samurai includes a model-decided helmet placement and vivid armor 
   assert.match(promptText, /brilliant red|royal blue|pure white|emerald green|glossy reflective lacquer black/);
 });
 
+test('sengoku samurai uses crop-aware compact MJ subject anchors without changing source-traceable outputs', () => {
+  const fullBodyPrompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'sengoku-samurai',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  }, [], { random: () => 0.42 })[0];
+  const chestUpPrompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'sengoku-samurai',
+    framingId: optionId('framingId', '胸上特寫'),
+  }, [], { random: () => 0.42 })[0];
+  const chestUpMjPrompt = chestUpPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
+  const descriptiveWordCount = (text) => text.split(' --v ')[0].trim().split(/\s+/).filter(Boolean).length;
+
+  assert.match(fullBodyPrompt.midjourneyPrompt, /vivid polished lacquered lamellar armor/);
+  assert.match(fullBodyPrompt.midjourneyPrompt, /layered kusazuri armor skirt/);
+  assert.match(fullBodyPrompt.midjourneyPrompt, /sheathed katana and wakizashi/);
+  assert.doesNotMatch(fullBodyPrompt.midjourneyPrompt, /model-decided|let the image model decide|brilliant red|royal blue|pure white|emerald green|glossy reflective lacquer black/);
+  assert.ok(descriptiveWordCount(fullBodyPrompt.midjourneyPrompt) <= 130);
+
+  assert.match(chestUpMjPrompt, /Chest-up editorial portrait/);
+  assert.match(chestUpMjPrompt, /sculpted upper cuirass/);
+  assert.match(chestUpMjPrompt, /shoulder guards/);
+  assert.doesNotMatch(chestUpMjPrompt, /full-body|kusazuri|sheathed katana|wakizashi|model-decided|let the image model decide|worn on the head or held in one hand/);
+  assert.ok(descriptiveWordCount(chestUpMjPrompt) <= 130);
+
+  assert.match(fullBodyPrompt.grokPrompt, /one model-decided vivid main armor color/);
+  assert.match(fullBodyPrompt.zImagePrompt, /let the image model decide the helmet placement/);
+});
+
 test('european knight special subject is female with feminine armor shaping', () => {
   const locks = {
     ...createEmptyLocks(),
@@ -791,6 +821,37 @@ test('female android reads as a near-human android and keeps hair controls', () 
   assert.match(promptText, /unknown anomalous figure appearing naturally inside a real contemporary environment/);
   assert.match(promptText, /直髮：中分|long straight hair with a center part|自然黑|natural black hair/);
   assert.doesNotMatch(promptText, /pure white mechanical bodysuit|full enclosed helmet|no visible face required|not a helmeted robot|not cartoon|not toy-like/);
+});
+
+test('female android uses crop-aware compact MJ subject anchors without changing source-traceable outputs', () => {
+  const fullBodyPrompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'female-android',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  }, [], { random: () => 0.42 })[0];
+  const chestUpPrompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'female-android',
+    framingId: optionId('framingId', '胸上特寫'),
+  }, [], { random: () => 0.42 })[0];
+  const chestUpMjPrompt = chestUpPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
+  const descriptiveWordCount = (text) => text.split(' --v ')[0].trim().split(/\s+/).filter(Boolean).length;
+
+  assert.match(fullBodyPrompt.midjourneyPrompt, /near-human female android/);
+  assert.match(fullBodyPrompt.midjourneyPrompt, /black precision joints from neck to ankles/);
+  assert.match(fullBodyPrompt.midjourneyPrompt, /selective luminous circuit accents/);
+  assert.doesNotMatch(fullBodyPrompt.midjourneyPrompt, /black precision mechanical joint structures at the neck shoulders elbows wrists waist hips knees and ankles|fine actuator seams and micro-panel divisions following the torso arms and legs/);
+  assert.ok(descriptiveWordCount(fullBodyPrompt.midjourneyPrompt) <= 130);
+
+  assert.match(chestUpMjPrompt, /Chest-up editorial portrait/);
+  assert.match(chestUpMjPrompt, /realistic human face with subtle facial panel seams/);
+  assert.match(chestUpMjPrompt, /shoulder and chest plates/);
+  assert.match(chestUpMjPrompt, /black precision joints at the shoulders and elbows/);
+  assert.doesNotMatch(chestUpMjPrompt, /from neck to ankles|hips|knees|fine actuator seams and micro-panel divisions following the torso arms and legs/);
+  assert.ok(descriptiveWordCount(chestUpMjPrompt) <= 130);
+
+  assert.match(fullBodyPrompt.grokPrompt, /black precision mechanical joint structures at the neck shoulders elbows wrists waist hips knees and ankles/);
+  assert.match(fullBodyPrompt.zImagePrompt, /fine actuator seams and micro-panel divisions following the torso arms and legs/);
 });
 
 test('black skeleton keeps dark tone and uses physical photographic presence', () => {
