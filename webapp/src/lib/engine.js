@@ -154,6 +154,40 @@ const IMAGE_TYPE_PRESET_OPTIONS = [
   },
 ];
 
+const EUROPEAN_KNIGHT_MJ_PROMPT_BY_BUCKET = Object.freeze({
+  [COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED]: 'a realistic female medieval European knight, articulated polished plate armor over chainmail, sculpted breastplate and armored waist, curved hip faulds, fitted armored sleeves, worn steel surfaces, leather straps, padded gambeson edges, simple cloak, longsword at the side, practical plate construction, documentary-real material detail, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]: 'a realistic female medieval European knight, articulated polished plate armor over chainmail, sculpted breastplate and armored waist, curved hip faulds, fitted armored sleeves, worn steel surfaces, leather straps, padded gambeson edges, simple cloak, longsword at the side, practical plate construction, documentary-real material detail, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL]: 'a realistic female medieval European knight, realistic human face, polished plate armor over chainmail at the shoulders, documentary-real material detail, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS]: 'a realistic female medieval European knight, realistic human face, polished plate armor over chainmail at the shoulders, fitted armored sleeves, worn steel surfaces, documentary-real material detail, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: 'a realistic female medieval European knight, polished plate armor over chainmail, sculpted breastplate with clear torso contour, fitted armored sleeves, worn steel surfaces, leather straps, documentary-real material detail, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: 'a realistic female medieval European knight, polished plate armor over chainmail, sculpted breastplate, narrowed armored waist, curved hip faulds, fitted armored sleeves, worn steel surfaces, leather straps, documentary-real material detail, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE]: 'a realistic female medieval European knight, articulated polished plate armor over chainmail, sculpted breastplate and armored waist, curved hip faulds, fitted armored sleeves, worn steel surfaces, leather straps, padded gambeson edges, longsword at the side, practical plate construction, live-action photographic realism',
+  [COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY]: 'a realistic female medieval European knight, articulated polished plate armor over chainmail, sculpted breastplate and armored waist, curved hip faulds, fitted armored sleeves, worn steel surfaces, leather straps, padded gambeson edges, simple cloak, longsword at the side, practical plate construction, documentary-real material detail, live-action photographic realism',
+});
+
+const createSkeletonMjPromptByBucket = ({ tone, material, presence }) => Object.freeze({
+  [COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED]: `an unknown skeletal figure, complete human skeleton with realistic anatomical proportions, visible skull, ribcage, spine, pelvis, hands, and feet, articulated joints, realistic joint spacing, ${tone}, ${material}, human-scale physical photographic presence, ${presence}`,
+  [COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]: `an unknown skeletal figure, complete human skeleton with realistic anatomical proportions, visible skull, ribcage, spine, pelvis, hands, and feet, articulated joints, realistic joint spacing, ${tone}, ${material}, human-scale physical photographic presence, ${presence}`,
+  [COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL]: `an unknown skeletal figure, anatomically realistic human skull with natural proportions, ${tone}, ${material}, ${presence}`,
+  [COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS]: `an unknown skeletal figure, anatomically realistic skull with articulated shoulder bones, ${tone}, ${material}, ${presence}`,
+  [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: `an unknown skeletal figure, anatomically realistic skull, upper ribcage, and articulated shoulder joints, ${tone}, ${material}, ${presence}`,
+  [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: `an unknown skeletal figure, anatomically realistic skull, ribcage, spine, and pelvis, articulated joints, ${tone}, ${material}, ${presence}`,
+  [COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE]: `an unknown skeletal figure, anatomically realistic skull, ribcage, spine, pelvis, and knee joints, articulated joints, ${tone}, ${material}, ${presence}`,
+  [COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY]: `an unknown skeletal figure, complete human skeleton with realistic anatomical proportions, visible skull, ribcage, spine, pelvis, hands, and feet, articulated joints, realistic joint spacing, ${tone}, ${material}, human-scale physical photographic presence, ${presence}`,
+});
+
+const BLACK_SKELETON_MJ_PROMPT_BY_BUCKET = createSkeletonMjPromptByBucket({
+  tone: 'dark blue-black bone tone with subtle cool blue highlights',
+  material: 'dry matte porous bone surface',
+  presence: 'surreal but grounded live-action realism',
+});
+
+const WHITE_SKELETON_MJ_PROMPT_BY_BUCKET = createSkeletonMjPromptByBucket({
+  tone: 'warm ivory bone tone with aged off-white bone surface and subtle beige porous texture',
+  material: 'dry matte material finish',
+  presence: 'quiet anomalous physical presence, grounded live-action realism',
+});
+
 const SENGOKU_SAMURAI_MJ_PROMPT_BY_BUCKET = Object.freeze({
   [COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED]: 'a refined female Japanese Sengoku-era samurai warrior, vivid polished lacquered lamellar armor with fine cord lacing, sculpted cuirass, narrowed waist plates, layered kusazuri armor skirt, shoulder guards, wearing an elegant kabuto helmet, sheathed katana and wakizashi, documentary-real material detail, live-action photographic realism',
   [COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]: 'a refined female Japanese Sengoku-era samurai warrior, vivid polished lacquered lamellar armor with fine cord lacing, sculpted cuirass, narrowed waist plates, layered kusazuri armor skirt, shoulder guards, wearing an elegant kabuto helmet, sheathed katana and wakizashi, documentary-real material detail, live-action photographic realism',
@@ -191,6 +225,7 @@ const SPECIAL_SUBJECT_OPTIONS = [
     count: 1,
     specialSubject: 'skeleton',
     skeletonToneZh: '深藍黑骨色',
+    mjPromptByBucket: BLACK_SKELETON_MJ_PROMPT_BY_BUCKET,
   },
   {
     id: 'white-skeleton',
@@ -199,6 +234,7 @@ const SPECIAL_SUBJECT_OPTIONS = [
     count: 1,
     specialSubject: 'skeleton',
     skeletonToneZh: '米白骨色',
+    mjPromptByBucket: WHITE_SKELETON_MJ_PROMPT_BY_BUCKET,
   },
   {
     id: 'sengoku-samurai',
@@ -216,6 +252,7 @@ const SPECIAL_SUBJECT_OPTIONS = [
     count: 1,
     specialSubject: 'historical-warrior',
     specialToneZh: '中世紀女騎士板甲',
+    mjPromptByBucket: EUROPEAN_KNIGHT_MJ_PROMPT_BY_BUCKET,
   },
   {
     id: 'female-android',

@@ -796,6 +796,34 @@ test('european knight special subject is female with feminine armor shaping', ()
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:|not fantasy armor|not cosplay|chivalric presence/);
 });
 
+test('european knight uses crop-aware compact MJ subject anchors without changing source-traceable outputs', () => {
+  const fullBodyPrompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'european-knight',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  }, [], { random: () => 0.42 })[0];
+  const chestUpPrompt = generatePrompts(1, {
+    ...createEmptyLocks(),
+    specialSubjectId: 'european-knight',
+    framingId: optionId('framingId', '胸上特寫'),
+  }, [], { random: () => 0.42 })[0];
+  const chestUpMjPrompt = chestUpPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
+  const descriptiveWordCount = (text) => text.split(' --v ')[0].trim().split(/\s+/).filter(Boolean).length;
+
+  assert.match(fullBodyPrompt.midjourneyPrompt, /articulated polished plate armor over chainmail/);
+  assert.match(fullBodyPrompt.midjourneyPrompt, /curved hip faulds/);
+  assert.match(fullBodyPrompt.midjourneyPrompt, /longsword at the side/);
+  assert.ok(descriptiveWordCount(fullBodyPrompt.midjourneyPrompt) <= 130);
+
+  assert.match(chestUpMjPrompt, /sculpted breastplate with clear torso contour/);
+  assert.match(chestUpMjPrompt, /fitted armored sleeves/);
+  assert.doesNotMatch(chestUpMjPrompt, /narrowed armored waist|curved hip faulds|simple cloak|longsword at the side/);
+  assert.ok(descriptiveWordCount(chestUpMjPrompt) <= 130);
+
+  assert.match(fullBodyPrompt.grokPrompt, /curved hip faulds/);
+  assert.match(fullBodyPrompt.zImagePrompt, /longsword at the side/);
+});
+
 test('female android reads as a near-human android and keeps hair controls', () => {
   const controls = getLockControls();
   const hairstyleId = controls
@@ -867,6 +895,38 @@ test('black skeleton keeps dark tone and uses physical photographic presence', (
   assert.match(promptText, /full-body unknown skeletal figure|physical photographic presence/);
   assert.match(promptText, /unknown anomalous figure appearing naturally inside a real contemporary environment/);
   assert.doesNotMatch(promptText, /warm ivory bone tone/);
+});
+
+test('black and white skeletons use crop-aware compact MJ anatomy anchors without changing source-traceable outputs', () => {
+  const descriptiveWordCount = (text) => text.split(' --v ')[0].trim().split(/\s+/).filter(Boolean).length;
+  for (const { specialSubjectId, tone, sourceTone } of [
+    { specialSubjectId: 'skeleton', tone: /dark blue-black bone tone/, sourceTone: /visible skull ribcage spine pelvis hands and feet/ },
+    { specialSubjectId: 'white-skeleton', tone: /warm ivory bone tone/, sourceTone: /visible skull ribcage spine pelvis hands and feet/ },
+  ]) {
+    const fullBodyPrompt = generatePrompts(1, {
+      ...createEmptyLocks(),
+      specialSubjectId,
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    }, [], { random: () => 0.42 })[0];
+    const chestUpPrompt = generatePrompts(1, {
+      ...createEmptyLocks(),
+      specialSubjectId,
+      framingId: optionId('framingId', '胸上特寫'),
+    }, [], { random: () => 0.42 })[0];
+    const chestUpMjPrompt = chestUpPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
+
+    assert.match(fullBodyPrompt.midjourneyPrompt, /complete human skeleton/);
+    assert.match(fullBodyPrompt.midjourneyPrompt, tone);
+    assert.match(fullBodyPrompt.midjourneyPrompt, /visible skull, ribcage, spine, pelvis, hands, and feet/);
+    assert.ok(descriptiveWordCount(fullBodyPrompt.midjourneyPrompt) <= 130);
+
+    assert.match(chestUpMjPrompt, /anatomically realistic skull, upper ribcage, and articulated shoulder joints/);
+    assert.match(chestUpMjPrompt, tone);
+    assert.doesNotMatch(chestUpMjPrompt, /complete human skeleton|hands|feet|pelvis|full-body/);
+    assert.ok(descriptiveWordCount(chestUpMjPrompt) <= 130);
+
+    assert.match(fullBodyPrompt.grokPrompt, sourceTone);
+  }
 });
 
 test('expression and composition-projected pose remain available with special subjects', () => {
