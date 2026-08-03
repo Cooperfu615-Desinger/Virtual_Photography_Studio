@@ -8,23 +8,23 @@
 export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   {
     id: 'normal-single-precise',
-    expectedDescriptionHash: '1bcfd9002d1e91a50ffa2d813cb6ae1f9e25fb0827871ab3f893c94a529d0859',
-    expectedWords: 92,
+    expectedDescriptionHash: 'bba048b2eb8588a1efe75359951ad241b481be5049f56e7d181751fabb543a9f',
+    expectedWords: 95,
   },
   {
     id: 'complete-look-balanced',
-    expectedDescriptionHash: '03d6ea982bb7c76d81be194f76c43b959ba0f37d049d023604f624daca88af75',
-    expectedWords: 55,
+    expectedDescriptionHash: '515e78b0b0e168370692db257fba77a97dc7faa539d9a431ec06cac8632dbb8a',
+    expectedWords: 58,
   },
   {
     id: 'canonical-pose-precise',
-    expectedDescriptionHash: 'ba681136efdf86db3cb441f51558420c66bd5f0ad8346e3705e15f92d99b50e3',
-    expectedWords: 93,
+    expectedDescriptionHash: '9d97788af8548f6897b3ec99ed3265ab501c742f0015865ebcf5fadc40dc91f2',
+    expectedWords: 97,
   },
   {
     id: 'character-card-hd',
-    expectedDescriptionHash: '511fedb11f40cb6c2cd0ba4a99496a6b623744e01cd5fa3278871b3374277758',
-    expectedWords: 120,
+    expectedDescriptionHash: 'cfba3289fd3ca38df51873c4ab18c9652bcf945a41fb2edda22c1101a06865d5',
+    expectedWords: 124,
   },
   {
     id: 'duo-balanced',

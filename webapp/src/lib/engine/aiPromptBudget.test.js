@@ -25,14 +25,14 @@ import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controls = getLockControls();
 const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
-  'normal-separates': 'f67acd64a256e0b7ef385e6a9b009e325e79602485c5e2859aa1685578c3937d',
-  'complete-look-latex': '3404d4f6be69b059502990d4419796afee480c35f8e0a7c3ad26b4117f83a2a1',
-  'complete-look-special': 'f6c5d6f0202251965526784b17a87c05963f06a2f89a75cde284bc92a9b3a1d8',
-  'complete-look-dress': 'ef95c5882b9303d9724ec0f2c257411c6a359a60048aa40f81f0548a78d889cb',
-  'character-card-jiwoo': '0ad31bbd5ff874b5f1fab33ca33d14d1cbbf2be2f8049bad3381f292f100557c',
-  'character-card-sui': '8eed128c59475d3c5a79fe62c4f6df8803fcd9ae1b7f7a61c66a7a82181d8a90',
+  'normal-separates': '43d31f88b75d14a2941d42d681f4b1061e42b42e5fdd88f43f6ef196a6c91f82',
+  'complete-look-latex': '04740bbd87173abf3a4bd3b3ef59a5e8ef460934ee490223228eca8fcd8baf69',
+  'complete-look-special': 'a7039841afd9aab15edb8133f853769b936eabb2b6faf9ea3f8910853f410e4c',
+  'complete-look-dress': 'bd4e169efebce32dac2f6806ee122e0a31199a7fd34d692588815fe21098c571',
+  'character-card-jiwoo': 'ad7495dafee9cb40daf5592d1101b8e2034b097cdf163d60782ee1321d3f937e',
+  'character-card-sui': 'f7d418199d093445bc772f37ce6eaafc29f1ac24ec775bbaf81e5e25aa17d1e8',
   'character-card-half-face-pressure': '059533d4f8a21e77f600d02773ae53248c8a54ee59a04698ba0b9c37f9b3ddd8',
-  'canonical-pose-pressure': '2b880adf50ed784bc40b697d031488b431321d8e159f880041872e45318eeb4e',
+  'canonical-pose-pressure': '7265301187edfa9cda579bf65c6259b70c14c0722e769fb6fab2fa18e1b77dd5',
   'half-face-boundary': '670a27fc44f75f93eff869a4e32952c4e5d247c34c6b3cb4f720195737145331',
   'duo-direct-boundary': 'a2d3ae0df5373935215d7c51f94e21579d9504ec5edc995c7a4f08cd52e8141d',
 });

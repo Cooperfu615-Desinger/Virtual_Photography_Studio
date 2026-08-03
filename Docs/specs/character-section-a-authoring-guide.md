@@ -144,6 +144,8 @@ fit toned athletic female body, healthy firm silhouette, subtle muscle definitio
 - 每個選項只抓 2-3 個臉部氣質，例如 idol、transparent、sweet、cool editorial、seductive alluring、mixed editorial。
 - 可愛選項要避免幼態，中文描述可明確寫「可愛但不幼態」。
 - 不要加入表情、妝容、髮型、鏡頭或光線。
+- 一般單人 AI 會從同一份 resolved selection 保留這個欄位的最短五官主錨點；authoring 不得為了 AI 壓縮另建第二套臉部語意或 renderer 專用 fallback。
+- 若五官來源含有 `small refined face`、`clear bright eyes` 等可視化核心，AI 可保留其中一至兩個片語；不得以 `curvy`、`beautiful woman` 等泛化詞取代。
 
 範例語氣：
 
@@ -212,6 +214,8 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 - 合併過近變體，不為髮尾微小差異新增選項。
 - 不寫髮色，不寫服裝，不寫人物性格。
 - 特殊質地如濕感可以保留，但要是髮型質感，不要變成整體畫面風格。
+- AI 公開 Prompt 的欄位歸屬仍由 Subject 擁有髮型與髮色、C 穿搭設定擁有服裝與配件；跨來源去重應保留一份最具體的來源描述，不得因去重刪除髮型輪廓或服裝主體。
+- 特殊穿搭若明確內含指定髮型，才可作為髮型來源例外；相同髮型不得同時在人物句與服裝句重複輸出。
 
 ### 5.5 髮色
 
@@ -272,6 +276,9 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 - 不描述站姿、坐姿、自拍、拿道具、服裝或場景。
 - 如果只是微笑強弱差異，優先合併，不新增。
 - 視線方向要明確：direct camera、looking away、eyes cast downward、glancing back、eyes closed。
+- 一般單人 AI 不再一律省略已選神情；至少保留一個視線方向與一個表情／嘴型片語，並使用同一份 resolved selection。
+- 若神情與姿勢的頭部方向含有重複視覺資訊，renderer 只能做語意合併，不能把視線與表情兩者同時刪除。
+- 神情來源仍不得偷渡姿勢、服裝或場景；`head naturally facing the camera` 這類頭部方向仍由構圖／姿勢責任決定，必要時只在公開 AI 句中合併一次。
 
 範例語氣：
 

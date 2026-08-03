@@ -8,7 +8,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2DescriptionHash: 'fe5e1bc07ac6e7ea7ba21d04c4ab7f33e002330a0e824ed98200da018a922722',
     phase3DescriptionHash: '32c26bfd9484808a9f930a1338dcbb22880eaa7e20405d1e58791b2acd372444',
     phase4DescriptionHash: '2ff91c2810fe2ea7bfe2f0ed3df4d63153b8920b61b28561e6ccf7e2b7d03779',
-    phase5DescriptionHash: '1bcfd9002d1e91a50ffa2d813cb6ae1f9e25fb0827871ab3f893c94a529d0859',
+    phase5DescriptionHash: 'bba048b2eb8588a1efe75359951ad241b481be5049f56e7d181751fabb543a9f',
   },
   {
     id: 'complete-look-balanced',
@@ -19,7 +19,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2DescriptionHash: 'f1584acded9eb5aefa6eaff67faf9a83a3d724cf1a1681aaba7fc2b55b58c3e5',
     phase3DescriptionHash: 'b5583e36cddaf8fb1a93db7a80e75c5ce6ec990c641686e4fa1a6cc6e9ee623a',
     phase4DescriptionHash: '27d202c7e820d9681ee96f158f065a9891c016931333da42bec06528ff345041',
-    phase5DescriptionHash: '03d6ea982bb7c76d81be194f76c43b959ba0f37d049d023604f624daca88af75',
+    phase5DescriptionHash: '515e78b0b0e168370692db257fba77a97dc7faa539d9a431ec06cac8632dbb8a',
   },
   {
     id: 'canonical-pose-precise',
@@ -30,7 +30,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2DescriptionHash: '7423b5ca695b91e88e20b2337df49a0444c2a15b44cef4f0c14c1ea082ec53bf',
     phase3DescriptionHash: '2e7ce1eddae8384d1fdcc1d78e69531fd508d0d8aee47e6ab0589a5007037571',
     phase4DescriptionHash: '216c391dc7bc618a1e40cfaf2aa0beddae176d1f8cc6fe9798fde790c5149f85',
-    phase5DescriptionHash: 'ba681136efdf86db3cb441f51558420c66bd5f0ad8346e3705e15f92d99b50e3',
+    phase5DescriptionHash: '9d97788af8548f6897b3ec99ed3265ab501c742f0015865ebcf5fadc40dc91f2',
   },
   {
     id: 'character-card-hd',
@@ -41,7 +41,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2DescriptionHash: '13713fde7e18f88b22c98c74b5089b08ebd0addfb7fa1aeaad75b8ad077c2dc8',
     phase3DescriptionHash: '13713fde7e18f88b22c98c74b5089b08ebd0addfb7fa1aeaad75b8ad077c2dc8',
     phase4DescriptionHash: '5b3787d8dc58674009a21a9e3b2ca5a00073a722fabd51c661cf003c35c6d1aa',
-    phase5DescriptionHash: '511fedb11f40cb6c2cd0ba4a99496a6b623744e01cd5fa3278871b3374277758',
+    phase5DescriptionHash: 'cfba3289fd3ca38df51873c4ab18c9652bcf945a41fb2edda22c1101a06865d5',
   },
   {
     id: 'duo-balanced',

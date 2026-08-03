@@ -45,7 +45,7 @@ test('phase 4 uses direct Midjourney scene, lighting, and imaging phrases', () =
 
   assert.match(
     description,
-    /British vintage window-side room interior, white lace curtain and sash window, dresser mirror side table framed paintings wall clock porcelain trinkets\./i
+    /British vintage window-side room interior, white lace curtain and sash window, dresser mirror side table framed paintings wall clock porcelain trinkets, layered nostalgic room surfaces\./i
   );
   assert.match(
     description,

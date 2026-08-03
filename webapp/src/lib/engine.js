@@ -11463,18 +11463,24 @@ function buildAiSingleBodyTypeAnchorText(valuesByLabel, context) {
   return bodyTypeText ? ensureTerminalPeriod(bodyTypeText) : '';
 }
 
-function buildAiSingleHairAnchorText(valuesByLabel, context) {
+function buildAiSingleHairAnchorText(valuesByLabel, context, { compact = false } = {}) {
   if (!shouldUseFixedAiSingleSubjectLead(context)) return '';
   const hairstyleText = firstStructuredValue(valuesByLabel, ['Hairstyle']);
   const hairColorText = firstStructuredValue(valuesByLabel, ['Hair Color']);
-  const compactHairstyle = compactAiMinimalFragment(
+  const hairstyleAnchor = compactAiMinimalFragment(
     compressZImageSingleSubjectText(hairstyleText, context),
-    3
+    compact ? 1 : 3
   );
-  const compactHairColor = compactAiMinimalFragment(
+  const compactHairstyle = compact
+    ? hairstyleAnchor.replace(/^long straight hair with full (.+)$/i, 'straight hair with $1')
+    : hairstyleAnchor;
+  const hairColorAnchor = compactAiMinimalFragment(
     compressZImageSingleSubjectText(hairColorText, context),
     1
   );
+  const compactHairColor = compact
+    ? hairColorAnchor.replace(/^soft black-tea brown hair$/i, 'black-tea brown hair')
+    : hairColorAnchor;
   const compactHairText = [compactHairstyle, compactHairColor]
     .filter((value) => value && !/^none$/i.test(value.trim()))
     .join(', ');
@@ -12481,7 +12487,7 @@ function buildAiCharacterCardAccessoryText(value, context) {
     .join(', ');
 }
 
-function buildAiNormalWardrobeText(valuesByLabel, context) {
+function buildAiNormalWardrobeText(valuesByLabel, context, { majorRoleLimit = 2 } = {}) {
   const outerwear = firstStructuredValue(valuesByLabel, ['Outerwear']);
   const visibleOuterwear = shouldKeepWardrobeRoleForContext('outerwear', context, outerwear)
     ? compactAiGarmentValue(outerwear, 'outerwear')
@@ -12492,13 +12498,19 @@ function buildAiNormalWardrobeText(valuesByLabel, context) {
   ]).join(', ');
 
   const specialOutfit = firstStructuredValue(valuesByLabel, ['Special Outfit']);
-  if (specialOutfit) return withVisibleOuterwear(buildAiCompleteLookCoreText(specialOutfit, context));
+  if (specialOutfit) {
+    return withVisibleOuterwear(buildAiCompleteLookCoreText(specialOutfit, context, { majorRoleLimit }));
+  }
 
   const outfitPreset = firstStructuredValue(valuesByLabel, ['Outfit Preset']);
-  if (outfitPreset) return withVisibleOuterwear(buildAiCompleteLookCoreText(outfitPreset, context));
+  if (outfitPreset) {
+    return withVisibleOuterwear(buildAiCompleteLookCoreText(outfitPreset, context, { majorRoleLimit }));
+  }
 
   const dress = firstStructuredValue(valuesByLabel, ['Dress']);
-  if (dress) return withVisibleOuterwear(buildAiCompleteLookCoreText(dress, context));
+  if (dress) {
+    return withVisibleOuterwear(buildAiCompleteLookCoreText(dress, context, { majorRoleLimit }));
+  }
 
   const roleByLabel = {
     Outerwear: 'outerwear',
@@ -12554,7 +12566,49 @@ function buildAiCharacterCardIdentityText(context, wardrobe) {
   ].filter(Boolean).join(', ');
 }
 
-function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) {
+function buildAiSingleFaceExpressionText(valuesByLabel, context, character) {
+  if (!shouldUseFixedAiSingleSubjectLead(context)) return '';
+
+  const characterSlots = extractCharacterSlots(Array.isArray(character) ? character : []);
+  const facialFeaturesText = characterSlots.facialFeatures && !isNoneLikeItem(characterSlots.facialFeatures)
+    ? characterSlots.facialFeatures.en
+    : firstStructuredValue(valuesByLabel, ['Facial Features']);
+  const expressionText = characterSlots.expression && !isNoneLikeItem(characterSlots.expression)
+    ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)
+    : firstStructuredValue(valuesByLabel, ['Expression']);
+  const facialAnchor = compactAiMinimalFragment(facialFeaturesText, 1);
+  const expressionFragments = splitAiSourceFragments(expressionText)
+    .map((fragment) => fragment.replace(
+      /\b(lips?[^,]*?)\s+with\s+(?:a\s+)?([^,]+(?:smile|grin)[^,]*)$/i,
+      '$1, $2'
+    ));
+  const selectedExpressionFragments = [];
+  const addExpressionFragment = (fragment) => {
+    if (!fragment) return;
+    const normalized = fragment.toLowerCase();
+    if (selectedExpressionFragments.some((existing) => existing.toLowerCase() === normalized)) return;
+    selectedExpressionFragments.push(fragment);
+  };
+
+  [
+    expressionFragments.find((fragment) => /\b(?:looking|gazing|staring|eye contact|eyes?|eye line)\b/i.test(fragment)),
+    expressionFragments.find((fragment) => /\b(?:lips?|mouth|smile|grin|pressed)\b/i.test(fragment)),
+    expressionFragments.find((fragment) => /\b(?:expression|mood|demeanor|playful|relaxed|calm|confident|seductive|joyful|serious|soft|gentle|natural)\b/i.test(fragment)),
+  ].forEach(addExpressionFragment);
+  expressionFragments.slice(0, 3).forEach(addExpressionFragment);
+
+  const compactExpression = selectedExpressionFragments
+    .slice(0, 3)
+    .join(', ')
+    .replace(/\blips gently pressed\b/i, 'pressed lips')
+    .replace(
+      /,\s*([^,]*(?:smile|grin)[^,]*),\s*([^,]*(?:playful|relaxed|calm|confident|gentle|soft)[^,]*)\s+expression\b/i,
+      ', $2 $1'
+    );
+  return [facialAnchor, compactExpression].filter(Boolean).join(', ');
+}
+
+function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, character, { compact = false } = {}) {
   if (isCharacterProfileSubject(context.subject)) {
     return ensureTerminalPeriod(buildAiCharacterCardIdentityText(context, wardrobe));
   }
@@ -12577,16 +12631,18 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) {
     ? buildAiSingleBodyTypeAnchorText(valuesByLabel, context)
     : compactAiBodyTypeAnchorText(firstStructuredValue(valuesByLabel, ['Body Type']));
   const hairText = shouldUseFixedAiSingleSubjectLead(context)
-    ? buildAiSingleHairAnchorText(valuesByLabel, context)
+    ? buildAiSingleHairAnchorText(valuesByLabel, context, { compact })
     : compactAiSourceText([
         firstStructuredValue(valuesByLabel, ['Hairstyle']),
         firstStructuredValue(valuesByLabel, ['Hair Color']),
       ].filter(Boolean).join(', '));
+  const faceExpressionText = buildAiSingleFaceExpressionText(valuesByLabel, context, character);
 
   const subjectText = [
     stripTerminalPromptPunctuation(subjectLead),
     bodyText,
     hairText,
+    faceExpressionText,
     specialPersonText,
     eyewearText,
     headphoneText,
@@ -12597,13 +12653,13 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) {
   return ensureTerminalPeriod(subjectText);
 }
 
-function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) {
+function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe, { compact = false } = {}) {
   const characterCardMode = isCharacterProfileSubject(context.subject);
   const characterCardGroups = characterCardMode
     ? buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe)
     : null;
   const selectedCardFillers = characterCardMode && shouldImportCharacterCardWardrobeLayers(context.locks)
-    ? buildAiNormalWardrobeText(valuesByLabel, context)
+    ? buildAiNormalWardrobeText(valuesByLabel, context, { majorRoleLimit: compact ? 1 : 2 })
     : '';
   const characterCardAccessories = characterCardMode
     ? buildAiCharacterCardAccessoryText(
@@ -12619,7 +12675,7 @@ function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) {
         selectedCardFillers,
         characterCardAccessories,
       ]
-    : [buildAiNormalWardrobeText(valuesByLabel, context)];
+    : [buildAiNormalWardrobeText(valuesByLabel, context, { majorRoleLimit: compact ? 1 : 2 })];
   const wardrobeText = uniqueAiWardrobeValues(wardrobeParts.join(', ').split(/,\s*/)).join(', ');
   const visibleWardrobeText = stripAiUpperCropBoundaryText(wardrobeText, context);
   return visibleWardrobeText ? ensureTerminalPeriod(`Wearing ${dedupeAiLowerCropBoundary(visibleWardrobeText)}`) : '';
@@ -12633,7 +12689,7 @@ function buildAiFreedomPoseSentence(context, character) {
   return ensureTerminalPeriod(stripMarkdown(context.projectedCanonicalPoseText || '').replace(/\s+/g, ' ').trim());
 }
 
-function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 4 } = {}) {
+function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 3 } = {}) {
   if (isFixedCompositionSetActive(context?.fixedCompositionSet)) {
     const fixedScene = AI_FIXED_SET_SCENE_PHRASES[context.fixedCompositionSet?.id] || '';
     return fixedScene ? ensureTerminalPeriod(capitalizePromptLead(compactAiSourceText(fixedScene))) : '';
@@ -12643,13 +12699,24 @@ function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 4 } 
     || context.projectedScene?.locationText
     || firstStructuredValue(valuesByLabel, ['World Scene Architecture'])
     || firstStructuredValue(valuesByLabel, ['Location']);
-  const clauses = splitAiSourceFragments(sceneSource);
-  const conditionPattern = /\b(?:rain|snow|storm|fog|mist|wind|night|dusk|dawn|sunset|sunrise|daylight|overcast|cloudy|golden hour|post-rain|winter|summer|spring|autumn|late-afternoon|early-morning)\b/i;
-  const selected = [];
-  for (const clause of clauses) {
-    if (selected.length < Math.min(3, maxClauses) || conditionPattern.test(clause)) selected.push(clause);
-    if (selected.length >= maxClauses) break;
+  let clauses = splitAiSourceFragments(sceneSource);
+  if (clauses.length < 2 && context.location && !isNoneLikeItem(context.location)) {
+    const sceneMode = context.compositionVisibility?.scene?.mode === 'conciseSource'
+      ? 'conciseSource'
+      : 'compactSource';
+    const projectedLocationFallback = projectSceneSourceText(context.location.en, sceneMode);
+    const fallbackClauses = splitAiSourceFragments(projectedLocationFallback);
+    if (fallbackClauses.length > clauses.length) clauses = fallbackClauses;
   }
+  const conditionPattern = /\b(?:rain|snow|storm|fog|mist|wind|night|dusk|dawn|sunset|sunrise|daylight|overcast|cloudy|golden hour|post-rain|winter|summer|spring|autumn|late-afternoon|early-morning)\b/i;
+  const physicalAnchorPattern = /\b(?:room|bed|cabinet|locker|sink|tiles?|shelf|table|desk|chair|sofa|window|door|wall|floor|counter|bench|curtain|railing|pavement|stair|books?|lamp|fixture|debris|foliage|plants?|trees?)\b/i;
+  const primary = clauses[0] || '';
+  const physicalAnchor = clauses.find((clause, index) => index > 0 && physicalAnchorPattern.test(clause));
+  const condition = clauses.find((clause) => conditionPattern.test(clause));
+  const selected = [primary, physicalAnchor, condition, ...clauses]
+    .filter(Boolean)
+    .filter((clause, index, all) => all.findIndex((item) => item.toLowerCase() === clause.toLowerCase()) === index)
+    .slice(0, maxClauses);
 
   const sceneText = selected.join(', ')
     .replace(/\bThe portrait takes place (?:inside|within) a real-scale [^,]+? set\b/gi, '')
@@ -12745,6 +12812,7 @@ function renderAiPrompt(promptModel, {
   const subjectValuesByLabel = subjectPromptModel.valuesByLabel || valuesByLabel;
   const subjectContext = subjectPromptModel.context || context;
   const subjectWardrobe = subjectPromptModel.wardrobe || wardrobe;
+  const subjectCharacter = subjectPromptModel.character || character;
   const wardrobeValuesByLabel = wardrobePromptModel.valuesByLabel || valuesByLabel;
   const wardrobeContext = wardrobePromptModel.context || context;
   const wardrobeSource = wardrobePromptModel.wardrobe || wardrobe;
@@ -12768,22 +12836,39 @@ function renderAiPrompt(promptModel, {
     maxSceneClauses: 2,
     compactLighting: true,
   });
-  const minimalSceneText = buildAiFreedomSceneWithLightingSentence(sceneValuesByLabel, sceneContext, {
-    maxSceneClauses: 1,
-    compactLighting: true,
-  });
   const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel);
   const compactImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, { compact: true });
+  const fullWardrobeText = buildAiFreedomWardrobeSentence(wardrobeValuesByLabel, wardrobeContext, wardrobeSource);
+  const compactWardrobeText = buildAiFreedomWardrobeSentence(
+    wardrobeValuesByLabel,
+    wardrobeContext,
+    wardrobeSource,
+    { compact: true },
+  );
   const sceneReductions = isCompleteWardrobeProjection(getCompositionVisibilityProjection(sceneContext))
     ? []
-    : [compactSceneText, minimalSceneText];
+    : [compactSceneText];
   const sectionModel = createBudgetedAiPromptSectionModel({
     policyKey,
     sections: [
       { id: 'imageType', text: buildMidjourneyImageTypePromptLine(compositionContext) },
       { id: 'composition', text: ensureTerminalPeriod(buildCompositionPromptLine(compositionContext)) },
-      { id: 'subject', text: buildAiFreedomSubjectSentence(subjectValuesByLabel, subjectContext, subjectWardrobe) },
-      { id: 'wardrobe', text: buildAiFreedomWardrobeSentence(wardrobeValuesByLabel, wardrobeContext, wardrobeSource) },
+      {
+        id: 'subject',
+        text: buildAiFreedomSubjectSentence(subjectValuesByLabel, subjectContext, subjectWardrobe, subjectCharacter),
+        reductions: [buildAiFreedomSubjectSentence(
+          subjectValuesByLabel,
+          subjectContext,
+          subjectWardrobe,
+          subjectCharacter,
+          { compact: true },
+        )],
+      },
+      {
+        id: 'wardrobe',
+        text: fullWardrobeText,
+        reductions: [compactWardrobeText],
+      },
       { id: 'projectedCanonicalPose', text: buildAiFreedomPoseSentence(poseContext, poseCharacter) },
       {
         id: 'scene',
