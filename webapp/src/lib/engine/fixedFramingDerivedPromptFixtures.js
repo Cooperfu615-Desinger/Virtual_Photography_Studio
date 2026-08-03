@@ -34,6 +34,19 @@ export const FIXED_FRAMING_DERIVED_PROMPT_FIXTURES = Object.freeze([
       aspectRatio: '4:5',
       preserveGroups: Object.freeze(['faceIdentity', 'hair', 'chestBody', 'upperWardrobe', 'projectedCanonicalPose', 'compactSourceScene', 'lighting', 'photographyAndImaging']),
       omitWardrobeRoles: Object.freeze(['bottom', 'legwear', 'shoes', 'bag']),
+      mjSemanticReuse: Object.freeze({
+        includeFromMainAi: Object.freeze([
+          'Curvy hourglass silhouette, fuller bust, defined waist, rounded hips',
+          'British vintage window-side room interior',
+          'Orie Ichihashi-inspired transparent natural-light image language',
+          '85mm short telephoto portrait lens',
+        ]),
+        excludeFromChestCrop: Object.freeze([
+          'straight-leg jeans',
+          'white patent leather thigh-high boots',
+          'top hem tucked neatly into the bottoms',
+        ]),
+      }),
       preserveRawLockKeys: Object.freeze(['framingId', 'bodyTypeId', 'topId', 'pantsId', 'poseBaseId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId', 'locationId', 'styleId', 'lensId']),
     }),
   }),

@@ -13,7 +13,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION = 1;
+export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION = 2;
 
 export const FIXED_FRAMING_MAIN_OPTION_POLICY = deepFreeze({
   visible: [
@@ -175,6 +175,14 @@ export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT = deepFreeze({
         owner: 'MIDJOURNEY_PARAMETER_CONTRACT',
         fixedAspectRatio: '4:5',
         inheritFSettings: true,
+      },
+      semanticSourceAlignment: {
+        composition: 'derivedChestUpProjection',
+        normalSubject: 'reuseMainAiPrompt',
+        specialSubject: 'retainCropAwareMjSubjectAnchor',
+        wardrobe: 'derivedChestUpVisibleRoles',
+        pose: 'derivedChestUpProjectedCanonical',
+        sceneLightingImaging: 'reuseMainAiPrompt',
       },
       orderedSections: ['imageType', 'composition', 'subject', 'wardrobe', 'projectedCanonicalPose', 'sceneAndLighting', 'imaging', 'parameterTail'],
       forbiddenSections: ['labels', 'multi-cut sequence n=2'],

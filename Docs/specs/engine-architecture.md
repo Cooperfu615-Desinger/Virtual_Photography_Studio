@@ -223,7 +223,7 @@ Every activated runtime projection must occur once before renderer formatting. G
 
 ### Current active fixed-framing output state (2026-08-01)
 
-The active single-subject PAGE1 output order is `Gpt` (`grokPrompt`), `Grok/Z-Image` (`zImagePrompt`), `AI Prompt` (`midjourneyPrompt`), `胸上特寫照`, `MJ 胸上特寫照`, and `全身角色照`. The structured chest-up output keeps the existing GPT contract and fixed `4:5`; `chest-up-mj-portrait` uses the same resolved chest-up projection and canonical pose, renders one native Midjourney line, and appends the contract-owned F settings with a forced `--ar 4:5`. The retired `facial-closeup-portrait`／`五官特寫照` is excluded from new generation and active consumer lists, while old saved-card entries remain readable through the generic extra-prompt codec.
+The active single-subject PAGE1 output order is `Gpt` (`grokPrompt`), `Grok/Z-Image` (`zImagePrompt`), `AI Prompt` (`midjourneyPrompt`), `胸上特寫照`, `MJ 胸上特寫照`, and `全身角色照`. The structured chest-up output keeps the existing GPT contract and fixed `4:5`; `chest-up-mj-portrait` uses the derived chest-up composition, visible upper wardrobe, and projected canonical pose, while normal single subjects reuse the main AI subject, scene／lighting, and imaging sources. Special subjects retain crop-aware MJ subject anchors. It renders one native Midjourney line and appends the contract-owned F settings with a forced `--ar 4:5`. The retired `facial-closeup-portrait`／`五官特寫照` is excluded from new generation and active consumer lists, while old saved-card entries remain readable through the generic extra-prompt codec.
 
 ### Fixed-framing derived Prompt outputs
 

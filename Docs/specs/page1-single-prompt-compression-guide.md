@@ -135,7 +135,7 @@ Last updated: 2026-08-01
 - `facial-closeup-portrait`／`五官特寫照`：固定 `1:1`。人物採 `faceDetail`，省略 Body Type 與姿勢，但必須保留完整五官、膚質、妝容、髮型、永久身份錨點、頭部／臉部／頸部配件，以及所選上衣、洋裝、套裝、特殊穿搭、外套或 Character Card 的肩部與領口。若所有來源都沒有有效上身服裝，使用正向 fallback `a simple opaque crew-neck top`，不輸出裸體防護或其他負面 guard。保留來源可追溯的精簡場景、光線及攝影成像；後方 orbit 只在派生輸出內改用正面，raw selection 不變。
 - `chest-up-portrait`／`胸上特寫照`：固定 `4:5`。採既有 `chestUp` 投影，保留胸部可見體態、上身服裝、頭部與上半身動作、可見手部／道具、高位支撐和接觸，以及精簡原始場景、光線、攝影風格、鏡頭、光學效果與成像模擬。canonical pose 必須先投影再輸出，不得把畫面外下半身動作重新加入。
 
-目前 active runtime 已移除五官特寫的生成與 consumer 展示；上面的 `facial-closeup-portrait` 定義只作為歷史契約與舊資料語意參照。新增 `chest-up-mj-portrait`／`MJ 胸上特寫照`：固定 `4:5`，沿用完全相同的 `chestUp` body／wardrobe／pose／compact-scene projection，使用原生 MJ 單行順序（image type、composition、subject、wardrobe、projected canonical pose、scene／lighting、imaging），最後附加 F 參數尾段並強制 `--ar 4:5`。F 的 version、Raw、Stylize、Chaos、Weirdness、SD／HD 仍由同一份 selection 繼承；一般結構化胸上與全身輸出不附加 MJ 尾段。舊 Saved Cards 中的五官 extra prompt 仍由通用 codec 保留，不做刪除或改寫。
+目前 active runtime 已移除五官特寫的生成與 consumer 展示；上面的 `facial-closeup-portrait` 定義只作為歷史契約與舊資料語意參照。新增 `chest-up-mj-portrait`／`MJ 胸上特寫照`：固定 `4:5`，使用胸上 body／visible-wardrobe／projected-pose projection；正常單人 subject、scene／lighting／imaging 沿用主 `AI Prompt` 的語意來源，特殊角色則保留既有 crop-aware `mjPromptByBucket` subject anchor。它使用原生 MJ 單行順序（image type、composition、subject、wardrobe、projected canonical pose、scene／lighting、imaging），移除胸上畫面不可見的下身與上身下緣穿法描述，最後附加 F 參數尾段並強制 `--ar 4:5`。F 的 version、Raw、Stylize、Chaos、Weirdness、SD／HD 仍由同一份 selection 繼承；一般結構化胸上與全身輸出不附加 MJ 尾段。舊 Saved Cards 中的五官 extra prompt 仍由通用 codec 保留，不做刪除或改寫。
 
 兩組派生輸出遇到固定構圖場景時，保留固定場景身份與來源 anchor，但移除和指定五官／胸上景別衝突的固定鏡頭距離敘述；這不會修改 `fixedCompositionSetId` 或其他儲存值。既有 `full-body-character` 已在第二階段接入共用架構，並維持原文字、單人限制、完整體態與服裝來源，以及固定 `9:16`。
 
@@ -368,7 +368,7 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 PAGE1 單人輸出固定為 `Gpt`、`Grok/Z-Image`、`AI Prompt`、`胸上特寫照`、`MJ 胸上特寫照`、`全身角色照`。`facial-closeup-portrait`／`五官特寫照` 不再進入新生成結果、Generation Cards 或 DLL Prompt Sources；它的 preset 與相容性 metadata 仍保留，Saved Cards 舊資料中的 extra prompt 仍可讀取、序列化與匯出。
 
-`chest-up-mj-portrait` 是獨立的 native MJ extra output，不會把 MJ labels 或 `multi-cut sequence n=2` 帶入文字。它與一般胸上輸出共享同一 resolved selection、胸上可見性、canonical pose、場景與成像來源；只有外層格式改為單行，並在尾端使用固定 `--ar 4:5`。F 的其他設定由同一份 contract assembler 繼承，因此可與主 `AI` 輸出同步測試，但不會改變 PAGE1 的構圖比例。
+`chest-up-mj-portrait` 是獨立的 native MJ extra output，不會把 MJ labels 或 `multi-cut sequence n=2` 帶入文字。它與一般胸上輸出共享同一 resolved selection、胸上構圖、可見上身服裝與 projected canonical pose；正常單人的人物身份、場景、光線與成像沿用主 `AI` 語意來源，特殊角色保留裁切相容的 MJ subject anchor。只有外層格式改為單行，並在尾端使用固定 `--ar 4:5`。F 的其他設定由同一份 contract assembler 繼承，因此可與主 `AI` 輸出同步測試，但不會改變 PAGE1 的構圖比例。
 
 ## 2. GPT 完整保留與壓縮分流原則
 

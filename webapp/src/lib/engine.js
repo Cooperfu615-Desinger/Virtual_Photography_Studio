@@ -10858,10 +10858,21 @@ function renderFixedFramingDerivedPrompt(promptModel, preset) {
   });
 }
 
-function renderMidjourneyFixedFramingPrompt(promptModel, preset) {
+function renderMidjourneyFixedFramingPrompt(promptModel, preset, semanticSourcePromptModel = null) {
   if (promptModel.context.subject?.count !== 1) return '';
 
-  const description = renderMidjourneyNativeDescription(renderAiPrompt(promptModel));
+  const sourcePromptModel = semanticSourcePromptModel || promptModel;
+  const subjectPromptModel = isDedicatedSpecialSubject(sourcePromptModel.context.subject)
+    ? promptModel
+    : sourcePromptModel;
+  const description = renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {
+    compositionPromptModel: promptModel,
+    subjectPromptModel,
+    wardrobePromptModel: promptModel,
+    posePromptModel: promptModel,
+    scenePromptModel: sourcePromptModel,
+    imagingPromptModel: sourcePromptModel,
+  }));
   return appendMidjourneyParameterTail(description, {
     ...promptModel.context.locks,
     aspectRatio: preset.aspectRatio,
@@ -11721,6 +11732,22 @@ function dedupeAiLowerCropBoundary(value) {
   return source
     .replace(boundaryPattern, (match, offset) => (offset === finalBoundaryIndex ? match : ''))
     .replace(/\s+,/g, ',')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+function stripAiUpperCropBoundaryText(value, context) {
+  const projection = getCompositionVisibilityProjection(context);
+  if (!isUpperCropVisibilityBucket(projection.bucket)) return value;
+
+  return String(value || '')
+    .replace(/\b(?:top|front) hem (?:tucked|tucks)\s+(?:neatly\s+)?into the (?:low-rise\s+)?bottoms?\b/gi, '')
+    .replace(/\btop properly tucked into the low-rise waistband with a natural low-rise proportion\b/gi, '')
+    .replace(/\btop hem (?:overlaps|worn naturally loose over) the (?:low-rise )?waistband(?:, long untucked length covering the abdomen)?\b/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/\s+\./g, '.')
+    .replace(/,\s*\./g, '.')
+    .replace(/^\s*,\s*|\s*,\s*$/g, '')
     .replace(/\s{2,}/g, ' ')
     .trim();
 }
@@ -12594,7 +12621,8 @@ function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) {
       ]
     : [buildAiNormalWardrobeText(valuesByLabel, context)];
   const wardrobeText = uniqueAiWardrobeValues(wardrobeParts.join(', ').split(/,\s*/)).join(', ');
-  return wardrobeText ? ensureTerminalPeriod(`Wearing ${dedupeAiLowerCropBoundary(wardrobeText)}`) : '';
+  const visibleWardrobeText = stripAiUpperCropBoundaryText(wardrobeText, context);
+  return visibleWardrobeText ? ensureTerminalPeriod(`Wearing ${dedupeAiLowerCropBoundary(visibleWardrobeText)}`) : '';
 }
 
 function buildAiFreedomPoseSentence(context, character) {
@@ -12694,7 +12722,14 @@ const AI_LEGACY_SINGLE_RENDERER_HELPERS = [
   buildAiMinimalMoodTail,
 ];
 
-function renderAiPrompt(promptModel) {
+function renderAiPrompt(promptModel, {
+  compositionPromptModel = promptModel,
+  subjectPromptModel = promptModel,
+  wardrobePromptModel = promptModel,
+  posePromptModel = promptModel,
+  scenePromptModel = promptModel,
+  imagingPromptModel = promptModel,
+} = {}) {
   const {
     valuesByLabel,
     context,
@@ -12707,6 +12742,19 @@ function renderAiPrompt(promptModel) {
     return renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors);
   }
 
+  const subjectValuesByLabel = subjectPromptModel.valuesByLabel || valuesByLabel;
+  const subjectContext = subjectPromptModel.context || context;
+  const subjectWardrobe = subjectPromptModel.wardrobe || wardrobe;
+  const wardrobeValuesByLabel = wardrobePromptModel.valuesByLabel || valuesByLabel;
+  const wardrobeContext = wardrobePromptModel.context || context;
+  const wardrobeSource = wardrobePromptModel.wardrobe || wardrobe;
+  const poseContext = posePromptModel.context || context;
+  const poseCharacter = posePromptModel.character || character;
+  const compositionContext = compositionPromptModel.context || context;
+  const sceneValuesByLabel = scenePromptModel.valuesByLabel || valuesByLabel;
+  const sceneContext = scenePromptModel.context || context;
+  const imagingValuesByLabel = imagingPromptModel.valuesByLabel || valuesByLabel;
+
   const policyKey = resolveAiPromptPolicyKey({
     characterCard: isCharacterProfileSubject(context.subject),
     completeLook: Boolean(
@@ -12715,28 +12763,28 @@ function renderAiPrompt(promptModel) {
       || firstStructuredValue(valuesByLabel, ['Dress'])
     ),
   });
-  const fullSceneText = buildAiFreedomSceneWithLightingSentence(valuesByLabel, context);
-  const compactSceneText = buildAiFreedomSceneWithLightingSentence(valuesByLabel, context, {
+  const fullSceneText = buildAiFreedomSceneWithLightingSentence(sceneValuesByLabel, sceneContext);
+  const compactSceneText = buildAiFreedomSceneWithLightingSentence(sceneValuesByLabel, sceneContext, {
     maxSceneClauses: 2,
     compactLighting: true,
   });
-  const minimalSceneText = buildAiFreedomSceneWithLightingSentence(valuesByLabel, context, {
+  const minimalSceneText = buildAiFreedomSceneWithLightingSentence(sceneValuesByLabel, sceneContext, {
     maxSceneClauses: 1,
     compactLighting: true,
   });
-  const fullImagingText = buildAiFreedomImagingSentence(valuesByLabel);
-  const compactImagingText = buildAiFreedomImagingSentence(valuesByLabel, { compact: true });
-  const sceneReductions = isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))
+  const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel);
+  const compactImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, { compact: true });
+  const sceneReductions = isCompleteWardrobeProjection(getCompositionVisibilityProjection(sceneContext))
     ? []
     : [compactSceneText, minimalSceneText];
   const sectionModel = createBudgetedAiPromptSectionModel({
     policyKey,
     sections: [
-      { id: 'imageType', text: buildMidjourneyImageTypePromptLine(context) },
-      { id: 'composition', text: ensureTerminalPeriod(buildCompositionPromptLine(context)) },
-      { id: 'subject', text: buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe) },
-      { id: 'wardrobe', text: buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe) },
-      { id: 'projectedCanonicalPose', text: buildAiFreedomPoseSentence(context, character) },
+      { id: 'imageType', text: buildMidjourneyImageTypePromptLine(compositionContext) },
+      { id: 'composition', text: ensureTerminalPeriod(buildCompositionPromptLine(compositionContext)) },
+      { id: 'subject', text: buildAiFreedomSubjectSentence(subjectValuesByLabel, subjectContext, subjectWardrobe) },
+      { id: 'wardrobe', text: buildAiFreedomWardrobeSentence(wardrobeValuesByLabel, wardrobeContext, wardrobeSource) },
+      { id: 'projectedCanonicalPose', text: buildAiFreedomPoseSentence(poseContext, poseCharacter) },
       {
         id: 'scene',
         text: fullSceneText,
@@ -12857,6 +12905,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   const chestUpMjPortraitPrompt = renderMidjourneyFixedFramingPrompt(
     chestUpMjPortraitPromptModel,
     FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpMjPortrait,
+    promptModel,
   );
   const fullBodyCharacterPrompt = renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
 

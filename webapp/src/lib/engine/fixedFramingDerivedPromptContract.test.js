@@ -42,7 +42,7 @@ function materializeLocks(fixture) {
 }
 
 test('fixed-framing contract is frozen serializable target data and records runtime plus consumer and main framing activation', () => {
-  assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION, 1);
+  assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION, 2);
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimeConnected, true);
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimePhase, 3);
   assert.ok(Object.isFrozen(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT));
@@ -147,6 +147,14 @@ test('phase-1 derived output policies record the legacy face boundary and active
   assert.equal(mjChest.rendererStyle, 'midjourneyNativeSingleBlockWithCanonicalTail');
   assert.equal(mjChest.parameterTail.fixedAspectRatio, '4:5');
   assert.equal(mjChest.parameterTail.inheritFSettings, true);
+  assert.deepEqual(mjChest.semanticSourceAlignment, {
+    composition: 'derivedChestUpProjection',
+    normalSubject: 'reuseMainAiPrompt',
+    specialSubject: 'retainCropAwareMjSubjectAnchor',
+    wardrobe: 'derivedChestUpVisibleRoles',
+    pose: 'derivedChestUpProjectedCanonical',
+    sceneLightingImaging: 'reuseMainAiPrompt',
+  });
 
   for (const output of [face, chest, mjChest]) {
     assert.equal(output.scene.preserveLocationIdentity, true);
