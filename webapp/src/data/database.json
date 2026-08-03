@@ -1973,6 +1973,29 @@
           "referenceImage": "reference/wardrobe/outfit-presets/55_網狀蕾絲馬甲短裙長靴.avif",
           "referenceImageFormat": "avif"
         }
+      },
+      {
+        "zh": "亮面膠帶束帶套裝",
+        "en": "glossy adhesive tape body-wrap set, halter bralette structure, matching high-cut tape bottoms, horizontal and diagonal torso bands, hip and thigh wrap bands, exposed banded cutout construction",
+        "desc": "以亮面膠帶纏繞身體形成掛脖胸衣、高衩膠帶下身與臀腿束帶，保留黏貼式帶狀鏤空結構與連貫的身體束帶輪廓。",
+        "meta": {
+          "series": "signature",
+          "colorMode": "primary",
+          "contrastBehavior": "soft",
+          "lockedOptional": false,
+          "colorTargets": {
+            "primary": [
+              "tape_wrap_structure",
+              "tape_bottoms",
+              "hip_and_thigh_wrap_bands"
+            ],
+            "contrast": [],
+            "locked": []
+          },
+          "referenceImageId": "outfit-presets-056",
+          "referenceImage": "reference/wardrobe/outfit-presets/56_亮面膠帶束帶套裝.avif",
+          "referenceImageFormat": "avif"
+        }
       }
     ],
     "上身 (Tops)": [

@@ -618,6 +618,54 @@ test('outfit preset and dress option labels use unified prefixes without fixed c
   assert.ok(dressControl.options.some((option) => option.zh === '連身：短版｜細肩帶迷你洋裝'));
 });
 
+test('adhesive tape look is a composable outfit preset while the original special outfit remains intact', () => {
+  const preset = optionByLabel('outfitPresetId', '套裝：亮面膠帶束帶');
+  const special = optionByLabel('specialOutfitId', '紅色亮面膠帶束帶造型');
+  assert.match(preset.en, /glossy adhesive tape body-wrap set/);
+  assert.match(preset.en, /halter bralette structure/);
+  assert.match(preset.en, /hip and thigh wrap bands/);
+  assert.doesNotMatch(preset.en, /controlled by the outfit color selection/i);
+  assert.equal(preset.meta?.embeddedOuterwear, undefined);
+
+  const composableLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    outfitPresetId: preset.id,
+    outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '紅色'),
+    outerwearId: optionId('outerwearId', '長版外套'),
+    outerwearOpeningId: optionId('outerwearOpeningId', '敞開穿'),
+    legwearId: optionId('legwearId', '泡泡襪'),
+    shoesId: optionId('shoesId', '戰鬥靴'),
+    headAccessoryId: optionId('headAccessoryId', '棒球帽'),
+    eyewearId: optionId('eyewearId', '矩形眼鏡'),
+    earringsId: optionId('earringsId', '小型金屬耳環'),
+    neckAccessoryId: optionId('neckAccessoryId', '細領帶'),
+  };
+  const [presetPrompt] = generatePrompts(1, composableLocks);
+  const wardrobeLabels = presetPrompt.structured.Wardrobe.map((item) => item.zh);
+
+  assert.equal(presetPrompt.selection.specialOutfitId, '');
+  assert.equal(presetPrompt.selection.outfitPresetId, preset.id);
+  for (const label of ['套裝：亮面膠帶束帶', '長版外套', '泡泡襪', '戰鬥靴', '棒球帽', '矩形眼鏡', '小型金屬耳環', '細領帶']) {
+    assert.ok(wardrobeLabels.includes(label), `Expected composable wardrobe item ${label}`);
+  }
+  assert.match(presetPrompt.grokPrompt, /glossy adhesive tape body-wrap set/);
+  assert.match(presetPrompt.grokPrompt, /tape wrap structure, tape bottoms, and hip and thigh wrap bands in red/);
+  assert.doesNotMatch(presetPrompt.grokPrompt, /complete outfit:/i);
+
+  const [specialPrompt] = generatePrompts(1, {
+    ...composableLocks,
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    outfitPresetPrimaryColorId: '',
+    specialOutfitId: special.id,
+  });
+  assert.equal(specialPrompt.selection.specialOutfitId, special.id);
+  assert.equal(specialPrompt.selection.outfitPresetId, '');
+  assert.match(specialPrompt.grokPrompt, /glossy adhesive tape body-wrap look/);
+  assert.doesNotMatch(specialPrompt.grokPrompt, /baseball cap|long coat|combat boots/i);
+});
+
 test('random complete-look controls resolve to concrete wardrobe selections', () => {
   const fullBodyFramingId = optionId('framingId', '全身鏡頭 (Full Body Shot)');
   const noneOutfitPresetId = optionId('outfitPresetId', '全無');

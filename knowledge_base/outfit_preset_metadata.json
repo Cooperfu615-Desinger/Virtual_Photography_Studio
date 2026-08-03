@@ -466,5 +466,20 @@
         "metal_earrings"
       ]
     }
+  },
+  "亮面膠帶束帶套裝": {
+    "series": "signature",
+    "colorMode": "primary",
+    "contrastBehavior": "soft",
+    "lockedOptional": false,
+    "colorTargets": {
+      "primary": [
+        "tape_wrap_structure",
+        "tape_bottoms",
+        "hip_and_thigh_wrap_bands"
+      ],
+      "contrast": [],
+      "locked": []
+    }
   }
 }
