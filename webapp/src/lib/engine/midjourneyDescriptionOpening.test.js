@@ -47,7 +47,7 @@ test('phase 3 keeps direct image-type openings before the normal subject lead', 
     assert.doesNotMatch(description, /^Create an? /, fixture.id);
     assert.match(
       description,
-      /Waist-up portrait, high angle, looking down, front view\. 20s Japanese or Korean woman, seductive editorial presence/,
+      /Waist-up portrait, high angle, looking down, front view\. A 20s seductive stunning Japanese woman\./,
       `${fixture.id}: composition-to-subject boundary`
     );
   }

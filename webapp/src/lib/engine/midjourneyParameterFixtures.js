@@ -23,7 +23,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     baselineHashes: {
       grokPrompt: 'fbc1ae5e942a98f69ba1fa92ac6306902d04ed820cfbe85a5c31a8b40aaec57d',
       zImagePrompt: 'ed0c0e4fd7295c604562ef385bcbcc78a0a82f14e72829479f47bacdfdbe89be',
-      midjourneyPrompt: '0822fcb1633229020d07ce8d562ce3aca68aa4cb04c383378ced73b07113e18e',
+      midjourneyPrompt: 'a41d2a95f447a01a9e3eb936b8fcf627d7320f0d17c0d1d928ebcac435b03393',
     },
   },
   {
@@ -44,7 +44,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     baselineHashes: {
       grokPrompt: '1a3f761ba9ca8e78a8f9e70bf4b593f77b43f37f2f676b3c6bd1a6d4fa0bfad6',
       zImagePrompt: 'f7da240c395edb28f6f9570489ff2f493db58012560a2959b8a7f23e9fd11ef6',
-      midjourneyPrompt: '27ab498ce73079a8f8181c5e7aa6f33315adbef43424449a104f0f590ef5d71a',
+      midjourneyPrompt: '0c21f04e60f4ecf8eac6fa0ae3a5418e296c1138d9da75d2b37bbf62fd7567aa',
     },
   },
   {
@@ -65,7 +65,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     baselineHashes: {
       grokPrompt: 'e91a70cfbe6c6ffa387983774dfcd9c0d0822baf83f813f34f4bd91c0cb24546',
       zImagePrompt: '8d0550e4fcfad9be2fcb2ba14ec5a689176c0b4b1a78772b1d9159616e2ab230',
-      midjourneyPrompt: '806acf0da437c1d321036fccf35acc058d4f34ad2b4b9a6ec641175e5cf113ed',
+      midjourneyPrompt: '94d7b9c2cd35c6ce8942823fb1b13b115bfd5975d54647f08e9cd8bb4406b1e2',
     },
   },
   {
@@ -128,7 +128,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     baselineHashes: {
       grokPrompt: '2d32cf368fe02d53b64c8c658a2a16d6cd0ff0c8f229721fc80a541331eba636',
       zImagePrompt: 'd614ea5a95ea2c1bdf1ac2653f875bdf1dc6931de6c7da3797cbd6bbab14833b',
-      midjourneyPrompt: 'dd7735da6b489ba50e2c86fde61030d7356ae7172892763649b170898b4fb0e4',
+      midjourneyPrompt: 'becd89ecaf4327317b3c50c0f4adccc1476b15c2e22d4a4770b5f79a157cffab',
     },
   },
   {
@@ -149,7 +149,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     baselineHashes: {
       grokPrompt: '3b67486c4de5fa719b5e591547f1f3693da5be215bd5a699de2c4e2fdfd3ce96',
       zImagePrompt: 'a35e8039443e98f6c596dd047ee7fc9b2ad1b3d8f5b0d4e10a57f172c7f01ee3',
-      midjourneyPrompt: '16edaab8bed4c4427bb194458ea63feac14142d6094a870f586920dca527ce11',
+      midjourneyPrompt: '910c4243d6d227ceb18ef501b580b04b2d5d7c31a1e905bd431b70bf8f417061',
     },
   },
 ]);

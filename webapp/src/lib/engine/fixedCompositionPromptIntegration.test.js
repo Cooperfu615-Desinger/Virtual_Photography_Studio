@@ -12,7 +12,7 @@ const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
 const FIXED_SET_SCENE_ANCHOR = /black velvet sofa/i;
 const Z_IMAGE_SUBJECT_ANCHOR = /A 20s seductive stunning Japanese or Korean woman/i;
-const MIDJOURNEY_SUBJECT_ANCHOR = /20s Japanese or Korean woman, seductive editorial presence/i;
+const MIDJOURNEY_SUBJECT_ANCHOR = /A 20s seductive stunning Japanese woman\./i;
 
 const WARDROBE_CASES = [
   {
