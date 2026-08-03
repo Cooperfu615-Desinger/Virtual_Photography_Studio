@@ -4,25 +4,20 @@ import { test } from 'node:test';
 import { createEmptyLocks, generatePrompts } from './engine.js';
 
 function withFixedRandom(value, callback) {
-  const originalRandom = Math.random;
-  Math.random = () => value;
-  try {
-    return callback();
-  } finally {
-    Math.random = originalRandom;
-  }
+  return callback({ random: () => value });
 }
 
 test('preview reroll excludes the previous pose composer base for explicit random controls', () => {
-  withFixedRandom(0, () => {
+  withFixedRandom(0, ({ random }) => {
     const locks = {
       ...createEmptyLocks(),
       subjectCount: '1',
       framingId: 'camera:framing:full-body-shot',
       poseBaseId: 'random',
     };
-    const [firstPrompt] = generatePrompts(1, locks);
+    const [firstPrompt] = generatePrompts(1, locks, [], { random });
     const [secondPrompt] = generatePrompts(1, locks, [], {
+      random,
       excludePreviousSelection: firstPrompt.selection,
     });
 
@@ -32,15 +27,16 @@ test('preview reroll excludes the previous pose composer base for explicit rando
 });
 
 test('preview reroll excludes the previous outfit preset for explicit random controls', () => {
-  withFixedRandom(0, () => {
+  withFixedRandom(0, ({ random }) => {
     const locks = {
       ...createEmptyLocks(),
       subjectCount: '1',
       framingId: 'camera:framing:full-body-shot',
       outfitPresetId: 'random',
     };
-    const [firstPrompt] = generatePrompts(1, locks);
+    const [firstPrompt] = generatePrompts(1, locks, [], { random });
     const [secondPrompt] = generatePrompts(1, locks, [], {
+      random,
       excludePreviousSelection: firstPrompt.selection,
     });
 
@@ -51,14 +47,15 @@ test('preview reroll excludes the previous outfit preset for explicit random con
 });
 
 test('preview reroll excludes previous unlocked scene camera and character choices', () => {
-  withFixedRandom(0, () => {
+  withFixedRandom(0, ({ random }) => {
     const locks = {
       ...createEmptyLocks(),
       subjectCount: '1',
       framingId: 'camera:framing:full-body-shot',
     };
-    const [firstPrompt] = generatePrompts(1, locks);
+    const [firstPrompt] = generatePrompts(1, locks, [], { random });
     const [secondPrompt] = generatePrompts(1, locks, [], {
+      random,
       excludePreviousSelection: firstPrompt.selection,
     });
 
@@ -71,17 +68,18 @@ test('preview reroll excludes previous unlocked scene camera and character choic
 });
 
 test('preview reroll preserves explicit locks while changing unlocked choices', () => {
-  withFixedRandom(0, () => {
+  withFixedRandom(0, ({ random }) => {
     const locks = {
       ...createEmptyLocks(),
       subjectCount: '1',
       framingId: 'camera:framing:full-body-shot',
     };
-    const [firstPrompt] = generatePrompts(1, locks);
+    const [firstPrompt] = generatePrompts(1, locks, [], { random });
     const [secondPrompt] = generatePrompts(1, {
       ...locks,
       locationId: firstPrompt.selection.locationId,
     }, [], {
+      random,
       excludePreviousSelection: firstPrompt.selection,
     });
 

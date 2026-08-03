@@ -1413,35 +1413,28 @@ test('chest-up framing shares visible pose fragments while Z-Image removes camer
 });
 
 test('AI duo prompt uses compact direct role sentences', () => {
-  const originalRandom = Math.random;
-  Math.random = () => 0.5;
-  let prompt;
-  try {
-    [prompt] = generatePrompts(1, {
-      ...createEmptyLocks(),
-      subjectCount: '2',
-      locationId: optionId('locationId', '戶外：大阪道頓堀心齋橋河道'),
-      outfitPresetAId: optionId('outfitPresetAId', '套裝：白蕾絲長罩衫牛仔褲'),
-      completeLookPaletteAId: optionId('completeLookPaletteAId', '深藍丹寧'),
-      outfitPresetBId: optionId('outfitPresetBId', '套裝：運動外套荷葉七分褲'),
-      completeLookPaletteBId: optionId('completeLookPaletteBId', '銀灰金屬'),
-      duoPoseId: optionId('duoPoseId', '好朋友之間的親密自拍'),
-      duoPoseBaseId: optionId('duoPoseBaseId', '行走中'),
-      framingId: optionId('framingId', '全無'),
-      angleId: optionId('angleId', '全無'),
-      orbitId: optionId('orbitId', '全無'),
-      lensId: optionId('lensId', '全無'),
-      apertureId: optionId('apertureId', 'f/2.0 強背景分離'),
-      shutterId: optionId('shutterId', '全無'),
-      opticalEffectId: optionId('opticalEffectId', '全無'),
-      lightingId: optionId('lightingId', '正午烈日'),
-      lightDirectionId: optionId('lightDirectionId', '頂部照明'),
-      styleId: optionId('styleId', '市橋織江｜透明自然低飽和'),
-      filmId: optionId('filmId', '柯達 Portra 暖膚底片'),
-    });
-  } finally {
-    Math.random = originalRandom;
-  }
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    locationId: optionId('locationId', '戶外：大阪道頓堀心齋橋河道'),
+    outfitPresetAId: optionId('outfitPresetAId', '套裝：白蕾絲長罩衫牛仔褲'),
+    completeLookPaletteAId: optionId('completeLookPaletteAId', '深藍丹寧'),
+    outfitPresetBId: optionId('outfitPresetBId', '套裝：運動外套荷葉七分褲'),
+    completeLookPaletteBId: optionId('completeLookPaletteBId', '銀灰金屬'),
+    duoPoseId: optionId('duoPoseId', '好朋友之間的親密自拍'),
+    duoPoseBaseId: optionId('duoPoseBaseId', '行走中'),
+    framingId: optionId('framingId', '全無'),
+    angleId: optionId('angleId', '全無'),
+    orbitId: optionId('orbitId', '全無'),
+    lensId: optionId('lensId', '全無'),
+    apertureId: optionId('apertureId', 'f/2.0 強背景分離'),
+    shutterId: optionId('shutterId', '全無'),
+    opticalEffectId: optionId('opticalEffectId', '全無'),
+    lightingId: optionId('lightingId', '正午烈日'),
+    lightDirectionId: optionId('lightDirectionId', '頂部照明'),
+    styleId: optionId('styleId', '市橋織江｜透明自然低飽和'),
+    filmId: optionId('filmId', '柯達 Portra 暖膚底片'),
+  }, [], { random: () => 0.5 });
 
   const aiPrompt = prompt.midjourneyPrompt;
   assert.match(aiPrompt, /^Photorealistic editorial portrait\./);
