@@ -28,7 +28,7 @@ export const AI_PROMPT_LENGTH_FIXTURES = Object.freeze([
       shoesId: { byZh: '樂福鞋' },
       shoesColorId: { byZh: '黑色' },
     },
-    requiredFragments: ['blazer', 'a-line mini skirt'],
+    requiredFragments: ['blazer', 'collared shirt', 'a-line mini skirt'],
   },
   {
     id: 'complete-look-latex',
