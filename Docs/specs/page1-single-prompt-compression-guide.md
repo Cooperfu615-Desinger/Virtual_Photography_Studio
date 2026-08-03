@@ -294,7 +294,7 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 本節是 AI／Midjourney 描述優化的產品規範，作用範圍只限歷史公開欄位 `AI` → `midjourneyPrompt`。目前 production renderer 已依本節實作；聚焦 regression fixture 為 `normal-single-ai-compression-source-retention`。
 
 - **共用構圖開頭不可泛化或遺失。** AI 必須直接使用同一份 resolved composition source。以中景、高位俯視、右後為例，公開描述應保留 `Waist-up portrait, high angle, looking down, rear-right three-quarter view.`，不可改寫成泛化的 `medium shot`、`high right-rear angle`，也不可刪除 `looking down` 或 `three-quarter view`。構圖句仍位於人物句之前；半臉構圖句維持既有文字與左右側解析規則，不在本規範中重寫。
-- **一般單人 Subject 必須保留身份與身形 anchor。** 保留直接主體身份句，例如 `20s Japanese or Korean woman, seductive editorial presence`，以及共用 projected body source 的有效片段，例如 `full bust, narrow defined waist, flat abdomen`。AI 可以移除重複美感詞，但不得用 `curvy adult woman` 這類泛化片語取代 resolved identity 或 projected body anchor。
+- **一般單人 Subject 必須保留身份與身形 anchor。** 主 MJ 與 MJ 胸上特寫固定使用 `A 20s seductive stunning Japanese woman.`；其後保留共用 projected body source 的有效片段，例如 `full bust, narrow defined waist, flat abdomen`。AI 可以移除重複美感詞，但不得用 `curvy adult woman` 這類泛化片語取代 resolved identity 或 projected body anchor。此固定句只適用一般單人 MJ；Character Card、特殊角色與雙人模式沿用各自身份契約。
 - **一般單人 AI 新增五官與神情眼神的短版來源投影。** 五官至少保留一個臉型／五官主錨點；神情眼神至少保留一個視線方向與一個表情／嘴型片語。兩者都必須來自同一份 resolved character selection，不得在 renderer 重新抽選、補寫或改變選項語意。若與姿勢的頭部方向重複，只合併成一次可視化描述，不得把兩個來源都刪除。
 - **場景採取來源片段覆蓋，不採任意前 N 截斷。** 優先保留地點身份、代表性實體 anchor，以及必要的時段／天氣／光線條件；可刪除重複空間修飾與內部控制語。不得新增未選擇的景深、模糊、散景或場景物件。
 - **成像採取固定優先級。** 優先保留攝影師／攝影風格身份、鏡頭身份與所選光學效果；`Camera / Film` 的次要解釋最後刪減，但其獨立的 film／rendering identity 若仍是來源 anchor 必須保留。攝影師、鏡頭與光學三者不可因字數壓力被整段移除。
@@ -305,7 +305,7 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 建議的完整單人 AI 形態如下；這是來源保留範例，不是固定字串或新的 fallback：
 
 ```text
-Photorealistic editorial portrait. Waist-up portrait, high angle, looking down, rear-right three-quarter view. 20s Japanese or Korean woman, seductive editorial presence, full bust, narrow defined waist, flat abdomen, mature sensual face, straight hair with Japanese bangs, soft matte black-tea hair, pursed lips holding back a playful laugh, seated in an open confident pose with her head naturally facing the camera, wearing a structured leather waist-cinching corset outfit, inside an abandoned school infirmary with shadowed indoor daylight and venetian-blind striped projection light, Yoshihiko Ueda-inspired quiet natural dark-toned photography, macro lens, foreground occlusion bokeh, cross-processed neon silhouette filter.
+Photorealistic editorial portrait. Waist-up portrait, high angle, looking down, rear-right three-quarter view. A 20s seductive stunning Japanese woman. full bust, narrow defined waist, flat abdomen, mature sensual face, straight hair with Japanese bangs, soft matte black-tea hair, pursed lips holding back a playful laugh, seated in an open confident pose with her head naturally facing the camera, wearing a structured leather waist-cinching corset outfit, inside an abandoned school infirmary with shadowed indoor daylight and venetian-blind striped projection light, Yoshihiko Ueda-inspired quiet natural dark-toned photography, macro lens, foreground occlusion bokeh, cross-processed neon silhouette filter.
 ```
 
 #### Midjourney V8 專屬參數改造（第一階段契約）

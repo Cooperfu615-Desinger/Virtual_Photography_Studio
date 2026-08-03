@@ -89,7 +89,7 @@ const SUBJECT_COUNT_OPTIONS = [
 ];
 
 const FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE = 'A 20s seductive stunning Japanese or Korean woman.';
-const MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD = '20s Japanese or Korean woman, seductive editorial presence';
+const MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD = 'A 20s seductive stunning Japanese woman.';
 
 const IMAGE_TYPE_PRESET_OPTIONS = [
   {
@@ -12639,14 +12639,18 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, charact
   const faceExpressionText = buildAiSingleFaceExpressionText(valuesByLabel, context, character);
 
   const subjectText = [
-    stripTerminalPromptPunctuation(subjectLead),
-    bodyText,
-    hairText,
-    faceExpressionText,
-    specialPersonText,
-    eyewearText,
-    headphoneText,
-  ].filter(Boolean).join(', ')
+    shouldUseFixedAiSingleSubjectLead(context)
+      ? ensureTerminalPeriod(subjectLead)
+      : stripTerminalPromptPunctuation(subjectLead),
+    [
+      bodyText,
+      hairText,
+      faceExpressionText,
+      specialPersonText,
+      eyewearText,
+      headphoneText,
+    ].filter(Boolean).join(', '),
+  ].filter(Boolean).join(shouldUseFixedAiSingleSubjectLead(context) ? ' ' : ', ')
     .replace(/\.\s*,/g, ',')
     .replace(/,\s*\./g, '.')
     .replace(/\s*,\s*,+/g, ', ');

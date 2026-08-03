@@ -97,7 +97,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       midjourneyPrompt: {
         includes: [
           'Waist-up portrait, high angle, looking down, rear-right three-quarter view',
-          '20s Japanese or Korean woman, seductive editorial presence',
+          'A 20s seductive stunning Japanese woman',
           'full bust, narrow defined waist, flat abdomen',
           'young seductive alluring beauty face',
           'looking toward the camera',
@@ -117,7 +117,30 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'blurred foreground occlusion near the lens',
           'neon cross-processed rendering',
         ],
-        excludes: ['complete outfit', 'locked', 'controlled by', 'selection control'],
+        excludes: [
+          '20s Japanese or Korean woman, seductive editorial presence',
+          'complete outfit',
+          'locked',
+          'controlled by',
+          'selection control',
+        ],
+      },
+      chestUpMjPortraitPrompt: {
+        includes: [
+          'Chest-up editorial portrait with the head, both shoulders, upper chest, and neckline clearly visible',
+          'A 20s seductive stunning Japanese woman',
+          'structured opaque leather corset lingerie set',
+          'abandoned school infirmary room',
+          'Yoshihiko Ueda-inspired',
+          'macro lens',
+        ],
+        excludes: [
+          '20s Japanese or Korean woman, seductive editorial presence',
+          'complete outfit',
+          'locked',
+          'controlled by',
+          'selection control',
+        ],
       },
     },
   },
