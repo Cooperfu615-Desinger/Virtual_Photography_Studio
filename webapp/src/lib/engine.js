@@ -12309,15 +12309,35 @@ function extractAiSpecialPersonFragments(value, context = null) {
   return personFragments;
 }
 
-function compactAiGarmentValue(value, preferredRole = '') {
+function compactAiGarmentValue(value, preferredRole = '', primarySource = '') {
   const fragments = splitAiSourceFragments(value);
   const roleFragments = fragments.filter((fragment) => classifyCompleteLookWardrobeFragment(fragment) === preferredRole);
-  const primary = roleFragments.find((fragment) => /\b(?:shorts?|pants|skirts?|jeans|leggings|trousers|bottoms?|tops?|shirt|tee|camisole|jacket|coat|blazer|shoes?|boots?|heels?|pumps?|sandals?|sneakers?|loafers?)\b/i.test(fragment)
+  const primarySourceFragments = splitAiSourceFragments(primarySource);
+  const selectedPrimary = primarySourceFragments.find((fragment) => classifyCompleteLookWardrobeFragment(fragment) === preferredRole)
+    || primarySourceFragments.find((fragment) => classifyCompleteLookWardrobeFragment(fragment))
+    || primarySourceFragments[0]
+    || '';
+  const inferredPrimary = roleFragments.find((fragment) => /\b(?:shorts?|pants|skirts?|jeans|leggings|trousers|bottoms?|tops?|shirt|tee|camisole|jacket|coat|blazer|shoes?|boots?|heels?|pumps?|sandals?|sneakers?|loafers?)\b/i.test(fragment)
       && !/\b(?:waist|hem|fit|tucked|button|zipper|surface|pattern|texture|silhouette|line|cuffs?|sleeves?)\b/i.test(fragment))
     || roleFragments[0]
     || fragments.find((fragment) => classifyCompleteLookWardrobeFragment(fragment))
     || fragments[0]
     || '';
+  const lowerCropBoundary = fragments.some((fragment) => /\bat the lower crop edge\b/i.test(fragment))
+    && !/\bat the lower crop edge\b/i.test(selectedPrimary)
+    ? ' at the lower crop edge'
+    : '';
+  const normalizedSelectedPrimary = selectedPrimary.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const normalizedInferredPrimary = inferredPrimary.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const inferredKeepsSelectedPrimary = normalizedSelectedPrimary
+    && normalizedInferredPrimary
+    && (
+      normalizedInferredPrimary.includes(normalizedSelectedPrimary)
+      || normalizedSelectedPrimary.includes(normalizedInferredPrimary)
+    );
+  const primary = selectedPrimary && !inferredKeepsSelectedPrimary
+    ? `${selectedPrimary}${lowerCropBoundary}`
+    : inferredPrimary;
   const structuralDetail = fragments.find((fragment) => /\b(?:neckline|flare|pleated|ruffled|slit|hem|boning|lace trim|garter|cut-out|open shoulder|high-cut|wide-leg|straight-leg)\b/i.test(fragment) && fragment !== primary) || '';
   return [primary, structuralDetail].filter(Boolean).join(', ');
 }
@@ -12487,10 +12507,27 @@ function buildAiCharacterCardAccessoryText(value, context) {
     .join(', ');
 }
 
-function buildAiNormalWardrobeText(valuesByLabel, context, { majorRoleLimit = 2 } = {}) {
+function buildAiNormalWardrobeText(
+  valuesByLabel,
+  context,
+  wardrobe,
+  wardrobeColors,
+  { majorRoleLimit = 2 } = {}
+) {
+  const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
+  const primarySourceByLabel = wardrobeSlots
+    ? {
+        Outerwear: buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors?.outerwearColor),
+        Top: buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors?.topColor),
+        Pants: buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors?.bottomColor),
+        Skirt: buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors?.bottomColor),
+        Legwear: buildColoredGrokPrompt(wardrobeSlots.legwear, wardrobeColors?.legwearColor),
+        Shoes: buildColoredGrokPrompt(wardrobeSlots.shoes, wardrobeColors?.shoesColor),
+      }
+    : {};
   const outerwear = firstStructuredValue(valuesByLabel, ['Outerwear']);
   const visibleOuterwear = shouldKeepWardrobeRoleForContext('outerwear', context, outerwear)
-    ? compactAiGarmentValue(outerwear, 'outerwear')
+    ? compactAiGarmentValue(outerwear, 'outerwear', primarySourceByLabel.Outerwear)
     : '';
   const withVisibleOuterwear = (mainWardrobe) => uniqueAiWardrobeValues([
     visibleOuterwear,
@@ -12524,7 +12561,7 @@ function buildAiNormalWardrobeText(valuesByLabel, context, { majorRoleLimit = 2 
     .map(([label, role]) => {
       const value = firstStructuredValue(valuesByLabel, [label]);
       return shouldKeepWardrobeRoleForContext(role, context, value)
-        ? compactAiGarmentValue(value, role)
+        ? compactAiGarmentValue(value, role, primarySourceByLabel[label])
         : '';
     })
     .filter(Boolean)
@@ -12657,13 +12694,25 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, charact
   return ensureTerminalPeriod(subjectText);
 }
 
-function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe, { compact = false } = {}) {
+function buildAiFreedomWardrobeSentence(
+  valuesByLabel,
+  context,
+  wardrobe,
+  wardrobeColors,
+  { compact = false } = {}
+) {
   const characterCardMode = isCharacterProfileSubject(context.subject);
   const characterCardGroups = characterCardMode
     ? buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe)
     : null;
   const selectedCardFillers = characterCardMode && shouldImportCharacterCardWardrobeLayers(context.locks)
-    ? buildAiNormalWardrobeText(valuesByLabel, context, { majorRoleLimit: compact ? 1 : 2 })
+    ? buildAiNormalWardrobeText(
+        valuesByLabel,
+        context,
+        wardrobe,
+        wardrobeColors,
+        { majorRoleLimit: compact ? 1 : 2 }
+      )
     : '';
   const characterCardAccessories = characterCardMode
     ? buildAiCharacterCardAccessoryText(
@@ -12679,7 +12728,13 @@ function buildAiFreedomWardrobeSentence(valuesByLabel, context, wardrobe, { comp
         selectedCardFillers,
         characterCardAccessories,
       ]
-    : [buildAiNormalWardrobeText(valuesByLabel, context, { majorRoleLimit: compact ? 1 : 2 })];
+    : [buildAiNormalWardrobeText(
+        valuesByLabel,
+        context,
+        wardrobe,
+        wardrobeColors,
+        { majorRoleLimit: compact ? 1 : 2 }
+      )];
   const wardrobeText = uniqueAiWardrobeValues(wardrobeParts.join(', ').split(/,\s*/)).join(', ');
   const visibleWardrobeText = stripAiUpperCropBoundaryText(wardrobeText, context);
   return visibleWardrobeText ? ensureTerminalPeriod(`Wearing ${dedupeAiLowerCropBoundary(visibleWardrobeText)}`) : '';
@@ -12820,6 +12875,7 @@ function renderAiPrompt(promptModel, {
   const wardrobeValuesByLabel = wardrobePromptModel.valuesByLabel || valuesByLabel;
   const wardrobeContext = wardrobePromptModel.context || context;
   const wardrobeSource = wardrobePromptModel.wardrobe || wardrobe;
+  const wardrobeColorSource = wardrobePromptModel.wardrobeColors || wardrobeColors;
   const poseContext = posePromptModel.context || context;
   const poseCharacter = posePromptModel.character || character;
   const compositionContext = compositionPromptModel.context || context;
@@ -12842,11 +12898,17 @@ function renderAiPrompt(promptModel, {
   });
   const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel);
   const compactImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, { compact: true });
-  const fullWardrobeText = buildAiFreedomWardrobeSentence(wardrobeValuesByLabel, wardrobeContext, wardrobeSource);
+  const fullWardrobeText = buildAiFreedomWardrobeSentence(
+    wardrobeValuesByLabel,
+    wardrobeContext,
+    wardrobeSource,
+    wardrobeColorSource,
+  );
   const compactWardrobeText = buildAiFreedomWardrobeSentence(
     wardrobeValuesByLabel,
     wardrobeContext,
     wardrobeSource,
+    wardrobeColorSource,
     { compact: true },
   );
   const sceneReductions = isCompleteWardrobeProjection(getCompositionVisibilityProjection(sceneContext))

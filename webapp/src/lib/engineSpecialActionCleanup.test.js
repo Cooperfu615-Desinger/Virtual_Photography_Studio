@@ -148,21 +148,15 @@ test('pose composer prop actions enter prompt output through posePropId', () => 
 });
 
 test('pose composer lower-body hand actions keep random framing wide enough', () => {
-  const originalRandom = Math.random;
-  Math.random = () => 0;
-  try {
-    const [prompt] = generatePrompts(1, {
-      ...createEmptyLocks(),
-      poseHandId: optionByLabel('poseHandId', '整理下身').id,
-    });
-    const framing = getLockControls()
-      .find((control) => control.key === 'framingId')
-      .options.find((option) => option.id === prompt.selection.framingId);
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    poseHandId: optionByLabel('poseHandId', '整理下身').id,
+  }, [], { random: () => 0 });
+  const framing = getLockControls()
+    .find((control) => control.key === 'framingId')
+    .options.find((option) => option.id === prompt.selection.framingId);
 
-    assert.ok(['full', 'wide'].includes(framing.meta.visibility));
-  } finally {
-    Math.random = originalRandom;
-  }
+  assert.ok(['full', 'wide'].includes(framing.meta.visibility));
 });
 
 test('wall and pillow legacy actions have pose composer body arrangements and anchors', () => {

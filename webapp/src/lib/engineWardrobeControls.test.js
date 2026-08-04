@@ -402,31 +402,24 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
 });
 
 test('duo random separates avoid duplicated top color styling', () => {
-  const originalRandom = Math.random;
-  Math.random = () => 0;
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    topAId: optionId('topAId', '棉質細肩背心'),
+    topBId: optionId('topBId', '襯衫'),
+    pantsAId: optionId('pantsAId', '直筒牛仔褲'),
+    pantsBId: optionId('pantsBId', '絲絨喇叭褲'),
+  }, [], { random: () => 0 });
 
-  try {
-    const [prompt] = generatePrompts(1, {
-      ...createEmptyLocks(),
-      subjectCount: '2',
-      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
-      topAId: optionId('topAId', '棉質細肩背心'),
-      topBId: optionId('topBId', '襯衫'),
-      pantsAId: optionId('pantsAId', '直筒牛仔褲'),
-      pantsBId: optionId('pantsBId', '絲絨喇叭褲'),
-    });
+  assert.ok(prompt.selection.topAColorId);
+  assert.ok(prompt.selection.topBColorId);
+  assert.notEqual(prompt.selection.topAColorId, prompt.selection.topBColorId);
 
-    assert.ok(prompt.selection.topAColorId);
-    assert.ok(prompt.selection.topBColorId);
-    assert.notEqual(prompt.selection.topAColorId, prompt.selection.topBColorId);
-
-    const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
-    assert.match(promptText, /Woman 1:\n(?:Has [\s\S]*?\. )?Wears black cotton camisole top/i);
-    assert.match(promptText, /Woman 2:\n(?:Has [\s\S]*?\. )?Wears white shirt/i);
-    assert.doesNotMatch(promptText, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors/i);
-  } finally {
-    Math.random = originalRandom;
-  }
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
+  assert.match(promptText, /Woman 1:\n(?:Has [\s\S]*?\. )?Wears black cotton camisole top/i);
+  assert.match(promptText, /Woman 2:\n(?:Has [\s\S]*?\. )?Wears white shirt/i);
+  assert.doesNotMatch(promptText, /coordinated but clearly distinct outfits|avoid identical garment colors|avoid matching top colors/i);
 });
 
 test('special top and bottom palette controls include the new color-card pairings', () => {
@@ -670,41 +663,36 @@ test('random complete-look controls resolve to concrete wardrobe selections', ()
   const fullBodyFramingId = optionId('framingId', '全身鏡頭 (Full Body Shot)');
   const noneOutfitPresetId = optionId('outfitPresetId', '全無');
   const noneDressId = optionId('dressId', '全無');
-  const originalRandom = Math.random;
-  Math.random = () => 0;
+  const random = () => 0;
 
-  try {
-    const [specialPrompt] = generatePrompts(1, {
-      ...createEmptyLocks(),
-      framingId: fullBodyFramingId,
-      specialOutfitId: 'random',
-    });
-    assert.ok(specialPrompt.selection.specialOutfitId);
-    assert.notEqual(specialPrompt.selection.specialOutfitId, 'random');
-    assert.doesNotMatch(specialPrompt.grokPrompt, /random special outfit/i);
+  const [specialPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
+    specialOutfitId: 'random',
+  }, [], { random });
+  assert.ok(specialPrompt.selection.specialOutfitId);
+  assert.notEqual(specialPrompt.selection.specialOutfitId, 'random');
+  assert.doesNotMatch(specialPrompt.grokPrompt, /random special outfit/i);
 
-    const [outfitPrompt] = generatePrompts(1, {
-      ...createEmptyLocks(),
-      framingId: fullBodyFramingId,
-      outfitPresetId: 'random',
-      dressId: noneDressId,
-    });
-    assert.ok(outfitPrompt.selection.outfitPresetId);
-    assert.notEqual(outfitPrompt.selection.outfitPresetId, 'random');
-    assert.doesNotMatch(outfitPrompt.grokPrompt, /random outfit preset/i);
+  const [outfitPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
+    outfitPresetId: 'random',
+    dressId: noneDressId,
+  }, [], { random });
+  assert.ok(outfitPrompt.selection.outfitPresetId);
+  assert.notEqual(outfitPrompt.selection.outfitPresetId, 'random');
+  assert.doesNotMatch(outfitPrompt.grokPrompt, /random outfit preset/i);
 
-    const [dressPrompt] = generatePrompts(1, {
-      ...createEmptyLocks(),
-      framingId: fullBodyFramingId,
-      outfitPresetId: noneOutfitPresetId,
-      dressId: 'random',
-    });
-    assert.ok(dressPrompt.selection.dressId);
-    assert.notEqual(dressPrompt.selection.dressId, 'random');
-    assert.doesNotMatch(dressPrompt.grokPrompt, /random dress/i);
-  } finally {
-    Math.random = originalRandom;
-  }
+  const [dressPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: fullBodyFramingId,
+    outfitPresetId: noneOutfitPresetId,
+    dressId: 'random',
+  }, [], { random });
+  assert.ok(dressPrompt.selection.dressId);
+  assert.notEqual(dressPrompt.selection.dressId, 'random');
+  assert.doesNotMatch(dressPrompt.grokPrompt, /random dress/i);
 });
 
 test('bath towel outfit preset and sheer cover-up outerwear preserve requested garment structure', () => {

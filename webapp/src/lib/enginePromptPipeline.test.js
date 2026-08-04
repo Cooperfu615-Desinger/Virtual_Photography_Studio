@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
+import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from './engine.js';
 
 function optionId(controlKey, zh) {
   const control = getLockControls().find((entry) => entry.key === controlKey);
@@ -1100,9 +1100,10 @@ test('Grok/Z-Image prompt remains natural language with blank-line paragraphs an
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
     lightingId: optionId('lightingId', '晴朗白日'),
     lightDirectionId: optionId('lightDirectionId', '側向柔光'),
+    styleId: optionId('styleId', '上田義彥｜靜默自然暗調'),
     lensId: optionId('lensId', '50mm 標準鏡頭 (Standard)'),
     filmId: optionId('filmId', '富士 Provia 清透明亮'),
-  });
+  }, [], { random: createSeededRandom('prompt-structure-natural-language') });
 
   assert.match(prompt.zImagePrompt, /^Create a photorealistic editorial portrait\./);
   assert.match(prompt.zImagePrompt, /\n\nA 20s seductive stunning Japanese or Korean woman(?:\.| with)/);
@@ -1413,35 +1414,28 @@ test('chest-up framing shares visible pose fragments while Z-Image removes camer
 });
 
 test('AI duo prompt uses compact direct role sentences', () => {
-  const originalRandom = Math.random;
-  Math.random = () => 0.5;
-  let prompt;
-  try {
-    [prompt] = generatePrompts(1, {
-      ...createEmptyLocks(),
-      subjectCount: '2',
-      locationId: optionId('locationId', '戶外：大阪道頓堀心齋橋河道'),
-      outfitPresetAId: optionId('outfitPresetAId', '套裝：白蕾絲長罩衫牛仔褲'),
-      completeLookPaletteAId: optionId('completeLookPaletteAId', '深藍丹寧'),
-      outfitPresetBId: optionId('outfitPresetBId', '套裝：運動外套荷葉七分褲'),
-      completeLookPaletteBId: optionId('completeLookPaletteBId', '銀灰金屬'),
-      duoPoseId: optionId('duoPoseId', '好朋友之間的親密自拍'),
-      duoPoseBaseId: optionId('duoPoseBaseId', '行走中'),
-      framingId: optionId('framingId', '全無'),
-      angleId: optionId('angleId', '全無'),
-      orbitId: optionId('orbitId', '全無'),
-      lensId: optionId('lensId', '全無'),
-      apertureId: optionId('apertureId', 'f/2.0 強背景分離'),
-      shutterId: optionId('shutterId', '全無'),
-      opticalEffectId: optionId('opticalEffectId', '全無'),
-      lightingId: optionId('lightingId', '正午烈日'),
-      lightDirectionId: optionId('lightDirectionId', '頂部照明'),
-      styleId: optionId('styleId', '市橋織江｜透明自然低飽和'),
-      filmId: optionId('filmId', '柯達 Portra 暖膚底片'),
-    });
-  } finally {
-    Math.random = originalRandom;
-  }
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    locationId: optionId('locationId', '戶外：大阪道頓堀心齋橋河道'),
+    outfitPresetAId: optionId('outfitPresetAId', '套裝：白蕾絲長罩衫牛仔褲'),
+    completeLookPaletteAId: optionId('completeLookPaletteAId', '深藍丹寧'),
+    outfitPresetBId: optionId('outfitPresetBId', '套裝：運動外套荷葉七分褲'),
+    completeLookPaletteBId: optionId('completeLookPaletteBId', '銀灰金屬'),
+    duoPoseId: optionId('duoPoseId', '好朋友之間的親密自拍'),
+    duoPoseBaseId: optionId('duoPoseBaseId', '行走中'),
+    framingId: optionId('framingId', '全無'),
+    angleId: optionId('angleId', '全無'),
+    orbitId: optionId('orbitId', '全無'),
+    lensId: optionId('lensId', '全無'),
+    apertureId: optionId('apertureId', 'f/2.0 強背景分離'),
+    shutterId: optionId('shutterId', '全無'),
+    opticalEffectId: optionId('opticalEffectId', '全無'),
+    lightingId: optionId('lightingId', '正午烈日'),
+    lightDirectionId: optionId('lightDirectionId', '頂部照明'),
+    styleId: optionId('styleId', '市橋織江｜透明自然低飽和'),
+    filmId: optionId('filmId', '柯達 Portra 暖膚底片'),
+  }, [], { random: () => 0.5 });
 
   const aiPrompt = prompt.midjourneyPrompt;
   assert.match(aiPrompt, /^Photorealistic editorial portrait\./);
@@ -1523,7 +1517,7 @@ test('AI prompt keeps the first complete dress phrase without structural dress d
   assert.doesNotMatch(prompt.midjourneyPrompt, /wearing a mini dress|bodycon silhouette|plunging neckline|open shoulder line|short hem/i);
 });
 
-test('AI prompt keeps two-piece outfit preset garments while omitting palette colors', () => {
+test('AI prompt keeps two-piece outfit preset identities when soft-max removes secondary details', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     outfitPresetId: optionId('outfitPresetId', '套裝：開扣長袖襯衫包臀裙'),
@@ -1532,9 +1526,11 @@ test('AI prompt keeps two-piece outfit preset garments while omitting palette co
     topBottomPaletteId: optionId('topBottomPaletteId', '白色 × 黑色'),
     framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
     poseId: optionId('poseId', '坐姿｜微微前傾'),
-  });
+  }, [], { random: createSeededRandom('ci-two-piece-16') });
 
-  assert.match(prompt.midjourneyPrompt, /Wearing [^.]*tight long-sleeve button-up shirt, tight bodycon mini skirt, smooth hip-hugging skirt silhouette at the lower crop edge/i);
+  assert.match(prompt.midjourneyPrompt, /Wearing [^.]*tight long-sleeve button-up shirt/i);
+  assert.match(prompt.midjourneyPrompt, /Wearing [^.]*tight bodycon mini skirt/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /smooth hip-hugging skirt silhouette/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /wearing a (?:white|black) tight long-sleeve button-up shirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /tight long-sleeve button-up shirt and (?:white|black) bodycon mini skirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /coordinated top-to-bottom palette|upper\/main garment|lower or secondary garment/i);
@@ -1597,8 +1593,8 @@ test('face-only prompts keep close-up composition when wardrobe is visibility-fi
   assert.doesNotMatch(prompt.midjourneyPrompt, /[\u3400-\u9fff]/);
 });
 
-test('AI prompt converts recognizable separate pieces into a style shorthand', () => {
-  const [prompt] = generatePrompts(1, {
+test('AI prompt keeps selected separate garment identities ahead of fit and pattern details', () => {
+  const locks = {
     ...createEmptyLocks(),
     outfitPresetId: optionId('outfitPresetId', '全無'),
     dressId: optionId('dressId', '全無'),
@@ -1608,10 +1604,24 @@ test('AI prompt converts recognizable separate pieces into a style shorthand', (
     outerwearId: optionId('outerwearId', '全無'),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
-  });
+  };
+  const [patternPressurePrompt] = generatePrompts(
+    1,
+    locks,
+    [],
+    { random: createSeededRandom('ci-separates-218') },
+  );
+  const [fitPressurePrompt] = generatePrompts(
+    1,
+    locks,
+    [],
+    { random: createSeededRandom('ci-separates-152') },
+  );
 
-  assert.match(prompt.midjourneyPrompt, /Wearing [^\n]*triangle bikini top[\s\S]*(?:denim shorts|denim)/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /slim halter strings|minimal sliding triangle cups|compact fitted seat/i);
+  for (const prompt of [patternPressurePrompt, fitPressurePrompt]) {
+    assert.match(prompt.midjourneyPrompt, /Wearing [^\n]*triangle bikini top[\s\S]*denim shorts/i);
+    assert.doesNotMatch(prompt.midjourneyPrompt, /slim halter strings|minimal sliding triangle cups|compact fitted seat/i);
+  }
 });
 
 test('AI prompt keeps top and bottom garments for arbitrary separates', () => {
@@ -1776,7 +1786,7 @@ test('AI prompt uses simplified X-prompt wardrobe wording for representative loo
   assert.doesNotMatch(dressPrompt.midjourneyPrompt, /delicate lace trim|short hem|one-piece|[\u3400-\u9fff]/i);
 });
 
-test('AI prompt keeps a compact imaging simulation cue', () => {
+test('AI prompt keeps imaging identity when soft-max removes secondary simulation cues', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
@@ -1784,13 +1794,10 @@ test('AI prompt keeps a compact imaging simulation cue', () => {
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
     filmId: optionId('filmId', '高銳利快照黑位'),
-  });
+  }, [], { random: createSeededRandom('ci-imaging-8') });
 
-  assert.match(
-    prompt.midjourneyPrompt,
-    /high-acutance snapshot rendering, snap-focus clarity/i
-  );
-  assert.doesNotMatch(prompt.midjourneyPrompt, /crisp APS-C-like color response|candid compact-camera texture/i);
+  assert.match(prompt.midjourneyPrompt, /high-acutance snapshot rendering/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /snap-focus clarity|crisp APS-C-like color response|candid compact-camera texture/i);
 });
 
 test('none selections stay silent across all final prompt outputs', () => {

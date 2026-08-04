@@ -25,7 +25,7 @@ import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controls = getLockControls();
 const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
-  'normal-separates': '3dfb64b2751b458180945ec5378aae7ab579cd81e36515f99bdc235fcd7523a3',
+  'normal-separates': 'fb5b078e9d7c848b6c4aac06fb64128594b35e18ad681a7955335aed4bf5fdfd',
   'complete-look-latex': '40afb4e1a5e5f724584862d67f7162c8894a7cacb3f27a427dc2b7d051607d58',
   'complete-look-special': '2af5c5dd105f568eaddfd3179f15797181e48fd0f50ee356a18ffbd58bdaace1',
   'complete-look-dress': '41fabc40fd05cf5a9280cc65552a1c36fc0a3e796749d8a10d685c14c2c30c1f',
