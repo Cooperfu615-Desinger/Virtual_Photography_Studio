@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
+import { getCharacterCardOptions } from './characterCardLab.js';
 
 const PRIMARY_OUTPUT_KEYS = ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'];
 
@@ -285,6 +286,56 @@ test('selected character-card wardrobe and accessories appear once in GPT and Gr
     for (const phrase of testCase.phrases) {
       assert.equal(countMatches(prompt.grokPrompt, phrase), 1, `${testCase.characterProfileId} GPT duplicate: ${phrase}`);
       assert.equal(countMatches(prompt.zImagePrompt, phrase), 1, `${testCase.characterProfileId} Grok/Z-Image duplicate: ${phrase}`);
+    }
+  }
+});
+
+test('AI character-card wardrobe keeps complete selected layer text without a compact duplicate list', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    characterProfileId: 'character-48g',
+    characterCardWardrobeMode: 'selected-layers',
+    characterCardWardrobeLayerIds: ['outerwear', 'top', 'bottom', 'shoes', 'waistAccessory'],
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  });
+
+  const completeLayerPhrases = [
+    /taupe-gray cropped hooded zip jacket worn open with the hood usually worn up framing the hair/gi,
+    /black lace bralette neckline/gi,
+    /low-rise faded blue denim mini skirt worn unbuttoned with the zipper slightly pulled down and visible thin-strap black lace thong waistband underneath/gi,
+    /black lace-up ankle boots with glossy rounded toes/gi,
+    /small off-white shoulder bag with thin black strap/gi,
+  ];
+
+  for (const phrase of completeLayerPhrases) {
+    assert.equal(countMatches(prompt.midjourneyPrompt, phrase), 1, `AI duplicate: ${phrase}`);
+  }
+  assert.doesNotMatch(
+    prompt.midjourneyPrompt,
+    /Wearing black lace bralette neckline, low-rise faded blue denim mini skirt, black lace-up ankle boots,/i,
+    'AI should not prepend the compact duplicate list before the complete card wardrobe'
+  );
+});
+
+test('AI full-default character cards emit every effective wardrobe layer once', () => {
+  const cards = getCharacterCardOptions(getLockControls());
+  const fullBodyFramingId = optionId('framingId', '全身鏡頭 (Full Body Shot)');
+
+  for (const card of cards) {
+    const [prompt] = generatePrompts(1, {
+      ...createAllNoneLocks(),
+      characterProfileId: card.id,
+      characterCardWardrobeMode: 'full-default',
+      framingId: fullBodyFramingId,
+    });
+
+    for (const layer of Object.values(card.defaultWardrobeLayers || {})) {
+      const escaped = layer.prompt.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      assert.equal(
+        countMatches(prompt.midjourneyPrompt, new RegExp(escaped, 'gi')),
+        1,
+        `${card.id} AI wardrobe layer should appear once: ${layer.prompt}`
+      );
     }
   }
 });

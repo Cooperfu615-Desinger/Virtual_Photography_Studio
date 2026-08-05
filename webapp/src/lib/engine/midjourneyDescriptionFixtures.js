@@ -41,7 +41,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2DescriptionHash: '13713fde7e18f88b22c98c74b5089b08ebd0addfb7fa1aeaad75b8ad077c2dc8',
     phase3DescriptionHash: '13713fde7e18f88b22c98c74b5089b08ebd0addfb7fa1aeaad75b8ad077c2dc8',
     phase4DescriptionHash: '5b3787d8dc58674009a21a9e3b2ca5a00073a722fabd51c661cf003c35c6d1aa',
-    phase5DescriptionHash: 'cfba3289fd3ca38df51873c4ab18c9652bcf945a41fb2edda22c1101a06865d5',
+    phase5DescriptionHash: 'e93cc457b295a65f3650074d4f775225f3597c23e778f6923860ff09c44ac5c9',
   },
   {
     id: 'duo-balanced',

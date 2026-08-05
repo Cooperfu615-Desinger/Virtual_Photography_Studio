@@ -23,8 +23,8 @@ export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   },
   {
     id: 'character-card-hd',
-    expectedDescriptionHash: 'cfba3289fd3ca38df51873c4ab18c9652bcf945a41fb2edda22c1101a06865d5',
-    expectedWords: 124,
+    expectedDescriptionHash: 'e93cc457b295a65f3650074d4f775225f3597c23e778f6923860ff09c44ac5c9',
+    expectedWords: 140,
   },
   {
     id: 'duo-balanced',

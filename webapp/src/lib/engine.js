@@ -26,6 +26,10 @@ import {
   resolveAiPromptPolicyKey,
 } from './engine/aiPromptBudget.js';
 import {
+  AI_PROMPT_LENGTH_CONTRACT,
+  countAiPromptWords,
+} from './engine/aiPromptLengthContract.js';
+import {
   dedupeRepeatedCommaFragments,
   materializeOutfitColorControls,
 } from './engine/promptTextDeduplication.js';
@@ -12540,7 +12544,7 @@ function buildAiCompleteLookCoreText(
   ].filter(Boolean).join(', ');
 }
 
-function compactAiCharacterCardHairText(baseHair, variantHair = '') {
+function compactAiCharacterCardHairText(baseHair, variantHair = '', { compact = false } = {}) {
   const guardPattern = /\b(?:never|avoid|do not|must not|locked|controlled by)\b/i;
   const baseFragments = splitAiSourceFragments(baseHair).filter((fragment) => !guardPattern.test(fragment));
   const signatureStreak = compactAiSourceText(baseHair).match(
@@ -12557,8 +12561,14 @@ function compactAiCharacterCardHairText(baseHair, variantHair = '') {
       .trim())
     .filter(Boolean);
 
+  const compactBaseFragments = baseFragments
+    .slice(0, compact ? 1 : 2)
+    .map((fragment) => compact
+      ? fragment.replace(/\s+(?:falling|flowing|cascading|extending|reaching)\b.*$/i, '').trim()
+      : fragment);
+
   return uniqueAiWardrobeValues([
-    ...baseFragments.slice(0, 2),
+    ...compactBaseFragments,
     signatureStreak,
     dominantBase,
     ...variantFragments,
@@ -12575,18 +12585,8 @@ function compactAiCharacterCardMakeupText(value) {
   return compactAiMinimalFragment(value, 1).split(/\s+and\s+/i)[0].trim();
 }
 
-function compactAiCharacterCardGarmentFragment(value) {
-  const source = compactAiSourceText(value);
-  return source.match(
-    /^.*?\b(?:catsuit|bodysuit|dress|gown|shirt|(?<!-)top|tee|camisole|bra|corset|jacket|coat|blazer|cardigan|robe|skirt|shorts|pants|jeans|trousers|briefs|stockings|tights|socks|boots|shoes|heels|pumps|sandals|sneakers|loafers|bag|pouch|hat|cap|glasses|earrings|necklace|choker|pendant|bracelet|ring)\b/i
-  )?.[0] || compactAiCompleteLookFragment(source);
-}
-
 function buildAiCharacterCardOutfitCoreText(value, context = null) {
-  return buildAiCompleteLookCoreText(value, context, {
-    majorRoleLimit: 1,
-    fragmentCompactor: compactAiCharacterCardGarmentFragment,
-  });
+  return filterCompleteLookPromptForFraming(value, context);
 }
 
 function buildAiCharacterCardAccessoryText(value, context) {
@@ -12662,7 +12662,7 @@ function buildAiNormalWardrobeText(
     .join(', ');
 }
 
-function buildAiCharacterCardIdentityText(context, wardrobe) {
+function buildAiCharacterCardIdentityText(context, wardrobe, { compact = false } = {}) {
   const groups = buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe);
   const detailedFace = [
     groups.facialGeometry,
@@ -12675,15 +12675,18 @@ function buildAiCharacterCardIdentityText(context, wardrobe) {
   const identityText = [
     faceText,
     compactAiCharacterCardSkinText(groups.skinSignature),
-    compactAiCharacterCardMakeupText(groups.makeup),
-    groups.body,
+    compact ? '' : compactAiCharacterCardMakeupText(groups.makeup),
+    compact
+      ? compactAiMinimalFragment(groups.body, 1).replace(/\s+with\s+.*$/i, '').trim()
+      : groups.body,
   ].filter(Boolean).join(', ');
   const fallbackIdentityText = identityText
     ? identityText
     : groups.identityAndBody;
   const hairText = compactAiCharacterCardHairText(
     groups.hair,
-    buildCharacterCardHairVariantText(context.subject, context.locks)
+    buildCharacterCardHairVariantText(context.subject, context.locks),
+    { compact }
   );
   const eyewearText = splitAiSourceFragments(groups.accessories)
     .filter((fragment) => /\b(?:glasses|eyeglasses|sunglasses|headphones?|earphones?)\b/i.test(fragment))
@@ -12695,6 +12698,124 @@ function buildAiCharacterCardIdentityText(context, wardrobe) {
     hairText,
     eyewearText,
   ].filter(Boolean).join(', ');
+}
+
+function normalizeAiCharacterCardSource(value) {
+  return stripMarkdown(value || '')
+    .replace(/[.!?]+$/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
+
+function removeCharacterCardWardrobeValues(valuesByLabel, context, wardrobe) {
+  if (!(valuesByLabel instanceof Map)) return valuesByLabel;
+
+  const cardLayerLabels = {
+    outerwear: ['Outerwear'],
+    dress: ['Dress'],
+    top: ['Top'],
+    bottom: ['Pants', 'Skirt'],
+    legwear: ['Legwear'],
+    shoes: ['Shoes'],
+  };
+  const ownedLabels = new Set(
+    (wardrobe || [])
+      .filter((item) => item?.meta?.characterCardLayer)
+      .flatMap((item) => cardLayerLabels[item.meta.characterCardLayer] || [])
+  );
+  const cardSources = new Set(
+    getCharacterCardWardrobeSourceTexts(context.subject, context.locks, wardrobe)
+      .map(normalizeAiCharacterCardSource)
+      .filter(Boolean)
+  );
+  if (cardSources.size === 0 && ownedLabels.size === 0) return valuesByLabel;
+
+  return new Map(
+    [...valuesByLabel.entries()]
+      .filter(([label]) => !ownedLabels.has(label))
+      .map(([label, values]) => [
+        label,
+        (values || []).filter((value) => !cardSources.has(normalizeAiCharacterCardSource(value))),
+      ])
+      .filter(([, values]) => values.length > 0)
+  );
+}
+
+const AI_CHARACTER_CARD_OUTFIT_LAYERS = new Set([
+  'outerwear',
+  'dress',
+  'top',
+  'bottom',
+  'legwear',
+  'shoes',
+]);
+
+const AI_CHARACTER_CARD_ACCESSORY_LAYERS = new Set([
+  'headAccessory',
+  'eyewear',
+  'earrings',
+  'neckAccessory',
+  'wristAccessory',
+  'ring',
+  'waistAccessory',
+]);
+
+function getAiCharacterCardLayerSources(context, wardrobe) {
+  if (!isCharacterProfileSubject(context?.subject)) return [];
+
+  const card = getRuntimeCharacterCards().find((entry) => entry.id === context.subject.id);
+  if (!card) return [];
+
+  const variant = getCharacterCardVariantFromLocks({
+    ...(context.locks || {}),
+    characterProfileId: context.subject.id,
+  });
+  const layerMap = getEffectiveCharacterCardWardrobeLayers(card, variant);
+  const included = new Set(
+    shouldImportCharacterCardWardrobeLayers(context.locks)
+      ? variant.includedWardrobeLayers || []
+      : Object.keys(layerMap)
+  );
+  const importedSourceByLayer = new Map(
+    (wardrobe || [])
+      .filter((item) => item?.meta?.characterCardLayer)
+      .map((item) => [item.meta.characterCardLayer, item.en])
+  );
+
+  return [
+    'outerwear',
+    'dress',
+    'top',
+    'bottom',
+    'legwear',
+    'shoes',
+    'headAccessory',
+    'eyewear',
+    'earrings',
+    'neckAccessory',
+    'wristAccessory',
+    'ring',
+    'waistAccessory',
+  ]
+    .filter((key) => included.has(key) && layerMap[key])
+    .map((key) => ({
+      key,
+      source: importedSourceByLayer.get(key) || layerMap[key].prompt,
+    }))
+    .filter((entry) => entry.source);
+}
+
+function buildAiCharacterCardPage1AccessoryText(context, wardrobe) {
+  if (!Array.isArray(wardrobe)) return '';
+  const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  return buildSubjectAccessoryPrompt({
+    eyewear: isCharacterCardLayerSlot(wardrobeSlots.eyewear) ? null : wardrobeSlots.eyewear,
+    eyewearColor: wardrobeSlots.eyewearColor,
+    eyewearPlacement: wardrobeSlots.eyewearPlacement,
+    earrings: isCharacterCardLayerSlot(wardrobeSlots.earrings) ? null : wardrobeSlots.earrings,
+    neckAccessory: isCharacterCardLayerSlot(wardrobeSlots.neckAccessory) ? null : wardrobeSlots.neckAccessory,
+  });
 }
 
 function buildAiSingleFaceExpressionText(valuesByLabel, context, character) {
@@ -12741,7 +12862,7 @@ function buildAiSingleFaceExpressionText(valuesByLabel, context, character) {
 
 function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, character, { compact = false } = {}) {
   if (isCharacterProfileSubject(context.subject)) {
-    return ensureTerminalPeriod(buildAiCharacterCardIdentityText(context, wardrobe));
+    return ensureTerminalPeriod(buildAiCharacterCardIdentityText(context, wardrobe, { compact }));
   }
 
   const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
@@ -12799,18 +12920,50 @@ function buildAiFreedomWardrobeSentence(
   const characterCardGroups = characterCardMode
     ? buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe)
     : null;
+  const characterCardLayerSources = characterCardMode
+    ? getAiCharacterCardLayerSources(context, wardrobe)
+    : [];
+  const page1Wardrobe = characterCardMode && Array.isArray(wardrobe)
+    ? wardrobe.filter((item) => !item?.meta?.characterCardLayer)
+    : wardrobe;
+  const page1ValuesByLabel = characterCardMode
+    ? removeCharacterCardWardrobeValues(valuesByLabel, context, wardrobe)
+    : valuesByLabel;
+  const cardOutfitSourceText = characterCardMode
+    ? characterCardLayerSources
+      .filter((entry) => AI_CHARACTER_CARD_OUTFIT_LAYERS.has(entry.key))
+      .map((entry) => entry.source)
+      .concat(
+        characterCardLayerSources.some((entry) => AI_CHARACTER_CARD_OUTFIT_LAYERS.has(entry.key))
+          ? []
+          : [characterCardGroups.outfit]
+      )
+      .filter(Boolean)
+      .join(', ')
+    : '';
+  const cardOutfitText = cardOutfitSourceText
+    ? buildAiCharacterCardOutfitCoreText(cardOutfitSourceText, context)
+    : '';
   const selectedCardFillers = characterCardMode && shouldImportCharacterCardWardrobeLayers(context.locks)
     ? buildAiNormalWardrobeText(
-        valuesByLabel,
+        page1ValuesByLabel,
         context,
-        wardrobe,
+        page1Wardrobe,
         wardrobeColors,
         { majorRoleLimit: compact ? 1 : 2 }
       )
     : '';
   const characterCardAccessories = characterCardMode
     ? buildAiCharacterCardAccessoryText(
-        splitAiSourceFragments(characterCardGroups.accessories)
+        [
+          ...characterCardLayerSources
+            .filter((entry) => AI_CHARACTER_CARD_ACCESSORY_LAYERS.has(entry.key))
+            .map((entry) => entry.source),
+          buildAiCharacterCardPage1AccessoryText(context, wardrobe),
+        ]
+          .filter(Boolean)
+          .join(', ')
+          .split(', ')
           .filter((fragment) => !/\b(?:glasses|eyeglasses|sunglasses|headphones?|earphones?)\b/i.test(fragment))
           .join(', '),
         context
@@ -12818,7 +12971,7 @@ function buildAiFreedomWardrobeSentence(
     : '';
   const wardrobeParts = characterCardMode
     ? [
-        characterCardGroups.outfit ? buildAiCharacterCardOutfitCoreText(characterCardGroups.outfit, context) : '',
+        cardOutfitText,
         selectedCardFillers,
         characterCardAccessories,
       ]
@@ -12911,7 +13064,7 @@ function buildAiFreedomSceneWithLightingSentence(
   return `${scene} ${lightingSentence}`;
 }
 
-function buildAiFreedomImagingSentence(valuesByLabel, { compact = false } = {}) {
+function buildAiFreedomImagingSentence(valuesByLabel, { compact = false, characterCard = false } = {}) {
   const styleText = firstStructuredValue(valuesByLabel, ['Photography Style']);
   const style = (
     styleText.match(/Inspired by [^.]+? image language/i)?.[0]
@@ -12919,7 +13072,7 @@ function buildAiFreedomImagingSentence(valuesByLabel, { compact = false } = {}) 
   ).replace(/^Inspired by ([^,]+),\s*/i, '$1-inspired ');
   const lens = compactPromptClauses(
     firstStructuredValue(valuesByLabel, ['Lens']),
-    compact ? 1 : 2
+    compact && !characterCard ? 1 : 2
   ).replace(/^shot on\s+/i, '');
   const parts = [
     style,
@@ -12991,7 +13144,10 @@ function renderAiPrompt(promptModel, {
     compactLighting: true,
   });
   const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel);
-  const compactImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, { compact: true });
+  const compactImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, {
+    compact: true,
+    characterCard: policyKey === 'characterCard',
+  });
   const fullWardrobeText = buildAiFreedomWardrobeSentence(
     wardrobeValuesByLabel,
     wardrobeContext,
@@ -13006,42 +13162,71 @@ function renderAiPrompt(promptModel, {
     { compact: true },
   );
   const sceneReductions = isCompleteWardrobeProjection(getCompositionVisibilityProjection(sceneContext))
+    && policyKey !== 'characterCard'
     ? []
     : [compactSceneText];
-  const sectionModel = createBudgetedAiPromptSectionModel({
+  const fullSubjectText = buildAiFreedomSubjectSentence(
+    subjectValuesByLabel,
+    subjectContext,
+    subjectWardrobe,
+    subjectCharacter,
+  );
+  const compactSubjectText = buildAiFreedomSubjectSentence(
+    subjectValuesByLabel,
+    subjectContext,
+    subjectWardrobe,
+    subjectCharacter,
+    { compact: true },
+  );
+  const sectionDefinitions = [
+    { id: 'imageType', text: buildMidjourneyImageTypePromptLine(compositionContext) },
+    { id: 'composition', text: ensureTerminalPeriod(buildCompositionPromptLine(compositionContext)) },
+    {
+      id: 'subject',
+      text: fullSubjectText,
+      reductions: [compactSubjectText],
+    },
+    {
+      id: 'wardrobe',
+      text: fullWardrobeText,
+      reductions: [compactWardrobeText],
+    },
+    { id: 'projectedCanonicalPose', text: buildAiFreedomPoseSentence(poseContext, poseCharacter) },
+    {
+      id: 'scene',
+      text: fullSceneText,
+      reductions: sceneReductions,
+    },
+    {
+      id: 'imaging',
+      text: fullImagingText,
+      reductions: [compactImagingText],
+    },
+  ];
+  let sectionModel = createBudgetedAiPromptSectionModel({
     policyKey,
-    sections: [
-      { id: 'imageType', text: buildMidjourneyImageTypePromptLine(compositionContext) },
-      { id: 'composition', text: ensureTerminalPeriod(buildCompositionPromptLine(compositionContext)) },
-      {
-        id: 'subject',
-        text: buildAiFreedomSubjectSentence(subjectValuesByLabel, subjectContext, subjectWardrobe, subjectCharacter),
-        reductions: [buildAiFreedomSubjectSentence(
-          subjectValuesByLabel,
-          subjectContext,
-          subjectWardrobe,
-          subjectCharacter,
-          { compact: true },
-        )],
-      },
-      {
-        id: 'wardrobe',
-        text: fullWardrobeText,
-        reductions: [compactWardrobeText],
-      },
-      { id: 'projectedCanonicalPose', text: buildAiFreedomPoseSentence(poseContext, poseCharacter) },
-      {
-        id: 'scene',
-        text: fullSceneText,
-        reductions: sceneReductions,
-      },
-      {
-        id: 'imaging',
-        text: fullImagingText,
-        reductions: [compactImagingText],
-      },
-    ],
+    sections: sectionDefinitions,
   });
+  if (policyKey === 'characterCard' && compactSubjectText !== fullSubjectText) {
+    const nativeDescriptionWordCount = countAiPromptWords(
+      renderMidjourneyNativeDescription(renderAiPromptSectionModel(sectionModel))
+    );
+    if (
+      nativeDescriptionWordCount > AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords
+      || sectionModel.measurement.totalWords > AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords - 10
+    ) {
+      sectionModel = createBudgetedAiPromptSectionModel({
+        policyKey,
+        sections: sectionDefinitions.map((section) => {
+          if (section.id === 'subject') return { ...section, text: compactSubjectText, reductions: [] };
+          if (section.id === 'scene') return { ...section, text: compactSceneText, reductions: [] };
+          if (section.id === 'imaging') return { ...section, text: compactImagingText, reductions: [] };
+          if (section.id === 'wardrobe') return { ...section, text: fullWardrobeText, reductions: [] };
+          return section;
+        }),
+      });
+    }
+  }
   return renderAiPromptSectionModel(sectionModel);
 }
 
