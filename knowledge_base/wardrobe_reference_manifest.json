@@ -884,6 +884,24 @@
           "name": "亮面膠帶束帶套裝",
           "source": "56_亮面膠帶束帶套裝.png",
           "preview": "56_亮面膠帶束帶套裝.avif"
+        },
+        {
+          "id": "outfit-presets-057",
+          "name": "Spider-Man Cosplay 緊身衣",
+          "source": "57_Spider-Man_Cosplay.png",
+          "preview": "57_Spider-Man_Cosplay.avif"
+        },
+        {
+          "id": "outfit-presets-058",
+          "name": "Venom Cosplay 緊身衣",
+          "source": "58_Venom_Cosplay.png",
+          "preview": "58_Venom_Cosplay.avif"
+        },
+        {
+          "id": "outfit-presets-059",
+          "name": "Spider-Gwen Cosplay 緊身衣",
+          "source": "59_Spider-Gwen_Cosplay.png",
+          "preview": "59_Spider-Gwen_Cosplay.avif"
         }
       ]
     },

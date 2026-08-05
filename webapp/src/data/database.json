@@ -1996,6 +1996,36 @@
           "referenceImage": "reference/wardrobe/outfit-presets/56_亮面膠帶束帶套裝.avif",
           "referenceImageFormat": "avif"
         }
+      },
+      {
+        "zh": "Spider-Man Cosplay 緊身衣",
+        "en": "Spider-Man cosplay bodysuit, a full-body skin-tight suit covering the torso, arms, hands, legs, and feet, vivid red-and-blue color blocking, a clearly visible raised three-dimensional web pattern across the entire suit, sculpted spider emblem on the chest, unmasked face",
+        "desc": "Cosplay 風格全身緊身衣，從軀幹、手臂、手部、腿部完整延伸至腳部；採鮮明紅藍配色，整件衣服有清楚的立體凸起蜘蛛網紋路與胸前蜘蛛標誌。人物臉孔保持露出，不戴頭套或面具。",
+        "meta": {
+          "referenceImageId": "outfit-presets-057",
+          "referenceImage": "reference/wardrobe/outfit-presets/57_Spider-Man_Cosplay.avif",
+          "referenceImageFormat": "avif"
+        }
+      },
+      {
+        "zh": "Venom Cosplay 緊身衣",
+        "en": "Venom cosplay bodysuit, a full-body skin-tight black suit covering the torso, arms, hands, legs, and feet, wet-look glossy surface with smooth liquid-like highlights, subtle organic symbiote texture, bold white spider emblem across the chest and shoulders, unmasked face",
+        "desc": "Cosplay 風格全身黑色緊身衣，從軀幹、手臂、手部、腿部完整包覆至腳部；材質呈濕潤光滑的高亮液態質感，帶細微有機共生體紋理，胸口與肩部延伸白色蜘蛛標誌。人物臉孔保持露出，不戴頭套或面具。",
+        "meta": {
+          "referenceImageId": "outfit-presets-058",
+          "referenceImage": "reference/wardrobe/outfit-presets/58_Venom_Cosplay.avif",
+          "referenceImageFormat": "avif"
+        }
+      },
+      {
+        "zh": "Spider-Gwen Cosplay 緊身衣",
+        "en": "Spider-Gwen cosplay bodysuit, a full-body skin-tight white, black, and pink suit covering the torso, arms, hands, legs, and feet, integrated hood resting behind the head, pink web-patterned hood lining, clean black-and-white color blocking, stylized spider emblem on the chest, face uncovered",
+        "desc": "Cosplay 風格全身白、黑、粉色緊身衣，從軀幹、手臂、手部、腿部完整延伸至腳部；服裝附有連身帽，帽子自然落在頭部後方，露出粉色蜘蛛網帽裡，並保留乾淨的黑白拼色與胸前蜘蛛標誌。人物臉孔保持露出，不戴面具。",
+        "meta": {
+          "referenceImageId": "outfit-presets-059",
+          "referenceImage": "reference/wardrobe/outfit-presets/59_Spider-Gwen_Cosplay.avif",
+          "referenceImageFormat": "avif"
+        }
       }
     ],
     "上身 (Tops)": [

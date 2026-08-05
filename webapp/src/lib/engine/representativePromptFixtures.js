@@ -643,6 +643,102 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'spider-man-cosplay-outfit-preset',
+    title: 'Spider-Man cosplay outfit preset preserves full-body coverage and raised web texture',
+    mode: 'single',
+    seed: 'prompt-contract-spider-man-cosplay-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '套裝：Spider-Man Cosplay 緊身衣' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: [
+          'Spider-Man cosplay bodysuit',
+          'full-body skin-tight suit covering the torso, arms, hands, legs, and feet',
+          'raised three-dimensional web pattern',
+          'sculpted spider emblem on the chest',
+          'unmasked face',
+        ],
+      },
+      zImagePrompt: {
+        includes: ['Spider-Man cosplay bodysuit', 'hands', 'feet', 'raised three-dimensional web pattern', 'unmasked face'],
+      },
+      midjourneyPrompt: {
+        includes: ['Spider-Man cosplay bodysuit'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['Spider-Man cosplay bodysuit', 'hands', 'feet', 'unmasked face'],
+      },
+    },
+  },
+  {
+    id: 'venom-cosplay-outfit-preset',
+    title: 'Venom cosplay outfit preset preserves wet glossy material and full-body coverage',
+    mode: 'single',
+    seed: 'prompt-contract-venom-cosplay-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '套裝：Venom Cosplay 緊身衣' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: [
+          'Venom cosplay bodysuit',
+          'full-body skin-tight black suit covering the torso, arms, hands, legs, and feet',
+          'wet-look glossy surface with smooth liquid-like highlights',
+          'subtle organic symbiote texture',
+          'unmasked face',
+        ],
+      },
+      zImagePrompt: {
+        includes: ['Venom cosplay bodysuit', 'wet-look glossy surface', 'smooth liquid-like highlights', 'unmasked face'],
+      },
+      midjourneyPrompt: {
+        includes: ['Venom cosplay bodysuit'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['Venom cosplay bodysuit', 'wet-look glossy surface', 'unmasked face'],
+      },
+    },
+  },
+  {
+    id: 'spider-gwen-cosplay-outfit-preset',
+    title: 'Spider-Gwen cosplay outfit preset preserves the lowered hood and uncovered face',
+    mode: 'single',
+    seed: 'prompt-contract-spider-gwen-cosplay-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '套裝：Spider-Gwen Cosplay 緊身衣' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: [
+          'Spider-Gwen cosplay bodysuit',
+          'full-body skin-tight white, black, and pink suit covering the torso, arms, hands, legs, and feet',
+          'integrated hood resting behind the head',
+          'pink web-patterned hood lining',
+          'face uncovered',
+        ],
+      },
+      zImagePrompt: {
+        includes: ['Spider-Gwen cosplay bodysuit', 'integrated hood resting behind the head', 'face uncovered'],
+      },
+      midjourneyPrompt: {
+        includes: ['Spider-Gwen cosplay bodysuit'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['Spider-Gwen cosplay bodysuit', 'integrated hood resting behind the head', 'face uncovered'],
+      },
+    },
+  },
+  {
     id: 'full-body-reference',
     title: 'Full-body reference restores wardrobe hidden by a chest-up crop',
     mode: 'single',
