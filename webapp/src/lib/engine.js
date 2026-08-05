@@ -7102,6 +7102,93 @@ function isCharacterCardLayerSlot(item, key = '') {
   return key ? item.meta.characterCardLayer === key : true;
 }
 
+function stripCharacterCardWardrobeText(value, wardrobe) {
+  const sourceText = String(value || '').replace(/\s+/g, ' ').trim();
+  if (!sourceText || !Array.isArray(wardrobe)) return sourceText;
+
+  const cardLayerSources = [...new Set(
+    wardrobe
+      .filter((item) => item?.meta?.characterCardLayer)
+      .map((item) => stripMarkdown(item.en || '').replace(/\s+/g, ' ').trim())
+      .filter(Boolean)
+  )].sort((left, right) => right.length - left.length);
+  if (cardLayerSources.length === 0) return sourceText;
+
+  const lead = sourceText.match(/^She wears\b/i)?.[0] || '';
+  let output = lead ? sourceText.slice(lead.length).trim() : sourceText;
+  for (const source of cardLayerSources) {
+    output = output.replace(new RegExp(escapeRegExpPattern(source), 'gi'), ' ');
+  }
+
+  output = output
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .replace(/\.{2,}/g, '.')
+    .replace(/(?:^|,\s*)(?:layered over|worn over|paired with)\s*(?=,|\.|$)/gi, '')
+    .replace(/(?:,\s*)?(?:layered over|worn over|paired with)\s*$/gi, '')
+    .replace(/\s+\./g, '.')
+    .replace(/\s+/g, ' ')
+    .replace(/^\s*[,.;:]\s*|\s*[,.;:]\s*$/g, '')
+    .trim();
+
+  return output ? (lead ? `${lead} ${output}` : output) : '';
+}
+
+function getCharacterCardWardrobeSourceTexts(subject, locks = {}, wardrobe = null) {
+  if (!isCharacterProfileSubject(subject)) return [];
+
+  const card = getRuntimeCharacterCards().find((entry) => entry.id === subject.id);
+  if (!card) return [];
+
+  const variant = getCharacterCardVariantFromLocks({ ...(locks || {}), characterProfileId: subject.id });
+  const layerMap = getEffectiveCharacterCardWardrobeLayers(card, variant);
+  const layerKeys = shouldImportCharacterCardWardrobeLayers(locks)
+    ? variant.includedWardrobeLayers
+    : Object.keys(layerMap);
+  const sourceTexts = layerKeys
+    .map((key) => layerMap[key]?.prompt)
+    .filter(Boolean);
+
+  const importedSourceTexts = Array.isArray(wardrobe)
+    ? wardrobe
+        .filter((item) => item?.meta?.characterCardLayer)
+        .map((item) => item.en)
+        .filter(Boolean)
+    : [];
+
+  return [...new Set([...sourceTexts, ...importedSourceTexts]
+    .map((source) => stripMarkdown(source).replace(/\s+/g, ' ').trim())
+    .filter(Boolean))]
+    .sort((left, right) => right.length - left.length);
+}
+
+function dedupeCharacterCardWardrobeSources(value, sources = []) {
+  let output = String(value || '').replace(/\s+/g, ' ').trim();
+  const seen = new Set();
+  for (const source of sources) {
+    const variants = [...new Set([
+      source,
+      source.replace(/^signature\s+/i, ''),
+    ].filter(Boolean))];
+    for (const variant of variants) {
+      output = output.replace(new RegExp(escapeRegExpPattern(variant), 'gi'), (match) => {
+        const key = variant.toLowerCase();
+        if (seen.has(key)) return '';
+        seen.add(key);
+        return match;
+      });
+    }
+  }
+
+  return output
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .replace(/\bsignature outfit locked as,\s*/gi, 'signature outfit locked as ')
+    .replace(/\s+([,.])/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function buildWardrobeColors(wardrobeSlots, locks, random = Math.random) {
   const hasOutfitPreset = Boolean(
     (wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)) ||
@@ -10602,6 +10689,12 @@ function renderGptPrompt(promptModel, {
       )
     : { hairAndBodyText: '', wardrobeText: '' };
   if (fallbackSingleSpecialOutfitText) singleSpecialOutfitGroups.wardrobeText = '';
+  const rendererWardrobeText = !useRoleOrderedDuo
+    && !characterProfileWardrobeSection
+    && isCharacterProfileSubject(context.subject)
+    && shouldImportCharacterCardWardrobeLayers(context.locks)
+    ? stripCharacterCardWardrobeText(wardrobeText, wardrobe).replace(/^[,.;:]\s*/, '')
+    : wardrobeText;
   let resolvedSubjectText = useRoleOrderedDuo
     ? buildGptDuoSubjectText(context, duoCharacterSlots, duoWardrobeSlots, wardrobeColors)
     : singleCharacterProfileSubjectBlock
@@ -10621,7 +10714,7 @@ function renderGptPrompt(promptModel, {
     ? wardrobeText
     : singleSpecialOutfitWardrobeBlock
     ? singleSpecialOutfitWardrobeBlock
-    : buildGptSingleFullFidelityWardrobeText(wardrobeText)
+    : buildGptSingleFullFidelityWardrobeText(rendererWardrobeText)
       || (characterProfileWardrobeSection
         ? filterCompleteLookPromptForFraming(singleCharacterProfileGroups?.outfit, context)
         : '')
@@ -10936,14 +11029,13 @@ function renderZImagePrompt(promptModel) {
   };
   const buildCharacterText = () => {
     if (characterProfileMode) {
-      const subjectAccessoryText = buildSubjectAccessoryPrompt({
-        eyewear: wardrobeSlots.eyewear,
-        eyewearColor: wardrobeSlots.eyewearColor,
-        eyewearPlacement: wardrobeSlots.eyewearPlacement,
-        earrings: wardrobeSlots.earrings,
-        neckAccessory: wardrobeSlots.neckAccessory,
-      });
       const baseSubjectText = buildCharacterCardSubjectPrompt(context.subject, context.locks, context, wardrobe);
+      const characterSubjectText = dedupeCharacterCardWardrobeSources(
+        dedupeRepeatedCommaFragments([
+          useCharacterIdentityAnchor ? `${baseSubjectText} ${context.characterProfilePrompt}` : baseSubjectText,
+        ])[0] || '',
+        getCharacterCardWardrobeSourceTexts(context.subject, context.locks, wardrobe),
+      );
       const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
         ? characterSlots.specialAction.en
         : '';
@@ -10951,11 +11043,10 @@ function renderZImagePrompt(promptModel) {
         ? characterSlots.actionPose.en
         : '';
       const parts = [
-        appendSubjectAccessories(
-          useCharacterIdentityAnchor ? `${baseSubjectText} ${context.characterProfilePrompt}` : baseSubjectText,
-          subjectAccessoryText
-        ),
-        cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessory),
+        characterSubjectText,
+        isCharacterCardLayerSlot(wardrobeSlots.headAccessory)
+          ? ''
+          : cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessory),
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
         actionPoseText,
         specialActionText,
@@ -11080,9 +11171,12 @@ function renderZImagePrompt(promptModel) {
       if (value) parts.push(value);
     };
     const finish = (value) => {
-      const text = context.subject.count === 1 && !hideWardrobeForFaceDetail
-        ? compressZImageSingleWardrobeText(value, context)
+      const dedupedValue = characterProfileMode && shouldImportCharacterCardWardrobeLayers(context.locks)
+        ? stripCharacterCardWardrobeText(value, wardrobe)
         : value;
+      const text = context.subject.count === 1 && !hideWardrobeForFaceDetail
+        ? compressZImageSingleWardrobeText(dedupedValue, context)
+        : dedupedValue;
       return sentence(text);
     };
     if (hideWardrobeForFaceDetail) return '';

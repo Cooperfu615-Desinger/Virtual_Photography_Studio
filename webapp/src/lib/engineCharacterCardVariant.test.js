@@ -29,6 +29,20 @@ function countMatches(value, pattern) {
   return [...String(value || '').matchAll(pattern)].length;
 }
 
+function createAllNoneLocks() {
+  const locks = createEmptyLocks();
+  for (const control of getLockControls()) {
+    if (control.multi) {
+      locks[control.key] = [];
+      continue;
+    }
+    const noneOption = control.options.find((option) => option.zh === '全無' || option.id === 'none');
+    if (noneOption) locks[control.key] = noneOption.id;
+  }
+  locks.subjectCount = '1';
+  return locks;
+}
+
 test('normalizeLocks preserves character card variant fields', () => {
   const locks = normalizeLocks({
     characterProfileId: 'character-rika',
@@ -226,6 +240,55 @@ test('selected-layers character card accessory layers appear in AI and remain in
   assert.match(yuriPrompt.zImagePrompt, /western-style belt buckle and metal-stud chain detail/i);
 });
 
+test('selected character-card wardrobe and accessories appear once in GPT and Grok-Z-Image outputs', () => {
+  const cases = [
+    {
+      characterProfileId: 'character-48g',
+      characterCardWardrobeLayerIds: ['outerwear', 'top', 'bottom', 'shoes', 'waistAccessory'],
+      phrases: [
+        /taupe-gray cropped hooded zip jacket/gi,
+        /black lace bralette neckline/gi,
+        /low-rise faded blue denim mini skirt/gi,
+        /black lace-up ankle boots/gi,
+      ],
+    },
+    {
+      characterProfileId: 'character-rin',
+      characterCardWardrobeLayerIds: ['top', 'bottom', 'shoes', 'eyewear', 'neckAccessory'],
+      phrases: [
+        /crisp white oversized button-down shirt/gi,
+        /charcoal high-waisted tailored straight trousers/gi,
+        /black leather loafers/gi,
+        /signature thin rectangular brown-gold metal frame eyeglasses/gi,
+        /layered delicate gold necklaces/gi,
+      ],
+    },
+    {
+      characterProfileId: 'character-sakura',
+      characterCardWardrobeLayerIds: ['top', 'bottom', 'shoes', 'headAccessory'],
+      phrases: [
+        /white plush bunny-eared hood/gi,
+        /clean white low-top sneakers/gi,
+      ],
+    },
+  ];
+
+  for (const testCase of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createAllNoneLocks(),
+      characterProfileId: testCase.characterProfileId,
+      characterCardWardrobeMode: 'selected-layers',
+      characterCardWardrobeLayerIds: testCase.characterCardWardrobeLayerIds,
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    });
+
+    for (const phrase of testCase.phrases) {
+      assert.equal(countMatches(prompt.grokPrompt, phrase), 1, `${testCase.characterProfileId} GPT duplicate: ${phrase}`);
+      assert.equal(countMatches(prompt.zImagePrompt, phrase), 1, `${testCase.characterProfileId} Grok/Z-Image duplicate: ${phrase}`);
+    }
+  }
+});
+
 test('selected card top blocks PAGE1 top garment modifiers and color', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -251,6 +314,19 @@ test('selected card top blocks PAGE1 top garment modifiers and color', () => {
   assert.equal(prompt.selection.topColorId, '');
   assertEveryPrimaryOutput(prompt, /cropped white short-sleeve baby tee/i, 'selected card top should stay visible');
   assertNoPrimaryOutput(prompt, /crisp cotton poplin|clean placket|tight body-skimming upper-body fit|front hem tied|bold horizontal stripe top|red fitted cropped white/i, 'PAGE1 top details should not alter the card top');
+});
+
+test('full-default character-card accessory sources are not repeated in Grok-Z-Image output', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    characterProfileId: 'character-rin',
+    characterCardWardrobeMode: 'full-default',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  });
+
+  assert.equal(countMatches(prompt.zImagePrompt, /thin rectangular brown-gold metal frame eyeglasses/gi), 1);
+  assert.equal(countMatches(prompt.zImagePrompt, /stacked twin gold hoop earrings on both ears/gi), 1);
+  assert.equal(countMatches(prompt.zImagePrompt, /layered delicate gold necklaces with tiny pendant charms/gi), 1);
 });
 
 test('selection stores normalized character card variant fields', () => {
