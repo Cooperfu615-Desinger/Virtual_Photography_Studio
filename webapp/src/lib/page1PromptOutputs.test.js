@@ -37,7 +37,7 @@ test('PAGE1 single output consumers expose three primary and three fixed-framing
   assert.deepEqual(cards.map((entry) => entry.title), [
     'Gpt',
     'Grok/Z-Image',
-    'AI Prompt',
+    'MIDJOURNEY',
     '胸上特寫照',
     'MJ 胸上特寫照',
     '全身角色照',

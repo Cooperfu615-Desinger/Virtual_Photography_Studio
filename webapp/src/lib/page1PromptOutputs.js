@@ -17,7 +17,7 @@ const PRIMARY_PROMPT_OUTPUTS = Object.freeze([
   }),
   Object.freeze({
     id: 'ai',
-    title: 'AI Prompt',
+    title: 'MIDJOURNEY',
     field: 'midjourneyPrompt',
     placeholder: '目前尚無可顯示的 AI Prompt。',
     description: '偏通用影像生成語氣，適合快速貼到外部工具測試視覺方向。',
