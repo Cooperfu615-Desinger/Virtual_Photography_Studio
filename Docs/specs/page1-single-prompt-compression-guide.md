@@ -1,8 +1,10 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-08-01
+Last updated: 2026-08-07
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
+
+Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midjourney 比例與人物姿勢適配規範](midjourney-framing-pose-adaptation.md)。該文件目前是下一階段 renderer 優化的規劃文件；在實作前，不得把其中的派生欄位、裁切語句或姿勢正規化視為目前 runtime 行為。
 
 ## 1. 三組輸出定位
 
