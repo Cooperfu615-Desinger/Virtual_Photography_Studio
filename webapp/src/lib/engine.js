@@ -15,6 +15,7 @@ import {
   shouldProjectPosePart,
   shouldProjectWardrobeRole,
 } from './engine/compositionVisibilityContract.js';
+import { buildMidjourneyFramingPoseAdaptation } from './engine/midjourneyFramingPoseAdaptation.js';
 import {
   projectCharacterProfileSubject,
   projectNormalBodyTypeItem,
@@ -9291,11 +9292,12 @@ function compactCameraDescriptor(item, kind) {
     .trim();
 }
 
-function buildCompositionPromptLine(context) {
+function buildCompositionPromptLine(context, { adaptation = null } = {}) {
   const parts = [
     context?.fixedFramingCompositionOpening || compactCameraDescriptor(context?.framing, 'framing'),
     compactCameraDescriptor(context?.angle, 'angle'),
     compactCameraDescriptor(context?.orbit, 'orbit'),
+    ...(adaptation?.compositionAdditions || []),
   ].filter(Boolean);
   if (parts.length === 0) return '';
   parts[0] = `${parts[0].charAt(0).toUpperCase()}${parts[0].slice(1)}`;
@@ -12325,18 +12327,21 @@ function buildAiDuoLightingText(valuesByLabel) {
   ].filter(Boolean).join(', ');
 }
 
-function buildAiDuoCameraLookText(valuesByLabel, context) {
+function buildAiDuoCameraLookText(valuesByLabel, context, { adaptation = null } = {}) {
   const styleText = context.style && !isNoneLikeItem(context.style)
     ? compactZImagePhotographyStyleText(context.style)
     : compactAiStyleText(getStructuredValues(valuesByLabel, ['Photography Style']).join(', '));
   const duoStyleText = styleText.replace(/^Inspired by ([^,]+),\s*/i, '$1-inspired ');
   const lensText = compactAiLensText(getStructuredValues(valuesByLabel, ['Lens']).join(', '));
+  const lensAdaptationText = (adaptation?.imagingAdditions || []).join(', ');
   const apertureText = compactPromptClauses(getStructuredValues(valuesByLabel, ['Aperture / Depth of Field']).join(', '), 1);
   const shutterText = compactPromptClauses(getStructuredValues(valuesByLabel, ['Shutter / Motion Blur']).join(', '), 1);
   const opticalText = compactAiOpticalEffectText(getStructuredValues(valuesByLabel, ['Optical Effect']).join(', '));
   const filmText = compactAiFilmText(getStructuredValues(valuesByLabel, ['Camera / Film']).join(', '));
 
-  return [duoStyleText, lensText, apertureText, shutterText, opticalText, filmText].filter(Boolean).join(', ');
+  return [duoStyleText, lensText, lensAdaptationText, apertureText, shutterText, opticalText, filmText]
+    .filter(Boolean)
+    .join(', ');
 }
 
 function buildAiDuoDirectSentence(value) {
@@ -12344,19 +12349,19 @@ function buildAiDuoDirectSentence(value) {
   return cleaned ? ensureTerminalPeriod(capitalizePromptLead(cleaned)) : '';
 }
 
-function renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors) {
+function renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors, { adaptation = null } = {}) {
   const woman1 = buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, 'a');
   const woman2 = buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeColors, 'b');
   return [
     buildMidjourneyImageTypePromptLine(context),
-    ensureTerminalPeriod(buildCompositionPromptLine(context)),
+    ensureTerminalPeriod(buildCompositionPromptLine(context, { adaptation })),
     'Two 20-year-old Japanese or Korean women.',
     woman1 ? ensureTerminalPeriod(`First woman, ${woman1}`) : '',
     woman2 ? ensureTerminalPeriod(`Second woman, ${woman2}`) : '',
     buildAiDuoDirectSentence(buildAiDuoPoseText(valuesByLabel)),
     buildAiDuoDirectSentence(buildAiDuoSceneText(valuesByLabel)),
     buildAiDuoDirectSentence(buildAiDuoLightingText(valuesByLabel)),
-    buildAiDuoDirectSentence(buildAiDuoCameraLookText(valuesByLabel, context)),
+    buildAiDuoDirectSentence(buildAiDuoCameraLookText(valuesByLabel, context, { adaptation })),
   ].filter(Boolean).join('\n\n');
 }
 
@@ -13064,7 +13069,10 @@ function buildAiFreedomSceneWithLightingSentence(
   return `${scene} ${lightingSentence}`;
 }
 
-function buildAiFreedomImagingSentence(valuesByLabel, { compact = false, characterCard = false } = {}) {
+function buildAiFreedomImagingSentence(
+  valuesByLabel,
+  { compact = false, characterCard = false, adaptation = null } = {}
+) {
   const styleText = firstStructuredValue(valuesByLabel, ['Photography Style']);
   const style = (
     styleText.match(/Inspired by [^.]+? image language/i)?.[0]
@@ -13074,9 +13082,11 @@ function buildAiFreedomImagingSentence(valuesByLabel, { compact = false, charact
     firstStructuredValue(valuesByLabel, ['Lens']),
     compact && !characterCard ? 1 : 2
   ).replace(/^shot on\s+/i, '');
+  const lensAdaptation = (adaptation?.imagingAdditions || []).join(', ');
   const parts = [
     style,
     lens,
+    lensAdaptation,
     compactPromptClauses(firstStructuredValue(valuesByLabel, ['Optical Effect']), 1),
     compactPromptClauses(firstStructuredValue(valuesByLabel, ['Camera / Film']), compact ? 1 : 2),
   ].map((value) => compactAiSourceText(value)).filter(Boolean);
@@ -13102,6 +13112,7 @@ function renderAiPrompt(promptModel, {
   posePromptModel = promptModel,
   scenePromptModel = promptModel,
   imagingPromptModel = promptModel,
+  midjourneyAdaptation = null,
 } = {}) {
   const {
     valuesByLabel,
@@ -13112,7 +13123,9 @@ function renderAiPrompt(promptModel, {
   } = promptModel;
 
   if (context.subject?.count === 2 && !isSpecialSubject(context.subject)) {
-    return renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors);
+    return renderAiDuoPrompt(valuesByLabel, context, wardrobe, wardrobeColors, {
+      adaptation: midjourneyAdaptation,
+    });
   }
 
   const subjectValuesByLabel = subjectPromptModel.valuesByLabel || valuesByLabel;
@@ -13143,10 +13156,12 @@ function renderAiPrompt(promptModel, {
     maxSceneClauses: 2,
     compactLighting: true,
   });
-  const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel);
+  const adaptation = midjourneyAdaptation;
+  const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, { adaptation });
   const compactImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, {
     compact: true,
     characterCard: policyKey === 'characterCard',
+    adaptation,
   });
   const fullWardrobeText = buildAiFreedomWardrobeSentence(
     wardrobeValuesByLabel,
@@ -13180,7 +13195,10 @@ function renderAiPrompt(promptModel, {
   );
   const sectionDefinitions = [
     { id: 'imageType', text: buildMidjourneyImageTypePromptLine(compositionContext) },
-    { id: 'composition', text: ensureTerminalPeriod(buildCompositionPromptLine(compositionContext)) },
+    {
+      id: 'composition',
+      text: ensureTerminalPeriod(buildCompositionPromptLine(compositionContext, { adaptation })),
+    },
     {
       id: 'subject',
       text: fullSubjectText,
@@ -13322,7 +13340,9 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   const grokPrompt = renderGptPrompt(promptModel);
   const zImagePrompt = renderZImagePrompt(promptModel);
   const midjourneyPrompt = appendMidjourneyParameterTail(
-    renderMidjourneyNativeDescription(renderAiPrompt(promptModel)),
+    renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {
+      midjourneyAdaptation: buildMidjourneyFramingPoseAdaptation(mainContext),
+    })),
     {
       ...context.locks,
       aspectRatio: context.aspectRatio.id,

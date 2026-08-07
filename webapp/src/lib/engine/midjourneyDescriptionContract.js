@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.6.0';
+export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.7.0';
 
 /**
  * Target contract for the Midjourney-native descriptive content that appears
@@ -77,6 +77,12 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
     wardrobeVisibility: 'reuse composition projection',
     fixedComposition: 'reuse fixed-set source projection',
     derivedPromptParameters: 'forbidden',
+    framingLensAdaptation: {
+      source: 'resolved framing, effective aspect ratio, and selected lens',
+      storage: 'non-persistent derived context',
+      publicOutput: 'midjourneyPrompt only',
+      canonicalPose: 'reuse projected canonical pose verbatim',
+    },
   },
   completion: {
     blockingGate: 'midjourneyCompletionGate.test.js',
@@ -119,6 +125,10 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
     phase6: {
       behaviorNeutral: true,
       purpose: 'downstream integration, full validation, and documentation',
+    },
+    phase7: {
+      behaviorNeutral: false,
+      purpose: 'Midjourney-only framing, aspect-ratio, and lens-behavior adaptation',
     },
   },
 });

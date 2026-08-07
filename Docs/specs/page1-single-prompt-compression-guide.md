@@ -4,7 +4,7 @@ Last updated: 2026-08-07
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
-Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midjourney 比例與人物姿勢適配規範](midjourney-framing-pose-adaptation.md)。該文件目前是下一階段 renderer 優化的規劃文件；在實作前，不得把其中的派生欄位、裁切語句或姿勢正規化視為目前 runtime 行為。
+Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midjourney 比例與人物姿勢適配規範](midjourney-framing-pose-adaptation.md)。目前已接入的 renderer 行為僅限該文件明確標示的 Midjourney derived context；不得把內部派生欄位當成新的 storage schema，也不得把姿勢規範解讀為 AI-only 改寫 canonical pose。
 
 ## 1. 三組輸出定位
 
@@ -375,7 +375,11 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 - `運動緊實身形` → `Fit athletic silhouette, firm build, subtle muscle definition.`
 - `小隻精緻身形` → `Petite refined silhouette, compact frame, delicate proportions.`
 
-`Gpt`（`grokPrompt`）、`Grok/Z-Image`（`zImagePrompt`）、資料庫原始英文描述、resolved selection、Character Card 結構化身份與 canonical pose 不受這組壓縮影響；MJ 參數尾段也維持原有 assembler 與字數計算邊界。契約版本為 `MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = 1.6.0`。
+`Gpt`（`grokPrompt`）、`Grok/Z-Image`（`zImagePrompt`）、資料庫原始英文描述、resolved selection、Character Card 結構化身份與 canonical pose 不受這組壓縮影響；MJ 參數尾段也維持原有 assembler 與字數計算邊界。契約版本為 `MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = 1.7.0`。
+
+#### 已啟用：Midjourney 比例與鏡頭行為適配
+
+主 `AI` → `midjourneyPrompt` 會在既有 composition visibility projection 之後建立非持久化 derived context，依有效 MJ 畫面比例、framing bucket 與選定鏡頭的光學行為補充自然裁切、中央構圖、長焦視野或移軸垂直線等來源語意。這層不改 `Gpt`、`Grok/Z-Image`、固定景別輸出、原始 `lensId`、Pose Composer canonical pose、Saved Cards 或匯入／匯出資料；未選擇姿勢時也不會因比例自行發明坐姿、站姿、手部或腿部關係。
 
 #### 已啟用：MJ 低自由度預設
 

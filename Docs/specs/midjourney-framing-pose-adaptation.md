@@ -2,7 +2,7 @@
 
 Last updated: 2026-08-07
 
-Status: Draft／planned. 本文件先凍結規範與測試方向，尚未接入 production renderer，也不代表目前已改變公開 Prompt 文字。
+Status: Active implementation. 本文件的比例／鏡頭 derived context 已接入 production renderer；姿勢 canonical text 仍依既有 shared contract 逐字重用。
 
 ## 1. 目的與範圍
 
@@ -301,7 +301,7 @@ image type → composition/framing → subject → wardrobe → projected canoni
 
 ## 9. Regression fixtures 與驗證
 
-正式實作前至少建立以下 deterministic fixtures：
+實作與回歸驗證至少涵蓋以下 deterministic fixtures：
 
 1. `16:9` 寬幅站姿：允許自然下緣裁切，不強制 `full-body`。
 2. `4:3` 坐姿魚眼：後右三分之四、回頭看鏡頭、明確手部支點、雙腿向前延伸。

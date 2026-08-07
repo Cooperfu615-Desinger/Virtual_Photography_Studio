@@ -1154,10 +1154,11 @@ test('Grok/Z-Image and AI keep selected lighting and camera controls with model-
   assert.match(prompt.midjourneyPrompt, /warm golden-amber subject light color/i);
   assert.match(prompt.midjourneyPrompt, /Osamu Yokonami-inspired high-key minimalist image language/i);
   assert.match(prompt.midjourneyPrompt, /135mm long telephoto lens/i);
+  assert.match(prompt.midjourneyPrompt, /distant working distance/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /soft foreground occlusion/i);
   assert.match(prompt.midjourneyPrompt, /Osamu Yokonami-inspired/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /warm-neutral daylight spread|mellow exterior brightness|no sunset or sky cues/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /flattened spatial layers|pronounced subject isolation|distant working distance|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /flattened spatial layers|pronounced subject isolation|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /[\u4e00-\u9fff]/);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
 });

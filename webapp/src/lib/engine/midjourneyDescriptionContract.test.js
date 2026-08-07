@@ -65,8 +65,8 @@ function generateFixture(target) {
   })[0];
 }
 
-test('Midjourney description contract freezes the approved six-phase target', () => {
-  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.6.0');
+test('Midjourney description contract freezes the approved seven-phase target', () => {
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.7.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_DESCRIPTION_CONTRACT));
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt']);
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.structure.sectionOrder, [
@@ -86,6 +86,11 @@ test('Midjourney description contract freezes the approved six-phase target', ()
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.structure.imperativeOpening.current, 'forbidden');
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.rollout.phase2.behaviorNeutral, false);
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT.rollout.phase7.behaviorNeutral, false);
+  assert.equal(
+    MIDJOURNEY_DESCRIPTION_CONTRACT.compatibility.framingLensAdaptation.publicOutput,
+    'midjourneyPrompt only'
+  );
 });
 
 test('phase-1 targets cover every image type and representative compatibility mode', () => {

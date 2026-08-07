@@ -257,8 +257,8 @@ test('phase 6 keeps the canonical pose verbatim in all three primary outputs', (
   );
 });
 
-test('description phase 6 freezes direct syntax, budgets, mappings, and downstream consumers', () => {
-  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.6.0');
+test('description phase 7 freezes direct syntax, budgets, mappings, and downstream consumers', () => {
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.7.0');
   assert.equal(
     MIDJOURNEY_DESCRIPTION_CONTRACT.completion.blockingGate,
     'midjourneyCompletionGate.test.js'
