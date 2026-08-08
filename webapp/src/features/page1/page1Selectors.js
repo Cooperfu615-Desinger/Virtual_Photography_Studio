@@ -1,6 +1,7 @@
 import { createEmptyLocks } from '../../lib/engine.js';
 import { SCENE_CAMERA_CONTROL_ORDER } from '../../lib/page1ControlOrders.js';
 import { buildPage1MainFramingControl } from '../../lib/engine/fixedFramingMainPrompt.js';
+import { buildPage1OpticalEffectControl } from '../../lib/engine/opticalEffectMainPrompt.js';
 import {
   CHARACTER_CONTROL_ORDER,
   DUO_ACCESSORY_KEYS,
@@ -89,6 +90,7 @@ function buildCoreControls(lockControls, sceneDependentOptions, locks) {
     if (control.key === 'lightingId') return { ...control, options: sceneDependentOptions.lightingOptions };
     if (control.key === 'lightDirectionId') return { ...control, options: sceneDependentOptions.lightDirectionOptions };
     if (control.key === 'framingId') return buildPage1MainFramingControl(control, locks.framingId);
+    if (control.key === 'opticalEffectId') return buildPage1OpticalEffectControl(control, locks.opticalEffectId);
     return control;
   });
   return sortControls(

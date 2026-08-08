@@ -67,6 +67,9 @@ import {
   resolveHalfFaceCompositionOpening,
 } from './engine/fixedFramingMainPrompt.js';
 import {
+  getRandomOpticalEffectOptions,
+} from './engine/opticalEffectMainPrompt.js';
+import {
   POSE_COMPOSER_ANCHOR_OPTIONS,
   POSE_COMPOSER_ARRANGEMENT_OPTIONS,
   POSE_COMPOSER_BASE_OPTIONS,
@@ -13794,8 +13797,13 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const pickOpticalEffect = effectiveLocks.opticalEffectId && !isRandomLockValue(effectiveLocks.opticalEffectId)
     ? pickLocked
     : pickCompatible;
+  const hasExplicitOpticalEffect = effectiveLocks.opticalEffectId
+    && !isRandomLockValue(effectiveLocks.opticalEffectId);
+  const opticalEffectOptions = hasExplicitOpticalEffect
+    ? runtime.flatCatalog.effects
+    : getRandomOpticalEffectOptions(runtime.flatCatalog.effects);
   const opticalEffect = pickOpticalEffect(
-    runtime.flatCatalog.effects,
+    opticalEffectOptions,
     effectiveLocks.opticalEffectId,
     (item) => opticalEffectSupportsFilm(item, film),
     sample,
