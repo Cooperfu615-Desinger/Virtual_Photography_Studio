@@ -5578,32 +5578,50 @@
       {
         "zh": "韓系偶像臉",
         "en": "young beautiful Korean idol face, refined small face, clear bright eyes, polished youthful beauty, photogenic K-pop portrait balance",
-        "desc": "韓系偶像感的年輕漂亮臉，重點是精緻、上鏡、明亮與乾淨。"
+        "desc": "韓系偶像感的年輕漂亮臉，重點是精緻、上鏡、明亮與乾淨。",
+        "mj": {
+          "face": "small refined oval face, clear almond eyes with straight brows, slender nose bridge and softly shaped lips"
+        }
       },
       {
         "zh": "日系清透臉",
         "en": "young beautiful Japanese transparent face, soft natural features, clean gentle eyes, airy fresh beauty, subtle innocent portrait presence",
-        "desc": "日系清透淡顏，重點是自然、透明、乾淨與柔和的寫真感。"
+        "desc": "日系清透淡顏，重點是自然、透明、乾淨與柔和的寫真感。",
+        "mj": {
+          "face": "soft natural oval face, gentle almond eyes with natural brows, small nose and softly defined lips"
+        }
       },
       {
         "zh": "甜美可愛臉",
         "en": "young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look",
-        "desc": "甜美、親和、年輕漂亮，帶可愛感但不幼態。"
+        "desc": "甜美、親和、年輕漂亮，帶可愛感但不幼態。",
+        "mj": {
+          "face": "soft natural oval face, bright round eyes with curved brows, small rounded nose and softly shaped lips"
+        }
       },
       {
         "zh": "冷感高級臉",
         "en": "young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, high-fashion understated presence",
-        "desc": "冷感、俐落、時裝 editorial 氣質，臉部基底更高級克制。"
+        "desc": "冷感、俐落、時裝 editorial 氣質，臉部基底更高級克制。",
+        "mj": {
+          "face": "refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips"
+        }
       },
       {
         "zh": "成熟性感臉",
         "en": "young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence",
-        "desc": "性感、迷人、明艷、有女人味，以五官氣質帶出吸引力而不是靠表情。"
+        "desc": "性感、迷人、明艷、有女人味，以五官氣質帶出吸引力而不是靠表情。",
+        "mj": {
+          "face": "softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips"
+        }
       },
       {
         "zh": "混血立體臉",
         "en": "young mixed editorial face, dimensional facial structure, defined nose bridge and deep-set eyes, international high-fashion beauty",
-        "desc": "立體骨相與國際 editorial 感，仍可服務日韓女性角色主線。"
+        "desc": "立體骨相與國際 editorial 感，仍可服務日韓女性角色主線。",
+        "mj": {
+          "face": "dimensional elongated oval face, deep-set round eyes with defined brows, high nose bridge and sculpted lips"
+        }
       }
     ],
     "膚質特徵 (Skin Details)": [

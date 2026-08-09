@@ -2870,6 +2870,9 @@ function buildEntries(groupName, groupedData, inferMeta) {
         zh: displayZh,
         en: stripMarkdown(item.en),
         desc: stripMarkdown(item.desc),
+        ...(item.mj && typeof item.mj === 'object' && !Array.isArray(item.mj)
+          ? { mj: { ...item.mj } }
+          : {}),
         legacyIds: Array.from(new Set([
           ...(Array.isArray(item.legacyIds) ? item.legacyIds : []),
           ...ambientLightLegacyIds,
@@ -12830,13 +12833,17 @@ function buildAiSingleFaceExpressionText(valuesByLabel, context, character) {
   if (!shouldUseFixedAiSingleSubjectLead(context)) return '';
 
   const characterSlots = extractCharacterSlots(Array.isArray(character) ? character : []);
-  const facialFeaturesText = characterSlots.facialFeatures && !isNoneLikeItem(characterSlots.facialFeatures)
-    ? characterSlots.facialFeatures.en
-    : firstStructuredValue(valuesByLabel, ['Facial Features']);
+  const facialFeaturesItem = characterSlots.facialFeatures && !isNoneLikeItem(characterSlots.facialFeatures)
+    ? characterSlots.facialFeatures
+    : null;
+  const facialFeaturesText = facialFeaturesItem?.en || firstStructuredValue(valuesByLabel, ['Facial Features']);
   const expressionText = characterSlots.expression && !isNoneLikeItem(characterSlots.expression)
     ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)
     : firstStructuredValue(valuesByLabel, ['Expression']);
-  const facialAnchor = compactAiMinimalFragment(facialFeaturesText, 1);
+  const facialAnchor = compactAiMinimalFragment(
+    facialFeaturesItem?.mj?.face || facialFeaturesText,
+    facialFeaturesItem?.mj?.face ? 3 : 1,
+  );
   const expressionFragments = splitAiSourceFragments(expressionText)
     .map((fragment) => fragment.replace(
       /\b(lips?[^,]*?)\s+with\s+(?:a\s+)?([^,]+(?:smile|grin)[^,]*)$/i,

@@ -377,6 +377,12 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 `Gpt`（`grokPrompt`）、`Grok/Z-Image`（`zImagePrompt`）、資料庫原始英文描述、resolved selection、Character Card 結構化身份與 canonical pose 不受這組壓縮影響；MJ 參數尾段也維持原有 assembler 與字數計算邊界。契約版本為 `MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = 1.7.0`。
 
+#### 已啟用：MJ 五官結構變體
+
+六組公開五官選項在共用 `en` 原始描述之外，可透過 `knowledge_base/item_metadata.json` 的同選項 `mj.face` 欄位提供 Midjourney 專用表達。`mj.face` 只服務歷史公開欄位 `AI` → `midjourneyPrompt` 與 `MJ 胸上特寫照`，同一份 resolved selection 仍同時供三個主 renderer 使用；它不改選項 ID、`en`、Gpt、Grok/Z-Image、Character Card、Saved Cards 或匯入／匯出資料。
+
+MJ 五官短描述固定依「臉型輪廓 → 眼型／眉型 → 鼻子／嘴唇」組織，保留可見結構而不加入表情、妝容、髮型、鏡頭、光線或姿勢。若資料列沒有 `mj.face`，MJ renderer 只回退到既有 `en` 的最短五官主錨點；不得在 renderer 內自行發明另一套臉部語意。
+
 #### 已啟用：Midjourney 比例與鏡頭行為適配
 
 主 `AI` → `midjourneyPrompt` 會在既有 composition visibility projection 之後建立非持久化 derived context，依有效 MJ 畫面比例、framing bucket 與選定鏡頭的光學行為補充自然裁切、中央構圖、長焦視野或移軸垂直線等來源語意。這層不改 `Gpt`、`Grok/Z-Image`、固定景別輸出、原始 `lensId`、Pose Composer canonical pose、Saved Cards 或匯入／匯出資料；未選擇姿勢時也不會因比例自行發明坐姿、站姿、手部或腿部關係。

@@ -144,8 +144,10 @@ fit toned athletic female body, healthy firm silhouette, subtle muscle definitio
 - 每個選項只抓 2-3 個臉部氣質，例如 idol、transparent、sweet、cool editorial、seductive alluring、mixed editorial。
 - 可愛選項要避免幼態，中文描述可明確寫「可愛但不幼態」。
 - 不要加入表情、妝容、髮型、鏡頭或光線。
-- 一般單人 AI 會從同一份 resolved selection 保留這個欄位的最短五官主錨點；authoring 不得為了 AI 壓縮另建第二套臉部語意或 renderer 專用 fallback。
-- 若五官來源含有 `small refined face`、`clear bright eyes` 等可視化核心，AI 可保留其中一至兩個片語；不得以 `curvy`、`beautiful woman` 等泛化詞取代。
+- `Gpt` 與 `Grok/Z-Image` 繼續使用同一份資料列的 `en` 原始描述；一般單人 `AI`（內部欄位 `midjourneyPrompt`）可使用同一選項下由 `knowledge_base/item_metadata.json` 提供的 `mj.face` 專用短描述。
+- `mj.face` 不是第二個選項或第二份 resolved selection，而是同一五官選項針對 Midjourney 的另一種表面表達；沒有 `mj.face` 時，renderer 必須回退到既有 `en` 主錨點。
+- `mj.face` 以「臉型輪廓＋眼型眉型＋鼻子嘴唇」三段可見結構為目標，例如 `small refined oval face, clear almond eyes with straight brows, slender nose bridge and softly shaped lips`；不得加入表情、妝容、髮型、鏡頭、光線或姿勢。
+- `AI` 的 MJ 變體可保留完整三段結構，不套用既有 `en` 的單一主錨點截取；`Gpt`、`Grok/Z-Image`、Character Card 與原始 `en` 不受影響。
 
 範例語氣：
 

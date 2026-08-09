@@ -99,7 +99,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'Waist-up portrait, high angle, looking down, rear-right three-quarter view',
           'A 20s seductive stunning Japanese woman',
           'full bust, narrow defined waist, flat abdomen',
-          'young seductive alluring beauty face',
+          'softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips',
           'looking toward the camera',
           'pressed lips',
           'barely contained smile',

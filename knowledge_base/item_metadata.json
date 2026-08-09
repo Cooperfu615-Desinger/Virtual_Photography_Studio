@@ -1,4 +1,38 @@
 {
+  "Character": {
+    "五官特徵 (Facial Features)": {
+      "韓系偶像臉": {
+        "mj": {
+          "face": "small refined oval face, clear almond eyes with straight brows, slender nose bridge and softly shaped lips"
+        }
+      },
+      "日系清透臉": {
+        "mj": {
+          "face": "soft natural oval face, gentle almond eyes with natural brows, small nose and softly defined lips"
+        }
+      },
+      "甜美可愛臉": {
+        "mj": {
+          "face": "soft natural oval face, bright round eyes with curved brows, small rounded nose and softly shaped lips"
+        }
+      },
+      "冷感高級臉": {
+        "mj": {
+          "face": "refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips"
+        }
+      },
+      "成熟性感臉": {
+        "mj": {
+          "face": "softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips"
+        }
+      },
+      "混血立體臉": {
+        "mj": {
+          "face": "dimensional elongated oval face, deep-set round eyes with defined brows, high nose bridge and sculpted lips"
+        }
+      }
+    }
+  },
   "Wardrobe": {
     "上身 (Tops)": {
       "襯衫": {
