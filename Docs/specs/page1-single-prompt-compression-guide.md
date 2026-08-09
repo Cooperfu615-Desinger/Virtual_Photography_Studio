@@ -1,6 +1,6 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-08-07
+Last updated: 2026-08-09
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
@@ -383,6 +383,17 @@ Gpt、Grok/Z-Image 與三組固定景別輸出不得經過此 whitespace project
 
 MJ 五官短描述固定依「臉型輪廓 → 眼型／眉型 → 鼻子／嘴唇」組織，保留可見結構而不加入表情、妝容、髮型、鏡頭、光線或姿勢。若資料列沒有 `mj.face`，MJ renderer 只回退到既有 `en` 的最短五官主錨點；不得在 renderer 內自行發明另一套臉部語意。
 
+六組 `mj.face` 的已確認結構如下：
+
+- `韓系偶像臉`：`small refined oval face` + `clear almond eyes with straight brows` + `slender nose bridge and softly shaped lips`
+- `日系清透臉`：`soft natural oval face` + `gentle almond eyes with natural brows` + `small nose and softly defined lips`
+- `甜美可愛臉`：沿用日系清透臉的 `soft natural oval face`，搭配 `bright round eyes with curved brows` 與 `small rounded nose and softly shaped lips`；不得使用 `soft rounded face`、`full cheeks`、`rounded chin`。
+- `冷感高級臉`：`refined elongated oval face` + `upturned eyes with straight brows` + `defined nose bridge and sculpted lips`
+- `成熟性感臉`：`softly defined oval face` + `upturned eyes with arched brows` + `clear nose bridge and full shaped lips`
+- `混血立體臉`：`dimensional elongated oval face` + `deep-set round eyes with defined brows` + `high nose bridge and sculpted lips`；`deep-set` 只表示眼窩深度，不取代 `round eyes` 的眼型。
+
+這六組固定使用三段結構，不依景別增減描述量。眼型名稱的語意也固定：`almond eyes` 為杏仁眼、`round eyes` 為圓眼、`upturned eyes` 為上挑眼；`straight／natural／curved／arched／defined brows` 分別表示直眉／自然眉型／彎眉／拱眉／明確眉型。這些結構只作用於 `mj.face`，不改寫共用 `en`、Gpt、Grok/Z-Image、Character Card 或儲存相容欄位。
+
 #### 已啟用：Midjourney 比例與鏡頭行為適配
 
 主 `AI` → `midjourneyPrompt` 會在既有 composition visibility projection 之後建立非持久化 derived context，依有效 MJ 畫面比例、framing bucket 與選定鏡頭的光學行為補充自然裁切、中央構圖、長焦視野或移軸垂直線等來源語意。這層不改 `Gpt`、`Grok/Z-Image`、固定景別輸出、原始 `lensId`、Pose Composer canonical pose、Saved Cards 或匯入／匯出資料；未選擇姿勢時也不會因比例自行發明坐姿、站姿、手部或腿部關係。
@@ -498,13 +509,47 @@ core category, 1-3 concrete visible traits
 
 `Gpt`、`Grok/Z-Image`、`AI` 在 Pose Composer 啟用時先共用同一個 resolved pose，再依共用構圖契約產生 projected canonical pose。只要投影結果非空，三組必須逐字共用，完整保留投影後仍可見的身體安排、重心、支撐、手部位置、道具接觸與頭部方向；只允許外層段落標題或排版不同，不得在 renderer 層再次壓縮、刪減或改寫。`faceDetail` 與 `headShoulders` 的結果為空，三組都不輸出姿勢段落。
 
-神情只寫臉、眼神、嘴型與情緒強度。姿態只寫身體安排、重心、支撐與動作狀態。
+神情與視線只寫臉部可見反應、眼神方向、嘴型、眼瞼狀態與情緒強度。姿態只寫身體安排、重心、支撐與動作狀態，並可保留 Pose Composer 的 canonical head direction；但 `head naturally facing the camera`、`turning back`、`over-the-shoulder` 等頭部／身體方向不得由姿態文字偷渡進神情資料。
 
-`Gpt` 版應完整保留，`Grok/Z-Image` / `AI` 壓縮時至少保留：
+表情與視線是三組 renderer 共用的 canonical 語意來源，不是只供 Midjourney 使用的補充欄位：
 
-- `direct eye contact`
-- `soft natural smile`
-- `downward gaze`
+- `Gpt`（內部欄位 `grokPrompt`）完整保留被選資料列中所有有效的表情、視線、嘴型與眼周描述，只做格式整理、移除空值與完全重複。
+- `Grok/Z-Image` 保持 source-traceable reduction。可以刪除重複連接語與內部控制語，但不得刪掉獨立的視線方向、嘴型、眼瞼／眉毛線索或情緒強度，也不得自行補充未選取的情緒。
+- `AI`（內部欄位 `midjourneyPrompt`）可以整理成單段、短句與既有 MJ 輸出格式，但在描述已經短而具體時不應再刪減。主 MJ 與 `MJ 胸上特寫照` 使用同一份 resolved expression／gaze 語意；不預設建立 `mj.expression` 覆寫。
+- 三組可以因段落標題、連接語與標點不同而有不同表面格式，但「柔和微笑＋直視鏡頭」等獨立語意必須完整存在於三組；不需要為 Gpt 或 Grok/Z-Image 另加一套情緒形容詞。
+- 目前仍沿用公開 `expressionId` 與歷史 option ID；若未來把視線拆成獨立控制，必須先設計 legacy mapping，不得以語意清理直接改名、刪除或重建 saved-card／restore 可讀的鎖定值。
+
+共用資料應採不重複的組合方式，例如：
+
+```text
+Gaze: direct eye contact with the camera
+Expression: relaxed cheeks, gently lifted mouth corners, soft natural smile
+```
+
+合併到公開 Prompt 後可以是：
+
+```text
+direct eye contact with the camera, relaxed cheeks, gently lifted mouth corners, soft natural smile
+```
+
+不得同時重複 `looking directly at the camera` 與 `direct eye contact`，但也不得因去重而把視線或表情其中一項整體刪除。
+
+目前可接受的純表情例子包括喜悅、平靜、悲傷、克制憤怒、輕微驚訝、緊張、害羞，以及低強度的 `playful pout, lightly furrowed brows, teasing mock annoyance, affectionate expression`。`撒嬌生氣` 必須保持俏皮、低強度與非攻擊性，不能與 `restrained anger` 混成真正的憤怒。
+
+`Grok/Z-Image` / `AI` 壓縮時可刪減：
+
+- 重複的視線說法，例如同時出現 `looking directly at the camera` 與 `direct eye contact`。
+- 不提供新視覺資訊的泛用語尾。
+- 內部控制、fallback、selection 或完整性說明。
+
+`Grok/Z-Image` / `AI` 壓縮時不可刪減：
+
+- 唯一的視線方向，例如 `direct eye contact with the camera` 或 `downward gaze`。
+- 唯一的表情／嘴型／眼周線索，例如 `soft natural smile`、`playful pout`、`lightly furrowed brows`。
+- 使情緒強度成立的可視化詞，例如 `restrained`、`gentle`、`teasing mock annoyance`。
+
+姿勢部分仍依原 canonical pose 規則處理：
+
 - `standing pose with loosely crossed arms`
 - `one hand brushing hair back`
 - `visible hand-to-mouth contact`

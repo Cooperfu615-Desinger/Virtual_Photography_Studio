@@ -1,6 +1,6 @@
 # A 人物設定新增與維護規格
 
-Last updated: 2026-07-21
+Last updated: 2026-08-09
 
 這份文件定義 PAGE1 `A. 人物設定` 的新增、修改、合併與測試規則。後續新增五官、體態、髮型、髮色、神情、姿勢、特殊動作或特殊角色時，請先依照本規格檢查責任邊界與 prompt 寫法。
 
@@ -137,6 +137,33 @@ fit toned athletic female body, healthy firm silhouette, subtle muscle definitio
 - `成熟性感臉`
 - `混血立體臉`
 
+### 五官結構定案（2026-08-09）
+
+以下是六組五官選項目前確認的結構方向。這份表格是 `mj.face` 的 Midjourney canonical 結構；共用 `en` 原始資料仍維持既有內容，Gpt 與 Grok/Z-Image 不因這份 MJ 變體而改寫。
+
+| 選項 | 臉型輪廓 | 眼型／眉型 | 鼻子／嘴唇 | MJ `face` canonical |
+| --- | --- | --- | --- | --- |
+| `韓系偶像臉` | 小巧精緻橢圓臉 | 杏仁眼、直眉 | 細長鼻樑、柔和唇形 | `small refined oval face, clear almond eyes with straight brows, slender nose bridge and softly shaped lips` |
+| `日系清透臉` | 柔和自然橢圓臉 | 杏仁眼、自然眉型 | 小巧鼻型、柔和輪廓嘴唇 | `soft natural oval face, gentle almond eyes with natural brows, small nose and softly defined lips` |
+| `甜美可愛臉` | 與日系清透臉相同的柔和自然橢圓臉 | 圓眼、彎眉 | 小巧圓鼻、柔和唇形 | `soft natural oval face, bright round eyes with curved brows, small rounded nose and softly shaped lips` |
+| `冷感高級臉` | 精緻修長橢圓臉 | 上挑眼、直眉 | 明確鼻樑、雕塑感唇形 | `refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips` |
+| `成熟性感臉` | 柔和明確的橢圓臉 | 上挑眼、拱眉 | 清晰鼻樑、豐潤輪廓唇 | `softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips` |
+| `混血立體臉` | 立體修長臉型 | 深邃圓眼、明確眉型 | 高鼻樑、雕塑感唇形 | `dimensional elongated oval face, deep-set round eyes with defined brows, high nose bridge and sculpted lips` |
+
+通用眼型與眉型名稱：
+
+- `almond eyes` = 杏仁眼：眼裂較修長、兩端收束；韓系偶像臉與日系清透臉使用。
+- `round eyes` = 圓眼／圓形眼：眼睛開口較圓；甜美可愛臉與混血立體臉使用。混血立體臉的 `deep-set` 是眼窩深度，不是把圓眼改成另一種眼型。
+- `upturned eyes` = 上挑眼／上揚眼：外眼角方向略向上；冷感高級臉與成熟性感臉使用。
+- `straight brows` = 直眉、`natural brows` = 自然眉型、`curved brows` = 彎眉、`arched brows` = 拱眉、`defined brows` = 明確眉型。
+
+定案限制：
+
+- `甜美可愛臉` 必須沿用 `日系清透臉` 的橢圓臉輪廓，不使用 `soft rounded face`、`full cheeks`、`rounded chin` 或其他容易把臉部生成為肥胖／過度圓潤的描述。
+- 六組均固定使用「臉型輪廓 → 眼型／眉型 → 鼻子／嘴唇」三段結構，不依景別增加或刪除五官細節量。
+- 五官結構不加入表情、視線、妝容、髮型、鏡頭、光線或姿勢；表情與視線依第 6 節處理。
+- 六組的 `mj.face` 只是一份同選項的 renderer-specific 表面描述，不是新的控制項，也不新增第二個五官選擇。
+
 新增規則：
 
 - 英文 prompt 以 10-20 words 為目標。
@@ -251,7 +278,7 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 
 這一層分成三個責任：
 
-- `神情與眼神`: 臉、視線、嘴型、情緒強度。
+- `神情與眼神`: 表情、視線、嘴型、眼瞼狀態與情緒強度；視線是眼睛的注意方向，不等於頭部或身體動作。
 - `姿勢與肢體語言`: 身體結構、重心、肢體安排、動作狀態。
 - Pose Composer `手部動作`: 不依賴特定道具的手臂、手掌與手指位置，以及身體或服裝接觸。
 - Pose Composer `道具動作`: 手持物、道具接觸與手機等物件互動；由獨立 `posePropId` 控制。
@@ -274,18 +301,34 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 新增規則：
 
 - 英文 prompt 以 8-18 words 為目標。
-- 只描述 face、eyes、gaze、mouth、emotion。
-- 不描述站姿、坐姿、自拍、拿道具、服裝或場景。
+- 表情只描述可在臉上看見的情緒反應與臉部線索，例如眉毛、眼瞼鬆緊、臉頰、嘴角、抿唇、嘟嘴或張口程度；視線只描述眼睛的注意方向。
+- 不描述站姿、坐姿、自拍、拿道具、服裝或場景，也不把 `回眸`、`低頭`、`轉身`、`over the shoulder` 等頭部／身體動作寫進表情或視線資料。
 - 如果只是微笑強弱差異，優先合併，不新增。
-- 視線方向要明確：direct camera、looking away、eyes cast downward、glancing back、eyes closed。
-- 一般單人 AI 不再一律省略已選神情；至少保留一個視線方向與一個表情／嘴型片語，並使用同一份 resolved selection。
-- 若神情與姿勢的頭部方向含有重複視覺資訊，renderer 只能做語意合併，不能把視線與表情兩者同時刪除。
-- 神情來源仍不得偷渡姿勢、服裝或場景；`head naturally facing the camera` 這類頭部方向仍由構圖／姿勢責任決定，必要時只在公開 AI 句中合併一次。
+- 視線方向要明確，例如 `direct eye contact with the camera`、`soft sideward gaze`、`distant gaze beyond the camera`、`downward gaze`；`eyes gently closed` 屬於眼瞼狀態，不應與頭部動作混寫。`glancing back` 只有在不包含回頭或肩部動作、且只表達側向視線時才可使用。
+- 情緒選項應覆蓋喜、怒、哀、樂及其他自然狀態；每一個情緒都要搭配可見的臉部反應，不要只寫抽象的 `happy`、`sad` 或 `mood`。可加入低強度的 `撒嬌生氣`，但必須與真正憤怒區分。
+- 共用 `en` 是三個 renderer 的 canonical 表情／視線來源。`Gpt` 完整保留有效描述；`Grok/Z-Image` 與 `AI`／Midjourney 只可移除重複連接語與內部控制文字，不得刪掉獨立的視線、嘴型、眼周或情緒線索，也不得自行補寫未選取的情緒。
+- 一般單人 AI 不再一律省略已選神情；如果選取的不是 `全無`，至少保留一個視線方向與一個表情／嘴型片語，並使用同一份 resolved selection。Midjourney 不預設建立 `mj.expression` 覆寫；只有實測證明共用描述不穩定時，才可依既有 `mj.face` fallback 規則新增個別覆寫。
+- 若神情與姿勢的文字同時出現，`head naturally facing the camera` 等頭部方向仍由構圖／姿勢責任承擔；表情資料不得為了配合姿勢而加入頭部動作。Renderer 可處理完全重複的語句，但不能因此同時刪除視線與表情的有效語意。
+- 現有含動作語意的歷史選項（例如 `回眸側看`、`低頭垂眼`）後續應改寫為純視線／表情描述；在實作改名或拆分前，必須保留舊 `expressionId`、option ID 與 saved-card / restore 的 legacy mapping。
 
 範例語氣：
 
 ```text
-looking away from the camera, distant sideward gaze, thoughtful quiet expression, reflective mood
+direct eye contact with the camera, relaxed cheeks, gently lifted mouth corners, soft natural smile
+```
+
+獨立表情範例：
+
+```text
+playful pout, lightly furrowed brows, teasing mock annoyance, affectionate expression
+```
+
+表情、視線與姿勢的責任示例：
+
+```text
+Gaze: direct eye contact with the camera
+Expression: relaxed cheeks, gently lifted mouth corners, soft natural smile
+Pose: natural seated pose, torso upright, one hand resting beside the body
 ```
 
 ### 6.2 姿勢與肢體語言
