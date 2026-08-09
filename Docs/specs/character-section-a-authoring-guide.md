@@ -293,10 +293,15 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 - `直視鏡頭｜無辜清透`
 - `抿唇忍笑｜俏皮`
 - `離鏡凝視｜若有所思`
-- `低頭垂眼｜內斂`
-- `回眸側看｜輕柔注意`
+- `向下視線｜內斂`
+- `側向視線｜輕柔注意`
 - `閉眼沉浸`
 - `大笑｜自然喜悅`
+- `直視鏡頭｜撒嬌生氣`
+- `向下視線｜內斂悲傷`
+- `直視鏡頭｜克制憤怒`
+- `直視鏡頭｜輕微驚訝`
+- `直視鏡頭｜緊張不安`
 
 新增規則：
 
@@ -309,7 +314,7 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 - 共用 `en` 是三個 renderer 的 canonical 表情／視線來源。`Gpt` 完整保留有效描述；`Grok/Z-Image` 與 `AI`／Midjourney 只可移除重複連接語與內部控制文字，不得刪掉獨立的視線、嘴型、眼周或情緒線索，也不得自行補寫未選取的情緒。
 - 一般單人 AI 不再一律省略已選神情；如果選取的不是 `全無`，至少保留一個視線方向與一個表情／嘴型片語，並使用同一份 resolved selection。Midjourney 不預設建立 `mj.expression` 覆寫；只有實測證明共用描述不穩定時，才可依既有 `mj.face` fallback 規則新增個別覆寫。
 - 若神情與姿勢的文字同時出現，`head naturally facing the camera` 等頭部方向仍由構圖／姿勢責任承擔；表情資料不得為了配合姿勢而加入頭部動作。Renderer 可處理完全重複的語句，但不能因此同時刪除視線與表情的有效語意。
-- 現有含動作語意的歷史選項（例如 `回眸側看`、`低頭垂眼`）後續應改寫為純視線／表情描述；在實作改名或拆分前，必須保留舊 `expressionId`、option ID 與 saved-card / restore 的 legacy mapping。
+- 原有含動作語意的 `回眸側看`、`低頭垂眼` 已改寫為純視線描述；實作改名時保留舊 `expressionId`、option ID 與 saved-card / restore 的 legacy mapping。
 
 範例語氣：
 

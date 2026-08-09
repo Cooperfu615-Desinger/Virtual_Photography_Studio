@@ -81,7 +81,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       grokPrompt: {
         includes: [
           'young seductive alluring beauty face',
-          'lips gently pressed with a barely contained smile',
+          'direct eye contact with the camera, lips gently pressed, subtle smile held back, playful relaxed expression',
           'macro lens',
           'neon cross-processed rendering',
         ],
@@ -89,21 +89,21 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       zImagePrompt: {
         includes: [
           'young seductive alluring beauty face',
-          'lips gently pressed with a barely contained smile',
+          'direct eye contact with the camera, lips gently pressed, subtle smile held back, playful relaxed expression',
           'macro lens',
           'neon cross-processed rendering',
         ],
       },
       midjourneyPrompt: {
         includes: [
-          'Waist-up portrait, high angle, looking down, rear-right three-quarter view',
+          'Waist-up portrait, high angle, looking down, front view',
           'A 20s seductive stunning Japanese woman',
           'full bust, narrow defined waist, flat abdomen',
           'softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips',
-          'looking toward the camera',
-          'pressed lips',
-          'barely contained smile',
-          'playful relaxed',
+          'direct eye contact with the camera',
+          'lips gently pressed',
+          'subtle smile held back',
+          'playful relaxed expression',
           'straight hair with Japanese bangs',
           'black-tea brown hair',
           'structured opaque leather corset lingerie set',

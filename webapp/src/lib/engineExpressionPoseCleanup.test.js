@@ -28,10 +28,15 @@ test('expression and pose controls expose the cleaned option sets', () => {
       '直視鏡頭｜無辜清透',
       '抿唇忍笑｜俏皮',
       '離鏡凝視｜若有所思',
-      '低頭垂眼｜內斂',
-      '回眸側看｜輕柔注意',
+      '向下視線｜內斂',
+      '側向視線｜輕柔注意',
       '閉眼沉浸',
       '大笑｜自然喜悅',
+      '直視鏡頭｜撒嬌生氣',
+      '向下視線｜內斂悲傷',
+      '直視鏡頭｜克制憤怒',
+      '直視鏡頭｜輕微驚訝',
+      '直視鏡頭｜緊張不安',
     ]
   );
 
@@ -349,7 +354,7 @@ test('chest-up framing preserves only visible pose composer directives', () => {
 
 test('locked expression updates output even when the previous orbit conflicts', () => {
   const rearOrbit = optionByLabel('orbitId', '背面 180 度');
-  const sideGlance = optionByLabel('expressionId', '回眸側看｜輕柔注意');
+  const sideGlance = optionByLabel('expressionId', '側向視線｜輕柔注意');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     orbitId: rearOrbit.id,
@@ -358,8 +363,9 @@ test('locked expression updates output even when the previous orbit conflicts', 
 
   assert.equal(prompt.selection.expressionId, sideGlance.id);
   assert.notEqual(prompt.selection.orbitId, rearOrbit.id);
-  assert.match(prompt.summary, /回眸側看｜輕柔注意/);
-  assert.match(prompt.grokPrompt, /glancing back over the shoulder/);
+  assert.match(prompt.summary, /側向視線｜輕柔注意/);
+  assert.match(prompt.grokPrompt, /soft sideward gaze/);
+  assert.doesNotMatch(prompt.grokPrompt, /glancing back over the shoulder/);
 });
 
 test('deprecated non-social special actions migrate away from the body pose slot', () => {

@@ -70,15 +70,20 @@
 | **髮色 (Hair Color)** | 寶石藍 | `jewel cobalt-blue fashion hair color, rich blue tone with realistic dyed hair texture` | 寶石感深藍，色彩存在感強但不螢光。 |
 | **髮色 (Hair Color)** | 深森林綠 | `deep forest-green fashion hair color, dark moody green tone with realistic dyed hair texture` | 深森林綠，保留特殊色但比亮綠更穩定。 |
 | **神情與眼神 (Expression & Gaze)** | 全無 | `none` | 不指定神情與眼神，讓模型自行決定表情與視線。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜柔和微笑 | `looking directly at the camera, direct eye contact, soft natural smile, gentle confidence, bright approachable expression` | 直接看向鏡頭，帶自然柔和的微笑，親近但不過度表演。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜平靜淡然 | `looking directly at the camera, direct eye contact, calm neutral expression, relaxed half-lidded ease, quiet composed presence` | 直接看向鏡頭，神情平穩克制，保留一點淡然與鬆弛感。 |
-| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜無辜清透 | `looking directly at the camera, direct eye contact, innocent clear eyes, delicate soft expression, pure transparent mood` | 直接看向鏡頭，眼神乾淨、柔和、偏清透無辜。 |
-| **神情與眼神 (Expression & Gaze)** | 抿唇忍笑｜俏皮 | `looking toward the camera, lips gently pressed with a barely contained smile, playful relaxed expression` | 嘴角像是忍住笑意，俏皮但不誇張，適合日常或朋友感畫面。 |
-| **神情與眼神 (Expression & Gaze)** | 離鏡凝視｜若有所思 | `looking away from the camera, distant sideward gaze, thoughtful quiet expression, reflective mood` | 視線離開鏡頭，帶思考感、安靜出神與敘事留白。 |
-| **神情與眼神 (Expression & Gaze)** | 低頭垂眼｜內斂 | `eyes cast downward away from camera, lowered gaze, inward quiet expression, restrained emotion` | 視線向下且不與鏡頭接觸，整體內斂、安靜、柔和。 |
-| **神情與眼神 (Expression & Gaze)** | 回眸側看｜輕柔注意 | `glancing back over the shoulder, soft sideward attention, gentle alert expression` | 像是被聲音或動作吸引後回頭一看，帶輕柔注意力。 |
-| **神情與眼神 (Expression & Gaze)** | 閉眼沉浸 | `eyes gently closed, calm absorbed expression, quiet immersive mood` | 閉上眼睛，情緒安靜而沉浸，不綁定特定場景或光線。 |
-| **神情與眼神 (Expression & Gaze)** | 大笑｜自然喜悅 | `looking toward the camera, genuine laughing expression, natural teeth smile, candid joy` | 自然、無防備的開心大笑，帶生活感與抓拍感。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜柔和微笑 | `direct eye contact with the camera, relaxed cheeks, gently lifted mouth corners, soft natural smile` | 直視鏡頭，臉頰放鬆、嘴角輕抬，呈現自然柔和的微笑。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜平靜淡然 | `direct eye contact with the camera, relaxed eyelids, neutral mouth, calm composed expression` | 直視鏡頭，眼瞼放鬆、嘴型平靜，情緒克制而自然。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜無辜清透 | `direct eye contact with the camera, soft open eyes, relaxed brows, delicate clear expression` | 直視鏡頭，眼神柔和清透，眉眼放鬆但不幼態。 |
+| **神情與眼神 (Expression & Gaze)** | 抿唇忍笑｜俏皮 | `direct eye contact with the camera, lips gently pressed, subtle smile held back, playful relaxed expression` | 直視鏡頭，抿住笑意，帶輕鬆俏皮的不張揚表情。 |
+| **神情與眼神 (Expression & Gaze)** | 離鏡凝視｜若有所思 | `distant gaze beyond the camera, softened eyes, relaxed mouth, thoughtful quiet expression` | 視線望向鏡頭之外，眼神柔化，帶安靜思考感。 |
+| **神情與眼神 (Expression & Gaze)** | 向下視線｜內斂 | `downward gaze, softened eyes, subtly lowered inner brows, restrained quiet expression` | 視線向下，眼神柔和，眉心與嘴型收斂，情緒安靜內斂。 |
+| **神情與眼神 (Expression & Gaze)** | 側向視線｜輕柔注意 | `soft sideward gaze, relaxed eyelids, gently attentive expression` | 只改變眼睛的注意方向，帶輕柔而自然的注意感，不包含回頭動作。 |
+| **神情與眼神 (Expression & Gaze)** | 閉眼沉浸 | `eyes gently closed, relaxed facial muscles, calm absorbed expression` | 雙眼輕閉，臉部肌肉放鬆，呈現安靜沉浸的情緒。 |
+| **神情與眼神 (Expression & Gaze)** | 大笑｜自然喜悅 | `direct eye contact with the camera, raised cheeks, open genuine smile, visible teeth, candid joy` | 直視鏡頭，臉頰抬起並自然露齒大笑，帶生活感喜悅。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜撒嬌生氣 | `direct eye contact with the camera, playful pout, lightly furrowed brows, teasing mock annoyance, affectionate expression` | 直視鏡頭，帶俏皮嘟嘴與輕微皺眉，是低強度、帶親近感的假裝生氣。 |
+| **神情與眼神 (Expression & Gaze)** | 向下視線｜內斂悲傷 | `downward gaze, softened eyes, subtly lowered inner brows, restrained downturned mouth, quiet sadness` | 視線向下，眼神柔化，嘴角微垂，呈現克制而安靜的悲傷。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜克制憤怒 | `direct eye contact with the camera, drawn brows, focused eyes, firm pressed lips, restrained anger` | 直視鏡頭，眉眼集中、嘴唇收緊，呈現克制而非失控的憤怒。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜輕微驚訝 | `direct eye contact with the camera, slightly raised brows, widened eyes, slightly parted lips, gentle surprise` | 直視鏡頭，眉毛微抬、眼睛稍微睜大，帶自然輕微的驚訝。 |
+| **神情與眼神 (Expression & Gaze)** | 直視鏡頭｜緊張不安 | `direct eye contact with the camera, slightly tense brows, alert eyes, pressed lips, restrained nervousness` | 直視鏡頭，眉眼略顯緊張、嘴唇抿住，呈現克制的不安感。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 全無 | `none` | 不指定姿勢動作，讓模型自行決定人物肢體語言。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜自然站姿 | `natural standing pose, relaxed balanced posture, everyday body language, unforced presence` | 身體自然站立，重心平均，沒有明顯擺拍感。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜單腳重心 | `weight-on-one-leg standing pose, relaxed asymmetrical stance, casual natural posture` | 重心落在單腳，另一腳自然放鬆，整體更有鬆弛感。 |

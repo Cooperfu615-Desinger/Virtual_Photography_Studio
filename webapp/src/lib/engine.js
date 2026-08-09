@@ -2571,8 +2571,8 @@ const CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP = [
   { category: '神情與眼神 (Expression & Gaze)', targetZh: '直視鏡頭｜無辜清透', legacy: [['直視鏡頭｜無辜清透眼神', 6]] },
   { category: '神情與眼神 (Expression & Gaze)', targetZh: '抿唇忍笑｜俏皮', legacy: [['抿唇忍笑｜俏皮輕鬆', 7]] },
   { category: '神情與眼神 (Expression & Gaze)', targetZh: '離鏡凝視｜若有所思', legacy: [['望向遠方｜若有所思', 8], ['側望｜安靜出神', 9]] },
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '低頭垂眼｜內斂', legacy: [['低頭不看鏡頭｜內斂情緒', 10]] },
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '回眸側看｜輕柔注意', legacy: [['回眸側看｜輕柔注意', 11]] },
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '向下視線｜內斂', legacy: [['低頭垂眼｜內斂', 6], ['低頭不看鏡頭｜內斂情緒', 10]] },
+  { category: '神情與眼神 (Expression & Gaze)', targetZh: '側向視線｜輕柔注意', legacy: [['回眸側看｜輕柔注意', 7], ['回眸側看｜輕柔注意', 11]] },
   { category: '神情與眼神 (Expression & Gaze)', targetZh: '閉眼沉浸', legacy: [['閉眼感受光線｜安靜沉浸', 12]] },
   { category: '神情與眼神 (Expression & Gaze)', targetZh: '大笑｜自然喜悅', legacy: [['大笑｜自然喜悅', 13]] },
   { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '站姿｜單腳重心', legacy: [['站姿｜單腳重心放鬆站姿', 2]] },
@@ -3077,7 +3077,7 @@ function applyDuoExpressionLegacyLockMigration(normalizedLocks, rawLocks, contro
     targetZh = '彼此大笑｜自然開心';
   } else if (/微笑|抿唇忍笑|俏皮/.test(oldLabels)) {
     targetZh = '彼此微笑｜柔和默契';
-  } else if (/低頭|閉眼/.test(oldLabels)) {
+  } else if (/低頭|向下視線|閉眼/.test(oldLabels)) {
     targetZh = '低眼神互動｜慵懶性感';
   } else if (directCount === oldExpressions.length) {
     targetZh = '兩人直視鏡頭｜平靜自然';
@@ -6937,7 +6937,9 @@ const DUO_PROMPT_OVERRIDES = {
     '望向遠方｜若有所思': 'both women gazing away or slightly off-camera, thoughtful mood, quiet shared atmosphere',
     '側望｜安靜出神': 'both women looking off to the side, understated absent-minded mood, soft distant shared focus',
     '低頭不看鏡頭｜內斂情緒': 'both women lowering their gaze away from camera, restrained inward emotion, quiet introspective duo mood',
+    '向下視線｜內斂': 'both women sharing a downward gaze, restrained inward emotion, quiet introspective duo mood',
     '回眸側看｜輕柔注意': 'both women glancing back with soft sideward attention, gentle alertness, light narrative duo energy',
+    '側向視線｜輕柔注意': 'both women sharing a soft sideward gaze, gentle alertness, light narrative duo energy',
     '閉眼感受光線｜安靜沉浸': 'both women with eyes gently closed, calm absorbed expression, quiet immersive duo atmosphere',
     '大笑｜自然喜悅': 'both women laughing naturally, candid joyful chemistry, lively duo energy',
   },
@@ -12857,21 +12859,9 @@ function buildAiSingleFaceExpressionText(valuesByLabel, context, character) {
     selectedExpressionFragments.push(fragment);
   };
 
-  [
-    expressionFragments.find((fragment) => /\b(?:looking|gazing|staring|eye contact|eyes?|eye line)\b/i.test(fragment)),
-    expressionFragments.find((fragment) => /\b(?:lips?|mouth|smile|grin|pressed)\b/i.test(fragment)),
-    expressionFragments.find((fragment) => /\b(?:expression|mood|demeanor|playful|relaxed|calm|confident|seductive|joyful|serious|soft|gentle|natural)\b/i.test(fragment)),
-  ].forEach(addExpressionFragment);
-  expressionFragments.slice(0, 3).forEach(addExpressionFragment);
+  expressionFragments.forEach(addExpressionFragment);
 
-  const compactExpression = selectedExpressionFragments
-    .slice(0, 3)
-    .join(', ')
-    .replace(/\blips gently pressed\b/i, 'pressed lips')
-    .replace(
-      /,\s*([^,]*(?:smile|grin)[^,]*),\s*([^,]*(?:playful|relaxed|calm|confident|gentle|soft)[^,]*)\s+expression\b/i,
-      ', $2 $1'
-    );
+  const compactExpression = selectedExpressionFragments.join(', ');
   return [facialAnchor, compactExpression].filter(Boolean).join(', ');
 }
 

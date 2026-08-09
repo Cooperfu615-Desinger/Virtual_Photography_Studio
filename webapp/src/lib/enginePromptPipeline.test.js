@@ -649,17 +649,17 @@ test('Gpt single-subject prompt preserves full-fidelity expression and special a
     expressionId: optionId('expressionId', '直視鏡頭｜柔和微笑'),
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
-  assert.match(crossedArms.subject, /looking directly at the camera, direct eye contact, soft natural smile, gentle confidence, bright approachable expression/i);
+  assert.match(crossedArms.subject, /direct eye contact with the camera, relaxed cheeks, gently lifted mouth corners, soft natural smile/i);
   assert.match(crossedArms.pose, /arms crossed loosely in front of the body[\s\S]*presents a natural relaxed standing pose/i);
   assert.doesNotMatch(crossedArms.pose, /\.,/i);
   assert.match(crossedArms.prompt.zImagePrompt, /direct eye contact/i);
   assert.doesNotMatch(crossedArms.prompt.zImagePrompt, /cool composed body language/i);
 
   const downwardRecline = buildSections({
-    expressionId: optionId('expressionId', '低頭垂眼｜內斂'),
+    expressionId: optionId('expressionId', '向下視線｜內斂'),
     poseId: optionId('poseId', '半躺低姿態｜側身半躺'),
   });
-  assert.match(downwardRecline.subject, /eyes cast downward away from camera, lowered gaze, inward quiet expression, restrained emotion/i);
+  assert.match(downwardRecline.subject, /downward gaze, softened eyes, subtly lowered inner brows, restrained quiet expression/i);
   assert.match(downwardRecline.pose, /side-lying pose/i);
   assert.doesNotMatch(downwardRecline.pose, /soft flowing body line|\.,/i);
 
