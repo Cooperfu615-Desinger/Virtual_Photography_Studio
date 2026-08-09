@@ -18,7 +18,7 @@ test('single action pose card overrides PAGE1 expression and pose composer outpu
     ...createEmptyLocks(),
     subjectCount: '1',
     actionPoseCardId: DEFAULT_ACTION_POSE_CARD_ID,
-    expressionId: optionId('expressionId', '直視鏡頭｜柔和微笑'),
+    expressionId: optionId('expressionId', '柔和微笑'),
     poseBaseId: 'standing',
     poseHandId: 'one-hand-waist-one-down',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),

@@ -109,7 +109,7 @@ def build_prompt():
     # Mainstream Hair Colors: exclude "全無" and keep vivid fashion colors in the special pool.
     extract_weighted(character_data, '髮色', structured["Character"], list(range(2, 12)), natural_weight=0.9)
     
-    extract_cat(character_data, '神情與眼神', structured["Pose & Expression"])
+    extract_cat(character_data, '表情', structured["Pose & Expression"])
     extract_cat(character_data, '姿勢與肢體語言', structured["Pose & Expression"])
 
     # Wardrobe

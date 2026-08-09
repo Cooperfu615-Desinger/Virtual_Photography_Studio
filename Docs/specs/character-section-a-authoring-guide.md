@@ -278,48 +278,49 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 
 這一層分成三個責任：
 
-- `神情與眼神`: 表情、視線、嘴型、眼瞼狀態與情緒強度；視線是眼睛的注意方向，不等於頭部或身體動作。
+- `表情`: 只描述臉部可見的情緒反應、嘴型、眉毛、眼瞼狀態與情緒強度；不指定視線方向，也不等於頭部或身體動作。
 - `姿勢與肢體語言`: 身體結構、重心、肢體安排、動作狀態。
 - Pose Composer `手部動作`: 不依賴特定道具的手臂、手掌與手指位置，以及身體或服裝接觸。
 - Pose Composer `道具動作`: 手持物、道具接觸與手機等物件互動；由獨立 `posePropId` 控制。
 - Legacy `特殊動作`: 舊資料保留給 saved cards / restore 遷移，不再作為 PAGE1 獨立 UI 欄位擴充。
 
-### 6.1 神情與眼神
+### 6.1 表情
 
 目前標準選項：
 
-- `直視鏡頭｜柔和微笑`
-- `直視鏡頭｜平靜淡然`
-- `直視鏡頭｜無辜清透`
-- `抿唇忍笑｜俏皮`
-- `離鏡凝視｜若有所思`
-- `向下視線｜內斂`
-- `側向視線｜輕柔注意`
-- `閉眼沉浸`
-- `大笑｜自然喜悅`
-- `直視鏡頭｜撒嬌生氣`
-- `向下視線｜內斂悲傷`
-- `直視鏡頭｜克制憤怒`
-- `直視鏡頭｜輕微驚訝`
-- `直視鏡頭｜緊張不安`
+- `無額外表情`
+- `柔和微笑`
+- `平靜淡然`
+- `無辜清透`
+- `俏皮忍笑`
+- `若有所思`
+- `內斂克制`
+- `溫柔含蓄`
+- `沉浸平靜`
+- `自然喜悅`
+- `撒嬌生氣`
+- `內斂悲傷`
+- `克制憤怒`
+- `輕微驚訝`
+- `緊張不安`
 
 新增規則：
 
 - 英文 prompt 以 8-18 words 為目標。
-- 表情只描述可在臉上看見的情緒反應與臉部線索，例如眉毛、眼瞼鬆緊、臉頰、嘴角、抿唇、嘟嘴或張口程度；視線只描述眼睛的注意方向。
-- 不描述站姿、坐姿、自拍、拿道具、服裝或場景，也不把 `回眸`、`低頭`、`轉身`、`over the shoulder` 等頭部／身體動作寫進表情或視線資料。
+- 表情只描述可在臉上看見的情緒反應與臉部線索，例如眉毛、眼瞼鬆緊、臉頰、嘴角、抿唇、嘟嘴或張口程度；不得描述眼睛的注意方向。
+- 不描述站姿、坐姿、自拍、拿道具、服裝、場景或視線方向，也不把 `回眸`、`低頭`、`轉身`、`over the shoulder` 等頭部／身體動作寫進表情資料。
 - 如果只是微笑強弱差異，優先合併，不新增。
-- 視線方向要明確，例如 `direct eye contact with the camera`、`soft sideward gaze`、`distant gaze beyond the camera`、`downward gaze`；`eyes gently closed` 屬於眼瞼狀態，不應與頭部動作混寫。`glancing back` 只有在不包含回頭或肩部動作、且只表達側向視線時才可使用。
+- `eyes gently closed`、`relaxed eyelids` 與 `subtly widened eyes` 可作為表情的可見眼瞼／眼睛狀態，但不得延伸成 gaze、eye contact、looking away 或其他視線方向。
 - 情緒選項應覆蓋喜、怒、哀、樂及其他自然狀態；每一個情緒都要搭配可見的臉部反應，不要只寫抽象的 `happy`、`sad` 或 `mood`。可加入低強度的 `撒嬌生氣`，但必須與真正憤怒區分。
-- 共用 `en` 是三個 renderer 的 canonical 表情／視線來源。`Gpt` 完整保留有效描述；`Grok/Z-Image` 與 `AI`／Midjourney 只可移除重複連接語與內部控制文字，不得刪掉獨立的視線、嘴型、眼周或情緒線索，也不得自行補寫未選取的情緒。
-- 一般單人 AI 不再一律省略已選神情；如果選取的不是 `全無`，至少保留一個視線方向與一個表情／嘴型片語，並使用同一份 resolved selection。Midjourney 不預設建立 `mj.expression` 覆寫；只有實測證明共用描述不穩定時，才可依既有 `mj.face` fallback 規則新增個別覆寫。
-- 若神情與姿勢的文字同時出現，`head naturally facing the camera` 等頭部方向仍由構圖／姿勢責任承擔；表情資料不得為了配合姿勢而加入頭部動作。Renderer 可處理完全重複的語句，但不能因此同時刪除視線與表情的有效語意。
-- 原有含動作語意的 `回眸側看`、`低頭垂眼` 已改寫為純視線描述；實作改名時保留舊 `expressionId`、option ID 與 saved-card / restore 的 legacy mapping。
+- 共用 `en` 是三個 renderer 的 canonical 表情來源。`Gpt` 完整保留有效描述；`Grok/Z-Image` 與 `AI`／Midjourney 只可移除重複連接語與內部控制文字，不得刪掉嘴型、眼周或情緒線索，也不得自行補寫未選取的情緒。
+- 一般單人 AI 不再一律省略已選表情；如果選取的不是 `無額外表情`，至少保留一個可見表情或嘴型片語，並使用同一份 resolved selection。Midjourney 不預設建立 `mj.expression` 覆寫；只有實測證明共用描述不穩定時，才可依既有 `mj.face` fallback 規則新增個別覆寫。
+- 頭部方向仍由 Pose Composer 的 `poseHeadId` 控制。表情資料不得為了配合姿勢而加入頭部、身體或視線方向描述。
+- 原有含視線或動作語意的表情選項已改為純表情名稱；實作改名時保留舊 `expressionId`、option ID 與 saved-card / restore 的 legacy mapping。
 
 範例語氣：
 
 ```text
-direct eye contact with the camera, relaxed cheeks, gently lifted mouth corners, soft natural smile
+soft natural smile, relaxed cheeks, gently lifted mouth corners
 ```
 
 獨立表情範例：
@@ -328,10 +329,9 @@ direct eye contact with the camera, relaxed cheeks, gently lifted mouth corners,
 playful pout, lightly furrowed brows, teasing mock annoyance, affectionate expression
 ```
 
-表情、視線與姿勢的責任示例：
+表情與姿勢的責任示例：
 
 ```text
-Gaze: direct eye contact with the camera
 Expression: relaxed cheeks, gently lifted mouth corners, soft natural smile
 Pose: natural seated pose, torso upright, one hand resting beside the body
 ```

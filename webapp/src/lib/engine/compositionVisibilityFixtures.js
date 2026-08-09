@@ -50,7 +50,7 @@ export const COMPOSITION_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
           'mirrored stainless-steel cube plinth',
         ],
         sceneMode: 'compactSource',
-        sceneIncludes: ['retro American diner booth', 'red leather bench seating', 'chrome table edge'],
+        sceneIncludes: ['retro American diner booth', 'red leather bench seating'],
         sceneExcludes: [
           'jukebox corner',
           'counter stools',
@@ -61,6 +61,7 @@ export const COMPOSITION_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
           'shallow depth of field',
           'faint spatial shapes',
         ],
+        gptSceneIncludes: ['chrome table edge'],
         addDepthEffect: false,
       },
       fullBodyCharacterPrompt: {

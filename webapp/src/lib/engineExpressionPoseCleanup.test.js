@@ -22,21 +22,21 @@ test('expression and pose controls expose the cleaned option sets', () => {
   assert.deepEqual(
     optionLabels('expressionId'),
     [
-      '全無',
-      '直視鏡頭｜柔和微笑',
-      '直視鏡頭｜平靜淡然',
-      '直視鏡頭｜無辜清透',
-      '抿唇忍笑｜俏皮',
-      '離鏡凝視｜若有所思',
-      '向下視線｜內斂',
-      '側向視線｜輕柔注意',
-      '閉眼沉浸',
-      '大笑｜自然喜悅',
-      '直視鏡頭｜撒嬌生氣',
-      '向下視線｜內斂悲傷',
-      '直視鏡頭｜克制憤怒',
-      '直視鏡頭｜輕微驚訝',
-      '直視鏡頭｜緊張不安',
+      '無額外表情',
+      '柔和微笑',
+      '平靜淡然',
+      '無辜清透',
+      '俏皮忍笑',
+      '若有所思',
+      '內斂克制',
+      '溫柔含蓄',
+      '沉浸平靜',
+      '自然喜悅',
+      '撒嬌生氣',
+      '內斂悲傷',
+      '克制憤怒',
+      '輕微驚訝',
+      '緊張不安',
     ]
   );
 
@@ -157,9 +157,9 @@ test('duo action scenario and posture base controls expose natural two-layer opt
   assert.equal(createEmptyLocks().duoPoseBaseId, '');
 });
 
-test('duo expression exposes shared gaze and mood options', () => {
+test('duo expression exposes shared relationship mood options', () => {
   const duoExpressionControl = getLockControls().find((control) => control.key === 'duoExpressionId');
-  assert.equal(duoExpressionControl.label, '雙人神情眼神');
+  assert.equal(duoExpressionControl.label, '雙人互動神情');
   assert.deepEqual(
     optionLabels('duoExpressionId'),
     [
@@ -180,8 +180,8 @@ test('duo expression exposes shared gaze and mood options', () => {
 
 test('duo expression outputs one shared relationship cue and ignores legacy per-person expressions', () => {
   const duoExpression = optionByLabel('duoExpressionId', '兩人相互凝視｜安靜親密');
-  const expressionA = optionByLabel('expressionAId', '直視鏡頭｜柔和微笑');
-  const expressionB = optionByLabel('expressionBId', '大笑｜自然喜悅');
+  const expressionA = optionByLabel('expressionAId', '柔和微笑');
+  const expressionB = optionByLabel('expressionBId', '自然喜悅');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
@@ -296,7 +296,7 @@ test('selfie hand poses compose with pose composer body controls', () => {
   const poseBase = optionByLabel('poseBaseId', '坐姿');
   const arrangement = optionByLabel('poseArrangementId', '微微前傾');
   const poseHand = optionByLabel('poseHandId', '男友/閨蜜自拍');
-  const expression = optionByLabel('expressionId', '直視鏡頭｜柔和微笑');
+  const expression = optionByLabel('expressionId', '柔和微笑');
   const framing = optionByLabel('framingId', '全身鏡頭 (Full Body Shot)');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -352,19 +352,20 @@ test('chest-up framing preserves only visible pose composer directives', () => {
   assert.equal(prompt.midjourneyPrompt.split(canonicalPose).length - 1, 1);
 });
 
-test('locked expression updates output even when the previous orbit conflicts', () => {
+test('locked expression remains independent from the previous orbit', () => {
   const rearOrbit = optionByLabel('orbitId', '背面 180 度');
-  const sideGlance = optionByLabel('expressionId', '側向視線｜輕柔注意');
+  const gentleExpression = optionByLabel('expressionId', '溫柔含蓄');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     orbitId: rearOrbit.id,
-    expressionId: sideGlance.id,
+    expressionId: gentleExpression.id,
   });
 
-  assert.equal(prompt.selection.expressionId, sideGlance.id);
-  assert.notEqual(prompt.selection.orbitId, rearOrbit.id);
-  assert.match(prompt.summary, /側向視線｜輕柔注意/);
-  assert.match(prompt.grokPrompt, /soft sideward gaze/);
+  assert.equal(prompt.selection.expressionId, gentleExpression.id);
+  assert.notEqual(prompt.selection.orbitId, '');
+  assert.match(prompt.summary, /溫柔含蓄/);
+  assert.match(prompt.grokPrompt, /gentle demure expression/);
+  assert.doesNotMatch(prompt.grokPrompt, /gaze|eye contact/i);
   assert.doesNotMatch(prompt.grokPrompt, /glancing back over the shoulder/);
 });
 
@@ -390,7 +391,7 @@ test('legacy expression and selfie pose locks migrate into cleaned options', () 
     ...createEmptyLocks(),
     expressionId: 'character:神情與眼神-expression-gaze:直視鏡頭-自信淡笑:3',
   });
-  assert.equal(normalizedSmile.expressionId, optionByLabel('expressionId', '直視鏡頭｜柔和微笑').id);
+  assert.equal(normalizedSmile.expressionId, optionByLabel('expressionId', '柔和微笑').id);
 
   const normalizedMirrorSelfie = normalizeLocks({
     ...createEmptyLocks(),

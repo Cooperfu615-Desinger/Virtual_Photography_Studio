@@ -5917,81 +5917,81 @@
         "desc": "深森林綠，保留特殊色但比亮綠更穩定。"
       }
     ],
-    "神情與眼神 (Expression & Gaze)": [
+    "表情 (Facial Expression)": [
       {
-        "zh": "全無",
+        "zh": "無額外表情",
         "en": "none",
-        "desc": "不指定神情與眼神，讓模型自行決定表情與視線。"
+        "desc": "不額外指定表情，讓模型自然呈現人物情緒。"
       },
       {
-        "zh": "直視鏡頭｜柔和微笑",
-        "en": "direct eye contact with the camera, relaxed cheeks, gently lifted mouth corners, soft natural smile",
-        "desc": "直視鏡頭，臉頰放鬆、嘴角輕抬，呈現自然柔和的微笑。"
+        "zh": "柔和微笑",
+        "en": "soft natural smile, relaxed cheeks, gently lifted mouth corners",
+        "desc": "自然柔和的微笑，臉頰放鬆，嘴角輕輕上揚。"
       },
       {
-        "zh": "直視鏡頭｜平靜淡然",
-        "en": "direct eye contact with the camera, relaxed eyelids, neutral mouth, calm composed expression",
-        "desc": "直視鏡頭，眼瞼放鬆、嘴型平靜，情緒克制而自然。"
+        "zh": "平靜淡然",
+        "en": "calm composed expression, relaxed facial muscles, neutral mouth",
+        "desc": "平靜淡然的表情，臉部肌肉放鬆，嘴型自然。"
       },
       {
-        "zh": "直視鏡頭｜無辜清透",
-        "en": "direct eye contact with the camera, soft open eyes, relaxed brows, delicate clear expression",
-        "desc": "直視鏡頭，眼神柔和清透，眉眼放鬆但不幼態。"
+        "zh": "無辜清透",
+        "en": "delicate innocent expression, relaxed brows, softly open eyes, gentle closed-mouth look",
+        "desc": "細緻無辜的表情，眉毛放鬆，眼睛自然張開，嘴唇輕閉。"
       },
       {
-        "zh": "抿唇忍笑｜俏皮",
-        "en": "direct eye contact with the camera, lips gently pressed, subtle smile held back, playful relaxed expression",
-        "desc": "直視鏡頭，抿住笑意，帶輕鬆俏皮的不張揚表情。"
+        "zh": "俏皮忍笑",
+        "en": "playful restrained smile, gently pressed lips, subtly lifted mouth corners",
+        "desc": "俏皮地忍住笑意，嘴唇輕抿，嘴角微微上揚。"
       },
       {
-        "zh": "離鏡凝視｜若有所思",
-        "en": "distant gaze beyond the camera, softened eyes, relaxed mouth, thoughtful quiet expression",
-        "desc": "視線望向鏡頭之外，眼神柔化，帶安靜思考感。"
+        "zh": "若有所思",
+        "en": "thoughtful reflective expression, softened brows, relaxed mouth, quiet contemplative mood",
+        "desc": "若有所思的表情，眉眼柔和，嘴型放鬆，帶安靜沉思感。"
       },
       {
-        "zh": "向下視線｜內斂",
-        "en": "downward gaze, softened eyes, subtly lowered inner brows, restrained quiet expression",
-        "desc": "視線向下，眼神柔和，眉心與嘴型收斂，情緒安靜內斂。"
+        "zh": "內斂克制",
+        "en": "reserved understated expression, relaxed eyelids, gently pressed lips, restrained mood",
+        "desc": "內斂克制的表情，眼瞼放鬆，嘴唇輕抿，情緒收斂。"
       },
       {
-        "zh": "側向視線｜輕柔注意",
-        "en": "soft sideward gaze, relaxed eyelids, gently attentive expression",
-        "desc": "只改變眼睛的注意方向，帶輕柔而自然的注意感，不包含回頭動作。"
+        "zh": "溫柔含蓄",
+        "en": "gentle demure expression, relaxed brows, softly closed lips, quiet warmth",
+        "desc": "溫柔含蓄的表情，眉毛放鬆，嘴唇柔和閉合，帶安靜溫度。"
       },
       {
-        "zh": "閉眼沉浸",
-        "en": "eyes gently closed, relaxed facial muscles, calm absorbed expression",
-        "desc": "雙眼輕閉，臉部肌肉放鬆，呈現安靜沉浸的情緒。"
+        "zh": "沉浸平靜",
+        "en": "calm absorbed expression, relaxed facial muscles, peaceful closed-mouth look",
+        "desc": "平靜沉浸的表情，臉部肌肉放鬆，呈現安定的閉嘴神情。"
       },
       {
-        "zh": "大笑｜自然喜悅",
-        "en": "direct eye contact with the camera, raised cheeks, open genuine smile, visible teeth, candid joy",
-        "desc": "直視鏡頭，臉頰抬起並自然露齒大笑，帶生活感喜悅。"
+        "zh": "自然喜悅",
+        "en": "candid joyful expression, raised cheeks, open genuine smile, visible teeth",
+        "desc": "自然喜悅的表情，臉頰抬起，真實開朗地露齒微笑。"
       },
       {
-        "zh": "直視鏡頭｜撒嬌生氣",
-        "en": "direct eye contact with the camera, playful pout, lightly furrowed brows, teasing mock annoyance, affectionate expression",
-        "desc": "直視鏡頭，帶俏皮嘟嘴與輕微皺眉，是低強度、帶親近感的假裝生氣。"
+        "zh": "撒嬌生氣",
+        "en": "playful mock-angry expression, small pout, lightly furrowed brows, subtly puffed cheeks, affectionate tone",
+        "desc": "俏皮假裝生氣，輕微嘟嘴、皺眉與鼓起臉頰，帶親近感。"
       },
       {
-        "zh": "向下視線｜內斂悲傷",
-        "en": "downward gaze, softened eyes, subtly lowered inner brows, restrained downturned mouth, quiet sadness",
-        "desc": "視線向下，眼神柔化，嘴角微垂，呈現克制而安靜的悲傷。"
+        "zh": "內斂悲傷",
+        "en": "restrained sad expression, softened brows, slightly downturned mouth corners, quiet sadness",
+        "desc": "克制而安靜的悲傷表情，眉毛柔化，嘴角微微下垂。"
       },
       {
-        "zh": "直視鏡頭｜克制憤怒",
-        "en": "direct eye contact with the camera, drawn brows, focused eyes, firm pressed lips, restrained anger",
-        "desc": "直視鏡頭，眉眼集中、嘴唇收緊，呈現克制而非失控的憤怒。"
+        "zh": "克制憤怒",
+        "en": "controlled angry expression, drawn brows, firm pressed lips, subtle jaw tension, restrained anger",
+        "desc": "克制的憤怒表情，眉毛收緊，嘴唇緊抿，下顎略帶張力。"
       },
       {
-        "zh": "直視鏡頭｜輕微驚訝",
-        "en": "direct eye contact with the camera, slightly raised brows, widened eyes, slightly parted lips, gentle surprise",
-        "desc": "直視鏡頭，眉毛微抬、眼睛稍微睜大，帶自然輕微的驚訝。"
+        "zh": "輕微驚訝",
+        "en": "mildly surprised expression, slightly raised brows, subtly widened eyes, softly parted lips",
+        "desc": "輕微驚訝的表情，眉毛微抬，眼睛稍微睜大，嘴唇微張。"
       },
       {
-        "zh": "直視鏡頭｜緊張不安",
-        "en": "direct eye contact with the camera, slightly tense brows, alert eyes, pressed lips, restrained nervousness",
-        "desc": "直視鏡頭，眉眼略顯緊張、嘴唇抿住，呈現克制的不安感。"
+        "zh": "緊張不安",
+        "en": "nervous uneasy expression, subtly tense brows, pressed lips, slight facial tension",
+        "desc": "緊張不安的表情，眉毛略顯緊繃，嘴唇抿住，臉部帶輕微張力。"
       }
     ],
     "姿勢與肢體語言 (Pose & Body Language)": [

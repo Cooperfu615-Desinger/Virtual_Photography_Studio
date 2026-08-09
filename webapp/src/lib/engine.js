@@ -96,6 +96,9 @@ const SUBJECT_COUNT_OPTIONS = [
   { id: '2', zh: '2 位', en: 'two 20-year-old Japanese or Korean female portrait subjects', count: 2 },
 ];
 
+const CHARACTER_EXPRESSION_CATEGORY = '表情 (Facial Expression)';
+const LEGACY_CHARACTER_EXPRESSION_CATEGORY = '神情與眼神 (Expression & Gaze)';
+
 const FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE = 'A 20s seductive stunning Japanese or Korean woman.';
 const MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD = 'A 20s seductive stunning Japanese woman.';
 
@@ -984,10 +987,10 @@ const LOCK_DEFINITIONS = [
   { key: 'duoInteractionId', label: '雙人互動', options: DUO_INTERACTION_OPTIONS, section: 'hidden' },
   { key: 'duoPoseId', label: '雙人動作情境', options: DUO_POSE_OPTIONS, section: 'character' },
   { key: 'duoPoseBaseId', label: '雙人姿態基底', options: DUO_POSE_BASE_OPTIONS, section: 'character' },
-  { key: 'duoExpressionId', label: '雙人神情眼神', options: DUO_EXPRESSION_OPTIONS, section: 'character' },
-  { key: 'expressionId', label: '神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'character' },
-  { key: 'expressionAId', label: '人物 1 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'hidden' },
-  { key: 'expressionBId', label: '人物 2 神情眼神', category: '神情與眼神 (Expression & Gaze)', section: 'hidden' },
+  { key: 'duoExpressionId', label: '雙人互動神情', options: DUO_EXPRESSION_OPTIONS, section: 'character' },
+  { key: 'expressionId', label: '表情', category: CHARACTER_EXPRESSION_CATEGORY, section: 'character' },
+  { key: 'expressionAId', label: '人物 1 表情', category: CHARACTER_EXPRESSION_CATEGORY, section: 'hidden' },
+  { key: 'expressionBId', label: '人物 2 表情', category: CHARACTER_EXPRESSION_CATEGORY, section: 'hidden' },
   { key: 'poseId', label: '姿勢動作', category: '姿勢與肢體語言 (Pose & Body Language)', section: 'character' },
   { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
   { key: 'actionPoseCardId', label: '動作姿勢卡', section: 'hidden' },
@@ -2007,10 +2010,6 @@ function inferCharacterMeta(category, item) {
     }
   }
 
-  if (hasAny(haystack, ['direct gaze', '直視', 'eye contact'])) tags.push('direct_gaze');
-  if (hasAny(haystack, ['into the distance', 'gazing into distance', 'distant sideward gaze', '望向遠方', '望向遠處', '離鏡'])) tags.push('distance_gaze');
-  if (hasAny(haystack, ['looking off to the side', 'sideward gaze', 'sideward attention', '側望', '側看', 'look to the side'])) tags.push('side_gaze');
-  if (hasAny(haystack, ['lowered gaze', '低頭', '向下'])) tags.push('downward_gaze');
   if (hasAny(haystack, ['top-down', 'aerial view', '俯拍'])) tags.push('requires_aerial');
   if (category.includes('Special Actions')) {
     tags.push('special_action');
@@ -2566,15 +2565,91 @@ const CHARACTER_IDENTITY_LEGACY_OPTION_MAP = [
 ];
 
 const CHARACTER_EXPRESSION_POSE_LEGACY_OPTION_MAP = [
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '直視鏡頭｜柔和微笑', legacy: [['直視鏡頭｜清透微笑', 1], ['直視鏡頭｜自信淡笑', 3], ['直視鏡頭｜若有似無微笑', 5]] },
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '直視鏡頭｜平靜淡然', legacy: [['直視鏡頭｜平靜凝視', 2], ['直視鏡頭｜慵懶淡然', 4]] },
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '直視鏡頭｜無辜清透', legacy: [['直視鏡頭｜無辜清透眼神', 6]] },
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '抿唇忍笑｜俏皮', legacy: [['抿唇忍笑｜俏皮輕鬆', 7]] },
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '離鏡凝視｜若有所思', legacy: [['望向遠方｜若有所思', 8], ['側望｜安靜出神', 9]] },
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '向下視線｜內斂', legacy: [['低頭垂眼｜內斂', 6], ['低頭不看鏡頭｜內斂情緒', 10]] },
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '側向視線｜輕柔注意', legacy: [['回眸側看｜輕柔注意', 7], ['回眸側看｜輕柔注意', 11]] },
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '閉眼沉浸', legacy: [['閉眼感受光線｜安靜沉浸', 12]] },
-  { category: '神情與眼神 (Expression & Gaze)', targetZh: '大笑｜自然喜悅', legacy: [['大笑｜自然喜悅', 13]] },
+  { category: CHARACTER_EXPRESSION_CATEGORY, legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY, targetZh: '無額外表情', legacy: [['全無', 0]] },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '柔和微笑',
+    legacy: [['直視鏡頭｜柔和微笑', 1], ['直視鏡頭｜清透微笑', 1], ['直視鏡頭｜自信淡笑', 3], ['直視鏡頭｜若有似無微笑', 5]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '平靜淡然',
+    legacy: [['直視鏡頭｜平靜淡然', 2], ['直視鏡頭｜平靜凝視', 2], ['直視鏡頭｜慵懶淡然', 4]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '無辜清透',
+    legacy: [['直視鏡頭｜無辜清透', 3], ['直視鏡頭｜無辜清透眼神', 6]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '俏皮忍笑',
+    legacy: [['抿唇忍笑｜俏皮', 4], ['抿唇忍笑｜俏皮輕鬆', 7]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '若有所思',
+    legacy: [['離鏡凝視｜若有所思', 5], ['望向遠方｜若有所思', 8], ['側望｜安靜出神', 9]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '內斂克制',
+    legacy: [['向下視線｜內斂', 6], ['低頭垂眼｜內斂', 6], ['低頭不看鏡頭｜內斂情緒', 10]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '溫柔含蓄',
+    legacy: [['側向視線｜輕柔注意', 7], ['回眸側看｜輕柔注意', 7], ['回眸側看｜輕柔注意', 11]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '沉浸平靜',
+    legacy: [['閉眼沉浸', 8], ['閉眼感受光線｜安靜沉浸', 12]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '自然喜悅',
+    legacy: [['大笑｜自然喜悅', 9], ['大笑｜自然喜悅', 13]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '撒嬌生氣',
+    legacy: [['直視鏡頭｜撒嬌生氣', 10]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '內斂悲傷',
+    legacy: [['向下視線｜內斂悲傷', 11]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '克制憤怒',
+    legacy: [['直視鏡頭｜克制憤怒', 12]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '輕微驚訝',
+    legacy: [['直視鏡頭｜輕微驚訝', 13]],
+  },
+  {
+    category: CHARACTER_EXPRESSION_CATEGORY,
+    legacyCategory: LEGACY_CHARACTER_EXPRESSION_CATEGORY,
+    targetZh: '緊張不安',
+    legacy: [['直視鏡頭｜緊張不安', 14]],
+  },
   { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '站姿｜單腳重心', legacy: [['站姿｜單腳重心放鬆站姿', 2]] },
   { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '站姿｜雙手自然垂放', legacy: [['站姿｜雙手自然垂放站姿', 5]] },
   { category: '姿勢與肢體語言 (Pose & Body Language)', targetZh: '站姿｜雙臂交疊', legacy: [['站姿｜雙臂交疊放鬆站姿', 8]] },
@@ -2789,8 +2864,8 @@ function buildRegionalLegacyIds(category, legacy) {
   return legacy.map(([label, index]) => `regional:${slugify(category)}:${slugify(label)}:${index}`);
 }
 
-function buildCharacterLegacyIds(category, legacy) {
-  return legacy.map(([label, index]) => `character:${slugify(category)}:${slugify(label)}:${index}`);
+function buildCharacterLegacyIds(category, legacy, legacyCategory = category) {
+  return legacy.map(([label, index]) => `character:${slugify(legacyCategory)}:${slugify(label)}:${index}`);
 }
 
 function buildCameraLegacyIds(category, legacy) {
@@ -2819,11 +2894,14 @@ function applyRegionalLegacyOptionIds(catalog) {
 }
 
 function applyCharacterLegacyOptionIds(catalog, legacyMap) {
-  legacyMap.forEach(({ category, targetZh, legacy }) => {
+  legacyMap.forEach(({ category, targetZh, legacy, legacyCategory }) => {
     const target = getByKey(catalog.character, category).find((item) => item.zh === targetZh);
     if (!target) return;
 
-    target.legacyIds = Array.from(new Set([...(target.legacyIds || []), ...buildCharacterLegacyIds(category, legacy)]));
+    target.legacyIds = Array.from(new Set([
+      ...(target.legacyIds || []),
+      ...buildCharacterLegacyIds(category, legacy, legacyCategory),
+    ]));
   });
 }
 
@@ -3405,7 +3483,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
       return;
     }
 
-    const noneOption = control.options.find((option) => option.zh === '全無');
+    const noneOption = control.options.find((option) => option.zh === '全無' || option.zh === '無額外表情');
     normalizedWithLegacyColors[control.key] = noneOption
       ? noneOption.id
       : (control.defaultValue ?? '');
@@ -3482,9 +3560,9 @@ function buildLockControls({ flatCatalog, catalog }) {
       if (definition.key === 'hairColorId') options = getByKey(catalog.character, '髮色 (Hair Color)');
       if (definition.key === 'hairColorAId') options = getByKey(catalog.character, '髮色 (Hair Color)');
       if (definition.key === 'hairColorBId') options = getByKey(catalog.character, '髮色 (Hair Color)');
-      if (definition.key === 'expressionId') options = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
-      if (definition.key === 'expressionAId') options = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
-      if (definition.key === 'expressionBId') options = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
+      if (definition.key === 'expressionId') options = getByKey(catalog.character, CHARACTER_EXPRESSION_CATEGORY);
+      if (definition.key === 'expressionAId') options = getByKey(catalog.character, CHARACTER_EXPRESSION_CATEGORY);
+      if (definition.key === 'expressionBId') options = getByKey(catalog.character, CHARACTER_EXPRESSION_CATEGORY);
       if (definition.key === 'poseId') options = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
       if (definition.key === 'specialActionId') options = getByKey(catalog.character, '特殊動作 (Special Actions)');
       if (['topId', 'topAId', 'topBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '上身 (Tops)');
@@ -4163,32 +4241,18 @@ function poseHeadSupportsOrbit(head, orbit) {
 function expressionSupportsComposition(item, context) {
   const expressionTags = item.meta?.tags || [];
   if (!visibilityAtLeast(context.framing.meta.visibility, item.meta?.minVisibility || 'medium')) return false;
-  if (expressionTags.includes('direct_gaze') && context.angle.meta.tags.includes('aerial')) return false;
   if (expressionTags.includes('requires_aerial') && !context.angle.meta.tags.includes('aerial')) return false;
-  if (expressionTags.includes('direct_gaze') && context.orbit && !orbitSupportsExpression(context.orbit, item)) return false;
-  if (context.orbit?.meta.tags.includes('back_view') && (expressionTags.includes('side_gaze') || expressionTags.includes('distance_gaze'))) return false;
   return true;
 }
 
 function angleSupportsExpression(angle, expression) {
   if (!expression) return true;
   const expressionTags = expression.meta?.tags || [];
-  if (expressionTags.includes('direct_gaze') && angle.meta.tags.includes('aerial')) return false;
   if (expressionTags.includes('requires_aerial') && !angle.meta.tags.includes('aerial')) return false;
   return true;
 }
 
-function orbitSupportsExpression(orbit, expression) {
-  if (!expression) return true;
-  const orbitTags = new Set(orbit.meta?.tags || []);
-  const expressionTags = new Set(expression.meta?.tags || []);
-
-  if (expressionTags.has('direct_gaze')) {
-    if (orbitTags.has('back_view') || orbitTags.has('rear_three_quarter') || orbitTags.has('profile_view')) return false;
-  }
-
-  if ((expressionTags.has('distance_gaze') || expressionTags.has('side_gaze')) && orbitTags.has('back_view')) return false;
-
+function orbitSupportsExpression() {
   return true;
 }
 
@@ -5401,7 +5465,7 @@ function buildCharacter(context, catalog) {
   if (isSpecialSubject(context.subject)) {
     const hairstyleItems = getByKey(catalog.character, '髮型 (Hairstyle)');
     const hairColorItems = getByKey(catalog.character, '髮色 (Hair Color)');
-    const expressionItems = getByKey(catalog.character, '神情與眼神 (Expression & Gaze)');
+    const expressionItems = getByKey(catalog.character, CHARACTER_EXPRESSION_CATEGORY);
     const poseItems = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
     const specialActionItems = getByKey(catalog.character, '特殊動作 (Special Actions)');
 
@@ -5487,7 +5551,7 @@ function buildCharacter(context, catalog) {
     '膚質特徵 (Skin Details)': 'skinDetailsId',
     '髮型 (Hairstyle)': 'hairstyleId',
     '髮色 (Hair Color)': 'hairColorId',
-    '神情與眼神 (Expression & Gaze)': 'expressionId',
+    [CHARACTER_EXPRESSION_CATEGORY]: 'expressionId',
     '姿勢與肢體語言 (Pose & Body Language)': 'poseId',
     '特殊動作 (Special Actions)': 'specialActionId',
   };
@@ -5497,7 +5561,7 @@ function buildCharacter(context, catalog) {
     '膚質特徵 (Skin Details)': ['skinDetailsId'],
     '髮型 (Hairstyle)': ['hairstyleId'],
     '髮色 (Hair Color)': ['hairColorId'],
-    '神情與眼神 (Expression & Gaze)': ['expressionId'],
+    [CHARACTER_EXPRESSION_CATEGORY]: ['expressionId'],
     '姿勢與肢體語言 (Pose & Body Language)': ['poseId'],
     '特殊動作 (Special Actions)': ['specialActionId'],
   };
@@ -5644,7 +5708,7 @@ function buildCharacter(context, catalog) {
   } else if (actionPose && !isNoneLikeItem(actionPose)) {
     character.push(actionPose);
   } else {
-    expression = pickCategory('神情與眼神 (Expression & Gaze)', context.locks, (item) => expressionSupportsComposition(item, context));
+    expression = pickCategory(CHARACTER_EXPRESSION_CATEGORY, context.locks, (item) => expressionSupportsComposition(item, context));
   }
 
   if (context.subject.count > 1) {
@@ -6988,10 +7052,10 @@ function extractCharacterSlots(character) {
     hairColor: findSlot('character:髮色-hair-color:'),
     hairColorA: findRoleSlot('character:髮色-hair-color:', 'a'),
     hairColorB: findRoleSlot('character:髮色-hair-color:', 'b'),
-    expression: findSlot('character:神情與眼神-expression-gaze:'),
+    expression: findSlot(`character:${slugify(CHARACTER_EXPRESSION_CATEGORY)}:`),
     duoExpression: findSlot('character:雙人神情眼神-duo-expression:'),
-    expressionA: findRoleSlot('character:神情與眼神-expression-gaze:', 'a'),
-    expressionB: findRoleSlot('character:神情與眼神-expression-gaze:', 'b'),
+    expressionA: findRoleSlot(`character:${slugify(CHARACTER_EXPRESSION_CATEGORY)}:`, 'a'),
+    expressionB: findRoleSlot(`character:${slugify(CHARACTER_EXPRESSION_CATEGORY)}:`, 'b'),
     duoPose: findSlot('character:雙人構圖姿態-duo-pose:'),
     duoPoseBase: findSlot('character:雙人姿態基底-duo-pose-base:'),
     actionPose: findSlot('character:動作姿勢-action-pose:'),
@@ -13713,7 +13777,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     ['framingId'],
   );
   const fixedFramingCompositionOpening = resolveHalfFaceCompositionOpening(framing, random);
-  const expressionOptions = getByKey(runtime.catalog.character, '神情與眼神 (Expression & Gaze)');
+  const expressionOptions = getByKey(runtime.catalog.character, CHARACTER_EXPRESSION_CATEGORY);
   const lockedDuoExpression = subject.count === 2 && effectiveLocks.duoExpressionId
     ? getDuoExpressionOption(effectiveLocks.duoExpressionId)
     : null;

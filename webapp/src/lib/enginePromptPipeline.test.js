@@ -13,7 +13,7 @@ function optionId(controlKey, zh) {
 function createAllNoneLocks() {
   const locks = { ...createEmptyLocks() };
   getLockControls().forEach((control) => {
-    const noneOption = control.options?.find((entry) => entry.zh === '全無');
+    const noneOption = control.options?.find((entry) => entry.zh === '全無' || entry.zh === '無額外表情');
     if (noneOption) locks[control.key] = noneOption.id;
   });
   return locks;
@@ -300,7 +300,7 @@ test('Grok/Z-Image single-subject prompt keeps fixed subject lead and full body 
     eyewearId: optionId('eyewearId', '粗框眼鏡'),
     eyewearColorId: optionId('eyewearColorId', '黑色'),
     eyewearPlacementId: optionId('eyewearPlacementId', '正常戴在臉上'),
-    expressionId: optionId('expressionId', '直視鏡頭｜柔和微笑'),
+    expressionId: optionId('expressionId', '柔和微笑'),
     topId: optionId('topId', '比基尼上身'),
     topColorId: optionId('topColorId', '白色'),
     pantsId: optionId('pantsId', '比基尼下身'),
@@ -338,7 +338,7 @@ test('AI single-subject prompt uses fixed subject lead while preserving eyewear 
     eyewearId: optionId('eyewearId', '粗框眼鏡'),
     eyewearColorId: optionId('eyewearColorId', '黑色'),
     eyewearPlacementId: optionId('eyewearPlacementId', '正常戴在臉上'),
-    expressionId: optionId('expressionId', '直視鏡頭｜柔和微笑'),
+    expressionId: optionId('expressionId', '柔和微笑'),
     topId: optionId('topId', '比基尼上身'),
     topColorId: optionId('topColorId', '白色'),
     pantsId: optionId('pantsId', '比基尼下身'),
@@ -646,20 +646,20 @@ test('Gpt single-subject prompt preserves full-fidelity expression and special a
   };
 
   const crossedArms = buildSections({
-    expressionId: optionId('expressionId', '直視鏡頭｜柔和微笑'),
+    expressionId: optionId('expressionId', '柔和微笑'),
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
-  assert.match(crossedArms.subject, /direct eye contact with the camera, relaxed cheeks, gently lifted mouth corners, soft natural smile/i);
+  assert.match(crossedArms.subject, /soft natural smile, relaxed cheeks, gently lifted mouth corners/i);
   assert.match(crossedArms.pose, /arms crossed loosely in front of the body[\s\S]*presents a natural relaxed standing pose/i);
   assert.doesNotMatch(crossedArms.pose, /\.,/i);
-  assert.match(crossedArms.prompt.zImagePrompt, /direct eye contact/i);
+  assert.match(crossedArms.prompt.zImagePrompt, /soft natural smile, relaxed cheeks, gently lifted mouth corners/i);
   assert.doesNotMatch(crossedArms.prompt.zImagePrompt, /cool composed body language/i);
 
   const downwardRecline = buildSections({
-    expressionId: optionId('expressionId', '向下視線｜內斂'),
+    expressionId: optionId('expressionId', '內斂克制'),
     poseId: optionId('poseId', '半躺低姿態｜側身半躺'),
   });
-  assert.match(downwardRecline.subject, /downward gaze, softened eyes, subtly lowered inner brows, restrained quiet expression/i);
+  assert.match(downwardRecline.subject, /reserved understated expression, relaxed eyelids, gently pressed lips, restrained mood/i);
   assert.match(downwardRecline.pose, /side-lying pose/i);
   assert.doesNotMatch(downwardRecline.pose, /soft flowing body line|\.,/i);
 
@@ -1397,7 +1397,7 @@ test('chest-up framing shares visible pose fragments while Z-Image removes camer
     poseHandId: optionId('poseHandId', '一手撐地一手放腿上'),
     poseHeadId: optionId('poseHeadId', '側臉看向遠方'),
     angleId: optionId('angleId', '膝蓋高度鏡頭'),
-    expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
+    expressionId: optionId('expressionId', '平靜淡然'),
   });
 
   const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';

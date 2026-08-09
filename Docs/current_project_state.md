@@ -449,7 +449,7 @@ Duo rules:
 
 - `duoPoseId` is the current `雙人動作情境` control.
 - `duoPoseBaseId` is the current `雙人姿態基底` control.
-- `duoExpressionId` is the current shared `雙人神情眼神` control.
+- `duoExpressionId` is the current shared `雙人互動神情` control; single-subject `expressionId` is the pure `表情` control and does not specify gaze direction.
 - Legacy `duoInteractionId` / separated A-B expression controls are hidden / migrated and should not be reintroduced.
 - Duo action scenario language should usually be one simple natural sentence that lets the image model decide exact contact, crop, hand placement, and movement.
 - Natural duo crops, partial occlusion, incomplete full-body visibility, and model-decided body language are acceptable when the selected scenario implies them.

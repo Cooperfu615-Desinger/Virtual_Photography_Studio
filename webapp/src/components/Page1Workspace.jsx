@@ -930,13 +930,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       {isSpecialSubjectMode ? (
         <div className="context-note">
           {isAndroidSubjectMode
-            ? '女性人形機器人會接管人物主體，但仍可套用髮型、髮色、神情眼神、姿勢動作與特殊動作；身份基底中的五官、體態與 B 穿搭設定會暫時停用。'
-            : '特殊角色會接管人物主體，只保留神情眼神、姿勢動作與特殊動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。'}
+            ? '女性人形機器人會接管人物主體，但仍可套用髮型、髮色、表情、姿勢動作與特殊動作；身份基底中的五官、體態與 B 穿搭設定會暫時停用。'
+            : '特殊角色會接管人物主體，只保留表情、姿勢動作與特殊動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。'}
         </div>
       ) : null}
       {isCharacterProfileMode ? (
         <div className="context-note">
-          角色卡會接管人物身份與固定穿搭，只保留神情眼神、姿勢動作與特殊動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。
+          角色卡會接管人物身份與固定穿搭，只保留表情、姿勢動作與特殊動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。
         </div>
       ) : null}
       {isCloseupMode ? (
@@ -953,7 +953,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       <div className="control-section-header">
         <div>
           <div className="control-section-title">Expression & Pose</div>
-          <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '在這裡整理神情眼神、姿勢動作與 Pose Composer。'}</p>
+          <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '在這裡整理表情、姿勢動作與 Pose Composer。'}</p>
         </div>
         {renderSectionActionButtons()}
       </div>

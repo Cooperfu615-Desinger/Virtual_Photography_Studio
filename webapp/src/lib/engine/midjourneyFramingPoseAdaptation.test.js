@@ -22,7 +22,7 @@ function createAllNoneLocks() {
   return Object.fromEntries(
     controls.map((control) => [
       control.key,
-      control.options?.find((option) => option.zh === '全無')?.id || '',
+      control.options?.find((option) => option.zh === '全無' || option.zh === '無額外表情')?.id || '',
     ])
   );
 }

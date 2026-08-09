@@ -20,7 +20,7 @@ function optionId(controlKey, zh) {
 function createAllNoneLocks() {
   const locks = { ...createEmptyLocks() };
   for (const control of controls) {
-    const noneOption = control.options?.find((item) => item.zh === '全無');
+    const noneOption = control.options?.find((item) => item.zh === '全無' || item.zh === '無額外表情');
     if (noneOption) locks[control.key] = noneOption.id;
   }
   return locks;

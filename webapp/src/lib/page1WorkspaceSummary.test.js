@@ -51,14 +51,14 @@ test('workspace pose summary is separate from character identity summary', () =>
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),
     bodyTypeId: optionId('bodyTypeId', '性感曲線身形'),
-    expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
+    expressionId: optionId('expressionId', '平靜淡然'),
     poseBaseId: 'standing',
     poseHandId: 'one-hand-waist-one-down',
   }, controls);
 
   assert.match(summary.character.summary, /性感曲線身形/);
-  assert.doesNotMatch(summary.character.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
-  assert.match(summary.pose.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
+  assert.doesNotMatch(summary.character.summary, /平靜淡然|站姿|一手扶腰一手自然放下/);
+  assert.match(summary.pose.summary, /平靜淡然|站姿|一手扶腰一手自然放下/);
 });
 
 test('workspace pose summary includes the independent prop action', () => {
@@ -102,13 +102,13 @@ test('workspace pose summary shows the active single action pose card as the B p
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),
     actionPoseCardId: 'bratty-frustration-mock-kick',
-    expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
+    expressionId: optionId('expressionId', '平靜淡然'),
     poseBaseId: 'standing',
     poseHandId: 'one-hand-waist-one-down',
   }, controls);
 
   assert.equal(summary.pose.summary, '動作卡：不爽發洩踢擊');
-  assert.doesNotMatch(summary.pose.summary, /直視鏡頭｜平靜淡然|站姿|一手扶腰一手自然放下/);
+  assert.doesNotMatch(summary.pose.summary, /平靜淡然|站姿|一手扶腰一手自然放下/);
 });
 
 test('workspace summary treats legacy reference subject count as single mode', () => {
@@ -139,12 +139,12 @@ test('workspace pose summary uses the merged duo expression control', () => {
     ...createEmptyLocks(),
     subjectCount: '2',
     duoExpressionId: optionId('duoExpressionId', '兩人相互凝視｜安靜親密'),
-    expressionAId: optionId('expressionAId', '直視鏡頭｜柔和微笑'),
-    expressionBId: optionId('expressionBId', '大笑｜自然喜悅'),
+    expressionAId: optionId('expressionAId', '柔和微笑'),
+    expressionBId: optionId('expressionBId', '自然喜悅'),
   }, controls);
 
   assert.match(summary.pose.summary, /兩人相互凝視｜安靜親密/);
-  assert.doesNotMatch(summary.pose.summary, /直視鏡頭｜柔和微笑|大笑｜自然喜悅/);
+  assert.doesNotMatch(summary.pose.summary, /柔和微笑|自然喜悅/);
 });
 
 test('workspace summary omits PAGE1 aspect ratio from scene and photography summaries', () => {

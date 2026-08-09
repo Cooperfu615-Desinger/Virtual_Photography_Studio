@@ -360,7 +360,7 @@ test('character profile card still composes with expression and pose composer', 
     ...createEmptyLocks(),
     characterProfileId: 'character-48g',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
-    expressionId: optionId('expressionId', '直視鏡頭｜平靜淡然'),
+    expressionId: optionId('expressionId', '平靜淡然'),
     poseBaseId: optionId('poseBaseId', '站姿'),
     poseArrangementId: optionId('poseArrangementId', '單腳重心'),
     poseHandId: optionId('poseHandId', '雙手在身前交握'),
@@ -932,7 +932,7 @@ test('black and white skeletons use crop-aware compact MJ anatomy anchors withou
 test('expression and composition-projected pose remain available with special subjects', () => {
   const expression = getLockControls()
     .find((control) => control.key === 'expressionId')
-    .options.find((option) => option.zh === '直視鏡頭｜平靜淡然');
+    .options.find((option) => option.zh === '平靜淡然');
   const pose = getLockControls()
     .find((control) => control.key === 'poseId')
     .options.find((option) => option.zh === '站姿｜單腳重心');

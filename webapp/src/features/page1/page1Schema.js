@@ -134,7 +134,7 @@ export const SECTION_SUBPANELS = {
       id: 'special',
       label: '特殊角色',
       randomActionLabel: '重設為未指定',
-      description: '特殊角色會接管人物主體；神情眼神、姿勢動作與特殊動作請到 B 神情姿態調整。',
+      description: '特殊角色會接管人物主體；表情、姿勢動作與特殊動作請到 B 神情姿態調整。',
       keys: [
         'specialSubjectId',
       ],
@@ -143,7 +143,7 @@ export const SECTION_SUBPANELS = {
       id: 'character-profile',
       label: '角色卡',
       randomActionLabel: '重設為未指定',
-      description: '角色卡會接管人物身份與固定穿搭；神情眼神、姿勢動作與特殊動作請到 B 神情姿態調整。',
+      description: '角色卡會接管人物身份與固定穿搭；表情、姿勢動作與特殊動作請到 B 神情姿態調整。',
       keys: [
         'characterProfileId',
       ],

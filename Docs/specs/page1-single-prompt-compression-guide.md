@@ -256,7 +256,7 @@ AI renderer 只可刪除、重排與使用最小語法連接既有內容；不�
 
 前置句依序為成品類型、共用構圖句；構圖控制皆為 `全無` 時，構圖句可省略。
 
-一般單人模式的 AI 不再把已選五官與神情眼神一律視為非核心：至少保留一個五官主錨點，以及已選表情／視線的最短正向片語；膚質與次要光線細節仍可省略。Character Card 使用既有永久身份錨點，不重複追加一般五官句；雙人與特殊角色沿用各自 renderer contract。半臉構圖句維持既有 canonical text，不在此規範中改寫。PAGE1 使用 Pose Composer 時，先依共用構圖契約產生 projected canonical pose；若結果非空，AI 不得省略或自行改寫，若景別為 `faceDetail` 或 `headShoulders`，三組輸出都省略姿勢。
+一般單人模式的 AI 不再把已選五官與表情一律視為非核心：至少保留一個五官主錨點，以及已選表情的最短正向片語；膚質與次要光線細節仍可省略。表情不指定視線方向，頭部方向由 Pose Composer 控制。Character Card 使用既有永久身份錨點，不重複追加一般五官句；雙人與特殊角色沿用各自 renderer contract。半臉構圖句維持既有 canonical text，不在此規範中改寫。PAGE1 使用 Pose Composer 時，先依共用構圖契約產生 projected canonical pose；若結果非空，AI 不得省略或自行改寫，若景別為 `faceDetail` 或 `headShoulders`，三組輸出都省略姿勢。
 
 角色卡單人模式採「身份穩定、畫面自由」規則：人物句完整保留角色卡的結構化五官、膚質、永久特徵、身形、髮型與髮色，以及有效的眼鏡／耳機；穿搭句仍採極簡化。角色身份須從角色卡的結構化 profile fields 組裝，不可重複舊版完整 `identityAndBody` 段落，也不可將角色卡原始服裝與目前 PAGE1 選擇的服裝重複輸出。
 
@@ -297,7 +297,7 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 
 - **共用構圖開頭不可泛化或遺失。** AI 必須直接使用同一份 resolved composition source。以中景、高位俯視、右後為例，公開描述應保留 `Waist-up portrait, high angle, looking down, rear-right three-quarter view.`，不可改寫成泛化的 `medium shot`、`high right-rear angle`，也不可刪除 `looking down` 或 `three-quarter view`。構圖句仍位於人物句之前；半臉構圖句維持既有文字與左右側解析規則，不在本規範中重寫。
 - **一般單人 Subject 必須保留身份與身形 anchor。** 主 MJ 與 MJ 胸上特寫固定使用 `A 20s seductive stunning Japanese woman.`；其後保留共用 projected body source 的有效片段，例如 `full bust, narrow defined waist, flat abdomen`。AI 可以移除重複美感詞，但不得用 `curvy adult woman` 這類泛化片語取代 resolved identity 或 projected body anchor。此固定句只適用一般單人 MJ；Character Card、特殊角色與雙人模式沿用各自身份契約。
-- **一般單人 AI 新增五官與神情眼神的短版來源投影。** 五官至少保留一個臉型／五官主錨點；神情眼神至少保留一個視線方向與一個表情／嘴型片語。兩者都必須來自同一份 resolved character selection，不得在 renderer 重新抽選、補寫或改變選項語意。若與姿勢的頭部方向重複，只合併成一次可視化描述，不得把兩個來源都刪除。
+- **一般單人 AI 新增五官與表情的短版來源投影。** 五官至少保留一個臉型／五官主錨點；表情至少保留一個可見表情／嘴型片語。兩者都必須來自同一份 resolved character selection，不得在 renderer 重新抽選、補寫或改變選項語意。表情不指定視線方向；頭部方向由姿勢來源控制。
 - **場景採取來源片段覆蓋，不採任意前 N 截斷。** 優先保留地點身份、代表性實體 anchor，以及必要的時段／天氣／光線條件；可刪除重複空間修飾與內部控制語。不得新增未選擇的景深、模糊、散景或場景物件。
 - **成像採取固定優先級。** 優先保留攝影師／攝影風格身份、鏡頭身份與所選光學效果；`Camera / Film` 的次要解釋最後刪減，但其獨立的 film／rendering identity 若仍是來源 anchor 必須保留。攝影師、鏡頭與光學三者不可因字數壓力被整段移除。
 - **髮型與服裝採欄位歸屬去重。** Subject 擁有髮型與髮色；Wardrobe 擁有服裝、材質、版型、配色、鞋襪與必要配件。跨來源出現相同髮型或服裝時做語意去重，不只比對完全相同字串；特殊穿搭若明確內含指定髮型，可保留一次作為例外。不得刪除服裝主體、材質或主要輪廓，只移除 `complete outfit`、`locked`、`controlled by`、重複的 `look／styling` 與其他內部控制語。
@@ -509,42 +509,39 @@ core category, 1-3 concrete visible traits
 
 `Gpt`、`Grok/Z-Image`、`AI` 在 Pose Composer 啟用時先共用同一個 resolved pose，再依共用構圖契約產生 projected canonical pose。只要投影結果非空，三組必須逐字共用，完整保留投影後仍可見的身體安排、重心、支撐、手部位置、道具接觸與頭部方向；只允許外層段落標題或排版不同，不得在 renderer 層再次壓縮、刪減或改寫。`faceDetail` 與 `headShoulders` 的結果為空，三組都不輸出姿勢段落。
 
-神情與視線只寫臉部可見反應、眼神方向、嘴型、眼瞼狀態與情緒強度。姿態只寫身體安排、重心、支撐與動作狀態，並可保留 Pose Composer 的 canonical head direction；但 `head naturally facing the camera`、`turning back`、`over-the-shoulder` 等頭部／身體方向不得由姿態文字偷渡進神情資料。
+表情只寫臉部可見反應、嘴型、眉毛、眼瞼狀態與情緒強度，不指定眼神方向。姿態只寫身體安排、重心、支撐與動作狀態，並可保留 Pose Composer 的 canonical head direction；但 `head naturally facing the camera`、`turning back`、`over-the-shoulder` 等頭部／身體方向不得由姿態文字偷渡進表情資料。
 
-表情與視線是三組 renderer 共用的 canonical 語意來源，不是只供 Midjourney 使用的補充欄位：
+表情是三組 renderer 共用的 canonical 語意來源，不是只供 Midjourney 使用的補充欄位：
 
-- `Gpt`（內部欄位 `grokPrompt`）完整保留被選資料列中所有有效的表情、視線、嘴型與眼周描述，只做格式整理、移除空值與完全重複。
-- `Grok/Z-Image` 保持 source-traceable reduction。可以刪除重複連接語與內部控制語，但不得刪掉獨立的視線方向、嘴型、眼瞼／眉毛線索或情緒強度，也不得自行補充未選取的情緒。
-- `AI`（內部欄位 `midjourneyPrompt`）可以整理成單段、短句與既有 MJ 輸出格式，但在描述已經短而具體時不應再刪減。主 MJ 與 `MJ 胸上特寫照` 使用同一份 resolved expression／gaze 語意；不預設建立 `mj.expression` 覆寫。
-- 三組可以因段落標題、連接語與標點不同而有不同表面格式，但「柔和微笑＋直視鏡頭」等獨立語意必須完整存在於三組；不需要為 Gpt 或 Grok/Z-Image 另加一套情緒形容詞。
+- `Gpt`（內部欄位 `grokPrompt`）完整保留被選資料列中所有有效的表情、嘴型與眼周描述，只做格式整理、移除空值與完全重複。
+- `Grok/Z-Image` 保持 source-traceable reduction。可以刪除重複連接語與內部控制語，但不得刪掉獨立的嘴型、眼瞼／眉毛線索或情緒強度，也不得自行補充未選取的情緒。
+- `AI`（內部欄位 `midjourneyPrompt`）可以整理成單段、短句與既有 MJ 輸出格式，但在描述已經短而具體時不應再刪減。主 MJ 與 `MJ 胸上特寫照` 使用同一份 resolved expression 語意；不預設建立 `mj.expression` 覆寫。
+- 三組可以因段落標題、連接語與標點不同而有不同表面格式，但「柔和微笑」等獨立表情語意必須完整存在於三組；不需要為 Gpt 或 Grok/Z-Image 另加一套情緒形容詞。
 - 目前仍沿用公開 `expressionId` 與歷史 option ID；若未來把視線拆成獨立控制，必須先設計 legacy mapping，不得以語意清理直接改名、刪除或重建 saved-card／restore 可讀的鎖定值。
 
 共用資料應採不重複的組合方式，例如：
 
 ```text
-Gaze: direct eye contact with the camera
-Expression: relaxed cheeks, gently lifted mouth corners, soft natural smile
+Expression: soft natural smile, relaxed cheeks, gently lifted mouth corners
 ```
 
 合併到公開 Prompt 後可以是：
 
 ```text
-direct eye contact with the camera, relaxed cheeks, gently lifted mouth corners, soft natural smile
+soft natural smile, relaxed cheeks, gently lifted mouth corners
 ```
 
-不得同時重複 `looking directly at the camera` 與 `direct eye contact`，但也不得因去重而把視線或表情其中一項整體刪除。
+不得從表情資料中加入 `looking directly at the camera`、`direct eye contact` 或其他視線方向，也不得因去重而把表情、嘴型或眼周線索整體刪除。
 
 目前可接受的純表情例子包括喜悅、平靜、悲傷、克制憤怒、輕微驚訝、緊張、害羞，以及低強度的 `playful pout, lightly furrowed brows, teasing mock annoyance, affectionate expression`。`撒嬌生氣` 必須保持俏皮、低強度與非攻擊性，不能與 `restrained anger` 混成真正的憤怒。
 
 `Grok/Z-Image` / `AI` 壓縮時可刪減：
 
-- 重複的視線說法，例如同時出現 `looking directly at the camera` 與 `direct eye contact`。
 - 不提供新視覺資訊的泛用語尾。
 - 內部控制、fallback、selection 或完整性說明。
 
 `Grok/Z-Image` / `AI` 壓縮時不可刪減：
 
-- 唯一的視線方向，例如 `direct eye contact with the camera` 或 `downward gaze`。
 - 唯一的表情／嘴型／眼周線索，例如 `soft natural smile`、`playful pout`、`lightly furrowed brows`。
 - 使情緒強度成立的可視化詞，例如 `restrained`、`gentle`、`teasing mock annoyance`。
 

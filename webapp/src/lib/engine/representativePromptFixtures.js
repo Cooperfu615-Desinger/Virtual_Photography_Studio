@@ -64,7 +64,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       facialFeaturesId: { byZh: '成熟性感臉' },
       hairstyleId: { byZh: '直髮：日式瀏海' },
       hairColorId: { byZh: '柔霧黑茶' },
-      expressionId: { byZh: '抿唇忍笑｜俏皮' },
+      expressionId: { byZh: '俏皮忍笑' },
       poseBaseId: { byZh: '坐姿' },
       poseArrangementId: { byZh: '開闊自信坐姿' },
       poseHeadId: { byZh: '頭部自然朝向鏡頭' },
@@ -81,7 +81,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       grokPrompt: {
         includes: [
           'young seductive alluring beauty face',
-          'direct eye contact with the camera, lips gently pressed, subtle smile held back, playful relaxed expression',
+          'playful restrained smile, gently pressed lips, subtly lifted mouth corners',
           'macro lens',
           'neon cross-processed rendering',
         ],
@@ -89,21 +89,20 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       zImagePrompt: {
         includes: [
           'young seductive alluring beauty face',
-          'direct eye contact with the camera, lips gently pressed, subtle smile held back, playful relaxed expression',
+          'playful restrained smile, gently pressed lips, subtly lifted mouth corners',
           'macro lens',
           'neon cross-processed rendering',
         ],
       },
       midjourneyPrompt: {
         includes: [
-          'Waist-up portrait, high angle, looking down, front view',
+          'Waist-up portrait, high angle, looking down, rear-right three-quarter view',
           'A 20s seductive stunning Japanese woman',
           'full bust, narrow defined waist, flat abdomen',
           'softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips',
-          'direct eye contact with the camera',
-          'lips gently pressed',
-          'subtle smile held back',
-          'playful relaxed expression',
+          'playful restrained smile',
+          'gently pressed lips',
+          'subtly lifted mouth corners',
           'straight hair with Japanese bangs',
           'black-tea brown hair',
           'structured opaque leather corset lingerie set',
