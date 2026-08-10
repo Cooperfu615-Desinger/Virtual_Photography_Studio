@@ -1976,8 +1976,8 @@
       },
       {
         "zh": "亮面膠帶束帶套裝",
-        "en": "glossy adhesive tape body-wrap set, halter bralette structure, matching high-cut tape bottoms, horizontal and diagonal torso bands, hip and thigh wrap bands, exposed banded cutout construction",
-        "desc": "以亮面膠帶纏繞身體形成掛脖胸衣、高衩膠帶下身與臀腿束帶，保留黏貼式帶狀鏤空結構與連貫的身體束帶輪廓。",
+        "en": "bare-shoulder glossy adhesive tape body-wrapping construction, separate independent groups of wide glossy tape strips adhered directly to the skin, independent chest and ribcage wrap bands with open upper and lower bust areas, localized waist and abdomen bands, independent hip and pelvis wrap bands with overlapping center-front and rear coverage, separate thigh wrap bands, mostly horizontal with natural diagonal overlaps, visible skin gaps and occasional overlaps, compressed skin with soft flesh bulges and slight spillover along the tape edges",
+        "desc": "亮面膠帶直接黏貼在皮膚上，形成不連成單件服裝的獨立纏繞帶組；肩部保持裸露，胸部只以帶狀結構遮覆必要部位，腰腹局部纏繞，髖臀與大腿分別使用獨立寬膠帶，水平為主並允許自然斜向、間隙與局部重疊，膠帶邊緣產生明顯的皮膚壓迫與溢出感。",
         "meta": {
           "series": "signature",
           "colorMode": "primary",
@@ -1985,9 +1985,7 @@
           "lockedOptional": false,
           "colorTargets": {
             "primary": [
-              "tape_wrap_structure",
-              "tape_bottoms",
-              "hip_and_thigh_wrap_bands"
+              "tape_wrap_bands"
             ],
             "contrast": [],
             "locked": []

@@ -7569,6 +7569,7 @@ function describeOutfitColorTargets(targets = []) {
     contrast_trim: 'the contrast trim',
     lace_up_ribbon: 'the lace-up ribbon',
     underskirt: 'the underskirt',
+    tape_wrap_bands: 'all tape wrap bands',
     knit_top: 'the knit top',
     main_skirt_fabric: 'the main skirt fabric',
     striped_bow: 'the striped bow',
@@ -7727,6 +7728,21 @@ function isCompleteLookLowerTorsoFragment(fragment) {
   return /\b(?:navel|abdomen|midriff|belly|stomach|lower torso|waistline|hipbones?|hips?)\b/i.test(fragment || '');
 }
 
+function shouldKeepAdhesiveTapeWrapFragment(fragment, sourceText, projection) {
+  if (!isAdhesiveTapeWrapOutfitPresetSource(sourceText)) return true;
+
+  const zone = /\b(?:upper and lower bust|chest|ribcage|shoulder)\b/i.test(fragment)
+    ? 'upperBody'
+    : /\b(?:waist|abdomen)\b/i.test(fragment)
+      ? 'waist'
+      : /\b(?:hip|pelvis)\b/i.test(fragment)
+        ? 'hip'
+        : /\bthigh\b/i.test(fragment)
+          ? 'thigh'
+          : '';
+  return !zone || projection?.wardrobe?.detailZones?.includes(zone);
+}
+
 function splitMixedCompleteLookWardrobeFragment(fragment) {
   const tuckedMatch = String(fragment || '').match(/^(.+?\b(?:top|shirt|tee|t-shirt|blouse|camisole|tank|bra|bralette|corset|bodice|bustier))\s+tucked(?:\s+\w+){0,3}\s+into\s+(.+)$/i);
   return tuckedMatch ? [tuckedMatch[1], tuckedMatch[2]] : [fragment];
@@ -7778,6 +7794,7 @@ function filterCompleteLookPromptForFraming(value, context) {
 
   for (const sourceFragment of splitGptSpecialOutfitFragments(text)) {
     for (const fragment of splitMixedCompleteLookWardrobeFragment(sourceFragment)) {
+      if (!shouldKeepAdhesiveTapeWrapFragment(fragment, text, projection)) continue;
       const role = classifyCompleteLookWardrobeFragment(fragment);
       if (!role) {
         if (!projection.wardrobe.detailZones.includes('waist') && isCompleteLookLowerTorsoFragment(fragment)) continue;
@@ -12517,6 +12534,55 @@ function compactAiGarmentValue(value, preferredRole = '', primarySource = '') {
   return [primary, structuralDetail].filter(Boolean).join(', ');
 }
 
+function isAdhesiveTapeWrapOutfitPresetSource(value) {
+  const text = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
+  return /\bbody-wrapping construction\b/i.test(text)
+    && /\bseparate independent groups of\b/i.test(text)
+    && /\badhesive tape\b/i.test(text);
+}
+
+function extractAdhesiveTapeWrapColor(value) {
+  return String(value || '').match(/\ball tape wrap bands in ([a-z][a-z -]*)$/i)?.[1]?.trim() || '';
+}
+
+function buildAiAdhesiveTapeWrapText(value, context = null, { compact = false } = {}) {
+  if (!isAdhesiveTapeWrapOutfitPresetSource(value)) return '';
+
+  const projection = getCompositionVisibilityProjection(context);
+  const detailZones = new Set(projection?.wardrobe?.detailZones || []);
+  const hasVisibleZone = (zone) => detailZones.size === 0 || detailZones.has(zone);
+  const color = extractAdhesiveTapeWrapColor(value);
+  const colorLead = color ? `${color} ` : '';
+  const parts = [
+    `${colorLead}glossy adhesive tape wrapped directly around the skin in separate wide bands`,
+  ];
+
+  if (hasVisibleZone('shoulder') || hasVisibleZone('upperBody')) {
+    parts.push('bare shoulders and open upper and lower bust areas');
+  }
+  if (hasVisibleZone('upperBody')) {
+    parts.push(compact
+      ? 'independent chest and ribcage wrap bands'
+      : 'independent wide chest and ribcage wrap bands');
+  }
+  if (hasVisibleZone('waist')) {
+    parts.push('localized waist and abdomen bands');
+  }
+  if (hasVisibleZone('hip')) {
+    parts.push('independent hip and pelvis wrap bands with overlapping center-front and rear coverage');
+  }
+  if (hasVisibleZone('thigh')) {
+    parts.push('separate thigh wrap bands');
+  }
+
+  parts.push(
+    'mostly horizontal with natural diagonal overlaps',
+    compact ? 'visible skin gaps and compressed skin with soft flesh bulges at the tape edges' : 'visible skin gaps and occasional overlaps, compressed skin with soft flesh bulges and slight spillover along the tape edges',
+  );
+
+  return parts.join(', ');
+}
+
 const AI_COMPLETE_LOOK_SIGNATURE_PATTERNS = [
   /\bsharp mirror reflections\b/i,
   /\bvacuum-tight second-skin fit\b/i,
@@ -12577,6 +12643,11 @@ function buildAiCompleteLookCoreText(
     fragmentCompactor = compactAiCompleteLookFragment,
   } = {}
 ) {
+  const adhesiveTapeWrapText = buildAiAdhesiveTapeWrapText(value, context, {
+    compact: majorRoleLimit <= 1,
+  });
+  if (adhesiveTapeWrapText) return adhesiveTapeWrapText;
+
   let styleFragment = '';
   const roleFragments = new Map();
   const includeVisibleAccessoryRoles = !isCompleteWardrobeProjection(getCompositionVisibilityProjection(context));

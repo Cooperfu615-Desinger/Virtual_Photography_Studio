@@ -474,9 +474,7 @@
     "lockedOptional": false,
     "colorTargets": {
       "primary": [
-        "tape_wrap_structure",
-        "tape_bottoms",
-        "hip_and_thigh_wrap_bands"
+        "tape_wrap_bands"
       ],
       "contrast": [],
       "locked": []

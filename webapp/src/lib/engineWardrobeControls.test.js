@@ -614,9 +614,12 @@ test('outfit preset and dress option labels use unified prefixes without fixed c
 test('adhesive tape look is a composable outfit preset while the original special outfit remains intact', () => {
   const preset = optionByLabel('outfitPresetId', '套裝：亮面膠帶束帶');
   const special = optionByLabel('specialOutfitId', '紅色亮面膠帶束帶造型');
-  assert.match(preset.en, /glossy adhesive tape body-wrap set/);
-  assert.match(preset.en, /halter bralette structure/);
-  assert.match(preset.en, /hip and thigh wrap bands/);
+  assert.match(preset.en, /body-wrapping construction/);
+  assert.match(preset.en, /separate independent groups of wide glossy tape strips adhered directly to the skin/);
+  assert.match(preset.en, /independent chest and ribcage wrap bands/);
+  assert.match(preset.en, /independent hip and pelvis wrap bands/);
+  assert.match(preset.en, /compressed skin with soft flesh bulges and slight spillover/);
+  assert.doesNotMatch(preset.en, /halter|bralette|high-cut|tape bottoms/i);
   assert.doesNotMatch(preset.en, /controlled by the outfit color selection/i);
   assert.equal(preset.meta?.embeddedOuterwear, undefined);
 
@@ -643,8 +646,31 @@ test('adhesive tape look is a composable outfit preset while the original specia
   for (const label of ['套裝：亮面膠帶束帶', '長版外套', '泡泡襪', '戰鬥靴', '棒球帽', '矩形眼鏡', '小型金屬耳環', '細領帶']) {
     assert.ok(wardrobeLabels.includes(label), `Expected composable wardrobe item ${label}`);
   }
-  assert.match(presetPrompt.grokPrompt, /glossy adhesive tape body-wrap set/);
-  assert.match(presetPrompt.grokPrompt, /tape wrap structure, tape bottoms, and hip and thigh wrap bands in red/);
+  assert.match(presetPrompt.grokPrompt, /body-wrapping construction/);
+  assert.match(presetPrompt.grokPrompt, /independent chest and ribcage wrap bands/);
+  assert.match(presetPrompt.grokPrompt, /localized waist and abdomen bands/);
+  assert.match(presetPrompt.grokPrompt, /independent hip and pelvis wrap bands with overlapping center-front and rear coverage/);
+  assert.match(presetPrompt.grokPrompt, /compressed skin with soft flesh bulges and slight spillover along the tape edges/);
+  assert.match(presetPrompt.grokPrompt, /all tape wrap bands in red/);
+  assert.doesNotMatch(presetPrompt.grokPrompt, /halter|bralette|high-cut|tape bottoms/i);
+  assert.match(presetPrompt.zImagePrompt, /independent chest and ribcage wrap bands/);
+  assert.match(presetPrompt.zImagePrompt, /compressed skin with soft flesh bulges/i);
+  assert.doesNotMatch(presetPrompt.zImagePrompt, /halter|bralette|high-cut|tape bottoms/i);
+  assert.match(presetPrompt.midjourneyPrompt, /glossy adhesive tape wrapped directly around the skin/i);
+  assert.match(presetPrompt.midjourneyPrompt, /independent chest and ribcage wrap bands/i);
+  assert.match(presetPrompt.midjourneyPrompt, /compressed skin with soft flesh bulges/i);
+  assert.doesNotMatch(presetPrompt.midjourneyPrompt, /halter|bralette|high-cut|tape bottoms/i);
+  const chestUpPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-portrait')?.text || '';
+  const chestUpMjPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
+  const fullBodyPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
+  for (const text of [chestUpPrompt, chestUpMjPrompt]) {
+    assert.match(text, /independent chest and ribcage wrap bands/i);
+    assert.match(text, /bare-shoulder|bare shoulders/i);
+    assert.doesNotMatch(text, /hip and pelvis|thigh wrap|halter|bralette|high-cut|tape bottoms/i);
+  }
+  assert.match(fullBodyPrompt, /independent hip and pelvis wrap bands/i);
+  assert.match(fullBodyPrompt, /separate thigh wrap bands/i);
+  assert.match(fullBodyPrompt, /compressed skin with soft flesh bulges/i);
   assert.doesNotMatch(presetPrompt.grokPrompt, /complete outfit:/i);
 
   const [specialPrompt] = generatePrompts(1, {
@@ -655,6 +681,8 @@ test('adhesive tape look is a composable outfit preset while the original specia
   });
   assert.equal(specialPrompt.selection.specialOutfitId, special.id);
   assert.equal(specialPrompt.selection.outfitPresetId, '');
+  assert.match(special.en, /halter bralette/);
+  assert.match(special.en, /high-cut tape bottom/);
   assert.match(specialPrompt.grokPrompt, /glossy adhesive tape body-wrap look/);
   assert.doesNotMatch(specialPrompt.grokPrompt, /baseball cap|long coat|combat boots/i);
 });
