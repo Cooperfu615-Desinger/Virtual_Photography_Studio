@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.1.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.2.0';
 
 export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
   field: 'zImagePrompt',
@@ -38,6 +38,8 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
   sectionOrder: SECTION_ORDER,
   composition: {
     cameraSubjectGeometry: 'eight-direction crop-aware single-subject geometry',
+    strictSideProfileGeometry: 'mirrored near-far shoulder and hip overlap at 90 degrees',
+    framingDescriptorPrecedence: ['cowboy', 'medium'],
     preserveSharedCanonicalPose: true,
     geometryAppliesToOutputs: ['zImagePrompt'],
   },

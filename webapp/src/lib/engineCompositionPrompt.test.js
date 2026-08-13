@@ -52,6 +52,22 @@ test('orbit controls display short direction labels while preserving stored nume
   assert.equal(orbitControl.options.find((option) => option.zh === '左前 45 度')?.id.includes('45'), true);
 });
 
+test('cowboy framing is labeled as knee-up before the generic medium-shot match', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '牛仔中景 (Cowboy Shot)'),
+    angleId: optionId('angleId', '高位俯視鏡頭'),
+    orbitId: optionId('orbitId', '左側 90 度'),
+  });
+
+  for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+    assert.match(prompt[field], /Knee-up cowboy shot, high angle, looking down, left profile view/i, field);
+    assert.doesNotMatch(prompt[field], /Waist-up portrait/i, field);
+  }
+  assert.match(prompt.zImagePrompt, /torso, pelvis, and thighs[\s\S]*strict 90-degree left-side profile/i);
+});
+
 test('AI chest-up framing removes lower wardrobe details after the shared opening', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),

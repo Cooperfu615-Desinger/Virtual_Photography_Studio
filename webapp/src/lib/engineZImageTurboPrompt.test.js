@@ -112,7 +112,7 @@ test('Z-Image Turbo keeps a right-profile seated body side-on when the canonical
     poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
     poseAnchorId: optionId('poseAnchorId', '坐在單人雕花絨布椅'),
   }, 'z-image-turbo-right-profile-head-camera');
-  const geometry = "Photographed from the woman's right side. Her right shoulder and right hip are nearest the lens, with her torso, legs, and feet forming a clearly side-on silhouette.";
+  const geometry = "Photographed from the woman's right side. Her near right shoulder visually overlaps the far left shoulder and her near right hip visually overlaps the far left hip, with her torso, pelvis, legs, and feet seen edge-on in a strict 90-degree right-side profile.";
   const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([\s\S]*?)(?=\n\n(?:Scene|Lighting|Camera Look):|\n\nmulti-cut sequence n=2|$)/)?.[1] || '';
 
   assert.match(prompt.zImagePrompt, /Full-body portrait, eye-level view, right profile view\./);
@@ -122,8 +122,8 @@ test('Z-Image Turbo keeps a right-profile seated body side-on when the canonical
   assert.match(canonicalPose, /ornate single velvet armchair/i);
   assert.equal(prompt.zImagePrompt.includes(canonicalPose), true);
   assert.equal(prompt.midjourneyPrompt.includes(canonicalPose), true);
-  assert.doesNotMatch(prompt.grokPrompt, /right shoulder and right hip are nearest the lens/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /right shoulder and right hip are nearest the lens/i);
+  assert.doesNotMatch(prompt.grokPrompt, /near right shoulder visually overlaps the far left shoulder/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /near right shoulder visually overlaps the far left shoulder/i);
 });
 
 test('Z-Image Turbo uses neutral camera geometry for a dedicated special subject', () => {
@@ -137,7 +137,7 @@ test('Z-Image Turbo uses neutral camera geometry for a dedicated special subject
   }, 'z-image-turbo-special-subject-right-profile');
 
   assert.match(prompt.zImagePrompt, /Photographed from the subject's right side/i);
-  assert.match(prompt.zImagePrompt, /subject's right shoulder and right hip are nearest the lens/i);
+  assert.match(prompt.zImagePrompt, /subject's near right shoulder[\s\S]*subject's near right hip/i);
   assert.doesNotMatch(prompt.zImagePrompt, /Photographed from the woman's right side/i);
 });
 

@@ -9334,8 +9334,8 @@ function compactCameraDescriptor(item, kind) {
     if (label.includes('局部五官')) return 'facial-detail close-up';
     if (label.includes('臉部特寫')) return 'tight face close-up';
     if (label.includes('特寫')) return label.includes('胸上') ? 'chest-up portrait' : 'head-and-shoulders portrait';
-    if (label.includes('中景')) return 'waist-up portrait';
     if (label.includes('牛仔')) return 'knee-up cowboy shot';
+    if (label.includes('中景')) return 'waist-up portrait';
     if (label.includes('全身')) return 'full-body portrait';
   }
 

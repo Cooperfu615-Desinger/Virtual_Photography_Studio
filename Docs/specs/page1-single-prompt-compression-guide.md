@@ -249,6 +249,15 @@ Z-Image 的構圖段落在共用景別、鏡頭高度與拍攝方位短句之後
 
 第六項在 2026-08-13 完成驗證：14 項聚焦測試、139 項 Prompt 品質測試與 689 項 frontend tests 全數通過，lint、build 與相同 `z-image-turbo-v1` seed 的 200 筆 strict audit 亦通過。Strict audit 沒有 required-output、duplicate、control-language、contradiction 或 blocking 訊號；Z-Image 平均字數由 197.7 增至 222.1，p95 由 258 增至 284，屬於核准的主要構圖資訊而非冗詞。Browser 驗證在 1440×1000 與 390×900 覆蓋五個工作區，實際產生的全身右側案例包含 right shoulder／right hip 靠近鏡頭與 side-on silhouette，且無 overflow、破圖或 console error。
 
+2026-08-13 實圖回饋顯示，單純使用 `nearer／nearest the lens` 與 `side-on silhouette` 仍可能被 Z-Image 的正面時尚人像傾向壓過；同時發現 `牛仔中景 (Cowboy Shot)` 因字串判斷先命中一般「中景」，公開構圖開頭誤寫為 `Waist-up portrait`，但可見性 projection 正確使用 cowboy bucket，因而造成 waist-up 標籤與 hip／thigh anchor 表面矛盾。後續修正依下列契約處理：
+
+- 共用構圖 descriptor 必須先判斷 cowboy 再判斷一般 medium，使 Gpt、Z-Image、AI 都輸出 `Knee-up cowboy shot`；不改 framing ID、bucket 或儲存資料。
+- 左右 90° 側面不再只描述近側部位，而以鏡像的近遠重疊建立不可混淆的幾何：近肩遮住遠肩，cowboy／full-body／unconstrained 再加入近髖遮住遠髖，身體以 `seen edge-on in a strict 90-degree ... profile` 收束。
+- face crop 使用 nose／lips／chin 的單一側面輪廓；upper crop 只使用肩膀與上半身；medium crop 只使用肩膀、ribcage 與 waist；只有 cowboy 以上才加入 pelvis／thighs，只有 full-body 才加入 legs／feet。
+- 上述加強只改左右 90° 模板；正面與六種三分之四／背面方位保持既有文字。頭部方向仍由三組逐字共用的 canonical pose 負責。
+
+修正後契約版本為 `1.2.0`。聚焦測試 19 項、Prompt 品質測試 140 項與 frontend tests 691 項全數通過，lint 與 build 通過；相同 `z-image-turbo-v1` seed 的 200 筆 strict audit 沒有 blocking、required-output、duplicate、control-language 或 contradiction 訊號。Z-Image avg／median／p95／max 為 226.5／220／290／322 words；仍保留 18 個既有 wardrobe／scene diagnostic-only findings。Browser QA 在 1440×1000 與 390×900 走查五個工作區，沒有 document-level 橫向溢位、破圖、console warning 或 error；live PAGE1 Z-Image 輸出確認 cowboy descriptor、左右重疊幾何與 strict 90-degree 結尾同時存在。
+
 ### AI
 
 - Internal field: `midjourneyPrompt`
