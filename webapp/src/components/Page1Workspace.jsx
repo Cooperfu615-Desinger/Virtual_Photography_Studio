@@ -6,6 +6,7 @@ import LightingReferenceModal from './LightingReferenceModal';
 import MidjourneyParameterControls from './MidjourneyParameterControls';
 import PromptPreviewCard from './PromptPreviewCard';
 import {
+  DRESS_COVERED_KEYS,
   OUTFIT_PRESET_A_COVERED_KEYS,
   OUTFIT_PRESET_B_COVERED_KEYS,
   OUTFIT_PRESET_COVERED_KEYS,
@@ -27,6 +28,7 @@ import {
 } from '../lib/page1PromptOutputs.js';
 import {
   getPage1SectionActionLabels,
+  randomizePage1WardrobePanelLocks,
   randomizeLockKeys,
   setLockKeysToNone,
 } from '../lib/page1SectionRandom.js';
@@ -497,6 +499,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const resolvedActiveSubpanel = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { subjectCount: locks.subjectCount });
   const activeSubpanelKeys = resolvedActiveSubpanel?.keys || getSectionKeys(activeSection);
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
+  const isSingleDressActive = locks.subjectCount === '1'
+    && Boolean(locks.dressId)
+    && !isNoneSelected('dressId', locks.dressId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
   const isOutfitPresetBActive = Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls);
   const isSpecialOutfitActive = locks.subjectCount === '2'
@@ -506,7 +511,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       )
     : Boolean(locks.specialOutfitId) && !isNoneSelected('specialOutfitId', locks.specialOutfitId, wardrobeLockControls);
   const isDuoMode = locks.subjectCount === '2';
-  const isAnyOutfitPresetActive = isSingleOutfitPresetActive || isOutfitPresetAActive || isOutfitPresetBActive;
+  const isAnyOutfitPresetActive = isSingleOutfitPresetActive || isSingleDressActive || isOutfitPresetAActive || isOutfitPresetBActive;
   const importedWorldSceneActive = locks.importedWorldSceneMode === 'architecture' && Boolean(locks.importedWorldSceneArchitectureText);
   const fixedCompositionSetActive = locks.subjectCount !== '2'
     && Boolean(locks.fixedCompositionSetId)
@@ -659,7 +664,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     || (['topColorId', 'bottomColorId'].includes(control.key) && Boolean(locks.topBottomPaletteId) && !isNoneSelected('topBottomPaletteId', locks.topBottomPaletteId, wardrobeLockControls))
     || (['topAColorId', 'bottomAColorId'].includes(control.key) && Boolean(locks.topBottomPaletteAId) && !isNoneSelected('topBottomPaletteAId', locks.topBottomPaletteAId, wardrobeLockControls))
     || (['topBColorId', 'bottomBColorId'].includes(control.key) && Boolean(locks.topBottomPaletteBId) && !isNoneSelected('topBottomPaletteBId', locks.topBottomPaletteBId, wardrobeLockControls))
-    || (isSingleOutfitPresetActive && OUTFIT_PRESET_COVERED_KEYS.has(control.key))
+    || (isSingleOutfitPresetActive && control.key !== 'dressId' && OUTFIT_PRESET_COVERED_KEYS.has(control.key))
+    || (isSingleDressActive && DRESS_COVERED_KEYS.has(control.key))
     || (isOutfitPresetAActive && OUTFIT_PRESET_A_COVERED_KEYS.has(control.key))
     || (isOutfitPresetBActive && OUTFIT_PRESET_B_COVERED_KEYS.has(control.key))
   );
@@ -772,7 +778,17 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const handleRandomizeActiveSection = () => {
-    updateLocks((prev) => randomizeLockKeys(prev, activeSubpanelKeys, createEmptyLocks(), lockControls));
+    updateLocks((prev) => (
+      activeSection === 'wardrobe'
+        ? randomizePage1WardrobePanelLocks(
+          prev,
+          resolvedActiveSubpanel?.id,
+          activeSubpanelKeys,
+          createEmptyLocks(),
+          lockControls,
+        )
+        : randomizeLockKeys(prev, activeSubpanelKeys, createEmptyLocks(), lockControls)
+    ));
   };
 
   const handleSetActiveSectionNone = () => {

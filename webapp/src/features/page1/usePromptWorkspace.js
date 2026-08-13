@@ -13,6 +13,7 @@ import {
 } from '../../lib/engine.js';
 import { loadJsonStorage, saveJsonStorage } from '../storage/browserStorage.js';
 import { transitionPage1Locks } from './lockTransitions.js';
+import { reconcilePage1SingleWardrobeLocks } from './page1WardrobeExclusivity.js';
 import {
   attachMidjourneySettingsToPrompt,
   createPromptGenerationLocks,
@@ -25,10 +26,18 @@ const EMPTY_LIBRARY = Object.freeze([]);
 export function usePromptWorkspace() {
   const activeLibrary = EMPTY_LIBRARY;
   const lockControls = useMemo(() => getLockControls(activeLibrary), [activeLibrary]);
-  const [locks, setLocks] = useState(() => sanitizeLocksForCloseupMode(
-    normalizeLocks(loadJsonStorage(LOCKS_STORAGE_KEY, createEmptyLocks())),
-    lockControls,
-  ));
+  const [locks, setLocks] = useState(() => {
+    const emptyLocks = createEmptyLocks();
+    const normalizedLocks = sanitizeLocksForCloseupMode(
+      normalizeLocks(loadJsonStorage(LOCKS_STORAGE_KEY, emptyLocks)),
+      lockControls,
+    );
+    return reconcilePage1SingleWardrobeLocks({
+      previousLocks: emptyLocks,
+      candidateLocks: normalizedLocks,
+      lockControls,
+    });
+  });
   const [previewGenerationNonce, setPreviewGenerationNonce] = useState(0);
   const [previewRerollExclusion, setPreviewRerollExclusion] = useState(null);
 

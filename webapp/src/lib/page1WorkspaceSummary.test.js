@@ -36,6 +36,24 @@ test('workspace wardrobe summary hides granular top and bottom selections when a
   assert.deepEqual(insights.main, ['套裝：空服員制服']);
 });
 
+test('workspace wardrobe summary hides stale separates when a dress is active', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    dressId: optionId('dressId', '連身：短版｜一字領哥德迷你洋裝'),
+    topId: optionId('topId', '襯衫'),
+    skirtId: optionId('skirtId', '百褶短裙'),
+    topFitId: optionId('topFitId', '緊身'),
+    topStylingId: optionId('topStylingId', '正常穿著'),
+  };
+
+  const summary = buildWorkspaceSummary(locks, controls);
+  const insights = buildWardrobeLayerInsights(locks, controls, false, true);
+
+  assert.match(summary.wardrobe.summary, /連身：短版｜一字領哥德迷你洋裝/);
+  assert.doesNotMatch(summary.wardrobe.summary, /襯衫|百褶短裙|緊身|正常穿著/);
+  assert.deepEqual(insights.main, ['連身：短版｜一字領哥德迷你洋裝']);
+});
+
 test('workspace scene summary shows imported PAGE3 world-scene architecture label', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),

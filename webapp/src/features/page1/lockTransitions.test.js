@@ -3,9 +3,31 @@ import test from 'node:test';
 
 import { createEmptyLocks, getLockControls } from '../../lib/engine.js';
 import { transitionPage1Locks } from './lockTransitions.js';
+import {
+  PAGE1_SINGLE_COMPLETE_LOOK_STATE_KEYS,
+  PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS,
+} from './page1WardrobeExclusivity.js';
 
 function optionId(controls, key, zh) {
   return controls.find((control) => control.key === key)?.options.find((option) => option.zh === zh)?.id;
+}
+
+function activeOptionId(controls, key) {
+  return controls.find((control) => control.key === key)?.options.find((option) => (
+    option.zh !== '全無' && option.zh !== '隨機' && option.en !== 'none'
+  ))?.id;
+}
+
+function assertInactive(locks, controls, keys) {
+  keys.forEach((key) => {
+    const value = locks[key];
+    const option = controls.find((control) => control.key === key)?.options?.find((item) => item.id === value);
+    assert.equal(
+      Boolean(value && option && option.zh !== '全無' && option.en !== 'none'),
+      false,
+      `${key} should be inactive`,
+    );
+  });
 }
 
 test('page1 transition keeps special subject and character profile mutually exclusive', () => {
@@ -131,4 +153,103 @@ test('page1 close-up transitions preserve hidden selections and restore them at 
   for (const key of preservedKeys) {
     assert.equal(restoredLocks[key], previousLocks[key], `${key} should return unchanged at full body`);
   }
+});
+
+test('page1 transition lets a newly selected dress replace normal separates while preserving outer layers', () => {
+  const controls = getLockControls();
+  const previousLocks = {
+    ...createEmptyLocks(),
+    topId: activeOptionId(controls, 'topId'),
+    topFitId: activeOptionId(controls, 'topFitId'),
+    topStylingId: activeOptionId(controls, 'topStylingId'),
+    topBottomPaletteId: activeOptionId(controls, 'topBottomPaletteId'),
+    pantsId: activeOptionId(controls, 'pantsId'),
+    bottomFitId: activeOptionId(controls, 'bottomFitId'),
+    outerwearId: activeOptionId(controls, 'outerwearId'),
+    shoesId: activeOptionId(controls, 'shoesId'),
+  };
+  const dressId = activeOptionId(controls, 'dressId');
+
+  const next = transitionPage1Locks({
+    previousLocks,
+    candidateLocks: { ...previousLocks, dressId },
+    lockControls: controls,
+  });
+
+  assert.equal(next.dressId, dressId);
+  assertInactive(next, controls, PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS);
+  assert.equal(next.outerwearId, previousLocks.outerwearId);
+  assert.equal(next.shoesId, previousLocks.shoesId);
+});
+
+test('page1 transition lets a newly selected separate replace a dress while preserving outer layers', () => {
+  const controls = getLockControls();
+  const previousLocks = {
+    ...createEmptyLocks(),
+    dressId: activeOptionId(controls, 'dressId'),
+    dressColorId: activeOptionId(controls, 'dressColorId'),
+    completeLookPaletteId: activeOptionId(controls, 'completeLookPaletteId'),
+    outerwearId: activeOptionId(controls, 'outerwearId'),
+  };
+  const topId = activeOptionId(controls, 'topId');
+
+  const next = transitionPage1Locks({
+    previousLocks,
+    candidateLocks: { ...previousLocks, topId },
+    lockControls: controls,
+  });
+
+  assert.equal(next.topId, topId);
+  assertInactive(next, controls, PAGE1_SINGLE_COMPLETE_LOOK_STATE_KEYS);
+  assert.equal(next.outerwearId, previousLocks.outerwearId);
+});
+
+test('page1 transition lets complete-look choices replace each other by explicit action order', () => {
+  const controls = getLockControls();
+  const outfitPresetId = activeOptionId(controls, 'outfitPresetId');
+  const dressId = activeOptionId(controls, 'dressId');
+  const emptyLocks = createEmptyLocks();
+  const outfitLocks = transitionPage1Locks({
+    previousLocks: emptyLocks,
+    candidateLocks: { ...emptyLocks, outfitPresetId },
+    lockControls: controls,
+  });
+  const dressLocks = transitionPage1Locks({
+    previousLocks: outfitLocks,
+    candidateLocks: { ...outfitLocks, dressId },
+    lockControls: controls,
+  });
+  const restoredOutfitLocks = transitionPage1Locks({
+    previousLocks: dressLocks,
+    candidateLocks: { ...dressLocks, outfitPresetId },
+    lockControls: controls,
+  });
+
+  assert.equal(dressLocks.dressId, dressId);
+  assertInactive(dressLocks, controls, ['outfitPresetId']);
+  assert.equal(restoredOutfitLocks.outfitPresetId, outfitPresetId);
+  assertInactive(restoredOutfitLocks, controls, ['dressId']);
+});
+
+test('page1 bulk wardrobe restore keeps complete-look priority over conflicting separates', () => {
+  const controls = getLockControls();
+  const previousLocks = createEmptyLocks();
+  const outfitPresetId = activeOptionId(controls, 'outfitPresetId');
+
+  const next = transitionPage1Locks({
+    previousLocks,
+    candidateLocks: {
+      ...previousLocks,
+      outfitPresetId,
+      dressId: activeOptionId(controls, 'dressId'),
+      topId: activeOptionId(controls, 'topId'),
+      skirtId: activeOptionId(controls, 'skirtId'),
+      outerwearId: activeOptionId(controls, 'outerwearId'),
+    },
+    lockControls: controls,
+  });
+
+  assert.equal(next.outfitPresetId, outfitPresetId);
+  assertInactive(next, controls, ['dressId', ...PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS]);
+  assert.notEqual(next.outerwearId, 'none');
 });

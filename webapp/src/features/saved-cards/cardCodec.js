@@ -6,6 +6,7 @@ import {
 import { MIDJOURNEY_PARAMETER_CONTRACT } from '../../lib/engine/midjourneyParameterContract.js';
 import { parseMidjourneyParameterTail } from '../../lib/engine/midjourneyParameterTail.js';
 import { ACTION_POSE_CARDS, buildActionPoseSavedCard } from '../../lib/actionPoseLab.js';
+import { reconcilePage1SingleWardrobeLocks } from '../page1/page1WardrobeExclusivity.js';
 
 export const FAVORITES_STORAGE_VERSION = 3;
 
@@ -329,7 +330,11 @@ export function buildRestoreLocks(nextLocks, controls) {
     if (noneOption) restoredLocks[control.key] = noneOption.id;
   });
 
-  return restoredLocks;
+  return reconcilePage1SingleWardrobeLocks({
+    previousLocks: {},
+    candidateLocks: restoredLocks,
+    lockControls: controls,
+  });
 }
 
 export function mergeFavoritePrompts(existingPrompts, importedPrompts) {

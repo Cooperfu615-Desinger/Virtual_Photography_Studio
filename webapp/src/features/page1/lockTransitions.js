@@ -4,6 +4,7 @@ import {
 } from '../../lib/engine.js';
 import { POSE_COMPOSER_CONTROL_KEYS } from './page1Schema.js';
 import { isNoneSelected } from './page1Selectors.js';
+import { reconcilePage1SingleWardrobeLocks } from './page1WardrobeExclusivity.js';
 
 function clearUnavailableSelection(locks, key, options, fallback = '') {
   if (!locks[key]) return;
@@ -17,7 +18,7 @@ export function transitionPage1Locks({
   lockControls,
   activeLibrary = [],
 }) {
-  const next = sanitizeLocksForCloseupMode({ ...candidateLocks }, lockControls);
+  let next = sanitizeLocksForCloseupMode({ ...candidateLocks }, lockControls);
   const sceneOptions = getSceneDependentOptions(activeLibrary, next);
 
   clearUnavailableSelection(next, 'locationId', sceneOptions.locationOptions);
@@ -57,6 +58,12 @@ export function transitionPage1Locks({
       next[topColorKey] = 'none';
       next[bottomColorKey] = 'none';
     }
+  });
+
+  next = reconcilePage1SingleWardrobeLocks({
+    previousLocks,
+    candidateLocks: next,
+    lockControls,
   });
 
   const specialOutfitIsActive = next.subjectCount === '2'

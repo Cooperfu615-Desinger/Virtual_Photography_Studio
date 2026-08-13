@@ -10,11 +10,29 @@ import {
 import {
   getPage1ControlActionMode,
   getPage1SectionActionLabels,
+  randomizePage1WardrobePanelLocks,
   randomizeLockKeys,
   setLockKeysToNone,
 } from './page1SectionRandom.js';
 import { PAGE1_POSE_SUBPANELS } from './page1WorkspacePanels.js';
-import { POSE_COMPOSER_KEYS } from '../features/page1/page1Schema.js';
+import { POSE_COMPOSER_KEYS, SECTION_SUBPANELS } from '../features/page1/page1Schema.js';
+import {
+  PAGE1_SINGLE_COMPLETE_LOOK_STATE_KEYS,
+  PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS,
+} from '../features/page1/page1WardrobeExclusivity.js';
+import { transitionPage1Locks } from '../features/page1/lockTransitions.js';
+
+function activeOptionId(controls, key) {
+  return controls.find((control) => control.key === key)?.options.find((option) => (
+    option.zh !== '全無' && option.zh !== '隨機' && option.en !== 'none'
+  ))?.id;
+}
+
+function isActiveSelection(locks, controls, key) {
+  const value = locks[key];
+  const option = controls.find((control) => control.key === key)?.options?.find((item) => item.id === value);
+  return Boolean(value && option && option.zh !== '全無' && option.en !== 'none');
+}
 
 test('randomizeLockKeys resets only the requested page1 section fields', () => {
   const defaults = createEmptyLocks();
@@ -237,4 +255,100 @@ test('section action labels explain panels without randomizable fields', () => {
     }, controls),
     { random: '重設為未指定', none: '清空可清除項目' },
   );
+});
+
+test('complete-look panel random clears normal separates before randomizing', () => {
+  const controls = getLockControls();
+  const defaults = createEmptyLocks();
+  const panel = SECTION_SUBPANELS.wardrobe.find((item) => item.id === 'overall');
+  const locks = {
+    ...defaults,
+    topId: activeOptionId(controls, 'topId'),
+    topFitId: activeOptionId(controls, 'topFitId'),
+    pantsId: activeOptionId(controls, 'pantsId'),
+    bottomColorId: activeOptionId(controls, 'bottomColorId'),
+  };
+
+  const next = randomizePage1WardrobePanelLocks(
+    locks,
+    panel.id,
+    panel.keys,
+    defaults,
+    controls,
+  );
+
+  PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS.forEach((key) => {
+    assert.equal(isActiveSelection(next, controls, key), false, `${key} should be inactive`);
+  });
+  assert.equal(next.outfitPresetId, '');
+  assert.equal(next.dressId, '');
+
+  const transitioned = transitionPage1Locks({
+    previousLocks: locks,
+    candidateLocks: next,
+    lockControls: controls,
+  });
+  assert.equal(transitioned.outfitPresetId, '', 'outfit preset should remain in random mode');
+  assert.equal(transitioned.dressId, '', 'dress should remain in random mode');
+});
+
+test('normal-separates panel random clears complete looks before randomizing', () => {
+  const controls = getLockControls();
+  const defaults = createEmptyLocks();
+  const panel = SECTION_SUBPANELS.wardrobe.find((item) => item.id === 'garments');
+  const locks = {
+    ...defaults,
+    dressId: activeOptionId(controls, 'dressId'),
+    dressColorId: activeOptionId(controls, 'dressColorId'),
+    completeLookPaletteId: activeOptionId(controls, 'completeLookPaletteId'),
+  };
+
+  const next = randomizePage1WardrobePanelLocks(
+    locks,
+    panel.id,
+    panel.keys,
+    defaults,
+    controls,
+  );
+
+  PAGE1_SINGLE_COMPLETE_LOOK_STATE_KEYS.forEach((key) => {
+    assert.equal(isActiveSelection(next, controls, key), false, `${key} should be inactive`);
+  });
+  assert.equal(next.topId, '');
+  assert.equal(next.pantsId, '');
+  assert.equal(next.skirtId, '');
+
+  const transitioned = transitionPage1Locks({
+    previousLocks: locks,
+    candidateLocks: next,
+    lockControls: controls,
+  });
+  assert.equal(transitioned.topId, '', 'top should remain in random mode');
+  assert.equal(transitioned.pantsId, '', 'pants should remain in random mode');
+  assert.equal(transitioned.skirtId, '', 'skirt should remain in random mode');
+});
+
+test('global random preserves random mode for both complete-look and separates families', () => {
+  const controls = getLockControls();
+  const defaults = createEmptyLocks();
+  const locks = {
+    ...defaults,
+    dressId: activeOptionId(controls, 'dressId'),
+    outerwearId: activeOptionId(controls, 'outerwearId'),
+  };
+  const randomized = randomizeLockKeys(
+    locks,
+    controls.map((control) => control.key),
+    defaults,
+    controls,
+  );
+  const transitioned = transitionPage1Locks({
+    previousLocks: locks,
+    candidateLocks: randomized,
+    lockControls: controls,
+  });
+
+  ['outfitPresetId', 'dressId', 'topId', 'pantsId', 'skirtId'].forEach((key) => {
+    assert.equal(transitioned[key], '', `${key} should remain in engine random mode`);
+  });
 });

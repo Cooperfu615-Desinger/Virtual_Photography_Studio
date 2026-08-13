@@ -2,7 +2,7 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-08-04
+Last updated: 2026-08-13
 
 ## Snapshot
 
@@ -19,6 +19,13 @@ Last updated: 2026-08-04
 - `五官特寫照` is retired from active generation, PAGE1 cards, and DLL sources. The legacy preset metadata and saved-card `facial-closeup-portrait` entries remain readable for restore/serialization compatibility; old data is not deleted or rewritten.
 - F parameter changes affect `midjourneyPrompt` and `chestUpMjPortraitPrompt`; the Gpt, Grok/Z-Image, structured chest-up, and full-body outputs remain parameter-free.
 - Final validation passed on 2026-08-01: frontend `npm test` 635/635, `npm run test:prompt-quality` 116/116, lint, build, root prompt-audit tests 12/12, Python unit tests 2/2, `git diff --check`, and the 200-seed strict audit with zero blocking findings. Browser QA exercised the Prompt 工作台 at the default desktop viewport and 390×844 mobile viewport; all six outputs and six DLL sources were present, the MJ chest output used one native `--ar 4:5` line, and browser warnings/errors were empty.
+
+## Current PAGE1 single-subject wardrobe exclusivity
+
+- PAGE1 treats outfit presets and dresses as complete-look alternatives to normal Top／Pants／Skirt separates. An active complete look clears and disables the overlapping garment, fit, styling, color, pattern, and top／bottom palette locks while preserving outerwear, legwear, shoes, and accessories.
+- Explicit control changes use last-action priority. Bulk restore and legacy persisted conflicts without an action order retain the established complete-look priority: outfit preset, then dress, then normal separates. Saved Cards keep the same schema, IDs, and storage keys; normalized selections round-trip without stale separates.
+- The `完整造型` section random action clears normal separates before returning complete-look controls to random mode. The `上下身單件` section random action clears complete-look state before returning separate controls to random mode. Global random keeps both families in engine random mode so the existing resolver can choose one effective main wardrobe family.
+- Validation on 2026-08-13: focused transition／selector／section-random／summary／Saved Cards tests passed 49 tests; frontend `npm test` passed 673 tests; lint, build, and `git diff --check` passed. Browser QA at 1440×1000 and 390×900 exercised dress selection, disabled normal-separate controls, both wardrobe panel random directions, outer-layer availability, Saved Cards loading, and restoration of the original visible test state. Both viewports had zero document overflow and broken images; browser console warnings and errors were empty.
 
 ## Validation
 

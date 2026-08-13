@@ -1,4 +1,9 @@
 import { POSE_COMPOSER_KEYS } from '../features/page1/page1Schema.js';
+import {
+  PAGE1_SINGLE_COMPLETE_LOOK_STATE_KEYS,
+  PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS,
+  clearPage1WardrobeKeys,
+} from '../features/page1/page1WardrobeExclusivity.js';
 
 const RESET_TO_DEFAULT_KEYS = new Set([
   'specialSubjectId',
@@ -75,6 +80,23 @@ export function randomizeLockKeys(locks, keys, defaultLocks = {}, controls = [])
   });
 
   return next;
+}
+
+export function randomizePage1WardrobePanelLocks(
+  locks,
+  panelId,
+  keys,
+  defaultLocks = {},
+  controls = [],
+) {
+  let next = { ...locks };
+  if (next.subjectCount === '1' && panelId === 'overall') {
+    next = clearPage1WardrobeKeys(next, PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS, controls);
+  }
+  if (next.subjectCount === '1' && panelId === 'garments') {
+    next = clearPage1WardrobeKeys(next, PAGE1_SINGLE_COMPLETE_LOOK_STATE_KEYS, controls);
+  }
+  return randomizeLockKeys(next, keys, defaultLocks, controls);
 }
 
 export function setLockKeysToNone(locks, keys, controls = []) {

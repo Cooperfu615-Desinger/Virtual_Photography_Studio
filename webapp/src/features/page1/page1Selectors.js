@@ -193,8 +193,9 @@ export function buildPage1ControlGroups({ lockControls, locks, sceneDependentOpt
     ? ['outfitPresetAId', 'outfitPresetBId'].some((key) => (
       Boolean(locks[key]) && !isNoneSelected(key, locks[key], wardrobeLockControls)
     ))
-    : Boolean(locks.outfitPresetId)
-      && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
+    : ['outfitPresetId', 'dressId'].some((key) => (
+      Boolean(locks[key]) && !isNoneSelected(key, locks[key], wardrobeLockControls)
+    ));
 
   return { coreLockControls, characterLockControls, wardrobeLockControls, isOutfitPresetActive };
 }

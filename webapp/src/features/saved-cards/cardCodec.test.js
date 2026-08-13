@@ -2,8 +2,10 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { createEmptyLocks, getLockControls } from '../../lib/engine.js';
+import { transitionPage1Locks } from '../page1/lockTransitions.js';
 import {
   createLineage,
+  buildRestoreLocks,
   buildSavedCardManifestItem,
   collectSourceTags,
   deserializeFavoritePrompt,
@@ -36,6 +38,70 @@ test('favorite codec preserves card identity, prompts, selection, and lineage', 
   assert.equal(restored.selection.subjectCount, '1');
   assert.equal(restored.selection.posePropId, locks.posePropId);
   assert.equal(restored.lineage.rootShortId, '#123456');
+});
+
+test('favorite codec round-trips a normalized dress selection without stale separates', () => {
+  const controls = getLockControls();
+  const activeOptionId = (key) => controls
+    .find((control) => control.key === key)
+    ?.options.find((option) => option.zh !== '全無' && option.zh !== '隨機' && option.en !== 'none')?.id;
+  const emptyLocks = createEmptyLocks();
+  const locks = transitionPage1Locks({
+    previousLocks: emptyLocks,
+    candidateLocks: {
+      ...emptyLocks,
+      dressId: activeOptionId('dressId'),
+      topId: activeOptionId('topId'),
+      topFitId: activeOptionId('topFitId'),
+      pantsId: activeOptionId('pantsId'),
+      outerwearId: activeOptionId('outerwearId'),
+    },
+    lockControls: controls,
+  });
+  const prompt = {
+    id: 'prompt-wardrobe-exclusive',
+    source: 'page1',
+    date: '2026-08-13T00:00:00.000Z',
+    summary: '連身完整造型',
+    midjourneyPrompt: 'primary prompt',
+    grokPrompt: 'structured prompt',
+    zImagePrompt: 'z-image prompt',
+    selection: locks,
+  };
+
+  const restored = deserializeFavoritePrompt(serializeFavoritePrompt(prompt));
+
+  assert.equal(restored.selection.dressId, locks.dressId);
+  assert.equal(restored.selection.topId, locks.topId);
+  assert.equal(restored.selection.topFitId, locks.topFitId);
+  assert.equal(restored.selection.pantsId, locks.pantsId);
+  assert.equal(restored.selection.outerwearId, locks.outerwearId);
+  assert.notEqual(restored.selection.topId, activeOptionId('topId'));
+  assert.notEqual(restored.selection.pantsId, activeOptionId('pantsId'));
+});
+
+test('favorite restore normalizes legacy wardrobe conflicts with complete-look priority', () => {
+  const controls = getLockControls();
+  const activeOptionId = (key) => controls
+    .find((control) => control.key === key)
+    ?.options.find((option) => option.zh !== '全無' && option.zh !== '隨機' && option.en !== 'none')?.id;
+  const outfitPresetId = activeOptionId('outfitPresetId');
+  const outerwearId = activeOptionId('outerwearId');
+
+  const restored = buildRestoreLocks({
+    ...createEmptyLocks(),
+    outfitPresetId,
+    dressId: activeOptionId('dressId'),
+    topId: activeOptionId('topId'),
+    pantsId: activeOptionId('pantsId'),
+    outerwearId,
+  }, controls);
+
+  assert.equal(restored.outfitPresetId, outfitPresetId);
+  assert.notEqual(restored.dressId, activeOptionId('dressId'));
+  assert.notEqual(restored.topId, activeOptionId('topId'));
+  assert.notEqual(restored.pantsId, activeOptionId('pantsId'));
+  assert.equal(restored.outerwearId, outerwearId);
 });
 
 test('standard prompt parser restores prop actions only into posePropId', () => {

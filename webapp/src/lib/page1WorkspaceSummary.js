@@ -1,22 +1,15 @@
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
+import { PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS } from '../features/page1/page1WardrobeExclusivity.js';
 
 export const OUTFIT_PRESET_COVERED_KEYS = new Set([
-  'topId',
-  'topFitId',
-  'topStylingId',
-  'topColorId',
-  'topPatternId',
+  ...PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS,
   'dressId',
   'dressColorId',
-  'pantsId',
-  'skirtId',
-  'bottomFitId',
-  'bottomRiseId',
-  'bottomColorId',
-  'bottomPatternId',
 ]);
+
+export const DRESS_COVERED_KEYS = new Set(PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS);
 
 export const OUTFIT_PRESET_A_COVERED_KEYS = new Set([
   'topAId',
@@ -74,6 +67,7 @@ function isOutfitPresetActive(locks, controls, key) {
 function isCoveredByOutfitPreset(key, activePresets) {
   return (
     (activePresets.single && OUTFIT_PRESET_COVERED_KEYS.has(key))
+    || (activePresets.dress && DRESS_COVERED_KEYS.has(key))
     || (activePresets.a && OUTFIT_PRESET_A_COVERED_KEYS.has(key))
     || (activePresets.b && OUTFIT_PRESET_B_COVERED_KEYS.has(key))
   );
@@ -87,6 +81,7 @@ function getEffectiveWardrobeOptionLabel(controls, locks, key, activePresets) {
 function getActiveOutfitPresets(locks, controls) {
   return {
     single: isOutfitPresetActive(locks, controls, 'outfitPresetId'),
+    dress: isOutfitPresetActive(locks, controls, 'dressId'),
     a: isOutfitPresetActive(locks, controls, 'outfitPresetAId'),
     b: isOutfitPresetActive(locks, controls, 'outfitPresetBId'),
   };
