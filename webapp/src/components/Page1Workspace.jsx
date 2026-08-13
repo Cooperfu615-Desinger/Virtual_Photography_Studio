@@ -1246,7 +1246,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                 className="text-input prompt-import-textarea"
                 value={importPromptText}
                 onChange={(event) => setImportPromptText(event.target.value)}
-                placeholder="貼上 AI、Gpt、Grok/Z-Image，或本工具匯出的標準格式內容"
+                placeholder="貼上 AI、Gpt、Z-Image，或本工具匯出的標準格式內容"
               />
             </label>
 

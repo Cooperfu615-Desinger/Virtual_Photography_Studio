@@ -10,9 +10,41 @@ import {
   collectSourceTags,
   deserializeFavoritePrompt,
   normalizeManifestSummaryFields,
+  parseExportedMarkdownPrompt,
   parseLocksFromStandardPrompt,
   serializeFavoritePrompt,
 } from './cardCodec.js';
+
+test('Markdown import accepts historical and current Z-Image section headings', () => {
+  const controls = getLockControls();
+  const top = controls
+    .find((control) => control.key === 'topId')
+    .options.find((option) => option.zh === '棉質細肩背心');
+
+  for (const heading of ['Grok/Z-Image', 'Z-Image Prompt', 'Z-Image']) {
+    const imported = parseExportedMarkdownPrompt([
+      '**Summary:** 相容性測試',
+      '',
+      '## Gpt',
+      '```text',
+      top.en,
+      '```',
+      '',
+      `## ${heading}`,
+      '```text',
+      `z output for ${heading}`,
+      '```',
+      '',
+      '## AI Prompt',
+      '```text',
+      'AI output',
+      '```',
+    ].join('\n'), controls, `import-${heading}`);
+
+    assert.equal(imported.zImagePrompt, `z output for ${heading}`);
+    assert.equal(imported.selection.topId, top.id);
+  }
+});
 
 test('favorite codec preserves card identity, prompts, selection, and lineage', () => {
   const locks = createEmptyLocks();

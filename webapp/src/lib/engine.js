@@ -88,6 +88,7 @@ import {
 import { createPromptSectionModel } from './engine/promptModel.js';
 import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
 import { createSelectionSnapshot } from './engine/selectionSchema.js';
+import { createZImageTurboPromptSectionModel } from './engine/zImageTurboPromptContract.js';
 
 export { createSeededRandom } from './engineRandom.js';
 
@@ -7239,33 +7240,6 @@ function getCharacterCardWardrobeSourceTexts(subject, locks = {}, wardrobe = nul
     .sort((left, right) => right.length - left.length);
 }
 
-function dedupeCharacterCardWardrobeSources(value, sources = []) {
-  let output = String(value || '').replace(/\s+/g, ' ').trim();
-  const seen = new Set();
-  for (const source of sources) {
-    const variants = [...new Set([
-      source,
-      source.replace(/^signature\s+/i, ''),
-    ].filter(Boolean))];
-    for (const variant of variants) {
-      output = output.replace(new RegExp(escapeRegExpPattern(variant), 'gi'), (match) => {
-        const key = variant.toLowerCase();
-        if (seen.has(key)) return '';
-        seen.add(key);
-        return match;
-      });
-    }
-  }
-
-  return output
-    .replace(/\s*,\s*,+/g, ', ')
-    .replace(/,\s*\./g, '.')
-    .replace(/\bsignature outfit locked as,\s*/gi, 'signature outfit locked as ')
-    .replace(/\s+([,.])/g, '$1')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
 function buildWardrobeColors(wardrobeSlots, locks, random = Math.random) {
   const hasOutfitPreset = Boolean(
     (wardrobeSlots.outfitPreset && !isNoneLikeItem(wardrobeSlots.outfitPreset)) ||
@@ -9004,7 +8978,7 @@ const Z_IMAGE_FIXED_SET_OPENING_PARAGRAPHS = {
   'luxury-hotel-window-nyc': 'The portrait takes place inside a real-scale luxury hotel room editorial set anchored by a broad panoramic floor-to-ceiling glass wall, a New York-style high-rise skyline, and a soft white hotel bed. The glass reads as one mostly uninterrupted, lightly reflective plane, with bedding, pillows, bedside table, lamp, curtain edges, wine glass, and open book as readable room props.',
   'luxury-hotel-window-mount-fuji-spring': 'The portrait takes place inside a real-scale luxury hotel room editorial set anchored by a broad panoramic floor-to-ceiling glass wall, a spring Mount Fuji landscape, and a soft white hotel bed. Outside the glass, Mount Fuji remains the dominant distant anchor with residual summit snow, clean blue spring sky, fresh green foothills, small lakeside or town rooftops, and subtle cherry blossoms or spring foliage.',
   'luxury-hotel-window-mount-fuji-winter': 'The portrait takes place inside a real-scale luxury hotel room editorial set anchored by a broad panoramic floor-to-ceiling glass wall, a snow-covered Mount Fuji winter landscape, and a soft white hotel bed. Outside the glass, Mount Fuji remains the dominant distant anchor with cold clear air, blue-white winter daylight, snowy foothills or village rooftops, and quiet pale sky depth.',
-  'retro-tile-bathtub': 'The portrait takes place inside a real-scale vintage bathroom editorial set anchored by a freestanding clawfoot bathtub, visible wet tile floor, aged tile wall, and porcelain sink or vanity with mirror above the sink. Keep the full bathtub body, tub feet, wet floor plane, sink or vanity, and mirror readable where possible, with chrome hardware, folded towels, bath bottles, a small wooden stool, foam or water surface, and subtle wet reflections as props. The subject reads fully soaked from head to toe with wet hair, damp skin, and water-clinging wardrobe or bare skin.',
+  'retro-tile-bathtub': 'The portrait takes place inside a real-scale vintage bathroom editorial set anchored by a freestanding clawfoot bathtub, visible wet tile floor, aged tile wall, and porcelain sink or vanity with mirror above the sink. The full bathtub body, tub feet, wet floor plane, sink or vanity, and mirror remain readable with chrome hardware, folded towels, bath bottles, a small wooden stool, foam or water surface, and subtle wet reflections as props. The subject reads fully soaked from head to toe with wet hair, damp skin, and water-clinging wardrobe or bare skin.',
   'seaside-slope-railway-crossing': 'The portrait takes place within a real-scale outdoor coastal downhill-road fixed composition set anchored by a downhill road plane, railway crossing gate, roadside poles and overhead wires, seaside town edges, and ocean horizon. The camera is positioned near the upper slope, looking downhill along the road plane toward the ocean horizon. A railway crossing gate cuts across the lower-middle frame while sloped asphalt, lane marks, overhead wires, distant shoreline, and open sky remain readable.',
   'seaside-stair-alley': 'The portrait takes place within a real-scale outdoor descending seaside stair-alley fixed composition set anchored by descending pale stairs, light side walls, handrails, plants or hydrangeas, overhead wires, and ocean horizon. The camera is positioned near the upper stairs, looking down the stair alley toward the ocean horizon. Descending pale stairs form the foreground and midground path toward the sea while side walls, rails, plants, distant shoreline, and open sky remain readable.',
 };
@@ -9039,12 +9013,33 @@ function buildZImageFixedSetPositionText(context) {
   if (!position || isNoneLikeItem(position)) return '';
 
   if (isFreeInteractionFixedSetPosition(position)) {
-    return `The subject can interact with ${getFixedSetFreeInteractionZones(context.fixedCompositionSet)} in any way.`;
+    const fixedSet = context.fixedCompositionSet;
+    if (fixedSet?.setGroupId === 'sofa-lounge') {
+      return 'The subject occupies one off-center primary zone near the sofa, floor, coffee table, armrest, wall-side space, or side decor.';
+    }
+    if (fixedSet?.setGroupId === 'hotel-window') {
+      return 'The subject occupies one primary zone near the bed, bed edge, window-side floor, bedside table, curtain edge, or pillow foreground.';
+    }
+    if (fixedSet?.meta?.tags?.includes('bathtub_set')) {
+      return 'The subject occupies one primary zone inside the bathtub, on the tub rim, on the wet floor, near the sink and mirror, or beside the chrome faucet hardware.';
+    }
+    if (fixedSet?.id === 'seaside-slope-railway-crossing') {
+      return 'The subject occupies one primary zone on the road foreground, beside the crossing gate, on the slope midground, at the roadside edge, or near a utility pole.';
+    }
+    if (fixedSet?.id === 'seaside-stair-alley') {
+      return 'The subject occupies one primary zone on the upper stairs, mid-stairs, beside a handrail, along a side wall, or near the plants.';
+    }
+    return 'The subject occupies one primary zone within the fixed-set architecture.';
   }
 
   return ensureTerminalPeriod(capitalizePromptLead(
     stripTerminalPromptPunctuation(position.en)
-      .replace(/\bcan be model-decided\b/gi, 'can remain flexible')
+      .replace(/;\s*(?:standing|sitting|lounging|half-reclining|lying|leaning|wall-leaning|forward-leaning)[^.;]*?\bcan be model-decided\b/gi, '')
+      .replace(/\bcan be model-decided\b/gi, 'reads naturally')
+      .replace(/\bcan remain\b/gi, 'remains')
+      .replace(/\bleft to the image model\b/gi, 'naturally placed')
+      .replace(/\bwithout prescribing (?:an )?exact pose\b/gi, 'with natural body placement')
+      .replace(/\ballowing\b/gi, 'with')
   ));
 }
 
@@ -9053,12 +9048,12 @@ function buildZImageFixedSetCaptureText(captureMode) {
 
   if (isFixedSetSelfShotMode(captureMode)) {
     if (captureMode.meta?.tags?.includes('fixed_set_imperfect_focus')) {
-      return 'For imperfect self-shot capture, allow background-object focus, slight subject blur, off-center crop, and incomplete set visibility.';
+      return 'Imperfect close-lens self-shot framing, background-object focus, slight subject blur, off-center crop, incomplete set visibility.';
     }
-    return 'For self-shot capture, allow close-lens proximity, off-center crop, and incomplete set visibility.';
+    return 'Close-lens self-shot framing, off-center crop, incomplete set visibility.';
   }
 
-  return 'Use photographer-shot fixed-set framing with clear face and wardrobe where framing allows.';
+  return 'Photographer-shot fixed-set framing with a clear face and visible wardrobe.';
 }
 
 function buildZImageFixedSetPerformanceText(performanceState) {
@@ -9068,6 +9063,20 @@ function buildZImageFixedSetPerformanceText(performanceState) {
     stripTerminalPromptPunctuation(performanceState.en)
       .replace(/\s+without specifying exact limb placement\b/i, '')
   ));
+}
+
+function buildZImageFixedSetBackgroundText(backgroundState) {
+  if (!backgroundState || isNoneLikeItem(backgroundState)) return '';
+  const textById = {
+    'outdoor-empty': 'Empty background with unobstructed outdoor architecture and no pedestrians or vehicles.',
+    'outdoor-sparse-pedestrians': 'A few small distant pedestrians add sparse background life without competing with the subject.',
+    'outdoor-lived-in-moment': 'Sparse distant people and subtle everyday movement add a quiet lived-in coastal-town background.',
+    'crossing-clear': 'Clear railway crossing with the barrier, rails, road plane, and ocean-facing downhill view unobstructed.',
+    'crossing-train-passing': 'One local train passes through the middle distance while the road, crossing gate, overhead wires, and ocean horizon remain readable.',
+    'crossing-light-traffic': 'One or two small distant cars, scooters, or bicycles add quiet everyday coastal-town life.',
+  };
+  return textById[backgroundState.id]
+    || ensureTerminalPeriod(capitalizePromptLead(stripTerminalPromptPunctuation(backgroundState.en)));
 }
 
 function buildZImageFixedSetViewText(context) {
@@ -9081,30 +9090,17 @@ function buildZImageFixedSetViewText(context) {
     : '';
   const viewText = [angle, orbit].filter(Boolean).join(' and ');
 
-  return viewText ? `Use ${viewText} within the fixed set.` : '';
+  return viewText ? ensureTerminalPeriod(capitalizePromptLead(viewText)) : '';
 }
 
 function buildZImageFixedSetInteractionParagraph(context) {
   return [
     buildZImageFixedSetPositionText(context),
-    context.fixedSetBackgroundState && !isNoneLikeItem(context.fixedSetBackgroundState)
-      ? ensureTerminalPeriod(capitalizePromptLead(stripTerminalPromptPunctuation(context.fixedSetBackgroundState.en)))
-      : '',
+    buildZImageFixedSetBackgroundText(context.fixedSetBackgroundState),
     buildZImageFixedSetCaptureText(context.fixedSetCaptureMode),
     buildZImageFixedSetViewText(context),
     buildZImageFixedSetPerformanceText(context.fixedSetPerformanceState),
   ].filter(Boolean).join(' ');
-}
-
-function buildZImageFixedSetStabilityParagraph(context) {
-  const fixedSet = context.fixedCompositionSet;
-  if (!fixedSet || isNoneLikeItem(fixedSet)) return '';
-
-  if (fixedSet.setGroupId === OUTDOOR_FIXED_SET_GROUP_ID) {
-    return `Keep the ${getGptFixedSetArchitectureName(fixedSet)} stable. Vary only subject placement, pose, crop, lighting, mood, and selected background life state.`;
-  }
-
-  return `Keep the ${getGptFixedSetArchitectureName(fixedSet)} stable. Vary only subject placement, pose, crop, lighting, and mood.`;
 }
 
 function buildAiFixedSetInteractionSentence(context) {
@@ -9232,15 +9228,6 @@ function buildGptFixedSetInteractionParagraph(context) {
   ].filter(Boolean).join(' ');
 }
 
-function getGptFixedSetArchitectureName(fixedSet) {
-  const tags = new Set(fixedSet?.meta?.tags || []);
-  if (fixedSet?.setGroupId === 'sofa-lounge') return 'fixed lounge architecture';
-  if (fixedSet?.setGroupId === 'hotel-window') return 'fixed hotel-window architecture';
-  if (tags.has('bathtub_set')) return 'fixed bathroom architecture';
-  if (fixedSet?.setGroupId === OUTDOOR_FIXED_SET_GROUP_ID) return 'fixed outdoor architecture';
-  return 'fixed set architecture';
-}
-
 function naturalizeGptFixedSetSharedStructureText(value) {
   const text = stripTerminalPromptPunctuation(value || '')
     .replace(/^fixed-set rule:\s*/i, '')
@@ -9311,13 +9298,14 @@ function buildImageTypeText(context) {
   return context.subject?.count === 2 ? preset.gptDuo : preset.en;
 }
 
-function buildZImageTypeText(context) {
-  const preset = resolveImageTypePreset(context);
-  return context.subject?.count === 2 ? preset.zImageDuo : preset.en;
-}
-
 function buildZImageSubjectLead(context) {
   return resolveImageTypePreset(context).zImageLead || 'Create a photorealistic editorial portrait of';
+}
+
+function buildZImageTypePromptLine(context) {
+  const preset = resolveImageTypePreset(context);
+  return MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings[preset.id]
+    || MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings['photorealistic-photo'];
 }
 
 function buildAiImageTypeLead(context) {
@@ -9544,10 +9532,15 @@ function compactZImageSubjectLightText(value) {
 function compactZImagePhotographyStyleText(styleOrText) {
   if (!styleOrText || isNoneLikeItem(styleOrText)) return '';
   if (typeof styleOrText === 'object') {
-    return STYLE_PROMPT_INTROS[styleOrText.zh] || compactPromptClauses(buildPhotographyStylePrompt(styleOrText), 1);
+    return compactZImagePhotographyStyleText(
+      STYLE_PROMPT_INTROS[styleOrText.zh] || compactPromptClauses(buildPhotographyStylePrompt(styleOrText), 1)
+    );
   }
   const text = stripMarkdown(styleOrText || '').replace(/\s+/g, ' ').trim();
-  return text.match(/Inspired by [^.]+? image language/i)?.[0] || text.split(/\.\s*/)[0] || '';
+  const source = text.match(/Inspired by [^.]+? image language/i)?.[0] || text.split(/\.\s*/)[0] || '';
+  return source
+    .replace(/^Inspired by\s+/i, '')
+    .replace(/,\s*([^,]+?)\s+image language$/i, '-inspired $1 image language');
 }
 
 function compactZImageLensText(value) {
@@ -9568,6 +9561,65 @@ function compactZImageFilmText(value) {
 
 function compactZImageCameraControlText(value) {
   return compactZImageCameraText(compactPromptClauses(value, 2));
+}
+
+function buildZImageCharacterProfileTexts(context, wardrobe = null) {
+  if (!isCharacterProfileSubject(context.subject)) return { subject: '', wardrobe: '' };
+
+  const groups = buildCharacterCardProfileGroups(context.subject, context.locks, wardrobe);
+  const projection = getCompositionVisibilityProjection(context);
+  const hairVariant = buildCharacterCardHairVariantText(context.subject, context.locks);
+  const identityLead = cleanCharacterProfileGroupText(groups.identityAndBody)
+    .match(/^a\s+20-year-old\s+adult\s+[^,]*?\bwoman\b/i)?.[0]
+    || `A 20-year-old adult woman`;
+  const subject = compactZImageSourceText([
+    identityLead,
+    groups.distinctiveFeatures,
+    groups.skinSignature,
+    groups.body,
+    groups.hair,
+    hairVariant,
+  ].filter(Boolean).join(', '));
+  const projectedOutfit = filterCompleteLookPromptForFraming(groups.outfit, context);
+  const projectedAccessories = filterCompleteLookPromptForFraming(groups.accessories, context);
+  const wardrobeText = compactZImageSourceText([projectedOutfit, projectedAccessories].filter(Boolean).join(', '));
+  const dedupedSubject = dedupeRepeatedCommaFragments([
+    identityLead,
+    groups.distinctiveFeatures,
+    groups.skinSignature,
+    groups.body,
+    groups.hair,
+    hairVariant,
+  ]).join(', ');
+
+  return {
+    subject: ensureTerminalPeriod(capitalizePromptLead(compactZImageSourceText(dedupedSubject) || subject)),
+    wardrobe: shouldHideWardrobeSectionForProjection(projection) || !wardrobeText
+      ? ''
+      : ensureTerminalPeriod(`She wears ${wardrobeText}`),
+  };
+}
+
+function cleanZImageTurboInternalLanguage(value) {
+  return cleanZImageSinglePromptText(value)
+    .replace(
+      /complete outfit palette direction:\s*shift the complete outfit palette toward a\s+(.+?)\s+color family(?:\s+with\s+dark accent balance)?\s*,\s*preserving garment structure,\s*accessory separation,\s*material contrast,\s*and multi-piece color variation/gi,
+      (_, palette) => `${buildGptCompletePaletteModifier(palette)} palette`
+    )
+    .replace(/\bpermanent identity anchors:\s*/gi, '')
+    .replace(/\bsignature outfit locked as\s+(?:a\s+)?/gi, '')
+    .replace(/\bselected character-card outfit layer:\s*/gi, '')
+    .replace(/\bbody posture base:\s*/gi, '')
+    .replace(/\bmodel-decided\b/gi, 'natural')
+    .replace(/\bcan remain\b/gi, 'remains')
+    .replace(/\bleft to the image model\b/gi, 'naturally placed')
+    .replace(/\bwithout prescribing (?:an )?exact pose\b/gi, 'with natural body placement')
+    .replace(/\bwithout specifying exact limb placement\b/gi, '')
+    .replace(/\b(?:can remain flexible|can be natural)\b/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function compactAiAmbientLightText(value) {
@@ -11088,6 +11140,9 @@ function renderZImagePrompt(promptModel) {
   const projectedScene = context.projectedScene || buildProjectedScene(context);
   const sceneAccentText = projectedScene.sceneAccentText;
   const importedWorldSceneArchitectureText = projectedScene.worldSceneText;
+  const characterProfileTexts = characterProfileMode
+    ? buildZImageCharacterProfileTexts(context, wardrobe)
+    : { subject: '', wardrobe: '' };
   const singleSpecialOutfitText = context.subject.count === 1 && wardrobeSlots.specialOutfit
     ? buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context)
     : '';
@@ -11100,7 +11155,7 @@ function renderZImagePrompt(promptModel) {
     ? DUO_WARDROBE_DIFFERENTIATION_PROMPT
     : '';
   const sentence = (value) => ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
-  const joinSentenceParts = (parts) => sentence(parts.filter(Boolean).join(', '));
+  const joinSentenceParts = (parts) => sentence(capitalizePromptLead(parts.filter(Boolean).join(', ')));
   const leadSentence = (lead, parts) => {
     const detail = parts.filter(Boolean).join(', ');
     return detail ? sentence(`${lead} ${detail}`) : '';
@@ -11124,13 +11179,6 @@ function renderZImagePrompt(promptModel) {
   };
   const buildCharacterText = () => {
     if (characterProfileMode) {
-      const baseSubjectText = buildCharacterCardSubjectPrompt(context.subject, context.locks, context, wardrobe);
-      const characterSubjectText = dedupeCharacterCardWardrobeSources(
-        dedupeRepeatedCommaFragments([
-          useCharacterIdentityAnchor ? `${baseSubjectText} ${context.characterProfilePrompt}` : baseSubjectText,
-        ])[0] || '',
-        getCharacterCardWardrobeSourceTexts(context.subject, context.locks, wardrobe),
-      );
       const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
         ? characterSlots.specialAction.en
         : '';
@@ -11138,7 +11186,7 @@ function renderZImagePrompt(promptModel) {
         ? characterSlots.actionPose.en
         : '';
       const parts = [
-        characterSubjectText,
+        stripTerminalPromptPunctuation(characterProfileTexts.subject),
         isCharacterCardLayerSlot(wardrobeSlots.headAccessory)
           ? ''
           : cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessory),
@@ -11147,7 +11195,7 @@ function renderZImagePrompt(promptModel) {
         specialActionText,
         characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count) : '',
       ].filter(Boolean);
-      return leadSentence('The image shows', parts);
+      return sentence(cleanZImageTurboInternalLanguage(parts.join(', ')));
     }
 
     if (specialSubjectMode) {
@@ -11167,7 +11215,7 @@ function renderZImagePrompt(promptModel) {
         specialActionText,
         characterSlots.pose && !isNoneLikeItem(characterSlots.pose) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : resolvePromptVariant(characterSlots.pose, 'pose', context.subject.count)) : '',
       ].filter(Boolean);
-      return leadSentence('The image shows', parts);
+      return sentence(capitalizePromptLead(cleanZImageTurboInternalLanguage(parts.join(', '))));
     }
 
     const subjectAccessoryText = context.subject.count === 2
@@ -11195,10 +11243,10 @@ function renderZImagePrompt(promptModel) {
         ? `${context.subject.en} ${context.characterProfilePrompt}`
         : context.subject.en;
     const parts = [
-      appendSubjectAccessories(
+      stripTerminalPromptPunctuation(appendSubjectAccessories(
         subjectBaseText,
         subjectAccessoryText
-      ),
+      )),
       context.subject.count === 2
         ? [buildRoleHasPrompt(characterSlots.bodyTypeA, 'woman 1'), buildRoleHasPrompt(characterSlots.bodyTypeB, 'woman 2')].filter(Boolean).join(', ')
         : (characterSlots.bodyType && !isNoneLikeItem(characterSlots.bodyType) ? characterSlots.bodyType.en : ''),
@@ -11269,9 +11317,16 @@ function renderZImagePrompt(promptModel) {
       const dedupedValue = characterProfileMode && shouldImportCharacterCardWardrobeLayers(context.locks)
         ? stripCharacterCardWardrobeText(value, wardrobe)
         : value;
-      const text = context.subject.count === 1 && !hideWardrobeForFaceDetail
-        ? compressZImageSingleWardrobeText(dedupedValue, context)
+      const profileWardrobe = stripTerminalPromptPunctuation(characterProfileTexts.wardrobe)
+        .replace(/^She wears\s+/i, '');
+      const additionalWardrobe = stripTerminalPromptPunctuation(dedupedValue)
+        .replace(/^She wears\s+/i, '');
+      const combinedValue = characterProfileMode
+        ? [profileWardrobe, additionalWardrobe].filter(Boolean).join(', ')
         : dedupedValue;
+      const text = context.subject.count === 1 && !hideWardrobeForFaceDetail
+        ? compressZImageSingleWardrobeText(combinedValue, context)
+        : combinedValue;
       return sentence(text);
     };
     if (hideWardrobeForFaceDetail) return '';
@@ -11436,48 +11491,48 @@ function renderZImagePrompt(promptModel) {
       add(buildRoleLayerText('b') ? `woman 2 additional styling includes ${buildRoleLayerText('b')}` : '');
     }
 
-    return parts.length > 0 ? finish(parts.join(', ')) : '';
+    return parts.length > 0
+      ? finish(parts.join(', '))
+      : characterProfileMode ? characterProfileTexts.wardrobe : '';
   };
   const buildFixedSceneParagraphs = () => {
     if (!fixedCompositionSetActive) return [];
 
-    const clean = (value) => skeletonMode ? sanitizeSkeletonPromptText(value) : value;
-    const ambientText = context.lighting && !isNoneLikeItem(context.lighting)
-      ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en)
-      : '';
-    const subjectLightText = lightDirection && !isNoneLikeItem(lightDirection)
-      ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
-      : '';
-    const lightingText = joinSentenceParts([ambientText, subjectLightText]);
+    const clean = (value) => cleanZImageTurboInternalLanguage(
+      skeletonMode ? sanitizeSkeletonPromptText(value) : value
+    );
 
     return [
       clean(Z_IMAGE_FIXED_SET_OPENING_PARAGRAPHS[context.fixedCompositionSet.id] || buildGptFixedSetOpeningParagraph(context.fixedCompositionSet)),
       clean(buildZImageFixedSetInteractionParagraph(context)),
-      clean(buildZImageFixedSetStabilityParagraph(context)),
-      clean(lightingText),
     ].filter(Boolean);
   };
   const buildSceneText = () => {
-    if (fixedCompositionSetActive) return joinSentenceParts(buildFixedSceneParagraphs());
+    if (fixedCompositionSetActive) return buildFixedSceneParagraphs().join(' ');
     const sceneParts = [
       skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : compactZImageLocationText(importedWorldSceneArchitectureText),
       compactZImageLocationText(buildZImageLocationText()),
       skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : compactZImageSourceText(sceneAccentText),
-      context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
-      lightDirection && !isNoneLikeItem(lightDirection) ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : '',
     ].filter(Boolean);
 
-    return leadSentence('Scene: The portrait takes place in', sceneParts);
+    return leadSentence('The scene is', sceneParts);
   };
+  const buildLightingText = () => joinSentenceParts([
+    context.lighting && !isNoneLikeItem(context.lighting)
+      ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en)
+      : '',
+    lightDirection && !isNoneLikeItem(lightDirection)
+      ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
+      : '',
+  ]);
+  const buildFixedCompositionOpticsText = () => joinSentenceParts([
+    context.aperture && !isNoneLikeItem(context.aperture) ? compactZImageCameraControlText(context.aperture.en) : '',
+    context.shutter && !isNoneLikeItem(context.shutter) ? compactZImageCameraControlText(context.shutter.en) : '',
+  ]);
   const buildCameraText = () => {
-    if (fixedCompositionSetActive) {
-      return leadSentence('The camera treatment uses', [
-        context.aperture && !isNoneLikeItem(context.aperture) ? context.aperture.en : '',
-        context.shutter && !isNoneLikeItem(context.shutter) ? context.shutter.en : '',
-      ]);
-    }
+    if (fixedCompositionSetActive) return buildFixedCompositionOpticsText();
 
-    return leadSentence('The camera treatment uses', [
+    return joinSentenceParts([
       context.lens && !isNoneLikeItem(context.lens) ? compactZImageLensText(context.lens.en) : '',
       context.aperture && !isNoneLikeItem(context.aperture) ? compactZImageCameraControlText(context.aperture.en) : '',
       context.shutter && !isNoneLikeItem(context.shutter) ? compactZImageCameraControlText(context.shutter.en) : '',
@@ -11490,102 +11545,105 @@ function renderZImagePrompt(promptModel) {
   const buildRenderingText = () => joinSentenceParts([
     film && !isNoneLikeItem(film) ? compactZImageFilmText(skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
   ]);
-  const imageTypeLine = buildImageTypePromptLine(context);
+  const imageTypeLine = buildZImageTypePromptLine(context);
   const compositionLine = buildCompositionPromptLine(context);
-  const buildZImageDuoSection = (title, value) => {
-    const cleaned = ensureTerminalPeriod(stripMarkdown(value || '').replace(/\s+/g, ' ').trim());
-    return cleaned ? `${title}:\n${cleaned}` : '';
-  };
   const buildZImageDuoSubjectText = () => 'Two stunning seductive 20-year-old Japanese or Korean women';
   const buildZImageDuoRoleSubjectText = (role) => {
     const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
-    const wardrobeText = role === 'a' ? roleTexts.woman1 : roleTexts.woman2;
+    const wardrobeText = stripTerminalPromptPunctuation(role === 'a' ? roleTexts.woman1 : roleTexts.woman2)
+      .replace(/\.\s+(?=[a-z])/gi, ', ');
     const roleNumber = role === 'a' ? '1' : '2';
     const suffix = role === 'a' ? 'A' : 'B';
-    const bodyText = characterSlots[`bodyType${suffix}`] && !isNoneLikeItem(characterSlots[`bodyType${suffix}`])
-      ? compactZImageSourceText(characterSlots[`bodyType${suffix}`].en)
-      : '';
+    const identityParts = [
+      characterSlots[`bodyType${suffix}`],
+      characterSlots[`facialFeatures${suffix}`],
+      characterSlots[`hairstyle${suffix}`],
+      characterSlots[`hairColor${suffix}`],
+      characterSlots[`skinDetails${suffix}`],
+    ].filter((item) => item && !isNoneLikeItem(item))
+      .map((item) => compactZImageSourceText(item.en));
     const accessoryText = cleanGptDuoRoleSubjectPart(buildRoleSubjectAccessoryPrompt(wardrobeSlots, role), roleNumber)
       .replace(/^with\s+/i, '');
     const parts = [compactZImageSourceText(wardrobeText), compactZImageSourceText(accessoryText)].filter(Boolean);
     return [
-      bodyText ? `Has ${bodyText}` : '',
-      parts.length > 0 ? `Wears ${parts.join(', ')}` : '',
+      identityParts.length > 0 ? `Woman ${roleNumber} has ${identityParts.join(', ')}.` : '',
+      parts.length > 0 ? `She wears ${stripTerminalPromptPunctuation(parts.join(', '))}.` : '',
     ].filter(Boolean).join(' ');
   };
-  const buildZImageDuoPoseText = () => joinSentenceParts([
-    characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose) ? compactZImageSourceText(characterSlots.duoPose.en) : '',
+  const buildZImageDuoPoseText = () => [
+    characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose)
+      ? compactZImageSourceText(characterSlots.duoPose.en).replace(/^Two women\b/, 'two women')
+      : '',
     characterSlots.duoPoseBase && !isNoneLikeItem(characterSlots.duoPoseBase)
-      ? `body posture base: ${compactZImageSourceText(characterSlots.duoPoseBase.en)}`
+      ? compactZImageSourceText(characterSlots.duoPoseBase.en)
       : '',
-  ]);
-  const buildZImageDuoSceneText = () => joinSentenceParts([
-    skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : compactZImageLocationText(importedWorldSceneArchitectureText),
-    projectedScene.locationText
-      ? (skeletonMode ? sanitizeSkeletonPromptText(projectedScene.locationText) : compactZImageLocationText(projectedScene.locationText))
-      : '',
-    skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : compactZImageSourceText(sceneAccentText),
-  ]);
+  ].filter(Boolean).join(', ');
+  const buildZImageDuoSceneText = () => {
+    const scene = [
+      skeletonMode ? sanitizeSkeletonPromptText(importedWorldSceneArchitectureText) : compactZImageLocationText(importedWorldSceneArchitectureText),
+      projectedScene.locationText
+        ? (skeletonMode ? sanitizeSkeletonPromptText(projectedScene.locationText) : compactZImageLocationText(projectedScene.locationText))
+        : '',
+      skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : compactZImageSourceText(sceneAccentText),
+    ].filter(Boolean).join(', ');
+    return scene ? sentence(`The scene is ${scene}`) : '';
+  };
   const buildZImageDuoLightingText = () => joinSentenceParts([
     context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
     lightDirection && !isNoneLikeItem(lightDirection)
       ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
       : '',
   ]);
-  const buildZImageDuoCameraLookText = () => joinSentenceParts([
-    context.style && !isNoneLikeItem(context.style) ? compactZImagePhotographyStyleText(skeletonMode ? sanitizeSkeletonPromptText(buildPhotographyStylePrompt(context.style)) : context.style) : '',
-    context.lens && !isNoneLikeItem(context.lens) ? compactZImageLensText(context.lens.en) : '',
-    context.aperture && !isNoneLikeItem(context.aperture) ? compactZImageCameraControlText(context.aperture.en) : '',
-    context.shutter && !isNoneLikeItem(context.shutter) ? compactZImageCameraControlText(context.shutter.en) : '',
-    opticalEffect && !isNoneLikeItem(opticalEffect) ? compactZImageOpticalEffectText(skeletonMode ? sanitizeSkeletonPromptText(opticalEffect.en) : opticalEffect.en) : '',
-    film && !isNoneLikeItem(film) ? compactZImageFilmText(skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
-  ]);
-  const joinZImageParagraphs = (parts) => parts
-    .map((value) => {
-      const cleaned = stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
-      return cleaned === compositionLine ? cleaned : ensureTerminalPeriod(cleaned);
-    })
-    .filter(Boolean)
-    .join('\n\n');
+  const renderSections = (sections) => createZImageTurboPromptSectionModel({
+    sections: sections.map((section) => {
+      const normalizedText = ensureTerminalPeriod(section.text);
+      const isProjectedCanonicalPose = section.id === 'pose'
+        && context.subject.count === 1
+        && Boolean(context.projectedCanonicalPoseText)
+        && stripMarkdown(section.text || '').replace(/\s+/g, ' ').trim()
+          === stripMarkdown(context.projectedCanonicalPoseText).replace(/\s+/g, ' ').trim();
+      return {
+        ...section,
+        text: isProjectedCanonicalPose
+          ? normalizedText
+          : cleanZImageTurboInternalLanguage(ensureTerminalPeriod(capitalizePromptLead(section.text))),
+      };
+    }),
+  }).text;
 
   if (context.subject.count === 2 && !specialSubjectMode) {
-    return [
-      buildZImageDuoSection('Image Type', imageTypeLine || buildZImageTypeText(context)),
-      compositionLine,
-      buildZImageDuoSection('Subject', buildZImageDuoSubjectText()),
-      buildZImageDuoSection('Woman 1', buildZImageDuoRoleSubjectText('a')),
-      buildZImageDuoSection('Woman 2', buildZImageDuoRoleSubjectText('b')),
-      buildZImageDuoSection('Shared Expression', buildGptDuoSharedExpressionText(characterSlots)),
-      buildZImageDuoSection('Pose and Composition', buildZImageDuoPoseText()),
-      buildZImageDuoSection('Scene', buildZImageDuoSceneText()),
-      buildZImageDuoSection('Lighting', buildZImageDuoLightingText()),
-      buildZImageDuoSection('Camera Look', buildZImageDuoCameraLookText()),
-    ].filter(Boolean).join('\n\n');
-  }
-
-  if (fixedCompositionSetActive) {
-    return joinZImageParagraphs([
-      imageTypeLine,
-      compositionLine,
-      buildCharacterText(),
-      buildWardrobeText(),
-      buildSinglePoseText(),
-      ...buildFixedSceneParagraphs(),
-      buildPhotographyStyleText(),
-      buildRenderingText(),
+    const roleText = [buildZImageDuoRoleSubjectText('a'), buildZImageDuoRoleSubjectText('b')]
+      .filter(Boolean)
+      .join(' ');
+    const poseText = joinSentenceParts([
+      buildGptDuoSharedExpressionText(characterSlots),
+      buildZImageDuoPoseText(),
+    ]);
+    return renderSections([
+      { id: 'imageType', text: imageTypeLine },
+      { id: 'composition', text: compositionLine },
+      { id: 'subject', text: buildZImageDuoSubjectText() },
+      { id: 'wardrobe', text: roleText },
+      { id: 'pose', text: poseText },
+      { id: 'scene', text: buildZImageDuoSceneText() },
+      { id: 'lighting', text: buildZImageDuoLightingText() },
+      { id: 'style', text: buildPhotographyStyleText() },
+      { id: 'optics', text: buildCameraText() },
+      { id: 'rendering', text: buildRenderingText() },
     ]);
   }
 
-  return joinZImageParagraphs([
-    imageTypeLine,
-    compositionLine,
-    buildCharacterText(),
-    buildWardrobeText(),
-    buildSinglePoseText(),
-    buildSceneText(),
-    buildPhotographyStyleText(),
-    buildCameraText(),
-    buildRenderingText(),
+  return renderSections([
+    { id: 'imageType', text: imageTypeLine },
+    { id: 'composition', text: compositionLine },
+    { id: 'subject', text: buildCharacterText() },
+    { id: 'wardrobe', text: buildWardrobeText() },
+    { id: 'pose', text: buildSinglePoseText() },
+    { id: 'scene', text: buildSceneText() },
+    { id: 'lighting', text: buildLightingText() },
+    { id: 'style', text: buildPhotographyStyleText() },
+    { id: 'optics', text: buildCameraText() },
+    { id: 'rendering', text: buildRenderingText() },
   ]);
 }
 

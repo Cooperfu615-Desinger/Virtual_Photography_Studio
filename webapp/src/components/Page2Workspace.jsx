@@ -16,7 +16,7 @@ const CHARACTER_CARDS_PER_PAGE = 10;
 
 const OUTPUT_COPY_LABELS = {
   gpt: 'GPT',
-  'grok-z-image': 'Grok/Z-Image',
+  'grok-z-image': 'Z-Image',
   ai: 'AI',
   headshot: '大頭照',
   'four-view': '四視圖',

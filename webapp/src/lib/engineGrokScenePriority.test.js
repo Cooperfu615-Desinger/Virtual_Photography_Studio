@@ -57,7 +57,7 @@ test('Z-Image places the selected special outfit before pose and scene without p
 
   const zImage = prompt.zImagePrompt;
   const subjectIndex = zImage.indexOf('A 20s seductive stunning Japanese or Korean woman');
-  const settingIndex = zImage.indexOf('Scene: The portrait takes place in');
+  const settingIndex = zImage.indexOf('The scene is ');
   const locationIndex = zImage.indexOf('Seoul Seongsu-dong urban corner');
   const wardrobeIndex = zImage.indexOf('She wears black sheer polka-dot matching fashion set');
   const poseIndex = zImage.search(/presents .*standing pose/);
@@ -100,7 +100,7 @@ test('PAGE1 imaging simulation uses rendering looks in generated outputs and sel
   assert.equal(prompt.selection.cameraSystemId, '');
   assert.doesNotMatch(prompt.grokPrompt, /Camera System:/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*high-acutance snapshot rendering/);
-  assert.match(prompt.zImagePrompt, /high-acutance snapshot rendering/);
+  assert.match(prompt.zImagePrompt, /high-acutance snapshot rendering/i);
   assert.equal(prompt.structured['Lens & Imaging'].at(-1).zh, '高銳利快照黑位');
 });
 

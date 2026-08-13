@@ -1,12 +1,13 @@
 import React, { memo, useState } from 'react';
 import { Download, Trash2 } from 'lucide-react';
 import { copyTextToClipboard } from '../lib/clipboard';
+import { normalizeZImageDisplayLabel } from '../features/saved-cards/promptLabels.js';
 
 function buildMarkdownExport(data) {
   const promptEntries = getPromptEntries(data, {
     midjourney: data.promptLabels?.midjourney || 'AI Prompt',
     grok: data.promptLabels?.grok || 'Gpt',
-    zImage: data.promptLabels?.zImage || 'Grok/Z-Image',
+    zImage: normalizeZImageDisplayLabel(data.promptLabels?.zImage, 'Z-Image'),
   });
 
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
@@ -66,7 +67,7 @@ function PromptCard({ data, density = 'compact', onDelete, onApplySelection }) {
   const labels = {
     midjourney: data.promptLabels?.midjourney || 'AI',
     grok: data.promptLabels?.grok || 'Gpt',
-    zImage: data.promptLabels?.zImage || 'Grok/Z-Image',
+    zImage: normalizeZImageDisplayLabel(data.promptLabels?.zImage, 'Z-Image'),
   };
   const promptEntries = getPromptEntries(data, labels);
   const activePrompt = promptEntries.find((entry) => entry.key === activePromptKey) || promptEntries[0] || null;

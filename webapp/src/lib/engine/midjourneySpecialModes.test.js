@@ -84,8 +84,9 @@ test('phase 5 renders duo AI as direct role sentences without section labels', (
   );
   assert.ok(countAiPromptWords(prompt.midjourneyPrompt) <= 180);
 
-  assert.match(prompt.zImagePrompt, /Woman 1:/);
-  assert.match(prompt.zImagePrompt, /Woman 2:/);
+  assert.match(prompt.zImagePrompt, /Woman 1 has/);
+  assert.match(prompt.zImagePrompt, /Woman 2 has/);
+  assert.doesNotMatch(prompt.zImagePrompt, /Woman [12]:/);
   assert.match(prompt.grokPrompt, /Woman 1:/);
   assert.match(prompt.grokPrompt, /Woman 2:/);
 });

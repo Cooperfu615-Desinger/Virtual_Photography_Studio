@@ -191,20 +191,23 @@ Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midj
 - `webapp/src/lib/engine/fixedCompositionPromptIntegration.test.js`
 - `webapp/package.json` 的 `test:prompt-quality`
 
-### Grok/Z-Image
+### Z-Image（歷史欄位 `zImagePrompt`）
 
 - Internal field: `zImagePrompt`
-- Target: Grok Imagine / Aurora / Z-Image
+- UI label: `Z-Image`
+- Target profile: Magnific AI 中的 Z-Image Turbo
+- 相容性：`zImagePrompt`、既有 Saved Cards／restore payload 與舊 `Grok/Z-Image` Markdown 標題保持可讀；不得因 UI 改名而改欄位。
 - 格式：自然語言空行段落。
-- 不使用 GPT 式英文段落標籤。
-- 場景仍可使用既有 `Scene:` 輕量錨點，但不可輸出 `Scene Priority:`、`Fixed Set Integrity:` 或其他 renderer 內部控制標籤。
+- 使用直接視覺身份開頭，例如 `Photorealistic editorial portrait.`，不使用 `Create a／an` 命令式開頭。
+- 不使用 GPT／舊 Grok 式英文段落標籤；場景直接使用 `The scene is ...`，不可輸出 `Scene:`、`Scene Priority:`、`Fixed Set Integrity:` 或其他 renderer 內部控制標籤。
 - 不加入 `multi-cut sequence n=2`。
-- 可以比 `AI` 更完整，但不使用 GPT 標籤段落。
-- 可針對 Grok/Z-Image 的理解方式做自然語言壓縮與重排。
+- 可以比 `AI` 更完整，但只針對 Z-Image Turbo 的理解方式做來源可追溯壓縮與重排；不再維持 Grok Imagine／Aurora 的格式假設。
+- 固定順序為：成品類型、構圖、人物、服裝、姿勢、場景、光線、攝影風格、鏡頭、成像。人物／服裝／姿勢／場景／光線是主要內容，風格／鏡頭／成像為次要內容。
+- `zImageTurboPromptContract.js` 記錄 section priority 與估算長度診斷。估算以 512 sequence limit 作風險基準，400 estimated tokens 為目標、480 為 soft max；它不是官方 tokenizer 的精確計數，且不得用硬截字、硬截詞或殘句達標。
 
 #### 已實作：來源可追溯的刪減式重組
 
-Grok/Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而不是另一套獨立的 prompt 組裝結果。它應從和 Gpt 相同的完整語意模型／已解析選項取得內容；不得反向解析 Gpt 的 Markdown 成品，也不得自行補寫新的畫面資訊。
+Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而不是另一套獨立的 prompt 組裝結果。它應從和 Gpt 相同的完整語意模型／已解析選項取得內容；不得反向解析 Gpt 的 Markdown 成品，也不得自行補寫新的畫面資訊。
 
 壓縮只允許三種操作：
 
@@ -214,7 +217,7 @@ Grok/Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而�
 
 不得由 renderer 新增未被選擇資料或既有組裝規則支持的視覺描述、關係或氣氛詞。`layered over`、`paired with`、`styled with`、`natural`、`candid`、`editorial` 等詞，只有在選擇資料或明確組裝規則本來就提供時才可輸出。
 
-套裝配色若原始資料使用 `controlled by ... selection`，renderer 應把它實體化為實際選色，例如 `main fabric color set to red`，不可在 Grok/Z-Image 或 AI 成品中保留 selection-control 語言。完全相同的配件描述片段只保留一次；近似描述只有在較完整片段已包含全部視覺資訊時才可刪減。
+套裝配色若原始資料使用 `controlled by ... selection`，renderer 應把它實體化為實際選色，例如 `main fabric color set to red`，不可在 Z-Image 或 AI 成品中保留 selection-control 語言。`signature outfit locked as`、`model-decided`、`Keep／Vary only` 與 `allow ...` 等 guard／指令語必須改成具體可見內容，而不是送到公開 Prompt。完全相同的配件描述片段只保留一次；近似描述只有在較完整片段已包含全部視覺資訊時才可刪減。
 
 保留與刪減規則：
 
@@ -228,9 +231,9 @@ Grok/Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而�
 
 人物身材的數值與比例 anchor 屬於不可刪除內容。壓縮可移除例如 `smooth natural silhouette`、`calm high-fashion presence` 等不增加結構資訊的片段，但不可刪除 `about 160-165 cm visual height`、`83-62-88 body proportion anchor`、比例、腰臀／胸部或其他已選身形關鍵資訊。
 
-特殊穿搭內建的髮型、髮色、刺青與身體記憶點在 Grok/Z-Image 中也屬於人物資訊，應進入人物句，而非 `She wears complete special outfit` 句。雙人模式可維持輕量標籤以確保角色與服裝歸屬；單人模式維持自然空行段落，既有 `Scene:` 輕量錨點可保留。
+特殊穿搭內建的髮型、髮色、刺青與身體記憶點在 Z-Image 中也屬於人物資訊，應進入人物句，而非 `She wears complete special outfit` 句。雙人模式使用直接句 `Woman 1 has ... She wears ...`／`Woman 2 has ... She wears ...` 保持歸屬，不使用 `Woman 1:` 等段落標籤。角色卡四個永久身分錨點各保留一次，預設服裝另成 `She wears ...`，不可混入 lock label。
 
-驗收時必須確認 Gpt 與 Grok/Z-Image 的 selections 一致，且 Grok/Z-Image 沒有遺失構圖投影後仍有效的身材 anchor、服裝與顏色、動作核心、場景 anchor、光線方向或主要攝影設定。
+驗收時必須確認 Gpt 與 Z-Image 的 selections 一致，且 Z-Image 沒有遺失構圖投影後仍有效的身材 anchor、服裝與顏色、動作核心、場景 anchor、光線方向或主要攝影設定。Pose Composer 啟用時仍逐字重用共用 canonical pose；固定構圖需改寫為具體空間與拍攝描述，不輸出 renderer guard。
 
 ### AI
 

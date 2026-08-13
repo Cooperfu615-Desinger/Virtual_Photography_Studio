@@ -50,9 +50,9 @@ function gptScene(prompt) {
 }
 
 function zImageScene(prompt) {
-  const labeled = prompt.zImagePrompt.match(/(?:^|\n\n)Scene:\n([\s\S]*?)(?=\n\n(?:Lighting|Camera Look):\n|$)/)?.[1] || '';
-  if (labeled) return labeled;
-  return prompt.zImagePrompt.split(/\n{2,}/).find((paragraph) => paragraph.startsWith('Scene:')) || '';
+  return prompt.zImagePrompt
+    .split(/\n{2,}/)
+    .find((paragraph) => paragraph.startsWith('The scene is ')) || '';
 }
 
 function aiScene(prompt) {

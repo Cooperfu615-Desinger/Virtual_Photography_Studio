@@ -441,7 +441,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: ['Woman 1:', 'Woman 2:', 'avant-garde blue-gray tailored street look', 'distressed painter-workwear street look'],
       },
       zImagePrompt: {
-        includes: ['Woman 1:', 'Woman 2:', 'avant-garde blue-gray tailored street look', 'distressed painter-workwear street look'],
+        includes: ['Woman 1 has', 'Woman 2 has', 'avant-garde blue-gray tailored street look', 'distressed painter-workwear street look'],
       },
       midjourneyPrompt: {
         includes: ['First woman', 'Second woman', 'blue-gray', 'painter-workwear'],

@@ -248,8 +248,10 @@ test('duo identity base supports separate body type and skin details per woman',
   assert.match(promptText, new RegExp(`Woman 2:\\nHas ${bodyB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(promptText, new RegExp(`Woman 1:\\nHas [\\s\\S]*${skinA.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
   assert.match(promptText, new RegExp(`Woman 2:\\nHas [\\s\\S]*${skinB.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i'));
-  assert.match(prompt.zImagePrompt, /^Subject:\nTwo stunning seductive 20-year-old Japanese or Korean women\./m);
-  assert.doesNotMatch(prompt.zImagePrompt, /\bwoman [12] has\b/i);
+  assert.match(prompt.zImagePrompt, /Two stunning seductive 20-year-old Japanese or Korean women\./);
+  assert.match(prompt.zImagePrompt, /Woman 1 has tall slim fashion body[\s\S]*gently wider hips, glass skin, dewy luminous skin texture/i);
+  assert.match(prompt.zImagePrompt, /Woman 2 has fit toned athletic female body[\s\S]*natural freckles across nose and cheeks, sun-kissed freckles/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /clean editorial silhouette|hydrated reflective complexion|authentic skin detail/i);
   assert.match(prompt.midjourneyPrompt, /^Photorealistic editorial portrait\./);
   assert.doesNotMatch(prompt.midjourneyPrompt, /The main characters are two stunning seductive 20-year-old Japanese or Korean women/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\bwoman [12] has\b/i);

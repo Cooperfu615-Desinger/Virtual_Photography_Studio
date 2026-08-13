@@ -397,8 +397,8 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Earrings:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Neck Accessory:/m);
 
-  assert.match(prompt.zImagePrompt, /Woman 1:\nHas [\s\S]+\bWears .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
-  assert.match(prompt.zImagePrompt, /Woman 2:\nHas [\s\S]+\bWears .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
+  assert.match(prompt.zImagePrompt, /Woman 1 has [\s\S]+\bShe wears .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
+  assert.match(prompt.zImagePrompt, /Woman 2 has [\s\S]+\bShe wears .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
 });
 
 test('duo random separates avoid duplicated top color styling', () => {

@@ -488,7 +488,7 @@ test('PAGE2 character card saved card stores six outputs', () => {
   assert.equal(card.midjourneyPrompt, outputById.ai.value);
   assert.equal(card.promptLabels.grok, 'GPT Prompt');
   assert.equal(card.promptLabels.midjourney, 'AI Prompt');
-  assert.equal(card.promptLabels.zImage, 'Grok/Z-Image Prompt');
+  assert.equal(card.promptLabels.zImage, 'Z-Image Prompt');
   assert.equal(card.summaryFields.wardrobe, '上身');
   assert.deepEqual(card.extraPrompts, [
     { id: 'headshot', label: 'Headshot Prompt', text: outputById.headshot.value },

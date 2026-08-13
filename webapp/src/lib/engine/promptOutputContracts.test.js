@@ -104,7 +104,7 @@ function assertLiteralExpectations(text, expectations, fixtureId, field) {
 }
 
 test('prompt output contracts are frozen serializable data with stable public fields', () => {
-  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.5.0');
+  assert.equal(PROMPT_OUTPUT_CONTRACT_VERSION, '1.6.0');
   assert.deepEqual(Object.keys(PROMPT_OUTPUT_CONTRACTS), [
     'grokPrompt',
     'zImagePrompt',
@@ -117,7 +117,7 @@ test('prompt output contracts are frozen serializable data with stable public fi
   assert.ok(Object.isFrozen(PROMPT_OUTPUT_CONTRACTS.grokPrompt.shape.modes.single));
   assert.deepEqual(JSON.parse(JSON.stringify(PROMPT_OUTPUT_CONTRACTS)), PROMPT_OUTPUT_CONTRACTS);
   assert.equal(PROMPT_OUTPUT_CONTRACTS.grokPrompt.uiLabel, 'Gpt');
-  assert.equal(PROMPT_OUTPUT_CONTRACTS.zImagePrompt.uiLabel, 'Grok/Z-Image');
+  assert.equal(PROMPT_OUTPUT_CONTRACTS.zImagePrompt.uiLabel, 'Z-Image');
   assert.equal(PROMPT_OUTPUT_CONTRACTS.midjourneyPrompt.uiLabel, 'AI');
   assert.equal(PROMPT_OUTPUT_CONTRACTS.midjourneyPrompt.shape.paragraphSeparator, 'single-block');
   assert.equal(PROMPT_OUTPUT_CONTRACTS.midjourneyPrompt.shape.minimumParagraphs, 1);

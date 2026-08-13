@@ -78,7 +78,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.5.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.6.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -139,8 +139,8 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
 
   zImagePrompt: {
     field: 'zImagePrompt',
-    uiLabel: 'Grok/Z-Image',
-    target: 'Grok Imagine / Z-Image',
+    uiLabel: 'Z-Image',
+    target: 'Z-Image Turbo through Magnific AI',
     source: { kind: 'field', key: 'zImagePrompt' },
     applicability: {
       supportedModes: ['single', 'duo'],
@@ -155,9 +155,10 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
       minimumParagraphs: 2,
       modes: {
         single: {
-          requiredPrefix: 'Create a ',
+          requiredPrefix: '',
+          requiredPrefixes: Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings),
           requiredLabels: [],
-          optionalLabels: ['Scene'],
+          optionalLabels: [],
           forbiddenLabels: [
             'Image Type',
             'Subject',
@@ -173,17 +174,12 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
           orderedLabels: [],
         },
         duo: {
-          requiredPrefix: 'Image Type:\n',
-          requiredLabels: ['Image Type', 'Subject', 'Woman 1', 'Woman 2', 'Pose and Composition'],
-          optionalLabels: DUO_Z_IMAGE_LABELS.filter((label) => ![
-            'Image Type',
-            'Subject',
-            'Woman 1',
-            'Woman 2',
-            'Pose and Composition',
-          ].includes(label)),
-          forbiddenLabels: ['Wardrobe', 'Constraints'],
-          orderedLabels: DUO_Z_IMAGE_LABELS,
+          requiredPrefix: '',
+          requiredPrefixes: Object.values(MIDJOURNEY_DESCRIPTION_CONTRACT.imageTypeOpenings),
+          requiredLabels: [],
+          optionalLabels: [],
+          forbiddenLabels: [...DUO_Z_IMAGE_LABELS, 'Wardrobe', 'Constraints'],
+          orderedLabels: [],
         },
       },
     },
@@ -196,6 +192,12 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
         ...COMMON_CONTROL_LEAKAGE,
         'controlled by the outfit color selection',
         'can retain a classic signature color scheme',
+        'signature outfit locked as',
+        'permanent identity anchors:',
+        'body posture base:',
+        'model-decided',
+        'Vary only',
+        'The subject can interact with',
       ],
     },
   },

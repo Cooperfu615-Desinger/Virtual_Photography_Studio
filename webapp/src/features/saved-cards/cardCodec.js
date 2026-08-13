@@ -7,6 +7,7 @@ import { MIDJOURNEY_PARAMETER_CONTRACT } from '../../lib/engine/midjourneyParame
 import { parseMidjourneyParameterTail } from '../../lib/engine/midjourneyParameterTail.js';
 import { ACTION_POSE_CARDS, buildActionPoseSavedCard } from '../../lib/actionPoseLab.js';
 import { reconcilePage1SingleWardrobeLocks } from '../page1/page1WardrobeExclusivity.js';
+import { normalizeZImageDisplayLabel } from './promptLabels.js';
 
 export const FAVORITES_STORAGE_VERSION = 3;
 
@@ -61,7 +62,7 @@ export function buildMarkdownExport(data) {
   const labels = {
     midjourney: data.promptLabels?.midjourney || 'AI Prompt',
     grok: data.promptLabels?.grok || 'Gpt',
-    zImage: data.promptLabels?.zImage || 'Grok/Z-Image',
+    zImage: normalizeZImageDisplayLabel(data.promptLabels?.zImage, 'Z-Image'),
   };
   const structured = data.structured && typeof data.structured === 'object' ? data.structured : {};
   const extraPromptEntries = Array.isArray(data.extraPrompts)
@@ -388,7 +389,7 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
 
   const midjourneyMatch = text.match(/## (?:AI Prompt|Midjourney Prompt)\n```text\n([\s\S]*?)\n```/);
   const grokMatch = text.match(/## (?:Gpt|Grok Structured Prompt)\n```text\n([\s\S]*?)\n```/);
-  const zImageMatch = text.match(/## (?:Grok\/Z-Image|Z-Image Prompt)\n```text\n([\s\S]*?)\n```/);
+  const zImageMatch = text.match(/## (?:Grok\/Z-Image|Z-Image(?: Prompt)?)\n```text\n([\s\S]*?)\n```/);
   if (!summaryMatch || !midjourneyMatch || !grokMatch) {
     throw new Error('missing required markdown sections');
   }

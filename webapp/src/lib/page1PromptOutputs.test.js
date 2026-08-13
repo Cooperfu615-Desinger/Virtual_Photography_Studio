@@ -36,7 +36,7 @@ test('PAGE1 single output consumers expose three primary and three fixed-framing
   assert.deepEqual(dllSources.map((entry) => entry.id), cards.map((entry) => entry.id));
   assert.deepEqual(cards.map((entry) => entry.title), [
     'Gpt',
-    'Grok/Z-Image',
+    'Z-Image',
     'MIDJOURNEY',
     '胸上特寫照',
     'MJ 胸上特寫照',

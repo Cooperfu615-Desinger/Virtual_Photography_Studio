@@ -581,11 +581,12 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
     'Camera Look:\nclean realistic character reference, neutral production-ready detail, consistent identity, realistic facial proportions',
   ].join('\n\n');
   const grokZImage = cleanSentence([
-    `Create a natural photorealistic character reference of ${card.label}`,
-    card.identityAndBody,
-    `permanent identity anchors: ${card.distinctiveFeatures}`,
+    `Natural photorealistic character reference of ${card.label}`,
+    card.distinctiveFeatures,
+    card.skinSignature,
+    card.body,
     `${card.baseHair}, ${hairVariant.prompt}`,
-    layers.length ? `included wardrobe layers: ${layers.map((layer) => layer.prompt).join(', ')}` : 'no clothing layers included, focus on identity and hair',
+    layers.length ? `wearing ${layers.map((layer) => layer.prompt).join(', ')}` : '',
     promptOverridePhrase,
     card.photographicDirection,
   ].filter(Boolean).join(', '));
@@ -632,7 +633,7 @@ export function buildCharacterCardPromptBundle(cards = [], rawVariant = {}) {
     summary,
     outputs: [
       { id: 'gpt', label: 'GPT Prompt', value: gpt },
-      { id: 'grok-z-image', label: 'Grok/Z-Image Prompt', value: grokZImage },
+      { id: 'grok-z-image', label: 'Z-Image Prompt', value: grokZImage },
       { id: 'ai', label: 'AI Prompt', value: ai },
       { id: 'headshot', label: 'Headshot Prompt', value: headshot },
       { id: 'four-view', label: 'Four-View Prompt', value: fourView },
@@ -743,7 +744,7 @@ export function buildCharacterCardSavedCard(cards = [], rawVariant = {}, bundle 
     promptLabels: {
       midjourney: 'AI Prompt',
       grok: 'GPT Prompt',
-      zImage: 'Grok/Z-Image Prompt',
+      zImage: 'Z-Image Prompt',
     },
     extraPrompts,
     selection: null,

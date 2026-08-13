@@ -11,7 +11,7 @@ import { stripMidjourneyParameterTail } from '../webapp/src/lib/engine/midjourne
 
 export const MAIN_OUTPUTS = Object.freeze([
   Object.freeze({ key: 'gpt', label: 'Gpt', field: 'grokPrompt' }),
-  Object.freeze({ key: 'grokZImage', label: 'Grok/Z-Image', field: 'zImagePrompt' }),
+  Object.freeze({ key: 'grokZImage', label: 'Z-Image', field: 'zImagePrompt' }),
   Object.freeze({ key: 'ai', label: 'AI', field: 'midjourneyPrompt' }),
 ]);
 
@@ -412,7 +412,7 @@ export function validateOutputContracts(prompt) {
   }
   const resolvedImageTypes = new Set(imageTypeInstructions.map((item) => normalizeImageTypeIdentity(item.value)).filter(Boolean));
   if (resolvedImageTypes.size > 1) {
-    addContractIssue(issues, 'Cross-output', 'image-type-drift', 'Gpt, Grok/Z-Image, and AI do not share the same resolved image-type instruction');
+    addContractIssue(issues, 'Cross-output', 'image-type-drift', 'Gpt, Z-Image, and AI do not share the same resolved image-type instruction');
   }
 
   const compositions = availableMainOutputs.map((output) => ({
@@ -422,7 +422,7 @@ export function validateOutputContracts(prompt) {
   if (compositions.every((item) => item.value)) {
     const resolvedCompositions = new Set(compositions.map((item) => normalizeForComparison(item.value)));
     if (resolvedCompositions.size > 1) {
-      addContractIssue(issues, 'Cross-output', 'composition-drift', 'Gpt, Grok/Z-Image, and AI do not share the same resolved composition instruction');
+      addContractIssue(issues, 'Cross-output', 'composition-drift', 'Gpt, Z-Image, and AI do not share the same resolved composition instruction');
     }
   }
 

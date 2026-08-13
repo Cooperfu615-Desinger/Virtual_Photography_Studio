@@ -9,11 +9,11 @@ const PRIMARY_PROMPT_OUTPUTS = Object.freeze([
   }),
   Object.freeze({
     id: 'grok',
-    title: 'Grok/Z-Image',
+    title: 'Z-Image',
     field: 'zImagePrompt',
-    placeholder: '目前尚無可顯示的 Grok/Z-Image prompt。',
-    description: '更自然的完整段落描述，主要給 Grok Imagine / Z-Image 使用。',
-    copyLabel: 'Grok/Z-Image copied',
+    placeholder: '目前尚無可顯示的 Z-Image prompt。',
+    description: '依 Z-Image Turbo 優先序整理的自然英文描述，適合 Magnific AI 的 Z-Image。',
+    copyLabel: 'Z-Image copied',
   }),
   Object.freeze({
     id: 'ai',

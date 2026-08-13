@@ -57,7 +57,7 @@ test('phase 4 uses direct Midjourney scene, lighting, and imaging phrases', () =
   assert.match(description, /VHS camcorder image degradation, analog tape noise/i);
   assert.doesNotMatch(description, /\bIn British vintage|\blit by\b|\bInspired by\b|\bshot on\b/i);
 
-  assert.match(prompt.zImagePrompt, /Inspired by Rinko Kawauchi/i);
+  assert.match(prompt.zImagePrompt, /Rinko Kawauchi-inspired/i);
   assert.match(prompt.zImagePrompt, /shot on tilt-shift lens/i);
   assert.match(prompt.grokPrompt, /Inspired by Rinko Kawauchi/i);
 });
