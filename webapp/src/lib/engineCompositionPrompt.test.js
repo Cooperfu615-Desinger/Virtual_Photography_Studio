@@ -20,7 +20,7 @@ function createAllNoneLocks() {
   return locks;
 }
 
-test('all three primary prompts share the compact composition opening', () => {
+test('all three primary prompts share the compact composition opening while Z-Image adds camera geometry', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -35,8 +35,11 @@ test('all three primary prompts share the compact composition opening', () => {
     assert.equal(text.indexOf(expected), text.lastIndexOf(expected));
   });
 
-  assert.match(prompt.zImagePrompt, /^Photorealistic editorial portrait\.\n\nChest-up portrait, eye-level view, front-left three-quarter view\.\n\n/);
+  const zImageGeometry = "Photographed from the woman's front-left side. Her left shoulder is nearer the lens, with her upper torso forming a front-left three-quarter silhouette.";
+  assert.match(prompt.zImagePrompt, new RegExp(`^Photorealistic editorial portrait\\.\\n\\n${expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\. ${zImageGeometry.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\n\\n`));
+  assert.doesNotMatch(prompt.grokPrompt, /left shoulder is nearer the lens/i);
   assert.match(prompt.midjourneyPrompt, /^Photorealistic editorial portrait\. Chest-up portrait, eye-level view, front-left three-quarter view\. /);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /left shoulder is nearer the lens/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\n/);
 });
 

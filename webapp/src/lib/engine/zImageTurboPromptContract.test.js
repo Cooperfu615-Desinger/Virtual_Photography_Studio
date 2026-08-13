@@ -9,13 +9,15 @@ import {
 } from './zImageTurboPromptContract.js';
 
 test('Z-Image Turbo contract preserves the historical field and records the Magnific profile', () => {
-  assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION, '1.0.0');
+  assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION, '1.1.0');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.field, 'zImagePrompt');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.uiLabel, 'Z-Image');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.compatibility.historicalField, 'zImagePrompt');
   assert.match(Z_IMAGE_TURBO_PROMPT_CONTRACT.profile, /Z-Image Turbo/);
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.measurement.encoderSequenceLimit, 512);
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.measurement.estimateIsExactTokenizerCount, false);
+  assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.composition.preserveSharedCanonicalPose, true);
+  assert.deepEqual(Z_IMAGE_TURBO_PROMPT_CONTRACT.composition.geometryAppliesToOutputs, ['zImagePrompt']);
   assert.ok(Object.isFrozen(Z_IMAGE_TURBO_PROMPT_CONTRACT));
 });
 

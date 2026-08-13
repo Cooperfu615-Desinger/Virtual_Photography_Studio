@@ -17,7 +17,9 @@ Last updated: 2026-08-13
 - Single-subject output order is fixed as: `Gpt` (`grokPrompt`), `Z-Image` (`zImagePrompt`), `AI Prompt` (`midjourneyPrompt`), `胸上特寫照`, `MJ 胸上特寫照`, `全身角色照`.
 - The historical `zImagePrompt` field now targets Z-Image Turbo through Magnific AI. PAGE1, PAGE2 Character Card bundles, copy labels, and newly exported Markdown display `Z-Image`; old `Grok/Z-Image` and `Z-Image Prompt` Markdown headings remain importable. The field, output/card ids, storage payloads, and restore mapping are unchanged.
 - Z-Image now uses direct blank-line visual paragraphs with no `Create a／an`, GPT/Grok section labels, `Scene:` label, or selection/guard language. Its source order is image type, composition, subject, wardrobe, pose, scene, lighting, style, optics, rendering. Character Cards keep each permanent identity anchor once and separate wardrobe; duo roles use direct `Woman 1 has ... She wears ...` sentences; fixed sets use concrete spatial descriptions. Pose Composer continues to reuse the exact shared canonical pose.
+- Z-Image single-subject composition now adds an eight-direction, crop-aware camera-to-subject geometry sentence after the shared framing／height／orbit line. The rule identifies the lens-nearest face side, shoulder／shoulder blade, waist or hip and the frontal／rear／three-quarter／side-on silhouette only when those anchors are visible in the current crop. Head direction remains owned by the unchanged shared canonical pose, so a right-side body can turn only its head toward the camera without collapsing the torso back to front view. Dedicated special subjects use neutral `subject` wording; duo, Gpt, AI, selections, storage, and historical field mappings are unchanged.
 - `zImageTurboPromptContract.js` records the Magnific/Turbo profile, primary versus secondary sections, source-traceable reduction order, and estimated-token diagnostics (400 target, 480 soft max against the documented 512 sequence-risk boundary). It does not hard-truncate public Prompt text. A future Z-Image Base integration requires its own profile rather than inheriting these Turbo assumptions.
+- Z-Image camera-geometry item-6 validation on 2026-08-13: focused geometry／contract／renderer tests passed 14 tests; `npm run test:prompt-quality` passed 139 tests; frontend `npm test` passed 689 tests; lint and build passed. The same-seed strict audit (`200`, seed `z-image-turbo-v1`) had zero blocking, required-output, duplicate, control-leakage, or contradiction findings. Z-Image length moved from the pre-item-6 avg／median／p95／max of 197.7／191／258／298 words to 222.1／216／284／321 because the concrete geometry is now a primary composition instruction; it remains below the contract's estimated-token soft maximum in the audited set. The audit retained 18 diagnostic-only existing wardrobe／scene findings across 17 prompts. Browser QA at 1440×1000 and 390×900 generated a full-body, shoulder-level, right-side Z-Image Prompt and confirmed the right shoulder／hip lens-nearest anchors plus side-on silhouette. All five workspaces had zero document overflow, broken images, console warnings, or errors.
 - `胸上特寫照` remains the GPT structured `4:5` output. `MJ 胸上特寫照` uses the chest-up composition, visible wardrobe roles, and projected canonical pose, while normal single subjects reuse the main `AI Prompt` semantic anchors for identity, scene, lighting, and imaging. It renders one Midjourney-native line with a contract-owned `--ar 4:5` tail and inherited F settings.
 - `五官特寫照` is retired from active generation, PAGE1 cards, and DLL sources. The legacy preset metadata and saved-card `facial-closeup-portrait` entries remain readable for restore/serialization compatibility; old data is not deleted or rewritten.
 - F parameter changes affect `midjourneyPrompt` and `chestUpMjPortraitPrompt`; the Gpt, Grok/Z-Image, structured chest-up, and full-body outputs remain parameter-free.
@@ -188,12 +190,14 @@ Current PAGE1 output labels:
   - Must end with `multi-cut sequence n=2`
   - Single special outfits place built-in hair, body, tattoo, and other person-detail fragments in `Subject` under `Hair and body details`; `Wardrobe` uses named `Full outfit` and `Headwear, eyewear, and bag` subsections
   - Single character profile cards use structured facial geometry, eye, nose, mouth, skin, makeup, body, permanent-anchor, hair, outfit, accessory, and photographic-direction groups inside `Subject`; the legacy `identityAndBody` paragraph is retained in data but not repeated by the full renderer
-- `Grok/Z-Image`
+- `Z-Image`
   - Internal field: `zImagePrompt`
-  - Target: Grok Imagine / Aurora and Z-Image
-  - More natural-language description
+  - Target: Z-Image Turbo through Magnific AI
+  - Direct natural-language paragraphs optimized for Z-Image rather than Grok Imagine／Aurora formatting assumptions
+  - Compatibility: historical `Grok/Z-Image` Markdown headings remain importable; storage and public field mappings still use `zImagePrompt`
   - 已實作：與 Gpt 使用相同 resolved selections 的「來源可追溯刪減式重組」；只刪除冗詞、內部控制語與重複描述，只用最小語法連接既有內容，不補寫新的視覺描述。完整身材數值／比例 anchor、已選服裝與配色、動作、場景、光線及攝影設定不可遺失。
   - 已實作：特殊穿搭內建的髮型、髮色、刺青與身體記憶點進入人物句，不留在 `She wears complete special outfit` 句。
+  - 已實作：單人八方向、景別感知的相機—人物幾何；軀幹方位與 canonical pose 的頭部方向分工，不修改 Gpt／AI 或 Pose Composer 原文。
 - `AI`
   - Internal field: `midjourneyPrompt`
   - Compact natural prompt derived from Gpt sections

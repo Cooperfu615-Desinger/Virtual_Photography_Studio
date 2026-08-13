@@ -235,6 +235,20 @@ Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而不是
 
 驗收時必須確認 Gpt 與 Z-Image 的 selections 一致，且 Z-Image 沒有遺失構圖投影後仍有效的身材 anchor、服裝與顏色、動作核心、場景 anchor、光線方向或主要攝影設定。Pose Composer 啟用時仍逐字重用共用 canonical pose；固定構圖需改寫為具體空間與拍攝描述，不輸出 renderer guard。
 
+#### 已實作：八方向相機—人物幾何（Z-Image 優化第六項）
+
+Z-Image 的構圖段落在共用景別、鏡頭高度與拍攝方位短句之後，加入一段只屬於 `zImagePrompt` 的具體相機—人物幾何。它不是新的使用者選項，也不改寫 resolved selections；規則只把既有 `orbitId` 與共用 composition visibility bucket 實體化為模型較容易遵循的空間關係。Gpt 與 AI 不加入這段 Z-Image 專屬文字。
+
+- 八個正式方位為正面、左前、左側、左後、背面、右後、右側、右前。每個方向都明確指出離鏡頭較近的臉側、肩膀、肩胛、腰或髖，以及正面、背面、三分之四或側面的身體輪廓。
+- 幾何 anchor 必須服從共用景別投影：五官特寫只描述臉部；頭肩／胸上只描述肩膀與上半身；中景可描述腰；牛仔景可描述髖與大腿；全身才可描述腿與腳。不得為了強化角度而加入畫面外身體部位。
+- 一般單人與 Character Card 使用 `woman／her` 語言；黑白骷髏、武士、騎士、女性仿生人等 dedicated special subject 使用中性的 `subject` 語言，避免改寫角色種類。雙人維持既有構圖規則，不套用單人幾何句。
+- 身體方位與頭部方向分工：相機方位句固定軀幹／骨盆相對鏡頭的位置；Pose Composer 的 canonical pose 仍負責頭、手、腿與支撐關係。即使選擇「頭部自然朝向鏡頭」，右側拍攝仍必須保持右肩、右髖靠近鏡頭的側身軀幹，不得把整個人轉回正面。
+- Pose Composer 的 projected canonical pose 在 Gpt、Z-Image、AI 三組輸出間仍須逐字相同；不得把方位幾何塞入或改寫 canonical pose。Storage、Saved Cards、匯入匯出、lock ID 與歷史欄位 `zImagePrompt` 均不變。
+
+機器可讀規則位於 `webapp/src/lib/engine/zImageTurboCameraGeometry.js` 與 `zImageTurboPromptContract.js`；八方向、景別可見性、特殊人物中性語言，以及「右側身體＋頭轉鏡頭」整合案例都屬於 `npm run test:prompt-quality` 的阻擋式回歸。
+
+第六項在 2026-08-13 完成驗證：14 項聚焦測試、139 項 Prompt 品質測試與 689 項 frontend tests 全數通過，lint、build 與相同 `z-image-turbo-v1` seed 的 200 筆 strict audit 亦通過。Strict audit 沒有 required-output、duplicate、control-language、contradiction 或 blocking 訊號；Z-Image 平均字數由 197.7 增至 222.1，p95 由 258 增至 284，屬於核准的主要構圖資訊而非冗詞。Browser 驗證在 1440×1000 與 390×900 覆蓋五個工作區，實際產生的全身右側案例包含 right shoulder／right hip 靠近鏡頭與 side-on silhouette，且無 overflow、破圖或 console error。
+
 ### AI
 
 - Internal field: `midjourneyPrompt`

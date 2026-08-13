@@ -89,6 +89,7 @@ import { createPromptSectionModel } from './engine/promptModel.js';
 import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
 import { createSelectionSnapshot } from './engine/selectionSchema.js';
 import { createZImageTurboPromptSectionModel } from './engine/zImageTurboPromptContract.js';
+import { buildZImageTurboCameraGeometry } from './engine/zImageTurboCameraGeometry.js';
 
 export { createSeededRandom } from './engineRandom.js';
 
@@ -11546,7 +11547,17 @@ function renderZImagePrompt(promptModel) {
     film && !isNoneLikeItem(film) ? compactZImageFilmText(skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
   ]);
   const imageTypeLine = buildZImageTypePromptLine(context);
-  const compositionLine = buildCompositionPromptLine(context);
+  const baseCompositionLine = buildCompositionPromptLine(context);
+  const compositionLine = [
+    ensureTerminalPeriod(baseCompositionLine),
+    context.subject.count === 1
+      ? buildZImageTurboCameraGeometry({
+          orbit: context.orbit,
+          bucket: compositionVisibilityProjection.bucket,
+          subjectKind: specialSubjectMode ? 'subject' : 'woman',
+        })
+      : '',
+  ].filter(Boolean).join(' ');
   const buildZImageDuoSubjectText = () => 'Two stunning seductive 20-year-old Japanese or Korean women';
   const buildZImageDuoRoleSubjectText = (role) => {
     const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);

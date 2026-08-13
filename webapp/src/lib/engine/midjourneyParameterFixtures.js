@@ -23,7 +23,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd',
     baselineHashes: {
       grokPrompt: 'fbc1ae5e942a98f69ba1fa92ac6306902d04ed820cfbe85a5c31a8b40aaec57d',
-      zImagePrompt: '09c376afd7c6b1945d5ca62a10f4d7cb6aefabdce9144398f591a8da790e7894',
+      zImagePrompt: '66e7cb739851d532ee955ba409529b660f2578141a07d5d2979172cdf58816af',
       midjourneyPrompt: 'a41d2a95f447a01a9e3eb936b8fcf627d7320f0d17c0d1d928ebcac435b03393',
     },
   },
