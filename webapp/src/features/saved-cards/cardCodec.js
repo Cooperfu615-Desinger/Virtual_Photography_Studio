@@ -5,6 +5,10 @@ import {
 } from '../../lib/engine.js';
 import { MIDJOURNEY_PARAMETER_CONTRACT } from '../../lib/engine/midjourneyParameterContract.js';
 import { parseMidjourneyParameterTail } from '../../lib/engine/midjourneyParameterTail.js';
+import {
+  Z_IMAGE_VISIBLE_TEXT_SELECTION_KEYS,
+  parseZImageVisibleTextSentence,
+} from '../../lib/engine/zImageVisibleText.js';
 import { ACTION_POSE_CARDS, buildActionPoseSavedCard } from '../../lib/actionPoseLab.js';
 import { reconcilePage1SingleWardrobeLocks } from '../page1/page1WardrobeExclusivity.js';
 import { normalizeZImageDisplayLabel } from './promptLabels.js';
@@ -276,6 +280,22 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
   const locks = createEmptyLocks();
   const matchedControls = [];
   const controlMap = new Map(controls.map((control) => [control.key, control]));
+  const visibleTextSettings = parseZImageVisibleTextSentence(promptText);
+
+  if (visibleTextSettings) {
+    Object.assign(locks, visibleTextSettings);
+    Z_IMAGE_VISIBLE_TEXT_SELECTION_KEYS.forEach((key) => {
+      matchedControls.push({
+        key,
+        label: controlMap.get(key)?.label || key,
+        option: {
+          id: String(visibleTextSettings[key]),
+          zh: String(visibleTextSettings[key]),
+          en: '',
+        },
+      });
+    });
+  }
 
   if (normalizedPrompt) {
     controls.forEach((control) => {

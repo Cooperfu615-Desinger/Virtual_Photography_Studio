@@ -195,6 +195,9 @@ export function buildWorkspaceSummary(locks, controls) {
     ? `PAGE3：${locks.importedWorldSceneLabel}`
     : '';
   const fixedCompositionSetActive = isFixedCompositionSetActive(locks, controls);
+  const visibleTextLabel = locks.zImageVisibleTextEnabled && locks.zImageVisibleTextContent
+    ? `畫面文字：${locks.zImageVisibleTextContent}`
+    : '';
   const sceneSummary = buildSummaryText([
     getControlOptionLabel(controls, 'sceneAttributeId', locks.sceneAttributeId),
     importedWorldSceneLabel,
@@ -206,6 +209,7 @@ export function buildWorkspaceSummary(locks, controls) {
     getControlOptionLabel(controls, 'locationId', locks.locationId),
     getControlOptionLabel(controls, 'lightingId', locks.lightingId),
     getControlOptionLabel(controls, 'lightDirectionId', locks.lightDirectionId),
+    visibleTextLabel,
   ]);
   const photographySummary = buildSummaryText([
     getControlOptionLabel(controls, 'imageTypePresetId', locks.imageTypePresetId),

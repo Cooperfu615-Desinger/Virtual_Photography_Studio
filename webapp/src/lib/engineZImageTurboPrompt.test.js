@@ -9,6 +9,7 @@ import {
 } from './engine.js';
 import { buildPage1GenerationPromptCards } from './page1PromptOutputs.js';
 import { buildCharacterCardPromptBundle, getCharacterCardOptions } from './characterCardLab.js';
+import { validatePromptOutputContract } from './engine/promptOutputContracts.js';
 
 const controls = getLockControls();
 
@@ -52,6 +53,45 @@ test('Z-Image Turbo keeps the historical zImagePrompt field while PAGE1 displays
   assert.equal(zImageCard?.value, prompt.zImagePrompt);
 });
 
+test('Z-Image exact visible text is opt-in, source-exact, and isolated from other outputs', () => {
+  const baselineLocks = createAllNoneLocks();
+  const baseline = generate(baselineLocks, 'z-image-visible-text-baseline');
+  const disabled = generate({
+    ...baselineLocks,
+    zImageVisibleTextEnabled: false,
+    zImageVisibleTextContent: '美華冰室',
+  }, 'z-image-visible-text-baseline');
+
+  assert.equal(disabled.zImagePrompt, baseline.zImagePrompt);
+  assert.equal(disabled.grokPrompt, baseline.grokPrompt);
+  assert.equal(disabled.midjourneyPrompt, baseline.midjourneyPrompt);
+
+  const enabled = generate({
+    ...baselineLocks,
+    zImageVisibleTextEnabled: true,
+    zImageVisibleTextContent: '美華冰室',
+    zImageVisibleTextLanguage: 'traditional-chinese',
+    zImageVisibleTextPlacement: 'background-storefront-sign',
+  }, 'z-image-visible-text-baseline');
+  const exactSentence = 'A background storefront sign clearly displays the exact Traditional Chinese text "美華冰室".';
+
+  assert.equal(enabled.zImagePrompt.split(exactSentence).length - 1, 1);
+  assert.equal(enabled.grokPrompt.includes('美華冰室'), false);
+  assert.equal(enabled.midjourneyPrompt.includes('美華冰室'), false);
+  assert.equal(enabled.extraPrompts.some((entry) => entry.text.includes('美華冰室')), false);
+  assert.equal(enabled.selection.zImageVisibleTextEnabled, true);
+  assert.equal(enabled.selection.zImageVisibleTextContent, '美華冰室');
+  assert.equal(enabled.selection.zImageVisibleTextLanguage, 'traditional-chinese');
+  assert.equal(enabled.selection.zImageVisibleTextPlacement, 'background-storefront-sign');
+  assert.deepEqual(
+    validatePromptOutputContract('zImagePrompt', enabled.zImagePrompt, {
+      mode: 'single',
+      allowedLanguageLiterals: [enabled.selection.zImageVisibleTextContent],
+    }),
+    [],
+  );
+});
+
 test('Z-Image Turbo single prompt uses direct visual paragraphs in priority order', () => {
   const prompt = generate({
     ...createAllNoneLocks(),
@@ -75,6 +115,7 @@ test('Z-Image Turbo single prompt uses direct visual paragraphs in priority orde
   const text = prompt.zImagePrompt;
 
   assert.match(text, /^Photorealistic editorial portrait\./);
+  assert.doesNotMatch(text, /[\u3400-\u9fff]/u);
   assert.doesNotMatch(text, /\bCreate (?:a|an)\b|^(?:Image Type|Subject|Wardrobe|Lighting|Camera Look):/m);
   assert.match(text, /Full-body portrait, eye-level view\./);
   assert.doesNotMatch(text, /right profile view/i);

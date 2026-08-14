@@ -319,6 +319,18 @@ export const SECTION_SUBPANELS = {
       description: '補上環境光條件與人物受光，決定空間氣候與主體光線關係。',
       keys: ['lightingId', 'lightDirectionId'],
     },
+    {
+      id: 'visible-text',
+      label: '精確畫面文字',
+      description: '選填 Z-Image 專用的精確可見文字、語言與承載位置；預設關閉且不參與隨機。',
+      randomization: 'excluded',
+      keys: [
+        'zImageVisibleTextEnabled',
+        'zImageVisibleTextContent',
+        'zImageVisibleTextLanguage',
+        'zImageVisibleTextPlacement',
+      ],
+    },
   ],
   photography: [
     {

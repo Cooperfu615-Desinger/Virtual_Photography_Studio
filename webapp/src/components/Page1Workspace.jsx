@@ -5,6 +5,7 @@ import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
 import MidjourneyParameterControls from './MidjourneyParameterControls';
 import PromptPreviewCard from './PromptPreviewCard';
+import ZImageVisibleTextControls from './ZImageVisibleTextControls';
 import {
   DRESS_COVERED_KEYS,
   OUTFIT_PRESET_A_COVERED_KEYS,
@@ -45,6 +46,7 @@ import {
   normalizeMidjourneyParameterDraft,
 } from '../features/page1/midjourneyParameterUi.js';
 import { createPromptGenerationLocks } from '../features/page1/midjourneyParameterState.js';
+import { normalizeZImageVisibleTextSettings } from '../lib/engine/zImageVisibleText.js';
 import '../features/page1/page1.css';
 
 const WARDROBE_PICKER_KEYS = new Set([
@@ -563,6 +565,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     isAnyOutfitPresetActive ? '套裝接管' : '',
     isSpecialOutfitActive ? '特殊穿搭' : '',
     fixedCompositionSetActive ? '固定構圖場景' : '',
+    locks.zImageVisibleTextEnabled && locks.zImageVisibleTextContent ? 'Z-Image 畫面文字' : '',
   ].filter(Boolean);
   const sectionDiagnostics = {
     character: {
@@ -599,6 +602,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         fixedCompositionSetActive ? '固定構圖場景' : '',
         getControlOptionLabel(lockControls, 'locationId', locks.locationId) ? '場景錨點' : '',
         getControlOptionLabel(lockControls, 'lightingId', locks.lightingId) ? '環境光條件' : '',
+        locks.zImageVisibleTextEnabled && locks.zImageVisibleTextContent ? '精確畫面文字' : '',
       ].filter(Boolean),
     },
     photography: {
@@ -885,7 +889,12 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     </div>
   );
 
-  const renderSceneControls = () => (
+  const renderSceneControls = () => resolvedActiveSubpanel?.id === 'visible-text' ? (
+    <ZImageVisibleTextControls
+      settings={locks}
+      onChange={updateLocks}
+    />
+  ) : (
     <div className="control-section">
       <div className="control-section-header">
         <div>
@@ -1064,6 +1073,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     updateLocks((previousLocks) => ({
       ...clearedLocks,
       ...normalizeMidjourneyParameterDraft(previousLocks),
+      ...normalizeZImageVisibleTextSettings(previousLocks),
     }));
     showToast?.('已清除可選欄位，必要欄位保留預設值');
   };

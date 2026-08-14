@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.3.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.5.0';
 
 export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
   field: 'zImagePrompt',
@@ -27,6 +27,22 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
   compatibility: {
     historicalField: 'zImagePrompt',
     historicalUiLabel: 'Grok/Z-Image',
+  },
+  language: {
+    publicPrompt: 'en',
+    uiOnlyFields: ['zh', 'desc'],
+    includeUiMetadataInPrompt: false,
+    automaticTranslation: false,
+    bilingualDuplication: false,
+    exactVisibleText: {
+      supported: true,
+      status: 'active-opt-in',
+      defaultEnabled: false,
+      instructionLanguage: 'en',
+      sourceField: 'selection.zImageVisibleTextContent',
+      outputs: ['zImagePrompt'],
+      unspecifiedBehavior: 'do not invent copy',
+    },
   },
   measurement: {
     encoderSequenceLimit: 512,

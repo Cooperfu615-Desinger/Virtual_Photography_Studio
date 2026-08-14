@@ -78,7 +78,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.6.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.7.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -149,6 +149,7 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     language: {
       primary: 'en',
       forbiddenUnicodeBlocks: [CJK_UNIFIED_IDEOGRAPHS],
+      allowedSourceLiterals: ['selection.zImageVisibleTextContent'],
     },
     shape: {
       paragraphSeparator: 'blank-line',
@@ -459,7 +460,11 @@ function issue(code, message, detail = {}) {
  * The result is an array instead of throwing, allowing audits to aggregate
  * failures across seeds and modes.
  */
-export function validatePromptOutputContract(field, text, { mode = 'single' } = {}) {
+export function validatePromptOutputContract(
+  field,
+  text,
+  { mode = 'single', allowedLanguageLiterals = [] } = {},
+) {
   const contract = PROMPT_OUTPUT_CONTRACTS[field];
   if (!contract) {
     return [issue('unknown-contract', `No prompt-output contract exists for ${field}.`, { field, mode })];
@@ -573,9 +578,20 @@ export function validatePromptOutputContract(field, text, { mode = 'single' } = 
     }
   }
 
+  const sourceLiteralLanguageValue = contract.language.allowedSourceLiterals
+    ? allowedLanguageLiterals.reduce((current, literal) => {
+        const normalizedLiteral = String(literal || '');
+        if (!normalizedLiteral) return current;
+        const index = current.indexOf(normalizedLiteral);
+        return index < 0
+          ? current
+          : `${current.slice(0, index)}${current.slice(index + normalizedLiteral.length)}`;
+      }, value)
+    : value;
+
   for (const block of contract.language.forbiddenUnicodeBlocks) {
     const pattern = UNICODE_BLOCK_PATTERNS[block];
-    if (pattern?.test(value)) {
+    if (pattern?.test(sourceLiteralLanguageValue)) {
       issues.push(issue('language-range', `${field} contains characters from forbidden block ${block}.`, {
         field,
         mode,

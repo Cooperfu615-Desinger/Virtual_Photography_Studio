@@ -205,6 +205,27 @@ Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midj
 - 固定順序為：成品類型、構圖、人物、服裝、姿勢、場景、光線、攝影風格、鏡頭、成像。人物／服裝／姿勢／場景／光線是主要內容，風格／鏡頭／成像為次要內容。
 - `zImageTurboPromptContract.js` 記錄 section priority 與估算長度診斷。估算以 512 sequence limit 作風險基準，400 estimated tokens 為目標、480 為 soft max；它不是官方 tokenizer 的精確計數，且不得用硬截字、硬截詞或殘句達標。
 
+#### 已實作：英文公開輸出邊界（Z-Image 優化第八項第一階段）
+
+- `zImagePrompt` 的一般公開描述維持英文。資料選項的 `zh` 與 `desc` 只服務 UI、摘要與維護，不得由 renderer 串入 Prompt。
+- 不把同一視覺事實同時輸出為中英文，不自動翻譯 UI 中文，也不在最終 renderer 以刪除 Unicode 字元的方式掩蓋來源錯誤；公開文字仍必須直接來自既有英文來源與明確組裝規則。
+- 精確畫面文字屬於後續獨立能力，本階段不新增輸入欄位、lock、Storage、Saved Cards 或匯入匯出格式。沒有明確文字來源時，renderer 不得自行發明招牌、標語或文案。
+- `zImageTurboPromptContract.js` 將這個邊界記為機器可讀語言政策；共用 `promptOutputContracts.js` 仍以 `language-range` 阻擋 CJK 滲入 `zImagePrompt`，代表性 fixtures 與 Z-Image 聚焦測試必須通過同一條契約。
+
+#### 已實作：精確畫面文字（Z-Image 優化第八項第二階段）
+
+第二階段新增可選的 `Z-Image Exact Visible Text`，只處理使用者明確要求畫面中可讀字樣的案例。能力預設關閉且內容為空；沒有明確來源文字時，公開 Prompt 必須和第一階段逐 byte 相同，renderer 仍不得自行發明招牌、標語或文案。
+
+- 四個 lock 為 `zImageVisibleTextEnabled`、`zImageVisibleTextContent`、`zImageVisibleTextLanguage`、`zImageVisibleTextPlacement`。UI 位於 D 場景環境的「精確畫面文字」子面板；內容正規化控制字元與多餘空白，並限制為 48 個 Unicode code points。
+- 支援的來源語言為繁體中文與英文；承載位置只提供背景店面招牌、場景牆面海報、背景數位顯示器。renderer 以固定英文空間句包住使用者原文，例如 `A wall poster within the scene clearly displays the exact Traditional Chinese text "美華冰室".`，不得翻譯、改寫、補字或重複來源 literal。
+- 句子只加入一般單人、固定構圖與雙人的 `zImagePrompt` 場景段落。Gpt、AI、胸上特寫照、MJ 胸上特寫照與全身角色照不得繼承這段；生成摘要可顯示原文供確認，但不可把它當成其他 renderer 的資料來源。
+- 這四個 lock 會隨既有 `vps.locks` Storage、Saved Cards、restore payload 與 Markdown Z-Image 成品匯入／匯出往返。舊資料由 normalization 套用關閉／空白／預設語言／預設位置，不需要 migration；歷史欄位 `zImagePrompt` 與舊 `Grok/Z-Image` Markdown 標題保持不變。
+- 精確文字是明確輸入，不參與「全部隨機」、section random、全無或清除可選欄位。固定構圖不得清除它；清空動作也不得把使用者輸入誤當隨機內容重設。
+- Markdown／標準 Prompt restore 只解析完整符合固定英文 wrapper、已知語言與已知位置的句子；任意場景文字或近似句不得猜測成 lock。字串 literal 使用 JSON quoting，使雙引號與反斜線可逆。
+- `promptOutputContracts.js` 的一般 CJK 阻擋仍有效。只有 `selection.zImageVisibleTextContent` 的精確 literal 可作為 `zImagePrompt` 的 scoped language exception；validator 先移除一次完全相同的核准 literal 再檢查剩餘內容，因此重複 literal、額外中文或 UI `zh／desc` 洩漏仍是 `language-range` 失敗。
+
+機器可讀契約版本為 `zImageTurboPromptContract` `1.5.0` 與共用 `promptOutputContracts` `1.7.0`。第二階段驗證通過 67 項聚焦測試、145 項 Prompt 品質測試、704 項 frontend tests、lint 與 build；明確執行 `node ../scripts/validate_prompt_logic.mjs 200 z-image-turbo-v1 --strict` 的結果沒有 blocking、required-output、duplicate、near-duplicate、control-language 或 contradiction 訊號。預設關閉 fixture 的 Z-Image avg／median／p95／max 維持 237.4／234／293／342 words，18 個既有 wardrobe／scene diagnostic-only findings 仍分布於 17 筆。Browser QA 在 1440×1000 與 390×844 走查五個工作區；Z-Image 只出現一次核准原文，Gpt／AI／三組派生輸出均無洩漏，重載可還原，且沒有 document-level 橫向溢位、clipped control、破圖、console warning 或 error。
+
 #### 已實作：來源可追溯的刪減式重組
 
 Z-Image 必須是同一組 PAGE1 selections 的自然語言精簡版，而不是另一套獨立的 prompt 組裝結果。它應從和 Gpt 相同的完整語意模型／已解析選項取得內容；不得反向解析 Gpt 的 Markdown 成品，也不得自行補寫新的畫面資訊。

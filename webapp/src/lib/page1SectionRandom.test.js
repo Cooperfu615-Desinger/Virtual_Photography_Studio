@@ -21,6 +21,7 @@ import {
   PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS,
 } from '../features/page1/page1WardrobeExclusivity.js';
 import { transitionPage1Locks } from '../features/page1/lockTransitions.js';
+import { buildAllNoneLocks } from '../features/page1/page1Selectors.js';
 
 function activeOptionId(controls, key) {
   return controls.find((control) => control.key === key)?.options.find((option) => (
@@ -151,6 +152,35 @@ test('randomizeLockKeys preserves required fields and resets non-random takeover
   assert.equal(next.poseBaseId, 'random');
   assert.equal(next.imageTypePresetId, 'photorealistic-photo');
   assert.equal(next.topId, '');
+});
+
+test('Z-Image exact visible text stays outside global random and clear operations', () => {
+  const controls = getLockControls();
+  const locks = {
+    ...createEmptyLocks(),
+    zImageVisibleTextEnabled: true,
+    zImageVisibleTextContent: '美華冰室',
+    zImageVisibleTextLanguage: 'traditional-chinese',
+    zImageVisibleTextPlacement: 'background-storefront-sign',
+  };
+  const keys = [
+    'zImageVisibleTextEnabled',
+    'zImageVisibleTextContent',
+    'zImageVisibleTextLanguage',
+    'zImageVisibleTextPlacement',
+  ];
+  const randomized = randomizeLockKeys(
+    locks,
+    controls.map((control) => control.key),
+    createEmptyLocks(),
+    controls,
+  );
+  const cleared = buildAllNoneLocks(controls, locks);
+
+  keys.forEach((key) => {
+    assert.deepEqual(randomized[key], locks[key]);
+    assert.deepEqual(cleared[key], locks[key]);
+  });
 });
 
 test('single pose panel randomizes the five Pose Composer layers and leaves props independent', () => {

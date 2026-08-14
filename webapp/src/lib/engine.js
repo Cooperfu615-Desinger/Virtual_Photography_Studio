@@ -90,6 +90,10 @@ import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtime
 import { createSelectionSnapshot } from './engine/selectionSchema.js';
 import { createZImageTurboPromptSectionModel } from './engine/zImageTurboPromptContract.js';
 import {
+  buildZImageVisibleTextSentence,
+  normalizeZImageVisibleTextSettings,
+} from './engine/zImageVisibleText.js';
+import {
   buildZImageTurboCameraGeometry,
   buildZImageTurboSidePoseDepth,
   getZImageTurboCameraProjectionFlags,
@@ -960,6 +964,10 @@ const LOCK_DEFINITIONS = [
   { key: 'importedWorldSceneMode', label: '匯入世界場景模式', defaultValue: 'none', section: 'hidden' },
   { key: 'importedWorldSceneLabel', label: '匯入世界場景標籤', section: 'hidden' },
   { key: 'importedWorldSceneArchitectureText', label: '匯入世界場景架構', section: 'hidden' },
+  { key: 'zImageVisibleTextEnabled', label: 'Z-Image 精確畫面文字', defaultValue: false, section: 'z-image', randomization: 'excluded' },
+  { key: 'zImageVisibleTextContent', label: 'Z-Image 畫面文字內容', defaultValue: '', section: 'z-image', randomization: 'excluded' },
+  { key: 'zImageVisibleTextLanguage', label: 'Z-Image 畫面文字語言', defaultValue: 'traditional-chinese', section: 'z-image', randomization: 'excluded' },
+  { key: 'zImageVisibleTextPlacement', label: 'Z-Image 畫面文字位置', defaultValue: 'background-storefront-sign', section: 'z-image', randomization: 'excluded' },
   { key: 'fixedCompositionSetId', label: '固定構圖場景', options: FIXED_COMPOSITION_SET_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'fixedSetPositionId', label: '固定場景人物位置', options: FIXED_SET_POSITION_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'fixedSetBackgroundStateId', label: '固定場景背景狀態', options: FIXED_SET_BACKGROUND_STATE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'core' },
@@ -3511,6 +3519,10 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
   Object.assign(
     normalizedWithLegacyColors,
     normalizeMidjourneyParameterSettings(normalizedWithLegacyColors),
+  );
+  Object.assign(
+    normalizedWithLegacyColors,
+    normalizeZImageVisibleTextSettings(normalizedWithLegacyColors),
   );
 
   return normalizedWithLegacyColors;
@@ -11149,6 +11161,7 @@ function renderZImagePrompt(promptModel) {
   const projectedScene = context.projectedScene || buildProjectedScene(context);
   const sceneAccentText = projectedScene.sceneAccentText;
   const importedWorldSceneArchitectureText = projectedScene.worldSceneText;
+  const visibleTextSentence = buildZImageVisibleTextSentence(context.locks);
   const characterProfileTexts = characterProfileMode
     ? buildZImageCharacterProfileTexts(context, wardrobe)
     : { subject: '', wardrobe: '' };
@@ -11522,6 +11535,7 @@ function renderZImagePrompt(promptModel) {
     return [
       clean(Z_IMAGE_FIXED_SET_OPENING_PARAGRAPHS[context.fixedCompositionSet.id] || buildGptFixedSetOpeningParagraph(context.fixedCompositionSet)),
       clean(buildZImageFixedSetInteractionParagraph(context)),
+      visibleTextSentence,
     ].filter(Boolean);
   };
   const buildSceneText = () => {
@@ -11532,7 +11546,10 @@ function renderZImagePrompt(promptModel) {
       skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : compactZImageSourceText(sceneAccentText),
     ].filter(Boolean);
 
-    return leadSentence('The scene is', sceneParts);
+    return [
+      leadSentence('The scene is', sceneParts),
+      visibleTextSentence,
+    ].filter(Boolean).join(' ');
   };
   const buildLightingText = () => joinSentenceParts([
     context.lighting && !isNoneLikeItem(context.lighting)
@@ -11622,7 +11639,10 @@ function renderZImagePrompt(promptModel) {
         : '',
       skeletonMode ? sanitizeSkeletonPromptText(sceneAccentText) : compactZImageSourceText(sceneAccentText),
     ].filter(Boolean).join(', ');
-    return scene ? sentence(`The scene is ${scene}`) : '';
+    return [
+      scene ? sentence(`The scene is ${scene}`) : '',
+      visibleTextSentence,
+    ].filter(Boolean).join(' ');
   };
   const buildZImageDuoLightingText = () => joinSentenceParts([
     context.lighting && !isNoneLikeItem(context.lighting) ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en) : '',
@@ -13635,6 +13655,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     importedWorldSceneMode: context.locks?.importedWorldSceneMode || 'none',
     importedWorldSceneLabel: context.locks?.importedWorldSceneLabel || '',
     importedWorldSceneArchitectureText: context.locks?.importedWorldSceneArchitectureText || '',
+    ...normalizeZImageVisibleTextSettings(context.locks),
     fixedCompositionSetId: context.fixedCompositionSet?.id || 'none',
     fixedSetPositionId: context.fixedSetPosition?.id || 'none',
     fixedSetBackgroundStateId: context.fixedSetBackgroundState?.id || 'none',

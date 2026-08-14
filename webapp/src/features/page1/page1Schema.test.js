@@ -40,6 +40,19 @@ test('MJ parameters have a dedicated F section and stay outside engine random co
   assert.equal(SECTION_SUBPANELS.midjourney[0].randomization, 'excluded');
 });
 
+test('Z-Image exact visible text has a dedicated opt-in scene panel', () => {
+  const panel = SECTION_SUBPANELS.scene.find((entry) => entry.id === 'visible-text');
+
+  assert.ok(panel);
+  assert.equal(panel.randomization, 'excluded');
+  assert.deepEqual(panel.keys, [
+    'zImageVisibleTextEnabled',
+    'zImageVisibleTextContent',
+    'zImageVisibleTextLanguage',
+    'zImageVisibleTextPlacement',
+  ]);
+});
+
 test('Pose Composer keeps the independent prop control outside the five-layer batch random keys', () => {
   assert.deepEqual(POSE_COMPOSER_KEYS, [
     'poseBaseId',

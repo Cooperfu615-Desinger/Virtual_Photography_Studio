@@ -5,6 +5,7 @@ import { createEmptyLocks, getLockControls } from '../../lib/engine.js';
 import { transitionPage1Locks } from '../page1/lockTransitions.js';
 import {
   createLineage,
+  buildMarkdownExport,
   buildRestoreLocks,
   buildSavedCardManifestItem,
   collectSourceTags,
@@ -70,6 +71,41 @@ test('favorite codec preserves card identity, prompts, selection, and lineage', 
   assert.equal(restored.selection.subjectCount, '1');
   assert.equal(restored.selection.posePropId, locks.posePropId);
   assert.equal(restored.lineage.rootShortId, '#123456');
+});
+
+test('favorite codec and Markdown import preserve Z-Image exact visible text settings', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    zImageVisibleTextEnabled: true,
+    zImageVisibleTextContent: '美華冰室',
+    zImageVisibleTextLanguage: 'traditional-chinese',
+    zImageVisibleTextPlacement: 'background-storefront-sign',
+  };
+  const exactSentence = 'A background storefront sign clearly displays the exact Traditional Chinese text "美華冰室".';
+  const prompt = {
+    id: 'prompt-visible-text',
+    source: 'page1',
+    sourceLabel: 'Prompt 工作台',
+    date: '2026-08-14T00:00:00.000Z',
+    summary: '場景：街道',
+    midjourneyPrompt: 'Photorealistic editorial portrait.',
+    grokPrompt: 'Image Type:\nPhotorealistic editorial portrait.\n\nSubject:\nOne woman.\n\nmulti-cut sequence n=2',
+    zImagePrompt: `Photorealistic editorial portrait.\n\n${exactSentence}`,
+    selection: locks,
+  };
+
+  const restored = deserializeFavoritePrompt(serializeFavoritePrompt(prompt));
+  assert.equal(restored.selection.zImageVisibleTextEnabled, true);
+  assert.equal(restored.selection.zImageVisibleTextContent, '美華冰室');
+  assert.equal(restored.selection.zImageVisibleTextLanguage, 'traditional-chinese');
+  assert.equal(restored.selection.zImageVisibleTextPlacement, 'background-storefront-sign');
+
+  const markdown = buildMarkdownExport(prompt);
+  const imported = parseExportedMarkdownPrompt(markdown, getLockControls(), 'import-visible-text');
+  assert.equal(imported.selection.zImageVisibleTextEnabled, true);
+  assert.equal(imported.selection.zImageVisibleTextContent, '美華冰室');
+  assert.equal(imported.selection.zImageVisibleTextLanguage, 'traditional-chinese');
+  assert.equal(imported.selection.zImageVisibleTextPlacement, 'background-storefront-sign');
 });
 
 test('favorite codec round-trips a normalized dress selection without stale separates', () => {
@@ -145,6 +181,25 @@ test('standard prompt parser restores prop actions only into posePropId', () => 
 
   assert.equal(parsed.locks.posePropId, prop.id);
   assert.equal(parsed.locks.poseHandId, 'none');
+});
+
+test('standard prompt parser restores only the strict Z-Image exact visible text wrapper', () => {
+  const controls = getLockControls();
+  const exactSentence = 'A wall poster within the scene clearly displays the exact English text "MIDNIGHT CAFE".';
+  const parsed = parseLocksFromStandardPrompt(`Photorealistic editorial portrait.\n\n${exactSentence}`, controls);
+
+  assert.equal(parsed.locks.zImageVisibleTextEnabled, true);
+  assert.equal(parsed.locks.zImageVisibleTextContent, 'MIDNIGHT CAFE');
+  assert.equal(parsed.locks.zImageVisibleTextLanguage, 'english');
+  assert.equal(parsed.locks.zImageVisibleTextPlacement, 'wall-poster');
+  assert.equal(
+    parsed.matchedControls.filter(({ key }) => key.startsWith('zImageVisibleText')).length,
+    4,
+  );
+
+  const unrelated = parseLocksFromStandardPrompt('A sign says MIDNIGHT CAFE.', controls);
+  assert.equal(unrelated.locks.zImageVisibleTextEnabled, false);
+  assert.equal(unrelated.locks.zImageVisibleTextContent, '');
 });
 
 test('standard prompt parser migrates both legacy lipstick descriptions into the merged prop action', () => {
