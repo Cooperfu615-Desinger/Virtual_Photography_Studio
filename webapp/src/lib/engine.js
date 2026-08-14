@@ -89,7 +89,11 @@ import { createPromptSectionModel } from './engine/promptModel.js';
 import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
 import { createSelectionSnapshot } from './engine/selectionSchema.js';
 import { createZImageTurboPromptSectionModel } from './engine/zImageTurboPromptContract.js';
-import { buildZImageTurboCameraGeometry } from './engine/zImageTurboCameraGeometry.js';
+import {
+  buildZImageTurboCameraGeometry,
+  buildZImageTurboSidePoseDepth,
+  getZImageTurboCameraProjectionFlags,
+} from './engine/zImageTurboCameraGeometry.js';
 
 export { createSeededRandom } from './engineRandom.js';
 
@@ -9370,11 +9374,15 @@ function compactCameraDescriptor(item, kind) {
     .trim();
 }
 
-function buildCompositionPromptLine(context, { adaptation = null } = {}) {
+function buildCompositionPromptLine(context, {
+  adaptation = null,
+  omitAngle = false,
+  omitOrbit = false,
+} = {}) {
   const parts = [
     context?.fixedFramingCompositionOpening || compactCameraDescriptor(context?.framing, 'framing'),
-    compactCameraDescriptor(context?.angle, 'angle'),
-    compactCameraDescriptor(context?.orbit, 'orbit'),
+    omitAngle ? '' : compactCameraDescriptor(context?.angle, 'angle'),
+    omitOrbit ? '' : compactCameraDescriptor(context?.orbit, 'orbit'),
     ...(adaptation?.compositionAdditions || []),
   ].filter(Boolean);
   if (parts.length === 0) return '';
@@ -11295,7 +11303,15 @@ function renderZImagePrompt(promptModel) {
     if (context.subject.count !== 1) return '';
 
     const hasPoseComposer = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer);
-    if (hasPoseComposer) return context.projectedCanonicalPoseText || '';
+    if (hasPoseComposer) {
+      const canonicalPoseText = context.projectedCanonicalPoseText || '';
+      const sideDepthText = buildZImageTurboSidePoseDepth({
+        orbit: context.orbit,
+        poseHandId: characterSlots.poseComposer?.meta?.poseHandId || '',
+        subjectKind: specialSubjectMode ? 'subject' : 'woman',
+      });
+      return [canonicalPoseText, sideDepthText].filter(Boolean).join(' ');
+    }
     if (specialSubjectMode || characterProfileMode || context.compositionVisibility?.pose?.mode === 'omit') return '';
 
     const poseText = characterSlots.actionPose && !isNoneLikeItem(characterSlots.actionPose)
@@ -11547,14 +11563,23 @@ function renderZImagePrompt(promptModel) {
     film && !isNoneLikeItem(film) ? compactZImageFilmText(skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
   ]);
   const imageTypeLine = buildZImageTypePromptLine(context);
-  const baseCompositionLine = buildCompositionPromptLine(context);
+  const cameraProjectionFlags = getZImageTurboCameraProjectionFlags({
+    angle: context.angle,
+    orbit: context.orbit,
+  });
+  const baseCompositionLine = buildCompositionPromptLine(context, {
+    omitAngle: context.subject.count === 1 && cameraProjectionFlags.replacesAngleDescriptor,
+    omitOrbit: context.subject.count === 1 && cameraProjectionFlags.replacesOrbitDescriptor,
+  });
   const compositionLine = [
     ensureTerminalPeriod(baseCompositionLine),
     context.subject.count === 1
       ? buildZImageTurboCameraGeometry({
+          angle: context.angle,
           orbit: context.orbit,
           bucket: compositionVisibilityProjection.bucket,
           subjectKind: specialSubjectMode ? 'subject' : 'woman',
+          poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || '',
         })
       : '',
   ].filter(Boolean).join(' ');

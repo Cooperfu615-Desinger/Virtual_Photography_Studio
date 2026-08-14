@@ -20,7 +20,7 @@ function createAllNoneLocks() {
   return locks;
 }
 
-test('all three primary prompts share the compact composition opening while Z-Image adds camera geometry', () => {
+test('all three primary prompts share ordinary framing labels while Z-Image adds orbit geometry', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
     subjectCount: '1',
@@ -30,7 +30,7 @@ test('all three primary prompts share the compact composition opening while Z-Im
   });
   const expected = 'Chest-up portrait, eye-level view, front-left three-quarter view';
 
-  [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].forEach((text) => {
+  [prompt.grokPrompt, prompt.midjourneyPrompt].forEach((text) => {
     assert.match(text, new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
     assert.equal(text.indexOf(expected), text.lastIndexOf(expected));
   });
@@ -61,11 +61,14 @@ test('cowboy framing is labeled as knee-up before the generic medium-shot match'
     orbitId: optionId('orbitId', '左側 90 度'),
   });
 
-  for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+  for (const field of ['grokPrompt', 'midjourneyPrompt']) {
     assert.match(prompt[field], /Knee-up cowboy shot, high angle, looking down, left profile view/i, field);
     assert.doesNotMatch(prompt[field], /Waist-up portrait/i, field);
   }
-  assert.match(prompt.zImagePrompt, /torso, pelvis, and thighs[\s\S]*strict 90-degree left-side profile/i);
+  assert.match(prompt.zImagePrompt, /Knee-up cowboy shot\./i);
+  assert.match(prompt.zImagePrompt, /camera is positioned clearly above the woman and tilted downward/i);
+  assert.match(prompt.zImagePrompt, /facing the right edge[\s\S]*only the left side of her body[\s\S]*strict 90-degree lateral body view/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /high angle, looking down|left profile view|Waist-up portrait/i);
 });
 
 test('AI chest-up framing removes lower wardrobe details after the shared opening', () => {

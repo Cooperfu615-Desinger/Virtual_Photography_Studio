@@ -76,13 +76,15 @@ test('Z-Image Turbo single prompt uses direct visual paragraphs in priority orde
 
   assert.match(text, /^Photorealistic editorial portrait\./);
   assert.doesNotMatch(text, /\bCreate (?:a|an)\b|^(?:Image Type|Subject|Wardrobe|Lighting|Camera Look):/m);
-  assert.match(text, /Full-body portrait, eye-level view, right profile view/);
+  assert.match(text, /Full-body portrait, eye-level view\./);
+  assert.doesNotMatch(text, /right profile view/i);
   assert.match(text, /The scene is cement-mixer tank side area, large cylindrical mixing tank, concrete dust\./i);
   assert.match(text, /Indoor low-light warm night ambience[\s\S]*mixed warm and cool subject lighting/i);
 
   const ordered = [
     'Photorealistic editorial portrait',
-    'Full-body portrait, eye-level view, right profile view',
+    'Full-body portrait, eye-level view',
+    'She stands completely sideways, facing the left edge of the image',
     'A 20s seductive stunning Japanese or Korean woman',
     'She wears',
     'The scene is cement-mixer tank side area',
@@ -99,7 +101,7 @@ test('Z-Image Turbo single prompt uses direct visual paragraphs in priority orde
   }
 });
 
-test('Z-Image Turbo keeps a right-profile seated body side-on when the canonical head turns to camera', () => {
+test('Z-Image Turbo keeps a strict right-side seated body when the canonical head turns to camera', () => {
   const prompt = generate({
     ...createAllNoneLocks(),
     imageTypePresetId: 'photorealistic-photo',
@@ -112,18 +114,45 @@ test('Z-Image Turbo keeps a right-profile seated body side-on when the canonical
     poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
     poseAnchorId: optionId('poseAnchorId', '坐在單人雕花絨布椅'),
   }, 'z-image-turbo-right-profile-head-camera');
-  const geometry = "Photographed from the woman's right side. Her near right shoulder visually overlaps the far left shoulder and her near right hip visually overlaps the far left hip, with her torso, pelvis, legs, and feet seen edge-on in a strict 90-degree right-side profile.";
   const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([\s\S]*?)(?=\n\n(?:Scene|Lighting|Camera Look):|\n\nmulti-cut sequence n=2|$)/)?.[1] || '';
 
-  assert.match(prompt.zImagePrompt, /Full-body portrait, eye-level view, right profile view\./);
-  assert.ok(prompt.zImagePrompt.includes(geometry));
+  assert.match(prompt.zImagePrompt, /Full-body portrait, eye-level view\./);
+  assert.match(prompt.zImagePrompt, /sits completely sideways, facing the left edge/i);
+  assert.match(prompt.zImagePrompt, /camera sees only the right side of her body/i);
+  assert.match(prompt.zImagePrompt, /right shoulder fully hides her left shoulder[\s\S]*right hip fully hides her left hip/i);
+  assert.match(prompt.zImagePrompt, /strict 90-degree lateral body view/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /right profile view|visually overlaps the far left/i);
   assert.match(canonicalPose, /head naturally facing the camera/i);
   assert.match(canonicalPose, /leg-cross seated pose/i);
   assert.match(canonicalPose, /ornate single velvet armchair/i);
   assert.equal(prompt.zImagePrompt.includes(canonicalPose), true);
   assert.equal(prompt.midjourneyPrompt.includes(canonicalPose), true);
-  assert.doesNotMatch(prompt.grokPrompt, /near right shoulder visually overlaps the far left shoulder/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /near right shoulder visually overlaps the far left shoulder/i);
+  assert.doesNotMatch(prompt.grokPrompt, /camera sees only the right side of her body/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /camera sees only the right side of her body/i);
+});
+
+test('Z-Image Turbo adds side-view depth for the tested two-hand waistband action without rewriting the canonical pose', () => {
+  const locks = {
+    ...createAllNoneLocks(),
+    imageTypePresetId: 'photorealistic-photo',
+    framingId: optionId('framingId', '牛仔中景 (Cowboy Shot)'),
+    angleId: optionId('angleId', '高位俯視鏡頭'),
+    orbitId: optionId('orbitId', '右側 270 度'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '雙手抓住褲腰'),
+    poseHeadId: optionId('poseHeadId', '低頭看向手部'),
+  };
+  const prompt = generate(locks, 'z-image-turbo-side-waistband-depth');
+  const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([\s\S]*?)(?=\n\n(?:Scene|Lighting|Camera Look):|\n\nmulti-cut sequence n=2|$)/)?.[1] || '';
+
+  assert.match(canonicalPose, /head lowered toward the hands/i);
+  assert.match(canonicalPose, /both hands gripping the front waistband or belt loops, elbows angled outward/i);
+  assert.equal(prompt.zImagePrompt.split(canonicalPose).length - 1, 1);
+  assert.equal(prompt.midjourneyPrompt.split(canonicalPose).length - 1, 1);
+  assert.match(prompt.zImagePrompt, /Keeping her torso completely sideways, both hands meet at the front waistband and overlap in depth from this side view, with one elbow nearer the camera and the other positioned behind it\./i);
+  assert.doesNotMatch(prompt.grokPrompt, /overlap in depth from this side view/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /overlap in depth from this side view/i);
 });
 
 test('Z-Image Turbo uses neutral camera geometry for a dedicated special subject', () => {
@@ -136,9 +165,10 @@ test('Z-Image Turbo uses neutral camera geometry for a dedicated special subject
     orbitId: optionId('orbitId', '右側 270 度'),
   }, 'z-image-turbo-special-subject-right-profile');
 
-  assert.match(prompt.zImagePrompt, /Photographed from the subject's right side/i);
-  assert.match(prompt.zImagePrompt, /subject's near right shoulder[\s\S]*subject's near right hip/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /Photographed from the woman's right side/i);
+  assert.match(prompt.zImagePrompt, /The subject is positioned completely sideways, facing the left edge/i);
+  assert.match(prompt.zImagePrompt, /camera sees only the right side of the subject's body/i);
+  assert.match(prompt.zImagePrompt, /subject's right shoulder fully hides the subject's left shoulder[\s\S]*subject's right hip fully hides the subject's left hip/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /\bwoman\b|\bher\b/i);
 });
 
 test('Z-Image Turbo duo prompt removes Grok-style labels and internal control wording', () => {

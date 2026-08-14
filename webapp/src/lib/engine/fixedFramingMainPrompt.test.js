@@ -122,7 +122,10 @@ test('phase-5 half-face framing resolves one edge placement shared exactly by al
       true,
       `${fixture.id}: ${compositionBlock}`,
     );
-    assert.ok(prompt.zImagePrompt.includes(compositionBlock), `${fixture.id}: Grok/Z composition`);
+    const expectedFramingOpening = compositionBlock.split(',')[0];
+    assert.ok(prompt.zImagePrompt.includes(expectedFramingOpening), `${fixture.id}: Z-Image framing source`);
+    assert.match(prompt.zImagePrompt, /camera sees only the (?:left|right) side of her (?:face|upper body|body)/i, `${fixture.id}: Z-Image side geometry`);
+    assert.doesNotMatch(prompt.zImagePrompt, /(?:left|right) profile view/i, `${fixture.id}: retired ambiguous Z-Image label`);
     assert.ok(prompt.midjourneyPrompt.includes(compositionBlock), `${fixture.id}: AI composition`);
     assert.equal(compositionBlock.includes('left or right'), false, fixture.id);
     assert.equal(prompt.selection.framingId, framingId, `${fixture.id}: raw framing selection`);
