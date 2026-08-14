@@ -100,6 +100,10 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
   ['亮綠色', '亮黃色', '亮紫色', '銅紅髮', '霧感橄欖棕', '霧灰棕'].forEach((label) => {
     assert.ok(!optionLabels('hairColorId').includes(label), `Removed hair color should not appear: ${label}`);
   });
+  assert.deepEqual(
+    optionLabels('hairStylingStateId'),
+    ['柔順自然', '濕髮分束', '微風吹拂', '強烈風感']
+  );
 });
 
 test('hairstyle prompt supports airy inward bob with see-through bangs', () => {
@@ -128,9 +132,9 @@ test('hairstyle prompt supports referenced soft-wave and airy-bang long hair opt
   const koreanWaves = optionByLabel('hairstyleId', '韓系蓬鬆鎖骨柔波髮');
   const airyLongHair = optionByLabel('hairstyleId', '輕透瀏海自然微彎長髮');
 
-  assert.match(koreanWaves.en, /voluminous Korean collarbone-length soft waves/);
-  assert.match(koreanWaves.en, /airy layered volume/);
-  assert.match(koreanWaves.en, /loose face-framing movement/);
+  assert.match(koreanWaves.en, /Korean collarbone-length soft waves/);
+  assert.match(koreanWaves.en, /defined layered shape/);
+  assert.match(koreanWaves.en, /clean face-framing ends/);
   assert.match(airyLongHair.en, /long naturally slightly wavy hair/);
   assert.match(airyLongHair.en, /airy see-through bangs/);
   assert.match(airyLongHair.en, /soft side-draped face-framing strands/);
@@ -153,7 +157,7 @@ test('hairstyle prompt supports referenced soft-wave and airy-bang long hair opt
 
   const wavePromptText = [wavePrompt.grokPrompt, wavePrompt.zImagePrompt, wavePrompt.midjourneyPrompt].join('\n');
   const longHairPromptText = [longHairPrompt.grokPrompt, longHairPrompt.zImagePrompt, longHairPrompt.midjourneyPrompt].join('\n');
-  assert.match(wavePromptText, /voluminous Korean collarbone-length soft waves/);
+  assert.match(wavePromptText, /Korean collarbone-length soft waves/);
   assert.match(longHairPromptText, /long (?:naturally )?slightly wavy hair/);
   assert.equal(wavePrompt.selection.hairstyleId, koreanWaves.id);
   assert.equal(longHairPrompt.selection.hairstyleId, airyLongHair.id);
@@ -164,10 +168,10 @@ test('hairstyle prompt exposes straight wet and subtle bend options without over
   const straightWet = optionByLabel('hairstyleId', '直髮：濕感');
 
   assert.match(subtleBend.en, /subtle natural bends/);
-  assert.match(subtleBend.en, /mostly smooth texture/);
+  assert.match(subtleBend.en, /asymmetric face-framing shape/);
   assert.doesNotMatch(subtleBend.en, /\bcurl|\bcurls|\bcurly/i);
-  assert.match(straightWet.en, /sleek wet texture/);
-  assert.match(straightWet.en, /minimal wave/);
+  assert.match(straightWet.en, /clean vertical lengths/);
+  assert.match(straightWet.en, /compact natural silhouette/);
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -177,8 +181,30 @@ test('hairstyle prompt exposes straight wet and subtle bend options without over
     hairstyleId: subtleBend.id,
   });
   assert.match(prompt.grokPrompt, /subtle natural bends/);
-  assert.match(prompt.zImagePrompt, /mostly smooth texture/);
+  assert.match(prompt.zImagePrompt, /asymmetric face-framing shape/);
   assert.equal(prompt.selection.hairstyleId, subtleBend.id);
+});
+
+test('hair styling state is a separate shared prompt control', () => {
+  const hairstyle = optionByLabel('hairstyleId', '直髮：中分');
+  const stylingState = optionByLabel('hairStylingStateId', '強烈風感');
+  const hairColor = optionByLabel('hairColorId', '深咖啡棕');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionByLabel('framingId', '中景鏡頭 (Medium Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '全無').id,
+    hairstyleId: hairstyle.id,
+    hairStylingStateId: stylingState.id,
+    hairColorId: hairColor.id,
+  });
+
+  assert.equal(prompt.selection.hairstyleId, hairstyle.id);
+  assert.equal(prompt.selection.hairStylingStateId, stylingState.id);
+  assert.match(prompt.grokPrompt, /strong directional wind/);
+  assert.match(prompt.zImagePrompt, /strong directional wind/);
+  assert.match(prompt.midjourneyPrompt, /strong directional wind/);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /wet-look|damp separated strands/i);
 });
 
 test('identity base prompt wording is controlled by selected DNA options', () => {
@@ -272,6 +298,14 @@ test('legacy identity base locks migrate into the merged options', () => {
   assert.equal(
     normalizeLocks({ ...locks, hairstyleId: 'character:髮型-hairstyle:短髮-齊耳法式短鮑伯:3' }).hairstyleId,
     optionByLabel('hairstyleId', '乾淨短鮑伯').id
+  );
+  const legacyWetLocks = normalizeLocks({
+    ...locks,
+    hairstyleId: 'character:髮型-hairstyle:直髮-濕感:13',
+  });
+  assert.equal(
+    legacyWetLocks.hairStylingStateId,
+    optionByLabel('hairStylingStateId', '濕髮分束').id
   );
   assert.equal(
     normalizeLocks({ ...locks, hairstyleId: 'character:髮型-hairstyle:長髮-放髮-姬髮式長直髮:17' }).hairstyleId,

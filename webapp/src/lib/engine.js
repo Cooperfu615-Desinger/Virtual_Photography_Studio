@@ -108,6 +108,8 @@ const SUBJECT_COUNT_OPTIONS = [
 
 const CHARACTER_EXPRESSION_CATEGORY = '表情 (Facial Expression)';
 const LEGACY_CHARACTER_EXPRESSION_CATEGORY = '神情與眼神 (Expression & Gaze)';
+const HAIR_STYLING_STATE_CATEGORY = '髮絲整理狀態 (Hair Styling State)';
+const HAIR_STYLING_STATE_DEFAULT_ID = 'character:髮絲整理狀態-hair-styling-state:柔順自然:0';
 
 const FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE = 'A 20s seductive stunning Japanese or Korean woman.';
 const MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD = 'A 20s seductive stunning Japanese woman.';
@@ -992,9 +994,12 @@ const LOCK_DEFINITIONS = [
   { key: 'skinDetailsId', label: '膚質特徵', category: '膚質特徵 (Skin Details)', section: 'character' },
   { key: 'skinDetailsAId', label: '人物 1 膚質', category: '膚質特徵 (Skin Details)', section: 'character' },
   { key: 'skinDetailsBId', label: '人物 2 膚質', category: '膚質特徵 (Skin Details)', section: 'character' },
-  { key: 'hairstyleId', label: '髮型', category: '髮型 (Hairstyle)', section: 'character' },
-  { key: 'hairstyleAId', label: '人物 1 髮型', category: '髮型 (Hairstyle)', section: 'character' },
-  { key: 'hairstyleBId', label: '人物 2 髮型', category: '髮型 (Hairstyle)', section: 'character' },
+  { key: 'hairstyleId', label: '髮型輪廓', category: '髮型 (Hairstyle)', section: 'character' },
+  { key: 'hairstyleAId', label: '人物 1 髮型輪廓', category: '髮型 (Hairstyle)', section: 'character' },
+  { key: 'hairstyleBId', label: '人物 2 髮型輪廓', category: '髮型 (Hairstyle)', section: 'character' },
+  { key: 'hairStylingStateId', label: '整理狀態', category: HAIR_STYLING_STATE_CATEGORY, defaultValue: HAIR_STYLING_STATE_DEFAULT_ID, section: 'character' },
+  { key: 'hairStylingStateAId', label: '人物 1 整理狀態', category: HAIR_STYLING_STATE_CATEGORY, defaultValue: HAIR_STYLING_STATE_DEFAULT_ID, section: 'character' },
+  { key: 'hairStylingStateBId', label: '人物 2 整理狀態', category: HAIR_STYLING_STATE_CATEGORY, defaultValue: HAIR_STYLING_STATE_DEFAULT_ID, section: 'character' },
   { key: 'hairColorId', label: '髮色', category: '髮色 (Hair Color)', section: 'character' },
   { key: 'hairColorAId', label: '人物 1 髮色', category: '髮色 (Hair Color)', section: 'character' },
   { key: 'hairColorBId', label: '人物 2 髮色', category: '髮色 (Hair Color)', section: 'character' },
@@ -1161,9 +1166,12 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'skinDetailsId', label: 'Skin' },
   { key: 'skinDetailsAId', label: 'Woman 1 Skin' },
   { key: 'skinDetailsBId', label: 'Woman 2 Skin' },
-  { key: 'hairstyleId', label: 'Hair Style' },
-  { key: 'hairstyleAId', label: 'Woman 1 Hairstyle' },
-  { key: 'hairstyleBId', label: 'Woman 2 Hairstyle' },
+  { key: 'hairstyleId', label: 'Hairstyle Silhouette' },
+  { key: 'hairstyleAId', label: 'Woman 1 Hairstyle Silhouette' },
+  { key: 'hairstyleBId', label: 'Woman 2 Hairstyle Silhouette' },
+  { key: 'hairStylingStateId', label: 'Hair Styling State' },
+  { key: 'hairStylingStateAId', label: 'Woman 1 Hair Styling State' },
+  { key: 'hairStylingStateBId', label: 'Woman 2 Hair Styling State' },
   { key: 'hairColorId', label: 'Hair Color' },
   { key: 'hairColorAId', label: 'Woman 1 Hair Color' },
   { key: 'hairColorBId', label: 'Woman 2 Hair Color' },
@@ -1975,6 +1983,7 @@ function inferCharacterMeta(category, item) {
   if (category.includes('Facial Features')) minVisibility = 'medium';
   if (category.includes('Skin Details')) minVisibility = 'portrait';
   if (category.includes('Hairstyle')) minVisibility = 'medium';
+  if (category.includes('Hair Styling State')) minVisibility = 'medium';
   if (category.includes('Hair Color')) minVisibility = 'medium';
   if (category.includes('Expression')) minVisibility = 'full';
   if (category.includes('Pose')) minVisibility = 'full';
@@ -2193,6 +2202,9 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'hairstyleId',
   'hairstyleAId',
   'hairstyleBId',
+  'hairStylingStateId',
+  'hairStylingStateAId',
+  'hairStylingStateBId',
   'hairColorId',
   'hairColorAId',
   'hairColorBId',
@@ -2558,6 +2570,8 @@ const CHARACTER_IDENTITY_LEGACY_OPTION_MAP = [
   { category: '髮型 (Hairstyle)', targetZh: '半濕感中長髮', legacy: [['中長髮｜半濕感中長髮', 14]] },
   { category: '髮型 (Hairstyle)', targetZh: '直髮：中分', legacy: [['長髮（放髮）｜中分長直髮', 15]] },
   { category: '髮型 (Hairstyle)', targetZh: '直髮：日式瀏海', legacy: [['長髮（放髮）｜日系厚瀏海長直髮', 16], ['長髮（放髮）｜姬髮式長直髮', 17]] },
+  { category: '髮型 (Hairstyle)', targetZh: '直髮：濕感', legacy: [] },
+  { category: '髮型 (Hairstyle)', targetZh: '自然微彎：濕感', legacy: [] },
   { category: '髮型 (Hairstyle)', targetZh: '柔波：深側分', legacy: [['長髮（放髮）｜韓系深側分柔波長髮', 18]] },
   { category: '髮型 (Hairstyle)', targetZh: '柔波：中分', legacy: [['長髮（放髮）｜中分柔波長髮', 19]] },
   { category: '髮型 (Hairstyle)', targetZh: '濕潤感長波浪', legacy: [['長髮（放髮）｜濕潤感長波浪', 20]] },
@@ -3122,6 +3136,31 @@ function setControlToNone(normalizedLocks, controls, key) {
   normalizedLocks[key] = noneOption?.id || '';
 }
 
+const LEGACY_HAIR_STYLING_STATE_MIGRATIONS = [
+  { stateZh: '濕髮分束', legacy: [['帥氣濕亮油頭', 1], ['不對稱濕感短鮑伯', 4], ['短髮｜不對稱濕感短鮑伯', 7], ['半濕感中長髮', 9], ['中長髮｜半濕感中長髮', 14], ['直髮：濕感', 13], ['自然微彎：濕感', 17], ['濕潤感長波浪', 21], ['長髮（放髮）｜濕潤感長波浪', 20]] },
+];
+
+function applyLegacyHairStylingStateMigration(normalizedLocks, rawLocks, controls) {
+  const legacyStyleIds = new Map(
+    LEGACY_HAIR_STYLING_STATE_MIGRATIONS.flatMap((entry) => entry.legacy.map(([label, index]) => [
+      `character:${slugify('髮型 (Hairstyle)')}:${slugify(label)}:${index}`,
+      entry.stateZh,
+    ])),
+  );
+  const apply = (styleKey, stateKey) => {
+    if (Object.prototype.hasOwnProperty.call(rawLocks || {}, stateKey)
+      && rawLocks[stateKey] !== HAIR_STYLING_STATE_DEFAULT_ID) return;
+    const stateZh = legacyStyleIds.get(rawLocks?.[styleKey]);
+    if (!stateZh) return;
+    const state = getControlOptionByZh(controls, stateKey, stateZh);
+    if (state) normalizedLocks[stateKey] = state.id;
+  };
+
+  apply('hairstyleId', 'hairStylingStateId');
+  apply('hairstyleAId', 'hairStylingStateAId');
+  apply('hairstyleBId', 'hairStylingStateBId');
+}
+
 function applyDuoInteractionLegacyLockMigration(normalizedLocks, rawLocks, controls) {
   if (normalizedLocks.subjectCount !== '2') return;
 
@@ -3503,6 +3542,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
       : (control.defaultValue ?? '');
   });
 
+  applyLegacyHairStylingStateMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyDuoInteractionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyDuoExpressionLegacyLockMigration(normalizedWithLegacyColors, rawLocks, controls);
   applyExpressionPoseLegacySocialLockMigration(normalizedWithLegacyColors, rawLocks, controls);
@@ -3575,6 +3615,7 @@ function buildLockControls({ flatCatalog, catalog }) {
       if (definition.key === 'hairstyleId') options = getByKey(catalog.character, '髮型 (Hairstyle)');
       if (definition.key === 'hairstyleAId') options = getByKey(catalog.character, '髮型 (Hairstyle)');
       if (definition.key === 'hairstyleBId') options = getByKey(catalog.character, '髮型 (Hairstyle)');
+      if (['hairStylingStateId', 'hairStylingStateAId', 'hairStylingStateBId'].includes(definition.key)) options = getByKey(catalog.character, HAIR_STYLING_STATE_CATEGORY);
       if (definition.key === 'hairColorId') options = getByKey(catalog.character, '髮色 (Hair Color)');
       if (definition.key === 'hairColorAId') options = getByKey(catalog.character, '髮色 (Hair Color)');
       if (definition.key === 'hairColorBId') options = getByKey(catalog.character, '髮色 (Hair Color)');
@@ -5447,19 +5488,23 @@ function hasExplicitHairstyleLock(context, catalog, role = null) {
   if (isSpecialSubject(context.subject)) return false;
   const sourceCatalog = catalog.catalog || catalog;
   const hairstyleItems = getByKey(sourceCatalog.character, '髮型 (Hairstyle)');
-  const hasLock = (lockKey) => {
+  const stylingStateItems = getByKey(sourceCatalog.character, HAIR_STYLING_STATE_CATEGORY);
+  const hasLock = (lockKey, items, ignoreDefault = false) => {
     const lockedId = context.locks?.[lockKey];
-    const locked = lockedId ? findById(hairstyleItems, lockedId) : null;
-    return Boolean(locked && !isNoneLikeItem(locked));
+    const locked = lockedId ? findById(items, lockedId) : null;
+    return Boolean(locked && !isNoneLikeItem(locked) && (!ignoreDefault || lockedId !== HAIR_STYLING_STATE_DEFAULT_ID));
   };
 
   if (context.subject.count === 2) {
-    if (role === 'a') return hasLock('hairstyleAId');
-    if (role === 'b') return hasLock('hairstyleBId');
-    return hasLock('hairstyleAId') || hasLock('hairstyleBId');
+    if (role === 'a') return hasLock('hairstyleAId', hairstyleItems) || hasLock('hairStylingStateAId', stylingStateItems, true);
+    if (role === 'b') return hasLock('hairstyleBId', hairstyleItems) || hasLock('hairStylingStateBId', stylingStateItems, true);
+    return hasLock('hairstyleAId', hairstyleItems)
+      || hasLock('hairstyleBId', hairstyleItems)
+      || hasLock('hairStylingStateAId', stylingStateItems, true)
+      || hasLock('hairStylingStateBId', stylingStateItems, true);
   }
 
-  return hasLock('hairstyleId');
+  return hasLock('hairstyleId', hairstyleItems) || hasLock('hairStylingStateId', stylingStateItems, true);
 }
 
 function selectedSpecialOutfitHasHairstyle(context, catalog, role = null) {
@@ -5482,6 +5527,7 @@ function buildCharacter(context, catalog) {
   const actionPose = buildActionPoseItem(context);
   if (isSpecialSubject(context.subject)) {
     const hairstyleItems = getByKey(catalog.character, '髮型 (Hairstyle)');
+    const hairStylingStateItems = getByKey(catalog.character, HAIR_STYLING_STATE_CATEGORY);
     const hairColorItems = getByKey(catalog.character, '髮色 (Hair Color)');
     const expressionItems = getByKey(catalog.character, CHARACTER_EXPRESSION_CATEGORY);
     const poseItems = getByKey(catalog.character, '姿勢與肢體語言 (Pose & Body Language)');
@@ -5490,6 +5536,11 @@ function buildCharacter(context, catalog) {
     if (isAndroidSubject(context.subject)) {
       const hairstyle = context.locks?.hairstyleId ? findById(hairstyleItems, context.locks.hairstyleId) : null;
       if (hairstyle && !isNoneLikeItem(hairstyle)) character.push(hairstyle);
+
+      const hairStylingState = context.locks?.hairStylingStateId
+        ? findById(hairStylingStateItems, context.locks.hairStylingStateId)
+        : null;
+      if (hairstyle && !isNoneLikeItem(hairstyle) && hairStylingState && !isNoneLikeItem(hairStylingState)) character.push(hairStylingState);
 
       const hairColor = context.locks?.hairColorId ? findById(hairColorItems, context.locks.hairColorId) : null;
       if (hairColor && !isNoneLikeItem(hairColor)) character.push(hairColor);
@@ -5568,6 +5619,7 @@ function buildCharacter(context, catalog) {
     '五官特徵 (Facial Features)': 'facialFeaturesId',
     '膚質特徵 (Skin Details)': 'skinDetailsId',
     '髮型 (Hairstyle)': 'hairstyleId',
+    [HAIR_STYLING_STATE_CATEGORY]: 'hairStylingStateId',
     '髮色 (Hair Color)': 'hairColorId',
     [CHARACTER_EXPRESSION_CATEGORY]: 'expressionId',
     '姿勢與肢體語言 (Pose & Body Language)': 'poseId',
@@ -5578,6 +5630,7 @@ function buildCharacter(context, catalog) {
     '五官特徵 (Facial Features)': ['facialFeaturesId'],
     '膚質特徵 (Skin Details)': ['skinDetailsId'],
     '髮型 (Hairstyle)': ['hairstyleId'],
+    [HAIR_STYLING_STATE_CATEGORY]: ['hairStylingStateId'],
     '髮色 (Hair Color)': ['hairColorId'],
     [CHARACTER_EXPRESSION_CATEGORY]: ['expressionId'],
     '姿勢與肢體語言 (Pose & Body Language)': ['poseId'],
@@ -5693,12 +5746,21 @@ function buildCharacter(context, catalog) {
   const suppressSingleHair = context.subject.count === 1
     && selectedSpecialOutfitHasHairstyle(context, catalog)
     && !hasExplicitHairstyleLock(context, catalog);
-  if (!suppressSingleHair && context.subject.count === 1 && (context.locks?.hairstyleId || context.locks?.hairColorId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium')))) {
-    pickCategory('髮型 (Hairstyle)', context.locks);
+  const hasIntentionalSingleHairStylingLock = Boolean(
+    context.locks?.hairStylingStateId && context.locks.hairStylingStateId !== HAIR_STYLING_STATE_DEFAULT_ID
+  );
+  if (!suppressSingleHair && context.subject.count === 1 && (context.locks?.hairstyleId || hasIntentionalSingleHairStylingLock || context.locks?.hairColorId || (!isReferenceSubject && visibilityAtLeast(visibility, 'medium')))) {
+    const hairstyle = pickCategory('髮型 (Hairstyle)', context.locks);
+    if (hairstyle && !isNoneLikeItem(hairstyle)) pickCategory(HAIR_STYLING_STATE_CATEGORY, context.locks);
     pickCategory('髮色 (Hair Color)', context.locks, () => true, pickHairColor);
   }
 
-  if (context.subject.count === 2 && (visibilityAtLeast(visibility, 'medium') || context.locks?.hairstyleAId || context.locks?.hairstyleBId || context.locks?.hairColorAId || context.locks?.hairColorBId)) {
+  const hasIntentionalDuoHairStylingLock = [
+    context.locks?.hairStylingStateId,
+    context.locks?.hairStylingStateAId,
+    context.locks?.hairStylingStateBId,
+  ].some((value) => value && value !== HAIR_STYLING_STATE_DEFAULT_ID);
+  if (context.subject.count === 2 && (visibilityAtLeast(visibility, 'medium') || context.locks?.hairstyleAId || context.locks?.hairstyleBId || hasIntentionalDuoHairStylingLock || context.locks?.hairColorAId || context.locks?.hairColorBId)) {
     const suppressHairA = selectedSpecialOutfitHasHairstyle(context, catalog, 'a')
       && !hasExplicitHairstyleLock(context, catalog, 'a');
     const suppressHairB = selectedSpecialOutfitHasHairstyle(context, catalog, 'b')
@@ -5707,6 +5769,28 @@ function buildCharacter(context, catalog) {
     const hairB = suppressHairB ? null : pickDistinctForRole('髮型 (Hairstyle)', 'b', context.locks?.hairstyleBId, [hairA], sampleItem);
     if (hairA) character.push(hairA);
     if (hairB) character.push(hairB);
+
+    const sharedHairStylingStateId = context.locks?.hairStylingStateId;
+    const hairStylingStateAId = context.locks?.hairStylingStateAId !== HAIR_STYLING_STATE_DEFAULT_ID
+      ? context.locks?.hairStylingStateAId
+      : sharedHairStylingStateId;
+    const hairStylingStateBId = context.locks?.hairStylingStateBId !== HAIR_STYLING_STATE_DEFAULT_ID
+      ? context.locks?.hairStylingStateBId
+      : sharedHairStylingStateId;
+    const stylingStateA = suppressHairA || !hairA
+      ? null
+      : pickDistinctForRole(HAIR_STYLING_STATE_CATEGORY, 'a', hairStylingStateAId, [], sampleItem);
+    const stylingStateB = suppressHairB || !hairB
+      ? null
+      : pickDistinctForRole(
+          HAIR_STYLING_STATE_CATEGORY,
+          'b',
+          hairStylingStateBId,
+          hairStylingStateBId ? [] : [stylingStateA],
+          sampleItem,
+        );
+    if (stylingStateA) character.push(stylingStateA);
+    if (stylingStateB) character.push(stylingStateB);
 
     const hairColorA = suppressHairA ? null : pickDistinctForRole('髮色 (Hair Color)', 'a', context.locks?.hairColorAId, [], pickHairColor);
     const hairColorB = suppressHairB ? null : pickDistinctForRole('髮色 (Hair Color)', 'b', context.locks?.hairColorBId, [hairColorA], pickHairColor);
@@ -6721,6 +6805,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
         isSkeletonSubject(context.subject) ? '乾淨標本質感' : '',
         isSkeletonSubject(context.subject) ? '超現實攝影裝置感' : '',
         isAndroidSubject(context.subject) && characterSlots.hairstyle?.zh && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.zh : '',
+        isAndroidSubject(context.subject) && characterSlots.hairStylingState?.zh && !isNoneLikeItem(characterSlots.hairStylingState) ? characterSlots.hairStylingState.zh : '',
         isAndroidSubject(context.subject) && characterSlots.hairColor?.zh && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.zh : '',
         characterSlots.actionPose?.zh && !isNoneLikeItem(characterSlots.actionPose) ? characterSlots.actionPose.zh : '',
         characterSlots.expression?.zh && !isNoneLikeItem(characterSlots.expression) ? characterSlots.expression.zh : '',
@@ -6730,6 +6815,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
 
     const hairSummary = joinSummaryParts(
       characterSlots.hairstyle?.zh && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.zh : '',
+      characterSlots.hairStylingState?.zh && !isNoneLikeItem(characterSlots.hairStylingState) ? characterSlots.hairStylingState.zh : '',
       characterSlots.hairColor?.zh && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.zh : ''
     );
 
@@ -6745,9 +6831,10 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       characterSlots.pose?.zh && !isNoneLikeItem(characterSlots.pose) ? characterSlots.pose.zh : ''
     );
   };
-  const summarizeDuoRole = (body, face, skin, hair, color) => {
+  const summarizeDuoRole = (body, face, skin, hair, stylingState, color) => {
     const hairSummary = joinSummaryParts(
       hair?.zh && !isNoneLikeItem(hair) ? hair.zh : '',
+      stylingState?.zh && !isNoneLikeItem(stylingState) ? stylingState.zh : '',
       color?.zh && !isNoneLikeItem(color) ? color.zh : ''
     );
     const summary = joinSummaryParts(
@@ -6862,10 +6949,10 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     character: context.subject.count === 2
       ? joinSummaryParts(
           subjectLabel,
-          summarizeDuoRole(characterSlots.bodyTypeA, characterSlots.facialFeaturesA, characterSlots.skinDetailsA, characterSlots.hairstyleA, characterSlots.hairColorA)
+          summarizeDuoRole(characterSlots.bodyTypeA, characterSlots.facialFeaturesA, characterSlots.skinDetailsA, characterSlots.hairstyleA, characterSlots.hairStylingStateA, characterSlots.hairColorA)
             ? `人物 1：${summarizeDuoRole(characterSlots.bodyTypeA, characterSlots.facialFeaturesA, characterSlots.skinDetailsA, characterSlots.hairstyleA, characterSlots.hairColorA)}`
             : '',
-          summarizeDuoRole(characterSlots.bodyTypeB, characterSlots.facialFeaturesB, characterSlots.skinDetailsB, characterSlots.hairstyleB, characterSlots.hairColorB)
+          summarizeDuoRole(characterSlots.bodyTypeB, characterSlots.facialFeaturesB, characterSlots.skinDetailsB, characterSlots.hairstyleB, characterSlots.hairStylingStateB, characterSlots.hairColorB)
             ? `人物 2：${summarizeDuoRole(characterSlots.bodyTypeB, characterSlots.facialFeaturesB, characterSlots.skinDetailsB, characterSlots.hairstyleB, characterSlots.hairColorB)}`
             : '',
           characterSlots.duoPose?.zh && !isNoneLikeItem(characterSlots.duoPose) ? characterSlots.duoPose.zh : '',
@@ -7067,6 +7154,9 @@ function extractCharacterSlots(character) {
     hairstyle: findSlot('character:髮型-hairstyle:'),
     hairstyleA: findRoleSlot('character:髮型-hairstyle:', 'a'),
     hairstyleB: findRoleSlot('character:髮型-hairstyle:', 'b'),
+    hairStylingState: findSlot('character:髮絲整理狀態-hair-styling-state:'),
+    hairStylingStateA: findRoleSlot('character:髮絲整理狀態-hair-styling-state:', 'a'),
+    hairStylingStateB: findRoleSlot('character:髮絲整理狀態-hair-styling-state:', 'b'),
     hairColor: findSlot('character:髮色-hair-color:'),
     hairColorA: findRoleSlot('character:髮色-hair-color:', 'a'),
     hairColorB: findRoleSlot('character:髮色-hair-color:', 'b'),
@@ -8885,6 +8975,7 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   if (context.subject.count === 2) addLine('Duo Pose Base', skeletonText(duoPoseBaseText));
   if (isAndroidSubject(context.subject)) {
     addItemLine('Hairstyle', characterSlots.hairstyle);
+    addItemLine('Hair Styling State', characterSlots.hairStylingState);
     addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
   }
   if (specialSubjectMode) addLine('Expression', skeletonText(expressionText));
@@ -8897,10 +8988,13 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
   if (!specialSubjectMode && context.subject.count === 2) {
     addItemLine('Woman 1 Hairstyle', characterSlots.hairstyleA);
     addItemLine('Woman 2 Hairstyle', characterSlots.hairstyleB);
+    addItemLine('Woman 1 Hair Styling State', characterSlots.hairStylingStateA);
+    addItemLine('Woman 2 Hair Styling State', characterSlots.hairStylingStateB);
     addLine('Woman 1 Hair Color', buildHairColorPrompt(characterSlots.hairColorA));
     addLine('Woman 2 Hair Color', buildHairColorPrompt(characterSlots.hairColorB));
   } else if (!specialSubjectMode && !characterProfileMode) {
     addItemLine('Hairstyle', characterSlots.hairstyle);
+    addItemLine('Hair Styling State', characterSlots.hairStylingState);
     addLine('Hair Color', buildHairColorPrompt(characterSlots.hairColor));
   }
   if (!specialSubjectMode && context.subject.count === 2) {
@@ -9417,6 +9511,9 @@ function buildPromptSectionSources(valuesByLabel, context) {
     'Hairstyle',
     'Woman 1 Hairstyle',
     'Woman 2 Hairstyle',
+    'Hair Styling State',
+    'Woman 1 Hair Styling State',
+    'Woman 2 Hair Styling State',
     'Hair Color',
     'Woman 1 Hair Color',
     'Woman 2 Hair Color',
@@ -9863,6 +9960,9 @@ function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots, wardrob
     buildRoleHasPrompt(characterSlots[`skinDetails${suffix}`], `woman ${roleNumber}`),
     characterSlots[`hairstyle${suffix}`] && !isNoneLikeItem(characterSlots[`hairstyle${suffix}`])
       ? characterSlots[`hairstyle${suffix}`].en
+      : '',
+    characterSlots[`hairStylingState${suffix}`] && !isNoneLikeItem(characterSlots[`hairStylingState${suffix}`])
+      ? characterSlots[`hairStylingState${suffix}`].en
       : '',
     buildHairColorPrompt(characterSlots[`hairColor${suffix}`]),
     buildRoleSubjectAccessoryPrompt(wardrobeSlots, role),
@@ -11231,6 +11331,7 @@ function renderZImagePrompt(promptModel) {
         skeletonMode ? sanitizeSkeletonPromptText(context.subject.en) : context.subject.en,
         buildSpecialSubjectIntegrationPrompt(context.subject),
         isAndroidSubject(context.subject) && characterSlots.hairstyle && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.en : '',
+        isAndroidSubject(context.subject) && characterSlots.hairStylingState && !isNoneLikeItem(characterSlots.hairStylingState) ? characterSlots.hairStylingState.en : '',
         isAndroidSubject(context.subject) && characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? (skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count)) : '',
         actionPoseText,
@@ -11285,12 +11386,15 @@ function renderZImagePrompt(promptModel) {
       context.subject.count === 2
         ? [
             characterSlots.hairstyleA && !isNoneLikeItem(characterSlots.hairstyleA) ? characterSlots.hairstyleA.en : '',
+            characterSlots.hairStylingStateA && !isNoneLikeItem(characterSlots.hairStylingStateA) ? characterSlots.hairStylingStateA.en : '',
             characterSlots.hairColorA && !isNoneLikeItem(characterSlots.hairColorA) ? characterSlots.hairColorA.en : '',
             characterSlots.hairstyleB && !isNoneLikeItem(characterSlots.hairstyleB) ? characterSlots.hairstyleB.en : '',
+            characterSlots.hairStylingStateB && !isNoneLikeItem(characterSlots.hairStylingStateB) ? characterSlots.hairStylingStateB.en : '',
             characterSlots.hairColorB && !isNoneLikeItem(characterSlots.hairColorB) ? characterSlots.hairColorB.en : '',
           ].filter(Boolean).join(', ')
         : [
             characterSlots.hairstyle && !isNoneLikeItem(characterSlots.hairstyle) ? characterSlots.hairstyle.en : '',
+            characterSlots.hairStylingState && !isNoneLikeItem(characterSlots.hairStylingState) ? characterSlots.hairStylingState.en : '',
             characterSlots.hairColor && !isNoneLikeItem(characterSlots.hairColor) ? characterSlots.hairColor.en : '',
           ].filter(Boolean).join(', '),
       context.subject.count === 1 ? singleSpecialOutfitContent.personText : '',
@@ -11611,6 +11715,7 @@ function renderZImagePrompt(promptModel) {
       characterSlots[`bodyType${suffix}`],
       characterSlots[`facialFeatures${suffix}`],
       characterSlots[`hairstyle${suffix}`],
+      characterSlots[`hairStylingState${suffix}`],
       characterSlots[`hairColor${suffix}`],
       characterSlots[`skinDetails${suffix}`],
     ].filter((item) => item && !isNoneLikeItem(item))
@@ -11769,6 +11874,7 @@ function buildAiSingleBodyTypeAnchorText(valuesByLabel, context) {
 function buildAiSingleHairAnchorText(valuesByLabel, context, { compact = false } = {}) {
   if (!shouldUseFixedAiSingleSubjectLead(context)) return '';
   const hairstyleText = firstStructuredValue(valuesByLabel, ['Hairstyle']);
+  const hairStylingStateText = firstStructuredValue(valuesByLabel, ['Hair Styling State']);
   const hairColorText = firstStructuredValue(valuesByLabel, ['Hair Color']);
   const hairstyleAnchor = compactAiMinimalFragment(
     compressZImageSingleSubjectText(hairstyleText, context),
@@ -11784,7 +11890,11 @@ function buildAiSingleHairAnchorText(valuesByLabel, context, { compact = false }
   const compactHairColor = compact
     ? hairColorAnchor.replace(/^soft black-tea brown hair$/i, 'black-tea brown hair')
     : hairColorAnchor;
-  const compactHairText = [compactHairstyle, compactHairColor]
+  const hairStylingStateAnchor = compactAiMinimalFragment(
+    compressZImageSingleSubjectText(hairStylingStateText, context),
+    compact ? 2 : 4
+  );
+  const compactHairText = [compactHairstyle, hairStylingStateAnchor, compactHairColor]
     .filter((value) => value && !/^none$/i.test(value.trim()))
     .join(', ');
   return compactHairText ? ensureTerminalPeriod(compactHairText) : '';
@@ -12499,9 +12609,19 @@ function buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeCol
     cleanAiDuoCompactText(firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Body Type`]))
       .replace(new RegExp(`^woman ${roleNumber} has\\s+`, 'i'), '')
   );
+  const hairstyleText = compactAiMinimalFragment(
+    firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Hairstyle`]),
+    3,
+  );
+  const hairStylingStateText = compactAiMinimalFragment(
+    firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Hair Styling State`]),
+    2,
+  );
+  const hairText = [hairstyleText, hairStylingStateText].filter(Boolean).join(', ');
   const wardrobeText = buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role);
   return [
     bodyText,
+    hairText,
     wardrobeText ? `wearing ${wardrobeText}` : '',
   ].filter(Boolean).join(', ');
 }
@@ -13140,6 +13260,7 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, charact
     ? buildAiSingleHairAnchorText(valuesByLabel, context, { compact })
     : compactAiSourceText([
         firstStructuredValue(valuesByLabel, ['Hairstyle']),
+        firstStructuredValue(valuesByLabel, ['Hair Styling State']),
         firstStructuredValue(valuesByLabel, ['Hair Color']),
       ].filter(Boolean).join(', '));
   const faceExpressionText = buildAiSingleFaceExpressionText(valuesByLabel, context, character);
@@ -13704,6 +13825,9 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     hairstyleId: characterSlots.hairstyle?.id || '',
     hairstyleAId: characterSlots.hairstyleA?.id?.replace(/:a$/, '') || '',
     hairstyleBId: characterSlots.hairstyleB?.id?.replace(/:b$/, '') || '',
+    hairStylingStateId: characterSlots.hairStylingState?.id || '',
+    hairStylingStateAId: characterSlots.hairStylingStateA?.id?.replace(/:a$/, '') || '',
+    hairStylingStateBId: characterSlots.hairStylingStateB?.id?.replace(/:b$/, '') || '',
     hairColorId: characterSlots.hairColor?.id || '',
     hairColorAId: characterSlots.hairColorA?.id?.replace(/:a$/, '') || '',
     hairColorBId: characterSlots.hairColorB?.id?.replace(/:b$/, '') || '',

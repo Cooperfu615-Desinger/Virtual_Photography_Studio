@@ -655,6 +655,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const isControlDisabled = (control) => (
     (isCloseupMode && !closeupAllowedKeys.has(control.key))
     || (isWormEyeAngle && ['styleId', 'lensId', 'opticalEffectId'].includes(control.key))
+    || (isDedicatedSubjectMode && !isAndroidSubjectMode && [
+      'hairstyleId', 'hairstyleAId', 'hairstyleBId',
+      'hairStylingStateId', 'hairStylingStateAId', 'hairStylingStateBId',
+      'hairColorId', 'hairColorAId', 'hairColorBId',
+    ].includes(control.key))
     || (FIXED_SET_KEYS.includes(control.key) && locks.subjectCount === '2')
     || (FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive)
     || (fixedCompositionSetActive && FIXED_SET_LOCKED_KEYS.includes(control.key))
@@ -955,13 +960,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       {isSpecialSubjectMode ? (
         <div className="context-note">
           {isAndroidSubjectMode
-            ? '女性人形機器人會接管人物主體，但仍可套用髮型、髮色、表情、姿勢動作與特殊動作；身份基底中的五官、體態與 B 穿搭設定會暫時停用。'
-            : '特殊角色會接管人物主體，只保留表情、姿勢動作與特殊動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。'}
+            ? '女性人形機器人會接管人物主體，但仍可套用髮型輪廓、整理狀態、髮色、表情、姿勢動作與特殊動作；身份基底中的五官、體態與 B 穿搭設定會暫時停用。'
+            : '特殊角色會接管人物主體，只保留表情、姿勢動作與特殊動作；身份基底中的五官、體態、髮型輪廓、整理狀態、髮色與 B 穿搭設定會暫時停用。'}
         </div>
       ) : null}
       {isCharacterProfileMode ? (
         <div className="context-note">
-          角色卡會接管人物身份與固定穿搭，只保留表情、姿勢動作與特殊動作；身份基底中的五官、體態、髮型、髮色與 B 穿搭設定會暫時停用。
+          角色卡會接管人物身份與固定穿搭，只保留表情、姿勢動作與特殊動作；身份基底中的五官、體態、髮型輪廓、整理狀態、髮色與 B 穿搭設定會暫時停用。
         </div>
       ) : null}
       {isCloseupMode ? (

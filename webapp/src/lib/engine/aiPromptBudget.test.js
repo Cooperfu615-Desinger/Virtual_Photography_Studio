@@ -25,7 +25,7 @@ import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controls = getLockControls();
 const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
-  'normal-separates': 'fb5b078e9d7c848b6c4aac06fb64128594b35e18ad681a7955335aed4bf5fdfd',
+  'normal-separates': 'd3b9c8cdbb67b4aba663d6c50e4e99f5bd8df37b75e9055b7276e444833a5d49',
   'complete-look-latex': '40afb4e1a5e5f724584862d67f7162c8894a7cacb3f27a427dc2b7d051607d58',
   'complete-look-special': '2af5c5dd105f568eaddfd3179f15797181e48fd0f50ee356a18ffbd58bdaace1',
   'complete-look-dress': '41fabc40fd05cf5a9280cc65552a1c36fc0a3e796749d8a10d685c14c2c30c1f',
@@ -34,7 +34,7 @@ const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
   'character-card-half-face-pressure': '012655e78244e66f81a84bb86c66c16380a779ebcf1fe5f708932371981076b7',
   'canonical-pose-pressure': '6c65adb5c924230cbfe1d979a82b809150d3da0f0f01e13efc2bfc403e065781',
   'half-face-boundary': 'eb3dc8badc7a581955c84e4198f7479af8d79f57eaf2b0b0bf9029d3a35d144a',
-  'duo-direct-boundary': 'a2d3ae0df5373935215d7c51f94e21579d9504ec5edc995c7a4f08cd52e8141d',
+  'duo-direct-boundary': 'd03117d64f729ff32b254f5eea53280203ef0fcf5b800b0725f1feddfeb03a8c',
 });
 
 function createAllNoneLocks() {

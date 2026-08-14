@@ -23,6 +23,7 @@ const STRUCTURED_CONTROL_KEYS = {
     'facialFeaturesId', 'facialFeaturesAId', 'facialFeaturesBId',
     'skinDetailsId', 'skinDetailsAId', 'skinDetailsBId',
     'hairstyleId', 'hairstyleAId', 'hairstyleBId',
+    'hairStylingStateId', 'hairStylingStateAId', 'hairStylingStateBId',
     'hairColorId', 'hairColorAId', 'hairColorBId',
     'duoPoseId', 'duoPoseBaseId', 'duoExpressionId', 'expressionId',
     'poseBaseId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseHeadId', 'poseAnchorId',

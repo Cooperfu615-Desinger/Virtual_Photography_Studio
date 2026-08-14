@@ -23,6 +23,7 @@ export const CHARACTER_CONTROL_ORDER = [
   'facialFeaturesId', 'facialFeaturesAId', 'facialFeaturesBId',
   'skinDetailsId', 'skinDetailsAId', 'skinDetailsBId',
   'hairstyleId', 'hairstyleAId', 'hairstyleBId',
+  'hairStylingStateId', 'hairStylingStateAId', 'hairStylingStateBId',
   'hairColorId', 'hairColorAId', 'hairColorBId',
   'duoPoseId', 'duoPoseBaseId', 'duoExpressionId', 'expressionId',
   ...POSE_COMPOSER_CONTROL_KEYS,
@@ -110,7 +111,7 @@ export const SECTION_SUBPANELS = {
     {
       id: 'identity',
       label: '身份基底',
-      description: '確立人物數量、體態、五官、膚質與髮型髮色，讓角色身份基底先穩定下來。',
+      description: '確立人物數量、體態、五官、膚質、髮型輪廓、整理狀態與髮色，讓角色身份基底先穩定下來。',
       keys: [
         'subjectCount',
         'bodyTypeId',
@@ -125,6 +126,9 @@ export const SECTION_SUBPANELS = {
         'hairstyleId',
         'hairstyleAId',
         'hairstyleBId',
+        'hairStylingStateId',
+        'hairStylingStateAId',
+        'hairStylingStateBId',
         'hairColorId',
         'hairColorAId',
         'hairColorBId',

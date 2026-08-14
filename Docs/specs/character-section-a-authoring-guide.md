@@ -25,7 +25,7 @@ Prompt 應使用短而準的英文片語，避免堆疊同義詞。中文描述�
 | 人物數量 `subjectCount` | `webapp/src/lib/engine.js` 的 `SUBJECT_COUNT_OPTIONS` | 只決定 1 位、2 位，不承擔美感或性感描述；舊 `reference` lock 會轉成 1 位。 |
 | 特殊角色 `specialSubjectId` | `webapp/src/lib/engine.js` 的 `SPECIAL_SUBJECT_OPTIONS` | 直接 code-defined，不走 Markdown sync。 |
 | 角色卡 `characterProfileId` | `webapp/src/lib/engine.js` 的 `CHARACTER_PROFILE_OPTIONS` | 直接 code-defined，獨立於特殊角色；用來接管人物身份與固定穿搭。 |
-| 體態、五官、膚質、髮型、髮色 | `knowledge_base/character_design.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
+| 體態、五官、膚質、髮型、髮絲整理狀態、髮色 | `knowledge_base/character_design.md` | 編輯後需同步到 `webapp/src/data/database.json`。 |
 | 神情、姿勢、特殊動作 | `knowledge_base/character_design.md` | `特殊動作` 目前保留為 legacy hidden 資料；一般新增請優先放入 Pose Composer。編輯 Markdown 後需同步到 `webapp/src/data/database.json`。 |
 | Pose Composer 姿勢基底、肢體變化、手部動作、道具動作、頭部方向、接觸 / 支撐 | `webapp/src/lib/engine/poseComposerOptions.js` 的 `POSE_COMPOSER_*_OPTIONS` | 直接 code-defined，不走 Markdown sync。 |
 | 相容舊選項 | `webapp/src/lib/engine.js` | 合併、改名、移除時需加 legacy mapping。 |
@@ -203,31 +203,31 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 
 ### 5.4 髮型
 
-責任：頭髮長度、輪廓、瀏海、分線、綁法、質地。髮型不負責髮色。
+責任：頭髮長度、輪廓、瀏海、分線、綁法與基本形狀。髮型不負責髮色、濕感、風吹方向、毛躁程度或整體髮量狀態；這些由獨立的 `髮絲整理狀態 (Hair Styling State)` 控制。
 
 目前標準選項：
 
-- `帥氣濕亮油頭`
+- `帥氣濕亮油頭`（保留既有選項名稱；英文已改為輪廓描述）
 - `乾淨短鮑伯`
 - `齊瀏海圓弧鮑伯`
-- `不對稱濕感短鮑伯`
+- `不對稱濕感短鮑伯`（保留既有選項名稱；英文已改為輪廓描述）
 - `復古外翹短髮`
 - `自然層次鎖骨髮`
 - `韓系柔順中長髮`
 - `側分柔波中長髮`
-- `半濕感中長髮`
+- `半濕感中長髮`（保留既有選項名稱；英文已改為輪廓描述）
 - `直髮：中分`
 - `直髮：旁分`
 - `直髮：日式瀏海`
-- `直髮：濕感`
+- `直髮：濕感`（保留既有選項名稱；英文已改為輪廓描述）
 - `自然微彎：中分`
 - `自然微彎：深側分`
 - `自然微彎：瀏海`
-- `自然微彎：濕感`
+- `自然微彎：濕感`（保留既有選項名稱；英文已改為輪廓描述）
 - `柔波：中分`
 - `柔波：深側分`
 - `柔波：瀏海`
-- `濕潤感長波浪`
+- `濕潤感長波浪`（保留既有選項名稱；英文已改為輪廓描述）
 - `高位雙馬尾`
 - `蓬鬆高馬尾`
 - `低馬尾`
@@ -242,9 +242,29 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 - 短髮、中長髮、綁髮可用輪廓命名，因為結構比分線更重要。
 - 合併過近變體，不為髮尾微小差異新增選項。
 - 不寫髮色，不寫服裝，不寫人物性格。
-- 特殊質地如濕感可以保留，但要是髮型質感，不要變成整體畫面風格。
+- 髮型英文只保留可辨識的形狀資訊，例如長度、輪廓、分線、瀏海、波形、綁法與髮尾；不要再把濕感、髮絲分束、風吹方向、蓬鬆或毛躁程度寫進髮型列。
+- 髮型輪廓與整理狀態必須分開輸出。整理狀態固定提供四個選項：`柔順自然`、`濕髮分束`、`微風吹拂`、`強烈風感`；其中 `柔順自然` 是預設的乾淨控制版。
+- `柔順自然` 應明確降低髮根膨脹、過度髮量、毛躁與隨機飛散髮絲；風感選項才負責方向性與被吹起的髮絲。
+- 舊髮型名稱或 lock ID 若含有濕感語意，必須透過 `webapp/src/lib/engine.js` 的 legacy mapping 對應到新的髮型輪廓，並將濕感遷移到 `濕髮分束`，不得讓舊資料失效。
 - AI 公開 Prompt 的欄位歸屬仍由 Subject 擁有髮型與髮色、C 穿搭設定擁有服裝與配件；跨來源去重應保留一份最具體的來源描述，不得因去重刪除髮型輪廓或服裝主體。
 - 特殊穿搭若明確內含指定髮型，才可作為髮型來源例外；相同髮型不得同時在人物句與服裝句重複輸出。
+
+### 5.4.1 髮絲整理狀態
+
+責任：控制髮根服貼程度、髮量收斂、髮絲分束、光澤、毛躁與受風方向；不改變髮型輪廓、髮色或人物表情。
+
+固定選項：
+
+- `柔順自然`: clean controlled hair with close-to-head roots, restrained volume and aligned strands。
+- `濕髮分束`: sleek wet finish with defined damp sections and neat separated strands。
+- `微風吹拂`: light directional movement with only a few loose strands and a stable silhouette。
+- `強烈風感`: visibly lifted directional strands with pronounced but coherent movement。
+
+維護規則：
+
+- 四個狀態是共用人物資料，可供 Gpt、Grok/Z-Image 與 AI/Midjourney 三種輸出使用；renderer 只可依模型合約壓縮，不得任意移除狀態責任。
+- `柔順自然` 為缺少新 lock 的舊資料預設值；只有舊髮型本身明確含濕感時，compatibility migration 才轉成 `濕髮分束`。
+- 整理狀態不應包含場景、風向來源、鏡頭、攝影風格或負面 prompt；它只描述頭髮在當下畫面中的可見整理結果。
 
 ### 5.5 髮色
 

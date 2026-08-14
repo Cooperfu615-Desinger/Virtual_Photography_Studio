@@ -25,36 +25,40 @@
 | **體態 (Body Type)** | 運動緊實身形 | `fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions` | 健康、俐落、緊實，有運動感與輕微肌肉張力。 |
 | **體態 (Body Type)** | 小隻精緻身形 | `petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence` | 較嬌小、比例精緻，帶偶像感與可愛但成熟的身形輪廓。 |
 | **髮型 (Hairstyle)** | 全無 | `none` | 不指定髮型，讓模型自行決定頭髮長度與輪廓。 |
-| **髮型 (Hairstyle)** | 帥氣濕亮油頭 | `slicked-back short hair, glossy wet-look finish, hair combed away from the forehead, sharp fashion silhouette` | 頭髮向後梳開並帶濕亮光澤，帥氣俐落，偏時裝感。 |
+| **髮型 (Hairstyle)** | 帥氣濕亮油頭 | `slicked-back short hair, hair combed away from the forehead, sharp compact fashion silhouette` | 短髮向後梳開，輪廓俐落緊湊；是否濕亮、分束或受風吹拂交由整理狀態控制。 |
 | **髮型 (Hairstyle)** | 乾淨短鮑伯 | `clean short bob haircut, softly blunt ends, polished face-framing line, neat modern shape` | 合併乾淨短鮑伯類型，重點是短髮輪廓俐落、髮尾乾淨、臉側線條清楚。 |
 | **髮型 (Hairstyle)** | 齊瀏海圓弧鮑伯 | `rounded short bob with full straight bangs, smooth curved ends, cute Japanese bob silhouette` | 齊瀏海搭配圓弧感短鮑伯，日系娃娃感明確。 |
-| **髮型 (Hairstyle)** | 不對稱濕感短鮑伯 | `asymmetrical wet short bob, one side falling near the eye, damp separated strands, moody fashion texture` | 一側髮絲靠近眼周，帶濕潤分束與更強的時裝情緒。 |
+| **髮型 (Hairstyle)** | 不對稱濕感短鮑伯 | `asymmetrical short bob, one side falling near the eye, sharp uneven silhouette` | 一側髮長靠近眼周，重點是不對稱短鮑伯的輪廓與髮尾位置；濕感與動態交由整理狀態控制。 |
 | **髮型 (Hairstyle)** | 復古外翹短髮 | `short flipped-out hair, retro outward ends, polished playful movement around the jawline` | 短髮髮尾向外翻起，復古、俏皮且有線條感。 |
-| **髮型 (Hairstyle)** | 自然層次鎖骨髮 | `collarbone-length layered hair, airy natural volume, soft face-framing movement` | 鎖骨附近長度，帶自然層次、蓬鬆與臉側修飾。 |
+| **髮型 (Hairstyle)** | 自然層次鎖骨髮 | `collarbone-length layered hair, defined face-framing layers, clean tapered ends` | 鎖骨附近長度，重點是層次、臉側線條與乾淨髮尾；髮量與動態交由整理狀態控制。 |
 | **髮型 (Hairstyle)** | 韓系柔順中長髮 | `smooth Korean medium-length hair, gentle inward curve, clean soft modern silhouette` | 柔順中長髮，髮尾自然內彎，乾淨溫柔且穩定。 |
-| **髮型 (Hairstyle)** | 側分柔波中長髮 | `side-parted medium soft waves, collarbone-length flow, elegant face-framing movement` | 中長度側分柔波，成熟柔和，修飾臉型。 |
-| **髮型 (Hairstyle)** | 半濕感中長髮 | `semi-wet medium-length hair, separated strands, soft glossy moody texture` | 中長髮帶半濕潤分束與光澤，偏冷調時裝感。 |
+| **髮型 (Hairstyle)** | 側分柔波中長髮 | `side-parted medium soft waves, collarbone-length shape, defined face-framing layers` | 中長度側分柔波，重點是波形、長度與臉側層次；濕感與動態交由整理狀態控制。 |
+| **髮型 (Hairstyle)** | 半濕感中長髮 | `medium-length hair with softly tapered ends, clean natural face-framing shape` | 中長髮自然垂落，保留乾淨臉側輪廓；光澤、分束與風吹方向交由整理狀態控制。 |
 | **髮型 (Hairstyle)** | 直髮：中分 | `long straight hair with a center part, sleek clean vertical flow` | 長直髮搭配中分，線條垂直乾淨。 |
 | **髮型 (Hairstyle)** | 直髮：旁分 | `long straight hair with a side part, smooth polished length, elegant face-framing line` | 長直髮搭配旁分，較成熟優雅。 |
 | **髮型 (Hairstyle)** | 直髮：日式瀏海 | `long straight hair with full Japanese bangs, smooth clean silhouette` | 長直髮搭配日式厚瀏海，柔和且辨識度高。 |
-| **髮型 (Hairstyle)** | 直髮：濕感 | `straight medium-to-long hair with a sleek wet texture, clean straight lengths, separated damp strands, minimal wave` | 直髮帶濕潤質感與分束，保留乾淨直線條，不轉成波浪。 |
-| **髮型 (Hairstyle)** | 自然微彎：中分 | `medium-to-long hair with a center part, mostly smooth texture, subtle natural bends through the lengths and softly curved ends` | 介於直髮與柔波之間，中分長髮帶輕微自然弧度與柔和髮尾。 |
-| **髮型 (Hairstyle)** | 自然微彎：深側分 | `medium-to-long hair with a deep side part, mostly smooth texture, subtle natural bends, gently asymmetric face-framing flow` | 介於直髮與柔波之間，深側分帶輕微自然弧度與不對稱臉側修飾。 |
-| **髮型 (Hairstyle)** | 自然微彎：瀏海 | `medium-to-long hair with soft bangs, mostly smooth texture, subtle natural bends through the lengths, lightly curved ends` | 介於直髮與柔波之間，柔和瀏海搭配輕微自然弧度。 |
-| **髮型 (Hairstyle)** | 自然微彎：濕感 | `medium-to-long hair with a lightly wet texture, subtle natural bends, separated damp strands, softly curved ends` | 介於直髮與柔波之間，帶輕微濕感分束與自然彎度。 |
-| **髮型 (Hairstyle)** | 柔波：中分 | `long soft waves with a center part, natural flowing texture` | 長髮柔波搭配中分，乾淨自然。 |
-| **髮型 (Hairstyle)** | 柔波：深側分 | `deep side-parted long soft waves, polished Korean-style face-framing flow` | 長髮柔波搭配深側分，成熟、精緻、韓系感更明顯。 |
-| **髮型 (Hairstyle)** | 柔波：瀏海 | `long soft waves with airy see-through bangs, gentle romantic face-framing strands` | 長髮柔波搭配空氣瀏海，甜美柔和。 |
-| **髮型 (Hairstyle)** | 濕潤感長波浪 | `wet-look long wavy hair, damp separated strands, moody glossy texture` | 長波浪髮帶濕潤分束與光澤，適合冷調與時裝畫面。 |
+| **髮型 (Hairstyle)** | 直髮：濕感 | `straight medium-to-long hair with clean vertical lengths, softly tapered ends, compact natural silhouette` | 中長直髮自然垂落，重點是垂直線條與髮尾位置；濕感與動態交由整理狀態控制。 |
+| **髮型 (Hairstyle)** | 自然微彎：中分 | `medium-to-long hair with a center part, subtle natural bends, softly curved ends, clean face-framing shape` | 介於直髮與柔波之間，中分長髮帶輕微自然弧度與清楚髮尾。 |
+| **髮型 (Hairstyle)** | 自然微彎：深側分 | `medium-to-long hair with a deep side part, subtle natural bends, asymmetric face-framing shape` | 介於直髮與柔波之間，深側分帶輕微自然弧度與不對稱臉側輪廓。 |
+| **髮型 (Hairstyle)** | 自然微彎：瀏海 | `medium-to-long hair with soft bangs, subtle natural bends, lightly curved ends, clean face-framing shape` | 介於直髮與柔波之間，柔和瀏海搭配輕微自然弧度與乾淨髮尾。 |
+| **髮型 (Hairstyle)** | 自然微彎：濕感 | `medium-to-long hair with subtle natural bends, softly curved ends, clean natural silhouette` | 介於直髮與柔波之間，自然垂落並保留輕微彎度；濕感與動態交由整理狀態控制。 |
+| **髮型 (Hairstyle)** | 柔波：中分 | `long soft waves with a center part, defined wave shape, clean tapered ends` | 長髮柔波搭配中分，重點是波形與乾淨髮尾。 |
+| **髮型 (Hairstyle)** | 柔波：深側分 | `deep side-parted long soft waves, defined face-framing layers, polished wave shape` | 長髮柔波搭配深側分，成熟精緻，重點是臉側層次與波形。 |
+| **髮型 (Hairstyle)** | 柔波：瀏海 | `long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends` | 長髮柔波搭配空氣瀏海，重點是瀏海、波形與臉側髮尾。 |
+| **髮型 (Hairstyle)** | 濕潤感長波浪 | `long soft waves with defined wave shape, clean tapered ends, natural face-framing silhouette` | 長髮柔波保留清楚波形與乾淨髮尾；濕感與動態交由整理狀態控制。 |
 | **髮型 (Hairstyle)** | 高位雙馬尾 | `high double pigtails, youthful twin-tail shape, clean lifted volume` | 高位雙馬尾，青春、活潑、Y2K 或偶像感。 |
-| **髮型 (Hairstyle)** | 蓬鬆高馬尾 | `voluminous high ponytail, loose natural strands, lifted active movement` | 高馬尾帶蓬鬆與碎髮，乾淨、有活力。 |
+| **髮型 (Hairstyle)** | 蓬鬆高馬尾 | `high ponytail with a defined tied-up silhouette, clean crown shape, tapered ponytail ends` | 高馬尾的綁髮位置與輪廓清楚；髮量、碎髮與動態交由整理狀態控制。 |
 | **髮型 (Hairstyle)** | 低馬尾 | `minimal low ponytail, fine face-framing strands, clean understated elegance` | 低馬尾乾淨成熟，臉側保留細碎髮。 |
 | **髮型 (Hairstyle)** | 低包頭盤髮 | `low bun or low chignon, soft wispy face-framing strands, elegant tied-up silhouette` | 合併低包頭與低盤髮，優雅、成熟、乾淨。 |
-| **髮型 (Hairstyle)** | 半綁公主頭 | `half-up long hair, soft crown lift, loose face-framing strands` | 上半部輕束、下半部自然垂落，清純柔和。 |
-| **髮型 (Hairstyle)** | 柔和編髮造型 | `soft braided hairstyle, delicate woven detail, romantic natural texture` | 合併柔和編髮造型，保留編織細節但不過度複雜。 |
+| **髮型 (Hairstyle)** | 半綁公主頭 | `half-up long hair, defined crown structure, clean lower lengths, clear face-framing shape` | 上半部輕束、下半部垂落，重點是綁髮結構與臉側輪廓。 |
+| **髮型 (Hairstyle)** | 柔和編髮造型 | `soft braided hairstyle, clean woven structure, defined tied-up silhouette` | 合併柔和編髮造型，保留清楚編織結構與綁髮輪廓。 |
 | **髮型 (Hairstyle)** | 輕透齊瀏海內彎鮑伯 | `chin-length inward-curved bob, airy straight bangs, smooth face-framing rounded ends, clean salon shape` | 下巴到頸側的短鮑伯，搭配輕透齊瀏海與向內包臉的圓弧髮尾，貼近自然日韓寫真感。 |
-| **髮型 (Hairstyle)** | 韓系蓬鬆鎖骨柔波髮 | `voluminous Korean collarbone-length soft waves, airy layered volume, loose face-framing movement` | 鎖骨到肩下的中長柔波髮，髮量感較明顯，帶蓬鬆層次與臉側鬆散修飾，貼近韓系自然波浪。 |
+| **髮型 (Hairstyle)** | 韓系蓬鬆鎖骨柔波髮 | `Korean collarbone-length soft waves, defined layered shape, clean face-framing ends` | 鎖骨到肩下的中長柔波髮，保留韓系層次與臉側輪廓；髮量與動態交由整理狀態控制。 |
 | **髮型 (Hairstyle)** | 輕透瀏海自然微彎長髮 | `long naturally slightly wavy hair with airy see-through bangs, soft side-draped face-framing strands` | 自然微彎長髮搭配輕透瀏海，部分髮絲自然偏向一側垂落，乾淨清爽且帶日系寫真感。 |
+| **髮絲整理狀態 (Hair Styling State)** | 柔順自然 | `sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face` | 乾淨控制版：髮根服貼、髮量收斂、髮絲排列整齊，降低毛躁、亂髮與過度膨鬆。 |
+| **髮絲整理狀態 (Hair Styling State)** | 濕髮分束 | `sleek wet finish, defined damp sections, neat separated strands, controlled close-to-head shape` | 濕感版：以清楚分束與受控的服貼輪廓呈現濕髮，不主動增加風吹動態。 |
+| **髮絲整理狀態 (Hair Styling State)** | 微風吹拂 | `lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette` | 微風版：只有輕微方向性與少量鬆散髮絲，整體髮型輪廓仍保持穩定。 |
+| **髮絲整理狀態 (Hair Styling State)** | 強烈風感 | `strong directional wind, visibly lifted and swept strands, pronounced flowing movement, dynamic but coherent silhouette` | 強風版：明確的受風方向與被吹起的髮絲，保留整體輪廓一致，避免隨機爆量亂髮。 |
 | **髮色 (Hair Color)** | 全無 | `none` | 不指定髮色，讓模型自行決定髮色深淺與色調。 |
 | **髮色 (Hair Color)** | 自然黑 | `natural black hair, soft realistic shine, clean dark depth` | 最穩定百搭的自然黑髮，適合多數日韓女性人像。 |
 | **髮色 (Hair Color)** | 柔霧黑茶 | `soft black-tea brown hair, muted brown-black salon tone` | 黑中帶茶棕感，低調柔和。 |

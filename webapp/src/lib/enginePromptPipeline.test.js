@@ -142,7 +142,7 @@ test('full-body character prompt keeps complete separate wardrobe regardless of 
 
   assert.match(fullBodyPrompt, /^Image Type:\nCreate a photorealistic character reference portrait in a single 9:16 vertical image\./);
   assert.match(fullBodyPrompt, /\n\nSubject:\nThe subject is /);
-  assert.match(fullBodyPrompt, /half-up long hair, soft crown lift, loose face-framing strands/i);
+  assert.match(fullBodyPrompt, /half-up long hair, defined crown structure, clean lower lengths/i);
   assert.match(fullBodyPrompt, /deep coffee-brown hair/i);
   assert.match(fullBodyPrompt, /black .*glasses/i);
   assert.match(fullBodyPrompt, /\n\nWardrobe:\nShe wears /);
@@ -255,7 +255,7 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
   assert.match(subject, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
   assert.match(subject, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i);
   assert.match(subject, /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i);
-  assert.match(subject, /deep side-parted long soft waves, polished Korean-style face-framing flow/i);
+  assert.match(subject, /deep side-parted long soft waves, defined face-framing layers, polished wave shape/i);
   assert.match(subject, /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i);
   assert.doesNotMatch(subject, /tall slim-curvy hourglass body, long legs, narrow waist, rounded hips/i);
   assert.doesNotMatch(subject, /\.\s*,/);
@@ -303,7 +303,7 @@ test('Z-Image single-subject prompt keeps fixed subject lead and full body type 
   assert.match(prompt.zImagePrompt, /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
   assert.match(prompt.zImagePrompt, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
   assert.match(prompt.zImagePrompt, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i);
-  assert.match(prompt.zImagePrompt, /natural black wet-look long wavy hair, damp separated strands/i);
+  assert.match(prompt.zImagePrompt, /long soft waves with defined wave shape[\s\S]*sleek wet finish[\s\S]*natural black hair/i);
 
   assert.match(paragraphs.find((paragraph) => /^She wears /i.test(paragraph)) || '', /white triangle bikini top/i);
   assert.match(prompt.zImagePrompt, /white low-rise side-tie bikini bottoms/i);
@@ -337,7 +337,7 @@ test('AI single-subject prompt uses fixed subject lead while preserving eyewear 
 
   assert.match(aiPrompt, /^Photorealistic editorial portrait\. Full-body portrait\. A 20s seductive stunning Japanese woman\./i);
   assert.match(aiPrompt, /curvy hourglass silhouette, fuller bust, defined waist, rounded hips/i);
-  assert.match(aiPrompt, /wet-look long wavy hair[\s\S]*black bold-frame glasses/i);
+  assert.match(aiPrompt, /long soft waves with defined wave shape[\s\S]*sleek wet finish[\s\S]*black bold-frame glasses/i);
   assert.match(aiPrompt, /Wearing white triangle bikini top, white low-rise side-tie bikini bottoms/i);
   assert.doesNotMatch(aiPrompt, /^(Image Type|Scene|Subject|Wardrobe|Pose and Composition):/m);
   assert.doesNotMatch(aiPrompt, /A stunning mid-20s/i);
@@ -360,7 +360,7 @@ test('AI single-subject prompt keeps compact hairstyle and hair color before spe
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
   const aiPrompt = prompt.midjourneyPrompt;
-  assert.match(aiPrompt, /half-up long hair, soft crown lift, loose face-framing strands/i);
+  assert.match(aiPrompt, /half-up long hair, defined crown structure, clean lower lengths/i);
   assert.ok(aiPrompt.indexOf('half-up long hair') < aiPrompt.indexOf('Wearing '));
   assert.doesNotMatch(aiPrompt, /rich brunette depth|soft warm reflection/i);
   assert.doesNotMatch(aiPrompt, /[\u3400-\u9fff]/);
@@ -474,7 +474,7 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i,
         /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i,
         /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i,
-        /deep side-parted long soft waves, polished Korean-style face-framing flow/i,
+        /deep side-parted long soft waves, defined face-framing layers, polished wave shape/i,
         /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i,
       ],
       zKeeps: [
@@ -520,7 +520,7 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
       gptKeeps: [
         /soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor/i,
         /young sweet pretty face, soft rounded charm, bright friendly eyes, gentle cute beauty, approachable youthful portrait look/i,
-        /straight medium-to-long hair with a sleek wet texture, clean straight lengths, separated damp strands, minimal wave/i,
+        /straight medium-to-long hair with clean vertical lengths, softly tapered ends, compact natural silhouette/i,
         /honey caramel-brown hair, warm golden brown salon color/i,
         /natural freckles across nose and cheeks, sun-kissed freckles, authentic skin detail/i,
       ],
@@ -529,7 +529,7 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         /soft natural hourglass body, about 165-170 cm visual height, 90-62-94 body proportion anchor/i,
         /balanced torso-to-leg ratio around 4:6, longer upper torso, lower waistline, fuller bust, wider hips, elongated abdomen with subtle contour lines/i,
       ],
-      zOmits: /approachable youthful portrait look|clean straight lengths|authentic skin detail/i,
+      zOmits: /approachable youthful portrait look|authentic skin detail/i,
     },
   ];
 
@@ -558,28 +558,28 @@ test('Gpt single-subject prompt preserves separate hairstyle and hair color word
       name: 'natural black wet long waves',
       hairstyle: '濕潤感長波浪',
       hairColor: '自然黑',
-      gptHairstyle: /wet-look long wavy hair, damp separated strands, moody glossy texture/i,
+      gptHairstyle: /long soft waves with defined wave shape, clean tapered ends, natural face-framing silhouette/i,
       gptHairColor: /natural black hair, soft realistic shine, clean dark depth/i,
-      gptMerged: /natural black wet-look long wavy hair/i,
-      zImageColor: /natural black wet-look long wavy hair, damp separated strands/i,
+      gptMerged: /natural black long soft waves/i,
+      zImageColor: /long soft waves with defined wave shape[\s\S]*natural black hair/i,
     },
     {
       name: 'silver-gray deep side waves',
       hairstyle: '柔波：深側分',
       hairColor: '銀灰白',
-      gptHairstyle: /deep side-parted long soft waves, polished Korean-style face-framing flow/i,
+      gptHairstyle: /deep side-parted long soft waves, defined face-framing layers, polished wave shape/i,
       gptHairColor: /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i,
       gptMerged: /silver-gray white deep side-parted long soft waves/i,
-      zImageColor: /silver-gray white deep side-parted long soft waves/i,
+      zImageColor: /deep side-parted long soft waves[\s\S]*silver-gray white hair/i,
     },
     {
       name: 'honey caramel wet straight hair',
       hairstyle: '直髮：濕感',
       hairColor: '蜂蜜焦糖棕',
-      gptHairstyle: /straight medium-to-long hair with a sleek wet texture, clean straight lengths, separated damp strands, minimal wave/i,
+      gptHairstyle: /straight medium-to-long hair with clean vertical lengths, softly tapered ends, compact natural silhouette/i,
       gptHairColor: /honey caramel-brown hair, warm golden brown salon color/i,
-      gptMerged: /honey caramel-brown sleek wet straight medium-to-long hair/i,
-      zImageColor: /honey caramel-brown sleek wet straight medium-to-long hair, separated damp strands/i,
+      gptMerged: /honey caramel-brown straight medium-to-long hair/i,
+      zImageColor: /straight medium-to-long hair with clean vertical lengths[\s\S]*honey caramel-brown hair/i,
     },
     {
       name: 'cobalt-blue slight waves with bangs',
@@ -588,16 +588,16 @@ test('Gpt single-subject prompt preserves separate hairstyle and hair color word
       gptHairstyle: /long naturally slightly wavy hair with airy see-through bangs, soft side-draped face-framing strands/i,
       gptHairColor: /jewel cobalt-blue fashion hair color, rich blue tone with realistic dyed hair texture/i,
       gptMerged: /cobalt-blue fashion long slightly wavy hair/i,
-      zImageColor: /cobalt-blue fashion long slightly wavy hair/i,
+      zImageColor: /long naturally slightly wavy hair with airy see-through bangs[\s\S]*jewel cobalt-blue fashion hair color/i,
     },
     {
       name: 'soft black-tea high ponytail',
       hairstyle: '蓬鬆高馬尾',
       hairColor: '柔霧黑茶',
-      gptHairstyle: /voluminous high ponytail, loose natural strands, lifted active movement/i,
+      gptHairstyle: /high ponytail with a defined tied-up silhouette, clean crown shape, tapered ponytail ends/i,
       gptHairColor: /soft black-tea brown hair, muted brown-black salon tone/i,
-      gptMerged: /soft black-tea brown voluminous high ponytail/i,
-      zImageColor: /soft black-tea brown voluminous high ponytail/i,
+      gptMerged: /soft black-tea brown high ponytail/i,
+      zImageColor: /high ponytail with a defined tied-up silhouette[\s\S]*soft black-tea brown hair/i,
     },
   ];
 

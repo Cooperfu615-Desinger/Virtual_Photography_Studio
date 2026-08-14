@@ -8,8 +8,8 @@
 export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   {
     id: 'normal-single-precise',
-    expectedDescriptionHash: 'a41d2a95f447a01a9e3eb936b8fcf627d7320f0d17c0d1d928ebcac435b03393',
-    expectedWords: 93,
+    expectedDescriptionHash: 'b7ad4a56858af63a43ec6e1e43ac3af77b6bd2d640d079c038b1014786ea6414',
+    expectedWords: 111,
   },
   {
     id: 'complete-look-balanced',
@@ -28,8 +28,8 @@ export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   },
   {
     id: 'duo-balanced',
-    expectedDescriptionHash: '8e4d2c6cafeb6f964d4f8f2460038fb50a1ce941edfbaaf29fbc31d3f3e9108c',
-    expectedWords: 146,
+    expectedDescriptionHash: '2befdc41aa7f5075f14d986a80e7c7e9b1e350d1d06391b130e07d8da2a01cc8',
+    expectedWords: 156,
   },
   {
     id: 'fixed-special-creative',

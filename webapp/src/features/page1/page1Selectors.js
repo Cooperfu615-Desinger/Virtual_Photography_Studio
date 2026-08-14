@@ -101,7 +101,15 @@ function buildCoreControls(lockControls, sceneDependentOptions, locks) {
 
 function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
   const sceneAware = lockControls.map((control) => {
-    if (!['poseArrangementId', 'poseAnchorId'].includes(control.key)) return control;
+    if (!['poseArrangementId', 'poseAnchorId'].includes(control.key)) {
+      if (!Array.isArray(control.options)) return control;
+      return {
+        ...control,
+        options: control.options.filter((option) => (
+          option.meta?.uiHidden !== true || option.id === locks[control.key]
+        )),
+      };
+    }
     const sceneOptions = control.key === 'poseAnchorId'
       ? sceneDependentOptions.poseAnchorOptions || control.options
       : control.options;
@@ -123,7 +131,7 @@ function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
     if (isDedicatedSubject) {
       return [
         'specialSubjectId', 'characterProfileId', 'expressionId', ...POSE_COMPOSER_CONTROL_KEYS,
-        ...(isAndroidSubject ? ['hairstyleId', 'hairColorId'] : []),
+        ...(isAndroidSubject ? ['hairstyleId', 'hairStylingStateId', 'hairColorId'] : []),
       ].includes(control.key);
     }
     if (!(control.section === 'character' || control.key === 'subjectCount')) return false;
@@ -131,11 +139,11 @@ function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
     if (['duoPoseId', 'duoPoseBaseId', 'duoExpressionId'].includes(control.key) && locks.subjectCount !== '2') return false;
     if (['poseId', 'specialActionId'].includes(control.key)) return false;
     if (POSE_COMPOSER_CONTROL_KEYS.includes(control.key) && locks.subjectCount !== '1') return false;
-    if (['bodyTypeId', 'facialFeaturesId', 'skinDetailsId', 'hairstyleId', 'hairColorId', 'expressionId'].includes(control.key) && locks.subjectCount === '2') return false;
+    if (['bodyTypeId', 'facialFeaturesId', 'skinDetailsId', 'hairstyleId', 'hairStylingStateId', 'hairColorId', 'expressionId'].includes(control.key) && locks.subjectCount === '2') return false;
     if ([
       'bodyTypeAId', 'bodyTypeBId', 'facialFeaturesAId', 'facialFeaturesBId',
       'skinDetailsAId', 'skinDetailsBId', 'hairstyleAId', 'hairstyleBId',
-      'hairColorAId', 'hairColorBId', 'duoPoseId', 'duoPoseBaseId', 'duoExpressionId',
+      'hairStylingStateAId', 'hairStylingStateBId', 'hairColorAId', 'hairColorBId', 'duoPoseId', 'duoPoseBaseId', 'duoExpressionId',
     ].includes(control.key) && locks.subjectCount !== '2') return false;
     return true;
   }), CHARACTER_CONTROL_ORDER);

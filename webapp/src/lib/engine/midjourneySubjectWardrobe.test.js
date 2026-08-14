@@ -36,7 +36,7 @@ test('phase 3 gives normal AI subjects a direct Midjourney identity lead', () =>
     /^Photorealistic editorial portrait\. Waist-up portrait\. A 20s seductive stunning Japanese woman\./i
   );
   assert.match(prompt.midjourneyPrompt, /full bust, narrow defined waist, flat abdomen/i);
-  assert.match(prompt.midjourneyPrompt, /voluminous Korean collarbone-length soft waves/i);
+  assert.match(prompt.midjourneyPrompt, /Korean collarbone-length soft waves/i);
   assert.match(prompt.midjourneyPrompt, /chestnut-brown hair/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /20s Japanese or Korean woman, seductive editorial presence/i);
 

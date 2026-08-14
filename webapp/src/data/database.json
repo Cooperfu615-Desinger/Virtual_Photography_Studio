@@ -5694,8 +5694,8 @@
       },
       {
         "zh": "帥氣濕亮油頭",
-        "en": "slicked-back short hair, glossy wet-look finish, hair combed away from the forehead, sharp fashion silhouette",
-        "desc": "頭髮向後梳開並帶濕亮光澤，帥氣俐落，偏時裝感。"
+        "en": "slicked-back short hair, hair combed away from the forehead, sharp compact fashion silhouette",
+        "desc": "短髮向後梳開，輪廓俐落緊湊；是否濕亮、分束或受風吹拂交由整理狀態控制。"
       },
       {
         "zh": "乾淨短鮑伯",
@@ -5709,8 +5709,8 @@
       },
       {
         "zh": "不對稱濕感短鮑伯",
-        "en": "asymmetrical wet short bob, one side falling near the eye, damp separated strands, moody fashion texture",
-        "desc": "一側髮絲靠近眼周，帶濕潤分束與更強的時裝情緒。"
+        "en": "asymmetrical short bob, one side falling near the eye, sharp uneven silhouette",
+        "desc": "一側髮長靠近眼周，重點是不對稱短鮑伯的輪廓與髮尾位置；濕感與動態交由整理狀態控制。"
       },
       {
         "zh": "復古外翹短髮",
@@ -5719,8 +5719,8 @@
       },
       {
         "zh": "自然層次鎖骨髮",
-        "en": "collarbone-length layered hair, airy natural volume, soft face-framing movement",
-        "desc": "鎖骨附近長度，帶自然層次、蓬鬆與臉側修飾。"
+        "en": "collarbone-length layered hair, defined face-framing layers, clean tapered ends",
+        "desc": "鎖骨附近長度，重點是層次、臉側線條與乾淨髮尾；髮量與動態交由整理狀態控制。"
       },
       {
         "zh": "韓系柔順中長髮",
@@ -5729,13 +5729,13 @@
       },
       {
         "zh": "側分柔波中長髮",
-        "en": "side-parted medium soft waves, collarbone-length flow, elegant face-framing movement",
-        "desc": "中長度側分柔波，成熟柔和，修飾臉型。"
+        "en": "side-parted medium soft waves, collarbone-length shape, defined face-framing layers",
+        "desc": "中長度側分柔波，重點是波形、長度與臉側層次；濕感與動態交由整理狀態控制。"
       },
       {
         "zh": "半濕感中長髮",
-        "en": "semi-wet medium-length hair, separated strands, soft glossy moody texture",
-        "desc": "中長髮帶半濕潤分束與光澤，偏冷調時裝感。"
+        "en": "medium-length hair with softly tapered ends, clean natural face-framing shape",
+        "desc": "中長髮自然垂落，保留乾淨臉側輪廓；光澤、分束與風吹方向交由整理狀態控制。"
       },
       {
         "zh": "直髮：中分",
@@ -5754,48 +5754,48 @@
       },
       {
         "zh": "直髮：濕感",
-        "en": "straight medium-to-long hair with a sleek wet texture, clean straight lengths, separated damp strands, minimal wave",
-        "desc": "直髮帶濕潤質感與分束，保留乾淨直線條，不轉成波浪。"
+        "en": "straight medium-to-long hair with clean vertical lengths, softly tapered ends, compact natural silhouette",
+        "desc": "中長直髮自然垂落，重點是垂直線條與髮尾位置；濕感與動態交由整理狀態控制。"
       },
       {
         "zh": "自然微彎：中分",
-        "en": "medium-to-long hair with a center part, mostly smooth texture, subtle natural bends through the lengths and softly curved ends",
-        "desc": "介於直髮與柔波之間，中分長髮帶輕微自然弧度與柔和髮尾。"
+        "en": "medium-to-long hair with a center part, subtle natural bends, softly curved ends, clean face-framing shape",
+        "desc": "介於直髮與柔波之間，中分長髮帶輕微自然弧度與清楚髮尾。"
       },
       {
         "zh": "自然微彎：深側分",
-        "en": "medium-to-long hair with a deep side part, mostly smooth texture, subtle natural bends, gently asymmetric face-framing flow",
-        "desc": "介於直髮與柔波之間，深側分帶輕微自然弧度與不對稱臉側修飾。"
+        "en": "medium-to-long hair with a deep side part, subtle natural bends, asymmetric face-framing shape",
+        "desc": "介於直髮與柔波之間，深側分帶輕微自然弧度與不對稱臉側輪廓。"
       },
       {
         "zh": "自然微彎：瀏海",
-        "en": "medium-to-long hair with soft bangs, mostly smooth texture, subtle natural bends through the lengths, lightly curved ends",
-        "desc": "介於直髮與柔波之間，柔和瀏海搭配輕微自然弧度。"
+        "en": "medium-to-long hair with soft bangs, subtle natural bends, lightly curved ends, clean face-framing shape",
+        "desc": "介於直髮與柔波之間，柔和瀏海搭配輕微自然弧度與乾淨髮尾。"
       },
       {
         "zh": "自然微彎：濕感",
-        "en": "medium-to-long hair with a lightly wet texture, subtle natural bends, separated damp strands, softly curved ends",
-        "desc": "介於直髮與柔波之間，帶輕微濕感分束與自然彎度。"
+        "en": "medium-to-long hair with subtle natural bends, softly curved ends, clean natural silhouette",
+        "desc": "介於直髮與柔波之間，自然垂落並保留輕微彎度；濕感與動態交由整理狀態控制。"
       },
       {
         "zh": "柔波：中分",
-        "en": "long soft waves with a center part, natural flowing texture",
-        "desc": "長髮柔波搭配中分，乾淨自然。"
+        "en": "long soft waves with a center part, defined wave shape, clean tapered ends",
+        "desc": "長髮柔波搭配中分，重點是波形與乾淨髮尾。"
       },
       {
         "zh": "柔波：深側分",
-        "en": "deep side-parted long soft waves, polished Korean-style face-framing flow",
-        "desc": "長髮柔波搭配深側分，成熟、精緻、韓系感更明顯。"
+        "en": "deep side-parted long soft waves, defined face-framing layers, polished wave shape",
+        "desc": "長髮柔波搭配深側分，成熟精緻，重點是臉側層次與波形。"
       },
       {
         "zh": "柔波：瀏海",
-        "en": "long soft waves with airy see-through bangs, gentle romantic face-framing strands",
-        "desc": "長髮柔波搭配空氣瀏海，甜美柔和。"
+        "en": "long soft waves with see-through bangs, defined romantic wave shape, clean face-framing ends",
+        "desc": "長髮柔波搭配空氣瀏海，重點是瀏海、波形與臉側髮尾。"
       },
       {
         "zh": "濕潤感長波浪",
-        "en": "wet-look long wavy hair, damp separated strands, moody glossy texture",
-        "desc": "長波浪髮帶濕潤分束與光澤，適合冷調與時裝畫面。"
+        "en": "long soft waves with defined wave shape, clean tapered ends, natural face-framing silhouette",
+        "desc": "長髮柔波保留清楚波形與乾淨髮尾；濕感與動態交由整理狀態控制。"
       },
       {
         "zh": "高位雙馬尾",
@@ -5804,8 +5804,8 @@
       },
       {
         "zh": "蓬鬆高馬尾",
-        "en": "voluminous high ponytail, loose natural strands, lifted active movement",
-        "desc": "高馬尾帶蓬鬆與碎髮，乾淨、有活力。"
+        "en": "high ponytail with a defined tied-up silhouette, clean crown shape, tapered ponytail ends",
+        "desc": "高馬尾的綁髮位置與輪廓清楚；髮量、碎髮與動態交由整理狀態控制。"
       },
       {
         "zh": "低馬尾",
@@ -5819,13 +5819,13 @@
       },
       {
         "zh": "半綁公主頭",
-        "en": "half-up long hair, soft crown lift, loose face-framing strands",
-        "desc": "上半部輕束、下半部自然垂落，清純柔和。"
+        "en": "half-up long hair, defined crown structure, clean lower lengths, clear face-framing shape",
+        "desc": "上半部輕束、下半部垂落，重點是綁髮結構與臉側輪廓。"
       },
       {
         "zh": "柔和編髮造型",
-        "en": "soft braided hairstyle, delicate woven detail, romantic natural texture",
-        "desc": "合併柔和編髮造型，保留編織細節但不過度複雜。"
+        "en": "soft braided hairstyle, clean woven structure, defined tied-up silhouette",
+        "desc": "合併柔和編髮造型，保留清楚編織結構與綁髮輪廓。"
       },
       {
         "zh": "輕透齊瀏海內彎鮑伯",
@@ -5834,13 +5834,35 @@
       },
       {
         "zh": "韓系蓬鬆鎖骨柔波髮",
-        "en": "voluminous Korean collarbone-length soft waves, airy layered volume, loose face-framing movement",
-        "desc": "鎖骨到肩下的中長柔波髮，髮量感較明顯，帶蓬鬆層次與臉側鬆散修飾，貼近韓系自然波浪。"
+        "en": "Korean collarbone-length soft waves, defined layered shape, clean face-framing ends",
+        "desc": "鎖骨到肩下的中長柔波髮，保留韓系層次與臉側輪廓；髮量與動態交由整理狀態控制。"
       },
       {
         "zh": "輕透瀏海自然微彎長髮",
         "en": "long naturally slightly wavy hair with airy see-through bangs, soft side-draped face-framing strands",
         "desc": "自然微彎長髮搭配輕透瀏海，部分髮絲自然偏向一側垂落，乾淨清爽且帶日系寫真感。"
+      }
+    ],
+    "髮絲整理狀態 (Hair Styling State)": [
+      {
+        "zh": "柔順自然",
+        "en": "sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face",
+        "desc": "乾淨控制版：髮根服貼、髮量收斂、髮絲排列整齊，降低毛躁、亂髮與過度膨鬆。"
+      },
+      {
+        "zh": "濕髮分束",
+        "en": "sleek wet finish, defined damp sections, neat separated strands, controlled close-to-head shape",
+        "desc": "濕感版：以清楚分束與受控的服貼輪廓呈現濕髮，不主動增加風吹動態。"
+      },
+      {
+        "zh": "微風吹拂",
+        "en": "lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette",
+        "desc": "微風版：只有輕微方向性與少量鬆散髮絲，整體髮型輪廓仍保持穩定。"
+      },
+      {
+        "zh": "強烈風感",
+        "en": "strong directional wind, visibly lifted and swept strands, pronounced flowing movement, dynamic but coherent silhouette",
+        "desc": "強風版：明確的受風方向與被吹起的髮絲，保留整體輪廓一致，避免隨機爆量亂髮。"
       }
     ],
     "髮色 (Hair Color)": [
