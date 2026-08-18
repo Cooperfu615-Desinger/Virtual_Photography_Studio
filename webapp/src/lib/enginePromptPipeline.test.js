@@ -635,17 +635,17 @@ test('Gpt single-subject prompt preserves full-fidelity expression and special a
     expressionId: optionId('expressionId', '柔和微笑'),
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
-  assert.match(crossedArms.subject, /soft natural smile, relaxed cheeks, gently lifted mouth corners/i);
+  assert.match(crossedArms.subject, /soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks/i);
   assert.match(crossedArms.pose, /arms crossed loosely in front of the body[\s\S]*presents a natural relaxed standing pose/i);
   assert.doesNotMatch(crossedArms.pose, /\.,/i);
-  assert.match(crossedArms.prompt.zImagePrompt, /soft natural smile, relaxed cheeks, gently lifted mouth corners/i);
+  assert.match(crossedArms.prompt.zImagePrompt, /soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks/i);
   assert.doesNotMatch(crossedArms.prompt.zImagePrompt, /cool composed body language/i);
 
   const downwardRecline = buildSections({
     expressionId: optionId('expressionId', '內斂克制'),
     poseId: optionId('poseId', '半躺低姿態｜側身半躺'),
   });
-  assert.match(downwardRecline.subject, /reserved understated expression, relaxed eyelids, gently pressed lips, restrained mood/i);
+  assert.match(downwardRecline.subject, /reserved understated expression, relaxed eyelids, gently pressed lips, neutral brows, restrained facial tension/i);
   assert.match(downwardRecline.pose, /side-lying pose/i);
   assert.doesNotMatch(downwardRecline.pose, /soft flowing body line|\.,/i);
 

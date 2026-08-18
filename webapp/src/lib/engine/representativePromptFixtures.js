@@ -81,7 +81,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       grokPrompt: {
         includes: [
           'young seductive alluring beauty face',
-          'playful restrained smile, gently pressed lips, subtly lifted mouth corners',
+          'playful restrained smile, relaxed brows, gently narrowed eyes, pressed lips, subtly lifted mouth corners',
           'macro lens',
           'neon cross-processed rendering',
         ],
@@ -89,7 +89,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       zImagePrompt: {
         includes: [
           'young seductive alluring beauty face',
-          'playful restrained smile, gently pressed lips, subtly lifted mouth corners',
+          'playful restrained smile, relaxed brows, gently narrowed eyes, pressed lips, subtly lifted mouth corners',
           'macro lens',
           'neon cross-processed rendering',
         ],
@@ -101,7 +101,9 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'full bust, narrow defined waist, flat abdomen',
           'softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips',
           'playful restrained smile',
-          'gently pressed lips',
+          'relaxed brows',
+          'gently narrowed eyes',
+          'pressed lips',
           'subtly lifted mouth corners',
           'straight hair with Japanese bangs',
           'black-tea brown hair',

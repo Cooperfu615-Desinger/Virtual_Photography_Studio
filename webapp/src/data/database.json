@@ -5945,73 +5945,73 @@
       },
       {
         "zh": "柔和微笑",
-        "en": "soft natural smile, relaxed cheeks, gently lifted mouth corners",
-        "desc": "自然柔和的微笑，臉頰放鬆，嘴角輕輕上揚。"
+        "en": "soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks",
+        "desc": "自然柔和的微笑，眉毛放鬆，眼睛微微收窄，嘴唇微張，臉頰抬起。"
       },
       {
         "zh": "平靜淡然",
-        "en": "calm composed expression, relaxed facial muscles, neutral mouth",
-        "desc": "平靜淡然的表情，臉部肌肉放鬆，嘴型自然。"
+        "en": "calm composed expression, relaxed brows, softly open eyelids, neutral closed mouth, even facial muscles",
+        "desc": "平靜淡然的表情，眉毛放鬆，眼瞼自然張開，嘴唇閉合，臉部肌肉均勻放鬆。"
       },
       {
         "zh": "無辜清透",
-        "en": "delicate innocent expression, relaxed brows, softly open eyes, gentle closed-mouth look",
-        "desc": "細緻無辜的表情，眉毛放鬆，眼睛自然張開，嘴唇輕閉。"
+        "en": "delicate innocent expression, relaxed brows, softly open eyes, gently closed lips, relaxed cheek muscles",
+        "desc": "細緻無辜的表情，眉毛放鬆，眼睛自然張開，嘴唇輕閉，臉頰保持柔和。"
       },
       {
         "zh": "俏皮忍笑",
-        "en": "playful restrained smile, gently pressed lips, subtly lifted mouth corners",
-        "desc": "俏皮地忍住笑意，嘴唇輕抿，嘴角微微上揚。"
+        "en": "playful restrained smile, relaxed brows, gently narrowed eyes, pressed lips, subtly lifted mouth corners",
+        "desc": "俏皮地忍住笑意，眉毛放鬆，眼睛微微收窄，嘴唇輕抿，嘴角微微上揚。"
       },
       {
         "zh": "若有所思",
-        "en": "thoughtful reflective expression, softened brows, relaxed mouth, quiet contemplative mood",
-        "desc": "若有所思的表情，眉眼柔和，嘴型放鬆，帶安靜沉思感。"
+        "en": "thoughtful reflective expression, slightly drawn inner brows, softened eyelids, relaxed lips, subtle facial tension",
+        "desc": "若有所思的表情，眉心略微收緊，眼瞼柔和，嘴唇放鬆，臉部帶輕微張力。"
       },
       {
         "zh": "內斂克制",
-        "en": "reserved understated expression, relaxed eyelids, gently pressed lips, restrained mood",
-        "desc": "內斂克制的表情，眼瞼放鬆，嘴唇輕抿，情緒收斂。"
+        "en": "reserved understated expression, relaxed eyelids, gently pressed lips, neutral brows, restrained facial tension",
+        "desc": "內斂克制的表情，眼瞼放鬆，嘴唇輕抿，眉毛保持中性，臉部張力收斂。"
       },
       {
         "zh": "溫柔含蓄",
-        "en": "gentle demure expression, relaxed brows, softly closed lips, quiet warmth",
-        "desc": "溫柔含蓄的表情，眉毛放鬆，嘴唇柔和閉合，帶安靜溫度。"
+        "en": "gentle demure expression, relaxed brows, softly open eyelids, softly closed lips, relaxed cheeks",
+        "desc": "溫柔含蓄的表情，眉毛放鬆，眼瞼自然，嘴唇柔和閉合，臉頰放鬆。"
       },
       {
         "zh": "沉浸平靜",
-        "en": "calm absorbed expression, relaxed facial muscles, peaceful closed-mouth look",
-        "desc": "平靜沉浸的表情，臉部肌肉放鬆，呈現安定的閉嘴神情。"
+        "en": "calm absorbed expression, softly lowered eyelids, relaxed brows, softly closed lips, relaxed facial muscles",
+        "desc": "平靜沉浸的表情，眼瞼柔和下垂，眉毛放鬆，嘴唇輕閉，臉部肌肉安定。"
       },
       {
         "zh": "自然喜悅",
-        "en": "candid joyful expression, raised cheeks, open genuine smile, visible teeth",
-        "desc": "自然喜悅的表情，臉頰抬起，真實開朗地露齒微笑。"
+        "en": "candid joyful expression, lifted cheeks, eyes gently narrowed by the smile, open genuine smile, visible teeth",
+        "desc": "自然喜悅的表情，臉頰抬起，眼睛因微笑而收窄，露出自然真實的笑容與牙齒。"
       },
       {
         "zh": "撒嬌生氣",
-        "en": "playful mock-angry expression, small pout, lightly furrowed brows, subtly puffed cheeks, affectionate tone",
-        "desc": "俏皮假裝生氣，輕微嘟嘴、皺眉與鼓起臉頰，帶親近感。"
+        "en": "playful mock-angry expression, lightly furrowed brows, small pout, subtly puffed cheeks, restrained smile",
+        "desc": "俏皮假裝生氣，眉毛微皺，輕微嘟嘴、鼓起臉頰，同時保留收斂笑意。"
       },
       {
         "zh": "內斂悲傷",
-        "en": "restrained sad expression, softened brows, slightly downturned mouth corners, quiet sadness",
-        "desc": "克制而安靜的悲傷表情，眉毛柔化，嘴角微微下垂。"
+        "en": "restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension",
+        "desc": "克制而安靜的悲傷表情，眉毛內側略抬，眼瞼柔化，嘴角微微下垂，下唇帶細微張力。"
       },
       {
         "zh": "克制憤怒",
-        "en": "controlled angry expression, drawn brows, firm pressed lips, subtle jaw tension, restrained anger",
-        "desc": "克制的憤怒表情，眉毛收緊，嘴唇緊抿，下顎略帶張力。"
+        "en": "controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension",
+        "desc": "克制的憤怒表情，眉毛向內收緊並下壓，雙眼收窄，嘴唇緊抿，下顎帶輕微張力。"
       },
       {
         "zh": "輕微驚訝",
-        "en": "mildly surprised expression, slightly raised brows, subtly widened eyes, softly parted lips",
-        "desc": "輕微驚訝的表情，眉毛微抬，眼睛稍微睜大，嘴唇微張。"
+        "en": "mildly surprised expression, raised brows, slightly widened eyes, softly parted lips",
+        "desc": "輕微驚訝的表情，眉毛抬起，眼睛稍微睜大，嘴唇微張。"
       },
       {
         "zh": "緊張不安",
-        "en": "nervous uneasy expression, subtly tense brows, pressed lips, slight facial tension",
-        "desc": "緊張不安的表情，眉毛略顯緊繃，嘴唇抿住，臉部帶輕微張力。"
+        "en": "nervous uneasy expression, brows subtly drawn together, eyes slightly widened with alert tension, pressed lips, faint jaw tension",
+        "desc": "緊張不安的表情，眉毛略向內收，眼睛稍微睜大，嘴唇抿住，下顎帶輕微張力。"
       }
     ],
     "姿勢與肢體語言 (Pose & Body Language)": [

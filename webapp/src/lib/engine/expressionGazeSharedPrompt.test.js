@@ -23,7 +23,7 @@ function generateWithExpression(label) {
 
 test('shared soft smile remains complete across the three main renderers', () => {
   const prompt = generateWithExpression('柔和微笑');
-  const expected = 'soft natural smile, relaxed cheeks, gently lifted mouth corners';
+  const expected = 'soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks';
 
   for (const output of promptOutputs(prompt)) {
     assert.match(output, new RegExp(expected.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&'), 'i'));
@@ -34,16 +34,17 @@ test('shared soft smile remains complete across the three main renderers', () =>
 test('expression options do not inject gaze or head/body action language', () => {
   const gentleExpressionPrompt = generateWithExpression('溫柔含蓄');
   const restrainedExpressionPrompt = generateWithExpression('內斂克制');
-  const forbiddenGazeOrActionLanguage = /direct eye contact|sideward gaze|downward gaze|distant gaze beyond the camera|glancing back over the shoulder|turning back|lowered head|head turned back/i;
+  const nervousExpressionPrompt = generateWithExpression('緊張不安');
+  const forbiddenGazeOrActionLanguage = /direct eye contact|sideward gaze|downward gaze|distant gaze beyond the camera|glancing back over the shoulder|turning back|lowered head|head turned back|raised shoulders|dropped shoulders|hand to cheek|hand to chest/i;
 
-  for (const output of [...promptOutputs(gentleExpressionPrompt), ...promptOutputs(restrainedExpressionPrompt)]) {
+  for (const output of [...promptOutputs(gentleExpressionPrompt), ...promptOutputs(restrainedExpressionPrompt), ...promptOutputs(nervousExpressionPrompt)]) {
     assert.doesNotMatch(output, forbiddenGazeOrActionLanguage);
   }
 });
 
 test('playful mock annoyance is a shared low-intensity expression', () => {
   const prompt = generateWithExpression('撒嬌生氣');
-  const expected = 'playful mock-angry expression, small pout, lightly furrowed brows, subtly puffed cheeks, affectionate tone';
+  const expected = 'playful mock-angry expression, lightly furrowed brows, small pout, subtly puffed cheeks, restrained smile';
 
   for (const output of promptOutputs(prompt)) {
     assert.match(output, new RegExp(expected.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&'), 'i'));

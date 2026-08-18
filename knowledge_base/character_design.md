@@ -74,20 +74,20 @@
 | **髮色 (Hair Color)** | 寶石藍 | `jewel cobalt-blue fashion hair color, rich blue tone with realistic dyed hair texture` | 寶石感深藍，色彩存在感強但不螢光。 |
 | **髮色 (Hair Color)** | 深森林綠 | `deep forest-green fashion hair color, dark moody green tone with realistic dyed hair texture` | 深森林綠，保留特殊色但比亮綠更穩定。 |
 | **表情 (Facial Expression)** | 無額外表情 | `none` | 不額外指定表情，讓模型自然呈現人物情緒。 |
-| **表情 (Facial Expression)** | 柔和微笑 | `soft natural smile, relaxed cheeks, gently lifted mouth corners` | 自然柔和的微笑，臉頰放鬆，嘴角輕輕上揚。 |
-| **表情 (Facial Expression)** | 平靜淡然 | `calm composed expression, relaxed facial muscles, neutral mouth` | 平靜淡然的表情，臉部肌肉放鬆，嘴型自然。 |
-| **表情 (Facial Expression)** | 無辜清透 | `delicate innocent expression, relaxed brows, softly open eyes, gentle closed-mouth look` | 細緻無辜的表情，眉毛放鬆，眼睛自然張開，嘴唇輕閉。 |
-| **表情 (Facial Expression)** | 俏皮忍笑 | `playful restrained smile, gently pressed lips, subtly lifted mouth corners` | 俏皮地忍住笑意，嘴唇輕抿，嘴角微微上揚。 |
-| **表情 (Facial Expression)** | 若有所思 | `thoughtful reflective expression, softened brows, relaxed mouth, quiet contemplative mood` | 若有所思的表情，眉眼柔和，嘴型放鬆，帶安靜沉思感。 |
-| **表情 (Facial Expression)** | 內斂克制 | `reserved understated expression, relaxed eyelids, gently pressed lips, restrained mood` | 內斂克制的表情，眼瞼放鬆，嘴唇輕抿，情緒收斂。 |
-| **表情 (Facial Expression)** | 溫柔含蓄 | `gentle demure expression, relaxed brows, softly closed lips, quiet warmth` | 溫柔含蓄的表情，眉毛放鬆，嘴唇柔和閉合，帶安靜溫度。 |
-| **表情 (Facial Expression)** | 沉浸平靜 | `calm absorbed expression, relaxed facial muscles, peaceful closed-mouth look` | 平靜沉浸的表情，臉部肌肉放鬆，呈現安定的閉嘴神情。 |
-| **表情 (Facial Expression)** | 自然喜悅 | `candid joyful expression, raised cheeks, open genuine smile, visible teeth` | 自然喜悅的表情，臉頰抬起，真實開朗地露齒微笑。 |
-| **表情 (Facial Expression)** | 撒嬌生氣 | `playful mock-angry expression, small pout, lightly furrowed brows, subtly puffed cheeks, affectionate tone` | 俏皮假裝生氣，輕微嘟嘴、皺眉與鼓起臉頰，帶親近感。 |
-| **表情 (Facial Expression)** | 內斂悲傷 | `restrained sad expression, softened brows, slightly downturned mouth corners, quiet sadness` | 克制而安靜的悲傷表情，眉毛柔化，嘴角微微下垂。 |
-| **表情 (Facial Expression)** | 克制憤怒 | `controlled angry expression, drawn brows, firm pressed lips, subtle jaw tension, restrained anger` | 克制的憤怒表情，眉毛收緊，嘴唇緊抿，下顎略帶張力。 |
-| **表情 (Facial Expression)** | 輕微驚訝 | `mildly surprised expression, slightly raised brows, subtly widened eyes, softly parted lips` | 輕微驚訝的表情，眉毛微抬，眼睛稍微睜大，嘴唇微張。 |
-| **表情 (Facial Expression)** | 緊張不安 | `nervous uneasy expression, subtly tense brows, pressed lips, slight facial tension` | 緊張不安的表情，眉毛略顯緊繃，嘴唇抿住，臉部帶輕微張力。 |
+| **表情 (Facial Expression)** | 柔和微笑 | `soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks` | 自然柔和的微笑，眉毛放鬆，眼睛微微收窄，嘴唇微張，臉頰抬起。 |
+| **表情 (Facial Expression)** | 平靜淡然 | `calm composed expression, relaxed brows, softly open eyelids, neutral closed mouth, even facial muscles` | 平靜淡然的表情，眉毛放鬆，眼瞼自然張開，嘴唇閉合，臉部肌肉均勻放鬆。 |
+| **表情 (Facial Expression)** | 無辜清透 | `delicate innocent expression, relaxed brows, softly open eyes, gently closed lips, relaxed cheek muscles` | 細緻無辜的表情，眉毛放鬆，眼睛自然張開，嘴唇輕閉，臉頰保持柔和。 |
+| **表情 (Facial Expression)** | 俏皮忍笑 | `playful restrained smile, relaxed brows, gently narrowed eyes, pressed lips, subtly lifted mouth corners` | 俏皮地忍住笑意，眉毛放鬆，眼睛微微收窄，嘴唇輕抿，嘴角微微上揚。 |
+| **表情 (Facial Expression)** | 若有所思 | `thoughtful reflective expression, slightly drawn inner brows, softened eyelids, relaxed lips, subtle facial tension` | 若有所思的表情，眉心略微收緊，眼瞼柔和，嘴唇放鬆，臉部帶輕微張力。 |
+| **表情 (Facial Expression)** | 內斂克制 | `reserved understated expression, relaxed eyelids, gently pressed lips, neutral brows, restrained facial tension` | 內斂克制的表情，眼瞼放鬆，嘴唇輕抿，眉毛保持中性，臉部張力收斂。 |
+| **表情 (Facial Expression)** | 溫柔含蓄 | `gentle demure expression, relaxed brows, softly open eyelids, softly closed lips, relaxed cheeks` | 溫柔含蓄的表情，眉毛放鬆，眼瞼自然，嘴唇柔和閉合，臉頰放鬆。 |
+| **表情 (Facial Expression)** | 沉浸平靜 | `calm absorbed expression, softly lowered eyelids, relaxed brows, softly closed lips, relaxed facial muscles` | 平靜沉浸的表情，眼瞼柔和下垂，眉毛放鬆，嘴唇輕閉，臉部肌肉安定。 |
+| **表情 (Facial Expression)** | 自然喜悅 | `candid joyful expression, lifted cheeks, eyes gently narrowed by the smile, open genuine smile, visible teeth` | 自然喜悅的表情，臉頰抬起，眼睛因微笑而收窄，露出自然真實的笑容與牙齒。 |
+| **表情 (Facial Expression)** | 撒嬌生氣 | `playful mock-angry expression, lightly furrowed brows, small pout, subtly puffed cheeks, restrained smile` | 俏皮假裝生氣，眉毛微皺，輕微嘟嘴、鼓起臉頰，同時保留收斂笑意。 |
+| **表情 (Facial Expression)** | 內斂悲傷 | `restrained sad expression, inner brows slightly raised, softened eyelids, mouth corners slightly downturned, subtle lower-lip tension` | 克制而安靜的悲傷表情，眉毛內側略抬，眼瞼柔化，嘴角微微下垂，下唇帶細微張力。 |
+| **表情 (Facial Expression)** | 克制憤怒 | `controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension` | 克制的憤怒表情，眉毛向內收緊並下壓，雙眼收窄，嘴唇緊抿，下顎帶輕微張力。 |
+| **表情 (Facial Expression)** | 輕微驚訝 | `mildly surprised expression, raised brows, slightly widened eyes, softly parted lips` | 輕微驚訝的表情，眉毛抬起，眼睛稍微睜大，嘴唇微張。 |
+| **表情 (Facial Expression)** | 緊張不安 | `nervous uneasy expression, brows subtly drawn together, eyes slightly widened with alert tension, pressed lips, faint jaw tension` | 緊張不安的表情，眉毛略向內收，眼睛稍微睜大，嘴唇抿住，下顎帶輕微張力。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 全無 | `none` | 不指定姿勢動作，讓模型自行決定人物肢體語言。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜自然站姿 | `natural standing pose, relaxed balanced posture, everyday body language, unforced presence` | 身體自然站立，重心平均，沒有明顯擺拍感。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜單腳重心 | `weight-on-one-leg standing pose, relaxed asymmetrical stance, casual natural posture` | 重心落在單腳，另一腳自然放鬆，整體更有鬆弛感。 |
