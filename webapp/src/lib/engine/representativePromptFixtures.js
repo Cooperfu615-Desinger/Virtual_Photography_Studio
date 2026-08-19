@@ -258,6 +258,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'sharp mirror reflections and bright specular highlights',
           'surface-mounted jewelry-like accents over the uninterrupted latex',
         ],
+        excludes: ['glossy black latex', 'glossy skin-tone latex'],
       },
       zImagePrompt: {
         includes: [
@@ -266,6 +267,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'vacuum-tight second-skin fit',
           'full-length legs',
         ],
+        excludes: ['glossy black latex', 'glossy skin-tone latex'],
       },
       midjourneyPrompt: {
         includes: [
@@ -274,6 +276,35 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'vacuum-tight second-skin fit',
           'full-length legs',
         ],
+        excludes: ['glossy black latex', 'glossy skin-tone latex'],
+      },
+    },
+  },
+  {
+    id: 'reusable-outfit-primary-latex-material',
+    title: 'Reusable primary latex material applies to a non-latex source outfit preset',
+    mode: 'single',
+    seed: 'prompt-contract-reusable-primary-latex-material-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '套裝：皮革馬甲束腰' },
+      outfitPresetPrimaryColorId: { byZh: '亮面黑色乳膠' },
+      outfitPresetContrastColorId: { byZh: '紅色' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['glossy black latex'],
+        excludes: ['controlled by the outfit color selection'],
+      },
+      zImagePrompt: {
+        includes: ['glossy black latex'],
+        excludes: ['controlled by the outfit color selection'],
+      },
+      midjourneyPrompt: {
+        includes: ['glossy black latex'],
+        excludes: ['controlled by the outfit color selection'],
       },
     },
   },

@@ -25,6 +25,35 @@ const optionByLabel = (controlKey, zh) => {
   return option;
 };
 
+test('special latex materials are reusable outfit primary options but never contrast options', () => {
+  const controls = getLockControls();
+  const primary = controls.find((control) => control.key === 'outfitPresetPrimaryColorId');
+  const contrast = controls.find((control) => control.key === 'outfitPresetContrastColorId');
+
+  for (const label of ['亮面黑色乳膠', '亮面膚色乳膠']) {
+    const primaryOption = primary.options.find((option) => option.zh === label);
+    assert.ok(primaryOption, `primary color should include ${label}`);
+    assert.equal(primaryOption.meta?.primaryMaterial, true);
+    assert.equal(primaryOption.meta?.primaryOnly, true);
+    assert.equal(contrast.options.some((option) => option.zh === label), false);
+  }
+});
+
+test('random outfit primary color can resolve a reusable special latex material', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：皮革馬甲束腰'),
+    outfitPresetPrimaryColorId: '',
+    locationId: optionId('locationId', '室內：深邃黑幕'),
+  }, [], { random: () => 0.999 });
+
+  assert.equal(prompt.selection.outfitPresetPrimaryColorId, 'glossy-skin-tone-latex');
+  assert.match(prompt.grokPrompt, /glossy skin-tone latex/i);
+  assert.match(prompt.zImagePrompt, /glossy skin-tone latex/i);
+  assert.match(prompt.midjourneyPrompt, /glossy skin-tone latex/i);
+});
+
 test('bottom rise controls include a slightly unbuttoned and unzipped pants state', () => {
   const controls = getLockControls();
   const bottomRiseControl = controls.find((control) => control.key === 'bottomRiseId');

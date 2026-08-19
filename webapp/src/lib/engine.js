@@ -464,10 +464,30 @@ const OUTFIT_PRESET_EXTRA_COLOR_OPTIONS = [
   { id: 'white-red', zh: '白紅', en: 'white and red' },
 ];
 
+const OUTFIT_PRESET_PRIMARY_MATERIAL_OPTIONS = [
+  {
+    id: 'glossy-black-latex',
+    zh: '亮面黑色乳膠',
+    en: 'glossy black latex',
+    meta: { primaryMaterial: true, primaryOnly: true },
+  },
+  {
+    id: 'glossy-skin-tone-latex',
+    zh: '亮面膚色乳膠',
+    en: 'glossy skin-tone latex',
+    meta: { primaryMaterial: true, primaryOnly: true },
+  },
+];
+
 const OUTFIT_PRESET_COLOR_OPTIONS = [
   ...GARMENT_COLOR_OPTIONS,
   ...OUTFIT_PRESET_EXTRA_COLOR_OPTIONS,
+  ...OUTFIT_PRESET_PRIMARY_MATERIAL_OPTIONS,
 ];
+
+const OUTFIT_PRESET_CONTRAST_COLOR_OPTIONS = OUTFIT_PRESET_COLOR_OPTIONS.filter(
+  (option) => option.meta?.primaryOnly !== true,
+);
 
 const OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none' },
@@ -1032,13 +1052,13 @@ const LOCK_DEFINITIONS = [
   { key: 'outfitPresetBId', label: '人物 2 套裝', category: '套裝 (Outfit Presets)', section: 'wardrobe' },
   { key: 'outfitPresetBColorId', label: '人物 2 套裝配色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'hidden' },
   { key: 'outfitPresetPrimaryColorId', label: '套裝主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetContrastColorId', label: '套裝對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetContrastColorId', label: '套裝對比色', options: OUTFIT_PRESET_CONTRAST_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outfitPresetLockedPaletteId', label: '套裝鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
   { key: 'outfitPresetAPrimaryColorId', label: '人物 1 套裝主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetAContrastColorId', label: '人物 1 套裝對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetAContrastColorId', label: '人物 1 套裝對比色', options: OUTFIT_PRESET_CONTRAST_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outfitPresetALockedPaletteId', label: '人物 1 套裝鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
   { key: 'outfitPresetBPrimaryColorId', label: '人物 2 套裝主色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'outfitPresetBContrastColorId', label: '人物 2 套裝對比色', options: OUTFIT_PRESET_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outfitPresetBContrastColorId', label: '人物 2 套裝對比色', options: OUTFIT_PRESET_CONTRAST_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outfitPresetBLockedPaletteId', label: '人物 2 套裝鎖定色方案', options: OUTFIT_PRESET_LOCKED_PALETTE_OPTIONS, section: 'wardrobe' },
   { key: 'topId', label: '上身', category: '上身 (Tops)', section: 'wardrobe' },
   { key: 'topAId', label: '人物 1 上身', category: '上身 (Tops)', section: 'wardrobe' },
@@ -7763,8 +7783,23 @@ function stripOutfitColorSelectionControls(value) {
     .trim();
 }
 
-function materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColorText) {
-  if (!primaryColorText || meta?.primaryColorBehavior !== 'replace_caution_tape_surface') {
+function materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColor) {
+  const primaryColorText = primaryColor && !isNoneLikeItem(primaryColor) ? primaryColor.en : '';
+  if (!primaryColorText) {
+    return { text: base, consumedPrimary: false };
+  }
+
+  if (primaryColor.meta?.primaryMaterial === true) {
+    const primaryTargetText = describeOutfitColorTargets(meta?.colorTargets?.primary || []);
+    const materialTargetText = primaryTargetText || 'the primary outfit surfaces';
+    const text = `${stripOutfitColorSelectionControls(base)}, ${materialTargetText} rendered in ${primaryColorText}`;
+    return {
+      text,
+      consumedPrimary: true,
+    };
+  }
+
+  if (meta?.primaryColorBehavior !== 'replace_caution_tape_surface') {
     return { text: base, consumedPrimary: false };
   }
   if (!isAdhesiveTapeWrapOutfitPresetSource(base)) {
@@ -7797,16 +7832,22 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
   const lockedPalette = colorState.lockedPalette || null;
   const completeLookPalette = colorState.completeLookPalette || null;
   const primaryColorText = primaryColor && !isNoneLikeItem(primaryColor) ? primaryColor.en : '';
+  const primaryBehavior = materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColor);
 
   if (!meta.colorMode || !colorTargets || Object.keys(colorTargets).length === 0) {
-    const visualBase = stripOutfitColorSelectionControls(base);
+    const visualBase = stripOutfitColorSelectionControls(primaryBehavior.text);
+    if (primaryBehavior.consumedPrimary) {
+      const contrastSuffix = contrastColor && !isNoneLikeItem(contrastColor)
+        ? `, secondary garment color ${contrastColor.en}`
+        : '';
+      return appendCompleteLookPaletteDirection(`${visualBase}${contrastSuffix}`, completeLookPalette);
+    }
     if (primaryColor && contrastColor && !isNoneLikeItem(primaryColor) && !isNoneLikeItem(contrastColor)) {
       return appendCompleteLookPaletteDirection(`${visualBase}, primary garment color ${primaryColor.en}, secondary garment color ${contrastColor.en}`, completeLookPalette);
     }
     return appendCompleteLookPaletteDirection(primaryColor && !isNoneLikeItem(primaryColor) ? `${primaryColor.en} ${visualBase}` : visualBase, completeLookPalette);
   }
 
-  const primaryBehavior = materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColorText);
   const materializedBase = materializeOutfitColorControls(primaryBehavior.text, {
     primaryColorText,
     contrastColorText: contrastColor && !isNoneLikeItem(contrastColor) ? contrastColor.en : '',
@@ -12972,6 +13013,7 @@ function buildAiAdhesiveTapeWrapText(value, context = null, { compact = false } 
 }
 
 const AI_COMPLETE_LOOK_SIGNATURE_PATTERNS = [
+  /\bglossy (?:black|skin-tone) latex\b/i,
   /\bsharp mirror reflections\b/i,
   /\bvacuum-tight second-skin fit\b/i,
   /\bfull-length legs\b/i,
@@ -13036,6 +13078,7 @@ function buildAiCompleteLookCoreText(
   });
   if (adhesiveTapeWrapText) return adhesiveTapeWrapText;
 
+  const primaryMaterial = compactAiSourceText(value).match(/\bglossy (?:black|skin-tone) latex\b/i)?.[0] || '';
   let styleFragment = '';
   const roleFragments = new Map();
   const includeVisibleAccessoryRoles = !isCompleteWardrobeProjection(getCompositionVisibilityProjection(context));
@@ -13070,6 +13113,7 @@ function buildAiCompleteLookCoreText(
 
   return [
     styleFragment,
+    primaryMaterial,
     ...compactAiCompleteLookRoleFragments(roleFragments.get('top') || [], 'top', majorRoleLimit, fragmentCompactor),
     ...compactAiCompleteLookRoleFragments(roleFragments.get('dress') || [], 'dress', majorRoleLimit, fragmentCompactor),
     ...compactAiCompleteLookRoleFragments(roleFragments.get('bottom') || [], 'bottom', majorRoleLimit, fragmentCompactor),
