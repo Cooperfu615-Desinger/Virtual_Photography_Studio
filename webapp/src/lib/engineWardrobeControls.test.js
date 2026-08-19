@@ -616,6 +616,9 @@ test('adhesive tape look is a composable outfit preset while the original specia
   const special = optionByLabel('specialOutfitId', '紅色亮面膠帶束帶造型');
   assert.match(preset.en, /body-wrapping construction/);
   assert.match(preset.en, /separate independent groups of wide glossy tape strips adhered directly to the skin/);
+  assert.match(preset.en, /safety-yellow tape surfaces/);
+  assert.match(preset.en, /bold black uppercase CAUTION lettering/);
+  assert.match(preset.en, /solid black rectangular warning blocks/);
   assert.match(preset.en, /independent chest and ribcage wrap bands/);
   assert.match(preset.en, /independent hip and pelvis wrap bands/);
   assert.match(preset.en, /compressed skin with soft flesh bulges and slight spillover/);
@@ -638,6 +641,27 @@ test('adhesive tape look is a composable outfit preset while the original specia
     earringsId: optionId('earringsId', '小型金屬耳環'),
     neckAccessoryId: optionId('neckAccessoryId', '細領帶'),
   };
+  const [defaultPrompt] = generatePrompts(1, {
+    ...composableLocks,
+    outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '全無'),
+  });
+  const defaultChestUpPrompt = defaultPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-portrait')?.text || '';
+  const defaultChestUpMjPrompt = defaultPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
+  const defaultFullBodyPrompt = defaultPrompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
+  for (const text of [
+    defaultPrompt.grokPrompt,
+    defaultPrompt.zImagePrompt,
+    defaultPrompt.midjourneyPrompt,
+    defaultChestUpPrompt,
+    defaultChestUpMjPrompt,
+    defaultFullBodyPrompt,
+  ]) {
+    assert.match(text, /safety-yellow/i);
+    assert.match(text, /CAUTION/);
+    assert.match(text, /solid black rectangular warning blocks/i);
+  }
+  assert.doesNotMatch(defaultFullBodyPrompt, /no visible text/i);
+
   const [presetPrompt] = generatePrompts(1, composableLocks);
   const wardrobeLabels = presetPrompt.structured.Wardrobe.map((item) => item.zh);
 
@@ -651,7 +675,7 @@ test('adhesive tape look is a composable outfit preset while the original specia
   assert.match(presetPrompt.grokPrompt, /localized waist and abdomen bands/);
   assert.match(presetPrompt.grokPrompt, /independent hip and pelvis wrap bands with overlapping center-front and rear coverage/);
   assert.match(presetPrompt.grokPrompt, /compressed skin with soft flesh bulges and slight spillover along the tape edges/);
-  assert.match(presetPrompt.grokPrompt, /all tape wrap bands in red/);
+  assert.match(presetPrompt.grokPrompt, /glossy tape surfaces in red/);
   assert.doesNotMatch(presetPrompt.grokPrompt, /halter|bralette|high-cut|tape bottoms/i);
   assert.match(presetPrompt.zImagePrompt, /independent chest and ribcage wrap bands/);
   assert.match(presetPrompt.zImagePrompt, /compressed skin with soft flesh bulges/i);
@@ -671,7 +695,32 @@ test('adhesive tape look is a composable outfit preset while the original specia
   assert.match(fullBodyPrompt, /independent hip and pelvis wrap bands/i);
   assert.match(fullBodyPrompt, /separate thigh wrap bands/i);
   assert.match(fullBodyPrompt, /compressed skin with soft flesh bulges/i);
+  assert.match(fullBodyPrompt, /no visible text/i);
+  for (const text of [
+    presetPrompt.grokPrompt,
+    presetPrompt.zImagePrompt,
+    presetPrompt.midjourneyPrompt,
+    chestUpPrompt,
+    chestUpMjPrompt,
+    fullBodyPrompt,
+  ]) {
+    assert.doesNotMatch(text, /safety-yellow|CAUTION|solid black rectangular warning blocks/i);
+  }
   assert.doesNotMatch(presetPrompt.grokPrompt, /complete outfit:/i);
+
+  const [randomColorPrompt] = generatePrompts(1, {
+    ...composableLocks,
+    outfitPresetPrimaryColorId: '',
+  }, [], { random: () => 0 });
+  assert.equal(randomColorPrompt.selection.outfitPresetPrimaryColorId, 'black');
+  for (const text of [
+    randomColorPrompt.grokPrompt,
+    randomColorPrompt.zImagePrompt,
+    randomColorPrompt.midjourneyPrompt,
+  ]) {
+    assert.match(text, /black glossy adhesive tape|glossy tape surfaces in black/i);
+    assert.doesNotMatch(text, /safety-yellow|CAUTION|solid black rectangular warning blocks/i);
+  }
 
   const [specialPrompt] = generatePrompts(1, {
     ...composableLocks,

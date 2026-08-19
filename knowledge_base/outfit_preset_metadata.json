@@ -470,6 +470,7 @@
   "亮面膠帶束帶套裝": {
     "series": "signature",
     "colorMode": "primary",
+    "primaryColorBehavior": "replace_caution_tape_surface",
     "contrastBehavior": "soft",
     "lockedOptional": false,
     "colorTargets": {

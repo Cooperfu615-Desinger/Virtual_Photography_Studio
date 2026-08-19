@@ -246,6 +246,65 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'adhesive-caution-tape-default',
+    title: 'Adhesive tape outfit preset uses its yellow-and-black caution design only without a color override',
+    mode: 'single',
+    seed: 'prompt-contract-adhesive-caution-tape-default-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '套裝：亮面膠帶束帶' },
+      outfitPresetPrimaryColorId: { byZh: '全無' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['safety-yellow tape surfaces', 'bold black uppercase CAUTION lettering', 'solid black rectangular warning blocks'],
+      },
+      zImagePrompt: {
+        includes: ['safety-yellow tape surfaces', 'CAUTION lettering', 'solid black rectangular warning blocks'],
+      },
+      midjourneyPrompt: {
+        includes: ['safety-yellow glossy caution tape', 'CAUTION lettering', 'solid black rectangular warning blocks'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['safety-yellow tape surfaces', 'CAUTION lettering', 'solid black rectangular warning blocks'],
+        excludes: ['no visible text'],
+      },
+    },
+  },
+  {
+    id: 'adhesive-tape-primary-color-override',
+    title: 'Adhesive tape outfit preset replaces the complete caution surface design with the selected primary color',
+    mode: 'single',
+    seed: 'prompt-contract-adhesive-tape-primary-color-override-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      outfitPresetId: { byZh: '套裝：亮面膠帶束帶' },
+      outfitPresetPrimaryColorId: { byZh: '紅色' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['glossy tape surfaces in red'],
+        excludes: ['safety-yellow', 'CAUTION', 'solid black rectangular warning blocks'],
+      },
+      zImagePrompt: {
+        includes: ['glossy tape surfaces in red'],
+        excludes: ['safety-yellow', 'CAUTION', 'solid black rectangular warning blocks'],
+      },
+      midjourneyPrompt: {
+        includes: ['red glossy adhesive tape'],
+        excludes: ['safety-yellow', 'CAUTION', 'solid black rectangular warning blocks'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['glossy tape surfaces in red', 'no visible text'],
+        excludes: ['safety-yellow', 'CAUTION', 'solid black rectangular warning blocks'],
+      },
+    },
+  },
+  {
     id: 'bdsm-leather-harness-outfit-preset',
     title: 'BDSM outfit preset preserves its leather lingerie base and harness map',
     mode: 'single',

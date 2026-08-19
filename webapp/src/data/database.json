@@ -1976,11 +1976,12 @@
       },
       {
         "zh": "亮面膠帶束帶套裝",
-        "en": "bare-shoulder glossy adhesive tape body-wrapping construction, separate independent groups of wide glossy tape strips adhered directly to the skin, independent chest and ribcage wrap bands with open upper and lower bust areas, localized waist and abdomen bands, independent hip and pelvis wrap bands with overlapping center-front and rear coverage, separate thigh wrap bands, mostly horizontal with natural diagonal overlaps, visible skin gaps and occasional overlaps, compressed skin with soft flesh bulges and slight spillover along the tape edges",
-        "desc": "亮面膠帶直接黏貼在皮膚上，形成不連成單件服裝的獨立纏繞帶組；肩部保持裸露，胸部只以帶狀結構遮覆必要部位，腰腹局部纏繞，髖臀與大腿分別使用獨立寬膠帶，水平為主並允許自然斜向、間隙與局部重疊，膠帶邊緣產生明顯的皮膚壓迫與溢出感。",
+        "en": "bare-shoulder glossy adhesive tape body-wrapping construction, separate independent groups of wide glossy tape strips adhered directly to the skin, safety-yellow tape surfaces with repeating bold black uppercase CAUTION lettering and solid black rectangular warning blocks, independent chest and ribcage wrap bands with open upper and lower bust areas, localized waist and abdomen bands, independent hip and pelvis wrap bands with overlapping center-front and rear coverage, separate thigh wrap bands, mostly horizontal with natural diagonal overlaps, visible skin gaps and occasional overlaps, compressed skin with soft flesh bulges and slight spillover along the tape edges",
+        "desc": "亮面膠帶直接黏貼在皮膚上，形成不連成單件服裝的獨立纏繞帶組；預設表面是安全黃色警戒線，重複印有黑色大寫 CAUTION 字樣與實心黑色矩形警示色塊。肩部保持裸露，胸部只以帶狀結構遮覆必要部位，腰腹局部纏繞，髖臀與大腿分別使用獨立寬膠帶，水平為主並允許自然斜向、間隙與局部重疊，膠帶邊緣產生明顯的皮膚壓迫與溢出感；套裝主色為全無時保留警戒線表面，指定或隨機產生主色時，整組警戒線文字與黑色色塊改為該主色的純色亮面膠帶。",
         "meta": {
           "series": "signature",
           "colorMode": "primary",
+          "primaryColorBehavior": "replace_caution_tape_surface",
           "contrastBehavior": "soft",
           "lockedOptional": false,
           "colorTargets": {

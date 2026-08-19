@@ -6,6 +6,26 @@ import { POSE_COMPOSER_CONTROL_KEYS } from './page1Schema.js';
 import { isNoneSelected } from './page1Selectors.js';
 import { reconcilePage1SingleWardrobeLocks } from './page1WardrobeExclusivity.js';
 
+const OUTFIT_PRESET_COLOR_ALIAS_PAIRS = Object.freeze([
+  ['outfitPresetColorId', 'outfitPresetPrimaryColorId'],
+  ['outfitPresetAColorId', 'outfitPresetAPrimaryColorId'],
+  ['outfitPresetBColorId', 'outfitPresetBPrimaryColorId'],
+]);
+
+function synchronizeChangedOutfitPresetColorAliases(previousLocks, candidateLocks) {
+  const next = { ...candidateLocks };
+
+  OUTFIT_PRESET_COLOR_ALIAS_PAIRS.forEach(([legacyKey, primaryKey]) => {
+    const legacyChanged = next[legacyKey] !== previousLocks[legacyKey];
+    const primaryChanged = next[primaryKey] !== previousLocks[primaryKey];
+
+    if (primaryChanged && !legacyChanged) next[legacyKey] = next[primaryKey];
+    if (legacyChanged && !primaryChanged) next[primaryKey] = next[legacyKey];
+  });
+
+  return next;
+}
+
 function clearUnavailableSelection(locks, key, options, fallback = '') {
   if (!locks[key]) return;
   const allowedIds = new Set((options || []).map((option) => option.id));
@@ -18,7 +38,10 @@ export function transitionPage1Locks({
   lockControls,
   activeLibrary = [],
 }) {
-  let next = sanitizeLocksForCloseupMode({ ...candidateLocks }, lockControls);
+  let next = sanitizeLocksForCloseupMode(
+    synchronizeChangedOutfitPresetColorAliases(previousLocks, candidateLocks),
+    lockControls,
+  );
   const sceneOptions = getSceneDependentOptions(activeLibrary, next);
 
   clearUnavailableSelection(next, 'locationId', sceneOptions.locationOptions);

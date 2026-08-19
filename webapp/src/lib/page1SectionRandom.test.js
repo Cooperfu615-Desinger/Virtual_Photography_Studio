@@ -287,6 +287,36 @@ test('section action labels explain panels without randomizable fields', () => {
   );
 });
 
+test('outfit preset primary color keeps its hidden legacy alias synchronized through UI transitions', () => {
+  const controls = getLockControls();
+  const defaults = createEmptyLocks();
+  const primaryColorId = activeOptionId(controls, 'outfitPresetPrimaryColorId');
+
+  const selected = transitionPage1Locks({
+    previousLocks: defaults,
+    candidateLocks: {
+      ...defaults,
+      outfitPresetPrimaryColorId: primaryColorId,
+    },
+    lockControls: controls,
+  });
+
+  assert.equal(selected.outfitPresetPrimaryColorId, primaryColorId);
+  assert.equal(selected.outfitPresetColorId, primaryColorId);
+
+  const returnedToRandom = transitionPage1Locks({
+    previousLocks: selected,
+    candidateLocks: {
+      ...selected,
+      outfitPresetPrimaryColorId: '',
+    },
+    lockControls: controls,
+  });
+
+  assert.equal(returnedToRandom.outfitPresetPrimaryColorId, '');
+  assert.equal(returnedToRandom.outfitPresetColorId, '');
+});
+
 test('complete-look panel random clears normal separates before randomizing', () => {
   const controls = getLockControls();
   const defaults = createEmptyLocks();

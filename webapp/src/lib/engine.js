@@ -7700,6 +7700,24 @@ function stripOutfitColorSelectionControls(value) {
     .trim();
 }
 
+function materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColorText) {
+  if (!primaryColorText || meta?.primaryColorBehavior !== 'replace_caution_tape_surface') {
+    return { text: base, consumedPrimary: false };
+  }
+  if (!isAdhesiveTapeWrapOutfitPresetSource(base)) {
+    return { text: base, consumedPrimary: false };
+  }
+
+  const text = String(base || '').replace(
+    /\bsafety-yellow tape surfaces with repeating bold black uppercase CAUTION lettering and solid black rectangular warning blocks\b/i,
+    `glossy tape surfaces in ${primaryColorText}`
+  );
+  return {
+    text,
+    consumedPrimary: text !== base,
+  };
+}
+
 function buildOutfitPresetPrompt(item, colorState = {}) {
   if (!item || isNoneLikeItem(item)) return '';
 
@@ -7715,6 +7733,7 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
   const contrastColor = colorState.contrast || null;
   const lockedPalette = colorState.lockedPalette || null;
   const completeLookPalette = colorState.completeLookPalette || null;
+  const primaryColorText = primaryColor && !isNoneLikeItem(primaryColor) ? primaryColor.en : '';
 
   if (!meta.colorMode || !colorTargets || Object.keys(colorTargets).length === 0) {
     const visualBase = stripOutfitColorSelectionControls(base);
@@ -7724,8 +7743,9 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
     return appendCompleteLookPaletteDirection(primaryColor && !isNoneLikeItem(primaryColor) ? `${primaryColor.en} ${visualBase}` : visualBase, completeLookPalette);
   }
 
-  const materializedBase = materializeOutfitColorControls(base, {
-    primaryColorText: primaryColor && !isNoneLikeItem(primaryColor) ? primaryColor.en : '',
+  const primaryBehavior = materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColorText);
+  const materializedBase = materializeOutfitColorControls(primaryBehavior.text, {
+    primaryColorText,
     contrastColorText: contrastColor && !isNoneLikeItem(contrastColor) ? contrastColor.en : '',
   });
   const details = [];
@@ -7733,7 +7753,7 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
   const contrastTargets = colorTargets.contrast || [];
   const lockedTargets = colorTargets.locked || [];
 
-  if (primaryColor && !isNoneLikeItem(primaryColor) && !materializedBase.consumedPrimary) {
+  if (primaryColor && !isNoneLikeItem(primaryColor) && !materializedBase.consumedPrimary && !primaryBehavior.consumedPrimary) {
     const targetText = describeOutfitColorTargets(primaryTargets);
     details.push(targetText ? `${targetText} in ${primaryColor.en}` : `main outfit color in ${primaryColor.en}`);
   }
@@ -7748,7 +7768,7 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
     if (lockedText) details.push(lockedText);
   }
 
-  const coloredBase = materializedBase.text || base;
+  const coloredBase = materializedBase.text || primaryBehavior.text || base;
   return appendCompleteLookPaletteDirection(details.length > 0 ? `${coloredBase}, ${details.join(', ')}` : coloredBase, completeLookPalette);
 }
 
@@ -11107,6 +11127,9 @@ function renderFullBodyCharacterPrompt(promptModel) {
     || buildGptSingleFullFidelityWardrobeText(wardrobeText)
     || characterProfileGroups?.outfit
     || '';
+  const fullBodyCameraLook = /\bCAUTION\b/.test(resolvedWardrobeText)
+    ? FULL_BODY_CHARACTER_CAMERA_LOOK.replace(/, no visible text$/, '')
+    : FULL_BODY_CHARACTER_CAMERA_LOOK;
 
   return [
     section('Image Type', FULL_BODY_CHARACTER_IMAGE_TYPE),
@@ -11121,7 +11144,7 @@ function renderFullBodyCharacterPrompt(promptModel) {
         : section('Wardrobe', `${wardrobeLead} ${resolvedWardrobeText}`)
       : '',
     section('Lighting', FULL_BODY_CHARACTER_LIGHTING),
-    section('Camera Look', FULL_BODY_CHARACTER_CAMERA_LOOK),
+    section('Camera Look', fullBodyCameraLook),
   ].filter(Boolean).join('\n\n');
 }
 
@@ -12776,7 +12799,17 @@ function isAdhesiveTapeWrapOutfitPresetSource(value) {
 }
 
 function extractAdhesiveTapeWrapColor(value) {
-  return String(value || '').match(/\ball tape wrap bands in ([a-z][a-z -]*)$/i)?.[1]?.trim() || '';
+  return String(value || '').match(/\bglossy tape surfaces in ([^,.;]+)/i)?.[1]?.trim()
+    || String(value || '').match(/\ball tape wrap bands in ([a-z][a-z -]*)$/i)?.[1]?.trim()
+    || '';
+}
+
+function buildAiAdhesiveTapeWrapSurfaceLead(value) {
+  if (/\bsafety-yellow tape surfaces with repeating bold black uppercase CAUTION lettering and solid black rectangular warning blocks\b/i.test(value || '')) {
+    return 'safety-yellow glossy caution tape with repeating bold black uppercase CAUTION lettering and solid black rectangular warning blocks';
+  }
+  const color = extractAdhesiveTapeWrapColor(value);
+  return color ? `${color} glossy adhesive tape` : 'glossy adhesive tape';
 }
 
 function buildAiAdhesiveTapeWrapText(value, context = null, { compact = false } = {}) {
@@ -12785,10 +12818,8 @@ function buildAiAdhesiveTapeWrapText(value, context = null, { compact = false } 
   const projection = getCompositionVisibilityProjection(context);
   const detailZones = new Set(projection?.wardrobe?.detailZones || []);
   const hasVisibleZone = (zone) => detailZones.size === 0 || detailZones.has(zone);
-  const color = extractAdhesiveTapeWrapColor(value);
-  const colorLead = color ? `${color} ` : '';
   const parts = [
-    `${colorLead}glossy adhesive tape wrapped directly around the skin in separate wide bands`,
+    `${buildAiAdhesiveTapeWrapSurfaceLead(value)} wrapped directly around the skin in separate wide bands`,
   ];
 
   if (hasVisibleZone('shoulder') || hasVisibleZone('upperBody')) {
