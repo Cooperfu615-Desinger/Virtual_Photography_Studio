@@ -49,9 +49,9 @@ const STRUCTURED_CONTROL_KEYS = {
     'outerwearId', 'outerwearFitId', 'outerwearColorId', 'outerwearPatternId',
     'outerwearOpeningId', 'outerwearStylingId', 'legwearId', 'legwearColorId',
     'shoesId', 'shoesColorId',
-    'headAccessoryId', 'eyewearId', 'earringsId', 'neckAccessoryId',
-    'headAccessoryAId', 'eyewearAId', 'earringsAId', 'neckAccessoryAId',
-    'headAccessoryBId', 'eyewearBId', 'earringsBId', 'neckAccessoryBId',
+    'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'earringsId', 'neckAccessoryId',
+    'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'earringsAId', 'neckAccessoryAId',
+    'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'earringsBId', 'neckAccessoryBId',
     'wristAccessoryId', 'ringId', 'waistAccessoryId',
   ],
   Location: [

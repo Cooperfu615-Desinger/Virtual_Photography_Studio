@@ -1113,18 +1113,21 @@ const LOCK_DEFINITIONS = [
   { key: 'shoesBId', label: '人物 2 鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
   { key: 'shoesBColorId', label: '人物 2 鞋款配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'headAccessoryId', label: '頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
+  { key: 'headAccessoryColorId', label: '頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearId', label: '眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
   { key: 'eyewearColorId', label: '眼鏡配色', category: '眼鏡配色 (Eyewear Color)', section: 'wardrobe' },
   { key: 'eyewearPlacementId', label: '眼鏡配戴方式', category: '眼鏡配戴方式 (Eyewear Placement)', section: 'wardrobe' },
   { key: 'earringsId', label: '耳環', category: '耳環 (Earrings)', section: 'wardrobe' },
   { key: 'neckAccessoryId', label: '頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryAId', label: '人物 1 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
+  { key: 'headAccessoryAColorId', label: '人物 1 頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearAId', label: '人物 1 眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
   { key: 'eyewearAColorId', label: '人物 1 眼鏡配色', category: '眼鏡配色 (Eyewear Color)', section: 'wardrobe' },
   { key: 'eyewearAPlacementId', label: '人物 1 眼鏡配戴方式', category: '眼鏡配戴方式 (Eyewear Placement)', section: 'wardrobe' },
   { key: 'earringsAId', label: '人物 1 耳環', category: '耳環 (Earrings)', section: 'wardrobe' },
   { key: 'neckAccessoryAId', label: '人物 1 頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryBId', label: '人物 2 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
+  { key: 'headAccessoryBColorId', label: '人物 2 頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearBId', label: '人物 2 眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
   { key: 'eyewearBColorId', label: '人物 2 眼鏡配色', category: '眼鏡配色 (Eyewear Color)', section: 'wardrobe' },
   { key: 'eyewearBPlacementId', label: '人物 2 眼鏡配戴方式', category: '眼鏡配戴方式 (Eyewear Placement)', section: 'wardrobe' },
@@ -1275,18 +1278,21 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'shoesBId', label: 'Woman 2 Shoes' },
   { key: 'shoesBColorId', label: 'Woman 2 Shoes Color' },
   { key: 'headAccessoryId', label: 'Head Accessory' },
+  { key: 'headAccessoryColorId', label: 'Head Accessory Color' },
   { key: 'eyewearId', label: 'Eyewear Frame' },
   { key: 'eyewearColorId', label: 'Eyewear Color' },
   { key: 'eyewearPlacementId', label: 'Eyewear Placement' },
   { key: 'earringsId', label: 'Earrings' },
   { key: 'neckAccessoryId', label: 'Neck Accessory' },
   { key: 'headAccessoryAId', label: 'Woman 1 Head Accessory' },
+  { key: 'headAccessoryAColorId', label: 'Woman 1 Head Accessory Color' },
   { key: 'eyewearAId', label: 'Woman 1 Eyewear Frame' },
   { key: 'eyewearAColorId', label: 'Woman 1 Eyewear Color' },
   { key: 'eyewearAPlacementId', label: 'Woman 1 Eyewear Placement' },
   { key: 'earringsAId', label: 'Woman 1 Earrings' },
   { key: 'neckAccessoryAId', label: 'Woman 1 Neck Accessory' },
   { key: 'headAccessoryBId', label: 'Woman 2 Head Accessory' },
+  { key: 'headAccessoryBColorId', label: 'Woman 2 Head Accessory Color' },
   { key: 'eyewearBId', label: 'Woman 2 Eyewear Frame' },
   { key: 'eyewearBColorId', label: 'Woman 2 Eyewear Color' },
   { key: 'eyewearBPlacementId', label: 'Woman 2 Eyewear Placement' },
@@ -2159,8 +2165,11 @@ const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
   'shoesAId',
   'shoesBId',
   'headAccessoryId',
+  'headAccessoryColorId',
   'headAccessoryAId',
+  'headAccessoryAColorId',
   'headAccessoryBId',
+  'headAccessoryBColorId',
   'eyewearId',
   'eyewearColorId',
   'eyewearPlacementId',
@@ -2222,16 +2231,19 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'poseHeadId',
   'poseAnchorId',
   'headAccessoryId',
+  'headAccessoryColorId',
   'eyewearId',
   'eyewearColorId',
   'eyewearPlacementId',
   'earringsId',
   'headAccessoryAId',
+  'headAccessoryAColorId',
   'eyewearAId',
   'eyewearAColorId',
   'eyewearAPlacementId',
   'earringsAId',
   'headAccessoryBId',
+  'headAccessoryBColorId',
   'eyewearBId',
   'eyewearBColorId',
   'eyewearBPlacementId',
@@ -6009,20 +6021,32 @@ function buildWardrobe(context, locks, catalog) {
     'outerwearBStylingId',
     'shoesBId',
   ].some((key) => Boolean(locks?.[key]));
+  const isActiveHeadAccessoryColorLock = (key) => {
+    const color = getGarmentColorOption(locks?.[key]);
+    return Boolean(color && !isNoneLikeItem(color));
+  };
   const hasDuoAccessoryLock = context.subject.count === 2 && [
     'headAccessoryAId',
+    'headAccessoryAColorId',
     'eyewearAId',
     'eyewearAColorId',
     'eyewearAPlacementId',
     'earringsAId',
     'neckAccessoryAId',
     'headAccessoryBId',
+    'headAccessoryBColorId',
     'eyewearBId',
     'eyewearBColorId',
     'eyewearBPlacementId',
     'earringsBId',
     'neckAccessoryBId',
-  ].some((key) => Boolean(locks?.[key]));
+  ].some((key) => ['headAccessoryAColorId', 'headAccessoryBColorId'].includes(key)
+    ? isActiveHeadAccessoryColorLock(key)
+    : Boolean(locks?.[key]));
+  const hasSingleHeadAccessoryColorLock = context.subject.count !== 2
+    && !locks?.headAccessoryId
+    && Boolean(getGarmentColorOption(locks?.headAccessoryColorId))
+    && !isNoneLikeItem(getGarmentColorOption(locks?.headAccessoryColorId));
 
   const maybePick = (categoryKey, probability = 1, extraPredicate = () => true, { allowNoneWhenUnlocked = false } = {}) => {
     const lockKey = categoryLockMap[categoryKey];
@@ -6067,6 +6091,18 @@ function buildWardrobe(context, locks, catalog) {
     const lockedItem = findById(categoryItems, lockedValue);
     if (!lockedItem) return null;
     const clonedItem = cloneWardrobePieceForRole(lockedItem, role, layerSlot);
+    addPiece(clonedItem);
+    return clonedItem;
+  };
+  const ensureRoleHeadAccessoryForColor = (role, itemKey, colorKey) => {
+    const color = getGarmentColorOption(locks?.[colorKey]);
+    if (!color || isNoneLikeItem(color) || locks?.[itemKey]) return null;
+    const candidates = getByKey(catalog.catalog.wardrobe, '頭部配件 (Head Accessories)').filter(
+      (item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location)
+    );
+    if (candidates.length === 0) return null;
+    const picked = sampleItem(previewExclusions.filterCandidates(candidates, [itemKey]));
+    const clonedItem = cloneWardrobePieceForRole(picked, role, 'headAccessory');
     addPiece(clonedItem);
     return clonedItem;
   };
@@ -6543,18 +6579,20 @@ function buildWardrobe(context, locks, catalog) {
 
     if (context.subject.count === 2) {
       addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryAId', 'a', 'headAccessory');
+      ensureRoleHeadAccessoryForColor('a', 'headAccessoryAId', 'headAccessoryAColorId');
       addRoleLockedPiece(WARDROBE_EYEWEAR_CATEGORY, 'eyewearAId', 'a', 'eyewear');
       addRoleLockedPiece(WARDROBE_EYEWEAR_COLOR_CATEGORY, 'eyewearAColorId', 'a', 'eyewearColor');
       addRoleLockedPiece(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, 'eyewearAPlacementId', 'a', 'eyewearPlacement');
       addRoleLockedPiece('耳環 (Earrings)', 'earringsAId', 'a', 'earrings');
       addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryBId', 'b', 'headAccessory');
+      ensureRoleHeadAccessoryForColor('b', 'headAccessoryBId', 'headAccessoryBColorId');
       addRoleLockedPiece(WARDROBE_EYEWEAR_CATEGORY, 'eyewearBId', 'b', 'eyewear');
       addRoleLockedPiece(WARDROBE_EYEWEAR_COLOR_CATEGORY, 'eyewearBColorId', 'b', 'eyewearColor');
       addRoleLockedPiece(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, 'eyewearBPlacementId', 'b', 'eyewearPlacement');
       addRoleLockedPiece('耳環 (Earrings)', 'earringsBId', 'b', 'earrings');
     }
     if (!hasDuoAccessoryLock) {
-      maybePick('頭部配件 (Head Accessories)', 0.28, () => true, { allowNoneWhenUnlocked: true });
+      maybePick('頭部配件 (Head Accessories)', hasSingleHeadAccessoryColorLock ? 1 : 0.28, () => true, { allowNoneWhenUnlocked: true });
       const eyewearPiece = maybePick(WARDROBE_EYEWEAR_CATEGORY, 0.35, () => true, { allowNoneWhenUnlocked: true });
       const hasEyewearPiece = Array.isArray(eyewearPiece)
         ? eyewearPiece.some((item) => item && !isNoneLikeItem(item))
@@ -6712,12 +6750,14 @@ function buildWardrobe(context, locks, catalog) {
     addRoleLockedPiece('外套穿法 (Outerwear Styling)', 'outerwearBStylingId', 'b', 'outerwearStyling');
     addRoleLockedPiece('鞋款 (Shoes)', 'shoesBId', 'b', 'shoes');
     addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryAId', 'a', 'headAccessory');
+    ensureRoleHeadAccessoryForColor('a', 'headAccessoryAId', 'headAccessoryAColorId');
     addRoleLockedPiece(WARDROBE_EYEWEAR_CATEGORY, 'eyewearAId', 'a', 'eyewear');
     addRoleLockedPiece(WARDROBE_EYEWEAR_COLOR_CATEGORY, 'eyewearAColorId', 'a', 'eyewearColor');
     addRoleLockedPiece(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, 'eyewearAPlacementId', 'a', 'eyewearPlacement');
     addRoleLockedPiece('耳環 (Earrings)', 'earringsAId', 'a', 'earrings');
     addRoleLockedPiece('頸部 (Neck Accessories)', 'neckAccessoryAId', 'a', 'neckAccessory');
     addRoleLockedPiece('頭部配件 (Head Accessories)', 'headAccessoryBId', 'b', 'headAccessory');
+    ensureRoleHeadAccessoryForColor('b', 'headAccessoryBId', 'headAccessoryBColorId');
     addRoleLockedPiece(WARDROBE_EYEWEAR_CATEGORY, 'eyewearBId', 'b', 'eyewear');
     addRoleLockedPiece(WARDROBE_EYEWEAR_COLOR_CATEGORY, 'eyewearBColorId', 'b', 'eyewearColor');
     addRoleLockedPiece(WARDROBE_EYEWEAR_PLACEMENT_CATEGORY, 'eyewearBPlacementId', 'b', 'eyewearPlacement');
@@ -6726,7 +6766,7 @@ function buildWardrobe(context, locks, catalog) {
   }
 
   if (!hasDuoAccessoryLock) {
-    maybePick('頭部配件 (Head Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.28 : 0.12, () => true, { allowNoneWhenUnlocked: true });
+    maybePick('頭部配件 (Head Accessories)', hasSingleHeadAccessoryColorLock ? 1 : (visibilityAtLeast(visibility, 'portrait') ? 0.28 : 0.12), () => true, { allowNoneWhenUnlocked: true });
     const eyewearPiece = maybePick(WARDROBE_EYEWEAR_CATEGORY, visibilityAtLeast(visibility, 'portrait') ? 0.35 : 0.15, () => true, { allowNoneWhenUnlocked: true });
     const hasEyewearPiece = Array.isArray(eyewearPiece)
       ? eyewearPiece.some((item) => item && !isNoneLikeItem(item))
@@ -6925,7 +6965,12 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
           )
         : '';
     const shoeLabel = wardrobeSlots.shoes?.zh && !isNoneLikeItem(wardrobeSlots.shoes) ? wardrobeSlots.shoes.zh : '';
-    const headAccessoryLabel = wardrobeSlots.headAccessory?.zh && !isNoneLikeItem(wardrobeSlots.headAccessory) ? wardrobeSlots.headAccessory.zh : '';
+    const headAccessoryLabel = wardrobeSlots.headAccessory?.zh && !isNoneLikeItem(wardrobeSlots.headAccessory)
+      ? joinSummaryParts(
+          wardrobeSlots.headAccessory.zh,
+          wardrobeColors.headAccessoryColor?.zh && !isNoneLikeItem(wardrobeColors.headAccessoryColor) ? wardrobeColors.headAccessoryColor.zh : ''
+        )
+      : '';
     const outerwearLabel = wardrobeSlots.outerwear?.zh && !isNoneLikeItem(wardrobeSlots.outerwear)
       ? joinSummaryParts(
           wardrobeSlots.outerwear.zh,
@@ -7460,6 +7505,21 @@ function buildWardrobeColors(wardrobeSlots, locks, random = Math.random) {
   const legwearBColor = wardrobeSlots.legwearB && !isNoneLikeItem(wardrobeSlots.legwearB) ? getLegwearColorOption(normalizedLocks.legwearBColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS, random) : null;
   const outerwearBColor = wardrobeSlots.outerwearB && !isNoneLikeItem(wardrobeSlots.outerwearB) ? getGarmentColorOption(normalizedLocks.outerwearBColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS, random) : null;
   const shoesBColor = wardrobeSlots.shoesB && !isNoneLikeItem(wardrobeSlots.shoesB) ? getLayerColorOption(normalizedLocks.shoesBColorId) || sampleNonNone(LAYER_COLOR_OPTIONS, random) : null;
+  const headAccessoryColor = wardrobeSlots.headAccessory
+    && !isNoneLikeItem(wardrobeSlots.headAccessory)
+    && !isCharacterCardLayerSlot(wardrobeSlots.headAccessory)
+    ? pickGarmentColor(normalizedLocks.headAccessoryColorId)
+    : null;
+  const headAccessoryAColor = wardrobeSlots.headAccessoryA
+    && !isNoneLikeItem(wardrobeSlots.headAccessoryA)
+    && !isCharacterCardLayerSlot(wardrobeSlots.headAccessoryA)
+    ? pickGarmentColor(normalizedLocks.headAccessoryAColorId, [getGarmentColorOption(normalizedLocks.headAccessoryBColorId)])
+    : null;
+  const headAccessoryBColor = wardrobeSlots.headAccessoryB
+    && !isNoneLikeItem(wardrobeSlots.headAccessoryB)
+    && !isCharacterCardLayerSlot(wardrobeSlots.headAccessoryB)
+    ? pickGarmentColor(normalizedLocks.headAccessoryBColorId, [headAccessoryAColor])
+    : null;
   return {
     completeLookPalette,
     completeLookPaletteA,
@@ -7497,6 +7557,9 @@ function buildWardrobeColors(wardrobeSlots, locks, random = Math.random) {
     legwearBColor,
     outerwearBColor,
     shoesBColor,
+    headAccessoryColor,
+    headAccessoryAColor,
+    headAccessoryBColor,
   };
 }
 
@@ -8392,6 +8455,57 @@ function buildAccessoryPrompt(item) {
   return stripMarkdown(item.en).replace(/\s+/g, ' ').trim();
 }
 
+const HEAD_ACCESSORY_COLOR_TERMS = [
+  'mirror-chrome silver',
+  'multicolored horizontal stripes',
+  'dark grey',
+  'light grey',
+  'off-white',
+  'dark brown',
+  'light brown',
+  'bright red',
+  'neon red',
+  'light blue',
+  'dark blue',
+  'royal blue',
+  'neon blue',
+  'light green',
+  'dark green',
+  'olive green',
+  'neon green',
+  'soft yellow',
+  'neon yellow',
+  'black',
+  'white',
+  'grey',
+  'red',
+  'pink',
+  'silver',
+  'gold',
+].sort((left, right) => right.length - left.length);
+
+function stripHeadAccessoryColorTerms(text) {
+  let normalized = String(text || '');
+  HEAD_ACCESSORY_COLOR_TERMS.forEach((term) => {
+    normalized = normalized.replace(new RegExp(`\\b${escapeRegExpPattern(term)}\\b`, 'gi'), ' ');
+  });
+  return normalized
+    .replace(/\s+/g, ' ')
+    .replace(/\s+,/g, ',')
+    .replace(/,\s*,+/g, ',')
+    .replace(/^\s*,\s*|\s*,\s*$/g, '')
+    .trim();
+}
+
+function buildHeadAccessoryPrompt(headAccessory, color = null) {
+  const base = buildAccessoryPrompt(headAccessory);
+  if (!base || !color || isNoneLikeItem(color)) return base;
+
+  const colorText = buildAccessoryPrompt(color);
+  const neutralBase = stripHeadAccessoryColorTerms(base);
+  return [colorText, neutralBase].filter(Boolean).join(' ');
+}
+
 function buildEyewearPrompt(eyewear, color = null, placement = null) {
   if (!eyewear || isNoneLikeItem(eyewear)) return '';
   const base = buildAccessoryPrompt(eyewear);
@@ -8871,10 +8985,10 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
     addLine('Woman 2 Body Type', buildRoleHasPrompt(characterSlots.bodyTypeB, 'woman 2'));
   }
   if (!specialSubjectMode && context.subject.count === 2) {
-    addLine('Woman 1 Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessoryA));
-    addLine('Woman 2 Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessoryB));
+    addLine('Woman 1 Head Accessory', buildHeadAccessoryPrompt(wardrobeSlots.headAccessoryA, wardrobeColors.headAccessoryAColor));
+    addLine('Woman 2 Head Accessory', buildHeadAccessoryPrompt(wardrobeSlots.headAccessoryB, wardrobeColors.headAccessoryBColor));
   } else if (!specialSubjectMode) {
-    addLine('Head Accessory', buildAccessoryPrompt(wardrobeSlots.headAccessory));
+    addLine('Head Accessory', buildHeadAccessoryPrompt(wardrobeSlots.headAccessory, wardrobeColors.headAccessoryColor));
   }
   if (fixedCompositionSetActive) {
     addFixedCompositionSetLines();
@@ -9969,7 +10083,7 @@ function buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context
   };
 }
 
-function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots, wardrobeRoleTexts) {
+function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots, wardrobeRoleTexts, wardrobeColors) {
   const suffix = role === 'a' ? 'A' : 'B';
   const roleNumber = role === 'a' ? '1' : '2';
   const parts = [
@@ -9985,7 +10099,7 @@ function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots, wardrob
       ? characterSlots[`hairStylingState${suffix}`].en
       : '',
     buildHairColorPrompt(characterSlots[`hairColor${suffix}`]),
-    buildAccessoryPrompt(wardrobeSlots[`headAccessory${suffix}`]),
+    buildHeadAccessoryPrompt(wardrobeSlots[`headAccessory${suffix}`], wardrobeColors?.[`headAccessory${suffix}Color`]),
     buildRoleSubjectAccessoryPrompt(wardrobeSlots, role),
   ].map((part) => cleanGptDuoRoleSubjectPart(part, roleNumber)).filter(Boolean);
   const identityText = parts.join(', ');
@@ -10008,8 +10122,8 @@ function buildGptDuoSubjectText(context, characterSlots, wardrobeSlots, wardrobe
   const baseSubject = capitalizePromptLead(context.subject?.en || 'two women');
   const wardrobeRoleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
   const roleTexts = [
-    buildGptDuoRoleSubjectText('a', characterSlots, wardrobeSlots, wardrobeRoleTexts),
-    buildGptDuoRoleSubjectText('b', characterSlots, wardrobeSlots, wardrobeRoleTexts),
+    buildGptDuoRoleSubjectText('a', characterSlots, wardrobeSlots, wardrobeRoleTexts, wardrobeColors),
+    buildGptDuoRoleSubjectText('b', characterSlots, wardrobeSlots, wardrobeRoleTexts, wardrobeColors),
   ].filter(Boolean);
 
   return [
@@ -11335,7 +11449,7 @@ function renderZImagePrompt(promptModel) {
         stripTerminalPromptPunctuation(characterProfileTexts.subject),
         isCharacterCardLayerSlot(wardrobeSlots.headAccessory)
           ? ''
-          : cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessory),
+          : cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessory, wardrobeColors.headAccessoryColor)),
         characterSlots.expression && !isNoneLikeItem(characterSlots.expression) ? resolvePromptVariant(characterSlots.expression, 'expression', context.subject.count) : '',
         actionPoseText,
         specialActionText,
@@ -11379,10 +11493,10 @@ function renderZImagePrompt(promptModel) {
         });
     const headAccessoryText = context.subject.count === 2
       ? [
-          buildAccessoryPrompt(wardrobeSlots.headAccessoryA) ? `woman 1 wearing ${cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessoryA)}` : '',
-          buildAccessoryPrompt(wardrobeSlots.headAccessoryB) ? `woman 2 wearing ${cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessoryB)}` : '',
+          buildHeadAccessoryPrompt(wardrobeSlots.headAccessoryA, wardrobeColors.headAccessoryAColor) ? `woman 1 wearing ${cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessoryA, wardrobeColors.headAccessoryAColor))}` : '',
+          buildHeadAccessoryPrompt(wardrobeSlots.headAccessoryB, wardrobeColors.headAccessoryBColor) ? `woman 2 wearing ${cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessoryB, wardrobeColors.headAccessoryBColor))}` : '',
         ].filter(Boolean).join(', ')
-      : cleanSubjectAccessoryPrompt(wardrobeSlots.headAccessory);
+      : cleanSubjectAccessoryPrompt(buildHeadAccessoryPrompt(wardrobeSlots.headAccessory, wardrobeColors.headAccessoryColor));
     const usesFixedSingleSubjectLead = context.subject.count === 1 && shouldUseFixedNormalSingleSubjectLead(context);
     const subjectBaseText = usesFixedSingleSubjectLead
       ? FIXED_SINGLE_NORMAL_SUBJECT_SENTENCE
@@ -11747,7 +11861,7 @@ function renderZImagePrompt(promptModel) {
     const accessoryText = cleanGptDuoRoleSubjectPart(buildRoleSubjectAccessoryPrompt(wardrobeSlots, role), roleNumber)
       .replace(/^with\s+/i, '');
     const headAccessoryText = compactZImageSourceText(
-      buildAccessoryPrompt(wardrobeSlots[`headAccessory${suffix}`])
+      buildHeadAccessoryPrompt(wardrobeSlots[`headAccessory${suffix}`], wardrobeColors[`headAccessory${suffix}Color`])
     );
     const parts = [headAccessoryText, compactZImageSourceText(wardrobeText), compactZImageSourceText(accessoryText)].filter(Boolean);
     return [
@@ -12240,8 +12354,8 @@ function compactAiEyewearAccessoryText(eyewear, color = null, placement = null) 
   return [colorText, frameText, placementText].filter(Boolean).join(' ');
 }
 
-function compactAiHeadAccessoryText(headAccessory) {
-  const text = cleanAiMinimalFragment(buildAccessoryPrompt(headAccessory));
+function compactAiHeadAccessoryText(headAccessory, color = null) {
+  const text = cleanAiMinimalFragment(buildHeadAccessoryPrompt(headAccessory, color));
   if (/\b(?:headphones?|earphones?)\b/i.test(text)) return text.split(/\s*,\s*/)[0] || '';
   if (/\b(?:face masks?|respirators?|gas masks?)\b/i.test(text)) return text;
   return '';
@@ -13288,7 +13402,12 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, charact
   const eyewearText = wardrobeSlots
     ? compactAiEyewearAccessoryText(wardrobeSlots.eyewear, wardrobeSlots.eyewearColor, wardrobeSlots.eyewearPlacement)
     : '';
-  const headAccessoryText = wardrobeSlots ? compactAiHeadAccessoryText(wardrobeSlots.headAccessory) : '';
+  const headAccessoryText = wardrobeSlots
+    ? compactAiHeadAccessoryText(
+        firstStructuredValue(valuesByLabel, ['Head Accessory']) || wardrobeSlots.headAccessory,
+        null,
+      )
+    : compactAiHeadAccessoryText(firstStructuredValue(valuesByLabel, ['Head Accessory']));
   const subjectLead = shouldUseFixedAiSingleSubjectLead(context)
     ? MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD
     : buildMidjourneySpecialSubjectPrompt(context.subject, context) || 'A 20-year-old adult East Asian woman';
@@ -13960,18 +14079,21 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     shoesBId: wardrobeSlots.shoesB?.id?.replace(/:b$/, '') || '',
     shoesBColorId: wardrobeColors.shoesBColor?.id || '',
     headAccessoryId: wardrobeSlots.headAccessory?.id || '',
+    headAccessoryColorId: wardrobeColors.headAccessoryColor?.id || '',
     eyewearId: wardrobeSlots.eyewear?.id || '',
     eyewearColorId: wardrobeSlots.eyewearColor?.id || '',
     eyewearPlacementId: wardrobeSlots.eyewearPlacement?.id || '',
     earringsId: wardrobeSlots.earrings?.id || '',
     neckAccessoryId: wardrobeSlots.neckAccessory?.id || '',
     headAccessoryAId: wardrobeSlots.headAccessoryA?.id?.replace(/:a$/, '') || '',
+    headAccessoryAColorId: wardrobeColors.headAccessoryAColor?.id || '',
     eyewearAId: wardrobeSlots.eyewearA?.id?.replace(/:a$/, '') || '',
     eyewearAColorId: wardrobeSlots.eyewearAColor?.id?.replace(/:a$/, '') || '',
     eyewearAPlacementId: wardrobeSlots.eyewearAPlacement?.id?.replace(/:a$/, '') || '',
     earringsAId: wardrobeSlots.earringsA?.id?.replace(/:a$/, '') || '',
     neckAccessoryAId: wardrobeSlots.neckAccessoryA?.id?.replace(/:a$/, '') || '',
     headAccessoryBId: wardrobeSlots.headAccessoryB?.id?.replace(/:b$/, '') || '',
+    headAccessoryBColorId: wardrobeColors.headAccessoryBColor?.id || '',
     eyewearBId: wardrobeSlots.eyewearB?.id?.replace(/:b$/, '') || '',
     eyewearBColorId: wardrobeSlots.eyewearBColor?.id?.replace(/:b$/, '') || '',
     eyewearBPlacementId: wardrobeSlots.eyewearBPlacement?.id?.replace(/:b$/, '') || '',

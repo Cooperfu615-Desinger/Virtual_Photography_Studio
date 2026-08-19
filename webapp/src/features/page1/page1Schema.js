@@ -51,9 +51,9 @@ export const STYLE_WARDROBE_CONTROL_ORDER = [
   'outerwearAOpeningId', 'outerwearAStylingId', 'legwearAId', 'legwearAColorId', 'shoesAId', 'shoesAColorId',
   'outerwearBId', 'outerwearBFitId', 'outerwearBColorId', 'outerwearBPatternId',
   'outerwearBOpeningId', 'outerwearBStylingId', 'legwearBId', 'legwearBColorId', 'shoesBId', 'shoesBColorId',
-  'headAccessoryId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
-  'headAccessoryAId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
-  'headAccessoryBId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
+  'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
+  'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
+  'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
   'wristAccessoryId', 'ringId', 'waistAccessoryId',
 ];
 
@@ -85,11 +85,11 @@ export const DUO_LAYER_KEYS = [
 ];
 
 export const SHARED_ACCESSORY_KEYS = [
-  'headAccessoryId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
+  'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
 ];
 export const DUO_ACCESSORY_KEYS = [
-  'headAccessoryAId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
-  'headAccessoryBId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
+  'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
+  'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
 ];
 
 export const OUTFIT_PRESET_COLOR_KEYS = [
@@ -280,18 +280,21 @@ export const SECTION_SUBPANELS = {
       description: '最後才加配件，避免太早被細節打散主造型方向。',
       keys: [
         'headAccessoryId',
+        'headAccessoryColorId',
         'eyewearId',
         'eyewearColorId',
         'eyewearPlacementId',
         'earringsId',
         'neckAccessoryId',
         'headAccessoryAId',
+        'headAccessoryAColorId',
         'eyewearAId',
         'eyewearAColorId',
         'eyewearAPlacementId',
         'earringsAId',
         'neckAccessoryAId',
         'headAccessoryBId',
+        'headAccessoryBColorId',
         'eyewearBId',
         'eyewearBColorId',
         'eyewearBPlacementId',

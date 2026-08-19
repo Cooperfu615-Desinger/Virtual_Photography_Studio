@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
+import { randomizeLockKeys } from './page1SectionRandom.js';
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
 const optionLabels = (key) => controlOptions(key).map((option) => option.zh);
@@ -50,6 +51,66 @@ test('face-covering head accessories keep their defining construction in all sin
       assert.match(text, expectedPattern, `${label} should remain visible in every single-subject output`);
     }
   }
+});
+
+test('head accessory colors reuse the garment palette and replace authored colors consistently', () => {
+  assert.deepEqual(optionLabels('headAccessoryColorId'), optionLabels('topColorId'));
+  assert.deepEqual(optionLabels('headAccessoryAColorId'), optionLabels('topAColorId'));
+  assert.deepEqual(optionLabels('headAccessoryBColorId'), optionLabels('topBColorId'));
+
+  const selectedCases = [
+    {
+      accessory: '黑色口罩',
+      color: '紅色',
+      expected: /red disposable pleated face mask/i,
+      retired: /black disposable pleated face mask/i,
+    },
+    {
+      accessory: '防毒面具（3M 6200）',
+      color: '亮紅色',
+      expected: /bright red 3M 6200 reusable half-face respirator/i,
+      retired: /grey 3M 6200 reusable half-face respirator/i,
+    },
+  ];
+
+  for (const { accessory, color, expected, retired } of selectedCases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+      headAccessoryId: optionByLabel('headAccessoryId', accessory).id,
+      headAccessoryColorId: optionByLabel('headAccessoryColorId', color).id,
+    });
+    const outputs = [
+      prompt.grokPrompt,
+      prompt.zImagePrompt,
+      prompt.midjourneyPrompt,
+      ...prompt.extraPrompts.map((entry) => entry.text),
+    ];
+
+    for (const text of outputs) {
+      assert.match(text, expected, `${accessory} should carry the selected ${color} color`);
+      assert.doesNotMatch(text, retired, `${accessory} should not retain its authored color after override`);
+    }
+  }
+});
+
+test('random head accessory color resolves a concrete palette color and keeps the selected accessory', () => {
+  const controls = getLockControls();
+  const mask = optionByLabel('headAccessoryId', '黑色口罩');
+  const randomized = randomizeLockKeys(
+    { ...createEmptyLocks(), headAccessoryId: mask.id },
+    ['headAccessoryColorId'],
+    createEmptyLocks(),
+    controls,
+  );
+
+  assert.equal(randomized.headAccessoryColorId, '');
+
+  const [prompt] = generatePrompts(1, randomized, [], { random: () => 0 });
+  assert.equal(prompt.selection.headAccessoryId, mask.id);
+  assert.equal(prompt.selection.headAccessoryColorId, 'black');
+  assert.match(prompt.midjourneyPrompt, /black disposable pleated face mask/i);
 });
 
 test('duo AI output retains independently selected face coverings for both women', () => {

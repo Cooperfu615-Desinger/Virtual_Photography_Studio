@@ -180,6 +180,7 @@ export function buildWorkspaceSummary(locks, controls) {
     wardrobeLabel('legwearAId'),
     wardrobeLabel('shoesAId'),
     wardrobeLabel('headAccessoryAId'),
+    wardrobeLabel('headAccessoryAColorId'),
     wardrobeLabel('eyewearAId'),
     wardrobeLabel('eyewearAColorId'),
     wardrobeLabel('eyewearAPlacementId'),
@@ -188,6 +189,7 @@ export function buildWorkspaceSummary(locks, controls) {
     wardrobeLabel('legwearBId'),
     wardrobeLabel('shoesBId'),
     wardrobeLabel('headAccessoryBId'),
+    wardrobeLabel('headAccessoryBColorId'),
     wardrobeLabel('eyewearBId'),
     wardrobeLabel('eyewearBColorId'),
     wardrobeLabel('eyewearBPlacementId'),
@@ -317,8 +319,11 @@ export function buildWardrobeLayerInsights(locks, controls, isSpecialOutfitActiv
   ].filter(Boolean);
   const accessoryLabels = [
     selected('headAccessoryId'),
+    selected('headAccessoryColorId'),
     selected('headAccessoryAId'),
+    selected('headAccessoryAColorId'),
     selected('headAccessoryBId'),
+    selected('headAccessoryBColorId'),
     selected('eyewearId'),
     selected('eyewearColorId'),
     selected('eyewearPlacementId'),

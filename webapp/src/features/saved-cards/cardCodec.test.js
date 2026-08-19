@@ -73,6 +73,29 @@ test('favorite codec preserves card identity, prompts, selection, and lineage', 
   assert.equal(restored.lineage.rootShortId, '#123456');
 });
 
+test('favorite codec preserves single and duo head accessory color controls', () => {
+  const prompt = {
+    id: 'prompt-head-accessory-colors',
+    source: 'page1',
+    date: '2026-08-19T00:00:00.000Z',
+    summary: '頭部配件配色',
+    midjourneyPrompt: 'primary prompt',
+    grokPrompt: 'structured prompt',
+    zImagePrompt: 'z-image prompt',
+    selection: {
+      ...createEmptyLocks(),
+      headAccessoryColorId: 'red',
+      headAccessoryAColorId: 'bright-red',
+      headAccessoryBColorId: 'royal-blue',
+    },
+  };
+
+  const restored = deserializeFavoritePrompt(serializeFavoritePrompt(prompt));
+  assert.equal(restored.selection.headAccessoryColorId, 'red');
+  assert.equal(restored.selection.headAccessoryAColorId, 'bright-red');
+  assert.equal(restored.selection.headAccessoryBColorId, 'royal-blue');
+});
+
 test('favorite codec and Markdown import preserve Z-Image exact visible text settings', () => {
   const locks = {
     ...createEmptyLocks(),

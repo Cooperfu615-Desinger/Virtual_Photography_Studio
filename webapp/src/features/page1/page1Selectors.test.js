@@ -48,15 +48,19 @@ test('eyewear frame color and placement controls follow single and duo subject m
   };
 
   const singleKeys = wardrobeControlKeys('1');
-  ['eyewearId', 'eyewearColorId', 'eyewearPlacementId'].forEach((key) => assert.ok(singleKeys.has(key), `single mode should show ${key}`));
+  ['headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId'].forEach((key) => assert.ok(singleKeys.has(key), `single mode should show ${key}`));
   [
+    'headAccessoryAId', 'headAccessoryAColorId',
+    'headAccessoryBId', 'headAccessoryBColorId',
     'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId',
     'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId',
   ].forEach((key) => assert.equal(singleKeys.has(key), false, `single mode should hide ${key}`));
 
   const duoKeys = wardrobeControlKeys('2');
-  ['eyewearId', 'eyewearColorId', 'eyewearPlacementId'].forEach((key) => assert.equal(duoKeys.has(key), false, `duo mode should hide ${key}`));
+  ['headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId'].forEach((key) => assert.equal(duoKeys.has(key), false, `duo mode should hide ${key}`));
   [
+    'headAccessoryAId', 'headAccessoryAColorId',
+    'headAccessoryBId', 'headAccessoryBColorId',
     'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId',
     'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId',
   ].forEach((key) => assert.ok(duoKeys.has(key), `duo mode should show ${key}`));
