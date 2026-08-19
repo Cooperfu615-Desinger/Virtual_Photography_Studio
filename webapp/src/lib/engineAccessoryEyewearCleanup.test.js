@@ -24,6 +24,48 @@ test('headphones use black Marshall Major V for both wearing placements', () => 
   assert.doesNotMatch([onHead.en, aroundNeck.en, onHead.desc, aroundNeck.desc].join(' '), retiredHeadphonePattern);
 });
 
+test('face-covering head accessories keep their defining construction in all single-subject outputs', () => {
+  const blackMask = optionByLabel('headAccessoryId', '黑色口罩');
+  const respirator = optionByLabel('headAccessoryId', '防毒面具（3M 6200）');
+
+  assert.match(blackMask.en, /black disposable pleated face mask/i);
+  assert.match(blackMask.en, /covering the nose and mouth/i);
+  assert.match(respirator.en, /grey 3M 6200 reusable half-face respirator/i);
+  assert.match(respirator.en, /twin side filter cartridges/i);
+
+  for (const [label, expectedPattern] of [
+    ['黑色口罩', /black disposable pleated face mask/i],
+    ['防毒面具（3M 6200）', /grey 3M 6200 reusable half-face respirator/i],
+  ]) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+      headAccessoryId: optionByLabel('headAccessoryId', label).id,
+    });
+    const fixedOutputs = ['chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character']
+      .map((id) => prompt.extraPrompts.find((entry) => entry.id === id)?.text || '');
+
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, ...fixedOutputs]) {
+      assert.match(text, expectedPattern, `${label} should remain visible in every single-subject output`);
+    }
+  }
+});
+
+test('duo AI output retains independently selected face coverings for both women', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    headAccessoryAId: optionByLabel('headAccessoryAId', '黑色口罩').id,
+    headAccessoryBId: optionByLabel('headAccessoryBId', '防毒面具（3M 6200）').id,
+  });
+
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /black disposable pleated face mask/i);
+    assert.match(text, /grey 3M 6200 reusable half-face respirator/i);
+  }
+});
+
 test('eyewear controls split frame, color, and placement dimensions', () => {
   assert.deepEqual(optionLabels('eyewearId'), [
     '全無',

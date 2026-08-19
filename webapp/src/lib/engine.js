@@ -7805,7 +7805,7 @@ function classifyCompleteLookWardrobeFragment(fragment) {
   if (!text) return '';
 
   if (/\b(?:bag|handbag|shoulder bag|crossbody|tote|backpack|purse|clutch|satchel|pouch|kinchaku|wallet)\b/i.test(text)) return 'bag';
-  if (/\b(?:headband|headscarf|bandana|cap|hat|beret|beanie|hood|hair clips?|claw clips?|barrettes?)\b/i.test(text)) return 'headAccessory';
+  if (/\b(?:headband|headscarf|bandana|cap|hat|beret|beanie|hood|hair clips?|claw clips?|barrettes?|face masks?|respirators?|gas masks?)\b/i.test(text)) return 'headAccessory';
   if (/\b(?:sunglasses|eyeglasses|glasses)\b/i.test(text)) return 'eyewear';
   if (/\b(?:earrings?|ear studs?)\b/i.test(text)) return 'earrings';
   if (/\b(?:scarf tie|necktie|neck tie|lanyard|necklace|choker|pendant|collarbone chain|neck chain)\b/i.test(text)) return 'neckAccessory';
@@ -9985,6 +9985,7 @@ function buildGptDuoRoleSubjectText(role, characterSlots, wardrobeSlots, wardrob
       ? characterSlots[`hairStylingState${suffix}`].en
       : '',
     buildHairColorPrompt(characterSlots[`hairColor${suffix}`]),
+    buildAccessoryPrompt(wardrobeSlots[`headAccessory${suffix}`]),
     buildRoleSubjectAccessoryPrompt(wardrobeSlots, role),
   ].map((part) => cleanGptDuoRoleSubjectPart(part, roleNumber)).filter(Boolean);
   const identityText = parts.join(', ');
@@ -11745,7 +11746,10 @@ function renderZImagePrompt(promptModel) {
       .map((item) => compactZImageSourceText(item.en));
     const accessoryText = cleanGptDuoRoleSubjectPart(buildRoleSubjectAccessoryPrompt(wardrobeSlots, role), roleNumber)
       .replace(/^with\s+/i, '');
-    const parts = [compactZImageSourceText(wardrobeText), compactZImageSourceText(accessoryText)].filter(Boolean);
+    const headAccessoryText = compactZImageSourceText(
+      buildAccessoryPrompt(wardrobeSlots[`headAccessory${suffix}`])
+    );
+    const parts = [headAccessoryText, compactZImageSourceText(wardrobeText), compactZImageSourceText(accessoryText)].filter(Boolean);
     return [
       identityParts.length > 0 ? `Woman ${roleNumber} has ${identityParts.join(', ')}.` : '',
       parts.length > 0 ? `She wears ${stripTerminalPromptPunctuation(parts.join(', '))}.` : '',
@@ -12236,10 +12240,11 @@ function compactAiEyewearAccessoryText(eyewear, color = null, placement = null) 
   return [colorText, frameText, placementText].filter(Boolean).join(' ');
 }
 
-function compactAiHeadAudioAccessoryText(headAccessory) {
+function compactAiHeadAccessoryText(headAccessory) {
   const text = cleanAiMinimalFragment(buildAccessoryPrompt(headAccessory));
-  if (!/\b(?:headphones?|earphones?)\b/i.test(text)) return '';
-  return text.split(/\s*,\s*/)[0] || '';
+  if (/\b(?:headphones?|earphones?)\b/i.test(text)) return text.split(/\s*,\s*/)[0] || '';
+  if (/\b(?:face masks?|respirators?|gas masks?)\b/i.test(text)) return text;
+  return '';
 }
 
 function buildAiSingleSubjectAccessoryParts(context, wardrobe) {
@@ -12255,7 +12260,7 @@ function buildAiSingleSubjectAccessoryParts(context, wardrobe) {
       wardrobeSlots.eyewearColor,
       wardrobeSlots.eyewearPlacement
     ),
-    headAudioText: compactAiHeadAudioAccessoryText(wardrobeSlots.headAccessory),
+    headAudioText: compactAiHeadAccessoryText(wardrobeSlots.headAccessory),
   };
 }
 
@@ -12641,10 +12646,14 @@ function buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeCol
     2,
   );
   const hairText = [hairstyleText, hairStylingStateText].filter(Boolean).join(', ');
+  const headAccessoryText = compactAiHeadAccessoryText(
+    firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Head Accessory`])
+  );
   const wardrobeText = buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role);
   return [
     bodyText,
     hairText,
+    headAccessoryText,
     wardrobeText ? `wearing ${wardrobeText}` : '',
   ].filter(Boolean).join(', ');
 }
@@ -13279,7 +13288,7 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, charact
   const eyewearText = wardrobeSlots
     ? compactAiEyewearAccessoryText(wardrobeSlots.eyewear, wardrobeSlots.eyewearColor, wardrobeSlots.eyewearPlacement)
     : '';
-  const headphoneText = wardrobeSlots ? compactAiHeadAudioAccessoryText(wardrobeSlots.headAccessory) : '';
+  const headAccessoryText = wardrobeSlots ? compactAiHeadAccessoryText(wardrobeSlots.headAccessory) : '';
   const subjectLead = shouldUseFixedAiSingleSubjectLead(context)
     ? MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD
     : buildMidjourneySpecialSubjectPrompt(context.subject, context) || 'A 20-year-old adult East Asian woman';
@@ -13306,7 +13315,7 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, charact
       faceExpressionText,
       specialPersonText,
       eyewearText,
-      headphoneText,
+      headAccessoryText,
     ].filter(Boolean).join(', '),
   ].filter(Boolean).join(shouldUseFixedAiSingleSubjectLead(context) ? ' ' : ', ')
     .replace(/\.\s*,/g, ',')

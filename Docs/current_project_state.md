@@ -2,7 +2,7 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-08-14
+Last updated: 2026-08-19
 
 ## Snapshot
 
@@ -35,6 +35,12 @@ Last updated: 2026-08-14
 - Explicit control changes use last-action priority. Bulk restore and legacy persisted conflicts without an action order retain the established complete-look priority: outfit preset, then dress, then normal separates. Saved Cards keep the same schema, IDs, and storage keys; normalized selections round-trip without stale separates.
 - The `完整造型` section random action clears normal separates before returning complete-look controls to random mode. The `上下身單件` section random action clears complete-look state before returning separate controls to random mode. Global random keeps both families in engine random mode so the existing resolver can choose one effective main wardrobe family.
 - Validation on 2026-08-13: focused transition／selector／section-random／summary／Saved Cards tests passed 49 tests; frontend `npm test` passed 673 tests; lint, build, and `git diff --check` passed. Browser QA at 1440×1000 and 390×900 exercised dress selection, disabled normal-separate controls, both wardrobe panel random directions, outer-layer availability, Saved Cards loading, and restoration of the original visible test state. Both viewports had zero document overflow and broken images; browser console warnings and errors were empty.
+
+## Current PAGE1 head accessories
+
+- `頭部配件` now includes a black disposable pleated face mask and a grey 3M 6200 reusable half-face respirator with twin side filter cartridges. They reuse the existing single-select single／duo controls, lock ids, Storage schema, and random pool; eyewear remains independently composable.
+- Face-mask／respirator descriptions are retained in Gpt, Z-Image, AI, and all three single-subject fixed-framing outputs. Duo Gpt／Z-Image／AI now also retain each role's explicitly resolved head accessory instead of dropping it during role compaction.
+- Validation on 2026-08-19: focused accessory／atomic-option／representative-contract tests passed 34 tests; frontend `npm test` passed 711 tests; `npm run test:prompt-quality` passed 148 tests; lint, build, sync checks, Python tests, public asset checks, and the same-seed 200-prompt strict audit passed with zero blocking signals and the same 14 pre-existing diagnostic-only findings. Browser QA at 1440×1000 and 390×844 confirmed both visible options, a live random 3M 6200 result across all six outputs, all five active workspaces without document overflow or broken images, and an empty warning／error log. A separate 2,000-generation engine sample confirmed both additions participate in unlocked random resolution.
 
 ## Validation
 

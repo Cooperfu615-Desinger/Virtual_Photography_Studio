@@ -51,6 +51,38 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'normal-single-3m-6200-respirator',
+    title: '3M 6200 half-face respirator remains visible across all single-subject outputs',
+    mode: 'single',
+    seed: 'prompt-contract-3m-6200-respirator-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      headAccessoryId: { byZh: '防毒面具（3M 6200）' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['grey 3M 6200 reusable half-face respirator', 'twin side filter cartridges'],
+      },
+      zImagePrompt: {
+        includes: ['grey 3M 6200 reusable half-face respirator', 'twin side filter cartridges'],
+      },
+      midjourneyPrompt: {
+        includes: ['grey 3M 6200 reusable half-face respirator', 'twin side filter cartridges'],
+      },
+      chestUpPortraitPrompt: {
+        includes: ['grey 3M 6200 reusable half-face respirator', 'twin side filter cartridges'],
+      },
+      chestUpMjPortraitPrompt: {
+        includes: ['grey 3M 6200 reusable half-face respirator', 'twin side filter cartridges'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['grey 3M 6200 reusable half-face respirator', 'twin side filter cartridges'],
+      },
+    },
+  },
+  {
     id: 'normal-single-ai-compression-source-retention',
     title: 'AI compression retains composition, facial expression, and imaging source anchors',
     mode: 'single',

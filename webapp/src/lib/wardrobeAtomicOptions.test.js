@@ -23,6 +23,8 @@ const confirmedAdditions = {
     '小禮帽',
     '護士帽',
     '蝴蝶結髮夾',
+    '黑色口罩',
+    '防毒面具（3M 6200）',
   ],
   eyewearId: ['矩形眼鏡', '飛行員眼鏡', '貓眼眼鏡', '無框眼鏡'],
   eyewearColorId: ['棕色', '琥珀色', '藍色', '紅色', '紫色', '粉色'],
@@ -33,7 +35,7 @@ test('confirmed atomic wardrobe additions are exposed by existing controls', () 
   const controls = new Map(getLockControls().map((control) => [control.key, control]));
   const labels = Object.values(confirmedAdditions).flat();
 
-  assert.equal(labels.length, 51);
+  assert.equal(labels.length, 53);
 
   for (const [controlKey, expectedLabels] of Object.entries(confirmedAdditions)) {
     const control = controls.get(controlKey);
