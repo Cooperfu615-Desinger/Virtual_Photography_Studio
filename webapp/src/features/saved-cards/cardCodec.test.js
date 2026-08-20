@@ -251,6 +251,26 @@ test('standard prompt parser prefers the longest matching option text', () => {
   assert.ok(parsed.matchedControls.some((entry) => entry.key === 'hairstyleId'));
 });
 
+test('standard prompt parser restores natural multi-phrase garment color syntax', () => {
+  const controls = getLockControls();
+  const control = (key) => controls.find((entry) => entry.key === key);
+  const option = (key, zh) => control(key).options.find((entry) => entry.zh === zh);
+  const dress = option('dressId', '連身：短版｜高領挖腰連身泳裝');
+  const mirrorChrome = option('dressColorId', '鏡面鉻銀');
+  const top = option('topId', '棉質細肩背心');
+  const multicolorStripes = option('topColorId', '彩色橫條紋');
+
+  const chromePrompt = `${dress.en}, finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections`;
+  const stripedPrompt = `${top.en}, patterned with bold multicolored horizontal stripes, wide stripe bands, and clearly separated random colors`;
+  const parsedChrome = parseLocksFromStandardPrompt(chromePrompt, controls);
+  const parsedStripes = parseLocksFromStandardPrompt(stripedPrompt, controls);
+
+  assert.equal(parsedChrome.locks.dressId, dress.id);
+  assert.equal(parsedChrome.locks.dressColorId, mirrorChrome.id);
+  assert.equal(parsedStripes.locks.topId, top.id);
+  assert.equal(parsedStripes.locks.topColorId, multicolorStripes.id);
+});
+
 test('saved card manifest exports structured source tags without AI inference', () => {
   const prompt = {
     id: 'prompt-manifest-1',

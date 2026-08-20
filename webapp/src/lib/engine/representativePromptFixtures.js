@@ -51,6 +51,55 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'multi-phrase-garment-color-syntax',
+    title: 'Multi-phrase garment colors use natural wearable grammar',
+    mode: 'single',
+    seed: 'prompt-contract-multi-phrase-garment-color-syntax-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      dressId: { byZh: '連身：短版｜高領挖腰連身泳裝' },
+      dressColorId: { byZh: '鏡面鉻銀' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: [
+          'high-neck extreme front cut-out monokini swimsuit',
+          'finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections',
+        ],
+        excludes: ['mirror-chrome silver, highly polished scene-reflective surface'],
+      },
+      zImagePrompt: {
+        includes: [
+          'high-neck extreme front cut-out monokini swimsuit',
+          'finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections',
+        ],
+        excludes: ['mirror-chrome silver, highly polished scene-reflective surface'],
+      },
+      midjourneyPrompt: {
+        excludes: ['mirror-chrome silver, highly polished scene-reflective surface'],
+      },
+      chestUpPortraitPrompt: {
+        includes: [
+          'high-neck extreme front cut-out monokini swimsuit',
+          'finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections',
+        ],
+        excludes: ['mirror-chrome silver, highly polished scene-reflective surface'],
+      },
+      chestUpMjPortraitPrompt: {
+        excludes: ['mirror-chrome silver, highly polished scene-reflective surface'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: [
+          'high-neck extreme front cut-out monokini swimsuit',
+          'finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections',
+        ],
+        excludes: ['mirror-chrome silver, highly polished scene-reflective surface'],
+      },
+    },
+  },
+  {
     id: 'normal-single-3m-6200-respirator',
     title: '3M 6200 half-face respirator remains visible across all single-subject outputs',
     mode: 'single',

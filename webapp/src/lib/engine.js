@@ -376,9 +376,38 @@ const GARMENT_COLOR_OPTIONS = [
   { id: 'neon-green', zh: '螢光綠色', en: 'neon green' },
   { id: 'goose-yellow', zh: '鵝黃色', en: 'soft yellow' },
   { id: 'neon-yellow', zh: '螢光黃色', en: 'neon yellow' },
-  { id: 'multicolor-horizontal-stripes', zh: '彩色橫條紋', en: 'bold multicolored horizontal stripes, wide stripe bands, clearly separated random colors' },
+  {
+    id: 'multicolor-horizontal-stripes',
+    zh: '彩色橫條紋',
+    en: 'bold multicolored horizontal stripes, wide stripe bands, clearly separated random colors',
+    meta: {
+      legacyPromptAliases: [
+        'bold multicolored horizontal stripes, wide stripe bands, and clearly separated random colors',
+      ],
+      wearableColorSyntax: {
+        placement: 'suffix',
+        relation: 'patterned with',
+        detail: 'bold multicolored horizontal stripes, wide stripe bands, and clearly separated random colors',
+      },
+    },
+  },
   { id: 'silver', zh: '銀色', en: 'silver' },
-  { id: 'mirror-chrome-silver', zh: '鏡面鉻銀', en: 'mirror-chrome silver, highly polished scene-reflective surface with crisp environment reflections' },
+  {
+    id: 'mirror-chrome-silver',
+    zh: '鏡面鉻銀',
+    en: 'mirror-chrome silver, highly polished scene-reflective surface with crisp environment reflections',
+    meta: {
+      legacyPromptAliases: [
+        'mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections',
+      ],
+      wearableColorSyntax: {
+        placement: 'suffix',
+        relation: 'finished in',
+        prefix: 'mirror-chrome silver',
+        detail: 'a highly polished scene-reflective surface and crisp environment reflections',
+      },
+    },
+  },
   { id: 'gold', zh: '金色', en: 'gold' },
 ];
 
@@ -3748,6 +3777,74 @@ function normalizeWardrobePromptText(value) {
   return stripMarkdown(value || '').replace(/\s+/g, ' ').trim();
 }
 
+function getWearableColorSyntax(color) {
+  const syntax = color?.meta?.wearableColorSyntax;
+  if (!syntax) return null;
+
+  const placement = syntax.placement === 'suffix' ? 'suffix' : 'inline';
+  const relation = normalizeWardrobePromptText(syntax.relation);
+  const prefix = normalizeWardrobePromptText(syntax.prefix);
+  const detail = normalizeWardrobePromptText(syntax.detail);
+  return prefix || detail ? { placement, relation, prefix, detail } : null;
+}
+
+function buildWearableColorDescription(color) {
+  if (!color || isNoneLikeItem(color)) return '';
+  const syntax = getWearableColorSyntax(color);
+  if (!syntax) return normalizeWardrobePromptText(color.en);
+  if (!syntax.prefix) return syntax.detail;
+  return [syntax.prefix, syntax.detail ? `with ${syntax.detail}` : ''].filter(Boolean).join(' ');
+}
+
+function composeWearableColorPrompt(baseValue, color = null, { placement = '' } = {}) {
+  const base = normalizeWardrobePromptText(baseValue);
+  if (!base || !color || isNoneLikeItem(color)) return base;
+
+  const syntax = getWearableColorSyntax(color);
+  if (!syntax) {
+    const colorText = normalizeWardrobePromptText(color.en);
+    return colorText ? `${colorText} ${base}` : base;
+  }
+
+  const resolvedPlacement = placement || syntax.placement;
+  if (resolvedPlacement === 'suffix') {
+    const surfacePhrase = syntax.prefix
+      ? [syntax.relation || 'finished in', syntax.prefix, syntax.detail ? `with ${syntax.detail}` : ''].filter(Boolean).join(' ')
+      : [syntax.relation || 'patterned with', syntax.detail].filter(Boolean).join(' ');
+    return surfacePhrase ? `${base}, ${surfacePhrase}` : base;
+  }
+
+  const [head, ...details] = base.split(/,\s*/).filter(Boolean);
+  const coloredHead = [syntax.prefix, head].filter(Boolean).join(' ');
+  const naturalHead = `${coloredHead}${syntax.detail ? ` with ${syntax.detail}` : ''}`;
+  return [naturalHead, ...details].filter(Boolean).join(', ');
+}
+
+function describeWearableColorTarget(target, color, { relation = 'in' } = {}) {
+  const targetText = normalizeWardrobePromptText(target);
+  if (!targetText || !color || isNoneLikeItem(color)) return targetText;
+
+  const syntax = getWearableColorSyntax(color);
+  if (!syntax) {
+    const colorText = normalizeWardrobePromptText(color.en);
+    return colorText ? `${targetText} ${relation} ${colorText}` : targetText;
+  }
+
+  return [
+    targetText,
+    syntax.prefix ? `${relation} ${syntax.prefix}` : '',
+    syntax.detail ? `with ${syntax.detail}` : '',
+  ].filter(Boolean).join(' ');
+}
+
+function describeGarmentColorRole(label, color) {
+  if (!color || isNoneLikeItem(color)) return '';
+  const syntax = getWearableColorSyntax(color);
+  if (!syntax) return `${label} ${normalizeWardrobePromptText(color.en)}`;
+  if (syntax.prefix) return describeWearableColorTarget(label, color);
+  return `${label} expressed as ${syntax.detail}`;
+}
+
 function appendWardrobePromptSearchAlias(item, text) {
   if (!text) return '';
   const aliases = [];
@@ -3764,7 +3861,7 @@ function buildTopColoredPrompt(topItem, color = null, { pattern = null, fit = nu
   const fitText = fit && !isNoneLikeItem(fit) ? normalizeWardrobePromptText(fit.en) : '';
   const stylingText = styling && !isNoneLikeItem(styling) ? normalizeWardrobePromptText(styling.en) : '';
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
-  const coloredBase = color && !isNoneLikeItem(color) ? `${color.en} ${base}` : base;
+  const coloredBase = composeWearableColorPrompt(base, color);
 
   return [fitText, stylingText, coloredBase, patternText].filter(Boolean).join(', ');
 }
@@ -3801,7 +3898,7 @@ function buildOuterwearColoredPrompt(outerwearItem, color = null, { fit = null, 
   const stylingText = buildOuterwearStylingLeadText(styling, { minimal: minimalStyling });
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
   const openingText = opening && !isNoneLikeItem(opening) ? normalizeWardrobePromptText(opening.en) : '';
-  const coloredBase = color && !isNoneLikeItem(color) ? `${color.en} ${base}` : base;
+  const coloredBase = composeWearableColorPrompt(base, color);
 
   return [fitText, coloredBase, patternText, openingText, stylingText].filter(Boolean).join(', ');
 }
@@ -3860,7 +3957,7 @@ function buildBottomColoredPrompt(bottomItem, color = null, { pattern = null, fi
   const riseText = normalizeWardrobePromptText(getApplicableBottomRise(bottomItem, rise)?.en);
   const fitText = fit && !isNoneLikeItem(fit) ? normalizeWardrobePromptText(fit.en) : '';
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
-  const coloredBase = color && !isNoneLikeItem(color) ? `${color.en} ${base}` : base;
+  const coloredBase = composeWearableColorPrompt(base, color);
 
   return [riseText, fitText, coloredBase, patternText].filter(Boolean).join(', ');
 }
@@ -7599,7 +7696,7 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
     ? stripMarkdown(rise.en).replace(/\s+/g, ' ').trim()
     : '';
   const secondaryColorText = secondaryColor && color && !isNoneLikeItem(secondaryColor) && !isNoneLikeItem(color)
-    ? `coordinated top-to-bottom palette: upper/main dress area in ${color.en}, lower hem or skirt area in ${secondaryColor.en}`
+    ? `coordinated top-to-bottom palette: ${describeWearableColorTarget('upper/main dress area', color)}, ${describeWearableColorTarget('lower hem or skirt area', secondaryColor)}`
     : '';
   let stylingText = styling && !isNoneLikeItem(styling)
     ? stripMarkdown(styling.en).replace(/\s+/g, ' ').trim()
@@ -7611,10 +7708,10 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
   if (!color || isNoneLikeItem(color)) return detailText ? `${base}, ${detailText}` : base;
 
   if (preset) {
-    return `${color.en} ${base.replace(/^wearing\s+/i, '')}`;
+    return composeWearableColorPrompt(base.replace(/^wearing\s+/i, ''), color);
   }
 
-  const coloredBase = `${color.en} ${base}`;
+  const coloredBase = composeWearableColorPrompt(base, color);
   return detailText ? `${coloredBase}, ${detailText}` : coloredBase;
 }
 
@@ -7784,7 +7881,7 @@ function stripOutfitColorSelectionControls(value) {
 }
 
 function materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColor) {
-  const primaryColorText = primaryColor && !isNoneLikeItem(primaryColor) ? primaryColor.en : '';
+  const primaryColorText = buildWearableColorDescription(primaryColor);
   if (!primaryColorText) {
     return { text: base, consumedPrimary: false };
   }
@@ -7808,7 +7905,7 @@ function materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColor) {
 
   const text = String(base || '').replace(
     /\bsafety-yellow tape surfaces with repeating bold black uppercase CAUTION lettering and solid black rectangular warning blocks\b/i,
-    `glossy tape surfaces in ${primaryColorText}`
+    describeWearableColorTarget('glossy tape surfaces', primaryColor)
   );
   return {
     text,
@@ -7831,26 +7928,27 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
   const contrastColor = colorState.contrast || null;
   const lockedPalette = colorState.lockedPalette || null;
   const completeLookPalette = colorState.completeLookPalette || null;
-  const primaryColorText = primaryColor && !isNoneLikeItem(primaryColor) ? primaryColor.en : '';
+  const primaryColorText = buildWearableColorDescription(primaryColor);
+  const contrastColorText = buildWearableColorDescription(contrastColor);
   const primaryBehavior = materializeOutfitPresetPrimaryColorBehavior(base, meta, primaryColor);
 
   if (!meta.colorMode || !colorTargets || Object.keys(colorTargets).length === 0) {
     const visualBase = stripOutfitColorSelectionControls(primaryBehavior.text);
     if (primaryBehavior.consumedPrimary) {
       const contrastSuffix = contrastColor && !isNoneLikeItem(contrastColor)
-        ? `, secondary garment color ${contrastColor.en}`
+        ? `, ${describeGarmentColorRole('secondary garment color', contrastColor)}`
         : '';
       return appendCompleteLookPaletteDirection(`${visualBase}${contrastSuffix}`, completeLookPalette);
     }
     if (primaryColor && contrastColor && !isNoneLikeItem(primaryColor) && !isNoneLikeItem(contrastColor)) {
-      return appendCompleteLookPaletteDirection(`${visualBase}, primary garment color ${primaryColor.en}, secondary garment color ${contrastColor.en}`, completeLookPalette);
+      return appendCompleteLookPaletteDirection(`${visualBase}, ${describeGarmentColorRole('primary garment color', primaryColor)}, ${describeGarmentColorRole('secondary garment color', contrastColor)}`, completeLookPalette);
     }
-    return appendCompleteLookPaletteDirection(primaryColor && !isNoneLikeItem(primaryColor) ? `${primaryColor.en} ${visualBase}` : visualBase, completeLookPalette);
+    return appendCompleteLookPaletteDirection(composeWearableColorPrompt(visualBase, primaryColor), completeLookPalette);
   }
 
   const materializedBase = materializeOutfitColorControls(primaryBehavior.text, {
     primaryColorText,
-    contrastColorText: contrastColor && !isNoneLikeItem(contrastColor) ? contrastColor.en : '',
+    contrastColorText,
   });
   const details = [];
   const primaryTargets = colorTargets.primary || [];
@@ -7859,12 +7957,12 @@ function buildOutfitPresetPrompt(item, colorState = {}) {
 
   if (primaryColor && !isNoneLikeItem(primaryColor) && !materializedBase.consumedPrimary && !primaryBehavior.consumedPrimary) {
     const targetText = describeOutfitColorTargets(primaryTargets);
-    details.push(targetText ? `${targetText} in ${primaryColor.en}` : `main outfit color in ${primaryColor.en}`);
+    details.push(describeWearableColorTarget(targetText || 'main outfit color', primaryColor));
   }
 
   if (colorMode !== 'primary' && contrastColor && !isNoneLikeItem(contrastColor) && contrastTargets.length > 0 && !materializedBase.consumedContrast) {
     const contrastText = describeOutfitColorTargets(contrastTargets);
-    if (contrastText) details.push(`${contrastText} in ${contrastColor.en}`);
+    if (contrastText) details.push(describeWearableColorTarget(contrastText, contrastColor));
   }
 
   if (colorMode === 'primary_contrast_locked' && lockedTargets.length > 0) {
@@ -8542,9 +8640,8 @@ function buildHeadAccessoryPrompt(headAccessory, color = null) {
   const base = buildAccessoryPrompt(headAccessory);
   if (!base || !color || isNoneLikeItem(color)) return base;
 
-  const colorText = buildAccessoryPrompt(color);
   const neutralBase = stripHeadAccessoryColorTerms(base);
-  return [colorText, neutralBase].filter(Boolean).join(' ');
+  return composeWearableColorPrompt(neutralBase, color, { placement: 'inline' });
 }
 
 function buildEyewearPrompt(eyewear, color = null, placement = null) {

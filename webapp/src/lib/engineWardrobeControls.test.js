@@ -108,6 +108,74 @@ test('bottom rise and fit appear before the bottom garment in generated wardrobe
   );
 });
 
+test('multi-phrase garment colors use natural syntax across wardrobe layers and outfit targets', () => {
+  const allNoneLocks = { ...createEmptyLocks() };
+  for (const control of getLockControls()) {
+    const noneOption = control.options?.find((option) => option.zh === '全無' || option.zh === '無額外表情');
+    if (noneOption) allNoneLocks[control.key] = noneOption.id;
+  }
+
+  const cases = [
+    {
+      selectionKey: 'topColorId',
+      locks: {
+        topId: optionId('topId', '棉質細肩背心'),
+        topColorId: optionId('topColorId', '彩色橫條紋'),
+      },
+      expected: /cotton camisole top[^.]*patterned with bold multicolored horizontal stripes, wide stripe bands, and clearly separated random colors/i,
+      malformed: /random colors cotton camisole top/i,
+    },
+    {
+      selectionKey: 'bottomColorId',
+      locks: {
+        pantsId: optionId('pantsId', '直筒牛仔褲'),
+        bottomColorId: optionId('bottomColorId', '鏡面鉻銀'),
+      },
+      expected: /straight-leg jeans[^.]*finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections/i,
+      malformed: /environment reflections straight-leg jeans/i,
+    },
+    {
+      selectionKey: 'outerwearColorId',
+      locks: {
+        outerwearId: optionId('outerwearId', '短版合身西裝外套'),
+        outerwearColorId: optionId('outerwearColorId', '彩色橫條紋'),
+      },
+      expected: /cropped fitted blazer[^.]*patterned with bold multicolored horizontal stripes, wide stripe bands, and clearly separated random colors/i,
+      malformed: /random colors cropped fitted blazer/i,
+    },
+  ];
+
+  for (const fixture of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...allNoneLocks,
+      subjectCount: '1',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      locationId: optionId('locationId', '室內：深邃黑幕'),
+      ...fixture.locks,
+    });
+    const text = [prompt.grokPrompt, prompt.zImagePrompt, ...prompt.extraPrompts.map((entry) => entry.text)].join('\n');
+
+    assert.match(text, fixture.expected);
+    assert.doesNotMatch(text, fixture.malformed);
+    assert.equal(prompt.selection[fixture.selectionKey], fixture.locks[fixture.selectionKey]);
+  }
+
+  const [outfitPrompt] = generatePrompts(1, {
+    ...allNoneLocks,
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：皮革馬甲束腰'),
+    outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '彩色橫條紋'),
+    outfitPresetContrastColorId: optionId('outfitPresetContrastColorId', '鏡面鉻銀'),
+    locationId: optionId('locationId', '室內：深邃黑幕'),
+  });
+  const outfitText = [outfitPrompt.grokPrompt, outfitPrompt.zImagePrompt, ...outfitPrompt.extraPrompts.map((entry) => entry.text)].join('\n');
+
+  assert.match(outfitText, /the corset bodice, the main leather panels, and the lower-half base panels with bold multicolored horizontal stripes/i);
+  assert.match(outfitText, /the lace trims, the mesh panel accents, and the ribbon lacing in mirror-chrome silver with a highly polished scene-reflective surface/i);
+  assert.doesNotMatch(outfitText, /random colors structured opaque leather corset|environment reflections structured opaque leather corset/i);
+});
+
 test('pants-specific unbuttoned zipper waist state is not applied to skirts', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

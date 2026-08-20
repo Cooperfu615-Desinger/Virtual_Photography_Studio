@@ -621,6 +621,11 @@ test('mirror chrome garment color applies scene-reflective material to the new c
 
   assert.match(promptText, /mirror-chrome silver/i);
   assert.match(promptText, /scene-reflective surface/i);
+  assert.match(
+    promptText,
+    /high-neck extreme front cut-out monokini swimsuit[^.]*finished in mirror-chrome silver with a highly polished scene-reflective surface and crisp environment reflections/i
+  );
+  assert.doesNotMatch(promptText, /mirror-chrome silver, highly polished scene-reflective surface/i);
   assert.match(promptText, /high-neck extreme front cut-out monokini swimsuit/i);
   assert.match(promptText, /bikini-like one-piece construction|separate high-neck chest panel and high-cut bikini bottom/i);
   assert.match(promptText, /connected (?:only )?by thin side straps/i);

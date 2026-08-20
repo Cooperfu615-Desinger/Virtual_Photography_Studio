@@ -71,6 +71,12 @@ test('head accessory colors reuse the garment palette and replace authored color
       expected: /bright red 3M 6200 reusable half-face respirator/i,
       retired: /grey 3M 6200 reusable half-face respirator/i,
     },
+    {
+      accessory: '黑色口罩',
+      color: '彩色橫條紋',
+      expected: /disposable pleated face mask with bold multicolored horizontal stripes, wide stripe bands, and clearly separated random colors/i,
+      retired: /black disposable pleated face mask|random colors disposable pleated face mask/i,
+    },
   ];
 
   for (const { accessory, color, expected, retired } of selectedCases) {
