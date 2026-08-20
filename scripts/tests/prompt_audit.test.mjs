@@ -2,12 +2,17 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  auditPrompt,
   auditPrompts,
+  createPromptAuditPlan,
+  createPromptAuditScenarios,
   countWords,
   detectContradictions,
   detectControlLanguage,
   findDuplicateSegments,
+  formatAuditReport,
   parseCliArgs,
+  runPromptAudit,
   summarizeNumbers,
   validateOutputContracts,
   validatePromptLogic,
@@ -15,6 +20,7 @@ import {
 
 function validPromptFixture() {
   const imageType = 'Create a photorealistic editorial portrait.';
+  const compactImageType = 'Photorealistic editorial portrait.';
   const composition = 'Full-body portrait, eye-level view, front view';
   return {
     id: 'fixture-1',
@@ -38,7 +44,7 @@ function validPromptFixture() {
       'multi-cut sequence n=2',
     ].join('\n\n'),
     zImagePrompt: [
-      imageType,
+      compactImageType,
       composition,
       'One adult portrait subject in a clean portrait studio.',
     ].join('\n\n'),
@@ -102,6 +108,29 @@ test('findDuplicateSegments reports exact and near duplicates', () => {
   assert.ok(signals.some((signal) => signal.type === 'near'));
 });
 
+test('duo audit does not treat one source-traceable phrase per role as an exact duplicate', () => {
+  const prompt = validPromptFixture();
+  prompt.selection.subjectCount = '2';
+  prompt.grokPrompt = [
+    'Woman 1:',
+    'Has a clean natural portrait silhouette.',
+    '',
+    'Woman 2:',
+    'Has a clean natural portrait silhouette.',
+  ].join('\n');
+  prompt.zImagePrompt = '';
+  prompt.midjourneyPrompt = '';
+  prompt.extraPrompts = [];
+
+  assert.equal(auditPrompt(prompt).duplicateSignals.filter((item) => item.type === 'exact').length, 0);
+
+  prompt.grokPrompt = prompt.grokPrompt.replace(
+    'Has a clean natural portrait silhouette.\n\nWoman 2:',
+    'Has a clean natural portrait silhouette.\nHas a clean natural portrait silhouette.\n\nWoman 2:',
+  );
+  assert.ok(auditPrompt(prompt).duplicateSignals.some((item) => item.type === 'exact'));
+});
+
 test('detectControlLanguage identifies internal renderer vocabulary', () => {
   const signals = detectControlLanguage('Scene Priority: preserve it. The palette is controlled by the outfit color selection.');
   assert.ok(signals.some((signal) => signal.code === 'scene-priority-label'));
@@ -133,7 +162,7 @@ test('validateOutputContracts requires both duo roles and omits the single extra
   prompt.selection.subjectCount = '2';
   prompt.extraPrompts = [];
   const issues = validateOutputContracts(prompt);
-  assert.equal(issues.filter((issue) => issue.code === 'missing-label' && /^Woman [12]$/.test(issue.label)).length, 4);
+  assert.equal(issues.filter((issue) => issue.code === 'missing-label' && /^Woman [12]$/.test(issue.label)).length, 2);
   assert.ok(!issues.some((issue) => issue.code === 'output-empty' && issue.field === 'fullBodyCharacterPrompt'));
 });
 
@@ -154,6 +183,68 @@ test('auditPrompts aggregates word lengths and diagnostic categories', () => {
   assert.equal(report.summary.contractIssues, 0);
   assert.equal(report.summary.blockingSignals, 0);
   assert.equal(report.summary.diagnosticSignals, report.summary.logicIssues + report.summary.nearDuplicateSignals);
+});
+
+test('mixed-mode word statistics only expect single-subject derived outputs where applicable', () => {
+  const singlePrompt = validPromptFixture();
+  const duoPrompt = validPromptFixture();
+  duoPrompt.id = 'fixture-duo';
+  duoPrompt.selection.subjectCount = '2';
+  duoPrompt.extraPrompts = [];
+
+  const report = auditPrompts([singlePrompt, duoPrompt]);
+  for (const key of [
+    'extra:chest-up-portrait',
+    'extra:chest-up-mj-portrait',
+    'extra:full-body-character',
+  ]) {
+    const stats = report.wordLengths.find((item) => item.key === key);
+    assert.equal(stats.expected, 1);
+    assert.equal(stats.samples, 1);
+    assert.equal(stats.missing, 0);
+  }
+});
+
+test('prompt audit plan allocates the total sample count across every required scenario', () => {
+  const scenarios = createPromptAuditScenarios();
+  const plan = createPromptAuditPlan(scenarios.length, 'coverage-seed');
+
+  assert.ok(scenarios.some((scenario) => scenario.mode === 'single'));
+  assert.ok(scenarios.some((scenario) => scenario.mode === 'duo'));
+  assert.ok(scenarios.filter((scenario) => scenario.mode === 'fixed-composition').length > 1);
+  assert.equal(plan.reduce((sum, item) => sum + item.count, 0), scenarios.length);
+  assert.ok(plan.every((item) => item.count === 1));
+  assert.equal(new Set(plan.map((item) => item.seed)).size, plan.length);
+});
+
+test('runPromptAudit covers single, duo, and every fixed-composition set deterministically', () => {
+  const scenarios = createPromptAuditScenarios();
+  const report = runPromptAudit({ count: scenarios.length, seed: 'coverage-seed' });
+  const repeated = runPromptAudit({ count: scenarios.length, seed: 'coverage-seed' });
+
+  assert.equal(report.generatedCount, scenarios.length);
+  assert.deepEqual(
+    Object.fromEntries(report.coverage.modes.map((item) => [item.id, item.samples])),
+    {
+      single: 1,
+      duo: 1,
+      'fixed-composition': scenarios.filter((scenario) => scenario.mode === 'fixed-composition').length,
+    },
+  );
+  assert.ok(report.coverage.fixedCompositionSets.every((item) => item.samples === 1));
+  assert.equal(report.summary.coverageIssues, 0);
+  assert.equal(report.summary.blockingSignals, 0);
+  assert.deepEqual(report.coverage, repeated.coverage);
+  assert.deepEqual(report.wordLengths, repeated.wordLengths);
+});
+
+test('strict accounting blocks incomplete required scenario coverage', () => {
+  const scenarios = createPromptAuditScenarios();
+  const report = runPromptAudit({ count: scenarios.length - 1, seed: 'incomplete-coverage-seed' });
+
+  assert.ok(report.summary.coverageIssues > 0);
+  assert.ok(report.summary.blockingSignals >= report.summary.coverageIssues);
+  assert.match(formatAuditReport(report), /Required audit coverage issues: [1-9]/);
 });
 
 test('legacy compatibility heuristics are diagnostic-only in strict accounting', () => {

@@ -1,7 +1,12 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { createEmptyLocks, createSeededRandom, generatePrompts } from '../webapp/src/lib/engine.js';
+import {
+  createEmptyLocks,
+  createSeededRandom,
+  generatePrompts,
+  getLockControls,
+} from '../webapp/src/lib/engine.js';
 import {
   PROMPT_OUTPUT_CONTRACTS,
   validatePromptOutputContract,
@@ -20,6 +25,69 @@ const EXTRA_OUTPUT_FIELDS = Object.freeze({
   'chest-up-mj-portrait': 'chestUpMjPortraitPrompt',
   'full-body-character': 'fullBodyCharacterPrompt',
 });
+
+const AUDIT_MODE_LABELS = Object.freeze({
+  single: 'Standard single-subject',
+  duo: 'Duo',
+  'fixed-composition': 'Fixed composition',
+});
+
+function getFixedCompositionOptions() {
+  const control = getLockControls().find((item) => item?.key === 'fixedCompositionSetId');
+  const options = Array.isArray(control?.options)
+    ? control.options.filter((option) => option?.id && option.id !== 'none')
+    : [];
+  if (options.length === 0) {
+    throw new Error('fixedCompositionSetId has no auditable options');
+  }
+  return options;
+}
+
+export function createPromptAuditScenarios() {
+  const baseScenarios = [
+    {
+      id: 'single',
+      mode: 'single',
+      label: AUDIT_MODE_LABELS.single,
+      locks: { subjectCount: '1' },
+    },
+    {
+      id: 'duo',
+      mode: 'duo',
+      label: AUDIT_MODE_LABELS.duo,
+      locks: { subjectCount: '2' },
+    },
+  ];
+  const fixedCompositionScenarios = getFixedCompositionOptions().map((option) => ({
+    id: `fixed-composition:${option.id}`,
+    mode: 'fixed-composition',
+    label: `${AUDIT_MODE_LABELS['fixed-composition']}: ${option.zh || option.en || option.id}`,
+    fixedCompositionSetId: option.id,
+    locks: {
+      subjectCount: '1',
+      fixedCompositionSetId: option.id,
+    },
+  }));
+
+  return [...baseScenarios, ...fixedCompositionScenarios].map((scenario) => Object.freeze({
+    ...scenario,
+    locks: Object.freeze({ ...scenario.locks }),
+  }));
+}
+
+export function createPromptAuditPlan(count, seed = 'prompt-logic-default') {
+  if (!Number.isInteger(count) || count <= 0) {
+    throw new Error(`count must be a positive integer; received ${count}`);
+  }
+  const scenarios = createPromptAuditScenarios();
+  const baseCount = Math.floor(count / scenarios.length);
+  const remainder = count % scenarios.length;
+  return scenarios.map((scenario, index) => Object.freeze({
+    ...scenario,
+    count: baseCount + (index < remainder ? 1 : 0),
+    seed: `${seed}:${scenario.id}`,
+  }));
+}
 
 function isMidjourneyNativeField(field) {
   return field === 'midjourneyPrompt' || field === 'chestUpMjPortraitPrompt';
@@ -118,6 +186,47 @@ function normalizeForComparison(value) {
     .trim();
 }
 
+function countNormalizedPhrase(text, phrase) {
+  const normalizedText = normalizeForComparison(text);
+  const normalizedPhrase = normalizeForComparison(phrase);
+  if (!normalizedText || !normalizedPhrase) return 0;
+  const pattern = new RegExp(`(?:^| )${escapeRegExp(normalizedPhrase)}(?= |$)`, 'g');
+  return [...normalizedText.matchAll(pattern)].length;
+}
+
+function getDuoRoleTexts(text) {
+  const patterns = [
+    /Woman 1:\s*([\s\S]*?)\n\s*\nWoman 2:\s*([\s\S]*?)(?=\n\s*\n[A-Z][^\n:]{1,60}:|$)/i,
+    /Woman 1 has\s+([\s\S]*?)\bWoman 2 has\s+([\s\S]*?)(?=\n\s*\n|$)/i,
+    /First woman,\s*([\s\S]*?)\bSecond woman,\s*([\s\S]*?)(?=\bTwo women\b|$)/i,
+  ];
+  for (const pattern of patterns) {
+    const match = String(text || '').match(pattern);
+    if (match) return [match[1], match[2]];
+  }
+  return [];
+}
+
+function isSourceTraceableCrossRoleDuplicate(text, signal) {
+  if (signal?.type !== 'exact') return false;
+  const roleTexts = getDuoRoleTexts(text);
+  if (roleTexts.length !== 2) return false;
+  return countNormalizedPhrase(roleTexts[0], signal.first) === 1
+    && countNormalizedPhrase(roleTexts[1], signal.second) === 1
+    && countNormalizedPhrase(text, signal.first) === 2;
+}
+
+function stripIgnoredFixedCompositionControlBlocks(text) {
+  return String(text || '')
+    .split(/\n\s*\n/)
+    .filter((block) => !(
+      /\bKeep the selected (?:room|outdoor) architecture stable\b/i.test(block)
+      && /\bPreserve\b[\s\S]*\bas fixed anchors\b/i.test(block)
+      && /\bDo not shift into\b/i.test(block)
+    ))
+    .join('\n\n');
+}
+
 function shorten(value, maxLength = 140) {
   const normalized = String(value || '').replace(/\s+/g, ' ').trim();
   return normalized.length <= maxLength ? normalized : `${normalized.slice(0, maxLength - 1)}…`;
@@ -188,6 +297,9 @@ export function getPromptOutputs(prompt, { includeMissingMain = true } = {}) {
 }
 
 export function summarizeOutputWordLengths(prompts) {
+  const singleSubjectPromptCount = prompts.filter((prompt) => (
+    String(prompt?.selection?.subjectCount || '1') !== '2'
+  )).length;
   const buckets = new Map(MAIN_OUTPUTS.map(({ key, label }) => [key, {
     key,
     label,
@@ -214,7 +326,7 @@ export function summarizeOutputWordLengths(prompts) {
         buckets.set(bucketKey, {
           key: bucketKey,
           label: output.label,
-          expected: prompts.length,
+          expected: singleSubjectPromptCount,
           missing: 0,
           values: [],
         });
@@ -555,7 +667,12 @@ export function auditPrompt(prompt, index = 0) {
     const auditableText = isMidjourneyNativeField(output.field)
       ? stripMidjourneyParameterTail(output.text)
       : output.text;
-    for (const signal of findDuplicateSegments(auditableText)) {
+    const duplicateAuditText = subjectCount !== '2'
+      && String(prompt?.selection?.fixedCompositionSetId || 'none') !== 'none'
+      ? stripIgnoredFixedCompositionControlBlocks(auditableText)
+      : auditableText;
+    for (const signal of findDuplicateSegments(duplicateAuditText)) {
+      if (subjectCount === '2' && isSourceTraceableCrossRoleDuplicate(auditableText, signal)) continue;
       duplicateSignals.push({ output: output.label, ...signal });
     }
     if (output.field === 'zImagePrompt' || isMidjourneyNativeField(output.field)) {
@@ -596,8 +713,58 @@ function promptsWithCategory(findings, key) {
   return findings.filter((finding) => finding[key].length > 0).length;
 }
 
-export function auditPrompts(prompts, { seed = '' } = {}) {
+function getPromptAuditMode(prompt) {
+  if (String(prompt?.selection?.subjectCount || '') === '2') return 'duo';
+  const fixedCompositionSetId = String(prompt?.selection?.fixedCompositionSetId || 'none');
+  return fixedCompositionSetId !== 'none' ? 'fixed-composition' : 'single';
+}
+
+function summarizePromptAuditCoverage(prompts, { required = false } = {}) {
+  const scenarios = createPromptAuditScenarios();
+  const modes = Object.entries(AUDIT_MODE_LABELS).map(([id, label]) => ({
+    id,
+    label,
+    samples: prompts.filter((prompt) => getPromptAuditMode(prompt) === id).length,
+  }));
+  const fixedCompositionSets = scenarios
+    .filter((scenario) => scenario.mode === 'fixed-composition')
+    .map((scenario) => ({
+      id: scenario.fixedCompositionSetId,
+      label: scenario.label.replace(`${AUDIT_MODE_LABELS['fixed-composition']}: `, ''),
+      samples: prompts.filter((prompt) => (
+        getPromptAuditMode(prompt) === 'fixed-composition'
+        && prompt?.selection?.fixedCompositionSetId === scenario.fixedCompositionSetId
+      )).length,
+    }));
+  const issues = [];
+
+  if (required) {
+    for (const mode of modes) {
+      if (mode.samples === 0) {
+        issues.push({
+          code: 'missing-audit-mode',
+          id: mode.id,
+          message: `${mode.label} mode has no audit samples`,
+        });
+      }
+    }
+    for (const fixedSet of fixedCompositionSets) {
+      if (fixedSet.samples === 0) {
+        issues.push({
+          code: 'missing-fixed-composition-set',
+          id: fixedSet.id,
+          message: `Fixed composition set ${fixedSet.label} has no audit samples`,
+        });
+      }
+    }
+  }
+
+  return { modes, fixedCompositionSets, issues };
+}
+
+export function auditPrompts(prompts, { seed = '', requireCompleteCoverage = false } = {}) {
   const findings = prompts.map((prompt, index) => auditPrompt(prompt, index));
+  const coverage = summarizePromptAuditCoverage(prompts, { required: requireCompleteCoverage });
   const summary = {
     prompts: prompts.length,
     promptsWithFindings: findings.filter((finding) => (
@@ -618,22 +785,26 @@ export function auditPrompts(prompts, { seed = '' } = {}) {
     promptsWithDuplicateSignals: promptsWithCategory(findings, 'duplicateSignals'),
     promptsWithLeakageSignals: promptsWithCategory(findings, 'leakageSignals'),
     promptsWithContradictionSignals: promptsWithCategory(findings, 'contradictionSignals'),
+    coverageIssues: coverage.issues.length,
   };
   summary.totalSignals = summary.logicIssues
     + summary.contractIssues
     + summary.exactDuplicateSignals
     + summary.nearDuplicateSignals
     + summary.leakageSignals
-    + summary.contradictionSignals;
+    + summary.contradictionSignals
+    + summary.coverageIssues;
   summary.blockingSignals = summary.contractIssues
     + summary.exactDuplicateSignals
     + summary.leakageSignals
-    + summary.contradictionSignals;
+    + summary.contradictionSignals
+    + summary.coverageIssues;
   summary.diagnosticSignals = summary.logicIssues + summary.nearDuplicateSignals;
 
   return {
     seed,
     generatedCount: prompts.length,
+    coverage,
     wordLengths: summarizeOutputWordLengths(prompts),
     summary,
     findings,
@@ -664,6 +835,13 @@ export function formatAuditReport(report) {
   const lines = [
     `Generated ${report.generatedCount} prompts`,
     `Seed: ${report.seed || '(not provided)'}`,
+    '',
+    'Audit mode coverage:',
+    ...report.coverage.modes.map((item) => `- ${item.label}: n=${item.samples}`),
+    '',
+    'Fixed-composition set coverage:',
+    ...report.coverage.fixedCompositionSets.map((item) => `- ${item.label}: n=${item.samples}`),
+    '',
     `Prompts with findings: ${report.summary.promptsWithFindings}`,
     '',
     'Output word-length statistics:',
@@ -682,9 +860,15 @@ export function formatAuditReport(report) {
     `- Near-duplicate signals: ${report.summary.nearDuplicateSignals}`,
     `- Internal control-language leakage signals: ${report.summary.leakageSignals} across ${report.summary.promptsWithLeakageSignals} prompts`,
     `- Contradictory-constraint signals: ${report.summary.contradictionSignals} across ${report.summary.promptsWithContradictionSignals} prompts`,
+    `- Required audit coverage issues: ${report.summary.coverageIssues}`,
     `- Strict-mode blocking signals: ${report.summary.blockingSignals}`,
     `- Diagnostic-only signals: ${report.summary.diagnosticSignals}`,
   );
+
+  if (report.coverage.issues.length > 0) {
+    lines.push('', 'Coverage issue summary:');
+    for (const issue of report.coverage.issues) lines.push(`- ${issue.message}`);
+  }
 
   const logicRows = frequencyRows(report.findings, 'logicIssues', (item) => item);
   if (logicRows.length > 0) {
@@ -754,10 +938,16 @@ export function parseCliArgs(argv) {
 }
 
 export function runPromptAudit({ count = 200, seed = 'prompt-logic-default' } = {}) {
-  const prompts = generatePrompts(count, createEmptyLocks(), [], {
-    random: createSeededRandom(seed),
+  const prompts = createPromptAuditPlan(count, seed).flatMap((scenario) => {
+    if (scenario.count === 0) return [];
+    return generatePrompts(scenario.count, {
+      ...createEmptyLocks(),
+      ...scenario.locks,
+    }, [], {
+      random: createSeededRandom(scenario.seed),
+    });
   });
-  return auditPrompts(prompts, { seed });
+  return auditPrompts(prompts, { seed, requireCompleteCoverage: true });
 }
 
 async function main() {
