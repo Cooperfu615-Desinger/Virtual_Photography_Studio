@@ -9893,6 +9893,26 @@ function buildZImageCharacterProfileTexts(context, wardrobe = null) {
   };
 }
 
+function cleanPublicDuoPromptText(value) {
+  return stripMarkdown(value || '')
+    .replace(
+      /\bmodel-decided,?\s*choosing the most natural body arrangement for the selected scenario\b/gi,
+      'a natural asymmetrical body arrangement suited to the scene and shared action'
+    )
+    .replace(
+      /\bthe image model chooses the exact action and interaction\b/gi,
+      'asymmetrical candid action and interaction'
+    )
+    .replace(/\bmodel-decided natural\b/gi, 'spontaneous natural')
+    .replace(/\bmodel-decided\b/gi, 'naturally varied')
+    .replace(/\b(?:let )?the image model (?:choose|chooses|decide|decides)\b[^,.]*/gi, '')
+    .replace(/\bnatural\s+natural\b/gi, 'natural')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function cleanZImageTurboInternalLanguage(value) {
   return cleanZImageSinglePromptText(value)
     .replace(
@@ -9981,6 +10001,10 @@ function cleanGptDuoFullWardrobePart(value) {
   return cleanGptSinglePromptText(value)
     .replace(/^She wears\s+/i, '')
     .replace(/^wearing\s+/i, '')
+    .replace(/(?:^|,\s*)[^,.]*?\bcontrolled by\s+(?:the\s+)?(?:outfit|dress|contrast)[^,.]*/gi, '')
+    .replace(/(?:^|,\s*)optional [^,.]*?\bcan retain a classic signature color scheme/gi, '')
+    .replace(/\s*,\s*,+/g, ', ')
+    .replace(/,\s*\./g, '.')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -10184,8 +10208,8 @@ function buildGptDuoFlexibleFramingText(context) {
 }
 
 function buildGptDuoPoseAndCompositionText(valuesByLabel, context) {
-  const scenario = stripTerminalPromptPunctuation(firstStructuredValue(valuesByLabel, ['Duo Layout']));
-  const postureBase = stripTerminalPromptPunctuation(firstStructuredValue(valuesByLabel, ['Duo Pose Base']));
+  const scenario = stripTerminalPromptPunctuation(cleanPublicDuoPromptText(firstStructuredValue(valuesByLabel, ['Duo Layout'])));
+  const postureBase = stripTerminalPromptPunctuation(cleanPublicDuoPromptText(firstStructuredValue(valuesByLabel, ['Duo Pose Base'])));
   const angle = stripTerminalPromptPunctuation(firstStructuredValue(valuesByLabel, ['Angle']));
   const orbit = stripTerminalPromptPunctuation(firstStructuredValue(valuesByLabel, ['Orbit Angle']));
   const viewpoint = [angle, orbit].filter(Boolean).join(', ');
@@ -11912,10 +11936,10 @@ function renderZImagePrompt(promptModel) {
   };
   const buildZImageDuoPoseText = () => [
     characterSlots.duoPose && !isNoneLikeItem(characterSlots.duoPose)
-      ? compactZImageSourceText(characterSlots.duoPose.en).replace(/^Two women\b/, 'two women')
+      ? compactZImageSourceText(cleanPublicDuoPromptText(characterSlots.duoPose.en)).replace(/^Two women\b/, 'two women')
       : '',
     characterSlots.duoPoseBase && !isNoneLikeItem(characterSlots.duoPoseBase)
-      ? compactZImageSourceText(characterSlots.duoPoseBase.en)
+      ? compactZImageSourceText(cleanPublicDuoPromptText(characterSlots.duoPoseBase.en))
       : '',
   ].filter(Boolean).join(', ');
   const buildZImageDuoSceneText = () => {
@@ -12814,10 +12838,10 @@ function buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeCol
 }
 
 function buildAiDuoPoseText(valuesByLabel) {
-  const scenarioFragments = splitAiDuoCompactFragments(removeAiModelNaturalPoseDirectives(firstStructuredValue(valuesByLabel, ['Duo Layout'])))
+  const scenarioFragments = splitAiDuoCompactFragments(cleanPublicDuoPromptText(removeAiModelNaturalPoseDirectives(firstStructuredValue(valuesByLabel, ['Duo Layout']))))
     .filter((part) => !/^model-decided\b/i.test(part))
     .slice(0, 4);
-  const postureFragment = splitAiDuoCompactFragments(firstStructuredValue(valuesByLabel, ['Duo Pose Base']))[0] || '';
+  const postureFragment = splitAiDuoCompactFragments(cleanPublicDuoPromptText(firstStructuredValue(valuesByLabel, ['Duo Pose Base'])))[0] || '';
   return [...scenarioFragments, postureFragment].filter(Boolean).join(', ');
 }
 

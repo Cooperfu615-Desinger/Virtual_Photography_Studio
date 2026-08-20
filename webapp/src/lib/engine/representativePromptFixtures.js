@@ -632,6 +632,37 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'duo-public-language',
+    title: 'Duo model-natural pose and role colors stay public and explicit',
+    mode: 'duo',
+    seed: 'prompt-contract-duo-public-language-v1',
+    locks: {
+      subjectCount: '2',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      dressAId: { byZh: '連身：短版｜細肩帶蕾絲棉質迷你洋裝' },
+      dressAColorId: { byZh: '銀色' },
+      dressBId: { byZh: '連身：短版｜高領挖腰連身泳裝' },
+      dressBColorId: { byZh: '紅色' },
+      duoPoseId: { byZh: '模型自然決定' },
+      duoPoseBaseId: { byZh: '模型自然決定' },
+      locationId: { byZh: '室內：現代高樓公寓客廳' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['Woman 1:', 'silver spaghetti-strap lace cotton mini dress', 'Woman 2:', 'red high-neck extreme front cut-out monokini swimsuit'],
+        excludes: ['model-decided', 'image model chooses', 'controlled by dress color selection', 'natural natural'],
+      },
+      zImagePrompt: {
+        includes: ['Woman 1 has', 'silver spaghetti-strap lace cotton mini dress', 'Woman 2 has', 'red high-neck extreme front cut-out monokini swimsuit'],
+        excludes: ['model-decided', 'image model chooses', 'controlled by dress color selection', 'natural natural'],
+      },
+      midjourneyPrompt: {
+        includes: ['First woman', 'silver spaghetti-strap lace cotton mini dress', 'Second woman', 'red high-neck extreme front cut-out monokini swimsuit'],
+        excludes: ['model-decided', 'image model chooses', 'controlled by dress color selection', 'natural natural'],
+      },
+    },
+  },
+  {
     id: 'fixed-composition',
     title: 'Fixed composition set preserves separate top and bottom wardrobe across primary outputs',
     mode: 'single',

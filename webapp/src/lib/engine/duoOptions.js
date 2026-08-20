@@ -44,12 +44,12 @@ export const DUO_POSE_OPTIONS = [
   {
     id: 'model-natural',
     zh: '模型自然決定',
-    en: 'two women in a model-decided natural two-person moment, spontaneous relationship energy, varied believable body language, the image model chooses the exact action and interaction',
+    en: 'two women sharing a spontaneous natural two-person moment, organic relationship energy, varied believable body language, asymmetrical candid action and interaction',
   },
   {
     id: 'fashion-editorial-models',
     zh: '時尚雜誌雙人模特兒',
-    en: 'two women posing like fashion magazine models, polished editorial body language, confident coordinated presence, model-decided interaction and posture variety',
+    en: 'two women posing like fashion magazine models, polished editorial body language, confident coordinated presence, varied asymmetrical interaction and posture',
     legacyIds: [
       'light-shoulder-touch',
       'side-by-side-standing',
@@ -65,7 +65,7 @@ export const DUO_POSE_OPTIONS = [
   {
     id: 'strangers-passing',
     zh: '相互不認識的兩人擦肩而過',
-    en: 'two women captured as strangers passing each other, detached everyday timing, brief near-crossing body language, no obvious intimacy, model-decided movement and spacing',
+    en: 'two women captured as strangers passing each other, detached everyday timing, brief near-crossing body language, no obvious intimacy, naturally varied movement and spacing',
     legacyIds: [
       'front-back-layering',
       'distance',
@@ -74,7 +74,7 @@ export const DUO_POSE_OPTIONS = [
   {
     id: 'best-friends-selfie',
     zh: '好朋友之間的親密自拍',
-    en: 'two women captured in an intimate best-friends selfie moment, casual affectionate body language, close social warmth, playful candid interaction, model-decided hand placement and crop',
+    en: 'two women captured in an intimate best-friends selfie moment, casual affectionate body language, close social warmth, playful candid interaction, spontaneous hand placement and close candid crop',
     legacyIds: [
       'leaning-together',
       'leaning-on-each-other',
@@ -85,12 +85,12 @@ export const DUO_POSE_OPTIONS = [
   {
     id: 'shopping-day',
     zh: '購物逛街',
-    en: 'two women captured during a casual shopping-day outing, relaxed street-life energy, small spontaneous gestures, browsing-and-walking companionship, model-decided interaction',
+    en: 'two women captured during a casual shopping-day outing, relaxed street-life energy, small spontaneous gestures, browsing-and-walking companionship, organic asymmetrical interaction',
   },
   {
     id: 'daily-life-documentary',
     zh: '日常生活紀錄拍照',
-    en: 'two women captured like a candid everyday life documentary photo, unforced realistic timing, natural imperfect body language, model-decided interaction and spacing',
+    en: 'two women captured like a candid everyday life documentary photo, unforced realistic timing, natural imperfect body language, naturally varied interaction and spacing',
     legacyIds: [
       'high-low-layering',
       'front-back-standing',
@@ -105,17 +105,17 @@ export const DUO_POSE_OPTIONS = [
   {
     id: 'party-corner-candid',
     zh: '派對角落即興合照',
-    en: 'two women captured in an improvised party-corner snapshot, relaxed nightlife closeness, casual social energy, candid off-guard body language, model-decided interaction',
+    en: 'two women captured in an improvised party-corner snapshot, relaxed nightlife closeness, casual social energy, candid off-guard body language, spontaneous asymmetrical interaction',
   },
   {
     id: 'behind-the-scenes',
     zh: '片場花絮感',
-    en: 'two women captured in a behind-the-scenes editorial outtake, between-poses spontaneity, relaxed production-day body language, model-decided interaction and posture',
+    en: 'two women captured in a behind-the-scenes editorial outtake, between-poses spontaneity, relaxed production-day body language, varied candid interaction and posture',
   },
   {
     id: 'lazy-sensual-photo',
     zh: '慵懶性感寫真',
-    en: 'two women captured in a lazy sensual photobook moment, languid relaxed chemistry, soft intimate body language, model-decided natural contact and posture',
+    en: 'two women captured in a lazy sensual photobook moment, languid relaxed chemistry, soft intimate body language, natural asymmetrical contact and relaxed posture',
   },
   {
     id: 'intimate-sensual-interaction',
@@ -155,7 +155,7 @@ export const DUO_POSE_BASE_OPTIONS = [
   {
     id: 'model-natural',
     zh: '模型自然決定',
-    en: 'model-decided, choosing the most natural body arrangement for the selected scenario',
+    en: 'a natural asymmetrical body arrangement suited to the scene and shared action',
   },
   {
     id: 'standing',

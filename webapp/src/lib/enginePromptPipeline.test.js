@@ -960,7 +960,7 @@ test('Gpt duo prompt uses role cards with wardrobe inside each subject block', (
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 });
 
-test('Gpt duo subject role wardrobes preserve color-control metadata and punctuate sentences', () => {
+test('Gpt duo subject role wardrobes materialize role colors and punctuate sentences', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',

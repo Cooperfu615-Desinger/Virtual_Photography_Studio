@@ -157,6 +157,28 @@ test('duo action scenario and posture base controls expose natural two-layer opt
   assert.equal(createEmptyLocks().duoPoseBaseId, '');
 });
 
+test('every duo action scenario renders without model-selection control language', () => {
+  const modelNaturalBase = optionByLabel('duoPoseBaseId', '模型自然決定');
+  const internalControlLanguage = /\b(?:model-decided|(?:the )?image model (?:chooses|decides)|let the image model|natural natural)\b/i;
+
+  for (const scenario of controlOptions('duoPoseId').filter((option) => option.zh !== '全無')) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '2',
+      duoPoseId: scenario.id,
+      duoPoseBaseId: modelNaturalBase.id,
+    });
+
+    for (const [field, text] of Object.entries({
+      grokPrompt: prompt.grokPrompt,
+      zImagePrompt: prompt.zImagePrompt,
+      midjourneyPrompt: prompt.midjourneyPrompt,
+    })) {
+      assert.doesNotMatch(text, internalControlLanguage, `${scenario.zh} leaked control language in ${field}`);
+    }
+  }
+});
+
 test('duo expression exposes shared relationship mood options', () => {
   const duoExpressionControl = getLockControls().find((control) => control.key === 'duoExpressionId');
   assert.equal(duoExpressionControl.label, '雙人互動神情');
