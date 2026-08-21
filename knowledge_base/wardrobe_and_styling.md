@@ -464,6 +464,10 @@
 | **耳環 (Earrings)** | 水滴寶石耳墜 | `small teardrop gemstone earring detail, delicate understated sparkle` | 以水滴形寶石與小型垂墜結構為主，保留精緻感但不過度主導畫面。 |
 | **耳環 (Earrings)** | 雕塑感金屬耳圈 | `small sculptural hoop earring detail, subtle polished metal accent` | 以帶弧度的金屬輪廓為主，改成較低干擾的點綴型語氣。 |
 | **耳環 (Earrings)** | 十字垂墜耳環 | `small cross earring detail, subtle gothic-inspired accessory accent` | 保留哥德、地下與偏冷感，但控制在較低存在感的配件層級。 |
+| **耳環 (Earrings)** | 中型光滑金屬圈耳環 | `medium smooth hoop earrings, clean polished metal circular silhouette, versatile jewelry accent` | 以中型、光滑且輪廓清楚的金屬圈環為主，補足經典日常造型。 |
+| **耳環 (Earrings)** | 長條幾何耳墜 | `slim geometric drop earrings, elongated rectangular metal pendant shapes, clean modern jewelry accent` | 以細長矩形或幾何片狀垂墜為主，與水滴寶石造型區隔。 |
+| **耳環 (Earrings)** | 耳骨夾 | `minimal metal ear cuff, small curved cuff fitted along the outer ear cartilage, subtle jewelry accent` | 以貼合外耳耳骨的簡約金屬耳夾為主，不強調大型垂墜。 |
+| **耳環 (Earrings)** | 細鏈條耳墜 | `fine chain drop earrings, delicate metal chains hanging from the earlobes, understated movement` | 以細金屬鏈從耳垂自然垂下，增加輕微動態感但保持日常可搭配性。 |
 | **頸部 (Neck Accessories)** | 全無 | `no neck accessories, open neckline styling` | 不加頸部飾品，讓領口與鎖骨區域維持簡潔。 |
 | **頸部 (Neck Accessories)** | 金屬細頸圈 | `slim metal choker detail, subtle close-fitting neck accent` | 比粗頸鍊更俐落，調整為低干擾的頸部點綴。 |
 | **頸部 (Neck Accessories)** | 雕塑感金屬頸圈 | `sculptural metal collar detail, subtle polished neck accent` | 保留金屬雕塑感，但降低成為主體 statement piece 的機率。 |
@@ -481,10 +485,13 @@
 | **頸部 (Neck Accessories)** | 細鍊鎖頭吊墜項鍊 | `small lock pendant necklace detail, understated edgy neck accent` | 保留低調街頭感與小型吊墜語氣，避免誇張放大。 |
 | **頸部 (Neck Accessories)** | 十字吊墜層疊頸鏈 | `layered cross pendant necklace detail, subtle gothic-inspired neck accent` | 保留哥德與街頭混搭感，但控制在細節層級。 |
 | **頸部 (Neck Accessories)** | 鑽石網球項鍊 | `diamond tennis necklace detail, subtle luxury neck accent` | 保留乾淨奢華感，但不讓鑽石高光成為主畫面焦點。 |
-| **頸部 (Neck Accessories)** | 刺繡絲巾 | `embroidered silk scarf detail, soft draped neck accent` | 刺繡與絲質結合後仍有文藝感，但降低布料配件主導性。 |
-| **頸部 (Neck Accessories)** | 薄長圍巾 | `thin long scarf detail, lightweight draped neck accent` | 輕薄長圍巾適合層次穿搭與動態畫面，但控制在配角層級。 |
-| **頸部 (Neck Accessories)** | 厚長圍巾 | `thick long scarf detail, soft wrapped neck layering` | 厚實長圍巾更偏秋冬保暖，但語氣改得更不搶戲。 |
 | **頸部 (Neck Accessories)** | 街頭風格金項鏈 | `street-style gold chain detail, subtle urban neck accent` | 保留街頭與都會感，但降低 bold chain 的強烈存在。 |
 | **頸部 (Neck Accessories)** | 細領帶 | `slim necktie detail, narrow straight tie hanging from the collar` | 以窄版直落領帶與衣領下方的整齊垂墜為主。 |
 | **頸部 (Neck Accessories)** | 波洛領帶 | `bolo tie detail, slim cord necktie with small metal tips` | 以細繩領帶、滑扣與小型金屬繩頭為主。 |
 | **頸部 (Neck Accessories)** | 串珠頸鏈 | `beaded choker detail, short strand of small beads fitted around the neck` | 以貼合頸部的短串小珠與輕量頸鏈輪廓為主。 |
+| **頸部 (Neck Accessories)** | 銀色粗鏈項鍊 | `thick silver chain necklace, substantial linked metal chain, understated street accessory` | 以較厚實的銀色鏈節為主，補足現有細鏈與金色街頭項鏈之外的街頭金屬感。 |
+| **頸部 (Neck Accessories)** | Y字垂墜項鍊 | `Y-drop lariat necklace, fine chain descending to a single central drop, delicate neck accessory` | 項鍊中央向下延伸成 Y 字，提供清楚但不誇張的垂墜線條。 |
+| **頸部 (Neck Accessories)** | 圓形徽章吊墜項鍊 | `round medallion pendant necklace, simple circular metal pendant on a fine chain, understated vintage accessory` | 以簡潔圓形徽章吊墜為主，補充鎖頭、十字與水滴以外的吊墜形狀。 |
+| **頸部 (Neck Accessories)** | 鑰匙吊墜項鍊 | `small key pendant necklace, fine chain with a simple metal key charm, understated vintage accessory` | 以小型金屬鑰匙吊墜為主，維持復古感但不讓吊墜過度放大。 |
+| **頸部 (Neck Accessories)** | 皮革 O 環頸圈 | `thin leather O-ring choker, narrow leather strap with a small metal O-ring, subtle edgy neck accent` | 以細窄皮革頸圈與小型金屬 O 環為主，和既有扣環頸鏈區隔。 |
+| **頸部 (Neck Accessories)** | 金屬狗牌項鍊 | `metal dog tag necklace, rectangular identification tag pendant on a fine chain, understated utilitarian accessory` | 以矩形金屬狗牌與細鏈為主，加入實用、軍用與工裝風格的頸部配件。 |

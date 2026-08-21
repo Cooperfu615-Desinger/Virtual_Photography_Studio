@@ -469,6 +469,19 @@ test('single-subject eyewear earrings and neck accessories are bound to the subj
   assert.match(prompt.zImagePrompt, /with .*retro round.*glasses.*pearl.*earrings?.*slim metal choker/i);
 });
 
+test('new earring and dog-tag options remain traceable in single-subject outputs', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    earringsId: optionId('earringsId', '中型光滑金屬圈耳環'),
+    neckAccessoryId: optionId('neckAccessoryId', '金屬狗牌項鍊'),
+  });
+
+  assert.match(prompt.grokPrompt, /medium smooth hoop earrings.*metal dog tag necklace/i);
+  assert.match(prompt.zImagePrompt, /medium smooth hoop earrings.*metal dog tag necklace/i);
+  assert.ok(prompt.structured.Wardrobe.some((item) => item.zh === '中型光滑金屬圈耳環'));
+  assert.ok(prompt.structured.Wardrobe.some((item) => item.zh === '金屬狗牌項鍊'));
+});
+
 test('duo eyewear earrings and neck accessories stay grouped by person in the subject description', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

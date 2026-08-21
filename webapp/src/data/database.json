@@ -3826,6 +3826,26 @@
         "zh": "十字垂墜耳環",
         "en": "small cross earring detail, subtle gothic-inspired accessory accent",
         "desc": "保留哥德、地下與偏冷感，但控制在較低存在感的配件層級。"
+      },
+      {
+        "zh": "中型光滑金屬圈耳環",
+        "en": "medium smooth hoop earrings, clean polished metal circular silhouette, versatile jewelry accent",
+        "desc": "以中型、光滑且輪廓清楚的金屬圈環為主，補足經典日常造型。"
+      },
+      {
+        "zh": "長條幾何耳墜",
+        "en": "slim geometric drop earrings, elongated rectangular metal pendant shapes, clean modern jewelry accent",
+        "desc": "以細長矩形或幾何片狀垂墜為主，與水滴寶石造型區隔。"
+      },
+      {
+        "zh": "耳骨夾",
+        "en": "minimal metal ear cuff, small curved cuff fitted along the outer ear cartilage, subtle jewelry accent",
+        "desc": "以貼合外耳耳骨的簡約金屬耳夾為主，不強調大型垂墜。"
+      },
+      {
+        "zh": "細鏈條耳墜",
+        "en": "fine chain drop earrings, delicate metal chains hanging from the earlobes, understated movement",
+        "desc": "以細金屬鏈從耳垂自然垂下，增加輕微動態感但保持日常可搭配性。"
       }
     ],
     "頸部 (Neck Accessories)": [
@@ -3915,21 +3935,6 @@
         "desc": "保留乾淨奢華感，但不讓鑽石高光成為主畫面焦點。"
       },
       {
-        "zh": "刺繡絲巾",
-        "en": "embroidered silk scarf detail, soft draped neck accent",
-        "desc": "刺繡與絲質結合後仍有文藝感，但降低布料配件主導性。"
-      },
-      {
-        "zh": "薄長圍巾",
-        "en": "thin long scarf detail, lightweight draped neck accent",
-        "desc": "輕薄長圍巾適合層次穿搭與動態畫面，但控制在配角層級。"
-      },
-      {
-        "zh": "厚長圍巾",
-        "en": "thick long scarf detail, soft wrapped neck layering",
-        "desc": "厚實長圍巾更偏秋冬保暖，但語氣改得更不搶戲。"
-      },
-      {
         "zh": "街頭風格金項鏈",
         "en": "street-style gold chain detail, subtle urban neck accent",
         "desc": "保留街頭與都會感，但降低 bold chain 的強烈存在。"
@@ -3948,6 +3953,36 @@
         "zh": "串珠頸鏈",
         "en": "beaded choker detail, short strand of small beads fitted around the neck",
         "desc": "以貼合頸部的短串小珠與輕量頸鏈輪廓為主。"
+      },
+      {
+        "zh": "銀色粗鏈項鍊",
+        "en": "thick silver chain necklace, substantial linked metal chain, understated street accessory",
+        "desc": "以較厚實的銀色鏈節為主，補足現有細鏈與金色街頭項鏈之外的街頭金屬感。"
+      },
+      {
+        "zh": "Y字垂墜項鍊",
+        "en": "Y-drop lariat necklace, fine chain descending to a single central drop, delicate neck accessory",
+        "desc": "項鍊中央向下延伸成 Y 字，提供清楚但不誇張的垂墜線條。"
+      },
+      {
+        "zh": "圓形徽章吊墜項鍊",
+        "en": "round medallion pendant necklace, simple circular metal pendant on a fine chain, understated vintage accessory",
+        "desc": "以簡潔圓形徽章吊墜為主，補充鎖頭、十字與水滴以外的吊墜形狀。"
+      },
+      {
+        "zh": "鑰匙吊墜項鍊",
+        "en": "small key pendant necklace, fine chain with a simple metal key charm, understated vintage accessory",
+        "desc": "以小型金屬鑰匙吊墜為主，維持復古感但不讓吊墜過度放大。"
+      },
+      {
+        "zh": "皮革 O 環頸圈",
+        "en": "thin leather O-ring choker, narrow leather strap with a small metal O-ring, subtle edgy neck accent",
+        "desc": "以細窄皮革頸圈與小型金屬 O 環為主，和既有扣環頸鏈區隔。"
+      },
+      {
+        "zh": "金屬狗牌項鍊",
+        "en": "metal dog tag necklace, rectangular identification tag pendant on a fine chain, understated utilitarian accessory",
+        "desc": "以矩形金屬狗牌與細鏈為主，加入實用、軍用與工裝風格的頸部配件。"
       }
     ]
   },
