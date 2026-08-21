@@ -342,6 +342,8 @@ export function buildWardrobeLayerInsights(locks, controls, isSpecialOutfitActiv
     selected('wristAccessoryId'),
     selected('ringId'),
     selected('waistAccessoryId'),
+    selected('waistAccessoryAId'),
+    selected('waistAccessoryBId'),
   ].filter(Boolean);
 
   const notes = [];

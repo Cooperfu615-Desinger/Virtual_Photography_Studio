@@ -40,13 +40,21 @@ const confirmedAdditions = {
     '皮革 O 環頸圈',
     '金屬狗牌項鍊',
   ],
+  waistAccessoryId: [
+    '細版皮革腰帶',
+    '寬版皮革腰帶',
+    '金屬鏈條腰鍊',
+    '雙層金屬腰鏈',
+    '鉚釘皮革腰帶',
+    '布質腰封',
+  ],
 };
 
 test('confirmed atomic wardrobe additions are exposed by existing controls', () => {
   const controls = new Map(getLockControls().map((control) => [control.key, control]));
   const labels = Object.values(confirmedAdditions).flat();
 
-  assert.equal(labels.length, 63);
+  assert.equal(labels.length, 69);
 
   for (const [controlKey, expectedLabels] of Object.entries(confirmedAdditions)) {
     const control = controls.get(controlKey);

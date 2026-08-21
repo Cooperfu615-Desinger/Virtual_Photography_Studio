@@ -809,6 +809,7 @@ const PAGE1_NONE_LOCK_IDS = {
   eyewearPlacementId: 'none',
   earringsId: 'wardrobe:耳環-earrings:全無:0',
   neckAccessoryId: 'wardrobe:頸部-neck-accessories:全無:0',
+  waistAccessoryId: 'wardrobe:腰部配件-waist-accessories:全無:0',
 };
 
 const PAGE1_LAYER_CLEAR_KEYS = {

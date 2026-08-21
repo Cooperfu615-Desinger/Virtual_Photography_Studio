@@ -3984,6 +3984,43 @@
         "en": "metal dog tag necklace, rectangular identification tag pendant on a fine chain, understated utilitarian accessory",
         "desc": "以矩形金屬狗牌與細鏈為主，加入實用、軍用與工裝風格的頸部配件。"
       }
+    ],
+    "腰部配件 (Waist Accessories)": [
+      {
+        "zh": "全無",
+        "en": "no waist accessories, clean waist styling",
+        "desc": "不加腰部配件，讓服裝腰線維持簡潔。"
+      },
+      {
+        "zh": "細版皮革腰帶",
+        "en": "slim leather waist belt, simple buckle, understated waist accessory",
+        "desc": "以細版皮革腰帶與簡潔扣具為主，適合日常搭配。"
+      },
+      {
+        "zh": "寬版皮革腰帶",
+        "en": "wide leather waist belt, structured buckle, defined waist accent",
+        "desc": "以較寬的皮革腰帶與明確扣具強調腰線，但不帶過度特殊風格。"
+      },
+      {
+        "zh": "金屬鏈條腰鍊",
+        "en": "metal chain belt draped around the waist, linked hardware, subtle hip accent",
+        "desc": "以金屬鏈條自然垂掛在腰部或髖部，增加輕量金屬層次。"
+      },
+      {
+        "zh": "雙層金屬腰鏈",
+        "en": "double-layer metal waist chain, two delicate linked chains around the hips, understated movement",
+        "desc": "以兩層細金屬鏈環繞髖部，帶有輕微垂墜動態。"
+      },
+      {
+        "zh": "鉚釘皮革腰帶",
+        "en": "studded leather waist belt, small metal studs, compact buckle hardware",
+        "desc": "以小型鉚釘與扣具增加街頭感，保持腰帶輪廓清楚。"
+      },
+      {
+        "zh": "布質腰封",
+        "en": "wide fabric waist sash, soft wrapped tie, layered waist accent",
+        "desc": "以寬版布料腰封與柔軟綁結形成服裝層次，方便搭配不同上衣與下身。"
+      }
     ]
   },
   "CameraLighting": {

@@ -306,6 +306,7 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 - 眼鏡配戴方式。
 - 耳環。
 - 頸部配件。
+- 腰部配件。
 
 ### 11.1 頭部配件
 
@@ -343,6 +344,18 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 - 優先使用 `detail`、`subtle`、`understated` 控制存在感。
 - 不讓耳環或項鍊變成主要服裝。
 - 避免過大的 statement jewelry，除非是特殊穿搭完整造型包。
+
+### 11.4 腰部配件
+
+責任：腰線、腰部或髖部附近的可見服裝飾品，例如腰帶、腰鍊、鏈條與腰封。
+
+維護規則：
+
+- 英文 prompt 以 6-16 words 為目標。
+- 明確描述配件位於 waist 或 hips，避免被誤解成頸部項鍊或一般服裝結構。
+- 腰帶應描述帶體、扣具或鉚釘；腰鍊應描述鏈節、垂掛或層數。
+- 保持可與上身、下身、外套和鞋襪組合的中性語氣，不寫入特定完整造型。
+- 腰部配件只在中景、全身或更寬畫面中投影；臉部與胸上特寫不應硬塞腰部描述。
 
 ## 12. 雙人物角色 A/B
 

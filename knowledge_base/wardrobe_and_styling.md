@@ -495,3 +495,10 @@
 | **頸部 (Neck Accessories)** | 鑰匙吊墜項鍊 | `small key pendant necklace, fine chain with a simple metal key charm, understated vintage accessory` | 以小型金屬鑰匙吊墜為主，維持復古感但不讓吊墜過度放大。 |
 | **頸部 (Neck Accessories)** | 皮革 O 環頸圈 | `thin leather O-ring choker, narrow leather strap with a small metal O-ring, subtle edgy neck accent` | 以細窄皮革頸圈與小型金屬 O 環為主，和既有扣環頸鏈區隔。 |
 | **頸部 (Neck Accessories)** | 金屬狗牌項鍊 | `metal dog tag necklace, rectangular identification tag pendant on a fine chain, understated utilitarian accessory` | 以矩形金屬狗牌與細鏈為主，加入實用、軍用與工裝風格的頸部配件。 |
+| **腰部配件 (Waist Accessories)** | 全無 | `no waist accessories, clean waist styling` | 不加腰部配件，讓服裝腰線維持簡潔。 |
+| **腰部配件 (Waist Accessories)** | 細版皮革腰帶 | `slim leather waist belt, simple buckle, understated waist accessory` | 以細版皮革腰帶與簡潔扣具為主，適合日常搭配。 |
+| **腰部配件 (Waist Accessories)** | 寬版皮革腰帶 | `wide leather waist belt, structured buckle, defined waist accent` | 以較寬的皮革腰帶與明確扣具強調腰線，但不帶過度特殊風格。 |
+| **腰部配件 (Waist Accessories)** | 金屬鏈條腰鍊 | `metal chain belt draped around the waist, linked hardware, subtle hip accent` | 以金屬鏈條自然垂掛在腰部或髖部，增加輕量金屬層次。 |
+| **腰部配件 (Waist Accessories)** | 雙層金屬腰鏈 | `double-layer metal waist chain, two delicate linked chains around the hips, understated movement` | 以兩層細金屬鏈環繞髖部，帶有輕微垂墜動態。 |
+| **腰部配件 (Waist Accessories)** | 鉚釘皮革腰帶 | `studded leather waist belt, small metal studs, compact buckle hardware` | 以小型鉚釘與扣具增加街頭感，保持腰帶輪廓清楚。 |
+| **腰部配件 (Waist Accessories)** | 布質腰封 | `wide fabric waist sash, soft wrapped tie, layered waist accent` | 以寬版布料腰封與柔軟綁結形成服裝層次，方便搭配不同上衣與下身。 |
