@@ -498,7 +498,9 @@
 | **腰部配件 (Waist Accessories)** | 全無 | `no waist accessories, clean waist styling` | 不加腰部配件，讓服裝腰線維持簡潔。 |
 | **腰部配件 (Waist Accessories)** | 細版皮革腰帶 | `slim leather waist belt, simple buckle, understated waist accessory` | 以細版皮革腰帶與簡潔扣具為主，適合日常搭配。 |
 | **腰部配件 (Waist Accessories)** | 寬版皮革腰帶 | `wide leather waist belt, structured buckle, defined waist accent` | 以較寬的皮革腰帶與明確扣具強調腰線，但不帶過度特殊風格。 |
-| **腰部配件 (Waist Accessories)** | 金屬鏈條腰鍊 | `metal chain belt draped around the waist, linked hardware, subtle hip accent` | 以金屬鏈條自然垂掛在腰部或髖部，增加輕量金屬層次。 |
-| **腰部配件 (Waist Accessories)** | 雙層金屬腰鏈 | `double-layer metal waist chain, two delicate linked chains around the hips, understated movement` | 以兩層細金屬鏈環繞髖部，帶有輕微垂墜動態。 |
+| **腰部配件 (Waist Accessories)** | 雙層銀鏈水晶腰鍊 | `two-layer silver waist chain, two delicate fine-link strands at slightly different heights, irregular pale blue translucent stone accents along one strand, layered jewelry around the waist and upper hips` | 兩條不同高度的細銀鏈形成層次，其中一條沿間隔配置不規則淡藍半透明水晶石，明確落在腰部與上髖部。 |
+| **腰部配件 (Waist Accessories)** | 金色細鏈鑽石腰鍊 | `delicate gold waist chain, fine linked chain with evenly spaced tiny clear diamond-like gemstone accents, subtle sparkling jewelry worn around the waist and upper hips` | 以細緻金色鏈條環繞腰部與上髖部，沿間隔配置小型透明鑽石感寶石，呈現低調閃耀。 |
+| **腰部配件 (Waist Accessories)** | 雙層銀鏈愛心腰鍊 | `double-layer silver waist chain, two parallel fine chains with evenly spaced polished round bead accents, a small centered heart charm at the front, delicate jewelry around the waist and hips` | 兩條平行細銀鏈搭配均勻圓珠與正面中央小愛心吊飾，形成精緻的腰部與髖部珠鍊層次。 |
+| **腰部配件 (Waist Accessories)** | 愛心垂墜銀腰鍊 | `silver heart-charm waist chain, multiple open heart motifs spaced across the front, a short vertical chain hanging from the center heart and ending in a smaller heart pendant, delicate jewelry around the waist and upper hips` | 正面配置多個鏤空愛心，中央愛心向下垂墜短鏈與較小愛心吊飾，形成清楚但輕盈的腰部珠寶細節。 |
+| **腰部配件 (Waist Accessories)** | 銀色水鑽蝴蝶腰鏈 | `silver rhinestone butterfly waist chain, sparkling butterfly centerpiece with delicate body-chain strands draped across the exposed waist and upper hips, jewelry-like waist accessory worn above low-rise bottoms` | 以閃耀水鑽蝴蝶作為中心，細緻銀色身體鏈條垂掛於露出的腰部與上髖部，搭配低腰下身穿戴。 |
 | **腰部配件 (Waist Accessories)** | 鉚釘皮革腰帶 | `studded leather waist belt, small metal studs, compact buckle hardware` | 以小型鉚釘與扣具增加街頭感，保持腰帶輪廓清楚。 |
-| **腰部配件 (Waist Accessories)** | 布質腰封 | `wide fabric waist sash, soft wrapped tie, layered waist accent` | 以寬版布料腰封與柔軟綁結形成服裝層次，方便搭配不同上衣與下身。 |

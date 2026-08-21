@@ -488,13 +488,13 @@ test('waist accessory options remain traceable in full-body outputs', () => {
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     topId: optionId('topId', '棉質細肩背心'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
-    waistAccessoryId: optionId('waistAccessoryId', '金屬鏈條腰鍊'),
+    waistAccessoryId: optionId('waistAccessoryId', '雙層銀鏈水晶腰鍊'),
   });
 
-  assert.match(prompt.grokPrompt, /metal chain belt draped around the waist, linked hardware, subtle hip accent/i);
-  assert.match(prompt.zImagePrompt, /metal chain belt draped around the waist, linked hardware, subtle hip accent/i);
-  assert.ok(prompt.structured.Wardrobe.some((item) => item.zh === '金屬鏈條腰鍊'));
-  assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '金屬鏈條腰鍊'));
+  assert.match(prompt.grokPrompt, /two-layer silver waist chain, two delicate fine-link strands at slightly different heights/i);
+  assert.match(prompt.zImagePrompt, /two-layer silver waist chain, two delicate fine-link strands at slightly different heights/i);
+  assert.ok(prompt.structured.Wardrobe.some((item) => item.zh === '雙層銀鏈水晶腰鍊'));
+  assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '雙層銀鏈水晶腰鍊'));
 });
 
 test('duo waist accessories remain assigned to the selected person in compact output', () => {
@@ -507,13 +507,13 @@ test('duo waist accessories remain assigned to the selected person in compact ou
     pantsAId: optionId('pantsAId', '直筒牛仔褲'),
     pantsBId: optionId('pantsBId', '絲絨喇叭褲'),
     waistAccessoryAId: optionId('waistAccessoryAId', '細版皮革腰帶'),
-    waistAccessoryBId: optionId('waistAccessoryBId', '金屬鏈條腰鍊'),
+    waistAccessoryBId: optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鏈'),
   });
 
   assert.match(prompt.midjourneyPrompt, /slim leather waist belt, simple buckle, understated waist accessory/i);
-  assert.match(prompt.midjourneyPrompt, /metal chain belt draped around the waist, linked hardware, subtle hip accent/i);
+  assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain, sparkling butterfly centerpiece/i);
   assert.equal(prompt.selection.waistAccessoryAId, optionId('waistAccessoryAId', '細版皮革腰帶'));
-  assert.equal(prompt.selection.waistAccessoryBId, optionId('waistAccessoryBId', '金屬鏈條腰鍊'));
+  assert.equal(prompt.selection.waistAccessoryBId, optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鏈'));
 });
 
 test('street gold necklace stays short and spatially anchored at the neck across applicable single outputs', () => {
@@ -1045,7 +1045,7 @@ test('face close-up framing disables hidden controls without deleting their sele
     topId: optionId('topId', '透膚刺繡襯衫'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
     shoesId: optionId('shoesId', '高跟鞋'),
-    waistAccessoryId: optionId('waistAccessoryId', '金屬鏈條腰鍊'),
+    waistAccessoryId: optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鏈'),
     poseId: optionId('poseId', '坐姿｜微微前傾'),
     poseBaseId: optionId('poseBaseId', '坐姿'),
     poseHandId: optionId('poseHandId', '單手托下巴'),
@@ -1086,7 +1086,7 @@ test('face-only close-up prompts omit wardrobe text', () => {
     topId: optionId('topId', '透膚刺繡襯衫'),
     pantsId: optionId('pantsId', '直筒牛仔褲'),
     shoesId: optionId('shoesId', '高跟鞋'),
-    waistAccessoryId: optionId('waistAccessoryId', '金屬鏈條腰鍊'),
+    waistAccessoryId: optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鏈'),
   });
 
   assert.equal(prompt.selection.framingId, optionId('framingId', '臉部特寫'));
@@ -1094,7 +1094,7 @@ test('face-only close-up prompts omit wardrobe text', () => {
   assert.equal(prompt.selection.topId, optionId('topId', '透膚刺繡襯衫'));
   assert.equal(prompt.selection.pantsId, optionId('pantsId', '直筒牛仔褲'));
   assert.equal(prompt.selection.shoesId, optionId('shoesId', '高跟鞋'));
-  assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '金屬鏈條腰鍊'));
+  assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鏈'));
 
   assert.match(prompt.grokPrompt, /Tight face close-up/);
   assert.doesNotMatch(prompt.grokPrompt, /Wardrobe Visibility:/);
@@ -1108,14 +1108,14 @@ test('face-only close-up prompts omit wardrobe text', () => {
   assert.doesNotMatch(prompt.zImagePrompt, /semi-sheer embroidered shirt/i);
   assert.doesNotMatch(prompt.zImagePrompt, /straight-leg jeans/);
   assert.doesNotMatch(prompt.zImagePrompt, /glossy pointed-toe stiletto pumps/);
-  assert.doesNotMatch(prompt.grokPrompt, /metal chain belt draped around the waist/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /metal chain belt draped around the waist/i);
+  assert.doesNotMatch(prompt.grokPrompt, /silver rhinestone butterfly waist chain/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /silver rhinestone butterfly waist chain/i);
 
   const fullBodyPrompt = prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
   assert.match(fullBodyPrompt, /semi-sheer embroidered shirt/i);
   assert.match(fullBodyPrompt, /straight-leg jeans/i);
   assert.match(fullBodyPrompt, /glossy pointed-toe stiletto pumps/i);
-  assert.match(fullBodyPrompt, /metal chain belt draped around the waist/i);
+  assert.match(fullBodyPrompt, /silver rhinestone butterfly waist chain/i);
 });
 
 test('chest-up framing keeps visible outfit-preset prompt active while removing bags', () => {

@@ -43,10 +43,12 @@ const confirmedAdditions = {
   waistAccessoryId: [
     '細版皮革腰帶',
     '寬版皮革腰帶',
-    '金屬鏈條腰鍊',
-    '雙層金屬腰鏈',
+    '雙層銀鏈水晶腰鍊',
+    '金色細鏈鑽石腰鍊',
+    '雙層銀鏈愛心腰鍊',
+    '愛心垂墜銀腰鍊',
+    '銀色水鑽蝴蝶腰鏈',
     '鉚釘皮革腰帶',
-    '布質腰封',
   ],
 };
 
@@ -54,7 +56,7 @@ test('confirmed atomic wardrobe additions are exposed by existing controls', () 
   const controls = new Map(getLockControls().map((control) => [control.key, control]));
   const labels = Object.values(confirmedAdditions).flat();
 
-  assert.equal(labels.length, 69);
+  assert.equal(labels.length, 71);
 
   for (const [controlKey, expectedLabels] of Object.entries(confirmedAdditions)) {
     const control = controls.get(controlKey);
@@ -92,4 +94,23 @@ test('removed neck scarf options are hidden and old selections normalize to none
     neckAccessoryId: shiftedLegacyId,
   }, [...controls.values()]);
   assert.equal(normalizedShiftedOption.neckAccessoryId, neckControl.options.find((option) => option.zh === '串珠頸鏈').id);
+});
+
+test('replaced waist accessory options normalize to compatible current options', () => {
+  const controls = new Map(getLockControls().map((control) => [control.key, control]));
+  const waistControl = controls.get('waistAccessoryId');
+  const expectedTargets = [
+    ['金屬鏈條腰鍊', 3, '雙層銀鏈水晶腰鍊'],
+    ['雙層金屬腰鏈', 4, '雙層銀鏈愛心腰鍊'],
+    ['布質腰封', 6, '全無'],
+    ['鉚釘皮革腰帶', 5, '鉚釘皮革腰帶'],
+  ];
+
+  for (const [label, index, targetZh] of expectedTargets) {
+    const normalized = normalizeLocks({
+      ...createEmptyLocks(),
+      waistAccessoryId: `wardrobe:腰部配件-waist-accessories:${label}:${index}`,
+    }, [...controls.values()]);
+    assert.equal(normalized.waistAccessoryId, waistControl.options.find((option) => option.zh === targetZh).id);
+  }
 });

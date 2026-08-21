@@ -138,6 +138,37 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'waist-accessory-designs',
+    title: 'Waist chain designs remain explicit and traceable in full-body outputs',
+    mode: 'single',
+    seed: 'prompt-contract-waist-accessory-designs-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      topId: { byZh: '棉質細肩背心' },
+      pantsId: { byZh: '直筒牛仔褲' },
+      waistAccessoryId: { byZh: '銀色水鑽蝴蝶腰鏈' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['silver rhinestone butterfly waist chain', 'sparkling butterfly centerpiece'],
+      },
+      zImagePrompt: {
+        includes: ['silver rhinestone butterfly waist chain', 'sparkling butterfly centerpiece'],
+      },
+      midjourneyPrompt: {
+        includes: ['silver rhinestone butterfly waist chain'],
+      },
+      chestUpPortraitPrompt: {
+        excludes: ['silver rhinestone butterfly waist chain'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['silver rhinestone butterfly waist chain', 'sparkling butterfly centerpiece'],
+      },
+    },
+  },
+  {
     id: 'normal-single-3m-6200-respirator',
     title: '3M 6200 half-face respirator remains visible across all single-subject outputs',
     mode: 'single',
