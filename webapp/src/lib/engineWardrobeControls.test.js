@@ -482,6 +482,46 @@ test('new earring and dog-tag options remain traceable in single-subject outputs
   assert.ok(prompt.structured.Wardrobe.some((item) => item.zh === '金屬狗牌項鍊'));
 });
 
+test('street gold necklace stays short and spatially anchored at the neck across applicable single outputs', () => {
+  const allNoneLocks = { ...createEmptyLocks() };
+  for (const control of getLockControls()) {
+    const noneOption = control.options?.find((option) => option.zh === '全無' || option.zh === '無額外表情');
+    if (noneOption) allNoneLocks[control.key] = noneOption.id;
+  }
+
+  const [prompt] = generatePrompts(1, {
+    ...allNoneLocks,
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    topId: optionId('topId', '棉質細肩背心'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    neckAccessoryId: optionId('neckAccessoryId', '街頭風格金項鏈'),
+    locationId: optionId('locationId', '室內：深邃黑幕'),
+  }, [], { random: () => 0.42 });
+  const extraById = new Map(prompt.extraPrompts.map((entry) => [entry.id, entry.text]));
+  const applicableOutputs = [
+    prompt.grokPrompt,
+    prompt.zImagePrompt,
+    extraById.get('chest-up-portrait'),
+    extraById.get('full-body-character'),
+  ];
+  const omittedByCompactContract = [
+    prompt.midjourneyPrompt,
+    extraById.get('chest-up-mj-portrait'),
+  ];
+  const expected = /short gold curb-link necklace worn around the base of the neck at collarbone level/i;
+  const retired = /street-style gold chain detail, subtle urban neck accent/i;
+
+  for (const output of applicableOutputs) {
+    assert.match(output, expected);
+    assert.doesNotMatch(output, retired);
+  }
+  for (const output of omittedByCompactContract) {
+    assert.doesNotMatch(output, retired);
+  }
+  assert.equal(prompt.selection.neckAccessoryId, optionId('neckAccessoryId', '街頭風格金項鏈'));
+});
+
 test('duo eyewear earrings and neck accessories stay grouped by person in the subject description', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -498,7 +538,7 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
 
   const subjectLine = prompt.grokPrompt.match(/Subject:\n([\s\S]*?)(?=\n\n(?:Shared Expression|Scene|Wardrobe|Pose and Composition|Lighting|Camera Look):\n|$)/)?.[1] || '';
   assert.ok(subjectLine);
-  assert.match(subjectLine, /Woman 1:\nHas .*with .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
+  assert.match(subjectLine, /Woman 1:\nHas .*with .*black frame.*bold thick-frame glasses.*metallic earrings?.*short gold curb-link necklace worn around the base of the neck at collarbone level/i);
   assert.match(subjectLine, /Woman 2:\nHas .*with .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Eyewear:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 1 Earrings:/m);
@@ -507,7 +547,7 @@ test('duo eyewear earrings and neck accessories stay grouped by person in the su
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Earrings:/m);
   assert.doesNotMatch(prompt.grokPrompt, /^Woman 2 Neck Accessory:/m);
 
-  assert.match(prompt.zImagePrompt, /Woman 1 has [\s\S]+\bShe wears .*black frame.*bold thick-frame glasses.*metallic earrings?.*gold chain/i);
+  assert.match(prompt.zImagePrompt, /Woman 1 has [\s\S]+\bShe wears .*black frame.*bold thick-frame glasses.*metallic earrings?.*short gold curb-link necklace worn around the base of the neck at collarbone level/i);
   assert.match(prompt.zImagePrompt, /Woman 2 has [\s\S]+\bShe wears .*black frame.*sunglasses.*cross.*earrings?.*leather buckle choker/i);
 });
 

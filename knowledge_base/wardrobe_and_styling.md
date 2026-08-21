@@ -485,7 +485,7 @@
 | **頸部 (Neck Accessories)** | 細鍊鎖頭吊墜項鍊 | `small lock pendant necklace detail, understated edgy neck accent` | 保留低調街頭感與小型吊墜語氣，避免誇張放大。 |
 | **頸部 (Neck Accessories)** | 十字吊墜層疊頸鏈 | `layered cross pendant necklace detail, subtle gothic-inspired neck accent` | 保留哥德與街頭混搭感，但控制在細節層級。 |
 | **頸部 (Neck Accessories)** | 鑽石網球項鍊 | `diamond tennis necklace detail, subtle luxury neck accent` | 保留乾淨奢華感，但不讓鑽石高光成為主畫面焦點。 |
-| **頸部 (Neck Accessories)** | 街頭風格金項鏈 | `street-style gold chain detail, subtle urban neck accent` | 保留街頭與都會感，但降低 bold chain 的強烈存在。 |
+| **頸部 (Neck Accessories)** | 街頭風格金項鏈 | `short gold curb-link necklace worn around the base of the neck at collarbone level, understated streetwear jewelry` | 以短版金色 curb-link 項鍊明確貼近頸根與鎖骨位置，保留街頭感並避免被理解成延伸到軀幹的裝飾鏈。 |
 | **頸部 (Neck Accessories)** | 細領帶 | `slim necktie detail, narrow straight tie hanging from the collar` | 以窄版直落領帶與衣領下方的整齊垂墜為主。 |
 | **頸部 (Neck Accessories)** | 波洛領帶 | `bolo tie detail, slim cord necktie with small metal tips` | 以細繩領帶、滑扣與小型金屬繩頭為主。 |
 | **頸部 (Neck Accessories)** | 串珠頸鏈 | `beaded choker detail, short strand of small beads fitted around the neck` | 以貼合頸部的短串小珠與輕量頸鏈輪廓為主。 |

@@ -251,6 +251,22 @@ test('standard prompt parser prefers the longest matching option text', () => {
   assert.ok(parsed.matchedControls.some((entry) => entry.key === 'hairstyleId'));
 });
 
+test('standard prompt parser restores current and legacy street gold necklace wording', () => {
+  const controls = getLockControls();
+  const neckControl = controls.find((entry) => entry.key === 'neckAccessoryId');
+  const necklace = neckControl.options.find((entry) => entry.zh === '街頭風格金項鏈');
+  const currentText = 'short gold curb-link necklace worn around the base of the neck at collarbone level, understated streetwear jewelry';
+  const legacyText = 'street-style gold chain detail, subtle urban neck accent';
+
+  assert.equal(necklace.en, currentText);
+  assert.ok(necklace.meta?.legacyPromptAliases?.includes(legacyText));
+
+  for (const promptText of [currentText, legacyText]) {
+    const parsed = parseLocksFromStandardPrompt(promptText, controls);
+    assert.equal(parsed.locks.neckAccessoryId, necklace.id);
+  }
+});
+
 test('standard prompt parser restores natural multi-phrase garment color syntax', () => {
   const controls = getLockControls();
   const control = (key) => controls.find((entry) => entry.key === key);

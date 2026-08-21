@@ -100,6 +100,44 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'street-gold-necklace-placement',
+    title: 'Street gold necklace stays short and anchored at the neck',
+    mode: 'single',
+    seed: 'prompt-contract-street-gold-necklace-placement-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      topId: { byZh: '棉質細肩背心' },
+      pantsId: { byZh: '直筒牛仔褲' },
+      neckAccessoryId: { byZh: '街頭風格金項鏈' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['short gold curb-link necklace worn around the base of the neck at collarbone level'],
+        excludes: ['street-style gold chain detail, subtle urban neck accent'],
+      },
+      zImagePrompt: {
+        includes: ['short gold curb-link necklace worn around the base of the neck at collarbone level'],
+        excludes: ['street-style gold chain detail, subtle urban neck accent'],
+      },
+      midjourneyPrompt: {
+        excludes: ['street-style gold chain detail, subtle urban neck accent'],
+      },
+      chestUpPortraitPrompt: {
+        includes: ['short gold curb-link necklace worn around the base of the neck at collarbone level'],
+        excludes: ['street-style gold chain detail, subtle urban neck accent'],
+      },
+      chestUpMjPortraitPrompt: {
+        excludes: ['street-style gold chain detail, subtle urban neck accent'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['short gold curb-link necklace worn around the base of the neck at collarbone level'],
+        excludes: ['street-style gold chain detail, subtle urban neck accent'],
+      },
+    },
+  },
+  {
     id: 'normal-single-3m-6200-respirator',
     title: '3M 6200 half-face respirator remains visible across all single-subject outputs',
     mode: 'single',
