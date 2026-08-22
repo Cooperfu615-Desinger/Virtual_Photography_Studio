@@ -197,6 +197,33 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'double-buns-red-headband',
+    title: 'Twin buns keep the fixed red headband separate from hair color',
+    mode: 'single',
+    seed: 'prompt-contract-double-buns-red-headband-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      hairstyleId: { byZh: '雙包子頭' },
+      hairColorId: { byZh: '自然黑' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['Chinese-inspired twin buns', 'red fabric headband'],
+      },
+      zImagePrompt: {
+        includes: ['Chinese-inspired twin buns', 'red fabric headband'],
+      },
+      midjourneyPrompt: {
+        includes: ['Chinese-inspired twin buns', 'red fabric headband'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['Chinese-inspired twin buns', 'red fabric headband'],
+      },
+    },
+  },
+  {
     id: 'normal-single-3m-6200-respirator',
     title: '3M 6200 half-face respirator remains visible across all single-subject outputs',
     mode: 'single',

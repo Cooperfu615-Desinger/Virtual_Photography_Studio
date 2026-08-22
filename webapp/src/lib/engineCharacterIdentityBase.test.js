@@ -73,6 +73,7 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
       '輕透齊瀏海內彎鮑伯',
       '韓系蓬鬆鎖骨柔波髮',
       '輕透瀏海自然微彎長髮',
+      '雙包子頭',
     ]
   );
   assert.ok(!optionLabels('hairstyleId').includes('短髮｜精靈短髮'));
@@ -104,6 +105,30 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
     optionLabels('hairStylingStateId'),
     ['柔順自然', '濕髮分束', '微風吹拂', '強烈風感']
   );
+});
+
+test('hairstyle prompt supports twin buns with a fixed red headband', () => {
+  const twinBuns = optionByLabel('hairstyleId', '雙包子頭');
+
+  assert.match(twinBuns.en, /Chinese-inspired twin buns/);
+  assert.match(twinBuns.en, /two rounded high buns/);
+  assert.match(twinBuns.en, /red fabric headband/);
+  assert.doesNotMatch(twinBuns.en, /\bblack\b|\bbrown\b|\bblonde\b|hair color/i);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    specialOutfitId: optionByLabel('specialOutfitId', '全無').id,
+    hairstyleId: twinBuns.id,
+    hairColorId: optionByLabel('hairColorId', '自然黑').id,
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  assert.match(promptText, /Chinese-inspired twin buns/);
+  assert.match(promptText, /red fabric headband/);
+  assert.equal(prompt.selection.hairstyleId, twinBuns.id);
+  assert.equal(prompt.selection.hairColorId, optionByLabel('hairColorId', '自然黑').id);
 });
 
 test('hairstyle prompt supports airy inward bob with see-through bangs', () => {

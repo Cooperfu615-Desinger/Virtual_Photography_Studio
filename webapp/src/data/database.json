@@ -5934,6 +5934,11 @@
         "zh": "輕透瀏海自然微彎長髮",
         "en": "long naturally slightly wavy hair with airy see-through bangs, soft side-draped face-framing strands",
         "desc": "自然微彎長髮搭配輕透瀏海，部分髮絲自然偏向一側垂落，乾淨清爽且帶日系寫真感。"
+      },
+      {
+        "zh": "雙包子頭",
+        "en": "Chinese-inspired twin buns, two rounded high buns with a clean center part, red fabric headband, neat face-framing strands",
+        "desc": "中國風雙包子頭，左右兩側形成高位圓形包子頭，中分整理並固定搭配紅色布質髮帶；髮色仍由髮色欄位控制。"
       }
     ],
     "髮絲整理狀態 (Hair Styling State)": [
