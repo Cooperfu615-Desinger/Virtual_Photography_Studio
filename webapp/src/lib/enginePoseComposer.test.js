@@ -851,6 +851,33 @@ test('expressive hand interactions are preserved in all prompt versions', () => 
   }
 });
 
+test('pocket hand actions distinguish pants and outerwear placement in all prompt versions', () => {
+  const cases = [
+    ['雙手插褲子口袋', /both hands tucked into the two front pockets of her pants, elbows relaxed and angled slightly outward/],
+    ['雙手插外套口袋', /both hands tucked into the two side pockets of her jacket or coat, elbows relaxed and angled slightly outward/],
+  ];
+
+  for (const [handZh, expected] of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      poseBaseId: optionId('poseBaseId', '站姿'),
+      poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+      poseHandId: optionId('poseHandId', handZh),
+      poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+    });
+
+    const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+    assert.match(canonicalPose, expected);
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      assert.match(text, expected);
+      assert.equal(text.split(canonicalPose).length - 1, 1);
+    }
+    assert.equal(prompt.selection.poseHandId, optionId('poseHandId', handZh));
+  }
+});
+
 test('pose composer exposes new standing sitting and squatting arrangement batch', () => {
   [
     ['交叉腿站姿', 'standing', /crossed-leg standing arrangement/],

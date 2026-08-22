@@ -206,6 +206,26 @@ test('standard prompt parser restores prop actions only into posePropId', () => 
   assert.equal(parsed.locks.poseHandId, 'none');
 });
 
+test('standard prompt parser restores both pocket hand actions and the retired generic wording', () => {
+  const controls = getLockControls();
+  const handControl = controls.find((control) => control.key === 'poseHandId');
+  const pantsPockets = handControl.options.find((option) => option.zh === '雙手插褲子口袋');
+  const outerwearPockets = handControl.options.find((option) => option.zh === '雙手插外套口袋');
+
+  assert.ok(pantsPockets);
+  assert.ok(outerwearPockets);
+  assert.ok(pantsPockets.meta?.legacyPromptAliases?.includes('both hands tucked into pockets'));
+
+  for (const [promptText, expectedId] of [
+    [pantsPockets.en, pantsPockets.id],
+    ['both hands tucked into pockets', pantsPockets.id],
+    [outerwearPockets.en, outerwearPockets.id],
+  ]) {
+    const parsed = parseLocksFromStandardPrompt(`portrait, ${promptText}`, controls);
+    assert.equal(parsed.locks.poseHandId, expectedId, promptText);
+  }
+});
+
 test('standard prompt parser restores only the strict Z-Image exact visible text wrapper', () => {
   const controls = getLockControls();
   const exactSentence = 'A wall poster within the scene clearly displays the exact English text "MIDNIGHT CAFE".';
