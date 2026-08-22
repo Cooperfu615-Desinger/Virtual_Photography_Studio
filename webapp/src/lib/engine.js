@@ -3085,6 +3085,9 @@ function buildEntries(groupName, groupedData, inferMeta) {
         ...(item.mj && typeof item.mj === 'object' && !Array.isArray(item.mj)
           ? { mj: { ...item.mj } }
           : {}),
+        ...(item.headAccessoryColorTarget
+          ? { headAccessoryColorTarget: item.headAccessoryColorTarget }
+          : {}),
         legacyIds: Array.from(new Set([
           ...(Array.isArray(item.legacyIds) ? item.legacyIds : []),
           ...ambientLightLegacyIds,
@@ -8719,9 +8722,26 @@ function stripHeadAccessoryColorTerms(text) {
     .trim();
 }
 
+function buildTargetedHeadAccessoryColorPrompt(headAccessory, base, color) {
+  const target = normalizeWardrobePromptText(headAccessory?.headAccessoryColorTarget);
+  if (!target) return '';
+
+  const targetPattern = new RegExp(escapeRegExpPattern(target), 'i');
+  if (!targetPattern.test(base)) return '';
+
+  const neutralTarget = stripHeadAccessoryColorTerms(target);
+  if (!neutralTarget) return '';
+
+  const coloredTarget = composeWearableColorPrompt(neutralTarget, color, { placement: 'inline' });
+  return base.replace(targetPattern, coloredTarget);
+}
+
 function buildHeadAccessoryPrompt(headAccessory, color = null) {
   const base = buildAccessoryPrompt(headAccessory);
   if (!base || !color || isNoneLikeItem(color)) return base;
+
+  const targetedColorPrompt = buildTargetedHeadAccessoryColorPrompt(headAccessory, base, color);
+  if (targetedColorPrompt) return targetedColorPrompt;
 
   const neutralBase = stripHeadAccessoryColorTerms(base);
   return composeWearableColorPrompt(neutralBase, color, { placement: 'inline' });
@@ -12616,6 +12636,7 @@ function compactAiHeadAccessoryText(headAccessory, color = null) {
   const text = cleanAiMinimalFragment(buildHeadAccessoryPrompt(headAccessory, color));
   if (/\b(?:headphones?|earphones?)\b/i.test(text)) return text.split(/\s*,\s*/)[0] || '';
   if (/\b(?:face masks?|respirators?|gas masks?)\b/i.test(text)) return text;
+  if (/\bcrown\b/i.test(text)) return text;
   return '';
 }
 

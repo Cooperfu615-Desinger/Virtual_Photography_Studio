@@ -214,6 +214,11 @@
           "wardrobe:裙裝-skirts:高腰窄裙:22"
         ]
       }
+    },
+    "頭部配件 (Head Accessories)": {
+      "紅絨金飾水鑽皇冠": {
+        "headAccessoryColorTarget": "red velvet crown body"
+      }
     }
   }
 }

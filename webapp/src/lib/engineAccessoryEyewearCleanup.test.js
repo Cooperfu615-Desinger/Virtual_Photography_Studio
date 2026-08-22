@@ -53,6 +53,49 @@ test('face-covering head accessories keep their defining construction in all sin
   }
 });
 
+test('crown color targets only the red velvet body and preserves fixed ornament details', () => {
+  const crown = optionByLabel('headAccessoryId', '紅絨金飾水鑽皇冠');
+  const selectedColor = optionByLabel('headAccessoryColorId', '寶藍色');
+
+  assert.equal(crown.headAccessoryColorTarget, 'red velvet crown body');
+  assert.match(crown.en, /red velvet crown body/i);
+  assert.match(crown.en, /gold filigree arches/i);
+  assert.match(crown.en, /crystal rhinestones/i);
+  assert.match(crown.en, /central cross finial/i);
+  assert.match(crown.en, /red gemstone accents/i);
+
+  const [uncoloredPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    headAccessoryId: crown.id,
+  });
+  assert.match(uncoloredPrompt.grokPrompt, /red velvet crown body/i);
+
+  const [coloredPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    headAccessoryId: crown.id,
+    headAccessoryColorId: selectedColor.id,
+  });
+  const outputs = [
+    coloredPrompt.grokPrompt,
+    coloredPrompt.zImagePrompt,
+    coloredPrompt.midjourneyPrompt,
+    ...coloredPrompt.extraPrompts.map((entry) => entry.text),
+  ];
+
+  for (const text of outputs) {
+    assert.match(text, /royal blue velvet crown body/i);
+    assert.doesNotMatch(text, /red velvet crown body/i);
+    assert.match(text, /gold filigree arches/i);
+    assert.match(text, /crystal rhinestones/i);
+    assert.match(text, /central cross finial/i);
+    assert.match(text, /red gemstone accents/i);
+  }
+});
+
 test('head accessory colors reuse the garment palette and replace authored colors consistently', () => {
   assert.deepEqual(optionLabels('headAccessoryColorId'), optionLabels('topColorId'));
   assert.deepEqual(optionLabels('headAccessoryAColorId'), optionLabels('topAColorId'));

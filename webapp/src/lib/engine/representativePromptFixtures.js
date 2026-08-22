@@ -256,6 +256,39 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'normal-single-crown-targeted-color',
+    title: 'Royal crown color changes only the velvet body while fixed ornaments remain intact',
+    mode: 'single',
+    seed: 'prompt-contract-crown-targeted-color-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      headAccessoryId: { byZh: '紅絨金飾水鑽皇冠' },
+      headAccessoryColorId: { byZh: '寶藍色' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['royal blue velvet crown body', 'gold filigree arches', 'red gemstone accents'],
+      },
+      zImagePrompt: {
+        includes: ['royal blue velvet crown body', 'gold filigree arches', 'red gemstone accents'],
+      },
+      midjourneyPrompt: {
+        includes: ['royal blue velvet crown body', 'gold filigree arches', 'red gemstone accents'],
+      },
+      chestUpPortraitPrompt: {
+        includes: ['royal blue velvet crown body', 'gold filigree arches', 'red gemstone accents'],
+      },
+      chestUpMjPortraitPrompt: {
+        includes: ['royal blue velvet crown body', 'gold filigree arches', 'red gemstone accents'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['royal blue velvet crown body', 'gold filigree arches', 'red gemstone accents'],
+      },
+    },
+  },
+  {
     id: 'normal-single-ai-compression-source-retention',
     title: 'AI compression retains composition, facial expression, and imaging source anchors',
     mode: 'single',

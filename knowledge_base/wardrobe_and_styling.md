@@ -433,6 +433,7 @@
 | **頭部配件 (Head Accessories)** | 小禮帽 | `pillbox hat, compact structured crown, short brimless formal hat silhouette` | 以緊湊硬挺帽冠與無帽簷正式小禮帽輪廓為主。 |
 | **頭部配件 (Head Accessories)** | 護士帽 | `nurse cap, compact structured medical headpiece, clean folded crown` | 以緊湊硬挺的醫護頭飾、乾淨折疊帽冠與制服配件輪廓為主。 |
 | **頭部配件 (Head Accessories)** | 蝴蝶結髮夾 | `bow hair clip, compact ribbon bow secured into the hair` | 以固定在髮絲中的緊湊緞帶蝴蝶結為主。 |
+| **頭部配件 (Head Accessories)** | 紅絨金飾水鑽皇冠 | `ornate royal crown with a red velvet crown body, gold filigree arches, gold bead trim, crystal rhinestones, central cross finial, red gemstone accents, white fur base` | 華麗皇家皇冠，紅色絨布帽身搭配金色鏤空拱架、珠飾邊緣、水鑽、中央十字尖頂、紅色寶石與白色毛絨襯邊；指定頭部配件配色時只改變紅色絨布帽身。 |
 | **眼鏡 (Eyewear)** | 全無 | `no eyewear, clean face styling` | 不加眼鏡，讓臉部與五官維持乾淨俐落。 |
 | **眼鏡 (Eyewear)** | 粗框眼鏡 | `bold thick-frame glasses` | 以較厚、辨識度高的鏡框本體為主。 |
 | **眼鏡 (Eyewear)** | 細框眼鏡 | `thin-frame glasses` | 以細窄輕量鏡框本體為主。 |
