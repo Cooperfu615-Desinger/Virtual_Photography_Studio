@@ -169,6 +169,34 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'waist-belt-decorative-wear',
+    title: 'Leather waist belts stay distinct while using loose decorative wear',
+    mode: 'single',
+    seed: 'prompt-contract-waist-belt-decorative-wear-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      topId: { byZh: '棉質細肩背心' },
+      pantsId: { byZh: '直筒牛仔褲' },
+      waistAccessoryId: { byZh: '寬版皮革腰帶' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['decorative wide leather waist belt worn loosely around hips with a structured off-center buckle'],
+      },
+      zImagePrompt: {
+        includes: ['decorative wide leather waist belt worn loosely around hips with a structured off-center buckle'],
+      },
+      midjourneyPrompt: {
+        includes: ['decorative wide leather waist belt worn loosely around hips with a structured off-center buckle'],
+      },
+      fullBodyCharacterPrompt: {
+        includes: ['decorative wide leather waist belt worn loosely around hips with a structured off-center buckle'],
+      },
+    },
+  },
+  {
     id: 'normal-single-3m-6200-respirator',
     title: '3M 6200 half-face respirator remains visible across all single-subject outputs',
     mode: 'single',

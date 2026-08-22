@@ -497,6 +497,39 @@ test('waist accessory options remain traceable in full-body outputs', () => {
   assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '雙層銀鏈水晶腰鍊'));
 });
 
+test('all leather waist belts use loose decorative styling while retaining their distinct hardware', () => {
+  const cases = [
+    {
+      label: '細版皮革腰帶',
+      expected: /decorative slim leather waist belt worn loosely around hips with a simple off-center buckle/i,
+    },
+    {
+      label: '寬版皮革腰帶',
+      expected: /decorative wide leather waist belt worn loosely around hips with a structured off-center buckle/i,
+    },
+    {
+      label: '鉚釘皮革腰帶',
+      expected: /decorative studded leather waist belt worn loosely around hips with metal studs and compact off-center buckle/i,
+    },
+  ];
+
+  for (const { label, expected } of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      topId: optionId('topId', '棉質細肩背心'),
+      pantsId: optionId('pantsId', '直筒牛仔褲'),
+      waistAccessoryId: optionId('waistAccessoryId', label),
+    });
+
+    assert.match(prompt.grokPrompt, expected);
+    assert.match(prompt.zImagePrompt, expected);
+    assert.match(prompt.midjourneyPrompt, expected);
+    assert.match(prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '', expected);
+    assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', label));
+  }
+});
+
 test('duo waist accessories remain assigned to the selected person in compact output', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -510,7 +543,7 @@ test('duo waist accessories remain assigned to the selected person in compact ou
     waistAccessoryBId: optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鏈'),
   });
 
-  assert.match(prompt.midjourneyPrompt, /slim leather waist belt, simple buckle, understated waist accessory/i);
+  assert.match(prompt.midjourneyPrompt, /decorative slim leather waist belt worn loosely around hips with a simple off-center buckle/i);
   assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain, sparkling butterfly centerpiece/i);
   assert.equal(prompt.selection.waistAccessoryAId, optionId('waistAccessoryAId', '細版皮革腰帶'));
   assert.equal(prompt.selection.waistAccessoryBId, optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鏈'));
