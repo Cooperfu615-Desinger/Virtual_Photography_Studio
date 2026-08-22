@@ -10706,7 +10706,7 @@ const GPT_SINGLE_HAIR_COLOR_MERGE_RULES = [
 
 const SINGLE_BODY_TYPE_ANCHOR_RULES = [
   {
-    pattern: /sexy tall slim-curvy silhouette,\s*about 168-173 cm visual height and 53-58 kg lean visual weight,\s*94-58-92 body proportion anchor,\s*long legs with about 3\.8:6\.2 torso-to-leg balance,\s*full F-to-G-cup-scale bust,\s*narrow defined waist,\s*rounded hips,\s*flat abdomen,\s*dramatic but lean bust-waist-hip curve/i,
+    pattern: /sexy tall slim-curvy silhouette,\s*about 168-173 cm visual height and 53-58 kg lean visual weight,\s*94-58-92 body proportion anchor,\s*long legs with about 3\.8:6\.2 torso-to-leg balance,\s*full F-to-G-cup-scale bust,\s*narrow defined waist,\s*rounded hips,\s*dramatic but lean bust-waist-hip curve/i,
     aiText: 'Curvy hourglass silhouette, fuller bust, defined waist, rounded hips.',
   },
   {
@@ -10813,7 +10813,7 @@ function DEPRECATED_GPT_SINGLE_SUBJECT_COMPACTOR(value, context) {
     .replace(/\b(black|white|tortoiseshell|silver metal|gold metal|clear transparent) frame,\s+(bold thick-frame glasses|thin-frame glasses|retro round-frame glasses|narrow oval glasses|sunglasses with tinted lenses)\b/gi, '$1 $2')
     .replace(/,\s*worn normally on the face,\s*lenses aligned over the eyes/gi, '')
     .replace(
-      /sexy tall slim-curvy silhouette,\s*about 168-173 cm visual height and 53-58 kg lean visual weight,\s*94-58-92 body proportion anchor,\s*long legs with about 3\.8:6\.2 torso-to-leg balance,\s*full F-to-G-cup-scale bust,\s*narrow defined waist,\s*rounded hips,\s*flat abdomen,\s*dramatic but lean bust-waist-hip curve/gi,
+      /sexy tall slim-curvy silhouette,\s*about 168-173 cm visual height and 53-58 kg lean visual weight,\s*94-58-92 body proportion anchor,\s*full F-to-G-cup-scale bust,\s*narrow defined waist,\s*rounded hips,\s*dramatic but lean bust-waist-hip curve/gi,
       'sexy tall slim-curvy silhouette, long legs, narrow defined waist, rounded hips, lean hourglass curve'
     )
     .replace(

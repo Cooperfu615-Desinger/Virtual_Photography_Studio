@@ -2,7 +2,7 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-08-19
+Last updated: 2026-08-22
 
 ## Snapshot
 
@@ -41,6 +41,12 @@ Last updated: 2026-08-19
 - `頭部配件` now includes a black disposable pleated face mask and a grey 3M 6200 reusable half-face respirator with twin side filter cartridges. They reuse the existing single-select single／duo controls, lock ids, Storage schema, and random pool; eyewear remains independently composable.
 - Face-mask／respirator descriptions are retained in Gpt, Z-Image, AI, and all three single-subject fixed-framing outputs. Duo Gpt／Z-Image／AI now also retain each role's explicitly resolved head accessory instead of dropping it during role compaction.
 - Validation on 2026-08-19: focused accessory／atomic-option／representative-contract tests passed 34 tests; frontend `npm test` passed 711 tests; `npm run test:prompt-quality` passed 148 tests; lint, build, sync checks, Python tests, public asset checks, and the same-seed 200-prompt strict audit passed with zero blocking signals and the same 14 pre-existing diagnostic-only findings. Browser QA at 1440×1000 and 390×844 confirmed both visible options, a live random 3M 6200 result across all six outputs, all five active workspaces without document overflow or broken images, and an empty warning／error log. A separate 2,000-generation engine sample confirmed both additions participate in unlocked random resolution.
+
+## Current PAGE1 Body Type wording
+
+- On 2026-08-22, the canonical `性感曲線身形` Body Type source removed the phrase `flat abdomen` after real-generation checks showed that it could bias clothing interpretation toward exposed midriff or split dress construction. The source change is synchronized to `webapp/src/data/database.json`; the composition-projected medium-waist and cowboy-knee variants, single-body anchor compatibility rules, and regression fixtures are updated to the same source-derived wording. The AI compact anchor was already `Curvy hourglass silhouette, fuller bust, defined waist, rounded hips.` and remains unchanged. No wardrobe resolver, complete-look takeover, lock id, storage schema, import/export contract, or UI layout changed.
+- This is a wording-only prompt-source change. Focused prompt／composition tests passed 100/100; `npm run test:prompt-quality` passed 153/153; frontend `npm test` passed 731/731; lint and build passed (Vite still reports the repository's existing large-chunk advisory). Knowledge-base sync, sync check, Python tests, public-asset checks, and `git diff --check` passed. The same-seed strict audit (`200`, `prompt-quality-baseline`) reported zero required-output, integrity, exact-duplicate, control-leakage, contradiction, coverage, or blocking signals; it retained 18 diagnostic-only wardrobe／scene or cross-role near-duplicate findings.
+- Browser smoke on the local dev URL at the default desktop viewport and 390×844 confirmed all five active workspaces with no document-level horizontal overflow, broken images, console warnings, or errors. The live Prompt workspace generated six outputs without `flat abdomen`; the browser UI still exposes the existing Sexy Curves selection and wardrobe controls. The explicit browser select-option helper could not commit a controlled `<select>` change in this environment, so shirt-versus-dress interaction remains covered by the deterministic engine and integration fixtures rather than a live browser selection.
 
 ## Validation
 

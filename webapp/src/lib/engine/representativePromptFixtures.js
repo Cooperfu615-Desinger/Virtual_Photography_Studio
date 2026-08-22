@@ -235,6 +235,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'macro lens',
           'neon cross-processed rendering',
         ],
+        excludes: ['flat abdomen'],
       },
       zImagePrompt: {
         includes: [
@@ -243,12 +244,13 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'macro lens',
           'neon cross-processed rendering',
         ],
+        excludes: ['flat abdomen'],
       },
       midjourneyPrompt: {
         includes: [
           'Waist-up portrait, high angle, looking down, rear-right three-quarter view',
           'A 20s seductive stunning Japanese woman',
-          'full bust, narrow defined waist, flat abdomen',
+          'full bust, narrow defined waist',
           'softly defined oval face, upturned eyes with arched brows, clear nose bridge and full shaped lips',
           'playful restrained smile',
           'relaxed brows',
@@ -269,6 +271,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'neon cross-processed rendering',
         ],
         excludes: [
+          'flat abdomen',
           '20s Japanese or Korean woman, seductive editorial presence',
           'complete outfit',
           'locked',
@@ -286,6 +289,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'macro lens',
         ],
         excludes: [
+          'flat abdomen',
           '20s Japanese or Korean woman, seductive editorial presence',
           'complete outfit',
           'locked',

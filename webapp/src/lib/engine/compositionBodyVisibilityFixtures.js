@@ -108,10 +108,10 @@ export const BODY_TYPE_VISIBILITY_PROFILES = Object.freeze([
   }),
   createBodyTypeProfile({
     bodyTypeZh: '性感曲線身形',
-    fullSource: 'sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve',
+    fullSource: 'sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve',
     chestUp: 'full bust',
-    mediumWaist: 'full bust, narrow defined waist, flat abdomen',
-    cowboyKnee: '94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve',
+    mediumWaist: 'full bust, narrow defined waist',
+    cowboyKnee: '94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve',
   }),
   createBodyTypeProfile({
     bodyTypeZh: '運動緊實身形',

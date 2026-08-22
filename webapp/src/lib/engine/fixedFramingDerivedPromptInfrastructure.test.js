@@ -32,8 +32,8 @@ const FULL_BODY_CHARACTER_BASELINES = Object.freeze([
       shoesId: 'Samba OG',
       locationId: '室內：英倫復古窗邊房間',
     }),
-    length: 1398,
-    sha256: 'fbf3bfdbca36fac07ae253245a3737c84f3882552b6a6a78d917885c3e446e24',
+    length: 1384,
+    sha256: '9d8727d9d79e03016b68420330dbac8c81b765ec054d4811c107ceeeed99257a',
   }),
   Object.freeze({
     id: 'special-outfit',
@@ -66,8 +66,8 @@ const FULL_BODY_CHARACTER_BASELINES = Object.freeze([
       topId: '棉質細肩背心',
       pantsId: '直筒牛仔褲',
     }),
-    length: 1161,
-    sha256: 'a3f6fea4002a53905d7fa08f2f2862dbb050e66a43e65aa074d9c638b555c78c',
+    length: 1147,
+    sha256: '6be801486139b3d8feea0a2c7a9bcc65f790dd982e92b18f4d937d182a766959',
   }),
 ]);
 

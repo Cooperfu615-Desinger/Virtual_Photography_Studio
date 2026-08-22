@@ -253,7 +253,7 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
   assert.match(subject, /black frame, bold thick-frame glasses, worn normally on the face, lenses aligned over the eyes/i);
   assert.match(subject, /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
   assert.match(subject, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
-  assert.match(subject, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i);
+  assert.match(subject, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve/i);
   assert.match(subject, /young seductive alluring beauty face, magnetic feminine facial balance, defined eyes and lips, sensual captivating portrait presence/i);
   assert.match(subject, /deep side-parted long soft waves, defined face-framing layers, polished wave shape/i);
   assert.match(subject, /silver-gray white hair, cool pale fashion color, realistic dyed hair texture/i);
@@ -271,7 +271,7 @@ test('Gpt single-subject prompt preserves full-fidelity normal subject and wardr
   assert.match(prompt.zImagePrompt, /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i);
   assert.match(prompt.zImagePrompt, /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
   assert.match(prompt.zImagePrompt, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
-  assert.match(prompt.zImagePrompt, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i);
+  assert.match(prompt.zImagePrompt, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve/i);
 });
 
 test('Z-Image single-subject prompt keeps fixed subject lead and full body type while keeping natural paragraphs', () => {
@@ -302,7 +302,7 @@ test('Z-Image single-subject prompt keeps fixed subject lead and full body type 
   assert.match(paragraphs.find((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph)) || '', /bold thick-frame glasses/i);
   assert.match(prompt.zImagePrompt, /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i);
   assert.match(prompt.zImagePrompt, /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i);
-  assert.match(prompt.zImagePrompt, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i);
+  assert.match(prompt.zImagePrompt, /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve/i);
   assert.match(prompt.zImagePrompt, /long soft waves with defined wave shape[\s\S]*sleek wet finish[\s\S]*natural black hair/i);
 
   assert.match(paragraphs.find((paragraph) => /^She wears /i.test(paragraph)) || '', /white triangle bikini top/i);
@@ -481,7 +481,7 @@ test('Gpt single-subject prompt preserves full-fidelity identity descriptions', 
         /A 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/i,
         /sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight/i,
         /94-58-92 body proportion anchor, long legs with about 3\.8:6\.2 torso-to-leg balance/i,
-        /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, flat abdomen, dramatic but lean bust-waist-hip curve/i,
+        /full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve/i,
       ],
       zOmits: /magnetic feminine facial balance|polished Korean-style face-framing flow/i,
     },
