@@ -5,12 +5,13 @@ function deepFreeze(value) {
   return value;
 }
 
-export const AI_PROMPT_LENGTH_CONTRACT_VERSION = '1.1.0';
+export const AI_PROMPT_LENGTH_CONTRACT_VERSION = '1.2.0';
 
 /**
- * Machine-readable budget and preservation policy for the single-subject AI
- * output. Phase 1 records the target only; runtime compression is activated in
- * later phases so the baseline can be measured without changing public text.
+ * Machine-readable length diagnostics and preservation policy for the
+ * Midjourney-native AI output. The historical word budgets remain available
+ * for measurement and comparison, but are not a runtime deletion gate: MJ
+ * must retain resolved visual items and compact their wording instead.
  */
 export const AI_PROMPT_LENGTH_CONTRACT = deepFreeze({
   field: 'midjourneyPrompt',
@@ -23,6 +24,12 @@ export const AI_PROMPT_LENGTH_CONTRACT = deepFreeze({
     unit: 'english-word',
     punctuationOnlyTokens: 'ignored',
     paragraphSeparators: 'ignored',
+  },
+  runtimePolicy: {
+    enforcement: 'diagnostic-only',
+    deletionGate: 'none',
+    preserveResolvedVisualItems: true,
+    compactRedundantProseBeforeVisualItems: true,
   },
   budgets: {
     normal: {

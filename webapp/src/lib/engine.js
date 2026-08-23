@@ -22,14 +22,10 @@ import {
   projectSpecialOutfitPersonFragment,
 } from './engine/compositionBodyProjection.js';
 import {
-  createBudgetedAiPromptSectionModel,
+  createAiPromptSectionModel,
   renderAiPromptSectionModel,
   resolveAiPromptPolicyKey,
 } from './engine/aiPromptBudget.js';
-import {
-  AI_PROMPT_LENGTH_CONTRACT,
-  countAiPromptWords,
-} from './engine/aiPromptLengthContract.js';
 import {
   dedupeRepeatedCommaFragments,
   materializeOutfitColorControls,
@@ -12633,11 +12629,84 @@ function compactAiEyewearAccessoryText(eyewear, color = null, placement = null) 
 }
 
 function compactAiHeadAccessoryText(headAccessory, color = null) {
-  const text = cleanAiMinimalFragment(buildHeadAccessoryPrompt(headAccessory, color));
+  const base = buildAccessoryPrompt(headAccessory);
+  const declaredTarget = normalizeWardrobePromptText(headAccessory?.headAccessoryColorTarget);
+  const inferredTarget = base.match(/\b(?:red|bright red|dark red|blue|black|white)\s+velvet crown body\b/i)?.[0] || '';
+  const target = declaredTarget || inferredTarget;
+  const targetedText = target && color && !isNoneLikeItem(color)
+    ? base.replace(
+        new RegExp(escapeRegExpPattern(target), 'i'),
+        composeWearableColorPrompt(stripHeadAccessoryColorTerms(target), color, { placement: 'inline' }),
+      )
+    : '';
+  const text = cleanAiMinimalFragment(targetedText || buildHeadAccessoryPrompt(headAccessory, color));
+  if (!text || /^(?:no|none)\b/i.test(text)) return '';
   if (/\b(?:headphones?|earphones?)\b/i.test(text)) return text.split(/\s*,\s*/)[0] || '';
   if (/\b(?:face masks?|respirators?|gas masks?)\b/i.test(text)) return text;
   if (/\bcrown\b/i.test(text)) return text;
-  return '';
+  return text.split(/\s*,\s*/).slice(0, 3).join(', ').trim();
+}
+
+function compactAiSelectedAccessoryText(item, role = '') {
+  let text = cleanAiMinimalFragment(buildAccessoryPrompt(item));
+  if (!text || /^(?:no|none)\b/i.test(text)) return '';
+
+  if (role === 'earrings') {
+    return text
+      .replace(/\b(single|pair of)\s+/gi, '')
+      .replace(/\bearring detail\b/gi, 'earrings')
+      .replace(/\b(earring)\b(?!s)/gi, '$1s')
+      .replace(/,\s*(?:subtle|understated|delicate|soft)\s+[^,.;]+(?:accent|styling)$/i, '')
+      .replace(/\s*,\s*,+/g, ', ')
+      .trim();
+  }
+
+  if (role === 'neckAccessory') {
+    return text
+      .replace(/\bnecklace detail\b/gi, 'necklace')
+      .replace(/\bchoker detail\b/gi, 'choker')
+      .replace(/\bcollar detail\b/gi, 'collar')
+      .replace(/\s+worn around the base of the neck at collarbone level/gi, '')
+      .replace(/,\s*(?:subtle|understated|delicate|soft)\s+[^,.;]+(?:accent|jewelry|neck accent|accessory)$/i, '')
+      .replace(/\s*,\s*,+/g, ', ')
+      .trim();
+  }
+
+  if (role === 'waistAccessory') {
+    return text
+      .replace(/\bwaist accessory\b/gi, '')
+      .replace(/\s+worn loosely around hips/gi, '')
+      .replace(/\s+worn above low-rise bottoms/gi, '')
+      .replace(/,\s*jewelry-like waist accessory$/i, '')
+      .replace(/,\s*delicate jewelry around the waist and (?:upper )?hips$/i, '')
+      .replace(/,\s*subtle sparkling jewelry worn around the waist and upper hips$/i, '')
+      .replace(/\s*,\s*,+/g, ', ')
+      .trim();
+  }
+
+  return text;
+}
+
+function buildAiRoleFaceAccessoryText(wardrobeSlots, role = null) {
+  if (!wardrobeSlots) return '';
+  const suffix = role === 'a' ? 'A' : role === 'b' ? 'B' : '';
+  const roleSlotKey = (name) => {
+    if (!suffix) return name;
+    if (name === 'eyewearPlacement') return `eyewear${suffix}Placement`;
+    return `${name}${suffix}`;
+  };
+  const slot = (name) => suffix
+    ? wardrobeSlots[roleSlotKey(name)] || wardrobeSlots[name]
+    : wardrobeSlots[name];
+  return uniqueAiWardrobeValues([
+    compactAiEyewearAccessoryText(
+      slot('eyewear'),
+      slot('eyewearColor'),
+      suffix ? slot('eyewearPlacement') : wardrobeSlots.eyewearPlacement,
+    ),
+    compactAiSelectedAccessoryText(slot('earrings'), 'earrings'),
+    compactAiSelectedAccessoryText(slot('neckAccessory'), 'neckAccessory'),
+  ]).join(', ');
 }
 
 function buildAiSingleSubjectAccessoryParts(context, wardrobe) {
@@ -13018,7 +13087,7 @@ function buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role) {
   const roleTexts = buildGptDuoFullWardrobeRoleTexts(wardrobeSlots, wardrobeColors, context);
   const roleText = role === 'a' ? roleTexts.woman1 : roleTexts.woman2;
   const fragments = isCompleteWardrobeProjection(getCompositionVisibilityProjection(context))
-    ? splitAiDuoCompactFragments(roleText).slice(0, 6)
+    ? splitAiDuoCompactFragments(roleText)
     : splitAiDuoCompactFragments(buildAiCompleteLookCoreText(roleText, context));
   const suffix = role === 'a' ? 'A' : 'B';
   const selectedWaistAccessories = [
@@ -13045,14 +13114,24 @@ function buildAiDuoRoleSubjectText(valuesByLabel, context, wardrobe, wardrobeCol
     2,
   );
   const hairText = [hairstyleText, hairStylingStateText].filter(Boolean).join(', ');
+  const wardrobeSlots = wardrobe ? extractWardrobeSlots(wardrobe) : null;
+  const suffix = role === 'a' ? 'A' : 'B';
+  const structuredHeadAccessory = firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Head Accessory`]);
   const headAccessoryText = compactAiHeadAccessoryText(
-    firstStructuredValue(valuesByLabel, [`Woman ${roleNumber} Head Accessory`])
+    structuredHeadAccessory
+      || wardrobeSlots?.[`headAccessory${suffix}`]
+      || wardrobeSlots?.headAccessory,
+    structuredHeadAccessory
+      ? null
+      : wardrobeColors?.[`headAccessory${suffix}Color`] || wardrobeColors?.headAccessoryColor,
   );
+  const faceAccessoryText = buildAiRoleFaceAccessoryText(wardrobeSlots, role);
   const wardrobeText = buildAiDuoRoleWardrobeText(context, wardrobe, wardrobeColors, role);
   return [
     bodyText,
     hairText,
     headAccessoryText,
+    faceAccessoryText,
     wardrobeText ? `wearing ${wardrobeText}` : '',
   ].filter(Boolean).join(', ');
 }
@@ -13325,7 +13404,7 @@ function buildAiCompleteLookCoreText(
   const primaryMaterial = compactAiSourceText(value).match(/\bglossy (?:black|skin-tone) latex\b/i)?.[0] || '';
   let styleFragment = '';
   const roleFragments = new Map();
-  const includeVisibleAccessoryRoles = !isCompleteWardrobeProjection(getCompositionVisibilityProjection(context));
+  const includeVisibleAccessoryRoles = true;
 
   for (const fragment of splitAiSourceFragments(value)) {
     if (isAiSpecialPersonFragment(fragment)) continue;
@@ -13353,7 +13432,7 @@ function buildAiCompleteLookCoreText(
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('wristAccessory') || []) : []),
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('ring') || []) : []),
     ...(includeVisibleAccessoryRoles ? (roleFragments.get('waistAccessory') || []) : []),
-  ].map(fragmentCompactor).find(Boolean) || '';
+  ].map(fragmentCompactor).filter(Boolean).join(', ');
 
   return [
     styleFragment,
@@ -13679,7 +13758,14 @@ function buildAiSingleFaceExpressionText(valuesByLabel, context, character) {
   return [facialAnchor, compactExpression].filter(Boolean).join(', ');
 }
 
-function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, character, { compact = false } = {}) {
+function buildAiFreedomSubjectSentence(
+  valuesByLabel,
+  context,
+  wardrobe,
+  character,
+  wardrobeColors,
+  { compact = false } = {}
+) {
   if (isCharacterProfileSubject(context.subject)) {
     return ensureTerminalPeriod(buildAiCharacterCardIdentityText(context, wardrobe, { compact }));
   }
@@ -13690,15 +13776,14 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, charact
   const specialPersonText = specialOutfitText
     ? extractAiSpecialPersonFragments(specialOutfitText, context).join(', ')
     : '';
-  const eyewearText = wardrobeSlots
-    ? compactAiEyewearAccessoryText(wardrobeSlots.eyewear, wardrobeSlots.eyewearColor, wardrobeSlots.eyewearPlacement)
-    : '';
+  const structuredHeadAccessory = firstStructuredValue(valuesByLabel, ['Head Accessory']);
   const headAccessoryText = wardrobeSlots
     ? compactAiHeadAccessoryText(
-        firstStructuredValue(valuesByLabel, ['Head Accessory']) || wardrobeSlots.headAccessory,
-        null,
+        structuredHeadAccessory || wardrobeSlots.headAccessory,
+        structuredHeadAccessory ? null : wardrobeColors?.headAccessoryColor,
       )
     : compactAiHeadAccessoryText(firstStructuredValue(valuesByLabel, ['Head Accessory']));
+  const faceAccessoryText = buildAiRoleFaceAccessoryText(wardrobeSlots);
   const subjectLead = shouldUseFixedAiSingleSubjectLead(context)
     ? MIDJOURNEY_FIXED_SINGLE_NORMAL_SUBJECT_LEAD
     : buildMidjourneySpecialSubjectPrompt(context.subject, context) || 'A 20-year-old adult East Asian woman';
@@ -13724,7 +13809,7 @@ function buildAiFreedomSubjectSentence(valuesByLabel, context, wardrobe, charact
       hairText,
       faceExpressionText,
       specialPersonText,
-      eyewearText,
+      faceAccessoryText,
       headAccessoryText,
     ].filter(Boolean).join(', '),
   ].filter(Boolean).join(shouldUseFixedAiSingleSubjectLead(context) ? ' ' : ', ')
@@ -14005,12 +14090,14 @@ function renderAiPrompt(promptModel, {
     subjectContext,
     subjectWardrobe,
     subjectCharacter,
+    wardrobeColorSource,
   );
   const compactSubjectText = buildAiFreedomSubjectSentence(
     subjectValuesByLabel,
     subjectContext,
     subjectWardrobe,
     subjectCharacter,
+    wardrobeColorSource,
     { compact: true },
   );
   const sectionDefinitions = [
@@ -14041,30 +14128,10 @@ function renderAiPrompt(promptModel, {
       reductions: [compactImagingText],
     },
   ];
-  let sectionModel = createBudgetedAiPromptSectionModel({
+  const sectionModel = createAiPromptSectionModel({
     policyKey,
     sections: sectionDefinitions,
   });
-  if (policyKey === 'characterCard' && compactSubjectText !== fullSubjectText) {
-    const nativeDescriptionWordCount = countAiPromptWords(
-      renderMidjourneyNativeDescription(renderAiPromptSectionModel(sectionModel))
-    );
-    if (
-      nativeDescriptionWordCount > AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords
-      || sectionModel.measurement.totalWords > AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords - 10
-    ) {
-      sectionModel = createBudgetedAiPromptSectionModel({
-        policyKey,
-        sections: sectionDefinitions.map((section) => {
-          if (section.id === 'subject') return { ...section, text: compactSubjectText, reductions: [] };
-          if (section.id === 'scene') return { ...section, text: compactSceneText, reductions: [] };
-          if (section.id === 'imaging') return { ...section, text: compactImagingText, reductions: [] };
-          if (section.id === 'wardrobe') return { ...section, text: fullWardrobeText, reductions: [] };
-          return section;
-        }),
-      });
-    }
-  }
   return renderAiPromptSectionModel(sectionModel);
 }
 

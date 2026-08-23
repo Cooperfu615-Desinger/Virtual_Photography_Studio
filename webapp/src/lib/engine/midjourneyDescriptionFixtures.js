@@ -19,7 +19,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2DescriptionHash: 'f1584acded9eb5aefa6eaff67faf9a83a3d724cf1a1681aaba7fc2b55b58c3e5',
     phase3DescriptionHash: 'b5583e36cddaf8fb1a93db7a80e75c5ce6ec990c641686e4fa1a6cc6e9ee623a',
     phase4DescriptionHash: '27d202c7e820d9681ee96f158f065a9891c016931333da42bec06528ff345041',
-    phase5DescriptionHash: '0c21f04e60f4ecf8eac6fa0ae3a5418e296c1138d9da75d2b37bbf62fd7567aa',
+    phase5DescriptionHash: '956597290de038702d6a0fa762813ec023712d025a496e0b66bf08b9d3b9dc6c',
   },
   {
     id: 'canonical-pose-precise',
@@ -52,7 +52,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2DescriptionHash: '77db41da7c8d0f8dffbab6602d8166a5d285501ee41aa382e81974a834d3f69f',
     phase3DescriptionHash: '77db41da7c8d0f8dffbab6602d8166a5d285501ee41aa382e81974a834d3f69f',
     phase4DescriptionHash: '77db41da7c8d0f8dffbab6602d8166a5d285501ee41aa382e81974a834d3f69f',
-    phase5DescriptionHash: '2befdc41aa7f5075f14d986a80e7c7e9b1e350d1d06391b130e07d8da2a01cc8',
+    phase5DescriptionHash: '46cf0306f75af041990ada379f6f1ec98b8c671baf51fe641346dcea3bb3e331',
   },
   {
     id: 'fixed-special-creative',
@@ -63,7 +63,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2DescriptionHash: 'ffce0700a504aef15367a8576bc1b9970632687a5bd12856013e5db3e9bc4337',
     phase3DescriptionHash: '19ca8ed3670d9506e712f73184c3c6549cd916d0a50312022ff9b1c5c00a3c55',
     phase4DescriptionHash: '76aac9542697c39fc97724b2c04416439d89e5bbfad233ad6719d10154b2b497',
-    phase5DescriptionHash: 'becd89ecaf4327317b3c50c0f4adccc1476b15c2e22d4a4770b5f79a157cffab',
+    phase5DescriptionHash: '67a7d2c05590c3e1399fda8cd657f21871d77c83465b3c220b981f789e1bf68b',
   },
   {
     id: 'fixed-dress-v81',

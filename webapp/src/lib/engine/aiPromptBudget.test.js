@@ -16,22 +16,19 @@ import {
   renderAiPromptSectionModel,
   resolveAiPromptPolicyKey,
 } from './aiPromptBudget.js';
-import {
-  AI_PROMPT_LENGTH_CONTRACT,
-  countAiPromptWords,
-} from './aiPromptLengthContract.js';
+import { countAiPromptWords } from './aiPromptLengthContract.js';
 import { AI_PROMPT_LENGTH_FIXTURES } from './aiPromptLengthFixtures.js';
 import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controls = getLockControls();
 const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
   'normal-separates': 'd3b9c8cdbb67b4aba663d6c50e4e99f5bd8df37b75e9055b7276e444833a5d49',
-  'complete-look-latex': '40afb4e1a5e5f724584862d67f7162c8894a7cacb3f27a427dc2b7d051607d58',
-  'complete-look-special': '2af5c5dd105f568eaddfd3179f15797181e48fd0f50ee356a18ffbd58bdaace1',
+  'complete-look-latex': 'a2c09dce3364cface8bf69cc41a10c49c490dc4d3a4cbe1bc1daad5b9dca33cb',
+  'complete-look-special': '24620d7c9a8c7905d78cab49feab506c3f5b4fa8851adacbce7d77bbf7d18abd',
   'complete-look-dress': '41fabc40fd05cf5a9280cc65552a1c36fc0a3e796749d8a10d685c14c2c30c1f',
-  'character-card-jiwoo': '77a47880b76ea769cb03584c232e366e14b70a333274404f8fd5ebf98d0ccf3e',
-  'character-card-sui': '20641347a29347d12e5205d83f4c88d22d72510921d42ca18cd9f7a25ce36926',
-  'character-card-half-face-pressure': '012655e78244e66f81a84bb86c66c16380a779ebcf1fe5f708932371981076b7',
+  'character-card-jiwoo': '95cb45387c2ff62aa3a9a93594edb7770aca38ac231563d7f82542035fb7cba4',
+  'character-card-sui': '1436fc87a020827d9ddec9ef735247f8069480caf6896bb36c46e32828c1067a',
+  'character-card-half-face-pressure': 'e13712f94c12853fc6e9daceef510857d6b6d1ef6e05ca92f78466e892d6f0d4',
   'canonical-pose-pressure': '6c65adb5c924230cbfe1d979a82b809150d3da0f0f01e13efc2bfc403e065781',
   'half-face-boundary': 'eb3dc8badc7a581955c84e4198f7479af8d79f57eaf2b0b0bf9029d3a35d144a',
   'duo-direct-boundary': 'd03117d64f729ff32b254f5eea53280203ef0fcf5b800b0725f1feddfeb03a8c',
@@ -133,44 +130,36 @@ test('budget policy selection keeps Character Card precedence and complete-look 
   );
 });
 
-test('Midjourney native structure applies an explicit budget to duo prompts', () => {
+test('Midjourney native structure records duo length diagnostics without a deletion gate', () => {
   for (const fixture of AI_PROMPT_LENGTH_FIXTURES.filter((entry) => entry.policy === 'duo')) {
     const output = generateFixture(fixture).midjourneyPrompt;
     assert.ok(
-      countAiPromptWords(output) <= AI_PROMPT_LENGTH_CONTRACT.budgets.duo.softMaxWords,
-      `${fixture.id} exceeds the duo budget`
+      Number.isInteger(countAiPromptWords(output)),
+      `${fixture.id} diagnostic word count`
     );
     const hash = createHash('sha256').update(stripMidjourneyParameterTail(output)).digest('hex');
     assert.equal(hash, MIDJOURNEY_NATIVE_DESCRIPTION_HASHES[fixture.id], fixture.id);
   }
 });
 
-test('phase-3 normal and complete-look outputs meet their budget and preserve fixture anchors', () => {
+test('normal and complete-look outputs preserve fixture anchors after MJ compression', () => {
   for (const fixture of AI_PROMPT_LENGTH_FIXTURES.filter((entry) => {
     return entry.policy === 'normal' || entry.policy === 'completeLook';
   })) {
     const output = generateFixture(fixture).midjourneyPrompt;
-    const budget = AI_PROMPT_LENGTH_CONTRACT.budgets[fixture.policy];
-    assert.ok(
-      countAiPromptWords(output) <= budget.softMaxWords,
-      `${fixture.id} exceeds ${budget.softMaxWords} words:\n${output}`
-    );
+    assert.ok(Number.isInteger(countAiPromptWords(output)), `${fixture.id}: diagnostic word count`);
     for (const fragment of fixture.requiredFragments || []) {
       assert.match(output, new RegExp(fragment, 'i'), `${fixture.id}: ${fragment}`);
     }
   }
 });
 
-test('phase-4 Character Card outputs meet their budget and preserve permanent identity and wardrobe anchors', () => {
+test('Character Card outputs preserve permanent identity and wardrobe anchors without hard length gating', () => {
   for (const fixture of AI_PROMPT_LENGTH_FIXTURES.filter((entry) => {
     return entry.policy === 'characterCard';
   })) {
     const output = generateFixture(fixture).midjourneyPrompt;
-    const budget = AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard;
-    assert.ok(
-      countAiPromptWords(output) <= budget.softMaxWords,
-      `${fixture.id} exceeds ${budget.softMaxWords} words:\n${output}`
-    );
+    assert.ok(Number.isInteger(countAiPromptWords(output)), `${fixture.id}: diagnostic word count`);
     for (const fragment of fixture.requiredFragments || []) {
       assert.match(output, new RegExp(fragment, 'i'), `${fixture.id}: ${fragment}`);
     }
@@ -189,17 +178,12 @@ test('Midjourney native structure freezes every accepted AI description', () => 
   }
 });
 
-test('phase-5 resolves cross-section pressure without dropping source identities', () => {
+test('cross-section pressure preserves source identities without dropping visual items', () => {
   const fixture = AI_PROMPT_LENGTH_FIXTURES.find((entry) => {
     return entry.id === 'character-card-half-face-pressure';
   });
   const output = generateFixture(fixture).midjourneyPrompt;
-  const budget = AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard;
-
-  assert.ok(
-    countAiPromptWords(output) <= budget.softMaxWords,
-    `${fixture.id} exceeds ${budget.softMaxWords} words:\n${output}`
-  );
+  assert.ok(Number.isInteger(countAiPromptWords(output)), `${fixture.id}: diagnostic word count`);
   for (const fragment of fixture.requiredFragments) {
     assert.match(output, new RegExp(fragment, 'i'), `${fixture.id}: ${fragment}`);
   }

@@ -46,7 +46,7 @@ function generateFixture(fixture) {
 }
 
 test('AI Prompt length contract is frozen serializable policy data', () => {
-  assert.equal(AI_PROMPT_LENGTH_CONTRACT_VERSION, '1.1.0');
+  assert.equal(AI_PROMPT_LENGTH_CONTRACT_VERSION, '1.2.0');
   assert.ok(Object.isFrozen(AI_PROMPT_LENGTH_CONTRACT));
   assert.ok(Object.isFrozen(AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard));
   assert.deepEqual(
@@ -60,6 +60,12 @@ test('AI Prompt length contract is frozen serializable policy data', () => {
     'composition',
     'projectedCanonicalPose',
   ]);
+  assert.deepEqual(AI_PROMPT_LENGTH_CONTRACT.runtimePolicy, {
+    enforcement: 'diagnostic-only',
+    deletionGate: 'none',
+    preserveResolvedVisualItems: true,
+    compactRedundantProseBeforeVisualItems: true,
+  });
   assert.equal(AI_PROMPT_LENGTH_CONTRACT.rollout.phase1.behaviorNeutral, true);
   assert.equal(AI_PROMPT_LENGTH_CONTRACT.rollout.phase3.behaviorNeutral, false);
 });
@@ -107,7 +113,7 @@ test('phase-1 AI fixtures are deterministic, contract-valid, and preserve requir
   }
 });
 
-test('phase-4 resolves complete-look and Character Card pressure within their soft limits', () => {
+test('historical word budgets remain diagnostics and do not gate MJ visual retention', () => {
   const measurements = Object.fromEntries(
     AI_PROMPT_LENGTH_FIXTURES
       .filter((fixture) => fixture.policy)
@@ -117,9 +123,9 @@ test('phase-4 resolves complete-look and Character Card pressure within their so
       ])
   );
 
-  assert.ok(measurements['complete-look-latex'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.completeLook.softMaxWords);
-  assert.ok(measurements['complete-look-special'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.completeLook.softMaxWords);
-  assert.ok(measurements['character-card-jiwoo'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords);
-  assert.ok(measurements['character-card-sui'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords);
-  assert.ok(measurements['duo-direct-boundary'] <= AI_PROMPT_LENGTH_CONTRACT.budgets.duo.softMaxWords);
+  assert.ok(Object.values(measurements).every((value) => Number.isInteger(value) && value > 0));
+  assert.ok(
+    measurements['character-card-sui'] > AI_PROMPT_LENGTH_CONTRACT.budgets.characterCard.softMaxWords,
+    'a retained full-fidelity Character Card output may exceed the historical diagnostic soft max'
+  );
 });

@@ -20,10 +20,6 @@ import {
   getLockControls,
 } from '../engine.js';
 import {
-  AI_PROMPT_LENGTH_CONTRACT,
-  countAiPromptWords,
-} from './aiPromptLengthContract.js';
-import {
   MIDJOURNEY_DESCRIPTION_CONTRACT,
   MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION,
 } from './midjourneyDescriptionContract.js';
@@ -257,7 +253,7 @@ test('phase 6 keeps the canonical pose verbatim in all three primary outputs', (
   );
 });
 
-test('description phase 7 freezes direct syntax, budgets, mappings, and downstream consumers', () => {
+test('description phase 7 freezes direct syntax, mappings, and downstream consumers', () => {
   assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.7.0');
   assert.equal(
     MIDJOURNEY_DESCRIPTION_CONTRACT.completion.blockingGate,
@@ -306,18 +302,5 @@ test('description phase 7 freezes direct syntax, budgets, mappings, and downstre
       `${parameterFixture.id}: no AI section labels`
     );
 
-    const budgetKey = parameterFixture.id === 'duo-balanced'
-      ? 'duo'
-      : parameterFixture.id === 'character-card-hd'
-        ? 'characterCard'
-        : parameterFixture.id.startsWith('complete-look')
-          || parameterFixture.id.startsWith('fixed-')
-          ? 'completeLook'
-          : 'normal';
-    assert.ok(
-      countAiPromptWords(prompt.midjourneyPrompt)
-        <= AI_PROMPT_LENGTH_CONTRACT.budgets[budgetKey].softMaxWords,
-      `${parameterFixture.id}: ${budgetKey} soft max`
-    );
   }
 });

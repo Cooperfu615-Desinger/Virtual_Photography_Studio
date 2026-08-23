@@ -898,14 +898,14 @@ test('adhesive tape look is a composable outfit preset while the original specia
   assert.match(presetPrompt.zImagePrompt, /compressed skin with soft flesh bulges/i);
   assert.doesNotMatch(presetPrompt.zImagePrompt, /halter|bralette|high-cut|tape bottoms/i);
   assert.match(presetPrompt.midjourneyPrompt, /glossy adhesive tape wrapped directly around the skin/i);
-  assert.match(presetPrompt.midjourneyPrompt, /independent chest and ribcage wrap bands/i);
+  assert.match(presetPrompt.midjourneyPrompt, /independent (?:wide )?chest and ribcage wrap bands/i);
   assert.match(presetPrompt.midjourneyPrompt, /compressed skin with soft flesh bulges/i);
   assert.doesNotMatch(presetPrompt.midjourneyPrompt, /halter|bralette|high-cut|tape bottoms/i);
   const chestUpPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-portrait')?.text || '';
   const chestUpMjPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'chest-up-mj-portrait')?.text || '';
   const fullBodyPrompt = presetPrompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '';
   for (const text of [chestUpPrompt, chestUpMjPrompt]) {
-    assert.match(text, /independent chest and ribcage wrap bands/i);
+    assert.match(text, /independent (?:wide )?chest and ribcage wrap bands/i);
     assert.match(text, /bare-shoulder|bare shoulders/i);
     assert.doesNotMatch(text, /hip and pelvis|thigh wrap|halter|bralette|high-cut|tape bottoms/i);
   }

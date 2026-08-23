@@ -56,7 +56,7 @@ function generateFixture(fixture) {
   return { prompt, explicitSelections };
 }
 
-test('phase-6 integration gate preserves mappings, selections, contracts, anchors, and AI budgets', () => {
+test('phase-6 integration gate preserves mappings, selections, contracts, anchors, and MJ diagnostics', () => {
   for (const fixture of AI_PROMPT_LENGTH_FIXTURES) {
     const { prompt, explicitSelections } = generateFixture(fixture);
     const mode = fixture.mode || 'single';
@@ -80,10 +80,9 @@ test('phase-6 integration gate preserves mappings, selections, contracts, anchor
       assert.match(prompt.midjourneyPrompt, new RegExp(fragment, 'i'), `${fixture.id}: ${fragment}`);
     }
     if (fixture.policy) {
-      const budget = AI_PROMPT_LENGTH_CONTRACT.budgets[fixture.policy];
       assert.ok(
-        countAiPromptWords(prompt.midjourneyPrompt) <= budget.softMaxWords,
-        `${fixture.id}: AI soft max`
+        Number.isInteger(countAiPromptWords(prompt.midjourneyPrompt)),
+        `${fixture.id}: diagnostic word measurement`
       );
     }
     if (fixture.requiresCanonicalPose) {
@@ -102,6 +101,7 @@ test('phase-6 gate records the approved single/duo and immutable-section boundar
     supportedModes: ['single', 'duo'],
     excludedModes: [],
   });
+  assert.equal(AI_PROMPT_LENGTH_CONTRACT.runtimePolicy.deletionGate, 'none');
   assert.deepEqual(AI_PROMPT_LENGTH_CONTRACT.immutableSections, [
     'imageType',
     'composition',

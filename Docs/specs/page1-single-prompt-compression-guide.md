@@ -359,7 +359,7 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 - **成像採取固定優先級。** 優先保留攝影師／攝影風格身份、鏡頭身份與所選光學效果；`Camera / Film` 的次要解釋最後刪減，但其獨立的 film／rendering identity 若仍是來源 anchor 必須保留。攝影師、鏡頭與光學三者不可因字數壓力被整段移除。
 - **髮型與服裝採欄位歸屬去重。** Subject 擁有髮型與髮色；Wardrobe 擁有服裝、材質、版型、配色、鞋襪與必要配件。跨來源出現相同髮型或服裝時做語意去重，不只比對完全相同字串；特殊穿搭若明確內含指定髮型，可保留一次作為例外。不得刪除服裝主體、材質或主要輪廓，只移除 `complete outfit`、`locked`、`controlled by`、重複的 `look／styling` 與其他內部控制語。
 - **三組相容性不變。** Gpt (`grokPrompt`) 與 Grok/Z-Image (`zImagePrompt`) 不套用這次 AI 專用壓縮；三者仍共用同一份 resolved selection、結構化資料、projected body／wardrobe／scene 與 canonical pose。Saved Cards、Standard Prompt import／restore、歷史欄位映射與 consumer 不得被 AI 文字改寫帶動。
-- **1000 字不是 Midjourney 官方限制。** 目前 [Midjourney Prompt Basics](https://docs.midjourney.com/docs/prompts) 與 [Parameter List](https://docs.midjourney.com/hc/en-us/articles/32859204029709-Parameter-List) 沒有規定 1000 字、1000 words、1000 characters 或 1000 tokens 的 Prompt 上限；專案可把 1000 個英文字符作為內部診斷／目標，但不能宣稱是 MJ 合規門檻，也不能取代目前以 words 定義的 AI 長度契約。若日後要把字符數升格為 blocking gate，必須另行定義是否包含參數尾段、空格與標點。
+- **1000 字不是 Midjourney 官方限制。** 目前 [Midjourney Prompt Basics](https://docs.midjourney.com/docs/prompts) 與 [Parameter List](https://docs.midjourney.com/hc/en-us/articles/32859204029709-Parameter-List) 沒有規定 1000 字、1000 words、1000 characters 或 1000 tokens 的 Prompt 上限；專案可把 1000 個英文字符與歷史 words 數值作為內部診斷／目標，但不能宣稱是 MJ 合規門檻。MJ runtime 不以這些數字刪除已解析的視覺項目；Gpt 與 Grok/Z-Image 仍依各自契約輸出。
 
 建議的完整單人 AI 形態如下；這是來源保留範例，不是固定字串或新的 fallback：
 
@@ -367,9 +367,9 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 Photorealistic editorial portrait. Waist-up portrait, high angle, looking down, rear-right three-quarter view. A 20s seductive stunning Japanese woman. full bust, narrow defined waist, rounded hips, mature sensual face, straight hair with Japanese bangs, soft matte black-tea hair, pursed lips holding back a playful laugh, seated in an open confident pose with her head naturally facing the camera, wearing a structured leather waist-cinching corset outfit, inside an abandoned school infirmary with shadowed indoor daylight and venetian-blind striped projection light, Yoshihiko Ueda-inspired quiet natural dark-toned photography, macro lens, foreground occlusion bokeh, cross-processed neon silhouette filter.
 ```
 
-#### 已確認、待實作：Midjourney 高密度 Prompt 壓縮原則（全選項保留）
+#### 已實作：Midjourney 高密度 Prompt 壓縮原則（全選項保留）
 
-本節是新版 Midjourney 描述壓縮規範，適用於歷史公開欄位 `AI` → `midjourneyPrompt` 與 `MJ 胸上特寫照` 的描述內容。這是根據雙人高密度 Prompt 實測確認的目標規則；在 runtime 尚未完成實作前，現有 `aiPromptLengthContract.js`、fixtures 與 production renderer 仍是目前行為基準。本節不改變 Gpt (`grokPrompt`)、Grok/Z-Image (`zImagePrompt`)、結構化胸上輸出、全身角色輸出或任何儲存／匯入匯出契約。
+本節是新版 Midjourney 描述壓縮規範，適用於歷史公開欄位 `AI` → `midjourneyPrompt` 與 `MJ 胸上特寫照` 的描述內容。這是根據雙人高密度 Prompt 實測確認並已落地到 MJ renderer 的規則；`aiPromptLengthContract.js` 的 words 數值現在只作診斷與比較，不再作為刪除視覺項目的 runtime gate。本節不改變 Gpt (`grokPrompt`)、Grok/Z-Image (`zImagePrompt`)、結構化胸上輸出、全身角色輸出或任何儲存／匯入匯出契約。
 
 這個版本的核心不是把 Prompt 無限制地拉長，也不是把所有文字原封不動搬入 MJ，而是「保留每個已選視覺項目，壓縮每個項目的說明」。
 
@@ -416,7 +416,7 @@ She wears sculptural hoop earrings, a short gold curb-link necklace, and a silve
 5. 是否仍保留必要的身份、構圖、姿勢、場景與成像 anchor。
 6. 是否沒有輸出內部控制語、負面 guard 或殘句。
 
-後續正式實作時，應先新增全配件與雙人高密度 deterministic fixture，再調整 MJ 專屬 renderer；Gpt、Grok/Z-Image 與其他輸出不得因這項 MJ 壓縮規則同步改寫。
+目前已新增全配件保留與雙人高密度 deterministic coverage，再由 MJ 專屬 renderer 套用短片語壓縮；Gpt、Grok/Z-Image 與其他輸出未因這項 MJ 壓縮規則同步改寫。
 
 #### Midjourney V8 專屬參數改造（第一階段契約）
 

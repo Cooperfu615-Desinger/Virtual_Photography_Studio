@@ -13,8 +13,8 @@ export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   },
   {
     id: 'complete-look-balanced',
-    expectedDescriptionHash: '0c21f04e60f4ecf8eac6fa0ae3a5418e296c1138d9da75d2b37bbf62fd7567aa',
-    expectedWords: 56,
+    expectedDescriptionHash: '956597290de038702d6a0fa762813ec023712d025a496e0b66bf08b9d3b9dc6c',
+    expectedWords: 70,
   },
   {
     id: 'canonical-pose-precise',
@@ -28,13 +28,13 @@ export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   },
   {
     id: 'duo-balanced',
-    expectedDescriptionHash: '2befdc41aa7f5075f14d986a80e7c7e9b1e350d1d06391b130e07d8da2a01cc8',
-    expectedWords: 156,
+    expectedDescriptionHash: '46cf0306f75af041990ada379f6f1ec98b8c671baf51fe641346dcea3bb3e331',
+    expectedWords: 161,
   },
   {
     id: 'fixed-special-creative',
-    expectedDescriptionHash: 'becd89ecaf4327317b3c50c0f4adccc1476b15c2e22d4a4770b5f79a157cffab',
-    expectedWords: 75,
+    expectedDescriptionHash: '67a7d2c05590c3e1399fda8cd657f21871d77c83465b3c220b981f789e1bf68b',
+    expectedWords: 87,
   },
   {
     id: 'fixed-dress-v81',

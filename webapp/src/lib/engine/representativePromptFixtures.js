@@ -345,7 +345,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
           'gently narrowed eyes',
           'pressed lips',
           'subtly lifted mouth corners',
-          'straight hair with Japanese bangs',
+          'long straight hair with full Japanese bangs',
           'black-tea brown hair',
           'structured opaque leather corset lingerie set',
           'matching low-rise high-cut leather briefs',

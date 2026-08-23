@@ -2,7 +2,6 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls } from '../engine.js';
-import { countAiPromptWords } from './aiPromptLengthContract.js';
 
 const controls = getLockControls();
 
@@ -55,6 +54,33 @@ test('phase 5 removes redundant complete-look category words without losing garm
   assert.match(prompt.grokPrompt, /flight attendant uniform outfit/i);
 });
 
+test('phase 7 keeps every selected MJ accessory as a compact visual phrase', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    headAccessoryId: optionId('headAccessoryId', '紅絨金飾水鑽皇冠'),
+    headAccessoryColorId: optionId('headAccessoryColorId', '寶藍色'),
+    earringsId: optionId('earringsId', '雕塑感金屬耳圈'),
+    neckAccessoryId: optionId('neckAccessoryId', '街頭風格金項鏈'),
+    waistAccessoryId: optionId('waistAccessoryId', '銀色水鑽蝴蝶腰鏈'),
+  });
+
+  assert.match(prompt.midjourneyPrompt, /crown/i);
+  assert.match(prompt.midjourneyPrompt, /sculptural hoop earrings/i);
+  assert.match(prompt.midjourneyPrompt, /short gold curb-link necklace/i);
+  assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain/i);
+  assert.doesNotMatch(
+    prompt.midjourneyPrompt,
+    /subtle polished metal accent|understated streetwear jewelry|jewelry-like waist accessory/i
+  );
+
+  const [genericHeadPrompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    headAccessoryId: optionId('headAccessoryId', '棒球帽'),
+  });
+  assert.match(genericHeadPrompt.midjourneyPrompt, /baseball cap/i);
+});
+
 test('phase 5 renders duo AI as direct role sentences without section labels', () => {
   const [prompt] = generatePrompts(1, {
     ...createAllNoneLocks(),
@@ -82,8 +108,6 @@ test('phase 5 renders duo AI as direct role sentences without section labels', (
     prompt.midjourneyPrompt,
     /(?:Woman 1|Woman 2|Pose|Scene|Lighting|Camera Look):|\bHas\b|\bWears\b|\n/
   );
-  assert.ok(countAiPromptWords(prompt.midjourneyPrompt) <= 180);
-
   assert.match(prompt.zImagePrompt, /Woman 1 has/);
   assert.match(prompt.zImagePrompt, /Woman 2 has/);
   assert.doesNotMatch(prompt.zImagePrompt, /Woman [12]:/);
