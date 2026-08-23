@@ -392,19 +392,19 @@ Photorealistic editorial portrait. Waist-up portrait, high angle, looking down, 
 例如，原始句：
 
 ```text
-She also wears small sculptural hoop earring details, a short gold curb-link necklace worn around the base of the neck at collarbone level, and a silver rhinestone butterfly waist chain with a sparkling butterfly centerpiece draped across the waist and upper hips.
+She also wears small sculptural hoop earring details, a short gold curb-link necklace worn around the base of the neck at collarbone level, and a silver rhinestone butterfly waist chain with multiple small rhinestone butterfly charms spaced across the low waist and upper hips.
 ```
 
 新版應優先壓縮為：
 
 ```text
-She wears sculptural hoop earrings, a short gold curb-link necklace, and a silver rhinestone butterfly waist chain with a butterfly centerpiece.
+She wears sculptural hoop earrings, a short gold curb-link necklace, and a silver butterfly waist chain with spaced rhinestone butterfly charms.
 ```
 
 若腰部位置對辨識度或景別很重要，才使用：
 
 ```text
-She wears sculptural hoop earrings, a short gold curb-link necklace, and a silver rhinestone butterfly waist chain resting across the upper hips.
+She wears sculptural hoop earrings, a short gold curb-link necklace, and a silver butterfly waist chain with small rhinestone butterfly charms across the upper hips.
 ```
 
 驗收重點由「是否低於固定字數」改為：

@@ -544,7 +544,7 @@ test('duo waist accessories remain assigned to the selected person in compact ou
   });
 
   assert.match(prompt.midjourneyPrompt, /decorative slim leather waist belt worn loosely around hips with a simple off-center buckle/i);
-  assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain, sparkling butterfly centerpiece/i);
+  assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain.*multiple small rhinestone butterfly charms/i);
   assert.equal(prompt.selection.waistAccessoryAId, optionId('waistAccessoryAId', '細版皮革腰帶'));
   assert.equal(prompt.selection.waistAccessoryBId, optionId('waistAccessoryBId', '銀色水鑽蝴蝶腰鏈'));
 });

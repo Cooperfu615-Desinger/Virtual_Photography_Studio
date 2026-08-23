@@ -68,10 +68,10 @@ test('phase 7 keeps every selected MJ accessory as a compact visual phrase', () 
   assert.match(prompt.midjourneyPrompt, /crown/i);
   assert.match(prompt.midjourneyPrompt, /sculptural hoop earrings/i);
   assert.match(prompt.midjourneyPrompt, /short gold curb-link necklace/i);
-  assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain/i);
+  assert.match(prompt.midjourneyPrompt, /silver rhinestone butterfly waist chain.*multiple small rhinestone butterfly charms/i);
   assert.doesNotMatch(
     prompt.midjourneyPrompt,
-    /subtle polished metal accent|understated streetwear jewelry|jewelry-like waist accessory/i
+    /subtle polished metal accent|understated streetwear jewelry|jewelry-like waist accessory|butterfly centerpiece/i
   );
 
   const [genericHeadPrompt] = generatePrompts(1, {

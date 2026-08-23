@@ -152,19 +152,23 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: {
       grokPrompt: {
-        includes: ['silver rhinestone butterfly waist chain', 'sparkling butterfly centerpiece'],
+        includes: ['silver rhinestone butterfly waist chain', 'multiple small rhinestone butterfly charms'],
+        excludes: ['sparkling butterfly centerpiece'],
       },
       zImagePrompt: {
-        includes: ['silver rhinestone butterfly waist chain', 'sparkling butterfly centerpiece'],
+        includes: ['silver rhinestone butterfly waist chain', 'multiple small rhinestone butterfly charms'],
+        excludes: ['sparkling butterfly centerpiece'],
       },
       midjourneyPrompt: {
-        includes: ['silver rhinestone butterfly waist chain'],
+        includes: ['silver rhinestone butterfly waist chain', 'two fine strands', 'multiple small rhinestone butterfly charms'],
+        excludes: ['sparkling butterfly centerpiece', 'jewelry-like waist accessory'],
       },
       chestUpPortraitPrompt: {
         excludes: ['silver rhinestone butterfly waist chain'],
       },
       fullBodyCharacterPrompt: {
-        includes: ['silver rhinestone butterfly waist chain', 'sparkling butterfly centerpiece'],
+        includes: ['silver rhinestone butterfly waist chain', 'multiple small rhinestone butterfly charms'],
+        excludes: ['sparkling butterfly centerpiece'],
       },
     },
   },
@@ -185,8 +189,8 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: ['silver rhinestone butterfly waist chain'],
       },
       midjourneyPrompt: {
-        includes: ['silver rhinestone butterfly waist chain with a butterfly centerpiece'],
-        excludes: ['jewelry-like'],
+        includes: ['silver rhinestone butterfly waist chain', 'two fine strands', 'multiple small rhinestone butterfly charms'],
+        excludes: ['butterfly centerpiece', 'jewelry-like'],
       },
     },
   },

@@ -12675,7 +12675,8 @@ function compactAiSelectedAccessoryText(item, role = '') {
   if (role === 'waistAccessory') {
     return text
       .replace(/\bwaist accessory\b/gi, '')
-      .replace(/,\s*sparkling butterfly centerpiece with delicate body-chain strands draped across the exposed waist and upper hips/gi, ' with a butterfly centerpiece')
+      .replace(/,\s*sparkling butterfly centerpiece with delicate body-chain strands draped across the exposed waist and upper hips/gi, ', two fine silver strands with multiple small rhinestone butterfly charms spaced across the low waist and upper hips')
+      .replace(/,\s*two delicate silver strands draped at slightly different heights,\s*with multiple small rhinestone butterfly charms spaced across the low waist and upper hips/gi, ', two fine strands with multiple small rhinestone butterfly charms spaced across the low waist and upper hips')
       .replace(/\s+worn loosely around hips/gi, '')
       .replace(/\s+worn above low-rise bottoms/gi, '')
       .replace(/,\s*jewelry-like(?: waist accessory)?$/i, '')
@@ -13247,6 +13248,11 @@ function extractAiSpecialPersonFragments(value, context = null) {
 }
 
 function compactAiGarmentValue(value, preferredRole = '', primarySource = '') {
+  const sourceText = primarySource || value;
+  if (preferredRole === 'waistAccessory' && /\bbutterfly waist chain\b/i.test(sourceText)) {
+    return compactAiSelectedAccessoryText(sourceText, 'waistAccessory');
+  }
+
   const fragments = splitAiSourceFragments(value);
   const roleFragments = fragments.filter((fragment) => classifyCompleteLookWardrobeFragment(fragment) === preferredRole);
   const primarySourceFragments = splitAiSourceFragments(primarySource);
