@@ -169,6 +169,28 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'outfit-preset-waist-chain-cowboy',
+    title: 'Visible waist chains survive outfit presets in cowboy framing',
+    mode: 'single',
+    seed: 'prompt-contract-outfit-preset-waist-chain-cowboy-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '牛仔中景 (Cowboy Shot)' },
+      outfitPresetId: { byZh: '套裝：豹紋蕾絲抹胸喇叭牛仔' },
+      waistAccessoryId: { byZh: '銀色水鑽蝴蝶腰鏈' },
+      locationId: { byZh: '戶外：孚日廣場草地邊與紅磚立面' },
+    },
+    expectedOutputs: {
+      zImagePrompt: {
+        includes: ['silver rhinestone butterfly waist chain'],
+      },
+      midjourneyPrompt: {
+        includes: ['silver rhinestone butterfly waist chain with a butterfly centerpiece'],
+        excludes: ['jewelry-like'],
+      },
+    },
+  },
+  {
     id: 'waist-belt-decorative-wear',
     title: 'Leather waist belts stay distinct while using loose decorative wear',
     mode: 'single',

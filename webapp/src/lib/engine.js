@@ -12675,9 +12675,10 @@ function compactAiSelectedAccessoryText(item, role = '') {
   if (role === 'waistAccessory') {
     return text
       .replace(/\bwaist accessory\b/gi, '')
+      .replace(/,\s*sparkling butterfly centerpiece with delicate body-chain strands draped across the exposed waist and upper hips/gi, ' with a butterfly centerpiece')
       .replace(/\s+worn loosely around hips/gi, '')
       .replace(/\s+worn above low-rise bottoms/gi, '')
-      .replace(/,\s*jewelry-like waist accessory$/i, '')
+      .replace(/,\s*jewelry-like(?: waist accessory)?$/i, '')
       .replace(/,\s*delicate jewelry around the waist and (?:upper )?hips$/i, '')
       .replace(/,\s*subtle sparkling jewelry worn around the waist and upper hips$/i, '')
       .replace(/\s*,\s*,+/g, ', ')
@@ -13527,24 +13528,34 @@ function buildAiNormalWardrobeText(
   const visibleOuterwear = shouldKeepWardrobeRoleForContext('outerwear', context, outerwear)
     ? compactAiGarmentValue(outerwear, 'outerwear', primarySourceByLabel.Outerwear)
     : '';
-  const withVisibleOuterwear = (mainWardrobe) => uniqueAiWardrobeValues([
+  const visibleCompleteLookWaistAccessory = wardrobeSlots?.waistAccessory
+    && !isNoneLikeItem(wardrobeSlots.waistAccessory)
+    && shouldKeepWardrobeRoleForContext(
+      'waistAccessory',
+      context,
+      buildAccessoryPrompt(wardrobeSlots.waistAccessory),
+    )
+    ? compactAiSelectedAccessoryText(wardrobeSlots.waistAccessory, 'waistAccessory')
+    : '';
+  const withVisibleCompleteLookAddons = (mainWardrobe) => uniqueAiWardrobeValues([
     visibleOuterwear,
     mainWardrobe,
+    visibleCompleteLookWaistAccessory,
   ]).join(', ');
 
   const specialOutfit = firstStructuredValue(valuesByLabel, ['Special Outfit']);
   if (specialOutfit) {
-    return withVisibleOuterwear(buildAiCompleteLookCoreText(specialOutfit, context, { majorRoleLimit }));
+    return withVisibleCompleteLookAddons(buildAiCompleteLookCoreText(specialOutfit, context, { majorRoleLimit }));
   }
 
   const outfitPreset = firstStructuredValue(valuesByLabel, ['Outfit Preset']);
   if (outfitPreset) {
-    return withVisibleOuterwear(buildAiCompleteLookCoreText(outfitPreset, context, { majorRoleLimit }));
+    return withVisibleCompleteLookAddons(buildAiCompleteLookCoreText(outfitPreset, context, { majorRoleLimit }));
   }
 
   const dress = firstStructuredValue(valuesByLabel, ['Dress']);
   if (dress) {
-    return withVisibleOuterwear(buildAiCompleteLookCoreText(dress, context, { majorRoleLimit }));
+    return withVisibleCompleteLookAddons(buildAiCompleteLookCoreText(dress, context, { majorRoleLimit }));
   }
 
   const roleByLabel = {
