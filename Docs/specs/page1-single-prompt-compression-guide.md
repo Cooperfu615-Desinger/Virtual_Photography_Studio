@@ -367,6 +367,57 @@ AI 驗收重點：四句內仍可辨識人物／角色身份、服裝、場景�
 Photorealistic editorial portrait. Waist-up portrait, high angle, looking down, rear-right three-quarter view. A 20s seductive stunning Japanese woman. full bust, narrow defined waist, rounded hips, mature sensual face, straight hair with Japanese bangs, soft matte black-tea hair, pursed lips holding back a playful laugh, seated in an open confident pose with her head naturally facing the camera, wearing a structured leather waist-cinching corset outfit, inside an abandoned school infirmary with shadowed indoor daylight and venetian-blind striped projection light, Yoshihiko Ueda-inspired quiet natural dark-toned photography, macro lens, foreground occlusion bokeh, cross-processed neon silhouette filter.
 ```
 
+#### 已確認、待實作：Midjourney 高密度 Prompt 壓縮原則（全選項保留）
+
+本節是新版 Midjourney 描述壓縮規範，適用於歷史公開欄位 `AI` → `midjourneyPrompt` 與 `MJ 胸上特寫照` 的描述內容。這是根據雙人高密度 Prompt 實測確認的目標規則；在 runtime 尚未完成實作前，現有 `aiPromptLengthContract.js`、fixtures 與 production renderer 仍是目前行為基準。本節不改變 Gpt (`grokPrompt`)、Grok/Z-Image (`zImagePrompt`)、結構化胸上輸出、全身角色輸出或任何儲存／匯入匯出契約。
+
+這個版本的核心不是把 Prompt 無限制地拉長，也不是把所有文字原封不動搬入 MJ，而是「保留每個已選視覺項目，壓縮每個項目的說明」。
+
+- **取消固定字數刪除門檻。** 1000 characters、既有 AI words target／soft max 與其他內部長度數字，都不得再作為 MJ 描述刪除配件或服裝項目的理由。字元數與英文詞數可以繼續作為診斷與實測記錄，但不是 MJ 的 blocking 上限。
+- **所有已解析的服裝角色與配件都必須保留。** 上身、下身、連身服、外套、鞋襪、頭部配件、眼鏡、耳環、頸部配件、腰部配件、包袋與其他有效選項，不得因 Prompt 變長而任意移除、只取前 N 個、只保留一件，或以「必要配件」取代完整選擇。
+- **保留的是視覺項目，不是每個原始句子。** 同一件衣物或配件可以從多個來源片段壓縮成一個短片語；允許刪除重複形容、穿戴動作、正常狀態、泛用 styling 尾句、內部控制語與不增加辨識度的氣氛詞，但不能刪除項目本身。
+- **每件配件以一個短片語為基本單位。** 優先保留配件名稱，再保留最重要的顏色／材質／鏈型／主題造型；只有在容易誤解、需要綁定人物、或受到景別影響時，才補充一個必要位置詞，例如 `at the upper hips`、`around the neck` 或 `worn on her head`。
+- **服裝也採同樣的物件化壓縮。** 每個服裝 role 保留衣物名稱與一至數個最具辨識性的材質、顏色、剪裁或結構特徵；移除 `worn`、`styled with`、`coordinated look` 等不增加畫面資訊的連接語與重複解釋。
+- **雙人輸出必須維持角色歸屬。** 每位人物的服裝、髮型、頭部配件、耳環、項鍊、腰部配件與其他配件，都要留在自己的角色句中，不得為了縮短文字而合併成沒有人物歸屬的共用清單。
+- **長度壓力的處理順序固定。** 先合併同一項目的重複片語，再刪除次要形容與冗餘語法，最後才壓縮攝影／環境的次要解釋；不可先刪除已選服裝、配件、角色身份、構圖、姿勢或主要場景 anchor。
+- **不得新增模型控制語。** 壓縮後仍只能使用 resolved selections 與既有組裝規則提供的視覺事實，不得加入 `model decides`、`keep all accessories`、`do not omit`、負面清單或其他內部 guard 來補救保留規則。
+- **MJ 參數尾段維持獨立。** 描述內容完成後，才附加既有 canonical Midjourney parameter tail；參數尾段不參與服裝／配件片語的壓縮，也不能用參數文字取代描述內容。
+
+配件短片語的建議結構如下：
+
+```text
+配件名稱 + 最重要的顏色／材質 + 特殊造型 + 必要位置
+```
+
+例如，原始句：
+
+```text
+She also wears small sculptural hoop earring details, a short gold curb-link necklace worn around the base of the neck at collarbone level, and a silver rhinestone butterfly waist chain with a sparkling butterfly centerpiece draped across the waist and upper hips.
+```
+
+新版應優先壓縮為：
+
+```text
+She wears sculptural hoop earrings, a short gold curb-link necklace, and a silver rhinestone butterfly waist chain with a butterfly centerpiece.
+```
+
+若腰部位置對辨識度或景別很重要，才使用：
+
+```text
+She wears sculptural hoop earrings, a short gold curb-link necklace, and a silver rhinestone butterfly waist chain resting across the upper hips.
+```
+
+驗收重點由「是否低於固定字數」改為：
+
+1. 所有已選服裝與配件是否仍出現在 MJ 描述中。
+2. 每件項目是否仍保留足以辨識的名稱與核心特徵。
+3. 雙人模式是否維持正確的人物歸屬。
+4. 是否移除了重複語意，而不是移除視覺項目。
+5. 是否仍保留必要的身份、構圖、姿勢、場景與成像 anchor。
+6. 是否沒有輸出內部控制語、負面 guard 或殘句。
+
+後續正式實作時，應先新增全配件與雙人高密度 deterministic fixture，再調整 MJ 專屬 renderer；Gpt、Grok/Z-Image 與其他輸出不得因這項 MJ 壓縮規則同步改寫。
+
 #### Midjourney V8 專屬參數改造（第一階段契約）
 
 第一階段只建立未來 PAGE1 `F｜MJ 參數設定` 的機器可讀契約、deterministic fixtures 與逐 byte 基準，不註冊新控制、不修改 UI、不附加參數，也不重寫目前 AI Prompt。歷史公開映射仍為 `AI` → `midjourneyPrompt`；Gpt、Grok/Z-Image、五官特寫照、胸上特寫照與全身角色照都在 F 影響範圍之外。

@@ -2,7 +2,7 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-08-22
+Last updated: 2026-08-23
 
 ## Snapshot
 
@@ -124,6 +124,7 @@ Prompt-quality governance added on 2026-07-15:
 - 2026-08-03 MJ normal-single 身份句收斂：主 `AI`／`midjourneyPrompt` 與 `MJ 胸上特寫照` 共用固定句 `A 20s seductive stunning Japanese woman.`，取代較長的 `20s Japanese or Korean woman, seductive editorial presence`；僅影響一般單人 MJ 描述，Character Card、特殊角色、雙人、Gpt 與 Grok/Z-Image 維持各自原有身份契約。替換不增加英文詞數，並由 focused fixture 同時驗證兩組 MJ 輸出。
 - 2026-08-04 GitHub Actions 隨機失敗已修正：一般單人 AI wardrobe 壓縮現在先從 resolved wardrobe slots 取得已選的上身、褲／裙、外套、襪類與鞋款身份，再從 composition-projected 文字補充可見結構細節；圖案、版型、腰線或穿法不再能取代主服裝。`normal-separates` 凍結 fixture 原本遺漏已選的領帶襯衫，現在將 `collared shirt` 與既有 blazer／A-line skirt 一起列為必要 anchor。Gpt、Grok/Z-Image、selection、storage、UI 與 public field mappings 不變。
 - 2026-08-04 CI stability validation：三個歷史 flaky assertions 已改用固定 seed 並依 soft-max 契約只要求必要身份；另一個未鎖定攝影風格的 pipeline case 也已固定。Node 22 完整 641-test suite 連續 5 輪全數通過，`npm run test:prompt-quality` 117／117、lint、同 seed strict audit 與 `git diff --check` 通過；strict audit 維持 0 blocking signals 與相同 15 個既有 wardrobe／scene diagnostics。桌面 1440×1000、手機 390×900 的五工作區與 PAGE1 隨機生成皆無 document overflow、可見破圖、pending image 或 console warning／error。原始碼 production bundle（停用 public copy）成功；標準本機 `npm run build` 目前被 191 個 macOS `dataless` public AVIF placeholder 阻塞在資產複製，這是工作區檔案未落地的環境問題，不是 bundler／原始碼失敗。
+- 2026-08-23 MJ 高密度描述壓縮原則已整理為待實作規範：取消固定 1000 characters 與既有 AI words budget 作為 MJ 刪除門檻，保留所有已解析服裝角色與配件，將每件物件壓縮為短片語，先刪重複語意與次要修飾，不刪除視覺項目；雙人輸出仍須維持人物歸屬。此項目前只更新 `Docs/specs/page1-single-prompt-compression-guide.md` 與 `Docs/specs/wardrobe-section-b-authoring-guide.md`，尚未修改 runtime、UI、fixtures 或測試，因此目前 production 行為仍以既有 AI length contract 為準。
 - MJ special-subject projection phase 1 on 2026-08-02 adds crop-aware `mjPromptByBucket` data for `日本戰國武士`. The canonical `en` source, special-subject id, selection snapshot, Gpt, and Grok/Z-Image outputs remain unchanged; only `midjourneyPrompt` and `MJ 胸上特寫照` use compact positive armor anchors selected from the shared composition-visibility bucket. Full-body output retains skirt armor and weapons, while chest-up output omits lower-body and weapon details plus model-decision instructions.
 - MJ special-subject projection phase-1 validation on 2026-08-02: focused special-subject／fixed-framing／Midjourney native tests passed 47 tests; `npm run test:prompt-quality` passed 116 tests; frontend `npm test` passed 636 tests; lint, build, `git diff --check`, and the same-seed strict audit (`200`, `prompt-quality-baseline`) passed with zero blocking signals and 12 existing diagnostic-only wardrobe／scene findings.
 - MJ special-subject projection phase 2 on 2026-08-02 adds crop-aware `mjPromptByBucket` data for `女性人形機器人`. The canonical android `en` source, hair-control behavior, special-subject id, selection snapshot, Gpt, and Grok/Z-Image outputs remain unchanged; only `midjourneyPrompt` and `MJ 胸上特寫照` use compact face, shell, plate, joint, and circuit anchors appropriate to the shared composition-visibility bucket.
