@@ -357,7 +357,7 @@
 | **外套 (Outerwear)** | 合身西裝外套 | `tailored fitted blazer, close-cut jacket structure, defined waist shaping, polished suiting fabric` | 以合身西裝剪裁、收腰線條、俐落肩線與挺版西裝布為主。 |
 | **外套 (Outerwear)** | 短版合身西裝外套 | `cropped fitted blazer, short tailored jacket, waist-defining cut, structured shoulders, slim sleeves, clean notched lapels, polished suiting fabric` | 以短版西裝衣長、收腰剪裁、俐落肩線、窄袖與翻領為主，不綁定開合狀態、內搭、下身或姿勢。 |
 | **外套 (Outerwear)** | 人造毛皮草外套 | `faux fur coat, plush textured outerwear, voluminous soft pile, cold-weather fashion layer` | 以人造毛皮的厚實絨面、蓬鬆外層份量與柔軟大面積材質為主。 |
-| **外套 (Outerwear)** | 薄紗輕薄披衣外套 | `sheer lightweight cover-up jacket, translucent gauze mesh fabric, hooded zip-front layer, short sleeves, soft draped outerwear` | 以半透明薄紗網布、連帽拉鍊、短袖與輕柔披掛感為主的輕薄外層。 |
+| **外套 (Outerwear)** | 薄紗輕薄披衣外套 | `sheer lightweight cover-up jacket, translucent gauze mesh fabric, short sleeves, soft draped outerwear` | 以半透明薄紗網布、短袖與輕柔披掛感為主的輕薄外層，不包含帽子設計。 |
 | **外套 (Outerwear)** | 長版外套 | `long coat, elongated outer layer, structured shoulders, full-length or below-knee hem` | 以延長外層比例、結構肩線與全長或膝下衣襬為主。 |
 | **外套 (Outerwear)** | 風衣 | `trench coat, long structured outer layer, lapel collar, belted waist or storm-flap detailing` | 以長版結構外層、翻領、腰帶或防風片細節為主。 |
 | **外套 (Outerwear)** | 針織開襟外套 | `knit cardigan, open-front knit layer, soft drape, ribbed or textured knit surface` | 以開襟針織層、柔軟垂墜與羅紋或紋理針織表面為主。 |

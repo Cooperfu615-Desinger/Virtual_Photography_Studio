@@ -998,6 +998,7 @@ test('bath towel outfit preset and sheer cover-up outerwear preserve requested g
   assert.match(towelPreset.en, /above-knee length/);
   assert.match(sheerCoverUp.en, /sheer lightweight cover-up jacket/);
   assert.match(sheerCoverUp.en, /translucent gauze mesh fabric/);
+  assert.doesNotMatch(sheerCoverUp.en, /hooded zip-front layer|\bhooded\b|\bhood\b/i);
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -1011,6 +1012,7 @@ test('bath towel outfit preset and sheer cover-up outerwear preserve requested g
   assert.match(promptText, /thick terry towel texture/);
   assert.match(promptText, /sheer lightweight cover-up jacket/);
   assert.match(promptText, /translucent gauze mesh fabric/);
+  assert.doesNotMatch(promptText, /hooded zip-front layer|\bhooded\b|\bhood\b/i);
 });
 
 test('special top and bottom palette applies to outfit presets', () => {
