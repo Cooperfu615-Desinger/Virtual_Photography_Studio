@@ -349,6 +349,25 @@ test('outerwear and long shirt compose as explicit outer-over-inner layers', () 
   assert.doesNotMatch(prompt.zImagePrompt, /properly worn on both shoulders|paired with off-white longline shirt/);
 });
 
+test('longline shirt is available as an outerwear layer and reuses the top garment description', () => {
+  const outerwearLonglineShirt = optionByLabel('outerwearId', '長版襯衫');
+  const topLonglineShirt = optionByLabel('topId', '長版襯衫');
+
+  assert.equal(outerwearLonglineShirt.en, topLonglineShirt.en);
+  assert.match(outerwearLonglineShirt.desc, /可疊穿於其他上身之外的輕鬆外層/);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    outerwearId: outerwearLonglineShirt.id,
+    topId: optionId('topId', '絲質細肩帶上衣'),
+  });
+
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  assert.match(promptText, /longline shirt/);
+  assert.match(promptText, /layered over/);
+});
+
 test('outerwear opening and styling prompts use positive flexible wording', () => {
   const openOuterwear = optionByLabel('outerwearOpeningId', '敞開穿');
   const normalOuterwear = optionByLabel('outerwearStylingId', '正常穿著');

@@ -364,6 +364,7 @@
 | **外套 (Outerwear)** | 棒球外套 | `varsity jacket, ribbed collar and cuffs, contrast stripe trim, structured sporty outer layer` | 以羅紋領口袖口、撞色條紋滾邊與運動感結構外層為主。 |
 | **外套 (Outerwear)** | 短版粗花呢外套 | `cropped tweed jacket, textured woven surface, structured short silhouette, polished button front` | 以短版衣長、粗花呢織紋、硬挺輪廓與整齊排釦為主。 |
 | **外套 (Outerwear)** | 蕾絲罩衫 | `lace robe cardigan, long open-front silhouette, lightweight lace texture, ruffled or scalloped hem` | 以長版開襟罩衫、輕薄蕾絲表面與荷葉或波浪下襬為主。 |
+| **外套 (Outerwear)** | 長版襯衫 | `longline shirt, extended hem length, relaxed sleeve volume, softened drape through the body` | 沿用上身的長版襯衫設計，作為可疊穿於其他上身之外的輕鬆外層。 |
 | **外套開合 (Outerwear Opening)** | 全無 | `no additional outerwear front-opening instruction` | 不額外指定外套前襟、扣子或拉鍊狀態，保留外套自然開合。 |
 | **外套開合 (Outerwear Opening)** | 敞開穿 | `outerwear worn open at the front, front panels parted naturally` | 外套正面敞開，前片自然分開，不強制內搭必須完整可見。 |
 | **外套開合 (Outerwear Opening)** | 不扣扣子 | `button-front outerwear left unbuttoned, front panels open naturally` | 適用有扣子的外套，扣子不扣，前片自然打開。 |
