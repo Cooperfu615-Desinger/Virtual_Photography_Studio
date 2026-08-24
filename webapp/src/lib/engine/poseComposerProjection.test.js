@@ -64,6 +64,69 @@ test('all active sitting arrangements carry explicit crop projection metadata', 
   }
 });
 
+test('all active squatting arrangements carry explicit crop projection metadata', () => {
+  const squatting = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'squatting' && !option.meta?.deprecated);
+  assert.equal(squatting.length, 13);
+
+  for (const option of squatting) {
+    const metadata = option.meta?.projectionByBucket;
+    assert.ok(metadata, `${option.id} should define projection metadata`);
+    for (const bucket of Object.values(COMPOSITION_VISIBILITY_BUCKETS)) {
+      const projection = getPoseComposerProjection(option, bucket);
+      assert.ok(projection, `${option.id} should define ${bucket} projection mode`);
+      assert.ok(Object.values(POSE_COMPOSER_PROJECTION_MODES).includes(projection.mode));
+    }
+  }
+});
+
+test('squatting projection metadata separates upper and lower geometry', () => {
+  const upperBodyIds = ['squatting-natural', 'squatting-forward-lean'];
+  const lowerBodyIds = [
+    'squatting-one-knee',
+    'squatting-hands-knees',
+    'squatting-compact',
+    'squatting-side',
+    'squatting-hug-knees',
+    'squatting-low-one-leg-forward',
+    'squatting-side-low',
+    'squatting-compact-hug-knees-variant',
+  ];
+  const cowboyHiddenIds = ['squatting-one-hand-ground', 'squatting-raised-heels'];
+
+  for (const id of upperBodyIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.equal(getPoseComposerProjection(option, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
+    assert.equal(getPoseComposerProjection(option, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
+    assert.equal(getPoseComposerProjection(option, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+    assert.equal(getPoseComposerProjection(option, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+    assert.match(getPoseComposerProjection(option, CHEST_UP).en, /\S/);
+    assert.match(getPoseComposerProjection(option, MEDIUM_WAIST).en, /\S/);
+  }
+
+  for (const id of lowerBodyIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.equal(getPoseComposerProjection(option, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+    assert.equal(getPoseComposerProjection(option, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+    assert.equal(getPoseComposerProjection(option, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+    assert.equal(getPoseComposerProjection(option, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+  }
+
+  for (const id of cowboyHiddenIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.equal(getPoseComposerProjection(option, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+    assert.equal(getPoseComposerProjection(option, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+    assert.equal(getPoseComposerProjection(option, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+    assert.equal(getPoseComposerProjection(option, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+  }
+
+  const kneesTogether = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, 'squatting-knees-together-low');
+  assert.equal(getPoseComposerProjection(kneesTogether, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+  assert.equal(getPoseComposerProjection(kneesTogether, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+  assert.equal(getPoseComposerProjection(kneesTogether, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
+  assert.match(getPoseComposerProjection(kneesTogether, COWBOY_KNEE).en, /both knees pressed together/);
+  assert.equal(getPoseComposerProjection(kneesTogether, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+});
+
 test('sitting arrangement simplification keeps a focused active core and restorable deprecated IDs', () => {
   const activeIds = POSE_COMPOSER_ARRANGEMENT_OPTIONS
     .filter((option) => option.base === 'sitting' && !option.meta?.deprecated)

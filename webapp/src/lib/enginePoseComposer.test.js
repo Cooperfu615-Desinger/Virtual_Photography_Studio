@@ -696,6 +696,70 @@ test('public standing arrangements use clear canonical English and crop-safe upp
   }
 });
 
+test('squatting arrangements use explicit crop projection without lower-body leakage', () => {
+  const framing = (zh) => optionId('framingId', zh);
+  const poseText = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  const baseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '蹲姿'),
+    poseHandId: optionId('poseHandId', '全無'),
+    poseHeadId: optionId('poseHeadId', '全無'),
+    poseAnchorId: optionId('poseAnchorId', '全無'),
+  };
+  const render = (arrangementZh, framingZh) => generatePrompts(1, {
+    ...baseLocks,
+    poseArrangementId: optionId('poseArrangementId', arrangementZh),
+    framingId: framing(framingZh),
+  })[0];
+
+  [
+    ['自然蹲姿', 'a relaxed compact upper-body posture', 'a relaxed compact upper-body posture'],
+    ['蹲姿身體前傾', 'the upper body angled forward', 'a forward-leaning upper-body posture'],
+  ].forEach(([arrangementZh, chestExpected, mediumExpected]) => {
+    assert.equal(
+      poseText(render(arrangementZh, '胸上特寫')),
+      `She presents an upper-body pose with ${chestExpected}.`
+    );
+    assert.equal(
+      poseText(render(arrangementZh, '中景鏡頭 (Medium Shot)')),
+      `She presents ${mediumExpected}.`
+    );
+  });
+
+  [
+    '單膝蹲姿',
+    '手扶膝蓋蹲姿',
+    '緊湊蹲姿',
+    '側身蹲姿',
+    '抱膝蹲',
+    '低蹲單腿前伸',
+    '側身低蹲',
+    '緊湊抱膝蹲姿變體',
+    '雙膝合併低蹲',
+  ].forEach((arrangementZh) => {
+    assert.equal(poseText(render(arrangementZh, '胸上特寫')), '');
+    assert.equal(poseText(render(arrangementZh, '中景鏡頭 (Medium Shot)')), 'She presents a squatting pose.');
+  });
+
+  ['單手撐地蹲', '腳跟抬起蹲姿'].forEach((arrangementZh) => {
+    assert.equal(poseText(render(arrangementZh, '胸上特寫')), '');
+    assert.equal(poseText(render(arrangementZh, '中景鏡頭 (Medium Shot)')), 'She presents a squatting pose.');
+    assert.equal(poseText(render(arrangementZh, '牛仔中景 (Cowboy Shot)')), 'She presents a squatting pose.');
+  });
+
+  assert.match(
+    poseText(render('雙膝合併低蹲', '牛仔中景 (Cowboy Shot)')),
+    /both knees pressed together, thighs close and parallel/
+  );
+
+  const fullBody = render('低蹲單腿前伸', '全身鏡頭 (Full Body Shot)');
+  assert.match(poseText(fullBody), /low squat with one leg extended forward/);
+  for (const text of [fullBody.grokPrompt, fullBody.zImagePrompt, fullBody.midjourneyPrompt]) {
+    assert.match(text, /low squat with one leg extended forward/);
+  }
+});
+
 test('natural support anchor adapts one object-free canonical pose across all five bases', () => {
   const fullBodyFraming = optionId('framingId', '全身鏡頭 (Full Body Shot)');
   const cases = [

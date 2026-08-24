@@ -376,6 +376,8 @@ Pose: natural seated pose, torso upright, one hand resting beside the body
 公開站姿的英文描述應維持正向、可直接接在 `a/an` 後面的視覺名詞片語，不使用 `arrangement`、內部控制語或抽象風格提示。完整身體描述與胸上／腰上裁切片段分開維護；裁切片段只能描述畫面可見的上半身重心、傾斜或方位，不得補造畫面外腿部動作。
 
 坐姿的 11 個公開肢體變化必須在 `poseComposerOptions.js` 以 `projectionByBucket` 明確定義 `fullBody`、`cowboyKnee`、`mediumWaist`、`chestUp`、`fixedComposition`、`unconstrained`、`faceDetail` 與 `headShoulders` 的可見性。自然坐姿、前傾、後撐、隨性癱坐與開闊直立類坐姿在胸上／腰上裁切使用明確的上半身片段；盤腿、抱膝、翹腿、屈膝、伸腿與側放腿等純下半身變化在胸上／腰上裁切應 `omit`，不得補造畫面外腿部動作。全身與牛仔中景保留完整坐姿描述。`單腿放鬆` 與 `坐姿身體前傾` 為重複性較高的舊 ID，設為 `uiHidden: true`、`randomEligible: false`，但仍可由既有資料還原。坐姿投影不得再依賴 `engine.js` 的歷史硬編碼 fallback。
+
+目前 13 個公開蹲姿也必須在 `poseComposerOptions.js` 以 `projectionByBucket` 明確定義八種 composition visibility bucket。自然蹲姿與蹲姿身體前傾在胸上／腰上裁切使用明確的上半身片段；其餘下半身主導的蹲姿在胸上／腰上裁切應 `omit`，中景只保留不補造腿部幾何的蹲姿基底。單手撐地與腳跟抬起蹲姿在牛仔中景也應 `omit`，雙膝合併低蹲在牛仔中景使用可見膝蓋範圍的縮短片段；全身、unconstrained 與 fixed composition 保留完整 canonical pose。蹲姿 projection 不得再依賴 `engine.js` 的歷史硬編碼 arrangement fallback；分類精簡與英文重寫另行處理。
 - `坐姿｜自然坐姿`
 - `坐姿｜微微前傾`
 - `坐姿｜雙手後撐`

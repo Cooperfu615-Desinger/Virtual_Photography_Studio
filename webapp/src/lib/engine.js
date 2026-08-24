@@ -5360,8 +5360,6 @@ const UPPER_BODY_ARRANGEMENT_PHRASES = Object.freeze({
   'kneeling-upright-poised': 'the torso vertical',
   'kneeling-elbow-support': 'the elbows or forearms supporting the upper body on a nearby surface',
   'kneeling-back-arched': 'the torso leaning slightly backward',
-  'squatting-natural': 'a relaxed compact upper-body posture',
-  'squatting-forward-lean': 'the upper body angled forward',
   'lying-natural-half-recline': 'a relaxed backward recline through the shoulders and torso',
   'lying-half-reclined': 'the upper body naturally supported',
   'lying-on-back-one-arm-overhead': 'one arm extended overhead',
@@ -5373,13 +5371,7 @@ const UPPER_BODY_ARRANGEMENT_PHRASES = Object.freeze({
 const COWBOY_HIDDEN_ARRANGEMENT_IDS = new Set([
   'standing-raised-foot',
   'standing-forward-toe-point',
-  'squatting-one-hand-ground',
-  'squatting-raised-heels',
 ]);
-
-const COWBOY_PROJECTED_ARRANGEMENT_PHRASES = Object.freeze({
-  'squatting-knees-together-low': 'low compact squat with both knees pressed together, thighs close and parallel forming a compact front-facing lower-body shape',
-});
 
 const FULL_ONLY_ANCHOR_IDS = new Set([
   'shared-ground-support',
@@ -5428,8 +5420,7 @@ function projectPoseComposerArrangement(arrangement, bucket) {
   }
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) {
     if (COWBOY_HIDDEN_ARRANGEMENT_IDS.has(arrangement.id)) return null;
-    const projectedPhrase = COWBOY_PROJECTED_ARRANGEMENT_PHRASES[arrangement.id];
-    return projectedPhrase ? cloneProjectedPoseOption(arrangement, projectedPhrase) : arrangement;
+    return arrangement;
   }
   return arrangement;
 }
