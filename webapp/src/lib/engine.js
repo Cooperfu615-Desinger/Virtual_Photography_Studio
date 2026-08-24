@@ -2886,6 +2886,26 @@ const WARDROBE_LEGACY_OPTION_MAP = [
   { category: '腰部配件 (Waist Accessories)', targetZh: '全無', legacy: [['布質腰封', 6]] },
   { category: '腰部配件 (Waist Accessories)', targetZh: '鉚釘皮革腰帶', legacy: [['鉚釘皮革腰帶', 5]] },
   { category: WARDROBE_TOP_CATEGORY, targetZh: '長版襯衫', legacy: [['長版襯衫', 10]] },
+  {
+    category: WARDROBE_OUTERWEAR_OPENING_CATEGORY,
+    targetZh: '正常',
+    legacy: [['全無', 0]],
+  },
+  {
+    category: WARDROBE_OUTERWEAR_OPENING_CATEGORY,
+    targetZh: '扣子扣一半',
+    legacy: [['不扣扣子', 2]],
+  },
+  {
+    category: WARDROBE_OUTERWEAR_OPENING_CATEGORY,
+    targetZh: '拉鏈拉一半',
+    legacy: [['不拉拉鍊', 3]],
+  },
+  {
+    category: WARDROBE_OUTERWEAR_OPENING_CATEGORY,
+    targetZh: '敞開穿',
+    legacy: [['敞開穿', 1]],
+  },
   { category: WARDROBE_TOP_CATEGORY, targetZh: '領帶襯衫', legacy: [['領帶襯衫', 12], ['鬆領帶襯衫', 13]] },
   { category: WARDROBE_TOP_CATEGORY, targetZh: '落肩 T 恤', legacy: [['落肩 T 恤', 14], ['長版落肩 T 恤', 15]] },
   { category: WARDROBE_TOP_CATEGORY, targetZh: '短版 T 恤', legacy: [['短版 T 恤', 16]] },
@@ -3512,11 +3532,11 @@ function applyEyewearLegacyLockMigration(normalizedLocks, rawLocks, controls) {
 }
 
 const LEGACY_OUTERWEAR_OPENING_LOCK_MIGRATIONS = [
-  { legacy: ['西裝外套（不扣扣子）', 1], openingZh: '不扣扣子' },
+  { legacy: ['西裝外套（不扣扣子）', 1], openingZh: '扣子扣一半' },
   { legacy: ['飛行夾克（敞開穿）', 6], openingZh: '敞開穿' },
-  { legacy: ['短版皮外套（不扣）', 7], openingZh: '不扣扣子' },
+  { legacy: ['短版皮外套（不扣）', 7], openingZh: '扣子扣一半' },
   { legacy: ['丹寧外套（敞開穿）', 8], openingZh: '敞開穿' },
-  { legacy: ['連帽拉鍊外套（不拉拉鍊）', 9], openingZh: '不拉拉鍊' },
+  { legacy: ['連帽拉鍊外套（不拉拉鍊）', 9], openingZh: '拉鏈拉一半' },
 ].map((entry) => ({
   ...entry,
   legacyIds: buildWardrobeLegacyIds(WARDROBE_OUTERWEAR_CATEGORY, [entry.legacy]),

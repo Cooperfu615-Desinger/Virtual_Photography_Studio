@@ -32,8 +32,8 @@ const FULL_BODY_CHARACTER_BASELINES = Object.freeze([
       shoesId: 'Samba OG',
       locationId: '室內：英倫復古窗邊房間',
     }),
-    length: 1384,
-    sha256: '9d8727d9d79e03016b68420330dbac8c81b765ec054d4811c107ceeeed99257a',
+    length: 1501,
+    sha256: '44e154c408864e22b33cd061d137857f9a60e82aee3ac71fd2ca81659a86f872',
   }),
   Object.freeze({
     id: 'special-outfit',

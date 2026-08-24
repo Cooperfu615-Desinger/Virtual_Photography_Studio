@@ -340,12 +340,12 @@ test('outerwear and long shirt compose as explicit outer-over-inner layers', () 
 
   const grokWardrobeLine = prompt.grokPrompt.match(/Wardrobe:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
   assert.ok(grokWardrobeLine);
-  assert.match(grokWardrobeLine, /dark grey denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear[\s\S]*layered over[\s\S]*off-white longline shirt/);
+  assert.match(grokWardrobeLine, /dark grey denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear[\s\S]*layered over[\s\S]*off-white tailored longline men's dress shirt/);
   assert.match(grokWardrobeLine, /outerwear worn normally on both shoulders/);
   assert.doesNotMatch(grokWardrobeLine, /She wears properly worn on both shoulders, dark grey denim jacket/);
   assert.doesNotMatch(grokWardrobeLine, /realistic outer-to-inner dressing order/);
   assert.doesNotMatch(grokWardrobeLine, /outerwear remains a coherent outer layer|inner garment appears at natural openings/);
-  assert.match(prompt.zImagePrompt, /dark grey denim jacket[\s\S]*layered over[\s\S]*off-white longline shirt/);
+  assert.match(prompt.zImagePrompt, /dark grey denim jacket[\s\S]*layered over[\s\S]*off-white tailored longline men's dress shirt/);
   assert.doesNotMatch(prompt.zImagePrompt, /properly worn on both shoulders|paired with off-white longline shirt/);
 });
 
@@ -354,7 +354,10 @@ test('longline shirt is available as an outerwear layer and reuses the top garme
   const topLonglineShirt = optionByLabel('topId', '長版襯衫');
 
   assert.equal(outerwearLonglineShirt.en, topLonglineShirt.en);
-  assert.match(outerwearLonglineShirt.desc, /可疊穿於其他上身之外的輕鬆外層/);
+  assert.match(topLonglineShirt.en, /men's dress shirt/);
+  assert.match(topLonglineShirt.en, /button-front placket/);
+  assert.match(topLonglineShirt.en, /pointed collar/);
+  assert.match(outerwearLonglineShirt.desc, /正式外層，可疊穿於其他上身之外/);
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -364,15 +367,22 @@ test('longline shirt is available as an outerwear layer and reuses the top garme
   });
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
-  assert.match(promptText, /longline shirt/);
+  assert.match(promptText, /tailored longline men's dress shirt/);
   assert.match(promptText, /layered over/);
 });
 
 test('outerwear opening and styling prompts use positive flexible wording', () => {
+  const normalOuterwearOpening = optionByLabel('outerwearOpeningId', '正常');
+  const halfButtonedOuterwear = optionByLabel('outerwearOpeningId', '扣子扣一半');
+  const halfZippedOuterwear = optionByLabel('outerwearOpeningId', '拉鏈拉一半');
   const openOuterwear = optionByLabel('outerwearOpeningId', '敞開穿');
   const normalOuterwear = optionByLabel('outerwearStylingId', '正常穿著');
   const slippedOuterwear = optionByLabel('outerwearStylingId', '滑落肩部');
 
+  assert.match(normalOuterwearOpening.en, /front closure in the normal default position/);
+  assert.doesNotMatch(normalOuterwearOpening.en, /both shoulders|slipped below the shoulder/i);
+  assert.match(halfButtonedOuterwear.en, /button-front outerwear partially buttoned/);
+  assert.match(halfZippedOuterwear.en, /zip-front outerwear partially zipped/);
   assert.match(openOuterwear.en, /front panels parted naturally/);
   assert.doesNotMatch(openOuterwear.en, /inner layer visible through the full front opening/i);
   assert.match(normalOuterwear.en, /standard outer-layer position/);

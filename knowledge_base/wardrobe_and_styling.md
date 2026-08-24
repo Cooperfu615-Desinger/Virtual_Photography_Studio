@@ -157,7 +157,7 @@
 | **套裝 (Outfit Presets)** | Spider-Gwen Cosplay 緊身衣 | `Spider-Gwen cosplay bodysuit, a full-body skin-tight white, black, and pink suit covering the torso, arms, hands, legs, and feet, integrated hood resting behind the head, pink web-patterned hood lining, clean black-and-white color blocking, stylized spider emblem on the chest, face uncovered` | Cosplay 風格全身白、黑、粉色緊身衣，從軀幹、手臂、手部、腿部完整延伸至腳部；服裝附有連身帽，帽子自然落在頭部後方，露出粉色蜘蛛網帽裡，並保留乾淨的黑白拼色與胸前蜘蛛標誌。人物臉孔保持露出，不戴面具。 |
 | **上身 (Tops)** | 全無 | `no top layering, uncluttered upper-body styling` | 不額外強調上身單品，讓畫面更乾淨，適合泳裝、內衣或極簡裸感造型。 |
 | **上身 (Tops)** | 襯衫 | `shirt, crisp cotton poplin, clean placket construction, balanced collar line` | 以俐落門襟、清楚領型與乾淨肩線構成的基礎上身單品，重點在剪裁結構而不是情境語氣。 |
-| **上身 (Tops)** | 長版襯衫 | `longline shirt, extended hem length, relaxed sleeve volume, softened drape through the body` | 以較長衣襬、寬鬆袖量與柔垂布面為主，重點在長版比例與輪廓延伸，不預設特定穿法。 |
+| **上身 (Tops)** | 長版襯衫 | `tailored longline men's dress shirt, crisp woven poplin, pointed collar, full button-front placket, structured cuffs, extended shirttail hem, relaxed sleeve volume, clean formal menswear silhouette` | 以男性正裝襯衫的清楚領型、完整前襟排釦、硬挺袖口與較長衣襬為主，保留長版比例與乾淨正式的男裝輪廓，不預設特定穿法。 |
 | **上身 (Tops)** | 領帶襯衫 | `collared shirt with a short soft necktie fastened at the collar, neat collar line, clean front placket, uniform-inspired shirt structure` | 以短領帶固定在領口的制服感襯衫為主，領口保持整齊、門襟清楚，不預設衣襬狀態。 |
 | **上身 (Tops)** | 短袖上衣 | `short-sleeve top, smooth stretch fabric, clean torso line, compact sleeve proportion` | 以俐落袖長、順身布面與簡潔上半身線條為主，適合作為中性基礎版型。 |
 | **上身 (Tops)** | 落肩 T 恤 | `dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion` | 以低肩線、寬鬆袖根與棉質 T 恤輪廓為主，上身比例放鬆但不指定衣長。 |
@@ -364,11 +364,11 @@
 | **外套 (Outerwear)** | 棒球外套 | `varsity jacket, ribbed collar and cuffs, contrast stripe trim, structured sporty outer layer` | 以羅紋領口袖口、撞色條紋滾邊與運動感結構外層為主。 |
 | **外套 (Outerwear)** | 短版粗花呢外套 | `cropped tweed jacket, textured woven surface, structured short silhouette, polished button front` | 以短版衣長、粗花呢織紋、硬挺輪廓與整齊排釦為主。 |
 | **外套 (Outerwear)** | 蕾絲罩衫 | `lace robe cardigan, long open-front silhouette, lightweight lace texture, ruffled or scalloped hem` | 以長版開襟罩衫、輕薄蕾絲表面與荷葉或波浪下襬為主。 |
-| **外套 (Outerwear)** | 長版襯衫 | `longline shirt, extended hem length, relaxed sleeve volume, softened drape through the body` | 沿用上身的長版襯衫設計，作為可疊穿於其他上身之外的輕鬆外層。 |
-| **外套開合 (Outerwear Opening)** | 全無 | `no additional outerwear front-opening instruction` | 不額外指定外套前襟、扣子或拉鍊狀態，保留外套自然開合。 |
+| **外套 (Outerwear)** | 長版襯衫 | `tailored longline men's dress shirt, crisp woven poplin, pointed collar, full button-front placket, structured cuffs, extended shirttail hem, relaxed sleeve volume, clean formal menswear silhouette` | 沿用上身的男性正裝長版襯衫設計，作為具備完整前襟排釦、硬挺袖口與較長衣襬的正式外層，可疊穿於其他上身之外。 |
+| **外套開合 (Outerwear Opening)** | 正常 | `outerwear worn with its front closure in the normal default position, front panels aligned naturally` | 外套前襟維持自然、標準的開合狀態；此選項只控制前襟開合，不代表雙肩穿著或滑落肩部。 |
+| **外套開合 (Outerwear Opening)** | 扣子扣一半 | `button-front outerwear partially buttoned, with some buttons fastened and the remaining front panels naturally open` | 適用有扣子的外套，部分扣子扣上，其餘前片自然打開。 |
+| **外套開合 (Outerwear Opening)** | 拉鏈拉一半 | `zip-front outerwear partially zipped, zipper closed to the mid-front while the upper front remains naturally open` | 適用有拉鍊的外套，拉鍊拉到前襟中段，上方前片自然打開。 |
 | **外套開合 (Outerwear Opening)** | 敞開穿 | `outerwear worn open at the front, front panels parted naturally` | 外套正面敞開，前片自然分開，不強制內搭必須完整可見。 |
-| **外套開合 (Outerwear Opening)** | 不扣扣子 | `button-front outerwear left unbuttoned, front panels open naturally` | 適用有扣子的外套，扣子不扣，前片自然打開。 |
-| **外套開合 (Outerwear Opening)** | 不拉拉鍊 | `zip-front outerwear left unzipped, zipper track open naturally` | 適用拉鍊外套，拉鍊不拉起，拉鍊軌道自然打開。 |
 | **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
 | **外套穿法 (Outerwear Styling)** | 正常穿著 | `outerwear worn normally on both shoulders in a standard outer-layer position` | 外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。 |
 | **外套穿法 (Outerwear Styling)** | 滑落肩部 | `outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer` | 外套滑到肩線下方，袖子仍自然套在手臂上，外套本體仍能讀作外層。 |

@@ -7,6 +7,7 @@ import {
   generatePrompts,
   getLockControls,
   getSceneDependentOptions,
+  normalizeLocks,
 } from './engine.js';
 
 const controls = getLockControls();
@@ -85,7 +86,7 @@ test('back-view random head directions exclude camera-facing head controls but e
 
 test('random outerwear opening follows the selected garment fastener while an explicit opening stays user-controlled', () => {
   const denimJacketId = optionId('outerwearId', '丹寧外套');
-  const unzipId = optionId('outerwearOpeningId', '不拉拉鍊');
+  const halfZipId = optionId('outerwearOpeningId', '拉鏈拉一半');
 
   for (let index = 0; index < 40; index += 1) {
     const [prompt] = generatePrompts(1, {
@@ -97,7 +98,7 @@ test('random outerwear opening follows the selected garment fastener while an ex
     }, [], {
       random: createSeededRandom(`denim-opening-${index}`),
     });
-    assert.notEqual(prompt.selection.outerwearOpeningId, unzipId);
+    assert.notEqual(prompt.selection.outerwearOpeningId, halfZipId);
   }
 
   const [explicitPrompt] = generatePrompts(1, {
@@ -105,12 +106,60 @@ test('random outerwear opening follows the selected garment fastener while an ex
     subjectCount: '1',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outerwearId: denimJacketId,
-    outerwearOpeningId: unzipId,
+    outerwearOpeningId: halfZipId,
   }, [], {
     random: createSeededRandom('denim-explicit-unzip'),
   });
-  assert.equal(explicitPrompt.selection.outerwearOpeningId, unzipId);
-  assert.match(explicitPrompt.grokPrompt, /zip-front outerwear left unzipped/i);
+  assert.equal(explicitPrompt.selection.outerwearOpeningId, halfZipId);
+  assert.match(explicitPrompt.grokPrompt, /zip-front outerwear partially zipped/i);
+});
+
+test('outerwear opening options expose the new closure states and migrate old saved ids', () => {
+  const openingControl = controls.find((control) => control.key === 'outerwearOpeningId');
+  assert.deepEqual(
+    openingControl.options.map((option) => option.zh),
+    ['正常', '扣子扣一半', '拉鏈拉一半', '敞開穿'],
+  );
+
+  const legacyOpeningIds = [
+    ['全無', '正常'],
+    ['敞開穿', '敞開穿'],
+    ['不扣扣子', '扣子扣一半'],
+    ['不拉拉鍊', '拉鏈拉一半'],
+  ];
+  legacyOpeningIds.forEach(([legacyLabel, currentLabel], index) => {
+    const legacyId = `wardrobe:外套開合-outerwear-opening:${legacyLabel}:${index}`;
+    assert.equal(normalizeLocks({ outerwearOpeningId: legacyId }).outerwearOpeningId, optionId('outerwearOpeningId', currentLabel));
+  });
+});
+
+test('formal longline shirt is treated as button-front outerwear for opening randomization', () => {
+  const longlineShirtId = optionId('outerwearId', '長版襯衫');
+  const halfButtonId = optionId('outerwearOpeningId', '扣子扣一半');
+  const halfZipId = optionId('outerwearOpeningId', '拉鏈拉一半');
+
+  for (let index = 0; index < 40; index += 1) {
+    const [prompt] = generatePrompts(1, {
+      ...createAllNoneLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      outerwearId: longlineShirtId,
+      outerwearOpeningId: '',
+    }, [], {
+      random: createSeededRandom(`longline-shirt-opening-${index}`),
+    });
+    assert.notEqual(prompt.selection.outerwearOpeningId, halfZipId);
+  }
+
+  const [explicitPrompt] = generatePrompts(1, {
+    ...createAllNoneLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    outerwearId: longlineShirtId,
+    outerwearOpeningId: halfButtonId,
+  });
+  assert.equal(explicitPrompt.selection.outerwearOpeningId, halfButtonId);
+  assert.match(explicitPrompt.grokPrompt, /button-front outerwear partially buttoned/i);
 });
 
 test('outfit presets with embedded outerwear suppress a random second layer but preserve explicit outerwear overrides', () => {
