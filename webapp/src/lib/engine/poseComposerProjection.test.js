@@ -49,6 +49,59 @@ test('all active standing arrangements carry explicit crop projection metadata',
   }
 });
 
+test('all active sitting arrangements carry explicit crop projection metadata', () => {
+  const sitting = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'sitting' && !option.meta?.deprecated);
+  assert.equal(sitting.length, 13);
+
+  for (const option of sitting) {
+    const metadata = option.meta?.projectionByBucket;
+    assert.ok(metadata, `${option.id} should define projection metadata`);
+    for (const bucket of Object.values(COMPOSITION_VISIBILITY_BUCKETS)) {
+      const projection = getPoseComposerProjection(option, bucket);
+      assert.ok(projection, `${option.id} should define ${bucket} projection mode`);
+      assert.ok(Object.values(POSE_COMPOSER_PROJECTION_MODES).includes(projection.mode));
+    }
+  }
+});
+
+test('sitting projection metadata separates upper-body and lower-body arrangements', () => {
+  const upperBodyIds = [
+    'sitting-natural',
+    'sitting-forward-lean',
+    'sitting-hands-behind-support',
+    'sitting-slouched',
+    'sitting-grounded-forward-lean',
+    'sitting-open-confident',
+  ];
+  const lowerBodyIds = [
+    'sitting-one-leg-relaxed',
+    'sitting-legs-extended',
+    'sitting-cross-legged',
+    'sitting-hug-knees',
+    'sitting-leg-cross',
+    'sitting-one-knee-up',
+    'sitting-legs-to-side',
+  ];
+
+  for (const id of upperBodyIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.equal(getPoseComposerProjection(option, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
+    assert.equal(getPoseComposerProjection(option, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
+    assert.equal(getPoseComposerProjection(option, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+    assert.equal(getPoseComposerProjection(option, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+    assert.match(getPoseComposerProjection(option, CHEST_UP).en, /\S/);
+    assert.match(getPoseComposerProjection(option, MEDIUM_WAIST).en, /\S/);
+  }
+
+  for (const id of lowerBodyIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.equal(getPoseComposerProjection(option, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+    assert.equal(getPoseComposerProjection(option, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+    assert.equal(getPoseComposerProjection(option, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+    assert.equal(getPoseComposerProjection(option, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+  }
+});
+
 test('standing arrangement simplification keeps a stable active core and deprecated legacy IDs', () => {
   const activeIds = POSE_COMPOSER_ARRANGEMENT_OPTIONS
     .filter((option) => option.base === 'standing' && !option.meta?.deprecated)

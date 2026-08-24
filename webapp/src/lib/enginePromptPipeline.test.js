@@ -1388,6 +1388,60 @@ test('chest-up framing shares visible pose fragments while Z-Image removes camer
   assert.doesNotMatch(prompt.zImagePrompt, /without widening the portrait crop|softly blurred|faint spatial shapes/i);
 });
 
+test('sitting crop projection keeps upper-body structure and suppresses lower-body-only details', () => {
+  const cases = [
+    {
+      framing: '胸上特寫',
+      arrangement: '雙手後撐',
+      expected: /upper-body pose with the torso slightly reclined with relaxed, open shoulders/i,
+      excluded: /both hands planted behind the body for support/i,
+    },
+    {
+      framing: '中景鏡頭 (Medium Shot)',
+      arrangement: '隨性癱坐',
+      expected: /upper body relaxed in a slight recline/i,
+      excluded: /casually slouched seated pose, relaxed body weight/i,
+    },
+    {
+      framing: '胸上特寫',
+      arrangement: '雙腿側放坐姿',
+      expected: null,
+      excluded: /both legs angled to one side|soft asymmetrical lower-body line/i,
+    },
+    {
+      framing: '中景鏡頭 (Medium Shot)',
+      arrangement: '雙腿側放坐姿',
+      expected: /She presents a sitting pose\./i,
+      excluded: /both legs angled to one side|soft asymmetrical lower-body line/i,
+    },
+    {
+      framing: '牛仔中景 (Cowboy Shot)',
+      arrangement: '雙腿側放坐姿',
+      expected: /both legs angled to one side, soft asymmetrical lower-body line/i,
+      excluded: null,
+    },
+  ];
+
+  for (const { framing, arrangement, expected, excluded } of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createAllNoneLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', framing),
+      poseBaseId: optionId('poseBaseId', '坐姿'),
+      poseArrangementId: optionId('poseArrangementId', arrangement),
+    }, [], { random: () => 0.1 });
+    const canonicalPose = gptSection(prompt, 'Pose and Composition').trim();
+
+    if (expected) assert.match(canonicalPose, expected, `${framing} ${arrangement}`);
+    else assert.equal(canonicalPose, '', `${framing} ${arrangement} should omit the lower-body-only posture`);
+    if (excluded) assert.doesNotMatch(canonicalPose, excluded, `${framing} ${arrangement}`);
+    if (canonicalPose) {
+      assert.equal(prompt.zImagePrompt.split(canonicalPose).length - 1, 1);
+      assert.equal(prompt.midjourneyPrompt.split(canonicalPose).length - 1, 1);
+    }
+  }
+});
+
 test('AI duo prompt keeps compact direct role sentences and retained accessories', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

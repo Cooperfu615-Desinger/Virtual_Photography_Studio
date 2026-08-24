@@ -98,6 +98,38 @@ const STANDING_FULL_ONLY_SUPPORT_PROJECTION = createPoseComposerProjectionMap({
   ],
 });
 
+const SITTING_UPPER_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  projected: [
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+  ],
+});
+
+const SITTING_LOWER_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+});
+
 export const POSE_COMPOSER_BASE_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不使用姿勢組合器。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random pose base', desc: '由姿勢組合器隨機選擇姿勢基底。', meta: { tags: ['random'] } },
@@ -136,6 +168,24 @@ const withStandingUpperProjectionEnglish = (option, english) => ({
   },
 });
 
+const withSittingUpperProjectionEnglish = (option, english) => ({
+  ...option,
+  meta: {
+    ...(option.meta || {}),
+    projectionByBucket: {
+      ...(option.meta?.projectionByBucket || SITTING_UPPER_PROJECTION),
+      [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: {
+        mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+        en: english,
+      },
+      [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: {
+        mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+        en: english,
+      },
+    },
+  },
+});
+
 export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定肢體變化。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random body arrangement', desc: '依姿勢基底隨機選擇肢體變化。', meta: { tags: ['random'] } },
@@ -160,19 +210,19 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   withStandingUpperProjectionEnglish({ id: 'standing-back-facing-turn', base: 'standing', zh: '背對回身站姿', en: 'back-facing standing posture with the torso turned toward the camera', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }, 'a back-facing posture, torso turned toward the camera'),
   withStandingUpperProjectionEnglish({ id: 'standing-narrow-side', base: 'standing', zh: '側身窄站姿', en: 'narrow side-facing standing posture with feet close together and a clean elongated body line', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }, 'a narrow side-facing posture, shoulders in profile'),
   { id: 'standing-forward-toe-point', base: 'standing', zh: '一腳向前點地', en: 'standing posture with one foot placed slightly forward, its toe lightly touching the ground, and the other leg supporting the body weight', meta: { projectionByBucket: STANDING_LOWER_FULL_ONLY_PROJECTION } },
-  { id: 'sitting-natural', base: 'sitting', zh: '自然坐姿', en: 'natural seated arrangement' },
-  { id: 'sitting-forward-lean', base: 'sitting', zh: '微微前傾', en: 'slightly forward-leaning seated arrangement' },
-  { id: 'sitting-hands-behind-support', base: 'sitting', zh: '雙手後撐', en: 'seated pose with both hands planted behind the body for support' },
-  { id: 'sitting-one-leg-relaxed', base: 'sitting', zh: '單腿放鬆', en: 'easy seated pose with one leg relaxed' },
-  { id: 'sitting-legs-extended', base: 'sitting', zh: '雙腿自然伸展', en: 'seated pose with both legs naturally extended' },
-  { id: 'sitting-cross-legged', base: 'sitting', zh: '盤腿坐姿', en: 'cross-legged seated arrangement' },
-  { id: 'sitting-hug-knees', base: 'sitting', zh: '抱膝坐姿', en: 'hugging-knees seated arrangement' },
-  { id: 'sitting-slouched', base: 'sitting', zh: '隨性癱坐', en: 'casually slouched seated arrangement, relaxed body weight' },
-  { id: 'sitting-leg-cross', base: 'sitting', zh: '翹二郎腿', en: 'leg-cross seated arrangement' },
-  { id: 'sitting-one-knee-up', base: 'sitting', zh: '單腿屈起坐姿', en: 'seated arrangement with one knee drawn up, the other leg relaxed' },
-  { id: 'sitting-legs-to-side', base: 'sitting', zh: '雙腿側放坐姿', en: 'seated arrangement with both legs angled to one side, soft asymmetrical lower-body line' },
-  { id: 'sitting-grounded-forward-lean', base: 'sitting', zh: '坐姿身體前傾', en: 'grounded forward-leaning seated arrangement, upper body angled forward with stable seated weight' },
-  { id: 'sitting-open-confident', base: 'sitting', zh: '開闊自信坐姿', en: 'open, confident seated pose with knees set wider in a grounded posture, torso upright, and strong spatial presence' },
+  withSittingUpperProjectionEnglish({ id: 'sitting-natural', base: 'sitting', zh: '自然坐姿', en: 'natural seated arrangement' }, 'a relaxed seated upper-body posture'),
+  withSittingUpperProjectionEnglish({ id: 'sitting-forward-lean', base: 'sitting', zh: '微微前傾', en: 'slightly forward-leaning seated arrangement' }, 'the upper body leaning slightly forward'),
+  withSittingUpperProjectionEnglish({ id: 'sitting-hands-behind-support', base: 'sitting', zh: '雙手後撐', en: 'seated pose with both hands planted behind the body for support' }, 'the torso slightly reclined with relaxed, open shoulders'),
+  { id: 'sitting-one-leg-relaxed', base: 'sitting', zh: '單腿放鬆', en: 'easy seated pose with one leg relaxed', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
+  { id: 'sitting-legs-extended', base: 'sitting', zh: '雙腿自然伸展', en: 'seated pose with both legs naturally extended', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
+  { id: 'sitting-cross-legged', base: 'sitting', zh: '盤腿坐姿', en: 'cross-legged seated arrangement', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
+  { id: 'sitting-hug-knees', base: 'sitting', zh: '抱膝坐姿', en: 'hugging-knees seated arrangement', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
+  withSittingUpperProjectionEnglish({ id: 'sitting-slouched', base: 'sitting', zh: '隨性癱坐', en: 'casually slouched seated arrangement, relaxed body weight' }, 'the upper body relaxed in a slight recline'),
+  { id: 'sitting-leg-cross', base: 'sitting', zh: '翹二郎腿', en: 'leg-cross seated arrangement', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
+  { id: 'sitting-one-knee-up', base: 'sitting', zh: '單腿屈起坐姿', en: 'seated arrangement with one knee drawn up, the other leg relaxed', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
+  { id: 'sitting-legs-to-side', base: 'sitting', zh: '雙腿側放坐姿', en: 'seated arrangement with both legs angled to one side, soft asymmetrical lower-body line', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
+  withSittingUpperProjectionEnglish({ id: 'sitting-grounded-forward-lean', base: 'sitting', zh: '坐姿身體前傾', en: 'grounded forward-leaning seated arrangement, upper body angled forward with stable seated weight' }, 'the upper body angled forward'),
+  withSittingUpperProjectionEnglish({ id: 'sitting-open-confident', base: 'sitting', zh: '開闊自信坐姿', en: 'open, confident seated pose with knees set wider in a grounded posture, torso upright, and strong spatial presence' }, 'the torso upright'),
   { id: 'kneeling-seiza', base: 'kneeling', zh: '跪坐', en: 'seiza-style kneeling arrangement' },
   { id: 'kneeling-wide', base: 'kneeling', zh: '分腿跪坐', en: 'wide-knee kneeling arrangement' },
   { id: 'kneeling-forward-lean', base: 'kneeling', zh: '前傾跪姿', en: 'forward-leaning kneeling arrangement' },
