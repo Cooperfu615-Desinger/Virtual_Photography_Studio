@@ -56,7 +56,7 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
     cameraSubjectGeometry: 'eight-direction crop-aware single-subject geometry',
     strictSideProfileGeometry: 'image-edge facing, visible-side isolation, and full near-far occlusion at 90 degrees',
     explicitCameraAngleGeometry: 'camera position, lens tilt, and crop-visible perspective evidence',
-    sidePoseDepthProjection: ['hands-grip-waistband'],
+    sidePoseDepthProjection: ['hands-grip-waistband', 'hands-lift-waistband'],
     framingDescriptorPrecedence: ['cowboy', 'medium'],
     preserveSharedCanonicalPose: true,
     geometryAppliesToOutputs: ['zImagePrompt'],

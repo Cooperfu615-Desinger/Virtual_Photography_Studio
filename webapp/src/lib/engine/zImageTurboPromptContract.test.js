@@ -25,7 +25,7 @@ test('Z-Image Turbo contract preserves the historical field and records the Magn
   assert.deepEqual(Z_IMAGE_TURBO_PROMPT_CONTRACT.composition.framingDescriptorPrecedence, ['cowboy', 'medium']);
   assert.deepEqual(Z_IMAGE_TURBO_PROMPT_CONTRACT.composition.geometryAppliesToOutputs, ['zImagePrompt']);
   assert.match(Z_IMAGE_TURBO_PROMPT_CONTRACT.composition.explicitCameraAngleGeometry, /camera position/i);
-  assert.deepEqual(Z_IMAGE_TURBO_PROMPT_CONTRACT.composition.sidePoseDepthProjection, ['hands-grip-waistband']);
+  assert.deepEqual(Z_IMAGE_TURBO_PROMPT_CONTRACT.composition.sidePoseDepthProjection, ['hands-grip-waistband', 'hands-lift-waistband']);
   assert.ok(Object.isFrozen(Z_IMAGE_TURBO_PROMPT_CONTRACT));
 });
 

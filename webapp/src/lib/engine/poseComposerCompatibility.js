@@ -6,7 +6,7 @@ import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.
  * These predicates are deliberately applied only to random pools. Explicit
  * Pose Composer locks remain user intent and are not silently replaced.
  */
-export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 1;
+export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 2;
 
 const UPPER_OR_KNEE_CROP_BUCKETS = new Set([
   COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
@@ -61,11 +61,15 @@ export function createPoseComposerCompatibilityContext({
   bucket = COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
   angle = null,
   orbit = null,
+  base = null,
+  wardrobeSignals = {},
 } = {}) {
   return Object.freeze({
     bucket,
+    baseId: typeof base === 'string' ? base : base?.id || null,
     angleTags: Object.freeze([...getTags(angle)]),
     orbitTags: Object.freeze([...getTags(orbit)]),
+    wardrobeSignals: Object.freeze({ ...wardrobeSignals }),
   });
 }
 
@@ -101,6 +105,26 @@ export function poseComposerHandSupportsRandomContext(hand, context = {}) {
   if (!hand?.id || hand.id === 'none' || hand.id === 'random') return true;
   if (UPPER_CROP_BUCKETS.has(context.bucket) && LOWER_BODY_HANDS.has(hand.id)) return false;
   if (context.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE && hand.id === 'one-hand-ankle') return false;
+
+  const visibleBuckets = hand.meta?.visibleBuckets;
+  const projectionBucket = context.bucket;
+  const cropHasVisibleHandLayer = ![
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+  ].includes(projectionBucket);
+  if (cropHasVisibleHandLayer && Array.isArray(visibleBuckets) && !visibleBuckets.includes(projectionBucket)) {
+    return false;
+  }
+
+  const requiredRole = hand.meta?.requiresWardrobeRole;
+  if (requiredRole && ['absent', false].includes(context.wardrobeSignals?.[requiredRole])) return false;
+
+  const orbitTags = new Set(context.orbitTags || []);
+  if (hand.meta?.requiresFaceVisibility) {
+    if (hasAnyTag(orbitTags, ['back_view', 'rear_three_quarter'])) return false;
+    if (hasAnyTag(new Set(context.angleTags || []), ['aerial'])) return false;
+  }
+
   return true;
 }
 

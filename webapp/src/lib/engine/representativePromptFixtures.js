@@ -729,7 +729,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   },
   {
     id: 'pose-composer-random-selfie-orbit',
-    title: 'Random selfie hand clears an incompatible locked rear orbit',
+    title: 'Random hand stays wardrobe-compatible without a selfie-orbit override',
     mode: 'single',
     seed: 'prompt-contract-random-selfie-orbit-p1-22',
     locks: {
@@ -745,16 +745,13 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: {
       grokPrompt: {
-        includes: ['front-camera self-shot with her right arm extended to hold the phone'],
-        excludes: ['back view', 'rear view', 'from behind'],
+        includes: ['both hands resting naturally along the body or on a nearby support surface'],
       },
       zImagePrompt: {
-        includes: ['front-camera self-shot with her right arm extended to hold the phone'],
-        excludes: ['back view', 'rear view', 'from behind'],
+        includes: ['both hands resting naturally along the body or on a nearby support surface'],
       },
       midjourneyPrompt: {
-        includes: ['front-camera self-shot with her right arm extended to hold the phone'],
-        excludes: ['back view', 'rear view', 'from behind'],
+        includes: ['both hands resting naturally along the body or on a nearby support surface'],
       },
     },
   },

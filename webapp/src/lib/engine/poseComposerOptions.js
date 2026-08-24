@@ -95,59 +95,113 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'lying-wall-raised-legs', base: 'lying', zh: '靠牆仰躺抬腿', en: 'wall-supported reclining pose on the floor with the upper body leaned against a wall, both legs lifted upward in staggered angles, and a compressed raised-leg silhouette', meta: { tags: ['full_body_action'] } },
   { id: 'lying-prone-pillow-lookback', base: 'lying', zh: '抱枕俯臥回眸', en: 'prone lying pose with the torso propped on a large pillow, head turned over one shoulder, hips softly lifted, and knees grounded behind', meta: { tags: ['full_body_action', 'large_prop_action'] } },
 ];
-export const POSE_COMPOSER_HAND_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
-  { id: 'random', zh: '隨機', en: 'random hand pose', desc: '隨機選擇手部姿勢。', meta: { tags: ['random'] } },
-  { id: 'model-natural-hand-placement', zh: '任意', en: 'any natural hand placement fitted to the selected body pose, support contact, wardrobe, and camera crop', desc: '不指定具體手部動作，讓模型依姿勢、支撐、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。', meta: { tags: ['any'] } },
+const HAND_VISIBLE_BUCKETS = Object.freeze([
+  'unconstrained',
+  'fixedComposition',
+  'chestUp',
+  'mediumWaist',
+  'cowboyKnee',
+  'fullBody',
+]);
+
+const HAND_UPPER_VISIBLE_BUCKETS = Object.freeze([
+  'unconstrained',
+  'fixedComposition',
+  'chestUp',
+  'mediumWaist',
+  'cowboyKnee',
+  'fullBody',
+]);
+
+const HAND_LOWER_VISIBLE_BUCKETS = Object.freeze([
+  'unconstrained',
+  'fixedComposition',
+  'mediumWaist',
+  'cowboyKnee',
+  'fullBody',
+]);
+
+const deprecatedPoseHand = (option) => ({
+  ...option,
+  meta: {
+    ...(option.meta || {}),
+    uiHidden: true,
+    randomEligible: false,
+    deprecated: true,
+  },
+});
+
+const POSE_COMPOSER_LEGACY_HAND_OPTIONS = [
   { id: 'selfie-natural-right-arm', zh: '自然自拍', en: 'front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side', desc: '右手拿手機前鏡頭自拍，手機與手留在畫面邊緣外，只保留自然前臂裁切。', meta: { tags: ['selfie_hand_pose', 'locks_orbit'] } },
   { id: 'selfie-mirror-phone-visible', zh: '鏡子自拍', en: 'one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection', desc: '拿著可見手機對鏡自拍，手機可遮到臉或在臉旁。', meta: { tags: ['selfie_hand_pose', 'visible_phone', 'mirror_selfie', 'locks_orbit'] } },
   { id: 'selfie-companion-camera-interaction', zh: '男友/閨蜜自拍', en: 'casual, naturally relaxed hand placement in a close-companion social snapshot, with unforced candid body language', desc: '呈現男友或閨蜜拍攝的親近社群感，手部由模型自然放鬆發揮。', meta: { tags: ['selfie_hand_pose', 'companion_snapshot', 'locks_orbit'] } },
   { id: 'hand-adjust-lower-body-garment', zh: '整理下身', en: 'one hand adjusting the lower-body garment or hosiery, with the fingers visibly touching a skirt, pants waistband, or stocking', desc: '整理裙、褲、腰頭或絲襪，依當前穿搭自然成立。', meta: { tags: ['wardrobe_action', 'leg_focus_action'] } },
-  { id: 'hand-adjust-off-shoulder-top', zh: '拉下肩線整理上衣', en: 'one hand pulling the top partially off one shoulder while adjusting the neckline fabric', desc: '單手拉下肩線並整理上衣布料。', meta: { tags: ['wardrobe_action'] } },
   { id: 'hands-grip-waistband', zh: '雙手抓住褲腰', en: 'both hands gripping the front waistband or belt loops, elbows angled outward', desc: '雙手抓住褲腰或皮帶環，形成明確腰部接觸。', meta: { tags: ['wardrobe_action'] } },
-  { id: 'hands-relaxed-down', zh: '雙手自然垂放', en: 'both hands resting naturally along the body or on a nearby support surface' },
-  {
-    id: 'hands-in-pockets',
-    zh: '雙手插褲子口袋',
-    en: 'both hands tucked into the two front pockets of her pants, elbows relaxed and angled slightly outward',
-    desc: '雙手插入褲子前方兩側口袋，手肘自然放鬆並微微向外。',
-    meta: {
-      tags: ['wardrobe_action'],
-      legacyPromptAliases: ['both hands tucked into pockets'],
-    },
-  },
-  {
-    id: 'hands-in-outerwear-pockets',
-    zh: '雙手插外套口袋',
-    en: 'both hands tucked into the two side pockets of her jacket or coat, elbows relaxed and angled slightly outward',
-    desc: '雙手插入外套兩側口袋，手肘自然放鬆並微微向外。',
-    meta: { tags: ['wardrobe_action'] },
-  },
-  { id: 'arms-crossed', zh: '雙臂交疊', en: 'arms crossed loosely in front of the body' },
   { id: 'hands-on-waist', zh: '雙手撐腰', en: 'both hands placed on the waist or hip line with elbows naturally adapted to the pose' },
   { id: 'one-hand-chin', zh: '單手摸下巴', en: 'one hand touching the chin' },
   { id: 'one-hand-forehead', zh: '單手扶額 / 摸頭', en: 'one hand touching the forehead or hair' },
-  { id: 'hands-behind-back', zh: '雙手背在身後', en: 'both hands drawn behind the back or torso only where physically plausible for the selected pose' },
   { id: 'one-hand-hair', zh: '單手撩髮', en: 'one hand brushing hair back from the side of the face, fingers visibly touching the hair near the temple or ear' },
   { id: 'hands-on-thighs', zh: '雙手放在大腿上', en: 'both hands resting on the thighs or nearest upper-leg surface' },
   { id: 'hands-on-cheeks', zh: '雙手扶臉頰', en: 'both hands gently holding the cheeks' },
   { id: 'one-hand-chin-other-down', zh: '單手托下巴', en: 'one hand supporting the chin with the other hand relaxed along the body or support surface' },
   { id: 'one-hand-adjust-glasses', zh: '單手扶眼鏡', en: 'one hand adjusting the glasses at the frame or bridge, fingertips visibly touching the eyewear' },
-  { id: 'one-hand-pull-down-glasses', zh: '單手把眼鏡拉下', en: 'one hand pulling the glasses slightly down the nose bridge, eyes visible above the frame' },
-  { id: 'one-hand-mouth-corner', zh: '單手碰嘴角', en: 'one hand lightly touching the corner of the mouth, fingertips near the lower lip' },
   { id: 'one-hand-half-face-cover', zh: '單手遮住半邊臉', en: 'one hand partially covering one side of the face, fingers framing the cheek and eye area' },
   { id: 'both-hands-arrange-hair', zh: '雙手整理頭髮', en: 'both hands lifting and gathering the hair behind the head as if preparing to tie it up with fingers visibly holding the hair together' },
   { id: 'one-hand-nape-hair-lift', zh: '單手撩起後頸頭髮', en: 'one hand lifting hair away from the nape of the neck, fingers placed behind the ear or lower hairline' },
   { id: 'one-hand-collarbone', zh: '單手搭在鎖骨', en: 'one hand resting across the collarbone, fingertips lightly touching the upper chest line' },
-  { id: 'one-hand-waist-one-down', zh: '一手扶腰一手自然放下', en: 'one hand on the waist or hip line with the other hand relaxed along the body or nearby support surface' },
   { id: 'one-hand-ground-one-leg', zh: '一手撐地一手放腿上', en: 'one hand planted on the floor or a nearby surface for support, with the other hand resting on the leg' },
   { id: 'one-hand-knee-one-down', zh: '一手扶膝一手垂放', en: 'one hand holding the knee with the other hand relaxed beside the body or support surface' },
   { id: 'hands-clasped-front', zh: '雙手在身前交握', en: 'both hands clasped loosely in front of the body' },
   { id: 'one-hand-shoulder', zh: '單手搭肩', en: 'one hand resting on the opposite shoulder, fingers visibly touching the shoulder line' },
   { id: 'both-hands-overhead', zh: '雙手舉過頭頂', en: 'both hands raised overhead, arms extended naturally without stiff symmetry' },
   { id: 'one-hand-ankle', zh: '單手扶腳踝', en: 'one hand holding the ankle, fingers visibly touching the ankle or shoe area' },
-  { id: 'hands-behind-head', zh: '雙手放在頭後', en: 'both hands placed behind the head, elbows angled outward naturally' },
   { id: 'hands-gathered-lower-abdomen', zh: '雙手收在腹前', en: 'both hands gathered close in front of the lower abdomen with wrists and fingers softly folded together and elbows tucked inward near the knees in a compact low pose' },
+];
+
+const POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS = new Set([
+  'hands-relaxed-down',
+  'arms-crossed',
+  'one-hand-waist-one-down',
+  'hands-behind-back',
+  'hands-behind-head',
+  'one-hand-open-palm-camera',
+  'one-hand-support-chin',
+  'one-hand-mouth-corner',
+  'one-hand-sweep-bangs-back',
+  'both-hands-gather-hair',
+  'hand-adjust-off-shoulder-top',
+  'hands-lift-waistband',
+  'hands-in-pockets',
+  'hands-in-outerwear-pockets',
+  'one-hand-hold-glasses',
+  'one-hand-pull-down-glasses',
+  'glasses-temple-between-teeth',
+]);
+
+export const POSE_COMPOSER_HAND_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
+  { id: 'random', zh: '隨機', en: 'random hand pose', desc: '隨機選擇手部姿勢。', meta: { tags: ['random'] } },
+  { id: 'model-natural-hand-placement', zh: '任意', en: 'any natural hand placement fitted to the selected body pose, support contact, wardrobe, and camera crop', desc: '不指定具體手部動作，讓模型依姿勢、支撐、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。', meta: { tags: ['any'] } },
+  { id: 'hands-relaxed-down', zh: '雙手自然垂放', en: 'both hands resting naturally along the body or on a nearby support surface, fingers relaxed and loosely following the body line', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
+  { id: 'arms-crossed', zh: '雙臂交疊', en: 'arms crossed loosely in front of the body', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
+  { id: 'one-hand-waist-one-down', zh: '一手扶腰一手自然放下', en: 'one hand on the waist or hip line with the other hand relaxed along the body or nearby support surface', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
+  { id: 'hands-behind-back', zh: '雙手背在身後', en: 'both hands drawn behind the back or torso only where physically plausible for the selected pose, with relaxed shoulders', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
+  { id: 'hands-behind-head', zh: '雙手放在頭後', en: 'both hands placed behind the head with elbows angled outward naturally and shoulders relaxed', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
+  { id: 'one-hand-open-palm-camera', zh: '單手向鏡頭張開手掌', en: 'one hand raised toward the camera with an open palm and relaxed fingers, a natural expressive greeting gesture', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
+  { id: 'one-hand-support-chin', zh: '單手托下巴', en: 'one hand supporting the chin lightly, fingertips under the jaw, with the other hand relaxed along the body or support surface', meta: { tags: ['face_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresFaceVisibility: true } },
+  { id: 'one-hand-mouth-corner', zh: '單手碰嘴角', en: 'one hand lightly touching the corner of the mouth with bare fingertips near the lower lip, relaxed rather than covering the face', meta: { tags: ['face_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresFaceVisibility: true } },
+  { id: 'one-hand-sweep-bangs-back', zh: '單手往後撥瀏海', en: 'one hand sweeping the bangs backward across the forehead with the fingers combing the fringe into place in a confident, cool grooming gesture', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
+  { id: 'both-hands-gather-hair', zh: '雙手抓著整束頭髮與髮尾整理', en: 'both hands gathering one thick bundle of hair behind and above the head, one hand holding near the base while the other grips and smooths the loose lengths toward the ends in a natural ponytail-prep motion', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
+  { id: 'hand-adjust-off-shoulder-top', zh: '拉下肩線整理上衣', en: 'one hand gently pulling the neckline or shoulder seam down from one shoulder to expose the shoulder while the garment stays attached and naturally draped', desc: '單手把領口或肩線往一側肩膀下拉，露出肩膀，但衣服仍保持連著身體並自然垂墜。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'upperGarment' } },
+  { id: 'hands-lift-waistband', zh: '雙手把褲子或裙子的褲頭往上拉', en: 'both hands pulling the pants or skirt waistband slightly upward into place, fingers gripping the waistband or belt loops without lowering or removing the garment', desc: '雙手把褲子或裙子的褲頭稍微往上拉回定位，不是往下脫。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresWardrobeRole: 'bottom' } },
+  { id: 'hands-in-pockets', zh: '雙手插褲子口袋', en: 'both hands tucked into the two front pockets of her pants, elbows relaxed and angled slightly outward', desc: '雙手插入褲子前方兩側口袋，手肘自然放鬆並微微向外。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresWardrobeRole: 'pants', legacyPromptAliases: ['both hands tucked into pockets'] } },
+  { id: 'hands-in-outerwear-pockets', zh: '雙手插外套口袋', en: 'both hands tucked into the two side pockets of her jacket or coat, elbows relaxed and angled slightly outward', desc: '雙手插入外套兩側口袋，手肘自然放鬆並微微向外。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresWardrobeRole: 'outerwear' } },
+  { id: 'one-hand-hold-glasses', zh: '單手拿著眼鏡', en: 'one hand holding the glasses by one temple, with the glasses removed from the face and hanging naturally beside the cheek', desc: '單手捏住眼鏡其中一側鏡腳，眼鏡已取下並自然垂在臉頰旁。', meta: { tags: ['face_action', 'eyewear_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'eyewear', requiresFaceVisibility: true } },
+  { id: 'one-hand-pull-down-glasses', zh: '單手把眼鏡拉下', en: 'one hand pulling the glasses slightly down the nose bridge so the eyes remain visible above the frame', desc: '單手把眼鏡沿鼻樑稍微往下拉，眼睛清楚露在鏡框上方。', meta: { tags: ['face_action', 'eyewear_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'eyewear', requiresFaceVisibility: true } },
+  { id: 'glasses-temple-between-teeth', zh: '咬著眼鏡腳', en: 'one glasses temple held lightly between the teeth, with the frames removed from the face and hanging beside the cheek while both hands stay relaxed', desc: '把取下的眼鏡其中一側鏡腳輕咬在齒間，鏡框自然垂在臉頰旁。', meta: { tags: ['face_action', 'eyewear_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'eyewear', requiresFaceVisibility: true } },
+  ...POSE_COMPOSER_LEGACY_HAND_OPTIONS
+    .filter((option) => !POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS.has(option.id))
+    .map(deprecatedPoseHand),
 ];
 export const POSE_COMPOSER_PROP_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定道具動作。', meta: { tags: ['none'] } },

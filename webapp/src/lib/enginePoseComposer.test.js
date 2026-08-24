@@ -78,6 +78,88 @@ function createFullySpecifiedLocks(overrides = {}) {
   return { ...locks, subjectCount: '1', ...overrides };
 }
 
+test('public hand catalog is compact and carries the clarified garment/accessory language', () => {
+  const publicHands = control('poseHandId').options
+    .filter((option) => !option.meta?.uiHidden && !['none', 'random', 'model-natural-hand-placement'].includes(option.id));
+
+  assert.deepEqual(publicHands.map((option) => option.zh), [
+    '雙手自然垂放',
+    '雙臂交疊',
+    '一手扶腰一手自然放下',
+    '雙手背在身後',
+    '雙手放在頭後',
+    '單手向鏡頭張開手掌',
+    '單手托下巴',
+    '單手碰嘴角',
+    '單手往後撥瀏海',
+    '雙手抓著整束頭髮與髮尾整理',
+    '拉下肩線整理上衣',
+    '雙手把褲子或裙子的褲頭往上拉',
+    '雙手插褲子口袋',
+    '雙手插外套口袋',
+    '單手拿著眼鏡',
+    '單手把眼鏡拉下',
+    '咬著眼鏡腳',
+  ]);
+
+  const byZh = (zh) => publicHands.find((option) => option.zh === zh);
+  assert.match(byZh('雙手抓著整束頭髮與髮尾整理').en, /one thick bundle of hair.*holding near the base.*grips and smooths.*ends/i);
+  assert.match(byZh('單手往後撥瀏海').en, /sweeping the bangs backward.*fingers combing the fringe/i);
+  assert.match(byZh('拉下肩線整理上衣').en, /pulling the neckline or shoulder seam down.*garment stays attached/i);
+  assert.match(byZh('雙手把褲子或裙子的褲頭往上拉').en, /pulling the pants or skirt waistband slightly upward.*without lowering or removing/i);
+  assert.match(byZh('單手拿著眼鏡').en, /holding the glasses by one temple.*removed from the face/i);
+  assert.match(byZh('咬著眼鏡腳').en, /one glasses temple held lightly between the teeth.*removed from the face/i);
+  assert.equal(publicHands.filter((option) => option.meta?.requiresWardrobeRole === 'eyewear').length, 3);
+  assert.equal(control('poseHandId').options.filter((option) => option.meta?.uiHidden).length > 0, true);
+});
+
+test('random hand integration excludes unavailable wardrobe and eyewear interactions', () => {
+  const none = (key) => optionId(key, '全無');
+  const baseLocks = createFullySpecifiedLocks({
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '隨機'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+    dressId: none('dressId'),
+    topId: none('topId'),
+    pantsId: none('pantsId'),
+    skirtId: none('skirtId'),
+    outerwearId: none('outerwearId'),
+    eyewearId: none('eyewearId'),
+  });
+  const forbidden = new Set([
+    'hands-lift-waistband',
+    'hands-in-pockets',
+    'hands-in-outerwear-pockets',
+    'one-hand-hold-glasses',
+    'one-hand-pull-down-glasses',
+    'glasses-temple-between-teeth',
+  ]);
+
+  for (const roll of [0, 0.17, 0.34, 0.51, 0.68, 0.85, 0.99]) {
+    const [prompt] = generatePrompts(1, baseLocks, [], { random: () => roll });
+    assert.equal(forbidden.has(prompt.selection.poseHandId), false, `unexpected hand ${prompt.selection.poseHandId} at roll ${roll}`);
+  }
+});
+
+test('hand visibility metadata projects lower-body actions out of chest-up canonical poses', () => {
+  const shared = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '雙手把褲子或裙子的褲頭往上拉'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  };
+  const [chestUp] = generatePrompts(1, { ...shared, framingId: optionId('framingId', '胸上特寫') });
+  const [fullBody] = generatePrompts(1, { ...shared, framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)') });
+  const chestPose = chestUp.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  const fullPose = fullBody.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  assert.doesNotMatch(chestPose, /pulling the pants or skirt waistband/i);
+  assert.match(fullPose, /pulling the pants or skirt waistband/i);
+});
+
 function generateWithRandomSequence(locks, values) {
   let calls = 0;
   const [prompt] = generatePrompts(1, locks, [], {
@@ -629,9 +711,8 @@ test('selfie hand poses are preserved in all prompt versions and lock orbit to n
   }
 });
 
-test('a random hand resolved to a selfie clears an already locked rear orbit', () => {
+test('a random hand no longer resolves to retired selfie actions or clears a locked rear orbit', () => {
   const rearOrbit = optionId('orbitId', '背面 180 度');
-  const noneOrbit = optionId('orbitId', '全無');
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '1',
@@ -643,16 +724,15 @@ test('a random hand resolved to a selfie clears an already locked rear orbit', (
     poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
   }, [], { random: () => 0 });
 
-  assert.equal(prompt.selection.poseHandId, optionId('poseHandId', '自然自拍'));
-  assert.equal(prompt.selection.orbitId, noneOrbit);
-  assert.equal(prompt.structured.Framing.some((item) => item.id === rearOrbit), false);
-  assert.doesNotMatch(prompt.summary, /背面/);
+  assert.equal(prompt.selection.poseHandId, optionId('poseHandId', '雙手自然垂放'));
+  assert.equal(prompt.selection.orbitId, rearOrbit);
+  assert.equal(prompt.structured.Framing.some((item) => item.id === rearOrbit), true);
 
   const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
-  assert.match(canonicalPose, /front-camera self-shot/);
+  assert.match(canonicalPose, /both hands resting naturally along the body/);
   assertSharedCanonicalPose(prompt, canonicalPose);
   for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
-    assert.doesNotMatch(text, /rear view|back view|from behind/i);
+    assert.doesNotMatch(text, /front-camera self-shot|mirror selfie|close-companion social snapshot/i);
   }
 });
 
@@ -685,7 +765,7 @@ test('generic hand poses adapt beyond standing bases', () => {
     ['雙手撐腰', /both hands placed on the waist or hip line with elbows naturally adapted to the pose/],
     ['雙手背在身後', /both hands drawn behind the back or torso only where physically plausible for the selected pose/],
     ['雙手放在大腿上', /both hands resting on the thighs or nearest upper-leg surface/],
-    ['單手托下巴', /one hand supporting the chin with the other hand relaxed along the body or support surface/],
+    ['單手托下巴', /one hand supporting the chin.*other hand relaxed along the body or support surface/],
   ].forEach(([zh, expectedEnglish]) => {
     assertHandOption(zh, expectedEnglish);
   });

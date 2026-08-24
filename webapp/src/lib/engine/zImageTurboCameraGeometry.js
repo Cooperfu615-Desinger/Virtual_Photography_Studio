@@ -277,7 +277,7 @@ export function buildZImageTurboSidePoseDepth({
   poseHandId = '',
   subjectKind = 'woman',
 } = {}) {
-  if (!SIDE_ORBIT_RULES[resolveOrbitKey(orbit)] || poseHandId !== 'hands-grip-waistband') return '';
+  if (!SIDE_ORBIT_RULES[resolveOrbitKey(orbit)] || !['hands-grip-waistband', 'hands-lift-waistband'].includes(poseHandId)) return '';
   if (subjectKind === 'subject') {
     return "Keeping the subject's torso completely sideways, both hands meet at the front waistband and overlap in depth from this side view, with one elbow nearer the camera and the other positioned behind it.";
   }

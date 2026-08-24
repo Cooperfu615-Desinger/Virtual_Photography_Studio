@@ -220,7 +220,7 @@ test('single pose panel randomizes the five Pose Composer layers and leaves prop
     {
       poseBaseId: 'standing',
       poseArrangementId: 'standing-forward-lean',
-      poseHandId: 'hands-relaxed-down',
+      poseHandId: 'hands-behind-back',
       poseHeadId: 'head-low-rim-support',
       poseAnchorId: 'standing-edge-hip-support',
     },

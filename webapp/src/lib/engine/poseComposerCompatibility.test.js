@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.js';
+import { POSE_COMPOSER_HAND_OPTIONS } from './poseComposerOptions.js';
 import {
   createPoseComposerCompatibilityContext,
   poseComposerArrangementSupportsRandomContext,
@@ -70,4 +71,29 @@ test('random lower-body hand placements are excluded from upper crops', () => {
   assert.equal(poseComposerHandSupportsRandomContext(option('one-hand-ankle'), chestUp), false);
   assert.equal(poseComposerHandSupportsRandomContext(option('one-hand-ankle'), fullBody), true);
   assert.equal(poseComposerHandSupportsRandomContext(option('one-hand-hair'), chestUp), true);
+});
+
+test('public hand metadata shares crop, wardrobe, and face-orbit constraints', () => {
+  const findHand = (id) => POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id);
+  const waistUp = createPoseComposerCompatibilityContext({
+    bucket: COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    wardrobeSignals: { bottom: 'absent', pants: 'absent', outerwear: 'absent', eyewear: 'absent', upperGarment: 'present' },
+  });
+  const fullDress = createPoseComposerCompatibilityContext({
+    bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+    wardrobeSignals: { bottom: 'absent', pants: 'absent', outerwear: 'absent', eyewear: 'absent', upperGarment: 'present' },
+  });
+  const rear = createPoseComposerCompatibilityContext({
+    bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+    orbit: option('rear', ['back_view', 'rear_three_quarter']),
+    wardrobeSignals: { eyewear: 'present' },
+  });
+
+  assert.equal(poseComposerHandSupportsRandomContext(findHand('hands-lift-waistband'), waistUp), false);
+  assert.equal(poseComposerHandSupportsRandomContext(findHand('hands-in-pockets'), fullDress), false);
+  assert.equal(poseComposerHandSupportsRandomContext(findHand('hands-in-outerwear-pockets'), fullDress), false);
+  assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-hold-glasses'), fullDress), false);
+  assert.equal(poseComposerHandSupportsRandomContext(findHand('hands-relaxed-down'), waistUp), true);
+  assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-support-chin'), rear), false);
+  assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-open-palm-camera'), rear), true);
 });

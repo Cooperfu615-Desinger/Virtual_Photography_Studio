@@ -5145,6 +5145,7 @@ function buildPoseComposerItem(context) {
     bucket: context.compositionVisibility?.bucket,
     angle: context.angle,
     orbit: context.orbit,
+    wardrobeSignals: context.wardrobeSignals,
   });
   const requestedBase = getPoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId);
   const requestedArrangement = getPoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId);
@@ -5248,7 +5249,7 @@ function buildPoseComposerItem(context) {
     POSE_COMPOSER_HAND_OPTIONS,
     context.locks?.poseHandId,
     isRandomOption(requestedHand)
-      ? (option) => poseComposerHandSupportsRandomContext(option, compatibilityContext)
+      ? (option) => poseComposerHandSupportsRandomContext(option, { ...compatibilityContext, baseId: base.id })
       : () => true,
     exclusions,
     ['poseHandId'],
@@ -5287,6 +5288,20 @@ function buildPoseComposerItem(context) {
 }
 
 const CHEST_VISIBLE_HAND_IDS = new Set([
+  'hands-relaxed-down',
+  'arms-crossed',
+  'one-hand-waist-one-down',
+  'hands-behind-back',
+  'hands-behind-head',
+  'one-hand-open-palm-camera',
+  'one-hand-support-chin',
+  'one-hand-mouth-corner',
+  'one-hand-sweep-bangs-back',
+  'both-hands-gather-hair',
+  'hand-adjust-off-shoulder-top',
+  'one-hand-hold-glasses',
+  'one-hand-pull-down-glasses',
+  'glasses-temple-between-teeth',
   'selfie-natural-right-arm',
   'selfie-mirror-phone-visible',
   'selfie-companion-camera-interaction',
@@ -5380,6 +5395,12 @@ function cloneProjectedPoseOption(option, en) {
 function projectPoseComposerHand(handPose, bucket) {
   if (!handPose) return null;
   if (isModelNaturalPoseComposerOption(handPose)) return handPose;
+  const visibleBuckets = handPose.meta?.visibleBuckets;
+  if (Array.isArray(visibleBuckets)
+    && ![COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL, COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS].includes(bucket)
+    && !visibleBuckets.includes(bucket)) {
+    return null;
+  }
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP && !CHEST_VISIBLE_HAND_IDS.has(handPose.id)) return null;
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST && MEDIUM_HIDDEN_HAND_IDS.has(handPose.id)) return null;
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE && COWBOY_HIDDEN_HAND_IDS.has(handPose.id)) return null;
@@ -5715,8 +5736,50 @@ function selectedSpecialOutfitHasHairstyle(context, catalog, role = null) {
   return specialOutfitHasHairstyle(roleOutfit);
 }
 
+function resolvePoseComposerWardrobeSignals(context, catalog) {
+  const sourceCatalog = catalog?.catalog || catalog || {};
+  const wardrobe = sourceCatalog.wardrobe || {};
+
+  const lockState = (lockKey, category) => {
+    const lockedValue = context.locks?.[lockKey];
+    if (!lockedValue || isRandomLockValue(lockedValue)) return 'unknown';
+    const items = getByKey(wardrobe, category);
+    const lockedItem = Array.isArray(lockedValue)
+      ? lockedValue.map((id) => findById(items, id)).find(Boolean)
+      : findById(items, lockedValue);
+    if (!lockedItem) return 'unknown';
+    return isNoneLikeItem(lockedItem) ? 'absent' : 'present';
+  };
+
+  const combine = (states) => {
+    if (states.some((state) => state === 'present')) return 'present';
+    if (states.length > 0 && states.every((state) => state === 'absent')) return 'absent';
+    return 'unknown';
+  };
+
+  const dress = lockState('dressId', '連身 (Dresses)');
+  const top = lockState('topId', '上身 (Tops)');
+  const pants = lockState('pantsId', '褲裝 (Pants)');
+  const skirt = lockState('skirtId', '裙裝 (Skirts)');
+  const outerwear = lockState('outerwearId', WARDROBE_OUTERWEAR_CATEGORY);
+  const eyewear = lockState('eyewearId', WARDROBE_EYEWEAR_CATEGORY);
+  const bottom = combine([pants, skirt]);
+  const bottomWithoutDress = dress === 'present' && bottom === 'unknown' ? 'absent' : bottom;
+
+  return {
+    pants: dress === 'present' && pants === 'unknown' ? 'absent' : pants,
+    bottom: bottomWithoutDress,
+    outerwear,
+    eyewear,
+    upperGarment: combine([top, dress, outerwear]),
+  };
+}
+
 function buildCharacter(context, catalog) {
   const character = [buildSubjectBase(context.subject)];
+  const poseComposerContext = context.wardrobeSignals
+    ? context
+    : { ...context, wardrobeSignals: resolvePoseComposerWardrobeSignals(context, catalog) };
   const previewExclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
   const random = context.random || Math.random;
   const sampleItem = (items) => sample(items, random);
@@ -5752,7 +5815,7 @@ function buildCharacter(context, catalog) {
       if (expression && !isNoneLikeItem(expression)) character.push(expression);
     }
 
-    const poseComposer = buildPoseComposerItem(context);
+    const poseComposer = buildPoseComposerItem(poseComposerContext);
     if (poseComposer && !isNoneLikeItem(poseComposer)) {
       character.push(poseComposer);
       return character;
@@ -6027,7 +6090,7 @@ function buildCharacter(context, catalog) {
 
   if (actionPose && !isNoneLikeItem(actionPose)) return character;
 
-  const poseComposer = buildPoseComposerItem(context);
+  const poseComposer = buildPoseComposerItem(poseComposerContext);
   if (poseComposer && !isNoneLikeItem(poseComposer)) {
     character.push(poseComposer);
     return character;

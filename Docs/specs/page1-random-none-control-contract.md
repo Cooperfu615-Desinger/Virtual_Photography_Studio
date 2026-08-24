@@ -60,13 +60,15 @@ Last updated: 2026-08-01
 
 ### 隨機姿勢相容性
 
-`buildPoseComposerItem()` 在解析單人姿勢時，使用 `webapp/src/lib/engine/poseComposerCompatibility.js` 的共用規範（version 1）過濾隨機候選；這個規範位於 renderer 之前，因此 Gpt、Grok/Z-Image、AI 與其他共用 canonical pose 的輸出不會各自採用不同的姿勢安全邏輯：
+`buildPoseComposerItem()` 在解析單人姿勢時，使用 `webapp/src/lib/engine/poseComposerCompatibility.js` 的共用規範（version 2）過濾隨機候選；這個規範位於 renderer 之前，因此 Gpt、Grok/Z-Image、AI 與其他共用 canonical pose 的輸出不會各自採用不同的姿勢安全邏輯：
 
 1. `胸上特寫`、`中景鏡頭` 等上半身裁切只從站姿／坐姿基底隨機；`牛仔中景` 排除躺姿，避免裁切語意和低位姿勢不一致。
 2. 正面方位的隨機肢體不選側身或背向變體；背面／後三分之四方位不選明確正面下半身變體。
 3. 隨機頭部方向會避開側／背向肢體搭配「頭部自然朝向鏡頭」，也會避開鳥瞰／正上方俯視搭配需要正面臉孔可見的頭部選項。
-4. 上半身裁切不抽取只在大腿、膝蓋、腳踝或地面支撐成立的手部選項；背面視角不抽取臉部接觸型道具。
-5. 這些規則只過濾 `隨機` 候選，不改寫明確 lock。使用者明確選擇的衝突組合仍會保留，讓 lock 具備可預期的優先權。
+4. 手部動作使用 option 的 `visibleBuckets`，讓胸上裁切不抽取只在腰部以下成立的手勢；相同 metadata 也用於 renderer 前的 canonical pose 投影，避免三個主要輸出各自保留不同手勢。
+5. 服裝互動使用 `requiresWardrobeRole`：褲頭／褲袋需有褲或裙，外套口袋需有外套，眼鏡互動需有眼鏡；明確服裝 `全無` 不會讓隨機手勢製造不存在的服裝。
+6. 需要臉部可見的手勢（托下巴、碰嘴角、眼鏡互動）會避開背面／後三分之四方位與鳥瞰角度；退役自拍手勢不再進入新隨機池，也不會因隨機手勢偷偷清除 orbit lock。
+7. 這些規則只過濾 `隨機` 候選，不改寫明確 lock。使用者明確選擇的衝突組合仍會保留，讓 lock 具備可預期的優先權。
 
 這是姿勢／鏡頭／裁切的相容性，不是場景物件相容性；`poseAnchorId` 仍依姿勢基底與場景水域規則處理，完整的場景幾何判斷維持暫停。
 
