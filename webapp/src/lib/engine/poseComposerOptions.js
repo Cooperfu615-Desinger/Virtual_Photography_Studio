@@ -181,7 +181,7 @@ const SQUATTING_KNEES_TOGETHER_PROJECTION = Object.freeze({
   ...SQUATTING_LOWER_PROJECTION,
   [COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE]: {
     mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
-    en: 'low compact squat with both knees pressed together, thighs close and parallel forming a compact front-facing lower-body shape',
+    en: 'low half-squat with both knees together and thighs held close and parallel',
   },
 });
 
@@ -308,20 +308,28 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'kneeling-one-knee-forward', base: 'kneeling', zh: '單膝前跨跪姿', en: 'one-knee-forward kneeling arrangement, front knee bent with the other knee grounded' },
   { id: 'kneeling-elbow-support', base: 'kneeling', zh: '手肘支撐跪姿', en: 'kneeling arrangement with elbows or forearms supporting the upper body on a nearby surface' },
   { id: 'kneeling-back-arched', base: 'kneeling', zh: '跪姿微後仰', en: 'slightly backward-arched kneeling arrangement, torso leaning back with balanced knee support' },
-  withSquattingUpperProjectionEnglish({ id: 'squatting-natural', base: 'squatting', zh: '自然蹲姿', en: 'natural squatting arrangement' }, 'a relaxed compact upper-body posture'),
-  { id: 'squatting-one-knee', base: 'squatting', zh: '單膝抬起不對稱蹲姿', en: 'one-knee squatting arrangement', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } },
+  withSquattingUpperProjectionEnglish(
+    { id: 'squatting-natural', base: 'squatting', zh: '自然蹲姿', en: 'deep resting squat with both feet flat on the ground, heels down, knees deeply bent, and the body balanced low over the feet' },
+    'the torso upright and relaxed',
+    'a relaxed upright upper-body posture'
+  ),
+  { id: 'squatting-one-knee', base: 'squatting', zh: '單膝抬起不對稱蹲姿', en: 'asymmetrical deep squat with one knee lifted higher than the other while the opposite leg stays deeply bent, creating an uneven lower-body line', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } },
   deprecatedPoseArrangement({ id: 'squatting-hands-knees', base: 'squatting', zh: '手扶膝蓋蹲姿', en: 'squatting arrangement with hands resting on the knees', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } }),
   deprecatedPoseArrangement({ id: 'squatting-compact', base: 'squatting', zh: '緊湊蹲姿', en: 'compact low squatting arrangement', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } }),
-  { id: 'squatting-side', base: 'squatting', zh: '側身蹲姿', en: 'side-facing squatting arrangement', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } },
+  { id: 'squatting-side', base: 'squatting', zh: '側身蹲姿', en: 'deep squat with the hips and legs kept low while the torso turns toward the camera', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } },
   deprecatedPoseArrangement({ id: 'squatting-hug-knees', base: 'squatting', zh: '抱膝蹲', en: 'hugging-knees squat, compact grounded body shape', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } }),
   deprecatedPoseArrangement({ id: 'squatting-one-hand-ground', base: 'squatting', zh: '單手撐地蹲', en: 'squatting pose with one hand planted on the ground for support', meta: { projectionByBucket: SQUATTING_LOWER_FULL_ONLY_PROJECTION } }),
-  { id: 'squatting-low-one-leg-forward', base: 'squatting', zh: '低蹲單腿前伸', en: 'low squat with one leg extended forward, compact support leg, clear asymmetrical silhouette', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } },
+  { id: 'squatting-low-one-leg-forward', base: 'squatting', zh: '低蹲單腿前伸', en: 'low squat with one leg extended straight forward and the other leg folded under the body, forming a clear asymmetrical lower-body line', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } },
   deprecatedPoseArrangement({ id: 'squatting-side-low', base: 'squatting', zh: '側身低蹲', en: 'side-facing low squat, torso and legs oriented laterally with readable profile line', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } }),
   deprecatedPoseArrangement({ id: 'squatting-raised-heels', base: 'squatting', zh: '腳跟抬起蹲姿', en: 'raised-heel squatting arrangement, heels lightly lifted, body balanced on the balls of the feet', meta: { projectionByBucket: SQUATTING_LOWER_FULL_ONLY_PROJECTION } }),
-  withSquattingUpperProjectionEnglish({ id: 'squatting-forward-lean', base: 'squatting', zh: '身體前傾蹲姿', en: 'forward-leaning squatting arrangement, upper body angled toward the knees, grounded center of weight' }, 'the upper body angled forward', 'a forward-leaning upper-body posture'),
+  withSquattingUpperProjectionEnglish(
+    { id: 'squatting-forward-lean', base: 'squatting', zh: '身體前傾蹲姿', en: 'deep squat with the torso leaning forward over the thighs and weight centered low near the feet' },
+    'the torso leaning forward from the hips',
+    'a forward-leaning upper-body posture with the torso inclined from the hips'
+  ),
   deprecatedPoseArrangement({ id: 'squatting-compact-hug-knees-variant', base: 'squatting', zh: '緊湊抱膝蹲姿變體', en: 'compact knees-held squat variation, legs close together, body folded into a smaller grounded shape', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } }),
-  { id: 'squatting-knees-together-low', base: 'squatting', zh: '雙膝合併半蹲', en: 'low compact squat with both knees pressed together and feet grounded close under the body with thighs close and parallel forming a compact front-facing lower-body shape', meta: { projectionByBucket: SQUATTING_KNEES_TOGETHER_PROJECTION } },
-  { id: 'squatting-gangster-wide-knee', base: 'squatting', zh: '寬膝深蹲／流氓蹲姿', en: 'wide-knee deep squat with a low grounded stance and knees opened outward', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } },
+  { id: 'squatting-knees-together-low', base: 'squatting', zh: '雙膝合併半蹲', en: 'low half-squat with both knees together, feet planted close beneath the body, and thighs held parallel', meta: { projectionByBucket: SQUATTING_KNEES_TOGETHER_PROJECTION } },
+  { id: 'squatting-gangster-wide-knee', base: 'squatting', zh: '寬膝深蹲／流氓蹲姿', en: 'wide-knee deep squat with feet planted wide, knees opened outward, and hips lowered close to the ground', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } },
   { id: 'lying-natural', base: 'lying', zh: '自然躺姿', en: 'natural lying arrangement' },
   { id: 'lying-on-back', base: 'lying', zh: '仰躺', en: 'supine lying pose with a relaxed upward-facing body line' },
   { id: 'lying-side', base: 'lying', zh: '側躺', en: 'side-lying arrangement, body turned along one side' },

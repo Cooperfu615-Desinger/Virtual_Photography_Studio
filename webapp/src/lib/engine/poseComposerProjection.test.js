@@ -119,7 +119,7 @@ test('squatting projection metadata separates upper and lower geometry', () => {
   assert.equal(getPoseComposerProjection(kneesTogether, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
   assert.equal(getPoseComposerProjection(kneesTogether, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
   assert.equal(getPoseComposerProjection(kneesTogether, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
-  assert.match(getPoseComposerProjection(kneesTogether, COWBOY_KNEE).en, /both knees pressed together/);
+  assert.match(getPoseComposerProjection(kneesTogether, COWBOY_KNEE).en, /both knees together/);
   assert.equal(getPoseComposerProjection(kneesTogether, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
 });
 
