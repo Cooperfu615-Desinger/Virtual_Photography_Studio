@@ -51,7 +51,7 @@ test('all active standing arrangements carry explicit crop projection metadata',
 
 test('all active sitting arrangements carry explicit crop projection metadata', () => {
   const sitting = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'sitting' && !option.meta?.deprecated);
-  assert.equal(sitting.length, 13);
+  assert.equal(sitting.length, 11);
 
   for (const option of sitting) {
     const metadata = option.meta?.projectionByBucket;
@@ -64,13 +64,46 @@ test('all active sitting arrangements carry explicit crop projection metadata', 
   }
 });
 
+test('sitting arrangement simplification keeps a focused active core and restorable deprecated IDs', () => {
+  const activeIds = POSE_COMPOSER_ARRANGEMENT_OPTIONS
+    .filter((option) => option.base === 'sitting' && !option.meta?.deprecated)
+    .map((option) => option.id);
+  const deprecatedIds = POSE_COMPOSER_ARRANGEMENT_OPTIONS
+    .filter((option) => option.base === 'sitting' && option.meta?.deprecated)
+    .map((option) => option.id);
+
+  assert.deepEqual(activeIds, [
+    'sitting-natural',
+    'sitting-forward-lean',
+    'sitting-hands-behind-support',
+    'sitting-legs-extended',
+    'sitting-cross-legged',
+    'sitting-hug-knees',
+    'sitting-slouched',
+    'sitting-leg-cross',
+    'sitting-one-knee-up',
+    'sitting-legs-to-side',
+    'sitting-open-confident',
+  ]);
+  assert.deepEqual(deprecatedIds, [
+    'sitting-one-leg-relaxed',
+    'sitting-grounded-forward-lean',
+  ]);
+
+  for (const id of deprecatedIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.equal(option.meta.uiHidden, true);
+    assert.equal(option.meta.randomEligible, false);
+    assert.equal(option.meta.deprecated, true);
+  }
+});
+
 test('sitting projection metadata separates upper-body and lower-body arrangements', () => {
   const upperBodyIds = [
     'sitting-natural',
     'sitting-forward-lean',
     'sitting-hands-behind-support',
     'sitting-slouched',
-    'sitting-grounded-forward-lean',
     'sitting-open-confident',
   ];
   const lowerBodyIds = [

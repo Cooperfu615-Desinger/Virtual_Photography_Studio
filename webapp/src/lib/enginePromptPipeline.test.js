@@ -706,7 +706,7 @@ test('Gpt single-subject prompt preserves full-fidelity pose composer special-se
     poseAnchorId: optionId('poseAnchorId', '坐在椅子上'),
   });
   assert.match(sittingChair.pose, /on a chair that naturally fits the current scene with the chair style material and scale chosen to match the environment/i);
-  assert.match(sittingChair.pose, /open, confident seated pose with knees set wider in a grounded posture, torso upright, and strong spatial presence/i);
+  assert.match(sittingChair.pose, /open, grounded seated posture with the knees comfortably apart, weight settled through the hips, and the torso relaxed and upright/i);
   assert.match(sittingChair.pose, /both hands placed on the waist or hip line with elbows naturally adapted to the pose/i);
   assert.match(sittingChair.pose, /head turned slightly off-axis near the lens with the face plane angled diagonally instead of flat to camera/i);
 
@@ -1399,8 +1399,8 @@ test('sitting crop projection keeps upper-body structure and suppresses lower-bo
     {
       framing: '中景鏡頭 (Medium Shot)',
       arrangement: '隨性癱坐',
-      expected: /upper body relaxed in a slight recline/i,
-      excluded: /casually slouched seated pose, relaxed body weight/i,
+      expected: /loose, heavy upper-body slouch with dropped shoulders and a relaxed torso/i,
+      excluded: /casually slumped seated posture|slight recline/i,
     },
     {
       framing: '胸上特寫',
@@ -1419,6 +1419,12 @@ test('sitting crop projection keeps upper-body structure and suppresses lower-bo
       arrangement: '雙腿側放坐姿',
       expected: /both legs angled to one side, soft asymmetrical lower-body line/i,
       excluded: null,
+    },
+    {
+      framing: '中景鏡頭 (Medium Shot)',
+      arrangement: '開闊自信坐姿',
+      expected: /open, relaxed upper-body posture with the torso upright and shoulders at ease/i,
+      excluded: /knees comfortably apart|weight settled through the hips/i,
     },
   ];
 

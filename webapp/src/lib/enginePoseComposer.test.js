@@ -540,7 +540,7 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
         poseBaseId: optionId('poseBaseId', '坐姿'),
         poseArrangementId: optionId('poseArrangementId', '開闊自信坐姿'),
       },
-      expected: 'She presents an open, confident seated pose with knees set wider in a grounded posture, torso upright, and strong spatial presence.',
+      expected: 'She presents an open, grounded seated posture with the knees comfortably apart, weight settled through the hips, and the torso relaxed and upright.',
     },
     {
       locks: {
@@ -1064,7 +1064,7 @@ test('pose composer exposes new standing sitting and squatting arrangement batch
     ['單腿屈起坐姿', 'sitting', /one knee drawn up/],
     ['雙腿側放坐姿', 'sitting', /both legs angled to one side/],
     ['坐姿身體前傾', 'sitting', /grounded forward-leaning seated arrangement/],
-    ['開闊自信坐姿', 'sitting', /open, confident seated pose/],
+    ['開闊自信坐姿', 'sitting', /open, grounded seated posture/],
     ['低蹲單腿前伸', 'squatting', /low squat with one leg extended forward/],
     ['側身低蹲', 'squatting', /side-facing low squat/],
     ['腳跟抬起蹲姿', 'squatting', /raised-heel squatting arrangement/],
@@ -1191,7 +1191,7 @@ test('pose composer exposes kneeling and lying expansion batch', () => {
 test('new arrangement batch is preserved in all prompt versions', () => {
   const cases = [
     ['站姿', '交叉腿站姿', /standing posture with the legs naturally crossed/],
-    ['坐姿', '開闊自信坐姿', /open, confident seated pose/],
+    ['坐姿', '開闊自信坐姿', /open, grounded seated posture/],
     ['蹲姿', '側身低蹲', /side-facing low squat/],
   ];
 
@@ -1394,8 +1394,8 @@ test('pose composer takes priority over single-subject pose and non-social speci
     poseAnchorId: optionId('poseAnchorId', '坐在單人雕花絨布椅'),
   });
 
-  assert.match(prompt.grokPrompt, /presents a casually slouched seated pose/);
-  assert.match(prompt.grokPrompt, /casually slouched/);
+  assert.match(prompt.grokPrompt, /presents a casually slumped seated posture with a loose, heavy body, dropped shoulders/i);
+  assert.match(prompt.grokPrompt, /casually slumped/);
   assert.match(prompt.grokPrompt, /ornate single velvet armchair/);
   assert.doesNotMatch(prompt.grokPrompt, /loosely crossed arms/);
   assert.doesNotMatch(prompt.grokPrompt, /applying lipstick/);
