@@ -377,7 +377,7 @@ Pose: natural seated pose, torso upright, one hand resting beside the body
 
 坐姿的 11 個公開肢體變化必須在 `poseComposerOptions.js` 以 `projectionByBucket` 明確定義 `fullBody`、`cowboyKnee`、`mediumWaist`、`chestUp`、`fixedComposition`、`unconstrained`、`faceDetail` 與 `headShoulders` 的可見性。自然坐姿、前傾、後撐、隨性癱坐與開闊直立類坐姿在胸上／腰上裁切使用明確的上半身片段；盤腿、抱膝、翹腿、屈膝、伸腿與側放腿等純下半身變化在胸上／腰上裁切應 `omit`，不得補造畫面外腿部動作。全身與牛仔中景保留完整坐姿描述。`單腿放鬆` 與 `坐姿身體前傾` 為重複性較高的舊 ID，設為 `uiHidden: true`、`randomEligible: false`，但仍可由既有資料還原。坐姿投影不得再依賴 `engine.js` 的歷史硬編碼 fallback。
 
-目前 13 個公開蹲姿也必須在 `poseComposerOptions.js` 以 `projectionByBucket` 明確定義八種 composition visibility bucket。自然蹲姿與蹲姿身體前傾在胸上／腰上裁切使用明確的上半身片段；其餘下半身主導的蹲姿在胸上／腰上裁切應 `omit`，中景只保留不補造腿部幾何的蹲姿基底。單手撐地與腳跟抬起蹲姿在牛仔中景也應 `omit`，雙膝合併低蹲在牛仔中景使用可見膝蓋範圍的縮短片段；全身、unconstrained 與 fixed composition 保留完整 canonical pose。蹲姿 projection 不得再依賴 `engine.js` 的歷史硬編碼 arrangement fallback；分類精簡與英文重寫另行處理。
+蹲姿目前只保留七個公開肢體變化：`自然蹲姿`、`單膝抬起不對稱蹲姿`、`側身蹲姿`、`低蹲單腿前伸`、`身體前傾蹲姿`、`雙膝合併半蹲`、`寬膝深蹲／流氓蹲姿`。其中 `側身蹲姿` 的定義是下半身維持蹲姿、上半身轉向鏡頭，不是整體側面站位；`身體前傾蹲姿` 不綁定手部；抱膝改由獨立 `poseHandId` 的 `雙手抱膝` 表達。七個公開選項必須在 `poseComposerOptions.js` 以 `projectionByBucket` 明確定義八種 composition visibility bucket。自然蹲姿與身體前傾蹲姿在胸上／腰上裁切使用明確的上半身片段；其餘下半身主導蹲姿在胸上／腰上裁切應 `omit`，中景只保留不補造腿部幾何的蹲姿基底；雙膝合併半蹲在牛仔中景使用可見膝蓋範圍的縮短片段。全身、unconstrained 與 fixed composition 保留完整 canonical pose。原有重複或特殊化蹲姿 ID 不刪除，改設為 `uiHidden: true`、`randomEligible: false`，供既有資料還原；蹲姿 projection 不得再依賴 `engine.js` 的歷史硬編碼 arrangement fallback。最終英文重寫另行處理。
 - `坐姿｜自然坐姿`
 - `坐姿｜微微前傾`
 - `坐姿｜雙手後撐`
@@ -417,7 +417,7 @@ Pose Composer `手部動作` / `道具動作` 規則：
 - 舊 saved card / import 若把既有道具 option ID 存在 `poseHandId`，normalize 應將該 ID 遷移至 `posePropId` 並清空舊手部 lock；若 payload 已有有效的明確 `posePropId`，不得用 legacy 值覆蓋，且同樣由明確道具接管並清空 `poseHandId`。
 - 合併或改寫道具英文時，若舊 Markdown import 可能只留下舊 prompt 文字，應在 option `meta.legacyPromptAliases` 保留舊英文，讓標準 prompt parser 能映射至目前 option ID。
 
-- 目前公開的 `poseHandId` 維持精簡的 17 個具體動作：`雙手自然垂放`、`雙臂交疊`、`一手扶腰一手自然放下`、`雙手背在身後`、`雙手放在頭後`、`單手向鏡頭張開手掌`、`單手托下巴`、`單手碰嘴角`、`單手往後撥瀏海`、`雙手抓著整束頭髮與髮尾整理`、`拉下肩線整理上衣`、`雙手把褲子或裙子的褲頭往上拉`、`雙手插褲子口袋`、`雙手插外套口袋`、`單手拿著眼鏡`、`單手把眼鏡拉下`、`咬著眼鏡腳`。
+- 目前公開的 `poseHandId` 維持精簡的 18 個具體動作：`雙手自然垂放`、`雙臂交疊`、`一手扶腰一手自然放下`、`雙手背在身後`、`雙手放在頭後`、`單手向鏡頭張開手掌`、`單手托下巴`、`單手碰嘴角`、`單手往後撥瀏海`、`雙手抓著整束頭髮與髮尾整理`、`拉下肩線整理上衣`、`雙手把褲子或裙子的褲頭往上拉`、`雙手抱膝`、`雙手插褲子口袋`、`雙手插外套口袋`、`單手拿著眼鏡`、`單手把眼鏡拉下`、`咬著眼鏡腳`。`雙手抱膝` 是不綁定特定基底的下身手部動作，可與自然蹲姿、坐姿或其他可見下半身姿勢組合。
 - `雙手抓著整束頭髮與髮尾整理` 必須明確描述一手抓住髮根附近、另一手抓住並順過整束髮尾的自然整理動作，不得只寫籠統的 `arrange hair`。
 - `單手往後撥瀏海` 必須描述手指把瀏海向後梳理的帥氣整理動作，不再使用含糊的 `brush hair`。
 - `拉下肩線整理上衣` 必須描述從單側肩膀拉下領口／肩線、露出肩膀，同時衣服仍與身體相連並自然垂墜，避免模型把衣物生成成斷裂或脫落狀態。

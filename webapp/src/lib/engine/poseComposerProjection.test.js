@@ -66,7 +66,7 @@ test('all active sitting arrangements carry explicit crop projection metadata', 
 
 test('all active squatting arrangements carry explicit crop projection metadata', () => {
   const squatting = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'squatting' && !option.meta?.deprecated);
-  assert.equal(squatting.length, 13);
+  assert.equal(squatting.length, 7);
 
   for (const option of squatting) {
     const metadata = option.meta?.projectionByBucket;
@@ -83,13 +83,9 @@ test('squatting projection metadata separates upper and lower geometry', () => {
   const upperBodyIds = ['squatting-natural', 'squatting-forward-lean'];
   const lowerBodyIds = [
     'squatting-one-knee',
-    'squatting-hands-knees',
-    'squatting-compact',
     'squatting-side',
-    'squatting-hug-knees',
     'squatting-low-one-leg-forward',
-    'squatting-side-low',
-    'squatting-compact-hug-knees-variant',
+    'squatting-gangster-wide-knee',
   ];
   const cowboyHiddenIds = ['squatting-one-hand-ground', 'squatting-raised-heels'];
 
@@ -125,6 +121,41 @@ test('squatting projection metadata separates upper and lower geometry', () => {
   assert.equal(getPoseComposerProjection(kneesTogether, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
   assert.match(getPoseComposerProjection(kneesTogether, COWBOY_KNEE).en, /both knees pressed together/);
   assert.equal(getPoseComposerProjection(kneesTogether, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+});
+
+test('squatting arrangement simplification keeps seven active categories and restorable legacy IDs', () => {
+  const activeIds = POSE_COMPOSER_ARRANGEMENT_OPTIONS
+    .filter((option) => option.base === 'squatting' && !option.meta?.deprecated)
+    .map((option) => option.id);
+  const deprecatedIds = POSE_COMPOSER_ARRANGEMENT_OPTIONS
+    .filter((option) => option.base === 'squatting' && option.meta?.deprecated)
+    .map((option) => option.id);
+
+  assert.deepEqual(activeIds, [
+    'squatting-natural',
+    'squatting-one-knee',
+    'squatting-side',
+    'squatting-low-one-leg-forward',
+    'squatting-forward-lean',
+    'squatting-knees-together-low',
+    'squatting-gangster-wide-knee',
+  ]);
+  assert.deepEqual(deprecatedIds, [
+    'squatting-hands-knees',
+    'squatting-compact',
+    'squatting-hug-knees',
+    'squatting-one-hand-ground',
+    'squatting-side-low',
+    'squatting-raised-heels',
+    'squatting-compact-hug-knees-variant',
+  ]);
+
+  for (const id of deprecatedIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.equal(option.meta.uiHidden, true);
+    assert.equal(option.meta.randomEligible, false);
+    assert.equal(option.meta.deprecated, true);
+  }
 });
 
 test('sitting arrangement simplification keeps a focused active core and restorable deprecated IDs', () => {

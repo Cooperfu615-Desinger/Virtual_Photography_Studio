@@ -95,6 +95,7 @@ test('public hand catalog is compact and carries the clarified garment/accessory
     '雙手抓著整束頭髮與髮尾整理',
     '拉下肩線整理上衣',
     '雙手把褲子或裙子的褲頭往上拉',
+    '雙手抱膝',
     '雙手插褲子口袋',
     '雙手插外套口袋',
     '單手拿著眼鏡',
@@ -107,6 +108,7 @@ test('public hand catalog is compact and carries the clarified garment/accessory
   assert.match(byZh('單手往後撥瀏海').en, /sweeping the bangs backward.*fingers combing the fringe/i);
   assert.match(byZh('拉下肩線整理上衣').en, /pulling the neckline or shoulder seam down.*garment stays attached/i);
   assert.match(byZh('雙手把褲子或裙子的褲頭往上拉').en, /pulling the pants or skirt waistband slightly upward.*without lowering or removing/i);
+  assert.match(byZh('雙手抱膝').en, /both arms wrapped around the bent knees.*holding the knees close to the torso/i);
   assert.match(byZh('單手拿著眼鏡').en, /holding the glasses by one temple.*removed from the face/i);
   assert.match(byZh('咬著眼鏡腳').en, /one glasses temple held lightly between the teeth.*removed from the face/i);
   assert.equal(publicHands.filter((option) => option.meta?.requiresWardrobeRole === 'eyewear').length, 3);
@@ -270,7 +272,6 @@ test('random pose composer respects crop and front-orbit compatibility', () => {
 
   assert.ok(['standing', 'sitting'].includes(prompt.selection.poseBaseId));
   assert.notEqual(prompt.selection.poseArrangementId, optionId('poseArrangementId', '側身蹲姿'));
-  assert.notEqual(prompt.selection.poseArrangementId, optionId('poseArrangementId', '側身低蹲'));
   assert.doesNotMatch(prompt.grokPrompt, /side-facing squatting|back-facing turn-back/i);
   assertSharedCanonicalPose(prompt, prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '');
 });
@@ -715,7 +716,7 @@ test('squatting arrangements use explicit crop projection without lower-body lea
 
   [
     ['自然蹲姿', 'a relaxed compact upper-body posture', 'a relaxed compact upper-body posture'],
-    ['蹲姿身體前傾', 'the upper body angled forward', 'a forward-leaning upper-body posture'],
+    ['身體前傾蹲姿', 'the upper body angled forward', 'a forward-leaning upper-body posture'],
   ].forEach(([arrangementZh, chestExpected, mediumExpected]) => {
     assert.equal(
       poseText(render(arrangementZh, '胸上特寫')),
@@ -728,15 +729,11 @@ test('squatting arrangements use explicit crop projection without lower-body lea
   });
 
   [
-    '單膝蹲姿',
-    '手扶膝蓋蹲姿',
-    '緊湊蹲姿',
+    '單膝抬起不對稱蹲姿',
     '側身蹲姿',
-    '抱膝蹲',
     '低蹲單腿前伸',
-    '側身低蹲',
-    '緊湊抱膝蹲姿變體',
-    '雙膝合併低蹲',
+    '雙膝合併半蹲',
+    '寬膝深蹲／流氓蹲姿',
   ].forEach((arrangementZh) => {
     assert.equal(poseText(render(arrangementZh, '胸上特寫')), '');
     assert.equal(poseText(render(arrangementZh, '中景鏡頭 (Medium Shot)')), 'She presents a squatting pose.');
@@ -749,7 +746,7 @@ test('squatting arrangements use explicit crop projection without lower-body lea
   });
 
   assert.match(
-    poseText(render('雙膝合併低蹲', '牛仔中景 (Cowboy Shot)')),
+    poseText(render('雙膝合併半蹲', '牛仔中景 (Cowboy Shot)')),
     /both knees pressed together, thighs close and parallel/
   );
 
@@ -1029,7 +1026,7 @@ test('support surface head directions are preserved in all prompt versions', () 
 
 test('pose composer supports knees-together compact squat with hands gathered near lower abdomen', () => {
   assertArrangementOption(
-    '雙膝合併低蹲',
+    '雙膝合併半蹲',
     'squatting',
     /low compact squat with both knees pressed together/
   );
@@ -1047,7 +1044,7 @@ test('pose composer supports knees-together compact squat with hands gathered ne
     subjectCount: '1',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     poseBaseId: optionId('poseBaseId', '蹲姿'),
-    poseArrangementId: optionId('poseArrangementId', '雙膝合併低蹲'),
+    poseArrangementId: optionId('poseArrangementId', '雙膝合併半蹲'),
     poseHandId: optionId('poseHandId', '雙手收在腹前'),
     poseAnchorId: optionId('poseAnchorId', '蹲在地面'),
     poseHeadId: optionId('poseHeadId', '頭部微微側傾'),
@@ -1118,6 +1115,23 @@ test('pocket hand actions distinguish pants and outerwear placement in all promp
   }
 });
 
+test('hug-knees is an independent hand action rather than a squat arrangement', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '蹲姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然蹲姿'),
+    poseHandId: optionId('poseHandId', '雙手抱膝'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  });
+
+  assert.match(prompt.grokPrompt, /both arms wrapped around the bent knees, hands gently holding the knees close to the torso/);
+  assert.match(prompt.grokPrompt, /natural squatting pose/);
+  assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '自然蹲姿'));
+  assert.equal(prompt.selection.poseHandId, optionId('poseHandId', '雙手抱膝'));
+});
+
 test('pose composer exposes new standing sitting and squatting arrangement batch', () => {
   [
     ['交叉腿站姿', 'standing', /standing posture with the legs naturally crossed/],
@@ -1129,11 +1143,12 @@ test('pose composer exposes new standing sitting and squatting arrangement batch
     ['雙腿側放坐姿', 'sitting', /both legs angled to one side/],
     ['坐姿身體前傾', 'sitting', /grounded forward-leaning seated arrangement/],
     ['開闊自信坐姿', 'sitting', /open, grounded seated posture/],
+    ['單膝抬起不對稱蹲姿', 'squatting', /one-knee squatting arrangement/],
+    ['側身蹲姿', 'squatting', /side-facing squatting arrangement/],
     ['低蹲單腿前伸', 'squatting', /low squat with one leg extended forward/],
-    ['側身低蹲', 'squatting', /side-facing low squat/],
-    ['腳跟抬起蹲姿', 'squatting', /raised-heel squatting arrangement/],
-    ['蹲姿身體前傾', 'squatting', /forward-leaning squatting arrangement/],
-    ['緊湊抱膝蹲姿變體', 'squatting', /compact knees-held squat variation/],
+    ['身體前傾蹲姿', 'squatting', /forward-leaning squatting arrangement/],
+    ['雙膝合併半蹲', 'squatting', /low compact squat with both knees pressed together/],
+    ['寬膝深蹲／流氓蹲姿', 'squatting', /wide-knee deep squat/],
   ].forEach(([zh, base, expectedEnglish]) => {
     assertArrangementOption(zh, base, expectedEnglish);
   });
@@ -1165,6 +1180,17 @@ test('legacy poseId locks migrate into visible pose composer controls and clear 
       poseZh: '坐姿｜側身坐姿',
       baseZh: '坐姿',
       arrangementZh: '雙腿側放坐姿',
+    },
+    {
+      poseZh: '蹲姿｜單膝蹲姿',
+      baseZh: '蹲姿',
+      arrangementZh: '單膝抬起不對稱蹲姿',
+    },
+    {
+      poseZh: '蹲姿｜手扶膝蓋蹲姿',
+      baseZh: '蹲姿',
+      arrangementZh: '自然蹲姿',
+      handZh: '雙手抱膝',
     },
     {
       poseZh: '半躺低姿態｜手撐半躺',
@@ -1256,7 +1282,7 @@ test('new arrangement batch is preserved in all prompt versions', () => {
   const cases = [
     ['站姿', '交叉腿站姿', /standing posture with the legs naturally crossed/],
     ['坐姿', '開闊自信坐姿', /open, grounded seated posture/],
-    ['蹲姿', '側身低蹲', /side-facing low squat/],
+    ['蹲姿', '側身蹲姿', /side-facing squatting pose/],
   ];
 
   for (const [baseZh, arrangementZh, expected] of cases) {

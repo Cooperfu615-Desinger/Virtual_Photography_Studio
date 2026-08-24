@@ -6,7 +6,7 @@ import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.
  * These predicates are deliberately applied only to random pools. Explicit
  * Pose Composer locks remain user intent and are not silently replaced.
  */
-export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 2;
+export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 3;
 
 const UPPER_OR_KNEE_CROP_BUCKETS = new Set([
   COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
@@ -39,6 +39,7 @@ const SIDE_OR_REAR_ORIENTATION_ARRANGEMENTS = new Set([
 
 const FRONT_ORIENTATION_ARRANGEMENTS = new Set([
   'squatting-knees-together-low',
+  'squatting-gangster-wide-knee',
 ]);
 
 const LOWER_BODY_HANDS = new Set([
@@ -47,6 +48,7 @@ const LOWER_BODY_HANDS = new Set([
   'one-hand-knee-one-down',
   'one-hand-ankle',
   'hands-gathered-lower-abdomen',
+  'hands-hug-knees',
 ]);
 
 function getTags(item) {
