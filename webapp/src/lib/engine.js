@@ -74,6 +74,10 @@ import {
   POSE_COMPOSER_PROP_OPTIONS,
 } from './engine/poseComposerOptions.js';
 import {
+  getPoseComposerProjection,
+  POSE_COMPOSER_PROJECTION_MODES,
+} from './engine/poseComposerProjection.js';
+import {
   createPoseComposerCompatibilityContext,
   poseComposerArrangementSupportsRandomContext,
   poseComposerBaseSupportsRandomContext,
@@ -5410,6 +5414,19 @@ function projectPoseComposerHand(handPose, bucket) {
 
 function projectPoseComposerArrangement(arrangement, bucket) {
   if (!arrangement || isModelNaturalPoseComposerOption(arrangement)) return arrangement;
+
+  const projection = getPoseComposerProjection(arrangement, bucket);
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.OMIT) return null;
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.VISIBLE) return arrangement;
+
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.PROJECTED) {
+    const projectedPhrase = projection.en || UPPER_BODY_ARRANGEMENT_PHRASES[arrangement.id];
+    if (!projectedPhrase) return null;
+    // Keep the historical medium/cowboy bytes until the content layer supplies
+    // an explicit crop-specific fragment for this option.
+    return projection.en ? cloneProjectedPoseOption(arrangement, projectedPhrase) : arrangement;
+  }
+
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) {
     return UPPER_BODY_ARRANGEMENT_PHRASES[arrangement.id] ? arrangement : null;
   }
@@ -5453,6 +5470,12 @@ function buildChestVisibleAnchorFragment(anchor, base) {
 
 function projectPoseComposerAnchor(anchor, base, bucket) {
   if (!anchor || !base || FULL_ONLY_ANCHOR_IDS.has(anchor.id)) return null;
+  const projection = getPoseComposerProjection(anchor, bucket);
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.OMIT) return null;
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.VISIBLE) return anchor;
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.PROJECTED && projection.en) {
+    return cloneProjectedPoseOption(anchor, projection.en);
+  }
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) {
     if (!isChestVisibleAnchor(anchor, base)) return null;
     return anchor.id === 'shared-natural-support'
@@ -5479,10 +5502,20 @@ function buildChestUpPoseComposerSentence({ arrangement, handPose, propAction, a
   const projectedHand = handPose && !isModelNaturalPoseComposerOption(handPose)
     ? projectPoseComposerHand(handPose, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
     : null;
+  const arrangementProjection = arrangement && !isModelNaturalPoseComposerOption(arrangement)
+    ? getPoseComposerProjection(arrangement, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
+    : null;
   const upperBodyFragment = arrangement && !isModelNaturalPoseComposerOption(arrangement)
-    ? UPPER_BODY_ARRANGEMENT_PHRASES[arrangement.id] || ''
+    ? arrangementProjection?.mode === POSE_COMPOSER_PROJECTION_MODES.OMIT
+      ? ''
+      : arrangementProjection?.mode === POSE_COMPOSER_PROJECTION_MODES.VISIBLE
+        ? arrangement.en || ''
+        : arrangementProjection?.en || UPPER_BODY_ARRANGEMENT_PHRASES[arrangement.id] || ''
     : '';
-  const anchorFragment = buildChestVisibleAnchorFragment(anchor, base);
+  const projectedAnchor = anchor
+    ? projectPoseComposerAnchor(anchor, base, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
+    : null;
+  const anchorFragment = buildChestVisibleAnchorFragment(projectedAnchor, base);
   const visibleBodyFragments = joinProjectedPoseFragments([upperBodyFragment, anchorFragment]);
   const projectedArrangementPhrase = naturalChoiceSelected
     ? `casual, relaxed, and natural upper-body pose${visibleBodyFragments ? ` with ${visibleBodyFragments}` : ''}`

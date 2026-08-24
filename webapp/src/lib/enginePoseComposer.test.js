@@ -160,6 +160,33 @@ test('hand visibility metadata projects lower-body actions out of chest-up canon
   assert.match(fullPose, /pulling the pants or skirt waistband/i);
 });
 
+test('crop projection metadata omits lower-only standing geometry without changing full-body output', () => {
+  const shared = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '單腳微抬'),
+    poseHandId: optionId('poseHandId', '雙手自然垂放'),
+    poseAnchorId: optionId('poseAnchorId', '髖側倚靠現有邊緣'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  };
+  const framing = (zh) => optionId('framingId', zh);
+  const canonicalPose = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+
+  const [chestUp] = generatePrompts(1, { ...shared, framingId: framing('胸上特寫') });
+  const [mediumWaist] = generatePrompts(1, { ...shared, framingId: framing('中景鏡頭 (Medium Shot)') });
+  const [cowboy] = generatePrompts(1, { ...shared, framingId: framing('牛仔中景 (Cowboy Shot)') });
+  const [fullBody] = generatePrompts(1, { ...shared, framingId: framing('全身鏡頭 (Full Body Shot)') });
+
+  for (const prompt of [chestUp, mediumWaist]) {
+    assert.doesNotMatch(canonicalPose(prompt), /one foot slightly lifted|hip resting against an existing waist-height edge/i);
+  }
+  assert.doesNotMatch(canonicalPose(cowboy), /one foot slightly lifted/i);
+  assert.match(canonicalPose(cowboy), /hip resting against an existing waist-height edge/i);
+  assert.match(canonicalPose(fullBody), /one foot slightly lifted/);
+  assert.match(canonicalPose(fullBody), /hip resting against an existing waist-height edge/i);
+});
+
 function generateWithRandomSequence(locks, values) {
   let calls = 0;
   const [prompt] = generatePrompts(1, locks, [], {

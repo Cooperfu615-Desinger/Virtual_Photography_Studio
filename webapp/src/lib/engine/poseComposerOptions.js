@@ -1,3 +1,100 @@
+import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.js';
+import { createPoseComposerProjectionMap } from './poseComposerProjection.js';
+
+const STANDING_UPPER_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  projected: [
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+  ],
+});
+
+const STANDING_LOWER_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+});
+
+const STANDING_LOWER_FULL_ONLY_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+  ],
+});
+
+const STANDING_SUPPORT_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  projected: [
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+  ],
+});
+
+const STANDING_LOWER_SUPPORT_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+});
+
+const STANDING_FULL_ONLY_SUPPORT_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+  ],
+});
+
 export const POSE_COMPOSER_BASE_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不使用姿勢組合器。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random pose base', desc: '由姿勢組合器隨機選擇姿勢基底。', meta: { tags: ['random'] } },
@@ -29,19 +126,19 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
     desc: '不指定具體肢體變化，讓模型依姿勢基底、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。',
     meta: { tags: ['any'] },
   },
-  { id: 'standing-natural', base: 'standing', zh: '自然站姿', en: 'natural relaxed standing arrangement' },
-  { id: 'standing-one-leg-weight', base: 'standing', zh: '單腳重心', en: 'one-leg weight shift, relaxed asymmetrical body balance' },
-  { id: 'standing-forward-lean', base: 'standing', zh: '身體微前傾', en: 'slight forward-leaning standing arrangement' },
-  { id: 'standing-deep-forward-lean', base: 'standing', zh: '上身大幅度前傾', en: 'deep forward lean from the waist, shoulders angled forward, energetic close-interaction upper-body tilt' },
-  { id: 'standing-back-lean', base: 'standing', zh: '身體微後仰', en: 'slight backward-leaning standing arrangement' },
-  { id: 'standing-turn-back', base: 'standing', zh: '回身轉向', en: 'turning-back standing arrangement, torso subtly rotated' },
-  { id: 'standing-contrapposto', base: 'standing', zh: '身體側傾', en: 'side-leaning contrapposto body arrangement' },
-  { id: 'standing-raised-foot', base: 'standing', zh: '單腳微抬', en: 'delicate standing balance pose with one foot slightly lifted' },
-  { id: 'standing-crossed-legs', base: 'standing', zh: '交叉腿站姿', en: 'crossed-leg standing arrangement, legs naturally crossed, one hip subtly shifted' },
-  { id: 'standing-soft-bent-knees', base: 'standing', zh: '膝蓋微彎站姿', en: 'soft bent-knee standing arrangement, relaxed knees with slight lower-body compression' },
-  { id: 'standing-back-facing-turn', base: 'standing', zh: '背對回身站姿', en: 'back-facing turn-back standing arrangement, torso rotated back toward the camera' },
-  { id: 'standing-narrow-side', base: 'standing', zh: '側身窄站姿', en: 'narrow side-facing standing arrangement, legs close together, clean elongated body line' },
-  { id: 'standing-forward-toe-point', base: 'standing', zh: '一腳向前點地', en: 'delicate extended standing stance with one foot pointed forward and the rear leg holding the body weight' },
+  { id: 'standing-natural', base: 'standing', zh: '自然站姿', en: 'natural relaxed standing arrangement', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
+  { id: 'standing-one-leg-weight', base: 'standing', zh: '單腳重心', en: 'one-leg weight shift, relaxed asymmetrical body balance', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
+  { id: 'standing-forward-lean', base: 'standing', zh: '身體微前傾', en: 'slight forward-leaning standing arrangement', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
+  { id: 'standing-deep-forward-lean', base: 'standing', zh: '上身大幅度前傾', en: 'deep forward lean from the waist, shoulders angled forward, energetic close-interaction upper-body tilt', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
+  { id: 'standing-back-lean', base: 'standing', zh: '身體微後仰', en: 'slight backward-leaning standing arrangement', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
+  { id: 'standing-turn-back', base: 'standing', zh: '回身轉向', en: 'turning-back standing arrangement, torso subtly rotated', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
+  { id: 'standing-contrapposto', base: 'standing', zh: '身體側傾', en: 'side-leaning contrapposto body arrangement', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
+  { id: 'standing-raised-foot', base: 'standing', zh: '單腳微抬', en: 'delicate standing balance pose with one foot slightly lifted', meta: { projectionByBucket: STANDING_LOWER_FULL_ONLY_PROJECTION } },
+  { id: 'standing-crossed-legs', base: 'standing', zh: '交叉腿站姿', en: 'crossed-leg standing arrangement, legs naturally crossed, one hip subtly shifted', meta: { projectionByBucket: STANDING_LOWER_PROJECTION } },
+  { id: 'standing-soft-bent-knees', base: 'standing', zh: '膝蓋微彎站姿', en: 'soft bent-knee standing arrangement, relaxed knees with slight lower-body compression', meta: { projectionByBucket: STANDING_LOWER_PROJECTION } },
+  { id: 'standing-back-facing-turn', base: 'standing', zh: '背對回身站姿', en: 'back-facing turn-back standing arrangement, torso rotated back toward the camera', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
+  { id: 'standing-narrow-side', base: 'standing', zh: '側身窄站姿', en: 'narrow side-facing standing arrangement, legs close together, clean elongated body line', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
+  { id: 'standing-forward-toe-point', base: 'standing', zh: '一腳向前點地', en: 'delicate extended standing stance with one foot pointed forward and the rear leg holding the body weight', meta: { projectionByBucket: STANDING_LOWER_FULL_ONLY_PROJECTION } },
   { id: 'sitting-natural', base: 'sitting', zh: '自然坐姿', en: 'natural seated arrangement' },
   { id: 'sitting-forward-lean', base: 'sitting', zh: '微微前傾', en: 'slightly forward-leaning seated arrangement' },
   { id: 'sitting-hands-behind-support', base: 'sitting', zh: '雙手後撐', en: 'seated pose with both hands planted behind the body for support' },
@@ -265,7 +362,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     zh: '自然受支撐',
     en: 'body naturally supported in a relaxed pose',
     desc: '只指定人物自然獲得支撐，不指定牆面、地面、家具或其他具體支撐物件。',
-    meta: { randomWeight: 3 },
+    meta: { randomWeight: 3, projectionByBucket: STANDING_SUPPORT_PROJECTION },
     phraseByBase: {
       standing: 'standing with the body naturally supported',
       sitting: 'sitting with the seated body naturally supported',
@@ -279,6 +376,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     bases: ['standing', 'sitting', 'kneeling', 'squatting'],
     zh: '肩背倚靠現有垂直面',
     en: 'shoulder and upper-back support against an existing vertical surface in the scene',
+    meta: { projectionByBucket: STANDING_SUPPORT_PROJECTION },
     phraseByBase: {
       standing: 'standing with one shoulder and the upper back resting against an existing vertical surface in the scene, clear shoulder-to-surface contact with light body-weight support',
       sitting: 'sitting with the upper back resting against an existing vertical surface in the scene, clear back-to-surface contact with the seated body weight supported below',
@@ -291,6 +389,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     base: 'standing',
     zh: '髖側倚靠現有邊緣',
     en: 'standing with one hip resting against an existing waist-height edge in the scene, clear hip-to-edge contact with partial body-weight support',
+    meta: { projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION },
   },
   {
     id: 'sitting-scene-seat',
@@ -406,20 +505,21 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     bases: ['standing', 'sitting', 'squatting', 'kneeling', 'lying'],
     zh: '在水中',
     en: 'scene-gated water contact pose',
-    meta: { tags: ['water_scene_anchor'], requiresWaterScene: true },
+    meta: { tags: ['water_scene_anchor'], requiresWaterScene: true, projectionByBucket: STANDING_FULL_ONLY_SUPPORT_PROJECTION },
   },
   {
     id: 'water-edge-support',
     bases: ['standing', 'sitting', 'squatting', 'kneeling', 'lying'],
     zh: '靠在水邊支撐',
     en: 'scene-gated water edge support pose',
-    meta: { tags: ['water_scene_anchor'], requiresWaterScene: true },
+    meta: { tags: ['water_scene_anchor'], requiresWaterScene: true, projectionByBucket: STANDING_FULL_ONLY_SUPPORT_PROJECTION },
   },
   {
     id: 'shared-bathtub',
     bases: ['standing', 'sitting', 'squatting', 'lying'],
     zh: '浴缸',
     en: 'near a water-filled clawfoot vintage bathtub',
+    meta: { projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION },
     phraseByBase: {
       standing: 'standing beside a water-filled clawfoot vintage bathtub',
       sitting: 'sitting on the edge of a water-filled clawfoot vintage bathtub',
