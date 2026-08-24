@@ -185,6 +185,91 @@ const SQUATTING_KNEES_TOGETHER_PROJECTION = Object.freeze({
   },
 });
 
+const LYING_ORIENTATION_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  projected: [
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+  ],
+});
+
+const LYING_LOWER_BODY_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+});
+
+const LYING_UPPER_BODY_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  projected: [
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+  ],
+});
+
+const withLyingOrientationProjectionEnglish = (option, chestEnglish, mediumEnglish = chestEnglish) => ({
+  ...option,
+  meta: {
+    ...(option.meta || {}),
+    projectionByBucket: {
+      ...(option.meta?.projectionByBucket || LYING_ORIENTATION_PROJECTION),
+      [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: {
+        mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+        en: chestEnglish,
+      },
+      [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: {
+        mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+        en: mediumEnglish,
+      },
+    },
+  },
+});
+
+const withLyingUpperBodyProjectionEnglish = (option, chestEnglish, mediumEnglish = chestEnglish) => ({
+  ...option,
+  meta: {
+    ...(option.meta || {}),
+    projectionByBucket: {
+      ...(option.meta?.projectionByBucket || LYING_UPPER_BODY_PROJECTION),
+      [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: {
+        mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+        en: chestEnglish,
+      },
+      [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: {
+        mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+        en: mediumEnglish,
+      },
+    },
+  },
+});
+
 export const POSE_COMPOSER_BASE_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不使用姿勢組合器。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random pose base', desc: '由姿勢組合器隨機選擇姿勢基底。', meta: { tags: ['random'] } },
@@ -193,6 +278,14 @@ export const POSE_COMPOSER_BASE_OPTIONS = [
   { id: 'kneeling', zh: '跪姿', en: 'kneeling pose', desc: '以跪姿作為姿勢基底。' },
   { id: 'squatting', zh: '蹲姿', en: 'squatting pose', desc: '以蹲姿作為姿勢基底。' },
   { id: 'lying', zh: '躺姿', en: 'lying pose', desc: '以躺臥作為姿勢基底。' },
+];
+
+export const POSE_COMPOSER_ORIENTATION_OPTIONS = [
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定主要躺姿方向。', meta: { tags: ['none'] } },
+  { id: 'random', zh: '隨機', en: 'random lying orientation', desc: '由姿勢組合器隨機選擇仰躺、側躺或趴臥。', meta: { tags: ['random'] } },
+  withLyingOrientationProjectionEnglish({ id: 'lying-supine', base: 'lying', zh: '仰躺', en: 'supine lying position, back supported, chest and face turned upward', desc: '身體背部貼住支撐面、腹面朝上。', meta: { projectionByBucket: LYING_ORIENTATION_PROJECTION } }, 'the upper torso resting on the back, chest facing upward', 'a supine upper-body position, torso facing upward'),
+  withLyingOrientationProjectionEnglish({ id: 'lying-side', base: 'lying', zh: '側躺', en: 'side-lying position, body turned onto one side', desc: '身體側面貼住支撐面。', meta: { projectionByBucket: LYING_ORIENTATION_PROJECTION } }, 'the upper torso turned onto one side', 'a side-lying upper-body position, torso turned onto one side'),
+  withLyingOrientationProjectionEnglish({ id: 'lying-prone', base: 'lying', zh: '趴臥', en: 'prone lying position, chest and abdomen facing the support surface, face turned downward', desc: '身體腹面朝向支撐面。', meta: { projectionByBucket: LYING_ORIENTATION_PROJECTION } }, 'the upper torso facing downward toward the support surface', 'a prone upper-body position, torso facing downward toward the support surface'),
 ];
 
 const deprecatedPoseArrangement = (option) => ({
@@ -330,20 +423,25 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   deprecatedPoseArrangement({ id: 'squatting-compact-hug-knees-variant', base: 'squatting', zh: '緊湊抱膝蹲姿變體', en: 'compact knees-held squat variation, legs close together, body folded into a smaller grounded shape', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } }),
   { id: 'squatting-knees-together-low', base: 'squatting', zh: '雙膝合併半蹲', en: 'low half-squat with both knees together, feet planted close beneath the body, and thighs held parallel', meta: { projectionByBucket: SQUATTING_KNEES_TOGETHER_PROJECTION } },
   { id: 'squatting-gangster-wide-knee', base: 'squatting', zh: '寬膝深蹲／流氓蹲姿', en: 'wide-knee deep squat with feet planted wide, knees opened outward, and hips lowered close to the ground', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } },
-  { id: 'lying-natural', base: 'lying', zh: '自然躺姿', en: 'natural lying arrangement' },
-  { id: 'lying-on-back', base: 'lying', zh: '仰躺', en: 'supine lying pose with a relaxed upward-facing body line' },
-  { id: 'lying-side', base: 'lying', zh: '側躺', en: 'side-lying arrangement, body turned along one side' },
-  { id: 'lying-prone', base: 'lying', zh: '趴臥', en: 'prone lying arrangement, body resting forward on the surface' },
-  { id: 'lying-natural-half-recline', base: 'lying', zh: '自然半躺', en: 'relaxed half-reclining arrangement' },
+  { id: 'lying-body-natural-stretch', base: 'lying', zh: '自然伸展', en: 'lying pose with the body extended in a relaxed line, legs resting naturally', meta: { projectionByBucket: LYING_LOWER_BODY_PROJECTION } },
+  { id: 'lying-body-legs-bent', base: 'lying', zh: '雙腿屈起', en: 'lying pose with both legs comfortably bent, knees softly raised', meta: { projectionByBucket: LYING_LOWER_BODY_PROJECTION } },
+  withLyingUpperBodyProjectionEnglish({ id: 'lying-body-curled', base: 'lying', zh: '身體微蜷', en: 'lying pose with the torso and legs gently curved inward into a soft compact shape', meta: { projectionByBucket: LYING_UPPER_BODY_PROJECTION } }, 'the torso gently curled into a soft compact curve'),
+  withLyingUpperBodyProjectionEnglish({ id: 'lying-body-half-recline', base: 'lying', zh: '上半身半躺', en: 'lying pose with the upper body raised into a gentle half-recline while the lower body remains relaxed in the lying position', meta: { projectionByBucket: LYING_UPPER_BODY_PROJECTION } }, 'the upper body raised into a gentle half-recline'),
+  withLyingUpperBodyProjectionEnglish({ id: 'lying-body-upper-propped', base: 'lying', zh: '上半身撐起', en: 'lying pose with the upper body lifted and supported on the elbows or forearms while the lower body remains on the support surface', meta: { projectionByBucket: LYING_UPPER_BODY_PROJECTION } }, 'the upper body lifted and supported on the elbows or forearms'),
+  deprecatedPoseArrangement({ id: 'lying-natural', base: 'lying', zh: '自然躺姿', en: 'natural lying arrangement' }),
+  deprecatedPoseArrangement({ id: 'lying-on-back', base: 'lying', zh: '仰躺', en: 'supine lying pose with a relaxed upward-facing body line' }),
+  deprecatedPoseArrangement({ id: 'lying-side', base: 'lying', zh: '側躺', en: 'side-lying arrangement, body turned along one side' }),
+  deprecatedPoseArrangement({ id: 'lying-prone', base: 'lying', zh: '趴臥', en: 'prone lying arrangement, body resting forward on the surface' }),
+  deprecatedPoseArrangement({ id: 'lying-natural-half-recline', base: 'lying', zh: '自然半躺', en: 'relaxed half-reclining arrangement' }),
   deprecatedPoseArrangement({ id: 'lying-half-reclined', base: 'lying', zh: '半躺倚靠', en: 'relaxed half-reclining arrangement with the upper body naturally supported' }),
-  { id: 'lying-languid', base: 'lying', zh: '隨性慵懶', en: 'casually languid lying arrangement, relaxed uneven limbs, soft body weight settled into the surface' },
-  { id: 'lying-side-knees-bent', base: 'lying', zh: '側躺屈膝', en: 'side-lying arrangement with both knees softly bent, compact curved body line' },
-  { id: 'lying-on-back-one-arm-overhead', base: 'lying', zh: '仰躺單手過頭', en: 'supine lying pose with one arm extended overhead and a relaxed elongated body line' },
-  { id: 'lying-prone-elbow-prop', base: 'lying', zh: '趴臥手肘撐起', en: 'prone lying arrangement with elbows propping up the upper body' },
-  { id: 'lying-diagonal-recline', base: 'lying', zh: '斜向半躺', en: 'diagonal reclining arrangement, body angled across the support surface with relaxed limbs' },
-  { id: 'lying-legs-bent-up', base: 'lying', zh: '躺姿雙腿屈起', en: 'lying arrangement with both legs bent upward, knees raised while the back stays supported' },
-  { id: 'lying-wall-raised-legs', base: 'lying', zh: '靠牆仰躺抬腿', en: 'wall-supported reclining pose on the floor with the upper body leaned against a wall, both legs lifted upward in staggered angles, and a compressed raised-leg silhouette', meta: { tags: ['full_body_action'] } },
-  { id: 'lying-prone-pillow-lookback', base: 'lying', zh: '抱枕俯臥回眸', en: 'prone lying pose with the torso propped on a large pillow, head turned over one shoulder, hips softly lifted, and knees grounded behind', meta: { tags: ['full_body_action', 'large_prop_action'] } },
+  deprecatedPoseArrangement({ id: 'lying-languid', base: 'lying', zh: '隨性慵懶', en: 'casually languid lying arrangement, relaxed uneven limbs, soft body weight settled into the surface' }),
+  deprecatedPoseArrangement({ id: 'lying-side-knees-bent', base: 'lying', zh: '側躺屈膝', en: 'side-lying arrangement with both knees softly bent, compact curved body line' }),
+  deprecatedPoseArrangement({ id: 'lying-on-back-one-arm-overhead', base: 'lying', zh: '仰躺單手過頭', en: 'supine lying pose with one arm extended overhead and a relaxed elongated body line' }),
+  deprecatedPoseArrangement({ id: 'lying-prone-elbow-prop', base: 'lying', zh: '趴臥手肘撐起', en: 'prone lying arrangement with elbows propping up the upper body' }),
+  deprecatedPoseArrangement({ id: 'lying-diagonal-recline', base: 'lying', zh: '斜向半躺', en: 'diagonal reclining arrangement, body angled across the support surface with relaxed limbs' }),
+  deprecatedPoseArrangement({ id: 'lying-legs-bent-up', base: 'lying', zh: '躺姿雙腿屈起', en: 'lying arrangement with both legs bent upward, knees raised while the back stays supported' }),
+  deprecatedPoseArrangement({ id: 'lying-wall-raised-legs', base: 'lying', zh: '靠牆仰躺抬腿', en: 'wall-supported reclining pose on the floor with the upper body leaned against a wall, both legs lifted upward in staggered angles, and a compressed raised-leg silhouette', meta: { tags: ['full_body_action'] } }),
+  deprecatedPoseArrangement({ id: 'lying-prone-pillow-lookback', base: 'lying', zh: '抱枕俯臥回眸', en: 'prone lying pose with the torso propped on a large pillow, head turned over one shoulder, hips softly lifted, and knees grounded behind', meta: { tags: ['full_body_action', 'large_prop_action'] } }),
 ];
 const HAND_VISIBLE_BUCKETS = Object.freeze([
   'unconstrained',

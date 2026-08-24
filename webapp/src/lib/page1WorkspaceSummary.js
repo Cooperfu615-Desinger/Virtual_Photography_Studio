@@ -142,6 +142,7 @@ export function buildWorkspaceSummary(locks, controls) {
       getControlOptionLabel(controls, 'duoPoseId', locks.duoPoseId),
       getControlOptionLabel(controls, 'duoPoseBaseId', locks.duoPoseBaseId),
       getControlOptionLabel(controls, 'poseBaseId', locks.poseBaseId),
+      getControlOptionLabel(controls, 'poseOrientationId', locks.poseOrientationId),
       getControlOptionLabel(controls, 'poseArrangementId', locks.poseArrangementId),
       getControlOptionLabel(controls, 'poseHandId', locks.poseHandId),
       getControlOptionLabel(controls, 'posePropId', locks.posePropId),

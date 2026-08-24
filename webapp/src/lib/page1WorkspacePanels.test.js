@@ -19,6 +19,7 @@ test('page1 pose panels split single and duo settings without legacy pose contro
   assert.deepEqual(singlePanel.keys, [
     'expressionId',
     'poseBaseId',
+    'poseOrientationId',
     'poseArrangementId',
     'poseHandId',
     'posePropId',

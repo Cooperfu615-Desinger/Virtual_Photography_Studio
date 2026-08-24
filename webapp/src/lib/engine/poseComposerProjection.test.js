@@ -5,6 +5,7 @@ import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.
 import {
   POSE_COMPOSER_ANCHOR_OPTIONS,
   POSE_COMPOSER_ARRANGEMENT_OPTIONS,
+  POSE_COMPOSER_ORIENTATION_OPTIONS,
 } from './poseComposerOptions.js';
 import {
   createPoseComposerProjectionMap,
@@ -77,6 +78,38 @@ test('all active squatting arrangements carry explicit crop projection metadata'
       assert.ok(Object.values(POSE_COMPOSER_PROJECTION_MODES).includes(projection.mode));
     }
   }
+});
+
+test('lying orientation and body variation layers stay explicit and independent', () => {
+  const orientations = POSE_COMPOSER_ORIENTATION_OPTIONS.filter((option) => option.base === 'lying');
+  assert.deepEqual(orientations.map((option) => option.zh), ['仰躺', '側躺', '趴臥']);
+  for (const option of orientations) {
+    for (const bucket of Object.values(COMPOSITION_VISIBILITY_BUCKETS)) {
+      const projection = getPoseComposerProjection(option, bucket);
+      assert.ok(projection, `${option.id} should define ${bucket} projection mode`);
+      assert.ok(Object.values(POSE_COMPOSER_PROJECTION_MODES).includes(projection.mode));
+    }
+  }
+
+  const bodyVariations = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => (
+    option.base === 'lying' && !option.meta?.deprecated
+  ));
+  assert.deepEqual(bodyVariations.map((option) => option.zh), [
+    '自然伸展',
+    '雙腿屈起',
+    '身體微蜷',
+    '上半身半躺',
+    '上半身撐起',
+  ]);
+  assert.ok(bodyVariations.slice(0, 2).every((option) => (
+    getPoseComposerProjection(option, CHEST_UP).mode === POSE_COMPOSER_PROJECTION_MODES.OMIT
+    && getPoseComposerProjection(option, MEDIUM_WAIST).mode === POSE_COMPOSER_PROJECTION_MODES.OMIT
+  )));
+  assert.ok(bodyVariations.slice(2).every((option) => (
+    getPoseComposerProjection(option, CHEST_UP).mode === POSE_COMPOSER_PROJECTION_MODES.PROJECTED
+    && getPoseComposerProjection(option, MEDIUM_WAIST).mode === POSE_COMPOSER_PROJECTION_MODES.PROJECTED
+  )));
+  assert.equal(POSE_COMPOSER_ARRANGEMENT_OPTIONS.find((option) => option.id === 'lying-on-back')?.meta?.uiHidden, true);
 });
 
 test('squatting projection metadata separates upper and lower geometry', () => {

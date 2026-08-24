@@ -670,7 +670,7 @@ Pose Composer 相關描述在構圖可見時應保留實際身體結構，例如
 
 ### Pose Composer「任意」與 canonical pose 規則
 
-`poseArrangementId`、`poseHandId`、`poseHeadId` 的顯示名稱統一為 `任意`；既有 option ID 不變。`任意` 不是隨機抽選，而是不輸出該組固定描述，讓模型依姿勢基底、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。
+`poseOrientationId`（躺姿方向）、`poseArrangementId`、`poseHandId`、`poseHeadId` 的顯示名稱與責任分開維護；`poseOrientationId` 僅在 `lying` 基底下使用 `仰躺`、`側躺`、`趴臥`。`poseArrangementId`、`poseHandId`、`poseHeadId` 的 `任意` 不是隨機抽選，而是不輸出該組固定描述，讓模型依姿勢基底、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。
 
 - 具體選項輸出具體英文描述；`全無` 完全不輸出該組內容。
 - `隨機` 永遠不解析為 `任意`；姿勢基底、肢體、手部、道具與頭部會解析為具體選項，只有接觸／支撐的隨機允許自然解析為 `全無`。

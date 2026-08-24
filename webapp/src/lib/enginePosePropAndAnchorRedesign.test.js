@@ -223,8 +223,8 @@ test('cube plinth anchors stay restorable but leave the public picker and random
   assert.equal(weightedStandingPrompt.selection.poseAnchorId, 'shared-natural-support');
 });
 
-test('natural half-recline is public while the previous combined arrangement stays restorable but hidden', () => {
-  const publicArrangement = option('poseArrangementId', '自然半躺');
+test('lying body variations are public while previous specialized arrangements stay restorable but hidden', () => {
+  const publicArrangement = option('poseArrangementId', '上半身半躺');
   const legacyArrangement = option('poseArrangementId', '半躺倚靠');
   assert.notEqual(publicArrangement.meta?.uiHidden, true);
   assert.equal(legacyArrangement.meta?.uiHidden, true);

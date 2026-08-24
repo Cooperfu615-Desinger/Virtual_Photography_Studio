@@ -51,6 +51,51 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'lying-prone-upper-propped',
+    title: 'Prone lying and upper-body support use clear shared geometry',
+    mode: 'single',
+    seed: 'prompt-contract-lying-prone-upper-propped-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      poseBaseId: { byZh: '躺姿' },
+      poseOrientationId: { byZh: '趴臥' },
+      poseArrangementId: { byZh: '上半身撐起' },
+      poseHandId: { byZh: '全無' },
+      posePropId: { byZh: '全無' },
+      poseHeadId: { byZh: '全無' },
+      poseAnchorId: { byZh: '全無' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: [
+          'prone lying position',
+          'chest and abdomen facing the support surface',
+          'upper body lifted and supported on the elbows or forearms',
+          'lower body remains on the support surface',
+        ],
+        excludes: ['front of the body resting toward the support surface', 'upper body propped up by the elbows or forearms'],
+      },
+      zImagePrompt: {
+        includes: ['prone lying position', 'upper body lifted and supported on the elbows or forearms'],
+        excludes: ['front of the body resting toward the support surface', 'upper body propped up by the elbows or forearms'],
+      },
+      midjourneyPrompt: {
+        includes: ['prone lying position', 'upper body lifted and supported on the elbows or forearms'],
+        excludes: ['front of the body resting toward the support surface', 'upper body propped up by the elbows or forearms'],
+      },
+      chestUpPortraitPrompt: {
+        includes: ['upper torso facing downward toward the support surface', 'upper body lifted and supported on the elbows or forearms'],
+        excludes: ['lower body remains on the support surface'],
+      },
+      chestUpMjPortraitPrompt: {
+        includes: ['upper torso facing downward toward the support surface', 'upper body lifted and supported on the elbows or forearms'],
+        excludes: ['lower body remains on the support surface'],
+      },
+    },
+  },
+  {
     id: 'multi-phrase-garment-color-syntax',
     title: 'Multi-phrase garment colors use natural wearable grammar',
     mode: 'single',

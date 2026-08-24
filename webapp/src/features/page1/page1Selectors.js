@@ -101,7 +101,7 @@ function buildCoreControls(lockControls, sceneDependentOptions, locks) {
 
 function buildCharacterControls(lockControls, locks, sceneDependentOptions) {
   const sceneAware = lockControls.map((control) => {
-    if (!['poseArrangementId', 'poseAnchorId'].includes(control.key)) {
+    if (!['poseOrientationId', 'poseArrangementId', 'poseAnchorId'].includes(control.key)) {
       if (!Array.isArray(control.options)) return control;
       return {
         ...control,

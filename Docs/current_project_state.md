@@ -392,8 +392,8 @@ Runtime rules:
 Batch random / clear actions are capability-aware:
 
 - Global and section random actions preserve subjectCount, do not auto-enable special subjects, character cards, fixed-composition sets, or image-type takeover, and reset those controls to explicit defaults.
-- Single-subject Pose Composer randomizes all five composer locks so the engine can resolve one compatible pose bundle; it must not leave only expression randomized while the pose fields stay 全無.
-- `posePropId` remains independent from those five locks. Batch random preserves its current value; an active prop takes over and clears the hand layer, while manual prop `隨機` resolves after the five-layer sequence.
+- Single-subject Pose Composer randomizes the six structural composer locks so the engine can resolve one compatible pose bundle; `poseOrientationId` only resolves for the lying base and otherwise remains `none`. It must not leave only expression randomized while the pose fields stay 全無.
+- `posePropId` remains independent from those six structural locks. Batch random preserves its current value; an active prop takes over and clears the hand layer, while manual prop `隨機` resolves after the six-layer sequence.
 - Clear actions remove only fields with an explicit 全無 option. Required controls keep their declared defaultValue.
 - PAGE1 button labels and tooltips are part of this compatibility contract. See specs/page1-random-none-control-contract.md.
 
@@ -455,6 +455,7 @@ Existing controls remain:
 New Pose Composer controls:
 
 - `poseBaseId`
+- `poseOrientationId`
 - `poseArrangementId`
 - `poseHandId`
 - `posePropId`
@@ -470,7 +471,7 @@ Rules:
 - Pose Composer is single-subject only.
 - Duo mode ignores Pose Composer and uses `duoPoseId` / `duoPoseBaseId` / `duoExpressionId`.
 - PAGE1 `B 神情姿態` has two mutually exclusive panels:
-  - `單人設置`: `expressionId`, `poseBaseId`, `poseArrangementId`, `poseHandId`, `posePropId`, `poseHeadId`, `poseAnchorId`
+  - `單人設置`: `expressionId`, `poseBaseId`, `poseOrientationId`, `poseArrangementId`, `poseHandId`, `posePropId`, `poseHeadId`, `poseAnchorId`
   - `雙人設置`: `duoPoseId`, `duoPoseBaseId`, `duoExpressionId`
 - `單人設置` is enabled for `subjectCount === "1"` and disabled for duo mode; `雙人設置` is enabled for `subjectCount === "2"` and disabled for single mode.
 - Legacy social shooting actions are migrated into Pose Composer hand poses.
@@ -484,6 +485,7 @@ Rules:
 - The eleven public sitting arrangements now carry explicit crop projection metadata. Upper-body arrangements (`自然坐姿`, `微微前傾`, `雙手後撐`, `隨性癱坐`, `開闊自信坐姿`) keep full/cowboy text and use dedicated upper-body fragments for chest-up/medium crops; lower-body arrangements remain visible in full/cowboy crops and are explicitly omitted from chest-up/medium crops. `單腿放鬆` and `坐姿身體前傾` remain restorable but are hidden from the UI and random pool as overlapping legacy options. Sitting projection no longer depends on the engine's historical hardcoded arrangement fallback.
 - Squatting now has seven active arrangement categories: `自然蹲姿`, `單膝抬起不對稱蹲姿`, `側身蹲姿` (下半身維持蹲姿、上半身轉向鏡頭), `低蹲單腿前伸`, `身體前傾蹲姿`, `雙膝合併半蹲`, and `寬膝深蹲／流氓蹲姿`. The seven redundant/specialized former IDs remain hidden with `uiHidden: true` and `randomEligible: false` so Saved Cards, imports, and explicit restores remain compatible. All active arrangements retain explicit crop metadata: `自然蹲姿` and `身體前傾蹲姿` use authored upper-body fragments for chest-up/medium crops; lower-body arrangements omit chest-up/medium geometry, and `雙膝合併半蹲` uses a dedicated cowboy fragment. Full-body, unconstrained, and fixed-composition outputs retain the complete source pose. `雙手抱膝` is now an independent lower-body hand action rather than an arrangement-bound squat; old `手扶膝蓋蹲姿` restores to `自然蹲姿` plus that hand action. Active squat English now uses direct visual noun phrases without `arrangement`: natural squat specifies flat feet and heels down, side squat keeps the hips and legs low while turning the torso toward camera, forward-leg and knee-together variants state their leg geometry, and gangster squat states wide planted feet with outward knees. The natural and forward-lean upper-crop fragments remain upper-body-only, while the cowboy knee-together projection uses a shortened half-squat phrase. Deprecated squat English remains unchanged for legacy restore compatibility.
 - `隨機` never resolves to `任意`; base, arrangement, hand, prop, and head random resolve to concrete options, while anchor random alone may resolve to `全無`. `全無` contributes no text.
+- Lying structure has been formalized as a primary `poseOrientationId` (`仰躺`, `側躺`, `趴臥`) plus an independent `poseArrangementId` body/leg layer (`自然伸展`, `雙腿屈起`, `身體微蜷`, `上半身半躺`, `上半身撐起`). Orientation is not tied to bird's-eye framing. Lower-body variations omit chest-up/medium geometry; upper-body variations use explicit crop fragments, while full/fixed/unconstrained outputs preserve the complete orientation-plus-variation canonical pose. Former lying-specific arrangement IDs remain hidden and non-random but restorable for compatibility.
 - Random Pose Composer resolution uses `webapp/src/lib/engine/poseComposerCompatibility.js` (version 3): upper crops prefer standing/sitting bases; cowboy crops exclude lying; front-view random body arrangements exclude side/rear-facing variants and rear-view random pools exclude the front-facing `寬膝深蹲／流氓蹲姿` and `雙膝合併半蹲`; random head directions avoid a camera-facing head on a side/rear body or an aerial face-visibility conflict; random face props avoid rear-view contact. Public hand options additionally share crop visibility metadata, wardrobe-role requirements, and face/orbit constraints; retired selfie and lower-body hand options are hidden from the UI and random pool.
 - These compatibility predicates filter random pools only. Explicit base, arrangement, hand, prop, or head locks remain visible even when the user intentionally chooses a contradictory combination.
 - The shared canonical pose sentence orders concrete head text, active prop text (otherwise concrete hand text), then the pose result. If arrangement, hand, or head is `任意`, the natural qualifier is appended once only. A concrete arrangement uses its concrete pose name; an `任意` arrangement falls back to the base pose name.

@@ -26,7 +26,7 @@ const STRUCTURED_CONTROL_KEYS = {
     'hairStylingStateId', 'hairStylingStateAId', 'hairStylingStateBId',
     'hairColorId', 'hairColorAId', 'hairColorBId',
     'duoPoseId', 'duoPoseBaseId', 'duoExpressionId', 'expressionId',
-    'poseBaseId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseHeadId', 'poseAnchorId',
+    'poseBaseId', 'poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseHeadId', 'poseAnchorId',
   ],
   Wardrobe: [
     'outfitPresetId', 'outfitPresetColorId',

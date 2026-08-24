@@ -53,9 +53,10 @@ test('Z-Image exact visible text has a dedicated opt-in scene panel', () => {
   ]);
 });
 
-test('Pose Composer keeps the independent prop control outside the five-layer batch random keys', () => {
+test('Pose Composer keeps the independent prop control outside the six-layer batch random keys', () => {
   assert.deepEqual(POSE_COMPOSER_KEYS, [
     'poseBaseId',
+    'poseOrientationId',
     'poseArrangementId',
     'poseHandId',
     'poseHeadId',
@@ -63,6 +64,7 @@ test('Pose Composer keeps the independent prop control outside the five-layer ba
   ]);
   assert.deepEqual(POSE_COMPOSER_CONTROL_KEYS, [
     'poseBaseId',
+    'poseOrientationId',
     'poseArrangementId',
     'poseHandId',
     'posePropId',

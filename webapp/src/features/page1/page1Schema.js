@@ -2,6 +2,7 @@ import { PAGE1_POSE_SUBPANELS } from '../../lib/page1WorkspacePanels.js';
 
 export const POSE_COMPOSER_KEYS = [
   'poseBaseId',
+  'poseOrientationId',
   'poseArrangementId',
   'poseHandId',
   'poseHeadId',
@@ -10,6 +11,7 @@ export const POSE_COMPOSER_KEYS = [
 
 export const POSE_COMPOSER_CONTROL_KEYS = [
   'poseBaseId',
+  'poseOrientationId',
   'poseArrangementId',
   'poseHandId',
   'posePropId',

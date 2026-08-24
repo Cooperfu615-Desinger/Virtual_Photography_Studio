@@ -71,6 +71,7 @@ import {
   POSE_COMPOSER_BASE_OPTIONS,
   POSE_COMPOSER_HAND_OPTIONS,
   POSE_COMPOSER_HEAD_OPTIONS,
+  POSE_COMPOSER_ORIENTATION_OPTIONS,
   POSE_COMPOSER_PROP_OPTIONS,
 } from './engine/poseComposerOptions.js';
 import {
@@ -1063,6 +1064,7 @@ const LOCK_DEFINITIONS = [
   { key: 'specialActionId', label: '特殊動作', category: '特殊動作 (Special Actions)', section: 'character' },
   { key: 'actionPoseCardId', label: '動作姿勢卡', section: 'hidden' },
   { key: 'poseBaseId', label: '姿勢基底', options: POSE_COMPOSER_BASE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
+  { key: 'poseOrientationId', label: '主要躺姿', options: POSE_COMPOSER_ORIENTATION_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseArrangementId', label: '肢體變化', options: POSE_COMPOSER_ARRANGEMENT_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'poseHandId', label: '手部動作', options: POSE_COMPOSER_HAND_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
   { key: 'posePropId', label: '道具動作', options: POSE_COMPOSER_PROP_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'character' },
@@ -2283,6 +2285,7 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'duoPoseBaseId',
   'duoInteractionId',
   'poseBaseId',
+  'poseOrientationId',
   'poseArrangementId',
   'poseHandId',
   'posePropId',
@@ -5060,6 +5063,17 @@ function normalizePoseComposerArrangementPhrase(arrangement) {
     .trim();
 }
 
+function normalizePoseComposerOrientationPhrase(orientation) {
+  return stripTerminalPromptPunctuation(orientation?.en || '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function normalizePoseComposerLyingVariationPhrase(arrangement) {
+  const text = normalizePoseComposerArrangementPhrase(arrangement);
+  return text.replace(/^lying\s+pose(?:\s+with|\s*,)?\s*/i, '').trim();
+}
+
 function normalizePoseComposerHeadPhrase(head) {
   const text = stripTerminalPromptPunctuation(head?.en || '');
   if (!text) return '';
@@ -5089,26 +5103,35 @@ function withIndefiniteArticle(phrase) {
   return `${article} ${text}`;
 }
 
-function buildPoseComposerResultPhrase({ base, arrangement, anchor, location }) {
+function buildPoseComposerResultPhrase({ base, orientation, arrangement, anchor, location }) {
+  const orientationPhrase = orientation && !isModelNaturalPoseComposerOption(orientation)
+    ? normalizePoseComposerOrientationPhrase(orientation)
+    : '';
   const arrangementPhrase = arrangement && !isModelNaturalPoseComposerOption(arrangement)
     ? normalizePoseComposerArrangementPhrase(arrangement)
     : getPoseComposerBasePhrase(base);
+  const isStructuredLyingPose = base?.id === 'lying' && orientationPhrase;
+  const posePhrase = isStructuredLyingPose
+    ? [orientationPhrase, arrangement && !isModelNaturalPoseComposerOption(arrangement)
+      ? normalizePoseComposerLyingVariationPhrase(arrangement)
+      : ''].filter(Boolean).join(' with ')
+    : arrangementPhrase;
   const anchorPhrase = stripTerminalPromptPunctuation(getPoseComposerAnchorPhrase(anchor, base, location));
 
-  if (!arrangementPhrase) return anchorPhrase;
-  if (!anchorPhrase) return arrangementPhrase;
+  if (!posePhrase) return anchorPhrase;
+  if (!anchorPhrase) return posePhrase;
 
   const anchorTail = anchorPhrase
     .replace(/^(?:standing|sitting|kneeling|squatting|lying(?: down)?|reclining)\s+/i, '')
     .trim();
-  if (anchorTail && anchorTail !== anchorPhrase) return `${arrangementPhrase} ${anchorTail}`;
+  if (anchorTail && anchorTail !== anchorPhrase) return `${posePhrase} ${anchorTail}`;
   if (/^(?:leaning|reclining|on|in|at|beside|by|against|near|with)\b/i.test(anchorPhrase)) {
-    return `${arrangementPhrase} ${anchorPhrase}`;
+    return `${posePhrase} ${anchorPhrase}`;
   }
-  return `${arrangementPhrase} with ${anchorPhrase}`;
+  return `${posePhrase} with ${anchorPhrase}`;
 }
 
-function buildPoseComposerSentence({ base, arrangement, handPose, propAction, anchor, head, location }) {
+function buildPoseComposerSentence({ base, orientation, arrangement, handPose, propAction, anchor, head, location }) {
   const anchorEffect = getPoseComposerAnchorEffect(anchor, base);
   const naturalChoiceSelected = [arrangement, handPose, head].some(isModelNaturalPoseComposerOption);
   const headPhrase = head && !isModelNaturalPoseComposerOption(head)
@@ -5120,7 +5143,7 @@ function buildPoseComposerSentence({ base, arrangement, handPose, propAction, an
   const propPhrase = propAction
     ? normalizePoseComposerPropPhrase(propAction)
     : '';
-  const poseResult = buildPoseComposerResultPhrase({ base, arrangement, anchor, location })
+  const poseResult = buildPoseComposerResultPhrase({ base, orientation, arrangement, anchor, location })
     || (naturalChoiceSelected ? 'natural posture' : '');
   const poseResultWithAnchorEffect = [poseResult, anchorEffect]
     .filter(Boolean)
@@ -5152,6 +5175,7 @@ function buildPoseComposerItem(context) {
     wardrobeSignals: context.wardrobeSignals,
   });
   const requestedBase = getPoseComposerOption(POSE_COMPOSER_BASE_OPTIONS, context.locks?.poseBaseId);
+  const requestedOrientation = getPoseComposerOption(POSE_COMPOSER_ORIENTATION_OPTIONS, context.locks?.poseOrientationId);
   const requestedArrangement = getPoseComposerOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, context.locks?.poseArrangementId);
   const requestedHand = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
   const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
@@ -5221,6 +5245,7 @@ function buildPoseComposerItem(context) {
         tags: ['pose_composer'],
         minVisibility: 'medium',
         poseBaseId: 'none',
+        poseOrientationId: 'none',
         poseArrangementId: 'none',
         poseHandId: handPose?.id || 'none',
         posePropId: propAction?.id || 'none',
@@ -5231,6 +5256,18 @@ function buildPoseComposerItem(context) {
   }
 
   const matchesBase = (option) => poseComposerOptionMatchesBase(option, base.id);
+  const orientation = base.id === 'lying'
+    ? resolvePoseComposerOption(
+      POSE_COMPOSER_ORIENTATION_OPTIONS,
+      context.locks?.poseOrientationId,
+      isRandomOption(requestedOrientation)
+        ? matchesBase
+        : (option) => option.id === requestedOrientation?.id && matchesBase(option),
+      exclusions,
+      ['poseOrientationId'],
+      random
+    )
+    : null;
   const arrangementCompatibility = (option) => poseComposerArrangementSupportsRandomContext(option, {
     ...compatibilityContext,
     requestedHead,
@@ -5271,17 +5308,18 @@ function buildPoseComposerItem(context) {
     ['posePropId'],
     random
   );
-  const parts = [base, arrangement, handPose, propAction, head, anchor].filter(Boolean);
+  const parts = [base, orientation, arrangement, handPose, propAction, head, anchor].filter(Boolean);
 
   return {
     id: `character:姿勢組合器-pose-composer:${parts.map((part) => part.id).join(':')}`,
     zh: parts.map((part) => part.zh).join(' + '),
-    en: buildPoseComposerSentence({ base, arrangement, handPose, propAction, anchor, head, location: context.location }),
+    en: buildPoseComposerSentence({ base, orientation, arrangement, handPose, propAction, anchor, head, location: context.location }),
     desc: '由姿勢組合器生成的組合姿勢。',
     meta: {
       tags: ['pose_composer'],
       minVisibility: 'full',
       poseBaseId: base.id,
+      poseOrientationId: orientation?.id || 'none',
       poseArrangementId: arrangement?.id || 'none',
       poseHandId: handPose?.id || 'none',
       posePropId: propAction?.id || 'none',
@@ -5425,6 +5463,17 @@ function projectPoseComposerArrangement(arrangement, bucket) {
   return arrangement;
 }
 
+function projectPoseComposerOrientation(orientation, bucket) {
+  if (!orientation || isModelNaturalPoseComposerOption(orientation)) return orientation;
+  const projection = getPoseComposerProjection(orientation, bucket);
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.OMIT) return null;
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.VISIBLE) return orientation;
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.PROJECTED) {
+    return projection.en ? cloneProjectedPoseOption(orientation, projection.en) : orientation;
+  }
+  return orientation;
+}
+
 function isChestVisibleAnchor(anchor, base) {
   if (!anchor || !base) return false;
   if (anchor.id === 'shared-natural-support') return true;
@@ -5483,7 +5532,7 @@ function joinProjectedPoseFragments(fragments) {
   return `${values.slice(0, -1).join(', ')}, and ${values.at(-1)}`;
 }
 
-function buildChestUpPoseComposerSentence({ arrangement, handPose, propAction, anchor, head, base, location }) {
+function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, propAction, anchor, head, base, location }) {
   const naturalChoiceSelected = [arrangement, handPose, head].some(isModelNaturalPoseComposerOption);
   const projectedHead = head && !isModelNaturalPoseComposerOption(head) ? head : null;
   const projectedHand = handPose && !isModelNaturalPoseComposerOption(handPose)
@@ -5492,6 +5541,16 @@ function buildChestUpPoseComposerSentence({ arrangement, handPose, propAction, a
   const arrangementProjection = arrangement && !isModelNaturalPoseComposerOption(arrangement)
     ? getPoseComposerProjection(arrangement, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
     : null;
+  const orientationProjection = orientation && !isModelNaturalPoseComposerOption(orientation)
+    ? getPoseComposerProjection(orientation, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
+    : null;
+  const orientationFragment = orientation && !isModelNaturalPoseComposerOption(orientation)
+    ? orientationProjection?.mode === POSE_COMPOSER_PROJECTION_MODES.OMIT
+      ? ''
+      : orientationProjection?.mode === POSE_COMPOSER_PROJECTION_MODES.VISIBLE
+        ? orientation.en || ''
+        : orientationProjection?.en || ''
+    : '';
   const upperBodyFragment = arrangement && !isModelNaturalPoseComposerOption(arrangement)
     ? arrangementProjection?.mode === POSE_COMPOSER_PROJECTION_MODES.OMIT
       ? ''
@@ -5503,7 +5562,7 @@ function buildChestUpPoseComposerSentence({ arrangement, handPose, propAction, a
     ? projectPoseComposerAnchor(anchor, base, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
     : null;
   const anchorFragment = buildChestVisibleAnchorFragment(projectedAnchor, base);
-  const visibleBodyFragments = joinProjectedPoseFragments([upperBodyFragment, anchorFragment]);
+  const visibleBodyFragments = joinProjectedPoseFragments([orientationFragment, upperBodyFragment, anchorFragment]);
   const projectedArrangementPhrase = naturalChoiceSelected
     ? `casual, relaxed, and natural upper-body pose${visibleBodyFragments ? ` with ${visibleBodyFragments}` : ''}`
     : visibleBodyFragments
@@ -5534,6 +5593,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer) {
   };
   const base = activeOption(POSE_COMPOSER_BASE_OPTIONS, poseComposer.meta?.poseBaseId);
   const arrangement = activeOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, poseComposer.meta?.poseArrangementId);
+  const orientation = activeOption(POSE_COMPOSER_ORIENTATION_OPTIONS, poseComposer.meta?.poseOrientationId);
   const handPose = activeOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer.meta?.poseHandId);
   const propAction = activeOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer.meta?.posePropId);
   const head = activeOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
@@ -5542,6 +5602,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer) {
 
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP) {
     return buildChestUpPoseComposerSentence({
+      orientation,
       arrangement,
       handPose: shouldProjectPosePart(projection, 'hand', { conditional: true }) ? handPose : null,
       propAction: shouldProjectPosePart(projection, 'prop', { conditional: true }) ? propAction : null,
@@ -5554,6 +5615,9 @@ function buildProjectedCanonicalPoseText(context, poseComposer) {
 
   return buildPoseComposerSentence({
     base: shouldProjectPosePart(projection, 'postureBase') ? base : null,
+    orientation: shouldProjectPosePart(projection, 'postureBase')
+      ? projectPoseComposerOrientation(orientation, bucket)
+      : null,
     arrangement: projectPoseComposerArrangement(arrangement, bucket),
     handPose: shouldProjectPosePart(projection, 'hand') ? projectPoseComposerHand(handPose, bucket) : null,
     propAction: shouldProjectPosePart(projection, 'prop') ? propAction : null,
@@ -14486,6 +14550,7 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     poseId: characterSlots.pose?.id || '',
     specialActionId: characterSlots.specialAction?.id || '',
     poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || 'none',
+    poseOrientationId: characterSlots.poseComposer?.meta?.poseOrientationId || 'none',
     poseArrangementId: characterSlots.poseComposer?.meta?.poseArrangementId || 'none',
     poseHandId: characterSlots.poseComposer?.meta?.poseHandId || 'none',
     posePropId: characterSlots.poseComposer?.meta?.posePropId || 'none',

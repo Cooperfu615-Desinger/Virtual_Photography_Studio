@@ -302,6 +302,7 @@ young beautiful Korean idol face, refined small face, clear bright eyes, polishe
 - `姿勢與肢體語言`: 身體結構、重心、肢體安排、動作狀態。
 - Pose Composer `手部動作`: 不依賴特定道具的手臂、手掌與手指位置，以及身體或服裝接觸。
 - Pose Composer `道具動作`: 手持物、道具接觸與手機等物件互動；由獨立 `posePropId` 控制。
+- Pose Composer `主要躺姿`: 僅在 `poseBaseId = lying` 時使用的主方向，由 `poseOrientationId` 選擇 `仰躺`、`側躺` 或 `趴臥`；不綁定鳥瞰或其他鏡頭角度。
 - Legacy `特殊動作`: 舊資料保留給 saved cards / restore 遷移，不再作為 PAGE1 獨立 UI 欄位擴充。
 
 ### 6.1 表情
@@ -410,7 +411,7 @@ Pose: natural seated pose, torso upright, one hand resting beside the body
 - 只描述 body structure、weight、limbs、motion state。
 - 不寫 `looking at camera`、`lowered gaze`、`over-the-shoulder gaze`，這些屬於神情。
 - 不新增自拍或鏡子自拍為一般 `poseId` 姿勢；自拍類屬於 Pose Composer 的 `手部姿勢`。
-- PAGE1 不再顯示一般 `poseId` 姿勢選單；舊 `poseId` restore / normalize 應轉成 `poseBaseId`、`poseArrangementId`、`poseHandId`、`posePropId`、`poseHeadId`、`poseAnchorId` 的可見組合，並清空 `poseId`。
+- PAGE1 不再顯示一般 `poseId` 姿勢選單；舊 `poseId` restore / normalize 應轉成 `poseBaseId`、必要時的 `poseOrientationId`、`poseArrangementId`、`poseHandId`、`posePropId`、`poseHeadId`、`poseAnchorId` 的可見組合，並清空 `poseId`。
 - 新姿勢必須改變身體輪廓或構圖效果；單純手的位置小差異不建議新增。
 
 Pose Composer `手部動作` / `道具動作` 規則：
@@ -445,7 +446,7 @@ Pose Composer `接觸 / 支撐` legacy policy：
 - 不再新增新的 `特殊動作` 選項。
 - 道具、手機、口紅、飲料、香菸等物件互動新增到 Pose Composer `道具動作`；不依賴道具的手部姿態與服裝整理新增到 `手部動作`。
 - 完整身體姿態新增到 Pose Composer `肢體變化`，必要支撐物則放入 `接觸 / 支撐`。
-- 舊 `特殊動作` 若需要保留 restore 行為，應在 `engine.js` 加 legacy migration，轉成 `poseBaseId`、`poseArrangementId`、`poseHandId`、`posePropId`、`poseHeadId`、`poseAnchorId` 的組合，並清空 `specialActionId`。
+- 舊 `特殊動作` 若需要保留 restore 行為，應在 `engine.js` 加 legacy migration，轉成 `poseBaseId`、必要時的 `poseOrientationId`、`poseArrangementId`、`poseHandId`、`posePropId`、`poseHeadId`、`poseAnchorId` 的組合，並清空 `specialActionId`。
 
 目前特殊動作全部保留，共 23 個非空選項：
 
@@ -668,6 +669,10 @@ git diff --check
 ```
 
 允許既有 Vite chunk-size warning；其他錯誤需修正。
+
+躺姿現在採用兩層結構：`poseOrientationId` 提供三個主要方向 `仰躺`、`側躺`、`趴臥`，`poseArrangementId` 則提供五個獨立的身體／腿部變化：`自然伸展`、`雙腿屈起`、`身體微蜷`、`上半身半躺`、`上半身撐起`。主要躺姿不綁定鳥瞰鏡頭；鏡頭仍由攝影設定獨立控制。前兩個變化屬於下半身幾何，在胸上／腰上裁切應 `omit`；後三個變化提供可見的上半身投影片段。全身、unconstrained 與 fixed composition 保留方向與身體變化的完整 canonical pose。舊躺姿專用 arrangement ID 保留但設為 `uiHidden: true`、`randomEligible: false`，供 Saved Cards、匯入與明確 restore 還原。
+
+躺姿公開英文使用可直接接在冠詞後的視覺名詞片語：`supine lying position, back supported, chest and face turned upward`、`side-lying position, body turned onto one side`、`prone lying position, chest and abdomen facing the support surface, face turned downward`。五個身體／腿部變化只描述身體幾何：自然伸展描述放鬆的長線與腿部自然延伸；雙腿屈起只描述膝蓋柔和抬起；身體微蜷描述軀幹與腿部向內形成緊湊曲線；上半身半躺描述軀幹抬起成半躺角度；上半身撐起描述上半身由肘部或前臂支撐。不得在這些來源片語中加入鏡頭、視線、環境或獨立手部動作。Chest-up／Medium projection 使用只含畫面可見上半身的片段；下半身變化不回寫到胸上／腰上裁切。
 
 ## 11. Review Checklist
 

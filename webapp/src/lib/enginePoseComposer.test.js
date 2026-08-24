@@ -1373,6 +1373,108 @@ test('kneeling and lying expansion batch is preserved in all prompt versions', (
   }
 });
 
+test('lying orientation and body variation compose into one shared canonical pose', () => {
+  const poseText = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  const baseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '躺姿'),
+    poseHandId: optionId('poseHandId', '全無'),
+    posePropId: optionId('posePropId', '全無'),
+    poseHeadId: optionId('poseHeadId', '全無'),
+    poseAnchorId: optionId('poseAnchorId', '全無'),
+  };
+  const orientationId = optionId('poseOrientationId', '趴臥');
+  const variationId = optionId('poseArrangementId', '上半身撐起');
+  const [fullPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    poseOrientationId: orientationId,
+    poseArrangementId: variationId,
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  });
+  const canonical = poseText(fullPrompt);
+  assert.match(canonical, /prone lying position/);
+  assert.match(canonical, /chest and abdomen facing the support surface/);
+  assert.match(canonical, /upper body lifted and supported on the elbows or forearms/);
+  assert.match(canonical, /lower body remains on the support surface/);
+  assert.equal(fullPrompt.selection.poseOrientationId, 'lying-prone');
+  assert.equal(fullPrompt.selection.poseArrangementId, 'lying-body-upper-propped');
+  assert.ok(fullPrompt.zImagePrompt.includes(canonical));
+  assert.ok(fullPrompt.midjourneyPrompt.includes(canonical));
+
+  const [chestPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    poseOrientationId: orientationId,
+    poseArrangementId: variationId,
+    framingId: optionId('framingId', '胸上特寫'),
+  });
+  const chestCanonical = poseText(chestPrompt);
+  assert.match(chestCanonical, /upper-body pose/);
+  assert.match(chestCanonical, /upper torso facing downward toward the support surface/);
+  assert.match(chestCanonical, /upper body lifted and supported on the elbows or forearms/);
+  assert.doesNotMatch(chestCanonical, /lower body remains on the support surface/);
+});
+
+test('lying public English keeps orientation and body variation geometry distinct across crops', () => {
+  const poseText = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  const orientations = [
+    ['仰躺', /supine lying position, back supported, chest and face turned upward/],
+    ['側躺', /side-lying position, body turned onto one side/],
+    ['趴臥', /prone lying position, chest and abdomen facing the support surface, face turned downward/],
+  ];
+  const variations = [
+    { zh: '自然伸展', full: /body extended in a relaxed line, legs resting naturally/ },
+    { zh: '雙腿屈起', full: /both legs comfortably bent, knees softly raised/ },
+    { zh: '身體微蜷', full: /torso and legs gently curved inward into a soft compact shape/, projected: /torso gently curled into a soft compact curve/ },
+    { zh: '上半身半躺', full: /upper body raised into a gentle half-recline while the lower body remains relaxed in the lying position/, projected: /upper body raised into a gentle half-recline/ },
+    { zh: '上半身撐起', full: /upper body lifted and supported on the elbows or forearms while the lower body remains on the support surface/, projected: /upper body lifted and supported on the elbows or forearms/ },
+  ];
+  const lowerBodyVariations = new Set(['自然伸展', '雙腿屈起']);
+  const baseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '躺姿'),
+    poseHandId: optionId('poseHandId', '全無'),
+    posePropId: optionId('posePropId', '全無'),
+    poseHeadId: optionId('poseHeadId', '全無'),
+    poseAnchorId: optionId('poseAnchorId', '全無'),
+  };
+
+  for (const [orientationZh, orientationPattern] of orientations) {
+    for (const variation of variations) {
+      const { zh: variationZh, full: variationPattern, projected: projectedVariationPattern } = variation;
+      const locks = {
+        ...baseLocks,
+        poseOrientationId: optionId('poseOrientationId', orientationZh),
+        poseArrangementId: optionId('poseArrangementId', variationZh),
+      };
+      const [fullPrompt] = generatePrompts(1, {
+        ...locks,
+        framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      });
+      const fullCanonical = poseText(fullPrompt);
+      assert.match(fullCanonical, orientationPattern, `${orientationZh} + ${variationZh} full body orientation`);
+      assert.match(fullCanonical, variationPattern, `${orientationZh} + ${variationZh} full body variation`);
+      assert.doesNotMatch(fullCanonical, /arrangement|model-decided|front of the body resting toward/i);
+
+      const [chestPrompt] = generatePrompts(1, {
+        ...locks,
+        framingId: optionId('framingId', '胸上特寫'),
+      });
+      const chestCanonical = poseText(chestPrompt);
+      assert.match(chestCanonical, /upper-body pose/);
+      assert.match(chestCanonical, /upper torso|upper body/);
+      if (lowerBodyVariations.has(variationZh)) {
+        assert.doesNotMatch(chestCanonical, variationPattern);
+        assert.doesNotMatch(chestCanonical, /legs|knees|lower body/i);
+      } else {
+        assert.match(chestCanonical, projectedVariationPattern);
+        assert.doesNotMatch(chestCanonical, /legs|knees|lower body remains/i);
+      }
+    }
+  }
+});
+
 test('single-subject pose composer outputs natural base arrangement hand anchor and head direction in all prompt versions', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

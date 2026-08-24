@@ -48,15 +48,16 @@ Last updated: 2026-08-01
 
 ## 4. Pose Composer
 
-單人 Pose Composer 的 poseBaseId、poseArrangementId、poseHandId、poseHeadId、poseAnchorId 在「全部隨機」時全部回到隨機 lock，而不是各自回到「全無」。engine 的 buildPoseComposerItem() 會依序抽取：
+單人 Pose Composer 的 poseBaseId、poseOrientationId、poseArrangementId、poseHandId、poseHeadId、poseAnchorId 在「全部隨機」時全部回到隨機 lock，而不是各自回到「全無」。其中 poseOrientationId 僅在基底解析為 lying 時解析為仰躺、側躺或趴臥；其他基底會保留為 none，不額外消耗隨機抽樣。engine 的 buildPoseComposerItem() 會依序抽取：
 
 1. 姿勢基底
-2. 與基底相容的肢體變化
-3. 手部動作
-4. 頭部方向
-5. 與基底、場景相容的接觸／支撐
+2. 躺姿基底的主要躺姿方向（僅 lying）
+3. 與基底相容的肢體變化
+4. 手部動作
+5. 頭部方向
+6. 與基底、場景相容的接觸／支撐
 
-`posePropId` 是獨立的第六個控制，不加入上述五層批次取樣，也不增加該流程的 RNG 呼叫。姿勢「全部隨機」會保留其目前值；若明確道具有效，V1 由道具接管手部層，因此 normalize 會把 `poseHandId` 清為 `全無`，其餘基底、肢體、頭部與接觸層照常隨機。道具自己的 `隨機` 只在使用者明確選擇時解析。
+`posePropId` 是獨立的第七個控制，不加入上述六層批次取樣，也不增加該流程的 RNG 呼叫。姿勢「全部隨機」會保留其目前值；若明確道具有效，V1 由道具接管手部層，因此 normalize 會把 `poseHandId` 清為 `全無`，其餘基底、主要躺姿、肢體、頭部與接觸層照常隨機。道具自己的 `隨機` 只在使用者明確選擇時解析。
 
 ### 隨機姿勢相容性
 
@@ -91,7 +92,7 @@ Last updated: 2026-08-01
 - setLockKeysToNone() 與 buildAllNoneLocks() 對沒有「全無」的欄位保留 defaultValue。
 - 每個 PAGE1 子面板的 action label 與能力一致。
 - `posePropId` 為 preserve；明確道具在姿勢批次隨機後仍保留並接管手部，`全無` 也維持 `全無`。
-- 無明確道具時，單人 Pose Composer 的批次隨機會讓五個 Composer lock 都進入隨機狀態；接觸可解析為 `全無`，其餘層產出具體相容組合。
+- 無明確道具時，單人 Pose Composer 的批次隨機會讓六個結構層 lock 都進入隨機狀態；`poseOrientationId` 僅在躺姿基底解析，接觸可解析為 `全無`，其餘層產出具體相容組合。
 - 隨機 Pose Composer 在上半身裁切、正面／背面方位、鳥瞰角度下遵守共用相容性規範；明確衝突 lock 仍保留。
 - 特殊角色、角色卡、固定構圖與成品類型批次操作不會自動接管。
 - 全域批次操作不會改變 subjectCount。

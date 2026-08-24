@@ -183,7 +183,7 @@ test('Z-Image exact visible text stays outside global random and clear operation
   });
 });
 
-test('single pose panel randomizes the five Pose Composer layers and leaves props independent', () => {
+test('single pose panel randomizes the six Pose Composer layers and leaves props independent', () => {
   const controls = getLockControls();
   const defaults = createEmptyLocks();
   const singlePosePanel = PAGE1_POSE_SUBPANELS.find((panel) => panel.id === 'single');
@@ -210,7 +210,7 @@ test('single pose panel randomizes the five Pose Composer layers and leaves prop
 
   for (const key of POSE_COMPOSER_KEYS) {
     assert.notEqual(prompt.selection[key], 'random', `${key} should not expose the random sentinel`);
-    if (key !== 'poseAnchorId') {
+    if (key !== 'poseAnchorId' && !(key === 'poseOrientationId' && prompt.selection.poseBaseId !== 'lying')) {
       assert.notEqual(prompt.selection[key], 'none', `${key} should resolve to a concrete selection`);
     }
   }
@@ -219,6 +219,7 @@ test('single pose panel randomizes the five Pose Composer layers and leaves prop
     Object.fromEntries(POSE_COMPOSER_KEYS.map((key) => [key, prompt.selection[key]])),
     {
       poseBaseId: 'standing',
+      poseOrientationId: 'none',
       poseArrangementId: 'standing-one-leg-weight',
       poseHandId: 'hands-behind-back',
       poseHeadId: 'head-low-rim-support',
