@@ -8,7 +8,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase2DescriptionHash: 'fe5e1bc07ac6e7ea7ba21d04c4ab7f33e002330a0e824ed98200da018a922722',
     phase3DescriptionHash: '32c26bfd9484808a9f930a1338dcbb22880eaa7e20405d1e58791b2acd372444',
     phase4DescriptionHash: '2ff91c2810fe2ea7bfe2f0ed3df4d63153b8920b61b28561e6ccf7e2b7d03779',
-    phase5DescriptionHash: 'b7ad4a56858af63a43ec6e1e43ac3af77b6bd2d640d079c038b1014786ea6414',
+    phase5DescriptionHash: '5ca5f6feac4b3f567d03bf9e3ba719e8df91ad53c3e45ad4619a7cf769a5e2a8',
   },
   {
     id: 'complete-look-balanced',

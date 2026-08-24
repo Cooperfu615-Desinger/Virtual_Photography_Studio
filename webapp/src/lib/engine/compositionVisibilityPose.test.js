@@ -96,8 +96,8 @@ test('returning a projected medium pose to full body restores the unchanged sour
     random: createSeededRandom('composition-visibility-medium-pose-v1'),
   });
 
-  assert.doesNotMatch(canonicalPose(mediumPrompt), /one foot pointed forward|mirrored stainless-steel cube plinth/i);
-  assert.match(canonicalPose(fullPrompt), /one foot pointed forward/i);
+  assert.doesNotMatch(canonicalPose(mediumPrompt), /one foot placed slightly forward|other leg supporting the body weight|mirrored stainless-steel cube plinth/i);
+  assert.match(canonicalPose(fullPrompt), /one foot placed slightly forward/i);
   assert.match(canonicalPose(fullPrompt), /mirrored stainless-steel cube plinth/i);
   for (const key of ['poseBaseId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseHeadId', 'poseAnchorId']) {
     assert.equal(fullPrompt.selection[key], mediumLocks[key], `${key} should remain unchanged after widening the framing`);

@@ -122,7 +122,7 @@ for (const promptCase of WARDROBE_CASES) {
     });
     const canonicalPose = poseSection(prompt.grokPrompt);
 
-    assert.equal(canonicalPose, 'She presents a natural relaxed standing pose.');
+    assert.equal(canonicalPose, 'She presents a relaxed neutral standing posture.');
     assert.equal(prompt.selection.fixedCompositionSetId, locks.fixedCompositionSetId);
     assert.equal(prompt.selection.framingId, optionId('framingId', '全無'));
     for (const key of promptCase.selectedKeys) {

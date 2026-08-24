@@ -413,8 +413,8 @@ test('water contact anchors adapt to pose base and selected water scene in all p
       baseZh: '站姿',
       arrangementZh: '自然站姿',
       anchorZh: '在水中',
-      expected: [/standing pose waist-deep in clear pool water/, /visible waterline(?: across the body)?/],
-      expectedGpt: [/standing pose waist-deep in clear pool water/, /water-contact realism with the whole lower body submerged/],
+      expected: [/relaxed neutral standing posture waist-deep in clear pool water/, /visible waterline(?: across the body)?/],
+      expectedGpt: [/relaxed neutral standing posture waist-deep in clear pool water/, /water-contact realism with the whole lower body submerged/],
     },
     {
       locationZh: '戶外：飯店度假村泳池露台',
@@ -572,7 +572,7 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
         poseArrangementId: optionId('poseArrangementId', '自然站姿'),
         poseHandId: optionId('poseHandId', '男友/閨蜜自拍'),
       },
-      expected: 'She has casual, naturally relaxed hand placement in a close-companion social snapshot, with unforced candid body language, and presents a natural relaxed standing pose.',
+      expected: 'She has casual, naturally relaxed hand placement in a close-companion social snapshot, with unforced candid body language, and presents a relaxed neutral standing posture.',
     },
     {
       locks: {
@@ -580,7 +580,7 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
         poseArrangementId: optionId('poseArrangementId', '自然站姿'),
         posePropId: optionId('posePropId', '塗口紅｜自由妝感'),
       },
-      expected: 'She has one hand applying lipstick directly to the lips with visible hand-to-mouth contact, with the finish varying naturally between clean application and a slightly smudged lip line, and presents a natural relaxed standing pose.',
+      expected: 'She has one hand applying lipstick directly to the lips with visible hand-to-mouth contact, with the finish varying naturally between clean application and a slightly smudged lip line, and presents a relaxed neutral standing posture.',
     },
     {
       locks: {
@@ -602,7 +602,7 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
         poseArrangementId: optionId('poseArrangementId', '自然站姿'),
         poseHandId: optionId('poseHandId', '整理下身'),
       },
-      expected: 'She has one hand adjusting the lower-body garment or hosiery, with the fingers visibly touching a skirt, pants waistband, or stocking, and presents a natural relaxed standing pose.',
+      expected: 'She has one hand adjusting the lower-body garment or hosiery, with the fingers visibly touching a skirt, pants waistband, or stocking, and presents a relaxed neutral standing posture.',
     },
     {
       locks: {
@@ -610,7 +610,7 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
         poseArrangementId: optionId('poseArrangementId', '自然站姿'),
         poseHandId: optionId('poseHandId', '一手撐地一手放腿上'),
       },
-      expected: 'She has one hand planted on the floor or a nearby surface for support, with the other hand resting on the leg, and presents a natural relaxed standing pose.',
+      expected: 'She has one hand planted on the floor or a nearby surface for support, with the other hand resting on the leg, and presents a relaxed neutral standing posture.',
     },
   ];
 
@@ -627,13 +627,82 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
   }
 });
 
+test('public standing arrangements use clear canonical English and crop-safe upper-body fragments', () => {
+  const fullBodyFraming = optionId('framingId', '全身鏡頭 (Full Body Shot)');
+  const chestUpFraming = optionId('framingId', '胸上特寫');
+  const cases = [
+    {
+      zh: '自然站姿',
+      full: 'She presents a relaxed neutral standing posture.',
+      chest: 'She presents an upper-body pose with a relaxed upright posture.',
+    },
+    {
+      zh: '單腳重心',
+      full: 'She presents a relaxed standing posture with weight shifted onto one leg and a natural asymmetrical balance.',
+      chest: 'She presents an upper-body pose with a subtle asymmetrical weight shift onto one leg.',
+    },
+    {
+      zh: '身體微前傾',
+      full: 'She presents a standing posture with a slight forward lean through the upper body.',
+      chest: 'She presents an upper-body pose with a slight forward lean through the upper body.',
+    },
+    {
+      zh: '身體微後仰',
+      full: 'She presents a standing posture with a slight backward lean through the upper body.',
+      chest: 'She presents an upper-body pose with a slight backward lean through the upper body.',
+    },
+    {
+      zh: '交叉腿站姿',
+      full: 'She presents a standing posture with the legs naturally crossed and one hip subtly shifted.',
+      chest: '',
+    },
+    {
+      zh: '背對回身站姿',
+      full: 'She presents a back-facing standing posture with the torso turned toward the camera.',
+      chest: 'She presents an upper-body pose with a back-facing posture, torso turned toward the camera.',
+    },
+    {
+      zh: '側身窄站姿',
+      full: 'She presents a narrow side-facing standing posture with feet close together and a clean elongated body line.',
+      chest: 'She presents an upper-body pose with a narrow side-facing posture, shoulders in profile.',
+    },
+    {
+      zh: '一腳向前點地',
+      full: 'She presents a standing posture with one foot placed slightly forward, its toe lightly touching the ground, and the other leg supporting the body weight.',
+      chest: '',
+    },
+  ];
+
+  for (const { zh, full, chest } of cases) {
+    const baseLocks = {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      poseBaseId: optionId('poseBaseId', '站姿'),
+      poseArrangementId: optionId('poseArrangementId', zh),
+    };
+    const [fullPrompt] = generatePrompts(1, { ...baseLocks, framingId: fullBodyFraming });
+    assertSharedCanonicalPose(fullPrompt, full);
+    assert.doesNotMatch(full, /\barrangement\b|close-interaction|delicate extended|turn-back/i);
+
+    const [chestPrompt] = generatePrompts(1, { ...baseLocks, framingId: chestUpFraming });
+    const projectedPose = chestPrompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+    if (chest) {
+      assert.equal(projectedPose, chest);
+      assert.equal(chestPrompt.zImagePrompt.includes(chest), true);
+      assert.equal(chestPrompt.midjourneyPrompt.includes(chest), true);
+    } else {
+      assert.equal(projectedPose, '');
+    }
+  }
+});
+
 test('natural support anchor adapts one object-free canonical pose across all five bases', () => {
   const fullBodyFraming = optionId('framingId', '全身鏡頭 (Full Body Shot)');
   const cases = [
     {
       baseZh: '站姿',
       arrangementZh: '自然站姿',
-      expected: 'She presents a natural relaxed standing pose with the body naturally supported.',
+      expected: 'She presents a relaxed neutral standing posture with the body naturally supported.',
     },
     {
       baseZh: '坐姿',
@@ -987,11 +1056,11 @@ test('pocket hand actions distinguish pants and outerwear placement in all promp
 
 test('pose composer exposes new standing sitting and squatting arrangement batch', () => {
   [
-    ['交叉腿站姿', 'standing', /crossed-leg standing arrangement/],
+    ['交叉腿站姿', 'standing', /standing posture with the legs naturally crossed/],
     ['膝蓋微彎站姿', 'standing', /soft bent-knee standing arrangement/],
-    ['背對回身站姿', 'standing', /back-facing turn-back standing arrangement/],
-    ['側身窄站姿', 'standing', /narrow side-facing standing arrangement/],
-    ['一腳向前點地', 'standing', /one foot pointed forward/],
+    ['背對回身站姿', 'standing', /back-facing standing posture with the torso turned toward the camera/],
+    ['側身窄站姿', 'standing', /narrow side-facing standing posture/],
+    ['一腳向前點地', 'standing', /one foot placed slightly forward, its toe lightly touching the ground/],
     ['單腿屈起坐姿', 'sitting', /one knee drawn up/],
     ['雙腿側放坐姿', 'sitting', /both legs angled to one side/],
     ['坐姿身體前傾', 'sitting', /grounded forward-leaning seated arrangement/],
@@ -1121,7 +1190,7 @@ test('pose composer exposes kneeling and lying expansion batch', () => {
 
 test('new arrangement batch is preserved in all prompt versions', () => {
   const cases = [
-    ['站姿', '交叉腿站姿', /crossed-leg standing pose/],
+    ['站姿', '交叉腿站姿', /standing posture with the legs naturally crossed/],
     ['坐姿', '開闊自信坐姿', /open, confident seated pose/],
     ['蹲姿', '側身低蹲', /side-facing low squat/],
   ];
@@ -1228,8 +1297,8 @@ test('single-subject pose composer outputs natural base arrangement hand anchor 
 
   const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
   for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
-    assert.match(text, /She has her head slightly tilted, one hand touching the chin, and presents a one-leg weight shift, relaxed asymmetrical body balance beside a doorway frame/);
-    assert.match(text, /one-leg weight shift/);
+    assert.match(text, /She has her head slightly tilted, one hand touching the chin, and presents a relaxed standing posture with weight shifted onto one leg and a natural asymmetrical balance beside a doorway frame/);
+    assert.match(text, /weight shifted onto one leg/);
     assert.match(text, /one hand touching the chin/);
     assert.match(text, /head slightly tilted/);
   }
@@ -1283,7 +1352,7 @@ test('lying pose composer supports languid arrangement bathtub anchor and head d
 
 test('shared bathtub anchor phrases naturally for standing sitting and squatting bases', () => {
   const cases = [
-    ['站姿', '自然站姿', /presents a natural relaxed standing pose beside a water-filled clawfoot vintage bathtub/, false],
+    ['站姿', '自然站姿', /presents a relaxed neutral standing posture beside a water-filled clawfoot vintage bathtub/, false],
     ['坐姿', '自然坐姿', /presents a natural seated pose on the edge of a water-filled clawfoot vintage bathtub/, true],
     ['蹲姿', '自然蹲姿', /presents a natural squatting pose inside a water-filled clawfoot vintage bathtub/, true],
   ];

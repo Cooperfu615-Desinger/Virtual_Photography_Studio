@@ -29,7 +29,7 @@ const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
   'character-card-jiwoo': '95cb45387c2ff62aa3a9a93594edb7770aca38ac231563d7f82542035fb7cba4',
   'character-card-sui': '1436fc87a020827d9ddec9ef735247f8069480caf6896bb36c46e32828c1067a',
   'character-card-half-face-pressure': 'e13712f94c12853fc6e9daceef510857d6b6d1ef6e05ca92f78466e892d6f0d4',
-  'canonical-pose-pressure': '6c65adb5c924230cbfe1d979a82b809150d3da0f0f01e13efc2bfc403e065781',
+  'canonical-pose-pressure': '0f6fa01dfce52489e2f81a67a79c4b540d6b523f66068d4fad09df7d0ad652da',
   'half-face-boundary': 'eb3dc8badc7a581955c84e4198f7479af8d79f57eaf2b0b0bf9029d3a35d144a',
   'duo-direct-boundary': 'd03117d64f729ff32b254f5eea53280203ef0fcf5b800b0725f1feddfeb03a8c',
 });

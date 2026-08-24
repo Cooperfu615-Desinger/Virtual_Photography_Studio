@@ -60,7 +60,7 @@ test('Z-Image places the selected special outfit before pose and scene without p
   const settingIndex = zImage.indexOf('The scene is ');
   const locationIndex = zImage.indexOf('Seoul Seongsu-dong urban corner');
   const wardrobeIndex = zImage.indexOf('She wears black sheer polka-dot matching fashion set');
-  const poseIndex = zImage.search(/presents .*standing pose/);
+  const poseIndex = zImage.search(/presents .*standing (?:pose|posture)/);
 
   assert.notEqual(subjectIndex, -1);
   assert.notEqual(settingIndex, -1);

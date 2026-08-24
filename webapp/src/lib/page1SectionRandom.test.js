@@ -219,7 +219,7 @@ test('single pose panel randomizes the five Pose Composer layers and leaves prop
     Object.fromEntries(POSE_COMPOSER_KEYS.map((key) => [key, prompt.selection[key]])),
     {
       poseBaseId: 'standing',
-      poseArrangementId: 'standing-forward-lean',
+      poseArrangementId: 'standing-one-leg-weight',
       poseHandId: 'hands-behind-back',
       poseHeadId: 'head-low-rim-support',
       poseAnchorId: 'standing-edge-hip-support',

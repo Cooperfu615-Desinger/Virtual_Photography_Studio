@@ -927,14 +927,14 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
         includes: [
           'cotton camisole top',
           'straight-leg jeans',
-          'She presents a natural relaxed standing pose.',
+          'She presents a relaxed neutral standing posture.',
           'real-scale compact editorial lounge set',
           'black velvet sofa',
         ],
         ordered: [
           'A 20s seductive stunning Japanese or Korean woman',
           'cotton camisole top',
-          'She presents a natural relaxed standing pose.',
+          'She presents a relaxed neutral standing posture.',
           'real-scale compact editorial lounge set',
         ],
         excludes: ['fixed-set rule:', 'preserve anchors:'],

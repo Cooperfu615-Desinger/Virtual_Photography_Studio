@@ -8,7 +8,7 @@
 export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   {
     id: 'normal-single-precise',
-    expectedDescriptionHash: 'b7ad4a56858af63a43ec6e1e43ac3af77b6bd2d640d079c038b1014786ea6414',
+    expectedDescriptionHash: '5ca5f6feac4b3f567d03bf9e3ba719e8df91ad53c3e45ad4619a7cf769a5e2a8',
     expectedWords: 111,
   },
   {

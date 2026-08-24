@@ -35,8 +35,8 @@ test('Pose Composer projection metadata has explicit three-tier modes', () => {
 });
 
 test('all active standing arrangements carry explicit crop projection metadata', () => {
-  const standing = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'standing');
-  assert.equal(standing.length, 13);
+  const standing = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'standing' && !option.meta?.deprecated);
+  assert.equal(standing.length, 8);
 
   for (const option of standing) {
     const metadata = option.meta?.projectionByBucket;
@@ -46,6 +46,40 @@ test('all active standing arrangements carry explicit crop projection metadata',
       assert.ok(projection, `${option.id} should define ${bucket} projection mode`);
       assert.ok(Object.values(POSE_COMPOSER_PROJECTION_MODES).includes(projection.mode));
     }
+  }
+});
+
+test('standing arrangement simplification keeps a stable active core and deprecated legacy IDs', () => {
+  const activeIds = POSE_COMPOSER_ARRANGEMENT_OPTIONS
+    .filter((option) => option.base === 'standing' && !option.meta?.deprecated)
+    .map((option) => option.id);
+  const deprecatedIds = POSE_COMPOSER_ARRANGEMENT_OPTIONS
+    .filter((option) => option.base === 'standing' && option.meta?.deprecated)
+    .map((option) => option.id);
+
+  assert.deepEqual(activeIds, [
+    'standing-natural',
+    'standing-one-leg-weight',
+    'standing-forward-lean',
+    'standing-back-lean',
+    'standing-crossed-legs',
+    'standing-back-facing-turn',
+    'standing-narrow-side',
+    'standing-forward-toe-point',
+  ]);
+  assert.deepEqual(deprecatedIds, [
+    'standing-deep-forward-lean',
+    'standing-turn-back',
+    'standing-contrapposto',
+    'standing-raised-foot',
+    'standing-soft-bent-knees',
+  ]);
+
+  for (const id of deprecatedIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.equal(option.meta.uiHidden, true);
+    assert.equal(option.meta.randomEligible, false);
+    assert.equal(option.meta.deprecated, true);
   }
 });
 

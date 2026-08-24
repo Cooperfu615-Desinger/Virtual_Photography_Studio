@@ -1,5 +1,8 @@
 import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.js';
-import { createPoseComposerProjectionMap } from './poseComposerProjection.js';
+import {
+  createPoseComposerProjectionMap,
+  POSE_COMPOSER_PROJECTION_MODES,
+} from './poseComposerProjection.js';
 
 const STANDING_UPPER_PROJECTION = createPoseComposerProjectionMap({
   visible: [
@@ -115,6 +118,24 @@ const deprecatedPoseArrangement = (option) => ({
   },
 });
 
+const withStandingUpperProjectionEnglish = (option, english) => ({
+  ...option,
+  meta: {
+    ...(option.meta || {}),
+    projectionByBucket: {
+      ...(option.meta?.projectionByBucket || {}),
+      [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: {
+        mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+        en: english,
+      },
+      [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: {
+        mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+        en: english,
+      },
+    },
+  },
+});
+
 export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定肢體變化。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random body arrangement', desc: '依姿勢基底隨機選擇肢體變化。', meta: { tags: ['random'] } },
@@ -126,19 +147,19 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
     desc: '不指定具體肢體變化，讓模型依姿勢基底、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。',
     meta: { tags: ['any'] },
   },
-  { id: 'standing-natural', base: 'standing', zh: '自然站姿', en: 'natural relaxed standing arrangement', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
-  { id: 'standing-one-leg-weight', base: 'standing', zh: '單腳重心', en: 'one-leg weight shift, relaxed asymmetrical body balance', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
-  { id: 'standing-forward-lean', base: 'standing', zh: '身體微前傾', en: 'slight forward-leaning standing arrangement', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
-  { id: 'standing-deep-forward-lean', base: 'standing', zh: '上身大幅度前傾', en: 'deep forward lean from the waist, shoulders angled forward, energetic close-interaction upper-body tilt', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
-  { id: 'standing-back-lean', base: 'standing', zh: '身體微後仰', en: 'slight backward-leaning standing arrangement', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
-  { id: 'standing-turn-back', base: 'standing', zh: '回身轉向', en: 'turning-back standing arrangement, torso subtly rotated', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
-  { id: 'standing-contrapposto', base: 'standing', zh: '身體側傾', en: 'side-leaning contrapposto body arrangement', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
-  { id: 'standing-raised-foot', base: 'standing', zh: '單腳微抬', en: 'delicate standing balance pose with one foot slightly lifted', meta: { projectionByBucket: STANDING_LOWER_FULL_ONLY_PROJECTION } },
-  { id: 'standing-crossed-legs', base: 'standing', zh: '交叉腿站姿', en: 'crossed-leg standing arrangement, legs naturally crossed, one hip subtly shifted', meta: { projectionByBucket: STANDING_LOWER_PROJECTION } },
-  { id: 'standing-soft-bent-knees', base: 'standing', zh: '膝蓋微彎站姿', en: 'soft bent-knee standing arrangement, relaxed knees with slight lower-body compression', meta: { projectionByBucket: STANDING_LOWER_PROJECTION } },
-  { id: 'standing-back-facing-turn', base: 'standing', zh: '背對回身站姿', en: 'back-facing turn-back standing arrangement, torso rotated back toward the camera', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
-  { id: 'standing-narrow-side', base: 'standing', zh: '側身窄站姿', en: 'narrow side-facing standing arrangement, legs close together, clean elongated body line', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } },
-  { id: 'standing-forward-toe-point', base: 'standing', zh: '一腳向前點地', en: 'delicate extended standing stance with one foot pointed forward and the rear leg holding the body weight', meta: { projectionByBucket: STANDING_LOWER_FULL_ONLY_PROJECTION } },
+  withStandingUpperProjectionEnglish({ id: 'standing-natural', base: 'standing', zh: '自然站姿', en: 'relaxed neutral standing posture', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }, 'a relaxed upright posture'),
+  withStandingUpperProjectionEnglish({ id: 'standing-one-leg-weight', base: 'standing', zh: '單腳重心', en: 'relaxed standing posture with weight shifted onto one leg and a natural asymmetrical balance', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }, 'a subtle asymmetrical weight shift onto one leg'),
+  withStandingUpperProjectionEnglish({ id: 'standing-forward-lean', base: 'standing', zh: '身體微前傾', en: 'standing posture with a slight forward lean through the upper body', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }, 'a slight forward lean through the upper body'),
+  deprecatedPoseArrangement({ id: 'standing-deep-forward-lean', base: 'standing', zh: '上身大幅度前傾', en: 'deep forward lean from the waist, shoulders angled forward, energetic close-interaction upper-body tilt', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }),
+  withStandingUpperProjectionEnglish({ id: 'standing-back-lean', base: 'standing', zh: '身體微後仰', en: 'standing posture with a slight backward lean through the upper body', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }, 'a slight backward lean through the upper body'),
+  deprecatedPoseArrangement({ id: 'standing-turn-back', base: 'standing', zh: '回身轉向', en: 'turning-back standing arrangement, torso subtly rotated', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }),
+  deprecatedPoseArrangement({ id: 'standing-contrapposto', base: 'standing', zh: '身體側傾', en: 'side-leaning contrapposto body arrangement', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }),
+  deprecatedPoseArrangement({ id: 'standing-raised-foot', base: 'standing', zh: '單腳微抬', en: 'delicate standing balance pose with one foot slightly lifted', meta: { projectionByBucket: STANDING_LOWER_FULL_ONLY_PROJECTION } }),
+  { id: 'standing-crossed-legs', base: 'standing', zh: '交叉腿站姿', en: 'standing posture with the legs naturally crossed and one hip subtly shifted', meta: { projectionByBucket: STANDING_LOWER_PROJECTION } },
+  deprecatedPoseArrangement({ id: 'standing-soft-bent-knees', base: 'standing', zh: '膝蓋微彎站姿', en: 'soft bent-knee standing arrangement, relaxed knees with slight lower-body compression', meta: { projectionByBucket: STANDING_LOWER_PROJECTION } }),
+  withStandingUpperProjectionEnglish({ id: 'standing-back-facing-turn', base: 'standing', zh: '背對回身站姿', en: 'back-facing standing posture with the torso turned toward the camera', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }, 'a back-facing posture, torso turned toward the camera'),
+  withStandingUpperProjectionEnglish({ id: 'standing-narrow-side', base: 'standing', zh: '側身窄站姿', en: 'narrow side-facing standing posture with feet close together and a clean elongated body line', meta: { projectionByBucket: STANDING_UPPER_PROJECTION } }, 'a narrow side-facing posture, shoulders in profile'),
+  { id: 'standing-forward-toe-point', base: 'standing', zh: '一腳向前點地', en: 'standing posture with one foot placed slightly forward, its toe lightly touching the ground, and the other leg supporting the body weight', meta: { projectionByBucket: STANDING_LOWER_FULL_ONLY_PROJECTION } },
   { id: 'sitting-natural', base: 'sitting', zh: '自然坐姿', en: 'natural seated arrangement' },
   { id: 'sitting-forward-lean', base: 'sitting', zh: '微微前傾', en: 'slightly forward-leaning seated arrangement' },
   { id: 'sitting-hands-behind-support', base: 'sitting', zh: '雙手後撐', en: 'seated pose with both hands planted behind the body for support' },

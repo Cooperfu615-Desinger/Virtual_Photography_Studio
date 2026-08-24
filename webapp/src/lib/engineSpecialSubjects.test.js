@@ -374,8 +374,8 @@ test('character profile card still composes with expression and pose composer', 
   assert.equal(prompt.selection.characterProfileId, 'character-48g');
   assert.equal(prompt.selection.poseBaseId, optionId('poseBaseId', '站姿'));
   assert.match(promptText, /relaxed eyelids|neutral mouth|calm composed expression/);
-  assert.match(promptText, /presents a one-leg weight shift/);
-  assert.match(promptText, /one-leg weight shift/);
+  assert.match(promptText, /presents a relaxed standing posture with weight shifted onto one leg/);
+  assert.match(promptText, /weight shifted onto one leg/);
   assert.match(promptText, /both hands clasped loosely in front of the body/);
 });
 
@@ -949,7 +949,7 @@ test('expression and composition-projected pose remain available with special su
   assert.equal(prompt.selection.poseArrangementId, optionId('poseArrangementId', '單腳重心'));
   assert.match(promptText, /relaxed eyelids|neutral mouth|calm composed expression/);
   const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
-  assert.match(canonicalPose, /presents a standing pose/);
+  assert.match(canonicalPose, /presents a subtle asymmetrical weight shift onto one leg/);
   assert.doesNotMatch(canonicalPose, /weight-on-one-leg standing pose|relaxed asymmetrical stance|one-leg weight shift|relaxed asymmetrical body balance/);
   assert.equal(prompt.zImagePrompt.split(canonicalPose).length - 1, 1);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
@@ -1016,7 +1016,7 @@ test('selfie hand pose composer applies to special subjects', () => {
   assert.equal(prompt.selection.poseArrangementId, arrangement.id);
   assert.equal(prompt.selection.poseHandId, poseHand.id);
   assert.match(promptText, /close-companion social snapshot/);
-  assert.match(promptText, /presents a standing pose/);
+  assert.match(promptText, /presents a subtle asymmetrical weight shift onto one leg/);
   assert.doesNotMatch(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance|one-leg weight shift|relaxed asymmetrical body balance/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);
 });

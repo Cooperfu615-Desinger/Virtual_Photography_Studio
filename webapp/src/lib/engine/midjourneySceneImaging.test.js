@@ -75,7 +75,7 @@ test('phase 4 preserves canonical Pose Composer text verbatim in all primary out
 
   assert.equal(
     canonicalPose,
-    'She has her chin slightly raised, arms crossed loosely in front of the body, and presents a slight backward-leaning standing pose.'
+    'She has her chin slightly raised, arms crossed loosely in front of the body, and presents a standing posture with a slight backward lean through the upper body.'
   );
   assert.equal(prompt.zImagePrompt.includes(canonicalPose), true);
   assert.equal(prompt.midjourneyPrompt.includes(canonicalPose), true);

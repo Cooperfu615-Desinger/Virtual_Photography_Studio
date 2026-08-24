@@ -636,7 +636,7 @@ test('Gpt single-subject prompt preserves full-fidelity expression and special a
     poseId: optionId('poseId', '站姿｜雙臂交疊'),
   });
   assert.match(crossedArms.subject, /soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks/i);
-  assert.match(crossedArms.pose, /arms crossed loosely in front of the body[\s\S]*presents a natural relaxed standing pose/i);
+  assert.match(crossedArms.pose, /arms crossed loosely in front of the body[\s\S]*presents a relaxed neutral standing posture/i);
   assert.doesNotMatch(crossedArms.pose, /\.,/i);
   assert.match(crossedArms.prompt.zImagePrompt, /soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks/i);
   assert.doesNotMatch(crossedArms.prompt.zImagePrompt, /cool composed body language/i);
@@ -1221,7 +1221,7 @@ test('Z-Image prompt keeps natural paragraphs across major selection modes', () 
         /triangle bikini top/i,
         /denim shorts/i,
         /Kowloon Walled City interior passage/i,
-        /arms crossed loosely[\s\S]*presents a natural relaxed standing pose/i,
+        /arms crossed loosely[\s\S]*presents a relaxed neutral standing posture/i,
       ],
       minParagraphs: 5,
     },
@@ -1812,12 +1812,12 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
   assert.match(prompt.grokPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.grokPrompt, /large video billboards/i);
   assert.match(prompt.grokPrompt, /flight attendant uniform outfit/i);
-  assert.match(prompt.grokPrompt, /arms crossed loosely[\s\S]*presents a natural relaxed standing pose/i);
+  assert.match(prompt.grokPrompt, /arms crossed loosely[\s\S]*presents a relaxed neutral standing posture/i);
   assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
 
   assert.match(prompt.zImagePrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.zImagePrompt, /flight attendant uniform outfit/i);
-  assert.match(prompt.zImagePrompt, /arms crossed loosely[\s\S]*presents a natural relaxed standing pose/i);
+  assert.match(prompt.zImagePrompt, /arms crossed loosely[\s\S]*presents a relaxed neutral standing posture/i);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
 
   assert.match(prompt.midjourneyPrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
