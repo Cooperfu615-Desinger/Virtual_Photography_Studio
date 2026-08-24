@@ -13352,7 +13352,10 @@ function extractAiSpecialPersonFragments(value, context = null) {
 
 function compactAiGarmentValue(value, preferredRole = '', primarySource = '') {
   const sourceText = primarySource || value;
-  if (preferredRole === 'waistAccessory' && /\bbutterfly waist chain\b/i.test(sourceText)) {
+  if (
+    preferredRole === 'waistAccessory'
+    && /\b(?:butterfly waist chain|navel (?:piercing|ring))\b/i.test(sourceText)
+  ) {
     return compactAiSelectedAccessoryText(sourceText, 'waistAccessory');
   }
 

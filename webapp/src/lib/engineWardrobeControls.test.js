@@ -526,6 +526,24 @@ test('waist accessory options remain traceable in full-body outputs', () => {
   assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '雙層銀鏈水晶腰鍊'));
 });
 
+test('round diamond navel piercing remains traceable as a waist accessory in full-body outputs', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    topId: optionId('topId', '棉質細肩背心'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    waistAccessoryId: optionId('waistAccessoryId', '肚臍環'),
+  });
+
+  const navelPiercingPrompt = /round-cut diamond navel piercing at the belly button, clear circular gemstone, slim polished metal ring setting/i;
+  assert.match(prompt.grokPrompt, navelPiercingPrompt);
+  assert.match(prompt.zImagePrompt, navelPiercingPrompt);
+  assert.match(prompt.midjourneyPrompt, navelPiercingPrompt);
+  assert.match(prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '', navelPiercingPrompt);
+  assert.ok(prompt.structured.Wardrobe.some((item) => item.zh === '肚臍環'));
+  assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '肚臍環'));
+});
+
 test('all leather waist belts use loose decorative styling while retaining their distinct hardware', () => {
   const cases = [
     {
