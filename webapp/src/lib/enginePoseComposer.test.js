@@ -393,9 +393,9 @@ test('kneeling crop projection keeps visible upper-body intent and omits ground-
   const [cowboy] = generatePrompts(1, { ...shared, framingId: framing('牛仔中景 (Cowboy Shot)') });
   const [fullBody] = generatePrompts(1, { ...shared, framingId: framing('全身鏡頭 (Full Body Shot)') });
 
-  assert.match(canonicalPose(chestUp), /upper body held low and close to the ground/i);
+  assert.match(canonicalPose(chestUp), /torso held low and close to the ground/i);
   assert.doesNotMatch(canonicalPose(chestUp), /both palms planted on the ground/i);
-  assert.match(canonicalPose(mediumWaist), /torso held low and angled forward/i);
+  assert.match(canonicalPose(mediumWaist), /low, forward-angled torso with the body supported close to the ground/i);
   assert.doesNotMatch(canonicalPose(mediumWaist), /both palms planted on the ground/i);
   assert.match(canonicalPose(cowboy), /both palms planted on the ground/i);
   assert.match(canonicalPose(fullBody), /both palms planted on the ground/i);
@@ -778,7 +778,7 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
         poseBaseId: optionId('poseBaseId', '跪姿'),
         poseArrangementId: optionId('poseArrangementId', '四足跪姿'),
       },
-      expected: 'She presents an all-fours kneeling pose with the body supported close to the ground.',
+      expected: 'She presents an all-fours kneeling posture with both knees grounded and the torso held low, roughly parallel to the ground.',
     },
     {
       locks: {
@@ -984,6 +984,84 @@ test('squatting arrangements use explicit crop projection without lower-body lea
   assert.match(poseText(fullBody), /low squat with one leg extended straight forward/);
   for (const text of [fullBody.grokPrompt, fullBody.zImagePrompt, fullBody.midjourneyPrompt]) {
     assert.match(text, /low squat with one leg extended straight forward/);
+  }
+});
+
+test('public kneeling arrangements use direct canonical English and crop-safe fragments', () => {
+  const framing = (zh) => optionId('framingId', zh);
+  const poseText = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  const baseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '跪姿'),
+    poseHandId: optionId('poseHandId', '全無'),
+    poseHeadId: optionId('poseHeadId', '全無'),
+    poseAnchorId: optionId('poseAnchorId', '全無'),
+  };
+  const render = (arrangementZh, framingZh) => generatePrompts(1, {
+    ...baseLocks,
+    poseArrangementId: optionId('poseArrangementId', arrangementZh),
+    framingId: framing(framingZh),
+  })[0];
+
+  const cases = [
+    {
+      zh: '跪坐',
+      full: 'She presents a seiza-style kneeling posture with the hips resting on the heels, knees together, and the torso upright.',
+      chest: '',
+      medium: 'She presents a kneeling pose.',
+    },
+    {
+      zh: '分腿跪坐',
+      full: 'She presents a wide-knee kneeling posture with the hips settled between the heels and the torso relaxed upright.',
+      chest: '',
+      medium: 'She presents a kneeling pose.',
+    },
+    {
+      zh: '前傾跪姿',
+      full: 'She presents a forward-leaning kneeling posture with the upper body inclined from the hips while both knees remain grounded.',
+      chest: 'She presents an upper-body pose with a forward torso lean from the hips.',
+      medium: 'She presents a forward torso lean from the hips.',
+    },
+    {
+      zh: '四足跪姿',
+      full: 'She presents an all-fours kneeling posture with both knees grounded and the torso held low, roughly parallel to the ground.',
+      chest: 'She presents an upper-body pose with the torso held low and close to the ground.',
+      medium: 'She presents a low, forward-angled torso with the body supported close to the ground.',
+    },
+    {
+      zh: '跪姿側身',
+      full: 'She presents a side-oriented kneeling posture with the lower body grounded and the torso turned to one side.',
+      chest: 'She presents an upper-body pose with a side-turned upper-body posture and a clear lateral shoulder line.',
+      medium: 'She presents a side-turned upper-body posture and a clear lateral shoulder line.',
+    },
+    {
+      zh: '直立端正跪姿',
+      full: 'She presents an upright poised kneeling posture with the torso tall, shoulders relaxed, and both knees grounded.',
+      chest: 'She presents an upper-body pose with a tall, relaxed upper-body posture.',
+      medium: 'She presents a tall, relaxed upper-body posture.',
+    },
+    {
+      zh: '側坐跪姿',
+      full: 'She presents a side-sitting kneeling posture with the hips lowered beside the folded legs and the torso relaxed upright.',
+      chest: '',
+      medium: 'She presents a kneeling pose.',
+    },
+    {
+      zh: '單膝前跨跪姿',
+      full: 'She presents a half-kneeling posture with one knee grounded, the other leg stepped forward, and the front knee bent.',
+      chest: '',
+      medium: 'She presents a kneeling pose.',
+    },
+  ];
+
+  for (const { zh, full, chest, medium } of cases) {
+    const fullPrompt = render(zh, '全身鏡頭 (Full Body Shot)');
+    assertSharedCanonicalPose(fullPrompt, full);
+    assert.doesNotMatch(full, /\barrangement\b|camera instruction|let the image model/i);
+
+    assert.equal(poseText(render(zh, '胸上特寫')), chest, `${zh}: chest-up projection`);
+    assert.equal(poseText(render(zh, '中景鏡頭 (Medium Shot)')), medium, `${zh}: medium projection`);
   }
 });
 
@@ -1485,9 +1563,9 @@ test('legacy poseId locks migrate into visible pose composer controls and clear 
 
 test('pose composer exposes kneeling and lying expansion batch', () => {
   [
-    ['直立端正跪姿', 'kneeling', /upright poised kneeling arrangement/],
-    ['側坐跪姿', 'kneeling', /side-sitting kneeling arrangement/],
-    ['單膝前跨跪姿', 'kneeling', /one-knee-forward kneeling arrangement/],
+    ['直立端正跪姿', 'kneeling', /upright poised kneeling posture/],
+    ['側坐跪姿', 'kneeling', /side-sitting kneeling posture/],
+    ['單膝前跨跪姿', 'kneeling', /half-kneeling posture/],
     ['手肘支撐跪姿', 'kneeling', /forearms supporting the upper body/],
     ['跪姿微後仰', 'kneeling', /slightly backward-arched kneeling arrangement/],
     ['瑜伽小狗式交叉手托下巴', 'kneeling', /forearms crossed under the chin/],
@@ -1546,8 +1624,8 @@ test('kneeling and lying expansion batch is preserved in all prompt versions', (
       anchorZh: '跪在矮桌前',
       headZh: '低頭三分之四側臉',
       expected: [
-        /side-sitting kneeling pose[\s\S]*in front of a low table/,
-        /side-sitting kneeling pose/,
+        /side-sitting kneeling posture[\s\S]*in front of a low table/,
+        /side-sitting kneeling posture/,
         /both hands clasped loosely in front of the body/,
         /head lowered into a three-quarter side angle/,
       ],
