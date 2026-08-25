@@ -65,6 +65,58 @@ test('all active sitting arrangements carry explicit crop projection metadata', 
   }
 });
 
+test('all active kneeling arrangements carry explicit crop projection metadata', () => {
+  const kneeling = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'kneeling' && !option.meta?.deprecated);
+  assert.equal(kneeling.length, 8);
+
+  for (const option of kneeling) {
+    const metadata = option.meta?.projectionByBucket;
+    assert.ok(metadata, `${option.id} should define projection metadata`);
+    for (const bucket of Object.values(COMPOSITION_VISIBILITY_BUCKETS)) {
+      const projection = getPoseComposerProjection(option, bucket);
+      assert.ok(projection, `${option.id} should define ${bucket} projection mode`);
+      assert.ok(Object.values(POSE_COMPOSER_PROJECTION_MODES).includes(projection.mode));
+    }
+  }
+});
+
+test('kneeling projection separates upper-body and lower-body arrangements', () => {
+  const upperBodyIds = [
+    'kneeling-forward-lean',
+    'kneeling-all-fours',
+    'kneeling-side',
+    'kneeling-upright-poised',
+  ];
+  const lowerBodyIds = [
+    'kneeling-seiza',
+    'kneeling-wide',
+    'kneeling-side-sit',
+    'kneeling-one-knee-forward',
+  ];
+
+  for (const id of upperBodyIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.equal(getPoseComposerProjection(option, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
+    assert.equal(getPoseComposerProjection(option, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
+    assert.equal(getPoseComposerProjection(option, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+    assert.equal(getPoseComposerProjection(option, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+    assert.match(getPoseComposerProjection(option, CHEST_UP).en, /\S/);
+    assert.match(getPoseComposerProjection(option, MEDIUM_WAIST).en, /\S/);
+  }
+
+  for (const id of lowerBodyIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.equal(getPoseComposerProjection(option, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+    assert.equal(getPoseComposerProjection(option, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+    assert.equal(getPoseComposerProjection(option, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+    assert.equal(getPoseComposerProjection(option, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+  }
+
+  const allFours = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, 'kneeling-all-fours');
+  assert.match(getPoseComposerProjection(allFours, CHEST_UP).en, /held low and close to the ground/);
+  assert.match(getPoseComposerProjection(allFours, MEDIUM_WAIST).en, /supported close to the ground/);
+});
+
 test('all active squatting arrangements carry explicit crop projection metadata', () => {
   const squatting = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'squatting' && !option.meta?.deprecated);
   assert.equal(squatting.length, 7);

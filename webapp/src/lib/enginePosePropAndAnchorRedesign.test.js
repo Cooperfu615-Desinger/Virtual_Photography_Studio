@@ -81,6 +81,8 @@ test('retired pose options stay restorable while the public picker excludes them
     ['poseArrangementId', '雙手後撐', '坐姿'],
     ['poseArrangementId', '瑜伽小狗式交叉手托下巴', '跪姿'],
     ['poseArrangementId', '手肘支撐跪姿', '跪姿'],
+    ['poseArrangementId', '單膝跪地', '跪姿'],
+    ['poseArrangementId', '跪姿微後仰', '跪姿'],
   ];
 
   for (const [key, label, baseLabel] of retiredCases) {

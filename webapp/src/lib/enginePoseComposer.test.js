@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, generatePrompts, getLockControls, getSceneDependentOptions, normalizeLocks } from './engine.js';
+import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, getSceneDependentOptions, normalizeLocks } from './engine.js';
 
 function control(key) {
   const entry = getLockControls().find((item) => item.key === key);
@@ -102,6 +102,8 @@ test('public hand catalog is compact and carries the clarified garment/accessory
     '拉下肩線整理上衣',
     '雙手把褲子或裙子的褲頭往上拉',
     '雙手抱膝',
+    '雙掌撐地',
+    '雙肘撐地',
     '雙手插褲子口袋',
     '雙手插外套口袋',
     '單手拿著眼鏡',
@@ -115,6 +117,8 @@ test('public hand catalog is compact and carries the clarified garment/accessory
   assert.match(byZh('拉下肩線整理上衣').en, /pulling the neckline or shoulder seam down.*garment stays attached/i);
   assert.match(byZh('雙手把褲子或裙子的褲頭往上拉').en, /pulling the pants or skirt waistband slightly upward.*without lowering or removing/i);
   assert.match(byZh('雙手抱膝').en, /both arms wrapped around the bent knees.*holding the knees close to the torso/i);
+  assert.match(byZh('雙掌撐地').en, /both palms planted on the ground.*arms supporting the upper body/i);
+  assert.match(byZh('雙肘撐地').en, /both elbows planted on the ground.*forearms supporting the upper body/i);
   assert.match(byZh('單手拿著眼鏡').en, /holding the glasses by one temple.*removed from the face/i);
   assert.match(byZh('咬著眼鏡腳').en, /one glasses temple held lightly between the teeth.*removed from the face/i);
   assert.equal(publicHands.filter((option) => option.meta?.requiresWardrobeRole === 'eyewear').length, 3);
@@ -251,6 +255,83 @@ test('sitting matrix exclusions remain explicitly restorable', () => {
   assert.match(prompt.grokPrompt, /body naturally supported/i);
 });
 
+test('kneeling catalog keeps eight public arrangements and preserves merged legacy ids', () => {
+  const kneelingOptions = control('poseArrangementId').options.filter((option) => option.base === 'kneeling');
+  assert.deepEqual(
+    kneelingOptions.filter((option) => !option.meta?.uiHidden).map((option) => option.zh),
+    ['跪坐', '分腿跪坐', '前傾跪姿', '四足跪姿', '跪姿側身', '直立端正跪姿', '側坐跪姿', '單膝前跨跪姿'],
+  );
+  for (const legacyLabel of ['單膝跪地', '跪姿微後仰']) {
+    const legacy = kneelingOptions.find((option) => option.zh === legacyLabel);
+    assert.ok(legacy, `Expected legacy kneeling option ${legacyLabel}`);
+    assert.equal(legacy.meta?.uiHidden, true, legacyLabel);
+    assert.equal(legacy.meta?.randomEligible, false, legacyLabel);
+    assert.equal(legacy.meta?.deprecated, true, legacyLabel);
+  }
+});
+
+test('kneeling random matrix reserves four-point hands for four-point kneeling', () => {
+  const baseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '跪姿'),
+    poseHandId: optionId('poseHandId', '隨機'),
+    poseHeadId: optionId('poseHeadId', '全無'),
+    poseAnchorId: optionId('poseAnchorId', '全無'),
+  };
+  const fourPointHands = new Set(['hands-palms-planted-ground', 'hands-elbows-planted-ground']);
+  for (const roll of [0, 0.17, 0.34, 0.51, 0.68, 0.85, 0.99]) {
+    const [prompt] = generatePrompts(1, {
+      ...baseLocks,
+      poseArrangementId: optionId('poseArrangementId', '四足跪姿'),
+    }, [], { random: () => roll });
+    assert.equal(fourPointHands.has(prompt.selection.poseHandId), true, `unexpected four-point hand ${prompt.selection.poseHandId}`);
+  }
+
+  const nonFourPointArrangements = ['跪坐', '分腿跪坐', '前傾跪姿', '跪姿側身', '直立端正跪姿', '側坐跪姿', '單膝前跨跪姿'];
+  for (const arrangementZh of nonFourPointArrangements) {
+    for (const roll of [0, 0.5, 0.99]) {
+      const [prompt] = generatePrompts(1, {
+        ...baseLocks,
+        poseArrangementId: optionId('poseArrangementId', arrangementZh),
+      }, [], { random: () => roll });
+      assert.equal(fourPointHands.has(prompt.selection.poseHandId), false, `${arrangementZh} selected a four-point hand`);
+    }
+  }
+});
+
+test('kneeling hug-knees hand is limited to compatible bent-knee arrangements', () => {
+  const baseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '跪姿'),
+    poseHandId: optionId('poseHandId', '隨機'),
+    poseHeadId: optionId('poseHeadId', '全無'),
+    poseAnchorId: optionId('poseAnchorId', '全無'),
+  };
+  let compatibleHugFound = false;
+  for (const arrangementZh of ['跪坐', '分腿跪坐', '側坐跪姿']) {
+    const prompts = generatePrompts(120, {
+      ...baseLocks,
+      poseArrangementId: optionId('poseArrangementId', arrangementZh),
+    }, [], { random: createSeededRandom(`kneeling-hug-${arrangementZh}`) });
+    if (prompts.some((prompt) => prompt.selection.poseHandId === 'hands-hug-knees')) compatibleHugFound = true;
+  }
+  assert.equal(compatibleHugFound, true);
+
+  for (const arrangementZh of ['前傾跪姿', '四足跪姿', '跪姿側身', '直立端正跪姿', '單膝前跨跪姿']) {
+    for (const roll of [0, 0.25, 0.5, 0.75, 0.99]) {
+      const [prompt] = generatePrompts(1, {
+        ...baseLocks,
+        poseArrangementId: optionId('poseArrangementId', arrangementZh),
+      }, [], { random: () => roll });
+      assert.notEqual(prompt.selection.poseHandId, 'hands-hug-knees', `${arrangementZh} selected hug-knees`);
+    }
+  }
+});
+
 test('hand visibility metadata projects lower-body actions out of chest-up canonical poses', () => {
   const shared = {
     ...createEmptyLocks(),
@@ -293,6 +374,45 @@ test('crop projection metadata omits lower-only standing geometry without changi
   assert.match(canonicalPose(cowboy), /hip resting against an existing waist-height edge/i);
   assert.match(canonicalPose(fullBody), /one foot slightly lifted/);
   assert.match(canonicalPose(fullBody), /hip resting against an existing waist-height edge/i);
+});
+
+test('kneeling crop projection keeps visible upper-body intent and omits ground-only hand contact from medium crops', () => {
+  const shared = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '跪姿'),
+    poseArrangementId: optionId('poseArrangementId', '四足跪姿'),
+    poseHandId: optionId('poseHandId', '雙掌撐地'),
+    poseHeadId: optionId('poseHeadId', '頭部自然朝向鏡頭'),
+  };
+  const framing = (zh) => optionId('framingId', zh);
+  const canonicalPose = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+
+  const [chestUp] = generatePrompts(1, { ...shared, framingId: framing('胸上特寫') });
+  const [mediumWaist] = generatePrompts(1, { ...shared, framingId: framing('中景鏡頭 (Medium Shot)') });
+  const [cowboy] = generatePrompts(1, { ...shared, framingId: framing('牛仔中景 (Cowboy Shot)') });
+  const [fullBody] = generatePrompts(1, { ...shared, framingId: framing('全身鏡頭 (Full Body Shot)') });
+
+  assert.match(canonicalPose(chestUp), /upper body held low and close to the ground/i);
+  assert.doesNotMatch(canonicalPose(chestUp), /both palms planted on the ground/i);
+  assert.match(canonicalPose(mediumWaist), /torso held low and angled forward/i);
+  assert.doesNotMatch(canonicalPose(mediumWaist), /both palms planted on the ground/i);
+  assert.match(canonicalPose(cowboy), /both palms planted on the ground/i);
+  assert.match(canonicalPose(fullBody), /both palms planted on the ground/i);
+  for (const prompt of [chestUp, mediumWaist, cowboy, fullBody]) {
+    const pose = canonicalPose(prompt);
+    assert.ok(pose, 'kneeling projected pose should remain present');
+    assert.equal(prompt.zImagePrompt.includes(pose), true, 'Z-Image should reuse the kneeling projected pose');
+    assert.equal(prompt.midjourneyPrompt.includes(pose), true, 'AI should reuse the kneeling projected pose');
+  }
+
+  const [lowerChest] = generatePrompts(1, {
+    ...shared,
+    poseArrangementId: optionId('poseArrangementId', '跪坐'),
+    poseHandId: optionId('poseHandId', '雙手自然垂放'),
+    framingId: framing('胸上特寫'),
+  });
+  assert.doesNotMatch(canonicalPose(lowerChest), /seiza|kneeling arrangement|lower body/i);
 });
 
 function generateWithRandomSequence(locks, values) {
@@ -658,7 +778,7 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
         poseBaseId: optionId('poseBaseId', '跪姿'),
         poseArrangementId: optionId('poseArrangementId', '四足跪姿'),
       },
-      expected: 'She presents an all-fours kneeling pose with hands and knees supporting the body.',
+      expected: 'She presents an all-fours kneeling pose with the body supported close to the ground.',
     },
     {
       locks: {

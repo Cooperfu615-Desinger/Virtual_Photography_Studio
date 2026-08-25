@@ -124,3 +124,23 @@ test('standing matrix hides incompatible support and lower-body options while pr
   assert.equal(poseComposerOptionVisibleForBase(naturalSupportAnchor, 'sitting'), false);
   assert.equal(poseComposerOptionRandomEligibleForBase(naturalSupportAnchor, 'sitting'), false);
 });
+
+test('kneeling matrix keeps four-point support hands and bent-knee hug hands compatible', () => {
+  const kneeling = createPoseComposerCompatibilityContext({ base: 'kneeling' });
+  const fourPoint = { ...kneeling, arrangement: { id: 'kneeling-all-fours' } };
+  const seiza = { ...kneeling, arrangement: { id: 'kneeling-seiza' } };
+  const forwardLean = { ...kneeling, arrangement: { id: 'kneeling-forward-lean' } };
+  const palms = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-palms-planted-ground');
+  const elbows = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-elbows-planted-ground');
+  const hugKnees = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-hug-knees');
+
+  assert.equal(poseComposerOptionVisibleForBase(palms, 'kneeling'), true);
+  assert.equal(poseComposerOptionVisibleForBase(palms, 'standing'), false);
+  assert.equal(poseComposerHandSupportsRandomContext(palms, fourPoint), true);
+  assert.equal(poseComposerHandSupportsRandomContext(elbows, fourPoint), true);
+  assert.equal(poseComposerHandSupportsRandomContext(palms, seiza), false);
+  assert.equal(poseComposerHandSupportsRandomContext(elbows, forwardLean), false);
+  assert.equal(poseComposerHandSupportsRandomContext(hugKnees, seiza), true);
+  assert.equal(poseComposerHandSupportsRandomContext(hugKnees, fourPoint), false);
+  assert.equal(poseComposerHandSupportsRandomContext(hugKnees, forwardLean), false);
+});

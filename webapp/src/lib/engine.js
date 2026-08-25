@@ -5386,6 +5386,8 @@ const MEDIUM_HIDDEN_HAND_IDS = new Set([
   'one-hand-knee-one-down',
   'one-hand-ankle',
   'hands-gathered-lower-abdomen',
+  'hands-palms-planted-ground',
+  'hands-elbows-planted-ground',
 ]);
 
 const COWBOY_HIDDEN_HAND_IDS = new Set([

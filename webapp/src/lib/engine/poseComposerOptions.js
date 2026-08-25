@@ -130,6 +130,38 @@ const SITTING_LOWER_PROJECTION = createPoseComposerProjectionMap({
   ],
 });
 
+const KNEELING_UPPER_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  projected: [
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+  ],
+});
+
+const KNEELING_LOWER_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+});
+
 const SQUATTING_UPPER_PROJECTION = createPoseComposerProjectionMap({
   visible: [
     COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
@@ -363,6 +395,24 @@ const withSittingUpperProjectionEnglish = (option, english) => ({
   },
 });
 
+const withKneelingUpperProjectionEnglish = (option, chestEnglish, mediumEnglish = chestEnglish) => ({
+  ...option,
+  meta: {
+    ...(option.meta || {}),
+    projectionByBucket: {
+      ...(option.meta?.projectionByBucket || KNEELING_UPPER_PROJECTION),
+      [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: {
+        mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+        en: chestEnglish,
+      },
+      [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: {
+        mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+        en: mediumEnglish,
+      },
+    },
+  },
+});
+
 const withSquattingUpperProjectionEnglish = (option, english, mediumEnglish = english) => ({
   ...option,
   meta: {
@@ -418,18 +468,31 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'sitting-legs-to-side', base: 'sitting', zh: '雙腿側放坐姿', en: 'seated arrangement with both legs angled to one side, soft asymmetrical lower-body line', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
   deprecatedPoseArrangement(withSittingUpperProjectionEnglish({ id: 'sitting-grounded-forward-lean', base: 'sitting', zh: '坐姿身體前傾', en: 'grounded forward-leaning seated arrangement, upper body angled forward with stable seated weight' }, 'the upper body angled forward')),
   withSittingUpperProjectionEnglish({ id: 'sitting-open-confident', base: 'sitting', zh: '開闊自信坐姿', en: 'open, grounded seated posture with the knees comfortably apart, weight settled through the hips, and the torso relaxed and upright', desc: '膝蓋自然分開、重心穩定下沉，軀幹放鬆直立，呈現沒有拘束的開放坐姿。' }, 'an open, relaxed upper-body posture with the torso upright and shoulders at ease'),
-  { id: 'kneeling-seiza', base: 'kneeling', zh: '跪坐', en: 'seiza-style kneeling arrangement' },
-  { id: 'kneeling-wide', base: 'kneeling', zh: '分腿跪坐', en: 'wide-knee kneeling arrangement' },
-  { id: 'kneeling-forward-lean', base: 'kneeling', zh: '前傾跪姿', en: 'forward-leaning kneeling arrangement' },
-  { id: 'kneeling-all-fours', base: 'kneeling', zh: '四足跪姿', en: 'all-fours kneeling arrangement with hands and knees supporting the body' },
+  { id: 'kneeling-seiza', base: 'kneeling', zh: '跪坐', en: 'seiza-style kneeling arrangement', meta: { projectionByBucket: KNEELING_LOWER_PROJECTION } },
+  { id: 'kneeling-wide', base: 'kneeling', zh: '分腿跪坐', en: 'wide-knee kneeling arrangement', meta: { projectionByBucket: KNEELING_LOWER_PROJECTION } },
+  withKneelingUpperProjectionEnglish(
+    { id: 'kneeling-forward-lean', base: 'kneeling', zh: '前傾跪姿', en: 'forward-leaning kneeling arrangement' },
+    'the upper body leaning forward from the hips',
+  ),
+  withKneelingUpperProjectionEnglish(
+    { id: 'kneeling-all-fours', base: 'kneeling', zh: '四足跪姿', en: 'all-fours kneeling arrangement with the body supported close to the ground' },
+    'the upper body held low and close to the ground',
+    'the torso held low and angled forward, with the body supported close to the ground',
+  ),
   deprecatedPoseArrangement({ id: 'kneeling-puppy-crossed-hands-chin', base: 'kneeling', zh: '瑜伽小狗式交叉手托下巴', en: 'extended puppy kneeling pose with knees grounded, torso folded forward, forearms crossed under the chin, and hands tucked below the jaw' }),
-  { id: 'kneeling-one-knee', base: 'kneeling', zh: '單膝跪地', en: 'one-knee kneeling arrangement' },
-  { id: 'kneeling-side', base: 'kneeling', zh: '跪姿側身', en: 'side-facing kneeling arrangement' },
-  { id: 'kneeling-upright-poised', base: 'kneeling', zh: '直立端正跪姿', en: 'upright poised kneeling arrangement, torso vertical with stable knee support' },
-  { id: 'kneeling-side-sit', base: 'kneeling', zh: '側坐跪姿', en: 'side-sitting kneeling arrangement, hips lowered beside the legs with a soft lateral body line' },
-  { id: 'kneeling-one-knee-forward', base: 'kneeling', zh: '單膝前跨跪姿', en: 'one-knee-forward kneeling arrangement, front knee bent with the other knee grounded' },
+  deprecatedPoseArrangement({ id: 'kneeling-one-knee', base: 'kneeling', zh: '單膝跪地', en: 'one-knee kneeling arrangement' }),
+  withKneelingUpperProjectionEnglish(
+    { id: 'kneeling-side', base: 'kneeling', zh: '跪姿側身', en: 'side-facing kneeling arrangement' },
+    'the upper body turned to one side with a clear lateral shoulder line',
+  ),
+  withKneelingUpperProjectionEnglish(
+    { id: 'kneeling-upright-poised', base: 'kneeling', zh: '直立端正跪姿', en: 'upright poised kneeling arrangement, torso vertical with stable knee support' },
+    'an upright, composed upper-body posture',
+  ),
+  { id: 'kneeling-side-sit', base: 'kneeling', zh: '側坐跪姿', en: 'side-sitting kneeling arrangement, hips lowered beside the legs with a soft lateral body line', meta: { projectionByBucket: KNEELING_LOWER_PROJECTION } },
+  { id: 'kneeling-one-knee-forward', base: 'kneeling', zh: '單膝前跨跪姿', en: 'one-knee-forward kneeling arrangement, front knee bent with the other knee grounded', meta: { projectionByBucket: KNEELING_LOWER_PROJECTION } },
   deprecatedPoseArrangement({ id: 'kneeling-elbow-support', base: 'kneeling', zh: '手肘支撐跪姿', en: 'kneeling arrangement with elbows or forearms supporting the upper body on a nearby surface' }),
-  { id: 'kneeling-back-arched', base: 'kneeling', zh: '跪姿微後仰', en: 'slightly backward-arched kneeling arrangement, torso leaning back with balanced knee support' },
+  deprecatedPoseArrangement({ id: 'kneeling-back-arched', base: 'kneeling', zh: '跪姿微後仰', en: 'slightly backward-arched kneeling arrangement, torso leaning back with balanced knee support' }),
   withSquattingUpperProjectionEnglish(
     { id: 'squatting-natural', base: 'squatting', zh: '自然蹲姿', en: 'deep resting squat with both feet flat on the ground, heels down, knees deeply bent, and the body balanced low over the feet' },
     'the torso upright and relaxed',
@@ -549,6 +612,8 @@ const POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS = new Set([
   'hand-adjust-off-shoulder-top',
   'hands-lift-waistband',
   'hands-hug-knees',
+  'hands-palms-planted-ground',
+  'hands-elbows-planted-ground',
   'hands-in-pockets',
   'hands-in-outerwear-pockets',
   'one-hand-hold-glasses',
@@ -572,7 +637,9 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'both-hands-gather-hair', zh: '雙手抓著整束頭髮與髮尾整理', en: 'both hands gathering one thick bundle of hair behind and above the head, one hand holding near the base while the other grips and smooths the loose lengths toward the ends in a natural ponytail-prep motion', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
   { id: 'hand-adjust-off-shoulder-top', zh: '拉下肩線整理上衣', en: 'one hand gently pulling the neckline or shoulder seam down from one shoulder to expose the shoulder while the garment stays attached and naturally draped', desc: '單手把領口或肩線往一側肩膀下拉，露出肩膀，但衣服仍保持連著身體並自然垂墜。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'upperGarment' } },
   { id: 'hands-lift-waistband', zh: '雙手把褲子或裙子的褲頭往上拉', en: 'both hands pulling the pants or skirt waistband slightly upward into place, fingers gripping the waistband or belt loops without lowering or removing the garment', desc: '雙手把褲子或裙子的褲頭稍微往上拉回定位，不是往下脫。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresWardrobeRole: 'bottom' } },
-  hidePoseOptionForBase({ id: 'hands-hug-knees', zh: '雙手抱膝', en: 'both arms wrapped around the bent knees, hands gently holding the knees close to the torso', desc: '雙手環抱彎曲的膝蓋，手掌自然扶住膝部，不綁定特定蹲姿。', meta: { tags: ['leg_focus_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, randomEligibleForArrangements: { sitting: ['sitting-hug-knees', 'sitting-one-knee-up'] } } }, 'standing'),
+  hidePoseOptionForBase({ id: 'hands-hug-knees', zh: '雙手抱膝', en: 'both arms wrapped around the bent knees, hands gently holding the knees close to the torso', desc: '雙手環抱彎曲的膝蓋，手掌自然扶住膝部，不綁定特定蹲姿。', meta: { tags: ['leg_focus_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, randomEligibleForArrangements: { sitting: ['sitting-hug-knees', 'sitting-one-knee-up'], kneeling: ['kneeling-seiza', 'kneeling-wide', 'kneeling-side-sit'] } } }, 'standing'),
+  hidePoseOptionForBases({ id: 'hands-palms-planted-ground', zh: '雙掌撐地', en: 'both palms planted on the ground with the arms supporting the upper body', desc: '雙掌平放在地面，手臂支撐上半身。', meta: { tags: ['support_action', 'leg_focus_action'], visibleBuckets: HAND_VISIBLE_BUCKETS, randomEligibleForArrangements: { kneeling: ['kneeling-all-fours'] } } }, ['standing', 'sitting', 'squatting', 'lying']),
+  hidePoseOptionForBases({ id: 'hands-elbows-planted-ground', zh: '雙肘撐地', en: 'both elbows planted on the ground with the forearms supporting the upper body', desc: '雙肘接觸地面，前臂支撐上半身。', meta: { tags: ['support_action', 'leg_focus_action'], visibleBuckets: HAND_VISIBLE_BUCKETS, randomEligibleForArrangements: { kneeling: ['kneeling-all-fours'] } } }, ['standing', 'sitting', 'squatting', 'lying']),
   { id: 'hands-in-pockets', zh: '雙手插褲子口袋', en: 'both hands tucked into the two front pockets of her pants, elbows relaxed and angled slightly outward', desc: '雙手插入褲子前方兩側口袋，手肘自然放鬆並微微向外。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresWardrobeRole: 'pants', legacyPromptAliases: ['both hands tucked into pockets'] } },
   { id: 'hands-in-outerwear-pockets', zh: '雙手插外套口袋', en: 'both hands tucked into the two side pockets of her jacket or coat, elbows relaxed and angled slightly outward', desc: '雙手插入外套兩側口袋，手肘自然放鬆並微微向外。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresWardrobeRole: 'outerwear' } },
   { id: 'one-hand-hold-glasses', zh: '單手拿著眼鏡', en: 'one hand holding the glasses by one temple, with the glasses removed from the face and hanging naturally beside the cheek', desc: '單手捏住眼鏡其中一側鏡腳，眼鏡已取下並自然垂在臉頰旁。', meta: { tags: ['face_action', 'eyewear_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'eyewear', requiresFaceVisibility: true } },

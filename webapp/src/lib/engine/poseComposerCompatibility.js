@@ -6,7 +6,7 @@ import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.
  * These predicates are deliberately applied only to random pools. Explicit
  * Pose Composer locks remain user intent and are not silently replaced.
  */
-export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 4;
+export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 5;
 
 const UPPER_OR_KNEE_CROP_BUCKETS = new Set([
   COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
@@ -49,6 +49,11 @@ const LOWER_BODY_HANDS = new Set([
   'one-hand-ankle',
   'hands-gathered-lower-abdomen',
   'hands-hug-knees',
+]);
+
+const KNEELING_FOUR_POINT_HANDS = new Set([
+  'hands-palms-planted-ground',
+  'hands-elbows-planted-ground',
 ]);
 
 function getTags(item) {
@@ -121,6 +126,12 @@ export function poseComposerHandSupportsRandomContext(hand, context = {}) {
   if (Array.isArray(eligibleArrangements)
     && !eligibleArrangements.includes(context.arrangement?.id)) {
     return false;
+  }
+
+  if (context.baseId === 'kneeling') {
+    const isFourPointKneeling = context.arrangement?.id === 'kneeling-all-fours';
+    if (isFourPointKneeling && !KNEELING_FOUR_POINT_HANDS.has(hand.id)) return false;
+    if (!isFourPointKneeling && KNEELING_FOUR_POINT_HANDS.has(hand.id)) return false;
   }
 
   if (UPPER_CROP_BUCKETS.has(context.bucket) && LOWER_BODY_HANDS.has(hand.id)) return false;
