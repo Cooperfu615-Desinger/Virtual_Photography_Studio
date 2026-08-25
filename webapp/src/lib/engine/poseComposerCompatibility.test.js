@@ -14,7 +14,9 @@ import {
   poseComposerHandSupportsRandomContext,
   poseComposerHeadSupportsRandomContext,
   poseComposerOptionRandomEligibleForBase,
+  poseComposerOptionRandomEligibleForOrientation,
   poseComposerOptionVisibleForBase,
+  poseComposerOptionVisibleForOrientation,
   poseComposerPropSupportsRandomContext,
 } from './poseComposerCompatibility.js';
 
@@ -183,4 +185,65 @@ test('squatting matrix exposes six dedicated hand actions only for squatting', (
       orbitTags: ['back_view'],
     }), false);
   }
+});
+
+test('lying matrix scopes dedicated hands and heads to their selected orientation', () => {
+  const findHand = (id) => POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id);
+  const findHead = (id) => POSE_COMPOSER_HEAD_OPTIONS.find((item) => item.id === id);
+  const supine = createPoseComposerCompatibilityContext({
+    base: 'lying',
+    orientation: 'lying-supine',
+    arrangement: 'lying-body-half-recline',
+    bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  });
+  const side = createPoseComposerCompatibilityContext({
+    base: 'lying',
+    orientation: 'lying-side',
+    arrangement: 'lying-body-upper-propped',
+    bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  });
+  const prone = createPoseComposerCompatibilityContext({
+    base: 'lying',
+    orientation: 'lying-prone',
+    arrangement: 'lying-body-upper-propped',
+    bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  });
+  const supineHand = findHand('lying-supine-arms-overhead');
+  const sideHand = findHand('lying-side-lower-arm-under-head');
+  const proneHand = findHand('lying-prone-elbows-support');
+  const supineHead = findHead('lying-supine-head-neutral');
+  const sideHead = findHead('lying-side-head-on-support');
+  const proneHead = findHead('lying-prone-head-turned-side');
+
+  assert.equal(poseComposerOptionVisibleForBase(supineHand, 'lying'), true);
+  assert.equal(poseComposerOptionVisibleForOrientation(supineHand, 'lying-supine'), true);
+  assert.equal(poseComposerOptionVisibleForOrientation(supineHand, 'lying-prone'), false);
+  assert.equal(poseComposerHandSupportsRandomContext(supineHand, supine), true);
+  assert.equal(poseComposerHandSupportsRandomContext(supineHand, side), false);
+  assert.equal(poseComposerHandSupportsRandomContext(sideHand, side), true);
+  assert.equal(poseComposerHandSupportsRandomContext(proneHand, prone), true);
+  assert.equal(poseComposerHandSupportsRandomContext(proneHand, side), false);
+  assert.equal(poseComposerOptionRandomEligibleForOrientation(supineHead, 'lying-supine'), true);
+  assert.equal(poseComposerOptionRandomEligibleForOrientation(supineHead, 'lying-side'), false);
+  assert.equal(poseComposerOptionRandomEligibleForOrientation(supineHead, 'none'), false);
+  assert.equal(poseComposerHeadSupportsRandomContext(sideHead, side), true);
+  assert.equal(poseComposerHeadSupportsRandomContext(proneHead, prone), true);
+});
+
+test('lying body variation matrix prevents half-recline and upper-propped random conflicts', () => {
+  const supine = createPoseComposerCompatibilityContext({ base: 'lying', orientation: 'lying-supine' });
+  const side = createPoseComposerCompatibilityContext({ base: 'lying', orientation: 'lying-side' });
+  const prone = createPoseComposerCompatibilityContext({ base: 'lying', orientation: 'lying-prone' });
+  const genericPocketHands = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-in-pockets');
+  const arrangements = [
+    { id: 'lying-body-half-recline', meta: { randomEligibleForOrientations: { 'lying-supine': true, 'lying-side': false, 'lying-prone': false } } },
+    { id: 'lying-body-upper-propped', meta: { randomEligibleForOrientations: { 'lying-supine': false, 'lying-side': true, 'lying-prone': true } } },
+  ];
+  assert.equal(poseComposerArrangementSupportsRandomContext(arrangements[0], supine), true);
+  assert.equal(poseComposerArrangementSupportsRandomContext(arrangements[0], side), false);
+  assert.equal(poseComposerArrangementSupportsRandomContext(arrangements[0], prone), false);
+  assert.equal(poseComposerArrangementSupportsRandomContext(arrangements[1], supine), false);
+  assert.equal(poseComposerArrangementSupportsRandomContext(arrangements[1], side), true);
+  assert.equal(poseComposerArrangementSupportsRandomContext(arrangements[1], prone), true);
+  assert.equal(poseComposerHandSupportsRandomContext(genericPocketHands, supine), false);
 });

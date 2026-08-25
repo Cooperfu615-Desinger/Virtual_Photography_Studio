@@ -245,14 +245,23 @@ test('cube plinth anchors stay restorable but leave the public picker and random
       ...createEmptyLocks(),
       subjectCount: '1',
       poseBaseId: baseId,
+      ...(baseId === 'lying' ? { poseOrientationId: 'random' } : {}),
       poseAnchorId: 'random',
     };
     const [naturalSupportPrompt] = generatePrompts(1, locks, [], { random: () => 0.34 });
-    assert.equal(
-      naturalSupportPrompt.selection.poseAnchorId,
-      ['standing', 'sitting'].includes(baseId) ? 'shared-vertical-surface-support' : 'shared-natural-support',
-      baseId,
-    );
+    if (baseId === 'lying') {
+      assert.ok(
+        naturalSupportPrompt.selection.poseAnchorId.startsWith('lying-')
+          || ['water-immersed', 'water-edge-support'].includes(naturalSupportPrompt.selection.poseAnchorId),
+        `lying should use a dedicated or water support anchor: ${naturalSupportPrompt.selection.poseAnchorId}`,
+      );
+    } else {
+      assert.equal(
+        naturalSupportPrompt.selection.poseAnchorId,
+        ['standing', 'sitting'].includes(baseId) ? 'shared-vertical-surface-support' : 'shared-natural-support',
+        baseId,
+      );
+    }
 
     for (let index = 0; index < 100; index += 1) {
       const [prompt] = generatePrompts(1, locks, [], { random: () => index / 100 });

@@ -84,11 +84,24 @@ function createFullySpecifiedLocks(overrides = {}) {
   return { ...locks, subjectCount: '1', ...overrides };
 }
 
-test('public hand catalog is compact and carries the clarified garment/accessory language', () => {
+test('public hand catalog includes dedicated lying actions and clarified garment/accessory language', () => {
   const publicHands = control('poseHandId').options
     .filter((option) => !option.meta?.uiHidden && !['none', 'random', 'model-natural-hand-placement'].includes(option.id));
 
   assert.deepEqual(publicHands.map((option) => option.zh), [
+    '仰躺雙手自然放在身側',
+    '仰躺一手放在頭後',
+    '仰躺一手放在腹部',
+    '仰躺雙手向頭頂伸展',
+    '仰躺雙手合掌靠在臉側',
+    '側躺下側手臂支撐頭部',
+    '側躺上側手放在髖部',
+    '側躺雙手在身前',
+    '側躺一手靠近臉部',
+    '趴臥雙手沿身側伸展',
+    '趴臥一手放在臉旁',
+    '趴臥雙手托在下巴下方',
+    '趴臥雙肘支撐上半身',
     '雙手自然垂放',
     '雙臂交疊',
     '一手扶腰一手自然放下',
@@ -1784,9 +1797,9 @@ test('lying orientation and body variation compose into one shared canonical pos
 test('lying public English keeps orientation and body variation geometry distinct across crops', () => {
   const poseText = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
   const orientations = [
-    ['仰躺', /supine lying position, back supported, chest and face turned upward/],
+    ['仰躺', /supine lying position, front of the body facing upward/],
     ['側躺', /side-lying position, body turned onto one side/],
-    ['趴臥', /prone lying position, chest and abdomen facing the support surface, face turned downward/],
+    ['趴臥', /prone lying position, chest and abdomen facing the support surface/],
   ];
   const variations = [
     { zh: '自然伸展', full: /body extended in a relaxed line, legs resting naturally/ },
@@ -1837,6 +1850,115 @@ test('lying public English keeps orientation and body variation geometry distinc
         assert.match(chestCanonical, projectedVariationPattern);
         assert.doesNotMatch(chestCanonical, /legs|knees|lower body remains/i);
       }
+    }
+  }
+});
+
+test('lying dedicated matrix composes orientation-specific hands heads and scene surfaces', () => {
+  const indoorAnchors = getSceneDependentOptions([], {
+    ...createEmptyLocks(),
+    sceneAttributeId: optionId('sceneAttributeId', '室內'),
+  }).poseAnchorOptions;
+  const outdoorAnchors = getSceneDependentOptions([], {
+    ...createEmptyLocks(),
+    sceneAttributeId: optionId('sceneAttributeId', '戶外'),
+  }).poseAnchorOptions;
+  assert.deepEqual(
+    indoorAnchors.filter((option) => option.meta?.tags?.includes('lying_support')).map((option) => option.zh),
+    ['床上', '榻榻米上', '地板上', '浴缸內（無水）', '沙發上'],
+  );
+  assert.deepEqual(
+    outdoorAnchors.filter((option) => option.meta?.tags?.includes('lying_support')).map((option) => option.zh),
+    ['草地上', '水泥地上', '沙地上'],
+  );
+
+  const cases = [
+    {
+      orientationZh: '仰躺',
+      arrangementZh: '上半身半躺',
+      handZh: '仰躺雙手向頭頂伸展',
+      headZh: '仰躺頭部自然朝上',
+      anchorZh: '床上',
+      expected: [/supine lying position/, /both arms extending naturally overhead/, /head resting naturally upward/, /existing bed surface/],
+    },
+    {
+      orientationZh: '側躺',
+      arrangementZh: '上半身撐起',
+      handZh: '側躺下側手臂支撐頭部',
+      headZh: '側躺頭部貼近支撐面',
+      anchorZh: '沙發上',
+      expected: [/side-lying position/, /lower arm folded under the head/, /head resting close to the support surface/, /existing sofa surface/],
+    },
+    {
+      orientationZh: '趴臥',
+      arrangementZh: '上半身撐起',
+      handZh: '趴臥雙肘支撐上半身',
+      headZh: '趴臥頭部轉向一側',
+      anchorZh: '草地上',
+      sceneAttributeZh: '戶外',
+      expected: [/prone lying position/, /both elbows planted on the support surface/, /head turned sideways/, /grass-covered ground/],
+    },
+  ];
+
+  for (const entry of cases) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      sceneAttributeId: optionId('sceneAttributeId', entry.sceneAttributeZh || '室內'),
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      poseBaseId: optionId('poseBaseId', '躺姿'),
+      poseOrientationId: optionId('poseOrientationId', entry.orientationZh),
+      poseArrangementId: optionIdForBase('poseArrangementId', entry.arrangementZh, 'lying'),
+      poseHandId: optionId('poseHandId', entry.handZh),
+      poseHeadId: optionId('poseHeadId', entry.headZh),
+      poseAnchorId: optionId('poseAnchorId', entry.anchorZh),
+    });
+    entry.expected.forEach((pattern) => assert.match(prompt.grokPrompt, pattern));
+    assert.equal(prompt.selection.poseOrientationId, optionId('poseOrientationId', entry.orientationZh));
+    assert.equal(prompt.selection.poseHandId, optionId('poseHandId', entry.handZh));
+    assert.equal(prompt.selection.poseHeadId, optionId('poseHeadId', entry.headZh));
+    for (const text of [prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      entry.expected.forEach((pattern) => assert.match(text, pattern));
+    }
+  }
+});
+
+test('lying random pools stay inside the selected orientation matrix', () => {
+  const allowed = {
+    '仰躺': {
+      hands: /^lying-supine-/,
+      heads: /^lying-supine-/,
+      forbiddenArrangement: 'lying-body-upper-propped',
+    },
+    '側躺': {
+      hands: /^lying-side-/,
+      heads: /^lying-side-/,
+      forbiddenArrangement: 'lying-body-half-recline',
+    },
+    '趴臥': {
+      hands: /^lying-prone-/,
+      heads: /^lying-prone-/,
+      forbiddenArrangement: 'lying-body-half-recline',
+    },
+  };
+
+  for (const [orientationZh, rules] of Object.entries(allowed)) {
+    const prompts = generatePrompts(48, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      poseBaseId: optionId('poseBaseId', '躺姿'),
+      poseOrientationId: optionId('poseOrientationId', orientationZh),
+      poseArrangementId: optionId('poseArrangementId', '隨機'),
+      poseHandId: optionId('poseHandId', '隨機'),
+      poseHeadId: optionId('poseHeadId', '隨機'),
+      poseAnchorId: optionId('poseAnchorId', '全無'),
+    }, [], { random: createSeededRandom(`lying-matrix-${orientationZh}`) });
+
+    for (const prompt of prompts) {
+      assert.notEqual(prompt.selection.poseArrangementId, rules.forbiddenArrangement);
+      assert.match(prompt.selection.poseHandId, rules.hands);
+      assert.match(prompt.selection.poseHeadId, rules.heads);
     }
   }
 });

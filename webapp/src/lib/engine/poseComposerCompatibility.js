@@ -6,7 +6,7 @@ import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.
  * These predicates are deliberately applied only to random pools. Explicit
  * Pose Composer locks remain user intent and are not silently replaced.
  */
-export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 6;
+export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 7;
 
 const UPPER_OR_KNEE_CROP_BUCKETS = new Set([
   COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
@@ -64,14 +64,33 @@ function hasAnyTag(tags, values) {
   return values.some((value) => tags.has(value));
 }
 
+function getContextArrangementId(context = {}) {
+  return context.arrangement?.id || context.arrangementId || null;
+}
+
 export function poseComposerOptionVisibleForBase(option, baseId) {
   if (!option || !baseId) return true;
   return !option.meta?.hiddenForBases?.includes(baseId);
 }
 
+export function poseComposerOptionVisibleForOrientation(option, orientationId) {
+  if (!option || !orientationId || orientationId === 'none' || orientationId === 'random') return true;
+  return !option.meta?.hiddenForOrientations?.includes(orientationId);
+}
+
 export function poseComposerOptionRandomEligibleForBase(option, baseId) {
+  if (!baseId && (option?.base || Array.isArray(option?.bases) || option?.meta?.randomEligibleWithoutBase === false)) {
+    return false;
+  }
   if (!poseComposerOptionVisibleForBase(option, baseId)) return false;
   return option?.meta?.randomEligibleForBases?.[baseId] !== false;
+}
+
+export function poseComposerOptionRandomEligibleForOrientation(option, orientationId) {
+  if (!poseComposerOptionVisibleForOrientation(option, orientationId)) return false;
+  const hasOrientationMatrix = Boolean(option?.meta?.randomEligibleForOrientations);
+  if (!orientationId || orientationId === 'none' || orientationId === 'random') return !hasOrientationMatrix;
+  return option?.meta?.randomEligibleForOrientations?.[orientationId] !== false;
 }
 
 export function createPoseComposerCompatibilityContext({
@@ -79,11 +98,15 @@ export function createPoseComposerCompatibilityContext({
   angle = null,
   orbit = null,
   base = null,
+  orientation = null,
+  arrangement = null,
   wardrobeSignals = {},
 } = {}) {
   return Object.freeze({
     bucket,
     baseId: typeof base === 'string' ? base : base?.id || null,
+    orientationId: typeof orientation === 'string' ? orientation : orientation?.id || null,
+    arrangementId: typeof arrangement === 'string' ? arrangement : arrangement?.id || null,
     angleTags: Object.freeze([...getTags(angle)]),
     orbitTags: Object.freeze([...getTags(orbit)]),
     wardrobeSignals: Object.freeze({ ...wardrobeSignals }),
@@ -105,6 +128,7 @@ export function poseComposerBaseSupportsRandomContext(base, context = {}) {
 }
 export function poseComposerArrangementSupportsRandomContext(arrangement, context = {}) {
   if (!arrangement?.id || arrangement.id === 'none' || arrangement.id === 'random') return true;
+  if (!poseComposerOptionRandomEligibleForOrientation(arrangement, context.orientationId)) return false;
 
   const orbitTags = new Set(context.orbitTags || []);
   if (orbitTags.has('front_view') && SIDE_OR_REAR_ORIENTATION_ARRANGEMENTS.has(arrangement.id)) return false;
@@ -121,15 +145,17 @@ export function poseComposerArrangementSupportsRandomContext(arrangement, contex
 export function poseComposerHandSupportsRandomContext(hand, context = {}) {
   if (!hand?.id || hand.id === 'none' || hand.id === 'random') return true;
   if (!poseComposerOptionRandomEligibleForBase(hand, context.baseId)) return false;
+  if (!poseComposerOptionRandomEligibleForOrientation(hand, context.orientationId)) return false;
 
+  const arrangementId = getContextArrangementId(context);
   const eligibleArrangements = hand.meta?.randomEligibleForArrangements?.[context.baseId];
   if (Array.isArray(eligibleArrangements)
-    && !eligibleArrangements.includes(context.arrangement?.id)) {
+    && !eligibleArrangements.includes(arrangementId)) {
     return false;
   }
 
   if (context.baseId === 'kneeling') {
-    const isFourPointKneeling = context.arrangement?.id === 'kneeling-all-fours';
+    const isFourPointKneeling = arrangementId === 'kneeling-all-fours';
     if (isFourPointKneeling && !KNEELING_FOUR_POINT_HANDS.has(hand.id)) return false;
     if (!isFourPointKneeling && KNEELING_FOUR_POINT_HANDS.has(hand.id)) return false;
   }
@@ -170,10 +196,12 @@ export function poseComposerPropSupportsRandomContext(prop, context = {}) {
 export function poseComposerHeadSupportsRandomContext(head, context = {}) {
   if (!head?.id || head.id === 'none' || head.id === 'random') return true;
   if (!poseComposerOptionRandomEligibleForBase(head, context.baseId)) return false;
+  if (!poseComposerOptionRandomEligibleForOrientation(head, context.orientationId)) return false;
 
   const headTags = getTags(head);
   const orbitTags = new Set(context.orbitTags || []);
-  if (orbitTags.has('front_view') && SIDE_OR_REAR_ORIENTATION_ARRANGEMENTS.has(context.arrangement?.id)
+  const arrangementId = getContextArrangementId(context);
+  if (orbitTags.has('front_view') && SIDE_OR_REAR_ORIENTATION_ARRANGEMENTS.has(arrangementId)
     && head.id === 'head-camera-natural') {
     return false;
   }
@@ -182,7 +210,7 @@ export function poseComposerHeadSupportsRandomContext(head, context = {}) {
     return false;
   }
 
-  if (SIDE_OR_REAR_ORIENTATION_ARRANGEMENTS.has(context.arrangement?.id)
+  if (SIDE_OR_REAR_ORIENTATION_ARRANGEMENTS.has(arrangementId)
     && head.id === 'head-camera-natural') {
     return false;
   }

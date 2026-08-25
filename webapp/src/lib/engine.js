@@ -85,6 +85,7 @@ import {
   poseComposerHandSupportsRandomContext,
   poseComposerHeadSupportsRandomContext,
   poseComposerOptionRandomEligibleForBase,
+  poseComposerOptionRandomEligibleForOrientation,
   poseComposerPropSupportsRandomContext,
 } from './engine/poseComposerCompatibility.js';
 import { createPromptSectionModel } from './engine/promptModel.js';
@@ -4391,14 +4392,41 @@ function isWaterPoseLocation(location) {
   return Boolean(getWaterPoseSceneType(location));
 }
 
-function poseComposerAnchorAllowedByScene(option, location, lockedLocationId = '') {
-  if (!option?.meta?.requiresWaterScene) return true;
-  if (!lockedLocationId) return false;
-  return isWaterPoseLocation(location);
+function poseComposerAnchorAllowedByScene(option, location, lockedLocationId = '', sceneAttribute = null) {
+  if (option?.meta?.requiresWaterScene) {
+    if (!lockedLocationId) return false;
+    if (!isWaterPoseLocation(location)) return false;
+  }
+
+  const requiredSceneType = option?.meta?.requiresSceneType;
+  if (!requiredSceneType) return true;
+
+  const locationTags = new Set(location?.meta?.tags || []);
+  const indoor = sceneAttribute?.id === 'indoor'
+    || locationTags.has('indoor')
+    || locationTags.has('studio')
+    || locationTags.has('set')
+    || locationTags.has('controlled')
+    || locationTags.has('residential')
+    || locationTags.has('hospitality');
+  const outdoor = sceneAttribute?.id === 'outdoor'
+    || locationTags.has('outdoor')
+    || locationTags.has('natural')
+    || locationTags.has('waterfront')
+    || locationTags.has('green_space');
+
+  if (requiredSceneType === 'indoor') return indoor;
+  if (requiredSceneType === 'outdoor') return outdoor;
+  return true;
 }
 
-function getScenePoseAnchorOptions(location, lockedLocationId = '') {
-  return POSE_COMPOSER_ANCHOR_OPTIONS.filter((option) => poseComposerAnchorAllowedByScene(option, location, lockedLocationId));
+function getScenePoseAnchorOptions(location, lockedLocationId = '', sceneAttribute = null) {
+  return POSE_COMPOSER_ANCHOR_OPTIONS.filter((option) => poseComposerAnchorAllowedByScene(
+    option,
+    location,
+    lockedLocationId,
+    sceneAttribute,
+  ));
 }
 
 export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
@@ -4425,7 +4453,7 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
     return lightDirectionSupportsScene(item, framing, location, lightingForDirection);
   });
 
-  const poseAnchorOptions = getScenePoseAnchorOptions(location, locks.locationId);
+  const poseAnchorOptions = getScenePoseAnchorOptions(location, locks.locationId, sceneAttribute);
 
   return { locationOptions, lightingOptions, lightDirectionOptions, poseAnchorOptions };
 }
@@ -4980,36 +5008,51 @@ function getWaterPoseEdge(location) {
   return 'scene-appropriate water edge';
 }
 
-function getWaterImmersedAnchorPhrase(base, location) {
+function getWaterImmersedAnchorPhrase(base, location, orientation = null) {
   const waterBody = getWaterPoseBody(location);
   const immersionDetail = 'with the whole lower body submerged and only the upper body above the water surface';
+  const lyingOrientation = orientation?.id === 'lying-prone'
+    ? 'floating face down in'
+    : orientation?.id === 'lying-side'
+      ? 'floating on one side in'
+      : 'floating on the back in';
   const phrases = {
     standing: `standing waist-deep in ${waterBody} ${immersionDetail}`,
     sitting: `sitting low in ${waterBody} ${immersionDetail}`,
     kneeling: `kneeling in ${waterBody} ${immersionDetail}`,
     squatting: `squatting low in ${waterBody} ${immersionDetail}`,
-    lying: `floating or half-floating on the ${waterBody} surface ${immersionDetail}`,
+    lying: orientation?.id
+      ? `${lyingOrientation} ${waterBody} with the body supported by the water surface ${immersionDetail}`
+      : `floating or half-floating on the ${waterBody} surface ${immersionDetail}`,
   };
   return phrases[base?.id] || `in ${waterBody} ${immersionDetail}`;
 }
 
-function getWaterEdgeSupportAnchorPhrase(base, location) {
+function getWaterEdgeSupportAnchorPhrase(base, location, orientation = null) {
   const waterEdge = getWaterPoseEdge(location);
   const immersionDetail = 'with the whole lower body submerged and only the upper body above the water surface';
+  const lyingOrientation = orientation?.id === 'lying-prone'
+    ? 'prone lying at'
+    : orientation?.id === 'lying-side'
+      ? 'side-lying at'
+      : 'supine lying at';
   const phrases = {
     standing: `standing in shallow water beside the ${waterEdge} ${immersionDetail} and forearms or hands supported on that edge`,
     sitting: `sitting at the ${waterEdge} ${immersionDetail} and hands or forearms supported on that edge`,
     kneeling: `kneeling at the ${waterEdge} ${immersionDetail} and forearms or hands supported on that edge`,
     squatting: `squatting low at the ${waterEdge} ${immersionDetail} and one or both hands supported on that edge`,
-    lying: `half-reclining at the ${waterEdge} ${immersionDetail} and forearms supported on that edge`,
+    lying: orientation?.id
+      ? `${lyingOrientation} the ${waterEdge} with the body partly supported by that edge ${immersionDetail}`
+      : `half-reclining at the ${waterEdge} ${immersionDetail} and forearms supported on that edge`,
   };
   return phrases[base?.id] || `supported at the ${waterEdge} ${immersionDetail}`;
 }
 
-function getPoseComposerAnchorPhrase(anchor, base, location) {
+function getPoseComposerAnchorPhrase(anchor, base, location, orientation = null) {
   if (!anchor || !base) return '';
-  if (anchor.id === 'water-immersed') return getWaterImmersedAnchorPhrase(base, location);
-  if (anchor.id === 'water-edge-support') return getWaterEdgeSupportAnchorPhrase(base, location);
+  if (anchor.id === 'water-immersed') return getWaterImmersedAnchorPhrase(base, location, orientation);
+  if (anchor.id === 'water-edge-support') return getWaterEdgeSupportAnchorPhrase(base, location, orientation);
+  if (anchor.phraseByOrientation?.[orientation?.id]) return anchor.phraseByOrientation[orientation.id];
   return anchor.phraseByBase?.[base.id] || anchor.en || '';
 }
 
@@ -5109,7 +5152,7 @@ function buildPoseComposerResultPhrase({ base, orientation, arrangement, anchor,
       ? normalizePoseComposerLyingVariationPhrase(arrangement)
       : ''].filter(Boolean).join(' with ')
     : arrangementPhrase;
-  const anchorPhrase = stripTerminalPromptPunctuation(getPoseComposerAnchorPhrase(anchor, base, location));
+  const anchorPhrase = stripTerminalPromptPunctuation(getPoseComposerAnchorPhrase(anchor, base, location, orientation));
 
   if (!posePhrase) return anchorPhrase;
   if (!anchorPhrase) return posePhrase;
@@ -5175,7 +5218,7 @@ function buildPoseComposerItem(context) {
   const requestedProp = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId);
   const requestedAnchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId);
 
-  const resolveHead = (arrangementForHead = null) => {
+  const resolveHead = (arrangementForHead = null, orientationForHead = null) => {
     // Compatibility constrains only the random pool. A concrete user lock is
     // intentional and must remain visible rather than being silently replaced.
     const predicate = isRandomOption(requestedHead)
@@ -5183,6 +5226,7 @@ function buildPoseComposerItem(context) {
         && poseComposerHeadSupportsRandomContext(option, {
           ...compatibilityContext,
           baseId: base?.id || null,
+          orientationId: orientationForHead?.id || null,
           arrangement: arrangementForHead,
         })
       : () => true;
@@ -5263,13 +5307,22 @@ function buildPoseComposerItem(context) {
       random
     )
     : null;
-  const arrangementCompatibility = (option) => poseComposerArrangementSupportsRandomContext(option, {
+  const lyingCompatibilityContext = {
     ...compatibilityContext,
+    orientationId: orientation?.id || null,
+  };
+  const arrangementCompatibility = (option) => poseComposerArrangementSupportsRandomContext(option, {
+    ...lyingCompatibilityContext,
     requestedHead,
   });
   const matchesAnchor = (option) => (
     matchesBase(option)
-    && poseComposerAnchorAllowedByScene(option, context.location, context.locks?.locationId)
+    && poseComposerAnchorAllowedByScene(
+      option,
+      context.location,
+      context.locks?.locationId,
+      context.sceneAttribute,
+    )
   );
   const arrangement = resolvePoseComposerOption(
     POSE_COMPOSER_ARRANGEMENT_OPTIONS,
@@ -5286,7 +5339,7 @@ function buildPoseComposerItem(context) {
     context.locks?.poseHandId,
     isRandomOption(requestedHand)
       ? (option) => poseComposerHandSupportsRandomContext(option, {
-        ...compatibilityContext,
+        ...lyingCompatibilityContext,
         baseId: base.id,
         arrangement,
       })
@@ -5295,11 +5348,13 @@ function buildPoseComposerItem(context) {
     ['poseHandId'],
     random
   );
-  const head = resolveHead(arrangement);
+  const head = resolveHead(arrangement, orientation);
   const anchor = resolvePoseComposerAnchorOption(
     context.locks?.poseAnchorId,
     isRandomOption(requestedAnchor)
-      ? (option) => matchesAnchor(option) && poseComposerOptionRandomEligibleForBase(option, base.id)
+      ? (option) => matchesAnchor(option)
+        && poseComposerOptionRandomEligibleForBase(option, base.id)
+        && poseComposerOptionRandomEligibleForOrientation(option, orientation?.id)
       : matchesAnchor,
     exclusions,
     random,
@@ -5484,6 +5539,7 @@ function projectPoseComposerOrientation(orientation, bucket) {
 
 function isChestVisibleAnchor(anchor, base) {
   if (!anchor || !base) return false;
+  if (base.id === 'lying' && anchor.meta?.tags?.includes('lying_support')) return true;
   if (anchor.id === 'shared-natural-support') return true;
   if (anchor.id === 'shared-vertical-surface-support') return true;
   if (anchor.id === 'shared-mirrored-steel-cube' || anchor.id === 'shared-clear-acrylic-cube') {
@@ -5492,7 +5548,7 @@ function isChestVisibleAnchor(anchor, base) {
   return false;
 }
 
-function buildChestVisibleAnchorFragment(anchor, base) {
+function buildChestVisibleAnchorFragment(anchor, base, orientation = null) {
   if (!isChestVisibleAnchor(anchor, base)) return '';
   if (anchor.id === 'shared-natural-support') {
     return 'natural support through the shoulders and upper torso';
@@ -5507,12 +5563,15 @@ function buildChestVisibleAnchorFragment(anchor, base) {
     ? 'a mirrored stainless-steel cube plinth'
     : 'a transparent acrylic cube plinth';
   const material = anchor.id === 'shared-mirrored-steel-cube' ? 'metal' : 'acrylic';
+  if (base.id === 'lying' && anchor.phraseByOrientation?.[orientation?.id]) {
+    return getPoseComposerAnchorPhrase(anchor, base, null, orientation);
+  }
   return base.id === 'kneeling'
     ? `one shoulder resting against the upper edge of ${support}, with clear shoulder-to-${material} contact`
     : `the upper back resting against one side of ${support}, with clear back-to-${material} contact`;
 }
 
-function projectPoseComposerAnchor(anchor, base, bucket) {
+function projectPoseComposerAnchor(anchor, base, bucket, orientation = null) {
   if (!anchor || !base || FULL_ONLY_ANCHOR_IDS.has(anchor.id)) return null;
   const projection = getPoseComposerProjection(anchor, bucket);
   if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.OMIT) return null;
@@ -5523,11 +5582,11 @@ function projectPoseComposerAnchor(anchor, base, bucket) {
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST) {
     if (!isChestVisibleAnchor(anchor, base)) return null;
     return anchor.id === 'shared-natural-support'
-      ? cloneProjectedPoseOption(anchor, getPoseComposerAnchorPhrase(anchor, base, null))
+      ? cloneProjectedPoseOption(anchor, getPoseComposerAnchorPhrase(anchor, base, null, orientation))
       : anchor;
   }
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE) {
-    const phrase = getPoseComposerAnchorPhrase(anchor, base, null);
+    const phrase = getPoseComposerAnchorPhrase(anchor, base, null, orientation);
     if (/\b(?:on the ground|on the floor|ground plane|low step)\b/i.test(phrase)) return null;
     return anchor;
   }
@@ -5567,9 +5626,9 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
         : arrangementProjection?.en || UPPER_BODY_ARRANGEMENT_PHRASES[arrangement.id] || ''
     : '';
   const projectedAnchor = anchor
-    ? projectPoseComposerAnchor(anchor, base, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
+    ? projectPoseComposerAnchor(anchor, base, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP, orientation)
     : null;
-  const anchorFragment = buildChestVisibleAnchorFragment(projectedAnchor, base);
+  const anchorFragment = buildChestVisibleAnchorFragment(projectedAnchor, base, orientation);
   const visibleBodyFragments = joinProjectedPoseFragments([orientationFragment, upperBodyFragment, anchorFragment]);
   const projectedArrangementPhrase = naturalChoiceSelected
     ? `casual, relaxed, and natural upper-body pose${visibleBodyFragments ? ` with ${visibleBodyFragments}` : ''}`
@@ -5630,7 +5689,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer) {
     handPose: shouldProjectPosePart(projection, 'hand') ? projectPoseComposerHand(handPose, bucket) : null,
     propAction: shouldProjectPosePart(projection, 'prop') ? propAction : null,
     anchor: shouldProjectPosePart(projection, 'anchor', { conditional: true })
-      ? projectPoseComposerAnchor(anchor, base, bucket)
+      ? projectPoseComposerAnchor(anchor, base, bucket, orientation)
       : null,
     head: shouldProjectPosePart(projection, 'head') ? head : null,
     location: context.location,

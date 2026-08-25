@@ -70,9 +70,9 @@ Static option modules should remain data-focused. Compatibility migrations, cros
 
 ### Shared random Pose Composer compatibility
 
-`poseComposerCompatibility.js` is the shared pre-render resolver boundary for random single-subject pose combinations. It receives the already-resolved composition bucket, camera angle, and orbit, then filters only random candidate pools. The current rules keep upper crops on standing/sitting bases, keep cowboy crops away from lying bases, reject body-orbit direction conflicts, reject aerial face-visibility conflicts, and remove lower-body-only hand placements or rear-view face props when those details cannot be represented coherently. Explicit locks bypass these predicates and remain part of the resolved selection.
+`poseComposerCompatibility.js` is the shared pre-render resolver boundary for random single-subject pose combinations. It receives the already-resolved composition bucket, camera angle, orbit, base, and (for lying) orientation, then filters only random candidate pools. The current rules keep upper crops on standing/sitting bases, keep cowboy crops away from lying bases, reject body-orbit direction conflicts, reject aerial face-visibility conflicts, remove lower-body-only hand placements or rear-view face props when those details cannot be represented coherently, and enforce the lying matrix: half-recline only with supine, upper-propped only with side/prone, and dedicated lying hand/head options only within their selected orientation. Explicit locks bypass these predicates and remain part of the resolved selection.
 
-The module is intentionally separate from `poseComposerOptions.js` so option data stays data-focused and from the three renderer functions so Gpt, Grok/Z-Image, and AI cannot drift into different pose safety behavior. Scene-object geometry remains a separate, paused compatibility scope.
+The module is intentionally separate from `poseComposerOptions.js` so option data stays data-focused and from the three renderer functions so Gpt, Grok/Z-Image, and AI cannot drift into different pose safety behavior. Lying surface anchors are scene-attribute gated in the engine (`室內`／`戶外`), while water anchors retain their existing water-scene gate. Scene-object geometry remains a separate, paused compatibility scope.
 
 ## Runtime Cache Contract
 

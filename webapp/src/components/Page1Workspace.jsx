@@ -34,7 +34,10 @@ import {
   setLockKeysToNone,
 } from '../lib/page1SectionRandom.js';
 import { createEmptyLocks } from '../lib/engine.js';
-import { poseComposerOptionVisibleForBase } from '../lib/engine/poseComposerCompatibility.js';
+import {
+  poseComposerOptionVisibleForBase,
+  poseComposerOptionVisibleForOrientation,
+} from '../lib/engine/poseComposerCompatibility.js';
 import {
   POSE_COMPOSER_CONTROL_KEYS,
   SECTION_SUBPANELS,
@@ -559,6 +562,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   );
   const isPoseComposerActive = POSE_COMPOSER_CONTROL_KEYS.some((key) => isPoseComposerValueActive(key));
   const selectedPoseBaseId = POSE_COMPOSER_BASE_IDS.has(locks.poseBaseId) ? locks.poseBaseId : '';
+  const selectedPoseOrientationId = typeof locks.poseOrientationId === 'string' && locks.poseOrientationId.startsWith('lying-')
+    ? locks.poseOrientationId
+    : '';
   const activeActionPoseCard = locks.subjectCount !== '2' && !isDedicatedSpecialSubjectMode
     ? getActionPoseCardById(locks.actionPoseCardId)
     : null;
@@ -638,6 +644,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         if (
           selectedPoseBaseId
           && !poseComposerOptionVisibleForBase(option, selectedPoseBaseId)
+          && option.id !== locks[control.key]
+        ) {
+          return false;
+        }
+        if (
+          selectedPoseOrientationId
+          && !poseComposerOptionVisibleForOrientation(option, selectedPoseOrientationId)
           && option.id !== locks[control.key]
         ) {
           return false;
@@ -793,6 +806,16 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               : true;
           const selectedHiddenForBase = selected?.meta?.hiddenForBases?.includes(nextBase);
           if (!selectedSupportsBase || selectedHiddenForBase) next[key] = 'none';
+        });
+      }
+      if (control.key === 'poseOrientationId') {
+        const nextOrientation = typeof value === 'string' && value.startsWith('lying-') ? value : '';
+        ['poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'].forEach((key) => {
+          const nextControl = characterLockControls.find((item) => item.key === key);
+          const selected = nextControl?.options?.find((option) => option.id === next[key]);
+          if (selected && nextOrientation && !poseComposerOptionVisibleForOrientation(selected, nextOrientation)) {
+            next[key] = 'none';
+          }
         });
       }
       return next;

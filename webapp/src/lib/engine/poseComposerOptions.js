@@ -266,6 +266,50 @@ const LYING_UPPER_BODY_PROJECTION = createPoseComposerProjectionMap({
   ],
 });
 
+const LYING_SUPPORT_PROJECTION = createPoseComposerProjectionMap({
+  visible: [
+    COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
+    COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ],
+  projected: [
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+  ],
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+  ],
+});
+
+const LYING_ORIENTATION_IDS = Object.freeze([
+  'lying-supine',
+  'lying-side',
+  'lying-prone',
+]);
+
+const withLyingOrientationMatrix = (option, allowedOrientations = LYING_ORIENTATION_IDS) => {
+  const allowed = new Set(allowedOrientations);
+  const hiddenForOrientations = LYING_ORIENTATION_IDS.filter((id) => !allowed.has(id));
+  return {
+    ...option,
+    meta: {
+      ...(option.meta || {}),
+      hiddenForOrientations,
+      randomEligibleWithoutBase: false,
+      randomEligibleForOrientations: Object.fromEntries(
+        LYING_ORIENTATION_IDS.map((id) => [id, allowed.has(id)]),
+      ),
+    },
+  };
+};
+
+const createLyingSpecificOption = (option, allowedOrientations = LYING_ORIENTATION_IDS) => hidePoseOptionForBases(
+  withLyingOrientationMatrix(option, allowedOrientations),
+  ['standing', 'sitting', 'kneeling', 'squatting'],
+);
+
 const withLyingOrientationProjectionEnglish = (option, chestEnglish, mediumEnglish = chestEnglish) => ({
   ...option,
   meta: {
@@ -315,9 +359,9 @@ export const POSE_COMPOSER_BASE_OPTIONS = [
 export const POSE_COMPOSER_ORIENTATION_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定主要躺姿方向。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random lying orientation', desc: '由姿勢組合器隨機選擇仰躺、側躺或趴臥。', meta: { tags: ['random'] } },
-  withLyingOrientationProjectionEnglish({ id: 'lying-supine', base: 'lying', zh: '仰躺', en: 'supine lying position, back supported, chest and face turned upward', desc: '身體背部貼住支撐面、腹面朝上。', meta: { projectionByBucket: LYING_ORIENTATION_PROJECTION } }, 'the upper torso resting on the back, chest facing upward', 'a supine upper-body position, torso facing upward'),
+  withLyingOrientationProjectionEnglish({ id: 'lying-supine', base: 'lying', zh: '仰躺', en: 'supine lying position, front of the body facing upward', desc: '身體腹面朝上，頭部方向與支撐物由獨立選項決定。', meta: { projectionByBucket: LYING_ORIENTATION_PROJECTION } }, 'the upper torso facing upward in the supine position', 'a supine upper-body position, torso facing upward'),
   withLyingOrientationProjectionEnglish({ id: 'lying-side', base: 'lying', zh: '側躺', en: 'side-lying position, body turned onto one side', desc: '身體側面貼住支撐面。', meta: { projectionByBucket: LYING_ORIENTATION_PROJECTION } }, 'the upper torso turned onto one side', 'a side-lying upper-body position, torso turned onto one side'),
-  withLyingOrientationProjectionEnglish({ id: 'lying-prone', base: 'lying', zh: '趴臥', en: 'prone lying position, chest and abdomen facing the support surface, face turned downward', desc: '身體腹面朝向支撐面。', meta: { projectionByBucket: LYING_ORIENTATION_PROJECTION } }, 'the upper torso facing downward toward the support surface', 'a prone upper-body position, torso facing downward toward the support surface'),
+  withLyingOrientationProjectionEnglish({ id: 'lying-prone', base: 'lying', zh: '趴臥', en: 'prone lying position, chest and abdomen facing the support surface', desc: '身體腹面朝向支撐面，頭部方向與支撐物由獨立選項決定。', meta: { projectionByBucket: LYING_ORIENTATION_PROJECTION } }, 'the upper torso facing downward toward the support surface', 'a prone upper-body position, torso facing downward toward the support surface'),
 ];
 
 const deprecatedPoseArrangement = (option) => ({
@@ -515,11 +559,11 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   deprecatedPoseArrangement({ id: 'squatting-compact-hug-knees-variant', base: 'squatting', zh: '緊湊抱膝蹲姿變體', en: 'compact knees-held squat variation, legs close together, body folded into a smaller grounded shape', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } }),
   { id: 'squatting-knees-together-low', base: 'squatting', zh: '雙膝合併半蹲', en: 'low half-squat with both knees together, feet planted close beneath the body, and thighs held parallel', meta: { projectionByBucket: SQUATTING_KNEES_TOGETHER_PROJECTION } },
   { id: 'squatting-gangster-wide-knee', base: 'squatting', zh: '寬膝深蹲／流氓蹲姿', en: 'wide-knee deep squat with feet planted wide, knees opened outward, and hips lowered close to the ground', meta: { projectionByBucket: SQUATTING_LOWER_PROJECTION } },
-  { id: 'lying-body-natural-stretch', base: 'lying', zh: '自然伸展', en: 'lying pose with the body extended in a relaxed line, legs resting naturally', meta: { projectionByBucket: LYING_LOWER_BODY_PROJECTION } },
-  { id: 'lying-body-legs-bent', base: 'lying', zh: '雙腿屈起', en: 'lying pose with both legs comfortably bent, knees softly raised', meta: { projectionByBucket: LYING_LOWER_BODY_PROJECTION } },
-  withLyingUpperBodyProjectionEnglish({ id: 'lying-body-curled', base: 'lying', zh: '身體微蜷', en: 'lying pose with the torso and legs gently curved inward into a soft compact shape', meta: { projectionByBucket: LYING_UPPER_BODY_PROJECTION } }, 'the torso gently curled into a soft compact curve'),
-  withLyingUpperBodyProjectionEnglish({ id: 'lying-body-half-recline', base: 'lying', zh: '上半身半躺', en: 'lying pose with the upper body raised into a gentle half-recline while the lower body remains relaxed in the lying position', meta: { projectionByBucket: LYING_UPPER_BODY_PROJECTION } }, 'the upper body raised into a gentle half-recline'),
-  withLyingUpperBodyProjectionEnglish({ id: 'lying-body-upper-propped', base: 'lying', zh: '上半身撐起', en: 'lying pose with the upper body lifted and supported on the elbows or forearms while the lower body remains on the support surface', meta: { projectionByBucket: LYING_UPPER_BODY_PROJECTION } }, 'the upper body lifted and supported on the elbows or forearms'),
+  withLyingOrientationMatrix({ id: 'lying-body-natural-stretch', base: 'lying', zh: '自然伸展', en: 'lying pose with the body extended in a relaxed line, legs resting naturally', meta: { projectionByBucket: LYING_LOWER_BODY_PROJECTION } }),
+  withLyingOrientationMatrix({ id: 'lying-body-legs-bent', base: 'lying', zh: '雙腿屈起', en: 'lying pose with both legs comfortably bent, knees softly raised', meta: { projectionByBucket: LYING_LOWER_BODY_PROJECTION } }),
+  withLyingOrientationMatrix(withLyingUpperBodyProjectionEnglish({ id: 'lying-body-curled', base: 'lying', zh: '身體微蜷', en: 'lying pose with the torso and legs gently curved inward into a soft compact shape', meta: { projectionByBucket: LYING_UPPER_BODY_PROJECTION } }, 'the torso gently curled into a soft compact curve')),
+  withLyingOrientationMatrix(withLyingUpperBodyProjectionEnglish({ id: 'lying-body-half-recline', base: 'lying', zh: '上半身半躺', en: 'lying pose with the upper body raised into a gentle half-recline while the lower body remains relaxed in the lying position', meta: { projectionByBucket: LYING_UPPER_BODY_PROJECTION } }, 'the upper body raised into a gentle half-recline'), ['lying-supine']),
+  withLyingOrientationMatrix(withLyingUpperBodyProjectionEnglish({ id: 'lying-body-upper-propped', base: 'lying', zh: '上半身撐起', en: 'lying pose with the upper body lifted and supported on the elbows or forearms while the lower body remains on the support surface', meta: { projectionByBucket: LYING_UPPER_BODY_PROJECTION } }, 'the upper body lifted and supported on the elbows or forearms'), ['lying-side', 'lying-prone']),
   deprecatedPoseArrangement({ id: 'lying-natural', base: 'lying', zh: '自然躺姿', en: 'natural lying arrangement' }),
   deprecatedPoseArrangement({ id: 'lying-on-back', base: 'lying', zh: '仰躺', en: 'supine lying pose with a relaxed upward-facing body line' }),
   deprecatedPoseArrangement({ id: 'lying-side', base: 'lying', zh: '側躺', en: 'side-lying arrangement, body turned along one side' }),
@@ -621,10 +665,47 @@ const POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS = new Set([
   'glasses-temple-between-teeth',
 ]);
 
+const LYING_SHARED_HAND_IDS = new Set([
+  'hands-relaxed-down',
+  'arms-crossed',
+  'one-hand-waist-one-down',
+  'hands-behind-back',
+  'hands-behind-head',
+  'one-hand-open-palm-camera',
+  'one-hand-support-chin',
+  'one-hand-mouth-corner',
+  'one-hand-sweep-bangs-back',
+  'both-hands-gather-hair',
+  'hand-adjust-off-shoulder-top',
+  'hands-lift-waistband',
+  'hands-hug-knees',
+  'hands-in-pockets',
+  'hands-in-outerwear-pockets',
+]);
+
+const LYING_NON_RANDOM_SHARED_HAND_IDS = new Set([
+  'one-hand-hold-glasses',
+  'one-hand-pull-down-glasses',
+  'glasses-temple-between-teeth',
+]);
+
 export const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random hand pose', desc: '隨機選擇手部姿勢。', meta: { tags: ['random'] } },
   { id: 'model-natural-hand-placement', zh: '任意', en: 'any natural hand placement fitted to the selected body pose, support contact, wardrobe, and camera crop', desc: '不指定具體手部動作，讓模型依姿勢、支撐、服裝、鏡頭與場景自由產生隨意、放鬆且自然的結果。', meta: { tags: ['any'] } },
+  createLyingSpecificOption({ id: 'lying-supine-hands-by-sides', zh: '仰躺雙手自然放在身側', en: 'both hands resting naturally beside the torso, palms relaxed and following the body line', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-supine']),
+  createLyingSpecificOption({ id: 'lying-supine-one-hand-behind-head', zh: '仰躺一手放在頭後', en: 'one hand resting behind the head while the other arm lies relaxed beside the torso', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-supine']),
+  createLyingSpecificOption({ id: 'lying-supine-one-hand-abdomen', zh: '仰躺一手放在腹部', en: 'one hand resting lightly on the abdomen while the other arm lies relaxed beside the torso', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-supine']),
+  createLyingSpecificOption({ id: 'lying-supine-arms-overhead', zh: '仰躺雙手向頭頂伸展', en: 'both arms extending naturally overhead with relaxed shoulders and open hands', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-supine']),
+  createLyingSpecificOption({ id: 'lying-supine-palms-together-cheek', zh: '仰躺雙手合掌靠在臉側', en: 'both palms pressed together beside one cheek with the elbows relaxed', meta: { tags: ['lying_hand_pose', 'face_action'], visibleBuckets: HAND_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['lying-supine']),
+  createLyingSpecificOption({ id: 'lying-side-lower-arm-under-head', zh: '側躺下側手臂支撐頭部', en: 'the lower arm folded under the head while the upper hand rests naturally along the torso', meta: { tags: ['lying_hand_pose', 'support_action'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-side']),
+  createLyingSpecificOption({ id: 'lying-side-upper-hand-on-hip', zh: '側躺上側手放在髖部', en: 'the upper hand resting on the hip while the lower arm supports the head or body', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-side']),
+  createLyingSpecificOption({ id: 'lying-side-hands-in-front', zh: '側躺雙手在身前', en: 'both hands resting loosely together in front of the torso', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-side']),
+  createLyingSpecificOption({ id: 'lying-side-one-hand-near-face', zh: '側躺一手靠近臉部', en: 'the upper hand resting lightly near the cheek while the lower arm follows the support surface', meta: { tags: ['lying_hand_pose', 'face_action'], visibleBuckets: HAND_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['lying-side']),
+  createLyingSpecificOption({ id: 'lying-prone-arms-along-sides', zh: '趴臥雙手沿身側伸展', en: 'both arms extended naturally along the sides of the body with relaxed hands', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-prone']),
+  createLyingSpecificOption({ id: 'lying-prone-one-hand-beside-face', zh: '趴臥一手放在臉旁', en: 'one hand resting beside the face while the other arm lies naturally along the body', meta: { tags: ['lying_hand_pose', 'face_action'], visibleBuckets: HAND_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['lying-prone']),
+  createLyingSpecificOption({ id: 'lying-prone-hands-under-chin', zh: '趴臥雙手托在下巴下方', en: 'both hands placed beneath the chin with the elbows relaxed and close to the support surface', meta: { tags: ['lying_hand_pose', 'face_action'], visibleBuckets: HAND_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['lying-prone']),
+  createLyingSpecificOption({ id: 'lying-prone-elbows-support', zh: '趴臥雙肘支撐上半身', en: 'both elbows planted on the support surface with the forearms supporting the upper body', meta: { tags: ['lying_hand_pose', 'support_action'], visibleBuckets: HAND_VISIBLE_BUCKETS, randomEligibleForArrangements: { lying: ['lying-body-upper-propped'] } } }, ['lying-prone']),
   { id: 'hands-relaxed-down', zh: '雙手自然垂放', en: 'both hands resting naturally along the body or on a nearby support surface, fingers relaxed and loosely following the body line', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
   { id: 'arms-crossed', zh: '雙臂交疊', en: 'arms crossed loosely in front of the body', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
   { id: 'one-hand-waist-one-down', zh: '一手扶腰一手自然放下', en: 'one hand on the waist or hip line with the other hand relaxed along the body or nearby support surface', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
@@ -654,7 +735,22 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   ...POSE_COMPOSER_LEGACY_HAND_OPTIONS
     .filter((option) => !POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS.has(option.id))
     .map(deprecatedPoseHand),
-];
+].map((option) => (
+  LYING_SHARED_HAND_IDS.has(option.id)
+    ? hidePoseOptionForBase(option, 'lying')
+    : LYING_NON_RANDOM_SHARED_HAND_IDS.has(option.id)
+      ? {
+          ...option,
+          meta: {
+            ...(option.meta || {}),
+            randomEligibleForBases: {
+              ...(option.meta?.randomEligibleForBases || {}),
+              lying: false,
+            },
+          },
+        }
+      : option
+));
 export const POSE_COMPOSER_PROP_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定道具動作。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random prop action', desc: '隨機選擇道具動作。', meta: { tags: ['random'] } },
@@ -676,10 +772,33 @@ export const POSE_COMPOSER_PROP_OPTIONS = [
   { id: 'hand-hold-cigarette', zh: '手持香菸', en: 'a cigarette held naturally between the fingers in one hand, faint smoke around the hand', desc: '手指自然夾著香菸，位置由模型自然決定。', meta: { tags: ['prop_action'] } },
   { id: 'hand-use-phone', zh: '滑手機', en: 'a cell phone held in one hand while scrolling or checking the screen', desc: '單手拿手機滑動或查看畫面。', meta: { tags: ['prop_action'] } },
 ];
+const LYING_SHARED_HEAD_IDS = new Set([
+  'head-camera-natural',
+  'head-slight-tilt',
+  'chin-slightly-raised',
+  'chin-slightly-lowered',
+  'head-turned-back-camera',
+  'head-looking-down-hands',
+  'head-near-shoulder',
+  'head-slightly-back',
+  'head-down-three-quarter',
+  'head-away-profile',
+  'head-close-support-surface',
+  'head-close-lens-off-axis',
+  'head-low-rim-support',
+]);
+
 export const POSE_COMPOSER_HEAD_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定頭部方向。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random head direction', desc: '隨機選擇頭部方向。', meta: { tags: ['random'] } },
   { id: 'model-natural-head-angle', zh: '任意', en: 'any natural head direction fitted to the camera angle, body orientation, and selected pose', desc: '不指定具體頭部方向，讓模型依鏡頭、身體方向與姿勢自由產生隨意、放鬆且自然的結果。', meta: { tags: ['any'] } },
+  createLyingSpecificOption({ id: 'lying-supine-head-neutral', zh: '仰躺頭部自然朝上', en: 'head resting naturally upward in line with the supine body', meta: { tags: ['lying_head_pose'] } }, ['lying-supine']),
+  createLyingSpecificOption({ id: 'lying-supine-head-turned-side', zh: '仰躺頭部轉向一側', en: 'head turned gently to one side while the body remains supine', meta: { tags: ['lying_head_pose'] } }, ['lying-supine']),
+  createLyingSpecificOption({ id: 'lying-side-head-on-support', zh: '側躺頭部貼近支撐面', en: 'head resting close to the support surface with the face turned naturally to one side', meta: { tags: ['lying_head_pose', 'support_action'] } }, ['lying-side']),
+  createLyingSpecificOption({ id: 'lying-side-head-toward-camera', zh: '側躺頭部朝向鏡頭', en: 'head turned toward the camera from the side-lying body', meta: { tags: ['lying_head_pose'], requiresFaceVisibility: true } }, ['lying-side']),
+  createLyingSpecificOption({ id: 'lying-side-head-away', zh: '側躺頭部轉向外側', en: 'head turned away from the camera along the side-lying body line', meta: { tags: ['lying_head_pose'] } }, ['lying-side']),
+  createLyingSpecificOption({ id: 'lying-prone-head-turned-side', zh: '趴臥頭部轉向一側', en: 'head turned sideways so one cheek rests near the support surface', meta: { tags: ['lying_head_pose', 'support_action'] } }, ['lying-prone']),
+  createLyingSpecificOption({ id: 'lying-prone-head-toward-camera', zh: '趴臥頭部朝向鏡頭', en: 'head turned sideways toward the camera while the chest remains facing the support surface', meta: { tags: ['lying_head_pose'], requiresFaceVisibility: true } }, ['lying-prone']),
   { id: 'head-camera-natural', zh: '頭部自然朝向鏡頭', en: 'head naturally facing the camera', meta: { tags: ['requires_face_visibility'] } },
   { id: 'head-slight-tilt', zh: '頭部微微側傾', en: 'head slightly tilted' },
   { id: 'chin-slightly-raised', zh: '下巴微抬', en: 'chin slightly raised' },
@@ -696,7 +815,9 @@ export const POSE_COMPOSER_HEAD_OPTIONS = [
   hidePoseOptionForBases({ id: 'head-close-support-surface', zh: '頭部貼近支撐面', en: 'head angled close to a support surface or shoulder line with the cheek plane following the selected support contact' }, ['standing', 'sitting']),
   hidePoseOptionForBases({ id: 'head-close-lens-off-axis', zh: '近鏡頭偏轉頭部', en: 'head turned slightly off-axis near the lens with the face plane angled diagonally instead of flat to camera', meta: { tags: ['requires_face_visibility'] } }, ['standing', 'sitting']),
   hidePoseOptionForBases({ id: 'head-low-rim-support', zh: '頭靠近邊緣支撐', en: 'head angled low near a rim or support edge with cheek and jawline close to the supporting surface' }, ['standing', 'sitting']),
-];
+].map((option) => (
+  LYING_SHARED_HEAD_IDS.has(option.id) ? hidePoseOptionForBase(option, 'lying') : option
+));
 
 const deprecatedPoseAnchor = (option) => ({
   ...option,
@@ -720,8 +841,8 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     meta: {
       randomWeight: 3,
       projectionByBucket: STANDING_SUPPORT_PROJECTION,
-      hiddenForBases: ['standing', 'sitting'],
-      randomEligibleForBases: { standing: false, sitting: false },
+      hiddenForBases: ['standing', 'sitting', 'lying'],
+      randomEligibleForBases: { standing: false, sitting: false, lying: false },
     },
     phraseByBase: {
       standing: 'standing with the body naturally supported',
@@ -768,6 +889,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     bases: ['sitting', 'kneeling', 'lying'],
     zh: '由場景地面承托',
     en: 'body weight supported directly by the existing ground plane in the scene',
+    meta: { hiddenForBases: ['lying'], randomEligibleForBases: { lying: false } },
     phraseByBase: {
       sitting: 'sitting directly on the existing ground plane in the scene, hips and legs in clear contact with the surface',
       kneeling: 'kneeling directly on the existing ground plane in the scene, both knees clearly contacting and supported by the surface',
@@ -779,12 +901,141 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     bases: ['sitting', 'kneeling', 'lying'],
     zh: '由現有柔軟平面承托',
     en: 'body weight supported by an existing soft horizontal surface in the scene',
+    meta: { hiddenForBases: ['lying'], randomEligibleForBases: { lying: false } },
     phraseByBase: {
       sitting: 'sitting on an existing soft horizontal surface in the scene, hips settling into the surface with the seated body weight fully supported',
       kneeling: 'kneeling on an existing soft horizontal surface in the scene, both knees pressing lightly into the surface with the body weight supported below',
       lying: 'lying on an existing soft horizontal surface in the scene, torso and hips settling into the surface with continuous body-to-surface contact',
     },
   },
+  withLyingOrientationMatrix({
+    id: 'lying-bed-surface',
+    base: 'lying',
+    zh: '床上',
+    en: 'lying in contact with an existing bed surface in the scene',
+    meta: {
+      tags: ['lying_support', 'indoor_support'],
+      requiresSceneType: 'indoor',
+      projectionByBucket: LYING_SUPPORT_PROJECTION,
+    },
+    phraseByOrientation: {
+      'lying-supine': 'supine lying in contact with an existing bed surface in the scene',
+      'lying-side': 'side-lying in contact with an existing bed surface in the scene',
+      'lying-prone': 'prone lying in contact with an existing bed surface in the scene',
+    },
+  }),
+  withLyingOrientationMatrix({
+    id: 'lying-tatami-surface',
+    base: 'lying',
+    zh: '榻榻米上',
+    en: 'lying in contact with an existing tatami surface in the scene',
+    meta: {
+      tags: ['lying_support', 'indoor_support'],
+      requiresSceneType: 'indoor',
+      projectionByBucket: LYING_SUPPORT_PROJECTION,
+    },
+    phraseByOrientation: {
+      'lying-supine': 'supine lying in contact with an existing tatami surface in the scene',
+      'lying-side': 'side-lying in contact with an existing tatami surface in the scene',
+      'lying-prone': 'prone lying in contact with an existing tatami surface in the scene',
+    },
+  }),
+  withLyingOrientationMatrix({
+    id: 'lying-floor-surface',
+    base: 'lying',
+    zh: '地板上',
+    en: 'lying in contact with the existing indoor floor surface in the scene',
+    meta: {
+      tags: ['lying_support', 'indoor_support'],
+      requiresSceneType: 'indoor',
+      projectionByBucket: LYING_SUPPORT_PROJECTION,
+    },
+    phraseByOrientation: {
+      'lying-supine': 'supine lying in contact with the existing indoor floor surface in the scene',
+      'lying-side': 'side-lying in contact with the existing indoor floor surface in the scene',
+      'lying-prone': 'prone lying in contact with the existing indoor floor surface in the scene',
+    },
+  }),
+  withLyingOrientationMatrix({
+    id: 'lying-dry-bathtub',
+    base: 'lying',
+    zh: '浴缸內（無水）',
+    en: 'lying inside an empty dry bathtub with the body supported by its interior surface',
+    meta: {
+      tags: ['lying_support', 'indoor_support'],
+      requiresSceneType: 'indoor',
+      projectionByBucket: LYING_SUPPORT_PROJECTION,
+    },
+    phraseByOrientation: {
+      'lying-supine': 'supine lying inside an empty dry bathtub with the body supported by its interior surface',
+      'lying-side': 'side-lying inside an empty dry bathtub with the body supported by its interior surface',
+      'lying-prone': 'prone lying inside an empty dry bathtub with the body supported by its interior surface',
+    },
+  }),
+  withLyingOrientationMatrix({
+    id: 'lying-sofa-surface',
+    base: 'lying',
+    zh: '沙發上',
+    en: 'lying in contact with an existing sofa surface in the scene',
+    meta: {
+      tags: ['lying_support', 'indoor_support'],
+      requiresSceneType: 'indoor',
+      projectionByBucket: LYING_SUPPORT_PROJECTION,
+    },
+    phraseByOrientation: {
+      'lying-supine': 'supine lying in contact with an existing sofa surface in the scene',
+      'lying-side': 'side-lying in contact with an existing sofa surface in the scene',
+      'lying-prone': 'prone lying in contact with an existing sofa surface in the scene',
+    },
+  }),
+  withLyingOrientationMatrix({
+    id: 'lying-grass-ground',
+    base: 'lying',
+    zh: '草地上',
+    en: 'lying in contact with the existing grass-covered ground in the scene',
+    meta: {
+      tags: ['lying_support', 'outdoor_support'],
+      requiresSceneType: 'outdoor',
+      projectionByBucket: LYING_SUPPORT_PROJECTION,
+    },
+    phraseByOrientation: {
+      'lying-supine': 'supine lying in contact with the existing grass-covered ground in the scene',
+      'lying-side': 'side-lying in contact with the existing grass-covered ground in the scene',
+      'lying-prone': 'prone lying in contact with the existing grass-covered ground in the scene',
+    },
+  }),
+  withLyingOrientationMatrix({
+    id: 'lying-concrete-ground',
+    base: 'lying',
+    zh: '水泥地上',
+    en: 'lying in contact with the existing concrete ground in the scene',
+    meta: {
+      tags: ['lying_support', 'outdoor_support'],
+      requiresSceneType: 'outdoor',
+      projectionByBucket: LYING_SUPPORT_PROJECTION,
+    },
+    phraseByOrientation: {
+      'lying-supine': 'supine lying in contact with the existing concrete ground in the scene',
+      'lying-side': 'side-lying in contact with the existing concrete ground in the scene',
+      'lying-prone': 'prone lying in contact with the existing concrete ground in the scene',
+    },
+  }),
+  withLyingOrientationMatrix({
+    id: 'lying-sand-ground',
+    base: 'lying',
+    zh: '沙地上',
+    en: 'lying in contact with the existing sand-covered ground in the scene',
+    meta: {
+      tags: ['lying_support', 'outdoor_support'],
+      requiresSceneType: 'outdoor',
+      projectionByBucket: LYING_SUPPORT_PROJECTION,
+    },
+    phraseByOrientation: {
+      'lying-supine': 'supine lying in contact with the existing sand-covered ground in the scene',
+      'lying-side': 'side-lying in contact with the existing sand-covered ground in the scene',
+      'lying-prone': 'prone lying in contact with the existing sand-covered ground in the scene',
+    },
+  }),
   deprecatedPoseAnchor({
     id: 'shared-mirrored-steel-cube',
     bases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
@@ -879,7 +1130,13 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     bases: ['standing', 'sitting', 'squatting', 'lying'],
     zh: '浴缸',
     en: 'near a water-filled clawfoot vintage bathtub',
-    meta: { tags: ['water_scene_anchor'], requiresWaterScene: true, projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION },
+    meta: {
+      tags: ['water_scene_anchor'],
+      requiresWaterScene: true,
+      projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION,
+      hiddenForBases: ['lying'],
+      randomEligibleForBases: { lying: false },
+    },
     phraseByBase: {
       standing: 'standing beside a water-filled clawfoot vintage bathtub',
       sitting: 'sitting on the edge of a water-filled clawfoot vintage bathtub',
