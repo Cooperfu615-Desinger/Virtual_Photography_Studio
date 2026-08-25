@@ -6,7 +6,7 @@ import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.
  * These predicates are deliberately applied only to random pools. Explicit
  * Pose Composer locks remain user intent and are not silently replaced.
  */
-export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 3;
+export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 4;
 
 const UPPER_OR_KNEE_CROP_BUCKETS = new Set([
   COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
@@ -59,6 +59,16 @@ function hasAnyTag(tags, values) {
   return values.some((value) => tags.has(value));
 }
 
+export function poseComposerOptionVisibleForBase(option, baseId) {
+  if (!option || !baseId) return true;
+  return !option.meta?.hiddenForBases?.includes(baseId);
+}
+
+export function poseComposerOptionRandomEligibleForBase(option, baseId) {
+  if (!poseComposerOptionVisibleForBase(option, baseId)) return false;
+  return option?.meta?.randomEligibleForBases?.[baseId] !== false;
+}
+
 export function createPoseComposerCompatibilityContext({
   bucket = COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
   angle = null,
@@ -105,6 +115,7 @@ export function poseComposerArrangementSupportsRandomContext(arrangement, contex
 
 export function poseComposerHandSupportsRandomContext(hand, context = {}) {
   if (!hand?.id || hand.id === 'none' || hand.id === 'random') return true;
+  if (!poseComposerOptionRandomEligibleForBase(hand, context.baseId)) return false;
   if (UPPER_CROP_BUCKETS.has(context.bucket) && LOWER_BODY_HANDS.has(hand.id)) return false;
   if (context.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE && hand.id === 'one-hand-ankle') return false;
 
@@ -140,6 +151,7 @@ export function poseComposerPropSupportsRandomContext(prop, context = {}) {
 
 export function poseComposerHeadSupportsRandomContext(head, context = {}) {
   if (!head?.id || head.id === 'none' || head.id === 'random') return true;
+  if (!poseComposerOptionRandomEligibleForBase(head, context.baseId)) return false;
 
   const headTags = getTags(head);
   const orbitTags = new Set(context.orbitTags || []);

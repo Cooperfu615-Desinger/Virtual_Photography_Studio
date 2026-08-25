@@ -34,6 +34,7 @@ import {
   setLockKeysToNone,
 } from '../lib/page1SectionRandom.js';
 import { createEmptyLocks } from '../lib/engine.js';
+import { poseComposerOptionVisibleForBase } from '../lib/engine/poseComposerCompatibility.js';
 import {
   POSE_COMPOSER_CONTROL_KEYS,
   SECTION_SUBPANELS,
@@ -105,7 +106,13 @@ const WARDROBE_IMAGE_ONLY_PICKER_KEYS = new Set([
 const WARDROBE_OUTFIT_PICKER_KEYS = new Set(['outfitPresetId', 'outfitPresetAId', 'outfitPresetBId']);
 const WARDROBE_DRESS_PICKER_KEYS = new Set(['dressId', 'dressAId', 'dressBId']);
 
-const POSE_COMPOSER_CONTEXT_KEYS = new Set(['poseOrientationId', 'poseArrangementId', 'poseAnchorId']);
+const POSE_COMPOSER_CONTEXT_KEYS = new Set([
+  'poseOrientationId',
+  'poseArrangementId',
+  'poseHandId',
+  'poseHeadId',
+  'poseAnchorId',
+]);
 const POSE_COMPOSER_BASE_IDS = new Set(['standing', 'sitting', 'kneeling', 'squatting', 'lying']);
 const FIXED_SET_KEYS = ['fixedCompositionSetId', 'fixedSetPositionId', 'fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId'];
 const FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS = new Set(['fixedSetBackgroundStateId', 'fixedSetCaptureModeId', 'fixedSetPerformanceStateId']);
@@ -629,6 +636,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     return {
       ...control,
       options: control.options.filter((option) => {
+        if (
+          selectedPoseBaseId
+          && !poseComposerOptionVisibleForBase(option, selectedPoseBaseId)
+          && option.id !== locks[control.key]
+        ) {
+          return false;
+        }
         if (!option.base && !option.bases) return true;
         if (!selectedPoseBaseId) return false;
         if (option.base) return option.base === selectedPoseBaseId;
@@ -771,7 +785,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       }
       if (control.key === 'poseBaseId') {
         const nextBase = POSE_COMPOSER_BASE_IDS.has(value) ? value : '';
-        ['poseOrientationId', 'poseArrangementId', 'poseAnchorId'].forEach((key) => {
+        ['poseOrientationId', 'poseArrangementId', 'poseHandId', 'poseHeadId', 'poseAnchorId'].forEach((key) => {
           const nextControl = characterLockControls.find((item) => item.key === key);
           const selected = nextControl?.options?.find((option) => option.id === next[key]);
           const selectedSupportsBase = selected?.base
@@ -779,7 +793,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
             : selected?.bases
               ? selected.bases.includes(nextBase)
               : true;
-          if (!selectedSupportsBase) next[key] = 'none';
+          const selectedHiddenForBase = selected?.meta?.hiddenForBases?.includes(nextBase);
+          if (!selectedSupportsBase || selectedHiddenForBase) next[key] = 'none';
         });
       }
       return next;

@@ -84,6 +84,7 @@ import {
   poseComposerBaseSupportsRandomContext,
   poseComposerHandSupportsRandomContext,
   poseComposerHeadSupportsRandomContext,
+  poseComposerOptionRandomEligibleForBase,
   poseComposerPropSupportsRandomContext,
 } from './engine/poseComposerCompatibility.js';
 import { createPromptSectionModel } from './engine/promptModel.js';
@@ -5180,6 +5181,7 @@ function buildPoseComposerItem(context) {
   const requestedHand = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, context.locks?.poseHandId);
   const requestedHead = getPoseComposerOption(POSE_COMPOSER_HEAD_OPTIONS, context.locks?.poseHeadId);
   const requestedProp = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, context.locks?.posePropId);
+  const requestedAnchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, context.locks?.poseAnchorId);
 
   const resolveHead = (arrangementForHead = null) => {
     // Compatibility constrains only the random pool. A concrete user lock is
@@ -5188,6 +5190,7 @@ function buildPoseComposerItem(context) {
       ? (option) => poseHeadSupportsOrbit(option, context.orbit)
         && poseComposerHeadSupportsRandomContext(option, {
           ...compatibilityContext,
+          baseId: base?.id || null,
           arrangement: arrangementForHead,
         })
       : () => true;
@@ -5297,7 +5300,14 @@ function buildPoseComposerItem(context) {
     random
   );
   const head = resolveHead(arrangement);
-  const anchor = resolvePoseComposerAnchorOption(context.locks?.poseAnchorId, matchesAnchor, exclusions, random);
+  const anchor = resolvePoseComposerAnchorOption(
+    context.locks?.poseAnchorId,
+    isRandomOption(requestedAnchor)
+      ? (option) => matchesAnchor(option) && poseComposerOptionRandomEligibleForBase(option, base.id)
+      : matchesAnchor,
+    exclusions,
+    random,
+  );
   const propAction = resolvePoseComposerOption(
     POSE_COMPOSER_PROP_OPTIONS,
     context.locks?.posePropId,

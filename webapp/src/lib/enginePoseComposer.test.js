@@ -151,6 +151,47 @@ test('random hand integration excludes unavailable wardrobe and eyewear interact
   }
 });
 
+test('standing random pools exclude non-standing hand, head, and generic-support options', () => {
+  const locks = createFullySpecifiedLocks({
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '隨機'),
+    poseHeadId: optionId('poseHeadId', '隨機'),
+    poseAnchorId: optionId('poseAnchorId', '隨機'),
+  });
+  const forbiddenHands = new Set(['hands-hug-knees']);
+  const forbiddenHeads = new Set(['head-close-support-surface', 'head-close-lens-off-axis', 'head-low-rim-support']);
+  const forbiddenAnchors = new Set(['shared-natural-support']);
+
+  for (const roll of [0, 0.17, 0.34, 0.51, 0.68, 0.85, 0.99]) {
+    const [prompt] = generatePrompts(1, locks, [], { random: () => roll });
+    assert.equal(forbiddenHands.has(prompt.selection.poseHandId), false, `unexpected standing hand ${prompt.selection.poseHandId}`);
+    assert.equal(forbiddenHeads.has(prompt.selection.poseHeadId), false, `unexpected standing head ${prompt.selection.poseHeadId}`);
+    assert.equal(forbiddenAnchors.has(prompt.selection.poseAnchorId), false, `unexpected standing anchor ${prompt.selection.poseAnchorId}`);
+  }
+});
+
+test('standing matrix exclusions remain explicitly restorable', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '雙手抱膝'),
+    poseHeadId: optionId('poseHeadId', '頭部貼近支撐面'),
+    poseAnchorId: optionId('poseAnchorId', '自然受支撐'),
+  });
+
+  assert.equal(prompt.selection.poseHandId, optionId('poseHandId', '雙手抱膝'));
+  assert.equal(prompt.selection.poseHeadId, optionId('poseHeadId', '頭部貼近支撐面'));
+  assert.equal(prompt.selection.poseAnchorId, optionId('poseAnchorId', '自然受支撐'));
+  assert.match(prompt.grokPrompt, /both arms wrapped around the bent knees/i);
+  assert.match(prompt.grokPrompt, /head angled close to a support surface/i);
+  assert.match(prompt.grokPrompt, /body naturally supported/i);
+});
+
 test('hand visibility metadata projects lower-body actions out of chest-up canonical poses', () => {
   const shared = {
     ...createEmptyLocks(),

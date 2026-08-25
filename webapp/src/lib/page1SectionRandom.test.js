@@ -222,8 +222,8 @@ test('single pose panel randomizes the six Pose Composer layers and leaves props
       poseOrientationId: 'none',
       poseArrangementId: 'standing-one-leg-weight',
       poseHandId: 'hands-behind-back',
-      poseHeadId: 'head-low-rim-support',
-      poseAnchorId: 'shared-vertical-surface-support',
+      poseHeadId: 'head-away-profile',
+      poseAnchorId: 'standing-edge-hip-support',
     },
     'The migration seed should follow base, arrangement, hand, head, then anchor sampling order',
   );

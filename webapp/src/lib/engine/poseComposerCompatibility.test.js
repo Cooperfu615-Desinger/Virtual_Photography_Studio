@@ -9,6 +9,8 @@ import {
   poseComposerBaseSupportsRandomContext,
   poseComposerHandSupportsRandomContext,
   poseComposerHeadSupportsRandomContext,
+  poseComposerOptionRandomEligibleForBase,
+  poseComposerOptionVisibleForBase,
   poseComposerPropSupportsRandomContext,
 } from './poseComposerCompatibility.js';
 
@@ -96,4 +98,20 @@ test('public hand metadata shares crop, wardrobe, and face-orbit constraints', (
   assert.equal(poseComposerHandSupportsRandomContext(findHand('hands-relaxed-down'), waistUp), true);
   assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-support-chin'), rear), false);
   assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-open-palm-camera'), rear), true);
+});
+
+test('standing matrix hides incompatible support and lower-body options while preserving other bases', () => {
+  const standing = createPoseComposerCompatibilityContext({ base: 'standing' });
+  const sitting = createPoseComposerCompatibilityContext({ base: 'sitting' });
+  const hugKnees = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-hug-knees');
+  const closeSupportHead = { id: 'head-close-support-surface', meta: { hiddenForBases: ['standing'], randomEligibleForBases: { standing: false } } };
+  const naturalSupportAnchor = { id: 'shared-natural-support', meta: { hiddenForBases: ['standing'], randomEligibleForBases: { standing: false } } };
+
+  assert.equal(poseComposerOptionVisibleForBase(hugKnees, 'standing'), false);
+  assert.equal(poseComposerOptionVisibleForBase(hugKnees, 'sitting'), true);
+  assert.equal(poseComposerHandSupportsRandomContext(hugKnees, standing), false);
+  assert.equal(poseComposerHandSupportsRandomContext(hugKnees, sitting), true);
+  assert.equal(poseComposerOptionVisibleForBase(closeSupportHead, 'standing'), false);
+  assert.equal(poseComposerOptionRandomEligibleForBase(naturalSupportAnchor, 'standing'), false);
+  assert.equal(poseComposerOptionRandomEligibleForBase(naturalSupportAnchor, 'sitting'), true);
 });

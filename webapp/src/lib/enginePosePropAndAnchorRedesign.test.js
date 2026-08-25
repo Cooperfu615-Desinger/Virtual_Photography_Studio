@@ -246,7 +246,11 @@ test('cube plinth anchors stay restorable but leave the public picker and random
       poseAnchorId: 'random',
     };
     const [naturalSupportPrompt] = generatePrompts(1, locks, [], { random: () => 0.34 });
-    assert.equal(naturalSupportPrompt.selection.poseAnchorId, 'shared-natural-support', baseId);
+    assert.equal(
+      naturalSupportPrompt.selection.poseAnchorId,
+      baseId === 'standing' ? 'shared-vertical-surface-support' : 'shared-natural-support',
+      baseId,
+    );
 
     for (let index = 0; index < 100; index += 1) {
       const [prompt] = generatePrompts(1, locks, [], { random: () => index / 100 });
@@ -260,7 +264,7 @@ test('cube plinth anchors stay restorable but leave the public picker and random
     poseBaseId: 'standing',
     poseAnchorId: 'random',
   }, [], { random: () => 0.65 });
-  assert.equal(weightedStandingPrompt.selection.poseAnchorId, 'shared-natural-support');
+  assert.equal(weightedStandingPrompt.selection.poseAnchorId, 'shared-vertical-surface-support');
 });
 
 test('lying body variations are public while previous specialized arrangements stay restorable but hidden', () => {
