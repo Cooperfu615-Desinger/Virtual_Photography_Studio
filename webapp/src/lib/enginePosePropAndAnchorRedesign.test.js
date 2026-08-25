@@ -248,7 +248,7 @@ test('cube plinth anchors stay restorable but leave the public picker and random
     const [naturalSupportPrompt] = generatePrompts(1, locks, [], { random: () => 0.34 });
     assert.equal(
       naturalSupportPrompt.selection.poseAnchorId,
-      baseId === 'standing' ? 'shared-vertical-surface-support' : 'shared-natural-support',
+      ['standing', 'sitting'].includes(baseId) ? 'shared-vertical-surface-support' : 'shared-natural-support',
       baseId,
     );
 

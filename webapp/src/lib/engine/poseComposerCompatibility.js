@@ -116,6 +116,13 @@ export function poseComposerArrangementSupportsRandomContext(arrangement, contex
 export function poseComposerHandSupportsRandomContext(hand, context = {}) {
   if (!hand?.id || hand.id === 'none' || hand.id === 'random') return true;
   if (!poseComposerOptionRandomEligibleForBase(hand, context.baseId)) return false;
+
+  const eligibleArrangements = hand.meta?.randomEligibleForArrangements?.[context.baseId];
+  if (Array.isArray(eligibleArrangements)
+    && !eligibleArrangements.includes(context.arrangement?.id)) {
+    return false;
+  }
+
   if (UPPER_CROP_BUCKETS.has(context.bucket) && LOWER_BODY_HANDS.has(hand.id)) return false;
   if (context.bucket === COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE && hand.id === 'one-hand-ankle') return false;
 

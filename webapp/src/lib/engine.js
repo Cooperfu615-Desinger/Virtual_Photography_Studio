@@ -5293,7 +5293,11 @@ function buildPoseComposerItem(context) {
     POSE_COMPOSER_HAND_OPTIONS,
     context.locks?.poseHandId,
     isRandomOption(requestedHand)
-      ? (option) => poseComposerHandSupportsRandomContext(option, { ...compatibilityContext, baseId: base.id })
+      ? (option) => poseComposerHandSupportsRandomContext(option, {
+        ...compatibilityContext,
+        baseId: base.id,
+        arrangement,
+      })
       : () => true,
     exclusions,
     ['poseHandId'],

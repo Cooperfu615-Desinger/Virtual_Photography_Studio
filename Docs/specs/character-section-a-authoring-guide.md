@@ -380,6 +380,8 @@ Pose: natural seated pose, torso upright, one hand resting beside the body
 
 坐姿的 10 個公開肢體變化必須在 `poseComposerOptions.js` 以 `projectionByBucket` 明確定義 `fullBody`、`cowboyKnee`、`mediumWaist`、`chestUp`、`fixedComposition`、`unconstrained`、`faceDetail` 與 `headShoulders` 的可見性。自然坐姿、前傾、隨性癱坐與開闊直立類坐姿在胸上／腰上裁切使用明確的上半身片段；雙腿屈起、盤腿、翹腿、屈膝、伸腿與側放腿等純下半身變化在胸上／腰上裁切應 `omit`，不得補造畫面外腿部動作。全身與牛仔中景保留完整坐姿描述。`雙手後撐`、`單腿放鬆` 與 `坐姿身體前傾` 為重複性較高的舊 ID，設為 `uiHidden: true`、`randomEligible: false`，但仍可由既有資料還原；原 `抱膝坐姿` 使用同一 ID 改名為公開的 `雙腿屈起`，英文只描述雙腿屈起，不綁定手部。坐姿投影不得再依賴 `engine.js` 的歷史硬編碼 fallback。
 
+坐姿第一版專屬矩陣保留上述十個公開肢體變化。坐姿頭部方向排除 `頭部貼近支撐面`、`近鏡頭偏轉頭部` 與 `頭靠近邊緣支撐` 這類技術性支撐／攝影機描述；明確還原仍可輸出。`雙手抱膝` 不綁定坐姿選單，但隨機池只在 `雙腿屈起` 與 `單腿屈起坐姿` 下啟用，其他明確手動組合仍保留。坐姿的主要接觸／支撐使用具體座面、抬高邊緣、地面、柔軟平面與垂直面；`自然受支撐` 保留作為相容性選項，但不列入坐姿一般選單或隨機池。`坐在單人雕花絨布椅` 保留明確選取但不參與坐姿隨機。這些矩陣限制只作用於 UI 投影與隨機相容性，不能靜默覆寫明確鎖定或既有 Saved Cards／restore 值。
+
 `雙手後撐`、`瑜伽小狗式交叉手托下巴` 與 `手肘支撐跪姿` 同樣保留舊 ID 但不再出現在一般選單或隨機池；`越肩回望`、`側臉轉向畫面外` 與 `下巴靠近肩線` 也是可還原但 UI 隱藏的舊頭部選項。`在水中`、`靠在水邊支撐` 與 `浴缸` 屬於場景依賴的水域支撐選項，只有選取相容水域場景後才顯示。
 
 蹲姿目前只保留七個公開肢體變化：`自然蹲姿`、`單膝抬起不對稱蹲姿`、`側身蹲姿`、`低蹲單腿前伸`、`身體前傾蹲姿`、`雙膝合併半蹲`、`寬膝深蹲／流氓蹲姿`。其中 `側身蹲姿` 的定義是下半身維持蹲姿、上半身轉向鏡頭，不是整體側面站位；`身體前傾蹲姿` 不綁定手部；抱膝改由獨立 `poseHandId` 的 `雙手抱膝` 表達。七個公開選項必須在 `poseComposerOptions.js` 以 `projectionByBucket` 明確定義八種 composition visibility bucket。自然蹲姿與身體前傾蹲姿在胸上／腰上裁切使用明確的上半身片段；其餘下半身主導蹲姿在胸上／腰上裁切應 `omit`，中景只保留不補造腿部幾何的蹲姿基底；雙膝合併半蹲在牛仔中景使用可見膝蓋範圍的縮短片段。全身、unconstrained 與 fixed composition 保留完整 canonical pose。原有重複或特殊化蹲姿 ID 不刪除，改設為 `uiHidden: true`、`randomEligible: false`，供既有資料還原；蹲姿 projection 不得再依賴 `engine.js` 的歷史硬編碼 arrangement fallback。

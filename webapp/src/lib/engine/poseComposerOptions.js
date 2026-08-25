@@ -322,6 +322,11 @@ const hidePoseOptionForBase = (option, baseId) => ({
   },
 });
 
+const hidePoseOptionForBases = (option, baseIds) => baseIds.reduce(
+  (current, baseId) => hidePoseOptionForBase(current, baseId),
+  option,
+);
+
 const withStandingUpperProjectionEnglish = (option, english) => ({
   ...option,
   meta: {
@@ -567,7 +572,7 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'both-hands-gather-hair', zh: '雙手抓著整束頭髮與髮尾整理', en: 'both hands gathering one thick bundle of hair behind and above the head, one hand holding near the base while the other grips and smooths the loose lengths toward the ends in a natural ponytail-prep motion', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
   { id: 'hand-adjust-off-shoulder-top', zh: '拉下肩線整理上衣', en: 'one hand gently pulling the neckline or shoulder seam down from one shoulder to expose the shoulder while the garment stays attached and naturally draped', desc: '單手把領口或肩線往一側肩膀下拉，露出肩膀，但衣服仍保持連著身體並自然垂墜。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'upperGarment' } },
   { id: 'hands-lift-waistband', zh: '雙手把褲子或裙子的褲頭往上拉', en: 'both hands pulling the pants or skirt waistband slightly upward into place, fingers gripping the waistband or belt loops without lowering or removing the garment', desc: '雙手把褲子或裙子的褲頭稍微往上拉回定位，不是往下脫。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresWardrobeRole: 'bottom' } },
-  hidePoseOptionForBase({ id: 'hands-hug-knees', zh: '雙手抱膝', en: 'both arms wrapped around the bent knees, hands gently holding the knees close to the torso', desc: '雙手環抱彎曲的膝蓋，手掌自然扶住膝部，不綁定特定蹲姿。', meta: { tags: ['leg_focus_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS } }, 'standing'),
+  hidePoseOptionForBase({ id: 'hands-hug-knees', zh: '雙手抱膝', en: 'both arms wrapped around the bent knees, hands gently holding the knees close to the torso', desc: '雙手環抱彎曲的膝蓋，手掌自然扶住膝部，不綁定特定蹲姿。', meta: { tags: ['leg_focus_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, randomEligibleForArrangements: { sitting: ['sitting-hug-knees', 'sitting-one-knee-up'] } } }, 'standing'),
   { id: 'hands-in-pockets', zh: '雙手插褲子口袋', en: 'both hands tucked into the two front pockets of her pants, elbows relaxed and angled slightly outward', desc: '雙手插入褲子前方兩側口袋，手肘自然放鬆並微微向外。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresWardrobeRole: 'pants', legacyPromptAliases: ['both hands tucked into pockets'] } },
   { id: 'hands-in-outerwear-pockets', zh: '雙手插外套口袋', en: 'both hands tucked into the two side pockets of her jacket or coat, elbows relaxed and angled slightly outward', desc: '雙手插入外套兩側口袋，手肘自然放鬆並微微向外。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresWardrobeRole: 'outerwear' } },
   { id: 'one-hand-hold-glasses', zh: '單手拿著眼鏡', en: 'one hand holding the glasses by one temple, with the glasses removed from the face and hanging naturally beside the cheek', desc: '單手捏住眼鏡其中一側鏡腳，眼鏡已取下並自然垂在臉頰旁。', meta: { tags: ['face_action', 'eyewear_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'eyewear', requiresFaceVisibility: true } },
@@ -615,9 +620,9 @@ export const POSE_COMPOSER_HEAD_OPTIONS = [
   deprecatedPoseHead({ id: 'head-over-shoulder', zh: '越肩回望', en: 'head turned over one shoulder toward the camera', meta: { tags: ['requires_face_visibility'] } }),
   { id: 'head-away-profile', zh: '側臉看向遠方', en: 'head turned into a clean side profile with the face oriented away from the camera' },
   deprecatedPoseHead({ id: 'chin-tucked-shoulder-line', zh: '下巴靠近肩線', en: 'chin tucked toward one shoulder line with the neck softly folded by the selected pose' }),
-  hidePoseOptionForBase({ id: 'head-close-support-surface', zh: '頭部貼近支撐面', en: 'head angled close to a support surface or shoulder line with the cheek plane following the selected support contact' }, 'standing'),
-  hidePoseOptionForBase({ id: 'head-close-lens-off-axis', zh: '近鏡頭偏轉頭部', en: 'head turned slightly off-axis near the lens with the face plane angled diagonally instead of flat to camera', meta: { tags: ['requires_face_visibility'] } }, 'standing'),
-  hidePoseOptionForBase({ id: 'head-low-rim-support', zh: '頭靠近邊緣支撐', en: 'head angled low near a rim or support edge with cheek and jawline close to the supporting surface' }, 'standing'),
+  hidePoseOptionForBases({ id: 'head-close-support-surface', zh: '頭部貼近支撐面', en: 'head angled close to a support surface or shoulder line with the cheek plane following the selected support contact' }, ['standing', 'sitting']),
+  hidePoseOptionForBases({ id: 'head-close-lens-off-axis', zh: '近鏡頭偏轉頭部', en: 'head turned slightly off-axis near the lens with the face plane angled diagonally instead of flat to camera', meta: { tags: ['requires_face_visibility'] } }, ['standing', 'sitting']),
+  hidePoseOptionForBases({ id: 'head-low-rim-support', zh: '頭靠近邊緣支撐', en: 'head angled low near a rim or support edge with cheek and jawline close to the supporting surface' }, ['standing', 'sitting']),
 ];
 
 const deprecatedPoseAnchor = (option) => ({
@@ -642,8 +647,8 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     meta: {
       randomWeight: 3,
       projectionByBucket: STANDING_SUPPORT_PROJECTION,
-      hiddenForBases: ['standing'],
-      randomEligibleForBases: { standing: false },
+      hiddenForBases: ['standing', 'sitting'],
+      randomEligibleForBases: { standing: false, sitting: false },
     },
     phraseByBase: {
       standing: 'standing with the body naturally supported',
@@ -733,7 +738,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       lying: 'reclining across the top surface of a transparent acrylic cube plinth, back and hips in continuous contact with the clear top and fully supported by it',
     },
   }),
-  { id: 'sitting-ornate-velvet-armchair', base: 'sitting', zh: '坐在單人雕花絨布椅', en: 'on an ornate single velvet armchair in a relaxed lounging posture' },
+  { id: 'sitting-ornate-velvet-armchair', base: 'sitting', zh: '坐在單人雕花絨布椅', en: 'on an ornate single velvet armchair in a relaxed lounging posture', meta: { randomEligibleForBases: { sitting: false } } },
   deprecatedPoseAnchor({ id: 'standing-wall', base: 'standing', zh: '靠牆', en: 'leaning against a wall' }),
   deprecatedPoseAnchor({ id: 'standing-doorway', base: 'standing', zh: '站在門框邊', en: 'standing beside a doorway frame' }),
   deprecatedPoseAnchor({ id: 'standing-table-edge', base: 'standing', zh: '站在桌邊', en: 'standing beside a table edge' }),

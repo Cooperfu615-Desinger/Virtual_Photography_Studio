@@ -2,7 +2,11 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.js';
-import { POSE_COMPOSER_HAND_OPTIONS } from './poseComposerOptions.js';
+import {
+  POSE_COMPOSER_ANCHOR_OPTIONS,
+  POSE_COMPOSER_HAND_OPTIONS,
+  POSE_COMPOSER_HEAD_OPTIONS,
+} from './poseComposerOptions.js';
 import {
   createPoseComposerCompatibilityContext,
   poseComposerArrangementSupportsRandomContext,
@@ -103,15 +107,20 @@ test('public hand metadata shares crop, wardrobe, and face-orbit constraints', (
 test('standing matrix hides incompatible support and lower-body options while preserving other bases', () => {
   const standing = createPoseComposerCompatibilityContext({ base: 'standing' });
   const sitting = createPoseComposerCompatibilityContext({ base: 'sitting' });
+  const sittingWithRaisedKnees = { ...sitting, arrangement: { id: 'sitting-hug-knees' } };
+  const sittingWithoutRaisedKnees = { ...sitting, arrangement: { id: 'sitting-natural' } };
   const hugKnees = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-hug-knees');
-  const closeSupportHead = { id: 'head-close-support-surface', meta: { hiddenForBases: ['standing'], randomEligibleForBases: { standing: false } } };
-  const naturalSupportAnchor = { id: 'shared-natural-support', meta: { hiddenForBases: ['standing'], randomEligibleForBases: { standing: false } } };
+  const closeSupportHead = POSE_COMPOSER_HEAD_OPTIONS.find((item) => item.id === 'head-close-support-surface');
+  const naturalSupportAnchor = POSE_COMPOSER_ANCHOR_OPTIONS.find((item) => item.id === 'shared-natural-support');
 
   assert.equal(poseComposerOptionVisibleForBase(hugKnees, 'standing'), false);
   assert.equal(poseComposerOptionVisibleForBase(hugKnees, 'sitting'), true);
   assert.equal(poseComposerHandSupportsRandomContext(hugKnees, standing), false);
-  assert.equal(poseComposerHandSupportsRandomContext(hugKnees, sitting), true);
+  assert.equal(poseComposerHandSupportsRandomContext(hugKnees, sittingWithRaisedKnees), true);
+  assert.equal(poseComposerHandSupportsRandomContext(hugKnees, sittingWithoutRaisedKnees), false);
   assert.equal(poseComposerOptionVisibleForBase(closeSupportHead, 'standing'), false);
+  assert.equal(poseComposerOptionVisibleForBase(closeSupportHead, 'sitting'), false);
   assert.equal(poseComposerOptionRandomEligibleForBase(naturalSupportAnchor, 'standing'), false);
-  assert.equal(poseComposerOptionRandomEligibleForBase(naturalSupportAnchor, 'sitting'), true);
+  assert.equal(poseComposerOptionVisibleForBase(naturalSupportAnchor, 'sitting'), false);
+  assert.equal(poseComposerOptionRandomEligibleForBase(naturalSupportAnchor, 'sitting'), false);
 });
