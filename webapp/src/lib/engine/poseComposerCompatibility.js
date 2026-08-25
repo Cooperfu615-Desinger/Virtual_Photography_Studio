@@ -6,7 +6,7 @@ import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.
  * These predicates are deliberately applied only to random pools. Explicit
  * Pose Composer locks remain user intent and are not silently replaced.
  */
-export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 5;
+export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 6;
 
 const UPPER_OR_KNEE_CROP_BUCKETS = new Set([
   COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,

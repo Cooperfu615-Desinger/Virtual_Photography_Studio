@@ -95,6 +95,12 @@ test('public hand catalog is compact and carries the clarified garment/accessory
     '雙手背在身後',
     '雙手放在頭後',
     '單手向鏡頭張開手掌',
+    '雙手向前伸展',
+    '雙手自然放在兩腿外側',
+    '單手托腮一手扶膝',
+    '單手碰嘴角一手自然下垂',
+    '單手在臉旁比 V',
+    '雙手托腮扶臉',
     '單手托下巴',
     '單手碰嘴角',
     '單手往後撥瀏海',
@@ -984,6 +990,53 @@ test('squatting arrangements use explicit crop projection without lower-body lea
   assert.match(poseText(fullBody), /low squat with one leg extended straight forward/);
   for (const text of [fullBody.grokPrompt, fullBody.zImagePrompt, fullBody.midjourneyPrompt]) {
     assert.match(text, /low squat with one leg extended straight forward/);
+  }
+});
+
+test('squatting-specific hand actions stay scoped and source-traceable across outputs', () => {
+  const framing = (zh) => optionId('framingId', zh);
+  const poseText = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^.]+\.)/)?.[1] || '';
+  const baseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '蹲姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然蹲姿'),
+    poseHeadId: optionId('poseHeadId', '全無'),
+    poseAnchorId: optionId('poseAnchorId', '全無'),
+  };
+  const cases = [
+    ['雙手向前伸展', /both arms extended forward with the hands held close together in front of the knees/],
+    ['雙手自然放在兩腿外側', /both hands resting naturally along the outer sides of the legs with relaxed elbows/],
+    ['單手托腮一手扶膝', /one hand supporting the cheek or chin with the elbow near the knee, the other hand resting on the opposite knee/],
+    ['單手碰嘴角一手自然下垂', /one hand lightly touching the corner of the mouth, the other hand resting loosely near the lower leg/],
+    ['單手在臉旁比 V', /one hand forming a relaxed V sign beside the face, the other hand resting naturally near the leg/],
+    ['雙手托腮扶臉', /both hands cupping the cheeks with the elbows drawn inward near the knees/],
+  ];
+
+  for (const [handZh, expected] of cases) {
+    const fullBody = generatePrompts(1, {
+      ...baseLocks,
+      framingId: framing('全身鏡頭 (Full Body Shot)'),
+      poseHandId: optionId('poseHandId', handZh),
+    })[0];
+    assert.match(poseText(fullBody), expected);
+    for (const text of [fullBody.grokPrompt, fullBody.zImagePrompt, fullBody.midjourneyPrompt]) {
+      assert.match(text, expected);
+    }
+
+    const [chestUp] = generatePrompts(1, {
+      ...baseLocks,
+      framingId: framing('胸上特寫'),
+      poseHandId: optionId('poseHandId', handZh),
+    });
+    assert.doesNotMatch(poseText(chestUp), expected);
+
+    const [medium] = generatePrompts(1, {
+      ...baseLocks,
+      framingId: framing('中景鏡頭 (Medium Shot)'),
+      poseHandId: optionId('poseHandId', handZh),
+    });
+    assert.match(poseText(medium), expected);
   }
 });
 

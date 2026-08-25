@@ -743,6 +743,36 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'pose-composer-squatting-hand',
+    title: 'Squatting-specific hand action stays source-traceable across outputs',
+    mode: 'single',
+    seed: 'prompt-contract-squatting-hand-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      poseBaseId: { byZh: '蹲姿' },
+      poseArrangementId: { byZh: '自然蹲姿' },
+      poseHandId: { byZh: '雙手托腮扶臉' },
+      poseHeadId: { byZh: '頭部自然朝向鏡頭' },
+      poseAnchorId: { byZh: '全無' },
+      locationId: { byZh: '室內：英倫復古窗邊房間' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['both hands cupping the cheeks with the elbows drawn inward near the knees', 'presents a deep resting squat with both feet flat on the ground, heels down'],
+        excludes: ['arrangement', 'let the image model choose'],
+      },
+      zImagePrompt: {
+        includes: ['both hands cupping the cheeks with the elbows drawn inward near the knees', 'presents a deep resting squat with both feet flat on the ground, heels down'],
+        excludes: ['arrangement', 'let the image model choose'],
+      },
+      midjourneyPrompt: {
+        includes: ['both hands cupping the cheeks with the elbows drawn inward near the knees', 'presents a deep resting squat with both feet flat on the ground, heels down'],
+        excludes: ['arrangement', 'let the image model choose'],
+      },
+    },
+  },
+  {
     id: 'pose-composer-half-reclining-b2',
     title: 'Medium half-reclining pose keeps natural support without naming a support object',
     mode: 'single',

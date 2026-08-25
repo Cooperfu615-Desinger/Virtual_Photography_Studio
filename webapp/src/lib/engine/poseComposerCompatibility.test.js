@@ -144,3 +144,43 @@ test('kneeling matrix keeps four-point support hands and bent-knee hug hands com
   assert.equal(poseComposerHandSupportsRandomContext(hugKnees, fourPoint), false);
   assert.equal(poseComposerHandSupportsRandomContext(hugKnees, forwardLean), false);
 });
+
+test('squatting matrix exposes six dedicated hand actions only for squatting', () => {
+  const squat = createPoseComposerCompatibilityContext({
+    base: 'squatting',
+    bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+    orbit: option('front', ['front_view']),
+  });
+  const dedicatedIds = [
+    'squatting-hands-forward',
+    'squatting-hands-outer-legs',
+    'squatting-one-hand-cheek-one-knee',
+    'squatting-one-hand-mouth-one-down',
+    'squatting-one-hand-v-sign',
+    'squatting-both-hands-cheeks',
+  ];
+
+  for (const id of dedicatedIds) {
+    const hand = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id);
+    assert.ok(hand, `Expected dedicated squatting hand ${id}`);
+    assert.equal(poseComposerOptionVisibleForBase(hand, 'squatting'), true);
+    assert.equal(poseComposerOptionRandomEligibleForBase(hand, 'squatting'), true);
+    assert.equal(poseComposerOptionVisibleForBase(hand, 'standing'), false);
+    assert.equal(poseComposerOptionRandomEligibleForBase(hand, 'standing'), false);
+    assert.equal(poseComposerHandSupportsRandomContext(hand, squat), true);
+    assert.equal(poseComposerHandSupportsRandomContext(hand, { ...squat, bucket: COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP }), false);
+  }
+
+  for (const id of [
+    'squatting-one-hand-cheek-one-knee',
+    'squatting-one-hand-mouth-one-down',
+    'squatting-one-hand-v-sign',
+    'squatting-both-hands-cheeks',
+  ]) {
+    const hand = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id);
+    assert.equal(poseComposerHandSupportsRandomContext(hand, {
+      ...squat,
+      orbitTags: ['back_view'],
+    }), false);
+  }
+});
