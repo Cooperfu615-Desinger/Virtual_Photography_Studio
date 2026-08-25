@@ -5012,17 +5012,17 @@ function getWaterImmersedAnchorPhrase(base, location, orientation = null) {
   const waterBody = getWaterPoseBody(location);
   const immersionDetail = 'with the whole lower body submerged and only the upper body above the water surface';
   const lyingOrientation = orientation?.id === 'lying-prone'
-    ? 'floating face down in'
+    ? `in ${waterBody}, floating face down`
     : orientation?.id === 'lying-side'
-      ? 'floating on one side in'
-      : 'floating on the back in';
+      ? `in ${waterBody}, floating on one side`
+      : `in ${waterBody}, floating on the back`;
   const phrases = {
     standing: `standing waist-deep in ${waterBody} ${immersionDetail}`,
     sitting: `sitting low in ${waterBody} ${immersionDetail}`,
     kneeling: `kneeling in ${waterBody} ${immersionDetail}`,
     squatting: `squatting low in ${waterBody} ${immersionDetail}`,
     lying: orientation?.id
-      ? `${lyingOrientation} ${waterBody} with the body supported by the water surface ${immersionDetail}`
+      ? `${lyingOrientation} with the body supported by the water surface ${immersionDetail}`
       : `floating or half-floating on the ${waterBody} surface ${immersionDetail}`,
   };
   return phrases[base?.id] || `in ${waterBody} ${immersionDetail}`;
@@ -5032,17 +5032,17 @@ function getWaterEdgeSupportAnchorPhrase(base, location, orientation = null) {
   const waterEdge = getWaterPoseEdge(location);
   const immersionDetail = 'with the whole lower body submerged and only the upper body above the water surface';
   const lyingOrientation = orientation?.id === 'lying-prone'
-    ? 'prone lying at'
+    ? 'lying face down at'
     : orientation?.id === 'lying-side'
-      ? 'side-lying at'
-      : 'supine lying at';
+      ? 'lying on one side at'
+      : 'lying on the back at';
   const phrases = {
     standing: `standing in shallow water beside the ${waterEdge} ${immersionDetail} and forearms or hands supported on that edge`,
     sitting: `sitting at the ${waterEdge} ${immersionDetail} and hands or forearms supported on that edge`,
     kneeling: `kneeling at the ${waterEdge} ${immersionDetail} and forearms or hands supported on that edge`,
     squatting: `squatting low at the ${waterEdge} ${immersionDetail} and one or both hands supported on that edge`,
     lying: orientation?.id
-      ? `${lyingOrientation} the ${waterEdge} with the body partly supported by that edge ${immersionDetail}`
+      ? `${lyingOrientation} the ${waterEdge}, with the body partly supported by that edge ${immersionDetail}`
       : `half-reclining at the ${waterEdge} ${immersionDetail} and forearms supported on that edge`,
   };
   return phrases[base?.id] || `supported at the ${waterEdge} ${immersionDetail}`;

@@ -1772,10 +1772,9 @@ test('lying orientation and body variation compose into one shared canonical pos
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   });
   const canonical = poseText(fullPrompt);
-  assert.match(canonical, /prone lying position/);
-  assert.match(canonical, /chest and abdomen facing the support surface/);
-  assert.match(canonical, /upper body lifted and supported on the elbows or forearms/);
-  assert.match(canonical, /lower body remains on the support surface/);
+  assert.match(canonical, /prone position, torso facing downward/);
+  assert.match(canonical, /upper body raised into a supported incline/);
+  assert.doesNotMatch(canonical, /chest and abdomen facing the support surface|lower body remains on the support surface/);
   assert.equal(fullPrompt.selection.poseOrientationId, 'lying-prone');
   assert.equal(fullPrompt.selection.poseArrangementId, 'lying-body-upper-propped');
   assert.ok(fullPrompt.zImagePrompt.includes(canonical));
@@ -1789,24 +1788,24 @@ test('lying orientation and body variation compose into one shared canonical pos
   });
   const chestCanonical = poseText(chestPrompt);
   assert.match(chestCanonical, /upper-body pose/);
-  assert.match(chestCanonical, /upper torso facing downward toward the support surface/);
-  assert.match(chestCanonical, /upper body lifted and supported on the elbows or forearms/);
-  assert.doesNotMatch(chestCanonical, /lower body remains on the support surface/);
+  assert.match(chestCanonical, /upper torso facing downward in a prone position/);
+  assert.match(chestCanonical, /upper body raised into a supported incline/);
+  assert.doesNotMatch(chestCanonical, /lower body remains on the support surface|chest and abdomen facing the support surface/);
 });
 
 test('lying public English keeps orientation and body variation geometry distinct across crops', () => {
   const poseText = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
   const orientations = [
-    ['仰躺', /supine lying position, front of the body facing upward/],
-    ['側躺', /side-lying position, body turned onto one side/],
-    ['趴臥', /prone lying position, chest and abdomen facing the support surface/],
+    ['仰躺', /supine position, torso facing upward/],
+    ['側躺', /side-lying position, torso turned onto one side/],
+    ['趴臥', /prone position, torso facing downward/],
   ];
   const variations = [
-    { zh: '自然伸展', full: /body extended in a relaxed line, legs resting naturally/ },
-    { zh: '雙腿屈起', full: /both legs comfortably bent, knees softly raised/ },
-    { zh: '身體微蜷', full: /torso and legs gently curved inward into a soft compact shape/, projected: /torso gently curled into a soft compact curve/ },
-    { zh: '上半身半躺', full: /upper body raised into a gentle half-recline while the lower body remains relaxed in the lying position/, projected: /upper body raised into a gentle half-recline/ },
-    { zh: '上半身撐起', full: /upper body lifted and supported on the elbows or forearms while the lower body remains on the support surface/, projected: /upper body lifted and supported on the elbows or forearms/ },
+    { zh: '自然伸展', full: /body extended in a relaxed line with the legs resting naturally/ },
+    { zh: '雙腿屈起', full: /both legs comfortably bent with the knees softly raised/ },
+    { zh: '身體微蜷', full: /torso and legs gently curled inward into a compact shape/, projected: /torso gently curled into a compact shape/ },
+    { zh: '上半身半躺', full: /upper body raised into a gentle half-recline/, projected: /upper body raised into a gentle half-recline/ },
+    { zh: '上半身撐起', full: /upper body raised into a supported incline/, projected: /upper body raised into a supported incline/ },
   ];
   const lowerBodyVariations = new Set(['自然伸展', '雙腿屈起']);
   const baseLocks = {
@@ -1879,7 +1878,7 @@ test('lying dedicated matrix composes orientation-specific hands heads and scene
       handZh: '仰躺雙手向頭頂伸展',
       headZh: '仰躺頭部自然朝上',
       anchorZh: '床上',
-      expected: [/supine lying position/, /both arms extending naturally overhead/, /head resting naturally upward/, /existing bed surface/],
+      expected: [/supine position/, /both arms reaching overhead/, /head resting in line with the upward-facing torso/, /on an existing bed surface/],
     },
     {
       orientationZh: '側躺',
@@ -1887,7 +1886,7 @@ test('lying dedicated matrix composes orientation-specific hands heads and scene
       handZh: '側躺下側手臂支撐頭部',
       headZh: '側躺頭部貼近支撐面',
       anchorZh: '沙發上',
-      expected: [/side-lying position/, /lower arm folded under the head/, /head resting close to the support surface/, /existing sofa surface/],
+      expected: [/side-lying position/, /lower arm tucked beneath the head/, /head resting close to the lower shoulder line/, /on an existing sofa surface/],
     },
     {
       orientationZh: '趴臥',
@@ -1896,7 +1895,7 @@ test('lying dedicated matrix composes orientation-specific hands heads and scene
       headZh: '趴臥頭部轉向一側',
       anchorZh: '草地上',
       sceneAttributeZh: '戶外',
-      expected: [/prone lying position/, /both elbows planted on the support surface/, /head turned sideways/, /grass-covered ground/],
+      expected: [/prone position/, /both elbows planted beneath the shoulders/, /head turned to one side/, /on existing grass-covered ground/],
     },
   ];
 

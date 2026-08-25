@@ -70,28 +70,26 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     expectedOutputs: {
       grokPrompt: {
         includes: [
-          'prone lying position',
-          'chest and abdomen facing the support surface',
-          'upper body lifted and supported on the elbows or forearms',
-          'lower body remains on the support surface',
+          'prone position, torso facing downward',
+          'upper body raised into a supported incline',
         ],
-        excludes: ['front of the body resting toward the support surface', 'upper body propped up by the elbows or forearms'],
+        excludes: ['chest and abdomen facing the support surface', 'lower body remains on the support surface'],
       },
       zImagePrompt: {
-        includes: ['prone lying position', 'upper body lifted and supported on the elbows or forearms'],
-        excludes: ['front of the body resting toward the support surface', 'upper body propped up by the elbows or forearms'],
+        includes: ['prone position, torso facing downward', 'upper body raised into a supported incline'],
+        excludes: ['chest and abdomen facing the support surface', 'lower body remains on the support surface'],
       },
       midjourneyPrompt: {
-        includes: ['prone lying position', 'upper body lifted and supported on the elbows or forearms'],
-        excludes: ['front of the body resting toward the support surface', 'upper body propped up by the elbows or forearms'],
+        includes: ['prone position, torso facing downward', 'upper body raised into a supported incline'],
+        excludes: ['chest and abdomen facing the support surface', 'lower body remains on the support surface'],
       },
       chestUpPortraitPrompt: {
-        includes: ['upper torso facing downward toward the support surface', 'upper body lifted and supported on the elbows or forearms'],
-        excludes: ['lower body remains on the support surface'],
+        includes: ['upper torso facing downward in a prone position', 'upper body raised into a supported incline'],
+        excludes: ['chest and abdomen facing the support surface', 'lower body remains on the support surface'],
       },
       chestUpMjPortraitPrompt: {
-        includes: ['upper torso facing downward toward the support surface', 'upper body lifted and supported on the elbows or forearms'],
-        excludes: ['lower body remains on the support surface'],
+        includes: ['upper torso facing downward in a prone position', 'upper body raised into a supported incline'],
+        excludes: ['chest and abdomen facing the support surface', 'lower body remains on the support surface'],
       },
     },
   },
