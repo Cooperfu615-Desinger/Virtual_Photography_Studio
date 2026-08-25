@@ -254,7 +254,7 @@ high-contrast monochrome-influenced shadows with warm color rendering and restra
 | 組合 | 風險 | 處理方向 |
 | --- | --- | --- |
 | 20／24mm + `16:9` + `fullBody` + 動態伸展 | 近處肢體放大、邊緣拉伸與畫布高度不足同時發生。 | 保留全身要求，但優先使用中央穩定姿勢與較少向鏡頭伸展的肢體；不得把 full body 靜默改成半身。 |
-| 20／24mm + 地面高度／蟲眼 + 手腳靠近鏡頭 | 透視延展與低角度放大效果疊加。 | 只有來源明確指定近鏡頭動作時才保留；否則保持重要關節在中央構圖。既有蟲眼相容規則優先。 |
+| 20／24mm + 地面高度／蟲眼 + 手腳靠近鏡頭 | 透視延展與低角度放大效果疊加。 | 保留使用者已選的焦段與蟲眼視角；只有來源明確指定近鏡頭動作時才描述手腳靠近鏡頭，否則保持重要關節在中央構圖。高風險只產生構圖適配與診斷，不自動清除攝影風格、焦段或光學效果。 |
 | Fisheye + rear／three-quarter seated pose + 延伸雙腿 | 身體扭轉、腿部深度與桶狀邊緣變形容易同時失控。 | 明確分離 torso direction、head direction、hand anchors、leg arrangement；採膝部附近自然裁切時，不強迫鞋子可見。 |
 | 85／105／135mm + `close foreground action` | 長焦壓縮與近距離動作語意互相矛盾。 | 保留長焦身份與 distant working distance；將動作改寫為畫面內可見的手部或上半身關係，不新增伸入鏡頭的肢體。 |
 | Macro + `fullBody` 或大幅環境構圖 | 近拍放大與完整人物／環境比例互相衝突。 | 保留來源選項並標記為高風險 fixture；不得用 Macro 自動替換 lens 或 framing。 |

@@ -617,7 +617,6 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       chips: [
         fixedCompositionSetActive ? '固定場景接管構圖' : '',
         isCloseupMode ? '收斂構圖欄位' : '',
-        isWormEyeAngle ? '攝影風格與鏡頭光學全無' : '',
         getControlOptionLabel(lockControls, 'styleId', locks.styleId) ? '攝影風格' : '',
         getControlOptionLabel(lockControls, 'filmId', locks.filmId) ? '成像模擬' : '',
       ].filter(Boolean),
@@ -668,7 +667,6 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
 
   const isControlDisabled = (control) => (
     (isCloseupMode && !closeupAllowedKeys.has(control.key))
-    || (isWormEyeAngle && ['styleId', 'lensId', 'opticalEffectId'].includes(control.key))
     || (isDedicatedSubjectMode && !isAndroidSubjectMode && [
       'hairstyleId', 'hairstyleAId', 'hairstyleBId',
       'hairStylingStateId', 'hairStylingStateAId', 'hairStylingStateBId',

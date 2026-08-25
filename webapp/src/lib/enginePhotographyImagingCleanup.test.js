@@ -111,15 +111,12 @@ test('framing options are ordered from closest face crop to full body with legac
   );
 });
 
-test('worm-eye angle forces photography style and lens optics to none', () => {
+test('worm-eye angle preserves selected photography style and lens optics', () => {
   const controls = getLockControls();
   const wormEye = optionByLabel('angleId', '蟲眼視角鏡頭');
   const style = optionByLabel('styleId', '艾倫・馮・昂沃斯｜俏皮抓拍雜誌');
   const lens = optionByLabel('lensId', '105mm 中長焦');
   const opticalEffect = optionByLabel('opticalEffectId', '前景遮擋散景');
-  const noneStyle = optionByLabel('styleId', '全無');
-  const noneLens = optionByLabel('lensId', '全無');
-  const noneOpticalEffect = optionByLabel('opticalEffectId', '全無');
 
   assert.equal(isWormEyeAngleId(wormEye.id), true);
 
@@ -131,9 +128,9 @@ test('worm-eye angle forces photography style and lens optics to none', () => {
     opticalEffectId: opticalEffect.id,
   }, controls);
 
-  assert.equal(sanitized.styleId, noneStyle.id);
-  assert.equal(sanitized.lensId, noneLens.id);
-  assert.equal(sanitized.opticalEffectId, noneOpticalEffect.id);
+  assert.equal(sanitized.styleId, style.id);
+  assert.equal(sanitized.lensId, lens.id);
+  assert.equal(sanitized.opticalEffectId, opticalEffect.id);
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -143,13 +140,13 @@ test('worm-eye angle forces photography style and lens optics to none', () => {
     opticalEffectId: opticalEffect.id,
   });
 
-  assert.equal(prompt.selection.styleId, noneStyle.id);
-  assert.equal(prompt.selection.lensId, noneLens.id);
-  assert.equal(prompt.selection.opticalEffectId, noneOpticalEffect.id);
+  assert.equal(prompt.selection.styleId, style.id);
+  assert.equal(prompt.selection.lensId, lens.id);
+  assert.equal(prompt.selection.opticalEffectId, opticalEffect.id);
   assert.match(prompt.grokPrompt, /worm's-eye view/);
-  assert.doesNotMatch(prompt.grokPrompt, /Inspired by Ellen von Unwerth/);
-  assert.doesNotMatch(prompt.grokPrompt, /105mm medium telephoto lens/);
-  assert.doesNotMatch(prompt.grokPrompt, /blurred foreground occlusion near the lens/);
+  assert.match(prompt.grokPrompt, /Inspired by Ellen von Unwerth/);
+  assert.match(prompt.grokPrompt, /105mm medium telephoto lens/);
+  assert.match(prompt.grokPrompt, /blurred foreground occlusion near the lens/);
 });
 
 test('camera angle control uses height-based definitions with legacy lock migration', () => {

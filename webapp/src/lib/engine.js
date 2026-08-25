@@ -2187,7 +2187,6 @@ function inferFilmMeta(_category, item) {
 
 const FACE_ONLY_CLOSEUP_ZH_LABELS = new Set(['臉部特寫', '局部五官特寫']);
 const WORM_EYE_ANGLE_LABEL = '蟲眼視角鏡頭';
-const WORM_EYE_FORCED_NONE_KEYS = ['styleId', 'lensId', 'opticalEffectId'];
 const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
   'specialOutfitId',
   'specialOutfitAId',
@@ -3708,13 +3707,6 @@ export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
   // their normalized source values must remain available to storage, restore,
   // selection snapshots, and the uncropped full-body reference renderer.
   const nextLocks = normalizeLocks(rawLocks, activeControls);
-  const angle = nextLocks.angleId ? findById(activeControls.find((control) => control.key === 'angleId')?.options || [], nextLocks.angleId) : null;
-  if (isWormEyeAngleItem(angle)) {
-    WORM_EYE_FORCED_NONE_KEYS.forEach((key) => {
-      const noneOption = activeControls.find((control) => control.key === key)?.options?.find((option) => option.zh === '全無');
-      nextLocks[key] = noneOption ? noneOption.id : '';
-    });
-  }
   return nextLocks;
 }
 
@@ -14836,15 +14828,6 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     lowFrequencyPicker('low_frequency_angle'),
     ['angleId'],
   );
-  if (isWormEyeAngleItem(angle)) {
-    const noneStyle = getControlOptionByZh(lockControls, 'styleId', '全無');
-    const noneLens = getControlOptionByZh(lockControls, 'lensId', '全無');
-    const noneOpticalEffect = getControlOptionByZh(lockControls, 'opticalEffectId', '全無');
-    style = noneStyle || null;
-    effectiveLocks.styleId = noneStyle?.id || '';
-    effectiveLocks.lensId = noneLens?.id || '';
-    effectiveLocks.opticalEffectId = noneOpticalEffect?.id || '';
-  }
   let orbit = pickCameraWithExpressionLock(
     runtime.flatCatalog.orbit,
     effectiveLocks.orbitId,

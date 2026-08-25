@@ -2,7 +2,7 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-08-24
+Last updated: 2026-08-25
 
 ## Snapshot
 
@@ -46,6 +46,7 @@ Last updated: 2026-08-24
 
 - On 2026-08-22, the canonical `性感曲線身形` Body Type source removed the phrase `flat abdomen` after real-generation checks showed that it could bias clothing interpretation toward exposed midriff or split dress construction. The source change is synchronized to `webapp/src/data/database.json`; the composition-projected medium-waist and cowboy-knee variants, single-body anchor compatibility rules, and regression fixtures are updated to the same source-derived wording. The AI compact anchor was already `Curvy hourglass silhouette, fuller bust, defined waist, rounded hips.` and remains unchanged. No wardrobe resolver, complete-look takeover, lock id, storage schema, import/export contract, or UI layout changed.
 - This is a wording-only prompt-source change. Focused prompt／composition tests passed 100/100; `npm run test:prompt-quality` passed 153/153; frontend `npm test` passed 731/731; lint and build passed (Vite still reports the repository's existing large-chunk advisory). Knowledge-base sync, sync check, Python tests, public-asset checks, and `git diff --check` passed. The same-seed strict audit (`200`, `prompt-quality-baseline`) reported zero required-output, integrity, exact-duplicate, control-leakage, contradiction, coverage, or blocking signals; it retained 18 diagnostic-only wardrobe／scene or cross-role near-duplicate findings.
+- On 2026-08-25, `蟲眼視角鏡頭` no longer forces `攝影風格`、`鏡頭焦段` or `光學效果` to `全無`. The three controls remain selectable in PAGE1, their resolved selections are preserved through normalization and generation, and the selected style／lens／optical text remains available to Gpt、Z-Image and AI outputs. The existing worm-eye low-angle／near-far distortion adaptation remains a composition-risk diagnostic; it does not automatically clear or replace user selections. Public lock ids, Storage, Saved Cards, import／export and the separate `魚眼鏡頭 Fisheye` option remain unchanged. Focused regression tests passed 13/13; `npm run test:prompt-quality` passed 160/160; frontend tests passed 786/786; lint, build and the same-seed 200-prompt strict audit passed with zero blocking signals. Browser QA at 1280×720 and 390×844 confirmed the angle option and three photography controls remained enabled, with no document overflow or console warnings/errors.
 - Browser smoke on the local dev URL at the default desktop viewport and 390×844 confirmed all five active workspaces with no document-level horizontal overflow, broken images, console warnings, or errors. The live Prompt workspace generated six outputs without `flat abdomen`; the browser UI still exposes the existing Sexy Curves selection and wardrobe controls. The explicit browser select-option helper could not commit a controlled `<select>` change in this environment, so shirt-versus-dress interaction remains covered by the deterministic engine and integration fixtures rather than a live browser selection.
 
 ## Validation
