@@ -15,6 +15,12 @@ function optionId(controlKey, zh) {
   return option.id;
 }
 
+function optionIdForBase(controlKey, zh, base) {
+  const option = control(controlKey).options.find((entry) => entry.zh === zh && entry.base === base);
+  assert.ok(option, `Expected ${base} option ${zh} in ${controlKey}`);
+  return option.id;
+}
+
 function assertArrangementOption(zh, base, expectedEnglish) {
   const option = control('poseArrangementId').options.find((entry) => entry.zh === zh);
   assert.ok(option, `Expected arrangement option ${zh}`);
@@ -370,9 +376,10 @@ test('seat-edge sitting anchor is preserved in all prompt versions', () => {
 test('pose composer exposes water-scene-only contact anchors', () => {
   assertAnchorOptionForBases('在水中', ['standing', 'sitting', 'squatting', 'kneeling', 'lying'], /water contact pose/);
   assertAnchorOptionForBases('靠在水邊支撐', ['standing', 'sitting', 'squatting', 'kneeling', 'lying'], /water edge support pose/);
+  assertAnchorOptionForBases('浴缸', ['standing', 'sitting', 'squatting', 'lying'], /water-filled clawfoot vintage bathtub/);
 
   const waterAnchorOptions = control('poseAnchorId').options
-    .filter((option) => ['在水中', '靠在水邊支撐'].includes(option.zh));
+    .filter((option) => ['在水中', '靠在水邊支撐', '浴缸'].includes(option.zh));
   waterAnchorOptions.forEach((option) => {
     assert.equal(option.meta.requiresWaterScene, true);
   });
@@ -391,16 +398,19 @@ test('water contact anchors only appear for water-capable scenes', () => {
     assert.ok(Array.isArray(options), 'Expected scene-dependent pose anchor options');
     assert.ok(options.some((option) => option.zh === '在水中'), `${label} should show in-water anchor`);
     assert.ok(options.some((option) => option.zh === '靠在水邊支撐'), `${label} should show water-edge support anchor`);
+    assert.ok(options.some((option) => option.zh === '浴缸'), `${label} should show bathtub anchor`);
   }
 
   const noSceneOptions = scenePoseAnchorOptions('');
   assert.ok(Array.isArray(noSceneOptions), 'Expected scene-dependent pose anchor options without a location');
   assert.ok(!noSceneOptions.some((option) => option.zh === '在水中'));
   assert.ok(!noSceneOptions.some((option) => option.zh === '靠在水邊支撐'));
+  assert.ok(!noSceneOptions.some((option) => option.zh === '浴缸'));
 
   const indoorOptions = scenePoseAnchorOptions('室內：純潔白幕');
   assert.ok(!indoorOptions.some((option) => option.zh === '在水中'));
   assert.ok(!indoorOptions.some((option) => option.zh === '靠在水邊支撐'));
+  assert.ok(!indoorOptions.some((option) => option.zh === '浴缸'));
 });
 
 test('water contact anchors adapt to pose base and selected water scene in all prompt versions', () => {
@@ -1182,6 +1192,11 @@ test('legacy poseId locks migrate into visible pose composer controls and clear 
       arrangementZh: '雙腿側放坐姿',
     },
     {
+      poseZh: '坐姿｜抱膝坐姿',
+      baseZh: '坐姿',
+      arrangementZh: '雙腿屈起',
+    },
+    {
       poseZh: '蹲姿｜單膝蹲姿',
       baseZh: '蹲姿',
       arrangementZh: '單膝抬起不對稱蹲姿',
@@ -1446,7 +1461,7 @@ test('lying public English keeps orientation and body variation geometry distinc
       const locks = {
         ...baseLocks,
         poseOrientationId: optionId('poseOrientationId', orientationZh),
-        poseArrangementId: optionId('poseArrangementId', variationZh),
+        poseArrangementId: optionIdForBase('poseArrangementId', variationZh, 'lying'),
       };
       const [fullPrompt] = generatePrompts(1, {
         ...locks,
@@ -1524,6 +1539,7 @@ test('lying pose composer supports languid arrangement bathtub anchor and head d
     poseBaseId: optionId('poseBaseId', '躺姿'),
     poseArrangementId: optionId('poseArrangementId', '隨性慵懶'),
     poseHandId: optionId('poseHandId', '單手托下巴'),
+    locationId: optionId('locationId', '戶外：飯店度假村泳池露台'),
     poseAnchorId: optionId('poseAnchorId', '浴缸'),
     poseHeadId: optionId('poseHeadId', '回頭朝向鏡頭'),
   });
@@ -1554,6 +1570,7 @@ test('shared bathtub anchor phrases naturally for standing sitting and squatting
       ...createEmptyLocks(),
       subjectCount: '1',
       framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      locationId: optionId('locationId', '戶外：飯店度假村泳池露台'),
       poseBaseId: optionId('poseBaseId', baseZh),
       poseArrangementId: optionId('poseArrangementId', arrangementZh),
       poseHandId: optionId('poseHandId', '雙手自然垂放'),

@@ -376,19 +376,24 @@ Pose: natural seated pose, torso upright, one hand resting beside the body
 
 公開站姿的英文描述應維持正向、可直接接在 `a/an` 後面的視覺名詞片語，不使用 `arrangement`、內部控制語或抽象風格提示。完整身體描述與胸上／腰上裁切片段分開維護；裁切片段只能描述畫面可見的上半身重心、傾斜或方位，不得補造畫面外腿部動作。
 
-坐姿的 11 個公開肢體變化必須在 `poseComposerOptions.js` 以 `projectionByBucket` 明確定義 `fullBody`、`cowboyKnee`、`mediumWaist`、`chestUp`、`fixedComposition`、`unconstrained`、`faceDetail` 與 `headShoulders` 的可見性。自然坐姿、前傾、後撐、隨性癱坐與開闊直立類坐姿在胸上／腰上裁切使用明確的上半身片段；盤腿、抱膝、翹腿、屈膝、伸腿與側放腿等純下半身變化在胸上／腰上裁切應 `omit`，不得補造畫面外腿部動作。全身與牛仔中景保留完整坐姿描述。`單腿放鬆` 與 `坐姿身體前傾` 為重複性較高的舊 ID，設為 `uiHidden: true`、`randomEligible: false`，但仍可由既有資料還原。坐姿投影不得再依賴 `engine.js` 的歷史硬編碼 fallback。
+坐姿的 10 個公開肢體變化必須在 `poseComposerOptions.js` 以 `projectionByBucket` 明確定義 `fullBody`、`cowboyKnee`、`mediumWaist`、`chestUp`、`fixedComposition`、`unconstrained`、`faceDetail` 與 `headShoulders` 的可見性。自然坐姿、前傾、隨性癱坐與開闊直立類坐姿在胸上／腰上裁切使用明確的上半身片段；雙腿屈起、盤腿、翹腿、屈膝、伸腿與側放腿等純下半身變化在胸上／腰上裁切應 `omit`，不得補造畫面外腿部動作。全身與牛仔中景保留完整坐姿描述。`雙手後撐`、`單腿放鬆` 與 `坐姿身體前傾` 為重複性較高的舊 ID，設為 `uiHidden: true`、`randomEligible: false`，但仍可由既有資料還原；原 `抱膝坐姿` 使用同一 ID 改名為公開的 `雙腿屈起`，英文只描述雙腿屈起，不綁定手部。坐姿投影不得再依賴 `engine.js` 的歷史硬編碼 fallback。
+
+`雙手後撐`、`瑜伽小狗式交叉手托下巴` 與 `手肘支撐跪姿` 同樣保留舊 ID 但不再出現在一般選單或隨機池；`越肩回望`、`側臉轉向畫面外` 與 `下巴靠近肩線` 也是可還原但 UI 隱藏的舊頭部選項。`在水中`、`靠在水邊支撐` 與 `浴缸` 屬於場景依賴的水域支撐選項，只有選取相容水域場景後才顯示。
 
 蹲姿目前只保留七個公開肢體變化：`自然蹲姿`、`單膝抬起不對稱蹲姿`、`側身蹲姿`、`低蹲單腿前伸`、`身體前傾蹲姿`、`雙膝合併半蹲`、`寬膝深蹲／流氓蹲姿`。其中 `側身蹲姿` 的定義是下半身維持蹲姿、上半身轉向鏡頭，不是整體側面站位；`身體前傾蹲姿` 不綁定手部；抱膝改由獨立 `poseHandId` 的 `雙手抱膝` 表達。七個公開選項必須在 `poseComposerOptions.js` 以 `projectionByBucket` 明確定義八種 composition visibility bucket。自然蹲姿與身體前傾蹲姿在胸上／腰上裁切使用明確的上半身片段；其餘下半身主導蹲姿在胸上／腰上裁切應 `omit`，中景只保留不補造腿部幾何的蹲姿基底；雙膝合併半蹲在牛仔中景使用可見膝蓋範圍的縮短片段。全身、unconstrained 與 fixed composition 保留完整 canonical pose。原有重複或特殊化蹲姿 ID 不刪除，改設為 `uiHidden: true`、`randomEligible: false`，供既有資料還原；蹲姿 projection 不得再依賴 `engine.js` 的歷史硬編碼 arrangement fallback。
 
 蹲姿公開英文已完成重寫：直接使用可接在 `a/an` 後面的視覺名詞片語，不使用 `arrangement` 或 renderer 控制語。`自然蹲姿` 必須明確寫出雙腳貼地與腳跟落地；`單膝抬起不對稱蹲姿` 必須寫出一側膝蓋較高與另一腿深屈；`側身蹲姿` 只寫臀腿維持低蹲、軀幹轉向鏡頭，不得使用會把整個人物變成側面的 `side-facing`；`低蹲單腿前伸` 必須寫出一腿向前伸直、另一腿折在身下；`身體前傾蹲姿` 必須寫出軀幹從髖部向大腿前傾；`雙膝合併半蹲` 使用 `half-squat` 與雙膝、雙腿平行的幾何；`寬膝深蹲／流氓蹲姿` 寫出雙腳寬距、膝蓋向外與低髖部。上半身裁切片段只能描述軀幹直立或前傾；下半身主導選項維持上裁切 `omit`。退役選項的英文不回寫，避免破壞舊 Saved Cards / restore 的歷史輸出。
 - `坐姿｜自然坐姿`
 - `坐姿｜微微前傾`
-- `坐姿｜雙手後撐`
-- `坐姿｜單腿放鬆`
+- `坐姿｜隨性癱坐`
 - `坐姿｜雙腿自然伸展`
 - `坐姿｜盤腿坐姿`
 - `坐姿｜側身坐姿`
-- `坐姿｜抱膝坐姿`
+- `坐姿｜雙腿屈起`（舊資料中的 `坐姿｜抱膝坐姿` 仍可還原）
+- `坐姿｜翹二郎腿`
+- `坐姿｜單腿屈起坐姿`
+- `坐姿｜雙腿側放坐姿`
+- `坐姿｜開闊自信坐姿`
 - `半躺低姿態｜側身半躺`
 - `半躺低姿態｜正面仰躺`
 - `半躺低姿態｜手撐半躺`

@@ -724,6 +724,7 @@ test('Gpt single-subject prompt preserves full-fidelity pose composer special-se
   assert.match(waterEdge.pose, /head angled low near a rim or support edge with cheek and jawline close to the supporting surface/i);
 
   const bathtubWet = buildSections({
+    locationId: optionId('locationId', '戶外：飯店度假村泳池露台'),
     poseBaseId: optionId('poseBaseId', '躺姿'),
     poseArrangementId: optionId('poseArrangementId', '半躺倚靠'),
     poseHandId: optionId('poseHandId', '雙手放在大腿上'),

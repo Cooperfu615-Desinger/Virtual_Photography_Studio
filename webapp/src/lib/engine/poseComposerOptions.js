@@ -298,6 +298,16 @@ const deprecatedPoseArrangement = (option) => ({
   },
 });
 
+const deprecatedPoseHead = (option) => ({
+  ...option,
+  meta: {
+    ...(option.meta || {}),
+    uiHidden: true,
+    randomEligible: false,
+    deprecated: true,
+  },
+});
+
 const withStandingUpperProjectionEnglish = (option, english) => ({
   ...option,
   meta: {
@@ -378,11 +388,11 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'standing-forward-toe-point', base: 'standing', zh: '一腳向前點地', en: 'standing posture with one foot placed slightly forward, its toe lightly touching the ground, and the other leg supporting the body weight', meta: { projectionByBucket: STANDING_LOWER_FULL_ONLY_PROJECTION } },
   withSittingUpperProjectionEnglish({ id: 'sitting-natural', base: 'sitting', zh: '自然坐姿', en: 'natural seated arrangement' }, 'a relaxed seated upper-body posture'),
   withSittingUpperProjectionEnglish({ id: 'sitting-forward-lean', base: 'sitting', zh: '微微前傾', en: 'slightly forward-leaning seated arrangement' }, 'the upper body leaning slightly forward'),
-  withSittingUpperProjectionEnglish({ id: 'sitting-hands-behind-support', base: 'sitting', zh: '雙手後撐', en: 'seated pose with both hands planted behind the body for support' }, 'the torso slightly reclined with relaxed, open shoulders'),
+  deprecatedPoseArrangement(withSittingUpperProjectionEnglish({ id: 'sitting-hands-behind-support', base: 'sitting', zh: '雙手後撐', en: 'seated pose with both hands planted behind the body for support' }, 'the torso slightly reclined with relaxed, open shoulders')),
   deprecatedPoseArrangement({ id: 'sitting-one-leg-relaxed', base: 'sitting', zh: '單腿放鬆', en: 'easy seated pose with one leg relaxed', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } }),
   { id: 'sitting-legs-extended', base: 'sitting', zh: '雙腿自然伸展', en: 'seated pose with both legs naturally extended', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
   { id: 'sitting-cross-legged', base: 'sitting', zh: '盤腿坐姿', en: 'cross-legged seated arrangement', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
-  { id: 'sitting-hug-knees', base: 'sitting', zh: '抱膝坐姿', en: 'hugging-knees seated arrangement', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
+  { id: 'sitting-hug-knees', base: 'sitting', zh: '雙腿屈起', en: 'seated pose with both legs bent and knees raised, feet resting naturally', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
   withSittingUpperProjectionEnglish({ id: 'sitting-slouched', base: 'sitting', zh: '隨性癱坐', en: 'casually slumped seated posture with a loose, heavy body, dropped shoulders, and the torso settling naturally into the seat', desc: '全身放鬆、重心自然下沉，肩膀放低，軀幹與四肢隨意放置，呈現沒有負擔的癱坐狀態。' }, 'a loose, heavy upper-body slouch with dropped shoulders and a relaxed torso'),
   { id: 'sitting-leg-cross', base: 'sitting', zh: '翹二郎腿', en: 'leg-cross seated arrangement', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
   { id: 'sitting-one-knee-up', base: 'sitting', zh: '單腿屈起坐姿', en: 'seated arrangement with one knee drawn up, the other leg relaxed', meta: { projectionByBucket: SITTING_LOWER_PROJECTION } },
@@ -393,13 +403,13 @@ export const POSE_COMPOSER_ARRANGEMENT_OPTIONS = [
   { id: 'kneeling-wide', base: 'kneeling', zh: '分腿跪坐', en: 'wide-knee kneeling arrangement' },
   { id: 'kneeling-forward-lean', base: 'kneeling', zh: '前傾跪姿', en: 'forward-leaning kneeling arrangement' },
   { id: 'kneeling-all-fours', base: 'kneeling', zh: '四足跪姿', en: 'all-fours kneeling arrangement with hands and knees supporting the body' },
-  { id: 'kneeling-puppy-crossed-hands-chin', base: 'kneeling', zh: '瑜伽小狗式交叉手托下巴', en: 'extended puppy kneeling pose with knees grounded, torso folded forward, forearms crossed under the chin, and hands tucked below the jaw' },
+  deprecatedPoseArrangement({ id: 'kneeling-puppy-crossed-hands-chin', base: 'kneeling', zh: '瑜伽小狗式交叉手托下巴', en: 'extended puppy kneeling pose with knees grounded, torso folded forward, forearms crossed under the chin, and hands tucked below the jaw' }),
   { id: 'kneeling-one-knee', base: 'kneeling', zh: '單膝跪地', en: 'one-knee kneeling arrangement' },
   { id: 'kneeling-side', base: 'kneeling', zh: '跪姿側身', en: 'side-facing kneeling arrangement' },
   { id: 'kneeling-upright-poised', base: 'kneeling', zh: '直立端正跪姿', en: 'upright poised kneeling arrangement, torso vertical with stable knee support' },
   { id: 'kneeling-side-sit', base: 'kneeling', zh: '側坐跪姿', en: 'side-sitting kneeling arrangement, hips lowered beside the legs with a soft lateral body line' },
   { id: 'kneeling-one-knee-forward', base: 'kneeling', zh: '單膝前跨跪姿', en: 'one-knee-forward kneeling arrangement, front knee bent with the other knee grounded' },
-  { id: 'kneeling-elbow-support', base: 'kneeling', zh: '手肘支撐跪姿', en: 'kneeling arrangement with elbows or forearms supporting the upper body on a nearby surface' },
+  deprecatedPoseArrangement({ id: 'kneeling-elbow-support', base: 'kneeling', zh: '手肘支撐跪姿', en: 'kneeling arrangement with elbows or forearms supporting the upper body on a nearby surface' }),
   { id: 'kneeling-back-arched', base: 'kneeling', zh: '跪姿微後仰', en: 'slightly backward-arched kneeling arrangement, torso leaning back with balanced knee support' },
   withSquattingUpperProjectionEnglish(
     { id: 'squatting-natural', base: 'squatting', zh: '自然蹲姿', en: 'deep resting squat with both feet flat on the ground, heels down, knees deeply bent, and the body balanced low over the feet' },
@@ -582,15 +592,15 @@ export const POSE_COMPOSER_HEAD_OPTIONS = [
   { id: 'head-slight-tilt', zh: '頭部微微側傾', en: 'head slightly tilted' },
   { id: 'chin-slightly-raised', zh: '下巴微抬', en: 'chin slightly raised' },
   { id: 'chin-slightly-lowered', zh: '下巴微收', en: 'chin slightly lowered' },
-  { id: 'head-turned-away', zh: '側臉轉向畫面外', en: 'head turned into a three-quarter side profile facing out of frame' },
+  deprecatedPoseHead({ id: 'head-turned-away', zh: '側臉轉向畫面外', en: 'head turned into a three-quarter side profile facing out of frame' }),
   { id: 'head-turned-back-camera', zh: '回頭朝向鏡頭', en: 'head turned back toward the camera', meta: { tags: ['requires_face_visibility'] } },
   { id: 'head-looking-down-hands', zh: '低頭看向手部', en: 'head lowered toward the hands' },
   { id: 'head-near-shoulder', zh: '頭靠近肩膀', en: 'head angled close to one shoulder' },
   { id: 'head-slightly-back', zh: '頭部微微後仰', en: 'head tilted slightly backward with the chin softly lifted' },
   { id: 'head-down-three-quarter', zh: '低頭三分之四側臉', en: 'head lowered into a three-quarter side angle' },
-  { id: 'head-over-shoulder', zh: '越肩回望', en: 'head turned over one shoulder toward the camera', meta: { tags: ['requires_face_visibility'] } },
+  deprecatedPoseHead({ id: 'head-over-shoulder', zh: '越肩回望', en: 'head turned over one shoulder toward the camera', meta: { tags: ['requires_face_visibility'] } }),
   { id: 'head-away-profile', zh: '側臉看向遠方', en: 'head turned into a clean side profile with the face oriented away from the camera' },
-  { id: 'chin-tucked-shoulder-line', zh: '下巴靠近肩線', en: 'chin tucked toward one shoulder line with the neck softly folded by the selected pose' },
+  deprecatedPoseHead({ id: 'chin-tucked-shoulder-line', zh: '下巴靠近肩線', en: 'chin tucked toward one shoulder line with the neck softly folded by the selected pose' }),
   { id: 'head-close-support-surface', zh: '頭部貼近支撐面', en: 'head angled close to a support surface or shoulder line with the cheek plane following the selected support contact' },
   { id: 'head-close-lens-off-axis', zh: '近鏡頭偏轉頭部', en: 'head turned slightly off-axis near the lens with the face plane angled diagonally instead of flat to camera', meta: { tags: ['requires_face_visibility'] } },
   { id: 'head-low-rim-support', zh: '頭靠近邊緣支撐', en: 'head angled low near a rim or support edge with cheek and jawline close to the supporting surface' },
@@ -772,7 +782,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     bases: ['standing', 'sitting', 'squatting', 'lying'],
     zh: '浴缸',
     en: 'near a water-filled clawfoot vintage bathtub',
-    meta: { projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION },
+    meta: { tags: ['water_scene_anchor'], requiresWaterScene: true, projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION },
     phraseByBase: {
       standing: 'standing beside a water-filled clawfoot vintage bathtub',
       sitting: 'sitting on the edge of a water-filled clawfoot vintage bathtub',

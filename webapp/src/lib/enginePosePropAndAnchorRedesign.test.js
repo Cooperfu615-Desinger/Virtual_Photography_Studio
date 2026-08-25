@@ -73,6 +73,46 @@ test('legacy prop-action hand locks migrate into posePropId and clear poseHandId
   }
 });
 
+test('retired pose options stay restorable while the public picker excludes them', () => {
+  const retiredCases = [
+    ['poseHeadId', '越肩回望', '站姿'],
+    ['poseHeadId', '側臉轉向畫面外', '站姿'],
+    ['poseHeadId', '下巴靠近肩線', '站姿'],
+    ['poseArrangementId', '雙手後撐', '坐姿'],
+    ['poseArrangementId', '瑜伽小狗式交叉手托下巴', '跪姿'],
+    ['poseArrangementId', '手肘支撐跪姿', '跪姿'],
+  ];
+
+  for (const [key, label, baseLabel] of retiredCases) {
+    const retired = option(key, label);
+    assert.equal(retired.meta?.uiHidden, true, label);
+    assert.equal(retired.meta?.randomEligible, false, label);
+    assert.equal(retired.meta?.deprecated, true, label);
+
+    const locks = {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      poseBaseId: option('poseBaseId', baseLabel).id,
+      [key]: retired.id,
+    };
+    assert.equal(normalizeLocks(locks)[key], retired.id, label);
+
+    const groups = buildPage1ControlGroups({
+      lockControls: getLockControls(),
+      locks,
+      sceneDependentOptions: getSceneDependentOptions([], locks),
+    });
+    const picker = groups.characterLockControls.find((item) => item.key === key);
+    assert.ok(picker, `Expected picker for ${key}`);
+    assert.equal(picker.options.some((item) => item.id === retired.id), true, `${label} should remain visible when selected`);
+    assert.equal(picker.options.some((item) => item.meta?.uiHidden && item.id !== retired.id), false, `${label} should hide other retired options`);
+  }
+
+  const renamed = option('poseArrangementId', '雙腿屈起');
+  assert.equal(renamed.id, 'sitting-hug-knees');
+  assert.match(renamed.en, /both legs bent and knees raised/i);
+});
+
 test('an active prop takes over the hand layer when both locks are supplied', () => {
   const normalized = normalizeLocks({
     ...createEmptyLocks(),

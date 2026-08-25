@@ -52,7 +52,7 @@ test('all active standing arrangements carry explicit crop projection metadata',
 
 test('all active sitting arrangements carry explicit crop projection metadata', () => {
   const sitting = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'sitting' && !option.meta?.deprecated);
-  assert.equal(sitting.length, 11);
+  assert.equal(sitting.length, 10);
 
   for (const option of sitting) {
     const metadata = option.meta?.projectionByBucket;
@@ -202,7 +202,6 @@ test('sitting arrangement simplification keeps a focused active core and restora
   assert.deepEqual(activeIds, [
     'sitting-natural',
     'sitting-forward-lean',
-    'sitting-hands-behind-support',
     'sitting-legs-extended',
     'sitting-cross-legged',
     'sitting-hug-knees',
@@ -213,6 +212,7 @@ test('sitting arrangement simplification keeps a focused active core and restora
     'sitting-open-confident',
   ]);
   assert.deepEqual(deprecatedIds, [
+    'sitting-hands-behind-support',
     'sitting-one-leg-relaxed',
     'sitting-grounded-forward-lean',
   ]);
@@ -229,7 +229,6 @@ test('sitting projection metadata separates upper-body and lower-body arrangemen
   const upperBodyIds = [
     'sitting-natural',
     'sitting-forward-lean',
-    'sitting-hands-behind-support',
     'sitting-slouched',
     'sitting-open-confident',
   ];
@@ -322,6 +321,11 @@ test('active standing support anchors carry crop projection metadata', () => {
   ]) {
     const option = findOption(POSE_COMPOSER_ANCHOR_OPTIONS, id);
     assert.ok(option.meta?.projectionByBucket, `${id} should define projection metadata`);
+  }
+
+  for (const id of ['water-immersed', 'water-edge-support', 'shared-bathtub']) {
+    const option = findOption(POSE_COMPOSER_ANCHOR_OPTIONS, id);
+    assert.equal(option.meta?.requiresWaterScene, true, `${id} should require a water scene`);
   }
 
   const hipEdge = findOption(POSE_COMPOSER_ANCHOR_OPTIONS, 'standing-edge-hip-support');
