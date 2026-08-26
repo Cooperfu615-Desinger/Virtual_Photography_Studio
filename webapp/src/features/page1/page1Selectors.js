@@ -2,6 +2,7 @@ import { createEmptyLocks } from '../../lib/engine.js';
 import { SCENE_CAMERA_CONTROL_ORDER } from '../../lib/page1ControlOrders.js';
 import { buildPage1MainFramingControl } from '../../lib/engine/fixedFramingMainPrompt.js';
 import { buildPage1OpticalEffectControl } from '../../lib/engine/opticalEffectMainPrompt.js';
+import { isSupinePoseSelection } from '../../lib/engine/poseScenePolicy.js';
 import {
   CHARACTER_CONTROL_ORDER,
   DUO_ACCESSORY_KEYS,
@@ -85,8 +86,21 @@ export function createPresetColorVisibility(controls, locks) {
 }
 
 function buildCoreControls(lockControls, sceneDependentOptions, locks) {
+  const supineSurfaceOnly = isSupinePoseSelection(locks);
+  const noneDisplayOption = { id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } };
   const sceneAware = lockControls.map((control) => {
-    if (control.key === 'locationId') return { ...control, options: sceneDependentOptions.locationOptions };
+    if (control.key === 'locationId') {
+      return {
+        ...control,
+        options: supineSurfaceOnly ? [noneDisplayOption] : sceneDependentOptions.locationOptions,
+      };
+    }
+    if (control.key === 'sceneAttributeId') {
+      return {
+        ...control,
+        options: supineSurfaceOnly ? [noneDisplayOption] : control.options,
+      };
+    }
     if (control.key === 'lightingId') return { ...control, options: sceneDependentOptions.lightingOptions };
     if (control.key === 'lightDirectionId') return { ...control, options: sceneDependentOptions.lightDirectionOptions };
     if (control.key === 'framingId') return buildPage1MainFramingControl(control, locks.framingId);

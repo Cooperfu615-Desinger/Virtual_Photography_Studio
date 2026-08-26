@@ -87,7 +87,12 @@ import {
   poseComposerOptionRandomEligibleForBase,
   poseComposerOptionRandomEligibleForOrientation,
   poseComposerPropSupportsRandomContext,
+  poseComposerOptionVisibleForOrientation,
 } from './engine/poseComposerCompatibility.js';
+import {
+  applySupineSceneOverride,
+  isSupinePoseSelection,
+} from './engine/poseScenePolicy.js';
 import { createPromptSectionModel } from './engine/promptModel.js';
 import { createEngineRuntimeResolver, deepFreezeRuntime } from './engine/runtimeCache.js';
 import { createSelectionSnapshot } from './engine/selectionSchema.js';
@@ -981,6 +986,12 @@ const SCENE_ATTRIBUTE_OPTIONS = [
   { id: 'outdoor', zh: '戶外', en: 'outdoor setting' },
   { id: 'other', zh: '其他', en: 'other dedicated setting' },
 ];
+const SCENE_NONE_LOCATION_OPTION = Object.freeze({
+  id: 'none',
+  zh: '全無',
+  en: '',
+  meta: { tags: ['none'] },
+});
 
 const MIDJOURNEY_PARAMETER_LOCK_DEFINITIONS = Object.entries(
   MIDJOURNEY_PARAMETER_CONTRACT.controls
@@ -3699,6 +3710,17 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     normalizeZImageVisibleTextSettings(normalizedWithLegacyColors),
   );
 
+  Object.assign(
+    normalizedWithLegacyColors,
+    applySupineSceneOverride(normalizedWithLegacyColors),
+  );
+  if (isSupinePoseSelection(normalizedWithLegacyColors)) {
+    const supineAnchor = getControlOptionById(controls, 'poseAnchorId', normalizedWithLegacyColors.poseAnchorId);
+    if (supineAnchor && !['none', 'random'].includes(supineAnchor.id) && supineAnchor.meta?.supineSurfaceLed !== true) {
+      setControlToNone(normalizedWithLegacyColors, controls, 'poseAnchorId');
+    }
+  }
+
   return normalizedWithLegacyColors;
 }
 
@@ -3812,6 +3834,7 @@ function getLocationEnvironmentFlags(location) {
 }
 
 function getSceneAttributeOption(id) {
+  if (id === 'none') return null;
   return SCENE_ATTRIBUTE_OPTIONS.find((option) => option.id === id) || null;
 }
 
@@ -4432,9 +4455,12 @@ function getScenePoseAnchorOptions(location, lockedLocationId = '', sceneAttribu
 export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
   const runtime = getEngineRuntime(customLibrary);
   const locks = normalizeLocks(rawLocks);
+  const supineSurfaceOnly = isSupinePoseSelection(locks);
   const fallbackFraming = runtime.flatCatalog.framing.find((item) => item.en.includes('medium shot')) || runtime.flatCatalog.framing[0];
   const sceneAttribute = getSceneAttributeOption(locks.sceneAttributeId);
-  const locationOptions = runtime.flatCatalog.locations.filter((item) => locationMatchesSceneAttribute(item, sceneAttribute));
+  const locationOptions = supineSurfaceOnly
+    ? []
+    : runtime.flatCatalog.locations.filter((item) => locationMatchesSceneAttribute(item, sceneAttribute));
   const location = findById(locationOptions, locks.locationId);
   const selectedLighting = findById(runtime.flatCatalog.lighting, locks.lightingId);
   const framing = findById(runtime.flatCatalog.framing, locks.framingId) || fallbackFraming;
@@ -4453,12 +4479,15 @@ export function getSceneDependentOptions(customLibrary = [], rawLocks = {}) {
     return lightDirectionSupportsScene(item, framing, location, lightingForDirection);
   });
 
-  const poseAnchorOptions = getScenePoseAnchorOptions(location, locks.locationId, sceneAttribute);
+  const poseAnchorOptions = supineSurfaceOnly
+    ? POSE_COMPOSER_ANCHOR_OPTIONS.filter((option) => poseComposerOptionVisibleForOrientation(option, 'lying-supine'))
+    : getScenePoseAnchorOptions(location, locks.locationId, sceneAttribute);
 
   return { locationOptions, lightingOptions, lightDirectionOptions, poseAnchorOptions };
 }
 
 function styleFitsLocation(style, location) {
+  if (!location || isNoneLikeItem(location)) return true;
   const styleTags = new Set(style.meta.tags);
   const locationTags = new Set(location.meta.tags);
 
@@ -4478,6 +4507,7 @@ function styleFitsLocation(style, location) {
 }
 
 function wardrobeFitsLocation(item, location) {
+  if (!location || isNoneLikeItem(location)) return true;
   const family = item.meta.family;
   const locationTags = new Set(location.meta.tags);
 
@@ -5050,6 +5080,11 @@ function getWaterEdgeSupportAnchorPhrase(base, location, orientation = null) {
 
 function getPoseComposerAnchorPhrase(anchor, base, location, orientation = null) {
   if (!anchor || !base) return '';
+  if (anchor.meta?.supineSurfaceLed && orientation?.id === 'lying-supine') {
+    const supineSurfacePhrase = anchor.meta.supineSurfacePhraseByOrientation?.[orientation.id]
+      || anchor.phraseByOrientation?.[orientation.id];
+    if (supineSurfacePhrase) return supineSurfacePhrase;
+  }
   if (anchor.id === 'water-immersed') return getWaterImmersedAnchorPhrase(base, location, orientation);
   if (anchor.id === 'water-edge-support') return getWaterEdgeSupportAnchorPhrase(base, location, orientation);
   if (anchor.phraseByOrientation?.[orientation?.id]) return anchor.phraseByOrientation[orientation.id];
@@ -5124,6 +5159,55 @@ function normalizePoseComposerHandPhrase(handPose) {
   return text;
 }
 
+function normalizeSupineBodyPhrase(arrangement) {
+  const text = stripTerminalPromptPunctuation(arrangement?.en || '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!text) return '';
+  if (/^her\s+/i.test(text)) return text;
+  if (/^(?:body|torso|upper body|both knees|both legs|legs)\b/i.test(text)) return `her ${text}`;
+  return text;
+}
+
+function getSupineSurfaceEnvironmentPhrase(anchor, orientation) {
+  if (!anchor?.meta?.supineSurfaceLed || orientation?.id !== 'lying-supine') return '';
+  const environment = anchor.meta.supineEnvironmentByOrientation?.[orientation.id];
+  return stripTerminalPromptPunctuation(environment || '');
+}
+
+function buildSupinePoseComposerSentence({ arrangement, handPose, anchor, head, orientation }) {
+  const surfacePhrase = anchor
+    ? stripTerminalPromptPunctuation(
+      getPoseComposerAnchorPhrase(anchor, { id: 'lying' }, null, orientation),
+    )
+    : '';
+
+  const bodyPhrase = arrangement && !isModelNaturalPoseComposerOption(arrangement)
+    ? normalizeSupineBodyPhrase(arrangement)
+    : '';
+  const handPhrase = handPose && !isModelNaturalPoseComposerOption(handPose)
+    ? normalizePoseComposerHandPhrase(handPose)
+    : '';
+  const headPhrase = head && !isModelNaturalPoseComposerOption(head)
+    ? normalizePoseComposerHeadPhrase(head)
+    : '';
+  const actionParts = [bodyPhrase ? `with ${bodyPhrase}` : '', handPhrase, headPhrase].filter(Boolean);
+  const surfaceLedOpening = /^floating\b/i.test(surfacePhrase)
+    ? `She is ${surfacePhrase}`
+    : `She lies ${surfacePhrase}`;
+  const poseSentence = surfacePhrase
+    ? `${surfaceLedOpening}${actionParts.length > 0 ? `, ${actionParts.join(', ')}` : ''}.`
+    : `She lies naturally${actionParts.length > 0 ? `, ${actionParts.join(', ')}` : ''}.`;
+  const environmentPhrase = getSupineSurfaceEnvironmentPhrase(anchor, orientation);
+  const anchorEffect = anchor?.id === 'water-immersed' || anchor?.id === 'water-edge-support'
+    ? getPoseComposerAnchorEffect(anchor, { id: 'lying' })
+    : '';
+
+  return [poseSentence, environmentPhrase ? `${environmentPhrase}.` : '', anchorEffect ? `${anchorEffect}.` : '']
+    .filter(Boolean)
+    .join(' ');
+}
+
 function normalizePoseComposerPropPhrase(propAction) {
   return stripTerminalPromptPunctuation(propAction?.en || '');
 }
@@ -5168,6 +5252,10 @@ function buildPoseComposerResultPhrase({ base, orientation, arrangement, anchor,
 }
 
 function buildPoseComposerSentence({ base, orientation, arrangement, handPose, propAction, anchor, head, location }) {
+  if (base?.id === 'lying' && orientation?.id === 'lying-supine') {
+    return buildSupinePoseComposerSentence({ arrangement, handPose, anchor, head, orientation });
+  }
+
   const anchorEffect = getPoseComposerAnchorEffect(anchor, base);
   const naturalChoiceSelected = [arrangement, handPose, head].some(isModelNaturalPoseComposerOption);
   const headPhrase = head && !isModelNaturalPoseComposerOption(head)
@@ -5317,11 +5405,18 @@ function buildPoseComposerItem(context) {
   });
   const matchesAnchor = (option) => (
     matchesBase(option)
-    && poseComposerAnchorAllowedByScene(
-      option,
-      context.location,
-      context.locks?.locationId,
-      context.sceneAttribute,
+    && (
+      (
+        base.id === 'lying'
+        && orientation?.id === 'lying-supine'
+        && option.meta?.supineSurfaceLed === true
+      )
+      || poseComposerAnchorAllowedByScene(
+        option,
+        context.location,
+        context.locks?.locationId,
+        context.sceneAttribute,
+      )
     )
   );
   const arrangement = resolvePoseComposerOption(
@@ -5628,6 +5723,20 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
   const projectedAnchor = anchor
     ? projectPoseComposerAnchor(anchor, base, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP, orientation)
     : null;
+
+  if (base?.id === 'lying' && orientation?.id === 'lying-supine') {
+    const projectedSupineArrangement = arrangementProjection?.mode === POSE_COMPOSER_PROJECTION_MODES.PROJECTED
+      ? cloneProjectedPoseOption(arrangement, arrangementProjection.en || '')
+      : null;
+    return buildSupinePoseComposerSentence({
+      arrangement: projectedSupineArrangement,
+      handPose: projectedHand,
+      anchor: projectedAnchor,
+      head: projectedHead,
+      orientation,
+    });
+  }
+
   const anchorFragment = buildChestVisibleAnchorFragment(projectedAnchor, base, orientation);
   const visibleBodyFragments = joinProjectedPoseFragments([orientationFragment, upperBodyFragment, anchorFragment]);
   const projectedArrangementPhrase = naturalChoiceSelected
@@ -7091,7 +7200,7 @@ function buildWardrobe(context, locks, catalog) {
   ) {
     const outerwearProbability = locks?.outerwearId
       ? 1
-      : context.location.meta.tags.includes('outdoor')
+      : context.location?.meta?.tags?.includes('outdoor')
         ? (hasOutfitPresetPieceResolved ? 0.55 : 0.6)
         : (hasOutfitPresetPieceResolved ? 0.3 : 0.35);
     const outerwearPiece = maybePick('外套 (Outerwear)', hasSingleOuterwearLock ? 1 : outerwearProbability, () => true, { allowNoneWhenUnlocked: true });
@@ -14546,8 +14655,8 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     imageTypePresetId: context.imageTypePreset?.id || 'photorealistic-photo',
     styleId: context.style?.id || '',
     cameraSystemId: context.cameraSystem?.id || '',
-    sceneAttributeId: context.sceneAttribute?.id || '',
-    locationId: context.location?.id || '',
+    sceneAttributeId: context.supineSurfaceOnly ? 'none' : context.sceneAttribute?.id || '',
+    locationId: context.supineSurfaceOnly ? 'none' : context.location?.id || '',
     importedWorldSceneMode: context.locks?.importedWorldSceneMode || 'none',
     importedWorldSceneLabel: context.locks?.importedWorldSceneLabel || '',
     importedWorldSceneArchitectureText: context.locks?.importedWorldSceneArchitectureText || '',
@@ -14764,6 +14873,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     )
   );
   const effectiveLocks = sanitizeLocksForCloseupMode(locks, lockControls);
+  const supineSurfaceOnly = isSupinePoseSelection(effectiveLocks);
   const selectedFixedCompositionSet = getFixedCompositionSetOption(effectiveLocks.fixedCompositionSetId);
   const fixedCompositionSetActive = isFixedCompositionSetActive(selectedFixedCompositionSet) && effectiveLocks.subjectCount !== '2';
   const fixedSetCameraVariationActive = fixedCompositionSetActive && fixedCompositionSetAllowsCameraVariation(selectedFixedCompositionSet);
@@ -14806,7 +14916,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
   const subject = dedicatedSubject || getSubjectOption(effectiveLocks.subjectCount);
   const imageTypePreset = getImageTypePresetOption(effectiveLocks.imageTypePresetId);
   const hasWardrobeLocks = !dedicatedSubject && hasEffectiveWardrobeLockValues(effectiveLocks, lockControls);
-  const hasSceneLocks = Boolean(effectiveLocks.locationId || effectiveLocks.sceneAttributeId);
+  const hasSceneLocks = !supineSurfaceOnly && Boolean(effectiveLocks.locationId || effectiveLocks.sceneAttributeId);
   const aspectRatio = getAspectRatioOption(effectiveLocks.aspectRatio, random, previewRerollExclusions);
   const sceneAttribute = getSceneAttributeOption(effectiveLocks.sceneAttributeId);
   const lowFrequencyPicker = (tag) => (candidates) => {
@@ -14819,13 +14929,15 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
 
     return sample(lowFrequency.length > 0 ? lowFrequency : candidates, random);
   };
-  const location = pickLocked(
-    runtime.flatCatalog.locations,
-    effectiveLocks.locationId,
-    (item) => locationMatchesSceneAttribute(item, sceneAttribute),
-    sample,
-    ['locationId'],
-  );
+  const location = supineSurfaceOnly
+    ? SCENE_NONE_LOCATION_OPTION
+    : pickLocked(
+      runtime.flatCatalog.locations,
+      effectiveLocks.locationId,
+      (item) => locationMatchesSceneAttribute(item, sceneAttribute),
+      sample,
+      ['locationId'],
+    );
   let style = pickLocked(
     runtime.flatCatalog.regional,
     effectiveLocks.styleId,
@@ -14860,7 +14972,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     (item) => (
       (!lockedActionConstraint || item.zh !== '全無')
       &&
-      !(location.meta.tags.includes('club') && item.meta.visibility === 'close')
+      !((location?.meta?.tags || []).includes('club') && item.meta.visibility === 'close')
       && (effectiveLocks.framingId || (!hasWardrobeLocks && !hasSceneLocks) || item.meta.visibility !== 'close')
       && framingSupportsSubject(item, subject, aspectRatio)
       && specialActionSupportsFraming(lockedActionConstraint, item)
@@ -14903,7 +15015,9 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     && selectedFixedCompositionSet?.meta?.tags?.includes('outdoor')
     ? selectedFixedCompositionSet
     : null;
-  const locationForLightingCompatibility = fixedSetLightingCompatibilityAnchor || (hasImportedWorldSceneArchitecture ? null : location);
+  const locationForLightingCompatibility = supineSurfaceOnly
+    ? null
+    : fixedSetLightingCompatibilityAnchor || (hasImportedWorldSceneArchitecture ? null : location);
   // A fixed composition set owns its environment contract. Outside that
   // explicit mode, preserve a concrete user lighting lock and use the
   // compatibility predicate only for random resolution.
@@ -14962,10 +15076,10 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     : getFixedSetBackgroundStateOption('none');
   const fixedSetCaptureMode = fixedCompositionSet
     ? getFixedSetCaptureModeOption(effectiveLocks.fixedSetCaptureModeId)
-    : getFixedSetCaptureModeOption('photographer-shot');
+    : getFixedSetCaptureModeOption(supineSurfaceOnly ? 'none' : 'photographer-shot');
   const fixedSetPerformanceState = fixedCompositionSet
     ? getFixedSetPerformanceStateOption(effectiveLocks.fixedSetPerformanceStateId)
-    : getFixedSetPerformanceStateOption('model-natural');
+    : getFixedSetPerformanceStateOption(supineSurfaceOnly ? 'none' : 'model-natural');
   const compositionVisibility = createCompositionVisibilityProjection(framing, {
     fixedCompositionActive: Boolean(fixedCompositionSet),
   });
@@ -14990,6 +15104,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     fixedSetBackgroundState,
     fixedSetCaptureMode,
     fixedSetPerformanceState,
+    supineSurfaceOnly,
     compositionVisibility,
     film,
     lighting,

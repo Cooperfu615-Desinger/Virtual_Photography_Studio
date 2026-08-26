@@ -1796,15 +1796,15 @@ test('lying orientation and body variation compose into one shared canonical pos
 test('lying public English keeps orientation and body variation geometry distinct across crops', () => {
   const poseText = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
   const orientations = [
-    ['仰躺', /supine position, torso facing upward/],
+    ['仰躺', null],
     ['側躺', /side-lying position, torso turned onto one side/],
     ['趴臥', /prone position, torso facing downward/],
   ];
   const variations = [
-    { zh: '自然伸展', full: /body extended in a relaxed line with the legs resting naturally/ },
-    { zh: '雙腿屈起', full: /both legs comfortably bent with the knees softly raised/ },
-    { zh: '身體微蜷', full: /torso and legs gently curled inward into a compact shape/, projected: /torso gently curled into a compact shape/ },
-    { zh: '上半身半躺', full: /upper body raised into a gentle half-recline/, projected: /upper body raised into a gentle half-recline/ },
+    { zh: '自然伸展', full: /body resting in a relaxed extended line with the legs resting naturally/ },
+    { zh: '雙腿屈起', full: /both knees comfortably bent and resting naturally/ },
+    { zh: '身體微蜷', full: /body gently curled inward into a compact shape/, projected: /torso gently curled into a compact shape/ },
+    { zh: '上半身半躺', full: /upper body slightly raised in a gentle half-recline/, projected: /upper body raised into a gentle half-recline/ },
     { zh: '上半身撐起', full: /upper body raised into a supported incline/, projected: /upper body raised into a supported incline/ },
   ];
   const lowerBodyVariations = new Set(['自然伸展', '雙腿屈起']);
@@ -1831,7 +1831,12 @@ test('lying public English keeps orientation and body variation geometry distinc
         framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
       });
       const fullCanonical = poseText(fullPrompt);
-      assert.match(fullCanonical, orientationPattern, `${orientationZh} + ${variationZh} full body orientation`);
+      if (orientationPattern) {
+        assert.match(fullCanonical, orientationPattern, `${orientationZh} + ${variationZh} full body orientation`);
+      } else {
+        assert.match(fullCanonical, /^She lies(?: naturally| on )/, `${orientationZh} + ${variationZh} uses the natural supine sentence`);
+        assert.doesNotMatch(fullCanonical, /supine position|torso facing upward/);
+      }
       assert.match(fullCanonical, variationPattern, `${orientationZh} + ${variationZh} full body variation`);
       assert.doesNotMatch(fullCanonical, /arrangement|model-decided|front of the body resting toward/i);
 
@@ -1840,8 +1845,13 @@ test('lying public English keeps orientation and body variation geometry distinc
         framingId: optionId('framingId', '胸上特寫'),
       });
       const chestCanonical = poseText(chestPrompt);
-      assert.match(chestCanonical, /upper-body pose/);
-      assert.match(chestCanonical, /upper torso|upper body/);
+      if (orientationZh === '仰躺') {
+        assert.match(chestCanonical, /^She lies(?: naturally| on )/, `${orientationZh} + ${variationZh} uses the natural supine crop sentence`);
+        assert.doesNotMatch(chestCanonical, /supine position|torso facing upward/);
+      } else {
+        assert.match(chestCanonical, /upper-body pose/);
+        assert.match(chestCanonical, /upper torso|upper body/);
+      }
       if (lowerBodyVariations.has(variationZh)) {
         assert.doesNotMatch(chestCanonical, variationPattern);
         assert.doesNotMatch(chestCanonical, /legs|knees|lower body/i);
@@ -1868,7 +1878,7 @@ test('lying dedicated matrix composes orientation-specific hands heads and scene
   );
   assert.deepEqual(
     outdoorAnchors.filter((option) => option.meta?.tags?.includes('lying_support')).map((option) => option.zh),
-    ['草地上', '水泥地上', '沙地上'],
+    ['草地上', '水泥地上', '沙地上', '海面上'],
   );
 
   const cases = [
@@ -1878,7 +1888,7 @@ test('lying dedicated matrix composes orientation-specific hands heads and scene
       handZh: '仰躺雙手向頭頂伸展',
       headZh: '仰躺頭部自然朝上',
       anchorZh: '床上',
-      expected: [/supine position/, /both arms reaching overhead/, /head resting in line with the upward-facing torso/, /on an existing bed surface/],
+      expected: [/She lies on a bed that dominates the composition/, /both arms reaching overhead/, /head resting in line with the upward-facing torso/, /Pillows, cushions, and a casually rumpled comforter/],
     },
     {
       orientationZh: '側躺',
@@ -1920,6 +1930,72 @@ test('lying dedicated matrix composes orientation-specific hands heads and scene
       entry.expected.forEach((pattern) => assert.match(text, pattern));
     }
   }
+});
+
+test('supine mode makes the support surface the only scene anchor and silences scene controls', () => {
+  const firstConcrete = (key, predicate = (option) => option.zh !== '全無' && option.zh !== '隨機') => (
+    control(key).options.find(predicate)?.id
+  );
+  const surfaceCases = [
+    ['床上', /She lies on a bed that dominates the composition/, /Pillows, cushions, and a casually rumpled comforter/],
+    ['榻榻米上', /She lies on tatami that dominates the composition/, /Japanese floor cushions are casually scattered/],
+    ['沙地上', /She lies on a fine white-sand beach that dominates the composition/, /A thin waterline, small waves, and a few scattered shells add a simple natural sense of life around the beach/],
+    ['水泥地上', /She lies on concrete that dominates the composition/, /Cement sandbags, rough timber, and steel bars lie loosely nearby/],
+    ['海面上', /She is floating on a clear shallow sea surface that dominates the composition/, /A coral reef is visible below through the transparent turquoise water/],
+  ];
+  const sceneKeys = [
+    'sceneAttributeId',
+    'locationId',
+    'fixedCompositionSetId',
+    'fixedSetPositionId',
+    'fixedSetBackgroundStateId',
+    'fixedSetCaptureModeId',
+    'fixedSetPerformanceStateId',
+  ];
+  const baseLocks = createFullySpecifiedLocks({
+    sceneAttributeId: optionId('sceneAttributeId', '室內'),
+    locationId: firstConcrete('locationId'),
+    fixedCompositionSetId: firstConcrete('fixedCompositionSetId'),
+    fixedSetPositionId: firstConcrete('fixedSetPositionId'),
+    fixedSetBackgroundStateId: firstConcrete('fixedSetBackgroundStateId'),
+    fixedSetCaptureModeId: firstConcrete('fixedSetCaptureModeId'),
+    fixedSetPerformanceStateId: firstConcrete('fixedSetPerformanceStateId'),
+    importedWorldSceneMode: 'architecture',
+    importedWorldSceneLabel: 'Imported room',
+    importedWorldSceneArchitectureText: 'A large imported room architecture description.',
+    zImageVisibleTextEnabled: true,
+    zImageVisibleTextContent: 'SUPINE SCENE CONTROL SHOULD STAY PRIVATE',
+    poseBaseId: optionId('poseBaseId', '躺姿'),
+    poseOrientationId: optionId('poseOrientationId', '仰躺'),
+    poseArrangementId: optionId('poseArrangementId', '自然伸展'),
+    poseHandId: optionId('poseHandId', '仰躺雙手向頭頂伸展'),
+    poseHeadId: optionId('poseHeadId', '仰躺頭部自然朝上'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  });
+
+  for (const [anchorZh, surfacePattern, environmentPattern] of surfaceCases) {
+    const [prompt] = generatePrompts(1, {
+      ...baseLocks,
+      poseAnchorId: optionId('poseAnchorId', anchorZh),
+    });
+    const canonical = prompt.grokPrompt.match(/Pose and Composition:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
+    assert.match(canonical, surfacePattern, `${anchorZh} should own the supine surface sentence`);
+    assert.match(canonical, environmentPattern, `${anchorZh} should add its compact lived-in environment`);
+    for (const output of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      assert.doesNotMatch(output, /\bnone\b|全無|supine position|existing [^\n]+ in the scene|fixed composition|world scene architecture/i);
+    }
+    sceneKeys.forEach((key) => assert.equal(prompt.selection[key], 'none', `${key} should export as none in supine mode`));
+    assert.equal(prompt.selection.importedWorldSceneMode, 'none');
+    assert.equal(prompt.selection.zImageVisibleTextEnabled, false);
+  }
+
+  const dependentOptions = getSceneDependentOptions([], baseLocks);
+  assert.deepEqual(dependentOptions.locationOptions, []);
+  assert.ok(dependentOptions.poseAnchorOptions.some((option) => option.zh === '床上'));
+  assert.ok(dependentOptions.poseAnchorOptions.some((option) => option.zh === '榻榻米上'));
+  assert.ok(dependentOptions.poseAnchorOptions.some((option) => option.zh === '沙地上'));
+  assert.ok(dependentOptions.poseAnchorOptions.some((option) => option.zh === '水泥地上'));
+  assert.ok(dependentOptions.poseAnchorOptions.some((option) => option.zh === '海面上'));
 });
 
 test('lying random pools stay inside the selected orientation matrix', () => {

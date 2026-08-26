@@ -5,6 +5,7 @@ import {
 import { POSE_COMPOSER_CONTROL_KEYS } from './page1Schema.js';
 import { isNoneSelected } from './page1Selectors.js';
 import { reconcilePage1SingleWardrobeLocks } from './page1WardrobeExclusivity.js';
+import { applySupineSceneOverride } from '../../lib/engine/poseScenePolicy.js';
 
 const OUTFIT_PRESET_COLOR_ALIAS_PAIRS = Object.freeze([
   ['outfitPresetColorId', 'outfitPresetPrimaryColorId'],
@@ -110,5 +111,5 @@ export function transitionPage1Locks({
     POSE_COMPOSER_CONTROL_KEYS.forEach((key) => { next[key] = 'none'; });
   }
 
-  return next;
+  return applySupineSceneOverride(next);
 }

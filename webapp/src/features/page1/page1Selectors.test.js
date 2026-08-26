@@ -81,3 +81,27 @@ test('single dress reports complete-look takeover state to the PAGE1 UI', () => 
 
   assert.equal(isOutfitPresetActive, true);
 });
+
+test('supine PAGE1 scene controls display only disabled none values while support anchors stay available', () => {
+  const lockControls = getLockControls();
+  const locks = {
+    ...createEmptyLocks(),
+    poseBaseId: lockControls.find((control) => control.key === 'poseBaseId')?.options.find((option) => option.zh === '躺姿')?.id,
+    poseOrientationId: lockControls.find((control) => control.key === 'poseOrientationId')?.options.find((option) => option.zh === '仰躺')?.id,
+    sceneAttributeId: 'indoor',
+    locationId: lockControls.find((control) => control.key === 'locationId')?.options.find((option) => option.zh !== '全無')?.id,
+  };
+  const sceneDependentOptions = getSceneDependentOptions([], locks);
+  const { coreLockControls, characterLockControls } = buildPage1ControlGroups({
+    lockControls,
+    locks,
+    sceneDependentOptions,
+  });
+
+  const sceneAttribute = coreLockControls.find((control) => control.key === 'sceneAttributeId');
+  const location = coreLockControls.find((control) => control.key === 'locationId');
+  assert.deepEqual(sceneAttribute.options.map((option) => option.zh), ['全無']);
+  assert.deepEqual(location.options.map((option) => option.zh), ['全無']);
+  assert.ok(characterLockControls.find((control) => control.key === 'poseAnchorId')?.options.some((option) => option.zh === '床上'));
+  assert.ok(characterLockControls.find((control) => control.key === 'poseAnchorId')?.options.some((option) => option.zh === '水泥地上'));
+});

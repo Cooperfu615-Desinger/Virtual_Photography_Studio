@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
   createEmptyLocks,
@@ -14,6 +14,10 @@ import {
 import { loadJsonStorage, saveJsonStorage } from '../storage/browserStorage.js';
 import { transitionPage1Locks } from './lockTransitions.js';
 import { reconcilePage1SingleWardrobeLocks } from './page1WardrobeExclusivity.js';
+import {
+  isSupinePoseSelection,
+  SUPINE_SCENE_RESTORE_KEYS,
+} from '../../lib/engine/poseScenePolicy.js';
 import {
   attachMidjourneySettingsToPrompt,
   createPromptGenerationLocks,
@@ -40,6 +44,7 @@ export function usePromptWorkspace() {
   });
   const [previewGenerationNonce, setPreviewGenerationNonce] = useState(0);
   const [previewRerollExclusion, setPreviewRerollExclusion] = useState(null);
+  const supineSceneRestoreRef = useRef(null);
 
   const sceneDependentOptions = useMemo(
     () => getSceneDependentOptions(activeLibrary, locks),
@@ -85,9 +90,27 @@ export function usePromptWorkspace() {
   const updateLocks = useCallback((updater) => {
     setPreviewRerollExclusion(null);
     setLocks((previousLocks) => {
-      const candidateLocks = typeof updater === 'function'
+      let candidateLocks = typeof updater === 'function'
         ? updater(previousLocks)
         : { ...previousLocks, ...updater };
+
+      const enteringSupine = !isSupinePoseSelection(previousLocks) && isSupinePoseSelection(candidateLocks);
+      const leavingSupine = isSupinePoseSelection(previousLocks) && !isSupinePoseSelection(candidateLocks);
+
+      if (enteringSupine) {
+        supineSceneRestoreRef.current = Object.fromEntries(
+          SUPINE_SCENE_RESTORE_KEYS.map((key) => [key, previousLocks[key]]),
+        );
+      }
+
+      if (leavingSupine && supineSceneRestoreRef.current) {
+        candidateLocks = {
+          ...candidateLocks,
+          ...supineSceneRestoreRef.current,
+        };
+        supineSceneRestoreRef.current = null;
+      }
+
       return transitionPage1Locks({
         previousLocks,
         candidateLocks,

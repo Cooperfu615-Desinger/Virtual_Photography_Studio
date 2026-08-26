@@ -68,6 +68,49 @@ test('page1 transition makes pose composer override legacy pose and special acti
   assert.notEqual(next.poseBaseId, 'none');
 });
 
+test('page1 transition locks supine scene and fixed-composition controls to none', () => {
+  const controls = getLockControls();
+  const previousLocks = {
+    ...createEmptyLocks(),
+    sceneAttributeId: optionId(controls, 'sceneAttributeId', '室內'),
+    locationId: optionId(controls, 'locationId', '室內：復古美式 Diner'),
+    importedWorldSceneMode: 'architecture',
+    importedWorldSceneLabel: 'Imported room',
+    importedWorldSceneArchitectureText: 'Imported architecture',
+    zImageVisibleTextEnabled: true,
+    zImageVisibleTextContent: 'internal scene text',
+    fixedCompositionSetId: activeOptionId(controls, 'fixedCompositionSetId'),
+    fixedSetPositionId: activeOptionId(controls, 'fixedSetPositionId'),
+    fixedSetBackgroundStateId: activeOptionId(controls, 'fixedSetBackgroundStateId'),
+    fixedSetCaptureModeId: activeOptionId(controls, 'fixedSetCaptureModeId'),
+    fixedSetPerformanceStateId: activeOptionId(controls, 'fixedSetPerformanceStateId'),
+  };
+  const next = transitionPage1Locks({
+    previousLocks,
+    candidateLocks: {
+      ...previousLocks,
+      poseBaseId: optionId(controls, 'poseBaseId', '躺姿'),
+      poseOrientationId: optionId(controls, 'poseOrientationId', '仰躺'),
+    },
+    lockControls: controls,
+  });
+
+  [
+    'sceneAttributeId',
+    'locationId',
+    'fixedCompositionSetId',
+    'fixedSetPositionId',
+    'fixedSetBackgroundStateId',
+    'fixedSetCaptureModeId',
+    'fixedSetPerformanceStateId',
+  ].forEach((key) => assert.equal(next[key], 'none', `${key} should be forced to none`));
+  assert.equal(next.importedWorldSceneMode, 'none');
+  assert.equal(next.importedWorldSceneLabel, '');
+  assert.equal(next.importedWorldSceneArchitectureText, '');
+  assert.equal(next.zImageVisibleTextEnabled, false);
+  assert.equal(next.zImageVisibleTextContent, '');
+});
+
 test('page1 transition lets an explicit prop take over hand and clears props in duo mode', () => {
   const controls = getLockControls();
   const previousLocks = createEmptyLocks();

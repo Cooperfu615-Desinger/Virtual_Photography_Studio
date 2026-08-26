@@ -45,6 +45,7 @@ import {
   getSectionKeys,
 } from '../features/page1/page1Schema.js';
 import { buildAllNoneLocks, isNoneSelected } from '../features/page1/page1Selectors.js';
+import { isSupinePoseSelection } from '../lib/engine/poseScenePolicy.js';
 import {
   buildMidjourneyParameterSummary,
   normalizeMidjourneyParameterDraft,
@@ -127,6 +128,15 @@ const FIXED_SET_LOCKED_KEYS = [
   'opticalEffectId',
 ];
 const FIXED_SET_STRICT_CAMERA_KEYS = ['angleId', 'orbitId'];
+const SUPINE_SCENE_LOCKED_KEYS = new Set([
+  'sceneAttributeId',
+  'locationId',
+  'fixedCompositionSetId',
+  'fixedSetPositionId',
+  'fixedSetBackgroundStateId',
+  'fixedSetCaptureModeId',
+  'fixedSetPerformanceStateId',
+]);
 
 const NAMED_COLOR_SWATCHES = {
   black: ['#111111'],
@@ -508,7 +518,13 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     ? normalizeCharacterCardLayerIds(locks.characterCardWardrobeLayerIds)
     : [];
   const isAndroidSubjectMode = specialSubjectOption?.specialSubject === 'android';
-  const resolvedActiveSubpanel = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { subjectCount: locks.subjectCount });
+  const supineSurfaceOnly = isSupinePoseSelection(locks);
+  const resolvedActiveSubpanelBase = resolvePage1ActiveSubpanel(activeSection, activeSubpanel, { subjectCount: locks.subjectCount });
+  const resolvedActiveSubpanel = supineSurfaceOnly
+    && activeSection === 'scene'
+    && resolvedActiveSubpanelBase?.id === 'visible-text'
+    ? sectionSubpanels.find((panel) => panel.id === 'light') || resolvedActiveSubpanelBase
+    : resolvedActiveSubpanelBase;
   const activeSubpanelKeys = resolvedActiveSubpanel?.keys || getSectionKeys(activeSection);
   const isSingleOutfitPresetActive = Boolean(locks.outfitPresetId) && !isNoneSelected('outfitPresetId', locks.outfitPresetId, wardrobeLockControls);
   const isSingleDressActive = locks.subjectCount === '1'
@@ -680,6 +696,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
 
   const isControlDisabled = (control) => (
     (isCloseupMode && !closeupAllowedKeys.has(control.key))
+    || (supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key))
     || (isDedicatedSubjectMode && !isAndroidSubjectMode && [
       'hairstyleId', 'hairstyleAId', 'hairstyleBId',
       'hairStylingStateId', 'hairStylingStateAId', 'hairStylingStateBId',
@@ -851,10 +868,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
 
   const activeSectionActionLabels = getPage1SectionActionLabels(resolvedActiveSubpanel, lockControls);
 
-  const renderSectionRandomButton = () => (
+  const renderSectionRandomButton = ({ disabled = false } = {}) => (
     <button
       className="secondary page1-section-random-btn"
       type="button"
+      disabled={disabled}
       title="只隨機化可隨機欄位；必要欄位與接管型欄位會保留預設狀態。"
       onClick={handleRandomizeActiveSection}
     >
@@ -862,10 +880,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     </button>
   );
 
-  const renderSectionNoneButton = () => (
+  const renderSectionNoneButton = ({ disabled = false } = {}) => (
     <button
       className="secondary subtle-action page1-section-random-btn"
       type="button"
+      disabled={disabled}
       title="清空可清除欄位；必要欄位會保留預設值。"
       onClick={handleSetActiveSectionNone}
     >
@@ -888,10 +907,18 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
-        const control = buildFixedSetControl(buildPoseComposerControl(rawControl));
+        const preparedControl = buildFixedSetControl(buildPoseComposerControl(rawControl));
+        const control = supineSurfaceOnly && ['sceneAttributeId', 'locationId'].includes(preparedControl.key)
+          ? {
+              ...preparedControl,
+              options: [{ id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } }],
+            }
+          : preparedControl;
         const displayFixedSetDependentAsNone = FIXED_SET_DEPENDENT_DISPLAY_NONE_KEYS.has(control.key) && !fixedCompositionSetActive;
         const disabled = isControlDisabled(control);
-        const value = displayFixedSetDependentAsNone ? 'none' : locks[control.key];
+        const value = supineSurfaceOnly && SUPINE_SCENE_LOCKED_KEYS.has(control.key)
+          ? 'none'
+          : displayFixedSetDependentAsNone ? 'none' : locks[control.key];
         const dividerLabel = activeSection === 'wardrobe' && activeSubpanel?.id === 'garments'
           ? WARDROBE_GARMENT_CONTROL_DIVIDERS[control.key]
           : '';
@@ -930,6 +957,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     </div>
   );
 
+  const structuralSceneLocked = supineSurfaceOnly && ['fixed', 'space'].includes(resolvedActiveSubpanel?.id);
+
   const renderSceneControls = () => resolvedActiveSubpanel?.id === 'visible-text' ? (
     <ZImageVisibleTextControls
       settings={locks}
@@ -943,8 +972,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
           <p className="workspace-panel-copy">{resolvedActiveSubpanel?.description || '先決定場景、環境與光線，右側會同步反映成目前可直接使用的 Gpt prompt。'}</p>
         </div>
         <div className="page1-section-header-actions">
-          {renderSectionRandomButton()}
-          {renderSectionNoneButton()}
+          {renderSectionRandomButton({ disabled: structuralSceneLocked })}
+          {renderSectionNoneButton({ disabled: structuralSceneLocked })}
           <button className="secondary reference-trigger-btn" type="button" onClick={() => setIsLightingReferenceOpen(true)}>
             查看光線定位對照
           </button>
@@ -952,16 +981,18 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       </div>
       <div className="context-note context-note-compact">
         <div className="context-note-copy">
-          {importedWorldSceneActive
-            ? `PAGE3 空景架構已套用：${locks.importedWorldSceneLabel || '未命名世界場景'}。此架構會優先進入三種 PAGE1 prompt，人物、服裝、姿勢仍由 PAGE1 控制。`
-            : '可把目前 PAGE3 的空景建模 profile 套入 PAGE1，作為人像 prompt 的世界場景骨架。'}
+          {supineSurfaceOnly
+            ? '仰躺為表面主導構圖：固定構圖場景、場景基底與額外空景架構固定為全無，只保留環境光線。'
+            : importedWorldSceneActive
+              ? `PAGE3 空景架構已套用：${locks.importedWorldSceneLabel || '未命名世界場景'}。此架構會優先進入三種 PAGE1 prompt，人物、服裝、姿勢仍由 PAGE1 控制。`
+              : '可把目前 PAGE3 的空景建模 profile 套入 PAGE1，作為人像 prompt 的世界場景骨架。'}
         </div>
         <div className="page1-section-header-actions">
-          <button className="secondary" type="button" onClick={onApplyPage3WorldSceneArchitecture}>
+          <button className="secondary" type="button" disabled={supineSurfaceOnly} onClick={onApplyPage3WorldSceneArchitecture}>
             套用 PAGE3 空景架構
           </button>
           {importedWorldSceneActive ? (
-            <button className="secondary" type="button" onClick={clearImportedWorldSceneArchitecture}>
+            <button className="secondary" type="button" disabled={supineSurfaceOnly} onClick={clearImportedWorldSceneArchitecture}>
               清除匯入
             </button>
           ) : null}
@@ -1213,7 +1244,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
 
             <div className="page1-subpanel-tabs">
               {sectionSubpanels.map((panel) => {
-                const disabled = activeSection === 'pose' && isPage1PoseSubpanelDisabled(panel, locks.subjectCount);
+                const disabled = (activeSection === 'pose' && isPage1PoseSubpanelDisabled(panel, locks.subjectCount))
+                  || (activeSection === 'scene' && supineSurfaceOnly && panel.id === 'visible-text');
                 const isActive = resolvedActiveSubpanel?.id === panel.id;
                 return (
                   <button
