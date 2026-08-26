@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.js';
 import {
   POSE_COMPOSER_ANCHOR_OPTIONS,
+  POSE_COMPOSER_ARRANGEMENT_OPTIONS,
   POSE_COMPOSER_HAND_OPTIONS,
   POSE_COMPOSER_HEAD_OPTIONS,
 } from './poseComposerOptions.js';
@@ -246,4 +247,16 @@ test('lying body variation matrix prevents half-recline and upper-propped random
   assert.equal(poseComposerArrangementSupportsRandomContext(arrangements[1], side), true);
   assert.equal(poseComposerArrangementSupportsRandomContext(arrangements[1], prone), true);
   assert.equal(poseComposerHandSupportsRandomContext(genericPocketHands, supine), false);
+
+  for (const id of [
+    'lying-body-supine-side-crossed',
+    'lying-body-supine-side-separated',
+    'lying-body-supine-crossed-extended',
+    'lying-body-supine-bent-crossed',
+  ]) {
+    const arrangement = POSE_COMPOSER_ARRANGEMENT_OPTIONS.find((item) => item.id === id);
+    assert.equal(poseComposerArrangementSupportsRandomContext(arrangement, supine), true);
+    assert.equal(poseComposerArrangementSupportsRandomContext(arrangement, side), false);
+    assert.equal(poseComposerArrangementSupportsRandomContext(arrangement, prone), false);
+  }
 });

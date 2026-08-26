@@ -1802,8 +1802,8 @@ test('lying public English keeps orientation and body variation geometry distinc
   ];
   const variations = [
     { zh: '自然伸展', full: /body resting in a relaxed extended line with the legs resting naturally/ },
-    { zh: '雙腿屈起', full: /both knees comfortably bent and resting naturally/ },
-    { zh: '身體微蜷', full: /body gently curled inward into a compact shape/, projected: /torso gently curled into a compact shape/ },
+    { zh: '雙腿屈起', full: /both of her knees comfortably bent and resting naturally/ },
+    { zh: '身體微蜷', full: /body deeply curled inward.*knees drawn close toward her chest.*spine rounded into a tight compact shape/, projected: /upper torso deeply curled inward.*shoulders drawn toward the chest.*spine rounded/ },
     { zh: '上半身半躺', full: /upper body slightly raised in a gentle half-recline/, projected: /upper body raised into a gentle half-recline/ },
     { zh: '上半身撐起', full: /upper body raised into a supported incline/, projected: /upper body raised into a supported incline/ },
   ];
@@ -1860,6 +1860,62 @@ test('lying public English keeps orientation and body variation geometry distinc
         assert.doesNotMatch(chestCanonical, /legs|knees|lower body remains/i);
       }
     }
+  }
+});
+
+test('supine body variations compose distinct lower-body geometries and preserve shared canonical text', () => {
+  const poseText = (prompt) => prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  const baseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '躺姿'),
+    poseOrientationId: optionId('poseOrientationId', '仰躺'),
+    poseHandId: optionId('poseHandId', '全無'),
+    posePropId: optionId('posePropId', '全無'),
+    poseHeadId: optionId('poseHeadId', '全無'),
+    poseAnchorId: optionId('poseAnchorId', '全無'),
+  };
+  const variations = [
+    {
+      zh: '下半身側轉・雙腿交疊',
+      full: /waist and lower body turned to one side.*both knees softly bent.*legs loosely overlapping.*lying flat or slightly lifted/i,
+    },
+    {
+      zh: '下半身側轉・雙腿分開',
+      full: /waist and lower body turned to one side.*both knees softly bent.*resting separately with a relaxed gap between the legs/i,
+    },
+    {
+      zh: '單腿交疊伸展',
+      full: /one leg extended long along the surface.*other leg bends loosely across and over it/i,
+    },
+    {
+      zh: '雙腿屈起交疊',
+      full: /both of her knees bent.*one heel drawn close to the hip.*one leg crossing loosely over the other in a soft asymmetrical curve/i,
+    },
+  ];
+
+  for (const variation of variations) {
+    const locks = {
+      ...baseLocks,
+      poseArrangementId: optionIdForBase('poseArrangementId', variation.zh, 'lying'),
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    };
+    const [fullPrompt] = generatePrompts(1, locks);
+    const fullCanonical = poseText(fullPrompt);
+    assert.match(fullCanonical, /^She lies(?: on | naturally)/);
+    assert.match(fullCanonical, variation.full);
+    assert.doesNotMatch(fullCanonical, /supine position|torso facing upward/i);
+    assert.ok(fullPrompt.zImagePrompt.includes(fullCanonical));
+    assert.ok(fullPrompt.midjourneyPrompt.includes(fullCanonical));
+
+    const [chestPrompt] = generatePrompts(1, {
+      ...locks,
+      framingId: optionId('framingId', '胸上特寫'),
+    });
+    const chestCanonical = poseText(chestPrompt);
+    assert.match(chestCanonical, /^She lies(?: on | naturally)/);
+    assert.doesNotMatch(chestCanonical, variation.full);
+    assert.doesNotMatch(chestCanonical, /legs|knees|lower body/i);
   }
 });
 

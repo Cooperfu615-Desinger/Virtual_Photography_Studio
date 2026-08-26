@@ -152,15 +152,48 @@ test('lying orientation and body variation layers stay explicit and independent'
     '身體微蜷',
     '上半身半躺',
     '上半身撐起',
+    '下半身側轉・雙腿交疊',
+    '下半身側轉・雙腿分開',
+    '單腿交疊伸展',
+    '雙腿屈起交疊',
   ]);
-  assert.ok(bodyVariations.slice(0, 2).every((option) => (
+  const lowerBodyIds = new Set([
+    'lying-body-natural-stretch',
+    'lying-body-legs-bent',
+    'lying-body-supine-side-crossed',
+    'lying-body-supine-side-separated',
+    'lying-body-supine-crossed-extended',
+    'lying-body-supine-bent-crossed',
+  ]);
+  const upperBodyIds = new Set([
+    'lying-body-curled',
+    'lying-body-half-recline',
+    'lying-body-upper-propped',
+  ]);
+  assert.equal(bodyVariations.every((option) => lowerBodyIds.has(option.id) || upperBodyIds.has(option.id)), true);
+  assert.ok(bodyVariations.filter((option) => lowerBodyIds.has(option.id)).every((option) => (
     getPoseComposerProjection(option, CHEST_UP).mode === POSE_COMPOSER_PROJECTION_MODES.OMIT
     && getPoseComposerProjection(option, MEDIUM_WAIST).mode === POSE_COMPOSER_PROJECTION_MODES.OMIT
   )));
-  assert.ok(bodyVariations.slice(2).every((option) => (
+  assert.ok(bodyVariations.filter((option) => upperBodyIds.has(option.id)).every((option) => (
     getPoseComposerProjection(option, CHEST_UP).mode === POSE_COMPOSER_PROJECTION_MODES.PROJECTED
     && getPoseComposerProjection(option, MEDIUM_WAIST).mode === POSE_COMPOSER_PROJECTION_MODES.PROJECTED
   )));
+  const curled = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, 'lying-body-curled');
+  assert.match(getPoseComposerProjection(curled, CHEST_UP).en, /deeply curled inward.*shoulders drawn toward the chest.*spine rounded/);
+  const supineOnlyIds = [
+    'lying-body-supine-side-crossed',
+    'lying-body-supine-side-separated',
+    'lying-body-supine-crossed-extended',
+    'lying-body-supine-bent-crossed',
+  ];
+  for (const id of supineOnlyIds) {
+    const option = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, id);
+    assert.deepEqual(option.meta.hiddenForOrientations, ['lying-side', 'lying-prone']);
+    assert.equal(option.meta.randomEligibleForOrientations['lying-supine'], true);
+    assert.equal(option.meta.randomEligibleForOrientations['lying-side'], false);
+    assert.equal(option.meta.randomEligibleForOrientations['lying-prone'], false);
+  }
   assert.equal(POSE_COMPOSER_ARRANGEMENT_OPTIONS.find((option) => option.id === 'lying-on-back')?.meta?.uiHidden, true);
 });
 
