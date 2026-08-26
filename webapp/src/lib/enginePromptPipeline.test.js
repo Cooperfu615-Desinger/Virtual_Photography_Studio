@@ -749,7 +749,7 @@ test('Gpt single-subject prompt preserves full-fidelity footwear and outerwear d
     outerwearFitId: optionId('outerwearFitId', '短版 Oversize'),
     outerwearPatternId: optionId('outerwearPatternId', '粗橫條紋'),
     outerwearOpeningId: optionId('outerwearOpeningId', '敞開穿'),
-    outerwearStylingId: optionId('outerwearStylingId', '滑落肩部'),
+    outerwearStylingId: optionId('outerwearStylingId', '單肩露出'),
     topId: optionId('topId', '襯衫'),
     topColorId: optionId('topColorId', '米白色'),
     topFitId: optionId('topFitId', '全無'),
@@ -769,7 +769,7 @@ test('Gpt single-subject prompt preserves full-fidelity footwear and outerwear d
   const wardrobe = gptSection(prompt, 'Wardrobe');
 
   assert.match(wardrobe, /dark grey denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear/i);
-  assert.match(wardrobe, /outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer/i);
+  assert.match(wardrobe, /outerwear deliberately draped off one shoulder with one shoulder line exposed while the opposite shoulder remains in a standard outer-layer position, sleeves relaxed on the arms/i);
   assert.match(wardrobe, /white ribbed ankle socks, soft cotton texture/i);
   assert.match(wardrobe, /white adidas samba og sneakers, gum sole, three-stripe side detail, terrace football styling/i);
   assert.doesNotMatch(wardrobe, /outerwear remains a coherent outer layer; inner garment appears at natural openings/i);
@@ -1739,7 +1739,7 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     outerwearId: optionId('outerwearId', '丹寧外套'),
     outerwearColorId: optionId('outerwearColorId', '深灰色'),
     outerwearOpeningId: optionId('outerwearOpeningId', '敞開穿'),
-    outerwearStylingId: optionId('outerwearStylingId', '滑落肩部'),
+    outerwearStylingId: optionId('outerwearStylingId', '單肩露出'),
     topId: optionId('topId', '襯衫'),
     topColorId: optionId('topColorId', '米白色'),
     skirtId: optionId('skirtId', '百褶短裙'),
@@ -1750,7 +1750,7 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
   });
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /dark grey denim jacket, washed denim texture, chest pockets, metal buttons/i);
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /outerwear worn open at the front, front panels parted naturally/i);
-  assert.match(zImageWardrobeParagraph(outerwearPrompt), /slipped below the shoulder line, sleeves loosely on the arms/i);
+  assert.match(zImageWardrobeParagraph(outerwearPrompt), /deliberately draped off one shoulder with one shoulder line exposed/i);
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /layered over off-white shirt/i);
   assert.match(zImageWardrobeParagraph(outerwearPrompt), /pleated mini skirt/i);
   assert.doesNotMatch(zImageWardrobeParagraph(outerwearPrompt), noZGuard);

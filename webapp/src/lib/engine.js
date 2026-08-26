@@ -2528,6 +2528,7 @@ const WARDROBE_TOP_CATEGORY = '上身 (Tops)';
 const WARDROBE_OUTERWEAR_CATEGORY = '外套 (Outerwear)';
 const WARDROBE_OUTERWEAR_FIT_CATEGORY = '外套版型 (Outerwear Fit)';
 const WARDROBE_OUTERWEAR_OPENING_CATEGORY = '外套開合 (Outerwear Opening)';
+const WARDROBE_OUTERWEAR_STYLING_CATEGORY = '外套穿法 (Outerwear Styling)';
 const WARDROBE_EYEWEAR_CATEGORY = '眼鏡 (Eyewear)';
 const WARDROBE_EYEWEAR_COLOR_CATEGORY = '眼鏡配色 (Eyewear Color)';
 const WARDROBE_EYEWEAR_PLACEMENT_CATEGORY = '眼鏡配戴方式 (Eyewear Placement)';
@@ -2924,6 +2925,11 @@ const WARDROBE_LEGACY_OPTION_MAP = [
     category: WARDROBE_OUTERWEAR_OPENING_CATEGORY,
     targetZh: '敞開穿',
     legacy: [['敞開穿', 1]],
+  },
+  {
+    category: WARDROBE_OUTERWEAR_STYLING_CATEGORY,
+    targetZh: '單肩露出',
+    legacy: [['滑落肩部', 2]],
   },
   { category: WARDROBE_TOP_CATEGORY, targetZh: '領帶襯衫', legacy: [['領帶襯衫', 12], ['鬆領帶襯衫', 13]] },
   { category: WARDROBE_TOP_CATEGORY, targetZh: '落肩 T 恤', legacy: [['落肩 T 恤', 14], ['長版落肩 T 恤', 15]] },
@@ -8652,13 +8658,19 @@ function filterZImagePoseForFraming(value, context) {
   return cleanVisibilityFilteredText(parts.join('; '));
 }
 
+const OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT = 'outerwear deliberately draped off one shoulder with one shoulder line exposed while the opposite shoulder remains in a standard outer-layer position, sleeves relaxed on the arms';
+const OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'outerwear deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views, jacket draped around the upper arms with sleeves still on the arms';
+
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
   if (!styling || isNoneLikeItem(styling)) return '';
   if (styling.zh === '正常穿著') {
     return minimal ? '' : 'outerwear worn normally on both shoulders';
   }
-  if (styling.zh === '滑落肩部') {
-    return 'outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer';
+  if (styling.zh === '單肩露出') {
+    return OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT;
+  }
+  if (styling.zh === '雙肩露出') {
+    return OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT;
   }
   return stripMarkdown(styling.en || '').replace(/\s+/g, ' ').trim();
 }
@@ -11339,7 +11351,8 @@ function DEPRECATED_GPT_SINGLE_WARDROBE_COMPACTOR(value, context) {
     .replace(/tight body-skimming upper-body fit,\s*([^,]+?) cotton camisole top,\s*slim shoulder straps,\s*soft ribbed knit,\s*clean compact upper-body line/gi, 'tight $1 ribbed cotton camisole with slim straps')
     .replace(/high-rise waistband sitting above the natural waist,\s*fitted lower-body line following the garment shape,\s*([^,]+?) straight-leg jeans,\s*clean denim texture,\s*balanced leg line,\s*classic five-pocket construction/gi, 'high-rise fitted $1 straight-leg jeans')
     .replace(/([^,]+?) denim jacket,\s*washed denim texture,\s*chest pockets,\s*metal buttons,\s*casual structured outerwear/gi, '$1 washed denim jacket with chest pockets and metal buttons')
-    .replace(/outerwear intentionally slipped below one or both shoulders,\s*sleeves still loosely on the arms,\s*jacket body hanging as an intact outer layer/gi, 'outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer')
+    .replace(/outerwear intentionally slipped below one or both shoulders,\s*sleeves still loosely on the arms,\s*jacket body hanging as an intact outer layer/gi, OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT)
+    .replace(/outerwear slipped below the shoulder line,\s*sleeves loosely on the arms,\s*jacket body still readable as an outer layer/gi, OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT)
     .replace(/,\s*one-piece silhouette(?=,|\.)/gi, '')
     .replace(/\bone-piece body-skimming silhouette\b/gi, 'body-skimming silhouette')
     .replace(/\bone-piece fitted silhouette\b/gi, 'fitted silhouette')
@@ -11458,7 +11471,9 @@ const Z_IMAGE_REDUNDANT_SOURCE_FRAGMENTS = [
 ];
 
 function compactZImageSourceText(value) {
-  let output = cleanZImageSinglePromptText(value);
+  let output = cleanZImageSinglePromptText(value)
+    .replace(/outerwear intentionally slipped below one or both shoulders,\s*sleeves still loosely on the arms,\s*jacket body hanging as an intact outer layer/gi, OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT)
+    .replace(/outerwear slipped below the shoulder line,\s*sleeves loosely on the arms,\s*jacket body still readable as an outer layer/gi, OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT);
   for (const pattern of Z_IMAGE_REDUNDANT_SOURCE_FRAGMENTS) {
     output = output.replace(pattern, '');
   }
@@ -13627,7 +13642,7 @@ function compactAiGarmentValue(value, preferredRole = '', primarySource = '') {
   const primary = selectedPrimary && !inferredKeepsSelectedPrimary
     ? `${selectedPrimary}${lowerCropBoundary}`
     : inferredPrimary;
-  const structuralDetail = fragments.find((fragment) => /\b(?:neckline|flare|pleated|ruffled|slit|hem|boning|lace trim|garter|cut-out|open shoulder|high-cut|wide-leg|straight-leg)\b/i.test(fragment) && fragment !== primary) || '';
+  const structuralDetail = fragments.find((fragment) => /\b(?:neckline|flare|pleated|ruffled|slit|hem|boning|lace trim|garter|cut-out|open shoulder|one shoulder line exposed|both shoulder lines exposed|draped off one shoulder|worn off both shoulders|upper back exposed|high-cut|wide-leg|straight-leg)\b/i.test(fragment) && fragment !== primary) || '';
   return [primary, structuralDetail].filter(Boolean).join(', ');
 }
 

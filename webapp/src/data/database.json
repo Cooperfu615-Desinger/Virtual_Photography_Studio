@@ -3349,9 +3349,14 @@
         "desc": "外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。"
       },
       {
-        "zh": "滑落肩部",
-        "en": "outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer",
-        "desc": "外套滑到肩線下方，袖子仍自然套在手臂上，外套本體仍能讀作外層。"
+        "zh": "單肩露出",
+        "en": "outerwear deliberately draped off one shoulder with one shoulder line exposed while the opposite shoulder remains in a standard outer-layer position, sleeves relaxed on the arms",
+        "desc": "刻意讓單側肩膀露出，另一側維持正常外層位置，袖子仍自然套在手臂上；這是明確的穿著方式，不是外套意外滑落。"
+      },
+      {
+        "zh": "雙肩露出",
+        "en": "outerwear deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views, jacket draped around the upper arms with sleeves still on the arms",
+        "desc": "刻意讓雙側肩膀露出，外套垂掛在上臂與手臂上；在背面或三分之四視角時可呈現露出的上背部。"
       }
     ],
     "外套圖案 (Outerwear Surface Design)": [

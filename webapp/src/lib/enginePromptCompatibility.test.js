@@ -133,6 +133,20 @@ test('outerwear opening options expose the new closure states and migrate old sa
   });
 });
 
+test('outerwear styling replaces the old slipped-shoulder option with explicit shoulder exposure and migrates old ids', () => {
+  const stylingControl = controls.find((control) => control.key === 'outerwearStylingId');
+  assert.deepEqual(
+    stylingControl.options.map((option) => option.zh),
+    ['全無', '正常穿著', '單肩露出', '雙肩露出'],
+  );
+
+  const legacyId = 'wardrobe:外套穿法-outerwear-styling:滑落肩部:2';
+  assert.equal(
+    normalizeLocks({ outerwearStylingId: legacyId }).outerwearStylingId,
+    optionId('outerwearStylingId', '單肩露出'),
+  );
+});
+
 test('formal longline shirt is treated as button-front outerwear for opening randomization', () => {
   const longlineShirtId = optionId('outerwearId', '長版襯衫');
   const halfButtonId = optionId('outerwearOpeningId', '扣子扣一半');

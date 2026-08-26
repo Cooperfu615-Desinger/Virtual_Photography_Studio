@@ -371,7 +371,8 @@
 | **外套開合 (Outerwear Opening)** | 敞開穿 | `outerwear worn open at the front, front panels parted naturally` | 外套正面敞開，前片自然分開，不強制內搭必須完整可見。 |
 | **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
 | **外套穿法 (Outerwear Styling)** | 正常穿著 | `outerwear worn normally on both shoulders in a standard outer-layer position` | 外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。 |
-| **外套穿法 (Outerwear Styling)** | 滑落肩部 | `outerwear slipped below the shoulder line, sleeves loosely on the arms, jacket body still readable as an outer layer` | 外套滑到肩線下方，袖子仍自然套在手臂上，外套本體仍能讀作外層。 |
+| **外套穿法 (Outerwear Styling)** | 單肩露出 | `outerwear deliberately draped off one shoulder with one shoulder line exposed while the opposite shoulder remains in a standard outer-layer position, sleeves relaxed on the arms` | 刻意讓單側肩膀露出，另一側維持正常外層位置，袖子仍自然套在手臂上；這是明確的穿著方式，不是外套意外滑落。 |
+| **外套穿法 (Outerwear Styling)** | 雙肩露出 | `outerwear deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views, jacket draped around the upper arms with sleeves still on the arms` | 刻意讓雙側肩膀露出，外套垂掛在上臂與手臂上；在背面或三分之四視角時可呈現露出的上背部。 |
 | **外套圖案 (Outerwear Surface Design)** | 全無 | `no added outerwear pattern, clean solid-color outer layer styling` | 不額外加入外套圖案，保留外套本身的輪廓、材質與層次。 |
 | **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripes across the outerwear, strong graphic layering` | 以明顯橫向條帶覆蓋外套，使用中性的 outerwear 語言適配夾克、風衣與外層單品。 |
 | **外套圖案 (Outerwear Surface Design)** | 細直條紋 | `clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket` | 以俐落直條紋覆蓋外套表面，形成結構化外層單品的線性節奏。 |
