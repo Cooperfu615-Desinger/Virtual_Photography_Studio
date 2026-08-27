@@ -657,10 +657,14 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     return {
       ...control,
       options: control.options.filter((option) => {
+        const preserveExplicitHiddenSelection = option.id === locks[control.key]
+          && !(control.key === 'poseHandId'
+          && selectedPoseBaseId === 'squatting'
+          && option.meta?.hiddenForBases?.includes('squatting'));
         if (
           selectedPoseBaseId
           && !poseComposerOptionVisibleForBase(option, selectedPoseBaseId)
-          && option.id !== locks[control.key]
+          && !preserveExplicitHiddenSelection
         ) {
           return false;
         }

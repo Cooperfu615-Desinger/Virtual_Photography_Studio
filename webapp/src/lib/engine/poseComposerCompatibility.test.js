@@ -188,6 +188,85 @@ test('squatting matrix exposes six dedicated hand actions only for squatting', (
   }
 });
 
+test('squatting hand pool excludes every shared concrete hand action', () => {
+  const dedicatedIds = new Set([
+    'squatting-hands-forward',
+    'squatting-hands-outer-legs',
+    'squatting-one-hand-cheek-one-knee',
+    'squatting-one-hand-mouth-one-down',
+    'squatting-one-hand-v-sign',
+    'squatting-both-hands-cheeks',
+  ]);
+  const sharedConcreteIds = [
+    'hands-relaxed-down',
+    'arms-crossed',
+    'one-hand-waist-one-down',
+    'hands-behind-back',
+    'hands-behind-head',
+    'one-hand-open-palm-camera',
+    'one-hand-support-chin',
+    'one-hand-mouth-corner',
+    'one-hand-sweep-bangs-back',
+    'both-hands-gather-hair',
+    'hand-adjust-off-shoulder-top',
+    'hands-lift-waistband',
+    'hands-hug-knees',
+    'hands-in-pockets',
+    'hands-in-outerwear-pockets',
+    'one-hand-hold-glasses',
+    'one-hand-pull-down-glasses',
+    'glasses-temple-between-teeth',
+  ];
+  const squatContext = createPoseComposerCompatibilityContext({
+    base: 'squatting',
+    bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  });
+
+  for (const id of sharedConcreteIds) {
+    const hand = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id);
+    assert.ok(hand, `Expected shared hand ${id}`);
+    assert.equal(dedicatedIds.has(id), false);
+    assert.equal(poseComposerOptionVisibleForBase(hand, 'squatting'), false, `${id} should be hidden in squat UI`);
+    assert.equal(poseComposerHandSupportsRandomContext(hand, squatContext), false, `${id} should be excluded from squat random pool`);
+  }
+
+  for (const id of ['none', 'random', 'model-natural-hand-placement']) {
+    const hand = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id);
+    assert.ok(hand, `Expected squat control ${id}`);
+    assert.equal(poseComposerOptionVisibleForBase(hand, 'squatting'), true);
+  }
+});
+
+test('wardrobe-dependent hand actions require a positively present role for random selection', () => {
+  const roleByHandId = {
+    'hand-adjust-off-shoulder-top': 'upperGarment',
+    'hands-lift-waistband': 'bottom',
+    'hands-in-pockets': 'pants',
+    'hands-in-outerwear-pockets': 'outerwear',
+    'one-hand-hold-glasses': 'eyewear',
+    'one-hand-pull-down-glasses': 'eyewear',
+    'glasses-temple-between-teeth': 'eyewear',
+  };
+  const baseContext = createPoseComposerCompatibilityContext({
+    base: 'standing',
+    bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  });
+
+  for (const [id, role] of Object.entries(roleByHandId)) {
+    const hand = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id);
+    assert.ok(hand, `Expected wardrobe-dependent hand ${id}`);
+    assert.equal(poseComposerHandSupportsRandomContext(hand, baseContext), false, `${id} should reject unknown role state`);
+    assert.equal(poseComposerHandSupportsRandomContext(hand, {
+      ...baseContext,
+      wardrobeSignals: { [role]: 'absent' },
+    }), false, `${id} should reject absent ${role}`);
+    assert.equal(poseComposerHandSupportsRandomContext(hand, {
+      ...baseContext,
+      wardrobeSignals: { [role]: 'present' },
+    }), true, `${id} should accept present ${role}`);
+  }
+});
+
 test('lying matrix scopes dedicated hands and heads to their selected orientation', () => {
   const findHand = (id) => POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id);
   const findHead = (id) => POSE_COMPOSER_HEAD_OPTIONS.find((item) => item.id === id);

@@ -221,7 +221,7 @@ test('single pose panel randomizes the six Pose Composer layers and leaves props
       poseBaseId: 'standing',
       poseOrientationId: 'none',
       poseArrangementId: 'standing-one-leg-weight',
-      poseHandId: 'hands-behind-back',
+      poseHandId: 'arms-crossed',
       poseHeadId: 'head-away-profile',
       poseAnchorId: 'standing-edge-hip-support',
     },

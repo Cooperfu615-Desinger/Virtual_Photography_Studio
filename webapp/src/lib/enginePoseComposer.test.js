@@ -1065,10 +1065,10 @@ test('squatting-specific hand actions stay scoped and source-traceable across ou
   const cases = [
     ['雙手向前伸展', /both arms extended forward with the hands held close together in front of the knees/],
     ['雙手自然放在兩腿外側', /both hands resting naturally along the outer sides of the legs with relaxed elbows/],
-    ['單手托腮一手扶膝', /one hand supporting the cheek or chin with the elbow near the knee, the other hand resting on the opposite knee/],
-    ['單手碰嘴角一手自然下垂', /one hand lightly touching the corner of the mouth, the other hand resting loosely near the lower leg/],
+    ['單手托腮一手扶膝', /one hand lightly supporting one cheek, the other hand resting on the opposite knee with both elbows relaxed/],
+    ['單手碰嘴角一手自然下垂', /one hand lightly touching the corner of the mouth, the other arm hanging naturally beside the leg/],
     ['單手在臉旁比 V', /one hand forming a relaxed V sign beside the face, the other hand resting naturally near the leg/],
-    ['雙手托腮扶臉', /both hands cupping the cheeks with the elbows drawn inward near the knees/],
+    ['雙手托腮扶臉', /both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides/],
   ];
 
   for (const [handZh, expected] of cases) {

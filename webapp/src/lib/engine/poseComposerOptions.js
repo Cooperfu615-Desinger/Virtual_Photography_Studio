@@ -712,6 +712,30 @@ const LYING_NON_RANDOM_SHARED_HAND_IDS = new Set([
   'glasses-temple-between-teeth',
 ]);
 
+// Squatting has its own deliberately small hand-pose vocabulary. These shared
+// actions remain available to the other pose bases, but must not appear in the
+// squatting UI or random pool.
+const SQUATTING_SHARED_HAND_IDS = new Set([
+  'hands-relaxed-down',
+  'arms-crossed',
+  'one-hand-waist-one-down',
+  'hands-behind-back',
+  'hands-behind-head',
+  'one-hand-open-palm-camera',
+  'one-hand-support-chin',
+  'one-hand-mouth-corner',
+  'one-hand-sweep-bangs-back',
+  'both-hands-gather-hair',
+  'hand-adjust-off-shoulder-top',
+  'hands-lift-waistband',
+  'hands-hug-knees',
+  'hands-in-pockets',
+  'hands-in-outerwear-pockets',
+  'one-hand-hold-glasses',
+  'one-hand-pull-down-glasses',
+  'glasses-temple-between-teeth',
+]);
+
 export const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定手部姿勢。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random hand pose', desc: '隨機選擇手部姿勢。', meta: { tags: ['random'] } },
@@ -737,10 +761,10 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'one-hand-open-palm-camera', zh: '單手向鏡頭張開手掌', en: 'one hand raised toward the camera with an open palm and relaxed fingers, a natural expressive greeting gesture', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
   hidePoseOptionForBases({ id: 'squatting-hands-forward', zh: '雙手向前伸展', en: 'both arms extended forward with the hands held close together in front of the knees', meta: { tags: ['squatting_hand_pose'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS } }, ['standing', 'sitting', 'kneeling', 'lying']),
   hidePoseOptionForBases({ id: 'squatting-hands-outer-legs', zh: '雙手自然放在兩腿外側', en: 'both hands resting naturally along the outer sides of the legs with relaxed elbows', meta: { tags: ['squatting_hand_pose'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS } }, ['standing', 'sitting', 'kneeling', 'lying']),
-  hidePoseOptionForBases({ id: 'squatting-one-hand-cheek-one-knee', zh: '單手托腮一手扶膝', en: 'one hand supporting the cheek or chin with the elbow near the knee, the other hand resting on the opposite knee', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
-  hidePoseOptionForBases({ id: 'squatting-one-hand-mouth-one-down', zh: '單手碰嘴角一手自然下垂', en: 'one hand lightly touching the corner of the mouth, the other hand resting loosely near the lower leg', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
+  hidePoseOptionForBases({ id: 'squatting-one-hand-cheek-one-knee', zh: '單手托腮一手扶膝', en: 'one hand lightly supporting one cheek, the other hand resting on the opposite knee with both elbows relaxed', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
+  hidePoseOptionForBases({ id: 'squatting-one-hand-mouth-one-down', zh: '單手碰嘴角一手自然下垂', en: 'one hand lightly touching the corner of the mouth, the other arm hanging naturally beside the leg', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
   hidePoseOptionForBases({ id: 'squatting-one-hand-v-sign', zh: '單手在臉旁比 V', en: 'one hand forming a relaxed V sign beside the face, the other hand resting naturally near the leg', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
-  hidePoseOptionForBases({ id: 'squatting-both-hands-cheeks', zh: '雙手托腮扶臉', en: 'both hands cupping the cheeks with the elbows drawn inward near the knees', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
+  hidePoseOptionForBases({ id: 'squatting-both-hands-cheeks', zh: '雙手托腮扶臉', en: 'both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
   { id: 'one-hand-support-chin', zh: '單手托下巴', en: 'one hand supporting the chin lightly, fingertips under the jaw, with the other hand relaxed along the body or support surface', meta: { tags: ['face_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresFaceVisibility: true } },
   { id: 'one-hand-mouth-corner', zh: '單手碰嘴角', en: 'one hand lightly touching the corner of the mouth with bare fingertips near the lower lip, relaxed rather than covering the face', meta: { tags: ['face_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresFaceVisibility: true } },
   { id: 'one-hand-sweep-bangs-back', zh: '單手往後撥瀏海', en: 'one hand sweeping the bangs backward across the forehead with the fingers combing the fringe into place in a confident, cool grooming gesture', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
@@ -758,22 +782,27 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   ...POSE_COMPOSER_LEGACY_HAND_OPTIONS
     .filter((option) => !POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS.has(option.id))
     .map(deprecatedPoseHand),
-].map((option) => (
-  LYING_SHARED_HAND_IDS.has(option.id)
-    ? hidePoseOptionForBase(option, 'lying')
-    : LYING_NON_RANDOM_SHARED_HAND_IDS.has(option.id)
-      ? {
-          ...option,
-          meta: {
-            ...(option.meta || {}),
-            randomEligibleForBases: {
-              ...(option.meta?.randomEligibleForBases || {}),
-              lying: false,
-            },
-          },
-        }
-      : option
-));
+].map((option) => {
+  let next = option;
+  if (SQUATTING_SHARED_HAND_IDS.has(next.id)) {
+    next = hidePoseOptionForBase(next, 'squatting');
+  }
+  if (LYING_SHARED_HAND_IDS.has(next.id)) {
+    next = hidePoseOptionForBase(next, 'lying');
+  } else if (LYING_NON_RANDOM_SHARED_HAND_IDS.has(next.id)) {
+    next = {
+      ...next,
+      meta: {
+        ...(next.meta || {}),
+        randomEligibleForBases: {
+          ...(next.meta?.randomEligibleForBases || {}),
+          lying: false,
+        },
+      },
+    };
+  }
+  return next;
+});
 export const POSE_COMPOSER_PROP_OPTIONS = [
   { id: 'none', zh: '全無', en: 'none', desc: '不指定道具動作。', meta: { tags: ['none'] } },
   { id: 'random', zh: '隨機', en: 'random prop action', desc: '隨機選擇道具動作。', meta: { tags: ['random'] } },

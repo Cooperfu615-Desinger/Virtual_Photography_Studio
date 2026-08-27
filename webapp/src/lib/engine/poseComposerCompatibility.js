@@ -6,7 +6,7 @@ import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.
  * These predicates are deliberately applied only to random pools. Explicit
  * Pose Composer locks remain user intent and are not silently replaced.
  */
-export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 7;
+export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 8;
 
 const UPPER_OR_KNEE_CROP_BUCKETS = new Set([
   COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
@@ -174,7 +174,11 @@ export function poseComposerHandSupportsRandomContext(hand, context = {}) {
   }
 
   const requiredRole = hand.meta?.requiresWardrobeRole;
-  if (requiredRole && ['absent', false].includes(context.wardrobeSignals?.[requiredRole])) return false;
+  // A wardrobe-dependent hand action is safe for the random pool only when
+  // the required garment/accessory is positively resolved as present. An
+  // unknown or random wardrobe must not invent pockets, eyewear, or a garment
+  // that the generated character may not have.
+  if (requiredRole && context.wardrobeSignals?.[requiredRole] !== 'present') return false;
 
   const orbitTags = new Set(context.orbitTags || []);
   if (hand.meta?.requiresFaceVisibility) {
