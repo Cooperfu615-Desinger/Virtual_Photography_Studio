@@ -757,15 +757,15 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: {
       grokPrompt: {
-        includes: ['both hands cupping the cheeks with the elbows drawn inward near the knees', 'presents a deep resting squat with both feet flat on the ground, heels down'],
+        includes: ['both hands cupping the cheeks with the elbows drawn inward near the knees', 'presents a deep resting squat with both feet planted flat, both heels grounded'],
         excludes: ['arrangement', 'let the image model choose'],
       },
       zImagePrompt: {
-        includes: ['both hands cupping the cheeks with the elbows drawn inward near the knees', 'presents a deep resting squat with both feet flat on the ground, heels down'],
+        includes: ['both hands cupping the cheeks with the elbows drawn inward near the knees', 'presents a deep resting squat with both feet planted flat, both heels grounded'],
         excludes: ['arrangement', 'let the image model choose'],
       },
       midjourneyPrompt: {
-        includes: ['both hands cupping the cheeks with the elbows drawn inward near the knees', 'presents a deep resting squat with both feet flat on the ground, heels down'],
+        includes: ['both hands cupping the cheeks with the elbows drawn inward near the knees', 'presents a deep resting squat with both feet planted flat, both heels grounded'],
         excludes: ['arrangement', 'let the image model choose'],
       },
     },
