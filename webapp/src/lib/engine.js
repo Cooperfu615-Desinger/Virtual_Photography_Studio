@@ -12648,9 +12648,14 @@ function buildAiSingleHairAnchorText(valuesByLabel, context, { compact = false }
   const hairstyleText = firstStructuredValue(valuesByLabel, ['Hairstyle']);
   const hairStylingStateText = firstStructuredValue(valuesByLabel, ['Hair Styling State']);
   const hairColorText = firstStructuredValue(valuesByLabel, ['Hair Color']);
+  const hairstyleCompactLimit = /\bChinese-inspired twin buns\b/i.test(hairstyleText)
+    ? 4
+    : compact
+      ? 1
+      : 3;
   const hairstyleAnchor = compactAiMinimalFragment(
     compressZImageSingleSubjectText(hairstyleText, context),
-    compact ? 1 : 3
+    hairstyleCompactLimit
   );
   const compactHairstyle = compact
     ? hairstyleAnchor.replace(/^long straight hair with full (.+)$/i, 'straight hair with $1')

@@ -55,7 +55,7 @@
 | **髮型 (Hairstyle)** | 輕透齊瀏海內彎鮑伯 | `chin-length inward-curved bob, airy straight bangs, smooth face-framing rounded ends, clean salon shape` | 下巴到頸側的短鮑伯，搭配輕透齊瀏海與向內包臉的圓弧髮尾，貼近自然日韓寫真感。 |
 | **髮型 (Hairstyle)** | 韓系蓬鬆鎖骨柔波髮 | `Korean collarbone-length soft waves, defined layered shape, clean face-framing ends` | 鎖骨到肩下的中長柔波髮，保留韓系層次與臉側輪廓；髮量與動態交由整理狀態控制。 |
 | **髮型 (Hairstyle)** | 輕透瀏海自然微彎長髮 | `long naturally slightly wavy hair with airy see-through bangs, soft side-draped face-framing strands` | 自然微彎長髮搭配輕透瀏海，部分髮絲自然偏向一側垂落，乾淨清爽且帶日系寫真感。 |
-| **髮型 (Hairstyle)** | 雙包子頭 | `Chinese-inspired twin buns, two rounded high buns with a clean center part, red fabric headband, neat face-framing strands` | 中國風雙包子頭，左右兩側形成高位圓形包子頭，中分整理並固定搭配紅色布質髮帶；髮色仍由髮色欄位控制。 |
+| **髮型 (Hairstyle)** | 雙包子頭 | `Chinese-inspired twin buns, two rounded high buns, two red fabric ribbons, one tied around each bun, center part` | 中國風雙包子頭，左右兩側形成高位圓形包子頭，中分整理，並由兩條紅色布質緞帶分別綁在左右包子頭上；髮色仍由髮色欄位控制。 |
 | **髮絲整理狀態 (Hair Styling State)** | 柔順自然 | `sleek close-to-head roots, restrained volume, compact hair silhouette, fine aligned strands, smooth uniform texture with a soft natural sheen, clean tapered ends, neatly framing the face` | 乾淨控制版：髮根服貼、髮量收斂、髮絲排列整齊，降低毛躁、亂髮與過度膨鬆。 |
 | **髮絲整理狀態 (Hair Styling State)** | 濕髮分束 | `sleek wet finish, defined damp sections, neat separated strands, controlled close-to-head shape` | 濕感版：以清楚分束與受控的服貼輪廓呈現濕髮，不主動增加風吹動態。 |
 | **髮絲整理狀態 (Hair Styling State)** | 微風吹拂 | `lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette` | 微風版：只有輕微方向性與少量鬆散髮絲，整體髮型輪廓仍保持穩定。 |

@@ -267,7 +267,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   },
   {
     id: 'double-buns-red-headband',
-    title: 'Twin buns keep the fixed red headband separate from hair color',
+    title: 'Twin buns keep the two fixed red ribbons separate from hair color',
     mode: 'single',
     seed: 'prompt-contract-double-buns-red-headband-v1',
     locks: {
@@ -279,16 +279,16 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: {
       grokPrompt: {
-        includes: ['Chinese-inspired twin buns', 'red fabric headband'],
+        includes: ['Chinese-inspired twin buns', 'two red fabric ribbons, one tied around each bun'],
       },
       zImagePrompt: {
-        includes: ['Chinese-inspired twin buns', 'red fabric headband'],
+        includes: ['Chinese-inspired twin buns', 'two red fabric ribbons, one tied around each bun'],
       },
       midjourneyPrompt: {
-        includes: ['Chinese-inspired twin buns', 'red fabric headband'],
+        includes: ['Chinese-inspired twin buns', 'two red fabric ribbons, one tied around each bun'],
       },
       fullBodyCharacterPrompt: {
-        includes: ['Chinese-inspired twin buns', 'red fabric headband'],
+        includes: ['Chinese-inspired twin buns', 'two red fabric ribbons, one tied around each bun'],
       },
     },
   },

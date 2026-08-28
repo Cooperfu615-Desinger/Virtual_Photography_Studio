@@ -107,12 +107,12 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
   );
 });
 
-test('hairstyle prompt supports twin buns with a fixed red headband', () => {
+test('hairstyle prompt supports twin buns with two fixed red ribbons', () => {
   const twinBuns = optionByLabel('hairstyleId', '雙包子頭');
 
   assert.match(twinBuns.en, /Chinese-inspired twin buns/);
   assert.match(twinBuns.en, /two rounded high buns/);
-  assert.match(twinBuns.en, /red fabric headband/);
+  assert.match(twinBuns.en, /two red fabric ribbons, one tied around each bun/);
   assert.doesNotMatch(twinBuns.en, /\bblack\b|\bbrown\b|\bblonde\b|hair color/i);
 
   const [prompt] = generatePrompts(1, {
@@ -126,7 +126,7 @@ test('hairstyle prompt supports twin buns with a fixed red headband', () => {
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
   assert.match(promptText, /Chinese-inspired twin buns/);
-  assert.match(promptText, /red fabric headband/);
+  assert.match(promptText, /two red fabric ribbons, one tied around each bun/);
   assert.equal(prompt.selection.hairstyleId, twinBuns.id);
   assert.equal(prompt.selection.hairColorId, optionByLabel('hairColorId', '自然黑').id);
 });
