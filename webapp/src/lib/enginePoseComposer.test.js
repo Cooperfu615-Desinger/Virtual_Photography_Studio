@@ -115,7 +115,7 @@ test('public hand catalog includes dedicated lying actions and clarified garment
     '單手在臉旁比 V',
     '雙手托腮扶臉',
     '單手托下巴',
-    '單手碰嘴角',
+    '單手輕咬食指',
     '單手往後撥瀏海',
     '雙手抓著整束頭髮與髮尾整理',
     '拉下肩線整理上衣',
@@ -1225,7 +1225,7 @@ test('pose composer exposes expressive hand interaction batch', () => {
   [
     ['單手扶眼鏡', /adjusting the glasses at the frame or bridge/],
     ['單手把眼鏡拉下', /pulling the glasses slightly down the nose bridge/],
-    ['單手碰嘴角', /one hand lightly touching the corner of the mouth/],
+    ['單手輕咬食指', /one hand lightly biting the index finger at the first knuckle near the lips/],
     ['單手遮住半邊臉', /partially covering one side of the face/],
     ['雙手整理頭髮', /both hands lifting and gathering the hair behind the head/],
     ['單手撩起後頸頭髮', /lifting hair away from the nape of the neck/],

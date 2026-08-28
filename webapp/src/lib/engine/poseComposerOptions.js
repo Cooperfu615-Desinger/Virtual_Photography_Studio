@@ -766,7 +766,20 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   hidePoseOptionForBases({ id: 'squatting-one-hand-v-sign', zh: '單手在臉旁比 V', en: 'one hand forming a relaxed V sign beside the face, the other hand resting naturally near the leg', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
   hidePoseOptionForBases({ id: 'squatting-both-hands-cheeks', zh: '雙手托腮扶臉', en: 'both hands gently cupping the cheeks in a cute, relaxed pose with the elbows resting naturally at the sides', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
   { id: 'one-hand-support-chin', zh: '單手托下巴', en: 'one hand supporting the chin lightly, fingertips under the jaw, with the other hand relaxed along the body or support surface', meta: { tags: ['face_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresFaceVisibility: true } },
-  { id: 'one-hand-mouth-corner', zh: '單手碰嘴角', en: 'one hand lightly touching the corner of the mouth with bare fingertips near the lower lip, relaxed rather than covering the face', meta: { tags: ['face_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresFaceVisibility: true } },
+  {
+    id: 'one-hand-mouth-corner',
+    zh: '單手輕咬食指',
+    en: 'one hand lightly biting the index finger at the first knuckle near the lips, with gentle lip contact, the remaining fingers softly curled, and the hand not covering the face',
+    desc: '一手將食指前端或第一指節輕輕放在嘴邊咬住，嘴唇與手指有明確但輕微的接觸，其餘手指自然彎曲，不遮住臉部，呈現稍微挑逗的手部動作。',
+    meta: {
+      tags: ['face_action'],
+      visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS,
+      requiresFaceVisibility: true,
+      legacyPromptAliases: [
+        'one hand lightly touching the corner of the mouth with bare fingertips near the lower lip, relaxed rather than covering the face',
+      ],
+    },
+  },
   { id: 'one-hand-sweep-bangs-back', zh: '單手往後撥瀏海', en: 'one hand sweeping the bangs backward across the forehead with the fingers combing the fringe into place in a confident, cool grooming gesture', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
   { id: 'both-hands-gather-hair', zh: '雙手抓著整束頭髮與髮尾整理', en: 'both hands gathering one thick bundle of hair behind and above the head, one hand holding near the base while the other grips and smooths the loose lengths toward the ends in a natural ponytail-prep motion', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
   { id: 'hand-adjust-off-shoulder-top', zh: '拉下肩線整理上衣', en: 'one hand gently pulling the neckline or shoulder seam down from one shoulder to expose the shoulder while the garment stays attached and naturally draped', desc: '單手把領口或肩線往一側肩膀下拉，露出肩膀，但衣服仍保持連著身體並自然垂墜。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'upperGarment' } },
