@@ -371,6 +371,32 @@ test('longline shirt is available as an outerwear layer and reuses the top garme
   assert.match(promptText, /layered over/);
 });
 
+test('simple oversize outerwear fit prefixes the selected outerwear item', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    outfitPresetId: optionId('outfitPresetId', '全無'),
+    dressId: optionId('dressId', '全無'),
+    topId: optionId('topId', '比基尼上身'),
+    pantsId: optionId('pantsId', '超短運動短褲'),
+    outerwearId: optionId('outerwearId', '長版襯衫'),
+    outerwearFitId: optionId('outerwearFitId', 'Oversize'),
+    outerwearColorId: optionId('outerwearColorId', '白色'),
+    outerwearOpeningId: optionId('outerwearOpeningId', '正常'),
+    outerwearStylingId: optionId('outerwearStylingId', '全無'),
+  }, [], { random: () => 0.99 });
+
+  const detailedOutputs = [prompt.grokPrompt, prompt.zImagePrompt];
+  for (const output of detailedOutputs) {
+    assert.match(output, /oversized white tailored longline men's dress shirt, crisp woven poplin, pointed collar/i);
+    assert.doesNotMatch(output, /oversized outerwear proportion with roomy shoulders and body/i);
+    assert.doesNotMatch(output, /oversized,\s+white tailored longline men's dress shirt/i);
+  }
+  assert.match(prompt.midjourneyPrompt, /oversized white tailored longline men's dress shirt/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /oversized outerwear proportion with roomy shoulders and body/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /oversized,\s+white tailored longline men's dress shirt/i);
+});
+
 test('outerwear opening and styling prompts use explicit shoulder-wear wording', () => {
   const normalOuterwearOpening = optionByLabel('outerwearOpeningId', '正常');
   const halfButtonedOuterwear = optionByLabel('outerwearOpeningId', '扣子扣一半');

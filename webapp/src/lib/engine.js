@@ -3991,13 +3991,17 @@ function buildOuterwearColoredPrompt(outerwearItem, color = null, { fit = null, 
   const base = normalizeWardrobePromptText(outerwearItem.en);
   if (!base) return '';
 
-  const fitText = fit && !isNoneLikeItem(fit) ? normalizeWardrobePromptText(fit.en) : '';
+  const isSimpleOversizeFit = fit?.zh === 'Oversize';
+  const fitText = fit && !isNoneLikeItem(fit) && !isSimpleOversizeFit
+    ? normalizeWardrobePromptText(fit.en)
+    : '';
   const stylingText = buildOuterwearStylingLeadText(styling, { minimal: minimalStyling });
   const patternText = pattern && !isNoneLikeItem(pattern) ? normalizeWardrobePromptText(pattern.en) : '';
   const openingText = opening && !isNoneLikeItem(opening) ? normalizeWardrobePromptText(opening.en) : '';
   const coloredBase = composeWearableColorPrompt(base, color);
+  const styledBase = isSimpleOversizeFit ? `oversized ${coloredBase}` : coloredBase;
 
-  return [fitText, coloredBase, patternText, openingText, stylingText].filter(Boolean).join(', ');
+  return [fitText, styledBase, patternText, openingText, stylingText].filter(Boolean).join(', ');
 }
 
 function buildTopWardrobePrompt(wardrobeSlots, wardrobeColors) {
@@ -8146,10 +8150,11 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
   if (!base) return '';
   if (item.zh === '赤腳' || /bare feet|visible toes/i.test(base)) return base;
   const isOuterwear = item.id?.includes('wardrobe:外套-outerwear:');
+  const isSimpleOversizeFit = isOuterwear && fit?.zh === 'Oversize';
   const patternText = pattern && !isNoneLikeItem(pattern)
     ? stripMarkdown(pattern.en).replace(/\s+/g, ' ').trim()
     : '';
-  const fitText = fit && !isNoneLikeItem(fit)
+  const fitText = fit && !isNoneLikeItem(fit) && !isSimpleOversizeFit
     ? stripMarkdown(fit.en).replace(/\s+/g, ' ').trim()
     : '';
   const riseText = rise && !isNoneLikeItem(rise)
@@ -8165,14 +8170,16 @@ function buildColoredGrokPrompt(item, color = null, { preset = false, pattern = 
     stylingText = 'outerwear worn normally on both shoulders in a standard outer-layer position';
   }
   const detailText = [riseText, fitText, patternText, stylingText, secondaryColorText].filter(Boolean).join(', ');
-  if (!color || isNoneLikeItem(color)) return detailText ? `${base}, ${detailText}` : base;
+  const baseWithFit = isSimpleOversizeFit ? `oversized ${base}` : base;
+  if (!color || isNoneLikeItem(color)) return detailText ? `${baseWithFit}, ${detailText}` : baseWithFit;
 
   if (preset) {
     return composeWearableColorPrompt(base.replace(/^wearing\s+/i, ''), color);
   }
 
   const coloredBase = composeWearableColorPrompt(base, color);
-  return detailText ? `${coloredBase}, ${detailText}` : coloredBase;
+  const styledBase = isSimpleOversizeFit ? `oversized ${coloredBase}` : coloredBase;
+  return detailText ? `${styledBase}, ${detailText}` : styledBase;
 }
 
 function buildCompleteLookDressPrompt(item, color = null, palette = null, options = {}) {
@@ -13918,7 +13925,9 @@ function buildAiNormalWardrobeText(
   const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
   const primarySourceByLabel = wardrobeSlots
     ? {
-        Outerwear: buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors?.outerwearColor),
+        Outerwear: buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors?.outerwearColor, {
+          fit: wardrobeSlots.outerwearFit,
+        }),
         Top: buildColoredGrokPrompt(wardrobeSlots.top, wardrobeColors?.topColor),
         Pants: buildColoredGrokPrompt(wardrobeSlots.pants, wardrobeColors?.bottomColor),
         Skirt: buildColoredGrokPrompt(wardrobeSlots.skirt, wardrobeColors?.bottomColor),
