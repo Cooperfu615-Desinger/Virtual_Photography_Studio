@@ -4,10 +4,11 @@
  * The contract projects resolved body, wardrobe, pose, and scene data before
  * public renderer formatting. Version 2 separates fixed-composition camera
  * distance from the ordinary unconstrained framing bucket; version 3 adds the
- * shared body-visibility boundary.
+ * shared body-visibility boundary; version 4 preserves a surface-led supine
+ * support identity even when the ordinary crop omits pose geometry.
  */
 
-export const COMPOSITION_VISIBILITY_CONTRACT_VERSION = 3;
+export const COMPOSITION_VISIBILITY_CONTRACT_VERSION = 4;
 
 export const COMPOSITION_VISIBILITY_BUCKETS = Object.freeze({
   UNCONSTRAINED: 'unconstrained',
@@ -88,6 +89,7 @@ function createVisibilityPolicy({
       parts: freezeList(poseParts),
       conditionalParts: freezeList(conditionalPoseParts),
       shareCanonicalTextAcrossPrimaryOutputs: true,
+      supineSurfaceMode: 'fullSource',
     }),
     scene: Object.freeze({
       mode: sceneMode,

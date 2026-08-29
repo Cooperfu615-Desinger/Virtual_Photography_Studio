@@ -11,6 +11,7 @@ import { normalizeRandom } from './engineRandom.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
 import {
   COMPOSITION_VISIBILITY_BUCKETS,
+  COMPOSITION_VISIBILITY_CONTRACT,
   createCompositionVisibilityProjection,
   shouldProjectPosePart,
   shouldProjectWardrobeRole,
@@ -5205,7 +5206,7 @@ function buildSupinePoseComposerSentence({ arrangement, handPose, anchor, head, 
     ? `${surfaceLedOpening}${actionParts.length > 0 ? `, ${actionParts.join(', ')}` : ''}.`
     : `She lies naturally${actionParts.length > 0 ? `, ${actionParts.join(', ')}` : ''}.`;
   const environmentPhrase = getSupineSurfaceEnvironmentPhrase(anchor, orientation);
-  const anchorEffect = anchor?.id === 'water-immersed' || anchor?.id === 'water-edge-support'
+  const anchorEffect = anchor?.id === 'water-edge-support'
     ? getPoseComposerAnchorEffect(anchor, { id: 'lying' })
     : '';
 
@@ -5589,6 +5590,12 @@ function cloneProjectedPoseOption(option, en) {
 function projectPoseComposerHand(handPose, bucket) {
   if (!handPose) return null;
   if (isModelNaturalPoseComposerOption(handPose)) return handPose;
+  const projection = getPoseComposerProjection(handPose, bucket);
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.OMIT) return null;
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.VISIBLE) return handPose;
+  if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.PROJECTED && projection.en) {
+    return cloneProjectedPoseOption(handPose, projection.en);
+  }
   const visibleBuckets = handPose.meta?.visibleBuckets;
   if (Array.isArray(visibleBuckets)
     && ![COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL, COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS].includes(bucket)
@@ -5673,7 +5680,16 @@ function buildChestVisibleAnchorFragment(anchor, base, orientation = null) {
 }
 
 function projectPoseComposerAnchor(anchor, base, bucket, orientation = null) {
-  if (!anchor || !base || FULL_ONLY_ANCHOR_IDS.has(anchor.id)) return null;
+  if (!anchor || !base) return null;
+  if (
+    COMPOSITION_VISIBILITY_CONTRACT[bucket]?.pose?.supineSurfaceMode === 'fullSource'
+    && base.id === 'lying'
+    && orientation?.id === 'lying-supine'
+    && anchor.meta?.supineSurfaceLed === true
+  ) {
+    return anchor;
+  }
+  if (FULL_ONLY_ANCHOR_IDS.has(anchor.id)) return null;
   const projection = getPoseComposerProjection(anchor, bucket);
   if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.OMIT) return null;
   if (projection?.mode === POSE_COMPOSER_PROJECTION_MODES.VISIBLE) return anchor;
@@ -5766,8 +5782,6 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
 function buildProjectedCanonicalPoseText(context, poseComposer) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
   const projection = getCompositionVisibilityProjection(context);
-  if (projection.pose?.mode === 'omit') return '';
-  if (projection.pose?.mode === 'fullCanonical') return poseComposer.en || '';
 
   const activeOption = (options, id) => {
     const option = getPoseComposerOption(options, id);
@@ -5781,6 +5795,23 @@ function buildProjectedCanonicalPoseText(context, poseComposer) {
   const head = activeOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
   const anchor = activeOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer.meta?.poseAnchorId);
   const bucket = projection.bucket;
+  const isSupineSurfaceLed = projection.pose?.supineSurfaceMode === 'fullSource'
+    && base?.id === 'lying'
+    && orientation?.id === 'lying-supine'
+    && anchor?.meta?.supineSurfaceLed === true;
+
+  if (projection.pose?.mode === 'omit') {
+    return isSupineSurfaceLed
+      ? buildSupinePoseComposerSentence({
+        arrangement: null,
+        handPose: null,
+        anchor,
+        head: null,
+        orientation,
+      })
+      : '';
+  }
+  if (projection.pose?.mode === 'fullCanonical') return poseComposer.en || '';
 
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP) {
     return buildChestUpPoseComposerSentence({

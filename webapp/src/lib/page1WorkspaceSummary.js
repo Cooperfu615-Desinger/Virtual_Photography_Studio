@@ -176,6 +176,7 @@ export function buildWorkspaceSummary(locks, controls) {
     wardrobeLabel('skirtBId'),
     wardrobeLabel('bottomFitId'),
     wardrobeLabel('bottomRiseId'),
+    wardrobeLabel('waistAccessoryId'),
     wardrobeLabel('legwearId'),
     wardrobeLabel('shoesId'),
     wardrobeLabel('legwearAId'),
@@ -187,6 +188,7 @@ export function buildWorkspaceSummary(locks, controls) {
     wardrobeLabel('eyewearAPlacementId'),
     wardrobeLabel('earringsAId'),
     wardrobeLabel('neckAccessoryAId'),
+    wardrobeLabel('waistAccessoryAId'),
     wardrobeLabel('legwearBId'),
     wardrobeLabel('shoesBId'),
     wardrobeLabel('headAccessoryBId'),
@@ -196,6 +198,7 @@ export function buildWorkspaceSummary(locks, controls) {
     wardrobeLabel('eyewearBPlacementId'),
     wardrobeLabel('earringsBId'),
     wardrobeLabel('neckAccessoryBId'),
+    wardrobeLabel('waistAccessoryBId'),
   ]);
   const importedWorldSceneLabel = locks.importedWorldSceneMode === 'architecture' && locks.importedWorldSceneLabel
     ? `PAGE3：${locks.importedWorldSceneLabel}`

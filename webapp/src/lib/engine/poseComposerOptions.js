@@ -321,7 +321,7 @@ const SUPINE_SURFACE_ENVIRONMENT_TEXT = Object.freeze({
   'lying-grass-ground': 'A few blades of grass, subtle ground texture, and sparse natural traces keep the outdoor setting simple and believable.',
   'lying-concrete-ground': 'Cement sandbags, rough timber, and steel bars lie loosely nearby, creating a grounded construction-site setting without becoming separate subjects.',
   'lying-sand-ground': 'A thin waterline, small waves, and a few scattered shells add a simple natural sense of life around the beach.',
-  'lying-clear-sea-surface': 'A coral reef is visible below through the transparent turquoise water, evoking calm Maldives-like tropical shallows.',
+  'lying-clear-sea-surface': 'Her body is partially submerged and visibly wet, her damp hair fans across the surface, gentle ripples surround her, and a coral reef remains visible beneath the transparent water.',
 });
 
 const createLyingSpecificOption = (option, allowedOrientations = LYING_ORIENTATION_IDS) => hidePoseOptionForBases(
@@ -743,7 +743,31 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   createLyingSpecificOption({ id: 'lying-supine-hands-by-sides', zh: '仰躺雙手自然放在身側', en: 'both hands resting alongside her torso with relaxed palms', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-supine']),
   createLyingSpecificOption({ id: 'lying-supine-one-hand-behind-head', zh: '仰躺一手放在頭後', en: 'one hand resting behind her head while the other arm rests alongside her torso', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-supine']),
   createLyingSpecificOption({ id: 'lying-supine-one-hand-abdomen', zh: '仰躺一手放在腹部', en: 'one hand resting lightly on her abdomen while the other arm rests alongside her torso', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-supine']),
-  createLyingSpecificOption({ id: 'lying-supine-arms-overhead', zh: '仰躺雙手向頭頂伸展', en: 'both arms reaching overhead with relaxed shoulders and open hands', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-supine']),
+  createLyingSpecificOption({
+    id: 'lying-supine-arms-overhead',
+    zh: '仰躺雙手向頭頂伸展',
+    en: 'both arms reaching overhead with relaxed shoulders and open hands',
+    meta: {
+      tags: ['lying_hand_pose'],
+      visibleBuckets: HAND_VISIBLE_BUCKETS,
+      projectionByBucket: {
+        [COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED]: { mode: POSE_COMPOSER_PROJECTION_MODES.VISIBLE },
+        [COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]: { mode: POSE_COMPOSER_PROJECTION_MODES.VISIBLE },
+        [COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL]: { mode: POSE_COMPOSER_PROJECTION_MODES.OMIT },
+        [COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS]: { mode: POSE_COMPOSER_PROJECTION_MODES.OMIT },
+        [COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]: {
+          mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+          en: 'both arms reaching overhead, while the forearms or hands may continue naturally beyond the upper frame edge',
+        },
+        [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST]: {
+          mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+          en: 'both arms reaching overhead, while the forearms or hands may continue naturally beyond the upper frame edge',
+        },
+        [COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE]: { mode: POSE_COMPOSER_PROJECTION_MODES.VISIBLE },
+        [COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY]: { mode: POSE_COMPOSER_PROJECTION_MODES.VISIBLE },
+      },
+    },
+  }, ['lying-supine']),
   createLyingSpecificOption({ id: 'lying-supine-palms-together-cheek', zh: '仰躺雙手合掌靠在臉側', en: 'both palms together beside one cheek with relaxed elbows', meta: { tags: ['lying_hand_pose', 'face_action'], visibleBuckets: HAND_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['lying-supine']),
   createLyingSpecificOption({ id: 'lying-side-lower-arm-under-head', zh: '側躺下側手臂支撐頭部', en: 'lower arm tucked beneath the head while the upper hand rests near the torso', meta: { tags: ['lying_hand_pose', 'support_action'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-side']),
   createLyingSpecificOption({ id: 'lying-side-upper-hand-on-hip', zh: '側躺上側手放在髖部', en: 'upper hand resting on the hip while the lower arm folds comfortably in front of the body', meta: { tags: ['lying_hand_pose'], visibleBuckets: HAND_VISIBLE_BUCKETS } }, ['lying-side']),
@@ -1121,7 +1145,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     id: 'lying-clear-sea-surface',
     base: 'lying',
     zh: '海面上',
-    en: 'floating on a clear shallow sea surface that dominates the composition',
+    en: 'floating on her back in clear turquoise shallow seawater that fills the frame',
     meta: {
       tags: ['lying_support', 'outdoor_support', 'water_support'],
       requiresSceneType: 'outdoor',
@@ -1130,7 +1154,7 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       projectionByBucket: LYING_SUPPORT_PROJECTION,
     },
     phraseByOrientation: {
-      'lying-supine': 'floating on a clear shallow sea surface that dominates the composition',
+      'lying-supine': 'floating on her back in clear turquoise shallow seawater that fills the frame',
     },
   }, ['lying-supine']),
   deprecatedPoseAnchor({
@@ -1217,8 +1241,8 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       tags: ['water_scene_anchor'],
       requiresWaterScene: true,
       ...SUPINE_SURFACE_ANCHOR_META,
-      supineSurfacePhraseByOrientation: { 'lying-supine': 'floating on clear water that dominates the composition' },
-      supineEnvironmentByOrientation: { 'lying-supine': 'Gentle ripples and a soft waterline keep the water setting calm and believable.' },
+      supineSurfacePhraseByOrientation: { 'lying-supine': 'floating on her back at the surface of clear water that fills the frame' },
+      supineEnvironmentByOrientation: { 'lying-supine': 'Her body is partially submerged, with visibly wet skin and clothing, damp hair spreading across the water, and gentle ripples tracing the waterline around her.' },
       projectionByBucket: STANDING_FULL_ONLY_SUPPORT_PROJECTION,
     },
   },

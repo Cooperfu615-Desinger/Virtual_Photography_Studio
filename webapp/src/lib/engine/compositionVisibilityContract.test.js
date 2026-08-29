@@ -20,8 +20,8 @@ import { COMPOSITION_VISIBILITY_REGRESSION_FIXTURES } from './compositionVisibil
 const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
 
-test('composition visibility contract version includes body and fixed-composition contexts', () => {
-  assert.equal(COMPOSITION_VISIBILITY_CONTRACT_VERSION, 3);
+test('composition visibility contract version includes body, fixed-composition, and supine-surface contexts', () => {
+  assert.equal(COMPOSITION_VISIBILITY_CONTRACT_VERSION, 4);
   assert.ok(COMPOSITION_VISIBILITY_CONTRACT[COMPOSITION_VISIBILITY_BUCKETS.FIXED_COMPOSITION]);
 });
 
@@ -53,6 +53,7 @@ test('composition visibility policies preserve raw selections and never invent d
     assert.equal(policy.scene.preserveSourceAnchors, true, bucket);
     assert.equal(policy.scene.addDepthEffect, false, bucket);
     assert.equal(policy.pose.shareCanonicalTextAcrossPrimaryOutputs, true, bucket);
+    assert.equal(policy.pose.supineSurfaceMode, 'fullSource', bucket);
   }
 });
 

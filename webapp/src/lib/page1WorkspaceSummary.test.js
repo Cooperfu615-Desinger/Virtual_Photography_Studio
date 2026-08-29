@@ -116,6 +116,22 @@ test('generation summary follows the resolved preview selection instead of confl
   assert.match(buildPage1GenerationSummary(locks, null, controls), /背面/);
 });
 
+test('generation summary traces the resolved waist accessory selection', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    waistAccessoryId: optionId('waistAccessoryId', '細版皮革腰帶'),
+  };
+  const previewPrompt = {
+    selection: {
+      ...locks,
+      waistAccessoryId: optionId('waistAccessoryId', '肚臍環'),
+    },
+  };
+
+  const resolvedSummary = buildPage1GenerationSummary(locks, previewPrompt, controls);
+  assert.match(resolvedSummary, /肚臍環/);
+});
+
 test('workspace pose summary shows the active single action pose card as the B pose override', () => {
   const summary = buildWorkspaceSummary({
     ...createEmptyLocks(),

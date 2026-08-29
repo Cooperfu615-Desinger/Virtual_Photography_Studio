@@ -94,6 +94,46 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'supine-medium-water-overhead-arms',
+    title: 'Medium supine water keeps the surface and permits a natural overhead-arm crop',
+    mode: 'single',
+    seed: 'prompt-contract-supine-medium-water-overhead-arms-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' },
+      poseBaseId: { byZh: '躺姿' },
+      poseOrientationId: { byZh: '仰躺' },
+      poseArrangementId: { byZh: '自然伸展' },
+      poseHandId: { byZh: '仰躺雙手向頭頂伸展' },
+      posePropId: { byZh: '全無' },
+      poseHeadId: { byZh: '仰躺頭部自然朝上' },
+      poseAnchorId: { byZh: '在水中' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: [
+          'floating on her back at the surface of clear water that fills the frame',
+          'Her body is partially submerged, with visibly wet skin and clothing',
+          'both arms reaching overhead, while the forearms or hands may continue naturally beyond the upper frame edge',
+        ],
+      },
+      zImagePrompt: {
+        includes: [
+          'floating on her back at the surface of clear water that fills the frame',
+          'Her body is partially submerged, with visibly wet skin and clothing',
+          'both arms reaching overhead, while the forearms or hands may continue naturally beyond the upper frame edge',
+        ],
+      },
+      midjourneyPrompt: {
+        includes: [
+          'floating on her back at the surface of clear water that fills the frame',
+          'Her body is partially submerged, with visibly wet skin and clothing',
+          'both arms reaching overhead, while the forearms or hands may continue naturally beyond the upper frame edge',
+        ],
+      },
+    },
+  },
+  {
     id: 'multi-phrase-garment-color-syntax',
     title: 'Multi-phrase garment colors use natural wearable grammar',
     mode: 'single',

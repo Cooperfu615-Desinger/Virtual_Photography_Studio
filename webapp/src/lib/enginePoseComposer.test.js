@@ -2042,7 +2042,7 @@ test('supine mode makes the support surface the only scene anchor and silences s
     ['榻榻米上', /She lies on tatami that dominates the composition/, /Japanese floor cushions are casually scattered/],
     ['沙地上', /She lies on a fine white-sand beach that dominates the composition/, /A thin waterline, small waves, and a few scattered shells add a simple natural sense of life around the beach/],
     ['水泥地上', /She lies on concrete that dominates the composition/, /Cement sandbags, rough timber, and steel bars lie loosely nearby/],
-    ['海面上', /She is floating on a clear shallow sea surface that dominates the composition/, /A coral reef is visible below through the transparent turquoise water/],
+    ['海面上', /She is floating on her back in clear turquoise shallow seawater that fills the frame/, /Her body is partially submerged and visibly wet/],
   ];
   const sceneKeys = [
     'sceneAttributeId',
@@ -2097,6 +2097,89 @@ test('supine mode makes the support surface the only scene anchor and silences s
   assert.ok(dependentOptions.poseAnchorOptions.some((option) => option.zh === '沙地上'));
   assert.ok(dependentOptions.poseAnchorOptions.some((option) => option.zh === '水泥地上'));
   assert.ok(dependentOptions.poseAnchorOptions.some((option) => option.zh === '海面上'));
+});
+
+test('every supine surface keeps its complete surface identity and environment across framing projections', () => {
+  const surfaceCases = [
+    ['床上', 'on a bed that dominates the composition', 'Pillows, cushions, and a casually rumpled comforter'],
+    ['榻榻米上', 'on tatami that dominates the composition', 'Japanese floor cushions are casually scattered across the tatami'],
+    ['地板上', 'on an indoor floor that dominates the composition', 'A folded blanket, a drink, and one small everyday item rest nearby'],
+    ['浴缸內（無水）', 'inside a dry bathtub that dominates the composition', 'A folded towel and a few simple bath items rest nearby'],
+    ['沙發上', 'on a sofa that dominates the composition', 'Loose cushions, a casually folded throw, and one everyday item'],
+    ['草地上', 'on grass that dominates the composition', 'A few blades of grass, subtle ground texture, and sparse natural traces'],
+    ['水泥地上', 'on concrete that dominates the composition', 'Cement sandbags, rough timber, and steel bars lie loosely nearby'],
+    ['沙地上', 'on a fine white-sand beach that dominates the composition', 'A thin waterline, small waves, and a few scattered shells'],
+    ['海面上', 'floating on her back in clear turquoise shallow seawater that fills the frame', 'Her body is partially submerged and visibly wet, her damp hair fans across the surface'],
+    ['在水中', 'floating on her back at the surface of clear water that fills the frame', 'Her body is partially submerged, with visibly wet skin and clothing'],
+    ['靠在水邊支撐', 'lying beside a waterline that dominates the composition, with part of her body supported at the edge', 'Small waves, wet sand, and a thin reflective waterline'],
+  ];
+  const framingLabels = [
+    '局部五官特寫',
+    '臉部特寫',
+    '特寫鏡頭 (Close-Up)',
+    '胸上特寫',
+    '中景鏡頭 (Medium Shot)',
+    '牛仔中景 (Cowboy Shot)',
+    '全身鏡頭 (Full Body Shot)',
+  ];
+  const baseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '躺姿'),
+    poseOrientationId: optionId('poseOrientationId', '仰躺'),
+    poseArrangementId: optionIdForBase('poseArrangementId', '自然伸展', 'lying'),
+    poseHandId: optionId('poseHandId', '全無'),
+    poseHeadId: optionId('poseHeadId', '全無'),
+  };
+
+  for (const [anchorZh, surfaceText, environmentText] of surfaceCases) {
+    for (const framingZh of framingLabels) {
+      const [prompt] = generatePrompts(1, {
+        ...baseLocks,
+        framingId: optionId('framingId', framingZh),
+        poseAnchorId: optionId('poseAnchorId', anchorZh),
+      });
+      for (const output of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+        assert.ok(output.includes(surfaceText), `${anchorZh} should keep its full surface text in ${framingZh}`);
+        assert.ok(output.includes(environmentText), `${anchorZh} should keep its full environment text in ${framingZh}`);
+      }
+    }
+  }
+});
+
+test('supine overhead arms use a crop-aware phrase without forcing the hands inside the frame', () => {
+  const baseLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    poseBaseId: optionId('poseBaseId', '躺姿'),
+    poseOrientationId: optionId('poseOrientationId', '仰躺'),
+    poseArrangementId: optionIdForBase('poseArrangementId', '自然伸展', 'lying'),
+    poseHandId: optionId('poseHandId', '仰躺雙手向頭頂伸展'),
+    poseHeadId: optionId('poseHeadId', '仰躺頭部自然朝上'),
+    poseAnchorId: optionId('poseAnchorId', '床上'),
+  };
+  const projectedText = 'both arms reaching overhead, while the forearms or hands may continue naturally beyond the upper frame edge';
+  const fullText = 'both arms reaching overhead with relaxed shoulders and open hands';
+
+  for (const framingZh of ['胸上特寫', '中景鏡頭 (Medium Shot)']) {
+    const [prompt] = generatePrompts(1, {
+      ...baseLocks,
+      framingId: optionId('framingId', framingZh),
+    });
+    for (const output of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      assert.ok(output.includes(projectedText), `${framingZh} should use the crop-aware overhead-arm phrase`);
+      assert.ok(!output.includes(fullText), `${framingZh} should not require fully visible open hands`);
+    }
+  }
+
+  const [fullPrompt] = generatePrompts(1, {
+    ...baseLocks,
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  });
+  for (const output of [fullPrompt.grokPrompt, fullPrompt.zImagePrompt, fullPrompt.midjourneyPrompt]) {
+    assert.ok(output.includes(fullText));
+    assert.ok(!output.includes(projectedText));
+  }
 });
 
 test('lying random pools stay inside the selected orientation matrix', () => {
