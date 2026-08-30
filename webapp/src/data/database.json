@@ -3215,7 +3215,7 @@
         "desc": "以西裝翻領、清楚肩線、挺版西裝布與乾淨剪裁為主，是最基礎的外層西裝輪廓。"
       },
       {
-        "zh": "運動連帽外套",
+        "zh": "連帽外套",
         "en": "sport zip-up hoodie, athletic hooded jacket, ribbed cuffs and hem, casual performance knit structure",
         "desc": "以運動感連帽、前拉鍊、羅紋袖口下擺與較俐落的機能針織結構為主。"
       },
@@ -3250,9 +3250,9 @@
         "desc": "以水洗丹寧、胸前口袋、金屬扣與牛仔外套的硬挺日常結構為主。"
       },
       {
-        "zh": "連帽拉鍊外套",
-        "en": "soft zip hoodie, hooded sweatshirt jacket, front zipper, relaxed knit body, ribbed cuffs and hem",
-        "desc": "以柔軟連帽外套、前拉鍊、衛衣針織布與放鬆衣身為主，語氣比運動連帽外套更休閒。"
+        "zh": "連帽外套_戴",
+        "en": "soft zip hoodie, hooded sweatshirt jacket, front zipper, relaxed knit body, ribbed cuffs and hem, hood worn up framing the hair",
+        "desc": "以柔軟連帽外套、前拉鍊、衛衣針織布與放鬆衣身為主，並固定將帽子戴起框住頭髮。"
       },
       {
         "zh": "寬鬆西裝外套",

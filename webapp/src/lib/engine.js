@@ -2968,7 +2968,16 @@ const WARDROBE_LEGACY_OPTION_MAP = [
   { category: WARDROBE_OUTERWEAR_CATEGORY, targetZh: '飛行夾克', legacy: [['飛行夾克（敞開穿）', 6]] },
   { category: WARDROBE_OUTERWEAR_CATEGORY, targetZh: '短版皮外套', legacy: [['短版皮外套（不扣）', 7]] },
   { category: WARDROBE_OUTERWEAR_CATEGORY, targetZh: '丹寧外套', legacy: [['丹寧外套（敞開穿）', 8]] },
-  { category: WARDROBE_OUTERWEAR_CATEGORY, targetZh: '連帽拉鍊外套', legacy: [['連帽拉鍊外套（不拉拉鍊）', 9]] },
+  {
+    category: WARDROBE_OUTERWEAR_CATEGORY,
+    targetZh: '連帽外套',
+    legacy: [['運動連帽外套', 2]],
+  },
+  {
+    category: WARDROBE_OUTERWEAR_CATEGORY,
+    targetZh: '連帽外套_戴',
+    legacy: [['連帽拉鍊外套（不拉拉鍊）', 9], ['連帽拉鍊外套', 9]],
+  },
   { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：鏈條緞面內衣', legacy: [['酒紅鏈條緞面內衣套裝', 1]] },
   { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：春日巴黎亞麻長褲', legacy: [['象牙白春日巴黎套裝', 4]] },
   { category: WARDROBE_OUTFIT_PRESET_CATEGORY, targetZh: '套裝：長版襯衫百褶長裙', legacy: [['全黑長版襯衫百褶長裙套裝', 9]] },

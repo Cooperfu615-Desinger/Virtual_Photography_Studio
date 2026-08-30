@@ -133,6 +133,24 @@ test('outerwear opening options expose the new closure states and migrate old sa
   });
 });
 
+test('renamed hooded outerwear options migrate both current and historical saved ids', () => {
+  const regularHoodieId = optionId('outerwearId', '連帽外套');
+  const hoodUpHoodieId = optionId('outerwearId', '連帽外套_戴');
+
+  assert.equal(
+    normalizeLocks({ outerwearId: 'wardrobe:外套-outerwear:運動連帽外套:2' }).outerwearId,
+    regularHoodieId,
+  );
+  assert.equal(
+    normalizeLocks({ outerwearId: 'wardrobe:外套-outerwear:連帽拉鍊外套:9' }).outerwearId,
+    hoodUpHoodieId,
+  );
+  assert.equal(
+    normalizeLocks({ outerwearId: 'wardrobe:外套-outerwear:連帽拉鍊外套-不拉拉鍊:9' }).outerwearId,
+    hoodUpHoodieId,
+  );
+});
+
 test('outerwear styling replaces the old slipped-shoulder option with explicit shoulder exposure and migrates old ids', () => {
   const stylingControl = controls.find((control) => control.key === 'outerwearStylingId');
   assert.deepEqual(

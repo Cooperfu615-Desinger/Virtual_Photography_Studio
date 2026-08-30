@@ -307,7 +307,7 @@ test('outerwear styling appears after the outerwear garment while avoiding legac
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
-    outerwearId: optionId('outerwearId', '運動連帽外套'),
+    outerwearId: optionId('outerwearId', '連帽外套'),
     outerwearStylingId: optionId('outerwearStylingId', '正常穿著'),
     topId: optionId('topId', '襯衫'),
   });
@@ -320,6 +320,27 @@ test('outerwear styling appears after the outerwear garment while avoiding legac
   const zImageText = prompt.zImagePrompt;
   assert.match(zImageText, /zip-up hoodie/);
   assert.doesNotMatch(zImageText, /properly worn on both shoulders/);
+});
+
+test('hood-up outerwear uses the renamed option and keeps the hood framing the hair', () => {
+  const regularHoodie = optionByLabel('outerwearId', '連帽外套');
+  const hoodUpHoodie = optionByLabel('outerwearId', '連帽外套_戴');
+  const outerwearControl = getLockControls().find((control) => control.key === 'outerwearId');
+
+  assert.ok(regularHoodie);
+  assert.ok(hoodUpHoodie);
+  assert.equal(outerwearControl.options.some((option) => option.zh === '運動連帽外套'), false);
+  assert.equal(outerwearControl.options.some((option) => option.zh === '連帽拉鍊外套'), false);
+  assert.match(hoodUpHoodie.en, /hood worn up framing the hair/i);
+  assert.match(hoodUpHoodie.desc, /固定將帽子戴起框住頭髮/);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    outerwearId: hoodUpHoodie.id,
+  });
+  const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
+  assert.match(promptText, /hood worn up framing the hair/i);
 });
 
 test('outerwear and long shirt compose as explicit outer-over-inner layers', () => {

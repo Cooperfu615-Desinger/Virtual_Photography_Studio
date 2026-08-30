@@ -345,14 +345,14 @@
 | **外套版型 (Outerwear Fit)** | 短版 Oversize | `underbust-cropped oversized outerwear, roomy shoulders, ending just below the bust` | 短版外套長度約到胸下位置，同時保留寬鬆肩線與短版寬鬆比例。 |
 | **外套 (Outerwear)** | 全無 | `no outerwear, uncluttered silhouette` | 不加外套，保留上身與下身單品的主要輪廓。 |
 | **外套 (Outerwear)** | 西裝外套 | `blazer, tailored jacket structure, defined lapels, clean shoulder line, polished suiting fabric` | 以西裝翻領、清楚肩線、挺版西裝布與乾淨剪裁為主，是最基礎的外層西裝輪廓。 |
-| **外套 (Outerwear)** | 運動連帽外套 | `sport zip-up hoodie, athletic hooded jacket, ribbed cuffs and hem, casual performance knit structure` | 以運動感連帽、前拉鍊、羅紋袖口下擺與較俐落的機能針織結構為主。 |
+| **外套 (Outerwear)** | 連帽外套 | `sport zip-up hoodie, athletic hooded jacket, ribbed cuffs and hem, casual performance knit structure` | 以運動感連帽、前拉鍊、羅紋袖口下擺與較俐落的機能針織結構為主。 |
 | **外套 (Outerwear)** | 龐克皮衣 | `punk leather jacket, moto-inspired leather outerwear, sharp lapels, zipper hardware, structured edgy silhouette` | 以皮革表面、騎士外套式翻領、拉鍊五金與硬挺短外層輪廓為主。 |
 | **外套 (Outerwear)** | 賽博反光科技風衣 | `iridescent reflective techwear trench coat, waterproof shell texture` | 以虹彩反光、防水機能布與俐落科技感材質為主，風衣輪廓由單品名稱本身帶出。 |
 | **外套 (Outerwear)** | 柔軟毛絨泰迪熊外套 | `fluffy teddy fleece jacket, plush pile texture, rounded cozy outerwear structure` | 以蓬鬆毛絨、柔軟刷毛表面與圓潤保暖外套份量為主。 |
 | **外套 (Outerwear)** | 飛行夾克 | `bomber jacket, flight jacket structure, ribbed collar cuffs and hem, rounded casual outerwear volume` | 以飛行夾克結構、羅紋領口袖口下擺與圓潤短外套份量為主。 |
 | **外套 (Outerwear)** | 短版皮外套 | `cropped leather moto jacket, short hem, leather panels, zipper hardware, structured cropped outerwear shape` | 以短版衣長、皮革拼片、拉鍊五金與騎士外套結構為主，外層比例更短更俐落。 |
 | **外套 (Outerwear)** | 丹寧外套 | `denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear` | 以水洗丹寧、胸前口袋、金屬扣與牛仔外套的硬挺日常結構為主。 |
-| **外套 (Outerwear)** | 連帽拉鍊外套 | `soft zip hoodie, hooded sweatshirt jacket, front zipper, relaxed knit body, ribbed cuffs and hem` | 以柔軟連帽外套、前拉鍊、衛衣針織布與放鬆衣身為主，語氣比運動連帽外套更休閒。 |
+| **外套 (Outerwear)** | 連帽外套_戴 | `soft zip hoodie, hooded sweatshirt jacket, front zipper, relaxed knit body, ribbed cuffs and hem, hood worn up framing the hair` | 以柔軟連帽外套、前拉鍊、衛衣針織布與放鬆衣身為主，並固定將帽子戴起框住頭髮。 |
 | **外套 (Outerwear)** | 寬鬆西裝外套 | `oversized blazer, roomy tailored jacket, broad shoulder line, softened suiting structure` | 以寬版西裝輪廓、放大肩線、較寬衣身與柔化西裝結構為主。 |
 | **外套 (Outerwear)** | 合身西裝外套 | `tailored fitted blazer, close-cut jacket structure, defined waist shaping, polished suiting fabric` | 以合身西裝剪裁、收腰線條、俐落肩線與挺版西裝布為主。 |
 | **外套 (Outerwear)** | 短版合身西裝外套 | `cropped fitted blazer, short tailored jacket, waist-defining cut, structured shoulders, slim sleeves, clean notched lapels, polished suiting fabric` | 以短版西裝衣長、收腰剪裁、俐落肩線、窄袖與翻領為主，不綁定開合狀態、內搭、下身或姿勢。 |

@@ -41,7 +41,7 @@ test('Z-Image keeps outerwear secondary when layered over an outfit preset', () 
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     outfitPresetId: optionId('outfitPresetId', '套裝：春日巴黎亞麻長褲'),
     outfitPresetPrimaryColorId: optionId('outfitPresetPrimaryColorId', '粉紅色'),
-    outerwearId: optionId('outerwearId', '運動連帽外套'),
+    outerwearId: optionId('outerwearId', '連帽外套'),
     outerwearFitId: optionId('outerwearFitId', '全無'),
     outerwearColorId: optionId('outerwearColorId', '白色'),
     outerwearPatternId: optionId('outerwearPatternId', '全無'),
