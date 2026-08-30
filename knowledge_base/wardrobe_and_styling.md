@@ -446,6 +446,7 @@
 | **眼鏡 (Eyewear)** | 飛行員眼鏡 | `aviator-frame glasses` | 以飛行員鏡框的下垂水滴比例與金屬框架輪廓為主。 |
 | **眼鏡 (Eyewear)** | 貓眼眼鏡 | `cat-eye glasses` | 以外側上揚的貓眼鏡框比例為主。 |
 | **眼鏡 (Eyewear)** | 無框眼鏡 | `rimless glasses` | 以無明顯鏡框、鏡片直接連接鼻橋與鏡腳的輕量結構為主。 |
+| **眼鏡 (Eyewear)** | 眼布 | `black elastic stretch-fabric eye covering fitted directly over both eyes, smooth flat surface, hair fully visible and hairstyle preserved, nose and mouth uncovered` | 黑色彈性布質眼布直接貼合雙眼，平整覆蓋眼部；不包覆頭頂或頭髮，原有髮型保持可見且不被改變，鼻子與嘴巴露出。 |
 | **眼鏡配色 (Eyewear Color)** | 全無 | `no specified eyewear frame color` | 不指定眼鏡顏色或材質，保留眼鏡本體輪廓。 |
 | **眼鏡配色 (Eyewear Color)** | 黑色 | `black frame` | 以黑色鏡框表面為主。 |
 | **眼鏡配色 (Eyewear Color)** | 白色 | `white frame` | 以白色鏡框表面為主。 |

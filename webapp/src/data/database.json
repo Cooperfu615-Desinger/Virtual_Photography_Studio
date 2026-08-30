@@ -3731,6 +3731,13 @@
         "zh": "無框眼鏡",
         "en": "rimless glasses",
         "desc": "以無明顯鏡框、鏡片直接連接鼻橋與鏡腳的輕量結構為主。"
+      },
+      {
+        "zh": "眼布",
+        "en": "black elastic stretch-fabric eye covering fitted directly over both eyes, smooth flat surface, hair fully visible and hairstyle preserved, nose and mouth uncovered",
+        "desc": "黑色彈性布質眼布直接貼合雙眼，平整覆蓋眼部；不包覆頭頂或頭髮，原有髮型保持可見且不被改變，鼻子與嘴巴露出。",
+        "eyewearColorTarget": "black elastic stretch-fabric eye covering",
+        "eyewearPlacementMode": "fixed-face"
       }
     ],
     "眼鏡配色 (Eyewear Color)": [

@@ -219,6 +219,12 @@
       "紅絨金飾水鑽皇冠": {
         "headAccessoryColorTarget": "red velvet crown body"
       }
+    },
+    "眼鏡 (Eyewear)": {
+      "眼布": {
+        "eyewearColorTarget": "black elastic stretch-fabric eye covering",
+        "eyewearPlacementMode": "fixed-face"
+      }
     }
   }
 }

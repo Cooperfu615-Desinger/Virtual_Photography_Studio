@@ -3139,6 +3139,12 @@ function buildEntries(groupName, groupedData, inferMeta) {
         ...(item.headAccessoryColorTarget
           ? { headAccessoryColorTarget: item.headAccessoryColorTarget }
           : {}),
+        ...(item.eyewearColorTarget
+          ? { eyewearColorTarget: item.eyewearColorTarget }
+          : {}),
+        ...(item.eyewearPlacementMode
+          ? { eyewearPlacementMode: item.eyewearPlacementMode }
+          : {}),
         legacyIds: Array.from(new Set([
           ...(Array.isArray(item.legacyIds) ? item.legacyIds : []),
           ...ambientLightLegacyIds,
@@ -9145,15 +9151,37 @@ function buildHeadAccessoryPrompt(headAccessory, color = null) {
   return composeWearableColorPrompt(neutralBase, color, { placement: 'inline' });
 }
 
+function buildTargetedEyewearColorPrompt(eyewear, base, color) {
+  const target = normalizeWardrobePromptText(eyewear?.eyewearColorTarget);
+  if (!target || !color || isNoneLikeItem(color)) return '';
+
+  const targetPattern = new RegExp(escapeRegExpPattern(target), 'i');
+  if (!targetPattern.test(base)) return '';
+
+  const neutralTarget = stripHeadAccessoryColorTerms(target);
+  if (!neutralTarget) return '';
+
+  const fabricColor = {
+    ...color,
+    en: normalizeWardrobePromptText(color.en).replace(/\s+frame$/i, ''),
+  };
+  const coloredTarget = composeWearableColorPrompt(neutralTarget, fabricColor, { placement: 'inline' });
+  return base.replace(targetPattern, coloredTarget);
+}
+
 function buildEyewearPrompt(eyewear, color = null, placement = null) {
   if (!eyewear || isNoneLikeItem(eyewear)) return '';
   const base = buildAccessoryPrompt(eyewear);
   const colorText = color && !isNoneLikeItem(color) ? buildAccessoryPrompt(color) : '';
-  const placementText = placement && !isNoneLikeItem(placement)
-    ? buildAccessoryPrompt(placement)
-    : 'worn normally on the face, lenses aligned over the eyes';
+  const targetedColorPrompt = buildTargetedEyewearColorPrompt(eyewear, base, color);
+  const baseText = targetedColorPrompt || (colorText ? [colorText, base].filter(Boolean).join(', ') : base);
+  const placementText = eyewear.eyewearPlacementMode === 'fixed-face'
+    ? ''
+    : placement && !isNoneLikeItem(placement)
+      ? buildAccessoryPrompt(placement)
+      : 'worn normally on the face, lenses aligned over the eyes';
 
-  return [colorText, base, placementText].filter(Boolean).join(', ');
+  return [baseText, placementText].filter(Boolean).join(', ');
 }
 
 function cleanSubjectAccessoryPrompt(item) {
@@ -12833,7 +12861,7 @@ function buildAiDressPhrase(value) {
 }
 
 function isAiAccessoryFragment(fragment) {
-  return /\b(?:bag|clutch|tote|sunglasses|glasses|eyeglasses|earrings?|necklace|bracelets?|rings?|choker|watch|headscarf|bandana|cap|hat|beret|hair clip|tattoo|earphones?|headphones?|pendant|wallet chain|shoulder strap|belt)\b/i.test(fragment);
+  return /\b(?:bag|clutch|tote|sunglasses|glasses|eyeglasses|blindfold|eye covering|earrings?|necklace|bracelets?|rings?|choker|watch|headscarf|bandana|cap|hat|beret|hair clip|tattoo|earphones?|headphones?|pendant|wallet chain|shoulder strap|belt)\b/i.test(fragment);
 }
 
 function isAiClothingCoreFragment(fragment) {
@@ -13023,6 +13051,10 @@ function buildAiSingleSubjectLead(context) {
 }
 
 function compactAiEyewearAccessoryText(eyewear, color = null, placement = null) {
+  if (eyewear?.eyewearPlacementMode === 'fixed-face') {
+    return cleanAiMinimalFragment(buildEyewearPrompt(eyewear, color, null));
+  }
+
   const frameText = cleanAiMinimalFragment(buildAccessoryPrompt(eyewear))
     .replace(/\bbold thick-frame glasses\b/gi, 'bold-frame glasses');
   if (!frameText || /^no eyewear\b/i.test(frameText)) return '';

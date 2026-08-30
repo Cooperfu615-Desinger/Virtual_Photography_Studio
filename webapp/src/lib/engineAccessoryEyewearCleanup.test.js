@@ -188,6 +188,7 @@ test('eyewear controls split frame, color, and placement dimensions', () => {
     '飛行員眼鏡',
     '貓眼眼鏡',
     '無框眼鏡',
+    '眼布',
   ]);
 
   assert.deepEqual(optionLabels('eyewearColorId'), [
@@ -238,4 +239,41 @@ test('eyewear prompt composes frame color and placement', () => {
   const text = [prompt.grokPrompt, prompt.zImagePrompt].join('\n');
   assert.match(text, /tortoiseshell (?:frame, )?bold thick-frame glasses, resting on top of the head/);
   assert.match(text, /eyes unobstructed/);
+});
+
+test('eye cloth uses the eyewear layer, preserves hair, and ignores head-top placement', () => {
+  const eyeCloth = optionByLabel('eyewearId', '眼布');
+  const headAccessory = optionByLabel('headAccessoryId', '棒球帽');
+  const red = optionByLabel('eyewearColorId', '紅色');
+  const headTop = optionByLabel('eyewearPlacementId', '戴在頭頂');
+
+  assert.equal(eyeCloth.eyewearColorTarget, 'black elastic stretch-fabric eye covering');
+  assert.equal(eyeCloth.eyewearPlacementMode, 'fixed-face');
+  assert.ok(!optionLabels('headAccessoryId').includes('眼布'));
+  assert.match(eyeCloth.en, /directly over both eyes/i);
+  assert.match(eyeCloth.en, /hair fully visible and hairstyle preserved/i);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    headAccessoryId: headAccessory.id,
+    eyewearId: eyeCloth.id,
+    eyewearColorId: red.id,
+    eyewearPlacementId: headTop.id,
+  });
+  const outputs = [
+    prompt.grokPrompt,
+    prompt.zImagePrompt,
+    prompt.midjourneyPrompt,
+    ...prompt.extraPrompts.map((entry) => entry.text),
+  ];
+
+  for (const text of outputs) {
+    assert.match(text, /red elastic stretch-fabric eye covering fitted directly over both eyes/i);
+    assert.match(text, /hair fully visible and hairstyle preserved/i);
+    assert.match(text, /baseball cap/i);
+    assert.doesNotMatch(text, /resting on top of the head|lenses aligned over the eyes/i);
+    assert.doesNotMatch(text, /black elastic stretch-fabric eye covering/i);
+  }
 });
