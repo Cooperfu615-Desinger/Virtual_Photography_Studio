@@ -641,6 +641,24 @@ test('all leather waist belts use loose decorative styling while retaining their
   }
 });
 
+test('gothic waist cincher remains a waist-only accessory in full-body outputs', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    topId: optionId('topId', '棉質細肩背心'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    waistAccessoryId: optionId('waistAccessoryId', '馬甲束腰'),
+  });
+
+  const waistCincherPrompt = /gothic black leather waist cincher, structured boning, front lace-up panel, silver buckle hardware, worn over clothing/i;
+  assert.match(prompt.grokPrompt, waistCincherPrompt);
+  assert.match(prompt.zImagePrompt, waistCincherPrompt);
+  assert.match(prompt.midjourneyPrompt, /gothic black leather waist cincher, structured boning/i);
+  assert.match(prompt.extraPrompts.find((entry) => entry.id === 'full-body-character')?.text || '', waistCincherPrompt);
+  assert.ok(prompt.structured.Wardrobe.some((item) => item.zh === '馬甲束腰'));
+  assert.equal(prompt.selection.waistAccessoryId, optionId('waistAccessoryId', '馬甲束腰'));
+});
+
 test('duo waist accessories remain assigned to the selected person in compact output', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

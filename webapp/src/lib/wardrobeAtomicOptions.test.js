@@ -50,6 +50,7 @@ const confirmedAdditions = {
     '銀色水鑽蝴蝶腰鏈',
     '鉚釘皮革腰帶',
     '肚臍環',
+    '馬甲束腰',
   ],
 };
 
@@ -57,7 +58,7 @@ test('confirmed atomic wardrobe additions are exposed by existing controls', () 
   const controls = new Map(getLockControls().map((control) => [control.key, control]));
   const labels = Object.values(confirmedAdditions).flat();
 
-  assert.equal(labels.length, 72);
+  assert.equal(labels.length, 73);
 
   for (const [controlKey, expectedLabels] of Object.entries(confirmedAdditions)) {
     const control = controls.get(controlKey);

@@ -509,3 +509,4 @@
 | **腰部配件 (Waist Accessories)** | 銀色水鑽蝴蝶腰鏈 | `silver rhinestone butterfly waist chain, two delicate silver strands draped at slightly different heights, with multiple small rhinestone butterfly charms spaced across the low waist and upper hips, worn above low-rise bottoms` | 以兩條高度略有差異的細銀鏈為主，沿低腰與上髖部配置多個小型水鑽蝴蝶吊飾，呈現輕盈垂掛的層次，搭配低腰下身穿戴。 |
 | **腰部配件 (Waist Accessories)** | 鉚釘皮革腰帶 | `decorative studded leather waist belt worn loosely around hips with metal studs and compact off-center buckle` | 以鉚釘與緊湊扣具增加街頭感，鬆掛於髖部作為服裝裝飾。 |
 | **腰部配件 (Waist Accessories)** | 肚臍環 | `round-cut diamond navel piercing at the belly button, clear circular gemstone, slim polished metal ring setting` | 以肚臍中央的小型圓形鑽石與細緻拋光金屬戒台為主，清楚呈現肚臍位置的精緻身體飾品。 |
+| **腰部配件 (Waist Accessories)** | 馬甲束腰 | `gothic black leather waist cincher, structured boning, front lace-up panel, silver buckle hardware, worn over clothing` | 黑色皮革哥德馬甲束腰，貼合腰部並穿在服裝外，以結構支撐骨、前方綁帶與銀色扣具呈現哥德風格；維持腰部配件的範圍，不延伸成胸衣、肩帶或完整上身。 |
