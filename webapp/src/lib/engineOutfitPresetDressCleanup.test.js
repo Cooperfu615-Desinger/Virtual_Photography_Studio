@@ -546,6 +546,7 @@ test('dress controls expose short and long one-piece silhouettes only', () => {
       '連身：短版｜條紋荷葉吊帶罩衫迷你洋裝',
       '連身：短版｜流蘇細肩帶抓皺迷你洋裝',
       '連身：短版｜蝴蝶結抹胸蕾絲荷葉迷你洋裝',
+      '連身：短版｜亮面乳膠拉鏈洋裝',
     ]
   );
 
@@ -603,6 +604,42 @@ test('reference dress entries describe garments without accessory or shoe detail
     assert.doesNotMatch(text, /sandals|shoes|bag|bracelet|necklace|choker|cuff|earrings|bracelets|手環|項鍊|鞋|包|耳環/i);
     assert.match(text, /controlled by dress color selection/i);
   });
+});
+
+test('zippered latex mini dress preserves collared short sleeves and default lowered zipper styling', () => {
+  const dress = optionByLabel('dressId', '連身：短版｜亮面乳膠拉鏈洋裝');
+  const text = [dress.en, dress.desc].join(' ');
+
+  assert.match(text, /glossy latex collared short-sleeve mini dress/i);
+  assert.match(text, /one-piece bodycon silhouette/i);
+  assert.match(text, /tone-on-tone center-front zipper from collar through the skirt/i);
+  assert.match(text, /zipper lowered to the lower ribs near the navel by default/i);
+  assert.match(text, /controlled by dress color selection/i);
+  assert.doesNotMatch(text, /white|glasses|earrings|stockings|kitchen|coffee maker/i);
+  assert.equal(dress.meta.referenceImageId, 'dresses-024');
+  assert.equal(dress.meta.referenceImage, 'reference/wardrobe/dresses/50_短版亮面乳膠拉鏈洋裝.avif');
+  assert.equal(dress.meta.referenceImageFormat, 'avif');
+});
+
+test('zippered latex mini dress uses the shared dress color and single-dress wardrobe flow', () => {
+  const dress = optionByLabel('dressId', '連身：短版｜亮面乳膠拉鏈洋裝');
+  const color = optionByLabel('dressColorId', '紅色');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    dressId: dress.id,
+    dressColorId: color.id,
+    topId: optionByLabel('topId', '短版 T 恤').id,
+    pantsId: optionByLabel('pantsId', '牛仔短褲').id,
+  });
+  const text = allPromptOutputs(prompt);
+
+  assert.equal(prompt.selection.dressId, dress.id);
+  assert.equal(prompt.selection.dressColorId, color.id);
+  assert.match(text, /red glossy latex collared short-sleeve(?: mini)? dress/i);
+  assert.match(text, /tone-on-tone center-front zipper from collar through the skirt/i);
+  assert.match(text, /zipper lowered to the lower ribs near the navel by default/i);
+  assert.doesNotMatch(text, /short-sleeve T-shirt|denim shorts/i);
+  assert.doesNotMatch([prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n'), /main latex color controlled by dress color selection/i);
 });
 
 test('mirror chrome garment color applies scene-reflective material to the new cut-out one-piece', () => {

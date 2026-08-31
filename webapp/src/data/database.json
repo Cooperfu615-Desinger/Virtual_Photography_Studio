@@ -2647,6 +2647,16 @@
           "referenceImage": "reference/wardrobe/dresses/49_蝴蝶結抹胸蕾絲荷葉迷你洋裝.avif",
           "referenceImageFormat": "avif"
         }
+      },
+      {
+        "zh": "短版｜亮面乳膠拉鏈洋裝",
+        "en": "glossy latex collared short-sleeve mini dress, one-piece bodycon silhouette, smooth reflective surface, tone-on-tone center-front zipper from collar through the skirt, zipper lowered to the lower ribs near the navel by default, main latex color controlled by dress color selection",
+        "desc": "短版亮面乳膠拉鏈連身洋裝，具領子與短袖、中央同色系拉鏈從領口延伸至裙身，預設拉下至下肋骨接近肚臍的位置，顏色由連身配色控制。",
+        "meta": {
+          "referenceImageId": "dresses-024",
+          "referenceImage": "reference/wardrobe/dresses/50_短版亮面乳膠拉鏈洋裝.avif",
+          "referenceImageFormat": "avif"
+        }
       }
     ],
     "褲裝 (Pants)": [
