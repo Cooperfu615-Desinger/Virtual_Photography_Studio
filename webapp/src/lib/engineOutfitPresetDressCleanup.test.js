@@ -613,7 +613,9 @@ test('zippered latex mini dress preserves collared short sleeves and default low
   assert.match(text, /glossy latex collared short-sleeve mini dress/i);
   assert.match(text, /one-piece bodycon silhouette/i);
   assert.match(text, /tone-on-tone center-front zipper from collar through the skirt/i);
-  assert.match(text, /zipper lowered to the lower ribs near the navel by default/i);
+  assert.match(text, /zipper opened down below the navel by default/i);
+  assert.match(text, /exposing the cleavage and a vertical strip of bare skin along the abdomen/i);
+  assert.match(text, /navel area left visible for a navel piercing/i);
   assert.match(text, /controlled by dress color selection/i);
   assert.doesNotMatch(text, /white|glasses|earrings|stockings|kitchen|coffee maker/i);
   assert.equal(dress.meta.referenceImageId, 'dresses-024');
@@ -637,9 +639,27 @@ test('zippered latex mini dress uses the shared dress color and single-dress war
   assert.equal(prompt.selection.dressColorId, color.id);
   assert.match(text, /red glossy latex collared short-sleeve(?: mini)? dress/i);
   assert.match(text, /tone-on-tone center-front zipper from collar through the skirt/i);
-  assert.match(text, /zipper lowered to the lower ribs near the navel by default/i);
+  assert.match(text, /zipper opened down below the navel by default/i);
+  assert.match(text, /exposing the cleavage and a vertical strip of bare skin along the abdomen/i);
+  assert.match(text, /navel area left visible for a navel piercing/i);
   assert.doesNotMatch(text, /short-sleeve T-shirt|denim shorts/i);
   assert.doesNotMatch([prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n'), /main latex color controlled by dress color selection/i);
+});
+
+test('zippered latex mini dress leaves the navel area visible for a selected navel piercing', () => {
+  const dress = optionByLabel('dressId', '連身：短版｜亮面乳膠拉鏈洋裝');
+  const navelPiercing = optionByLabel('waistAccessoryId', '肚臍環');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    dressId: dress.id,
+    waistAccessoryId: navelPiercing.id,
+  });
+  const text = allPromptOutputs(prompt);
+
+  assert.match(text, /zipper opened down below the navel by default/i);
+  assert.match(text, /navel area left visible for a navel piercing/i);
+  assert.match(text, /round-cut diamond navel piercing at the belly button/i);
+  assert.equal(prompt.selection.waistAccessoryId, navelPiercing.id);
 });
 
 test('mirror chrome garment color applies scene-reflective material to the new cut-out one-piece', () => {
