@@ -1015,7 +1015,7 @@ test('selfie hand pose composer applies to special subjects', () => {
   assert.equal(prompt.selection.poseBaseId, poseBase.id);
   assert.equal(prompt.selection.poseArrangementId, arrangement.id);
   assert.equal(prompt.selection.poseHandId, poseHand.id);
-  assert.match(promptText, /close-companion social snapshot/);
+  assert.match(promptText, /close handheld companion snapshot/);
   assert.match(promptText, /presents a subtle asymmetrical weight shift onto one leg/);
   assert.doesNotMatch(promptText, /weight-on-one-leg standing pose|relaxed asymmetrical stance|one-leg weight shift|relaxed asymmetrical body balance/);
   assert.doesNotMatch(promptText, /Wardrobe Integrity|Top:|Shoes:/);

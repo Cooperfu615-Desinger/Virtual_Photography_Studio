@@ -284,7 +284,7 @@ Z-Image 的構圖段落在共用景別、鏡頭高度與拍攝方位短句之後
 - 左右側身必須先說人物面向哪一側畫面邊緣，再說相機只看到人物哪一側；近肩必須 `fully hides` 遠肩，可見髖部的景別同樣要求近髖完全遮住遠髖，最後以單一狹窄輪廓與 `strict 90-degree lateral body view` 收束。不得再使用可能被理解為輕微透視重疊的 `nearest／nearer` 或 `visually overlaps` 作為主要側面約束。
 - 文案依姿勢基底使用 `stands／sits／kneels／squats／lies completely sideways`；dedicated special subject 維持中性 `subject`。所有肩、髖、腿與腳 anchor 仍服從 composition visibility bucket，不能把畫面外部位寫回 Prompt。
 - 高位、地面、蟲眼、鳥瞰與正上方俯視不再只輸出 `high angle, looking down` 等標籤。Z-Image 需直接描述相機相對人物的位置、向上或向下傾斜方向，以及目前景別可見的肩線、腰頭、腿部或頭頂平面；平視、肩部、腰部與膝蓋高度等一般高度仍沿用共用短 descriptor。
-- Pose Composer canonical pose 必須繼續逐字存在於 Gpt、Z-Image、AI。只有已實測的 `hands-grip-waistband` 在左右側身時，Z-Image 可於 canonical pose 後追加獨立深度句，說明雙手在前腰頭從側面前後重疊、兩側手肘一近一遠；不得改寫 canonical pose，也不得把此規則推廣到尚未實測的手勢。
+- Pose Composer canonical pose 必須繼續逐字存在於 Gpt、Z-Image、AI。`hands-grip-waistband` 與 `hands-lift-waistband` 在左右側身時，Z-Image 可於 canonical pose 後追加獨立深度句，說明雙手從側面前後重疊、兩側手肘一近一遠；前者保留 `front waistband`，後者只能使用中性的 `garment's waistline`，不得把褲子或裙子重新寫回投影句。兩者都不得改寫 canonical pose，也不得把此規則推廣到其他手勢。
 - 上述修正只取代左右 90° 模板與五種特殊俯仰角度；正面及六種三分之四／背面 orbit 文字不變。Gpt、AI、resolved selections、Storage、Saved Cards、匯入匯出、lock ID 與歷史 `zImagePrompt` 欄位均不變。
 
 `1.3.0` 驗證結果：50 項聚焦測試、143 項 Prompt 品質測試與 694 項 frontend tests 全數通過，lint 與 build 通過；相同 `z-image-turbo-v1` seed 的 200 筆 strict audit 沒有 blocking、required-output、duplicate、control-language 或 contradiction 訊號。Z-Image avg／median／p95／max 為 237.4／234／293／342 words；18 個既有 wardrobe／scene diagnostic-only findings 分布於 17 筆，仍非本次新增回歸。Browser QA 在 1440×1000 與 390×844 走查五個工作區，沒有 document-level 橫向溢位、clipped control、破圖或 console error；live cowboy／高位／右側／雙手腰頭案例同時命中明確高機位、完全遮蔽側身與手勢深度句，Gpt 與 AI 保持原 compact composition。

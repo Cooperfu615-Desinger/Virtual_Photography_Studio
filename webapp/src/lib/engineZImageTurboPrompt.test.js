@@ -196,6 +196,30 @@ test('Z-Image Turbo adds side-view depth for the tested two-hand waistband actio
   assert.doesNotMatch(prompt.midjourneyPrompt, /overlap in depth from this side view/i);
 });
 
+test('Z-Image Turbo keeps the upward waist adjustment garment-neutral in canonical and side-depth text', () => {
+  const prompt = generate({
+    ...createAllNoneLocks(),
+    imageTypePresetId: 'photorealistic-photo',
+    framingId: optionId('framingId', '牛仔中景 (Cowboy Shot)'),
+    angleId: optionId('angleId', '平視高度鏡頭'),
+    orbitId: optionId('orbitId', '右側 270 度'),
+    pantsId: optionId('pantsId', '直筒牛仔褲'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '雙手把褲子或裙子的褲頭往上拉'),
+  }, 'z-image-turbo-side-upward-waist-adjustment');
+  const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([\s\S]*?)(?=\n\n(?:Scene|Lighting|Camera Look):|\n\nmulti-cut sequence n=2|$)/)?.[1] || '';
+
+  assert.match(canonicalPose, /both hands lightly gripping the garment at both sides of the waist.*small upward adjustment.*settle it naturally into place/i);
+  assert.doesNotMatch(canonicalPose, /pants or skirt|belt loops|lowering|removing/i);
+  assert.equal(prompt.zImagePrompt.split(canonicalPose).length - 1, 1);
+  assert.equal(prompt.midjourneyPrompt.split(canonicalPose).length - 1, 1);
+  assert.match(prompt.zImagePrompt, /both hands meet at the garment's waistline and overlap in depth from this side view/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /both hands meet at the front waistband/i);
+  assert.doesNotMatch(prompt.grokPrompt, /overlap in depth from this side view/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /overlap in depth from this side view/i);
+});
+
 test('Z-Image Turbo uses neutral camera geometry for a dedicated special subject', () => {
   const prompt = generate({
     ...createAllNoneLocks(),

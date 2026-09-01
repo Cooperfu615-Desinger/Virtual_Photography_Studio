@@ -77,9 +77,18 @@ test('selfie shooting choices are no longer exposed as special actions', () => {
 });
 
 test('selfie shooting choices are exposed as pose composer hand poses', () => {
-  assert.match(optionByLabel('poseHandId', '自然自拍').en, /front-camera self-shot/);
-  assert.match(optionByLabel('poseHandId', '鏡子自拍').en, /visible phone toward a mirror/);
-  assert.match(optionByLabel('poseHandId', '男友/閨蜜自拍').en, /naturally relaxed hand placement/);
+  const cases = [
+    ['自然自拍', /front-camera self-shot/],
+    ['鏡子自拍', /visible phone toward a mirror/],
+    ['男友/閨蜜自拍', /close handheld companion snapshot/],
+  ];
+
+  for (const [label, expected] of cases) {
+    const selfie = optionByLabel('poseHandId', label);
+    assert.match(selfie.en, expected);
+    assert.equal(selfie.meta?.uiHidden, undefined, label);
+    assert.equal(selfie.meta?.randomEligible, false, label);
+  }
 });
 
 test('prop actions split from pose composer hand controls while wardrobe actions remain', () => {
@@ -190,7 +199,7 @@ test('selfie hand poses compose with pose composer body controls', () => {
   assert.equal(prompt.selection.poseBaseId, optionByLabel('poseBaseId', '坐姿').id);
   assert.equal(prompt.selection.poseHandId, optionByLabel('poseHandId', '男友/閨蜜自拍').id);
   assert.match(promptText, /slightly forward-leaning seated pose/);
-  assert.match(promptText, /close-companion social snapshot/);
+  assert.match(promptText, /close handheld companion snapshot/);
 });
 
 test('deprecated non-social special actions migrate away from the normal body pose', () => {

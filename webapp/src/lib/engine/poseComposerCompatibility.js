@@ -6,7 +6,7 @@ import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.
  * These predicates are deliberately applied only to random pools. Explicit
  * Pose Composer locks remain user intent and are not silently replaced.
  */
-export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 8;
+export const POSE_COMPOSER_RANDOM_COMPATIBILITY_VERSION = 9;
 
 const UPPER_OR_KNEE_CROP_BUCKETS = new Set([
   COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
@@ -181,6 +181,10 @@ export function poseComposerHandSupportsRandomContext(hand, context = {}) {
   if (requiredRole && context.wardrobeSignals?.[requiredRole] !== 'present') return false;
 
   const orbitTags = new Set(context.orbitTags || []);
+  if (hand.meta?.requiresCameraFacingGesture
+    && hasAnyTag(orbitTags, ['back_view', 'rear_three_quarter'])) {
+    return false;
+  }
   if (hand.meta?.requiresFaceVisibility) {
     if (hasAnyTag(orbitTags, ['back_view', 'rear_three_quarter'])) return false;
     if (hasAnyTag(new Set(context.angleTags || []), ['aerial'])) return false;

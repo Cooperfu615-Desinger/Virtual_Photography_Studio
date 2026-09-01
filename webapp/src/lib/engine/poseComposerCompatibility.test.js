@@ -104,7 +104,29 @@ test('public hand metadata shares crop, wardrobe, and face-orbit constraints', (
   assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-hold-glasses'), fullDress), false);
   assert.equal(poseComposerHandSupportsRandomContext(findHand('hands-relaxed-down'), waistUp), true);
   assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-support-chin'), rear), false);
-  assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-open-palm-camera'), rear), true);
+  assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-open-palm-camera'), rear), false);
+  assert.equal(poseComposerHandSupportsRandomContext(findHand('one-hand-open-palm-camera'), fullDress), true);
+});
+
+test('restored selfie hands stay manually selectable across every pose base and out of random pools', () => {
+  const selfieIds = [
+    'selfie-natural-right-arm',
+    'selfie-mirror-phone-visible',
+    'selfie-companion-camera-interaction',
+  ];
+
+  for (const id of selfieIds) {
+    const hand = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === id);
+    assert.ok(hand, `Expected restored selfie hand ${id}`);
+    assert.equal(hand.meta?.uiHidden, undefined, id);
+    assert.equal(hand.meta?.randomEligible, false, id);
+    for (const baseId of ['standing', 'sitting', 'kneeling', 'squatting', 'lying']) {
+      assert.equal(poseComposerOptionVisibleForBase(hand, baseId), true, `${id} should be visible for ${baseId}`);
+    }
+    for (const orientationId of ['lying-supine', 'lying-side', 'lying-prone']) {
+      assert.equal(poseComposerOptionVisibleForOrientation(hand, orientationId), true, `${id} should be visible for ${orientationId}`);
+    }
+  }
 });
 
 test('standing matrix hides incompatible support and lower-body options while preserving other bases', () => {
@@ -148,7 +170,7 @@ test('kneeling matrix keeps four-point support hands and bent-knee hug hands com
   assert.equal(poseComposerHandSupportsRandomContext(hugKnees, forwardLean), false);
 });
 
-test('squatting matrix exposes six dedicated hand actions only for squatting', () => {
+test('squatting matrix exposes six dedicated hand actions for squatting', () => {
   const squat = createPoseComposerCompatibilityContext({
     base: 'squatting',
     bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,

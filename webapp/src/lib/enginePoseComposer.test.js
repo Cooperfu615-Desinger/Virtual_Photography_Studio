@@ -108,6 +108,9 @@ test('public hand catalog includes dedicated lying actions and clarified garment
     '雙手背在身後',
     '雙手放在頭後',
     '單手向鏡頭張開手掌',
+    '自然自拍',
+    '鏡子自拍',
+    '男友/閨蜜自拍',
     '雙手向前伸展',
     '雙手自然放在兩腿外側',
     '單手托腮一手扶膝',
@@ -131,10 +134,17 @@ test('public hand catalog includes dedicated lying actions and clarified garment
   ]);
 
   const byZh = (zh) => publicHands.find((option) => option.zh === zh);
+  assert.match(byZh('單手向鏡頭張開手掌').en, /open palm held extremely close to the camera lens.*filling most of the frame.*face and body largely obscured/i);
+  assert.doesNotMatch(byZh('單手向鏡頭張開手掌').en, /greeting|waving/i);
+  for (const label of ['自然自拍', '鏡子自拍', '男友/閨蜜自拍']) {
+    assert.equal(byZh(label).meta?.uiHidden, undefined, label);
+    assert.equal(byZh(label).meta?.randomEligible, false, label);
+  }
   assert.match(byZh('雙手抓著整束頭髮與髮尾整理').en, /one thick bundle of hair.*holding near the base.*grips and smooths.*ends/i);
   assert.match(byZh('單手往後撥瀏海').en, /sweeping the bangs backward.*fingers combing the fringe/i);
   assert.match(byZh('拉下肩線整理上衣').en, /pulling the neckline or shoulder seam down.*garment stays attached/i);
-  assert.match(byZh('雙手把褲子或裙子的褲頭往上拉').en, /pulling the pants or skirt waistband slightly upward.*without lowering or removing/i);
+  assert.match(byZh('雙手把褲子或裙子的褲頭往上拉').en, /gripping the garment at both sides of the waist.*small upward adjustment.*settle it naturally into place/i);
+  assert.doesNotMatch(byZh('雙手把褲子或裙子的褲頭往上拉').en, /pants|skirt|belt loops|lowering|removing/i);
   assert.match(byZh('雙手抱膝').en, /both arms wrapped around the bent knees.*holding the knees close to the torso/i);
   assert.match(byZh('雙掌撐地').en, /both palms planted on the ground.*arms supporting the upper body/i);
   assert.match(byZh('雙肘撐地').en, /both elbows planted on the ground.*forearms supporting the upper body/i);
@@ -364,8 +374,8 @@ test('hand visibility metadata projects lower-body actions out of chest-up canon
   const [fullBody] = generatePrompts(1, { ...shared, framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)') });
   const chestPose = chestUp.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
   const fullPose = fullBody.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
-  assert.doesNotMatch(chestPose, /pulling the pants or skirt waistband/i);
-  assert.match(fullPose, /pulling the pants or skirt waistband/i);
+  assert.doesNotMatch(chestPose, /gripping the garment at both sides of the waist/i);
+  assert.match(fullPose, /gripping the garment at both sides of the waist.*small upward adjustment/i);
 });
 
 test('crop projection metadata omits lower-only standing geometry without changing full-body output', () => {
@@ -822,7 +832,7 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
         poseArrangementId: optionId('poseArrangementId', '自然站姿'),
         poseHandId: optionId('poseHandId', '男友/閨蜜自拍'),
       },
-      expected: 'She has casual, naturally relaxed hand placement in a close-companion social snapshot, with unforced candid body language, and presents a relaxed neutral standing posture.',
+      expected: 'She has a close handheld companion snapshot from a boyfriend-or-best-friend point of view, with her leaning naturally toward the nearby camera and keeping her hands relaxed in candid body language, and presents a relaxed neutral standing posture.',
     },
     {
       locks: {
@@ -1063,7 +1073,7 @@ test('squatting-specific hand actions stay scoped and source-traceable across ou
     poseAnchorId: optionId('poseAnchorId', '全無'),
   };
   const cases = [
-    ['雙手向前伸展', /both arms extended forward with the hands held close together in front of the knees/],
+    ['雙手向前伸展', /both elbows resting firmly on top of the knees.*forearms extend forward and downward beyond the knees.*wrists and hands hang naturally with relaxed fingers/],
     ['雙手自然放在兩腿外側', /both hands resting naturally along the outer sides of the legs with relaxed elbows/],
     ['單手托腮一手扶膝', /one hand lightly supporting one cheek, the other hand resting on the opposite knee with both elbows relaxed/],
     ['單手碰嘴角一手自然下垂', /one hand lightly touching the corner of the mouth, the other arm hanging naturally beside the leg/],
@@ -1095,6 +1105,30 @@ test('squatting-specific hand actions stay scoped and source-traceable across ou
       poseHandId: optionId('poseHandId', handZh),
     });
     assert.match(poseText(medium), expected);
+  }
+});
+
+test('forward-leaning and wide-knee squats share the revised elbow-supported forward hand action', () => {
+  const expectedHand = /both elbows resting firmly on top of the knees.*supporting part of the forward-leaning upper-body weight.*forearms extend forward and downward beyond the knees.*wrists and hands hang naturally with relaxed fingers/;
+  const retiredHand = /both arms extended forward with the hands held close together in front of the knees/;
+
+  for (const arrangementZh of ['身體前傾蹲姿', '寬膝深蹲／流氓蹲姿']) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: optionId('framingId', '牛仔中景 (Cowboy Shot)'),
+      poseBaseId: optionId('poseBaseId', '蹲姿'),
+      poseArrangementId: optionId('poseArrangementId', arrangementZh),
+      poseHandId: optionId('poseHandId', '雙手向前伸展'),
+      posePropId: optionId('posePropId', '全無'),
+      poseHeadId: optionId('poseHeadId', '全無'),
+      poseAnchorId: optionId('poseAnchorId', '全無'),
+    });
+
+    for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      assert.match(text, expectedHand);
+      assert.doesNotMatch(text, retiredHand);
+    }
   }
 });
 
@@ -1248,8 +1282,8 @@ test('pose composer exposes selfie hand pose batch', () => {
     ['自然自拍', /naturally foreshortened right forearm entering from the side/],
     ['鏡子自拍', /one hand holding a visible phone toward a mirror/],
     ['鏡子自拍', /phone overlapping the face or positioned beside it in the reflection/],
-    ['男友/閨蜜自拍', /casual, naturally relaxed hand placement/],
-    ['男友/閨蜜自拍', /close-companion social snapshot/],
+    ['男友/閨蜜自拍', /close handheld companion snapshot from a boyfriend-or-best-friend point of view/],
+    ['男友/閨蜜自拍', /leaning naturally toward the nearby camera.*hands relaxed in candid body language/],
   ].forEach(([zh, expectedEnglish]) => {
     assertHandOption(zh, expectedEnglish);
   });
@@ -1261,7 +1295,7 @@ test('selfie hand poses are preserved in all prompt versions and lock orbit to n
   const selfieCases = [
     ['自然自拍', /front-camera self-shot/, /phone just beyond the frame edge/],
     ['鏡子自拍', /visible phone toward a mirror/, /phone overlapping the face/],
-    ['男友/閨蜜自拍', /naturally relaxed hand placement/, /close-companion social snapshot/],
+    ['男友/閨蜜自拍', /close handheld companion snapshot/, /leaning naturally toward the nearby camera/],
   ];
 
   for (const [handZh, expectedA, expectedB] of selfieCases) {
@@ -1308,7 +1342,7 @@ test('a random hand no longer resolves to retired selfie actions or clears a loc
   assert.match(canonicalPose, /both hands resting naturally along the body/);
   assertSharedCanonicalPose(prompt, canonicalPose);
   for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
-    assert.doesNotMatch(text, /front-camera self-shot|mirror selfie|close-companion social snapshot/i);
+    assert.doesNotMatch(text, /front-camera self-shot|mirror selfie|companion snapshot/i);
   }
 });
 
@@ -1331,7 +1365,7 @@ test('a random hand resolved to a non-selfie preserves an explicitly locked rear
   assert.equal(prompt.selection.orbitId, rearOrbit);
   for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
     assert.match(text, /back view/i);
-    assert.doesNotMatch(text, /front-camera self-shot|mirror selfie|close-companion social snapshot/i);
+    assert.doesNotMatch(text, /front-camera self-shot|mirror selfie|companion snapshot/i);
   }
 });
 

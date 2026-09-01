@@ -51,6 +51,140 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'open-palm-lens-occlusion',
+    title: 'Open palm fills the near-lens foreground instead of greeting',
+    mode: 'single',
+    seed: 'prompt-contract-open-palm-lens-occlusion-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' },
+      orbitId: { byZh: '正面 0 度' },
+      poseBaseId: { byZh: '站姿' },
+      poseArrangementId: { byZh: '自然站姿' },
+      poseHandId: { byZh: '單手向鏡頭張開手掌' },
+      poseHeadId: { byZh: '全無' },
+      poseAnchorId: { byZh: '全無' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['one open palm held extremely close to the camera lens', 'palm facing the lens and filling most of the frame', 'face and body largely obscured behind the hand'],
+        excludes: ['greeting gesture', 'one hand raised toward the camera'],
+      },
+      zImagePrompt: {
+        includes: ['one open palm held extremely close to the camera lens', 'palm facing the lens and filling most of the frame', 'face and body largely obscured behind the hand'],
+        excludes: ['greeting gesture', 'one hand raised toward the camera'],
+      },
+      midjourneyPrompt: {
+        includes: ['one open palm held extremely close to the camera lens', 'palm facing the lens and filling most of the frame', 'face and body largely obscured behind the hand'],
+        excludes: ['greeting gesture', 'one hand raised toward the camera'],
+      },
+    },
+  },
+  {
+    id: 'restored-companion-selfie',
+    title: 'Restored companion selfie uses a close handheld point of view',
+    mode: 'single',
+    seed: 'prompt-contract-restored-companion-selfie-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      orbitId: { byZh: '背面 180 度' },
+      poseBaseId: { byZh: '坐姿' },
+      poseArrangementId: { byZh: '自然坐姿' },
+      poseHandId: { byZh: '男友/閨蜜自拍' },
+      poseHeadId: { byZh: '頭部自然朝向鏡頭' },
+      poseAnchorId: { byZh: '全無' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['a close handheld companion snapshot from a boyfriend-or-best-friend point of view', 'leaning naturally toward the nearby camera', 'hands relaxed in candid body language'],
+        excludes: ['close-companion social snapshot', 'back view', 'rear view'],
+      },
+      zImagePrompt: {
+        includes: ['a close handheld companion snapshot from a boyfriend-or-best-friend point of view', 'leaning naturally toward the nearby camera', 'hands relaxed in candid body language'],
+        excludes: ['close-companion social snapshot', 'back view', 'rear view'],
+      },
+      midjourneyPrompt: {
+        includes: ['a close handheld companion snapshot from a boyfriend-or-best-friend point of view', 'leaning naturally toward the nearby camera', 'hands relaxed in candid body language'],
+        excludes: ['close-companion social snapshot', 'back view', 'rear view'],
+      },
+    },
+  },
+  {
+    id: 'neutral-upward-waist-adjustment',
+    title: 'Upward waist adjustment stays garment-neutral and positive',
+    mode: 'single',
+    seed: 'prompt-contract-neutral-upward-waist-adjustment-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '牛仔中景 (Cowboy Shot)' },
+      orbitId: { byZh: '正面 0 度' },
+      pantsId: { byZh: '直筒牛仔褲' },
+      poseBaseId: { byZh: '站姿' },
+      poseArrangementId: { byZh: '自然站姿' },
+      poseHandId: { byZh: '雙手把褲子或裙子的褲頭往上拉' },
+      poseHeadId: { byZh: '全無' },
+      poseAnchorId: { byZh: '全無' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: ['both hands lightly gripping the garment at both sides of the waist', 'making a small upward adjustment to settle it naturally into place'],
+        excludes: ['pants or skirt waistband', 'belt loops', 'lowering or removing'],
+      },
+      zImagePrompt: {
+        includes: ['both hands lightly gripping the garment at both sides of the waist', 'making a small upward adjustment to settle it naturally into place'],
+        excludes: ['pants or skirt waistband', 'belt loops', 'lowering or removing'],
+      },
+      midjourneyPrompt: {
+        includes: ['both hands lightly gripping the garment at both sides of the waist', 'making a small upward adjustment to settle it naturally into place'],
+        excludes: ['pants or skirt waistband', 'belt loops', 'lowering or removing'],
+      },
+    },
+  },
+  {
+    id: 'squatting-forward-elbows-on-knees',
+    title: 'Forward-leaning squat keeps elbow-to-knee support and relaxed extended forearms',
+    mode: 'single',
+    seed: 'prompt-contract-squatting-forward-elbows-on-knees-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '牛仔中景 (Cowboy Shot)' },
+      poseBaseId: { byZh: '蹲姿' },
+      poseArrangementId: { byZh: '身體前傾蹲姿' },
+      poseHandId: { byZh: '雙手向前伸展' },
+      posePropId: { byZh: '全無' },
+      poseHeadId: { byZh: '全無' },
+      poseAnchorId: { byZh: '全無' },
+      locationId: { byZh: '室內：深邃黑幕' },
+    },
+    expectedOutputs: {
+      grokPrompt: {
+        includes: [
+          'both elbows resting firmly on top of the knees',
+          'forearms extend forward and downward beyond the knees',
+          'torso leaning forward over the thighs',
+        ],
+        excludes: ['hands held close together in front of the knees'],
+      },
+      zImagePrompt: {
+        includes: [
+          'both elbows resting firmly on top of the knees',
+          'forearms extend forward and downward beyond the knees',
+          'torso leaning forward over the thighs',
+        ],
+        excludes: ['hands held close together in front of the knees'],
+      },
+      midjourneyPrompt: {
+        includes: [
+          'both elbows resting firmly on top of the knees',
+          'forearms extend forward and downward beyond the knees',
+          'torso leaning forward over the thighs',
+        ],
+        excludes: ['hands held close together in front of the knees'],
+      },
+    },
+  },
+  {
     id: 'lying-prone-upper-propped',
     title: 'Prone lying and upper-body support use clear shared geometry',
     mode: 'single',

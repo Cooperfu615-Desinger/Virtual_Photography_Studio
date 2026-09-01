@@ -226,6 +226,35 @@ test('standard prompt parser restores both pocket hand actions and the retired g
   }
 });
 
+test('standard prompt parser restores revised hand actions from current and legacy wording', () => {
+  const controls = getLockControls();
+  const handControl = controls.find((control) => control.key === 'poseHandId');
+  const cases = [
+    {
+      id: 'one-hand-open-palm-camera',
+      legacy: 'one hand raised toward the camera with an open palm and relaxed fingers, a natural expressive greeting gesture',
+    },
+    {
+      id: 'hands-lift-waistband',
+      legacy: 'both hands pulling the pants or skirt waistband slightly upward into place, fingers gripping the waistband or belt loops without lowering or removing the garment',
+    },
+    {
+      id: 'selfie-companion-camera-interaction',
+      legacy: 'casual, naturally relaxed hand placement in a close-companion social snapshot, with unforced candid body language',
+    },
+  ];
+
+  for (const { id, legacy } of cases) {
+    const hand = handControl.options.find((option) => option.id === id);
+    assert.ok(hand, id);
+    assert.ok(hand.meta?.legacyPromptAliases?.includes(legacy), id);
+    for (const promptText of [hand.en, legacy]) {
+      const parsed = parseLocksFromStandardPrompt(`portrait, ${promptText}`, controls);
+      assert.equal(parsed.locks.poseHandId, id, promptText);
+    }
+  }
+});
+
 test('standard prompt parser restores only the strict Z-Image exact visible text wrapper', () => {
   const controls = getLockControls();
   const exactSentence = 'A wall poster within the scene clearly displays the exact English text "MIDNIGHT CAFE".';

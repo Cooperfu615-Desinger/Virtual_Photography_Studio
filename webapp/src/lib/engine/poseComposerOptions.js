@@ -666,6 +666,9 @@ const POSE_COMPOSER_LEGACY_HAND_OPTIONS = [
 ];
 
 const POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS = new Set([
+  'selfie-natural-right-arm',
+  'selfie-mirror-phone-visible',
+  'selfie-companion-camera-interaction',
   'hands-relaxed-down',
   'arms-crossed',
   'one-hand-waist-one-down',
@@ -782,8 +785,63 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'one-hand-waist-one-down', zh: '一手扶腰一手自然放下', en: 'one hand on the waist or hip line with the other hand relaxed along the body or nearby support surface', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
   { id: 'hands-behind-back', zh: '雙手背在身後', en: 'both hands drawn behind the back or torso only where physically plausible for the selected pose, with relaxed shoulders', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
   { id: 'hands-behind-head', zh: '雙手放在頭後', en: 'both hands placed behind the head with elbows angled outward naturally and shoulders relaxed', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
-  { id: 'one-hand-open-palm-camera', zh: '單手向鏡頭張開手掌', en: 'one hand raised toward the camera with an open palm and relaxed fingers, a natural expressive greeting gesture', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
-  hidePoseOptionForBases({ id: 'squatting-hands-forward', zh: '雙手向前伸展', en: 'both arms extended forward with the hands held close together in front of the knees', meta: { tags: ['squatting_hand_pose'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS } }, ['standing', 'sitting', 'kneeling', 'lying']),
+  {
+    id: 'one-hand-open-palm-camera',
+    zh: '單手向鏡頭張開手掌',
+    en: 'one open palm held extremely close to the camera lens, palm facing the lens and filling most of the frame, with strongly foreshortened fingers spreading across the foreground and the face and body largely obscured behind the hand',
+    desc: '單手手掌幾乎貼住鏡頭並佔滿大部分畫面，手指在前景產生強烈透視，人臉與身體大幅被手掌遮擋。',
+    meta: {
+      tags: ['foreground_occlusion'],
+      visibleBuckets: HAND_VISIBLE_BUCKETS,
+      requiresCameraFacingGesture: true,
+      legacyPromptAliases: [
+        'one hand raised toward the camera with an open palm and relaxed fingers, a natural expressive greeting gesture',
+      ],
+    },
+  },
+  {
+    id: 'selfie-natural-right-arm',
+    zh: '自然自拍',
+    en: 'front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side',
+    desc: '右手拿手機使用前鏡頭自拍，手機位於畫面邊緣之外，只讓具有自然透視感的右前臂從畫面側邊進入。',
+    meta: {
+      tags: ['selfie_hand_pose', 'locks_orbit'],
+      visibleBuckets: HAND_VISIBLE_BUCKETS,
+      randomEligible: false,
+    },
+  },
+  {
+    id: 'selfie-mirror-phone-visible',
+    zh: '鏡子自拍',
+    en: 'one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection',
+    desc: '單手拿著畫面中可見的手機對鏡自拍，手機可在鏡中遮住部分臉部或位於臉旁。',
+    meta: {
+      tags: ['selfie_hand_pose', 'visible_phone', 'mirror_selfie', 'locks_orbit'],
+      visibleBuckets: HAND_VISIBLE_BUCKETS,
+      randomEligible: false,
+    },
+  },
+  {
+    id: 'selfie-companion-camera-interaction',
+    zh: '男友/閨蜜自拍',
+    en: 'a close handheld companion snapshot from a boyfriend-or-best-friend point of view, with her leaning naturally toward the nearby camera and keeping her hands relaxed in candid body language',
+    desc: '由距離很近的男友或閨蜜手持手機拍攝，人物自然靠近鏡頭，雙手放鬆，呈現親近隨性的社群快照感。',
+    meta: {
+      tags: ['selfie_hand_pose', 'companion_snapshot', 'locks_orbit'],
+      visibleBuckets: HAND_VISIBLE_BUCKETS,
+      randomEligible: false,
+      legacyPromptAliases: [
+        'casual, naturally relaxed hand placement in a close-companion social snapshot, with unforced candid body language',
+      ],
+    },
+  },
+  hidePoseOptionForBases({
+    id: 'squatting-hands-forward',
+    zh: '雙手向前伸展',
+    en: 'both elbows resting firmly on top of the knees and supporting part of the forward-leaning upper-body weight, while the forearms extend forward and downward beyond the knees and the wrists and hands hang naturally with relaxed fingers',
+    desc: '上半身前傾，雙肘分別倚靠膝蓋承接部分重量，前臂越過膝蓋向前下方延伸，手腕與雙手自然放鬆垂下。',
+    meta: { tags: ['squatting_hand_pose'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS },
+  }, ['standing', 'sitting', 'kneeling', 'lying']),
   hidePoseOptionForBases({ id: 'squatting-hands-outer-legs', zh: '雙手自然放在兩腿外側', en: 'both hands resting naturally along the outer sides of the legs with relaxed elbows', meta: { tags: ['squatting_hand_pose'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS } }, ['standing', 'sitting', 'kneeling', 'lying']),
   hidePoseOptionForBases({ id: 'squatting-one-hand-cheek-one-knee', zh: '單手托腮一手扶膝', en: 'one hand lightly supporting one cheek, the other hand resting on the opposite knee with both elbows relaxed', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
   hidePoseOptionForBases({ id: 'squatting-one-hand-mouth-one-down', zh: '單手碰嘴角一手自然下垂', en: 'one hand lightly touching the corner of the mouth, the other arm hanging naturally beside the leg', meta: { tags: ['squatting_hand_pose', 'face_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresFaceVisibility: true } }, ['standing', 'sitting', 'kneeling', 'lying']),
@@ -807,7 +865,20 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'one-hand-sweep-bangs-back', zh: '單手往後撥瀏海', en: 'one hand sweeping the bangs backward across the forehead with the fingers combing the fringe into place in a confident, cool grooming gesture', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
   { id: 'both-hands-gather-hair', zh: '雙手抓著整束頭髮與髮尾整理', en: 'both hands gathering one thick bundle of hair behind and above the head, one hand holding near the base while the other grips and smooths the loose lengths toward the ends in a natural ponytail-prep motion', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
   { id: 'hand-adjust-off-shoulder-top', zh: '拉下肩線整理上衣', en: 'one hand gently pulling the neckline or shoulder seam down from one shoulder to expose the shoulder while the garment stays attached and naturally draped', desc: '單手把領口或肩線往一側肩膀下拉，露出肩膀，但衣服仍保持連著身體並自然垂墜。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'upperGarment' } },
-  { id: 'hands-lift-waistband', zh: '雙手把褲子或裙子的褲頭往上拉', en: 'both hands pulling the pants or skirt waistband slightly upward into place, fingers gripping the waistband or belt loops without lowering or removing the garment', desc: '雙手把褲子或裙子的褲頭稍微往上拉回定位，不是往下脫。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, requiresWardrobeRole: 'bottom' } },
+  {
+    id: 'hands-lift-waistband',
+    zh: '雙手把褲子或裙子的褲頭往上拉',
+    en: 'both hands lightly gripping the garment at both sides of the waist and making a small upward adjustment to settle it naturally into place, with the elbows relaxed outward',
+    desc: '雙手輕抓腰部兩側衣料，稍微向上調整回自然位置。',
+    meta: {
+      tags: ['wardrobe_action'],
+      visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS,
+      requiresWardrobeRole: 'bottom',
+      legacyPromptAliases: [
+        'both hands pulling the pants or skirt waistband slightly upward into place, fingers gripping the waistband or belt loops without lowering or removing the garment',
+      ],
+    },
+  },
   hidePoseOptionForBase({ id: 'hands-hug-knees', zh: '雙手抱膝', en: 'both arms wrapped around the bent knees, hands gently holding the knees close to the torso', desc: '雙手環抱彎曲的膝蓋，手掌自然扶住膝部，不綁定特定蹲姿。', meta: { tags: ['leg_focus_action'], visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS, randomEligibleForArrangements: { sitting: ['sitting-hug-knees', 'sitting-one-knee-up'], kneeling: ['kneeling-seiza', 'kneeling-wide', 'kneeling-side-sit'] } } }, 'standing'),
   hidePoseOptionForBases({ id: 'hands-palms-planted-ground', zh: '雙掌撐地', en: 'both palms planted on the ground with the arms supporting the upper body', desc: '雙掌平放在地面，手臂支撐上半身。', meta: { tags: ['support_action', 'leg_focus_action'], visibleBuckets: HAND_VISIBLE_BUCKETS, randomEligibleForArrangements: { kneeling: ['kneeling-all-fours'] } } }, ['standing', 'sitting', 'squatting', 'lying']),
   hidePoseOptionForBases({ id: 'hands-elbows-planted-ground', zh: '雙肘撐地', en: 'both elbows planted on the ground with the forearms supporting the upper body', desc: '雙肘接觸地面，前臂支撐上半身。', meta: { tags: ['support_action', 'leg_focus_action'], visibleBuckets: HAND_VISIBLE_BUCKETS, randomEligibleForArrangements: { kneeling: ['kneeling-all-fours'] } } }, ['standing', 'sitting', 'squatting', 'lying']),
