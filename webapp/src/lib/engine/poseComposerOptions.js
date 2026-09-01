@@ -788,14 +788,16 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   {
     id: 'one-hand-open-palm-camera',
     zh: '單手向鏡頭張開手掌',
-    en: 'one open palm held extremely close to the camera lens, palm facing the lens and filling most of the frame, with strongly foreshortened fingers spreading across the foreground and the face and body largely obscured behind the hand',
-    desc: '單手手掌幾乎貼住鏡頭並佔滿大部分畫面，手指在前景產生強烈透視，人臉與身體大幅被手掌遮擋。',
+    en: 'one arm extended straight toward the camera to block the lens, with one open palm held flat toward the lens and all five fingers spread wide and fully visible from their bases to their fingertips',
+    desc: '任一隻手臂直接伸向鏡頭，以張開的手掌遮擋鏡頭；五根手指從指根到指尖完整可見，不限定左右手。',
     meta: {
       tags: ['foreground_occlusion'],
       visibleBuckets: HAND_VISIBLE_BUCKETS,
       requiresCameraFacingGesture: true,
+      compositionModifierEn: 'The camera lens is intentionally blocked by one open hand. The complete hand is centered immediately in front of the lens and dominates nearly the entire image, occupying roughly eighty to ninety percent of the frame. All five fingers are spread wide and fully visible from their bases to their fingertips, with the fingertips reaching close to the outer frame edges without being cropped. Her face, clothing, and surroundings remain visible only as small, incomplete fragments around the outer perimeter of the hand.',
       legacyPromptAliases: [
         'one hand raised toward the camera with an open palm and relaxed fingers, a natural expressive greeting gesture',
+        'one open palm held extremely close to the camera lens, palm facing the lens and filling most of the frame, with strongly foreshortened fingers spreading across the foreground and the face and body largely obscured behind the hand',
       ],
     },
   },

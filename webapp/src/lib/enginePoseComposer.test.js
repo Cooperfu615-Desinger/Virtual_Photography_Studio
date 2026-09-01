@@ -134,8 +134,9 @@ test('public hand catalog includes dedicated lying actions and clarified garment
   ]);
 
   const byZh = (zh) => publicHands.find((option) => option.zh === zh);
-  assert.match(byZh('單手向鏡頭張開手掌').en, /open palm held extremely close to the camera lens.*filling most of the frame.*face and body largely obscured/i);
-  assert.doesNotMatch(byZh('單手向鏡頭張開手掌').en, /greeting|waving/i);
+  assert.match(byZh('單手向鏡頭張開手掌').en, /one arm extended straight toward the camera.*block the lens.*all five fingers.*fully visible from their bases to their fingertips/i);
+  assert.match(byZh('單手向鏡頭張開手掌').meta?.compositionModifierEn || '', /camera lens is intentionally blocked.*eighty to ninety percent.*without being cropped.*incomplete fragments/i);
+  assert.doesNotMatch(`${byZh('單手向鏡頭張開手掌').en} ${byZh('單手向鏡頭張開手掌').meta?.compositionModifierEn || ''}`, /greeting|waving|right hand|right arm|left hand|left arm/i);
   for (const label of ['自然自拍', '鏡子自拍', '男友/閨蜜自拍']) {
     assert.equal(byZh(label).meta?.uiHidden, undefined, label);
     assert.equal(byZh(label).meta?.randomEligible, false, label);
@@ -152,6 +153,32 @@ test('public hand catalog includes dedicated lying actions and clarified garment
   assert.match(byZh('咬著眼鏡腳').en, /one glasses temple held lightly between the teeth.*removed from the face/i);
   assert.equal(publicHands.filter((option) => option.meta?.requiresWardrobeRole === 'eyewear').length, 3);
   assert.equal(control('poseHandId').options.filter((option) => option.meta?.uiHidden).length > 0, true);
+});
+
+test('open-palm lens block promotes complete five-finger occlusion into every main composition', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
+    orbitId: optionId('orbitId', '正面 0 度'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '單手向鏡頭張開手掌'),
+    poseHeadId: optionId('poseHeadId', '全無'),
+    poseAnchorId: optionId('poseAnchorId', '全無'),
+  });
+
+  const expectedCanonical = 'She has one arm extended straight toward the camera to block the lens, with one open palm held flat toward the lens and all five fingers spread wide and fully visible from their bases to their fingertips, and presents a relaxed upright posture.';
+  assertSharedCanonicalPose(prompt, expectedCanonical);
+
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /The camera lens is intentionally blocked by one open hand/i);
+    assert.match(text, /occupying roughly eighty to ninety percent of the frame/i);
+    assert.match(text, /all five fingers are spread wide and fully visible from their bases to their fingertips/i);
+    assert.match(text, /fingertips reaching close to the outer frame edges without being cropped/i);
+    assert.match(text, /face, clothing, and surroundings remain visible only as small, incomplete fragments/i);
+    assert.doesNotMatch(text, /right hand|right arm|left hand|left arm/i);
+  }
 });
 
 test('random hand integration excludes unavailable wardrobe and eyewear interactions', () => {

@@ -10299,6 +10299,24 @@ function buildCompositionPromptLine(context, {
   return parts.join(', ');
 }
 
+function buildPoseComposerCompositionModifier(poseComposer) {
+  if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
+  const handPose = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer.meta?.poseHandId);
+  if (!handPose || isNoneLikeItem(handPose)) return '';
+  return stripMarkdown(handPose.meta?.compositionModifierEn || '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function joinCompositionPromptText(baseComposition, poseComposer) {
+  const compositionModifier = buildPoseComposerCompositionModifier(poseComposer);
+  if (!compositionModifier) return baseComposition;
+  return [
+    ensureTerminalPeriod(baseComposition),
+    ensureTerminalPeriod(compositionModifier),
+  ].filter(Boolean).join(' ');
+}
+
 function buildPromptSectionSources(valuesByLabel, context) {
   const fixedCompositionSetActive = isFixedCompositionSetActive(context.fixedCompositionSet);
   const subjectValues = getStructuredValues(valuesByLabel, [
@@ -11765,9 +11783,12 @@ function renderGptPrompt(promptModel, {
     sceneUsesDirectSentence,
   } = buildPromptSectionSources(valuesByLabel, context);
   const imageTypeLine = buildImageTypePromptLine(context) || imageType;
-  const compositionLine = buildCompositionPromptLine(context);
   const useRoleOrderedDuo = context.subject?.count === 2 && character && wardrobe && wardrobeColors;
   const characterSlots = character ? extractCharacterSlots(character) : {};
+  const compositionLine = joinCompositionPromptText(
+    buildCompositionPromptLine(context),
+    useRoleOrderedDuo ? null : characterSlots.poseComposer,
+  );
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
   const duoWardrobeSlots = useRoleOrderedDuo ? extractWardrobeSlots(wardrobe) : null;
   const singleCharacterProfileSubjectBlock = !useRoleOrderedDuo && isCharacterProfileSubject(context.subject)
@@ -12546,6 +12567,9 @@ function renderZImagePrompt(promptModel) {
           subjectKind: specialSubjectMode ? 'subject' : 'woman',
           poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || '',
         })
+      : '',
+    context.subject.count === 1
+      ? buildPoseComposerCompositionModifier(characterSlots.poseComposer)
       : '',
   ].filter(Boolean).join(' ');
   const buildZImageDuoSubjectText = () => 'Two stunning seductive 20-year-old Japanese or Korean women';
@@ -14568,7 +14592,10 @@ function renderAiPrompt(promptModel, {
     { id: 'imageType', text: buildMidjourneyImageTypePromptLine(compositionContext) },
     {
       id: 'composition',
-      text: ensureTerminalPeriod(buildCompositionPromptLine(compositionContext, { adaptation })),
+      text: joinCompositionPromptText(
+        ensureTerminalPeriod(buildCompositionPromptLine(compositionContext, { adaptation })),
+        extractCharacterSlots(poseCharacter).poseComposer,
+      ),
     },
     {
       id: 'subject',

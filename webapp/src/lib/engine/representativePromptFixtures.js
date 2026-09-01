@@ -67,16 +67,16 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: {
       grokPrompt: {
-        includes: ['one open palm held extremely close to the camera lens', 'palm facing the lens and filling most of the frame', 'face and body largely obscured behind the hand'],
-        excludes: ['greeting gesture', 'one hand raised toward the camera'],
+        includes: ['The camera lens is intentionally blocked by one open hand', 'occupying roughly eighty to ninety percent of the frame', 'all five fingers are spread wide and fully visible from their bases to their fingertips', 'fingertips reaching close to the outer frame edges without being cropped', 'one arm extended straight toward the camera to block the lens'],
+        excludes: ['greeting gesture', 'one hand raised toward the camera', 'right hand', 'right arm', 'left hand', 'left arm'],
       },
       zImagePrompt: {
-        includes: ['one open palm held extremely close to the camera lens', 'palm facing the lens and filling most of the frame', 'face and body largely obscured behind the hand'],
-        excludes: ['greeting gesture', 'one hand raised toward the camera'],
+        includes: ['The camera lens is intentionally blocked by one open hand', 'occupying roughly eighty to ninety percent of the frame', 'all five fingers are spread wide and fully visible from their bases to their fingertips', 'fingertips reaching close to the outer frame edges without being cropped', 'one arm extended straight toward the camera to block the lens'],
+        excludes: ['greeting gesture', 'one hand raised toward the camera', 'right hand', 'right arm', 'left hand', 'left arm'],
       },
       midjourneyPrompt: {
-        includes: ['one open palm held extremely close to the camera lens', 'palm facing the lens and filling most of the frame', 'face and body largely obscured behind the hand'],
-        excludes: ['greeting gesture', 'one hand raised toward the camera'],
+        includes: ['The camera lens is intentionally blocked by one open hand', 'occupying roughly eighty to ninety percent of the frame', 'all five fingers are spread wide and fully visible from their bases to their fingertips', 'fingertips reaching close to the outer frame edges without being cropped', 'one arm extended straight toward the camera to block the lens'],
+        excludes: ['greeting gesture', 'one hand raised toward the camera', 'right hand', 'right arm', 'left hand', 'left arm'],
       },
     },
   },
