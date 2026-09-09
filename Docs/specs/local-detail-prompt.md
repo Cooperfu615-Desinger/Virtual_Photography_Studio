@@ -2,9 +2,9 @@
 
 更新日期：2026-09-09
 
-狀態：已完成第一階段資料契約、來源案例與覆蓋盤點，並完成[第二階段核心與有限來源 runtime bridge](local-detail-projection-core.md)。正式生成已建立內部三目標 bundle，但完整目錄、UI 與儲存流程尚未接入；既有六份公開輸出不變。
+狀態：已完成第一階段資料契約、來源案例與覆蓋盤點，並完成[第二階段核心與有限來源 runtime bridge](local-detail-projection-core.md)。PAGE1 已接入局部超特寫卡片、三部位切換、複製與 DLL_PIC Pro 來源；Saved Cards 儲存／還原／匯入匯出仍未接入，既有六份公開輸出不變。
 
-第一版資料範圍與 A／B／C 三批已完成的有限來源收尾統一見[第一版覆蓋矩陣](local-detail-v1-coverage-matrix.md)。位置／遮蔽證據不足仍保留未知，不等於全目錄支援；下一階段為 consumer 與保存流程。本規格的安全與相容性契約仍適用。
+第一版資料範圍與 A／B／C 三批已完成的有限來源收尾統一見[第一版覆蓋矩陣](local-detail-v1-coverage-matrix.md)。位置／遮蔽證據不足仍保留未知，不等於全目錄支援；目前 consumer 已完成，下一階段為保存流程。本規格的安全與相容性契約仍適用。
 
 ## 1. 目的與範圍
 
@@ -118,9 +118,11 @@
 
 1. 建立局部輸出契約、三部位 fixtures、覆蓋資料盤點；先確認來源與支援缺口。
 2. 實作獨立局部投影與 renderer，證明舊六輸出不變。
-3. 接入輸出卡片、部位狀態、複製／生成來源及儲存 codec。
+3. 接入輸出卡片、部位狀態、複製／生成來源。
 4. 完成自動測試、Browser QA 與使用者生圖測試交付。
+
+目前 consumer 階段已完成：`page1PromptOutputs.js` 以顯式 consumer 選項提供第七張卡與 DLL 來源，`LocalDetailPromptCard` 只切換同一次解析的三個預先計算結果；雙人／缺少 bundle 不建立來源。Saved Cards codec 尚未保存 `localDetailPrompts`、選定部位或局部文字，依第 7 節規格留待下一階段。
 
 第一階段交付：`webapp/src/lib/engine/localDetailPromptContract.js`、`localDetailPromptFixtures.js`、`localDetailPromptContract.test.js` 與[覆蓋盤點](local-detail-coverage-inventory.md)。十組來源案例是目標規格與來源可追溯性測試，不是已生成英文成品。契約加入內部 mixed 子區域狀態，以處理鎖骨露出但胸口覆蓋等情況；不增加 UI 選項。
 
-第二階段已有獨立投影／英文 renderer、六款基礎衣物 adapter 與同次 resolved snapshot 的 runtime bridge，細節見[核心與接入文件](local-detail-projection-core.md)。舊六結果逐字不變及隨機次數相同的測試已通過；下一步先擴充可審核來源，再接入 consumer。具體保存 schema、完整款式 metadata 與 UI 仍未實作；內部 bundle 不代表第七張卡已開放使用。
+第二階段已有獨立投影／英文 renderer、有限來源 adapter 與同次 resolved snapshot 的 runtime bridge，細節見[核心與接入文件](local-detail-projection-core.md)。舊六結果逐字不變及隨機次數相同的測試已通過；A／B／C 有限來源與 consumer 已接入。具體保存 schema、完整款式 metadata 與 Saved Cards UI／codec 仍未實作；局部 bundle 目前可在 PAGE1 生成結果中使用，但不代表第七輸出已完成保存 round-trip。

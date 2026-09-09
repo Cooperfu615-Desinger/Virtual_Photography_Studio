@@ -5,6 +5,7 @@ import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
 import MidjourneyParameterControls from './MidjourneyParameterControls';
 import PromptPreviewCard from './PromptPreviewCard';
+import LocalDetailPromptCard from './LocalDetailPromptCard';
 import ZImageVisibleTextControls from './ZImageVisibleTextControls';
 import {
   DRESS_COVERED_KEYS,
@@ -26,6 +27,7 @@ import {
 import {
   buildPage1DllPromptSources,
   buildPage1GenerationPromptCards,
+  getPage1LocalDetailPrompt,
 } from '../lib/page1PromptOutputs.js';
 import {
   getPage1SectionActionLabels,
@@ -484,6 +486,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     photography: 'composition',
     midjourney: 'generation',
   });
+  const [localDetailTarget, setLocalDetailTarget] = useState('eyes');
 
   const clearedLocks = useMemo(() => createEmptyLocks(), []);
   const midjourneyParameterSettings = useMemo(
@@ -1143,7 +1146,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   };
 
   const generationPromptCards = buildPage1GenerationPromptCards(previewPrompt);
-  const dllPromptSources = buildPage1DllPromptSources(previewPrompt);
+  const localDetailPrompt = getPage1LocalDetailPrompt(previewPrompt, localDetailTarget);
+  const dllPromptSources = buildPage1DllPromptSources(previewPrompt, {
+    includeLocalDetail: true,
+    localDetailTarget,
+  });
 
   const handleClearSelected = () => {
     updateLocks((previousLocks) => ({
@@ -1302,6 +1309,16 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
                   onCopy={(text) => handleCopyText(card.copyLabel, text)}
                 />
               ))}
+              {localDetailPrompt ? (
+                <LocalDetailPromptCard
+                  value={localDetailPrompt.value}
+                  placeholder={localDetailPrompt.placeholder}
+                  description={localDetailPrompt.description}
+                  target={localDetailPrompt.target}
+                  onTargetChange={setLocalDetailTarget}
+                  onCopy={(text) => handleCopyText(localDetailPrompt.copyLabel, text)}
+                />
+              ) : null}
             </div>
           </section>
         </main>

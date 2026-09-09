@@ -10,7 +10,7 @@ export const LOCAL_DETAIL_PROMPT_CONTRACT = deepFreeze({
   outputId: 'local-detail',
   label: '局部超特寫',
   runtimeConnected: true,
-  consumerConnected: false,
+  consumerConnected: true,
   storageConnected: false,
   supportedSubjectCounts: [1],
   unsupportedBehavior: 'absent',

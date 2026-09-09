@@ -2,7 +2,7 @@
 
 日期：2026-09-09。核對基準：`main` 的 `81ca26a`。
 
-本文件收斂[獨立衍生輸出規格](local-detail-prompt.md)的第一版資料範圍。初版為唯讀盤點；後續 A／B／C 已按下列執行紀錄完成有限來源實作，UI 與儲存仍未接入。早期[目錄盤點](local-detail-coverage-inventory.md)及[核心增量紀錄](local-detail-projection-core.md)保留作來源與歷史。
+本文件收斂[獨立衍生輸出規格](local-detail-prompt.md)的第一版資料範圍。初版為唯讀盤點；後續 A／B／C 已按下列執行紀錄完成有限來源實作，Saved Cards 儲存仍未接入，PAGE1 consumer 狀態見下方執行結果。早期[目錄盤點](local-detail-coverage-inventory.md)及[核心增量紀錄](local-detail-projection-core.md)保留作來源與歷史。
 
 ## A／B／C 執行結果（2026-09-09）
 
@@ -10,9 +10,10 @@
 - **胸口頭髮邊界**：六個短髮基準在無整理／柔順自然／濕髮狀態可通過該遮蔽層；自然層次鎖骨髮、側分柔波中長髮保留已知局部髮絲，但底下區域未知。其他長髮、綁髮、未審核中長髮與風動狀態保留未知層，可能使胸口不可用；不是全髮型胸口支援。
 - **B 已完成 4 頸飾／10 腰飾分類**：兩條鎖骨鏈在衣物允許的區域保留局部來源；頸圈限頸根，不能補足基底本身未知的可見性。水滴吊墜及五款腰鍊的位置／內外關係證據不足，仍未知，不移動吊墜來湊畫面。三條 hips 腰帶記為畫面外。肚臍環僅在肚臍可見時顯示；馬甲束腰可保留衣物外的已知束腰表面，仍受更外層遮擋。未知配件不再無條件抹掉已確認衣料；這不是宣稱所有項鍊都穿在衣服內。
 - **C 已完成有限來源接線**：25 組主體光線、4 色調、3 光學、3 環境光與 3 膚質都採完整來源比對及局部片語。膚質僅在已確認露出的對應區域輸出。runtime 使用同次解析的 lighting／film／opticalEffect；未審核效果省略並留下內部診斷，不靠光線把空部位變 ready。
-- **驗證**：局部測試 119/119、全前端 946/946、Prompt Quality 168/168、lint／build 通過。strict audit 同 count 200／seed `prompt-quality-baseline` 修改前後 stdout 完全一致：0 blockers／23 既有 diagnostics；原六輸出 hash 與 random 計數不變。Build 保留既有大 chunk 提醒。
-- **Browser**：本機指定 URL，1440×1000／390×900 五工作區導覽、截圖、原六輸出及來源選單檢查；桌面套用目前預覽成功，沒有頁面 warning/error、破圖或 document 水平溢位。手機動作／場景既有面板內溢位仍在，未改 UI/CSS。未操作 Saved Cards 的新增刪除匯入、未付費生圖。本次不是第七卡 Browser 驗收。
-- **下一階段**：第七卡與部位切換、複製／圖像來源，再保存還原與匯入匯出；實際影像品質另由使用者驗證。第 2、6 節保留初版盤點基準，不是 A／B／C 之後的現況。
+- **A／B／C 基線驗證**：局部測試 119/119、全前端 946/946、Prompt Quality 168/168、lint／build 通過。strict audit 同 count 200／seed `prompt-quality-baseline` 修改前後 stdout 完全一致：0 blockers／23 既有 diagnostics；原六輸出 hash 與 random 計數不變。Build 保留既有大 chunk 提醒。consumer 接入後最新 focused local／PAGE1 為 123/123、全前端 948/948、Prompt Quality 170/170。
+- **A／B／C 基線 Browser**：本機指定 URL，1440×1000／390×900 五工作區導覽、截圖、原六輸出及來源選單檢查；桌面套用目前預覽成功，沒有頁面 warning/error、破圖或 document 水平溢位。手機動作／場景既有面板內溢位仍在；A／B／C 階段未改 UI/CSS。未操作 Saved Cards 的新增刪除匯入、未付費生圖；PAGE1 consumer 的新卡驗證另見下列 consumer 階段。
+- **consumer 已接入**：PAGE1 第七張「局部超特寫」卡置於既有六張之後，切換眼部／鎖骨／胸口／腰腹／肚臍只讀取同一 bundle 的預先計算文字，不重新隨機；複製按鈕使用當前文字，無可用資料時停用。DLL_PIC Pro 新增同一 `local-detail` source，標籤與文字跟隨當前部位，比例不鎖定。雙人及沒有局部 bundle 的舊結果不建立該卡或來源。
+- **下一階段**：Saved Cards 保存／還原與匯入匯出要固定部位、文字與契約版本；實際影像品質另由使用者驗證。第 2、6 節保留初版盤點基準，不是 A／B／C 之後的現況。
 
 ## 1. 第一版的完成定義
 
@@ -42,7 +43,7 @@
 | 腰部配件 | 肚臍環已接入，僅肚臍確定露出才顯示；其他 9 組會阻擋腹部 | 指定配件批次補齊 10 組的局部位置／遮蔽或畫面外判定，不代表全部強制入鏡 |
 | 膚質 | 玻璃水光肌、柔霧細緻肌、微曬陽光感膚質目前只接入眼部可見區 | 胸口／腹部適用性與遮蔽待審核；鼻頰雀斑不搬到腹部，位置為二選一的痣不自行選位置 |
 | 光線與成像 | 六種成品形式；高調亮光、側向柔光、柔和順光三組局部光線 | 目前未傳入環境光、film、opticalEffect；核心能接 effects 不代表 runtime 已接好 |
-| consumer／保存 | 三部位內部 bundle；公開輸出仍六份，codec 不保存新 bundle | 第七卡、複製、生圖來源、保存／還原另階段驗收，不計入資料範圍完成 |
+| consumer／保存 | 三部位內部 bundle；PAGE1 第七卡、部位切換、複製與 DLL_PIC Pro `local-detail` source 已接入；codec 不保存新 bundle | Saved Cards 保存／還原／匯入匯出與外部影像品質另階段驗收，不計入資料範圍完成 |
 
 ### 2.1 胸口上衣 13 款
 
@@ -115,7 +116,7 @@
 2. 三部位各有可靠的可用基準；胸口及腹部包含衣料覆蓋與來源明確的局部開口，眼部包含無遮擋及眼鏡／眼布。另有組合未知與完全缺資料案例。
 3. 同次解析、零新增 random、原六文字／selection 不變；特寫主景別不丟局部必要來源。來源改動、未知 modifier、多層配色均有回歸。
 4. 局部來源／renderer 改動依 AGENTS 跑 focused、Prompt Quality、全套 test/lint/build、同 seed/count strict audit、五工作區 browser smoke；新資料若需改知識庫另走 sync gate。
-5. 再依序接第七卡與部位切換、複製／圖片來源、保存／還原／匯入匯出，完成真正的第七卡 Browser QA。原有六卡的 smoke 不代替新卡驗收。
+5. 第七卡的部位切換、複製／圖片來源與 desktop／mobile Browser QA 已完成；下一關為保存／還原／匯入匯出，原有六卡的 smoke 不代替 Saved Cards round-trip 驗收。
 6. 提供固定案例的三目標英文給使用者做 Grok／Z-Image／GPT 實測，結果另記。不以 Node 測試證明影像品質。
 
 ## 6. 初版唯讀盤點證據（A／B／C 實作前）

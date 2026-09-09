@@ -7,11 +7,11 @@ import { PROMPT_OUTPUT_CONTRACTS } from './promptOutputContracts.js';
 
 const database = JSON.parse(fs.readFileSync(new URL('../../data/database.json', import.meta.url), 'utf8'));
 
-test('local-detail contract is immutable and only the runtime projection is connected', () => {
+test('local-detail contract is immutable and runtime plus PAGE1 consumer projection are connected', () => {
   assert.deepEqual(JSON.parse(JSON.stringify(contract)), contract);
   assert.ok(Object.isFrozen(contract.targets.eyes.allowedGroups));
   assert.equal(contract.runtimeConnected, true);
-  assert.equal(contract.consumerConnected, false);
+  assert.equal(contract.consumerConnected, true);
   assert.equal(contract.storageConnected, false);
   assert.ok(!Object.values(PROMPT_OUTPUT_CONTRACTS).some((output) => output.source?.id === contract.outputId));
   assert.deepEqual(contract.supportedSubjectCounts, [1]);

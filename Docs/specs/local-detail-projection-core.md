@@ -6,7 +6,7 @@
 
 新增 `localDetailChestSources.js`、`localDetailAccessorySources.js`、`localDetailEffectSources.js` 及三組 completion 回歸。胸口衣襬與頭髮層、配件局部位置及衣物內外、局部膚質與成像依[第一版覆蓋矩陣執行紀錄](local-detail-v1-coverage-matrix.md)收斂。完整來源失效及 modifier 欄位錯配會降級；光線不能替空部位製造 ready。`engine.js` 僅向獨立 bridge 傳入同次解析的環境光／film／opticalEffect，不新增抽样、不改六輸出。
 
-局部 119/119、全前端 946/946、Prompt Quality 168/168、lint/build 通過；同種子 strict audit stdout 與原六輸出 hash/random 不變。桌面／手機五工作區 smoke 通過既有流程，保留已知手機面板內溢位。第七卡 UI、複製、圖像來源及保存流程仍未接入；不可用來源、髮型與配件的精確限制以矩陣為準。
+局部／PAGE1 consumer 測試 123/123、全前端 948/948、Prompt Quality 170/170、lint/build 通過；同種子 strict audit stdout 與原六輸出 hash/random 不變。桌面／手機五工作區 smoke 通過既有流程，並完成第七卡的部位切換、複製與 DLL 來源 smoke；保留已知手機面板內溢位。Saved Cards 保存／還原／匯入匯出仍未接入；不可用來源、髮型與配件的精確限制以矩陣為準。
 
 ## 腰線與紮衣層次第一批（2026-09-09）
 
@@ -63,9 +63,9 @@ Browser：既定 localhost URL，1440×1000、390×900，文字生成與五工�
 
 Browser：既定 localhost URL，1440×1000、390×900，生成＋五工作區導覽；最終程式修改後兩尺寸再生成，六輸出標題與 DLL 來源仍保持原狀。無 console warn/error、破圖或 document 橫向溢出；手機動作／場景面板仍有先前記錄的容器溢出，不在本次 UI/CSS 範圍。畫面由工具截圖檢視，未新增截圖檔、未更動 Saved Cards、未進行外部生圖。測試分頁關閉且 dev server 已停止。這是既有 UI 回歸，不是尚未接入的第七卡功能驗收。
 
-## 已實作與尚未接入
+## 已實作與仍待接入
 
-`localDetailProjection.js` 已能將經審核、帶來源引用的局部模型轉成三部位英文結果。`localDetailSourceAdapter.js` 提供 6 款原始目錄衣物的區域轉換。後續同日已由 `localDetailResolvedAdapter.js` 接入 `engine.js` 的同次解析資料（詳見下方 runtime 小節），但尚未接入 UI／storage consumer；不代表整個目錄或第七輸出完成。
+`localDetailProjection.js` 已能將經審核、帶來源引用的局部模型轉成三部位英文結果。`localDetailSourceAdapter.js` 提供 6 款原始目錄衣物的區域轉換。後續同日已由 `localDetailResolvedAdapter.js` 接入 `engine.js` 的同次解析資料（詳見下方 runtime 小節），PAGE1 UI／DLL_PIC Pro consumer 也已接入；Saved Cards storage consumer 仍待完成，不代表整個目錄或第七輸出保存流程完成。
 
 目前可審核來源：
 
@@ -112,9 +112,9 @@ Browser：既定 localhost URL，1440×1000、390×900，生成＋五工作區�
 ## 下一個接入關卡
 
 1. 擴充 resolved context 的可審核層次，補齊圖案、有效 modifier、配件遮蔽、角色卡及各種完整造型；目前已串接解析結果，不等於完整款式支援。
-2. 同次解析／零新增 random／舊六逐字不變的 runtime gate 已通過；消費者實際切換部位的 UI gate 尚待接入。
-3. 接入第七卡、複製、生成來源與 Saved Cards 新舊 round-trip。
-4. 第七卡接入後執行其 desktop／mobile Browser QA 與交付實測英文；目前僅完成既有工作區回歸。
+2. 同次解析／零新增 random／舊六逐字不變的 runtime gate 已通過；PAGE1 第七卡的部位切換與 DLL_PIC Pro source consumer 已完成 UI gate。
+3. 接入 Saved Cards 的新舊 round-trip，保存局部文字、選定部位與契約版本。
+4. 第七卡 desktop／mobile Browser QA 已完成；外部 Grok／Z-Image／GPT 影像品質與保存後的 downstream acceptance 仍待使用者驗證。
 
 ## Runtime bridge 與驗證（2026-09-09）
 
