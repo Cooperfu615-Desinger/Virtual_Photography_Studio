@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Copy } from 'lucide-react';
 import DllPicProPanel from './DllPicProPanel';
 import SelectControlField from './SelectControlField';
@@ -457,6 +457,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     isOutfitPresetActive,
     lockControls,
     previewPrompt,
+    localDetailOverride,
   } = workspace;
   const {
     updateLocks,
@@ -487,6 +488,10 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     midjourney: 'generation',
   });
   const [localDetailTarget, setLocalDetailTarget] = useState('eyes');
+
+  useEffect(() => {
+    if (localDetailOverride?.selectedTarget) setLocalDetailTarget(localDetailOverride.selectedTarget);
+  }, [localDetailOverride?.selectedTarget]);
 
   const clearedLocks = useMemo(() => createEmptyLocks(), []);
   const midjourneyParameterSettings = useMemo(
@@ -1145,9 +1150,12 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     return renderCharacterControls();
   };
 
+  const localDetailPreviewPrompt = localDetailOverride?.prompts
+    ? { ...(previewPrompt || {}), localDetailPrompts: localDetailOverride.prompts }
+    : previewPrompt;
   const generationPromptCards = buildPage1GenerationPromptCards(previewPrompt);
-  const localDetailPrompt = getPage1LocalDetailPrompt(previewPrompt, localDetailTarget);
-  const dllPromptSources = buildPage1DllPromptSources(previewPrompt, {
+  const localDetailPrompt = getPage1LocalDetailPrompt(localDetailPreviewPrompt, localDetailTarget);
+  const dllPromptSources = buildPage1DllPromptSources(localDetailPreviewPrompt, {
     includeLocalDetail: true,
     localDetailTarget,
   });
@@ -1289,7 +1297,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
               <button className="secondary primary-copy-btn" onClick={handleApplyPreviewSelection} disabled={!previewPrompt?.selection}>
                 套用目前預覽
               </button>
-              <button className="primary-copy-btn page1-save-current-btn" onClick={handleGenerate} disabled={!previewPrompt}>
+              <button className="primary-copy-btn page1-save-current-btn" onClick={() => handleGenerate(localDetailTarget)} disabled={!previewPrompt}>
                 加入最愛
               </button>
             </div>

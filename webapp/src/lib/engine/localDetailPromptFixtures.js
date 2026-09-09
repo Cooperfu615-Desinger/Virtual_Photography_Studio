@@ -77,6 +77,5 @@ export const LOCAL_DETAIL_PENDING_INTEGRATION_CASES = [
   'eyes-invariant-to-shoes-and-scene',
   'image-type-not-forced-to-photography',
   'source-traceable-local-lighting-no-scene-objects',
-  'saved-card-target-version-text-roundtrip',
   'legacy-six-output-record-without-synthesis',
 ];

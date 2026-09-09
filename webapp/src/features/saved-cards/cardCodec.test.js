@@ -73,6 +73,60 @@ test('favorite codec preserves card identity, prompts, selection, and lineage', 
   assert.equal(restored.lineage.rootShortId, '#123456');
 });
 
+test('favorite codec preserves local-detail target, contract fields, and all precomputed texts', () => {
+  const prompt = {
+    id: 'prompt-local-detail-roundtrip',
+    source: 'page1',
+    date: '2026-08-30T00:00:00.000Z',
+    summary: '局部超特寫 round-trip',
+    midjourneyPrompt: 'primary prompt',
+    grokPrompt: 'structured prompt',
+    zImagePrompt: 'z-image prompt',
+    selection: createEmptyLocks(),
+    localDetailTarget: 'abdomen-navel',
+    localDetailPrompts: {
+      eyes: {
+        id: 'local-detail', label: '局部超特寫', target: 'eyes',
+        contractVersion: 1, status: 'ready', text: 'eyes prompt with\nexact line breaks',
+      },
+      'collarbone-chest': {
+        id: 'local-detail', label: '局部超特寫', target: 'collarbone-chest',
+        contractVersion: 1, status: 'needs-source-review', text: '',
+      },
+      'abdomen-navel': {
+        id: 'local-detail', label: '局部超特寫', target: 'abdomen-navel',
+        contractVersion: 1, status: 'ready', text: 'abdomen prompt',
+      },
+    },
+  };
+
+  const restored = deserializeFavoritePrompt(serializeFavoritePrompt(prompt));
+  assert.equal(restored.localDetailTarget, 'abdomen-navel');
+  assert.deepEqual(restored.localDetailPrompts, prompt.localDetailPrompts);
+
+  const markdown = buildMarkdownExport(prompt);
+  const imported = parseExportedMarkdownPrompt(markdown, getLockControls(), 'import-local-detail');
+  assert.equal(imported.localDetailTarget, 'abdomen-navel');
+  assert.deepEqual(imported.localDetailPrompts, prompt.localDetailPrompts);
+});
+
+test('legacy v3 favorite records remain readable without synthesizing local-detail data', () => {
+  const restored = deserializeFavoritePrompt({
+    v: 3,
+    i: 'legacy-v3-card',
+    o: 'page1',
+    s: 'legacy card',
+    m: 'm',
+    g: 'g',
+    z: 'z',
+    l: createEmptyLocks(),
+  });
+
+  assert.equal(restored.id, 'legacy-v3-card');
+  assert.equal(Object.hasOwn(restored, 'localDetailPrompts'), false);
+  assert.equal(Object.hasOwn(restored, 'localDetailTarget'), false);
+});
+
 test('favorite codec preserves single and duo head accessory color controls', () => {
   const prompt = {
     id: 'prompt-head-accessory-colors',

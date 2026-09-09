@@ -2,9 +2,9 @@
 
 更新日期：2026-09-09
 
-狀態：已完成第一階段資料契約、來源案例與覆蓋盤點，並完成[第二階段核心與有限來源 runtime bridge](local-detail-projection-core.md)。PAGE1 已接入局部超特寫卡片、三部位切換、複製與 DLL_PIC Pro 來源；Saved Cards 儲存／還原／匯入匯出仍未接入，既有六份公開輸出不變。
+狀態：已完成第一階段資料契約、來源案例與覆蓋盤點，並完成[第二階段核心與有限來源 runtime bridge](local-detail-projection-core.md)。PAGE1 已接入局部超特寫卡片、三部位切換、複製與 DLL_PIC Pro 來源；Saved Cards 的本機／雲端 codec、還原與 Markdown 匯出／匯入已接入，既有六份公開輸出不變。
 
-第一版資料範圍與 A／B／C 三批已完成的有限來源收尾統一見[第一版覆蓋矩陣](local-detail-v1-coverage-matrix.md)。位置／遮蔽證據不足仍保留未知，不等於全目錄支援；目前 consumer 已完成，下一階段為保存流程。本規格的安全與相容性契約仍適用。
+第一版資料範圍與 A／B／C 三批已完成的有限來源收尾統一見[第一版覆蓋矩陣](local-detail-v1-coverage-matrix.md)。位置／遮蔽證據不足仍保留未知，不等於全目錄支援；目前 consumer 與保存流程已完成，下一階段為固定案例的實際影像品質驗證。本規格的安全與相容性契約仍適用。
 
 ## 1. 目的與範圍
 
@@ -94,10 +94,10 @@
 
 ## 7. 儲存、複製與相容性
 
-- 建議新增輸出 id `local-detail`，部位值 `eyes`、`collarbone-chest`、`abdomen-navel`；接入前確認全專案無衝突，避免變更既有 id 或 public field mappings。
+- 輸出 id 固定為 `local-detail`，部位值固定為 `eyes`、`collarbone-chest`、`abdomen-navel`；不變更既有 id 或 public field mappings。
 - 每份可保存局部輸出需包含穩定 id、標籤、目標部位、實際英文文字及契約版本；確切 JSON 欄位位置由實作與 codec 測試共同固定。未知欄位不可只加在 UI 後假設匯出會保留。
 - 保存／匯出當下選定部位及文字。還原後先顯示保存的文字，不以新版本引擎悄悄重寫；切換其他部位若缺少相同解析快照或預先計算結果，必須提示需重新生成，不以目前工作台資料混搭舊卡。
-- 既有 JSON／壓縮記錄與支援的 Markdown 匯入匯出路徑需各自驗證。Markdown 無局部欄位仍按舊契約處理；有欄位時需能識別部位與文字。ZIP 既有獨立 round-trip 問題不在本次修復範圍，不宣稱已解決。
+- 既有 JSON／壓縮記錄與支援的 Markdown 匯入匯出路徑需各自驗證。現行 Favorites codec 版本為 v4，保存 `localDetailPrompts` 的三部位安全欄位及 `localDetailTarget`；v2／v3 舊記錄仍可讀，沒有局部欄位時不合成第七輸出。Markdown 使用 `## Local Detail` 的 JSON fenced section 保存契約版本、選定部位及三份預先計算文字；沒有該 section 的舊 Markdown 仍按舊契約處理。ZIP 沿用同一 Markdown codec；ZIP 既有獨立 round-trip 問題不在本次修復範圍，不宣稱已解決。
 - 來源、選項、全無／隨機語意與舊 `extraPrompts` 不改名、不重排既有輸出。舊卡不批次遷移，不刪除退役輸出的相容處理。
 - 未支援／缺資料時不能將其他主 Prompt 偷換成「局部超特寫」來源；複製與生成按鈕依現有互動模式顯示不可用原因。
 
@@ -121,8 +121,8 @@
 3. 接入輸出卡片、部位狀態、複製／生成來源。
 4. 完成自動測試、Browser QA 與使用者生圖測試交付。
 
-目前 consumer 階段已完成：`page1PromptOutputs.js` 以顯式 consumer 選項提供第七張卡與 DLL 來源，`LocalDetailPromptCard` 只切換同一次解析的三個預先計算結果；雙人／缺少 bundle 不建立來源。Saved Cards codec 尚未保存 `localDetailPrompts`、選定部位或局部文字，依第 7 節規格留待下一階段。
+目前 consumer 與保存階段已完成：`page1PromptOutputs.js` 以顯式 consumer 選項提供第七張卡與 DLL 來源，`LocalDetailPromptCard` 只切換同一次解析的三個預先計算結果；雙人／缺少 bundle 不建立來源。`cardCodec.js` 與 `localRepository.js` 保存三部位的 stable id、label、target、英文文字、契約版本與目前選定部位；Markdown 匯出／匯入讀寫同一份局部 JSON section。套用 Saved Card 時先顯示保存文字，同一張卡的其他已保存部位可切換；使用者重新編輯或 reroll 後才解除保存快照並回到當前工作台結果。
 
 第一階段交付：`webapp/src/lib/engine/localDetailPromptContract.js`、`localDetailPromptFixtures.js`、`localDetailPromptContract.test.js` 與[覆蓋盤點](local-detail-coverage-inventory.md)。十組來源案例是目標規格與來源可追溯性測試，不是已生成英文成品。契約加入內部 mixed 子區域狀態，以處理鎖骨露出但胸口覆蓋等情況；不增加 UI 選項。
 
-第二階段已有獨立投影／英文 renderer、有限來源 adapter 與同次 resolved snapshot 的 runtime bridge，細節見[核心與接入文件](local-detail-projection-core.md)。舊六結果逐字不變及隨機次數相同的測試已通過；A／B／C 有限來源與 consumer 已接入。具體保存 schema、完整款式 metadata 與 Saved Cards UI／codec 仍未實作；局部 bundle 目前可在 PAGE1 生成結果中使用，但不代表第七輸出已完成保存 round-trip。
+第二階段已有獨立投影／英文 renderer、有限來源 adapter 與同次 resolved snapshot 的 runtime bridge，細節見[核心與接入文件](local-detail-projection-core.md)。舊六結果逐字不變及隨機次數相同的測試已通過；A／B／C、consumer 與 Saved Cards 保存／還原／Markdown round-trip 已接入。完整款式 metadata 與跨模型影像品質仍不在此階段宣稱範圍；ZIP 的歷史獨立 round-trip 問題也仍保留。

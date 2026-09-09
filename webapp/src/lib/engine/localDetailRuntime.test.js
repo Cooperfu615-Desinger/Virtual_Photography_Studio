@@ -154,10 +154,14 @@ test('unreviewed complete-look palette does not leak a whole-outfit color direct
   assert.equal(p.localDetailPrompts['abdomen-navel'].status, 'needs-source-review');
 });
 
-test('runtime bundle stays outside the legacy saved-card payload until codec integration', () => {
+test('runtime bundle survives Saved Cards sanitization with target and text fields', () => {
   const p = generate({ topId: '高領連身上衣' });
   const saved = sanitizeStoredPrompt(p);
-  assert.equal(Object.hasOwn(saved, 'localDetailPrompts'), false);
+  assert.equal(saved.localDetailTarget, 'eyes');
+  assert.equal(saved.localDetailPrompts.eyes.id, 'local-detail');
+  assert.equal(saved.localDetailPrompts.eyes.target, 'eyes');
+  assert.equal(saved.localDetailPrompts.eyes.contractVersion, 1);
+  assert.equal(saved.localDetailPrompts.eyes.text, p.localDetailPrompts.eyes.text);
   assert.deepEqual(saved.extraPrompts, p.extraPrompts);
   assert.equal(saved.grokPrompt, p.grokPrompt);
 });

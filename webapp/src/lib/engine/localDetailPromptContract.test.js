@@ -12,7 +12,7 @@ test('local-detail contract is immutable and runtime plus PAGE1 consumer project
   assert.ok(Object.isFrozen(contract.targets.eyes.allowedGroups));
   assert.equal(contract.runtimeConnected, true);
   assert.equal(contract.consumerConnected, true);
-  assert.equal(contract.storageConnected, false);
+  assert.equal(contract.storageConnected, true);
   assert.ok(!Object.values(PROMPT_OUTPUT_CONTRACTS).some((output) => output.source?.id === contract.outputId));
   assert.deepEqual(contract.supportedSubjectCounts, [1]);
   assert.equal(contract.source.reroll, false);
@@ -32,7 +32,7 @@ test('three local targets omit full-subject requirements and distinguish partial
   assert.equal(contract.output.parameterTail, false);
   assert.equal(contract.output.multiCut, false);
   assert.equal(contract.output.fixedAspectRatio, null);
-  assert.equal(contract.storageTarget.currentCodecPreservesTarget, false);
+  assert.equal(contract.storageTarget.currentCodecPreservesTarget, true);
   assert.ok(contract.storageTarget.requiredReadyEntryFields.includes('target'));
 });
 
@@ -63,5 +63,5 @@ test('phase-one fixtures cover the three targets and name unimplemented integrat
     assert.ok(tags.has(tag), tag);
   }
   assert.ok(!pending.includes('existing-six-output-byte-identity'));
-  assert.ok(pending.includes('saved-card-target-version-text-roundtrip'));
+  assert.ok(!pending.includes('saved-card-target-version-text-roundtrip'));
 });

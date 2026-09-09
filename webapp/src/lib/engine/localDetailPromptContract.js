@@ -1,4 +1,4 @@
-/** Runtime projection contract. UI consumers and storage are not connected. */
+/** Runtime projection contract shared by the prompt consumer and Saved Cards storage. */
 function deepFreeze(value) {
   if (!value || typeof value !== 'object' || Object.isFrozen(value)) return value;
   Object.values(value).forEach(deepFreeze);
@@ -11,7 +11,7 @@ export const LOCAL_DETAIL_PROMPT_CONTRACT = deepFreeze({
   label: '局部超特寫',
   runtimeConnected: true,
   consumerConnected: true,
-  storageConnected: false,
+  storageConnected: true,
   supportedSubjectCounts: [1],
   unsupportedBehavior: 'absent',
   defaultTarget: 'eyes',
@@ -82,6 +82,6 @@ export const LOCAL_DETAIL_PROMPT_CONTRACT = deepFreeze({
     legacyAbsentBehavior: 'preserveWithoutSynthesis',
     restoreText: 'verbatim',
     switchRestoredTarget: 'sameSnapshotOrPrecomputedOnly',
-    currentCodecPreservesTarget: false,
+    currentCodecPreservesTarget: true,
   },
 });

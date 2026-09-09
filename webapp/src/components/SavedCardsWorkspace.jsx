@@ -53,7 +53,7 @@ export default function SavedCardsWorkspace({
         <div>
           <div className="lock-title">Saved Cards Library</div>
           <p className="lock-subtitle">
-            集中查看你保留下來的 Prompt。這裡只保留卡片內容與三種版本的複製操作，讓閱讀更乾淨。
+            集中查看你保留下來的 Prompt，並保留已選局部超特寫的文字快照與三種主要版本的複製操作，讓閱讀更乾淨。
           </p>
         </div>
 
