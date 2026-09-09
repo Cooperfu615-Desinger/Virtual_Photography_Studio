@@ -97,6 +97,25 @@ test('runtime torso crop retains new local fabrics and their resolved color owne
   assert.doesNotMatch(chest.text, /bare skin|shirttail|sleeves/);
 });
 
+test('runtime local waistband reads resolved top and bottom without main-crop loss', () => {
+  const p = generate({ topId: '高領連身上衣', topColorId: '白色', pantsId: '直筒牛仔褲', bottomColorId: '黑色',
+    bottomRiseId: '高腰', waistAccessoryId: '肚臍環', framingId: '局部五官特寫' });
+  const result = p.localDetailPrompts['abdomen-navel'];
+  assert.equal(result.status, 'ready');
+  assert.equal(result.coverage.navelPosition, 'covered');
+  assert.match(result.text, /clean denim texture in black/);
+  assert.doesNotMatch(result.text, /in white|piercing|bare skin/);
+});
+
+test('close-up retains explicit hem and pattern blockers without rerolling missing modifiers', () => {
+  const base = { topId: '長版寬鬆麻花針織毛衣', pantsId: '直筒牛仔褲', framingId: '局部五官特寫' };
+  assert.equal(generate({ ...base, topStylingId: '半紮' }).localDetailPrompts['abdomen-navel'].status, 'needs-source-review');
+  const pattern = controls.find(c => c.key === 'bottomPatternId').options.find(o => o.zh !== '全無');
+  assert.equal(generate({ ...base, bottomPatternId: pattern.zh }).localDetailPrompts['abdomen-navel'].status, 'needs-source-review');
+  const unknownRise = generate({ topId: '高領連身上衣', pantsId: '直筒牛仔褲', framingId: '局部五官特寫' });
+  assert.equal(unknownRise.localDetailPrompts['abdomen-navel'].coverage.navelPosition, 'unknown');
+});
+
 test('unknown effective styling remains unavailable instead of silently using normal coverage', () => {
   const p = generate({ topId: '高領連身上衣', outerwearId: '長版襯衫', outerwearOpeningId: '敞開穿', outerwearStylingId: '雙肩露出' });
   assert.equal(p.localDetailPrompts['abdomen-navel'].status, 'needs-source-review');

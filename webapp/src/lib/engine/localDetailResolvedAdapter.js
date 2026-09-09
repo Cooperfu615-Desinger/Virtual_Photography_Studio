@@ -2,6 +2,7 @@ import { adaptLocalDetailLayer } from './localDetailSourceAdapter.js';
 import { buildLocalDetailBundle } from './localDetailProjection.js';
 import { reviewedEyeLayers, reviewedEyeExpression, reviewedEyeIdentity } from './localDetailEyeSources.js';
 import { reviewedTorsoLayer } from './localDetailTorsoSources.js';
+import { reviewedWaistLayers } from './localDetailWaistSources.js';
 const skinSources = {
   玻璃水光肌: 'dewy luminous skin texture', 柔霧細緻肌: 'soft matte skin texture',
   微曬陽光感膚質: 'slightly sun-kissed skin texture',
@@ -67,6 +68,7 @@ export function buildResolvedLocalDetailBundle({ subjectCount, subjectKind, imag
 
   for (const target of ['collarbone-chest', 'abdomen-navel']) {
     const model = { layers: [], details: [], effects };
+    const waistLayers = target === 'abdomen-navel' ? reviewedWaistLayers(wardrobe, colors) : null;
     if (present(colors.completeLookPalette)) model.layers.push(barrier('unreviewed-complete-look-palette'));
     if (target === 'abdomen-navel') {
       const waist = wardrobe.waistAccessory;
@@ -77,12 +79,16 @@ export function buildResolvedLocalDetailBundle({ subjectCount, subjectKind, imag
         } else model.layers.push(barrier('unreviewed-waist-accessory'));
       }
       // A waistband may occlude the navel. No low-rise inference from a name.
-      if (present(wardrobe.pants) || present(wardrobe.skirt)) model.layers.push(barrier('unreviewed-bottom-waistline'));
+      if (!waistLayers && (present(wardrobe.pants) || present(wardrobe.skirt))) model.layers.push(barrier('unreviewed-bottom-waistline'));
     } else if (present(wardrobe.neckAccessory)) model.layers.push(barrier('unreviewed-neck-accessory'));
 
     for (const key of ['outerwear', 'outfitPreset', 'dress', 'top']) {
       const item = wardrobe[key];
       if (!present(item)) continue;
+      if (key === 'top' && waistLayers) {
+        model.layers.push(...waistLayers);
+        continue;
+      }
       const sourceKey = `wardrobe.${key}`;
       const modifiers = modifierKeys[key].map((key) => wardrobe[key]).filter(present)
         .filter((modifier) => !baselineModifiers.has(modifier.en));
