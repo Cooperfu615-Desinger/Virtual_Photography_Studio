@@ -1,6 +1,7 @@
 import { adaptLocalDetailLayer } from './localDetailSourceAdapter.js';
 import { buildLocalDetailBundle } from './localDetailProjection.js';
 import { reviewedEyeLayers, reviewedEyeExpression, reviewedEyeIdentity } from './localDetailEyeSources.js';
+import { reviewedTorsoLayer } from './localDetailTorsoSources.js';
 const skinSources = {
   玻璃水光肌: 'dewy luminous skin texture', 柔霧細緻肌: 'soft matte skin texture',
   微曬陽光感膚質: 'slightly sun-kissed skin texture',
@@ -85,25 +86,15 @@ export function buildResolvedLocalDetailBundle({ subjectCount, subjectKind, imag
       const sourceKey = `wardrobe.${key}`;
       const modifiers = modifierKeys[key].map((key) => wardrobe[key]).filter(present)
         .filter((modifier) => !baselineModifiers.has(modifier.en));
-      let layer = adaptLocalDetailLayer({ key: sourceKey, category: categories[key],
+      let layer = reviewedTorsoLayer({ key, item, target, wardrobe, modifiers }) ?? adaptLocalDetailLayer({ key: sourceKey, category: categories[key],
         item: { ...item, zh: liveLabels[item.zh] || item.zh }, target, modifiers });
-      // An open, normally worn shirt exposes only its central opening; the
-      // next layer still controls skin visibility. Never label the sides bare.
-      if (key === 'outerwear' && target === 'abdomen-navel' && item.zh === '長版襯衫'
-        && has(item, 'longline button-up shirt in cotton poplin')
-        && wardrobe.outerwearOpening?.en === 'worn open at the front'
-        && !present(wardrobe.outerwearFit) && !present(wardrobe.outerwearPattern)
-        && (!present(wardrobe.outerwearStyling) || wardrobe.outerwearStyling.zh === '正常穿著')) {
-        layer = { id: sourceKey, regions: { navelPosition: { state: 'exposed',
-          ref: reference('wardrobe.outerwearOpening', 'worn open at the front') } }, details: [] };
-      }
       const colorKey = key === 'outfitPreset' ? 'outfitPresetPrimaryColor' : `${key}Color`;
       const color = colors[colorKey];
       if (present(color)) {
         // Simple local colors only; complex named palettes need role-aware
         // treatment instead of importing whole-outfit palette instructions.
         if (/^[a-z]+(?:[ -][a-z]+){0,3}$/i.test(color.en)) {
-          layer.details = layer.details.map((d) => d.group === 'localFabric'
+          layer.details = layer.details.map((d) => ['localFabric', 'localStraps'].includes(d.group)
             ? { ...d, colorRef: reference(`colors.${colorKey}`, color.en) } : d);
         } else layer = barrier(`unreviewed-color:${sourceKey}`);
       }

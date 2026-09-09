@@ -82,6 +82,21 @@ test('runtime open shirt preserves the inner bodysuit coverage', () => {
   assert.doesNotMatch(result.text, /diamond|bare skin/);
 });
 
+test('runtime torso crop retains new local fabrics and their resolved color ownership', () => {
+  const sweater = generate({ topId: '長版寬鬆麻花針織毛衣', topColorId: '白色', waistAccessoryId: '肚臍環', framingId: '局部五官特寫' });
+  const abdomen = sweater.localDetailPrompts['abdomen-navel'];
+  assert.equal(abdomen.coverage.navelPosition, 'covered');
+  assert.match(abdomen.text, /chunky knit texture in white/);
+  assert.doesNotMatch(abdomen.text, /piercing|upper-thigh|sleeves/);
+  const layered = generate({ topId: '高領連身上衣', topColorId: '黑色', outerwearId: '長版襯衫',
+    outerwearColorId: '白色', outerwearStylingId: '雙肩露出', outerwearOpeningId: '敞開穿' });
+  const chest = layered.localDetailPrompts['collarbone-chest'];
+  assert.equal(chest.coverage.collarbone, 'covered');
+  assert.match(chest.text, /smooth stretch or ribbed fabric in black/);
+  assert.match(chest.text, /cotton poplin in white/);
+  assert.doesNotMatch(chest.text, /bare skin|shirttail|sleeves/);
+});
+
 test('unknown effective styling remains unavailable instead of silently using normal coverage', () => {
   const p = generate({ topId: '高領連身上衣', outerwearId: '長版襯衫', outerwearOpeningId: '敞開穿', outerwearStylingId: '雙肩露出' });
   assert.equal(p.localDetailPrompts['abdomen-navel'].status, 'needs-source-review');

@@ -56,7 +56,7 @@ function projectTarget(snapshot, target) {
       diagnostics.push('unreviewed-or-stale-fragment');
       return;
     }
-    const hasColor = ['localFabric', 'eyeCovering'].includes(fragment.group) && validRef(sources, fragment.colorRef);
+    const hasColor = ['localFabric', 'localStraps', 'eyeCovering'].includes(fragment.group) && validRef(sources, fragment.colorRef);
     fragments.push({ group: fragment.group, text: hasColor
       ? fragment.group === 'eyeCovering'
         ? `${fragment.colorRef.excerpt} ${fragment.ref.excerpt}`
