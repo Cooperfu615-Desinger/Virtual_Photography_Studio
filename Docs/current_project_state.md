@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-09
 
+## Planned local-detail derived output (2026-09-09; phase-one contract only)
+
+- [局部超特寫規格](specs/local-detail-prompt.md) records the approved direction: a seventh independent single-subject output with eyes, collarbone/chest, and abdomen/navel targets. It replaces the earlier global-mode proposal; existing six outputs and main controls stay unchanged.
+- Phase one adds disconnected `localDetailPromptContract.js`, ten source-backed target fixtures, contract tests, and a read-only `scripts/inventory_local_detail_coverage.mjs` inventory. See [coverage inventory](specs/local-detail-coverage-inventory.md). The current catalog has no proposed `meta.localDetail`; existing English contains useful but incomplete regional evidence. Mixed subregions and layer-aware coverage are required, not keyword-based nudity inference.
+- Local projection must use the same resolved selections, preserve garment coverage, omit scene/full-wardrobe content, and support explicit storage/restore compatibility. No runtime, UI, codec, or catalog implementation has been made for this feature. Current codec strips extra fields from extraPrompts, so target/version round trips are a future explicit gate. Exact stored schema and local coverage metadata remain implementation deliverables; source fixtures do not establish runtime or image-generation success.
+- Outerwear findings 2–4 (fit conflicts, incompatible manual closures, and embedded wear descriptions) remain deferred by user request.
+- Phase-one validation: local contract/source tests 13/13, full frontend 840/840, Prompt Quality 168/168, lint/build and strict audit (200, `prompt-quality-baseline`) passed. Audit retained 23 diagnostic-only signals and zero blockers. No active runtime files or catalog sources changed; Browser QA and external image tests are intentionally deferred until integration, not claimed as passed for this feature.
+
 ## Latest outerwear shoulder-wear update (2026-09-09)
 
 - Follow-up: fastener detection now recognizes `button-up`, restoring random half-buttoned opening for the revised longline shirt without treating buttoned cuffs alone as a front closure. A 200-seed regression verifies half-buttoned reachability and exclusion of half-zipped opening. Full frontend passed 827/827, Prompt Quality 168/168, lint/build and same-seed strict audit passed with unchanged diagnostic findings. Browser random generation reached half-buttoned shirt on attempt 4; desktop/mobile output inspection and five-workspace navigation smoke passed. Other catalog fit/opening conflicts remain outside this fix.
