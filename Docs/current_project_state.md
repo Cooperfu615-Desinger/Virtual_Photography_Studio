@@ -2,14 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-09
+Last updated: 2026-09-10
 
-## Local-detail region composition and body anchors (2026-09-09; uncommitted)
+## Local-detail region composition and body anchors (2026-09-10; uncommitted)
 
 - The three local-detail targets now use fixed region-range compositions: eyes run from the brow line to the upper cheekbones, collarbone/chest runs from the base of the neck to the upper bust, and abdomen/navel runs from the lower ribcage to the upper hip line. Each composition keeps selected garment/accessory edges that naturally enter the crop and explicitly excludes unrelated body regions; the target IDs and contract version remain unchanged.
+- For the photorealistic image type, all three targets now open with `Photorealistic editorial detail image, A 20s seductive stunning Japanese or Korean woman.`; non-photographic image types retain their own image-type opening rather than being forced into photography.
 - Collarbone/chest and abdomen/navel may add a `bodyContour` fragment only when it is an exact substring of the selected Body Type English source. The reviewed fragments are deliberately short (for example, bust/ribcage or waist-contour anchors); full height, weight, measurements and torso-to-leg ratios are never copied into a local crop. A body contour alone never makes a target ready, and existing garment/accessory/hair uncertainty remains conservative.
 - PAGE1 browser smoke verified target switching and the exact eyes／collarbone-chest／abdomen text with one subject. With the selected chest-hair layer unresolved, the existing conservative source barrier still disables collarbone/chest; with hair set to 全無, collarbone/chest and abdomen become ready and include the reviewed body anchor. All five workspaces remain navigable. No UI/CSS files changed; the previously recorded 390×900 mobile baseline and its known action/scene panel overflow remain applicable.
-- Validation: focused local suites 123/123, frontend `npm test` 954/954, Prompt Quality 170/170, lint and build pass. Same-seed strict audit (200, `prompt-quality-baseline`) reports zero required issues, zero control-language leakage, zero strict blockers and 23 diagnostic-only findings. The existing Vite chunk-size warning remains. External image-generation acceptance is still outside this code validation.
+- Validation: focused local-detail suites 124/124, frontend `npm test` 955/955, Prompt Quality 170/170, lint and build pass. Same-seed strict audit (200, `prompt-quality-baseline`) reports zero required issues, zero control-language leakage, zero strict blockers and 23 diagnostic-only findings. The existing Vite chunk-size warning remains. External image-generation acceptance is still outside this code validation.
 
 ## Local-detail v1 A/B/C completion (2026-09-09)
 

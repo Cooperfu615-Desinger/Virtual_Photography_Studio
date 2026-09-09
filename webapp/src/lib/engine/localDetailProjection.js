@@ -3,7 +3,7 @@ import { LOCAL_DETAIL_PROMPT_CONTRACT as contract } from './localDetailPromptCon
 // Independent projection core. Its input is authored regional evidence
 // from one resolved snapshot, never a main prompt or a cropped wardrobe string.
 const imageTypes = Object.freeze({
-  'photorealistic-photo': 'Photorealistic editorial detail image.',
+  'photorealistic-photo': 'Photorealistic editorial detail image, A 20s seductive stunning Japanese or Korean woman.',
   'fashion-advertising': 'Premium fashion advertising detail image.',
   'watercolor-illustration': 'Watercolor detail illustration.',
   'oil-painting': 'Oil-painted detail image.',

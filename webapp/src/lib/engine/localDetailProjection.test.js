@@ -129,6 +129,23 @@ test('non-photographic image types are not replaced with photography', () => {
   }
 });
 
+test('photorealistic local targets open with one explicit Japanese-or-Korean woman', () => {
+  const input = base();
+  input.targets['collarbone-chest'] = {
+    layers: [{ id: 'chest', regions: {
+      neckBase: { state: 'exposed', ref: ref('face', 'bright friendly eyes') },
+      collarbone: { state: 'exposed', ref: ref('face', 'bright friendly eyes') },
+      upperChest: { state: 'exposed', ref: ref('face', 'bright friendly eyes') },
+    }, details: [detail('localFabric', 'upperChest', 'cover', 'opaque mirror-polished latex')] }],
+    details: [],
+  };
+  for (const target of ['eyes', 'collarbone-chest', 'abdomen-navel']) {
+    const result = buildLocalDetailBundle(input)[target];
+    assert.equal(result.status, 'ready');
+    assert.match(result.text, /^Photorealistic editorial detail image, A 20s seductive stunning Japanese or Korean woman\./);
+  }
+});
+
 test('same snapshot is deterministic, immutable and ignores scene, camera, pose and shoes', () => {
   const input = base();
   const before = JSON.stringify(input);

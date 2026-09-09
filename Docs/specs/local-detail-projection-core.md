@@ -153,6 +153,8 @@ Browser URL：`http://127.0.0.1:5175/Virtual_Photography_Studio/`。1440×1000�
 
 眼部構圖句現在指定從眉線至上眼頰的區域，可呈現眼布，不要求穿透衣料看見眼睛。胸口與腹部也改為範圍式構圖：胸口從頸根至上胸，腹部從下肋骨至上髖線；三者明確列出允許進入裁切邊緣的局部衣物／配件與畫外部位。
 
+寫實攝影的三個局部 target 共用成品開頭 `Photorealistic editorial detail image, A 20s seductive stunning Japanese or Korean woman.`，以明確指定單一女性主體及日本／韓國身份範圍；這是 image-type 層的身份錨點，不重複放進各 target 的構圖句。其他插畫／廣告成品類型維持自身成品身份。
+
 ## 區域構圖收斂與局部身形錨點（2026-09-09）
 
 `localDetailProjection.js` 不再用「極小區域填滿畫面」作為三個 target 的共用句，而是固定下列區域邊界：

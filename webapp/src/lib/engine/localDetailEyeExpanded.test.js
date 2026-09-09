@@ -25,7 +25,8 @@ test('all six face sources retain only canonical eyes and brows', () => {
     assert.equal(result.status, 'ready', facialFeatures.zh);
     assert.equal(result.coverage.brows, 'exposed');
     assert.ok(result.sourceRefs.some((r) => r.key === 'character.facialFeatures.mj.face'));
-    assert.doesNotMatch(result.text, /nose|lips|oval|seductive|gaze-ready/);
+    const localContent = result.text.replace(/^Photorealistic editorial detail image, A 20s seductive stunning Japanese or Korean woman\.\s*/i, '');
+    assert.doesNotMatch(localContent, /nose|lips|oval|seductive|gaze-ready/);
   }
 });
 
