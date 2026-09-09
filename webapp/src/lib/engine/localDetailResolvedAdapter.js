@@ -1,5 +1,6 @@
 import { adaptLocalDetailLayer } from './localDetailSourceAdapter.js';
 import { buildLocalDetailBundle } from './localDetailProjection.js';
+import { reviewedEyeLayers, reviewedEyeExpression } from './localDetailEyeSources.js';
 
 const eyeSources = {
   韓系偶像臉: 'clear bright eyes', 日系清透臉: 'clean gentle eyes',
@@ -59,16 +60,11 @@ export function buildResolvedLocalDetailBundle({ subjectCount, subjectKind, imag
     .map((excerpt) => ({ group: 'lighting', ref: reference('lightDirection', excerpt) }));
   const faceText = eyeSources[character.facialFeatures?.zh];
   const faceKey = 'character.facialFeatures';
-  const eyeModel = { layers: [], details: [], effects };
-  // Unreviewed head/eye occlusion is a genuine gap, not evidence of clear eyes.
-  // Glasses explicitly on the head do not become eyewear in an eye crop.
-  if (present(wardrobe.headAccessory)) eyeModel.layers.push(barrier('headAccessory'));
-  if (present(wardrobe.eyewear) && !(wardrobe.eyewearPlacement?.zh === '戴在頭頂'
-    && has(wardrobe.eyewearPlacement, 'eyes unobstructed'))) eyeModel.layers.push(barrier('eyewear'));
-  if (present(character.hairstyle)) eyeModel.layers.push(barrier('unreviewed-hair-occlusion'));
+  const eyeModel = { layers: reviewedEyeLayers(character, wardrobe), details: [], effects };
   if (has(character.facialFeatures, faceText)) {
     eyeModel.layers.push({ id: faceKey, regions: { eyes: { state: 'exposed', ref: reference(faceKey, faceText) } } });
     eyeModel.details.push(fragment('eyeIdentity', 'eyes', faceKey, faceText));
+    eyeModel.details.push(...reviewedEyeExpression(character.expression));
     const skin = skinSources[character.skinDetails?.zh];
     if (has(character.skinDetails, skin)) eyeModel.details.push(fragment('localSkin', 'eyes', 'character.skinDetails', skin));
   }

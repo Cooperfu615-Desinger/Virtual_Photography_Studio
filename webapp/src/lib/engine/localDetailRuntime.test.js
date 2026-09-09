@@ -133,3 +133,16 @@ test('actual selected lighting and image type retain only reviewed local sources
   assert.match(result.text, /bright even exposure/);
   assert.doesNotMatch(result.text, /photorealistic|full-body|Scene:/i);
 });
+
+test('live resolved hair, lower-face mask and eye expression use the reviewed eye slice', () => {
+  const p = generate({ facialFeaturesId: '甜美可愛臉', hairstyleId: '帥氣濕亮油頭',
+    hairStylingStateId: '柔順自然', headAccessoryId: '黑色口罩', expressionId: '自然喜悅' });
+  assert.equal(p.localDetailPrompts.eyes.status, 'ready');
+  assert.match(p.localDetailPrompts.eyes.text, /eyes gently narrowed by the smile/);
+  assert.doesNotMatch(p.localDetailPrompts.eyes.text, /mask|short hair|visible teeth/);
+  const covered = generate({ facialFeaturesId: '甜美可愛臉', hairstyleId: '帥氣濕亮油頭',
+    hairStylingStateId: '柔順自然', eyewearId: '眼布', expressionId: '自然喜悅' });
+  assert.equal(covered.localDetailPrompts.eyes.coverage.eyes, 'covered');
+  assert.match(covered.localDetailPrompts.eyes.text, /eye covering/);
+  assert.doesNotMatch(covered.localDetailPrompts.eyes.text, /friendly|smile/);
+});

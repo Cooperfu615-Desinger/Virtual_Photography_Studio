@@ -12,7 +12,7 @@ const imageTypes = Object.freeze({
 });
 
 const compositions = Object.freeze({
-  eyes: 'An extreme close-up centered on the eyes and their immediate surroundings. This small region fills the frame, with the rest of the face outside the crop.',
+  eyes: 'An extreme close-up centered on the eye area and its immediate surroundings, showing the visible surfaces at that location. This small region fills the frame, with the rest of the face outside the crop.',
   'collarbone-chest': 'An extreme close-up centered on the collarbone and upper-chest area. Only this small region and its visible surfaces fill the frame; the head and the rest of the torso remain outside the crop.',
   'abdomen-navel': 'An extreme close-up centered on the navel position and the immediately surrounding abdominal area, showing the visible surface at that location. This small region fills the frame; the rest of the torso and hips remain outside the crop.',
 });
