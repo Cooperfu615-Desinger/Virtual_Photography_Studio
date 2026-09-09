@@ -149,7 +149,7 @@ test('all frame colors are source-traceable and do not become eye colors', () =>
   }
 });
 
-test('eye-source expansion is deterministic and does not change the two torso targets', () => {
+test('eye-source expansion is deterministic; reviewed short hair adds only chest provenance', () => {
   const input = snapshot();
   input.wardrobe.top = option('topId', '高領連身上衣');
   const original = buildResolvedLocalDetailBundle(input);
@@ -157,7 +157,12 @@ test('eye-source expansion is deterministic and does not change the two torso ta
   input.wardrobe.eyewear = option('eyewearId', '太陽眼鏡');
   const before = JSON.stringify(input);
   const changed = buildResolvedLocalDetailBundle(input);
-  for (const target of ['collarbone-chest', 'abdomen-navel']) assert.deepEqual(changed[target], original[target]);
+  assert.deepEqual(changed['abdomen-navel'], original['abdomen-navel']);
+  const { sourceRefs: chestRefs, ...chest } = changed['collarbone-chest'];
+  const { sourceRefs: originalRefs, ...originalChest } = original['collarbone-chest'];
+  assert.deepEqual(chest, originalChest);
+  assert.deepEqual(chestRefs.filter(r => r.key !== 'character.hairstyle'), originalRefs.filter(r => r.key !== 'character.hairstyle'));
+  assert.ok(chestRefs.some(r => r.key === 'character.hairstyle'));
   assert.deepEqual(changed, buildResolvedLocalDetailBundle(input));
   assert.equal(JSON.stringify(input), before);
   assert.ok(Object.isFrozen(changed.eyes.sourceRefs));

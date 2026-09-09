@@ -15335,6 +15335,9 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     wardrobe: localWardrobeSlots,
     colors: wardrobeColors,
     lightDirection,
+    lighting,
+    film,
+    opticalEffect,
   });
 
   return {

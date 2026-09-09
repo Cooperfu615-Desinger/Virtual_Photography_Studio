@@ -1,6 +1,7 @@
 // Reviewed exact-source torso slice. These are local surfaces, not whole
 // garment rewrites. Unknown hems/closures never establish bare skin.
 import { reviewedOuterLayer } from './localDetailOuterSources.js';
+import { reviewedOuterFit } from './localDetailChestSources.js';
 const tops = {
   高領針織上衣: ['turtleneck knit top, fine gauge knit, smooth neckline transition, clean torso structure', 'fine gauge knit', 'high'],
   高領連身上衣: ['high-neck bodysuit-style top, sleeveless construction, smooth stretch or ribbed fabric, continuous torso line', 'smooth stretch or ribbed fabric', 'high'],
@@ -58,7 +59,7 @@ export function reviewedTorsoLayer({ key, item, target, wardrobe, modifiers }) {
   if (key !== 'outerwear' || item.zh !== '長版襯衫') return null;
   const styling = wardrobe.outerwearStyling;
   const opening = wardrobe.outerwearOpening;
-  if (item.en !== shirt || active(wardrobe.outerwearFit) || active(wardrobe.outerwearPattern)
+  if (item.en !== shirt || (active(wardrobe.outerwearFit) && !reviewedOuterFit(item, wardrobe.outerwearFit)) || active(wardrobe.outerwearPattern)
     || (active(styling) && ![normal, single, double].includes(styling.en))
     || (active(opening) && !closures.has(opening.en))) return layer;
   if (target === 'abdomen-navel') {

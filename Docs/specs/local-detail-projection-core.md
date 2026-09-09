@@ -2,6 +2,12 @@
 
 日期：2026-09-09。對應[正式規格](local-detail-prompt.md)。
 
+## 第一版 A／B／C 有限來源收尾（2026-09-09）
+
+新增 `localDetailChestSources.js`、`localDetailAccessorySources.js`、`localDetailEffectSources.js` 及三組 completion 回歸。胸口衣襬與頭髮層、配件局部位置及衣物內外、局部膚質與成像依[第一版覆蓋矩陣執行紀錄](local-detail-v1-coverage-matrix.md)收斂。完整來源失效及 modifier 欄位錯配會降級；光線不能替空部位製造 ready。`engine.js` 僅向獨立 bridge 傳入同次解析的環境光／film／opticalEffect，不新增抽样、不改六輸出。
+
+局部 119/119、全前端 946/946、Prompt Quality 168/168、lint/build 通過；同種子 strict audit stdout 與原六輸出 hash/random 不變。桌面／手機五工作區 smoke 通過既有流程，保留已知手機面板內溢位。第七卡 UI、複製、圖像來源及保存流程仍未接入；不可用來源、髮型與配件的精確限制以矩陣為準。
+
 ## 腰線與紮衣層次第一批（2026-09-09）
 
 前兩批已推送為 `8aaccf3`。本批新增 `localDetailWaistSources.js`，先核對完整上下身配對，再解除舊的未知下身 barrier；外套仍位於這組配對之外。

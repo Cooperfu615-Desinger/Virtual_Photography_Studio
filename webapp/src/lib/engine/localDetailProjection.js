@@ -18,9 +18,10 @@ const compositions = Object.freeze({
 });
 
 const surfaceGroups = new Set(['localFabric', 'localColor', 'localNeckline', 'localStraps',
-  'localWaistline', 'effectiveCoverageModifiers', 'eyeCovering', 'localHairOcclusion', 'eyewearAtEyes']);
+  'localWaistline', 'effectiveCoverageModifiers', 'eyeCovering', 'localHairOcclusion', 'eyewearAtEyes',
+  'visibleNeckAccessory', 'visibleWaistAccessory']);
 const groupOrder = ['eyeIdentity', 'browIdentity', 'eyeExpression', 'localSkin',
-  ...surfaceGroups, 'visibleNeckAccessory', 'visibleWaistAccessory', 'visibleNavelPiercing',
+  ...surfaceGroups, 'visibleNavelPiercing',
   'lighting', 'imaging'];
 
 function freeze(value) {
@@ -49,7 +50,7 @@ function projectTarget(snapshot, target) {
   const sources = snapshot.sources || {};
   const fragments = [];
   const refs = [];
-  const diagnostics = [];
+  const diagnostics = [...(input?.diagnostics || [])];
   const coverage = {};
   const add = (fragment, allowed) => {
     if (!allowed.includes(fragment.group) || !validRef(sources, fragment.ref)) {

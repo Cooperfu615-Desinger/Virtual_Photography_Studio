@@ -1,5 +1,6 @@
 // Exact reviewed local surfaces. Absent region coverage remains unknown;
 // neither a short hem nor a translucent material guarantees visible skin.
+import { reviewedOuterFit } from './localDetailChestSources.js';
 const sources = {
   西裝外套: ['blazer, tailored jacket structure, defined lapels, clean shoulder line, polished suiting fabric', 'polished suiting fabric', 'button'],
   丹寧外套: ['denim jacket, washed denim texture, chest pockets, metal buttons, casual structured outerwear', 'washed denim texture', 'button'],
@@ -28,7 +29,7 @@ export function reviewedOuterLayer({ item, target, wardrobe }) {
   const opening = wardrobe.outerwearOpening;
   const allowedClosures = [open, defaultClosure,
     ...(kind === 'button' ? [halfButton] : []), ...(['zip', 'hood-up'].includes(kind) ? [halfZip] : [])];
-  if (item.en !== en || active(wardrobe.outerwearFit) || active(wardrobe.outerwearPattern)
+  if (item.en !== en || (active(wardrobe.outerwearFit) && !reviewedOuterFit(item, wardrobe.outerwearFit)) || active(wardrobe.outerwearPattern)
     || (active(styling) && ![normal, single, double].includes(styling.en))
     || (active(opening) && !allowedClosures.includes(opening.en))) return layer;
   if (target === 'abdomen-navel') {
