@@ -15,6 +15,31 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  ...[
+    ['single', '單肩露出', 'slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered'],
+    ['double', '雙肩露出', 'slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves'],
+  ].map(([id, label, wearText]) => ({
+    id: `longline-shirt-${id}-shoulder`,
+    title: `Longline shirt retains ${id}-shoulder wear across all outputs`,
+    mode: 'single',
+    seed: 'prompt-contract-longline-shoulder-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' },
+      topId: { byZh: '棉質細肩背心' },
+      outerwearId: { byZh: '長版襯衫' },
+      outerwearColorId: { byZh: '白色' },
+      outerwearOpeningId: { byZh: '敞開穿' },
+      outerwearStylingId: { byZh: label },
+    },
+    expectedOutputs: Object.fromEntries([
+      'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
+      'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt',
+    ].map((field) => [field, {
+      includes: ['white longline button-up shirt', 'worn open at the front', wearText],
+      excludes: ['jacket draped', 'standard outer-layer position', "tailored longline men's dress shirt"],
+    }])),
+  })),
   {
     id: 'normal-single',
     title: 'Normal single portrait with separate wardrobe',

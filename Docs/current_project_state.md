@@ -2,7 +2,16 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-01
+Last updated: 2026-09-09
+
+## Latest outerwear shoulder-wear update (2026-09-09)
+
+- Follow-up: fastener detection now recognizes `button-up`, restoring random half-buttoned opening for the revised longline shirt without treating buttoned cuffs alone as a front closure. A 200-seed regression verifies half-buttoned reachability and exclusion of half-zipped opening. Full frontend passed 827/827, Prompt Quality 168/168, lint/build and same-seed strict audit passed with unchanged diagnostic findings. Browser random generation reached half-buttoned shirt on attempt 4; desktop/mobile output inspection and five-workspace navigation smoke passed. Other catalog fit/opening conflicts remain outside this fix.
+- `單肩露出` and `雙肩露出` now describe the garment slipping onto the upper arm(s), with the neckline lowering together with it. The phrases no longer introduce `jacket`／`outerwear` identities or rear-view conditions. The independent opening choice remains unchanged; `敞開穿` now emits `worn open at the front` and is not forced by shoulder styling.
+- Only the Outerwear `長版襯衫` source is simplified to a longline cotton-poplin button-up shirt with a pointed collar, long button-cuff sleeves, and a curved shirttail hem. The Tops counterpart is unchanged. Existing option IDs, row order, labels, storage fields, and renderer mappings remain intact; old English sources are searchable restore aliases.
+- AI retains effective shoulder-wear and opening source independently of the decorative-detail slot, and chooses the actual selected outer garment rather than a generic fit modifier as its identity. This covers ordinary separates and complete-look outer layers, including MJ chest-up; source fragments still must exist in the shared crop projection. Duo role ownership and Saved Cards selection/text round trips are regression-tested.
+- Validation: final focused wardrobe／pipeline group passed 101/101, including the dedicated suite 5/5; Prompt Quality 168/168, full frontend 826/826, lint and build passed (existing Vite large-chunk advisory only). Source sync/check, Python tests 2/2, public asset validation, and whitespace checks passed. Before/after strict audit used 200 samples and `prompt-quality-baseline`: both had zero blocking／integrity／exact-duplicate／control-leakage／contradiction／coverage signals, with the same 23 diagnostic-only findings. Gpt mean words changed 580.8 → 579.6, Z-Image 318.2 → 317.0, AI 159.7 → 161.1 as required wear descriptions are retained.
+- Browser validation at `http://127.0.0.1:5175/Virtual_Photography_Studio/`, desktop 1440×1000 and mobile 390×900, successfully selected the longline shirt, single/double shoulder styles, and half-buttoned/open states. All six visible outputs retained shirt identity and the matching shoulder phrase; half-buttoned did not become fully open. Reload preserved the chosen controls. All five workspaces were rendered and inspected; no document-level overflow, broken images, or warning/error logs were observed. Images were inspected in-tool; no repository screenshot assets were added. Saved Cards codec/legacy parsing is covered by deterministic tests; no user favorite was added/deleted. Real image-generation quality remains for user testing, not asserted from code/browser checks.
 
 ## Snapshot
 

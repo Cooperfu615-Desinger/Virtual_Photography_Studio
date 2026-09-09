@@ -3004,6 +3004,26 @@ const WARDROBE_LEGACY_OPTION_MAP = [
 
 const WARDROBE_LEGACY_PROMPT_ALIASES = [
   {
+    category: '外套 (Outerwear)',
+    targetZh: '長版襯衫',
+    prompts: ["tailored longline men's dress shirt, crisp woven poplin, pointed collar, full button-front placket, structured cuffs, extended shirttail hem, relaxed sleeve volume, clean formal menswear silhouette"],
+  },
+  {
+    category: '外套開合 (Outerwear Opening)',
+    targetZh: '敞開穿',
+    prompts: ['outerwear worn open at the front, front panels parted naturally'],
+  },
+  {
+    category: '外套穿法 (Outerwear Styling)',
+    targetZh: '單肩露出',
+    prompts: ['outerwear deliberately draped off one shoulder with one shoulder line exposed while the opposite shoulder remains in a standard outer-layer position, sleeves relaxed on the arms'],
+  },
+  {
+    category: '外套穿法 (Outerwear Styling)',
+    targetZh: '雙肩露出',
+    prompts: ['outerwear deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views, jacket draped around the upper arms with sleeves still on the arms'],
+  },
+  {
     category: '頸部 (Neck Accessories)',
     targetZh: '街頭風格金項鏈',
     prompts: ['street-style gold chain detail, subtle urban neck accent'],
@@ -3983,7 +4003,7 @@ function getOuterwearFastenerTypes(outerwearItem) {
   const haystack = toHaystack(outerwearItem.zh, outerwearItem.en, outerwearItem.desc);
   const fasteners = new Set();
   if (hasAny(haystack, ['zip-front', 'zip-up', 'zipper', '拉鍊'])) fasteners.add('zip');
-  if (hasAny(haystack, ['button-front', 'buttons', 'button closure', '扣子', '鈕扣'])) fasteners.add('button');
+  if (hasAny(haystack, ['button-front', 'button-up', 'buttons', 'button closure', '扣子', '鈕扣'])) fasteners.add('button');
   return fasteners;
 }
 
@@ -8711,8 +8731,8 @@ function filterZImagePoseForFraming(value, context) {
   return cleanVisibilityFilteredText(parts.join('; '));
 }
 
-const OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT = 'outerwear deliberately draped off one shoulder with one shoulder line exposed while the opposite shoulder remains in a standard outer-layer position, sleeves relaxed on the arms';
-const OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'outerwear deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views, jacket draped around the upper arms with sleeves still on the arms';
+const OUTERWEAR_SINGLE_SHOULDER_STYLING_TEXT = 'slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered';
+const OUTERWEAR_DOUBLE_SHOULDER_STYLING_TEXT = 'slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves';
 
 function buildOuterwearStylingLeadText(styling, { minimal = false } = {}) {
   if (!styling || isNoneLikeItem(styling)) return '';
@@ -13713,7 +13733,7 @@ function extractAiSpecialPersonFragments(value, context = null) {
   return personFragments;
 }
 
-function compactAiGarmentValue(value, preferredRole = '', primarySource = '') {
+function compactAiGarmentValue(value, preferredRole = '', primarySource = '', wearSources = []) {
   const sourceText = primarySource || value;
   if (
     preferredRole === 'waistAccessory'
@@ -13725,7 +13745,10 @@ function compactAiGarmentValue(value, preferredRole = '', primarySource = '') {
   const fragments = splitAiSourceFragments(value);
   const roleFragments = fragments.filter((fragment) => classifyCompleteLookWardrobeFragment(fragment) === preferredRole);
   const primarySourceFragments = splitAiSourceFragments(primarySource);
-  const selectedPrimary = primarySourceFragments.find((fragment) => classifyCompleteLookWardrobeFragment(fragment) === preferredRole)
+  const selectedOuterwear = preferredRole === 'outerwear'
+    ? primarySourceFragments.find((fragment) => /\b(?:shirt|jacket|coat|blazer|cardigan|hoodie|cape|cloak|robe|poncho)\b/i.test(fragment))
+    : '';
+  const selectedPrimary = selectedOuterwear || primarySourceFragments.find((fragment) => classifyCompleteLookWardrobeFragment(fragment) === preferredRole)
     || primarySourceFragments.find((fragment) => classifyCompleteLookWardrobeFragment(fragment))
     || primarySourceFragments[0]
     || '';
@@ -13750,8 +13773,12 @@ function compactAiGarmentValue(value, preferredRole = '', primarySource = '') {
   const primary = selectedPrimary && !inferredKeepsSelectedPrimary
     ? `${selectedPrimary}${lowerCropBoundary}`
     : inferredPrimary;
-  const structuralDetail = fragments.find((fragment) => /\b(?:neckline|flare|pleated|ruffled|slit|hem|boning|lace trim|garter|cut-out|open shoulder|one shoulder line exposed|both shoulder lines exposed|draped off one shoulder|worn off both shoulders|upper back exposed|high-cut|wide-leg|straight-leg)\b/i.test(fragment) && fragment !== primary) || '';
-  return [primary, structuralDetail].filter(Boolean).join(', ');
+  // Selected wear instructions are independent of decorative structure such as
+  // a hem. Retain only instructions present in the shared projected source.
+  const visibleWearSources = wearSources.filter((source) => source && value.includes(source));
+  const structuralDetail = fragments.find((fragment) => /\b(?:neckline|flare|pleated|ruffled|slit|hem|boning|lace trim|garter|cut-out|open shoulder|one shoulder line exposed|both shoulder lines exposed|draped off one shoulder|worn off both shoulders|upper back exposed|high-cut|wide-leg|straight-leg)\b/i.test(fragment) && fragment !== primary
+    && !visibleWearSources.some((source) => source.includes(fragment))) || '';
+  return [primary, structuralDetail, ...visibleWearSources].filter(Boolean).join(', ');
 }
 
 function isAdhesiveTapeWrapOutfitPresetSource(value) {
@@ -14002,8 +14029,15 @@ function buildAiNormalWardrobeText(
       }
     : {};
   const outerwear = firstStructuredValue(valuesByLabel, ['Outerwear']);
+  const shoulderWear = wardrobeSlots?.outerwearStyling;
+  const outerwearWearSources = ['單肩露出', '雙肩露出'].includes(shoulderWear?.zh)
+    ? [
+        !isNoneLikeItem(wardrobeSlots.outerwearOpening) ? normalizeWardrobePromptText(wardrobeSlots.outerwearOpening?.en || '') : '',
+        buildOuterwearStylingLeadText(shoulderWear),
+      ]
+    : [];
   const visibleOuterwear = shouldKeepWardrobeRoleForContext('outerwear', context, outerwear)
-    ? compactAiGarmentValue(outerwear, 'outerwear', primarySourceByLabel.Outerwear)
+    ? compactAiGarmentValue(outerwear, 'outerwear', primarySourceByLabel.Outerwear, outerwearWearSources)
     : '';
   const visibleCompleteLookWaistAccessory = wardrobeSlots?.waistAccessory
     && !isNoneLikeItem(wardrobeSlots.waistAccessory)
@@ -14048,7 +14082,7 @@ function buildAiNormalWardrobeText(
     .map(([label, role]) => {
       const value = firstStructuredValue(valuesByLabel, [label]);
       return shouldKeepWardrobeRoleForContext(role, context, value)
-        ? compactAiGarmentValue(value, role, primarySourceByLabel[label])
+        ? compactAiGarmentValue(value, role, primarySourceByLabel[label], outerwearWearSources)
         : '';
     })
     .filter(Boolean)

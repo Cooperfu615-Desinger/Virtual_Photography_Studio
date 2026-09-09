@@ -224,6 +224,16 @@ lace bra top, delicate lace cups, intimate lingerie structure, slim strap detail
 - `扣子解開拉鏈微開` 這類腰線只應套用在褲裝，不應套用到裙裝。
 - 穿法要描述衣物狀態，不描述人物表情或姿勢。
 
+### 外層露肩穿法（2026-09-09）
+
+- `單肩露出` 描述衣服滑至單側上臂、領口同側降低，另一側肩膀仍被覆蓋；不指定左右手／左右肩。
+- `雙肩露出` 描述衣服滑至雙側上臂、領口整體低於雙肩，雙臂仍在袖內。重點是完整衣服的位置改變，不是挖肩剪裁或保留在肩上的布條。
+- 穿法片語不另引入 `jacket`／`outerwear` 服裝名稱，也不加入背面／三分之四視角的條件句；服裝本體由外套選項負責。
+- 開合仍由 `outerwearOpeningId` 獨立控制。`敞開穿` 使用 `worn open at the front`；選擇露肩不自動改成敞開。
+- AI 壓縮必須保留有效的單肩／雙肩穿法與其開合來源，不得讓下襬或其他結構細節取代穿法；版型修飾亦不得取代服裝本體。
+- 本次僅簡化「外套」分類的長版襯衫：棉質府綢、排扣、尖領、長袖扣式袖口、弧形衣襬；「上身」分類中的長版襯衫維持原文。名稱、ID、列順序不變，舊英文保留為 Prompt 回填 alias。
+- 回歸入口：`webapp/src/lib/engineOuterwearShoulderWear.test.js` 與 `webapp/src/lib/engine/representativePromptFixtures.js` 的兩組 `longline-shirt-*-shoulder` 案例。
+
 ## 9. 配色與圖案
 
 配色與圖案是表面修飾層，必須依目標單品分開。

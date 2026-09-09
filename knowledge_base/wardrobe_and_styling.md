@@ -365,15 +365,15 @@
 | **外套 (Outerwear)** | 棒球外套 | `varsity jacket, ribbed collar and cuffs, contrast stripe trim, structured sporty outer layer` | 以羅紋領口袖口、撞色條紋滾邊與運動感結構外層為主。 |
 | **外套 (Outerwear)** | 短版粗花呢外套 | `cropped tweed jacket, textured woven surface, structured short silhouette, polished button front` | 以短版衣長、粗花呢織紋、硬挺輪廓與整齊排釦為主。 |
 | **外套 (Outerwear)** | 蕾絲罩衫 | `lace robe cardigan, long open-front silhouette, lightweight lace texture, ruffled or scalloped hem` | 以長版開襟罩衫、輕薄蕾絲表面與荷葉或波浪下襬為主。 |
-| **外套 (Outerwear)** | 長版襯衫 | `tailored longline men's dress shirt, crisp woven poplin, pointed collar, full button-front placket, structured cuffs, extended shirttail hem, relaxed sleeve volume, clean formal menswear silhouette` | 沿用上身的男性正裝長版襯衫設計，作為具備完整前襟排釦、硬挺袖口與較長衣襬的正式外層，可疊穿於其他上身之外。 |
+| **外套 (Outerwear)** | 長版襯衫 | `longline button-up shirt in cotton poplin, pointed collar, long sleeves with buttoned cuffs, curved shirttail hem` | 棉質府綢長版排扣襯衫，保留尖領、長袖扣式袖口與弧形衣襬，可疊穿於其他上身之外；版型與穿法由獨立選項控制。 |
 | **外套開合 (Outerwear Opening)** | 正常 | `outerwear worn with its front closure in the normal default position, front panels aligned naturally` | 外套前襟維持自然、標準的開合狀態；此選項只控制前襟開合，不代表雙肩穿著或滑落肩部。 |
 | **外套開合 (Outerwear Opening)** | 扣子扣一半 | `button-front outerwear partially buttoned, with some buttons fastened and the remaining front panels naturally open` | 適用有扣子的外套，部分扣子扣上，其餘前片自然打開。 |
 | **外套開合 (Outerwear Opening)** | 拉鏈拉一半 | `zip-front outerwear partially zipped, zipper closed to the mid-front while the upper front remains naturally open` | 適用有拉鍊的外套，拉鍊拉到前襟中段，上方前片自然打開。 |
-| **外套開合 (Outerwear Opening)** | 敞開穿 | `outerwear worn open at the front, front panels parted naturally` | 外套正面敞開，前片自然分開，不強制內搭必須完整可見。 |
+| **外套開合 (Outerwear Opening)** | 敞開穿 | `worn open at the front` | 正面敞開，不強制內搭必須完整可見；開合與露肩穿法分開控制。 |
 | **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
 | **外套穿法 (Outerwear Styling)** | 正常穿著 | `outerwear worn normally on both shoulders in a standard outer-layer position` | 外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。 |
-| **外套穿法 (Outerwear Styling)** | 單肩露出 | `outerwear deliberately draped off one shoulder with one shoulder line exposed while the opposite shoulder remains in a standard outer-layer position, sleeves relaxed on the arms` | 刻意讓單側肩膀露出，另一側維持正常外層位置，袖子仍自然套在手臂上；這是明確的穿著方式，不是外套意外滑落。 |
-| **外套穿法 (Outerwear Styling)** | 雙肩露出 | `outerwear deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views, jacket draped around the upper arms with sleeves still on the arms` | 刻意讓雙側肩膀露出，外套垂掛在上臂與手臂上；在背面或三分之四視角時可呈現露出的上背部。 |
+| **外套穿法 (Outerwear Styling)** | 單肩露出 | `slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered` | 衣服滑到單側上臂，領口同側一起降低，另一側肩膀仍被衣服覆蓋；不指定左右側，也不改變前襟開合。 |
+| **外套穿法 (Outerwear Styling)** | 雙肩露出 | `slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves` | 衣服滑到雙側上臂，領口整體降至雙肩下方，雙臂仍套在袖內；不把露肩描述成挖肩剪裁，也不改變前襟開合。 |
 | **外套圖案 (Outerwear Surface Design)** | 全無 | `no added outerwear pattern, clean solid-color outer layer styling` | 不額外加入外套圖案，保留外套本身的輪廓、材質與層次。 |
 | **外套圖案 (Outerwear Surface Design)** | 粗橫條紋 | `bold horizontal stripes across the outerwear, strong graphic layering` | 以明顯橫向條帶覆蓋外套，使用中性的 outerwear 語言適配夾克、風衣與外層單品。 |
 | **外套圖案 (Outerwear Surface Design)** | 細直條紋 | `clear vertical stripe outerwear, narrow repeated stripe lines, tailored linear rhythm across the jacket` | 以俐落直條紋覆蓋外套表面，形成結構化外層單品的線性節奏。 |

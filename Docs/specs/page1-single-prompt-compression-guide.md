@@ -726,6 +726,8 @@ fit or rise, color from palette if already composed, garment type, 1-2 concrete 
 
 `Gpt` 版應完整保留鞋襪與外層的款式辨識點、穿法、版型、開合、肩線、材質與必要正常穿著 guard。鞋襪與外套要保留款式辨識點，但避免在資料庫 authoring 時把正常穿著狀態寫得像特殊指令。
 
+2026-09-09 外層露肩規則：單肩／雙肩選項以衣服滑落至上臂、領口隨之降低的正向片語表達；不新增服裝種類或視角條件。AI／MJ 胸上輸出將有效露肩穿法及其獨立開合來源保留在對應外層，不能因先取到 `hem` 等結構細節而遺漏，也不能以 `fitted outerwear proportion` 取代已選襯衫身份。保留來源必須已存在於共用投影後的服裝文字；臉部特寫不得藉此回讀被裁切省略的外套。
+
 保留：
 
 - 鞋型、鞋底、鞋面、signature accent。

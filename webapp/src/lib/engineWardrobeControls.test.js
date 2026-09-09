@@ -370,15 +370,15 @@ test('outerwear and long shirt compose as explicit outer-over-inner layers', () 
   assert.doesNotMatch(prompt.zImagePrompt, /properly worn on both shoulders|paired with off-white longline shirt/);
 });
 
-test('longline shirt is available as an outerwear layer and reuses the top garment description', () => {
+test('longline outerwear shirt has concise source wording while the top shirt stays unchanged', () => {
   const outerwearLonglineShirt = optionByLabel('outerwearId', '長版襯衫');
   const topLonglineShirt = optionByLabel('topId', '長版襯衫');
 
-  assert.equal(outerwearLonglineShirt.en, topLonglineShirt.en);
+  assert.match(outerwearLonglineShirt.en, /longline button-up shirt in cotton poplin/);
   assert.match(topLonglineShirt.en, /men's dress shirt/);
   assert.match(topLonglineShirt.en, /button-front placket/);
   assert.match(topLonglineShirt.en, /pointed collar/);
-  assert.match(outerwearLonglineShirt.desc, /正式外層，可疊穿於其他上身之外/);
+  assert.match(outerwearLonglineShirt.desc, /可疊穿於其他上身之外/);
 
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
@@ -388,7 +388,7 @@ test('longline shirt is available as an outerwear layer and reuses the top garme
   });
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
-  assert.match(promptText, /tailored longline men's dress shirt/);
+  assert.match(promptText, /longline button-up shirt in cotton poplin/);
   assert.match(promptText, /layered over/);
 });
 
@@ -409,13 +409,13 @@ test('simple oversize outerwear fit prefixes the selected outerwear item', () =>
 
   const detailedOutputs = [prompt.grokPrompt, prompt.zImagePrompt];
   for (const output of detailedOutputs) {
-    assert.match(output, /oversized white tailored longline men's dress shirt, crisp woven poplin, pointed collar/i);
+    assert.match(output, /oversized white longline button-up shirt in cotton poplin, pointed collar/i);
     assert.doesNotMatch(output, /oversized outerwear proportion with roomy shoulders and body/i);
-    assert.doesNotMatch(output, /oversized,\s+white tailored longline men's dress shirt/i);
+    assert.doesNotMatch(output, /oversized,\s+white longline button-up shirt/i);
   }
-  assert.match(prompt.midjourneyPrompt, /oversized white tailored longline men's dress shirt/i);
+  assert.match(prompt.midjourneyPrompt, /oversized white longline button-up shirt/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /oversized outerwear proportion with roomy shoulders and body/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /oversized,\s+white tailored longline men's dress shirt/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /oversized,\s+white longline button-up shirt/i);
 });
 
 test('outerwear opening and styling prompts use explicit shoulder-wear wording', () => {
@@ -431,15 +431,15 @@ test('outerwear opening and styling prompts use explicit shoulder-wear wording',
   assert.doesNotMatch(normalOuterwearOpening.en, /both shoulders|slipped below the shoulder/i);
   assert.match(halfButtonedOuterwear.en, /button-front outerwear partially buttoned/);
   assert.match(halfZippedOuterwear.en, /zip-front outerwear partially zipped/);
-  assert.match(openOuterwear.en, /front panels parted naturally/);
+  assert.equal(openOuterwear.en, 'worn open at the front');
   assert.doesNotMatch(openOuterwear.en, /inner layer visible through the full front opening/i);
   assert.match(normalOuterwear.en, /standard outer-layer position/);
   assert.doesNotMatch(normalOuterwear.en, /properly worn|shoulder line fully covered/i);
-  assert.match(singleShoulderOuterwear.en, /deliberately draped off one shoulder with one shoulder line exposed/i);
-  assert.match(singleShoulderOuterwear.en, /opposite shoulder remains in a standard outer-layer position/i);
+  assert.match(singleShoulderOuterwear.en, /slipped down over one upper arm/i);
+  assert.match(singleShoulderOuterwear.en, /neckline lowered on that side and the opposite shoulder still covered/i);
   assert.doesNotMatch(singleShoulderOuterwear.en, /slipped below the shoulder line|one or both shoulders/i);
-  assert.match(doubleShoulderOuterwear.en, /deliberately worn off both shoulders with both shoulder lines exposed/i);
-  assert.match(doubleShoulderOuterwear.en, /upper back exposed in rear or three-quarter views/i);
+  assert.match(doubleShoulderOuterwear.en, /slipped down around both upper arms/i);
+  assert.match(doubleShoulderOuterwear.en, /neckline resting below both shoulders and both arms still in the sleeves/i);
   assert.doesNotMatch(doubleShoulderOuterwear.en, /slipped below the shoulder line|one or both shoulders/i);
 });
 
@@ -472,7 +472,7 @@ test('outerwear fit and opening compose before pattern and shoulder styling', ()
   assert.match(grokWardrobeLine, /underbust-cropped oversized outerwear/);
   assert.match(grokWardrobeLine, /ending just below the bust/);
   assert.match(grokWardrobeLine, /worn open at the front/);
-  assert.match(grokWardrobeLine, /deliberately draped off one shoulder with one shoulder line exposed while the opposite shoulder remains in a standard outer-layer position, sleeves relaxed on the arms/);
+  assert.match(grokWardrobeLine, /slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered/);
   assert.doesNotMatch(grokWardrobeLine, /slipped below the shoulder line|jacket body hanging as an intact outer layer/);
   assert.ok(
     grokWardrobeLine.indexOf('underbust-cropped oversized outerwear') < grokWardrobeLine.indexOf('denim jacket'),
@@ -487,11 +487,11 @@ test('outerwear fit and opening compose before pattern and shoulder styling', ()
     'outerwear opening should appear after outerwear pattern'
   );
   assert.ok(
-    grokWardrobeLine.indexOf('worn open at the front') < grokWardrobeLine.indexOf('deliberately draped off one shoulder'),
+    grokWardrobeLine.indexOf('worn open at the front') < grokWardrobeLine.indexOf('slipped down over one upper arm'),
     'outerwear opening should appear before shoulder styling'
   );
-  assert.match(prompt.zImagePrompt, /deliberately draped off one shoulder with one shoulder line exposed/);
-  assert.match(prompt.zImagePrompt, /sleeves relaxed on the arms/);
+  assert.match(prompt.zImagePrompt, /slipped down over one upper arm/);
+  assert.match(prompt.zImagePrompt, /neckline lowered on that side and the opposite shoulder still covered/);
   assert.doesNotMatch(prompt.zImagePrompt, /slipped below the shoulder line|jacket body still readable as an outer layer/);
 
   const [doubleShoulderPrompt] = generatePrompts(1, {
@@ -502,9 +502,9 @@ test('outerwear fit and opening compose before pattern and shoulder styling', ()
     outerwearStylingId: optionId('outerwearStylingId', '雙肩露出'),
     topId: optionId('topId', '襯衫'),
   });
-  assert.match(doubleShoulderPrompt.grokPrompt, /deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views/);
-  assert.match(doubleShoulderPrompt.zImagePrompt, /deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views/);
-  assert.match(doubleShoulderPrompt.midjourneyPrompt, /deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views/);
+  assert.match(doubleShoulderPrompt.grokPrompt, /slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves/);
+  assert.match(doubleShoulderPrompt.zImagePrompt, /slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves/);
+  assert.match(doubleShoulderPrompt.midjourneyPrompt, /slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves/);
 });
 
 test('model-specific shoes stay concise while preserving signature accent details', () => {

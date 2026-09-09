@@ -3321,8 +3321,8 @@
       },
       {
         "zh": "長版襯衫",
-        "en": "tailored longline men's dress shirt, crisp woven poplin, pointed collar, full button-front placket, structured cuffs, extended shirttail hem, relaxed sleeve volume, clean formal menswear silhouette",
-        "desc": "沿用上身的男性正裝長版襯衫設計，作為具備完整前襟排釦、硬挺袖口與較長衣襬的正式外層，可疊穿於其他上身之外。"
+        "en": "longline button-up shirt in cotton poplin, pointed collar, long sleeves with buttoned cuffs, curved shirttail hem",
+        "desc": "棉質府綢長版排扣襯衫，保留尖領、長袖扣式袖口與弧形衣襬，可疊穿於其他上身之外；版型與穿法由獨立選項控制。"
       }
     ],
     "外套開合 (Outerwear Opening)": [
@@ -3343,8 +3343,8 @@
       },
       {
         "zh": "敞開穿",
-        "en": "outerwear worn open at the front, front panels parted naturally",
-        "desc": "外套正面敞開，前片自然分開，不強制內搭必須完整可見。"
+        "en": "worn open at the front",
+        "desc": "正面敞開，不強制內搭必須完整可見；開合與露肩穿法分開控制。"
       }
     ],
     "外套穿法 (Outerwear Styling)": [
@@ -3360,13 +3360,13 @@
       },
       {
         "zh": "單肩露出",
-        "en": "outerwear deliberately draped off one shoulder with one shoulder line exposed while the opposite shoulder remains in a standard outer-layer position, sleeves relaxed on the arms",
-        "desc": "刻意讓單側肩膀露出，另一側維持正常外層位置，袖子仍自然套在手臂上；這是明確的穿著方式，不是外套意外滑落。"
+        "en": "slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered",
+        "desc": "衣服滑到單側上臂，領口同側一起降低，另一側肩膀仍被衣服覆蓋；不指定左右側，也不改變前襟開合。"
       },
       {
         "zh": "雙肩露出",
-        "en": "outerwear deliberately worn off both shoulders with both shoulder lines exposed and the upper back exposed in rear or three-quarter views, jacket draped around the upper arms with sleeves still on the arms",
-        "desc": "刻意讓雙側肩膀露出，外套垂掛在上臂與手臂上；在背面或三分之四視角時可呈現露出的上背部。"
+        "en": "slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves",
+        "desc": "衣服滑到雙側上臂，領口整體降至雙肩下方，雙臂仍套在袖內；不把露肩描述成挖肩剪裁，也不改變前襟開合。"
       }
     ],
     "外套圖案 (Outerwear Surface Design)": [
