@@ -50,7 +50,7 @@ test('same generation retains unprojected garment and resolved color in a face c
   const abdomen = p.localDetailPrompts['abdomen-navel'];
   assert.equal(abdomen.status, 'ready');
   assert.match(abdomen.text, /smooth stretch or ribbed fabric in white/);
-  assert.match(p.localDetailPrompts.eyes.text, /bright friendly eyes/);
+  assert.match(p.localDetailPrompts.eyes.text, /bright round eyes/);
   assert.equal(abdomen.coverage.navelPosition, 'covered');
   assert.ok(Object.isFrozen(p.localDetailPrompts.eyes));
 });
@@ -87,14 +87,16 @@ test('unknown effective styling remains unavailable instead of silently using no
   assert.equal(p.localDetailPrompts['abdomen-navel'].status, 'needs-source-review');
 });
 
-test('eyes omit glasses on head, but unreviewed eyewear at eyes remains a barrier', () => {
+test('eyes omit glasses on head and retain reviewed eyewear at eyes without inferring lens clarity', () => {
   const eyewear = controls.find((c) => c.key === 'eyewearId').options.find((o) => o.zh !== '全無');
   const placement = controls.find((c) => c.key === 'eyewearPlacementId').options.find((o) => o.zh !== '戴在頭頂');
   const p = generate({ facialFeaturesId: '甜美可愛臉', eyewearId: eyewear.zh, eyewearPlacementId: '戴在頭頂' });
   assert.equal(p.localDetailPrompts.eyes.status, 'ready');
   assert.doesNotMatch(p.localDetailPrompts.eyes.text, /glasses|frame.*glasses/);
-  const blocked = generate({ facialFeaturesId: '甜美可愛臉', eyewearId: eyewear.zh, eyewearPlacementId: placement.zh });
-  assert.equal(blocked.localDetailPrompts.eyes.status, 'needs-source-review');
+  const worn = generate({ facialFeaturesId: '甜美可愛臉', eyewearId: eyewear.zh, eyewearPlacementId: placement.zh });
+  assert.equal(worn.localDetailPrompts.eyes.status, 'ready');
+  assert.ok(worn.localDetailPrompts.eyes.text.includes(eyewear.en));
+  assert.doesNotMatch(worn.localDetailPrompts.eyes.text, /bright round eyes|transparent lenses/);
 });
 
 test('adapter rejects embedded owners and does not mutate or reroll a resolved snapshot', () => {
@@ -145,4 +147,23 @@ test('live resolved hair, lower-face mask and eye expression use the reviewed ey
   assert.equal(covered.localDetailPrompts.eyes.coverage.eyes, 'covered');
   assert.match(covered.localDetailPrompts.eyes.text, /eye covering/);
   assert.doesNotMatch(covered.localDetailPrompts.eyes.text, /friendly|smile/);
+});
+
+test('live second-batch sources preserve structured identity, local fringe and actual eyewear color', () => {
+  const face = generate({ facialFeaturesId: '冷感高級臉', hairstyleId: '柔波：中分',
+    hairStylingStateId: '柔順自然', expressionId: '撒嬌生氣' }).localDetailPrompts.eyes;
+  assert.match(face.text, /upturned eyes/);
+  assert.match(face.text, /straight brows/);
+  assert.match(face.text, /lightly furrowed brows/);
+  assert.doesNotMatch(face.text, /oval face|pout|waves/);
+  const glasses = generate({ facialFeaturesId: '冷感高級臉', hairstyleId: '不對稱濕感短鮑伯',
+    hairStylingStateId: '濕髮分束', eyewearId: '太陽眼鏡', eyewearColorId: '金屬銀',
+    eyewearPlacementId: '正常戴在臉上' }).localDetailPrompts.eyes;
+  assert.match(glasses.text, /tinted lenses/);
+  assert.match(glasses.text, /silver metal frame/);
+  assert.match(glasses.text, /one side falling near the eye/);
+  assert.doesNotMatch(glasses.text, /upturned eyes|straight brows/);
+  const cloth = generate({ eyewearId: '眼布', eyewearColorId: '白色' }).localDetailPrompts.eyes;
+  assert.match(cloth.text, /white elastic stretch-fabric eye covering/);
+  assert.doesNotMatch(cloth.text, /black|white frame/);
 });

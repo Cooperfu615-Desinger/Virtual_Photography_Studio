@@ -1,11 +1,6 @@
 import { adaptLocalDetailLayer } from './localDetailSourceAdapter.js';
 import { buildLocalDetailBundle } from './localDetailProjection.js';
-import { reviewedEyeLayers, reviewedEyeExpression } from './localDetailEyeSources.js';
-
-const eyeSources = {
-  韓系偶像臉: 'clear bright eyes', 日系清透臉: 'clean gentle eyes',
-  甜美可愛臉: 'bright friendly eyes', 混血立體臉: 'deep-set eyes',
-};
+import { reviewedEyeLayers, reviewedEyeExpression, reviewedEyeIdentity } from './localDetailEyeSources.js';
 const skinSources = {
   玻璃水光肌: 'dewy luminous skin texture', 柔霧細緻肌: 'soft matte skin texture',
   微曬陽光感膚質: 'slightly sun-kissed skin texture',
@@ -58,12 +53,11 @@ export function buildResolvedLocalDetailBundle({ subjectCount, subjectKind, imag
 
   const effects = (lightSources[lightDirection?.zh] || []).filter((text) => has(lightDirection, text))
     .map((excerpt) => ({ group: 'lighting', ref: reference('lightDirection', excerpt) }));
-  const faceText = eyeSources[character.facialFeatures?.zh];
-  const faceKey = 'character.facialFeatures';
+  const identity = reviewedEyeIdentity(character.facialFeatures, sources);
   const eyeModel = { layers: reviewedEyeLayers(character, wardrobe), details: [], effects };
-  if (has(character.facialFeatures, faceText)) {
-    eyeModel.layers.push({ id: faceKey, regions: { eyes: { state: 'exposed', ref: reference(faceKey, faceText) } } });
-    eyeModel.details.push(fragment('eyeIdentity', 'eyes', faceKey, faceText));
+  if (identity) {
+    eyeModel.layers.push(identity.layer);
+    eyeModel.details.push(...identity.details);
     eyeModel.details.push(...reviewedEyeExpression(character.expression));
     const skin = skinSources[character.skinDetails?.zh];
     if (has(character.skinDetails, skin)) eyeModel.details.push(fragment('localSkin', 'eyes', 'character.skinDetails', skin));

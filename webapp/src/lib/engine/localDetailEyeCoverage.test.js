@@ -21,15 +21,14 @@ test('reviewed hair swept away from the forehead does not suppress the eye crop'
     snapshot.character.hairStylingState = option('hairStylingStateId', zh);
     const result = buildResolvedLocalDetailBundle(snapshot).eyes;
     assert.equal(result.status, 'ready');
-    assert.match(result.text, /bright friendly eyes/);
+    assert.match(result.text, /bright round eyes/);
     assert.doesNotMatch(result.text, /short hair|slicked|wet|forehead|silhouette/);
     assert.ok(result.sourceRefs.some((r) => r.key === 'character.hairstyle'));
   }
 });
 
-test('unreviewed fringes, wind and changed hair sources remain barriers', () => {
+test('unreviewed wind and changed hair sources remain barriers', () => {
   const variants = [
-    { hairstyle: option('hairstyleId', '不對稱濕感短鮑伯') },
     { hairStylingState: option('hairStylingStateId', '強烈風感') },
     { hairStylingState: option('hairStylingStateId', '微風吹拂') },
     { hairstyle: { ...base().character.hairstyle, en: 'custom hair covering the eyes' } },
@@ -92,8 +91,8 @@ test('all thirteen reviewed eye expressions stay source-traceable and respect co
     snapshot.character.expression = expression;
     const result = buildResolvedLocalDetailBundle(snapshot).eyes;
     const references = result.sourceRefs.filter((r) => r.key === 'character.expression');
-    assert.equal(references.length, 1, expression.zh);
-    assert.ok(expression.en.includes(references[0].excerpt));
+    assert.equal(references.length, expression.zh === '自然喜悅' ? 1 : 2, expression.zh);
+    assert.ok(references.every((r) => expression.en.includes(r.excerpt)));
     assert.match(result.text, /eye area/);
     snapshot.wardrobe.eyewear = option('eyewearId', '眼布');
     assert.equal(buildResolvedLocalDetailBundle(snapshot).eyes.sourceRefs

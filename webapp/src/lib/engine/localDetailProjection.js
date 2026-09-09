@@ -18,9 +18,9 @@ const compositions = Object.freeze({
 });
 
 const surfaceGroups = new Set(['localFabric', 'localColor', 'localNeckline', 'localStraps',
-  'localWaistline', 'effectiveCoverageModifiers', 'eyeCovering']);
-const groupOrder = ['eyeIdentity', 'browIdentity', 'eyeExpression', 'localSkin', 'localHairOcclusion',
-  ...surfaceGroups, 'eyewearAtEyes', 'visibleNeckAccessory', 'visibleWaistAccessory', 'visibleNavelPiercing',
+  'localWaistline', 'effectiveCoverageModifiers', 'eyeCovering', 'localHairOcclusion', 'eyewearAtEyes']);
+const groupOrder = ['eyeIdentity', 'browIdentity', 'eyeExpression', 'localSkin',
+  ...surfaceGroups, 'visibleNeckAccessory', 'visibleWaistAccessory', 'visibleNavelPiercing',
   'lighting', 'imaging'];
 
 function freeze(value) {
@@ -56,9 +56,11 @@ function projectTarget(snapshot, target) {
       diagnostics.push('unreviewed-or-stale-fragment');
       return;
     }
-    const hasColor = fragment.group === 'localFabric' && validRef(sources, fragment.colorRef);
+    const hasColor = ['localFabric', 'eyeCovering'].includes(fragment.group) && validRef(sources, fragment.colorRef);
     fragments.push({ group: fragment.group, text: hasColor
-      ? `${fragment.ref.excerpt} in ${fragment.colorRef.excerpt}` : fragment.ref.excerpt });
+      ? fragment.group === 'eyeCovering'
+        ? `${fragment.colorRef.excerpt} ${fragment.ref.excerpt}`
+        : `${fragment.ref.excerpt} in ${fragment.colorRef.excerpt}` : fragment.ref.excerpt });
     refs.push({ ...fragment.ref });
     if (hasColor) refs.push({ ...fragment.colorRef });
   };
