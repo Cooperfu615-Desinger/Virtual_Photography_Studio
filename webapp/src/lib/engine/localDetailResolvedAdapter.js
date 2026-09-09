@@ -6,6 +6,7 @@ import { reviewedWaistLayers } from './localDetailWaistSources.js';
 import { chestOnlyHem, reviewedChestHair } from './localDetailChestSources.js';
 import { reviewedLocalAccessory } from './localDetailAccessorySources.js';
 import { reviewedLocalEffects, reviewedLocalSkin } from './localDetailEffectSources.js';
+import { reviewedLocalBodyContour } from './localDetailBodySources.js';
 const categories = {
   top: '上身 (Tops)', dress: '連身 (Dresses)', outfitPreset: '套裝 (Outfit Presets)',
   outerwear: '外套 (Outerwear)',
@@ -59,6 +60,9 @@ export function buildResolvedLocalDetailBundle({ subjectCount, subjectKind, imag
   for (const target of ['collarbone-chest', 'abdomen-navel']) {
     const model = { layers: [], details: reviewedLocalSkin(character.skinDetails,
       target === 'collarbone-chest' ? ['neckBase', 'collarbone', 'upperChest'] : ['navelPosition', 'surroundingAbdomen']), effects };
+    const bodyContour = reviewedLocalBodyContour(character.bodyType, target);
+    if (bodyContour?.detail) model.details.push(bodyContour.detail);
+    if (bodyContour?.diagnostic) model.diagnostics = [bodyContour.diagnostic];
     if (target === 'collarbone-chest') {
       const hairLayer = reviewedChestHair(character);
       if (hairLayer) model.layers.push(hairLayer);
@@ -67,7 +71,7 @@ export function buildResolvedLocalDetailBundle({ subjectCount, subjectKind, imag
     if (present(colors.completeLookPalette)) model.layers.push(barrier('unreviewed-complete-look-palette'));
     const accessory = reviewedLocalAccessory(target, wardrobe);
     model.details.push(...accessory.details);
-    model.diagnostics = [...diagnostics, ...accessory.diagnostics];
+    model.diagnostics = [...(model.diagnostics || []), ...diagnostics, ...accessory.diagnostics];
 
     for (const key of ['outerwear', 'outfitPreset', 'dress', 'top']) {
       if (key === 'outfitPreset') {

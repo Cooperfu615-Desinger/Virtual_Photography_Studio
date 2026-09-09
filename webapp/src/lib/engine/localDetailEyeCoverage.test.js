@@ -14,6 +14,7 @@ const base = () => ({ subjectCount: 1, imageType: 'photorealistic-photo', charac
   hairstyle: option('hairstyleId', '帥氣濕亮油頭'),
   hairStylingState: option('hairStylingStateId', '柔順自然'),
 }, wardrobe: {} });
+const localEvidence = (text) => text.split('\n\n').slice(2).join('\n\n');
 
 test('reviewed hair swept away from the forehead does not suppress the eye crop', () => {
   for (const zh of ['柔順自然', '濕髮分束']) {
@@ -46,7 +47,7 @@ test('reviewed lower-face and audio accessories stay outside the crop', () => {
     snapshot.wardrobe.headAccessory = option('headAccessoryId', zh);
     const result = buildResolvedLocalDetailBundle(snapshot).eyes;
     assert.equal(result.status, 'ready', zh);
-    assert.doesNotMatch(result.text, /mask|respirator|headphones|earphones|cable|nose|mouth/);
+    assert.doesNotMatch(localEvidence(result.text), /mask|respirator|headphones|earphones|cable|nose|mouth/);
     assert.ok(result.sourceRefs.some((r) => r.key === 'wardrobe.headAccessory'));
   }
   const snapshot = base();
@@ -61,9 +62,9 @@ test('eye covering retains only its local fabric and hides eye identity and expr
   const result = buildResolvedLocalDetailBundle(snapshot).eyes;
   assert.equal(result.status, 'ready');
   assert.equal(result.coverage.eyes, 'covered');
-  assert.match(result.text, /eye area/);
+  assert.match(result.text, /eye[- ]area/);
   assert.match(result.text, /black elastic stretch-fabric eye covering fitted directly over both eyes/);
-  assert.doesNotMatch(result.text, /friendly|widened|raised brows|hair fully|nose|mouth/);
+  assert.doesNotMatch(localEvidence(result.text), /friendly|widened|raised brows|hair fully|nose|mouth/);
 });
 
 test('eye expression fragments do not import lips, teeth, cheeks or whole-face emotion', () => {
@@ -93,7 +94,7 @@ test('all thirteen reviewed eye expressions stay source-traceable and respect co
     const references = result.sourceRefs.filter((r) => r.key === 'character.expression');
     assert.equal(references.length, expression.zh === '自然喜悅' ? 1 : 2, expression.zh);
     assert.ok(references.every((r) => expression.en.includes(r.excerpt)));
-    assert.match(result.text, /eye area/);
+    assert.match(result.text, /eye[- ]area/);
     snapshot.wardrobe.eyewear = option('eyewearId', '眼布');
     assert.equal(buildResolvedLocalDetailBundle(snapshot).eyes.sourceRefs
       .some((r) => r.key === 'character.expression'), false);

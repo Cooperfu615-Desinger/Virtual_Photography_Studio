@@ -12,15 +12,15 @@ const imageTypes = Object.freeze({
 });
 
 const compositions = Object.freeze({
-  eyes: 'An extreme close-up centered on the eye area and its immediate surroundings, showing the visible surfaces at that location. This small region fills the frame, with the rest of the face outside the crop.',
-  'collarbone-chest': 'An extreme close-up centered on the collarbone and upper-chest area. Only this small region and its visible surfaces fill the frame; the head and the rest of the torso remain outside the crop.',
-  'abdomen-navel': 'An extreme close-up centered on the navel position and the immediately surrounding abdominal area, showing the visible surface at that location. This small region fills the frame; the rest of the torso and hips remain outside the crop.',
+  eyes: 'An eye-area close-up extending from the brow line to the upper cheekbones, with both eyes and their surrounding eyelids clearly visible. Selected hair, eyewear, skin details, and nearby facial features remain visible where they naturally enter the crop, while the mouth, chin, neck, and complete face stay outside the frame.',
+  'collarbone-chest': 'A collarbone-and-upper-chest close-up extending from the base of the neck to the upper bust, with both collarbones and the selected neckline or shoulder straps visible. Selected hair, skin details, garment edges, and neck accessories remain visible where they naturally enter the crop, while the face, arms, waist, and lower torso stay outside the frame.',
+  'abdomen-navel': 'A midriff close-up extending from the lower ribcage to the upper hip line, with the navel near the center and both natural waist contours visible. The selected garment edges and selected waist accessories remain visible where they enter the crop, while the head, arms, and legs stay outside the frame.',
 });
 
 const surfaceGroups = new Set(['localFabric', 'localColor', 'localNeckline', 'localStraps',
   'localWaistline', 'effectiveCoverageModifiers', 'eyeCovering', 'localHairOcclusion', 'eyewearAtEyes',
   'visibleNeckAccessory', 'visibleWaistAccessory']);
-const groupOrder = ['eyeIdentity', 'browIdentity', 'eyeExpression', 'localSkin',
+const groupOrder = ['eyeIdentity', 'browIdentity', 'eyeExpression', 'bodyContour', 'localSkin',
   ...surfaceGroups, 'visibleNavelPiercing',
   'lighting', 'imaging'];
 
@@ -66,6 +66,12 @@ function projectTarget(snapshot, target) {
     if (hasColor) refs.push({ ...fragment.colorRef });
   };
 
+  // Body contours are target-scoped silhouette anchors. They remain useful
+  // through a confirmed garment layer, but never change its coverage state.
+  for (const fragment of input?.details || []) {
+    if (fragment.group === 'bodyContour' && fragment.scope === 'target') add(fragment, policy.allowedGroups);
+  }
+
   for (const region of policy.subregions) {
     const layers = input?.layers || [];
     let state = layers.length ? 'exposed' : 'unknown';
@@ -105,7 +111,9 @@ function projectTarget(snapshot, target) {
   }
 
   // Lighting cannot make an otherwise unsupported target available.
-  const hasLocalEvidence = fragments.length > 0;
+  // A body contour refines an already-supported local surface; by itself it
+  // cannot make an otherwise unresolved garment target ready.
+  const hasLocalEvidence = fragments.some((fragment) => fragment.group !== 'bodyContour');
   for (const fragment of input?.effects || []) add(fragment, ['lighting', 'imaging']);
   const ready = hasLocalEvidence && Object.hasOwn(imageTypes, snapshot.imageType);
   if (!Object.hasOwn(imageTypes, snapshot.imageType)) diagnostics.push('unreviewed-image-type');

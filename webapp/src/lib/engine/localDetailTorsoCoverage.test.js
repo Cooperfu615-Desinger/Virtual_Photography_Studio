@@ -12,6 +12,7 @@ const option = (key, zh) => {
 const input = (wardrobe) => ({ subjectCount: 1, imageType: 'photorealistic-photo', wardrobe });
 const chest = (wardrobe) => buildResolvedLocalDetailBundle(input(wardrobe))['collarbone-chest'];
 const abdomen = (wardrobe) => buildResolvedLocalDetailBundle(input(wardrobe))['abdomen-navel'];
+const localEvidence = (text) => text.split('\n\n').slice(2).join('\n\n');
 
 test('reviewed high neck covers all chest regions without forcing visible skin', () => {
   for (const zh of ['高領針織上衣', '高領連身上衣']) {
@@ -80,7 +81,7 @@ test('reviewed outer fabric survives unknown closure while hiding the inner laye
   const result = chest({ outerwear: option('outerwearId', '長版襯衫'), top: option('topId', '高領連身上衣') });
   assert.equal(result.status, 'ready');
   assert.match(result.text, /cotton poplin/);
-  assert.doesNotMatch(result.text, /smooth stretch|bare skin|shirttail|sleeves/);
+  assert.doesNotMatch(localEvidence(result.text), /smooth stretch|bare skin|shirttail|sleeves/);
   assert.equal(result.coverage.upperChest, 'unknown');
 });
 
@@ -89,7 +90,7 @@ test('double shoulder slip only releases the collarbone, which still reads the i
   const covered = chest({ ...base, top: option('topId', '高領連身上衣') });
   assert.equal(covered.coverage.collarbone, 'covered');
   assert.match(covered.text, /smooth stretch or ribbed fabric/);
-  assert.doesNotMatch(covered.text, /open collarbone|bare skin|arms/);
+  assert.doesNotMatch(localEvidence(covered.text), /open collarbone|bare skin|arms/);
   const open = chest({ ...base, top: option('topId', '一字領上衣') });
   assert.equal(open.coverage.collarbone, 'exposed');
   assert.match(open.text, /open collarbone line/);

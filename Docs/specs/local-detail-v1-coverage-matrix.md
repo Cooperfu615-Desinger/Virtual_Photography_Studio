@@ -2,7 +2,7 @@
 
 日期：2026-09-09。核對基準：`main` 的 `81ca26a`。
 
-本文件收斂[獨立衍生輸出規格](local-detail-prompt.md)的第一版資料範圍。初版為唯讀盤點；後續 A／B／C 已按下列執行紀錄完成有限來源實作，PAGE1 consumer 與 Saved Cards 保存／還原／Markdown round-trip 已接入。早期[目錄盤點](local-detail-coverage-inventory.md)及[核心增量紀錄](local-detail-projection-core.md)保留作來源與歷史。
+本文件收斂[獨立衍生輸出規格](local-detail-prompt.md)的第一版資料範圍。初版為唯讀盤點；後續 A／B／C 已按下列執行紀錄完成有限來源實作，PAGE1 consumer 與 Saved Cards 保存／還原／Markdown round-trip 已接入。2026-09-09 另完成三個區域的範圍式構圖句與來源可追溯的胸口／腰腹身形輪廓錨點；這不擴大服裝或配件的已審核範圍。早期[目錄盤點](local-detail-coverage-inventory.md)及[核心增量紀錄](local-detail-projection-core.md)保留作來源與歷史。
 
 ## A／B／C 執行結果（2026-09-09）
 
@@ -14,6 +14,7 @@
 - **A／B／C 基線 Browser**：本機指定 URL，1440×1000／390×900 五工作區導覽、截圖、原六輸出及來源選單檢查；桌面套用目前預覽成功，沒有頁面 warning/error、破圖或 document 水平溢位。手機動作／場景既有面板內溢位仍在；A／B／C 階段未改 UI/CSS。未操作 Saved Cards 的新增刪除匯入、未付費生圖；PAGE1 consumer 的新卡驗證另見下列 consumer 階段。
 - **consumer 已接入**：PAGE1 第七張「局部超特寫」卡置於既有六張之後，切換眼部／鎖骨／胸口／腰腹／肚臍只讀取同一 bundle 的預先計算文字，不重新隨機；複製按鈕使用當前文字，無可用資料時停用。DLL_PIC Pro 新增同一 `local-detail` source，標籤與文字跟隨當前部位，比例不鎖定。雙人及沒有局部 bundle 的舊結果不建立該卡或來源。
 - **Saved Cards round-trip 已接入**：Favorites codec v4 保存三部位的 stable id、label、target、英文文字、契約版本與 `localDetailTarget`；v2／v3 舊記錄不合成局部資料。Markdown `## Local Detail` JSON section 可匯出／匯入，舊 Markdown 沒有該 section 時維持相容。套用收藏卡先顯示保存文字，同一 bundle 的其他已保存部位可切換；編輯或 reroll 後才清除保存快照。ZIP 歷史獨立 round-trip 問題仍不在本階段宣稱範圍。
+- **區域構圖與身形錨點已接入**：`eyes` 採眉線至上眼頰、`collarbone-chest` 採頸根至上胸、`abdomen-navel` 採下肋骨至上髖線；胸口／腰腹只保留對應 Body Type 的局部輪廓片語，不帶完整身高、三圍或腿身比例。局部構圖句不覆寫衣物覆蓋與配件位置未知規則。
 - **下一階段**：實際影像品質由使用者以固定案例驗證；完整款式 metadata、未審核來源與跨模型接受度仍按矩陣保留未知。第 2、6 節保留初版盤點基準，不是 A／B／C 之後的現況。
 
 ## 1. 第一版的完成定義
