@@ -8,6 +8,7 @@ import {
   normalizeCharacterCardVariant,
 } from './characterCardLab.js';
 import { normalizeRandom } from './engineRandom.js';
+import { buildResolvedLocalDetailBundle } from './engine/localDetailResolvedAdapter.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
 import {
   COMPOSITION_VISIBILITY_BUCKETS,
@@ -15303,12 +15304,24 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     fullBodyCharacterPrompt,
   } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
+  // Independent consumer of the SAME unprojected, resolved values. No picker,
+  // no main-prompt parsing, and no changes to the six existing output routes.
+  const localDetailPrompts = buildResolvedLocalDetailBundle({
+    subjectCount: context.subject.count,
+    subjectKind: context.subject.specialSubject,
+    imageType: imageTypePreset.id,
+    character: extractCharacterSlots(character),
+    wardrobe: extractWardrobeSlots(wardrobe),
+    colors: wardrobeColors,
+    lightDirection,
+  });
 
   return {
     id: `${Date.now()}-${index}-${random().toString(36).slice(2, 8)}`,
     date: new Date().toISOString(),
     summary: buildSummary(summaryFields),
     summaryFields,
+    localDetailPrompts,
     midjourneyPrompt,
     grokPrompt,
     zImagePrompt,

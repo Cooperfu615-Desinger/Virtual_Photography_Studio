@@ -7,10 +7,10 @@ import { PROMPT_OUTPUT_CONTRACTS } from './promptOutputContracts.js';
 
 const database = JSON.parse(fs.readFileSync(new URL('../../data/database.json', import.meta.url), 'utf8'));
 
-test('local-detail phase-one contract is immutable data and disconnected from public outputs', () => {
+test('local-detail contract is immutable and only the runtime projection is connected', () => {
   assert.deepEqual(JSON.parse(JSON.stringify(contract)), contract);
   assert.ok(Object.isFrozen(contract.targets.eyes.allowedGroups));
-  assert.equal(contract.runtimeConnected, false);
+  assert.equal(contract.runtimeConnected, true);
   assert.equal(contract.consumerConnected, false);
   assert.equal(contract.storageConnected, false);
   assert.ok(!Object.values(PROMPT_OUTPUT_CONTRACTS).some((output) => output.source?.id === contract.outputId));
@@ -62,6 +62,6 @@ test('phase-one fixtures cover the three targets and name unimplemented integrat
   for (const tag of ['eyes', 'chest', 'abdomen', 'separates', 'preset', 'dress', 'covered', 'exposed', 'translucent', 'unknown', 'opening', 'outerwear-layering', 'shoulder-wear', 'piercing-occlusion']) {
     assert.ok(tags.has(tag), tag);
   }
-  assert.ok(pending.includes('existing-six-output-byte-identity'));
+  assert.ok(!pending.includes('existing-six-output-byte-identity'));
   assert.ok(pending.includes('saved-card-target-version-text-roundtrip'));
 });

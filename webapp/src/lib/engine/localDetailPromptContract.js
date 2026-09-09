@@ -1,4 +1,4 @@
-/** Phase-one target data only. Not imported by generation, UI, or storage. */
+/** Runtime projection contract. UI consumers and storage are not connected. */
 function deepFreeze(value) {
   if (!value || typeof value !== 'object' || Object.isFrozen(value)) return value;
   Object.values(value).forEach(deepFreeze);
@@ -9,7 +9,7 @@ export const LOCAL_DETAIL_PROMPT_CONTRACT = deepFreeze({
   version: 1,
   outputId: 'local-detail',
   label: '局部超特寫',
-  runtimeConnected: false,
+  runtimeConnected: true,
   consumerConnected: false,
   storageConnected: false,
   supportedSubjectCounts: [1],

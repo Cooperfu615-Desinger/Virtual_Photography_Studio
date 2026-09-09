@@ -2,7 +2,7 @@
 
 更新日期：2026-09-09
 
-狀態：已完成第一階段獨立資料契約、來源案例與覆蓋盤點；尚未接入生成、目錄 metadata、UI 或儲存流程。新增識別碼在獨立契約內定義，不代表既有公開欄位已變更。
+狀態：已完成第一階段資料契約、來源案例與覆蓋盤點，並完成[第二階段核心與有限來源 runtime bridge](local-detail-projection-core.md)。正式生成已建立內部三目標 bundle，但完整目錄、UI 與儲存流程尚未接入；既有六份公開輸出不變。
 
 ## 1. 目的與範圍
 
@@ -121,4 +121,4 @@
 
 第一階段交付：`webapp/src/lib/engine/localDetailPromptContract.js`、`localDetailPromptFixtures.js`、`localDetailPromptContract.test.js` 與[覆蓋盤點](local-detail-coverage-inventory.md)。十組來源案例是目標規格與來源可追溯性測試，不是已生成英文成品。契約加入內部 mixed 子區域狀態，以處理鎖骨露出但胸口覆蓋等情況；不增加 UI 選項。
 
-下一步為獨立 adapter／投影與 renderer。具體保存 schema、完整款式 metadata、生成英文與 UI 仍未實作；不得將第一階段契約視為 runtime 已支援第七輸出。
+第二階段已有獨立投影／英文 renderer、六款基礎衣物 adapter 與同次 resolved snapshot 的 runtime bridge，細節見[核心與接入文件](local-detail-projection-core.md)。舊六結果逐字不變及隨機次數相同的測試已通過；下一步先擴充可審核來源，再接入 consumer。具體保存 schema、完整款式 metadata 與 UI 仍未實作；內部 bundle 不代表第七張卡已開放使用。

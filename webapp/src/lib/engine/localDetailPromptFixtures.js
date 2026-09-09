@@ -65,11 +65,10 @@ export const LOCAL_DETAIL_PROMPT_FIXTURES = [
   },
 ];
 
-// Adapter-level obligations deferred until adapters exist; not claimed as passed
-// runtime fixtures in phase one.
+// Remaining integration/consumer obligations. The old-six byte-identity and
+// random-consumption runtime gate is now in localDetailRuntime.test.js.
 export const LOCAL_DETAIL_PENDING_INTEGRATION_CASES = [
   'same-snapshot-no-reroll-three-target-switch',
-  'existing-six-output-byte-identity',
   'character-card-visible-identity-only',
   'special-outfit-local-source-or-explicit-unavailable',
   'duo-output-absent',
