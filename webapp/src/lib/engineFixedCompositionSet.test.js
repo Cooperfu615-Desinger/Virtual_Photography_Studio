@@ -27,7 +27,7 @@ function escapeRegExp(value) {
 }
 
 function gptSection(prompt, label) {
-  const sectionLabels = ['Image Type', 'Subject', 'Wardrobe', 'Pose and Composition', 'Scene', 'Lighting', 'Camera Look'];
+  const sectionLabels = ['Image Type', 'Composition', 'Subject', 'Wardrobe', 'Pose and Composition', 'Scene', 'Lighting', 'Camera Look'];
   const labelPattern = sectionLabels.map(escapeRegExp).join('|');
   const match = prompt.grokPrompt.match(new RegExp(`(?:^|\\n\\n)${escapeRegExp(label)}:\\n([\\s\\S]*?)(?=\\n\\n(?:${labelPattern}):|\\n\\nmulti-cut sequence n=2|$)`));
   assert.ok(match, `Expected ${label} section in Gpt prompt`);

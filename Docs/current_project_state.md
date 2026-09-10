@@ -9,6 +9,12 @@ Last updated: 2026-09-10
 - The generated PAGE1 `Gpt` output (`grokPrompt`) no longer appends the legacy `multi-cut sequence n=2` line. The GPT output contract is now version `1.8.0`; historical saved Prompt text remains readable, while Z-Image and AI contracts are unchanged.
 - GPT-only formatting cleanup now removes exact repeated sentences or comma-delimited fragments after whitespace and punctuation normalization. It does not semantically compress selected English descriptions or alter the shared selection model.
 
+## GPT Prompt phase 2 composition label (2026-09-10)
+
+- Newly generated main `Gpt` output (`grokPrompt`) now labels the existing shared composition sentence as `Composition:` between `Image Type` and `Subject`, for both single and duo modes. The resolved composition text and all other renderer content are unchanged; the GPT output contract is now version `1.9.0`.
+- The label is a structural boundary for GPT Image prompt readability and downstream section-aware tooling. Z-Image, AI, derived-output wording, API parameters, and the shared selection model are unchanged.
+- Saved Cards and standard Markdown import remain compatible with legacy GPT text that has an unlabeled composition paragraph. The codec stores and restores the prompt text as-is and continues matching controls from source descriptions rather than requiring the new heading.
+
 ## Local-detail mechanism removal (2026-09-10)
 
 - The local-detail／局部超特寫 derived-output mechanism has been removed from the engine, PAGE1 UI, DLL source list, PromptCard export, and Saved Cards user-facing flow. PAGE1 is back to the six established outputs and the original renderer/data flow.
@@ -429,6 +435,7 @@ Current duo prompt output contract:
 
 - Duo `Gpt` is role-ordered and sectioned:
   - `Image Type`
+  - `Composition`
   - `Subject` containing the base subject sentence, then `Woman 1` and `Woman 2` role blocks
   - `Shared Expression`
   - `Pose and Composition`

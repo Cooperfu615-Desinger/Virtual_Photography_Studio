@@ -59,6 +59,7 @@ function escapeRegExp(value) {
 function gptSection(prompt, label) {
   const sectionLabels = [
     'Image Type',
+    'Composition',
     'Subject',
     'Shared Expression',
     'Scene',
@@ -96,12 +97,15 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   });
 
   assert.match(prompt.grokPrompt, /^Image Type:\nCreate a photorealistic editorial portrait\./);
+  assert.match(prompt.grokPrompt, /\nComposition:\n(?:Half-body|Full-body|Chest-up|Waist-up|Knee-up|Shoulder-level|Eye-level|Waist-level|Knee-level|High angle|Low angle|Top-down|Bird's-eye|Worm's-eye|Tilted frame)/i);
   assert.match(prompt.grokPrompt, /\nScene:\nThe portrait takes place in /);
   assert.match(prompt.grokPrompt, /\nSubject:\nThe subject is /);
   assert.match(prompt.grokPrompt, /\nWardrobe:\nShe wears /);
   assert.match(prompt.grokPrompt, /\nPose and Composition:\n/);
   assert.match(prompt.grokPrompt, /\nLighting:\n/);
   assert.match(prompt.grokPrompt, /\nCamera Look:\n/);
+  assert.ok(prompt.grokPrompt.indexOf('\nImage Type:\n') < prompt.grokPrompt.indexOf('\nComposition:\n'));
+  assert.ok(prompt.grokPrompt.indexOf('\nComposition:\n') < prompt.grokPrompt.indexOf('\nSubject:\n'));
   assert.ok(prompt.grokPrompt.indexOf('\nSubject:\n') < prompt.grokPrompt.indexOf('\nWardrobe:\n'));
   assert.ok(prompt.grokPrompt.indexOf('\nWardrobe:\n') < prompt.grokPrompt.indexOf('\nPose and Composition:\n'));
   assert.ok(prompt.grokPrompt.indexOf('\nPose and Composition:\n') < prompt.grokPrompt.indexOf('\nScene:\n'));

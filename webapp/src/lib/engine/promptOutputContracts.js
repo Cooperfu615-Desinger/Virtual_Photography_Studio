@@ -39,6 +39,7 @@ const COMMON_CONTROL_LEAKAGE = [
 
 const GPT_SINGLE_LABELS = [
   'Image Type',
+  'Composition',
   'Subject',
   'Wardrobe',
   'Pose and Composition',
@@ -49,6 +50,7 @@ const GPT_SINGLE_LABELS = [
 
 const GPT_DUO_LABELS = [
   'Image Type',
+  'Composition',
   'Subject',
   'Woman 1',
   'Woman 2',
@@ -78,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.8.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.9.0';
 
 /**
  * Public PAGE1 prompt-output contract.

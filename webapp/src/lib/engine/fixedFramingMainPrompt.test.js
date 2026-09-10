@@ -38,7 +38,8 @@ function getPage1FramingControl(locks) {
 }
 
 function getCompositionBlock(promptText) {
-  return String(promptText || '').split(/\n\n+/)[1] || '';
+  return (String(promptText || '').split(/\n\n+/)[1] || '')
+    .replace(/^Composition:\n/i, '');
 }
 
 test('phase-5 PAGE1 framing selector exposes only the approved main options', () => {

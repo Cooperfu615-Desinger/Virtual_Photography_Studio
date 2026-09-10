@@ -14747,7 +14747,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     lightDirection,
     film,
   });
-  const grokPrompt = renderGptPrompt(promptModel);
+  const grokPrompt = renderGptPrompt(promptModel, { compositionSection: true });
   const zImagePrompt = renderZImagePrompt(promptModel);
   const midjourneyPrompt = appendMidjourneyParameterTail(
     renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {

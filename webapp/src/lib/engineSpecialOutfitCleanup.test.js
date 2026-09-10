@@ -107,7 +107,7 @@ const optionByLabel = (key, label) => {
 
 const wordCount = (text) => text.trim().split(/\s+/).filter(Boolean).length;
 const gptSection = (prompt, label) => (
-  prompt.grokPrompt.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?=\\n\\n(?:Pose and Composition|Scene|Lighting|Camera Look):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || ''
+  prompt.grokPrompt.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?=\\n\\n(?:Composition|Pose and Composition|Scene|Lighting|Camera Look):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || ''
 );
 const specialOutfitGptGroups = (prompt) => {
   const subject = gptSection(prompt, 'Subject');

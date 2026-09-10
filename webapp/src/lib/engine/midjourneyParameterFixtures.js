@@ -23,7 +23,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: '4559ee06ffd4b297dfca1fb3ab4856eb21321309f8da238539314df0f1d6bc5b',
+      grokPrompt: '1bf014a187f828d0620e447b97b4ccd281f645be5a15f503596642a9918c1a8f',
       zImagePrompt: '52a916e847252f78f8e4fb7a3224b36ba4c19819fa37dc1102f8a24f2948c8a8',
       midjourneyPrompt: '5ca5f6feac4b3f567d03bf9e3ba719e8df91ad53c3e45ad4619a7cf769a5e2a8',
     },
@@ -44,7 +44,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 9:16 --s 100 --c 0 --w 0 --hd',
     baselineHashes: {
-      grokPrompt: '56882a850f3c42afd56b0b7893859a4dbf71bebe08eba4b783505c240054efbc',
+      grokPrompt: 'dbeacecfe9d8287039bf08be70932ef85f1f9fc19301ebef95996ca1c2a8dd32',
       zImagePrompt: '6dfa1221a015f8a7d42dda80d5e55ed3941b1952cc398f0a7c60b90a2d0aa688',
       midjourneyPrompt: '956597290de038702d6a0fa762813ec023712d025a496e0b66bf08b9d3b9dc6c',
     },
@@ -65,7 +65,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 50 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: 'd17ed9a4bc2df07a9d588605a2a18b57e83864a2bd1c5cfd86792b89824de7bd',
+      grokPrompt: '8ff441a082018c174ff523af158d03d70eb5a131c20c1ab59c756e107c211782',
       zImagePrompt: 'adc9cc125b8d1292ec5e6c583fd28f855d9046389c0c1e3073b391a8a7cfeafe',
       midjourneyPrompt: '94d7b9c2cd35c6ce8942823fb1b13b115bfd5975d54647f08e9cd8bb4406b1e2',
     },
@@ -86,7 +86,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 50 --c 0 --w 0 --hd',
     baselineHashes: {
-      grokPrompt: 'f942bb3883319395243bc94636388e5dbb42eecdd0e6bf2c2cb78956dd33fd4f',
+      grokPrompt: 'de63f8da5ac3e4f90b986109ce2d717f38dc68e07a04eac27837c631bfb9a145',
       zImagePrompt: '813fb10fb8b13454011d624d5fff34f242dbf98c49d84e7c19170b58b5dc9192',
       midjourneyPrompt: 'e93cc457b295a65f3650074d4f775225f3597c23e778f6923860ff09c44ac5c9',
     },
@@ -107,7 +107,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 3:4 --s 100 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: '52c15cf4e30e38d7913d46f02caeaa6a8ce3ef941d042275fe7b2f5aa7e99406',
+      grokPrompt: 'db8bc00daa61c378e2fcefb55cc2f491546a227fa29cef430ebf969cb8b13f34',
       zImagePrompt: '391d4a0efbd66374e57acffa90be14932e90fc51791e452aed5dbd5ca63b7736',
       midjourneyPrompt: '46cf0306f75af041990ada379f6f1ec98b8c671baf51fe641346dcea3bb3e331',
     },

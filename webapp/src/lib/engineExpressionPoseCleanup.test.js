@@ -15,7 +15,7 @@ const optionByLabel = (key, label) => {
   return option;
 };
 const gptSection = (prompt, label) => (
-  prompt.grokPrompt.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?:\\n\\n(?:Image Type|Subject|Shared Expression|Scene|Wardrobe|Pose and Composition|Lighting|Camera Look):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || ''
+  prompt.grokPrompt.match(new RegExp(`${label}:\\n([\\s\\S]*?)(?:\\n\\n(?:Image Type|Composition|Subject|Shared Expression|Scene|Wardrobe|Pose and Composition|Lighting|Camera Look):\\n|\\n\\nmulti-cut sequence n=2$|$)`))?.[1] || ''
 );
 
 test('expression and pose controls expose the cleaned option sets', () => {

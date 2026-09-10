@@ -14,6 +14,7 @@ function optionId(controlKey, zh) {
 function gptSection(prompt, label) {
   const sectionLabels = [
     'Image Type',
+    'Composition',
     'Subject',
     'Wardrobe',
     'Pose and Composition',

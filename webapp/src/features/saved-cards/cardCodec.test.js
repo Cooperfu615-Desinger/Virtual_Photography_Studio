@@ -47,6 +47,48 @@ test('Markdown import accepts historical and current Z-Image section headings', 
   }
 });
 
+test('Markdown import preserves both legacy unlabeled and current labeled GPT composition text', () => {
+  const controls = getLockControls();
+  const top = controls
+    .find((control) => control.key === 'topId')
+    .options.find((option) => option.zh === '棉質細肩背心');
+  const prompts = [
+    [
+      'Image Type:\nPhotorealistic editorial portrait.',
+      'Chest-up portrait, eye-level view, front-left three-quarter view',
+      `Subject:\nOne woman wearing ${top.en}.`,
+    ].join('\n\n'),
+    [
+      'Image Type:\nPhotorealistic editorial portrait.',
+      'Composition:\nChest-up portrait, eye-level view, front-left three-quarter view',
+      `Subject:\nOne woman wearing ${top.en}.`,
+    ].join('\n\n'),
+  ];
+
+  prompts.forEach((grokPrompt, index) => {
+    const imported = parseExportedMarkdownPrompt([
+      '**Summary:** GPT composition compatibility',
+      '',
+      '## Gpt',
+      '```text',
+      grokPrompt,
+      '```',
+      '',
+      '## Z-Image',
+      '```text',
+      'z output',
+      '```',
+      '',
+      '## AI Prompt',
+      '```text',
+      'AI output',
+      '```',
+    ].join('\n'), controls, `import-gpt-composition-${index}`);
+
+    assert.equal(imported.grokPrompt, grokPrompt);
+  });
+});
+
 test('favorite codec preserves card identity, prompts, selection, and lineage', () => {
   const locks = createEmptyLocks();
   locks.subjectCount = '1';
