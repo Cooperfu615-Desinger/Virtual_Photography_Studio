@@ -31,6 +31,11 @@ import {
   getActionPoseCardById,
   normalizeActionPoseProfile,
 } from './lib/actionPoseLab';
+import {
+  buildObservationCapturePrompt,
+  createEmptyObservationCaptureProfile,
+  normalizeObservationCaptureProfile,
+} from './lib/observationCaptureLab.js';
 import { copyTextToClipboard } from './lib/clipboard';
 import {
   buildRestoreLocks,
@@ -47,12 +52,14 @@ const Page1Workspace = lazy(() => import('./components/Page1Workspace.jsx'));
 const Page2Workspace = lazy(() => import('./components/Page2Workspace.jsx'));
 const Page3Workspace = lazy(() => import('./components/Page3Workspace.jsx'));
 const ActionPoseWorkspace = lazy(() => import('./components/ActionPoseWorkspace.jsx'));
+const ObservationCaptureWorkspace = lazy(() => import('./components/ObservationCaptureWorkspace.jsx'));
 const SavedCardsWorkspace = lazy(() => import('./components/SavedCardsWorkspace.jsx'));
 
 const PAGE_MODE_KEY = 'vps.pageMode';
 const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const PAGE3_PROFILE_KEY = 'vps.page3Profile';
 const ACTION_POSE_PROFILE_KEY = 'vps.actionPoseProfile';
+const OBSERVATION_CAPTURE_PROFILE_KEY = 'vps.observationCaptureProfile';
 const PAGE_MODE_COPY = {
   page1: {
     title: 'Prompt Control Deck',
@@ -69,6 +76,10 @@ const PAGE_MODE_COPY = {
   page3: {
     title: 'World Street Scene Builder',
     subtitle: '建立全球經典街景、城市空景與高視角地景 prompt，專注真實地點錨點與攝影語言。',
+  },
+  observationCapture: {
+    title: 'Observation Capture Lab',
+    subtitle: '導入角色卡，獨立組合舞台化觀察式抓拍的場景、鏡位、動作與成像 Prompt。',
   },
   page4: {
     title: 'Saved Cards',
@@ -136,8 +147,19 @@ export default function App() {
   const [actionPoseProfile, setActionPoseProfile] = useState(() => (
     normalizeActionPoseProfile(loadJsonStorage(ACTION_POSE_PROFILE_KEY, createEmptyActionPoseProfile()))
   ));
+  const [observationCaptureProfile, setObservationCaptureProfile] = useState(() => (
+    loadJsonStorage(OBSERVATION_CAPTURE_PROFILE_KEY, createEmptyObservationCaptureProfile(characterCards))
+  ));
   const normalizedActionPoseProfile = useMemo(() => normalizeActionPoseProfile(actionPoseProfile), [actionPoseProfile]);
   const actionPosePromptBundle = useMemo(() => buildActionPosePromptBundle(normalizedActionPoseProfile), [normalizedActionPoseProfile]);
+  const normalizedObservationCaptureProfile = useMemo(
+    () => normalizeObservationCaptureProfile(observationCaptureProfile, characterCards),
+    [characterCards, observationCaptureProfile],
+  );
+  const observationCaptureResult = useMemo(
+    () => buildObservationCapturePrompt(characterCards, normalizedObservationCaptureProfile),
+    [characterCards, normalizedObservationCaptureProfile],
+  );
 
   useEffect(() => {
     window.localStorage.setItem(PAGE_MODE_KEY, pageMode);
@@ -154,6 +176,10 @@ export default function App() {
   useEffect(() => {
     saveJsonStorage(ACTION_POSE_PROFILE_KEY, actionPoseProfile);
   }, [actionPoseProfile]);
+
+  useEffect(() => {
+    saveJsonStorage(OBSERVATION_CAPTURE_PROFILE_KEY, normalizedObservationCaptureProfile);
+  }, [normalizedObservationCaptureProfile]);
 
   const displayPrompts = favoritePrompts;
   const page3FieldOptions = PAGE3_WORLD_SCENE_FIELD_OPTIONS;
@@ -382,6 +408,13 @@ export default function App() {
     showToast('動作姿勢卡已加入 Saved Cards');
   }, [actionPosePromptBundle.card, addFavoritePrompt, normalizedActionPoseProfile, showToast]);
 
+  const handleRegenerateObservationCapture = useCallback(() => {
+    setObservationCaptureProfile((previous) => ({
+      ...previous,
+      generationSeed: Number(previous.generationSeed || 1) + 1,
+    }));
+  }, []);
+
   const handleSavePage3Card = useCallback(() => {
     if (!page3Prompt) {
       showToast('請先完成場景設定再加入 Saved Cards');
@@ -439,6 +472,13 @@ export default function App() {
                 onClick={() => setPageMode('page3')}
               >
                 場景建模
+              </button>
+              <button
+                type="button"
+                className={pageMode === 'observationCapture' ? 'tab-primary-active page-mode-button' : 'secondary page-mode-button'}
+                onClick={() => setPageMode('observationCapture')}
+              >
+                觀察式抓拍
               </button>
               <button
                 type="button"
@@ -547,6 +587,15 @@ export default function App() {
           onCopyText={handleCopyText}
           onSaveCard={handleSavePage3Card}
           createEmptyProfile={createEmptyPage3Profile}
+        />
+      ) : pageMode === 'observationCapture' ? (
+        <ObservationCaptureWorkspace
+          characterCards={characterCards}
+          profile={normalizedObservationCaptureProfile}
+          setProfile={setObservationCaptureProfile}
+          result={observationCaptureResult}
+          onCopyText={handleCopyText}
+          onRegenerate={handleRegenerateObservationCapture}
         />
       ) : (
         <SavedCardsWorkspace

@@ -1885,6 +1885,7 @@ button:disabled {
   .page2-shell,
   .action-pose-shell,
   .page3-shell,
+  .observation-capture-shell,
   .page5-shell,
   .page5-builder-shell {
     grid-template-columns: 1fr;
