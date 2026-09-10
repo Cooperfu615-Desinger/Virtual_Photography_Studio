@@ -28,6 +28,7 @@ import {
   resolveAiPromptPolicyKey,
 } from './engine/aiPromptBudget.js';
 import {
+  dedupeExactPromptText,
   dedupeRepeatedCommaFragments,
   materializeOutfitColorControls,
 } from './engine/promptTextDeduplication.js';
@@ -10894,13 +10895,14 @@ function buildGptDuoPoseAndCompositionText(valuesByLabel, context) {
 }
 
 function cleanGptSinglePromptText(value) {
-  return stripMarkdown(value || '')
+  const normalized = stripMarkdown(value || '')
     .replace(/\s+/g, ' ')
     .replace(/\.\s*,/g, '.')
     .replace(/\s*,\s*,+/g, ', ')
     .replace(/\s+,/g, ',')
     .replace(/,\s*\./g, '.')
     .trim();
+  return dedupeExactPromptText(normalized);
 }
 
 function buildGptSingleFullFidelityText(value) {
@@ -11764,7 +11766,6 @@ function compressZImageSinglePoseText(value, context) {
 }
 
 function renderGptPrompt(promptModel, {
-  includeMultiCut = true,
   compositionSection = false,
   characterProfileWardrobeSection = false,
   wardrobeFallbackText = '',
@@ -11897,7 +11898,6 @@ function renderGptPrompt(promptModel, {
       sceneSection,
       section('Lighting', lightingText),
       section('Camera Look', cameraText),
-      includeMultiCut ? 'multi-cut sequence n=2' : '',
     ].filter(Boolean).join('\n\n');
   }
 
@@ -11918,7 +11918,6 @@ function renderGptPrompt(promptModel, {
     sceneSection,
     section('Lighting', lightingText),
     section('Camera Look', cameraText),
-    includeMultiCut ? 'multi-cut sequence n=2' : '',
   ].filter(Boolean).join('\n\n');
 }
 
@@ -12092,7 +12091,6 @@ function renderFixedFramingDerivedPrompt(promptModel, preset) {
   if (promptModel.context.subject?.count !== 1) return '';
 
   return renderGptPrompt(promptModel, {
-    includeMultiCut: false,
     compositionSection: true,
     characterProfileWardrobeSection: true,
     wardrobeFallbackText: preset.wardrobeFallbackText || '',

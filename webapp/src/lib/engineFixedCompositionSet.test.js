@@ -133,7 +133,7 @@ test('outdoor fixed compositions add locked coastal road and stair sets with bac
     assert.doesNotMatch(prompt.grokPrompt, /preserve anchors:|avoid generic beach|avoid indoor staircase/);
     assert.doesNotMatch(prompt.grokPrompt, /shoulder-level camera|camera at the subject's front-right/);
     assert.doesNotMatch(prompt.grokPrompt, /indoor warm night ambience|local warm practical-light pool/);
-    assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+    assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 
     assert.match(prompt.zImagePrompt, fixedSetCase.setText);
     assert.match(prompt.zImagePrompt, fixedSetCase.anchorText);
@@ -230,7 +230,7 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.doesNotMatch(prompt.grokPrompt, /blurred foreground occlusion near the lens/);
   assert.doesNotMatch(prompt.grokPrompt, /Aspect Ratio:/);
   assert.doesNotMatch(prompt.grokPrompt, /1:1 square|16:9|9:16|aspect ratio/i);
-  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+  assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 
   assert.match(prompt.zImagePrompt, /real-scale compact living-room editorial set/);
   assert.match(prompt.zImagePrompt, /large brown vintage Chesterfield leather sofa/);
@@ -285,7 +285,7 @@ test('black velvet industrial sofa fixed composition shares sofa placement contr
   assert.doesNotMatch(prompt.grokPrompt, /large brown vintage Chesterfield leather sofa/);
   assert.doesNotMatch(prompt.grokPrompt, /Bare sculptural dry branches/);
   assert.doesNotMatch(prompt.grokPrompt, /raw concrete wall fills the back plane/);
-  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+  assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 
   assert.ok(
     prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman') <
@@ -537,7 +537,7 @@ test('hotel window fixed composition uses shared real-scale set structure and fr
   assert.match(prompt.grokPrompt, /Urban fatigue presence/);
   assert.doesNotMatch(prompt.grokPrompt, /British vintage room with window-side interior/);
   assert.doesNotMatch(prompt.grokPrompt, /Aspect Ratio:/);
-  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+  assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 
   assert.match(prompt.zImagePrompt, /broad panoramic floor-to-ceiling glass wall/);
   assert.match(prompt.zImagePrompt, /The subject occupies one primary zone near the bed, bed edge, window-side floor, bedside table, curtain edge, or pillow foreground/);
@@ -604,7 +604,7 @@ test('Fuji hotel fixed compositions share hotel placement controls and seasonal 
     assert.doesNotMatch(prompt.grokPrompt, /New York-style high-rise skyline/);
     assert.doesNotMatch(prompt.grokPrompt, /city towers|city view|city depth|skyline view|city window/);
     assert.doesNotMatch(prompt.grokPrompt, /British vintage room with window-side interior/);
-    assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+    assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 
     assert.ok(
       prompt.zImagePrompt.indexOf('A 20s seductive stunning Japanese or Korean woman') <

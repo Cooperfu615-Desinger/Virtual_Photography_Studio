@@ -198,7 +198,7 @@ test('phase-4 gate keeps fixed composition full-source and projects duo A/B acro
     for (const field of MAIN_OUTPUT_FIELDS) {
       assert.ok(prompt[field].trim(), `${framingZh}/${field}: output`);
     }
-    assert.equal(prompt.grokPrompt.trimEnd().endsWith('multi-cut sequence n=2'), true, `${framingZh}: Gpt tail`);
+    assert.equal(prompt.grokPrompt.includes('multi-cut sequence n=2'), false, `${framingZh}: Gpt legacy tail`);
   }
 });
 

@@ -41,7 +41,6 @@ function validPromptFixture() {
       'Scene:\nA clean portrait studio.',
       'Lighting:\nSoft even light.',
       'Camera Look:\nNatural photographic detail.',
-      'multi-cut sequence n=2',
     ].join('\n\n'),
     zImagePrompt: [
       compactImageType,
@@ -150,11 +149,10 @@ test('validateOutputContracts accepts a complete single-subject fixture', () => 
   assert.deepEqual(validateOutputContracts(validPromptFixture()), []);
 });
 
-test('validateOutputContracts catches a missing Gpt terminator', () => {
+test('validateOutputContracts accepts a Gpt prompt without the legacy terminator', () => {
   const prompt = validPromptFixture();
-  prompt.grokPrompt = prompt.grokPrompt.replace(/\n\nmulti-cut sequence n=2$/, '');
   const issues = validateOutputContracts(prompt);
-  assert.ok(issues.some((issue) => issue.code === 'missing-tail'));
+  assert.equal(issues.some((issue) => issue.code === 'missing-tail'), false);
 });
 
 test('validateOutputContracts requires both duo roles and omits the single extra output', () => {

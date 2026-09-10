@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
 import {
+  dedupeExactPromptText,
   dedupeRepeatedCommaFragments,
   materializeOutfitColorControls,
 } from './engine/promptTextDeduplication.js';
@@ -28,6 +29,15 @@ test('dedupeRepeatedCommaFragments removes only exact repeated accessory fragmen
       'small pearl stud earring detail, soft understated pearl accent',
       'layered pearl necklace detail',
     ]
+  );
+});
+
+test('dedupeExactPromptText removes exact repeated sentences and comma fragments only', () => {
+  assert.equal(
+    dedupeExactPromptText(
+      'A calm portrait subject, soft matte skin. A calm portrait subject, soft matte skin. Long straight hair, long straight hair, natural sheen.'
+    ),
+    'A calm portrait subject, soft matte skin. Long straight hair, natural sheen.'
   );
 });
 

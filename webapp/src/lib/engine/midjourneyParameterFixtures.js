@@ -1,9 +1,10 @@
 /**
  * Descriptive baselines and parameter-tail expectations.
  * Each entry reuses a representative prompt fixture and records the approved
- * public-output hashes. Midjourney-tail changes must preserve Gpt, Z-Image,
- * and the contract-owned AI descriptive content unless that renderer has an
- * independently approved prompt-profile revision.
+ * public-output hashes. Midjourney-tail changes must preserve the Z-Image and
+ * contract-owned AI descriptive baselines unless those renderers have an
+ * independently approved prompt-profile revision. The Gpt baselines track the
+ * current GPT output contract and may change with an approved GPT-only update.
  */
 export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
   {
@@ -22,7 +23,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 25 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: 'c866ef75205a86b7f1a74fab63c6172bb0a9b9a06a844f5cb133ffefedd81730',
+      grokPrompt: '4559ee06ffd4b297dfca1fb3ab4856eb21321309f8da238539314df0f1d6bc5b',
       zImagePrompt: '52a916e847252f78f8e4fb7a3224b36ba4c19819fa37dc1102f8a24f2948c8a8',
       midjourneyPrompt: '5ca5f6feac4b3f567d03bf9e3ba719e8df91ad53c3e45ad4619a7cf769a5e2a8',
     },
@@ -43,7 +44,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 9:16 --s 100 --c 0 --w 0 --hd',
     baselineHashes: {
-      grokPrompt: '1a3f761ba9ca8e78a8f9e70bf4b593f77b43f37f2f676b3c6bd1a6d4fa0bfad6',
+      grokPrompt: '56882a850f3c42afd56b0b7893859a4dbf71bebe08eba4b783505c240054efbc',
       zImagePrompt: '6dfa1221a015f8a7d42dda80d5e55ed3941b1952cc398f0a7c60b90a2d0aa688',
       midjourneyPrompt: '956597290de038702d6a0fa762813ec023712d025a496e0b66bf08b9d3b9dc6c',
     },
@@ -64,7 +65,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 50 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: 'e91a70cfbe6c6ffa387983774dfcd9c0d0822baf83f813f34f4bd91c0cb24546',
+      grokPrompt: 'd17ed9a4bc2df07a9d588605a2a18b57e83864a2bd1c5cfd86792b89824de7bd',
       zImagePrompt: 'adc9cc125b8d1292ec5e6c583fd28f855d9046389c0c1e3073b391a8a7cfeafe',
       midjourneyPrompt: '94d7b9c2cd35c6ce8942823fb1b13b115bfd5975d54647f08e9cd8bb4406b1e2',
     },
@@ -85,7 +86,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 50 --c 0 --w 0 --hd',
     baselineHashes: {
-      grokPrompt: 'f4ec7b29b9817b3d847e8ef82b3cf8048cbe3ba6800b92ec4305fb655a22560f',
+      grokPrompt: 'f942bb3883319395243bc94636388e5dbb42eecdd0e6bf2c2cb78956dd33fd4f',
       zImagePrompt: '813fb10fb8b13454011d624d5fff34f242dbf98c49d84e7c19170b58b5dc9192',
       midjourneyPrompt: 'e93cc457b295a65f3650074d4f775225f3597c23e778f6923860ff09c44ac5c9',
     },
@@ -106,7 +107,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 3:4 --s 100 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: 'eb5497bec6944a8bfede182c4eb085bcd47cd10793ffede8f4264d3bf262dff0',
+      grokPrompt: '52c15cf4e30e38d7913d46f02caeaa6a8ce3ef941d042275fe7b2f5aa7e99406',
       zImagePrompt: '391d4a0efbd66374e57acffa90be14932e90fc51791e452aed5dbd5ca63b7736',
       midjourneyPrompt: '46cf0306f75af041990ada379f6f1ec98b8c671baf51fe641346dcea3bb3e331',
     },
@@ -127,7 +128,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.2 --ar 4:5 --s 250 --c 10 --w 0 --hd',
     baselineHashes: {
-      grokPrompt: '2d32cf368fe02d53b64c8c658a2a16d6cd0ff0c8f229721fc80a541331eba636',
+      grokPrompt: '182ba2b84d35fd31b1f0e46828c5379267805eb9a5298b4f576c60544d196323',
       zImagePrompt: '31d4d1ad85264d485744c0ab8120f55beb1b51babdfab27d108920335f57a7a2',
       midjourneyPrompt: '67a7d2c05590c3e1399fda8cd657f21871d77c83465b3c220b981f789e1bf68b',
     },
@@ -148,7 +149,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     },
     expectedTail: '--v 8.1 --ar 9:16 --s 100 --c 0 --w 0 --sd',
     baselineHashes: {
-      grokPrompt: '3b67486c4de5fa719b5e591547f1f3693da5be215bd5a699de2c4e2fdfd3ce96',
+      grokPrompt: '583845715e70ccb4d824a1d43794e7195ad35cf29b0454c969ee705a22e9aed6',
       zImagePrompt: '86cddf60cad71c2f992336672a761e4201ef659d37636a7356973372c3241fc9',
       midjourneyPrompt: '910c4243d6d227ceb18ef501b580b04b2d5d7c31a1e905bd431b70bf8f417061',
     },

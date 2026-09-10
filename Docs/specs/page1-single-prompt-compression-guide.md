@@ -1,6 +1,6 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-08-14
+Last updated: 2026-09-10
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
@@ -15,11 +15,11 @@ Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midj
 - 格式：結構化自然段落。
 - 新定位：`GPT Full-Fidelity Prompt` / `GPT 完整保留型 Prompt`。
 - 目標：完整保留 PAGE1 工作台中被選到、並經共用構圖可見性投影判定為有效的英文描述，優先保留生成穩定性、造型鎖定與細節完整度。原始選擇必須完整保存，不可用景別裁切覆寫或清空。
-- 固定主區塊順序：`Image Type`、`Subject`、`Wardrobe`、`Pose and Composition`、`Scene`、`Lighting`、`Camera Look`、`multi-cut sequence n=2`。
+- 固定主區塊順序：`Image Type`、`Subject`、`Wardrobe`、`Pose and Composition`、`Scene`、`Lighting`、`Camera Look`。新生成的 GPT Prompt 不再附加歷史上的 `multi-cut sequence n=2` 尾端。
 - 不輸出 `Constraints`。
-- 結尾必須保留 `multi-cut sequence n=2`。
+- 結尾為最後一個有內容的 GPT section；歷史 Saved Cards 中的 `multi-cut sequence n=2` 文字仍可讀取，但不會由新生成結果重新附加。
 - 不做語意壓縮：不把長句縮成短片語，不刪除原本有視覺或控制意義的資訊。
-- 允許格式整理：清理空白、標點、markdown 符號、空值，並放入正確 section。
+- 允許格式整理：清理空白、標點、markdown 符號、空值、完全重複的句子或逗號片段，並放入正確 section；不得進行語意壓縮或刪除有效選擇描述。
 - 單人特殊穿搭會把內建人物特徵移入 `Subject` 的 `Hair and body details` 子區塊；`Wardrobe` 則使用 `Full outfit` 與 `Headwear, eyewear, and bag` 子區塊。分類時只搬移內容；只有共用構圖可見性投影可排除畫面外 fragment，各 renderer 不可再自行判斷一次。
 - 單人角色卡的 `Subject` 可用子區塊幫助人工微調：`Character Profile Card`、`Identity and body`、`Hair`、`Outfit`、`Accessories`、`Photographic direction`。
 

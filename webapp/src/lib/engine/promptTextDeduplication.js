@@ -24,6 +24,24 @@ export function dedupeRepeatedCommaFragments(parts = []) {
     .filter(Boolean);
 }
 
+export function dedupeExactPromptText(value) {
+  const seenSentences = new Set();
+  const normalizedText = String(value || '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return normalizedText
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => dedupeRepeatedCommaFragments([sentence])[0] || '')
+    .filter((sentence) => {
+      const key = normalizeFragment(sentence);
+      if (!key || seenSentences.has(key)) return false;
+      seenSentences.add(key);
+      return true;
+    })
+    .join(' ');
+}
+
 function replaceColorControls(value, pattern, colorText) {
   let consumed = false;
   if (!colorText) return { text: value, consumed };

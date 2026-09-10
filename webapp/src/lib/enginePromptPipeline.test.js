@@ -113,7 +113,7 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /natural body proportions|no extra people unless specified|no visible text or logos/i);
   assert.doesNotMatch(prompt.grokPrompt, /no nudity|fully clothed|clothing covers the body/i);
   assert.doesNotMatch(prompt.grokPrompt, /\.,|,\s*,/);
-  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+  assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
 });
 
@@ -958,7 +958,7 @@ test('Gpt duo prompt uses role cards with wardrobe inside each subject block', (
   assert.match(pose, /erotic high-fashion photo-story/i);
   assert.match(scene, /modern high-rise apartment living room/i);
   assert.doesNotMatch(scene, /Woman 1 wears|Woman 2 wears/i);
-  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+  assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 });
 
 test('Gpt duo subject role wardrobes materialize role colors and punctuate sentences', () => {
@@ -1874,7 +1874,7 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
   assert.match(prompt.grokPrompt, /large video billboards/i);
   assert.match(prompt.grokPrompt, /flight attendant uniform outfit/i);
   assert.match(prompt.grokPrompt, /arms crossed loosely[\s\S]*presents a relaxed neutral standing posture/i);
-  assert.match(prompt.grokPrompt, /\n\nmulti-cut sequence n=2$/);
+  assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
 
   assert.match(prompt.zImagePrompt, /Shibuya Scramble Crossing remains visible around and behind the subject/i);
   assert.match(prompt.zImagePrompt, /flight attendant uniform outfit/i);

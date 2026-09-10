@@ -4,6 +4,11 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-10
 
+## GPT Prompt phase 1 cleanup (2026-09-10)
+
+- The generated PAGE1 `Gpt` output (`grokPrompt`) no longer appends the legacy `multi-cut sequence n=2` line. The GPT output contract is now version `1.8.0`; historical saved Prompt text remains readable, while Z-Image and AI contracts are unchanged.
+- GPT-only formatting cleanup now removes exact repeated sentences or comma-delimited fragments after whitespace and punctuation normalization. It does not semantically compress selected English descriptions or alter the shared selection model.
+
 ## Local-detail mechanism removal (2026-09-10)
 
 - The local-detail／局部超特寫 derived-output mechanism has been removed from the engine, PAGE1 UI, DLL source list, PromptCard export, and Saved Cards user-facing flow. PAGE1 is back to the six established outputs and the original renderer/data flow.
@@ -239,7 +244,7 @@ Current PAGE1 output labels:
   - Structured natural prompt
   - Current rule as of 2026-07-03: `GPT Full-Fidelity Prompt` / `GPT 完整保留型 Prompt`
   - Gpt should preserve selected effective English descriptions instead of semantically compressing them; only formatting cleanup, section organization, empty-value removal, and exact duplicate cleanup are allowed
-  - Must end with `multi-cut sequence n=2`
+  - No longer appends the legacy `multi-cut sequence n=2` line; the generated GPT Prompt ends with its last populated content section
   - Single special outfits place built-in hair, body, tattoo, and other person-detail fragments in `Subject` under `Hair and body details`; `Wardrobe` uses named `Full outfit` and `Headwear, eyewear, and bag` subsections
   - Single character profile cards use structured facial geometry, eye, nose, mouth, skin, makeup, body, permanent-anchor, hair, outfit, accessory, and photographic-direction groups inside `Subject`; the legacy `identityAndBody` paragraph is retained in data but not repeated by the full renderer
 - `Z-Image`
@@ -430,7 +435,7 @@ Current duo prompt output contract:
   - `Scene`
   - `Lighting`
   - `Camera Look`
-  - `multi-cut sequence n=2`
+  - The legacy `multi-cut sequence n=2` line is not appended to newly generated GPT output
 - Duo `Gpt` should describe Woman 1 completely before Woman 2, including body, face, hair, hair color, wardrobe, and role-bound accessories where available.
 - Duo `Gpt` should keep `Shared Expression` separate from each woman's identity / wardrobe block.
 - Duo `Grok/Z-Image` uses the same broad section order but is more compact:
