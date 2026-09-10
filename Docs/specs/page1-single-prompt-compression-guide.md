@@ -15,7 +15,7 @@ Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midj
 - 格式：結構化自然段落。
 - 新定位：`GPT Full-Fidelity Prompt` / `GPT 完整保留型 Prompt`。
 - 目標：完整保留 PAGE1 工作台中被選到、並經共用構圖可見性投影判定為有效的英文描述，優先保留生成穩定性、造型鎖定與細節完整度。原始選擇必須完整保存，不可用景別裁切覆寫或清空。
-- 固定主區塊順序：`Image Type`、`Composition`、`Subject`、`Wardrobe`、`Pose and Composition`、`Scene`、`Lighting`、`Camera Look`。`Composition` 只為共用構圖句提供明確 section 邊界，不改寫其來源文字。新生成的 GPT Prompt 不再附加歷史上的 `multi-cut sequence n=2` 尾端。
+- 固定主區塊順序：`Image Type`、`Composition`、`Subject`、`Wardrobe`、`Pose and Composition`、`Scene`、`Lighting`、`Camera Look`。一般 PAGE1 比例可用時，`Composition` 先以 resolved aspect ratio 與 portrait／landscape orientation 的自然語言提示開頭，再接原有共用構圖句；比例提示不改寫 framing、angle、orbit 或 Pose Composer 來源文字。固定構圖場景仍沿用自己的專用構圖語意，不重複比例提示。新生成的 GPT Prompt 不再附加歷史上的 `multi-cut sequence n=2` 尾端。
 - 不輸出 `Constraints`。
 - 結尾為最後一個有內容的 GPT section；歷史 Saved Cards 中的 `multi-cut sequence n=2` 文字仍可讀取，但不會由新生成結果重新附加。
 - 不做語意壓縮：不把長句縮成短片語，不刪除原本有視覺或控制意義的資訊。

@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.9.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.10.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -89,6 +89,9 @@ export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.9.0';
  * inspect or serialize it without importing renderer implementation details.
  * Required labels describe the stable skeleton. Optional labels are conditional
  * on visibility and selected content (for example Wardrobe in face close-ups).
+ * GPT Composition begins with the resolved aspect-ratio/orientation cue when a
+ * normal PAGE1 ratio is available; fixed-composition output keeps its own set
+ * wording and does not repeat that cue.
  */
 export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
   grokPrompt: {

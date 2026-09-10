@@ -39,7 +39,8 @@ function getPage1FramingControl(locks) {
 
 function getCompositionBlock(promptText) {
   return (String(promptText || '').split(/\n\n+/)[1] || '')
-    .replace(/^Composition:\n/i, '');
+    .replace(/^Composition:\n/i, '')
+    .replace(/^(?:Square|Vertical portrait|Landscape|Wide landscape) composition at a \d+:\d+ aspect ratio,\s*/i, '');
 }
 
 test('phase-5 PAGE1 framing selector exposes only the approved main options', () => {
@@ -101,7 +102,7 @@ test('phase-5 unlocked framing resolution excludes every legacy-only option', ()
   assert.deepEqual(seenIds, allowedIds);
 });
 
-test('phase-5 half-face framing resolves one edge placement shared exactly by all primary prompts', () => {
+test('phase-5 half-face framing resolves one edge placement shared by all primary prompts', () => {
   const framingId = optionId('framingId', HALF_FACE_COMPOSITION_TARGET.framingZh);
   const variantsById = new Map(
     HALF_FACE_COMPOSITION_TARGET.placementVariants.map((variant) => [variant.id, variant]),

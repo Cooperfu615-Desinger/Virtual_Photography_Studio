@@ -10320,6 +10320,21 @@ function buildCompositionPromptLine(context, {
   return parts.join(', ');
 }
 
+function buildGptAspectRatioPromptLine(context) {
+  if (isFixedCompositionSetActive(context?.fixedCompositionSet)) return '';
+
+  const aspectRatioId = context?.aspectRatio?.id;
+  const labels = {
+    '1:1': 'Square composition at a 1:1 aspect ratio',
+    '4:5': 'Vertical portrait composition at a 4:5 aspect ratio',
+    '3:4': 'Vertical portrait composition at a 3:4 aspect ratio',
+    '9:16': 'Vertical portrait composition at a 9:16 aspect ratio',
+    '4:3': 'Landscape composition at a 4:3 aspect ratio',
+    '16:9': 'Wide landscape composition at a 16:9 aspect ratio',
+  };
+  return labels[aspectRatioId] || '';
+}
+
 function buildPoseComposerCompositionModifier(poseComposer) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
   const handPose = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer.meta?.poseHandId);
@@ -11807,7 +11822,10 @@ function renderGptPrompt(promptModel, {
   const useRoleOrderedDuo = context.subject?.count === 2 && character && wardrobe && wardrobeColors;
   const characterSlots = character ? extractCharacterSlots(character) : {};
   const compositionLine = joinCompositionPromptText(
-    buildCompositionPromptLine(context),
+    [
+      buildGptAspectRatioPromptLine(context),
+      buildCompositionPromptLine(context),
+    ].filter(Boolean).join(', '),
     useRoleOrderedDuo ? null : characterSlots.poseComposer,
   );
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;

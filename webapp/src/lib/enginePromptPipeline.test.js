@@ -97,7 +97,7 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   });
 
   assert.match(prompt.grokPrompt, /^Image Type:\nCreate a photorealistic editorial portrait\./);
-  assert.match(prompt.grokPrompt, /\nComposition:\n(?:Half-body|Full-body|Chest-up|Waist-up|Knee-up|Shoulder-level|Eye-level|Waist-level|Knee-level|High angle|Low angle|Top-down|Bird's-eye|Worm's-eye|Tilted frame)/i);
+  assert.match(prompt.grokPrompt, /\nComposition:\n(?:(?:Square|Vertical portrait|Landscape|Wide landscape) composition at a \d+:\d+ aspect ratio, )?(?:Half-body|Full-body|Chest-up|Waist-up|Knee-up|Shoulder-level|Eye-level|Waist-level|Knee-level|High angle|Low angle|Top-down|Bird's-eye|Worm's-eye|Tilted frame)/i);
   assert.match(prompt.grokPrompt, /\nScene:\nThe portrait takes place in /);
   assert.match(prompt.grokPrompt, /\nSubject:\nThe subject is /);
   assert.match(prompt.grokPrompt, /\nWardrobe:\nShe wears /);
@@ -119,6 +119,39 @@ test('Gpt prompt uses natural structured sections for GPT Image', () => {
   assert.doesNotMatch(prompt.grokPrompt, /\.,|,\s*,/);
   assert.doesNotMatch(prompt.grokPrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.grokPrompt, /^Subject Count:/m);
+});
+
+test('Gpt composition states the resolved aspect ratio and orientation without leaking into other renderers', () => {
+  const cases = [
+    ['1:1 正方形', /Square composition at a 1:1 aspect ratio/i],
+    ['4:5 社群貼文', /Vertical portrait composition at a 4:5 aspect ratio/i],
+    ['3:4 直向人像', /Vertical portrait composition at a 3:4 aspect ratio/i],
+    ['9:16 手機直式', /Vertical portrait composition at a 9:16 aspect ratio/i],
+    ['4:3 Classic', /Landscape composition at a 4:3 aspect ratio/i],
+    ['16:9 寬螢幕', /Wide landscape composition at a 16:9 aspect ratio/i],
+  ];
+
+  cases.forEach(([aspectRatioZh, expectedOpening]) => {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      aspectRatio: optionId('aspectRatio', aspectRatioZh),
+      framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
+    });
+    const composition = gptSection(prompt, 'Composition');
+
+    assert.match(composition, expectedOpening, `${aspectRatioZh} should lead GPT composition with the resolved ratio`);
+    assert.match(composition, /Waist-up portrait|Knee-up portrait|Chest-up portrait|Full-body portrait/i);
+    assert.doesNotMatch(prompt.zImagePrompt, /(?:Square|Vertical portrait|Landscape-oriented|Wide landscape) composition at a .* aspect ratio/i);
+    assert.doesNotMatch(prompt.midjourneyPrompt, /(?:Square|Vertical portrait|Landscape-oriented|Wide landscape) composition at a .* aspect ratio/i);
+  });
+
+  const [noRatioPrompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    aspectRatio: optionId('aspectRatio', '全無'),
+    framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
+  });
+  assert.doesNotMatch(gptSection(noRatioPrompt, 'Composition'), /aspect ratio|portrait-oriented|landscape-oriented|square composition/i);
+  assert.match(gptSection(noRatioPrompt, 'Composition'), /Waist-up portrait|Knee-up portrait|Chest-up portrait|Full-body portrait/i);
 });
 
 test('full-body character prompt keeps complete separate wardrobe regardless of selected framing', () => {

@@ -15,6 +15,12 @@ Last updated: 2026-09-10
 - The label is a structural boundary for GPT Image prompt readability and downstream section-aware tooling. Z-Image, AI, derived-output wording, API parameters, and the shared selection model are unchanged.
 - Saved Cards and standard Markdown import remain compatible with legacy GPT text that has an unlabeled composition paragraph. The codec stores and restores the prompt text as-is and continues matching controls from source descriptions rather than requiring the new heading.
 
+## GPT Prompt phase 3 aspect-ratio cue (2026-09-10)
+
+- Normal newly generated `Gpt` output now begins its `Composition` section with the resolved PAGE1 aspect ratio and orientation in natural language: square, vertical portrait, landscape, or wide landscape plus the exact ratio. The existing framing, angle, orbit, and Pose Composer text follows unchanged.
+- The cue is GPT-only and is omitted when the ratio is explicitly `none` or when a fixed-composition set owns the specialized composition wording. It does not alter Z-Image, AI/Midjourney text, API request parameters, stored selection IDs, or the historical `grokPrompt` field mapping.
+- The GPT output contract is now version `1.10.0`. Representative GPT hashes were updated only for normal single/duo ratio-bearing outputs; fixed-composition hashes and all Z-Image/AI descriptive baselines remain unchanged.
+
 ## Local-detail mechanism removal (2026-09-10)
 
 - The local-detail／局部超特寫 derived-output mechanism has been removed from the engine, PAGE1 UI, DLL source list, PromptCard export, and Saved Cards user-facing flow. PAGE1 is back to the six established outputs and the original renderer/data flow.
