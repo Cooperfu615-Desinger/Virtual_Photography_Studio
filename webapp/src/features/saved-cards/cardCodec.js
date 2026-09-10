@@ -12,55 +12,9 @@ import {
 import { ACTION_POSE_CARDS, buildActionPoseSavedCard } from '../../lib/actionPoseLab.js';
 import { reconcilePage1SingleWardrobeLocks } from '../page1/page1WardrobeExclusivity.js';
 import { normalizeZImageDisplayLabel } from './promptLabels.js';
-import { LOCAL_DETAIL_PROMPT_CONTRACT } from '../../lib/engine/localDetailPromptContract.js';
 
-export const FAVORITES_STORAGE_VERSION = 4;
-
-const LOCAL_DETAIL_TARGET_IDS = Object.freeze(Object.keys(LOCAL_DETAIL_PROMPT_CONTRACT.targets));
-const LOCAL_DETAIL_OUTPUT_ID = LOCAL_DETAIL_PROMPT_CONTRACT.outputId;
-const LOCAL_DETAIL_OUTPUT_LABEL = LOCAL_DETAIL_PROMPT_CONTRACT.label;
-const LOCAL_DETAIL_CONTRACT_VERSION = LOCAL_DETAIL_PROMPT_CONTRACT.version;
-
-function normalizeLocalDetailTarget(target, prompts = {}) {
-  const candidate = String(target || '').trim();
-  if (LOCAL_DETAIL_TARGET_IDS.includes(candidate) && prompts[candidate]) return candidate;
-  return LOCAL_DETAIL_TARGET_IDS.find((targetId) => prompts[targetId]) || '';
-}
-
-export function sanitizeLocalDetailPrompts(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
-
-  return Object.fromEntries(LOCAL_DETAIL_TARGET_IDS
-    .map((target) => {
-      const entry = value[target];
-      if (!entry || typeof entry !== 'object' || Array.isArray(entry)) return null;
-      const text = typeof entry.text === 'string' ? entry.text : String(entry.text || '');
-      const contractVersion = Number.isFinite(Number(entry.contractVersion))
-        ? Number(entry.contractVersion)
-        : LOCAL_DETAIL_CONTRACT_VERSION;
-      const status = entry.status === 'ready' && text.trim()
-        ? 'ready'
-        : 'needs-source-review';
-      return [target, {
-        id: LOCAL_DETAIL_OUTPUT_ID,
-        label: LOCAL_DETAIL_OUTPUT_LABEL,
-        target,
-        text,
-        contractVersion,
-        status,
-      }];
-    })
-    .filter(Boolean));
-}
-
-function buildStoredLocalDetailFields(prompt) {
-  const localDetailPrompts = sanitizeLocalDetailPrompts(prompt?.localDetailPrompts);
-  if (Object.keys(localDetailPrompts).length === 0) return {};
-  return {
-    localDetailPrompts,
-    localDetailTarget: normalizeLocalDetailTarget(prompt?.localDetailTarget, localDetailPrompts),
-  };
-}
+export const FAVORITES_STORAGE_VERSION = 3;
+const READABLE_FAVORITES_STORAGE_VERSIONS = Object.freeze([2, FAVORITES_STORAGE_VERSION, 4]);
 
 const STRUCTURED_CONTROL_KEYS = {
   Style: ['imageTypePresetId', 'styleId'],
@@ -126,21 +80,6 @@ export function buildMarkdownExport(data) {
     { label: labels.zImage, text: data.zImagePrompt },
     ...extraPromptEntries,
   ].filter((entry) => entry.text);
-  const storedLocalDetail = buildStoredLocalDetailFields(data);
-  const localDetailSection = Object.keys(storedLocalDetail.localDetailPrompts || {}).length > 0
-    ? `
-
----
-
-## Local Detail
-\`\`\`json
-${JSON.stringify({
-  contractVersion: LOCAL_DETAIL_CONTRACT_VERSION,
-  selectedTarget: storedLocalDetail.localDetailTarget,
-  prompts: storedLocalDetail.localDetailPrompts,
-}, null, 2)}
-\`\`\``
-    : '';
 
   return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
 **Source:** ${data.sourceLabel || 'Prompt 工作台'}
@@ -160,7 +99,6 @@ ${Object.entries(structured)
     return `* **${key}:** ${text || '-'}`;
   })
   .join('\n')}
-${localDetailSection}
 `;
 }
 
@@ -447,25 +385,6 @@ export function createLineage(prompt) {
   };
 }
 
-function parseLocalDetailMarkdown(text) {
-  const sectionMatch = text.match(/## Local Detail\s*\n```json\n([\s\S]*?)\n```/i);
-  if (!sectionMatch) return {};
-
-  let payload;
-  try {
-    payload = JSON.parse(sectionMatch[1]);
-  } catch {
-    throw new Error('invalid local detail section');
-  }
-
-  const localDetailPrompts = sanitizeLocalDetailPrompts(payload?.prompts);
-  if (Object.keys(localDetailPrompts).length === 0) return {};
-  return {
-    localDetailPrompts,
-    localDetailTarget: normalizeLocalDetailTarget(payload?.selectedTarget, localDetailPrompts),
-  };
-}
-
 export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) {
   const text = String(markdownText || '').replace(/\r\n/g, '\n');
   const sourceMatch = text.match(/\*\*Source:\*\*\s*(.+)/);
@@ -520,7 +439,6 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
     zImagePrompt,
     selection,
     structured: buildImportedStructured(selection, controls),
-    ...parseLocalDetailMarkdown(text),
   };
   return { ...prompt, lineage: createLineage(prompt) };
 }
@@ -552,7 +470,6 @@ export function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
   const structured = prompt.structured && typeof prompt.structured === 'object'
     ? prompt.structured
     : (selection ? buildImportedStructured(selection, controls) : {});
-  const localDetailFields = buildStoredLocalDetailFields(prompt);
 
   return {
     id: prompt.id,
@@ -583,7 +500,6 @@ export function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
         .map((tag) => normalizeSourceTag(tag, tag?.category || getSourceTagCategory(source)))
         .filter(Boolean)
       : [],
-    ...localDetailFields,
   };
 }
 
@@ -615,15 +531,13 @@ export function serializeFavoritePrompt(prompt) {
     u: sanitized.sourceId,
     f: sanitized.sourceFileName,
     t: sanitized.sourceTags,
-    ld: sanitized.localDetailPrompts,
-    lt: sanitized.localDetailTarget,
   };
 }
 
 export function deserializeFavoritePrompt(record) {
   if (!record || typeof record !== 'object') return null;
 
-  if ([2, 3, FAVORITES_STORAGE_VERSION].includes(record.v) && record.i) {
+  if (READABLE_FAVORITES_STORAGE_VERSIONS.includes(record.v) && record.i) {
     return sanitizeStoredPrompt({
       id: record.i,
       source: record.o,
@@ -643,8 +557,6 @@ export function deserializeFavoritePrompt(record) {
       sourceId: record.u,
       sourceFileName: record.f,
       sourceTags: record.t,
-      localDetailPrompts: record.ld,
-      localDetailTarget: record.lt,
     });
   }
 

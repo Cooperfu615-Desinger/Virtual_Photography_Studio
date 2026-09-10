@@ -2,13 +2,24 @@ import React, { memo, useState } from 'react';
 import { Download, Trash2 } from 'lucide-react';
 import { copyTextToClipboard } from '../lib/clipboard';
 import { normalizeZImageDisplayLabel } from '../features/saved-cards/promptLabels.js';
-import { buildMarkdownExport } from '../features/saved-cards/cardCodec.js';
 
-const LOCAL_DETAIL_TARGET_LABELS = {
-  eyes: '眼部',
-  'collarbone-chest': '鎖骨／胸口',
-  'abdomen-navel': '腰腹／肚臍',
-};
+function buildMarkdownExport(data) {
+  const promptEntries = getPromptEntries(data, {
+    midjourney: data.promptLabels?.midjourney || 'AI Prompt',
+    grok: data.promptLabels?.grok || 'Gpt',
+    zImage: normalizeZImageDisplayLabel(data.promptLabels?.zImage, 'Z-Image'),
+  });
+
+  return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
+**Source:** ${data.sourceLabel || 'Prompt 工作台'}
+**Summary:** ${data.summary}
+
+${promptEntries.map((entry) => `## ${entry.label}
+\`\`\`text
+${entry.text}
+\`\`\``).join('\n\n')}
+`;
+}
 
 function getPromptEntries(data, labels) {
   const primaryEntries = [
@@ -23,15 +34,7 @@ function getPromptEntries(data, labels) {
       text: entry.text,
     }))
     : [];
-  const selectedLocalDetail = data.localDetailPrompts?.[data.localDetailTarget];
-  const localDetailEntry = selectedLocalDetail?.status === 'ready' && selectedLocalDetail.text
-    ? [{
-        key: 'local-detail',
-        label: `局部超特寫（${LOCAL_DETAIL_TARGET_LABELS[data.localDetailTarget] || data.localDetailTarget}）`,
-        text: selectedLocalDetail.text,
-      }]
-    : [];
-  return [...primaryEntries, ...extraEntries, ...localDetailEntry].filter((entry) => entry.text);
+  return [...primaryEntries, ...extraEntries].filter((entry) => entry.text);
 }
 
 const SUMMARY_FIELD_LABELS = {
@@ -53,7 +56,6 @@ function buildMetadataChips(data, promptEntries) {
   });
 
   if (data.selection) chips.push('可回填');
-  if (data.localDetailPrompts?.[data.localDetailTarget]) chips.push('局部超特寫已保存');
 
   return [...new Set(chips)].slice(0, 6);
 }

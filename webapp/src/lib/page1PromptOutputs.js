@@ -52,21 +52,6 @@ const FIXED_FRAMING_PROMPT_OUTPUTS = Object.freeze([
   }),
 ]);
 
-export const LOCAL_DETAIL_TARGETS = Object.freeze([
-  Object.freeze({ id: 'eyes', label: '眼部' }),
-  Object.freeze({ id: 'collarbone-chest', label: '鎖骨／胸口' }),
-  Object.freeze({ id: 'abdomen-navel', label: '腰腹／肚臍' }),
-]);
-
-const LOCAL_DETAIL_OUTPUT = Object.freeze({
-  id: 'local-detail',
-  title: '局部超特寫',
-  placeholder: '尚未生成局部超特寫。',
-  unavailablePlaceholder: '目前此部位沒有可用的局部資料，請更換選項或重新生成。',
-  description: '使用目前人物與穿搭的局部細節；不沿用一般景別、鏡頭角度與場景。衣物覆蓋的部位將呈現衣料細節。',
-  copyLabel: '局部超特寫 copied',
-});
-
 function readFixedFramingOutputs(previewPrompt) {
   const extraPrompts = new Map(
     (Array.isArray(previewPrompt?.extraPrompts) ? previewPrompt.extraPrompts : [])
@@ -78,40 +63,7 @@ function readFixedFramingOutputs(previewPrompt) {
     .filter((output) => output.value.trim());
 }
 
-function isSingleLocalDetailBundle(previewPrompt) {
-  return Boolean(
-    previewPrompt?.localDetailPrompts
-    && typeof previewPrompt.localDetailPrompts === 'object'
-    && Object.keys(previewPrompt.localDetailPrompts).length > 0,
-  );
-}
-
-export function getPage1LocalDetailPrompt(previewPrompt, target = 'eyes') {
-  if (!isSingleLocalDetailBundle(previewPrompt)) return null;
-  const targetOption = LOCAL_DETAIL_TARGETS.find((option) => option.id === target)
-    || LOCAL_DETAIL_TARGETS[0];
-  const result = previewPrompt.localDetailPrompts[targetOption.id];
-  if (!result || typeof result !== 'object') return null;
-
-  return {
-    id: LOCAL_DETAIL_OUTPUT.id,
-    title: LOCAL_DETAIL_OUTPUT.title,
-    target: targetOption.id,
-    targetLabel: targetOption.label,
-    value: result.status === 'ready' && typeof result.text === 'string' ? result.text : '',
-    placeholder: result.status === 'ready'
-      ? LOCAL_DETAIL_OUTPUT.placeholder
-      : LOCAL_DETAIL_OUTPUT.unavailablePlaceholder,
-    description: LOCAL_DETAIL_OUTPUT.description,
-    copyLabel: LOCAL_DETAIL_OUTPUT.copyLabel,
-    status: result.status || 'needs-source-review',
-  };
-}
-
-export function buildPage1GenerationPromptCards(previewPrompt, {
-  includeLocalDetail = false,
-  localDetailTarget = 'eyes',
-} = {}) {
+export function buildPage1GenerationPromptCards(previewPrompt) {
   const primaryCards = PRIMARY_PROMPT_OUTPUTS.map((output) => ({
     id: output.id,
     title: output.title,
@@ -129,16 +81,10 @@ export function buildPage1GenerationPromptCards(previewPrompt, {
     copyLabel: output.copyLabel,
   }));
 
-  const localDetail = includeLocalDetail
-    ? getPage1LocalDetailPrompt(previewPrompt, localDetailTarget)
-    : null;
-  return [...primaryCards, ...fixedFramingCards, ...(localDetail ? [localDetail] : [])];
+  return [...primaryCards, ...fixedFramingCards];
 }
 
-export function buildPage1DllPromptSources(previewPrompt, {
-  includeLocalDetail = false,
-  localDetailTarget = 'eyes',
-} = {}) {
+export function buildPage1DllPromptSources(previewPrompt) {
   const primarySources = PRIMARY_PROMPT_OUTPUTS.map((output) => ({
     id: output.id,
     label: output.title,
@@ -152,14 +98,5 @@ export function buildPage1DllPromptSources(previewPrompt, {
     lockAspectRatio: true,
   }));
 
-  const localDetail = includeLocalDetail
-    ? getPage1LocalDetailPrompt(previewPrompt, localDetailTarget)
-    : null;
-  const localDetailSource = localDetail ? {
-    id: localDetail.id,
-    label: `${localDetail.title}（${localDetail.targetLabel}）`,
-    value: localDetail.value,
-  } : null;
-
-  return [...primarySources, ...fixedFramingSources, ...(localDetailSource ? [localDetailSource] : [])];
+  return [...primarySources, ...fixedFramingSources];
 }

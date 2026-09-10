@@ -72,7 +72,7 @@ const PAGE_MODE_COPY = {
   },
   page4: {
     title: 'Saved Cards',
-    subtitle: '集中查看已加入最愛的 Prompt 版本，保留主要輸出與局部超特寫快照的一鍵複製流程。',
+    subtitle: '集中查看已加入最愛的 Prompt 版本，保留三種輸出內容與一鍵複製流程。',
   },
 };
 
@@ -122,11 +122,6 @@ export default function App() {
     signInFavorites,
     signOutFavorites,
   } = useFavoritesWorkspace({ showToast });
-  const [savedLocalDetailRestore, setSavedLocalDetailRestore] = useState(null);
-  const updatePage1Locks = useCallback((updater) => {
-    setSavedLocalDetailRestore(null);
-    updateLocks(updater);
-  }, [updateLocks]);
   const [pageMode, setPageMode] = useState(() => {
     const stored = loadStringStorage(PAGE_MODE_KEY, 'page1');
     return stored === 'page5' ? 'page1' : stored;
@@ -168,30 +163,19 @@ export default function App() {
   const page3CinematicPrompt = useMemo(() => buildPage3WorldSceneCinematicPrompt(page3Profile), [page3Profile]);
   const page3WorldPrompt = useMemo(() => buildPage3WorldSceneWorldPrompt(page3Profile), [page3Profile]);
 
-  const handleGenerate = useCallback((selectedLocalDetailTarget = '') => {
+  const handleGenerate = useCallback(() => {
     if (!previewPrompt) return;
-    const promptForSave = savedLocalDetailRestore
-      ? {
-          ...previewPrompt,
-          localDetailPrompts: savedLocalDetailRestore.prompts,
-          localDetailTarget: savedLocalDetailRestore.selectedTarget,
-        }
-      : previewPrompt;
     const nextPrompt = {
-      ...promptForSave,
+      ...previewPrompt,
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       date: new Date().toISOString(),
     };
-    if (selectedLocalDetailTarget && nextPrompt.localDetailPrompts?.[selectedLocalDetailTarget]) {
-      nextPrompt.localDetailTarget = selectedLocalDetailTarget;
-    }
     nextPrompt.lineage = createLineage(nextPrompt);
     addFavoritePrompt(nextPrompt);
     showToast('目前 Prompt 已加入我的最愛');
-  }, [addFavoritePrompt, previewPrompt, savedLocalDetailRestore, showToast]);
+  }, [addFavoritePrompt, previewPrompt, showToast]);
 
   const handleRerollPreview = useCallback(() => {
-    setSavedLocalDetailRestore(null);
     rerollPreview();
     showToast('已依目前設定重新隨機生成');
   }, [rerollPreview, showToast]);
@@ -203,7 +187,7 @@ export default function App() {
       return;
     }
 
-    updatePage1Locks((prev) => ({
+    updateLocks((prev) => ({
       ...prev,
       locationId: '',
       fixedCompositionSetId: 'none',
@@ -215,7 +199,7 @@ export default function App() {
       importedWorldSceneArchitectureText: architecture.text,
     }));
     showToast(`已套用 PAGE3 空景架構：${architecture.label}`);
-  }, [page3Profile, showToast, updatePage1Locks]);
+  }, [page3Profile, showToast, updateLocks]);
 
   const handleApplyPreviewSelection = useCallback(() => {
     if (!previewPrompt?.selection) {
@@ -223,9 +207,9 @@ export default function App() {
       return;
     }
     const restoredLocks = buildRestoreLocks(previewPrompt.selection, lockControls);
-    updatePage1Locks(() => normalizeLocks(restoredLocks));
+    updateLocks(() => normalizeLocks(restoredLocks));
     showToast('已將目前預覽回填到所有選項');
-  }, [lockControls, previewPrompt, showToast, updatePage1Locks]);
+  }, [lockControls, previewPrompt, showToast, updateLocks]);
 
   const handleApplyActionPoseCardToPage1 = useCallback((cardId, successLabel = '') => {
     const card = getActionPoseCardById(cardId);
@@ -245,11 +229,11 @@ export default function App() {
       return false;
     }
 
-    updatePage1Locks((prevLocks) => normalizeLocks(buildPage1LocksFromActionPoseCard(prevLocks, card.id)));
+    updateLocks((prevLocks) => normalizeLocks(buildPage1LocksFromActionPoseCard(prevLocks, card.id)));
     setPageMode('page1');
     showToast(successLabel || `動作姿勢已套用到 PAGE1：${card.title}`);
     return true;
-  }, [lockControls, locks.specialSubjectId, locks.subjectCount, showToast, updatePage1Locks]);
+  }, [lockControls, locks.specialSubjectId, locks.subjectCount, showToast, updateLocks]);
 
   const handleApplySavedCardSelection = useCallback((prompt) => {
     if (!prompt?.selection) {
@@ -263,19 +247,10 @@ export default function App() {
     }
 
     const restoredLocks = buildRestoreLocks(prompt.selection, lockControls);
-    updatePage1Locks(() => normalizeLocks(restoredLocks));
-    const savedLocalDetailPrompts = prompt.localDetailPrompts && typeof prompt.localDetailPrompts === 'object'
-      ? prompt.localDetailPrompts
-      : null;
-    setSavedLocalDetailRestore(savedLocalDetailPrompts
-      ? {
-          prompts: savedLocalDetailPrompts,
-          selectedTarget: prompt.localDetailTarget || Object.keys(savedLocalDetailPrompts)[0] || 'eyes',
-        }
-      : null);
+    updateLocks(() => normalizeLocks(restoredLocks));
     setPageMode('page1');
     showToast('已套用收藏卡片的預覽選項');
-  }, [handleApplyActionPoseCardToPage1, lockControls, showToast, updatePage1Locks]);
+  }, [handleApplyActionPoseCardToPage1, lockControls, showToast, updateLocks]);
 
   const handleDeletePrompt = useCallback((prompt) => {
     deleteFavoritePrompt(prompt.id);
@@ -337,7 +312,7 @@ export default function App() {
     { preserveMidjourneySettings = true } = {},
   ) => {
     const restoredLocks = buildRestoreLocks(nextLocks, lockControls);
-    updatePage1Locks((previousLocks) => normalizeLocks(
+    updateLocks((previousLocks) => normalizeLocks(
       preserveMidjourneySettings
         ? {
             ...restoredLocks,
@@ -347,7 +322,7 @@ export default function App() {
     ));
     setPageMode('page1');
     showToast(successLabel);
-  }, [lockControls, showToast, updatePage1Locks]);
+  }, [lockControls, showToast, updateLocks]);
 
   const handleApplyImportedPrompt = () => {
     const { locks: parsedLocks, matchedControls } = parseLocksFromStandardPrompt(importPromptText, lockControls);
@@ -368,12 +343,12 @@ export default function App() {
   };
 
   const handleApplyPage2CharacterCard = useCallback(() => {
-    updatePage1Locks((prevLocks) => normalizeLocks(
+    updateLocks((prevLocks) => normalizeLocks(
       buildPage1LocksFromCharacterCardVariant(prevLocks, normalizedPage2Profile, characterCards)
     ));
     setPageMode('page1');
     showToast('角色卡設定已匯回 PAGE1');
-  }, [characterCards, normalizedPage2Profile, showToast, updatePage1Locks]);
+  }, [characterCards, normalizedPage2Profile, showToast, updateLocks]);
 
   const handleApplyActionPoseToPage1 = useCallback(() => {
     handleApplyActionPoseCardToPage1(actionPosePromptBundle.card?.id);
@@ -520,10 +495,9 @@ export default function App() {
               isOutfitPresetActive,
               lockControls,
               previewPrompt,
-              localDetailOverride: savedLocalDetailRestore,
             }}
             actions={{
-              updateLocks: updatePage1Locks,
+              updateLocks,
               handleCopyText,
               handleGenerate,
               handleRerollPreview,

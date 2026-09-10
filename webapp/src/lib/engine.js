@@ -8,7 +8,6 @@ import {
   normalizeCharacterCardVariant,
 } from './characterCardLab.js';
 import { normalizeRandom } from './engineRandom.js';
-import { buildResolvedLocalDetailBundle } from './engine/localDetailResolvedAdapter.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
 import {
   COMPOSITION_VISIBILITY_BUCKETS,
@@ -15304,48 +15303,12 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     fullBodyCharacterPrompt,
   } = buildPrompts(context, character, wardrobe, wardrobeColors, lightDirection, film, opticalEffect);
   const summaryFields = buildSummaryFields(context, wardrobe, character, wardrobeColors);
-  const localWardrobeSlots = { ...extractWardrobeSlots(wardrobe) };
-  // Close-up wardrobe assembly can return before synthetic modifiers exist.
-  // Retain explicit selections for this independent local consumer only; never
-  // reroll an absent modifier or mutate the six-output wardrobe/selection.
-  if (!context.subject.specialSubject && !localWardrobeSlots.dress && !localWardrobeSlots.outfitPreset
-    && !localWardrobeSlots.specialOutfit) {
-    const retainedModifiers = [
-      ['topFit', 'topFitId', getTopFitOption, localWardrobeSlots.top],
-      ['topStyling', 'topStylingId', getTopStylingOption, localWardrobeSlots.top],
-      ['bottomFit', 'bottomFitId', getBottomFitOption, localWardrobeSlots.pants || localWardrobeSlots.skirt],
-      ['bottomRise', 'bottomRiseId', getBottomRiseOption, localWardrobeSlots.pants || localWardrobeSlots.skirt],
-      ...['topPattern', 'bottomPattern'].map((slot) => [slot, `${slot}Id`,
-        (id) => lockControls.find((control) => control.key === `${slot}Id`)?.options.find((option) => option.id === id),
-        slot === 'topPattern' ? localWardrobeSlots.top : localWardrobeSlots.pants || localWardrobeSlots.skirt]),
-    ];
-    for (const [slot, lock, lookup, owner] of retainedModifiers) {
-      if (!owner || isNoneLikeItem(owner) || localWardrobeSlots[slot] || !effectiveLocks[lock]) continue;
-      const selected = lookup(effectiveLocks[lock]);
-      if (selected && !isNoneLikeItem(selected)) localWardrobeSlots[slot] = selected;
-    }
-  }
-  // Independent consumer of the SAME unprojected, resolved values. No picker,
-  // no main-prompt parsing, and no changes to the six existing output routes.
-  const localDetailPrompts = buildResolvedLocalDetailBundle({
-    subjectCount: context.subject.count,
-    subjectKind: context.subject.specialSubject,
-    imageType: imageTypePreset.id,
-    character: extractCharacterSlots(character),
-    wardrobe: localWardrobeSlots,
-    colors: wardrobeColors,
-    lightDirection,
-    lighting,
-    film,
-    opticalEffect,
-  });
 
   return {
     id: `${Date.now()}-${index}-${random().toString(36).slice(2, 8)}`,
     date: new Date().toISOString(),
     summary: buildSummary(summaryFields),
     summaryFields,
-    localDetailPrompts,
     midjourneyPrompt,
     grokPrompt,
     zImagePrompt,

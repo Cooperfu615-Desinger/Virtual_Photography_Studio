@@ -575,22 +575,6 @@
   font-size: 11px;
 }
 
-.page1-generation-grid .local-detail-target-field {
-  display: inline-flex;
-  margin-top: 4px;
-}
-
-.page1-generation-grid .local-detail-target-field select {
-  min-height: 26px;
-  padding: 3px 24px 3px 7px;
-  border: 1px solid rgba(111, 87, 60, 0.2);
-  border-radius: 7px;
-  background: rgba(255, 250, 240, 0.82);
-  color: var(--text-label);
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-}
-
 .page1-generation-grid .prompt-preview-textarea {
   width: min(190px, 100%);
   height: 145px;
@@ -667,10 +651,6 @@
   .mj-parameter-slider-grid,
   .z-image-visible-text-fields {
     grid-template-columns: 1fr;
-  }
-
-  .page1-generation-grid .local-detail-prompt-card {
-    grid-column: 1 / -1;
   }
 
   .page1-feed-list {
