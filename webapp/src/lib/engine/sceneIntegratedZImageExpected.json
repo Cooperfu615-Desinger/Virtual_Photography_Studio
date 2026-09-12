@@ -1,0 +1,112 @@
+{
+  "phase": "z-image-only-v1",
+  "cases": {
+    "R01-squat-low-selfie": {
+      "hash": "7c0850849f78093b7406ae0e198cdce665fd374872e7c5c8d2da37fbd4d99625",
+      "text": "Photorealistic editorial portrait.\n\nThe setting is Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign. Knee-up cowboy shot. The camera is positioned near floor level and tilted upward toward the woman, emphasizing the upward perspective through her thighs, torso, and shoulders. Front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side.\n\nA 20s seductive stunning Japanese or Korean woman, 94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, soft golden-beige tone, realistic dyed hair texture, soft matte skin texture, refined pores, velvety smooth finish, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nShe has her chin slightly raised, and presents a deep resting squat with both feet planted flat, both heels grounded, knees deeply bent, and the hips held low over the feet.\n\nShe wears, sheer floral lace cropped camisole, slim adjustable straps, triangle cup bust panel, scalloped lace hem, ultra-low-rise waistband sitting very low on the hips, cargo shorts, compact utility cut, side cargo pockets, structured casual silhouette, thigh-high sheer garter stockings, lace top band, visible garter straps, delicate nylon hosiery, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nSteel arch supports, dense nightlife storefronts and layered signboards.\n\nGolden sunset environment, warm orange-pink sky gradient, high-key subject lighting, bright even exposure.\n\nGuy Bourdin-inspired bold narrative fashion image language.\n\nNeon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels."
+    },
+    "R02-kneel-high-selfie": {
+      "hash": "863bfdddabae4a77f6b9aeae813a16f9d6db867fb4b9b99b6b585758ab7488a1",
+      "text": "Photorealistic editorial portrait.\n\nThe setting is Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign. Knee-up cowboy shot. The camera is positioned clearly above the woman and tilted downward toward her, revealing the top planes of her shoulders and waistband. Front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side.\n\nA 20s seductive stunning Japanese or Korean woman, 94-58-92 body proportion anchor, full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, soft golden-beige tone, realistic dyed hair texture, soft matte skin texture, refined pores, velvety smooth finish, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.\n\nShe presents a casual, relaxed, and natural kneeling pose.\n\nShe wears, dropped-shoulder t-shirt, washed cotton jersey, low shoulder seam, relaxed upper-body proportion, ultra-low-rise waistband sitting very low on the hips, leather trousers, sleek fitted structure, cool fashion attitude, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle.\n\nSteel arch supports, dense nightlife storefronts and layered signboards, early evening practical lights beginning to appear, a few dim interior windows, vending machine glow becoming visible.\n\nBlue hour environment, deep blue dusk sky, neon color spill across the subject, saturated colored highlights on skin hair and clothing edges.\n\nGuy Bourdin-inspired bold narrative fashion image language.\n\nNeon cross-processed rendering, cyan-shifted cool tones, fluorescent primary-color saturation, posterized hard contrast, aggressively crushed black levels."
+    },
+    "R03-squat-no-anchor": {
+      "hash": "7c0850849f78093b7406ae0e198cdce665fd374872e7c5c8d2da37fbd4d99625"
+    },
+    "R04-standing": {
+      "hash": "b384906249565d81623911995fbbded46022aae4653a587a5ff962c0807c4abc"
+    },
+    "R04-sitting": {
+      "hash": "88caa001e3ba0a9d54ec85c5eb53d3f2c4b7076ba3f42d667ecf06fe35d131c4"
+    },
+    "R05-elbows-on-knees": {
+      "hash": "8ba8dfeef31769c85996382024c29324409fec82ab7fd469260149e69fb1e63a"
+    },
+    "R06-mirror-selfie": {
+      "hash": "fed167d05d5672a614d21966d7a42d164cde6f3d6f5e6e7a2655a888e87186c6"
+    },
+    "R07-companion-selfie": {
+      "hash": "26f16dba85816826db69524ccad811f0424d828e156dda21fe2de9c619cc1b01"
+    },
+    "R08-crop-full": {
+      "hash": "d0575585350843fa019e769309fc48784a9ef9e4a337a854958552e35c4ad9b1"
+    },
+    "R08-crop-cowboy": {
+      "hash": "863bfdddabae4a77f6b9aeae813a16f9d6db867fb4b9b99b6b585758ab7488a1"
+    },
+    "R08-crop-medium": {
+      "hash": "32633fe5b5860514de39867fdb0989c1f3553686c986cf5e7636723c28fad544"
+    },
+    "R08-crop-chest": {
+      "hash": "2e03d85e377e4c533cf8c0d239f94ba55300b5a9439b9dc0a41efcde2afec859"
+    },
+    "R08-crop-head": {
+      "hash": "f1a59a5aad94569e633aa4854c5f334ebc8787ae8e158ead3c547528c32adfde"
+    },
+    "R08-crop-face": {
+      "hash": "ff79e53f455368e54a80b54a0383f73cc1261ccd6bae37dd2163ab4c3b449c7c"
+    },
+    "R09-orbit-front": {
+      "hash": "6c5caf02fda17d83bb905aa7615252abc8c6d3d0b43a16d256d72f101ca9b468"
+    },
+    "R09-orbit-left": {
+      "hash": "053bd96a336201b3862b2fba98db968045cfd929dbc5baf5485ac217d7c30039"
+    },
+    "R09-orbit-right": {
+      "hash": "fc691e6ca862ac9d99b5d18ba535a9367644f494db550593e4b1cd60f6ed939d"
+    },
+    "R09-orbit-rear": {
+      "hash": "cd355621eeadf337bd6e9c474452fe49da97eb09652dc4ebe405fe30cc4b9125"
+    },
+    "R09-half-face": {
+      "hash": "7bb4b8b19751adde06eb6a077513ce593a7802fefebf8935a1800e8b2e01bb75"
+    },
+    "R10-palm-occlusion": {
+      "hash": "cc53debcf64a22b4ee42157e1c2eac3761cbe30fe2bc1937432e4f8e345f1bf9"
+    },
+    "R11-shirt-shoulder-1": {
+      "hash": "faa178f52764a6fb58e9c36d48b1efcac6e215e236fd6882c1fa859e66d95903"
+    },
+    "R11-shirt-shoulder-2": {
+      "hash": "9b779c79dba03a59ef81d32d86d2c8daa42b1e8ceb1dd281452ccee541f6147f"
+    },
+    "R11-dress": {
+      "hash": "6d9f36c1f33312fdeb65c0221dd26b0a4b08c54a3b7f1db4f3bf5e3e71c774f6"
+    },
+    "R11-complete-look": {
+      "hash": "193c58bd57841d6a917c6d7114c00752447c9ea80e6cca474117df2cecce9309"
+    },
+    "R11-waist-chain": {
+      "hash": "3d4ef09bffb1101a00cc6d6e8ec026226ad4d57a9302d01369e3c6938532e6c6"
+    },
+    "R12-scene-indoor": {
+      "hash": "43c22ea4c103f585f38667ff123a9fc69401ddf697701878142982c00ddccaab"
+    },
+    "R12-scene-studio": {
+      "hash": "9f0b93691f15f79170a6a57f075c085300834d4733ae2ea7615c58eb6049c3d1"
+    },
+    "R12-scene-none": {
+      "hash": "8567d028c9653a1dfe3e6c224fabaaa0a6e456ec521a0fa7ad8371955f8f0ea1"
+    },
+    "R12-watercolor": {
+      "hash": "e3b62cb6cf55fa3ecb6731ba7e70ad3f73be40b9e85bcc730e9b6f63a774ecfc"
+    },
+    "R13-optics": {
+      "hash": "7fe73d1def0812a70463cbcae83767949acb22d80dd559d0e3720a9e92a68a0a"
+    },
+    "R14-mj-imaging": {
+      "hash": "bcb883b1f79550c1971774031885904fd477ea19089130966f778b40e825afdd"
+    },
+    "R15-derived-isolation": {
+      "hash": "ff79e53f455368e54a80b54a0383f73cc1261ccd6bae37dd2163ab4c3b449c7c"
+    },
+    "R18-exact-text-on": {
+      "hash": "702d8a011b9433f27b4d67ae24152ca54763562037a5ec680d3f32c954a8371b"
+    },
+    "R18-exact-text-off": {
+      "hash": "b384906249565d81623911995fbbded46022aae4653a587a5ff962c0807c4abc"
+    },
+    "R19-random-pose": {
+      "hash": "c2db9f8a5e14cc61103cba040968de2741549dcf8296874eed0e74eb13c45e1b"
+    }
+  }
+}

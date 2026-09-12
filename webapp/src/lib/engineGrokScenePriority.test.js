@@ -57,7 +57,7 @@ test('Z-Image places the selected special outfit before pose and scene without p
 
   const zImage = prompt.zImagePrompt;
   const subjectIndex = zImage.indexOf('A 20s seductive stunning Japanese or Korean woman');
-  const settingIndex = zImage.indexOf('The scene is ');
+  const settingIndex = zImage.indexOf('The setting is ');
   const locationIndex = zImage.indexOf('Seoul Seongsu-dong urban corner');
   const wardrobeIndex = zImage.indexOf('She wears black sheer polka-dot matching fashion set');
   const poseIndex = zImage.search(/presents .*standing (?:pose|posture)/);
@@ -67,9 +67,9 @@ test('Z-Image places the selected special outfit before pose and scene without p
   assert.notEqual(locationIndex, -1);
   assert.notEqual(wardrobeIndex, -1);
   assert.notEqual(poseIndex, -1);
-  assert.ok(subjectIndex < wardrobeIndex);
-  assert.ok(wardrobeIndex < poseIndex);
-  assert.ok(poseIndex < settingIndex);
+  assert.ok(locationIndex < subjectIndex);
+  assert.ok(subjectIndex < poseIndex);
+  assert.ok(poseIndex < wardrobeIndex);
   assert.ok(settingIndex < locationIndex);
   assert.doesNotMatch(zImage, /keep the selected environment readable/i);
   assert.doesNotMatch(zImage, /moderate depth of field when needed/i);

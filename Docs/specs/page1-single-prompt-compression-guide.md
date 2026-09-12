@@ -6,7 +6,7 @@ Last updated: 2026-09-13
 
 Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midjourney 比例與人物姿勢適配規範](midjourney-framing-pose-adaptation.md)。目前已接入的 renderer 行為僅限該文件明確標示的 Midjourney derived context；不得把內部派生欄位當成新的 storage schema，也不得把姿勢規範解讀為 AI-only 改寫 canonical pose。
 
-2026-09-13 文件階段：新的 [一般單人 Z-Image／Midjourney 現場整合組裝規則 v1](page1-single-scene-integrated-assembly-v1.md) 與 [回歸案例](page1-single-scene-integrated-regression-v1.md) 記錄已確認的方向與隔離範圍；使用者已確認保留角色卡及仰躺 surface-led 兩條既有路徑，**新組裝政策尚未實作**。下列現行順序、canonical pose、MJ 攝影／成像來源保留契約仍有效；未來須以明確 scoped contract 變更接入，不得只引用新文件便改變所有 renderer 或 derived outputs。
+2026-09-13 Z-Image 第一階段：已接入 [一般單人現場整合組裝規則 v1](page1-single-scene-integrated-assembly-v1.md)，Z-Image 契約為 `1.6.0`。僅一般 PAGE1 單人主 `zImagePrompt` 將投影後地點身份與有效自拍來源移到構圖段，姿勢放在服裝之前，並從同一組投影來源省略獨立 `poseAnchorId`；不是用 regex 刪掉完成的姿勢句。共用 canonical pose 不變，GPT／MJ、衍生輸出、雙人、固定構圖、專用角色、角色卡與仰躺 surface-led 仍沿用既有路徑。以下歷史章節提到「三版逐字共用」或舊 Z 區塊順序時，以這個已核准窄例外為準；不擴張其他規則。MJ 的新組裝與 style／film 省略尚未實作，仍保留原有來源。驗證與影像驗收邊界見 [回歸案例](page1-single-scene-integrated-regression-v1.md)。
 
 ## 1. 三組輸出定位
 
@@ -617,7 +617,7 @@ core category, 1-3 concrete visible traits
 
 ## 4. B 神情姿態輸出規則
 
-`Gpt`、`Grok/Z-Image`、`AI` 在 Pose Composer 啟用時先共用同一個 resolved pose，再依共用構圖契約產生 projected canonical pose。只要投影結果非空，三組必須逐字共用，完整保留投影後仍可見的身體安排、重心、支撐、手部位置、道具接觸與頭部方向；只允許外層段落標題或排版不同，不得在 renderer 層再次壓縮、刪減或改寫。`faceDetail` 與 `headShoulders` 的結果為空，三組都不輸出姿勢段落。
+`Gpt`、`Grok/Z-Image`、`AI` 在 Pose Composer 啟用時先共用同一個 resolved pose，再依共用構圖契約產生 projected canonical pose。GPT／MJ 與排除路徑逐字共用，完整保留投影後仍可見的身體安排、重心、支撐、手部位置、道具接觸與頭部方向。一般單人主 Z-Image 僅依本文件開頭的 `1.6.0` 窄例外省略獨立支撐及搬移自拍來源，姿勢／手部自身的接觸不刪；不得任意再壓縮其他角色。`faceDetail` 與 `headShoulders` 原投影為空時，Z 也不回灌自拍或姿勢。
 
 表情只寫臉部可見反應、嘴型、眉毛、眼瞼狀態與情緒強度，不指定眼神方向。姿態只寫身體安排、重心、支撐與動作狀態，並可保留 Pose Composer 的 canonical head direction；但 `head naturally facing the camera`、`turning back`、`over-the-shoulder` 等頭部／身體方向不得由姿態文字偷渡進表情資料。
 

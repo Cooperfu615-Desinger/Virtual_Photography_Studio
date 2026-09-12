@@ -1,3 +1,4 @@
+import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
@@ -245,7 +246,7 @@ test('phase 6 keeps the canonical pose verbatim in all three primary outputs', (
     ?.trim();
 
   assert.ok(canonicalPose, 'canonical pose exists');
-  assert.ok(prompt.zImagePrompt.includes(canonicalPose), 'Grok/Z-Image reuses canonical pose');
+  assertZImagePoseProjection(prompt);
   assert.ok(prompt.midjourneyPrompt.includes(canonicalPose), 'AI reuses canonical pose');
   assert.equal(
     MIDJOURNEY_PARAMETER_CONTRACT.compatibility.preserveCanonicalPoseVerbatim,

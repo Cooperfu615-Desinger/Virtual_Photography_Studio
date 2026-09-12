@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import { test } from 'node:test';
 
 import {
@@ -68,13 +69,15 @@ for (const fixtureId of PHASE_FOUR_FIXTURE_IDS) {
       assert.equal(pose, '', `${fixtureId}: Gpt should omit the pose section`);
     } else {
       assert.notEqual(pose, '', `${fixtureId}: Gpt should expose a projected canonical pose`);
-      assert.equal(countOccurrences(prompt.zImagePrompt, pose), 1, `${fixtureId}: Grok/Z-Image should reuse the canonical pose once`);
+      assertZImagePoseProjection(prompt);
       assert.equal(countOccurrences(prompt.midjourneyPrompt, pose), 1, `${fixtureId}: AI should reuse the canonical pose once`);
     }
 
     for (const field of MAIN_OUTPUT_FIELDS) {
       const text = prompt[field] || '';
-      for (const fragment of expected.poseIncludes || []) {
+      // Z's role-specific pose source is checked against the independent GPT
+      // projection above; the old includes list also contains anchor clauses.
+      for (const fragment of field === 'zImagePrompt' ? [] : expected.poseIncludes || []) {
         assert.equal(text.toLowerCase().includes(fragment.toLowerCase()), true, `${fixtureId}: ${field} should include ${fragment}`);
       }
       for (const fragment of expected.poseExcludes || []) {

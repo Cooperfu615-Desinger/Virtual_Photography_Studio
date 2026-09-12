@@ -2,7 +2,7 @@
 
 Last updated: 2026-09-13
 
-狀態：**第一版規格與舊版可執行基準已建立；新組裝政策尚未實作，公開輸出契約不變。** 使用者已授權文件備份後繼續建立回歸基礎；本階段不修改 renderer、資料庫或 UI。
+狀態：**Z-Image 第一階段已接入本機 renderer；Midjourney 階段尚未實作。** 舊版可執行基準已以 `1be19e8` 備份並推送至 `origin/main`。本次僅改一般單人主 Z-Image 與對應測試／規範；資料庫、UI、選項／儲存 schema、GPT、MJ 與三組衍生輸出不變。程式驗證及外部影像驗收分開，紀錄見回歸文件。
 
 ## 1. 目的與證據邊界
 
@@ -34,7 +34,7 @@ Last updated: 2026-09-13
 
 ## 3. 現行程式確認與契約差異
 
-核對基準：`main`，`1db417a42dc081280372d3473f952d78e07066f2`。以下是目前程式行為，不是新規則已上線。
+歷史核對基準：`main`，`1db417a42dc081280372d3473f952d78e07066f2`。以下描述修改前的資料流；本次 Z 的窄例外在第 4、5 節及 `Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = 1.6.0` 中正式接入，不代表已推送或上線。
 
 - [engine.js](../../webapp/src/lib/engine.js) 的 `buildPrompts()` 先建立共用構圖投影、`projectedCanonicalPoseText`、`projectedScene` 與結構化模型，再呼叫各 renderer。
 - `renderZImagePrompt()` 目前透過 [Z-Image contract](../../webapp/src/lib/engine/zImageTurboPromptContract.js) 固定輸出成品類型、構圖、人物、服裝、姿勢、場景、光線、風格、鏡頭、成像。`buildSinglePoseText()` 直接取共用 canonical pose，必要時追加既有側身手部深度句。
@@ -43,7 +43,7 @@ Last updated: 2026-09-13
 - `projectPoseComposerAnchor()` 對 `supineSurfaceLed` 有 `fullSource` 例外。仰躺時一般場景已被設為全無，床／海面等位置由 anchor 提供。
 - [觀察式抓拍](../../webapp/src/lib/observationCaptureLab.js) 使用獨立場景、相機位置、前景、動作、光線與質感資料池。可借鑑其把拍攝條件說清楚的方式，不能把其隨機前景、道具或固定抓拍語氣搬入 PAGE1。
 
-以下既有規範在程式實作前仍有效：
+既有規範與分階段例外：前兩列已隨本次 Z 實作同步更新 root AGENTS、主撰寫規範、Z 機器契約與斷言；第三列仍待 MJ 階段。
 
 | 現行契約 | 未來需要的窄例外 |
 | --- | --- |
@@ -124,4 +124,4 @@ Last updated: 2026-09-13
 4. 執行相關 tests、Prompt Quality、完整 test／lint／build、同 seed strict audit、desktop／mobile 五工作區與下游 smoke；另核對觀察式抓拍入口未受影響。
 5. 回報程式驗證與外部影像實測各自結果。提交／推送仍需使用者另行授權。
 
-文件備份已於 `f187bbf` 推送至 `origin/main`。後續新增的測試基礎只鎖定舊行為，不代表第 2、3 步的新 renderer 已完成，也不是新版影像生成品質的完成宣告。下一步先處理 Z-Image 的窄範圍契約與組裝，再獨立處理 MJ。
+文件備份 `f187bbf`、舊版測試基準備份 `1be19e8` 均已推送至 `origin/main`。本次已接入第 2 步：`buildProjectedCanonicalPoseText` 的預設行為不變，僅 Z 呼叫時使用局部省略旗標；可見自拍先經相同 crop／prop 優先權，再搬至構圖。地點取現有投影及壓縮後的首個逗號片段，使用中性 `The setting is …` 開頭，其餘片段不重複並留在後方場景段。不推導人物與物件距離、不補光或道具。第 3 步 MJ 留待獨立批次；實際 renderer 的人景融合仍須外部實測。

@@ -2,7 +2,7 @@
 
 Last updated: 2026-09-13
 
-狀態：**已加入 executable fixtures 與舊版輸出基準；尚未實作或驗證新版 renderer。** 規則見 [組裝規格](page1-single-scene-integrated-assembly-v1.md)。
+狀態：**Z-Image 第一階段已接入，程式 gates 通過；Browser QA 部分通過，外部影像仍待實測。MJ 尚未實作。** 歷史基準保留不變，新增 Z-only expected snapshot。規則見 [組裝規格](page1-single-scene-integrated-assembly-v1.md)。
 
 ## 1. 基準與材料
 
@@ -178,7 +178,7 @@ npm run audit:prompts:strict
 - 嚴重多手／斷臂、姿勢被換掉、服裝拆錯或場景丟失須單獨記錄，不因「融合看起來好」而自動通過。
 - 程式 gates 通過表示內容與隔離契約成立；外部模型品質仍需使用者接受，不保證每張圖無瑕疵。
 
-## 7. 本次停點
+## 7. 歷史基準階段紀錄
 
 2026-09-13 已依使用者要求先提交四份規格文件，commit `f187bbfa6856220de55903407d5eab01f3e278f2` 已推送至 `origin/main`；其 runtime 仍是 `1db417a42dc081280372d3473f952d78e07066f2`。隨後完成以下 behavior-neutral 測試基礎，尚未提交此新增階段：
 
@@ -202,3 +202,18 @@ npm run audit:prompts:strict
 | 全身角色照 | 256.1 | 330 | 397 |
 
 本階段沒有 user-visible 行為變更，未啟動服務或執行 Browser QA／外部模型生成；不將測試基準通過宣稱為新人景融合驗收。下一步為 Z-Image 目標路徑的正式組裝及來源投影，同步調整窄範圍契約，再依第 5、6 節執行 browser 與外部影像驗收。角色卡與仰躺 surface-led 仍保留既有路徑，不重問範圍決策。
+
+## 8. Z-Image 正式實作批次（2026-09-13）
+
+- 第 7 節測試基準已提交／推送為 `1be19e8`，本節是其後尚未提交的 Z runtime 工作。
+- 舊版 baseline JSON 與固定輸入均不改。新增 [Z-only expected](../../webapp/src/lib/engine/sceneIntegratedZImageExpected.json)，只指定 35 組 eligible inputs 的 Z hash，以及 R01／R02 可讀全文。其餘五種輸出、10 組排除路徑的六輸出、全部 selections 與 RNG draws 仍核對原基準。
+- 新姿勢斷言使用未修改的 GPT 投影作為獨立 oracle：同一 resolved selection 僅將 anchor 設全無，可見自拍另移除 hand 後核對 Z 姿勢；另外確認自拍原文恰好出現一次且位於人物之前。不從已完成 Prompt 用 regex 刪除支撐字眼，也不以新 Z renderer 自己生成 expected pose。
+- 核心案例逐段比較舊版人物、服裝、光線、風格、光學、成像 bytes；地點身份僅一次、其餘場景 clauses 保留。另驗證全無場景不補模板、近景不回灌自拍、手肘倚膝仍在、明確道具不與自拍重複。機器區塊順序只在 opt-in 路徑改變。
+- 最終 focused assembly **55/55**、Prompt Quality **225/225**、完整前端 **893/893**、lint、build、`git diff --check` 通過。Build 保留既有大 chunk 建議。200／`prompt-quality-baseline` strict audit 的 avg／p95／max 與第 7 節表格相同；零 blocking、23 diagnostic-only。此 audit 多數為排除路徑，不能用平均字數不變推論新 Z bytes 沒變；35 組 Z snapshots 才是本輪精確差異證據。
+- 既有未固定 seed 的 `locked expression remains independent from the previous orbit` 曾失敗一次：以 `expression-flake-proof-18` 在 HEAD 舊 renderer 與新版重現，GPT bytes 相同，命中五官來源的 `calm distant gaze-ready features`，不是表情新添視線。單獨及最終全套重跑通過；本輪不改這個非目標測試或五官資料。
+
+Browser QA：**PARTIAL**。URL `http://127.0.0.1:5175/Virtual_Photography_Studio/`，1440×1000／390×900。五工作區與觀察式抓拍入口完成載入、DOM 尺寸與畫面檢查，無觀察到的 console errors、破圖或 document overflow；截圖直接保留於本次工具紀錄，未加入 repo 資產。核心狀態為自然蹲姿＋自然自拍＋肩背支撐＋歌舞伎町／cowboy：Z 的 anchor 缺席，GPT／MJ 仍有，六輸出完整。新卡片儲存後 Z 文字及回填六輸出均與儲存前逐字相同。
+
+尚未通過的瀏覽器驗證：Copy 按鈕點擊後，內建瀏覽器 clipboard API 回傳空值；Download Markdown 沒有可攔截的 download event，等待逾時，但 console 無錯誤。不能將此宣稱為功能已壞或已通過，須以支援的瀏覽器補驗。Codec／Markdown 自動測試通過不取代此端到端邊界。原有五張 Saved Cards 未刪改，一張新增本機 QA 卡片 `#1KNL0X` 保留；測試後已還原 B 選項、環繞與髮型整理偏好，viewport override 已重設。
+
+未進行外部模型生成、MJ runtime 調整、runtime commit/push 或部署。下一個完成閘門為 copy/download 補驗及使用者用實際 Z renderer 輸出實測；MJ 另開後續批次。

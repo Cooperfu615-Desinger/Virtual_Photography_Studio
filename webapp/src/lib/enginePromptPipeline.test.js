@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { assertZImagePoseProjection } from './engine/sceneIntegratedAssemblyTestSupport.js';
 import { test } from 'node:test';
 
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from './engine.js';
@@ -733,7 +734,8 @@ test('Gpt single-subject prompt preserves full-fidelity pose composer special-se
   assert.match(standingSceneObject.pose, /leaning against any suitable existing object within the current scene/i);
   assert.match(standingSceneObject.pose, /body weight lightly supported by that existing scene object, using only a naturally available scene object for support/i);
   assert.match(standingSceneObject.pose, /one hand brushing hair back from the side of the face, fingers visibly touching the hair near the temple or ear/i);
-  assert.match(standingSceneObject.prompt.zImagePrompt, /using only a naturally available scene object for support/i);
+  assert.doesNotMatch(standingSceneObject.prompt.zImagePrompt, /using only a naturally available scene object for support/i);
+  assertZImagePoseProjection(standingSceneObject.prompt);
 
   const sittingChair = buildSections({
     poseBaseId: optionId('poseBaseId', '坐姿'),
@@ -1121,7 +1123,7 @@ test('Z-Image prompt remains natural language with blank-line paragraphs and AI 
   assert.match(prompt.zImagePrompt, /^Photorealistic editorial portrait\./);
   assert.match(prompt.zImagePrompt, /\n\nA 20s seductive stunning Japanese or Korean woman(?:[.,]| with)/);
   assertNaturalZImageParagraphs(prompt, 'outfit preset z-image prompt');
-  assert.match(prompt.zImagePrompt, /\n\nThe scene is horizonless seamless matte deep black color field/i);
+  assert.match(prompt.zImagePrompt, /\n\nThe setting is horizonless seamless matte deep black color field/i);
   assert.doesNotMatch(prompt.zImagePrompt, /^Subject Count:/m);
   assert.doesNotMatch(prompt.zImagePrompt, /multi-cut sequence n=2/);
   assert.doesNotMatch(prompt.midjourneyPrompt, /^(Image Type|Scene|Subject|Wardrobe):/m);
@@ -1196,7 +1198,7 @@ test('Z-Image and AI use model-specific compact scene wording for solid color st
 
   assert.match(
     prompt.zImagePrompt,
-    /\n\nThe scene is horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface(?:, subtle natural contact shadow under the subject)?\./
+    /\n\nThe setting is horizonless seamless matte pure white color field\.[\s\S]*Continuous white ground-and-background plane blending into a solid white void, full-bleed white surface(?:, subtle natural contact shadow under the subject)?\./
   );
   assert.doesNotMatch(prompt.zImagePrompt, /no paper roll|no backdrop stand|no light stands|no studio equipment/i);
   assert.doesNotMatch(prompt.zImagePrompt, /Scene priority:/i);
@@ -1367,15 +1369,15 @@ test('Z-Image keeps subject, wardrobe, pose, and scene order across single wardr
     const subjectIndex = paragraphs.findIndex((paragraph) => /A 20s seductive stunning Japanese or Korean woman/i.test(paragraph));
     const wardrobeIndex = paragraphs.findIndex((paragraph) => wardrobeCase.wardrobePattern.test(paragraph));
     const poseIndex = paragraphs.findIndex((paragraph) => paragraph === canonicalPose);
-    const sceneIndex = paragraphs.findIndex((paragraph) => /^The scene is /i.test(paragraph));
+    const sceneIndex = paragraphs.findIndex((paragraph) => /^The setting is /i.test(paragraph));
 
     assert.ok(subjectIndex >= 0, `${wardrobeCase.name}: expected a subject paragraph`);
     assert.ok(wardrobeIndex >= 0, `${wardrobeCase.name}: expected a wardrobe paragraph`);
     assert.ok(poseIndex >= 0, `${wardrobeCase.name}: expected the canonical pose paragraph`);
     assert.ok(sceneIndex >= 0, `${wardrobeCase.name}: expected a scene paragraph`);
     assert.ok(subjectIndex < wardrobeIndex, `${wardrobeCase.name}: expected subject before wardrobe`);
-    assert.ok(wardrobeIndex < poseIndex, `${wardrobeCase.name}: expected wardrobe before pose`);
-    assert.ok(poseIndex < sceneIndex, `${wardrobeCase.name}: expected pose before scene`);
+    assert.ok(poseIndex < wardrobeIndex, `${wardrobeCase.name}: expected pose before wardrobe`);
+    assert.ok(sceneIndex < subjectIndex, `${wardrobeCase.name}: expected location context before subject`);
   }
 });
 
@@ -1421,7 +1423,7 @@ test('chest-up framing shares visible pose fragments while Z-Image removes camer
   assert.doesNotMatch(prompt.zImagePrompt, /legs and shoes emphasized/i);
   assert.match(prompt.zImagePrompt, /face oriented away from the camera/i);
   assert.doesNotMatch(prompt.zImagePrompt, /clear spatial context/i);
-  assert.match(prompt.zImagePrompt, /small urban hotel room, compact bedding, practical lamp fixtures/i);
+  assert.match(prompt.zImagePrompt, /small urban hotel room\.[\s\S]*compact bedding, practical lamp fixtures/i);
   assert.doesNotMatch(prompt.zImagePrompt, /narrow bedside table|close wall surfaces|luggage corner|enclosed room layout/i);
   assert.doesNotMatch(prompt.zImagePrompt, /without widening the portrait crop|softly blurred|faint spatial shapes/i);
 });

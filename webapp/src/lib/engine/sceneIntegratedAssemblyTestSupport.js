@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from '../engine.js';
 import { PROMPT_OUTPUT_CONTRACTS } from './promptOutputContracts.js';
+import { POSE_COMPOSER_ANCHOR_OPTIONS, POSE_COMPOSER_HAND_OPTIONS } from './poseComposerOptions.js';
 
 export const OUTPUT_FIELDS = Object.freeze(Object.keys(PROMPT_OUTPUT_CONTRACTS));
 
@@ -72,4 +73,31 @@ export function restoreBaselineSelection(baseline, entry) {
   const selection = { ...baseline.selectionBase, ...entry.selectionDelta };
   for (const key of entry.removedSelectionKeys) delete selection[key];
   return selection;
+}
+
+// Independent oracle: the unchanged GPT projection renders the same resolved
+// choices with only the permitted source roles removed. Never strip substrings
+// from a completed canonical pose or call the new Z renderer to get expectations.
+export function assertZImagePoseProjection(prompt) {
+  const canonical = (p) => p.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  const s = prompt.selection;
+  const active = (id) => Boolean(id && !['none', 'random'].includes(id));
+  const anchor = POSE_COMPOSER_ANCHOR_OPTIONS.find((o) => o.id === s.poseAnchorId);
+  const excluded = s.subjectCount !== '1' || active(s.fixedCompositionSetId)
+    || active(s.specialSubjectId) || active(s.characterProfileId)
+    || (s.poseBaseId === 'lying' && s.poseOrientationId === 'lying-supine' && anchor?.meta?.supineSurfaceLed);
+  const hand = POSE_COMPOSER_HAND_OPTIONS.find((o) => o.id === s.poseHandId);
+  const visibleCapture = !excluded && hand?.meta?.tags?.includes('selfie_hand_pose')
+    && canonical(prompt).toLowerCase().includes(hand.en.toLowerCase());
+  const expected = excluded ? canonical(prompt) : canonical(generatePrompts(1, {
+    ...s, poseAnchorId: 'none', ...(visibleCapture ? { poseHandId: 'none' } : {}),
+  }, [], { random: createSeededRandom('z-projection-independent-gpt-oracle') })[0]);
+  if (expected) assert.ok(prompt.zImagePrompt.includes(expected), `Z must preserve the projected pose source: ${expected}`);
+  if (visibleCapture) {
+    assert.equal(prompt.zImagePrompt.toLowerCase().split(hand.en.toLowerCase()).length - 1, 1,
+      'visible capture source must occur exactly once');
+    assert.ok(prompt.zImagePrompt.split('\n\n')[1].toLowerCase().includes(hand.en.toLowerCase()),
+      'capture source belongs before the subject');
+  }
+  return expected;
 }

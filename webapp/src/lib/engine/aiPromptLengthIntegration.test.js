@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import { test } from 'node:test';
 
 import {
@@ -90,7 +91,7 @@ test('phase-6 integration gate preserves mappings, selections, contracts, anchor
         .match(/Pose and Composition:\n([\s\S]*?)(?:\n\n|$)/)?.[1]
         ?.trim();
       assert.ok(canonicalPose, `${fixture.id}: canonical pose`);
-      assert.ok(prompt.zImagePrompt.includes(canonicalPose), `${fixture.id}: Grok/Z-Image pose`);
+      assertZImagePoseProjection(prompt);
       assert.ok(prompt.midjourneyPrompt.includes(canonicalPose), `${fixture.id}: AI pose`);
     }
   }

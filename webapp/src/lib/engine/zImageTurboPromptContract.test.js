@@ -13,7 +13,7 @@ import {
 } from './promptOutputContracts.js';
 
 test('Z-Image Turbo contract preserves the historical field and records the Magnific profile', () => {
-  assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION, '1.5.0');
+  assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION, '1.6.0');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.field, 'zImagePrompt');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.uiLabel, 'Z-Image');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.compatibility.historicalField, 'zImagePrompt');
@@ -96,4 +96,15 @@ test('Z-Image Turbo section model orders primary content before secondary imagin
   assert.equal(model.sections.find((section) => section.id === 'rendering')?.priority, 'secondary');
   assert.equal(model.measurement.estimatedTokens, estimateZImagePromptTokens(model.text));
   assert.equal(model.measurement.withinSoftMax, true);
+});
+
+test('scene-integrated order is opt-in and leaves the default section contract intact', () => {
+  const sections = [{ id: 'wardrobe', text: 'Wardrobe.' }, { id: 'pose', text: 'Pose.' }];
+  assert.equal(createZImageTurboPromptSectionModel({ sections }).text, 'Wardrobe.\n\nPose.');
+  assert.equal(createZImageTurboPromptSectionModel({ sections, sceneIntegrated: true }).text, 'Pose.\n\nWardrobe.');
+  const policy = Z_IMAGE_TURBO_PROMPT_CONTRACT.singleSceneIntegrated;
+  assert.ok(Object.isFrozen(policy));
+  assert.ok(policy.exclusions.includes('supine-surface-led'));
+  assert.ok(policy.exclusions.includes('character-card'));
+  assert.match(policy.independentAnchor, /preserve selection and shared canonical/);
 });

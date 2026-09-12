@@ -1,3 +1,4 @@
+import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
@@ -169,6 +170,6 @@ test('AI receives framing adaptation without rewriting the shared canonical pose
 
   assert.ok(canonicalPose, 'canonical pose exists');
   assert.ok(prompt.midjourneyPrompt.includes(canonicalPose));
-  assert.ok(prompt.zImagePrompt.includes(canonicalPose));
+  assertZImagePoseProjection(prompt);
   assert.match(prompt.midjourneyPrompt, /subject kept near the center of the frame/i);
 });

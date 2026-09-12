@@ -5845,7 +5845,7 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
   });
 }
 
-function buildProjectedCanonicalPoseText(context, poseComposer) {
+function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = false, omitHand = false } = {}) {
   if (!poseComposer || isNoneLikeItem(poseComposer)) return '';
   const projection = getCompositionVisibilityProjection(context);
 
@@ -5856,10 +5856,10 @@ function buildProjectedCanonicalPoseText(context, poseComposer) {
   const base = activeOption(POSE_COMPOSER_BASE_OPTIONS, poseComposer.meta?.poseBaseId);
   const arrangement = activeOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, poseComposer.meta?.poseArrangementId);
   const orientation = activeOption(POSE_COMPOSER_ORIENTATION_OPTIONS, poseComposer.meta?.poseOrientationId);
-  const handPose = activeOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer.meta?.poseHandId);
+  const handPose = omitHand ? null : activeOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer.meta?.poseHandId);
   const propAction = activeOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer.meta?.posePropId);
   const head = activeOption(POSE_COMPOSER_HEAD_OPTIONS, poseComposer.meta?.poseHeadId);
-  const anchor = activeOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer.meta?.poseAnchorId);
+  const anchor = omitAnchor ? null : activeOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer.meta?.poseAnchorId);
   const bucket = projection.bucket;
   const isSupineSurfaceLed = projection.pose?.supineSurfaceMode === 'fullSource'
     && base?.id === 'lying'
@@ -5877,7 +5877,10 @@ function buildProjectedCanonicalPoseText(context, poseComposer) {
       })
       : '';
   }
-  if (projection.pose?.mode === 'fullCanonical') return poseComposer.en || '';
+  if (projection.pose?.mode === 'fullCanonical') {
+    if (!omitAnchor && !omitHand) return poseComposer.en || '';
+    return buildPoseComposerSentence({ base, orientation, arrangement, handPose, propAction, anchor, head, location: context.location });
+  }
 
   if (bucket === COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP) {
     return buildChestUpPoseComposerSentence({
@@ -12221,6 +12224,29 @@ function renderZImagePrompt(promptModel) {
       .filter((part) => !/^no\b/i.test(part))
       .join(', ');
   };
+  // This renderer is called for the PAGE1 main output only. Do not attach this
+  // policy to shared contexts consumed by GPT, MJ or fixed-framing derivatives.
+  const poseComposer = characterSlots.poseComposer;
+  const anchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer?.meta?.poseAnchorId);
+  const supineSurfaceLed = poseComposer?.meta?.poseBaseId === 'lying'
+    && poseComposer?.meta?.poseOrientationId === 'lying-supine'
+    && anchor?.meta?.supineSurfaceLed === true;
+  const sceneIntegrated = context.subject.count === 1
+    && !specialSubjectMode && !characterProfileMode && !useCharacterIdentityAnchor
+    && !fixedCompositionSetActive && !supineSurfaceLed;
+  const selfieHand = getPoseComposerOption(POSE_COMPOSER_HAND_OPTIONS, poseComposer?.meta?.poseHandId);
+  const activeProp = getPoseComposerOption(POSE_COMPOSER_PROP_OPTIONS, poseComposer?.meta?.posePropId);
+  const captureHand = sceneIntegrated && selfieHand?.meta?.tags?.includes('selfie_hand_pose')
+    && !isActivePoseComposerOption(activeProp)
+    && compositionVisibilityProjection.pose?.mode !== 'omit'
+    ? (compositionVisibilityProjection.pose?.mode === 'fullCanonical'
+      ? selfieHand
+      : shouldProjectPosePart(compositionVisibilityProjection, 'hand', { conditional: true })
+        ? projectPoseComposerHand(selfieHand, compositionVisibilityProjection.bucket) : null)
+    : null;
+  const zOnlyPoseText = sceneIntegrated
+    ? buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor: true, omitHand: Boolean(captureHand) })
+    : context.projectedCanonicalPoseText || '';
   const buildCharacterText = () => {
     if (characterProfileMode) {
       const specialActionText = characterSlots.specialAction && !isNoneLikeItem(characterSlots.specialAction)
@@ -12343,7 +12369,7 @@ function renderZImagePrompt(promptModel) {
 
     const hasPoseComposer = characterSlots.poseComposer && !isNoneLikeItem(characterSlots.poseComposer);
     if (hasPoseComposer) {
-      const canonicalPoseText = context.projectedCanonicalPoseText || '';
+      const canonicalPoseText = zOnlyPoseText;
       const sideDepthText = buildZImageTurboSidePoseDepth({
         orbit: context.orbit,
         poseHandId: characterSlots.poseComposer?.meta?.poseHandId || '',
@@ -12689,6 +12715,7 @@ function renderZImagePrompt(promptModel) {
       : '',
   ]);
   const renderSections = (sections) => createZImageTurboPromptSectionModel({
+    sceneIntegrated,
     sections: sections.map((section) => {
       const normalizedText = ensureTerminalPeriod(section.text);
       const isProjectedCanonicalPose = section.id === 'pose'
@@ -12721,6 +12748,33 @@ function renderZImagePrompt(promptModel) {
       { id: 'pose', text: poseText },
       { id: 'scene', text: buildZImageDuoSceneText() },
       { id: 'lighting', text: buildZImageDuoLightingText() },
+      { id: 'style', text: buildPhotographyStyleText() },
+      { id: 'optics', text: buildCameraText() },
+      { id: 'rendering', text: buildRenderingText() },
+    ]);
+  }
+
+  if (sceneIntegrated) {
+    // Partition already projected/compacted scene sources, not raw database
+    // text or the completed public paragraph. Keep every remaining clause.
+    const location = compactZImageLocationText(buildZImageLocationText());
+    const world = compactZImageLocationText(importedWorldSceneArchitectureText);
+    const clauses = splitPromptClauses(location || world);
+    const identity = clauses.shift() || '';
+    const details = [location ? world : '', clauses.join(', '), compactZImageSourceText(sceneAccentText)]
+      .filter(Boolean);
+    return renderSections([
+      { id: 'imageType', text: imageTypeLine },
+      { id: 'composition', text: [
+        identity ? sentence(`The setting is ${identity}`) : '',
+        compositionLine,
+        captureHand ? sentence(capitalizePromptLead(captureHand.en)) : '',
+      ].filter(Boolean).join(' ') },
+      { id: 'subject', text: buildCharacterText() },
+      { id: 'pose', text: buildSinglePoseText() },
+      { id: 'wardrobe', text: buildWardrobeText() },
+      { id: 'scene', text: [joinSentenceParts(details), visibleTextSentence].filter(Boolean).join(' ') },
+      { id: 'lighting', text: buildLightingText() },
       { id: 'style', text: buildPhotographyStyleText() },
       { id: 'optics', text: buildCameraText() },
       { id: 'rendering', text: buildRenderingText() },

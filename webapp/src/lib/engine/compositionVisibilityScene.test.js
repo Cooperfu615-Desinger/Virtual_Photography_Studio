@@ -50,6 +50,14 @@ function gptScene(prompt) {
 }
 
 function zImageScene(prompt) {
+  if (prompt.zImagePrompt.includes('The setting is ')) {
+    const paragraphs = prompt.zImagePrompt.split(/\n{2,}/);
+    const identity = paragraphs[1].match(/^The setting is [\s\S]*?\.(?: |$)/)?.[0] || '';
+    const wardrobeIndex = paragraphs.findIndex((p) => p.startsWith('She wears'));
+    // The face-detail fixture omits both pose and wardrobe, so scene follows subject.
+    const details = paragraphs[wardrobeIndex >= 0 ? wardrobeIndex + 1 : 3] || '';
+    return `${identity} ${details}`;
+  }
   return prompt.zImagePrompt
     .split(/\n{2,}/)
     .find((paragraph) => paragraph.startsWith('The scene is ')) || '';

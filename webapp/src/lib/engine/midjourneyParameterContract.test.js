@@ -1,3 +1,4 @@
+import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
@@ -265,7 +266,7 @@ test('phase 1 preserves source-derived positive Body Type anchors and exact cano
     .match(/Pose and Composition:\n([\s\S]*?)(?:\n\n|$)/)?.[1]
     ?.trim();
   assert.ok(canonicalPose);
-  assert.ok(posePrompt.zImagePrompt.includes(canonicalPose));
+  assertZImagePoseProjection(posePrompt);
   assert.ok(posePrompt.midjourneyPrompt.includes(canonicalPose));
   assert.equal(PROMPT_OUTPUT_CONTRACTS.midjourneyPrompt.field, 'midjourneyPrompt');
 });

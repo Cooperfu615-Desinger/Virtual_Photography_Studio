@@ -303,32 +303,32 @@ test('generated prompts use stabilized scene base wording', () => {
   });
 
   assert.match(studioPrompt.grokPrompt, /continuous vivid blue ground-and-background plane/);
-  assert.match(studioPrompt.zImagePrompt, /continuous vivid blue ground-and-background plane/);
+  assert.match(studioPrompt.zImagePrompt, /continuous vivid blue ground-and-background plane/i);
   assert.doesNotMatch(studioPrompt.zImagePrompt, /no backdrop stand|no studio equipment/i);
   assert.match(meguroPrompt.grokPrompt, /asymmetric riverside composition/);
   assert.doesNotMatch(meguroPrompt.zImagePrompt, /avoid symmetrical|central road/i);
   assert.match(hallstattPrompt.grokPrompt, /Hallstatt lakeside village overlook/);
-  assert.match(hallstattPrompt.zImagePrompt, /Hallstatt lakeside village overlook/);
+  assert.match(hallstattPrompt.zImagePrompt, /Hallstatt lakeside village overlook/i);
   assert.match(saltFlatPrompt.grokPrompt, /white salt flat playa edge/);
-  assert.match(saltFlatPrompt.zImagePrompt, /cracked salt crust ground/);
+  assert.match(saltFlatPrompt.zImagePrompt, /cracked salt crust ground/i);
   assert.match(subwaySignboardPrompt.grokPrompt, /underground subway platform signboard corner/);
-  assert.match(subwaySignboardPrompt.zImagePrompt, /amber LED next-train display overhead/);
+  assert.match(subwaySignboardPrompt.zImagePrompt, /amber LED next-train display overhead/i);
   assert.match(housePartyPrompt.grokPrompt, /nighttime American house-party home interior/);
-  assert.match(housePartyPrompt.zImagePrompt, /background guests chatting drinking and playing games/);
+  assert.match(housePartyPrompt.zImagePrompt, /background guests chatting drinking and playing games/i);
   assert.match(bookshopPrompt.grokPrompt, /antique used-book shop interior/);
-  assert.match(bookshopPrompt.zImagePrompt, /narrow bookshelf aisle reading table counter corner or window book stacks/);
+  assert.match(bookshopPrompt.zImagePrompt, /narrow bookshelf aisle reading table counter corner or window book stacks/i);
   assert.match(y2kRoomPrompt.grokPrompt, /Y2K retro bedroom interior/);
-  assert.match(y2kRoomPrompt.zImagePrompt, /CRT TV setup vinyl-record wall poster cluster/);
+  assert.match(y2kRoomPrompt.zImagePrompt, /CRT TV setup vinyl-record wall poster cluster/i);
   assert.match(britishVintageRoomPrompt.grokPrompt, /British vintage window-side room interior/);
-  assert.match(britishVintageRoomPrompt.zImagePrompt, /white lace curtain and sash window/);
+  assert.match(britishVintageRoomPrompt.zImagePrompt, /white lace curtain and sash window/i);
   assert.match(resortPoolPrompt.grokPrompt, /hotel resort poolside terrace/);
-  assert.match(resortPoolPrompt.zImagePrompt, /hotel resort poolside terrace/);
+  assert.match(resortPoolPrompt.zImagePrompt, /hotel resort poolside terrace/i);
   assert.match(ryokanEngawaPrompt.grokPrompt, /traditional Japanese ryokan engawa veranda/i);
   assert.match(ryokanEngawaPrompt.zImagePrompt, /sliding door frames/i);
   assert.match(luxuryHotelBalconyPrompt.grokPrompt, /luxury hotel balcony river-view terrace/i);
   assert.match(luxuryHotelBalconyPrompt.zImagePrompt, /luxury hotel balcony river-view terrace/i);
   assert.match(forestCampsitePrompt.grokPrompt, /forest campsite clearing/);
-  assert.match(forestCampsitePrompt.zImagePrompt, /canvas tent edge/);
+  assert.match(forestCampsitePrompt.zImagePrompt, /canvas tent edge/i);
 });
 
 test('Gpt projected scenes preserve source anchors without public control guidance or solid-studio conflicts', () => {

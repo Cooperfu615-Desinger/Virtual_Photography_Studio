@@ -18,7 +18,12 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.5.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.6.0';
+
+const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
+  'imageType', 'composition', 'subject', 'pose', 'wardrobe',
+  'scene', 'lighting', 'style', 'optics', 'rendering',
+]);
 
 export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
   field: 'zImagePrompt',
@@ -52,6 +57,14 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
     softMaxEstimatedTokens: 480,
   },
   sectionOrder: SECTION_ORDER,
+  singleSceneIntegrated: {
+    sectionOrder: SCENE_INTEGRATED_SECTION_ORDER,
+    scope: 'ordinary PAGE1 single-subject main output only',
+    exclusions: ['duo', 'fixed-composition', 'dedicated-subject', 'character-card', 'supine-surface-led', 'derived-output'],
+    independentAnchor: 'omit from Z-only projected sources; preserve selection and shared canonical',
+    selfieHand: 'relocate visible source to capture context; retain prop precedence and crop visibility',
+    scene: 'move first projected location clause to capture context without duplicating it',
+  },
   composition: {
     cameraSubjectGeometry: 'eight-direction crop-aware single-subject geometry',
     strictSideProfileGeometry: 'image-edge facing, visible-side isolation, and full near-far occlusion at 90 degrees',
@@ -100,9 +113,10 @@ export function estimateZImagePromptTokens(value) {
   return Math.ceil(words * 1.22 + punctuation * 0.2);
 }
 
-export function createZImageTurboPromptSectionModel({ sections = [] } = {}) {
+export function createZImageTurboPromptSectionModel({ sections = [], sceneIntegrated = false } = {}) {
   const textById = new Map(sections.map((section) => [section.id, String(section.text || '').trim()]));
-  const normalizedSections = SECTION_ORDER.map((id) => {
+  const order = sceneIntegrated ? SCENE_INTEGRATED_SECTION_ORDER : SECTION_ORDER;
+  const normalizedSections = order.map((id) => {
     const text = textById.get(id) || '';
     return {
       id,

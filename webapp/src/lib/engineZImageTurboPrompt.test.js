@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { assertZImagePoseProjection } from './engine/sceneIntegratedAssemblyTestSupport.js';
 import { test } from 'node:test';
 
 import {
@@ -119,16 +120,18 @@ test('Z-Image Turbo single prompt uses direct visual paragraphs in priority orde
   assert.doesNotMatch(text, /\bCreate (?:a|an)\b|^(?:Image Type|Subject|Wardrobe|Lighting|Camera Look):/m);
   assert.match(text, /Full-body portrait, eye-level view\./);
   assert.doesNotMatch(text, /right profile view/i);
-  assert.match(text, /The scene is cement-mixer tank side area, large cylindrical mixing tank, concrete dust\./i);
+  assert.match(text, /The setting is cement-mixer tank side area\./i);
+  assert.match(text, /Large cylindrical mixing tank, concrete dust\./i);
   assert.match(text, /Indoor low-light warm night ambience[\s\S]*mixed warm and cool subject lighting/i);
 
   const ordered = [
     'Photorealistic editorial portrait',
+    'The setting is cement-mixer tank side area',
     'Full-body portrait, eye-level view',
     'She stands completely sideways, facing the left edge of the image',
     'A 20s seductive stunning Japanese or Korean woman',
     'She wears',
-    'The scene is cement-mixer tank side area',
+    'Large cylindrical mixing tank',
     'Indoor low-light warm night ambience',
     'Mika Ninagawa',
     'anamorphic lens',
@@ -166,7 +169,7 @@ test('Z-Image Turbo keeps a strict right-side seated body when the canonical hea
   assert.match(canonicalPose, /head naturally facing the camera/i);
   assert.match(canonicalPose, /leg-cross seated pose/i);
   assert.match(canonicalPose, /ornate single velvet armchair/i);
-  assert.equal(prompt.zImagePrompt.includes(canonicalPose), true);
+  assertZImagePoseProjection(prompt);
   assert.equal(prompt.midjourneyPrompt.includes(canonicalPose), true);
   assert.doesNotMatch(prompt.grokPrompt, /camera sees only the right side of her body/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /camera sees only the right side of her body/i);

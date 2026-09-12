@@ -35,7 +35,7 @@ Read `Docs/specs/page1-single-prompt-compression-guide.md`, `webapp/src/lib/engi
 - `Grok/Z-Image` is a source-traceable reduction: remove redundancy and internal control language, use minimal connective grammar, and do not invent visual facts.
 - `AI` follows its mode-specific compact contract. Compression must retain the required identity, wardrobe, scene, imaging, and other mode-specific anchors.
 - Preserve all four Character Card permanent identity anchors in compact outputs. Mutable hair, makeup, wardrobe, or accessories must not replace identity.
-- When Pose Composer is active, all three renderers reuse the exact canonical pose text; only the outer label or layout may differ.
+- When Pose Composer is active, preserve the shared canonical pose. Ordinary PAGE1 single-subject main Z-Image alone may assemble the same projected sources without the independent anchor and relocate visible selfie-hand text into capture context, per `Docs/specs/page1-single-scene-integrated-assembly-v1.md`. GPT, MJ, derived outputs, duo, fixed composition, dedicated subjects, Character Cards and supine surface-led paths retain the exact canonical-pose contract.
 - Keep the full-body character output single-subject, fixed at `9:16`, and complete from head to footwear/accessories. It must not inherit a crop that hides wardrobe.
 - Do not leak internal guard, fallback, integrity, or selection-control language into public prompts.
 - Add or update a focused regression fixture before changing behavior. Change one instruction/behavior group at a time, then compare the same fixtures and seed.
