@@ -1,10 +1,12 @@
 # PAGE1 單人 Prompt 輸出撰寫規範
 
-Last updated: 2026-09-10
+Last updated: 2026-09-13
 
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
 Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midjourney 比例與人物姿勢適配規範](midjourney-framing-pose-adaptation.md)。目前已接入的 renderer 行為僅限該文件明確標示的 Midjourney derived context；不得把內部派生欄位當成新的 storage schema，也不得把姿勢規範解讀為 AI-only 改寫 canonical pose。
+
+2026-09-13 文件階段：新的 [一般單人 Z-Image／Midjourney 現場整合組裝規則 v1](page1-single-scene-integrated-assembly-v1.md) 與 [回歸案例](page1-single-scene-integrated-regression-v1.md) 記錄已確認的方向與隔離範圍；使用者已確認保留角色卡及仰躺 surface-led 兩條既有路徑，**新組裝政策尚未實作**。下列現行順序、canonical pose、MJ 攝影／成像來源保留契約仍有效；未來須以明確 scoped contract 變更接入，不得只引用新文件便改變所有 renderer 或 derived outputs。
 
 ## 1. 三組輸出定位
 

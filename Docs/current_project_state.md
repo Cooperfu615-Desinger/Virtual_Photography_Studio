@@ -2,7 +2,14 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-10
+Last updated: 2026-09-13
+
+## Planned: single-subject Z-Image / Midjourney assembly v1 (2026-09-13)
+
+- Documentation only: the user accepted the manual squat low-angle selfie and kneeling high-angle selfie direction for subject/scene integration and authorized a first-version rule and regression plan. See [assembly specification](specs/page1-single-scene-integrated-assembly-v1.md) and [regression cases](specs/page1-single-scene-integrated-regression-v1.md). Runtime, database, UI, and executable contracts remain unchanged.
+- Confirmed scope for future implementation is ordinary PAGE1 single-subject main `zImagePrompt` and `midjourneyPrompt`. Z-Image will omit the independently selected contact/support source, not intrinsic pose/hand contact. Main MJ will omit photography-style and camera/film-simulation prose, retaining lens/aperture/shutter/optical effects and its existing projected contact/support. GPT, derived outputs, duo, fixed-composition and independent workspaces remain unchanged.
+- Before implementation, explicitly reconcile the existing exact-canonical-pose contract with a Z-only output projection; do not mutate the shared canonical pose. The shared MJ renderer also feeds MJ chest-up, which must retain its existing behavior. On 2026-09-13 the user confirmed that Character Card and supine surface-led paths retain their existing behavior and are excluded from the new assembly policy. Do not ask for this scope decision again; deleting supine anchors would otherwise delete the sole bed/water/sea scene source. Implementation and Git delivery are separate authorization steps.
+- Manual images under user-owned, untracked `Docs/0912_test/` are qualitative evidence, not deterministic fixtures or universal model acceptance. No new renderer, automated regression result, browser acceptance, Git delivery, or deployment is claimed by this documentation checkpoint.
 
 ## GPT Prompt phase 1 cleanup (2026-09-10)
 
