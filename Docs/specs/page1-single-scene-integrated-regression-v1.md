@@ -2,7 +2,7 @@
 
 Last updated: 2026-09-13
 
-狀態：**案例規格，尚未加入 executable fixtures 或執行新版 renderer 測試。** 規則見 [組裝規格](page1-single-scene-integrated-assembly-v1.md)。
+狀態：**已加入 executable fixtures 與舊版輸出基準；尚未實作或驗證新版 renderer。** 規則見 [組裝規格](page1-single-scene-integrated-assembly-v1.md)。
 
 ## 1. 基準與材料
 
@@ -116,7 +116,7 @@ Guy Bourdin-inspired bold narrative fashion photography, vivid color blocking, a
 
 ## 4. 最低回歸矩陣
 
-以下是 **19 組 case families**，不是已執行的 19 個測試；景別與變體需要參數化展開。每組均驗證選項不變、來源保留及公開控制語不洩漏。
+以下是 **19 組 case families**，已展開為 45 組固定輸入。現階段執行的是舊版輸出／選項基準；表內「新版主要斷言」仍是後續 renderer 實作的驗收目標，不代表已啟用。例如目前 Z 仍保留 anchor，MJ 仍保留 style／film。
 
 | ID | 輸入／變體 | 新版主要斷言 |
 | --- | --- | --- |
@@ -180,4 +180,25 @@ npm run audit:prompts:strict
 
 ## 7. 本次停點
 
-只新增規格、案例及文件入口；沒有建立新版 executable fixture、baseline hash 或 renderer。沒有跑模型、啟動服務、變更資料來源、stage、commit、push 或 deploy。使用者已於 2026-09-13 確認保留角色卡與仰躺 surface-led 兩條既有路徑；下一步是在另行授權程式實作後建立可執行 fixtures 與舊版基準，不再重問這兩項範圍決策。
+2026-09-13 已依使用者要求先提交四份規格文件，commit `f187bbfa6856220de55903407d5eab01f3e278f2` 已推送至 `origin/main`；其 runtime 仍是 `1db417a42dc081280372d3473f952d78e07066f2`。隨後完成以下 behavior-neutral 測試基礎，尚未提交此新增階段：
+
+- [固定輸入](../../webapp/src/lib/engine/sceneIntegratedAssemblyFixtures.js)：45 組，涵蓋 19 組案例類別，含 10 組明確排除的新政策路徑；R03 沿用 R01 的 seed，以確保只有 anchor 一個變數。
+- [Node-only 測試工具](../../webapp/src/lib/engine/sceneIntegratedAssemblyTestSupport.js)：精確 selector 解析、同 seed 生成、完整選項快照、輸出擷取及 random draw 計數；不被 runtime 匯入。
+- [舊版基準](../../webapp/src/lib/engine/sceneIntegratedAssemblyBaseline.json)：固定來源 SHA／hash、六種輸出 hash、可完整還原的 selection base／delta／removed keys，以及 R01／R02 六輸出的可讀全文。缺席的 derived 欄位記為空字串，仍依模式契約驗證。不得在未來改 renderer 後整批重建此歷史基準來消除失敗。
+- [可執行測試](../../webapp/src/lib/engine/sceneIntegratedAssemblyBaseline.test.js)：52 個測試；同 seed 重跑、反向呼叫順序、現行 canonical pose、床／水／海面、六輸出、精確文字、Saved Cards codec／Markdown 主文字還原及觀察式抓拍隔離。Saved Cards 依既有規則補預設值，測試有效選項值保留及還原正規化，不要求原始欄位集合完全相同；不擴張為完整 ZIP round-trip。
+- 已加入 `webapp/package.json` 的 `test:prompt-quality`；完整 `npm test` 原有 glob 也會執行此測試。沒有修改依賴、資料庫、renderer、UI、storage 或公開輸出契約。
+
+驗證結果：focused **52/52**、Prompt Quality **221/221**、完整前端 **889/889**、lint、build 均通過。Build 只有既有大 chunk 建議。固定的七個來源 hash 核對一致；路徑／連結與 whitespace 檢查通過。
+
+前後 strict audit 均使用 `200 / prompt-quality-baseline / --strict`：一般單人 20、雙人 20、固定構圖 160；阻擋、輸出完整性、exact duplicate、控制語、矛盾、coverage 均為 0。既有診斷維持 23（19 項衣物／場景 heuristic、4 項 near duplicate），不順帶修正。
+
+| 輸出 | 前後平均字數 | 前後 p95 | 前後最大字數 |
+| --- | ---: | ---: | ---: |
+| Gpt | 578.0 | 724 | 778 |
+| Z-Image | 316.9 | 405 | 438 |
+| AI | 161.2 | 207 | 251 |
+| 胸上特寫照 | 276.8 | 339 | 393 |
+| MJ 胸上特寫照 | 172.9 | 208 | 234 |
+| 全身角色照 | 256.1 | 330 | 397 |
+
+本階段沒有 user-visible 行為變更，未啟動服務或執行 Browser QA／外部模型生成；不將測試基準通過宣稱為新人景融合驗收。下一步為 Z-Image 目標路徑的正式組裝及來源投影，同步調整窄範圍契約，再依第 5、6 節執行 browser 與外部影像驗收。角色卡與仰躺 surface-led 仍保留既有路徑，不重問範圍決策。

@@ -2,7 +2,7 @@
 
 Last updated: 2026-09-13
 
-狀態：**第一版規格與回歸設計；尚未實作、尚未改變公開輸出契約。** 使用者已接受人工測試的方向並授權整理文件；本文件不是修改 renderer、資料庫、UI 或提交／部署的授權。
+狀態：**第一版規格與舊版可執行基準已建立；新組裝政策尚未實作，公開輸出契約不變。** 使用者已授權文件備份後繼續建立回歸基礎；本階段不修改 renderer、資料庫或 UI。
 
 ## 1. 目的與證據邊界
 
@@ -118,10 +118,10 @@ Last updated: 2026-09-13
 
 詳見 [回歸案例與驗收計畫](page1-single-scene-integrated-regression-v1.md)。建議順序：
 
-1. 依已確認的第 2、5.1 節隔離範圍，在取得程式實作授權後，先新增 deterministic fixtures 與舊版穩定輸出基準，再更新窄範圍契約。
+1. 已建立 deterministic fixtures 與舊版穩定輸出基準：19 組案例類別展開為 45 組輸入、52 個測試；六輸出、完整 resolved selections 與隨機抽取次數均固定。這一步不更新 production 契約；驗證紀錄見回歸文件第 7 節。
 2. 實作 Z-Image 目標路徑的來源重排與 anchor 省略；先比對同 seeds 的輸出與 selections。外部實測以新版實際 renderer 成品驗證，不能只測手寫範本。
 3. 獨立實作主 MJ 的 style／film 省略與來源式精簡；驗證 MJ 胸上、GPT 與其他排除路徑完全不變。
 4. 執行相關 tests、Prompt Quality、完整 test／lint／build、同 seed strict audit、desktop／mobile 五工作區與下游 smoke；另核對觀察式抓拍入口未受影響。
 5. 回報程式驗證與外部影像實測各自結果。提交／推送仍需使用者另行授權。
 
-本次文件完成條件只有路徑／連結核對、案例選項可解析性、`git diff --check` 與確認 runtime 未修改；不是程式或影像生成品質完成宣告。
+文件備份已於 `f187bbf` 推送至 `origin/main`。後續新增的測試基礎只鎖定舊行為，不代表第 2、3 步的新 renderer 已完成，也不是新版影像生成品質的完成宣告。下一步先處理 Z-Image 的窄範圍契約與組裝，再獨立處理 MJ。
