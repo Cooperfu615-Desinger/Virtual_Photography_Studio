@@ -3031,6 +3031,16 @@ const WARDROBE_LEGACY_PROMPT_ALIASES = [
   },
 ];
 
+const LOCATION_LEGACY_PROMPT_ALIASES = [
+  {
+    category: '城市與社群感 (Urban & Social Snapshots)',
+    targetZh: '戶外：新宿歌舞伎町招牌下',
+    prompts: [
+      'Kabukicho signboard corner, stacked sign structures, storefront edge, glossy pavement patches, narrow curb, doorway seam, overhead sign brackets',
+    ],
+  },
+];
+
 const WARDROBE_OUTFIT_TO_DRESS_LEGACY_LOCK_MIGRATIONS = [
   { legacy: ['玫瑰粉乳膠迷你洋裝套裝', 3], dressZh: '連身：短版｜亮面乳膠迷你洋裝' },
   { legacy: ['黑色細節一字領哥德洋裝套裝', 15], dressZh: '連身：短版｜一字領哥德迷你洋裝' },
@@ -3078,6 +3088,21 @@ function applyWardrobeLegacyOptionIds(catalog) {
 function applyWardrobeLegacyPromptAliases(catalog) {
   WARDROBE_LEGACY_PROMPT_ALIASES.forEach(({ category, targetZh, prompts }) => {
     const target = getByKey(catalog.wardrobe, category).find((item) => item.zh === targetZh);
+    if (!target) return;
+
+    target.meta = {
+      ...(target.meta || {}),
+      legacyPromptAliases: Array.from(new Set([
+        ...(target.meta?.legacyPromptAliases || []),
+        ...prompts,
+      ])),
+    };
+  });
+}
+
+function applyLocationLegacyPromptAliases(catalog) {
+  LOCATION_LEGACY_PROMPT_ALIASES.forEach(({ category, targetZh, prompts }) => {
+    const target = getByKey(catalog.locations, category).find((item) => item.zh === targetZh);
     if (!target) return;
 
     target.meta = {
@@ -3238,6 +3263,7 @@ function buildCatalog(customLibrary = []) {
   applyRegionalLegacyOptionIds(catalog);
   applyWardrobeLegacyOptionIds(catalog);
   applyWardrobeLegacyPromptAliases(catalog);
+  applyLocationLegacyPromptAliases(catalog);
   applyCharacterIdentityLegacyOptionIds(catalog);
   applyCharacterExpressionPoseLegacyOptionIds(catalog);
   applyCameraLegacyOptionIds(catalog);

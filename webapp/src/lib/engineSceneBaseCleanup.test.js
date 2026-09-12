@@ -202,6 +202,29 @@ test('outdoor scene bases avoid symmetric avenue and centered corridor wording',
   assert.match(forestCampsite.en, /asymmetric camp setup/);
 });
 
+test('Kabukicho scene identifies the Ichibangai entrance arch before compact projection', () => {
+  const kabukicho = optionByLabel('戶外：新宿歌舞伎町招牌下');
+  const expectedAnchor = 'Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign';
+
+  assert.match(kabukicho.en, new RegExp(`^${expectedAnchor}`));
+  assert.ok(kabukicho.meta.tags.includes('urban'));
+  assert.ok(kabukicho.meta.tags.includes('outdoor'));
+  assert.ok(kabukicho.meta.tags.includes('commercial'));
+  assert.ok(kabukicho.meta.legacyPromptAliases.includes(
+    'Kabukicho signboard corner, stacked sign structures, storefront edge, glossy pavement patches, narrow curb, doorway seam, overhead sign brackets',
+  ));
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: framingId('全身鏡頭 (Full Body Shot)'),
+    locationId: kabukicho.id,
+  });
+
+  assert.match(prompt.grokPrompt, new RegExp(expectedAnchor));
+  assert.match(prompt.zImagePrompt, new RegExp(expectedAnchor));
+  assert.match(prompt.midjourneyPrompt, new RegExp(expectedAnchor));
+});
+
 test('other dedicated scenes read as close scene bases instead of full environments', () => {
   const otherOptions = locationOptions().filter((option) => option.zh.startsWith('其他：'));
 

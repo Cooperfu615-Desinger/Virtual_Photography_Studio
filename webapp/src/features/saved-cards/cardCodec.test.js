@@ -358,6 +358,21 @@ test('standard prompt parser restores current and legacy street gold necklace wo
   }
 });
 
+test('standard prompt parser restores current and legacy Kabukicho Ichibangai scene wording', () => {
+  const controls = getLockControls();
+  const locationControl = controls.find((entry) => entry.key === 'locationId');
+  const location = locationControl.options.find((entry) => entry.zh === '戶外：新宿歌舞伎町招牌下');
+  const legacyText = 'Kabukicho signboard corner, stacked sign structures, storefront edge, glossy pavement patches, narrow curb, doorway seam, overhead sign brackets';
+
+  assert.ok(location);
+  assert.ok(location.meta?.legacyPromptAliases?.includes(legacyText));
+
+  for (const promptText of [location.en, legacyText]) {
+    const parsed = parseLocksFromStandardPrompt(promptText, controls);
+    assert.equal(parsed.locks.locationId, location.id, promptText);
+  }
+});
+
 test('standard prompt parser restores natural multi-phrase garment color syntax', () => {
   const controls = getLockControls();
   const control = (key) => controls.find((entry) => entry.key === key);
