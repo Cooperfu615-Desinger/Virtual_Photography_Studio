@@ -9,6 +9,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase3DescriptionHash: '32c26bfd9484808a9f930a1338dcbb22880eaa7e20405d1e58791b2acd372444',
     phase4DescriptionHash: '2ff91c2810fe2ea7bfe2f0ed3df4d63153b8920b61b28561e6ccf7e2b7d03779',
     phase5DescriptionHash: '5ca5f6feac4b3f567d03bf9e3ba719e8df91ad53c3e45ad4619a7cf769a5e2a8',
+    sceneIntegratedDescriptionHash: 'ae27d961563fbba281c95c33a1d55d637d5118d0ac0316230f671719c382b985',
   },
   {
     id: 'complete-look-balanced',
@@ -20,6 +21,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase3DescriptionHash: 'b5583e36cddaf8fb1a93db7a80e75c5ce6ec990c641686e4fa1a6cc6e9ee623a',
     phase4DescriptionHash: '27d202c7e820d9681ee96f158f065a9891c016931333da42bec06528ff345041',
     phase5DescriptionHash: '956597290de038702d6a0fa762813ec023712d025a496e0b66bf08b9d3b9dc6c',
+    sceneIntegratedDescriptionHash: '25b7c896cc14c93551dda26329a43d6156a458b2a22de0d3e4e9432744b07323',
   },
   {
     id: 'canonical-pose-precise',
@@ -31,6 +33,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase3DescriptionHash: '2e7ce1eddae8384d1fdcc1d78e69531fd508d0d8aee47e6ab0589a5007037571',
     phase4DescriptionHash: '216c391dc7bc618a1e40cfaf2aa0beddae176d1f8cc6fe9798fde790c5149f85',
     phase5DescriptionHash: '94d7b9c2cd35c6ce8942823fb1b13b115bfd5975d54647f08e9cd8bb4406b1e2',
+    sceneIntegratedDescriptionHash: 'ad3e1cfca3df9a59d35df5fa5fd42367ab2a4451b5adb4336958fa6383d3fe0a',
   },
   {
     id: 'character-card-hd',

@@ -32,12 +32,16 @@ export function resolveAiPromptPolicyKey({
 export function createAiPromptSectionModel({
   policyKey = 'normal',
   sections = [],
+  sceneIntegrated = false,
 } = {}) {
   const budget = AI_PROMPT_LENGTH_CONTRACT.budgets[policyKey];
   if (!budget) throw new Error(`Unknown AI Prompt budget policy: ${policyKey}`);
 
   const textById = new Map(sections.map((section) => [section.id, String(section.text || '').trim()]));
-  const normalizedSections = SECTION_ORDER.map((id) => {
+  const order = sceneIntegrated
+    ? ['imageType', 'composition', 'subject', 'projectedCanonicalPose', 'wardrobe', 'scene', 'imaging']
+    : SECTION_ORDER;
+  const normalizedSections = order.map((id) => {
     const text = textById.get(id) || '';
     return {
       id,

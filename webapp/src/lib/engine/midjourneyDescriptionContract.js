@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.7.0';
+export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.8.0';
 
 /**
  * Target contract for the Midjourney-native descriptive content that appears
@@ -62,6 +62,15 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
       'Grok/Z-Image': 'zImagePrompt',
       AI: 'midjourneyPrompt',
     },
+  },
+  sceneIntegratedMain: {
+    scope: 'ordinary PAGE1 single-subject main midjourneyPrompt only',
+    excluded: ['duo', 'fixed composition', 'dedicated subject', 'character card or identity import', 'supine surface-led', 'derived output'],
+    sectionOrder: ['imageType', 'sceneIdentityAndComposition', 'subject', 'projectedCanonicalPose', 'wardrobe', 'sceneDetailsAndLighting', 'optics'],
+    omittedSourceKeys: ['styleId', 'filmId'],
+    retainedImagingKeys: ['lensId', 'apertureId', 'shutterId', 'opticalEffectId'],
+    canonicalPose: 'verbatim including contact/support and visible capture action',
+    parameterTail: 'unchanged; no automatic personalization or moodboard parameters',
   },
   imageTypeOpenings: {
     'photorealistic-photo': 'Photorealistic editorial portrait.',

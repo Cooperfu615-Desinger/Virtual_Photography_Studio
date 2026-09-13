@@ -65,6 +65,17 @@ function zImageScene(prompt) {
 
 function aiScene(prompt) {
   const text = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
+  if (text.includes('The setting is ')) {
+    const identity = text.match(/The setting is [^.]+\./)?.[0] || '';
+    const opticsStarts = ['lensId', 'apertureId', 'shutterId', 'opticalEffectId'].map((key) => {
+      const option = controlsByKey.get(key)?.options.find((o) => o.id === prompt.selection[key]);
+      const lead = option?.en?.split(',')[0].replace(/^shot on /i, '').trim();
+      return lead ? text.toLowerCase().indexOf(lead.toLowerCase()) : -1;
+    }).filter((i) => i >= 0);
+    const content = opticsStarts.length ? text.slice(0, Math.min(...opticsStarts)) : text;
+    return [identity, ...(content.match(/[^.]+(?:\.|$)/g) || [])
+      .map((sentence) => sentence.trim()).filter(Boolean).slice(-2)].join(' ');
+  }
   const imagingStart = text.search(
     /\b[A-Z][A-Za-z'-]+(?:\s+[A-Z][A-Za-z'-]+){1,3}-inspired\b/
   );

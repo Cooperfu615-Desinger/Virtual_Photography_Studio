@@ -2,7 +2,7 @@
 
 Last updated: 2026-09-13
 
-狀態：**Z-Image 第一階段已接入本機 renderer；Midjourney 階段尚未實作。** 舊版可執行基準已以 `1be19e8` 備份並推送至 `origin/main`。本次僅改一般單人主 Z-Image 與對應測試／規範；資料庫、UI、選項／儲存 schema、GPT、MJ 與三組衍生輸出不變。程式驗證及外部影像驗收分開，紀錄見回歸文件。
+狀態：**Z-Image 第一階段已於 `b5ebebd` 提交／推送；Midjourney 第一階段已接入本機 renderer，尚未提交。** 舊版可執行基準 `1be19e8` 保留不變。本次僅改一般單人主 MJ 與對應測試／規範；資料庫、UI、選項／儲存 schema、GPT、已完成的 Z-Image 與三組衍生輸出不變。程式驗證、Browser QA 和外部影像驗收分開，紀錄見回歸文件第 9 節。
 
 ## 1. 目的與證據邊界
 
@@ -34,7 +34,7 @@ Last updated: 2026-09-13
 
 ## 3. 現行程式確認與契約差異
 
-歷史核對基準：`main`，`1db417a42dc081280372d3473f952d78e07066f2`。以下描述修改前的資料流；本次 Z 的窄例外在第 4、5 節及 `Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = 1.6.0` 中正式接入，不代表已推送或上線。
+歷史核對基準：`main`，`1db417a42dc081280372d3473f952d78e07066f2`。以下描述修改前的資料流；Z 的窄例外在第 4、5 節及 `Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = 1.6.0`，MJ 的窄例外在第 6 節及 `MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = 1.8.0`。Git 交付狀態見文件頂端，不等同部署驗收。
 
 - [engine.js](../../webapp/src/lib/engine.js) 的 `buildPrompts()` 先建立共用構圖投影、`projectedCanonicalPoseText`、`projectedScene` 與結構化模型，再呼叫各 renderer。
 - `renderZImagePrompt()` 目前透過 [Z-Image contract](../../webapp/src/lib/engine/zImageTurboPromptContract.js) 固定輸出成品類型、構圖、人物、服裝、姿勢、場景、光線、風格、鏡頭、成像。`buildSinglePoseText()` 直接取共用 canonical pose，必要時追加既有側身手部深度句。
@@ -43,9 +43,9 @@ Last updated: 2026-09-13
 - `projectPoseComposerAnchor()` 對 `supineSurfaceLed` 有 `fullSource` 例外。仰躺時一般場景已被設為全無，床／海面等位置由 anchor 提供。
 - [觀察式抓拍](../../webapp/src/lib/observationCaptureLab.js) 使用獨立場景、相機位置、前景、動作、光線與質感資料池。可借鑑其把拍攝條件說清楚的方式，不能把其隨機前景、道具或固定抓拍語氣搬入 PAGE1。
 
-既有規範與分階段例外：前兩列已隨本次 Z 實作同步更新 root AGENTS、主撰寫規範、Z 機器契約與斷言；第三列仍待 MJ 階段。
+既有規範與分階段例外：前兩列已隨 Z 實作同步更新 root AGENTS、主撰寫規範、Z 機器契約與斷言；第三列本次隨 MJ 契約 1.8.0 接入。MJ 本身仍逐字保留 canonical pose，不擴大 Z 的姿勢例外。
 
-| 現行契約 | 未來需要的窄例外 |
+| 歷史契約 | 已接入的窄例外 |
 | --- | --- |
 | 根目錄 AGENTS、主撰寫規範與 Z-Image contract 要求三版逐字共用 canonical pose | 只允許目標 Z-Image 從同一投影後姿勢來源產生無 anchor 的輸出版本；GPT／MJ 與共用 canonical 保持原樣 |
 | Z-Image 固定十區塊順序 | 目標單人路徑使用第 4 節順序；其他模式維持原順序 |
@@ -109,10 +109,18 @@ Last updated: 2026-09-13
 - 共用的是已解析 selections、可見性投影及拍攝情境的來源，不是先生成 Z-Image 成品再刪字。
 - 保留成品類型、構圖、有效身份／身形、臉部與表情錨點、服裝、姿勢、場景及光線；維持現行 native 單行與 F 參數尾段。
 - 主輸出省略 `styleId` 的攝影風格與 `filmId` 的相機／底片成像模擬 prose，包含其來源同義片段；不得把省略的風格搬入開頭。
-- `lensId`、`apertureId`、`shutterId`、`opticalEffectId` 仍依既有規則保留。Bloom、散景等是光學效果，不因 UI 也稱「風格」就誤刪。
+- `lensId`、`apertureId`、`shutterId`、`opticalEffectId` 保留來源式精簡。實作核對發現舊主 MJ 的 imaging producer 未輸出光圈／快門；為符合本版保留規格，本次只在 eligible main 補上各自首個有效來源片段。鏡頭及適配、光學效果保持原有縮寫規則；MJ 胸上及其他排除路徑不補入或移除任何文字。Bloom、散景等不因 UI 也稱「風格」就誤刪。
 - 本輪不改 `--ar`、Raw、Stylize、Chaos 等既有尾段，不自動產生 `--p` 或替使用者選 Moodboard。
 - 使用者選擇在 MJ 端管理美學；省略 style／film 是產品決策，不宣稱 MJ 官方要求刪除文字或能精確替代每個底片模擬。
 - 接觸／支撐維持原本投影後 canonical pose；不能連帶套用 Z-Image 的省略政策。姿勢本體也不額外簡寫成另一種動作。
+
+### 6.1 已實作的主 MJ 順序與隔離
+
+單行順序：成品類型 → `The setting is [既有投影後地點身份].`＋原構圖／modifier → 人物 → **完整 projected canonical pose** → 原精簡服裝 → 剩餘場景片段與既有光線 → 光學 → F 參數尾段。地點首片段只移動一次，其餘場景 clauses 仍由既有 MJ producer 選出；全無場景不新增占位句。
+
+自拍留在 canonical pose 裡，隨整段姿勢移至服裝前，**不仿照 Z 把自拍拆到人物前**，不改接觸／支撐及內在承重關係。構圖本身的遮鏡手掌等 modifier 仍保留原優先位置。
+
+`renderAiPrompt` 使用 `integrateMainScene` 明確 opt-in，section model 與 imaging producer 使用局部 `sceneIntegrated` 旗標；不改共享 context 或 producer 預設值。除了角色卡專用路徑，`characterProfilePrompt` 身份匯入也保持隔離。MJ 胸上雖共用函式，沒有 main opt-in，仍保留原攝影風格／成像與區塊順序。
 
 ## 7. 回歸策略與實作順序
 
@@ -124,4 +132,4 @@ Last updated: 2026-09-13
 4. 執行相關 tests、Prompt Quality、完整 test／lint／build、同 seed strict audit、desktop／mobile 五工作區與下游 smoke；另核對觀察式抓拍入口未受影響。
 5. 回報程式驗證與外部影像實測各自結果。提交／推送仍需使用者另行授權。
 
-文件備份 `f187bbf`、舊版測試基準備份 `1be19e8` 均已推送至 `origin/main`。本次已接入第 2 步：`buildProjectedCanonicalPoseText` 的預設行為不變，僅 Z 呼叫時使用局部省略旗標；可見自拍先經相同 crop／prop 優先權，再搬至構圖。地點取現有投影及壓縮後的首個逗號片段，使用中性 `The setting is …` 開頭，其餘片段不重複並留在後方場景段。不推導人物與物件距離、不補光或道具。第 3 步 MJ 留待獨立批次；實際 renderer 的人景融合仍須外部實測。
+文件備份 `f187bbf`、舊版測試基準 `1be19e8` 及 Z runtime `b5ebebd` 均已推送至 `origin/main`。第 2、3 步均已接入本機；MJ-only expected snapshot 與 Z expected、歷史 baseline 分開維護。第 4 步程式 gates 通過，瀏覽器 copy/download 尚受工具限制；第 5 步實際 renderer 的人景融合仍須外部實測。不得把文字快照／程式測試當作生圖品質驗收。

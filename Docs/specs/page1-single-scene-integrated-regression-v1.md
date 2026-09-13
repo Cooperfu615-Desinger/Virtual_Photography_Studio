@@ -2,7 +2,7 @@
 
 Last updated: 2026-09-13
 
-狀態：**Z-Image 第一階段已接入，程式 gates 通過；Browser QA 部分通過，外部影像仍待實測。MJ 尚未實作。** 歷史基準保留不變，新增 Z-only expected snapshot。規則見 [組裝規格](page1-single-scene-integrated-assembly-v1.md)。
+狀態：**Z-Image 已提交／推送 `b5ebebd`；MJ 第一階段已接入本機，程式 gates 通過，尚未提交。Browser QA 部分通過，外部影像仍待實測。** 歷史基準保留不變，Z-only 與 MJ-only expected snapshots 分開維護。規則見 [組裝規格](page1-single-scene-integrated-assembly-v1.md)。
 
 ## 1. 基準與材料
 
@@ -116,7 +116,7 @@ Guy Bourdin-inspired bold narrative fashion photography, vivid color blocking, a
 
 ## 4. 最低回歸矩陣
 
-以下是 **19 組 case families**，已展開為 45 組固定輸入。現階段執行的是舊版輸出／選項基準；表內「新版主要斷言」仍是後續 renderer 實作的驗收目標，不代表已啟用。例如目前 Z 仍保留 anchor，MJ 仍保留 style／film。
+以下是 **19 組 case families**，已展開為 45 組固定輸入。歷史 baseline 保留，Z 與 MJ 各自以獨立 expected snapshot 核對新規則；其餘輸出／排除路徑仍對比歷史 bytes。表內程式斷言已接入；高風險影像案例仍需外部模型驗收。
 
 | ID | 輸入／變體 | 新版主要斷言 |
 | --- | --- | --- |
@@ -180,7 +180,7 @@ npm run audit:prompts:strict
 
 ## 7. 歷史基準階段紀錄
 
-2026-09-13 已依使用者要求先提交四份規格文件，commit `f187bbfa6856220de55903407d5eab01f3e278f2` 已推送至 `origin/main`；其 runtime 仍是 `1db417a42dc081280372d3473f952d78e07066f2`。隨後完成以下 behavior-neutral 測試基礎，尚未提交此新增階段：
+2026-09-13 已依使用者要求先提交四份規格文件，commit `f187bbfa6856220de55903407d5eab01f3e278f2` 已推送至 `origin/main`；其 runtime 仍是 `1db417a42dc081280372d3473f952d78e07066f2`。隨後完成以下 behavior-neutral 測試基礎，後續已於 `1be19e8` 提交／推送：
 
 - [固定輸入](../../webapp/src/lib/engine/sceneIntegratedAssemblyFixtures.js)：45 組，涵蓋 19 組案例類別，含 10 組明確排除的新政策路徑；R03 沿用 R01 的 seed，以確保只有 anchor 一個變數。
 - [Node-only 測試工具](../../webapp/src/lib/engine/sceneIntegratedAssemblyTestSupport.js)：精確 selector 解析、同 seed 生成、完整選項快照、輸出擷取及 random draw 計數；不被 runtime 匯入。
@@ -205,7 +205,7 @@ npm run audit:prompts:strict
 
 ## 8. Z-Image 正式實作批次（2026-09-13）
 
-- 第 7 節測試基準已提交／推送為 `1be19e8`，本節是其後尚未提交的 Z runtime 工作。
+- 第 7 節測試基準已提交／推送為 `1be19e8`，本節 Z runtime 工作後續已於 `b5ebebd` 提交／推送。以下驗證數字保留當時紀錄。
 - 舊版 baseline JSON 與固定輸入均不改。新增 [Z-only expected](../../webapp/src/lib/engine/sceneIntegratedZImageExpected.json)，只指定 35 組 eligible inputs 的 Z hash，以及 R01／R02 可讀全文。其餘五種輸出、10 組排除路徑的六輸出、全部 selections 與 RNG draws 仍核對原基準。
 - 新姿勢斷言使用未修改的 GPT 投影作為獨立 oracle：同一 resolved selection 僅將 anchor 設全無，可見自拍另移除 hand 後核對 Z 姿勢；另外確認自拍原文恰好出現一次且位於人物之前。不從已完成 Prompt 用 regex 刪除支撐字眼，也不以新 Z renderer 自己生成 expected pose。
 - 核心案例逐段比較舊版人物、服裝、光線、風格、光學、成像 bytes；地點身份僅一次、其餘場景 clauses 保留。另驗證全無場景不補模板、近景不回灌自拍、手肘倚膝仍在、明確道具不與自拍重複。機器區塊順序只在 opt-in 路徑改變。
@@ -216,4 +216,33 @@ Browser QA：**PARTIAL**。URL `http://127.0.0.1:5175/Virtual_Photography_Studio
 
 尚未通過的瀏覽器驗證：Copy 按鈕點擊後，內建瀏覽器 clipboard API 回傳空值；Download Markdown 沒有可攔截的 download event，等待逾時，但 console 無錯誤。不能將此宣稱為功能已壞或已通過，須以支援的瀏覽器補驗。Codec／Markdown 自動測試通過不取代此端到端邊界。原有五張 Saved Cards 未刪改，一張新增本機 QA 卡片 `#1KNL0X` 保留；測試後已還原 B 選項、環繞與髮型整理偏好，viewport override 已重設。
 
-未進行外部模型生成、MJ runtime 調整、runtime commit/push 或部署。下一個完成閘門為 copy/download 補驗及使用者用實際 Z renderer 輸出實測；MJ 另開後續批次。
+該驗證批次未進行外部模型生成、MJ runtime 調整或部署；Z runtime 後續依授權已提交／推送。下一個完成閘門為 copy/download 補驗及使用者用實際 Z renderer 輸出實測；MJ 後續批次見下節。
+
+## 9. Midjourney 正式實作批次（2026-09-13）
+
+起點 `main` / `b5ebebd`。僅一般單人主 `midjourneyPrompt` 接入新組裝；未 stage、commit、push 或部署。
+
+- 新增 [MJ-only expected](../../webapp/src/lib/engine/sceneIntegratedMidjourneyExpected.json)：35 組主 MJ hash、R01／R02 可讀全文。歷史 baseline、Z expected 及 45 組固定輸入不改；全部 selection / RNG draws 一致，10 組排除輸入的六輸出逐字不變。GPT、Z、胸上、MJ 胸上、全身角色照的既有快照不更新。
+- [MJ description contract 1.8.0](../../webapp/src/lib/engine/midjourneyDescriptionContract.js) 明訂 main opt-in、區塊順序、style/film 省略及 optics 保留。舊 phase-5 description hashes 留存，新欄位 `sceneIntegratedDescriptionHash` 僅套用 eligible main；其他當前主 MJ fixture hashes 逐組更新，不放寬參數尾段或身份斷言。
+- 專用斷言檢查：地點身份僅一次且在人物之前；完整 canonical pose 在服裝之前且僅一次；自拍／鏡子／同伴語意不互换，近景不回灌手勢；原 wardrobe bytes 不變；F 尾段逐字相同。對整個 style/film catalog 逐項切換，主 MJ 與全無版本文字完全一致，而 locks 保存真實選值；50mm、f/2.8、1/1000s、Bloom 仍在。
+- 舊 imaging producer 未讀取 aperture / shutter，本次只在 main opt-in 補入各自首個來源片段。MJ 胸上仍使用原 producer 預設值，沒有借機補入這兩項。測試的場景句擷取改為認識新位置，不以修改 production 來源來遷就舊順序斷言。
+
+最終程式 gates：`npm test` **897/897**、`npm run test:prompt-quality` **229/229**、lint、build 通過；build 只有既有大 chunk 建議。前後同樣使用 `200 / prompt-quality-baseline / --strict`：零 blocking、integrity、exact duplicate、control leakage、contradiction、coverage issues；既有 23 diagnostic-only（19 wardrobe/scene、4 near duplicate）不變。
+
+| 輸出 | 平均字數（前 → 後） | p95（前 → 後） | 最大字數（前 → 後） |
+| --- | ---: | ---: | ---: |
+| Gpt | 578.0 → 578.0 | 724 → 724 | 778 → 778 |
+| Z-Image | 316.9 → 316.9 | 405 → 405 | 438 → 438 |
+| AI | 161.2 → 160.3 | 207 → 205 | 251 → 251 |
+| 胸上特寫照 | 276.8 → 276.8 | 339 → 339 | 393 → 393 |
+| MJ 胸上特寫照 | 172.9 → 172.9 | 208 → 208 | 234 → 234 |
+| 全身角色照 | 256.1 → 256.1 | 330 → 330 | 397 → 397 |
+
+Browser QA：**PARTIAL**。沿用已在執行的指定 localhost，1440×1000／390×900；五工作區與觀察式抓拍導航、載入、畫面及 DOM 檢查完成，未觀察到 console error/warning、破圖或 document horizontal overflow。手機主輸出沿用原有三欄窄文字區及按鈕省略號，沒有本輪 CSS 改動，也不宣稱已重新設計手機閱讀體驗。截圖留在工具紀錄，不納入 repo 資產。
+
+- 在 PAGE1 選 Guy Bourdin、跨沖霓虹、50mm、f/2.8、1/1000s、Bloom，主 MJ 沒有 style/film 而四項 optics 仍在；GPT／Z／MJ 胸上保持各自原有風格規則。自然自拍＋肩背支撐在主 MJ 完整且僅一次，Z 仍省略 anchor。參數主 MJ 21:9、MJ 胸上 4:5 及其餘尾段保持原值。
+- 六張原有 Saved Cards 保留，沒有新增／刪除。舊 QA 卡 `#1KNL0X` 的 MJ 詳細文字仍是旧順序，未自動改寫。按「套用目前預覽」後工作台依其 selections 重新顯示新 runtime 文字；不能將這一步說成「旧 MJ 原文逐字回到預覽」。Saved Cards codec／Markdown 原文保存另有自動測試。
+- Copy 有 `AI copied` 提示，但 clipboard read 回傳空字串，原生貼上亦回報虛擬剪貼簿沒有資料；Download Markdown 點擊後 6 秒未得到 download event。沒有 page error；這兩項仍需支援瀏覽器補驗，不判定功能已壞或已通過。
+- 已恢復有效單人站姿、手部／支撐全無、原環繞、风格／成像／光學全無及髮型偏好；viewport 已 reset。為還原回填帶入的雙人髮型 defaults 而切換人物數量時，既有 UI 補入 inactive duo expression `same-direction-away`，選全無／隨機仍正規化回該值，B 摘要多顯示「兩人同向離鏡｜沉浸感」。此非作用中 QA 狀態不影響單人輸出，未繞過 UI 寫 storage、未順帶修改既有行為。
+
+外部 Midjourney 尚未生圖；下一步是 copy/download 補驗及實際新版 Prompt 的外部模型驗收，而不是直接宣稱人物／場景融合全部通過。

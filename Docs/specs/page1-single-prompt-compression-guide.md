@@ -6,7 +6,9 @@ Last updated: 2026-09-13
 
 Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midjourney 比例與人物姿勢適配規範](midjourney-framing-pose-adaptation.md)。目前已接入的 renderer 行為僅限該文件明確標示的 Midjourney derived context；不得把內部派生欄位當成新的 storage schema，也不得把姿勢規範解讀為 AI-only 改寫 canonical pose。
 
-2026-09-13 Z-Image 第一階段：已接入 [一般單人現場整合組裝規則 v1](page1-single-scene-integrated-assembly-v1.md)，Z-Image 契約為 `1.6.0`。僅一般 PAGE1 單人主 `zImagePrompt` 將投影後地點身份與有效自拍來源移到構圖段，姿勢放在服裝之前，並從同一組投影來源省略獨立 `poseAnchorId`；不是用 regex 刪掉完成的姿勢句。共用 canonical pose 不變，GPT／MJ、衍生輸出、雙人、固定構圖、專用角色、角色卡與仰躺 surface-led 仍沿用既有路徑。以下歷史章節提到「三版逐字共用」或舊 Z 區塊順序時，以這個已核准窄例外為準；不擴張其他規則。MJ 的新組裝與 style／film 省略尚未實作，仍保留原有來源。驗證與影像驗收邊界見 [回歸案例](page1-single-scene-integrated-regression-v1.md)。
+2026-09-13 Z-Image 第一階段：已接入 [一般單人現場整合組裝規則 v1](page1-single-scene-integrated-assembly-v1.md)，Z-Image 契約為 `1.6.0`。僅一般 PAGE1 單人主 `zImagePrompt` 將投影後地點身份與有效自拍來源移到構圖段，姿勢放在服裝之前，並從同一組投影來源省略獨立 `poseAnchorId`；不是用 regex 刪掉完成的姿勢句。共用 canonical pose 不變，GPT／MJ、衍生輸出、雙人、固定構圖、專用角色、角色卡與仰躺 surface-led 不套用 Z 的姿勢例外。以下歷史章節提到「三版逐字共用」或舊 Z 區塊順序時，以這個已核准窄例外為準；不擴張其他規則。驗證與影像驗收邊界見 [回歸案例](page1-single-scene-integrated-regression-v1.md)。
+
+2026-09-13 Midjourney 第一階段：description contract `1.8.0` 只對一般 PAGE1 單人主 `midjourneyPrompt` 接入場景身份先行、完整 canonical pose 放在服裝前的單行組裝。省略 `styleId`／`filmId` 及其同義 prose，但保留光學：既有鏡頭／適配、光學效果及各自首片段的光圈／快門。自拍、頭部、道具、接觸／支撐均不改写、不拆分 canonical；不可從 Z 成品反推 MJ。F 參數不變，不自動新增 Personalization／Moodboard 參數。以下歷史章節要求保留攝影師／film 身份時，僅以此 eligible main 窄例外為準；MJ 胸上、GPT、Z、其他衍生、雙人、固定構圖、專用角色、角色卡／身份匯入與仰躺 surface-led 仍維持原規則。UI 與選項／摘要保留全部來源，文字省略不代表刪除資料。
 
 ## 1. 三組輸出定位
 

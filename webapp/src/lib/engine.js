@@ -14523,7 +14523,7 @@ function buildAiFreedomPoseSentence(context, character) {
   return ensureTerminalPeriod(stripMarkdown(context.projectedCanonicalPoseText || '').replace(/\s+/g, ' ').trim());
 }
 
-function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 3 } = {}) {
+function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 3, part = 'all' } = {}) {
   if (isFixedCompositionSetActive(context?.fixedCompositionSet)) {
     const fixedScene = AI_FIXED_SET_SCENE_PHRASES[context.fixedCompositionSet?.id] || '';
     return fixedScene ? ensureTerminalPeriod(capitalizePromptLead(compactAiSourceText(fixedScene))) : '';
@@ -14552,7 +14552,9 @@ function buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses = 3 } 
     .filter((clause, index, all) => all.findIndex((item) => item.toLowerCase() === clause.toLowerCase()) === index)
     .slice(0, maxClauses);
 
-  const sceneText = selected.join(', ')
+  const visibleClauses = part === 'identity' ? selected.slice(0, 1)
+    : part === 'details' ? selected.slice(1) : selected;
+  const sceneText = visibleClauses.join(', ')
     .replace(/\bThe portrait takes place (?:inside|within) a real-scale [^,]+? set\b/gi, '')
     .replace(/,?\s*not a flat backdrop and not a tight subject portrait/gi, '')
     .replace(/,?\s*not a generic beach scene/gi, '')
@@ -14580,9 +14582,9 @@ function buildAiFreedomLightingText(valuesByLabel, { compact = false } = {}) {
 function buildAiFreedomSceneWithLightingSentence(
   valuesByLabel,
   context,
-  { maxSceneClauses = 4, compactLighting = false } = {}
+  { maxSceneClauses = 4, compactLighting = false, part = 'all' } = {}
 ) {
-  const scene = buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses: maxSceneClauses });
+  const scene = buildAiFreedomSceneSentence(valuesByLabel, context, { maxClauses: maxSceneClauses, part });
   const lighting = buildAiFreedomLightingText(valuesByLabel, { compact: compactLighting });
   const lightingSentence = lighting
     ? ensureTerminalPeriod(capitalizePromptLead(lighting))
@@ -14594,9 +14596,9 @@ function buildAiFreedomSceneWithLightingSentence(
 
 function buildAiFreedomImagingSentence(
   valuesByLabel,
-  { compact = false, characterCard = false, adaptation = null } = {}
+  { compact = false, characterCard = false, adaptation = null, sceneIntegrated = false } = {}
 ) {
-  const styleText = firstStructuredValue(valuesByLabel, ['Photography Style']);
+  const styleText = sceneIntegrated ? '' : firstStructuredValue(valuesByLabel, ['Photography Style']);
   const style = (
     styleText.match(/Inspired by [^.]+? image language/i)?.[0]
     || compactPromptClauses(styleText, 1)
@@ -14610,8 +14612,12 @@ function buildAiFreedomImagingSentence(
     style,
     lens,
     lensAdaptation,
+    ...(sceneIntegrated ? [
+      compactPromptClauses(firstStructuredValue(valuesByLabel, ['Aperture / Depth of Field']), 1),
+      compactPromptClauses(firstStructuredValue(valuesByLabel, ['Shutter / Motion Blur']), 1),
+    ] : []),
     compactPromptClauses(firstStructuredValue(valuesByLabel, ['Optical Effect']), 1),
-    compactPromptClauses(firstStructuredValue(valuesByLabel, ['Camera / Film']), compact ? 1 : 2),
+    sceneIntegrated ? '' : compactPromptClauses(firstStructuredValue(valuesByLabel, ['Camera / Film']), compact ? 1 : 2),
   ].map((value) => compactAiSourceText(value)).filter(Boolean);
   return parts.length > 0 ? ensureTerminalPeriod(parts.join(', ')) : '';
 }
@@ -14636,6 +14642,7 @@ function renderAiPrompt(promptModel, {
   scenePromptModel = promptModel,
   imagingPromptModel = promptModel,
   midjourneyAdaptation = null,
+  integrateMainScene = false,
 } = {}) {
   const {
     valuesByLabel,
@@ -14666,6 +14673,18 @@ function renderAiPrompt(promptModel, {
   const sceneContext = scenePromptModel.context || context;
   const imagingValuesByLabel = imagingPromptModel.valuesByLabel || valuesByLabel;
 
+  // Explicit main-output opt-in: derivatives borrow this renderer and source
+  // models, but must keep their original order and style/film semantics.
+  const poseComposer = extractCharacterSlots(character).poseComposer;
+  const anchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer?.meta?.poseAnchorId);
+  const supineSurfaceLed = poseComposer?.meta?.poseBaseId === 'lying'
+    && poseComposer?.meta?.poseOrientationId === 'lying-supine'
+    && anchor?.meta?.supineSurfaceLed === true;
+  const sceneIntegrated = integrateMainScene && context.subject?.count === 1
+    && !isSpecialSubject(context.subject) && !isCharacterProfileSubject(context.subject)
+    && !context.characterProfilePrompt
+    && !isFixedCompositionSetActive(context.fixedCompositionSet) && !supineSurfaceLed;
+
   const policyKey = resolveAiPromptPolicyKey({
     characterCard: isCharacterProfileSubject(context.subject),
     completeLook: Boolean(
@@ -14674,17 +14693,23 @@ function renderAiPrompt(promptModel, {
       || firstStructuredValue(valuesByLabel, ['Dress'])
     ),
   });
-  const fullSceneText = buildAiFreedomSceneWithLightingSentence(sceneValuesByLabel, sceneContext);
+  const sceneIdentity = sceneIntegrated
+    ? buildAiFreedomSceneSentence(sceneValuesByLabel, sceneContext, { maxClauses: 4, part: 'identity' }) : '';
+  const fullSceneText = buildAiFreedomSceneWithLightingSentence(sceneValuesByLabel, sceneContext, {
+    part: sceneIntegrated ? 'details' : 'all',
+  });
   const compactSceneText = buildAiFreedomSceneWithLightingSentence(sceneValuesByLabel, sceneContext, {
     maxSceneClauses: 2,
     compactLighting: true,
+    part: sceneIntegrated ? 'details' : 'all',
   });
   const adaptation = midjourneyAdaptation;
-  const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, { adaptation });
+  const fullImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, { adaptation, sceneIntegrated });
   const compactImagingText = buildAiFreedomImagingSentence(imagingValuesByLabel, {
     compact: true,
     characterCard: policyKey === 'characterCard',
     adaptation,
+    sceneIntegrated,
   });
   const fullWardrobeText = buildAiFreedomWardrobeSentence(
     wardrobeValuesByLabel,
@@ -14722,10 +14747,10 @@ function renderAiPrompt(promptModel, {
     { id: 'imageType', text: buildMidjourneyImageTypePromptLine(compositionContext) },
     {
       id: 'composition',
-      text: joinCompositionPromptText(
+      text: [sceneIdentity ? `The setting is ${sceneIdentity}` : '', joinCompositionPromptText(
         ensureTerminalPeriod(buildCompositionPromptLine(compositionContext, { adaptation })),
         extractCharacterSlots(poseCharacter).poseComposer,
-      ),
+      )].filter(Boolean).join(' '),
     },
     {
       id: 'subject',
@@ -14752,6 +14777,7 @@ function renderAiPrompt(promptModel, {
   const sectionModel = createAiPromptSectionModel({
     policyKey,
     sections: sectionDefinitions,
+    sceneIntegrated,
   });
   return renderAiPromptSectionModel(sectionModel);
 }
@@ -14850,6 +14876,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   const midjourneyPrompt = appendMidjourneyParameterTail(
     renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {
       midjourneyAdaptation: buildMidjourneyFramingPoseAdaptation(mainContext),
+      integrateMainScene: true,
     })),
     {
       ...context.locks,

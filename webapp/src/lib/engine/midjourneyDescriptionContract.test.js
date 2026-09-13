@@ -66,7 +66,7 @@ function generateFixture(target) {
 }
 
 test('Midjourney description contract freezes the approved seven-phase target', () => {
-  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.7.0');
+  assert.equal(MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION, '1.8.0');
   assert.ok(Object.isFrozen(MIDJOURNEY_DESCRIPTION_CONTRACT));
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.applicability.affectsOnly, ['midjourneyPrompt']);
   assert.deepEqual(MIDJOURNEY_DESCRIPTION_CONTRACT.structure.sectionOrder, [
@@ -131,7 +131,7 @@ test('phase 5 freezes direct special modes and the accepted compact structure', 
     assert.match(target.phase2DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: phase 2`);
     assert.match(target.phase3DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: phase 3`);
     assert.match(target.phase4DescriptionHash, /^[a-f0-9]{64}$/, `${target.id}: phase 4`);
-    assert.equal(hashPrompt(description), target.phase5DescriptionHash, `${target.id}: phase 5`);
+    assert.equal(hashPrompt(description), target.sceneIntegratedDescriptionHash || target.phase5DescriptionHash, `${target.id}: approved scoped revision`);
     assert.ok(description.startsWith(target.phase2Opening), `${target.id}: direct opening`);
     assert.doesNotMatch(description, /^Create an? /, `${target.id}: no imperative opening`);
   }

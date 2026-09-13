@@ -28,7 +28,7 @@ function gptPose(prompt) {
   )?.[1] || '';
 }
 
-test('phase 4 uses direct Midjourney scene, lighting, and imaging phrases', () => {
+test('main scene integration keeps scene sources and optics while omitting style and film', () => {
   const locks = {
     ...createAllNoneLocks(),
     framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
@@ -45,16 +45,20 @@ test('phase 4 uses direct Midjourney scene, lighting, and imaging phrases', () =
 
   assert.match(
     description,
-    /British vintage window-side room interior, white lace curtain and sash window, dresser mirror side table framed paintings wall clock porcelain trinkets, layered nostalgic room surfaces\./i
+    /The setting is British vintage window-side room interior\./i
   );
+  assert.match(description, /White lace curtain and sash window, dresser mirror side table framed paintings wall clock porcelain trinkets, layered nostalgic room surfaces\./i);
   assert.match(
     description,
     /Indoor low-light warm night ambience, dim amber room brightness, cool window-side rim light on the subject/i
   );
-  assert.match(description, /Rinko Kawauchi-inspired airy high-key image language/i);
+  assert.doesNotMatch(description, /Rinko Kawauchi|airy high-key image language/i);
   assert.match(description, /tilt-shift lens, shifted perspective control/i);
   assert.match(description, /lens-only mist-filter haze/i);
-  assert.match(description, /VHS camcorder image degradation, analog tape noise/i);
+  assert.doesNotMatch(description, /VHS|analog tape noise/i);
+  const derived = prompt.extraPrompts.find((p) => p.id === 'chest-up-mj-portrait').text;
+  assert.match(derived, /Rinko Kawauchi-inspired airy high-key image language/i);
+  assert.match(derived, /VHS camcorder image degradation, analog tape noise/i);
   assert.doesNotMatch(description, /\bIn British vintage|\blit by\b|\bInspired by\b|\bshot on\b/i);
 
   assert.match(prompt.zImagePrompt, /Rinko Kawauchi-inspired/i);

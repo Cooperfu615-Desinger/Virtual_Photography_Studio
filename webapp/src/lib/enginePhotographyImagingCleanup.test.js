@@ -520,7 +520,8 @@ test('aperture and shutter controls compose with lens optics in all prompt outpu
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*heavy bokeh rendering/);
   assert.match(prompt.zImagePrompt, /f\/1\.4-style ultra shallow depth of field/);
   assert.match(prompt.zImagePrompt, /1\/30s slow-shutter portrait blur/);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /f\/1\.4-style ultra shallow depth of field|1\/30s slow-shutter portrait blur/);
+  assert.match(prompt.midjourneyPrompt, /f\/1\.4-style ultra shallow depth of field/);
+  assert.match(prompt.midjourneyPrompt, /1\/30s slow-shutter portrait blur/);
   assert.match(prompt.summary, /鏡頭：[^|]*f\/1\.4 極淺景深散景/);
   assert.match(prompt.summary, /鏡頭：[^|]*1\/30s 主體動態殘影/);
 });

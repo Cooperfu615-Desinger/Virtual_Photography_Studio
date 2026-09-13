@@ -8,18 +8,18 @@
 export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   {
     id: 'normal-single-precise',
-    expectedDescriptionHash: '5ca5f6feac4b3f567d03bf9e3ba719e8df91ad53c3e45ad4619a7cf769a5e2a8',
-    expectedWords: 111,
+    expectedDescriptionHash: 'ae27d961563fbba281c95c33a1d55d637d5118d0ac0316230f671719c382b985',
+    expectedWords: 114,
   },
   {
     id: 'complete-look-balanced',
-    expectedDescriptionHash: '956597290de038702d6a0fa762813ec023712d025a496e0b66bf08b9d3b9dc6c',
-    expectedWords: 70,
+    expectedDescriptionHash: '25b7c896cc14c93551dda26329a43d6156a458b2a22de0d3e4e9432744b07323',
+    expectedWords: 73,
   },
   {
     id: 'canonical-pose-precise',
-    expectedDescriptionHash: '94d7b9c2cd35c6ce8942823fb1b13b115bfd5975d54647f08e9cd8bb4406b1e2',
-    expectedWords: 95,
+    expectedDescriptionHash: 'ad3e1cfca3df9a59d35df5fa5fd42367ab2a4451b5adb4336958fa6383d3fe0a',
+    expectedWords: 98,
   },
   {
     id: 'character-card-hd',

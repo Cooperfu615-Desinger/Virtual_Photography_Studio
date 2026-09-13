@@ -22,15 +22,15 @@ import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 
 const controls = getLockControls();
 const MIDJOURNEY_NATIVE_DESCRIPTION_HASHES = Object.freeze({
-  'normal-separates': 'd3b9c8cdbb67b4aba663d6c50e4e99f5bd8df37b75e9055b7276e444833a5d49',
-  'complete-look-latex': 'a2c09dce3364cface8bf69cc41a10c49c490dc4d3a4cbe1bc1daad5b9dca33cb',
-  'complete-look-special': '24620d7c9a8c7905d78cab49feab506c3f5b4fa8851adacbce7d77bbf7d18abd',
-  'complete-look-dress': '41fabc40fd05cf5a9280cc65552a1c36fc0a3e796749d8a10d685c14c2c30c1f',
+  'normal-separates': '7e9a73b11ea81efe08a0bcaa330dfcbc1eb5382693045b769343d3d3dd618a3e',
+  'complete-look-latex': '79d302b251d3bd52e0311cfcd73254b9bcc7a89a72196989bc7f1b4e0af9311f',
+  'complete-look-special': '51d822b857d89d5744e12a82752c1f3fe076d372b6bdb75dc359aa939e2d92ea',
+  'complete-look-dress': '9390e5bdbaee6e91bb686863c0c54256f7e7645d82cf0a321ed334d60170a909',
   'character-card-jiwoo': '95cb45387c2ff62aa3a9a93594edb7770aca38ac231563d7f82542035fb7cba4',
   'character-card-sui': '1436fc87a020827d9ddec9ef735247f8069480caf6896bb36c46e32828c1067a',
   'character-card-half-face-pressure': 'e13712f94c12853fc6e9daceef510857d6b6d1ef6e05ca92f78466e892d6f0d4',
-  'canonical-pose-pressure': '0f6fa01dfce52489e2f81a67a79c4b540d6b523f66068d4fad09df7d0ad652da',
-  'half-face-boundary': 'eb3dc8badc7a581955c84e4198f7479af8d79f57eaf2b0b0bf9029d3a35d144a',
+  'canonical-pose-pressure': '1f0de768a1c20d257b37934812cb414627620a71eeec220d555aad5fcfbdaba2',
+  'half-face-boundary': '2f2930deb06073209a305bd9d548629572477d533375eb9c3805138234a11cf3',
   'duo-direct-boundary': 'd03117d64f729ff32b254f5eea53280203ef0fcf5b800b0725f1feddfeb03a8c',
 });
 
@@ -83,6 +83,18 @@ test('section-aware budget model records stable order, immutable sections, and d
   );
   assert.ok(Object.isFrozen(model));
   assert.ok(Object.isFrozen(model.sections[0]));
+});
+
+test('scene-integrated main order is opt-in and preserves section content and measurements', () => {
+  const sections = AI_PROMPT_SECTION_ORDER.map((id) => ({ id, text: `${id} source.` }));
+  const old = createAiPromptSectionModel({ sections });
+  const next = createAiPromptSectionModel({ sections, sceneIntegrated: true });
+  assert.deepEqual(next.sections.map((s) => s.id), [
+    'imageType', 'composition', 'subject', 'projectedCanonicalPose', 'wardrobe', 'scene', 'imaging',
+  ]);
+  assert.deepEqual(next.measurement, old.measurement);
+  for (const section of old.sections) assert.deepEqual(next.sections.find((s) => s.id === section.id), section);
+  assert.deepEqual(createAiPromptSectionModel({ sections }), old, 'opt-in must not persist into the next call');
 });
 
 test('global arbitration reduces complete imaging then scene alternatives without touching immutable sections', () => {

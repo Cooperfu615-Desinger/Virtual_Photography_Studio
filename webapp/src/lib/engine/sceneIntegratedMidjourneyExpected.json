@@ -1,0 +1,114 @@
+{
+  "phase": "midjourney-scene-integrated-v1",
+  "baselineRef": "1be19e8",
+  "previousRuntimeRef": "b5ebebd",
+  "cases": {
+    "R01-squat-low-selfie": {
+      "hash": "3ea7837413a2b15c4444b6b57c08eed30a7ac35ff94e9be03fecbe9f4ab1cb8f",
+      "text": "Photorealistic editorial portrait. The setting is Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign. Knee-up cowboy shot, low angle from floor level. A 20s seductive stunning Japanese woman. full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks. She has her chin slightly raised, a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a deep resting squat with both feet planted flat, both heels grounded, knees deeply bent, and the hips held low over the feet with the upper back resting against an existing vertical surface in the scene, clear back-to-surface contact with light body-weight support. Wearing sheer floral lace cropped camisole, scalloped lace hem, cargo shorts, thigh-high sheer garter stockings, visible garter straps, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle. Glossy pavement patches, steel arch supports, dense nightlife storefronts and layered signboards. Golden sunset environment, warm orange-pink sky gradient, high-key subject lighting, bright even exposure, pale soft shadows. --v 8.2 --raw --s 25 --c 0 --w 0 --sd"
+    },
+    "R02-kneel-high-selfie": {
+      "hash": "9a54a29c09f97992590a0655a34a8f4df35cce311eaa8bd32b6ba4f1979f2edf",
+      "text": "Photorealistic editorial portrait. The setting is Shinjuku Kabukicho Ichibangai entrance beneath the iconic red illuminated street-spanning arch sign. Knee-up cowboy shot, high angle, looking down. A 20s seductive stunning Japanese woman. full bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, refined elongated oval face, upturned eyes with straight brows, defined nose bridge and sculpted lips, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks. She has a front-camera self-shot with her right arm extended to hold the phone just beyond the frame edge and only a naturally foreshortened right forearm entering from the side, and presents a casual, relaxed, and natural kneeling pose. Wearing dropped-shoulder t-shirt, leather trousers, decorative wide leather waist belt worn loosely around hips with a structured off-center buckle. Glossy pavement patches, steel arch supports, dense nightlife storefronts and layered signboards. Blue hour environment, deep blue dusk sky, neon color spill across the subject, saturated colored highlights on skin hair and clothing edges, controlled vivid color cast. --v 8.2 --raw --s 25 --c 0 --w 0 --sd"
+    },
+    "R03-squat-no-anchor": {
+      "hash": "f14c3578e57f71da1b89f85dbf1a3eb4a59a3f19036102e009e018178cedc1aa"
+    },
+    "R04-standing": {
+      "hash": "d7aaf9a9303418065d6b1111dd0cc2345626b0db122bf69bd1a2b1f0708278b9"
+    },
+    "R04-sitting": {
+      "hash": "59ba8c6f4ae284cc13bd5a84e7de058446ea494fc7d40f83a19463bf748969b6"
+    },
+    "R05-elbows-on-knees": {
+      "hash": "87e9bef2df43510bf215ab685427738f2bd84a1c35076b1fba2dc63c51c5abc1"
+    },
+    "R06-mirror-selfie": {
+      "hash": "cfc8c6fa2fd6c84f199ed64e7f39860defa98e2e6736f77f99b3f9d65c13fe18"
+    },
+    "R07-companion-selfie": {
+      "hash": "0352e380a7285b815eb74b2ec8e648bd549d68f62336829cc4159deb3f019788"
+    },
+    "R08-crop-full": {
+      "hash": "edb968dbf7b7534e255bb12664798b4b96bfc63534f2155e961191b2f63dc5d2"
+    },
+    "R08-crop-cowboy": {
+      "hash": "9a54a29c09f97992590a0655a34a8f4df35cce311eaa8bd32b6ba4f1979f2edf"
+    },
+    "R08-crop-medium": {
+      "hash": "70bb7d1df636642fe2385cf2dc7868f80d972c7d8768ec15f2c9ccfbe2f25dac"
+    },
+    "R08-crop-chest": {
+      "hash": "e1fa4466dfcd2d419bc715ef474bb8486973dc7b6235b83a41e765f23fbfa11a"
+    },
+    "R08-crop-head": {
+      "hash": "efbc484ad286278bbd9197f24f5753d451f6faa6eef96269873aeb912e3425e5"
+    },
+    "R08-crop-face": {
+      "hash": "8b9b7121455e7eb957289fbed048e03967f930544855976b26ccd52ed63aca2e"
+    },
+    "R09-orbit-front": {
+      "hash": "492620787ee4c55874334a16685b5505aa28589be605fffb7703bd5f85c288a2"
+    },
+    "R09-orbit-left": {
+      "hash": "55f50841122f4fd316c3373e732d60e35dfdc5c827e7df9a274dd62d602538d2"
+    },
+    "R09-orbit-right": {
+      "hash": "8b22b882c13fe2ff54cb63e3310da1cf5cda2e9435505e14e9bb95503c36cd56"
+    },
+    "R09-orbit-rear": {
+      "hash": "93f20faabfc6dbbba823b0ede6fb68410c04923dfb23a717bb3082cb44025076"
+    },
+    "R09-half-face": {
+      "hash": "31efa59912bc45bb4936861705bc66c49a572d4aaeb766d3abc3a6b01d17add6"
+    },
+    "R10-palm-occlusion": {
+      "hash": "2e9c4f946004190ddc28b9ae9d565da12496bade7a5188a74394a22c7db9a658"
+    },
+    "R11-shirt-shoulder-1": {
+      "hash": "0930aeb65645707fc1ec19cded2b2d3b210d4d4643271b7e42cc4aa3a8923169"
+    },
+    "R11-shirt-shoulder-2": {
+      "hash": "59332e6d610d17aaef17e084584d5fa324d4838f00babf8677fe84a4fd939e54"
+    },
+    "R11-dress": {
+      "hash": "aacfe81d912715894c57b0c548b631a6cad38cee0eec4f13bb111cd2622794bd"
+    },
+    "R11-complete-look": {
+      "hash": "51c356c73fd8e3eb6c8ea480d2237f8f1aa6b9015200b381c4356772eac5bdd7"
+    },
+    "R11-waist-chain": {
+      "hash": "e1e1bac7b2f7f0e78aa345806989a0b9653aec06632f4df8620380229fdb90d0"
+    },
+    "R12-scene-indoor": {
+      "hash": "8e89f94de9e7ad9596b20c4d7aa14c0ff7a7c3cc9afc8969b652b2d285fa9aff"
+    },
+    "R12-scene-studio": {
+      "hash": "6478762c8cc988ddce46ba60547284f635ce33c3617f74f37f74b0fff7e5f660"
+    },
+    "R12-scene-none": {
+      "hash": "3d022d4584457a8e1213dcc38248c8f98eb1a43873db35a596741b580af75377"
+    },
+    "R12-watercolor": {
+      "hash": "9eaead224d69769df42c168a5660b9074d4ba729ff4ead42f6a59750c8627c2d"
+    },
+    "R13-optics": {
+      "hash": "1c1f0070b33acdcb1ec5b032138b7bf22cc96195dd988e0d46161faef125f7d4"
+    },
+    "R14-mj-imaging": {
+      "hash": "b7d37ef59fcb28fa52ad7efeffa11123694c977c966a4c07ecac108ace03cf7d"
+    },
+    "R15-derived-isolation": {
+      "hash": "8b9b7121455e7eb957289fbed048e03967f930544855976b26ccd52ed63aca2e"
+    },
+    "R18-exact-text-on": {
+      "hash": "d7aaf9a9303418065d6b1111dd0cc2345626b0db122bf69bd1a2b1f0708278b9"
+    },
+    "R18-exact-text-off": {
+      "hash": "d7aaf9a9303418065d6b1111dd0cc2345626b0db122bf69bd1a2b1f0708278b9"
+    },
+    "R19-random-pose": {
+      "hash": "b089b34331223f2aba35f50bb67381df39ba5dc85b2f6ab331518baf28b0fb46"
+    }
+  }
+}

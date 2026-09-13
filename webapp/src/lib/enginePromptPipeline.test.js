@@ -1135,7 +1135,7 @@ test('Z-Image prompt remains natural language with blank-line paragraphs and AI 
   assert.match(prompt.midjourneyPrompt, /deep black color field/);
   assert.match(prompt.midjourneyPrompt, /Wearing [^\n]*flight attendant uniform/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /standing with natural relaxed standing arrangement; arms crossed loosely/i);
-  assert.match(prompt.midjourneyPrompt, /-inspired /i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /Yoshihiko Ueda|Fujifilm Provia/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /\b(Lighting|Camera look|Pose and composition|Keep):/i);
   assert.ok(prompt.midjourneyPrompt.length < prompt.zImagePrompt.length);
 });
@@ -1167,11 +1167,11 @@ test('Z-Image and AI keep selected lighting and camera controls with model-speci
 
   assert.match(prompt.midjourneyPrompt, /indoor late-afternoon daylight environment/i);
   assert.match(prompt.midjourneyPrompt, /warm golden-amber subject light color/i);
-  assert.match(prompt.midjourneyPrompt, /Osamu Yokonami-inspired high-key minimalist image language/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /Osamu Yokonami|high-key minimalist image language/i);
   assert.match(prompt.midjourneyPrompt, /135mm long telephoto lens/i);
   assert.match(prompt.midjourneyPrompt, /distant working distance/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /soft foreground occlusion/i);
-  assert.match(prompt.midjourneyPrompt, /Osamu Yokonami-inspired/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /glossy Japanese portrait color grade/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /warm-neutral daylight spread|mellow exterior brightness|no sunset or sky cues/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /flattened spatial layers|pronounced subject isolation|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /[\u4e00-\u9fff]/);
@@ -1203,7 +1203,7 @@ test('Z-Image and AI use model-specific compact scene wording for solid color st
   assert.doesNotMatch(prompt.zImagePrompt, /no paper roll|no backdrop stand|no light stands|no studio equipment/i);
   assert.doesNotMatch(prompt.zImagePrompt, /Scene priority:/i);
 
-  assert.match(prompt.midjourneyPrompt, /Horizonless seamless matte pure white color field,/i);
+  assert.match(prompt.midjourneyPrompt, /The setting is Horizonless seamless matte pure white color field\./i);
   assert.doesNotMatch(prompt.midjourneyPrompt, / In horizonless seamless matte pure white color field/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /no paper roll|no studio equipment/i);
 });
@@ -1862,7 +1862,7 @@ test('AI prompt uses simplified X-prompt wardrobe wording for representative loo
   assert.doesNotMatch(dressPrompt.midjourneyPrompt, /delicate lace trim|short hem|one-piece|[\u3400-\u9fff]/i);
 });
 
-test('AI prompt keeps imaging identity and secondary simulation cues', () => {
+test('main AI omits film simulation while the MJ chest-up derivative retains it', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
@@ -1872,8 +1872,10 @@ test('AI prompt keeps imaging identity and secondary simulation cues', () => {
     filmId: optionId('filmId', '高銳利快照黑位'),
   }, [], { random: createSeededRandom('ci-imaging-8') });
 
-  assert.match(prompt.midjourneyPrompt, /high-acutance snapshot rendering/i);
-  assert.match(prompt.midjourneyPrompt, /snap-focus clarity/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /high-acutance snapshot rendering|snap-focus clarity/i);
+  const chestUp = prompt.extraPrompts.find((p) => p.id === 'chest-up-mj-portrait').text;
+  assert.match(chestUp, /high-acutance snapshot rendering/i);
+  assert.match(chestUp, /snap-focus clarity/i);
 });
 
 test('none selections stay silent across all final prompt outputs', () => {
