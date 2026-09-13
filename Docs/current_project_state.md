@@ -4,6 +4,15 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-13
 
+## Z-Image directional scene / ambient reduction v1 (2026-09-13)
+
+- Starting checkpoint: local `main` / `7a7569a` (MJ phase already committed). This new phase is local only, not staged/committed/pushed/deployed. See [direction specification](specs/z-image-scene-direction-v1.md).
+- Eligible ordinary single main Z only, contract `1.7.0`: post-crop/post-compaction exact reviewed source reduction omits ground details at waist/knee/floor/worm-eye cameras and visible sky at high/bird-eye/top-down cameras. Surviving scene clauses merge into the opening; ambient condition remains separate with existing subject light. No source backfill, upper scenery invention, global keyword deletion or database/UI/storage mutation.
+- Source identity, intrinsic pose contact, light effects and exact visible text are protected. Unknown/custom wording is preserved unless it exactly matches reviewed clauses. GPT/MJ, derivatives, excluded modes and independent workspaces remain unchanged.
+- Fresh gates: full frontend 904/904, Prompt Quality 236/236, lint/build/diff-check passed. Same-seed audit (200 / `prompt-quality-baseline`): zero blockers, unchanged 23 diagnostics. All 45 existing fixture inputs/selections/RNG and other-output hashes remain unchanged; additive Z expected snapshot preserves historical baselines. External image acceptance pending.
+- Browser: desktop 1440×1000 / mobile 390×844 five-workspace smoke, low/high-camera scene and ambient toggles, and DLL Z source selection verified; test selections restored and six Saved Cards preserved. Acceptance is PARTIAL: mobile PAGE1 scene toolbar crowding and narrow three-column outputs were observed under unchanged CSS/JSX; no unrelated layout fix. Copy/download end-to-end limitations were not revalidated this phase. Full evidence in the direction spec.
+- Preserve untracked user assets: `Docs/0822_new/`, `Docs/0912_test/`, `Docs/lie_on_back/`.
+
 ## Single-subject scene-integrated assembly: Midjourney phase (2026-09-13)
 
 - Starting checkpoint: local `main` / `b5ebebd`, already pushed to `origin/main` for the Z-Image phase. This MJ phase is implemented locally but NOT staged, committed, pushed or deployed. See [assembly specification §6](specs/page1-single-scene-integrated-assembly-v1.md) and [regression evidence §9](specs/page1-single-scene-integrated-regression-v1.md).

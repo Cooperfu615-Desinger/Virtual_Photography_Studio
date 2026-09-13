@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.6.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.7.0';
 
 const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
   'imageType', 'composition', 'subject', 'pose', 'wardrobe',
@@ -63,7 +63,16 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
     exclusions: ['duo', 'fixed-composition', 'dedicated-subject', 'character-card', 'supine-surface-led', 'derived-output'],
     independentAnchor: 'omit from Z-only projected sources; preserve selection and shared canonical',
     selfieHand: 'relocate visible source to capture context; retain prop precedence and crop visibility',
-    scene: 'move first projected location clause to capture context without duplicating it',
+    scene: 'merge directional-filtered projected scene sources into capture context exactly once',
+    sceneDirection: {
+      version: '1.0.0',
+      lowCamera: 'omit reviewed ground-detail clauses',
+      downwardCamera: 'omit reviewed visible-sky clauses; preserve ambient condition and light',
+      unspecifiedCamera: 'no additional deletion',
+      sourceBoundary: 'post-crop and post-compaction; no backfill or invented upper scenery',
+      protectedSources: ['place identity', 'canonical pose', 'subject lighting', 'exact visible text'],
+      unknownSource: 'preserve; no keyword-based inference',
+    },
   },
   composition: {
     cameraSubjectGeometry: 'eight-direction crop-aware single-subject geometry',

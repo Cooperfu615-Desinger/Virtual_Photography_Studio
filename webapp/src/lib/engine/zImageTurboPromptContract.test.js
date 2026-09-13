@@ -13,7 +13,7 @@ import {
 } from './promptOutputContracts.js';
 
 test('Z-Image Turbo contract preserves the historical field and records the Magnific profile', () => {
-  assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION, '1.6.0');
+  assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION, '1.7.0');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.field, 'zImagePrompt');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.uiLabel, 'Z-Image');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.compatibility.historicalField, 'zImagePrompt');

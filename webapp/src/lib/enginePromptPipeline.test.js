@@ -1181,6 +1181,7 @@ test('Z-Image and AI keep selected lighting and camera controls with model-speci
 test('Z-Image and AI use model-specific compact scene wording for solid color studio scenes', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    angleId: optionId('angleId', '平視高度鏡頭'),
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
     locationId: optionId('locationId', '室內：純潔白幕'),
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
@@ -1198,7 +1199,7 @@ test('Z-Image and AI use model-specific compact scene wording for solid color st
 
   assert.match(
     prompt.zImagePrompt,
-    /\n\nThe setting is horizonless seamless matte pure white color field\.[\s\S]*Continuous white ground-and-background plane blending into a solid white void, full-bleed white surface(?:, subtle natural contact shadow under the subject)?\./
+    /\n\nThe setting is horizonless seamless matte pure white color field, continuous white ground-and-background plane blending into a solid white void, full-bleed white surface(?:, subtle natural contact shadow under the subject)?\./
   );
   assert.doesNotMatch(prompt.zImagePrompt, /no paper roll|no backdrop stand|no light stands|no studio equipment/i);
   assert.doesNotMatch(prompt.zImagePrompt, /Scene priority:/i);
@@ -1423,7 +1424,7 @@ test('chest-up framing shares visible pose fragments while Z-Image removes camer
   assert.doesNotMatch(prompt.zImagePrompt, /legs and shoes emphasized/i);
   assert.match(prompt.zImagePrompt, /face oriented away from the camera/i);
   assert.doesNotMatch(prompt.zImagePrompt, /clear spatial context/i);
-  assert.match(prompt.zImagePrompt, /small urban hotel room\.[\s\S]*compact bedding, practical lamp fixtures/i);
+  assert.match(prompt.zImagePrompt, /small urban hotel room, compact bedding, practical lamp fixtures/i);
   assert.doesNotMatch(prompt.zImagePrompt, /narrow bedside table|close wall surfaces|luggage corner|enclosed room layout/i);
   assert.doesNotMatch(prompt.zImagePrompt, /without widening the portrait crop|softly blurred|faint spatial shapes/i);
 });

@@ -21,7 +21,7 @@ import {
 // renderer change pass. Introduce scoped new expectations in the rollout phase,
 // keeping the excluded fields and selection reference immutable.
 const baseline = JSON.parse(readFileSync(new URL('./sceneIntegratedAssemblyBaseline.json', import.meta.url), 'utf8'));
-const zExpected = JSON.parse(readFileSync(new URL('./sceneIntegratedZImageExpected.json', import.meta.url), 'utf8'));
+const zExpected = JSON.parse(readFileSync(new URL('./sceneDirectionalZImageExpected.json', import.meta.url), 'utf8'));
 const mjExpected = JSON.parse(readFileSync(new URL('./sceneIntegratedMidjourneyExpected.json', import.meta.url), 'utf8'));
 const results = new Map(fixtures.map((fixture) => [fixture.id, runSceneFixture(fixture)]));
 const get = (id) => { assert.ok(results.has(id), id); return results.get(id); };
@@ -165,13 +165,15 @@ test('core Z cases reorder existing scene and capture without reducing subject, 
     assert.equal(current[0], previous[0], 'image type');
     assert.equal(current[2], previous[2], 'all effective subject sources');
     assert.equal(current[4], previous[3], 'all crop-visible wardrobe sources');
-    assert.deepEqual(current.slice(6), previous.slice(6), 'lighting, style and imaging');
+    assert.deepEqual(current.slice(-2), previous.slice(-2), 'style and imaging');
     assert.ok(current[1].includes(previous[1]), 'existing composition remains intact');
     const sourceScene = previous[5].replace(/^The scene is /, '').replace(/\.$/, '');
-    const [identity, ...details] = sourceScene.split(', ');
-    assert.ok(current[1].startsWith(`The setting is ${identity}.`));
+    const [identity] = sourceScene.split(', ');
+    assert.ok(current[1].startsWith(`The setting is ${sourceScene}.`));
     assert.equal(current.join('\n').split(identity).length - 1, 1, 'location identity is not repeated');
-    assert.equal(current[5].toLowerCase(), `${details.join(', ')}.`.toLowerCase(), 'remaining scene clauses preserved');
+    assert.doesNotMatch(current[5], /steel arch supports|layered signboards/i, 'scene details occur only in the opening');
+    assert.match(current[5], id === 'R02-kneel-high-selfie' ? /^Blue hour environment, neon color spill/i : /^Golden sunset environment, warm orange-pink sky gradient/i);
+    assert.doesNotMatch(current[5], /deep blue dusk sky/i);
     assert.match(current[1], /self-shot.*right arm extended/i);
     assert.doesNotMatch(current[3], /self-shot|phone|vertical surface/);
   }

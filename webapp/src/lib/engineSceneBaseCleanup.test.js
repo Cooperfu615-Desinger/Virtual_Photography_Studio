@@ -238,6 +238,7 @@ test('other dedicated scenes read as close scene bases instead of full environme
 test('generated prompts use stabilized scene base wording', () => {
   const [studioPrompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    angleId: getLockControls().find((control) => control.key === 'angleId').options.find((option) => option.zh === '平視高度鏡頭').id,
     framingId: framingId('全身鏡頭 (Full Body Shot)'),
     locationId: optionId('室內：純藍背景'),
   });

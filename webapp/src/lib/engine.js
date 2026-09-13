@@ -108,6 +108,7 @@ import {
   buildZImageTurboSidePoseDepth,
   getZImageTurboCameraProjectionFlags,
 } from './engine/zImageTurboCameraGeometry.js';
+import { projectZImageDirectionalSource } from './engine/zImageSceneDirection.js';
 
 export { createSeededRandom } from './engineRandom.js';
 
@@ -12610,7 +12611,9 @@ function renderZImagePrompt(promptModel) {
   };
   const buildLightingText = () => joinSentenceParts([
     context.lighting && !isNoneLikeItem(context.lighting)
-      ? compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en)
+      ? (sceneIntegrated
+        ? projectZImageDirectionalSource(compactZImageAmbientLightText(context.lighting.en), context.angle)
+        : compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en))
       : '',
     lightDirection && !isNoneLikeItem(lightDirection)
       ? compactZImageSubjectLightText(skeletonMode ? sanitizeSkeletonPromptText(resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count)) : resolvePromptVariant(lightDirection, 'lightDirection', context.subject.count))
@@ -12755,25 +12758,25 @@ function renderZImagePrompt(promptModel) {
   }
 
   if (sceneIntegrated) {
-    // Partition already projected/compacted scene sources, not raw database
-    // text or the completed public paragraph. Keep every remaining clause.
-    const location = compactZImageLocationText(buildZImageLocationText());
-    const world = compactZImageLocationText(importedWorldSceneArchitectureText);
+    // Reduce only already projected/compacted sources. Never refill removed
+    // clauses from the raw catalog or mutate the shared model used by GPT/MJ.
+    const location = projectZImageDirectionalSource(compactZImageLocationText(buildZImageLocationText()), context.angle, { preserveIdentity: true });
+    const world = projectZImageDirectionalSource(compactZImageLocationText(importedWorldSceneArchitectureText), context.angle, { preserveIdentity: true });
     const clauses = splitPromptClauses(location || world);
     const identity = clauses.shift() || '';
-    const details = [location ? world : '', clauses.join(', '), compactZImageSourceText(sceneAccentText)]
+    const details = [location ? world : '', clauses.join(', '), projectZImageDirectionalSource(compactZImageSourceText(sceneAccentText), context.angle)]
       .filter(Boolean);
     return renderSections([
       { id: 'imageType', text: imageTypeLine },
       { id: 'composition', text: [
-        identity ? sentence(`The setting is ${identity}`) : '',
+        identity ? sentence(`The setting is ${[identity, ...details].join(', ')}`) : joinSentenceParts(details),
         compositionLine,
         captureHand ? sentence(capitalizePromptLead(captureHand.en)) : '',
       ].filter(Boolean).join(' ') },
       { id: 'subject', text: buildCharacterText() },
       { id: 'pose', text: buildSinglePoseText() },
       { id: 'wardrobe', text: buildWardrobeText() },
-      { id: 'scene', text: [joinSentenceParts(details), visibleTextSentence].filter(Boolean).join(' ') },
+      { id: 'scene', text: visibleTextSentence },
       { id: 'lighting', text: buildLightingText() },
       { id: 'style', text: buildPhotographyStyleText() },
       { id: 'optics', text: buildCameraText() },

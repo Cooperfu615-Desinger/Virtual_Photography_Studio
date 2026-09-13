@@ -2,6 +2,8 @@
 
 Last updated: 2026-09-13
 
+2026-09-13 Z-Image 鏡頭方向第一版：契約 `1.7.0` 在上述一般單人主輸出的窄範圍，將既有投影／壓縮後場景按有效相機高度省略已審查地面或天空片語，再把剩餘場景合併至開頭。ambient 保留時間／天氣／光感，人物受光與其他 renderer 不變；不回補被景別刪除的內容，不新增上方造景。完整規則與未知來源邊界見 [鏡頭方向生成規則](z-image-scene-direction-v1.md)。以下場景細節後置的歷史描述，以此已核准窄例外為準。
+
 這份文件整理 PAGE1 單人模式下 `Gpt` / `Grok/Z-Image` / `AI` 三組輸出的 prompt 撰寫規則。自 2026-07-03 起，`Gpt` 改為完整保留型輸出，不再以壓縮為目標；`Grok/Z-Image` 與 `AI` 仍可依各自模型需求維持自然語言壓縮。新增或修改 A 人物設定、B 神情姿態、C 穿搭設定資料時，請先依照對應 authoring guide 檢查欄位責任，再用本規範確認三組輸出的取向。
 
 Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midjourney 比例與人物姿勢適配規範](midjourney-framing-pose-adaptation.md)。目前已接入的 renderer 行為僅限該文件明確標示的 Midjourney derived context；不得把內部派生欄位當成新的 storage schema，也不得把姿勢規範解讀為 AI-only 改寫 canonical pose。

@@ -2,6 +2,8 @@
 
 Last updated: 2026-09-13
 
+後續更新：Z contract `1.7.0` 已在本機接入 [場景／環境光鏡頭方向 v1](z-image-scene-direction-v1.md)。僅 eligible 主 Z 將過濾後場景完整合併至開頭，低機位省略已核對地面細節，俯視省略天空畫面片語；保留光感，不改其他 renderer。下文第 4 節的後置 scene 細節是前一階段紀錄。MJ 階段已於 `7a7569a` 提交；本次方向規則尚未提交。
+
 狀態：**Z-Image 第一階段已於 `b5ebebd` 提交／推送；Midjourney 第一階段已接入本機 renderer，尚未提交。** 舊版可執行基準 `1be19e8` 保留不變。本次僅改一般單人主 MJ 與對應測試／規範；資料庫、UI、選項／儲存 schema、GPT、已完成的 Z-Image 與三組衍生輸出不變。程式驗證、Browser QA 和外部影像驗收分開，紀錄見回歸文件第 9 節。
 
 ## 1. 目的與證據邊界
