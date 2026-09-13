@@ -1,0 +1,14 @@
+{
+  "checkpoint": "fa22169",
+  "count": 230,
+  "hashes": {
+    "grokPrompt": "bfb6603221a41090b893fd24cac36654eaca77507eec2308237e34ebf4257dd4",
+    "zImagePrompt": "05589df6a5a07144e4ddbeee30edd2d6d1e9d925fc73add714f2c5ec589b1d55",
+    "midjourneyPrompt": "a2a5d573d93cc57a9f685f92bcce8c0d0482abefcd76ae4fe5d39535ba948720",
+    "chestUpPortraitPrompt": "83844f5e59296aeda6c3abdf381856ad16cc87525e29ab28b816d16568ad2362",
+    "chestUpMjPortraitPrompt": "658c56077f5c310bbcae9fe5314993262f2e6296dfe88214dd7e2aa317c3ff78",
+    "fullBodyCharacterPrompt": "28260ca290906b60dc942f45516c54a2e4635ee2909a7980870375c98952a71f"
+  },
+  "selectionHash": "c8f956f076e6495c7cd6fcbe85880df9bc784101b9a924dbe83cf12b80722d49",
+  "randomHash": "c4551aefb81932ae776da03af7eac5be04d03bcb81caa60f9b45bfea74391501"
+}

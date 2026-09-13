@@ -1,4 +1,5 @@
 import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
+import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
@@ -102,7 +103,7 @@ test('phase 5 changes only AI structure and preserves every non-AI baseline', ()
       `${parameterFixture.id}: Gpt`
     );
     assert.equal(
-      hashPrompt(prompt.zImagePrompt),
+      hashPrompt(normalizeFullCameraForLegacy(prompt.zImagePrompt)),
       parameterFixture.baselineHashes.zImagePrompt,
       `${parameterFixture.id}: Grok/Z-Image`
     );

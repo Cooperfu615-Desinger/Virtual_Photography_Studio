@@ -109,6 +109,8 @@ import {
   getZImageTurboCameraProjectionFlags,
 } from './engine/zImageTurboCameraGeometry.js';
 import { projectZImageDirectionalSource } from './engine/zImageSceneDirection.js';
+import { appendZImageUpperScene } from './engine/zImageUpperScene.js';
+import { buildZImageFullBodyCamera } from './engine/zImageFullBodyCamera.js';
 
 export { createSeededRandom } from './engineRandom.js';
 
@@ -12640,6 +12642,10 @@ function renderZImagePrompt(promptModel) {
     film && !isNoneLikeItem(film) ? compactZImageFilmText(skeletonMode ? sanitizeSkeletonPromptText(film.en) : film.en) : '',
   ]);
   const imageTypeLine = buildZImageTypePromptLine(context);
+  const fullBodyCameraText = sceneIntegrated
+    && compositionVisibilityProjection.bucket === COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY
+    ? buildZImageFullBodyCamera(context.angle, poseComposer?.meta?.poseBaseId || '')
+    : '';
   const cameraProjectionFlags = getZImageTurboCameraProjectionFlags({
     angle: context.angle,
     orbit: context.orbit,
@@ -12657,6 +12663,7 @@ function renderZImagePrompt(promptModel) {
           bucket: compositionVisibilityProjection.bucket,
           subjectKind: specialSubjectMode ? 'subject' : 'woman',
           poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || '',
+          angleTextOverride: fullBodyCameraText || null,
         })
       : '',
     context.subject.count === 1
@@ -12758,9 +12765,12 @@ function renderZImagePrompt(promptModel) {
   }
 
   if (sceneIntegrated) {
-    // Reduce only already projected/compacted sources. Never refill removed
-    // clauses from the raw catalog or mutate the shared model used by GPT/MJ.
-    const location = projectZImageDirectionalSource(compactZImageLocationText(buildZImageLocationText()), context.angle, { preserveIdentity: true });
+    // Preserve v1 post-crop/compact reductions, then append only the four
+    // approved location-bound supplemental sources. Shared GPT/MJ stays intact.
+    const location = appendZImageUpperScene(
+      projectZImageDirectionalSource(compactZImageLocationText(buildZImageLocationText()), context.angle, { preserveIdentity: true }),
+      context.location, context.angle,
+    );
     const world = projectZImageDirectionalSource(compactZImageLocationText(importedWorldSceneArchitectureText), context.angle, { preserveIdentity: true });
     const clauses = splitPromptClauses(location || world);
     const identity = clauses.shift() || '';

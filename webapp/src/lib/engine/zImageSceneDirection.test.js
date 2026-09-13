@@ -67,7 +67,7 @@ test('runtime merges filtered scene before subject and never backfills hidden so
   for (const angle of low) {
     const { outputs, selection } = runSceneFixture(fixture(angle));
     const text = outputs.zImagePrompt;
-    assert.match(text.split('\n\n')[1], /The setting is traditional Japanese ryokan engawa veranda, sliding door frames\./);
+    assert.match(text.split('\n\n')[1], /The setting is traditional Japanese ryokan engawa veranda, sliding door frames, the underside of wooden eaves, exposed rafters\./);
     assert.doesNotMatch(text, /raised wooden deck edge|polished timber posts|stone step/i);
     assert.equal(text.match(/sliding door frames/gi)?.length, 1);
     assert.match(text, /deep blue dusk sky/i);

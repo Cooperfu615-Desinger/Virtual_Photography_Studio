@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.7.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.9.0';
 
 const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
   'imageType', 'composition', 'subject', 'pose', 'wardrobe',
@@ -69,12 +69,27 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
       lowCamera: 'omit reviewed ground-detail clauses',
       downwardCamera: 'omit reviewed visible-sky clauses; preserve ambient condition and light',
       unspecifiedCamera: 'no additional deletion',
-      sourceBoundary: 'post-crop and post-compaction; no backfill or invented upper scenery',
+      sourceBoundary: 'post-crop and post-compaction; no raw-catalog backfill or inferred scenery',
+      upperScene: {
+        version: '1.0.0',
+        source: 'four approved location-ID-bound supplemental records in zImageUpperScene.js',
+        scope: 'low cameras only; require surviving matching location identity',
+        duplicates: 'append each authored clause at most once',
+        fallback: 'none; unlisted locations and other cameras remain unchanged',
+      },
       protectedSources: ['place identity', 'canonical pose', 'subject lighting', 'exact visible text'],
       unknownSource: 'preserve; no keyword-based inference',
     },
   },
   composition: {
+    fullBodyCamera: {
+      version: '1.0.0',
+      scope: 'ordinary PAGE1 single-subject main fullBody output only',
+      groups: ['natural', 'low', 'wormEye', 'high', 'birdEye', 'topDown'],
+      natural: 'preserve height hints; Dutch preserves frame roll',
+      wormEye: 'near-camera scale; standing feet foreground, otherwise pose-neutral nearest body parts',
+      unchanged: ['other crops', 'orbit', 'pose', 'selected lens', 'scene direction', 'selection', 'other outputs'],
+    },
     cameraSubjectGeometry: 'eight-direction crop-aware single-subject geometry',
     strictSideProfileGeometry: 'image-edge facing, visible-side isolation, and full near-far occlusion at 90 degrees',
     explicitCameraAngleGeometry: 'camera position, lens tilt, and crop-visible perspective evidence',

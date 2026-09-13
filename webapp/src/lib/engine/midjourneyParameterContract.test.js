@@ -1,4 +1,5 @@
 import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
+import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
@@ -210,7 +211,7 @@ test('phase 4 preserves representative content while adding only the approved AI
     for (const field of ['grokPrompt', 'zImagePrompt']) {
       assert.equal(repeated.prompt[field], first.prompt[field], `${fixture.id}.${field}: deterministic`);
       assert.equal(
-        hashPrompt(first.prompt[field]),
+        hashPrompt(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.prompt[field]) : first.prompt[field]),
         fixture.baselineHashes[field],
         `${fixture.id}.${field}: baseline`
       );

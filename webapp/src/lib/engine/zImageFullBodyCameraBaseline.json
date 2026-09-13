@@ -1,0 +1,14 @@
+{
+  "checkpoint": "fa22169 + uncommitted upper-scene v2",
+  "count": 431,
+  "hashes": {
+    "grokPrompt": "0f488fac636d5e4e3f684e87d52b49117b9b6a2eb9690b79811797e0b9f51b26",
+    "zImagePrompt": "92387e3e12e4c3b41c31b9f2caac9f823aaf59945b7ecf4b398fb2eded8a6289",
+    "midjourneyPrompt": "ad2b2d0018165812eafd88d5bcd5fba1bab3510f2af1a301399120c1e2b18d57",
+    "chestUpPortraitPrompt": "825336ab88b9511dfe43ebc5152d54a7148318d27dfa60b21ea871331373490c",
+    "chestUpMjPortraitPrompt": "d34225eae11f087a83f2bd4af64d792f0f1e6cca86f788562bebe9d48d9a69b2",
+    "fullBodyCharacterPrompt": "e21a9b14ba68a4caf2bbde0d3815379261e2e0fcd2200b17ed99c39df324dca1"
+  },
+  "selectionHash": "3cb428ff94a3991acb941fef0c3724b91df031e61b36601e83f6858de6b19354",
+  "randomHash": "b347c62093cd794d34fc5c844d1cc2b6158b4c6d8596e4e000803c03a57fe7d5"
+}

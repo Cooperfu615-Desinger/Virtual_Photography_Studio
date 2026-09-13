@@ -250,11 +250,12 @@ export function buildZImageTurboCameraGeometry({
   bucket = COMPOSITION_VISIBILITY_BUCKETS.UNCONSTRAINED,
   subjectKind = 'woman',
   poseBaseId = '',
+  angleTextOverride = null,
 } = {}) {
   const orbitKey = resolveOrbitKey(orbit);
   const angleKey = resolveAngleKey(angle);
   const cropGroup = CROP_GROUP_BY_BUCKET[bucket] || 'body';
-  const angleText = buildCameraAngleText(angleKey, cropGroup, subjectKind);
+  const angleText = angleTextOverride ?? buildCameraAngleText(angleKey, cropGroup, subjectKind);
   const strictSideText = buildStrictSideText(orbitKey, cropGroup, subjectKind, poseBaseId);
   if (strictSideText) return [angleText, strictSideText].filter(Boolean).join(' ');
   const cameraOpening = CAMERA_OPENING_BY_ORBIT[orbitKey];

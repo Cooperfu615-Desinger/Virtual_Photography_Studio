@@ -10,6 +10,7 @@ import {
 } from '../engine.js';
 import { parseLocksFromStandardPrompt } from '../../features/saved-cards/cardCodec.js';
 import { countAiPromptWords } from './aiPromptLengthContract.js';
+import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES } from './midjourneyNativeStructureFixtures.js';
 import {
   MIDJOURNEY_ASPECT_RATIO_FIXTURES,
@@ -157,7 +158,7 @@ test('phase 4 appends parameters only to AI while preserving descriptive baselin
     assert.ok(nativeTarget, `${fixture.id}: native structure fixture`);
     assert.equal(hashPrompt(content), nativeTarget.expectedDescriptionHash, `${fixture.id}: AI content`);
     assert.equal(hashPrompt(prompt.grokPrompt), fixture.baselineHashes.grokPrompt, `${fixture.id}: Gpt`);
-    assert.equal(hashPrompt(prompt.zImagePrompt), fixture.baselineHashes.zImagePrompt, `${fixture.id}: Grok/Z`);
+    assert.equal(hashPrompt(normalizeFullCameraForLegacy(prompt.zImagePrompt)), fixture.baselineHashes.zImagePrompt, `${fixture.id}: Grok/Z`);
     assert.doesNotMatch(
       prompt.extraPrompts
         .filter((entry) => entry.id !== 'chest-up-mj-portrait')

@@ -10,6 +10,7 @@ import {
   restoreBaselineSelection, runSceneFixture, stableValue, assertZImagePoseProjection,
 } from './sceneIntegratedAssemblyTestSupport.js';
 import { validatePromptOutputContract } from './promptOutputContracts.js';
+import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { createEmptyLocks, getLockControls, normalizeLocks } from '../engine.js';
 import { buildObservationCapturePrompt } from '../observationCaptureLab.js';
 import {
@@ -123,14 +124,14 @@ for (const fixture of fixtures) {
       const expectedHash = field === 'zImagePrompt' && !fixture.excluded
         ? zExpected.cases[fixture.id].hash : field === 'midjourneyPrompt' && !fixture.excluded
           ? mjExpected.cases[fixture.id].hash : entry.outputHashes[field];
-      assert.equal(digest(first.outputs[field]), expectedHash, `${field}: scoped output drift`);
+      assert.equal(digest(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field]), expectedHash, `${field}: scoped output drift`);
       assert.deepEqual(validatePromptOutputContract(field, first.outputs[field], {
         mode: fixture.mode,
         allowedLanguageLiterals: field === 'zImagePrompt' && first.selection.zImageVisibleTextEnabled
           ? [first.selection.zImageVisibleTextContent] : [],
       }), [], `${field}: output contract`);
     }
-    if (entry.outputs) assert.deepEqual(first.outputs, {
+    if (entry.outputs) assert.deepEqual({ ...first.outputs, zImagePrompt: normalizeFullCameraForLegacy(first.outputs.zImagePrompt) }, {
       ...entry.outputs, zImagePrompt: zExpected.cases[fixture.id].text,
       midjourneyPrompt: mjExpected.cases[fixture.id].text,
     }, 'only the approved Z/MJ core text changes');

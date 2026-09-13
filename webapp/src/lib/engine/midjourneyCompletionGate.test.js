@@ -1,5 +1,6 @@
 import { assertZImagePoseProjection } from './sceneIntegratedAssemblyTestSupport.js';
 import assert from 'node:assert/strict';
+import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
 
@@ -118,7 +119,7 @@ test('phase 6 blocks any engine or public-contract drift across all Midjourney f
       `${parameterFixture.id}: historical Gpt mapping`
     );
     assert.equal(
-      hashPrompt(prompt.zImagePrompt),
+      hashPrompt(normalizeFullCameraForLegacy(prompt.zImagePrompt)),
       parameterFixture.baselineHashes.zImagePrompt,
       `${parameterFixture.id}: historical Grok/Z-Image mapping`
     );
