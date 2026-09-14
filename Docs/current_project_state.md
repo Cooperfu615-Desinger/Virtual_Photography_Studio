@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-13
+Last updated: 2026-09-14
+
+## Z-Image existing scene-detail priority: ten reviewed scenes (2026-09-14)
+
+- Starting checkpoint `main` / `f6a2ed9`, already on `origin/main`; the prior eighteen upper-scene sources are committed. This batch is local only, not staged/committed/pushed/deployed.
+- Seven approved existing-source priority substitutions and three unchanged controls are implemented for ordinary single main Z at effective waist/knee/floor/worm-eye heights. Main Z contract `1.11.0`, detail-priority source `1.0.0`; [exact wording, scope and evidence](specs/z-image-existing-scene-detail-priority-v1.md). This is a bounded exception allowing only reviewed same-location raw fragments, not full source restoration. Catalog, UI, other renderers, selections, storage, floor/sky and camera rules remain unchanged.
+- Frozen 1,430-case before/after comparison passes; other output bytes, selection and RNG remain identical. Final frontend 919/919, Prompt Quality 251/251, lint/build pass. Same-seed strict 200 audit is identical before/after: zero blockers and 23 diagnostics.
+- Ten live scene openings, high/low reversion and five-workspace desktop/mobile smoke checked without observed warning/error or broken images. Existing six cards and original controls/viewport retained. Browser acceptance stays PARTIAL: prior mobile PAGE1 overflow remains; copy success UI seen but clipboard readback empty, download bytes not reverified. No external images generated; user folders untouched.
+- B-section review now covers 10 of 48 scenes (7 changes / 3 controls); remaining 38 are not implicitly authorized or changed. No further A/B pack requested.
 
 ## Z-Image upper-scene v2: remaining fourteen approved sources (2026-09-13)
 

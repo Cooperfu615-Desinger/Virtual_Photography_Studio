@@ -110,6 +110,7 @@ import {
 } from './engine/zImageTurboCameraGeometry.js';
 import { projectZImageDirectionalSource } from './engine/zImageSceneDirection.js';
 import { appendZImageUpperScene } from './engine/zImageUpperScene.js';
+import { selectZImageSceneDetails } from './engine/zImageSceneDetailPriority.js';
 import { buildZImageFullBodyCamera } from './engine/zImageFullBodyCamera.js';
 
 export { createSeededRandom } from './engineRandom.js';
@@ -12768,7 +12769,10 @@ function renderZImagePrompt(promptModel) {
     // Preserve v1 post-crop/compact reductions, then append only the
     // approved location-bound supplemental sources. Shared GPT/MJ stays intact.
     const location = appendZImageUpperScene(
-      projectZImageDirectionalSource(compactZImageLocationText(buildZImageLocationText()), context.angle, { preserveIdentity: true }),
+      selectZImageSceneDetails(
+        projectZImageDirectionalSource(compactZImageLocationText(buildZImageLocationText()), context.angle, { preserveIdentity: true }),
+        context.location, context.angle,
+      ),
       context.location, context.angle,
     );
     const world = projectZImageDirectionalSource(compactZImageLocationText(importedWorldSceneArchitectureText), context.angle, { preserveIdentity: true });

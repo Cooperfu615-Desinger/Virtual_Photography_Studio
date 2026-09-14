@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.10.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.11.0';
 
 const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
   'imageType', 'composition', 'subject', 'pose', 'wardrobe',
@@ -70,6 +70,13 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
       downwardCamera: 'omit reviewed visible-sky clauses; preserve ambient condition and light',
       unspecifiedCamera: 'no additional deletion',
       sourceBoundary: 'post-crop and post-compaction; no raw-catalog backfill or inferred scenery',
+      existingDetailPriority: {
+        version: '1.0.0',
+        source: 'seven approved catalog-ID-bound selections in zImageSceneDetailPriority.js',
+        scope: 'low cameras only; matching surviving prefix and verified catalog fragments required',
+        exception: 'select only the approved existing fragments even if earlier projection omitted them; never restore the full source',
+        fallback: 'unchanged source; no guessing on unknown, empty or changed source',
+      },
       upperScene: {
         version: '1.1.0',
         source: 'eighteen approved location-ID-bound supplemental records in zImageUpperScene.js',
