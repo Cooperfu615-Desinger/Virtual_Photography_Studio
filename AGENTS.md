@@ -32,6 +32,7 @@ Read `Docs/specs/page1-single-prompt-compression-guide.md`, `webapp/src/lib/engi
 
 - Build all outputs from the same resolved selections and shared structured model.
 - `Gpt` is full fidelity: preserve every effective selected English description. Only reorganize formatting, remove empty values, and remove exact duplicates.
+- Approved narrow exception: ordinary single main GPT may project reviewed Scene/Lighting floor/sky visibility by effective camera direction, per `Docs/specs/gpt-scene-lighting-visibility-v1.md`. Preserve full surviving source, GPT section order, light core, subject light and canonical pose. Do not copy Z compaction, upper-scene additions or camera-distance wording; all excluded modes and derivatives stay unchanged.
 - `Grok/Z-Image` is a source-traceable reduction: remove redundancy and internal control language, use minimal connective grammar, and do not invent visual facts.
 - `AI` follows its mode-specific compact contract. Compression must retain the required identity, wardrobe, scene, imaging, and other mode-specific anchors.
 - Preserve all four Character Card permanent identity anchors in compact outputs. Mutable hair, makeup, wardrobe, or accessories must not replace identity.

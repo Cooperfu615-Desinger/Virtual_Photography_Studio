@@ -37,7 +37,7 @@ test('36 authored ambient descriptions retain light cores, exact source pins and
   assert.match(renderAmbientLightDescription(byZh('雨後反光'), 'z', { zh: '地面高度鏡頭' }), /reflective wall textures/);
 });
 
-test('720 frozen main cases change only complete GPT ambient and source-reduced Z ambient', () => {
+test('720 frozen main cases change only authored directional GPT/Z ambient', () => {
   const results = AMBIENT_MATRIX.map(runSceneFixture);
   assert.equal(results.length, baseline.count);
   const normalized = results.map((r, i) => {
@@ -45,7 +45,7 @@ test('720 frozen main cases change only complete GPT ambient and source-reduced 
     assert.equal(source.id, AMBIENT_MATRIX[i].locks.lightingId);
     const description = resolveAmbientLightDescription(source);
     const angle = angles.find(a => a.id === r.selection.angleId);
-    const gpt = renderAmbientLightDescription(description, 'gpt') + '.';
+    const gpt = renderAmbientLightDescription(description, 'directional', angle) + '.';
     const z = sentence(renderAmbientLightDescription(description, 'z', angle));
     assert.equal(r.outputs.grokPrompt.match(/Lighting:\n([^\n]+)/)?.[1], gpt, AMBIENT_MATRIX[i].id);
     assert.equal(r.outputs.zImagePrompt.split('\n\n').at(-1), z, AMBIENT_MATRIX[i].id);

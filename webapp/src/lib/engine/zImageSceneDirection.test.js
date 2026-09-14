@@ -71,7 +71,7 @@ test('runtime merges filtered scene before subject and never backfills hidden so
     assert.doesNotMatch(text, /raised wooden deck edge|polished timber posts|stone step/i);
     assert.equal(text.match(/sliding door frames/gi)?.length, 1);
     assert.match(text, /deep blue dusk sky/i);
-    assert.match(outputs.grokPrompt, /raised wooden deck edge/);
+    assert.doesNotMatch(outputs.grokPrompt, /raised wooden deck edge/);
     assert.match(outputs.midjourneyPrompt, /raised wooden deck edge/);
     assert.ok(selection.locationId);
   }
@@ -82,7 +82,7 @@ test('runtime merges filtered scene before subject and never backfills hidden so
     assert.match(outputs.zImagePrompt.split('\n\n')[1], /raised wooden deck edge/);
     assert.match(outputs.zImagePrompt, /blue-hour ambience with fading daylight and a cool evening tone/i);
     assert.doesNotMatch(outputs.zImagePrompt, /deep blue dusk sky/i);
-    assert.match(outputs.grokPrompt, /deep blue dusk sky/i);
+    assert.doesNotMatch(outputs.grokPrompt, /deep blue dusk sky/i);
     assert.match(outputs.midjourneyPrompt, /deep blue dusk sky/i);
   }
 });

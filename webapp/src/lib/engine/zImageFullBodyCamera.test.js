@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
@@ -58,7 +59,8 @@ test('431-case frozen baseline: only full-body main camera text changes; selecti
   assert.equal(results.length, baseline.count);
   for (const field of OUTPUT_FIELDS) {
     assert.equal(digest(results.map((r) => field === 'zImagePrompt'
-      ? normalizeFullCameraForLegacy(r.outputs[field]) : r.outputs[field])), baseline.hashes[field], field);
+      ? normalizeFullCameraForLegacy(r.outputs[field]) : field === 'grokPrompt'
+        ? normalizeGptVisibilityForLegacy(r.outputs[field], r.selection) : r.outputs[field])), baseline.hashes[field], field);
   }
   assert.equal(digest(results.map((r) => r.selection)), baseline.selectionHash);
   assert.equal(digest(results.map((r) => r.randomDraws)), baseline.randomHash);

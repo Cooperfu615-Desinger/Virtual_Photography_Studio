@@ -402,8 +402,9 @@ export function resolveAmbientLightDescription(item) {
 
 export function renderAmbientLightDescription(entry, target = 'gpt', angle = null) {
   if (!entry) return '';
-  const low = target === 'z' && LOW_CAMERA_LABELS.includes(angle?.zh);
-  const downward = target === 'z' && DOWNWARD_CAMERA_LABELS.includes(angle?.zh);
+  const directional = target === 'z' || target === 'directional';
+  const low = directional && LOW_CAMERA_LABELS.includes(angle?.zh);
+  const downward = directional && DOWNWARD_CAMERA_LABELS.includes(angle?.zh);
   const details = entry.details.flatMap(detail => {
     if (downward && detail.kind === 'sky') return [];
     if (low && detail.kind === 'surface') return detail.lowText ? [detail.lowText] : [];

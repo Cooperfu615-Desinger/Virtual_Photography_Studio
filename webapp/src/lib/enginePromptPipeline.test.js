@@ -1935,6 +1935,10 @@ test('PAGE1 can layer imported PAGE3 world-scene architecture into all prompt ou
 test('PAGE3 world-scene import preserves locked PAGE1 ambient and subject lighting', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    // This case asserts visible clouds. Directional omission is separately
+    // covered by the all-ambient matrix; do not let a random downward angle
+    // invalidate the ambient/import ownership assertion.
+    angleId: optionId('angleId', '平視高度鏡頭'),
     importedWorldSceneMode: 'architecture',
     importedWorldSceneLabel: '大阪｜梅田高架橋下街景',
     importedWorldSceneArchitectureText: 'world-scene architecture for the portrait: Osaka, Umeda, Umeda elevated railway and underpass street stays visible around and behind the subject',

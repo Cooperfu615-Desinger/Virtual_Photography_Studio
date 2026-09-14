@@ -112,6 +112,7 @@ import { projectZImageDirectionalSource } from './engine/zImageSceneDirection.js
 import { appendZImageUpperScene } from './engine/zImageUpperScene.js';
 import { selectZImageSceneDetails } from './engine/zImageSceneDetailPriority.js';
 import { resolveAmbientLightDescription, renderAmbientLightDescription } from './engine/ambientLightDescriptions.js';
+import { projectGptSceneLightingModel } from './engine/gptSceneVisibility.js';
 import { buildZImageFullBodyCamera } from './engine/zImageFullBodyCamera.js';
 
 export { createSeededRandom } from './engineRandom.js';
@@ -14905,7 +14906,10 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   if (ambientLightDescription) ambientValues.set('Ambient Light Conditions', [`${renderAmbientLightDescription(ambientLightDescription)}.`]);
   const ambientPromptModel = ambientLightDescription
     ? { ...promptModel, valuesByLabel: ambientValues, ambientLightDescription } : promptModel;
-  const grokPrompt = renderGptPrompt(ambientPromptModel, { compositionSection: true });
+  // GPT keeps full source and section order; only reviewed Scene/Lighting
+  // visibility is projected. Never pass this renderer-local view to Z/MJ.
+  const gptPromptModel = ambientEligible ? projectGptSceneLightingModel(ambientPromptModel) : ambientPromptModel;
+  const grokPrompt = renderGptPrompt(gptPromptModel, { compositionSection: true });
   const zImagePrompt = renderZImagePrompt(ambientPromptModel);
   const midjourneyPrompt = appendMidjourneyParameterTail(
     renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {

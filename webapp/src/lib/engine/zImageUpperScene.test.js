@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
@@ -65,6 +66,7 @@ test('230-case pre-change baseline: only approved low-camera main Z scene clause
       outputs.zImagePrompt = outputs.zImagePrompt.replace(`, ${addition}`, '');
     } else if (addition) assert.ok(!outputs.zImagePrompt.includes(addition), rows[index].id);
     outputs.zImagePrompt = normalizeFullCameraForLegacy(outputs.zImagePrompt);
+    outputs.grokPrompt = normalizeGptVisibilityForLegacy(outputs.grokPrompt, result.selection);
     return outputs;
   });
   for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map((o) => o[field])), baseline.hashes[field], field);

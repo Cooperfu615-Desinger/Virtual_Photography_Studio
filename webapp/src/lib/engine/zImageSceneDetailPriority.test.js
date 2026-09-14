@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
@@ -53,6 +54,7 @@ test('1430 frozen cases permit only reviewed low-camera scene substitutions', ()
       blocks[1] = `The setting is ${before}.` + blocks[1].slice(prefix.length);
       output.zImagePrompt = blocks.join('\n\n');
     }
+    output.grokPrompt = normalizeGptVisibilityForLegacy(output.grokPrompt, r.selection);
     return output;
   });
   for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map(o => o[field])), baseline.hashes[field], field);

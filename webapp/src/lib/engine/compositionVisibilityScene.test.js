@@ -9,6 +9,7 @@ import {
 } from '../engine.js';
 import { COMPOSITION_VISIBILITY_REGRESSION_FIXTURES } from './compositionVisibilityFixtures.js';
 import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
+import { projectZImageDirectionalSource } from './zImageSceneDirection.js';
 
 const controlsByKey = new Map(getLockControls().map((control) => [control.key, control]));
 const PHASE_FIVE_FIXTURE_IDS = [
@@ -123,7 +124,10 @@ for (const fixtureId of PHASE_FIVE_FIXTURE_IDS) {
     }
 
     for (const fragment of expected.gptSceneIncludes || []) {
-      assertIncludes(scenes.grokPrompt, fragment, `${fixtureId}: Gpt scene should include ${fragment}`);
+      const angle = controlsByKey.get('angleId').options.find(o => o.id === prompt.selection.angleId);
+      const visible = projectZImageDirectionalSource(fragment, angle);
+      if (visible) assertIncludes(scenes.grokPrompt, visible, `${fixtureId}: Gpt scene should include ${visible}`);
+      else assertExcludes(scenes.grokPrompt, fragment, `${fixtureId}: Gpt must omit reviewed off-angle detail`);
     }
 
     for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {

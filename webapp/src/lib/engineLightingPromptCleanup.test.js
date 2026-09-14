@@ -110,6 +110,8 @@ test('subject light prompts stay compact and subject-scoped', () => {
 test('generated prompts keep ambient conditions separate from subject light style', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
+    // Assert visible sky at a neutral angle; high-angle omission has its own matrix.
+    angleId: optionByLabel('angleId', '平視高度鏡頭').id,
     locationId: optionByLabel('locationId', '戶外：廣闊草原平原與天空').id,
     lightingId: optionByLabel('lightingId', '夏日深藍積雲').id,
     lightDirectionId: optionByLabel('lightDirectionId', '暖金黃昏色溫').id,

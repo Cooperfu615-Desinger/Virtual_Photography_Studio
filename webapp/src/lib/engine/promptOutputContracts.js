@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.11.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.12.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -102,7 +102,14 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
       version: '1.0.0',
       scope: 'ordinary single main GPT only; other modes and derivatives retain legacy source',
       source: 'ambientLightDescriptions.js; same resolved authored source as main Z',
-      fidelity: 'complete authored core and conditional details; no Z camera-height reduction',
+      fidelity: 'complete authored core; reviewed conditional sky/surface visibility follows effective camera direction',
+    },
+    sceneVisibility: {
+      version: '1.0.0',
+      scope: 'ordinary single main GPT only; same exclusions as authored ambient source',
+      source: 'full effective Scene sources; exact reviewed directional reductions only',
+      preserves: 'section order, scene identity, unknown text, light core, subject light, canonical pose and all other roles',
+      excludes: 'Z compaction, scene-first assembly, upper-scene additions and full-body camera rewrites',
     },
     source: { kind: 'field', key: 'grokPrompt' },
     applicability: {

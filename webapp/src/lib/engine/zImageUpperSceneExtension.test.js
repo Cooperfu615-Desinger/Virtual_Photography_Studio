@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
@@ -56,6 +57,7 @@ test('930 frozen cases permit only the 14 authored additions in eligible main Z 
     } else if (addition) {
       assert.ok(!outputs.zImagePrompt.includes(addition), row.id);
     }
+    outputs.grokPrompt = normalizeGptVisibilityForLegacy(outputs.grokPrompt, r.selection);
     return outputs;
   });
   for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map(o => o[field])), baseline.hashes[field], field);
