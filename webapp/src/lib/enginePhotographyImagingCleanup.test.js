@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { fullCameraFixture } from './engine/zImageFullBodyCameraFixtures.js';
+import { runSceneFixture } from './engine/sceneIntegratedAssemblyTestSupport.js';
+import { CLOSE_WORM_EXPECTED, OLD_WORM } from './engine/closeWormEyeTestSupport.js';
 
 import {
   buildPhotographyStylePrompt,
@@ -132,21 +135,38 @@ test('worm-eye angle preserves selected photography style and lens optics', () =
   assert.equal(sanitized.lensId, lens.id);
   assert.equal(sanitized.opticalEffectId, opticalEffect.id);
 
-  const [prompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    angleId: wormEye.id,
-    styleId: style.id,
-    lensId: lens.id,
-    opticalEffectId: opticalEffect.id,
-  });
-
-  assert.equal(prompt.selection.styleId, style.id);
-  assert.equal(prompt.selection.lensId, lens.id);
-  assert.equal(prompt.selection.opticalEffectId, opticalEffect.id);
-  assert.match(prompt.grokPrompt, /worm's-eye view|extremely low near the ground and tilted steeply upward/);
-  assert.match(prompt.grokPrompt, /Inspired by Ellen von Unwerth/);
-  assert.match(prompt.grokPrompt, /105mm medium telephoto lens/);
-  assert.match(prompt.grokPrompt, /blurred foreground occlusion near the lens/);
+  // Exercise the approved close-camera branches explicitly, not a random crop.
+  // The fixture fixes remaining controls and injects a seeded RNG.
+  for (const framing of ['中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)']) {
+    for (const poseBaseId of ['standing', 'kneeling']) {
+      const fixture = fullCameraFixture('蟲眼視角鏡頭', {
+        framingId: { byZh: framing }, poseBaseId,
+        poseArrangementId: 'model-natural-body-arrangement',
+        locationId: { byZh: '室內：鏡面地板攝影棚' },
+        styleId: style.id, lensId: lens.id, opticalEffectId: opticalEffect.id,
+      });
+      const { prompt } = runSceneFixture(fixture);
+      assert.equal(prompt.selection.framingId, optionByLabel('framingId', framing).id);
+      assert.equal(prompt.selection.poseBaseId, poseBaseId);
+      assert.equal(prompt.selection.styleId, style.id);
+      assert.equal(prompt.selection.lensId, lens.id);
+      assert.equal(prompt.selection.opticalEffectId, opticalEffect.id);
+      for (const field of ['grokPrompt', 'zImagePrompt']) {
+        if (framing === '全身鏡頭 (Full Body Shot)') {
+          assert.match(prompt[field], /An extreme worm's-eye view with the camera almost touching the ground/);
+          assert.ok(!prompt[field].includes('An extreme close-range worm’s-eye view'));
+        } else {
+          const kind = poseBaseId !== 'standing' ? 'neutral'
+            : framing === '中景鏡頭 (Medium Shot)' ? 'medium' : 'cowboy';
+          assert.equal(prompt[field].split(CLOSE_WORM_EXPECTED[kind]).length - 1, 1, `${fixture.id}/${field}`);
+          assert.ok(!prompt[field].includes(OLD_WORM));
+        }
+      }
+      assert.match(prompt.grokPrompt, /Inspired by Ellen von Unwerth/);
+      assert.match(prompt.grokPrompt, /105mm medium telephoto lens/);
+      assert.match(prompt.grokPrompt, /blurred foreground occlusion near the lens/);
+    }
+  }
 });
 
 test('camera angle control uses height-based definitions with legacy lock migration', () => {

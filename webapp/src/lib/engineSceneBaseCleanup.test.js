@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
+import { runSceneFixture } from './engine/sceneIntegratedAssemblyTestSupport.js';
 
 const locationOptions = () => getLockControls().find((control) => control.key === 'locationId').options;
 const framingOptions = () => getLockControls().find((control) => control.key === 'framingId').options;
@@ -30,6 +31,21 @@ function framingId(label) {
 }
 
 const wordCount = (text) => text.split(/\s+/).filter(Boolean).length;
+
+// Scene wording checks must not randomly enter camera visibility/exclusion paths.
+function stableScenePrompt(location, angle = '平視高度鏡頭') {
+  const { prompt } = runSceneFixture({
+    id: `scene-base/${location}/${angle}`, seed: 'scene-base-wording-v1',
+    locks: {
+      subjectCount: '1', locationId: { byZh: location },
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      angleId: { byZh: angle }, poseBaseId: 'standing',
+    },
+  });
+  assert.equal(prompt.selection.angleId, controlOptionId('angleId', angle));
+  assert.equal(prompt.selection.locationId, optionId(location));
+  return prompt;
+}
 
 function gptSceneSection(prompt) {
   return prompt.grokPrompt.match(/Scene:\n([\s\S]*?)(?=\n\n(?:Lighting|Camera Look):\n|\n\nmulti-cut sequence n=2$|$)/)?.[1] || '';
@@ -236,72 +252,19 @@ test('other dedicated scenes read as close scene bases instead of full environme
 });
 
 test('generated prompts use stabilized scene base wording', () => {
-  const [studioPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    angleId: getLockControls().find((control) => control.key === 'angleId').options.find((option) => option.zh === '平視高度鏡頭').id,
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('室內：純藍背景'),
-  });
-  const [meguroPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('戶外：目黑川旁的櫻花隧道'),
-  });
-  const [hallstattPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('戶外：奧地利 Hallstatt 湖畔山村觀景欄杆'),
-  });
-  const [saltFlatPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('戶外：白色鹽湖乾裂荒漠'),
-  });
-  const [subwaySignboardPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('室內：地下月台電子看板與海報牆'),
-  });
-  const [housePartyPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('室內：夜間家庭派對'),
-  });
-  const [bookshopPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('室內：古書二手書店'),
-  });
-  const [y2kRoomPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('室內：Y2K 復古房間'),
-  });
-  const [britishVintageRoomPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('室內：英倫復古窗邊房間'),
-  });
-  const [resortPoolPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('戶外：飯店度假村泳池露台'),
-  });
-  const [ryokanEngawaPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('戶外：日式旅館緣側木廊'),
-  });
-  const [luxuryHotelBalconyPrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('戶外：高級飯店陽台城市河景'),
-  });
-  const [forestCampsitePrompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: framingId('全身鏡頭 (Full Body Shot)'),
-    locationId: optionId('戶外：森林營地帳篷營火'),
-  });
+  const studioPrompt = stableScenePrompt('室內：純藍背景');
+  const meguroPrompt = stableScenePrompt('戶外：目黑川旁的櫻花隧道');
+  const hallstattPrompt = stableScenePrompt('戶外：奧地利 Hallstatt 湖畔山村觀景欄杆');
+  const saltFlatPrompt = stableScenePrompt('戶外：白色鹽湖乾裂荒漠');
+  const subwaySignboardPrompt = stableScenePrompt('室內：地下月台電子看板與海報牆');
+  const housePartyPrompt = stableScenePrompt('室內：夜間家庭派對');
+  const bookshopPrompt = stableScenePrompt('室內：古書二手書店');
+  const y2kRoomPrompt = stableScenePrompt('室內：Y2K 復古房間');
+  const britishVintageRoomPrompt = stableScenePrompt('室內：英倫復古窗邊房間');
+  const resortPoolPrompt = stableScenePrompt('戶外：飯店度假村泳池露台');
+  const ryokanEngawaPrompt = stableScenePrompt('戶外：日式旅館緣側木廊');
+  const luxuryHotelBalconyPrompt = stableScenePrompt('戶外：高級飯店陽台城市河景');
+  const forestCampsitePrompt = stableScenePrompt('戶外：森林營地帳篷營火');
 
   assert.match(studioPrompt.grokPrompt, /continuous vivid blue ground-and-background plane/);
   assert.match(studioPrompt.zImagePrompt, /continuous vivid blue ground-and-background plane/i);
@@ -330,6 +293,19 @@ test('generated prompts use stabilized scene base wording', () => {
   assert.match(luxuryHotelBalconyPrompt.zImagePrompt, /luxury hotel balcony river-view terrace/i);
   assert.match(forestCampsitePrompt.grokPrompt, /forest campsite clearing/);
   assert.match(forestCampsitePrompt.zImagePrompt, /canvas tent edge/i);
+});
+
+test('salt-flat ground wording follows resolved camera height without losing scene identity', () => {
+  const lowAngles = ['腰部高度鏡頭', '膝蓋高度鏡頭', '地面高度鏡頭', '蟲眼視角鏡頭'];
+  const retainedAngles = ['平視高度鏡頭', '肩部高度鏡頭', '高位俯視鏡頭', '鳥瞰視角', '正上方俯視鏡頭'];
+  for (const angle of [...retainedAngles, ...lowAngles, '平視高度鏡頭']) {
+    const prompt = stableScenePrompt('戶外：白色鹽湖乾裂荒漠', angle);
+    for (const field of ['grokPrompt', 'zImagePrompt']) {
+      assert.match(prompt[field], /white salt flat playa edge/i);
+      if (lowAngles.includes(angle)) assert.doesNotMatch(prompt[field], /cracked salt crust ground/i);
+      else assert.match(prompt[field], /cracked salt crust ground/i);
+    }
+  }
 });
 
 test('Gpt projected scenes preserve source anchors without public control guidance or solid-studio conflicts', () => {

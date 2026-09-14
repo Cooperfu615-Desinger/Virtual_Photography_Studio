@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
+import { runSceneFixture } from './engine/sceneIntegratedAssemblyTestSupport.js';
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
 const optionLabels = (key) => controlOptions(key).map((option) => option.zh);
@@ -665,14 +666,20 @@ test('zippered latex mini dress leaves the navel area visible for a selected nav
 test('mirror chrome garment color applies scene-reflective material to the new cut-out one-piece', () => {
   const cutoutSwimsuit = optionByLabel('dressId', '連身：短版｜高領挖腰連身泳裝');
   const mirrorChrome = optionByLabel('dressColorId', '鏡面鉻銀');
-  const [prompt] = generatePrompts(1, {
-    ...createEmptyLocks(),
-    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
-    outfitPresetId: optionByLabel('outfitPresetId', '全無').id,
-    dressId: cutoutSwimsuit.id,
-    dressColorId: mirrorChrome.id,
-    topBottomPaletteId: optionByLabel('topBottomPaletteId', '全無').id,
+  // Test this garment's color syntax in isolation. A random same-color outer
+  // layer can own the deduplicated finish phrase before the swimsuit instead.
+  const { prompt } = runSceneFixture({
+    id: 'cutout-swimsuit/mirror-chrome', seed: 'chrome-ci-check-67',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      angleId: { byZh: '平視高度鏡頭' }, orbitId: { byZh: '正面 0 度' },
+      dressId: cutoutSwimsuit.id, dressColorId: mirrorChrome.id,
+      outerwearId: { byZh: '全無' },
+      outfitPresetId: { byZh: '全無' }, topBottomPaletteId: { byZh: '全無' },
+    },
   });
+  assert.equal(prompt.selection.outerwearId, optionByLabel('outerwearId', '全無').id);
 
   const promptText = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt].join('\n');
 

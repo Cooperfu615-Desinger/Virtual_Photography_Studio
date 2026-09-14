@@ -51,4 +51,21 @@
 - Browser **PARTIAL**：手機 PAGE1 既有三欄輸出過窄及按鈕截字仍存在；未修改 CSS/JSX，也未重驗先前 D 工具列問題。Z-Image copied toast 出現，但瀏覽器剪貼簿讀回為空，故不宣稱 clipboard bytes 驗收通過；下載未重驗。Saved Cards／Markdown codec 測試與瀏覽器端交付分開報告。
 - 截圖由工具直接檢視，未新增圖片檔。外部模型實際貼近效果仍需使用者實測。
 
-未 commit／push／deploy；使用者原有圖片資料夾未修改。
+## CI 部署阻擋修正（2026-09-14）
+
+- 本體已於 `1b69b8c` commit/push，但 [CI run 34818235192](https://github.com/Cooperfu615-Desinger/Virtual_Photography_Studio/actions/runs/34818235192) 的前端測試 934/935，一項失敗導致 build/deploy skipped。上一次成功部署為 `b74a432`，不能將 push 成功視為線上已更新。
+- 失敗項 `enginePhotographyImagingCleanup.test.js` 的 worm-eye style/lens 測試未固定景別或 RNG，只接受舊 camera 句／直撇號 `worm's-eye view`；CI 抽到近距離牛仔中景的新 `worm’s-eye view`，因此失敗。本機舊 full suite 通過不代表此案例穩定。
+- 先固定鏡面攝影棚＋中景重現相同失敗，再將測試改為中景／牛仔中景／全身 × 站姿／跪姿共六組固定控制與 seeded RNG。近距離 GPT/Z 必須各包含一次完整核准文案、不得退回舊句；全身保留原文案。原 style、105mm lens、前景遮擋散景驗證保留。
+- 本輪只改測試及狀態文件，不改 production、Prompt 文案、baseline、workflow 或 UI；不需要因測試修正重做瀏覽器 UI 驗收。前一輪 Browser PARTIAL 限制仍保留，不代表線上新版已驗收。
+- 本輪聚焦測試 13/13、Prompt Quality 266/266、lint、build、diff-check 通過。固定輸入的舊 assertion 先重現紅燈，再以完整核准句修正為綠燈；不透過放寬 regex 接受任意文案。
+- 完整前端兩次均 934/935：第一輪為未修改的 `engineOutfitPresetDressCleanup.test.js` 鏡面鉻銀泳裝斷言；相同正式程式以 seed `chrome-ci-check-67` 可重現隨機外套組合失敗。第二輪該案例通過，改為未修改的 `engineSceneBaseCleanup.test.js` 鹽灘地面斷言失敗（隨機腰部高度已依法省略 `cracked salt crust ground`）。蟲眼案例兩輪皆通過。正式 engine/modules 與上述測試皆和 HEAD 相同；不擴大本輪修正、不反覆重跑直到綠燈掩蓋問題。
+- 整體 CI gate 仍為 PARTIAL，其他隨機測試可能繼續阻擋部署。尚未 commit/push/deploy。使用者原有圖片資料夾未修改。
+
+### 已核准的兩項測試穩定化後續
+
+- 使用者要求先處理上述兩項測試，再與蟲眼修正一併提交。本輪仍僅測試與文件，不修改正式生成器、來源資料、UI、歷史 baseline 或 CI workflow。
+- 鏡面鉻銀泳裝案例改用固定單人／全身／平視／正面、無外套與無其他完整造型的 isolated fixture，並注入 seed `chrome-ci-check-67`。保留原本材質必須接在泳裝之後的全部斷言，不放寬成任意地方有 silver 即通過。這只驗證單件服裝的 color syntax，不宣稱解決隨機同色外套搭配的描述歸屬問題。
+- 場景原文測試的 13 組場景一律使用固定平視與 seeded fixture，避免隨機進入低機位或其他排除路徑；保留全部原文斷言。另新增鹽灘高度矩陣，主 GPT/Z 在平視／肩部／高位／鳥瞰／正上方保留地面，在腰部／膝部／地面／蟲眼省略地面，所有情況保留場景身份，最後切回平視再次確認恢復。
+- 最終聚焦三個測試檔 49/49、獨立重跑四個指定案例 4/4、完整前端 936/936、Prompt Quality 重跑 266/266、lint、build、diff-check 通過。Build 僅既有 chunk 大小提醒。本輪未改 runtime/UI，不重做外部影像或瀏覽器視覺驗收。
+- Prompt Quality 初跑曾於未修改的 `enginePromptDeduplication.test.js: generated prompts state a controlled outfit color without repeating its garment target phrases` 失敗（2 !== 1）；同一測試在完整 suite 與 quality 重跑皆通過，未固定的隨機輸入仍是已知穩定性限制。本輪不修改此第四項測試或聲稱所有 CI flakes 已消除。
+- 三個測試修正與狀態文件一併提交；commit SHA 以 Git log 為準。本次要求為提交，未 push 或觸發遠端部署；線上更新須後續 push 並驗證 Actions。使用者圖片資料夾不納入提交。
