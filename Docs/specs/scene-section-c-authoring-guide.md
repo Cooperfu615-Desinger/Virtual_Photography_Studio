@@ -353,6 +353,8 @@ git diff --check
 
 ## 13. Review Checklist
 
+2026-09-14 核准補充：[36 組環境光共同描述 v1](ambient-light-shared-descriptions-v1.md) 在一般單人主 GPT/Z 使用 ID／中文／原文綁定的 authored overlay，不修改 catalog。GPT 全量新版來源；Z 僅省略條件性天空／低位表面細節，保留核心光感。人物受光與其他輸出不在本批範圍。新增或更改 catalog 原文時需重新審查 source pin，不可自動套用未確認的重寫。
+
 送出前請確認：
 
 - 選項是否真的屬於 C 區，而不是 A 人物、B 穿搭或 D 攝影與成像。

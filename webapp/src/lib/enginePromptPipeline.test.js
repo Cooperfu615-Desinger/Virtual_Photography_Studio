@@ -1152,17 +1152,17 @@ test('Z-Image and AI keep selected lighting and camera controls with model-speci
     filmId: optionId('filmId', '日系亮膚高彩濾鏡'),
   });
 
-  assert.match(gptSection(prompt, 'Lighting'), /indoor late-afternoon daylight environment[\s\S]*warm-neutral daylight spread[\s\S]*warm golden-amber subject light color[\s\S]*no sunset or sky cues/);
+  assert.match(gptSection(prompt, 'Lighting'), /indoor late-afternoon ambience[\s\S]*warm-neutral daylight[\s\S]*warm golden-amber subject light color[\s\S]*no sunset or sky cues/);
   assert.match(gptSection(prompt, 'Camera Look'), /high-key minimalist portraiture[\s\S]*flattened spatial layers[\s\S]*meaningful partial frame coverage[\s\S]*vivid saturation[\s\S]*clean deep blacks/);
 
   assertNaturalZImageParagraphs(prompt, 'compressed imaging z-image prompt');
-  assert.match(prompt.zImagePrompt, /indoor late-afternoon daylight environment, bright softened room illumination/i);
+  assert.match(prompt.zImagePrompt, /indoor late-afternoon ambience with bright softened illumination and warm-neutral daylight/i);
   assert.match(prompt.zImagePrompt, /(?:honey-amber subject light|honey-orange cast) on skin and clothing/i);
   assert.match(prompt.zImagePrompt, /Osamu Yokonami-inspired high-key minimalist image language/i);
   assert.match(prompt.zImagePrompt, /shot on 135mm long telephoto lens, strong background compression, narrow field of view/i);
   assert.match(prompt.zImagePrompt, /blurred foreground occlusion near the lens[\s\S]*thick near-field bokeh veil[\s\S]*clear opening toward the subject/i);
   assert.match(prompt.zImagePrompt, /glossy Japanese portrait color grade[\s\S]*creamy pale highlights[\s\S]*warm peach skin-tone protection[\s\S]*cyan-green shadows/i);
-  assert.doesNotMatch(prompt.zImagePrompt, /warm-neutral daylight spread|mellow exterior brightness|no sunset or sky cues/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /no sunset or sky cues/i);
   assert.doesNotMatch(prompt.zImagePrompt, /high-key minimalist portraiture|generous negative space|flattened spatial layers|distant working distance|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
 
   assert.match(prompt.midjourneyPrompt, /indoor late-afternoon daylight environment/i);
@@ -1943,7 +1943,7 @@ test('PAGE3 world-scene import preserves locked PAGE1 ambient and subject lighti
     aspectRatio: optionId('aspectRatio', '16:9 寬螢幕'),
   });
 
-  assert.match(prompt.grokPrompt, /deep azure summer sky/i);
+  assert.match(prompt.grokPrompt, /deep azure sky and towering luminous white cumulus clouds/i);
   assert.match(prompt.grokPrompt, /hard direct sunlight on the subject/i);
   assert.doesNotMatch(prompt.grokPrompt, /candlelit interior environment/i);
   assert.doesNotMatch(prompt.grokPrompt, /warm-white practical-lamp subject color/i);

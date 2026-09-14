@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.10.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.11.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -98,6 +98,12 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     field: 'grokPrompt',
     uiLabel: 'Gpt',
     target: 'GPT Image / ChatGPT Image',
+    ambientDescription: {
+      version: '1.0.0',
+      scope: 'ordinary single main GPT only; other modes and derivatives retain legacy source',
+      source: 'ambientLightDescriptions.js; same resolved authored source as main Z',
+      fidelity: 'complete authored core and conditional details; no Z camera-height reduction',
+    },
     source: { kind: 'field', key: 'grokPrompt' },
     applicability: {
       supportedModes: ['single', 'duo'],

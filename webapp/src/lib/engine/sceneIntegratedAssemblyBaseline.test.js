@@ -124,14 +124,16 @@ for (const fixture of fixtures) {
       const expectedHash = field === 'zImagePrompt' && !fixture.excluded
         ? zExpected.cases[fixture.id].hash : field === 'midjourneyPrompt' && !fixture.excluded
           ? mjExpected.cases[fixture.id].hash : entry.outputHashes[field];
-      assert.equal(digest(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field]), expectedHash, `${field}: scoped output drift`);
+      assert.equal(digest(normalizeAmbientForLegacy(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field], field, first.selection)), expectedHash, `${field}: scoped output drift`);
       assert.deepEqual(validatePromptOutputContract(field, first.outputs[field], {
         mode: fixture.mode,
         allowedLanguageLiterals: field === 'zImagePrompt' && first.selection.zImageVisibleTextEnabled
           ? [first.selection.zImageVisibleTextContent] : [],
       }), [], `${field}: output contract`);
     }
-    if (entry.outputs) assert.deepEqual({ ...first.outputs, zImagePrompt: normalizeFullCameraForLegacy(first.outputs.zImagePrompt) }, {
+    if (entry.outputs) assert.deepEqual({ ...first.outputs,
+      grokPrompt: normalizeAmbientForLegacy(first.outputs.grokPrompt, 'grokPrompt', first.selection),
+      zImagePrompt: normalizeAmbientForLegacy(normalizeFullCameraForLegacy(first.outputs.zImagePrompt), 'zImagePrompt', first.selection) }, {
       ...entry.outputs, zImagePrompt: zExpected.cases[fixture.id].text,
       midjourneyPrompt: mjExpected.cases[fixture.id].text,
     }, 'only the approved Z/MJ core text changes');
@@ -173,7 +175,7 @@ test('core Z cases reorder existing scene and capture without reducing subject, 
     assert.ok(current[1].startsWith(`The setting is ${sourceScene}.`));
     assert.equal(current.join('\n').split(identity).length - 1, 1, 'location identity is not repeated');
     assert.doesNotMatch(current[5], /steel arch supports|layered signboards/i, 'scene details occur only in the opening');
-    assert.match(current[5], id === 'R02-kneel-high-selfie' ? /^Blue hour environment, neon color spill/i : /^Golden sunset environment, warm orange-pink sky gradient/i);
+    assert.match(current[5], id === 'R02-kneel-high-selfie' ? /^Blue-hour ambience with fading daylight and a cool evening tone, neon color spill/i : /^Golden sunset ambience with warm amber evening light, orange-pink sky/i);
     assert.doesNotMatch(current[5], /deep blue dusk sky/i);
     assert.match(current[1], /self-shot.*right arm extended/i);
     assert.doesNotMatch(current[3], /self-shot|phone|vertical surface/);
@@ -284,3 +286,4 @@ test('reverse generation order and independent observation workspace preserve ba
   }
   assert.deepEqual(stableValue(observe()), before);
 });
+import { normalizeAmbientForLegacy } from './ambientLightTestSupport.js';

@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.11.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.12.0';
 
 const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
   'imageType', 'composition', 'subject', 'pose', 'wardrobe',
@@ -58,6 +58,13 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
   },
   sectionOrder: SECTION_ORDER,
   singleSceneIntegrated: {
+    ambientDescription: {
+      version: '1.0.0',
+      source: '36 exact-ID/source-pinned shared GPT/Z descriptions in ambientLightDescriptions.js',
+      core: 'always retain authored ambient light; no generic first-two-clause truncation',
+      detail: 'omit sky at downward cameras; reduce surface at low cameras; no visible light-source inference',
+      fallback: 'unchanged legacy source pipeline for unknown, modified or excluded selections',
+    },
     sectionOrder: SCENE_INTEGRATED_SECTION_ORDER,
     scope: 'ordinary PAGE1 single-subject main output only',
     exclusions: ['duo', 'fixed-composition', 'dedicated-subject', 'character-card', 'supine-surface-led', 'derived-output'],

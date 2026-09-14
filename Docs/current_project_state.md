@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-14
 
+## Shared ambient-light descriptions v1: ordinary main GPT/Z (2026-09-14)
+
+- Starting checkpoint main / `426f63f` (regular-length hoodie already committed); this ambient batch remains local, not staged/committed/pushed/deployed. The historical scene batch below is now committed as `981475d`.
+- 36 reviewed Ambient Light Conditions use an exact ID/zh/source-bound authored overlay: GPT retains the complete new description; ordinary main Z retains the light core and projects only tagged sky/surface details. Subject Light Styles (25), catalog/UI/IDs/compatibility/storage, MJ, derivatives and excluded paths remain unchanged. Source v1.0.0, Z contract v1.12.0, output contract v1.11.0; [scope, all English wording and validation](specs/ambient-light-shared-descriptions-v1.md).
+- Frozen 720-case matrix and 10 excluded fixtures pass; selection/RNG and non-ambient bytes remain identical. Saved Cards and Markdown primary output text round trips pass. Frontend 923/923, Prompt Quality 254/254, lint/build and diff check pass. Same-seed strict 200: zero blockers and unchanged 23 diagnostics; only GPT/Z length statistics differ.
+- Browser checked at desktop 1440x1000 and mobile 390x900 across the five required workspaces. Live blue-hour high/low difference, cumulus specificity, rain-after wall reflection, mixed subject lighting and DLL source toggle verified. No observed warning/error logs; character images complete after loading. Six existing cards retained, original controls/source/viewport restored. Browser acceptance remains PARTIAL due to existing mobile PAGE1 overflow (375 client / 411 scroll) and narrow outputs; clipboard/download bytes not reverified. No external images generated. User untracked folders untouched.
+- Next unimplemented discussion scope: the 25 Subject Light Styles; do not treat this ambient pass as all lighting completed or expand renderer scope without approval.
+
 ## Z-Image existing scene-detail priority: ten reviewed scenes (2026-09-14)
 
 - Starting checkpoint `main` / `f6a2ed9`, already on `origin/main`; the prior eighteen upper-scene sources are committed. This batch is local only, not staged/committed/pushed/deployed.

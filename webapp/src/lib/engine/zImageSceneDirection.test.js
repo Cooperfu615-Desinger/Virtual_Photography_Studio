@@ -80,7 +80,7 @@ test('runtime merges filtered scene before subject and never backfills hidden so
     input.locks.framingId = { byZh: '全身鏡頭 (Full Body Shot)' };
     const { outputs } = runSceneFixture(input);
     assert.match(outputs.zImagePrompt.split('\n\n')[1], /raised wooden deck edge/);
-    assert.match(outputs.zImagePrompt, /blue hour environment/i);
+    assert.match(outputs.zImagePrompt, /blue-hour ambience with fading daylight and a cool evening tone/i);
     assert.doesNotMatch(outputs.zImagePrompt, /deep blue dusk sky/i);
     assert.match(outputs.grokPrompt, /deep blue dusk sky/i);
     assert.match(outputs.midjourneyPrompt, /deep blue dusk sky/i);

@@ -111,6 +111,7 @@ import {
 import { projectZImageDirectionalSource } from './engine/zImageSceneDirection.js';
 import { appendZImageUpperScene } from './engine/zImageUpperScene.js';
 import { selectZImageSceneDetails } from './engine/zImageSceneDetailPriority.js';
+import { resolveAmbientLightDescription, renderAmbientLightDescription } from './engine/ambientLightDescriptions.js';
 import { buildZImageFullBodyCamera } from './engine/zImageFullBodyCamera.js';
 
 export { createSeededRandom } from './engineRandom.js';
@@ -12615,7 +12616,9 @@ function renderZImagePrompt(promptModel) {
   const buildLightingText = () => joinSentenceParts([
     context.lighting && !isNoneLikeItem(context.lighting)
       ? (sceneIntegrated
-        ? projectZImageDirectionalSource(compactZImageAmbientLightText(context.lighting.en), context.angle)
+        ? (promptModel.ambientLightDescription
+          ? renderAmbientLightDescription(promptModel.ambientLightDescription, 'z', context.angle)
+          : projectZImageDirectionalSource(compactZImageAmbientLightText(context.lighting.en), context.angle))
         : compactZImageAmbientLightText(skeletonMode ? sanitizeSkeletonPromptText(context.lighting.en) : context.lighting.en))
       : '',
     lightDirection && !isNoneLikeItem(lightDirection)
@@ -14888,8 +14891,22 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     lightDirection,
     film,
   });
-  const grokPrompt = renderGptPrompt(promptModel, { compositionSection: true });
-  const zImagePrompt = renderZImagePrompt(promptModel);
+  // A shared, authored ambient source for ordinary main GPT/Z only. Keep the
+  // original structured model for MJ, derivatives and excluded subjects/modes.
+  const ambientPose = extractCharacterSlots(projectedCharacter).poseComposer;
+  const ambientAnchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, ambientPose?.meta?.poseAnchorId);
+  const ambientEligible = mainContext.subject.count === 1
+    && !isDedicatedSpecialSubject(mainContext.subject) && !isCharacterProfileSubject(mainContext.subject)
+    && !mainContext.characterProfilePrompt && !isFixedCompositionSetActive(mainContext.fixedCompositionSet)
+    && !(ambientPose?.meta?.poseBaseId === 'lying' && ambientPose?.meta?.poseOrientationId === 'lying-supine'
+      && ambientAnchor?.meta?.supineSurfaceLed === true);
+  const ambientLightDescription = ambientEligible ? resolveAmbientLightDescription(mainContext.lighting) : null;
+  const ambientValues = new Map(promptModel.valuesByLabel);
+  if (ambientLightDescription) ambientValues.set('Ambient Light Conditions', [`${renderAmbientLightDescription(ambientLightDescription)}.`]);
+  const ambientPromptModel = ambientLightDescription
+    ? { ...promptModel, valuesByLabel: ambientValues, ambientLightDescription } : promptModel;
+  const grokPrompt = renderGptPrompt(ambientPromptModel, { compositionSection: true });
+  const zImagePrompt = renderZImagePrompt(ambientPromptModel);
   const midjourneyPrompt = appendMidjourneyParameterTail(
     renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {
       midjourneyAdaptation: buildMidjourneyFramingPoseAdaptation(mainContext),

@@ -114,12 +114,12 @@ test('phase 6 blocks any engine or public-contract drift across all Midjourney f
     assert.ok(nativeFixture, `${parameterFixture.id}: native structure fixture`);
 
     assert.equal(
-      hashPrompt(prompt.grokPrompt),
+      hashPrompt(normalizeAmbientForLegacy(prompt.grokPrompt, 'grokPrompt', prompt.selection)),
       parameterFixture.baselineHashes.grokPrompt,
       `${parameterFixture.id}: historical Gpt mapping`
     );
     assert.equal(
-      hashPrompt(normalizeFullCameraForLegacy(prompt.zImagePrompt)),
+      hashPrompt(normalizeAmbientForLegacy(normalizeFullCameraForLegacy(prompt.zImagePrompt), 'zImagePrompt', prompt.selection)),
       parameterFixture.baselineHashes.zImagePrompt,
       `${parameterFixture.id}: historical Grok/Z-Image mapping`
     );
@@ -306,3 +306,4 @@ test('description phase 7 freezes direct syntax, mappings, and downstream consum
 
   }
 });
+import { normalizeAmbientForLegacy } from './ambientLightTestSupport.js';

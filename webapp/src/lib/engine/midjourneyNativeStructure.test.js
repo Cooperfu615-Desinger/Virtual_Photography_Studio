@@ -98,12 +98,12 @@ test('phase 5 changes only AI structure and preserves every non-AI baseline', ()
     const { mode, prompt } = generateFixture(parameterFixture);
 
     assert.equal(
-      hashPrompt(prompt.grokPrompt),
+      hashPrompt(normalizeAmbientForLegacy(prompt.grokPrompt, 'grokPrompt', prompt.selection)),
       parameterFixture.baselineHashes.grokPrompt,
       `${parameterFixture.id}: Gpt`
     );
     assert.equal(
-      hashPrompt(normalizeFullCameraForLegacy(prompt.zImagePrompt)),
+      hashPrompt(normalizeAmbientForLegacy(normalizeFullCameraForLegacy(prompt.zImagePrompt), 'zImagePrompt', prompt.selection)),
       parameterFixture.baselineHashes.zImagePrompt,
       `${parameterFixture.id}: Grok/Z-Image`
     );
@@ -151,3 +151,4 @@ test('phase 5 preserves positive Body Type anchors and canonical pose verbatim',
   assertZImagePoseProjection(posePrompt);
   assert.ok(posePrompt.midjourneyPrompt.includes(canonicalPose));
 });
+import { normalizeAmbientForLegacy } from './ambientLightTestSupport.js';

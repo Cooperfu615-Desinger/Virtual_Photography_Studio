@@ -211,7 +211,7 @@ test('phase 4 preserves representative content while adding only the approved AI
     for (const field of ['grokPrompt', 'zImagePrompt']) {
       assert.equal(repeated.prompt[field], first.prompt[field], `${fixture.id}.${field}: deterministic`);
       assert.equal(
-        hashPrompt(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.prompt[field]) : first.prompt[field]),
+        hashPrompt(normalizeAmbientForLegacy(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.prompt[field]) : first.prompt[field], field, first.prompt.selection)),
         fixture.baselineHashes[field],
         `${fixture.id}.${field}: baseline`
       );
@@ -271,3 +271,4 @@ test('phase 1 preserves source-derived positive Body Type anchors and exact cano
   assert.ok(posePrompt.midjourneyPrompt.includes(canonicalPose));
   assert.equal(PROMPT_OUTPUT_CONTRACTS.midjourneyPrompt.field, 'midjourneyPrompt');
 });
+import { normalizeAmbientForLegacy } from './ambientLightTestSupport.js';
