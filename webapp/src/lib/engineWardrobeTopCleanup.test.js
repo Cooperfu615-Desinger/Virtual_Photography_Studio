@@ -44,6 +44,7 @@ const EXPECTED_TOP_LABELS = [
   '掛脖上衣',
   '泡袖上衣',
   '針織背心',
+  '帽T',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
@@ -135,5 +136,34 @@ test('cropped lace camisole matches the LENY-style lace cami construction', () =
     assert.match(prompt.zImagePrompt, pattern);
   });
 
+  assert.ok(top.en.split(/\s+/).length <= 24);
+});
+
+test('regular hoodie stays distinct from the cropped hoodie and uses shared top styling controls', () => {
+  const top = optionByLabel('topId', '帽T');
+  const color = optionByLabel('topColorId', '黑色');
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
+    topId: top.id,
+    topColorId: color.id,
+  });
+
+  [
+    /regular-length pullover hoodie/i,
+    /drawstring hood/i,
+    /ribbed cuffs and hem/i,
+    /relaxed casual streetwear silhouette/i,
+  ].forEach((pattern) => {
+    assert.match(top.en, pattern);
+    assert.match(prompt.grokPrompt, pattern);
+    assert.match(prompt.zImagePrompt, pattern);
+  });
+
+  assert.match(prompt.grokPrompt, /black regular-length pullover hoodie/i);
+  assert.match(prompt.zImagePrompt, /black regular-length pullover hoodie/i);
+  assert.doesNotMatch(top.en, /cropped|cinched waist hem/i);
+  assert.doesNotMatch(prompt.grokPrompt, /cropped hoodie|cinched waist hem/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /cropped hoodie|cinched waist hem/i);
   assert.ok(top.en.split(/\s+/).length <= 24);
 });

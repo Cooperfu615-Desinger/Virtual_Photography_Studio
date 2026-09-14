@@ -195,6 +195,7 @@
 | **上身 (Tops)** | 掛脖上衣 | `halter top, neck-tie or halter straps, open shoulder line, fitted upper-body silhouette` | 以繞頸或掛脖肩帶、露肩線與合身上身輪廓為主。 |
 | **上身 (Tops)** | 泡袖上衣 | `puff-sleeve blouse, gathered sleeve volume, defined shoulder shape, soft woven fabric` | 以集褶澎袖、明確肩部份量與柔軟梭織布料為主。 |
 | **上身 (Tops)** | 針織背心 | `knit sweater vest, sleeveless layered construction, ribbed knit texture, relaxed upper-body shape` | 以無袖針織背心、羅紋或紋理針織表面與放鬆上身比例為主。 |
+| **上身 (Tops)** | 帽T | `regular-length pullover hoodie, drawstring hood, ribbed cuffs and hem, relaxed casual streetwear silhouette` | 以一般衣長的套頭帽T、抽繩帽兜、羅紋袖口與下襬，以及放鬆的休閒街頭輪廓為主，與短版帽T區分。 |
 | **上身圖案 (Top Surface Design)** | 全無 | `no added top pattern, clean solid-color surface styling` | 不額外加入上身表面圖案，保留單色與乾淨版型表現。 |
 | **上身圖案 (Top Surface Design)** | 粗橫條紋 | `bold horizontal stripe top, clearly defined stripe bands across the torso, strong Breton-style graphic rhythm` | 以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。 |
 | **上身圖案 (Top Surface Design)** | 細橫條紋 | `fine horizontal stripe top, narrow repeated stripe bands across the torso, delicate Breton-inspired surface rhythm` | 以細緻而連續的橫向條帶覆蓋整件上身，保留清楚的橫條紋識別，同時比粗條紋更日常、更輕盈。 |
