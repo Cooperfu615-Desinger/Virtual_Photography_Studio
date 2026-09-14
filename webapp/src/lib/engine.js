@@ -114,6 +114,7 @@ import { selectZImageSceneDetails } from './engine/zImageSceneDetailPriority.js'
 import { resolveAmbientLightDescription, renderAmbientLightDescription } from './engine/ambientLightDescriptions.js';
 import { projectGptSceneLightingModel } from './engine/gptSceneVisibility.js';
 import { buildZImageFullBodyCamera } from './engine/zImageFullBodyCamera.js';
+import { composeGptCameraSpatial } from './engine/gptCameraSpatial.js';
 
 export { createSeededRandom } from './engineRandom.js';
 
@@ -11817,6 +11818,7 @@ function compressZImageSinglePoseText(value, context) {
 
 function renderGptPrompt(promptModel, {
   compositionSection = false,
+  cameraSpatial = false,
   characterProfileWardrobeSection = false,
   wardrobeFallbackText = '',
 } = {}) {
@@ -11856,11 +11858,15 @@ function renderGptPrompt(promptModel, {
   const imageTypeLine = buildImageTypePromptLine(context) || imageType;
   const useRoleOrderedDuo = context.subject?.count === 2 && character && wardrobe && wardrobeColors;
   const characterSlots = character ? extractCharacterSlots(character) : {};
-  const compositionLine = joinCompositionPromptText(
-    [
+  const baseCompositionLine = [
       buildGptAspectRatioPromptLine(context),
       buildCompositionPromptLine(context),
-    ].filter(Boolean).join(', '),
+    ].filter(Boolean).join(', ');
+  const compositionLine = joinCompositionPromptText(
+    cameraSpatial ? composeGptCameraSpatial(baseCompositionLine,
+      compactCameraDescriptor(context.angle, 'angle'), context.angle,
+      getCompositionVisibilityProjection(context).bucket,
+      characterSlots.poseComposer?.meta?.poseBaseId || '') : baseCompositionLine,
     useRoleOrderedDuo ? null : characterSlots.poseComposer,
   );
   const duoCharacterSlots = useRoleOrderedDuo ? extractCharacterSlots(character) : null;
@@ -14909,7 +14915,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   // GPT keeps full source and section order; only reviewed Scene/Lighting
   // visibility is projected. Never pass this renderer-local view to Z/MJ.
   const gptPromptModel = ambientEligible ? projectGptSceneLightingModel(ambientPromptModel) : ambientPromptModel;
-  const grokPrompt = renderGptPrompt(gptPromptModel, { compositionSection: true });
+  const grokPrompt = renderGptPrompt(gptPromptModel, { compositionSection: true, cameraSpatial: ambientEligible });
   const zImagePrompt = renderZImagePrompt(ambientPromptModel);
   const midjourneyPrompt = appendMidjourneyParameterTail(
     renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {

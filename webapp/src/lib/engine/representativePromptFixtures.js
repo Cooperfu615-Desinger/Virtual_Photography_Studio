@@ -687,7 +687,8 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     expectedOutputs: {
       grokPrompt: {
         includes: [
-          'Knee-up cowboy shot, high angle, looking down, right profile view',
+          'Knee-up cowboy shot, right profile view.',
+          'The camera is positioned clearly above the woman and tilted downward toward her, revealing the top planes of her shoulders and waistband.',
           'both hands gripping the front waistband or belt loops, elbows angled outward',
         ],
         excludes: ['The camera sees only the right side of her body'],

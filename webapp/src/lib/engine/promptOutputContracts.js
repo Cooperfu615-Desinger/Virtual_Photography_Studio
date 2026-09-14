@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.12.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.13.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -98,6 +98,12 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     field: 'grokPrompt',
     uiLabel: 'Gpt',
     target: 'GPT Image / ChatGPT Image',
+    cameraSpatial: {
+      version: '1.0.0',
+      scope: 'ordinary single main GPT only; same exclusions as scene visibility',
+      source: 'resolved camera angle and crop; approved full-body six-group and non-full angle-only geometry',
+      preserves: 'ratio, framing, orbit, pose modifier, canonical pose, all non-Composition sections and other outputs',
+    },
     ambientDescription: {
       version: '1.0.0',
       scope: 'ordinary single main GPT only; other modes and derivatives retain legacy source',

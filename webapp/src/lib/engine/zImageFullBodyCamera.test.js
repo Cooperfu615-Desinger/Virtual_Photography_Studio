@@ -47,7 +47,8 @@ test('main full-body runtime retains height/roll hints and replaces only effecti
     if (i < 5) assert.ok(opening.includes(hints[i]), label);
     assert.match(opening, /Full-body portrait/);
     if (label === '蟲眼視角鏡頭') assert.match(opening, /feet and lower legs loom large/);
-    for (const field of OUTPUT_FIELDS.filter((f) => f !== 'zImagePrompt')) {
+    // Main GPT now shares the approved camera vocabulary; derivatives/MJ do not.
+    for (const field of OUTPUT_FIELDS.filter((f) => !['zImagePrompt', 'grokPrompt'].includes(f))) {
       for (const [text] of FULL_CAMERA_TEXT_PAIRS) assert.ok(!result.outputs[field].includes(text), field);
     }
   }

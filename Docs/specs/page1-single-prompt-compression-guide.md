@@ -2,6 +2,8 @@
 
 Last updated: 2026-09-14
 
+2026-09-14 GPT Composition：一般單人主 GPT 加入相機空間關係，沿用已核准全身六組與其他景別的 angle-only 語意，保留原段落順序、比例、方位及構圖 modifier。此核准例外取代以下「未合併 GPT 相機文案」的歷史狀態；不改 Scene／Lighting、Z/MJ 或衍生／排除路徑。四輸出契約 v1.13.0，見 [相機空間關係第一版](gpt-composition-camera-spatial-v1.md)。
+
 2026-09-14 GPT 場景可見性：一般單人主 GPT 現在對完整有效 Scene／Lighting 來源套用已審查的鏡頭方向地面／天空投影，保留原段落順序、其餘完整來源、環境光核心、人物受光與 canonical pose。這項核准例外取代下方「GPT 不套用高度刪除」的歷史狀態；不合併 Z 壓縮、場景先行、上方場景或全身相機文案。四輸出契約 v1.12.0，見 [GPT Scene／Lighting 可見性](gpt-scene-lighting-visibility-v1.md)。
 
 2026-09-14 環境光共同描述：36 組已核准的環境核心＋條件性細節，僅用於一般單人主 GPT/Z。GPT 完整保留新版有效描述，不套用 Z 的高度刪除；Z 不再固定取前兩片語，僅投影已標記天空／表面細節。25 組人物受光、MJ、衍生與排除路徑、catalog/UI/storage 不變。這是 GPT 原始英文保留規則的限定來源改寫，見 [正式規格與英文](ambient-light-shared-descriptions-v1.md)。

@@ -143,7 +143,7 @@ test('worm-eye angle preserves selected photography style and lens optics', () =
   assert.equal(prompt.selection.styleId, style.id);
   assert.equal(prompt.selection.lensId, lens.id);
   assert.equal(prompt.selection.opticalEffectId, opticalEffect.id);
-  assert.match(prompt.grokPrompt, /worm's-eye view/);
+  assert.match(prompt.grokPrompt, /worm's-eye view|extremely low near the ground and tilted steeply upward/);
   assert.match(prompt.grokPrompt, /Inspired by Ellen von Unwerth/);
   assert.match(prompt.grokPrompt, /105mm medium telephoto lens/);
   assert.match(prompt.grokPrompt, /blurred foreground occlusion near the lens/);

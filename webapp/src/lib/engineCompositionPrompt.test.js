@@ -61,10 +61,13 @@ test('cowboy framing is labeled as knee-up before the generic medium-shot match'
     orbitId: optionId('orbitId', '左側 90 度'),
   });
 
-  for (const field of ['grokPrompt', 'midjourneyPrompt']) {
+  for (const field of ['midjourneyPrompt']) {
     assert.match(prompt[field], /Knee-up cowboy shot, high angle, looking down, left profile view/i, field);
     assert.doesNotMatch(prompt[field], /Waist-up portrait/i, field);
   }
+  assert.match(prompt.grokPrompt, /Knee-up cowboy shot, left profile view\./i);
+  assert.match(prompt.grokPrompt, /camera is positioned clearly above the woman and tilted downward/i);
+  assert.doesNotMatch(prompt.grokPrompt, /Waist-up portrait/i);
   assert.match(prompt.zImagePrompt, /Knee-up cowboy shot\./i);
   assert.match(prompt.zImagePrompt, /camera is positioned clearly above the woman and tilted downward/i);
   assert.match(prompt.zImagePrompt, /facing the right edge[\s\S]*only the left side of her body[\s\S]*strict 90-degree lateral body view/i);

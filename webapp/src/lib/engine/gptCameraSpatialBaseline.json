@@ -1,0 +1,2248 @@
+{
+  "commit": "17cc41150652e1e46981a0a4832f6cd556d9a977",
+  "count": 6320,
+  "hashes": {
+    "grokPrompt": "08593aa26d35e8c19e7b1588702173592587ba64168cf6454b12ec24100bac42",
+    "zImagePrompt": "b2693b49ac069fe6d25332a219e597ecd1743d5745297285173e1e93bb869018",
+    "midjourneyPrompt": "2524e2b47e6efc48257d9f35fe7bbbf1042cf6a3873afed05e19d3e0ff987df0",
+    "chestUpPortraitPrompt": "23d595d91f1a632cf1106232fa44a486cbc9bbcb1cb3603386bb9894977c1932",
+    "chestUpMjPortraitPrompt": "5303b24b931833c8b2ec3bb656d4fa962da5b224859b03072832caf106eac0ea",
+    "fullBodyCharacterPrompt": "fd46bd0c12ce550f48125ceb7387bb3f02463be463cecd599c650129dca13d83"
+  },
+  "selectionHash": "587990e841049b2a2fb0b9de61ca510011dde9478e954822ddf9d981f8bc0573",
+  "randomHash": "35995ff103c8783e9ffaa4ef67d92eea9883e13cd0d5fd65dd5b49c6e2ad8766",
+  "originals": [
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:鳥瞰視角:8",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, bird's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:鳥瞰視角:8",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, bird's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:鳥瞰視角:8",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, bird's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:鳥瞰視角:8",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, bird's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:鳥瞰視角:8",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, bird's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, top-down view, front view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, top-down view, front view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, top-down view, front view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, top-down view, front view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, top-down view, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, eye-level view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, shoulder-level view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, waist-level view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, knee-level view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, tilted frame."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, low angle from floor level."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, worm's-eye view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, high angle, looking down."
+    ],
+    [
+      "camera:相機視角-angle:鳥瞰視角:8",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, bird's-eye view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, top-down view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全無:0",
+      "none",
+      "Eye-level view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:全無:0",
+      "none",
+      "Shoulder-level view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:全無:0",
+      "none",
+      "Waist-level view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:全無:0",
+      "none",
+      "Knee-level view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:全無:0",
+      "none",
+      "Tilted frame."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全無:0",
+      "none",
+      "Low angle from floor level."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全無:0",
+      "none",
+      "Worm's-eye view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:全無:0",
+      "none",
+      "High angle, looking down."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全無:0",
+      "none",
+      ""
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, eye-level view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, shoulder-level view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, waist-level view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, knee-level view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, tilted frame."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, low angle from floor level."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, worm's-eye view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, high angle, looking down."
+    ],
+    [
+      "camera:相機視角-angle:鳥瞰視角:8",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, bird's-eye view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, top-down view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, eye-level view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, shoulder-level view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, waist-level view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, knee-level view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, tilted frame."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, low angle from floor level."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, worm's-eye view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, high angle, looking down."
+    ],
+    [
+      "camera:相機視角-angle:鳥瞰視角:8",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, bird's-eye view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait, top-down view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "lying",
+      "Full-body portrait."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, worm's-eye view, front-left three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, low angle from floor level, front-left three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, top-down view, front-left three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, worm's-eye view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, low angle from floor level, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, top-down view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, worm's-eye view, rear-left three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, low angle from floor level, rear-left three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, top-down view, rear-left three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, worm's-eye view, back view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, low angle from floor level, back view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, top-down view, back view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, worm's-eye view, rear-right three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, low angle from floor level, rear-right three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, top-down view, rear-right three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, worm's-eye view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, low angle from floor level, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, top-down view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, worm's-eye view, front-right three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, low angle from floor level, front-right three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:正上方俯視鏡頭:9",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, top-down view, front-right three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "standing",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, shoulder-level view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "standing",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "standing",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, waist-level view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, waist-level view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:局部五官特寫:2",
+      "lying",
+      "Facial-detail close-up, shoulder-level view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:局部五官特寫:2",
+      "lying",
+      "Facial-detail close-up, tilted frame."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:局部五官特寫:2",
+      "lying",
+      "Facial-detail close-up, eye-level view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "standing",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, eye-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "standing",
+      "Head-and-shoulders portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "standing",
+      "Chest-up portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "sitting",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, eye-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "sitting",
+      "Head-and-shoulders portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "sitting",
+      "Chest-up portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "sitting",
+      "Waist-up portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "sitting",
+      "Knee-up cowboy shot, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "kneeling",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, eye-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "kneeling",
+      "Head-and-shoulders portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "kneeling",
+      "Chest-up portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "kneeling",
+      "Waist-up portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "kneeling",
+      "Knee-up cowboy shot, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "squatting",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, eye-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "squatting",
+      "Head-and-shoulders portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "squatting",
+      "Chest-up portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "squatting",
+      "Waist-up portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "lying",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, eye-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "lying",
+      "Head-and-shoulders portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "lying",
+      "Chest-up portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "lying",
+      "Knee-up cowboy shot, eye-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "standing",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, shoulder-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "standing",
+      "Head-and-shoulders portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "standing",
+      "Chest-up portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "sitting",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, shoulder-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "sitting",
+      "Head-and-shoulders portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "sitting",
+      "Chest-up portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "sitting",
+      "Waist-up portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "sitting",
+      "Knee-up cowboy shot, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "kneeling",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, shoulder-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "kneeling",
+      "Head-and-shoulders portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "kneeling",
+      "Chest-up portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "kneeling",
+      "Waist-up portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "kneeling",
+      "Knee-up cowboy shot, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "squatting",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, shoulder-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "squatting",
+      "Head-and-shoulders portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "squatting",
+      "Chest-up portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "squatting",
+      "Waist-up portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "lying",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, shoulder-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "lying",
+      "Head-and-shoulders portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "lying",
+      "Chest-up portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "lying",
+      "Knee-up cowboy shot, shoulder-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "standing",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, shoulder-level view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "standing",
+      "Head-and-shoulders portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "standing",
+      "Chest-up portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "sitting",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, shoulder-level view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "sitting",
+      "Head-and-shoulders portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "sitting",
+      "Chest-up portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "sitting",
+      "Waist-up portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "sitting",
+      "Knee-up cowboy shot, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "kneeling",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, shoulder-level view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "kneeling",
+      "Head-and-shoulders portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "kneeling",
+      "Chest-up portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "kneeling",
+      "Waist-up portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "kneeling",
+      "Knee-up cowboy shot, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "squatting",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, shoulder-level view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "squatting",
+      "Head-and-shoulders portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "squatting",
+      "Chest-up portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "squatting",
+      "Waist-up portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:肩部高度鏡頭:3",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "lying",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, shoulder-level view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "lying",
+      "Head-and-shoulders portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "lying",
+      "Chest-up portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:腰部高度鏡頭:4",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "lying",
+      "Knee-up cowboy shot, waist-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "standing",
+      "Head-and-shoulders portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "standing",
+      "Chest-up portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "sitting",
+      "Head-and-shoulders portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "sitting",
+      "Chest-up portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "sitting",
+      "Waist-up portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "sitting",
+      "Knee-up cowboy shot, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "kneeling",
+      "Head-and-shoulders portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "kneeling",
+      "Chest-up portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "kneeling",
+      "Waist-up portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "kneeling",
+      "Knee-up cowboy shot, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "squatting",
+      "Head-and-shoulders portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "squatting",
+      "Chest-up portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "squatting",
+      "Waist-up portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "lying",
+      "Head-and-shoulders portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "lying",
+      "Chest-up portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:膝蓋高度鏡頭:5",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "lying",
+      "Knee-up cowboy shot, knee-level view, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "standing",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, tilted frame, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "standing",
+      "Head-and-shoulders portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "standing",
+      "Chest-up portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "sitting",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, tilted frame, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "sitting",
+      "Head-and-shoulders portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "sitting",
+      "Chest-up portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "sitting",
+      "Waist-up portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "sitting",
+      "Knee-up cowboy shot, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "kneeling",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, tilted frame, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "kneeling",
+      "Head-and-shoulders portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "kneeling",
+      "Chest-up portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "kneeling",
+      "Waist-up portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "kneeling",
+      "Knee-up cowboy shot, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "squatting",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, tilted frame, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "squatting",
+      "Head-and-shoulders portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "squatting",
+      "Chest-up portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "squatting",
+      "Waist-up portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "lying",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, tilted frame, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "lying",
+      "Head-and-shoulders portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "lying",
+      "Chest-up portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "lying",
+      "Knee-up cowboy shot, tilted frame, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "standing",
+      "Head-and-shoulders portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "standing",
+      "Chest-up portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "sitting",
+      "Head-and-shoulders portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "sitting",
+      "Chest-up portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "sitting",
+      "Waist-up portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "sitting",
+      "Knee-up cowboy shot, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "kneeling",
+      "Head-and-shoulders portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "kneeling",
+      "Chest-up portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "kneeling",
+      "Waist-up portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "kneeling",
+      "Knee-up cowboy shot, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "squatting",
+      "Head-and-shoulders portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "squatting",
+      "Chest-up portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "squatting",
+      "Waist-up portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "lying",
+      "Head-and-shoulders portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "lying",
+      "Chest-up portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "lying",
+      "Knee-up cowboy shot, low angle from floor level, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "standing",
+      "Head-and-shoulders portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "standing",
+      "Chest-up portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "sitting",
+      "Head-and-shoulders portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "sitting",
+      "Chest-up portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "sitting",
+      "Waist-up portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "sitting",
+      "Knee-up cowboy shot, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "kneeling",
+      "Head-and-shoulders portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "kneeling",
+      "Chest-up portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "kneeling",
+      "Waist-up portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "kneeling",
+      "Knee-up cowboy shot, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "squatting",
+      "Head-and-shoulders portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "squatting",
+      "Chest-up portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "squatting",
+      "Waist-up portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "lying",
+      "Head-and-shoulders portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "lying",
+      "Chest-up portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:蟲眼視角鏡頭:7",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "lying",
+      "Knee-up cowboy shot, worm's-eye view, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "standing",
+      "Head-and-shoulders portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "standing",
+      "Chest-up portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "sitting",
+      "Head-and-shoulders portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "sitting",
+      "Chest-up portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "sitting",
+      "Waist-up portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "sitting",
+      "Knee-up cowboy shot, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "kneeling",
+      "Head-and-shoulders portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "kneeling",
+      "Chest-up portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "kneeling",
+      "Waist-up portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "kneeling",
+      "Knee-up cowboy shot, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "squatting",
+      "Head-and-shoulders portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "squatting",
+      "Chest-up portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "squatting",
+      "Waist-up portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "lying",
+      "Head-and-shoulders portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "lying",
+      "Chest-up portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "lying",
+      "Knee-up cowboy shot, high angle, looking down, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "standing",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "standing",
+      "Head-and-shoulders portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "standing",
+      "Chest-up portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "sitting",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "sitting",
+      "Head-and-shoulders portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "sitting",
+      "Chest-up portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "sitting",
+      "Waist-up portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "sitting",
+      "Knee-up cowboy shot, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "kneeling",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "kneeling",
+      "Head-and-shoulders portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "kneeling",
+      "Chest-up portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "kneeling",
+      "Waist-up portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "kneeling",
+      "Knee-up cowboy shot, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "squatting",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "squatting",
+      "Head-and-shoulders portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "squatting",
+      "Chest-up portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "squatting",
+      "Waist-up portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "lying",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "lying",
+      "Head-and-shoulders portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "lying",
+      "Chest-up portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, front view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "lying",
+      "Knee-up cowboy shot, front view."
+    ],
+    [
+      "camera:相機視角-angle:荷蘭角-傾斜-dutch-angle:10",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "standing",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, tilted frame, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, eye-level view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait, high angle, looking down."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, eye-level view, front-left three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "none",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, eye-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, eye-level view, front-left three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "none",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far left frame edge, left vertical frame boundary cropping through the outer half of the face, broad negative space on the right, neck, shoulders, and upper torso visible, eye-level view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:臉部特寫:3",
+      "none",
+      "Tight face close-up."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "none",
+      "Head-and-shoulders portrait."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "none",
+      "Chest-up portrait."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "none",
+      "Waist-up portrait."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "none",
+      "Knee-up cowboy shot."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "standing",
+      "Head-and-shoulders portrait."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "standing",
+      "Chest-up portrait."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "none",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "none",
+      "Full-body portrait, back view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "standing",
+      "Waist-up portrait, front view. The camera lens is intentionally blocked by one open hand. The complete hand is centered immediately in front of the lens and dominates nearly the entire image, occupying roughly eighty to ninety percent of the frame. All five fingers are spread wide and fully visible from their bases to their fingertips, with the fingertips reaching close to the outer frame edges without being cropped. Her face, clothing, and surroundings remain visible only as small, incomplete fragments around the outer perimeter of the hand."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "sitting",
+      "Full-body portrait."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "lying",
+      "Waist-up portrait."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "sitting",
+      "Waist-up portrait, high angle, looking down, rear-right three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, high angle, looking down, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "squatting",
+      "Full-body portrait."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "standing",
+      "Full-body portrait, eye-level view, back view."
+    ],
+    [
+      "camera:相機視角-angle:全無:0",
+      "camera:景別構圖-framing:臉部特寫:3",
+      "none",
+      "Tight face close-up, front-left three-quarter view."
+    ],
+    [
+      "camera:相機視角-angle:地面高度鏡頭:6",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "squatting",
+      "Knee-up cowboy shot, low angle from floor level."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "kneeling",
+      "Knee-up cowboy shot, high angle, looking down."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "sitting",
+      "Knee-up cowboy shot, eye-level view."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:全身鏡頭-full-body-shot:8",
+      "kneeling",
+      "Full-body portrait, high angle, looking down."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:中景鏡頭-medium-shot:6",
+      "kneeling",
+      "Waist-up portrait, high angle, looking down."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:胸上特寫:5",
+      "kneeling",
+      "Chest-up portrait, high angle, looking down."
+    ],
+    [
+      "camera:相機視角-angle:高位俯視鏡頭:1",
+      "camera:景別構圖-framing:特寫鏡頭-close-up:4",
+      "kneeling",
+      "Head-and-shoulders portrait, high angle, looking down."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:局部五官特寫:2",
+      "kneeling",
+      "Facial-detail close-up, eye-level view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, eye-level view, left profile view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, eye-level view, right profile view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, eye-level view, back view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:半臉傾斜特寫:1",
+      "standing",
+      "Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible, eye-level view."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:牛仔中景-cowboy-shot:7",
+      "standing",
+      "Knee-up cowboy shot, eye-level view. The camera lens is intentionally blocked by one open hand. The complete hand is centered immediately in front of the lens and dominates nearly the entire image, occupying roughly eighty to ninety percent of the frame. All five fingers are spread wide and fully visible from their bases to their fingertips, with the fingertips reaching close to the outer frame edges without being cropped. Her face, clothing, and surroundings remain visible only as small, incomplete fragments around the outer perimeter of the hand."
+    ],
+    [
+      "camera:相機視角-angle:平視高度鏡頭:2",
+      "camera:景別構圖-framing:局部五官特寫:2",
+      "standing",
+      "Facial-detail close-up, eye-level view."
+    ]
+  ]
+}

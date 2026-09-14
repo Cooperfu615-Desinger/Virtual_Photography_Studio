@@ -4,10 +4,11 @@
 import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
 import { projectZImageDirectionalSource } from './zImageSceneDirection.js';
+import { normalizeGptCameraForLegacy } from './gptCameraSpatialTestSupport.js';
 const legacy = JSON.parse(readFileSync(new URL('./gptSceneVisibilityLegacyScenes.json', import.meta.url), 'utf8'));
 const angles = getLockControls().find(c => c.key === 'angleId').options;
 export const gptSection = (text, name) => text.match(new RegExp(`(?:^|\\n\\n)${name}:\\n([^]*?)(?=\\n\\n[A-Z][^\\n]*:\\n|$)`))?.[1] || '';
-export const withoutSceneLighting = text => text.replace(/(?:^|\n\n)(Scene|Lighting):\n[^]*?(?=\n\n[A-Z][^\n]*:\n|$)/g, '');
+export const withoutSceneLighting = text => normalizeGptCameraForLegacy(text).replace(/(?:^|\n\n)(Scene|Lighting):\n[^]*?(?=\n\n[A-Z][^\n]*:\n|$)/g, '');
 
 export function expectedSceneProjection(scene, angle) {
   if (!scene) return scene;
@@ -18,6 +19,7 @@ export function expectedSceneProjection(scene, angle) {
   }).join('\n');
 }
 export function normalizeGptVisibilityForLegacy(text, selection) {
+  text = normalizeGptCameraForLegacy(text);
   const current = gptSection(text, 'Scene');
   const angle = angles.find(a => a.id === selection?.angleId);
   const candidates = legacy.filter(([loc, frame, old]) => loc === selection?.locationId
