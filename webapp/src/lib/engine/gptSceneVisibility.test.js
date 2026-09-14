@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
@@ -55,7 +56,7 @@ test('frozen all-scene / ambient matrix changes only approved GPT Scene and Ligh
     assert.equal(gptSection(r.outputs.grokPrompt, 'Scene'), excluded ? oldScene : expectedSceneProjection(oldScene, angle), GPT_VISIBILITY_ALL[i].id);
     assert.equal(gptSection(r.outputs.grokPrompt, 'Lighting'), expectedLight, GPT_VISIBILITY_ALL[i].id);
   }
-  for (const field of OUTPUT_FIELDS) assert.equal(digest(results.map(r => field === 'grokPrompt' ? withoutSceneLighting(r.outputs[field]) : r.outputs[field])), baseline.hashes[field], field);
+  for (const field of OUTPUT_FIELDS) assert.equal(digest(results.map(r => field === 'grokPrompt' ? withoutSceneLighting(r.outputs[field]) : normalizeCloseWormForLegacy(r.outputs[field], field))), baseline.hashes[field], field);
   assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);
   assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);
 });

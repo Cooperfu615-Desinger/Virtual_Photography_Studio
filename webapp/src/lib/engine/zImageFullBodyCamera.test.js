@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
+import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
@@ -68,7 +69,7 @@ test('431-case frozen baseline: only full-body main camera text changes; selecti
   for (const [i, row] of FULL_CAMERA_REGRESSION.entries()) {
     const result = results[i];
     if (row.excluded || row.locks.framingId?.byZh !== '全身鏡頭 (Full Body Shot)') {
-      assert.equal(normalizeFullCameraForLegacy(result.outputs.zImagePrompt), result.outputs.zImagePrompt, row.id);
+      assert.equal(normalizeFullCameraForLegacy(result.outputs.zImagePrompt), normalizeCloseWormForLegacy(result.outputs.zImagePrompt), row.id);
     }
   }
 });

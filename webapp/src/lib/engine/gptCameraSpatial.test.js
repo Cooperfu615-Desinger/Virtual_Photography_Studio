@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 import { test } from 'node:test';
 import { buildGptCameraSpatialText } from './gptCameraSpatial.js';
 import { cameraBaseline, normalizeGptCameraForLegacy, expectedCameraComposition } from './gptCameraSpatialTestSupport.js';
@@ -41,7 +42,7 @@ test('frozen camera/scene/lighting matrix permits only the exact main GPT Compos
   const results = GPT_CAMERA_SPATIAL_FIXTURES.map(runSceneFixture);
   assert.equal(results.length,cameraBaseline.count);
   for (const field of OUTPUT_FIELDS) assert.equal(digest(results.map(r=>field==='grokPrompt'
-    ? normalizeGptCameraForLegacy(r.outputs[field]) : r.outputs[field])),cameraBaseline.hashes[field],field);
+    ? normalizeGptCameraForLegacy(r.outputs[field]) : normalizeCloseWormForLegacy(r.outputs[field], field))),cameraBaseline.hashes[field],field);
   assert.equal(digest(results.map(r=>r.selection)),cameraBaseline.selectionHash);
   assert.equal(digest(results.map(r=>r.randomDraws)),cameraBaseline.randomHash);
   const composition = t => t.match(/(?:^|\n\n)Composition:\n([^]*?)(?=\n\n[A-Z][^\n]*:\n|$)/)?.[1] || '';

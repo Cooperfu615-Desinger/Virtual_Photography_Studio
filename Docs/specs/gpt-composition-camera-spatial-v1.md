@@ -2,6 +2,8 @@
 
 日期：2026-09-14；起點 `main / 17cc411`。
 
+後續核准補正：中景／牛仔中景蟲眼改用 [貼近人物 v1](close-worm-eye-medium-cowboy-v1.md)，取代本文件「非全身不新增更強烈蟲眼」的歷史邊界；其餘規則不變。
+
 ## 核准邊界
 
 只影響一般 PAGE1 單人主 GPT（`grokPrompt`）的 Composition。沿用 Scene／Lighting 階段的排除：雙人、固定構圖、專用角色、角色卡／身份匯入、仰躺 surface-led。Z、MJ、三個衍生輸出、獨立工作區、資料庫、UI、selection／RNG／storage 不變。

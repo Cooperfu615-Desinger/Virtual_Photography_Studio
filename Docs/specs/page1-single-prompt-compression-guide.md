@@ -2,6 +2,8 @@
 
 Last updated: 2026-09-14
 
+2026-09-14 蟲眼補正：一般單人主 GPT／Z 的中景與牛仔中景採用幾乎貼近人物的加強版；站姿指定 crop 對應近前景，其他姿勢使用同強度的姿勢中性描述，允許左右輪廓裁切。全身與其他景別不變，不綁魚眼；取代下方非全身保留舊句的歷史邊界。見 [正式文字與規格](close-worm-eye-medium-cowboy-v1.md)。
+
 2026-09-14 GPT Composition：一般單人主 GPT 加入相機空間關係，沿用已核准全身六組與其他景別的 angle-only 語意，保留原段落順序、比例、方位及構圖 modifier。此核准例外取代以下「未合併 GPT 相機文案」的歷史狀態；不改 Scene／Lighting、Z/MJ 或衍生／排除路徑。四輸出契約 v1.13.0，見 [相機空間關係第一版](gpt-composition-camera-spatial-v1.md)。
 
 2026-09-14 GPT 場景可見性：一般單人主 GPT 現在對完整有效 Scene／Lighting 來源套用已審查的鏡頭方向地面／天空投影，保留原段落順序、其餘完整來源、環境光核心、人物受光與 canonical pose。這項核准例外取代下方「GPT 不套用高度刪除」的歷史狀態；不合併 Z 壓縮、場景先行、上方場景或全身相機文案。四輸出契約 v1.12.0，見 [GPT Scene／Lighting 可見性](gpt-scene-lighting-visibility-v1.md)。

@@ -1,8 +1,9 @@
 import { COMPOSITION_VISIBILITY_BUCKETS as B } from './compositionVisibilityContract.js';
 import { buildZImageTurboCameraGeometry } from './zImageTurboCameraGeometry.js';
 import { buildZImageFullBodyCamera, FULL_BODY_CAMERA_GROUPS } from './zImageFullBodyCamera.js';
+import { buildCloseWormEyeText } from './closeWormEye.js';
 
-export const GPT_CAMERA_SPATIAL_VERSION = '1.0.0';
+export const GPT_CAMERA_SPATIAL_VERSION = '1.1.0';
 // Exact known labels only. The caller supplies the existing compact descriptor;
 // unknown/custom angles and unconstrained framing retain their original text.
 export function buildGptCameraSpatialText(angle, bucket, poseBaseId = '') {
@@ -17,8 +18,9 @@ export function buildGptCameraSpatialText(angle, bucket, poseBaseId = '') {
   if (angle.zh === '鳥瞰視角') {
     return 'The camera is high above her and looks diagonally downward, keeping the selected crop on her rather than widening to a full-body view.';
   }
-  // Angle geometry only: do not import Z orbit/body-facing rules or a new
-  // non-full-body worm-eye exaggeration. Existing crop-specific evidence stays.
+  const closeWorm = buildCloseWormEyeText(angle, bucket, poseBaseId);
+  if (closeWorm) return closeWorm;
+  // Remaining angle geometry only; do not import Z orbit/body-facing rules.
   return buildZImageTurboCameraGeometry({ angle, bucket });
 }
 

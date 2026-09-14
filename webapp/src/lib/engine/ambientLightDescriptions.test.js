@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { normalizeGptCameraForLegacy } from './gptCameraSpatialTestSupport.js';
+import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
@@ -51,7 +52,7 @@ test('720 frozen main cases change only authored directional GPT/Z ambient', () 
     assert.equal(r.outputs.grokPrompt.match(/Lighting:\n([^\n]+)/)?.[1], gpt, AMBIENT_MATRIX[i].id);
     assert.equal(r.outputs.zImagePrompt.split('\n\n').at(-1), z, AMBIENT_MATRIX[i].id);
     return { ...r.outputs, grokPrompt: normalizeGptCameraForLegacy(r.outputs.grokPrompt).replace(`Lighting:\n${gpt}`, `Lighting:\n${baseline.lighting[i]}`),
-      zImagePrompt: r.outputs.zImagePrompt.slice(0, -z.length) + baseline.ambient[i] };
+      zImagePrompt: normalizeCloseWormForLegacy(r.outputs.zImagePrompt.slice(0, -z.length) + baseline.ambient[i]) };
   });
   for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map(r => r[field])), baseline.hashes[field], field);
   assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);

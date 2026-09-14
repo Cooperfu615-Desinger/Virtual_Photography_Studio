@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.13.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.14.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -99,7 +99,8 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     uiLabel: 'Gpt',
     target: 'GPT Image / ChatGPT Image',
     cameraSpatial: {
-      version: '1.0.0',
+      version: '1.1.0',
+      closeWormEye: 'mediumWaist/cowboyKnee: near-contact distance, pronounced foreshortening, lateral contour cropping; standing crop-specific foreground, otherwise pose-neutral',
       scope: 'ordinary single main GPT only; same exclusions as scene visibility',
       source: 'resolved camera angle and crop; approved full-body six-group and non-full angle-only geometry',
       preserves: 'ratio, framing, orbit, pose modifier, canonical pose, all non-Composition sections and other outputs',

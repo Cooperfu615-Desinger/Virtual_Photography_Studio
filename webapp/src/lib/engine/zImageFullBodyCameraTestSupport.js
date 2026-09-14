@@ -1,5 +1,6 @@
 // Independent, exact approved replacements for historical snapshot comparison.
 // Never normalize whole composition blocks or use production builders here.
+import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 export const FULL_CAMERA_TEXT_PAIRS = [
   ['Her entire figure is framed with natural-looking proportions.', ''],
   ['Her entire figure is framed with natural-looking proportions, with the frame deliberately tilted diagonally.', ''],
@@ -17,6 +18,7 @@ export const FULL_CAMERA_TEXT_PAIRS = [
     'The camera is positioned directly above the woman and points vertically downward, creating a flattened top-down composition.'],
 ];
 export function normalizeFullCameraForLegacy(text) {
+  text = normalizeCloseWormForLegacy(text);
   const blocks = text.split('\n\n');
   if (blocks.length < 2) return text;
   for (const [current, previous] of FULL_CAMERA_TEXT_PAIRS) {

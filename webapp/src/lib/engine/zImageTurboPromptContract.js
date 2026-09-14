@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.12.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.13.0';
 
 const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
   'imageType', 'composition', 'subject', 'pose', 'wardrobe',
@@ -96,6 +96,13 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
     },
   },
   composition: {
+    closeWormEye: {
+      version: '1.0.0',
+      scope: 'ordinary single main mediumWaist/cowboyKnee worm-eye only',
+      source: 'closeWormEye.js shared with eligible main GPT; standing crop-specific, otherwise pose-neutral',
+      effect: 'near-contact distance, strong foreshortening and edge stretching; nearby contours may crop laterally',
+      preserves: ['other crops', 'orbit', 'pose', 'selected lens', 'scene direction', 'selection', 'MJ and derivatives'],
+    },
     fullBodyCamera: {
       version: '1.0.0',
       scope: 'ordinary PAGE1 single-subject main fullBody output only',

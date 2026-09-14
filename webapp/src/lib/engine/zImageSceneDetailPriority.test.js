@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
+import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
@@ -55,6 +56,7 @@ test('1430 frozen cases permit only reviewed low-camera scene substitutions', ()
       output.zImagePrompt = blocks.join('\n\n');
     }
     output.grokPrompt = normalizeGptVisibilityForLegacy(output.grokPrompt, r.selection);
+    output.zImagePrompt = normalizeCloseWormForLegacy(output.zImagePrompt);
     return output;
   });
   for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map(o => o[field])), baseline.hashes[field], field);

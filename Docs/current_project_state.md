@@ -4,9 +4,16 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-14
 
+## Near-contact medium / cowboy worm-eye (2026-09-14)
+
+- Starting checkpoint `main / b74a432` (GPT Composition committed and pushed). Local scoped correction, not committed/pushed/deployed. [Approved copy and scope](specs/close-worm-eye-medium-cowboy-v1.md).
+- Ordinary single main GPT/Z only, mediumWaist/cowboyKnee worm-eye. Standing uses lower torso or thighs as near foreground; nonstanding uses equally close pose-neutral contours. Strong foreshortening, edge stretching and permitted lateral cropping; no forced fisheye, standing, support or full figure. All other output text, selection/storage/UI/catalog and prior fullBody behavior unchanged.
+- Frozen 6,370-case camera-only matrix, exact English and codec assertions pass. Frontend 935/935, Prompt Quality 266/266, lint/build/diff-check pass; same-seed strict 200 remains zero blockers/23 diagnostics. Historical baselines unchanged; external image quality requires user testing.
+- Five-workspace desktop 1440x1000/mobile 390x900 smoke and screenshots reviewed. Live medium/cowboy/ground/full transitions, kneeling-neutral text and DLL source verified; no observed warning/error logs, loaded character images intact, six cards retained, controls/source/viewport restored. Browser PARTIAL: existing narrow mobile output columns/button truncation remain; Z copied toast observed but clipboard readback empty, download bytes not reverified. No CSS/UI or external image generation.
+
 ## GPT Composition camera spatial v1 (2026-09-14)
 
-- Starting checkpoint `main / 17cc411` (Scene/Lighting committed and pushed). This Composition batch is local only, not staged/committed/pushed/deployed. [Scope and evidence](specs/gpt-composition-camera-spatial-v1.md).
+- Starting checkpoint `main / 17cc411` (Scene/Lighting committed and pushed). Composition batch committed and pushed as `b74a432`; deployment not verified. [Scope and evidence](specs/gpt-composition-camera-spatial-v1.md).
 - Ordinary single main GPT only: replace recognized extreme-angle shorthand with crop-aware camera geometry; full body uses the approved six groups, with natural height hints retained and ground/worm-eye distance distinguished. Ratio, orbit, hand composition modifier, canonical pose, Scene/Lighting, all other output fields and excluded paths stay unchanged. No lens, selfie compatibility, UI, DB or storage changes. Output contract 1.13.0; camera source 1.0.0.
 - Frozen 6,320-case matrix passes; exact approved Composition-only inverse preserves old hashes, selections and RNG. Historical baselines not rewritten. Final frontend 931/931, Prompt Quality 262/262, lint/build/diff-check and same-seed strict 200 pass (zero blockers, unchanged 23 diagnostics). External image quality requires user testing.
 - Five-workspace desktop 1440x1000/mobile 390x900 smoke completed, with live six-group camera text, full-body-to-medium reversion, preserved left-profile cue, unchanged chest-up derivative and DLL source toggles verified. Six cards retained, original controls/source/viewport restored, no observed warning/error logs or broken character images. Tested layouts had no document overflow; existing narrow mobile PAGE1 output columns remain. Browser acceptance PARTIAL: clipboard/download bytes not reverified and prior D-toolbar issue not fixed or revalidated here. No external image generation.

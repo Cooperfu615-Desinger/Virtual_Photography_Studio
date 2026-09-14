@@ -114,6 +114,7 @@ import { selectZImageSceneDetails } from './engine/zImageSceneDetailPriority.js'
 import { resolveAmbientLightDescription, renderAmbientLightDescription } from './engine/ambientLightDescriptions.js';
 import { projectGptSceneLightingModel } from './engine/gptSceneVisibility.js';
 import { buildZImageFullBodyCamera } from './engine/zImageFullBodyCamera.js';
+import { buildCloseWormEyeText } from './engine/closeWormEye.js';
 import { composeGptCameraSpatial } from './engine/gptCameraSpatial.js';
 
 export { createSeededRandom } from './engineRandom.js';
@@ -12657,6 +12658,9 @@ function renderZImagePrompt(promptModel) {
     && compositionVisibilityProjection.bucket === COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY
     ? buildZImageFullBodyCamera(context.angle, poseComposer?.meta?.poseBaseId || '')
     : '';
+  const closeWormEyeText = sceneIntegrated
+    ? buildCloseWormEyeText(context.angle, compositionVisibilityProjection.bucket, poseComposer?.meta?.poseBaseId || '')
+    : '';
   const cameraProjectionFlags = getZImageTurboCameraProjectionFlags({
     angle: context.angle,
     orbit: context.orbit,
@@ -12674,7 +12678,7 @@ function renderZImagePrompt(promptModel) {
           bucket: compositionVisibilityProjection.bucket,
           subjectKind: specialSubjectMode ? 'subject' : 'woman',
           poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || '',
-          angleTextOverride: fullBodyCameraText || null,
+          angleTextOverride: fullBodyCameraText || closeWormEyeText || null,
         })
       : '',
     context.subject.count === 1
