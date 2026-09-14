@@ -15,8 +15,7 @@ const angles = controls.find((c) => c.key === 'angleId').options;
 const rows = [...UPPER_SCENE_MATRIX, ...UPPER_SCENE_EXCLUDED, ...UPPER_SCENE_CONTROLS];
 const results = rows.map(runSceneFixture);
 
-test('approved sources bind exactly four catalog IDs and identities, with no runtime inference', () => {
-  assert.equal(Object.keys(Z_IMAGE_UPPER_SCENE_SOURCES).length, 4);
+test('original four approved sources retain their catalog IDs, identities and wording', () => {
   for (const [label, text] of UPPER_SCENE_CASES) {
     const matches = locations.filter((l) => l.zh === label);
     assert.equal(matches.length, 1);

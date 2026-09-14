@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.9.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.10.0';
 
 const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
   'imageType', 'composition', 'subject', 'pose', 'wardrobe',
@@ -71,8 +71,8 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
       unspecifiedCamera: 'no additional deletion',
       sourceBoundary: 'post-crop and post-compaction; no raw-catalog backfill or inferred scenery',
       upperScene: {
-        version: '1.0.0',
-        source: 'four approved location-ID-bound supplemental records in zImageUpperScene.js',
+        version: '1.1.0',
+        source: 'eighteen approved location-ID-bound supplemental records in zImageUpperScene.js',
         scope: 'low cameras only; require surviving matching location identity',
         duplicates: 'append each authored clause at most once',
         fallback: 'none; unlisted locations and other cameras remain unchanged',

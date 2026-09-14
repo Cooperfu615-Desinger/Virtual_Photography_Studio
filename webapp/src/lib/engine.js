@@ -12765,7 +12765,7 @@ function renderZImagePrompt(promptModel) {
   }
 
   if (sceneIntegrated) {
-    // Preserve v1 post-crop/compact reductions, then append only the four
+    // Preserve v1 post-crop/compact reductions, then append only the
     // approved location-bound supplemental sources. Shared GPT/MJ stays intact.
     const location = appendZImageUpperScene(
       projectZImageDirectionalSource(compactZImageLocationText(buildZImageLocationText()), context.angle, { preserveIdentity: true }),

@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-13
 
+## Z-Image upper-scene v2: remaining fourteen approved sources (2026-09-13)
+
+- Current checkpoint is local `main` / `71b4b20` (the prior first-four/full-body work was committed and pushed). The older sections below are historical phase reports. This extension is local only: no staging, commit, push or deployment.
+- All eighteen approved locations now have ID-bound upper-scene sources: original four unchanged plus fourteen approved additions. Main Z contract `1.10.0`, source `1.1.0`; [formal specification and exact wording](specs/z-image-upper-scene-v2.md). No additional A/B packs requested. Locations Markdown/JSON, UI, selection/storage, floor/sky rules, full-body camera rules, GPT/MJ and excluded paths are unchanged.
+- Frozen 930-case pre/post comparison passes, permitting only the fourteen added main-Z opening clauses and preserving every other output, selection and RNG. Prompt Quality 248/248; final frontend 916/916; lint/build pass. Strict 200 / `prompt-quality-baseline` before/after logs are identical: zero blockers, 23 diagnostics. Earlier full run hit the known unseeded scene-ground assertion (915/916); this existing flake is not fixed.
+- Saved Cards IDs/text and Markdown exported text are preserved. Read-only `71b4b20` comparison confirms an existing Markdown inference limitation: these fourteen all-none-style fixtures restore location as none despite retaining prose. Codec unchanged; do not call this full Markdown selection round-trip acceptance.
+- Browser: fourteen live low-angle additions, high/low reversion, DLL source toggles and five-workspace desktop 1440×1000/mobile 390×900 smoke checked. No observed warning/error logs or broken images. Existing six Saved Cards retained; original scene/camera/source controls and viewport restored. Existing mobile PAGE1 overflow (375 client / 411 scroll) remains; clipboard/download bytes not reverified, so overall browser acceptance is PARTIAL. No external images generated; user image folders untouched.
+
 ## Z-Image full-body camera presentation v1 (2026-09-13)
 
 - Local `main` / `fa22169`, built on the still-uncommitted upper-scene v2 work below. No staging, commit, push or deployment. Main ordinary single Z contract is now `1.9.0`; see [full-body camera specification](specs/z-image-full-body-camera-v1.md) and [six runtime test prompts](specs/z-image-full-body-camera-v1-test-prompts.md).
