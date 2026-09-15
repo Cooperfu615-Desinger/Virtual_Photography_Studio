@@ -933,7 +933,13 @@ export const POSE_COMPOSER_PROP_OPTIONS = [
   { id: 'hand-hold-whiskey', zh: '手持威士忌', en: 'a short tumbler glass of amber whiskey held naturally in one hand, transparent glass and warm golden drink clearly visible', desc: '單手自然拿著一杯琥珀色威士忌，透明威士忌杯與溫暖金色酒液清楚可見。', meta: { tags: ['prop_action'] } },
   { id: 'hand-hold-champagne', zh: '手持香檳', en: 'a slender champagne flute held naturally in one hand, pale golden sparkling wine and delicate bubbles clearly visible', desc: '單手自然拿著一杯香檳，細長香檳杯、淡金色酒液與細緻氣泡清楚可見。', meta: { tags: ['prop_action'] } },
   { id: 'hand-hold-mineral-water', zh: '手持礦泉水瓶', en: 'a clear plastic bottle of mineral water held naturally in one hand, with fresh condensation droplets on the bottle', desc: '單手自然拿著透明礦泉水瓶，瓶身帶有新鮮水珠。', meta: { tags: ['prop_action'] } },
-  { id: 'hand-hold-fuji-x100v', zh: '手持單眼 FUJI X-100V 相機', en: 'a FUJIFILM X100V digital camera held naturally in one hand, with its compact black body and lens clearly visible', desc: '單手自然拿著 FUJIFILM X100V 相機，清楚呈現黑色相機機身與鏡頭。', meta: { tags: ['prop_action'] } },
+  {
+    id: 'hand-hold-fuji-x100v',
+    zh: '手持單眼 FUJI X-100V 相機',
+    en: 'a silver-and-black FUJIFILM X100V camera raised directly in front of her face, her right eye looking through the viewfinder, her right hand gripping the camera with her index finger poised on the shutter button, captured in the act of taking a photograph',
+    desc: '把銀黑雙色的 FUJIFILM X100V 相機舉到臉前，右眼透過觀景窗取景，右手握住機身，食指靠近快門，呈現正在拍照的姿勢。',
+    meta: { tags: ['prop_action', 'face_action'] },
+  },
   {
     id: 'hand-hold-whirly-lollipop',
     zh: '手持波板糖',

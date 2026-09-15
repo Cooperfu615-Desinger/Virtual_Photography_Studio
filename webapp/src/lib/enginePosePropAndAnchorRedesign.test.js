@@ -11,6 +11,7 @@ import {
 import { buildPage1ControlGroups } from '../features/page1/page1Selectors.js';
 
 const LIPSTICK_PROMPT = 'one hand applying lipstick directly to the lips with visible hand-to-mouth contact, with the finish varying naturally between clean application and a slightly smudged lip line';
+const FUJI_CAMERA_PROMPT = 'a silver-and-black FUJIFILM X100V camera raised directly in front of her face, her right eye looking through the viewfinder, her right hand gripping the camera with her index finger poised on the shutter button, captured in the act of taking a photograph';
 const WHIRLY_LOLLIPOP_PROMPT = 'an oversized colorful whirly pop swirl lollipop with a large playful candy head, held naturally in one hand, cute cheerful prop detail';
 const ROUND_LOLLIPOP_PROMPT = 'a round lollipop held between her lips, the white stick extending outward with her right hand gripping the far end, cute playful pose';
 
@@ -57,7 +58,8 @@ test('Pose Composer exposes prop actions separately from hand actions', () => {
   assert.equal(option('posePropId', '手持礦泉水瓶').id, 'hand-hold-mineral-water');
   assert.match(option('posePropId', '手持礦泉水瓶').en, /condensation droplets/i);
   assert.equal(option('posePropId', '手持單眼 FUJI X-100V 相機').id, 'hand-hold-fuji-x100v');
-  assert.match(option('posePropId', '手持單眼 FUJI X-100V 相機').en, /FUJIFILM X100V/i);
+  assert.equal(option('posePropId', '手持單眼 FUJI X-100V 相機').en, FUJI_CAMERA_PROMPT);
+  assert.deepEqual(option('posePropId', '手持單眼 FUJI X-100V 相機').meta.tags, ['prop_action', 'face_action']);
   assert.equal(option('posePropId', '手持波板糖').en, WHIRLY_LOLLIPOP_PROMPT);
   assert.equal(option('posePropId', '含著圓形棒棒糖｜右手持棒').id, 'hand-hold-round-lollipop-mouth');
   assert.equal(option('posePropId', '含著圓形棒棒糖｜右手持棒').en, ROUND_LOLLIPOP_PROMPT);
