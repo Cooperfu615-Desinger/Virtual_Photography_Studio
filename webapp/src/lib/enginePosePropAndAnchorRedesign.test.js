@@ -11,6 +11,8 @@ import {
 import { buildPage1ControlGroups } from '../features/page1/page1Selectors.js';
 
 const LIPSTICK_PROMPT = 'one hand applying lipstick directly to the lips with visible hand-to-mouth contact, with the finish varying naturally between clean application and a slightly smudged lip line';
+const WHIRLY_LOLLIPOP_PROMPT = 'an oversized colorful whirly pop swirl lollipop with a large playful candy head, held naturally in one hand, cute cheerful prop detail';
+const ROUND_LOLLIPOP_PROMPT = 'a round lollipop held between her lips, the white stick extending outward with her right hand gripping the far end, cute playful pose';
 
 function control(key) {
   const entry = getLockControls().find((item) => item.key === key);
@@ -44,10 +46,22 @@ test('Pose Composer exposes prop actions separately from hand actions', () => {
     propControl.options
       .filter((item) => item.zh !== '全無' && item.zh !== '隨機')
       .map((item) => item.zh),
-    ['塗口紅｜自由妝感', '手持冰咖啡', '手持波板糖', '手持香菸', '滑手機'],
+    ['塗口紅｜自由妝感', '手持冰咖啡', '手持威士忌', '手持香檳', '手持礦泉水瓶', '手持單眼 FUJI X-100V 相機', '手持波板糖', '含著圓形棒棒糖｜右手持棒', '手持香菸', '滑手機'],
   );
   assert.equal(option('posePropId', '塗口紅｜自由妝感').id, 'hand-apply-lipstick');
   assert.equal(option('posePropId', '塗口紅｜自由妝感').en, LIPSTICK_PROMPT);
+  assert.equal(option('posePropId', '手持威士忌').id, 'hand-hold-whiskey');
+  assert.match(option('posePropId', '手持威士忌').en, /amber whiskey/i);
+  assert.equal(option('posePropId', '手持香檳').id, 'hand-hold-champagne');
+  assert.match(option('posePropId', '手持香檳').en, /champagne flute/i);
+  assert.equal(option('posePropId', '手持礦泉水瓶').id, 'hand-hold-mineral-water');
+  assert.match(option('posePropId', '手持礦泉水瓶').en, /condensation droplets/i);
+  assert.equal(option('posePropId', '手持單眼 FUJI X-100V 相機').id, 'hand-hold-fuji-x100v');
+  assert.match(option('posePropId', '手持單眼 FUJI X-100V 相機').en, /FUJIFILM X100V/i);
+  assert.equal(option('posePropId', '手持波板糖').en, WHIRLY_LOLLIPOP_PROMPT);
+  assert.equal(option('posePropId', '含著圓形棒棒糖｜右手持棒').id, 'hand-hold-round-lollipop-mouth');
+  assert.equal(option('posePropId', '含著圓形棒棒糖｜右手持棒').en, ROUND_LOLLIPOP_PROMPT);
+  assert.deepEqual(option('posePropId', '含著圓形棒棒糖｜右手持棒').meta.tags, ['prop_action', 'face_action']);
   assert.equal(propControl.options.some((item) => item.id === 'hand-messy-lipstick'), false);
 });
 
@@ -160,6 +174,28 @@ test('prop action is emitted once in the shared canonical pose across all three 
   assert.equal(prompt.selection.posePropId, 'hand-apply-lipstick');
   assert.ok(pose.includes(LIPSTICK_PROMPT));
   assert.equal(pose.split(LIPSTICK_PROMPT).length - 1, 1);
+  assert.ok(prompt.zImagePrompt.includes(pose));
+  assert.ok(prompt.midjourneyPrompt.includes(pose));
+});
+
+test('round lollipop prop keeps the mouth contact and right-hand grip in the canonical pose', () => {
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id,
+    poseBaseId: option('poseBaseId', '站姿').id,
+    poseArrangementId: option('poseArrangementId', '自然站姿').id,
+    poseHandId: option('poseHandId', '單手摸下巴').id,
+    posePropId: option('posePropId', '含著圓形棒棒糖｜右手持棒').id,
+    poseHeadId: option('poseHeadId', '頭部自然朝向鏡頭').id,
+    poseAnchorId: 'none',
+  });
+
+  const pose = canonicalPose(prompt);
+  assert.equal(prompt.selection.poseHandId, 'none');
+  assert.equal(prompt.selection.posePropId, 'hand-hold-round-lollipop-mouth');
+  assert.ok(pose.includes(ROUND_LOLLIPOP_PROMPT));
+  assert.equal(pose.split(ROUND_LOLLIPOP_PROMPT).length - 1, 1);
   assert.ok(prompt.zImagePrompt.includes(pose));
   assert.ok(prompt.midjourneyPrompt.includes(pose));
 });

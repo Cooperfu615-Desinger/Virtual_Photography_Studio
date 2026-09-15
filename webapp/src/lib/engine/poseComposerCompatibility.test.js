@@ -66,6 +66,7 @@ test('random head and facial prop choices avoid aerial and rear-view conflicts',
 
   assert.equal(poseComposerHeadSupportsRandomContext(option('head-camera-natural', ['requires_face_visibility']), aerial), false);
   assert.equal(poseComposerPropSupportsRandomContext(option('hand-apply-lipstick', ['face_action']), rear), false);
+  assert.equal(poseComposerPropSupportsRandomContext(option('hand-hold-round-lollipop-mouth', ['prop_action', 'face_action']), rear), false);
   assert.equal(poseComposerPropSupportsRandomContext(option('hand-hold-iced-coffee', ['prop_action']), rear), true);
 });
 
