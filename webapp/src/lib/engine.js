@@ -6557,7 +6557,20 @@ function buildWardrobe(context, locks, catalog) {
     if (specialOutfit && !isNoneLikeItem(specialOutfit)) specialOutfitPieces.push(prepareSpecialOutfit(specialOutfit));
   }
 
-  if (specialOutfitPieces.length > 0) return specialOutfitPieces;
+  const specialOutfitRoles = new Set(
+    specialOutfitPieces
+      .map((piece) => piece.meta?.specialOutfitRole)
+      .filter(Boolean)
+  );
+  const hasSharedSpecialOutfit = specialOutfitPieces.some((piece) => !piece.meta?.specialOutfitRole);
+  const isSpecialOutfitRole = (role) => context.subject.count === 2 && specialOutfitRoles.has(role);
+
+  if (
+    specialOutfitPieces.length > 0 &&
+    (context.subject.count !== 2 || hasSharedSpecialOutfit || specialOutfitRoles.size === 2)
+  ) {
+    return specialOutfitPieces;
+  }
 
   if (context.subject.count === 2 && (locks.outfitPresetAId || locks.outfitPresetBId)) {
     const presets = catalog.flatCatalog.outfitPresets;
@@ -6586,7 +6599,10 @@ function buildWardrobe(context, locks, catalog) {
       const resolvedA = presetAIsNone ? null : presetA || (!locks.outfitPresetAId && presetB && !presetBIsNone ? randomDistinctPreset(presetB.id, ['outfitPresetAId']) : null);
       const resolvedB = presetBIsNone ? null : presetB || (!locks.outfitPresetBId && resolvedA ? randomDistinctPreset(resolvedA.id, ['outfitPresetBId']) : null);
 
-      presetPieces.push(...[resolvedA ? clonePresetForRole(resolvedA, 'a') : null, resolvedB ? clonePresetForRole(resolvedB, 'b') : null].filter(Boolean));
+      presetPieces.push(...[
+        resolvedA && !isSpecialOutfitRole('a') ? clonePresetForRole(resolvedA, 'a') : null,
+        resolvedB && !isSpecialOutfitRole('b') ? clonePresetForRole(resolvedB, 'b') : null,
+      ].filter(Boolean));
     }
   }
 
@@ -6626,6 +6642,7 @@ function buildWardrobe(context, locks, catalog) {
     if (!item || pieces.some((piece) => piece.id === item.id)) return;
     pieces.push(item);
   };
+  specialOutfitPieces.forEach(addPiece);
   presetPieces.forEach(addPiece);
   const hasOutfitPresetPiece = presetPieces.length > 0;
   const hasDuoLayerLock = context.subject.count === 2 && [
@@ -6710,6 +6727,7 @@ function buildWardrobe(context, locks, catalog) {
     return picked;
   };
   const addRoleLockedPiece = (categoryKey, lockKey, role, layerSlot) => {
+    if (isSpecialOutfitRole(role)) return null;
     const categoryItems = getByKey(catalog.catalog.wardrobe, categoryKey);
     const lockedValue = locks?.[lockKey];
     if (!lockedValue) return null;
@@ -6727,6 +6745,7 @@ function buildWardrobe(context, locks, catalog) {
     addRoleLockedPiece('腰部配件 (Waist Accessories)', 'waistAccessoryBId', 'b', 'waistAccessory');
   }
   const ensureRoleHeadAccessoryForColor = (role, itemKey, colorKey) => {
+    if (isSpecialOutfitRole(role)) return null;
     const color = getGarmentColorOption(locks?.[colorKey]);
     if (!color || isNoneLikeItem(color) || locks?.[itemKey]) return null;
     const candidates = getByKey(catalog.catalog.wardrobe, '頭部配件 (Head Accessories)').filter(
@@ -6808,7 +6827,11 @@ function buildWardrobe(context, locks, catalog) {
   ];
   const hasDuoRoleWardrobeLock = context.subject.count === 2 && duoRoleWardrobeKeys.some((key) => Boolean(locks?.[key]));
   const hasSharedMainWardrobeLock = sharedMainWardrobeKeys.some((key) => Boolean(locks?.[key]));
-  const useDuoRoleWardrobe = context.subject.count === 2 && (hasDuoRoleWardrobeLock || !hasSharedMainWardrobeLock);
+  const useDuoRoleWardrobe = context.subject.count === 2 && (
+    hasDuoRoleWardrobeLock ||
+    !hasSharedMainWardrobeLock ||
+    specialOutfitRoles.size > 0
+  );
   const pickRandomWardrobeItem = (items, { allowNone = false, predicate = () => true, previousSelectionKeys = [] } = {}) => {
     const candidates = items.filter(
       (item) => (allowNone || !isNoneLikeItem(item)) && wardrobeFitsLocation(item, context.location) && predicate(item)
@@ -7004,6 +7027,7 @@ function buildWardrobe(context, locks, catalog) {
     ];
 
     roleConfigs.forEach((config) => {
+      if (isSpecialOutfitRole(config.role)) return;
       [
         [dressItems, config.dressId, 'dress'],
         [topItems, config.topId, 'top'],
@@ -7016,6 +7040,7 @@ function buildWardrobe(context, locks, catalog) {
     });
 
     roleConfigs.forEach((config) => {
+      if (isSpecialOutfitRole(config.role)) return;
       const presetRoleState = resolveLockState(catalog.flatCatalog.outfitPresets, config.presetId);
       if (presetRoleState.specifiedItem || presetRoleState.isExplicitRandom) return;
 
@@ -7504,6 +7529,35 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       { key: `waistAccessory${suffix}`, text: accessoryItemLabel(slot('waistAccessory')) },
     ]);
   };
+  const hasNonSpecialRoleWardrobe = Boolean(
+    wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB ||
+    wardrobeSlots.dressA || wardrobeSlots.dressB ||
+    wardrobeSlots.topA || wardrobeSlots.topB ||
+    wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
+    wardrobeSlots.skirtA || wardrobeSlots.skirtB ||
+    wardrobeSlots.legwearA || wardrobeSlots.legwearB ||
+    wardrobeSlots.outerwearA || wardrobeSlots.outerwearB ||
+    wardrobeSlots.shoesA || wardrobeSlots.shoesB ||
+    wardrobeSlots.waistAccessoryA || wardrobeSlots.waistAccessoryB ||
+    wardrobeSlots.headAccessoryA || wardrobeSlots.headAccessoryB ||
+    wardrobeSlots.eyewearA || wardrobeSlots.eyewearB ||
+    wardrobeSlots.earringsA || wardrobeSlots.earringsB ||
+    wardrobeSlots.neckAccessoryA || wardrobeSlots.neckAccessoryB
+  );
+  const hasRoleWardrobeDetails = Boolean(
+    wardrobeSlots.dressA || wardrobeSlots.dressB ||
+    wardrobeSlots.topA || wardrobeSlots.topB ||
+    wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
+    wardrobeSlots.skirtA || wardrobeSlots.skirtB ||
+    wardrobeSlots.legwearA || wardrobeSlots.legwearB ||
+    wardrobeSlots.outerwearA || wardrobeSlots.outerwearB ||
+    wardrobeSlots.shoesA || wardrobeSlots.shoesB ||
+    wardrobeSlots.waistAccessoryA || wardrobeSlots.waistAccessoryB ||
+    wardrobeSlots.headAccessoryA || wardrobeSlots.headAccessoryB ||
+    wardrobeSlots.eyewearA || wardrobeSlots.eyewearB ||
+    wardrobeSlots.earringsA || wardrobeSlots.earringsB ||
+    wardrobeSlots.neckAccessoryA || wardrobeSlots.neckAccessoryB
+  );
   const summarizeSingleCharacter = () => {
     if (isSpecialSubject(context.subject)) {
       return joinSummaryParts(
@@ -7553,7 +7607,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     return summary === '-' ? '' : summary;
   };
   const summarizeWardrobe = () => {
-    if (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB) {
+    if ((wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB) && !hasNonSpecialRoleWardrobe) {
       return [
         wardrobeSlots.specialOutfitA?.zh && !isNoneLikeItem(wardrobeSlots.specialOutfitA)
           ? `人物 1：${joinSummaryParts(wardrobeSlots.specialOutfitA.zh, summarizeAccessorySet('A'))}`
@@ -7568,7 +7622,12 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       return joinSummaryParts(wardrobeSlots.specialOutfit.zh, summarizeAccessorySet()) || '-';
     }
 
-    if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
+    if (
+      (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) &&
+      !hasRoleWardrobeDetails &&
+      !wardrobeSlots.specialOutfitA &&
+      !wardrobeSlots.specialOutfitB
+    ) {
       return [
         wardrobeSlots.outfitPresetA
           ? joinSummaryParts(
@@ -7585,23 +7644,25 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       ].filter(Boolean).join(' / ') || '-';
     }
 
-    if (
-      wardrobeSlots.dressA || wardrobeSlots.dressB ||
-      wardrobeSlots.topA || wardrobeSlots.topB ||
-      wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
-      wardrobeSlots.skirtA || wardrobeSlots.skirtB ||
-      wardrobeSlots.waistAccessoryA || wardrobeSlots.waistAccessoryB ||
-      wardrobeSlots.headAccessoryA || wardrobeSlots.headAccessoryB ||
-      wardrobeSlots.eyewearA || wardrobeSlots.eyewearB ||
-      wardrobeSlots.earringsA || wardrobeSlots.earringsB ||
-      wardrobeSlots.neckAccessoryA || wardrobeSlots.neckAccessoryB
-    ) {
+    if (hasNonSpecialRoleWardrobe) {
       const summarizeRoleWardrobe = (role) => {
         const suffix = role === 'a' ? 'A' : 'B';
         const accessoryLabel = summarizeAccessorySet(suffix);
+        const preset = wardrobeSlots[`outfitPreset${suffix}`];
+        const presetLabel = preset && !isNoneLikeItem(preset)
+          ? formatPresetSummary(
+              preset,
+              wardrobeColors[`outfitPreset${suffix}PrimaryColor`] || wardrobeColors[`outfitPreset${suffix}Color`]
+            )
+          : '';
         const dressLabel = wardrobeSlots[`dress${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`dress${suffix}`])
           ? wardrobeSlots[`dress${suffix}`].zh
           : '';
+        const specialOutfitLabel = wardrobeSlots[`specialOutfit${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`specialOutfit${suffix}`])
+          ? wardrobeSlots[`specialOutfit${suffix}`].zh
+          : '';
+        if (specialOutfitLabel) return joinSummaryParts(specialOutfitLabel, accessoryLabel);
+        if (presetLabel) return joinSummaryParts(presetLabel, accessoryLabel);
         if (dressLabel) return joinSummaryParts(dressLabel, accessoryLabel);
 
         const topLabel = wardrobeSlots[`top${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`top${suffix}`])
@@ -7621,7 +7682,16 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
                 wardrobeSlots[`bottomPattern${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`bottomPattern${suffix}`]) ? wardrobeSlots[`bottomPattern${suffix}`].zh : ''
               )
             : '';
-        return joinSummaryParts(topLabel, bottomLabel, accessoryLabel);
+        const outerwearLabel = wardrobeSlots[`outerwear${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`outerwear${suffix}`])
+          ? wardrobeSlots[`outerwear${suffix}`].zh
+          : '';
+        const legwearLabel = wardrobeSlots[`legwear${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`legwear${suffix}`])
+          ? wardrobeSlots[`legwear${suffix}`].zh
+          : '';
+        const shoeLabel = wardrobeSlots[`shoes${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`shoes${suffix}`])
+          ? wardrobeSlots[`shoes${suffix}`].zh
+          : '';
+        return joinSummaryParts(topLabel, bottomLabel, outerwearLabel, legwearLabel, shoeLabel, accessoryLabel);
       };
 
       return [
@@ -7926,7 +7996,12 @@ function projectBodyTypeCharacter(character, context) {
 }
 
 function extractWardrobeSlots(wardrobe) {
-  const findSlot = (token) => wardrobe.find((item) => item.id?.includes(token) && !item.meta?.wardrobeRole);
+  const findSlot = (token) => wardrobe.find((item) => (
+    item.id?.includes(token) &&
+    !item.meta?.wardrobeRole &&
+    !item.meta?.outfitRole &&
+    !item.meta?.specialOutfitRole
+  ));
   const findRoleSlot = (token, role, layerSlot) => wardrobe.find((item) => item.id?.includes(token) && item.meta?.wardrobeRole === role && item.meta?.layerSlot === layerSlot);
   const specialOutfits = wardrobe.filter((item) => item.id?.includes('wardrobe:特殊穿搭-special-outfits:'));
   const outfitPresets = wardrobe.filter((item) => item.id?.includes('wardrobe:套裝-outfit-presets:'));
@@ -8848,17 +8923,7 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, context = null) {
   const specialAText = normalizeWearable(buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitA, wardrobeColors.completeLookPaletteA, context));
   const specialBText = normalizeWearable(buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfitB, wardrobeColors.completeLookPaletteB, context));
   const specialSharedText = normalizeWearable(buildVisibleSpecialOutfitPrompt(wardrobeSlots.specialOutfit, wardrobeColors.completeLookPalette, context));
-  if (specialAText || specialBText) {
-    const roleParts = [
-      specialAText ? `woman 1 wears complete special outfit: ${specialAText}` : '',
-      specialBText ? `woman 2 wears complete special outfit: ${specialBText}` : '',
-    ].filter(Boolean);
-    return {
-      mode: 'role-special-outfits',
-      clothingText: roleParts.join(', '),
-      stylingText: `${roleParts.join(', ')}, complete wardrobe visible on both women, no additional clothing or accessory overrides`,
-    };
-  }
+  const hasRoleSpecialOutfit = Boolean(specialAText || specialBText);
   if (specialSharedText) {
     return {
       mode: 'shared-special-outfit',
@@ -8916,6 +8981,52 @@ function buildDuoWardrobeText(wardrobeSlots, wardrobeColors, context = null) {
     wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
     wardrobeSlots.skirtA || wardrobeSlots.skirtB
   );
+  const hasRoleAddonWardrobe = Boolean(
+    wardrobeSlots.legwearA || wardrobeSlots.legwearB ||
+    wardrobeSlots.outerwearA || wardrobeSlots.outerwearB ||
+    wardrobeSlots.shoesA || wardrobeSlots.shoesB ||
+    wardrobeSlots.waistAccessoryA || wardrobeSlots.waistAccessoryB
+  );
+
+  if (hasRoleSpecialOutfit && (hasRoleMainWardrobe || hasRoleAddonWardrobe)) {
+    const roleLooks = [
+      specialAText
+        ? `woman 1 wears complete special outfit: ${specialAText}`
+        : (() => {
+            const mainText = buildRoleMainText('a') || buildSharedMainText();
+            const addonText = buildRoleAddonText('a');
+            return mainText ? `woman 1 wears ${mainText}${addonText ? `, styled with ${addonText}` : ''}` : '';
+          })(),
+      specialBText
+        ? `woman 2 wears complete special outfit: ${specialBText}`
+        : (() => {
+            const mainText = buildRoleMainText('b') || buildSharedMainText();
+            const addonText = buildRoleAddonText('b');
+            return mainText ? `woman 2 wears ${mainText}${addonText ? `, styled with ${addonText}` : ''}` : '';
+          })(),
+    ].filter(Boolean);
+    return {
+      mode: 'mixed-role-special-outfits',
+      clothingText: roleLooks.join(', '),
+      stylingText: [
+        ...roleLooks,
+        differentiationText,
+        'distinct outfit-visible editorial duo composition, complete wardrobe visible on both women, visible torso and wardrobe details, no headshot-only crop',
+      ].filter(Boolean).join(', '),
+    };
+  }
+
+  if (hasRoleSpecialOutfit) {
+    const roleParts = [
+      specialAText ? `woman 1 wears complete special outfit: ${specialAText}` : '',
+      specialBText ? `woman 2 wears complete special outfit: ${specialBText}` : '',
+    ].filter(Boolean);
+    return {
+      mode: 'role-special-outfits',
+      clothingText: roleParts.join(', '),
+      stylingText: `${roleParts.join(', ')}, complete wardrobe visible on both women, no additional clothing or accessory overrides`,
+    };
+  }
 
   if (hasRoleMainWardrobe) {
     const sharedAddonText = buildSharedAddonText();

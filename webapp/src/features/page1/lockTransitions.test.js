@@ -296,3 +296,39 @@ test('page1 bulk wardrobe restore keeps complete-look priority over conflicting 
   assertInactive(next, controls, ['dressId', ...PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS]);
   assert.notEqual(next.outerwearId, 'none');
 });
+
+test('page1 duo transition scopes special-outfit takeover to the selected person', () => {
+  const controls = getLockControls();
+  const previousLocks = {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    topAId: activeOptionId(controls, 'topAId'),
+    outerwearAId: activeOptionId(controls, 'outerwearAId'),
+    headAccessoryAId: activeOptionId(controls, 'headAccessoryAId'),
+    eyewearAPlacementId: activeOptionId(controls, 'eyewearAPlacementId'),
+    topBId: activeOptionId(controls, 'topBId'),
+    shoesBId: activeOptionId(controls, 'shoesBId'),
+    waistAccessoryBId: activeOptionId(controls, 'waistAccessoryBId'),
+  };
+  const specialOutfitAId = activeOptionId(controls, 'specialOutfitAId');
+  const completeLookPaletteAId = activeOptionId(controls, 'completeLookPaletteAId');
+  const next = transitionPage1Locks({
+    previousLocks,
+    candidateLocks: {
+      ...previousLocks,
+      specialOutfitAId,
+      completeLookPaletteAId,
+    },
+    lockControls: controls,
+  });
+
+  assert.equal(next.specialOutfitAId, specialOutfitAId);
+  assert.equal(next.completeLookPaletteAId, completeLookPaletteAId);
+  assertInactive(next, controls, [
+    'outfitPresetAId', 'dressAId', 'topAId', 'outerwearAId', 'headAccessoryAId', 'eyewearAPlacementId',
+    'waistAccessoryAId',
+  ]);
+  assert.equal(next.topBId, previousLocks.topBId);
+  assert.equal(next.shoesBId, previousLocks.shoesBId);
+  assert.equal(next.waistAccessoryBId, previousLocks.waistAccessoryBId);
+});

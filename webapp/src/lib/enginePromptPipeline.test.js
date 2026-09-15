@@ -1065,6 +1065,56 @@ test('Gpt duo role cards keep role special outfits without guard text', () => {
   assert.doesNotMatch(subject, /complete special outfit:|complete wardrobe visible|no additional clothing or accessory overrides/i);
 });
 
+test('Gpt duo mixed role outfits keep the other person wardrobe selections', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    specialOutfitAId: optionId('specialOutfitAId', '黑色波點頭巾透紗套裝'),
+    topBId: optionId('topBId', '襯衫'),
+    pantsBId: optionId('pantsBId', '直筒牛仔褲'),
+    shoesBId: optionId('shoesBId', 'Samba OG'),
+    waistAccessoryBId: optionId('waistAccessoryBId', '細版皮革腰帶'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  };
+  const [prompt] = generatePrompts(1, locks, [], { random: () => 0.42 });
+  const subject = gptSection(prompt, 'Subject');
+  const woman1 = gptDuoRoleCard(subject, 1);
+  const woman2 = gptDuoRoleCard(subject, 2);
+
+  assert.equal(prompt.selection.specialOutfitAId, locks.specialOutfitAId);
+  assert.equal(prompt.selection.topBId, locks.topBId);
+  assert.equal(prompt.selection.pantsBId, locks.pantsBId);
+  assert.equal(prompt.selection.shoesBId, locks.shoesBId);
+  assert.equal(prompt.selection.waistAccessoryBId, locks.waistAccessoryBId);
+  assert.match(woman1, /black sheer polka-dot matching fashion set/i);
+  assert.doesNotMatch(woman1, /pink shirt|straight-leg jeans|adidas samba og|slim leather waist belt/i);
+  assert.match(woman2, /pink shirt/i);
+  assert.match(woman2, /pink straight-leg jeans/i);
+  assert.match(woman2, /adidas samba og/i);
+  assert.match(woman2, /slim leather waist belt/i);
+  assert.match(prompt.zImagePrompt, /Woman 2 has [\s\S]*pink shirt[\s\S]*pink straight-leg jeans/i);
+  assert.match(prompt.midjourneyPrompt, /pink shirt|straight-leg jeans/i);
+  assert.match(prompt.summary, /人物 1：黑色波點頭巾透紗套裝 \/ 人物 2：襯衫 \/ 直筒牛仔褲 \/ Samba OG \/ 細版皮革腰帶/);
+});
+
+test('Gpt duo mixed preset and garment selections stay visible in prompt and summary', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    outfitPresetAId: optionId('outfitPresetAId', '套裝：亮面乳膠束帶'),
+    topBId: optionId('topBId', '襯衫'),
+    pantsBId: optionId('pantsBId', '直筒牛仔褲'),
+    shoesBId: optionId('shoesBId', 'Samba OG'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  };
+  const [prompt] = generatePrompts(1, locks, [], { random: () => 0.42 });
+  const subject = gptSection(prompt, 'Subject');
+
+  assert.match(subject, /Woman 1:[\s\S]*opaque mirror-polished latex full-body catsuit/i);
+  assert.match(subject, /Woman 2:[\s\S]*shirt[\s\S]*straight-leg jeans[\s\S]*adidas samba og/i);
+  assert.match(prompt.summary, /人物 1：寶藍色｜套裝：亮面乳膠束帶 \/ 人物 2：襯衫 \/ 直筒牛仔褲 \/ Samba OG/);
+});
+
 test('Z-Image duo prompt uses compact direct paragraphs', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),

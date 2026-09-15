@@ -72,3 +72,10 @@ test('Pose Composer keeps the independent prop control outside the six-layer bat
     'poseAnchorId',
   ]);
 });
+
+test('duo wardrobe schema exposes both role waist-accessory controls in the accessories panel', () => {
+  const accessoryPanel = SECTION_SUBPANELS.wardrobe.find((panel) => panel.id === 'accessories');
+
+  assert.ok(accessoryPanel.keys.includes('waistAccessoryAId'));
+  assert.ok(accessoryPanel.keys.includes('waistAccessoryBId'));
+});

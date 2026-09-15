@@ -2,7 +2,10 @@ import {
   getSceneDependentOptions,
   sanitizeLocksForCloseupMode,
 } from '../../lib/engine.js';
-import { POSE_COMPOSER_CONTROL_KEYS } from './page1Schema.js';
+import {
+  DUO_ROLE_WARDROBE_KEYS,
+  POSE_COMPOSER_CONTROL_KEYS,
+} from './page1Schema.js';
 import { isNoneSelected } from './page1Selectors.js';
 import { reconcilePage1SingleWardrobeLocks } from './page1WardrobeExclusivity.js';
 import { applySupineSceneOverride } from '../../lib/engine/poseScenePolicy.js';
@@ -90,13 +93,26 @@ export function transitionPage1Locks({
     lockControls,
   });
 
+  const activeDuoSpecialOutfitRoles = next.subjectCount === '2'
+    ? ['A', 'B'].filter((role) => {
+      const key = `specialOutfit${role}Id`;
+      return Boolean(next[key]) && !isNoneSelected(key, next[key], lockControls);
+    })
+    : [];
   const specialOutfitIsActive = next.subjectCount === '2'
-    ? ['specialOutfitAId', 'specialOutfitBId'].some((key) => (
-      Boolean(next[key]) && !isNoneSelected(key, next[key], lockControls)
-    ))
+    ? activeDuoSpecialOutfitRoles.length > 0
     : Boolean(next.specialOutfitId)
       && !isNoneSelected('specialOutfitId', next.specialOutfitId, lockControls);
-  if (specialOutfitIsActive) {
+  if (next.subjectCount === '2') {
+    activeDuoSpecialOutfitRoles.forEach((role) => {
+      const roleNoneValues = DUO_ROLE_WARDROBE_KEYS[role];
+      roleNoneValues.forEach((key) => {
+        const control = lockControls.find((item) => item.key === key);
+        const noneOption = control?.options?.find((option) => option.zh === '全無');
+        next[key] = noneOption ? noneOption.id : '';
+      });
+    });
+  } else if (specialOutfitIsActive) {
     lockControls.forEach((control) => {
       if (control.section !== 'wardrobe') return;
       if (['specialOutfitId', 'specialOutfitAId', 'specialOutfitBId'].includes(control.key)) return;

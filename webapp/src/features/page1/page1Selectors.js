@@ -8,6 +8,7 @@ import {
   DUO_ACCESSORY_KEYS,
   DUO_GARMENT_KEYS,
   DUO_LAYER_KEYS,
+  DUO_ROLE_WARDROBE_KEYS,
   OUTFIT_PRESET_COLOR_KEYS,
   POSE_COMPOSER_CONTROL_KEYS,
   SHARED_ACCESSORY_KEYS,
@@ -168,10 +169,14 @@ function buildWardrobeControls(lockControls, locks) {
   if (selectedSpecialSubject?.specialSubject) return [];
 
   const showPresetColorControl = createPresetColorVisibility(lockControls, locks);
+  const activeDuoSpecialOutfitRoles = locks.subjectCount === '2'
+    ? ['A', 'B'].filter((role) => {
+      const key = `specialOutfit${role}Id`;
+      return Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls);
+    })
+    : [];
   const specialOutfitActive = locks.subjectCount === '2'
-    ? ['specialOutfitAId', 'specialOutfitBId'].some((key) => (
-      Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls)
-    ))
+    ? activeDuoSpecialOutfitRoles.length > 0
     : Boolean(locks.specialOutfitId) && !isNoneSelected('specialOutfitId', locks.specialOutfitId, lockControls);
   const hasCompleteLookSingle = ['specialOutfitId', 'outfitPresetId', 'dressId']
     .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls));
@@ -184,9 +189,13 @@ function buildWardrobeControls(lockControls, locks) {
     if (control.section !== 'wardrobe') return false;
     if (['specialOutfitId', 'completeLookPaletteId'].includes(control.key) && locks.subjectCount === '2') return false;
     if (['specialOutfitAId', 'specialOutfitBId', 'completeLookPaletteAId', 'completeLookPaletteBId'].includes(control.key) && locks.subjectCount !== '2') return false;
-    if (specialOutfitActive && ![
-      'specialOutfitId', 'specialOutfitAId', 'specialOutfitBId',
-      'completeLookPaletteId', 'completeLookPaletteAId', 'completeLookPaletteBId',
+    if (locks.subjectCount === '2') {
+      const specialOutfitRole = activeDuoSpecialOutfitRoles.find((role) => (
+        DUO_ROLE_WARDROBE_KEYS[role].includes(control.key)
+      ));
+      if (specialOutfitRole) return false;
+    } else if (specialOutfitActive && ![
+      'specialOutfitId', 'completeLookPaletteId',
     ].includes(control.key)) return false;
     if (control.key === 'completeLookPaletteId' && !hasCompleteLookSingle) return false;
     if (control.key === 'completeLookPaletteAId' && !hasCompleteLookA) return false;

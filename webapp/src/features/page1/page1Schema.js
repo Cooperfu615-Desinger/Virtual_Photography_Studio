@@ -56,7 +56,7 @@ export const STYLE_WARDROBE_CONTROL_ORDER = [
   'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
   'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
   'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
-  'wristAccessoryId', 'ringId', 'waistAccessoryId',
+  'wristAccessoryId', 'ringId', 'waistAccessoryId', 'waistAccessoryAId', 'waistAccessoryBId',
 ];
 
 export const SHARED_GARMENT_KEYS = [
@@ -88,10 +88,12 @@ export const DUO_LAYER_KEYS = [
 
 export const SHARED_ACCESSORY_KEYS = [
   'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
+  'waistAccessoryId',
 ];
 export const DUO_ACCESSORY_KEYS = [
   'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
   'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
+  'waistAccessoryAId', 'waistAccessoryBId',
 ];
 
 export const OUTFIT_PRESET_COLOR_KEYS = [
@@ -99,6 +101,42 @@ export const OUTFIT_PRESET_COLOR_KEYS = [
   'outfitPresetAPrimaryColorId', 'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId',
   'outfitPresetBPrimaryColorId', 'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId',
 ];
+
+const DUO_ROLE_COMPLETE_LOOK_KEYS = Object.freeze({
+  A: Object.freeze([
+    'outfitPresetAId', 'outfitPresetAColorId', 'outfitPresetAPrimaryColorId',
+    'outfitPresetAContrastColorId', 'outfitPresetALockedPaletteId',
+    'dressAId', 'dressAColorId',
+  ]),
+  B: Object.freeze([
+    'outfitPresetBId', 'outfitPresetBColorId', 'outfitPresetBPrimaryColorId',
+    'outfitPresetBContrastColorId', 'outfitPresetBLockedPaletteId',
+    'dressBId', 'dressBColorId',
+  ]),
+});
+
+function isDuoRoleKey(key, role) {
+  return [
+    `${role}Id`, `${role}ColorId`, `${role}PatternId`, `${role}FitId`,
+    `${role}StylingId`, `${role}OpeningId`, `${role}RiseId`, `${role}PlacementId`,
+    `${role}PrimaryColorId`, `${role}ContrastColorId`, `${role}LockedPaletteId`,
+  ].some((suffix) => key.endsWith(suffix));
+}
+
+export const DUO_ROLE_WARDROBE_KEYS = Object.freeze({
+  A: Object.freeze([
+    ...DUO_ROLE_COMPLETE_LOOK_KEYS.A,
+    ...DUO_GARMENT_KEYS.filter((key) => isDuoRoleKey(key, 'A')),
+    ...DUO_LAYER_KEYS.filter((key) => isDuoRoleKey(key, 'A')),
+    ...DUO_ACCESSORY_KEYS.filter((key) => isDuoRoleKey(key, 'A')),
+  ]),
+  B: Object.freeze([
+    ...DUO_ROLE_COMPLETE_LOOK_KEYS.B,
+    ...DUO_GARMENT_KEYS.filter((key) => isDuoRoleKey(key, 'B')),
+    ...DUO_LAYER_KEYS.filter((key) => isDuoRoleKey(key, 'B')),
+    ...DUO_ACCESSORY_KEYS.filter((key) => isDuoRoleKey(key, 'B')),
+  ]),
+});
 export const WORKSPACE_SECTIONS = [
   { id: 'character', label: 'A 人物設定' },
   { id: 'pose', label: 'B 神情姿態' },
@@ -305,6 +343,8 @@ export const SECTION_SUBPANELS = {
         'wristAccessoryId',
         'ringId',
         'waistAccessoryId',
+        'waistAccessoryAId',
+        'waistAccessoryBId',
       ],
     },
   ],

@@ -66,6 +66,31 @@ test('eyewear frame color and placement controls follow single and duo subject m
   ].forEach((key) => assert.ok(duoKeys.has(key), `duo mode should show ${key}`));
 });
 
+test('duo wardrobe controls keep the other person editable when one person uses a special outfit', () => {
+  const lockControls = getLockControls();
+  const specialOutfitAId = lockControls
+    .find((control) => control.key === 'specialOutfitAId')
+    ?.options.find((option) => option.zh !== '全無' && option.zh !== '隨機')?.id;
+  const locks = {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    specialOutfitAId,
+  };
+  const { wardrobeLockControls } = buildPage1ControlGroups({
+    lockControls,
+    locks,
+    sceneDependentOptions: getSceneDependentOptions([], locks),
+  });
+  const wardrobeKeys = new Set(wardrobeLockControls.map((control) => control.key));
+
+  ['specialOutfitAId', 'completeLookPaletteAId', 'specialOutfitBId', 'topBId', 'waistAccessoryBId']
+    .forEach((key) => assert.ok(wardrobeKeys.has(key), `duo mode should keep ${key} visible`));
+  ['outfitPresetAId', 'topAId', 'outerwearAId', 'headAccessoryAId', 'eyewearAPlacementId', 'waistAccessoryAId']
+    .forEach((key) => assert.equal(wardrobeKeys.has(key), false, `special outfit should take over ${key}`));
+  ['waistAccessoryId', 'topId', 'headAccessoryId']
+    .forEach((key) => assert.equal(wardrobeKeys.has(key), false, `duo mode should hide shared ${key}`));
+});
+
 test('single dress reports complete-look takeover state to the PAGE1 UI', () => {
   const lockControls = getLockControls();
   const dressId = lockControls

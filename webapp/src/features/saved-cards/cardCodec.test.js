@@ -6,6 +6,7 @@ import { transitionPage1Locks } from '../page1/lockTransitions.js';
 import {
   createLineage,
   buildMarkdownExport,
+  buildImportedStructured,
   buildRestoreLocks,
   buildSavedCardManifestItem,
   collectSourceTags,
@@ -136,6 +137,34 @@ test('favorite codec preserves single and duo head accessory color controls', ()
   assert.equal(restored.selection.headAccessoryColorId, 'red');
   assert.equal(restored.selection.headAccessoryAColorId, 'bright-red');
   assert.equal(restored.selection.headAccessoryBColorId, 'royal-blue');
+});
+
+test('saved card structured scheme keeps duo complete-look, layer, and accessory selections', () => {
+  const controls = getLockControls();
+  const activeOptionId = (key) => controls
+    .find((control) => control.key === key)
+    ?.options.find((option) => option.zh !== '全無' && option.zh !== '隨機' && option.en !== 'none')?.id;
+  const locks = {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    specialOutfitAId: activeOptionId('specialOutfitAId'),
+    completeLookPaletteAId: activeOptionId('completeLookPaletteAId'),
+    outerwearBId: activeOptionId('outerwearBId'),
+    shoesBId: activeOptionId('shoesBId'),
+    eyewearBPlacementId: activeOptionId('eyewearBPlacementId'),
+    waistAccessoryBId: activeOptionId('waistAccessoryBId'),
+  };
+  const structured = buildImportedStructured(locks, controls);
+  const wardrobeIds = structured.Wardrobe.map((item) => item.id);
+
+  [
+    'specialOutfitAId',
+    'completeLookPaletteAId',
+    'outerwearBId',
+    'shoesBId',
+    'eyewearBPlacementId',
+    'waistAccessoryBId',
+  ].forEach((key) => assert.ok(wardrobeIds.includes(locks[key]), `${key} should be retained in structured data`));
 });
 
 test('favorite codec and Markdown import preserve Z-Image exact visible text settings', () => {

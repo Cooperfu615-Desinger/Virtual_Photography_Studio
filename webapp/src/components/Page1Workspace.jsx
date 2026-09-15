@@ -532,13 +532,26 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     && !isNoneSelected('dressId', locks.dressId, wardrobeLockControls);
   const isOutfitPresetAActive = Boolean(locks.outfitPresetAId) && !isNoneSelected('outfitPresetAId', locks.outfitPresetAId, wardrobeLockControls);
   const isOutfitPresetBActive = Boolean(locks.outfitPresetBId) && !isNoneSelected('outfitPresetBId', locks.outfitPresetBId, wardrobeLockControls);
+  const isDuoMode = locks.subjectCount === '2';
+  const activeDuoSpecialOutfitRoles = isDuoMode
+    ? ['A', 'B'].filter((role) => {
+      const key = `specialOutfit${role}Id`;
+      return Boolean(locks[key]) && !isNoneSelected(key, locks[key], wardrobeLockControls);
+    })
+    : [];
   const isSpecialOutfitActive = locks.subjectCount === '2'
     ? (
         (Boolean(locks.specialOutfitAId) && !isNoneSelected('specialOutfitAId', locks.specialOutfitAId, wardrobeLockControls)) ||
         (Boolean(locks.specialOutfitBId) && !isNoneSelected('specialOutfitBId', locks.specialOutfitBId, wardrobeLockControls))
       )
     : Boolean(locks.specialOutfitId) && !isNoneSelected('specialOutfitId', locks.specialOutfitId, wardrobeLockControls);
-  const isDuoMode = locks.subjectCount === '2';
+  const specialOutfitScopeLabel = !isDuoMode
+    ? ''
+    : activeDuoSpecialOutfitRoles.length === 2
+      ? '兩位人物'
+      : activeDuoSpecialOutfitRoles[0] === 'A'
+        ? '人物 1'
+        : '人物 2';
   const isAnyOutfitPresetActive = isSingleOutfitPresetActive || isSingleDressActive || isOutfitPresetAActive || isOutfitPresetBActive;
   const importedWorldSceneActive = locks.importedWorldSceneMode === 'architecture' && Boolean(locks.importedWorldSceneArchitectureText);
   const fixedCompositionSetActive = locks.subjectCount !== '2'
@@ -1095,7 +1108,8 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
       ) : null}
       {isSpecialOutfitActive ? (
         <div className="context-note">
-          特殊穿搭是完整從頭到腳造型，已接管所有服裝、鞋襪與配件欄位。
+          特殊穿搭是完整從頭到腳造型，已接管{isDuoMode ? `${specialOutfitScopeLabel}的` : ''}服裝、鞋襪與配件欄位。
+          {isDuoMode && activeDuoSpecialOutfitRoles.length === 1 ? '另一位人物仍可獨立設定穿搭。' : ''}
         </div>
       ) : null}
       {isSpecialSubjectMode ? (
