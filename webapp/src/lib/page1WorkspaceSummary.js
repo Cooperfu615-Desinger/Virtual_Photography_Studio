@@ -1,5 +1,6 @@
 import { CHARACTER_CARD_LAYER_KEYS, CHARACTER_CARD_LAYER_LABELS } from './characterCardLab.js';
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
+import { buildAccessorySummaryEntries } from './accessorySummary.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
 import { PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS } from '../features/page1/page1WardrobeExclusivity.js';
 
@@ -10,6 +11,37 @@ export const OUTFIT_PRESET_COVERED_KEYS = new Set([
 ]);
 
 export const DRESS_COVERED_KEYS = new Set(PAGE1_SINGLE_SEPARATE_WARDROBE_KEYS);
+
+const SINGLE_ACCESSORY_SUMMARY_KEYS = [
+  'headAccessoryId',
+  'headAccessoryColorId',
+  'eyewearId',
+  'eyewearColorId',
+  'eyewearPlacementId',
+  'earringsId',
+  'neckAccessoryId',
+  'waistAccessoryId',
+];
+
+const ACCESSORY_SUMMARY_KEYS = [
+  ...SINGLE_ACCESSORY_SUMMARY_KEYS,
+  'headAccessoryAId',
+  'headAccessoryAColorId',
+  'eyewearAId',
+  'eyewearAColorId',
+  'eyewearAPlacementId',
+  'earringsAId',
+  'neckAccessoryAId',
+  'waistAccessoryAId',
+  'headAccessoryBId',
+  'headAccessoryBColorId',
+  'eyewearBId',
+  'eyewearBColorId',
+  'eyewearBPlacementId',
+  'earringsBId',
+  'neckAccessoryBId',
+  'waistAccessoryBId',
+];
 
 export const OUTFIT_PRESET_A_COVERED_KEYS = new Set([
   'topAId',
@@ -78,6 +110,15 @@ function getEffectiveWardrobeOptionLabel(controls, locks, key, activePresets) {
   return getControlOptionLabel(controls, key, locks[key]);
 }
 
+function buildWardrobeAccessoryLabels(keys, controls, locks, activeOutfitPresets) {
+  return buildAccessorySummaryEntries(
+    keys.map((key) => ({
+      key,
+      text: getEffectiveWardrobeOptionLabel(controls, locks, key, activeOutfitPresets),
+    }))
+  ).map((entry) => entry.text);
+}
+
 function getActiveOutfitPresets(locks, controls) {
   return {
     single: isOutfitPresetActive(locks, controls, 'outfitPresetId'),
@@ -103,6 +144,12 @@ export function buildWorkspaceSummary(locks, controls) {
   const isDedicatedSpecialSubjectMode = isSpecialSubjectMode && !isCharacterProfileMode;
   const activeOutfitPresets = getActiveOutfitPresets(locks, controls);
   const wardrobeLabel = (key) => getEffectiveWardrobeOptionLabel(controls, locks, key, activeOutfitPresets);
+  const singleAccessoryLabels = buildWardrobeAccessoryLabels(
+    SINGLE_ACCESSORY_SUMMARY_KEYS,
+    controls,
+    locks,
+    activeOutfitPresets,
+  );
   const importedCharacterCardWardrobe = isCharacterProfileMode && !isSpecialSubjectMode
     ? normalizeCharacterCardLayerIds(locks.characterCardWardrobeLayerIds).map((key) => `角色卡${CHARACTER_CARD_LAYER_LABELS[key]}`)
     : [];
@@ -176,9 +223,9 @@ export function buildWorkspaceSummary(locks, controls) {
     wardrobeLabel('skirtBId'),
     wardrobeLabel('bottomFitId'),
     wardrobeLabel('bottomRiseId'),
-    wardrobeLabel('waistAccessoryId'),
     wardrobeLabel('legwearId'),
     wardrobeLabel('shoesId'),
+    ...singleAccessoryLabels,
     wardrobeLabel('legwearAId'),
     wardrobeLabel('shoesAId'),
     wardrobeLabel('headAccessoryAId'),
@@ -321,34 +368,12 @@ export function buildWardrobeLayerInsights(locks, controls, isSpecialOutfitActiv
     selected('shoesAId'),
     selected('shoesBId'),
   ].filter(Boolean);
-  const accessoryLabels = [
-    selected('headAccessoryId'),
-    selected('headAccessoryColorId'),
-    selected('headAccessoryAId'),
-    selected('headAccessoryAColorId'),
-    selected('headAccessoryBId'),
-    selected('headAccessoryBColorId'),
-    selected('eyewearId'),
-    selected('eyewearColorId'),
-    selected('eyewearPlacementId'),
-    selected('eyewearAId'),
-    selected('eyewearAColorId'),
-    selected('eyewearAPlacementId'),
-    selected('eyewearBId'),
-    selected('eyewearBColorId'),
-    selected('eyewearBPlacementId'),
-    selected('earringsId'),
-    selected('earringsAId'),
-    selected('earringsBId'),
-    selected('neckAccessoryId'),
-    selected('neckAccessoryAId'),
-    selected('neckAccessoryBId'),
-    selected('wristAccessoryId'),
-    selected('ringId'),
-    selected('waistAccessoryId'),
-    selected('waistAccessoryAId'),
-    selected('waistAccessoryBId'),
-  ].filter(Boolean);
+  const accessoryLabels = buildWardrobeAccessoryLabels(
+    ACCESSORY_SUMMARY_KEYS,
+    controls,
+    locks,
+    activeOutfitPresets,
+  );
 
   const notes = [];
   if (isSpecialOutfitActive) {
@@ -374,7 +399,7 @@ export function buildWardrobeLayerInsights(locks, controls, isSpecialOutfitActiv
     main: mainOutfitLabels.slice(0, 3),
     palette: paletteLabels.slice(0, 3),
     layers: layerLabels.slice(0, 4),
-    accessories: accessoryLabels.slice(0, 4),
+    accessories: accessoryLabels,
     notes,
   };
 }

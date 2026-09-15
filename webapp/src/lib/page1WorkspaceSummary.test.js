@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { createEmptyLocks, getLockControls } from './engine.js';
+import { createEmptyLocks, generatePrompts, getLockControls } from './engine.js';
 import {
   buildPage1GenerationSummary,
   buildWardrobeLayerInsights,
@@ -130,6 +130,45 @@ test('generation summary traces the resolved waist accessory selection', () => {
 
   const resolvedSummary = buildPage1GenerationSummary(locks, previewPrompt, controls);
   assert.match(resolvedSummary, /肚臍環/);
+});
+
+test('workspace and generation summaries trace every resolved single accessory', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    outfitPresetId: optionId('outfitPresetId', '套裝：粉針織罩衫寬牛仔'),
+    headAccessoryId: optionId('headAccessoryId', '毛帽'),
+    headAccessoryColorId: optionId('headAccessoryColorId', '淺灰色'),
+    eyewearId: optionId('eyewearId', '細框眼鏡'),
+    eyewearColorId: optionId('eyewearColorId', '黑色'),
+    eyewearPlacementId: optionId('eyewearPlacementId', '正常戴在臉上'),
+    earringsId: optionId('earringsId', '珍珠耳釘'),
+    neckAccessoryId: optionId('neckAccessoryId', '多條層疊的水晶項鍊與頸鏈'),
+    waistAccessoryId: optionId('waistAccessoryId', '細版皮革腰帶'),
+  };
+  const workspaceSummary = buildWorkspaceSummary(locks, controls).wardrobe.summary;
+  const insights = buildWardrobeLayerInsights(locks, controls, false, true);
+  const [prompt] = generatePrompts(1, locks, [], { random: () => 0.5 });
+  const generationSummary = buildPage1GenerationSummary(locks, prompt, controls);
+
+  const expected = [
+    '毛帽',
+    '淺灰色',
+    '細框眼鏡',
+    '黑色',
+    '正常戴在臉上',
+    '珍珠耳釘',
+    '多條層疊的水晶項鍊與頸鏈',
+    '細版皮革腰帶',
+  ];
+
+  for (const label of expected) {
+    assert.match(workspaceSummary, new RegExp(label));
+    assert.match(generationSummary, new RegExp(label));
+    assert.match(prompt.summaryFields.wardrobe, new RegExp(label));
+  }
+  assert.deepEqual(insights.accessories, expected);
+  assert.equal((prompt.summaryFields.wardrobe.match(/細版皮革腰帶/g) || []).length, 1);
 });
 
 test('workspace pose summary shows the active single action pose card as the B pose override', () => {

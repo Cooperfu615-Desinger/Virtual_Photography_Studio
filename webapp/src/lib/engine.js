@@ -9,6 +9,7 @@ import {
 } from './characterCardLab.js';
 import { normalizeRandom } from './engineRandom.js';
 import { getCameraControlDisplayLabel } from './page1CameraLabels.js';
+import { buildAccessorySummaryText } from './accessorySummary.js';
 import {
   COMPOSITION_VISIBILITY_BUCKETS,
   COMPOSITION_VISIBILITY_CONTRACT,
@@ -7480,6 +7481,29 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     if (!preset) return '';
     return primaryColor?.zh ? `${primaryColor.zh}｜${preset.zh}` : preset.zh;
   };
+  const accessoryItemLabel = (item) => (
+    item?.zh && !isNoneLikeItem(item) ? item.zh : ''
+  );
+  const summarizeAccessorySet = (suffix = '') => {
+    const slot = (key) => wardrobeSlots[`${key}${suffix}`];
+    const headLabel = accessoryItemLabel(slot('headAccessory'));
+    const eyewearLabel = accessoryItemLabel(slot('eyewear'));
+    return buildAccessorySummaryText([
+      { key: `headAccessory${suffix}`, text: headLabel },
+      {
+        key: `headAccessoryColor${suffix}`,
+        text: headLabel
+          ? accessoryItemLabel(suffix ? wardrobeColors[`headAccessory${suffix}Color`] : wardrobeColors.headAccessoryColor)
+          : '',
+      },
+      { key: `eyewear${suffix}`, text: eyewearLabel },
+      { key: `eyewearColor${suffix}`, text: eyewearLabel ? accessoryItemLabel(slot('eyewearColor')) : '' },
+      { key: `eyewearPlacement${suffix}`, text: eyewearLabel ? accessoryItemLabel(slot('eyewearPlacement')) : '' },
+      { key: `earrings${suffix}`, text: accessoryItemLabel(slot('earrings')) },
+      { key: `neckAccessory${suffix}`, text: accessoryItemLabel(slot('neckAccessory')) },
+      { key: `waistAccessory${suffix}`, text: accessoryItemLabel(slot('waistAccessory')) },
+    ]);
+  };
   const summarizeSingleCharacter = () => {
     if (isSpecialSubject(context.subject)) {
       return joinSummaryParts(
@@ -7531,19 +7555,33 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
   const summarizeWardrobe = () => {
     if (wardrobeSlots.specialOutfitA || wardrobeSlots.specialOutfitB) {
       return [
-        wardrobeSlots.specialOutfitA?.zh && !isNoneLikeItem(wardrobeSlots.specialOutfitA) ? `人物 1：${wardrobeSlots.specialOutfitA.zh}` : '',
-        wardrobeSlots.specialOutfitB?.zh && !isNoneLikeItem(wardrobeSlots.specialOutfitB) ? `人物 2：${wardrobeSlots.specialOutfitB.zh}` : '',
+        wardrobeSlots.specialOutfitA?.zh && !isNoneLikeItem(wardrobeSlots.specialOutfitA)
+          ? `人物 1：${joinSummaryParts(wardrobeSlots.specialOutfitA.zh, summarizeAccessorySet('A'))}`
+          : '',
+        wardrobeSlots.specialOutfitB?.zh && !isNoneLikeItem(wardrobeSlots.specialOutfitB)
+          ? `人物 2：${joinSummaryParts(wardrobeSlots.specialOutfitB.zh, summarizeAccessorySet('B'))}`
+          : '',
       ].filter(Boolean).join(' / ') || '-';
     }
 
     if (wardrobeSlots.specialOutfit) {
-      return wardrobeSlots.specialOutfit.zh || '-';
+      return joinSummaryParts(wardrobeSlots.specialOutfit.zh, summarizeAccessorySet()) || '-';
     }
 
     if (wardrobeSlots.outfitPresetA || wardrobeSlots.outfitPresetB) {
       return [
-        formatPresetSummary(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAPrimaryColor || wardrobeColors.outfitPresetAColor),
-        formatPresetSummary(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBPrimaryColor || wardrobeColors.outfitPresetBColor),
+        wardrobeSlots.outfitPresetA
+          ? joinSummaryParts(
+              formatPresetSummary(wardrobeSlots.outfitPresetA, wardrobeColors.outfitPresetAPrimaryColor || wardrobeColors.outfitPresetAColor),
+              summarizeAccessorySet('A'),
+            )
+          : '',
+        wardrobeSlots.outfitPresetB
+          ? joinSummaryParts(
+              formatPresetSummary(wardrobeSlots.outfitPresetB, wardrobeColors.outfitPresetBPrimaryColor || wardrobeColors.outfitPresetBColor),
+              summarizeAccessorySet('B'),
+            )
+          : '',
       ].filter(Boolean).join(' / ') || '-';
     }
 
@@ -7552,14 +7590,19 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       wardrobeSlots.topA || wardrobeSlots.topB ||
       wardrobeSlots.pantsA || wardrobeSlots.pantsB ||
       wardrobeSlots.skirtA || wardrobeSlots.skirtB ||
-      wardrobeSlots.waistAccessoryA || wardrobeSlots.waistAccessoryB
+      wardrobeSlots.waistAccessoryA || wardrobeSlots.waistAccessoryB ||
+      wardrobeSlots.headAccessoryA || wardrobeSlots.headAccessoryB ||
+      wardrobeSlots.eyewearA || wardrobeSlots.eyewearB ||
+      wardrobeSlots.earringsA || wardrobeSlots.earringsB ||
+      wardrobeSlots.neckAccessoryA || wardrobeSlots.neckAccessoryB
     ) {
       const summarizeRoleWardrobe = (role) => {
         const suffix = role === 'a' ? 'A' : 'B';
+        const accessoryLabel = summarizeAccessorySet(suffix);
         const dressLabel = wardrobeSlots[`dress${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`dress${suffix}`])
           ? wardrobeSlots[`dress${suffix}`].zh
           : '';
-        if (dressLabel) return dressLabel;
+        if (dressLabel) return joinSummaryParts(dressLabel, accessoryLabel);
 
         const topLabel = wardrobeSlots[`top${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`top${suffix}`])
           ? joinSummaryParts(
@@ -7578,10 +7621,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
                 wardrobeSlots[`bottomPattern${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`bottomPattern${suffix}`]) ? wardrobeSlots[`bottomPattern${suffix}`].zh : ''
               )
             : '';
-        const waistLabel = wardrobeSlots[`waistAccessory${suffix}`]?.zh && !isNoneLikeItem(wardrobeSlots[`waistAccessory${suffix}`])
-          ? wardrobeSlots[`waistAccessory${suffix}`].zh
-          : '';
-        return joinSummaryParts(topLabel, bottomLabel, waistLabel);
+        return joinSummaryParts(topLabel, bottomLabel, accessoryLabel);
       };
 
       return [
@@ -7591,7 +7631,10 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     }
 
     if (wardrobeSlots.outfitPreset) {
-      return formatPresetSummary(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetPrimaryColor || wardrobeColors.outfitPresetColor) || '-';
+      return joinSummaryParts(
+        formatPresetSummary(wardrobeSlots.outfitPreset, wardrobeColors.outfitPresetPrimaryColor || wardrobeColors.outfitPresetColor),
+        summarizeAccessorySet(),
+      ) || '-';
     }
 
     const topLabel = wardrobeSlots.top?.zh && !isNoneLikeItem(wardrobeSlots.top)
@@ -7612,15 +7655,6 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
           )
         : '';
     const shoeLabel = wardrobeSlots.shoes?.zh && !isNoneLikeItem(wardrobeSlots.shoes) ? wardrobeSlots.shoes.zh : '';
-    const waistAccessoryLabel = wardrobeSlots.waistAccessory?.zh && !isNoneLikeItem(wardrobeSlots.waistAccessory)
-      ? wardrobeSlots.waistAccessory.zh
-      : '';
-    const headAccessoryLabel = wardrobeSlots.headAccessory?.zh && !isNoneLikeItem(wardrobeSlots.headAccessory)
-      ? joinSummaryParts(
-          wardrobeSlots.headAccessory.zh,
-          wardrobeColors.headAccessoryColor?.zh && !isNoneLikeItem(wardrobeColors.headAccessoryColor) ? wardrobeColors.headAccessoryColor.zh : ''
-        )
-      : '';
     const outerwearLabel = wardrobeSlots.outerwear?.zh && !isNoneLikeItem(wardrobeSlots.outerwear)
       ? joinSummaryParts(
           wardrobeSlots.outerwear.zh,
@@ -7635,8 +7669,7 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       bottomLabel,
       outerwearLabel,
       shoeLabel,
-      headAccessoryLabel,
-      waistAccessoryLabel
+      summarizeAccessorySet(),
     );
   };
 
