@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-14
+Last updated: 2026-09-15
+
+## Subject Light Styles + remaining Z-Image scene detail priority (2026-09-15)
+
+- This local batch rewrites the 25 non-none `光線表現 (Light Style)` English source descriptions in `knowledge_base/camera_and_lighting.md` and the generated `webapp/src/data/database.json`. Public option IDs, Chinese labels, UI, selection/storage payloads and renderer contracts are unchanged. The new wording is subject-scoped (direction, quality, color or projection, and shadow behavior); it does not introduce scene, pose, wardrobe, lens or film facts. Exact source text is pinned by [subject-light-styles-v1](specs/subject-light-styles-v1.md).
+- Runtime compatibility aliases accept both the reviewed wording and the historical wording. The legacy normalizer in `subjectLightFixtures.js` is test-only and is used to compare immutable historical prompt hashes; runtime prompts use the reviewed wording. The 25-row source sync completed successfully.
+- The remaining 38 B-section scene sources are now ID-bound in `zImageSceneDetailPriority.js`, bringing the reviewed low-camera priority map to 45 locations (the original seven plus 38). Only ordinary single-subject main Z-Image at effective waist/knee/ground/worm-eye camera heights uses these source-backed opening substitutions; unknown/custom sources fail closed, and GPT/MJ/derived/fixed/duo/character-card/supine paths remain unchanged. The half-face crop is excluded from the integration matrix when its camera projection coerces low height to eye level. Exact wording and matrices are recorded in [z-image-existing-scene-detail-priority-v2](specs/z-image-existing-scene-detail-priority-v2.md).
+- Focused prompt/scene regressions pass 137/137. The original combined batch recorded frontend `npm test` 939/939; after the later duo correction, the current worktree-wide frontend gate is 949/949 while `npm run test:prompt-quality` remains 269/269. Lint, build, `git diff --check`, `python3 scripts/sync_to_json.py --check`, Python sync tests, public-asset validation, and the strict same-seed audit (200 prompts, zero blocking signals; 23 diagnostic-only findings) were also recorded as passing. Browser smoke at 1440x1000 and 390x900 exercised Prompt 工作台, 角色建模, 動作姿勢, 場景建模, 觀察式抓拍 and Saved Cards; the reviewed light text appeared in all applicable PAGE1 outputs, the new scene openings remained ID-bound, no broken images or console/page errors were observed, and both layouts had no document-level horizontal overflow. This verifies the local implementation; external image quality and Git delivery remain separate and are not implied.
+- The source, runtime, fixture, test, and documentation changes for this combined batch remain in the working tree and are not staged, committed, or pushed. The latest committed and pushed checkpoint is the separate duo fix `696dff7`.
 
 ## Near-contact medium / cowboy worm-eye (2026-09-14)
 
@@ -32,18 +40,18 @@ Last updated: 2026-09-14
 ## Shared ambient-light descriptions v1: ordinary main GPT/Z (2026-09-14)
 
 - Historical batch starting checkpoint main / `426f63f` (regular-length hoodie already committed); this ambient batch is now committed as `1209e18`. The historical scene batch below is committed as `981475d`. Its original full-GPT ambient rule is superseded only for eligible main GPT by the visibility phase above.
-- 36 reviewed Ambient Light Conditions use an exact ID/zh/source-bound authored overlay: GPT retains the complete new description; ordinary main Z retains the light core and projects only tagged sky/surface details. Subject Light Styles (25), catalog/UI/IDs/compatibility/storage, MJ, derivatives and excluded paths remain unchanged. Source v1.0.0, Z contract v1.12.0, output contract v1.11.0; [scope, all English wording and validation](specs/ambient-light-shared-descriptions-v1.md).
+- 36 reviewed Ambient Light Conditions use an exact ID/zh/source-bound authored overlay: GPT retains the complete new description; ordinary main Z retains the light core and projects only tagged sky/surface details. In that historical ambient-light batch, Subject Light Styles (25), catalog/UI/IDs/compatibility/storage, MJ, derivatives and excluded paths remained unchanged; the later Subject Light batch is recorded at the top of this file. Source v1.0.0, Z contract v1.12.0, output contract v1.11.0; [scope, all English wording and validation](specs/ambient-light-shared-descriptions-v1.md).
 - Frozen 720-case matrix and 10 excluded fixtures pass; selection/RNG and non-ambient bytes remain identical. Saved Cards and Markdown primary output text round trips pass. Frontend 923/923, Prompt Quality 254/254, lint/build and diff check pass. Same-seed strict 200: zero blockers and unchanged 23 diagnostics; only GPT/Z length statistics differ.
 - Browser checked at desktop 1440x1000 and mobile 390x900 across the five required workspaces. Live blue-hour high/low difference, cumulus specificity, rain-after wall reflection, mixed subject lighting and DLL source toggle verified. No observed warning/error logs; character images complete after loading. Six existing cards retained, original controls/source/viewport restored. Browser acceptance remains PARTIAL due to existing mobile PAGE1 overflow (375 client / 411 scroll) and narrow outputs; clipboard/download bytes not reverified. No external images generated. User untracked folders untouched.
-- Next unimplemented discussion scope: the 25 Subject Light Styles; do not treat this ambient pass as all lighting completed or expand renderer scope without approval.
+- The 25 Subject Light Styles are now handled by the local combined batch above; the historical ambient-light contract itself remains unchanged.
 
-## Z-Image existing scene-detail priority: ten reviewed scenes (2026-09-14)
+## Z-Image existing scene-detail priority: ten reviewed scenes (historical v1; superseded by v2)
 
 - Starting checkpoint `main` / `f6a2ed9`, already on `origin/main`; the prior eighteen upper-scene sources are committed. This batch is local only, not staged/committed/pushed/deployed.
 - Seven approved existing-source priority substitutions and three unchanged controls are implemented for ordinary single main Z at effective waist/knee/floor/worm-eye heights. Main Z contract `1.11.0`, detail-priority source `1.0.0`; [exact wording, scope and evidence](specs/z-image-existing-scene-detail-priority-v1.md). This is a bounded exception allowing only reviewed same-location raw fragments, not full source restoration. Catalog, UI, other renderers, selections, storage, floor/sky and camera rules remain unchanged.
 - Frozen 1,430-case before/after comparison passes; other output bytes, selection and RNG remain identical. Final frontend 919/919, Prompt Quality 251/251, lint/build pass. Same-seed strict 200 audit is identical before/after: zero blockers and 23 diagnostics.
 - Ten live scene openings, high/low reversion and five-workspace desktop/mobile smoke checked without observed warning/error or broken images. Existing six cards and original controls/viewport retained. Browser acceptance stays PARTIAL: prior mobile PAGE1 overflow remains; copy success UI seen but clipboard readback empty, download bytes not reverified. No external images generated; user folders untouched.
-- B-section review now covers 10 of 48 scenes (7 changes / 3 controls); remaining 38 are not implicitly authorized or changed. No further A/B pack requested.
+- Historical snapshot: B-section review then covered 10 of 48 scenes (7 changes / 3 controls); the remaining 38 were not yet authorized or changed at that point. The later v2 batch above records the additional 38; no further A/B pack was requested.
 
 ## Z-Image upper-scene v2: remaining fourteen approved sources (2026-09-13)
 
@@ -131,8 +139,8 @@ Last updated: 2026-09-14
 
 ## Snapshot
 
-- Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
-- Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
+- Repo: `/Users/cooperfu/Projects/Virtual_Photography_Studio`
+- Frontend: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp`
 - App: Vite + React prompt generator
 - Baseline for the facial-identity optimization: `main` at `45ee3ea`
 - Normal working branch: `main`
@@ -183,7 +191,7 @@ Last updated: 2026-09-14
 
 ## Validation
 
-Run from `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp` unless noted:
+Run from `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp` unless noted:
 
 - `npm test`
 - `npm run lint`
@@ -433,11 +441,11 @@ Validation for the facial identity optimization:
 
 Character-card authoring locations:
 
-- Full-resolution source images and alternate reference views: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/source-assets/character-cards/<lowercase-name>/`
-- Deployment preview: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/public/character-cards/<lowercase-name>/<number>_<Name>_00.avif`
-- Preview manifest: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/character_reference_manifest.json`
-- Identity, face, body, hair, outfit, and reference metadata: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/characterProfiles.js`
-- PAGE2 hair compatibility and removable wardrobe layers: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/characterCardLab.js`
+- Full-resolution source images and alternate reference views: `/Users/cooperfu/Projects/Virtual_Photography_Studio/source-assets/character-cards/<lowercase-name>/`
+- Deployment preview: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/public/character-cards/<lowercase-name>/<number>_<Name>_00.avif`
+- Preview manifest: `/Users/cooperfu/Projects/Virtual_Photography_Studio/knowledge_base/character_reference_manifest.json`
+- Identity, face, body, hair, outfit, and reference metadata: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine/characterProfiles.js`
+- PAGE2 hair compatibility and removable wardrobe layers: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/characterCardLab.js`
 
 ### PAGE3 World Scene
 
@@ -455,8 +463,8 @@ DLL PIC Pro is a local UI wrapper for direct image generation from current promp
 
 Main files:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
 
 Generation panel behavior:
 
@@ -662,56 +670,56 @@ Duo rules:
 
 Core prompt engine:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engineRandom.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/runtimeCache.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/promptModel.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/selectionSchema.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/characterProfiles.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/duoOptions.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/fixedCompositionOptions.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/poseComposerOptions.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engineRandom.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine/runtimeCache.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine/promptModel.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine/selectionSchema.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine/characterProfiles.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine/duoOptions.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine/fixedCompositionOptions.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine/poseComposerOptions.js`
 
 Engine architecture reference:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/engine-architecture.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/engine-architecture.md`
 
 PAGE1 app state and control filtering:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/App.jsx`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page1Workspace.jsx`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/App.jsx`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/Page1Workspace.jsx`
 
 Shared PAGE UI / prompt display:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptCard.jsx`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptPreviewCard.jsx`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page2Workspace.jsx`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/PromptCard.jsx`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/PromptPreviewCard.jsx`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/Page2Workspace.jsx`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
 
 PAGE1 helpers:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/page1SectionRandom.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/page1WorkspaceSummary.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/page1SectionRandom.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/page1WorkspaceSummary.js`
 
 Knowledge base:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/wardrobe_reference_manifest.json`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base/item_metadata.json`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/source-assets`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/build_image_previews.py`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/check_public_assets.py`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/knowledge_base`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/knowledge_base/wardrobe_reference_manifest.json`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/knowledge_base/item_metadata.json`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/source-assets`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/data/database.json`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/scripts/sync_to_json.py`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/scripts/build_image_previews.py`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/scripts/check_public_assets.py`
 
 Authoring guides:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/character-section-a-authoring-guide.md`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/wardrobe-section-b-authoring-guide.md`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/scene-section-c-authoring-guide.md`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/photography-section-d-authoring-guide.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/character-section-a-authoring-guide.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/wardrobe-section-b-authoring-guide.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/scene-section-c-authoring-guide.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/photography-section-d-authoring-guide.md`
 
 ## Important Tests
 

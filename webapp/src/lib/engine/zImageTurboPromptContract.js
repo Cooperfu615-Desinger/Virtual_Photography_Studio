@@ -78,8 +78,8 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
       unspecifiedCamera: 'no additional deletion',
       sourceBoundary: 'post-crop and post-compaction; no raw-catalog backfill or inferred scenery',
       existingDetailPriority: {
-        version: '1.0.0',
-        source: 'seven approved catalog-ID-bound selections in zImageSceneDetailPriority.js',
+        version: '1.1.0',
+        source: '45 approved catalog-ID-bound location IDs in zImageSceneDetailPriority.js (7 historical substitutions plus 38 additional; three unchanged controls remain fixtures-only)',
         scope: 'low cameras only; matching surviving prefix and verified catalog fragments required',
         exception: 'select only the approved existing fragments even if earlier projection omitted them; never restore the full source',
         fallback: 'unchanged source; no guessing on unknown, empty or changed source',

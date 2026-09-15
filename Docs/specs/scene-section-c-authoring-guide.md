@@ -1,10 +1,16 @@
 # C 場景與環境新增與維護規格
 
-Last updated: 2026-05-25
+Last updated: 2026-09-15
+
+目前有效狀態（2026-09-15）：B 區共有 48 個既有來源項目，首批 10 組包含 7 組修改與 3 組不變對照；另有 38 組已完成低機位優先來源接入。runtime 的 `zImageSceneDetailPriority.js` 維護 45 個實際 location ID（7 組歷史修改加 38 組新增），3 組不變對照只作為 fixtures 控制組。25 組 `光線表現 (Light Style)` 則以 `knowledge_base/camera_and_lighting.md` 為唯一來源，再同步到 JSON；完整文字與 renderer 邊界分別見 [既有細節優先 v1](z-image-existing-scene-detail-priority-v1.md)、[既有細節優先 v2](z-image-existing-scene-detail-priority-v2.md) 與 [主體光線 v1](subject-light-styles-v1.md)。以下日期補充保留作批次歷史紀錄，本段是目前的總數與責任邊界。
 
 2026-09-14 GPT 核准可見性例外：一般單人主 GPT 的完整有效場景／環境光，按有效鏡頭方向投影審查過的地面／天空細節；保持原 Scene／Lighting 區段，不套用 Z 壓縮或上方新增描述。資料維護來源與 UI 不變，見 [正式規格](gpt-scene-lighting-visibility-v1.md)。
 
 2026-09-14 窄範圍補充：七組核准場景的既有英文細節由 `zImageSceneDetailPriority.js` 在一般單人主 Z 的有效低機位優先選用；不是新增資料庫物件或全面回補原文。三組對照不改，主契約 `1.11.0`；見 [既有細節優先 v1](z-image-existing-scene-detail-priority-v1.md)。其他資料維護仍依下列規格。
+
+2026-09-14 批次補充：其餘 38 組既有場景也已依相同 ID 綁定、低機位、fail-closed 原則接入；合計 45 組優先來源。完整清單與 456 筆實際低機位整合矩陣見 [既有細節優先 v2](z-image-existing-scene-detail-priority-v2.md)。此補充不改 Locations catalog、UI、儲存格式或 GPT／MJ 路徑。
+
+2026-09-14 光線補充：25 組 `光線表現 (Light Style)` 的英文來源已改為主體受光範圍的短描述，仍由本文件指定的 `camera_and_lighting.md` 單一來源同步到 JSON；完整來源表與 renderer 邊界見 [主體光線 v1](subject-light-styles-v1.md)。
 
 2026-09-13 窄範圍補充：十八個已核准低機位上方場景來源（首批四個＋十四個擴充）由 `webapp/src/lib/engine/zImageUpperScene.js` 按既有 location ID 綁定，不更動 Locations 主資料；只供一般單人主 Z-Image 使用。維護與驗證邊界見 [上方場景 v2 規格](z-image-upper-scene-v2.md)，其餘新增／修改資料仍依本文件。
 

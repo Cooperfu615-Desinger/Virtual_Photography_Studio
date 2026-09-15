@@ -1,12 +1,14 @@
 # 環境光共同描述第一版：一般單人 GPT／Z-Image
 
-Last updated: 2026-09-14
+Last updated: 2026-09-15
 
 後續核准更新：一般單人主 GPT 亦加入鏡頭方向可見性，保留核心、按方向省略 sky／surface 細節；完整來源的 default renderer 仍不變。以下 v1 初次交付紀錄保留作歷史，當前 GPT 規則以 [Scene／Lighting 可見性 v1](gpt-scene-lighting-visibility-v1.md) 為準。
 
+目前邊界（2026-09-15）：本文件保留環境光批次的歷史範圍與驗證證據；後續 25 組 `光線表現 (Light Style)` 已由 [主體光線 v1](subject-light-styles-v1.md) 另行整理，不能再把本文件的「維持原樣」解讀為目前全專案文字未變。
+
 ## 範圍與責任
 
-使用者核准先整理 36 組「環境光條件」，並將共同描述同步到一般 PAGE1 單人主 GPT 與 Z-Image；25 組「光線表現」維持原樣。這是描述來源的明確改寫，不是把 GPT 改成壓縮器。GPT 保留新版有效來源全文與原本分段格式，Z 使用同一份新版來源做限定細節投影。
+在本文件所記錄的環境光批次中，使用者核准先整理 36 組「環境光條件」，並將共同描述同步到一般 PAGE1 單人主 GPT 與 Z-Image；當時 25 組「光線表現」維持原樣。這是描述來源的明確改寫，不是把 GPT 改成壓縮器。GPT 保留新版有效來源全文與原本分段格式，Z 使用同一份新版來源做限定細節投影。
 
 不改 catalog Markdown／database.json、選項名稱、ID、metadata、相容性、摘要、UI、儲存／匯入格式、renderer 公開欄位。欄位單項 Copy 仍是 catalog 原文，不代表最終 renderer 成品；主 Prompt 的 Copy／Saved Cards／Markdown 保存實際輸出。
 

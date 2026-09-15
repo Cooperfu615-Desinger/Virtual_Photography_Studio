@@ -2,11 +2,11 @@
 
 ## Read This First
 
-For new sessions, read `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/current_project_state.md` first. It is the short current-state truth table.
+For new sessions, read `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/current_project_state.md` first. It is the short current-state truth table.
 
 This file is the longer handoff: it preserves current architecture, durable rules, and historical decisions that still matter. It intentionally does not keep exhaustive commit lists, old validation logs, old dirty-tree notes, or completed next-step lists. Use `git log --oneline` for commit history.
 
-If any older note conflicts with `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/current_project_state.md` or the `Current Canonical State` below, the newer current-state rules win.
+If any older note conflicts with `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/current_project_state.md` or the `Current Canonical State` below, the newer current-state rules win.
 
 Important legacy terminology warning:
 
@@ -56,12 +56,12 @@ Important legacy terminology warning:
 
 ## Snapshot
 
-- Repo: `/Users/cooperfu/Desktop/Virtual_Photography_Studio`
-- Frontend: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`
+- Repo: `/Users/cooperfu/Projects/Virtual_Photography_Studio`
+- Frontend: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp`
 - App type: Vite + React prompt generator with optional Firebase Favorites sync
-- Knowledge base source: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/knowledge_base`
-- Sync script: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/scripts/sync_to_json.py`
-- Synced data target: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/data/database.json`
+- Knowledge base source: `/Users/cooperfu/Projects/Virtual_Photography_Studio/knowledge_base`
+- Sync script: `/Users/cooperfu/Projects/Virtual_Photography_Studio/scripts/sync_to_json.py`
+- Synced data target: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/data/database.json`
 - Baseline for the facial-identity optimization: `main` at `45ee3ea`
 
 ## Validation
@@ -73,7 +73,7 @@ Standard validation flow:
 - Data and asset checks:
   - `python3 -m unittest discover -s scripts/tests`
   - `python3 scripts/check_public_assets.py`
-- From `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp`:
+- From `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp`:
   - `npm test`
   - `npm run lint`
   - `npm run build`
@@ -103,10 +103,10 @@ QA notes from 2026-06-25:
 
 ### Documentation Split
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/current_project_state.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/current_project_state.md`
   - Short current-state briefing.
   - Best first read for a new session.
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/conversation_handoff.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/conversation_handoff.md`
   - Full handoff and historical rationale.
   - Useful when a session needs context behind older decisions.
 
@@ -166,8 +166,8 @@ DLL PIC Pro is a local UI wrapper for direct image generation from current promp
 
 Main files:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
 
 Generation panel behavior:
 
@@ -249,36 +249,36 @@ Rules:
 
 ### Current Key Files
 
-- Prompt engine: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine.js`
-- App shell / cross-workspace orchestration: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/App.jsx`
-- PAGE1 state and derived controls: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/features/page1/`
-- Saved Cards codec, persistence, and cloud sync: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/features/saved-cards/`
-- Shared provider contract: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/functions/shared/imageProviderContract.json`
-- PAGE1 UI: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page1Workspace.jsx`
-- PAGE2 UI: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page2Workspace.jsx`
-- PAGE3 UI: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/Page3Workspace.jsx`
-- Prompt cards: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptCard.jsx`
-- Random Pose Composer compatibility: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engine/poseComposerCompatibility.js`
-- Prompt preview cards: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/PromptPreviewCard.jsx`
-- DLL PIC Pro panel: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
-- DLL PIC Pro client: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
-- Section random helper: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/page1SectionRandom.js`
-- PAGE1 summary helper: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/page1WorkspaceSummary.js`
-- Character Card Lab helper: `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/characterCardLab.js`
+- Prompt engine: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine.js`
+- App shell / cross-workspace orchestration: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/App.jsx`
+- PAGE1 state and derived controls: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/features/page1/`
+- Saved Cards codec, persistence, and cloud sync: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/features/saved-cards/`
+- Shared provider contract: `/Users/cooperfu/Projects/Virtual_Photography_Studio/functions/shared/imageProviderContract.json`
+- PAGE1 UI: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/Page1Workspace.jsx`
+- PAGE2 UI: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/Page2Workspace.jsx`
+- PAGE3 UI: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/Page3Workspace.jsx`
+- Prompt cards: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/PromptCard.jsx`
+- Random Pose Composer compatibility: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engine/poseComposerCompatibility.js`
+- Prompt preview cards: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/PromptPreviewCard.jsx`
+- DLL PIC Pro panel: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/components/DllPicProPanel.jsx`
+- DLL PIC Pro client: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/dllPicProClient.js`
+- Section random helper: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/page1SectionRandom.js`
+- PAGE1 summary helper: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/page1WorkspaceSummary.js`
+- Character Card Lab helper: `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/characterCardLab.js`
 
 ## Authoring Guides
 
-Five spec files exist under `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs`:
+Five spec files exist under `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs`:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/character-section-a-authoring-guide.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/character-section-a-authoring-guide.md`
   - Use before adding or changing body type, face type, skin, hairstyle, hair color, expression, pose, special action, Pose Composer, or special subject.
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`
   - Use before adding or changing PAGE1 single-subject prompt wording. It defines the current Gpt / Grok/Z-Image / AI compression rules and single Gpt special-outfit grouping rules.
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/wardrobe-section-b-authoring-guide.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/wardrobe-section-b-authoring-guide.md`
   - Use before adding or changing tops, bottoms, outfit presets, dresses, special outfits, shoes, socks, outerwear, accessories, colors, patterns, or wardrobe composition logic.
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/scene-section-c-authoring-guide.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/scene-section-c-authoring-guide.md`
   - Use before adding or changing indoor / outdoor / other scene bases, ambient light, subject lighting, scene compatibility tags, or scene-light filtering.
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/photography-section-d-authoring-guide.md`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/specs/photography-section-d-authoring-guide.md`
   - Use before adding or changing photographer style, framing, camera angle, orbit angle, camera profile, focal length, optical effect, film stock, rendering simulation, or legacy imaging mappings.
 
 When adding database options, read the relevant guide first, then update the knowledge base / engine / tests as needed.
@@ -298,10 +298,10 @@ Current implementation:
 
 Important tests:
 
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/enginePromptPipeline.test.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/enginePoseComposer.test.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engineZImageWardrobeLanguage.test.js`
-- `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/engineGrokScenePriority.test.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/enginePromptPipeline.test.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/enginePoseComposer.test.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engineZImageWardrobeLanguage.test.js`
+- `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/engineGrokScenePriority.test.js`
 
 ### Gpt
 
@@ -668,9 +668,9 @@ Firebase:
 
 - Firebase is used only for Favorites persistence / Google sign-in, not prompt generation.
 - Main files:
-  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/firebase.js`
-  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/webapp/src/lib/favoritesRepository.js`
-  - `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/firebase_favorites_rules.md`
+  - `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/firebase.js`
+  - `/Users/cooperfu/Projects/Virtual_Photography_Studio/webapp/src/lib/favoritesRepository.js`
+  - `/Users/cooperfu/Projects/Virtual_Photography_Studio/Docs/firebase_favorites_rules.md`
 - Firebase modular SDK is lazy-loaded through dynamic import.
 - Firestore path: `users/{uid}/favorites/{promptId}`.
 - LocalStorage remains fallback when Firebase is unavailable or signed out.
