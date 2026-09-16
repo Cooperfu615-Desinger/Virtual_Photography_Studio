@@ -117,6 +117,7 @@ import { projectGptSceneLightingModel } from './engine/gptSceneVisibility.js';
 import { buildZImageFullBodyCamera } from './engine/zImageFullBodyCamera.js';
 import { buildCloseWormEyeText } from './engine/closeWormEye.js';
 import { composeGptCameraSpatial } from './engine/gptCameraSpatial.js';
+import { buildBathroomVanityMirrorReflectionText } from './engine/bathroomVanityMirrorReflection.js';
 
 export { createSeededRandom } from './engineRandom.js';
 
@@ -11969,6 +11970,7 @@ function renderGptPrompt(promptModel, {
   cameraSpatial = false,
   characterProfileWardrobeSection = false,
   wardrobeFallbackText = '',
+  sceneMirrorReflectionText = '',
 } = {}) {
   const {
     valuesByLabel,
@@ -12086,10 +12088,14 @@ function renderGptPrompt(promptModel, {
         : filterFaceOnlyTorsoAngleText(buildGptSingleFullFidelityText(poseText), context);
   const resolvedWardrobeUsesBlock = Boolean(singleSpecialOutfitWardrobeBlock);
   const resolvedSubjectUsesBlock = Boolean(singleCharacterProfileSubjectBlock || singleSpecialOutfitGroups.hairAndBodyText);
-  const sceneSection = sceneText
-    ? sceneText.includes('\n')
-      ? blockSection('Scene', sceneText)
-      : section('Scene', sceneUsesDirectSentence ? sceneText : `The portrait takes place in ${sceneText}`)
+  const sceneSourceWithReflection = [
+    sceneText ? ensureTerminalPeriod(sceneText) : '',
+    sceneMirrorReflectionText ? ensureTerminalPeriod(sceneMirrorReflectionText) : '',
+  ].filter(Boolean).join(' ');
+  const sceneSection = sceneSourceWithReflection
+    ? sceneSourceWithReflection.includes('\n')
+      ? blockSection('Scene', sceneSourceWithReflection)
+      : section('Scene', sceneUsesDirectSentence ? sceneSourceWithReflection : `The portrait takes place in ${sceneSourceWithReflection}`)
     : '';
   const compositionOutput = compositionSection
     ? section('Composition', compositionLine)
@@ -12326,7 +12332,7 @@ function renderMidjourneyFixedFramingPrompt(promptModel, preset, semanticSourceP
   });
 }
 
-function renderZImagePrompt(promptModel) {
+function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}) {
   const {
     context,
     character,
@@ -12945,6 +12951,7 @@ function renderZImagePrompt(promptModel) {
       { id: 'imageType', text: imageTypeLine },
       { id: 'composition', text: [
         identity ? sentence(`The setting is ${[identity, ...details].join(', ')}`) : joinSentenceParts(details),
+        sceneMirrorReflectionText ? sentence(sceneMirrorReflectionText) : '',
         compositionLine,
         captureHand ? sentence(capitalizePromptLead(captureHand.en)) : '',
       ].filter(Boolean).join(' ') },
@@ -14821,6 +14828,7 @@ function renderAiPrompt(promptModel, {
   imagingPromptModel = promptModel,
   midjourneyAdaptation = null,
   integrateMainScene = false,
+  sceneMirrorReflectionText = '',
 } = {}) {
   const {
     valuesByLabel,
@@ -14925,7 +14933,7 @@ function renderAiPrompt(promptModel, {
     { id: 'imageType', text: buildMidjourneyImageTypePromptLine(compositionContext) },
     {
       id: 'composition',
-      text: [sceneIdentity ? `The setting is ${sceneIdentity}` : '', joinCompositionPromptText(
+      text: [sceneIdentity ? `The setting is ${sceneIdentity}` : '', sceneMirrorReflectionText ? ensureTerminalPeriod(sceneMirrorReflectionText) : '', joinCompositionPromptText(
         ensureTerminalPeriod(buildCompositionPromptLine(compositionContext, { adaptation })),
         extractCharacterSlots(poseCharacter).poseComposer,
       )].filter(Boolean).join(' '),
@@ -15066,12 +15074,20 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
   // GPT keeps full source and section order; only reviewed Scene/Lighting
   // visibility is projected. Never pass this renderer-local view to Z/MJ.
   const gptPromptModel = ambientEligible ? projectGptSceneLightingModel(ambientPromptModel) : ambientPromptModel;
-  const grokPrompt = renderGptPrompt(gptPromptModel, { compositionSection: true, cameraSpatial: ambientEligible });
-  const zImagePrompt = renderZImagePrompt(ambientPromptModel);
+  const sceneMirrorReflectionText = ambientEligible
+    ? buildBathroomVanityMirrorReflectionText(mainContext)
+    : '';
+  const grokPrompt = renderGptPrompt(gptPromptModel, {
+    compositionSection: true,
+    cameraSpatial: ambientEligible,
+    sceneMirrorReflectionText,
+  });
+  const zImagePrompt = renderZImagePrompt(ambientPromptModel, { sceneMirrorReflectionText });
   const midjourneyPrompt = appendMidjourneyParameterTail(
     renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {
       midjourneyAdaptation: buildMidjourneyFramingPoseAdaptation(mainContext),
       integrateMainScene: true,
+      sceneMirrorReflectionText,
     })),
     {
       ...context.locks,
