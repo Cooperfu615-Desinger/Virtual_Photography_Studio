@@ -6436,7 +6436,10 @@ function buildCharacter(context, catalog) {
   if (context.subject.count === 2) {
     const duoExpressionOption = context.locks?.duoExpressionId
       ? getDuoExpressionOption(context.locks.duoExpressionId)
-      : sampleNonNone(DUO_EXPRESSION_OPTIONS, random);
+      : sampleNonNone(
+        DUO_EXPRESSION_OPTIONS.filter((option) => option.meta?.uiHidden !== true),
+        random,
+      );
     const duoExpressionItem = buildDuoExpressionItem(duoExpressionOption);
     if (duoExpressionItem && !isNoneLikeItem(duoExpressionItem)) {
       character.push(duoExpressionItem);

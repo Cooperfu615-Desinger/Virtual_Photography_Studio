@@ -9,6 +9,9 @@ const controlOptions = (key) => {
   return control.options;
 };
 const optionLabels = (key) => controlOptions(key).map((option) => option.zh);
+const visibleOptionLabels = (key) => controlOptions(key)
+  .filter((option) => option.meta?.uiHidden !== true)
+  .map((option) => option.zh);
 const optionByLabel = (key, label) => {
   const option = controlOptions(key).find((item) => item.zh === label);
   assert.ok(option, `Missing option ${label} for ${key}`);
@@ -183,21 +186,54 @@ test('duo expression exposes shared relationship mood options', () => {
   const duoExpressionControl = getLockControls().find((control) => control.key === 'duoExpressionId');
   assert.equal(duoExpressionControl.label, '雙人互動神情');
   assert.deepEqual(
-    optionLabels('duoExpressionId'),
+    visibleOptionLabels('duoExpressionId'),
     [
       '全無',
-      '兩人直視鏡頭｜冷淡疏離',
-      '兩人直視鏡頭｜平靜自然',
-      '一人看鏡頭｜一人隨性離鏡',
-      '兩人同向離鏡｜沉浸感',
+      '兩人直視鏡頭｜平靜冷淡',
+      '兩人直視鏡頭｜柔和微笑',
       '兩人相互凝視｜安靜親密',
-      '彼此微笑｜柔和默契',
-      '彼此大笑｜自然開心',
-      '曖昧對視｜性感張力',
-      '一人凝視對方｜一人看鏡頭',
-      '低眼神互動｜慵懶性感',
+      '兩人相互大笑｜自然開心',
+      '一人看鏡頭｜一人看對方',
+      '一人看鏡頭｜一人隨性離鏡',
+      '兩人同向離鏡｜共同注意',
+      '兩人各自離鏡｜個別分心',
     ]
   );
+
+  ['彼此微笑｜柔和默契', '曖昧對視｜性感張力', '低眼神互動｜慵懶性感'].forEach((label) => {
+    assert.equal(optionByLabel('duoExpressionId', label).meta?.uiHidden, true, `Expected legacy option ${label} to stay hidden`);
+  });
+});
+
+test('duo expression English names the intended gaze target for every visible relationship cue', () => {
+  const expectedPatterns = [
+    ['兩人直視鏡頭｜平靜冷淡', /both women look directly at the camera.*unsmiling/i],
+    ['兩人直視鏡頭｜柔和微笑', /both women look directly at the camera.*smiles/i],
+    ['兩人相互凝視｜安靜親密', /both women look directly at each other/i],
+    ['兩人相互大笑｜自然開心', /both women look at each other and laugh openly/i],
+    ['一人看鏡頭｜一人看對方', /one woman looks directly at the camera while the other looks at her/i],
+    ['一人看鏡頭｜一人隨性離鏡', /one woman looks directly at the camera while the other looks away from the camera/i],
+    ['兩人同向離鏡｜共同注意', /both women look away from the camera in the same direction/i],
+    ['兩人各自離鏡｜個別分心', /both women look away in different directions/i],
+  ];
+
+  for (const [label, pattern] of expectedPatterns) {
+    assert.match(optionByLabel('duoExpressionId', label).en, pattern, label);
+  }
+});
+
+test('unlocked duo expression sampling excludes hidden legacy cues', () => {
+  const visibleIds = new Set(controlOptions('duoExpressionId')
+    .filter((option) => option.meta?.uiHidden !== true && option.zh !== '全無')
+    .map((option) => option.id));
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+  }, [], { random: () => 0.999 });
+  const duoExpression = prompt.structured.Character.find((item) => item.id.includes('duo-expression'));
+
+  assert.ok(duoExpression, 'Expected an unlocked duo expression cue');
+  assert.ok(visibleIds.has(duoExpression.id.split(':').pop()), 'Random duo expression should use a current visible cue');
 });
 
 test('duo expression outputs one shared relationship cue and ignores legacy per-person expressions', () => {
@@ -225,9 +261,9 @@ test('duo expression outputs one shared relationship cue and ignores legacy per-
   assert.equal(prompt.structured.Character.filter((item) => item.meta?.characterRole && item.id.includes('expression-gaze')).length, 0);
   assert.doesNotMatch(promptText, /^Woman 1 Expression:/m);
   assert.doesNotMatch(promptText, /^Woman 2 Expression:/m);
-  assert.match(promptText, /quietly gaze at each other/);
-  assert.match(promptText, /soft emotional connection/);
-  assert.match(promptText, /calm private chemistry/);
+  assert.match(promptText, /both women look directly at each other/);
+  assert.match(promptText, /quiet intimate expressions/);
+  assert.match(promptText, /calm private connection/);
   assert.doesNotMatch(promptText, /woman 1 looking toward the camera|woman 2 laughing naturally/i);
 });
 

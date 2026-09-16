@@ -91,6 +91,38 @@ test('duo wardrobe controls keep the other person editable when one person uses 
     .forEach((key) => assert.equal(wardrobeKeys.has(key), false, `duo mode should hide shared ${key}`));
 });
 
+test('duo expression UI exposes the eight current choices and preserves selected legacy values', () => {
+  const lockControls = getLockControls();
+  const visibleLabels = [
+    '全無',
+    '兩人直視鏡頭｜平靜冷淡',
+    '兩人直視鏡頭｜柔和微笑',
+    '兩人相互凝視｜安靜親密',
+    '兩人相互大笑｜自然開心',
+    '一人看鏡頭｜一人看對方',
+    '一人看鏡頭｜一人隨性離鏡',
+    '兩人同向離鏡｜共同注意',
+    '兩人各自離鏡｜個別分心',
+  ];
+  const locks = { ...createEmptyLocks(), subjectCount: '2' };
+  const buildGroups = (nextLocks) => buildPage1ControlGroups({
+    lockControls,
+    locks: nextLocks,
+    sceneDependentOptions: getSceneDependentOptions([], nextLocks),
+  });
+
+  const normalControl = buildGroups(locks).characterLockControls.find((control) => control.key === 'duoExpressionId');
+  assert.deepEqual(normalControl.options.map((option) => option.zh), visibleLabels);
+  assert.doesNotMatch(normalControl.options.map((option) => option.zh).join(' '), /彼此微笑|曖昧對視|低眼神互動/);
+
+  const legacyOption = lockControls
+    .find((control) => control.key === 'duoExpressionId')
+    ?.options.find((option) => option.zh === '彼此微笑｜柔和默契');
+  const restoredControl = buildGroups({ ...locks, duoExpressionId: legacyOption.id })
+    .characterLockControls.find((control) => control.key === 'duoExpressionId');
+  assert.ok(restoredControl.options.some((option) => option.id === legacyOption.id));
+});
+
 test('single dress reports complete-look takeover state to the PAGE1 UI', () => {
   const lockControls = getLockControls();
   const dressId = lockControls
