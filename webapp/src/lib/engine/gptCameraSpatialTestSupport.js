@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
 import { resolveCompositionVisibilityBucket } from './compositionVisibilityContract.js';
 import { buildGptCameraSpatialText } from './gptCameraSpatial.js';
+import { normalizeBathroomVanityMirrorForLegacy } from './bathroomVanityMirrorReflectionTestSupport.js';
 export const cameraBaseline = JSON.parse(readFileSync(new URL('./gptCameraSpatialBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();
 const angles = controls.find(c=>c.key==='angleId').options;
@@ -34,6 +35,7 @@ for (const [angleId,framingId,poseBaseId,old] of cameraBaseline.originals) {
   reverse.set(current,original);
 }
 export function normalizeGptCameraForLegacy(text) {
+  text = normalizeBathroomVanityMirrorForLegacy(text, 'grokPrompt');
   return text.replace(/(^|\n\n)Composition:\n([^]*?)(?=\n\n[A-Z][^\n]*:\n|$)/,
     (all,prefix,current)=> {
       const ratio = current.match(ratioPrefix)?.[0] || '';

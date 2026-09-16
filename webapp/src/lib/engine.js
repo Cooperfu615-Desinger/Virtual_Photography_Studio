@@ -12088,10 +12088,12 @@ function renderGptPrompt(promptModel, {
         : filterFaceOnlyTorsoAngleText(buildGptSingleFullFidelityText(poseText), context);
   const resolvedWardrobeUsesBlock = Boolean(singleSpecialOutfitWardrobeBlock);
   const resolvedSubjectUsesBlock = Boolean(singleCharacterProfileSubjectBlock || singleSpecialOutfitGroups.hairAndBodyText);
-  const sceneSourceWithReflection = [
-    sceneText ? ensureTerminalPeriod(sceneText) : '',
-    sceneMirrorReflectionText ? ensureTerminalPeriod(sceneMirrorReflectionText) : '',
-  ].filter(Boolean).join(' ');
+  const sceneSourceWithReflection = sceneMirrorReflectionText
+    ? [
+        sceneText ? ensureTerminalPeriod(sceneText) : '',
+        ensureTerminalPeriod(sceneMirrorReflectionText),
+      ].filter(Boolean).join(' ')
+    : sceneText;
   const sceneSection = sceneSourceWithReflection
     ? sceneSourceWithReflection.includes('\n')
       ? blockSection('Scene', sceneSourceWithReflection)
