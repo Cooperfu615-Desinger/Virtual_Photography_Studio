@@ -423,8 +423,9 @@ test('locked expression remains independent from the previous orbit', () => {
   assert.notEqual(prompt.selection.orbitId, '');
   assert.match(prompt.summary, /溫柔含蓄/);
   assert.match(prompt.grokPrompt, /gentle demure expression/);
-  assert.doesNotMatch(prompt.grokPrompt, /gaze|eye contact/i);
-  assert.doesNotMatch(prompt.grokPrompt, /glancing back over the shoulder/);
+  const expressionItem = prompt.structured.Character.find((item) => item.id === gentleExpression.id);
+  assert.ok(expressionItem, 'Expected the locked expression to remain a structured character item');
+  assert.doesNotMatch(expressionItem.en, /gaze|eye contact|glancing back over the shoulder/i);
 });
 
 test('deprecated non-social special actions migrate away from the body pose slot', () => {
