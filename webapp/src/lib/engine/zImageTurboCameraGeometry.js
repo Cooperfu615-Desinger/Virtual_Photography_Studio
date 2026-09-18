@@ -1,4 +1,5 @@
 import { COMPOSITION_VISIBILITY_BUCKETS } from './compositionVisibilityContract.js';
+import { buildCameraAngleDistanceClause } from './cameraAngleDistance.js';
 
 const ORBIT_KEYS = Object.freeze([
   'front',
@@ -172,22 +173,31 @@ function resolveSubjectTerms(subjectKind) {
   };
 }
 
-function buildCameraAngleText(angleKey, cropGroup, subjectKind) {
+function buildCameraAngleText(angleKey, cropGroup, subjectKind, useDistanceProfiles = false) {
   if (!angleKey) return '';
   const terms = resolveSubjectTerms(subjectKind);
   const evidence = ANGLE_EVIDENCE_BY_CROP[cropGroup] || ANGLE_EVIDENCE_BY_CROP.body;
+  const distanceClause = useDistanceProfiles
+    ? buildCameraAngleDistanceClause(angleKey, subjectKind)
+    : '';
 
   switch (angleKey) {
     case 'high':
-      return `The camera is positioned clearly above ${terms.cameraTarget} and tilted downward toward ${terms.object}, revealing the top planes of ${terms.possessive} ${evidence.high}.`;
+      return useDistanceProfiles
+        ? `${distanceClause}, revealing the top planes of ${terms.possessive} ${evidence.high}.`
+        : `The camera is positioned clearly above ${terms.cameraTarget} and tilted downward toward ${terms.object}, revealing the top planes of ${terms.possessive} ${evidence.high}.`;
     case 'floor':
       return `The camera is positioned near floor level and tilted upward toward ${terms.cameraTarget}, emphasizing the upward perspective through ${terms.possessive} ${evidence.low}.`;
     case 'wormEye':
       return `The camera is positioned extremely low near the ground and tilted steeply upward toward ${terms.cameraTarget}, creating strong near-far scale through the closest visible body planes.`;
     case 'birdEye':
-      return `The camera is elevated far above ${terms.cameraTarget} and tilted downward, showing ${terms.cameraTarget} within the surrounding ground plane.`;
+      return useDistanceProfiles
+        ? `${distanceClause}, showing ${terms.cameraTarget} within the surrounding spatial layout.`
+        : `The camera is elevated far above ${terms.cameraTarget} and tilted downward, showing ${terms.cameraTarget} within the surrounding ground plane.`;
     case 'topDown':
-      return `The camera is positioned directly above ${terms.cameraTarget} and points vertically downward, creating a flattened top-down composition.`;
+      return useDistanceProfiles
+        ? `${distanceClause}, creating a flattened top-down composition with no diagonal viewing direction.`
+        : `The camera is positioned directly above ${terms.cameraTarget} and points vertically downward, creating a flattened top-down composition.`;
     default:
       return '';
   }
@@ -251,11 +261,12 @@ export function buildZImageTurboCameraGeometry({
   subjectKind = 'woman',
   poseBaseId = '',
   angleTextOverride = null,
+  useDistanceProfiles = false,
 } = {}) {
   const orbitKey = resolveOrbitKey(orbit);
   const angleKey = resolveAngleKey(angle);
   const cropGroup = CROP_GROUP_BY_BUCKET[bucket] || 'body';
-  const angleText = angleTextOverride ?? buildCameraAngleText(angleKey, cropGroup, subjectKind);
+  const angleText = angleTextOverride ?? buildCameraAngleText(angleKey, cropGroup, subjectKind, useDistanceProfiles);
   const strictSideText = buildStrictSideText(orbitKey, cropGroup, subjectKind, poseBaseId);
   if (strictSideText) return [angleText, strictSideText].filter(Boolean).join(' ');
   const cameraOpening = CAMERA_OPENING_BY_ORBIT[orbitKey];

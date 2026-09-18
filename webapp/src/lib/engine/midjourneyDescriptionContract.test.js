@@ -19,11 +19,12 @@ import {
 import { MIDJOURNEY_PARAMETER_FIXTURES } from './midjourneyParameterFixtures.js';
 import { stripMidjourneyParameterTail } from './midjourneyParameterTail.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
+import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 
 const controls = getLockControls();
 
 function hashPrompt(value) {
-  return createHash('sha256').update(value).digest('hex');
+  return createHash('sha256').update(normalizeSubjectLightForLegacy(value)).digest('hex');
 }
 
 function createAllNoneLocks() {

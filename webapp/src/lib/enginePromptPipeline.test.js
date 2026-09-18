@@ -1202,12 +1202,12 @@ test('Z-Image and AI keep selected lighting and camera controls with model-speci
     filmId: optionId('filmId', '日系亮膚高彩濾鏡'),
   });
 
-  assert.match(gptSection(prompt, 'Lighting'), /indoor late-afternoon ambience[\s\S]*warm-neutral daylight[\s\S]*warm golden-amber subject light color[\s\S]*no sunset or sky cues/);
+  assert.match(gptSection(prompt, 'Lighting'), /indoor late-afternoon ambience[\s\S]*warm-neutral daylight[\s\S]*warm golden-amber subject color[\s\S]*controlled saturation/);
   assert.match(gptSection(prompt, 'Camera Look'), /high-key minimalist portraiture[\s\S]*flattened spatial layers[\s\S]*meaningful partial frame coverage[\s\S]*vivid saturation[\s\S]*clean deep blacks/);
 
   assertNaturalZImageParagraphs(prompt, 'compressed imaging z-image prompt');
   assert.match(prompt.zImagePrompt, /indoor late-afternoon ambience with bright softened illumination and warm-neutral daylight/i);
-  assert.match(prompt.zImagePrompt, /(?:honey-amber subject light|honey-orange cast) on skin and clothing/i);
+  assert.match(prompt.zImagePrompt, /warm golden-amber subject color, honey-toned highlights on skin and clothing/i);
   assert.match(prompt.zImagePrompt, /Osamu Yokonami-inspired high-key minimalist image language/i);
   assert.match(prompt.zImagePrompt, /shot on 135mm long telephoto lens, strong background compression, narrow field of view/i);
   assert.match(prompt.zImagePrompt, /blurred foreground occlusion near the lens[\s\S]*thick near-field bokeh veil[\s\S]*clear opening toward the subject/i);
@@ -1216,7 +1216,7 @@ test('Z-Image and AI keep selected lighting and camera controls with model-speci
   assert.doesNotMatch(prompt.zImagePrompt, /high-key minimalist portraiture|generous negative space|flattened spatial layers|distant working distance|meaningful partial frame coverage|vivid saturation|clean deep blacks/i);
 
   assert.match(prompt.midjourneyPrompt, /indoor late-afternoon daylight environment/i);
-  assert.match(prompt.midjourneyPrompt, /warm golden-amber subject light color/i);
+  assert.match(prompt.midjourneyPrompt, /warm golden-amber subject color/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /Osamu Yokonami|high-key minimalist image language/i);
   assert.match(prompt.midjourneyPrompt, /135mm long telephoto lens/i);
   assert.match(prompt.midjourneyPrompt, /distant working distance/i);

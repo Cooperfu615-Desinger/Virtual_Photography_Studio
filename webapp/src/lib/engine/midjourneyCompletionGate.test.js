@@ -35,6 +35,7 @@ import {
 } from './midjourneyParameterTail.js';
 import { validatePromptOutputContract } from './promptOutputContracts.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
+import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 
 const controls = getLockControls();
 const extraPromptFields = Object.freeze({
@@ -49,7 +50,7 @@ const primaryPromptFields = Object.freeze({
 });
 
 function hashPrompt(value) {
-  return createHash('sha256').update(value).digest('hex');
+  return createHash('sha256').update(normalizeSubjectLightForLegacy(value)).digest('hex');
 }
 
 function createAllNoneLocks() {

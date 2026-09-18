@@ -131,12 +131,18 @@ for (const fixture of fixtures) {
           ? [first.selection.zImageVisibleTextContent] : [],
       }), [], `${field}: output contract`);
     }
-    if (entry.outputs) assert.deepEqual({ ...first.outputs,
-      grokPrompt: normalizeAmbientForLegacy(first.outputs.grokPrompt, 'grokPrompt', first.selection),
-      zImagePrompt: normalizeAmbientForLegacy(normalizeFullCameraForLegacy(first.outputs.zImagePrompt), 'zImagePrompt', first.selection) }, {
-      ...entry.outputs, zImagePrompt: zExpected.cases[fixture.id].text,
-      midjourneyPrompt: mjExpected.cases[fixture.id].text,
-    }, 'only the approved Z/MJ core text changes');
+    if (entry.outputs) {
+      const normalizedOutputs = Object.fromEntries(OUTPUT_FIELDS.map((field) => [field,
+        normalizeAmbientForLegacy(
+          field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field],
+          field,
+          first.selection,
+        )]));
+      assert.deepEqual({ ...normalizedOutputs }, {
+        ...entry.outputs, zImagePrompt: zExpected.cases[fixture.id].text,
+        midjourneyPrompt: mjExpected.cases[fixture.id].text,
+      }, 'only the approved Z/MJ core text changes');
+    }
     if (fixture.mode === 'single') assertZImagePoseProjection(first.prompt);
   });
 }
@@ -169,13 +175,13 @@ test('core Z cases reorder existing scene and capture without reducing subject, 
     assert.equal(current[2], previous[2], 'all effective subject sources');
     assert.equal(current[4], previous[3], 'all crop-visible wardrobe sources');
     assert.deepEqual(current.slice(-2), previous.slice(-2), 'style and imaging');
-    assert.ok(current[1].includes(previous[1]), 'existing composition remains intact');
+    assert.ok(normalizeFullCameraForLegacy(current[1]).includes(previous[1]), 'existing composition remains intact');
     const sourceScene = previous[5].replace(/^The scene is /, '').replace(/\.$/, '');
     const [identity] = sourceScene.split(', ');
     assert.ok(current[1].startsWith(`The setting is ${sourceScene}.`));
     assert.equal(current.join('\n').split(identity).length - 1, 1, 'location identity is not repeated');
     assert.doesNotMatch(current[5], /steel arch supports|layered signboards/i, 'scene details occur only in the opening');
-    assert.match(current[5], id === 'R02-kneel-high-selfie' ? /^Blue-hour ambience with fading daylight and a cool evening tone, neon color spill/i : /^Golden sunset ambience with warm amber evening light, orange-pink sky/i);
+    assert.match(current[5], id === 'R02-kneel-high-selfie' ? /^Blue-hour ambience with fading daylight and a cool evening tone, saturated neon color spill/i : /^Golden sunset ambience with warm amber evening light, orange-pink sky/i);
     assert.doesNotMatch(current[5], /deep blue dusk sky/i);
     assert.match(current[1], /self-shot.*right arm extended/i);
     assert.doesNotMatch(current[3], /self-shot|phone|vertical surface/);

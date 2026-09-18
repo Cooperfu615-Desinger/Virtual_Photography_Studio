@@ -7,7 +7,8 @@ import { getLockControls } from '../engine.js';
 import { buildZImageFullBodyCamera, FULL_BODY_CAMERA_GROUPS } from './zImageFullBodyCamera.js';
 import { runSceneFixture, OUTPUT_FIELDS, digest } from './sceneIntegratedAssemblyTestSupport.js';
 import { FULL_CAMERA_ANGLES, FULL_CAMERA_REGRESSION, fullCameraFixture } from './zImageFullBodyCameraFixtures.js';
-import { FULL_CAMERA_TEXT_PAIRS, normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
+import { FULL_CAMERA_TEXT_PAIRS, normalizeFullCameraForLegacy, normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
+import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 
 test('full camera policy has six groups; Dutch keeps roll; no unknown/default angle injection', () => {
@@ -36,6 +37,35 @@ test('full camera wording matches approved sources without imposing pose, footwe
   }
 });
 
+test('high-angle families use distinct soft distance and geometry cues', () => {
+  const high = buildZImageFullBodyCamera({ zh: '高位俯視鏡頭' });
+  const bird = buildZImageFullBodyCamera({ zh: '鳥瞰視角' });
+  const top = buildZImageFullBodyCamera({ zh: '正上方俯視鏡頭' });
+
+  assert.match(high, /roughly 1\.5–2 meters from her[\s\S]*subject remains dominant/i);
+  assert.match(bird, /roughly 3–5 meters above and set back from her[\s\S]*surrounding spatial layout/i);
+  assert.match(top, /roughly 1–2 meters above her[\s\S]*90-degree angle[\s\S]*no diagonal viewing direction/i);
+  assert.notEqual(high, bird);
+  assert.notEqual(bird, top);
+  assert.notEqual(high, top);
+});
+
+test('distance-only bridge preserves the already-approved full-body camera policy', () => {
+  const old = [
+    'The camera is above her and angled downward, framing her entire figure from head to feet. The top of her head and shoulders are nearer the lens, with the rest of her body receding below them.',
+    "A bird's-eye view from high above, looking diagonally down at her entire figure within the surrounding space.",
+    'The camera is directly above her and points vertically downward, framing her entire figure in a top-down composition.',
+  ];
+  for (const [i, label] of ['高位俯視鏡頭', '鳥瞰視角', '正上方俯視鏡頭'].entries()) {
+    const current = buildZImageFullBodyCamera({ zh: label });
+    const prompt = `Photorealistic editorial portrait.\n\nFull-body portrait. ${current} Photographed directly from the front.`;
+    assert.equal(normalizeHighAngleDistanceForLegacy(prompt),
+      `Photorealistic editorial portrait.\n\nFull-body portrait. ${old[i]} Photographed directly from the front.`);
+  }
+  const natural = 'Photorealistic editorial portrait.\n\nFull-body portrait. Her entire figure is framed with natural-looking proportions.';
+  assert.equal(normalizeHighAngleDistanceForLegacy(natural), natural);
+});
+
 test('main full-body runtime retains height/roll hints and replaces only effective angle sentences', () => {
   const angles = getLockControls().find((c) => c.key === 'angleId').options;
   const hints = ['eye-level view', 'shoulder-level view', 'waist-level view', 'knee-level view', 'tilted frame'];
@@ -55,20 +85,23 @@ test('main full-body runtime retains height/roll hints and replaces only effecti
   }
 });
 
-test('431-case frozen baseline: only full-body main camera text changes; selections and other outputs identical', () => {
+test('431-case frozen baseline: only approved main Z camera text changes; selections and other outputs identical', () => {
   const baseline = JSON.parse(readFileSync(new URL('./zImageFullBodyCameraBaseline.json', import.meta.url), 'utf8'));
   const results = FULL_CAMERA_REGRESSION.map(runSceneFixture);
   assert.equal(results.length, baseline.count);
   for (const field of OUTPUT_FIELDS) {
-    assert.equal(digest(results.map((r) => field === 'zImagePrompt'
-      ? normalizeFullCameraForLegacy(r.outputs[field]) : field === 'grokPrompt'
-        ? normalizeGptVisibilityForLegacy(r.outputs[field], r.selection) : r.outputs[field])), baseline.hashes[field], field);
+    assert.equal(digest(results.map((r) => {
+      let value = r.outputs[field];
+      if (field === 'zImagePrompt') value = normalizeFullCameraForLegacy(value);
+      if (field === 'grokPrompt') value = normalizeGptVisibilityForLegacy(value, r.selection);
+      return normalizeSubjectLightForLegacy(value);
+    })), baseline.hashes[field], field);
   }
   assert.equal(digest(results.map((r) => r.selection)), baseline.selectionHash);
   assert.equal(digest(results.map((r) => r.randomDraws)), baseline.randomHash);
   for (const [i, row] of FULL_CAMERA_REGRESSION.entries()) {
     const result = results[i];
-    if (row.excluded || row.locks.framingId?.byZh !== '全身鏡頭 (Full Body Shot)') {
+    if (row.excluded) {
       assert.equal(normalizeFullCameraForLegacy(result.outputs.zImagePrompt), normalizeCloseWormForLegacy(result.outputs.zImagePrompt), row.id);
     }
   }

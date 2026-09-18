@@ -221,7 +221,7 @@ test('sofa fixed composition keeps flexible camera angle and orbit while overrid
   assert.match(prompt.grokPrompt, /Do not shift into plain studio backdrop, bedroom, cafe, outdoor street, or unrelated room\./);
   assert.doesNotMatch(prompt.grokPrompt, /preserve anchors:|avoid plain studio backdrop/);
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*indoor warm night ambience/);
-  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*local warm practical-light pool on the subject/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*localized warm subject light/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*Daido Moriyama/);
   assert.match(prompt.grokPrompt, /Camera Look:\n[\s\S]*high-acutance snapshot rendering/);
   assert.doesNotMatch(prompt.grokPrompt, /Seoul Seongsu-dong urban corner/);

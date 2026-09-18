@@ -98,31 +98,31 @@
 | **環境光條件 (Ambient Light Conditions)** | 柔霧美妝攝影棚 | `soft beauty studio environment, diffused shadowless illumination, creamy clean light quality, polished commercial portrait ambience, no background structure specified` | 以大型柔光與均勻棚燈營造的美妝棚拍環境，陰影極輕、膚質細膩、畫面乾淨柔順，不額外指定背景結構。 |
 | **環境光條件 (Ambient Light Conditions)** | 舞台演出燈光 | `stage-inspired studio environment, controlled colored light beams, performance-like ambience, artificial light shafts without generating a stage venue` | 以舞台感燈束與強人工燈具主導的攝影棚環境，保留彩色燈束與表演式照明，但不生成實際演出場館。 |
 | **光線表現 (Light Style)** | 全無 | `none` | 不指定人物受光方式，讓模型自行決定光源方向、硬度、反差、投影與反射。 |
-| **光線表現 (Light Style)** | 柔和順光 | `soft frontal key light on the subject, even facial illumination, low-contrast skin detail, gentle minimal cast shadows` | 正面柔光均勻照亮人物五官與上身，陰影少，適合乾淨穩定的人像受光。 |
-| **光線表現 (Light Style)** | 均勻平光 | `flat even subject lighting, balanced full-face illumination, minimal modeling contrast, clean readable skin and clothing exposure` | 人物受光平均、資訊完整、對比低，讓臉部與服裝細節都清楚可讀。 |
-| **光線表現 (Light Style)** | 側向柔光 | `soft side key light on the subject, gentle cheek contour, gradual shadow transition, natural facial dimensionality` | 由側邊柔和照亮人物，讓臉頰與輪廓有立體感，但陰影過渡保持柔順。 |
-| **光線表現 (Light Style)** | 側向硬光 | `hard side key light on the subject, sharp facial-plane shadow edge, sculpted side contrast, crisp highlight-to-shadow separation` | 側光明顯且邊界銳利，強化人物臉部、肩線與衣物皺褶的明暗分離。 |
-| **光線表現 (Light Style)** | 側逆光 | `diagonal rear-side subject light, soft rim edge along hair and shoulder, partial facial fill, separated subject contour` | 從斜後方照亮人物，保留髮絲與肩線輪廓，同時留下部分臉部補光。 |
-| **光線表現 (Light Style)** | 逆光輪廓光 | `strong back rim light on the subject, bright outline along hair shoulders and body edge, controlled shadow-side detail` | 主體邊緣被後方光源勾亮，重點是髮絲、肩線與身體輪廓的分離。 |
-| **光線表現 (Light Style)** | 頂部照明 | `overhead top light on the subject, downward illumination, eye-socket and nose shadows, vertical falloff across face and torso` | 由上方壓下來的人物受光，重點是眼窩、鼻下、下巴與身體垂直方向的明暗落差。 |
-| **光線表現 (Light Style)** | 下方反射光 | `upward bounce fill on the subject, reflected light from below, subtle lower-face lift, softened chin and neck shadows` | 利用地面、牆面或雪地等反射面回補人物下半臉、下巴與頸部陰影。 |
-| **光線表現 (Light Style)** | 漫射霧光 | `diffused light wrapping around the subject, softened shadow edges, low-contrast subject illumination, broad fill across skin and clothing` | 光線被空氣、水氣或霧化介質柔化後包覆人物，重點是陰影邊緣變軟與低反差受光。 |
-| **光線表現 (Light Style)** | 硬質晴光 | `hard direct sunlight on the subject, crisp shadow edges, deep subject-side contrast, clear bright highlights on skin and clothing` | 直射光落在人物身上，陰影深且邊緣清楚，皮膚與衣物亮部更銳利。 |
-| **光線表現 (Light Style)** | 低光高反差 | `low-key subject lighting, deep face and body shadows, selective highlight accents, high contrast across the subject` | 人物大面積留在暗部，只保留局部亮面或輪廓，形成高反差受光。 |
-| **光線表現 (Light Style)** | 高調亮光 | `high-key subject lighting, bright even exposure, pale soft shadows, clean highlight detail across face and clothing` | 人物整體偏亮、陰影很淡，臉部與服裝保留乾淨明亮的細節。 |
-| **光線表現 (Light Style)** | 暖金黃昏色溫 | `warm golden-amber subject light color, honey-orange cast on skin and clothing, peach-toned highlights, subdued warm shadows, no sunset or sky cues` | 只指定人物受光偏暖金、橘蜜與蜜桃色，不主動生成夕陽、日落、太陽或天空景象。 |
-| **光線表現 (Light Style)** | 冷白日光色溫 | `cool clean daylight subject color, crisp pale-white highlights, neutral-cool skin rendering, restrained cool shadow edges, no sky or weather cues` | 讓人物受光偏冷白、乾淨、通透，不直接指定陰天、天空或場景狀態。 |
-| **光線表現 (Light Style)** | 室內暖白燈色溫 | `warm-white practical-lamp subject color, neutral-warm skin highlights, gentle household lamp tone, no deep tungsten amber dominance` | 偏日常室內暖白燈的人物受光色溫，比鎢絲黃光更乾淨、比黃昏色更中性。 |
-| **光線表現 (Light Style)** | 冷藍夜色光 | `cool blue night-toned subject light, restrained blue-cyan rim or fill, subdued cool shadow tint, no moon skyline or night-sky cues` | 讓人物受光偏冷藍夜色，不直接生成月亮、夜景、城市天際線或天空線索。 |
-| **光線表現 (Light Style)** | 混合色溫光 | `mixed warm and cool subject lighting, warm-cool highlight contrast across face and clothing, layered color temperature separation` | 冷暖光同時落在人物身上，重點是臉部、髮絲與服裝的冷暖分離。 |
-| **光線表現 (Light Style)** | 霓虹染色光 | `neon color spill across the subject, saturated colored highlights on skin hair and clothing edges, controlled vivid color cast` | 霓虹色光直接染到人物皮膚、髮絲、衣物與邊緣亮面。 |
-| **光線表現 (Light Style)** | 窗格投影光 | `window-frame pattern light cast on the subject, framed daylight shadows, visible geometric shadow bands on face and clothing` | 窗框、格柵或框線形狀投射到人物臉部、身體或衣物上，形成幾何陰影。 |
-| **光線表現 (Light Style)** | 百葉窗條紋投影光 | `window-blind stripe light across the subject, horizontal shadow bands on face skin and clothing, sharp slatted light-dark pattern` | 百葉窗條紋直接投射在人物臉部、皮膚與衣物上，重點是水平明暗條紋。 |
-| **光線表現 (Light Style)** | 冷調窗邊輪廓光 | `cool window-side rim light on the subject, side-edge illumination from a nearby window, clean cool contour separation, soft shadow-side falloff` | 由窗邊冷色自然光或外部微冷光源勾出人物側邊，不是投影條紋，而是輪廓分離。 |
-| **光線表現 (Light Style)** | 斑駁樹影光 | `dappled leaf-shadow light on the subject, broken sunlight patches across skin and clothing, irregular branch and leaf shadow pattern` | 陽光穿過樹葉後形成不規則斑駁陰影，投射在人物皮膚與衣物上。 |
-| **光線表現 (Light Style)** | 潮濕反射光 | `wet-surface reflected fill light on the subject, upward bounce from damp ground or walls, glossy reflected highlights on lower face and clothing` | 由濕地面或牆面反射回人物身上，特別是下半臉、衣物與身體邊緣的反射補光。 |
-| **光線表現 (Light Style)** | 局部暖光 | `local warm practical-light pool on the subject, lamp-driven amber highlight zone, warm falloff across face hands and clothing` | 由檯燈、壁燈、床頭燈等局部暖光源落在人物身上，形成明確暖色光區與衰減。 |
-| **光線表現 (Light Style)** | 深夜邊緣微光 | `minimal nocturnal subject rim light, faint cool edge tracing along face hair shoulders and body outline, mostly dark subject mass` | 主體大多留在暗部，只在臉側、肩線、髮絲或肢體邊緣保留很少量夜間微光。 |
+| **光線表現 (Light Style)** | 柔和順光 | `soft frontal subject light, even illumination across face and upper body, gentle shadow modeling, low contrast` | 正面柔光均勻照亮臉部與上身，保留輕微陰影塑形，整體反差低。 |
+| **光線表現 (Light Style)** | 均勻平光 | `flat even subject light, balanced face and clothing exposure, minimal shadow modeling, neutral contrast` | 人物受光平均、臉部與服裝曝光平衡，幾乎不做立體陰影塑形。 |
+| **光線表現 (Light Style)** | 側向柔光 | `soft side light across the subject, gentle cheek and shoulder contour, gradual shadow transition, natural dimension` | 柔和側光描出臉頰與肩線，陰影平順過渡，保留自然立體感。 |
+| **光線表現 (Light Style)** | 側向硬光 | `hard side light across the subject, crisp facial-plane shadows, sculpted body contrast, sharp highlight separation` | 硬側光切出清楚臉部陰影，強化身體明暗對比與亮暗分界。 |
+| **光線表現 (Light Style)** | 側逆光 | `soft diagonal rear-side light, narrow rim along hair and shoulder, partial facial fill, separated subject edge` | 斜後方柔光勾出髮絲與肩線窄輪廓，臉部保留部分補光並與背景分離。 |
+| **光線表現 (Light Style)** | 逆光輪廓光 | `strong back rim light, bright outline along hair shoulders and body edges, restrained shadow-side detail` | 強逆光在髮絲、肩線與身體邊緣形成明亮輪廓，暗面只保留必要細節。 |
+| **光線表現 (Light Style)** | 頂部照明 | `overhead subject light, downward illumination across face and torso, defined eye-socket and nose shadows, vertical falloff` | 上方光向下照過臉部與軀幹，眼窩、鼻下與身體呈現明確垂直明暗落差。 |
+| **光線表現 (Light Style)** | 下方反射光 | `upward reflected fill on the subject, subtle lift under the face, softened chin and neck shadows, gentle lower-body bounce` | 下方反射補光抬亮臉部下緣，柔化下巴與頸部陰影，讓下半身受光更柔和。 |
+| **光線表現 (Light Style)** | 漫射霧光 | `diffused wraparound light, broad soft fill across the subject, softened shadow edges, low-contrast detail` | 漫射光包覆人物，臉部與衣物有寬廣柔和補光，陰影邊緣柔化且反差低。 |
+| **光線表現 (Light Style)** | 硬質晴光 | `hard direct sunlight on the subject, crisp cast-shadow edges, strong side contrast, bright specular highlights` | 直射陽光形成清楚投影邊緣與強側向對比，皮膚與衣物亮部明亮銳利。 |
+| **光線表現 (Light Style)** | 低光高反差 | `low-key subject light, deep face and body shadows, selective highlight accents, strong tonal contrast` | 臉部與身體大面積位於暗部，只留下選擇性的亮面與強烈明暗反差。 |
+| **光線表現 (Light Style)** | 高調亮光 | `high-key subject light, bright even exposure across face and clothing, pale soft shadows, clean highlights` | 臉部與服裝整體明亮均勻，陰影淡而柔軟，亮部保持乾淨。 |
+| **光線表現 (Light Style)** | 暖金黃昏色溫 | `warm golden-amber subject color, honey-toned highlights on skin and clothing, gentle warm shadow bias, controlled saturation` | 只讓人物受光呈暖金蜜色與柔和暖陰影，維持受控彩度，不指定夕陽或天空。 |
+| **光線表現 (Light Style)** | 冷白日光色溫 | `cool clean daylight subject color, pale neutral highlights, restrained cool shadows, clear skin and clothing detail` | 人物受光偏冷白乾淨，亮部中性，陰影帶克制冷色並保留皮膚與服裝細節。 |
+| **光線表現 (Light Style)** | 室內暖白燈色溫 | `warm-white indoor subject color, neutral-warm highlights, gentle household warmth, restrained amber saturation` | 人物受光呈乾淨的室內暖白色，帶中性暖亮部與克制的琥珀彩度。 |
+| **光線表現 (Light Style)** | 冷藍夜色光 | `cool blue night-toned subject light, restrained cyan fill or rim, cool shadow tint, subdued highlight intensity` | 人物受光偏冷藍，僅以克制青色補光或輪廓光勾勒，亮部不過度強烈。 |
+| **光線表現 (Light Style)** | 混合色溫光 | `mixed warm and cool subject light, layered highlight temperatures across face and clothing, controlled color separation` | 臉部與服裝同時呈現冷暖亮部，色溫分層清楚但維持受控分離。 |
+| **光線表現 (Light Style)** | 霓虹染色光 | `saturated neon color spill across the subject, vivid colored edge highlights on skin hair and clothing, controlled chromatic cast` | 高彩度霓虹色溢光染上皮膚、髮絲與衣物邊緣，維持可控的色彩偏移。 |
+| **光線表現 (Light Style)** | 窗格投影光 | `window-frame pattern light across the subject, geometric daylight bands on face and clothing, defined shadow edges` | 窗框幾何日光帶落在臉部與服裝上，形成清楚的幾何陰影邊緣。 |
+| **光線表現 (Light Style)** | 百葉窗條紋投影光 | `window-blind stripe light across the subject, horizontal slatted bands on face and clothing, crisp alternating light and shadow` | 百葉窗水平條紋落在臉部與服裝上，形成清楚交錯的明暗帶。 |
+| **光線表現 (Light Style)** | 冷調窗邊輪廓光 | `cool window-side edge light, clean illumination along hair and shoulder, soft shadow-side falloff, subtle contour separation` | 冷色窗邊光乾淨勾出髮絲與肩線，暗面柔和衰減，輪廓與背景微妙分離。 |
+| **光線表現 (Light Style)** | 斑駁樹影光 | `dappled leaf-shadow light across the subject, irregular sunlight patches on skin and clothing, broken branch-and-leaf pattern` | 穿過枝葉的陽光在皮膚與衣物上形成不規則斑駁光影。 |
+| **光線表現 (Light Style)** | 潮濕反射光 | `wet-surface reflected fill on the subject, soft upward bounce from nearby surfaces, cool glossy highlights along lower contours` | 附近濕潤表面的柔和反射從下方回補人物，讓下緣輪廓帶冷色亮面。 |
+| **光線表現 (Light Style)** | 局部暖光 | `localized warm subject light, concentrated amber highlight zone across face and hands, gentle warm falloff, soft surrounding shadows` | 臉部與手部形成集中琥珀暖亮區，向外柔和衰減並保留周圍柔軟陰影。 |
+| **光線表現 (Light Style)** | 深夜邊緣微光 | `minimal nocturnal rim light, faint cool edge tracing hair shoulders and body outline, mostly shadowed subject mass` | 主體大多留在暗部，只沿髮絲、肩線與身體外輪廓保留微弱冷色邊光。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 全無 | `none` | 不指定成像風格，讓模型自行決定畫面質感與成像方式。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 拍立得柔淡即時成像 | `Polaroid instant-film rendering, faded pastel color response, low contrast curve, soft chemical development texture, subtle edge softness, classic white border` | 模擬拍立得即時成像的低對比、淡粉 pastel 色彩、柔和邊緣與化學顯影質地，白色相紙邊框作為成像特徵保留。 |
 | **底片與相機模擬 (Camera & Film Simulation)** | 柯達 Portra 暖膚底片 | `Kodak Portra film rendering, warm accurate skin-tone response, fine film grain, broad highlight latitude, smooth contrast curve, gentle analog color density` | 強調 Portra 系列的暖膚色反應、細緻底片顆粒、寬亮部容忍度與柔順對比曲線，整體色彩濃度溫和自然。 |

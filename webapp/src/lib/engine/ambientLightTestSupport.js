@@ -4,9 +4,11 @@ import { getLockControls } from '../engine.js';
 import { AMBIENT_LIGHT_DESCRIPTIONS, renderAmbientLightDescription } from './ambientLightDescriptions.js';
 import { projectZImageDirectionalSource } from './zImageSceneDirection.js';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
+import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 const angles = getLockControls().find(c => c.key === 'angleId').options;
 const cap = s => s[0].toUpperCase() + s.slice(1);
 export function normalizeAmbientForLegacy(text, field, selection) {
+  text = normalizeSubjectLightForLegacy(text);
   if (field === 'grokPrompt') text = normalizeGptVisibilityForLegacy(text, selection);
   const entry = AMBIENT_LIGHT_DESCRIPTIONS[selection?.lightingId];
   if (!entry || !['grokPrompt', 'zImagePrompt'].includes(field)) return text;

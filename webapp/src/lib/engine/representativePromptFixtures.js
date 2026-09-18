@@ -688,7 +688,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       grokPrompt: {
         includes: [
           'Knee-up cowboy shot, right profile view.',
-          'The camera is positioned clearly above the woman and tilted downward toward her, revealing the top planes of her shoulders and waistband.',
+          'At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her shoulders and waistband.',
           'both hands gripping the front waistband or belt loops, elbows angled outward',
         ],
         excludes: ['The camera sees only the right side of her body'],
@@ -696,7 +696,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       zImagePrompt: {
         includes: [
           'Knee-up cowboy shot.',
-          'The camera is positioned clearly above the woman and tilted downward toward her, revealing the top planes of her shoulders and waistband.',
+          'At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her shoulders and waistband.',
           'She stands completely sideways, facing the left edge of the image.',
           'The camera sees only the right side of her body.',
           'Her right shoulder fully hides her left shoulder, and her right hip fully hides her left hip',

@@ -8,6 +8,8 @@ import { GPT_VISIBILITY_ALL } from './gptSceneVisibilityFixtures.js';
 import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { gptSection, withoutSceneLighting, expectedSceneProjection } from './gptSceneVisibilityTestSupport.js';
 import { AMBIENT_LIGHT_DESCRIPTIONS, renderAmbientLightDescription } from './ambientLightDescriptions.js';
+import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
+import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 const baseline = JSON.parse(readFileSync(new URL('./gptSceneVisibilityBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();
@@ -54,9 +56,11 @@ test('frozen all-scene / ambient matrix changes only approved GPT Scene and Ligh
     const expectedLight = !excluded && ambient
       ? oldLight.replace(renderAmbientLightDescription(ambient), renderAmbientLightDescription(ambient, 'z', angle)) : oldLight;
     assert.equal(gptSection(r.outputs.grokPrompt, 'Scene'), excluded ? oldScene : expectedSceneProjection(oldScene, angle), GPT_VISIBILITY_ALL[i].id);
-    assert.equal(gptSection(r.outputs.grokPrompt, 'Lighting'), expectedLight, GPT_VISIBILITY_ALL[i].id);
+    assert.equal(normalizeSubjectLightForLegacy(gptSection(r.outputs.grokPrompt, 'Lighting')), expectedLight, GPT_VISIBILITY_ALL[i].id);
   }
-  for (const field of OUTPUT_FIELDS) assert.equal(digest(results.map(r => field === 'grokPrompt' ? withoutSceneLighting(r.outputs[field]) : normalizeCloseWormForLegacy(r.outputs[field], field))), baseline.hashes[field], field);
+  for (const field of OUTPUT_FIELDS) assert.equal(digest(results.map(r => field === 'grokPrompt'
+    ? withoutSceneLighting(r.outputs[field])
+    : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(r.outputs[field], field)))), baseline.hashes[field], field);
   assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);
   assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);
 });

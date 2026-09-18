@@ -19,11 +19,12 @@ import {
 } from './midjourneyParameterTail.js';
 import { validatePromptOutputContract } from './promptOutputContracts.js';
 import { REPRESENTATIVE_PROMPT_FIXTURES } from './representativePromptFixtures.js';
+import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 
 const controls = getLockControls();
 
 function hashPrompt(value) {
-  return createHash('sha256').update(value).digest('hex');
+  return createHash('sha256').update(normalizeSubjectLightForLegacy(value)).digest('hex');
 }
 
 function createAllNoneLocks() {
@@ -73,7 +74,7 @@ test('phase 5 emits one Midjourney-native description block before the canonical
     );
     assert.ok(parameterFixture, `${target.id}: parameter fixture`);
     const { mode, prompt } = generateFixture(parameterFixture);
-    const description = stripMidjourneyParameterTail(prompt.midjourneyPrompt);
+    const description = normalizeSubjectLightForLegacy(stripMidjourneyParameterTail(prompt.midjourneyPrompt));
     const parsedTail = parseMidjourneyParameterTail(prompt.midjourneyPrompt);
 
     assert.equal(

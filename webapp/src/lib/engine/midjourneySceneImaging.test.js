@@ -50,7 +50,7 @@ test('main scene integration keeps scene sources and optics while omitting style
   assert.match(description, /White lace curtain and sash window, dresser mirror side table framed paintings wall clock porcelain trinkets, layered nostalgic room surfaces\./i);
   assert.match(
     description,
-    /Indoor low-light warm night ambience, dim amber room brightness, cool window-side rim light on the subject/i
+    /Indoor low-light warm night ambience, dim amber room brightness, cool window-side (?:rim|edge) light(?: on the subject)?/i
   );
   assert.doesNotMatch(description, /Rinko Kawauchi|airy high-key image language/i);
   assert.match(description, /tilt-shift lens, shifted perspective control/i);

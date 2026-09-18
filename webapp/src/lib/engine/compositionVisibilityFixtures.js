@@ -203,6 +203,9 @@ export const COMPOSITION_VISIBILITY_REGRESSION_FIXTURES = Object.freeze([
     locks: {
       subjectCount: '1',
       framingId: { byZh: '中景鏡頭 (Medium Shot)' },
+      // Keep this composition contract at eye level; the low-camera scene
+      // detail priority batch has its own exhaustive fixtures.
+      angleId: { byZh: '平視高度鏡頭' },
       locationId: { byZh: '戶外：高級飯店陽台城市河景' },
       lightingId: { byZh: '全無' },
       lightDirectionId: { byZh: '全無' },

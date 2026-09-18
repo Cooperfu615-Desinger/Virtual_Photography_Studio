@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
 import { resolveCompositionVisibilityBucket } from './compositionVisibilityContract.js';
 import { buildGptCameraSpatialText } from './gptCameraSpatial.js';
+import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
+import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeBathroomVanityMirrorForLegacy } from './bathroomVanityMirrorReflectionTestSupport.js';
 export const cameraBaseline = JSON.parse(readFileSync(new URL('./gptCameraSpatialBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();
@@ -36,10 +38,31 @@ for (const [angleId,framingId,poseBaseId,old] of cameraBaseline.originals) {
 }
 export function normalizeGptCameraForLegacy(text) {
   text = normalizeBathroomVanityMirrorForLegacy(text, 'grokPrompt');
+  text = normalizeSubjectLightForLegacy(text);
   return text.replace(/(^|\n\n)Composition:\n([^]*?)(?=\n\n[A-Z][^\n]*:\n|$)/,
     (all,prefix,current)=> {
       const ratio = current.match(ratioPrefix)?.[0] || '';
       const body = current.slice(ratio.length);
       return reverse.has(body) ? `${prefix}Composition:\n${ratio}${reverse.get(body)}` : all;
+    });
+}
+
+// The worm-eye baseline already contains the approved GPT spatial camera
+// sentences. Undo only the later high-angle distance refinement here; the
+// broader normalizeGptCameraForLegacy bridge would erase older approved work.
+export function normalizeGptHighAngleDistanceForLegacy(text, selection = {}) {
+  return text.replace(/(^|\n\n)(Composition:\n)([^]*?)(?=\n\n[A-Z][^\n]*:\n|$)/,
+    (whole, prefix, label, body) => {
+      const wrapper = 'Image Type\n\n';
+      let restored = normalizeHighAngleDistanceForLegacy(`${wrapper}${body}`).slice(wrapper.length);
+      if (selection.poseBaseId !== 'standing' && restored.includes('Full-body portrait')) {
+        restored = restored.replace(
+          'The camera is above her and angled downward, framing her entire figure from head to feet. The top of her head and shoulders are nearer the lens, with the rest of her body receding below them.',
+          'The camera is above her and angled downward, framing her entire figure from head to feet, with the nearest body areas appearing larger than those farther away.');
+      }
+      restored = restored.replace(
+        'From several meters away, roughly 3–5 meters above and set back from her, the camera looks diagonally downward, keeping the selected crop on her rather than widening to a full-body view.',
+        'The camera is high above her and looks diagonally downward, keeping the selected crop on her rather than widening to a full-body view.');
+      return `${prefix}${label}${restored}`;
     });
 }

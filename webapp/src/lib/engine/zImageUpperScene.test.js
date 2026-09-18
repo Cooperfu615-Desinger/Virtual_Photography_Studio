@@ -8,6 +8,7 @@ import { LOW_CAMERA_LABELS } from './zImageSceneDirection.js';
 import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { UPPER_SCENE_CASES, UPPER_SCENE_MATRIX, UPPER_SCENE_EXCLUDED, UPPER_SCENE_CONTROLS, upperSceneFixture } from './zImageUpperSceneFixtures.js';
+import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 
 const baseline = JSON.parse(readFileSync(new URL('./zImageUpperSceneBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();
@@ -67,6 +68,7 @@ test('230-case pre-change baseline: only approved low-camera main Z scene clause
     } else if (addition) assert.ok(!outputs.zImagePrompt.includes(addition), rows[index].id);
     outputs.zImagePrompt = normalizeFullCameraForLegacy(outputs.zImagePrompt);
     outputs.grokPrompt = normalizeGptVisibilityForLegacy(outputs.grokPrompt, result.selection);
+    for (const field of OUTPUT_FIELDS) outputs[field] = normalizeSubjectLightForLegacy(outputs[field]);
     return outputs;
   });
   for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map((o) => o[field])), baseline.hashes[field], field);

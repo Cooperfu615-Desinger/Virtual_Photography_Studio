@@ -1981,16 +1981,16 @@ function inferLightingMeta(category, item) {
   }
 
   if (isLightStyleCategory) {
-    if (hasAny(haystack, ['柔和順光', 'soft frontal key light'])) {
+    if (hasAny(haystack, ['柔和順光', 'soft frontal key light', 'soft frontal subject light'])) {
       tags.push('soft_light', 'portrait_light', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
     }
     if (hasAny(haystack, ['均勻平光', 'flat even subject lighting'])) {
       tags.push('soft_light', 'controlled', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
     }
-    if (hasAny(haystack, ['側向柔光', 'soft side key light'])) {
+    if (hasAny(haystack, ['側向柔光', 'soft side key light', 'soft side light across the subject'])) {
       tags.push('soft_light', 'portrait_light', 'supports_indoor', 'supports_outdoor', 'supports_studio');
     }
-    if (hasAny(haystack, ['側向硬光', 'hard side key light'])) {
+    if (hasAny(haystack, ['側向硬光', 'hard side key light', 'hard side light across the subject'])) {
       tags.push('portrait_light', 'harsh', 'supports_indoor', 'supports_outdoor', 'supports_studio');
     }
     if (hasAny(haystack, ['側逆光', 'diagonal rear-side light'])) {
@@ -1999,13 +1999,13 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['逆光輪廓光', 'strong back rim light'])) {
       tags.push('backlight', 'supports_indoor', 'supports_outdoor', 'supports_studio');
     }
-    if (hasAny(haystack, ['頂部照明', 'overhead top light'])) {
+    if (hasAny(haystack, ['頂部照明', 'overhead top light', 'overhead subject light'])) {
       tags.push('overhead', 'supports_indoor', 'supports_outdoor', 'supports_studio');
     }
-    if (hasAny(haystack, ['下方反射光', 'upward bounce fill'])) {
+    if (hasAny(haystack, ['下方反射光', 'upward bounce fill', 'upward reflected fill'])) {
       tags.push('soft_light', 'portrait_light', 'reflective', 'supports_indoor', 'supports_outdoor');
     }
-    if (hasAny(haystack, ['漫射霧光', 'diffused light wrapping around the subject'])) {
+    if (hasAny(haystack, ['漫射霧光', 'diffused light wrapping around the subject', 'diffused wraparound light'])) {
       tags.push('soft_light', 'diffused', 'mist', 'supports_indoor', 'supports_outdoor');
     }
     if (hasAny(haystack, ['硬質晴光', 'hard direct sunlight'])) {
@@ -2017,19 +2017,19 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['高調亮光', 'high-key subject lighting'])) {
       tags.push('soft_light', 'studio_light', 'controlled', 'high_key_subject', 'supports_indoor', 'supports_outdoor', 'supports_studio');
     }
-    if (hasAny(haystack, ['暖金黃昏色溫', 'warm golden-amber subject light color'])) {
+    if (hasAny(haystack, ['暖金黃昏色溫', 'warm golden-amber subject light color', 'warm golden-amber subject color'])) {
       tags.push('soft_light', 'warm', 'color_temperature', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
     }
-    if (hasAny(haystack, ['冷白日光色溫', 'cool clean daylight color cast on the subject'])) {
+    if (hasAny(haystack, ['冷白日光色溫', 'cool clean daylight color cast on the subject', 'cool clean daylight subject color'])) {
       tags.push('soft_light', 'cool', 'color_temperature', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_natural');
     }
-    if (hasAny(haystack, ['室內暖白燈色溫', 'warm-white practical-lamp color cast on the subject'])) {
+    if (hasAny(haystack, ['室內暖白燈色溫', 'warm-white practical-lamp color cast on the subject', 'warm-white indoor subject color'])) {
       tags.push('soft_light', 'warm', 'color_temperature', 'indoor', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_commercial', 'supports_studio');
     }
     if (hasAny(haystack, ['冷藍夜色光', 'cool blue night-toned subject light'])) {
       tags.push('cool', 'dark', 'color_temperature', 'night_subject', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_subterranean');
     }
-    if (hasAny(haystack, ['混合色溫光', 'mixed warm and cool subject lighting'])) {
+    if (hasAny(haystack, ['混合色溫光', 'mixed warm and cool subject lighting', 'mixed warm and cool subject light'])) {
       tags.push('artificial_light', 'mixed_color', 'supports_indoor', 'supports_outdoor', 'supports_commercial', 'supports_urban', 'supports_subterranean');
     }
     if (hasAny(haystack, ['霓虹染色光', 'neon color spill'])) {
@@ -2041,19 +2041,19 @@ function inferLightingMeta(category, item) {
     if (hasAny(haystack, ['百葉窗條紋投影光', 'window-blind stripe light'])) {
       tags.push('window_light', 'portrait_light', 'window_projection', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
-    if (hasAny(haystack, ['冷調窗邊輪廓光', 'cool window-side rim light'])) {
+    if (hasAny(haystack, ['冷調窗邊輪廓光', 'cool window-side rim light', 'cool window-side edge light'])) {
       tags.push('backlight', 'portrait_light', 'cool', 'indoor', 'supports_indoor', 'supports_residential', 'supports_hospitality', 'supports_heritage');
     }
     if (hasAny(haystack, ['斑駁樹影光', 'dappled leaf-shadow light'])) {
       tags.push('natural_light', 'sunlight', 'dappled_subject_light', 'supports_outdoor', 'supports_natural', 'supports_urban');
     }
-    if (hasAny(haystack, ['潮濕反射光', 'wet-surface reflected fill light'])) {
+    if (hasAny(haystack, ['潮濕反射光', 'wet-surface reflected fill light', 'wet-surface reflected fill'])) {
       tags.push('reflective', 'wet_surface', 'outdoor_only', 'supports_outdoor', 'supports_urban');
     }
-    if (hasAny(haystack, ['局部暖光', 'local warm practical-light pool'])) {
+    if (hasAny(haystack, ['局部暖光', 'local warm practical-light pool', 'localized warm subject light'])) {
       tags.push('artificial_light', 'warm', 'supports_indoor', 'supports_hospitality', 'supports_residential', 'supports_commercial');
     }
-    if (hasAny(haystack, ['深夜邊緣微光', 'minimal nocturnal rim light'])) {
+    if (hasAny(haystack, ['深夜邊緣微光', 'minimal nocturnal rim light', 'minimal nocturnal subject rim light'])) {
       tags.push('backlight', 'dark', 'cool', 'night_subject', 'supports_indoor', 'supports_outdoor', 'supports_studio', 'supports_urban', 'supports_subterranean');
     }
   }
@@ -10809,7 +10809,7 @@ function compactAiAmbientLightText(value) {
 
 function compactAiSubjectLightText(value) {
   const text = stripMarkdown(value || '');
-  if (/warm golden-amber subject light color/i.test(text)) return 'warm honey-amber subject light';
+  if (/warm golden-amber subject (?:light )?color/i.test(text)) return 'warm honey-amber subject light';
   return compactPromptClauses(text, 1);
 }
 
@@ -12834,6 +12834,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
           subjectKind: specialSubjectMode ? 'subject' : 'woman',
           poseBaseId: characterSlots.poseComposer?.meta?.poseBaseId || '',
           angleTextOverride: fullBodyCameraText || closeWormEyeText || null,
+          useDistanceProfiles: sceneIntegrated,
         })
       : '',
     context.subject.count === 1
@@ -12947,7 +12948,11 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
     const world = projectZImageDirectionalSource(compactZImageLocationText(importedWorldSceneArchitectureText), context.angle, { preserveIdentity: true });
     const clauses = splitPromptClauses(location || world);
     const identity = clauses.shift() || '';
-    const details = [location ? world : '', clauses.join(', '), projectZImageDirectionalSource(compactZImageSourceText(sceneAccentText), context.angle)]
+    const locationDetailKeys = new Set(clauses.map((clause) => clause.toLowerCase()));
+    const sceneAccent = splitPromptClauses(
+      projectZImageDirectionalSource(compactZImageSourceText(sceneAccentText), context.angle)
+    ).filter((clause) => !locationDetailKeys.has(clause.toLowerCase())).join(', ');
+    const details = [location ? world : '', clauses.join(', '), sceneAccent]
       .filter(Boolean);
     return renderSections([
       { id: 'imageType', text: imageTypeLine },

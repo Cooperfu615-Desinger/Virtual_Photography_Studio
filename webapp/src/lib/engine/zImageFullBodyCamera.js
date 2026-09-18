@@ -1,5 +1,7 @@
 // Authored full-body angle projection, not a new camera selection or lens rule.
 // Caller owns main ordinary single/fullBody eligibility. See the v1 spec.
+import { buildCameraAngleDistanceClause } from './cameraAngleDistance.js';
+
 export const FULL_BODY_CAMERA_GROUPS = Object.freeze({
   '平視高度鏡頭': 'natural',
   '肩部高度鏡頭': 'natural',
@@ -29,11 +31,11 @@ export function buildZImageFullBodyCamera(angle, poseBaseId = '') {
         ? "An extreme worm's-eye view with the camera almost touching the ground, very close to her feet and looking steeply upward along her body. Her feet and lower legs loom large in the near foreground, while her torso and head recede sharply above them. Her entire figure remains in the frame, with pronounced foreshortening and perspective stretching near the frame edges."
         : "An extreme worm's-eye view with the camera almost touching the ground, very close to her and looking steeply upward. The closest parts of her body loom large in the foreground, while the more distant parts recede sharply. Her entire figure remains in the frame, with pronounced foreshortening and perspective stretching near the frame edges.";
     case 'high':
-      return 'The camera is above her and angled downward, framing her entire figure from head to feet. The top of her head and shoulders are nearer the lens, with the rest of her body receding below them.';
+      return `${buildCameraAngleDistanceClause('high')}, framing her entire figure from head to feet. The subject remains dominant in the frame, with the upper-facing body planes nearest the lens slightly more prominent and the rest of her figure receding below them.`;
     case 'birdEye':
-      return "A bird's-eye view from high above, looking diagonally down at her entire figure within the surrounding space.";
+      return `${buildCameraAngleDistanceClause('birdEye')} at her entire figure. Her figure occupies less of the frame, while the surrounding spatial layout remains clearly visible.`;
     case 'topDown':
-      return 'The camera is directly above her and points vertically downward, framing her entire figure in a top-down composition.';
+      return `${buildCameraAngleDistanceClause('topDown')}, framing her entire figure. The view is flattened and graphic, with no diagonal viewing direction.`;
     default:
       return '';
   }

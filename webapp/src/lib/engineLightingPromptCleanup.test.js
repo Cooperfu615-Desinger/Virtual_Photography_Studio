@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { createEmptyLocks, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
+import { SUBJECT_LIGHT_SOURCE_CASES } from './engine/subjectLightFixtures.js';
 
 function controlOptions(key) {
   const control = getLockControls().find((entry) => entry.key === key);
@@ -92,6 +93,10 @@ test('subject light prompts stay compact and subject-scoped', () => {
   const lightStyleOptions = controlOptions('lightDirectionId');
 
   assert.equal(lightStyleOptions.length, 26);
+  assert.equal(SUBJECT_LIGHT_SOURCE_CASES.length, 25);
+  for (const [label, source] of SUBJECT_LIGHT_SOURCE_CASES) {
+    assert.equal(optionByLabel('lightDirectionId', label).en, source, `${label} source wording drifted`);
+  }
   for (const option of lightStyleOptions.filter((entry) => entry.zh !== '全無')) {
     assert.ok(wordCount(option.en) <= 24, `${option.zh} should stay compact`);
     assert.match(option.en, /subject|face|facial|skin|clothing|hair|shoulder|body|shadow/i);
@@ -104,7 +109,7 @@ test('subject light prompts stay compact and subject-scoped', () => {
 
   assert.match(optionByLabel('lightDirectionId', '側逆光').en, /partial facial fill/);
   assert.match(optionByLabel('lightDirectionId', '逆光輪廓光').en, /strong back rim light/);
-  assert.match(optionByLabel('lightDirectionId', '深夜邊緣微光').en, /mostly dark subject mass/);
+  assert.match(optionByLabel('lightDirectionId', '深夜邊緣微光').en, /mostly shadowed subject mass/);
 });
 
 test('generated prompts keep ambient conditions separate from subject light style', () => {
@@ -118,9 +123,9 @@ test('generated prompts keep ambient conditions separate from subject light styl
   });
 
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*deep azure sky and towering luminous white cumulus clouds/);
-  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*warm golden-amber subject light color/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*warm golden-amber subject color/);
   assert.match(prompt.zImagePrompt, /bright summer daylight with a clear atmosphere/i);
-  assert.match(prompt.zImagePrompt, /(?:honey-amber subject light|honey-orange cast) on skin and clothing/);
+  assert.match(prompt.zImagePrompt, /warm golden-amber subject color, honey-toned highlights on skin and clothing/);
   assert.match(prompt.summary, /光影：夏日深藍積雲 \/ 暖金黃昏色溫/);
 });
 
@@ -134,7 +139,7 @@ test('generated house-party prompt keeps flexible scene and party ambient light'
 
   assert.match(prompt.grokPrompt, /Scene:\n[\s\S]*nighttime American house-party home interior/);
   assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*warm low-light social ambience/);
-  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*local warm practical-light pool on the subject/);
+  assert.match(prompt.grokPrompt, /Lighting:\n[\s\S]*localized warm subject light/);
   assert.match(prompt.zImagePrompt, /background guests (?:chatting drinking and playing games|if visible)/);
   assert.match(prompt.zImagePrompt, /warm low-light social ambience/i);
   assert.doesNotMatch(prompt.zImagePrompt, /practical lamps|decorative lights/i);

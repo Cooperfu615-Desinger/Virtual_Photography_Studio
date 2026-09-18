@@ -66,10 +66,10 @@ test('cowboy framing is labeled as knee-up before the generic medium-shot match'
     assert.doesNotMatch(prompt[field], /Waist-up portrait/i, field);
   }
   assert.match(prompt.grokPrompt, /Knee-up cowboy shot, left profile view\./i);
-  assert.match(prompt.grokPrompt, /camera is positioned clearly above the woman and tilted downward/i);
+  assert.match(prompt.grokPrompt, /At a relatively close portrait distance, roughly 1\.5–2 meters from her, the camera is positioned above her and angled downward/i);
   assert.doesNotMatch(prompt.grokPrompt, /Waist-up portrait/i);
   assert.match(prompt.zImagePrompt, /Knee-up cowboy shot\./i);
-  assert.match(prompt.zImagePrompt, /camera is positioned clearly above the woman and tilted downward/i);
+  assert.match(prompt.zImagePrompt, /At a relatively close portrait distance, roughly 1\.5–2 meters from her, the camera is positioned above her and angled downward/i);
   assert.match(prompt.zImagePrompt, /facing the right edge[\s\S]*only the left side of her body[\s\S]*strict 90-degree lateral body view/i);
   assert.doesNotMatch(prompt.zImagePrompt, /high angle, looking down|left profile view|Waist-up portrait/i);
 });

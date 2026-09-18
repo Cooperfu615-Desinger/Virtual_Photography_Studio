@@ -95,6 +95,7 @@ test('high and low camera positions use explicit camera subjects and crop-visibl
     angle: { zh: '高位俯視鏡頭' },
     orbit: orbit('右側 270 度'),
     bucket: COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    useDistanceProfiles: true,
   });
   const lowFull = buildZImageTurboCameraGeometry({
     angle: { zh: '地面高度鏡頭' },
@@ -102,9 +103,20 @@ test('high and low camera positions use explicit camera subjects and crop-visibl
     bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
   });
 
-  assert.match(highCowboy, /^The camera is positioned clearly above the woman and tilted downward toward her, revealing the top planes of her shoulders and waistband\./i);
+  assert.match(highCowboy, /^At a relatively close portrait distance, roughly 1\.5–2 meters from her, the camera is positioned above her and angled downward, revealing the top planes of her shoulders and waistband\./i);
   assert.doesNotMatch(highCowboy, /high angle, looking down/i);
   assert.match(lowFull, /^The camera is positioned near floor level and tilted upward toward the woman, emphasizing the upward perspective through her legs, torso, and shoulders\./i);
+});
+
+test('high-angle families retain distinct soft distance cues for Z-Image crops', () => {
+  const high = buildZImageTurboCameraGeometry({ angle: { zh: '高位俯視鏡頭' }, bucket: COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST, useDistanceProfiles: true });
+  const bird = buildZImageTurboCameraGeometry({ angle: { zh: '鳥瞰視角' }, bucket: COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST, useDistanceProfiles: true });
+  const top = buildZImageTurboCameraGeometry({ angle: { zh: '正上方俯視鏡頭' }, bucket: COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST, useDistanceProfiles: true });
+
+  assert.match(high, /roughly 1\.5–2 meters from her[\s\S]*top planes/i);
+  assert.match(bird, /roughly 3–5 meters above and set back from her[\s\S]*spatial layout/i);
+  assert.match(top, /roughly 1–2 meters above her[\s\S]*90-degree angle[\s\S]*no diagonal viewing direction/i);
+  for (const text of [high, bird, top]) assert.doesNotMatch(text, /ground plane/i);
 });
 
 test('missing and none orbit selections do not invent camera geometry', () => {
@@ -122,4 +134,15 @@ test('dedicated special subjects use neutral camera geometry language', () => {
   assert.match(geometry, /right side of the subject's body/i);
   assert.match(geometry, /subject's right shoulder[\s\S]*subject's right hip/i);
   assert.doesNotMatch(geometry, /woman|\bher\b/i);
+});
+
+test('distance profiles are opt-in so excluded subject paths keep legacy camera wording', () => {
+  const dedicated = buildZImageTurboCameraGeometry({
+    angle: { zh: '高位俯視鏡頭' },
+    bucket: COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+    subjectKind: 'subject',
+  });
+
+  assert.match(dedicated, /positioned clearly above the subject and tilted downward toward the subject/i);
+  assert.doesNotMatch(dedicated, /meters|upper-facing|subject remains dominant/i);
 });

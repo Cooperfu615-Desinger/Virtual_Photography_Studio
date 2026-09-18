@@ -122,7 +122,7 @@ test('Z-Image Turbo single prompt uses direct visual paragraphs in priority orde
   assert.doesNotMatch(text, /right profile view/i);
   assert.match(text, /The setting is cement-mixer tank side area, large cylindrical mixing tank, concrete dust\./i);
   assert.match(text, /Large cylindrical mixing tank, concrete dust\./i);
-  assert.match(text, /Indoor low-light warm night ambience[\s\S]*mixed warm and cool subject lighting/i);
+  assert.match(text, /Indoor low-light warm night ambience[\s\S]*mixed warm and cool subject light(?:ing)?/i);
 
   const ordered = [
     'Photorealistic editorial portrait',

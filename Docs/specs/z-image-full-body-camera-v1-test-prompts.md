@@ -1,6 +1,6 @@
 # Z-Image 全身相機 v1：六組正式輸出實測
 
-日期：2026-09-13
+日期：2026-09-18（距離語意補正）
 
 這六段直接取自本機 fullBody-camera v1 引擎，未手動改寫。固定同一和室、人物、服裝與站姿，只替換 angle；引擎 seed 為 `full-camera-v1`，並非外部影像 seed。建議外部統一使用 9:16 及相同模型設定。自然全身其他高度與荷蘭角已做程式回歸，這裡以平視為代表。
 
@@ -53,7 +53,7 @@ She wears, white dropped-shoulder t-shirt, washed cotton jersey, low shoulder se
 ```text
 Photorealistic editorial portrait.
 
-The setting is traditional Japanese washitsu room, tatami flooring, shoji sliding doors. Full-body portrait, front view. The camera is above her and angled downward, framing her entire figure from head to feet. The top of her head and shoulders are nearer the lens, with the rest of her body receding below them. Photographed directly from the front. Her chest and pelvis face the lens, with both shoulders, both hips, legs, and feet forming a frontal full-body silhouette.
+The setting is traditional Japanese washitsu room, tatami flooring, shoji sliding doors. Full-body portrait, front view. At a relatively close portrait distance, roughly 1.5–2 meters from her, the camera is positioned above her and angled downward, framing her entire figure from head to feet. The subject remains dominant in the frame, with the upper-facing body planes nearest the lens slightly more prominent and the rest of her figure receding below them. Photographed directly from the front. Her chest and pelvis face the lens, with both shoulders, both hips, legs, and feet forming a frontal full-body silhouette.
 
 A 20s seductive stunning Japanese or Korean woman, sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, soft golden-beige tone, realistic dyed hair texture, soft matte skin texture, refined pores, velvety smooth finish, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.
 
@@ -67,7 +67,7 @@ She wears, white dropped-shoulder t-shirt, washed cotton jersey, low shoulder se
 ```text
 Photorealistic editorial portrait.
 
-The setting is traditional Japanese washitsu room, tatami flooring, shoji sliding doors. Full-body portrait, front view. A bird's-eye view from high above, looking diagonally down at her entire figure within the surrounding space. Photographed directly from the front. Her chest and pelvis face the lens, with both shoulders, both hips, legs, and feet forming a frontal full-body silhouette.
+The setting is traditional Japanese washitsu room, tatami flooring, shoji sliding doors. Full-body portrait, front view. From several meters away, roughly 3–5 meters above and set back from her, the camera looks diagonally downward at her entire figure. Her figure occupies less of the frame, while the surrounding spatial layout remains clearly visible. Photographed directly from the front. Her chest and pelvis face the lens, with both shoulders, both hips, legs, and feet forming a frontal full-body silhouette.
 
 A 20s seductive stunning Japanese or Korean woman, sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, soft golden-beige tone, realistic dyed hair texture, soft matte skin texture, refined pores, velvety smooth finish, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.
 
@@ -81,7 +81,7 @@ She wears, white dropped-shoulder t-shirt, washed cotton jersey, low shoulder se
 ```text
 Photorealistic editorial portrait.
 
-The setting is traditional Japanese washitsu room, tatami flooring, shoji sliding doors. Full-body portrait, front view. The camera is directly above her and points vertically downward, framing her entire figure in a top-down composition. Photographed directly from the front. Her chest and pelvis face the lens, with both shoulders, both hips, legs, and feet forming a frontal full-body silhouette.
+The setting is traditional Japanese washitsu room, tatami flooring, shoji sliding doors. Full-body portrait, front view. From directly overhead at roughly 1–2 meters above her, the camera points straight down at a 90-degree angle, framing her entire figure. The view is flattened and graphic, with no diagonal viewing direction. Photographed directly from the front. Her chest and pelvis face the lens, with both shoulders, both hips, legs, and feet forming a frontal full-body silhouette.
 
 A 20s seductive stunning Japanese or Korean woman, sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve, young cool editorial beauty face, refined sharp facial balance, calm distant gaze-ready features, long soft waves with a center part, defined wave shape, clean tapered ends, lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette, light blonde hair, soft golden-beige tone, realistic dyed hair texture, soft matte skin texture, refined pores, velvety smooth finish, soft natural smile, relaxed brows, gently narrowed eyes, softly parted lips, lifted cheeks.
 

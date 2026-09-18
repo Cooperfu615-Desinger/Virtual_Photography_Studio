@@ -53,11 +53,11 @@ function gptScene(prompt) {
 function zImageScene(prompt) {
   if (prompt.zImagePrompt.includes('The setting is ')) {
     const paragraphs = prompt.zImagePrompt.split(/\n{2,}/);
-    const identity = paragraphs[1].match(/^The setting is [\s\S]*?\.(?: |$)/)?.[0] || '';
-    const wardrobeIndex = paragraphs.findIndex((p) => p.startsWith('She wears'));
-    // The face-detail fixture omits both pose and wardrobe, so scene follows subject.
-    const details = paragraphs[wardrobeIndex >= 0 ? wardrobeIndex + 1 : 3] || '';
-    return `${identity} ${details}`;
+    // Main Z may compact the scene, camera, and subject into fewer
+    // paragraphs when all optional layers are empty. Read the setting
+    // sentence itself instead of relying on a fixed paragraph index.
+    return paragraphs.find((paragraph) => paragraph.startsWith('The setting is '))
+      ?.match(/^The setting is [^.]+\./)?.[0] || '';
   }
   return prompt.zImagePrompt
     .split(/\n{2,}/)

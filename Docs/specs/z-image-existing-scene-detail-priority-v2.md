@@ -1,6 +1,6 @@
 # Z-Image 既有場景細節優先規則 v2
 
-日期：2026-09-14；狀態追蹤更新：2026-09-15。已接入本地 runtime 並完成本地回歸與瀏覽器驗證；相關 runtime、fixture、test 與文件目前仍在工作樹，尚未交付。
+日期：2026-09-14；狀態追蹤更新：2026-09-18。已接入 runtime 並完成本地回歸與瀏覽器驗證；合併審查與 Git 交付狀態見 `Docs/current_project_state.md` 及 Git log。
 
 ## 1. 目的與適用範圍
 
@@ -71,4 +71,4 @@
 
 - `SCENE_DETAIL_PRIORITY_REMAINING_CASES` 固定 38 筆 `[label, before, after]`，`SCENE_DETAIL_PRIORITY_REMAINING_LOW_MATRIX` 固定 456 筆實際低機位整合案例；所有來源片語必須能在相同 location 的 catalog 英文找到。
 - 歷史七組與三組對照維持原 oracle；舊 1,430 筆基準以測試相容層還原新版主體光線／場景細節後比對，不改寫基準檔。
-- 本輪局部 prompt／scene 回歸通過 137/137；原始批次完整 frontend `npm test` 為 939/939，後續雙人修正後目前工作樹整體 gate 為 949/949，`npm run test:prompt-quality` 為 269/269；lint/build、`git diff --check`、資料同步／Python／public-asset 檢查與 strict same-seed audit（200，零 blocking、23 diagnostic-only）均通過。瀏覽器在 1440x1000 與 390x900 檢查 Prompt 工作台、角色建模、動作姿勢、場景建模、觀察式抓拍及 Saved Cards；無破圖、console/page error 或 document-level horizontal overflow。此規格已完成本地驗證；外部模型成像品質與 Git 交付另行處理。
+- 原始批次局部 prompt／scene 回歸 137/137；2026-09-18 合併審查通過 `npm test` 963/963、`npm run test:prompt-quality` 275/275、lint/build、`git diff --check`、資料同步／Python／public-asset 檢查與 strict same-seed audit（200，零 blocking、23 diagnostic-only）。瀏覽器在 1440x1000 與 390x900 檢查五個目前啟用的工作區，無 console error 或 document-level horizontal overflow。外部模型成像品質與部署另行驗證。

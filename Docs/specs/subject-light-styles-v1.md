@@ -1,6 +1,6 @@
 # 主體光線表現英文描述 v1
 
-日期：2026-09-14。狀態：已接入本地資料流並完成本地回歸與瀏覽器驗證；相關 source、fixture、test 與文件目前仍在工作樹，尚未交付。
+日期：2026-09-14。狀態：已接入資料流並完成本地回歸與瀏覽器驗證；2026-09-18 合併審查與 Git 交付狀態見 `Docs/current_project_state.md` 及 Git log。
 
 ## 1. 目的與範圍
 
@@ -57,4 +57,4 @@
 
 - 固定 oracle：`webapp/src/lib/engine/subjectLightFixtures.js` 的 `SUBJECT_LIGHT_SOURCE_CASES`（25 筆）以及歷史相容性正規化器。
 - 直接來源與 renderer 回歸：`engineLightingPromptCleanup.test.js`、`enginePromptPipeline.test.js`、`engineFixedCompositionSet.test.js`、`ambientLightDescriptions.test.js`、`sceneIntegratedAssemblyBaseline.test.js`。
-- 本輪局部驗證已通過 137/137；原始批次完整 `npm test` 為 939/939，後續雙人修正後目前工作樹整體 frontend gate 為 949/949，`npm run test:prompt-quality` 為 269/269；lint/build、`git diff --check`、資料同步／Python／public-asset 檢查與 strict same-seed audit（200，零 blocking、23 diagnostic-only）均通過。瀏覽器在 1440x1000 與 390x900 檢查 Prompt 工作台、角色建模、動作姿勢、場景建模、觀察式抓拍及 Saved Cards；無破圖、console/page error 或 document-level horizontal overflow。此規格已完成本地驗證；外部模型成像品質與 Git 交付另行處理。
+- 原始批次局部驗證 137/137；2026-09-18 合併審查通過 `npm test` 963/963、`npm run test:prompt-quality` 275/275、lint/build、`git diff --check`、資料同步／Python／public-asset 檢查與 strict same-seed audit（200，零 blocking、23 diagnostic-only）。瀏覽器在 1440x1000 與 390x900 檢查五個目前啟用的工作區，無 console error 或 document-level horizontal overflow。外部模型成像品質與部署另行驗證。
