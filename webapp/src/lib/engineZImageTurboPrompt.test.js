@@ -169,10 +169,38 @@ test('Z-Image Turbo keeps a strict right-side seated body when the canonical hea
   assert.match(canonicalPose, /head naturally facing the camera/i);
   assert.match(canonicalPose, /leg-cross seated pose/i);
   assert.match(canonicalPose, /ornate single velvet armchair/i);
+  assert.match(prompt.zImagePrompt, /ornate single velvet armchair/i);
   assertZImagePoseProjection(prompt);
   assert.equal(prompt.midjourneyPrompt.includes(canonicalPose), true);
   assert.doesNotMatch(prompt.grokPrompt, /camera sees only the right side of her body/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /camera sees only the right side of her body/i);
+});
+
+test('Z-Image Turbo retains the ornate velvet armchair across every explicit shoe choice', () => {
+  const shoeOptions = controls.find((entry) => entry.key === 'shoesId')?.options
+    .filter((entry) => !['隨機', '全無'].includes(entry.zh)) || [];
+  assert.ok(shoeOptions.length > 0);
+
+  for (const shoe of shoeOptions) {
+    const prompt = generate({
+      ...createAllNoneLocks(),
+      imageTypePresetId: 'photorealistic-photo',
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+      angleId: optionId('angleId', '地面高度鏡頭'),
+      orbitId: optionId('orbitId', '正面 0 度'),
+      poseBaseId: optionId('poseBaseId', '坐姿'),
+      poseArrangementId: optionId('poseArrangementId', '隨性癱坐'),
+      poseHandId: optionId('poseHandId', '任意'),
+      poseHeadId: optionId('poseHeadId', '下巴微抬'),
+      poseAnchorId: optionId('poseAnchorId', '坐在單人雕花絨布椅'),
+      topId: optionId('topId', '長版寬鬆麻花針織毛衣'),
+      topFitId: optionId('topFitId', '緊身'),
+      legwearId: optionId('legwearId', '長筒襪'),
+      shoesId: shoe.id,
+    }, `z-image-ornate-chair-${shoe.id}`);
+
+    assert.match(prompt.zImagePrompt, /ornate single velvet armchair/i, shoe.zh);
+  }
 });
 
 test('Z-Image Turbo adds side-view depth for the tested two-hand waistband action without rewriting the canonical pose', () => {

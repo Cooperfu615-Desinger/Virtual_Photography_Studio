@@ -641,7 +641,7 @@ core category, 1-3 concrete visible traits
 
 ## 4. B 神情姿態輸出規則
 
-`Gpt`、`Grok/Z-Image`、`AI` 在 Pose Composer 啟用時先共用同一個 resolved pose，再依共用構圖契約產生 projected canonical pose。GPT／MJ 與排除路徑逐字共用，完整保留投影後仍可見的身體安排、重心、支撐、手部位置、道具接觸與頭部方向。一般單人主 Z-Image 僅依本文件開頭的 `1.6.0` 窄例外省略獨立支撐及搬移自拍來源，姿勢／手部自身的接觸不刪；不得任意再壓縮其他角色。`faceDetail` 與 `headShoulders` 原投影為空時，Z 也不回灌自拍或姿勢。
+`Gpt`、`Grok/Z-Image`、`AI` 在 Pose Composer 啟用時先共用同一個 resolved pose，再依共用構圖契約產生 projected canonical pose。GPT／MJ 與排除路徑逐字共用，完整保留投影後仍可見的身體安排、重心、支撐、手部位置、道具接觸與頭部方向。一般單人主 Z-Image 僅依現行 Z contract 窄例外省略關係型獨立支撐及搬移自拍來源；`meta.preserveInSceneIntegratedZ` 明確標記的具體承重物件（目前為單人雕花絨布椅）仍須保留，姿勢／手部自身的接觸也不刪；不得任意再壓縮其他角色。`faceDetail` 與 `headShoulders` 原投影為空時，Z 也不回灌自拍或姿勢。
 
 表情只寫臉部可見反應、嘴型、眉毛、眼瞼狀態與情緒強度，不指定眼神方向。姿態只寫身體安排、重心、支撐與動作狀態，並可保留 Pose Composer 的 canonical head direction；但 `head naturally facing the camera`、`turning back`、`over-the-shoulder` 等頭部／身體方向不得由姿態文字偷渡進表情資料。
 

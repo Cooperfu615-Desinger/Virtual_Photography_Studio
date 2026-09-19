@@ -66,7 +66,7 @@ export const MIDJOURNEY_PARAMETER_FIXTURES = Object.freeze([
     expectedTail: '--v 8.2 --ar 4:5 --raw --s 50 --c 0 --w 0 --sd',
     baselineHashes: {
       grokPrompt: '48b701dd79082ea7705697aa3c0e1c4df7c159f35fdaa39c9232abcb104136a0',
-      zImagePrompt: 'c7ed3aac9ae0cc1233e810e67114a732b7e75a1ed0c51d9726e9ff2b30cf6c6d',
+      zImagePrompt: '335c2172610847922196bbef3ba62b7aa32654660372e505e6a14859ca865be0',
       midjourneyPrompt: 'ad3e1cfca3df9a59d35df5fa5fd42367ab2a4451b5adb4336958fa6383d3fe0a',
     },
   },

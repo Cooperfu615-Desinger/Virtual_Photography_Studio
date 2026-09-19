@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.13.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.14.0';
 
 const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
   'imageType', 'composition', 'subject', 'pose', 'wardrobe',
@@ -68,7 +68,7 @@ export const Z_IMAGE_TURBO_PROMPT_CONTRACT = deepFreeze({
     sectionOrder: SCENE_INTEGRATED_SECTION_ORDER,
     scope: 'ordinary PAGE1 single-subject main output only',
     exclusions: ['duo', 'fixed-composition', 'dedicated-subject', 'character-card', 'supine-surface-led', 'derived-output'],
-    independentAnchor: 'omit from Z-only projected sources; preserve selection and shared canonical',
+    independentAnchor: 'omit relational anchors from Z-only projected sources; retain source-marked concrete support objects such as the ornate velvet armchair; preserve selection and shared canonical',
     selfieHand: 'relocate visible source to capture context; retain prop precedence and crop visibility',
     scene: 'merge directional-filtered projected scene sources into capture context exactly once',
     sceneDirection: {

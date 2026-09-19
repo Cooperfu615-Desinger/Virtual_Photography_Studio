@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-18
+Last updated: 2026-09-19
+
+## Z-Image concrete support-object anchor exception (local, 2026-09-19)
+
+- Ordinary PAGE1 single-subject main Z-Image no longer removes every independent Pose Composer anchor indiscriminately. Relational anchors such as shoulder/back support against an existing surface remain omitted, while a source option may explicitly opt in a concrete support object through `meta.preserveInSceneIntegratedZ`.
+- The first and only opted-in object is `坐在單人雕花絨布椅`; its existing source phrase `on an ornate single velvet armchair in a relaxed lounging posture` now remains in the Z-Image pose sentence. Selection IDs, UI labels, summaries, storage, GPT, Midjourney, derived outputs and supine surface-led behavior are unchanged.
+- Z contract is `1.14.0`. Focused regressions cover the canonical mirror-selfie fixture, strict side-view seated output, preservation across every explicit shoe option, and continued omission of the existing vertical-surface relationship anchor. A deterministic 35-shoe × 10-seed matrix retained the chair in 350/350 Z outputs. Frontend tests passed 964/964, Prompt Quality passed 276/276, lint/build/data sync/Python/public-asset checks passed, and the same-seed strict 200-prompt audit reported zero blocking signals with the unchanged 23 diagnostic-only findings. Browser validation at 1440×1000 and 390×900 exercised all five active workspaces without document overflow or console errors; the live UI chair selection appeared in the Z output. This local batch is not committed, pushed, deployed or externally image-tested unless later delivery evidence says otherwise.
 
 ## Subject Light Styles + remaining Z-Image scene detail priority (2026-09-15)
 

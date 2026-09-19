@@ -13,7 +13,7 @@ import {
 } from './promptOutputContracts.js';
 
 test('Z-Image Turbo contract preserves the historical field and records the Magnific profile', () => {
-  assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION, '1.13.0');
+  assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION, '1.14.0');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.field, 'zImagePrompt');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.uiLabel, 'Z-Image');
   assert.equal(Z_IMAGE_TURBO_PROMPT_CONTRACT.compatibility.historicalField, 'zImagePrompt');
@@ -106,5 +106,6 @@ test('scene-integrated order is opt-in and leaves the default section contract i
   assert.ok(Object.isFrozen(policy));
   assert.ok(policy.exclusions.includes('supine-surface-led'));
   assert.ok(policy.exclusions.includes('character-card'));
+  assert.match(policy.independentAnchor, /retain source-marked concrete support objects/i);
   assert.match(policy.independentAnchor, /preserve selection and shared canonical/);
 });

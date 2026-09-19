@@ -12399,6 +12399,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
   const supineSurfaceLed = poseComposer?.meta?.poseBaseId === 'lying'
     && poseComposer?.meta?.poseOrientationId === 'lying-supine'
     && anchor?.meta?.supineSurfaceLed === true;
+  const preserveSceneIntegratedAnchor = anchor?.meta?.preserveInSceneIntegratedZ === true;
   const sceneIntegrated = context.subject.count === 1
     && !specialSubjectMode && !characterProfileMode && !useCharacterIdentityAnchor
     && !fixedCompositionSetActive && !supineSurfaceLed;
@@ -12413,7 +12414,10 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
         ? projectPoseComposerHand(selfieHand, compositionVisibilityProjection.bucket) : null)
     : null;
   const zOnlyPoseText = sceneIntegrated
-    ? buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor: true, omitHand: Boolean(captureHand) })
+    ? buildProjectedCanonicalPoseText(context, poseComposer, {
+      omitAnchor: !preserveSceneIntegratedAnchor,
+      omitHand: Boolean(captureHand),
+    })
     : context.projectedCanonicalPoseText || '';
   const buildCharacterText = () => {
     if (characterProfileMode) {

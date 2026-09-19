@@ -89,8 +89,11 @@ export function assertZImagePoseProjection(prompt) {
   const hand = POSE_COMPOSER_HAND_OPTIONS.find((o) => o.id === s.poseHandId);
   const visibleCapture = !excluded && hand?.meta?.tags?.includes('selfie_hand_pose')
     && canonical(prompt).toLowerCase().includes(hand.en.toLowerCase());
+  const preserveAnchor = !excluded && anchor?.meta?.preserveInSceneIntegratedZ === true;
   const expected = excluded ? canonical(prompt) : canonical(generatePrompts(1, {
-    ...s, poseAnchorId: 'none', ...(visibleCapture ? { poseHandId: 'none' } : {}),
+    ...s,
+    ...(!preserveAnchor ? { poseAnchorId: 'none' } : {}),
+    ...(visibleCapture ? { poseHandId: 'none' } : {}),
   }, [], { random: createSeededRandom('z-projection-independent-gpt-oracle') })[0]);
   if (expected) assert.ok(prompt.zImagePrompt.includes(expected), `Z must preserve the projected pose source: ${expected}`);
   if (visibleCapture) {

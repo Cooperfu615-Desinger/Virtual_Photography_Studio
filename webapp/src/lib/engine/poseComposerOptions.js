@@ -1279,7 +1279,16 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       lying: 'reclining across the top surface of a transparent acrylic cube plinth, back and hips in continuous contact with the clear top and fully supported by it',
     },
   }),
-  { id: 'sitting-ornate-velvet-armchair', base: 'sitting', zh: '坐在單人雕花絨布椅', en: 'on an ornate single velvet armchair in a relaxed lounging posture', meta: { randomEligibleForBases: { sitting: false } } },
+  {
+    id: 'sitting-ornate-velvet-armchair',
+    base: 'sitting',
+    zh: '坐在單人雕花絨布椅',
+    en: 'on an ornate single velvet armchair in a relaxed lounging posture',
+    meta: {
+      randomEligibleForBases: { sitting: false },
+      preserveInSceneIntegratedZ: true,
+    },
+  },
   deprecatedPoseAnchor({ id: 'standing-wall', base: 'standing', zh: '靠牆', en: 'leaning against a wall' }),
   deprecatedPoseAnchor({ id: 'standing-doorway', base: 'standing', zh: '站在門框邊', en: 'standing beside a doorway frame' }),
   deprecatedPoseAnchor({ id: 'standing-table-edge', base: 'standing', zh: '站在桌邊', en: 'standing beside a table edge' }),
