@@ -18,8 +18,8 @@ export const MIDJOURNEY_NATIVE_STRUCTURE_FIXTURES = Object.freeze([
   },
   {
     id: 'canonical-pose-precise',
-    expectedDescriptionHash: 'ad3e1cfca3df9a59d35df5fa5fd42367ab2a4451b5adb4336958fa6383d3fe0a',
-    expectedWords: 98,
+    expectedDescriptionHash: 'b7907e731f5e04a6d75adbc2484fee6fb9db5576eed976b51938ef5406bcfae9',
+    expectedWords: 93,
   },
   {
     id: 'character-card-hd',

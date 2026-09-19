@@ -927,15 +927,15 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
     expectedOutputs: {
       grokPrompt: {
-        includes: ['She has her head slightly tilted, one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection, and presents a natural seated pose on an ornate single velvet armchair in a relaxed lounging posture.'],
+        includes: ['She has her head slightly tilted, one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection, and presents a natural seated pose in an ornate single velvet armchair.'],
         excludes: ['She has holding', 'with lounging', 'let the image model choose'],
       },
       zImagePrompt: {
-        includes: ['She has her head slightly tilted, and presents a natural seated pose on an ornate single velvet armchair in a relaxed lounging posture.', 'One hand holding a visible phone toward a mirror for a mirror selfie'],
+        includes: ['She has her head slightly tilted, and presents a natural seated pose in an ornate single velvet armchair.', 'One hand holding a visible phone toward a mirror for a mirror selfie'],
         excludes: ['She has holding', 'with lounging', 'let the image model choose'],
       },
       midjourneyPrompt: {
-        includes: ['She has her head slightly tilted, one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection, and presents a natural seated pose on an ornate single velvet armchair in a relaxed lounging posture.'],
+        includes: ['She has her head slightly tilted, one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection, and presents a natural seated pose in an ornate single velvet armchair.'],
         excludes: ['She has holding', 'with lounging', 'let the image model choose'],
       },
     },

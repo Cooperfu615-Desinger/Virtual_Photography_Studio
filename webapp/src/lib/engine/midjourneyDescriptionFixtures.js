@@ -33,7 +33,7 @@ export const MIDJOURNEY_DESCRIPTION_FIXTURES = Object.freeze([
     phase3DescriptionHash: '2e7ce1eddae8384d1fdcc1d78e69531fd508d0d8aee47e6ab0589a5007037571',
     phase4DescriptionHash: '216c391dc7bc618a1e40cfaf2aa0beddae176d1f8cc6fe9798fde790c5149f85',
     phase5DescriptionHash: '94d7b9c2cd35c6ce8942823fb1b13b115bfd5975d54647f08e9cd8bb4406b1e2',
-    sceneIntegratedDescriptionHash: 'ad3e1cfca3df9a59d35df5fa5fd42367ab2a4451b5adb4336958fa6383d3fe0a',
+    sceneIntegratedDescriptionHash: 'b7907e731f5e04a6d75adbc2484fee6fb9db5576eed976b51938ef5406bcfae9',
   },
   {
     id: 'character-card-hd',

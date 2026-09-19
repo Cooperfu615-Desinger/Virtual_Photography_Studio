@@ -223,9 +223,9 @@ test('single pose panel randomizes the six Pose Composer layers and leaves props
       poseArrangementId: 'standing-one-leg-weight',
       poseHandId: 'arms-crossed',
       poseHeadId: 'head-away-profile',
-      poseAnchorId: 'standing-edge-hip-support',
+      poseAnchorId: 'none',
     },
-    'The migration seed should follow base, arrangement, hand, head, then anchor sampling order',
+    'The migration seed should preserve layer order while non-lying support resolves to free arrangement',
   );
 
   const arrangement = controls
@@ -238,7 +238,11 @@ test('single pose panel randomizes the six Pose Composer layers and leaves props
     || option?.bases?.includes(prompt.selection.poseBaseId);
 
   assert.equal(supportsBase(arrangement), true, 'Resolved arrangement should match the resolved base');
-  assert.equal(supportsBase(anchor), true, 'Resolved anchor should match the resolved base');
+  if (prompt.selection.poseAnchorId === 'none') {
+    assert.equal(anchor?.id, 'none', 'Free arrangement should resolve through the canonical none option');
+  } else {
+    assert.equal(supportsBase(anchor), true, 'Resolved anchor should match the resolved base');
+  }
 });
 
 test('single pose panel preserves an explicit prop while rerandomizing compatible pose layers', () => {

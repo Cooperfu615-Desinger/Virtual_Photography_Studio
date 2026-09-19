@@ -5090,9 +5090,8 @@ function resolvePoseComposerAnchorOption(id, predicate, exclusions, random = Mat
     && predicate(item)
   ));
   const filteredCandidates = exclusions.filterCandidates(candidates, ['poseAnchorId']);
-  if (filteredCandidates.length === 0) return null;
-
   const roll = random();
+  if (filteredCandidates.length === 0) return null;
   if (roll < POSE_ANCHOR_RANDOM_NONE_RATE) return null;
   const concreteRoll = (roll - POSE_ANCHOR_RANDOM_NONE_RATE) / (1 - POSE_ANCHOR_RANDOM_NONE_RATE);
   return sampleWeightedPoseAnchor(filteredCandidates, concreteRoll);

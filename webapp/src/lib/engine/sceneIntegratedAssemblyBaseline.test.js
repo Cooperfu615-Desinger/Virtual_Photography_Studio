@@ -25,6 +25,19 @@ import {
 const baseline = JSON.parse(readFileSync(new URL('./sceneIntegratedAssemblyBaseline.json', import.meta.url), 'utf8'));
 const zExpected = JSON.parse(readFileSync(new URL('./sceneDirectionalZImageExpected.json', import.meta.url), 'utf8'));
 const mjExpected = JSON.parse(readFileSync(new URL('./sceneIntegratedMidjourneyExpected.json', import.meta.url), 'utf8'));
+const supportObjectV1Expected = Object.freeze({
+  'R19-random-pose': Object.freeze({
+    poseAnchorId: 'none',
+    outputHashes: Object.freeze({
+      grokPrompt: '91a1928c468ecc9e783ee4aff0b2aa4ce13d1f12c6d9af82ad36488feb5fdd05',
+      zImagePrompt: 'ef51b62dfa6cad9a5ba6efdd779223295573e0154eefad1a070fab9df1f54251',
+      midjourneyPrompt: '047358a317a1f7dc4a77a24268051b6efe3c530428eb9d953d46d54ac3851416',
+      chestUpPortraitPrompt: 'e6902f324171853e9140f5fd62b53483a07c555850f6d2b35741d9298e3675dd',
+      chestUpMjPortraitPrompt: '2904f55f5a01bb15d1b34d27ba61d2cc9fff952beefd28633a56a3000608a8ab',
+      fullBodyCharacterPrompt: 'd62e1732bea33f710a6cee252b37b0d97dc8dde977c00d6e4d99fb1e8eed15ce',
+    }),
+  }),
+});
 const results = new Map(fixtures.map((fixture) => [fixture.id, runSceneFixture(fixture)]));
 const get = (id) => { assert.ok(results.has(id), id); return results.get(id); };
 const pose = (result) => result.outputs.grokPrompt.match(/Pose and Composition:\n([\s\S]*?)(?:\n\n|$)/)?.[1] || '';
@@ -118,16 +131,20 @@ for (const fixture of fixtures) {
     const first = get(fixture.id);
     const repeated = runSceneFixture(fixture);
     const entry = baseline.cases[fixture.id];
+    const supportObjectExpected = supportObjectV1Expected[fixture.id];
     assert.equal(first.inputHash, entry.inputHash, 'resolved fixture inputs changed');
     assert.equal(first.randomDraws, entry.randomDraws, 'random stream consumption changed');
-    assert.deepEqual(first.selection, restoreBaselineSelection(baseline, entry), 'resolved selections changed');
+    const expectedSelection = restoreBaselineSelection(baseline, entry);
+    if (supportObjectExpected) expectedSelection.poseAnchorId = supportObjectExpected.poseAnchorId;
+    assert.deepEqual(first.selection, expectedSelection, 'resolved selections changed');
     assert.deepEqual(first.outputs, repeated.outputs, 'same-seed outputs changed');
     assert.deepEqual(first.selection, repeated.selection);
     assert.equal(repeated.randomDraws, first.randomDraws);
     for (const field of OUTPUT_FIELDS) {
-      const expectedHash = field === 'zImagePrompt' && !fixture.excluded
-        ? zExpected.cases[fixture.id].hash : field === 'midjourneyPrompt' && !fixture.excluded
-          ? mjExpected.cases[fixture.id].hash : entry.outputHashes[field];
+      const expectedHash = supportObjectExpected?.outputHashes[field]
+        ?? (field === 'zImagePrompt' && !fixture.excluded
+          ? zExpected.cases[fixture.id].hash : field === 'midjourneyPrompt' && !fixture.excluded
+            ? mjExpected.cases[fixture.id].hash : entry.outputHashes[field]);
       assert.equal(digest(normalizeAmbientForLegacy(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field], field, first.selection)), expectedHash, `${field}: scoped output drift`);
       assert.deepEqual(validatePromptOutputContract(field, first.outputs[field], {
         mode: fixture.mode,
@@ -150,6 +167,15 @@ for (const fixture of fixtures) {
     if (fixture.mode === 'single') assertZImagePoseProjection(first.prompt);
   });
 }
+
+test('random non-lying support resolves to free arrangement without adding an external object', () => {
+  const result = get('R19-random-pose');
+  assert.equal(result.selection.poseAnchorId, 'none');
+  assert.equal(result.randomDraws, baseline.cases['R19-random-pose'].randomDraws);
+  for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+    assert.doesNotMatch(result.outputs[field], /existing vertical surface|supporting her body weight/i, field);
+  }
+});
 
 test('GPT and MJ retain canonical contact while Z omits only the independent anchor', () => {
   for (const fixture of fixtures.filter((f) => !f.excluded)) {

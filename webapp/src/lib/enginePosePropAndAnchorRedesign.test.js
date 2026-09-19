@@ -9,6 +9,7 @@ import {
   normalizeLocks,
 } from './engine.js';
 import { buildPage1ControlGroups } from '../features/page1/page1Selectors.js';
+import { poseComposerOptionVisibleForBase } from './engine/poseComposerCompatibility.js';
 
 const LIPSTICK_PROMPT = 'one hand applying lipstick directly to the lips with visible hand-to-mouth contact, with the finish varying naturally between clean application and a slightly smudged lip line';
 const FUJI_CAMERA_PROMPT = 'a silver-and-black FUJIFILM X100V camera raised directly in front of her face, her right eye looking through the viewfinder, her right hand gripping the camera with her index finger poised on the shutter button, captured in the act of taking a photograph';
@@ -202,27 +203,33 @@ test('round lollipop prop keeps the mouth contact and right-hand grip in the can
   assert.ok(prompt.midjourneyPrompt.includes(pose));
 });
 
-test('generic and editorial anchors are public while legacy anchors stay restorable', () => {
+test('manual sitting objects are public while generic relationship anchors stay restorable', () => {
   const publicLabels = [
-    '自然受支撐',
-    '肩背倚靠現有垂直面',
-    '髖側倚靠現有邊緣',
-    '坐在現有場景座面',
-    '坐在現有抬高邊緣',
-    '由場景地面承托',
-    '由現有柔軟平面承托',
+    '坐在一般椅子上',
     '坐在單人雕花絨布椅',
-    '浴缸',
+    '坐在沙發上',
+    '坐在長椅上',
+    '坐在台階上',
+    '坐在床上',
+    '坐在地面',
+    '坐在浴缸內',
+    '坐在洗手台檯面上',
   ];
   for (const label of publicLabels) {
-    assert.notEqual(option('poseAnchorId', label).meta?.uiHidden, true, label);
+    const anchor = option('poseAnchorId', label);
+    assert.notEqual(anchor.meta?.uiHidden, true, label);
+    assert.equal(anchor.meta?.randomEligibleForBases?.sitting, false, label);
+    assert.equal(anchor.meta?.preserveInSceneIntegratedZ, true, label);
+  }
+
+  for (const label of ['坐在現有場景座面', '坐在現有抬高邊緣', '站在門框邊']) {
+    const legacy = option('poseAnchorId', label);
+    assert.equal(legacy.meta?.uiHidden, true, label);
+    assert.equal(legacy.meta?.randomEligible, false, label);
+    assert.equal(legacy.meta?.deprecated, true, label);
   }
 
   const legacyDoorway = option('poseAnchorId', '站在門框邊');
-  assert.equal(legacyDoorway.meta?.uiHidden, true);
-  assert.equal(legacyDoorway.meta?.randomEligible, false);
-  assert.equal(legacyDoorway.meta?.deprecated, true);
-
   const locks = {
     ...createEmptyLocks(),
     subjectCount: '1',
@@ -239,6 +246,66 @@ test('generic and editorial anchors are public while legacy anchors stay restora
   const pickerAnchors = groups.characterLockControls.find((item) => item.key === 'poseAnchorId').options;
   assert.equal(pickerAnchors.some((item) => item.id === legacyDoorway.id), true);
   assert.equal(pickerAnchors.some((item) => item.meta?.uiHidden && item.id !== legacyDoorway.id), false);
+});
+
+test('standing kneeling and squatting expose no external support choices while sitting exposes nine manual objects', () => {
+  const anchors = control('poseAnchorId').options;
+  const visibleIdsForBase = (baseId) => anchors
+    .filter((anchor) => anchor.meta?.uiHidden !== true)
+    .filter((anchor) => poseComposerOptionVisibleForBase(anchor, baseId))
+    .filter((anchor) => !anchor.base || anchor.base === baseId)
+    .filter((anchor) => !anchor.bases || anchor.bases.includes(baseId))
+    .map((anchor) => anchor.id);
+
+  for (const baseId of ['standing', 'kneeling', 'squatting']) {
+    assert.deepEqual(visibleIdsForBase(baseId), ['none'], baseId);
+  }
+  assert.deepEqual(visibleIdsForBase('sitting'), [
+    'none',
+    'sitting-chair',
+    'sitting-ornate-velvet-armchair',
+    'sitting-sofa',
+    'sitting-bench',
+    'sitting-step',
+    'sitting-bed',
+    'sitting-ground',
+    'sitting-inside-bathtub',
+    'sitting-vanity-countertop',
+  ]);
+});
+
+test('every manual sitting object is retained with concise wording in GPT Z-Image and Midjourney', () => {
+  const expectedByLabel = new Map([
+    ['坐在一般椅子上', 'on a chair'],
+    ['坐在單人雕花絨布椅', 'in an ornate single velvet armchair'],
+    ['坐在沙發上', 'on a sofa'],
+    ['坐在長椅上', 'on a bench'],
+    ['坐在台階上', 'on a step'],
+    ['坐在床上', 'on a bed'],
+    ['坐在地面', 'on the ground'],
+    ['坐在浴缸內', 'in a bathtub'],
+    ['坐在洗手台檯面上', 'on a bathroom vanity countertop beside the sink'],
+  ]);
+
+  for (const [label, phrase] of expectedByLabel) {
+    const anchor = option('poseAnchorId', label);
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id,
+      poseBaseId: 'sitting',
+      poseArrangementId: option('poseArrangementId', '自然坐姿').id,
+      poseAnchorId: anchor.id,
+    });
+    const expected = `natural seated pose ${phrase}`;
+    assert.equal(prompt.selection.poseAnchorId, anchor.id, label);
+    assert.match(prompt.grokPrompt, new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), label);
+    assert.match(prompt.zImagePrompt, new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), label);
+    assert.match(prompt.midjourneyPrompt, new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), label);
+    for (const output of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+      assert.doesNotMatch(output, /body weight visibly supported|clear .*contact|already present in the scene/i, label);
+    }
+  }
 });
 
 test('cube plinth anchors stay restorable but leave the public picker and random pool', () => {
@@ -277,7 +344,6 @@ test('cube plinth anchors stay restorable but leave the public picker and random
   }
 
   const hiddenIds = new Set(cubeAnchors.map((anchor) => anchor.id));
-  assert.equal(option('poseAnchorId', '自然受支撐').meta?.randomWeight, 3);
   for (const baseId of ['standing', 'sitting', 'kneeling', 'squatting', 'lying']) {
     const locks = {
       ...createEmptyLocks(),
@@ -294,11 +360,7 @@ test('cube plinth anchors stay restorable but leave the public picker and random
         `lying should use a dedicated or water support anchor: ${naturalSupportPrompt.selection.poseAnchorId}`,
       );
     } else {
-      assert.equal(
-        naturalSupportPrompt.selection.poseAnchorId,
-        ['standing', 'sitting'].includes(baseId) ? 'shared-vertical-surface-support' : 'shared-natural-support',
-        baseId,
-      );
+      assert.equal(naturalSupportPrompt.selection.poseAnchorId, 'none', baseId);
     }
 
     for (let index = 0; index < 100; index += 1) {
@@ -313,7 +375,7 @@ test('cube plinth anchors stay restorable but leave the public picker and random
     poseBaseId: 'standing',
     poseAnchorId: 'random',
   }, [], { random: () => 0.65 });
-  assert.equal(weightedStandingPrompt.selection.poseAnchorId, 'shared-vertical-surface-support');
+  assert.equal(weightedStandingPrompt.selection.poseAnchorId, 'none');
 });
 
 test('lying body variations are public while previous specialized arrangements stay restorable but hidden', () => {
@@ -342,7 +404,7 @@ test('lying body variations are public while previous specialized arrangements s
   assert.equal(pickerArrangements.some((item) => item.meta?.uiHidden && item.id !== legacyArrangement.id), false);
 });
 
-test('random anchors can resolve to none and never sample hidden legacy anchors', () => {
+test('non-lying random anchors resolve to free arrangement without adding objects', () => {
   const locks = {
     ...createEmptyLocks(),
     subjectCount: '1',
@@ -352,10 +414,6 @@ test('random anchors can resolve to none and never sample hidden legacy anchors'
   const [nonePrompt] = generatePrompts(1, locks, [], { random: () => 0 });
   assert.equal(nonePrompt.selection.poseAnchorId, 'none');
 
-  const [concretePrompt] = generatePrompts(1, locks, [], { random: () => 0.99 });
-  const concrete = option('poseAnchorId', (item) => item.id === concretePrompt.selection.poseAnchorId);
-  assert.notEqual(concrete.id, 'none');
-  assert.notEqual(concrete.id, 'random');
-  assert.notEqual(concrete.meta?.uiHidden, true);
-  assert.notEqual(concrete.meta?.randomEligible, false);
+  const [freePrompt] = generatePrompts(1, locks, [], { random: () => 0.99 });
+  assert.equal(freePrompt.selection.poseAnchorId, 'none');
 });

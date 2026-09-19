@@ -855,7 +855,7 @@ test('pose composer canonical grammar handles articles, action phrases, and supp
         poseHeadId: optionId('poseHeadId', '頭部微微側傾'),
         poseAnchorId: optionId('poseAnchorId', '坐在單人雕花絨布椅'),
       },
-      expected: 'She has her head slightly tilted, one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection, and presents a natural seated pose on an ornate single velvet armchair in a relaxed lounging posture.',
+      expected: 'She has her head slightly tilted, one hand holding a visible phone toward a mirror for a mirror selfie, with the phone overlapping the face or positioned beside it in the reflection, and presents a natural seated pose in an ornate single velvet armchair.',
     },
     {
       locks: {

@@ -1014,9 +1014,29 @@ const deprecatedPoseAnchor = (option) => ({
   },
 });
 
+const manualSittingAnchor = (option) => ({
+  ...option,
+  base: 'sitting',
+  meta: {
+    ...(option.meta || {}),
+    randomEligibleForBases: { sitting: false },
+    preserveInSceneIntegratedZ: true,
+  },
+});
+
 export const POSE_COMPOSER_ANCHOR_OPTIONS = [
-  { id: 'none', zh: '全無', en: 'none', desc: '不指定接觸或支撐物。', meta: { tags: ['none'] } },
-  { id: 'random', zh: '隨機', en: 'random pose anchor', desc: '依姿勢基底隨機選擇接觸或支撐物。', meta: { tags: ['random'] } },
+  { id: 'none', zh: '全無', en: 'none', desc: '不指定外部接觸或支撐物，讓模型依姿勢與場景自由安排。', meta: { tags: ['none'] } },
+  {
+    id: 'random',
+    zh: '隨機',
+    en: 'random pose anchor',
+    desc: '仰躺時依姿勢隨機選擇表面；其他姿勢不隨機增加外部物件。',
+    meta: {
+      tags: ['random'],
+      hiddenForBases: ['standing', 'sitting', 'kneeling', 'squatting'],
+      randomEligibleForBases: { standing: false, sitting: false, kneeling: false, squatting: false },
+    },
+  },
   {
     id: 'shared-natural-support',
     bases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
@@ -1026,8 +1046,8 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     meta: {
       randomWeight: 3,
       projectionByBucket: STANDING_SUPPORT_PROJECTION,
-      hiddenForBases: ['standing', 'sitting', 'lying'],
-      randomEligibleForBases: { standing: false, sitting: false, lying: false },
+      hiddenForBases: ['standing', 'sitting', 'kneeling', 'squatting', 'lying'],
+      randomEligibleForBases: { standing: false, sitting: false, kneeling: false, squatting: false, lying: false },
     },
     phraseByBase: {
       standing: 'standing with the body naturally supported',
@@ -1042,7 +1062,11 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     bases: ['standing', 'sitting', 'kneeling', 'squatting'],
     zh: '肩背倚靠現有垂直面',
     en: 'shoulder and upper-back support against an existing vertical surface in the scene',
-    meta: { projectionByBucket: STANDING_SUPPORT_PROJECTION },
+    meta: {
+      projectionByBucket: STANDING_SUPPORT_PROJECTION,
+      hiddenForBases: ['standing', 'sitting', 'kneeling', 'squatting'],
+      randomEligibleForBases: { standing: false, sitting: false, kneeling: false, squatting: false },
+    },
     phraseByBase: {
       standing: 'standing with one shoulder and the upper back resting against an existing vertical surface in the scene, clear shoulder-to-surface contact with light body-weight support',
       sitting: 'sitting with the upper back resting against an existing vertical surface in the scene, clear back-to-surface contact with the seated body weight supported below',
@@ -1055,26 +1079,35 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     base: 'standing',
     zh: '髖側倚靠現有邊緣',
     en: 'standing with one hip resting against an existing waist-height edge in the scene, clear hip-to-edge contact with partial body-weight support',
-    meta: { projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION },
+    meta: {
+      projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION,
+      hiddenForBases: ['standing'],
+      randomEligibleForBases: { standing: false },
+    },
   },
   {
     id: 'sitting-scene-seat',
     base: 'sitting',
     zh: '坐在現有場景座面',
     en: 'sitting on an existing seat already present in the scene, hips fully contacting the seat surface with the body weight visibly supported',
+    meta: { uiHidden: true, randomEligible: false, deprecated: true },
   },
   {
     id: 'sitting-scene-raised-edge',
     base: 'sitting',
     zh: '坐在現有抬高邊緣',
     en: 'sitting on an existing raised edge already present in the scene, hips supported on the edge with a clear drop below the seated body',
+    meta: { uiHidden: true, randomEligible: false, deprecated: true },
   },
   {
     id: 'shared-ground-support',
     bases: ['sitting', 'kneeling', 'lying'],
     zh: '由場景地面承托',
     en: 'body weight supported directly by the existing ground plane in the scene',
-    meta: { hiddenForBases: ['lying'], randomEligibleForBases: { lying: false } },
+    meta: {
+      hiddenForBases: ['sitting', 'kneeling', 'lying'],
+      randomEligibleForBases: { sitting: false, kneeling: false, lying: false },
+    },
     phraseByBase: {
       sitting: 'sitting directly on the existing ground plane in the scene, hips and legs in clear contact with the surface',
       kneeling: 'kneeling directly on the existing ground plane in the scene, both knees clearly contacting and supported by the surface',
@@ -1086,7 +1119,10 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
     bases: ['sitting', 'kneeling', 'lying'],
     zh: '由現有柔軟平面承托',
     en: 'body weight supported by an existing soft horizontal surface in the scene',
-    meta: { hiddenForBases: ['lying'], randomEligibleForBases: { lying: false } },
+    meta: {
+      hiddenForBases: ['sitting', 'kneeling', 'lying'],
+      randomEligibleForBases: { sitting: false, kneeling: false, lying: false },
+    },
     phraseByBase: {
       sitting: 'sitting on an existing soft horizontal surface in the scene, hips settling into the surface with the seated body weight fully supported',
       kneeling: 'kneeling on an existing soft horizontal surface in the scene, both knees pressing lightly into the surface with the body weight supported below',
@@ -1279,16 +1315,65 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       lying: 'reclining across the top surface of a transparent acrylic cube plinth, back and hips in continuous contact with the clear top and fully supported by it',
     },
   }),
+  manualSittingAnchor({
+    id: 'sitting-chair',
+    zh: '坐在一般椅子上',
+    en: 'on a chair',
+    desc: '坐在一般椅子上，椅子的款式、材質與顏色由模型依場景安排。',
+  }),
   {
     id: 'sitting-ornate-velvet-armchair',
     base: 'sitting',
     zh: '坐在單人雕花絨布椅',
-    en: 'on an ornate single velvet armchair in a relaxed lounging posture',
+    en: 'in an ornate single velvet armchair',
+    desc: '坐在一張單人雕花絨布扶手椅中。',
     meta: {
       randomEligibleForBases: { sitting: false },
       preserveInSceneIntegratedZ: true,
     },
   },
+  manualSittingAnchor({
+    id: 'sitting-sofa',
+    zh: '坐在沙發上',
+    en: 'on a sofa',
+    desc: '坐在沙發上，沙發款式由模型依場景安排。',
+  }),
+  manualSittingAnchor({
+    id: 'sitting-bench',
+    zh: '坐在長椅上',
+    en: 'on a bench',
+    desc: '坐在長椅上，不指定室內外環境、材質或造型。',
+  }),
+  manualSittingAnchor({
+    id: 'sitting-step',
+    zh: '坐在台階上',
+    en: 'on a step',
+    desc: '坐在一級台階上，不要求完整樓梯入鏡。',
+  }),
+  manualSittingAnchor({
+    id: 'sitting-bed',
+    zh: '坐在床上',
+    en: 'on a bed',
+    desc: '坐在床面上，不限定坐在床緣。',
+  }),
+  manualSittingAnchor({
+    id: 'sitting-ground',
+    zh: '坐在地面',
+    en: 'on the ground',
+    desc: '直接坐在地面，地面材質由目前場景決定。',
+  }),
+  manualSittingAnchor({
+    id: 'sitting-inside-bathtub',
+    zh: '坐在浴缸內',
+    en: 'in a bathtub',
+    desc: '坐在浴缸內，不自動增加水、泡泡、濕潤狀態或洗澡動作。',
+  }),
+  manualSittingAnchor({
+    id: 'sitting-vanity-countertop',
+    zh: '坐在洗手台檯面上',
+    en: 'on a bathroom vanity countertop beside the sink',
+    desc: '坐在浴室洗手台旁的檯面上，不坐進洗手盆內。',
+  }),
   deprecatedPoseAnchor({ id: 'standing-wall', base: 'standing', zh: '靠牆', en: 'leaning against a wall' }),
   deprecatedPoseAnchor({ id: 'standing-doorway', base: 'standing', zh: '站在門框邊', en: 'standing beside a doorway frame' }),
   deprecatedPoseAnchor({ id: 'standing-table-edge', base: 'standing', zh: '站在桌邊', en: 'standing beside a table edge' }),
@@ -1349,6 +1434,8 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       supineSurfacePhraseByOrientation: { 'lying-supine': 'floating on her back at the surface of clear water that fills the frame' },
       supineEnvironmentByOrientation: { 'lying-supine': 'Her body is partially submerged, with visibly wet skin and clothing, damp hair spreading across the water, and gentle ripples tracing the waterline around her.' },
       projectionByBucket: STANDING_FULL_ONLY_SUPPORT_PROJECTION,
+      hiddenForBases: ['standing', 'sitting', 'squatting', 'kneeling'],
+      randomEligibleForBases: { standing: false, sitting: false, squatting: false, kneeling: false },
     },
   },
   {
@@ -1363,6 +1450,8 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       supineSurfacePhraseByOrientation: { 'lying-supine': 'lying beside a waterline that dominates the composition, with part of her body supported at the edge' },
       supineEnvironmentByOrientation: { 'lying-supine': 'Small waves, wet sand, and a thin reflective waterline add a quiet natural feeling.' },
       projectionByBucket: STANDING_FULL_ONLY_SUPPORT_PROJECTION,
+      hiddenForBases: ['standing', 'sitting', 'squatting', 'kneeling'],
+      randomEligibleForBases: { standing: false, sitting: false, squatting: false, kneeling: false },
     },
   },
   {
@@ -1374,8 +1463,8 @@ export const POSE_COMPOSER_ANCHOR_OPTIONS = [
       tags: ['water_scene_anchor'],
       requiresWaterScene: true,
       projectionByBucket: STANDING_LOWER_SUPPORT_PROJECTION,
-      hiddenForBases: ['lying'],
-      randomEligibleForBases: { lying: false },
+      hiddenForBases: ['standing', 'sitting', 'squatting', 'lying'],
+      randomEligibleForBases: { standing: false, sitting: false, squatting: false, lying: false },
     },
     phraseByBase: {
       standing: 'standing beside a water-filled clawfoot vintage bathtub',
