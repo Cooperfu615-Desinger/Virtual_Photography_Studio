@@ -203,6 +203,63 @@ test('Z-Image Turbo retains the ornate velvet armchair across every explicit sho
   }
 });
 
+test('Z-Image and Midjourney preserve explicitly selected clothing fit anchors', () => {
+  const cases = [
+    {
+      lockKey: 'topFitId',
+      garmentKey: 'topId',
+      garment: '長版寬鬆麻花針織毛衣',
+      fit: '緊身',
+    },
+    {
+      lockKey: 'bottomFitId',
+      garmentKey: 'pantsId',
+      garment: '皮革長褲',
+      fit: '緊身',
+    },
+    {
+      lockKey: 'outerwearFitId',
+      garmentKey: 'outerwearId',
+      garment: '長版襯衫',
+      fit: 'Oversize',
+    },
+  ];
+
+  for (const { lockKey, garmentKey, garment, fit } of cases) {
+    const fitId = optionId(lockKey, fit);
+    const prompt = generate({
+      ...createAllNoneLocks(),
+      [garmentKey]: optionId(garmentKey, garment),
+      [lockKey]: fitId,
+      framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    }, `explicit-fit-${lockKey}`);
+    const fitText = controls
+      .find((control) => control.key === lockKey)
+      .options.find((option) => option.id === fitId).en;
+    const escapedFitText = fitText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    assert.match(prompt.zImagePrompt, new RegExp(escapedFitText, 'i'), `${lockKey} should survive Z-Image compaction`);
+    assert.match(prompt.midjourneyPrompt, new RegExp(escapedFitText, 'i'), `${lockKey} should survive Midjourney compaction`);
+  }
+});
+
+test('Z-Image and Midjourney do not invent a fit anchor when the fit is explicitly unset', () => {
+  const locks = {
+    ...createAllNoneLocks(),
+    topId: optionId('topId', '長版寬鬆麻花針織毛衣'),
+    topFitId: optionId('topFitId', '全無'),
+    pantsId: optionId('pantsId', '皮革長褲'),
+    bottomFitId: optionId('bottomFitId', '全無'),
+    outerwearId: optionId('outerwearId', '長版襯衫'),
+    outerwearFitId: optionId('outerwearFitId', '全無'),
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+  };
+  const prompt = generate(locks, 'unset-fit-anchors');
+
+  assert.doesNotMatch(prompt.zImagePrompt, /tight body-skimming (?:upper-body|lower-body|outerwear) fit|oversized outerwear proportion/i);
+  assert.doesNotMatch(prompt.midjourneyPrompt, /tight body-skimming (?:upper-body|lower-body|outerwear) fit|oversized outerwear proportion/i);
+});
+
 test('Z-Image Turbo adds side-view depth for the tested two-hand waistband action without rewriting the canonical pose', () => {
   const locks = {
     ...createAllNoneLocks(),

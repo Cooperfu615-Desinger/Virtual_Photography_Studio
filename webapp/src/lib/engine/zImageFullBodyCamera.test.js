@@ -9,6 +9,7 @@ import { runSceneFixture, OUTPUT_FIELDS, digest } from './sceneIntegratedAssembl
 import { FULL_CAMERA_ANGLES, FULL_CAMERA_REGRESSION, fullCameraFixture } from './zImageFullBodyCameraFixtures.js';
 import { FULL_CAMERA_TEXT_PAIRS, normalizeFullCameraForLegacy, normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
+import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 
 test('full camera policy has six groups; Dutch keeps roll; no unknown/default angle injection', () => {
@@ -94,7 +95,7 @@ test('431-case frozen baseline: only approved main Z camera text changes; select
       let value = r.outputs[field];
       if (field === 'zImagePrompt') value = normalizeFullCameraForLegacy(value);
       if (field === 'grokPrompt') value = normalizeGptVisibilityForLegacy(value, r.selection);
-      return normalizeSubjectLightForLegacy(value);
+      return normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(value, field));
     })), baseline.hashes[field], field);
   }
   assert.equal(digest(results.map((r) => r.selection)), baseline.selectionHash);

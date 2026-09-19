@@ -407,14 +407,14 @@ test('simple oversize outerwear fit prefixes the selected outerwear item', () =>
     outerwearStylingId: optionId('outerwearStylingId', '全無'),
   }, [], { random: () => 0.99 });
 
-  const detailedOutputs = [prompt.grokPrompt, prompt.zImagePrompt];
-  for (const output of detailedOutputs) {
-    assert.match(output, /oversized white longline button-up shirt in cotton poplin, pointed collar/i);
-    assert.doesNotMatch(output, /oversized outerwear proportion with roomy shoulders and body/i);
-    assert.doesNotMatch(output, /oversized,\s+white longline button-up shirt/i);
-  }
+  assert.match(prompt.grokPrompt, /oversized white longline button-up shirt in cotton poplin, pointed collar/i);
+  assert.doesNotMatch(prompt.grokPrompt, /oversized outerwear proportion with roomy shoulders and body/i);
+  assert.doesNotMatch(prompt.grokPrompt, /oversized,\s+white longline button-up shirt/i);
+  assert.match(prompt.zImagePrompt, /oversized white longline button-up shirt in cotton poplin, pointed collar/i);
+  assert.match(prompt.zImagePrompt, /oversized outerwear proportion with roomy shoulders and body/i);
+  assert.doesNotMatch(prompt.zImagePrompt, /oversized,\s+white longline button-up shirt/i);
   assert.match(prompt.midjourneyPrompt, /oversized white longline button-up shirt/i);
-  assert.doesNotMatch(prompt.midjourneyPrompt, /oversized outerwear proportion with roomy shoulders and body/i);
+  assert.match(prompt.midjourneyPrompt, /oversized outerwear proportion with roomy shoulders and body/i);
   assert.doesNotMatch(prompt.midjourneyPrompt, /oversized,\s+white longline button-up shirt/i);
 });
 

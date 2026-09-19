@@ -8679,6 +8679,39 @@ function shouldKeepWardrobeRoleForContext(role, context, text = '') {
   return shouldProjectWardrobeRole(getCompositionVisibilityProjection(context), role, text);
 }
 
+const EXPLICIT_WARDROBE_FIT_ANCHOR_CONFIGS = [
+  { lockKey: 'topFitId', fitSlot: 'topFit', garmentSlot: 'top', role: 'top' },
+  { lockKey: 'bottomFitId', fitSlot: 'bottomFit', garmentSlot: 'pants', fallbackGarmentSlot: 'skirt', role: 'bottom' },
+  { lockKey: 'outerwearFitId', fitSlot: 'outerwearFit', garmentSlot: 'outerwear', role: 'outerwear' },
+];
+
+function getExplicitWardrobeFitAnchors(context, wardrobeSlots) {
+  if (
+    context?.subject?.count !== 1
+    || isSpecialSubject(context.subject)
+    || isCharacterProfileSubject(context.subject)
+    || isFixedCompositionSetActive(context.fixedCompositionSet)
+    || context.fixedFramingCompositionOpening
+    || context.supineSurfaceOnly
+    || !wardrobeSlots
+  ) return [];
+
+  return EXPLICIT_WARDROBE_FIT_ANCHOR_CONFIGS.flatMap((config) => {
+    const lockValue = context.locks?.[config.lockKey];
+    if (!lockValue || isRandomLockValue(lockValue)) return [];
+
+    const fit = wardrobeSlots[config.fitSlot];
+    const garment = wardrobeSlots[config.garmentSlot] || (
+      config.fallbackGarmentSlot ? wardrobeSlots[config.fallbackGarmentSlot] : null
+    );
+    if (isNoneLikeItem(fit) || isNoneLikeItem(garment)) return [];
+
+    const text = normalizeWardrobePromptText(fit?.en || '');
+    if (!text || !shouldKeepWardrobeRoleForContext(config.role, context, text)) return [];
+    return [{ role: config.role, text }];
+  });
+}
+
 function isCompleteLookLowerTorsoFragment(fragment) {
   return /\b(?:navel|abdomen|midriff|belly|stomach|lower torso|waistline|hipbones?|hips?)\b/i.test(fragment || '');
 }
@@ -11877,6 +11910,56 @@ function protectSingleBodyTypeAnchors(value) {
   };
 }
 
+function escapePromptRegExp(value) {
+  return String(value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function protectExplicitWardrobeFitAnchors(value, anchors = []) {
+  const protectedAnchors = [];
+  let output = String(value || '');
+  const seen = new Set();
+
+  for (const anchor of anchors) {
+    const text = normalizeWardrobePromptText(anchor?.text || '');
+    const key = text.toLowerCase();
+    if (!text || seen.has(key)) continue;
+    seen.add(key);
+    const pattern = new RegExp(escapePromptRegExp(text), 'gi');
+    if (!pattern.test(output)) continue;
+    const token = `ZIMAGEFITANCHOR${protectedAnchors.length}`;
+    output = output.replace(pattern, token);
+    protectedAnchors.push({ token, text });
+  }
+
+  return {
+    text: output,
+    restore(restoredValue) {
+      return protectedAnchors.reduce(
+        (result, anchor) => result.replace(new RegExp(anchor.token, 'g'), anchor.text),
+        String(restoredValue || ''),
+      );
+    },
+  };
+}
+
+function appendMissingExplicitWardrobeFitAnchors(value, anchors = []) {
+  const output = String(value || '').trim();
+  const additions = [];
+  const seen = new Set();
+
+  for (const anchor of anchors) {
+    const text = normalizeWardrobePromptText(anchor?.text || '');
+    const key = text.toLowerCase();
+    if (!text || seen.has(key)) continue;
+    seen.add(key);
+    if (!new RegExp(escapePromptRegExp(text), 'i').test(output)) additions.push(text);
+  }
+
+  if (additions.length === 0) return output;
+  const base = output.replace(/[.!?]+$/g, '').trim();
+  return [base, ...additions].filter(Boolean).join(', ');
+}
+
 function compressZImageSingleSubjectText(value, context) {
   if (context.subject?.count !== 1 || isSpecialSubject(context.subject)) return value;
 
@@ -11900,10 +11983,11 @@ function compressZImageSingleSubjectText(value, context) {
     .trim();
 }
 
-function compressZImageSingleWardrobeText(value, context) {
+function compressZImageSingleWardrobeText(value, context, { preserveFitAnchors = [] } = {}) {
   if (context.subject?.count !== 1) return value;
 
-  let output = compactZImageSourceText(value)
+  const protectedFits = protectExplicitWardrobeFitAnchors(value, preserveFitAnchors);
+  let output = compactZImageSourceText(protectedFits.text)
     .replace(/\bone-piece bodycon silhouette\b/gi, 'bodycon silhouette')
     .replace(/\bone-piece fitted silhouette\b/gi, 'fitted silhouette')
     .replace(/\bone-piece body-skimming silhouette\b/gi, 'body-skimming silhouette')
@@ -11946,7 +12030,10 @@ function compressZImageSingleWardrobeText(value, context) {
     .replace(/\.\s*,/g, ',')
     .trim();
 
-  return compactZImageSourceText(output);
+  output = protectedFits.restore(output);
+  const finalProtected = protectExplicitWardrobeFitAnchors(output, preserveFitAnchors);
+  const restored = finalProtected.restore(compactZImageSourceText(finalProtected.text));
+  return appendMissingExplicitWardrobeFitAnchors(restored, preserveFitAnchors);
 }
 
 function compressZImageSinglePoseText(value, context) {
@@ -12346,6 +12433,7 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
   } = promptModel;
   const characterSlots = extractCharacterSlots(character);
   const wardrobeSlots = extractWardrobeSlots(wardrobe);
+  const explicitWardrobeFitAnchors = getExplicitWardrobeFitAnchors(context, wardrobeSlots);
   const waistlineCompatibilityText = buildWaistlineCompatibilityPrompt(wardrobeSlots);
   const wardrobeLayeringLogicText = buildWardrobeLayeringLogicPrompt(wardrobeSlots);
   const specialSubjectMode = isDedicatedSpecialSubject(context.subject);
@@ -12579,7 +12667,9 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
         ? [profileWardrobe, additionalWardrobe].filter(Boolean).join(', ')
         : dedupedValue;
       const text = context.subject.count === 1 && !hideWardrobeForFaceDetail
-        ? compressZImageSingleWardrobeText(combinedValue, context)
+        ? compressZImageSingleWardrobeText(combinedValue, context, {
+          preserveFitAnchors: explicitWardrobeFitAnchors,
+        })
         : combinedValue;
       return sentence(text);
     };
@@ -14307,6 +14397,7 @@ function buildAiNormalWardrobeText(
   { majorRoleLimit = 2 } = {}
 ) {
   const wardrobeSlots = Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null;
+  const explicitWardrobeFitAnchors = getExplicitWardrobeFitAnchors(context, wardrobeSlots);
   const primarySourceByLabel = wardrobeSlots
     ? {
         Outerwear: buildColoredGrokPrompt(wardrobeSlots.outerwear, wardrobeColors?.outerwearColor, {
@@ -14345,20 +14436,24 @@ function buildAiNormalWardrobeText(
     mainWardrobe,
     visibleCompleteLookWaistAccessory,
   ]).join(', ');
+  const withExplicitFitAnchors = (mainWardrobe) => appendMissingExplicitWardrobeFitAnchors(
+    mainWardrobe,
+    explicitWardrobeFitAnchors,
+  );
 
   const specialOutfit = firstStructuredValue(valuesByLabel, ['Special Outfit']);
   if (specialOutfit) {
-    return withVisibleCompleteLookAddons(buildAiCompleteLookCoreText(specialOutfit, context, { majorRoleLimit }));
+    return withExplicitFitAnchors(withVisibleCompleteLookAddons(buildAiCompleteLookCoreText(specialOutfit, context, { majorRoleLimit })));
   }
 
   const outfitPreset = firstStructuredValue(valuesByLabel, ['Outfit Preset']);
   if (outfitPreset) {
-    return withVisibleCompleteLookAddons(buildAiCompleteLookCoreText(outfitPreset, context, { majorRoleLimit }));
+    return withExplicitFitAnchors(withVisibleCompleteLookAddons(buildAiCompleteLookCoreText(outfitPreset, context, { majorRoleLimit })));
   }
 
   const dress = firstStructuredValue(valuesByLabel, ['Dress']);
   if (dress) {
-    return withVisibleCompleteLookAddons(buildAiCompleteLookCoreText(dress, context, { majorRoleLimit }));
+    return withExplicitFitAnchors(withVisibleCompleteLookAddons(buildAiCompleteLookCoreText(dress, context, { majorRoleLimit })));
   }
 
   const roleByLabel = {
@@ -14370,7 +14465,7 @@ function buildAiNormalWardrobeText(
     Shoes: 'shoes',
     'Waist Accessory': 'waistAccessory',
   };
-  return Object.entries(roleByLabel)
+  return withExplicitFitAnchors(Object.entries(roleByLabel)
     .map(([label, role]) => {
       const value = firstStructuredValue(valuesByLabel, [label]);
       return shouldKeepWardrobeRoleForContext(role, context, value)
@@ -14378,7 +14473,7 @@ function buildAiNormalWardrobeText(
         : '';
     })
     .filter(Boolean)
-    .join(', ');
+    .join(', '));
 }
 
 function buildAiCharacterCardIdentityText(context, wardrobe, { compact = false } = {}) {
@@ -14708,7 +14803,15 @@ function buildAiFreedomWardrobeSentence(
       )];
   const wardrobeText = uniqueAiWardrobeValues(wardrobeParts.join(', ').split(/,\s*/)).join(', ');
   const visibleWardrobeText = stripAiUpperCropBoundaryText(wardrobeText, context);
-  return visibleWardrobeText ? ensureTerminalPeriod(`Wearing ${dedupeAiLowerCropBoundary(visibleWardrobeText)}`) : '';
+  const visibleFitAnchors = getExplicitWardrobeFitAnchors(
+    context,
+    Array.isArray(wardrobe) ? extractWardrobeSlots(wardrobe) : null,
+  );
+  const finalWardrobeText = appendMissingExplicitWardrobeFitAnchors(
+    dedupeAiLowerCropBoundary(visibleWardrobeText),
+    visibleFitAnchors,
+  );
+  return finalWardrobeText ? ensureTerminalPeriod(`Wearing ${finalWardrobeText}`) : '';
 }
 
 function buildAiFreedomPoseSentence(context, character) {

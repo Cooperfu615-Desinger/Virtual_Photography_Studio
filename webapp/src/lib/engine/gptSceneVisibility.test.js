@@ -10,6 +10,7 @@ import { gptSection, withoutSceneLighting, expectedSceneProjection } from './gpt
 import { AMBIENT_LIGHT_DESCRIPTIONS, renderAmbientLightDescription } from './ambientLightDescriptions.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
+import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 const baseline = JSON.parse(readFileSync(new URL('./gptSceneVisibilityBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();
@@ -60,7 +61,7 @@ test('frozen all-scene / ambient matrix changes only approved GPT Scene and Ligh
   }
   for (const field of OUTPUT_FIELDS) assert.equal(digest(results.map(r => field === 'grokPrompt'
     ? withoutSceneLighting(r.outputs[field])
-    : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(r.outputs[field], field)))), baseline.hashes[field], field);
+    : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field), field)))), baseline.hashes[field], field);
   assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);
   assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);
 });

@@ -12,6 +12,7 @@ import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssembl
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
+import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 
 const controls = getLockControls();
 const locations = controls.find(c => c.key === 'locationId').options;
@@ -62,7 +63,7 @@ test('930 frozen cases permit only the 14 authored additions in eligible main Z 
     }
     outputs.grokPrompt = normalizeGptVisibilityForLegacy(outputs.grokPrompt, r.selection);
     outputs.zImagePrompt = normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(outputs.zImagePrompt));
-    for (const field of OUTPUT_FIELDS) outputs[field] = normalizeSubjectLightForLegacy(outputs[field]);
+    for (const field of OUTPUT_FIELDS) outputs[field] = normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(outputs[field], field));
     return outputs;
   });
   for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map(o => o[field])), baseline.hashes[field], field);

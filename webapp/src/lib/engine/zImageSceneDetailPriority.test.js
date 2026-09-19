@@ -17,6 +17,7 @@ import { upperSceneFixture } from './zImageUpperSceneFixtures.js';
 import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
+import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 
 const controls = getLockControls();
@@ -112,7 +113,7 @@ test('1430 frozen cases permit only reviewed low-camera scene substitutions', ()
     }
     output.grokPrompt = normalizeGptVisibilityForLegacy(output.grokPrompt, r.selection);
     output.zImagePrompt = normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(output.zImagePrompt));
-    for (const field of OUTPUT_FIELDS) output[field] = normalizeSubjectLightForLegacy(output[field]);
+    for (const field of OUTPUT_FIELDS) output[field] = normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(output[field], field));
     return output;
   });
   for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map(o => o[field])), baseline.hashes[field], field);

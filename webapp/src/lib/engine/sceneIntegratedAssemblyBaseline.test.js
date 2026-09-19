@@ -11,6 +11,7 @@ import {
 } from './sceneIntegratedAssemblyTestSupport.js';
 import { validatePromptOutputContract } from './promptOutputContracts.js';
 import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.js';
+import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { createEmptyLocks, getLockControls, normalizeLocks } from '../engine.js';
 import { buildObservationCapturePrompt } from '../observationCaptureLab.js';
 import {
@@ -84,7 +85,10 @@ test('MJ source order retains capture once, omits hidden hands, and keeps compos
     assert.equal(text.match(/Shinjuku Kabukicho Ichibangai entrance/g)?.length, 1);
     const previous = baseline.cases[id].outputs.midjourneyPrompt;
     const wardrobe = previous.match(/Wearing [\s\S]*?(?= She )/)?.[0];
-    assert.ok(wardrobe && text.includes(wardrobe), 'visible wardrobe is not shortened by scene integration');
+    assert.ok(
+      wardrobe && normalizeExplicitWardrobeFitForLegacy(text, 'midjourneyPrompt').includes(wardrobe),
+      'visible wardrobe is not shortened by scene integration',
+    );
     assert.equal(text.match(/--v [\s\S]+$/)?.[0], previous.match(/--v [\s\S]+$/)?.[0]);
   }
 });
@@ -173,7 +177,7 @@ test('core Z cases reorder existing scene and capture without reducing subject, 
     const current = get(id).outputs.zImagePrompt.split('\n\n');
     assert.equal(current[0], previous[0], 'image type');
     assert.equal(current[2], previous[2], 'all effective subject sources');
-    assert.equal(current[4], previous[3], 'all crop-visible wardrobe sources');
+    assert.equal(normalizeExplicitWardrobeFitForLegacy(current[4], 'zImagePrompt'), previous[3], 'all crop-visible wardrobe sources');
     assert.deepEqual(current.slice(-2), previous.slice(-2), 'style and imaging');
     assert.ok(normalizeFullCameraForLegacy(current[1]).includes(previous[1]), 'existing composition remains intact');
     const sourceScene = previous[5].replace(/^The scene is /, '').replace(/\.$/, '');

@@ -10,6 +10,7 @@ import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssembl
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { getLockControls } from '../engine.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
+import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 
 test('GPT main Composition expresses camera distance without changing crop, pose or orbit',()=>{
   const floor = runSceneFixture(fullCameraFixture('地面高度鏡頭')).outputs;
@@ -71,7 +72,7 @@ test('frozen camera/scene/lighting matrix permits only the exact main GPT Compos
   const results = GPT_CAMERA_SPATIAL_FIXTURES.map(runSceneFixture);
   assert.equal(results.length,cameraBaseline.count);
   for (const field of OUTPUT_FIELDS) assert.equal(digest(results.map(r=>normalizeSubjectLightForLegacy(field==='grokPrompt'
-    ? normalizeGptCameraForLegacy(r.outputs[field]) : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(r.outputs[field], field))))),cameraBaseline.hashes[field],field);
+    ? normalizeGptCameraForLegacy(r.outputs[field]) : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field), field))))),cameraBaseline.hashes[field],field);
   assert.equal(digest(results.map(r=>r.selection)),cameraBaseline.selectionHash);
   assert.equal(digest(results.map(r=>r.randomDraws)),cameraBaseline.randomHash);
   const composition = t => t.match(/(?:^|\n\n)Composition:\n([^]*?)(?=\n\n[A-Z][^\n]*:\n|$)/)?.[1] || '';

@@ -1794,7 +1794,7 @@ test('Grok/Z-Image uses X-prompt wardrobe wording without guard clauses for repr
     subjectCount: '1',
     framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
   };
-  const noZGuard = /top length meets|top hem overlaps|top hem worn naturally|waistband sitting on the hips|body-skimming lower-body fit|realistic outer-to-inner dressing order|outerwear remains a coherent outer layer|inner garment appears at natural openings|thin straps read as the inner|outerwear keeps its own shoulder construction|jacket body still readable|legwear stays secondary|long bottom keeps/i;
+  const noZGuard = /top length meets|top hem overlaps|top hem worn naturally|waistband sitting on the hips|realistic outer-to-inner dressing order|outerwear remains a coherent outer layer|inner garment appears at natural openings|thin straps read as the inner|outerwear keeps its own shoulder construction|jacket body still readable|legwear stays secondary|long bottom keeps/i;
 
   const [tieShirtPrompt] = generatePrompts(1, {
     ...baseLocks,

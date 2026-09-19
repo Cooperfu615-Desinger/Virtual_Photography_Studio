@@ -9,6 +9,7 @@ import { normalizeFullCameraForLegacy } from './zImageFullBodyCameraTestSupport.
 import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { UPPER_SCENE_CASES, UPPER_SCENE_MATRIX, UPPER_SCENE_EXCLUDED, UPPER_SCENE_CONTROLS, upperSceneFixture } from './zImageUpperSceneFixtures.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
+import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 
 const baseline = JSON.parse(readFileSync(new URL('./zImageUpperSceneBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();
@@ -49,7 +50,10 @@ test('four user-accepted waist-up B prompts match the test pack verbatim', () =>
   const doc = readFileSync(new URL('../../../../Docs/specs/z-image-upper-scene-v2-test-prompts.md', import.meta.url), 'utf8');
   const prompts = [...doc.matchAll(/```text\n([\s\S]*?)\n```/g)].map((m) => m[1]);
   for (const [index, [label]] of UPPER_SCENE_CASES.entries()) {
-    assert.equal(runSceneFixture(upperSceneFixture(label, '腰部高度鏡頭')).outputs.zImagePrompt, prompts[index * 2 + 1]);
+    assert.equal(normalizeExplicitWardrobeFitForLegacy(
+      runSceneFixture(upperSceneFixture(label, '腰部高度鏡頭')).outputs.zImagePrompt,
+      'zImagePrompt',
+    ), prompts[index * 2 + 1]);
   }
 });
 
@@ -68,7 +72,7 @@ test('230-case pre-change baseline: only approved low-camera main Z scene clause
     } else if (addition) assert.ok(!outputs.zImagePrompt.includes(addition), rows[index].id);
     outputs.zImagePrompt = normalizeFullCameraForLegacy(outputs.zImagePrompt);
     outputs.grokPrompt = normalizeGptVisibilityForLegacy(outputs.grokPrompt, result.selection);
-    for (const field of OUTPUT_FIELDS) outputs[field] = normalizeSubjectLightForLegacy(outputs[field]);
+    for (const field of OUTPUT_FIELDS) outputs[field] = normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(outputs[field], field));
     return outputs;
   });
   for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map((o) => o[field])), baseline.hashes[field], field);

@@ -6,6 +6,7 @@ import { CLOSE_WORM_EXPECTED, OLD_WORM, normalizeCloseWormForLegacy } from './cl
 import { GPT_CAMERA_SPATIAL_FIXTURES } from './gptCameraSpatialFixtures.js';
 import { normalizeGptHighAngleDistanceForLegacy } from './gptCameraSpatialTestSupport.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
+import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
 import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { getLockControls } from '../engine.js';
@@ -42,7 +43,10 @@ test('frozen matrix permits only the exact GPT/Z camera text and no selection or
   const rows = [...GPT_CAMERA_SPATIAL_FIXTURES, ...CLOSE_WORM_CASES, ...CLOSE_WORM_EXCLUDED].map(runSceneFixture);
   assert.equal(rows.length, baseline.count);
   for (const field of OUTPUT_FIELDS) assert.equal(digest(rows.map(r => {
-    const value = normalizeCloseWormForLegacy(r.outputs[field], field);
+    const value = normalizeExplicitWardrobeFitForLegacy(
+      normalizeCloseWormForLegacy(r.outputs[field], field),
+      field,
+    );
     if (field === 'grokPrompt') return normalizeGptHighAngleDistanceForLegacy(value, r.selection);
     if (field === 'zImagePrompt') return normalizeHighAngleDistanceForLegacy(value);
     return value;
