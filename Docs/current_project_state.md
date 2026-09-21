@@ -2,7 +2,17 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-19
+Last updated: 2026-09-21
+
+## Facial piercings and punk expression / hand gesture (local, 2026-09-21)
+
+- PAGE1 single-subject C accessories now exposes independent `nosePiercingId` and `lipPiercingId` controls, each defaulting to `全無`, with four concrete choices. They are manual-only; section randomization resets them to none. The lower-lip double hoops use asymmetric placement with model-decided side and spacing. None descriptions never enter public prompts.
+- The shared subject-accessory path retains selected piercings in GPT, Z-Image, Midjourney and the existing derived outputs, including face close-ups. Editor/Generation Outputs summaries, selection snapshots, Saved Cards and Markdown restore include both controls. Duo per-role piercing controls are not introduced.
+- B adds manual-only `龐克挑釁吐舌` and `雙手比 ROCK 手勢` (`both-hands-rock-horns`). The expression describes tongue, lips, brow and eyelids without overriding gaze/head direction. The hand source specifies extended index/little fingers, folded middle/ring fingers, and thumbs across the folded fingers; it uses existing crop projection and remains available across posture bases.
+- Existing expression IDs are preserved by appending the new source row. Historical scene fixture comparisons ignore only empty/none values of the two new controls; concrete values and all historical output/RNG checks remain observable.
+- Validation: frontend 972/972, Prompt Quality 279/279, focused piercing/restore 3/3, lint/build, source sync/check, Python sync tests, public-asset check and diff-check pass. Same-seed 200-prompt strict audit has zero blockers and 23 diagnostic signals, matching the pre-change audit. Browser checks at 1440x1000 and 390x900 cover accessory selection, live six-output presence, expression/hand selection, save/restore and five-workspace navigation; no document overflow or console errors. Desktop/mobile accessory screenshots were inspected inline. One local test favorite (`F4CSQ2`) was retained to make the verified combination reviewable. No external image generation, commit, push or deployment in this batch.
+
+- Additional browser observation after resetting the viewport: at default inner width 1141px (client 1126px), the header API-settings action extends document width to 1146px. The tested 1440px/390px layouts pass; this separate header-width issue is recorded but not changed in the accessory feature batch.
 
 ## Pose contact/support manual-object v1 (local, 2026-09-19)
 

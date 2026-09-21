@@ -474,6 +474,16 @@
 | **耳環 (Earrings)** | 長條幾何耳墜 | `slim geometric drop earrings, elongated rectangular metal pendant shapes, clean modern jewelry accent` | 以細長矩形或幾何片狀垂墜為主，與水滴寶石造型區隔。 |
 | **耳環 (Earrings)** | 耳骨夾 | `minimal metal ear cuff, small curved cuff fitted along the outer ear cartilage, subtle jewelry accent` | 以貼合外耳耳骨的簡約金屬耳夾為主，不強調大型垂墜。 |
 | **耳環 (Earrings)** | 細鏈條耳墜 | `fine chain drop earrings, delicate metal chains hanging from the earlobes, understated movement` | 以細金屬鏈從耳垂自然垂下，增加輕微動態感但保持日常可搭配性。 |
+| **鼻部穿孔 (Nose Piercings)** | 全無 | `no nose piercing` | 不加鼻部穿孔飾品。 |
+| **鼻部穿孔 (Nose Piercings)** | 小型鼻釘 | `a tiny silver stud piercing on one nostril` | 單側鼻翼配戴小型銀色鼻釘，位置清楚但保持低調。 |
+| **鼻部穿孔 (Nose Piercings)** | 單側鼻翼細環 | `a slim silver hoop piercing through one nostril` | 單側鼻翼配戴細窄銀色圓環。 |
+| **鼻部穿孔 (Nose Piercings)** | 鼻中隔細環 | `a slim silver septum ring centered beneath the nose` | 鼻中隔中央配戴細窄銀色圓環。 |
+| **鼻部穿孔 (Nose Piercings)** | 雙側鼻翼細環 | `two slim silver hoops piercing both nostrils` | 左右鼻翼各配戴一個細窄銀色圓環。 |
+| **唇部穿孔 (Lip Piercings)** | 全無 | `no lip piercing` | 不加唇部穿孔飾品。 |
+| **唇部穿孔 (Lip Piercings)** | 單側下唇細環 | `a small silver hoop piercing through one side of the lower lip` | 下唇任一側配戴一個小型銀色細環。 |
+| **唇部穿孔 (Lip Piercings)** | 下唇不對稱雙環 | `two small silver hoops placed asymmetrically along the lower lip, with their side and spacing varying naturally` | 下唇配戴兩個不對稱的小型銀色細環，左右位置與間距由模型自然安排。 |
+| **唇部穿孔 (Lip Piercings)** | 下唇中央穿孔 | `a small silver stud piercing centered beneath the lower lip` | 下唇中央下方配戴小型銀色唇釘。 |
+| **唇部穿孔 (Lip Piercings)** | 垂直唇釘 | `a slim vertical labret piercing through the center of the lower lip, with two small silver beads visible` | 下唇中央以垂直唇釘穿過，清楚呈現上下兩顆小型銀珠。 |
 | **頸部 (Neck Accessories)** | 全無 | `no neck accessories, open neckline styling` | 不加頸部飾品，讓領口與鎖骨區域維持簡潔。 |
 | **頸部 (Neck Accessories)** | 金屬細頸圈 | `slim metal choker detail, subtle close-fitting neck accent` | 比粗頸鍊更俐落，調整為低干擾的頸部點綴。 |
 | **頸部 (Neck Accessories)** | 雕塑感金屬頸圈 | `sculptural metal collar detail, subtle polished neck accent` | 保留金屬雕塑感，但降低成為主體 statement piece 的機率。 |

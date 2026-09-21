@@ -63,9 +63,15 @@ export function runSceneFixture(fixture) {
   let randomDraws = 0;
   const prompt = generatePrompts(1, locks, [], { random: () => { randomDraws += 1; return random(); } })[0];
   assert.deepEqual(locks, before, `${fixture.id}: generator mutated input locks`);
+  // Historical scene baselines predate these opt-in controls. Ignore only their
+  // empty/none defaults; a concrete selection must remain observable.
+  const legacySelection = (selection) => Object.fromEntries(Object.entries(selection).filter(([key, value]) => (
+    !['nosePiercingId', 'lipPiercingId'].includes(key)
+      || (value && !String(value).endsWith(':全無:0'))
+  )));
   return {
-    prompt, outputs: readSceneOutputs(prompt), selection: stableValue(prompt.selection), randomDraws,
-    inputHash: digest({ locks: before, seed: fixture.seed }),
+    prompt, outputs: readSceneOutputs(prompt), selection: stableValue(legacySelection(prompt.selection)), randomDraws,
+    inputHash: digest({ locks: legacySelection(before), seed: fixture.seed }),
   };
 }
 

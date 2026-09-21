@@ -1194,6 +1194,8 @@ const LOCK_DEFINITIONS = [
   { key: 'eyewearColorId', label: '眼鏡配色', category: '眼鏡配色 (Eyewear Color)', section: 'wardrobe' },
   { key: 'eyewearPlacementId', label: '眼鏡配戴方式', category: '眼鏡配戴方式 (Eyewear Placement)', section: 'wardrobe' },
   { key: 'earringsId', label: '耳環', category: '耳環 (Earrings)', section: 'wardrobe' },
+  { key: 'nosePiercingId', label: '鼻部穿孔', category: '鼻部穿孔 (Nose Piercings)', defaultValue: 'wardrobe:鼻部穿孔-nose-piercings:全無:0', suppressDefaultRandomOption: true, section: 'wardrobe' },
+  { key: 'lipPiercingId', label: '唇部穿孔', category: '唇部穿孔 (Lip Piercings)', defaultValue: 'wardrobe:唇部穿孔-lip-piercings:全無:0', suppressDefaultRandomOption: true, section: 'wardrobe' },
   { key: 'neckAccessoryId', label: '頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'waistAccessoryId', label: '腰部', category: '腰部配件 (Waist Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryAId', label: '人物 1 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
@@ -1362,6 +1364,8 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'eyewearColorId', label: 'Eyewear Color' },
   { key: 'eyewearPlacementId', label: 'Eyewear Placement' },
   { key: 'earringsId', label: 'Earrings' },
+  { key: 'nosePiercingId', label: 'Nose Piercing' },
+  { key: 'lipPiercingId', label: 'Lip Piercing' },
   { key: 'neckAccessoryId', label: 'Neck Accessory' },
   { key: 'waistAccessoryId', label: 'Waist Accessory' },
   { key: 'headAccessoryAId', label: 'Woman 1 Head Accessory' },
@@ -2076,6 +2080,7 @@ function inferCharacterMeta(category, item) {
   if (category.includes('Expression')) minVisibility = 'full';
   if (category.includes('Pose')) minVisibility = 'full';
   if (category.includes('Special Actions')) minVisibility = 'medium';
+  if (category.includes('Expression') && item.zh === '龐克挑釁吐舌') tags.push('manual_only');
 
   if (hasAny(haystack, ['freckles', '雀斑', 'eyelashes', 'lip', 'nose', '瞳', 'gaze', 'eye contact'])) {
     if (!category.includes('Expression')) {
@@ -2179,8 +2184,10 @@ function inferWardrobeMeta(category, item) {
     || category.includes('Eyewear')
     || category.includes('Earrings')
     || category.includes('Neck Accessories')
+    || category.includes('Nose Piercings')
+    || category.includes('Lip Piercings')
   ) tags.push('accessory_small');
-  if (hasAny(haystack, ['no head accessories', 'no eyewear', 'no earrings', 'no neck accessories', 'no waist accessories', '全無'])) tags.push('no_accessory');
+  if (hasAny(haystack, ['no head accessories', 'no eyewear', 'no earrings', 'no nose piercing', 'no lip piercing', 'no neck accessories', 'no waist accessories', '全無'])) tags.push('no_accessory');
   if (hasAny(haystack, ['choker', '頸圈', '頸鍊', '扣環頸鏈'])) tags.push('edgy_accessory');
   if (hasAny(haystack, ['tailored', 'blazer', 'loafers', 'pencil skirt', 'silk maxi skirt', '細帶高跟', '西裝'])) tags.push('elegant');
   if (hasAny(haystack, ['pleated', 'sailor', 'over-knee socks', 'jk', 'mary jane', '百褶', '膝上襪'])) tags.push('uniform');
@@ -2261,6 +2268,8 @@ const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
   'eyewearBColorId',
   'eyewearBPlacementId',
   'earringsId',
+  'nosePiercingId',
+  'lipPiercingId',
   'earringsAId',
   'earringsBId',
   'neckAccessoryId',
@@ -2321,6 +2330,8 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'eyewearColorId',
   'eyewearPlacementId',
   'earringsId',
+  'nosePiercingId',
+  'lipPiercingId',
   'headAccessoryAId',
   'headAccessoryAColorId',
   'eyewearAId',
@@ -3870,6 +3881,8 @@ function buildLockControls({ flatCatalog, catalog }) {
       if (['eyewearColorId', 'eyewearAColorId', 'eyewearBColorId'].includes(definition.key)) options = getByKey(catalog.wardrobe, WARDROBE_EYEWEAR_COLOR_CATEGORY);
       if (['eyewearPlacementId', 'eyewearAPlacementId', 'eyewearBPlacementId'].includes(definition.key)) options = getByKey(catalog.wardrobe, WARDROBE_EYEWEAR_PLACEMENT_CATEGORY);
       if (['earringsId', 'earringsAId', 'earringsBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '耳環 (Earrings)');
+      if (definition.key === 'nosePiercingId') options = getByKey(catalog.wardrobe, '鼻部穿孔 (Nose Piercings)');
+      if (definition.key === 'lipPiercingId') options = getByKey(catalog.wardrobe, '唇部穿孔 (Lip Piercings)');
       if (['neckAccessoryId', 'neckAccessoryAId', 'neckAccessoryBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '頸部 (Neck Accessories)');
       if (['waistAccessoryId', 'waistAccessoryAId', 'waistAccessoryBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '腰部配件 (Waist Accessories)');
     }
@@ -6283,7 +6296,9 @@ function buildCharacter(context, catalog) {
     }
 
     const candidates = categoryItems.filter(
-      (item) => (!respectVisibility || detailAllowed(item, context.framing)) && customPredicate(item)
+      (item) => (!respectVisibility || detailAllowed(item, context.framing))
+        && !item.meta?.tags?.includes('manual_only')
+        && customPredicate(item)
     );
     if (candidates.length === 0) return null;
     const shouldExcludePrevious = !lockedId || isRandomLockValue(lockedId);
@@ -6637,6 +6652,8 @@ function buildWardrobe(context, locks, catalog) {
     [WARDROBE_EYEWEAR_COLOR_CATEGORY]: 'eyewearColorId',
     [WARDROBE_EYEWEAR_PLACEMENT_CATEGORY]: 'eyewearPlacementId',
     '耳環 (Earrings)': 'earringsId',
+    '鼻部穿孔 (Nose Piercings)': 'nosePiercingId',
+    '唇部穿孔 (Lip Piercings)': 'lipPiercingId',
     '頸部 (Neck Accessories)': 'neckAccessoryId',
     '腰部配件 (Waist Accessories)': 'waistAccessoryId',
   };
@@ -6740,6 +6757,13 @@ function buildWardrobe(context, locks, catalog) {
     addPiece(clonedItem);
     return clonedItem;
   };
+  // Facial piercings are opt-in and do not consume randomness when unselected.
+  if (context.subject.count === 1) {
+    for (const category of ['鼻部穿孔 (Nose Piercings)', '唇部穿孔 (Lip Piercings)']) {
+      const item = findById(getByKey(catalog.catalog.wardrobe, category), locks?.[categoryLockMap[category]]);
+      if (item && !isNoneLikeItem(item)) addPiece(item);
+    }
+  }
   if (locks?.waistAccessoryId) {
     maybePick('腰部配件 (Waist Accessories)', 1, () => true, { allowNoneWhenUnlocked: true });
   }
@@ -7528,6 +7552,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
       { key: `eyewearColor${suffix}`, text: eyewearLabel ? accessoryItemLabel(slot('eyewearColor')) : '' },
       { key: `eyewearPlacement${suffix}`, text: eyewearLabel ? accessoryItemLabel(slot('eyewearPlacement')) : '' },
       { key: `earrings${suffix}`, text: accessoryItemLabel(slot('earrings')) },
+      { key: `nosePiercing${suffix}`, text: accessoryItemLabel(slot('nosePiercing')) },
+      { key: `lipPiercing${suffix}`, text: accessoryItemLabel(slot('lipPiercing')) },
       { key: `neckAccessory${suffix}`, text: accessoryItemLabel(slot('neckAccessory')) },
       { key: `waistAccessory${suffix}`, text: accessoryItemLabel(slot('waistAccessory')) },
     ]);
@@ -8073,6 +8099,8 @@ function extractWardrobeSlots(wardrobe) {
     eyewearColor: findSlot('wardrobe:眼鏡配色-eyewear-color:'),
     eyewearPlacement: findSlot('wardrobe:眼鏡配戴方式-eyewear-placement:'),
     earrings: findCharacterCardLayer('earrings') || findSlot('wardrobe:耳環-earrings:'),
+    nosePiercing: findSlot('wardrobe:鼻部穿孔-nose-piercings:'),
+    lipPiercing: findSlot('wardrobe:唇部穿孔-lip-piercings:'),
     neckAccessory: findCharacterCardLayer('neckAccessory') || findSlot('wardrobe:頸部-neck-accessories:'),
     waistAccessory: findCharacterCardLayer('waistAccessory') || findSlot('wardrobe:腰部配件-waist-accessories:'),
     headAccessoryA: findRoleSlot('wardrobe:頭部配件-head-accessories:', 'a', 'headAccessory'),
@@ -9429,10 +9457,12 @@ function cleanSubjectAccessoryPrompt(item) {
     .trim();
 }
 
-function buildSubjectAccessoryPrompt({ eyewear, eyewearColor, eyewearPlacement, earrings, neckAccessory } = {}) {
+function buildSubjectAccessoryPrompt({ eyewear, eyewearColor, eyewearPlacement, earrings, nosePiercing, lipPiercing, neckAccessory } = {}) {
   const parts = [
     buildEyewearPrompt(eyewear, eyewearColor, eyewearPlacement),
     cleanSubjectAccessoryPrompt(earrings),
+    cleanSubjectAccessoryPrompt(nosePiercing),
+    cleanSubjectAccessoryPrompt(lipPiercing),
     cleanSubjectAccessoryPrompt(neckAccessory),
   ].filter(Boolean);
 
@@ -9799,6 +9829,8 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       eyewearColor: wardrobeSlots.eyewearColor,
       eyewearPlacement: wardrobeSlots.eyewearPlacement,
       earrings: wardrobeSlots.earrings,
+      nosePiercing: wardrobeSlots.nosePiercing,
+      lipPiercing: wardrobeSlots.lipPiercing,
       neckAccessory: wardrobeSlots.neckAccessory,
     }));
   };
@@ -11329,6 +11361,8 @@ function buildCharacterCardProfileGroups(subject, locks = {}, wardrobe = null) {
         eyewearColor: wardrobeSlots.eyewearColor,
         eyewearPlacement: wardrobeSlots.eyewearPlacement,
         earrings: isCharacterCardLayerSlot(wardrobeSlots.earrings) ? null : wardrobeSlots.earrings,
+        nosePiercing: wardrobeSlots.nosePiercing,
+        lipPiercing: wardrobeSlots.lipPiercing,
         neckAccessory: isCharacterCardLayerSlot(wardrobeSlots.neckAccessory) ? null : wardrobeSlots.neckAccessory,
       })
     : '';
@@ -12558,6 +12592,8 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
           eyewearColor: wardrobeSlots.eyewearColor,
           eyewearPlacement: wardrobeSlots.eyewearPlacement,
           earrings: wardrobeSlots.earrings,
+          nosePiercing: wardrobeSlots.nosePiercing,
+          lipPiercing: wardrobeSlots.lipPiercing,
           neckAccessory: wardrobeSlots.neckAccessory,
         });
     const headAccessoryText = context.subject.count === 2
@@ -13574,6 +13610,8 @@ function buildAiRoleFaceAccessoryText(wardrobeSlots, role = null) {
       suffix ? slot('eyewearPlacement') : wardrobeSlots.eyewearPlacement,
     ),
     compactAiSelectedAccessoryText(slot('earrings'), 'earrings'),
+    compactAiSelectedAccessoryText(slot('nosePiercing'), 'nosePiercing'),
+    compactAiSelectedAccessoryText(slot('lipPiercing'), 'lipPiercing'),
     compactAiSelectedAccessoryText(slot('neckAccessory'), 'neckAccessory'),
   ]).join(', ');
 }
@@ -13637,6 +13675,8 @@ function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
           eyewearColor: wardrobeSlots.eyewearColor,
           eyewearPlacement: wardrobeSlots.eyewearPlacement,
           earrings: wardrobeSlots.earrings,
+          nosePiercing: wardrobeSlots.nosePiercing,
+          lipPiercing: wardrobeSlots.lipPiercing,
           neckAccessory: wardrobeSlots.neckAccessory,
         })
       : '';
@@ -14628,6 +14668,8 @@ function buildAiCharacterCardPage1AccessoryText(context, wardrobe) {
     eyewearColor: wardrobeSlots.eyewearColor,
     eyewearPlacement: wardrobeSlots.eyewearPlacement,
     earrings: isCharacterCardLayerSlot(wardrobeSlots.earrings) ? null : wardrobeSlots.earrings,
+    nosePiercing: wardrobeSlots.nosePiercing,
+    lipPiercing: wardrobeSlots.lipPiercing,
     neckAccessory: isCharacterCardLayerSlot(wardrobeSlots.neckAccessory) ? null : wardrobeSlots.neckAccessory,
   });
 }
@@ -15419,6 +15461,8 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     eyewearColorId: wardrobeSlots.eyewearColor?.id || '',
     eyewearPlacementId: wardrobeSlots.eyewearPlacement?.id || '',
     earringsId: wardrobeSlots.earrings?.id || '',
+    nosePiercingId: wardrobeSlots.nosePiercing?.id || '',
+    lipPiercingId: wardrobeSlots.lipPiercing?.id || '',
     neckAccessoryId: wardrobeSlots.neckAccessory?.id || '',
     waistAccessoryId: preserveHiddenWaistSelection(wardrobeSlots.waistAccessory, 'waistAccessoryId'),
     headAccessoryAId: wardrobeSlots.headAccessoryA?.id?.replace(/:a$/, '') || '',

@@ -53,7 +53,7 @@ export const STYLE_WARDROBE_CONTROL_ORDER = [
   'outerwearAOpeningId', 'outerwearAStylingId', 'legwearAId', 'legwearAColorId', 'shoesAId', 'shoesAColorId',
   'outerwearBId', 'outerwearBFitId', 'outerwearBColorId', 'outerwearBPatternId',
   'outerwearBOpeningId', 'outerwearBStylingId', 'legwearBId', 'legwearBColorId', 'shoesBId', 'shoesBColorId',
-  'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
+  'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'nosePiercingId', 'lipPiercingId', 'neckAccessoryId',
   'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
   'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
   'wristAccessoryId', 'ringId', 'waistAccessoryId', 'waistAccessoryAId', 'waistAccessoryBId',
@@ -87,6 +87,7 @@ export const DUO_LAYER_KEYS = [
 ];
 
 export const SHARED_ACCESSORY_KEYS = [
+  'nosePiercingId', 'lipPiercingId',
   'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
   'waistAccessoryId',
 ];
@@ -325,6 +326,8 @@ export const SECTION_SUBPANELS = {
         'eyewearColorId',
         'eyewearPlacementId',
         'earringsId',
+        'nosePiercingId',
+        'lipPiercingId',
         'neckAccessoryId',
         'headAccessoryAId',
         'headAccessoryAColorId',

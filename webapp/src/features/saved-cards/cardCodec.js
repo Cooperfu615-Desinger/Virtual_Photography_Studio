@@ -30,6 +30,7 @@ const STRUCTURED_CONTROL_KEYS = {
     'poseBaseId', 'poseOrientationId', 'poseArrangementId', 'poseHandId', 'posePropId', 'poseHeadId', 'poseAnchorId',
   ],
   Wardrobe: [
+    'nosePiercingId', 'lipPiercingId',
     'specialOutfitId', 'specialOutfitAId', 'specialOutfitBId',
     'completeLookPaletteId', 'completeLookPaletteAId', 'completeLookPaletteBId',
     'outfitPresetId', 'outfitPresetColorId',

@@ -19,6 +19,8 @@ const SINGLE_ACCESSORY_SUMMARY_KEYS = [
   'eyewearColorId',
   'eyewearPlacementId',
   'earringsId',
+  'nosePiercingId',
+  'lipPiercingId',
   'neckAccessoryId',
   'waistAccessoryId',
 ];

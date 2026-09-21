@@ -689,6 +689,7 @@ const POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS = new Set([
   'one-hand-hold-glasses',
   'one-hand-pull-down-glasses',
   'glasses-temple-between-teeth',
+  'both-hands-rock-horns',
 ]);
 
 const LYING_SHARED_HAND_IDS = new Set([
@@ -785,6 +786,18 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   { id: 'one-hand-waist-one-down', zh: '一手扶腰一手自然放下', en: 'one hand on the waist or hip line with the other hand relaxed along the body or nearby support surface', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
   { id: 'hands-behind-back', zh: '雙手背在身後', en: 'both hands drawn behind the back or torso only where physically plausible for the selected pose, with relaxed shoulders', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
   { id: 'hands-behind-head', zh: '雙手放在頭後', en: 'both hands placed behind the head with elbows angled outward naturally and shoulders relaxed', meta: { visibleBuckets: HAND_VISIBLE_BUCKETS } },
+  {
+    id: 'both-hands-rock-horns',
+    zh: '雙手比 ROCK 手勢',
+    en: 'both hands raised beside the shoulders, each forming a clear rock-horns gesture, with the index and little fingers extended, the middle and ring fingers folded into the palm, and the thumbs resting across the folded fingers',
+    desc: '雙手抬到肩膀兩側，各自比出 ROCK 手勢；食指與小指伸出，中指與無名指收進掌心，拇指自然壓住收起的手指，不強制左右完全對稱。',
+    meta: {
+      tags: ['camera_facing_gesture'],
+      visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS,
+      requiresCameraFacingGesture: true,
+      randomEligible: false,
+    },
+  },
   {
     id: 'one-hand-open-palm-camera',
     zh: '單手向鏡頭張開手掌',

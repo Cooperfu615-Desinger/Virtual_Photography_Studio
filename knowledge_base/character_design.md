@@ -89,6 +89,7 @@
 | **表情 (Facial Expression)** | 克制憤怒 | `controlled angry expression, brows drawn together and lowered, focused narrowed eyes, firmly pressed lips, subtle jaw tension` | 克制的憤怒表情，眉毛向內收緊並下壓，雙眼收窄，嘴唇緊抿，下顎帶輕微張力。 |
 | **表情 (Facial Expression)** | 輕微驚訝 | `mildly surprised expression, raised brows, slightly widened eyes, softly parted lips` | 輕微驚訝的表情，眉毛抬起，眼睛稍微睜大，嘴唇微張。 |
 | **表情 (Facial Expression)** | 緊張不安 | `nervous uneasy expression, brows subtly drawn together, eyes slightly widened with alert tension, pressed lips, faint jaw tension` | 緊張不安的表情，眉毛略向內收，眼睛稍微睜大，嘴唇抿住，下顎帶輕微張力。 |
+| **表情 (Facial Expression)** | 龐克挑釁吐舌 | `playful rebellious expression, tongue extended clearly between parted lips, one eyebrow slightly raised, lightly narrowed eyes, subtle cheek tension` | 帶有龐克與俏皮挑釁感，舌頭清楚伸出，單側眉毛微抬，雙眼略微收窄；不指定視線、頭部方向、服裝或配件。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 全無 | `none` | 不指定姿勢動作，讓模型自行決定人物肢體語言。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜自然站姿 | `natural standing pose, relaxed balanced posture, everyday body language, unforced presence` | 身體自然站立，重心平均，沒有明顯擺拍感。 |
 | **姿勢與肢體語言 (Pose & Body Language)** | 站姿｜單腳重心 | `weight-on-one-leg standing pose, relaxed asymmetrical stance, casual natural posture` | 重心落在單腳，另一腳自然放鬆，整體更有鬆弛感。 |
