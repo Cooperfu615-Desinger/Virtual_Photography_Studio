@@ -934,6 +934,11 @@ test('public standing arrangements use clear canonical English and crop-safe upp
       chest: 'She presents an upper-body pose with a subtle asymmetrical weight shift onto one leg.',
     },
     {
+      zh: '骨盆後推曲線站姿',
+      full: 'She presents a curve-emphasizing standing pose, pelvis pushed strongly backward, lower back forming a pronounced arch, weight settled onto one leg, upper torso only slightly inclined forward.',
+      chest: '',
+    },
+    {
       zh: '身體微前傾',
       full: 'She presents a standing posture with a slight forward lean through the upper body.',
       chest: 'She presents an upper-body pose with a slight forward lean through the upper body.',
@@ -975,6 +980,9 @@ test('public standing arrangements use clear canonical English and crop-safe upp
     const [fullPrompt] = generatePrompts(1, { ...baseLocks, framingId: fullBodyFraming });
     assertSharedCanonicalPose(fullPrompt, full);
     assert.doesNotMatch(full, /\barrangement\b|close-interaction|delicate extended|turn-back/i);
+    if (zh === '骨盆後推曲線站姿') {
+      assert.doesNotMatch(full, /\bback-facing\b|\brear\b|hands?|head|wardrobe|clothing/i);
+    }
 
     const [chestPrompt] = generatePrompts(1, { ...baseLocks, framingId: chestUpFraming });
     const projectedPose = chestPrompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';

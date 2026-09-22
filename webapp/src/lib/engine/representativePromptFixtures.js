@@ -76,6 +76,33 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'standing-pelvis-back-curve',
+    title: 'Pelvis-back curve pose stays independent from camera orbit, hands, and head',
+    mode: 'single',
+    seed: 'prompt-contract-standing-pelvis-back-curve-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      orbitId: { byZh: '正面 0 度' },
+      poseBaseId: { byZh: '站姿' },
+      poseArrangementId: { byZh: '骨盆後推曲線站姿' },
+      poseHandId: { byZh: '雙手自然垂放' },
+      poseHeadId: { byZh: '頭部微微側傾' },
+      poseAnchorId: { byZh: '全無' },
+    },
+    expectedOutputs: Object.fromEntries([
+      'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
+    ].map((field) => [field, {
+      includes: [
+        'pelvis pushed strongly backward',
+        'lower back forming a pronounced arch',
+        'weight settled onto one leg',
+        'upper torso only slightly inclined forward',
+      ],
+      excludes: ['back-facing standing pose', 'rear-facing standing pose'],
+    }])),
+  },
+  {
     id: 'open-palm-lens-occlusion',
     title: 'Open palm fills the near-lens foreground instead of greeting',
     mode: 'single',

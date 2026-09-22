@@ -37,7 +37,7 @@ test('Pose Composer projection metadata has explicit three-tier modes', () => {
 
 test('all active standing arrangements carry explicit crop projection metadata', () => {
   const standing = POSE_COMPOSER_ARRANGEMENT_OPTIONS.filter((option) => option.base === 'standing' && !option.meta?.deprecated);
-  assert.equal(standing.length, 8);
+  assert.equal(standing.length, 9);
 
   for (const option of standing) {
     const metadata = option.meta?.projectionByBucket;
@@ -357,6 +357,7 @@ test('standing arrangement simplification keeps a stable active core and depreca
   assert.deepEqual(activeIds, [
     'standing-natural',
     'standing-one-leg-weight',
+    'standing-pelvis-back-curve',
     'standing-forward-lean',
     'standing-back-lean',
     'standing-crossed-legs',
@@ -382,12 +383,18 @@ test('standing arrangement simplification keeps a stable active core and depreca
 
 test('standing projection metadata distinguishes lower-body-only and upper-body candidates', () => {
   const lowerBodyOnly = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, 'standing-raised-foot');
+  const hipCurve = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, 'standing-pelvis-back-curve');
   const upperBodyCandidate = findOption(POSE_COMPOSER_ARRANGEMENT_OPTIONS, 'standing-one-leg-weight');
 
   assert.equal(getPoseComposerProjection(lowerBodyOnly, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
   assert.equal(getPoseComposerProjection(lowerBodyOnly, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
   assert.equal(getPoseComposerProjection(lowerBodyOnly, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
   assert.equal(getPoseComposerProjection(lowerBodyOnly, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+
+  assert.equal(getPoseComposerProjection(hipCurve, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+  assert.equal(getPoseComposerProjection(hipCurve, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.OMIT);
+  assert.equal(getPoseComposerProjection(hipCurve, COWBOY_KNEE).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
+  assert.equal(getPoseComposerProjection(hipCurve, FULL_BODY).mode, POSE_COMPOSER_PROJECTION_MODES.VISIBLE);
 
   assert.equal(getPoseComposerProjection(upperBodyCandidate, CHEST_UP).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
   assert.equal(getPoseComposerProjection(upperBodyCandidate, MEDIUM_WAIST).mode, POSE_COMPOSER_PROJECTION_MODES.PROJECTED);
