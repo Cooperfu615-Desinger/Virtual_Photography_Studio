@@ -4,6 +4,14 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-22
 
+## Top surface designs retained in MJ and chest outputs (2026-09-22)
+
+- Main MJ and MJ chest now retain the selected upper-garment pattern clauses in their compact wardrobe text, once per clause. Only clauses already present in the shared projected `Top` are retained; none/hidden garments and complete-look replacements do not gain a discarded pattern. The 25 existing pattern options and storage IDs are unchanged. See [wardrobe authoring §9.2](specs/wardrobe-section-b-authoring-guide.md).
+- The close-up wardrobe early return now resolves an explicitly selected top pattern before projection, so half-face, full-face and legacy face framing still supply the same source to chest/full-body derivatives. This also restores the pattern in GPT chest when the parent framing previously dropped it. Empty, random and invalid IDs do not trigger extra random draws. Public output contract is `1.18.0`; MJ description contract is `1.9.0`.
+- Validation: frontend tests pass 990/990, Prompt Quality 297/297, focused checks 53/53, lint/build and diff-check pass. Before/after strict audits use 200 prompts and seed `prompt-quality-baseline`, both with zero blockers and the same 21 diagnostic signals. A 168-case comparison against `44c88b8` confirms unchanged non-MJ output bytes for ordinary full/cowboy/medium crops, only the intended selected-pattern source restoration for close crops, and unchanged random draws throughout. Historical baselines remain unchanged.
+- Browser checks at 1440x1000 and 390x900 cover all six current workspaces, live cartoon chest-print retention in all six outputs, full-face parent framing and Saved Cards save/reapply. No document overflow, broken images or warning/error logs were observed at those tested viewports. Local test favorite `P2CUDV` retains the pattern example; reapplying it reproduced all six saved texts. The original preview was restored and all six texts matched the pre-QA values exactly.
+- Git delivery is authorized for `main` → `origin/main`; consult Git history and the remote for the delivery checkpoint. Deployment and external image-generation acceptance remain separate steps. The existing Vite large-chunk warning and narrow mobile output columns remain. User image folders/files are untouched.
+
 ## Chest-up outputs preserve the same capture state (2026-09-22)
 
 - `chest-up-portrait` and `chest-up-mj-portrait` now reproject the same resolved character, pose, wardrobe and scene into a fixed `4:5` chest crop. Posture identity, all nine selected manual sitting objects and visible upper-body actions remain; hidden lower-body geometry is omitted. The reviewed ROCK gesture and the upper-torso clause of `standing-pelvis-back-curve` are retained in these two derivatives. See [same-state contract](specs/chest-up-same-state-v1.md).

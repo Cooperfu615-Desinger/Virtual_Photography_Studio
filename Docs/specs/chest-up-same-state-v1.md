@@ -32,6 +32,8 @@ Status: 本次使用者核准的實作契約。範圍為 `chest-up-portrait` 與
 
 胸上姿勢的來源限定補充：`both-hands-rock-horns` 保留肩旁雙手的完整原文；`standing-pelvis-back-curve` 只保留原文中的 `upper torso only slightly inclined forward`，不帶入骨盆、下背與腿部幾何。這兩項補充僅套用於胸上衍生輸出，不改主輸出的既有裁切政策。
 
+上身圖案後續修正：MJ 胸上與主 MJ 共用的上衣精簡現在保留已選且在投影來源中的圖案片段；半臉／全臉等主近景也保留明確選定的圖案來源，供兩組胸上輸出使用。詳見 [穿搭撰寫規範 §9.2](wardrobe-section-b-authoring-guide.md#92-圖案)。此後續版本的 public output contract 為 `1.18.0`，MJ description contract 為 `1.9.0`；下方 `1.17.0` 為前一批同狀態修正的歷史版本。
+
 ## 實作與回歸
 
 - `fixedFramingDerivedPrompt.js`：胸上 preset、比例與同狀態標記。

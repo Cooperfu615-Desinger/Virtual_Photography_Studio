@@ -2,6 +2,8 @@
 
 Last updated: 2026-09-22
 
+2026-09-22 上身圖案修正：主 MJ 與 MJ 胸上必須保留共用投影上衣中已選的圖案片段，不能在衣物精簡時丟掉。近景主景別也會解析明確選定的上身圖案，供各衍生輸出沿用；不新增抽選、不改儲存欄位。Public output contract `1.18.0`、MJ description contract `1.9.0`；具體來源與排除規則見 [穿搭撰寫規範 §9.2](wardrobe-section-b-authoring-guide.md#92-圖案)。
+
 2026-09-22 胸上同狀態修正：兩組胸上從同一 resolved source 重新投影，固定 `4:5`，保留姿勢基底與九個手動坐姿物件。一般 GPT 胸上採用對應主 GPT 的相機／環境光／方向性場景政策；MJ 胸上採用對應主 MJ 的組裝、攝影省略與鏡頭適配政策，並同步 live F 設定。此核准變更取代下文對胸上的歷史排除及混合來源規則；其餘四組輸出維持原有契約。完整規則見 [胸上同一拍攝狀態 v1](chest-up-same-state-v1.md)。
 
 2026-09-15 主體光線來源：25 組 `光線表現 (Light Style)` 的英文來源已改為只描述人物受光方向、品質、色溫、投影／反射與陰影；完整來源與相容性邊界見 [主體光線 v1](subject-light-styles-v1.md)。本更新不改選項 ID、UI、storage、Saved Cards 或各 renderer 的既有責任。

@@ -5,7 +5,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.8.0';
+export const MIDJOURNEY_DESCRIPTION_CONTRACT_VERSION = '1.9.0';
 
 /**
  * Target contract for the Midjourney-native descriptive content that appears
@@ -57,6 +57,12 @@ export const MIDJOURNEY_DESCRIPTION_CONTRACT = deepFreeze({
     inventedVisualFacts: 'forbidden',
     exactCanonicalPoseReuse: true,
     preserveCompatibilitySelections: true,
+    topSurfaceDesign: {
+      scope: ['midjourneyPrompt', 'chestUpMjPortraitPrompt'],
+      source: 'resolved topPattern clauses present in the shared projected Top value',
+      retention: 'preserve selected pattern clauses once with the top garment; do not replace them with structural details',
+      exclusions: 'no Top value, hidden garment, none selection, or complete-look replacement',
+    },
     preserveHistoricalMappings: {
       Gpt: 'grokPrompt',
       'Grok/Z-Image': 'zImagePrompt',

@@ -7341,6 +7341,16 @@ function buildWardrobe(context, locks, catalog) {
       if (locks?.shoesId) maybePick('鞋款 (Shoes)', 1, () => true, { allowNoneWhenUnlocked: true });
       if (locks?.neckAccessoryId) maybePick('頸部 (Neck Accessories)', 1, () => true, { allowNoneWhenUnlocked: true });
     }
+    // Resolve an explicit top surface selection before the close-up early
+    // return so chest/full-body derivatives share it too. Never randomize here.
+    if (!useDuoRoleWardrobe && hasTopPiece && !hasDressPiece && !outfitPresetState.specifiedItem
+      && locks?.topPatternId && locks.topPatternId !== 'random') {
+      const patternItems = getByKey(catalog.catalog.wardrobe, '上身圖案 (Top Surface Design)');
+      for (const patternId of [locks.topPatternId].flat()) {
+        const selectedPattern = findById(patternItems, patternId);
+        if (selectedPattern) addPiece(selectedPattern);
+      }
+    }
     return pieces.filter(keepExplicitCloseupWardrobeItem);
   }
 
@@ -14191,7 +14201,7 @@ function extractAiSpecialPersonFragments(value, context = null) {
   return personFragments;
 }
 
-function compactAiGarmentValue(value, preferredRole = '', primarySource = '', wearSources = []) {
+function compactAiGarmentValue(value, preferredRole = '', primarySource = '', wearSources = [], surfaceSource = '') {
   const sourceText = primarySource || value;
   if (
     preferredRole === 'waistAccessory'
@@ -14234,9 +14244,13 @@ function compactAiGarmentValue(value, preferredRole = '', primarySource = '', we
   // Selected wear instructions are independent of decorative structure such as
   // a hem. Retain only instructions present in the shared projected source.
   const visibleWearSources = wearSources.filter((source) => source && value.includes(source));
+  // Selected surface design is an independent visual anchor. Keep only its
+  // clauses already present in the shared projected garment, never hidden raw text.
+  const visibleSurfaceFragments = splitAiSourceFragments(surfaceSource).filter(fragment => fragments.includes(fragment));
   const structuralDetail = fragments.find((fragment) => /\b(?:neckline|flare|pleated|ruffled|slit|hem|boning|lace trim|garter|cut-out|open shoulder|one shoulder line exposed|both shoulder lines exposed|draped off one shoulder|worn off both shoulders|upper back exposed|high-cut|wide-leg|straight-leg)\b/i.test(fragment) && fragment !== primary
+    && !visibleSurfaceFragments.includes(fragment)
     && !visibleWearSources.some((source) => source.includes(fragment))) || '';
-  return [primary, structuralDetail, ...visibleWearSources].filter(Boolean).join(', ');
+  return [...new Set([primary, structuralDetail, ...visibleWearSources, ...visibleSurfaceFragments].filter(Boolean))].join(', ');
 }
 
 function isAdhesiveTapeWrapOutfitPresetSource(value) {
@@ -14544,8 +14558,10 @@ function buildAiNormalWardrobeText(
   return withExplicitFitAnchors(Object.entries(roleByLabel)
     .map(([label, role]) => {
       const value = firstStructuredValue(valuesByLabel, [label]);
+      const topPatternSource = role === 'top' && wardrobeSlots?.topPattern && !isNoneLikeItem(wardrobeSlots.topPattern)
+        ? normalizeWardrobePromptText(wardrobeSlots.topPattern.en) : '';
       return shouldKeepWardrobeRoleForContext(role, context, value)
-        ? compactAiGarmentValue(value, role, primarySourceByLabel[label], outerwearWearSources)
+        ? compactAiGarmentValue(value, role, primarySourceByLabel[label], outerwearWearSources, topPatternSource)
         : '';
     })
     .filter(Boolean)

@@ -15,6 +15,22 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  {
+    id: 'selected-top-chest-graphic',
+    title: 'Selected top graphic survives every single-subject output',
+    mode: 'single',
+    seed: 'prompt-contract-top-graphic-v1',
+    locks: {
+      subjectCount: '1',
+      topId: { byZh: '短袖上衣' },
+      topPatternId: { byZh: '胸前卡通塗鴉印花' },
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+    },
+    expectedOutputs: Object.fromEntries([
+      'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
+      'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt',
+    ].map(field => [field, { includes: ['large cartoon doodle chest graphic'] }])),
+  },
   ...[
     ['single', '單肩露出', 'slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered'],
     ['double', '雙肩露出', 'slipped down around both upper arms, with the neckline resting below both shoulders and both arms still in the sleeves'],
