@@ -63,7 +63,7 @@ import {
 } from './engine/fixedFramingDerivedPrompt.js';
 import {
   getRandomMainFramingOptions,
-  resolveHalfFaceCompositionOpening,
+  resolveEdgePortraitCompositionOpening,
 } from './engine/fixedFramingMainPrompt.js';
 import {
   getRandomOpticalEffectOptions,
@@ -1735,6 +1735,7 @@ function inferFramingMeta(_category, item) {
 
   if (hasAny(haystack, ['partial facial features', '局部五官特寫'])) return { visibility: 'close', tags: ['face_detail', 'partial_face'] };
   if (hasAny(haystack, ['only one half of the face', '半臉傾斜特寫'])) return { visibility: 'close', tags: ['face_detail', 'partial_face', 'dutch_bias'] };
+  if (hasAny(haystack, ['entire face visible', '全臉傾斜特寫'])) return { visibility: 'close', tags: ['face_detail', 'full_face_offset', 'dutch_bias'] };
   if (hasAny(haystack, ['entire face filling almost the whole frame', '臉部特寫'])) return { visibility: 'close', tags: ['face_detail', 'full_face_tight'] };
   if (hasAny(haystack, ['tight bust-up portrait', '胸上特寫'])) return { visibility: 'portrait', tags: ['eye_contact_ok', 'face_detail', 'upper_body_focus'] };
   if (hasAny(haystack, ['extreme close-up', 'macro'])) return { visibility: 'close', tags: ['face_detail'] };
@@ -4621,7 +4622,7 @@ function framingSupportsAngle(framing, angle) {
   const framingTags = new Set(framing.meta.tags || []);
 
   if (angleTags.has('aerial') && VISIBILITY_ORDER[framing.meta.visibility] >= VISIBILITY_ORDER.medium) return false;
-  if ((framingTags.has('partial_face') || framingTags.has('full_face_tight')) && (angleTags.has('low_angle') || angleTags.has('low_camera_height') || angleTags.has('high_angle') || angleTags.has('aerial'))) return false;
+  if ((framingTags.has('partial_face') || framingTags.has('full_face_tight') || framingTags.has('full_face_offset')) && (angleTags.has('low_angle') || angleTags.has('low_camera_height') || angleTags.has('high_angle') || angleTags.has('aerial'))) return false;
 
   return true;
 }
@@ -4635,6 +4636,7 @@ function framingSupportsOrbit(framing, orbit) {
   }
 
   if (framingTags.has('full_face_tight') && (orbitTags.has('back_view') || orbitTags.has('rear_three_quarter'))) return false;
+  if (framingTags.has('full_face_offset') && (orbitTags.has('back_view') || orbitTags.has('rear_three_quarter'))) return false;
 
   return true;
 }
@@ -15633,7 +15635,7 @@ function generateSinglePrompt(index, locks, runtime, runtimeOptions = {}) {
     sample,
     ['framingId'],
   );
-  const fixedFramingCompositionOpening = resolveHalfFaceCompositionOpening(framing, random);
+  const fixedFramingCompositionOpening = resolveEdgePortraitCompositionOpening(framing, random);
   const expressionOptions = getByKey(runtime.catalog.character, CHARACTER_EXPRESSION_CATEGORY);
   const lockedDuoExpression = subject.count === 2 && effectiveLocks.duoExpressionId
     ? getDuoExpressionOption(effectiveLocks.duoExpressionId)

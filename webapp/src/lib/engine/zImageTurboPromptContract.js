@@ -18,7 +18,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.15.0';
+export const Z_IMAGE_TURBO_PROMPT_CONTRACT_VERSION = '1.16.0';
 
 const SCENE_INTEGRATED_SECTION_ORDER = Object.freeze([
   'imageType', 'composition', 'subject', 'pose', 'wardrobe',

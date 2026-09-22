@@ -7,6 +7,28 @@ function deepFreeze(value) {
 
 export const FIXED_FRAMING_PHASE6_SINGLE_MATRIX = deepFreeze([
   {
+    id: 'full-face-separates',
+    seed: 'fixed-framing-phase6-full-face-separates-v1',
+    framingZh: '全臉傾斜特寫',
+    locks: {
+      topId: '領帶襯衫',
+      pantsId: '直筒牛仔褲',
+      shoesId: '高跟鞋',
+      locationId: '室內：英倫復古窗邊房間',
+    },
+    primaryIncludes: [
+      'entire face and facial outline fully inside the frame',
+      'must not be centered',
+      'collared shirt with a short',
+    ],
+    primaryExcludes: ['straight-leg jeans', 'stiletto pumps'],
+    facialIncludes: ['collared shirt with a short'],
+    facialExcludes: ['straight-leg jeans', 'stiletto pumps'],
+    chestIncludes: ['collared shirt with a short'],
+    chestExcludes: ['straight-leg jeans', 'stiletto pumps'],
+    fullBodyIncludes: ['collared shirt with a short', 'straight-leg jeans', 'stiletto pumps'],
+  },
+  {
     id: 'half-face-separates',
     seed: 'fixed-framing-phase6-half-face-separates-v1',
     framingZh: '半臉傾斜特寫',

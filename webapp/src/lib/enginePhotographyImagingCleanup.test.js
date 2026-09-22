@@ -71,6 +71,7 @@ test('framing options are ordered from closest face crop to full body with legac
       '中景鏡頭 (Medium Shot)',
       '牛仔中景 (Cowboy Shot)',
       '全身鏡頭 (Full Body Shot)',
+      '全臉傾斜特寫',
     ]
   );
 
@@ -83,6 +84,7 @@ test('framing options are ordered from closest face crop to full body with legac
     '中景鏡頭 (Medium Shot)': 'medium shot, waist up framing, moderate background presence',
     '牛仔中景 (Cowboy Shot)': 'cowboy shot, knee up figure framing, readable outfit proportions',
     '全身鏡頭 (Full Body Shot)': 'full body shot, head-to-toe figure, environmental scale',
+    '全臉傾斜特寫': 'asymmetrical full-face close-up, off-center, slight tilt, entire face visible',
   };
 
   for (const [label, expectedPrompt] of Object.entries(optimizedFramingPrompts)) {

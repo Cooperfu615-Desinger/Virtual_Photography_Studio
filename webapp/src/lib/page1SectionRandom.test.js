@@ -220,12 +220,12 @@ test('single pose panel randomizes the six Pose Composer layers and leaves props
     {
       poseBaseId: 'standing',
       poseOrientationId: 'none',
-      poseArrangementId: 'standing-one-leg-weight',
-      poseHandId: 'arms-crossed',
-      poseHeadId: 'head-away-profile',
+      poseArrangementId: 'standing-forward-toe-point',
+      poseHandId: 'one-hand-mouth-corner',
+      poseHeadId: 'chin-slightly-raised',
       poseAnchorId: 'none',
     },
-    'The migration seed should preserve layer order while non-lying support resolves to free arrangement',
+    'The catalog seed should preserve layer order while non-lying support resolves to free arrangement',
   );
 
   const arrangement = controls

@@ -13,12 +13,13 @@ function deepFreeze(value) {
   return value;
 }
 
-export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION = 2;
+export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION = 3;
 
 export const FIXED_FRAMING_MAIN_OPTION_POLICY = deepFreeze({
   visible: [
     { id: 'camera:景別構圖-framing:全無:0', zh: '全無', randomCandidate: false },
     { id: 'camera:景別構圖-framing:半臉傾斜特寫:1', zh: '半臉傾斜特寫', randomCandidate: true },
+    { id: 'camera:景別構圖-framing:全臉傾斜特寫:9', zh: '全臉傾斜特寫', randomCandidate: true },
     { id: 'camera:景別構圖-framing:中景鏡頭-medium-shot:6', zh: '中景鏡頭 (Medium Shot)', randomCandidate: true },
     { id: 'camera:景別構圖-framing:牛仔中景-cowboy-shot:7', zh: '牛仔中景 (Cowboy Shot)', randomCandidate: true },
     { id: 'camera:景別構圖-framing:全身鏡頭-full-body-shot:8', zh: '全身鏡頭 (Full Body Shot)', randomCandidate: true },
@@ -76,6 +77,10 @@ export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT = deepFreeze({
     halfFacePlacementResolvedOnce: true,
     halfFaceOpeningSharedAcrossPrimaryOutputs: true,
     halfFaceVisibilityBucket: 'headShoulders',
+    fullFacePlacementResolvedOnce: true,
+    fullFaceOpeningSharedAcrossPrimaryOutputs: true,
+    fullFaceVisibilityBucket: 'headShoulders',
+    fullFaceCenteredPlacementForbidden: true,
   },
   completionIntegration: {
     phase: 6,
@@ -214,6 +219,27 @@ export const HALF_FACE_COMPOSITION_TARGET = deepFreeze({
       id: 'right-edge',
       subjectSide: 'right',
       opening: 'Asymmetrical off-center half-face portrait, subject placed flush against the far right frame edge, right vertical frame boundary cropping through the outer half of the face, broad negative space on the left, neck, shoulders, and upper torso visible',
+    },
+  ],
+});
+
+export const FULL_FACE_COMPOSITION_TARGET = deepFreeze({
+  framingId: 'camera:景別構圖-framing:全臉傾斜特寫:9',
+  framingZh: '全臉傾斜特寫',
+  sourceText: 'asymmetrical full-face close-up, off-center, slight tilt, entire face visible',
+  resolutionMode: 'seededSinglePlacementVariant',
+  shareResolvedOpeningAcrossPrimaryOutputs: true,
+  preserveRawFramingId: true,
+  placementVariants: [
+    {
+      id: 'left-edge',
+      subjectSide: 'left',
+      opening: 'Asymmetrical off-center full-face portrait, subject placed close to the left frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the right, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame',
+    },
+    {
+      id: 'right-edge',
+      subjectSide: 'right',
+      opening: 'Asymmetrical off-center full-face portrait, subject placed close to the right frame edge with a narrow margin, the entire face and facial outline fully inside the frame, broad negative space on the left, subject must not be centered, neck, shoulders, and upper torso visible, slight tilted frame',
     },
   ],
 });

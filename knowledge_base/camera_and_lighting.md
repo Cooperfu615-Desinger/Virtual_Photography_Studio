@@ -14,6 +14,7 @@
 | **景別構圖 (Framing)** | 中景鏡頭 (Medium Shot) | `medium shot, waist up framing, moderate background presence` | 構圖從腰部以上，人物與背景取得平衡，適合展現半身穿搭與周圍環境的互動。 |
 | **景別構圖 (Framing)** | 牛仔中景 (Cowboy Shot) | `cowboy shot, knee up figure framing, readable outfit proportions` | 從膝蓋上方截斷，保留上身、腰腿比例與大部分穿搭資訊，介於中景與全身之間。 |
 | **景別構圖 (Framing)** | 全身鏡頭 (Full Body Shot) | `full body shot, head-to-toe figure, environmental scale` | 完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。 |
+| **景別構圖 (Framing)** | 全臉傾斜特寫 | `asymmetrical full-face close-up, off-center, slight tilt, entire face visible` | 完整臉部保留在畫面內，人物隨機靠左或靠右且嚴禁置中，對側保留大面積負空間，並帶輕微傾斜的近距離構圖。 |
 | **相機視角 (Angle)** | 全無 | `none` | 不指定俯仰角度，讓模型自行決定相機高低視角。 |
 | **相機視角 (Angle)** | 高位俯視鏡頭 | `high camera position, looking downward, visible top planes` | 相機在人物頭部以上高度，從上方往下拍攝人物；仍以人像為主，不等同遠距離空拍或環境主導的鳥瞰視角。 |
 | **相機視角 (Angle)** | 平視高度鏡頭 | `eye-height camera, level perspective, neutral portrait view` | 相機高度在人物視線附近，維持平視與穩定人像視點，適合大多數日常、寫真與時裝構圖。 |

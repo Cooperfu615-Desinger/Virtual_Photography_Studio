@@ -13,9 +13,13 @@ import {
 import { buildPage1ControlGroups } from '../../features/page1/page1Selectors.js';
 import {
   FIXED_FRAMING_MAIN_OPTION_POLICY,
+  FULL_FACE_COMPOSITION_TARGET,
   HALF_FACE_COMPOSITION_TARGET,
 } from './fixedFramingDerivedPromptContract.js';
-import { HALF_FACE_COMPOSITION_REGRESSION_FIXTURES } from './fixedFramingDerivedPromptFixtures.js';
+import {
+  FULL_FACE_COMPOSITION_REGRESSION_FIXTURES,
+  HALF_FACE_COMPOSITION_REGRESSION_FIXTURES,
+} from './fixedFramingDerivedPromptFixtures.js';
 
 const controls = getLockControls();
 const controlsByKey = new Map(controls.map((control) => [control.key, control]));
@@ -146,6 +150,53 @@ test('phase-5 half-face framing keeps selected upper clothing and does not trigg
   });
 
   assert.equal(isCloseupModeFramingId(framingId, controls), false);
+  for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
+    assert.match(prompt[field], /collared shirt with a short (?:soft )?necktie/i, field);
+  }
+});
+
+test('full-face framing resolves only left or right and shares the non-centered opening across primary prompts', () => {
+  const framingId = optionId('framingId', FULL_FACE_COMPOSITION_TARGET.framingZh);
+  const variantsById = new Map(
+    FULL_FACE_COMPOSITION_TARGET.placementVariants.map((variant) => [variant.id, variant]),
+  );
+
+  for (const fixture of FULL_FACE_COMPOSITION_REGRESSION_FIXTURES) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      framingId,
+    }, [], {
+      random: () => fixture.randomValue,
+    });
+    const expectedVariant = variantsById.get(fixture.resolvedPlacementId);
+    const compositionBlock = getCompositionBlock(prompt.grokPrompt);
+
+    assert.ok(expectedVariant, fixture.id);
+    assert.equal(compositionBlock.startsWith(expectedVariant.opening), true, `${fixture.id}: ${compositionBlock}`);
+    assert.match(compositionBlock, /entire face.*fully inside the frame/i, fixture.id);
+    assert.match(compositionBlock, /must not be centered/i, fixture.id);
+    assert.ok(prompt.zImagePrompt.includes(expectedVariant.opening.split(',')[0]), `${fixture.id}: Z-Image composition`);
+    assert.ok(prompt.midjourneyPrompt.includes(compositionBlock), `${fixture.id}: AI composition`);
+    assert.equal(prompt.selection.framingId, framingId, `${fixture.id}: raw framing selection`);
+  }
+});
+
+test('full-face framing coexists with half-face and keeps the head-shoulders wardrobe boundary', () => {
+  const fullFaceId = optionId('framingId', FULL_FACE_COMPOSITION_TARGET.framingZh);
+  const halfFaceId = optionId('framingId', HALF_FACE_COMPOSITION_TARGET.framingZh);
+  const topId = optionId('topId', '領帶襯衫');
+
+  assert.notEqual(fullFaceId, halfFaceId);
+  const framingControl = getPage1FramingControl({ ...createEmptyLocks(), framingId: fullFaceId });
+  assert.equal(framingControl.options.some((option) => option.id === fullFaceId), true);
+  assert.equal(framingControl.options.some((option) => option.id === halfFaceId), true);
+
+  const [prompt] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    framingId: fullFaceId,
+    topId,
+  }, [], { random: () => 0 });
+  assert.equal(isCloseupModeFramingId(fullFaceId, controls), false);
   for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {
     assert.match(prompt[field], /collared shirt with a short (?:soft )?necktie/i, field);
   }

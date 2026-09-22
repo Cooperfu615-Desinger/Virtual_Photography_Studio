@@ -2,7 +2,13 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-21
+Last updated: 2026-09-22
+
+## Full-face tilted close-up framing (local, 2026-09-22)
+
+- PAGE1 `構圖景別` retains the existing `半臉傾斜特寫` and adds an independent `全臉傾斜特寫` option with its own append-only ID. Both options remain selectable and participate in unlocked framing randomization; existing half-face locks and restore behavior are unchanged.
+- Full-face generation resolves exactly one left- or right-edge placement per result and shares that opening across Gpt, Z-Image and AI. The selected edge keeps a narrow margin around the complete facial outline, the opposite side retains broad negative space, and the public text explicitly requires that the subject must not be centered. It uses the existing `headShoulders` visibility boundary, preserves upper clothing and head/neck accessories, omits Body Type and canonical pose, and keeps a slight tilted frame. Its compatibility metadata permits front view while excluding rear-facing and extreme high/low camera combinations.
+- Public output and Z contracts are `1.16.0`; the fixed-framing contract is version `3`. Focused framing, visibility, photography and integration checks pass, frontend tests pass 975/975, Prompt Quality passes 282/282, lint/build, source sync/check, Python sync tests, public-asset check and diff-check pass. The same-seed 200-prompt strict audit reports zero blockers and 21 diagnostic-only signals. Browser validation at 1440x1000 and 390x900 confirms both framing options coexist, the live full-face output retains the complete-face/non-centered wording in all three primary prompts, reroll produces both right and left placement, and all six current workspaces have no document overflow, broken images or console errors. No external image-generation acceptance, commit, push or deployment is included.
 
 ## Facial piercings and punk expression / hand gesture (local, 2026-09-21)
 

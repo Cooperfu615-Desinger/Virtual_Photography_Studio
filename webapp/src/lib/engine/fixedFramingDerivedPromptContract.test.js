@@ -12,10 +12,12 @@ import {
   FIXED_FRAMING_DERIVED_PROMPT_CONTRACT,
   FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION,
   FIXED_FRAMING_MAIN_OPTION_POLICY,
+  FULL_FACE_COMPOSITION_TARGET,
   HALF_FACE_COMPOSITION_TARGET,
 } from './fixedFramingDerivedPromptContract.js';
 import {
   FIXED_FRAMING_DERIVED_PROMPT_FIXTURES,
+  FULL_FACE_COMPOSITION_REGRESSION_FIXTURES,
   HALF_FACE_COMPOSITION_REGRESSION_FIXTURES,
 } from './fixedFramingDerivedPromptFixtures.js';
 
@@ -42,7 +44,7 @@ function materializeLocks(fixture) {
 }
 
 test('fixed-framing contract is frozen serializable target data and records runtime plus consumer and main framing activation', () => {
-  assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION, 2);
+  assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION, 3);
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimeConnected, true);
   assert.equal(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.runtimePhase, 3);
   assert.ok(Object.isFrozen(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT));
@@ -78,6 +80,10 @@ test('fixed-framing contract is frozen serializable target data and records runt
     halfFacePlacementResolvedOnce: true,
     halfFaceOpeningSharedAcrossPrimaryOutputs: true,
     halfFaceVisibilityBucket: 'headShoulders',
+    fullFacePlacementResolvedOnce: true,
+    fullFaceOpeningSharedAcrossPrimaryOutputs: true,
+    fullFaceVisibilityBucket: 'headShoulders',
+    fullFaceCenteredPlacementForbidden: true,
   });
   assert.deepEqual(FIXED_FRAMING_DERIVED_PROMPT_CONTRACT.completionIntegration, {
     phase: 6,
@@ -109,7 +115,7 @@ test('phase-1 main framing policy partitions every existing option without chang
 
   assert.deepEqual(
     FIXED_FRAMING_MAIN_OPTION_POLICY.visible.filter((entry) => entry.randomCandidate).map((entry) => entry.zh),
-    ['半臉傾斜特寫', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)'],
+    ['半臉傾斜特寫', '全臉傾斜特寫', '中景鏡頭 (Medium Shot)', '牛仔中景 (Cowboy Shot)', '全身鏡頭 (Full Body Shot)'],
   );
   assert.deepEqual(FIXED_FRAMING_MAIN_OPTION_POLICY.legacyRestore, {
     preserveIds: true,
@@ -222,6 +228,28 @@ test('phase-1 half-face target resolves one explicit edge with opposite negative
     assert.match(variant.opening, /broad negative space on the (?:left|right)/i);
     assert.match(variant.opening, /neck, shoulders, and upper torso visible/i);
     assert.equal(variant.opening.includes('left or right'), false);
+  }
+});
+
+test('full-face target resolves left or right only, keeps the whole face visible, and forbids centering', () => {
+  const framing = controlsByKey.get('framingId')?.options.find((option) => option.id === FULL_FACE_COMPOSITION_TARGET.framingId);
+  assert.ok(framing);
+  assert.equal(framing.zh, FULL_FACE_COMPOSITION_TARGET.framingZh);
+  assert.equal(framing.en, FULL_FACE_COMPOSITION_TARGET.sourceText);
+  assert.equal(FULL_FACE_COMPOSITION_TARGET.resolutionMode, 'seededSinglePlacementVariant');
+  assert.equal(FULL_FACE_COMPOSITION_TARGET.shareResolvedOpeningAcrossPrimaryOutputs, true);
+  assert.equal(FULL_FACE_COMPOSITION_TARGET.placementVariants.length, 2);
+
+  const variantsById = new Map(FULL_FACE_COMPOSITION_TARGET.placementVariants.map((variant) => [variant.id, variant]));
+  for (const fixture of FULL_FACE_COMPOSITION_REGRESSION_FIXTURES) {
+    const variant = variantsById.get(fixture.resolvedPlacementId);
+    assert.ok(variant, fixture.id);
+    assert.match(variant.opening, /subject placed close to the (?:left|right) frame edge/i);
+    assert.match(variant.opening, /entire face.*fully inside the frame/i);
+    assert.match(variant.opening, /must not be centered/i);
+    assert.match(variant.opening, /broad negative space on the (?:left|right)/i);
+    assert.match(variant.opening, /slight tilted frame/i);
+    assert.doesNotMatch(variant.opening, /cropping through|half-face/i);
   }
 });
 

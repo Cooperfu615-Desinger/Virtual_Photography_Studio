@@ -4181,6 +4181,11 @@
         "zh": "全身鏡頭 (Full Body Shot)",
         "en": "full body shot, head-to-toe figure, environmental scale",
         "desc": "完整拍攝人物從頭到腳，強調整體穿搭比例、下半身完整可見，以及人物在廣大環境中的位置。"
+      },
+      {
+        "zh": "全臉傾斜特寫",
+        "en": "asymmetrical full-face close-up, off-center, slight tilt, entire face visible",
+        "desc": "完整臉部保留在畫面內，人物隨機靠左或靠右且嚴禁置中，對側保留大面積負空間，並帶輕微傾斜的近距離構圖。"
       }
     ],
     "相機視角 (Angle)": [

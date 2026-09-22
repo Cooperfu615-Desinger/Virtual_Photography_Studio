@@ -225,3 +225,18 @@ export const HALF_FACE_COMPOSITION_REGRESSION_FIXTURES = Object.freeze([
     framingZh: '半臉傾斜特寫',
   }),
 ]);
+
+export const FULL_FACE_COMPOSITION_REGRESSION_FIXTURES = Object.freeze([
+  Object.freeze({
+    id: 'full-face-left-edge',
+    randomValue: 0,
+    resolvedPlacementId: 'left-edge',
+    framingZh: '全臉傾斜特寫',
+  }),
+  Object.freeze({
+    id: 'full-face-right-edge',
+    randomValue: 0.999999,
+    resolvedPlacementId: 'right-edge',
+    framingZh: '全臉傾斜特寫',
+  }),
+]);
