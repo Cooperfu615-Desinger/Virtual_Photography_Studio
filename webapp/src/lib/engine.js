@@ -5806,11 +5806,14 @@ function joinProjectedPoseFragments(fragments) {
   return `${values.slice(0, -1).join(', ')}, and ${values.at(-1)}`;
 }
 
-function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, propAction, anchor, head, base, location }) {
+function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, propAction, anchor, head, base, location, preserveCaptureState = false }) {
   const naturalChoiceSelected = [arrangement, handPose, head].some(isModelNaturalPoseComposerOption);
   const projectedHead = head && !isModelNaturalPoseComposerOption(head) ? head : null;
   const projectedHand = handPose && !isModelNaturalPoseComposerOption(handPose)
-    ? projectPoseComposerHand(handPose, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
+    ? preserveCaptureState && handPose.id === 'both-hands-rock-horns'
+      && handPose.meta?.visibleBuckets?.includes(COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
+      ? handPose
+      : projectPoseComposerHand(handPose, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
     : null;
   const arrangementProjection = arrangement && !isModelNaturalPoseComposerOption(arrangement)
     ? getPoseComposerProjection(arrangement, COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP)
@@ -5846,6 +5849,30 @@ function buildChestUpPoseComposerSentence({ orientation, arrangement, handPose, 
       anchor: projectedAnchor,
       head: projectedHead,
       orientation,
+    });
+  }
+
+  if (preserveCaptureState) {
+    // Keep the posture identity even when its legs are outside the crop. A
+    // selected seat is part of that state, not a demand to show the whole seat.
+    const manualSeat = base?.id === 'sitting' && anchor?.meta?.preserveInSceneIntegratedZ;
+    const anchorFragment = manualSeat ? '' : buildChestVisibleAnchorFragment(projectedAnchor, base, orientation);
+    // This arrangement's legacy crop hides its lower-body geometry as a unit.
+    // The chest derivative can keep its explicit upper-torso source clause.
+    const selectedTorsoFragment = arrangement?.id === 'standing-pelvis-back-curve'
+      ? arrangement.en?.split(',').map(clause => clause.trim()).find(clause => clause === 'upper torso only slightly inclined forward') || ''
+      : '';
+    const visibleFragments = joinProjectedPoseFragments([orientationFragment, selectedTorsoFragment || upperBodyFragment, anchorFragment]);
+    const posture = getPoseComposerBasePhrase(base);
+    const posePhrase = [posture, visibleFragments ? `with ${visibleFragments}` : ''].filter(Boolean).join(' ');
+    return buildPoseComposerSentence({
+      base,
+      arrangement: posePhrase ? cloneProjectedPoseOption(arrangement || base, posePhrase) : null,
+      handPose: projectedHand,
+      propAction,
+      anchor: manualSeat ? anchor : null,
+      head: projectedHead,
+      location,
     });
   }
 
@@ -5916,6 +5943,7 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
       head: shouldProjectPosePart(projection, 'head') ? head : null,
       base,
       location: context.location,
+      preserveCaptureState: context.preserveCaptureState === true,
     });
   }
 
@@ -12361,7 +12389,15 @@ function buildFixedFramingDerivedProjectedScene(sourceContext, derivedContext, p
     });
   }
 
-  return buildProjectedScene(derivedContext);
+  // Re-project from resolved sources rather than inheriting a parent crop's
+  // clause truncation. The matching renderer owns directional/compact wording.
+  return buildProjectedScene(preset.preserveCaptureState ? {
+    ...derivedContext,
+    compositionVisibility: {
+      ...derivedContext.compositionVisibility,
+      scene: { ...derivedContext.compositionVisibility.scene, mode: 'fullSource' },
+    },
+  } : derivedContext);
 }
 
 function buildFixedFramingDerivedPromptModel({
@@ -12424,30 +12460,29 @@ function buildFixedFramingDerivedPromptModel({
   };
 }
 
-function renderFixedFramingDerivedPrompt(promptModel, preset) {
+function renderFixedFramingDerivedPrompt(promptModel, preset, { cameraSpatial = false, sceneMirrorReflectionText = '' } = {}) {
   if (promptModel.context.subject?.count !== 1) return '';
 
   return renderGptPrompt(promptModel, {
     compositionSection: true,
     characterProfileWardrobeSection: true,
     wardrobeFallbackText: preset.wardrobeFallbackText || '',
+    cameraSpatial,
+    sceneMirrorReflectionText,
   });
 }
 
-function renderMidjourneyFixedFramingPrompt(promptModel, preset, semanticSourcePromptModel = null) {
+function renderMidjourneyFixedFramingPrompt(promptModel, preset, sourcePromptModel, sceneMirrorReflectionText = '') {
   if (promptModel.context.subject?.count !== 1) return '';
 
-  const sourcePromptModel = semanticSourcePromptModel || promptModel;
-  const subjectPromptModel = isDedicatedSpecialSubject(sourcePromptModel.context.subject)
-    ? promptModel
-    : sourcePromptModel;
+  const adaptationContext = {
+    ...promptModel.context,
+    locks: { ...promptModel.context.locks, mjAspectRatio: preset.aspectRatio },
+  };
   const description = renderMidjourneyNativeDescription(renderAiPrompt(promptModel, {
-    compositionPromptModel: promptModel,
-    subjectPromptModel,
-    wardrobePromptModel: promptModel,
-    posePromptModel: promptModel,
-    scenePromptModel: sourcePromptModel,
-    imagingPromptModel: sourcePromptModel,
+    midjourneyAdaptation: buildMidjourneyFramingPoseAdaptation(adaptationContext),
+    integrateMainScene: !isFixedCompositionSetActive(sourcePromptModel.context.fixedCompositionSet),
+    sceneMirrorReflectionText,
   }));
   return appendMidjourneyParameterTail(description, {
     ...promptModel.context.locks,
@@ -15016,8 +15051,8 @@ function renderAiPrompt(promptModel, {
   const sceneContext = scenePromptModel.context || context;
   const imagingValuesByLabel = imagingPromptModel.valuesByLabel || valuesByLabel;
 
-  // Explicit main-output opt-in: derivatives borrow this renderer and source
-  // models, but must keep their original order and style/film semantics.
+  // Main MJ and its same-state chest derivative opt into the same assembly;
+  // excluded subject and capture modes retain their existing semantics.
   const poseComposer = extractCharacterSlots(character).poseComposer;
   const anchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, poseComposer?.meta?.poseAnchorId);
   const supineSurfaceLed = poseComposer?.meta?.poseBaseId === 'lying'
@@ -15214,8 +15249,8 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     lightDirection,
     film,
   });
-  // A shared, authored ambient source for ordinary main GPT/Z only. Keep the
-  // original structured model for MJ, derivatives and excluded subjects/modes.
+  // Main GPT/Z and the same-state GPT chest share the authored ambient source.
+  // MJ and excluded subjects/modes retain the original structured source.
   const ambientPose = extractCharacterSlots(projectedCharacter).poseComposer;
   const ambientAnchor = getPoseComposerOption(POSE_COMPOSER_ANCHOR_OPTIONS, ambientPose?.meta?.poseAnchorId);
   const ambientEligible = mainContext.subject.count === 1
@@ -15252,13 +15287,18 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     },
   );
   const chestUpPortraitPrompt = renderFixedFramingDerivedPrompt(
-    chestUpPortraitPromptModel,
+    ambientEligible ? projectGptSceneLightingModel({
+      ...chestUpPortraitPromptModel,
+      ambientLightDescription,
+    }) : chestUpPortraitPromptModel,
     FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpPortrait,
+    { cameraSpatial: ambientEligible, sceneMirrorReflectionText },
   );
   const chestUpMjPortraitPrompt = renderMidjourneyFixedFramingPrompt(
     chestUpMjPortraitPromptModel,
     FIXED_FRAMING_DERIVED_PROMPT_PRESETS.chestUpMjPortrait,
     promptModel,
+    sceneMirrorReflectionText,
   );
   const fullBodyCharacterPrompt = renderFullBodyCharacterPrompt(fullBodyCharacterPromptModel);
 

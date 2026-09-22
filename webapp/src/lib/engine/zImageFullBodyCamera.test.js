@@ -1,3 +1,4 @@
+import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
@@ -90,7 +91,8 @@ test('431-case frozen baseline: only approved main Z camera text changes; select
   const baseline = JSON.parse(readFileSync(new URL('./zImageFullBodyCameraBaseline.json', import.meta.url), 'utf8'));
   const results = FULL_CAMERA_REGRESSION.map(runSceneFixture);
   assert.equal(results.length, baseline.count);
-  for (const field of OUTPUT_FIELDS) {
+  assertChestUpRevision('fullCamera', results);
+  for (const field of PROTECTED_OUTPUT_FIELDS) {
     assert.equal(digest(results.map((r) => {
       let value = r.outputs[field];
       if (field === 'zImagePrompt') value = normalizeFullCameraForLegacy(value);

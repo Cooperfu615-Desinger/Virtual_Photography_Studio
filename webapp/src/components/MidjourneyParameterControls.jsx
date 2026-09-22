@@ -106,13 +106,13 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
         <div>
           <div className="control-section-title">Midjourney V8 Controls</div>
           <p className="workspace-panel-copy">
-            集中設定 AI Prompt 專用參數；不會改動 Gpt、Grok／Z-Image 或三組固定構圖 Prompt。
+            同步設定 AI Prompt 與 MJ 胸上特寫照的生成參數；MJ 胸上特寫照固定使用 4:5 比例。
           </p>
         </div>
       </div>
 
       <div className="context-note">
-        設定會保存在 PAGE1、隨生成 selection 進入 Saved Cards 並可回填，並自動附加在 AI Prompt 尾端；不參與「全部隨機」或「清空」。
+        設定會保存在 PAGE1、隨生成 selection 進入 Saved Cards 並可回填，並自動附加在 AI Prompt 與 MJ 胸上特寫照尾端；不參與「全部隨機」或「清空」。
       </div>
 
       <div className="mj-parameter-block">
@@ -202,7 +202,7 @@ export default function MidjourneyParameterControls({ settings, onChange }) {
       <div className="mj-parameter-tail-note">
         <div className="mj-parameter-tail-note-copy">
           <strong>參數尾段</strong>
-          <span>以下說明只供設定參考，不會寫入 Prompt；參數仍會依固定順序附加在 AI Prompt 尾端。</span>
+          <span>以下說明只供設定參考，不會寫入 Prompt；參數會依固定順序附加在 AI Prompt 與 MJ 胸上特寫照尾端。</span>
         </div>
         <ul className="mj-parameter-tail-help">
           {parameterHelp.map((help) => (

@@ -1913,7 +1913,7 @@ test('AI prompt uses simplified X-prompt wardrobe wording for representative loo
   assert.doesNotMatch(dressPrompt.midjourneyPrompt, /delicate lace trim|short hem|one-piece|[\u3400-\u9fff]/i);
 });
 
-test('main AI omits film simulation while the MJ chest-up derivative retains it', () => {
+test('main AI and the MJ chest-up derivative share film simulation omission', () => {
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     outfitPresetId: optionId('outfitPresetId', '套裝：空服員制服'),
@@ -1925,8 +1925,7 @@ test('main AI omits film simulation while the MJ chest-up derivative retains it'
 
   assert.doesNotMatch(prompt.midjourneyPrompt, /high-acutance snapshot rendering|snap-focus clarity/i);
   const chestUp = prompt.extraPrompts.find((p) => p.id === 'chest-up-mj-portrait').text;
-  assert.match(chestUp, /high-acutance snapshot rendering/i);
-  assert.match(chestUp, /snap-focus clarity/i);
+  assert.doesNotMatch(chestUp, /high-acutance snapshot rendering|snap-focus clarity/i);
 });
 
 test('none selections stay silent across all final prompt outputs', () => {

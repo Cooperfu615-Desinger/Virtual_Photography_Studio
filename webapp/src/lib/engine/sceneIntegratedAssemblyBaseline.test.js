@@ -1,3 +1,4 @@
+import { assertChestUpRevision, CHEST_OUTPUT_FIELDS, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
@@ -52,7 +53,7 @@ test('main MJ integrates location and intact pose before wardrobe, with optics b
     assert.ok(text.indexOf(canonical) < text.indexOf('Wearing '));
     assert.equal(text.split(canonical).length - 1, 1);
     assert.doesNotMatch(text, /Guy Bourdin|neon cross-processed/i);
-    assert.match(result.outputs.chestUpMjPortraitPrompt, /Guy Bourdin|neon cross-processed/i);
+    assert.doesNotMatch(result.outputs.chestUpMjPortraitPrompt, /Guy Bourdin|neon cross-processed/i);
   }
   const imaging = get('R14-mj-imaging').outputs.midjourneyPrompt;
   assert.match(imaging, /50mm/);
@@ -140,12 +141,15 @@ for (const fixture of fixtures) {
     assert.deepEqual(first.outputs, repeated.outputs, 'same-seed outputs changed');
     assert.deepEqual(first.selection, repeated.selection);
     assert.equal(repeated.randomDraws, first.randomDraws);
+    assertChestUpRevision(`scene:${fixture.id}`, [first]);
     for (const field of OUTPUT_FIELDS) {
       const expectedHash = supportObjectExpected?.outputHashes[field]
         ?? (field === 'zImagePrompt' && !fixture.excluded
           ? zExpected.cases[fixture.id].hash : field === 'midjourneyPrompt' && !fixture.excluded
             ? mjExpected.cases[fixture.id].hash : entry.outputHashes[field]);
-      assert.equal(digest(normalizeAmbientForLegacy(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field], field, first.selection)), expectedHash, `${field}: scoped output drift`);
+      if (!CHEST_OUTPUT_FIELDS.includes(field)) {
+        assert.equal(digest(normalizeAmbientForLegacy(field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field], field, first.selection)), expectedHash, `${field}: scoped output drift`);
+      }
       assert.deepEqual(validatePromptOutputContract(field, first.outputs[field], {
         mode: fixture.mode,
         allowedLanguageLiterals: field === 'zImagePrompt' && first.selection.zImageVisibleTextEnabled
@@ -153,16 +157,14 @@ for (const fixture of fixtures) {
       }), [], `${field}: output contract`);
     }
     if (entry.outputs) {
-      const normalizedOutputs = Object.fromEntries(OUTPUT_FIELDS.map((field) => [field,
+      const normalizedOutputs = Object.fromEntries(PROTECTED_OUTPUT_FIELDS.map((field) => [field,
         normalizeAmbientForLegacy(
           field === 'zImagePrompt' ? normalizeFullCameraForLegacy(first.outputs[field]) : first.outputs[field],
           field,
           first.selection,
         )]));
-      assert.deepEqual({ ...normalizedOutputs }, {
-        ...entry.outputs, zImagePrompt: zExpected.cases[fixture.id].text,
-        midjourneyPrompt: mjExpected.cases[fixture.id].text,
-      }, 'only the approved Z/MJ core text changes');
+      const expectedOutputs = { ...entry.outputs, zImagePrompt: zExpected.cases[fixture.id].text, midjourneyPrompt: mjExpected.cases[fixture.id].text };
+      assert.deepEqual(normalizedOutputs, Object.fromEntries(PROTECTED_OUTPUT_FIELDS.map(field => [field, expectedOutputs[field]])), 'protected output bytes remain unchanged');
     }
     if (fixture.mode === 'single') assertZImagePoseProjection(first.prompt);
   });

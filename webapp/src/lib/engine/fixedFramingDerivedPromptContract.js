@@ -13,7 +13,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION = 3;
+export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT_VERSION = 4;
 
 export const FIXED_FRAMING_MAIN_OPTION_POLICY = deepFreeze({
   visible: [
@@ -125,6 +125,7 @@ export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT = deepFreeze({
       uiLabel: '胸上特寫照',
       aspectRatio: '4:5',
       lockAspectRatio: true,
+      preserveCaptureState: true,
       framingSourceZh: '胸上特寫',
       visibilityBucket: 'chestUp',
       compositionOpening: 'Chest-up portrait',
@@ -140,7 +141,7 @@ export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT = deepFreeze({
         conditionalParts: ['hand', 'prop', 'anchor', 'contactWeight'],
         shareExactTextAcrossConsumers: true,
       },
-      scene: { mode: 'compactSource', preserveLocationIdentity: true, preserveSourceAnchors: true },
+      scene: { mode: 'resolvedSourceWithMainRendererPolicy', preserveLocationIdentity: true, preserveSourceAnchors: true },
       viewpoint: {
         angle: 'preserveResolvedSelection',
         orbit: 'preserveResolvedSelection',
@@ -154,10 +155,11 @@ export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT = deepFreeze({
       uiLabel: 'MJ 胸上特寫照',
       aspectRatio: '4:5',
       lockAspectRatio: true,
+      preserveCaptureState: true,
       framingSourceZh: '胸上特寫',
       visibilityBucket: 'chestUp',
       rendererStyle: 'midjourneyNativeSingleBlockWithCanonicalTail',
-      compositionOpening: 'Chest-up editorial portrait with the head, both shoulders, upper chest, and neckline clearly visible',
+      compositionOpening: 'Chest-up portrait',
       body: { mode: 'visibleZones', zones: ['chest'] },
       wardrobe: {
         roles: ['top', 'dress', 'outerwear', 'headAccessory', 'eyewear', 'earrings', 'neckAccessory'],
@@ -170,7 +172,7 @@ export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT = deepFreeze({
         conditionalParts: ['hand', 'prop', 'anchor', 'contactWeight'],
         shareExactTextAcrossConsumers: true,
       },
-      scene: { mode: 'compactSource', preserveLocationIdentity: true, preserveSourceAnchors: true },
+      scene: { mode: 'resolvedSourceWithMainRendererPolicy', preserveLocationIdentity: true, preserveSourceAnchors: true },
       viewpoint: {
         angle: 'preserveResolvedSelection',
         orbit: 'preserveResolvedSelection',
@@ -183,13 +185,14 @@ export const FIXED_FRAMING_DERIVED_PROMPT_CONTRACT = deepFreeze({
       },
       semanticSourceAlignment: {
         composition: 'derivedChestUpProjection',
-        normalSubject: 'reuseMainAiPrompt',
+        normalSubject: 'derivedChestUpProjectionFromResolvedSource',
         specialSubject: 'retainCropAwareMjSubjectAnchor',
         wardrobe: 'derivedChestUpVisibleRoles',
         pose: 'derivedChestUpProjectedCanonical',
-        sceneLightingImaging: 'reuseMainAiPrompt',
+        sceneLightingImaging: 'resolvedSourceWithMainMjRendererPolicy',
       },
-      orderedSections: ['imageType', 'composition', 'subject', 'wardrobe', 'projectedCanonicalPose', 'sceneAndLighting', 'imaging', 'parameterTail'],
+      orderedSections: ['imageType', 'composition', 'subject', 'projectedCanonicalPose', 'wardrobe', 'sceneAndLighting', 'imaging', 'parameterTail'],
+      excludedModeSectionOrder: 'sameAsMainMj',
       forbiddenSections: ['labels', 'multi-cut sequence n=2'],
     },
     fullBodyCharacterCompatibility: {

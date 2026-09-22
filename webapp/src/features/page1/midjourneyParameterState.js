@@ -27,6 +27,17 @@ export function attachMidjourneySettingsToPrompt(prompt, settings = {}) {
       stripMidjourneyParameterTail(prompt.midjourneyPrompt),
       selection,
     ),
+    ...(Array.isArray(prompt.extraPrompts) ? {
+      extraPrompts: prompt.extraPrompts.map(entry => entry.id === 'chest-up-mj-portrait'
+        ? {
+            ...entry,
+            text: appendMidjourneyParameterTail(stripMidjourneyParameterTail(entry.text), {
+              ...selection,
+              mjAspectRatio: '4:5',
+            }),
+          }
+        : entry),
+    } : {}),
     selection,
   };
 }

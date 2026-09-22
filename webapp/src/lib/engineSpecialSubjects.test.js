@@ -763,7 +763,7 @@ test('sengoku samurai uses crop-aware compact MJ subject anchors without changin
   assert.doesNotMatch(fullBodyPrompt.midjourneyPrompt, /model-decided|let the image model decide|brilliant red|royal blue|pure white|emerald green|glossy reflective lacquer black/);
   assert.ok(descriptiveWordCount(fullBodyPrompt.midjourneyPrompt) <= 130);
 
-  assert.match(chestUpMjPrompt, /Chest-up editorial portrait/);
+  assert.match(chestUpMjPrompt, /Chest-up portrait/);
   assert.match(chestUpMjPrompt, /sculpted upper cuirass/);
   assert.match(chestUpMjPrompt, /shoulder guards/);
   assert.doesNotMatch(chestUpMjPrompt, /full-body|kusazuri|sheathed katana|wakizashi|model-decided|let the image model decide|worn on the head or held in one hand/);
@@ -868,7 +868,7 @@ test('female android uses crop-aware compact MJ subject anchors without changing
   assert.doesNotMatch(fullBodyPrompt.midjourneyPrompt, /black precision mechanical joint structures at the neck shoulders elbows wrists waist hips knees and ankles|fine actuator seams and micro-panel divisions following the torso arms and legs/);
   assert.ok(descriptiveWordCount(fullBodyPrompt.midjourneyPrompt) <= 130);
 
-  assert.match(chestUpMjPrompt, /Chest-up editorial portrait/);
+  assert.match(chestUpMjPrompt, /Chest-up portrait/);
   assert.match(chestUpMjPrompt, /realistic human face with subtle facial panel seams/);
   assert.match(chestUpMjPrompt, /shoulder and chest plates/);
   assert.match(chestUpMjPrompt, /black precision joints at the shoulders and elbows/);

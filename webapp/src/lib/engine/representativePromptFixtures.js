@@ -664,14 +664,15 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
       },
       chestUpMjPortraitPrompt: {
         includes: [
-          'Chest-up editorial portrait with the head, both shoulders, upper chest, and neckline clearly visible',
+          'Chest-up portrait',
           'A 20s seductive stunning Japanese woman',
           'structured opaque leather corset lingerie set',
           'abandoned school infirmary room',
-          'Yoshihiko Ueda-inspired',
           'macro lens',
         ],
         excludes: [
+          'Yoshihiko Ueda-inspired',
+          'neon cross-processed rendering',
           'flat abdomen',
           '20s Japanese or Korean woman, seductive editorial presence',
           'complete outfit',

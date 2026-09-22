@@ -1,3 +1,4 @@
+import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 import { test } from 'node:test';
@@ -6,7 +7,7 @@ import { cameraBaseline, normalizeGptCameraForLegacy, normalizeGptHighAngleDista
 import { GPT_CAMERA_SPATIAL_FIXTURES } from './gptCameraSpatialFixtures.js';
 import { fullCameraFixture } from './zImageFullBodyCameraFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
-import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
+import { runSceneFixture, digest } from './sceneIntegratedAssemblyTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 import { getLockControls } from '../engine.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
@@ -71,7 +72,8 @@ test('GPT distance bridge retains the prior GPT camera policy', () => {
 test('frozen camera/scene/lighting matrix permits only the exact main GPT Composition change',()=>{
   const results = GPT_CAMERA_SPATIAL_FIXTURES.map(runSceneFixture);
   assert.equal(results.length,cameraBaseline.count);
-  for (const field of OUTPUT_FIELDS) assert.equal(digest(results.map(r=>normalizeSubjectLightForLegacy(field==='grokPrompt'
+  assertChestUpRevision('camera', results);
+  for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(results.map(r=>normalizeSubjectLightForLegacy(field==='grokPrompt'
     ? normalizeGptCameraForLegacy(r.outputs[field]) : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field), field))))),cameraBaseline.hashes[field],field);
   assert.equal(digest(results.map(r=>r.selection)),cameraBaseline.selectionHash);
   assert.equal(digest(results.map(r=>r.randomDraws)),cameraBaseline.randomHash);

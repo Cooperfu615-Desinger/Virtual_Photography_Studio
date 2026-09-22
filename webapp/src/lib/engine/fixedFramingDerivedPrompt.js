@@ -55,6 +55,7 @@ export const FIXED_FRAMING_DERIVED_PROMPT_PRESETS = deepFreeze({
     lockAspectRatio: true,
     supportedModes: ['single'],
     projectResolvedSources: true,
+    preserveCaptureState: true,
     fixedCompositionHandling: 'projectScene',
     compositionOpening: 'Chest-up portrait',
     wardrobeFallbackText: '',
@@ -72,13 +73,14 @@ export const FIXED_FRAMING_DERIVED_PROMPT_PRESETS = deepFreeze({
     lockAspectRatio: true,
     supportedModes: ['single'],
     projectResolvedSources: true,
+    preserveCaptureState: true,
     fixedCompositionHandling: 'projectScene',
-    compositionOpening: 'Chest-up editorial portrait with the head, both shoulders, upper chest, and neckline clearly visible',
+    compositionOpening: 'Chest-up portrait',
     wardrobeFallbackText: '',
     framing: {
       id: 'chest-up-mj-portrait-reference',
       zh: '胸上特寫',
-      en: 'chest-up editorial portrait, head, both shoulders, upper chest, and neckline clearly visible',
+      en: 'chest-up portrait, upper torso and face clearly visible',
       meta: { visibility: 'portrait' },
     },
   },
@@ -138,6 +140,10 @@ export function createFixedFramingDerivedContext(baseContext, preset) {
 
   return {
     ...baseContext,
+    ...(preset.preserveCaptureState ? {
+      aspectRatio: { ...baseContext.aspectRatio, id: preset.aspectRatio, en: preset.aspectRatio },
+      preserveCaptureState: true,
+    } : {}),
     framing: preset.framing,
     orbit: resolveDerivedOrbit(baseContext.orbit, preset),
     fixedCompositionSet: preset.fixedCompositionHandling === 'preserve'

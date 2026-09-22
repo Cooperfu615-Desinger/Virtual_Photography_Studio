@@ -1,3 +1,4 @@
+import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { normalizeGptCameraForLegacy } from './gptCameraSpatialTestSupport.js';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
@@ -6,10 +7,9 @@ import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
 import { AMBIENT_LIGHT_DESCRIPTIONS, resolveAmbientLightDescription, renderAmbientLightDescription } from './ambientLightDescriptions.js';
 import { AMBIENT_MATRIX, AMBIENT_EXCLUDED } from './ambientLightFixtures.js';
-import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
 import { normalizeHighAngleDistanceForLegacy } from './zImageFullBodyCameraTestSupport.js';
 import { normalizeExplicitWardrobeFitForLegacy } from './wardrobeFitTestSupport.js';
-import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
+import { runSceneFixture, digest } from './sceneIntegratedAssemblyTestSupport.js';
 import { serializeFavoritePrompt, deserializeFavoritePrompt, buildMarkdownExport, parseExportedMarkdownPrompt } from '../../features/saved-cards/cardCodec.js';
 const baseline = JSON.parse(readFileSync(new URL('./ambientLightBaseline.json', import.meta.url), 'utf8'));
 const controls = getLockControls();
@@ -58,13 +58,13 @@ test('720 frozen main cases change only authored directional GPT/Z ambient', () 
       midjourneyPrompt: normalizeExplicitWardrobeFitForLegacy(r.outputs.midjourneyPrompt, 'midjourneyPrompt'),
       zImagePrompt: normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs.zImagePrompt.slice(0, -z.length) + baseline.ambient[i], 'zImagePrompt'), 'zImagePrompt')) };
   });
-  for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map(r => r[field])), baseline.hashes[field], field);
+  assertChestUpRevision('ambient', results);
+  for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(normalized.map(r => r[field])), baseline.hashes[field], field);
   assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);
   assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);
   for (const [i, f] of AMBIENT_EXCLUDED.entries()) {
     const r = runSceneFixture(f);
-    const outputs = Object.fromEntries(OUTPUT_FIELDS.map((field) => [field, normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field))]));
-    assert.equal(digest(outputs), baseline.excluded[i].hash, f.id);
+    assertChestUpRevision(`ambient-excluded:${f.id}`, [r]);
     assert.equal(digest(r.selection), baseline.excluded[i].selection, f.id);
     assert.equal(r.randomDraws, baseline.excluded[i].random, f.id);
   }

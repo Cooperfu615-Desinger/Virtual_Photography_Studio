@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.16.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.17.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -316,6 +316,7 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     field: 'chestUpPortraitPrompt',
     uiLabel: '胸上特寫照',
     target: 'Single-subject 4:5 chest-up portrait',
+    captureState: 'same resolved source; chest-visible body/wardrobe/pose; posture and manual seat retained; main GPT camera, ambient and scene policy with matching mode exclusions',
     source: { kind: 'extraPrompt', id: 'chest-up-portrait' },
     applicability: {
       supportedModes: ['single'],
@@ -351,6 +352,7 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
     field: 'chestUpMjPortraitPrompt',
     uiLabel: 'MJ 胸上特寫照',
     target: 'Single-subject 4:5 Midjourney-native chest-up portrait',
+    captureState: 'same resolved source reprojected to chest; main MJ assembly and imaging policy with matching mode exclusions; live F settings except fixed 4:5',
     source: { kind: 'extraPrompt', id: 'chest-up-mj-portrait' },
     applicability: {
       supportedModes: ['single'],

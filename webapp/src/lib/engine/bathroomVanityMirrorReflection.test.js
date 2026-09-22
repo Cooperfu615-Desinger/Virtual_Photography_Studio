@@ -82,10 +82,12 @@ test('side and unassigned orbits retain a coherent single-person reflection sent
   assert.match(side.zImagePrompt, /consistent side profile/);
 });
 
-test('mirror reflection is limited to ordinary single-subject main outputs', () => {
+test('ordinary chest crops inherit mirror identity while full-body references remain independent', () => {
   const prompt = generateBathroomPrompt('正面 0 度');
-  const derived = prompt.extraPrompts.map((entry) => entry.text).join('\n');
-  assert.doesNotMatch(derived, /The full mirror behind her accurately reflects/);
+  for (const entry of prompt.extraPrompts) {
+    if (entry.id === 'full-body-character') assert.doesNotMatch(entry.text, /The full mirror behind her accurately reflects/);
+    else assert.match(entry.text, /The full mirror behind her accurately reflects/);
+  }
 
   const special = generateBathroomPrompt('正面 0 度', { specialSubjectId: 'skeleton' });
   for (const field of ['grokPrompt', 'zImagePrompt', 'midjourneyPrompt']) {

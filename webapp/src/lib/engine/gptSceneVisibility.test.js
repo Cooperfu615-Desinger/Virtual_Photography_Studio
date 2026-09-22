@@ -1,3 +1,4 @@
+import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
 import { test } from 'node:test';
@@ -5,7 +6,7 @@ import { readFileSync } from 'node:fs';
 import { getLockControls } from '../engine.js';
 import { projectGptSceneSource, projectGptSceneLightingModel } from './gptSceneVisibility.js';
 import { GPT_VISIBILITY_ALL } from './gptSceneVisibilityFixtures.js';
-import { runSceneFixture, digest, OUTPUT_FIELDS } from './sceneIntegratedAssemblyTestSupport.js';
+import { runSceneFixture, digest } from './sceneIntegratedAssemblyTestSupport.js';
 import { gptSection, withoutSceneLighting, expectedSceneProjection } from './gptSceneVisibilityTestSupport.js';
 import { AMBIENT_LIGHT_DESCRIPTIONS, renderAmbientLightDescription } from './ambientLightDescriptions.js';
 import { normalizeSubjectLightForLegacy } from './subjectLightFixtures.js';
@@ -59,7 +60,8 @@ test('frozen all-scene / ambient matrix changes only approved GPT Scene and Ligh
     assert.equal(gptSection(r.outputs.grokPrompt, 'Scene'), excluded ? oldScene : expectedSceneProjection(oldScene, angle), GPT_VISIBILITY_ALL[i].id);
     assert.equal(normalizeSubjectLightForLegacy(gptSection(r.outputs.grokPrompt, 'Lighting')), expectedLight, GPT_VISIBILITY_ALL[i].id);
   }
-  for (const field of OUTPUT_FIELDS) assert.equal(digest(results.map(r => field === 'grokPrompt'
+  assertChestUpRevision('visibility', results);
+  for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(results.map(r => field === 'grokPrompt'
     ? withoutSceneLighting(r.outputs[field])
     : normalizeHighAngleDistanceForLegacy(normalizeCloseWormForLegacy(normalizeExplicitWardrobeFitForLegacy(r.outputs[field], field), field)))), baseline.hashes[field], field);
   assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);

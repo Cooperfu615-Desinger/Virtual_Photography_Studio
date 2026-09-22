@@ -1,3 +1,4 @@
+import { assertChestUpRevision, PROTECTED_OUTPUT_FIELDS } from './chestUpSameStateTestSupport.js';
 import assert from 'node:assert/strict';
 import { normalizeGptVisibilityForLegacy } from './gptSceneVisibilityTestSupport.js';
 import { normalizeCloseWormForLegacy } from './closeWormEyeTestSupport.js';
@@ -66,7 +67,8 @@ test('930 frozen cases permit only the 14 authored additions in eligible main Z 
     for (const field of OUTPUT_FIELDS) outputs[field] = normalizeSubjectLightForLegacy(normalizeExplicitWardrobeFitForLegacy(outputs[field], field));
     return outputs;
   });
-  for (const field of OUTPUT_FIELDS) assert.equal(digest(normalized.map(o => o[field])), baseline.hashes[field], field);
+  assertChestUpRevision('upperExtension', results);
+  for (const field of PROTECTED_OUTPUT_FIELDS) assert.equal(digest(normalized.map(o => o[field])), baseline.hashes[field], field);
   assert.equal(digest(results.map(r => r.selection)), baseline.selectionHash);
   assert.equal(digest(results.map(r => r.randomDraws)), baseline.randomHash);
 });

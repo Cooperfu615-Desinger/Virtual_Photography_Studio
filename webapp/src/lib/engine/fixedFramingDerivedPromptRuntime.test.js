@@ -89,11 +89,11 @@ test('phase-3 chest output uses the projected canonical upper-body pose and comp
   assertIncludes(chest, 'shot on 85mm short telephoto portrait lens');
 });
 
-test('MJ chest output reuses the main AI semantic anchors while projecting the chest crop', () => {
+test('MJ chest output uses chest-visible anchors and the main MJ rendering policy', () => {
   const { fixture, prompt } = generateFixture('chest-up-normal-separates-pose-scene-imaging');
   const chest = extraText(prompt, 'chest-up-mj-portrait');
 
-  assertIncludes(chest, 'Chest-up editorial portrait with the head, both shoulders, upper chest, and neckline clearly visible');
+  assertIncludes(chest, 'Chest-up portrait');
   for (const fragment of fixture.expected.mjSemanticReuse.includeFromMainAi) {
     assertIncludes(chest, fragment, `MJ chest should reuse main AI anchor: ${fragment}`);
   }
@@ -101,7 +101,7 @@ test('MJ chest output reuses the main AI semantic anchors while projecting the c
   assertIncludes(chest, 'head slightly tilted');
   assertIncludes(chest, 'one hand touching the chin');
   assertIncludes(chest, 'British vintage window-side room interior');
-  assertIncludes(chest, 'Orie Ichihashi-inspired');
+  assertExcludes(chest, 'Orie Ichihashi-inspired');
   assertIncludes(chest, '--ar 4:5');
   for (const fragment of fixture.expected.mjSemanticReuse.excludeFromChestCrop) {
     assertExcludes(chest, fragment, `MJ chest should omit cropped content: ${fragment}`);

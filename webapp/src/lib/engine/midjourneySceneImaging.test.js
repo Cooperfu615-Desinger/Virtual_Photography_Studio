@@ -57,8 +57,10 @@ test('main scene integration keeps scene sources and optics while omitting style
   assert.match(description, /lens-only mist-filter haze/i);
   assert.doesNotMatch(description, /VHS|analog tape noise/i);
   const derived = prompt.extraPrompts.find((p) => p.id === 'chest-up-mj-portrait').text;
-  assert.match(derived, /Rinko Kawauchi-inspired airy high-key image language/i);
-  assert.match(derived, /VHS camcorder image degradation, analog tape noise/i);
+  assert.doesNotMatch(derived, /Rinko Kawauchi-inspired airy high-key image language/i);
+  assert.doesNotMatch(derived, /VHS camcorder image degradation, analog tape noise/i);
+  assert.match(derived, /tilt-shift lens, shifted perspective control/i);
+  assert.match(derived, /lens-only mist-filter haze/i);
   assert.doesNotMatch(description, /\bIn British vintage|\blit by\b|\bInspired by\b|\bshot on\b/i);
 
   assert.match(prompt.zImagePrompt, /Rinko Kawauchi-inspired/i);
