@@ -5594,6 +5594,7 @@ const CHEST_VISIBLE_HAND_IDS = new Set([
   'one-hand-sweep-bangs-back',
   'both-hands-gather-hair',
   'hand-adjust-off-shoulder-top',
+  'hands-pull-open-off-shoulder-outerwear',
   'one-hand-hold-glasses',
   'one-hand-pull-down-glasses',
   'glasses-temple-between-teeth',
@@ -7421,10 +7422,17 @@ function buildWardrobe(context, locks, catalog) {
       const selectedOuterwear = Array.isArray(outerwearPiece)
         ? outerwearPiece.find((item) => item && !isNoneLikeItem(item))
         : outerwearPiece;
+      const outerwearSpreadHand = locks?.poseHandId === 'hands-pull-open-off-shoulder-outerwear';
+      const useOpenFrontForHand = outerwearSpreadHand && !locks?.outerwearOpeningId;
+      const useLoweredShouldersForHand = outerwearSpreadHand && !locks?.outerwearStylingId;
       maybePick('外套版型 (Outerwear Fit)', locks?.outerwearFitId ? 1 : 0.55, () => true, { allowNoneWhenUnlocked: true });
       maybePick('外套圖案 (Outerwear Surface Design)', locks?.outerwearPatternId ? 1 : 0.3, () => true, { allowNoneWhenUnlocked: true });
-      maybePick('外套開合 (Outerwear Opening)', locks?.outerwearOpeningId ? 1 : 0.55, (opening) => outerwearSupportsOpening(selectedOuterwear, opening), { allowNoneWhenUnlocked: true });
-      maybePick('外套穿法 (Outerwear Styling)', locks?.outerwearStylingId ? 1 : 0.55, () => true, { allowNoneWhenUnlocked: true });
+      maybePick('外套開合 (Outerwear Opening)', useOpenFrontForHand || locks?.outerwearOpeningId ? 1 : 0.55,
+        (opening) => outerwearSupportsOpening(selectedOuterwear, opening) && (!useOpenFrontForHand || opening.zh === '敞開穿'),
+        { allowNoneWhenUnlocked: !useOpenFrontForHand });
+      maybePick('外套穿法 (Outerwear Styling)', useLoweredShouldersForHand || locks?.outerwearStylingId ? 1 : 0.55,
+        (styling) => !useLoweredShouldersForHand || styling.zh === '雙肩露出',
+        { allowNoneWhenUnlocked: !useLoweredShouldersForHand });
     }
   }
 

@@ -135,6 +135,38 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'outerwear-shoulders-down-wide-open',
+    title: 'Outerwear action keeps lowered shoulders and a wide two-hand opening without owning the outfit',
+    mode: 'single',
+    seed: 'prompt-contract-outerwear-shoulders-down-wide-open-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' },
+      topId: { byZh: '短袖上衣' },
+      pantsId: { byZh: '直筒牛仔褲' },
+      outerwearId: { byZh: '西裝外套' },
+      poseBaseId: { byZh: '站姿' },
+      poseArrangementId: { byZh: '自然站姿' },
+      poseHandId: { byZh: '雙手拉開外套（雙肩滑落）' },
+    },
+    expectedOutputs: {
+      ...Object.fromEntries([
+        'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
+        'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt',
+      ].map((field) => [field, {
+        includes: [
+          'both hands firmly gripping the front edges',
+          'collar and shoulder seams slipped completely below both shoulders',
+          'both arms still loosely inside the sleeves',
+          'two broad open panels',
+        ],
+      }])),
+      fullBodyCharacterPrompt: {
+        excludes: ['both hands firmly gripping the front edges'],
+      },
+    },
+  },
+  {
     id: 'standing-pelvis-back-curve',
     title: 'Pelvis-back curve pose stays independent from camera orbit, hands, and head',
     mode: 'single',

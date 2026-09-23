@@ -125,6 +125,7 @@ test('public hand catalog includes dedicated lying actions and clarified garment
     '雙手抓著整束頭髮與髮尾整理',
     '拉下上身服裝整理',
     '雙手上拉上衣露出胸下緣',
+    '雙手拉開外套（雙肩滑落）',
     '雙手把褲子或裙子的褲頭往上拉',
     '雙手抱膝',
     '雙掌撐地',
@@ -156,6 +157,13 @@ test('public hand catalog includes dedicated lying actions and clarified garment
   assert.equal(garmentLift.meta?.requiresWardrobeRole, 'upperGarment');
   assert.match(garmentLift.en, /both hands gripping the front lower hem.*left and right sides.*upper ribcage.*lower third of the bust.*underboob.*upper bust remains covered/i);
   assert.doesNotMatch(`${garmentLift.en} ${garmentLift.desc}`, /white|T-shirt|jeans|studio|鏡頭|牛仔|白色/i);
+  const openedOuterwear = byZh('雙手拉開外套（雙肩滑落）');
+  assert.equal(openedOuterwear.id, 'hands-pull-open-off-shoulder-outerwear');
+  assert.equal(openedOuterwear.meta?.requiresWardrobeRole, 'outerwear');
+  assert.equal(openedOuterwear.meta?.randomEligible, false);
+  assert.match(openedOuterwear.en, /both hands firmly gripping the front edges.*near chest height.*pulling them far outward.*two broad open panels/i);
+  assert.match(openedOuterwear.en, /collar and shoulder seams slipped completely below both shoulders.*upper arms.*both arms still loosely inside the sleeves/i);
+  assert.doesNotMatch(`${openedOuterwear.en} ${openedOuterwear.desc}`, /blazer|hoodie|T-shirt|jeans|bra|panties|西裝|比基尼|牛仔/i);
   assert.match(byZh('雙手把褲子或裙子的褲頭往上拉').en, /gripping the garment at both sides of the waist.*small upward adjustment.*settle it naturally into place/i);
   assert.doesNotMatch(byZh('雙手把褲子或裙子的褲頭往上拉').en, /pants|skirt|belt loops|lowering|removing/i);
   assert.match(byZh('雙手抱膝').en, /both arms wrapped around the bent knees.*holding the knees close to the torso/i);
@@ -190,6 +198,54 @@ test('manual upper-garment lift keeps its lock while crop projection omits invis
     for (const text of [cropped.grokPrompt, cropped.zImagePrompt, cropped.midjourneyPrompt]) {
       assert.doesNotMatch(text, /both hands gripping the front lower hem|underboob/i, framingZh);
     }
+  }
+});
+
+test('manual outerwear spread keeps the same shoulder-slip action across outputs and crops', () => {
+  const handId = optionId('poseHandId', '雙手拉開外套（雙肩滑落）');
+  const locks = createFullySpecifiedLocks({
+    framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
+    topId: optionId('topId', '短袖上衣'),
+    outerwearId: optionId('outerwearId', '西裝外套'),
+    outerwearOpeningId: '',
+    outerwearStylingId: '',
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: handId,
+  });
+  const [prompt] = generatePrompts(1, locks, [], { random: createSeededRandom('outerwear-spread-test') });
+  assert.equal(prompt.selection.poseHandId, handId);
+  assert.equal(prompt.selection.outerwearOpeningId, optionId('outerwearOpeningId', '敞開穿'));
+  assert.equal(prompt.selection.outerwearStylingId, optionId('outerwearStylingId', '雙肩露出'));
+  const canonicalPose = prompt.grokPrompt.match(/Pose and Composition:\n([^\n]+)/)?.[1] || '';
+  assert.match(canonicalPose, /both hands firmly gripping the front edges.*two broad open panels/i);
+  assert.match(canonicalPose, /shoulder seams slipped completely below both shoulders.*both arms still loosely inside the sleeves/i);
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.equal(text.split(canonicalPose).length - 1, 1);
+  }
+  const extra = (id) => prompt.extraPrompts.find((entry) => entry.id === id)?.text || '';
+  for (const text of [extra('chest-up-portrait'), extra('chest-up-mj-portrait')]) {
+    assert.match(text, /shoulder seams slipped completely below both shoulders.*two broad open panels/i);
+  }
+  assert.doesNotMatch(extra('full-body-character'), /both hands firmly gripping the front edges/i);
+
+  const explicitlyLockedOpening = optionId('outerwearOpeningId', '扣子扣一半');
+  const explicitlyLockedStyling = optionId('outerwearStylingId', '單肩露出');
+  const [explicitWardrobe] = generatePrompts(1, {
+    ...locks,
+    outerwearOpeningId: explicitlyLockedOpening,
+    outerwearStylingId: explicitlyLockedStyling,
+  }, [], { random: createSeededRandom('outerwear-spread-test') });
+  assert.equal(explicitWardrobe.selection.outerwearOpeningId, explicitlyLockedOpening);
+  assert.equal(explicitWardrobe.selection.outerwearStylingId, explicitlyLockedStyling);
+
+  const [closeup] = generatePrompts(1, {
+    ...locks,
+    framingId: optionId('framingId', '特寫鏡頭 (Close-Up)'),
+  }, [], { random: createSeededRandom('outerwear-spread-test') });
+  assert.equal(closeup.selection.poseHandId, handId);
+  for (const text of [closeup.grokPrompt, closeup.zImagePrompt, closeup.midjourneyPrompt]) {
+    assert.doesNotMatch(text, /both hands firmly gripping the front edges|shoulder seams slipped completely below both shoulders/i);
   }
 });
 
