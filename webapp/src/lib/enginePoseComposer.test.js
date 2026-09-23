@@ -124,6 +124,7 @@ test('public hand catalog includes dedicated lying actions and clarified garment
     '單手往後撥瀏海',
     '雙手抓著整束頭髮與髮尾整理',
     '拉下上身服裝整理',
+    '雙手上拉上衣露出胸下緣',
     '雙手把褲子或裙子的褲頭往上拉',
     '雙手抱膝',
     '雙掌撐地',
@@ -149,6 +150,12 @@ test('public hand catalog includes dedicated lying actions and clarified garment
   assert.equal(garmentAdjustment.id, 'hand-adjust-off-shoulder-top');
   assert.match(garmentAdjustment.en, /tugging the upper-body garment downward.*adjusting motion/i);
   assert.doesNotMatch(`${garmentAdjustment.en} ${garmentAdjustment.desc}`, /neckline|shoulder seam|expose the shoulder|領口|肩線|露出肩膀/i);
+  const garmentLift = byZh('雙手上拉上衣露出胸下緣');
+  assert.equal(garmentLift.id, 'hands-lift-top-underbust');
+  assert.equal(garmentLift.meta?.randomEligible, false);
+  assert.equal(garmentLift.meta?.requiresWardrobeRole, 'upperGarment');
+  assert.match(garmentLift.en, /both hands gripping the front lower hem.*left and right sides.*upper ribcage.*lower third of the bust.*underboob.*upper bust remains covered/i);
+  assert.doesNotMatch(`${garmentLift.en} ${garmentLift.desc}`, /white|T-shirt|jeans|studio|鏡頭|牛仔|白色/i);
   assert.match(byZh('雙手把褲子或裙子的褲頭往上拉').en, /gripping the garment at both sides of the waist.*small upward adjustment.*settle it naturally into place/i);
   assert.doesNotMatch(byZh('雙手把褲子或裙子的褲頭往上拉').en, /pants|skirt|belt loops|lowering|removing/i);
   assert.match(byZh('雙手抱膝').en, /both arms wrapped around the bent knees.*holding the knees close to the torso/i);
@@ -158,6 +165,32 @@ test('public hand catalog includes dedicated lying actions and clarified garment
   assert.match(byZh('咬著眼鏡腳').en, /one glasses temple held lightly between the teeth.*removed from the face/i);
   assert.equal(publicHands.filter((option) => option.meta?.requiresWardrobeRole === 'eyewear').length, 3);
   assert.equal(control('poseHandId').options.filter((option) => option.meta?.uiHidden).length > 0, true);
+});
+
+test('manual upper-garment lift keeps its lock while crop projection omits invisible underbust action', () => {
+  const handId = optionId('poseHandId', '雙手上拉上衣露出胸下緣');
+  const locks = createFullySpecifiedLocks({
+    framingId: optionId('framingId', '中景鏡頭 (Medium Shot)'),
+    topId: optionId('topId', '棉質細肩背心'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: handId,
+  });
+  const [waist] = generatePrompts(1, locks, [], { random: createSeededRandom('underbust-lift-test') });
+  assert.equal(waist.selection.poseHandId, handId);
+  for (const text of [waist.grokPrompt, waist.zImagePrompt, waist.midjourneyPrompt]) {
+    assert.match(text, /both hands gripping the front lower hem.*upper ribcage.*underboob.*upper bust remains covered/i);
+  }
+  for (const framingZh of ['胸上特寫', '特寫鏡頭 (Close-Up)', '臉部特寫']) {
+    const [cropped] = generatePrompts(1, {
+      ...locks,
+      framingId: optionId('framingId', framingZh),
+    }, [], { random: createSeededRandom('underbust-lift-test') });
+    assert.equal(cropped.selection.poseHandId, handId);
+    for (const text of [cropped.grokPrompt, cropped.zImagePrompt, cropped.midjourneyPrompt]) {
+      assert.doesNotMatch(text, /both hands gripping the front lower hem|underboob/i, framingZh);
+    }
+  }
 });
 
 test('open-palm lens block promotes complete five-finger occlusion into every main composition', () => {
@@ -203,6 +236,7 @@ test('random hand integration excludes unavailable wardrobe and eyewear interact
   });
   const forbidden = new Set([
     'hand-adjust-off-shoulder-top',
+    'hands-lift-top-underbust',
     'hands-lift-waistband',
     'hands-in-pockets',
     'hands-in-outerwear-pockets',
@@ -239,6 +273,7 @@ test('standing random hand can adjust an explicitly selected full outfit', () =>
       return prompt.selection.poseHandId;
     });
     assert.ok(selectedHands.includes('hand-adjust-off-shoulder-top'), JSON.stringify(outfitLocks));
+    assert.equal(selectedHands.includes('hands-lift-top-underbust'), false, JSON.stringify(outfitLocks));
   }
 });
 

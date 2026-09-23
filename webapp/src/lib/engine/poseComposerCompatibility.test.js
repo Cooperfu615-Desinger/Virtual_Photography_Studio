@@ -233,6 +233,7 @@ test('squatting hand pool excludes every shared concrete hand action', () => {
     'one-hand-sweep-bangs-back',
     'both-hands-gather-hair',
     'hand-adjust-off-shoulder-top',
+    'hands-lift-top-underbust',
     'hands-lift-waistband',
     'hands-hug-knees',
     'hands-in-pockets',
@@ -288,6 +289,32 @@ test('wardrobe-dependent hand actions require a positively present role for rand
       ...baseContext,
       wardrobeSignals: { [role]: 'present' },
     }), true, `${id} should accept present ${role}`);
+  }
+});
+
+test('underbust garment lift remains manual and available only for upright pose bases', () => {
+  const hand = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-lift-top-underbust');
+  assert.ok(hand);
+  assert.equal(hand.meta?.randomEligible, false);
+  for (const base of ['standing', 'sitting', 'kneeling']) {
+    assert.equal(poseComposerOptionVisibleForBase(hand, base), true, base);
+  }
+  for (const base of ['squatting', 'lying']) {
+    assert.equal(poseComposerOptionVisibleForBase(hand, base), false, base);
+  }
+  for (const bucket of [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+  ]) {
+    assert.equal(hand.meta?.projectionByBucket?.[bucket]?.mode, 'omit', bucket);
+  }
+  for (const bucket of [
+    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
+    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
+    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
+  ]) {
+    assert.equal(hand.meta?.projectionByBucket?.[bucket]?.mode, 'visible', bucket);
   }
 });
 

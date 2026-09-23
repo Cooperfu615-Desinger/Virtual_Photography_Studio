@@ -629,6 +629,15 @@ const HAND_LOWER_VISIBLE_BUCKETS = Object.freeze([
   'fullBody',
 ]);
 
+const HAND_UNDERBUST_LIFT_PROJECTION = createPoseComposerProjectionMap({
+  visible: HAND_LOWER_VISIBLE_BUCKETS,
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
+  ],
+});
+
 const deprecatedPoseHand = (option) => ({
   ...option,
   meta: {
@@ -681,6 +690,7 @@ const POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS = new Set([
   'one-hand-sweep-bangs-back',
   'both-hands-gather-hair',
   'hand-adjust-off-shoulder-top',
+  'hands-lift-top-underbust',
   'hands-lift-waistband',
   'hands-hug-knees',
   'hands-palms-planted-ground',
@@ -705,6 +715,7 @@ const LYING_SHARED_HAND_IDS = new Set([
   'one-hand-sweep-bangs-back',
   'both-hands-gather-hair',
   'hand-adjust-off-shoulder-top',
+  'hands-lift-top-underbust',
   'hands-lift-waistband',
   'hands-hug-knees',
   'hands-in-pockets',
@@ -732,6 +743,7 @@ const SQUATTING_SHARED_HAND_IDS = new Set([
   'one-hand-sweep-bangs-back',
   'both-hands-gather-hair',
   'hand-adjust-off-shoulder-top',
+  'hands-lift-top-underbust',
   'hands-lift-waistband',
   'hands-hug-knees',
   'hands-in-pockets',
@@ -892,6 +904,19 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
       legacyPromptAliases: [
         'one hand gently pulling the neckline or shoulder seam down from one shoulder to expose the shoulder while the garment stays attached and naturally draped',
       ],
+    },
+  },
+  {
+    id: 'hands-lift-top-underbust',
+    zh: '雙手上拉上衣露出胸下緣',
+    en: 'both hands gripping the front lower hem of her upper garment at the left and right sides and raising it from the waist to the upper ribcage, holding the gathered hem across the lower third of the bust to visibly reveal the underboob, while the upper bust remains covered and the garment stays worn on her shoulders',
+    desc: '雙手抓住上身服裝前側下擺的左右兩側，從腰部向上拉至肋骨上緣，將聚攏的衣料停在胸部下三分之一處，露出胸部下緣；胸部上方仍由服裝遮住，服裝仍穿在肩部。',
+    meta: {
+      tags: ['wardrobe_action'],
+      visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS,
+      projectionByBucket: HAND_UNDERBUST_LIFT_PROJECTION,
+      requiresWardrobeRole: 'upperGarment',
+      randomEligible: false,
     },
   },
   {

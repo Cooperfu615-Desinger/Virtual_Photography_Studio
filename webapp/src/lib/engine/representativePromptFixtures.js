@@ -113,6 +113,28 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     }])),
   },
   {
+    id: 'upper-garment-lift-underbust',
+    title: 'Manual upper-garment lift is visible in waist framing but omitted from chest derivatives',
+    mode: 'single',
+    seed: 'prompt-contract-upper-garment-lift-underbust-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' },
+      topId: { byZh: '棉質細肩背心' },
+      poseBaseId: { byZh: '站姿' },
+      poseArrangementId: { byZh: '自然站姿' },
+      poseHandId: { byZh: '雙手上拉上衣露出胸下緣' },
+    },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt'].map((field) => [field, {
+        includes: ['both hands gripping the front lower hem', 'upper ribcage', 'underboob', 'upper bust remains covered'],
+      }])),
+      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map((field) => [field, {
+        excludes: ['both hands gripping the front lower hem', 'underboob'],
+      }])),
+    },
+  },
+  {
     id: 'standing-pelvis-back-curve',
     title: 'Pelvis-back curve pose stays independent from camera orbit, hands, and head',
     mode: 'single',
