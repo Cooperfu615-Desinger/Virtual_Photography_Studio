@@ -2853,7 +2853,7 @@ const CHARACTER_SPECIAL_ACTION_TO_POSE_COMPOSER_MIGRATIONS = [
   { label: '抱膝托腮坐姿', baseZh: '坐姿', arrangementZh: '雙腿屈起', handZh: '雙手扶臉頰' },
   { label: '仰躺雙手微抬', baseZh: '躺姿', arrangementZh: '仰躺', handZh: '雙手放在頭後' },
   { label: '跪坐回眸撩髮', baseZh: '跪姿', arrangementZh: '跪坐', handZh: '單手撩髮', headZh: '越肩回望' },
-  { label: '半脫上衣整理肩線', baseZh: '站姿', handZh: '拉下肩線整理上衣' },
+  { label: '半脫上衣整理肩線', baseZh: '站姿', handZh: '拉下上身服裝整理' },
   { label: '隨性癱坐在雕花單人絨布沙發上', baseZh: '坐姿', arrangementZh: '隨性癱坐', anchorZh: '坐在單人雕花絨布椅' },
   { label: '趴臥滑手機', baseZh: '躺姿', arrangementZh: '趴臥手肘撐起', propZh: '滑手機' },
   { label: '靠牆站立', baseZh: '站姿', anchorZh: '靠牆' },
@@ -6180,6 +6180,8 @@ function resolvePoseComposerWardrobeSignals(context, catalog) {
   const pants = lockState('pantsId', '褲裝 (Pants)');
   const skirt = lockState('skirtId', '裙裝 (Skirts)');
   const outerwear = lockState('outerwearId', WARDROBE_OUTERWEAR_CATEGORY);
+  const outfitPreset = lockState('outfitPresetId', WARDROBE_OUTFIT_PRESET_CATEGORY);
+  const specialOutfit = lockState('specialOutfitId', '特殊穿搭 (Special Outfits)');
   const eyewear = lockState('eyewearId', WARDROBE_EYEWEAR_CATEGORY);
   const bottom = combine([pants, skirt]);
   const bottomWithoutDress = dress === 'present' && bottom === 'unknown' ? 'absent' : bottom;
@@ -6189,7 +6191,7 @@ function resolvePoseComposerWardrobeSignals(context, catalog) {
     bottom: bottomWithoutDress,
     outerwear,
     eyewear,
-    upperGarment: combine([top, dress, outerwear]),
+    upperGarment: combine([top, dress, outerwear, outfitPreset, specialOutfit]),
   };
 }
 

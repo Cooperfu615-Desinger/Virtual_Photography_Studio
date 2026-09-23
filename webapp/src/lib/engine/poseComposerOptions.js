@@ -880,7 +880,20 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
   },
   { id: 'one-hand-sweep-bangs-back', zh: '單手往後撥瀏海', en: 'one hand sweeping the bangs backward across the forehead with the fingers combing the fringe into place in a confident, cool grooming gesture', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
   { id: 'both-hands-gather-hair', zh: '雙手抓著整束頭髮與髮尾整理', en: 'both hands gathering one thick bundle of hair behind and above the head, one hand holding near the base while the other grips and smooths the loose lengths toward the ends in a natural ponytail-prep motion', meta: { visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS } },
-  { id: 'hand-adjust-off-shoulder-top', zh: '拉下肩線整理上衣', en: 'one hand gently pulling the neckline or shoulder seam down from one shoulder to expose the shoulder while the garment stays attached and naturally draped', desc: '單手把領口或肩線往一側肩膀下拉，露出肩膀，但衣服仍保持連著身體並自然垂墜。', meta: { tags: ['wardrobe_action'], visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS, requiresWardrobeRole: 'upperGarment' } },
+  {
+    id: 'hand-adjust-off-shoulder-top',
+    zh: '拉下上身服裝整理',
+    en: 'one hand gently tugging the upper-body garment downward in a casual adjusting motion, letting the fabric settle naturally',
+    desc: '單手輕輕將上身服裝向下拉，做出隨性的整理動作，讓衣料自然回到合適的位置。',
+    meta: {
+      tags: ['wardrobe_action'],
+      visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS,
+      requiresWardrobeRole: 'upperGarment',
+      legacyPromptAliases: [
+        'one hand gently pulling the neckline or shoulder seam down from one shoulder to expose the shoulder while the garment stays attached and naturally draped',
+      ],
+    },
+  },
   {
     id: 'hands-lift-waistband',
     zh: '雙手把褲子或裙子的褲頭往上拉',

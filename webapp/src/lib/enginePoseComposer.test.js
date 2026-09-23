@@ -123,7 +123,7 @@ test('public hand catalog includes dedicated lying actions and clarified garment
     '單手輕咬食指',
     '單手往後撥瀏海',
     '雙手抓著整束頭髮與髮尾整理',
-    '拉下肩線整理上衣',
+    '拉下上身服裝整理',
     '雙手把褲子或裙子的褲頭往上拉',
     '雙手抱膝',
     '雙掌撐地',
@@ -145,7 +145,10 @@ test('public hand catalog includes dedicated lying actions and clarified garment
   }
   assert.match(byZh('雙手抓著整束頭髮與髮尾整理').en, /one thick bundle of hair.*holding near the base.*grips and smooths.*ends/i);
   assert.match(byZh('單手往後撥瀏海').en, /sweeping the bangs backward.*fingers combing the fringe/i);
-  assert.match(byZh('拉下肩線整理上衣').en, /pulling the neckline or shoulder seam down.*garment stays attached/i);
+  const garmentAdjustment = byZh('拉下上身服裝整理');
+  assert.equal(garmentAdjustment.id, 'hand-adjust-off-shoulder-top');
+  assert.match(garmentAdjustment.en, /tugging the upper-body garment downward.*adjusting motion/i);
+  assert.doesNotMatch(`${garmentAdjustment.en} ${garmentAdjustment.desc}`, /neckline|shoulder seam|expose the shoulder|領口|肩線|露出肩膀/i);
   assert.match(byZh('雙手把褲子或裙子的褲頭往上拉').en, /gripping the garment at both sides of the waist.*small upward adjustment.*settle it naturally into place/i);
   assert.doesNotMatch(byZh('雙手把褲子或裙子的褲頭往上拉').en, /pants|skirt|belt loops|lowering|removing/i);
   assert.match(byZh('雙手抱膝').en, /both arms wrapped around the bent knees.*holding the knees close to the torso/i);
@@ -199,6 +202,7 @@ test('random hand integration excludes unavailable wardrobe and eyewear interact
     eyewearId: none('eyewearId'),
   });
   const forbidden = new Set([
+    'hand-adjust-off-shoulder-top',
     'hands-lift-waistband',
     'hands-in-pockets',
     'hands-in-outerwear-pockets',
@@ -210,6 +214,31 @@ test('random hand integration excludes unavailable wardrobe and eyewear interact
   for (const roll of [0, 0.17, 0.34, 0.51, 0.68, 0.85, 0.99]) {
     const [prompt] = generatePrompts(1, baseLocks, [], { random: () => roll });
     assert.equal(forbidden.has(prompt.selection.poseHandId), false, `unexpected hand ${prompt.selection.poseHandId} at roll ${roll}`);
+  }
+});
+
+test('standing random hand can adjust an explicitly selected full outfit', () => {
+  const none = (key) => optionId(key, '全無');
+  const baseLocks = createFullySpecifiedLocks({
+    framingId: optionId('framingId', '全身鏡頭 (Full Body Shot)'),
+    poseBaseId: optionId('poseBaseId', '站姿'),
+    poseArrangementId: optionId('poseArrangementId', '自然站姿'),
+    poseHandId: optionId('poseHandId', '隨機'),
+    dressId: none('dressId'),
+    topId: none('topId'),
+    outerwearId: none('outerwearId'),
+  });
+  const cases = [
+    { outfitPresetId: optionId('outfitPresetId', '套裝：春日巴黎亞麻長褲') },
+    { specialOutfitId: optionId('specialOutfitId', '白襯衫黑色長裙細領帶造型') },
+  ];
+
+  for (const outfitLocks of cases) {
+    const selectedHands = Array.from({ length: 101 }, (_, index) => {
+      const [prompt] = generatePrompts(1, { ...baseLocks, ...outfitLocks }, [], { random: () => index / 100 });
+      return prompt.selection.poseHandId;
+    });
+    assert.ok(selectedHands.includes('hand-adjust-off-shoulder-top'), JSON.stringify(outfitLocks));
   }
 });
 

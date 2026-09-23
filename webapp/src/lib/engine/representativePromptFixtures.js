@@ -92,6 +92,27 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'upper-garment-adjustment',
+    title: 'Upper-garment adjustment stays generic across main and chest outputs',
+    mode: 'single',
+    seed: 'prompt-contract-upper-garment-adjustment-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' },
+      topId: { byZh: '棉質細肩背心' },
+      poseBaseId: { byZh: '站姿' },
+      poseArrangementId: { byZh: '自然站姿' },
+      poseHandId: { byZh: '拉下上身服裝整理' },
+    },
+    expectedOutputs: Object.fromEntries([
+      'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
+      'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt',
+    ].map((field) => [field, {
+      includes: ['one hand gently tugging the upper-body garment downward in a casual adjusting motion'],
+      excludes: ['pulling the neckline or shoulder seam down', 'expose the shoulder'],
+    }])),
+  },
+  {
     id: 'standing-pelvis-back-curve',
     title: 'Pelvis-back curve pose stays independent from camera orbit, hands, and head',
     mode: 'single',

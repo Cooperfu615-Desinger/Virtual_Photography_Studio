@@ -99,7 +99,7 @@ test('prop actions split from pose composer hand controls while wardrobe actions
 
   [
     '整理下身',
-    '拉下肩線整理上衣',
+    '拉下上身服裝整理',
     '雙手抓住褲腰',
   ].forEach((label) => {
     assert.ok(optionByLabel('poseHandId', label));
@@ -140,6 +140,12 @@ test('old special actions normalize into pose composer controls', () => {
   assert.equal(normalizedWaistband.poseBaseId, optionByLabel('poseBaseId', '站姿').id);
   assert.equal(normalizedWaistband.poseArrangementId, optionByLabel('poseArrangementId', '上身大幅度前傾').id);
   assert.equal(normalizedWaistband.poseHandId, optionByLabel('poseHandId', '雙手抓住褲腰').id);
+
+  const normalizedGarmentAdjustment = normalizeLocks({
+    ...createEmptyLocks(),
+    specialActionId: optionByLabel('specialActionId', '半脫上衣整理肩線').id,
+  });
+  assert.equal(normalizedGarmentAdjustment.poseHandId, 'hand-adjust-off-shoulder-top');
 });
 
 test('pose composer prop actions enter prompt output through posePropId', () => {

@@ -310,6 +310,10 @@ test('standard prompt parser restores revised hand actions from current and lega
       legacy: 'both hands pulling the pants or skirt waistband slightly upward into place, fingers gripping the waistband or belt loops without lowering or removing the garment',
     },
     {
+      id: 'hand-adjust-off-shoulder-top',
+      legacy: 'one hand gently pulling the neckline or shoulder seam down from one shoulder to expose the shoulder while the garment stays attached and naturally draped',
+    },
+    {
       id: 'selfie-companion-camera-interaction',
       legacy: 'casual, naturally relaxed hand placement in a close-companion social snapshot, with unforced candid body language',
     },
