@@ -711,6 +711,8 @@ const POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS = new Set([
   'one-hand-pull-down-glasses',
   'glasses-temple-between-teeth',
   'both-hands-rock-horns',
+  'both-hands-heart-near-face',
+  'one-hand-finger-heart',
 ]);
 
 const LYING_SHARED_HAND_IDS = new Set([
@@ -821,6 +823,42 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
       visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS,
       requiresCameraFacingGesture: true,
       randomEligible: false,
+    },
+  },
+  {
+    id: 'both-hands-heart-near-face',
+    zh: '雙手比愛心',
+    en: 'both hands forming one clear heart shape beside the lower face, held near either the left or right side of the chin, with the thumb tips meeting below and the curved index fingers meeting above, wrists relaxed and elbows naturally bent in a casual photo pose',
+    desc: '雙手在下巴左側或右側、靠近臉部下緣合成一個愛心；拇指尖在下方相接，彎曲食指在上方相接，手腕與手肘自然放鬆。',
+    meta: {
+      tags: ['camera_facing_gesture'],
+      randomEligible: false,
+      visibleBuckets: [...HAND_UPPER_VISIBLE_BUCKETS, COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS],
+      projectionByBucket: {
+        ...createPoseComposerProjectionMap({ visible: HAND_UPPER_VISIBLE_BUCKETS, omit: [COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL] }),
+        [COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS]: {
+          mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+          en: 'both hands forming one clear heart shape beside the lower face, held near either the left or right side of the chin, with the thumb tips meeting below and the curved index fingers meeting above, wrists relaxed',
+        },
+      },
+    },
+  },
+  {
+    id: 'one-hand-finger-heart',
+    zh: '手指愛心',
+    en: 'one hand making a Korean finger-heart gesture, with the thumb and index finger gently crossed near their tips and the remaining fingers loosely curled, held naturally or extended close to the lens so the finger heart appears enlarged in the foreground, while the other hand rests naturally',
+    desc: '單手拇指與食指在指尖附近交叉比出愛心，其餘手指自然收攏；可自然持在身前，也可伸向鏡頭形成放大的前景愛心，不指定左右手或畫面佔比。',
+    meta: {
+      tags: ['camera_facing_gesture'],
+      randomEligible: false,
+      visibleBuckets: [...HAND_UPPER_VISIBLE_BUCKETS, COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS],
+      projectionByBucket: {
+        ...createPoseComposerProjectionMap({ visible: HAND_UPPER_VISIBLE_BUCKETS, omit: [COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL] }),
+        [COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS]: {
+          mode: POSE_COMPOSER_PROJECTION_MODES.PROJECTED,
+          en: 'one hand making a Korean finger-heart gesture, with the thumb and index finger gently crossed near their tips and the remaining fingers loosely curled, held naturally or extended close to the lens so the finger heart appears enlarged in the foreground',
+        },
+      },
     },
   },
   {

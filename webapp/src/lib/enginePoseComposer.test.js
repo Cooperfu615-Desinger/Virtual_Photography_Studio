@@ -109,6 +109,8 @@ test('public hand catalog includes dedicated lying actions and clarified garment
     '雙手背在身後',
     '雙手放在頭後',
     '雙手比 ROCK 手勢',
+    '雙手比愛心',
+    '手指愛心',
     '單手向鏡頭張開手掌',
     '自然自拍',
     '鏡子自拍',

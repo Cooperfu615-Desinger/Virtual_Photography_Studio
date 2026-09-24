@@ -5920,15 +5920,23 @@ function buildProjectedCanonicalPoseText(context, poseComposer, { omitAnchor = f
     && anchor?.meta?.supineSurfaceLed === true;
 
   if (projection.pose?.mode === 'omit') {
+    // Only explicitly authored head/shoulder hand fragments may survive this
+    // crop. Never restore the full posture, elbows or other off-frame details.
+    const handProjection = bucket === COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS
+      ? getPoseComposerProjection(handPose, bucket)
+      : null;
+    const visibleHand = handProjection?.mode === POSE_COMPOSER_PROJECTION_MODES.PROJECTED && handProjection.en
+      ? cloneProjectedPoseOption(handPose, handProjection.en)
+      : null;
     return isSupineSurfaceLed
       ? buildSupinePoseComposerSentence({
         arrangement: null,
-        handPose: null,
+        handPose: visibleHand,
         anchor,
         head: null,
         orientation,
       })
-      : '';
+      : visibleHand ? buildPoseComposerSentence({ handPose: visibleHand }) : '';
   }
   if (projection.pose?.mode === 'fullCanonical') {
     if (!omitAnchor && !omitHand) return poseComposer.en || '';

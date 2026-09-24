@@ -76,11 +76,13 @@ Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midj
 | `全身鏡頭 (Full Body Shot)` | `fullBody` | 完整服裝、鞋襪、包與配件 | 完整 canonical pose | 完整原場景描述 |
 | `全無` 或沒有景別 | `unconstrained` | 不做構圖裁切 | 不做構圖裁切 | 不做構圖裁切 |
 
+2026-09-25 愛心手勢窄例外：`雙手比愛心`、`手指愛心` 在 `headShoulders` 可保留 option metadata 明確撰寫的近景手勢片段，不恢復姿勢基底、身體或畫面外手臂幾何。三組主 Prompt 共用此片段；`faceDetail` 繼續省略手勢，原始選擇及其他手勢維持既有行為。仰躺表面來源與全身角色參考照規則不變。具體定義見 [人物／姿勢撰寫規範](character-section-a-authoring-guide.md)。
+
 構圖投影的共同規則：
 
 - 景別只影響公開 Prompt 的有效內容，不得改寫 `locks`、Saved Cards、restore payload 或瀏覽器儲存的原始選擇。切回較寬景別時，先前服裝、姿勢、接觸／支撐、場景、角色卡與身形都必須仍在。
 - `Gpt` 的完整保留定義為「完整保留投影後的有效內容」，不是在近景中輸出畫面外的腿部、鞋子、低處支撐或空間幾何。
-- Pose Composer 先依景別產生 projected canonical pose。只要姿勢仍有效，三組主 Prompt 必須逐字共用；`faceDetail` 與 `headShoulders` 的 projected canonical pose 為空，因此三組都省略姿勢段落。
+- Pose Composer 先依景別產生 projected canonical pose。只要姿勢仍有效，三組主 Prompt 必須逐字共用；除上述愛心手勢及既有仰躺表面例外外，`faceDetail` 與 `headShoulders` 的 projected canonical pose 為空，因此三組都省略姿勢段落。
 - 接觸／支撐物與接觸動作視為同一組語意。若支撐點不在畫面內，物件、接觸位置、承重描述與相關場景幾何必須一起移除，不可留下迫使模型擴大構圖的殘句。
 - 連身服、長裙、長外套與完整套裝需分離「服裝身分」和「區域細節」。近景可以保留可見的領口、上衣或裙裝身分，但不可保留 `short hem`、`ankle-length`、鞋襪等畫面外細節。
 - 場景壓縮只能刪減或合成原始場景描述，必須保留地點身分與代表性來源 anchor；不可新增 `softly blurred`、`bokeh`、`shallow depth of field`、`faint shapes` 等未選擇的景深或模糊描述。

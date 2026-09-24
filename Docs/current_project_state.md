@@ -2,7 +2,14 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-22
+Last updated: 2026-09-25
+
+## Manual heart hand gestures (local, 2026-09-25)
+
+- PAGE1 hand options add `雙手比愛心` (`both-hands-heart-near-face`) and `手指愛心` (`one-hand-finger-heart`). The two-hand heart sits beside either side of the lower face; the finger heart may extend toward the lens for enlarged foreground perspective. Both are manual-only and available across standing, sitting, kneeling, squatting and all three lying orientations, without binding clothing, expression, head direction or camera orbit. Existing IDs and random pools are unchanged.
+- These options explicitly author a hand-only `headShoulders` projection: retain the gesture but omit elbows and the other resting hand. `faceDetail` still omits it; chest outputs recover the chest-visible source, and the full-body character reference remains pose-free. See the character authoring and single-prompt compression guides for the narrow exception.
+- Validation: frontend tests 1006/1006 and Prompt Quality 304/304 pass; lint, build and diff-check pass. The before/after 200-prompt audit with seed `prompt-quality-baseline` is identical after removing runtime prompt IDs: zero blockers and 23 diagnostic findings. Focused coverage includes seven posture contexts, crop projection, Saved Cards/Markdown round trips and prop takeover.
+- Browser checks at 1440x1000 and 390x900 cover the five required workspaces, live standing/squatting/lying selection, full-face hand projection and mobile hand controls. No document overflow or console warnings/errors were observed. The original six preview texts were restored exactly after QA. Saved Cards/import round trips were validated in tests; no new browser favorite or external image was generated. The existing build chunk-size warning and narrow mobile output/scene-toolbar wrapping remain outside scope. Git delivery to `main` → `origin/main` is authorized; consult Git history and the remote for the delivery checkpoint. User image files are untouched.
 
 ## Top surface designs retained in MJ and chest outputs (2026-09-22)
 

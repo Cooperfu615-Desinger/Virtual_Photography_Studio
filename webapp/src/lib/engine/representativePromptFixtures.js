@@ -15,6 +15,24 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  ...[
+    ['both-hands-heart-near-face', ['one clear heart shape beside the lower face', 'either the left or right side of the chin']],
+    ['one-hand-finger-heart', ['Korean finger-heart gesture', 'thumb and index finger gently crossed', 'extended close to the lens', 'enlarged in the foreground']],
+  ].map(([hand, includes]) => ({
+    id: `heart-gesture-${hand}`,
+    title: 'Manual heart gesture keeps its visible geometry in close and chest outputs',
+    mode: 'single',
+    seed: 'prompt-contract-heart-gestures-v1',
+    locks: {
+      subjectCount: '1', poseBaseId: 'squatting', poseHandId: hand,
+      framingId: { byZh: '特寫鏡頭 (Close-Up)' },
+    },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt']
+        .map(field => [field, { includes }])),
+      fullBodyCharacterPrompt: { excludes: ['heart shape', 'finger-heart'] },
+    },
+  })),
   {
     id: 'selected-top-chest-graphic',
     title: 'Selected top graphic survives every single-subject output',
