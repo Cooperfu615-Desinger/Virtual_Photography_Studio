@@ -92,6 +92,23 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     },
   },
   {
+    id: 'multicolor-studio-background',
+    title: 'Multi-color studio keeps its block count and variable geometry across main outputs',
+    mode: 'single',
+    seed: 'prompt-contract-multicolor-studio-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+      locationId: { byZh: '室內：多色塊撞色背景' },
+    },
+    expectedOutputs: Object.fromEntries([
+      'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
+    ].map((field) => [field, {
+      includes: ['two to four large adjacent vivid color fields', 'freely varied hues', 'unequal widths and heights'],
+      excludes: ['single vivid pop-color field'],
+    }])),
+  },
+  {
     id: 'upper-garment-adjustment',
     title: 'Upper-garment adjustment stays generic across main and chest outputs',
     mode: 'single',

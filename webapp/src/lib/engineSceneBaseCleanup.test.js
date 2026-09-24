@@ -54,7 +54,7 @@ function gptSceneSection(prompt) {
 test('scene base keeps indoor outdoor and other location options intact', () => {
   const labels = locationOptions().map((option) => option.zh);
 
-  assert.equal(labels.length, 154);
+  assert.equal(labels.length, 155);
   assert.ok(labels.includes('室內：純潔白幕'));
   assert.ok(labels.includes('室內：夜間家庭派對'));
   assert.ok(labels.includes('室內：古書二手書店'));
@@ -69,6 +69,19 @@ test('scene base keeps indoor outdoor and other location options intact', () => 
   assert.ok(labels.includes('戶外：高級飯店陽台城市河景'));
   assert.ok(labels.includes('戶外：森林營地帳篷營火'));
   assert.ok(labels.includes('其他：白色床鋪'));
+});
+
+test('multi-color studio is a separate indoor option with variable color-block geometry', () => {
+  const multicolor = optionByLabel('室內：多色塊撞色背景');
+  const singleColor = optionByLabel('室內：鮮豔撞色背景');
+
+  assert.notEqual(multicolor.id, singleColor.id);
+  assert.ok(multicolor.meta.tags.includes('indoor'));
+  assert.match(multicolor.en, /two to four large adjacent vivid color fields in freely varied hues/);
+  assert.match(multicolor.en, /unequal widths and heights with crisp boundaries/);
+  assert.match(multicolor.en, /horizonless seamless/);
+  assert.match(multicolor.en, /contact shadow/);
+  assert.match(singleColor.en, /single vivid pop-color field/);
 });
 
 test('solid-color studio bases stay concise while blocking visible studio equipment', () => {
