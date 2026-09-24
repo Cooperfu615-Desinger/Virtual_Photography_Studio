@@ -638,6 +638,14 @@ const HAND_UNDERBUST_LIFT_PROJECTION = createPoseComposerProjectionMap({
   ],
 });
 
+const HAND_BREAST_COVER_PROJECTION = createPoseComposerProjectionMap({
+  visible: HAND_UPPER_VISIBLE_BUCKETS,
+  omit: [
+    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
+    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
+  ],
+});
+
 const deprecatedPoseHand = (option) => ({
   ...option,
   meta: {
@@ -691,6 +699,7 @@ const POSE_COMPOSER_HAND_OPTIONS_ACTIVE_IDS = new Set([
   'both-hands-gather-hair',
   'hand-adjust-off-shoulder-top',
   'hands-lift-top-underbust',
+  'hands-cover-breasts',
   'hands-pull-open-off-shoulder-outerwear',
   'hands-lift-waistband',
   'hands-hug-knees',
@@ -717,6 +726,7 @@ const LYING_SHARED_HAND_IDS = new Set([
   'both-hands-gather-hair',
   'hand-adjust-off-shoulder-top',
   'hands-lift-top-underbust',
+  'hands-cover-breasts',
   'hands-lift-waistband',
   'hands-hug-knees',
   'hands-in-pockets',
@@ -745,6 +755,7 @@ const SQUATTING_SHARED_HAND_IDS = new Set([
   'both-hands-gather-hair',
   'hand-adjust-off-shoulder-top',
   'hands-lift-top-underbust',
+  'hands-cover-breasts',
   'hands-lift-waistband',
   'hands-hug-knees',
   'hands-in-pockets',
@@ -916,6 +927,19 @@ export const POSE_COMPOSER_HAND_OPTIONS = [
       tags: ['wardrobe_action'],
       visibleBuckets: HAND_LOWER_VISIBLE_BUCKETS,
       projectionByBucket: HAND_UNDERBUST_LIFT_PROJECTION,
+      requiresWardrobeRole: 'upperGarment',
+      randomEligible: false,
+    },
+  },
+  {
+    id: 'hands-cover-breasts',
+    zh: '雙手遮住胸部',
+    en: 'both hands pulling the front of her upper garment up above her breasts, leaving the fabric gathered across her upper chest while the garment remains on her shoulders, each hand positioned over one exposed breast so its palm covers the nipple while the rest of the breast remains visible',
+    desc: '雙手將上身服裝前側向上拉至胸部上方，衣料聚攏在胸部上緣，露出胸部；雙手停在胸前，各以一隻手的掌心遮住一側乳頭，其餘胸部仍可見，服裝仍穿在肩部。',
+    meta: {
+      tags: ['wardrobe_action'],
+      visibleBuckets: HAND_UPPER_VISIBLE_BUCKETS,
+      projectionByBucket: HAND_BREAST_COVER_PROJECTION,
       requiresWardrobeRole: 'upperGarment',
       randomEligible: false,
     },

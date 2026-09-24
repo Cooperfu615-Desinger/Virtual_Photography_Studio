@@ -5594,6 +5594,7 @@ const CHEST_VISIBLE_HAND_IDS = new Set([
   'one-hand-sweep-bangs-back',
   'both-hands-gather-hair',
   'hand-adjust-off-shoulder-top',
+  'hands-cover-breasts',
   'hands-pull-open-off-shoulder-outerwear',
   'one-hand-hold-glasses',
   'one-hand-pull-down-glasses',

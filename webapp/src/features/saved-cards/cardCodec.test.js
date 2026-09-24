@@ -330,6 +330,17 @@ test('standard prompt parser restores revised hand actions from current and lega
   }
 });
 
+test('standard prompt parser restores the two garment-lift actions to separate IDs', () => {
+  const controls = getLockControls();
+  const handOptions = controls.find((control) => control.key === 'poseHandId')?.options || [];
+  for (const id of ['hands-lift-top-underbust', 'hands-cover-breasts']) {
+    const hand = handOptions.find((option) => option.id === id);
+    assert.ok(hand, id);
+    const parsed = parseLocksFromStandardPrompt(`portrait, ${hand.en}`, controls);
+    assert.equal(parsed.locks.poseHandId, id);
+  }
+});
+
 test('standard prompt parser restores only the strict Z-Image exact visible text wrapper', () => {
   const controls = getLockControls();
   const exactSentence = 'A wall poster within the scene clearly displays the exact English text "MIDNIGHT CAFE".';

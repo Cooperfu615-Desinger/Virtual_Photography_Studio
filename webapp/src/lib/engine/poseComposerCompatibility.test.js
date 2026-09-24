@@ -234,6 +234,7 @@ test('squatting hand pool excludes every shared concrete hand action', () => {
     'both-hands-gather-hair',
     'hand-adjust-off-shoulder-top',
     'hands-lift-top-underbust',
+    'hands-cover-breasts',
     'hands-lift-waistband',
     'hands-hug-knees',
     'hands-in-pockets',
@@ -292,30 +293,29 @@ test('wardrobe-dependent hand actions require a positively present role for rand
   }
 });
 
-test('underbust garment lift remains manual and available only for upright pose bases', () => {
-  const hand = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-lift-top-underbust');
-  assert.ok(hand);
-  assert.equal(hand.meta?.randomEligible, false);
-  for (const base of ['standing', 'sitting', 'kneeling']) {
-    assert.equal(poseComposerOptionVisibleForBase(hand, base), true, base);
+test('both garment lifts remain manual upright actions with separate crop visibility', () => {
+  const underbust = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-lift-top-underbust');
+  const covering = POSE_COMPOSER_HAND_OPTIONS.find((item) => item.id === 'hands-cover-breasts');
+  assert.ok(underbust);
+  assert.ok(covering);
+  for (const hand of [underbust, covering]) {
+    assert.equal(hand.meta?.randomEligible, false);
+    assert.equal(hand.meta?.requiresWardrobeRole, 'upperGarment');
+    for (const base of ['standing', 'sitting', 'kneeling']) {
+      assert.equal(poseComposerOptionVisibleForBase(hand, base), true, base);
+    }
+    for (const base of ['squatting', 'lying']) {
+      assert.equal(poseComposerOptionVisibleForBase(hand, base), false, base);
+    }
+    for (const bucket of [COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL, COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS]) {
+      assert.equal(hand.meta?.projectionByBucket?.[bucket]?.mode, 'omit', bucket);
+    }
+    for (const bucket of [COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST, COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE, COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY]) {
+      assert.equal(hand.meta?.projectionByBucket?.[bucket]?.mode, 'visible', bucket);
+    }
   }
-  for (const base of ['squatting', 'lying']) {
-    assert.equal(poseComposerOptionVisibleForBase(hand, base), false, base);
-  }
-  for (const bucket of [
-    COMPOSITION_VISIBILITY_BUCKETS.FACE_DETAIL,
-    COMPOSITION_VISIBILITY_BUCKETS.HEAD_SHOULDERS,
-    COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP,
-  ]) {
-    assert.equal(hand.meta?.projectionByBucket?.[bucket]?.mode, 'omit', bucket);
-  }
-  for (const bucket of [
-    COMPOSITION_VISIBILITY_BUCKETS.MEDIUM_WAIST,
-    COMPOSITION_VISIBILITY_BUCKETS.COWBOY_KNEE,
-    COMPOSITION_VISIBILITY_BUCKETS.FULL_BODY,
-  ]) {
-    assert.equal(hand.meta?.projectionByBucket?.[bucket]?.mode, 'visible', bucket);
-  }
+  assert.equal(underbust.meta?.projectionByBucket?.[COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]?.mode, 'omit');
+  assert.equal(covering.meta?.projectionByBucket?.[COMPOSITION_VISIBILITY_BUCKETS.CHEST_UP]?.mode, 'visible');
 });
 
 test('lying matrix scopes dedicated hands and heads to their selected orientation', () => {
