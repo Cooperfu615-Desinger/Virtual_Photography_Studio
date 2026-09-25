@@ -515,6 +515,10 @@
 | **頸部 (Neck Accessories)** | 鑰匙吊墜項鍊 | `small key pendant necklace, fine chain with a simple metal key charm, understated vintage accessory` | 以小型金屬鑰匙吊墜為主，維持復古感但不讓吊墜過度放大。 |
 | **頸部 (Neck Accessories)** | 皮革 O 環頸圈 | `thin leather O-ring choker, narrow leather strap with a small metal O-ring, subtle edgy neck accent` | 以細窄皮革頸圈與小型金屬 O 環為主，和既有扣環頸鏈區隔。 |
 | **頸部 (Neck Accessories)** | 金屬狗牌項鍊 | `metal dog tag necklace, rectangular identification tag pendant on a fine chain, understated utilitarian accessory` | 以矩形金屬狗牌與細鏈為主，加入實用、軍用與工裝風格的頸部配件。 |
+| **頸部 (Neck Accessories)** | 彩色切面珠短項鍊 | `short necklace of small faceted multicolored glass beads, subtle colorful neck accent` | 以細小的彩色切面玻璃珠串成短項鍊，與貼頸的單色串珠頸鏈區隔。 |
+| **頸部 (Neck Accessories)** | 單顆圓形晶石吊墜項鍊 | `fine chain necklace with a single round clear crystal pendant, understated sparkle` | 細鏈中央垂掛一顆圓形透明晶石，與水滴形寶石吊墜區隔。 |
+| **頸部 (Neck Accessories)** | 四葉草吊墜項鍊 | `fine chain necklace with a small four-leaf clover pendant, subtle everyday accent` | 以細鏈搭配小型四葉草輪廓吊墜，適合日常穿搭。 |
+| **頸部 (Neck Accessories)** | 銀色鯨尾吊墜項鍊 | `fine silver chain necklace with a small silver whale-tail pendant, understated ocean-inspired detail` | 細銀鏈搭配小型銀色鯨尾輪廓吊墜，保持清楚造型與低調存在感。 |
 | **腰部配件 (Waist Accessories)** | 全無 | `no waist accessories, clean waist styling` | 不加腰部配件，讓服裝腰線維持簡潔。 |
 | **腰部配件 (Waist Accessories)** | 細版皮革腰帶 | `decorative slim leather waist belt worn loosely around hips with a simple off-center buckle` | 以細版皮革腰帶與簡潔扣具為主，鬆掛於髖部作為日常穿搭裝飾。 |
 | **腰部配件 (Waist Accessories)** | 寬版皮革腰帶 | `decorative wide leather waist belt worn loosely around hips with a structured off-center buckle` | 以較寬的皮革腰帶與結構化扣具為主，鬆掛於髖部作為穿搭裝飾，不刻意收緊腰線。 |

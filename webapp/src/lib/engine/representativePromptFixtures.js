@@ -16,6 +16,26 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
+    ['彩色切面珠短項鍊', 'faceted multicolored glass beads'],
+    ['單顆圓形晶石吊墜項鍊', 'single round clear crystal pendant'],
+    ['四葉草吊墜項鍊', 'four-leaf clover pendant'],
+    ['銀色鯨尾吊墜項鍊', 'silver whale-tail pendant'],
+  ].map(([necklace, visualAnchor]) => ({
+    id: `necklace-${necklace}`,
+    title: 'Selected necklace keeps its distinct visual shape across prompt outputs',
+    mode: 'single',
+    seed: 'prompt-contract-necklaces-v1',
+    locks: {
+      subjectCount: '1',
+      framingId: { byZh: '中景鏡頭 (Medium Shot)' },
+      neckAccessoryId: { byZh: necklace },
+    },
+    expectedOutputs: Object.fromEntries([
+      'grokPrompt', 'zImagePrompt', 'midjourneyPrompt',
+      'chestUpPortraitPrompt', 'chestUpMjPortraitPrompt', 'fullBodyCharacterPrompt',
+    ].map(field => [field, { includes: [visualAnchor] }])),
+  })),
+  ...[
     ['short', '短袖水手服', '水手服短裙', 'short-sleeve', 'above-knee', '正常'],
     ['long-tight', '長袖水手服', '水手服長裙', 'long-sleeve', 'near-floor', '緊身'],
   ].map(([id, top, skirt, sleeve, hem, fit]) => ({
