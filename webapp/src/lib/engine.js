@@ -2912,6 +2912,7 @@ const POSE_COMPOSER_ARRANGEMENT_TO_ANCHOR_MIGRATIONS = [
 ];
 
 const WARDROBE_LEGACY_OPTION_MAP = [
+  { category: '唇部穿孔 (Lip Piercings)', targetZh: '右側下唇雙珠開口環', legacy: [['下唇不對稱雙環', 2]] },
   { category: WARDROBE_EYEWEAR_CATEGORY, targetZh: '粗框眼鏡', legacy: [['黑框眼鏡', 1], ['白色鏡框眼鏡', 2]] },
   { category: WARDROBE_EYEWEAR_CATEGORY, targetZh: '細框眼鏡', legacy: [['細框眼鏡', 4], ['眼鏡戴在頭頂', 7]] },
   { category: WARDROBE_EYEWEAR_CATEGORY, targetZh: '復古圓框眼鏡', legacy: [['復古圓框眼鏡', 5]] },
@@ -3026,6 +3027,10 @@ const WARDROBE_LEGACY_OPTION_MAP = [
 ];
 
 const WARDROBE_LEGACY_PROMPT_ALIASES = [
+  {
+    category: '唇部穿孔 (Lip Piercings)', targetZh: '右側下唇雙珠開口環',
+    prompts: ['two small silver hoops placed asymmetrically along the lower lip, with their side and spacing varying naturally'],
+  },
   {
     category: '外套 (Outerwear)',
     targetZh: '長版襯衫',

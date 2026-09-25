@@ -481,7 +481,7 @@
 | **鼻部穿孔 (Nose Piercings)** | 雙側鼻翼細環 | `two slim silver hoops piercing both nostrils` | 左右鼻翼各配戴一個細窄銀色圓環。 |
 | **唇部穿孔 (Lip Piercings)** | 全無 | `no lip piercing` | 不加唇部穿孔飾品。 |
 | **唇部穿孔 (Lip Piercings)** | 單側下唇細環 | `a small silver hoop piercing through one side of the lower lip` | 下唇任一側配戴一個小型銀色細環。 |
-| **唇部穿孔 (Lip Piercings)** | 下唇不對稱雙環 | `two small silver hoops placed asymmetrically along the lower lip, with their side and spacing varying naturally` | 下唇配戴兩個不對稱的小型銀色細環，左右位置與間距由模型自然安排。 |
+| **唇部穿孔 (Lip Piercings)** | 右側下唇雙珠開口環 | `a single small silver horseshoe-shaped lip ring on her right side of the lower lip, with two polished ball ends arranged vertically, one against the lower lip and the other just below its edge` | 人物自身右側下唇配戴單個小型銀色馬蹄形開口環，兩端金屬圓珠上下排列，一顆貼近下唇，另一顆位於唇緣下方。 |
 | **唇部穿孔 (Lip Piercings)** | 下唇中央穿孔 | `a small silver stud piercing centered beneath the lower lip` | 下唇中央下方配戴小型銀色唇釘。 |
 | **唇部穿孔 (Lip Piercings)** | 垂直唇釘 | `a slim vertical labret piercing through the center of the lower lip, with two small silver beads visible` | 下唇中央以垂直唇釘穿過，清楚呈現上下兩顆小型銀珠。 |
 | **頸部 (Neck Accessories)** | 全無 | `no neck accessories, open neckline styling` | 不加頸部飾品，讓領口與鎖骨區域維持簡潔。 |

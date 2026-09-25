@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-25
 
+## Right-side lower-lip open ring (local, 2026-09-25)
+
+- Replaces `下唇不對稱雙環` with `右側下唇雙珠開口環`: one small silver horseshoe-shaped ring on the subject's own right lower lip, with two polished ball ends arranged vertically. It is one accessory, not two separate hoops. Other piercing options, manual-only defaults, expression and hand behavior are unchanged.
+- The previous option ID maps to the replacement through the existing wardrobe legacy mapping. The previous English source remains an import alias; Saved Cards selection restore and legacy Markdown reimport resolve to the new option without rewriting saved prompt text in bulk.
+- Focused tests pass 4/4, full frontend 1007/1007, Prompt Quality 304/304, lint/build, data sync/check, Python sync tests 2/2, public assets and diff-check pass. Strict 200-prompt audits with seed `prompt-quality-baseline` are byte-identical before/after: zero blockers, 23 diagnostics. A subsequent test-only addition verifies legacy Markdown import and passes the focused suite.
+- Browser checks at 1440x1000 and 390x900 verify the renamed selection, none/reselect transition, all six output texts and five-workspace navigation, with no observed document overflow or console warnings/errors. Desktop/mobile screenshots were inspected inline; initial six preview texts were restored exactly. No favorite created, external image generated, commit, push or deployment performed. Existing build chunk-size warning remains.
+
 ## Manual heart hand gestures (local, 2026-09-25)
 
 - PAGE1 hand options add `雙手比愛心` (`both-hands-heart-near-face`) and `手指愛心` (`one-hand-finger-heart`). The two-hand heart sits beside either side of the lower face; the finger heart may extend toward the lens for enlarged foreground perspective. Both are manual-only and available across standing, sitting, kneeling, squatting and all three lying orientations, without binding clothing, expression, head direction or camera orbit. Existing IDs and random pools are unchanged.

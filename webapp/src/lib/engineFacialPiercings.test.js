@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls } from './engine.js';
+import { createEmptyLocks, createSeededRandom, generatePrompts, getLockControls, normalizeLocks } from './engine.js';
 import { randomizeLockKeys } from './page1SectionRandom.js';
 import { buildRestoreLocks, buildMarkdownExport, parseExportedMarkdownPrompt, serializeFavoritePrompt, deserializeFavoritePrompt } from '../features/saved-cards/cardCodec.js';
 
@@ -13,7 +13,7 @@ const option = (key, zh) => {
 const baseLocks = () => ({
   ...createEmptyLocks(), subjectCount: '1',
   nosePiercingId: option('nosePiercingId', '鼻中隔細環').id,
-  lipPiercingId: option('lipPiercingId', '下唇不對稱雙環').id,
+  lipPiercingId: option('lipPiercingId', '右側下唇雙珠開口環').id,
   expressionId: option('expressionId', '龐克挑釁吐舌').id,
   poseBaseId: 'standing', poseHandId: 'both-hands-rock-horns', posePropId: 'none',
 });
@@ -24,11 +24,13 @@ test('selected facial piercings survive main outputs, derivatives and resolved s
     const [prompt] = generatePrompts(1, locks, [], { random: createSeededRandom('facial-piercing-v1') });
     for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, ...prompt.extraPrompts.map((entry) => entry.text)]) {
       assert.match(text, /silver septum ring/, crop);
-      assert.match(text, /hoops placed asymmetrically along the lower lip/, crop);
+      assert.match(text, /a single small silver horseshoe-shaped lip ring on her right side of the lower lip/, crop);
+      assert.match(text, /two polished ball ends arranged vertically/, crop);
+      assert.doesNotMatch(text, /hoops placed asymmetrically|side and spacing varying/);
       assert.doesNotMatch(text, /no nose piercing|no lip piercing/);
     }
     assert.match(prompt.summary, /鼻中隔細環/);
-    assert.match(prompt.summary, /下唇不對稱雙環/);
+    assert.match(prompt.summary, /右側下唇雙珠開口環/);
     assert.equal(prompt.selection.nosePiercingId, locks.nosePiercingId);
     assert.equal(prompt.selection.lipPiercingId, locks.lipPiercingId);
     assert.match(prompt.zImagePrompt, /tongue extended clearly between parted lips/);
@@ -44,8 +46,25 @@ test('piercings default and section randomization resolve to none', () => {
     assert.equal(randomized[key], defaults[key]);
   }
   for (const prompt of generatePrompts(30, { ...defaults, poseBaseId: 'standing', poseHandId: 'random' }, [], { random: createSeededRandom('manual-only-punk') })) {
-    assert.doesNotMatch(prompt.zImagePrompt, /septum|labret|hoop piercing|hoops placed asymmetrically|tongue extended clearly|rock-horns/);
+    assert.doesNotMatch(prompt.zImagePrompt, /septum|labret|hoop piercing|horseshoe-shaped lip ring|tongue extended clearly|rock-horns/);
   }
+});
+
+test('legacy asymmetric lip-ring selections restore to the right-side single ring', () => {
+  const oldId = 'wardrobe:唇部穿孔-lip-piercings:下唇不對稱雙環:2';
+  const current = option('lipPiercingId', '右側下唇雙珠開口環');
+  assert.ok(current.legacyIds.includes(oldId));
+  assert.ok(current.meta.legacyPromptAliases.includes('two small silver hoops placed asymmetrically along the lower lip, with their side and spacing varying naturally'));
+  const restored = normalizeLocks(buildRestoreLocks({ ...baseLocks(), lipPiercingId: oldId }, controls));
+  assert.equal(restored.lipPiercingId, current.id);
+  const [prompt] = generatePrompts(1, { ...baseLocks(), lipPiercingId: oldId }, [], { random: createSeededRandom('legacy-lip-ring') });
+  assert.equal(prompt.selection.lipPiercingId, current.id);
+  assert.match(prompt.zImagePrompt, /horseshoe-shaped lip ring on her right side/);
+  const legacyMarkdown = buildMarkdownExport(prompt)
+    .replaceAll(current.en, current.meta.legacyPromptAliases[0])
+    .replaceAll(current.zh, '下唇不對稱雙環');
+  const imported = parseExportedMarkdownPrompt(legacyMarkdown, controls, 'legacy-lip-import');
+  assert.equal(normalizeLocks(imported.selection).lipPiercingId, current.id);
 });
 
 test('facial piercing selections survive Saved Cards and Markdown round trips', () => {
