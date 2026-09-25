@@ -2283,6 +2283,16 @@
         "zh": "帽T",
         "en": "regular-length pullover hoodie, drawstring hood, ribbed cuffs and hem, relaxed casual streetwear silhouette",
         "desc": "以一般衣長的套頭帽T、抽繩帽兜、羅紋袖口與下襬，以及放鬆的休閒街頭輪廓為主，與短版帽T區分。"
+      },
+      {
+        "zh": "短袖水手服",
+        "en": "short-sleeve Japanese sailor school blouse, opaque woven uniform fabric, relaxed straight-cut body draping over the waist, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert",
+        "desc": "短袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領配白色平行線條，同色領巾與領口遮片固定保留。"
+      },
+      {
+        "zh": "長袖水手服",
+        "en": "long-sleeve Japanese sailor school blouse, opaque woven uniform fabric, relaxed straight-cut body draping over the waist, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert, navy cuffs with white trim",
+        "desc": "長袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領、同色領巾及袖口飾邊配白色線條。"
       }
     ],
     "上身圖案 (Top Surface Design)": [
@@ -3025,6 +3035,16 @@
         "zh": "工裝長裙",
         "en": "cargo maxi skirt, full-length straight drape, drawstring waist, large flap utility pockets",
         "desc": "以全長直落裙身、抽繩腰頭與大型翻蓋工裝口袋為主。"
+      },
+      {
+        "zh": "水手服短裙",
+        "en": "Japanese sailor-uniform pleated skirt, neat waistband, broad pressed pleats, above-knee hem, gently flared A-line silhouette",
+        "desc": "獨立的制服百褶短裙：平整腰頭、整齊寬褶、膝上裙長與自然展開的 A 字輪廓。"
+      },
+      {
+        "zh": "水手服長裙",
+        "en": "Japanese sailor-uniform pleated skirt, neat waistband, broad pressed pleats, near-floor maxi hem, long weighty A-line drape",
+        "desc": "獨立的制服百褶長裙：長度接近地面、保留整齊寬褶與厚實的長裙份量，可搭配女暴走族風格。"
       }
     ],
     "下身圖案 (Bottom Surface Design)": [

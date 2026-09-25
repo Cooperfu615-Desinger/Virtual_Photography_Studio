@@ -45,6 +45,8 @@ const EXPECTED_TOP_LABELS = [
   '泡袖上衣',
   '針織背心',
   '帽T',
+  '短袖水手服',
+  '長袖水手服',
 ];
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;

@@ -196,6 +196,8 @@
 | **上身 (Tops)** | 泡袖上衣 | `puff-sleeve blouse, gathered sleeve volume, defined shoulder shape, soft woven fabric` | 以集褶澎袖、明確肩部份量與柔軟梭織布料為主。 |
 | **上身 (Tops)** | 針織背心 | `knit sweater vest, sleeveless layered construction, ribbed knit texture, relaxed upper-body shape` | 以無袖針織背心、羅紋或紋理針織表面與放鬆上身比例為主。 |
 | **上身 (Tops)** | 帽T | `regular-length pullover hoodie, drawstring hood, ribbed cuffs and hem, relaxed casual streetwear silhouette` | 以一般衣長的套頭帽T、抽繩帽兜、羅紋袖口與下襬，以及放鬆的休閒街頭輪廓為主，與短版帽T區分。 |
+| **上身 (Tops)** | 短袖水手服 | `short-sleeve Japanese sailor school blouse, opaque woven uniform fabric, relaxed straight-cut body draping over the waist, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert` | 短袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領配白色平行線條，同色領巾與領口遮片固定保留。 |
+| **上身 (Tops)** | 長袖水手服 | `long-sleeve Japanese sailor school blouse, opaque woven uniform fabric, relaxed straight-cut body draping over the waist, near-black navy sailor collar with crisp white parallel trim, matching navy scarf tie, modest neckline insert, navy cuffs with white trim` | 長袖制服上衣，常態是寬鬆直筒衣身、自然覆過裙腰；近黑深藍水手領、同色領巾及袖口飾邊配白色線條。 |
 | **上身圖案 (Top Surface Design)** | 全無 | `no added top pattern, clean solid-color surface styling` | 不額外加入上身表面圖案，保留單色與乾淨版型表現。 |
 | **上身圖案 (Top Surface Design)** | 粗橫條紋 | `bold horizontal stripe top, clearly defined stripe bands across the torso, strong Breton-style graphic rhythm` | 以明顯橫向條帶貫穿整件上身，條紋方向清楚、辨識度高，整體更像經典橫條紋上衣而不是淡淡表面紋理。 |
 | **上身圖案 (Top Surface Design)** | 細橫條紋 | `fine horizontal stripe top, narrow repeated stripe bands across the torso, delicate Breton-inspired surface rhythm` | 以細緻而連續的橫向條帶覆蓋整件上身，保留清楚的橫條紋識別，同時比粗條紋更日常、更輕盈。 |
@@ -308,6 +310,8 @@
 | **裙裝 (Skirts)** | 波西米亞風長裙 | `bohemian layered maxi skirt, soft tiered panels, washed earth-tone fabric, crinkled drape, folk-pattern borders, relaxed gathered movement, artisanal resort elegance` | 長裙改成更貼近圖片裡那種土色拼接與層次裙片的方向，布料帶洗舊感與自然皺褶，行走或坐下時會形成柔軟堆疊，整體更像異國度假、手作感強的成熟波西米亞風。 |
 | **裙裝 (Skirts)** | 鉛筆裙 | `pencil skirt, narrow hip-skimming silhouette, knee-length or midi hem, clean tailored line` | 以貼合臀胯、膝長或中長裙襬與乾淨剪裁線條為主。 |
 | **裙裝 (Skirts)** | 工裝長裙 | `cargo maxi skirt, full-length straight drape, drawstring waist, large flap utility pockets` | 以全長直落裙身、抽繩腰頭與大型翻蓋工裝口袋為主。 |
+| **裙裝 (Skirts)** | 水手服短裙 | `Japanese sailor-uniform pleated skirt, neat waistband, broad pressed pleats, above-knee hem, gently flared A-line silhouette` | 獨立的制服百褶短裙：平整腰頭、整齊寬褶、膝上裙長與自然展開的 A 字輪廓。 |
+| **裙裝 (Skirts)** | 水手服長裙 | `Japanese sailor-uniform pleated skirt, neat waistband, broad pressed pleats, near-floor maxi hem, long weighty A-line drape` | 獨立的制服百褶長裙：長度接近地面、保留整齊寬褶與厚實的長裙份量，可搭配女暴走族風格。 |
 | **下身圖案 (Bottom Surface Design)** | 全無 | `no added bottom pattern, clean solid-color lower-body styling` | 不額外加入下身圖案，保留褲裝或裙裝本身的材質與輪廓。 |
 | **下身圖案 (Bottom Surface Design)** | 粗橫條紋 | `bold horizontal stripe pattern across the lower garment, clearly defined stripe bands, graphic statement styling` | 以明顯橫向條帶覆蓋下身單品，整體更有視覺節奏與強烈圖案存在感。 |
 | **下身圖案 (Bottom Surface Design)** | 細直條紋 | `clear vertical stripe pattern running through the lower garment, narrow repeated stripe lines, elongated linear rhythm` | 以清楚直條紋延伸整件下身單品，能讓輪廓更俐落，也更接近真正條紋褲或條紋裙。 |

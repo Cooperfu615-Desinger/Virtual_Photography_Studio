@@ -6560,6 +6560,49 @@ function buildCharacter(context, catalog) {
   return character;
 }
 
+function projectSailorSeparateFit(pieces, locks = {}) {
+  const roleOf = (item) => item.meta?.wardrobeRole || '';
+  const hasSailorTop = (role) => pieces.some((piece) => (
+    ['短袖水手服', '長袖水手服'].includes(piece.zh) && roleOf(piece) === role
+  ));
+  const hasSailorSkirt = (role) => pieces.some((piece) => (
+    ['水手服短裙', '水手服長裙'].includes(piece.zh) && roleOf(piece) === role
+  ));
+  const selectedFit = (role, token, lockKey) => pieces.find((item) => (
+    item?.id?.includes(token) && roleOf(item) === role
+  ))?.id || (role ? '' : locks?.[lockKey] || '');
+  return pieces.map((item) => {
+    const role = roleOf(item);
+    const sailorTopTight = hasSailorTop(role)
+      && /(?:^|:)tight(?::[ab])?$/.test(selectedFit(role, 'wardrobe:上身版型-top-fit:', 'topFitId'));
+    if (['短袖水手服', '長袖水手服'].includes(item.zh) && sailorTopTight) {
+      return {
+        ...item,
+        en: item.en.replace(
+          'relaxed straight-cut body draping over the waist',
+          'undersized close-fitting body with a raised hem exposing the midriff'
+        ),
+      };
+    }
+    if (item?.id?.includes('wardrobe:上身穿法-top-styling:') && sailorTopTight
+      && /:(?:tucked|half-tucked|untucked)(?::[ab])?$/.test(item.id)) {
+      return { ...item, en: 'short undersized hem held above the waistband, midriff visible' };
+    }
+    if (item?.id?.includes('wardrobe:下身版型-bottom-fit:')
+      && hasSailorSkirt(role)) {
+      const sailorSkirtFit = {
+        standard: 'balanced waistband above full pressed pleats',
+        fitted: 'neat fitted waistband above full pressed pleats',
+        tight: 'close-fitting waistband above full, unflattened pleats',
+        wide: 'generously spread pleats with broad A-line skirt volume',
+      };
+      const fitId = item.id.match(/:(standard|fitted|tight|wide)(?::[ab])?$/)?.[1];
+      return fitId ? { ...item, en: sailorSkirtFit[fitId] } : item;
+    }
+    return item;
+  });
+}
+
 function buildWardrobe(context, locks, catalog) {
   const previewExclusions = context.previewRerollExclusions || EMPTY_PREVIEW_REROLL_EXCLUSIONS;
   const random = context.random || Math.random;
@@ -7368,7 +7411,7 @@ function buildWardrobe(context, locks, catalog) {
         if (selectedPattern) addPiece(selectedPattern);
       }
     }
-    return pieces.filter(keepExplicitCloseupWardrobeItem);
+    return projectSailorSeparateFit(pieces.filter(keepExplicitCloseupWardrobeItem), locks);
   }
 
   const hasOutfitPresetPieceResolved = pieces.some((piece) => piece.id?.includes('wardrobe:套裝-outfit-presets:') && !isNoneLikeItem(piece));
@@ -7542,7 +7585,7 @@ function buildWardrobe(context, locks, catalog) {
     maybePick('頸部 (Neck Accessories)', visibilityAtLeast(visibility, 'portrait') ? 0.4 : 0.2, () => true, { allowNoneWhenUnlocked: true });
   }
 
-  return pieces;
+  return projectSailorSeparateFit(pieces, locks);
 }
 
 function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
@@ -14227,6 +14270,13 @@ function extractAiSpecialPersonFragments(value, context = null) {
 
 function compactAiGarmentValue(value, preferredRole = '', primarySource = '', wearSources = [], surfaceSource = '') {
   const sourceText = primarySource || value;
+  if (/\bJapanese sailor school blouse\b|\bJapanese sailor-uniform pleated skirt\b/i.test(sourceText)) {
+    const sourceFragments = splitAiSourceFragments(sourceText);
+    const keep = preferredRole === 'top'
+      ? /\b(?:sailor school blouse|relaxed straight-cut body|undersized close-fitting body|navy sailor collar|navy scarf tie|navy cuffs)\b/i
+      : /\b(?:sailor-uniform pleated skirt|broad pressed pleats|above-knee hem|near-floor maxi hem)\b/i;
+    return sourceFragments.filter((fragment) => keep.test(fragment)).join(', ');
+  }
   if (
     preferredRole === 'waistAccessory'
     && /\b(?:butterfly waist chain|navel (?:piercing|ring))\b/i.test(sourceText)

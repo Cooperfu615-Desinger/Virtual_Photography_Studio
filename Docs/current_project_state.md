@@ -4,6 +4,12 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-25
 
+## Sailor uniform separates (local, 2026-09-25)
+
+- Four additive PAGE1 pieces: `短袖水手服` and `長袖水手服` in Tops, `水手服短裙` and `水手服長裙` in Skirts. The blouse has an opaque relaxed straight-cut body, fixed near-black navy sailor collar with white parallel trim, matching navy scarf tie, and sleeve-specific cuffs. Its main fabric follows top color. The short skirt is above knee; the long pleated skirt reaches near the floor. Existing outfit presets and IDs remain.
+- The shared resolved wardrobe replaces only a selected sailor blouse's relaxed body with an undersized, midriff-baring body when `上身版型＝緊身`; incompatible tuck/untuck wording projects to the raised visible hem. Sailor-skirt fit modifiers preserve pleats rather than introducing trouser legs. GPT, Z, MJ and derivatives use the same resolved pieces; MJ compact wording retains collar, scarf, sleeve and skirt-length anchors. See [wardrobe authoring §7](specs/wardrobe-section-b-authoring-guide.md).
+- Validation: focused wardrobe tests pass 56/56; full frontend 1012/1012 and Prompt Quality 306/306, lint and build pass. Before/after strict audits with 200 prompts and seed `prompt-quality-baseline` are identical after excluding runtime prompt IDs: zero blockers and 23 diagnostics. Browser checks at 1440x1000 and 390x900 verify all four controls, normal/tight source switching, short/near-floor hem projection, tight blouse plus tuck/wide skirt, and all five workspaces with no document overflow or console errors. Original six preview texts were restored. Git delivery is authorized; see history and `origin/main` for the checkpoint. User image files are untouched.
+
 ## Right-side lower-lip open ring (local, 2026-09-25)
 
 - Replaces `下唇不對稱雙環` with `右側下唇雙珠開口環`: one small silver horseshoe-shaped ring on the subject's own right lower lip, with two polished ball ends arranged vertically. It is one accessory, not two separate hoops. Other piercing options, manual-only defaults, expression and hand behavior are unchanged.

@@ -16,6 +16,27 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
   ...[
+    ['short', '短袖水手服', '水手服短裙', 'short-sleeve', 'above-knee', '正常'],
+    ['long-tight', '長袖水手服', '水手服長裙', 'long-sleeve', 'near-floor', '緊身'],
+  ].map(([id, top, skirt, sleeve, hem, fit]) => ({
+    id: `sailor-separates-${id}`,
+    title: 'Sailor blouse and pleated skirt remain independent with fixed collar colors',
+    mode: 'single',
+    seed: 'prompt-contract-sailor-separates-v1',
+    locks: {
+      subjectCount: '1', topId: { byZh: top }, skirtId: { byZh: skirt },
+      pantsId: { byZh: '全無' }, topFitId: { byZh: fit },
+      topColorId: { byZh: '白色' }, bottomColorId: { byZh: '深藍色' },
+      framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
+    },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt']
+        .map(field => [field, { includes: [sleeve, hem, 'navy sailor collar', 'white parallel trim', 'navy scarf tie'] }])),
+      chestUpPortraitPrompt: { includes: [sleeve, 'navy sailor collar'], excludes: [hem] },
+      chestUpMjPortraitPrompt: { includes: [sleeve, 'navy sailor collar'], excludes: [hem] },
+    },
+  })),
+  ...[
     ['both-hands-heart-near-face', ['one clear heart shape beside the lower face', 'either the left or right side of the chin']],
     ['one-hand-finger-heart', ['Korean finger-heart gesture', 'thumb and index finger gently crossed', 'extended close to the lens', 'enlarged in the foreground']],
   ].map(([hand, includes]) => ({
