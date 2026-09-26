@@ -24,6 +24,7 @@
 | **體態 (Body Type)** | 性感曲線身形 | `sexy tall slim-curvy silhouette, about 168-173 cm visual height and 53-58 kg lean visual weight, 94-58-92 body proportion anchor, long legs with about 3.8:6.2 torso-to-leg balance, full F-to-G-cup-scale bust, narrow defined waist, rounded hips, dramatic but lean bust-waist-hip curve` | 性感但偏纖長的曲線體型，以足夠身高、精瘦視覺體重與明確胸腰臀比例避免變胖或年齡感，重點是誇張但乾淨的曲線線條。 |
 | **體態 (Body Type)** | 運動緊實身形 | `fit toned athletic female body, healthy firm silhouette, subtle muscle definition, energetic balanced proportions` | 健康、俐落、緊實，有運動感與輕微肌肉張力。 |
 | **體態 (Body Type)** | 小隻精緻身形 | `petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence` | 較嬌小、比例精緻，帶偶像感與可愛但成熟的身形輪廓。 |
+| **體態 (Body Type)** | 全無 | `none` | 不指定體態，不輸出身形、身高或比例描述。 |
 | **髮型 (Hairstyle)** | 全無 | `none` | 不指定髮型，讓模型自行決定頭髮長度與輪廓。 |
 | **髮型 (Hairstyle)** | 帥氣濕亮油頭 | `slicked-back short hair, hair combed away from the forehead, sharp compact fashion silhouette` | 短髮向後梳開，輪廓俐落緊湊；是否濕亮、分束或受風吹拂交由整理狀態控制。 |
 | **髮型 (Hairstyle)** | 乾淨短鮑伯 | `clean short bob haircut, softly blunt ends, polished face-framing line, neat modern shape` | 合併乾淨短鮑伯類型，重點是短髮輪廓俐落、髮尾乾淨、臉側線條清楚。 |
@@ -60,6 +61,7 @@
 | **髮絲整理狀態 (Hair Styling State)** | 濕髮分束 | `sleek wet finish, defined damp sections, neat separated strands, controlled close-to-head shape` | 濕感版：以清楚分束與受控的服貼輪廓呈現濕髮，不主動增加風吹動態。 |
 | **髮絲整理狀態 (Hair Styling State)** | 微風吹拂 | `lightly wind-swept movement, gentle directional flow, a few naturally loose strands, controlled overall silhouette` | 微風版：只有輕微方向性與少量鬆散髮絲，整體髮型輪廓仍保持穩定。 |
 | **髮絲整理狀態 (Hair Styling State)** | 強烈風感 | `strong directional wind, visibly lifted and swept strands, pronounced flowing movement, dynamic but coherent silhouette` | 強風版：明確的受風方向與被吹起的髮絲，保留整體輪廓一致，避免隨機爆量亂髮。 |
+| **髮絲整理狀態 (Hair Styling State)** | 全無 | `none` | 不指定髮絲整理狀態，保留已選髮型與髮色。 |
 | **髮色 (Hair Color)** | 全無 | `none` | 不指定髮色，讓模型自行決定髮色深淺與色調。 |
 | **髮色 (Hair Color)** | 自然黑 | `natural black hair, soft realistic shine, clean dark depth` | 最穩定百搭的自然黑髮，適合多數日韓女性人像。 |
 | **髮色 (Hair Color)** | 柔霧黑茶 | `soft black-tea brown hair, muted brown-black salon tone` | 黑中帶茶棕感，低調柔和。 |

@@ -21,6 +21,7 @@ test('identity base exposes approved body and facial feature options', () => {
       '性感曲線身形',
       '運動緊實身形',
       '小隻精緻身形',
+    '全無',
     ]
   );
 
@@ -103,7 +104,7 @@ test('identity base exposes reduced hairstyle and hair color options', () => {
   });
   assert.deepEqual(
     optionLabels('hairStylingStateId'),
-    ['柔順自然', '濕髮分束', '微風吹拂', '強烈風感']
+    ['柔順自然', '濕髮分束', '微風吹拂', '強烈風感', '全無']
   );
 });
 

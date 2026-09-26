@@ -80,7 +80,7 @@ function deepFreeze(value) {
   return value;
 }
 
-export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.18.0';
+export const PROMPT_OUTPUT_CONTRACT_VERSION = '1.19.0';
 
 /**
  * Public PAGE1 prompt-output contract.
@@ -140,14 +140,9 @@ export const PROMPT_OUTPUT_CONTRACTS = deepFreeze({
         },
         duo: {
           requiredPrefix: 'Image Type:\n',
-          requiredLabels: ['Image Type', 'Subject', 'Woman 1', 'Woman 2', 'Pose and Composition'],
-          optionalLabels: GPT_DUO_LABELS.filter((label) => ![
-            'Image Type',
-            'Subject',
-            'Woman 1',
-            'Woman 2',
-            'Pose and Composition',
-          ].includes(label)),
+          requiredLabels: ['Image Type', 'Subject'],
+          // A role or pose with no effective selected content owns no paragraph.
+          optionalLabels: GPT_DUO_LABELS.filter((label) => !['Image Type', 'Subject'].includes(label)),
           forbiddenLabels: ['Wardrobe', 'Constraints'],
           orderedLabels: GPT_DUO_LABELS,
         },

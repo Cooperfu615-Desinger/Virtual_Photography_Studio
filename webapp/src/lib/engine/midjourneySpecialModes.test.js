@@ -15,6 +15,8 @@ function optionId(controlKey, zh) {
 function createAllNoneLocks() {
   const locks = { ...createEmptyLocks() };
   for (const control of controls) {
+    // Keep the original fixture inputs; new silence options are covered separately.
+    if (/^(bodyType|hairStylingState)[AB]?Id$|^outerwear[AB]?OpeningId$|^eyewear[AB]?PlacementId$|^sceneAttributeId$/.test(control.key)) continue;
     const noneOption = control.options?.find((entry) => entry.zh === '全無' || entry.zh === '無額外表情');
     if (noneOption) locks[control.key] = noneOption.id;
   }

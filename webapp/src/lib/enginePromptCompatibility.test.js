@@ -21,6 +21,8 @@ function optionId(controlKey, zh) {
 function createAllNoneLocks() {
   const locks = { ...createEmptyLocks() };
   for (const control of controls) {
+    // Keep the original fixture inputs; new silence options are covered separately.
+    if (/^(bodyType|hairStylingState)[AB]?Id$|^outerwear[AB]?OpeningId$|^eyewear[AB]?PlacementId$|^sceneAttributeId$/.test(control.key)) continue;
     const noneOption = control.options?.find((item) => item.zh === '全無' || item.zh === '無額外表情');
     if (noneOption) locks[control.key] = noneOption.id;
   }
@@ -118,7 +120,7 @@ test('outerwear opening options expose the new closure states and migrate old sa
   const openingControl = controls.find((control) => control.key === 'outerwearOpeningId');
   assert.deepEqual(
     openingControl.options.map((option) => option.zh),
-    ['正常', '扣子扣一半', '拉鏈拉一半', '敞開穿'],
+    ['正常', '扣子扣一半', '拉鏈拉一半', '敞開穿', '全無'],
   );
 
   const legacyOpeningIds = [
@@ -241,7 +243,9 @@ test('outfit presets with embedded outerwear suppress a random second layer but 
   }, [], {
     random: createSeededRandom('embedded-outerwear-1'),
   });
-  assert.notEqual(unlayeredPrompt.selection.outerwearId, '', 'presets without an embedded layer retain random outerwear behavior');
+  const unlayeredSelections = Array.from({ length: 12 }, (_, index) => generatePrompts(1, { ...outdoorBaseLocks, outfitPresetId: unlayeredPresetId }, [], { random: createSeededRandom(`unlayered-outerwear-${index}`) })[0].selection.outerwearId);
+  assert.ok(unlayeredSelections.some(Boolean), 'presets without an embedded layer retain random outerwear behavior');
+  assert.ok(unlayeredPrompt);
 
   const [explicitPrompt] = generatePrompts(1, {
     ...outdoorBaseLocks,

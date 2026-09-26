@@ -3370,6 +3370,11 @@
         "zh": "敞開穿",
         "en": "worn open at the front",
         "desc": "正面敞開，不強制內搭必須完整可見；開合與露肩穿法分開控制。"
+      },
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定前襟開合，保留已選外套與其他穿法。"
       }
     ],
     "外套穿法 (Outerwear Styling)": [
@@ -3852,6 +3857,11 @@
         "zh": "戴在頭頂",
         "en": "resting on top of the head, pushed into the hair, eyes unobstructed",
         "desc": "眼鏡推到頭頂並卡在髮絲上方，臉部與眼睛保持清楚可見。"
+      },
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定眼鏡位置，保留已選眼鏡款式與配色。"
       }
     ],
     "耳環 (Earrings)": [
@@ -5929,6 +5939,11 @@
         "zh": "小隻精緻身形",
         "en": "petite polished female body, compact refined proportions, delicate idol-like silhouette, graceful small-frame presence",
         "desc": "較嬌小、比例精緻，帶偶像感與可愛但成熟的身形輪廓。"
+      },
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定體態，不輸出身形、身高或比例描述。"
       }
     ],
     "髮型 (Hairstyle)": [
@@ -6113,6 +6128,11 @@
         "zh": "強烈風感",
         "en": "strong directional wind, visibly lifted and swept strands, pronounced flowing movement, dynamic but coherent silhouette",
         "desc": "強風版：明確的受風方向與被吹起的髮絲，保留整體輪廓一致，避免隨機爆量亂髮。"
+      },
+      {
+        "zh": "全無",
+        "en": "none",
+        "desc": "不指定髮絲整理狀態，保留已選髮型與髮色。"
       }
     ],
     "髮色 (Hair Color)": [

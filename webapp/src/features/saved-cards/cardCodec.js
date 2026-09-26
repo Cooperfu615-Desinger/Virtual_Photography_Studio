@@ -17,6 +17,8 @@ import { normalizeZImageDisplayLabel } from './promptLabels.js';
 export const FAVORITES_STORAGE_VERSION = 3;
 const READABLE_FAVORITES_STORAGE_VERSIONS = Object.freeze([2, FAVORITES_STORAGE_VERSION, 4]);
 
+const OPTIONAL_SILENCE_LOCK_PATTERN = /^(bodyType|hairStylingState)[AB]?Id$|^outerwear[AB]?OpeningId$|^eyewear[AB]?PlacementId$|^sceneAttributeId$/;
+
 const STRUCTURED_CONTROL_KEYS = {
   Style: ['imageTypePresetId', 'styleId'],
   Character: [
@@ -94,7 +96,15 @@ export function buildMarkdownExport(data) {
     ...extraPromptEntries,
   ].filter((entry) => entry.text);
 
-  return `# Generated Prompt - ${new Date(data.date).toLocaleString()}
+  // Empty visual content cannot encode its silence choice in the prose itself.
+  const silenceLocks = Object.fromEntries(getLockControls().filter((control) => (
+    OPTIONAL_SILENCE_LOCK_PATTERN.test(control.key)
+    && control.options?.some((option) => option.id === data.selection?.[control.key] && option.zh === '全無')
+  )).map((control) => [control.key, data.selection[control.key]]));
+  const silenceMetadata = Object.keys(silenceLocks).length
+    ? `<!-- VPStudio Optional Silence: ${JSON.stringify(silenceLocks)} -->\n` : '';
+
+  return `${silenceMetadata}# Generated Prompt - ${new Date(data.date).toLocaleString()}
 **Source:** ${data.sourceLabel || 'Prompt 工作台'}
 **Summary:** ${data.summary}
 
@@ -442,6 +452,17 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
     throw new Error('no recoverable controls found in prompt');
   }
 
+  const silenceMatch = text.match(/<!-- VPStudio Optional Silence: (\{[^\n]*\}) -->/);
+  if (silenceMatch) {
+    try {
+      const silenceLocks = JSON.parse(silenceMatch[1]);
+      for (const control of controls) {
+        if (!OPTIONAL_SILENCE_LOCK_PATTERN.test(control.key)) continue;
+        const value = silenceLocks[control.key];
+        if (control.options?.some((option) => option.id === value && option.zh === '全無')) parsed.locks[control.key] = value;
+      }
+    } catch { /* Older prose remains recoverable when optional metadata is invalid. */ }
+  }
   const selection = buildRestoreLocks(parsed.locks, controls);
   const prompt = {
     id: fallbackId || `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,

@@ -218,14 +218,14 @@ test('single pose panel randomizes the six Pose Composer layers and leaves props
   assert.deepEqual(
     Object.fromEntries(POSE_COMPOSER_KEYS.map((key) => [key, prompt.selection[key]])),
     {
-      poseBaseId: 'standing',
+      poseBaseId: 'squatting',
       poseOrientationId: 'none',
-      poseArrangementId: 'standing-forward-toe-point',
-      poseHandId: 'one-hand-mouth-corner',
-      poseHeadId: 'chin-slightly-raised',
+      poseArrangementId: 'squatting-natural',
+      poseHandId: 'squatting-hands-outer-legs',
+      poseHeadId: 'head-away-profile',
       poseAnchorId: 'none',
     },
-    'The catalog seed should preserve layer order while non-lying support resolves to free arrangement',
+    'The seed after retiring the unused ratio draw preserves layer order and free arrangement',
   );
 
   const arrangement = controls

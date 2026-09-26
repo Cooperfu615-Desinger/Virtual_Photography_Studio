@@ -36,6 +36,17 @@ Midjourney 專用的比例、裁切與人物姿勢適配規範另見 [PAGE1 Midj
 
 2026-09-13 Midjourney 第一階段：description contract `1.8.0` 只對一般 PAGE1 單人主 `midjourneyPrompt` 接入場景身份先行、完整 canonical pose 放在服裝前的單行組裝。省略 `styleId`／`filmId` 及其同義 prose，但保留光學：既有鏡頭／適配、光學效果及各自首片段的光圈／快門。自拍、頭部、道具、接觸／支撐均不改写、不拆分 canonical；不可從 Z 成品反推 MJ。F 參數不變，不自動新增 Personalization／Moodboard 參數。以下歷史章節要求保留攝影師／film 身份時，僅以此 eligible main 窄例外為準；MJ 胸上、GPT、Z、其他衍生、雙人、固定構圖、專用角色、角色卡／身份匯入與仰躺 surface-led 仍維持原規則。UI 與選項／摘要保留全部來源，文字省略不代表刪除資料。
 
+## Optional silence selections (2026-09-26)
+
+PAGE1 的「全無」代表該欄位不提供英文描述，並保留已選的同組其他內容；它不等於「隨機」、不表示實物必須不存在，也不輸出 none、未指定或模型自由發揮等控制說明。主 Prompt 不補回預設體態、髮絲整理、外套開合、眼鏡配戴、普通場景、環境光、人物受光、焦段或成像模擬。空段落直接省略，雙人 GPT 的 Woman 1 / Woman 2 / Pose and Composition 也可依有效內容省略；公開輸出契約為 `1.19.0`。
+
+必需的人物數量、成品類型與有效角色卡／特殊造型／固定構圖的內建內容仍遵守原契約。「全無」只省略獨立欄位，不拆掉其他已選項目的內建視覺內容。胸上兩版固定 `4:5`、全身角色照固定 `9:16` 與其既有角色參考照光線／相機要求不變。
+
+舊 PAGE1 `aspectRatio` 停用一般設定及隨機抽樣；新結果預設 `none`。為相容 Saved Cards 與匯入，仍能讀取舊的明確比例，空值／random 不再注入比例。DLL PIC Pro 生成比例與 F MJ 比例是獨立控制；F 選「跟隨 PAGE1」且沒有有效舊比例時不輸出 `--ar`。沒有新增極簡模式。
+
+歷史固定輸出測試保留新增「全無」以前的明確輸入條件及凍結檔案；新選擇快照會保留沒有主項目或被裁切時的明確 none。Markdown 匯出使用可選的 `VPStudio Optional Silence` 註解保留這些無法由公開描述反推出來的 none；匯入只接受已知欄位與合法 none ID，沒有註解的舊檔仍依原流程還原。新語意、同組保留、雙人空段落與 Saved Cards／Markdown 還原由 `engineOptionalSilence.test.js` 驗證。
+
+
 ## 1. 三組輸出定位
 
 ### Gpt

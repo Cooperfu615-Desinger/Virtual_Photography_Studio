@@ -375,6 +375,7 @@
 | **外套開合 (Outerwear Opening)** | 扣子扣一半 | `button-front outerwear partially buttoned, with some buttons fastened and the remaining front panels naturally open` | 適用有扣子的外套，部分扣子扣上，其餘前片自然打開。 |
 | **外套開合 (Outerwear Opening)** | 拉鏈拉一半 | `zip-front outerwear partially zipped, zipper closed to the mid-front while the upper front remains naturally open` | 適用有拉鍊的外套，拉鍊拉到前襟中段，上方前片自然打開。 |
 | **外套開合 (Outerwear Opening)** | 敞開穿 | `worn open at the front` | 正面敞開，不強制內搭必須完整可見；開合與露肩穿法分開控制。 |
+| **外套開合 (Outerwear Opening)** | 全無 | `none` | 不指定前襟開合，保留已選外套與其他穿法。 |
 | **外套穿法 (Outerwear Styling)** | 全無 | `no additional outerwear styling adjustment` | 不額外指定外套穿法，保留外套本身的自然穿著狀態。 |
 | **外套穿法 (Outerwear Styling)** | 正常穿著 | `outerwear worn normally on both shoulders in a standard outer-layer position` | 外套正常穿在雙肩上，作為標準外層，不額外指定肩線完全覆蓋。 |
 | **外套穿法 (Outerwear Styling)** | 單肩露出 | `slipped down over one upper arm, with the neckline lowered on that side and the opposite shoulder still covered` | 衣服滑到單側上臂，領口同側一起降低，另一側肩膀仍被衣服覆蓋；不指定左右側，也不改變前襟開合。 |
@@ -468,6 +469,7 @@
 | **眼鏡配色 (Eyewear Color)** | 粉色 | `pink frame` | 以粉色鏡框表面為主。 |
 | **眼鏡配戴方式 (Eyewear Placement)** | 正常戴在臉上 | `worn normally on the face, lenses aligned over the eyes` | 眼鏡正常戴在臉上，鏡片對齊雙眼。 |
 | **眼鏡配戴方式 (Eyewear Placement)** | 戴在頭頂 | `resting on top of the head, pushed into the hair, eyes unobstructed` | 眼鏡推到頭頂並卡在髮絲上方，臉部與眼睛保持清楚可見。 |
+| **眼鏡配戴方式 (Eyewear Placement)** | 全無 | `none` | 不指定眼鏡位置，保留已選眼鏡款式與配色。 |
 | **耳環 (Earrings)** | 全無 | `no earrings, clean ear styling` | 不加耳環，讓耳側與臉部輪廓保持乾淨。 |
 | **耳環 (Earrings)** | 小型金屬耳環 | `small metallic earring detail, subtle understated jewelry styling` | 最穩定的點綴型耳環，存在感更低，適合大多數風格。 |
 | **耳環 (Earrings)** | 珍珠耳釘 | `small pearl stud earring detail, soft understated pearl accent` | 以小巧珍珠與柔亮珠光為主，精緻典雅，但刻意降低搶戲程度。 |

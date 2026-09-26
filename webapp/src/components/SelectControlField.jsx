@@ -9,7 +9,7 @@ function getSelectedPromptText(control, value) {
 
   if (!value) return '';
   const selectedOption = control.options.find((option) => option.id === value);
-  if (!selectedOption || selectedOption.zh === '全無') return '';
+  if (!selectedOption || selectedOption.zh === '全無' || selectedOption.zh === '無額外表情') return '';
   return selectedOption.en || '';
 }
 
@@ -17,7 +17,7 @@ function isMutedSelectValue(control, value) {
   if (Array.isArray(value)) return value.length === 0;
   if (!value) return true;
   const selected = control.options.find((option) => option.id === value);
-  return selected?.zh === '全無';
+  return selected?.zh === '全無' || selected?.zh === '無額外表情';
 }
 
 export default function SelectControlField({ control, value, onChange, onCopy, disabled = false }) {

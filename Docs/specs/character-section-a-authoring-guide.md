@@ -6,6 +6,11 @@ Last updated: 2026-08-09
 
 單人模式的 Gpt / Grok/Z-Image / AI 輸出規則請同時參考 `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`。目前 Gpt 版採完整保留型 Prompt，體態、五官、膚質、髮型、髮色、神情、姿勢與特殊動作中的有效英文描述應完整保留；Grok/Z-Image 與 AI 才依各自模型需求壓縮。新增資料時仍需確認數值 anchor、正常狀態說明、同義詞堆疊與內部控制語言是否真的有助於生成穩定或造型鎖定。
 
+## Optional silence follow-up (2026-09-26)
+
+體態與髮絲整理狀態以 append-only 方式增加「全無」，維持原選項 ID。單人與雙人 A/B 共用同一規則：只省略該欄位描述，髮型／髮色等其他選擇保留。這兩個新增 none 不參與隨機抽樣。表情的既有「無額外表情」保留原 ID 與資料來源，介面統一顯示「全無」，英文內容與個別複製均為空。角色卡的永久身份描述不受獨立體態 none 覆寫。
+
+
 ## 1. 核心原則
 
 A 區只負責「人物是誰、長什麼樣、當下表情與身體狀態」。它不應該偷渡場景、環境光、鏡頭焦段、攝影風格、服裝顏色或完整穿搭，除非該選項本身就是 `特殊角色` 或 `特殊動作` 必須成立的物件。

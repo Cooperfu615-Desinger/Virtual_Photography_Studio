@@ -207,7 +207,7 @@ test('eyewear controls split frame, color, and placement dimensions', () => {
     '粉色',
   ]);
 
-  assert.deepEqual(optionLabels('eyewearPlacementId'), ['正常戴在臉上', '戴在頭頂']);
+  assert.deepEqual(optionLabels('eyewearPlacementId'), ['正常戴在臉上', '戴在頭頂', '全無']);
 
   ['黑框眼鏡', '白色鏡框眼鏡', '玳瑁色鏡框眼鏡', '眼鏡戴在頭頂'].forEach((label) => {
     assert.ok(!optionLabels('eyewearId').includes(label), `Merged eyewear option should not remain: ${label}`);

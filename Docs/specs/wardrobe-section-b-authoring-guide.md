@@ -6,6 +6,11 @@ Last updated: 2026-07-03
 
 單人模式的 Gpt / Grok/Z-Image / AI 輸出規則請同時參考 `/Users/cooperfu/Desktop/Virtual_Photography_Studio/Docs/specs/page1-single-prompt-compression-guide.md`。目前 Gpt 版採完整保留型 Prompt，一般上下身、鞋襪與外層、套裝、連身、特殊穿搭與配件中的有效英文描述應完整保留；Grok/Z-Image 與 AI 才依各自模型需求壓縮。MJ 新版規範則要求保留所有已解析的服裝角色與配件，以短片語移除重複語意，不得因長度刪除配件。新增資料時仍需確認正常穿著狀態說明、泛用 styling 尾句、內部控制語言與同義詞堆疊是否真的有助於生成穩定或造型鎖定。
 
+## Optional silence follow-up (2026-09-26)
+
+外套開合、眼鏡配戴方式以 append-only 方式增加「全無」，同時供單人與雙人 A/B 使用。保留外套／眼鏡款式與配色，只省略獨立的開合／配戴位置，不補回正常開合或戴在臉上；新增 none 不參與隨機抽樣。舊款式 ID 遷移不得覆寫使用者明確選取的 none。完整造型與款式自身內建的穿法仍屬於有效來源，不因獨立 none 被刪除。
+
+
 ## 1. 核心原則
 
 B 區只負責「人物穿什麼、怎麼穿、服裝表面與配件細節」。它不應該偷渡人物長相、體態、神情、姿勢、場景、環境光、鏡頭焦段或攝影風格。

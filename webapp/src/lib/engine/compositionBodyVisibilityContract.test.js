@@ -58,7 +58,7 @@ test('phase-1 body profiles cover every public Body Type and retain the canonica
   assert.ok(bodyTypeControl);
   assert.deepEqual(
     BODY_TYPE_VISIBILITY_PROFILES.map((profile) => profile.bodyTypeZh),
-    bodyTypeControl.options.map((option) => option.zh)
+    bodyTypeControl.options.filter((option) => option.zh !== '全無').map((option) => option.zh)
   );
 
   for (const profile of BODY_TYPE_VISIBILITY_PROFILES) {

@@ -21,14 +21,13 @@ export function digest(value) {
 }
 
 export function materializeSceneFixture(fixture, controls = getLockControls()) {
-  const locks = { ...createEmptyLocks() };
-  for (const control of controls) {
-    const option = control.options?.find((item) => item.zh === '全無' || item.zh === '無額外表情');
-    if (option) locks[control.key] = option.id;
-  }
-  // All-none does not exist for some non-random preferences; retain their
-  // established defaults. Inputs and their complete resolved result are pinned.
+  const locks = createHistoricalNoneLocks(controls);
+  // Historical fixtures used the old empty-valued scene preference.
   for (const [key, selector] of Object.entries(fixture.locks)) {
+    if (key === 'sceneAttributeId' && (selector?.byZh === '未指定' || selector === '')) {
+      locks[key] = '';
+      continue;
+    }
     const control = controls.find((item) => item.key === key);
     assert.ok(control, `${fixture.id}: unknown control ${key}`);
     if (selector && typeof selector === 'object' && !Array.isArray(selector)) {
@@ -43,6 +42,18 @@ export function materializeSceneFixture(fixture, controls = getLockControls()) {
       }
       locks[key] = Array.isArray(selector) ? [...selector] : selector;
     }
+  }
+  return locks;
+}
+
+// Freeze historical inputs, not the evolving meaning of "all none". New silence
+// options have their own explicit regression matrix in engineOptionalSilence.test.
+export function createHistoricalNoneLocks(controls = getLockControls()) {
+  const locks = { ...createEmptyLocks() };
+  for (const control of controls) {
+    if (/^(bodyType|hairStylingState)[AB]?Id$|^outerwear[AB]?OpeningId$|^eyewear[AB]?PlacementId$|^sceneAttributeId$/.test(control.key)) continue;
+    const option = control.options?.find((item) => item.zh === '全無' || item.zh === '無額外表情');
+    if (option) locks[control.key] = option.id;
   }
   return locks;
 }

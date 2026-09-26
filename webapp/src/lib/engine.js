@@ -994,7 +994,7 @@ const CAMERA_SYSTEM_OPTIONS = [
 ];
 const CAMERA_PROFILE_OPTION_IDS = new Set(CAMERA_SYSTEM_OPTIONS.filter((option) => option.id !== 'none').map((option) => option.id));
 const SCENE_ATTRIBUTE_OPTIONS = [
-  { id: '', zh: '未指定', en: '' },
+  { id: 'none', zh: '全無', en: '', meta: { tags: ['none'] } },
   { id: 'indoor', zh: '室內', en: 'indoor setting' },
   { id: 'outdoor', zh: '戶外', en: 'outdoor setting' },
   { id: 'other', zh: '其他', en: 'other dedicated setting' },
@@ -1032,7 +1032,8 @@ const LOCK_DEFINITIONS = [
   { key: 'characterCardWardrobeMode', label: '角色卡服裝模式', defaultValue: 'full-default', section: 'hidden' },
   { key: 'characterCardWardrobeLayerIds', label: '角色卡服裝層', defaultValue: [], multi: true, section: 'hidden' },
   { key: 'characterCardPromptOverride', label: '角色卡臨時覆寫', defaultValue: '', section: 'hidden' },
-  { key: 'aspectRatio', label: '畫面比例', options: ASPECT_RATIO_OPTIONS, required: true, defaultValue: 'random', section: 'core' },
+  // Retained only for reading historical selections; new PAGE1 generation owns no ratio.
+  { key: 'aspectRatio', label: '舊畫面比例', options: ASPECT_RATIO_OPTIONS, defaultValue: 'none', section: 'hidden', randomization: 'excluded' },
   ...MIDJOURNEY_PARAMETER_LOCK_DEFINITIONS,
   { key: 'imageTypePresetId', label: '成品類型', options: IMAGE_TYPE_PRESET_OPTIONS, defaultValue: 'photorealistic-photo', suppressDefaultRandomOption: true, section: 'core' },
   { key: 'styleId', label: '攝影風格', category: '攝影風格', section: 'core' },
@@ -2095,6 +2096,7 @@ function inferCharacterMeta(category, item) {
   if (category.includes('Pose')) minVisibility = 'full';
   if (category.includes('Special Actions')) minVisibility = 'medium';
   if (category.includes('Expression') && item.zh === '龐克挑釁吐舌') tags.push('manual_only');
+  if (item.zh === '全無' && (category.includes('Body Type') || category.includes('Hair Styling State'))) tags.push('manual_only', 'optional_silence');
 
   if (hasAny(haystack, ['freckles', '雀斑', 'eyelashes', 'lip', 'nose', '瞳', 'gaze', 'eye contact'])) {
     if (!category.includes('Expression')) {
@@ -2182,6 +2184,7 @@ function inferWardrobeMeta(category, item) {
   const haystack = toHaystack(category, item.zh, item.en, item.desc);
   const tags = [];
 
+  if (item.zh === '全無' && (category.includes('Outerwear Opening') || category.includes('Eyewear Placement'))) tags.push('optional_silence');
   if (hasAny(haystack, ['latex', 'glossy', 'sheer', 'lingerie', 'bikini'])) tags.push('revealing');
   if (hasAny(haystack, ['utility', 'tactical', 'combat'])) tags.push('utilitarian');
   if (hasAny(haystack, ['lace', 'corset', 'victorian'])) tags.push('ornate');
@@ -3662,7 +3665,8 @@ function applyEyewearLegacyLockMigration(normalizedLocks, rawLocks, controls) {
     if (color) normalizedLocks[colorKey] = color.id;
 
     const placement = getControlOptionByZh(controls, placementKey, migration.placementZh);
-    if (placement) normalizedLocks[placementKey] = placement.id;
+    const explicitPlacement = getControlOptionById(controls, placementKey, rawLocks?.[placementKey]);
+    if (placement && !(explicitPlacement && isNoneLikeItem(explicitPlacement))) normalizedLocks[placementKey] = placement.id;
   });
 }
 
@@ -3691,7 +3695,7 @@ function applyOuterwearOpeningLegacyLockMigration(normalizedLocks, rawLocks, con
 
     const opening = getControlOptionByZh(controls, openingKey, migration.openingZh);
     const currentOpening = getControlOptionById(controls, openingKey, normalizedLocks[openingKey]);
-    if (opening && (!normalizedLocks[openingKey] || isNoneLikeItem(currentOpening))) {
+    if (opening && !currentOpening && !normalizedLocks[openingKey]) {
       normalizedLocks[openingKey] = opening.id;
     }
   });
@@ -3704,6 +3708,8 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     if (!LOCK_KEYS.has(key)) return;
     normalized[key] = value;
   });
+
+  if (!normalized.aspectRatio || normalized.aspectRatio === 'random') normalized.aspectRatio = 'none';
 
   const legacyDedicatedSubject = ALL_DEDICATED_SUBJECT_OPTIONS.find((option) => option.id === rawLocks?.subjectCount && !isNoneLikeItem(option));
   if (legacyDedicatedSubject) {
@@ -3954,7 +3960,6 @@ function getLocationEnvironmentFlags(location) {
 }
 
 function getSceneAttributeOption(id) {
-  if (id === 'none') return null;
   return SCENE_ATTRIBUTE_OPTIONS.find((option) => option.id === id) || null;
 }
 
@@ -6412,7 +6417,7 @@ function buildCharacter(context, catalog) {
     if (locked && predicate(locked)) return cloneCharacterRole(locked, role);
 
     const candidates = categoryItems.filter(
-      (item) => detailAllowed(item, context.framing) && predicate(item)
+      (item) => detailAllowed(item, context.framing) && !item.meta?.tags?.includes('optional_silence') && predicate(item)
     );
     if (candidates.length === 0) return null;
 
@@ -6851,6 +6856,7 @@ function buildWardrobe(context, locks, catalog) {
 
     const candidates = categoryItems.filter(
       (item) =>
+        !item.meta?.tags?.includes('optional_silence') &&
         (allowNoneWhenUnlocked || !isNoneLikeItem(item)) &&
         wardrobeFitsLocation(item, context.location) &&
         extraPredicate(item)
@@ -9605,7 +9611,7 @@ function buildEyewearPrompt(eyewear, color = null, placement = null) {
   const colorText = color && !isNoneLikeItem(color) ? buildAccessoryPrompt(color) : '';
   const targetedColorPrompt = buildTargetedEyewearColorPrompt(eyewear, base, color);
   const baseText = targetedColorPrompt || (colorText ? [colorText, base].filter(Boolean).join(', ') : base);
-  const placementText = eyewear.eyewearPlacementMode === 'fixed-face'
+  const placementText = eyewear.eyewearPlacementMode === 'fixed-face' || (placement && isNoneLikeItem(placement))
     ? ''
     : placement && !isNoneLikeItem(placement)
       ? buildAccessoryPrompt(placement)
@@ -11324,7 +11330,9 @@ function buildGptDuoPoseAndCompositionText(valuesByLabel, context) {
   return [
     scenario ? ensureTerminalPeriod(capitalizePromptLead(scenario)) : '',
     postureBase ? `Their body posture is ${ensureTerminalPeriod(postureBase)}` : '',
-    `Use ${framingText}${viewpoint ? ` with ${viewpoint}` : ''} as a loose photographic guide, allowing natural crop, overlap, body blocking, and partial occlusion when it makes the moment feel candid and real.`,
+    !isNoneLikeItem(context.framing)
+      ? `Use ${framingText}${viewpoint ? ` with ${viewpoint}` : ''} as a loose photographic guide, allowing natural crop, overlap, body blocking, and partial occlusion when it makes the moment feel candid and real.`
+      : viewpoint ? ensureTerminalPeriod(viewpoint) : '',
   ].filter(Boolean).join(' ');
 }
 
@@ -15702,6 +15710,12 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     neckAccessoryBId: wardrobeSlots.neckAccessoryB?.id?.replace(/:b$/, '') || '',
     waistAccessoryBId: wardrobeSlots.waistAccessoryB?.id?.replace(/:b$/, '') || preserveHiddenWaistSelection(null, 'waistAccessoryBId'),
   };
+  // Keep an explicit silence choice even when its parent item is absent or cropped.
+  for (const control of getLockControls()) {
+    if (!/^(bodyType|hairStylingState)[AB]?Id$|^outerwear[AB]?OpeningId$|^eyewear[AB]?PlacementId$/.test(control.key)) continue;
+    const locked = control.options?.find((option) => option.id === context.locks?.[control.key]);
+    if (locked && isNoneLikeItem(locked)) resolvedSelection[control.key] = locked.id;
+  }
   return createSelectionSnapshot(LOCK_DEFINITIONS, resolvedSelection);
 }
 

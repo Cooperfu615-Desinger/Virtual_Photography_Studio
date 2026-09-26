@@ -23,7 +23,7 @@ function createAllNoneLocks() {
   return Object.fromEntries(
     controls.map((control) => [
       control.key,
-      control.options?.find((option) => option.zh === '全無' || option.zh === '無額外表情')?.id || '',
+      control.options?.find((option) => !/^(bodyType|hairStylingState)[AB]?Id$|^outerwear[AB]?OpeningId$|^eyewear[AB]?PlacementId$|^sceneAttributeId$/.test(control.key) && (option.zh === '全無' || option.zh === '無額外表情'))?.id || '',
     ])
   );
 }
