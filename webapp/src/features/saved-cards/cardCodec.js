@@ -1,3 +1,4 @@
+import { accessoryRestoreNotices } from '../../lib/engine/accessoryPolicy.js';
 import {
   createEmptyLocks,
   getLockControls,
@@ -62,9 +63,9 @@ const STRUCTURED_CONTROL_KEYS = {
     'outerwearBId', 'outerwearBFitId', 'outerwearBColorId', 'outerwearBPatternId',
     'outerwearBOpeningId', 'outerwearBStylingId', 'legwearBId', 'legwearBColorId',
     'shoesBId', 'shoesBColorId',
-    'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'earringsId', 'neckAccessoryId',
-    'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId', 'waistAccessoryAId',
-    'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId', 'waistAccessoryBId',
+    'headphonesId', 'faceCoveringId', 'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'earringsId', 'neckAccessoryId',
+    'headphonesAId', 'faceCoveringAId', 'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId', 'waistAccessoryAId',
+    'headphonesBId', 'faceCoveringBId', 'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId', 'waistAccessoryBId',
     'wristAccessoryId', 'ringId', 'waistAccessoryId',
   ],
   Location: [
@@ -313,6 +314,7 @@ export function parseLocksFromStandardPrompt(promptText, controls) {
 
   if (normalizedPrompt) {
     controls.forEach((control) => {
+      if (control.compatibilityOnly) return;
       const option = findBestOptionMatch(control.options, normalizedPrompt);
       if (!option) return;
       locks[control.key] = option.id;
@@ -445,6 +447,7 @@ export function parseExportedMarkdownPrompt(markdownText, controls, fallbackId) 
     id: fallbackId || `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     date: new Date().toISOString(),
     summary,
+    accessoryRestoreNotices: accessoryRestoreNotices(parsed.locks),
     summaryFields: parseSummaryFields(summary),
     midjourneyPrompt,
     grokPrompt,
@@ -485,6 +488,7 @@ export function sanitizeStoredPrompt(prompt, controls = getLockControls()) {
 
   return {
     id: prompt.id,
+    accessoryRestoreNotices: [...new Set([...(prompt.accessoryRestoreNotices || []), ...accessoryRestoreNotices(rawSelection || {})])],
     source,
     sourceLabel: String(prompt.sourceLabel || ''),
     date: prompt.date || new Date().toISOString(),
@@ -525,6 +529,7 @@ export function serializeFavoritePrompt(prompt) {
 
   return {
     v: FAVORITES_STORAGE_VERSION,
+    an: sanitized.accessoryRestoreNotices,
     i: sanitized.id,
     o: sanitized.source,
     b: sanitized.sourceLabel,
@@ -552,6 +557,7 @@ export function deserializeFavoritePrompt(record) {
   if (READABLE_FAVORITES_STORAGE_VERSIONS.includes(record.v) && record.i) {
     return sanitizeStoredPrompt({
       id: record.i,
+      accessoryRestoreNotices: record.an,
       source: record.o,
       sourceLabel: record.b,
       date: record.d,

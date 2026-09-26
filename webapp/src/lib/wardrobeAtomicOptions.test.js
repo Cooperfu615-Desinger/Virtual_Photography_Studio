@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import { createEmptyLocks, getLockControls, normalizeLocks } from './engine.js';
 
 const confirmedAdditions = {
+  faceCoveringId: ['黑色口罩', '防毒面具（3M 6200）'],
   topId: ['長袖上衣', '馬甲上衣', '掛脖上衣', '泡袖上衣', '針織背心'],
   pantsId: ['喇叭褲', '工裝短褲', '氣球工裝褲', '七分褲'],
   skirtId: ['鉛筆裙', '工裝長裙'],
@@ -23,8 +24,6 @@ const confirmedAdditions = {
     '小禮帽',
     '護士帽',
     '蝴蝶結髮夾',
-    '黑色口罩',
-    '防毒面具（3M 6200）',
   ],
   eyewearId: ['矩形眼鏡', '飛行員眼鏡', '貓眼眼鏡', '無框眼鏡'],
   eyewearColorId: ['棕色', '琥珀色', '藍色', '紅色', '紫色', '粉色'],

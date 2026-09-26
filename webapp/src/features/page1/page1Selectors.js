@@ -186,7 +186,7 @@ function buildWardrobeControls(lockControls, locks) {
     .some((key) => Boolean(locks[key]) && !isNoneSelected(key, locks[key], lockControls));
 
   return sortControls(lockControls.filter((control) => {
-    if (control.section !== 'wardrobe') return false;
+    if (control.section !== 'wardrobe' || control.compatibilityOnly) return false;
     if (['specialOutfitId', 'completeLookPaletteId'].includes(control.key) && locks.subjectCount === '2') return false;
     if (['specialOutfitAId', 'specialOutfitBId', 'completeLookPaletteAId', 'completeLookPaletteBId'].includes(control.key) && locks.subjectCount !== '2') return false;
     if (locks.subjectCount === '2') {

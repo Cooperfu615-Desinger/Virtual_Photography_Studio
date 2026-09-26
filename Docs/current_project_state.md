@@ -2,7 +2,15 @@
 
 This is the short current-state briefing for new sessions. Read this first. Use `Docs/conversation_handoff.md` only when deeper history or rationale is needed.
 
-Last updated: 2026-09-25
+Last updated: 2026-09-26
+
+## Independent accessories and conflicts (local, 2026-09-26)
+
+- PAGE1 head accessories now contain headwear only and use the existing garment swatch picker. Headphones and face coverings have independent single/A/B controls, defaulting to none. Head-worn audio conflicts with hats, headscarves and rigid head ornaments; neck-worn audio and wired earphones remain compatible. Face coverings and manual nose/lip piercings are mutually exclusive; disabled options explain how to switch.
+- `webapp/src/lib/engine/accessoryPolicy.js` owns catalog classification, legacy migration, shared option availability and wired-audio crop projection. Original indexed Markdown rows and IDs remain stable. Old head-accessory colors travel with the migrated item through hidden compatibility fields. Conflicting legacy covering/piercing selections retain the covering with a restore notice; stored prompt texts remain unchanged.
+- Wired audio describes a continuous cable ending concealed beneath clothing at the side waist/hip, with no dangling end or invented pocket/device. Near crops show the cable continuing beyond the lower frame edge. Main and derived renderers share resolved selections; the uncropped full-body output retains the full cable source.
+- Validation: full frontend tests pass 1022/1022 and Prompt Quality 311/311; lint, build, source sync/check, Python sync tests 2/2, public assets and diff-check pass. Before/after strict audits use 200 prompts and seed `prompt-quality-baseline`: zero blockers and the same 23 diagnostic findings. Existing build chunk-size warning remains.
+- Browser checks at 1440x1000 and 390x900 cover accessory swatches, both directions of mutual exclusion, cable wording in all six outputs, and all five required workspaces. Screenshots were inspected with no document overflow or console warnings/errors observed. Saved Cards and legacy Markdown restore are covered by regression tests; no browser favorite was created. Original accessory settings were restored after QA. No external image generation, staging, commit, push or deployment was performed. Existing untracked user images and `Docs/0923/`, `Docs/lie_on_back/` are untouched. See [wardrobe authoring §11](specs/wardrobe-section-b-authoring-guide.md#11-配件).
 
 ## Sailor uniform separates (local, 2026-09-25)
 

@@ -426,7 +426,7 @@
 | **頭部配件 (Head Accessories)** | 全無 | `no head accessories, clean head styling` | 不加頭部配件，讓髮型與頭部輪廓維持乾淨俐落。 |
 | **頭部配件 (Head Accessories)** | 耳罩式耳機（戴在頭上） | `black Marshall Major V on-ear headphones worn on the head, compact black earcups, slim structured headband` | 以黑色 Marshall Major V 耳罩式耳機為主，清楚呈現小巧黑色耳罩、細窄頭帶與頭戴位置。 |
 | **頭部配件 (Head Accessories)** | 耳罩式耳機（掛在脖子上） | `black Marshall Major V on-ear headphones resting around the neck, compact black earcups, slim structured headband visible at the collar` | 以同款黑色 Marshall Major V 掛在脖子上為主，耳罩落在領口附近，頭帶自然跨過後頸。 |
-| **頭部配件 (Head Accessories)** | 有線耳機 | `wired earphones with visible cable, lightweight in-ear audio accessory` | 以入耳式耳機、細線材與可見垂落線條為主。 |
+| **頭部配件 (Head Accessories)** | 有線耳機 | `wired in-ear earphones with a continuous cable running from the earbuds down along the torso toward either side of the waist or the hip, where it is tucked beneath the clothing and its end is concealed, with no loose cable end dangling` | 以入耳式耳機、細線材與可見垂落線條為主。 |
 | **頭部配件 (Head Accessories)** | 黑色口罩 | `black disposable pleated face mask, covering the nose and mouth, fitted ear loops, lower face concealed` | 黑色百褶拋棄式口罩完整遮住鼻子與嘴巴，以貼合耳掛固定，下半臉維持不可見。 |
 | **頭部配件 (Head Accessories)** | 防毒面具（3M 6200） | `grey 3M 6200 reusable half-face respirator, snug nose-and-mouth seal, twin side filter cartridges, adjustable head straps` | 灰色 3M 6200 可重複使用半面式防護面具貼合鼻子與嘴巴，左右裝有雙濾罐並以可調頭帶固定，眼睛保持露出。 |
 | **頭部配件 (Head Accessories)** | 棒球帽 | `baseball cap, curved brim, adjustable back closure, structured casual crown` | 以彎帽簷、可調後扣與休閒硬挺帽冠為主。 |

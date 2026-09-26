@@ -1,3 +1,4 @@
+import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { Fragment, useMemo, useState } from 'react';
 import { Copy } from 'lucide-react';
 import DllPicProPanel from './DllPicProPanel';
@@ -55,6 +56,7 @@ import { normalizeZImageVisibleTextSettings } from '../lib/engine/zImageVisibleT
 import '../features/page1/page1.css';
 
 const WARDROBE_PICKER_KEYS = new Set([
+  'headAccessoryColorId', 'headAccessoryAColorId', 'headAccessoryBColorId',
   'characterProfileId',
   'specialOutfitId',
   'specialOutfitAId',
@@ -741,6 +743,9 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const applyControlValue = (control, value) => {
     updateLocks((prev) => {
       const next = { ...prev, [control.key]: value };
+      if (/^(headphones|faceCovering)[AB]?Id$/.test(control.key) && prev[control.key] !== value) {
+        next[control.key.replace(/Id$/, 'ColorId')] = 'none';
+      }
       if (control.key === 'fixedCompositionSetId') {
         const nextFixedSetActive = Boolean(value) && !isNoneSelected('fixedCompositionSetId', value, lockControls);
         const nextFixedSetOption = getFixedCompositionSetOption(value);
@@ -924,7 +929,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
   const renderControlGrid = (controls) => (
     <div className="lock-grid detail-lock-grid">
       {controls.map((rawControl) => {
-        const preparedControl = buildFixedSetControl(buildPoseComposerControl(rawControl));
+        const preparedControl = prepareAccessoryControl(buildFixedSetControl(buildPoseComposerControl(rawControl)), locks);
         const control = supineSurfaceOnly && ['sceneAttributeId', 'locationId'].includes(preparedControl.key)
           ? {
               ...preparedControl,

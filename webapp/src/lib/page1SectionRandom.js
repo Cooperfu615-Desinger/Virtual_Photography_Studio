@@ -36,6 +36,7 @@ export function getPage1ControlActionMode(controlOrKey, controls = []) {
   const key = control?.key || controlOrKey;
 
   if (control?.section === 'midjourney' || control?.randomization === 'excluded') return 'preserve';
+  if (control?.compatibilityOnly) return 'reset';
   if (PRESERVE_KEYS.has(key) || control?.required) return 'preserve';
   if (POSE_COMPOSER_KEYS.includes(key)) return 'random';
   if (RESET_TO_DEFAULT_KEYS.has(key) || control?.section === 'hidden') return 'reset';
@@ -70,6 +71,9 @@ export function randomizeLockKeys(locks, keys, defaultLocks = {}, controls = [])
     const control = controlsByKey.get(key);
     const mode = getPage1ControlActionMode(control || key, controls);
     if (mode === 'preserve') return;
+    if (/^(headphones|faceCovering)[AB]?Id$/.test(key)) {
+      next[key.replace(/Id$/, 'ColorId')] = 'none';
+    }
     if (mode === 'reset') {
       next[key] = getNoneOrDefaultValue(control, defaultLocks[key] ?? '');
       return;

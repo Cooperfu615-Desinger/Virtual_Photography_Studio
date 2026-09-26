@@ -1,3 +1,4 @@
+import { ACCESSORY_CATEGORIES, accessoryNoneId, isConcreteAccessory, isHeadWornAudio, blocksHeadWornAudio, splitAccessoryCatalog, migrateAccessoryLocks, normalizeAccessoryConflicts, projectAudioForFraming } from './engine/accessoryPolicy.js';
 import database from '../data/database.json' with { type: 'json' };
 import { getActionPoseCardById } from '../data/actionPoseCards.js';
 import {
@@ -1188,6 +1189,10 @@ const LOCK_DEFINITIONS = [
   { key: 'legwearBColorId', label: '人物 2 襪類配色', options: LEGWEAR_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'shoesBId', label: '人物 2 鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
   { key: 'shoesBColorId', label: '人物 2 鞋款配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'headphonesId', label: '耳機', category: ACCESSORY_CATEGORIES.headphones, defaultValue: accessoryNoneId('headphones'), section: 'wardrobe' },
+  { key: 'headphonesColorId', label: '耳機舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
+  { key: 'faceCoveringId', label: '口鼻遮擋', category: ACCESSORY_CATEGORIES.faceCovering, defaultValue: accessoryNoneId('faceCovering'), section: 'wardrobe' },
+  { key: 'faceCoveringColorId', label: '口鼻遮擋舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
   { key: 'headAccessoryId', label: '頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryColorId', label: '頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearId', label: '眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
@@ -1198,6 +1203,10 @@ const LOCK_DEFINITIONS = [
   { key: 'lipPiercingId', label: '唇部穿孔', category: '唇部穿孔 (Lip Piercings)', defaultValue: 'wardrobe:唇部穿孔-lip-piercings:全無:0', suppressDefaultRandomOption: true, section: 'wardrobe' },
   { key: 'neckAccessoryId', label: '頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'waistAccessoryId', label: '腰部', category: '腰部配件 (Waist Accessories)', section: 'wardrobe' },
+  { key: 'headphonesAId', label: '人物 1 耳機', category: ACCESSORY_CATEGORIES.headphones, defaultValue: accessoryNoneId('headphones'), section: 'wardrobe' },
+  { key: 'headphonesAColorId', label: '人物 1 耳機舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
+  { key: 'faceCoveringAId', label: '人物 1 口鼻遮擋', category: ACCESSORY_CATEGORIES.faceCovering, defaultValue: accessoryNoneId('faceCovering'), section: 'wardrobe' },
+  { key: 'faceCoveringAColorId', label: '人物 1 口鼻遮擋舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
   { key: 'headAccessoryAId', label: '人物 1 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryAColorId', label: '人物 1 頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearAId', label: '人物 1 眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
@@ -1206,6 +1215,10 @@ const LOCK_DEFINITIONS = [
   { key: 'earringsAId', label: '人物 1 耳環', category: '耳環 (Earrings)', section: 'wardrobe' },
   { key: 'neckAccessoryAId', label: '人物 1 頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'waistAccessoryAId', label: '人物 1 腰部', category: '腰部配件 (Waist Accessories)', section: 'wardrobe' },
+  { key: 'headphonesBId', label: '人物 2 耳機', category: ACCESSORY_CATEGORIES.headphones, defaultValue: accessoryNoneId('headphones'), section: 'wardrobe' },
+  { key: 'headphonesBColorId', label: '人物 2 耳機舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
+  { key: 'faceCoveringBId', label: '人物 2 口鼻遮擋', category: ACCESSORY_CATEGORIES.faceCovering, defaultValue: accessoryNoneId('faceCovering'), section: 'wardrobe' },
+  { key: 'faceCoveringBColorId', label: '人物 2 口鼻遮擋舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
   { key: 'headAccessoryBId', label: '人物 2 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryBColorId', label: '人物 2 頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearBId', label: '人物 2 眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
@@ -2253,10 +2266,13 @@ const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
   'shoesId',
   'shoesAId',
   'shoesBId',
+  'headphonesId', 'faceCoveringId',
   'headAccessoryId',
   'headAccessoryColorId',
+  'headphonesAId', 'faceCoveringAId',
   'headAccessoryAId',
   'headAccessoryAColorId',
+  'headphonesBId', 'faceCoveringBId',
   'headAccessoryBId',
   'headAccessoryBColorId',
   'eyewearId',
@@ -2325,6 +2341,7 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'posePropId',
   'poseHeadId',
   'poseAnchorId',
+  'headphonesId', 'faceCoveringId',
   'headAccessoryId',
   'headAccessoryColorId',
   'eyewearId',
@@ -2333,12 +2350,14 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'earringsId',
   'nosePiercingId',
   'lipPiercingId',
+  'headphonesAId', 'faceCoveringAId',
   'headAccessoryAId',
   'headAccessoryAColorId',
   'eyewearAId',
   'eyewearAColorId',
   'eyewearAPlacementId',
   'earringsAId',
+  'headphonesBId', 'faceCoveringBId',
   'headAccessoryBId',
   'headAccessoryBColorId',
   'eyewearBId',
@@ -3290,6 +3309,7 @@ function buildCatalog(customLibrary = []) {
   applyRegionalLegacyOptionIds(catalog);
   applyWardrobeLegacyOptionIds(catalog);
   applyWardrobeLegacyPromptAliases(catalog);
+  splitAccessoryCatalog(catalog.wardrobe);
   applyLocationLegacyPromptAliases(catalog);
   applyCharacterIdentityLegacyOptionIds(catalog);
   applyCharacterExpressionPoseLegacyOptionIds(catalog);
@@ -3756,6 +3776,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     });
   }
 
+  migrateAccessoryLocks(normalized, controls);
   const normalizedWithLegacyColors = normalizeLegacyOutfitPresetColors(normalized);
   controls.forEach((control) => {
     if (!Array.isArray(control.options) || control.options.length === 0) return;
@@ -3817,7 +3838,7 @@ export function normalizeLocks(rawLocks = {}, controls = getLockControls()) {
     }
   }
 
-  return normalizedWithLegacyColors;
+  return normalizeAccessoryConflicts(normalizedWithLegacyColors, controls);
 }
 
 export function sanitizeLocksForCloseupMode(rawLocks = {}, controls = []) {
@@ -3882,6 +3903,7 @@ function buildLockControls({ flatCatalog, catalog }) {
       if (['outerwearOpeningId', 'outerwearAOpeningId', 'outerwearBOpeningId'].includes(definition.key)) options = getByKey(catalog.wardrobe, WARDROBE_OUTERWEAR_OPENING_CATEGORY);
       if (['outerwearStylingId', 'outerwearAStylingId', 'outerwearBStylingId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '外套穿法 (Outerwear Styling)');
       if (['shoesId', 'shoesAId', 'shoesBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '鞋款 (Shoes)');
+      if (/^(headphones|faceCovering)[AB]?Id$/.test(definition.key)) options = getByKey(catalog.wardrobe, definition.category);
       if (['headAccessoryId', 'headAccessoryAId', 'headAccessoryBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, '頭部配件 (Head Accessories)');
       if (['eyewearId', 'eyewearAId', 'eyewearBId'].includes(definition.key)) options = getByKey(catalog.wardrobe, WARDROBE_EYEWEAR_CATEGORY);
       if (['eyewearColorId', 'eyewearAColorId', 'eyewearBColorId'].includes(definition.key)) options = getByKey(catalog.wardrobe, WARDROBE_EYEWEAR_COLOR_CATEGORY);
@@ -6776,6 +6798,7 @@ function buildWardrobe(context, locks, catalog) {
     return Boolean(color && !isNoneLikeItem(color));
   };
   const hasDuoAccessoryLock = context.subject.count === 2 && [
+    'headphonesAId', 'faceCoveringAId',
     'headAccessoryAId',
     'headAccessoryAColorId',
     'eyewearAId',
@@ -6784,6 +6807,7 @@ function buildWardrobe(context, locks, catalog) {
     'earringsAId',
     'neckAccessoryAId',
     'waistAccessoryAId',
+    'headphonesBId', 'faceCoveringBId',
     'headAccessoryBId',
     'headAccessoryBColorId',
     'eyewearBId',
@@ -6794,7 +6818,7 @@ function buildWardrobe(context, locks, catalog) {
     'waistAccessoryBId',
   ].some((key) => ['headAccessoryAColorId', 'headAccessoryBColorId'].includes(key)
     ? isActiveHeadAccessoryColorLock(key)
-    : Boolean(locks?.[key]));
+    : /^(headphones|faceCovering)/.test(key) ? locks?.[key] === '' || isConcreteAccessory(locks?.[key]) : Boolean(locks?.[key]));
   const hasSingleHeadAccessoryColorLock = context.subject.count !== 2
     && !locks?.headAccessoryId
     && Boolean(getGarmentColorOption(locks?.headAccessoryColorId))
@@ -6847,6 +6871,28 @@ function buildWardrobe(context, locks, catalog) {
     addPiece(clonedItem);
     return clonedItem;
   };
+  for (const suffix of context.subject.count === 2 ? ['A', 'B'] : ['']) {
+    const role = suffix.toLowerCase();
+    if (suffix && isSpecialOutfitRole(role)) continue;
+    if (!suffix && specialOutfitPieces.length) continue;
+    for (const [slot, category] of Object.entries(ACCESSORY_CATEGORIES)) {
+      const key = `${slot}${suffix}Id`;
+      const items = getByKey(catalog.catalog.wardrobe, category);
+      const locked = locks[key] ? findById(items, locks[key]) : null;
+      const compatible = (item) => {
+        if (slot === 'headphones') return !(isHeadWornAudio(item) && blocksHeadWornAudio(locks[`headAccessory${suffix}Id`]));
+        return suffix || !['nosePiercingId', 'lipPiercingId'].some((k) => isConcreteAccessory(locks[k]));
+      };
+      const candidates = items.filter((item) => !isNoneLikeItem(item) && compatible(item));
+      const item = locked || (!locks[key] && candidates.length && random() < (slot === 'headphones' ? 0.16 : 0.08) ? sampleItem(candidates) : null);
+      if (!item || isNoneLikeItem(item)) continue;
+      const colorLock = locks[`${slot}${suffix}ColorId`];
+      const color = colorLock === '' ? sampleNonNone(GARMENT_COLOR_OPTIONS, random) : getGarmentColorOption(colorLock);
+      const colored = color && !isNoneLikeItem(color) ? { ...item, en: buildHeadAccessoryPrompt(item, color), meta: { ...item.meta, accessoryColorId: color.id } } : item;
+      addPiece(suffix ? cloneWardrobePieceForRole(colored, role, slot) : colored);
+    }
+  }
+  const compatibleHeadAccessory = (item, role = '') => !blocksHeadWornAudio(item) || !pieces.some((piece) => piece.meta?.accessorySlot === 'headphones' && (piece.meta?.wardrobeRole || '') === role && isHeadWornAudio(piece));
   // Facial piercings are opt-in and do not consume randomness when unselected.
   if (context.subject.count === 1) {
     for (const category of ['鼻部穿孔 (Nose Piercings)', '唇部穿孔 (Lip Piercings)']) {
@@ -6864,9 +6910,11 @@ function buildWardrobe(context, locks, catalog) {
   const ensureRoleHeadAccessoryForColor = (role, itemKey, colorKey) => {
     if (isSpecialOutfitRole(role)) return null;
     const color = getGarmentColorOption(locks?.[colorKey]);
-    if (!color || isNoneLikeItem(color) || locks?.[itemKey]) return null;
+    if (locks?.[itemKey]) return null;
+    const colorActive = color && !isNoneLikeItem(color);
+    if (!colorActive && (!hasDuoAccessoryLock || random() > 0.28)) return null;
     const candidates = getByKey(catalog.catalog.wardrobe, '頭部配件 (Head Accessories)').filter(
-      (item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location)
+      (item) => !isNoneLikeItem(item) && wardrobeFitsLocation(item, context.location) && compatibleHeadAccessory(item, role)
     );
     if (candidates.length === 0) return null;
     const picked = sampleItem(previewExclusions.filterCandidates(candidates, [itemKey]));
@@ -7369,7 +7417,7 @@ function buildWardrobe(context, locks, catalog) {
       addRoleLockedPiece('耳環 (Earrings)', 'earringsBId', 'b', 'earrings');
     }
     if (!hasDuoAccessoryLock) {
-      maybePick('頭部配件 (Head Accessories)', hasSingleHeadAccessoryColorLock ? 1 : 0.28, () => true, { allowNoneWhenUnlocked: true });
+      maybePick('頭部配件 (Head Accessories)', hasSingleHeadAccessoryColorLock ? 1 : 0.28, compatibleHeadAccessory, { allowNoneWhenUnlocked: true });
       const eyewearPiece = maybePick(WARDROBE_EYEWEAR_CATEGORY, 0.35, () => true, { allowNoneWhenUnlocked: true });
       const hasEyewearPiece = Array.isArray(eyewearPiece)
         ? eyewearPiece.some((item) => item && !isNoneLikeItem(item))
@@ -7569,7 +7617,7 @@ function buildWardrobe(context, locks, catalog) {
   }
 
   if (!hasDuoAccessoryLock) {
-    maybePick('頭部配件 (Head Accessories)', hasSingleHeadAccessoryColorLock ? 1 : (visibilityAtLeast(visibility, 'portrait') ? 0.28 : 0.12), () => true, { allowNoneWhenUnlocked: true });
+    maybePick('頭部配件 (Head Accessories)', hasSingleHeadAccessoryColorLock ? 1 : (visibilityAtLeast(visibility, 'portrait') ? 0.28 : 0.12), compatibleHeadAccessory, { allowNoneWhenUnlocked: true });
     const eyewearPiece = maybePick(WARDROBE_EYEWEAR_CATEGORY, visibilityAtLeast(visibility, 'portrait') ? 0.35 : 0.15, () => true, { allowNoneWhenUnlocked: true });
     const hasEyewearPiece = Array.isArray(eyewearPiece)
       ? eyewearPiece.some((item) => item && !isNoneLikeItem(item))
@@ -7648,6 +7696,8 @@ function buildSummaryFields(context, wardrobe, character, wardrobeColors) {
     const headLabel = accessoryItemLabel(slot('headAccessory'));
     const eyewearLabel = accessoryItemLabel(slot('eyewear'));
     return buildAccessorySummaryText([
+      { key: `headphones${suffix}`, text: accessoryItemLabel(slot('headphones')) },
+      { key: `faceCovering${suffix}`, text: accessoryItemLabel(slot('faceCovering')) },
       { key: `headAccessory${suffix}`, text: headLabel },
       {
         key: `headAccessoryColor${suffix}`,
@@ -8134,6 +8184,7 @@ function projectBodyTypeCharacter(character, context) {
 function extractWardrobeSlots(wardrobe) {
   const findSlot = (token) => wardrobe.find((item) => (
     item.id?.includes(token) &&
+    !item.meta?.accessorySlot &&
     !item.meta?.wardrobeRole &&
     !item.meta?.outfitRole &&
     !item.meta?.specialOutfitRole
@@ -8201,6 +8252,12 @@ function extractWardrobeSlots(wardrobe) {
     outerwearBOpening: findRoleSlot('wardrobe:外套開合-outerwear-opening:', 'b', 'outerwearOpening'),
     outerwearBStyling: findRoleSlot('wardrobe:外套穿法-outerwear-styling:', 'b', 'outerwearStyling'),
     shoesB: findRoleSlot('wardrobe:鞋款-shoes:', 'b', 'shoes'),
+    headphones: wardrobe.find((item) => item.meta?.accessorySlot === 'headphones' && !item.meta?.wardrobeRole),
+    faceCovering: wardrobe.find((item) => item.meta?.accessorySlot === 'faceCovering' && !item.meta?.wardrobeRole),
+    headphonesA: wardrobe.find((item) => item.meta?.accessorySlot === 'headphones' && item.meta?.wardrobeRole === 'a'),
+    faceCoveringA: wardrobe.find((item) => item.meta?.accessorySlot === 'faceCovering' && item.meta?.wardrobeRole === 'a'),
+    headphonesB: wardrobe.find((item) => item.meta?.accessorySlot === 'headphones' && item.meta?.wardrobeRole === 'b'),
+    faceCoveringB: wardrobe.find((item) => item.meta?.accessorySlot === 'faceCovering' && item.meta?.wardrobeRole === 'b'),
     headAccessory: findCharacterCardLayer('headAccessory') || findSlot('wardrobe:頭部配件-head-accessories:'),
     eyewear: findCharacterCardLayer('eyewear') || findSlot('wardrobe:眼鏡-eyewear:'),
     eyewearColor: findSlot('wardrobe:眼鏡配色-eyewear-color:'),
@@ -9564,10 +9621,12 @@ function cleanSubjectAccessoryPrompt(item) {
     .trim();
 }
 
-function buildSubjectAccessoryPrompt({ eyewear, eyewearColor, eyewearPlacement, earrings, nosePiercing, lipPiercing, neckAccessory } = {}) {
+function buildSubjectAccessoryPrompt({ eyewear, eyewearColor, eyewearPlacement, earrings, nosePiercing, lipPiercing, neckAccessory, headphones, faceCovering } = {}) {
   const parts = [
     buildEyewearPrompt(eyewear, eyewearColor, eyewearPlacement),
     cleanSubjectAccessoryPrompt(earrings),
+    cleanSubjectAccessoryPrompt(headphones),
+    cleanSubjectAccessoryPrompt(faceCovering),
     cleanSubjectAccessoryPrompt(nosePiercing),
     cleanSubjectAccessoryPrompt(lipPiercing),
     cleanSubjectAccessoryPrompt(neckAccessory),
@@ -9591,6 +9650,8 @@ function buildRoleSubjectAccessoryPrompt(wardrobeSlots, role) {
     eyewear: wardrobeSlots[`eyewear${suffix}`],
     eyewearColor: wardrobeSlots[`eyewear${suffix}Color`],
     eyewearPlacement: wardrobeSlots[`eyewear${suffix}Placement`],
+    headphones: wardrobeSlots[`headphones${suffix}`],
+    faceCovering: wardrobeSlots[`faceCovering${suffix}`],
     earrings: wardrobeSlots[`earrings${suffix}`],
     neckAccessory: wardrobeSlots[`neckAccessory${suffix}`],
   });
@@ -9936,6 +9997,8 @@ function buildStructuredPromptSections(context, character, wardrobe, wardrobeCol
       eyewearColor: wardrobeSlots.eyewearColor,
       eyewearPlacement: wardrobeSlots.eyewearPlacement,
       earrings: wardrobeSlots.earrings,
+      headphones: wardrobeSlots.headphones,
+      faceCovering: wardrobeSlots.faceCovering,
       nosePiercing: wardrobeSlots.nosePiercing,
       lipPiercing: wardrobeSlots.lipPiercing,
       neckAccessory: wardrobeSlots.neckAccessory,
@@ -11468,6 +11531,8 @@ function buildCharacterCardProfileGroups(subject, locks = {}, wardrobe = null) {
         eyewearColor: wardrobeSlots.eyewearColor,
         eyewearPlacement: wardrobeSlots.eyewearPlacement,
         earrings: isCharacterCardLayerSlot(wardrobeSlots.earrings) ? null : wardrobeSlots.earrings,
+        headphones: wardrobeSlots.headphones,
+        faceCovering: wardrobeSlots.faceCovering,
         nosePiercing: wardrobeSlots.nosePiercing,
         lipPiercing: wardrobeSlots.lipPiercing,
         neckAccessory: isCharacterCardLayerSlot(wardrobeSlots.neckAccessory) ? null : wardrobeSlots.neckAccessory,
@@ -12488,6 +12553,7 @@ function buildFixedFramingDerivedPromptModel({
   film,
 }) {
   const baseDerivedContext = createFixedFramingDerivedContext(sourceContext, preset);
+  wardrobe = projectAudioForFraming(wardrobe, baseDerivedContext);
 
   if (!preset.projectResolvedSources) {
     return {
@@ -12706,6 +12772,8 @@ function renderZImagePrompt(promptModel, { sceneMirrorReflectionText = '' } = {}
           eyewearColor: wardrobeSlots.eyewearColor,
           eyewearPlacement: wardrobeSlots.eyewearPlacement,
           earrings: wardrobeSlots.earrings,
+          headphones: wardrobeSlots.headphones,
+          faceCovering: wardrobeSlots.faceCovering,
           nosePiercing: wardrobeSlots.nosePiercing,
           lipPiercing: wardrobeSlots.lipPiercing,
           neckAccessory: wardrobeSlots.neckAccessory,
@@ -13724,6 +13792,10 @@ function buildAiRoleFaceAccessoryText(wardrobeSlots, role = null) {
       suffix ? slot('eyewearPlacement') : wardrobeSlots.eyewearPlacement,
     ),
     compactAiSelectedAccessoryText(slot('earrings'), 'earrings'),
+    /有線耳機/.test(slot('headphones')?.zh || '')
+      ? compactAiSelectedAccessoryText(slot('headphones'), 'headphones')
+      : compactAiHeadAccessoryText(slot('headphones')),
+    compactAiSelectedAccessoryText(slot('faceCovering'), 'faceCovering'),
     compactAiSelectedAccessoryText(slot('nosePiercing'), 'nosePiercing'),
     compactAiSelectedAccessoryText(slot('lipPiercing'), 'lipPiercing'),
     compactAiSelectedAccessoryText(slot('neckAccessory'), 'neckAccessory'),
@@ -13789,6 +13861,8 @@ function buildAiMinimalSubjectLead(valuesByLabel, context, wardrobe = null) {
           eyewearColor: wardrobeSlots.eyewearColor,
           eyewearPlacement: wardrobeSlots.eyewearPlacement,
           earrings: wardrobeSlots.earrings,
+          headphones: wardrobeSlots.headphones,
+          faceCovering: wardrobeSlots.faceCovering,
           nosePiercing: wardrobeSlots.nosePiercing,
           lipPiercing: wardrobeSlots.lipPiercing,
           neckAccessory: wardrobeSlots.neckAccessory,
@@ -14795,6 +14869,8 @@ function buildAiCharacterCardPage1AccessoryText(context, wardrobe) {
     eyewearColor: wardrobeSlots.eyewearColor,
     eyewearPlacement: wardrobeSlots.eyewearPlacement,
     earrings: isCharacterCardLayerSlot(wardrobeSlots.earrings) ? null : wardrobeSlots.earrings,
+    headphones: wardrobeSlots.headphones,
+    faceCovering: wardrobeSlots.faceCovering,
     nosePiercing: wardrobeSlots.nosePiercing,
     lipPiercing: wardrobeSlots.lipPiercing,
     neckAccessory: isCharacterCardLayerSlot(wardrobeSlots.neckAccessory) ? null : wardrobeSlots.neckAccessory,
@@ -15297,7 +15373,7 @@ function buildPrompts(context, character, wardrobe, wardrobeColors, lightDirecti
     projectedScene: buildProjectedScene(rendererContext),
   };
   const projectedCharacter = projectBodyTypeCharacter(character, mainContext);
-  const rendererWardrobe = fixedCompositionPromptProjection?.wardrobe.items || wardrobe;
+  const rendererWardrobe = projectAudioForFraming(fixedCompositionPromptProjection?.wardrobe.items || wardrobe, mainContext);
   const rendererWardrobeColors = fixedCompositionPromptProjection?.wardrobe.colors || wardrobeColors;
   const promptModel = {
     ...buildStructuredPromptSections(mainContext, projectedCharacter, rendererWardrobe, rendererWardrobeColors, lightDirection, film),
@@ -15587,6 +15663,10 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     outerwearBStylingId: wardrobeSlots.outerwearBStyling?.id?.replace(/:b$/, '') || '',
     shoesBId: wardrobeSlots.shoesB?.id?.replace(/:b$/, '') || '',
     shoesBColorId: wardrobeColors.shoesBColor?.id || '',
+    headphonesId: wardrobeSlots.headphones?.id?.replace(/:[ab]$/, '') || accessoryNoneId('headphones'),
+    headphonesColorId: wardrobeSlots.headphones?.meta?.accessoryColorId || 'none',
+    faceCoveringId: wardrobeSlots.faceCovering?.id?.replace(/:[ab]$/, '') || accessoryNoneId('faceCovering'),
+    faceCoveringColorId: wardrobeSlots.faceCovering?.meta?.accessoryColorId || 'none',
     headAccessoryId: wardrobeSlots.headAccessory?.id || '',
     headAccessoryColorId: wardrobeColors.headAccessoryColor?.id || '',
     eyewearId: wardrobeSlots.eyewear?.id || '',
@@ -15597,6 +15677,10 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     lipPiercingId: wardrobeSlots.lipPiercing?.id || '',
     neckAccessoryId: wardrobeSlots.neckAccessory?.id || '',
     waistAccessoryId: preserveHiddenWaistSelection(wardrobeSlots.waistAccessory, 'waistAccessoryId'),
+    headphonesAId: wardrobeSlots.headphonesA?.id?.replace(/:[ab]$/, '') || accessoryNoneId('headphones'),
+    headphonesAColorId: wardrobeSlots.headphonesA?.meta?.accessoryColorId || 'none',
+    faceCoveringAId: wardrobeSlots.faceCoveringA?.id?.replace(/:[ab]$/, '') || accessoryNoneId('faceCovering'),
+    faceCoveringAColorId: wardrobeSlots.faceCoveringA?.meta?.accessoryColorId || 'none',
     headAccessoryAId: wardrobeSlots.headAccessoryA?.id?.replace(/:a$/, '') || '',
     headAccessoryAColorId: wardrobeColors.headAccessoryAColor?.id || '',
     eyewearAId: wardrobeSlots.eyewearA?.id?.replace(/:a$/, '') || '',
@@ -15605,6 +15689,10 @@ function buildSelectionSnapshot(context, wardrobe, wardrobeColors, character, li
     earringsAId: wardrobeSlots.earringsA?.id?.replace(/:a$/, '') || '',
     neckAccessoryAId: wardrobeSlots.neckAccessoryA?.id?.replace(/:a$/, '') || '',
     waistAccessoryAId: wardrobeSlots.waistAccessoryA?.id?.replace(/:a$/, '') || preserveHiddenWaistSelection(null, 'waistAccessoryAId'),
+    headphonesBId: wardrobeSlots.headphonesB?.id?.replace(/:[ab]$/, '') || accessoryNoneId('headphones'),
+    headphonesBColorId: wardrobeSlots.headphonesB?.meta?.accessoryColorId || 'none',
+    faceCoveringBId: wardrobeSlots.faceCoveringB?.id?.replace(/:[ab]$/, '') || accessoryNoneId('faceCovering'),
+    faceCoveringBColorId: wardrobeSlots.faceCoveringB?.meta?.accessoryColorId || 'none',
     headAccessoryBId: wardrobeSlots.headAccessoryB?.id?.replace(/:b$/, '') || '',
     headAccessoryBColorId: wardrobeColors.headAccessoryBColor?.id || '',
     eyewearBId: wardrobeSlots.eyewearB?.id?.replace(/:b$/, '') || '',

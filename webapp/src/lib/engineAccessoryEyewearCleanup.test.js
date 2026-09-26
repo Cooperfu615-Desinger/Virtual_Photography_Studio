@@ -13,7 +13,7 @@ const optionByLabel = (key, label) => {
 };
 
 test('headphones use black Marshall Major V for both wearing placements', () => {
-  const headOptions = controlOptions('headAccessoryId');
+  const headOptions = controlOptions('headphonesId');
   const onHead = headOptions.find((item) => item.zh === '耳罩式耳機（戴在頭上）');
   const aroundNeck = headOptions.find((item) => item.zh === '耳罩式耳機（掛在脖子上）');
 
@@ -26,8 +26,8 @@ test('headphones use black Marshall Major V for both wearing placements', () => 
 });
 
 test('face-covering head accessories keep their defining construction in all single-subject outputs', () => {
-  const blackMask = optionByLabel('headAccessoryId', '黑色口罩');
-  const respirator = optionByLabel('headAccessoryId', '防毒面具（3M 6200）');
+  const blackMask = optionByLabel('faceCoveringId', '黑色口罩');
+  const respirator = optionByLabel('faceCoveringId', '防毒面具（3M 6200）');
 
   assert.match(blackMask.en, /black disposable pleated face mask/i);
   assert.match(blackMask.en, /covering the nose and mouth/i);
@@ -42,7 +42,7 @@ test('face-covering head accessories keep their defining construction in all sin
       ...createEmptyLocks(),
       subjectCount: '1',
       framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
-      headAccessoryId: optionByLabel('headAccessoryId', label).id,
+      headAccessoryId: optionByLabel('faceCoveringId', label).id,
     });
     const fixedOutputs = ['chest-up-portrait', 'chest-up-mj-portrait', 'full-body-character']
       .map((id) => prompt.extraPrompts.find((entry) => entry.id === id)?.text || '');
@@ -127,7 +127,7 @@ test('head accessory colors reuse the garment palette and replace authored color
       ...createEmptyLocks(),
       subjectCount: '1',
       framingId: optionByLabel('framingId', '全身鏡頭 (Full Body Shot)').id,
-      headAccessoryId: optionByLabel('headAccessoryId', accessory).id,
+      headAccessoryId: optionByLabel('faceCoveringId', accessory).id,
       headAccessoryColorId: optionByLabel('headAccessoryColorId', color).id,
     });
     const outputs = [
@@ -146,7 +146,7 @@ test('head accessory colors reuse the garment palette and replace authored color
 
 test('random head accessory color resolves a concrete palette color and keeps the selected accessory', () => {
   const controls = getLockControls();
-  const mask = optionByLabel('headAccessoryId', '黑色口罩');
+  const mask = optionByLabel('faceCoveringId', '黑色口罩');
   const randomized = randomizeLockKeys(
     { ...createEmptyLocks(), headAccessoryId: mask.id },
     ['headAccessoryColorId'],
@@ -157,8 +157,8 @@ test('random head accessory color resolves a concrete palette color and keeps th
   assert.equal(randomized.headAccessoryColorId, '');
 
   const [prompt] = generatePrompts(1, randomized, [], { random: () => 0 });
-  assert.equal(prompt.selection.headAccessoryId, mask.id);
-  assert.equal(prompt.selection.headAccessoryColorId, 'black');
+  assert.equal(prompt.selection.faceCoveringId, mask.id);
+  assert.equal(prompt.selection.faceCoveringColorId, 'black');
   assert.match(prompt.midjourneyPrompt, /black disposable pleated face mask/i);
 });
 
@@ -166,8 +166,8 @@ test('duo AI output retains independently selected face coverings for both women
   const [prompt] = generatePrompts(1, {
     ...createEmptyLocks(),
     subjectCount: '2',
-    headAccessoryAId: optionByLabel('headAccessoryAId', '黑色口罩').id,
-    headAccessoryBId: optionByLabel('headAccessoryBId', '防毒面具（3M 6200）').id,
+    headAccessoryAId: optionByLabel('faceCoveringAId', '黑色口罩').id,
+    headAccessoryBId: optionByLabel('faceCoveringBId', '防毒面具（3M 6200）').id,
   });
 
   for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {

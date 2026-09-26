@@ -15,6 +15,14 @@ const FIXED_COMPOSITION_WARDROBE_BASE_LOCKS = Object.freeze({
 });
 
 export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
+  {
+    id: 'independent-wired-earphones', title: 'Wired cable follows each output crop', mode: 'single', seed: 'accessories-v1',
+    locks: { subjectCount: '1', headphonesId: { byZh: '有線耳機' }, framingId: { byZh: '全身鏡頭 (Full Body Shot)' } },
+    expectedOutputs: {
+      ...Object.fromEntries(['grokPrompt', 'zImagePrompt', 'midjourneyPrompt', 'fullBodyCharacterPrompt'].map((key) => [key, { includes: ['continuous cable', 'end is concealed'] }])),
+      ...Object.fromEntries(['chestUpPortraitPrompt', 'chestUpMjPortraitPrompt'].map((key) => [key, { includes: ['continuous cable', 'lower frame edge'], excludes: ['waist or the hip'] }])),
+    },
+  },
   ...[
     ['彩色切面珠短項鍊', 'faceted multicolored glass beads'],
     ['單顆圓形晶石吊墜項鍊', 'single round clear crystal pendant'],
@@ -716,7 +724,7 @@ export const REPRESENTATIVE_PROMPT_FIXTURES = Object.freeze([
     locks: {
       subjectCount: '1',
       framingId: { byZh: '全身鏡頭 (Full Body Shot)' },
-      headAccessoryId: { byZh: '防毒面具（3M 6200）' },
+      faceCoveringId: { byZh: '防毒面具（3M 6200）' },
       locationId: { byZh: '室內：深邃黑幕' },
     },
     expectedOutputs: {

@@ -462,7 +462,7 @@ test('AI single-subject prompt orders eyewear and headphones before clothing', (
     eyewearId: optionId('eyewearId', '粗框眼鏡'),
     eyewearColorId: optionId('eyewearColorId', '黑色'),
     eyewearPlacementId: optionId('eyewearPlacementId', '正常戴在臉上'),
-    headAccessoryId: optionId('headAccessoryId', '耳罩式耳機（掛在脖子上）'),
+    headphonesId: optionId('headphonesId', '耳罩式耳機（掛在脖子上）'),
     topId: optionId('topId', '短版蕾絲背心'),
     topColorId: optionId('topColorId', '米白色'),
     pantsId: optionId('pantsId', '牛仔短褲'),

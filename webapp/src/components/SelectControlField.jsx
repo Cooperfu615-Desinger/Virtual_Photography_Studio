@@ -41,6 +41,7 @@ export default function SelectControlField({ control, value, onChange, onCopy, d
       </div>
       <div className="field-control-row">
         <select
+          aria-describedby={control.helpText ? `${control.key}-help` : undefined}
           disabled={disabled}
           className={isMutedSelectValue(control, value) ? 'select-muted' : ''}
           value={value}
@@ -54,6 +55,7 @@ export default function SelectControlField({ control, value, onChange, onCopy, d
           ))}
         </select>
       </div>
+      {control.helpText ? <small id={`${control.key}-help`} className="field-help">{control.helpText}</small> : null}
     </label>
   );
 }

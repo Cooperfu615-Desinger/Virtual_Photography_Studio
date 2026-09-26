@@ -1,3 +1,4 @@
+import { accessoryRestoreNotices } from './lib/engine/accessoryPolicy.js';
 import React, { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeLocks } from './lib/engine';
 import {
@@ -275,7 +276,7 @@ export default function App() {
     const restoredLocks = buildRestoreLocks(prompt.selection, lockControls);
     updateLocks(() => normalizeLocks(restoredLocks));
     setPageMode('page1');
-    showToast('已套用收藏卡片的預覽選項');
+    showToast(['已套用收藏卡片的預覽選項', ...(prompt.accessoryRestoreNotices || []), ...accessoryRestoreNotices(prompt.selection)].join(' '));
   }, [handleApplyActionPoseCardToPage1, lockControls, showToast, updateLocks]);
 
   const handleDeletePrompt = useCallback((prompt) => {
@@ -361,7 +362,7 @@ export default function App() {
     );
     applyLocksToConsole(
       parsedLocks,
-      `已回填 ${matchedControls.length} 個欄位到主控台`,
+      [`已回填 ${matchedControls.length} 個欄位到主控台`, ...accessoryRestoreNotices(parsedLocks)].join(' '),
       { preserveMidjourneySettings: !includesMidjourneyTail },
     );
     setIsImportPromptOpen(false);

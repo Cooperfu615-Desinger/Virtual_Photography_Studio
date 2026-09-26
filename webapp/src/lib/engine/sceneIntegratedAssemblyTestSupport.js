@@ -66,8 +66,9 @@ export function runSceneFixture(fixture) {
   // Historical scene baselines predate these opt-in controls. Ignore only their
   // empty/none defaults; a concrete selection must remain observable.
   const legacySelection = (selection) => Object.fromEntries(Object.entries(selection).filter(([key, value]) => (
-    !['nosePiercingId', 'lipPiercingId'].includes(key)
-      || (value && !String(value).endsWith(':全無:0'))
+    (/^(headphones|faceCovering)[AB]?(Color)?Id$/.test(key)
+      ? Boolean(value && value !== 'none' && !String(value).endsWith(':none'))
+      : !['nosePiercingId', 'lipPiercingId'].includes(key) || (value && !String(value).endsWith(':全無:0')))
   )));
   return {
     prompt, outputs: readSceneOutputs(prompt), selection: stableValue(legacySelection(prompt.selection)), randomDraws,
