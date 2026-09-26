@@ -1191,9 +1191,9 @@ const LOCK_DEFINITIONS = [
   { key: 'shoesBId', label: '人物 2 鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
   { key: 'shoesBColorId', label: '人物 2 鞋款配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'headphonesId', label: '耳機', category: ACCESSORY_CATEGORIES.headphones, defaultValue: accessoryNoneId('headphones'), section: 'wardrobe' },
-  { key: 'headphonesColorId', label: '耳機舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
+  { key: 'headphonesColorId', label: '耳機配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'faceCoveringId', label: '口鼻遮擋', category: ACCESSORY_CATEGORIES.faceCovering, defaultValue: accessoryNoneId('faceCovering'), section: 'wardrobe' },
-  { key: 'faceCoveringColorId', label: '口鼻遮擋舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
+  { key: 'faceCoveringColorId', label: '遮擋配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'headAccessoryId', label: '頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryColorId', label: '頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearId', label: '眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
@@ -1205,9 +1205,9 @@ const LOCK_DEFINITIONS = [
   { key: 'neckAccessoryId', label: '頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'waistAccessoryId', label: '腰部', category: '腰部配件 (Waist Accessories)', section: 'wardrobe' },
   { key: 'headphonesAId', label: '人物 1 耳機', category: ACCESSORY_CATEGORIES.headphones, defaultValue: accessoryNoneId('headphones'), section: 'wardrobe' },
-  { key: 'headphonesAColorId', label: '人物 1 耳機舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
+  { key: 'headphonesAColorId', label: '人物 1 耳機配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'faceCoveringAId', label: '人物 1 口鼻遮擋', category: ACCESSORY_CATEGORIES.faceCovering, defaultValue: accessoryNoneId('faceCovering'), section: 'wardrobe' },
-  { key: 'faceCoveringAColorId', label: '人物 1 口鼻遮擋舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
+  { key: 'faceCoveringAColorId', label: '人物 1 遮擋配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'headAccessoryAId', label: '人物 1 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryAColorId', label: '人物 1 頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearAId', label: '人物 1 眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
@@ -1217,9 +1217,9 @@ const LOCK_DEFINITIONS = [
   { key: 'neckAccessoryAId', label: '人物 1 頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'waistAccessoryAId', label: '人物 1 腰部', category: '腰部配件 (Waist Accessories)', section: 'wardrobe' },
   { key: 'headphonesBId', label: '人物 2 耳機', category: ACCESSORY_CATEGORIES.headphones, defaultValue: accessoryNoneId('headphones'), section: 'wardrobe' },
-  { key: 'headphonesBColorId', label: '人物 2 耳機舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
+  { key: 'headphonesBColorId', label: '人物 2 耳機配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'faceCoveringBId', label: '人物 2 口鼻遮擋', category: ACCESSORY_CATEGORIES.faceCovering, defaultValue: accessoryNoneId('faceCovering'), section: 'wardrobe' },
-  { key: 'faceCoveringBColorId', label: '人物 2 口鼻遮擋舊版配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', compatibilityOnly: true, section: 'wardrobe' },
+  { key: 'faceCoveringBColorId', label: '人物 2 遮擋配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'headAccessoryBId', label: '人物 2 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
   { key: 'headAccessoryBColorId', label: '人物 2 頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearBId', label: '人物 2 眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
@@ -1372,6 +1372,10 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'legwearBColorId', label: 'Woman 2 Legwear Color' },
   { key: 'shoesBId', label: 'Woman 2 Shoes' },
   { key: 'shoesBColorId', label: 'Woman 2 Shoes Color' },
+  { key: 'headphonesId', label: 'Headphones' },
+  { key: 'headphonesColorId', label: 'Headphones Color' },
+  { key: 'faceCoveringId', label: 'Face Covering' },
+  { key: 'faceCoveringColorId', label: 'Face Covering Color' },
   { key: 'headAccessoryId', label: 'Head Accessory' },
   { key: 'headAccessoryColorId', label: 'Head Accessory Color' },
   { key: 'eyewearId', label: 'Eyewear Frame' },
@@ -1382,6 +1386,10 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'lipPiercingId', label: 'Lip Piercing' },
   { key: 'neckAccessoryId', label: 'Neck Accessory' },
   { key: 'waistAccessoryId', label: 'Waist Accessory' },
+  { key: 'headphonesAId', label: 'Woman 1 Headphones' },
+  { key: 'headphonesAColorId', label: 'Woman 1 Headphones Color' },
+  { key: 'faceCoveringAId', label: 'Woman 1 Face Covering' },
+  { key: 'faceCoveringAColorId', label: 'Woman 1 Face Covering Color' },
   { key: 'headAccessoryAId', label: 'Woman 1 Head Accessory' },
   { key: 'headAccessoryAColorId', label: 'Woman 1 Head Accessory Color' },
   { key: 'eyewearAId', label: 'Woman 1 Eyewear Frame' },
@@ -1390,6 +1398,10 @@ const PARTIAL_REROLL_OPTIONS = [
   { key: 'earringsAId', label: 'Woman 1 Earrings' },
   { key: 'neckAccessoryAId', label: 'Woman 1 Neck Accessory' },
   { key: 'waistAccessoryAId', label: 'Woman 1 Waist Accessory' },
+  { key: 'headphonesBId', label: 'Woman 2 Headphones' },
+  { key: 'headphonesBColorId', label: 'Woman 2 Headphones Color' },
+  { key: 'faceCoveringBId', label: 'Woman 2 Face Covering' },
+  { key: 'faceCoveringBColorId', label: 'Woman 2 Face Covering Color' },
   { key: 'headAccessoryBId', label: 'Woman 2 Head Accessory' },
   { key: 'headAccessoryBColorId', label: 'Woman 2 Head Accessory Color' },
   { key: 'eyewearBId', label: 'Woman 2 Eyewear Frame' },
@@ -2269,13 +2281,13 @@ const EFFECTIVE_WARDROBE_LOCK_KEYS = new Set([
   'shoesId',
   'shoesAId',
   'shoesBId',
-  'headphonesId', 'faceCoveringId',
+  'headphonesId', 'headphonesColorId', 'faceCoveringId', 'faceCoveringColorId',
   'headAccessoryId',
   'headAccessoryColorId',
-  'headphonesAId', 'faceCoveringAId',
+  'headphonesAId', 'headphonesAColorId', 'faceCoveringAId', 'faceCoveringAColorId',
   'headAccessoryAId',
   'headAccessoryAColorId',
-  'headphonesBId', 'faceCoveringBId',
+  'headphonesBId', 'headphonesBColorId', 'faceCoveringBId', 'faceCoveringBColorId',
   'headAccessoryBId',
   'headAccessoryBColorId',
   'eyewearId',
@@ -2344,7 +2356,7 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'posePropId',
   'poseHeadId',
   'poseAnchorId',
-  'headphonesId', 'faceCoveringId',
+  'headphonesId', 'headphonesColorId', 'faceCoveringId', 'faceCoveringColorId',
   'headAccessoryId',
   'headAccessoryColorId',
   'eyewearId',
@@ -2353,14 +2365,14 @@ const CLOSEUP_ALWAYS_ALLOWED_KEYS = new Set([
   'earringsId',
   'nosePiercingId',
   'lipPiercingId',
-  'headphonesAId', 'faceCoveringAId',
+  'headphonesAId', 'headphonesAColorId', 'faceCoveringAId', 'faceCoveringAColorId',
   'headAccessoryAId',
   'headAccessoryAColorId',
   'eyewearAId',
   'eyewearAColorId',
   'eyewearAPlacementId',
   'earringsAId',
-  'headphonesBId', 'faceCoveringBId',
+  'headphonesBId', 'headphonesBColorId', 'faceCoveringBId', 'faceCoveringBColorId',
   'headAccessoryBId',
   'headAccessoryBColorId',
   'eyewearBId',
@@ -6798,12 +6810,12 @@ function buildWardrobe(context, locks, catalog) {
     'outerwearBStylingId',
     'shoesBId',
   ].some((key) => Boolean(locks?.[key]));
-  const isActiveHeadAccessoryColorLock = (key) => {
+  const isActiveAccessoryColorLock = (key) => {
     const color = getGarmentColorOption(locks?.[key]);
     return Boolean(color && !isNoneLikeItem(color));
   };
   const hasDuoAccessoryLock = context.subject.count === 2 && [
-    'headphonesAId', 'faceCoveringAId',
+    'headphonesAId', 'headphonesAColorId', 'faceCoveringAId', 'faceCoveringAColorId',
     'headAccessoryAId',
     'headAccessoryAColorId',
     'eyewearAId',
@@ -6812,7 +6824,7 @@ function buildWardrobe(context, locks, catalog) {
     'earringsAId',
     'neckAccessoryAId',
     'waistAccessoryAId',
-    'headphonesBId', 'faceCoveringBId',
+    'headphonesBId', 'headphonesBColorId', 'faceCoveringBId', 'faceCoveringBColorId',
     'headAccessoryBId',
     'headAccessoryBColorId',
     'eyewearBId',
@@ -6821,14 +6833,13 @@ function buildWardrobe(context, locks, catalog) {
     'earringsBId',
     'neckAccessoryBId',
     'waistAccessoryBId',
-  ].some((key) => ['headAccessoryAColorId', 'headAccessoryBColorId'].includes(key)
-    ? isActiveHeadAccessoryColorLock(key)
+  ].some((key) => ['headAccessoryAColorId', 'headAccessoryBColorId', 'headphonesAColorId', 'headphonesBColorId', 'faceCoveringAColorId', 'faceCoveringBColorId'].includes(key)
+    ? isActiveAccessoryColorLock(key)
     : /^(headphones|faceCovering)/.test(key) ? locks?.[key] === '' || isConcreteAccessory(locks?.[key]) : Boolean(locks?.[key]));
   const hasSingleHeadAccessoryColorLock = context.subject.count !== 2
     && !locks?.headAccessoryId
     && Boolean(getGarmentColorOption(locks?.headAccessoryColorId))
     && !isNoneLikeItem(getGarmentColorOption(locks?.headAccessoryColorId));
-
   const maybePick = (categoryKey, probability = 1, extraPredicate = () => true, { allowNoneWhenUnlocked = false } = {}) => {
     const lockKey = categoryLockMap[categoryKey];
     const categoryItems = getByKey(catalog.catalog.wardrobe, categoryKey);
@@ -6890,9 +6901,11 @@ function buildWardrobe(context, locks, catalog) {
         return suffix || !['nosePiercingId', 'lipPiercingId'].some((k) => isConcreteAccessory(locks[k]));
       };
       const candidates = items.filter((item) => !isNoneLikeItem(item) && compatible(item));
-      const item = locked || (!locks[key] && candidates.length && random() < (slot === 'headphones' ? 0.16 : 0.08) ? sampleItem(candidates) : null);
-      if (!item || isNoneLikeItem(item)) continue;
       const colorLock = locks[`${slot}${suffix}ColorId`];
+      const colorSelected = colorLock && colorLock !== 'none';
+      const probability = colorSelected ? 1 : slot === 'headphones' ? 0.16 : 0.08;
+      const item = locked || (!locks[key] && candidates.length && random() < probability ? sampleItem(candidates) : null);
+      if (!item || isNoneLikeItem(item)) continue;
       const color = colorLock === '' ? sampleNonNone(GARMENT_COLOR_OPTIONS, random) : getGarmentColorOption(colorLock);
       const colored = color && !isNoneLikeItem(color) ? { ...item, en: buildHeadAccessoryPrompt(item, color), meta: { ...item.meta, accessoryColorId: color.id } } : item;
       addPiece(suffix ? cloneWardrobePieceForRole(colored, role, slot) : colored);

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createEmptyLocks, getLockControls, normalizeLocks, generatePrompts, createSeededRandom } from './engine.js';
 import { prepareAccessoryControl } from './engine/accessoryPolicy.js';
+import { SECTION_SUBPANELS } from '../features/page1/page1Schema.js';
 const controls = getLockControls();
 const option = (key, zh) => { const item = controls.find((c) => c.key === key)?.options.find((o) => o.zh === zh); assert.ok(item, `${key}: ${zh}`); return item; };
 test('separate catalogs preserve legacy IDs, color ownership and conflict normalization', () => {
@@ -17,6 +18,77 @@ test('separate catalogs preserve legacy IDs, color ownership and conflict normal
   const ui = prepareAccessoryControl(controls.find((c) => c.key === 'headphonesId'), { headAccessoryId: option('headAccessoryId', '棒球帽').id });
   assert.ok(ui.options.find((o) => o.id === audio.id).disabled);
   assert.ok(!ui.options.find((o) => o.zh === '有線耳機').disabled);
+});
+
+test('headphone and face-covering colors are independent active swatch controls in the requested order', () => {
+  const expected = ['headphonesId', 'headphonesColorId', 'faceCoveringId', 'faceCoveringColorId'];
+  const controlsInPanel = SECTION_SUBPANELS.wardrobe.find((panel) => panel.id === 'accessories').keys;
+  assert.deepEqual(controlsInPanel.slice(0, 4), expected);
+  for (const key of ['headphonesColorId', 'faceCoveringColorId', 'headphonesAColorId', 'faceCoveringAColorId', 'headphonesBColorId', 'faceCoveringBColorId']) {
+    const control = controls.find((entry) => entry.key === key);
+    assert.ok(control, `${key} exists`);
+    assert.equal(control.compatibilityOnly, undefined, `${key} is visible and active`);
+    assert.ok(control.options.some((color) => color.zh === '紅色'), `${key} uses the garment color swatches`);
+  }
+});
+
+test('selected headphone and face-covering colors reach prompt text and resolved selection', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    headphonesId: option('headphonesId', '耳罩式耳機（戴在頭上）').id,
+    headphonesColorId: 'red',
+    faceCoveringId: option('faceCoveringId', '黑色口罩').id,
+    faceCoveringColorId: 'dark-blue',
+  };
+  const [prompt] = generatePrompts(1, locks, [], { random: createSeededRandom('accessory-color-swatches') });
+  const texts = [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt, ...prompt.extraPrompts.map((entry) => entry.text)];
+  for (const text of texts) {
+    assert.match(text, /red Marshall Major V on-ear headphones/i);
+    assert.match(text, /dark blue disposable pleated face mask/i);
+    assert.doesNotMatch(text, /black disposable pleated face mask/i);
+  }
+  assert.equal(prompt.selection.headphonesColorId, 'red');
+  assert.equal(prompt.selection.faceCoveringColorId, 'dark-blue');
+});
+
+test('an explicit accessory color selects a matching accessory when its item is left random', () => {
+  for (const [itemKey, colorKey] of [['headphonesId', 'headphonesColorId'], ['faceCoveringId', 'faceCoveringColorId']]) {
+    const [prompt] = generatePrompts(1, {
+      ...createEmptyLocks(),
+      subjectCount: '1',
+      [itemKey]: '',
+      [colorKey]: 'red',
+    }, [], { random: createSeededRandom(`accessory-color-only-${itemKey}`) });
+    assert.ok(prompt.selection[itemKey] && !prompt.selection[itemKey].endsWith(':none'), `${itemKey} should resolve to an item`);
+    assert.equal(prompt.selection[colorKey], 'red');
+  }
+});
+
+test('duo accessories keep independently selected A/B colors', () => {
+  const locks = {
+    ...createEmptyLocks(),
+    subjectCount: '2',
+    headphonesAId: option('headphonesAId', '耳罩式耳機（戴在頭上）').id,
+    headphonesAColorId: 'red',
+    faceCoveringAId: option('faceCoveringAId', '黑色口罩').id,
+    faceCoveringAColorId: 'dark-blue',
+    headphonesBId: option('headphonesBId', '耳罩式耳機（掛在脖子上）').id,
+    headphonesBColorId: 'white',
+    faceCoveringBId: option('faceCoveringBId', '防毒面具（3M 6200）').id,
+    faceCoveringBColorId: 'neon-green',
+  };
+  const [prompt] = generatePrompts(1, locks, [], { random: createSeededRandom('duo-accessory-color-swatches') });
+  for (const text of [prompt.grokPrompt, prompt.zImagePrompt, prompt.midjourneyPrompt]) {
+    assert.match(text, /red Marshall Major V on-ear headphones/i);
+    assert.match(text, /dark blue disposable pleated face mask/i);
+    assert.match(text, /white Marshall Major V on-ear headphones/i);
+    assert.match(text, /neon green 3M 6200 reusable half-face respirator/i);
+  }
+  assert.equal(prompt.selection.headphonesAColorId, 'red');
+  assert.equal(prompt.selection.faceCoveringAColorId, 'dark-blue');
+  assert.equal(prompt.selection.headphonesBColorId, 'white');
+  assert.equal(prompt.selection.faceCoveringBColorId, 'neon-green');
 });
 test('wired audio survives six outputs with crop-aware continuous concealed cable', () => {
   const locks = { ...createEmptyLocks(), subjectCount: '1', headphonesId: option('headphonesId', '有線耳機').id, framingId: option('framingId', '全身鏡頭 (Full Body Shot)').id };
@@ -63,9 +135,22 @@ test('Saved Cards and Markdown migrate legacy audio and preserve original saved 
   assert.equal(restored.selection.nosePiercingId, option('nosePiercingId', '全無').id);
   assert.equal(restored.accessoryRestoreNotices.length, 1);
   assert.equal(restored.grokPrompt, legacy.grokPrompt);
+
+  const mask = option('faceCoveringId', '黑色口罩');
+  const [colored] = generatePrompts(1, {
+    ...createEmptyLocks(),
+    subjectCount: '1',
+    headphonesId: audio.id,
+    headphonesColorId: 'red',
+    faceCoveringId: mask.id,
+    faceCoveringColorId: 'dark-blue',
+  }, [], { random: createSeededRandom('accessory-color-card-restore') });
+  const restoredColors = deserializeFavoritePrompt(serializeFavoritePrompt(colored));
+  assert.equal(restoredColors.selection.headphonesColorId, 'red');
+  assert.equal(restoredColors.selection.faceCoveringColorId, 'dark-blue');
 });
 
-test('randomizing accessories resets legacy-only color overrides and keeps piercings manual', async () => {
+test('randomizing accessories resets accessory colors and keeps piercings manual', async () => {
   const { randomizeLockKeys } = await import('./page1SectionRandom.js');
   const next = randomizeLockKeys({ ...createEmptyLocks(), headphonesColorId: 'red', faceCoveringColorId: 'red', nosePiercingId: option('nosePiercingId', '鼻中隔細環').id }, ['headphonesId', 'faceCoveringId', 'nosePiercingId'], createEmptyLocks(), controls);
   assert.equal(next.headphonesId, '');

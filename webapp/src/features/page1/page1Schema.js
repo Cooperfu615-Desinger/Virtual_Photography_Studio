@@ -53,9 +53,9 @@ export const STYLE_WARDROBE_CONTROL_ORDER = [
   'outerwearAOpeningId', 'outerwearAStylingId', 'legwearAId', 'legwearAColorId', 'shoesAId', 'shoesAColorId',
   'outerwearBId', 'outerwearBFitId', 'outerwearBColorId', 'outerwearBPatternId',
   'outerwearBOpeningId', 'outerwearBStylingId', 'legwearBId', 'legwearBColorId', 'shoesBId', 'shoesBColorId',
-  'headAccessoryId', 'headAccessoryColorId', 'headphonesId', 'faceCoveringId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'nosePiercingId', 'lipPiercingId', 'neckAccessoryId',
-  'headAccessoryAId', 'headAccessoryAColorId', 'headphonesAId', 'faceCoveringAId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
-  'headAccessoryBId', 'headAccessoryBColorId', 'headphonesBId', 'faceCoveringBId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
+  'headphonesId', 'headphonesColorId', 'faceCoveringId', 'faceCoveringColorId', 'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'nosePiercingId', 'lipPiercingId', 'neckAccessoryId',
+  'headphonesAId', 'headphonesAColorId', 'faceCoveringAId', 'faceCoveringAColorId', 'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
+  'headphonesBId', 'headphonesBColorId', 'faceCoveringBId', 'faceCoveringBColorId', 'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
   'wristAccessoryId', 'ringId', 'waistAccessoryId', 'waistAccessoryAId', 'waistAccessoryBId',
 ];
 
@@ -88,12 +88,12 @@ export const DUO_LAYER_KEYS = [
 
 export const SHARED_ACCESSORY_KEYS = [
   'nosePiercingId', 'lipPiercingId',
-  'headAccessoryId', 'headAccessoryColorId', 'headphonesId', 'faceCoveringId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
+  'headphonesId', 'headphonesColorId', 'faceCoveringId', 'faceCoveringColorId', 'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'eyewearPlacementId', 'earringsId', 'neckAccessoryId',
   'waistAccessoryId',
 ];
 export const DUO_ACCESSORY_KEYS = [
-  'headAccessoryAId', 'headAccessoryAColorId', 'headphonesAId', 'faceCoveringAId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
-  'headAccessoryBId', 'headAccessoryBColorId', 'headphonesBId', 'faceCoveringBId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
+  'headphonesAId', 'headphonesAColorId', 'faceCoveringAId', 'faceCoveringAColorId', 'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId',
+  'headphonesBId', 'headphonesBColorId', 'faceCoveringBId', 'faceCoveringBColorId', 'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId',
   'waistAccessoryAId', 'waistAccessoryBId',
 ];
 
@@ -320,9 +320,10 @@ export const SECTION_SUBPANELS = {
       label: '配件細節',
       description: '最後才加配件，避免太早被細節打散主造型方向。',
       keys: [
+        'headphonesId', 'headphonesColorId',
+        'faceCoveringId', 'faceCoveringColorId',
         'headAccessoryId',
         'headAccessoryColorId',
-        'headphonesId', 'faceCoveringId',
         'eyewearId',
         'eyewearColorId',
         'eyewearPlacementId',
@@ -330,17 +331,19 @@ export const SECTION_SUBPANELS = {
         'nosePiercingId',
         'lipPiercingId',
         'neckAccessoryId',
+        'headphonesAId', 'headphonesAColorId',
+        'faceCoveringAId', 'faceCoveringAColorId',
         'headAccessoryAId',
         'headAccessoryAColorId',
-        'headphonesAId', 'faceCoveringAId',
         'eyewearAId',
         'eyewearAColorId',
         'eyewearAPlacementId',
         'earringsAId',
         'neckAccessoryAId',
+        'headphonesBId', 'headphonesBColorId',
+        'faceCoveringBId', 'faceCoveringBColorId',
         'headAccessoryBId',
         'headAccessoryBColorId',
-        'headphonesBId', 'faceCoveringBId',
         'eyewearBId',
         'eyewearBColorId',
         'eyewearBPlacementId',

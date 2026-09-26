@@ -65,9 +65,9 @@ const STRUCTURED_CONTROL_KEYS = {
     'outerwearBId', 'outerwearBFitId', 'outerwearBColorId', 'outerwearBPatternId',
     'outerwearBOpeningId', 'outerwearBStylingId', 'legwearBId', 'legwearBColorId',
     'shoesBId', 'shoesBColorId',
-    'headphonesId', 'faceCoveringId', 'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'earringsId', 'neckAccessoryId',
-    'headphonesAId', 'faceCoveringAId', 'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId', 'waistAccessoryAId',
-    'headphonesBId', 'faceCoveringBId', 'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId', 'waistAccessoryBId',
+    'headphonesId', 'headphonesColorId', 'faceCoveringId', 'faceCoveringColorId', 'headAccessoryId', 'headAccessoryColorId', 'eyewearId', 'eyewearColorId', 'earringsId', 'neckAccessoryId',
+    'headphonesAId', 'headphonesAColorId', 'faceCoveringAId', 'faceCoveringAColorId', 'headAccessoryAId', 'headAccessoryAColorId', 'eyewearAId', 'eyewearAColorId', 'eyewearAPlacementId', 'earringsAId', 'neckAccessoryAId', 'waistAccessoryAId',
+    'headphonesBId', 'headphonesBColorId', 'faceCoveringBId', 'faceCoveringBColorId', 'headAccessoryBId', 'headAccessoryBColorId', 'eyewearBId', 'eyewearBColorId', 'eyewearBPlacementId', 'earringsBId', 'neckAccessoryBId', 'waistAccessoryBId',
     'wristAccessoryId', 'ringId', 'waistAccessoryId',
   ],
   Location: [
