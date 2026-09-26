@@ -1,6 +1,6 @@
 import { prepareAccessoryControl } from '../lib/engine/accessoryPolicy.js';
 import { Fragment, useMemo, useState } from 'react';
-import { Copy } from 'lucide-react';
+import { Check, Copy } from 'lucide-react';
 import DllPicProPanel from './DllPicProPanel';
 import SelectControlField from './SelectControlField';
 import LightingReferenceModal from './LightingReferenceModal';
@@ -57,6 +57,8 @@ import '../features/page1/page1.css';
 
 const WARDROBE_PICKER_KEYS = new Set([
   'headAccessoryColorId', 'headAccessoryAColorId', 'headAccessoryBColorId',
+  'headphonesColorId', 'headphonesAColorId', 'headphonesBColorId',
+  'faceCoveringColorId', 'faceCoveringAColorId', 'faceCoveringBColorId',
   'characterProfileId',
   'specialOutfitId',
   'specialOutfitAId',
@@ -70,6 +72,9 @@ const WARDROBE_PICKER_KEYS = new Set([
   'dressId',
   'dressAId',
   'dressBId',
+  'dressColorId',
+  'dressAColorId',
+  'dressBColorId',
   'outfitPresetPrimaryColorId',
   'outfitPresetContrastColorId',
   'outfitPresetLockedPaletteId',
@@ -98,6 +103,34 @@ const WARDROBE_PICKER_KEYS = new Set([
   'shoesAColorId',
   'shoesBColorId',
 ]);
+
+const WARDROBE_SINGLE_COLOR_PICKER_KEYS = new Set([
+  'headAccessoryColorId', 'headAccessoryAColorId', 'headAccessoryBColorId',
+  'headphonesColorId', 'headphonesAColorId', 'headphonesBColorId',
+  'faceCoveringColorId', 'faceCoveringAColorId', 'faceCoveringBColorId',
+  'topColorId', 'topAColorId', 'topBColorId',
+  'dressColorId', 'dressAColorId', 'dressBColorId',
+  'bottomColorId', 'bottomAColorId', 'bottomBColorId',
+  'outerwearColorId', 'outerwearAColorId', 'outerwearBColorId',
+  'legwearColorId', 'legwearAColorId', 'legwearBColorId',
+  'shoesColorId', 'shoesAColorId', 'shoesBColorId',
+]);
+
+const WARDROBE_PAIRED_COLOR_PICKER_KEYS = new Set([
+  'topBottomPaletteId',
+  'topBottomPaletteAId',
+  'topBottomPaletteBId',
+]);
+
+const COLOR_FILTERS = [
+  { id: 'all', label: '全部' },
+  { id: 'neutral', label: '中性色' },
+  { id: 'red-pink', label: '紅／粉／橘' },
+  { id: 'yellow-green', label: '黃／綠' },
+  { id: 'blue-purple', label: '藍／紫' },
+  { id: 'metallic', label: '金屬色' },
+  { id: 'multicolor', label: '多色' },
+];
 
 const WARDROBE_IMAGE_ONLY_PICKER_KEYS = new Set([
   'characterProfileId',
@@ -170,9 +203,19 @@ const NAMED_COLOR_SWATCHES = {
   'soft yellow': ['#f7dc72'],
   yellow: ['#f6d547'],
   'neon yellow': ['#eaff00'],
+  orange: ['#f28c28'],
+  'mint green': ['#98dbc2'],
+  cyan: ['#35bfd0'],
+  purple: ['#8955b8'],
+  lavender: ['#c7a6d9'],
+  beige: ['#d8c3a5'],
+  coral: ['#ed7865'],
   burgundy: ['#800020'],
   silver: ['#c7c9cc'],
+  'mirror-chrome-silver': ['#c7c9cc'],
   gold: ['#d6a84f'],
+  'glossy black latex': ['#111111'],
+  'glossy skin-tone latex': ['#d2a28a'],
   colorful: ['#f45b69', '#f7d154', '#4ecdc4'],
   'black and white': ['#111111', '#ffffff'],
   'black and red': ['#111111', '#c81e2c'],
@@ -254,6 +297,26 @@ function getOptionSwatches(option) {
   return (namedSwatches || []).slice(0, 3).map((color) => ({ color, label: option?.zh || color }));
 }
 
+function getSingleColorGroup(option) {
+  const id = option?.id || '';
+  if (['black', 'white', 'off-white', 'beige', 'dark-grey', 'light-grey', 'dark-brown', 'light-brown', 'brown'].includes(id)) return 'neutral';
+  if (['red', 'bright-red', 'neon-red', 'pink', 'neon-pink', 'coral', 'orange', 'burgundy'].includes(id)) return 'red-pink';
+  if (['goose-yellow', 'yellow', 'neon-yellow', 'green', 'light-green', 'dark-green', 'olive-green', 'neon-green', 'mint-green'].includes(id)) return 'yellow-green';
+  if (['blue', 'light-blue', 'dark-blue', 'bright-blue', 'royal-blue', 'neon-blue', 'cyan', 'tiffany-aqua', 'turquoise-green', 'purple', 'lavender'].includes(id)) return 'blue-purple';
+  if (['silver', 'mirror-chrome-silver', 'gold'].includes(id)) return 'metallic';
+  if (['colorful', 'multicolor-horizontal-stripes'].includes(id)) return 'multicolor';
+  return 'neutral';
+}
+
+function getSingleColorBackground(option, swatches) {
+  const colors = swatches.map((swatch) => swatch.color);
+  if (option?.id === 'multicolor-horizontal-stripes' && colors.length > 1) {
+    return `linear-gradient(to bottom, ${colors[0]} 0 33.333%, ${colors[1]} 33.333% 66.666%, ${colors[2] || colors[0]} 66.666% 100%)`;
+  }
+  if (colors.length > 1) return `linear-gradient(135deg, ${colors.join(', ')})`;
+  return colors[0] || 'transparent';
+}
+
 function getOptionCategory(option, control) {
   const label = option?.zh || '';
   if (control?.label?.includes('配色') || control?.label?.includes('色')) return '配色';
@@ -330,27 +393,45 @@ function WardrobePickerField({ control, value, disabled, onOpen, onChange, onCop
 }
 
 function WardrobePickerModal({ control, value, query, onQueryChange, onClose, onSelect }) {
+  const [activeColorFilter, setActiveColorFilter] = useState('all');
   const selectedOption = findControlOption(control, value);
   const normalizedQuery = query.trim().toLowerCase();
   const imageOnly = WARDROBE_IMAGE_ONLY_PICKER_KEYS.has(control.key);
+  const singleColorMode = WARDROBE_SINGLE_COLOR_PICKER_KEYS.has(control.key);
+  const pairedColorMode = WARDROBE_PAIRED_COLOR_PICKER_KEYS.has(control.key);
   const baseOptions = imageOnly ? control.options.filter((option) => isWardrobeImagePickerOption(option, control)) : control.options;
+  const noneOption = baseOptions.find((option) => option.id === 'none' || option.zh === '全無');
+  const randomOption = pairedColorMode ? baseOptions.find((option) => option.random || option.id === 'random') : null;
   const visibleOptions = baseOptions.filter((option) => {
+    if ((singleColorMode || pairedColorMode) && (option === noneOption || option === randomOption)) return false;
+    if (singleColorMode && activeColorFilter !== 'all' && getSingleColorGroup(option) !== activeColorFilter) return false;
     if (!normalizedQuery) return true;
-    return `${option.zh} ${option.en || ''}`.toLowerCase().includes(normalizedQuery);
+    const pairSearchText = [option.topColor?.zh, option.topColor?.en, option.bottomColor?.zh, option.bottomColor?.en].filter(Boolean).join(' ');
+    return `${option.zh} ${option.en || ''} ${pairSearchText}`.toLowerCase().includes(normalizedQuery);
   });
   const hasReferenceImageOptions = visibleOptions.some((option) => getReferenceImageUrl(option));
   const categories = Array.from(new Set(baseOptions.map((option) => getOptionCategory(option, control))));
-  const searchPlaceholder = imageOnly
-    ? `搜尋${control.label}預覽圖或 prompt 關鍵字`
-    : '搜尋套裝、連身、配色或 prompt 關鍵字';
+  const searchPlaceholder = singleColorMode || pairedColorMode
+    ? '搜尋中文或英文顏色名稱'
+    : imageOnly
+      ? `搜尋${control.label}預覽圖或 prompt 關鍵字`
+      : '搜尋套裝、連身、配色或 prompt 關鍵字';
+  const modalClassName = [
+    'modal-panel',
+    'wardrobe-picker-modal',
+    singleColorMode ? 'wardrobe-picker-modal--colors' : '',
+    pairedColorMode ? 'wardrobe-picker-modal--paired-colors' : '',
+  ].filter(Boolean).join(' ');
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal-panel wardrobe-picker-modal" onClick={(event) => event.stopPropagation()}>
+      <div className={modalClassName} onClick={(event) => event.stopPropagation()}>
         <div className="modal-header">
           <div>
             <div className="lock-title">{control.label}</div>
-            <p className="lock-subtitle">搜尋中文名稱、英文 prompt 或配色關鍵字，適合資料庫持續增加時快速定位。</p>
+            {!singleColorMode && !pairedColorMode ? (
+              <p className="lock-subtitle">搜尋中文名稱、英文 prompt 或配色關鍵字，適合資料庫持續增加時快速定位。</p>
+            ) : null}
           </div>
           <button className="secondary" type="button" onClick={onClose}>關閉</button>
         </div>
@@ -365,17 +446,116 @@ function WardrobePickerModal({ control, value, query, onQueryChange, onClose, on
           />
         </div>
 
-        <div className="wardrobe-picker-category-row">
-          {categories.map((category) => (
-            <span key={category} className="wardrobe-picker-category">{category}</span>
-          ))}
-          <span className="wardrobe-picker-count">{visibleOptions.length} options</span>
-        </div>
+        {singleColorMode ? (
+          <div className="wardrobe-picker-color-toolbar">
+            <div className="wardrobe-picker-color-filters" role="group" aria-label="依色系篩選">
+              {COLOR_FILTERS.map((filter) => (
+                <button
+                  key={filter.id}
+                  className={`wardrobe-picker-filter${activeColorFilter === filter.id ? ' wardrobe-picker-filter-active' : ''}`}
+                  type="button"
+                  aria-pressed={activeColorFilter === filter.id}
+                  onClick={() => setActiveColorFilter(filter.id)}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+            <span className="wardrobe-picker-count">{visibleOptions.length} 色票</span>
+            {noneOption ? (
+              <button
+                className={`wardrobe-picker-color-action${selectedOption?.id === noneOption.id ? ' wardrobe-picker-color-action-active' : ''}`}
+                type="button"
+                aria-pressed={selectedOption?.id === noneOption.id}
+                onClick={() => onSelect(noneOption.id)}
+              >
+                {selectedOption?.id === noneOption.id ? <Check size={14} aria-hidden="true" /> : null}
+                全無
+              </button>
+            ) : null}
+          </div>
+        ) : pairedColorMode ? (
+          <div className="wardrobe-picker-pair-toolbar">
+            <div className="wardrobe-picker-color-actions" role="group" aria-label="配色狀態">
+              {randomOption ? (
+                <button
+                  className={`wardrobe-picker-color-action${selectedOption?.id === randomOption.id ? ' wardrobe-picker-color-action-active' : ''}`}
+                  type="button"
+                  aria-pressed={selectedOption?.id === randomOption.id}
+                  onClick={() => onSelect(randomOption.id)}
+                >
+                  {selectedOption?.id === randomOption.id ? <Check size={14} aria-hidden="true" /> : null}
+                  隨機
+                </button>
+              ) : null}
+              {noneOption ? (
+                <button
+                  className={`wardrobe-picker-color-action${selectedOption?.id === noneOption.id ? ' wardrobe-picker-color-action-active' : ''}`}
+                  type="button"
+                  aria-pressed={selectedOption?.id === noneOption.id}
+                  onClick={() => onSelect(noneOption.id)}
+                >
+                  {selectedOption?.id === noneOption.id ? <Check size={14} aria-hidden="true" /> : null}
+                  全無
+                </button>
+              ) : null}
+            </div>
+            <span className="wardrobe-picker-count">{visibleOptions.length} 組配色</span>
+          </div>
+        ) : (
+          <div className="wardrobe-picker-category-row">
+            {categories.map((category) => (
+              <span key={category} className="wardrobe-picker-category">{category}</span>
+            ))}
+            <span className="wardrobe-picker-count">{visibleOptions.length} options</span>
+          </div>
+        )}
 
-        <div className={`wardrobe-picker-option-grid ${hasReferenceImageOptions ? 'wardrobe-picker-option-grid-image' : ''}`}>
+        <div className={`wardrobe-picker-option-grid ${hasReferenceImageOptions ? 'wardrobe-picker-option-grid-image' : ''} ${singleColorMode ? 'wardrobe-picker-color-grid' : ''} ${pairedColorMode ? 'wardrobe-picker-pair-grid' : ''}`}>
           {visibleOptions.map((option) => {
             const swatches = getOptionSwatches(option);
             const isActive = selectedOption?.id === option.id;
+            if (singleColorMode) {
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  className={`wardrobe-picker-color-swatch${isActive ? ' wardrobe-picker-color-swatch-active' : ''}`}
+                  aria-label={`${option.zh} (${option.en || ''})`}
+                  aria-pressed={isActive}
+                  title={`${option.zh} · ${option.en || ''}`}
+                  disabled={option.disabled}
+                  onClick={() => onSelect(option.id)}
+                >
+                  <span className={`wardrobe-picker-color-tile${option.id === 'multicolor-horizontal-stripes' ? ' wardrobe-picker-color-tile-striped' : ''}`} style={{ background: getSingleColorBackground(option, swatches) }} />
+                  {isActive ? <Check className="wardrobe-picker-color-check" size={18} aria-hidden="true" /> : null}
+                </button>
+              );
+            }
+            if (pairedColorMode && option.topColor && option.bottomColor) {
+              const [topSwatch, bottomSwatch] = swatches;
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  className={`wardrobe-picker-pair-option${isActive ? ' wardrobe-picker-pair-option-active' : ''}`}
+                  aria-label="特殊上下身配色：上身／下身"
+                  aria-pressed={isActive}
+                  disabled={option.disabled}
+                  onClick={() => onSelect(option.id)}
+                >
+                  <span className="wardrobe-picker-pair-color">
+                    <span className="wardrobe-picker-pair-label">上身</span>
+                    <span className="wardrobe-picker-pair-swatch" style={{ background: topSwatch?.color || 'transparent' }} />
+                  </span>
+                  <span className="wardrobe-picker-pair-color">
+                    <span className="wardrobe-picker-pair-label">下身</span>
+                    <span className="wardrobe-picker-pair-swatch" style={{ background: bottomSwatch?.color || 'transparent' }} />
+                  </span>
+                  {isActive ? <Check className="wardrobe-picker-pair-check" size={16} aria-hidden="true" /> : null}
+                </button>
+              );
+            }
             const isColorOption = swatches.length > 0;
             const isNoneOption = option.zh === '全無' || option.id === 'none';
             const isRandomOption = Boolean(option.random) || option.id === 'random';

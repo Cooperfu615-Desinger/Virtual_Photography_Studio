@@ -505,10 +505,27 @@ const LEGWEAR_COLOR_OPTIONS = [
   { id: 'colorful', zh: '彩色', en: 'colorful' },
 ];
 
-const OUTFIT_PRESET_EXTRA_COLOR_OPTIONS = [
+const ADDITIONAL_SHARED_COLOR_OPTIONS = [
   { id: 'blue', zh: '藍色', en: 'blue' },
-  { id: 'green', zh: '綠色', en: 'green' },
+  { id: 'orange', zh: '橘色', en: 'orange' },
   { id: 'yellow', zh: '黃色', en: 'yellow' },
+  { id: 'green', zh: '綠色', en: 'green' },
+  { id: 'mint-green', zh: '薄荷綠', en: 'mint green' },
+  { id: 'cyan', zh: '青色', en: 'cyan' },
+  { id: 'purple', zh: '紫色', en: 'purple' },
+  { id: 'lavender', zh: '淡紫色', en: 'lavender' },
+  { id: 'beige', zh: '米色', en: 'beige' },
+  { id: 'coral', zh: '珊瑚色', en: 'coral' },
+];
+
+const SHARED_COLOR_OPTIONS = Array.from(new Map([
+  ...GARMENT_COLOR_OPTIONS,
+  ...LAYER_COLOR_OPTIONS,
+  ...LEGWEAR_COLOR_OPTIONS,
+  ...ADDITIONAL_SHARED_COLOR_OPTIONS,
+].map((option) => [option.id, option])).values());
+
+const OUTFIT_PRESET_EXTRA_COLOR_OPTIONS = [
   { id: 'black-white', zh: '黑白', en: 'black and white' },
   { id: 'black-red', zh: '黑紅', en: 'black and red' },
   { id: 'white-red', zh: '白紅', en: 'white and red' },
@@ -530,7 +547,7 @@ const OUTFIT_PRESET_PRIMARY_MATERIAL_OPTIONS = [
 ];
 
 const OUTFIT_PRESET_COLOR_OPTIONS = [
-  ...GARMENT_COLOR_OPTIONS,
+  ...SHARED_COLOR_OPTIONS,
   ...OUTFIT_PRESET_EXTRA_COLOR_OPTIONS,
   ...OUTFIT_PRESET_PRIMARY_MATERIAL_OPTIONS,
 ];
@@ -1130,18 +1147,18 @@ const LOCK_DEFINITIONS = [
   { key: 'topBottomPaletteId', label: '特殊上下身配色', options: TOP_BOTTOM_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
   { key: 'topBottomPaletteAId', label: '人物 1 特殊上下身配色', options: TOP_BOTTOM_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
   { key: 'topBottomPaletteBId', label: '人物 2 特殊上下身配色', options: TOP_BOTTOM_PALETTE_OPTIONS, defaultValue: 'none', suppressDefaultRandomOption: true, section: 'wardrobe' },
-  { key: 'topColorId', label: '上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'topAColorId', label: '人物 1 上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'topBColorId', label: '人物 2 上身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'topColorId', label: '上身配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'topAColorId', label: '人物 1 上身配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'topBColorId', label: '人物 2 上身配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'topPatternId', label: '上身圖案', category: '上身圖案 (Top Surface Design)', section: 'wardrobe' },
   { key: 'topAPatternId', label: '人物 1 上身圖案', category: '上身圖案 (Top Surface Design)', section: 'wardrobe' },
   { key: 'topBPatternId', label: '人物 2 上身圖案', category: '上身圖案 (Top Surface Design)', section: 'wardrobe' },
   { key: 'dressId', label: '連身', category: '連身 (Dresses)', section: 'wardrobe' },
   { key: 'dressAId', label: '人物 1 連身', category: '連身 (Dresses)', section: 'wardrobe' },
   { key: 'dressBId', label: '人物 2 連身', category: '連身 (Dresses)', section: 'wardrobe' },
-  { key: 'dressColorId', label: '連身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'dressAColorId', label: '人物 1 連身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'dressBColorId', label: '人物 2 連身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'dressColorId', label: '連身配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'dressAColorId', label: '人物 1 連身配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'dressBColorId', label: '人物 2 連身配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'pantsId', label: '褲裝', category: '褲裝 (Pants)', section: 'wardrobe' },
   { key: 'pantsAId', label: '人物 1 褲裝', category: '褲裝 (Pants)', section: 'wardrobe' },
   { key: 'pantsBId', label: '人物 2 褲裝', category: '褲裝 (Pants)', section: 'wardrobe' },
@@ -1154,48 +1171,48 @@ const LOCK_DEFINITIONS = [
   { key: 'bottomRiseId', label: '下身腰線', options: BOTTOM_RISE_OPTIONS, section: 'wardrobe' },
   { key: 'bottomRiseAId', label: '人物 1 下身腰線', options: BOTTOM_RISE_OPTIONS, section: 'wardrobe' },
   { key: 'bottomRiseBId', label: '人物 2 下身腰線', options: BOTTOM_RISE_OPTIONS, section: 'wardrobe' },
-  { key: 'bottomColorId', label: '下身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'bottomAColorId', label: '人物 1 下身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
-  { key: 'bottomBColorId', label: '人物 2 下身配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'bottomColorId', label: '下身配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'bottomAColorId', label: '人物 1 下身配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'bottomBColorId', label: '人物 2 下身配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'bottomPatternId', label: '下身圖案', category: '下身圖案 (Bottom Surface Design)', section: 'wardrobe' },
   { key: 'bottomAPatternId', label: '人物 1 下身圖案', category: '下身圖案 (Bottom Surface Design)', section: 'wardrobe' },
   { key: 'bottomBPatternId', label: '人物 2 下身圖案', category: '下身圖案 (Bottom Surface Design)', section: 'wardrobe' },
   { key: 'outerwearId', label: '外套', category: '外套 (Outerwear)', section: 'wardrobe' },
   { key: 'outerwearFitId', label: '外套版型', category: '外套版型 (Outerwear Fit)', section: 'wardrobe' },
-  { key: 'outerwearColorId', label: '外套配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outerwearColorId', label: '外套配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outerwearPatternId', label: '外套圖案', category: '外套圖案 (Outerwear Surface Design)', section: 'wardrobe' },
   { key: 'outerwearOpeningId', label: '外套開合', category: '外套開合 (Outerwear Opening)', section: 'wardrobe' },
   { key: 'outerwearStylingId', label: '外套穿法', category: '外套穿法 (Outerwear Styling)', section: 'wardrobe' },
   { key: 'legwearId', label: '襪類', category: '襪類 (Legwear)', section: 'wardrobe' },
-  { key: 'legwearColorId', label: '襪類配色', options: LEGWEAR_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'legwearColorId', label: '襪類配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'shoesId', label: '鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
-  { key: 'shoesColorId', label: '鞋款配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'shoesColorId', label: '鞋款配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outerwearAId', label: '人物 1 外套', category: '外套 (Outerwear)', section: 'wardrobe' },
   { key: 'outerwearAFitId', label: '人物 1 外套版型', category: '外套版型 (Outerwear Fit)', section: 'wardrobe' },
-  { key: 'outerwearAColorId', label: '人物 1 外套配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outerwearAColorId', label: '人物 1 外套配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outerwearAPatternId', label: '人物 1 外套圖案', category: '外套圖案 (Outerwear Surface Design)', section: 'wardrobe' },
   { key: 'outerwearAOpeningId', label: '人物 1 外套開合', category: '外套開合 (Outerwear Opening)', section: 'wardrobe' },
   { key: 'outerwearAStylingId', label: '人物 1 外套穿法', category: '外套穿法 (Outerwear Styling)', section: 'wardrobe' },
   { key: 'legwearAId', label: '人物 1 襪類', category: '襪類 (Legwear)', section: 'wardrobe' },
-  { key: 'legwearAColorId', label: '人物 1 襪類配色', options: LEGWEAR_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'legwearAColorId', label: '人物 1 襪類配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'shoesAId', label: '人物 1 鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
-  { key: 'shoesAColorId', label: '人物 1 鞋款配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'shoesAColorId', label: '人物 1 鞋款配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outerwearBId', label: '人物 2 外套', category: '外套 (Outerwear)', section: 'wardrobe' },
   { key: 'outerwearBFitId', label: '人物 2 外套版型', category: '外套版型 (Outerwear Fit)', section: 'wardrobe' },
-  { key: 'outerwearBColorId', label: '人物 2 外套配色', options: GARMENT_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'outerwearBColorId', label: '人物 2 外套配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'outerwearBPatternId', label: '人物 2 外套圖案', category: '外套圖案 (Outerwear Surface Design)', section: 'wardrobe' },
   { key: 'outerwearBOpeningId', label: '人物 2 外套開合', category: '外套開合 (Outerwear Opening)', section: 'wardrobe' },
   { key: 'outerwearBStylingId', label: '人物 2 外套穿法', category: '外套穿法 (Outerwear Styling)', section: 'wardrobe' },
   { key: 'legwearBId', label: '人物 2 襪類', category: '襪類 (Legwear)', section: 'wardrobe' },
-  { key: 'legwearBColorId', label: '人物 2 襪類配色', options: LEGWEAR_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'legwearBColorId', label: '人物 2 襪類配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'shoesBId', label: '人物 2 鞋款', category: '鞋款 (Shoes)', section: 'wardrobe' },
-  { key: 'shoesBColorId', label: '人物 2 鞋款配色', options: LAYER_COLOR_OPTIONS, section: 'wardrobe' },
+  { key: 'shoesBColorId', label: '人物 2 鞋款配色', options: SHARED_COLOR_OPTIONS, section: 'wardrobe' },
   { key: 'headphonesId', label: '耳機', category: ACCESSORY_CATEGORIES.headphones, defaultValue: accessoryNoneId('headphones'), section: 'wardrobe' },
-  { key: 'headphonesColorId', label: '耳機配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
+  { key: 'headphonesColorId', label: '耳機配色', options: SHARED_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'faceCoveringId', label: '口鼻遮擋', category: ACCESSORY_CATEGORIES.faceCovering, defaultValue: accessoryNoneId('faceCovering'), section: 'wardrobe' },
-  { key: 'faceCoveringColorId', label: '遮擋配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
+  { key: 'faceCoveringColorId', label: '遮擋配色', options: SHARED_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'headAccessoryId', label: '頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
-  { key: 'headAccessoryColorId', label: '頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
+  { key: 'headAccessoryColorId', label: '頭部配件配色', options: SHARED_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearId', label: '眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
   { key: 'eyewearColorId', label: '眼鏡配色', category: '眼鏡配色 (Eyewear Color)', section: 'wardrobe' },
   { key: 'eyewearPlacementId', label: '眼鏡配戴方式', category: '眼鏡配戴方式 (Eyewear Placement)', section: 'wardrobe' },
@@ -1205,11 +1222,11 @@ const LOCK_DEFINITIONS = [
   { key: 'neckAccessoryId', label: '頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'waistAccessoryId', label: '腰部', category: '腰部配件 (Waist Accessories)', section: 'wardrobe' },
   { key: 'headphonesAId', label: '人物 1 耳機', category: ACCESSORY_CATEGORIES.headphones, defaultValue: accessoryNoneId('headphones'), section: 'wardrobe' },
-  { key: 'headphonesAColorId', label: '人物 1 耳機配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
+  { key: 'headphonesAColorId', label: '人物 1 耳機配色', options: SHARED_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'faceCoveringAId', label: '人物 1 口鼻遮擋', category: ACCESSORY_CATEGORIES.faceCovering, defaultValue: accessoryNoneId('faceCovering'), section: 'wardrobe' },
-  { key: 'faceCoveringAColorId', label: '人物 1 遮擋配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
+  { key: 'faceCoveringAColorId', label: '人物 1 遮擋配色', options: SHARED_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'headAccessoryAId', label: '人物 1 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
-  { key: 'headAccessoryAColorId', label: '人物 1 頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
+  { key: 'headAccessoryAColorId', label: '人物 1 頭部配件配色', options: SHARED_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearAId', label: '人物 1 眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
   { key: 'eyewearAColorId', label: '人物 1 眼鏡配色', category: '眼鏡配色 (Eyewear Color)', section: 'wardrobe' },
   { key: 'eyewearAPlacementId', label: '人物 1 眼鏡配戴方式', category: '眼鏡配戴方式 (Eyewear Placement)', section: 'wardrobe' },
@@ -1217,11 +1234,11 @@ const LOCK_DEFINITIONS = [
   { key: 'neckAccessoryAId', label: '人物 1 頸部', category: '頸部 (Neck Accessories)', section: 'wardrobe' },
   { key: 'waistAccessoryAId', label: '人物 1 腰部', category: '腰部配件 (Waist Accessories)', section: 'wardrobe' },
   { key: 'headphonesBId', label: '人物 2 耳機', category: ACCESSORY_CATEGORIES.headphones, defaultValue: accessoryNoneId('headphones'), section: 'wardrobe' },
-  { key: 'headphonesBColorId', label: '人物 2 耳機配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
+  { key: 'headphonesBColorId', label: '人物 2 耳機配色', options: SHARED_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'faceCoveringBId', label: '人物 2 口鼻遮擋', category: ACCESSORY_CATEGORIES.faceCovering, defaultValue: accessoryNoneId('faceCovering'), section: 'wardrobe' },
-  { key: 'faceCoveringBColorId', label: '人物 2 遮擋配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
+  { key: 'faceCoveringBColorId', label: '人物 2 遮擋配色', options: SHARED_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'headAccessoryBId', label: '人物 2 頭部配件', category: '頭部配件 (Head Accessories)', section: 'wardrobe' },
-  { key: 'headAccessoryBColorId', label: '人物 2 頭部配件配色', options: GARMENT_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
+  { key: 'headAccessoryBColorId', label: '人物 2 頭部配件配色', options: SHARED_COLOR_OPTIONS, defaultValue: 'none', section: 'wardrobe' },
   { key: 'eyewearBId', label: '人物 2 眼鏡本體', category: '眼鏡 (Eyewear)', section: 'wardrobe' },
   { key: 'eyewearBColorId', label: '人物 2 眼鏡配色', category: '眼鏡配色 (Eyewear Color)', section: 'wardrobe' },
   { key: 'eyewearBPlacementId', label: '人物 2 眼鏡配戴方式', category: '眼鏡配戴方式 (Eyewear Placement)', section: 'wardrobe' },
@@ -1808,15 +1825,15 @@ function inferOrbitMeta(_category, item) {
 }
 
 function getGarmentColorOption(id) {
-  return GARMENT_COLOR_OPTIONS.find((option) => option.id === id) || null;
+  return SHARED_COLOR_OPTIONS.find((option) => option.id === id) || null;
 }
 
 function getLayerColorOption(id) {
-  return LAYER_COLOR_OPTIONS.find((option) => option.id === id) || null;
+  return SHARED_COLOR_OPTIONS.find((option) => option.id === id) || null;
 }
 
 function getLegwearColorOption(id) {
-  return LEGWEAR_COLOR_OPTIONS.find((option) => option.id === id) || null;
+  return SHARED_COLOR_OPTIONS.find((option) => option.id === id) || null;
 }
 
 function getOutfitPresetColorOption(id) {
@@ -6906,7 +6923,7 @@ function buildWardrobe(context, locks, catalog) {
       const probability = colorSelected ? 1 : slot === 'headphones' ? 0.16 : 0.08;
       const item = locked || (!locks[key] && candidates.length && random() < probability ? sampleItem(candidates) : null);
       if (!item || isNoneLikeItem(item)) continue;
-      const color = colorLock === '' ? sampleNonNone(GARMENT_COLOR_OPTIONS, random) : getGarmentColorOption(colorLock);
+      const color = colorLock === '' ? sampleNonNone(SHARED_COLOR_OPTIONS, random) : getGarmentColorOption(colorLock);
       const colored = color && !isNoneLikeItem(color) ? { ...item, en: buildHeadAccessoryPrompt(item, color), meta: { ...item.meta, accessoryColorId: color.id } } : item;
       addPiece(suffix ? cloneWardrobePieceForRole(colored, role, slot) : colored);
     }
@@ -8401,7 +8418,7 @@ function buildWardrobeColors(wardrobeSlots, locks, random = Math.random) {
   }, random);
   const pickGarmentColor = (lockedId, avoidColors = []) => {
     const lockedColor = getGarmentColorOption(lockedId);
-    return lockedColor || sampleColorAvoiding(GARMENT_COLOR_OPTIONS, avoidColors.filter(Boolean), (item) => item, random);
+    return lockedColor || sampleColorAvoiding(SHARED_COLOR_OPTIONS, avoidColors.filter(Boolean), (item) => item, random);
   };
   const lockedTopAColor = getGarmentColorOption(normalizedLocks.topAColorId);
   const lockedTopBColor = getGarmentColorOption(normalizedLocks.topBColorId);
@@ -8472,15 +8489,15 @@ function buildWardrobeColors(wardrobeSlots, locks, random = Math.random) {
   const bottomColor = !hasOutfitPreset && hasBottom ? topBottomPalette?.bottomColor || pickGarmentColor(normalizedLocks.bottomColorId) : null;
   const bottomAColor = !hasOutfitPreset && hasBottomA ? topBottomPaletteA?.bottomColor || lockedBottomAColor || pickGarmentColor('', [topBottomPaletteB?.bottomColor, lockedBottomBColor]) : null;
   const bottomBColor = !hasOutfitPreset && hasBottomB ? topBottomPaletteB?.bottomColor || lockedBottomBColor || pickGarmentColor('', [bottomAColor]) : null;
-  const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(normalizedLocks.legwearColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS, random) : null;
-  const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) && !isCharacterCardLayerSlot(wardrobeSlots.outerwear) ? getGarmentColorOption(normalizedLocks.outerwearColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS, random) : null;
-  const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) && !isCharacterCardLayerSlot(wardrobeSlots.shoes) ? getLayerColorOption(normalizedLocks.shoesColorId) || sampleNonNone(LAYER_COLOR_OPTIONS, random) : null;
-  const legwearAColor = wardrobeSlots.legwearA && !isNoneLikeItem(wardrobeSlots.legwearA) ? getLegwearColorOption(normalizedLocks.legwearAColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS, random) : null;
-  const outerwearAColor = wardrobeSlots.outerwearA && !isNoneLikeItem(wardrobeSlots.outerwearA) ? getGarmentColorOption(normalizedLocks.outerwearAColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS, random) : null;
-  const shoesAColor = wardrobeSlots.shoesA && !isNoneLikeItem(wardrobeSlots.shoesA) ? getLayerColorOption(normalizedLocks.shoesAColorId) || sampleNonNone(LAYER_COLOR_OPTIONS, random) : null;
-  const legwearBColor = wardrobeSlots.legwearB && !isNoneLikeItem(wardrobeSlots.legwearB) ? getLegwearColorOption(normalizedLocks.legwearBColorId) || sampleNonNone(LEGWEAR_COLOR_OPTIONS, random) : null;
-  const outerwearBColor = wardrobeSlots.outerwearB && !isNoneLikeItem(wardrobeSlots.outerwearB) ? getGarmentColorOption(normalizedLocks.outerwearBColorId) || sampleNonNone(GARMENT_COLOR_OPTIONS, random) : null;
-  const shoesBColor = wardrobeSlots.shoesB && !isNoneLikeItem(wardrobeSlots.shoesB) ? getLayerColorOption(normalizedLocks.shoesBColorId) || sampleNonNone(LAYER_COLOR_OPTIONS, random) : null;
+  const legwearColor = wardrobeSlots.legwear && !isNoneLikeItem(wardrobeSlots.legwear) ? getLegwearColorOption(normalizedLocks.legwearColorId) || sampleNonNone(SHARED_COLOR_OPTIONS, random) : null;
+  const outerwearColor = wardrobeSlots.outerwear && !isNoneLikeItem(wardrobeSlots.outerwear) && !isCharacterCardLayerSlot(wardrobeSlots.outerwear) ? getGarmentColorOption(normalizedLocks.outerwearColorId) || sampleNonNone(SHARED_COLOR_OPTIONS, random) : null;
+  const shoesColor = wardrobeSlots.shoes && !isNoneLikeItem(wardrobeSlots.shoes) && !isCharacterCardLayerSlot(wardrobeSlots.shoes) ? getLayerColorOption(normalizedLocks.shoesColorId) || sampleNonNone(SHARED_COLOR_OPTIONS, random) : null;
+  const legwearAColor = wardrobeSlots.legwearA && !isNoneLikeItem(wardrobeSlots.legwearA) ? getLegwearColorOption(normalizedLocks.legwearAColorId) || sampleNonNone(SHARED_COLOR_OPTIONS, random) : null;
+  const outerwearAColor = wardrobeSlots.outerwearA && !isNoneLikeItem(wardrobeSlots.outerwearA) ? getGarmentColorOption(normalizedLocks.outerwearAColorId) || sampleNonNone(SHARED_COLOR_OPTIONS, random) : null;
+  const shoesAColor = wardrobeSlots.shoesA && !isNoneLikeItem(wardrobeSlots.shoesA) ? getLayerColorOption(normalizedLocks.shoesAColorId) || sampleNonNone(SHARED_COLOR_OPTIONS, random) : null;
+  const legwearBColor = wardrobeSlots.legwearB && !isNoneLikeItem(wardrobeSlots.legwearB) ? getLegwearColorOption(normalizedLocks.legwearBColorId) || sampleNonNone(SHARED_COLOR_OPTIONS, random) : null;
+  const outerwearBColor = wardrobeSlots.outerwearB && !isNoneLikeItem(wardrobeSlots.outerwearB) ? getGarmentColorOption(normalizedLocks.outerwearBColorId) || sampleNonNone(SHARED_COLOR_OPTIONS, random) : null;
+  const shoesBColor = wardrobeSlots.shoesB && !isNoneLikeItem(wardrobeSlots.shoesB) ? getLayerColorOption(normalizedLocks.shoesBColorId) || sampleNonNone(SHARED_COLOR_OPTIONS, random) : null;
   const headAccessoryColor = wardrobeSlots.headAccessory
     && !isNoneLikeItem(wardrobeSlots.headAccessory)
     && !isCharacterCardLayerSlot(wardrobeSlots.headAccessory)

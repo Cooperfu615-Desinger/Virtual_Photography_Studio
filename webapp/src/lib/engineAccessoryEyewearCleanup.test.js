@@ -6,6 +6,7 @@ import { randomizeLockKeys } from './page1SectionRandom.js';
 
 const controlOptions = (key) => getLockControls().find((control) => control.key === key).options;
 const optionLabels = (key) => controlOptions(key).map((option) => option.zh);
+const optionIds = (key) => controlOptions(key).map((option) => option.id);
 const optionByLabel = (key, label) => {
   const option = controlOptions(key).find((item) => item.zh === label);
   assert.ok(option, `Missing option ${label} for ${key}`);
@@ -142,6 +143,28 @@ test('head accessory colors reuse the garment palette and replace authored color
       assert.doesNotMatch(text, retired, `${accessory} should not retain its authored color after override`);
     }
   }
+});
+
+test('garment, accessory, dress, sock, and shoe colors share one palette while eyewear stays independent', () => {
+  const sharedIds = optionIds('topColorId');
+  const sharedColorKeys = [
+    'topAColorId', 'topBColorId',
+    'bottomColorId', 'bottomAColorId', 'bottomBColorId',
+    'outerwearColorId', 'outerwearAColorId', 'outerwearBColorId',
+    'dressColorId', 'dressAColorId', 'dressBColorId',
+    'legwearColorId', 'legwearAColorId', 'legwearBColorId',
+    'shoesColorId', 'shoesAColorId', 'shoesBColorId',
+    'headAccessoryColorId', 'headAccessoryAColorId', 'headAccessoryBColorId',
+    'headphonesColorId', 'headphonesAColorId', 'headphonesBColorId',
+    'faceCoveringColorId', 'faceCoveringAColorId', 'faceCoveringBColorId',
+  ];
+
+  assert.equal(sharedIds.filter((id) => id !== 'none').length, 40);
+  for (const key of sharedColorKeys) assert.deepEqual(optionIds(key), sharedIds, `${key} should use the common palette`);
+  for (const id of ['orange', 'mint-green', 'cyan', 'purple', 'lavender', 'beige', 'coral']) {
+    assert.ok(sharedIds.includes(id), `${id} should be available in the common palette`);
+  }
+  assert.notDeepEqual(optionIds('eyewearColorId'), sharedIds);
 });
 
 test('random head accessory color resolves a concrete palette color and keeps the selected accessory', () => {
