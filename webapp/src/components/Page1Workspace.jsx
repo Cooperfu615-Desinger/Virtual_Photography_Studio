@@ -660,10 +660,7 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
     },
     midjourney: {
       status: '獨立設定',
-      chips: [
-        midjourneyParameterSettings.mjRawMode === 'raw' ? 'Raw' : 'Standard',
-        midjourneyParameterSettings.mjResolution.toUpperCase(),
-      ],
+      chips: [],
     },
   };
 
@@ -1179,14 +1176,16 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         <aside className="page1-sidebar lock-panel">
           <div className="page1-sidebar-header">
             <div className="lock-title">Prompt Workspace</div>
-            <div className="page1-mode-stack">
-              <span className="page1-mode-label">Current Modes</span>
-              <div className="page1-mode-chip-row">
-                {(currentModeBadges.length > 0 ? currentModeBadges : ['一般模式']).map((badge) => (
-                  <span key={badge} className="page1-mode-chip">{badge}</span>
-                ))}
+            {currentModeBadges.length > 0 ? (
+              <div className="page1-mode-stack">
+                <span className="page1-mode-label">Current Modes</span>
+                <div className="page1-mode-chip-row">
+                  {currentModeBadges.map((badge) => (
+                    <span key={badge} className="page1-mode-chip">{badge}</span>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
 
           <div className="page1-section-nav">

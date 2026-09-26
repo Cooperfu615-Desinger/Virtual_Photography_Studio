@@ -4,7 +4,6 @@ const PRIMARY_PROMPT_OUTPUTS = Object.freeze([
     title: 'Gpt',
     field: 'grokPrompt',
     placeholder: '目前尚無可顯示的 Gpt prompt。',
-    description: '分段自然語言主 prompt，主要給 ChatGPT-Image-2 / GPT Image 使用。',
     copyLabel: 'Gpt copied',
   }),
   Object.freeze({
@@ -12,7 +11,6 @@ const PRIMARY_PROMPT_OUTPUTS = Object.freeze([
     title: 'Z-Image',
     field: 'zImagePrompt',
     placeholder: '目前尚無可顯示的 Z-Image prompt。',
-    description: '依 Z-Image Turbo 優先序整理的自然英文描述，適合 Magnific AI 的 Z-Image。',
     copyLabel: 'Z-Image copied',
   }),
   Object.freeze({
@@ -20,7 +18,6 @@ const PRIMARY_PROMPT_OUTPUTS = Object.freeze([
     title: 'MIDJOURNEY',
     field: 'midjourneyPrompt',
     placeholder: '目前尚無可顯示的 AI Prompt。',
-    description: '偏通用影像生成語氣，適合快速貼到外部工具測試視覺方向。',
     copyLabel: 'AI copied',
   }),
 ]);
@@ -31,7 +28,6 @@ const FIXED_FRAMING_PROMPT_OUTPUTS = Object.freeze([
     title: '胸上特寫照',
     aspectRatio: '4:5',
     placeholder: '目前尚無可顯示的胸上特寫照 Prompt。',
-    description: '固定 4:5 直式，保留胸上人物、上身服裝、可見姿勢、場景與攝影設定。',
     copyLabel: '胸上特寫照 copied',
   }),
   Object.freeze({
@@ -39,7 +35,6 @@ const FIXED_FRAMING_PROMPT_OUTPUTS = Object.freeze([
     title: 'MJ 胸上特寫照',
     aspectRatio: '4:5',
     placeholder: '目前尚無可顯示的 MJ 胸上特寫照 Prompt。',
-    description: '固定 4:5 直式，使用 Midjourney 原生單行格式，保留胸上構圖、姿勢、場景與攝影設定。',
     copyLabel: 'MJ 胸上特寫照 copied',
   }),
   Object.freeze({
@@ -47,7 +42,6 @@ const FIXED_FRAMING_PROMPT_OUTPUTS = Object.freeze([
     title: '全身角色照',
     aspectRatio: '9:16',
     placeholder: '目前尚無可顯示的全身角色照 Prompt。',
-    description: '固定 9:16 直式，完整呈現單人人物、穿搭、鞋襪與配件。',
     copyLabel: '全身角色照 copied',
   }),
 ]);
@@ -69,7 +63,6 @@ export function buildPage1GenerationPromptCards(previewPrompt) {
     title: output.title,
     value: previewPrompt?.[output.field] || '',
     placeholder: output.placeholder,
-    description: output.description,
     copyLabel: output.copyLabel,
   }));
   const fixedFramingCards = readFixedFramingOutputs(previewPrompt).map((output) => ({
@@ -77,7 +70,6 @@ export function buildPage1GenerationPromptCards(previewPrompt) {
     title: output.title,
     value: output.value,
     placeholder: output.placeholder,
-    description: output.description,
     copyLabel: output.copyLabel,
   }));
 

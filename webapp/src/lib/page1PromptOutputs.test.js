@@ -42,6 +42,7 @@ test('PAGE1 single output consumers expose three primary and three fixed-framing
     'MJ 胸上特寫照',
     '全身角色照',
   ]);
+  assert.ok(cards.every((entry) => !('description' in entry)));
 
   const extraPrompts = new Map(prompt.extraPrompts.map((entry) => [entry.id, entry.text]));
   for (const entry of cards.slice(3)) {
@@ -66,6 +67,7 @@ test('PAGE1 duo output consumers omit every single-subject fixed-framing prompt'
     buildPage1GenerationPromptCards(prompt).map((entry) => entry.id),
     ['gpt', 'grok', 'ai'],
   );
+  assert.ok(buildPage1GenerationPromptCards(prompt).every((entry) => !('description' in entry)));
   assert.deepEqual(
     buildPage1DllPromptSources(prompt).map((entry) => entry.id),
     ['gpt', 'grok', 'ai'],

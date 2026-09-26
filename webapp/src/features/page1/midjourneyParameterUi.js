@@ -67,6 +67,5 @@ export function buildMidjourneyParameterSummary(settings) {
       `W${normalized.mjWeirdness}`,
       getOptionLabel('resolution', normalized.mjResolution),
     ].join(' / '),
-    meta: '僅影響 AI Prompt 與 MJ 胸上特寫照；不參與隨機',
   };
 }
