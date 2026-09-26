@@ -4,6 +4,13 @@ This is the short current-state briefing for new sessions. Read this first. Use 
 
 Last updated: 2026-09-26
 
+## Prompt workbench layout and appearance themes (local, 2026-09-26)
+
+- PAGE1 keeps its existing section order, control IDs and behavior while the central editor uses a two-column field grid on desktop (one column on mobile). In duo character setup, the subject-count control spans the row and A/B character fields align in paired columns. DLL_PIC Pro is narrowed to a single-column panel at 190px on desktop, giving the editor more width. Its settings stack vertically and wrap without creating document-level horizontal overflow.
+- The app now uses an Apple-inspired light palette by default, with a dark palette available from Settings. The selected appearance is stored under `vps.appearance`; switching appearance changes presentation only and does not alter prompt selections or saved cards. Existing controls and actions use shared surface, text, border, status and accent tokens across the workspaces.
+- Validation: frontend tests pass 1022/1022; lint and build pass (existing Vite chunk-size warning remains); `git diff --check` passes. Browser checks exercised both appearance modes and reload persistence, and all six current workspaces at 1280×720 and 390×844; no document-level horizontal overflow was found. The revised PAGE1 columns and single/duo field arrangements were inspected at desktop; the mobile workbench was inspected at 390×844. The temporary duo QA selection was restored to one person. Browser console logs were not available through the active in-app browser interface.
+- No prompt, selection, Saved Cards, or compatibility contracts were intentionally changed. No commit, push, deployment, or user-file cleanup was performed.
+
 ## Independent accessories and conflicts (local, 2026-09-26)
 
 - PAGE1 head accessories now contain headwear only and use the existing garment swatch picker. Headphones and face coverings have independent single/A/B controls, defaulting to none. Head-worn audio conflicts with hats, headscarves and rigid head ornaments; neck-worn audio and wired earphones remain compatible. Face coverings and manual nose/lip piercings are mutually exclusive; disabled options explain how to switch.

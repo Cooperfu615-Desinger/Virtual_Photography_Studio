@@ -8,9 +8,9 @@
   display: grid;
   gap: 14px;
   padding: 16px;
-  border: 1px solid rgba(111, 87, 60, 0.14);
+  border: 1px solid var(--border-muted);
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255, 250, 240, 0.9) 0%, rgba(239, 229, 212, 0.62) 100%);
+  background: linear-gradient(180deg, var(--surface-translucent) 0%, var(--surface-subtle) 100%);
 }
 
 .dll-pic-header {
@@ -19,7 +19,7 @@
   justify-content: space-between;
   gap: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(111, 87, 60, 0.12);
+  border-bottom: 1px solid var(--border-muted);
 }
 
 .dll-pic-header-actions {
@@ -32,9 +32,9 @@
 .dll-pic-status {
   flex: 0 0 auto;
   padding: 5px 8px;
-  border: 1px solid rgba(111, 87, 60, 0.14);
+  border: 1px solid var(--border-muted);
   border-radius: 999px;
-  background: #f4eadb;
+  background: var(--surface-control);
   color: var(--text-secondary);
   font-size: 0.68rem;
   font-weight: 800;
@@ -79,16 +79,16 @@
   display: grid;
   gap: 14px;
   padding: 18px;
-  border-color: rgba(111, 87, 60, 0.16);
+  border-color: var(--border-muted);
   border-radius: 18px;
-  background: #fffaf0;
+  background: var(--bg-panel);
   color: var(--text-primary);
 }
 
 .dll-pic-api-modal-header {
   gap: 14px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(111, 87, 60, 0.12);
+  border-bottom: 1px solid var(--border-muted);
 }
 
 .dll-pic-api-key-list {
@@ -98,9 +98,9 @@
 
 .dll-pic-api-key-field {
   padding: 12px;
-  border: 1px solid rgba(111, 87, 60, 0.12);
+  border: 1px solid var(--border-muted);
   border-radius: 12px;
-  background: rgba(244, 234, 219, 0.56);
+  background: var(--surface-control);
 }
 
 .dll-pic-api-key-label {
@@ -114,7 +114,7 @@
   flex: 0 0 auto;
   padding: 4px 7px;
   border-radius: 999px;
-  background: #efe5d4;
+  background: var(--surface-control);
   color: var(--text-secondary);
   font-size: 0.66rem;
   font-weight: 800;
@@ -149,12 +149,12 @@
 .dll-pic-generate-btn {
   flex: 0 0 auto;
   min-height: 42px;
-  background: #e86017;
-  color: #fffdf8;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 .dll-pic-generate-btn:hover {
-  background: #f06b22;
+  background: var(--accent-hover);
 }
 
 .dll-pic-model-note,
@@ -167,8 +167,8 @@
 
 .dll-pic-message {
   padding: 9px 10px;
-  border-left: 3px solid rgba(232, 96, 23, 0.42);
-  background: rgba(255, 250, 240, 0.68);
+  border-left: 3px solid var(--accent-border);
+  background: var(--surface-translucent);
 }
 
 .dll-pic-preview-zone {
@@ -179,9 +179,9 @@
   display: grid;
   min-height: 170px;
   place-items: center;
-  border: 1px dashed rgba(111, 87, 60, 0.18);
+  border: 1px dashed var(--border-muted);
   border-radius: 14px;
-  background: rgba(255, 250, 240, 0.54);
+  background: var(--surface-translucent);
   color: var(--text-secondary);
   font-size: 0.82rem;
 }
@@ -196,14 +196,14 @@
   min-width: 0;
   margin: 0;
   padding: 8px;
-  border: 1px solid rgba(111, 87, 60, 0.14);
+  border: 1px solid var(--border-muted);
   border-radius: 14px;
-  background: rgba(255, 250, 240, 0.7);
+  background: var(--surface-translucent);
 }
 
 .dll-pic-image-card-active {
-  border-color: rgba(232, 96, 23, 0.72);
-  box-shadow: 0 0 0 2px rgba(232, 96, 23, 0.12);
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 2px var(--accent-soft);
 }
 
 .dll-pic-image-select {
@@ -213,14 +213,14 @@
   padding: 0;
   border: 0;
   border-radius: 10px;
-  background: rgba(239, 229, 212, 0.82);
+  background: var(--surface-subtle);
   overflow: hidden;
   aspect-ratio: var(--dll-pic-preview-ratio, 9 / 16);
 }
 
 .dll-pic-image-select:hover {
   transform: none;
-  background: rgba(239, 229, 212, 0.82);
+  background: var(--surface-subtle);
 }
 
 .dll-pic-image-select img {
@@ -254,7 +254,7 @@
   padding: 18px;
   border-color: #fff;
   border-radius: 18px;
-  background: #ffeacc;
+  background: var(--surface-control);
   color: var(--text-primary);
   overflow: hidden;
 }
@@ -262,7 +262,7 @@
 .dll-pic-lightbox-header {
   gap: 14px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 250, 241, 0.14);
+  border-bottom: 1px solid var(--border-muted);
 }
 
 .dll-pic-lightbox-actions {
@@ -280,13 +280,13 @@
 }
 
 .dll-pic-lightbox .dll-pic-download-btn {
-  background: #ffadad;
-  border-color: rgba(111, 87, 60, 0.18);
-  color: #4a3420;
+  background: var(--accent);
+  border-color: var(--border-muted);
+  color: var(--text-primary);
 }
 
 .dll-pic-lightbox .dll-pic-download-btn:hover {
-  background: #ffa0a0;
+  background: var(--accent-hover);
 }
 
 .dll-pic-lightbox-image-frame {
@@ -337,7 +337,7 @@
 }
 
 .prompt-preview-eyebrow {
-  color: #9a6b51;
+  color: var(--accent);
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -347,7 +347,7 @@
 
 .prompt-preview-card-header h3 {
   margin: 0;
-  color: #15110c;
+  color: var(--text-primary);
   font-size: 0.82rem;
   font-weight: 800;
   line-height: 1.15;
@@ -356,7 +356,7 @@
 }
 
 .prompt-preview-copy-btn {
-  color: #77726a;
+  color: var(--text-secondary);
   background: transparent;
   border-color: transparent;
   border-radius: 8px;
@@ -366,7 +366,7 @@
 
 .prompt-preview-copy-btn:hover:not(:disabled) {
   color: var(--text-primary);
-  background: rgba(111, 87, 60, 0.08);
+  background: var(--border-muted);
   border-color: transparent;
 }
 
@@ -374,16 +374,16 @@
   min-height: 120px;
   padding: 18px 20px;
   border-radius: 10px;
-  border: 1px solid rgba(111, 87, 60, 0.16);
-  background: #e9dfcf;
-  color: #111;
+  border: 1px solid var(--border-muted);
+  background: var(--surface-control);
+  color: var(--text-primary);
   font-size: 0.78rem;
   line-height: 1.45;
 }
 
 .prompt-preview-description {
   margin: 10px 0 0;
-  color: #9a6b51;
+  color: var(--accent);
   font-size: 0.82rem;
   line-height: 1.45;
 }
@@ -403,9 +403,9 @@
 
 .prompt-preview-textarea {
   padding: 14px;
-  background: #e9dfcf;
-  color: #111;
-  border-color: rgba(111, 87, 60, 0.16);
+  background: var(--surface-control);
+  color: var(--text-primary);
+  border-color: var(--border-muted);
   border-radius: 10px;
   scrollbar-color: #b9b9b9 transparent;
   scrollbar-width: thin;

@@ -82,15 +82,15 @@
 .character-card-option:hover,
 .character-card-layer:hover,
 .character-card-chip:hover {
-  border-color: rgba(199, 120, 65, 0.42);
-  background: #fff8ec;
+  border-color: var(--accent-border);
+  background: var(--surface-selected);
 }
 
 .character-card-option.active,
 .character-card-layer.active,
 .character-card-chip.active {
   border-color: var(--accent);
-  background: #fffaf0;
+  background: var(--bg-panel);
   box-shadow: inset 0 0 0 1px var(--accent);
 }
 
@@ -116,9 +116,9 @@
 
 .character-card-config-panel {
   padding: 14px;
-  border: 1px solid rgba(111, 87, 60, 0.14);
+  border: 1px solid var(--border-muted);
   border-radius: 8px;
-  background: rgba(255, 250, 240, 0.64);
+  background: var(--surface-translucent);
 }
 
 .character-card-control-group {
@@ -153,9 +153,9 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
   padding: 5px;
-  border: 1px solid rgba(111, 87, 60, 0.14);
+  border: 1px solid var(--border-muted);
   border-radius: 8px;
-  background: #e9dfcf;
+  background: var(--surface-control);
 }
 
 .character-card-segmented .character-card-chip {
@@ -187,9 +187,9 @@
 }
 
 .character-card-advanced {
-  border: 1px solid rgba(111, 87, 60, 0.12);
+  border: 1px solid var(--border-muted);
   border-radius: 8px;
-  background: rgba(247, 239, 227, 0.58);
+  background: var(--surface-translucent);
 }
 
 .character-card-advanced summary {
@@ -243,14 +243,14 @@
 
 .character-card-copy-board .character-card-save-button {
   width: 100%;
-  border-color: #f22626;
-  background: #f22626;
+  border-color: var(--danger);
+  background: var(--danger);
   color: #ffffff;
 }
 
 .character-card-copy-board .character-card-save-button:hover:not(:disabled) {
-  border-color: #c91f1f;
-  background: #c91f1f;
+  border-color: var(--danger);
+  background: var(--danger);
   color: #ffffff;
 }
 
@@ -259,8 +259,8 @@
   display: flex;
   align-items: center;
   padding: 7px 10px;
-  border-left: 3px solid rgba(232, 96, 23, 0.42);
-  background: rgba(255, 250, 240, 0.7);
+  border-left: 3px solid var(--accent-border);
+  background: var(--surface-translucent);
   color: var(--text-secondary);
   font-size: 0.76rem;
   font-weight: 800;

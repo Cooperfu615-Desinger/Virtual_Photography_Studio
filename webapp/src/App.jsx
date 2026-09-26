@@ -1,5 +1,5 @@
 import { accessoryRestoreNotices } from './lib/engine/accessoryPolicy.js';
-import React, { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { normalizeLocks } from './lib/engine';
 import {
   MIDJOURNEY_PARAMETER_SELECTION_KEYS,
@@ -61,6 +61,7 @@ const PAGE2_PROFILE_KEY = 'vps.page2Profile';
 const PAGE3_PROFILE_KEY = 'vps.page3Profile';
 const ACTION_POSE_PROFILE_KEY = 'vps.actionPoseProfile';
 const OBSERVATION_CAPTURE_PROFILE_KEY = 'vps.observationCaptureProfile';
+const APPEARANCE_STORAGE_KEY = 'vps.appearance';
 const PAGE_MODE_COPY = {
   page1: {
     title: 'Prompt Control Deck',
@@ -96,12 +97,30 @@ function WorkspaceFallback() {
   return <div className="workspace-loading" role="status">載入工作區…</div>;
 }
 
+function readAppearancePreference() {
+  try {
+    return window.localStorage.getItem(APPEARANCE_STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+  } catch {
+    return 'light';
+  }
+}
+
 export default function App() {
   const importSavedCardsInputRef = useRef(null);
   const [copiedLabel, setCopiedLabel] = useState('');
   const [isImportPromptOpen, setIsImportPromptOpen] = useState(false);
   const [importPromptText, setImportPromptText] = useState('');
   const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false);
+  const [appearance, setAppearance] = useState(readAppearancePreference);
+
+  useLayoutEffect(() => {
+    document.documentElement.dataset.theme = appearance;
+    try {
+      window.localStorage.setItem(APPEARANCE_STORAGE_KEY, appearance);
+    } catch {
+      // Keep the in-memory theme usable when browser storage is unavailable.
+    }
+  }, [appearance]);
 
   const showToast = useCallback((label) => {
     setCopiedLabel(label);
@@ -503,6 +522,27 @@ export default function App() {
               {isSettingsMenuOpen ? (
                 <div className="settings-menu">
                   <div className="settings-menu-title">Settings</div>
+                  <div className="settings-appearance" role="group" aria-label="外觀">
+                    <span className="settings-appearance-label">外觀</span>
+                    <div className="settings-appearance-options">
+                      <button
+                        type="button"
+                        className={appearance === 'light' ? 'settings-appearance-option active' : 'settings-appearance-option'}
+                        aria-pressed={appearance === 'light'}
+                        onClick={() => setAppearance('light')}
+                      >
+                        淺色
+                      </button>
+                      <button
+                        type="button"
+                        className={appearance === 'dark' ? 'settings-appearance-option active' : 'settings-appearance-option'}
+                        aria-pressed={appearance === 'dark'}
+                        onClick={() => setAppearance('dark')}
+                      >
+                        深色
+                      </button>
+                    </div>
+                  </div>
                   <div className={`settings-menu-status sync-status-${favoriteCloudSyncStatus}`}>
                     {favoriteCloudLabel}
                   </div>

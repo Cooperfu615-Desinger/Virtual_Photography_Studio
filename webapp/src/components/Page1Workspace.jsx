@@ -1258,7 +1258,11 @@ export default function Page1Workspace({ workspace, actions, importDialog }) {
         </aside>
 
         <main className="page1-center-column">
-          <section className="page1-editor lock-panel">
+          <section
+            className="page1-editor lock-panel"
+            data-active-section={activeSection}
+            data-subject-count={locks.subjectCount}
+          >
             <div className="page1-editor-header">
               <div>
                 <div className="lock-title">{activeSectionConfig.label}</div>
